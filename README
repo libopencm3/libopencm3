@@ -11,6 +11,10 @@ Building
 
  $ make
 
+You may want to override the toolchain (e.g., arm-elf or arm-none-eabi):
+
+ $ PREFIX=arm-none-eabi make
+
 
 Installation
 ------------
