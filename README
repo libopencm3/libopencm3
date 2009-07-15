@@ -3,5 +3,58 @@ README
 ------------------------------------------------------------------------------
 
 The libopenstm32 project aims to create an open-source firmware library for
-STM32 microcontrollers...
+STM32 microcontrollers.
+
+
+Building
+--------
+
+ $ make
+
+
+Installation
+------------
+
+ $ make install
+
+This will install the library in /usr/local. If you want to install it
+elsewhere, use the following syntax:
+
+ $ DESTDIR=/opt make install
+
+
+Coding style
+------------
+
+The whole library is programmed using the Linux kernel coding style, see
+http://lxr.linux.no/linux/Documentation/CodingStyle for details.
+
+Please use the same style for any code contributions, thanks!
+
+
+License
+-------
+
+The libopenstm32 code is released under the terms of the GNU General
+Public License (GPL), version 2 or later.
+
+See COPYING for details.
+
+
+Mailing lists
+-------------
+
+ * Developer mailing list (for patches and discussions):
+   https://lists.sourceforge.net/lists/listinfo/libopenstm32-devel
+
+ * Commits mailing list (receives one mail per 'git push'):
+   https://lists.sourceforge.net/lists/listinfo/libopenstm32-commits
+
+
+Website
+-------
+
+The official website is:
+
+ https://sourceforge.net/projects/libopenstm32/
 
