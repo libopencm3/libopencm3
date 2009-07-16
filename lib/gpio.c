@@ -18,10 +18,19 @@
  * Foundation, Inc., 51 Franklin St, Fifth Floor, Boston, MA  02110-1301 USA
  */
 
-#ifndef LIBOPENSTM32_LIBOPENSTM32_H
-#define LIBOPENSTM32_LIBOPENSTM32_H
-
-#include "libopenstm32/stdint.h"
 #include "libopenstm32/gpio.h"
 
-#endif
+void gpio_set(int gpio)
+{
+	/* TODO */
+}
+
+void gpio_clear(int gpio)
+{
+	/* TODO */
+}
+
+void gpio_toggle(int gpio)
+{
+	/* TODO */
+}
