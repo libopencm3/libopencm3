@@ -25,18 +25,26 @@ INCLUDEDIR	= $(DESTDIR)/$(PREFIX)/include
 LIBDIR		= $(DESTDIR)/$(PREFIX)/lib
 INSTALL		= install
 
+# Do not print "Entering directory ...".
+MAKEFLAGS += --no-print-directory
+
+# Be silent per default, but 'make V=1' will show all compiler calls.
+ifneq ($(V),1)
+Q := @
+endif
+
 all: build
 
 build:
-	$(MAKE) -C lib all
+	$(Q)$(MAKE) -C lib all
 
 install: build
-	$(INSTALL) -d $(INCLUDEDIR)/libopenstm32
-	$(INSTALL) -d $(LIBDIR)
-	$(INSTALL) -m 0644 include/libopenstm32.h $(INCLUDEDIR)
-	$(INSTALL) -m 0644 include/libopenstm32/*.h $(INCLUDEDIR)/libopenstm32
-	$(INSTALL) -m 0644 lib/*.a $(LIBDIR)
+	$(Q)$(INSTALL) -d $(INCLUDEDIR)/libopenstm32
+	$(Q)$(INSTALL) -d $(LIBDIR)
+	$(Q)$(INSTALL) -m 0644 include/libopenstm32.h $(INCLUDEDIR)
+	$(Q)$(INSTALL) -m 0644 include/libopenstm32/*.h $(INCLUDEDIR)/libopenstm32
+	$(Q)$(INSTALL) -m 0644 lib/*.a $(LIBDIR)
 
 clean:
-	$(MAKE) -C lib clean
+	$(Q)$(MAKE) -C lib clean
 

@@ -26,14 +26,23 @@ CC		= $(PREFIX)-gcc
 AR		= $(PREFIX)-ar
 CFLAGS		= -Os -g -Wall -Wextra -I../include -fno-common \
 		  -mcpu=cortex-m3 -mthumb
-ARFLAGS		= rcsv
+# ARFLAGS		= rcsv
+ARFLAGS		= rcs
 OBJS		= gpio.o
+
+# Be silent per default, but 'make V=1' will show all compiler calls.
+ifneq ($(V),1)
+Q := @
+endif
 
 all: $(LIBNAME).a
 
 $(LIBNAME).a: $(OBJS)
-	$(AR) $(ARFLAGS) $@ $^
+	$(Q)$(AR) $(ARFLAGS) $@ $^
+
+%.o: %.c
+	$(Q)$(CC) $(CFLAGS) -o $@ -c $<
 
 clean:
-	rm -f *.o $(LIBNAME).a
+	$(Q)rm -f *.o $(LIBNAME).a
 
