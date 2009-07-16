@@ -26,7 +26,7 @@ CC		= $(PREFIX)-gcc
 AR		= $(PREFIX)-ar
 CFLAGS		= -Os -g -Wall -Wextra -I../include -fno-common \
 		  -mcpu=cortex-m3 -mthumb
-# ARFLAGS		= rcsv
+# ARFLAGS	= rcsv
 ARFLAGS		= rcs
 OBJS		= gpio.o
 
@@ -50,4 +50,6 @@ clean:
 	$(Q)rm -f *.o
 	@printf "  CLEAN   $(LIBNAME).a\n"
 	$(Q)rm -f $(LIBNAME).a
+
+.PHONY: clean
 
