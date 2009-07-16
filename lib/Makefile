@@ -38,11 +38,16 @@ endif
 all: $(LIBNAME).a
 
 $(LIBNAME).a: $(OBJS)
+	@printf "  AR      $(subst $(shell pwd)/,,$(@))\n"
 	$(Q)$(AR) $(ARFLAGS) $@ $^
 
 %.o: %.c
+	@printf "  CC      $(subst $(shell pwd)/,,$(@))\n"
 	$(Q)$(CC) $(CFLAGS) -o $@ -c $<
 
 clean:
-	$(Q)rm -f *.o $(LIBNAME).a
+	@printf "  CLEAN   $(subst $(shell pwd)/,,$(OBJS))\n"
+	$(Q)rm -f *.o
+	@printf "  CLEAN   $(LIBNAME).a\n"
+	$(Q)rm -f $(LIBNAME).a
 

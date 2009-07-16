@@ -35,16 +35,28 @@ endif
 
 all: build
 
-build:
+build: lib example
+
+lib:
+	@printf "  BUILD   lib\n"
 	$(Q)$(MAKE) -C lib all
 
+example: lib
+	@printf "  BUILD   example\n"
+	$(Q)$(MAKE) -C example all
+
 install: build
+	@printf "  INSTALL headers\n"
 	$(Q)$(INSTALL) -d $(INCLUDEDIR)/libopenstm32
 	$(Q)$(INSTALL) -d $(LIBDIR)
 	$(Q)$(INSTALL) -m 0644 include/libopenstm32.h $(INCLUDEDIR)
 	$(Q)$(INSTALL) -m 0644 include/libopenstm32/*.h $(INCLUDEDIR)/libopenstm32
+	@printf "  INSTALL lib\n"
 	$(Q)$(INSTALL) -m 0644 lib/*.a $(LIBDIR)
 
 clean:
+	$(Q)$(MAKE) -C example clean
 	$(Q)$(MAKE) -C lib clean
+
+.PHONY: build lib example install clean
 

@@ -37,11 +37,16 @@ endif
 all: $(BINARY)
 
 $(BINARY): $(OBJS) $(BINARY).ld
+	@printf "  LD      $(subst $(shell pwd)/,,$(@))\n"
 	$(Q)$(LD) $(LDFLAGS) -o $(BINARY) $(OBJS) -lopenstm32
 
-$(BINARY).o: $(BINARY).c
-	$(Q)$(CC) $(CFLAGS) -c $(BINARY).c
+%.o: %.c
+	@printf "  CC      $(subst $(shell pwd)/,,$(@))\n"
+	$(Q)$(CC) $(CFLAGS) -o $@ -c $<
 
 clean:
-	$(Q)rm -f *.o $(BINARY)
+	@printf "  CLEAN   $(subst $(shell pwd)/,,$(OBJS))\n"
+	$(Q)rm -f *.o
+	@printf "  CLEAN   $(BINARY)\n"
+	$(Q)rm -f $(BINARY)
 
