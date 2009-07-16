@@ -18,22 +18,25 @@
 ## Foundation, Inc., 51 Franklin St, Fifth Floor, Boston, MA  02110-1301 USA
 ##
 
-LIBNAME		= libopenstm32
+BINARY		= blink
 
 # PREFIX	?= arm-none-eabi
 PREFIX		?= arm-elf
 CC		= $(PREFIX)-gcc
-AR		= $(PREFIX)-ar
+LD		= $(PREFIX)-ld
 CFLAGS		= -Os -g -Wall -Wextra -I../include -fno-common \
 		  -mcpu=cortex-m3 -mthumb
-ARFLAGS		= rcsv
-OBJS		= gpio.o
+LDFLAGS		= -L../lib -T$(BINARY).ld -nostartfiles
+OBJS		= $(BINARY).o
 
-all: $(LIBNAME).a
+all: $(BINARY)
 
-$(LIBNAME).a: $(OBJS)
-	$(AR) $(ARFLAGS) $@ $^
+$(BINARY): $(OBJS) $(BINARY).ld
+	$(LD) $(LDFLAGS) -o $(BINARY) $(OBJS) -lopenstm32
+
+$(BINARY).o: $(BINARY).c
+	$(CC) $(CFLAGS) -c $(BINARY).c
 
 clean:
-	rm -f *.o $(LIBNAME).a
+	rm -f *.o $(BINARY)
 
