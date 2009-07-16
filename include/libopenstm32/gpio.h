@@ -58,8 +58,8 @@
 #define GPIO_CNF_OUTPUT_ALTFN_PUSHPULL	0x02
 #define GPIO_CNF_OUTPUT_ALTFN_OPENDRAIN	0x03
 
-void gpio_set(int gpio);
-void gpio_clear(int gpio);
-void gpio_toggle(int gpio);
+void gpio_set(unsigned int gpio);
+void gpio_clear(unsigned int gpio);
+void gpio_toggle(unsigned int gpio);
 
 #endif

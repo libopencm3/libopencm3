@@ -18,19 +18,19 @@
  * Foundation, Inc., 51 Franklin St, Fifth Floor, Boston, MA  02110-1301 USA
  */
 
-#include "libopenstm32/gpio.h"
+#include "libopenstm32.h"
 
-void gpio_set(int gpio)
+void gpio_set(unsigned int gpio)
 {
 	/* TODO */
 }
 
-void gpio_clear(int gpio)
+void gpio_clear(unsigned int gpio)
 {
 	/* TODO */
 }
 
-void gpio_toggle(int gpio)
+void gpio_toggle(unsigned int gpio)
 {
 	/* TODO */
 }
