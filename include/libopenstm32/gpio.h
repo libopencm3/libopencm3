@@ -21,15 +21,42 @@
 #ifndef LIBOPENSTM32_GPIO_H
 #define LIBOPENSTM32_GPIO_H
 
-#define GPIO_CTRL_LO		0x00
-#define GPIO_CTRL_HI		0x04
-#define GPIO_INPUT_DATA		0x08
-#define GPIO_OUTPUT_DATA	0x0c
-#define GPIO_BIT_SET_RESET	0x10
-#define GPIO_BIT_RESET		0x14
-#define GPIO_LOCK		0x18
+#include "libopenstm32.h"
 
-/* TODO */
+/* GPIO port base addresses */
+#define GPIO_BASE_A			(PERIPH_BASE_APB2 + 0x0800)
+#define GPIO_BASE_B			(PERIPH_BASE_APB2 + 0x0c00)
+#define GPIO_BASE_C			(PERIPH_BASE_APB2 + 0x1000)
+#define GPIO_BASE_D			(PERIPH_BASE_APB2 + 0x1400)
+#define GPIO_BASE_E			(PERIPH_BASE_APB2 + 0x1800)
+#define GPIO_BASE_F			(PERIPH_BASE_APB2 + 0x1c00)
+#define GPIO_BASE_G			(PERIPH_BASE_APB2 + 0x2000)
+
+/* Register offsets */
+#define GPIO_CTRL_LO			0x00	/* 32 bit */
+#define GPIO_CTRL_HI			0x04	/* 32 bit */
+#define GPIO_INPUT_DATA			0x08	/* 32 bit, only 15:0 used */
+#define GPIO_OUTPUT_DATA		0x0c	/* 32 bit, only 15:0 used */
+#define GPIO_BIT_SET_RESET		0x10	/* 32 bit */
+#define GPIO_BIT_RESET			0x14	/* 16 bit */
+#define GPIO_LOCK			0x18	/* 32 bit */
+
+/* Output mode (MODE[1:0]) values */
+#define GPIO_MODE_INPUT			0x00	/* Default */
+#define GPIO_MODE_OUTPUT_10_MHZ		0x01
+#define GPIO_MODE_OUTPUT_2_MHZ		0x02
+#define GPIO_MODE_OUTPUT_50_MHZ		0x03
+
+/* CNF[1:0] values when MODE[1:0] is 00 (input mode). */
+#define GPIO_CNF_INPUT_ANALOG		0x00
+#define GPIO_CNF_INPUT_FLOAT		0x01	/* Default */
+#define GPIO_CNF_INPUT_PULL_UPDOWN	0x02
+
+/* CNF[1:0] values when MODE[1:0] is != 00 (one of the output modes). */
+#define GPIO_CNF_OUTPUT_PUSHPULL	0x00
+#define GPIO_CNF_OUTPUT_OPENDRAIN	0x01
+#define GPIO_CNF_OUTPUT_ALTFN_PUSHPULL	0x02
+#define GPIO_CNF_OUTPUT_ALTFN_OPENDRAIN	0x03
 
 void gpio_set(int gpio);
 void gpio_clear(int gpio);
