@@ -1,0 +1,4 @@
+example/blink
+example/*.o
+lib/libopenstm32.a
+lib/*.o
