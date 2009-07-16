@@ -24,6 +24,8 @@ BINARY		= blink
 PREFIX		?= arm-elf
 CC		= $(PREFIX)-gcc
 LD		= $(PREFIX)-ld
+OBJCOPY		= $(PREFIX)-objcopy
+OBJDUMP		= $(PREFIX)-objdump
 CFLAGS		= -Os -g -Wall -Wextra -I../include -fno-common \
 		  -mcpu=cortex-m3 -mthumb
 LDFLAGS		= -L../lib -T$(BINARY).ld -nostartfiles
@@ -34,7 +36,17 @@ ifneq ($(V),1)
 Q := @
 endif
 
-all: $(BINARY)
+all: images
+
+images: $(BINARY)
+	@printf "  OBJCOPY $(BINARY).bin\n"
+	$(Q)$(OBJCOPY) -Obinary $(BINARY) $(BINARY).bin
+	@printf "  OBJCOPY $(BINARY).hex\n"
+	$(Q)$(OBJCOPY) -Oihex $(BINARY) $(BINARY).hex
+	@printf "  OBJCOPY $(BINARY).srec\n"
+	$(Q)$(OBJCOPY) -Osrec $(BINARY) $(BINARY).srec
+	@printf "  OBJDUMP $(BINARY).list\n"
+	$(Q)$(OBJDUMP) -S $(BINARY) > $(BINARY).list
 
 $(BINARY): $(OBJS) $(BINARY).ld
 	@printf "  LD      $(subst $(shell pwd)/,,$(@))\n"
@@ -49,4 +61,14 @@ clean:
 	$(Q)rm -f *.o
 	@printf "  CLEAN   $(BINARY)\n"
 	$(Q)rm -f $(BINARY)
+	@printf "  CLEAN   $(BINARY).bin\n"
+	$(Q)rm -f $(BINARY).bin
+	@printf "  CLEAN   $(BINARY).hex\n"
+	$(Q)rm -f $(BINARY).hex
+	@printf "  CLEAN   $(BINARY).srec\n"
+	$(Q)rm -f $(BINARY).srec
+	@printf "  CLEAN   $(BINARY).list\n"
+	$(Q)rm -f $(BINARY).list
+
+.PHONY: images clean
 

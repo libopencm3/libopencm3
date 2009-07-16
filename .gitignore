@@ -1,4 +1,9 @@
-example/blink
 example/*.o
-lib/libopenstm32.a
+example/blink
+example/blink.bin
+example/blink.hex
+example/blink.list
+example/blink.srec
 lib/*.o
+lib/libopenstm32.a
+
