@@ -21,7 +21,7 @@
 # PREFIX	?= arm-none-eabi
 PREFIX		?= arm-elf
 DESTDIR		?= /usr/local
-INCLUDEDIR	= $(DESTDIR)/$(PREFIX)/include
+INCDIR		= $(DESTDIR)/$(PREFIX)/include
 LIBDIR		= $(DESTDIR)/$(PREFIX)/lib
 INSTALL		= install
 
@@ -47,10 +47,10 @@ example: lib
 
 install: build
 	@printf "  INSTALL headers\n"
-	$(Q)$(INSTALL) -d $(INCLUDEDIR)/libopenstm32
+	$(Q)$(INSTALL) -d $(INCDIR)/libopenstm32
 	$(Q)$(INSTALL) -d $(LIBDIR)
-	$(Q)$(INSTALL) -m 0644 include/libopenstm32.h $(INCLUDEDIR)
-	$(Q)$(INSTALL) -m 0644 include/libopenstm32/*.h $(INCLUDEDIR)/libopenstm32
+	$(Q)$(INSTALL) -m 0644 include/libopenstm32.h $(INCDIR)
+	$(Q)$(INSTALL) -m 0644 include/libopenstm32/*.h $(INCDIR)/libopenstm32
 	@printf "  INSTALL lib\n"
 	$(Q)$(INSTALL) -m 0644 lib/*.a $(LIBDIR)
 
