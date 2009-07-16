@@ -29,14 +29,19 @@ CFLAGS		= -Os -g -Wall -Wextra -I../include -fno-common \
 LDFLAGS		= -L../lib -T$(BINARY).ld -nostartfiles
 OBJS		= $(BINARY).o
 
+# Be silent per default, but 'make V=1' will show all compiler calls.
+ifneq ($(V),1)
+Q := @
+endif
+
 all: $(BINARY)
 
 $(BINARY): $(OBJS) $(BINARY).ld
-	$(LD) $(LDFLAGS) -o $(BINARY) $(OBJS) -lopenstm32
+	$(Q)$(LD) $(LDFLAGS) -o $(BINARY) $(OBJS) -lopenstm32
 
 $(BINARY).o: $(BINARY).c
-	$(CC) $(CFLAGS) -c $(BINARY).c
+	$(Q)$(CC) $(CFLAGS) -c $(BINARY).c
 
 clean:
-	rm -f *.o $(BINARY)
+	$(Q)rm -f *.o $(BINARY)
 
