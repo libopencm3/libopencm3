@@ -18,11 +18,16 @@
  * Foundation, Inc., 51 Franklin St, Fifth Floor, Boston, MA  02110-1301 USA
  */
 
-#ifndef LIBOPENSTM32_LIBOPENSTM32_H
-#define LIBOPENSTM32_LIBOPENSTM32_H
+#ifndef LIBOPENSTM32_MEMORYMAP_H
+#define LIBOPENSTM32_MEMORYMAP_H
 
-#include "libopenstm32/stdint.h"
-#include "libopenstm32/memorymap.h"
-#include "libopenstm32/gpio.h"
+/* Memory map for all busses */
+#define PERIPH_BASE			0x40000000
+#define PERIPH_BASE_APB1		(PERIPH_BASE + 0x00000)
+#define PERIPH_BASE_APB2		(PERIPH_BASE + 0x10000)
+#define PERIPH_BASE_AHB			(PERIPH_BASE + 0x18000)
+
+/* FIXME? */
+/* #define PERIPH_BASE_AHB			(PERIPH_BASE + 0x28000) */
 
 #endif
