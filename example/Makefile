@@ -70,5 +70,13 @@ clean:
 	@printf "  CLEAN   $(BINARY).list\n"
 	$(Q)rm -f $(BINARY).list
 
+flash:
+	$(Q)openocd -f /usr/share/openocd/scripts/interface/jtagkey-tiny.cfg \
+		    -f /usr/share/openocd/scripts/board/olimex_stm32_h103.cfg \
+		    -c "init" -c "reset halt" \
+		    -c "flash write_image erase blink.bin 0x08000000" \
+		    -c "resume 0x08000000" \
+		    -c "shutdown"
+
 .PHONY: images clean
 
