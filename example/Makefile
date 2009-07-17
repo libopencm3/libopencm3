@@ -30,6 +30,7 @@ CFLAGS		= -Os -g -Wall -Wextra -I../include -fno-common \
 		  -mcpu=cortex-m3 -mthumb
 LDFLAGS		= -L../lib -T$(BINARY).ld -nostartfiles
 OBJS		= $(BINARY).o
+OPENOCD		= openocd
 
 # Be silent per default, but 'make V=1' will show all compiler calls.
 ifneq ($(V),1)
@@ -71,12 +72,13 @@ clean:
 	$(Q)rm -f $(BINARY).list
 
 flash:
-	$(Q)openocd -f /usr/share/openocd/scripts/interface/jtagkey-tiny.cfg \
-		    -f /usr/share/openocd/scripts/board/olimex_stm32_h103.cfg \
-		    -c "init" -c "reset halt" \
-		    -c "flash write_image erase blink.bin 0x08000000" \
-		    -c "resume 0x08000000" \
-		    -c "shutdown"
+	$(Q)$(OPENOCD) \
+		-f /usr/share/openocd/scripts/interface/jtagkey-tiny.cfg \
+		-f /usr/share/openocd/scripts/board/olimex_stm32_h103.cfg \
+		-c "init" -c "reset halt" \
+		-c "flash write_image erase blink.bin 0x08000000" \
+		-c "resume 0x08000000" \
+		-c "shutdown"
 
 .PHONY: images clean
 
