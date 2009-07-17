@@ -23,6 +23,14 @@
 
 #include "libopenstm32.h"
 
+/* Type definitions */
+typedef signed char s8;
+typedef signed short s16;
+typedef signed long s32;
+typedef unsigned char u8;
+typedef unsigned short u16;
+typedef unsigned long u32;
+
 /* Generic memory-mapped I/O accessor functions */
 #define MMIO8(addr)		(*(volatile u8 *)(addr))
 #define MMIO16(addr)		(*(volatile u16 *)(addr))
