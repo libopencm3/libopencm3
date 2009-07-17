@@ -23,14 +23,14 @@
 
 #include "libopenstm32.h"
 
-/* GPIO port base addresses */
-#define GPIO_BASE_A			(PERIPH_BASE_APB2 + 0x0800)
-#define GPIO_BASE_B			(PERIPH_BASE_APB2 + 0x0c00)
-#define GPIO_BASE_C			(PERIPH_BASE_APB2 + 0x1000)
-#define GPIO_BASE_D			(PERIPH_BASE_APB2 + 0x1400)
-#define GPIO_BASE_E			(PERIPH_BASE_APB2 + 0x1800)
-#define GPIO_BASE_F			(PERIPH_BASE_APB2 + 0x1c00)
-#define GPIO_BASE_G			(PERIPH_BASE_APB2 + 0x2000)
+/* GPIO port base addresses (for convenience) */
+#define GPIOA				GPIO_PORT_A_BASE
+#define GPIOB				GPIO_PORT_B_BASE
+#define GPIOC				GPIO_PORT_C_BASE
+#define GPIOD				GPIO_PORT_D_BASE
+#define GPIOE				GPIO_PORT_E_BASE
+#define GPIOF				GPIO_PORT_F_BASE
+#define GPIOG				GPIO_PORT_G_BASE
 
 /* Register offsets */
 #define GPIO_CTRL_LO			0x00	/* 32 bit */
