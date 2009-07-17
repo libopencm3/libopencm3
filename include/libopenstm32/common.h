@@ -18,12 +18,14 @@
  * Foundation, Inc., 51 Franklin St, Fifth Floor, Boston, MA  02110-1301 USA
  */
 
-#ifndef LIBOPENSTM32_LIBOPENSTM32_H
-#define LIBOPENSTM32_LIBOPENSTM32_H
+#ifndef LIBOPENSTM32_COMMON_H
+#define LIBOPENSTM32_COMMON_H
 
-#include "libopenstm32/stdint.h"
-#include "libopenstm32/common.h"
-#include "libopenstm32/memorymap.h"
-#include "libopenstm32/gpio.h"
+#include "libopenstm32.h"
+
+/* Generic memory-mapped I/O accessor functions */
+#define MMIO8(addr)		(*(volatile u8 *)(addr))
+#define MMIO16(addr)		(*(volatile u16 *)(addr))
+#define MMIO32(addr)		(*(volatile u32 *)(addr))
 
 #endif
