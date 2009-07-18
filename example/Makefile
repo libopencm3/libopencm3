@@ -71,12 +71,13 @@ clean:
 	@printf "  CLEAN   $(BINARY).list\n"
 	$(Q)rm -f $(BINARY).list
 
-flash:
+flash: images
+	@# IMPORTANT: Don't use "resume", only "reset" will work correctly!
 	$(Q)$(OPENOCD) -f interface/jtagkey-tiny.cfg \
 		       -f board/olimex_stm32_h103.cfg \
 		       -c "init" -c "reset halt" \
 		       -c "flash write_image erase $(BINARY).bin 0x08000000" \
-		       -c "resume 0x08000000" \
+		       -c "reset" \
 		       -c "shutdown"
 
 .PHONY: images clean
