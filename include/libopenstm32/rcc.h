@@ -24,7 +24,7 @@
 #include "libopenstm32.h"
 
 /* RCC registers */
-/* Note: AHBRSTR/CFGR2 only exist in "connectivity line" STM32s. */
+/* Note: Registers marked (**) only exist in "connectivity line" STM32s. */
 #define RCC_CR				MMIO32(RCC_BASE + 0x00)
 #define RCC_CFGR			MMIO32(RCC_BASE + 0x04)
 #define RCC_CIR				MMIO32(RCC_BASE + 0x08)
@@ -35,30 +35,33 @@
 #define RCC_APB1ENR			MMIO32(RCC_BASE + 0x1c)
 #define RCC_BDCR			MMIO32(RCC_BASE + 0x20)
 #define RCC_CSR				MMIO32(RCC_BASE + 0x24)
-#define RCC_AHBRSTR			MMIO32(RCC_BASE + 0x28) /* See note */
-#define RCC_CFGR2			MMIO32(RCC_BASE + 0x2c) /* See note */
+#define RCC_AHBRSTR			MMIO32(RCC_BASE + 0x28) /* (**) */
+#define RCC_CFGR2			MMIO32(RCC_BASE + 0x2c) /* (**) */
 
-/* RCC_APB2ENR values */
-/* Note: IOPFEN/IOPGEN are reserved in "connectivity line" STM32s. */
-#define RCC_AFIOEN			(1 << 0)
-#define RCC_IOPAEN			(1 << 2)
-#define RCC_IOPBEN			(1 << 3)
-#define RCC_IOPCEN			(1 << 4)
-#define RCC_IOPDEN			(1 << 5)
-#define RCC_IOPEEN			(1 << 6)
-#define RCC_IOPFEN			(1 << 7) /* N/A in all devices */
-#define RCC_IOPGEN			(1 << 8) /* N/A in all devices */
-#define RCC_ADC1EN			(1 << 9)
-#define RCC_ADC2EN			(1 << 10)
-#define RCC_TIM1EN			(1 << 11)
-#define RCC_SPI1EN			(1 << 12)
-#define RCC_USART1EN			(1 << 14)
+/* --- RCC_CR values ------------------------------------------------------- */
 
-/* --- RCC_CFGS values ----------------------------------------------------- */
+/* Note: Bits marked (**) only exist in "connectivity line" STM32s. */
+#define HSION				(1 << 0)
+#define HSIRDY				(1 << 1)
+#define HSEON				(1 << 16)
+#define HSERDY				(1 << 17)
+#define HSEBYP				(1 << 18)
+#define CSSON				(1 << 19)
+#define PLLON				(1 << 24)
+#define PLLRDY				(1 << 25)
+#define PLL2ON				(1 << 26) /* (**) */
+#define PLL2RDY				(1 << 27) /* (**) */
+#define PLL3ON				(1 << 28) /* (**) */
+#define PLL3RDY				(1 << 29) /* (**) */
 
-/* TODO: SW */
+/* --- RCC_CFGR values ----------------------------------------------------- */
 
-/* TODO: SWS */
+/* SW: System clock switch */
+#define SW_SYSCLKSEL_HSICLK             0x0
+#define SW_SYSCLKSEL_HSECLK             0x1
+#define SW_SYSCLKSEL_PLLCLK             0x2
+
+/* SWS: System clock switch status: Uses same bit definitions as SW. */
 
 /* HPRE: AHB prescaler */
 #define HPRE_SYSCLK			0x0
@@ -131,5 +134,59 @@
 #define MCO_PLL3CLK_DIV2		0x9
 #define MCO_XT1				0xa
 #define MCO_PLL3			0xb
+
+/* --- RCC_CIR values ------------------------------------------------------ */
+
+/* Note: Bits marked (**) only exist in "connectivity line" STM32s. */
+
+/* OSC ready interrupt flag bits */
+#define LSIRDYF				(1 << 0)
+#define LSERDYF				(1 << 1)
+#define HSIRDYF				(1 << 2)
+#define HSERDYF				(1 << 3)
+#define PLLRDYF				(1 << 4)
+#define PLL2RDYF			(1 << 5) /* (**) */
+#define PLL3RDYF			(1 << 6) /* (**) */
+
+/* Clock security system interrupt flag bit */
+#define CSSF				(1 << 7)
+
+/* OSC ready interrupt enable bits */
+#define LSIRDYIE			(1 << 8)
+#define LSERDYIE			(1 << 9)
+#define HSIRDYIE			(1 << 10)
+#define HSERDYIE			(1 << 11)
+#define PLLRDYIE			(1 << 12)
+#define PLL2RDYIE			(1 << 13) /* (**) */
+#define PLL3RDYIE			(1 << 14) /* (**) */
+
+/* OSC ready interrupt clear bits */
+#define LSIRDYC				(1 << 16)
+#define LSERDYC				(1 << 17)
+#define HSIRDYC				(1 << 18)
+#define HSERDYC				(1 << 19)
+#define PLLRDYC				(1 << 20)
+#define PLL2RDYC			(1 << 21) /* (**) */
+#define PLL3RDYC			(1 << 22) /* (**) */
+
+/* Clock security system interrupt clear bit */
+#define CSSC				(1 << 23)
+
+/* --- RCC_APB2ENR values -------------------------------------------------- */
+
+/* Note: Bits marked (**) are reserved in "connectivity line" STM32s. */
+#define AFIOEN				(1 << 0)
+#define IOPAEN				(1 << 2)
+#define IOPBEN				(1 << 3)
+#define IOPCEN				(1 << 4)
+#define IOPDEN				(1 << 5)
+#define IOPEEN				(1 << 6)
+#define IOPFEN				(1 << 7) /* (**) */
+#define IOPGEN				(1 << 8) /* (**) */
+#define ADC1EN				(1 << 9)
+#define ADC2EN				(1 << 10)
+#define TIM1EN				(1 << 11)
+#define SPI1EN				(1 << 12)
+#define USART1EN			(1 << 14)
 
 #endif
