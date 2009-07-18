@@ -35,6 +35,7 @@ OPENOCD		= openocd
 # Be silent per default, but 'make V=1' will show all compiler calls.
 ifneq ($(V),1)
 Q := @
+NULL := 2>/dev/null
 endif
 
 all: images
@@ -72,13 +73,14 @@ clean:
 	$(Q)rm -f $(BINARY).list
 
 flash: images
+	@printf "  FLASH   $(BINARY).bin\n"
 	@# IMPORTANT: Don't use "resume", only "reset" will work correctly!
 	$(Q)$(OPENOCD) -f interface/jtagkey-tiny.cfg \
 		       -f board/olimex_stm32_h103.cfg \
 		       -c "init" -c "reset halt" \
 		       -c "flash write_image erase $(BINARY).bin 0x08000000" \
 		       -c "reset" \
-		       -c "shutdown"
+		       -c "shutdown" $(NULL)
 
 .PHONY: images clean
 
