@@ -136,9 +136,13 @@
 #define GPIO13				(1 << 13)
 #define GPIO14				(1 << 14)
 #define GPIO15				(1 << 15)
+#define GPIO_ALL			0xffff
 
-void gpio_set(unsigned int gpio);
-void gpio_clear(unsigned int gpio);
-void gpio_toggle(unsigned int gpio);
+void gpio_set_mode(u32 gpioport, u8 mode, u8 cnf, u16 gpios);
+void gpio_set(u32 gpioport, u16 gpios);
+void gpio_clear(u32 gpioport, u16 gpios);
+void gpio_toggle(u32 gpioport, u16 gpios);
+u16 gpio_port_read(u32 gpioport);
+void gpio_port_write(u32 gpioport, u16 data);
 
 #endif
