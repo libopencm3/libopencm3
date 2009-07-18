@@ -32,11 +32,16 @@ Flashing
 
 You can flash the generated code on the STM32-H103 board using OpenOCD:
 
- $ openocd -f /usr/share/openocd/scripts/interface/jtagkey-tiny.cfg \
-           -f /usr/share/openocd/scripts/board/olimex_stm32_h103.cfg
+ $ make flash
+
+Or you can do the same manually via:
+
+ $ openocd -f interface/jtagkey-tiny.cfg -f board/olimex_stm32_h103.cfg
  $ telnet localhost 4444
  > init
  > reset halt
  > flash write_image erase blink.bin 0x08000000
  > resume 0x08000000
+
+Replace the "jtagkey-tiny.cfg" with whatever JTAG device you are using.
 
