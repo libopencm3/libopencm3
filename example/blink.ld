@@ -33,6 +33,7 @@ SECTIONS
 	. = ORIGIN(rom);
 
 	.text : {
+		*(.vectors)	/* Vector table */
 		*(.text)	/* Program code */
 		*(.rodata)	/* Read-only data */
 	} >rom
