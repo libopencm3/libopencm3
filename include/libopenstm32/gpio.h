@@ -32,17 +32,8 @@
 #define GPIOF				GPIO_PORT_F_BASE
 #define GPIOG				GPIO_PORT_G_BASE
 
-/* Register offsets (relative to one of the GPIO port base addresses) */
-#define GPIO_CTRL_LO			0x00	/* 32 bit */
-#define GPIO_CTRL_HI			0x04	/* 32 bit */
-#define GPIO_INPUT_DATA			0x08	/* 32 bit, only 15:0 used */
-#define GPIO_OUTPUT_DATA		0x0c	/* 32 bit, only 15:0 used */
-#define GPIO_BIT_SET_RESET		0x10	/* 32 bit */
-#define GPIO_BIT_RESET			0x14	/* 16 bit */
-#define GPIO_LOCK			0x18	/* 32 bit */
-
 /* Port configuration register low (GPIOx_CRL) */
-#define GPIO_CRL(port)			MMIO32((port) + GPIO_CTRL_LO)
+#define GPIO_CRL(port)			MMIO32(port + 0x00)
 #define GPIOA_CRL			GPIO_CRL(GPIOA)
 #define GPIOB_CRL			GPIO_CRL(GPIOB)
 #define GPIOC_CRL			GPIO_CRL(GPIOC)
@@ -52,7 +43,7 @@
 #define GPIOG_CRL			GPIO_CRL(GPIOG)
 
 /* Port configuration register low (GPIOx_CRH) */
-#define GPIO_CRH(port)			MMIO32((port) + GPIO_CTRL_HIGH)
+#define GPIO_CRH(port)			MMIO32(port + 0x04)
 #define GPIOA_CRH			GPIO_CRH(GPIOA)
 #define GPIOB_CRH			GPIO_CRH(GPIOB)
 #define GPIOC_CRH			GPIO_CRH(GPIOC)
@@ -62,7 +53,7 @@
 #define GPIOG_CRH			GPIO_CRH(GPIOG)
 
 /* Port input data register (GPIOx_IDR) */
-#define GPIO_IDR(port)			MMIO32((port) + GPIO_INPUT_DATA)
+#define GPIO_IDR(port)			MMIO32(port + 0x08)
 #define GPIOA_IDR			GPIO_IDR(GPIOA)
 #define GPIOB_IDR			GPIO_IDR(GPIOB)
 #define GPIOC_IDR			GPIO_IDR(GPIOC)
@@ -72,7 +63,7 @@
 #define GPIOG_IDR			GPIO_IDR(GPIOG)
 
 /* Port output data register (GPIOx_ODR) */
-#define GPIO_ODR(port)			MMIO32((port) + GPIO_OUTPUT_DATA)
+#define GPIO_ODR(port)			MMIO32(port + 0x0c)
 #define GPIOA_ODR			GPIO_ODR(GPIOA)
 #define GPIOB_ODR			GPIO_ODR(GPIOB)
 #define GPIOC_ODR			GPIO_ODR(GPIOC)
@@ -82,7 +73,7 @@
 #define GPIOG_ODR			GPIO_ODR(GPIOG)
 
 /* Port bit set/reset register (GPIOx_BSRR) */
-#define GPIO_BSRR(port)			MMIO32((port) + GPIO_BIT_SET_RESET)
+#define GPIO_BSRR(port)			MMIO32(port + 0x10)
 #define GPIOA_BSRR			GPIO_BSRR(GPIOA)
 #define GPIOB_BSRR			GPIO_BSRR(GPIOB)
 #define GPIOC_BSRR			GPIO_BSRR(GPIOC)
@@ -92,7 +83,7 @@
 #define GPIOG_BSRR			GPIO_BSRR(GPIOG)
 
 /* Port bit reset register (GPIOx_BRR) */
-#define GPIO_BRR(port)			MMIO16((port) + GPIO_BIT_RESET)
+#define GPIO_BRR(port)			MMIO16(port + 0x14)
 #define GPIOA_BRR			GPIO_BRR(GPIOA)
 #define GPIOB_BRR			GPIO_BRR(GPIOB)
 #define GPIOC_BRR			GPIO_BRR(GPIOC)
@@ -102,7 +93,7 @@
 #define GPIOG_BRR			GPIO_BRR(GPIOG)
 
 /* Port configuration lock register (GPIOx_LCKR) */
-#define GPIO_LCKR(port)			MMIO32((port) + GPIO_LOCK)
+#define GPIO_LCKR(port)			MMIO32(port + 0x18)
 #define GPIOA_LCKR			GPIO_LCKR(GPIOA)
 #define GPIOB_LCKR			GPIO_LCKR(GPIOB)
 #define GPIOC_LCKR			GPIO_LCKR(GPIOC)
