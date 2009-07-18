@@ -25,6 +25,7 @@
  *                GPIO_CNF_OUTPUT_PUSHPULL, GPIO12);
  *  gpio_set(GPIOB, GPIO4);
  *  gpio_clear(GPIOG, GPIO2 | GPIO9);
+ *  gpio_get(GPIOC, GPIO1);
  *  gpio_toggle(GPIOA, GPIO7);
  *  reg16 = gpio_port_read(GPIOD);
  *  gpio_port_write(GPIOF, 0xc8fe);
@@ -64,6 +65,11 @@ void gpio_set(u32 gpioport, u16 gpios)
 void gpio_clear(u32 gpioport, u16 gpios)
 {
 	GPIO_BRR(gpioport) = gpios;
+}
+
+u16 gpio_get(u32 gpioport, u16 gpios)
+{
+	return gpio_port_read(gpioport) & gpios;
 }
 
 /* TODO: Should work for multiple GPIOs? */
