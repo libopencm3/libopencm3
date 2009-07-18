@@ -61,75 +61,75 @@
 /* TODO: SWS */
 
 /* HPRE: AHB prescaler */
-#define HPRE_SYSCLK				0x0
-#define HPRE_SYSCLK_DIV2			0x8
-#define HPRE_SYSCLK_DIV4			0x9
-#define HPRE_SYSCLK_DIV8			0xa
-#define HPRE_SYSCLK_DIV16			0xb
-#define HPRE_SYSCLK_DIV64			0xc
-#define HPRE_SYSCLK_DIV128			0xd
-#define HPRE_SYSCLK_DIV256			0xe
-#define HPRE_SYSCLK_DIV512			0xf
+#define HPRE_SYSCLK			0x0
+#define HPRE_SYSCLK_DIV2		0x8
+#define HPRE_SYSCLK_DIV4		0x9
+#define HPRE_SYSCLK_DIV8		0xa
+#define HPRE_SYSCLK_DIV16		0xb
+#define HPRE_SYSCLK_DIV64		0xc
+#define HPRE_SYSCLK_DIV128		0xd
+#define HPRE_SYSCLK_DIV256		0xe
+#define HPRE_SYSCLK_DIV512		0xf
 
 /* PPRE1: APB low-speed prescaler (APB1) */
-#define PPRE1_HCLK				0x0
-#define PPRE1_HCLK_DIV2				0x4
-#define PPRE1_HCLK_DIV4				0x5
-#define PPRE1_HCLK_DIV8				0x6
-#define PPRE1_HCLK_DIV16			0x7
+#define PPRE1_HCLK			0x0
+#define PPRE1_HCLK_DIV2			0x4
+#define PPRE1_HCLK_DIV4			0x5
+#define PPRE1_HCLK_DIV8			0x6
+#define PPRE1_HCLK_DIV16		0x7
 
 /* PPRE2: APB high-speed prescaler (APB2) */
-#define PPRE2_HCLK				0x0
-#define PPRE2_HCLK_DIV2				0x4
-#define PPRE2_HCLK_DIV4				0x5
-#define PPRE2_HCLK_DIV8				0x6
-#define PPRE2_HCLK_DIV16			0x7
+#define PPRE2_HCLK			0x0
+#define PPRE2_HCLK_DIV2			0x4
+#define PPRE2_HCLK_DIV4			0x5
+#define PPRE2_HCLK_DIV8			0x6
+#define PPRE2_HCLK_DIV16		0x7
 
 /* ADCPRE: ADC prescaler */
-#define ADCPRE_PLCLK2_DIV2			0x0
-#define ADCPRE_PLCLK2_DIV4			0x1
-#define ADCPRE_PLCLK2_DIV6			0x2
-#define ADCPRE_PLCLK2_DIV8			0x3
+#define ADCPRE_PLCLK2_DIV2		0x0
+#define ADCPRE_PLCLK2_DIV4		0x1
+#define ADCPRE_PLCLK2_DIV6		0x2
+#define ADCPRE_PLCLK2_DIV8		0x3
 
 /* PLLSRC: PLL entry clock source */
-#define PLLSRC_HSI_CLKDIV2			0x0
-#define PLLSRC_HSE_CLK				0x1
+#define PLLSRC_HSI_CLKDIV2		0x0
+#define PLLSRC_HSE_CLK			0x1
 
 /* PLLXTPRE: HSE divider for PLL entry */
-#define PLLXTPRE_HSE_CLK			0x0
-#define PLLXTPRE_HSE_CLK_DIV2			0x1
+#define PLLXTPRE_HSE_CLK		0x0
+#define PLLXTPRE_HSE_CLK_DIV2		0x1
 
 /* PLLMUL: PLL multiplication factor */
-#define PLLMUL_PLLCLK_MUL2			0x0
-#define PLLMUL_PLLCLK_MUL3			0x1
-#define PLLMUL_PLLCLK_MUL4			0x2
-#define PLLMUL_PLLCLK_MUL5			0x3
-#define PLLMUL_PLLCLK_MUL6			0x4
-#define PLLMUL_PLLCLK_MUL7			0x5
-#define PLLMUL_PLLCLK_MUL8			0x6
-#define PLLMUL_PLLCLK_MUL9			0x7
-#define PLLMUL_PLLCLK_MUL10			0x8
-#define PLLMUL_PLLCLK_MUL11			0x9
-#define PLLMUL_PLLCLK_MUL12			0xa
-#define PLLMUL_PLLCLK_MUL13			0xb
-#define PLLMUL_PLLCLK_MUL14			0xc
-#define PLLMUL_PLLCLK_MUL15			0xd
-#define PLLMUL_PLLCLK_MUL16			0xe
-// #define PLLMUL_PLLCLK_MUL16			0xf	/* Errata? 17? */
+#define PLLMUL_PLLCLK_MUL2		0x0
+#define PLLMUL_PLLCLK_MUL3		0x1
+#define PLLMUL_PLLCLK_MUL4		0x2
+#define PLLMUL_PLLCLK_MUL5		0x3
+#define PLLMUL_PLLCLK_MUL6		0x4
+#define PLLMUL_PLLCLK_MUL7		0x5
+#define PLLMUL_PLLCLK_MUL8		0x6
+#define PLLMUL_PLLCLK_MUL9		0x7
+#define PLLMUL_PLLCLK_MUL10		0x8
+#define PLLMUL_PLLCLK_MUL11		0x9
+#define PLLMUL_PLLCLK_MUL12		0xa
+#define PLLMUL_PLLCLK_MUL13		0xb
+#define PLLMUL_PLLCLK_MUL14		0xc
+#define PLLMUL_PLLCLK_MUL15		0xd
+#define PLLMUL_PLLCLK_MUL16		0xe
+// #define PLLMUL_PLLCLK_MUL16		0xf	/* Errata? 17? */
 
 /* USBPRE: USB prescaler */
-#define USBPRE_PLLCLK_DIV1_5			0x0
-#define USBPRE_PLLCLK				0x1
+#define USBPRE_PLLCLK_DIV1_5		0x0
+#define USBPRE_PLLCLK			0x1
 
 /* MCO: Microcontroller clock output */
-#define MCO_NOCLK				0x0
-#define MCO_SYSCLK				0x4
-#define MCO_HSICLK				0x5
-#define MCO_HSECLK				0x6
-#define MCO_PLLCLK_DIV2				0x7
-#define MCO_PLL2CLK				0x8
-#define MCO_PLL3CLK_DIV2			0x9
-#define MCO_XT1					0xa
-#define MCO_PLL3				0xb
+#define MCO_NOCLK			0x0
+#define MCO_SYSCLK			0x4
+#define MCO_HSICLK			0x5
+#define MCO_HSECLK			0x6
+#define MCO_PLLCLK_DIV2			0x7
+#define MCO_PLL2CLK			0x8
+#define MCO_PLL3CLK_DIV2		0x9
+#define MCO_XT1				0xa
+#define MCO_PLL3			0xb
 
 #endif
