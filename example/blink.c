@@ -24,16 +24,33 @@ int main(void)
 {
 	int i;
 
-	/* GPIO setup: Enable GPIOC clock, set GPIO12 to 'output push-pull'. */
+	/* Enable GPIOC clock. */
 	RCC_APB2ENR = RCC_IOPCEN;
-	GPIOC_CRH = (GPIO_CNF_OUTPUT_PUSHPULL << (((12 - 8) * 4) + 2));
-	GPIOC_CRH |= (GPIO_MODE_OUTPUT_2_MHZ << ((12 - 8) * 4));
+
+	/* Set GPIO12 (in GPIO port C) to 'output push-pull'. */
+	/* Manually: */
+	// GPIOC_CRH = (GPIO_CNF_OUTPUT_PUSHPULL << (((12 - 8) * 4) + 2));
+	// GPIOC_CRH |= (GPIO_MODE_OUTPUT_2_MHZ << ((12 - 8) * 4));
+	/* Using API functions: */
+	gpio_set_mode(GPIOC, GPIO_MODE_OUTPUT_2_MHZ,
+		      GPIO_CNF_OUTPUT_PUSHPULL, GPIO12);
 
 	/* Blink the LED (PC12) on the board. */
 	while (1) {
-		GPIOC_BSRR = GPIO12;		/* LED off */
-		for (i = 0; i < 80000; i++);	/* Wait (needs -O0 CFLAGS). */
-		GPIOC_BRR = GPIO12;		/* LED on */
+		/* Manually: */
+		// GPIOC_BSRR = GPIO12;		/* LED off */
+		// for (i = 0; i < 80000; i++);	/* Wait (needs -O0 CFLAGS). */
+		// GPIOC_BRR = GPIO12;		/* LED on */
+		// for (i = 0; i < 80000; i++);	/* Wait (needs -O0 CFLAGS). */
+
+		/* Using API functions gpio_set()/gpio_clear(): */
+		// gpio_set(GPIOC, GPIO12);	/* LED off */
+		// for (i = 0; i < 80000; i++);	/* Wait (needs -O0 CFLAGS). */
+		// gpio_clear(GPIOC, GPIO12);	/* LED on */
+		// for (i = 0; i < 80000; i++);	/* Wait (needs -O0 CFLAGS). */
+
+		/* Using API function gpio_toggle(): */
+		gpio_toggle(GPIOC, GPIO12);	/* LED on/off */
 		for (i = 0; i < 80000; i++);	/* Wait (needs -O0 CFLAGS). */
 	}
 
@@ -44,4 +61,3 @@ u32 *vector_table[2] __attribute__ ((section(".vectors"))) = {
 	(u32 *)0x20000800,	/* Use 2 KB stack (0x800 bytes). */
 	(u32 *)main,		/* Use main() as reset vector for now. */
 };
-
