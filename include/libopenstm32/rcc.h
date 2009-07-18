@@ -18,12 +18,13 @@
  * Foundation, Inc., 51 Franklin St, Fifth Floor, Boston, MA  02110-1301 USA
  */
 
-#ifndef LIBOPENSTM32_LIBOPENSTM32_H
-#define LIBOPENSTM32_LIBOPENSTM32_H
+#ifndef LIBOPENSTM32_RCC_H
+#define LIBOPENSTM32_RCC_H
 
-#include "libopenstm32/common.h"
-#include "libopenstm32/memorymap.h"
-#include "libopenstm32/rcc.h"
-#include "libopenstm32/gpio.h"
+#include "libopenstm32.h"
+
+#define RCC_APB2ENR			MMIO32(RCC_BASE + 0x18)
+
+#define RCC_IOPCEN			(1 << 4)
 
 #endif
