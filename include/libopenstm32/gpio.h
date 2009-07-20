@@ -20,7 +20,7 @@
 #ifndef LIBOPENSTM32_GPIO_H
 #define LIBOPENSTM32_GPIO_H
 
-#include "libopenstm32.h"
+#include <libopenstm32.h>
 
 /* GPIO port base addresses (for convenience) */
 #define GPIOA				GPIO_PORT_A_BASE

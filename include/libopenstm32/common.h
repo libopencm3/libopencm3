@@ -20,7 +20,7 @@
 #ifndef LIBOPENSTM32_COMMON_H
 #define LIBOPENSTM32_COMMON_H
 
-#include "libopenstm32.h"
+#include <libopenstm32.h>
 
 /* Type definitions */
 typedef signed char s8;

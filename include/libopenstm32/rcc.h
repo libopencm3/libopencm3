@@ -21,7 +21,7 @@
 #ifndef LIBOPENSTM32_RCC_H
 #define LIBOPENSTM32_RCC_H
 
-#include "libopenstm32.h"
+#include <libopenstm32.h>
 
 /* RCC registers */
 /* Note: Registers marked (**) only exist in "connectivity line" STM32s. */
