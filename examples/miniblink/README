@@ -40,7 +40,7 @@ Or you can do the same manually via:
  $ telnet localhost 4444
  > init
  > reset halt
- > flash write_image erase blink.bin 0x08000000
+ > flash write_image erase miniblink.bin 0x08000000
  > resume 0x08000000
 
 Replace the "jtagkey-tiny.cfg" with whatever JTAG device you are using.

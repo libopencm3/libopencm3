@@ -17,7 +17,7 @@
 ## along with this program.  If not, see <http://www.gnu.org/licenses/>.
 ##
 
-BINARY		= blink
+BINARY		= miniblink
 
 # PREFIX	?= arm-none-eabi
 PREFIX		?= arm-elf
