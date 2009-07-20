@@ -24,7 +24,7 @@ int main(void)
 	int i;
 
 	/* Enable GPIOC clock. */
-	RCC_APB2ENR = RCC_IOPCEN;
+	RCC_APB2ENR = IOPCEN;
 
 	/* Set GPIO12 (in GPIO port C) to 'output push-pull'. */
 	/* Manually: */
