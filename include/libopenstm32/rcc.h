@@ -57,9 +57,9 @@
 /* --- RCC_CFGR values ----------------------------------------------------- */
 
 /* SW: System clock switch */
-#define SW_SYSCLKSEL_HSICLK             0x0
-#define SW_SYSCLKSEL_HSECLK             0x1
-#define SW_SYSCLKSEL_PLLCLK             0x2
+#define SW_SYSCLKSEL_HSICLK		0x0
+#define SW_SYSCLKSEL_HSECLK		0x1
+#define SW_SYSCLKSEL_PLLCLK		0x2
 
 /* SWS: System clock switch status: Uses same bit definitions as SW. */
 
@@ -118,7 +118,7 @@
 #define PLLMUL_PLLCLK_MUL14		0xc
 #define PLLMUL_PLLCLK_MUL15		0xd
 #define PLLMUL_PLLCLK_MUL16		0xe
-// #define PLLMUL_PLLCLK_MUL16		0xf	/* Errata? 17? */
+// #define PLLMUL_PLLCLK_MUL16		0xf /* Errata? 17? */
 
 /* USBPRE: USB prescaler */
 #define USBPRE_PLLCLK_DIV1_5		0x0
@@ -222,5 +222,21 @@
 #define LSEBYP				(1 << 2)
 #define RTCEN				(1 << 15)
 #define BDRST				(1 << 16)
+
+/* --- RCC_CSR values -------------------------------------------------- */
+
+#define LSION				(1 << 0)
+#define LSIRDY				(1 << 1)
+#define RMVF				(1 << 24)
+#define PINRSTF				(1 << 26)
+#define PORRSTF				(1 << 27)
+#define SFTRSTF				(1 << 28)
+#define IWDGRSTF			(1 << 29)
+#define WWDGRSTF			(1 << 30)
+#define LPWRRSTF			(1 << 31)
+
+typedef enum {
+	PLL, HSE, HSI, LSE, LSI
+} osc_t;
 
 #endif
