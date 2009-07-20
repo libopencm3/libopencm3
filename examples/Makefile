@@ -17,69 +17,23 @@
 ## along with this program.  If not, see <http://www.gnu.org/licenses/>.
 ##
 
-BINARY		= blink
-
-# PREFIX	?= arm-none-eabi
-PREFIX		?= arm-elf
-CC		= $(PREFIX)-gcc
-LD		= $(PREFIX)-ld
-OBJCOPY		= $(PREFIX)-objcopy
-OBJDUMP		= $(PREFIX)-objdump
-CFLAGS		= -O0 -g -Wall -Wextra -I../include -fno-common \
-		  -mcpu=cortex-m3 -mthumb
-LDFLAGS		= -L../lib -T$(BINARY).ld -nostartfiles
-OBJS		= $(BINARY).o
-OPENOCD		= openocd
+# Do not print "Entering directory ...".
+## MAKEFLAGS += --no-print-directory
 
 # Be silent per default, but 'make V=1' will show all compiler calls.
 ifneq ($(V),1)
 Q := @
-NULL := 2>/dev/null
 endif
 
-all: images
+all: miniblink
 
-images: $(BINARY)
-	@printf "  OBJCOPY $(BINARY).bin\n"
-	$(Q)$(OBJCOPY) -Obinary $(BINARY) $(BINARY).bin
-	@printf "  OBJCOPY $(BINARY).hex\n"
-	$(Q)$(OBJCOPY) -Oihex $(BINARY) $(BINARY).hex
-	@printf "  OBJCOPY $(BINARY).srec\n"
-	$(Q)$(OBJCOPY) -Osrec $(BINARY) $(BINARY).srec
-	@printf "  OBJDUMP $(BINARY).list\n"
-	$(Q)$(OBJDUMP) -S $(BINARY) > $(BINARY).list
-
-$(BINARY): $(OBJS) $(BINARY).ld
-	@printf "  LD      $(subst $(shell pwd)/,,$(@))\n"
-	$(Q)$(LD) $(LDFLAGS) -o $(BINARY) $(OBJS) -lopenstm32
-
-%.o: %.c Makefile
-	@printf "  CC      $(subst $(shell pwd)/,,$(@))\n"
-	$(Q)$(CC) $(CFLAGS) -o $@ -c $<
+miniblink:
+	@printf "  BUILD   miniblink\n"
+	$(Q)$(MAKE) -C miniblink
 
 clean:
-	@printf "  CLEAN   $(subst $(shell pwd)/,,$(OBJS))\n"
-	$(Q)rm -f *.o
-	@printf "  CLEAN   $(BINARY)\n"
-	$(Q)rm -f $(BINARY)
-	@printf "  CLEAN   $(BINARY).bin\n"
-	$(Q)rm -f $(BINARY).bin
-	@printf "  CLEAN   $(BINARY).hex\n"
-	$(Q)rm -f $(BINARY).hex
-	@printf "  CLEAN   $(BINARY).srec\n"
-	$(Q)rm -f $(BINARY).srec
-	@printf "  CLEAN   $(BINARY).list\n"
-	$(Q)rm -f $(BINARY).list
+	@printf "  CLEAN   miniblink\n"
+	$(Q)$(MAKE) -C miniblink clean
 
-flash: images
-	@printf "  FLASH   $(BINARY).bin\n"
-	@# IMPORTANT: Don't use "resume", only "reset" will work correctly!
-	$(Q)$(OPENOCD) -f interface/jtagkey-tiny.cfg \
-		       -f board/olimex_stm32_h103.cfg \
-		       -c "init" -c "reset halt" \
-		       -c "flash write_image erase $(BINARY).bin 0x08000000" \
-		       -c "reset" \
-		       -c "shutdown" $(NULL)
-
-.PHONY: images clean
+.PHONY: miniblink clean
 
