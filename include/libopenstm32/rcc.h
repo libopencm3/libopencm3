@@ -189,4 +189,30 @@
 #define SPI1EN				(1 << 12)
 #define USART1EN			(1 << 14)
 
+/* --- RCC_APB1ENR values -------------------------------------------------- */
+
+/* Note: Bit marked (**) are reserved in "connectivity line" STM32s. */
+#define TIM2EN				(1 << 0)
+#define TIM3EN				(1 << 1)
+#define TIM4EN				(1 << 2)
+#define TIM5EN				(1 << 3)
+#define TIM6EN				(1 << 4)
+#define TIM7EN				(1 << 5)
+#define WWDGEN				(1 << 11)
+#define SPI2EN				(1 << 14)
+#define SPI3EN				(1 << 15)
+#define USART2EN			(1 << 17)
+#define USART3EN			(1 << 18)
+#define USART4EN			(1 << 19)
+#define USART5EN			(1 << 20)
+#define I2C1EN				(1 << 21)
+#define I2C2EN				(1 << 22)
+#define USBEN				(1 << 23) /* (**) */
+#define CANEN				(1 << 25) /* Alias for CAN1EN */
+#define CAN1EN				(1 << 25)
+#define CAN2EN				(1 << 26) /* (**) */
+#define BKPEN				(1 << 27)
+#define PWREN				(1 << 28)
+#define DACEN				(1 << 29)
+
 #endif
