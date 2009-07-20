@@ -46,12 +46,4 @@ SECTIONS
 	.bss : {
 		*(.bss)		/* Read-write zero initialized data */
 	} >ram AT >rom
-
-	/* Discard useless sections. */
-	/DISCARD/ : {
-		*(.comment)
-		*(.comment.*)
-		*(.note)
-		*(.note.*)
-	}
 }
