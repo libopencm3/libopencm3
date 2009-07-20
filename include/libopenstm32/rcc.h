@@ -215,4 +215,12 @@
 #define PWREN				(1 << 28)
 #define DACEN				(1 << 29)
 
+/* --- RCC_BDCR values -------------------------------------------------- */
+
+#define LSEON				(1 << 0)
+#define LSERDY				(1 << 1)
+#define LSEBYP				(1 << 2)
+#define RTCEN				(1 << 15)
+#define BDRST				(1 << 16)
+
 #endif
