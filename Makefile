@@ -34,15 +34,15 @@ endif
 
 all: build
 
-build: lib example
+build: lib examples
 
 lib:
 	@printf "  BUILD   lib\n"
 	$(Q)$(MAKE) -C lib all
 
-example: lib
-	@printf "  BUILD   example\n"
-	$(Q)$(MAKE) -C example all
+examples: lib
+	@printf "  BUILD   examples\n"
+	$(Q)$(MAKE) -C examples all
 
 install: build
 	@printf "  INSTALL headers\n"
@@ -54,7 +54,7 @@ install: build
 	$(Q)$(INSTALL) -m 0644 lib/*.a $(LIBDIR)
 
 clean:
-	$(Q)$(MAKE) -C example clean
+	$(Q)$(MAKE) -C examples clean
 	$(Q)$(MAKE) -C lib clean
 
 .PHONY: build lib example install clean
