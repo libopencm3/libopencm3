@@ -102,6 +102,9 @@ int rcc_osc_ready_int_flag(osc_t osc)
 		return ((RCC_CIR & LSIRDYF) != 0);
 		break;
 	}
+
+	/* Shouldn't be reached. */
+	return -1;
 }
 
 void rcc_css_int_clear(void)
@@ -133,6 +136,9 @@ int rcc_osc_ready(osc_t osc)
 		return ((RCC_CSR & LSIRDY) != 0);
 		break;
 	}
+
+	/* Shouldn't be reached. */
+	return -1;
 }
 
 void rcc_osc_on(osc_t osc)
@@ -196,6 +202,11 @@ void rcc_osc_bypass_enable(osc_t osc)
 	case LSE:
 		RCC_BDCR |= LSEBYP;
 		break;
+	case PLL:
+	case HSI:
+	case LSI:
+		/* Do nothing, only HSE/LSE allowed here. */
+		break;
 	}
 }
 
@@ -207,6 +218,11 @@ void rcc_osc_bypass_disable(osc_t osc)
 		break;
 	case LSE:
 		RCC_BDCR &= ~LSEBYP;
+		break;
+	case PLL:
+	case HSI:
+	case LSI:
+		/* Do nothing, only HSE/LSE allowed here. */
 		break;
 	}
 }
