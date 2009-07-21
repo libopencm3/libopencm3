@@ -191,7 +191,7 @@
 
 /* --- RCC_APB1ENR values -------------------------------------------------- */
 
-/* Note: Bit marked (**) are reserved in "connectivity line" STM32s. */
+/* Note: Bits marked (**) are reserved in "connectivity line" STM32s. */
 #define TIM2EN				(1 << 0)
 #define TIM3EN				(1 << 1)
 #define TIM4EN				(1 << 2)
@@ -237,7 +237,7 @@
 
 /* --- RCC_APB2RSTR values ------------------------------------------------- */
 
-/* Note: Bit marked (**) are reserved in "connectivity line" STM32s. */
+/* Note: Bits marked (**) are reserved in "connectivity line" STM32s. */
 #define ADC3RST				(1 << 15) /* (**) */
 #define USART1RST			(1 << 14)
 #define TIM8RST				(1 << 13) /* (**) */
@@ -254,6 +254,32 @@
 #define IOPARST				(1 << 2)
 #define AFIORST				(1 << 0)
 
+/* --- RCC_APB1RSTR values ------------------------------------------------- */
+
+/* Note: Bits marked (XX) only exist in "connectivity line" STM32s. */
+/* Note: Bits marked (**) are reserved in "connectivity line" STM32s. */
+#define DACRST				(1 << 29)
+#define PWRRST				(1 << 28)
+#define BKPRRST				(1 << 27)
+#define CAN2RST				(1 << 26) /* (XX) */
+#define CAN1RST				(1 << 25) 
+#define CANRST				(1 << 25) /* Alias for CAN1RST */
+#define USBRST				(1 << 23) /* (**) */
+#define I2C2RST				(1 << 22)
+#define I2C1RST				(1 << 21)
+#define USART5RST			(1 << 20)
+#define USART4RST			(1 << 19)
+#define USART3RST			(1 << 18)
+#define USART2RST			(1 << 17)
+#define SPI3RST				(1 << 15)
+#define SPI2RST				(1 << 14)
+#define WWDGRST				(1 << 11)
+#define TIM7RST				(1 << 5)
+#define TIM6RST				(1 << 4)
+#define TIM5RST				(1 << 3)
+#define TIM4RST				(1 << 2)
+#define TIM3RST				(1 << 2)
+#define TIM2RST				(1 << 0)
 
 typedef enum {
 	PLL, HSE, HSI, LSE, LSI
