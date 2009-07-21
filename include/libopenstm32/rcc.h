@@ -23,8 +23,11 @@
 
 #include <libopenstm32.h>
 
-/* RCC registers */
-/* Note: Registers marked (**) only exist in "connectivity line" STM32s. */
+/* Note: Regs/bits marked (**) only exist in "connectivity line" STM32s. */
+/* Note: Regs/bits marked (XX) do NOT exist in "connectivity line" STM32s. */
+
+/* --- RCC registers ------------------------------------------------------- */
+
 #define RCC_CR				MMIO32(RCC_BASE + 0x00)
 #define RCC_CFGR			MMIO32(RCC_BASE + 0x04)
 #define RCC_CIR				MMIO32(RCC_BASE + 0x08)
@@ -40,31 +43,94 @@
 
 /* --- RCC_CR values ------------------------------------------------------- */
 
-/* Note: Bits marked (**) only exist in "connectivity line" STM32s. */
-#define HSION				(1 << 0)
-#define HSIRDY				(1 << 1)
-#define HSEON				(1 << 16)
-#define HSERDY				(1 << 17)
-#define HSEBYP				(1 << 18)
-#define CSSON				(1 << 19)
-#define PLLON				(1 << 24)
-#define PLLRDY				(1 << 25)
-#define PLL2ON				(1 << 26) /* (**) */
-#define PLL2RDY				(1 << 27) /* (**) */
-#define PLL3ON				(1 << 28) /* (**) */
 #define PLL3RDY				(1 << 29) /* (**) */
+#define PLL3ON				(1 << 28) /* (**) */
+#define PLL2RDY				(1 << 27) /* (**) */
+#define PLL2ON				(1 << 26) /* (**) */
+#define PLLRDY				(1 << 25)
+#define PLLON				(1 << 24)
+#define CSSON				(1 << 19)
+#define HSEBYP				(1 << 18)
+#define HSERDY				(1 << 17)
+#define HSEON				(1 << 16)
+/* HSICAL: [15:8] */
+/* HSITRIM: [7:3] */
+#define HSIRDY				(1 << 1)
+#define HSION				(1 << 0)
 
 /* --- RCC_CFGR values ----------------------------------------------------- */
 
-/* SW: System clock switch */
-#define SW_SYSCLKSEL_HSICLK		0x0
-#define SW_SYSCLKSEL_HSECLK		0x1
-#define SW_SYSCLKSEL_PLLCLK		0x2
+/* MCO: Microcontroller clock output */
+#define MCO_NOCLK			0x0
+#define MCO_SYSCLK			0x4
+#define MCO_HSICLK			0x5
+#define MCO_HSECLK			0x6
+#define MCO_PLLCLK_DIV2			0x7
+#define MCO_PLL2CLK			0x8 /* (**) */
+#define MCO_PLL3CLK_DIV2		0x9 /* (**) */
+#define MCO_XT1				0xa /* (**) */
+#define MCO_PLL3			0xb /* (**) */
 
-/* SWS: System clock switch status: Uses same bit definitions as SW. */
+/* USBPRE: USB prescaler (RCC_CFGR[22]) */
+#define USBPRE_PLL_CLK_DIV1_5		0x0
+#define USBPRE_PLL_CLK_NODIV		0x1
+
+/* OTGFSPRE: USB OTG FS prescaler (RCC_CFGR[22]; only in conn. line STM32s) */
+#define USBPRE_PLL_VCO_CLK_DIV3		0x0
+#define USBPRE_PLL_VCO_CLK_DIV2		0x1
+
+/* PLLMUL: PLL multiplication factor */
+#define PLLMUL_PLL_CLK_MUL2		0x0 /* (XX) */
+#define PLLMUL_PLL_CLK_MUL3		0x1 /* (XX) */
+#define PLLMUL_PLL_CLK_MUL4		0x2
+#define PLLMUL_PLL_CLK_MUL5		0x3
+#define PLLMUL_PLL_CLK_MUL6		0x4
+#define PLLMUL_PLL_CLK_MUL7		0x5
+#define PLLMUL_PLL_CLK_MUL8		0x6
+#define PLLMUL_PLL_CLK_MUL9		0x7
+#define PLLMUL_PLL_CLK_MUL10		0x8 /* (XX) */
+#define PLLMUL_PLL_CLK_MUL11		0x9 /* (XX) */
+#define PLLMUL_PLL_CLK_MUL12		0xa /* (XX) */
+#define PLLMUL_PLL_CLK_MUL13		0xb /* (XX) */
+#define PLLMUL_PLL_CLK_MUL14		0xc /* (XX) */
+#define PLLMUL_PLL_CLK_MUL15		0xd /* 0xd: PLL x 15 */
+#define PLLMUL_PLL_CLK_MUL6_5		0xd /* 0xd: PLL x 6.5 for conn. line */
+#define PLLMUL_PLL_CLK_MUL16		0xe /* (XX) */
+// #define PLLMUL_PLL_CLK_MUL16		0xf /* (XX) */ /* Errata? 17? */
+
+/* TODO: conn. line differs. */
+/* PLLXTPRE: HSE divider for PLL entry */
+#define PLLXTPRE_HSE_CLK		0x0
+#define PLLXTPRE_HSE_CLK_DIV2		0x1
+
+/* PLLSRC: PLL entry clock source */
+#define PLLSRC_HSI_CLK_DIV2		0x0
+#define PLLSRC_HSE_CLK			0x1
+#define PLLSRC_PREDIV1_CLK		0x1 /* On conn. line */
+
+/* ADCPRE: ADC prescaler */
+/* TODO: Datasheet says "PLCK2". Typo? Should be "PCLK2"? */
+#define ADCPRE_PLCK2_DIV2		0x0
+#define ADCPRE_PLCK2_DIV4		0x1
+#define ADCPRE_PLCK2_DIV6		0x2
+#define ADCPRE_PLCK2_DIV8		0x3
+
+/* PPRE2: APB high-speed prescaler (APB2) */
+#define PPRE2_HCLK_NODIV		0x0
+#define PPRE2_HCLK_DIV2			0x4
+#define PPRE2_HCLK_DIV4			0x5
+#define PPRE2_HCLK_DIV8			0x6
+#define PPRE2_HCLK_DIV16		0x7
+
+/* PPRE1: APB low-speed prescaler (APB1) */
+#define PPRE1_HCLK_NODIV		0x0
+#define PPRE1_HCLK_DIV2			0x4
+#define PPRE1_HCLK_DIV4			0x5
+#define PPRE1_HCLK_DIV8			0x6
+#define PPRE1_HCLK_DIV16		0x7
 
 /* HPRE: AHB prescaler */
-#define HPRE_SYSCLK			0x0
+#define HPRE_SYSCLK_NODIV		0x0
 #define HPRE_SYSCLK_DIV2		0x8
 #define HPRE_SYSCLK_DIV4		0x9
 #define HPRE_SYSCLK_DIV8		0xa
@@ -74,179 +140,62 @@
 #define HPRE_SYSCLK_DIV256		0xe
 #define HPRE_SYSCLK_DIV512		0xf
 
-/* PPRE1: APB low-speed prescaler (APB1) */
-#define PPRE1_HCLK			0x0
-#define PPRE1_HCLK_DIV2			0x4
-#define PPRE1_HCLK_DIV4			0x5
-#define PPRE1_HCLK_DIV8			0x6
-#define PPRE1_HCLK_DIV16		0x7
+/* SWS: System clock switch status */
+#define SWS_SYSCLKSEL_HSICLK		0x0
+#define SWS_SYSCLKSEL_HSECLK		0x1
+#define SWS_SYSCLKSEL_PLLCLK		0x2
 
-/* PPRE2: APB high-speed prescaler (APB2) */
-#define PPRE2_HCLK			0x0
-#define PPRE2_HCLK_DIV2			0x4
-#define PPRE2_HCLK_DIV4			0x5
-#define PPRE2_HCLK_DIV8			0x6
-#define PPRE2_HCLK_DIV16		0x7
-
-/* ADCPRE: ADC prescaler */
-#define ADCPRE_PLCLK2_DIV2		0x0
-#define ADCPRE_PLCLK2_DIV4		0x1
-#define ADCPRE_PLCLK2_DIV6		0x2
-#define ADCPRE_PLCLK2_DIV8		0x3
-
-/* PLLSRC: PLL entry clock source */
-#define PLLSRC_HSI_CLKDIV2		0x0
-#define PLLSRC_HSE_CLK			0x1
-
-/* PLLXTPRE: HSE divider for PLL entry */
-#define PLLXTPRE_HSE_CLK		0x0
-#define PLLXTPRE_HSE_CLK_DIV2		0x1
-
-/* PLLMUL: PLL multiplication factor */
-#define PLLMUL_PLLCLK_MUL2		0x0
-#define PLLMUL_PLLCLK_MUL3		0x1
-#define PLLMUL_PLLCLK_MUL4		0x2
-#define PLLMUL_PLLCLK_MUL5		0x3
-#define PLLMUL_PLLCLK_MUL6		0x4
-#define PLLMUL_PLLCLK_MUL7		0x5
-#define PLLMUL_PLLCLK_MUL8		0x6
-#define PLLMUL_PLLCLK_MUL9		0x7
-#define PLLMUL_PLLCLK_MUL10		0x8
-#define PLLMUL_PLLCLK_MUL11		0x9
-#define PLLMUL_PLLCLK_MUL12		0xa
-#define PLLMUL_PLLCLK_MUL13		0xb
-#define PLLMUL_PLLCLK_MUL14		0xc
-#define PLLMUL_PLLCLK_MUL15		0xd
-#define PLLMUL_PLLCLK_MUL16		0xe
-// #define PLLMUL_PLLCLK_MUL16		0xf /* Errata? 17? */
-
-/* USBPRE: USB prescaler */
-#define USBPRE_PLLCLK_DIV1_5		0x0
-#define USBPRE_PLLCLK			0x1
-
-/* MCO: Microcontroller clock output */
-#define MCO_NOCLK			0x0
-#define MCO_SYSCLK			0x4
-#define MCO_HSICLK			0x5
-#define MCO_HSECLK			0x6
-#define MCO_PLLCLK_DIV2			0x7
-#define MCO_PLL2CLK			0x8
-#define MCO_PLL3CLK_DIV2		0x9
-#define MCO_XT1				0xa
-#define MCO_PLL3			0xb
+/* SW: System clock switch */
+#define SW_SYSCLKSEL_HSICLK		0x0
+#define SW_SYSCLKSEL_HSECLK		0x1
+#define SW_SYSCLKSEL_PLLCLK		0x2
 
 /* --- RCC_CIR values ------------------------------------------------------ */
-
-/* Note: Bits marked (**) only exist in "connectivity line" STM32s. */
-
-/* OSC ready interrupt flag bits */
-#define LSIRDYF				(1 << 0)
-#define LSERDYF				(1 << 1)
-#define HSIRDYF				(1 << 2)
-#define HSERDYF				(1 << 3)
-#define PLLRDYF				(1 << 4)
-#define PLL2RDYF			(1 << 5) /* (**) */
-#define PLL3RDYF			(1 << 6) /* (**) */
-
-/* Clock security system interrupt flag bit */
-#define CSSF				(1 << 7)
-
-/* OSC ready interrupt enable bits */
-#define LSIRDYIE			(1 << 8)
-#define LSERDYIE			(1 << 9)
-#define HSIRDYIE			(1 << 10)
-#define HSERDYIE			(1 << 11)
-#define PLLRDYIE			(1 << 12)
-#define PLL2RDYIE			(1 << 13) /* (**) */
-#define PLL3RDYIE			(1 << 14) /* (**) */
-
-/* OSC ready interrupt clear bits */
-#define LSIRDYC				(1 << 16)
-#define LSERDYC				(1 << 17)
-#define HSIRDYC				(1 << 18)
-#define HSERDYC				(1 << 19)
-#define PLLRDYC				(1 << 20)
-#define PLL2RDYC			(1 << 21) /* (**) */
-#define PLL3RDYC			(1 << 22) /* (**) */
 
 /* Clock security system interrupt clear bit */
 #define CSSC				(1 << 23)
 
-/* --- RCC_APB2ENR values -------------------------------------------------- */
+/* OSC ready interrupt clear bits */
+#define PLL3RDYC			(1 << 22) /* (**) */
+#define PLL2RDYC			(1 << 21) /* (**) */
+#define PLLRDYC				(1 << 20)
+#define HSERDYC				(1 << 19)
+#define HSIRDYC				(1 << 18)
+#define LSERDYC				(1 << 17)
+#define LSIRDYC				(1 << 16)
 
-/* Note: Bits marked (**) are reserved in "connectivity line" STM32s. */
-#define AFIOEN				(1 << 0)
-#define IOPAEN				(1 << 2)
-#define IOPBEN				(1 << 3)
-#define IOPCEN				(1 << 4)
-#define IOPDEN				(1 << 5)
-#define IOPEEN				(1 << 6)
-#define IOPFEN				(1 << 7) /* (**) */
-#define IOPGEN				(1 << 8) /* (**) */
-#define ADC1EN				(1 << 9)
-#define ADC2EN				(1 << 10)
-#define TIM1EN				(1 << 11)
-#define SPI1EN				(1 << 12)
-#define USART1EN			(1 << 14)
+/* OSC ready interrupt enable bits */
+#define PLL3RDYIE			(1 << 14) /* (**) */
+#define PLL2RDYIE			(1 << 13) /* (**) */
+#define PLLRDYIE			(1 << 12)
+#define HSERDYIE			(1 << 11)
+#define HSIRDYIE			(1 << 10)
+#define LSERDYIE			(1 << 9)
+#define LSIRDYIE			(1 << 8)
 
-/* --- RCC_APB1ENR values -------------------------------------------------- */
+/* Clock security system interrupt flag bit */
+#define CSSF				(1 << 7)
 
-/* Note: Bits marked (**) are reserved in "connectivity line" STM32s. */
-#define TIM2EN				(1 << 0)
-#define TIM3EN				(1 << 1)
-#define TIM4EN				(1 << 2)
-#define TIM5EN				(1 << 3)
-#define TIM6EN				(1 << 4)
-#define TIM7EN				(1 << 5)
-#define WWDGEN				(1 << 11)
-#define SPI2EN				(1 << 14)
-#define SPI3EN				(1 << 15)
-#define USART2EN			(1 << 17)
-#define USART3EN			(1 << 18)
-#define USART4EN			(1 << 19)
-#define USART5EN			(1 << 20)
-#define I2C1EN				(1 << 21)
-#define I2C2EN				(1 << 22)
-#define USBEN				(1 << 23) /* (**) */
-#define CANEN				(1 << 25) /* Alias for CAN1EN */
-#define CAN1EN				(1 << 25)
-#define CAN2EN				(1 << 26) /* (**) */
-#define BKPEN				(1 << 27)
-#define PWREN				(1 << 28)
-#define DACEN				(1 << 29)
-
-/* --- RCC_BDCR values ----------------------------------------------------- */
-
-#define LSEON				(1 << 0)
-#define LSERDY				(1 << 1)
-#define LSEBYP				(1 << 2)
-#define RTCEN				(1 << 15)
-#define BDRST				(1 << 16)
-
-/* --- RCC_CSR values ------------------------------------------------------ */
-
-#define LSION				(1 << 0)
-#define LSIRDY				(1 << 1)
-#define RMVF				(1 << 24)
-#define PINRSTF				(1 << 26)
-#define PORRSTF				(1 << 27)
-#define SFTRSTF				(1 << 28)
-#define IWDGRSTF			(1 << 29)
-#define WWDGRSTF			(1 << 30)
-#define LPWRRSTF			(1 << 31)
+/* OSC ready interrupt flag bits */
+#define PLL3RDYF			(1 << 6) /* (**) */
+#define PLL2RDYF			(1 << 5) /* (**) */
+#define PLLRDYF				(1 << 4)
+#define HSERDYF				(1 << 3)
+#define HSIRDYF				(1 << 2)
+#define LSERDYF				(1 << 1)
+#define LSIRDYF				(1 << 0)
 
 /* --- RCC_APB2RSTR values ------------------------------------------------- */
 
-/* Note: Bits marked (**) are reserved in "connectivity line" STM32s. */
-#define ADC3RST				(1 << 15) /* (**) */
+#define ADC3RST				(1 << 15) /* (XX) */
 #define USART1RST			(1 << 14)
-#define TIM8RST				(1 << 13) /* (**) */
+#define TIM8RST				(1 << 13) /* (XX) */
 #define SPI1RST				(1 << 12)
 #define TIM1RST				(1 << 11)
 #define ADC2RST				(1 << 10)
 #define ADC1RST				(1 << 9)
-#define IOPGRST				(1 << 8)  /* (**) */
-#define IOPFRST				(1 << 7)  /* (**) */
+#define IOPGRST				(1 << 8)  /* (XX) */
+#define IOPFRST				(1 << 7)  /* (XX) */
 #define IOPERST				(1 << 6)
 #define IOPDRST				(1 << 5)
 #define IOPCRST				(1 << 4)
@@ -256,15 +205,13 @@
 
 /* --- RCC_APB1RSTR values ------------------------------------------------- */
 
-/* Note: Bits marked (XX) only exist in "connectivity line" STM32s. */
-/* Note: Bits marked (**) are reserved in "connectivity line" STM32s. */
 #define DACRST				(1 << 29)
 #define PWRRST				(1 << 28)
-#define BKPRRST				(1 << 27)
-#define CAN2RST				(1 << 26) /* (XX) */
-#define CAN1RST				(1 << 25) 
-#define CANRST				(1 << 25) /* Alias for CAN1RST */
-#define USBRST				(1 << 23) /* (**) */
+#define BKPRST				(1 << 27)
+#define CAN2RST				(1 << 26) /* (**) */
+#define CAN1RST				(1 << 25) /* (**) */
+#define CANRST				(1 << 25) /* (XX) Alias for CAN1RST */
+#define USBRST				(1 << 23) /* (XX) */
 #define I2C2RST				(1 << 22)
 #define I2C1RST				(1 << 21)
 #define USART5RST			(1 << 20)
@@ -280,6 +227,82 @@
 #define TIM4RST				(1 << 2)
 #define TIM3RST				(1 << 2)
 #define TIM2RST				(1 << 0)
+
+/* --- RCC_AHBENR values --------------------------------------------------- */
+
+/* TODO */
+
+/* --- RCC_APB2ENR values -------------------------------------------------- */
+
+#define ADC3EN				(1 << 15) /* (XX) */
+#define USART1EN			(1 << 14)
+#define TIM8EN				(1 << 13) /* (XX) */
+#define SPI1EN				(1 << 12)
+#define TIM1EN				(1 << 11)
+#define ADC2EN				(1 << 10)
+#define ADC1EN				(1 << 9)
+#define IOPGEN				(1 << 8)  /* (XX) */
+#define IOPFEN				(1 << 7)  /* (XX) */
+#define IOPEEN				(1 << 6)
+#define IOPDEN				(1 << 5)
+#define IOPCEN				(1 << 4)
+#define IOPBEN				(1 << 3)
+#define IOPAEN				(1 << 2)
+#define AFIOEN				(1 << 0)
+
+/* --- RCC_APB1ENR values -------------------------------------------------- */
+
+#define DACEN				(1 << 29)
+#define PWREN				(1 << 28)
+#define BKPEN				(1 << 27)
+#define CAN2EN				(1 << 26) /* (**) */
+#define CAN1EN				(1 << 25) /* (**) */
+#define CANEN				(1 << 25) /* (XX) Alias for CAN1EN */
+#define USBEN				(1 << 23) /* (XX) */
+#define I2C2EN				(1 << 22)
+#define I2C1EN				(1 << 21)
+#define USART5EN			(1 << 20)
+#define USART4EN			(1 << 19)
+#define USART3EN			(1 << 18)
+#define USART2EN			(1 << 17)
+#define SPI3EN				(1 << 15)
+#define SPI2EN				(1 << 14)
+#define WWDGEN				(1 << 11)
+#define TIM7EN				(1 << 5)
+#define TIM6EN				(1 << 4)
+#define TIM5EN				(1 << 3)
+#define TIM4EN				(1 << 2)
+#define TIM3EN				(1 << 1)
+#define TIM2EN				(1 << 0)
+
+/* --- RCC_BDCR values ----------------------------------------------------- */
+
+#define BDRST				(1 << 16)
+#define RTCEN				(1 << 15)
+/* RCC_BDCR[9:8]: RTCSEL */
+#define LSEBYP				(1 << 2)
+#define LSERDY				(1 << 1)
+#define LSEON				(1 << 0)
+
+/* --- RCC_CSR values ------------------------------------------------------ */
+
+#define LPWRRSTF			(1 << 31)
+#define WWDGRSTF			(1 << 30)
+#define IWDGRSTF			(1 << 29)
+#define SFTRSTF				(1 << 28)
+#define PORRSTF				(1 << 27)
+#define PINRSTF				(1 << 26)
+#define RMVF				(1 << 24)
+#define LSIRDY				(1 << 1)
+#define LSION				(1 << 0)
+
+/* --- RCC_AHBRSTR values -------------------------------------------------- */
+
+/* TODO */
+
+/* --- RCC_CFGR2 values ---------------------------------------------------- */
+
+/* TODO */
 
 typedef enum {
 	PLL, HSE, HSI, LSE, LSI
