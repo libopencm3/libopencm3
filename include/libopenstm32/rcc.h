@@ -298,11 +298,66 @@
 
 /* --- RCC_AHBRSTR values -------------------------------------------------- */
 
-/* TODO */
+#define ETHMACRST			(1 << 14)
+#define OTGFSRST			(1 << 12)
 
 /* --- RCC_CFGR2 values ---------------------------------------------------- */
 
-/* TODO */
+/* I2S3SRC: I2S3 clock source */
+#define I2S3SRC_SYSCLK			0x0
+#define I2S3SRC_PLL3_VCO_CLK		0x1
+
+/* I2S2SRC: I2S2 clock source */
+#define I2S2SRC_SYSCLK			0x0
+#define I2S2SRC_PLL3_VCO_CLK		0x1
+
+/* PREDIV1SRC: PREDIV1 entry clock source */
+#define PREDIV1SRC_HSE_CLK		0x0
+#define PREDIV1SRC_PLL2_CLK		0x1
+
+#define PLL2MUL				(1 << 0)
+#define PREDIV2				(1 << 0)
+#define PREDIV1				(1 << 0)
+
+/* PLL3MUL: PLL3 multiplication factor */
+#define PLL3MUL_PLL3_CLK_MUL8		0x6
+#define PLL3MUL_PLL3_CLK_MUL9		0x7
+#define PLL3MUL_PLL3_CLK_MUL10		0x8
+#define PLL3MUL_PLL3_CLK_MUL11		0x9
+#define PLL3MUL_PLL3_CLK_MUL12		0xa
+#define PLL3MUL_PLL3_CLK_MUL13		0xb
+#define PLL3MUL_PLL3_CLK_MUL14		0xc
+#define PLL3MUL_PLL3_CLK_MUL16		0xe
+#define PLL3MUL_PLL3_CLK_MUL20		0xf
+
+/* PLL2MUL: PLL2 multiplication factor */
+#define PLL2MUL_PLL2_CLK_MUL8		0x6
+#define PLL2MUL_PLL2_CLK_MUL9		0x7
+#define PLL2MUL_PLL2_CLK_MUL10		0x8
+#define PLL2MUL_PLL2_CLK_MUL11		0x9
+#define PLL2MUL_PLL2_CLK_MUL12		0xa
+#define PLL2MUL_PLL2_CLK_MUL13		0xb
+#define PLL2MUL_PLL2_CLK_MUL14		0xc
+#define PLL2MUL_PLL2_CLK_MUL16		0xe
+#define PLL2MUL_PLL2_CLK_MUL20		0xf
+
+/* PREDIV2: PREDIV2 division factor */
+#define PREDIV2_NODIV			0x0
+#define PREDIV2_DIV2			0x1
+#define PREDIV2_DIV3			0x2
+#define PREDIV2_DIV4			0x3
+#define PREDIV2_DIV5			0x4
+#define PREDIV2_DIV6			0x5
+#define PREDIV2_DIV7			0x6
+#define PREDIV2_DIV8			0x7
+#define PREDIV2_DIV9			0x8
+#define PREDIV2_DIV10			0x9
+#define PREDIV2_DIV11			0xa
+#define PREDIV2_DIV12			0xb
+#define PREDIV2_DIV13			0xc
+#define PREDIV2_DIV14			0xd
+#define PREDIV2_DIV15			0xe
+#define PREDIV2_DIV16			0xf
 
 typedef enum {
 	PLL, HSE, HSI, LSE, LSI
