@@ -215,7 +215,7 @@
 #define PWREN				(1 << 28)
 #define DACEN				(1 << 29)
 
-/* --- RCC_BDCR values -------------------------------------------------- */
+/* --- RCC_BDCR values ----------------------------------------------------- */
 
 #define LSEON				(1 << 0)
 #define LSERDY				(1 << 1)
@@ -223,7 +223,7 @@
 #define RTCEN				(1 << 15)
 #define BDRST				(1 << 16)
 
-/* --- RCC_CSR values -------------------------------------------------- */
+/* --- RCC_CSR values ------------------------------------------------------ */
 
 #define LSION				(1 << 0)
 #define LSIRDY				(1 << 1)
@@ -234,6 +234,26 @@
 #define IWDGRSTF			(1 << 29)
 #define WWDGRSTF			(1 << 30)
 #define LPWRRSTF			(1 << 31)
+
+/* --- RCC_APB2RSTR values ------------------------------------------------- */
+
+/* Note: Bit marked (**) are reserved in "connectivity line" STM32s. */
+#define ADC3RST				(1 << 15) /* (**) */
+#define USART1RST			(1 << 14)
+#define TIM8RST				(1 << 13) /* (**) */
+#define SPI1RST				(1 << 12)
+#define TIM1RST				(1 << 11)
+#define ADC2RST				(1 << 10)
+#define ADC1RST				(1 << 9)
+#define IOPGRST				(1 << 8)  /* (**) */
+#define IOPFRST				(1 << 7)  /* (**) */
+#define IOPERST				(1 << 6)
+#define IOPDRST				(1 << 5)
+#define IOPCRST				(1 << 4)
+#define IOPBRST				(1 << 3)
+#define IOPARST				(1 << 2)
+#define AFIORST				(1 << 0)
+
 
 typedef enum {
 	PLL, HSE, HSI, LSE, LSI
