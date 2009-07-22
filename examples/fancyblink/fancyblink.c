@@ -19,9 +19,33 @@
 
 #include <libopenstm32.h>
 
+void clock_setup(void)
+{
+	/* Select HSI as SYSCLK source. */
+	rcc_set_sysclk_source(SW_SYSCLKSEL_HSICLK);
+
+	/* Set the PLL multiplication factor to 9. */
+	rcc_set_pll_multiplication_factor(PLLMUL_PLL_CLK_MUL9);
+
+	/* Select HSI/2 as PLL source. */
+	rcc_set_pll_source(PLLSRC_HSI_CLK_DIV2);
+
+	rcc_set_pllxtpre(PLLXTPRE_HSE_CLK_DIV2);
+
+	/* Enable PLL oscillator and wait for it to stabilize. */
+	rcc_osc_on(PLL);
+	rcc_wait_for_osc_ready(PLL);
+
+	/* Select PLL as SYSCLK source. */
+	rcc_set_sysclk_source(SW_SYSCLKSEL_PLLCLK);
+}
+
 int main(void)
 {
 	int i;
+
+	/* Set STM32 to 72 MHz. */
+	clock_setup();
 
 	/* Enable GPIOC clock. */
 	rcc_enable_peripheral_clock(&RCC_APB2ENR, IOPCEN);
