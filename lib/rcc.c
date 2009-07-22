@@ -117,28 +117,25 @@ int rcc_css_int_flag(void)
 	return ((RCC_CIR & CSSF) != 0);
 }
 
-int rcc_osc_ready(osc_t osc)
+void rcc_wait_for_osc_ready(osc_t osc)
 {
 	switch (osc) {
 	case PLL:
-		return ((RCC_CR & PLLRDY) != 0);
+		while ((RCC_CR & PLLRDY) != 0);
 		break;
 	case HSE:
-		return ((RCC_CR & HSERDY) != 0);
+		while ((RCC_CR & HSERDY) != 0);
 		break;
 	case HSI:
-		return ((RCC_CR & HSIRDY) != 0);
+		while ((RCC_CR & HSIRDY) != 0);
 		break;
 	case LSE:
-		return ((RCC_BDCR & LSERDY) != 0);
+		while ((RCC_BDCR & LSERDY) != 0);
 		break;
 	case LSI:
-		return ((RCC_CSR & LSIRDY) != 0);
+		while ((RCC_CSR & LSIRDY) != 0);
 		break;
 	}
-
-	/* Shouldn't be reached. */
-	return -1;
 }
 
 void rcc_osc_on(osc_t osc)
