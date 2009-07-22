@@ -57,5 +57,5 @@ clean:
 	$(Q)$(MAKE) -C examples clean
 	$(Q)$(MAKE) -C lib clean
 
-.PHONY: build lib example install clean
+.PHONY: build lib examples install clean
 
