@@ -363,4 +363,20 @@ typedef enum {
 	PLL, HSE, HSI, LSE, LSI
 } osc_t;
 
+void rcc_osc_ready_int_clear(osc_t osc);
+void rcc_osc_ready_int_enable(osc_t osc);
+void rcc_osc_ready_int_disable(osc_t osc);
+int rcc_osc_ready_int_flag(osc_t osc);
+void rcc_css_int_clear(void);
+int rcc_css_int_flag(void);
+void rcc_wait_for_osc_ready(osc_t osc);
+void rcc_osc_on(osc_t osc);
+void rcc_osc_off(osc_t osc);
+void rcc_css_enable(void);
+void rcc_css_disable(void);
+void rcc_osc_bypass_enable(osc_t osc);
+void rcc_osc_bypass_disable(osc_t osc);
+void rcc_enable_peripheral_clock(volatile u32 *reg, u32 peripheral_en);
+void rcc_disable_peripheral_clock(volatile u32 *reg, u32 peripheral_en);
+
 #endif

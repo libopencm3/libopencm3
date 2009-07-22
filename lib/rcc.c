@@ -223,3 +223,14 @@ void rcc_osc_bypass_disable(osc_t osc)
 		break;
 	}
 }
+
+void rcc_enable_peripheral_clock(volatile u32 *reg, u32 peripheral_en)
+{
+	*reg |= peripheral_en;
+}
+
+void rcc_disable_peripheral_clock(volatile u32 *reg, u32 peripheral_en)
+{
+	*reg &= ~peripheral_en;
+}
+
