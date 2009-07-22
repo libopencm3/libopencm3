@@ -24,7 +24,10 @@ int main(void)
 	int i;
 
 	/* Enable GPIOC clock. */
-	RCC_APB2ENR = IOPCEN;
+	/* Manually: */
+	// RCC_APB2ENR |= IOPCEN;
+	/* Using API functions: */
+	rcc_enable_peripheral_clock(&RCC_APB2ENR, IOPCEN);
 
 	/* Set GPIO12 (in GPIO port C) to 'output push-pull'. */
 	/* Manually: */
