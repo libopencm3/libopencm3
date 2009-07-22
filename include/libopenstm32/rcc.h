@@ -378,5 +378,9 @@ void rcc_osc_bypass_enable(osc_t osc);
 void rcc_osc_bypass_disable(osc_t osc);
 void rcc_enable_peripheral_clock(volatile u32 *reg, u32 peripheral_en);
 void rcc_disable_peripheral_clock(volatile u32 *reg, u32 peripheral_en);
+void rcc_set_sysclk_source(u32 clk);
+void rcc_set_pll_multiplication_factor(u32 mul);
+void rcc_set_pll_source(u32 pllsrc);
+void rcc_set_pllxtpre(u32 pllxtpre);
 
 #endif

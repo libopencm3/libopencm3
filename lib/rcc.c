@@ -234,3 +234,38 @@ void rcc_disable_peripheral_clock(volatile u32 *reg, u32 peripheral_en)
 	*reg &= ~peripheral_en;
 }
 
+void rcc_set_sysclk_source(u32 clk)
+{
+	u32 reg32;
+
+	reg32 = RCC_CFGR;
+	reg32 &= ~((1 << 1) | (1 << 0));
+	RCC_CFGR = (reg32 | clk);
+}
+
+void rcc_set_pll_multiplication_factor(u32 mul)
+{
+	u32 reg32;
+
+	reg32 = RCC_CFGR;
+	reg32 &= ~((1 << 21) | (1 << 20) | (1 << 19) | (1 << 18));
+	RCC_CFGR = (reg32 | (mul << 18));
+}
+
+void rcc_set_pll_source(u32 pllsrc)
+{
+	u32 reg32;
+
+	reg32 = RCC_CFGR;
+	reg32 &= ~(1 << 16);
+	RCC_CFGR = (reg32 | (pllsrc << 16));
+}
+
+void rcc_set_pllxtpre(u32 pllxtpre)
+{
+	u32 reg32;
+
+	reg32 = RCC_CFGR;
+	reg32 &= ~(1 << 17);
+	RCC_CFGR = (reg32 | (pllxtpre << 17));
+}
