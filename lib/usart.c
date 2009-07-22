@@ -17,13 +17,7 @@
  * along with this program.  If not, see <http://www.gnu.org/licenses/>.
  */
 
-#ifndef LIBOPENSTM32_LIBOPENSTM32_H
-#define LIBOPENSTM32_LIBOPENSTM32_H
+#include <libopenstm32.h>
 
-#include <libopenstm32/common.h>
-#include <libopenstm32/memorymap.h>
-#include <libopenstm32/rcc.h>
-#include <libopenstm32/gpio.h>
-#include <libopenstm32/usart.h>
+/* TODO */
 
-#endif
