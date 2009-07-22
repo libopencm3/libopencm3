@@ -25,9 +25,16 @@ CC		= $(PREFIX)-gcc
 LD		= $(PREFIX)-ld
 OBJCOPY		= $(PREFIX)-objcopy
 OBJDUMP		= $(PREFIX)-objdump
-CFLAGS		= -O0 -g -Wall -Wextra -I../../include -fno-common \
+
+TOOLCHAIN_LIB_DIR = `dirname \`which $(CC)\``/../$(PREFIX)/lib
+#TOOLCHAIN_LIB_DIR = ../../lib         # uncomment for local directory builds
+
+TOOLCHAIN_INCLUDE_DIR = 
+#TOOLCHAIN_INCLUDE_DIR = ../../include # uncomment for local directory builds
+
+CFLAGS		= -O0 -g -Wall -Wextra -I$(TOOLCHAIN_INCLUDE_DIR) -fno-common \
 		  -mcpu=cortex-m3 -mthumb
-LDFLAGS		= -L../../lib -T$(BINARY).ld -nostartfiles
+LDFLAGS		= -T$(BINARY).ld -nostartfiles -L$(TOOLCHAIN_LIB_DIR)
 OBJS		= $(BINARY).o
 OPENOCD		= openocd
 
