@@ -20,6 +20,7 @@
 #ifndef LIBOPENSTM32_COMMON_H
 #define LIBOPENSTM32_COMMON_H
 
+#include <stdint.h>
 #include <libopenstm32.h>
 
 /* Type definitions for shorter and nicer code */
