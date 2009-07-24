@@ -25,16 +25,12 @@ CC		= $(PREFIX)-gcc
 LD		= $(PREFIX)-ld
 OBJCOPY		= $(PREFIX)-objcopy
 OBJDUMP		= $(PREFIX)-objdump
-
-TOOLCHAIN_LIB_DIR = `dirname \`which $(CC)\``/../$(PREFIX)/lib
-#TOOLCHAIN_LIB_DIR = ../../lib         # uncomment for local directory builds
-
-TOOLCHAIN_INCLUDE_DIR =
-#TOOLCHAIN_INCLUDE_DIR = ../../include # uncomment for local directory builds
-
-CFLAGS		= -O0 -g -Wall -Wextra -I$(TOOLCHAIN_INCLUDE_DIR) -fno-common \
+# Uncomment this line if you want to use the installed (not local) library.
+# TOOLCHAIN_DIR = `dirname \`which $(CC)\``/../$(PREFIX)
+TOOLCHAIN_DIR   = ../..
+CFLAGS		= -O0 -g -Wall -Wextra -I$(TOOLCHAIN_DIR)/include -fno-common \
 		  -mcpu=cortex-m3 -mthumb
-LDFLAGS		= -T$(BINARY).ld -nostartfiles -L$(TOOLCHAIN_LIB_DIR)
+LDFLAGS		= -T$(BINARY).ld -nostartfiles -L$(TOOLCHAIN_DIR)/lib
 OBJS		= $(BINARY).o
 OPENOCD		= openocd
 
