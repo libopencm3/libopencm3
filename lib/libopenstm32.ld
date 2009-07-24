@@ -17,7 +17,7 @@
  * along with this program.  If not, see <http://www.gnu.org/licenses/>.
  */
 
-/* Linker script for Olimex STM32-H103 (STM32F103RBT6, 128K flash, 20K RAM). */
+/* Generic linker script for STM32 targets using libopenstm32. */
 
 /* Memory regions must be defined in the ld script which includes this one. */
 
