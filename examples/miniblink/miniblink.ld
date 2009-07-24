@@ -19,26 +19,13 @@
 
 /* Linker script for Olimex STM32-H103 (STM32F103RBT6, 128K flash, 20K RAM). */
 
-/* Memory regions must be defined in the ld script which includes this one. */
-
-/* Define sections. */
-SECTIONS
+/* Define memory regions. */
+MEMORY
 {
-	. = ORIGIN(rom);
-
-	.text : {
-		*(.vectors)	/* Vector table */
-		*(.text)	/* Program code */
-		*(.rodata)	/* Read-only data */
-	} >rom
-
-	. = ORIGIN(ram);
-
-	.data : {
-		*(.data)	/* Read-write initialized data */
-	} >ram AT >rom
-
-	.bss : {
-		*(.bss)		/* Read-write zero initialized data */
-	} >ram AT >rom
+	rom (rx) : ORIGIN = 0x00000000, LENGTH = 128K
+	ram (rwx) : ORIGIN = 0x20000000, LENGTH = 20K
 }
+
+/* Include the common ld script from libopenstm32. */
+INCLUDE libopenstm32.ld
+
