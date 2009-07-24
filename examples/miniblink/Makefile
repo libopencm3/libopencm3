@@ -30,7 +30,8 @@ OBJDUMP		= $(PREFIX)-objdump
 TOOLCHAIN_DIR	= ../..
 CFLAGS		= -O0 -g -Wall -Wextra -I$(TOOLCHAIN_DIR)/include -fno-common \
 		  -mcpu=cortex-m3 -mthumb
-LDFLAGS		= -T$(BINARY).ld -nostartfiles -L$(TOOLCHAIN_DIR)/lib
+LDSCRIPT	= $(TOOLCHAIN_DIR)/lib/libopenstm32.ld
+LDFLAGS         = -T$(LDSCRIPT) -nostartfiles -L$(TOOLCHAIN_DIR)/lib
 OBJS		= $(BINARY).o
 OPENOCD		= openocd
 
@@ -52,7 +53,7 @@ images: $(BINARY)
 	@printf "  OBJDUMP $(BINARY).list\n"
 	$(Q)$(OBJDUMP) -S $(BINARY) > $(BINARY).list
 
-$(BINARY): $(OBJS) $(BINARY).ld
+$(BINARY): $(OBJS) $(LDSCRIPT)
 	@printf "  LD      $(subst $(shell pwd)/,,$(@))\n"
 	$(Q)$(LD) $(LDFLAGS) -o $(BINARY) $(OBJS) -lopenstm32
 
