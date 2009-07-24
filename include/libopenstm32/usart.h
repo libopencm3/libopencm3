@@ -120,7 +120,21 @@
 
 /* --- RCC_CR2 values ------------------------------------------------------ */
 
-/* TODO */
+#define CR2_LINEN			(1 << 14) /* LIN mode enable */
+/* CR2[13:12]: STOP */
+#define CR2_CLKEN			(1 << 11) /* Clock enable */
+#define CR2_CPOL			(1 << 10) /* Clock polarity */
+#define CR2_CPHA			(1 << 9)  /* Clock phase */
+#define CR2_LBCL			(1 << 8)  /* Last bit clock pulse */
+#define CR2_LBDIE			(1 << 6)  /* LIN break detection interrupt enable */
+#define CR2_LBDL			(1 << 5)  /* lin break detection length */
+/* CR2[3:0]: ADD */
+
+#define CR2_STOPBITS_1			0x00
+#define CR2_STOPBITS_0_5		0x01
+#define CR2_STOPBITS_2			0x02
+#define CR2_STOPBITS_1_5		0x03
+
 
 /* --- RCC_CR3 values ------------------------------------------------------ */
 
