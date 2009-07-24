@@ -126,19 +126,28 @@
 #define CR2_CPOL			(1 << 10) /* Clock polarity */
 #define CR2_CPHA			(1 << 9)  /* Clock phase */
 #define CR2_LBCL			(1 << 8)  /* Last bit clock pulse */
-#define CR2_LBDIE			(1 << 6)  /* LIN break detection interrupt enable */
-#define CR2_LBDL			(1 << 5)  /* lin break detection length */
+#define CR2_LBDIE			(1 << 6)  /* LIN break det. int. en. */
+#define CR2_LBDL			(1 << 5)  /* LIN break det. length */
 /* CR2[3:0]: ADD */
 
-#define CR2_STOPBITS_1			0x00
-#define CR2_STOPBITS_0_5		0x01
-#define CR2_STOPBITS_2			0x02
-#define CR2_STOPBITS_1_5		0x03
-
+#define CR2_STOPBITS_1			0x00      /* 1 stop bit */
+#define CR2_STOPBITS_0_5		0x01      /* 0.5 stop bits */
+#define CR2_STOPBITS_2			0x02      /* 2 stop bits */
+#define CR2_STOPBITS_1_5		0x03      /* 1.5 stop bits */
 
 /* --- RCC_CR3 values ------------------------------------------------------ */
 
-/* TODO */
+#define CR3_CTSIE			(1 << 10) /* CTS interrupt enable */
+#define CR3_CTSE			(1 << 9)  /* CTS enable */
+#define CR3_RTSE			(1 << 8)  /* RTS enable */
+#define CR3_DMAT			(1 << 7)  /* DMA enable transmitter */
+#define CR3_DMAR			(1 << 6)  /* DMA enable receiver */
+#define CR3_SCEN			(1 << 5)  /* Smartcard mode enable */
+#define CR3_NACK			(1 << 4)  /* Smartcard NACK enable */
+#define CR3_HDSEL			(1 << 3)  /* Half-duplex selection */
+#define CR3_IRLP			(1 << 2)  /* IrDA low-power */
+#define CR3_IREN			(1 << 1)  /* IrDA mode enable */
+#define CR3_EIE				(1 << 0)  /* Error interrupt enable */
 
 /* --- RCC_GTPR values ----------------------------------------------------- */
 
