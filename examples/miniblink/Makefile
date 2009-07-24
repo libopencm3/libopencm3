@@ -31,7 +31,7 @@ TOOLCHAIN_DIR	= ../..
 CFLAGS		= -O0 -g -Wall -Wextra -I$(TOOLCHAIN_DIR)/include -fno-common \
 		  -mcpu=cortex-m3 -mthumb
 LDSCRIPT	= $(TOOLCHAIN_DIR)/lib/libopenstm32.ld
-LDFLAGS         = -T$(LDSCRIPT) -nostartfiles -L$(TOOLCHAIN_DIR)/lib
+LDFLAGS         = -L$(TOOLCHAIN_DIR)/lib -T$(LDSCRIPT) -nostartfiles
 OBJS		= $(BINARY).o
 OPENOCD		= openocd
 
