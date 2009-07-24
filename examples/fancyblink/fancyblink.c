@@ -19,6 +19,7 @@
 
 #include <libopenstm32.h>
 
+/* Set STM32 to 72 MHz. */
 void clock_setup(void)
 {
 	/* Select HSI as SYSCLK source. */
@@ -40,19 +41,22 @@ void clock_setup(void)
 	rcc_set_sysclk_source(SW_SYSCLKSEL_PLLCLK);
 }
 
-int main(void)
+void gpio_setup(void)
 {
-	int i;
-
-	/* Set STM32 to 72 MHz. */
-	clock_setup();
-
 	/* Enable GPIOC clock. */
 	rcc_enable_peripheral_clock(&RCC_APB2ENR, IOPCEN);
 
 	/* Set GPIO12 (in GPIO port C) to 'output push-pull'. */
-	gpio_set_mode(GPIOC, GPIO_MODE_OUTPUT_2_MHZ,
+	gpio_set_mode(GPIOC, GPIO_MODE_OUTPUT_50_MHZ,
 		      GPIO_CNF_OUTPUT_PUSHPULL, GPIO12);
+}
+
+int main(void)
+{
+	int i;
+
+	clock_setup();
+	gpio_setup();
 
 	/* Blink the LED (PC12) on the board. */
 	while (1) {

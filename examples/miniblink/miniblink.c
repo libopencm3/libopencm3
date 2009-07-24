@@ -19,10 +19,8 @@
 
 #include <libopenstm32.h>
 
-int main(void)
+void gpio_setup(void)
 {
-	int i;
-
 	/* Enable GPIOC clock. */
 	/* Manually: */
 	// RCC_APB2ENR |= IOPCEN;
@@ -36,6 +34,13 @@ int main(void)
 	/* Using API functions: */
 	gpio_set_mode(GPIOC, GPIO_MODE_OUTPUT_2_MHZ,
 		      GPIO_CNF_OUTPUT_PUSHPULL, GPIO12);
+}
+
+int main(void)
+{
+	int i;
+
+	gpio_setup();
 
 	/* Blink the LED (PC12) on the board. */
 	while (1) {
