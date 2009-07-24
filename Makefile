@@ -52,6 +52,8 @@ install: build
 	$(Q)$(INSTALL) -m 0644 include/libopenstm32/*.h $(INCDIR)/libopenstm32
 	@printf "  INSTALL lib\n"
 	$(Q)$(INSTALL) -m 0644 lib/*.a $(LIBDIR)
+	@printf "  INSTALL ldscript\n"
+	$(Q)$(INSTALL) -m 0644 lib/*.ld $(LIBDIR)
 
 clean:
 	$(Q)$(MAKE) -C examples clean

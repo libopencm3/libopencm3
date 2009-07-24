@@ -20,6 +20,7 @@
 /* Linker script for Olimex STM32-H103 (STM32F103RBT6, 128K flash, 20K RAM). */
 
 /* Define memory regions. */
+/* TODO: Make this overridable by the application code, it's MCU specific. */
 MEMORY
 {
 	rom (rx) : ORIGIN = 0x00000000, LENGTH = 128K
