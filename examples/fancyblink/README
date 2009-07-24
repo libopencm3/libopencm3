@@ -41,7 +41,7 @@ Or you can do the same manually via:
  > init
  > reset halt
  > flash write_image erase fancyblink.bin 0x08000000
- > resume 0x08000000
+ > reset
 
 Replace the "jtagkey-tiny.cfg" with whatever JTAG device you are using, and/or
 replace "olimex_stm32_h103.cfg" with your respective board config file.
