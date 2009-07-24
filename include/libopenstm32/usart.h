@@ -80,7 +80,7 @@
 #define UART4_GTPR			USART_GTPR(UART4_BASE)
 #define UART5_GTPR			USART_GTPR(UART5_BASE)
 
-/* --- RCC_SR values ------------------------------------------------------- */
+/* --- USART_SR values ----------------------------------------------------- */
 
 #define SR_CTS				(1 << 9) /* N/A on UART4/5 */
 #define SR_LBD				(1 << 8)
@@ -93,15 +93,16 @@
 #define SR_FE				(1 << 1)
 #define SR_PE				(1 << 0)
 
-/* --- RCC_DR values ------------------------------------------------------- */
+/* --- USART_DR values ----------------------------------------------------- */
 
-/* DR[8:0]: Data value */
+/* USART_DR[8:0]: DR[8:0]: Data value */
 
-/* --- RCC_BRR values ------------------------------------------------------ */
+/* --- USART_BRR values ---------------------------------------------------- */
 
-/* TODO */
+/* USART_BRR[15:4]: DIV_Mantissa[11:0]: mantissa of USARTDIV */
+/* USART_BRR[3:0]: DIV_Fraction[3:0]: fraction of USARTDIV */
 
-/* --- RCC_CR1 values ------------------------------------------------------ */
+/* --- USART_CR1 values ---------------------------------------------------- */
 
 #define CR1_UE				(1 << 13)
 #define CR1_M				(1 << 12)
@@ -118,24 +119,24 @@
 #define CR1_RWU				(1 << 1)
 #define CR1_SBK				(1 << 0)
 
-/* --- RCC_CR2 values ------------------------------------------------------ */
+/* --- USART_CR2 values ---------------------------------------------------- */
 
 #define CR2_LINEN			(1 << 14) /* LIN mode enable */
-/* CR2[13:12]: STOP */
+/* USART_CR2[13:12]: STOP */
 #define CR2_CLKEN			(1 << 11) /* Clock enable */
 #define CR2_CPOL			(1 << 10) /* Clock polarity */
 #define CR2_CPHA			(1 << 9)  /* Clock phase */
 #define CR2_LBCL			(1 << 8)  /* Last bit clock pulse */
 #define CR2_LBDIE			(1 << 6)  /* LIN break det. int. en. */
 #define CR2_LBDL			(1 << 5)  /* LIN break det. length */
-/* CR2[3:0]: ADD */
+/* USART_CR2[3:0]: ADD */
 
 #define CR2_STOPBITS_1			0x00      /* 1 stop bit */
 #define CR2_STOPBITS_0_5		0x01      /* 0.5 stop bits */
 #define CR2_STOPBITS_2			0x02      /* 2 stop bits */
 #define CR2_STOPBITS_1_5		0x03      /* 1.5 stop bits */
 
-/* --- RCC_CR3 values ------------------------------------------------------ */
+/* --- USART_CR3 values ---------------------------------------------------- */
 
 #define CR3_CTSIE			(1 << 10) /* CTS interrupt enable */
 #define CR3_CTSE			(1 << 9)  /* CTS enable */
@@ -149,7 +150,10 @@
 #define CR3_IREN			(1 << 1)  /* IrDA mode enable */
 #define CR3_EIE				(1 << 0)  /* Error interrupt enable */
 
-/* --- RCC_GTPR values ----------------------------------------------------- */
+/* --- USART_GTPR values --------------------------------------------------- */
+
+/* USART_GTPR[15:8]: GT[7:0]: Guard time value */   /* N/A on UART4/5 */
+/* USART_GTPR[7:0]: PSC[7:0]: Prescaler value */    /* N/A on UART4/5 */
 
 /* TODO */
 
