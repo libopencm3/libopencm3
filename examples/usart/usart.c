@@ -42,13 +42,13 @@ void clock_setup(void)
 
 void usart_setup(void)
 {
-	/* Enable clocks for GPIO port B (for GPIO_USART_TX) and USART3. */
+	/* Enable clocks for GPIO port B (for GPIO_USART3_TX) and USART3. */
 	rcc_enable_peripheral_clock(&RCC_APB2ENR, IOPBEN);
 	rcc_enable_peripheral_clock(&RCC_APB1ENR, USART3EN);
 
-	/* Setup GPIO pin GPIO_USART_TX/GPIO10 on GPIO port B for transmit. */
+	/* Setup GPIO pin GPIO_USART3_TX/GPIO10 on GPIO port B for transmit. */
 	gpio_set_mode(GPIOB, GPIO_MODE_OUTPUT_50_MHZ,
-                      GPIO_CNF_OUTPUT_ALTFN_PUSHPULL, GPIO_USART_TX);
+                      GPIO_CNF_OUTPUT_ALTFN_PUSHPULL, GPIO_USART3_TX);
 
 	/* Setup UART parameters. */
 	usart_set_baudrate(USART3, 38400);

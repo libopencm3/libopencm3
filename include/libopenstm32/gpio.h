@@ -52,10 +52,93 @@
 #define GPIO15				(1 << 15)
 #define GPIO_ALL			0xffff
 
-/* GPIO pins with alternate functions */
-#define GPIO_USART_TX			GPIO10
-#define GPIO_USART_RX			GPIO11
-/* TODO */
+/* --- Alternate function GPIOs -------------------------------------------- */
+
+/* Default alternate functions of some pins (without remapping) */
+
+/* CAN1 / CAN */
+#define GPIO_CAN1_RX			GPIO11		/* PA11 */
+#define GPIO_CAN1_TX			GPIO12		/* PA12 */
+#define GPIO_CAN_RX			GPIO_CAN1_RX	/* Alias */
+#define GPIO_CAN_TX			GPIO_CAN1_TX	/* Alias */
+
+/* CAN2 */
+#define GPIO_CAN2_RX			GPIO12		/* PB12 */
+#define GPIO_CAN2_TX			GPIO13		/* PB13 */
+
+/* JTAG/SWD */
+#define GPIO_JTMS_SWDIO			GPIO13		/* PA13 */
+#define GPIO_JTCK_SWCLK			GPIO14		/* PA14 */
+#define GPIO_JTDI			GPIO15		/* PA15 */
+#define GPIO_JTDO_TRACESWO		GPIO3		/* PB3 */
+#define GPIO_JNTRST			GPIO4		/* PB4 */
+#define GPIO_TRACECK			GPIO2		/* PE2 */
+#define GPIO_TRACED0			GPIO3		/* PE3 */
+#define GPIO_TRACED1			GPIO4		/* PE4 */
+#define GPIO_TRACED2			GPIO5		/* PE5 */
+#define GPIO_TRACED3			GPIO6		/* PE6 */
+
+/* Timer */
+#define GPIO_TIM5_CH4			GPIO3		/* PA3 */
+#define GPIO_TIM4_CH1			GPIO6		/* PB6 */
+#define GPIO_TIM4_CH2			GPIO7		/* PB7 */
+#define GPIO_TIM4_CH3			GPIO8		/* PB8 */
+#define GPIO_TIM4_CH4			GPIO9		/* PB9 */
+#define GPIO_TIM3_CH1			GPIO6		/* PA6 */
+#define GPIO_TIM3_CH2			GPIO7		/* PA7 */
+#define GPIO_TIM3_CH3			GPIO0		/* PB0 */
+#define GPIO_TIM3_CH4			GPIO1		/* PB1 */
+#define GPIO_TIM2_CH1_ETR		GPIO0		/* PA0 */
+#define GPIO_TIM2_CH2			GPIO1		/* PA1 */
+#define GPIO_TIM2_CH3			GPIO2		/* PA2 */
+#define GPIO_TIM2_CH4			GPIO3		/* PA3 */
+#define GPIO_TIM1_ETR			GPIO12		/* PA12 */
+#define GPIO_TIM1_CH1			GPIO8		/* PA8 */
+#define GPIO_TIM1_CH2			GPIO9		/* PA9 */
+#define GPIO_TIM1_CH3			GPIO10		/* PA10 */
+#define GPIO_TIM1_CH4			GPIO11		/* PA11 */
+#define GPIO_TIM1_BKIN			GPIO12		/* PB12 */
+#define GPIO_TIM1_CH1N			GPIO13		/* PB13 */
+#define GPIO_TIM1_CH2N			GPIO14		/* PB14 */
+#define GPIO_TIM1_CH3N			GPIO15		/* PB15 */
+
+/* USART */
+#define GPIO_USART3_TX			GPIO10		/* PB10 */
+#define GPIO_USART3_RX			GPIO11		/* PB11 */
+#define GPIO_USART3_CK			GPIO12		/* PB12 */
+#define GPIO_USART3_CTS			GPIO13		/* PB13 */
+#define GPIO_USART3_RTS			GPIO14		/* PB14 */
+#define GPIO_USART2_CTS			GPIO0		/* PA0 */
+#define GPIO_USART2_RTS			GPIO1		/* PA1 */
+#define GPIO_USART2_TX			GPIO2		/* PA2 */
+#define GPIO_USART2_RX			GPIO3		/* PA3 */
+#define GPIO_USART2_CK			GPIO4		/* PA4 */
+#define GPIO_USART1_TX			GPIO9		/* PA9 */
+#define GPIO_USART1_RX			GPIO10		/* PA10 */
+
+/* I2C1 */
+#define GPIO_I2C1_SCL			GPIO6		/* PB6 */
+#define GPIO_I2C1_SDA			GPIO7		/* PB7 */
+
+/* SPI1 */
+#define GPIO_SPI1_NSS			GPIO4		/* PA4 */
+#define GPIO_SPI1_SCK			GPIO5		/* PA5 */
+#define GPIO_SPI1_MISO			GPIO6		/* PA6 */
+#define GPIO_SPI1_MOSI			GPIO7		/* PA7 */
+
+/* SPI3 */
+#define GPIO_SPI3_NSS			GPIO15		/* PA15 */
+#define GPIO_SPI3_SCK			GPIO3		/* PB3 */
+#define GPIO_SPI3_MISO			GPIO4		/* PB4 */
+#define GPIO_SPI3_MOSI			GPIO5		/* PB5 */
+
+/* ETH */
+#define GPIO_ETH_RX_DV_CRS_DV		GPIO7		/* PA7 */
+#define GPIO_ETH_RXD0  			GPIO4		/* PC4 */
+#define GPIO_ETH_RXD1			GPIO5		/* PC5 */
+#define GPIO_ETH_RXD2			GPIO0		/* PB0 */
+#define GPIO_ETH_RXD3			GPIO1		/* PB1 */
+
 
 /* --- GPIO registers ------------------------------------------------------ */
 
