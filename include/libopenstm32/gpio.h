@@ -253,6 +253,51 @@
 #define GPIO_LCKK			(1 << 16)
 /* GPIO_LCKR[15:0]: LCKy: Port x lock bit y (y = 0..15) */
 
+/* --- AFIO registers ------------------------------------------------------ */
+
+/* Event control register (AFIO_EVCR) */
+#define AFIO_EVCR			MMIO32(AFIO_BASE + 0x00)
+
+/* AF remap and debug I/O configuration register (AFIO_MAPR) */
+#define AFIO_MAPR			MMIO32(AFIO_BASE + 0x04)
+
+/* External interrupt configuration register 1 (AFIO_EXTICR1) */
+#define AFIO_EXTICR1			MMIO32(AFIO_BASE + 0x08)
+
+/* External interrupt configuration register 2 (AFIO_EXTICR2) */
+#define AFIO_EXTICR2			MMIO32(AFIO_BASE + 0x0c)
+
+/* External interrupt configuration register 3 (AFIO_EXTICR3) */
+#define AFIO_EXTICR3			MMIO32(AFIO_BASE + 0x10)
+
+/* External interrupt configuration register 4 (AFIO_EXTICR4) */
+#define AFIO_EXTICR4			MMIO32(AFIO_BASE + 0x14)
+
+/* --- AFIO_EVCR values ---------------------------------------------------- */
+
+/* TODO */
+
+/* --- AFIO_MAPR values ---------------------------------------------------- */
+
+/* TODO */
+
+/* --- AFIO_EXTICR1 values ------------------------------------------------- */
+
+/* TODO */
+
+/* --- AFIO_EXTICR2 values ------------------------------------------------- */
+
+/* TODO */
+
+/* --- AFIO_EXTICR3 values ------------------------------------------------- */
+
+/* TODO */
+
+/* --- AFIO_EXTICR4 values ------------------------------------------------- */
+
+/* TODO */
+
+
 /* --- Function prototypes ------------------------------------------------- */
 
 void gpio_set_mode(u32 gpioport, u8 mode, u8 cnf, u16 gpios);
