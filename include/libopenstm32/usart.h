@@ -132,6 +132,11 @@
 #define PARITY_ODD			0x02
 #define PARITY_EVEN			0x03
 
+/* CR1_TE/CR1_RE combined values */
+#define MODE_RX				0x01
+#define MODE_TX				0x02
+#define MODE_TX_RX			0x03
+
 /* --- USART_CR2 values ---------------------------------------------------- */
 
 #define CR2_LINEN			(1 << 14) /* LIN mode enable */
@@ -176,5 +181,18 @@
 /* USART_GTPR[7:0]: PSC[7:0]: Prescaler value */    /* N/A on UART4/5 */
 
 /* TODO */
+
+/* --- Function prototypes ------------------------------------------------- */
+
+void usart_set_baudrate(u32 usart, u32 baud);
+void usart_set_databits(u32 usart, u32 bits);
+void usart_set_stopbits(u32 usart, u32 stopbits);
+void usart_set_parity(u32 usart, u32 parity);
+void usart_set_mode(u32 usart, u32 mode);
+void usart_set_flow_control(u32 usart, u32 flowcontrol);
+void usart_enable(u32 usart);
+void usart_disable(u32 usart);
+void usart_send(u32 usart, u16 data);
+u16 usart_recv(u32 usart);
 
 #endif
