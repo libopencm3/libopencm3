@@ -52,6 +52,11 @@
 #define GPIO15				(1 << 15)
 #define GPIO_ALL			0xffff
 
+/* GPIO pins with alternate functions */
+#define GPIO_USART_TX			GPIO10
+#define GPIO_USART_RX			GPIO11
+/* TODO */
+
 /* --- GPIO registers ------------------------------------------------------ */
 
 /* Port configuration register low (GPIOx_CRL) */

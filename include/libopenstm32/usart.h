@@ -127,6 +127,11 @@
 #define CR1_RWU				(1 << 1)
 #define CR1_SBK				(1 << 0)
 
+/* CR1_PCE / CR1_PS combined values */
+#define PARITY_NONE			0x00
+#define PARITY_ODD			0x02
+#define PARITY_EVEN			0x03
+
 /* --- USART_CR2 values ---------------------------------------------------- */
 
 #define CR2_LINEN			(1 << 14) /* LIN mode enable */
@@ -139,10 +144,11 @@
 #define CR2_LBDL			(1 << 5)  /* LIN break det. length */
 /* USART_CR2[3:0]: ADD */
 
-#define CR2_STOPBITS_1			0x00      /* 1 stop bit */
-#define CR2_STOPBITS_0_5		0x01      /* 0.5 stop bits */
-#define CR2_STOPBITS_2			0x02      /* 2 stop bits */
-#define CR2_STOPBITS_1_5		0x03      /* 1.5 stop bits */
+/* STOP values */
+#define STOPBITS_1			0x00      /* 1 stop bit */
+#define STOPBITS_0_5			0x01      /* 0.5 stop bits */
+#define STOPBITS_2			0x02      /* 2 stop bits */
+#define STOPBITS_1_5			0x03      /* 1.5 stop bits */
 
 /* --- USART_CR3 values ---------------------------------------------------- */
 
@@ -157,6 +163,12 @@
 #define CR3_IRLP			(1 << 2)  /* IrDA low-power */
 #define CR3_IREN			(1 << 1)  /* IrDA mode enable */
 #define CR3_EIE				(1 << 0)  /* Error interrupt enable */
+
+/* CR3_CTSE/CR3_RTSE combined values */
+#define FLOWCONTROL_NONE		0x00
+#define FLOWCONTROL_RTS			0x01
+#define FLOWCONTROL_CTS			0x02
+#define FLOWCONTROL_RTS_CTS		0x03
 
 /* --- USART_GTPR values --------------------------------------------------- */
 
