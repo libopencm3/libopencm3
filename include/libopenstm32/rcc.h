@@ -359,6 +359,8 @@
 #define PREDIV2_DIV15			0xe
 #define PREDIV2_DIV16			0xf
 
+/* --- Function prototypes ------------------------------------------------- */
+
 typedef enum {
 	PLL, HSE, HSI, LSE, LSI
 } osc_t;

@@ -22,6 +22,8 @@
 
 #include <libopenstm32.h>
 
+/* --- Convenience macros -------------------------------------------------- */
+
 /* GPIO port base addresses (for convenience) */
 #define GPIOA				GPIO_PORT_A_BASE
 #define GPIOB				GPIO_PORT_B_BASE
@@ -30,6 +32,27 @@
 #define GPIOE				GPIO_PORT_E_BASE
 #define GPIOF				GPIO_PORT_F_BASE
 #define GPIOG				GPIO_PORT_G_BASE
+
+/* GPIO number definitions (for convenience) */
+#define GPIO0				(1 << 0)
+#define GPIO1				(1 << 1)
+#define GPIO2				(1 << 2)
+#define GPIO3				(1 << 3)
+#define GPIO4				(1 << 4)
+#define GPIO5				(1 << 5)
+#define GPIO6				(1 << 6)
+#define GPIO7				(1 << 7)
+#define GPIO8				(1 << 8)
+#define GPIO9				(1 << 9)
+#define GPIO10				(1 << 10)
+#define GPIO11				(1 << 11)
+#define GPIO12				(1 << 12)
+#define GPIO13				(1 << 13)
+#define GPIO14				(1 << 14)
+#define GPIO15				(1 << 15)
+#define GPIO_ALL			0xffff
+
+/* --- GPIO registers ------------------------------------------------------ */
 
 /* Port configuration register low (GPIOx_CRL) */
 #define GPIO_CRL(port)			MMIO32(port + 0x00)
@@ -101,16 +124,18 @@
 #define GPIOF_LCKR			GPIO_LCKR(GPIOF)
 #define GPIOG_LCKR			GPIO_LCKR(GPIOG)
 
-/* Output mode (MODE[1:0]) values */
-#define GPIO_MODE_INPUT			0x00	/* Default */
-#define GPIO_MODE_OUTPUT_10_MHZ		0x01
-#define GPIO_MODE_OUTPUT_2_MHZ		0x02
-#define GPIO_MODE_OUTPUT_50_MHZ		0x03
+/* --- GPIO_CRL/GPIO_CRH values -------------------------------------------- */
 
 /* CNF[1:0] values when MODE[1:0] is 00 (input mode) */
 #define GPIO_CNF_INPUT_ANALOG		0x00
 #define GPIO_CNF_INPUT_FLOAT		0x01	/* Default */
 #define GPIO_CNF_INPUT_PULL_UPDOWN	0x02
+
+/* Output mode (MODE[1:0]) values */
+#define GPIO_MODE_INPUT			0x00	/* Default */
+#define GPIO_MODE_OUTPUT_10_MHZ		0x01
+#define GPIO_MODE_OUTPUT_2_MHZ		0x02
+#define GPIO_MODE_OUTPUT_50_MHZ		0x03
 
 /* CNF[1:0] values when MODE[1:0] is != 00 (one of the output modes) */
 #define GPIO_CNF_OUTPUT_PUSHPULL	0x00
@@ -118,24 +143,29 @@
 #define GPIO_CNF_OUTPUT_ALTFN_PUSHPULL	0x02
 #define GPIO_CNF_OUTPUT_ALTFN_OPENDRAIN	0x03
 
-/* GPIO number definitions (just for convenience) */
-#define GPIO0				(1 << 0)
-#define GPIO1				(1 << 1)
-#define GPIO2				(1 << 2)
-#define GPIO3				(1 << 3)
-#define GPIO4				(1 << 4)
-#define GPIO5				(1 << 5)
-#define GPIO6				(1 << 6)
-#define GPIO7				(1 << 7)
-#define GPIO8				(1 << 8)
-#define GPIO9				(1 << 9)
-#define GPIO10				(1 << 10)
-#define GPIO11				(1 << 11)
-#define GPIO12				(1 << 12)
-#define GPIO13				(1 << 13)
-#define GPIO14				(1 << 14)
-#define GPIO15				(1 << 15)
-#define GPIO_ALL			0xffff
+/* --- GPIO_IDR values ----------------------------------------------------- */
+
+/* GPIO_IDR[15:0]: IDRy[15:0]: Port input data (y = 0..15) */
+
+/* --- GPIO_ODR values ----------------------------------------------------- */
+
+/* GPIO_ODR[15:0]: ODRy[15:0]: Port output data (y = 0..15) */
+
+/* --- GPIO_BSRR values ---------------------------------------------------- */
+
+/* GPIO_BSRR[31:16]: BRy: Port x reset bit y (y = 0..15) */
+/* GPIO_BSRR[15:0]: BSy: Port x set bit y (y = 0..15) */
+
+/* --- GPIO_BRR values ----------------------------------------------------- */
+
+/* GPIO_BRR[15:0]: BRy: Port x reset bit y (y = 0..15) */
+
+/* --- GPIO_LCKR values ---------------------------------------------------- */
+
+#define GPIO_LCKK			(1 << 16)
+/* GPIO_LCKR[15:0]: LCKy: Port x lock bit y (y = 0..15) */
+
+/* --- Function prototypes ------------------------------------------------- */
 
 void gpio_set_mode(u32 gpioport, u8 mode, u8 cnf, u16 gpios);
 void gpio_set(u32 gpioport, u16 gpios);
