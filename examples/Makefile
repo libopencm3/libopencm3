@@ -25,7 +25,7 @@ ifneq ($(V),1)
 Q := @
 endif
 
-all: miniblink fancyblink
+all: miniblink fancyblink usart
 
 miniblink:
 	@printf "  BUILD   miniblink\n"
@@ -35,11 +35,17 @@ fancyblink:
 	@printf "  BUILD   fancyblink\n"
 	$(Q)$(MAKE) -C fancyblink
 
+usart:
+	@printf "  BUILD   usart\n"
+	$(Q)$(MAKE) -C usart
+
 clean:
 	@printf "  CLEAN   miniblink\n"
 	$(Q)$(MAKE) -C miniblink clean
 	@printf "  CLEAN   fancyblink\n"
 	$(Q)$(MAKE) -C fancyblink clean
+	@printf "  CLEAN   usart\n"
+	$(Q)$(MAKE) -C usart clean
 
-.PHONY: miniblink fancyblink clean
+.PHONY: miniblink fancyblink usart clean
 
