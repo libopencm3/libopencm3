@@ -43,8 +43,8 @@ void clock_setup(void)
 void usart_setup(void)
 {
 	/* Enable clocks for GPIO port B (for GPIO_USART3_TX) and USART3. */
-	rcc_enable_peripheral_clock(&RCC_APB2ENR, IOPBEN);
-	rcc_enable_peripheral_clock(&RCC_APB1ENR, USART3EN);
+	rcc_peripheral_enable_clock(&RCC_APB2ENR, IOPBEN);
+	rcc_peripheral_enable_clock(&RCC_APB1ENR, USART3EN);
 
 	/* Setup GPIO pin GPIO_USART3_TX/GPIO10 on GPIO port B for transmit. */
 	gpio_set_mode(GPIOB, GPIO_MODE_OUTPUT_50_MHZ,
@@ -65,7 +65,7 @@ void usart_setup(void)
 void gpio_setup(void)
 {
 	/* Enable GPIOC clock. */
-	rcc_enable_peripheral_clock(&RCC_APB2ENR, IOPCEN);
+	rcc_peripheral_enable_clock(&RCC_APB2ENR, IOPCEN);
 
 	/* Set GPIO12 (in GPIO port C) to 'output push-pull'. */
 	gpio_set_mode(GPIOC, GPIO_MODE_OUTPUT_2_MHZ,

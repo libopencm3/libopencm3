@@ -44,7 +44,7 @@ void clock_setup(void)
 void gpio_setup(void)
 {
 	/* Enable GPIOC clock. */
-	rcc_enable_peripheral_clock(&RCC_APB2ENR, IOPCEN);
+	rcc_peripheral_enable_clock(&RCC_APB2ENR, IOPCEN);
 
 	/* Set GPIO12 (in GPIO port C) to 'output push-pull'. */
 	gpio_set_mode(GPIOC, GPIO_MODE_OUTPUT_50_MHZ,

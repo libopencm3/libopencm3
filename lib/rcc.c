@@ -224,14 +224,24 @@ void rcc_osc_bypass_disable(osc_t osc)
 	}
 }
 
-void rcc_enable_peripheral_clock(volatile u32 *reg, u32 peripheral_en)
+void rcc_peripheral_enable_clock(volatile u32 *reg, u32 en)
 {
-	*reg |= peripheral_en;
+	*reg |= en;
 }
 
-void rcc_disable_peripheral_clock(volatile u32 *reg, u32 peripheral_en)
+void rcc_peripheral_disable_clock(volatile u32 *reg, u32 en)
 {
-	*reg &= ~peripheral_en;
+	*reg &= ~en;
+}
+
+void rcc_peripheral_reset(volatile u32 *reg, u32 reset)
+{
+	*reg |= reset;
+}
+
+void rcc_peripheral_clear_reset(volatile u32 *reg, u32 clear_reset)
+{
+	*reg |= clear_reset;
 }
 
 void rcc_set_sysclk_source(u32 clk)
