@@ -26,5 +26,6 @@
 #include <libopenstm32/gpio.h>
 #include <libopenstm32/usart.h>
 #include <libopenstm32/adc.h>
+#include <libopenstm32/spi.h>
 
 #endif
