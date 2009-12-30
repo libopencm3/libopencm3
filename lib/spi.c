@@ -51,6 +51,27 @@ int spi_init_master(u32 spi, u32 br, u32 cpol, u32 cpha, u32 dff, u32 lsbfirst)
 	return 0; /* TODO */
 }
 
+/* TODO: Error handling? */
+void spi_enable(u32 spi)
+{
+	u32 reg32;
+
+	reg32 = SPI_CR1(spi);
+	reg32 |= SPI_CR1_SPE;		/* Enable SPI. */
+	SPI_CR1(spi) = reg32;
+}
+
+/* TODO: Error handling? */
+void spi_disable(u32 spi)
+{
+	u32 reg32;
+
+	/* TODO: Follow procedure from section 23.3.8 in the techref manual. */
+	reg32 = SPI_CR1(spi);
+	reg32 &= ~(SPI_CR1_SPE);	/* Disable SPI. */
+	SPI_CR1(spi) = reg32;
+}
+
 void spi_write(u32 spi, u16 data)
 {
 	/* Write data (8 or 16 bits, depending on DFF) into DR. */

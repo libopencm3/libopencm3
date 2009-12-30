@@ -150,6 +150,8 @@
 /* --- Function prototypes ------------------------------------------------- */
 
 int spi_init_master(u32 spi, u32 br, u32 cpol, u32 cpha, u32 dff, u32 lsbfirst);
+void spi_enable(u32 spi);
+void spi_disable(u32 spi);
 void spi_write(u32 spi, u16 data);
 u16 spi_read(u32 spi);
 
