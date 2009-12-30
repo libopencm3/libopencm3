@@ -93,43 +93,65 @@
 
 /* Note: None of the CR1 bits are used in I2S mode. */
 
-#define SPI_CR1_BIDIMODE		(1 << 15)
+/* BIDIMODE: Bidirectional data mode enable */
+#define SPI_CR1_BIDIMODE_2LINE_UNIDIR	(0 << 15)
+#define SPI_CR1_BIDIMODE_1LINE_BIDIR	(1 << 15)
+
+/* BIDIOE: Output enable in bidirectional mode */
 #define SPI_CR1_BIDIOE			(1 << 14)
+
+/* CRCEN: Hardware CRC calculation enable */
 #define SPI_CR1_CRCEN			(1 << 13)
+
+/* CRCNEXT: Transmit CRC next */
 #define SPI_CR1_CRCNEXT			(1 << 12)
-#define SPI_CR1_DFF			(1 << 11)
+
+/* DFF: Data frame format */
+#define SPI_CR1_DFF_8BIT		(0 << 11)
+#define SPI_CR1_DFF_16BIT		(1 << 11)
+
+/* RXONLY: Receive only */
 #define SPI_CR1_RXONLY			(1 << 10)
+
+/* SSM: Software slave management */
 #define SPI_CR1_SSM			(1 << 9)
+
+/* SSI: Internal slave select */
 #define SPI_CR1_SSI			(1 << 8)
+
+/* LSBFIRST: Frame format */
+#define SPI_CR1_MSBFIRST		(0 << 7)
 #define SPI_CR1_LSBFIRST		(1 << 7)
+
+/* SPE: SPI enable */
 #define SPI_CR1_SPE			(1 << 6)
-/* SPI_CR1[5:3]: BR[2:0]: Baud rate control: */
-#define SPI_CR1_BR			(1 << 3)
+
+/* BR[2:0]: Baud rate control */
+#define SPI_CR1_BAUDRATE_FPCLK_DIV_2	(0x00 << 3) 
+#define SPI_CR1_BAUDRATE_FPCLK_DIV_4	(0x01 << 3)
+#define SPI_CR1_BAUDRATE_FPCLK_DIV_8	(0x02 << 3)
+#define SPI_CR1_BAUDRATE_FPCLK_DIV_16	(0x03 << 3)
+#define SPI_CR1_BAUDRATE_FPCLK_DIV_32	(0x04 << 3)
+#define SPI_CR1_BAUDRATE_FPCLK_DIV_64	(0x05 << 3)
+#define SPI_CR1_BAUDRATE_FPCLK_DIV_128	(0x06 << 3)
+#define SPI_CR1_BAUDRATE_FPCLK_DIV_256	(0x07 << 3)
+
+/* MSTR: Master selection */
 #define SPI_CR1_MSTR			(1 << 2)
-#define SPI_CR1_CPOL			(1 << 1)
-#define SPI_CR1_CPHA			(1 << 0)
 
-/* CR1_BIDIMODE values */
-#define SPI_CR1_BIDIMODE_2LINE_UNIDIR	0x00
-#define SPI_CR1_BIDIMODE_1LINE_BIDIR	0x01
+/* CPOL: Clock polarity */
+#define SPI_CR1_CPOL_CLK_TO_0_WHEN_IDLE	(0 << 1)
+#define SPI_CR1_CPOL_CLK_TO_1_WHEN_IDLE	(1 << 1)
 
-/* CR1_DFF (data frame format) values */
-#define SPI_CR1_DFF_8BIT		0x00
-#define SPI_CR1_DFF_16BIT		0x01
-
-/* CR1_BR[2:0] values */
-#define SPI_CR1_BAUDRATE_FPCLK_DIV_2	0x00
-#define SPI_CR1_BAUDRATE_FPCLK_DIV_4	0x01
-#define SPI_CR1_BAUDRATE_FPCLK_DIV_8	0x02
-#define SPI_CR1_BAUDRATE_FPCLK_DIV_16	0x03
-#define SPI_CR1_BAUDRATE_FPCLK_DIV_32	0x04
-#define SPI_CR1_BAUDRATE_FPCLK_DIV_64	0x05
-#define SPI_CR1_BAUDRATE_FPCLK_DIV_128	0x06
-#define SPI_CR1_BAUDRATE_FPCLK_DIV_256	0x07
-
-/* TODO: Bit values of other registers. */
+/* CPHA: Clock phase */
+#define SPI_CR1_CPHA_CLK_TRANSITION_1	(0 << 0)
+#define SPI_CR1_CPHA_CLK_TRANSITION_2	(1 << 0)
 
 /* --- Function prototypes ------------------------------------------------- */
+
+int spi_init_master(u32 spi, u32 br, u32 cpol, u32 cpha, u32 dff, u32 lsbfirst);
+void spi_write(u32 spi, u16 data);
+u16 spi_read(u32 spi);
 
 /* TODO */
 
