@@ -33,7 +33,12 @@ CFLAGS		= -O0 -g -Wall -Wextra -I$(TOOLCHAIN_DIR)/include -fno-common \
 LDSCRIPT	= $(BINARY).ld
 LDFLAGS         = -L$(TOOLCHAIN_DIR)/lib -T$(LDSCRIPT) -nostartfiles
 OBJS		= $(BINARY).o
-OPENOCD		= openocd
+
+OPENOCD_BASE	= /usr
+OPENOCD		= $(OPENOCD_BASE)/bin/openocd
+OPENOCD_SCRIPTS	= $(OPENOCD_BASE)/share/openocd/scripts
+OPENOCD_FLASHER	= $(OPENOCD_SCRIPTS)/interface/parport.cfg
+OPENOCD_BOARD	= $(OPENOCD_SCRIPTS)/board/olimex_stm32_h103.cfg
 
 # Be silent per default, but 'make V=1' will show all compiler calls.
 ifneq ($(V),1)
@@ -78,8 +83,9 @@ clean:
 flash: images
 	@printf "  FLASH   $(BINARY).bin\n"
 	@# IMPORTANT: Don't use "resume", only "reset" will work correctly!
-	$(Q)$(OPENOCD) -f interface/jtagkey-tiny.cfg \
-		       -f board/olimex_stm32_h103.cfg \
+	$(Q)$(OPENOCD) -s $(OPENOCD_SCRIPTS) \
+		       -f $(OPENOCD_FLASHER) \
+		       -f $(OPENOCD_BOARD) \
 		       -c "init" -c "reset halt" \
 		       -c "flash write_image erase $(BINARY).bin 0x08000000" \
 		       -c "reset" \
