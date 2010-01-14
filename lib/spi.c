@@ -36,15 +36,15 @@ int spi_init_master(u32 spi, u32 br, u32 cpol, u32 cpha, u32 dff, u32 lsbfirst)
 {
 	u32 reg32 = 0;
 
-	reg32 |= br;       /* Set BAUD rate bits. */
-	reg32 |= cpol;     /* Set CPOL value. */
-	reg32 |= cpha;     /* Set CPHA value. */
-	reg32 |= dff;      /* Set data format (8 or 16 bits). */
-	reg32 |= lsbfirst; /* Set frame format (LSB-first or MSB-first). */
+	reg32 |= SPI_CR1_MSTR;	/* Configure SPI as master. */
+
+	reg32 |= br;		/* Set BAUD rate bits. */
+	reg32 |= cpol;		/* Set CPOL value. */
+	reg32 |= cpha;		/* Set CPHA value. */
+	reg32 |= dff;		/* Set data format (8 or 16 bits). */
+	reg32 |= lsbfirst;	/* Set frame format (LSB- or MSB-first). */
 
 	/* TODO: NSS pin handling. */
-
-	/* TODO: Set MSTR and SPE bits. */
 
 	SPI_CR1(spi) = reg32;
 
