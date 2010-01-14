@@ -17,8 +17,8 @@
  * along with this program.  If not, see <http://www.gnu.org/licenses/>.
  */
 
-#ifndef LIBOPENSTM32_GPIO_H
-#define LIBOPENSTM32_GPIO_H
+#ifndef LIBOPENSTM32_TIMER_H
+#define LIBOPENSTM32_TIMER_H
 
 #include <libopenstm32.h>
 
@@ -377,7 +377,7 @@
 #define TIM_DIER_CC1DE                  (1 << 9)
 
 /* UDE: Update DMA request enable */
-#define TIM_DIER_BIE                    (1 << 8)
+#define TIM_DIER_UDE                    (1 << 8)
 
 /* BIE: Break interrupt enable */
 #define TIM_DIER_BIE                    (1 << 7)
