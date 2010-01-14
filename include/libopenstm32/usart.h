@@ -90,16 +90,16 @@
 
 /* --- USART_SR values ----------------------------------------------------- */
 
-#define USART_SR_CTS				(1 << 9) /* N/A on UART4/5 */
-#define USART_SR_LBD				(1 << 8)
-#define USART_SR_TXE				(1 << 7)
-#define USART_SR_TC				(1 << 6)
-#define USART_SR_RXNE				(1 << 5)
-#define USART_SR_IDLE				(1 << 4)
-#define USART_SR_ORE				(1 << 3)
-#define USART_SR_NE				(1 << 2)
-#define USART_SR_FE				(1 << 1)
-#define USART_SR_PE				(1 << 0)
+#define USART_SR_CTS			(1 << 9) /* N/A on UART4/5 */
+#define USART_SR_LBD			(1 << 8)
+#define USART_SR_TXE			(1 << 7)
+#define USART_SR_TC			(1 << 6)
+#define USART_SR_RXNE			(1 << 5)
+#define USART_SR_IDLE			(1 << 4)
+#define USART_SR_ORE			(1 << 3)
+#define USART_SR_NE			(1 << 2)
+#define USART_SR_FE			(1 << 1)
+#define USART_SR_PE			(1 << 0)
 
 /* --- USART_DR values ----------------------------------------------------- */
 
@@ -112,30 +112,30 @@
 
 /* --- USART_CR1 values ---------------------------------------------------- */
 
-#define USART_CR1_UE				(1 << 13)
-#define USART_CR1_M				(1 << 12)
-#define USART_CR1_WAKE			        (1 << 11)
-#define USART_CR1_PCE				(1 << 10)
-#define USART_CR1_PS				(1 << 9)
-#define USART_CR1_PEIE			        (1 << 8)
-#define USART_CR1_TXEIE			        (1 << 7)
-#define USART_CR1_TCIE		                (1 << 6)
-#define USART_CR1_RXNEIE			(1 << 5)
-#define USART_CR1_IDLEIE			(1 << 4)
-#define USART_CR1_TE				(1 << 3)
-#define USART_CR1_RE				(1 << 2)
-#define USART_CR1_RWU				(1 << 1)
-#define USART_CR1_SBK				(1 << 0)
+#define USART_CR1_UE			(1 << 13)
+#define USART_CR1_M			(1 << 12)
+#define USART_CR1_WAKE			(1 << 11)
+#define USART_CR1_PCE			(1 << 10)
+#define USART_CR1_PS			(1 << 9)
+#define USART_CR1_PEIE			(1 << 8)
+#define USART_CR1_TXEIE			(1 << 7)
+#define USART_CR1_TCIE			(1 << 6)
+#define USART_CR1_RXNEIE		(1 << 5)
+#define USART_CR1_IDLEIE		(1 << 4)
+#define USART_CR1_TE			(1 << 3)
+#define USART_CR1_RE			(1 << 2)
+#define USART_CR1_RWU			(1 << 1)
+#define USART_CR1_SBK			(1 << 0)
 
 /* CR1_PCE / CR1_PS combined values */
-#define USART_PARITY_NONE			0x00
-#define USART_PARITY_ODD			0x02
-#define USART_PARITY_EVEN			0x03
+#define USART_PARITY_NONE		0x00
+#define USART_PARITY_ODD		0x02
+#define USART_PARITY_EVEN		0x03
 
 /* CR1_TE/CR1_RE combined values */
-#define USART_MODE_RX				0x01
-#define USART_MODE_TX				0x02
-#define USART_MODE_TX_RX			0x03
+#define USART_MODE_RX			0x01
+#define USART_MODE_TX			0x02
+#define USART_MODE_TX_RX		0x03
 
 /* --- USART_CR2 values ---------------------------------------------------- */
 
@@ -150,10 +150,10 @@
 /* USART_CR2[3:0]: ADD */
 
 /* STOP values */
-#define USART_STOPBITS_1			0x00      /* 1 stop bit */
-#define USART_STOPBITS_0_5			0x01      /* 0.5 stop bits */
-#define USART_STOPBITS_2			0x02      /* 2 stop bits */
-#define USART_STOPBITS_1_5			0x03      /* 1.5 stop bits */
+#define USART_STOPBITS_1		0x00      /* 1 stop bit */
+#define USART_STOPBITS_0_5		0x01      /* 0.5 stop bits */
+#define USART_STOPBITS_2		0x02      /* 2 stop bits */
+#define USART_STOPBITS_1_5		0x03      /* 1.5 stop bits */
 
 /* --- USART_CR3 values ---------------------------------------------------- */
 
@@ -167,13 +167,13 @@
 #define USART_CR3_HDSEL			(1 << 3)  /* Half-duplex selection */
 #define USART_CR3_IRLP			(1 << 2)  /* IrDA low-power */
 #define USART_CR3_IREN			(1 << 1)  /* IrDA mode enable */
-#define USART_CR3_EIE				(1 << 0)  /* Error interrupt enable */
+#define USART_CR3_EIE			(1 << 0)  /* Error interrupt enable */
 
 /* CR3_CTSE/CR3_RTSE combined values */
 #define USART_FLOWCONTROL_NONE		0x00
-#define USART_FLOWCONTROL_RTS			0x01
-#define USART_FLOWCONTROL_CTS			0x02
-#define USART_FLOWCONTROL_RTS_CTS		0x03
+#define USART_FLOWCONTROL_RTS		0x01
+#define USART_FLOWCONTROL_CTS		0x02
+#define USART_FLOWCONTROL_RTS_CTS	0x03
 
 /* --- USART_GTPR values --------------------------------------------------- */
 
