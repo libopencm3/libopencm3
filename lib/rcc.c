@@ -121,19 +121,19 @@ void rcc_wait_for_osc_ready(osc_t osc)
 {
 	switch (osc) {
 	case PLL:
-		while ((RCC_CR & PLLRDY) != 0);
+		while ((RCC_CR & PLLRDY) == 0);
 		break;
 	case HSE:
-		while ((RCC_CR & HSERDY) != 0);
+		while ((RCC_CR & HSERDY) == 0);
 		break;
 	case HSI:
-		while ((RCC_CR & HSIRDY) != 0);
+		while ((RCC_CR & HSIRDY) == 0);
 		break;
 	case LSE:
-		while ((RCC_BDCR & LSERDY) != 0);
+		while ((RCC_BDCR & LSERDY) == 0);
 		break;
 	case LSI:
-		while ((RCC_CSR & LSIRDY) != 0);
+		while ((RCC_CSR & LSIRDY) == 0);
 		break;
 	}
 }
