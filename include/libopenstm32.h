@@ -27,5 +27,6 @@
 #include <libopenstm32/usart.h>
 #include <libopenstm32/adc.h>
 #include <libopenstm32/spi.h>
+#include <libopenstm32/timer.h>
 
 #endif
