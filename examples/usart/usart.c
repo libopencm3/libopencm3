@@ -53,10 +53,10 @@ void usart_setup(void)
 	/* Setup UART parameters. */
 	usart_set_baudrate(USART3, 38400);
 	usart_set_databits(USART3, 8);
-	usart_set_stopbits(USART3, STOPBITS_1);
-	usart_set_mode(USART3, MODE_TX);
-	usart_set_parity(USART3, PARITY_NONE);
-	usart_set_flow_control(USART3, FLOWCONTROL_NONE);
+	usart_set_stopbits(USART3, USART_STOPBITS_1);
+	usart_set_mode(USART3, USART_MODE_TX);
+	usart_set_parity(USART3, USART_PARITY_NONE);
+	usart_set_flow_control(USART3, USART_FLOWCONTROL_NONE);
 
 	/* Finally enable the USART. */
 	usart_enable(USART3);

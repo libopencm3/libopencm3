@@ -30,9 +30,9 @@ void usart_set_baudrate(u32 usart, u32 baud)
 void usart_set_databits(u32 usart, u32 bits)
 {
 	if (bits == 8)
-		USART_CR1(usart) &= ~CR1_M; /* 8 data bits */
+		USART_CR1(usart) &= ~USART_CR1_M; /* 8 data bits */
 	else
-		USART_CR1(usart) |= CR1_M;  /* 9 data bits */
+		USART_CR1(usart) |= USART_CR1_M;  /* 9 data bits */
 }
 
 void usart_set_stopbits(u32 usart, u32 stopbits)
@@ -73,12 +73,12 @@ void usart_set_flow_control(u32 usart, u32 flowcontrol)
 
 void usart_enable(u32 usart)
 {
-	USART_CR1(usart) |= CR1_UE;
+	USART_CR1(usart) |= USART_CR1_UE;
 }
 
 void usart_disable(u32 usart)
 {
-	USART_CR1(usart) &= ~CR1_UE;
+	USART_CR1(usart) &= ~USART_CR1_UE;
 }
 
 void usart_send(u32 usart, u16 data)
@@ -87,13 +87,13 @@ void usart_send(u32 usart, u16 data)
 	USART_DR(usart) = (data & 0x1ff);
 
 	/* Wait until the data has been transferred into the shift register. */
-	while ((USART_SR(usart) & SR_TXE) == 0);
+	while ((USART_SR(usart) & USART_SR_TXE) == 0);
 }
 
 u16 usart_recv(u32 usart)
 {
 	/* Wait until the data is ready to be received. */
-	while ((USART_SR(usart) & SR_RXNE) == 0);
+	while ((USART_SR(usart) & USART_SR_RXNE) == 0);
 
 	/* Receive data. */
 	return USART_DR(usart) & 0x1ff;
