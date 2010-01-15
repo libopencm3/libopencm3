@@ -1,7 +1,7 @@
 /*
  * This file is part of the libopenstm32 project.
  *
- * Copyright (C) 2009 Uwe Hermann <uwe@hermann-uwe.de>
+ * Copyright (C) 2010 Thomas Otto <tommi@viadmin.org>
  *
  * This program is free software: you can redistribute it and/or modify
  * it under the terms of the GNU General Public License as published by
@@ -17,17 +17,34 @@
  * along with this program.  If not, see <http://www.gnu.org/licenses/>.
  */
 
-#ifndef LIBOPENSTM32_LIBOPENSTM32_H
-#define LIBOPENSTM32_LIBOPENSTM32_H
+#include <libopenstm32.h>
 
-#include <libopenstm32/common.h>
-#include <libopenstm32/memorymap.h>
-#include <libopenstm32/rcc.h>
-#include <libopenstm32/gpio.h>
-#include <libopenstm32/usart.h>
-#include <libopenstm32/adc.h>
-#include <libopenstm32/spi.h>
-#include <libopenstm32/timer.h>
-#include <libopenstm32/flash.h>
+void flash_prefetch_buffer_enable(void)
+{
+	FLASH_ACR |= PRFTBE;
+}
 
-#endif
+void flash_prefetch_buffer_disable(void)
+{
+	FLASH_ACR &= ~PRFTBE;
+}
+
+void flash_halfcycle_enable(void)
+{
+	FLASH_ACR |= HLFCYA;
+}
+
+void flash_halfcycle_disable(void)
+{
+	FLASH_ACR &= ~HLFCYA;
+}
+
+void flash_set_ws(u32 ws)
+{
+	u32 reg32;
+
+	reg32 = FLASH_ACR;
+	reg32 &= ~((1 << 0) | (1 << 1) | (1 << 2));
+	reg32 |= ws;
+	FLASH_ACR = reg32;
+}
