@@ -21,22 +21,22 @@
 
 void flash_prefetch_buffer_enable(void)
 {
-	FLASH_ACR |= PRFTBE;
+	FLASH_ACR |= FLASH_PRFTBE;
 }
 
 void flash_prefetch_buffer_disable(void)
 {
-	FLASH_ACR &= ~PRFTBE;
+	FLASH_ACR &= ~FLASH_PRFTBE;
 }
 
 void flash_halfcycle_enable(void)
 {
-	FLASH_ACR |= HLFCYA;
+	FLASH_ACR |= FLASH_HLFCYA;
 }
 
 void flash_halfcycle_disable(void)
 {
-	FLASH_ACR &= ~HLFCYA;
+	FLASH_ACR &= ~FLASH_HLFCYA;
 }
 
 void flash_set_ws(u32 ws)

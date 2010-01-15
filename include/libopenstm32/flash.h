@@ -42,42 +42,42 @@
 
 /* --- FLASH_ACR values ---------------------------------------------------- */
 
-#define PRFTBS				(1 << 5)
-#define PRFTBE				(1 << 4)
-#define HLFCYA				(1 << 3)
-#define LATENCY_0WS			0x00
-#define LATENCY_1WS			0x01
-#define LATENCY_2WS			0x02
+#define FLASH_PRFTBS				(1 << 5)
+#define FLASH_PRFTBE				(1 << 4)
+#define FLASH_HLFCYA				(1 << 3)
+#define FLASH_LATENCY_0WS			0x00
+#define FLASH_LATENCY_1WS			0x01
+#define FLASH_LATENCY_2WS			0x02
 
 /* --- FLASH_SR values ----------------------------------------------------- */
 
-#define EOP				(1 << 5)
-#define WRPRTERR			(1 << 4)
-#define PGERR				(1 << 2)
-#define BSY				(1 << 0)
+#define FLASH_EOP				(1 << 5)
+#define FLASH_WRPRTERR				(1 << 4)
+#define FLASH_PGERR				(1 << 2)
+#define FLASH_BSY				(1 << 0)
 
 /* --- FLASH_CR values ----------------------------------------------------- */
 
-#define EOPIE				(1 << 12)
-#define ERRIE				(1 << 10)
-#define OPTWRE				(1 << 9)
-#define LOCK				(1 << 7)
-#define STRT				(1 << 6)
-#define OPTER				(1 << 5)
-#define OPTPG				(1 << 4)
-#define MER				(1 << 2)
-#define PER				(1 << 1)
-#define PG				(1 << 0)
+#define FLASH_EOPIE				(1 << 12)
+#define FLASH_ERRIE				(1 << 10)
+#define FLASH_OPTWRE				(1 << 9)
+#define FLASH_LOCK				(1 << 7)
+#define FLASH_STRT				(1 << 6)
+#define FLASH_OPTER				(1 << 5)
+#define FLASH_OPTPG				(1 << 4)
+#define FLASH_MER				(1 << 2)
+#define FLASH_PER				(1 << 1)
+#define FLASH_PG				(1 << 0)
 
 /* --- FLASH_OBR values ---------------------------------------------------- */
 
 /* FLASH_OBR[25:18]: Data1 */
 /* FLASH_OBR[17:10]: Data0 */
-#define NRST_STDBY			(1 << 4)
-#define NRST_STOP			(1 << 3)
-#define WDG_SW				(1 << 2)
-#define RDPRT				(1 << 1)
-#define OPTERR				(1 << 0)
+#define FLASH_NRST_STDBY			(1 << 4)
+#define FLASH_NRST_STOP				(1 << 3)
+#define FLASH_WDG_SW				(1 << 2)
+#define FLASH_RDPRT				(1 << 1)
+#define FLASH_OPTERR				(1 << 0)
 
 /* --- Function prototypes ------------------------------------------------- */
 
