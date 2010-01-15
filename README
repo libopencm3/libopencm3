@@ -5,6 +5,15 @@ README
 The libopenstm32 project aims to create an open-source firmware library for
 STM32 microcontrollers.
 
+Status and API
+--------------
+
+The libopenstm32 project is currently work in progress. Not all subsystems
+of the STM32 are supported, yet.
+
+IMPORTANT: The API of the library is NOT yet considered stable! Please do
+           not rely on it, yet! Changes to function names, macro names etc.
+           can happen at any time without prior notice!
 
 Building
 --------
