@@ -17,6 +17,13 @@
  * along with this program.  If not, see <http://www.gnu.org/licenses/>.
  */
 
+/*
+ * For details see:
+ * PM0042 Programming manual: STM32F10xxx Flash programming
+ * October 2009, Doc ID 13259 Rev 7
+ * http://www.st.com/stonline/products/literature/pm/13259.pdf
+ */
+
 #ifndef LIBOPENSTM32_FLASH_H
 #define LIBOPENSTM32_FLASH_H
 
