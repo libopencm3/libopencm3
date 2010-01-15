@@ -5,6 +5,12 @@ README
 The libopenstm32 project aims to create an open-source firmware library for
 STM32 microcontrollers.
 
+It is written completely from scratch based on the STM32 datasheets,
+programming manuals, and application notes. The code is meant to be used
+with a GCC toolchain for ARM (arm-elf or arm-none-eabi), flashing of the
+code to an STM32 device can be done using the OpenOCD ARM JTAG software.
+
+
 Status and API
 --------------
 
