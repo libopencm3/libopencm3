@@ -386,5 +386,10 @@ void rcc_set_sysclk_source(u32 clk);
 void rcc_set_pll_multiplication_factor(u32 mul);
 void rcc_set_pll_source(u32 pllsrc);
 void rcc_set_pllxtpre(u32 pllxtpre);
+void rcc_set_adcpre(u32 adcpre);
+void rcc_set_ppre2(u32 ppre2);
+void rcc_set_ppre1(u32 ppre1);
+void rcc_set_hpre(u32 hpre);
+u32 rcc_get_system_clock_source(int i);
 
 #endif

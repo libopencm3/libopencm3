@@ -3,6 +3,8 @@
  *
  * Copyright (C) 2009 Federico Ruiz-Ugalde <memeruiz at gmail dot com>
  * Copyright (C) 2009 Uwe Hermann <uwe@hermann-uwe.de>
+ * Copyright (C) 2010 Thomas Otto <tommi@viadmin.org>
+ *
  *
  * This program is free software: you can redistribute it and/or modify
  * it under the terms of the GNU General Public License as published by
@@ -278,4 +280,46 @@ void rcc_set_pllxtpre(u32 pllxtpre)
 	reg32 = RCC_CFGR;
 	reg32 &= ~(1 << 17);
 	RCC_CFGR = (reg32 | (pllxtpre << 17));
+}
+
+void rcc_set_adcpre(u32 adcpre)
+{
+	u32 reg32;
+
+	reg32 = RCC_CFGR;
+	reg32 &= ((1 << 14) | (1 << 15));
+	RCC_CFGR = (reg32 | (adcpre << 14));
+}
+
+void rcc_set_ppre2(u32 ppre2)
+{
+	u32 reg32;
+
+	reg32 = RCC_CFGR;
+	reg32 &= ((1 << 11) | (1 << 12) | (1 << 13));
+	RCC_CFGR = (reg32 | (ppre2 << 11));
+}
+
+void rcc_set_ppre1(u32 ppre1)
+{
+	u32 reg32;
+
+	reg32 = RCC_CFGR;
+	reg32 &= ((1 << 8) | (1 << 9) | (1 << 10));
+	RCC_CFGR = (reg32 | (ppre1 << 8));
+}
+
+void rcc_set_hpre(u32 hpre)
+{
+	u32 reg32;
+
+	reg32 = RCC_CFGR;
+	reg32 &= ((1 << 4) | (1 << 5) | (1 << 6) | (1 << 7));
+	RCC_CFGR = (reg32 | (hpre << 4));
+}
+
+u32 rcc_system_clock_source(void)
+{
+	/* Return the clock source which is used as system clock. */
+	return ((RCC_CFGR & 0x000c) >> 2);
 }
