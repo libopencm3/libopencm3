@@ -275,28 +275,111 @@
 
 /* --- AFIO_EVCR values ---------------------------------------------------- */
 
-/* TODO */
+/* EVOE: Event output enable */
+#define AFIO_EVCR_EVOE                  (1 << 7)
+
+/* PORT[2:0]: Port selection */
+#define AFIO_EVCR_PORT_PA               (0x0 << 4)
+#define AFIO_EVCR_PORT_PB               (0x1 << 4)
+#define AFIO_EVCR_PORT_PC               (0x2 << 4)
+#define AFIO_EVCR_PORT_PD               (0x3 << 4)
+#define AFIO_EVCR_PORT_PE               (0x4 << 4)
+
+/* PIN[3:0]: Pin selection */
+#define AFIO_EVCR_PIN_Px0               (0x0 << 0)
+#define AFIO_EVCR_PIN_Px1               (0x1 << 0)
+#define AFIO_EVCR_PIN_Px2               (0x2 << 0)
+#define AFIO_EVCR_PIN_Px3               (0x3 << 0)
+#define AFIO_EVCR_PIN_Px4               (0x4 << 0)
+#define AFIO_EVCR_PIN_Px5               (0x5 << 0)
+#define AFIO_EVCR_PIN_Px6               (0x6 << 0)
+#define AFIO_EVCR_PIN_Px7               (0x7 << 0)
+#define AFIO_EVCR_PIN_Px8               (0x8 << 0)
+#define AFIO_EVCR_PIN_Px9               (0x9 << 0)
+#define AFIO_EVCR_PIN_Px10              (0xA << 0)
+#define AFIO_EVCR_PIN_Px11              (0xB << 0)
+#define AFIO_EVCR_PIN_Px12              (0xC << 0)
+#define AFIO_EVCR_PIN_Px13              (0xD << 0)
+#define AFIO_EVCR_PIN_Px14              (0xE << 0)
+#define AFIO_EVCR_PIN_Px15              (0xF << 0)
 
 /* --- AFIO_MAPR values ---------------------------------------------------- */
 
-/* TODO */
+/* SWJ_CFG[2:0]: Serial wire JTAG configuration */
+#define AFIO_MAPR_SWJ_CFG_FULL_SWJ           (0x0 << 24)
+#define AFIO_MAPR_SWJ_CFG_FULL_SWJ_NO_JNTRST (0x1 << 24)
+#define AFIO_MAPR_SWJ_CFG_JTAG_OFF_SW_ON     (0x2 << 24)
+#define AFIO_MAPR_SWJ_CFG_JTAG_OFF_SW_OFF    (0x4 << 24)
+
+/* ADC2_ETRGREG_REMAP: ADC2 external trigger regulator conversion remapping */
+#define AFIO_MAPR_ADC2_ETRGREG_REMAP         (1 << 20)
+
+/* ADC2_ETRGINJ_REMAP: ADC2 external trigger injected conversion remapping */
+#define AFIO_MAPR_ADC2_ETRGINJ_REMAP         (1 << 19)
+
+/* ADC1_ETRGREG_REMAP: ADC1 external trigger regulator conversion remapping */
+#define AFIO_MAPR_ADC1_ETRGREG_REMAP         (1 << 18)
+
+/* ADC1_ETRGINJ_REMAP: ADC1 external trigger injected conversion remapping */
+#define AFIO_MAPR_ADC1_ETRGINJ_REMAP         (1 << 17)
+
+/* TIM5CH4_IREMAP: TIM5 channel4 internal remap */
+#define AFIO_MAPR_TIM5CH4_IREMAP             (1 << 16)
+
+/* PD01_REMAP: Port D0/Port D1 mapping on OSC_IN/OSC_OUT */
+#define AFIO_MAPR_ADC2_ETRGREG_REMAP         (1 << 15)
+
+/* CAN_REMAP[1:0]: CAN alternate function remapping */
+#define AFIO_MAPR_CAN_REMAP_PA11_PA12        (0x0 << 13)
+#define AFIO_MAPR_CAN_REMAP_PB8_PB9          (0x2 << 13) /* Not on 36pin pkg */
+#define AFIO_MAPR_CAN_REMAP_PD0_PD1          (0x3 << 13)
+
+/* TIM4_REMAP: TIM4 remapping */
+#define AFIO_MAPR_TIM4_REMAP                 (1 << 12)
+
+/* TIM3_REMAP[1:0]: TIM3 remapping */
+#define AFIO_MAPR_TIM3_REMAP_NO_REMAP        (0x0 << 10)
+#define AFIO_MAPR_TIM3_REMAP_PARTIAL_REMAP   (0x2 << 10)
+#define AFIO_MAPR_TIM3_REMAP_FULL_REMAP      (0x3 << 10)
+
+/* TIM2_REMAP[1:0]: TIM2 remapping */
+#define AFIO_MAPR_TIM2_REMAP_NO_REMAP        (0x0 << 8)
+#define AFIO_MAPR_TIM2_REMAP_PARTIAL_REMAP1  (0x1 << 8)
+#define AFIO_MAPR_TIM2_REMAP_PARTIAL_REMAP2  (0x2 << 8)
+#define AFIO_MAPR_TIM2_REMAP_FULL_REMAP      (0x3 << 8)
+
+/* TIM1_REMAP[1:0]: TIM1 remapping */
+#define AFIO_MAPR_TIM1_REMAP_NO_REMAP        (0x0 << 6)
+#define AFIO_MAPR_TIM1_REMAP_PARTIAL_REMAP   (0x1 << 6)
+#define AFIO_MAPR_TIM1_REMAP_FULL_REMAP      (0x3 << 6)
+
+/* USART3_REMAP[1:0]: USART3 remapping */
+#define AFIO_MAPR_USART3_REMAP_NO_REMAP      (0x0 << 4)
+#define AFIO_MAPR_USART3_REMAP_PARTIAL_REMAP (0x1 << 4)
+#define AFIO_MAPR_USART3_REMAP_FULL_REMAP    (0x3 << 4)
+
+/* USART2_REMAP[1:0]: USART2 remapping */
+#define AFIO_MAPR_USART2_REMAP               (1 << 3)
+
+/* USART1_REMAP[1:0]: USART1 remapping */
+#define AFIO_MAPR_USART1_REMAP               (1 << 2)
+
+/* I2C1_REMAP[1:0]: I2C1 remapping */
+#define AFIO_MAPR_I2C1_REMAP                 (1 << 1)
+
+/* SPI1_REMAP[1:0]: SPI1 remapping */
+#define AFIO_MAPR_SPI1_REMAP                 (1 << 0)
 
 /* --- AFIO_EXTICR1 values ------------------------------------------------- */
-
-/* TODO */
-
 /* --- AFIO_EXTICR2 values ------------------------------------------------- */
-
-/* TODO */
-
 /* --- AFIO_EXTICR3 values ------------------------------------------------- */
-
-/* TODO */
-
 /* --- AFIO_EXTICR4 values ------------------------------------------------- */
 
-/* TODO */
+/* EXTI0 - EXTI15 interrupt source selection registers */
 
+/* Note: For using them we should define a function that calculates the right
+ *       registers, using definitions is probably not a good idea.
+ */
 
 /* --- Function prototypes ------------------------------------------------- */
 
