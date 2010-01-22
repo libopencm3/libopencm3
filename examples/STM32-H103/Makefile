@@ -1,7 +1,7 @@
 ##
 ## This file is part of the libopenstm32 project.
 ##
-## Copyright (C) 2010 Piotr Esden-Tempski <piotr@esden.net>
+## Copyright (C) 2009 Uwe Hermann <uwe@hermann-uwe.de>
 ##
 ## This program is free software: you can redistribute it and/or modify
 ## it under the terms of the GNU General Public License as published by
@@ -25,15 +25,27 @@ ifneq ($(V),1)
 Q := @
 endif
 
-all: STM32-H103
+all: miniblink fancyblink usart
 
-STM32-H103:
-	@printf "  BUILD   STM32-H103 examples\n"
-	$(Q)$(MAKE) -C STM32-H103
+miniblink:
+	@printf "  BUILD   miniblink\n"
+	$(Q)$(MAKE) -C miniblink
+
+fancyblink:
+	@printf "  BUILD   fancyblink\n"
+	$(Q)$(MAKE) -C fancyblink
+
+usart:
+	@printf "  BUILD   usart\n"
+	$(Q)$(MAKE) -C usart
 
 clean:
-	@printf "  CLEAN   STM32-H103 examples\n"
-	$(Q)$(MAKE) -C STM32-H103 clean
+	@printf "  CLEAN   miniblink\n"
+	$(Q)$(MAKE) -C miniblink clean
+	@printf "  CLEAN   fancyblink\n"
+	$(Q)$(MAKE) -C fancyblink clean
+	@printf "  CLEAN   usart\n"
+	$(Q)$(MAKE) -C usart clean
 
-.PHONY: STM32-H103 clean
+.PHONY: miniblink fancyblink usart clean
 

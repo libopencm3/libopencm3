@@ -17,7 +17,7 @@
 ## along with this program.  If not, see <http://www.gnu.org/licenses/>.
 ##
 
-BINARY		= miniblink
+BINARY		= fancyblink
 
 # PREFIX	?= arm-none-eabi
 PREFIX		?= arm-elf
@@ -26,8 +26,8 @@ LD		= $(PREFIX)-ld
 OBJCOPY		= $(PREFIX)-objcopy
 OBJDUMP		= $(PREFIX)-objdump
 # Uncomment this line if you want to use the installed (not local) library.
-# TOOLCHAIN_DIR	= `dirname \`which $(CC)\``/../$(PREFIX)
-TOOLCHAIN_DIR	= ../..
+# TOOLCHAIN_DIR = `dirname \`which $(CC)\``/../$(PREFIX)
+TOOLCHAIN_DIR   = ../../..
 CFLAGS		= -O0 -g -Wall -Wextra -I$(TOOLCHAIN_DIR)/include -fno-common \
 		  -mcpu=cortex-m3 -mthumb
 LDSCRIPT	= $(BINARY).ld
