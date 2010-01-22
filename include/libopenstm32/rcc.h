@@ -225,7 +225,7 @@
 #define TIM6RST				(1 << 4)
 #define TIM5RST				(1 << 3)
 #define TIM4RST				(1 << 2)
-#define TIM3RST				(1 << 2)
+#define TIM3RST				(1 << 1)
 #define TIM2RST				(1 << 0)
 
 /* --- RCC_AHBENR values --------------------------------------------------- */
