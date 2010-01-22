@@ -94,8 +94,3 @@ int main(void)
 
 	return 0;
 }
-
-u32 *vector_table[2] __attribute__ ((section(".vectors"))) = {
-	(u32 *)0x20000800,	/* Use 2 KB stack (0x800 bytes). */
-	(u32 *)main,		/* Use main() as reset vector for now. */
-};

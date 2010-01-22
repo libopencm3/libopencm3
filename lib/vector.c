@@ -1,7 +1,7 @@
 /*
  * This file is part of the libopenstm32 project.
  *
- * Copyright (C) 2009 Uwe Hermann <uwe@hermann-uwe.de>
+ * Copyright (C) 2010 Piotr Esden-Tempski <piotr@esden.net>
  *
  * This program is free software: you can redistribute it and/or modify
  * it under the terms of the GNU General Public License as published by
@@ -17,31 +17,12 @@
  * along with this program.  If not, see <http://www.gnu.org/licenses/>.
  */
 
-/* Generic linker script for STM32 targets using libopenstm32. */
+#include <libopenstm32.h>
 
-/* Memory regions must be defined in the ld script which includes this one. */
+void main(void);
 
-/* Enforce emmition of the vector table */
-EXTERN (vector_table)
-
-/* Define sections. */
-SECTIONS
-{
-	. = ORIGIN(rom);
-
-	.text : {
-		*(.vectors)	/* Vector table */
-		*(.text)	/* Program code */
-		*(.rodata)	/* Read-only data */
-	} >rom
-
-	. = ORIGIN(ram);
-
-	.data : {
-		*(.data)	/* Read-write initialized data */
-	} >ram AT >rom
-
-	.bss : {
-		*(.bss)		/* Read-write zero initialized data */
-	} >ram AT >rom
-}
+void (*const vector_table[]) (void)
+    __attribute__ ((section(".vectors"))) = {
+	(void *)0x20000800,	/* Use 2KB stack (0x800 bytes). */
+	main,			/* Use main() as reset vector for now. */
+};
