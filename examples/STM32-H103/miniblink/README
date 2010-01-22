@@ -38,9 +38,8 @@ Or you can do the same manually via:
 
  $ openocd -f interface/jtagkey-tiny.cfg -f board/olimex_stm32_h103.cfg
  $ telnet localhost 4444
- > init
  > reset halt
- > flash write_image erase miniblink.bin 0x08000000
+ > flash write_image erase miniblink.hex
  > reset
 
 Replace the "jtagkey-tiny.cfg" with whatever JTAG device you are using, and/or
