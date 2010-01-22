@@ -230,7 +230,13 @@
 
 /* --- RCC_AHBENR values --------------------------------------------------- */
 
-/* TODO */
+#define SDIOEN				(1 << 10)
+#define FSMCEN				(1 << 8)
+#define CRCEN				(1 << 6)
+#define FLITFEN				(1 << 4)
+#define SRAMEN				(1 << 2)
+#define DMA2EN				(1 << 1)
+#define DMA1EN				(1 << 0)
 
 /* --- RCC_APB2ENR values -------------------------------------------------- */
 
