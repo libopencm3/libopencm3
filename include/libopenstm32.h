@@ -33,5 +33,6 @@
 #include <libopenstm32/usb.h>
 #include <libopenstm32/usb_desc.h>
 #include <libopenstm32/nvic.h>
+#include <libopenstm32/rtc.h>
 
 #endif
