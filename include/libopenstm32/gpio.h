@@ -327,7 +327,7 @@
 #define AFIO_MAPR_TIM5CH4_IREMAP             (1 << 16)
 
 /* PD01_REMAP: Port D0/Port D1 mapping on OSC_IN/OSC_OUT */
-#define AFIO_MAPR_ADC2_ETRGREG_REMAP         (1 << 15)
+#define AFIO_MAPR_PD01_REMAP                 (1 << 15)
 
 /* CAN_REMAP[1:0]: CAN alternate function remapping */
 #define AFIO_MAPR_CAN_REMAP_PA11_PA12        (0x0 << 13)
