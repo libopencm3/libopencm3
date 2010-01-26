@@ -25,21 +25,21 @@ ifneq ($(V),1)
 Q := @
 endif
 
-all: STM32-H103 MB525
+all: stm32-h103 mb525
 
-STM32-H103:
-	@printf "  BUILD   STM32-H103 examples\n"
-	$(Q)$(MAKE) -C STM32-H103
+stm32-h103:
+	@printf "  BUILD   stm32-h103 examples\n"
+	$(Q)$(MAKE) -C stm32-h103
 
-MB525:
-	@printf "  BUILD   MB525 examples\n"
-	$(Q)$(MAKE) -C MB525
+mb525:
+	@printf "  BUILD   mb525 examples\n"
+	$(Q)$(MAKE) -C mb525
 
 clean:
-	@printf "  CLEAN   STM32-H103 examples\n"
-	$(Q)$(MAKE) -C STM32-H103 clean
-	@printf "  CLEAN   MB525 examples\n"
-	$(Q)$(MAKE) -C MB525 clean
+	@printf "  CLEAN   stm32-h103 examples\n"
+	$(Q)$(MAKE) -C stm32-h103 clean
+	@printf "  CLEAN   mb525 examples\n"
+	$(Q)$(MAKE) -C mb525 clean
 
-.PHONY: STM32-H103 MB525 clean
+.PHONY: stm32-h103 mb525 clean
 
