@@ -28,17 +28,17 @@ endif
 all: stm32-h103 mb525
 
 stm32-h103:
-	@printf "  BUILD   stm32-h103 examples\n"
+	@printf "  BUILD   examples/stm32-h103\n"
 	$(Q)$(MAKE) -C stm32-h103
 
 mb525:
-	@printf "  BUILD   mb525 examples\n"
+	@printf "  BUILD   examples/mb525\n"
 	$(Q)$(MAKE) -C mb525
 
 clean:
-	@printf "  CLEAN   stm32-h103 examples\n"
+	@printf "  CLEAN   examples/stm32-h103\n"
 	$(Q)$(MAKE) -C stm32-h103 clean
-	@printf "  CLEAN   mb525 examples\n"
+	@printf "  CLEAN   examples/mb525\n"
 	$(Q)$(MAKE) -C mb525 clean
 
 .PHONY: stm32-h103 mb525 clean
