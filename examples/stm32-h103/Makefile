@@ -18,7 +18,7 @@
 ##
 
 # Do not print "Entering directory ...".
-## MAKEFLAGS += --no-print-directory
+MAKEFLAGS += --no-print-directory
 
 # Be silent per default, but 'make V=1' will show all compiler calls.
 ifneq ($(V),1)
