@@ -21,7 +21,8 @@
 #ifndef LIBOPENSTM32_RCC_H
 #define LIBOPENSTM32_RCC_H
 
-#include <libopenstm32.h>
+#include <libopenstm32/memorymap.h>
+#include <libopenstm32/common.h>
 
 /* Note: Regs/bits marked (**) only exist in "connectivity line" STM32s. */
 /* Note: Regs/bits marked (XX) do NOT exist in "connectivity line" STM32s. */

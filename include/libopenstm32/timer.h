@@ -20,7 +20,8 @@
 #ifndef LIBOPENSTM32_TIMER_H
 #define LIBOPENSTM32_TIMER_H
 
-#include <libopenstm32.h>
+#include <libopenstm32/memorymap.h>
+#include <libopenstm32/common.h>
 
 /* --- Convenience macros -------------------------------------------------- */
 

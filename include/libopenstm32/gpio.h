@@ -20,7 +20,8 @@
 #ifndef LIBOPENSTM32_GPIO_H
 #define LIBOPENSTM32_GPIO_H
 
-#include <libopenstm32.h>
+#include <libopenstm32/memorymap.h>
+#include <libopenstm32/common.h>
 
 /* --- Convenience macros -------------------------------------------------- */
 
