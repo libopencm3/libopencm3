@@ -26,7 +26,7 @@ Q := @
 endif
 
 #all: miniblink fancyblink usart
-all: fancyblink
+all: fancyblink pwmleds
 
 #miniblink:
 #	@printf "  BUILD   miniblink\n"
@@ -40,6 +40,10 @@ fancyblink:
 #	@printf "  BUILD   usart\n"
 #	$(Q)$(MAKE) -C usart
 
+pwmleds:
+	@printf "  BUILD   pwmleds\n"
+	$(Q)$(MAKE) -C pwmleds
+
 clean:
 #	@printf "  CLEAN   miniblink\n"
 #	$(Q)$(MAKE) -C miniblink clean
@@ -47,7 +51,9 @@ clean:
 	$(Q)$(MAKE) -C fancyblink clean
 #	@printf "  CLEAN   usart\n"
 #	$(Q)$(MAKE) -C usart clean
+	@printf "  CLEAN   pwmleds\n"
+	$(Q)$(MAKE) -C pwmleds clean
 
 #.PHONY: miniblink fancyblink usart clean
-.PHONY: fancyblink clean
+.PHONY: fancyblink pwmleds clean
 
