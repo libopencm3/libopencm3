@@ -22,9 +22,9 @@
 #include <libopenstm32/gpio.h>
 #include <libopenstm32/timer.h>
 
-#define COMPARE
-//#define MOVING_FADE
-// #define KITT
+// #define COMPARE
+// #define MOVING_FADE
+#define KITT
 
 #ifdef COMPARE
 #define GAMMA_LINEAR
