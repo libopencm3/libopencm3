@@ -802,4 +802,4 @@
 
 /* DMAB[15:0]: DMA register for burst accesses */
 
-#endif /* LIBOPENSTM32_TIMER_H */
+#endif

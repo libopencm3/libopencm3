@@ -121,4 +121,4 @@
 
 /* TODO */
 
-#endif /* LIBOPENSTM32_RTC_H */
+#endif

@@ -292,4 +292,4 @@ void usart_disable(u32 usart);
 void usart_send(u32 usart, u16 data);
 u16 usart_recv(u32 usart);
 
-#endif /* LIBOPENSTM32_USART_H */
+#endif

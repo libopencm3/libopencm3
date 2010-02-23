@@ -293,4 +293,4 @@
     (USB_PMA_BASE +                             \
      (u8 *)(USB_GET_EP_RX_ADDR(EP) * 2))
 
-#endif /* LIBOPENSTM32_USB_H */
+#endif

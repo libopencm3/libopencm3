@@ -55,4 +55,4 @@
         SET_REG(REG, toggle_mask);                                      \
     }
 
-#endif /* LIBOPENSTM32_TOOLS_H */
+#endif

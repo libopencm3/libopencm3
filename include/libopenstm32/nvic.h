@@ -113,4 +113,4 @@ void nvic_set_pending_irq(s32 irqn);
 void nvic_clear_pending_irq(s32 irqn);
 s32 nvic_get_active(s32 irqn);
 
-#endif /* LIBOPENSTM32_NVIC_H */
+#endif

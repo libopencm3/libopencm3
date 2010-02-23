@@ -97,4 +97,4 @@ struct usb_string_desc {
     u16 string[];      /* String UTF16 encoded */
 };
 
-#endif /* LIBOPENSTM32_USB_DESC */
+#endif
