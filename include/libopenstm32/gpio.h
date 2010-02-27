@@ -118,14 +118,26 @@
 #define GPIO_USART1_RX			GPIO10		/* PA10 */
 
 /* I2C1 */
+#define GPIO_I2C1_SMBAI			GPIO5		/* PB5 */
 #define GPIO_I2C1_SCL			GPIO6		/* PB6 */
 #define GPIO_I2C1_SDA			GPIO7		/* PB7 */
+
+/* I2C2 */
+#define GPIO_I2C2_SCL			GPIO10		/* PB10 */
+#define GPIO_I2C2_SDA			GPIO11		/* PB11 */
+#define GPIO_I2C2_SMBAI			GPIO12		/* PB12 */
 
 /* SPI1 */
 #define GPIO_SPI1_NSS			GPIO4		/* PA4 */
 #define GPIO_SPI1_SCK			GPIO5		/* PA5 */
 #define GPIO_SPI1_MISO			GPIO6		/* PA6 */
 #define GPIO_SPI1_MOSI			GPIO7		/* PA7 */
+
+/* SPI2 */
+#define GPIO_SPI2_NSS			GPIO12		/* PB12 */
+#define GPIO_SPI2_SCK			GPIO13		/* PB13 */
+#define GPIO_SPI2_MISO			GPIO14		/* PB14 */
+#define GPIO_SPI2_MOSI			GPIO15		/* PB15 */
 
 /* SPI3 */
 #define GPIO_SPI3_NSS			GPIO15		/* PA15 */
