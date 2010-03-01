@@ -308,4 +308,25 @@
  * TRISE[5:0]: Maximum rise time in Fast/Standard mode (master mode)
  */
 
+/* --- I2C const definitions ----------------------------------------------- */
+
+#define I2C_WRITE			0
+#define I2C_READ			1
+
+/* --- I2C funtion prototypes----------------------------------------------- */
+
+void i2c_peripheral_enable(u32 i2c);
+void i2c_peripheral_disable(u32 i2c);
+void i2c_send_start(u32 i2c);
+void i2c_send_stop(u32 i2c);
+void i2c_set_own_7bit_slave_address(u32 i2c, u8 slave);
+void i2c_set_own_10bit_slave_address(u32 i2c, u16 slave);
+void i2c_set_fast_mode(u32 i2c);
+void i2c_set_standard_mode(u32 i2c);
+void i2c_set_clock_frequency(u32 i2c, u8 freq);
+void i2c_set_ccr(u32 i2c, u16 freq);
+void i2c_set_trise(u32 i2c, u16 trise);
+void i2c_send_7bit_address(u32 i2c, u8 slave, u8 readwrite);
+void i2c_send_data(u32 i2c, u8 data);
+
 #endif

@@ -27,7 +27,8 @@ CFLAGS		= -Os -g -Wall -Wextra -I../include -fno-common \
 		  -mcpu=cortex-m3 -mthumb -Wstrict-prototypes
 # ARFLAGS	= rcsv
 ARFLAGS		= rcs
-OBJS		= vector.o rcc.o gpio.o usart.o adc.o spi.o flash.o nvic.o rtc.o
+OBJS		= vector.o rcc.o gpio.o usart.o adc.o spi.o flash.o nvic.o \
+		  rtc.o i2c.o
 
 # Be silent per default, but 'make V=1' will show all compiler calls.
 ifneq ($(V),1)
