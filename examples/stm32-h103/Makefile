@@ -39,6 +39,10 @@ usart:
 	@printf "  BUILD   usart\n"
 	$(Q)$(MAKE) -C usart
 
+spi:
+	@printf "  BUILD   spi\n"
+	$(Q)$(MAKE) -C spi
+
 clean:
 	@printf "  CLEAN   miniblink\n"
 	$(Q)$(MAKE) -C miniblink clean
@@ -46,6 +50,8 @@ clean:
 	$(Q)$(MAKE) -C fancyblink clean
 	@printf "  CLEAN   usart\n"
 	$(Q)$(MAKE) -C usart clean
+	@printf "  CLEAN   spi\n"
+	$(Q)$(MAKE) -C spi clean
 
-.PHONY: miniblink fancyblink usart clean
+.PHONY: miniblink fancyblink usart spi clean
 
