@@ -17,7 +17,8 @@
  * along with this program.  If not, see <http://www.gnu.org/licenses/>.
  */
 
-#include <libopenstm32.h>
+#include <libopenstm32/rcc.h>
+#include <libopenstm32/gpio.h>
 
 /* Set STM32 to 72 MHz. */
 void clock_setup(void)

@@ -17,7 +17,6 @@
  * along with this program.  If not, see <http://www.gnu.org/licenses/>.
  */
 
-#include <libopenstm32/common.h>
 #include <libopenstm32/rcc.h>
 #include <libopenstm32/gpio.h>
 #include <libopenstm32/timer.h>

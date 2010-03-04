@@ -20,7 +20,8 @@
 #ifndef LIBOPENSTM32_USART_H
 #define LIBOPENSTM32_USART_H
 
-#include <libopenstm32.h>
+#include <libopenstm32/memorymap.h>
+#include <libopenstm32/common.h>
 
 /* --- Convenience macros -------------------------------------------------- */
 

@@ -20,7 +20,8 @@
 #ifndef LIBOPENSTM32_SPI_H
 #define LIBOPENSTM32_SPI_H
 
-#include <libopenstm32.h>
+#include <libopenstm32/memorymap.h>
+#include <libopenstm32/common.h>
 
 /* Registers can be accessed as 16bit or 32bit values. */
 

@@ -20,7 +20,8 @@
 #ifndef LIBOPENSTM32_NVIC_H
 #define LIBOPENSTM32_NVIC_H
 
-#include <libopenstm32.h>
+#include <libopenstm32/memorymap.h>
+#include <libopenstm32/common.h>
 
 /* --- NVIC Registers ------------------------------------------------------ */
 /* ISER: Interrupt Set Enable Registers */

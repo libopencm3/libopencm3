@@ -27,7 +27,8 @@
 #ifndef LIBOPENSTM32_FLASH_H
 #define LIBOPENSTM32_FLASH_H
 
-#include <libopenstm32.h>
+#include <libopenstm32/memorymap.h>
+#include <libopenstm32/common.h>
 
 /* --- FLASH registers ----------------------------------------------------- */
 
