@@ -18,6 +18,7 @@
  */
 
 #include <libopenstm32/rcc.h>
+#include <libopenstm32/spi.h>
 
 void clock_setup(void)
 {
