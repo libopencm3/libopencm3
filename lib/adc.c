@@ -31,19 +31,30 @@
  *  reg16 = adc_read(ADC1, ADC_CH_0);
  */
 
-#include <libopenstm32.h>
+#include <libopenstm32/adc.h>
 
 void rcc_set_adc_clk(u32 prescaler)
 {  
 	/* TODO */
+
+	/* FIXME: QUICK HACK to prevent compiler warnings. */
+	prescaler = prescaler;
 } 
 
 void adc_set_mode(u32 block, /* TODO */ u8 mode)
 {
 	/* TODO */
+
+	/* FIXME: QUICK HACK to prevent compiler warnings. */
+	block = block;
+	mode = mode;
 }
 
 void adc_read(u32 block, u32 channel)
 {
 	/* TODO */
+
+	/* FIXME: QUICK HACK to prevent compiler warnings. */
+	block = block;
+	channel = channel;
 }
