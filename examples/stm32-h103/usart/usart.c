@@ -23,31 +23,18 @@
 
 void clock_setup(void)
 {
-	/* Select HSI as SYSCLK source. */
-	rcc_set_sysclk_source(SW_SYSCLKSEL_HSICLK);
+	rcc_clock_setup_in_hse_8mhz_out_72mhz();
 
-	/* Set the PLL multiplication factor to 9. */
-	rcc_set_pll_multiplication_factor(PLLMUL_PLL_CLK_MUL9);
+	/* Enable GPIOC clock. */
+	rcc_peripheral_enable_clock(&RCC_APB2ENR, IOPCEN);
 
-	/* Select HSI/2 as PLL source. */
-	rcc_set_pll_source(PLLSRC_HSI_CLK_DIV2);
-
-	rcc_set_pllxtpre(PLLXTPRE_HSE_CLK_DIV2);
-
-	/* Enable PLL oscillator and wait for it to stabilize. */
-	rcc_osc_on(PLL);
-	rcc_wait_for_osc_ready(PLL);
-
-	/* Select PLL as SYSCLK source. */
-	rcc_set_sysclk_source(SW_SYSCLKSEL_PLLCLK);
+	/* Enable clocks for GPIO port B (for GPIO_USART3_TX) and USART3. */
+	rcc_peripheral_enable_clock(&RCC_APB2ENR, IOPBEN);
+	rcc_peripheral_enable_clock(&RCC_APB1ENR, USART3EN);
 }
 
 void usart_setup(void)
 {
-	/* Enable clocks for GPIO port B (for GPIO_USART3_TX) and USART3. */
-	rcc_peripheral_enable_clock(&RCC_APB2ENR, IOPBEN);
-	rcc_peripheral_enable_clock(&RCC_APB1ENR, USART3EN);
-
 	/* Setup GPIO pin GPIO_USART3_TX/GPIO10 on GPIO port B for transmit. */
 	gpio_set_mode(GPIOB, GPIO_MODE_OUTPUT_50_MHZ,
                       GPIO_CNF_OUTPUT_ALTFN_PUSHPULL, GPIO_USART3_TX);
@@ -66,9 +53,6 @@ void usart_setup(void)
 
 void gpio_setup(void)
 {
-	/* Enable GPIOC clock. */
-	rcc_peripheral_enable_clock(&RCC_APB2ENR, IOPCEN);
-
 	/* Set GPIO12 (in GPIO port C) to 'output push-pull'. */
 	gpio_set_mode(GPIOC, GPIO_MODE_OUTPUT_2_MHZ,
 		      GPIO_CNF_OUTPUT_PUSHPULL, GPIO12);
