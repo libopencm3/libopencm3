@@ -20,7 +20,8 @@
  * along with this program.  If not, see <http://www.gnu.org/licenses/>.
  */
 
-#include <libopenstm32.h>
+#include <libopenstm32/rcc.h>
+#include <libopenstm32/flash.h>
 
 void rcc_osc_ready_int_clear(osc_t osc)
 {
@@ -323,7 +324,6 @@ u32 rcc_system_clock_source(void)
 	/* Return the clock source which is used as system clock. */
 	return ((RCC_CFGR & 0x000c) >> 2);
 }
-
 
 /*
  * These functions are setting up the whole clock system for the most common

@@ -17,7 +17,7 @@
  * along with this program.  If not, see <http://www.gnu.org/licenses/>.
  */
 
-#include <libopenstm32.h>
+#include <libopenstm32/usart.h>
 
 void usart_set_baudrate(u32 usart, u32 baud)
 {

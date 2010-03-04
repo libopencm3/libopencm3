@@ -17,8 +17,6 @@
  * along with this program.  If not, see <http://www.gnu.org/licenses/>.
  */
 
-#include <libopenstm32.h>
-
 #define WEAK __attribute__ ((weak))
 
 void main(void);
@@ -96,7 +94,7 @@ void WEAK dma2_channel3_isr(void);
 void WEAK dma2_channel4_5_isr(void);
 
 __attribute__ ((section(".vectors")))
-    void (*const vector_table[]) (void) = {
+void (*const vector_table[]) (void) = {
 	(void *)0x20000800,	/* Use 2KB stack (0x800 bytes). */
 	main,			/* Use main() as reset vector for now. */
 	nmi_handler,
@@ -181,6 +179,7 @@ void blocking_handler(void)
 
 void null_handler(void)
 {
+	/* Do nothing. */
 }
 
 #pragma weak nmi_handler = null_handler
