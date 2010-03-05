@@ -27,11 +27,11 @@ endif
 all: i2c_stts75_sensor
 
 i2c_stts75_sensor:
-	@printf "  BUILD   i2c_stts75_sensor\n"
+	@printf "  BUILD   examples/other/i2c_stts75_sensor\n"
 	$(Q)$(MAKE) -C i2c_stts75_sensor
 
 clean:
-	@printf "  CLEAN   i2c_stts75_sensor\n"
+	@printf "  CLEAN   examples/other/i2c_stts75_sensor\n"
 	$(Q)$(MAKE) -C i2c_stts75_sensor clean
 
 .PHONY: i2c_stts75_sensor clean

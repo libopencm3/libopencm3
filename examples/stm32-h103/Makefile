@@ -27,29 +27,29 @@ endif
 all: miniblink fancyblink usart
 
 miniblink:
-	@printf "  BUILD   miniblink\n"
+	@printf "  BUILD   examples/stm32-h103/miniblink\n"
 	$(Q)$(MAKE) -C miniblink
 
 fancyblink:
-	@printf "  BUILD   fancyblink\n"
+	@printf "  BUILD   examples/stm32-h103/fancyblink\n"
 	$(Q)$(MAKE) -C fancyblink
 
 usart:
-	@printf "  BUILD   usart\n"
+	@printf "  BUILD   examples/stm32-h103/usart\n"
 	$(Q)$(MAKE) -C usart
 
 spi:
-	@printf "  BUILD   spi\n"
+	@printf "  BUILD   examples/stm32-h103/spi\n"
 	$(Q)$(MAKE) -C spi
 
 clean:
-	@printf "  CLEAN   miniblink\n"
+	@printf "  CLEAN   examples/stm32-h103/miniblink\n"
 	$(Q)$(MAKE) -C miniblink clean
-	@printf "  CLEAN   fancyblink\n"
+	@printf "  CLEAN   examples/stm32-h103/fancyblink\n"
 	$(Q)$(MAKE) -C fancyblink clean
-	@printf "  CLEAN   usart\n"
+	@printf "  CLEAN   examples/stm32-h103/usart\n"
 	$(Q)$(MAKE) -C usart clean
-	@printf "  CLEAN   spi\n"
+	@printf "  CLEAN   examples/stm32-h103/spi\n"
 	$(Q)$(MAKE) -C spi clean
 
 .PHONY: miniblink fancyblink usart spi clean
