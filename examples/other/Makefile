@@ -1,7 +1,7 @@
 ##
 ## This file is part of the libopenstm32 project.
 ##
-## Copyright (C) 2010 Piotr Esden-Tempski <piotr@esden.net>
+## Copyright (C) 2010 Uwe Hermann <uwe@hermann-uwe.de>
 ##
 ## This program is free software: you can redistribute it and/or modify
 ## it under the terms of the GNU General Public License as published by
@@ -25,27 +25,15 @@ ifneq ($(V),1)
 Q := @
 endif
 
-all: stm32-h103 mb525 other
+all: i2c_stts75_sensor
 
-stm32-h103:
-	@printf "  BUILD   examples/stm32-h103\n"
-	$(Q)$(MAKE) -C stm32-h103
-
-mb525:
-	@printf "  BUILD   examples/mb525\n"
-	$(Q)$(MAKE) -C mb525
-
-other:
-	@printf "  BUILD   examples/other\n"
-	$(Q)$(MAKE) -C other
+i2c_stts75_sensor:
+	@printf "  BUILD   i2c_stts75_sensor\n"
+	$(Q)$(MAKE) -C i2c_stts75_sensor
 
 clean:
-	@printf "  CLEAN   examples/stm32-h103\n"
-	$(Q)$(MAKE) -C stm32-h103 clean
-	@printf "  CLEAN   examples/mb525\n"
-	$(Q)$(MAKE) -C mb525 clean
-	@printf "  CLEAN   examples/other\n"
-	$(Q)$(MAKE) -C other clean
+	@printf "  CLEAN   i2c_stts75_sensor\n"
+	$(Q)$(MAKE) -C i2c_stts75_sensor clean
 
-.PHONY: stm32-h103 mb525 other clean
+.PHONY: i2c_stts75_sensor clean
 
