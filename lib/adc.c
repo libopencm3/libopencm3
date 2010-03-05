@@ -34,12 +34,12 @@
 #include <libopenstm32/adc.h>
 
 void rcc_set_adc_clk(u32 prescaler)
-{  
+{
 	/* TODO */
 
 	/* FIXME: QUICK HACK to prevent compiler warnings. */
 	prescaler = prescaler;
-} 
+}
 
 void adc_set_mode(u32 block, /* TODO */ u8 mode)
 {
@@ -57,4 +57,110 @@ void adc_read(u32 block, u32 channel)
 	/* FIXME: QUICK HACK to prevent compiler warnings. */
 	block = block;
 	channel = channel;
+}
+
+void adc_enable_analog_watchdog_regular(u32 adc)
+{
+	ADC_CR1(adc) |= ADC_CR1_AWDEN;
+}
+
+void adc_disable_analog_watchdog_regular(u32 adc)
+{
+	ADC_CR1(adc) &= ~ADC_CR1_AWDEN;
+}
+
+void adc_enable_analog_watchdog_injected(u32 adc)
+{
+	ADC_CR1(adc) |= ADC_CR1_JAWDEN;
+}
+
+void adc_disable_analog_watchdog_injected(u32 adc)
+{
+	ADC_CR1(adc) &= ~ADC_CR1_JAWDEN;
+}
+
+void adc_enable_discontinous_mode_regular(u32 adc)
+{
+	ADC_CR1(adc) |= ADC_CR1_DISCEN;
+}
+
+void adc_disable_discontinous_mode_regular(u32 adc)
+{
+	ADC_CR1(adc) &= ~ADC_CR1_DISCEN;
+}
+
+void adc_enable_discontinous_mode_injected(u32 adc)
+{
+	ADC_CR1(adc) |= ADC_CR1_JDISCEN;
+}
+
+void adc_disable_discontinous_mode_injected(u32 adc)
+{
+	ADC_CR1(adc) &= ~ADC_CR1_JDISCEN;
+}
+
+void adc_enable_automatic_injected_group_conversion(u32 adc)
+{
+	ADC_CR1(adc) |= ADC_CR1_JAUTO;
+}
+
+void adc_disable_automatic_injected_group_conversion(u32 adc)
+{
+	ADC_CR1(adc) &= ~ADC_CR1_JAUTO;
+}
+
+void adc_enable_analog_watchdog_on_all_channels(u32 adc)
+{
+	ADC_CR1(adc) |= ADC_CR1_AWDSGL;
+}
+
+void adc_enable_analog_watchdog_on_selected_channel(u32 adc, u8 channel)
+{
+	u32 reg32;
+
+	reg32 = (ADC_CR1(adc) & 0xffffffe0); /* Clear bits [4:0]. */
+	if (channel < 18)
+		reg32 |= channel;
+	ADC_CR1(adc) = reg32;
+	ADC_CR1(adc) &= ~ADC_CR1_AWDSGL;
+}
+
+void adc_enable_scan_mode(u32 adc)
+{
+	ADC_CR1(adc) |= ADC_CR1_SCAN;
+}
+
+void adc_disable_scan_mode(u32 adc)
+{
+	ADC_CR1(adc) &= ~ADC_CR1_SCAN;
+}
+
+void adc_enable_jeoc_interrupt(u32 adc)
+{
+	ADC_CR1(adc) |= ADC_CR1_JEOCIE;
+}
+
+void adc_disable_jeoc_interrupt(u32 adc)
+{
+	ADC_CR1(adc) &= ~ADC_CR1_JEOCIE;
+}
+
+void adc_enable_awd_interrupt(u32 adc)
+{
+	ADC_CR1(adc) |= ADC_CR1_AWDIE;
+}
+
+void adc_disable_awd_interrupt(u32 adc)
+{
+	ADC_CR1(adc) &= ~ADC_CR1_AWDIE;
+}
+
+void adc_enable_eoc_interrupt(u32 adc)
+{
+	ADC_CR1(adc) |= ADC_CR1_EOCIE;
+}
+
+void adc_disable_eoc_interrupt(u32 adc)
+{
+	ADC_CR1(adc) &= ~ADC_CR1_EOCIE;
 }

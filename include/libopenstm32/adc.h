@@ -32,7 +32,7 @@
 
 /* --- ADC registers ------------------------------------------------------- */
 
-/* ADC status register (ADC_SDR) */
+/* ADC status register (ADC_SR) */
 #define ADC_SR(block)			MMIO32(block + 0x00)
 #define ADC1_SR				ADC_SR(ADC1)
 #define ADC2_SR				ADC_SR(ADC2)
@@ -88,9 +88,9 @@
 
 /* ADC watchdog low threshold register (ADC_LTR) */
 #define ADC_LTR(block)			MMIO32(block + 0x28)
-#define ADC1_LTR			ADC_LTR(ADC1_BSAE)
-#define ADC2_LTR			ADC_LTR(ADC2_BSAE)
-#define ADC3_LTR			ADC_LTR(ADC3_BSAE)
+#define ADC1_LTR			ADC_LTR(ADC1_BASE)
+#define ADC2_LTR			ADC_LTR(ADC2_BASE)
+#define ADC3_LTR			ADC_LTR(ADC3_BASE)
 
 /* ADC regular sequence register 1 (ADC_SQR1) */
 #define ADC_SQR1(block)			MMIO32(block + 0x2c)
@@ -112,9 +112,9 @@
 
 /* ADC injected sequence register (ADC_JSQR) */
 #define ADC_JSQR(block)			MMIO32(block + 0x38)
-#define ADC1_JSQR			ADC_JSQR(ADC1_BSAE)
-#define ADC2_JSQR			ADC_JSQR(ADC2_BSAE)
-#define ADC3_JSQR			ADC_JSQR(ADC3_BSAE)
+#define ADC1_JSQR			ADC_JSQR(ADC1_BASE)
+#define ADC2_JSQR			ADC_JSQR(ADC2_BASE)
+#define ADC3_JSQR			ADC_JSQR(ADC3_BASE)
 
 /* ADC injected data register x (ADC_JDRx) (x=1..4) */
 #define ADC_JDR1(block)			MMIO32(block + 0x3c)
@@ -141,88 +141,129 @@
 #define ADC3_DR				ADC_DR(ADC3)
 
 /* --- ADC_SR values ------------------------------------------------------- */
-#define ADC_STRT			(1 << 4)
-#define ADC_JSTRT			(1 << 3)
-#define ADC_JEOC			(1 << 2)
-#define ADC_EOC				(1 << 1)
-#define ADC_AWD				(1 << 0)
+
+#define ADC_SR_STRT			(1 << 4)
+#define ADC_SR_JSTRT			(1 << 3)
+#define ADC_SR_JEOC			(1 << 2)
+#define ADC_SR_EOC			(1 << 1)
+#define ADC_SR_AWD			(1 << 0)
 
 /* --- ADC_CR1 values ------------------------------------------------------ */
-#define ADC_AWDEN			(1 << 23)
-#define ADC_JAWDEN			(1 << 22)
-#define ADC_DUALMOD_LSB			16
-#define ADC_DUALMOD_MSK			(0xf << ADC_DUALMOD_LSB) /* ADC1 only */
-#define ADC_DISCNUM_LSB			13
-#define ADC_DISCNUM_MSK			(0x7 << ADC_DISCNUM_LSB)
-#define ADC_JDISCEN			(1 << 12)
-#define ADC_DISCEN			(1 << 11)
-#define ADC_JAUTO			(1 << 10)
-#define ADC_AWDSGL			(1 << 9)
-#define ADC_SCAN			(1 << 8)
-#define ADC_JEOCIE			(1 << 7)
-#define ADC_AWDIE			(1 << 6)
-#define ADC_EOCIE			(1 << 5)
-#define ADC_AWDCH_LSB			0
-#define ADC_AWDCH_MSK			(0x1f << ADC_AWDCH_LSB)
+
+#define ADC_CR1_AWDEN			(1 << 23)
+#define ADC_CR1_JAWDEN			(1 << 22)
+#define ADC_CR1_DUALMOD_LSB		16
+#define ADC_CR1_DUALMOD_MSK		(0xf << ADC_DUALMOD_LSB) /* ADC1 only */
+#define ADC_CR1_DISCNUM_LSB		13
+#define ADC_CR1_DISCNUM_MSK		(0x7 << ADC_DISCNUM_LSB)
+#define ADC_CR1_JDISCEN			(1 << 12)
+#define ADC_CR1_DISCEN			(1 << 11)
+#define ADC_CR1_JAUTO			(1 << 10)
+#define ADC_CR1_AWDSGL			(1 << 9)
+#define ADC_CR1_SCAN			(1 << 8)
+#define ADC_CR1_JEOCIE			(1 << 7)
+#define ADC_CR1_AWDIE			(1 << 6)
+#define ADC_CR1_EOCIE			(1 << 5)
+#define ADC_CR1_AWDCH_LSB		0
+#define ADC_CR1_AWDCH_MSK		(0x1f << ADC_AWDCH_LSB)
 
 /* --- ADC_CR2 values ------------------------------------------------------ */
-#define ADC_TSVREFE			(1 << 23) /* ADC1 only! */
-#define ADC_SWSTART			(1 << 22)
-#define ADC_JSWSTART			(1 << 21)
-#define ADC_EXTTRIG			(1 << 20)
-#define ADC_EXTSEL_LSB			17
-#define ADC_EXTSEL_MSK			(0x7 << ADC_EXTSEL_LSB)
-#define ADC_JEXTTRIG			(1 << 15)
-#define ADC_JEXTSEL_LSB			12
-#define ADC_JEXTSEL_MSK			(0x7 << ADC_JEXTSEL_LSB)
-#define ADC_ALIGN			(1 << 11)
-#define ADC_DMA				(1 << 8) /* ADC 1 & 3 only! */
-#define ADC_RSTCAL			(1 << 3)
-#define ADC_CAL				(1 << 2)
-#define ADC_CONT			(1 << 1)
-#define ADC_ADON			(1 << 0) /* Must be separately written. */
+
+#define ADC_CR2_TSVREFE			(1 << 23) /* ADC1 only! */
+#define ADC_CR2_SWSTART			(1 << 22)
+#define ADC_CR2_JSWSTART		(1 << 21)
+#define ADC_CR2_EXTTRIG			(1 << 20)
+#define ADC_CR2_EXTSEL_LSB		17
+#define ADC_CR2_EXTSEL_MSK		(0x7 << ADC_EXTSEL_LSB)
+
+/* The following are only valid for ADC1 and ADC2. */
+#define ADC_CR2_EXTSEL_TIM1_TRGO	0x0
+#define ADC_CR2_EXTSEL_TIM1_CC4		0x1
+#define ADC_CR2_EXTSEL_TIM2_TRGO	0x2
+#define ADC_CR2_EXTSEL_TIM2_CC1		0x3
+#define ADC_CR2_EXTSEL_TIM3_CC4		0x4
+#define ADC_CR2_EXTSEL_TIM4_TRGO	0x5
+#define ADC_CR2_EXTSEL_EXTI15		0x6
+#define ADC_CR2_EXTSEL_JSWSTART		0x7
+
+/* The following are the different meanings for ADC3 only. */
+#define ADC_CR2_EXTSEL_TIM4_CC3		0x2
+#define ADC_CR2_EXTSEL_TIM8_CC2		0x3
+#define ADC_CR2_EXTSEL_TIM8_CC4		0x4
+#define ADC_CR2_EXTSEL_TIM5_TRGO	0x5
+#define ADC_CR2_EXTSEL_TIM5_CC4		0x6
+
+#define ADC_CR2_JEXTTRIG		(1 << 15)
+#define ADC_CR2_JEXTSEL_LSB		12
+#define ADC_CR2_JEXTSEL_MSK		(0x7 << ADC_JEXTSEL_LSB)
+#define ADC_CR2_ALIGN			(1 << 11)
+#define ADC_CR2_DMA			(1 << 8) /* ADC 1 & 3 only! */
+/* Bits [7:4] have to be kept 0. */
+#define ADC_CR2_RSTCAL			(1 << 3)
+#define ADC_CR2_CAL			(1 << 2)
+#define ADC_CR2_CONT			(1 << 1)
+#define ADC_CR2_ADON			(1 << 0) /* Must be separately written. */
 
 /* --- ADC_SMPR1 values ---------------------------------------------------- */
-#define ADC_SMP17_LSB			21
-#define ADC_SMP16_LSB			18
-#define ADC_SMP15_LSB			15
-#define ADC_SMP14_LSB			12
-#define ADC_SMP13_LSB			9
-#define ADC_SMP12_LSB			6
-#define ADC_SMP11_LSB			3
-#define ADC_SMP10_LSB			0
-#define ADC_SMP17_MSK			(0x7 << ADC_SMP17_LSB)
-#define ADC_SMP16_MSK			(0x7 << ADC_SMP16_LSB)
-#define ADC_SMP15_MSK			(0x7 << ADC_SMP15_LSB)
-#define ADC_SMP14_MSK			(0x7 << ADC_SMP14_LSB)
-#define ADC_SMP13_MSK			(0x7 << ADC_SMP13_LSB)
-#define ADC_SMP12_MSK			(0x7 << ADC_SMP12_LSB)
-#define ADC_SMP11_MSK			(0x7 << ADC_SMP11_LSB)
-#define ADC_SMP10_MSK			(0x7 << ADC_SMP10_LSB)
+
+#define ADC_SMPR1_SMP17_LSB		21
+#define ADC_SMPR1_SMP16_LSB		18
+#define ADC_SMPR1_SMP15_LSB		15
+#define ADC_SMPR1_SMP14_LSB		12
+#define ADC_SMPR1_SMP13_LSB		9
+#define ADC_SMPR1_SMP12_LSB		6
+#define ADC_SMPR1_SMP11_LSB		3
+#define ADC_SMPR1_SMP10_LSB		0
+#define ADC_SMPR1_SMP17_MSK		(0x7 << ADC_SMP17_LSB)
+#define ADC_SMPR1_SMP16_MSK		(0x7 << ADC_SMP16_LSB)
+#define ADC_SMPR1_SMP15_MSK		(0x7 << ADC_SMP15_LSB)
+#define ADC_SMPR1_SMP14_MSK		(0x7 << ADC_SMP14_LSB)
+#define ADC_SMPR1_SMP13_MSK		(0x7 << ADC_SMP13_LSB)
+#define ADC_SMPR1_SMP12_MSK		(0x7 << ADC_SMP12_LSB)
+#define ADC_SMPR1_SMP11_MSK		(0x7 << ADC_SMP11_LSB)
+#define ADC_SMPR1_SMP10_MSK		(0x7 << ADC_SMP10_LSB)
+#define ADC_SMPR1_SMP_1DOT5CYC		0x0
+#define ADC_SMPR1_SMP_7DOT5CYC		0x1
+#define ADC_SMPR1_SMP_13DOT5CYC		0x2
+#define ADC_SMPR1_SMP_28DOT5CYC		0x3
+#define ADC_SMPR1_SMP_41DOT5CYC		0x4
+#define ADC_SMPR1_SMP_55DOT5CYC		0x5
+#define ADC_SMPR1_SMP_71DOT5CYC		0x6
+#define ADC_SMPR1_SMP_239DOT5CYC	0x7
 
 /* --- ADC_SMPR2 values ---------------------------------------------------- */
-#define ADC_SMP9_LSB			27
-#define ADC_SMP8_LSB			14
-#define ADC_SMP7_LSB			21
-#define ADC_SMP6_LSB			18
-#define ADC_SMP5_LSB			15
-#define ADC_SMP4_LSB			12
-#define ADC_SMP3_LSB			9
-#define ADC_SMP2_LSB			6
-#define ADC_SMP1_LSB			3
-#define ADC_SMP0_LSB			0
-#define ADC_SMP9_MSK			(0x7 << ADC_SMP9_LSB)
-#define ADC_SMP8_MSK			(0x7 << ADC_SMP8_LSB)
-#define ADC_SMP7_MSK			(0x7 << ADC_SMP7_LSB)
-#define ADC_SMP6_MSK			(0x7 << ADC_SMP6_LSB)
-#define ADC_SMP5_MSK			(0x7 << ADC_SMP5_LSB)
-#define ADC_SMP4_MSK			(0x7 << ADC_SMP4_LSB)
-#define ADC_SMP3_MSK			(0x7 << ADC_SMP3_LSB)
-#define ADC_SMP2_MSK			(0x7 << ADC_SMP2_LSB)
-#define ADC_SMP1_MSK			(0x7 << ADC_SMP1_LSB)
-#define ADC_SMP0_MSK			(0x7 << ADC_SMP0_LSB)
+
+#define ADC_SMPR2_SMP9_LSB		27
+#define ADC_SMPR2_SMP8_LSB		24
+#define ADC_SMPR2_SMP7_LSB		21
+#define ADC_SMPR2_SMP6_LSB		18
+#define ADC_SMPR2_SMP5_LSB		15
+#define ADC_SMPR2_SMP4_LSB		12
+#define ADC_SMPR2_SMP3_LSB		9
+#define ADC_SMPR2_SMP2_LSB		6
+#define ADC_SMPR2_SMP1_LSB		3
+#define ADC_SMPR2_SMP0_LSB		0
+#define ADC_SMPR2_SMP9_MSK		(0x7 << ADC_SMP9_LSB)
+#define ADC_SMPR2_SMP8_MSK		(0x7 << ADC_SMP8_LSB)
+#define ADC_SMPR2_SMP7_MSK		(0x7 << ADC_SMP7_LSB)
+#define ADC_SMPR2_SMP6_MSK		(0x7 << ADC_SMP6_LSB)
+#define ADC_SMPR2_SMP5_MSK		(0x7 << ADC_SMP5_LSB)
+#define ADC_SMPR2_SMP4_MSK		(0x7 << ADC_SMP4_LSB)
+#define ADC_SMPR2_SMP3_MSK		(0x7 << ADC_SMP3_LSB)
+#define ADC_SMPR2_SMP2_MSK		(0x7 << ADC_SMP2_LSB)
+#define ADC_SMPR2_SMP1_MSK		(0x7 << ADC_SMP1_LSB)
+#define ADC_SMPR2_SMP0_MSK		(0x7 << ADC_SMP0_LSB)
+#define ADC_SMPR2_SMP_1DOT5CYC		0x0
+#define ADC_SMPR2_SMP_7DOT5CYC		0x1
+#define ADC_SMPR2_SMP_13DOT5CYC		0x2
+#define ADC_SMPR2_SMP_28DOT5CYC		0x3
+#define ADC_SMPR2_SMP_41DOT5CYC		0x4
+#define ADC_SMPR2_SMP_55DOT5CYC		0x5
+#define ADC_SMPR2_SMP_71DOT5CYC		0x6
+#define ADC_SMPR2_SMP_239DOT5CYC	0x7
 
 /* --- ADC_JOFRx, ADC_HTR, ADC_LTR values ---------------------------------- */
+
 #define ADC_JOFFSET_LSB			0
 #define ADC_JOFFSET_MSK			(0x7ff << 0)
 #define ADC_HT_LSB			0
@@ -231,61 +272,66 @@
 #define ADC_LT_MSK			(0x7ff << 0)
 
 /* --- ADC_SQR1 values ----------------------------------------------------- */
-#define ADC_L_LSB			20
-#define ADC_SQ16_LSB			15
-#define ADC_SQ15_LSB			10
-#define ADC_SQ14_LSB			5
-#define ADC_SQ13_LSB			0
-#define ADC_L_MSK			(0xf << ADC_L_LSB)
-#define ADC_SQ16_MSK			(0x1f << ADC_SQ16_LSB)
-#define ADC_SQ15_MSK			(0x1f << ADC_SQ15_LSB)
-#define ADC_SQ14_MSK			(0x1f << ADC_SQ14_LSB)
-#define ADC_SQ13_MSK			(0x1f << ADC_SQ13_LSB)
+
+#define ADC_SQR1_L_LSB			20
+#define ADC_SQR1_SQ16_LSB		15
+#define ADC_SQR1_SQ15_LSB		10
+#define ADC_SQR1_SQ14_LSB		5
+#define ADC_SQR1_SQ13_LSB		0
+#define ADC_SQR1_L_MSK			(0xf << ADC_L_LSB)
+#define ADC_SQR1_SQ16_MSK		(0x1f << ADC_SQ16_LSB)
+#define ADC_SQR1_SQ15_MSK		(0x1f << ADC_SQ15_LSB)
+#define ADC_SQR1_SQ14_MSK		(0x1f << ADC_SQ14_LSB)
+#define ADC_SQR1_SQ13_MSK		(0x1f << ADC_SQ13_LSB)
 
 /* --- ADC_SQR2 values ----------------------------------------------------- */
-#define ADC_SQ12_LSB			25
-#define ADC_SQ11_LSB			20
-#define ADC_SQ10_LSB			15
-#define ADC_SQ9_LSB			10
-#define ADC_SQ8_LSB			5
-#define ADC_SQ7_LSB			0
-#define ADC_SQ12_MSK			(0x1f << ADC_SQ12_LSB)
-#define ADC_SQ11_MSK			(0x1f << ADC_SQ11_LSB)
-#define ADC_SQ10_MSK			(0x1f << ADC_SQ10_LSB)
-#define ADC_SQ9_MSK			(0x1f << ADC_SQ9_LSB)
-#define ADC_SQ8_MSK			(0x1f << ADC_SQ8_LSB)
-#define ADC_SQ7_MSK			(0x1f << ADC_SQ7_LSB)
+
+#define ADC_SQR2_SQ12_LSB		25
+#define ADC_SQR2_SQ11_LSB		20
+#define ADC_SQR2_SQ10_LSB		15
+#define ADC_SQR2_SQ9_LSB		10
+#define ADC_SQR2_SQ8_LSB		5
+#define ADC_SQR2_SQ7_LSB		0
+#define ADC_SQR2_SQ12_MSK		(0x1f << ADC_SQ12_LSB)
+#define ADC_SQR2_SQ11_MSK		(0x1f << ADC_SQ11_LSB)
+#define ADC_SQR2_SQ10_MSK		(0x1f << ADC_SQ10_LSB)
+#define ADC_SQR2_SQ9_MSK		(0x1f << ADC_SQ9_LSB)
+#define ADC_SQR2_SQ8_MSK		(0x1f << ADC_SQ8_LSB)
+#define ADC_SQR2_SQ7_MSK		(0x1f << ADC_SQ7_LSB)
 
 /* --- ADC_SQR3 values ----------------------------------------------------- */
-#define ADC_SQ6_LSB			25
-#define ADC_SQ5_LSB			20
-#define ADC_SQ4_LSB			15
-#define ADC_SQ3_LSB			10
-#define ADC_SQ2_LSB			5
-#define ADC_SQ1_LSB			0
-#define ADC_SQ6_MSK			(0x1f << ADC_SQ6_LSB)
-#define ADC_SQ5_MSK			(0x1f << ADC_SQ5_LSB)
-#define ADC_SQ4_MSK			(0x1f << ADC_SQ4_LSB)
-#define ADC_SQ3_MSK			(0x1f << ADC_SQ3_LSB)
-#define ADC_SQ2_MSK			(0x1f << ADC_SQ2_LSB)
-#define ADC_SQ1_MSK			(0x1f << ADC_SQ1_LSB)
+
+#define ADC_SQR3_SQ6_LSB		25
+#define ADC_SQR3_SQ5_LSB		20
+#define ADC_SQR3_SQ4_LSB		15
+#define ADC_SQR3_SQ3_LSB		10
+#define ADC_SQR3_SQ2_LSB		5
+#define ADC_SQR3_SQ1_LSB		0
+#define ADC_SQR3_SQ6_MSK		(0x1f << ADC_SQ6_LSB)
+#define ADC_SQR3_SQ5_MSK		(0x1f << ADC_SQ5_LSB)
+#define ADC_SQR3_SQ4_MSK		(0x1f << ADC_SQ4_LSB)
+#define ADC_SQR3_SQ3_MSK		(0x1f << ADC_SQ3_LSB)
+#define ADC_SQR3_SQ2_MSK		(0x1f << ADC_SQ2_LSB)
+#define ADC_SQR3_SQ1_MSK		(0x1f << ADC_SQ1_LSB)
 
 /* --- ADC_JSQR values ----------------------------------------------------- */
-#define ADC_JL_LSB			20
-#define ADC_JSQ4_LSB			15
-#define ADC_JSQ3_LSB			10
-#define ADC_JSQ2_LSB			5
-#define ADC_JSQ1_LSB			0
-#define ADC_JL_MSK			(0x2 << ADC_JL_LSB)
-#define ADC_JSQ4_MSK			(0x1f << ADC_JSQ4_LSB)
-#define ADC_JSQ3_MSK			(0x1f << ADC_JSQ3_LSB)
-#define ADC_JSQ2_MSK			(0x1f << ADC_JSQ2_LSB)
-#define ADC_JSQ1_MSK			(0x1f << ADC_JSQ1_LSB)
+
+#define ADC_JSQR_JL_LSB			20
+#define ADC_JSQR_JSQ4_LSB		15
+#define ADC_JSQR_JSQ3_LSB		10
+#define ADC_JSQR_JSQ2_LSB		5
+#define ADC_JSQR_JSQ1_LSB		0
+#define ADC_JSQR_JL_MSK			(0x2 << ADC_JL_LSB)
+#define ADC_JSQR_JSQ4_MSK		(0x1f << ADC_JSQ4_LSB)
+#define ADC_JSQR_JSQ3_MSK		(0x1f << ADC_JSQ3_LSB)
+#define ADC_JSQR_JSQ2_MSK		(0x1f << ADC_JSQ2_LSB)
+#define ADC_JSQR_JSQ1_MSK		(0x1f << ADC_JSQ1_LSB)
 
 /* --- ADC_JDRx, ADC_DR values --------------------------------------------- */
+
 #define ADC_JDATA_LSB			0
 #define ADC_DATA_LSB			0
-#define ADC_ADC2DATA_LSB		16 /* ADC1 only (dual mode)*/
+#define ADC_ADC2DATA_LSB		16 /* ADC1 only (dual mode) */
 #define ADC_JDATA_MSK			(0xffff << ADC_JDATA_LSB)
 #define ADC_DATA_MSK			(0xffff << ADC_DA)
 #define ADC_ADC2DATA_MSK		(0xffff << ADC_ADC2DATA_LSB)
@@ -294,5 +340,25 @@
 /* --- Function prototypes ------------------------------------------------- */
 
 /* TODO */
+void adc_enable_analog_watchdog_regular(u32 adc);
+void adc_disable_analog_watchdog_regular(u32 adc);
+void adc_enable_analog_watchdog_injected(u32 adc);
+void adc_disable_analog_watchdog_injected(u32 adc);
+void adc_enable_discontinous_mode_regular(u32 adc);
+void adc_disable_discontinous_mode_regular(u32 adc);
+void adc_enable_discontinous_mode_injected(u32 adc);
+void adc_disable_discontinous_mode_injected(u32 adc);
+void adc_enable_automatic_injected_group_conversion(u32 adc);
+void adc_disable_automatic_injected_group_conversion(u32 adc);
+void adc_enable_analog_watchdog_on_all_channels(u32 adc);
+void adc_enable_analog_watchdog_on_selected_channel(u32 adc, u8 channel);
+void adc_enable_scan_mode(u32 adc);
+void adc_disable_scan_mode(u32 adc);
+void adc_enable_jeoc_interrupt(u32 adc);
+void adc_disable_jeoc_interrupt(u32 adc);
+void adc_enable_awd_interrupt(u32 adc);
+void adc_disable_awd_interrupt(u32 adc);
+void adc_enable_eoc_interrupt(u32 adc);
+void adc_disable_eoc_interrupt(u32 adc);
 
 #endif
