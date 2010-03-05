@@ -24,35 +24,21 @@ Q := @
 MAKEFLAGS += --no-print-directory
 endif
 
-#all: miniblink fancyblink usart
 all: fancyblink pwmleds
-
-#miniblink:
-#	@printf "  BUILD   miniblink\n"
-#	$(Q)$(MAKE) -C miniblink
 
 fancyblink:
 	@printf "  BUILD   fancyblink\n"
 	$(Q)$(MAKE) -C fancyblink
-
-#usart:
-#	@printf "  BUILD   usart\n"
-#	$(Q)$(MAKE) -C usart
 
 pwmleds:
 	@printf "  BUILD   pwmleds\n"
 	$(Q)$(MAKE) -C pwmleds
 
 clean:
-#	@printf "  CLEAN   miniblink\n"
-#	$(Q)$(MAKE) -C miniblink clean
 	@printf "  CLEAN   fancyblink\n"
 	$(Q)$(MAKE) -C fancyblink clean
-#	@printf "  CLEAN   usart\n"
-#	$(Q)$(MAKE) -C usart clean
 	@printf "  CLEAN   pwmleds\n"
 	$(Q)$(MAKE) -C pwmleds clean
 
-#.PHONY: miniblink fancyblink usart clean
 .PHONY: fancyblink pwmleds clean
 
