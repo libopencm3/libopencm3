@@ -39,7 +39,7 @@ Or you can do the same manually via:
  $ openocd -f interface/jlink.cfg -f board/olimex_stm32_h103.cfg
  $ telnet localhost 4444
  > reset halt
- > flash write_image erase pwmleds.bin
+ > flash write_image erase pwmleds.hex
  > reset
 
 Replace the "jlink.cfg" with whatever JTAG device you are using, and/or

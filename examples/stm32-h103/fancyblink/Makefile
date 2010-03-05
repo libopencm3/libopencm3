@@ -87,7 +87,7 @@ flash: images
 		       -f $(OPENOCD_FLASHER) \
 		       -f $(OPENOCD_BOARD) \
 		       -c "init" -c "reset halt" \
-		       -c "flash write_image erase $(BINARY).bin 0x08000000" \
+		       -c "flash write_image erase $(BINARY).hex" \
 		       -c "reset" \
 		       -c "shutdown" $(NULL)
 
