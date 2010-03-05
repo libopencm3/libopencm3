@@ -24,12 +24,11 @@ INCDIR		= $(DESTDIR)/$(PREFIX)/include
 LIBDIR		= $(DESTDIR)/$(PREFIX)/lib
 INSTALL		= install
 
-# Do not print "Entering directory ...".
-MAKEFLAGS += --no-print-directory
-
 # Be silent per default, but 'make V=1' will show all compiler calls.
 ifneq ($(V),1)
 Q := @
+# Do not print "Entering directory ...".
+MAKEFLAGS += --no-print-directory
 endif
 
 all: build
