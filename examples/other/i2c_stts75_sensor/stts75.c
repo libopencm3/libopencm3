@@ -22,7 +22,7 @@
 
 void stts75_write_config(u32 i2c, u8 sensor)
 {
-	u32 tempreg;
+	u32 reg32;
 
 	/* Send START condition. */
 	i2c_send_start(i2c);
@@ -38,7 +38,7 @@ void stts75_write_config(u32 i2c, u8 sensor)
 	while (!(I2C_SR1(i2c) & I2C_SR1_ADDR));
 
 	/* Cleaning ADDR condition sequence. */
-	tempreg = I2C_SR2(i2c);
+	reg32 = I2C_SR2(i2c);
 
 	/* Sending the data. */
 	i2c_send_data(i2c, 0x1); /* stts75 config register */
@@ -52,7 +52,7 @@ void stts75_write_config(u32 i2c, u8 sensor)
 
 void stts75_write_temp_os(u32 i2c, u8 sensor, u16 temp_os)
 {
-	u32 tempreg;
+	u32 reg32;
 
 	/* Send START condition. */
 	i2c_send_start(i2c);
@@ -68,7 +68,7 @@ void stts75_write_temp_os(u32 i2c, u8 sensor, u16 temp_os)
 	while (!(I2C_SR1(i2c) & I2C_SR1_ADDR));
 
 	/* Cleaning ADDR condition sequence. */
-	tempreg = I2C_SR2(i2c);
+	reg32 = I2C_SR2(i2c);
 
 	/* Sending the data. */
 	i2c_send_data(i2c, 0x3); /* OvertemperatureShutdown register */
@@ -84,7 +84,7 @@ void stts75_write_temp_os(u32 i2c, u8 sensor, u16 temp_os)
 
 void stts75_write_temp_hyst(u32 i2c, u8 sensor, u16 temp_hyst)
 {
-	u32 tempreg;
+	u32 reg32;
 
 	/* Send START condition. */
 	i2c_send_start(i2c);
@@ -100,7 +100,7 @@ void stts75_write_temp_hyst(u32 i2c, u8 sensor, u16 temp_hyst)
 	while (!(I2C_SR1(i2c) & I2C_SR1_ADDR));
 
 	/* Cleaning ADDR condition sequence. */
-	tempreg = I2C_SR2(i2c);
+	reg32 = I2C_SR2(i2c);
 
 	/* Sending the data. */
 	i2c_send_data(i2c, 0x2); /* TemperatureHysteresis register */
@@ -116,7 +116,7 @@ void stts75_write_temp_hyst(u32 i2c, u8 sensor, u16 temp_hyst)
 
 u16 stts75_read_temperature(u32 i2c, u8 sensor)
 {
-	u32 tempreg;
+	u32 reg32;
 	u16 temperature;
 
 	/* Send START condition. */
@@ -134,7 +134,7 @@ u16 stts75_read_temperature(u32 i2c, u8 sensor)
 	while (!(I2C_SR1(i2c) & I2C_SR1_ADDR));
 
 	/* Cleaning ADDR condition sequence. */
-	tempreg = I2C_SR2(i2c);
+	reg32 = I2C_SR2(i2c);
 
 	i2c_send_data(i2c, 0x0); /* temperature register */
 	while (!(I2C_SR1(i2c) & (I2C_SR1_BTF|I2C_SR1_TxE)));
@@ -162,7 +162,7 @@ u16 stts75_read_temperature(u32 i2c, u8 sensor)
 	while (!(I2C_SR1(i2c) & I2C_SR1_ADDR));
 
 	/* Cleaning ADDR condition sequence. */
-	tempreg = I2C_SR2(i2c);
+	reg32 = I2C_SR2(i2c);
 
 	/* Cleaning I2C_SR1_ACK. */
 	I2C_CR1(i2c) &= ~ I2C_CR1_ACK;
