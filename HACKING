@@ -1,0 +1,12 @@
+------------------------------------------------------------------------------
+HACKING
+------------------------------------------------------------------------------
+
+Coding style
+------------
+
+The whole library is programmed using the Linux kernel coding style, see
+http://lxr.linux.no/linux/Documentation/CodingStyle for details.
+
+Please use the same style for any code contributions, thanks!
+
