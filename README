@@ -45,7 +45,7 @@ libopenstm32.
 For flashing the 'miniblink' example (after you built libopenstm32 and the
 examples by typing 'make' at the top-level directory) you can execute:
 
- $ cd examples/miniblink
+ $ cd examples/stm32-h103/miniblink
  $ make flash
 
 The Makefiles of the examples are configured to use a certain OpenOCD
@@ -98,4 +98,8 @@ Website
 The official website is:
 
  http://sourceforge.net/projects/libopenstm32/
+
+There's a wiki at:
+
+ http://sourceforge.net/apps/mediawiki/libopenstm32/
 
