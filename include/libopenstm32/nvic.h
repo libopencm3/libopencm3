@@ -24,6 +24,7 @@
 #include <libopenstm32/common.h>
 
 /* --- NVIC Registers ------------------------------------------------------ */
+
 /* ISER: Interrupt Set Enable Registers */
 /* Note: 8 32bit Registers */
 #define NVIC_ISER(iser_id)              MMIO32(NVIC_BASE + 0x00 + (iser_id * 4))
@@ -107,6 +108,7 @@
 #define SCB_AFSR                        MMIO32(SCB_BASE + 0x3C)
 
 /* --- NVIC functions ------------------------------------------------------ */
+
 void nvic_enable_irq(s32 irqn);
 void nvic_disable_irq(s32 irqn);
 s32 nvic_get_pending_irq(s32 irqn);

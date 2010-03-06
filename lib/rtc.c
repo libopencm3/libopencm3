@@ -75,4 +75,3 @@ void rtc_disable_alarm(void)
 	RTC_CRH &= ~RTC_CRH_ALRIE;
 	rtc_exit_config_mode();
 }
-

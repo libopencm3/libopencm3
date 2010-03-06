@@ -2,7 +2,7 @@
  * This file is part of the libopenstm32 project.
  *
  * Copyright (C) 2009 Uwe Hermann <uwe@hermann-uwe.de>,
- *               2010 Piotr Esden-Tempski <piotr@esden.net>
+ * Copyright (C) 2010 Piotr Esden-Tempski <piotr@esden.net>
  *
  * This program is free software: you can redistribute it and/or modify
  * it under the terms of the GNU General Public License as published by

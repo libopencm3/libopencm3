@@ -98,4 +98,3 @@ u16 usart_recv(u32 usart)
 	/* Receive data. */
 	return USART_DR(usart) & 0x1ff;
 }
-

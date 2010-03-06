@@ -152,7 +152,6 @@
 #define GPIO_ETH_RXD2			GPIO0		/* PB0 */
 #define GPIO_ETH_RXD3			GPIO1		/* PB1 */
 
-
 /* --- GPIO registers ------------------------------------------------------ */
 
 /* Port configuration register low (GPIOx_CRL) */

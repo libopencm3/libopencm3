@@ -20,20 +20,24 @@
 #ifndef LIBOPENSTM32_TOOLS_H
 #define LIBOPENSTM32_TOOLS_H
 
-/******************************************************************************
+/*
  * Register accessors / manipulators
- ******************************************************************************/
+ */
 
-/* Get register content */
+/* Get register content. */
 #define GET_REG(REG) ((u16) *REG)
-/* Set register content */
+
+/* Set register content. */
 #define SET_REG(REG, VAL) (*REG = (u16)VAL)
-/* Clear register bit */
+
+/* Clear register bit. */
 #define CLR_REG_BIT(REG, BIT) SET_REG(REG, (~BIT))
-/* Clear register bit masking out some bits that must not be touched */
-#define CLR_REG_BIT_MSK(REG, MSK, BIT) SET_REG(REG, (GET_REG(REG) &     \
-                                                     MSK & (~BIT)))
-/* Get masked out bit value */
+
+/* Clear register bit masking out some bits that must not be touched. */
+#define CLR_REG_BIT_MSK(REG, MSK, BIT) \
+		SET_REG(REG, (GET_REG(REG) & MSK & (~BIT)))
+
+/* Get masked out bit value. */
 #define GET_REG_BIT(REG, BIT) (GET_REG(REG) & BIT)
 
 /*
@@ -44,15 +48,17 @@
  * bitmask BIT then we write 1 and if the bit in the masked window is
  * matching the bitmask BIT we write 0.
  *
- * TODO: we may need a faster implementation of that one?
+ * TODO: We may need a faster implementation of that one?
  */
-#define TOG_SET_REG_BIT_MSK(REG, MSK, BIT) {                            \
-        register u16 toggle_mask = GET_REG(REG) & MSK;                  \
-        register u16 bit_selector;                                      \
-        for(bit_selector = 1; bit_selector; bit_selector <<= 1){        \
-            if((bit_selector & BIT) != 0) toggle_mask ^= bit_selector;  \
-        }                                                               \
-        SET_REG(REG, toggle_mask);                                      \
-    }
+#define TOG_SET_REG_BIT_MSK(REG, MSK, BIT)				\
+{									\
+	register u16 toggle_mask = GET_REG(REG) & MSK;			\
+	register u16 bit_selector;					\
+	for (bit_selector = 1; bit_selector; bit_selector <<= 1) {	\
+		if ((bit_selector & BIT) != 0)				\
+			toggle_mask ^= bit_selector;			\
+	}								\
+	SET_REG(REG, toggle_mask);					\
+}
 
 #endif
