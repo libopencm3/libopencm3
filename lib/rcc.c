@@ -406,7 +406,7 @@ void rcc_clock_setup_in_hse_8mhz_out_72mhz(void)
 	 * Set the PLL multiplication factor to 9.
 	 * 8MHz (external) * 9 (multiplier) = 72MHz
 	 */
-	rcc_set_pll_multiplication_factor(PLLMUL_PLL_CLK_MUL10);
+	rcc_set_pll_multiplication_factor(PLLMUL_PLL_CLK_MUL9);
 
 	/* Select HSE as PLL source. */
 	rcc_set_pll_source(PLLSRC_HSE_CLK);
