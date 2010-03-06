@@ -5,7 +5,6 @@
  * Copyright (C) 2009 Uwe Hermann <uwe@hermann-uwe.de>
  * Copyright (C) 2010 Thomas Otto <tommi@viadmin.org>
  *
- *
  * This program is free software: you can redistribute it and/or modify
  * it under the terms of the GNU General Public License as published by
  * the Free Software Foundation, either version 3 of the License, or
@@ -329,95 +328,99 @@ u32 rcc_system_clock_source(void)
  * These functions are setting up the whole clock system for the most common
  * input clock and output clock configurations.
  */
-void rcc_clock_setup_in_hsi_out_64mhz(void){
+void rcc_clock_setup_in_hsi_out_64mhz(void)
+{
+	/* Enable internal high-speed oscillator. */
+	rcc_osc_on(HSI);
+	rcc_wait_for_osc_ready(HSI);
 
-        /* enable Internal High Speed Oscillator */
-        rcc_osc_on(HSI);
-        rcc_wait_for_osc_ready(HSI);
+	/* Select HSI as SYSCLK source. */
+	rcc_set_sysclk_source(SW_SYSCLKSEL_HSICLK);
 
-        /* Select HSI as SYSCLK source. */
-        rcc_set_sysclk_source(SW_SYSCLKSEL_HSICLK);
-
-        /*
-	 * set prescalers for AHB, ADC, ABP1, ABP2
-	 * make this before touching the PLL (why?)
+	/*
+	 * Set prescalers for AHB, ADC, ABP1, ABP2.
+	 * Do this before touching the PLL (TODO: why?).
 	 */
-        rcc_set_hpre(HPRE_SYSCLK_NODIV);   /* Max 72MHz */
-        rcc_set_adcpre(ADCPRE_PLCK2_DIV8); /* Max 14MHz */
-        rcc_set_ppre1(PPRE1_HCLK_DIV2);    /* Max 36MHz */
-        rcc_set_ppre2(PPRE2_HCLK_NODIV);   /* Max 72MHz */
+	rcc_set_hpre(HPRE_SYSCLK_NODIV);	/* Max. 72MHz */
+	rcc_set_adcpre(ADCPRE_PLCK2_DIV8);	/* Max. 14MHz */
+	rcc_set_ppre1(PPRE1_HCLK_DIV2);		/* Max. 36MHz */
+	rcc_set_ppre2(PPRE2_HCLK_NODIV);	/* Max. 72MHz */
 
-        /* sysclk is running with 64MHz -> 2 Waitstates
+	/*
+	 * Sysclk is running with 64MHz -> 2 waitstates.
 	 * 0WS from 0-24MHz
 	 * 1WS from 24-48MHz
 	 * 2WS from 48-72MHz
 	 */
-        flash_set_ws(FLASH_LATENCY_2WS);
+	flash_set_ws(FLASH_LATENCY_2WS);
 
-        /* Set the PLL multiplication factor to 16.
-	 * -> 8MHz (internal) * 16 (multiplier) / 2 (PLLSRC_HSI_CLK_DIV2) = 64MHz
+	/*
+	 * Set the PLL multiplication factor to 16.
+	 * 8MHz (internal) * 16 (multiplier) / 2 (PLLSRC_HSI_CLK_DIV2) = 64MHz
 	 */
-        rcc_set_pll_multiplication_factor(PLLMUL_PLL_CLK_MUL16);
+	rcc_set_pll_multiplication_factor(PLLMUL_PLL_CLK_MUL16);
 
-        /* Select HSI/2 as PLL source. */
-        rcc_set_pll_source(PLLSRC_HSI_CLK_DIV2);
+	/* Select HSI/2 as PLL source. */
+	rcc_set_pll_source(PLLSRC_HSI_CLK_DIV2);
 
+	/* Enable PLL oscillator and wait for it to stabilize. */
+	rcc_osc_on(PLL);
+	rcc_wait_for_osc_ready(PLL);
 
-        /* Enable PLL oscillator and wait for it to stabilize. */
-        rcc_osc_on(PLL);
-        rcc_wait_for_osc_ready(PLL);
-
-        /* Select PLL as SYSCLK source. */
-        rcc_set_sysclk_source(SW_SYSCLKSEL_PLLCLK);
+	/* Select PLL as SYSCLK source. */
+	rcc_set_sysclk_source(SW_SYSCLKSEL_PLLCLK);
 }
 
-void rcc_clock_setup_in_hse_8mhz_out_72mhz(void){
+void rcc_clock_setup_in_hse_8mhz_out_72mhz(void)
+{
+	/* Enable internal high-speed oscillator. */
+	rcc_osc_on(HSI);
+	rcc_wait_for_osc_ready(HSI);
 
-        /* enable Internal High Speed Oscillator */
-        rcc_osc_on(HSI);
-        rcc_wait_for_osc_ready(HSI);
+	/* Select HSI as SYSCLK source. */
+	rcc_set_sysclk_source(SW_SYSCLKSEL_HSICLK);
 
-        /* Select HSI as SYSCLK source. */
-        rcc_set_sysclk_source(SW_SYSCLKSEL_HSICLK);
+	/* Enable external high-speed oscillator 8MHz. */
+	rcc_osc_on(HSE);
+	rcc_wait_for_osc_ready(HSE);
+	rcc_set_sysclk_source(SW_SYSCLKSEL_HSECLK);
 
-        /* enable External High Speed Oscillator 8MHz */
-        rcc_osc_on(HSE);
-        rcc_wait_for_osc_ready(HSE);
-        rcc_set_sysclk_source(SW_SYSCLKSEL_HSECLK);
-
-        /* set prescalers for AHB, ADC, ABP1, ABP2
-	 * do this before touching the PLL (why?)
+	/*
+	 * Set prescalers for AHB, ADC, ABP1, ABP2.
+	 * Do this before touching the PLL (TODO: why?).
 	 */
-        rcc_set_hpre(HPRE_SYSCLK_NODIV);   // Max 72MHz
-        rcc_set_adcpre(ADCPRE_PLCK2_DIV8); // Max 14MHz
-        rcc_set_ppre1(PPRE1_HCLK_DIV2);    // Max 36MHz
-        rcc_set_ppre2(PPRE2_HCLK_NODIV);   // Max 72MHz
+	rcc_set_hpre(HPRE_SYSCLK_NODIV);	/* Max. 72MHz */
+	rcc_set_adcpre(ADCPRE_PLCK2_DIV8);	/* Max. 14MHz */
+	rcc_set_ppre1(PPRE1_HCLK_DIV2);		/* Max. 36MHz */
+	rcc_set_ppre2(PPRE2_HCLK_NODIV);	/* Max. 72MHz */
 
-        /* sysclk runs with 72MHz -> 2 Waitstates
+	/*
+	 * Sysclk runs with 72MHz -> 2 waitstates.
 	 * 0WS from 0-24MHz
 	 * 1WS from 24-48MHz
 	 * 2WS from 48-72MHz
 	 */
-        flash_set_ws(FLASH_LATENCY_2WS);
+	flash_set_ws(FLASH_LATENCY_2WS);
 
-        /* Set the PLL multiplication factor to 9.
-	 * -> 8MHz (external) * 9 (multiplier) = 72MHz
+	/*
+	 * Set the PLL multiplication factor to 9.
+	 * 8MHz (external) * 9 (multiplier) = 72MHz
 	 */
-        rcc_set_pll_multiplication_factor(PLLMUL_PLL_CLK_MUL10);
+	rcc_set_pll_multiplication_factor(PLLMUL_PLL_CLK_MUL10);
 
-        /* Select HSE as PLL source. */
-        rcc_set_pll_source(PLLSRC_HSE_CLK);
+	/* Select HSE as PLL source. */
+	rcc_set_pll_source(PLLSRC_HSE_CLK);
 
-        /* external frequency undivided before entering pll
-	 * (only valid/needed for HSE)
+	/*
+	 * External frequency undivided before entering PLL
+	 * (only valid/needed for HSE).
 	 */
-        rcc_set_pllxtpre(PLLXTPRE_HSE_CLK);
+	rcc_set_pllxtpre(PLLXTPRE_HSE_CLK);
 
-        /* Enable PLL oscillator and wait for it to stabilize. */
-        rcc_osc_on(PLL);
-        rcc_wait_for_osc_ready(PLL);
+	/* Enable PLL oscillator and wait for it to stabilize. */
+	rcc_osc_on(PLL);
+	rcc_wait_for_osc_ready(PLL);
 
-        /* Select PLL as SYSCLK source. */
-        rcc_set_sysclk_source(SW_SYSCLKSEL_PLLCLK);
-
+	/* Select PLL as SYSCLK source. */
+	rcc_set_sysclk_source(SW_SYSCLKSEL_PLLCLK);
 }
