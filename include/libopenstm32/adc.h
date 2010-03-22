@@ -339,6 +339,7 @@
 
 /* --- Function prototypes ------------------------------------------------- */
 
+
 /* TODO */
 void adc_enable_analog_watchdog_regular(u32 adc);
 void adc_disable_analog_watchdog_regular(u32 adc);
@@ -360,5 +361,29 @@ void adc_enable_awd_interrupt(u32 adc);
 void adc_disable_awd_interrupt(u32 adc);
 void adc_enable_eoc_interrupt(u32 adc);
 void adc_disable_eoc_interrupt(u32 adc);
+void adc_enable_temperature_sensor(u32 adc);
+void adc_disable_temperature_sensor(u32 adc);
+void adc_start_conversion_regular(u32 adc);
+void adc_start_conversion_injected(u32 adc);
+void adc_enable_external_trigger_regular(u32 adc, u8 trigger);
+void adc_disable_external_trigger_regular(u32 adc);
+void adc_enable_external_trigger_injected(u32 adc, u8 trigger);
+void adc_disable_external_trigger_injected(u32 adc);
+void adc_set_left_aligned(u32 adc);
+void adc_set_right_aligned(u32 adc);
+void adc_enable_dma(u32 adc);
+void adc_disable_dma(u32 adc);
+void adc_reset_calibration(u32 adc);
+void adc_calibration(u32 adc);
+void adc_set_continous_conversion_mode(u32 adc);
+void adc_set_single_conversion_mode(u32 adc);
+void adc_on(u32 adc);
+void adc_off(u32 adc);
+void adc_set_conversion_time(u32 adc, u8 channel, u8 time);
+void adc_set_conversion_time_on_all_channels(u32 adc, u8 time);
+void adc_set_watchdog_high_threshold(u32 adc, u16 threshold);
+void adc_set_watchdog_low_threshold(u32 adc, u16 threshold);
+void adc_set_regular_sequence(u32 adc, u8 length, u8 channel[]);
+void adc_set_injected_sequence(u32 adc, u8 length, u8 channel[]);
 
 #endif
