@@ -36,5 +36,6 @@
 #include <libopenstm32/rtc.h>
 #include <libopenstm32/i2c.h>
 #include <libopenstm32/dma.h>
+#include <libopenstm32/scb.h>
 
 #endif
