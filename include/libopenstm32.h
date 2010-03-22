@@ -35,5 +35,6 @@
 #include <libopenstm32/nvic.h>
 #include <libopenstm32/rtc.h>
 #include <libopenstm32/i2c.h>
+#include <libopenstm32/dma.h>
 
 #endif
