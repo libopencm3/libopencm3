@@ -114,8 +114,6 @@ void (*const vector_table[]) (void) = {
 	rtc_isr,
 	flash_isr,
 	rcc_isr,
-	flash_isr,
-	rcc_isr,
 	exti0_isr,
 	exti1_isr,
 	exti2_isr,
