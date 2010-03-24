@@ -47,6 +47,9 @@
 /* SHP: System Handler Priority Registers */
 /* Note: 12 8bit registers */
 #define SCB_SHPR(shpr_id)               MMIO8(SCB_BASE + 0x18 + shpr_id)
+#define SCB_SHPR1			MMIO8(SCB_BASE + 0x18 + 1)
+#define SCB_SHPR2			MMIO8(SCB_BASE + 0x18 + 2)
+#define SCB_SHPR3			MMIO8(SCB_BASE + 0x18 + 3)
 
 /* SHCSR: System Handler Control and State Register */
 #define SCB_SHCSR                       MMIO32(SCB_BASE + 0x24)
@@ -161,7 +164,119 @@
 /* NONBASETHRDENA */
 #define SCB_CCR_NONBASETHRDENA			(1 << 0)
 
+/* --- SCB_SHPR1 values ---------------------------------------------------- */
+/* Bits [31:24]: reserved - must be kept cleared */
+/* PRI_6[23:16]: Priority of system handler 6, usage fault */ 
+#define SCB_SHPR1_PRI_6_LSB			16
+/* PRI_5[15:8]: Priority of system handler 5, bus fault */ 
+#define SCB_SHPR1_PRI_5_LSB			8
+/* PRI_4[7:0]: Priority of system handler 4, memory management fault */ 
+#define SCB_SHPR1_PRI_4_LSB			0
+
+/* --- SCB_SHPR2 values ---------------------------------------------------- */
+/* PRI_11[31:24]: Priority of system handler 11, SVCall */ 
+#define SCB_SHPR2_PRI_11_LSB			24
+/* Bits [23:0]: reserved - must be kept cleared */
+
+/* --- SCB_SHPR3 values ---------------------------------------------------- */
+/* PRI_15[31:24]: Priority of system handler 15, SysTick exception */ 
+#define SCB_SHPR3_PRI_15_LSB			24
+/* PRI_14[23:16]: Priority of system handler 14, PendSV */ 
+#define SCB_SHPR3_PRI_14_LSB			16
+/* Bits [15:0]: reserved - must be kept cleared */
+
+/* --- SCB_SHCSR values ---------------------------------------------------- */
+/* Bits [31:19]: reserved - must be kept cleared */
+/* USGFAULTENA: Usage fault enable */
+#define SCB_SHCSR_USGFAULTENA			(1 << 18)
+/* BUSFAULTENA: Bus fault enable */
+#define SCB_SHCSR_BUSFAULTENA			(1 << 17)
+/* MEMFAULTENA: Memory management fault enable */
+#define SCB_SHCSR_MEMFAULTENA			(1 << 16)
+/* SVCALLPENDED: SVC call pending */
+#define SCB_SHCSR_SVCALLPENDED			(1 << 15)
+/* BUSFAULTPENDED: Bus fault exception pending */
+#define SCB_SHCSR_BUSFAULTPENDED		(1 << 14)
+/* MEMFAULTPENDED: Memory management fault exception pending */
+#define SCB_SHCSR_MEMFAULTPENDED		(1 << 13)
+/* USGFAULTPENDED: Usage fault exception pending */
+#define SCB_SHCSR_USGFAULTPENDED		(1 << 12)
+/* SYSTICKACT: SysTick exception active */
+#define SCB_SHCSR_SYSTICKACT			(1 << 11)
+/* PENDSVACT: PendSV exception active */
+#define SCB_SHCSR_PENDSVACT			(1 << 10)
+/* Bit 9: reserved - must be kept cleared */
+/* MONITORACT: Debug monitor active */
+#define SCB_SHCSR_MONITORACT			(1 << 8)
+/* SVCALLACT: SVC call active */
+#define SCB_SHCSR_SVCALLACT			(1 << 7)
+/* Bits [6:4]: reserved - must be kept cleared */
+/* USGFAULTACT: Usage fault exception active */
+#define SCB_SHCSR_USGFAULTACT			(1 << 3)
+/* Bit 2: reserved - must be kept cleared */
+/* BUSFAULTACT: Bus fault exception active */
+#define SCB_SHCSR_BUSFAULTACT			(1 << 1)
+/* MEMFAULTACT: Memory management fault exception active */
+#define SCB_SHCSR_MEMFAULTACT			(1 << 0)
+
+/* --- SCB_CFSR values ----------------------------------------------------- */
+/* Bits [31:26]: reserved - must be kept cleared */
+/* DIVBYZERO: Divide by zero usage fault */
+#define SCB_CFSR_DIVBYZERO			(1 << 25)
+/* UNALIGNED: Unaligned access usage fault */
+#define SCB_CFSR_UNALIGNED			(1 << 24)
+/* Bits [23:20]: reserved - must be kept cleared */
+/* NOCP: No coprocessor usage fault */
+#define SCB_CFSR_NOCP				(1 << 19)
+/* INVPC: Invalid PC load usage fault */
+#define SCB_CFSR_INVPC				(1 << 18)
+/* INVSTATE: Invalid state usage fault */
+#define SCB_CFSR_INVSTATE			(1 << 17)
+/* UNDEFINSTR: Undefined instruction usage fault */
+#define SCB_CFSR_UNDEFINSTR			(1 << 16)
+/* BFARVALID: Bus Fault Address Register (BFAR) valid flag */
+#define SCB_CFSR_BFARVALID			(1 << 15)
+/* Bits [14:13]: reserved - must be kept cleared */
+/* STKERR: Bus fault on stacking for exception entry */ 
+#define SCB_CFSR_STKERR				(1 << 12)
+/* UNSTKERR: Bus fault on unstacking for a return from exception */
+#define SCB_CFSR_UNSTKERR			(1 << 11)
+/* IMPRECISERR: Imprecise data bus error */
+#define SCB_CFSR_IMPRECISERR			(1 << 10)
+/* PRECISERR: Precise data bus error */
+#define SCB_CFSR_PRECISERR			(1 << 9)
+/* IBUSERR: Instruction bus error */
+#define SCB_CFSR_IBUSERR			(1 << 8)
+/* MMARVALID: Memory Management Fault Address Register (MMAR) valid flag */
+#define SCB_CFSR_MMARVALID			(1 << 7)
+/* Bits [6:5]: reserved - must be kept cleared */
+/* MSTKERR: Memory manager fault on stacking for exception entry */
+#define SCB_CFSR_MSTKERR			(1 << 4)
+/* MUNSTKERR: Memory manager fault on unstacking for a return from exception */
+#define SCB_CFSR_MUNSTKERR			(1 << 3)
+/* Bit 2: reserved - must be kept cleared */
+/* DACCVIOL: Data access violation flag */
+#define SCB_CFSR_DACCVIOL			(1 << 1)
+/* IACCVIOL: Instruction access violation flag */
+#define SCB_CFSR_IACCVIOL			(1 << 0)
+
+/* --- SCB_HFSR values ----------------------------------------------------- */
+/* DEBUG_VT: reserved for debug use */
+#define SCB_HFSR_DEBUG_VT			(1 << 31)
+/* FORCED: Forced hard fault */
+#define SCB_HFSR_FORCED				(1 << 30)
+/* Bits [29:2]: reserved - must be kept cleared */
+/* VECTTBL: Vector table hard fault */
+#define SCB_HFSR_VECTTBL			(1 << 1)
+/* Bit 0: reserved - must be kept cleared */
+
+/* --- SCB_MMFAR values ---------------------------------------------------- */
+/* MMFAR [31:0]: Memory management fault address */
+
+/* --- SCB_BFAR values ----------------------------------------------------- */
+/* BFAR [31:0]: Bus fault address */
 
 /* --- SCB functions ------------------------------------------------------- */
+/* TODO: */
 
 #endif
