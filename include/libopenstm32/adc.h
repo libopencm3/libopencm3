@@ -262,6 +262,17 @@
 #define ADC_SMPR2_SMP_71DOT5CYC		0x6
 #define ADC_SMPR2_SMP_239DOT5CYC	0x7
 
+/* --- ADC_SMPRx generic values -------------------------------------------- */
+
+#define ADC_SMPR_SMP_1DOT5CYC		0x0
+#define ADC_SMPR_SMP_7DOT5CYC		0x1
+#define ADC_SMPR_SMP_13DOT5CYC		0x2
+#define ADC_SMPR_SMP_28DOT5CYC		0x3
+#define ADC_SMPR_SMP_41DOT5CYC		0x4
+#define ADC_SMPR_SMP_55DOT5CYC		0x5
+#define ADC_SMPR_SMP_71DOT5CYC		0x6
+#define ADC_SMPR_SMP_239DOT5CYC		0x7
+
 /* --- ADC_JOFRx, ADC_HTR, ADC_LTR values ---------------------------------- */
 
 #define ADC_JOFFSET_LSB			0
