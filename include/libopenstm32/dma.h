@@ -687,6 +687,14 @@
 
 /* MA[31:0]: Memory address */
 
+/* --- Generic values ------------------------------------------------------ */
+#define DMA_CHANNEL1			1
+#define DMA_CHANNEL2			2
+#define DMA_CHANNEL3			3
+#define DMA_CHANNEL4			4
+#define DMA_CHANNEL5			5
+#define DMA_CHANNEL6			6
+#define DMA_CHANNEL7			7
 
 /* --- function prototypes ------------------------------------------------- */
 
@@ -707,5 +715,8 @@ void dma_enable_transfer_complete_interrupt(u32 dma, u8 channel);
 void dma_disable_transfer_complete_interrupt(u32 dma, u8 channel);
 void dma_enable_channel(u32 dma, u8 channel);
 void dma_disable_channel(u32 dma, u8 channel);
+void dma_set_peripheral_address(u32 dma, u8 channel, u32 * address);
+void dma_set_memory_address(u32 dma, u8 channel, u32 * address);
+void dma_set_number_of_data(u32 dma, u8 channel, u16 number);
 
 #endif

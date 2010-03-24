@@ -473,3 +473,73 @@ void dma_disable_channel(u32 dma, u8 channel)
 	}
 }
 
+void dma_set_peripheral_address(u32 dma, u8 channel, u32 * address)
+{
+	switch (channel)
+	{
+		case 1:		
+			DMA_CPAR1(dma) = (u32)address;
+		case 2:		
+			DMA_CPAR2(dma) = (u32)address;
+		case 3:		
+			DMA_CPAR3(dma) = (u32)address;
+		case 4:		
+			DMA_CPAR4(dma) = (u32)address;
+		case 5:		
+			DMA_CPAR5(dma) = (u32)address;
+		case 6:		
+			if (dma == DMA1)
+				DMA_CPAR6(dma) = (u32)address;
+		case 7:		
+			if (dma == DMA1)
+				DMA_CPAR7(dma) = (u32)address;
+	}
+}
+
+void dma_set_memory_address(u32 dma, u8 channel, u32 * address)
+{
+	switch (channel)
+	{
+		case 1:		
+			DMA_CMAR1(dma) = (u32)address;
+		case 2:		
+			DMA_CMAR2(dma) = (u32)address;
+		case 3:		
+			DMA_CMAR3(dma) = (u32)address;
+		case 4:		
+			DMA_CMAR4(dma) = (u32)address;
+		case 5:		
+			DMA_CMAR5(dma) = (u32)address;
+		case 6:		
+			if (dma == DMA1)
+				DMA_CMAR6(dma) = (u32)address;
+		case 7:		
+			if (dma == DMA1)
+				DMA_CMAR7(dma) = (u32)address;
+	}
+}
+
+void dma_set_number_of_data(u32 dma, u8 channel, u16 number)
+{
+	switch (channel)
+	{
+		case 1:		
+			DMA_CNDTR1(dma) = number;
+		case 2:		
+			DMA_CNDTR2(dma) = number;
+		case 3:		
+			DMA_CNDTR3(dma) = number;
+		case 4:		
+			DMA_CNDTR4(dma) = number;
+		case 5:		
+			DMA_CNDTR5(dma) = number;
+		case 6:		
+			if (dma == DMA1)
+				DMA_CNDTR6(dma) = number;
+		case 7:		
+			if (dma == DMA1)
+				DMA_CNDTR7(dma) = number;
+	}
+}
+
+
