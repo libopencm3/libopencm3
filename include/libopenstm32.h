@@ -37,5 +37,6 @@
 #include <libopenstm32/i2c.h>
 #include <libopenstm32/dma.h>
 #include <libopenstm32/scb.h>
+#include <libopenstm32/systick.h>
 
 #endif
