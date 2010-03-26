@@ -350,7 +350,7 @@ void adc_set_regular_sequence(u32 adc, u8 length, u8 channel[])
 		if ((i>12) & (i<=16))
 			reg32_1 |= (channel[i-12-1] << ((i-12-1) * 5));
 	}
-	reg32_1 |= (length << ADC_SQR1_L_LSB);
+	reg32_1 |= ((length -1) << ADC_SQR1_L_LSB);
 
 	ADC_SQR1(adc) = reg32_1;
 	ADC_SQR2(adc) = reg32_2;
@@ -369,7 +369,7 @@ void adc_set_injected_sequence(u32 adc, u8 length, u8 channel[])
 	for (i=1; i<=length; i++) {
 		reg32 |= (channel[i-1] << ((i-1) * 5));
 	}
-	reg32 |= (length << ADC_JSQR_JL_LSB);
+	reg32 |= ((length-1) << ADC_JSQR_JL_LSB);
 
 	ADC_JSQR(adc) = reg32;
 }
