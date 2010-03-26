@@ -235,61 +235,61 @@
 /* --- DMA_IFCR values ----------------------------------------------------- */
 
 /* CTEIF7: Channel 7 transfer error clear */
-#define DMA_ISR_CTEIF7			(1 << 27)
+#define DMA_IFCR_CTEIF7			(1 << 27)
 /* CHTIF7: Channel 7 half transfer clear */
-#define DMA_ISR_CHTIF7			(1 << 26)
+#define DMA_IFCR_CHTIF7			(1 << 26)
 /* CTCIF7: Channel 7 transfer complete clear */
-#define DMA_ISR_CTCIF7			(1 << 25)
+#define DMA_IFCR_CTCIF7			(1 << 25)
 /* CGIF7: Channel 7 global interrupt clear */
-#define DMA_ISR_CGIF7			(1 << 24)
+#define DMA_IFCR_CGIF7			(1 << 24)
 /* CTEIF6: Channel 6 transfer error clear */
-#define DMA_ISR_CTEIF6			(1 << 23)
+#define DMA_IFCR_CTEIF6			(1 << 23)
 /* CHTIF6: Channel 6 half transfer clear */
-#define DMA_ISR_CHTIF6			(1 << 22)
+#define DMA_IFCR_CHTIF6			(1 << 22)
 /* CTCIF6: Channel 6 transfer complete clear */
-#define DMA_ISR_CTCIF6			(1 << 21)
+#define DMA_IFCR_CTCIF6			(1 << 21)
 /* CGIF6: Channel 6 global interrupt clear */
-#define DMA_ISR_CGIF6			(1 << 20)
+#define DMA_IFCR_CGIF6			(1 << 20)
 /* CTEIF5: Channel 5 transfer error clear */
-#define DMA_ISR_CTEIF5			(1 << 19)
+#define DMA_IFCR_CTEIF5			(1 << 19)
 /* CHTIF5: Channel 5 half transfer clear */
-#define DMA_ISR_CHTIF5			(1 << 18)
+#define DMA_IFCR_CHTIF5			(1 << 18)
 /* CTCIF5: Channel 5 transfer complete clear */
-#define DMA_ISR_CTCIF5			(1 << 17)
+#define DMA_IFCR_CTCIF5			(1 << 17)
 /* CGIF5: Channel 5 global interrupt clear */
-#define DMA_ISR_CGIF5			(1 << 16)
+#define DMA_IFCR_CGIF5			(1 << 16)
 /* CTEIF4: Channel 4 transfer error clear */
-#define DMA_ISR_CTEIF4			(1 << 15)
+#define DMA_IFCR_CTEIF4			(1 << 15)
 /* CHTIF4: Channel 4 half transfer clear */
-#define DMA_ISR_CHTIF4			(1 << 14)
+#define DMA_IFCR_CHTIF4			(1 << 14)
 /* CTCIF4: Channel 4 transfer complete clear */
-#define DMA_ISR_CTCIF4			(1 << 13)
+#define DMA_IFCR_CTCIF4			(1 << 13)
 /* CGIF4: Channel 4 global interrupt clear */
-#define DMA_ISR_CGIF4			(1 << 12)
+#define DMA_IFCR_CGIF4			(1 << 12)
 /* CTEIF3: Channel 3 transfer error clear */
-#define DMA_ISR_CTEIF3			(1 << 11)
+#define DMA_IFCR_CTEIF3			(1 << 11)
 /* CHTIF3: Channel 3 half transfer clear */
-#define DMA_ISR_CHTIF3			(1 << 10)
+#define DMA_IFCR_CHTIF3			(1 << 10)
 /* CTCIF3: Channel 3 transfer complete clear */
-#define DMA_ISR_CTCIF3			(1 << 9)
+#define DMA_IFCR_CTCIF3			(1 << 9)
 /* CGIF3: Channel 3 global interrupt clear */
-#define DMA_ISR_CGIF3			(1 << 8)
+#define DMA_IFCR_CGIF3			(1 << 8)
 /* CTEIF2: Channel 2 transfer error clear */
-#define DMA_ISR_CTEIF2			(1 << 7)
+#define DMA_IFCR_CTEIF2			(1 << 7)
 /* CHTIF2: Channel 2 half transfer clear */
-#define DMA_ISR_CHTIF2			(1 << 6)
+#define DMA_IFCR_CHTIF2			(1 << 6)
 /* CTCIF2: Channel 2 transfer complete clear */
-#define DMA_ISR_CTCIF2			(1 << 5)
+#define DMA_IFCR_CTCIF2			(1 << 5)
 /* CGIF2: Channel 2 global interrupt clear */
-#define DMA_ISR_CGIF2			(1 << 4)
+#define DMA_IFCR_CGIF2			(1 << 4)
 /* CTEIF1: Channel 1 transfer error clear */
-#define DMA_ISR_CTEIF1			(1 << 3)
+#define DMA_IFCR_CTEIF1			(1 << 3)
 /* CHTIF1: Channel 1 half transfer clear */
-#define DMA_ISR_CHTIF1			(1 << 2)
+#define DMA_IFCR_CHTIF1			(1 << 2)
 /* CTCIF1: Channel 1 transfer complete clear */
-#define DMA_ISR_CTCIF1			(1 << 1)
+#define DMA_IFCR_CTCIF1			(1 << 1)
 /* CGIF1: Channel 1 global interrupt clear */
-#define DMA_ISR_CGIF1			(1 << 0)
+#define DMA_IFCR_CGIF1			(1 << 0)
 
 /* --- DMA_CCR1 values ----------------------------------------------------- */
 
