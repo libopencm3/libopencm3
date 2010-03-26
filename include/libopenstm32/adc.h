@@ -175,27 +175,45 @@
 #define ADC_CR2_EXTTRIG			(1 << 20)
 #define ADC_CR2_EXTSEL_LSB		17
 #define ADC_CR2_EXTSEL_MSK		(0x7 << ADC_EXTSEL_LSB)
-
 /* The following are only valid for ADC1 and ADC2. */
-#define ADC_CR2_EXTSEL_TIM1_TRGO	0x0
-#define ADC_CR2_EXTSEL_TIM1_CC4		0x1
-#define ADC_CR2_EXTSEL_TIM2_TRGO	0x2
-#define ADC_CR2_EXTSEL_TIM2_CC1		0x3
-#define ADC_CR2_EXTSEL_TIM3_CC4		0x4
-#define ADC_CR2_EXTSEL_TIM4_TRGO	0x5
-#define ADC_CR2_EXTSEL_EXTI15		0x6
-#define ADC_CR2_EXTSEL_JSWSTART		0x7
+#define ADC_CR2_EXTSEL_TIM1_CC1		0x0
+#define ADC_CR2_EXTSEL_TIM1_CC2		0x1
+#define ADC_CR2_EXTSEL_TIM1_CC3		0x2
+#define ADC_CR2_EXTSEL_TIM2_CC2		0x3
+#define ADC_CR2_EXTSEL_TIM3_TRGO	0x4
+#define ADC_CR2_EXTSEL_TIM4_CC4		0x5
+#define ADC_CR2_EXTSEL_EXTI11		0x6
+#define ADC_CR2_EXTSEL_SWSTART		0x7
 
-/* The following are the different meanings for ADC3 only. */
-#define ADC_CR2_EXTSEL_TIM4_CC3		0x2
-#define ADC_CR2_EXTSEL_TIM8_CC2		0x3
-#define ADC_CR2_EXTSEL_TIM8_CC4		0x4
-#define ADC_CR2_EXTSEL_TIM5_TRGO	0x5
-#define ADC_CR2_EXTSEL_TIM5_CC4		0x6
+/* The following are only valid for ADC3 */
+#define ADC_CR2_EXTSEL_TIM3_CC1		0x0
+#define ADC_CR2_EXTSEL_TIM2_CC3		0x1
+#define ADC_CR2_EXTSEL_TIM8_CC1		0x3
+#define ADC_CR2_EXTSEL_TIM8_TRGO	0x4
+#define ADC_CR2_EXTSEL_TIM5_CC1		0x5
+#define ADC_CR2_EXTSEL_TIM5_CC3		0x6
 
+/* Bit 16: reserved, must be kept cleared */
 #define ADC_CR2_JEXTTRIG		(1 << 15)
 #define ADC_CR2_JEXTSEL_LSB		12
 #define ADC_CR2_JEXTSEL_MSK		(0x7 << ADC_JEXTSEL_LSB)
+/* The following are only valid for ADC1 and ADC2. */
+#define ADC_CR2_JEXTSEL_TIM1_TRGO	0x0
+#define ADC_CR2_JEXTSEL_TIM1_CC4	0x1
+#define ADC_CR2_JEXTSEL_TIM2_TRGO	0x2
+#define ADC_CR2_JEXTSEL_TIM2_CC1	0x3
+#define ADC_CR2_JEXTSEL_TIM3_CC4	0x4
+#define ADC_CR2_JEXTSEL_TIM4_TRGO	0x5
+#define ADC_CR2_JEXTSEL_EXTI15		0x6
+#define ADC_CR2_JEXTSEL_JSWSTART	0x7
+
+/* The following are the different meanings for ADC3 only. */
+#define ADC_CR2_JEXTSEL_TIM4_CC3	0x2
+#define ADC_CR2_JEXTSEL_TIM8_CC2	0x3
+#define ADC_CR2_JEXTSEL_TIM8_CC4	0x4
+#define ADC_CR2_JEXTSEL_TIM5_TRGO	0x5
+#define ADC_CR2_JEXTSEL_TIM5_CC4	0x6
+
 #define ADC_CR2_ALIGN			(1 << 11)
 #define ADC_CR2_DMA			(1 << 8) /* ADC 1 & 3 only! */
 /* Bits [7:4] have to be kept 0. */
