@@ -1,7 +1,7 @@
 /*
  * This file is part of the libopenstm32 project.
  *
- * Copyright (C) 2009 Uwe Hermann <uwe@hermann-uwe.de>
+ * Copyright (C) 2010 Thomas Otto <tommi@viadmin.org>
  *
  * This program is free software: you can redistribute it and/or modify
  * it under the terms of the GNU General Public License as published by
@@ -17,26 +17,6 @@
  * along with this program.  If not, see <http://www.gnu.org/licenses/>.
  */
 
-#ifndef LIBOPENSTM32_LIBOPENSTM32_H
-#define LIBOPENSTM32_LIBOPENSTM32_H
-
-#include <libopenstm32/tools.h>
-#include <libopenstm32/common.h>
-#include <libopenstm32/memorymap.h>
-#include <libopenstm32/rcc.h>
-#include <libopenstm32/gpio.h>
-#include <libopenstm32/usart.h>
-#include <libopenstm32/adc.h>
-#include <libopenstm32/spi.h>
-#include <libopenstm32/timer.h>
-#include <libopenstm32/flash.h>
-#include <libopenstm32/usb.h>
-#include <libopenstm32/usb_desc.h>
-#include <libopenstm32/nvic.h>
-#include <libopenstm32/rtc.h>
-#include <libopenstm32/i2c.h>
-#include <libopenstm32/dma.h>
-#include <libopenstm32/scb.h>
 #include <libopenstm32/systick.h>
 
-#endif
+
