@@ -473,7 +473,7 @@ void dma_disable_channel(u32 dma, u8 channel)
 	}
 }
 
-void dma_set_peripheral_address(u32 dma, u8 channel, u32 * address)
+void dma_set_peripheral_address(u32 dma, u8 channel, u32 address)
 {
 	switch (channel)
 	{
@@ -496,7 +496,7 @@ void dma_set_peripheral_address(u32 dma, u8 channel, u32 * address)
 	}
 }
 
-void dma_set_memory_address(u32 dma, u8 channel, u32 * address)
+void dma_set_memory_address(u32 dma, u8 channel, u32 address)
 {
 	switch (channel)
 	{
