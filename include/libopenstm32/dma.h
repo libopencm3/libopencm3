@@ -688,6 +688,7 @@
 /* MA[31:0]: Memory address */
 
 /* --- Generic values ------------------------------------------------------ */
+
 #define DMA_CHANNEL1			1
 #define DMA_CHANNEL2			2
 #define DMA_CHANNEL3			3

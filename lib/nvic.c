@@ -25,7 +25,7 @@ void nvic_enable_irq(u8 irqn)
 		NVIC_ISER(0) |= (1 << irqn);
 	if ((irqn >= 32) & (irqn < 64))
 		NVIC_ISER(1) |= (1 << (irqn - 32));
-	if ((irqn >=64) & (irqn < 68))
+	if ((irqn >= 64) & (irqn < 68))
 		NVIC_ISER(2) |= (1 << (irqn - 64));
 }
 
@@ -35,7 +35,7 @@ void nvic_disable_irq(u8 irqn)
 		NVIC_ICER(0) |= (1 << irqn);
 	if ((irqn >= 32) & (irqn < 64))
 		NVIC_ICER(1) |= (1 << (irqn - 32));
-	if ((irqn >=64) & (irqn < 68))
+	if ((irqn >= 64) & (irqn < 68))
 		NVIC_ICER(2) |= (1 << (irqn - 64));
 }
 
@@ -45,7 +45,7 @@ u8 nvic_get_pending_irq(u8 irqn)
 		return (NVIC_ISPR(0) & (1 << irqn));
 	if ((irqn >= 32) & (irqn < 64))
 		return (NVIC_ISPR(1) & (1 << (irqn - 32)));
-	if ((irqn >=64) & (irqn < 68))
+	if ((irqn >= 64) & (irqn < 68))
 		return (NVIC_ISPR(2) & (1 << (irqn - 64)));
 	return 0;
 }
@@ -56,7 +56,7 @@ void nvic_set_pending_irq(u8 irqn)
 		NVIC_ISPR(0) |= (1 << irqn);
 	if ((irqn >= 32) & (irqn < 64))
 		NVIC_ISPR(1) |= (1 << (irqn - 32));
-	if ((irqn >=64) & (irqn < 68))
+	if ((irqn >= 64) & (irqn < 68))
 		NVIC_ISPR(2) |= (1 << (irqn - 64));
 }
 
@@ -66,7 +66,7 @@ void nvic_clear_pending_irq(u8 irqn)
 		NVIC_ICPR(0) |= (1 << irqn);
 	if ((irqn >= 32) & (irqn < 64))
 		NVIC_ICPR(1) |= (1 << (irqn - 32));
-	if ((irqn >=64) & (irqn < 68))
+	if ((irqn >= 64) & (irqn < 68))
 		NVIC_ICPR(2) |= (1 << (irqn - 64));
 }
 
@@ -76,7 +76,7 @@ u8 nvic_get_active_irq(u8 irqn)
 		return (NVIC_IABR(0) & (1 << irqn));
 	if ((irqn >= 32) & (irqn < 64))
 		return (NVIC_IABR(1) & (1 << (irqn - 32)));
-	if ((irqn >=64) & (irqn < 68))
+	if ((irqn >= 64) & (irqn < 68))
 		return (NVIC_IABR(2) & (1 << (irqn - 64)));
 	return 0;
 }
@@ -87,7 +87,7 @@ u8 nvic_get_irq_enabled(u8 irqn)
 		return (NVIC_ISER(0) & (1 << irqn));
 	if ((irqn >= 32) & (irqn < 64))
 		return (NVIC_ISER(1) & (1 << (irqn - 32)));
-	if ((irqn >=64) & (irqn < 68))
+	if ((irqn >= 64) & (irqn < 68))
 		return (NVIC_ISER(2) & (1 << (irqn - 64)));
 	return 0;
 }

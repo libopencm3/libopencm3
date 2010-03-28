@@ -75,6 +75,7 @@
 /* --- SCB values ---------------------------------------------------------- */
 
 /* --- SCB_CPUID values ---------------------------------------------------- */
+
 /* Implementer[31:24]: Implementer code */
 #define SCP_CPUID_IMPLEMENTER_LSB		24
 /* Variant[23:20]: Variant number */
@@ -87,6 +88,7 @@
 #define SCP_CPUID_REVISION_LSB			0
 
 /* --- SCB_ICSR values ----------------------------------------------------- */
+
 /* NMIPENDSET: NMI set-pending bit */
 #define SCB_ICSR_NMIPENDSET			(1 << 31)
 /* Bits [30:29]: reserved - must be kept cleared */
@@ -111,11 +113,13 @@
 #define SCB_ICSR_VECTACTIVE_LSB			0
 
 /* --- SCB_VTOR values ----------------------------------------------------- */
+
 /* Bits [31:30]: reserved - must be kept cleared */
 /* TBLOFF[29:9]: Vector table base offset field */
 #define SCB_VTOR_TBLOFF_LSB			9 /* inconsistent datasheet - LSB could be 11 */ 
 
 /* --- SCB_AIRCR values ---------------------------------------------------- */
+
 /* VECTKEYSTAT[31:16]/ VECTKEY[31:16] Register key */
 #define SCB_AIRCR_VECTKEYSTAT_LSB		16
 /* ENDIANESS Data endianness bit */
@@ -137,6 +141,7 @@
 #define SCB_AIRCR_VECTRESET			(1 << 0)
 
 /* --- SCB_SCR values ------------------------------------------------------ */
+
 /* Bits [31:5]: reserved - must be kept cleared */
 /* SEVEONPEND Send Event on Pending bit */
 #define SCB_SCR_SEVEONPEND			(1 << 4)
@@ -148,6 +153,7 @@
 /* Bit 0: reserved - must be kept cleared */
 
 /* --- SCB_CCR values ------------------------------------------------------ */
+
 /* Bits [31:10]: reserved - must be kept cleared */
 /* STKALIGN */
 #define SCB_CCR_STKALIGN			(1 << 9)
@@ -165,6 +171,7 @@
 #define SCB_CCR_NONBASETHRDENA			(1 << 0)
 
 /* --- SCB_SHPR1 values ---------------------------------------------------- */
+
 /* Bits [31:24]: reserved - must be kept cleared */
 /* PRI_6[23:16]: Priority of system handler 6, usage fault */ 
 #define SCB_SHPR1_PRI_6_LSB			16
@@ -174,11 +181,13 @@
 #define SCB_SHPR1_PRI_4_LSB			0
 
 /* --- SCB_SHPR2 values ---------------------------------------------------- */
+
 /* PRI_11[31:24]: Priority of system handler 11, SVCall */ 
 #define SCB_SHPR2_PRI_11_LSB			24
 /* Bits [23:0]: reserved - must be kept cleared */
 
 /* --- SCB_SHPR3 values ---------------------------------------------------- */
+
 /* PRI_15[31:24]: Priority of system handler 15, SysTick exception */ 
 #define SCB_SHPR3_PRI_15_LSB			24
 /* PRI_14[23:16]: Priority of system handler 14, PendSV */ 
@@ -186,6 +195,7 @@
 /* Bits [15:0]: reserved - must be kept cleared */
 
 /* --- SCB_SHCSR values ---------------------------------------------------- */
+
 /* Bits [31:19]: reserved - must be kept cleared */
 /* USGFAULTENA: Usage fault enable */
 #define SCB_SHCSR_USGFAULTENA			(1 << 18)
@@ -220,6 +230,7 @@
 #define SCB_SHCSR_MEMFAULTACT			(1 << 0)
 
 /* --- SCB_CFSR values ----------------------------------------------------- */
+
 /* Bits [31:26]: reserved - must be kept cleared */
 /* DIVBYZERO: Divide by zero usage fault */
 #define SCB_CFSR_DIVBYZERO			(1 << 25)
@@ -261,6 +272,7 @@
 #define SCB_CFSR_IACCVIOL			(1 << 0)
 
 /* --- SCB_HFSR values ----------------------------------------------------- */
+
 /* DEBUG_VT: reserved for debug use */
 #define SCB_HFSR_DEBUG_VT			(1 << 31)
 /* FORCED: Forced hard fault */
@@ -271,12 +283,15 @@
 /* Bit 0: reserved - must be kept cleared */
 
 /* --- SCB_MMFAR values ---------------------------------------------------- */
+
 /* MMFAR [31:0]: Memory management fault address */
 
 /* --- SCB_BFAR values ----------------------------------------------------- */
+
 /* BFAR [31:0]: Bus fault address */
 
 /* --- SCB functions ------------------------------------------------------- */
+
 /* TODO: */
 
 #endif

@@ -286,13 +286,13 @@ void adc_set_conversion_time(u32 adc, u8 channel, u8 time)
 	if (channel < 10) {
 		reg32 = ADC_SMPR2(adc);
 		reg32 &= ~(0b111 << (channel * 3));
-		reg32 |= (time << (channel *3));
+		reg32 |= (time << (channel * 3));
 		ADC_SMPR2(adc) = reg32;
 	} 
 	else {
 		reg32 = ADC_SMPR1(adc);
-		reg32 &= ~(0b111 << ((channel-10) *3));
-		reg32 |= (time << ((channel-10) *3));
+		reg32 &= ~(0b111 << ((channel-10) * 3));
+		reg32 |= (time << ((channel-10) * 3));
 		ADC_SMPR1(adc) = reg32;
 	}
 }
@@ -302,12 +302,12 @@ void adc_set_conversion_time_on_all_channels(u32 adc, u8 time)
 	u32 reg32 = 0;
 	u8 i;
 
-	for (i=0; i<=9; i++) {
+	for (i = 0; i <= 9; i++) {
 		reg32 |= (time << (i * 3));
 	}
 	ADC_SMPR2(adc) = reg32;
 
-	for (i=10; i<=17; i++) {
+	for (i = 10; i <= 17; i++) {
 		reg32 |= (time << ((i-10) * 3));
 	}
 	ADC_SMPR1(adc) = reg32;
@@ -343,11 +343,11 @@ void adc_set_regular_sequence(u32 adc, u8 length, u8 channel[])
 		return;
 
 	for (i=1; i<=length; i++) {
-		if (i<=6) 
+		if (i <= 6) 
 			reg32_3 |= (channel[i-1] << ((i-1) * 5));
-		if ((i>6) & (i<=12))
+		if ((i > 6) & (i <= 12))
 			reg32_2 |= (channel[i-6-1] << ((i-6-1) * 5));
-		if ((i>12) & (i<=16))
+		if ((i > 12) & (i <= 16))
 			reg32_1 |= (channel[i-12-1] << ((i-12-1) * 5));
 	}
 	reg32_1 |= ((length -1) << ADC_SQR1_L_LSB);
@@ -366,7 +366,7 @@ void adc_set_injected_sequence(u32 adc, u8 length, u8 channel[])
 	if (length > 4)
 		return;
 
-	for (i=1; i<=length; i++) {
+	for (i = 1; i <= length; i++) {
 		reg32 |= (channel[i-1] << ((i-1) * 5));
 	}
 	reg32 |= ((length-1) << ADC_JSQR_JL_LSB);
