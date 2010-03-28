@@ -21,7 +21,7 @@
 
 void usart_set_baudrate(u32 usart, u32 baud)
 {
-	u32 clock = 36000000; /* FIXME: Don't hardcode this clock! */
+	u32 clock = 72000000; /* FIXME: Don't hardcode this clock! */
 
 	/* TODO: Document and explain calculation. */
 	USART_BRR(usart) = (u16)((clock << 4) / (baud * 16));
