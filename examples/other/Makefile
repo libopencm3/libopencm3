@@ -24,7 +24,7 @@ Q := @
 MAKEFLAGS += --no-print-directory
 endif
 
-all: i2c_stts75_sensor adc_temperature_sensor
+all: i2c_stts75_sensor adc_temperature_sensor dma_mem2mem
 
 i2c_stts75_sensor:
 	@printf "  BUILD   examples/other/i2c_stts75_sensor\n"
@@ -34,11 +34,17 @@ adc_temperature_sensor:
 	@printf "  BUILD   examples/other/adc_temperature_sensor\n"
 	$(Q)$(MAKE) -C adc_temperature_sensor
 
+dma_mem2mem:
+	@printf "  BUILD   examples/other/dma_mem2mem\n"
+	$(Q)$(MAKE) -C dma_mem2mem
+
 clean:
 	@printf "  CLEAN   examples/other/i2c_stts75_sensor\n"
 	$(Q)$(MAKE) -C i2c_stts75_sensor clean
 	@printf "  CLEAN   examples/other/adc_temperature_sensor\n"
 	$(Q)$(MAKE) -C adc_temperature_sensor clean
+	@printf "  CLEAN   examples/other/dma_mem2mem\n"
+	$(Q)$(MAKE) -C dma_mem2mem clean
 
-.PHONY: i2c_stts75_sensor adc_temperature_sensor clean
+.PHONY: i2c_stts75_sensor adc_temperature_sensor dma_mem2mem clean
 
