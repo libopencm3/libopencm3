@@ -83,3 +83,198 @@ u16 spi_read(u32 spi)
 	/* Read the data (8 or 16 bits, depending on DFF bit) from DR. */
 	return SPI_DR(spi);
 }
+
+void spi_set_bidirectional_mode(u32 spi)
+{
+	SPI_CR1(spi) |= SPI_CR1_BIDIMODE;
+}
+
+void spi_set_unidirectional_mode(u32 spi)
+{
+	SPI_CR1(spi) &= ~SPI_CR1_BIDIMODE;
+}
+
+void spi_set_bidirectional_receive_only_mode(u32 spi)
+{
+	SPI_CR1(spi) |= SPI_CR1_BIDIMODE;
+	SPI_CR1(spi) &= ~SPI_CR1_BIDIOE;
+}
+
+void spi_set_bidirectional_transmit_only_mode(u32 spi)
+{
+	SPI_CR1(spi) |= SPI_CR1_BIDIMODE;
+	SPI_CR1(spi) |= SPI_CR1_BIDIOE;
+}
+
+void spi_enable_crc(u32 spi)
+{
+	SPI_CR1(spi) |= SPI_CR1_CRCEN;
+}
+
+void spi_disable_crc(u32 spi)
+{
+	SPI_CR1(spi) &= ~SPI_CR1_CRCEN;
+}
+
+void spi_set_next_tx_from_buffer(u32 spi)
+{
+	SPI_CR1(spi) &= ~SPI_CR1_CRCNEXT;
+}
+
+void spi_set_next_tx_from_crc(u32 spi)
+{
+	SPI_CR1(spi) |= SPI_CR1_CRCNEXT;
+}
+
+void spi_set_dff_8bit(u32 spi)
+{
+	SPI_CR1(spi) &= ~SPI_CR1_DFF;
+}
+
+void spi_set_dff_16bit(u32 spi)
+{
+	SPI_CR1(spi) |= SPI_CR1_DFF;
+}
+
+void spi_set_full_duplex_mode(u32 spi)
+{
+	SPI_CR1(spi) &= ~SPI_CR1_RXONLY;
+}
+
+void spi_set_receive_only_mode(u32 spi)
+{
+	SPI_CR1(spi) |= SPI_CR1_RXONLY;
+}
+
+void spi_disable_software_slave_management(u32 spi)
+{
+	SPI_CR1(spi) &= ~SPI_CR1_SSM;
+}
+
+void spi_enable_software_slave_management(u32 spi)
+{
+	SPI_CR1(spi) |= SPI_CR1_SSM;
+}
+
+void spi_set_nss_high(u32 spi)
+{
+	SPI_CR1(spi) |= SPI_CR1_SSI;
+}
+
+void spi_set_nss_low(u32 spi)
+{
+	SPI_CR1(spi) &= ~SPI_CR1_SSI;
+}
+
+void spi_send_lsb_first(u32 spi)
+{
+	SPI_CR1(spi) |= SPI_CR1_LSBFIRST;
+}
+
+void spi_send_msb_first(u32 spi)
+{
+	SPI_CR1(spi) &= ~SPI_CR1_LSBFIRST;
+}
+
+void spi_set_baudrate_prescaler(u32 spi, u8 baudrate)
+{
+	u32 reg32;
+
+	if (baudrate > 7) 
+		return;
+
+	reg32 = ( SPI_CR1(spi) & 0xffc7 ); /* clear bits [5:3] */
+	reg32 |= (baudrate << 3);
+	SPI_CR1(spi) = reg32;
+}
+
+void spi_set_master_mode(u32 spi)
+{
+	SPI_CR1(spi) |= SPI_CR1_MSTR;
+}
+
+void spi_set_slave_mode(u32 spi)
+{
+	SPI_CR1(spi) &= ~SPI_CR1_MSTR;
+}
+
+void spi_set_clock_polarity_1(u32 spi)
+{
+	SPI_CR1(spi) |= SPI_CR1_CPOL;
+}
+
+void spi_set_clock_polarity_0(u32 spi)
+{
+	SPI_CR1(spi) &= ~SPI_CR1_CPOL;
+}
+
+void spi_set_clock_phase_1(u32 spi)
+{
+	SPI_CR1(spi) |= SPI_CR1_CPHA;
+}
+
+void spi_set_clock_phase_0(u32 spi)
+{
+	SPI_CR1(spi) &= ~SPI_CR1_CPHA;
+}
+
+void spi_enable_tx_buffer_empty_interrupt(u32 spi)
+{
+	SPI_CR2(spi) |= SPI_CR2_TXEIE;
+}
+
+void spi_disable_tx_buffer_empty_interrupt(u32 spi)
+{
+	SPI_CR2(spi) &= ~SPI_CR2_TXEIE;
+}
+
+void spi_enable_rx_buffer_not_empty_interrupt(u32 spi)
+{
+	SPI_CR2(spi) |= SPI_CR2_RXNEIE;
+}
+
+void spi_disable_rx_buffer_not_empty_interrupt(u32 spi)
+{
+	SPI_CR2(spi) &= ~SPI_CR2_RXNEIE;
+}
+
+void spi_enable_error_interrupt(u32 spi)
+{
+	SPI_CR2(spi) |= SPI_CR2_ERRIE;
+}
+
+void spi_disable_error_interrupt(u32 spi)
+{
+	SPI_CR2(spi) &= ~SPI_CR2_ERRIE;
+}
+
+void spi_enable_ss_output(u32 spi)
+{
+	SPI_CR2(spi) |= SPI_CR2_SSOE;
+}
+
+void spi_disable_ss_output(u32 spi)
+{
+	SPI_CR2(spi) &= ~SPI_CR2_SSOE;
+}
+
+void spi_enable_tx_dma(u32 spi)
+{
+	SPI_CR2(spi) |= SPI_CR2_TXDMAEN;
+}
+
+void spi_disable_tx_dma(u32 spi)
+{
+	SPI_CR2(spi) &= ~SPI_CR2_TXDMAEN;
+}
+
+void spi_enable_rx_dma(u32 spi)
+{
+	SPI_CR2(spi) |= SPI_CR2_RXDMAEN;
+}
+
+void spi_disable_rx_dma(u32 spi)
+{
+	SPI_CR2(spi) &= ~SPI_CR2_RXDMAEN;
+}
+

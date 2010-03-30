@@ -97,6 +97,7 @@
 /* BIDIMODE: Bidirectional data mode enable */
 #define SPI_CR1_BIDIMODE_2LINE_UNIDIR	(0 << 15)
 #define SPI_CR1_BIDIMODE_1LINE_BIDIR	(1 << 15)
+#define SPI_CR1_BIDIMODE		(1 << 15)
 
 /* BIDIOE: Output enable in bidirectional mode */
 #define SPI_CR1_BIDIOE			(1 << 14)
@@ -110,6 +111,7 @@
 /* DFF: Data frame format */
 #define SPI_CR1_DFF_8BIT		(0 << 11)
 #define SPI_CR1_DFF_16BIT		(1 << 11)
+#define SPI_CR1_DFF			(1 << 11)
 
 /* RXONLY: Receive only */
 #define SPI_CR1_RXONLY			(1 << 10)
@@ -136,6 +138,14 @@
 #define SPI_CR1_BAUDRATE_FPCLK_DIV_64	(0x05 << 3)
 #define SPI_CR1_BAUDRATE_FPCLK_DIV_128	(0x06 << 3)
 #define SPI_CR1_BAUDRATE_FPCLK_DIV_256	(0x07 << 3)
+#define SPI_CR1_BR_FPCLK_DIV_2		0x0 
+#define SPI_CR1_BR_FPCLK_DIV_4		0x1
+#define SPI_CR1_BR_FPCLK_DIV_8		0x2
+#define SPI_CR1_BR_FPCLK_DIV_16		0x3
+#define SPI_CR1_BR_FPCLK_DIV_32		0x4
+#define SPI_CR1_BR_FPCLK_DIV_64		0x5
+#define SPI_CR1_BR_FPCLK_DIV_128	0x6
+#define SPI_CR1_BR_FPCLK_DIV_256	0x7
 
 /* MSTR: Master selection */
 #define SPI_CR1_MSTR			(1 << 2)
@@ -143,10 +153,36 @@
 /* CPOL: Clock polarity */
 #define SPI_CR1_CPOL_CLK_TO_0_WHEN_IDLE	(0 << 1)
 #define SPI_CR1_CPOL_CLK_TO_1_WHEN_IDLE	(1 << 1)
+#define SPI_CR1_CPOL			(1 << 1)
 
 /* CPHA: Clock phase */
 #define SPI_CR1_CPHA_CLK_TRANSITION_1	(0 << 0)
 #define SPI_CR1_CPHA_CLK_TRANSITION_2	(1 << 0)
+#define SPI_CR1_CPHA			(1 << 0)
+
+/* --- SPI_CR1 values ------------------------------------------------------ */
+
+/* Bits [15:8]: Reserved. Forced to 0 by hardware. */
+
+/* TXEIE: Tx buffer empty interrupt enable */
+#define SPI_CR2_TXEIE			(1 << 7)
+
+/* RXNEIE: RX buffer not empty interrupt enable */
+#define SPI_CR2_RXNEIE			(1 << 6)
+
+/* ERRIE: Error interrupt enable */
+#define SPI_CR2_ERRIE			(1 << 5)
+
+/* Bits [4:3]: Reserved. Forced to 0 by hardware. */
+
+/* SSOE: SS output enable */
+#define SPI_CR2_SSOE			(1 << 2)
+
+/* TXDMAEN: Tx buffer DMA enable */
+#define SPI_CR2_TXDMAEN			(1 << 1)
+
+/* RXDMAEN: Rx buffer DMA enable */
+#define SPI_CR2_RXDMAEN			(1 << 0)
 
 /* --- Function prototypes ------------------------------------------------- */
 
@@ -155,7 +191,42 @@ void spi_enable(u32 spi);
 void spi_disable(u32 spi);
 void spi_write(u32 spi, u16 data);
 u16 spi_read(u32 spi);
-
-/* TODO */
+void spi_set_bidirectional_mode(u32 spi);
+void spi_set_unidirectional_mode(u32 spi);
+void spi_set_bidirectional_receive_only_mode(u32 spi);
+void spi_set_bidirectional_transmit_only_mode(u32 spi);
+void spi_enable_crc(u32 spi);
+void spi_disable_crc(u32 spi);
+void spi_set_next_tx_from_buffer(u32 spi);
+void spi_set_next_tx_from_crc(u32 spi);
+void spi_set_dff_8bit(u32 spi);
+void spi_set_dff_16bit(u32 spi);
+void spi_set_full_duplex_mode(u32 spi);
+void spi_set_receive_only_mode(u32 spi);
+void spi_disable_software_slave_management(u32 spi);
+void spi_enable_software_slave_management(u32 spi);
+void spi_set_nss_high(u32 spi);
+void spi_set_nss_low(u32 spi);
+void spi_send_lsb_first(u32 spi);
+void spi_send_msb_first(u32 spi);
+void spi_set_baudrate_prescaler(u32 spi, u8 baudrate);
+void spi_set_master_mode(u32 spi);
+void spi_set_slave_mode(u32 spi);
+void spi_set_clock_polarity_1(u32 spi);
+void spi_set_clock_polarity_0(u32 spi);
+void spi_set_clock_phase_1(u32 spi);
+void spi_set_clock_phase_0(u32 spi);
+void spi_enable_tx_buffer_empty_interrupt(u32 spi);
+void spi_disable_tx_buffer_empty_interrupt(u32 spi);
+void spi_enable_rx_buffer_not_empty_interrupt(u32 spi);
+void spi_disable_rx_buffer_not_empty_interrupt(u32 spi);
+void spi_enable_error_interrupt(u32 spi);
+void spi_disable_error_interrupt(u32 spi);
+void spi_enable_ss_output(u32 spi);
+void spi_disable_ss_output(u32 spi);
+void spi_enable_tx_dma(u32 spi);
+void spi_disable_tx_dma(u32 spi);
+void spi_enable_rx_dma(u32 spi);
+void spi_disable_rx_dma(u32 spi);
 
 #endif
