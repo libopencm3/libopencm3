@@ -198,7 +198,7 @@
 #define SPI_SR_MODF			(1 << 5)
 
 /* CRCERR: CRC error flag */
-#define SPI_SR_MODF			(1 << 4)
+#define SPI_SR_CRCERR			(1 << 4)
 
 /* UDR: Underrun flag */
 #define SPI_SR_UDR			(1 << 3)
