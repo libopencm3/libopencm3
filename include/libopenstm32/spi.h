@@ -184,6 +184,104 @@
 /* RXDMAEN: Rx buffer DMA enable */
 #define SPI_CR2_RXDMAEN			(1 << 0)
 
+/* --- SPI_SR values ------------------------------------------------------- */
+
+/* Bits [15:8]: Reserved. Forced to 0 by hardware. */
+
+/* BSY: Busy flag */
+#define SPI_SR_BSY			(1 << 7)
+
+/* OVR: Overrun flag */
+#define SPI_SR_OVR			(1 << 6)
+
+/* MODF: Mode fault */
+#define SPI_SR_MODF			(1 << 5)
+
+/* CRCERR: CRC error flag */
+#define SPI_SR_MODF			(1 << 4)
+
+/* UDR: Underrun flag */
+#define SPI_SR_UDR			(1 << 3)
+
+/* CHSIDE: Channel side */
+#define SPI_SR_CHSIDE			(1 << 2)
+
+/* TXE: Transmit buffer empty */
+#define SPI_SR_TXE			(1 << 1)
+
+/* RXNE: Receive buffer not empty */
+#define SPI_SR_RXNE			(1 << 0)
+
+/* --- SPI_SR values ------------------------------------------------------- */
+
+/* SPI_DR[15:0]: Data Register. */
+
+/* --- SPI_CRCPR values ---------------------------------------------------- */
+
+/* SPI_CRCPR [15:0]: CRC Polynomial Register. */
+
+/* --- SPI_RXCRCR values --------------------------------------------------- */
+
+/* SPI_RXCRCR [15:0]: RX CRC Register. */
+
+/* --- SPI_TXCRCR values --------------------------------------------------- */
+
+/* SPI_TXCRCR [15:0]: TX CRC Register. */
+
+/* --- SPI_I2SCFGR values -------------------------------------------------- */
+
+/* Bits [15:12]: Reserved. Forced to 0 by hardware. */
+
+/* I2SMOD: I2S mode selection */
+#define SPI_I2SCFGR_I2SMOD			(1 << 11)
+
+/* I2SE: I2S Enable */
+#define SPI_I2SCFGR_I2SE			(1 << 10)
+
+/* I2SCFG[9:8]: I2S configuration mode */
+#define SPI_I2SCFGR_I2SCFG_LSB			8
+#define SPI_I2SCFGR_I2SCFG_SLAVE_TRANSMIT	0x0
+#define SPI_I2SCFGR_I2SCFG_SLAVE_RECEIVE	0x1
+#define SPI_I2SCFGR_I2SCFG_MASTER_TRANSMIT	0x2
+#define SPI_I2SCFGR_I2SCFG_MASTER_RECEIVE	0x3
+
+/* PCMSYNC: PCM frame synchronization */
+#define SPI_I2SCFGR_PCMSYNC			(1 << 7)
+
+/* Bit 6: Reserved. Forced to 0 by hardware. */
+
+/* I2SSTD[5:4]: I2S standard selection */
+#define SPI_I2SCFGR_I2SSTD_LSB			4
+#define SPI_I2SCFGR_I2SSTD_I2S_PHILLIPS		0x0
+#define SPI_I2SCFGR_I2SSTD_MSB_JUSTIFIED	0x1
+#define SPI_I2SCFGR_I2SSTD_LSB_JUSTIFIED	0x2
+#define SPI_I2SCFGR_I2SSTD_PCM			0x3
+
+/* CKPOL: Steady state clock polarity */
+#define SPI_I2SCFGR_CKPOL			(1 << 3)
+
+/* DATLEN[2:1]: Data length to be transferred */
+#define SPI_I2SCFGR_DATLEN_LSB			1
+#define SPI_I2SCFGR_DATLEN_16BIT		0x0
+#define SPI_I2SCFGR_DATLEN_24BIT		0x1
+#define SPI_I2SCFGR_DATLEN_32BIT		0x2
+
+/* CHLEN: Channel length */
+#define SPI_I2SCFGR_CHLEN			(1 << 0)
+
+/* --- SPI_I2SPR values ---------------------------------------------------- */
+
+/* Bits [15:10]: Reserved. Forced to 0 by hardware. */
+
+/* MCKOE: Master clock output enable */
+#define SPI_I2SPR_MCKOE				(1 << 9)
+
+/* ODD: Odd factor for the prescaler */
+#define SPI_I2SPR_ODD				(1 << 8)
+
+/* I2SDIV[7:0]: I2S Linear prescaler */
+/* 0 and 1 are forbidden values */
+
 /* --- Function prototypes ------------------------------------------------- */
 
 int spi_init_master(u32 spi, u32 br, u32 cpol, u32 cpha, u32 dff, u32 lsbfirst);
