@@ -78,6 +78,17 @@ void spi_write(u32 spi, u16 data)
 	SPI_DR(spi) = data;
 }
 
+void spi_send(u32 spi, u16 data)
+{
+	/* Write data (8 or 16 bits, depending on DFF) into DR. */
+	SPI_DR(spi) = data;
+	
+	/* wait for transfer finished */
+        while (SPI_SR(spi) & SPI_SR_BSY )
+        {
+        }
+}
+
 u16 spi_read(u32 spi)
 {
 	/* Read the data (8 or 16 bits, depending on DFF bit) from DR. */
