@@ -19,4 +19,48 @@
 
 #include <libopenstm32/systick.h>
 
+void systick_set_reload(u32 value)
+{
+	STK_LOAD = (value &  0x00FFFFFF);
+}
+
+u32 systick_get_value(void)
+{
+	return STK_VAL;
+}
+
+void systick_set_clocksource(u8 clocksource)
+{
+	if (clocksource < 2)
+		STK_CTRL |= (clocksource << STK_CTRL_CLKSOURCE_LSB);
+}
+
+void systick_interrupt_enable(void)
+{
+	STK_CTRL |= STK_CTRL_TICKINT;
+}
+
+void systick_interrupt_disable(void)
+{
+	STK_CTRL &= ~STK_CTRL_TICKINT;
+}
+
+void systick_counter_enable(void)
+{
+	STK_CTRL |= STK_CTRL_ENABLE;
+}
+
+void systick_counter_disable(void)
+{
+	STK_CTRL &= ~STK_CTRL_ENABLE;
+}
+
+u8 systick_get_countflag(void)
+{
+	if (STK_CTRL & STK_CTRL_COUNTFLAG)
+		return 1;
+	else
+		return 0;	
+}
+
 

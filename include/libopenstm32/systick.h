@@ -26,16 +26,16 @@
 /* --- SYSTICK registers --------------------------------------------------- */
 
 /* Control and status register (STK_CTRL) */
-#define STK_CTRL			MMIO32(SYSTICK_BASE + 0x00)
+#define STK_CTRL			MMIO32(SYS_TICK_BASE + 0x00)
 
 /* reload value register (STK_LOAD) */
-#define STK_LOAD			MMIO32(SYSTICK_BASE + 0x04)
+#define STK_LOAD			MMIO32(SYS_TICK_BASE + 0x04)
 
 /* current value register (STK_VAL) */
-#define STK_VAL				MMIO32(SYSTICK_BASE + 0x08)
+#define STK_VAL				MMIO32(SYS_TICK_BASE + 0x08)
 
 /* calibration value register (STK_CALIB) */
-#define STK_CALIB			MMIO32(SYSTICK_BASE + 0x0C)
+#define STK_CALIB			MMIO32(SYS_TICK_BASE + 0x0C)
 
 /* --- STK_CTRL values ----------------------------------------------------- */
 /* Bits [31:17] Reserved, must be kept cleared. */
@@ -44,6 +44,9 @@
 /* Bits [15:3] Reserved, must be kept cleared. */
 /* CLKSOURCE: Clock source selection */
 #define STK_CTRL_CLKSOURCE		(1 << 2)
+#define STK_CTRL_CLKSOURCE_LSB		2
+#define STK_CTRL_CLKSOURCE_AHB_DIV8	0
+#define STK_CTRL_CLKSOURCE_AHB		1
 /* TICKINT: SysTick exception request enable */
 #define STK_CTRL_TICKINT		(1 << 1)
 /* ENABLE: Counter enable */
@@ -66,5 +69,14 @@
 /* TENMS[23:0]: Calibration value */
 
 /* --- Function Prototypes ------------------------------------------------- */
+
+void systick_set_reload(u32 value);
+u32 systick_get_value(void);
+void systick_set_clocksource(u8 clocksource);
+void systick_interrupt_enable(void);
+void systick_interrupt_disable(void);
+void systick_counter_enable(void);
+void systick_counter_disable(void);
+u8 systick_get_countflag(void);
 
 #endif
