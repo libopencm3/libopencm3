@@ -79,7 +79,7 @@ void gpio_setup(void)
 
 void nvic_setup()
 {
-	/* without this the timer intterrupt routing will newer be called */
+	/* without this the timer interrupt routine will never be called */
 	nvic_enable_irq(NVIC_TIM2_IRQ);
 	nvic_set_priority(NVIC_TIM2_IRQ, 1);	
 }
