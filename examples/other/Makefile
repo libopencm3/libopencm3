@@ -42,6 +42,10 @@ timer_interrupt:
 	@printf "  BUILD   examples/other/timer_interrupt\n"
 	$(Q)$(MAKE) -C timer_interrupt
 
+systick:
+	@printf "  BUILD   examples/other/systick\n"
+	$(Q)$(MAKE) -C systick
+
 clean:
 	@printf "  CLEAN   examples/other/i2c_stts75_sensor\n"
 	$(Q)$(MAKE) -C i2c_stts75_sensor clean
@@ -51,6 +55,8 @@ clean:
 	$(Q)$(MAKE) -C dma_mem2mem clean
 	@printf "  CLEAN   examples/other/timer_interrupt\n"
 	$(Q)$(MAKE) -C timer_interrupt clean
+	@printf "  CLEAN   examples/other/systick\n"
+	$(Q)$(MAKE) -C systick clean
 
-.PHONY: i2c_stts75_sensor adc_temperature_sensor dma_mem2mem timer_interrupt clean
+.PHONY: i2c_stts75_sensor adc_temperature_sensor dma_mem2mem timer_interrupt systick clean
 
