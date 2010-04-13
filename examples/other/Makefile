@@ -24,7 +24,7 @@ Q := @
 MAKEFLAGS += --no-print-directory
 endif
 
-all: i2c_stts75_sensor adc_temperature_sensor dma_mem2mem timer_interrupt
+all: i2c_stts75_sensor adc_temperature_sensor dma_mem2mem timer_interrupt systick
 
 i2c_stts75_sensor:
 	@printf "  BUILD   examples/other/i2c_stts75_sensor\n"
