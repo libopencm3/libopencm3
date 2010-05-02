@@ -346,9 +346,9 @@ void adc_set_regular_sequence(u32 adc, u8 length, u8 channel[])
 		if (i <= 6) 
 			reg32_3 |= (channel[i-1] << ((i-1) * 5));
 		if ((i > 6) & (i <= 12))
-			reg32_2 |= (channel[i-6-1] << ((i-6-1) * 5));
+			reg32_2 |= (channel[i-1] << ((i-6-1) * 5));
 		if ((i > 12) & (i <= 16))
-			reg32_1 |= (channel[i-12-1] << ((i-12-1) * 5));
+			reg32_1 |= (channel[i-1] << ((i-12-1) * 5));
 	}
 	reg32_1 |= ((length -1) << ADC_SQR1_L_LSB);
 
