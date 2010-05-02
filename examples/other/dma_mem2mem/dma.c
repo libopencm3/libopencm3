@@ -23,47 +23,6 @@
 #include <libopenstm32/usart.h>
 #include <libopenstm32/dma.h>
 
-/* Set STM32 to 72 MHz. HSE 16MHz */
-void clock_setup(void)
-{
-        /* enable Internal High Speed Oscillator */
-        rcc_osc_on(HSI);
-        rcc_wait_for_osc_ready(HSI);
-
-        /* Select HSI as SYSCLK source. */
-        rcc_set_sysclk_source(SW_SYSCLKSEL_HSICLK);
-
-        /* enable External High Speed Oscillator 16MHz */
-        rcc_osc_on(HSE);
-        rcc_wait_for_osc_ready(HSE);
-        rcc_set_sysclk_source(SW_SYSCLKSEL_HSECLK);
-
-        /* set prescalers for ADC, ABP1, ABP2...  make this before touching the PLL */
-        rcc_set_hpre(HPRE_SYSCLK_NODIV); //prescales the AHB clock from the SYSCLK
-        rcc_set_adcpre(ADCPRE_PLCK2_DIV6); //prescales the ADC from the APB2 clock; max 14MHz
-        rcc_set_ppre1(PPRE1_HCLK_DIV2); //prescales the APB1 from the AHB clock; max 36MHz
-        rcc_set_ppre2(PPRE2_HCLK_NODIV); //prescales the APB2 from the AHB clock; max 72MHz
-
-        /* sysclk should run with 72MHz -> 2 Waitstates ; choose 0WS from 0-24MHz, 1WS from 24-48MHz, 2WS from 48-72MHz */
-        flash_set_ws(FLASH_LATENCY_2WS);
-
-        /* Set the PLL multiplication factor to 9. -> 16MHz (external) * 9 (multiplier) / 2 (PLLXTPRE_HSE_CLK_DIV2) = 72MHz */
-        rcc_set_pll_multiplication_factor(PLLMUL_PLL_CLK_MUL9);
-
-        /* Select HSI as PLL source. */
-        rcc_set_pll_source(PLLSRC_HSE_CLK);
-
-        /* divide external frequency by 2 before entering pll (only valid/needed for HSE) */
-        rcc_set_pllxtpre(PLLXTPRE_HSE_CLK_DIV2);
-
-        /* Enable PLL oscillator and wait for it to stabilize. */
-        rcc_osc_on(PLL);
-        rcc_wait_for_osc_ready(PLL);
-
-        /* Select PLL as SYSCLK source. */
-        rcc_set_sysclk_source(SW_SYSCLKSEL_PLLCLK);
-}
-
 void usart_setup(void)
 {
 	/* Enable clocks for GPIO port A (for GPIO_USART1_TX) and USART1. */
@@ -113,7 +72,7 @@ int main(void)
 	char s1[20] = "Hello STM MEM2MEM\r\n";
 	char s2[20];
 	
-	clock_setup();
+        rcc_clock_setup_in_hse_16mhz_out_72mhz();
 	gpio_setup();
 	usart_setup();
 

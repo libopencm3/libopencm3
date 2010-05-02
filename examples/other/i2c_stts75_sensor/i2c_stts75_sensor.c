@@ -24,12 +24,6 @@
 #include <libopenstm32/i2c.h>
 #include "stts75.h"
 
-/* Set STM32 to 72 MHz. */
-void clock_setup(void)
-{
-	rcc_clock_setup_in_hse_8mhz_out_72mhz();
-}
-
 void usart_setup(void)
 {
 	/* Enable clocks for GPIO port A (for GPIO_USART1_TX) and USART1. */
@@ -113,7 +107,7 @@ int main(void)
 	int i = 0;
 	u16 temperature;
 
-	clock_setup();
+        rcc_clock_setup_in_hse_16mhz_out_72mhz();
 	gpio_setup();
 	usart_setup();
 	i2c_setup();
