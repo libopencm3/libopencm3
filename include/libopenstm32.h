@@ -38,5 +38,6 @@
 #include <libopenstm32/dma.h>
 #include <libopenstm32/scb.h>
 #include <libopenstm32/systick.h>
+#include <libopenstm32/iwdg.h>
 
 #endif
