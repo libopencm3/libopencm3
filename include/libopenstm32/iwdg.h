@@ -26,16 +26,16 @@
 /* --- IWDG registers ------------------------------------------------------ */
 
 /* Key Register (IWDG_KR) */
-#define IWDG_KR				MMIO32(iwdg_base + 0x00)
+#define IWDG_KR				MMIO32(IWDG_BASE + 0x00)
 
 /* Prescaler register (IWDG_PR) */
-#define IWDG_PR				MMIO32(iwdg_base + 0x04)
+#define IWDG_PR				MMIO32(IWDG_BASE + 0x04)
 
 /* Reload register (IWDG_RLR) */
-#define IWDG_RLR			MMIO32(iwdg_base + 0x08)
+#define IWDG_RLR			MMIO32(IWDG_BASE + 0x08)
 
 /* Status register (IWDG_SR) */
-#define IWDG_SR				MMIO32(iwdg_base + 0x0C)
+#define IWDG_SR				MMIO32(IWDG_BASE + 0x0C)
 
 
 /* --- IWDG_KR values ------------------------------------------------------ */
