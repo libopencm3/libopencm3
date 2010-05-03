@@ -42,5 +42,6 @@
 #include <libopenstm32/wwdg.h>
 #include <libopenstm32/power.h>
 #include <libopenstm32/crc.h>
+#include <libopenstm32/bkp.h>
 
 #endif
