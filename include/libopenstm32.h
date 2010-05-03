@@ -41,5 +41,6 @@
 #include <libopenstm32/iwdg.h>
 #include <libopenstm32/wwdg.h>
 #include <libopenstm32/power.h>
+#include <libopenstm32/crc.h>
 
 #endif
