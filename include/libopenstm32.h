@@ -39,5 +39,6 @@
 #include <libopenstm32/scb.h>
 #include <libopenstm32/systick.h>
 #include <libopenstm32/iwdg.h>
+#include <libopenstm32/wwdg.h>
 
 #endif
