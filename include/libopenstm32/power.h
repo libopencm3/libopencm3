@@ -1,0 +1,83 @@
+/*
+ * This file is part of the libopenstm32 project.
+ *
+ * Copyright (C) 2010 Thomas Otto <tommi@viadmin.org>
+ *
+ * This program is free software: you can redistribute it and/or modify
+ * it under the terms of the GNU General Public License as published by
+ * the Free Software Foundation, either version 3 of the License, or
+ * (at your option) any later version.
+ *
+ * This program is distributed in the hope that it will be useful,
+ * but WITHOUT ANY WARRANTY; without even the implied warranty of
+ * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
+ * GNU General Public License for more details.
+ *
+ * You should have received a copy of the GNU General Public License
+ * along with this program.  If not, see <http://www.gnu.org/licenses/>.
+ */
+
+#ifndef LIBOPENSTM32_POWER_H
+#define LIBOPENSTM32_POWER_H
+
+#include <libopenstm32/memorymap.h>
+#include <libopenstm32/common.h>
+
+/* --- POWER registers ----------------------------------------------------- */
+
+/* Power control register (PWR_CR) */
+#define POWER_CR			MMIO32(POWER_CONTROL_BASE + 0x00)
+
+/* Power control/status register (PWR_CSR) */
+#define POWER_CSR			MMIO32(POWER_CONTROL_BASE + 0x04)
+
+
+/* --- POWER_CR values ----------------------------------------------------- */
+
+/* DBP: Disable backup domain write protection */
+#define POWER_CR_DBP			(1 << 8)
+
+/* PLS[7:5]: PVD level selection */
+#define POWER_CR_PLS_LSB		5
+#define POWER_CR_PLS_2V2		0x0
+#define POWER_CR_PLS_2V3		0x1
+#define POWER_CR_PLS_2V4		0x2
+#define POWER_CR_PLS_2V5		0x3
+#define POWER_CR_PLS_2V6		0x4
+#define POWER_CR_PLS_2V7		0x5
+#define POWER_CR_PLS_2V8		0x6
+#define POWER_CR_PLS_2V9		0x7
+
+/* PVDE: Power voltage detector enable */
+#define POWER_CR_PVDE			(1 << 4)
+
+/* CSBF: Clear standby flag */
+#define POWER_CR_CSBF			(1 << 3)
+
+/* CWUF: Clear wakeup flag */
+#define POWER_CR_CWUF			(1 << 2)
+
+/* PDDS: Power down deepsleep */
+#define POWER_CR_PDDS			(1 << 1)
+
+/* LPDS: Low-power deepsleep */	
+#define POWER_CR_LPDS			(1 << 0)
+
+
+/* --- POWER_CSR values ---------------------------------------------------- */
+
+/* EWUP: Enable WKUP pin */
+#define POWER_CSR_EWUP			(1 << 8)
+
+/* PVDO: PVD output */
+#define POWER_CSR_PVDO			(1 << 2)
+
+/* SBF: Standby flag */
+#define POWER_CSR_SBF			(1 << 1)
+
+/* WUF: Wakeup flag */
+#define POWER_CSR_WUF			(1 << 0)
+
+/* --- POWER function prototypes ------------------------------------------- */
+
+#endif
