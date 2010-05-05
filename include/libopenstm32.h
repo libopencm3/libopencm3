@@ -40,7 +40,7 @@
 #include <libopenstm32/systick.h>
 #include <libopenstm32/iwdg.h>
 #include <libopenstm32/wwdg.h>
-#include <libopenstm32/power.h>
+#include <libopenstm32/pwr.h>
 #include <libopenstm32/crc.h>
 #include <libopenstm32/bkp.h>
 
