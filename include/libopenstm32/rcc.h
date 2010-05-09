@@ -401,5 +401,6 @@ u32 rcc_get_system_clock_source(int i);
 void rcc_clock_setup_in_hsi_out_64mhz(void);
 void rcc_clock_setup_in_hse_8mhz_out_72mhz(void);
 void rcc_clock_setup_in_hse_16mhz_out_72mhz(void);
+void rcc_backupdomain_reset(void);
 
 #endif

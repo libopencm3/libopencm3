@@ -22,6 +22,7 @@
 
 #include <libopenstm32/memorymap.h>
 #include <libopenstm32/common.h>
+#include <libopenstm32/pwr.h>
 
 /* --- RTC registers ------------------------------------------------------- */
 
@@ -120,6 +121,26 @@
 
 /* --- Function prototypes --------------------------------------------------*/
 
-/* TODO */
+typedef enum {
+	RTC_SEC, RTC_ALR, RTC_OW,
+} rtcflag_t;
+
+void rtc_awake_from_off(osc_t clock_source);
+void rtc_enter_config_mode(void);
+void rtc_exit_config_mode(void);
+void rtc_set_alarm_time(u32 alarm_time);
+void rtc_enable_alarm(void);
+void rtc_disable_alarm(void);
+void rtc_set_prescale_val(u32 prescale_val);
+u32 rtc_get_counter_val(void);
+u32 rtc_get_prescale_div_val(void);
+u32 rtc_get_alarm_val(void);
+void rtc_set_counter_val(u32 counter_val);
+void rtc_interrupt_enable(rtcflag_t flag_val);
+void rtc_interrupt_disable(rtcflag_t flag_val);
+void rtc_clear_flag(rtcflag_t flag_val);
+u32 rtc_check_flag(rtcflag_t flag_val);
+void rtc_awake_from_standby(void);
+void rtc_auto_awake(osc_t clock_source, u32 prescale_val);
 
 #endif

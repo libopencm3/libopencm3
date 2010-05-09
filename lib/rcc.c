@@ -465,3 +465,11 @@ void rcc_clock_setup_in_hse_16mhz_out_72mhz(void)
         rcc_set_sysclk_source(SW_SYSCLKSEL_PLLCLK);
 }
 
+void rcc_backupdomain_reset(void)
+{
+	/* Set the backup domain software reset. */
+	RCC_BDCR |= BDRST;
+
+	/* Clear the backup domain software reset. */
+	RCC_BDCR &= ~BDRST;
+}

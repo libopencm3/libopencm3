@@ -2,6 +2,7 @@
  * This file is part of the libopenstm32 project.
  *
  * Copyright (C) 2010 Uwe Hermann <uwe@hermann-uwe.de>
+ * Copyright (C) 2010 Lord James <lordjames@y7mail.com>
  *
  * This program is free software: you can redistribute it and/or modify
  * it under the terms of the GNU General Public License as published by
@@ -19,17 +20,70 @@
 
 #include <libopenstm32/rcc.h>
 #include <libopenstm32/rtc.h>
+#include <libopenstm32/pwr.h>
 
-void rtc_init(void)
+void rtc_awake_from_off(osc_t clock_source)
 {
+	u32 reg32;
+
 	/* Enable power and backup interface clocks. */
 	RCC_APB1ENR |= (PWREN | BKPEN);
 
 	/* Enable access to the backup registers and the RTC. */
-	/* TODO: PWR component not yet implemented in libopenstm32. */
-	/* PWR_CR |= PWR_CR_DBP; */
+	PWR_CR |= PWR_CR_DBP;
 
-	/* TODO: Wait for the RSF bit in RTC_CRL to be set by hardware? */
+	/*
+	 * Reset the backup domain, clears everything RTC related.
+	 * If not wanted use the rtc_awake_from_standby() function.
+	 */
+	rcc_backupdomain_reset();
+
+	switch (clock_source) {
+	case LSE:
+		/* Turn the LSE on and wait while it stabilises. */
+		RCC_BDCR |= LSEON;
+		while ((reg32 = (RCC_BDCR & LSERDY)) == 0);
+
+		/* Choose LSE as the RTC clock source. */
+		RCC_BDCR &= ~((1 << 8) | (1 << 9));
+		RCC_BDCR |= (1 << 8);
+		break;
+	case LSI:
+		/* Turn the LSI on and wait while it stabilises. */
+		RCC_CSR |= LSION;
+		while ((reg32 = (RCC_CSR & LSIRDY)) == 0);
+
+		/* Choose LSI as the RTC clock source. */
+		RCC_BDCR &= ~((1 << 8) | (1 << 9));
+		RCC_BDCR |= (1 << 9);
+		break;
+	case HSE:
+		/* Turn the HSE on and wait while it stabilises. */
+		RCC_CSR |= HSEON;
+		while ((reg32 = (RCC_CSR & HSERDY)) == 0);
+
+		/* Choose HSE as the RTC clock source. */
+		RCC_BDCR &= ~((1 << 8) | (1 << 9));
+		RCC_BDCR |= (1 << 9) | (1 << 8);
+		break;
+	case PLL:
+	case HSI:
+		/* Unusable clock source, here to prevent warnings. */
+		/* Turn off clock sources to RTC. */
+		RCC_BDCR &= ~((1 << 8) | (1 << 9));
+		break;
+	}
+
+	/* Enable the RTC. */
+	RCC_BDCR |= RTCEN;
+
+	/* Wait for the RSF bit in RTC_CRL to be set by hardware. */
+	RTC_CRL &= ~RTC_CRL_RSF;
+	while ((reg32 = (RTC_CRL & RTC_CRL_RSF)) == 0);
+
+	/* Wait for the last write operation to finish. */
+	/* TODO: Necessary? */
+	while ((reg32 = (RTC_CRL & RTC_CRL_RTOFF)) == 0);
 }
 
 void rtc_enter_config_mode(void)
@@ -45,13 +99,14 @@ void rtc_enter_config_mode(void)
 
 void rtc_exit_config_mode(void)
 {
-	u32 reg32;
+	/* u32 reg32; */
 
 	/* Exit configuration mode. */
 	RTC_CRL &= ~RTC_CRL_CNF;
 
 	/* Wait until the RTOFF bit is 1 (our RTC register write finished). */
-	while ((reg32 = (RTC_CRL & RTC_CRL_RTOFF)) == 0);
+	/* while ((reg32 = (RTC_CRL & RTC_CRL_RTOFF)) == 0); */
+	/* TODO: Unnecessary since we poll the bit on config entry(?) */
 }
 
 void rtc_set_alarm_time(u32 alarm_time)
@@ -74,4 +129,154 @@ void rtc_disable_alarm(void)
 	rtc_enter_config_mode();
 	RTC_CRH &= ~RTC_CRH_ALRIE;
 	rtc_exit_config_mode();
+}
+
+void rtc_set_prescale_val(u32 prescale_val)
+{
+	rtc_enter_config_mode();
+	RTC_PRLL = prescale_val & 0x0000ffff;         /* PRL[15:0] */
+	RTC_PRLH = (prescale_val & 0x000f0000) >> 16; /* PRL[19:16] */
+	rtc_exit_config_mode();
+}
+
+u32 rtc_get_counter_val(void)
+{
+	return (RTC_CNTH << 16) | RTC_CNTL;
+}
+
+u32 rtc_get_prescale_div_val(void)
+{
+	return (RTC_DIVH << 16) | RTC_DIVL;
+}
+
+u32 rtc_get_alarm_val(void)
+{
+	return (RTC_ALRH << 16) | RTC_ALRL;
+}
+
+void rtc_set_counter_val(u32 counter_val)
+{
+	rtc_enter_config_mode();
+	RTC_PRLH = (counter_val & 0xffff0000) >> 16; /* CNT[31:16] */
+	RTC_PRLL = counter_val & 0x0000ffff;         /* CNT[15:0] */
+	rtc_exit_config_mode();
+}
+
+void rtc_interrupt_enable(rtcflag_t flag_val)
+{
+	rtc_enter_config_mode();
+
+	/* Set the correct interrupt enable. */
+	switch(flag_val) {
+	case RTC_SEC:
+		RTC_CRH |= RTC_CRH_SECIE;
+		break;
+	case RTC_ALR:
+		RTC_CRH |= RTC_CRH_ALRIE;
+		break;
+	case RTC_OW:
+		RTC_CRH |= RTC_CRH_OWIE;
+		break;
+	}
+
+	rtc_exit_config_mode();
+}
+
+void rtc_interrupt_disable(rtcflag_t flag_val)
+{
+	rtc_enter_config_mode();
+
+	/* Disable the correct interrupt enable. */
+	switch(flag_val) {
+	case RTC_SEC:
+		RTC_CRH &= ~RTC_CRH_SECIE;
+		break;
+	case RTC_ALR:
+		RTC_CRH &= ~RTC_CRH_ALRIE;
+		break;
+	case RTC_OW:
+		RTC_CRH &= ~RTC_CRH_OWIE;
+		break;
+	}
+
+	rtc_exit_config_mode();
+}
+
+void rtc_clear_flag(rtcflag_t flag_val)
+{
+	/* Configuration mode not needed. */
+
+	/* Clear the correct flag. */
+	switch(flag_val) {
+	case RTC_SEC:
+		RTC_CRL &= ~RTC_CRL_SECF;
+		break;
+	case RTC_ALR:
+		RTC_CRL &= ~RTC_CRL_ALRF;
+		break;
+	case RTC_OW:
+		RTC_CRL &= ~RTC_CRL_OWF;
+		break;
+	}
+}
+
+u32 rtc_check_flag(rtcflag_t flag_val)
+{
+	u32 reg32;
+
+	/* Read correct flag. */
+	switch(flag_val) {
+	case RTC_SEC:
+		reg32 = RTC_CRL & RTC_CRL_SECF;
+		break;
+	case RTC_ALR:
+		reg32 = RTC_CRL & RTC_CRL_ALRF;
+		break;
+	case RTC_OW:
+		reg32 = RTC_CRL & RTC_CRL_OWF;
+		break;
+	default:
+		reg32 = 0;
+		break;
+	}
+
+	return reg32;
+}
+
+void rtc_awake_from_standby(void)
+{
+	u32 reg32;
+
+	/* Enable power and backup interface clocks. */
+	RCC_APB1ENR |= (PWREN | BKPEN);
+
+	/* Enable access to the backup registers and the RTC. */
+	PWR_CR |= PWR_CR_DBP;
+
+	/* Wait for the RSF bit in RTC_CRL to be set by hardware. */
+	RTC_CRL &= ~RTC_CRL_RSF;
+	while ((reg32 = (RTC_CRL & RTC_CRL_RSF)) == 0);
+
+	/* Wait for the last write operation to finish. */
+	/* TODO: Necessary? */
+	while ((reg32 = (RTC_CRL & RTC_CRL_RTOFF)) == 0);
+}
+
+void rtc_auto_awake(osc_t clock_source, u32 prescale_val)
+{
+	u32 reg32;
+
+	/* Enable power and backup interface clocks. */
+	RCC_APB1ENR |= (PWREN | BKPEN);
+
+	/* Enable access to the backup registers and the RTC. */
+	/* TODO: Not sure if this is necessary to just read the flag. */
+	PWR_CR |= PWR_CR_DBP;
+
+	if ((reg32 = RCC_BDCR & RTCEN) != 0) {
+		rtc_awake_from_standby();
+	} else {
+		rtc_awake_from_off(clock_source);
+		rtc_set_prescale_val(prescale_val);
+	}
 }
