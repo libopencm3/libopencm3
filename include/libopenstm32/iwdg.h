@@ -56,7 +56,8 @@
 #define IWDG_PR_DIV64			0x4
 #define IWDG_PR_DIV128			0x5
 #define IWDG_PR_DIV256			0x6
-#define IWDG_PR_DIV256			0x7
+/* double definition */
+/* #define IWDG_PR_DIV256			0x7 */
 
 /* --- IWDG_RLR values ----------------------------------------------------- */
 
