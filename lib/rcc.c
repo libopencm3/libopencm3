@@ -26,19 +26,19 @@ void rcc_osc_ready_int_clear(osc_t osc)
 {
 	switch (osc) {
 	case PLL:
-		RCC_CR |= PLLRDYC;
+		RCC_CIR |= RCC_CIR_PLLRDYC;
 		break;
 	case HSE:
-		RCC_CR |= HSERDYC;
+		RCC_CIR |= RCC_CIR_HSERDYC;
 		break;
 	case HSI:
-		RCC_CR |= HSIRDYC;
+		RCC_CIR |= RCC_CIR_HSIRDYC;
 		break;
 	case LSE:
-		RCC_CIR |= LSERDYC;
+		RCC_CIR |= RCC_CIR_LSERDYC;
 		break;
 	case LSI:
-		RCC_CIR |= LSIRDYC;
+		RCC_CIR |= RCC_CIR_LSIRDYC;
 		break;
 	}
 }
@@ -47,19 +47,19 @@ void rcc_osc_ready_int_enable(osc_t osc)
 {
 	switch (osc) {
 	case PLL:
-		RCC_CR |= PLLRDYIE;
+		RCC_CIR |= RCC_CIR_PLLRDYIE;
 		break;
 	case HSE:
-		RCC_CR |= HSERDYIE;
+		RCC_CIR |= RCC_CIR_HSERDYIE;
 		break;
 	case HSI:
-		RCC_CR |= HSIRDYIE;
+		RCC_CIR |= RCC_CIR_HSIRDYIE;
 		break;
 	case LSE:
-		RCC_CIR |= LSERDYIE;
+		RCC_CIR |= RCC_CIR_LSERDYIE;
 		break;
 	case LSI:
-		RCC_CIR |= LSIRDYIE;
+		RCC_CIR |= RCC_CIR_LSIRDYIE;
 		break;
 	}
 }
@@ -68,19 +68,19 @@ void rcc_osc_ready_int_disable(osc_t osc)
 {
 	switch (osc) {
 	case PLL:
-		RCC_CR &= ~PLLRDYIE;
+		RCC_CIR &= ~RCC_CIR_PLLRDYIE;
 		break;
 	case HSE:
-		RCC_CR &= ~HSERDYIE;
+		RCC_CIR &= ~RCC_CIR_HSERDYIE;
 		break;
 	case HSI:
-		RCC_CR &= ~HSIRDYIE;
+		RCC_CIR &= ~RCC_CIR_HSIRDYIE;
 		break;
 	case LSE:
-		RCC_CIR &= ~LSERDYIE;
+		RCC_CIR &= ~RCC_CIR_LSERDYIE;
 		break;
 	case LSI:
-		RCC_CIR &= ~LSIRDYIE;
+		RCC_CIR &= ~RCC_CIR_LSIRDYIE;
 		break;
 	}
 }
@@ -89,19 +89,19 @@ int rcc_osc_ready_int_flag(osc_t osc)
 {
 	switch (osc) {
 	case PLL:
-		return ((RCC_CR & PLLRDYF) != 0);
+		return ((RCC_CIR & RCC_CIR_PLLRDYF) != 0);
 		break;
 	case HSE:
-		return ((RCC_CR & HSERDYF) != 0);
+		return ((RCC_CIR & RCC_CIR_HSERDYF) != 0);
 		break;
 	case HSI:
-		return ((RCC_CR & HSIRDYF) != 0);
+		return ((RCC_CIR & RCC_CIR_HSIRDYF) != 0);
 		break;
 	case LSE:
-		return ((RCC_CIR & LSERDYF) != 0);
+		return ((RCC_CIR & RCC_CIR_LSERDYF) != 0);
 		break;
 	case LSI:
-		return ((RCC_CIR & LSIRDYF) != 0);
+		return ((RCC_CIR & RCC_CIR_LSIRDYF) != 0);
 		break;
 	}
 
@@ -111,31 +111,31 @@ int rcc_osc_ready_int_flag(osc_t osc)
 
 void rcc_css_int_clear(void)
 {
-	RCC_CIR |= CSSC;
+	RCC_CIR |= RCC_CIR_CSSC;
 }
 
 int rcc_css_int_flag(void)
 {
-	return ((RCC_CIR & CSSF) != 0);
+	return ((RCC_CIR & RCC_CIR_CSSF) != 0);
 }
 
 void rcc_wait_for_osc_ready(osc_t osc)
 {
 	switch (osc) {
 	case PLL:
-		while ((RCC_CR & PLLRDY) == 0);
+		while ((RCC_CR & RCC_CR_PLLRDY) == 0);
 		break;
 	case HSE:
-		while ((RCC_CR & HSERDY) == 0);
+		while ((RCC_CR & RCC_CR_HSERDY) == 0);
 		break;
 	case HSI:
-		while ((RCC_CR & HSIRDY) == 0);
+		while ((RCC_CR & RCC_CR_HSIRDY) == 0);
 		break;
 	case LSE:
-		while ((RCC_BDCR & LSERDY) == 0);
+		while ((RCC_BDCR & RCC_BDCR_LSERDY) == 0);
 		break;
 	case LSI:
-		while ((RCC_CSR & LSIRDY) == 0);
+		while ((RCC_CSR & RCC_CSR_LSIRDY) == 0);
 		break;
 	}
 }
@@ -144,19 +144,19 @@ void rcc_osc_on(osc_t osc)
 {
 	switch (osc) {
 	case PLL:
-		RCC_CR |= PLLON;
+		RCC_CR |= RCC_CR_PLLON;
 		break;
 	case HSE:
-		RCC_CR |= HSEON;
+		RCC_CR |= RCC_CR_HSEON;
 		break;
 	case HSI:
-		RCC_CR |= HSION;
+		RCC_CR |= RCC_CR_HSION;
 		break;
 	case LSE:
-		RCC_BDCR |= LSEON;
+		RCC_BDCR |= RCC_BDCR_LSEON;
 		break;
 	case LSI:
-		RCC_CSR |= LSION;
+		RCC_CSR |= RCC_CSR_LSION;
 		break;
 	}
 }
@@ -165,41 +165,41 @@ void rcc_osc_off(osc_t osc)
 {
 	switch (osc) {
 	case PLL:
-		RCC_CR &= ~PLLON;
+		RCC_CR &= ~RCC_CR_PLLON;
 		break;
 	case HSE:
-		RCC_CR &= ~HSEON;
+		RCC_CR &= ~RCC_CR_HSEON;
 		break;
 	case HSI:
-		RCC_CR &= ~HSION;
+		RCC_CR &= ~RCC_CR_HSION;
 		break;
 	case LSE:
-		RCC_BDCR &= ~LSEON;
+		RCC_BDCR &= ~RCC_BDCR_LSEON;
 		break;
 	case LSI:
-		RCC_CSR &= ~LSION;
+		RCC_CSR &= ~RCC_CSR_LSION;
 		break;
 	}
 }
 
 void rcc_css_enable(void)
 {
-	RCC_CR |= CSSON;
+	RCC_CR |= RCC_CR_CSSON;
 }
 
 void rcc_css_disable(void)
 {
-	RCC_CR &= ~CSSON;
+	RCC_CR &= ~RCC_CR_CSSON;
 }
 
 void rcc_osc_bypass_enable(osc_t osc)
 {
 	switch (osc) {
 	case HSE:
-		RCC_CR |= HSEBYP;
+		RCC_CR |= RCC_CR_HSEBYP;
 		break;
 	case LSE:
-		RCC_BDCR |= LSEBYP;
+		RCC_BDCR |= RCC_BDCR_LSEBYP;
 		break;
 	case PLL:
 	case HSI:
@@ -213,10 +213,10 @@ void rcc_osc_bypass_disable(osc_t osc)
 {
 	switch (osc) {
 	case HSE:
-		RCC_CR &= ~HSEBYP;
+		RCC_CR &= ~RCC_CR_HSEBYP;
 		break;
 	case LSE:
-		RCC_BDCR &= ~LSEBYP;
+		RCC_BDCR &= ~RCC_BDCR_LSEBYP;
 		break;
 	case PLL:
 	case HSI:
@@ -335,16 +335,16 @@ void rcc_clock_setup_in_hsi_out_64mhz(void)
 	rcc_wait_for_osc_ready(HSI);
 
 	/* Select HSI as SYSCLK source. */
-	rcc_set_sysclk_source(SW_SYSCLKSEL_HSICLK);
+	rcc_set_sysclk_source(RCC_CFGR_SW_SYSCLKSEL_HSICLK);
 
 	/*
 	 * Set prescalers for AHB, ADC, ABP1, ABP2.
 	 * Do this before touching the PLL (TODO: why?).
 	 */
-	rcc_set_hpre(HPRE_SYSCLK_NODIV);	/* Max. 72MHz */
-	rcc_set_adcpre(ADCPRE_PLCK2_DIV8);	/* Max. 14MHz */
-	rcc_set_ppre1(PPRE1_HCLK_DIV2);		/* Max. 36MHz */
-	rcc_set_ppre2(PPRE2_HCLK_NODIV);	/* Max. 72MHz */
+	rcc_set_hpre(RCC_CFGR_HPRE_SYSCLK_NODIV);	/* Max. 72MHz */
+	rcc_set_adcpre(RCC_CFGR_ADCPRE_PCLK2_DIV8);	/* Max. 14MHz */
+	rcc_set_ppre1(RCC_CFGR_PPRE1_HCLK_DIV2);		/* Max. 36MHz */
+	rcc_set_ppre2(RCC_CFGR_PPRE2_HCLK_NODIV);	/* Max. 72MHz */
 
 	/*
 	 * Sysclk is running with 64MHz -> 2 waitstates.
@@ -358,17 +358,17 @@ void rcc_clock_setup_in_hsi_out_64mhz(void)
 	 * Set the PLL multiplication factor to 16.
 	 * 8MHz (internal) * 16 (multiplier) / 2 (PLLSRC_HSI_CLK_DIV2) = 64MHz
 	 */
-	rcc_set_pll_multiplication_factor(PLLMUL_PLL_CLK_MUL16);
+	rcc_set_pll_multiplication_factor(RCC_CFGR_PLLMUL_PLL_CLK_MUL16);
 
 	/* Select HSI/2 as PLL source. */
-	rcc_set_pll_source(PLLSRC_HSI_CLK_DIV2);
+	rcc_set_pll_source(RCC_CFGR_PLLSRC_HSI_CLK_DIV2);
 
 	/* Enable PLL oscillator and wait for it to stabilize. */
 	rcc_osc_on(PLL);
 	rcc_wait_for_osc_ready(PLL);
 
 	/* Select PLL as SYSCLK source. */
-	rcc_set_sysclk_source(SW_SYSCLKSEL_PLLCLK);
+	rcc_set_sysclk_source(RCC_CFGR_SW_SYSCLKSEL_PLLCLK);
 }
 
 void rcc_clock_setup_in_hse_8mhz_out_72mhz(void)
@@ -378,21 +378,21 @@ void rcc_clock_setup_in_hse_8mhz_out_72mhz(void)
 	rcc_wait_for_osc_ready(HSI);
 
 	/* Select HSI as SYSCLK source. */
-	rcc_set_sysclk_source(SW_SYSCLKSEL_HSICLK);
+	rcc_set_sysclk_source(RCC_CFGR_SW_SYSCLKSEL_HSICLK);
 
 	/* Enable external high-speed oscillator 8MHz. */
 	rcc_osc_on(HSE);
 	rcc_wait_for_osc_ready(HSE);
-	rcc_set_sysclk_source(SW_SYSCLKSEL_HSECLK);
+	rcc_set_sysclk_source(RCC_CFGR_SW_SYSCLKSEL_HSECLK);
 
 	/*
 	 * Set prescalers for AHB, ADC, ABP1, ABP2.
 	 * Do this before touching the PLL (TODO: why?).
 	 */
-	rcc_set_hpre(HPRE_SYSCLK_NODIV);	/* Max. 72MHz */
-	rcc_set_adcpre(ADCPRE_PLCK2_DIV8);	/* Max. 14MHz */
-	rcc_set_ppre1(PPRE1_HCLK_DIV2);		/* Max. 36MHz */
-	rcc_set_ppre2(PPRE2_HCLK_NODIV);	/* Max. 72MHz */
+	rcc_set_hpre(RCC_CFGR_HPRE_SYSCLK_NODIV);	/* Max. 72MHz */
+	rcc_set_adcpre(RCC_CFGR_ADCPRE_PCLK2_DIV8);	/* Max. 14MHz */
+	rcc_set_ppre1(RCC_CFGR_PPRE1_HCLK_DIV2);		/* Max. 36MHz */
+	rcc_set_ppre2(RCC_CFGR_PPRE2_HCLK_NODIV);	/* Max. 72MHz */
 
 	/*
 	 * Sysclk runs with 72MHz -> 2 waitstates.
@@ -406,23 +406,23 @@ void rcc_clock_setup_in_hse_8mhz_out_72mhz(void)
 	 * Set the PLL multiplication factor to 9.
 	 * 8MHz (external) * 9 (multiplier) = 72MHz
 	 */
-	rcc_set_pll_multiplication_factor(PLLMUL_PLL_CLK_MUL9);
+	rcc_set_pll_multiplication_factor(RCC_CFGR_PLLMUL_PLL_CLK_MUL9);
 
 	/* Select HSE as PLL source. */
-	rcc_set_pll_source(PLLSRC_HSE_CLK);
+	rcc_set_pll_source(RCC_CFGR_PLLSRC_HSE_CLK);
 
 	/*
 	 * External frequency undivided before entering PLL
 	 * (only valid/needed for HSE).
 	 */
-	rcc_set_pllxtpre(PLLXTPRE_HSE_CLK);
+	rcc_set_pllxtpre(RCC_CFGR_PLLXTPRE_HSE_CLK);
 
 	/* Enable PLL oscillator and wait for it to stabilize. */
 	rcc_osc_on(PLL);
 	rcc_wait_for_osc_ready(PLL);
 
 	/* Select PLL as SYSCLK source. */
-	rcc_set_sysclk_source(SW_SYSCLKSEL_PLLCLK);
+	rcc_set_sysclk_source(RCC_CFGR_SW_SYSCLKSEL_PLLCLK);
 }
 
 void rcc_clock_setup_in_hse_16mhz_out_72mhz(void)
@@ -432,44 +432,45 @@ void rcc_clock_setup_in_hse_16mhz_out_72mhz(void)
         rcc_wait_for_osc_ready(HSI);
 
         /* Select HSI as SYSCLK source. */
-        rcc_set_sysclk_source(SW_SYSCLKSEL_HSICLK);
+        rcc_set_sysclk_source(RCC_CFGR_SW_SYSCLKSEL_HSICLK);
 
         /* enable External High Speed Oscillator 16MHz */
         rcc_osc_on(HSE);
         rcc_wait_for_osc_ready(HSE);
-        rcc_set_sysclk_source(SW_SYSCLKSEL_HSECLK);
+        rcc_set_sysclk_source(RCC_CFGR_SW_SYSCLKSEL_HSECLK);
 
         /* set prescalers for ADC, ABP1, ABP2...  make this before touching the PLL */
-        rcc_set_hpre(HPRE_SYSCLK_NODIV); //prescales the AHB clock from the SYSCLK
-        rcc_set_adcpre(ADCPRE_PLCK2_DIV6); //prescales the ADC from the APB2 clock; max 14MHz
-        rcc_set_ppre1(PPRE1_HCLK_DIV2); //prescales the APB1 from the AHB clock; max 36MHz
-        rcc_set_ppre2(PPRE2_HCLK_NODIV); //prescales the APB2 from the AHB clock; max 72MHz
+        rcc_set_hpre(RCC_CFGR_HPRE_SYSCLK_NODIV); //prescales the AHB clock from the SYSCLK
+        rcc_set_adcpre(RCC_CFGR_ADCPRE_PCLK2_DIV6); //prescales the ADC from the APB2 clock; max 14MHz
+        rcc_set_ppre1(RCC_CFGR_PPRE1_HCLK_DIV2); //prescales the APB1 from the AHB clock; max 36MHz
+        rcc_set_ppre2(RCC_CFGR_PPRE2_HCLK_NODIV); //prescales the APB2 from the AHB clock; max 72MHz
 
         /* sysclk should run with 72MHz -> 2 Waitstates ; choose 0WS from 0-24MHz, 1WS from 24-48MHz, 2WS from 48-72MHz */
         flash_set_ws(FLASH_LATENCY_2WS);
 
         /* Set the PLL multiplication factor to 9. -> 16MHz (external) * 9 (multiplier) / 2 (PLLXTPRE_HSE_CLK_DIV2) = 72MHz */
-        rcc_set_pll_multiplication_factor(PLLMUL_PLL_CLK_MUL9);
+        rcc_set_pll_multiplication_factor(RCC_CFGR_PLLMUL_PLL_CLK_MUL9);
 
         /* Select HSI as PLL source. */
-        rcc_set_pll_source(PLLSRC_HSE_CLK);
+        rcc_set_pll_source(RCC_CFGR_PLLSRC_HSE_CLK);
 
         /* divide external frequency by 2 before entering pll (only valid/needed for HSE) */
-        rcc_set_pllxtpre(PLLXTPRE_HSE_CLK_DIV2);
+        rcc_set_pllxtpre(RCC_CFGR_PLLXTPRE_HSE_CLK_DIV2);
 
         /* Enable PLL oscillator and wait for it to stabilize. */
         rcc_osc_on(PLL);
         rcc_wait_for_osc_ready(PLL);
 
         /* Select PLL as SYSCLK source. */
-        rcc_set_sysclk_source(SW_SYSCLKSEL_PLLCLK);
+        rcc_set_sysclk_source(RCC_CFGR_SW_SYSCLKSEL_PLLCLK);
 }
 
 void rcc_backupdomain_reset(void)
 {
 	/* Set the backup domain software reset. */
-	RCC_BDCR |= BDRST;
+	RCC_BDCR |= RCC_BDCR_BDRST;
 
 	/* Clear the backup domain software reset. */
-	RCC_BDCR &= ~BDRST;
+	RCC_BDCR &= ~RCC_BDCR_BDRST;
 }
+
