@@ -27,7 +27,7 @@ void rtc_awake_from_off(osc_t clock_source)
 	u32 reg32;
 
 	/* Enable power and backup interface clocks. */
-	RCC_APB1ENR |= (PWREN | BKPEN);
+	RCC_APB1ENR |= (RCC_APB1ENR_PWREN | RCC_APB1ENR_BKPEN);
 
 	/* Enable access to the backup registers and the RTC. */
 	PWR_CR |= PWR_CR_DBP;
@@ -41,8 +41,8 @@ void rtc_awake_from_off(osc_t clock_source)
 	switch (clock_source) {
 	case LSE:
 		/* Turn the LSE on and wait while it stabilises. */
-		RCC_BDCR |= LSEON;
-		while ((reg32 = (RCC_BDCR & LSERDY)) == 0);
+		RCC_BDCR |= RCC_BDCR_LSEON;
+		while ((reg32 = (RCC_BDCR & RCC_BDCR_LSERDY)) == 0);
 
 		/* Choose LSE as the RTC clock source. */
 		RCC_BDCR &= ~((1 << 8) | (1 << 9));
@@ -50,8 +50,8 @@ void rtc_awake_from_off(osc_t clock_source)
 		break;
 	case LSI:
 		/* Turn the LSI on and wait while it stabilises. */
-		RCC_CSR |= LSION;
-		while ((reg32 = (RCC_CSR & LSIRDY)) == 0);
+		RCC_CSR |= RCC_CSR_LSION;
+		while ((reg32 = (RCC_CSR & RCC_CSR_LSIRDY)) == 0);
 
 		/* Choose LSI as the RTC clock source. */
 		RCC_BDCR &= ~((1 << 8) | (1 << 9));
@@ -59,8 +59,8 @@ void rtc_awake_from_off(osc_t clock_source)
 		break;
 	case HSE:
 		/* Turn the HSE on and wait while it stabilises. */
-		RCC_CSR |= HSEON;
-		while ((reg32 = (RCC_CSR & HSERDY)) == 0);
+		RCC_CR |= RCC_CR_HSEON;
+		while ((reg32 = (RCC_CR & RCC_CR_HSERDY)) == 0);
 
 		/* Choose HSE as the RTC clock source. */
 		RCC_BDCR &= ~((1 << 8) | (1 << 9));
@@ -75,7 +75,7 @@ void rtc_awake_from_off(osc_t clock_source)
 	}
 
 	/* Enable the RTC. */
-	RCC_BDCR |= RTCEN;
+	RCC_BDCR |= RCC_BDCR_RTCEN;
 
 	/* Wait for the RSF bit in RTC_CRL to be set by hardware. */
 	RTC_CRL &= ~RTC_CRL_RSF;
@@ -248,7 +248,7 @@ void rtc_awake_from_standby(void)
 	u32 reg32;
 
 	/* Enable power and backup interface clocks. */
-	RCC_APB1ENR |= (PWREN | BKPEN);
+	RCC_APB1ENR |= (RCC_APB1ENR_PWREN | RCC_APB1ENR_BKPEN);
 
 	/* Enable access to the backup registers and the RTC. */
 	PWR_CR |= PWR_CR_DBP;
@@ -267,13 +267,13 @@ void rtc_auto_awake(osc_t clock_source, u32 prescale_val)
 	u32 reg32;
 
 	/* Enable power and backup interface clocks. */
-	RCC_APB1ENR |= (PWREN | BKPEN);
+	RCC_APB1ENR |= (RCC_APB1ENR_PWREN | RCC_APB1ENR_BKPEN);
 
 	/* Enable access to the backup registers and the RTC. */
 	/* TODO: Not sure if this is necessary to just read the flag. */
 	PWR_CR |= PWR_CR_DBP;
 
-	if ((reg32 = RCC_BDCR & RTCEN) != 0) {
+	if ((reg32 = RCC_BDCR & RCC_BDCR_RTCEN) != 0) {
 		rtc_awake_from_standby();
 	} else {
 		rtc_awake_from_off(clock_source);
