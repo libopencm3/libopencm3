@@ -26,7 +26,7 @@
 void gpio_setup(void)
 {
 	/* Enable GPIOB clock. */
-	rcc_peripheral_enable_clock(&RCC_APB2ENR, IOPBEN);
+	rcc_peripheral_enable_clock(&RCC_APB2ENR, RCC_APB2ENR_IOPBEN);
 
 	/* Set GPIO6/7 (in GPIO port B) to 'output push-pull' for the LEDs. */
 	gpio_set_mode(GPIOB, GPIO_MODE_OUTPUT_2_MHZ,
@@ -60,7 +60,7 @@ int main(void)
 	gpio_clear(GPIOB, GPIO7);	/* LED1 on */
 	gpio_set(GPIOB, GPIO6);		/* LED2 off */
 	
-	rcc_peripheral_enable_clock(&RCC_APB1ENR, TIM2EN);
+	rcc_peripheral_enable_clock(&RCC_APB1ENR, RCC_APB1ENR_TIM2EN);
 
 	/* the goal is to let the LED2 glow for a second and then be off for a second */	
 
