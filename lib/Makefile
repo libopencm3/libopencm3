@@ -28,7 +28,7 @@ CFLAGS		= -Os -g -Wall -Wextra -I../include -fno-common \
 # ARFLAGS	= rcsv
 ARFLAGS		= rcs
 OBJS		= vector.o rcc.o gpio.o usart.o adc.o spi.o flash.o nvic.o \
-		  rtc.o i2c.o dma.o systick.o
+		  rtc.o i2c.o dma.o systick.o exti.o
 
 # Be silent per default, but 'make V=1' will show all compiler calls.
 ifneq ($(V),1)

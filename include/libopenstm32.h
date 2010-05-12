@@ -43,5 +43,6 @@
 #include <libopenstm32/pwr.h>
 #include <libopenstm32/crc.h>
 #include <libopenstm32/bkp.h>
+#include <libopenstm32/exti.h>
 
 #endif
