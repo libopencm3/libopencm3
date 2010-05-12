@@ -157,8 +157,8 @@ u32 rtc_get_alarm_val(void)
 void rtc_set_counter_val(u32 counter_val)
 {
 	rtc_enter_config_mode();
-	RTC_PRLH = (counter_val & 0xffff0000) >> 16; /* CNT[31:16] */
-	RTC_PRLL = counter_val & 0x0000ffff;         /* CNT[15:0] */
+	RTC_CNTH = (counter_val & 0xffff0000) >> 16; /* CNT[31:16] */
+	RTC_CNTL = counter_val & 0x0000ffff;         /* CNT[15:0] */
 	rtc_exit_config_mode();
 }
 
