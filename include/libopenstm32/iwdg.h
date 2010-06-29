@@ -56,7 +56,7 @@
 #define IWDG_PR_DIV64			0x4
 #define IWDG_PR_DIV128			0x5
 #define IWDG_PR_DIV256			0x6
-/* double definition */
+/* Double definition: 0x06 and 0x07 both mean DIV256 as per datasheet. */
 /* #define IWDG_PR_DIV256			0x7 */
 
 /* --- IWDG_RLR values ----------------------------------------------------- */

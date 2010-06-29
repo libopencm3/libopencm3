@@ -23,13 +23,14 @@
 #include <libopenstm32/memorymap.h>
 #include <libopenstm32/common.h>
 
-/*Define EXTI Registers */
-#define EXTI_IMR              MMIO32(EXTI_BASE + 0x00)
-#define EXTI_EMR              MMIO32(EXTI_BASE + 0x04)
-#define EXTI_RTSR             MMIO32(EXTI_BASE + 0x08)
-#define EXTI_FTSR             MMIO32(EXTI_BASE + 0x0C)
-#define EXTI_SWIER            MMIO32(EXTI_BASE + 0x10)
-#define EXTI_PR               MMIO32(EXTI_BASE + 0x14)
+/* --- EXTI registers ------------------------------------------------------ */
+
+#define EXTI_IMR			MMIO32(EXTI_BASE + 0x00)
+#define EXTI_EMR			MMIO32(EXTI_BASE + 0x04)
+#define EXTI_RTSR			MMIO32(EXTI_BASE + 0x08)
+#define EXTI_FTSR			MMIO32(EXTI_BASE + 0x0c)
+#define EXTI_SWIER			MMIO32(EXTI_BASE + 0x10)
+#define EXTI_PR				MMIO32(EXTI_BASE + 0x14)
 
 /* EXTI number definitions */
 #define EXTI0				(1 << 0)
@@ -53,19 +54,17 @@
 #define EXTI18				(1 << 18)
 #define EXTI19				(1 << 19)
 
-/*Define trigger types*/
-typedef enum trigger_e{
-EXTI_TRIGGER_RISING,
-EXTI_TRIGGER_FALLING,
-EXTI_TRIGGER_BOTH,
-}exti_trigger_type;
+/* Trigger types */
+typedef enum trigger_e {
+	EXTI_TRIGGER_RISING,
+	EXTI_TRIGGER_FALLING,
+	EXTI_TRIGGER_BOTH,
+} exti_trigger_type;
 
-/*Function Prototypes */
-void exti_set_trigger(u32 extis,exti_trigger_type trig);
+void exti_set_trigger(u32 extis, exti_trigger_type trig);
 void exti_enable_request(u32 extis);
 void exti_disable_request(u32 extis);
 void exti_reset_request(u32 extis);
 void exti_select_source(u32 exti, u32 gpioport);
-
 
 #endif

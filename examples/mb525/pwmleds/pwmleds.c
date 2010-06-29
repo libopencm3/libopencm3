@@ -244,7 +244,8 @@ void clock_setup(void)
 	rcc_peripheral_enable_clock(&RCC_APB1ENR, RCC_APB1ENR_TIM3EN);
 
 	/* Enable GPIOC, Alternate Function clocks. */
-	rcc_peripheral_enable_clock(&RCC_APB2ENR, RCC_APB2ENR_IOPCEN | RCC_APB2ENR_AFIOEN);
+	rcc_peripheral_enable_clock(&RCC_APB2ENR,
+				    RCC_APB2ENR_IOPCEN | RCC_APB2ENR_AFIOEN);
 }
 
 void gpio_setup(void)

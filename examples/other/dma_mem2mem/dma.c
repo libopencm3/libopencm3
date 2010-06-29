@@ -71,20 +71,20 @@ int main(void)
 	   We want to transfer 32bit * 5 so it should fit */
 	char s1[20] = "Hello STM MEM2MEM\r\n";
 	char s2[20];
-	
+
         rcc_clock_setup_in_hse_16mhz_out_72mhz();
 	gpio_setup();
 	usart_setup();
 
 	gpio_clear(GPIOB, GPIO7);	/* LED1 on */
 	gpio_set(GPIOB, GPIO6);		/* LED2 off */
-	
+
 	my_usart_print_string(USART1, "s1 ");
 	my_usart_print_string(USART1, s1);
 
 	rcc_peripheral_enable_clock(&RCC_AHBENR, RCC_AHBENR_DMA1EN);
 
-	/* MEM2MEM mode for channel 1. */	
+	/* MEM2MEM mode for channel 1. */
 	dma_enable_mem2mem_mode(DMA1, DMA_CHANNEL1);
 
 	/* Highest priority. */
@@ -112,7 +112,7 @@ int main(void)
 	   depending from your source device. */
 	dma_set_number_of_data(DMA1, DMA_CHANNEL1, 5); 
 
-	/* Start DMA transfer. */	
+	/* Start DMA transfer. */
 	dma_enable_channel(DMA1, DMA_CHANNEL1);
 
 	/* TODO: write a function to get the interrupt flags. */
@@ -122,7 +122,7 @@ int main(void)
 
 	dma_disable_channel(DMA1, DMA_CHANNEL1);
 
-	/* String s1 should now already be transferred to s2. */	
+	/* String s1 should now already be transferred to s2. */
 	my_usart_print_string(USART1, "s2 ");
 	my_usart_print_string(USART1, s2);
 
