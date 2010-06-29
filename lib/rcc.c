@@ -343,7 +343,7 @@ void rcc_clock_setup_in_hsi_out_64mhz(void)
 	 */
 	rcc_set_hpre(RCC_CFGR_HPRE_SYSCLK_NODIV);	/* Max. 72MHz */
 	rcc_set_adcpre(RCC_CFGR_ADCPRE_PCLK2_DIV8);	/* Max. 14MHz */
-	rcc_set_ppre1(RCC_CFGR_PPRE1_HCLK_DIV2);		/* Max. 36MHz */
+	rcc_set_ppre1(RCC_CFGR_PPRE1_HCLK_DIV2);	/* Max. 36MHz */
 	rcc_set_ppre2(RCC_CFGR_PPRE2_HCLK_NODIV);	/* Max. 72MHz */
 
 	/*
@@ -391,7 +391,7 @@ void rcc_clock_setup_in_hse_8mhz_out_72mhz(void)
 	 */
 	rcc_set_hpre(RCC_CFGR_HPRE_SYSCLK_NODIV);	/* Max. 72MHz */
 	rcc_set_adcpre(RCC_CFGR_ADCPRE_PCLK2_DIV8);	/* Max. 14MHz */
-	rcc_set_ppre1(RCC_CFGR_PPRE1_HCLK_DIV2);		/* Max. 36MHz */
+	rcc_set_ppre1(RCC_CFGR_PPRE1_HCLK_DIV2);	/* Max. 36MHz */
 	rcc_set_ppre2(RCC_CFGR_PPRE2_HCLK_NODIV);	/* Max. 72MHz */
 
 	/*
@@ -427,42 +427,56 @@ void rcc_clock_setup_in_hse_8mhz_out_72mhz(void)
 
 void rcc_clock_setup_in_hse_16mhz_out_72mhz(void)
 {
-        /* enable Internal High Speed Oscillator */
-        rcc_osc_on(HSI);
-        rcc_wait_for_osc_ready(HSI);
+	/* Enable internal high-speed oscillator. */
+	rcc_osc_on(HSI);
+	rcc_wait_for_osc_ready(HSI);
 
-        /* Select HSI as SYSCLK source. */
-        rcc_set_sysclk_source(RCC_CFGR_SW_SYSCLKSEL_HSICLK);
+	/* Select HSI as SYSCLK source. */
+	rcc_set_sysclk_source(RCC_CFGR_SW_SYSCLKSEL_HSICLK);
 
-        /* enable External High Speed Oscillator 16MHz */
-        rcc_osc_on(HSE);
-        rcc_wait_for_osc_ready(HSE);
-        rcc_set_sysclk_source(RCC_CFGR_SW_SYSCLKSEL_HSECLK);
+	/* Enable external high-speed oscillator 16MHz. */
+	rcc_osc_on(HSE);
+	rcc_wait_for_osc_ready(HSE);
+	rcc_set_sysclk_source(RCC_CFGR_SW_SYSCLKSEL_HSECLK);
 
-        /* set prescalers for ADC, ABP1, ABP2...  make this before touching the PLL */
-        rcc_set_hpre(RCC_CFGR_HPRE_SYSCLK_NODIV); //prescales the AHB clock from the SYSCLK
-        rcc_set_adcpre(RCC_CFGR_ADCPRE_PCLK2_DIV6); //prescales the ADC from the APB2 clock; max 14MHz
-        rcc_set_ppre1(RCC_CFGR_PPRE1_HCLK_DIV2); //prescales the APB1 from the AHB clock; max 36MHz
-        rcc_set_ppre2(RCC_CFGR_PPRE2_HCLK_NODIV); //prescales the APB2 from the AHB clock; max 72MHz
+	/*
+	 * Set prescalers for AHB, ADC, ABP1, ABP2.
+	 * Do this before touching the PLL (TODO: why?).
+	 */
+	rcc_set_hpre(RCC_CFGR_HPRE_SYSCLK_NODIV);	/* Max. 72MHz */
+	rcc_set_adcpre(RCC_CFGR_ADCPRE_PCLK2_DIV6);	/* Max. 14MHz */
+	rcc_set_ppre1(RCC_CFGR_PPRE1_HCLK_DIV2);	/* Max. 36MHz */
+	rcc_set_ppre2(RCC_CFGR_PPRE2_HCLK_NODIV);	/* Max. 72MHz */
 
-        /* sysclk should run with 72MHz -> 2 Waitstates ; choose 0WS from 0-24MHz, 1WS from 24-48MHz, 2WS from 48-72MHz */
-        flash_set_ws(FLASH_LATENCY_2WS);
+	/*
+	 * Sysclk runs with 72MHz -> 2 waitstates.
+	 * 0WS from 0-24MHz
+	 * 1WS from 24-48MHz
+	 * 2WS from 48-72MHz
+	 */
+	flash_set_ws(FLASH_LATENCY_2WS);
 
-        /* Set the PLL multiplication factor to 9. -> 16MHz (external) * 9 (multiplier) / 2 (PLLXTPRE_HSE_CLK_DIV2) = 72MHz */
-        rcc_set_pll_multiplication_factor(RCC_CFGR_PLLMUL_PLL_CLK_MUL9);
+	/*
+	 * Set the PLL multiplication factor to 9.
+	 * 16MHz (external) * 9 (multiplier) / 2 (PLLXTPRE_HSE_CLK_DIV2) = 72MHz
+	 */
+	rcc_set_pll_multiplication_factor(RCC_CFGR_PLLMUL_PLL_CLK_MUL9);
 
-        /* Select HSI as PLL source. */
-        rcc_set_pll_source(RCC_CFGR_PLLSRC_HSE_CLK);
+	/* Select HSI as PLL source. */
+	rcc_set_pll_source(RCC_CFGR_PLLSRC_HSE_CLK);
 
-        /* divide external frequency by 2 before entering pll (only valid/needed for HSE) */
-        rcc_set_pllxtpre(RCC_CFGR_PLLXTPRE_HSE_CLK_DIV2);
+	/*
+	 * Divide external frequency by 2 before entering PLL
+	 * (only valid/needed for HSE).
+	 */
+	rcc_set_pllxtpre(RCC_CFGR_PLLXTPRE_HSE_CLK_DIV2);
 
-        /* Enable PLL oscillator and wait for it to stabilize. */
-        rcc_osc_on(PLL);
-        rcc_wait_for_osc_ready(PLL);
+	/* Enable PLL oscillator and wait for it to stabilize. */
+	rcc_osc_on(PLL);
+	rcc_wait_for_osc_ready(PLL);
 
-        /* Select PLL as SYSCLK source. */
-        rcc_set_sysclk_source(RCC_CFGR_SW_SYSCLKSEL_PLLCLK);
+	/* Select PLL as SYSCLK source. */
+	rcc_set_sysclk_source(RCC_CFGR_SW_SYSCLKSEL_PLLCLK);
 }
 
 void rcc_backupdomain_reset(void)
@@ -473,4 +487,3 @@ void rcc_backupdomain_reset(void)
 	/* Clear the backup domain software reset. */
 	RCC_BDCR &= ~RCC_BDCR_BDRST;
 }
-
