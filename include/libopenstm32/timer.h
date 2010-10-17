@@ -231,6 +231,7 @@
 #define TIM_CR1_CKD_CK_INT              (0x0 << 8)
 #define TIM_CR1_CKD_CK_INT_MUL_2        (0x1 << 8)
 #define TIM_CR1_CKD_CK_INT_MUL_4        (0x2 << 8)
+#define TIM_CR1_CKD_CK_INT_MASK         (0x3 << 8)
 
 /* ARPE: Auto-reload preload enable */
 #define TIM_CR1_ARPE                    (1 << 7)
@@ -279,6 +280,7 @@
 
 /* OIS1: Output idle state 1 (OC1 output) */
 #define TIM_CR2_OIS1                    (1 << 8)
+#define TIM_CR2_OIS_MASK                (0x7f << 8)
 
 /* TI1S: TI1 selection */
 #define TIM_CR2_TI1S                    (1 << 7)
@@ -292,6 +294,7 @@
 #define TIM_CR2_MMS_COMPARE_OC2REF      (0x5 << 4)
 #define TIM_CR2_MMS_COMPARE_OC3REF      (0x6 << 4)
 #define TIM_CR2_MMS_COMPARE_OC4REF      (0x7 << 4)
+#define TIM_CR2_MMS_MASK                (0x7 << 4)
 
 /* CCDS: Capture/compare DMA selection */
 #define TIM_CR2_CCDS                    (1 << 3)
