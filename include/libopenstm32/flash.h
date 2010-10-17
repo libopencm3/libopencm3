@@ -2,6 +2,7 @@
  * This file is part of the libopenstm32 project.
  *
  * Copyright (C) 2010 Thomas Otto <tommi@viadmin.org>
+ * Copyright (C) 2010 Mark Butler <mbutler@physics.otago.ac.nz>
  *
  * This program is free software: you can redistribute it and/or modify
  * it under the terms of the GNU General Public License as published by
@@ -80,6 +81,12 @@
 #define FLASH_RDPRT				(1 << 1)
 #define FLASH_OPTERR				(1 << 0)
 
+/* --- FLASH Keys -----------------------------------------------------------*/
+
+#define RDP_KEY					((u16)0x00a5)
+#define FLASH_KEY1				((u32)0x45670123)
+#define FLASH_KEY2				((u32)0xcdef89ab)
+
 /* --- Function prototypes ------------------------------------------------- */
 
 void flash_prefetch_buffer_enable(void);
@@ -87,5 +94,20 @@ void flash_prefetch_buffer_disable(void);
 void flash_halfcycle_enable(void);
 void flash_halfcycle_disable(void);
 void flash_set_ws(u32 ws);
+void flash_unlock(void);
+void flash_lock(void);
+void flash_clear_pgerr_flag(void);
+void flash_clear_eop_flag(void);
+void flash_clear_wrprterr_flag(void);
+void flash_clear_bsy_flag(void);
+void flash_clear_status_flags(void);
+void flash_unlock_option_bytes(void);
+void flash_erase_all_pages(void);
+void flash_erase_page(u32 page_address);
+void flash_program_word(u32 address, u32 data);
+void flash_program_half_word(u32 address, u16 data);
+void flash_wait_for_last_operation(void);
+void flash_erase_option_bytes(void);
+void flash_program_option_bytes(u32 address, u16 data);
 
 #endif
