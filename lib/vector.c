@@ -19,7 +19,11 @@
 
 #define WEAK __attribute__ ((weak))
 
+/* Symbols exported by linker script */
+extern unsigned _etext, _data, _edata, _ebss, _stack;
+
 void main(void);
+void reset_handler(void);
 void blocking_handler(void);
 void null_handler(void);
 
@@ -95,8 +99,8 @@ void WEAK dma2_channel4_5_isr(void);
 
 __attribute__ ((section(".vectors")))
 void (*const vector_table[]) (void) = {
-	(void *)0x20000800,	/* Use 2KB stack (0x800 bytes). */
-	main,			/* Use main() as reset vector for now. */
+	(void*)&_stack,
+	reset_handler,
 	nmi_handler,
 	hard_fault_handler,
 	mem_manage_handler,
@@ -169,6 +173,21 @@ void (*const vector_table[]) (void) = {
 	dma2_channel3_isr,
 	dma2_channel4_5_isr,
 };
+
+void reset_handler(void)
+{
+	volatile unsigned *src, *dest;
+	asm("MSR msp, %0" : : "r"(&_stack));
+
+	for (src = &_etext, dest = &_data; dest < &_edata; src++, dest++)
+		*dest = *src;
+
+	while (dest < &_ebss)
+		*dest++ = 0;
+
+	/* Call the application's entry point. */
+	main();
+}
 
 void blocking_handler(void)
 {

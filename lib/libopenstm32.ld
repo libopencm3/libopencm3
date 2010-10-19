@@ -33,15 +33,25 @@ SECTIONS
 		*(.vectors)	/* Vector table */
 		*(.text)	/* Program code */
 		*(.rodata)	/* Read-only data */
+		_etext = .;
 	} >rom
 
 	. = ORIGIN(ram);
 
 	.data : {
+		_data = .;
 		*(.data)	/* Read-write initialized data */
+		_edata = .;
 	} >ram AT >rom
 
 	.bss : {
 		*(.bss)		/* Read-write zero initialized data */
+		*(COMMON)
+		_ebss = .;
 	} >ram AT >rom
+
+	end = .;
 }
+
+PROVIDE(_stack = 0x20000800);
+
