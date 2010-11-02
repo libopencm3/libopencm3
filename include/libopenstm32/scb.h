@@ -122,6 +122,7 @@
 
 /* VECTKEYSTAT[31:16]/ VECTKEY[31:16] Register key */
 #define SCB_AIRCR_VECTKEYSTAT_LSB		16
+#define SCB_AIRCR_VECTKEY			0x05FA0000
 /* ENDIANESS Data endianness bit */
 #define SCB_AIRCR_ENDIANESS			(1 << 15)
 /* Bits [14:11]: reserved - must be kept cleared */
@@ -291,6 +292,8 @@
 /* BFAR [31:0]: Bus fault address */
 
 /* --- SCB functions ------------------------------------------------------- */
+void scb_reset_core(void);
+void scb_reset_system(void);
 
 /* TODO: */
 

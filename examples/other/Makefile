@@ -24,7 +24,7 @@ Q := @
 MAKEFLAGS += --no-print-directory
 endif
 
-all: i2c_stts75_sensor adc_temperature_sensor dma_mem2mem timer_interrupt systick dogm128 rtc
+all: i2c_stts75_sensor adc_temperature_sensor dma_mem2mem timer_interrupt systick dogm128 rtc usb_cdcacm usb_dfu usb_hid
 
 i2c_stts75_sensor:
 	@printf "  BUILD   examples/other/i2c_stts75_sensor\n"
@@ -54,6 +54,18 @@ rtc:
 	@printf "  BUILD   examples/other/rtc\n"
 	$(Q)$(MAKE) -C rtc
 
+usb_cdcacm:
+	@printf "  BUILD   examples/other/usb_cdcacm\n"
+	$(Q)$(MAKE) -C usb_cdcacm
+
+usb_dfu:
+	@printf "  BUILD   examples/other/usb_dfu\n"
+	$(Q)$(MAKE) -C usb_dfu
+
+usb_hid:
+	@printf "  BUILD   examples/other/usb_hid\n"
+	$(Q)$(MAKE) -C usb_hid
+
 clean:
 	@printf "  CLEAN   examples/other/i2c_stts75_sensor\n"
 	$(Q)$(MAKE) -C i2c_stts75_sensor clean
@@ -69,6 +81,12 @@ clean:
 	$(Q)$(MAKE) -C dogm128 clean
 	@printf "  CLEAN   examples/other/rtc\n"
 	$(Q)$(MAKE) -C rtc clean
+	@printf "  CLEAN   examples/other/usb_cdcacm\n"
+	$(Q)$(MAKE) -C usb_cdcacm clean
+	@printf "  CLEAN   examples/other/usb_dfu\n"
+	$(Q)$(MAKE) -C usb_dfu clean
+	@printf "  CLEAN   examples/other/usb_hid\n"
+	$(Q)$(MAKE) -C usb_hid clean
 
-.PHONY: i2c_stts75_sensor adc_temperature_sensor dma_mem2mem timer_interrupt systick dogm128 rtc clean
+.PHONY: i2c_stts75_sensor adc_temperature_sensor dma_mem2mem timer_interrupt systick dogm128 rtc clean usb_cdcacm usb_dfu usb_hid
 

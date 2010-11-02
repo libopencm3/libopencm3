@@ -20,6 +20,10 @@
 #ifndef LIBOPENSTM32_USB_H
 #define LIBOPENSTM32_USB_H
 
+#include <libopenstm32/memorymap.h>
+#include <libopenstm32/common.h>
+#include <libopenstm32/tools.h>
+
 /******************************************************************************
  * USB base addresses
  ******************************************************************************/
@@ -42,7 +46,7 @@
 /* USB Buffer table address register */
 #define USB_BTABLE_REG ((volatile u32 *)(USB_DEV_FS_BASE + 0x50))
 /* USB EP register */
-#define USB_EP_REG(EP) ((volatile u32 *)(USB_DEV_FS_BASE + EP))
+#define USB_EP_REG(EP) ((volatile u32 *)(USB_DEV_FS_BASE) + (EP))
 
 /******************************************************************************
  * USB control register masks / bits

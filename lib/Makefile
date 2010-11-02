@@ -28,7 +28,10 @@ CFLAGS		= -Os -g -Wall -Wextra -I../include -fno-common \
 # ARFLAGS	= rcsv
 ARFLAGS		= rcs
 OBJS		= vector.o rcc.o gpio.o usart.o adc.o spi.o flash.o nvic.o \
-		  rtc.o i2c.o dma.o systick.o exti.o
+		  rtc.o i2c.o dma.o systick.o exti.o scb.o \
+		  usb_f103.o usb.o usb_control.o usb_standard.o
+
+VPATH += usb
 
 # Be silent per default, but 'make V=1' will show all compiler calls.
 ifneq ($(V),1)

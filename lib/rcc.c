@@ -287,7 +287,7 @@ void rcc_set_adcpre(u32 adcpre)
 	u32 reg32;
 
 	reg32 = RCC_CFGR;
-	reg32 &= ((1 << 14) | (1 << 15));
+	reg32 &= ~((1 << 14) | (1 << 15));
 	RCC_CFGR = (reg32 | (adcpre << 14));
 }
 
@@ -296,7 +296,7 @@ void rcc_set_ppre2(u32 ppre2)
 	u32 reg32;
 
 	reg32 = RCC_CFGR;
-	reg32 &= ((1 << 11) | (1 << 12) | (1 << 13));
+	reg32 &= ~((1 << 11) | (1 << 12) | (1 << 13));
 	RCC_CFGR = (reg32 | (ppre2 << 11));
 }
 
@@ -305,7 +305,7 @@ void rcc_set_ppre1(u32 ppre1)
 	u32 reg32;
 
 	reg32 = RCC_CFGR;
-	reg32 &= ((1 << 8) | (1 << 9) | (1 << 10));
+	reg32 &= ~((1 << 8) | (1 << 9) | (1 << 10));
 	RCC_CFGR = (reg32 | (ppre1 << 8));
 }
 
@@ -314,8 +314,17 @@ void rcc_set_hpre(u32 hpre)
 	u32 reg32;
 
 	reg32 = RCC_CFGR;
-	reg32 &= ((1 << 4) | (1 << 5) | (1 << 6) | (1 << 7));
+	reg32 &= ~((1 << 4) | (1 << 5) | (1 << 6) | (1 << 7));
 	RCC_CFGR = (reg32 | (hpre << 4));
+}
+
+void rcc_set_usbpre(u32 usbpre)
+{
+	u32 reg32;
+
+	reg32 = RCC_CFGR;
+	reg32 &= ~(1 << 22);
+	RCC_CFGR = (reg32 | (usbpre << 22));
 }
 
 u32 rcc_system_clock_source(void)
@@ -359,6 +368,50 @@ void rcc_clock_setup_in_hsi_out_64mhz(void)
 	 * 8MHz (internal) * 16 (multiplier) / 2 (PLLSRC_HSI_CLK_DIV2) = 64MHz
 	 */
 	rcc_set_pll_multiplication_factor(RCC_CFGR_PLLMUL_PLL_CLK_MUL16);
+
+	/* Select HSI/2 as PLL source. */
+	rcc_set_pll_source(RCC_CFGR_PLLSRC_HSI_CLK_DIV2);
+
+	/* Enable PLL oscillator and wait for it to stabilize. */
+	rcc_osc_on(PLL);
+	rcc_wait_for_osc_ready(PLL);
+
+	/* Select PLL as SYSCLK source. */
+	rcc_set_sysclk_source(RCC_CFGR_SW_SYSCLKSEL_PLLCLK);
+}
+
+void rcc_clock_setup_in_hsi_out_48mhz(void)
+{
+	/* Enable internal high-speed oscillator. */
+	rcc_osc_on(HSI);
+	rcc_wait_for_osc_ready(HSI);
+
+	/* Select HSI as SYSCLK source. */
+	rcc_set_sysclk_source(RCC_CFGR_SW_SYSCLKSEL_HSICLK);
+
+	/*
+	 * Set prescalers for AHB, ADC, ABP1, ABP2.
+	 * Do this before touching the PLL (TODO: why?).
+	 */
+	rcc_set_hpre(RCC_CFGR_HPRE_SYSCLK_NODIV);	/* Max. 72MHz */
+	rcc_set_adcpre(RCC_CFGR_ADCPRE_PCLK2_DIV8);	/* Max. 14MHz */
+	rcc_set_ppre1(RCC_CFGR_PPRE1_HCLK_DIV2);	/* Max. 36MHz */
+	rcc_set_ppre2(RCC_CFGR_PPRE2_HCLK_NODIV);	/* Max. 72MHz */
+	rcc_set_usbpre(RCC_CFGR_USBPRE_PLL_CLK_NODIV);	/* 48 MHz */
+
+	/*
+	 * Sysclk runs with 48MHz -> 1 waitstates.
+	 * 0WS from 0-24MHz
+	 * 1WS from 24-48MHz
+	 * 2WS from 48-72MHz
+	 */
+	flash_set_ws(FLASH_LATENCY_1WS);
+
+	/*
+	 * Set the PLL multiplication factor to 12.
+	 * 8MHz (internal) * 12 (multiplier) / 2 (PLLSRC_HSI_CLK_DIV2) = 48MHz
+	 */
+	rcc_set_pll_multiplication_factor(RCC_CFGR_PLLMUL_PLL_CLK_MUL12);
 
 	/* Select HSI/2 as PLL source. */
 	rcc_set_pll_source(RCC_CFGR_PLLSRC_HSI_CLK_DIV2);

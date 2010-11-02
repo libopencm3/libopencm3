@@ -1,0 +1,268 @@
+/*
+ * This file is part of the libopenstm32 project.
+ *
+ * Copyright (C) 2010  Gareth McMullin <gareth@blacksphere.co.nz>
+ *
+ * This program is free software: you can redistribute it and/or modify
+ * it under the terms of the GNU General Public License as published by
+ * the Free Software Foundation, either version 3 of the License, or
+ * (at your option) any later version.
+ *
+ * This program is distributed in the hope that it will be useful,
+ * but WITHOUT ANY WARRANTY; without even the implied warranty of
+ * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
+ * GNU General Public License for more details.
+ *
+ * You should have received a copy of the GNU General Public License
+ * along with this program.  If not, see <http://www.gnu.org/licenses/>.
+ */
+
+#include <string.h>
+
+#include <usbd.h>
+#include "usb_private.h"
+
+void usbd_register_set_config_callback(void (*callback)(uint16_t wValue))
+{
+	_usbd_device.user_callback_set_config = callback;
+}
+
+static uint16_t  
+build_config_descriptor(uint8_t index, uint8_t *buf, uint16_t len)
+{
+	uint8_t *tmpbuf = buf;
+	const struct usb_config_descriptor *cfg = &_usbd_device.config[index];
+	uint16_t count, total = 0, totallen = 0;
+	uint16_t i, j, k;
+
+	memcpy(buf, cfg, count = MIN(len, cfg->bLength));
+	buf += count; len -= count; total += count; totallen += cfg->bLength;
+
+	/* For each interface... */
+	for(i = 0; i < cfg->bNumInterfaces; i++) {
+		/* For each alternate setting... */
+		for(j = 0; j < cfg->interface[i].num_altsetting; j++) {
+			const struct usb_interface_descriptor *iface = 
+					&cfg->interface[i].altsetting[j];
+			/* Copy interface descriptor */
+			memcpy(buf, iface, count = MIN(len, iface->bLength));
+			buf += count; len -= count; 
+			total += count; totallen += iface->bLength;
+			/* Copy extra bytes (function descriptors) */
+			memcpy(buf, iface->extra, 
+					count = MIN(len, iface->extralen));
+			buf += count; len -= count; 
+			total += count; totallen += iface->extralen;
+			/* For each endpoint... */
+			for(k = 0; k < iface->bNumEndpoints; k++) {
+				const struct usb_endpoint_descriptor *ep = 
+							&iface->endpoint[k];
+				memcpy(buf, ep, count = MIN(len, ep->bLength));
+				buf += count; len -= count; 
+				total += count; totallen += ep->bLength;
+			}
+		}
+	}
+
+	/* Fill in wTotalLength */
+	*(uint16_t*)(tmpbuf+2) = totallen;
+
+	return total;
+}
+
+static int usb_standard_get_descriptor(struct usb_setup_data *req, 
+					uint8_t **buf, uint16_t *len)
+{
+	int i;
+
+	switch(req->wValue >> 8) {
+	case USB_DT_DEVICE:
+		*buf = (uint8_t *)_usbd_device.desc;
+		*len = MIN(*len, _usbd_device.desc->bLength);
+		return 1;
+
+	case USB_DT_CONFIGURATION: {
+		*buf = _usbd_device.ctrl_buf;
+		*len = build_config_descriptor(req->wValue & 0xff, *buf, *len);
+		return 1;
+		}
+
+	case USB_DT_STRING: {
+		struct usb_string_descriptor *sd = 
+			(struct usb_string_descriptor *)_usbd_device.ctrl_buf;
+
+		if(!_usbd_device.strings) 
+			return 0; /* Device doesn't support strings */
+
+		sd->bLength = strlen(_usbd_device.strings[req->wValue & 0xff]) 
+				* 2 + 2;
+		sd->bDescriptorType = USB_DT_STRING;
+
+		*buf = (uint8_t *)sd;
+		*len = MIN(*len, sd->bLength);
+
+		for(i = 0; i < (*len / 2) - 1; i++) 
+			sd->wData[i] = 
+				_usbd_device.strings[req->wValue & 0xff][i];
+
+		/* Send sane Language ID descriptor... */
+		if((req->wValue & 0xff) == 0) 
+			sd->wData[0] = 0x409;
+
+		return 1;
+	    }
+	}
+	return 0;
+}
+
+static int usb_standard_set_address(struct usb_setup_data *req)
+{
+	/* The actual address is only latched at the STATUS IN stage */
+	if((req->bmRequestType != 0) || (req->wValue >= 128)) return 0;
+
+	_usbd_device.current_address = req->wValue;
+
+	return 1;
+}
+
+static int usb_standard_set_configuration(struct usb_setup_data *req)
+{
+	/* Is this correct, or should we reset alternate settings */
+	if(req->wValue == _usbd_device.current_config) return 1;
+
+	_usbd_device.current_config = req->wValue;
+
+	/* Reset all endpoints */
+	_usbd_hw_endpoints_reset();
+		
+	if(_usbd_device.user_callback_set_config)
+		_usbd_device.user_callback_set_config(req->wValue);
+
+	return 1;
+}
+
+static int usb_standard_get_configuration(struct usb_setup_data *req, 
+				uint8_t **buf, uint16_t *len)
+{
+	(void)req;
+
+	if(*len > 1) *len = 1;
+	(*buf)[0] = _usbd_device.current_config;
+
+	return 1;
+}
+
+static int usb_standard_set_interface(struct usb_setup_data *req)
+{
+	(void)req;
+	/* FIXME: Do something meaningful here: call app */
+	return 1;
+}
+
+static int usb_standard_get_status(struct usb_setup_data *req, uint8_t **buf, 
+				uint16_t *len)
+{
+	(void)req;
+	/* FIXME: Return some meaningful status */
+
+	if(*len > 2) *len = 2;
+	(*buf)[0] = 0;
+	(*buf)[1] = 0;
+
+	return 1;
+}
+
+int _usbd_standard_request_command(struct usb_setup_data *req)
+{
+	int (*command)(struct usb_setup_data *req) = NULL;
+
+	if((req->bmRequestType & 0x60) != USB_REQ_TYPE_STANDARD) 
+		return 0;
+
+	switch(req->bRequest) {	
+	case USB_REQ_CLEAR_FEATURE:
+		/* FIXME: Implement CLEAR_FEATURE */
+		/* TODO: Check what standard features are.  
+		 * Maybe this is the application's responsibility. */
+		break;
+	case USB_REQ_SET_ADDRESS:
+		/* SET ADDRESS is an exception.
+		 * It is only processed at STATUS stage */
+		command = usb_standard_set_address;
+		break;
+	case USB_REQ_SET_CONFIGURATION:
+		command = usb_standard_set_configuration;
+		break;
+        case USB_REQ_SET_FEATURE:
+		/* FIXME: Implement SET_FEATURE */
+		/* TODO: Check what standard features are.  
+		 * Maybe this is the application's responsibility. */
+		break;
+	case USB_REQ_SET_INTERFACE:
+		command = usb_standard_set_interface;
+		break;
+	}
+
+	if(!command) return 0;
+
+	return command(req);
+}
+
+int _usbd_standard_request_read(struct usb_setup_data *req, uint8_t **buf, 
+				uint16_t *len)
+{
+	int (*command)(struct usb_setup_data *req, uint8_t **buf, 
+			uint16_t *len) = NULL;
+
+	/* Handle standard requests */
+	if((req->bmRequestType & 0x60) != USB_REQ_TYPE_STANDARD) 
+		return 0;
+
+	switch(req->bRequest) {	
+	case USB_REQ_GET_CONFIGURATION:
+		command = usb_standard_get_configuration;
+		break;
+	case USB_REQ_GET_DESCRIPTOR:
+		command = usb_standard_get_descriptor;
+		break;
+	case USB_REQ_GET_INTERFACE:
+		/* FIXME: Implement GET_INTERFACE */
+		break;
+	case USB_REQ_GET_STATUS:
+		/* GET_STATUS always responds with zero reply.
+		 * The application may override this behaviour. */
+		command = usb_standard_get_status;
+		break;
+	}
+
+	if(!command) return 0;
+
+	return command(req, buf, len);
+}
+
+int _usbd_standard_request_write(struct usb_setup_data *req, uint8_t *buf, 
+				uint16_t len)
+{
+	int (*command)(struct usb_setup_data *req, uint8_t *buf, uint16_t len) 
+			= NULL;
+
+	/* Handle standard requests */
+	if((req->bmRequestType & 0x60) != USB_REQ_TYPE_STANDARD) 
+		return 0;
+
+	switch(req->bRequest) {	
+	case USB_REQ_SET_DESCRIPTOR:
+		/* SET_DESCRIPTOR is optional and not implemented. */
+		break;
+	case USB_REQ_SET_SYNCH_FRAME:
+		/* FIXME: SYNCH_FRAME is not implemented. */
+		/* SYNCH_FRAME is used for synchronization of isochronous 
+		 * endpoints which are not yet implemented. */
+		break;
+	}
+
+	if(!command) return 0;
+
+	return command(req, buf, len);
+}
+

@@ -1,0 +1,95 @@
+/*
+ * This file is part of the libopenstm32 project.
+ *
+ * Copyright (C) 2010  Gareth McMullin <gareth@blacksphere.co.nz>
+ *
+ * This program is free software: you can redistribute it and/or modify
+ * it under the terms of the GNU General Public License as published by
+ * the Free Software Foundation, either version 3 of the License, or
+ * (at your option) any later version.
+ *
+ * This program is distributed in the hope that it will be useful,
+ * but WITHOUT ANY WARRANTY; without even the implied warranty of
+ * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
+ * GNU General Public License for more details.
+ *
+ * You should have received a copy of the GNU General Public License
+ * along with this program.  If not, see <http://www.gnu.org/licenses/>.
+ */
+
+#include <usbd.h>
+#include <string.h>
+#include "usb_private.h"
+
+struct _usbd_device _usbd_device;
+
+uint8_t usbd_control_buffer[128] __attribute__((weak));
+
+/** Main initialization entry point.
+ *
+ *  Initialize the USB firmware library to implement the USB device described
+ *  by the descriptors provided.
+ *
+ *  It is required that the 48MHz USB clock is already available.  
+ *
+ *  @param dev    Pointer to USB Device descriptor.  This must not be changed 
+ *                while the device is in use.
+ *  @param conf   Pointer to array of USB Configuration descriptors.  These 
+ *                must not be changed while the device is in use.  The length 
+ *                of this array is determined by the bNumConfigurations field 
+ *                in the device descriptor.
+ *  @return       Zero on success (currently cannot fail)
+ */
+int usbd_init(const struct usb_device_descriptor *dev,
+		const struct usb_config_descriptor *conf,
+		const char **strings)
+{
+	_usbd_device.desc = dev;
+	_usbd_device.config = conf;
+	_usbd_device.strings = strings;
+	_usbd_device.ctrl_buf = usbd_control_buffer;
+	_usbd_device.ctrl_buf_len = sizeof(usbd_control_buffer);
+
+	_usbd_hw_init();
+
+	_usbd_device.user_callback_ctr[0][USB_TRANSACTION_SETUP] = 
+			_usbd_control_setup;
+	_usbd_device.user_callback_ctr[0][USB_TRANSACTION_OUT] = 
+			_usbd_control_out;
+	_usbd_device.user_callback_ctr[0][USB_TRANSACTION_IN] = 
+			_usbd_control_in;
+
+	return 0;
+}
+
+void usbd_register_reset_callback(void (*callback)(void))
+{
+	_usbd_device.user_callback_reset = callback;
+}
+
+void usbd_register_suspend_callback(void (*callback)(void))
+{
+	_usbd_device.user_callback_suspend = callback;
+}
+
+void usbd_register_resume_callback(void (*callback)(void))
+{
+	_usbd_device.user_callback_resume = callback;
+}
+
+void usbd_set_control_buffer_size(uint16_t size)
+{
+	_usbd_device.ctrl_buf_len = size;
+}
+
+void _usbd_reset(void)
+{
+	_usbd_device.current_address = 0;
+	_usbd_device.current_config = 0;
+	usbd_ep_setup(0, USB_ENDPOINT_ATTR_CONTROL, 64, NULL);
+	_usbd_hw_set_address(0);
+
+	if(_usbd_device.user_callback_reset)
+		_usbd_device.user_callback_reset();
+}
+
