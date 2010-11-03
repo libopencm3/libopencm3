@@ -67,11 +67,8 @@ void _usbd_control_in(uint8_t ea);
 void _usbd_control_out(uint8_t ea);
 void _usbd_control_setup(uint8_t ea);
 
-int _usbd_standard_request_command(struct usb_setup_data *req);
-int _usbd_standard_request_read(struct usb_setup_data *req, 
+int _usbd_standard_request(struct usb_setup_data *req, 
 				uint8_t **buf, uint16_t *len);
-int _usbd_standard_request_write(struct usb_setup_data *req, 
-				uint8_t *buf, uint16_t len);
 
 void _usbd_reset(void);
 

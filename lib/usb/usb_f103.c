@@ -116,7 +116,22 @@ void usbd_ep_stall(u8 addr)
 	if(addr & 0x80) 
 		USB_SET_EP_TX_STAT(addr, USB_EP_TX_STAT_STALL);
 	else
-		USB_SET_EP_RX_STAT(addr & 0x7F, USB_EP_RX_STAT_STALL);
+		USB_SET_EP_RX_STAT(addr&0x7F, USB_EP_RX_STAT_STALL);
+}
+
+u8 usbd_get_ep_stall(u8 addr)
+{
+	if(addr == 0)
+		if ((*USB_EP_REG(addr) & USB_EP_TX_STAT) == USB_EP_TX_STAT_STALL) 
+			return 1;
+	if(addr & 0x80) {
+		if ((*USB_EP_REG(addr) & USB_EP_TX_STAT) == USB_EP_TX_STAT_STALL)
+			 return 1;
+        } else {
+		if ((*USB_EP_REG(addr&0x7F) & USB_EP_RX_STAT) == USB_EP_RX_STAT_STALL)
+			return 1;
+	}
+	return 0;
 }
 
 /** Copy a data buffer to Packet Memory.

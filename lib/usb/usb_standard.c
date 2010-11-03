@@ -115,8 +115,13 @@ static int usb_standard_get_descriptor(struct usb_setup_data *req,
 	return 0;
 }
 
-static int usb_standard_set_address(struct usb_setup_data *req)
+static int usb_standard_set_address(struct usb_setup_data *req, 
+				uint8_t **buf, uint16_t *len)
 {
+	(void)req;
+	(void)buf;
+	(void)len;
+
 	/* The actual address is only latched at the STATUS IN stage */
 	if((req->bmRequestType != 0) || (req->wValue >= 128)) return 0;
 
@@ -125,8 +130,13 @@ static int usb_standard_set_address(struct usb_setup_data *req)
 	return 1;
 }
 
-static int usb_standard_set_configuration(struct usb_setup_data *req)
+static int usb_standard_set_configuration(struct usb_setup_data *req, 
+				uint8_t **buf, uint16_t *len)
 {
+	(void)req;
+	(void)buf;
+	(void)len;
+
 	/* Is this correct, or should we reset alternate settings */
 	if(req->wValue == _usbd_device.current_config) return 1;
 
@@ -152,18 +162,50 @@ static int usb_standard_get_configuration(struct usb_setup_data *req,
 	return 1;
 }
 
-static int usb_standard_set_interface(struct usb_setup_data *req)
+static int usb_standard_set_interface(struct usb_setup_data *req,
+				uint8_t **buf, uint16_t *len)
 {
 	(void)req;
-	/* FIXME: Do something meaningful here: call app */
+	(void)buf;
+
+	/* FIXME: adapt if we have more than one interface */
+	if(req->wValue != 0) return 0;
+	*len = 0;
+
 	return 1;
 }
 
-static int usb_standard_get_status(struct usb_setup_data *req, uint8_t **buf, 
-				uint16_t *len)
+static int usb_standard_get_interface(struct usb_setup_data *req,
+				uint8_t **buf, uint16_t *len)
 {
 	(void)req;
-	/* FIXME: Return some meaningful status */
+	(void)buf;
+
+	/* FIXME: adapt if we have more than one interface */
+	*len = 1;
+	(*buf)[0] = 0;
+
+	return 1;
+}
+
+static int usb_standard_device_get_status(struct usb_setup_data *req,
+				uint8_t **buf, uint16_t *len)
+{
+	(void)req;
+	/* bit 0: self powered */
+	/* bit 1: remote wakeup */
+	if(*len > 2) *len = 2;
+	(*buf)[0] = 0;
+	(*buf)[1] = 0;
+
+	return 1;
+}
+
+static int usb_standard_interface_get_status(struct usb_setup_data *req, 
+				uint8_t **buf, uint16_t *len)
+{
+	(void)req;
+	/* not defined */
 
 	if(*len > 2) *len = 2;
 	(*buf)[0] = 0;
@@ -172,18 +214,55 @@ static int usb_standard_get_status(struct usb_setup_data *req, uint8_t **buf,
 	return 1;
 }
 
-int _usbd_standard_request_command(struct usb_setup_data *req)
+static int usb_standard_endpoint_get_status(struct usb_setup_data *req, 
+				uint8_t **buf, uint16_t *len)
 {
-	int (*command)(struct usb_setup_data *req) = NULL;
+	(void)req;
+	
+	if(*len > 2) *len = 2;
+	(*buf)[0] = usbd_get_ep_stall(req->wIndex);
+	(*buf)[1] = 0;
 
-	if((req->bmRequestType & 0x60) != USB_REQ_TYPE_STANDARD) 
-		return 0;
+	return 1;
+}
+
+static int usb_standard_endpoint_stall(struct usb_setup_data *req,
+				uint8_t **buf, uint16_t *len)
+{
+	(void)buf;
+	(void)len;
+
+	usbd_ep_stall(req->wIndex);
+
+	return 1;
+}
+
+static int usb_standard_endpoint_unstall(struct usb_setup_data *req,
+				uint8_t **buf, uint16_t *len)
+{
+	(void)buf;
+	(void)len;
+
+	usbd_ep_stall(req->wIndex);
+
+	return 1;
+}
+
+int _usbd_standard_request_device(struct usb_setup_data *req, uint8_t **buf, 
+				uint16_t *len)
+{
+	int (*command)(struct usb_setup_data *req, uint8_t **buf, 
+			uint16_t *len) = NULL;
 
 	switch(req->bRequest) {	
 	case USB_REQ_CLEAR_FEATURE:
-		/* FIXME: Implement CLEAR_FEATURE */
-		/* TODO: Check what standard features are.  
-		 * Maybe this is the application's responsibility. */
+        case USB_REQ_SET_FEATURE:
+		if (req->wValue == USB_FEAT_DEVICE_REMOTE_WAKEUP) {
+			/* device wakeup code goes here */
+		}
+		if (req->wValue == USB_FEAT_TEST_MODE) {
+			/* test mode code goes here */
+		}
 		break;
 	case USB_REQ_SET_ADDRESS:
 		/* SET ADDRESS is an exception.
@@ -193,45 +272,19 @@ int _usbd_standard_request_command(struct usb_setup_data *req)
 	case USB_REQ_SET_CONFIGURATION:
 		command = usb_standard_set_configuration;
 		break;
-        case USB_REQ_SET_FEATURE:
-		/* FIXME: Implement SET_FEATURE */
-		/* TODO: Check what standard features are.  
-		 * Maybe this is the application's responsibility. */
-		break;
-	case USB_REQ_SET_INTERFACE:
-		command = usb_standard_set_interface;
-		break;
-	}
-
-	if(!command) return 0;
-
-	return command(req);
-}
-
-int _usbd_standard_request_read(struct usb_setup_data *req, uint8_t **buf, 
-				uint16_t *len)
-{
-	int (*command)(struct usb_setup_data *req, uint8_t **buf, 
-			uint16_t *len) = NULL;
-
-	/* Handle standard requests */
-	if((req->bmRequestType & 0x60) != USB_REQ_TYPE_STANDARD) 
-		return 0;
-
-	switch(req->bRequest) {	
 	case USB_REQ_GET_CONFIGURATION:
 		command = usb_standard_get_configuration;
 		break;
 	case USB_REQ_GET_DESCRIPTOR:
 		command = usb_standard_get_descriptor;
 		break;
-	case USB_REQ_GET_INTERFACE:
-		/* FIXME: Implement GET_INTERFACE */
-		break;
 	case USB_REQ_GET_STATUS:
 		/* GET_STATUS always responds with zero reply.
 		 * The application may override this behaviour. */
-		command = usb_standard_get_status;
+		command = usb_standard_device_get_status;
+		break;
+	case USB_REQ_SET_DESCRIPTOR:
+		/* SET_DESCRIPTOR is optional and not implemented. */
 		break;
 	}
 
@@ -240,19 +293,52 @@ int _usbd_standard_request_read(struct usb_setup_data *req, uint8_t **buf,
 	return command(req, buf, len);
 }
 
-int _usbd_standard_request_write(struct usb_setup_data *req, uint8_t *buf, 
-				uint16_t len)
+int _usbd_standard_request_interface(struct usb_setup_data *req, uint8_t **buf,
+				uint16_t *len)
 {
-	int (*command)(struct usb_setup_data *req, uint8_t *buf, uint16_t len) 
-			= NULL;
-
-	/* Handle standard requests */
-	if((req->bmRequestType & 0x60) != USB_REQ_TYPE_STANDARD) 
-		return 0;
+	int (*command)(struct usb_setup_data *req, uint8_t **buf, 
+			uint16_t *len) = NULL;
 
 	switch(req->bRequest) {	
-	case USB_REQ_SET_DESCRIPTOR:
-		/* SET_DESCRIPTOR is optional and not implemented. */
+	case USB_REQ_CLEAR_FEATURE:
+        case USB_REQ_SET_FEATURE:
+		/* not defined */
+		break;
+	case USB_REQ_GET_INTERFACE:
+		command = usb_standard_get_interface;
+		break;
+	case USB_REQ_SET_INTERFACE:
+		command = usb_standard_set_interface;
+		break;
+	case USB_REQ_GET_STATUS:
+		command = usb_standard_interface_get_status;
+		break;
+	}
+
+	if(!command) return 0;
+
+	return command(req, buf, len);
+}
+
+int _usbd_standard_request_endpoint(struct usb_setup_data *req, uint8_t **buf, 
+				uint16_t *len)
+{
+	int (*command)(struct usb_setup_data *req, uint8_t **buf, 
+			uint16_t *len) = NULL;
+
+	switch(req->bRequest) {	
+	case USB_REQ_CLEAR_FEATURE:
+		if (req->wValue == USB_FEAT_ENDPOINT_HALT) {
+			command = usb_standard_endpoint_stall;
+		}
+		break;
+        case USB_REQ_SET_FEATURE:
+		if (req->wValue == USB_FEAT_ENDPOINT_HALT) {
+			command = usb_standard_endpoint_unstall;
+		}
+		break;
+	case USB_REQ_GET_STATUS:
+		command = usb_standard_endpoint_get_status;
 		break;
 	case USB_REQ_SET_SYNCH_FRAME:
 		/* FIXME: SYNCH_FRAME is not implemented. */
@@ -264,5 +350,24 @@ int _usbd_standard_request_write(struct usb_setup_data *req, uint8_t *buf,
 	if(!command) return 0;
 
 	return command(req, buf, len);
+}
+
+int _usbd_standard_request(struct usb_setup_data *req, uint8_t **buf, 
+				uint16_t *len)
+{
+	/* FIXME: have class/vendor requests as well */
+	if((req->bmRequestType & USB_REQ_TYPE_TYPE) != USB_REQ_TYPE_STANDARD) 
+		return 0;
+
+	switch (req->bmRequestType & USB_REQ_TYPE_RECIPIENT) {
+	case USB_REQ_TYPE_DEVICE:
+		return _usbd_standard_request_device(req, buf, len);
+	case USB_REQ_TYPE_INTERFACE:
+		return _usbd_standard_request_interface(req, buf, len);
+	case USB_REQ_TYPE_ENDPOINT: 
+		return _usbd_standard_request_endpoint(req, buf, len);
+	default:
+		return 0;
+	}
 }
 

@@ -106,6 +106,10 @@ static void usb_control_setup_nodata(struct usb_setup_data *req)
 {
 	int result = 0;
 
+	/* Buffer unused */
+	control_state.ctrl_buf = _usbd_device.ctrl_buf;
+	control_state.ctrl_len = 0;
+
 	/* Call user command hook function */
 	if(_usbd_device.user_callback_control_command)
 		result = _usbd_device.user_callback_control_command(req,
@@ -113,7 +117,9 @@ static void usb_control_setup_nodata(struct usb_setup_data *req)
 
 	/* Try standard command if not already handled */
 	if(!result) 
-		result = _usbd_standard_request_command(req);
+		result = _usbd_standard_request(req, 
+					&control_state.ctrl_buf, 
+					&control_state.ctrl_len);
 	
 	if(result) {
 		/* Go to status stage if handled */
@@ -141,7 +147,7 @@ static void usb_control_setup_read(struct usb_setup_data *req)
 
 	/* Try standard request if not already handled */
 	if(!result)
-		result = _usbd_standard_request_read(req, 
+		result = _usbd_standard_request(req, 
 					&control_state.ctrl_buf, 
 					&control_state.ctrl_len);
 	
@@ -218,10 +224,10 @@ void _usbd_control_out(uint8_t ea)
 						&control_state.complete);
 
 		if(!result) 
-			result = _usbd_standard_request_write(
+			result = _usbd_standard_request(
 						&control_state.req,
-						control_state.ctrl_buf, 
-						control_state.ctrl_len);
+						&control_state.ctrl_buf, 
+						&control_state.ctrl_len);
 
 		if(result) {
 			usbd_ep_write_packet(0, NULL, 0);

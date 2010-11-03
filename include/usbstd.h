@@ -45,6 +45,10 @@ struct usb_setup_data {
 #define USB_REQ_TYPE_INTERFACE	0x01
 #define USB_REQ_TYPE_ENDPOINT	0x02
 
+#define USB_REQ_TYPE_DIRECTION	0x80
+#define USB_REQ_TYPE_TYPE	0x60
+#define USB_REQ_TYPE_RECIPIENT	0x1F
+
 /* USB Standard Request Codes - Table 9-4 */
 #define USB_REQ_GET_STATUS		0
 #define USB_REQ_CLEAR_FEATURE		1
@@ -71,9 +75,9 @@ struct usb_setup_data {
 #define USB_DT_INTERFACE_POWER		8
 
 /* USB Standard Feature Selectors - Table 9-6 */
-#define USB_FEAT_DEVICE_REMOTE_WAKEUP	1
 #define USB_FEAT_ENDPOINT_HALT		0
-#define USB_FEAT_TEST_MOED		2
+#define USB_FEAT_DEVICE_REMOTE_WAKEUP	1
+#define USB_FEAT_TEST_MODE		2
 
 /* Information Returned by a GetStatus() Request to a Device - Figure 9-4 */
 #define USB_DEV_STATUS_SELF_POWERED	0x01
