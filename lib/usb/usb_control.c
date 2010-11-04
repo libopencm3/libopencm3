@@ -93,7 +93,7 @@ static int usb_control_recv_chunk(void)
 				packetsize);
 
 	if (size != packetsize) {
-		usbd_ep_stall(0);
+		usbd_ep_stall_set(0, 1);
 		return -1;
 	}
 
@@ -127,7 +127,7 @@ static void usb_control_setup_nodata(struct usb_setup_data *req)
 		control_state.state = STATUS_IN;
 	} else  {
 		/* Stall endpoint on failure */
-		usbd_ep_stall(0);
+		usbd_ep_stall_set(0, 1);
 	}
 }
 
@@ -156,14 +156,14 @@ static void usb_control_setup_read(struct usb_setup_data *req)
 		usb_control_send_chunk();
 	} else  {
 		/* Stall endpoint on failure */
-		usbd_ep_stall(0);
+		usbd_ep_stall_set(0, 1);
 	}
 }
 
 static void usb_control_setup_write(struct usb_setup_data *req)
 {
 	if(req->wLength > _usbd_device.ctrl_buf_len) {
-		usbd_ep_stall(0);
+		usbd_ep_stall_set(0, 1);
 		return;
 	}
 	
@@ -184,7 +184,7 @@ void _usbd_control_setup(uint8_t ea)
 	control_state.complete = NULL;
 
 	if(usbd_ep_read_packet(0, req, 8) != 8) {
-		usbd_ep_stall(0);
+		usbd_ep_stall_set(0, 1);
 		return;
 	}
 
@@ -233,7 +233,7 @@ void _usbd_control_out(uint8_t ea)
 			usbd_ep_write_packet(0, NULL, 0);
 			control_state.state = STATUS_IN;
 		} else {
-			usbd_ep_stall(0);
+			usbd_ep_stall_set(0, 1);
 		}
 
 		break;
@@ -249,7 +249,7 @@ void _usbd_control_out(uint8_t ea)
 	    }
 
 	    default:
-		usbd_ep_stall(0);	
+		usbd_ep_stall_set(0, 1);	
 	}
 }
 
@@ -280,7 +280,7 @@ void _usbd_control_in(uint8_t ea)
 	    }
 
 	    default:
-		usbd_ep_stall(0);	
+		usbd_ep_stall_set(0, 1);	
 	}
 }
 

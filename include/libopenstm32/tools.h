@@ -52,10 +52,10 @@
  */
 #define TOG_SET_REG_BIT_MSK(REG, MSK, BIT)				\
 do {									\
-	register u16 toggle_mask = GET_REG(REG) & MSK;			\
+	register u16 toggle_mask = GET_REG(REG) & (MSK);			\
 	register u16 bit_selector;					\
 	for (bit_selector = 1; bit_selector; bit_selector <<= 1) {	\
-		if ((bit_selector & BIT) != 0)				\
+		if ((bit_selector & (BIT)) != 0)				\
 			toggle_mask ^= bit_selector;			\
 	}								\
 	SET_REG(REG, toggle_mask);					\

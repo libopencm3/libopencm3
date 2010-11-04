@@ -83,6 +83,7 @@ void usbd_ep_setup(u8 addr, u8 type, u16 max_size, void (*callback)(u8 ep))
 		USB_SET_EP_TX_ADDR(addr, _usbd_device.pm_top);
 		if(callback)
 			_usbd_device.user_callback_ctr[addr][USB_TRANSACTION_IN] = (void*)callback;
+		USB_CLR_EP_TX_DTOG(addr);
 		USB_SET_EP_TX_STAT(addr, USB_EP_TX_STAT_NAK);
 		_usbd_device.pm_top += max_size;
 	} 
@@ -91,6 +92,7 @@ void usbd_ep_setup(u8 addr, u8 type, u16 max_size, void (*callback)(u8 ep))
 		usb_set_ep_rx_bufsize(addr, max_size);
 		if(callback)
 			_usbd_device.user_callback_ctr[addr][USB_TRANSACTION_OUT] = (void*)callback;
+		USB_CLR_EP_RX_DTOG(addr);
 		USB_SET_EP_RX_STAT(addr, USB_EP_RX_STAT_VALID);
 		_usbd_device.pm_top += max_size;
 	}
@@ -108,27 +110,40 @@ void _usbd_hw_endpoints_reset(void)
 	_usbd_device.pm_top = 0x40 + (2*_usbd_device.desc->bMaxPacketSize0);
 }
 
-void usbd_ep_stall(u8 addr)
+void usbd_ep_stall_set(u8 addr, u8 stall)
 {
 	if(addr == 0)
-		USB_SET_EP_TX_STAT(addr, USB_EP_TX_STAT_STALL);
+		USB_SET_EP_TX_STAT(addr, 
+			stall ? USB_EP_TX_STAT_STALL : USB_EP_TX_STAT_NAK);
 
-	if(addr & 0x80) 
-		USB_SET_EP_TX_STAT(addr, USB_EP_TX_STAT_STALL);
-	else
-		USB_SET_EP_RX_STAT(addr&0x7F, USB_EP_RX_STAT_STALL);
+	if(addr & 0x80) {
+		addr &= 0x7F;
+
+		USB_SET_EP_TX_STAT(addr, 
+			stall ? USB_EP_TX_STAT_STALL : USB_EP_TX_STAT_NAK);
+
+		/* Reset to DATA0 if clearing stall condition */
+		if(!stall)
+			USB_CLR_EP_TX_DTOG(addr);
+	} else {
+		/* Reset to DATA0 if clearing stall condition */
+		if(!stall)
+			USB_CLR_EP_RX_DTOG(addr);
+
+		USB_SET_EP_RX_STAT(addr, 
+			stall ? USB_EP_RX_STAT_STALL : USB_EP_RX_STAT_VALID);
+	}
 }
 
-u8 usbd_get_ep_stall(u8 addr)
+u8 usbd_ep_stall_get(u8 addr)
 {
-	if(addr == 0)
-		if ((*USB_EP_REG(addr) & USB_EP_TX_STAT) == USB_EP_TX_STAT_STALL) 
-			return 1;
 	if(addr & 0x80) {
-		if ((*USB_EP_REG(addr) & USB_EP_TX_STAT) == USB_EP_TX_STAT_STALL)
-			 return 1;
+		if ((*USB_EP_REG(addr & 0x7F) & USB_EP_TX_STAT) == 
+						USB_EP_TX_STAT_STALL)
+			return 1;
         } else {
-		if ((*USB_EP_REG(addr&0x7F) & USB_EP_RX_STAT) == USB_EP_RX_STAT_STALL)
+		if ((*USB_EP_REG(addr) & USB_EP_RX_STAT) == 
+						USB_EP_RX_STAT_STALL)
 			return 1;
 	}
 	return 0;

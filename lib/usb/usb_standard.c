@@ -220,7 +220,7 @@ static int usb_standard_endpoint_get_status(struct usb_setup_data *req,
 	(void)req;
 	
 	if(*len > 2) *len = 2;
-	(*buf)[0] = usbd_get_ep_stall(req->wIndex);
+	(*buf)[0] = usbd_ep_stall_get(req->wIndex) ? 1 : 0;
 	(*buf)[1] = 0;
 
 	return 1;
@@ -232,7 +232,7 @@ static int usb_standard_endpoint_stall(struct usb_setup_data *req,
 	(void)buf;
 	(void)len;
 
-	usbd_ep_stall(req->wIndex);
+	usbd_ep_stall_set(req->wIndex, 1);
 
 	return 1;
 }
@@ -243,7 +243,7 @@ static int usb_standard_endpoint_unstall(struct usb_setup_data *req,
 	(void)buf;
 	(void)len;
 
-	usbd_ep_stall(req->wIndex);
+	usbd_ep_stall_set(req->wIndex, 0);
 
 	return 1;
 }
@@ -329,12 +329,12 @@ int _usbd_standard_request_endpoint(struct usb_setup_data *req, uint8_t **buf,
 	switch(req->bRequest) {	
 	case USB_REQ_CLEAR_FEATURE:
 		if (req->wValue == USB_FEAT_ENDPOINT_HALT) {
-			command = usb_standard_endpoint_stall;
+			command = usb_standard_endpoint_unstall;
 		}
 		break;
         case USB_REQ_SET_FEATURE:
 		if (req->wValue == USB_FEAT_ENDPOINT_HALT) {
-			command = usb_standard_endpoint_unstall;
+			command = usb_standard_endpoint_stall;
 		}
 		break;
 	case USB_REQ_GET_STATUS:

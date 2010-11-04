@@ -64,7 +64,8 @@ usbd_ep_write_packet(uint8_t addr, const void *buf, uint16_t len);
 extern uint16_t 
 usbd_ep_read_packet(uint8_t addr, void *buf, uint16_t len);
 
-extern void usbd_ep_stall(uint8_t addr);
+extern void usbd_ep_stall_set(uint8_t addr, uint8_t stall);
+extern uint8_t usbd_ep_stall_get(uint8_t addr);
 
 /* Optional */
 extern void usbd_cable_connect(uint8_t on);
