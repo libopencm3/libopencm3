@@ -247,13 +247,13 @@
 /* Macros for clearing DTOG bits */
 #define USB_CLR_EP_TX_DTOG(EP)			\
 	SET_REG(USB_EP_REG(EP), 		\
-		(GET_REG(USB_EP_REG(EP)) &	\
-		USB_EP_NTOGGLE_MSK) | USB_EP_TX_DTOG)
+		GET_REG(USB_EP_REG(EP)) &	\
+		(USB_EP_NTOGGLE_MSK | USB_EP_TX_DTOG))
 
 #define USB_CLR_EP_RX_DTOG(EP)			\
 	SET_REG(USB_EP_REG(EP), 		\
-		(GET_REG(USB_EP_REG(EP)) &	\
-		USB_EP_NTOGGLE_MSK) | USB_EP_RX_DTOG)
+		GET_REG(USB_EP_REG(EP)) &	\
+		(USB_EP_NTOGGLE_MSK | USB_EP_RX_DTOG))
 
 
 /******************************************************************************
