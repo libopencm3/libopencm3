@@ -163,18 +163,19 @@ static const char *usb_strings[] = {
 	"DEMO"
 };
 
-static int cdcacm_control_command(struct usb_setup_data *req,
-			void (**complete)(struct usb_setup_data *req))
+static int cdcacm_control_request(struct usb_setup_data *req, u8 **buf, 
+		u16 *len, void (**complete)(struct usb_setup_data *req))
 {
 	(void)complete;
-	char buf[10];
-	struct usb_cdc_notification *notif = (void*)buf;
+	(void)buf;
 
 	switch(req->bRequest) {
-	case USB_CDC_REQ_SET_CONTROL_LINE_STATE: 
+	case USB_CDC_REQ_SET_CONTROL_LINE_STATE: {
 		/* This Linux cdc_acm driver requires this to be implemented 
 		 * even though it's optional in the CDC spec, and we don't 
 		 * advertise it in the ACM functional descriptor. */
+		char buf[10];
+		struct usb_cdc_notification *notif = (void*)buf;
 
 		/* We echo signals back to host as notification */
 		notif->bmRequestType = 0xA1;
@@ -186,19 +187,9 @@ static int cdcacm_control_command(struct usb_setup_data *req,
 		buf[9] = 0;
 		//usbd_ep_write_packet(0x83, buf, 10);
 		return 1;
-	}
-	return 0;
-}
-
-static int cdcacm_control_write(struct usb_setup_data *req, u8 *buf, u16 len,
-			void (**complete)(struct usb_setup_data *req))
-{
-	(void)complete;
-	(void)buf;
-
-	switch(req->bRequest) {
+		}
 	case USB_CDC_REQ_SET_LINE_CODING: 
-		if(len < sizeof(struct usb_cdc_line_coding)) 
+		if(*len < sizeof(struct usb_cdc_line_coding)) 
 			return 0;
 
 		return 1;
@@ -226,8 +217,10 @@ static void cdcacm_set_config(u16 wValue)
 	usbd_ep_setup(0x82, USB_ENDPOINT_ATTR_BULK, 64, NULL);
 	usbd_ep_setup(0x83, USB_ENDPOINT_ATTR_INTERRUPT, 16, NULL);
 
-	usbd_register_control_command_callback(cdcacm_control_command);
-	usbd_register_control_write_callback(cdcacm_control_write);
+	usbd_register_control_callback(
+				USB_REQ_TYPE_CLASS | USB_REQ_TYPE_INTERFACE, 
+				USB_REQ_TYPE_TYPE | USB_REQ_TYPE_RECIPIENT,
+				cdcacm_control_request);
 }
 
 int main(void)

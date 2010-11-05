@@ -21,6 +21,8 @@
 #ifndef __USB_PRIVATE_H
 #define __USB_PRIVATE_H
 
+#define MAX_USER_CONTROL_CALLBACK	4
+
 #define MIN(a, b) ((a)<(b) ? (a) : (b))
 
 /** Internal collection of device information. */
@@ -42,14 +44,11 @@ extern struct _usbd_device {
 	void (*user_callback_suspend)(void);
 	void (*user_callback_resume)(void);
 
-	int (*user_callback_control_command)(struct usb_setup_data *req,
-				void (**complete)(struct usb_setup_data *req));
-	int (*user_callback_control_read)(struct usb_setup_data *req, 
-				uint8_t **buf, uint16_t *len, 
-				void (**complete)(struct usb_setup_data *req));
-	int (*user_callback_control_write)(struct usb_setup_data *req, 
-				uint8_t *buf, uint16_t len,
-				void (**complete)(struct usb_setup_data *req));
+	struct user_control_callback {
+		usbd_control_callback cb;
+		uint8_t type;
+		uint8_t type_mask;
+	} user_control_callback[MAX_USER_CONTROL_CALLBACK];
 
 	void (*user_callback_ctr[8][3])(uint8_t ea);
 
