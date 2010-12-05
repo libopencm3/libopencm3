@@ -1,7 +1,7 @@
 ##
 ## This file is part of the libopenstm32 project.
 ##
-## Copyright (C) 2010 Piotr Esden-Tempski <piotr@esden.net>
+## Copyright (C) 2009 Uwe Hermann <uwe@hermann-uwe.de>
 ##
 ## This program is free software: you can redistribute it and/or modify
 ## it under the terms of the GNU General Public License as published by
@@ -24,33 +24,15 @@ Q := @
 MAKEFLAGS += --no-print-directory
 endif
 
-all: stm32-h103 mb525 other lisa-m
+all: usb_hid
 
-stm32-h103:
-	@printf "  BUILD   examples/stm32-h103\n"
-	$(Q)$(MAKE) -C stm32-h103
-
-mb525:
-	@printf "  BUILD   examples/mb525\n"
-	$(Q)$(MAKE) -C mb525
-
-lisa-m:
-	@printf "  BUILD   examples/lisa-m\n"
-	$(Q)$(MAKE) -C lisa-m
-
-other:
-	@printf "  BUILD   examples/other\n"
-	$(Q)$(MAKE) -C other
+usb_hid:
+	@printf "  BUILD   examples/stm32-h103/usb_hid\n"
+	$(Q)$(MAKE) -C usb_hid
 
 clean:
-	@printf "  CLEAN   examples/stm32-h103\n"
-	$(Q)$(MAKE) -C stm32-h103 clean
-	@printf "  CLEAN   examples/mb525\n"
-	$(Q)$(MAKE) -C mb525 clean
-	@printf "  CLEAN   examples/lisa-m\n"
-	$(Q)$(MAKE) -C lisa-m clean
-	@printf "  CLEAN   examples/other\n"
-	$(Q)$(MAKE) -C other clean
+	@printf "  CLEAN   examples/stm32-h103/usb_hid\n"
+	$(Q)$(MAKE) -C usb_hid clean
 
-.PHONY: stm32-h103 mb525 lisa-m other clean
+.PHONY: usb_hid clean
 
