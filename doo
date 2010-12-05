@@ -1,0 +1,1 @@
+PREFIX=/opt/paparazzi/stm32/bin/arm-none-eabi make

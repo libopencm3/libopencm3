@@ -171,7 +171,7 @@ static const char *usb_strings[] = {
 	"DEMO",
 };
 
-static int hid_control_read(struct usb_setup_data *req, u8 **buf, u16 *len,
+static int hid_control_request(struct usb_setup_data *req, u8 **buf, u16 *len,
 			void (**complete)(struct usb_setup_data *req))
 {
 	(void)complete;
@@ -200,9 +200,12 @@ static void dfu_detach_complete(struct usb_setup_data *req)
 	scb_reset_core();
 }
 
-static int dfu_control_command(struct usb_setup_data *req,
+static int dfu_control_request(struct usb_setup_data *req, u8 **buf, u16 *len,
 			void (**complete)(struct usb_setup_data *req))
 {
+	(void)buf; 
+	(void)len;
+
 	if((req->bmRequestType != 0x21) || (req->bRequest != DFU_DETACH)) 
 		return 0; /* Only accept class request */
 
@@ -218,9 +221,15 @@ static void hid_set_config(u16 wValue)
 
 	usbd_ep_setup(0x81, USB_ENDPOINT_ATTR_INTERRUPT, 4, NULL);
 
-	usbd_register_control_read_callback(hid_control_read);
+	usbd_register_control_callback(
+				USB_REQ_TYPE_STANDARD | USB_REQ_TYPE_INTERFACE,
+				USB_REQ_TYPE_TYPE | USB_REQ_TYPE_RECIPIENT,
+				hid_control_request);
 #ifdef INCLUDE_DFU_INTERFACE
-	usbd_register_control_command_callback(dfu_control_command);
+	usbd_register_control_callback(
+				USB_REQ_TYPE_CLASS | USB_REQ_TYPE_INTERFACE,
+				USB_REQ_TYPE_TYPE | USB_REQ_TYPE_RECIPIENT,
+				dfu_control_request);
 #endif
 
 	systick_set_clocksource(STK_CTRL_CLKSOURCE_AHB_DIV8); 
