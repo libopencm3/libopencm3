@@ -24,33 +24,15 @@ Q := @
 MAKEFLAGS += --no-print-directory
 endif
 
-all: stm32-h103 mb525 obldc other
+all: led
 
-stm32-h103:
-	@printf "  BUILD   examples/stm32-h103\n"
-	$(Q)$(MAKE) -C stm32-h103
-
-mb525:
-	@printf "  BUILD   examples/mb525\n"
-	$(Q)$(MAKE) -C mb525
-
-other:
-	@printf "  BUILD   examples/other\n"
-	$(Q)$(MAKE) -C other
-
-obldc:
-	@printf "  BUILD   examples/obldc\n"
-	$(Q)$(MAKE) -C obldc
+led:
+	@printf "  BUILD   examples/obldc/led\n"
+	$(Q)$(MAKE) -C led
 
 clean:
-	@printf "  CLEAN   examples/stm32-h103\n"
-	$(Q)$(MAKE) -C stm32-h103 clean
-	@printf "  CLEAN   examples/mb525\n"
-	$(Q)$(MAKE) -C mb525 clean
-	@printf "  CLEAN   examples/other\n"
-	$(Q)$(MAKE) -C other clean
-	@printf "  CLEAN   examples/obldc\n"
-	$(Q)$(MAKE) -C obldc clean
+	@printf "  CLEAN   examples/obldc/led\n"
+	$(Q)$(MAKE) -C led clean
 
-.PHONY: stm32-h103 mb525 other obldc clean
+.PHONY: led
 
