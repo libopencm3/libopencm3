@@ -39,7 +39,7 @@ u16 eth_smi_read(u8 phy, u8 reg)
 {
 	/* Set PHY and register addresses for write access. */
 	ETH_MACMIIAR &= ~(ETH_MACMIIAR_MR | ETH_MACMIIAR_PA | 
-			   ETH_MACMIAR_MW);
+			   ETH_MACMIIAR_MW);
 	ETH_MACMIIAR |= (phy << 11) | (reg << 6);
 
 	/* Begin transaction. */
