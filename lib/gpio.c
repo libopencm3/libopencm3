@@ -106,3 +106,17 @@ void gpio_port_write(u32 gpioport, u16 data)
 {
 	GPIO_ODR(gpioport) = data;
 }
+
+void gpio_port_config_lock(u32 gpioport, u16 gpios)
+{
+	u32 reg32;
+
+	/* Special "Lock Key Writing Sequence", see datasheet. */
+	GPIO_LCKR(gpioport) = GPIO_LCKK | gpios;	/* Set LCKK. */
+	GPIO_LCKR(gpioport) = ~GPIO_LCKK & gpios;	/* Clear LCKK. */
+	GPIO_LCKR(gpioport) = GPIO_LCKK | gpios;	/* Set LCKK. */
+	reg32 = GPIO_LCKR(gpioport);			/* Read LCKK. */
+	reg32 = GPIO_LCKR(gpioport);			/* Read LCKK again. */
+	
+	/* If (reg32 & GPIO_LCKK) is true, the lock is now active. */
+}

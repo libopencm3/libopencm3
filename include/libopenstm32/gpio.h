@@ -103,6 +103,15 @@
 #define GPIO_TIM1_CH2N			GPIO14		/* PB14 */
 #define GPIO_TIM1_CH3N			GPIO15		/* PB15 */
 
+#define GPIO_TIM1_ETR_REMAP			GPIO7		/* PE7 */
+#define GPIO_TIM1_CH1_REMAP			GPIO9		/* PE9 */
+#define GPIO_TIM1_CH2_REMAP			GPIO11		/* PE11 */
+#define GPIO_TIM1_CH3_REMAP			GPIO13		/* PE13 */
+#define GPIO_TIM1_CH4_REMAP			GPIO14		/* PE14 */
+#define GPIO_TIM1_BKIN_REMAP			GPIO15		/* PE15 */
+#define GPIO_TIM1_CH1N_REMAP			GPIO8		/* PE8 */
+#define GPIO_TIM1_CH2N_REMAP			GPIO10		/* PE10 */
+#define GPIO_TIM1_CH3N_REMAP			GPIO12		/* PE12 */
 /* USART */
 #define GPIO_USART3_TX			GPIO10		/* PB10 */
 #define GPIO_USART3_RX			GPIO11		/* PB11 */
@@ -402,5 +411,6 @@ u16 gpio_get(u32 gpioport, u16 gpios);
 void gpio_toggle(u32 gpioport, u16 gpios);
 u16 gpio_port_read(u32 gpioport);
 void gpio_port_write(u32 gpioport, u16 data);
+void gpio_port_config_lock(u32 gpioport, u16 gpios);
 
 #endif
