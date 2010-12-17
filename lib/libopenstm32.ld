@@ -31,8 +31,8 @@ SECTIONS
 
 	.text : {
 		*(.vectors)	/* Vector table */
-		*(.text)	/* Program code */
-		*(.rodata)	/* Read-only data */
+		*(.text*)	/* Program code */
+		*(.rodata*)	/* Read-only data */
 		_etext = .;
 	} >rom
 
@@ -40,15 +40,21 @@ SECTIONS
 
 	.data : {
 		_data = .;
-		*(.data)	/* Read-write initialized data */
+		*(.data*)	/* Read-write initialized data */
 		_edata = .;
 	} >ram AT >rom
 
 	.bss : {
-		*(.bss)		/* Read-write zero initialized data */
+		*(.bss*)	/* Read-write zero initialized data */
 		*(COMMON)
 		_ebss = .;
 	} >ram AT >rom
+
+	/*
+	 * The .eh_frame section appears to be used for C++ exception handling.
+	 * You may need to fix this if you're using C++.
+	 */
+	/DISCARD/ : { *(.eh_frame) }
 
 	end = .;
 }
