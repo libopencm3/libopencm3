@@ -1,9 +1,8 @@
-examples/miniblink/*.o
+*.o
 examples/miniblink/miniblink
-examples/miniblink/miniblink.bin
-examples/miniblink/miniblink.hex
-examples/miniblink/miniblink.list
-examples/miniblink/miniblink.srec
-lib/*.o
-lib/libopenstm32.a
-
+*.bin
+*.hex
+*.list
+*.srec
+*.a
+*.elf
