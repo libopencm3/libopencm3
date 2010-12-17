@@ -28,7 +28,7 @@ CFLAGS		= -Os -g -Wall -Wextra -I../include -fno-common \
 # ARFLAGS	= rcsv
 ARFLAGS		= rcs
 OBJS		= vector.o rcc.o gpio.o usart.o adc.o spi.o flash.o nvic.o \
-		  rtc.o i2c.o dma.o systick.o exti.o scb.o \
+		  rtc.o i2c.o dma.o systick.o exti.o scb.o ethernet.o \
 		  usb_f103.o usb.o usb_control.o usb_standard.o
 
 VPATH += usb
