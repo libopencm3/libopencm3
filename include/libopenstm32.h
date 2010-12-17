@@ -32,6 +32,7 @@
 #include <libopenstm32/flash.h>
 #include <libopenstm32/usb.h>
 #include <libopenstm32/usb_desc.h>
+#include <libopenstm32/can.h>
 #include <libopenstm32/nvic.h>
 #include <libopenstm32/rtc.h>
 #include <libopenstm32/i2c.h>
