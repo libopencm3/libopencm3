@@ -31,20 +31,17 @@ void clock_setup(void)
 	
 	/* Enable GPIOB clock. */
 	rcc_peripheral_enable_clock(&RCC_APB2ENR, RCC_APB2ENR_IOPBEN);
-
 }
 
 void gpio_setup(void)
 {
 	/* Set GPIO6 and 7 (in GPIO port A) to 'output push-pull'. */
 	gpio_set_mode(GPIOA, GPIO_MODE_OUTPUT_50_MHZ,
-		      GPIO_CNF_OUTPUT_PUSHPULL,
-		      GPIO6 | GPIO7);
+		      GPIO_CNF_OUTPUT_PUSHPULL, GPIO6 | GPIO7);
 	
 	/* Set GPIO0 and 1 (in GPIO port B) to 'output push-pull'. */
 	gpio_set_mode(GPIOB, GPIO_MODE_OUTPUT_50_MHZ,
-		      GPIO_CNF_OUTPUT_PUSHPULL,
-		      GPIO0 | GPIO1);
+		      GPIO_CNF_OUTPUT_PUSHPULL, GPIO0 | GPIO1);
 }
 
 int main(void)
@@ -54,7 +51,7 @@ int main(void)
 	clock_setup();
 	gpio_setup();
 
-	/* Blink the LED (PC12) on the board. */
+	/* Blink the LEDs on the board. */
 	while (1) {
 		gpio_toggle(GPIOA, GPIO6);	/* LED on/off */
 		for (i = 0; i < 800000; i++);	/* Wait (needs -O0 CFLAGS). */

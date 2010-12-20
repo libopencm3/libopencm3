@@ -17,7 +17,7 @@
  * along with this program.  If not, see <http://www.gnu.org/licenses/>.
  */
 
-/* Linker script for an STM32F103RBT6 board (128K flash, 20K RAM). */
+/* Linker script for an STM32F103CBT6 board (128K flash, 20K RAM). */
 
 /* Define memory regions. */
 MEMORY

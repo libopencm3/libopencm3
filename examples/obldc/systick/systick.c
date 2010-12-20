@@ -30,6 +30,7 @@ void gpio_setup(void)
 {
 	/* Enable GPIOA clock. */
 	rcc_peripheral_enable_clock(&RCC_APB2ENR, RCC_APB2ENR_IOPAEN);
+
 	/* Enable GPIOB clock. */
 	rcc_peripheral_enable_clock(&RCC_APB2ENR, RCC_APB2ENR_IOPBEN);
 
@@ -51,11 +52,11 @@ void gpio_setup(void)
 	              GPIO_CNF_OUTPUT_PUSHPULL, GPIO1);
 }
 
-void sys_tick_handler()
+void sys_tick_handler(void)
 {
 	temp32++;
-	
-	/* we call this handler every 1ms so 1000ms = 1s on/off */
+
+	/* We call this handler every 1ms so 1000ms = 1s on/off. */
 	if (temp32 == 1000) {
 		gpio_toggle(GPIOA, GPIO6); /* LED2 on/off */
 		temp32 = 0;
@@ -64,12 +65,12 @@ void sys_tick_handler()
 
 int main(void)
 {
-        rcc_clock_setup_in_hse_16mhz_out_72mhz();
+	rcc_clock_setup_in_hse_16mhz_out_72mhz();
 	gpio_setup();
 
 	gpio_clear(GPIOA, GPIO7);	/* LED1 on */
 	gpio_set(GPIOA, GPIO6);		/* LED2 off */
-	
+
 	temp32 = 0;
 
 	/* 72MHz / 8 => 9000000 counts per second */
@@ -80,10 +81,10 @@ int main(void)
 
 	systick_interrupt_enable();
 
-	/* start counting */
+	/* Start counting. */
 	systick_counter_enable();
-	
-	while(1); /* Halt. */
+
+	while (1); /* Halt. */
 
 	return 0;
 }
