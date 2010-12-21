@@ -245,7 +245,7 @@ void clock_setup(void)
 
 	/* Enable GPIOC, Alternate Function clocks. */
 	rcc_peripheral_enable_clock(&RCC_APB2ENR,
-				    RCC_APB2ENR_IOPCEN | RCC_APB2ENR_AFIOEN);
+			RCC_APB2ENR_IOPCEN | RCC_APB2ENR_AFIOEN);
 }
 
 void gpio_setup(void)
@@ -255,8 +255,11 @@ void gpio_setup(void)
 	 * 'output alternate function push-pull'.
 	 */
 	gpio_set_mode(GPIOC, GPIO_MODE_OUTPUT_50_MHZ,
-		      GPIO_CNF_OUTPUT_ALTFN_PUSHPULL,
-		      GPIO6 | GPIO7 | GPIO8 | GPIO9);
+			GPIO_CNF_OUTPUT_ALTFN_PUSHPULL,
+			GPIO_TIM3_FR_CH1 |
+			GPIO_TIM3_FR_CH2 |
+			GPIO_TIM3_FR_CH3 |
+			GPIO_TIM3_FR_CH4);
 
 	/* Remap TIM3:
 	 * CH1 -> PC6
@@ -454,18 +457,18 @@ int main(void)
 		if (j == 100) {
 			j = 0;
 			switch (k += kd) {
-			case 0:
-				j0 = 255;
-				break;
-			case 1:
-				j1 = 255;
-				break;
-			case 2:
-				j2 = 255;
-				break;
-			case 3:
-				j3 = 255;
-				break;
+				case 0:
+					j0 = 255;
+					break;
+				case 1:
+					j1 = 255;
+					break;
+				case 2:
+					j2 = 255;
+					break;
+				case 3:
+					j3 = 255;
+					break;
 			}
 			if (k == 3)
 				kd =- 1;
