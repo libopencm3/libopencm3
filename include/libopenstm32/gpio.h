@@ -55,7 +55,7 @@
 
 /* --- Alternate function GPIOs -------------------------------------------- */
 
-/* Default alternate functions of some pins (without remapping) */
+/* Default alternate functions of some pins (with and without remapping) */
 
 /* CAN1 / CAN */
 #define GPIO_CAN1_RX			GPIO11		/* PA11 */
@@ -63,9 +63,22 @@
 #define GPIO_CAN_RX			GPIO_CAN1_RX	/* Alias */
 #define GPIO_CAN_TX			GPIO_CAN1_TX	/* Alias */
 
+#define GPIO_CAN_PB_RX                  GPIO8           /* PB8 */
+#define GPIO_CAN_PB_TX                  GPIO9           /* PB9 */
+#define GPIO_CAN1_PB_RX                 GPIO_CAN_PB_RX  /* Alias */
+#define GPIO_CAN1_PB_TX                 GPIO_CAN_PB_TX  /* Alias */
+
+#define GPIO_CAN_PD_RX                  GPIO0           /* PD0 */
+#define GPIO_CAN_PD_TX                  GPIO1           /* PD1 */
+#define GPIO_CAN1_PD_RX                 GPIO_CAN_PD_RX  /* Alias */
+#define GPIO_CAN1_PD_TX                 GPIO_CAN_PD_TX  /* Alias */
+
 /* CAN2 */
 #define GPIO_CAN2_RX			GPIO12		/* PB12 */
 #define GPIO_CAN2_TX			GPIO13		/* PB13 */
+
+#define GPIO_CAN2_RE_RX                 GPIO5           /* PB5 */
+#define GPIO_CAN2_RE_TX                 GPIO6           /* PB6 */
 
 /* JTAG/SWD */
 #define GPIO_JTMS_SWDIO			GPIO13		/* PA13 */
@@ -79,20 +92,58 @@
 #define GPIO_TRACED2			GPIO5		/* PE5 */
 #define GPIO_TRACED3			GPIO6		/* PE6 */
 
-/* Timer */
+/* Timer5 */
 #define GPIO_TIM5_CH4			GPIO3		/* PA3 */
+
+/* Timer4 */
 #define GPIO_TIM4_CH1			GPIO6		/* PB6 */
 #define GPIO_TIM4_CH2			GPIO7		/* PB7 */
 #define GPIO_TIM4_CH3			GPIO8		/* PB8 */
 #define GPIO_TIM4_CH4			GPIO9		/* PB9 */
+
+#define GPIO_TIM4_RE_CH1		GPIO12		/* PD12 */
+#define GPIO_TIM4_RE_CH2		GPIO13		/* PD13 */
+#define GPIO_TIM4_RE_CH3		GPIO14		/* PD14 */
+#define GPIO_TIM4_RE_CH4		GPIO15		/* PD15 */
+
+/* Timer3 */
 #define GPIO_TIM3_CH1			GPIO6		/* PA6 */
 #define GPIO_TIM3_CH2			GPIO7		/* PA7 */
 #define GPIO_TIM3_CH3			GPIO0		/* PB0 */
 #define GPIO_TIM3_CH4			GPIO1		/* PB1 */
+
+#define GPIO_TIM3_PR_CH1		GPIO4		/* PB4 */
+#define GPIO_TIM3_PR_CH2		GPIO5		/* PB5 */
+#define GPIO_TIM3_PR_CH3		GPIO0		/* PB0 */
+#define GPIO_TIM3_PR_CH4		GPIO1		/* PB1 */
+
+#define GPIO_TIM3_FR_CH1		GPIO6		/* PC6 */
+#define GPIO_TIM3_FR_CH2		GPIO7		/* PC7 */
+#define GPIO_TIM3_FR_CH3		GPIO8		/* PC8 */
+#define GPIO_TIM3_FR_CH4		GPIO9		/* PC9 */
+
+/* Timer2 */
 #define GPIO_TIM2_CH1_ETR		GPIO0		/* PA0 */
 #define GPIO_TIM2_CH2			GPIO1		/* PA1 */
 #define GPIO_TIM2_CH3			GPIO2		/* PA2 */
 #define GPIO_TIM2_CH4			GPIO3		/* PA3 */
+
+#define GPIO_TIM2_PR1_CH1_ETR		GPIO15		/* PA15 */
+#define GPIO_TIM2_PR1_CH2		GPIO3		/* PB3 */
+#define GPIO_TIM2_PR1_CH3		GPIO2		/* PA2 */
+#define GPIO_TIM2_PR1_CH4		GPIO3		/* PA3 */
+
+#define GPIO_TIM2_PR2_CH1_ETR		GPIO0		/* PA0 */
+#define GPIO_TIM2_PR2_CH2		GPIO1		/* PA1 */
+#define GPIO_TIM2_PR2_CH3		GPIO10		/* PB10 */
+#define GPIO_TIM2_PR2_CH4		GPIO11		/* PB11 */
+
+#define GPIO_TIM2_FR_CH1_ETR		GPIO15		/* PA15 */
+#define GPIO_TIM2_FR_CH2		GPIO3		/* PB3 */
+#define GPIO_TIM2_FR_CH3		GPIO10		/* PB10 */
+#define GPIO_TIM2_FR_CH4		GPIO11		/* PB11 */
+
+/* Timer1 */
 #define GPIO_TIM1_ETR			GPIO12		/* PA12 */
 #define GPIO_TIM1_CH1			GPIO8		/* PA8 */
 #define GPIO_TIM1_CH2			GPIO9		/* PA9 */
@@ -103,33 +154,73 @@
 #define GPIO_TIM1_CH2N			GPIO14		/* PB14 */
 #define GPIO_TIM1_CH3N			GPIO15		/* PB15 */
 
-#define GPIO_TIM1_ETR_REMAP			GPIO7		/* PE7 */
-#define GPIO_TIM1_CH1_REMAP			GPIO9		/* PE9 */
-#define GPIO_TIM1_CH2_REMAP			GPIO11		/* PE11 */
-#define GPIO_TIM1_CH3_REMAP			GPIO13		/* PE13 */
-#define GPIO_TIM1_CH4_REMAP			GPIO14		/* PE14 */
-#define GPIO_TIM1_BKIN_REMAP			GPIO15		/* PE15 */
-#define GPIO_TIM1_CH1N_REMAP			GPIO8		/* PE8 */
-#define GPIO_TIM1_CH2N_REMAP			GPIO10		/* PE10 */
-#define GPIO_TIM1_CH3N_REMAP			GPIO12		/* PE12 */
-/* USART */
+#define GPIO_TIM1_PR_ETR		GPIO12		/* PA12 */
+#define GPIO_TIM1_PR_CH1		GPIO8		/* PA8 */
+#define GPIO_TIM1_PR_CH2		GPIO9		/* PA9 */
+#define GPIO_TIM1_PR_CH3		GPIO10		/* PA10 */
+#define GPIO_TIM1_PR_CH4		GPIO11		/* PA11 */
+#define GPIO_TIM1_PR_BKIN		GPIO6		/* PA6 */
+#define GPIO_TIM1_PR_CH1N		GPIO7		/* PA7 */
+#define GPIO_TIM1_PR_CH2N		GPIO0		/* PB0 */
+#define GPIO_TIM1_PR_CH3N		GPIO1		/* PB1 */
+
+#define GPIO_TIM1_FR_ETR		GPIO7		/* PE7 */
+#define GPIO_TIM1_FR_CH1		GPIO9		/* PE9 */
+#define GPIO_TIM1_FR_CH2		GPIO11		/* PE11 */
+#define GPIO_TIM1_FR_CH3		GPIO13		/* PE13 */
+#define GPIO_TIM1_FR_CH4		GPIO14		/* PE14 */
+#define GPIO_TIM1_FR_BKIN		GPIO15		/* PE15 */
+#define GPIO_TIM1_FR_CH1N		GPIO8		/* PE8 */
+#define GPIO_TIM1_FR_CH2N		GPIO10		/* PE10 */
+#define GPIO_TIM1_FR_CH3N		GPIO12		/* PE12 */
+
+/* USART3 */
 #define GPIO_USART3_TX			GPIO10		/* PB10 */
 #define GPIO_USART3_RX			GPIO11		/* PB11 */
 #define GPIO_USART3_CK			GPIO12		/* PB12 */
 #define GPIO_USART3_CTS			GPIO13		/* PB13 */
 #define GPIO_USART3_RTS			GPIO14		/* PB14 */
+
+#define GPIO_USART3_PR_TX		GPIO10		/* PC10 */
+#define GPIO_USART3_PR_RX		GPIO11		/* PC11 */
+#define GPIO_USART3_PR_CK		GPIO12		/* PC12 */
+#define GPIO_USART3_PR_CTS		GPIO13		/* PB13 */
+#define GPIO_USART3_PR_RTS		GPIO14		/* PB14 */
+
+#define GPIO_USART3_FR_TX		GPIO8		/* PD8 */
+#define GPIO_USART3_FR_RX		GPIO9		/* PD9 */
+#define GPIO_USART3_FR_CK		GPIO10		/* PD10 */
+#define GPIO_USART3_FR_CTS		GPIO11		/* PD11 */
+#define GPIO_USART3_FR_RTS		GPIO12		/* PD12 */
+
+/* USART2 */
 #define GPIO_USART2_CTS			GPIO0		/* PA0 */
 #define GPIO_USART2_RTS			GPIO1		/* PA1 */
 #define GPIO_USART2_TX			GPIO2		/* PA2 */
 #define GPIO_USART2_RX			GPIO3		/* PA3 */
 #define GPIO_USART2_CK			GPIO4		/* PA4 */
+
+#define GPIO_USART2_RE_CTS		GPIO3		/* PD3 */
+#define GPIO_USART2_RE_RTS		GPIO4		/* PD4 */
+#define GPIO_USART2_RE_TX		GPIO5		/* PD5 */
+#define GPIO_USART2_RE_RX		GPIO6		/* PD6 */
+#define GPIO_USART2_RE_CK		GPIO7		/* PD7 */
+
+/* USART1 */
 #define GPIO_USART1_TX			GPIO9		/* PA9 */
 #define GPIO_USART1_RX			GPIO10		/* PA10 */
+
+#define GPIO_USART1_RE_TX		GPIO6		/* PB6 */
+#define GPIO_USART1_RE_RX		GPIO7		/* PB7 */
 
 /* I2C1 */
 #define GPIO_I2C1_SMBAI			GPIO5		/* PB5 */
 #define GPIO_I2C1_SCL			GPIO6		/* PB6 */
 #define GPIO_I2C1_SDA			GPIO7		/* PB7 */
+
+#define GPIO_I2C1_RE_SMBAI		GPIO5		/* PB5 */
+#define GPIO_I2C1_RE_SCL		GPIO8		/* PB8 */
+#define GPIO_I2C1_RE_SDA		GPIO9		/* PB9 */
 
 /* I2C2 */
 #define GPIO_I2C2_SCL			GPIO10		/* PB10 */
@@ -141,6 +232,11 @@
 #define GPIO_SPI1_SCK			GPIO5		/* PA5 */
 #define GPIO_SPI1_MISO			GPIO6		/* PA6 */
 #define GPIO_SPI1_MOSI			GPIO7		/* PA7 */
+
+#define GPIO_SPI1_RE_NSS		GPIO15		/* PA15 */
+#define GPIO_SPI1_RE_SCK		GPIO3		/* PB3 */
+#define GPIO_SPI1_RE_MISO		GPIO4		/* PB4 */
+#define GPIO_SPI1_RE_MOSI		GPIO5		/* PB5 */
 
 /* SPI2 */
 #define GPIO_SPI2_NSS			GPIO12		/* PB12 */
@@ -154,12 +250,23 @@
 #define GPIO_SPI3_MISO			GPIO4		/* PB4 */
 #define GPIO_SPI3_MOSI			GPIO5		/* PB5 */
 
+#define GPIO_SPI3_RE_NSS		GPIO4		/* PA4 */
+#define GPIO_SPI3_RE_SCK		GPIO10		/* PC10 */
+#define GPIO_SPI3_RE_MISO		GPIO11		/* PC11 */
+#define GPIO_SPI3_RE_MOSI		GPIO12		/* PC12 */
+
 /* ETH */
 #define GPIO_ETH_RX_DV_CRS_DV		GPIO7		/* PA7 */
 #define GPIO_ETH_RXD0  			GPIO4		/* PC4 */
 #define GPIO_ETH_RXD1			GPIO5		/* PC5 */
 #define GPIO_ETH_RXD2			GPIO0		/* PB0 */
 #define GPIO_ETH_RXD3			GPIO1		/* PB1 */
+
+#define GPIO_ETH_RE_RX_DV_CRS_DV	GPIO8		/* PD8 */
+#define GPIO_ETH_RE_RXD0  		GPIO9		/* PD9 */
+#define GPIO_ETH_RE_RXD1		GPIO10		/* PD10 */
+#define GPIO_ETH_RE_RXD2		GPIO11		/* PD11 */
+#define GPIO_ETH_RE_RXD3		GPIO12		/* PD12 */
 
 /* --- GPIO registers ------------------------------------------------------ */
 
@@ -326,22 +433,54 @@
 
 /* --- AFIO_MAPR values ---------------------------------------------------- */
 
+/* 31 reserved */
+
+/* PTP_PPS_REMAP: Ethernet PTP PPS remapping
+ * (only connectivity line devices) */
+#define AFIO_MAPR_PTP_PPS_REMAP              (1 << 30)
+
+/* TIM2ITR1_IREMAP: TIM2 internal trigger 1 remapping
+ * (only connectivity line devices) */
+#define AFIO_MAPR_TIM2ITR1_IREMAP            (1 << 29)
+
+/* SPI3_REMAP: SPI3/I2S3 remapping
+ * (only connectivity line devices) */
+#define AFIO_MAPR_SPI3_REMAP                 (1 << 28)
+
+/* 27 reserved */
+
 /* SWJ_CFG[2:0]: Serial wire JTAG configuration */
 #define AFIO_MAPR_SWJ_CFG_FULL_SWJ           (0x0 << 24)
 #define AFIO_MAPR_SWJ_CFG_FULL_SWJ_NO_JNTRST (0x1 << 24)
 #define AFIO_MAPR_SWJ_CFG_JTAG_OFF_SW_ON     (0x2 << 24)
 #define AFIO_MAPR_SWJ_CFG_JTAG_OFF_SW_OFF    (0x4 << 24)
 
-/* ADC2_ETRGREG_REMAP: ADC2 external trigger regulator conversion remapping */
+/* MII_REMAP: MII or RMII selection
+ * (only connectivity line devices) */
+#define AFIO_MAPR_MII_RMII_SEL               (1 << 23)
+
+/* CAN2_REMAP: CAN2 I/O remapping
+ * (only connectivity line devices) */
+#define AFIO_MAPR_CAN2_REMAP                 (1 << 22)
+
+/* ETH_REMAP: Ethernet MAC I/O remapping
+ * (only connectivity line devices) */
+#define AFIO_MAPR_ETH_REMAP                  (1 << 21)
+
+/* ADC2_ETRGREG_REMAP: ADC2 external trigger regulator conversion remapping
+ * (only low-, medium-, high- and XL-densitiy devices) */
 #define AFIO_MAPR_ADC2_ETRGREG_REMAP         (1 << 20)
 
-/* ADC2_ETRGINJ_REMAP: ADC2 external trigger injected conversion remapping */
+/* ADC2_ETRGINJ_REMAP: ADC2 external trigger injected conversion remapping
+ * (only low-, medium-, high- and XL-densitiy devices) */
 #define AFIO_MAPR_ADC2_ETRGINJ_REMAP         (1 << 19)
 
-/* ADC1_ETRGREG_REMAP: ADC1 external trigger regulator conversion remapping */
+/* ADC1_ETRGREG_REMAP: ADC1 external trigger regulator conversion remapping
+ * (only low-, medium-, high- and XL-densitiy devices) */
 #define AFIO_MAPR_ADC1_ETRGREG_REMAP         (1 << 18)
 
-/* ADC1_ETRGINJ_REMAP: ADC1 external trigger injected conversion remapping */
+/* ADC1_ETRGINJ_REMAP: ADC1 external trigger injected conversion remapping
+ * (only low-, medium-, high- and XL-densitiy devices) */
 #define AFIO_MAPR_ADC1_ETRGINJ_REMAP         (1 << 17)
 
 /* TIM5CH4_IREMAP: TIM5 channel4 internal remap */
@@ -350,10 +489,10 @@
 /* PD01_REMAP: Port D0/Port D1 mapping on OSC_IN/OSC_OUT */
 #define AFIO_MAPR_PD01_REMAP                 (1 << 15)
 
-/* CAN_REMAP[1:0]: CAN alternate function remapping */
-#define AFIO_MAPR_CAN_REMAP_PA11_PA12        (0x0 << 13)
-#define AFIO_MAPR_CAN_REMAP_PB8_PB9          (0x2 << 13) /* Not on 36pin pkg */
-#define AFIO_MAPR_CAN_REMAP_PD0_PD1          (0x3 << 13)
+/* CAN_REMAP[1:0]: CAN1 alternate function remapping */
+#define AFIO_MAPR_CAN1_REMAP_PORTA           (0x0 << 13)
+#define AFIO_MAPR_CAN1_REMAP_PORTB           (0x2 << 13) /* Not on 36pin pkg */
+#define AFIO_MAPR_CAN1_REMAP_PORTD           (0x3 << 13)
 
 /* TIM4_REMAP: TIM4 remapping */
 #define AFIO_MAPR_TIM4_REMAP                 (1 << 12)
