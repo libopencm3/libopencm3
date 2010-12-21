@@ -24,7 +24,7 @@ Q := @
 MAKEFLAGS += --no-print-directory
 endif
 
-all: led systick
+all: led systick usart
 
 led:
 	@printf "  BUILD   examples/obldc/led\n"
@@ -34,11 +34,17 @@ systick:
 	@printf "  BUILD   examples/obldc/systick\n"
 	$(Q)$(MAKE) -C systick
 
+usart:
+	@printf "  BUILD   examples/obldc/usart\n"
+	$(Q)$(MAKE) -C usart
+
 clean:
 	@printf "  CLEAN   examples/obldc/led\n"
 	$(Q)$(MAKE) -C led clean
 	@printf "  CLEAN   examples/obldc/systick\n"
 	$(Q)$(MAKE) -C systick clean
+	@printf "  CLEAN   examples/obldc/usart\n"
+	$(Q)$(MAKE) -C usart clean
 
-.PHONY: led systick
+.PHONY: led systick usart
 
