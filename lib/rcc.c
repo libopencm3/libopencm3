@@ -243,7 +243,7 @@ void rcc_peripheral_reset(volatile u32 *reg, u32 reset)
 
 void rcc_peripheral_clear_reset(volatile u32 *reg, u32 clear_reset)
 {
-	*reg |= clear_reset;
+	*reg &= ~clear_reset;
 }
 
 void rcc_set_sysclk_source(u32 clk)
