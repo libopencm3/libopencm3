@@ -461,8 +461,8 @@
 #define CAN_TIxR_STID_SHIFT             21
 
 /* EXID[15:0]: Extended identifier */
-#define CAN_TIxR_STID_MASK              (0x1FFFFFF << 3)
-#define CAN_TIxR_STID_SHIFT             3
+#define CAN_TIxR_EXID_MASK              (0x1FFFFFF << 3)
+#define CAN_TIxR_EXID_SHIFT             3
 
 /* IDE: Identifier extension */
 #define CAN_TIxR_IDE                    (1 << 2)
@@ -511,8 +511,8 @@
 #define CAN_RIxR_STID_SHIFT             21
 
 /* EXID[15:0]: Extended identifier */
-#define CAN_RIxR_STID_MASK              (0x1FFFFFF << 3)
-#define CAN_RIxR_STID_SHIFT             3
+#define CAN_RIxR_EXID_MASK              (0x1FFFFFF << 3)
+#define CAN_RIxR_EXID_SHIFT             3
 
 /* IDE: Identifier extension */
 #define CAN_RIxR_IDE                    (1 << 2)
