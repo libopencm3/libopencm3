@@ -211,76 +211,76 @@
 /* --- CAN_TSR values ------------------------------------------------------ */
 
 /* LOW2: Lowest priority flag for mailbox 2 */
-#define CAN_MSR_LOW2                    (1 << 31)
+#define CAN_TSR_LOW2                    (1 << 31)
 
 /* LOW1: Lowest priority flag for mailbox 1 */
-#define CAN_MSR_LOW1                    (1 << 30)
+#define CAN_TSR_LOW1                    (1 << 30)
 
 /* LOW0: Lowest priority flag for mailbox 0 */
-#define CAN_MSR_LOW0                    (1 << 29)
+#define CAN_TSR_LOW0                    (1 << 29)
 
 /* TME2: Transmit mailbox 2 empty */
-#define CAN_MSR_TME2                    (1 << 28)
+#define CAN_TSR_TME2                    (1 << 28)
 
 /* TME1: Transmit mailbox 1 empty */
-#define CAN_MSR_TME1                    (1 << 27)
+#define CAN_TSR_TME1                    (1 << 27)
 
 /* TME0: Transmit mailbox 0 empty */
-#define CAN_MSR_TME0                    (1 << 26)
+#define CAN_TSR_TME0                    (1 << 26)
 
 /* CODE[1:0]: Mailbox code */
-#define CAN_MSR_CODE_MASK               (0x3 << 24)
+#define CAN_TSR_CODE_MASK               (0x3 << 24)
 
 /* ABRQ2: Abort request for mailbox 2 */
-#define CAN_MSR_TABRQ2                  (1 << 23)
+#define CAN_TSR_TABRQ2                  (1 << 23)
 
 /* 22:20 Reserved, forced by hardware to 0 */
 
 /* TERR2: Transmission error for mailbox 2 */
-#define CAN_MSR_TERR2                   (1 << 19)
+#define CAN_TSR_TERR2                   (1 << 19)
 
 /* ALST2: Arbitration lost for mailbox 2 */
-#define CAN_MSR_ALST2                   (1 << 18)
+#define CAN_TSR_ALST2                   (1 << 18)
 
 /* TXOK2: Transmission OK for mailbox 2 */
-#define CAN_MSR_TXOK2                   (1 << 17)
+#define CAN_TSR_TXOK2                   (1 << 17)
 
 /* RQCP2: Request completed mailbox 2 */
-#define CAN_MSR_RQCP2                   (1 << 16)
+#define CAN_TSR_RQCP2                   (1 << 16)
 
 /* ABRQ1: Abort request for mailbox 1 */
-#define CAN_MSR_ABRQ1                   (1 << 15)
+#define CAN_TSR_ABRQ1                   (1 << 15)
 
 /* 14:12 Reserved, forced by hardware to 0 */
 
 /* TERR1: Transmission error for mailbox 1 */
-#define CAN_MSR_TERR1                   (1 << 11)
+#define CAN_TSR_TERR1                   (1 << 11)
 
 /* ALST1: Arbitration lost for mailbox 1 */
-#define CAN_MSR_ALST1                   (1 << 10)
+#define CAN_TSR_ALST1                   (1 << 10)
 
 /* TXOK1: Transmission OK for mailbox 1 */
-#define CAN_MSR_TXOK1                   (1 << 9)
+#define CAN_TSR_TXOK1                   (1 << 9)
 
 /* RQCP1: Request completed mailbox 1 */
-#define CAN_MSR_RQCP1                   (1 << 8)
+#define CAN_TSR_RQCP1                   (1 << 8)
 
 /* ABRQ0: Abort request for mailbox 0 */
-#define CAN_MSR_ABRQ0                   (1 << 7)
+#define CAN_TSR_ABRQ0                   (1 << 7)
 
 /* 6:4 Reserved, forced by hardware to 0 */
 
 /* TERR0: Transmission error for mailbox 0 */
-#define CAN_MSR_TERR0                   (1 << 3)
+#define CAN_TSR_TERR0                   (1 << 3)
 
 /* ALST0: Arbitration lost for mailbox 0 */
-#define CAN_MSR_ALST0                   (1 << 2)
+#define CAN_TSR_ALST0                   (1 << 2)
 
 /* TXOK0: Transmission OK for mailbox 0 */
-#define CAN_MSR_TXOK0                   (1 << 1)
+#define CAN_TSR_TXOK0                   (1 << 1)
 
 /* RQCP0: Request completed mailbox 0 */
-#define CAN_MSR_RQCP0                   (1 << 0)
+#define CAN_TSR_RQCP0                   (1 << 0)
 
 /* --- CAN_RF0R values ----------------------------------------------------- */
 
