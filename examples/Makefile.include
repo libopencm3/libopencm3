@@ -93,6 +93,7 @@ clean:
 	@printf "  CLEAN   *.list\n"
 	$(Q)rm -f *.list
 
+ifeq ($(OOCD_SERIAL),)
 %.flash: %.hex
 	@printf "  FLASH   $<\n"
 	@# IMPORTANT: Don't use "resume", only "reset" will work correctly!
@@ -103,5 +104,18 @@ clean:
 		       -c "flash write_image $(*).hex" \
 		       -c "reset" \
 		       -c "shutdown" $(NULL)
+else
+%.flash: %.hex
+	@printf "  FLASH   $<\n"
+	@# IMPORTANT: Don't use "resume", only "reset" will work correctly!
+	$(Q)$(OOCD) -f interface/$(OOCD_INTERFACE).cfg \
+		       -f board/$(OOCD_BOARD).cfg \
+		       -c "ft2232_serial $(OOCD_SERIAL)" \
+		       -c "init" -c "reset init" \
+		       -c "stm32x mass_erase 0" \
+		       -c "flash write_image $(*).hex" \
+		       -c "reset" \
+		       -c "shutdown" $(NULL)
+endif
 
 .PHONY: images clean
