@@ -89,7 +89,7 @@ void systick_setup()
 void can_setup()
 {
 	u32 wait_ack = 0x00000000;
-	u32 can_msr_inak_timeout = 0x0000FFFF;
+	u32 can_msr_inak_timeout = 0x000FFFFF;
 
 	/* Enable peripheral clocks */
 	rcc_peripheral_enable_clock(&RCC_APB2ENR, RCC_APB2ENR_AFIOEN);
@@ -109,6 +109,11 @@ void can_setup()
 	nvic_enable_irq(NVIC_USB_LP_CAN_RX0_IRQ);
 	nvic_set_priority(NVIC_USB_LP_CAN_RX0_IRQ, 1);
 
+	/* --- reset CAN periphery ------------------------------------------ */
+
+	rcc_peripheral_reset(&RCC_APB1RSTR, RCC_APB1RSTR_CANRST);
+	rcc_peripheral_clear_reset(&RCC_APB1RSTR, RCC_APB1RSTR_CANRST);
+
 	/* --- CAN cell init ------------------------------------------------ */
 
 	/* Exit from sleep mode */
@@ -126,10 +131,19 @@ void can_setup()
 	/* Check the acknowledge */
 	if ((CAN_MSR(CAN1) & CAN_MSR_INAK) != CAN_MSR_INAK) {
 		/* we should set some flag here or so because we failed */
+		gpio_clear(GPIOB, GPIO1);
 	} else {
 
+		/* set the automatic bus-off management */
+		CAN_MCR(CAN1) &= ~CAN_MCR_TTCM;
+		CAN_MCR(CAN1) |=  CAN_MCR_ABOM;
+		CAN_MCR(CAN1) &= ~CAN_MCR_AWUM;
+		CAN_MCR(CAN1) &= ~CAN_MCR_NART;
+		CAN_MCR(CAN1) &= ~CAN_MCR_TXFP;
+
 		/* Set bit timings */
-		CAN_BTR(CAN1) = CAN_BTR_SJW_1TQ |
+		CAN_BTR(CAN1) = 0x00000000 |
+			        CAN_BTR_SJW_1TQ |
 			        CAN_BTR_TS2_3TQ |
 			        CAN_BTR_TS2_4TQ |
 			        (u32)(CAN_BTR_BRP_MASK & 12);
@@ -139,14 +153,17 @@ void can_setup()
 
 		/* Wait for acknowledge */
 		wait_ack = 0x00000000;
-		while ((wait_ack != can_msr_inak_timeout) && ((CAN_MSR(CAN1) & CAN_MSR_INAK) == CAN_MSR_INAK)) {
+		while ((wait_ack != can_msr_inak_timeout) &&
+			((CAN_MSR(CAN1) & CAN_MSR_INAK) == CAN_MSR_INAK)) {
 			wait_ack++;
 		}
 
-		if ((CAN_MSR(CAN1) & CAN_MSR_INAK) != CAN_MSR_INAK) {
+		if ((CAN_MSR(CAN1) & CAN_MSR_INAK) == CAN_MSR_INAK) {
 			/* set some flag here because we failed */
+			gpio_clear(GPIOB, GPIO1);
 		} else {
 			/* set some flag here because we succeeded */
+			gpio_set(GPIOB, GPIO1);
 		}
 	}
 
@@ -192,12 +209,16 @@ void can_transmit(u32 id, u8 length, u8 data)
 
 	if ((CAN_TSR(CAN1) & CAN_TSR_TME0) == CAN_TSR_TME0) {
 		mailbox = CAN_MBOX0;
+		gpio_set(GPIOB, GPIO0);
 	} else if ((CAN_TSR(CAN1) & CAN_TSR_TME1) == CAN_TSR_TME1) {
 		mailbox = CAN_MBOX1;
+		gpio_set(GPIOB, GPIO0);
 	} else if ((CAN_TSR(CAN1) & CAN_TSR_TME2) == CAN_TSR_TME2) {
 		mailbox = CAN_MBOX2;
+		gpio_set(GPIOB, GPIO0);
 	} else {
 		mailbox = 0; /* no mailbox */
+		gpio_clear(GPIOB, GPIO0);
 	}
 
 	if ( mailbox != 0 ) { /* check if we have an empty mailbox */
@@ -234,9 +255,15 @@ void sys_tick_handler()
 	}
 }
 
+void usb_lp_can_rx0_isr(void)
+{
+	gpio_toggle(GPIOA, GPIO7);
+	CAN_RF0R(CAN1) |= CAN_RF0R_RFOM0;
+}
+
 int main(void)
 {
-        rcc_clock_setup_in_hse_16mhz_out_72mhz();
+        rcc_clock_setup_in_hse_8mhz_out_72mhz();
 	gpio_setup();
 	can_setup();
 	systick_setup();
