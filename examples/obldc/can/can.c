@@ -144,9 +144,9 @@ void can_setup()
 		/* Set bit timings */
 		CAN_BTR(CAN1) = 0x00000000 |
 			        CAN_BTR_SJW_1TQ |
-			        CAN_BTR_TS2_3TQ |
 			        CAN_BTR_TS2_4TQ |
-			        (u32)(CAN_BTR_BRP_MASK & 12);
+			        CAN_BTR_TS1_3TQ |
+			        (u32)(CAN_BTR_BRP_MASK & (12 - 1));
 
 		/* Request initialization "leave" */
 		CAN_MCR(CAN1) &= ~CAN_MCR_INRQ;
