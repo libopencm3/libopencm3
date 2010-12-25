@@ -31,9 +31,8 @@ void can_reset(u32 canport)
 	}
 }
 
-int can_init(u32 canport,
-	     bool ttcm, bool abom, bool awum, bool nart, bool rflm, bool txfp,
-	     u32 sjw, u32 ts1, u32 ts2, u32 brp)
+int can_init(u32 canport, bool ttcm, bool abom, bool awum, bool nart,
+	     bool rflm, bool txfp, u32 sjw, u32 ts1, u32 ts2, u32 brp)
 {
 	u32 wait_ack = 0x00000000;
 	u32 can_msr_inak_timeout = 0x0000FFFF;
@@ -52,57 +51,56 @@ int can_init(u32 canport,
 	}
 
 	/* Check the acknowledge. */
-	if ((CAN_MSR(canport) & CAN_MSR_INAK) != CAN_MSR_INAK) {
-		ret = 1;
-	} else {
-		/* Set the automatic bus-off management. */
-		if (ttcm)
-			CAN_MCR(canport) |=  CAN_MCR_TTCM;
-		else
-			CAN_MCR(canport) &= ~CAN_MCR_TTCM;
+	if ((CAN_MSR(canport) & CAN_MSR_INAK) != CAN_MSR_INAK)
+		return 1;
 
-		if (abom)
-			CAN_MCR(canport) |=  CAN_MCR_ABOM;
-		else
-			CAN_MCR(canport) &= ~CAN_MCR_ABOM;
+	/* Set the automatic bus-off management. */
+	if (ttcm)
+		CAN_MCR(canport) |=  CAN_MCR_TTCM;
+	else
+		CAN_MCR(canport) &= ~CAN_MCR_TTCM;
 
-		if (awum)
-			CAN_MCR(canport) |=  CAN_MCR_AWUM;
-		else
-			CAN_MCR(canport) &= ~CAN_MCR_AWUM;
+	if (abom)
+		CAN_MCR(canport) |=  CAN_MCR_ABOM;
+	else
+		CAN_MCR(canport) &= ~CAN_MCR_ABOM;
 
-		if (nart)
-			CAN_MCR(canport) |=  CAN_MCR_NART;
-		else
-			CAN_MCR(canport) &= ~CAN_MCR_NART;
+	if (awum)
+		CAN_MCR(canport) |=  CAN_MCR_AWUM;
+	else
+		CAN_MCR(canport) &= ~CAN_MCR_AWUM;
 
-		if (rflm)
-			CAN_MCR(canport) |=  CAN_MCR_RFLM;
-		else
-			CAN_MCR(canport) &= ~CAN_MCR_RFLM;
+	if (nart)
+		CAN_MCR(canport) |=  CAN_MCR_NART;
+	else
+		CAN_MCR(canport) &= ~CAN_MCR_NART;
 
-		if (txfp)
-			CAN_MCR(canport) |=  CAN_MCR_TXFP;
-		else
-			CAN_MCR(canport) &= ~CAN_MCR_TXFP;
+	if (rflm)
+		CAN_MCR(canport) |=  CAN_MCR_RFLM;
+	else
+		CAN_MCR(canport) &= ~CAN_MCR_RFLM;
 
-		/* Set bit timings. */
-		CAN_BTR(canport) = sjw | ts2 | ts1 |
-			           (u32)(CAN_BTR_BRP_MASK & (brp - 1));
+	if (txfp)
+		CAN_MCR(canport) |=  CAN_MCR_TXFP;
+	else
+		CAN_MCR(canport) &= ~CAN_MCR_TXFP;
 
-		/* Request initialization "leave". */
-		CAN_MCR(canport) &= ~CAN_MCR_INRQ;
+	/* Set bit timings. */
+	CAN_BTR(canport) = sjw | ts2 | ts1 |
+		           (u32)(CAN_BTR_BRP_MASK & (brp - 1));
 
-		/* Wait for acknowledge. */
-		wait_ack = 0x00000000;
-		while ((wait_ack != can_msr_inak_timeout) &&
-		       ((CAN_MSR(canport) & CAN_MSR_INAK) == CAN_MSR_INAK)) {
-			wait_ack++;
-		}
+	/* Request initialization "leave". */
+	CAN_MCR(canport) &= ~CAN_MCR_INRQ;
 
-		if ((CAN_MSR(canport) & CAN_MSR_INAK) == CAN_MSR_INAK)
-			ret = 1;
+	/* Wait for acknowledge. */
+	wait_ack = 0x00000000;
+	while ((wait_ack != can_msr_inak_timeout) &&
+	       ((CAN_MSR(canport) & CAN_MSR_INAK) == CAN_MSR_INAK)) {
+		wait_ack++;
 	}
+
+	if ((CAN_MSR(canport) & CAN_MSR_INAK) == CAN_MSR_INAK)
+		ret = 1;
 
 	return ret;
 }
@@ -209,41 +207,42 @@ int can_transmit(u32 canport, u32 id, bool ext, bool rtr, u8 length, u8 *data)
 		ret = -1;
 	}
 
-	if (ret != -1) { /* Check if we have an empty mailbox. */
-		if (ext) {
-			/* Set extended ID. */
-			CAN_TIxR(canport, mailbox) |= id << CAN_TIxR_EXID_SHIFT;
-			/* Set extended ID indicator bit. */
-			CAN_TIxR(canport, mailbox) |= CAN_TIxR_IDE;
-		} else {
-			/* Set standard ID. */
-			CAN_TIxR(canport, mailbox) |= id << CAN_TIxR_STID_SHIFT;
-			/* Unset extended ID indicator bit. */
-			CAN_TIxR(canport, mailbox) &= ~CAN_TIxR_IDE;
-		}
+	/* Check if we have an empty mailbox. */
+	if (ret == -1)
+		return ret;
 
-		/* Set/clear remote transmission request bit. */
-		if (rtr)
-			CAN_TIxR(canport, mailbox) |=  CAN_TIxR_RTR; /* Set */
-		else
-			CAN_TIxR(canport, mailbox) &= ~CAN_TIxR_RTR; /* Clear */
-
-		/* Set the DLC. */
-		CAN_TDTxR(canport, mailbox) &= 0xFFFFFFFF0;
-		CAN_TDTxR(canport, mailbox) |= length & CAN_TDTxR_DLC_MASK;
-
-		/* Set the data. */
-		CAN_TDLxR(canport, mailbox) = 0;
-		CAN_TDHxR(canport, mailbox) = 0;
-		for (i = 0; (i < 4) && (i < length); i++)
-			CAN_TDLxR(canport, mailbox) |= (u32)data[i] << (8 * i);
-		for (i = 4; (i < 8) && (i < length); i++)
-			CAN_TDHxR(canport, mailbox)
-				|= (u32)data[i] << (8 * (i - 4));
-
-		/* Request transmission. */
-		CAN_TIxR(canport, mailbox) |= CAN_TIxR_TXRQ;
+	if (ext) {
+		/* Set extended ID. */
+		CAN_TIxR(canport, mailbox) |= id << CAN_TIxR_EXID_SHIFT;
+		/* Set extended ID indicator bit. */
+		CAN_TIxR(canport, mailbox) |= CAN_TIxR_IDE;
+	} else {
+		/* Set standard ID. */
+		CAN_TIxR(canport, mailbox) |= id << CAN_TIxR_STID_SHIFT;
+		/* Unset extended ID indicator bit. */
+		CAN_TIxR(canport, mailbox) &= ~CAN_TIxR_IDE;
 	}
+
+	/* Set/clear remote transmission request bit. */
+	if (rtr)
+		CAN_TIxR(canport, mailbox) |=  CAN_TIxR_RTR; /* Set */
+	else
+		CAN_TIxR(canport, mailbox) &= ~CAN_TIxR_RTR; /* Clear */
+
+	/* Set the DLC. */
+	CAN_TDTxR(canport, mailbox) &= 0xFFFFFFFF0;
+	CAN_TDTxR(canport, mailbox) |= length & CAN_TDTxR_DLC_MASK;
+
+	/* Set the data. */
+	CAN_TDLxR(canport, mailbox) = 0;
+	CAN_TDHxR(canport, mailbox) = 0;
+	for (i = 0; (i < 4) && (i < length); i++)
+		CAN_TDLxR(canport, mailbox) |= (u32)data[i] << (8 * i);
+	for (i = 4; (i < 8) && (i < length); i++)
+		CAN_TDHxR(canport, mailbox) |= (u32)data[i] << (8 * (i - 4));
+
+	/* Request transmission. */
+	CAN_TIxR(canport, mailbox) |= CAN_TIxR_TXRQ;
 
 	return ret;
 }

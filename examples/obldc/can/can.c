@@ -150,26 +150,25 @@ void sys_tick_handler(void)
 	static int temp32 = 0;
 	static u8 data[8] = {0, 1, 2, 0, 0, 0, 0, 0};
 
-	temp32++;
-
 	/* We call this handler every 1ms so 1000ms = 1s on/off. */
-	if (temp32 == 1000) {
-		temp32 = 0;
+	if (++temp32 != 1000)
+		return;
 
-		/* Transmit CAN frame. */
-		data[0]++;
-		if (can_transmit(CAN1,
-				 0,     /* (EX/ST)ID: CAN ID */
-				 false, /* IDE: CAN ID extended? */
-				 false, /* RTR: Request transmit? */
-				 8,     /* DLC: Data length */
-				 data) == -1)
-		{
-			gpio_set(GPIOA, GPIO6);		/* LED0 off */
-			gpio_set(GPIOA, GPIO7);		/* LED1 off */
-			gpio_clear(GPIOB, GPIO0);	/* LED2 on */
-			gpio_set(GPIOB, GPIO1);		/* LED3 off */
-		}
+	temp32 = 0;
+
+	/* Transmit CAN frame. */
+	data[0]++;
+	if (can_transmit(CAN1,
+			 0,     /* (EX/ST)ID: CAN ID */
+			 false, /* IDE: CAN ID extended? */
+			 false, /* RTR: Request transmit? */
+			 8,     /* DLC: Data length */
+			 data) == -1)
+	{
+		gpio_set(GPIOA, GPIO6);		/* LED0 off */
+		gpio_set(GPIOA, GPIO7);		/* LED1 off */
+		gpio_clear(GPIOB, GPIO0);	/* LED2 on */
+		gpio_set(GPIOB, GPIO1);		/* LED3 off */
 	}
 }
 
