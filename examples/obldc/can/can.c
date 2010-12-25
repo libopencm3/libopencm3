@@ -88,8 +88,6 @@ void systick_setup()
 
 void can_setup()
 {
-	u32 wait_ack = 0x00000000;
-	u32 can_msr_inak_timeout = 0x000FFFFF;
 
 	/* Enable peripheral clocks */
 	rcc_peripheral_enable_clock(&RCC_APB2ENR, RCC_APB2ENR_AFIOEN);
@@ -109,156 +107,111 @@ void can_setup()
 	nvic_enable_irq(NVIC_USB_LP_CAN_RX0_IRQ);
 	nvic_set_priority(NVIC_USB_LP_CAN_RX0_IRQ, 1);
 
-	/* --- reset CAN periphery ------------------------------------------ */
+	/* reset CAN */
+	can_reset(CAN1);
 
-	rcc_peripheral_reset(&RCC_APB1RSTR, RCC_APB1RSTR_CANRST);
-	rcc_peripheral_clear_reset(&RCC_APB1RSTR, RCC_APB1RSTR_CANRST);
+	/* CAN cell init */
+	if (can_init(CAN1,
+		     false,           /* TTCM: Time triggered comm mode? */
+		     true,            /* ABOM: Automatic bus-off management? */
+		     false,           /* AWUM: Automatic wakeup mode? */
+		     false,           /* NART: No automatic retransmission? */
+		     false,           /* RFLM: Receive FIFO locked mode? */
+		     false,           /* TXFP: Transmit FIFO priority? */
+		     CAN_BTR_SJW_1TQ,
+		     CAN_BTR_TS1_3TQ,
+		     CAN_BTR_TS2_4TQ,
+		     12)) {           /* BRP+1: Baud rate prescaler */
 
-	/* --- CAN cell init ------------------------------------------------ */
+		gpio_set(GPIOA, GPIO6);		/* LED0 off */
+		gpio_set(GPIOA, GPIO7);		/* LED1 off */
+		gpio_set(GPIOB, GPIO0);		/* LED2 off */
+		gpio_clear(GPIOB, GPIO1);	/* LED3 on */
 
-	/* Exit from sleep mode */
-	CAN_MCR(CAN1) &= ~CAN_MCR_SLEEP;
-
-	/* Request initialization "enter" */
-	CAN_MCR(CAN1) |= CAN_MCR_INRQ;
-
-	/* Wait for acknowledge */
-	while ((wait_ack != can_msr_inak_timeout) &&
-		((CAN_MSR(CAN1) & CAN_MSR_INAK) != CAN_MSR_INAK)) {
-		wait_ack++;
-	}
-
-	/* Check the acknowledge */
-	if ((CAN_MSR(CAN1) & CAN_MSR_INAK) != CAN_MSR_INAK) {
-		/* we should set some flag here or so because we failed */
-		gpio_clear(GPIOB, GPIO1);
-	} else {
-
-		/* set the automatic bus-off management */
-		CAN_MCR(CAN1) &= ~CAN_MCR_TTCM;
-		CAN_MCR(CAN1) |=  CAN_MCR_ABOM;
-		CAN_MCR(CAN1) &= ~CAN_MCR_AWUM;
-		CAN_MCR(CAN1) &= ~CAN_MCR_NART;
-		CAN_MCR(CAN1) &= ~CAN_MCR_TXFP;
-
-		/* Set bit timings */
-		CAN_BTR(CAN1) = 0x00000000 |
-			        CAN_BTR_SJW_1TQ |
-			        CAN_BTR_TS2_4TQ |
-			        CAN_BTR_TS1_3TQ |
-			        (u32)(CAN_BTR_BRP_MASK & (12 - 1));
-
-		/* Request initialization "leave" */
-		CAN_MCR(CAN1) &= ~CAN_MCR_INRQ;
-
-		/* Wait for acknowledge */
-		wait_ack = 0x00000000;
-		while ((wait_ack != can_msr_inak_timeout) &&
-			((CAN_MSR(CAN1) & CAN_MSR_INAK) == CAN_MSR_INAK)) {
-			wait_ack++;
-		}
-
-		if ((CAN_MSR(CAN1) & CAN_MSR_INAK) == CAN_MSR_INAK) {
-			/* set some flag here because we failed */
-			gpio_clear(GPIOB, GPIO1);
-		} else {
-			/* set some flag here because we succeeded */
-			gpio_set(GPIOB, GPIO1);
+		/* die because we failed to initialize */
+		while(1){
+			__asm("nop");
 		}
 	}
 
 	/* --- CAN filter 0 init -------------------------------------------- */
 
-	u32 filter_select_bit = 0x00000001;
-
-	/* Request initialization "enter" */
-	CAN_FMR(CAN1) |= CAN_FMR_FINIT;
-
-	/* Deactivate the filter */
-	CAN_FA1R(CAN1) &= ~filter_select_bit;
-
-	/* Set 32-bit scale for the filter */
-	CAN_FS1R(CAN1) |= filter_select_bit;
-
-	/* Set the filter id to 0 */
-	CAN_FiR1(CAN1, 0) = 0x00000000;
-
-	/* Set the filter id mask to 0 */
-	CAN_FiR2(CAN1, 0) = 0x00000000;
-
-	/* Set filter mode to Id/Mask mode */
-	CAN_FM1R(CAN1) &= ~filter_select_bit;
-
-	/* Select FIFO0 as filter assignement */
-	CAN_FFA1R(CAN1) &= ~filter_select_bit;
-
-	/* Reactivate the filter */
-	CAN_FA1R(CAN1) |= filter_select_bit;
-
-	/* Request initialization "leave" */
-	CAN_FMR(CAN1) &= ~CAN_FMR_FINIT;
+	can_filter_id_mask_32bit_init(CAN1,
+				0,     /* Filter id */
+				0,     /* CAN id */
+				0,     /* CAN id mask */
+				0,     /* FIFO assignement (in this case FIFO0) */
+				true); /* Enable the filter */
 
 	/* --- Enable CAN rx interrupt -------------------------------------- */
 
-	CAN_IER(CAN1) |= CAN_IER_FMPIE0;
-}
-
-void can_transmit(u32 id, u8 length, u8 data)
-{
-	u32 mailbox = 0;
-
-	if ((CAN_TSR(CAN1) & CAN_TSR_TME0) == CAN_TSR_TME0) {
-		mailbox = CAN_MBOX0;
-		gpio_set(GPIOB, GPIO0);
-	} else if ((CAN_TSR(CAN1) & CAN_TSR_TME1) == CAN_TSR_TME1) {
-		mailbox = CAN_MBOX1;
-		gpio_set(GPIOB, GPIO0);
-	} else if ((CAN_TSR(CAN1) & CAN_TSR_TME2) == CAN_TSR_TME2) {
-		mailbox = CAN_MBOX2;
-		gpio_set(GPIOB, GPIO0);
-	} else {
-		mailbox = 0; /* no mailbox */
-		gpio_clear(GPIOB, GPIO0);
-	}
-
-	if ( mailbox != 0 ) { /* check if we have an empty mailbox */
-		/* Set the ID */
-		CAN_TIxR(CAN1, mailbox) |= id << CAN_TIxR_STID_SHIFT;
-
-		/* Set the DLC */
-		CAN_TDTxR(CAN1, mailbox) &= 0xFFFFFFFF0;
-		CAN_TDTxR(CAN1, mailbox) |= length & CAN_TDTxR_DLC_MASK;
-
-		/* Set the data */
-		CAN_TDLxR(CAN1, mailbox) = data;
-		CAN_TDHxR(CAN1, mailbox) = 0x00000000;
-
-		/* Request transmission */
-		CAN_TIxR(CAN1, mailbox) |= CAN_TIxR_TXRQ;
-	}
+	can_enable_irq(CAN1, CAN_IER_FMPIE0);
 }
 
 void sys_tick_handler()
 {
 	static int temp32 = 0;
+	static u8 data[8] = {0,1,2,0,0,0,0,0};
 
 	temp32++;
 
 	/* we call this handler every 1ms so 1000ms = 1s on/off */
 	if (temp32 == 1000) {
-		gpio_toggle(GPIOA, GPIO6); /* LED2 on/off */
 		temp32 = 0;
 
 		/* --- Transmit CAN frame ----------------------------------- */
 
-		can_transmit(0, 0, 10);
+		data[0]++;
+		if(can_transmit(CAN1,
+				0,     /* (EX/ST)ID: CAN id */
+				false, /* IDE: CAN id extended? */
+				false, /* RTR: Request Transmit? */
+				8,     /* DLC: Data Length */
+				data) == -1) {
+			gpio_set(GPIOA, GPIO6);		/* LED0 off */
+			gpio_set(GPIOA, GPIO7);		/* LED1 off */
+			gpio_clear(GPIOB, GPIO0);	/* LED2 on */
+			gpio_set(GPIOB, GPIO1);	        /* LED3 off */
+		}
 	}
 }
 
 void usb_lp_can_rx0_isr(void)
 {
-	gpio_toggle(GPIOA, GPIO7);
-	CAN_RF0R(CAN1) |= CAN_RF0R_RFOM0;
+	u32 id;
+	bool ext;
+	bool rtr;
+	u32 fmi;
+	u8 length;
+	u8 data[8];
+
+	can_receive(CAN1, 0, false, &id, &ext, &rtr, &fmi, &length, data);
+
+	if (data[0] & 1) {
+		gpio_clear(GPIOA, GPIO6);
+	} else {
+		gpio_set(GPIOA, GPIO6);
+	}
+
+	if (data[0] & 2) {
+		gpio_clear(GPIOA, GPIO7);
+	} else {
+		gpio_set(GPIOA, GPIO7);
+	}
+
+	if (data[0] & 4) {
+		gpio_clear(GPIOB, GPIO0);
+	} else {
+		gpio_set(GPIOB, GPIO0);
+	}
+
+	if (data[0] & 8) {
+		gpio_clear(GPIOB, GPIO1);
+	} else {
+		gpio_set(GPIOB, GPIO1);
+	}
+
+	can_fifo_release(CAN1, 0);
 }
 
 int main(void)

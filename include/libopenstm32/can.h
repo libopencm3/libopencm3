@@ -528,10 +528,9 @@
 #define CAN_RDTxR_TIME_MASK             (0xFFFF << 15)
 #define CAN_RDTxR_TIME_SHIFT            15
 
-/* 15:6 Reserved, forced by hardware to 0 */
-
-/* TGT: Transmit global time */
-#define CAN_RDTxR_TGT                   (1 << 5)
+/* FMI[7:0]: Filter match index */
+#define CAN_RDTxR_FMI_MASK              (0xFF << 8)
+#define CAN_RDTxR_FMI_SHIFT             8
 
 /* 7:4 Reserved, forced by hardware to 0 */
 
@@ -606,5 +605,43 @@
 /* --- CAN_FiRx values ------------------------------------------------------ */
 
 /* FB[31:0]: Filter bits */
+
+/* --- CAN functions -------------------------------------------------------- */
+
+void can_reset(u32 canport);
+int can_init(u32 canport,
+	     bool ttcm, bool abom, bool awum, bool nart, bool rflm, bool txfp,
+	     u32 sjw, u32 ts1, u32 ts2, u32 brp);
+
+void can_filter_init(u32 canport, u32 nr, bool scale_32bit, bool id_list_mode,
+		     u32 fr1, u32 fr2,
+                     u32 fifo, bool enable);
+
+void can_filter_id_mask_16bit_init(u32 canport, u32 nr,
+				   u16 id1, u16 mask1,
+				   u16 id2, u16 mask2,
+				   u32 fifo, bool enable);
+void can_filter_id_mask_32bit_init(u32 canport, u32 nr,
+				   u32 id, u32 mask,
+				   u32 fifo, bool enable);
+void can_filter_id_list_16bit_init(u32 canport, u32 nr,
+				   u16 id1, u16 id2,
+				   u16 id3, u16 id4,
+				   u32 fifo, bool enable);
+void can_filter_id_list_32bit_init(u32 canport, u32 nr,
+				   u32 id1, u32 id2,
+				   u32 fifo, bool enable);
+
+void can_enable_irq(u32 canport, u32 irq);
+void can_disable_irq(u32 canport, u32 irq);
+
+int can_transmit(u32 canport, u32 id,
+		 bool ext, bool rtr,
+		 u8 length, u8 *data);
+void can_receive(u32 canport, u8 fifo, bool release,
+		 u32 *id, bool *ext, bool *rtr, u32 *fmi,
+		 u8 *length, u8 *data);
+
+void can_fifo_release(u32 canport, u8 fifo);
 
 #endif /* LIBOPENSTM32_CAN_H */

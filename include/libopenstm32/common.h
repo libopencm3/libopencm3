@@ -21,6 +21,7 @@
 #define LIBOPENSTM32_COMMON_H
 
 #include <stdint.h>
+#include <stdbool.h>
 
 /* Type definitions for shorter and nicer code */
 typedef int8_t s8;
