@@ -50,11 +50,11 @@
 /* CAN bit timing register (CAN_BTR) */
 #define CAN_BTR(can_base)               MMIO32(can_base + 0x01C)
 
-/* Registers in the offset range 0x020 to 0x17F are reserved */
+/* Registers in the offset range 0x020 to 0x17F are reserved. */
 
 /* --- CAN mailbox registers ----------------------------------------------- */
 
-/* CAN mailbox / fifo register offsets */
+/* CAN mailbox / FIFO register offsets */
 #define CAN_MBOX0                       0x180
 #define CAN_MBOX1                       0x190
 #define CAN_MBOX2                       0x1A0
@@ -90,7 +90,7 @@
 #define CAN_RI0R(can_base)              CAN_RIxR(can_base, CAN_FIFO0)
 #define CAN_RI1R(can_base)              CAN_RIxR(can_base, CAN_FIFO1)
 
-/* CAN RX FIFO mailbox data length control and time stamp register (CAN_RDTxR) */
+/* CAN RX FIFO mailbox data length control & time stamp register (CAN_RDTxR) */
 #define CAN_RDTxR(can_base, fifo)        MMIO32(can_base + fifo + 0x4)
 #define CAN_RDT0R(can_base)              CAN_RDTxR(can_base, CAN_FIFO0)
 #define CAN_RDT1R(can_base)              CAN_RDTxR(can_base, CAN_FIFO1)
@@ -113,28 +113,29 @@
 /* CAN filter mode register (CAN_FM1R) */
 #define CAN_FM1R(can_base)              MMIO32(can_base + 0x204)
 
-/* Register offset 0x208 reserved */
+/* Register offset 0x208 is reserved. */
 
 /* CAN filter scale register (CAN_FS1R) */
 #define CAN_FS1R(can_base)              MMIO32(can_base + 0x20C)
 
-/* Register offset 0x210 reserved */
+/* Register offset 0x210 is reserved. */
 
 /* CAN filter FIFO assignement register (CAN_FFA1R) */
 #define CAN_FFA1R(can_base)             MMIO32(can_base + 0x214)
 
-/* Register offset 0x218 reserved */
+/* Register offset 0x218 is reserved. */
 
 /* CAN filter activation register (CAN_FA1R) */
 #define CAN_FA1R(can_base)              MMIO32(can_base + 0x21C)
 
-/* Register offset 0x220 reserved */
+/* Register offset 0x220 is reserved. */
 
-/* Registers with offset 0x224 to 0x23F reserved */
+/* Registers with offset 0x224 to 0x23F are reserved. */
 
 /* CAN filter bank registers (CAN_FiRx) */
-/* Connectivity line devices have 28 banks so the bank id spans 0..27
- * all other devices have 14 banks so the bank id spans 0..13
+/*
+ * Connectivity line devices have 28 banks so the bank ID spans 0..27
+ * all other devices have 14 banks so the bank ID spans 0..13.
  */
 #define CAN_FiR1(can_base, bank)        MMIO32(can_base + 0x240 + (bank * 0x8) + 0x0)
 #define CAN_FiR2(can_base, bank)        MMIO32(can_base + 0x240 + (bank * 0x8) + 0x4)
@@ -556,8 +557,10 @@
 
 /* 31:14 Reserved, forced to reset value */
 
-/* CAN2SB[5:0]: CAN2 start bank
- * (only on connectivity line devices otherwise reserved) */
+/*
+ * CAN2SB[5:0]: CAN2 start bank
+ * (only on connectivity line devices otherwise reserved)
+ */
 #define CAN_FMR_CAN2SB_MASK             (0x3F << 8)
 #define CAN_FMR_CAN2SB_SHIFT            15
 
@@ -570,7 +573,8 @@
 
 /* 31:28 Reserved, forced by hardware to 0 */
 
-/* FBMx: Filter mode
+/*
+ * FBMx: Filter mode
  * x is 0..27 should be calculated by a helper function making so many macros
  * seems like an overkill?
  */
@@ -579,7 +583,8 @@
 
 /* 31:28 Reserved, forced by hardware to 0 */
 
-/* FSCx: Filter scale configuration
+/*
+ * FSCx: Filter scale configuration
  * x is 0..27 should be calculated by a helper function making so many macros
  * seems like an overkill?
  */
@@ -588,7 +593,8 @@
 
 /* 31:28 Reserved, forced by hardware to 0 */
 
-/* FFAx: Filter scale configuration
+/*
+ * FFAx: Filter scale configuration
  * x is 0..27 should be calculated by a helper function making so many macros
  * seems like an overkill?
  */
@@ -597,7 +603,8 @@
 
 /* 31:28 Reserved, forced by hardware to 0 */
 
-/* FACTx: Filter active
+/*
+ * FACTx: Filter active
  * x is 0..27 should be calculated by a helper function making so many macros
  * seems like an overkill?
  */
@@ -609,39 +616,27 @@
 /* --- CAN functions -------------------------------------------------------- */
 
 void can_reset(u32 canport);
-int can_init(u32 canport,
-	     bool ttcm, bool abom, bool awum, bool nart, bool rflm, bool txfp,
-	     u32 sjw, u32 ts1, u32 ts2, u32 brp);
+int can_init(u32 canport, bool ttcm, bool abom, bool awum, bool nart,
+	     bool rflm, bool txfp, u32 sjw, u32 ts1, u32 ts2, u32 brp);
 
 void can_filter_init(u32 canport, u32 nr, bool scale_32bit, bool id_list_mode,
-		     u32 fr1, u32 fr2,
-                     u32 fifo, bool enable);
-
-void can_filter_id_mask_16bit_init(u32 canport, u32 nr,
-				   u16 id1, u16 mask1,
-				   u16 id2, u16 mask2,
+		     u32 fr1, u32 fr2, u32 fifo, bool enable);
+void can_filter_id_mask_16bit_init(u32 canport, u32 nr, u16 id1, u16 mask1,
+				   u16 id2, u16 mask2, u32 fifo, bool enable);
+void can_filter_id_mask_32bit_init(u32 canport, u32 nr, u32 id, u32 mask,
 				   u32 fifo, bool enable);
-void can_filter_id_mask_32bit_init(u32 canport, u32 nr,
-				   u32 id, u32 mask,
-				   u32 fifo, bool enable);
-void can_filter_id_list_16bit_init(u32 canport, u32 nr,
-				   u16 id1, u16 id2,
-				   u16 id3, u16 id4,
-				   u32 fifo, bool enable);
-void can_filter_id_list_32bit_init(u32 canport, u32 nr,
-				   u32 id1, u32 id2,
+void can_filter_id_list_16bit_init(u32 canport, u32 nr, u16 id1, u16 id2,
+				   u16 id3, u16 id4, u32 fifo, bool enable);
+void can_filter_id_list_32bit_init(u32 canport, u32 nr, u32 id1, u32 id2,
 				   u32 fifo, bool enable);
 
 void can_enable_irq(u32 canport, u32 irq);
 void can_disable_irq(u32 canport, u32 irq);
 
-int can_transmit(u32 canport, u32 id,
-		 bool ext, bool rtr,
-		 u8 length, u8 *data);
-void can_receive(u32 canport, u8 fifo, bool release,
-		 u32 *id, bool *ext, bool *rtr, u32 *fmi,
-		 u8 *length, u8 *data);
+int can_transmit(u32 canport, u32 id, bool ext, bool rtr, u8 length, u8 *data);
+void can_receive(u32 canport, u8 fifo, bool release, u32 *id, bool *ext,
+		 bool *rtr, u32 *fmi, u8 *length, u8 *data);
 
 void can_fifo_release(u32 canport, u8 fifo);
 
-#endif /* LIBOPENSTM32_CAN_H */
+#endif

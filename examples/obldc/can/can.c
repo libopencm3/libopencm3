@@ -51,6 +51,7 @@ void gpio_setup(void)
 {
 	/* Enable GPIOA clock. */
 	rcc_peripheral_enable_clock(&RCC_APB2ENR, RCC_APB2ENR_IOPAEN);
+
 	/* Enable GPIOB clock. */
 	rcc_peripheral_enable_clock(&RCC_APB2ENR, RCC_APB2ENR_IOPBEN);
 
@@ -72,7 +73,7 @@ void gpio_setup(void)
 	              GPIO_CNF_OUTPUT_PUSHPULL, GPIO1);
 }
 
-void systick_setup()
+void systick_setup(void)
 {
 	/* 72MHz / 8 => 9000000 counts per second */
 	systick_set_clocksource(STK_CTRL_CLKSOURCE_AHB_DIV8);
@@ -82,35 +83,34 @@ void systick_setup()
 
 	systick_interrupt_enable();
 
-	/* start counting */
+	/* Start counting. */
 	systick_counter_enable();
 }
 
-void can_setup()
+void can_setup(void)
 {
-
-	/* Enable peripheral clocks */
+	/* Enable peripheral clocks. */
 	rcc_peripheral_enable_clock(&RCC_APB2ENR, RCC_APB2ENR_AFIOEN);
 	rcc_peripheral_enable_clock(&RCC_APB2ENR, RCC_APB2ENR_IOPAEN);
 	rcc_peripheral_enable_clock(&RCC_APB1ENR, RCC_APB1ENR_CANEN);
 
-	/* Configure CAN pin: RX (input pull-up) */
+	/* Configure CAN pin: RX (input pull-up). */
 	gpio_set_mode(GPIOA, GPIO_MODE_INPUT,
 		      GPIO_CNF_INPUT_PULL_UPDOWN, GPIO_CAN_RX);
 	gpio_set(GPIOA, GPIO_CAN_RX);
 
-	/* Configure CAN pin: TX */
+	/* Configure CAN pin: TX. */
 	gpio_set_mode(GPIOA, GPIO_MODE_OUTPUT_50_MHZ,
 		      GPIO_CNF_OUTPUT_ALTFN_PUSHPULL, GPIO_CAN_TX);
 
-	/* NVIC setup */
+	/* NVIC setup. */
 	nvic_enable_irq(NVIC_USB_LP_CAN_RX0_IRQ);
 	nvic_set_priority(NVIC_USB_LP_CAN_RX0_IRQ, 1);
 
-	/* reset CAN */
+	/* Reset CAN. */
 	can_reset(CAN1);
 
-	/* CAN cell init */
+	/* CAN cell init. */
 	if (can_init(CAN1,
 		     false,           /* TTCM: Time triggered comm mode? */
 		     true,            /* ABOM: Automatic bus-off management? */
@@ -121,107 +121,97 @@ void can_setup()
 		     CAN_BTR_SJW_1TQ,
 		     CAN_BTR_TS1_3TQ,
 		     CAN_BTR_TS2_4TQ,
-		     12)) {           /* BRP+1: Baud rate prescaler */
-
+		     12))             /* BRP+1: Baud rate prescaler */
+	{
 		gpio_set(GPIOA, GPIO6);		/* LED0 off */
 		gpio_set(GPIOA, GPIO7);		/* LED1 off */
 		gpio_set(GPIOB, GPIO0);		/* LED2 off */
 		gpio_clear(GPIOB, GPIO1);	/* LED3 on */
 
-		/* die because we failed to initialize */
-		while(1){
-			__asm("nop");
-		}
+		/* Die because we failed to initialize. */
+		while (1)
+			__asm__("nop");
 	}
 
-	/* --- CAN filter 0 init -------------------------------------------- */
-
+	/* CAN filter 0 init. */
 	can_filter_id_mask_32bit_init(CAN1,
-				0,     /* Filter id */
-				0,     /* CAN id */
-				0,     /* CAN id mask */
-				0,     /* FIFO assignement (in this case FIFO0) */
-				true); /* Enable the filter */
+				0,     /* Filter ID */
+				0,     /* CAN ID */
+				0,     /* CAN ID mask */
+				0,     /* FIFO assignment (here: FIFO0) */
+				true); /* Enable the filter. */
 
-	/* --- Enable CAN rx interrupt -------------------------------------- */
-
+	/* Enable CAN RX interrupt. */
 	can_enable_irq(CAN1, CAN_IER_FMPIE0);
 }
 
-void sys_tick_handler()
+void sys_tick_handler(void)
 {
 	static int temp32 = 0;
-	static u8 data[8] = {0,1,2,0,0,0,0,0};
+	static u8 data[8] = {0, 1, 2, 0, 0, 0, 0, 0};
 
 	temp32++;
 
-	/* we call this handler every 1ms so 1000ms = 1s on/off */
+	/* We call this handler every 1ms so 1000ms = 1s on/off. */
 	if (temp32 == 1000) {
 		temp32 = 0;
 
-		/* --- Transmit CAN frame ----------------------------------- */
-
+		/* Transmit CAN frame. */
 		data[0]++;
-		if(can_transmit(CAN1,
-				0,     /* (EX/ST)ID: CAN id */
-				false, /* IDE: CAN id extended? */
-				false, /* RTR: Request Transmit? */
-				8,     /* DLC: Data Length */
-				data) == -1) {
+		if (can_transmit(CAN1,
+				 0,     /* (EX/ST)ID: CAN ID */
+				 false, /* IDE: CAN ID extended? */
+				 false, /* RTR: Request transmit? */
+				 8,     /* DLC: Data length */
+				 data) == -1)
+		{
 			gpio_set(GPIOA, GPIO6);		/* LED0 off */
 			gpio_set(GPIOA, GPIO7);		/* LED1 off */
 			gpio_clear(GPIOB, GPIO0);	/* LED2 on */
-			gpio_set(GPIOB, GPIO1);	        /* LED3 off */
+			gpio_set(GPIOB, GPIO1);		/* LED3 off */
 		}
 	}
 }
 
 void usb_lp_can_rx0_isr(void)
 {
-	u32 id;
-	bool ext;
-	bool rtr;
-	u32 fmi;
-	u8 length;
-	u8 data[8];
+	u32 id, fmi;
+	bool ext, rtr;
+	u8 length, data[8];
 
 	can_receive(CAN1, 0, false, &id, &ext, &rtr, &fmi, &length, data);
 
-	if (data[0] & 1) {
+	if (data[0] & 1)
 		gpio_clear(GPIOA, GPIO6);
-	} else {
+	else
 		gpio_set(GPIOA, GPIO6);
-	}
 
-	if (data[0] & 2) {
+	if (data[0] & 2)
 		gpio_clear(GPIOA, GPIO7);
-	} else {
+	else
 		gpio_set(GPIOA, GPIO7);
-	}
 
-	if (data[0] & 4) {
+	if (data[0] & 4)
 		gpio_clear(GPIOB, GPIO0);
-	} else {
+	else
 		gpio_set(GPIOB, GPIO0);
-	}
 
-	if (data[0] & 8) {
+	if (data[0] & 8)
 		gpio_clear(GPIOB, GPIO1);
-	} else {
+	else
 		gpio_set(GPIOB, GPIO1);
-	}
 
 	can_fifo_release(CAN1, 0);
 }
 
 int main(void)
 {
-        rcc_clock_setup_in_hse_8mhz_out_72mhz();
+	rcc_clock_setup_in_hse_8mhz_out_72mhz();
 	gpio_setup();
 	can_setup();
 	systick_setup();
 
-	while(1); /* Halt. */
+	while (1); /* Halt. */
 
 	return 0;
 }
