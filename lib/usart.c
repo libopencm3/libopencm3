@@ -85,16 +85,36 @@ void usart_send(u32 usart, u16 data)
 {
 	/* Send data. */
 	USART_DR(usart) = (data & 0x1ff);
-
-	/* Wait until the data has been transferred into the shift register. */
-	while ((USART_SR(usart) & USART_SR_TXE) == 0);
 }
 
 u16 usart_recv(u32 usart)
 {
-	/* Wait until the data is ready to be received. */
-	while ((USART_SR(usart) & USART_SR_RXNE) == 0);
-
 	/* Receive data. */
 	return USART_DR(usart) & 0x1ff;
+}
+
+void usart_wait_send_ready(u32 usart)
+{
+	/* Wait until the data has been transferred into the shift register. */
+	while ((USART_SR(usart) & USART_SR_TXE) == 0);
+}
+
+void usart_wait_recv_ready(u32 usart)
+{
+	/* Wait until the data is ready to be received. */
+	while ((USART_SR(usart) & USART_SR_RXNE) == 0);
+}
+
+void usart_send_blocking(u32 usart, u16 data)
+{
+	usart_send(usart, data);
+
+	usart_wait_send_ready(usart);
+}
+
+u16 usart_recv_blocking(u32 usart)
+{
+	usart_wait_recv_ready(usart);
+
+	return usart_recv(usart);
 }
