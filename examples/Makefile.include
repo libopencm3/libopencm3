@@ -26,11 +26,11 @@ OBJDUMP		= $(PREFIX)-objdump
 # Uncomment this line if you want to use the installed (not local) library.
 # TOOLCHAIN_DIR = `dirname \`which $(CC)\``/../$(PREFIX)
 TOOLCHAIN_DIR   = ../../..
-CFLAGS		= -O0 -g -Wall -Wextra -I$(TOOLCHAIN_DIR)/include -fno-common \
-		  -mcpu=cortex-m3 -mthumb
+CFLAGS		+= -Os -g -Wall -Wextra -I$(TOOLCHAIN_DIR)/include -fno-common \
+		   -mcpu=cortex-m3 -mthumb
 LDSCRIPT	= $(BINARY).ld
-LDFLAGS         = -L$(TOOLCHAIN_DIR)/lib -T$(LDSCRIPT) -nostartfiles
-#LDFLAGS        = -T$(LDSCRIPT) -nostartfiles
+LDFLAGS         += -L$(TOOLCHAIN_DIR)/lib -T$(LDSCRIPT) -nostartfiles \
+		   -Wl,--gc-sections
 OBJS		+= $(BINARY).o
 
 OOCD		?= openocd
@@ -41,6 +41,8 @@ OOCD_BOARD	?= olimex_stm32_h103
 ifneq ($(V),1)
 Q := @
 NULL := 2>/dev/null
+else
+LDFLAGS += -Wl,--print-gc-sections
 endif
 
 .SUFFIXES: .elf .bin .hex .srec .list .images

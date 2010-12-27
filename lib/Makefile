@@ -24,7 +24,8 @@ PREFIX		?= arm-elf
 CC		= $(PREFIX)-gcc
 AR		= $(PREFIX)-ar
 CFLAGS		= -Os -g -Wall -Wextra -I../include -fno-common \
-		  -mcpu=cortex-m3 -mthumb -Wstrict-prototypes
+		  -mcpu=cortex-m3 -mthumb -Wstrict-prototypes \
+		  -ffunction-sections -fdata-sections
 # ARFLAGS	= rcsv
 ARFLAGS		= rcs
 OBJS		= vector.o rcc.o gpio.o usart.o adc.o spi.o flash.o nvic.o \
