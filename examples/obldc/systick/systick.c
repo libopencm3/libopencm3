@@ -65,7 +65,7 @@ void sys_tick_handler(void)
 
 int main(void)
 {
-	rcc_clock_setup_in_hse_16mhz_out_72mhz();
+	rcc_clock_setup_in_hse_8mhz_out_72mhz();
 	gpio_setup();
 
 	gpio_clear(GPIOA, GPIO7);	/* LED1 on */
