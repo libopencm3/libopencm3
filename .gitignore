@@ -6,3 +6,5 @@ examples/miniblink/miniblink
 *.srec
 *.a
 *.elf
+\#*
+.\#*
