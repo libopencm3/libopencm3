@@ -21,7 +21,7 @@
 #define __USBSTD_H
 
 #include <stdint.h>
-#include <libopenstm32/common.h> /* TODO: Move elsewhere? */
+#include <cm3/common.h>
 
 /*
  * This file contains structure definitions for the USB control structures

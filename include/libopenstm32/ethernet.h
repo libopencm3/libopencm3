@@ -21,7 +21,7 @@
 #define LIBOPENSTM32_ETHERNET_H
 
 #include <libopenstm32/memorymap.h>
-#include <libopenstm32/common.h>
+#include <cm3/common.h>
 
 /* Ethernet MAC registers */
 #define ETH_MACCR			MMIO32(ETHERNET_BASE + 0x00)

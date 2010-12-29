@@ -17,8 +17,8 @@
  * along with this program.  If not, see <http://www.gnu.org/licenses/>.
  */
 
-#ifndef LIBOPENSTM32_COMMON_H
-#define LIBOPENSTM32_COMMON_H
+#ifndef CM3_COMMON_H
+#define CM3_COMMON_H
 
 #include <stdint.h>
 #include <stdbool.h>

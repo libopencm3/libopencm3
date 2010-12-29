@@ -20,7 +20,7 @@
 #ifndef DOGM128_H
 #define DOGM128_H
 
-#include <libopenstm32/common.h>
+#include <cm3/common.h>
 #include <libopenstm32/gpio.h>
 #include <libopenstm32/spi.h>
 

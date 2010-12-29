@@ -21,7 +21,7 @@
 #define LIBOPENSTM32_BKP_H
 
 #include <libopenstm32/memorymap.h>
-#include <libopenstm32/common.h>
+#include <cm3/common.h>
 
 /* --- BKP registers ------------------------------------------------------- */
 
