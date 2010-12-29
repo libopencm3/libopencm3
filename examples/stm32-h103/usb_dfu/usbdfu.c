@@ -175,26 +175,18 @@ static void usbdfu_getstatus_complete(struct usb_setup_data *req)
 	}
 }
 
-static int usbdfu_control_request(struct usb_setup_data *req, u8 **buf, 
-		u16 *len, void (**complete)(struct usb_setup_data *req))
+static int usbdfu_control_command(struct usb_setup_data *req,
+			void (**complete)(struct usb_setup_data *req))
 {
+	(void)complete;
 
-	if((req->bmRequestType & 0x7F) != 0x21) 
+	if(req->bmRequestType != 0x21) 
 		return 0; /* Only accept class request */
-
+	
 	switch(req->bRequest) {
 	case DFU_DNLOAD:
-		if((len == NULL) || (*len == 0)) {
-			usbdfu_state = STATE_DFU_MANIFEST_SYNC;
-			return 1;
-		} else {
-			/* Copy download data for use on GET_STATUS */
-			prog.blocknum = req->wValue;
-			prog.len = *len;
-			memcpy(prog.buf, *buf, *len);
-			usbdfu_state = STATE_DFU_DNLOAD_SYNC;
-			return 1;
-		}
+		usbdfu_state = STATE_DFU_MANIFEST_SYNC;
+		return 1;
 	case DFU_CLRSTATUS:
 		/* Clear error and return to dfuIDLE */
 		if(usbdfu_state == STATE_DFU_ERROR)
@@ -204,6 +196,19 @@ static int usbdfu_control_request(struct usb_setup_data *req, u8 **buf,
 		/* Abort returns to dfuIDLE state */
 		usbdfu_state = STATE_DFU_IDLE;
 		return 1;
+	}
+
+	return 0;
+}
+
+static int usbdfu_control_read(struct usb_setup_data *req, u8 **buf, u16 *len,
+			void (**complete)(struct usb_setup_data *req))
+{
+
+	if(req->bmRequestType != 0xA1) 
+		return 0; /* Only accept class request */
+
+	switch(req->bRequest) {
 	case DFU_UPLOAD:
 		/* Upload not supported for now */
 		return 0;
@@ -230,6 +235,26 @@ static int usbdfu_control_request(struct usb_setup_data *req, u8 **buf,
 	}
 
 	return 0;
+}
+
+static int usbdfu_control_write(struct usb_setup_data *req, u8 *buf, u16 len,
+			void (**complete)(struct usb_setup_data *req))
+{
+	(void)complete;
+
+	if(req->bmRequestType != 0x21) 
+		return 0; /* Only accept class request */
+
+	if(req->bRequest != DFU_DNLOAD) 
+		return 0; 
+
+	/* Copy download data for use on GET_STATUS */
+	prog.blocknum = req->wValue;
+	prog.len = len;
+	memcpy(prog.buf, buf, len);
+	usbdfu_state = STATE_DFU_DNLOAD_SYNC;
+
+	return 1;
 }
 
 int main(void)
@@ -259,10 +284,9 @@ int main(void)
 
 	usbd_init(&dev, &config, usb_strings);
 	usbd_set_control_buffer_size(sizeof(usbd_control_buffer));
-	usbd_register_control_callback(
-				USB_REQ_TYPE_CLASS | USB_REQ_TYPE_INTERFACE,
-				USB_REQ_TYPE_TYPE | USB_REQ_TYPE_RECIPIENT,
-				usbdfu_control_request);
+	usbd_register_control_command_callback(usbdfu_control_command);
+	usbd_register_control_write_callback(usbdfu_control_write);
+	usbd_register_control_read_callback(usbdfu_control_read);
 
 	gpio_set(GPIOA, GPIO15);
 	gpio_set_mode(GPIOA, GPIO_MODE_OUTPUT_2_MHZ, 

@@ -36,30 +36,21 @@ static struct usb_control_state {
 } control_state;
 
 /** Register application callback function for handling of usb control 
- * request with no data. */
-void usbd_register_control_command_callback(
-	int (*callback)(struct usb_setup_data *req,
-			void (**complete)(struct usb_setup_data *req)))
+ * request. */
+int usbd_register_control_callback(uint8_t type, uint8_t type_mask,
+		usbd_control_callback callback)
 {
-	_usbd_device.user_callback_control_command = callback;
-}
+	int i;
+	for(i = 0; i < MAX_USER_CONTROL_CALLBACK; i++) {
+		if(_usbd_device.user_control_callback[i].cb) 
+			continue;
 
-/** Register application callback function for handling of usb control 
- * request to read data. */
-void usbd_register_control_read_callback(
-	int (*callback)(struct usb_setup_data *req, uint8_t **buf, 
-		uint16_t *len, void (**complete)(struct usb_setup_data *req)))
-{
-	_usbd_device.user_callback_control_read = callback;
-}
-
-/** Register application callback function for handling of usb control 
- * request with received data. */
-void usbd_register_control_write_callback(
-	int (*callback)(struct usb_setup_data *req, uint8_t *buf, uint16_t len,
-				void (**complete)(struct usb_setup_data *req)))
-{
-	_usbd_device.user_callback_control_write = callback;
+		_usbd_device.user_control_callback[i].type = type;
+		_usbd_device.user_control_callback[i].type_mask = type_mask;
+		_usbd_device.user_control_callback[i].cb = callback;
+		return 0;
+	}
+	return -1;
 }
 
 static void usb_control_send_chunk(void)
@@ -102,58 +93,47 @@ static int usb_control_recv_chunk(void)
 	return packetsize;
 }
 
-static void usb_control_setup_nodata(struct usb_setup_data *req)
+static int usb_control_request_dispatch(struct usb_setup_data *req)
 {
 	int result = 0;
-
-	/* Buffer unused */
-	control_state.ctrl_buf = _usbd_device.ctrl_buf;
-	control_state.ctrl_len = 0;
+	int i;
+	struct user_control_callback *cb = _usbd_device.user_control_callback;
 
 	/* Call user command hook function */
-	if(_usbd_device.user_callback_control_command)
-		result = _usbd_device.user_callback_control_command(req,
-						&control_state.complete);
+	for(i = 0; i < MAX_USER_CONTROL_CALLBACK; i++) {
+		if(cb[i].cb == NULL)
+			break;
 
-	/* Try standard command if not already handled */
-	if(!result) 
-		result = _usbd_standard_request(req, 
-					&control_state.ctrl_buf, 
-					&control_state.ctrl_len);
-	
-	if(result) {
-		/* Go to status stage if handled */
-		usbd_ep_write_packet(0, NULL, 0);
-		control_state.state = STATUS_IN;
-	} else  {
-		/* Stall endpoint on failure */
-		usbd_ep_stall_set(0, 1);
-	}
-}
-
-static void usb_control_setup_read(struct usb_setup_data *req)
-{
-	int result = 0;
-
-	control_state.ctrl_buf = _usbd_device.ctrl_buf;
-	control_state.ctrl_len = req->wLength;
-
-	/* Call user command hook function */
-	if(_usbd_device.user_callback_control_read)
-		result = _usbd_device.user_callback_control_read(req, 
-						&control_state.ctrl_buf, 
+		if((req->bmRequestType & cb[i].type_mask) == cb[i].type) {
+			result = cb[i].cb(req, &control_state.ctrl_buf, 
 						&control_state.ctrl_len,
 						&control_state.complete);
+			if(result) 
+				return result;
+		}
+	}
 
 	/* Try standard request if not already handled */
-	if(!result)
-		result = _usbd_standard_request(req, 
-					&control_state.ctrl_buf, 
+	return _usbd_standard_request(req, &control_state.ctrl_buf, 
 					&control_state.ctrl_len);
-	
-	if(result) {
-		/* Go to status stage if handled */
-		usb_control_send_chunk();
+}
+
+/* Handle commands and read requests. */
+static void usb_control_setup_read(struct usb_setup_data *req)
+{
+
+	control_state.ctrl_buf = _usbd_device.ctrl_buf;
+	control_state.ctrl_len = req->wLength; 
+
+	if(usb_control_request_dispatch(req)) {
+		if(control_state.ctrl_len) {
+			/* Go to data out stage if handled */
+			usb_control_send_chunk();
+		} else {
+			/* Go to status stage if handled */
+			usbd_ep_write_packet(0, NULL, 0);
+			control_state.state = STATUS_IN;
+		}
 	} else  {
 		/* Stall endpoint on failure */
 		usbd_ep_stall_set(0, 1);
@@ -189,7 +169,7 @@ void _usbd_control_setup(uint8_t ea)
 	}
 
 	if(req->wLength == 0) {
-		usb_control_setup_nodata(req);
+		usb_control_setup_read(req);
 	} else if(req->bmRequestType & 0x80) {
 		usb_control_setup_read(req);
 	} else {
@@ -216,20 +196,8 @@ void _usbd_control_out(uint8_t ea)
 		/* We have now received the full data payload. 
 		 * Invoke callback to process. 
 		 */
-		if(_usbd_device.user_callback_control_write)
-			result = _usbd_device.user_callback_control_write(
-						&control_state.req,
-						control_state.ctrl_buf,
-						control_state.ctrl_len,
-						&control_state.complete);
-
-		if(!result) 
-			result = _usbd_standard_request(
-						&control_state.req,
-						&control_state.ctrl_buf, 
-						&control_state.ctrl_len);
-
-		if(result) {
+		if(usb_control_request_dispatch(&control_state.req)) {
+			/* Got to status stage on success */
 			usbd_ep_write_packet(0, NULL, 0);
 			control_state.state = STATUS_IN;
 		} else {

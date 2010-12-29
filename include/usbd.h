@@ -36,16 +36,13 @@ extern void usbd_register_reset_callback(void (*callback)(void));
 extern void usbd_register_suspend_callback(void (*callback)(void));
 extern void usbd_register_resume_callback(void (*callback)(void));
 
+typedef int (*usbd_control_callback)(struct usb_setup_data *req, 
+		uint8_t **buf, uint16_t *len, 
+		void (**complete)(struct usb_setup_data *req));
+
 /* <usb_control.c> */
-extern void usbd_register_control_command_callback(
-	int (*callback)(struct usb_setup_data *req,
-		void (**complete)(struct usb_setup_data *req)));
-extern void usbd_register_control_read_callback(
-	int (*callback)(struct usb_setup_data *req, uint8_t **buf, 
-		uint16_t *len, void (**complete)(struct usb_setup_data *req)));
-extern void usbd_register_control_write_callback(
-	int (*callback)(struct usb_setup_data *req, uint8_t *buf, 
-		uint16_t len, void (**complete)(struct usb_setup_data *req)));
+extern int usbd_register_control_callback(uint8_t type, uint8_t type_mask,
+			usbd_control_callback callback);
 
 /* <usb_standard.c> */
 extern void 

@@ -242,19 +242,19 @@ int main(void)
 {
         rcc_clock_setup_in_hsi_out_48mhz();
 
-	rcc_peripheral_enable_clock(&RCC_APB1ENR, RCC_APB1ENR_USBEN);
-	rcc_peripheral_enable_clock(&RCC_APB2ENR, RCC_APB2ENR_IOPAEN);
-	rcc_peripheral_enable_clock(&RCC_APB2ENR, RCC_APB2ENR_AFIOEN);
 
-	AFIO_MAPR |= AFIO_MAPR_SWJ_CFG_JTAG_OFF_SW_ON;
-	gpio_set_mode(GPIOA, GPIO_MODE_INPUT, 0, GPIO15);
+	rcc_peripheral_enable_clock(&RCC_APB1ENR, RCC_APB1ENR_USBEN);
+	rcc_peripheral_enable_clock(&RCC_APB2ENR, RCC_APB2ENR_IOPCEN);
+
+	gpio_set(GPIOC, GPIO11);
+	gpio_set_mode(GPIOC, GPIO_MODE_OUTPUT_2_MHZ, 
+			GPIO_CNF_OUTPUT_PUSHPULL, GPIO11);
 
 	usbd_init(&dev, &config, usb_strings);
 	usbd_register_set_config_callback(hid_set_config);
 
-	gpio_set(GPIOA, GPIO15);
-	gpio_set_mode(GPIOA, GPIO_MODE_OUTPUT_2_MHZ, 
-			GPIO_CNF_OUTPUT_PUSHPULL, GPIO15);
+	{int i; for (i=0;i<0x80000;i++);}
+	gpio_clear(GPIOC, GPIO11);
 
 	while (1) 
 		usbd_poll();
