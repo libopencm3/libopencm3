@@ -24,14 +24,15 @@ Q := @
 MAKEFLAGS += --no-print-directory
 endif
 
+# TODO: Add usb_dfu later, doesn't build at the moment.
 all: usb_hid
 
 usb_hid:
-	@printf "  BUILD   examples/stm32-h103/usb_hid\n"
+	@printf "  BUILD   examples/lisa-m/usb_hid\n"
 	$(Q)$(MAKE) -C usb_hid
 
 clean:
-	@printf "  CLEAN   examples/stm32-h103/usb_hid\n"
+	@printf "  CLEAN   examples/lisa-m/usb_hid\n"
 	$(Q)$(MAKE) -C usb_hid clean
 
 .PHONY: usb_hid clean
