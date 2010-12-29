@@ -125,7 +125,7 @@
 /* --- USART_DR values ----------------------------------------------------- */
 
 /* USART_DR[8:0]: DR[8:0]: Data value */
-#define USART_DR_MASK                   0xFF
+#define USART_DR_MASK                   0x1FF
 
 /* --- USART_BRR values ---------------------------------------------------- */
 
@@ -178,26 +178,18 @@
 /* SBK: Send break */
 #define USART_CR1_SBK			(1 << 0)
 
-/* CR1_PCE / CR1_PS combined values */
-#define USART_PARITY_NONE		0x00
-#define USART_PARITY_ODD		0x02
-#define USART_PARITY_EVEN		0x03
-
-/* CR1_TE/CR1_RE combined values */
-#define USART_MODE_RX			0x01
-#define USART_MODE_TX			0x02
-#define USART_MODE_TX_RX		0x03
-
 /* --- USART_CR2 values ---------------------------------------------------- */
 
 /* LINEN: LIN mode enable */
 #define USART_CR2_LINEN			(1 << 14)
 
 /* STOP[13:12]: STOP bits */
-#define USART_STOPBITS_1		0x00      /* 1 stop bit */
-#define USART_STOPBITS_0_5		0x01      /* 0.5 stop bits */
-#define USART_STOPBITS_2		0x02      /* 2 stop bits */
-#define USART_STOPBITS_1_5		0x03      /* 1.5 stop bits */
+#define USART_CR2_STOPBITS_1		(0x00 << 12)     /* 1 stop bit */
+#define USART_CR2_STOPBITS_0_5		(0x01 << 12)     /* 0.5 stop bits */
+#define USART_CR2_STOPBITS_2		(0x02 << 12)     /* 2 stop bits */
+#define USART_CR2_STOPBITS_1_5		(0x03 << 12)     /* 1.5 stop bits */
+#define USART_CR2_STOPBITS_MASK         (0x03 << 12)
+#define USART_CR2_STOPBITS_SHIFT        12
 
 /* CLKEN: Clock enable */
 #define USART_CR2_CLKEN			(1 << 11)
@@ -262,12 +254,6 @@
 /* EIE: Error interrupt enable */
 #define USART_CR3_EIE			(1 << 0)
 
-/* CR3_CTSE/CR3_RTSE combined values */
-#define USART_FLOWCONTROL_NONE		0x00
-#define USART_FLOWCONTROL_RTS		0x01
-#define USART_FLOWCONTROL_CTS		0x02
-#define USART_FLOWCONTROL_RTS_CTS	0x03
-
 /* --- USART_GTPR values --------------------------------------------------- */
 
 /* GT[7:0]: Guard time value */
@@ -279,6 +265,32 @@
 #define USART_GTPR_PSC_MASK             0xFF
 
 /* TODO */ /* Note to Uwe: what needs to be done here? */
+
+/* --- Convenience defines ------------------------------------------------- */
+
+/* CR1_PCE / CR1_PS combined values */
+#define USART_PARITY_NONE		0x00
+#define USART_PARITY_ODD		USART_CR1_PS
+#define USART_PARITY_EVEN		(USART_CR1_PS | USART_CR1_PCE)
+#define USART_PARITY_MASK		(USART_CR1_PS | USART_CR1_PCE)
+
+/* CR1_TE/CR1_RE combined values */
+#define USART_MODE_RX                   USART_CR1_RE
+#define USART_MODE_TX		        USART_CR1_TE
+#define USART_MODE_TX_RX		(USART_CR1_RE | USART_CR1_TE)
+#define USART_MODE_MASK		        (USART_CR1_RE | USART_CR1_TE)
+
+#define USART_STOPBITS_1		USART_CR2_STOPBITS_1   /* 1 stop bit */
+#define USART_STOPBITS_0_5		USART_CR2_STOPBITS_0_5 /* 0.5 stop bits */
+#define USART_STOPBITS_2		USART_CR2_STOPBITS_2   /* 2 stop bits */
+#define USART_STOPBITS_1_5		USART_CR2_STOPBITS_1_5 /* 1.5 stop bits */
+
+/* CR3_CTSE/CR3_RTSE combined values */
+#define USART_FLOWCONTROL_NONE	        0x00
+#define USART_FLOWCONTROL_RTS	        USART_CR3_RTSE
+#define USART_FLOWCONTROL_CTS	        USART_CR3_CTSE
+#define USART_FLOWCONTROL_RTS_CTS	(USART_CR3_RTSE | USART_CR3_CTSE)
+#define USART_FLOWCONTROL_MASK	        (USART_CR3_RTSE | USART_CR3_CTSE)
 
 /* --- Function prototypes ------------------------------------------------- */
 

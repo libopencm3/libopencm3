@@ -40,7 +40,7 @@ void usart_set_stopbits(u32 usart, u32 stopbits)
 	u32 reg32;
 
 	reg32 = USART_CR2(usart);
-	reg32 = (reg32 & ~((1 << 13) | (1 << 12))) | (stopbits << 12);
+	reg32 = (reg32 & ~USART_CR2_STOPBITS_MASK) | stopbits;
 	USART_CR2(usart) = reg32;
 }
 
@@ -49,7 +49,7 @@ void usart_set_parity(u32 usart, u32 parity)
 	u32 reg32;
 
 	reg32 = USART_CR1(usart);
-	reg32 = (reg32 & ~((1 << 10) | (1 << 9))) | (parity << 9);
+	reg32 = (reg32 & ~USART_PARITY_MASK) | parity;
 	USART_CR1(usart) = reg32;
 }
 
@@ -58,7 +58,7 @@ void usart_set_mode(u32 usart, u32 mode)
 	u32 reg32;
 
 	reg32 = USART_CR1(usart);
-	reg32 = (reg32 & ~((1 << 3) | (1 << 2))) | (mode << 2);
+	reg32 = (reg32 & ~USART_MODE_MASK) | mode;
 	USART_CR1(usart) = reg32;
 }
 
@@ -67,7 +67,7 @@ void usart_set_flow_control(u32 usart, u32 flowcontrol)
 	u32 reg32;
 
 	reg32 = USART_CR3(usart);
-	reg32 = (reg32 & ~((1 << 9) | (1 << 8))) | (flowcontrol << 2);
+	reg32 = (reg32 & ~USART_FLOWCONTROL_MASK) | flowcontrol;
 	USART_CR3(usart) = reg32;
 }
 
@@ -84,13 +84,13 @@ void usart_disable(u32 usart)
 void usart_send(u32 usart, u16 data)
 {
 	/* Send data. */
-	USART_DR(usart) = (data & 0x1ff);
+	USART_DR(usart) = (data & USART_DR_MASK);
 }
 
 u16 usart_recv(u32 usart)
 {
 	/* Receive data. */
-	return USART_DR(usart) & 0x1ff;
+	return USART_DR(usart) & USART_DR_MASK;
 }
 
 void usart_wait_send_ready(u32 usart)
