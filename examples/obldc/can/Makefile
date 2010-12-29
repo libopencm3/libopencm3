@@ -20,3 +20,4 @@
 BINARY = can
 
 include ../../Makefile.include
+

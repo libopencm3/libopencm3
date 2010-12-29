@@ -17,8 +17,9 @@
 ## along with this program.  If not, see <http://www.gnu.org/licenses/>.
 ##
 
-BINARY		= main
+BINARY = main
 
 OBJS = dogm128.o
 
 include ../../Makefile.include
+

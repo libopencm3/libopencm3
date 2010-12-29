@@ -30,7 +30,7 @@ Development guidelines
    - The name should be of the form SUBSYSTEM_REGISTER_BIT, e.g.
      ADC_CR2_DMA, where ADC is the subsystem name, CR2 is the register NAME,
      and DMA is the name of the bit in the register that is defined.
- 
+
  - All subsystem-specific function names should be prefixed with the
    subsystem name. For example, gpio_set_mode() or rcc_osc_on().
 

@@ -20,3 +20,4 @@
 BINARY = systick
 
 include ../../Makefile.include
+

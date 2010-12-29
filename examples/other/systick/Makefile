@@ -17,6 +17,7 @@
 ## along with this program.  If not, see <http://www.gnu.org/licenses/>.
 ##
 
-BINARY		= systick
+BINARY = systick
 
 include ../../Makefile.include
+

@@ -17,8 +17,9 @@
 ## along with this program.  If not, see <http://www.gnu.org/licenses/>.
 ##
 
-BINARY		= i2c_stts75_sensor
+BINARY = i2c_stts75_sensor
 
 OBJS = stts75.o
 
 include ../../Makefile.include
+
