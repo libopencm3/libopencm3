@@ -407,7 +407,6 @@
 /* UIE: Update interrupt enable */
 #define TIM_DIER_UIE                    (1 << 0)
 
-
 /* --- TIMx_SR values ------------------------------------------------------ */
 
 /* CC4OF: Capture/compare 4 overcapture flag */

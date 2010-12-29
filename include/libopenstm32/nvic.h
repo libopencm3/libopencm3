@@ -62,7 +62,6 @@
 /* STIR: Software Trigger Interrupt Register */
 #define NVIC_STIR                       MMIO32(STIR_BASE)
 
-
 /* --- IRQ channel numbers-------------------------------------------------- */
 
 /* Cortex M3 System Interrupts */
@@ -139,7 +138,6 @@
 #define NVIC_DMA2_CHANNEL2_IRQ		57
 #define NVIC_DMA2_CHANNEL3_IRQ		58
 #define NVIC_DMA2_CHANNEL4_5_IRQ	59
-
 
 /* --- NVIC functions ------------------------------------------------------ */
 

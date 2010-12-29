@@ -37,7 +37,6 @@
 /* Status register (IWDG_SR) */
 #define IWDG_SR				MMIO32(IWDG_BASE + 0x0C)
 
-
 /* --- IWDG_KR values ------------------------------------------------------ */
 
 /* KEY[15:0]: Key value */

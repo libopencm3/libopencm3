@@ -130,7 +130,7 @@
 #define SPI_CR1_SPE			(1 << 6)
 
 /* BR[2:0]: Baud rate control */
-#define SPI_CR1_BAUDRATE_FPCLK_DIV_2	(0x00 << 3) 
+#define SPI_CR1_BAUDRATE_FPCLK_DIV_2	(0x00 << 3)
 #define SPI_CR1_BAUDRATE_FPCLK_DIV_4	(0x01 << 3)
 #define SPI_CR1_BAUDRATE_FPCLK_DIV_8	(0x02 << 3)
 #define SPI_CR1_BAUDRATE_FPCLK_DIV_16	(0x03 << 3)
@@ -138,7 +138,7 @@
 #define SPI_CR1_BAUDRATE_FPCLK_DIV_64	(0x05 << 3)
 #define SPI_CR1_BAUDRATE_FPCLK_DIV_128	(0x06 << 3)
 #define SPI_CR1_BAUDRATE_FPCLK_DIV_256	(0x07 << 3)
-#define SPI_CR1_BR_FPCLK_DIV_2		0x0 
+#define SPI_CR1_BR_FPCLK_DIV_2		0x0
 #define SPI_CR1_BR_FPCLK_DIV_4		0x1
 #define SPI_CR1_BR_FPCLK_DIV_8		0x2
 #define SPI_CR1_BR_FPCLK_DIV_16		0x3

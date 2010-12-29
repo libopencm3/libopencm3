@@ -116,7 +116,7 @@
 
 /* Bits [31:30]: reserved - must be kept cleared */
 /* TBLOFF[29:9]: Vector table base offset field */
-#define SCB_VTOR_TBLOFF_LSB			9 /* inconsistent datasheet - LSB could be 11 */ 
+#define SCB_VTOR_TBLOFF_LSB			9	/* inconsistent datasheet - LSB could be 11 */
 
 /* --- SCB_AIRCR values ---------------------------------------------------- */
 
@@ -174,24 +174,24 @@
 /* --- SCB_SHPR1 values ---------------------------------------------------- */
 
 /* Bits [31:24]: reserved - must be kept cleared */
-/* PRI_6[23:16]: Priority of system handler 6, usage fault */ 
+/* PRI_6[23:16]: Priority of system handler 6, usage fault */
 #define SCB_SHPR1_PRI_6_LSB			16
-/* PRI_5[15:8]: Priority of system handler 5, bus fault */ 
+/* PRI_5[15:8]: Priority of system handler 5, bus fault */
 #define SCB_SHPR1_PRI_5_LSB			8
-/* PRI_4[7:0]: Priority of system handler 4, memory management fault */ 
+/* PRI_4[7:0]: Priority of system handler 4, memory management fault */
 #define SCB_SHPR1_PRI_4_LSB			0
 
 /* --- SCB_SHPR2 values ---------------------------------------------------- */
 
-/* PRI_11[31:24]: Priority of system handler 11, SVCall */ 
+/* PRI_11[31:24]: Priority of system handler 11, SVCall */
 #define SCB_SHPR2_PRI_11_LSB			24
 /* Bits [23:0]: reserved - must be kept cleared */
 
 /* --- SCB_SHPR3 values ---------------------------------------------------- */
 
-/* PRI_15[31:24]: Priority of system handler 15, SysTick exception */ 
+/* PRI_15[31:24]: Priority of system handler 15, SysTick exception */
 #define SCB_SHPR3_PRI_15_LSB			24
-/* PRI_14[23:16]: Priority of system handler 14, PendSV */ 
+/* PRI_14[23:16]: Priority of system handler 14, PendSV */
 #define SCB_SHPR3_PRI_14_LSB			16
 /* Bits [15:0]: reserved - must be kept cleared */
 
@@ -249,7 +249,7 @@
 /* BFARVALID: Bus Fault Address Register (BFAR) valid flag */
 #define SCB_CFSR_BFARVALID			(1 << 15)
 /* Bits [14:13]: reserved - must be kept cleared */
-/* STKERR: Bus fault on stacking for exception entry */ 
+/* STKERR: Bus fault on stacking for exception entry */
 #define SCB_CFSR_STKERR				(1 << 12)
 /* UNSTKERR: Bus fault on unstacking for a return from exception */
 #define SCB_CFSR_UNSTKERR			(1 << 11)

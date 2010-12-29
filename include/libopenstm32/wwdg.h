@@ -34,7 +34,6 @@
 /* Status register (WWDG_SR) */
 #define WWDG_SR				MMIO32(WWDG_BASE + 0x08)
 
-
 /* --- WWDG_CR values ------------------------------------------------------ */
 
 /* WDGA: Activation bit */

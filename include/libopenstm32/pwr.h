@@ -31,7 +31,6 @@
 /* Power control/status register (PWR_CSR) */
 #define PWR_CSR				MMIO32(POWER_CONTROL_BASE + 0x04)
 
-
 /* --- PWR_CR values ------------------------------------------------------- */
 
 /* DBP: Disable backup domain write protection */
@@ -60,9 +59,8 @@
 /* PDDS: Power down deepsleep */
 #define PWR_CR_PDDS			(1 << 1)
 
-/* LPDS: Low-power deepsleep */	
+/* LPDS: Low-power deepsleep */
 #define PWR_CR_LPDS			(1 << 0)
-
 
 /* --- PWR_CSR values ------------------------------------------------------ */
 
