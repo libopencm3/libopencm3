@@ -25,47 +25,42 @@
 /* Static buffer for control transactions:
  * This is defined as weak in the library, applicaiton
  * may provide if a larger buffer is requred. */
-extern uint8_t usbd_control_buffer[];
+extern u8 usbd_control_buffer[];
 
 /* <usb.c> */
 extern int usbd_init(const struct usb_device_descriptor *dev,
                      const struct usb_config_descriptor *conf,
 		     const char **strings);
-extern void usbd_set_control_buffer_size(uint16_t size);
+extern void usbd_set_control_buffer_size(u16 size);
 
 extern void usbd_register_reset_callback(void (*callback)(void));
 extern void usbd_register_suspend_callback(void (*callback)(void));
 extern void usbd_register_resume_callback(void (*callback)(void));
 
-typedef int (*usbd_control_callback)(struct usb_setup_data *req, 
-		uint8_t **buf, uint16_t *len, 
-		void (**complete)(struct usb_setup_data *req));
+typedef int (*usbd_control_callback)(struct usb_setup_data *req, u8 **buf,
+	    u16 *len, void (**complete)(struct usb_setup_data *req));
 
 /* <usb_control.c> */
-extern int usbd_register_control_callback(uint8_t type, uint8_t type_mask,
+extern int usbd_register_control_callback(u8 type, u8 type_mask,
 			usbd_control_callback callback);
 
 /* <usb_standard.c> */
-extern void 
-usbd_register_set_config_callback(void (*callback)(uint16_t wValue));
-
+extern void usbd_register_set_config_callback(void (*callback)(u16 wValue));
 
 /* Functions to be provided by the hardware abstraction layer */
 extern void usbd_poll(void);
 
-extern void usbd_ep_setup(uint8_t addr, uint8_t type, uint16_t max_size, 
-	      void (*callback)(uint8_t ep));
+extern void usbd_ep_setup(u8 addr, u8 type, u16 max_size,
+	      void (*callback)(u8 ep));
 
-extern uint16_t
-usbd_ep_write_packet(uint8_t addr, const void *buf, uint16_t len);
+extern u16 usbd_ep_write_packet(u8 addr, const void *buf, u16 len);
 
-extern uint16_t 
-usbd_ep_read_packet(uint8_t addr, void *buf, uint16_t len);
+extern u16 usbd_ep_read_packet(u8 addr, void *buf, u16 len);
 
-extern void usbd_ep_stall_set(uint8_t addr, uint8_t stall);
-extern uint8_t usbd_ep_stall_get(uint8_t addr);
+extern void usbd_ep_stall_set(u8 addr, u8 stall);
+extern u8 usbd_ep_stall_get(u8 addr);
 
 /* Optional */
-extern void usbd_cable_connect(uint8_t on);
+extern void usbd_cable_connect(u8 on);
 
 #endif

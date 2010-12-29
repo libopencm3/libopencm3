@@ -30,13 +30,13 @@ extern struct _usbd_device {
 	const struct usb_config_descriptor *config;
 	const char **strings;
 
-	uint8_t *ctrl_buf;  /**< Internal buffer used for control transfers */
-	uint16_t ctrl_buf_len;
+	u8 *ctrl_buf;  /**< Internal buffer used for control transfers */
+	u16 ctrl_buf_len;
 
-	uint8_t current_address;
-	uint8_t current_config;
+	u8 current_address;
+	u8 current_config;
 
-	uint16_t pm_top;    /**< Top of allocated endpoint buffer memory */
+	u16 pm_top;    /**< Top of allocated endpoint buffer memory */
 
 	/* User callback functions for various USB events */
 	void (*user_callback_reset)(void);
@@ -45,14 +45,14 @@ extern struct _usbd_device {
 
 	struct user_control_callback {
 		usbd_control_callback cb;
-		uint8_t type;
-		uint8_t type_mask;
+		u8 type;
+		u8 type_mask;
 	} user_control_callback[MAX_USER_CONTROL_CALLBACK];
 
-	void (*user_callback_ctr[8][3])(uint8_t ea);
+	void (*user_callback_ctr[8][3])(u8 ea);
 
 	/* User callback function for some standard USB function hooks */
-	void (*user_callback_set_config)(uint16_t wValue);
+	void (*user_callback_set_config)(u16 wValue);
 } _usbd_device;
 
 enum _usbd_transaction {
@@ -61,18 +61,18 @@ enum _usbd_transaction {
 	USB_TRANSACTION_SETUP,
 };
 
-void _usbd_control_in(uint8_t ea);
-void _usbd_control_out(uint8_t ea);
-void _usbd_control_setup(uint8_t ea);
+void _usbd_control_in(u8 ea);
+void _usbd_control_out(u8 ea);
+void _usbd_control_setup(u8 ea);
 
 int _usbd_standard_request(struct usb_setup_data *req, 
-				uint8_t **buf, uint16_t *len);
+				u8 **buf, u16 *len);
 
 void _usbd_reset(void);
 
 /* Functions provided by the hardware abstraction */
 void _usbd_hw_init(void);
-void _usbd_hw_set_address(uint8_t addr);
+void _usbd_hw_set_address(u8 addr);
 void _usbd_hw_endpoints_reset(void);
 
 #endif

@@ -29,15 +29,15 @@ static struct usb_control_state {
 
 	struct usb_setup_data req;
 
-	uint8_t *ctrl_buf;
-	uint16_t ctrl_len;
+	u8 *ctrl_buf;
+	u16 ctrl_len;
 
 	void (*complete)(struct usb_setup_data *req);
 } control_state;
 
 /** Register application callback function for handling of usb control 
  * request. */
-int usbd_register_control_callback(uint8_t type, uint8_t type_mask,
+int usbd_register_control_callback(u8 type, u8 type_mask,
 		usbd_control_callback callback)
 {
 	int i;
@@ -76,10 +76,10 @@ static void usb_control_send_chunk(void)
 
 static int usb_control_recv_chunk(void)
 {
-	uint16_t packetsize = MIN(_usbd_device.desc->bMaxPacketSize0, 
+	u16 packetsize = MIN(_usbd_device.desc->bMaxPacketSize0, 
 				control_state.req.wLength - 
 				control_state.ctrl_len);
-	uint16_t size = usbd_ep_read_packet(0, 
+	u16 size = usbd_ep_read_packet(0, 
 				control_state.ctrl_buf + control_state.ctrl_len,
 				packetsize);
 
@@ -156,7 +156,7 @@ static void usb_control_setup_write(struct usb_setup_data *req)
 	else	control_state.state = LAST_DATA_OUT;
 }
 
-void _usbd_control_setup(uint8_t ea)
+void _usbd_control_setup(u8 ea)
 {
 	struct usb_setup_data *req = &control_state.req;
 	(void)ea;
@@ -177,7 +177,7 @@ void _usbd_control_setup(uint8_t ea)
 	} 
 }
 
-void _usbd_control_out(uint8_t ea)
+void _usbd_control_out(u8 ea)
 {
 	(void)ea;
 
@@ -221,7 +221,7 @@ void _usbd_control_out(uint8_t ea)
 	}
 }
 
-void _usbd_control_in(uint8_t ea)
+void _usbd_control_in(u8 ea)
 {
 	(void)ea;
 	switch(control_state.state) {

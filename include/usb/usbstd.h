@@ -20,183 +20,185 @@
 #ifndef __USBSTD_H
 #define __USBSTD_H
 
-/* 
+#include <stdint.h>
+#include <libopenstm32/common.h> /* TODO: Move elsewhere? */
+
+/*
  * This file contains structure definitions for the USB control structures
  * defined in chapter 9 of the "Univeral Serial Bus Specification Revision 2.0"
  * Available from the USB Implementers Forum - http://www.usb.org/
  */
 
-#include <stdint.h>
-
 /* USB Setup Data structure - Table 9-2 */
 struct usb_setup_data {
-	uint8_t bmRequestType;
-	uint8_t bRequest;
-	uint16_t wValue;
-	uint16_t wIndex;
-	uint16_t wLength;
+	u8 bmRequestType;
+	u8 bRequest;
+	u16 wValue;
+	u16 wIndex;
+	u16 wLength;
 } __attribute__((packed));
 
 /* bmRequestType bit definitions */
-#define USB_REQ_TYPE_IN		0x80
-#define USB_REQ_TYPE_STANDARD	0x00
-#define USB_REQ_TYPE_CLASS	0x20
-#define USB_REQ_TYPE_VENDOR	0x40
-#define USB_REQ_TYPE_DEVICE	0x00
-#define USB_REQ_TYPE_INTERFACE	0x01
-#define USB_REQ_TYPE_ENDPOINT	0x02
+#define USB_REQ_TYPE_IN				0x80
+#define USB_REQ_TYPE_STANDARD			0x00
+#define USB_REQ_TYPE_CLASS			0x20
+#define USB_REQ_TYPE_VENDOR			0x40
+#define USB_REQ_TYPE_DEVICE			0x00
+#define USB_REQ_TYPE_INTERFACE			0x01
+#define USB_REQ_TYPE_ENDPOINT			0x02
 
-#define USB_REQ_TYPE_DIRECTION	0x80
-#define USB_REQ_TYPE_TYPE	0x60
-#define USB_REQ_TYPE_RECIPIENT	0x1F
+#define USB_REQ_TYPE_DIRECTION			0x80
+#define USB_REQ_TYPE_TYPE			0x60
+#define USB_REQ_TYPE_RECIPIENT			0x1F
 
 /* USB Standard Request Codes - Table 9-4 */
-#define USB_REQ_GET_STATUS		0
-#define USB_REQ_CLEAR_FEATURE		1
+#define USB_REQ_GET_STATUS			0
+#define USB_REQ_CLEAR_FEATURE			1
 /* Reserved for future use: 2 */
-#define USB_REQ_SET_FEATURE		3
+#define USB_REQ_SET_FEATURE			3
 /* Reserved for future use: 3 */
-#define USB_REQ_SET_ADDRESS		5
-#define USB_REQ_GET_DESCRIPTOR		6
-#define USB_REQ_SET_DESCRIPTOR		7
-#define USB_REQ_GET_CONFIGURATION	8
-#define USB_REQ_SET_CONFIGURATION	9
-#define USB_REQ_GET_INTERFACE		10
-#define USB_REQ_SET_INTERFACE		11
-#define USB_REQ_SET_SYNCH_FRAME		12
+#define USB_REQ_SET_ADDRESS			5
+#define USB_REQ_GET_DESCRIPTOR			6
+#define USB_REQ_SET_DESCRIPTOR			7
+#define USB_REQ_GET_CONFIGURATION		8
+#define USB_REQ_SET_CONFIGURATION		9
+#define USB_REQ_GET_INTERFACE			10
+#define USB_REQ_SET_INTERFACE			11
+#define USB_REQ_SET_SYNCH_FRAME			12
 
 /* USB Descriptor Types - Table 9-5 */
-#define USB_DT_DEVICE			1
-#define USB_DT_CONFIGURATION		2
-#define USB_DT_STRING			3
-#define USB_DT_INTERFACE		4
-#define USB_DT_ENDPOINT			5
-#define USB_DT_DEVICE_QUALIFIER		6
+#define USB_DT_DEVICE				1
+#define USB_DT_CONFIGURATION			2
+#define USB_DT_STRING				3
+#define USB_DT_INTERFACE			4
+#define USB_DT_ENDPOINT				5
+#define USB_DT_DEVICE_QUALIFIER			6
 #define USB_DT_OTHER_SPEED_CONFIGURATION	7
-#define USB_DT_INTERFACE_POWER		8
+#define USB_DT_INTERFACE_POWER			8
 
 /* USB Standard Feature Selectors - Table 9-6 */
-#define USB_FEAT_ENDPOINT_HALT		0
-#define USB_FEAT_DEVICE_REMOTE_WAKEUP	1
-#define USB_FEAT_TEST_MODE		2
+#define USB_FEAT_ENDPOINT_HALT			0
+#define USB_FEAT_DEVICE_REMOTE_WAKEUP		1
+#define USB_FEAT_TEST_MODE			2
 
 /* Information Returned by a GetStatus() Request to a Device - Figure 9-4 */
-#define USB_DEV_STATUS_SELF_POWERED	0x01
-#define USB_DEV_STATUS_REMOTE_WAKEUP	0x02
+#define USB_DEV_STATUS_SELF_POWERED		0x01
+#define USB_DEV_STATUS_REMOTE_WAKEUP		0x02
 
 /* USB Standard Device Descriptor - Table 9-8 */
 struct usb_device_descriptor {
-	uint8_t bLength;
-	uint8_t bDescriptorType;
-	uint16_t bcdUSB;
-	uint8_t bDeviceClass;
-	uint8_t bDeviceSubClass;
-	uint8_t bDeviceProtocol;
-	uint8_t bMaxPacketSize0;
-	uint16_t idVendor;
-	uint16_t idProduct;
-	uint16_t bcdDevice;
-	uint8_t iManufacturer;
-	uint8_t iProduct;
-	uint8_t iSerialNumber;
-	uint8_t bNumConfigurations;
+	u8 bLength;
+	u8 bDescriptorType;
+	u16 bcdUSB;
+	u8 bDeviceClass;
+	u8 bDeviceSubClass;
+	u8 bDeviceProtocol;
+	u8 bMaxPacketSize0;
+	u16 idVendor;
+	u16 idProduct;
+	u16 bcdDevice;
+	u8 iManufacturer;
+	u8 iProduct;
+	u8 iSerialNumber;
+	u8 bNumConfigurations;
 } __attribute__((packed));
-#define USB_DT_DEVICE_SIZE	sizeof(struct usb_device_descriptor)
 
-/* USB Device_Qualifier Descriptor - Table 9-9 
- * Not used in this implementation. 
+#define USB_DT_DEVICE_SIZE sizeof(struct usb_device_descriptor)
+
+/* USB Device_Qualifier Descriptor - Table 9-9
+ * Not used in this implementation.
  */
 struct usb_device_qualifier_descriptor {
-	uint8_t bLength;
-	uint8_t bDescriptorType;
-	uint16_t bcdUSB;
-	uint8_t bDeviceClass;
-	uint8_t bDeviceSubClass;
-	uint8_t bDeviceProtocol;
-	uint8_t bMaxPacketSize0;
-	uint8_t bNumConfigurations;
-	uint8_t bReserved;
+	u8 bLength;
+	u8 bDescriptorType;
+	u16 bcdUSB;
+	u8 bDeviceClass;
+	u8 bDeviceSubClass;
+	u8 bDeviceProtocol;
+	u8 bMaxPacketSize0;
+	u8 bNumConfigurations;
+	u8 bReserved;
 } __attribute__((packed));
 
 /* USB Standard Configuration Descriptor - Table 9-10 */
 struct usb_config_descriptor {
-	uint8_t bLength;
-	uint8_t bDescriptorType;
-	uint16_t wTotalLength;
-	uint8_t bNumInterfaces;
-	uint8_t bConfigurationValue;
-	uint8_t iConfiguration;
-	uint8_t bmAttributes;
-	uint8_t bMaxPower;
-	
+	u8 bLength;
+	u8 bDescriptorType;
+	u16 wTotalLength;
+	u8 bNumInterfaces;
+	u8 bConfigurationValue;
+	u8 iConfiguration;
+	u8 bmAttributes;
+	u8 bMaxPower;
+
 	/* Descriptor ends here.  The following are used internally: */
 	const struct usb_interface {
 		int num_altsetting;
 		const struct usb_interface_descriptor *altsetting;
 	} *interface;
 } __attribute__((packed));
-#define USB_DT_CONFIGURATION_SIZE	9
+#define USB_DT_CONFIGURATION_SIZE		9
 
 /* USB Configuration Descriptor bmAttributes bit definitions */
-#define USB_CONFIG_ATTR_SELF_POWERED	0x40
-#define USB_CONFIG_ATTR_REMOTE_WAKEUP	0x20
+#define USB_CONFIG_ATTR_SELF_POWERED		0x40
+#define USB_CONFIG_ATTR_REMOTE_WAKEUP		0x20
 
 /* Other Speed Configuration is the same as Configuration Descriptor.
- *  - Table 9-11 
+ *  - Table 9-11
  */
 
 /* USB Standard Interface Descriptor - Table 9-12 */
 struct usb_interface_descriptor {
-	uint8_t bLength;
-	uint8_t bDescriptorType;
-	uint8_t bInterfaceNumber;
-	uint8_t bAlternateSetting;
-	uint8_t bNumEndpoints;
-	uint8_t bInterfaceClass;
-	uint8_t bInterfaceSubClass;
-	uint8_t bInterfaceProtocol;
-	uint8_t iInterface;
+	u8 bLength;
+	u8 bDescriptorType;
+	u8 bInterfaceNumber;
+	u8 bAlternateSetting;
+	u8 bNumEndpoints;
+	u8 bInterfaceClass;
+	u8 bInterfaceSubClass;
+	u8 bInterfaceProtocol;
+	u8 iInterface;
 
 	/* Descriptor ends here.  The following are used internally: */
 	const struct usb_endpoint_descriptor *endpoint;
 	const void *extra;
 	int extralen;
 } __attribute__((packed));
-#define USB_DT_INTERFACE_SIZE		9
+#define USB_DT_INTERFACE_SIZE			9
 
 /* USB Standard Endpoint Descriptor - Table 9-13 */
 struct usb_endpoint_descriptor {
-	uint8_t bLength;
-	uint8_t bDescriptorType;
-	uint8_t bEndpointAddress;
-	uint8_t bmAttributes;
-	uint16_t wMaxPacketSize;
-	uint8_t bInterval;
+	u8 bLength;
+	u8 bDescriptorType;
+	u8 bEndpointAddress;
+	u8 bmAttributes;
+	u16 wMaxPacketSize;
+	u8 bInterval;
 } __attribute__((packed));
 #define USB_DT_ENDPOINT_SIZE		sizeof(struct usb_endpoint_descriptor)
 
 /* USB Endpoint Descriptor bmAttributes bit definitions */
-#define USB_ENDPOINT_ATTR_CONTROL	0x00
-#define USB_ENDPOINT_ATTR_ISOCHRONOUS	0x01
-#define USB_ENDPOINT_ATTR_BULK		0x02
-#define USB_ENDPOINT_ATTR_INTERRUPT	0x03
+#define USB_ENDPOINT_ATTR_CONTROL		0x00
+#define USB_ENDPOINT_ATTR_ISOCHRONOUS		0x01
+#define USB_ENDPOINT_ATTR_BULK			0x02
+#define USB_ENDPOINT_ATTR_INTERRUPT		0x03
 
-#define USB_ENDPOINT_ATTR_NOSYNC	0x00
-#define USB_ENDPOINT_ATTR_ASYNC		0x04
-#define USB_ENDPOINT_ATTR_ADAPTIVE	0x08
-#define USB_ENDPOINT_ATTR_SYNC		0x0C
+#define USB_ENDPOINT_ATTR_NOSYNC		0x00
+#define USB_ENDPOINT_ATTR_ASYNC			0x04
+#define USB_ENDPOINT_ATTR_ADAPTIVE		0x08
+#define USB_ENDPOINT_ATTR_SYNC			0x0C
 
-#define USB_ENDPOINT_ATTR_DATA		0x00
-#define USB_ENDPOINT_ATTR_FEEDBACK	0x10
+#define USB_ENDPOINT_ATTR_DATA			0x00
+#define USB_ENDPOINT_ATTR_FEEDBACK		0x10
 #define USB_ENDPOINT_ATTR_IMPLICIT_FEEDBACK_DATA 0x20
 
-/* Table 9-15 specifies String Descriptor Zero. 
+/* Table 9-15 specifies String Descriptor Zero.
  * Table 9-16 specified UNICODE String Descriptor.
  */
 struct usb_string_descriptor {
-	uint8_t bLength;
-	uint8_t bDescriptorType;
-	uint16_t wData[];
+	u8 bLength;
+	u8 bDescriptorType;
+	u16 wData[];
 } __attribute__((packed));
 
 #endif

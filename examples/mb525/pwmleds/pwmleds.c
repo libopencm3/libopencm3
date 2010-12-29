@@ -124,7 +124,7 @@ static const u16 gamma_table_1_3[] = {
 #endif
 
 #ifdef GAMMA_2_2
-static const uint16_t gamma_table_2_2[] = {
+static const u16 gamma_table_2_2[] = {
 	0,	0,	2,	4,	7,	11,	17,	24,
 	32,	42,	53,	65,	79,	94,	111,	129,
 	148,	169,	192,	216,	242,	270,	299,	330,

@@ -21,18 +21,18 @@
 #include <usb/usbd.h>
 #include "usb_private.h"
 
-void usbd_register_set_config_callback(void (*callback)(uint16_t wValue))
+void usbd_register_set_config_callback(void (*callback)(u16 wValue))
 {
 	_usbd_device.user_callback_set_config = callback;
 }
 
-static uint16_t  
-build_config_descriptor(uint8_t index, uint8_t *buf, uint16_t len)
+static u16  
+build_config_descriptor(u8 index, u8 *buf, u16 len)
 {
-	uint8_t *tmpbuf = buf;
+	u8 *tmpbuf = buf;
 	const struct usb_config_descriptor *cfg = &_usbd_device.config[index];
-	uint16_t count, total = 0, totallen = 0;
-	uint16_t i, j, k;
+	u16 count, total = 0, totallen = 0;
+	u16 i, j, k;
 
 	memcpy(buf, cfg, count = MIN(len, cfg->bLength));
 	buf += count; len -= count; total += count; totallen += cfg->bLength;
@@ -64,19 +64,19 @@ build_config_descriptor(uint8_t index, uint8_t *buf, uint16_t len)
 	}
 
 	/* Fill in wTotalLength */
-	*(uint16_t*)(tmpbuf+2) = totallen;
+	*(u16*)(tmpbuf+2) = totallen;
 
 	return total;
 }
 
 static int usb_standard_get_descriptor(struct usb_setup_data *req, 
-					uint8_t **buf, uint16_t *len)
+					u8 **buf, u16 *len)
 {
 	int i;
 
 	switch(req->wValue >> 8) {
 	case USB_DT_DEVICE:
-		*buf = (uint8_t *)_usbd_device.desc;
+		*buf = (u8 *)_usbd_device.desc;
 		*len = MIN(*len, _usbd_device.desc->bLength);
 		return 1;
 
@@ -97,7 +97,7 @@ static int usb_standard_get_descriptor(struct usb_setup_data *req,
 				* 2 + 2;
 		sd->bDescriptorType = USB_DT_STRING;
 
-		*buf = (uint8_t *)sd;
+		*buf = (u8 *)sd;
 		*len = MIN(*len, sd->bLength);
 
 		for(i = 0; i < (*len / 2) - 1; i++) 
@@ -115,7 +115,7 @@ static int usb_standard_get_descriptor(struct usb_setup_data *req,
 }
 
 static int usb_standard_set_address(struct usb_setup_data *req, 
-				uint8_t **buf, uint16_t *len)
+				u8 **buf, u16 *len)
 {
 	(void)req;
 	(void)buf;
@@ -130,7 +130,7 @@ static int usb_standard_set_address(struct usb_setup_data *req,
 }
 
 static int usb_standard_set_configuration(struct usb_setup_data *req, 
-				uint8_t **buf, uint16_t *len)
+				u8 **buf, u16 *len)
 {
 	(void)req;
 	(void)buf;
@@ -151,7 +151,7 @@ static int usb_standard_set_configuration(struct usb_setup_data *req,
 }
 
 static int usb_standard_get_configuration(struct usb_setup_data *req, 
-				uint8_t **buf, uint16_t *len)
+				u8 **buf, u16 *len)
 {
 	(void)req;
 
@@ -162,7 +162,7 @@ static int usb_standard_get_configuration(struct usb_setup_data *req,
 }
 
 static int usb_standard_set_interface(struct usb_setup_data *req,
-				uint8_t **buf, uint16_t *len)
+				u8 **buf, u16 *len)
 {
 	(void)req;
 	(void)buf;
@@ -175,7 +175,7 @@ static int usb_standard_set_interface(struct usb_setup_data *req,
 }
 
 static int usb_standard_get_interface(struct usb_setup_data *req,
-				uint8_t **buf, uint16_t *len)
+				u8 **buf, u16 *len)
 {
 	(void)req;
 	(void)buf;
@@ -188,7 +188,7 @@ static int usb_standard_get_interface(struct usb_setup_data *req,
 }
 
 static int usb_standard_device_get_status(struct usb_setup_data *req,
-				uint8_t **buf, uint16_t *len)
+				u8 **buf, u16 *len)
 {
 	(void)req;
 	/* bit 0: self powered */
@@ -201,7 +201,7 @@ static int usb_standard_device_get_status(struct usb_setup_data *req,
 }
 
 static int usb_standard_interface_get_status(struct usb_setup_data *req, 
-				uint8_t **buf, uint16_t *len)
+				u8 **buf, u16 *len)
 {
 	(void)req;
 	/* not defined */
@@ -214,7 +214,7 @@ static int usb_standard_interface_get_status(struct usb_setup_data *req,
 }
 
 static int usb_standard_endpoint_get_status(struct usb_setup_data *req, 
-				uint8_t **buf, uint16_t *len)
+				u8 **buf, u16 *len)
 {
 	(void)req;
 	
@@ -226,7 +226,7 @@ static int usb_standard_endpoint_get_status(struct usb_setup_data *req,
 }
 
 static int usb_standard_endpoint_stall(struct usb_setup_data *req,
-				uint8_t **buf, uint16_t *len)
+				u8 **buf, u16 *len)
 {
 	(void)buf;
 	(void)len;
@@ -237,7 +237,7 @@ static int usb_standard_endpoint_stall(struct usb_setup_data *req,
 }
 
 static int usb_standard_endpoint_unstall(struct usb_setup_data *req,
-				uint8_t **buf, uint16_t *len)
+				u8 **buf, u16 *len)
 {
 	(void)buf;
 	(void)len;
@@ -247,11 +247,11 @@ static int usb_standard_endpoint_unstall(struct usb_setup_data *req,
 	return 1;
 }
 
-int _usbd_standard_request_device(struct usb_setup_data *req, uint8_t **buf, 
-				uint16_t *len)
+int _usbd_standard_request_device(struct usb_setup_data *req, u8 **buf, 
+				u16 *len)
 {
-	int (*command)(struct usb_setup_data *req, uint8_t **buf, 
-			uint16_t *len) = NULL;
+	int (*command)(struct usb_setup_data *req, u8 **buf, 
+			u16 *len) = NULL;
 
 	switch(req->bRequest) {	
 	case USB_REQ_CLEAR_FEATURE:
@@ -292,11 +292,11 @@ int _usbd_standard_request_device(struct usb_setup_data *req, uint8_t **buf,
 	return command(req, buf, len);
 }
 
-int _usbd_standard_request_interface(struct usb_setup_data *req, uint8_t **buf,
-				uint16_t *len)
+int _usbd_standard_request_interface(struct usb_setup_data *req, u8 **buf,
+				u16 *len)
 {
-	int (*command)(struct usb_setup_data *req, uint8_t **buf, 
-			uint16_t *len) = NULL;
+	int (*command)(struct usb_setup_data *req, u8 **buf, 
+			u16 *len) = NULL;
 
 	switch(req->bRequest) {	
 	case USB_REQ_CLEAR_FEATURE:
@@ -319,11 +319,11 @@ int _usbd_standard_request_interface(struct usb_setup_data *req, uint8_t **buf,
 	return command(req, buf, len);
 }
 
-int _usbd_standard_request_endpoint(struct usb_setup_data *req, uint8_t **buf, 
-				uint16_t *len)
+int _usbd_standard_request_endpoint(struct usb_setup_data *req, u8 **buf, 
+				u16 *len)
 {
-	int (*command)(struct usb_setup_data *req, uint8_t **buf, 
-			uint16_t *len) = NULL;
+	int (*command)(struct usb_setup_data *req, u8 **buf, 
+			u16 *len) = NULL;
 
 	switch(req->bRequest) {	
 	case USB_REQ_CLEAR_FEATURE:
@@ -351,8 +351,8 @@ int _usbd_standard_request_endpoint(struct usb_setup_data *req, uint8_t **buf,
 	return command(req, buf, len);
 }
 
-int _usbd_standard_request(struct usb_setup_data *req, uint8_t **buf, 
-				uint16_t *len)
+int _usbd_standard_request(struct usb_setup_data *req, u8 **buf, 
+				u16 *len)
 {
 	/* FIXME: have class/vendor requests as well */
 	if((req->bmRequestType & USB_REQ_TYPE_TYPE) != USB_REQ_TYPE_STANDARD) 

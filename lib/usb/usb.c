@@ -23,7 +23,7 @@
 
 struct _usbd_device _usbd_device;
 
-uint8_t usbd_control_buffer[128] __attribute__((weak));
+u8 usbd_control_buffer[128] __attribute__((weak));
 
 /** Main initialization entry point.
  *
@@ -77,7 +77,7 @@ void usbd_register_resume_callback(void (*callback)(void))
 	_usbd_device.user_callback_resume = callback;
 }
 
-void usbd_set_control_buffer_size(uint16_t size)
+void usbd_set_control_buffer_size(u16 size)
 {
 	_usbd_device.ctrl_buf_len = size;
 }

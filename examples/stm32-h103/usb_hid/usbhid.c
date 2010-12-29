@@ -66,8 +66,8 @@ static const u8 hid_report_descriptor[] = {
 static const struct {
 	struct usb_hid_descriptor hid_descriptor;
 	struct {
-		uint8_t bReportDescriptorType;
-		uint16_t wDescriptorLength;
+		u8 bReportDescriptorType;
+		u16 wDescriptorLength;
 	} __attribute__((packed)) hid_report;
 } __attribute__((packed)) hid_function = {
 	.hid_descriptor = {
@@ -262,7 +262,7 @@ void sys_tick_handler(void)
 {
 	static int x = 0;
 	static int dir = 1;
-	uint8_t buf[4] = {0, 0, 0, 0};
+	u8 buf[4] = {0, 0, 0, 0};
 
 	buf[1] = dir;
 	x += dir;

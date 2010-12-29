@@ -27,7 +27,7 @@ enum dfu_req {
 	DFU_GETSTATUS,
 	DFU_CLRSTATUS,
 	DFU_GETSTATE,
-	DFU_ABORT
+	DFU_ABORT,
 };
 
 enum dfu_status {
@@ -65,17 +65,17 @@ enum dfu_state {
 
 #define DFU_FUNCTIONAL			0x21
 struct usb_dfu_descriptor {
-	uint8_t bLength;
-	uint8_t bDescriptorType;
-	uint8_t bmAttributes;
+	u8 bLength;
+	u8 bDescriptorType;
+	u8 bmAttributes;
 #define USB_DFU_CAN_DOWNLOAD		0x01
 #define USB_DFU_CAN_UPLOAD		0x02
 #define USB_DFU_MANIFEST_TOLERANT	0x04
 #define USB_DFU_WILL_DETACH		0x08
 
-	uint16_t wDetachTimeout;
-	uint16_t wTransferSize;
-	uint16_t bcdDFUVersion;	
+	u16 wDetachTimeout;
+	u16 wTransferSize;
+	u16 bcdDFUVersion;
 } __attribute__((packed));
 
 #endif

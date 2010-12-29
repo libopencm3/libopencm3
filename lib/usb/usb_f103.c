@@ -153,10 +153,10 @@ u8 usbd_ep_stall_get(u8 addr)
  *  @param len    Number of bytes to copy.
  */
 static inline void 
-usb_copy_to_pm(volatile void *vPM, const void *buf, uint16_t len)
+usb_copy_to_pm(volatile void *vPM, const void *buf, u16 len)
 {
-        const uint16_t *lbuf = buf;
-	volatile uint16_t *PM = vPM;
+        const u16 *lbuf = buf;
+	volatile u16 *PM = vPM;
 
         for(len = (len + 1) >> 1; len; PM += 2, lbuf++, len--)
                 *PM = *lbuf;
@@ -182,16 +182,16 @@ u16 usbd_ep_write_packet(u8 addr, const void *buf, u16 len)
  *  @param len    Number of bytes to copy.
  */
 static inline void 
-usb_copy_from_pm(void *buf, const volatile void *vPM, uint16_t len)
+usb_copy_from_pm(void *buf, const volatile void *vPM, u16 len)
 {
-        uint16_t *lbuf = buf;
-	const volatile uint16_t *PM = vPM;
-        uint8_t odd = len & 1;
+        u16 *lbuf = buf;
+	const volatile u16 *PM = vPM;
+        u8 odd = len & 1;
 
         for(len >>= 1; len; PM += 2, lbuf++, len--)
                 *lbuf = *PM;
 
-        if(odd) *(uint8_t*)lbuf = *(uint8_t*)PM;
+        if(odd) *(u8*)lbuf = *(u8*)PM;
 }
 
 u16 usbd_ep_read_packet(u8 addr, void *buf, u16 len)
