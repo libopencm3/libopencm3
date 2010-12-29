@@ -20,9 +20,7 @@
 #include <libopenstm32/common.h>
 #include <libopenstm32/tools.h>
 #include <libopenstm32/usb.h>
-
-#include <usbd.h>
-
+#include <usb/usbd.h>
 #include "usb_private.h"
 
 /** Initialize USB Device Controller.
@@ -250,4 +248,3 @@ void usbd_poll(void)
 	if(istr & USB_ISTR_SOF) 
 		USB_CLR_ISTR_SOF();
 }
-

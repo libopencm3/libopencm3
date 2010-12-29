@@ -17,12 +17,11 @@
  * along with this program.  If not, see <http://www.gnu.org/licenses/>.
  */
 
+#include <stdlib.h>
 #include <libopenstm32/rcc.h>
 #include <libopenstm32/gpio.h>
-#include <usbd.h>
-#include <stdlib.h>
-
-#include "cdc.h"
+#include <usb/usbd.h>
+#include <usb/cdc.h>
 
 static const struct usb_device_descriptor dev = {
         .bLength = USB_DT_DEVICE_SIZE,

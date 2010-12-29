@@ -17,8 +17,8 @@
  * along with this program.  If not, see <http://www.gnu.org/licenses/>.
  */
 
-#include <usbd.h>
 #include <stdlib.h>
+#include <usb/usbd.h>
 #include "usb_private.h"
 
 static struct usb_control_state {
@@ -251,4 +251,3 @@ void _usbd_control_in(uint8_t ea)
 		usbd_ep_stall_set(0, 1);	
 	}
 }
-

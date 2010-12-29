@@ -18,8 +18,7 @@
  */
 
 #include <string.h>
-
-#include <usbd.h>
+#include <usb/usbd.h>
 #include "usb_private.h"
 
 void usbd_register_set_config_callback(void (*callback)(uint16_t wValue))
@@ -370,4 +369,3 @@ int _usbd_standard_request(struct usb_setup_data *req, uint8_t **buf,
 		return 0;
 	}
 }
-

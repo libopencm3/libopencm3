@@ -17,7 +17,6 @@
  * along with this program.  If not, see <http://www.gnu.org/licenses/>.
  */
 
-
 #ifndef __USB_PRIVATE_H
 #define __USB_PRIVATE_H
 
@@ -77,4 +76,3 @@ void _usbd_hw_set_address(uint8_t addr);
 void _usbd_hw_endpoints_reset(void);
 
 #endif
-

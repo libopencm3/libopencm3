@@ -17,21 +17,19 @@
  * along with this program.  If not, see <http://www.gnu.org/licenses/>.
  */
 
+#include <stdlib.h>
 #include <libopenstm32/rcc.h>
 #include <libopenstm32/gpio.h>
 #include <libopenstm32/systick.h>
-#include <usbd.h>
-
-#include <stdlib.h>
-
-#include "hid.h"
+#include <usb/usbd.h>
+#include <usb/hid.h>
 
 /* Define this to include the DFU APP interface. */
 #define INCLUDE_DFU_INTERFACE
 
 #ifdef INCLUDE_DFU_INTERFACE
-#   include <libopenstm32/scb.h>
-#   include "../usb_dfu/dfu.h"
+#include <libopenstm32/scb.h>
+#include <usb/dfu.h>
 #endif
 
 const struct usb_device_descriptor dev = {

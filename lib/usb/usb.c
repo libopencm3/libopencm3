@@ -17,8 +17,8 @@
  * along with this program.  If not, see <http://www.gnu.org/licenses/>.
  */
 
-#include <usbd.h>
 #include <string.h>
+#include <usb/usbd.h>
 #include "usb_private.h"
 
 struct _usbd_device _usbd_device;
@@ -92,4 +92,3 @@ void _usbd_reset(void)
 	if(_usbd_device.user_callback_reset)
 		_usbd_device.user_callback_reset();
 }
-

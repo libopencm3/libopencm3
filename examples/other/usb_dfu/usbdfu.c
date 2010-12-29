@@ -17,15 +17,13 @@
  * along with this program.  If not, see <http://www.gnu.org/licenses/>.
  */
 
+#include <string.h>
 #include <libopenstm32/rcc.h>
 #include <libopenstm32/gpio.h>
 #include <libopenstm32/flash.h>
 #include <libopenstm32/scb.h>
-#include <usbd.h>
-
-#include <string.h>
-
-#include "dfu.h"
+#include <usb/usbd.h>
+#include <usb/dfu.h>
 
 #define APP_ADDRESS	0x08002000
 

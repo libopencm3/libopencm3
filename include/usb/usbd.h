@@ -20,7 +20,7 @@
 #ifndef __USBD_H
 #define __USBD_H
 
-#include <usbstd.h>
+#include <usb/usbstd.h>
 
 /* Static buffer for control transactions:
  * This is defined as weak in the library, applicaiton
