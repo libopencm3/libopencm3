@@ -1,7 +1,7 @@
 /*
  * This file is part of the libopenstm32 project.
  *
- * Copyright (C) 2010  Gareth McMullin <gareth@blacksphere.co.nz>
+ * Copyright (C) 2010 Gareth McMullin <gareth@blacksphere.co.nz>
  *
  * This program is free software: you can redistribute it and/or modify
  * it under the terms of the GNU General Public License as published by
@@ -16,6 +16,7 @@
  * You should have received a copy of the GNU General Public License
  * along with this program.  If not, see <http://www.gnu.org/licenses/>.
  */
+
 #ifndef __USBSTD_H
 #define __USBSTD_H
 
@@ -199,4 +200,3 @@ struct usb_string_descriptor {
 } __attribute__((packed));
 
 #endif
-

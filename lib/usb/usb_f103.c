@@ -1,7 +1,7 @@
 /*
  * This file is part of the libopenstm32 project.
  *
- * Copyright (C) 2010  Gareth McMullin <gareth@blacksphere.co.nz>
+ * Copyright (C) 2010 Gareth McMullin <gareth@blacksphere.co.nz>
  *
  * This program is free software: you can redistribute it and/or modify
  * it under the terms of the GNU General Public License as published by
