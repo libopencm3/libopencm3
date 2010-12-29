@@ -25,24 +25,25 @@ struct _usbd_device _usbd_device;
 
 u8 usbd_control_buffer[128] __attribute__((weak));
 
-/** Main initialization entry point.
+/**
+ * Main initialization entry point.
  *
- *  Initialize the USB firmware library to implement the USB device described
- *  by the descriptors provided.
+ * Initialize the USB firmware library to implement the USB device described
+ * by the descriptors provided.
  *
- *  It is required that the 48MHz USB clock is already available.  
+ * It is required that the 48MHz USB clock is already available.
  *
- *  @param dev    Pointer to USB Device descriptor.  This must not be changed 
- *                while the device is in use.
- *  @param conf   Pointer to array of USB Configuration descriptors.  These 
- *                must not be changed while the device is in use.  The length 
- *                of this array is determined by the bNumConfigurations field 
- *                in the device descriptor.
- *  @return       Zero on success (currently cannot fail)
+ * @param dev Pointer to USB device descriptor. This must not be changed while
+ *            the device is in use.
+ * @param conf Pointer to array of USB configuration descriptors. These must
+ *             not be changed while the device is in use. The length of this
+ *             array is determined by the bNumConfigurations field in the
+ *             device descriptor.
+ * @param strings TODO
+ * @return Zero on success (currently cannot fail).
  */
 int usbd_init(const struct usb_device_descriptor *dev,
-		const struct usb_config_descriptor *conf,
-		const char **strings)
+	      const struct usb_config_descriptor *conf, const char **strings)
 {
 	_usbd_device.desc = dev;
 	_usbd_device.config = conf;
@@ -52,12 +53,12 @@ int usbd_init(const struct usb_device_descriptor *dev,
 
 	_usbd_hw_init();
 
-	_usbd_device.user_callback_ctr[0][USB_TRANSACTION_SETUP] = 
-			_usbd_control_setup;
-	_usbd_device.user_callback_ctr[0][USB_TRANSACTION_OUT] = 
-			_usbd_control_out;
-	_usbd_device.user_callback_ctr[0][USB_TRANSACTION_IN] = 
-			_usbd_control_in;
+	_usbd_device.user_callback_ctr[0][USB_TRANSACTION_SETUP] =
+	    _usbd_control_setup;
+	_usbd_device.user_callback_ctr[0][USB_TRANSACTION_OUT] =
+	    _usbd_control_out;
+	_usbd_device.user_callback_ctr[0][USB_TRANSACTION_IN] =
+	    _usbd_control_in;
 
 	return 0;
 }
@@ -89,6 +90,6 @@ void _usbd_reset(void)
 	usbd_ep_setup(0, USB_ENDPOINT_ATTR_CONTROL, 64, NULL);
 	_usbd_hw_set_address(0);
 
-	if(_usbd_device.user_callback_reset)
+	if (_usbd_device.user_callback_reset)
 		_usbd_device.user_callback_reset();
 }

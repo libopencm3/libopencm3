@@ -288,4 +288,3 @@ void spi_disable_rx_dma(u32 spi)
 {
 	SPI_CR2(spi) &= ~SPI_CR2_RXDMAEN;
 }
-

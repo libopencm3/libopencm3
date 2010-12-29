@@ -23,21 +23,16 @@
 #include <usb/usbd.h>
 #include "usb_private.h"
 
-/** Initialize USB Device Controller.
- *
- *  Function initializes the USB Device controller hardware 
- *  of the STM32 microcontroller.
- */
+/** Initialize the USB device controller hardware of the STM32. */
 void _usbd_hw_init(void)
 {
-
 	SET_REG(USB_CNTR_REG, 0);
 	SET_REG(USB_BTABLE_REG, 0);
 	SET_REG(USB_ISTR_REG, 0);
 
-	/* Enable RESET, SUSPEND, RESUME and CTR interrupts */
+	/* Enable RESET, SUSPEND, RESUME and CTR interrupts. */
 	SET_REG(USB_CNTR_REG, USB_CNTR_RESETM | USB_CNTR_CTRM |
-				USB_CNTR_SUSPM | USB_CNTR_WKUPM);
+		USB_CNTR_SUSPM | USB_CNTR_WKUPM);
 }
 
 void _usbd_hw_set_address(u8 addr)
@@ -46,24 +41,28 @@ void _usbd_hw_set_address(u8 addr)
 	SET_REG(USB_DADDR_REG, (addr & USB_DADDR_ADDR) | USB_DADDR_ENABLE);
 }
 
-/** Set the receive buffer size for a given USB endpoint 
- *  @param  ep     Index of Endpoint to configure
- *  @param  addr   Size in bytes of RX buffer
+/**
+ * Set the receive buffer size for a given USB endpoint.
+ *
+ * @param ep Index of endpoint to configure.
+ * @param addr Size in bytes of the RX buffer.
  */
 static void usb_set_ep_rx_bufsize(u8 ep, u32 size)
 {
-	if(size > 62) {
-		if(size & 0x1f) size -= 32;
+	if (size > 62) {
+		if (size & 0x1f)
+			size -= 32;
 		USB_SET_EP_RX_COUNT(ep, (size << 5) | 0x8000);
 	} else {
-		if(size & 1) size++;
+		if (size & 1)
+			size++;
 		USB_SET_EP_RX_COUNT(ep, size << 10);
 	}
 }
 
-void usbd_ep_setup(u8 addr, u8 type, u16 max_size, void (*callback)(u8 ep))   
+void usbd_ep_setup(u8 addr, u8 type, u16 max_size, void (*callback) (u8 ep))
 {
-	/* Translate USB standard type codes to stm32 */
+	/* Translate USB standard type codes to STM32. */
 	const u16 typelookup[] = {
 		[USB_ENDPOINT_ATTR_CONTROL] = USB_EP_TYPE_CONTROL,
 		[USB_ENDPOINT_ATTR_ISOCHRONOUS] = USB_EP_TYPE_ISO,
@@ -73,23 +72,30 @@ void usbd_ep_setup(u8 addr, u8 type, u16 max_size, void (*callback)(u8 ep))
 	u8 dir = addr & 0x80;
 	addr &= 0x7f;
 
-	/* Assign address */
+	/* Assign address. */
 	USB_SET_EP_ADDR(addr, addr);
 	USB_SET_EP_TYPE(addr, typelookup[type]);
 
-	if(dir || (addr == 0)) {
+	if (dir || (addr == 0)) {
 		USB_SET_EP_TX_ADDR(addr, _usbd_device.pm_top);
-		if(callback)
-			_usbd_device.user_callback_ctr[addr][USB_TRANSACTION_IN] = (void*)callback;
+		if (callback) {
+			_usbd_device.
+			    user_callback_ctr[addr][USB_TRANSACTION_IN] =
+			    (void *)callback;
+		}
 		USB_CLR_EP_TX_DTOG(addr);
 		USB_SET_EP_TX_STAT(addr, USB_EP_TX_STAT_NAK);
 		_usbd_device.pm_top += max_size;
-	} 
-	if(!dir) {
+	}
+
+	if (!dir) {
 		USB_SET_EP_RX_ADDR(addr, _usbd_device.pm_top);
 		usb_set_ep_rx_bufsize(addr, max_size);
-		if(callback)
-			_usbd_device.user_callback_ctr[addr][USB_TRANSACTION_OUT] = (void*)callback;
+		if (callback) {
+			_usbd_device.
+			    user_callback_ctr[addr][USB_TRANSACTION_OUT] =
+			    (void *)callback;
+		}
 		USB_CLR_EP_RX_DTOG(addr);
 		USB_SET_EP_RX_STAT(addr, USB_EP_RX_STAT_VALID);
 		_usbd_device.pm_top += max_size;
@@ -100,73 +106,74 @@ void _usbd_hw_endpoints_reset(void)
 {
 	int i;
 
-	/* Reset all endpoints */
-	for(i = 1; i < 8; i++) {
+	/* Reset all endpoints. */
+	for (i = 1; i < 8; i++) {
 		USB_SET_EP_TX_STAT(i, USB_EP_TX_STAT_DISABLED);
 		USB_SET_EP_RX_STAT(i, USB_EP_RX_STAT_DISABLED);
 	}
-	_usbd_device.pm_top = 0x40 + (2*_usbd_device.desc->bMaxPacketSize0);
+	_usbd_device.pm_top = 0x40 + (2 * _usbd_device.desc->bMaxPacketSize0);
 }
 
 void usbd_ep_stall_set(u8 addr, u8 stall)
 {
-	if(addr == 0)
-		USB_SET_EP_TX_STAT(addr, 
-			stall ? USB_EP_TX_STAT_STALL : USB_EP_TX_STAT_NAK);
+	if (addr == 0)
+		USB_SET_EP_TX_STAT(addr, stall ? USB_EP_TX_STAT_STALL :
+				   USB_EP_TX_STAT_NAK);
 
-	if(addr & 0x80) {
+	if (addr & 0x80) {
 		addr &= 0x7F;
 
-		USB_SET_EP_TX_STAT(addr, 
-			stall ? USB_EP_TX_STAT_STALL : USB_EP_TX_STAT_NAK);
+		USB_SET_EP_TX_STAT(addr, stall ? USB_EP_TX_STAT_STALL :
+				   USB_EP_TX_STAT_NAK);
 
-		/* Reset to DATA0 if clearing stall condition */
-		if(!stall)
+		/* Reset to DATA0 if clearing stall condition. */
+		if (!stall)
 			USB_CLR_EP_TX_DTOG(addr);
 	} else {
-		/* Reset to DATA0 if clearing stall condition */
-		if(!stall)
+		/* Reset to DATA0 if clearing stall condition. */
+		if (!stall)
 			USB_CLR_EP_RX_DTOG(addr);
 
-		USB_SET_EP_RX_STAT(addr, 
-			stall ? USB_EP_RX_STAT_STALL : USB_EP_RX_STAT_VALID);
+		USB_SET_EP_RX_STAT(addr, stall ? USB_EP_RX_STAT_STALL :
+				   USB_EP_RX_STAT_VALID);
 	}
 }
 
 u8 usbd_ep_stall_get(u8 addr)
 {
-	if(addr & 0x80) {
-		if ((*USB_EP_REG(addr & 0x7F) & USB_EP_TX_STAT) == 
-						USB_EP_TX_STAT_STALL)
+	if (addr & 0x80) {
+		if ((*USB_EP_REG(addr & 0x7F) & USB_EP_TX_STAT) ==
+		    USB_EP_TX_STAT_STALL)
 			return 1;
-        } else {
-		if ((*USB_EP_REG(addr) & USB_EP_RX_STAT) == 
-						USB_EP_RX_STAT_STALL)
+	} else {
+		if ((*USB_EP_REG(addr) & USB_EP_RX_STAT) ==
+		    USB_EP_RX_STAT_STALL)
 			return 1;
 	}
 	return 0;
 }
 
-/** Copy a data buffer to Packet Memory.
- *  @param PM     Destination pointer into packet memory.
- *  @param buf    Source pointer to data buffer.
- *  @param len    Number of bytes to copy.
+/**
+ * Copy a data buffer to packet memory.
+ *
+ * @param PM Destination pointer into packet memory.
+ * @param buf Source pointer to data buffer.
+ * @param len Number of bytes to copy.
  */
-static inline void 
-usb_copy_to_pm(volatile void *vPM, const void *buf, u16 len)
+static void usb_copy_to_pm(volatile void *vPM, const void *buf, u16 len)
 {
-        const u16 *lbuf = buf;
+	const u16 *lbuf = buf;
 	volatile u16 *PM = vPM;
 
-        for(len = (len + 1) >> 1; len; PM += 2, lbuf++, len--)
-                *PM = *lbuf;
+	for (len = (len + 1) >> 1; len; PM += 2, lbuf++, len--)
+		*PM = *lbuf;
 }
 
 u16 usbd_ep_write_packet(u8 addr, const void *buf, u16 len)
 {
 	addr &= 0x7F;
 
-	if((*USB_EP_REG(addr) & USB_EP_TX_STAT) == USB_EP_TX_STAT_VALID) 
+	if ((*USB_EP_REG(addr) & USB_EP_TX_STAT) == USB_EP_TX_STAT_VALID)
 		return 0;
 
 	usb_copy_to_pm(USB_GET_EP_TX_BUFF(addr), buf, len);
@@ -176,27 +183,29 @@ u16 usbd_ep_write_packet(u8 addr, const void *buf, u16 len)
 	return len;
 }
 
-/** Copy a data buffer from Packet Memory.
- *  @param buf    Source pointer to data buffer.
- *  @param PM     Destination pointer into packet memory.
- *  @param len    Number of bytes to copy.
+/**
+ * Copy a data buffer from Packet Memory.
+ *
+ * @param buf Source pointer to data buffer.
+ * @param PM Destination pointer into packet memory.
+ * @param len Number of bytes to copy.
  */
-static inline void 
-usb_copy_from_pm(void *buf, const volatile void *vPM, u16 len)
+static void usb_copy_from_pm(void *buf, const volatile void *vPM, u16 len)
 {
-        u16 *lbuf = buf;
+	u16 *lbuf = buf;
 	const volatile u16 *PM = vPM;
-        u8 odd = len & 1;
+	u8 odd = len & 1;
 
-        for(len >>= 1; len; PM += 2, lbuf++, len--)
-                *lbuf = *PM;
+	for (len >>= 1; len; PM += 2, lbuf++, len--)
+		*lbuf = *PM;
 
-        if(odd) *(u8*)lbuf = *(u8*)PM;
+	if (odd)
+		*(u8 *) lbuf = *(u8 *) PM;
 }
 
 u16 usbd_ep_read_packet(u8 addr, void *buf, u16 len)
 {
-	if((*USB_EP_REG(addr) & USB_EP_RX_STAT) == USB_EP_RX_STAT_VALID) 
+	if ((*USB_EP_REG(addr) & USB_EP_RX_STAT) == USB_EP_RX_STAT_VALID)
 		return 0;
 
 	len = MIN(USB_GET_EP_RX_COUNT(addr) & 0x3ff, len);
@@ -212,39 +221,38 @@ void usbd_poll(void)
 {
 	u16 istr = *USB_ISTR_REG;
 
-	if(istr & USB_ISTR_RESET) {
+	if (istr & USB_ISTR_RESET) {
 		_usbd_device.pm_top = 0x40;
 		_usbd_reset();
 		USB_CLR_ISTR_RESET();
 		return;
-	} 
+	}
 
-	if(istr & USB_ISTR_CTR) {
+	if (istr & USB_ISTR_CTR) {
 		u8 ep = istr & USB_ISTR_EP_ID;
 		u8 type = (istr & USB_ISTR_DIR) ? 1 : 0;
 
-		if(type) {	/* OUT or SETUP transaction */
+		if (type) /* OUT or SETUP transaction */
 			type += (*USB_EP_REG(ep) & USB_EP_SETUP) ? 1 : 0;
-		} else {	/* IN transaction */
+		else /* IN transaction */
 			USB_CLR_EP_TX_CTR(ep);
-		}
 
-		if(_usbd_device.user_callback_ctr[ep][type])
-			_usbd_device.user_callback_ctr[ep][type](ep);
+		if (_usbd_device.user_callback_ctr[ep][type])
+			_usbd_device.user_callback_ctr[ep][type] (ep);
 	}
 
-	if(istr & USB_ISTR_SUSP) {
+	if (istr & USB_ISTR_SUSP) {
 		USB_CLR_ISTR_SUSP();
-		if(_usbd_device.user_callback_suspend)
+		if (_usbd_device.user_callback_suspend)
 			_usbd_device.user_callback_suspend();
 	}
 
-	if(istr & USB_ISTR_WKUP) {
+	if (istr & USB_ISTR_WKUP) {
 		USB_CLR_ISTR_WKUP();
-		if(_usbd_device.user_callback_resume)
+		if (_usbd_device.user_callback_resume)
 			_usbd_device.user_callback_resume();
 	}
 
-	if(istr & USB_ISTR_SOF) 
+	if (istr & USB_ISTR_SOF)
 		USB_CLR_ISTR_SOF();
 }

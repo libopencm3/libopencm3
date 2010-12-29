@@ -28,4 +28,3 @@ void scb_reset_system(void)
 {
 	SCB_AIRCR = SCB_AIRCR_VECTKEY | SCB_AIRCR_SYSRESETREQ;
 }
-

@@ -62,5 +62,3 @@ u8 systick_get_countflag(void)
 	else
 		return 0;	
 }
-
-

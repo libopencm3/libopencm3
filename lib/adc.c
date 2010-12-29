@@ -373,4 +373,3 @@ void adc_set_injected_sequence(u32 adc, u8 length, u8 channel[])
 
 	ADC_JSQR(adc) = reg32;
 }
-

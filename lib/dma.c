@@ -541,5 +541,3 @@ void dma_set_number_of_data(u32 dma, u8 channel, u16 number)
 				DMA_CNDTR7(dma) = number;
 	}
 }
-
-

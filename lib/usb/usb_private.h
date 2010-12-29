@@ -65,12 +65,11 @@ void _usbd_control_in(u8 ea);
 void _usbd_control_out(u8 ea);
 void _usbd_control_setup(u8 ea);
 
-int _usbd_standard_request(struct usb_setup_data *req, 
-				u8 **buf, u16 *len);
+int _usbd_standard_request(struct usb_setup_data *req, u8 **buf, u16 *len);
 
 void _usbd_reset(void);
 
-/* Functions provided by the hardware abstraction */
+/* Functions provided by the hardware abstraction. */
 void _usbd_hw_init(void);
 void _usbd_hw_set_address(u8 addr);
 void _usbd_hw_endpoints_reset(void);
