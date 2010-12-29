@@ -55,44 +55,38 @@ images: $(BINARY).images
 flash: $(BINARY).flash
 
 %.images: %.bin %.hex %.srec %.list
-	@echo "*** $* images generated ***"
+	@#echo "*** $* images generated ***"
 
 %.bin: %.elf
-	@printf "  OBJCOPY $(*).bin\n"
+	@#printf "  OBJCOPY $(*).bin\n"
 	$(Q)$(OBJCOPY) -Obinary $(*).elf $(*).bin
 
 %.hex: %.elf
-	@printf "  OBJCOPY $(*).hex\n"
+	@#printf "  OBJCOPY $(*).hex\n"
 	$(Q)$(OBJCOPY) -Oihex $(*).elf $(*).hex
 
 %.srec: %.elf
-	@printf "  OBJCOPY $(*).srec\n"
+	@#printf "  OBJCOPY $(*).srec\n"
 	$(Q)$(OBJCOPY) -Osrec $(*).elf $(*).srec
 
 %.list: %.elf
-	@printf "  OBJDUMP $(*).list\n"
+	@#printf "  OBJDUMP $(*).list\n"
 	$(Q)$(OBJDUMP) -S $(*).elf > $(*).list
 
 %.elf: $(OBJS) $(LDSCRIPT)
-	@printf "  LD      $(subst $(shell pwd)/,,$(@))\n"
+	@#printf "  LD      $(subst $(shell pwd)/,,$(@))\n"
 	$(Q)$(LD) $(LDFLAGS) -o $(*).elf $(OBJS) -lopenstm32
 
 %.o: %.c Makefile
-	@printf "  CC      $(subst $(shell pwd)/,,$(@))\n"
+	@#printf "  CC      $(subst $(shell pwd)/,,$(@))\n"
 	$(Q)$(CC) $(CFLAGS) -o $@ -c $<
 
 clean:
-	@printf "  CLEAN   $(subst $(shell pwd)/,,$(OBJS))\n"
 	$(Q)rm -f *.o
-	@printf "  CLEAN   *.elf\n"
 	$(Q)rm -f *.elf
-	@printf "  CLEAN   *.bin\n"
 	$(Q)rm -f *.bin
-	@printf "  CLEAN   *.hex\n"
 	$(Q)rm -f *.hex
-	@printf "  CLEAN   *.srec\n"
 	$(Q)rm -f *.srec
-	@printf "  CLEAN   *.list\n"
 	$(Q)rm -f *.list
 
 ifeq ($(OOCD_SERIAL),)

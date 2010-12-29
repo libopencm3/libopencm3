@@ -50,9 +50,8 @@ $(LIBNAME).a: $(OBJS)
 	$(Q)$(CC) $(CFLAGS) -o $@ -c $<
 
 clean:
-	@printf "  CLEAN   $(subst $(shell pwd)/,,$(OBJS))\n"
+	@printf "  CLEAN   lib\n"
 	$(Q)rm -f *.o
-	@printf "  CLEAN   $(LIBNAME).a\n"
 	$(Q)rm -f $(LIBNAME).a
 
 .PHONY: clean
