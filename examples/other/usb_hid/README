@@ -5,39 +5,3 @@ README
 This example implements a USB Human Interface Device (HID)
 to demonstrate the use of the USB device stack.
 
-Building
---------
-
- $ make
-
-Running 'make' on the top-level libopenstm32 directory will automatically
-also build this example. Or you can build the library "manually" and
-then run 'make' in this directory.
-
-You may want to override the toolchain (e.g., arm-elf or arm-none-eabi):
-
- $ PREFIX=arm-none-eabi make
-
-For a more verbose build you can use
-
- $ make V=1
-
-
-Flashing
---------
-
-You can flash the generated code using OpenOCD:
-
- $ make flash
-
-Or you can do the same manually via:
-
- $ openocd -f interface/jtagkey-tiny.cfg -f target/stm32.cfg
- $ telnet localhost 4444
- > reset halt
- > flash write_image erase systick.hex
- > reset
-
-Replace the "jtagkey-tiny.cfg" with whatever JTAG device you are using, and/or
-replace "stm32.cfg" with your respective config file.
-

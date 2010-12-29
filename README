@@ -52,6 +52,18 @@ The Makefiles of the examples are configured to use a certain OpenOCD
 flash programmer, you might need to change some of the variables in the
 Makefile if you use a different one.
 
+You can also flash manually like this:
+
+ $ openocd -f interface/jtagkey-tiny.cfg -f target/stm32.cfg
+ $ telnet localhost 4444
+ > reset halt
+ > flash write_image erase foobar.hex
+ > reset
+
+Replace the "jtagkey-tiny.cfg" with whatever JTAG device you are using, and/or
+replace "stm32.cfg" with your respective config file. Replace "foobar.hex"
+with the file name of the image you want to flash.
+
 
 Installation
 ------------

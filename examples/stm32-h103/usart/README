@@ -8,40 +8,6 @@ for details).
 
 The terminal settings for the receiving device/PC are 38400 8n1.
 
-
-Building
---------
-
- $ make
-
-Running 'make' on the top-level libopenstm32 directory will automatically
-also build this example. Or you can build the library "manually" and
-then run 'make' in this directory.
-
-You may want to override the toolchain (e.g., arm-elf or arm-none-eabi):
-
- $ PREFIX=arm-none-eabi make
-
-For a more verbose build you can use
-
- $ make V=1
-
-
-Flashing
---------
-
-You can flash the generated code on the STM32-H103 board using OpenOCD:
-
- $ make flash
-
-Or you can do the same manually via:
-
- $ openocd -f interface/jtagkey-tiny.cfg -f board/olimex_stm32_h103.cfg
- $ telnet localhost 4444
- > reset halt
- > flash write_image erase usart.hex
- > reset
-
-Replace the "jtagkey-tiny.cfg" with whatever JTAG device you are using, and/or
-replace "olimex_stm32_h103.cfg" with your respective board config file.
+The sending is done in a blocking way in the code, see the usart_irq example
+for a more elaborate USART example.
 

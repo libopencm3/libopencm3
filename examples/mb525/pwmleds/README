@@ -5,43 +5,6 @@ README
 This is a PWM based LED fading example using libopenstm32.
 
 It's intended for the ST STM32-based MB525 eval board (see
-http://www.st.com/stonline/products/literature/um/13472.htm for details). It
-should blink the LED on the board.
-
-
-Building
---------
-
- $ make
-
-Running 'make' on the top-level libopenstm32 directory will automatically
-also build this example. Or you can build the library "manually" and
-then run 'make' in this directory.
-
-You may want to override the toolchain (e.g., arm-elf or arm-none-eabi):
-
- $ PREFIX=arm-none-eabi make
-
-For a more verbose build you can use
-
- $ make V=1
-
-
-Flashing
---------
-
-You can flash the generated code on the MB525 board using OpenOCD:
-
- $ make flash
-
-Or you can do the same manually via:
-
- $ openocd -f interface/jlink.cfg -f board/olimex_stm32_h103.cfg
- $ telnet localhost 4444
- > reset halt
- > flash write_image erase pwmleds.hex
- > reset
-
-Replace the "jlink.cfg" with whatever JTAG device you are using, and/or
-replace "olimex_stm32_h103.cfg" with your respective board config file.
+http://www.st.com/stonline/products/literature/um/13472.htm for details).
+It should blink the LED on the board.
 
