@@ -44,7 +44,7 @@ spi:
 
 usb_cdcacm:
 	@printf "  BUILD   examples/stm32-h103/usb_cdcacm\n"
-	$(Q)$(MAKE) -C spi
+	$(Q)$(MAKE) -C usb_cdcacm
 
 clean:
 	@printf "  CLEAN   examples/stm32-h103/miniblink\n"
