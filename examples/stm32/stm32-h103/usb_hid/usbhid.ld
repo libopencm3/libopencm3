@@ -27,6 +27,6 @@ MEMORY
 }
 
 
-/* Include the common ld script from libopenstm32. */
+/* Include the common ld script. */
 INCLUDE stm32.ld
 

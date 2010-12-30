@@ -17,7 +17,7 @@
  * along with this program.  If not, see <http://www.gnu.org/licenses/>.
  */
 
-/* Generic linker script for STM32 targets using libopenstm32. */
+/* Generic linker script for STM32 targets using libopencm3. */
 
 /* Memory regions must be defined in the ld script which includes this one. */
 

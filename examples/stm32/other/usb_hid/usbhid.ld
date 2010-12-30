@@ -24,6 +24,6 @@ MEMORY
 	ram (rwx) : ORIGIN = 0x20000000, LENGTH = 20K
 }
 
-/* Include the common ld script from libopenstm32. */
+/* Include the common ld script. */
 INCLUDE stm32.ld
 
