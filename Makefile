@@ -1,5 +1,5 @@
 ##
-## This file is part of the libopenstm32 project.
+## This file is part of the libopencm3 project.
 ##
 ## Copyright (C) 2009 Uwe Hermann <uwe@hermann-uwe.de>
 ##
@@ -49,11 +49,10 @@ examples: lib
 
 install: build
 	@printf "  INSTALL headers\n"
-	$(Q)$(INSTALL) -d $(INCDIR)/libopenstm32
+	$(Q)$(INSTALL) -d $(INCDIR)/stm32
 	$(Q)$(INSTALL) -d $(INCDIR)/usb
 	$(Q)$(INSTALL) -d $(LIBDIR)
-	$(Q)$(INSTALL) -m 0644 include/libopenstm32.h $(INCDIR)
-	$(Q)$(INSTALL) -m 0644 include/libopenstm32/*.h $(INCDIR)/libopenstm32
+	$(Q)$(INSTALL) -m 0644 include/stm32/*.h $(INCDIR)/libopencm3
 	$(Q)$(INSTALL) -m 0644 include/usb/*.h $(INCDIR)/usb
 	@printf "  INSTALL lib\n"
 	$(Q)$(INSTALL) -m 0644 lib/*.a $(LIBDIR)
