@@ -33,6 +33,13 @@
 
 /* --- GPIO registers ------------------------------------------------------ */
 
+/* GPIO data register (GPIOn_DATA) */
+#define GPIO_DATA(port)			MMIO32(port + 0x3ffc)
+#define GPIO0_DATA			GPIO_DATA(GPIO0)
+#define GPIO1_DATA			GPIO_DATA(GPIO1)
+#define GPIO2_DATA			GPIO_DATA(GPIO2)
+#define GPIO3_DATA			GPIO_DATA(GPIO3)
+
 /* GPIO data direction register (GPIOn_DIR) */
 #define GPIO_DIR(port)			MMIO32(port + 0x00)
 #define GPIO0_DIR			GPIO_DIR(GPIO0)
