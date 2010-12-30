@@ -41,7 +41,7 @@ lib:
 
 examples: lib
 	@printf "  BUILD   examples\n"
-	$(Q)$(MAKE) -C examples all
+	$(Q)$(MAKE) -C examples/stm32 all
 
 install: build
 	@printf "  INSTALL headers\n"
@@ -57,7 +57,7 @@ install: build
 	$(Q)$(INSTALL) -m 0644 lib/*.ld $(LIBDIR)
 
 clean:
-	$(Q)$(MAKE) -C examples clean
+	$(Q)$(MAKE) -C examples/stm32 clean
 	$(Q)$(MAKE) -C lib clean
 
 .PHONY: build lib examples install clean
