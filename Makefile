@@ -37,7 +37,7 @@ build: lib examples
 
 lib:
 	@printf "  BUILD   lib\n"
-	$(Q)$(MAKE) -C lib all
+	$(Q)$(MAKE) -C lib/stm32 all
 
 examples: lib
 	@printf "  BUILD   examples\n"
@@ -58,7 +58,7 @@ install: build
 
 clean:
 	$(Q)$(MAKE) -C examples/stm32 clean
-	$(Q)$(MAKE) -C lib clean
+	$(Q)$(MAKE) -C lib/stm32 clean
 
 .PHONY: build lib examples install clean
 
