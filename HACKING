@@ -18,7 +18,7 @@ Development guidelines
    existing files for examples.
 
  - In general, please try to keep the register and bit naming as close
-   as possible to the official ST datasheets. Among other reasons, this
+   as possible to the official vendor datasheets. Among other reasons, this
    makes it easier for users to find what they're looking for in the
    datasheets, programming manuals, and application notes.
 

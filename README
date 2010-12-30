@@ -2,20 +2,25 @@
 README
 ------------------------------------------------------------------------------
 
-The libopenstm32 project aims to create an open-source firmware library for
-STM32 microcontrollers.
+The libopencm3 project aims to create an open-source firmware library for
+various ARM Cortex-M3 microcontrollers.
 
-It is written completely from scratch based on the STM32 datasheets,
+Currently (at least partly) supported microcontrollers:
+
+ - ST STM32
+ - NXP LPC1311/13/42/43
+
+The library is written completely from scratch based on the vendor datasheets,
 programming manuals, and application notes. The code is meant to be used
 with a GCC toolchain for ARM (arm-elf or arm-none-eabi), flashing of the
-code to an STM32 device can be done using the OpenOCD ARM JTAG software.
+code to a microcontroller can be done using the OpenOCD ARM JTAG software.
 
 
 Status and API
 --------------
 
-The libopenstm32 project is currently work in progress. Not all subsystems
-of the STM32 are supported, yet.
+The libopencm3 project is currently work in progress. Not all subsystems
+of the microcontrollers are supported, yet.
 
 IMPORTANT: The API of the library is NOT yet considered stable! Please do
            not rely on it, yet! Changes to function names, macro names etc.
@@ -39,13 +44,13 @@ Example projects
 ----------------
 
 The library ships with a few small example projects which illustrate how
-individual subsystems of the SMT32 can be configured and used with
-libopenstm32.
+individual subsystems of the microcontrollers can be configured and used with
+libopencm3.
 
-For flashing the 'miniblink' example (after you built libopenstm32 and the
+For flashing the 'miniblink' example (after you built libopencm3 and the
 examples by typing 'make' at the top-level directory) you can execute:
 
- $ cd examples/stm32-h103/miniblink
+ $ cd examples/stm32/stm32-h103/miniblink
  $ make flash
 
 The Makefiles of the examples are configured to use a certain OpenOCD
@@ -85,7 +90,7 @@ See HACKING.
 License
 -------
 
-The libopenstm32 code is released under the terms of the GNU General
+The libopencm3 code is released under the terms of the GNU General
 Public License (GPL), version 3 or later.
 
 See COPYING for details.

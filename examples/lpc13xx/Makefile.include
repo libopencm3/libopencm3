@@ -36,6 +36,7 @@ OBJS		+= $(BINARY).o
 OOCD		?= openocd
 OOCD_INTERFACE	?= flossjtag
 OOCD_BOARD	?= olimex_stm32_h103
+# FIXME
 
 # Be silent per default, but 'make V=1' will show all compiler calls.
 ifneq ($(V),1)
@@ -89,6 +90,7 @@ clean:
 	$(Q)rm -f *.srec
 	$(Q)rm -f *.list
 
+# FIXME: Replace STM32 stuff with proper LPC13XX OpenOCD support later.
 ifeq ($(OOCD_SERIAL),)
 %.flash: %.hex
 	@printf "  FLASH   $<\n"
