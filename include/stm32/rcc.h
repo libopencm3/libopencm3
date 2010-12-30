@@ -21,7 +21,7 @@
 #ifndef LIBOPENSTM32_RCC_H
 #define LIBOPENSTM32_RCC_H
 
-#include <libopenstm32/memorymap.h>
+#include <stm32/memorymap.h>
 #include <cm3/common.h>
 
 /* Note: Regs/bits marked (**) only exist in "connectivity line" STM32s. */

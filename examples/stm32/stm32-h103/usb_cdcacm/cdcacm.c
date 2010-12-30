@@ -18,8 +18,8 @@
  */
 
 #include <stdlib.h>
-#include <libopenstm32/rcc.h>
-#include <libopenstm32/gpio.h>
+#include <stm32/rcc.h>
+#include <stm32/gpio.h>
 #include <usb/usbd.h>
 #include <usb/cdc.h>
 

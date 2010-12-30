@@ -20,7 +20,7 @@
 #ifndef LIBOPENSTM32_DMA_H
 #define LIBOPENSTM32_DMA_H
 
-#include <libopenstm32/memorymap.h>
+#include <stm32/memorymap.h>
 #include <cm3/common.h>
 
 /* --- Convenience macros -------------------------------------------------- */

@@ -18,9 +18,9 @@
  * along with this program.  If not, see <http://www.gnu.org/licenses/>.
  */
 
-#include <libopenstm32/rcc.h>
-#include <libopenstm32/rtc.h>
-#include <libopenstm32/pwr.h>
+#include <stm32/rcc.h>
+#include <stm32/rtc.h>
+#include <stm32/pwr.h>
 
 void rtc_awake_from_off(osc_t clock_source)
 {

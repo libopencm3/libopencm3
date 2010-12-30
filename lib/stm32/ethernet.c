@@ -17,7 +17,7 @@
  * along with this program.  If not, see <http://www.gnu.org/licenses/>.
  */
 
-#include <libopenstm32/ethernet.h>
+#include <stm32/ethernet.h>
 
 void eth_smi_write(u8 phy, u8 reg, u16 data)
 {

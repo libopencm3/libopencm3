@@ -21,7 +21,7 @@
 #ifndef LIBOPENSTM32_SCB_H
 #define LIBOPENSTM32_SCB_H
 
-#include <libopenstm32/memorymap.h>
+#include <stm32/memorymap.h>
 #include <cm3/common.h>
 
 /* --- SCB: Registers ------------------------------------------------------ */

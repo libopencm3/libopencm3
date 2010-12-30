@@ -25,7 +25,7 @@
  *                 TIM_CR1_CMS_CENTRE_3, TIM_CR1_DIR_UP);
  */
 
-#include <libopenstm32/timer.h>
+#include <stm32/timer.h>
 
 void timer_set_mode(u32 timer_peripheral, u8 clock_div, u8 alignment,
 		    u8 direction)

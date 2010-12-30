@@ -17,7 +17,7 @@
  * along with this program.  If not, see <http://www.gnu.org/licenses/>.
  */
 
-#include <libopenstm32/scb.h>
+#include <stm32/scb.h>
 
 void scb_reset_core(void)
 {

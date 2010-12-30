@@ -18,12 +18,12 @@
  * along with this program.  If not, see <http://www.gnu.org/licenses/>.
  */
 
-#include <libopenstm32/rcc.h>
-#include <libopenstm32/flash.h>
-#include <libopenstm32/gpio.h>
-#include <libopenstm32/nvic.h>
-#include <libopenstm32/systick.h>
-#include <libopenstm32/can.h>
+#include <stm32/rcc.h>
+#include <stm32/flash.h>
+#include <stm32/gpio.h>
+#include <stm32/nvic.h>
+#include <stm32/systick.h>
+#include <stm32/can.h>
 
 struct can_tx_msg {
 	u32 std_id;

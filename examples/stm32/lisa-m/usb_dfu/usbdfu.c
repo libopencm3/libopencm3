@@ -18,10 +18,10 @@
  */
 
 #include <string.h>
-#include <libopenstm32/rcc.h>
-#include <libopenstm32/gpio.h>
-#include <libopenstm32/flash.h>
-#include <libopenstm32/scb.h>
+#include <stm32/rcc.h>
+#include <stm32/gpio.h>
+#include <stm32/flash.h>
+#include <stm32/scb.h>
 #include <usb/usbd.h>
 #include <usb/dfu.h>
 

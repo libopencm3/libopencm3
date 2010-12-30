@@ -20,7 +20,7 @@
 #ifndef LIBOPENSTM32_PWR_H
 #define LIBOPENSTM32_PWR_H
 
-#include <libopenstm32/memorymap.h>
+#include <stm32/memorymap.h>
 #include <cm3/common.h>
 
 /* --- PWR registers ------------------------------------------------------- */

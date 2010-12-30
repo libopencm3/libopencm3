@@ -18,9 +18,9 @@
  */
 
 #include <stdlib.h>
-#include <libopenstm32/rcc.h>
-#include <libopenstm32/gpio.h>
-#include <libopenstm32/systick.h>
+#include <stm32/rcc.h>
+#include <stm32/gpio.h>
+#include <stm32/systick.h>
 #include <usb/usbd.h>
 #include <usb/hid.h>
 
@@ -28,7 +28,7 @@
 #define INCLUDE_DFU_INTERFACE
 
 #ifdef INCLUDE_DFU_INTERFACE
-#include <libopenstm32/scb.h>
+#include <stm32/scb.h>
 #include <usb/dfu.h>
 #endif
 

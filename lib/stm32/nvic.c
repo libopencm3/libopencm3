@@ -17,7 +17,7 @@
  * along with this program.  If not, see <http://www.gnu.org/licenses/>.
  */
 
-#include <libopenstm32/nvic.h>
+#include <stm32/nvic.h>
 
 void nvic_enable_irq(u8 irqn)
 {

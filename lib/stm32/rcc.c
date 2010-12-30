@@ -19,8 +19,8 @@
  * along with this program.  If not, see <http://www.gnu.org/licenses/>.
  */
 
-#include <libopenstm32/rcc.h>
-#include <libopenstm32/flash.h>
+#include <stm32/rcc.h>
+#include <stm32/flash.h>
 
 void rcc_osc_ready_int_clear(osc_t osc)
 {

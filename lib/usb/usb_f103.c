@@ -18,8 +18,8 @@
  */
 
 #include <cm3/common.h>
-#include <libopenstm32/tools.h>
-#include <libopenstm32/usb.h>
+#include <stm32/tools.h>
+#include <stm32/usb.h>
 #include <usb/usbd.h>
 #include "usb_private.h"
 

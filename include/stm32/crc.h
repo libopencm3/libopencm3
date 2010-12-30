@@ -20,7 +20,7 @@
 #ifndef LIBOPENSTM32_CRC_H
 #define LIBOPENSTM32_CRC_H
 
-#include <libopenstm32/memorymap.h>
+#include <stm32/memorymap.h>
 #include <cm3/common.h>
 
 /* --- CRC registers ------------------------------------------------------- */

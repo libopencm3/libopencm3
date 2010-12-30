@@ -20,9 +20,9 @@
 #ifndef LIBOPENSTM32_USB_H
 #define LIBOPENSTM32_USB_H
 
-#include <libopenstm32/memorymap.h>
+#include <stm32/memorymap.h>
 #include <cm3/common.h>
-#include <libopenstm32/tools.h>
+#include <stm32/tools.h>
 
 /* --- USB base addresses -------------------------------------------------- */
 

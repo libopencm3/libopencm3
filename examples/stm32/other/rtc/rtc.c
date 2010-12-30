@@ -17,12 +17,12 @@
  * along with this program.  If not, see <http://www.gnu.org/licenses/>.
  */
 
-#include <libopenstm32/rcc.h>
-#include <libopenstm32/gpio.h>
-#include <libopenstm32/usart.h>
-#include <libopenstm32/rtc.h>
-#include <libopenstm32/pwr.h>
-#include <libopenstm32/nvic.h>
+#include <stm32/rcc.h>
+#include <stm32/gpio.h>
+#include <stm32/usart.h>
+#include <stm32/rtc.h>
+#include <stm32/pwr.h>
+#include <stm32/nvic.h>
 
 void clock_setup(void)
 {

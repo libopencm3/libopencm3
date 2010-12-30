@@ -34,7 +34,7 @@
  *  - GPIO remapping support
  */
 
-#include <libopenstm32/gpio.h>
+#include <stm32/gpio.h>
 
 void gpio_set_mode(u32 gpioport, u8 mode, u8 cnf, u16 gpios)
 {

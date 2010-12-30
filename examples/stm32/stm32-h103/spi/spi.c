@@ -17,8 +17,8 @@
  * along with this program.  If not, see <http://www.gnu.org/licenses/>.
  */
 
-#include <libopenstm32/rcc.h>
-#include <libopenstm32/spi.h>
+#include <stm32/rcc.h>
+#include <stm32/spi.h>
 
 void clock_setup(void)
 {

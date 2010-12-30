@@ -17,11 +17,11 @@
  * along with this program.  If not, see <http://www.gnu.org/licenses/>.
  */
 
-#include <libopenstm32/rcc.h>
-#include <libopenstm32/flash.h>
-#include <libopenstm32/gpio.h>
-#include <libopenstm32/timer.h>
-#include <libopenstm32/nvic.h>
+#include <stm32/rcc.h>
+#include <stm32/flash.h>
+#include <stm32/gpio.h>
+#include <stm32/timer.h>
+#include <stm32/nvic.h>
 
 void gpio_setup(void)
 {
