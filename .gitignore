@@ -1,5 +1,4 @@
 *.o
-examples/miniblink/miniblink
 *.bin
 *.hex
 *.list
