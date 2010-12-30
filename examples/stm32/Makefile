@@ -27,35 +27,35 @@ endif
 all: stm32-h103 mb525 lisa-m obldc other
 
 stm32-h103:
-	@printf "  BUILD   examples/stm32-h103\n"
+	@printf "  BUILD   examples/stm32/stm32-h103\n"
 	$(Q)$(MAKE) -C stm32-h103
 
 mb525:
-	@printf "  BUILD   examples/mb525\n"
+	@printf "  BUILD   examples/stm32/mb525\n"
 	$(Q)$(MAKE) -C mb525
 
 lisa-m:
-	@printf "  BUILD   examples/lisa-m\n"
+	@printf "  BUILD   examples/stm32/lisa-m\n"
 	$(Q)$(MAKE) -C lisa-m
 
 other:
-	@printf "  BUILD   examples/other\n"
+	@printf "  BUILD   examples/stm32/other\n"
 	$(Q)$(MAKE) -C other
 
 obldc:
-	@printf "  BUILD   examples/obldc\n"
+	@printf "  BUILD   examples/stm32/obldc\n"
 	$(Q)$(MAKE) -C obldc
 
 clean:
-	@printf "  CLEAN   examples/stm32-h103\n"
+	@printf "  CLEAN   examples/stm32/stm32-h103\n"
 	$(Q)$(MAKE) -C stm32-h103 clean
-	@printf "  CLEAN   examples/mb525\n"
+	@printf "  CLEAN   examples/stm32/mb525\n"
 	$(Q)$(MAKE) -C mb525 clean
-	@printf "  CLEAN   examples/lisa-m\n"
+	@printf "  CLEAN   examples/stm32/lisa-m\n"
 	$(Q)$(MAKE) -C lisa-m clean
-	@printf "  CLEAN   examples/other\n"
+	@printf "  CLEAN   examples/stm32/other\n"
 	$(Q)$(MAKE) -C other clean
-	@printf "  CLEAN   examples/obldc\n"
+	@printf "  CLEAN   examples/stm32/obldc\n"
 	$(Q)$(MAKE) -C obldc clean
 
 .PHONY: stm32-h103 mb525 lisa-m other obldc clean

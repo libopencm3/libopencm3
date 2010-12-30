@@ -27,65 +27,65 @@ endif
 all: i2c_stts75_sensor adc_temperature_sensor dma_mem2mem timer_interrupt systick dogm128 rtc usb_cdcacm usb_dfu usb_hid
 
 i2c_stts75_sensor:
-	@printf "  BUILD   examples/other/i2c_stts75_sensor\n"
+	@printf "  BUILD   examples/stm32/other/i2c_stts75_sensor\n"
 	$(Q)$(MAKE) -C i2c_stts75_sensor
 
 adc_temperature_sensor:
-	@printf "  BUILD   examples/other/adc_temperature_sensor\n"
+	@printf "  BUILD   examples/stm32/other/adc_temperature_sensor\n"
 	$(Q)$(MAKE) -C adc_temperature_sensor
 
 dma_mem2mem:
-	@printf "  BUILD   examples/other/dma_mem2mem\n"
+	@printf "  BUILD   examples/stm32/other/dma_mem2mem\n"
 	$(Q)$(MAKE) -C dma_mem2mem
 
 timer_interrupt:
-	@printf "  BUILD   examples/other/timer_interrupt\n"
+	@printf "  BUILD   examples/stm32/other/timer_interrupt\n"
 	$(Q)$(MAKE) -C timer_interrupt
 
 systick:
-	@printf "  BUILD   examples/other/systick\n"
+	@printf "  BUILD   examples/stm32/other/systick\n"
 	$(Q)$(MAKE) -C systick
 
 dogm128:
-	@printf "  BUILD   examples/other/dogm128\n"
+	@printf "  BUILD   examples/stm32/other/dogm128\n"
 	$(Q)$(MAKE) -C dogm128
 
 rtc:
-	@printf "  BUILD   examples/other/rtc\n"
+	@printf "  BUILD   examples/stm32/other/rtc\n"
 	$(Q)$(MAKE) -C rtc
 
 usb_cdcacm:
-	@printf "  BUILD   examples/other/usb_cdcacm\n"
+	@printf "  BUILD   examples/stm32/other/usb_cdcacm\n"
 	$(Q)$(MAKE) -C usb_cdcacm
 
 usb_dfu:
-	@printf "  BUILD   examples/other/usb_dfu\n"
+	@printf "  BUILD   examples/stm32/other/usb_dfu\n"
 	$(Q)$(MAKE) -C usb_dfu
 
 usb_hid:
-	@printf "  BUILD   examples/other/usb_hid\n"
+	@printf "  BUILD   examples/stm32/other/usb_hid\n"
 	$(Q)$(MAKE) -C usb_hid
 
 clean:
-	@printf "  CLEAN   examples/other/i2c_stts75_sensor\n"
+	@printf "  CLEAN   examples/stm32/other/i2c_stts75_sensor\n"
 	$(Q)$(MAKE) -C i2c_stts75_sensor clean
-	@printf "  CLEAN   examples/other/adc_temperature_sensor\n"
+	@printf "  CLEAN   examples/stm32/other/adc_temperature_sensor\n"
 	$(Q)$(MAKE) -C adc_temperature_sensor clean
-	@printf "  CLEAN   examples/other/dma_mem2mem\n"
+	@printf "  CLEAN   examples/stm32/other/dma_mem2mem\n"
 	$(Q)$(MAKE) -C dma_mem2mem clean
-	@printf "  CLEAN   examples/other/timer_interrupt\n"
+	@printf "  CLEAN   examples/stm32/other/timer_interrupt\n"
 	$(Q)$(MAKE) -C timer_interrupt clean
-	@printf "  CLEAN   examples/other/systick\n"
+	@printf "  CLEAN   examples/stm32/other/systick\n"
 	$(Q)$(MAKE) -C systick clean
-	@printf "  CLEAN   examples/other/dogm128\n"
+	@printf "  CLEAN   examples/stm32/other/dogm128\n"
 	$(Q)$(MAKE) -C dogm128 clean
-	@printf "  CLEAN   examples/other/rtc\n"
+	@printf "  CLEAN   examples/stm32/other/rtc\n"
 	$(Q)$(MAKE) -C rtc clean
-	@printf "  CLEAN   examples/other/usb_cdcacm\n"
+	@printf "  CLEAN   examples/stm32/other/usb_cdcacm\n"
 	$(Q)$(MAKE) -C usb_cdcacm clean
-	@printf "  CLEAN   examples/other/usb_dfu\n"
+	@printf "  CLEAN   examples/stm32/other/usb_dfu\n"
 	$(Q)$(MAKE) -C usb_dfu clean
-	@printf "  CLEAN   examples/other/usb_hid\n"
+	@printf "  CLEAN   examples/stm32/other/usb_hid\n"
 	$(Q)$(MAKE) -C usb_hid clean
 
 .PHONY: i2c_stts75_sensor adc_temperature_sensor dma_mem2mem timer_interrupt systick dogm128 rtc clean usb_cdcacm usb_dfu usb_hid

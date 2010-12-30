@@ -27,29 +27,29 @@ endif
 all: led systick usart can
 
 led:
-	@printf "  BUILD   examples/obldc/led\n"
+	@printf "  BUILD   examples/stm32/obldc/led\n"
 	$(Q)$(MAKE) -C led
 
 systick:
-	@printf "  BUILD   examples/obldc/systick\n"
+	@printf "  BUILD   examples/stm32/obldc/systick\n"
 	$(Q)$(MAKE) -C systick
 
 usart:
-	@printf "  BUILD   examples/obldc/usart\n"
+	@printf "  BUILD   examples/stm32/obldc/usart\n"
 	$(Q)$(MAKE) -C usart
 
 can:
-	@printf "  BUILD   examples/obldc/can\n"
+	@printf "  BUILD   examples/stm32/obldc/can\n"
 	$(Q)$(MAKE) -C can
 
 clean:
-	@printf "  CLEAN   examples/obldc/led\n"
+	@printf "  CLEAN   examples/stm32/obldc/led\n"
 	$(Q)$(MAKE) -C led clean
-	@printf "  CLEAN   examples/obldc/systick\n"
+	@printf "  CLEAN   examples/stm32/obldc/systick\n"
 	$(Q)$(MAKE) -C systick clean
-	@printf "  CLEAN   examples/obldc/usart\n"
+	@printf "  CLEAN   examples/stm32/obldc/usart\n"
 	$(Q)$(MAKE) -C usart clean
-	@printf "  CLEAN   examples/obldc/can\n"
+	@printf "  CLEAN   examples/stm32/obldc/can\n"
 	$(Q)$(MAKE) -C can clean
 
 .PHONY: led systick usart can

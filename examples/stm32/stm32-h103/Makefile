@@ -27,41 +27,41 @@ endif
 all: miniblink fancyblink usart usb_cdcacm usb_hid
 
 miniblink:
-	@printf "  BUILD   examples/stm32-h103/miniblink\n"
+	@printf "  BUILD   examples/stm32/stm32-h103/miniblink\n"
 	$(Q)$(MAKE) -C miniblink
 
 fancyblink:
-	@printf "  BUILD   examples/stm32-h103/fancyblink\n"
+	@printf "  BUILD   examples/stm32/stm32-h103/fancyblink\n"
 	$(Q)$(MAKE) -C fancyblink
 
 usart:
-	@printf "  BUILD   examples/stm32-h103/usart\n"
+	@printf "  BUILD   examples/stm32/stm32-h103/usart\n"
 	$(Q)$(MAKE) -C usart
 
 spi:
-	@printf "  BUILD   examples/stm32-h103/spi\n"
+	@printf "  BUILD   examples/stm32/stm32-h103/spi\n"
 	$(Q)$(MAKE) -C spi
 
 usb_cdcacm:
-	@printf "  BUILD   examples/stm32-h103/usb_cdcacm\n"
+	@printf "  BUILD   examples/stm32/stm32-h103/usb_cdcacm\n"
 	$(Q)$(MAKE) -C usb_cdcacm
 
 usb_hid:
-	@printf "  BUILD   examples/stm32-h103/usb_hid\n"
+	@printf "  BUILD   examples/stm32/stm32-h103/usb_hid\n"
 	$(Q)$(MAKE) -C usb_hid
 
 clean:
-	@printf "  CLEAN   examples/stm32-h103/miniblink\n"
+	@printf "  CLEAN   examples/stm32/stm32-h103/miniblink\n"
 	$(Q)$(MAKE) -C miniblink clean
-	@printf "  CLEAN   examples/stm32-h103/fancyblink\n"
+	@printf "  CLEAN   examples/stm32/stm32-h103/fancyblink\n"
 	$(Q)$(MAKE) -C fancyblink clean
-	@printf "  CLEAN   examples/stm32-h103/usart\n"
+	@printf "  CLEAN   examples/stm32/stm32-h103/usart\n"
 	$(Q)$(MAKE) -C usart clean
-	@printf "  CLEAN   examples/stm32-h103/spi\n"
+	@printf "  CLEAN   examples/stm32/stm32-h103/spi\n"
 	$(Q)$(MAKE) -C spi clean
-	@printf "  CLEAN   examples/stm32-h103/usb_cdcacm\n"
+	@printf "  CLEAN   examples/stm32/stm32-h103/usb_cdcacm\n"
 	$(Q)$(MAKE) -C usb_cdcacm clean
-	@printf "  CLEAN   examples/stm32-h103/usb_hid\n"
+	@printf "  CLEAN   examples/stm32/stm32-h103/usb_hid\n"
 	$(Q)$(MAKE) -C usb_hid clean
 
 .PHONY: miniblink fancyblink usart spi usb_cdcacm usb_hid clean

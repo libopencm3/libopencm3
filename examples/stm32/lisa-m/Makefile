@@ -28,11 +28,11 @@ endif
 all: usb_hid
 
 usb_hid:
-	@printf "  BUILD   examples/lisa-m/usb_hid\n"
+	@printf "  BUILD   examples/stm32/lisa-m/usb_hid\n"
 	$(Q)$(MAKE) -C usb_hid
 
 clean:
-	@printf "  CLEAN   examples/lisa-m/usb_hid\n"
+	@printf "  CLEAN   examples/stm32/lisa-m/usb_hid\n"
 	$(Q)$(MAKE) -C usb_hid clean
 
 .PHONY: usb_hid clean

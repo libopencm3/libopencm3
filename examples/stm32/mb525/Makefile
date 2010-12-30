@@ -27,17 +27,17 @@ endif
 all: fancyblink pwmleds
 
 fancyblink:
-	@printf "  BUILD   examples/mb525/fancyblink\n"
+	@printf "  BUILD   examples/stm32/mb525/fancyblink\n"
 	$(Q)$(MAKE) -C fancyblink
 
 pwmleds:
-	@printf "  BUILD   examples/mb525/pwmleds\n"
+	@printf "  BUILD   examples/stm32/mb525/pwmleds\n"
 	$(Q)$(MAKE) -C pwmleds
 
 clean:
-	@printf "  CLEAN   examples/mb525/fancyblink\n"
+	@printf "  CLEAN   examples/stm32/mb525/fancyblink\n"
 	$(Q)$(MAKE) -C fancyblink clean
-	@printf "  CLEAN   examples/mb525/pwmleds\n"
+	@printf "  CLEAN   examples/stm32/mb525/pwmleds\n"
 	$(Q)$(MAKE) -C pwmleds clean
 
 .PHONY: fancyblink pwmleds clean
