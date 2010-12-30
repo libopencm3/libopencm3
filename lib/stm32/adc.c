@@ -1,5 +1,5 @@
 /*
- * This file is part of the libopenstm32 project.
+ * This file is part of the libopencm3 project.
  *
  * Copyright (C) 2009 Edward Cheeseman <evbuilder@users.sourceforge.net>
  *
