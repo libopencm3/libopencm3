@@ -76,7 +76,7 @@ flash: $(BINARY).flash
 
 %.elf: $(OBJS) $(LDSCRIPT)
 	@#printf "  LD      $(subst $(shell pwd)/,,$(@))\n"
-	$(Q)$(LD) $(LDFLAGS) -o $(*).elf $(OBJS) -lopenstm32
+	$(Q)$(LD) $(LDFLAGS) -o $(*).elf $(OBJS) -lopencm3_stm32
 
 %.o: %.c Makefile
 	@#printf "  CC      $(subst $(shell pwd)/,,$(@))\n"
