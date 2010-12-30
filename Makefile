@@ -36,12 +36,16 @@ all: build
 build: lib examples
 
 lib:
-	@printf "  BUILD   lib\n"
+	@printf "  BUILD   lib/stm32\n"
 	$(Q)$(MAKE) -C lib/stm32 all
+	@printf "  BUILD   lib/lpc13xx\n"
+	$(Q)$(MAKE) -C lib/lpc13xx all
 
 examples: lib
-	@printf "  BUILD   examples\n"
+	@printf "  BUILD   examples/stm32\n"
 	$(Q)$(MAKE) -C examples/stm32 all
+	@printf "  BUILD   examples/lpc13xx\n"
+	$(Q)$(MAKE) -C examples/lpc13xx all
 
 install: build
 	@printf "  INSTALL headers\n"
@@ -59,6 +63,8 @@ install: build
 clean:
 	$(Q)$(MAKE) -C examples/stm32 clean
 	$(Q)$(MAKE) -C lib/stm32 clean
+	$(Q)$(MAKE) -C examples/lpc13xx clean
+	$(Q)$(MAKE) -C lib/lpc13xx clean
 
 .PHONY: build lib examples install clean
 

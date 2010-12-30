@@ -26,8 +26,6 @@ MEMORY
 	ram (rwx) : ORIGIN = 0x10000000, LENGTH = 8K
 }
 
-/* Include the common ld script from libopenstm32. */
-INCLUDE libopenstm32.ld
-
-/* FIXME: _stack is incorrect in that file, refactor! */
+/* Include the common ld script. */
+INCLUDE lpc13xx.ld
 

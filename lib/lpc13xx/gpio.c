@@ -1,7 +1,7 @@
 /*
  * This file is part of the libopenstm32 project.
  *
- * Copyright (C) 2010 Thomas Otto <tommi@viadmin.org>
+ * Copyright (C) 2010 Uwe Hermann <uwe@hermann-uwe.de>
  *
  * This program is free software: you can redistribute it and/or modify
  * it under the terms of the GNU General Public License as published by
@@ -17,15 +17,9 @@
  * along with this program.  If not, see <http://www.gnu.org/licenses/>.
  */
 
-/* Linker script for an STM32F103RBT6 board (128K flash, 20K RAM). */
+#include <lpc13xx/gpio.h>
 
-/* Define memory regions. */
-MEMORY
+void gpio_set(u32 gpioport, u16 gpios)
 {
-	rom (rx) : ORIGIN = 0x08000000, LENGTH = 128K
-	ram (rwx) : ORIGIN = 0x20000000, LENGTH = 20K
+	GPIO_DATA(gpioport) = gpios;
 }
-
-/* Include the common ld script from libopenstm32. */
-INCLUDE stm32.ld
-
