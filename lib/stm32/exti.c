@@ -17,8 +17,8 @@
  * along with this program.  If not, see <http://www.gnu.org/licenses/>.
  */
 
-#include <stm32/exti.h>
-#include <stm32/gpio.h>
+#include <libopencm3/stm32/exti.h>
+#include <libopencm3/stm32/gpio.h>
 
 void exti_set_trigger(u32 extis, exti_trigger_type trig)
 {

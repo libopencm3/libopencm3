@@ -20,7 +20,7 @@
 #ifndef LPC13XX_MEMORYMAP_H
 #define LPC13XX_MEMORYMAP_H
 
-#include <cm3/common.h>
+#include <libopencm3/cm3/common.h>
 
 /* --- LPC13XX specific peripheral definitions ----------------------------- */
 

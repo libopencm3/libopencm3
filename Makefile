@@ -50,12 +50,12 @@ examples: lib
 install: build
 	@printf "  INSTALL headers\n"
 	$(Q)$(INSTALL) -d $(INCDIR)/libopencm3
-	$(Q)$(INSTALL) -d $(LIBDIR)/libopencm3
-	$(Q)cp -r include/* $(INCDIR)/libopencm3
+	$(Q)$(INSTALL) -d $(LIBDIR)
+	$(Q)cp -r include/libopencm3/* $(INCDIR)/libopencm3
 	@printf "  INSTALL libs\n"
-	$(Q)$(INSTALL) -m 0644 lib/*/*.a $(LIBDIR)/libopencm3
+	$(Q)$(INSTALL) -m 0644 lib/*/*.a $(LIBDIR)
 	@printf "  INSTALL ldscripts\n"
-	$(Q)$(INSTALL) -m 0644 lib/*/*.ld $(LIBDIR)/libopencm3
+	$(Q)$(INSTALL) -m 0644 lib/*/*.ld $(LIBDIR)
 
 clean:
 	$(Q)$(MAKE) -C examples/stm32 clean

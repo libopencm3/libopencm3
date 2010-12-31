@@ -18,7 +18,7 @@
  */
 
 #include <string.h>
-#include <usb/usbd.h>
+#include <libopencm3/usb/usbd.h>
 #include "usb_private.h"
 
 struct _usbd_device _usbd_device;

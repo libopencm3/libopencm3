@@ -17,7 +17,7 @@
  * along with this program.  If not, see <http://www.gnu.org/licenses/>.
  */
 
-#include <stm32/i2c.h>
+#include <libopencm3/stm32/i2c.h>
 #include "stts75.h"
 
 void stts75_write_config(u32 i2c, u8 sensor)

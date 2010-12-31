@@ -17,8 +17,8 @@
  * along with this program.  If not, see <http://www.gnu.org/licenses/>.
  */
 
-// #include <lpc13xx/rcc.h>
-#include <lpc13xx/gpio.h>
+// #include <libopencm3/lpc13xx/rcc.h>
+#include <libopencm3/lpc13xx/gpio.h>
 
 void gpio_setup(void)
 {

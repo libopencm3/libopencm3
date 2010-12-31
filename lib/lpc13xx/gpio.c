@@ -17,7 +17,7 @@
  * along with this program.  If not, see <http://www.gnu.org/licenses/>.
  */
 
-#include <lpc13xx/gpio.h>
+#include <libopencm3/lpc13xx/gpio.h>
 
 void gpio_set(u32 gpioport, u16 gpios)
 {

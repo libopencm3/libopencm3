@@ -17,10 +17,10 @@
  * along with this program.  If not, see <http://www.gnu.org/licenses/>.
  */
 
-#include <cm3/common.h>
-#include <stm32/tools.h>
-#include <stm32/usb.h>
-#include <usb/usbd.h>
+#include <libopencm3/cm3/common.h>
+#include <libopencm3/stm32/tools.h>
+#include <libopencm3/stm32/usb.h>
+#include <libopencm3/usb/usbd.h>
 #include "usb_private.h"
 
 /** Initialize the USB device controller hardware of the STM32. */

@@ -28,11 +28,9 @@ OBJDUMP		= $(PREFIX)-objdump
 # TOOLCHAIN_DIR = `dirname \`which $(CC)\``/../$(PREFIX)
 TOOLCHAIN_DIR   = ../../../..
 CFLAGS		+= -Os -g -Wall -Wextra -I$(TOOLCHAIN_DIR)/include \
-		   -I$(TOOLCHAIN_DIR)/include/libopencm3 -fno-common \
-		   -mcpu=cortex-m3 -mthumb
+		   -fno-common -mcpu=cortex-m3 -mthumb
 LDSCRIPT	= $(BINARY).ld
-LDFLAGS		+= -L$(TOOLCHAIN_DIR)/lib -L$(TOOLCHAIN_DIR)/lib/libopencm3 \
-		   -L$(TOOLCHAIN_DIR)/lib/stm32 \
+LDFLAGS		+= -L$(TOOLCHAIN_DIR)/lib -L$(TOOLCHAIN_DIR)/lib/stm32 \
 		   -T$(LDSCRIPT) -nostartfiles -Wl,--gc-sections
 OBJS		+= $(BINARY).o
 

@@ -18,7 +18,7 @@
  */
 
 #include <string.h>
-#include <usb/usbd.h>
+#include <libopencm3/usb/usbd.h>
 #include "usb_private.h"
 
 void usbd_register_set_config_callback(void (*callback)(u16 wValue))

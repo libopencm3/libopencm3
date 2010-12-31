@@ -17,8 +17,8 @@
  * along with this program.  If not, see <http://www.gnu.org/licenses/>.
  */
 
-#include <stm32/can.h>
-#include <stm32/rcc.h>
+#include <libopencm3/stm32/can.h>
+#include <libopencm3/stm32/rcc.h>
 
 void can_reset(u32 canport)
 {

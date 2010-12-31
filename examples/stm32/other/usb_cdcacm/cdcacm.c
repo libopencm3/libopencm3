@@ -18,10 +18,10 @@
  */
 
 #include <stdlib.h>
-#include <stm32/rcc.h>
-#include <stm32/gpio.h>
-#include <usb/usbd.h>
-#include <usb/cdc.h>
+#include <libopencm3/stm32/rcc.h>
+#include <libopencm3/stm32/gpio.h>
+#include <libopencm3/usb/usbd.h>
+#include <libopencm3/usb/cdc.h>
 
 static const struct usb_device_descriptor dev = {
         .bLength = USB_DT_DEVICE_SIZE,

@@ -20,9 +20,9 @@
 #ifndef LIBOPENCM3_RTC_H
 #define LIBOPENCM3_RTC_H
 
-#include <stm32/memorymap.h>
-#include <cm3/common.h>
-#include <stm32/pwr.h>
+#include <libopencm3/stm32/memorymap.h>
+#include <libopencm3/cm3/common.h>
+#include <libopencm3/stm32/pwr.h>
 
 /* --- RTC registers ------------------------------------------------------- */
 

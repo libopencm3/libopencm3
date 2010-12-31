@@ -17,7 +17,7 @@
  * along with this program.  If not, see <http://www.gnu.org/licenses/>.
  */
 
-#include <stm32/i2c.h>
+#include <libopencm3/stm32/i2c.h>
 
 void i2c_peripheral_enable(u32 i2c)
 {

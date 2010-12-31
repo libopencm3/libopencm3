@@ -18,12 +18,12 @@
  */
 
 #include <string.h>
-#include <stm32/rcc.h>
-#include <stm32/gpio.h>
-#include <stm32/flash.h>
-#include <stm32/scb.h>
-#include <usb/usbd.h>
-#include <usb/dfu.h>
+#include <libopencm3/stm32/rcc.h>
+#include <libopencm3/stm32/gpio.h>
+#include <libopencm3/stm32/flash.h>
+#include <libopencm3/stm32/scb.h>
+#include <libopencm3/usb/usbd.h>
+#include <libopencm3/usb/dfu.h>
 
 #define APP_ADDRESS	0x08002000
 

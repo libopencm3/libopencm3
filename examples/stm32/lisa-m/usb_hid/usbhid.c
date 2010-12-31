@@ -18,18 +18,18 @@
  */
 
 #include <stdlib.h>
-#include <stm32/rcc.h>
-#include <stm32/gpio.h>
-#include <stm32/systick.h>
-#include <usb/usbd.h>
-#include <usb/hid.h>
+#include <libopencm3/stm32/rcc.h>
+#include <libopencm3/stm32/gpio.h>
+#include <libopencm3/stm32/systick.h>
+#include <libopencm3/usb/usbd.h>
+#include <libopencm3/usb/hid.h>
 
 /* Define this to include the DFU APP interface. */
 #define INCLUDE_DFU_INTERFACE
 
 #ifdef INCLUDE_DFU_INTERFACE
-#include <stm32/scb.h>
-#include <usb/dfu.h>
+#include <libopencm3/stm32/scb.h>
+#include <libopencm3/usb/dfu.h>
 #endif
 
 const struct usb_device_descriptor dev = {

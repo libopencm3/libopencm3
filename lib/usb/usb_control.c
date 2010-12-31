@@ -18,7 +18,7 @@
  */
 
 #include <stdlib.h>
-#include <usb/usbd.h>
+#include <libopencm3/usb/usbd.h>
 #include "usb_private.h"
 
 static struct usb_control_state {

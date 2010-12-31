@@ -20,8 +20,8 @@
 #ifndef LPC13XX_GPIO_H
 #define LPC13XX_GPIO_H
 
-#include <cm3/common.h>
-#include <lpc13xx/memorymap.h>
+#include <libopencm3/cm3/common.h>
+#include <libopencm3/lpc13xx/memorymap.h>
 
 /* --- Convenience macros -------------------------------------------------- */
 

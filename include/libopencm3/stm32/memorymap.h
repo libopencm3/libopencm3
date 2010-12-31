@@ -20,7 +20,7 @@
 #ifndef LIBOPENCM3_MEMORYMAP_H
 #define LIBOPENCM3_MEMORYMAP_H
 
-#include <cm3/memorymap.h>
+#include <libopencm3/cm3/memorymap.h>
 
 /* --- STM32 specific peripheral definitions ------------------------------- */
 

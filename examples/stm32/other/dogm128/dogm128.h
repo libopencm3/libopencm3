@@ -20,9 +20,9 @@
 #ifndef DOGM128_H
 #define DOGM128_H
 
-#include <cm3/common.h>
-#include <stm32/gpio.h>
-#include <stm32/spi.h>
+#include <libopencm3/cm3/common.h>
+#include <libopencm3/stm32/gpio.h>
+#include <libopencm3/stm32/spi.h>
 
 /* PB10 GPIO       - ~RESET 
  * PB12 SPI2_NSS   - ~CS1

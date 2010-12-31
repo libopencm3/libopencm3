@@ -27,5 +27,5 @@ MEMORY
 }
 
 /* Include the common ld script. */
-INCLUDE lpc13xx.ld
+INCLUDE libopencm3_lpc13xx.ld
 
