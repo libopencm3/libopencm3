@@ -18,8 +18,8 @@
  * along with this program.  If not, see <http://www.gnu.org/licenses/>.
  */
 
-#ifndef LIBOPENSTM32_SCB_H
-#define LIBOPENSTM32_SCB_H
+#ifndef LIBOPENCM3_SCB_H
+#define LIBOPENCM3_SCB_H
 
 #include <stm32/memorymap.h>
 #include <cm3/common.h>

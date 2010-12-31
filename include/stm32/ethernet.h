@@ -17,8 +17,8 @@
  * along with this program.  If not, see <http://www.gnu.org/licenses/>.
  */
 
-#ifndef LIBOPENSTM32_ETHERNET_H
-#define LIBOPENSTM32_ETHERNET_H
+#ifndef LIBOPENCM3_ETHERNET_H
+#define LIBOPENCM3_ETHERNET_H
 
 #include <stm32/memorymap.h>
 #include <cm3/common.h>

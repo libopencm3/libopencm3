@@ -25,8 +25,8 @@
  * http://www.st.com/stonline/products/literature/pm/13259.pdf
  */
 
-#ifndef LIBOPENSTM32_FLASH_H
-#define LIBOPENSTM32_FLASH_H
+#ifndef LIBOPENCM3_FLASH_H
+#define LIBOPENCM3_FLASH_H
 
 #include <stm32/memorymap.h>
 #include <cm3/common.h>

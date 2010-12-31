@@ -17,8 +17,8 @@
  * along with this program.  If not, see <http://www.gnu.org/licenses/>.
  */
 
-#ifndef LIBOPENSTM32_SYSTICK_H
-#define LIBOPENSTM32_SYSTICK_H
+#ifndef LIBOPENCM3_SYSTICK_H
+#define LIBOPENCM3_SYSTICK_H
 
 #include <stm32/memorymap.h>
 #include <cm3/common.h>

@@ -17,8 +17,8 @@
  * along with this program.  If not, see <http://www.gnu.org/licenses/>.
  */
 
-#ifndef LIBOPENSTM32_TOOLS_H
-#define LIBOPENSTM32_TOOLS_H
+#ifndef LIBOPENCM3_TOOLS_H
+#define LIBOPENCM3_TOOLS_H
 
 /*
  * Register accessors / manipulators

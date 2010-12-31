@@ -17,8 +17,8 @@
  * along with this program.  If not, see <http://www.gnu.org/licenses/>.
  */
 
-#ifndef LIBOPENSTM32_USB_DESC
-#define LIBOPENSTM32_USB_DESC
+#ifndef LIBOPENCM3_USB_DESC
+#define LIBOPENCM3_USB_DESC
 
 /* Descriptor types */
 #define USB_DT_DEVICE		0x01

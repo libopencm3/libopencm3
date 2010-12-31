@@ -17,8 +17,8 @@
  * along with this program.  If not, see <http://www.gnu.org/licenses/>.
  */
 
-#ifndef LIBOPENSTM32_RTC_H
-#define LIBOPENSTM32_RTC_H
+#ifndef LIBOPENCM3_RTC_H
+#define LIBOPENCM3_RTC_H
 
 #include <stm32/memorymap.h>
 #include <cm3/common.h>

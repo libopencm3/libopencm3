@@ -17,8 +17,8 @@
  * along with this program.  If not, see <http://www.gnu.org/licenses/>.
  */
 
-#ifndef LIBOPENSTM32_BKP_H
-#define LIBOPENSTM32_BKP_H
+#ifndef LIBOPENCM3_BKP_H
+#define LIBOPENCM3_BKP_H
 
 #include <stm32/memorymap.h>
 #include <cm3/common.h>
