@@ -25,29 +25,68 @@
 
 /* --- Convenience macros -------------------------------------------------- */
 
-/* TODO */
+/* TODO: Move to memorymap.h? */
+#define FSMC_BASE			0xa0000000
 
-/* --- FMSC registers ------------------------------------------------------ */
+#define FSMC_BANK1_BASE			0x60000000 /* NOR / PSRAM */
+#define FSMC_BANK2_BASE			0x70000000 /* NAND flash */
+#define FSMC_BANK3_BASE			0x80000000 /* NAND flash */
+#define FSMC_BANK4_BASE			0x90000000 /* PC card */
 
-/* TODO */
+/* --- FSMC registers ------------------------------------------------------ */
 
 /* SRAM/NOR-Flash chip-select control registers 1..4 (FSMC_BCRx) */
+#define FSMC_BCR(x)			MMIO32(FSMC_BASE + 0x00 + 8 * x)
+#define FSMC_BCR1			FSMC_BCR(0)
+#define FSMC_BCR2			FSMC_BCR(1)
+#define FSMC_BCR3			FSMC_BCR(2)
+#define FSMC_BCR4			FSMC_BCR(3)
 
 /* SRAM/NOR-Flash chip-select timing registers 1..4 (FSMC_BTRx) */
+#define FSMC_BTR(x)			MMIO32(FSMC_BASE + 0x04 + 8 * x)
+#define FSMC_BTR1			FSMC_BTR(0)
+#define FSMC_BTR2			FSMC_BTR(1)
+#define FSMC_BTR3			FSMC_BTR(2)
+#define FSMC_BTR4			FSMC_BTR(3)
 
 /* SRAM/NOR-Flash write timing registers 1..4 (FSMC_BWTRx) */
+#define FSMC_BWTR(x)			MMIO32(FSMC_BASE + 0x104 + 8 * x)
+#define FSMC_BWTR1			FSMC_BWTR(0)
+#define FSMC_BWTR2			FSMC_BWTR(1)
+#define FSMC_BWTR3			FSMC_BWTR(2)
+#define FSMC_BWTR4			FSMC_BWTR(3)
 
 /* PC Card/NAND Flash control registers 2..4 (FSMC_PCRx) */
+#define FSMC_PCR(x)			MMIO32(FSMC_BASE + 0x40 + 0x20 * x)
+#define FSMC_PCR2			FSMC_PCR(1)
+#define FSMC_PCR3			FSMC_PCR(2)
+#define FSMC_PCR4			FSMC_PCR(3)
 
 /* FIFO status and interrupt registers 2..4 (FSMC_SRx) */
+#define FSMC_SR(x)			MMIO32(FSMC_BASE + 0x44 + 0x20 * x)
+#define FSMC_SR2			FSMC_SR(1)
+#define FSMC_SR3			FSMC_SR(2)
+#define FSMC_SR4			FSMC_SR(3)
 
 /* Common memory space timing registers 2..4 (FSMC_PMEMx) */
+#define FSMC_PMEM(x)			MMIO32(FSMC_BASE + 0x48 + 0x20 * x)
+#define FSMC_PMEM2			FSMC_PMEM(1)
+#define FSMC_PMEM3			FSMC_PMEM(2)
+#define FSMC_PMEM4			FSMC_PMEM(3)
 
 /* Attribute memory space timing registers 2..4 (FSMC_PATTx) */
+#define FSMC_PATT(x)			MMIO32(FSMC_BASE + 0x4c + 0x20 * x)
+#define FSMC_PATT2			FSMC_PATT(1)
+#define FSMC_PATT3			FSMC_PATT(2)
+#define FSMC_PATT4			FSMC_PATT(3)
 
 /* I/O space timing register 4 (FSMC_PIO4) */
+#define FSMC_PIO4			MMIO32(FSMC_BASE + 0xb0)
 
 /* ECC result registers 2/3 (FSMC_ECCRx) */
+#define FSMC_ECCR(x)			MMIO32(FSMC_BASE + 0x54 + 0x20 * x)
+#define FSMC_ECCR2			FSMC_ECCR(1)
+#define FSMC_ECCR3			FSMC_ECCR(2)
 
 /* --- FSMC_BCRx values ---------------------------------------------------- */
 
@@ -175,71 +214,71 @@
 /* --- FSMC_SRx values ----------------------------------------------------- */
 
 /* FEMPT: FIFO empty */
-#define FSMC_SR_FEMPT		(1 << 6)
+#define FSMC_SR_FEMPT			(1 << 6)
 
 /* IFEN: Interrupt falling edge detection enable bit */
-#define FSMC_SR_IFEN		(1 << 5)
+#define FSMC_SR_IFEN			(1 << 5)
 
 /* ILEN: Interrupt high-level detection enable bit */
-#define FSMC_SR_ILEN		(1 << 4)
+#define FSMC_SR_ILEN			(1 << 4)
 
 /* IREN: Interrupt rising edge detection enable bit */
-#define FSMC_SR_IREN		(1 << 3)
+#define FSMC_SR_IREN			(1 << 3)
 
 /* IFS: Interrupt falling edge status */
-#define FSMC_SR_IFS		(1 << 2)
+#define FSMC_SR_IFS			(1 << 2)
 
 /* ILS: Interrupt high-level status */
-#define FSMC_SR_ILS		(1 << 1)
+#define FSMC_SR_ILS			(1 << 1)
 
 /* IRS: Interrupt rising edge status */
-#define FSMC_SR_IRS		(1 << 0)
+#define FSMC_SR_IRS			(1 << 0)
 
 /* --- FSMC_PMEMx values --------------------------------------------------- */
 
 /* MEMHIZx[31:24]: Common memory x databus HiZ time */
-#define FSMC_PMEM_MEMHIZX	(1 << 24)
+#define FSMC_PMEM_MEMHIZX		(1 << 24)
 
 /* MEMHOLDx[23:16]: Common memory x hold time */
-#define FSMC_PMEM_MEMHOLDX	(1 << 16)
+#define FSMC_PMEM_MEMHOLDX		(1 << 16)
 
 /* MEMWAITx[15:8]: Common memory x wait time */
-#define FSMC_PMEM_MEMHOLDX	(1 << 8)
+#define FSMC_PMEM_MEMHOLDX		(1 << 8)
 
 /* MEMSETx[7:0]: Common memory x setup time */
-#define FSMC_PMEM_MEMSETX	(1 << 0)
+#define FSMC_PMEM_MEMSETX		(1 << 0)
 
 /* --- FSMC_PATTx values --------------------------------------------------- */
 
 /* ATTHIZx[31:24]: Attribute memory x databus HiZ time */
-#define FSMC_PATT_ATTHIZX	(1 << 24)
+#define FSMC_PATT_ATTHIZX		(1 << 24)
 
 /* ATTHOLDx[23:16]: Attribute memory x hold time */
-#define FSMC_PATT_ATTHOLDX	(1 << 16)
+#define FSMC_PATT_ATTHOLDX		(1 << 16)
 
 /* ATTWAITx[15:8]: Attribute memory x wait time */
-#define FSMC_PATT_ATTWAITX	(1 << 8)
+#define FSMC_PATT_ATTWAITX		(1 << 8)
 
 /* ATTSETx[7:0]: Attribute memory x setup time */
-#define FSMC_PATT_ATTSETX	(1 << 0)
+#define FSMC_PATT_ATTSETX		(1 << 0)
 
 /* --- FSMC_PIO4 values ---------------------------------------------------- */
 
 /* IOHIZx[31:24]: I/O x databus HiZ time */
-#define FSMC_PIO4_IOHIZX	(1 << 24)
+#define FSMC_PIO4_IOHIZX		(1 << 24)
 
 /* IOHOLDx[23:16]: I/O x hold time */
-#define FSMC_PIO4_IOHOLDX	(1 << 16)
+#define FSMC_PIO4_IOHOLDX		(1 << 16)
 
 /* IOWAITx[15:8]: I/O x wait time */
-#define FSMC_PIO4_IOWAITX	(1 << 8)
+#define FSMC_PIO4_IOWAITX		(1 << 8)
 
 /* IOSETx[7:0]: I/O x setup time */
-#define FSMC_PIO4_IOSETX	(1 << 0)
+#define FSMC_PIO4_IOSETX		(1 << 0)
 
 /* --- FSMC_ECCRx values --------------------------------------------------- */
 
 /* ECCx[31:0]: ECC result */
-#define FSMC_ECCR_ECCX		(1 << 0)
+#define FSMC_ECCR_ECCX			(1 << 0)
 
 #endif
