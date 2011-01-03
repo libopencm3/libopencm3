@@ -454,7 +454,8 @@ int main(void)
 			d3 =- 1;
 		if (j3 == 19)
 			j3 = 20;
-		for (i = 0; i < 15000; i++) __asm("nop");
+		for (i = 0; i < 15000; i++)
+			__asm__("nop");
 		j++;
 		if (j == 100) {
 			j = 0;

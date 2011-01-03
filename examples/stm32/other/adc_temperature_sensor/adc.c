@@ -60,27 +60,30 @@ void gpio_setup(void)
 void adc_setup(void)
 {
 	int i;
+
 	rcc_peripheral_enable_clock(&RCC_APB2ENR, RCC_APB2ENR_ADC1EN);
 
-	/* make shure it didnt run during config */
+	/* Make shure it doesn't run during config. */
 	adc_off(ADC1);
 
-	/* we configure everything for one single conversion */	
+	/* We configure everything for one single conversion. */
 	adc_disable_scan_mode(ADC1);
 	adc_set_single_conversion_mode(ADC1);
 	adc_enable_discontinous_mode_regular(ADC1);
 	adc_disable_external_trigger_regular(ADC1);
 	adc_set_right_aligned(ADC1);
-	/* we want read out the temperature sensor so we have to enable it */
+	/* We want to read the temperature sensor, so we have to enable it. */
 	adc_enable_temperature_sensor(ADC1);
-	adc_set_conversion_time_on_all_channels(ADC1, ADC_SMPR_SMP_28DOT5CYC); 
-	
+	adc_set_conversion_time_on_all_channels(ADC1, ADC_SMPR_SMP_28DOT5CYC);
+
 	adc_on(ADC1);
-	/* wait for adc starting up*/
-        for (i = 0; i < 80000; i++);    /* Wait (needs -O0 CFLAGS). */
+
+	/* Wait for ADC starting up. */
+	for (i = 0; i < 800000; i++)    /* Wait a bit. */
+		__asm__("nop");
 
 	adc_reset_calibration(ADC1);
-	adc_calibration(ADC1);	
+	adc_calibration(ADC1);
 }
 
 void my_usart_print_int(u32 usart, int value)
@@ -95,13 +98,12 @@ void my_usart_print_int(u32 usart, int value)
 	}
 	
 	while (value > 0) {
-		buffer[nr_digits++] = "0123456789"[value%10];
-		value = value/10;
+		buffer[nr_digits++] = "0123456789"[value % 10];
+		value /= 10;
 	}
 	
-	for (i=nr_digits; i>=0; i--) {
+	for (i = nr_digits; i >= 0; i--)
 		usart_send(usart, buffer[i]);
-	}
 }
 
 int main(void)
@@ -124,19 +126,25 @@ int main(void)
 	usart_send(USART1, '\r');
 	usart_send(USART1, '\n');
 
-	/* Select the channel we want to convert. 16=temperature_sensor */
+	/* Select the channel we want to convert. 16=temperature_sensor. */
 	channel_array[0] = 16;
 	adc_set_regular_sequence(ADC1, 1, channel_array);
 	
-	/* If the ADC_CR2_ON bit is already set -> setting it another time starts the conversion */
+	/*
+	 * If the ADC_CR2_ON bit is already set -> setting it another time
+	 * starts the conversion.
+	 */
 	adc_on(ADC1);
 	
-	/* Waiting for end of conversion */
+	/* Wait for end of conversion. */
 	while (!(ADC_SR(ADC1) & ADC_SR_EOC));
 	
 	temperature = ADC_DR(ADC1);
 
-	/* thats actually not the real temparature - you have to compute it like described in the datasheet */	
+	/*
+	 * That's actually not the real temperature - you have to compute it
+	 * as described in the datasheet.
+	 */
 	my_usart_print_int(USART1, temperature);
 
 	gpio_clear(GPIOB, GPIO6); /* LED2 on */

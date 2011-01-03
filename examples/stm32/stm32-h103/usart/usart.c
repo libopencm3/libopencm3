@@ -69,13 +69,14 @@ int main(void)
 	/* Blink the LED (PC12) on the board with every transmitted byte. */
 	while (1) {
 		gpio_toggle(GPIOC, GPIO12);	/* LED on/off */
-		usart_send_blocking(USART3, c + '0');	/* Send one byte on USART3. */
+		usart_send_blocking(USART3, c + '0'); /* USART3: Send byte. */
 		c = (c == 9) ? 0 : c + 1;	/* Increment c. */
 		if ((j++ % 80) == 0) {		/* Newline after line full. */
 			usart_send_blocking(USART3, '\r');
 			usart_send_blocking(USART3, '\n');
 		}
-		for (i = 0; i < 80000; i++);	/* Wait (needs -O0 CFLAGS). */
+		for (i = 0; i < 800000; i++)	/* Wait a bit. */
+			__asm__("NOP");
 	}
 
 	return 0;

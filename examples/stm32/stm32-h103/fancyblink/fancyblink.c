@@ -47,7 +47,8 @@ int main(void)
 	/* Blink the LED (PC12) on the board. */
 	while (1) {
 		gpio_toggle(GPIOC, GPIO12);	/* LED on/off */
-		for (i = 0; i < 80000; i++);	/* Wait (needs -O0 CFLAGS). */
+		for (i = 0; i < 800000; i++)	/* Wait a bit. */
+			__asm__("nop");
 	}
 
 	return 0;

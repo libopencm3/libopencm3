@@ -24,7 +24,7 @@ void gpio_setup(void)
 {
 	/* Enable GPIOC clock. */
 	/* Manually: */
-	// RCC_APB2ENR |= IOPCEN;
+	// RCC_APB2ENR |= RCC_APB2ENR_IOPCEN;
 	/* Using API functions: */
 	rcc_peripheral_enable_clock(&RCC_APB2ENR, RCC_APB2ENR_IOPCEN);
 
@@ -47,19 +47,24 @@ int main(void)
 	while (1) {
 		/* Manually: */
 		// GPIOC_BSRR = GPIO12;		/* LED off */
-		// for (i = 0; i < 80000; i++);	/* Wait (needs -O0 CFLAGS). */
+		// for (i = 0; i < 800000; i++)	/* Wait a bit. */
+		// 	__asm__("nop");
 		// GPIOC_BRR = GPIO12;		/* LED on */
-		// for (i = 0; i < 80000; i++);	/* Wait (needs -O0 CFLAGS). */
+		// for (i = 0; i < 800000; i++)	/* Wait a bit. */
+		// 	__asm__("nop");
 
 		/* Using API functions gpio_set()/gpio_clear(): */
 		// gpio_set(GPIOC, GPIO12);	/* LED off */
-		// for (i = 0; i < 80000; i++);	/* Wait (needs -O0 CFLAGS). */
+		// for (i = 0; i < 800000; i++)	/* Wait a bit. */
+		// 	__asm__("nop");
 		// gpio_clear(GPIOC, GPIO12);	/* LED on */
-		// for (i = 0; i < 80000; i++);	/* Wait (needs -O0 CFLAGS). */
+		// for (i = 0; i < 800000; i++)	/* Wait a bit. */
+		// 	__asm__("nop");
 
 		/* Using API function gpio_toggle(): */
 		gpio_toggle(GPIOC, GPIO12);	/* LED on/off */
-		for (i = 0; i < 80000; i++);	/* Wait (needs -O0 CFLAGS). */
+		for (i = 0; i < 800000; i++)	/* Wait a bit. */
+			__asm__("nop");
 	}
 
 	return 0;

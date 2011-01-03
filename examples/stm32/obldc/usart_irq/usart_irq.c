@@ -26,7 +26,7 @@ void clock_setup(void)
 {
 	rcc_clock_setup_in_hse_8mhz_out_72mhz();
 
-	/* Enable GPIOA clock. For LED gpio's */
+	/* Enable GPIOA clock (for LED GPIOs). */
 	rcc_peripheral_enable_clock(&RCC_APB2ENR, RCC_APB2ENR_IOPAEN);
 
 	/* Enable clocks for GPIO port B (for GPIO_USART1_TX) and USART1. */
@@ -37,7 +37,6 @@ void clock_setup(void)
 
 void usart_setup(void)
 {
-
 	/* Enable the USART1 interrupt. */
 	nvic_enable_irq(NVIC_USART1_IRQ);
 
@@ -69,14 +68,11 @@ void usart_setup(void)
 
 void gpio_setup(void)
 {
-
 	gpio_set(GPIOA, GPIO6 | GPIO7);
 
 	/* Setup GPIO6 and 7 (in GPIO port A) for led use. */
 	gpio_set_mode(GPIOA, GPIO_MODE_OUTPUT_50_MHZ,
-		      GPIO_CNF_OUTPUT_PUSHPULL,
-		      GPIO6 | GPIO7);
-
+		      GPIO_CNF_OUTPUT_PUSHPULL, GPIO6 | GPIO7);
 }
 
 void usart1_isr(void)
@@ -85,7 +81,6 @@ void usart1_isr(void)
 
 	/* Check if we were called because of RXNE. */
 	if ((USART_SR(USART1) & USART_SR_RXNE) != 0) {
-
 		/* Indicate that we got data. */
 		gpio_toggle(GPIOA, GPIO6);
 
@@ -98,29 +93,26 @@ void usart1_isr(void)
 
 	/* Check if we were called because of TXE. */
 	if ((USART_SR(USART1) & USART_SR_TXE) != 0) {
-
 		/* Indicate that we are sending out data. */
 		gpio_toggle(GPIOA, GPIO7);
 
-		/* Put data into the transmit register */
+		/* Put data into the transmit register. */
 		usart_send(USART1, data);
 
-		/* Disable the TXE interrupt as we don't need it anymore */
+		/* Disable the TXE interrupt as we don't need it anymore. */
 		USART_CR1(USART1) &= ~USART_CR1_TXEIE;
 	}
 }
 
 int main(void)
 {
-
 	clock_setup();
 	gpio_setup();
 	usart_setup();
 
 	/* Wait forever and do nothing. */
-	while (1) {
-		__asm("nop");
-	}
+	while (1)
+		__asm__("nop");
 
 	return 0;
 }

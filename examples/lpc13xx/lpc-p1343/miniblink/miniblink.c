@@ -35,9 +35,11 @@ int main(void)
 	while (1) {
 		/* Manually: */
 		GPIO3_DATA |= (1 << 0);		/* LED off */
-		for (i = 0; i < 80000; i++);	/* Wait (needs -O0 CFLAGS). */
+		for (i = 0; i < 800000; i++)	/* Wait a bit. */
+			__asm__("nop");
 		GPIO3_DATA &= ~(1 << 0);	/* LED on */
-		for (i = 0; i < 80000; i++);	/* Wait (needs -O0 CFLAGS). */
+		for (i = 0; i < 800000; i++)	/* Wait a bit. */
+			__asm__("nop");
 	}
 
 	return 0;

@@ -27,7 +27,6 @@ void clock_setup(void)
 
 	/* Enable GPIOC clock. */
 	rcc_peripheral_enable_clock(&RCC_APB2ENR, RCC_APB2ENR_IOPCEN);
-
 }
 
 void gpio_setup(void)
@@ -49,22 +48,28 @@ int main(void)
 	while (1) {
 		gpio_toggle(GPIOC, GPIO6);	/* LED on/off */
 		gpio_toggle(GPIOC, GPIO7);	/* LED on/off */
-		for (i = 0; i < 400000; i++);	/* Wait (needs -O0 CFLAGS). */
+		for (i = 0; i < 4000000; i++)	/* Wait a bit. */
+			__asm__("nop");
 		gpio_toggle(GPIOC, GPIO7);	/* LED on/off */
 		gpio_toggle(GPIOC, GPIO8);	/* LED on/off */
-		for (i = 0; i < 400000; i++);	/* Wait (needs -O0 CFLAGS). */
+		for (i = 0; i < 4000000; i++)	/* Wait a bit. */
+			__asm__("nop");
 		gpio_toggle(GPIOC, GPIO8);	/* LED on/off */
 		gpio_toggle(GPIOC, GPIO9);	/* LED on/off */
-		for (i = 0; i < 400000; i++);	/* Wait (needs -O0 CFLAGS). */
+		for (i = 0; i < 4000000; i++)	/* Wait a bit. */
+			__asm__("nop");
 		gpio_toggle(GPIOC, GPIO8);	/* LED on/off */
 		gpio_toggle(GPIOC, GPIO9);	/* LED on/off */
-		for (i = 0; i < 400000; i++);	/* Wait (needs -O0 CFLAGS). */
+		for (i = 0; i < 4000000; i++)	/* Wait a bit. */
+			__asm__("nop");
 		gpio_toggle(GPIOC, GPIO7);	/* LED on/off */
 		gpio_toggle(GPIOC, GPIO8);	/* LED on/off */
-		for (i = 0; i < 400000; i++);	/* Wait (needs -O0 CFLAGS). */
+		for (i = 0; i < 4000000; i++)	/* Wait a bit. */
+			__asm__("nop");
 		gpio_toggle(GPIOC, GPIO6);	/* LED on/off */
 		gpio_toggle(GPIOC, GPIO7);	/* LED on/off */
-		for (i = 0; i < 400000; i++);	/* Wait (needs -O0 CFLAGS). */
+		for (i = 0; i < 4000000; i++)	/* Wait a bit. */
+			__asm__("nop");
 	}
 
 	return 0;

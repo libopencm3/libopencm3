@@ -25,7 +25,7 @@ void clock_setup(void)
 {
 	rcc_clock_setup_in_hse_8mhz_out_72mhz();
 
-	/* Enable GPIOA clock. For LED gpio's */
+	/* Enable GPIOA clock (for LED GPIOs). */
 	rcc_peripheral_enable_clock(&RCC_APB2ENR, RCC_APB2ENR_IOPAEN);
 
 	/* Enable clocks for GPIO port B (for GPIO_USART1_TX) and USART1. */
@@ -36,11 +36,9 @@ void clock_setup(void)
 
 void usart_setup(void)
 {
-
-	/* Setup GPIO6 (in GPIO port A) to 'output push-pull' for led use. */
+	/* Setup GPIO6 (in GPIO port A) to 'output push-pull' for LED use. */
 	gpio_set_mode(GPIOA, GPIO_MODE_OUTPUT_50_MHZ,
-		      GPIO_CNF_OUTPUT_PUSHPULL,
-		      GPIO6);
+		      GPIO_CNF_OUTPUT_PUSHPULL, GPIO6);
 
 	AFIO_MAPR |= AFIO_MAPR_USART1_REMAP;
 
@@ -78,13 +76,14 @@ int main(void)
 	/* Blink the LED (PC12) on the board with every transmitted byte. */
 	while (1) {
 		gpio_toggle(GPIOA, GPIO6);	/* LED on/off */
-		usart_send_blocking(USART1, c + '0');	/* Send one byte on USART3. */
+		usart_send_blocking(USART1, c + '0');	/* Send a byte. */
 		c = (c == 9) ? 0 : c + 1;	/* Increment c. */
 		if ((j++ % 80) == 0) {		/* Newline after line full. */
 			usart_send_blocking(USART1, '\r');
 			usart_send_blocking(USART1, '\n');
 		}
-		for (i = 0; i < 80000; i++);	/* Wait (needs -O0 CFLAGS). */
+		for (i = 0; i < 800000; i++)	/* Wait a bit. */
+			__asm__("nop");
 	}
 
 	return 0;

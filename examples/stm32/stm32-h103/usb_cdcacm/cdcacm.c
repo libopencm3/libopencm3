@@ -224,6 +224,8 @@ static void cdcacm_set_config(u16 wValue)
 
 int main(void)
 {
+	int i;
+
         rcc_clock_setup_in_hsi_out_48mhz();
 
 	rcc_peripheral_enable_clock(&RCC_APB1ENR, RCC_APB1ENR_USBEN);
@@ -236,7 +238,8 @@ int main(void)
 	usbd_init(&dev, &config, usb_strings);
 	usbd_register_set_config_callback(cdcacm_set_config);
 
-	{int i; for (i=0;i<0x80000;i++);}
+	for (i = 0; i < 0x800000; i++)
+		__asm__("nop");
 	gpio_clear(GPIOC, GPIO11);
 
 	while (1) 
