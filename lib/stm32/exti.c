@@ -129,12 +129,17 @@ void exti_select_source(u32 exti, u32 gpioport)
 	}
 
 	/* Ensure that only valid EXTI lines are used. */
-	if (exti < EXTI4)
-		AFIO_EXTICR1 &= ~(bits << shift);
-	else if (exti < EXTI8)
-		AFIO_EXTICR2 &= ~(bits << shift);
-	else if (exti < EXTI12)
-		AFIO_EXTICR3 &= ~(bits << shift);
-	else if (exti < EXTI16)
-		AFIO_EXTICR4 &= ~(bits << shift);
+	if (exti < EXTI4) {
+		AFIO_EXTICR1 &= ~(0x000F << shift);
+		AFIO_EXTICR1 |= (~bits   << shift);
+	} else if (exti < EXTI8) {
+		AFIO_EXTICR2 &= ~(0x000F << shift);
+		AFIO_EXTICR2 |= (~bits   << shift);
+	} else if (exti < EXTI12) {
+		AFIO_EXTICR3 &= ~(0x000F << shift);
+		AFIO_EXTICR3 |= (~bits   << shift);
+	} else if (exti < EXTI16) {
+		AFIO_EXTICR4 &= ~(0x000F << shift);
+		AFIO_EXTICR4 |= (~bits   << shift);
+	}
 }
