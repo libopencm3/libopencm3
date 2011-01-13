@@ -49,8 +49,7 @@ void button_setup(void)
 
 	/* Set GPIO0 (in GPIO port A) to 'input open-drain'. */
 	gpio_set_mode(GPIOA, GPIO_MODE_INPUT,
-		      GPIO_CNF_INPUT_PULL_UPDOWN, GPIO0);
-	gpio_set(GPIOA, GPIO0);
+		      GPIO_CNF_INPUT_FLOAT, GPIO0);
 
 }
 
