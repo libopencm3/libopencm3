@@ -24,7 +24,7 @@ Q := @
 MAKEFLAGS += --no-print-directory
 endif
 
-all: miniblink fancyblink usart usb_cdcacm usb_hid button
+all: miniblink fancyblink usart usb_cdcacm usb_hid button exti
 
 miniblink:
 	@printf "  BUILD   examples/stm32/stm32-h103/miniblink\n"
@@ -54,6 +54,10 @@ button:
 	@printf "  BUILD   examples/stm32/stm32-h103/button\n"
 	$(Q)$(MAKE) -C button
 
+exti:
+	@printf "  BUILD   examples/stm32/stm32-h103/exti\n"
+	$(Q)$(MAKE) -C exti
+
 clean:
 	@printf "  CLEAN   examples/stm32/stm32-h103/miniblink\n"
 	$(Q)$(MAKE) -C miniblink clean
@@ -69,6 +73,8 @@ clean:
 	$(Q)$(MAKE) -C usb_hid clean
 	@printf "  CLEAN   examples/stm32/stm32-h103/button\n"
 	$(Q)$(MAKE) -C button clean
+	@printf "  CLEAN   examples/stm32/stm32-h103/exti\n"
+	$(Q)$(MAKE) -C exti clean
 
-.PHONY: miniblink fancyblink usart spi usb_cdcacm usb_hid button clean
+.PHONY: miniblink fancyblink usart spi usb_cdcacm usb_hid button exti clean
 
