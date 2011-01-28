@@ -170,3 +170,450 @@ void timer_disable_preload_complementry_enable_bits(u32 timer_peripheral)
 {
 	TIM_CR2(timer_peripheral) &= ~TIM_CR2_CCPC;
 }
+
+void timer_set_period(u32 timer_peripheral, u32 period)
+{
+	TIM_ARR(timer_peripheral) = period;
+}
+
+void timer_enable_oc_clear(u32 timer_peripheral, enum tim_oc_id oc_id)
+{
+	switch (oc_id) {
+	case TIM_OC1:
+		TIM_CCMR1(timer_peripheral) |= TIM_CCMR1_OC1CE;
+		break;
+	case TIM_OC2:
+		TIM_CCMR1(timer_peripheral) |= TIM_CCMR1_OC2CE;
+		break;
+	case TIM_OC3:
+		TIM_CCMR2(timer_peripheral) |= TIM_CCMR2_OC3CE;
+		break;
+	case TIM_OC4:
+		TIM_CCMR2(timer_peripheral) |= TIM_CCMR2_OC4CE;
+		break;
+	case TIM_OC1N:
+	case TIM_OC2N:
+	case TIM_OC3N:
+		/* Ignoring as fast enable only applies to the whole channel. */
+		break;
+	}
+}
+
+void timer_disable_oc_clear(u32 timer_peripheral, enum tim_oc_id oc_id)
+{
+	switch (oc_id) {
+	case TIM_OC1:
+		TIM_CCMR1(timer_peripheral) &= ~TIM_CCMR1_OC1CE;
+		break;
+	case TIM_OC2:
+		TIM_CCMR1(timer_peripheral) &= ~TIM_CCMR1_OC2CE;
+		break;
+	case TIM_OC3:
+		TIM_CCMR2(timer_peripheral) &= ~TIM_CCMR2_OC3CE;
+		break;
+	case TIM_OC4:
+		TIM_CCMR2(timer_peripheral) &= ~TIM_CCMR2_OC4CE;
+		break;
+	case TIM_OC1N:
+	case TIM_OC2N:
+	case TIM_OC3N:
+		/* Ignoring as fast enable only applies to the whole channel. */
+		break;
+	}
+}
+
+void timer_set_oc_fast_mode(u32 timer_peripheral, enum tim_oc_id oc_id)
+{
+	switch (oc_id) {
+	case TIM_OC1:
+		TIM_CCMR1(timer_peripheral) |= TIM_CCMR1_OC1FE;
+		break;
+	case TIM_OC2:
+		TIM_CCMR1(timer_peripheral) |= TIM_CCMR1_OC2FE;
+		break;
+	case TIM_OC3:
+		TIM_CCMR2(timer_peripheral) |= TIM_CCMR2_OC3FE;
+		break;
+	case TIM_OC4:
+		TIM_CCMR2(timer_peripheral) |= TIM_CCMR2_OC4FE;
+		break;
+	case TIM_OC1N:
+	case TIM_OC2N:
+	case TIM_OC3N:
+		/* Ignoring as fast enable only applies to the whole channel. */
+		break;
+	}
+}
+
+void timer_set_oc_slow_mode(u32 timer_peripheral, enum tim_oc_id oc_id)
+{
+	switch (oc_id) {
+	case TIM_OC1:
+		TIM_CCMR1(timer_peripheral) &= ~TIM_CCMR1_OC1FE;
+		break;
+	case TIM_OC2:
+		TIM_CCMR1(timer_peripheral) &= ~TIM_CCMR1_OC2FE;
+		break;
+	case TIM_OC3:
+		TIM_CCMR2(timer_peripheral) &= ~TIM_CCMR2_OC3FE;
+		break;
+	case TIM_OC4:
+		TIM_CCMR2(timer_peripheral) &= ~TIM_CCMR2_OC4FE;
+		break;
+	case TIM_OC1N:
+	case TIM_OC2N:
+	case TIM_OC3N:
+		/* Ignoring as this option applies to the whole channel. */
+		break;
+	}
+}
+
+void timer_set_oc_mode(u32 timer_peripheral, enum tim_oc_id oc_id, u32 mode)
+{
+	switch (oc_id) {
+	case TIM_OC1:
+		TIM_CCMR1(timer_peripheral) &= ~TIM_CCMR1_CC1S_MASK;
+		TIM_CCMR1(timer_peripheral) |= TIM_CCMR1_CC1S_OUT;
+		TIM_CCMR1(timer_peripheral) &= ~TIM_CCMR1_OC1M_MASK;
+		TIM_CCMR1(timer_peripheral) |= mode;
+		break;
+	case TIM_OC2:
+		TIM_CCMR1(timer_peripheral) &= ~TIM_CCMR1_CC2S_MASK;
+		TIM_CCMR1(timer_peripheral) |= TIM_CCMR1_CC2S_OUT;
+		TIM_CCMR1(timer_peripheral) &= ~TIM_CCMR1_OC2M_MASK;
+		TIM_CCMR1(timer_peripheral) |= mode;
+		break;
+	case TIM_OC3:
+		TIM_CCMR1(timer_peripheral) &= ~TIM_CCMR2_CC3S_MASK;
+		TIM_CCMR1(timer_peripheral) |= TIM_CCMR2_CC3S_OUT;
+		TIM_CCMR2(timer_peripheral) &= ~TIM_CCMR2_OC3M_MASK;
+		TIM_CCMR2(timer_peripheral) |= mode;
+		break;
+	case TIM_OC4:
+		TIM_CCMR1(timer_peripheral) &= ~TIM_CCMR2_CC4S_MASK;
+		TIM_CCMR1(timer_peripheral) |= TIM_CCMR2_CC4S_OUT;
+		TIM_CCMR2(timer_peripheral) &= ~TIM_CCMR2_OC4M_MASK;
+		TIM_CCMR2(timer_peripheral) |= mode;
+		break;
+	case TIM_OC1N:
+	case TIM_OC2N:
+	case TIM_OC3N:
+		/* Ignoring as this option applies to the whole channel. */
+		break;
+	}
+}
+
+void timer_enable_oc_preload(u32 timer_peripheral, enum tim_oc_id oc_id)
+{
+	switch (oc_id) {
+	case TIM_OC1:
+		TIM_CCMR1(timer_peripheral) |= TIM_CCMR1_OC1PE;
+		break;
+	case TIM_OC2:
+		TIM_CCMR1(timer_peripheral) |= TIM_CCMR1_OC2PE;
+		break;
+	case TIM_OC3:
+		TIM_CCMR2(timer_peripheral) |= TIM_CCMR2_OC3PE;
+		break;
+	case TIM_OC4:
+		TIM_CCMR2(timer_peripheral) |= TIM_CCMR2_OC4PE;
+		break;
+	case TIM_OC1N:
+	case TIM_OC2N:
+	case TIM_OC3N:
+		/* Ignoring as this option applies to the whole channel. */
+		break;
+	}
+}
+
+void timer_disable_oc_preload(u32 timer_peripheral, enum tim_oc_id oc_id)
+{
+	switch (oc_id) {
+	case TIM_OC1:
+		TIM_CCMR1(timer_peripheral) &= ~TIM_CCMR1_OC1PE;
+		break;
+	case TIM_OC2:
+		TIM_CCMR1(timer_peripheral) &= ~TIM_CCMR1_OC2PE;
+		break;
+	case TIM_OC3:
+		TIM_CCMR2(timer_peripheral) &= ~TIM_CCMR2_OC3PE;
+		break;
+	case TIM_OC4:
+		TIM_CCMR2(timer_peripheral) &= ~TIM_CCMR2_OC4PE;
+		break;
+	case TIM_OC1N:
+	case TIM_OC2N:
+	case TIM_OC3N:
+		/* Ignoring as this option applies to the whole channel. */
+		break;
+	}
+}
+
+void timer_set_oc_polarity_high(u32 timer_peripheral, enum tim_oc_id oc_id)
+{
+	switch (oc_id) {
+	case TIM_OC1:
+		TIM_CCER(timer_peripheral) &= ~TIM_CCER_CC1P;
+		break;
+	case TIM_OC2:
+		TIM_CCER(timer_peripheral) &= ~TIM_CCER_CC2P;
+		break;
+	case TIM_OC3:
+		TIM_CCER(timer_peripheral) &= ~TIM_CCER_CC3P;
+		break;
+	case TIM_OC4:
+		TIM_CCER(timer_peripheral) &= ~TIM_CCER_CC4P;
+		break;
+	case TIM_OC1N:
+	case TIM_OC2N:
+	case TIM_OC3N:
+		/* Ignoring as this option applies to TIM1 and TIM8 only. */
+		break;
+	}
+
+	if ((timer_peripheral == TIM1) ||
+	    (timer_peripheral == TIM8)) {
+		switch (oc_id) {
+		case TIM_OC1N:
+			TIM_CCER(timer_peripheral) &= ~TIM_CCER_CC1NP;
+			break;
+		case TIM_OC2N:
+			TIM_CCER(timer_peripheral) &= ~TIM_CCER_CC2NP;
+			break;
+		case TIM_OC3N:
+			TIM_CCER(timer_peripheral) &= ~TIM_CCER_CC3NP;
+			break;
+		case TIM_OC1:
+		case TIM_OC2:
+		case TIM_OC3:
+		case TIM_OC4:
+			/* Ignoring as this option was already set above. */
+			break;
+		}
+
+	}
+}
+
+void timer_set_oc_polarity_low(u32 timer_peripheral, enum tim_oc_id oc_id)
+{
+	switch (oc_id) {
+	case TIM_OC1:
+		TIM_CCER(timer_peripheral) |= TIM_CCER_CC1P;
+		break;
+	case TIM_OC2:
+		TIM_CCER(timer_peripheral) |= TIM_CCER_CC2P;
+		break;
+	case TIM_OC3:
+		TIM_CCER(timer_peripheral) |= TIM_CCER_CC3P;
+		break;
+	case TIM_OC4:
+		TIM_CCER(timer_peripheral) |= TIM_CCER_CC4P;
+		break;
+	case TIM_OC1N:
+	case TIM_OC2N:
+	case TIM_OC3N:
+		/* Ignoring as this option applies to TIM1 and TIM8 only. */
+		break;
+	}
+
+	if ((timer_peripheral == TIM1) ||
+	    (timer_peripheral == TIM8)) {
+		switch (oc_id) {
+		case TIM_OC1N:
+			TIM_CCER(timer_peripheral) |= TIM_CCER_CC1NP;
+			break;
+		case TIM_OC2N:
+			TIM_CCER(timer_peripheral) |= TIM_CCER_CC2NP;
+			break;
+		case TIM_OC3N:
+			TIM_CCER(timer_peripheral) |= TIM_CCER_CC3NP;
+			break;
+		case TIM_OC1:
+		case TIM_OC2:
+		case TIM_OC3:
+		case TIM_OC4:
+			/* Ignoring as this option was already set above. */
+			break;
+		}
+
+	}
+}
+
+void timer_enable_oc_output(u32 timer_peripheral, enum tim_oc_id oc_id)
+{
+	switch (oc_id) {
+	case TIM_OC1:
+		TIM_CCER(timer_peripheral) |= TIM_CCER_CC1E;
+		break;
+	case TIM_OC2:
+		TIM_CCER(timer_peripheral) |= TIM_CCER_CC2E;
+		break;
+	case TIM_OC3:
+		TIM_CCER(timer_peripheral) |= TIM_CCER_CC3E;
+		break;
+	case TIM_OC4:
+		TIM_CCER(timer_peripheral) |= TIM_CCER_CC4E;
+		break;
+	case TIM_OC1N:
+	case TIM_OC2N:
+	case TIM_OC3N:
+		/* Ignoring as this option applies to TIM1 and TIM8 only. */
+		break;
+	}
+
+	if ((timer_peripheral == TIM1) ||
+	    (timer_peripheral == TIM8)) {
+		switch (oc_id) {
+		case TIM_OC1N:
+			TIM_CCER(timer_peripheral) |= TIM_CCER_CC1NE;
+			break;
+		case TIM_OC2N:
+			TIM_CCER(timer_peripheral) |= TIM_CCER_CC2NE;
+			break;
+		case TIM_OC3N:
+			TIM_CCER(timer_peripheral) |= TIM_CCER_CC3NE;
+			break;
+		case TIM_OC1:
+		case TIM_OC2:
+		case TIM_OC3:
+		case TIM_OC4:
+			/* Ignoring as this option was already set above. */
+			break;
+		}
+
+	}
+}
+
+void timer_disable_oc_output(u32 timer_peripheral, enum tim_oc_id oc_id)
+{
+	switch (oc_id) {
+	case TIM_OC1:
+		TIM_CCER(timer_peripheral) &= ~TIM_CCER_CC1E;
+		break;
+	case TIM_OC2:
+		TIM_CCER(timer_peripheral) &= ~TIM_CCER_CC2E;
+		break;
+	case TIM_OC3:
+		TIM_CCER(timer_peripheral) &= ~TIM_CCER_CC3E;
+		break;
+	case TIM_OC4:
+		TIM_CCER(timer_peripheral) &= ~TIM_CCER_CC4E;
+		break;
+	case TIM_OC1N:
+	case TIM_OC2N:
+	case TIM_OC3N:
+		/* Ignoring as this option applies to TIM1 and TIM8 only. */
+		break;
+	}
+
+	if ((timer_peripheral == TIM1) ||
+	    (timer_peripheral == TIM8)) {
+		switch (oc_id) {
+		case TIM_OC1N:
+			TIM_CCER(timer_peripheral) &= ~TIM_CCER_CC1NE;
+			break;
+		case TIM_OC2N:
+			TIM_CCER(timer_peripheral) &= ~TIM_CCER_CC2NE;
+			break;
+		case TIM_OC3N:
+			TIM_CCER(timer_peripheral) &= ~TIM_CCER_CC3NE;
+			break;
+		case TIM_OC1:
+		case TIM_OC2:
+		case TIM_OC3:
+		case TIM_OC4:
+			/* Ignoring as this option was already set above. */
+			break;
+		}
+
+	}
+}
+
+void timer_set_oc_idle_state_set(u32 timer_peripheral, enum tim_oc_id oc_id)
+{
+
+	/* Acting for TIM1 and TIM8 only. */
+	if ((timer_peripheral == TIM1) ||
+	    (timer_peripheral == TIM8)) {
+		switch (oc_id) {
+		case TIM_OC1:
+			TIM_CR2(timer_peripheral) |= TIM_CR2_OIS1;
+			break;
+		case TIM_OC1N:
+			TIM_CR2(timer_peripheral) |= TIM_CR2_OIS1N;
+			break;
+		case TIM_OC2:
+			TIM_CR2(timer_peripheral) |= TIM_CR2_OIS2;
+			break;
+		case TIM_OC2N:
+			TIM_CR2(timer_peripheral) |= TIM_CR2_OIS2N;
+			break;
+		case TIM_OC3:
+			TIM_CR2(timer_peripheral) |= TIM_CR2_OIS3;
+			break;
+		case TIM_OC3N:
+			TIM_CR2(timer_peripheral) |= TIM_CR2_OIS3N;
+			break;
+		case TIM_OC4:
+			TIM_CR2(timer_peripheral) |= TIM_CR2_OIS4;
+			break;
+		}
+
+	}
+}
+
+void timer_set_oc_idle_state_unset(u32 timer_peripheral, enum tim_oc_id oc_id)
+{
+
+	/* Acting for TIM1 and TIM8 only. */
+	if ((timer_peripheral == TIM1) ||
+	    (timer_peripheral == TIM8)) {
+		switch (oc_id) {
+		case TIM_OC1:
+			TIM_CR2(timer_peripheral) &= ~TIM_CR2_OIS1;
+			break;
+		case TIM_OC1N:
+			TIM_CR2(timer_peripheral) &= ~TIM_CR2_OIS1N;
+			break;
+		case TIM_OC2:
+			TIM_CR2(timer_peripheral) &= ~TIM_CR2_OIS2;
+			break;
+		case TIM_OC2N:
+			TIM_CR2(timer_peripheral) &= ~TIM_CR2_OIS2N;
+			break;
+		case TIM_OC3:
+			TIM_CR2(timer_peripheral) &= ~TIM_CR2_OIS3;
+			break;
+		case TIM_OC3N:
+			TIM_CR2(timer_peripheral) &= ~TIM_CR2_OIS3N;
+			break;
+		case TIM_OC4:
+			TIM_CR2(timer_peripheral) &= ~TIM_CR2_OIS4;
+			break;
+		}
+
+	}
+}
+
+void timer_set_oc_value(u32 timer_peripheral, enum tim_oc_id oc_id, u32 value)
+{
+	switch (oc_id) {
+	case TIM_OC1:
+		TIM_CCR1(timer_peripheral) = value;
+		break;
+	case TIM_OC2:
+		TIM_CCR2(timer_peripheral) = value;
+		break;
+	case TIM_OC3:
+		TIM_CCR3(timer_peripheral) = value;
+		break;
+	case TIM_OC4:
+		TIM_CCR4(timer_peripheral) = value;
+		break;
+	case TIM_OC1N:
+	case TIM_OC2N:
+	case TIM_OC3N:
+		/* Ignoring as this option applies to the whole channel. */
+		break;
+	}
+}

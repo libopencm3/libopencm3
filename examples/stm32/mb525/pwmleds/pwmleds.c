@@ -240,12 +240,12 @@ void clock_setup(void)
 {
 	rcc_clock_setup_in_hse_8mhz_out_72mhz();
 
-	/* Enable TIM3 clock. */
-	rcc_peripheral_enable_clock(&RCC_APB1ENR, RCC_APB1ENR_TIM3EN);
+	/* Enable TIM1 clock. */
+	rcc_peripheral_enable_clock(&RCC_APB2ENR, RCC_APB2ENR_TIM1EN);
 
 	/* Enable GPIOC, Alternate Function clocks. */
 	rcc_peripheral_enable_clock(&RCC_APB2ENR,
-			RCC_APB2ENR_IOPCEN | RCC_APB2ENR_AFIOEN);
+			RCC_APB2ENR_IOPAEN | RCC_APB2ENR_AFIOEN);
 }
 
 void gpio_setup(void)
@@ -254,81 +254,95 @@ void gpio_setup(void)
 	 * Set GPIO6 (in GPIO port C) to
 	 * 'output alternate function push-pull'.
 	 */
-	gpio_set_mode(GPIOC, GPIO_MODE_OUTPUT_50_MHZ,
+	gpio_set_mode(GPIOA, GPIO_MODE_OUTPUT_50_MHZ,
 			GPIO_CNF_OUTPUT_ALTFN_PUSHPULL,
-			GPIO_TIM3_FR_CH1 |
-			GPIO_TIM3_FR_CH2 |
-			GPIO_TIM3_FR_CH3 |
-			GPIO_TIM3_FR_CH4);
+			GPIO_TIM1_CH1 |
+			GPIO_TIM1_CH2 |
+			GPIO_TIM1_CH3 |
+			GPIO_TIM1_CH4);
 
-	/* Remap TIM3:
+	/* Remap TIM1:
 	 * CH1 -> PC6
 	 * CH2 -> PC7
 	 * CH3 -> PC8
 	 * CH4 -> PC9
 	 */
-	AFIO_MAPR |= AFIO_MAPR_TIM3_REMAP_FULL_REMAP;
+	//AFIO_MAPR |= AFIO_MAPR_TIM3_REMAP_FULL_REMAP;
 }
 void tim_setup(void)
 {
+#if 0
+	TIM1_CR1 = TIM_CR1_CMS_CENTER_1 | TIM_CR1_ARPE;
+	TIM1_CCMR1 = TIM_CCMR1_OC1M_PWM1 | TIM_CCMR1_OC1PE | TIM_CCMR1_OC2M_PWM1 | TIM_CCMR1_OC2PE;
+	TIM1_CCMR2 = TIM_CCMR2_OC3M_PWM1 | TIM_CCMR2_OC3PE;
+
+	TIM1_CCER &= ~TIM_CCER_CC1P;
+#endif
+#if 1
+	TIM1_SMCR &= ~TIM_SMCR_SMS_MASK;
+	TIM1_CR1 &= ~TIM_CR1_CEN;
+
 	/* Clock division and mode */
-	TIM3_CR1 = TIM_CR1_CKD_CK_INT | TIM_CR1_CMS_EDGE;
+	TIM1_CR1 = TIM_CR1_CKD_CK_INT | TIM_CR1_CMS_EDGE;
 	/* Period */
-	TIM3_ARR = 65535;
+	TIM1_ARR = 65535;
 	/* Prescaler */
-	TIM3_PSC = 0;
-	TIM3_EGR = TIM_EGR_UG;
+	TIM1_PSC = 2;
+	TIM1_EGR = TIM_EGR_UG;
 
 	/* ---- */
 	/* Output compare 1 mode and preload */
-	TIM3_CCMR1 |= TIM_CCMR1_OC1M_PWM1 | TIM_CCMR1_OC1PE;
+	TIM1_CCMR1 |= TIM_CCMR1_OC1M_PWM1 | TIM_CCMR1_OC1PE;
 
 	/* Polarity and state */
-	// TIM3_CCER = TIM_CCER_CC1P | TIM_CCER_CC1E;
-	TIM3_CCER |= TIM_CCER_CC1E;
+	// TIM1_CCER = TIM_CCER_CC1P | TIM_CCER_CC1E;
+	TIM1_CCER |= TIM_CCER_CC1E;
 
 	/* Capture compare value */
-	TIM3_CCR1 = 0;
+	TIM1_CCR1 = 1000;
 
 	/* ---- */
 	/* Output compare 2 mode and preload */
-	TIM3_CCMR1 |= TIM_CCMR1_OC2M_PWM1 | TIM_CCMR1_OC2PE;
+	TIM1_CCMR1 |= TIM_CCMR1_OC2M_PWM1 | TIM_CCMR1_OC2PE;
 
 	/* Polarity and state */
-	// TIM3_CCER = TIM_CCER_CC1P | TIM_CCER_CC1E;
-	TIM3_CCER |= TIM_CCER_CC2E;
+	// TIM1_CCER = TIM_CCER_CC1P | TIM_CCER_CC1E;
+	TIM1_CCER |= TIM_CCER_CC2E;
 
 	/* Capture compare value */
-	TIM3_CCR2 = 0;
+	TIM1_CCR2 = 1000;
 
 	/* ---- */
 	/* Output compare 3 mode and preload */
-	TIM3_CCMR2 |= TIM_CCMR2_OC3M_PWM1 | TIM_CCMR2_OC3PE;
+	TIM1_CCMR2 |= TIM_CCMR2_OC3M_PWM1 | TIM_CCMR2_OC3PE;
 
 	/* Polarity and state */
-	// TIM3_CCER = TIM_CCER_CC1P | TIM_CCER_CC1E;
-	TIM3_CCER |= TIM_CCER_CC3E;
+	// TIM1_CCER = TIM_CCER_CC1P | TIM_CCER_CC1E;
+	TIM1_CCER |= TIM_CCER_CC3E;
 
 	/* Capture compare value */
-	TIM3_CCR3 = 0;
+	TIM1_CCR3 = 1000;
 
 	/* ---- */
 	/* Output compare 4 mode and preload */
-	TIM3_CCMR2 |= TIM_CCMR2_OC4M_PWM1 | TIM_CCMR2_OC4PE;
+	TIM1_CCMR2 |= TIM_CCMR2_OC4M_PWM1 | TIM_CCMR2_OC4PE;
 
 	/* Polarity and state */
-	// TIM3_CCER = TIM_CCER_CC1P | TIM_CCER_CC1E;
-	TIM3_CCER |= TIM_CCER_CC4E;
+	// TIM1_CCER = TIM_CCER_CC1P | TIM_CCER_CC1E;
+	TIM1_CCER |= TIM_CCER_CC4E;
 
 	/* Capture compare value */
-	TIM3_CCR4 = 0;
+	TIM1_CCR4 = 1000;
 
 	/* ---- */
 	/* ARR reload enable */
-	TIM3_CR1 |= TIM_CR1_ARPE;
+	TIM1_CR1 |= TIM_CR1_ARPE;
+
+	TIM1_BDTR |= TIM_BDTR_MOE;
 
 	/* Counter enable */
-	TIM3_CR1 |= TIM_CR1_CEN;
+	TIM1_CR1 |= TIM_CR1_CEN;
+#endif
 }
 
 int main(void)
@@ -349,25 +363,25 @@ int main(void)
 	j3 = 0;
 	d3 = 1;
 	while (1) {
-		TIM3_CCR1 = gamma_table_linear[j0];
+		TIM1_CCR1 = gamma_table_linear[j0];
 		j0 += d0;
 		if (j0 == 255)
 			d0 =- 1;
 		if (j0 == 0)
 			d0 = 1;
-		TIM3_CCR2 = gamma_table_1_3[j1];
+		TIM1_CCR2 = gamma_table_1_3[j1];
 		j1 += d1;
 		if (j1 == 255)
 			d1 =- 1;
 		if (j1 == 0)
 			d1 = 1;
-		TIM3_CCR3 = gamma_table_2_5[j2];
+		TIM1_CCR3 = gamma_table_2_5[j2];
 		j2 += d2;
 		if (j2 == 255)
 			d2 =- 1;
 		if (j2 == 0)
 			d2 = 1;
-		TIM3_CCR4= gamma_table_3_0[j3];
+		TIM1_CCR4= gamma_table_3_0[j3];
 		j3 += d3;
 		if (j3 == 255)
 			d3 =- 1;
@@ -387,25 +401,25 @@ int main(void)
 	j3 = 128;
 	d3 = -1;
 	while (1) {
-		TIM3_CCR1 = GAMMA_TABLE[j0];
+		TIM1_CCR1 = GAMMA_TABLE[j0];
 		j0 += d0;
 		if (j0 == 255)
 			d0 =- 1;
 		if (j0 == 0)
 			d0 = 1;
-		TIM3_CCR2 = GAMMA_TABLE[j1];
+		TIM1_CCR2 = GAMMA_TABLE[j1];
 		j1 += d1;
 		if (j1 == 255)
 			d1 =- 1;
 		if (j1 == 0)
 			d1 = 1;
-		TIM3_CCR3 = GAMMA_TABLE[j2];
+		TIM1_CCR3 = GAMMA_TABLE[j2];
 		j2 += d2;
 		if (j2 == 255)
 			d2 =- 1;
 		if (j2 == 0)
 			d2 = 1;
-		TIM3_CCR4 = GAMMA_TABLE[j3];
+		TIM1_CCR4 = GAMMA_TABLE[j3];
 		j3 += d3;
 		if (j3 == 255)
 			d3 =- 1;
@@ -428,25 +442,25 @@ int main(void)
 	k = 0;
 	kd = 1;
 	while (1) {
-		TIM3_CCR1 = GAMMA_TABLE[j0];
+		TIM1_CCR1 = GAMMA_TABLE[j0];
 		j0 += d0;
 		if (j0 == 255)
 			d0 =- 1;
 		if (j0 == 19)
 			j0 = 20;
-		TIM3_CCR2 = GAMMA_TABLE[j1];
+		TIM1_CCR2 = GAMMA_TABLE[j1];
 		j1 += d1;
 		if (j1 == 255)
 			d1 =- 1;
 		if (j1 == 19)
 			j1 = 20;
-		TIM3_CCR3 = GAMMA_TABLE[j2];
+		TIM1_CCR3 = GAMMA_TABLE[j2];
 		j2 += d2;
 		if (j2 == 255)
 			d2 =- 1;
 		if (j2 == 19)
 			j2 = 20;
-		TIM3_CCR4 = GAMMA_TABLE[j3];
+		TIM1_CCR4 = GAMMA_TABLE[j3];
 		j3 += d3;
 		if (j3 == 255)
 			d3 =- 1;

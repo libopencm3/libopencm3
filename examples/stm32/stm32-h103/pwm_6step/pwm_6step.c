@@ -87,222 +87,103 @@ void tim_setup(void)
 
 	/* Enable preload. */
 	timer_enable_preload(TIM1);
-	//timer_disable_preload(TIM1);
 
 	/* Continous mode. */
 	timer_continuous_mode(TIM1);
 
 	/* Period (32kHz) */
-	TIM1_ARR = 72000000 / 32000;
+	timer_set_period(TIM1, 72000000 / 32000);
 
 	/* -- OC1 and OC1N configuration -- */
-	{
-		u16 tmp_ccmr1 = 0, tmp_ccer = 0, tmp_cr2 = 0;
 
-		/** Disable OC1. **/
-		TIM1_CCER &= ~TIM_CCER_CC1E;
+	/* Disable outputs. */
+	timer_disable_oc_output(TIM1, TIM_OC1);
+	timer_disable_oc_output(TIM1, TIM_OC1N);
 
-		/** Disable OC1N. **/
-		TIM1_CCER &= ~TIM_CCER_CC1NE;
+	/* Configure global mode of line 1. */
+	timer_disable_oc_clear(TIM1, TIM_OC1);
+	timer_enable_oc_preload(TIM1, TIM_OC1);
+	timer_set_oc_slow_mode(TIM1, TIM_OC1);
+	timer_set_oc_mode(TIM1, TIM_OC1, TIM_CCMR1_OC1M_PWM1);
 
-		/** Get registers. **/
-		tmp_ccmr1 = TIM1_CCMR1;
-		tmp_ccer = TIM1_CCER;
-		tmp_cr2 = TIM1_CR2;
+	/* Configure OC1. */
+	timer_set_oc_polarity_high(TIM1, TIM_OC1);
+	timer_set_oc_idle_state_set(TIM1, TIM_OC1);
 
-		/** Configure global mode of line 1 **/
+	/* Configure OC1N. */
+	timer_set_oc_polarity_high(TIM1, TIM_OC1N);
+	timer_set_oc_idle_state_set(TIM1, TIM_OC1N);
 
-		/* Disable OC1 clear. (esden: What is that?) */
-		tmp_ccmr1 &= ~TIM_CCMR1_OC1CE;
+	/* Set the capture compare value for OC1. */
+	timer_set_oc_value(TIM1, TIM_OC1, 100);
 
-		/* Set CC1 to output mode. */
-		tmp_ccmr1 &= ~TIM_CCMR1_CC1S_MASK;
-		tmp_ccmr1 |= TIM_CCMR1_CC1S_OUT;
-
-		/* Enable OC1 preload enable. */
-		//tmp_ccmr1 |= TIM_CCMR1_OC1PE;
-		tmp_ccmr1 &= ~TIM_CCMR1_OC1PE;
-
-		/* Disable OC1 fast mode. */
-		tmp_ccmr1 &= ~TIM_CCMR1_OC1FE;
-
-		/* Set OC1 mode to PWM1. */
-		tmp_ccmr1 &= ~TIM_CCMR1_OC1M_MASK;
-		tmp_ccmr1 |= TIM_CCMR1_OC1M_PWM1;
-
-		/** Configure OC1. **/
-
-		/* Set output polarity level, high. */
-		tmp_ccer &= ~TIM_CCER_CC1P;
-
-		/* Enable OC1 output */
-		tmp_ccer |= TIM_CCER_CC1E;
-
-		/* Set OC1 idle state to "set". (TIM1 and TIM8 only) */
-		tmp_cr2 |= TIM_CR2_OIS1;
-
-		/** Configure OC1N. **/
-
-		/* Set output polarity level, high. (TIM1 and TIM8 only) */
-		tmp_ccer &= ~TIM_CCER_CC1NP;
-
-		/* Enable OC1N output. (TIM1 and TIM8 only) */
-		tmp_ccer |= TIM_CCER_CC1NE;
-
-		/* Set OC1N idle state to "set". (TIM1 and TIM8 only) */
-		tmp_cr2 |= TIM_CR2_OIS1N;
-
-		/** Set the capture compare value for OC1 **/
-		TIM1_CCR1 = 100;
-
-		/** Write register values **/
-		TIM1_CR2 = tmp_cr2;
-		TIM1_CCMR1 = tmp_ccmr1;
-		TIM1_CCER = tmp_ccer;
-
-	}
+	/* Reenable outputs. */
+	timer_enable_oc_output(TIM1, TIM_OC1);
+	timer_enable_oc_output(TIM1, TIM_OC1N);
 
 	/* -- OC2 and OC2N configuration -- */
-	{
-		u16 tmp_ccmr1 = 0, tmp_ccer = 0, tmp_cr2 = 0;
 
-		/** Disable OC2. **/
-		TIM1_CCER &= ~TIM_CCER_CC2E;
+	/* Disable outputs. */
+	timer_disable_oc_output(TIM1, TIM_OC2);
+	timer_disable_oc_output(TIM1, TIM_OC2N);
 
-		/** Disable OC2N. **/
-		TIM1_CCER &= ~TIM_CCER_CC2NE;
+	/* Configure global mode of line 2. */
+	timer_disable_oc_clear(TIM1, TIM_OC2);
+	timer_enable_oc_preload(TIM1, TIM_OC2);
+	timer_set_oc_slow_mode(TIM1, TIM_OC2);
+	timer_set_oc_mode(TIM1, TIM_OC2, TIM_CCMR1_OC2M_PWM1);
 
-		/** Get registers. **/
-		tmp_ccmr1 = TIM1_CCMR1;
-		tmp_ccer = TIM1_CCER;
-		tmp_cr2 = TIM1_CR2;
+	/* Configure OC2. */
+	timer_set_oc_polarity_high(TIM1, TIM_OC2);
+	timer_set_oc_idle_state_set(TIM1, TIM_OC2);
 
-		/** Configure global mode of line 1 **/
+	/* Configure OC2N. */
+	timer_set_oc_polarity_high(TIM1, TIM_OC2N);
+	timer_set_oc_idle_state_set(TIM1, TIM_OC2N);
 
-		/* Disable OC2 clear. (esden: What is that?) */
-		tmp_ccmr1 &= ~TIM_CCMR1_OC2CE;
+	/* Set the capture compare value for OC1. */
+	timer_set_oc_value(TIM1, TIM_OC2, 200);
 
-		/* Set CC2 to output mode. */
-		tmp_ccmr1 &= ~TIM_CCMR1_CC2S_MASK;
-		tmp_ccmr1 |= TIM_CCMR1_CC2S_OUT;
-
-		/* Enable OC2 preload enable. */
-		tmp_ccmr1 |= TIM_CCMR1_OC2PE;
-
-		/* Disable OC2 fast mode. */
-		tmp_ccmr1 &= ~TIM_CCMR1_OC2FE;
-
-		/* Set OC2 mode to PWM1. */
-		tmp_ccmr1 &= ~TIM_CCMR1_OC2M_MASK;
-		tmp_ccmr1 |= TIM_CCMR1_OC2M_PWM1;
-
-		/** Configure OC2. **/
-
-		/* Set output polarity level, high. */
-		tmp_ccer &= ~TIM_CCER_CC2P;
-
-		/* Enable OC2 output */
-		tmp_ccer |= TIM_CCER_CC2E;
-
-		/* Set OC2 idle state to "set". (TIM1 and TIM8 only) */
-		tmp_cr2 |= TIM_CR2_OIS2;
-
-		/** Configure OC2N. **/
-
-		/* Set output polarity level, high. (TIM1 and TIM8 only) */
-		tmp_ccer &= ~TIM_CCER_CC2NP;
-
-		/* Enable OC2N output. (TIM1 and TIM8 only) */
-		tmp_ccer |= TIM_CCER_CC2NE;
-
-		/* Set OC2N idle state to "set". (TIM1 and TIM8 only) */
-		tmp_cr2 |= TIM_CR2_OIS2N;
-
-		/** Set the capture compare value for OC2 **/
-		TIM1_CCR2 = 200;
-
-		/** Write register values **/
-		TIM1_CR2 = tmp_cr2;
-		TIM1_CCMR1 = tmp_ccmr1;
-		TIM1_CCER = tmp_ccer;
-
-	}
+	/* Reenable outputs. */
+	timer_enable_oc_output(TIM1, TIM_OC2);
+	timer_enable_oc_output(TIM1, TIM_OC2N);
 
 	/* -- OC3 and OC3N configuration -- */
-	{
-		u16 tmp_ccmr2 = 0, tmp_ccer = 0, tmp_cr2 = 0;
 
-		/** Disable OC3. **/
-		TIM1_CCER &= ~TIM_CCER_CC3E;
+	/* Disable outputs. */
+	timer_disable_oc_output(TIM1, TIM_OC3);
+	timer_disable_oc_output(TIM1, TIM_OC3N);
 
-		/** Disable OC3N. **/
-		TIM1_CCER &= ~TIM_CCER_CC3NE;
+	/* Configure global mode of line 3. */
+	timer_disable_oc_clear(TIM1, TIM_OC3);
+	timer_enable_oc_preload(TIM1, TIM_OC3);
+	timer_set_oc_slow_mode(TIM1, TIM_OC3);
+	timer_set_oc_mode(TIM1, TIM_OC3, TIM_CCMR2_OC3M_PWM1);
 
-		/** Get registers. **/
-		tmp_ccmr2 = TIM1_CCMR2;
-		tmp_ccer = TIM1_CCER;
-		tmp_cr2 = TIM1_CR2;
+	/* Configure OC3. */
+	timer_set_oc_polarity_high(TIM1, TIM_OC3);
+	timer_set_oc_idle_state_set(TIM1, TIM_OC3);
 
-		/** Configure global mode of line 1 **/
+	/* Configure OC3N. */
+	timer_set_oc_polarity_high(TIM1, TIM_OC3N);
+	timer_set_oc_idle_state_set(TIM1, TIM_OC3N);
 
-		/* Disable OC3 clear. (esden: What is that?) */
-		tmp_ccmr2 &= ~TIM_CCMR2_OC3CE;
+	/* Set the capture compare value for OC3. */
+	timer_set_oc_value(TIM1, TIM_OC3, 300);
 
-		/* Set CC3 to output mode. */
-		tmp_ccmr2 &= ~TIM_CCMR2_CC3S_MASK;
-		tmp_ccmr2 |= TIM_CCMR2_CC3S_OUT;
-
-		/* Enable OC3 preload enable. */
-		tmp_ccmr2 |= TIM_CCMR2_OC3PE;
-
-		/* Disable OC3 fast mode. */
-		tmp_ccmr2 &= ~TIM_CCMR2_OC3FE;
-
-		/* Set OC3 mode to PWM1. */
-		tmp_ccmr2 &= ~TIM_CCMR2_OC3M_MASK;
-		tmp_ccmr2 |= TIM_CCMR2_OC3M_PWM1;
-
-		/** Configure OC3. **/
-
-		/* Set output polarity level, high. */
-		tmp_ccer &= ~TIM_CCER_CC3P;
-
-		/* Enable OC3 output */
-		tmp_ccer |= TIM_CCER_CC3E;
-
-		/* Set OC3 idle state to "set". (TIM1 and TIM8 only) */
-		tmp_cr2 |= TIM_CR2_OIS3;
-
-		/** Configure OC3N. **/
-
-		/* Set output polarity level, high. (TIM1 and TIM8 only) */
-		tmp_ccer &= ~TIM_CCER_CC3NP;
-
-		/* Enable OC3N output. (TIM1 and TIM8 only) */
-		tmp_ccer |= TIM_CCER_CC3NE;
-
-		/* Set OC3N idle state to "set". (TIM1 and TIM8 only) */
-		tmp_cr2 |= TIM_CR2_OIS3N;
-
-		/** Set the capture compare value for OC3 **/
-		TIM1_CCR3 = 300;
-
-		/** Write register values **/
-		TIM1_CR2 = tmp_cr2;
-		TIM1_CCMR2 = tmp_ccmr2;
-		TIM1_CCER = tmp_ccer;
-
-	}
+	/* Reenable outputs. */
+	timer_enable_oc_output(TIM1, TIM_OC3);
+	timer_enable_oc_output(TIM1, TIM_OC3N);
 
 	/* ---- */
 	/* ARR reload enable */
-	TIM1_CR1 |= TIM_CR1_ARPE;
+	timer_enable_preload(TIM1);
 
 	/* Enable outputs in the break subsystem */
 	TIM1_BDTR |= TIM_BDTR_MOE;
 
 	/* Counter enable */
-	TIM1_CR1 |= TIM_CR1_CEN;
+	timer_enable_counter(TIM1);
 }
 
 int main(void)

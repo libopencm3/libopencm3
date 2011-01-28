@@ -826,6 +826,19 @@
 
 /* DMAB[15:0]: DMA register for burst accesses */
 
+/* --- TIMx convenience defines -------------------------------------------- */
+
+/* Capture Compare channel designators */
+enum tim_oc_id {
+	TIM_OC1=0,
+	TIM_OC1N,
+	TIM_OC2,
+	TIM_OC2N,
+	TIM_OC3,
+	TIM_OC3N,
+	TIM_OC4,
+};
+
 /* --- TIM functions ------------------------------------------------------- */
 void timer_set_mode(u32 timer_peripheral, u8 clock_div,
 		    u8 alignment, u8 direction);
@@ -854,5 +867,20 @@ void timer_enable_compare_control_update_on_trigger(u32 timer_peripheral);
 void timer_disable_compare_control_update_on_trigger(u32 timer_peripheral);
 void timer_enable_preload_complementry_enable_bits(u32 timer_peripheral);
 void timer_disable_preload_complementry_enable_bits(u32 timer_peripheral);
+void timer_set_period(u32 timer_peripheral, u32 period);
+void timer_enable_oc_clear(u32 timer_peripheral, enum tim_oc_id oc_id);
+void timer_disable_oc_clear(u32 timer_peripheral, enum tim_oc_id oc_id);
+void timer_set_oc_fast_mode(u32 timer_peripheral, enum tim_oc_id oc_id);
+void timer_set_oc_slow_mode(u32 timer_peripheral, enum tim_oc_id oc_id);
+void timer_set_oc_mode(u32 timer_peripheral, enum tim_oc_id oc_id, u32 mode);
+void timer_enable_oc_preload(u32 timer_peripheral, enum tim_oc_id oc_id);
+void timer_disable_oc_preload(u32 timer_peripheral, enum tim_oc_id oc_id);
+void timer_set_oc_polarity_high(u32 timer_peripheral, enum tim_oc_id oc_id);
+void timer_set_oc_polarity_low(u32 timer_peripheral, enum tim_oc_id oc_id);
+void timer_enable_oc_output(u32 timer_peripheral, enum tim_oc_id oc_id);
+void timer_disable_oc_output(u32 timer_peripheral, enum tim_oc_id oc_id);
+void timer_set_oc_idle_state_set(u32 timer_peripheral, enum tim_oc_id oc_id);
+void timer_set_oc_idle_state_unset(u32 timer_peripheral, enum tim_oc_id oc_id);
+void timer_set_oc_value(u32 timer_peripheral, enum tim_oc_id oc_id, u32 value);
 
 #endif
