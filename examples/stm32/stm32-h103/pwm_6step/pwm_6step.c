@@ -104,7 +104,7 @@ void tim_setup(void)
 	timer_disable_oc_clear(TIM1, TIM_OC1);
 	timer_enable_oc_preload(TIM1, TIM_OC1);
 	timer_set_oc_slow_mode(TIM1, TIM_OC1);
-	timer_set_oc_mode(TIM1, TIM_OC1, TIM_CCMR1_OC1M_PWM1);
+	timer_set_oc_mode(TIM1, TIM_OC1, TIM_OCM_PWM1);
 
 	/* Configure OC1. */
 	timer_set_oc_polarity_high(TIM1, TIM_OC1);
@@ -131,7 +131,7 @@ void tim_setup(void)
 	timer_disable_oc_clear(TIM1, TIM_OC2);
 	timer_enable_oc_preload(TIM1, TIM_OC2);
 	timer_set_oc_slow_mode(TIM1, TIM_OC2);
-	timer_set_oc_mode(TIM1, TIM_OC2, TIM_CCMR1_OC2M_PWM1);
+	timer_set_oc_mode(TIM1, TIM_OC2, TIM_OCM_PWM1);
 
 	/* Configure OC2. */
 	timer_set_oc_polarity_high(TIM1, TIM_OC2);
@@ -158,7 +158,7 @@ void tim_setup(void)
 	timer_disable_oc_clear(TIM1, TIM_OC3);
 	timer_enable_oc_preload(TIM1, TIM_OC3);
 	timer_set_oc_slow_mode(TIM1, TIM_OC3);
-	timer_set_oc_mode(TIM1, TIM_OC3, TIM_CCMR2_OC3M_PWM1);
+	timer_set_oc_mode(TIM1, TIM_OC3, TIM_OCM_PWM1);
 
 	/* Configure OC3. */
 	timer_set_oc_polarity_high(TIM1, TIM_OC3);

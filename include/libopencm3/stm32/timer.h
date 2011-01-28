@@ -828,7 +828,7 @@
 
 /* --- TIMx convenience defines -------------------------------------------- */
 
-/* Capture Compare channel designators */
+/* Output Compare channel designators */
 enum tim_oc_id {
 	TIM_OC1=0,
 	TIM_OC1N,
@@ -837,6 +837,18 @@ enum tim_oc_id {
 	TIM_OC3,
 	TIM_OC3N,
 	TIM_OC4,
+};
+
+/* Output Compare mode designators */
+enum tim_oc_mode {
+	TIM_OCM_FROZEN,
+	TIM_OCM_ACTIVE,
+	TIM_OCM_INACTIVE,
+	TIM_OCM_TOGGLE,
+	TIM_OCM_FORCE_LOW,
+	TIM_OCM_FORCE_HIGH,
+	TIM_OCM_PWM1,
+	TIM_OCM_PWM2,
 };
 
 /* --- TIM functions ------------------------------------------------------- */
@@ -872,7 +884,7 @@ void timer_enable_oc_clear(u32 timer_peripheral, enum tim_oc_id oc_id);
 void timer_disable_oc_clear(u32 timer_peripheral, enum tim_oc_id oc_id);
 void timer_set_oc_fast_mode(u32 timer_peripheral, enum tim_oc_id oc_id);
 void timer_set_oc_slow_mode(u32 timer_peripheral, enum tim_oc_id oc_id);
-void timer_set_oc_mode(u32 timer_peripheral, enum tim_oc_id oc_id, u32 mode);
+void timer_set_oc_mode(u32 timer_peripheral, enum tim_oc_id oc_id, enum tim_oc_mode oc_mode);
 void timer_enable_oc_preload(u32 timer_peripheral, enum tim_oc_id oc_id);
 void timer_disable_oc_preload(u32 timer_peripheral, enum tim_oc_id oc_id);
 void timer_set_oc_polarity_high(u32 timer_peripheral, enum tim_oc_id oc_id);
