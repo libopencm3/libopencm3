@@ -27,17 +27,24 @@
 
 #include <libopencm3/stm32/timer.h>
 
-void timer_set_mode(u32 timer_peripheral, u8 clock_div, u8 alignment,
-		    u8 direction)
+void timer_set_mode(u32 timer_peripheral, u8 clock_div,
+		    u8 alignment, u8 direction)
 {
-	/* Bad, will reset lots of other stuff. */
-	// TIM_CR1(timer_peripheral) = clock_div | alignment | direction;
+	u32 cr1 = TIM_CR1(timer_peripheral);
+
+	cr1 &= ~(TIM_CR1_CKD_CK_INT_MASK |
+		 TIM_CR1_CMS_MASK |
+		 TIM_CR1_DIR_DOWN);
+
+	cr1 |= clock_div | alignment | direction;
+
+	TIM_CR1(timer_peripheral) = cr1;
 }
 
 void timer_set_clock_division(u32 timer_peripheral, u32 clock_div)
 {
 	clock_div &= TIM_CR1_CKD_CK_INT_MASK;
-	TIM_CR1(timer_peripheral) &= !TIM_CR1_CKD_CK_INT_MASK;
+	TIM_CR1(timer_peripheral) &= ~TIM_CR1_CKD_CK_INT_MASK;
 	TIM_CR1(timer_peripheral) |= clock_div;
 }
 
@@ -48,7 +55,7 @@ void timer_enable_preload(u32 timer_peripheral)
 
 void timer_disable_preload(u32 timer_peripheral)
 {
-	TIM_CR1(timer_peripheral) &= !TIM_CR1_ARPE;
+	TIM_CR1(timer_peripheral) &= ~TIM_CR1_ARPE;
 }
 
 void timer_set_alignment(u32 timer_peripheral, u32 alignment)
@@ -130,7 +137,6 @@ void timer_set_ti1_ch1(u32 timer_peripheral)
 
 void timer_set_master_mode(u32 timer_peripheral, u32 mode)
 {
-	mode &= mode & TIM_CR2_MASK;
 	TIM_CR2(timer_peripheral) &= ~TIM_CR2_MMS_MASK;
 	TIM_CR2(timer_peripheral) |= mode;
 }

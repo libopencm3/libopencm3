@@ -241,6 +241,7 @@
 #define TIM_CR1_CMS_CENTER_1            (0x1 << 5)
 #define TIM_CR1_CMS_CENTER_2            (0x2 << 5)
 #define TIM_CR1_CMS_CENTER_3            (0x3 << 5)
+#define TIM_CR1_CMS_MASK                (0x3 << 5)
 
 /* DIR: Direction */
 #define TIM_CR1_DIR_UP                  (0 << 4)
@@ -318,6 +319,7 @@
 #define TIM_SMCR_ETPS_ETRP_DIV_2        (0x1 << 12)
 #define TIM_SMCR_ETPS_ETRP_DIV_4        (0x2 << 12)
 #define TIM_SMCR_ETPS_ETRP_DIV_8        (0x3 << 12)
+#define TIM_SMCR_ETPS_MASK              (0X3 << 12)
 
 /* ETF[3:0]: External trigger filter */
 #define TIM_SMCR_ETF_OFF                (0x0 << 8)
@@ -336,6 +338,7 @@
 #define TIM_SMCR_ETF_DTS_DIV_32_N_5     (0xD << 8)
 #define TIM_SMCR_ETF_DTS_DIV_32_N_6     (0xE << 8)
 #define TIM_SMCR_ETF_DTS_DIV_32_N_8     (0xF << 8)
+#define TIM_SMCR_ETF_MASK               (0xF << 8)
 
 /* MSM: Master/slave mode */
 #define TIM_SMCR_MSM                    (1 << 7)
@@ -349,6 +352,7 @@
 #define TIM_SMCR_TS_IT1FP1              (0x5 << 4)
 #define TIM_SMCR_TS_IT1FP2              (0x6 << 4)
 #define TIM_SMCR_TS_ETRF                (0x7 << 4)
+#define TIM_SMCR_TS_MASK                (0x7 << 4)
 
 /* SMS[2:0]: Slave mode selection */
 #define TIM_SMCR_SMS_OFF                (0x0 << 0)
@@ -359,6 +363,7 @@
 #define TIM_SMCR_SMS_GM                 (0x5 << 0)
 #define TIM_SMCR_SMS_TM                 (0x6 << 0)
 #define TIM_SMCR_SMS_ECM1               (0x7 << 0)
+#define TIM_SMCR_SMS_MASK               (0x7 << 0)
 
 /* --- TIMx_DIER values ---------------------------------------------------- */
 
@@ -487,6 +492,7 @@
 #define TIM_CCMR1_OC2M_FORCE_HIGH       (0x5 << 12)
 #define TIM_CCMR1_OC2M_PWM1             (0x6 << 12)
 #define TIM_CCMR1_OC2M_PWM2             (0x7 << 12)
+#define TIM_CCMR1_OC2M_MASK             (0x7 << 12)
 
 /* OC2PE: Output compare 2 preload enable */
 #define TIM_CCMR1_OC2PE                 (1 << 11)
@@ -501,6 +507,7 @@
 #define TIM_CCMR1_CC2S_IN_TI2           (0x1 << 8)
 #define TIM_CCMR1_CC2S_IN_TI1           (0x2 << 8)
 #define TIM_CCMR1_CC2S_IN_TRC           (0x3 << 8)
+#define TIM_CCMR1_CC2S_MASK             (0x3 << 8)
 
 /* OC1CE: Output compare 1 clear enable */
 #define TIM_CCMR1_OC1CE                 (1 << 7)
@@ -514,6 +521,7 @@
 #define TIM_CCMR1_OC1M_FORCE_HIGH       (0x5 << 4)
 #define TIM_CCMR1_OC1M_PWM1             (0x6 << 4)
 #define TIM_CCMR1_OC1M_PWM2             (0x7 << 4)
+#define TIM_CCMR1_OC1M_MASK             (0x7 << 4)
 
 /* OC1PE: Output compare 1 preload enable */
 #define TIM_CCMR1_OC1PE                 (1 << 3)
@@ -528,6 +536,7 @@
 #define TIM_CCMR1_CC1S_IN_TI2           (0x1 << 0)
 #define TIM_CCMR1_CC1S_IN_TI1           (0x2 << 0)
 #define TIM_CCMR1_CC1S_IN_TRC           (0x3 << 0)
+#define TIM_CCMR1_CC1S_MASK             (0x3 << 0)
 
 /* --- Input capture mode --- */
 
@@ -548,12 +557,14 @@
 #define TIM_CCMR1_IC2F_DTF_DIV_32_N_5   (0xD << 12)
 #define TIM_CCMR1_IC2F_DTF_DIV_32_N_6   (0xE << 12)
 #define TIM_CCMR1_IC2F_DTF_DIV_32_N_8   (0xF << 12)
+#define TIM_CCMR1_IC2F_MASK             (0xF << 12)
 
 /* IC2PSC[1:0]: Input capture 2 prescaler */
 #define TIM_CCMR1_IC2PSC_OFF            (0x0 << 10)
 #define TIM_CCMR1_IC2PSC_2              (0x1 << 10)
 #define TIM_CCMR1_IC2PSC_4              (0x2 << 10)
 #define TIM_CCMR1_IC2PSC_8              (0x3 << 10)
+#define TIM_CCMR1_IC2PSC_MASK           (0x3 << 10)
 
 /* IC1F[3:0]: Input capture 1 filter */
 #define TIM_CCMR1_IC1F_OFF              (0x0 << 4)
@@ -572,12 +583,14 @@
 #define TIM_CCMR1_IC1F_DTF_DIV_32_N_5   (0xD << 4)
 #define TIM_CCMR1_IC1F_DTF_DIV_32_N_6   (0xE << 4)
 #define TIM_CCMR1_IC1F_DTF_DIV_32_N_8   (0xF << 4)
+#define TIM_CCMR1_IC1F_MASK             (0xF << 4)
 
 /* IC1PSC[1:0]: Input capture 1 prescaler */
 #define TIM_CCMR1_IC1PSC_OFF            (0x0 << 2)
 #define TIM_CCMR1_IC1PSC_2              (0x1 << 2)
 #define TIM_CCMR1_IC1PSC_4              (0x2 << 2)
 #define TIM_CCMR1_IC1PSC_8              (0x3 << 2)
+#define TIM_CCMR1_IC1PSC_MASK           (0x3 << 2)
 
 /* --- TIMx_CCMR2 values --------------------------------------------------- */
 
@@ -595,6 +608,7 @@
 #define TIM_CCMR2_OC4M_FORCE_HIGH       (0x5 << 12)
 #define TIM_CCMR2_OC4M_PWM1             (0x6 << 12)
 #define TIM_CCMR2_OC4M_PWM2             (0x7 << 12)
+#define TIM_CCMR2_OC4M_MASK             (0x7 << 12)
 
 /* OC4PE: Output compare 4 preload enable */
 #define TIM_CCMR2_OC4PE                 (1 << 11)
@@ -609,9 +623,10 @@
 #define TIM_CCMR2_CC4S_IN_TI2           (0x1 << 8)
 #define TIM_CCMR2_CC4S_IN_TI1           (0x2 << 8)
 #define TIM_CCMR2_CC4S_IN_TRC           (0x3 << 8)
+#define TIM_CCMR2_CC4S_MASK             (0x3 << 8)
 
 /* OC3CE: Output compare 3 clear enable */
-#define TIM_CCMR2_OC1CE                 (1 << 7)
+#define TIM_CCMR2_OC3CE                 (1 << 7)
 
 /* OC3M[2:0]: Output compare 3 mode */
 #define TIM_CCMR2_OC3M_FROZEN           (0x0 << 4)
@@ -622,6 +637,7 @@
 #define TIM_CCMR2_OC3M_FORCE_HIGH       (0x5 << 4)
 #define TIM_CCMR2_OC3M_PWM1             (0x6 << 4)
 #define TIM_CCMR2_OC3M_PWM2             (0x7 << 4)
+#define TIM_CCMR2_OC3M_MASK             (0x7 << 4)
 
 /* OC3PE: Output compare 3 preload enable */
 #define TIM_CCMR2_OC3PE                 (1 << 3)
@@ -636,6 +652,7 @@
 #define TIM_CCMR2_CC3S_IN_TI2           (0x1 << 0)
 #define TIM_CCMR2_CC3S_IN_TI1           (0x2 << 0)
 #define TIM_CCMR2_CC3S_IN_TRC           (0x3 << 0)
+#define TIM_CCMR2_CC3S_MASK             (0x3 << 0)
 
 /* --- Input capture mode --- */
 
@@ -656,12 +673,14 @@
 #define TIM_CCMR2_IC4F_DTF_DIV_32_N_5   (0xD << 12)
 #define TIM_CCMR2_IC4F_DTF_DIV_32_N_6   (0xE << 12)
 #define TIM_CCMR2_IC4F_DTF_DIV_32_N_8   (0xF << 12)
+#define TIM_CCMR2_IC4F_MASK             (0xF << 12)
 
 /* IC4PSC[1:0]: Input capture 4 prescaler */
 #define TIM_CCMR2_IC4PSC_OFF            (0x0 << 10)
 #define TIM_CCMR2_IC4PSC_2              (0x1 << 10)
 #define TIM_CCMR2_IC4PSC_4              (0x2 << 10)
 #define TIM_CCMR2_IC4PSC_8              (0x3 << 10)
+#define TIM_CCMR2_IC4PSC_MASK           (0x3 << 10)
 
 /* IC3F[3:0]: Input capture 3 filter */
 #define TIM_CCMR2_IC3F_OFF              (0x0 << 4)
@@ -680,12 +699,14 @@
 #define TIM_CCMR2_IC3F_DTF_DIV_32_N_5   (0xD << 4)
 #define TIM_CCMR2_IC3F_DTF_DIV_32_N_6   (0xE << 4)
 #define TIM_CCMR2_IC3F_DTF_DIV_32_N_8   (0xF << 4)
+#define TIM_CCMR2_IC3F_MASK             (0xF << 4)
 
 /* IC3PSC[1:0]: Input capture 3 prescaler */
 #define TIM_CCMR2_IC3PSC_OFF            (0x0 << 2)
 #define TIM_CCMR2_IC3PSC_2              (0x1 << 2)
 #define TIM_CCMR2_IC3PSC_4              (0x2 << 2)
 #define TIM_CCMR2_IC3PSC_8              (0x3 << 2)
+#define TIM_CCMR2_IC3PSC_MASK           (0x3 << 2)
 
 /* --- TIMx_CCER values ---------------------------------------------------- */
 
@@ -788,6 +809,7 @@
 #define TIM_BDTR_LOCK_LEVEL_1           (0x1 << 8)
 #define TIM_BDTR_LOCK_LEVEL_2           (0x2 << 8)
 #define TIM_BDTR_LOCK_LEVEL_3           (0x3 << 8)
+#define TIM_BDTR_LOCK_MASK              (0x3 << 8)
 
 /* DTG[7:0]: Dead-time generator set-up */
 #define TIM_BDTR_DTG_MASK               0x00FF
@@ -803,5 +825,34 @@
 /* --- TIMx_DMAR values ---------------------------------------------------- */
 
 /* DMAB[15:0]: DMA register for burst accesses */
+
+/* --- TIM functions ------------------------------------------------------- */
+void timer_set_mode(u32 timer_peripheral, u8 clock_div,
+		    u8 alignment, u8 direction);
+void timer_set_clock_division(u32 timer_peripheral, u32 clock_div);
+void timer_enable_preload(u32 timer_peripheral);
+void timer_disable_preload(u32 timer_peripheral);
+void timer_set_alignment(u32 timer_peripheral, u32 alignment);
+void timer_direction_up(u32 timer_peripheral);
+void timer_direction_down(u32 timer_peripheral);
+void timer_one_shot_mode(u32 timer_peripheral);
+void timer_continuous_mode(u32 timer_peripheral);
+void timer_update_on_any(u32 timer_peripheral);
+void timer_update_on_overflow(u32 timer_peripheral);
+void timer_enable_update_event(u32 timer_peripheral);
+void timer_disable_update_event(u32 timer_peripheral);
+void timer_enable_counter(u32 timer_peripheral);
+void timer_disable_counter(u32 timer_peripheral);
+void timer_set_output_idle_state(u32 timer_peripheral, u32 outputs);
+void timer_reset_output_idle_state(u32 timer_peripheral, u32 outputs);
+void timer_set_ti1_ch123_xor(u32 timer_peripheral);
+void timer_set_ti1_ch1(u32 timer_peripheral);
+void timer_set_master_mode(u32 timer_peripheral, u32 mode);
+void timer_set_dma_on_compare_event(u32 timer_peripheral);
+void timer_set_dma_on_update_event(u32 timer_peripheral);
+void timer_enable_compare_control_update_on_trigger(u32 timer_peripheral);
+void timer_disable_compare_control_update_on_trigger(u32 timer_peripheral);
+void timer_enable_preload_complementry_enable_bits(u32 timer_peripheral);
+void timer_disable_preload_complementry_enable_bits(u32 timer_peripheral);
 
 #endif
