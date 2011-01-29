@@ -94,6 +94,15 @@ void tim_setup(void)
 	/* Period (32kHz) */
 	timer_set_period(TIM1, 72000000 / 32000);
 
+	/* Configure break and deadtime */
+	timer_set_deadtime(TIM1, 0);
+	timer_set_enabled_off_state_in_idle_mode(TIM1);
+	timer_set_enabled_off_state_in_run_mode(TIM1);
+	timer_disable_break(TIM1);
+	timer_set_break_polarity_high(TIM1);
+	timer_disable_break_automatic_output(TIM1);
+	timer_set_break_lock(TIM1, TIM_BDTR_LOCK_OFF);
+
 	/* -- OC1 and OC1N configuration -- */
 
 	/* Disable outputs. */
@@ -180,7 +189,7 @@ void tim_setup(void)
 	timer_enable_preload(TIM1);
 
 	/* Enable outputs in the break subsystem */
-	TIM1_BDTR |= TIM_BDTR_MOE;
+	timer_enable_break_main_output(TIM1);
 
 	/* Counter enable */
 	timer_enable_counter(TIM1);

@@ -717,3 +717,115 @@ void timer_set_oc_value(u32 timer_peripheral, enum tim_oc_id oc_id, u32 value)
 		break;
 	}
 }
+
+void timer_enable_break_main_output(u32 timer_peripheral)
+{
+	if ((timer_peripheral == TIM1) ||
+	    (timer_peripheral == TIM8)) {
+		TIM_BDTR(timer_peripheral) |= TIM_BDTR_MOE;
+	}
+}
+
+void timer_disable_break_main_output(u32 timer_peripheral)
+{
+	if ((timer_peripheral == TIM1) ||
+	    (timer_peripheral == TIM8)) {
+		TIM_BDTR(timer_peripheral) &= ~TIM_BDTR_MOE;
+	}
+}
+
+void timer_enable_break_automatic_output(u32 timer_peripheral)
+{
+	if ((timer_peripheral == TIM1) ||
+	    (timer_peripheral == TIM8)) {
+		TIM_BDTR(timer_peripheral) |= TIM_BDTR_AOE;
+	}
+}
+
+void timer_disable_break_automatic_output(u32 timer_peripheral)
+{
+	if ((timer_peripheral == TIM1) ||
+	    (timer_peripheral == TIM8)) {
+		TIM_BDTR(timer_peripheral) &= ~TIM_BDTR_AOE;
+	}
+}
+
+void timer_set_break_polarity_high(u32 timer_peripheral)
+{
+	if ((timer_peripheral == TIM1) ||
+	    (timer_peripheral == TIM8)) {
+		TIM_BDTR(timer_peripheral) |= TIM_BDTR_BKP;
+	}
+}
+
+void timer_set_break_polarity_low(u32 timer_peripheral)
+{
+	if ((timer_peripheral == TIM1) ||
+	    (timer_peripheral == TIM8)) {
+		TIM_BDTR(timer_peripheral) &= ~TIM_BDTR_BKP;
+	}
+}
+
+void timer_enable_break(u32 timer_peripheral)
+{
+	if ((timer_peripheral == TIM1) ||
+	    (timer_peripheral == TIM8)) {
+		TIM_BDTR(timer_peripheral) |= TIM_BDTR_BKE;
+	}
+}
+
+void timer_disable_break(u32 timer_peripheral)
+{
+	if ((timer_peripheral == TIM1) ||
+	    (timer_peripheral == TIM8)) {
+		TIM_BDTR(timer_peripheral) &= ~TIM_BDTR_BKE;
+	}
+}
+
+void timer_set_enabled_off_state_in_run_mode(u32 timer_peripheral)
+{
+	if ((timer_peripheral == TIM1) ||
+	    (timer_peripheral == TIM8)) {
+		TIM_BDTR(timer_peripheral) |= TIM_BDTR_OSSR;
+	}
+}
+
+void timer_set_disabled_off_state_in_run_mode(u32 timer_peripheral)
+{
+	if ((timer_peripheral == TIM1) ||
+	    (timer_peripheral == TIM8)) {
+		TIM_BDTR(timer_peripheral) &= ~TIM_BDTR_OSSR;
+	}
+}
+
+void timer_set_enabled_off_state_in_idle_mode(u32 timer_peripheral)
+{
+	if ((timer_peripheral == TIM1) ||
+	    (timer_peripheral == TIM8)) {
+		TIM_BDTR(timer_peripheral) |= TIM_BDTR_OSSI;
+	}
+}
+
+void timer_set_disabled_off_state_in_idle_mode(u32 timer_peripheral)
+{
+	if ((timer_peripheral == TIM1) ||
+	    (timer_peripheral == TIM8)) {
+		TIM_BDTR(timer_peripheral) &= ~TIM_BDTR_OSSI;
+	}
+}
+
+void timer_set_break_lock(u32 timer_peripheral, u32 lock)
+{
+	if ((timer_peripheral == TIM1) ||
+	    (timer_peripheral == TIM8)) {
+		TIM_BDTR(timer_peripheral) |= lock;
+	}
+}
+
+void timer_set_deadtime(u32 timer_peripheral, u32 deadtime)
+{
+	if ((timer_peripheral == TIM1) ||
+	    (timer_peripheral == TIM8)) {
+		TIM_BDTR(timer_peripheral) |= deadtime;
+	}
+}

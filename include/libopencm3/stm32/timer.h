@@ -894,5 +894,19 @@ void timer_disable_oc_output(u32 timer_peripheral, enum tim_oc_id oc_id);
 void timer_set_oc_idle_state_set(u32 timer_peripheral, enum tim_oc_id oc_id);
 void timer_set_oc_idle_state_unset(u32 timer_peripheral, enum tim_oc_id oc_id);
 void timer_set_oc_value(u32 timer_peripheral, enum tim_oc_id oc_id, u32 value);
+void timer_enable_break_main_output(u32 timer_peripheral);
+void timer_disable_break_main_output(u32 timer_peripheral);
+void timer_enable_break_automatic_output(u32 timer_peripheral);
+void timer_disable_break_automatic_output(u32 timer_peripheral);
+void timer_set_break_polarity_high(u32 timer_peripheral);
+void timer_set_break_polarity_low(u32 timer_peripheral);
+void timer_enable_break(u32 timer_peripheral);
+void timer_disable_break(u32 timer_peripheral);
+void timer_set_enabled_off_state_in_run_mode(u32 timer_peripheral);
+void timer_set_disabled_off_state_in_run_mode(u32 timer_peripheral);
+void timer_set_enabled_off_state_in_idle_mode(u32 timer_peripheral);
+void timer_set_disabled_off_state_in_idle_mode(u32 timer_peripheral);
+void timer_set_break_lock(u32 timer_peripheral, u32 lock);
+void timer_set_deadtime(u32 timer_peripheral, u32 deadtime);
 
 #endif
