@@ -24,7 +24,7 @@ Q := @
 MAKEFLAGS += --no-print-directory
 endif
 
-all:  fancyblink
+all: fancyblink
 
 fancyblink:
 	@printf "  BUILD   examples/stm32/stm32-h107/fancyblink\n"
@@ -34,5 +34,5 @@ clean:
 	@printf "  CLEAN   examples/stm32/stm32-h107/fancyblink\n"
 	$(Q)$(MAKE) -C fancyblink clean
 
-.PHONY:  fancyblink
+.PHONY: fancyblink
 

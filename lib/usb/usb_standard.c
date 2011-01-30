@@ -137,6 +137,8 @@ static int usb_standard_set_address(struct usb_setup_data *req, u8 **buf,
 static int usb_standard_set_configuration(struct usb_setup_data *req,
 					  u8 **buf, u16 *len)
 {
+	int i;
+
 	(void)req;
 	(void)buf;
 	(void)len;
@@ -151,10 +153,11 @@ static int usb_standard_set_configuration(struct usb_setup_data *req,
 	_usbd_hw_endpoints_reset();
 
 	if (_usbd_device.user_callback_set_config) {
-		/* Flush control callbacks.  These will be reregistered
-		 * by the user handler. */
-		int i;
-		for(i = 0; i < MAX_USER_CONTROL_CALLBACK; i++)
+		/*
+		 * Flush control callbacks. These will be reregistered
+		 * by the user handler.
+		 */
+		for (i = 0; i < MAX_USER_CONTROL_CALLBACK; i++)
 			_usbd_device.user_control_callback[i].cb = NULL;
 
 		_usbd_device.user_callback_set_config(req->wValue);
