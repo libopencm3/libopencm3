@@ -235,7 +235,7 @@ int main(void)
 	gpio_set_mode(GPIOC, GPIO_MODE_OUTPUT_2_MHZ, 
 			GPIO_CNF_OUTPUT_PUSHPULL, GPIO11);
 
-	usbd_init(&dev, &config, usb_strings);
+	usbd_init(&stm32f103_usb_driver, &dev, &config, usb_strings);
 	usbd_register_set_config_callback(cdcacm_set_config);
 
 	for (i = 0; i < 0x800000; i++)

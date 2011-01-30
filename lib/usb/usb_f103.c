@@ -23,8 +23,31 @@
 #include <libopencm3/usb/usbd.h>
 #include "usb_private.h"
 
+static void stm32f103_usbd_init(void);
+static void stm32f103_set_address(u8 addr);
+static void stm32f103_ep_setup(u8 addr, u8 type, u16 max_size,
+				void (*callback) (u8 ep));
+static void stm32f103_endpoints_reset(void);
+static void stm32f103_ep_stall_set(u8 addr, u8 stall);
+static u8 stm32f103_ep_stall_get(u8 addr);
+static u16 stm32f103_ep_write_packet(u8 addr, const void *buf, u16 len);
+static u16 stm32f103_ep_read_packet(u8 addr, void *buf, u16 len);
+static void stm32f103_poll(void);
+
+const struct _usbd_driver stm32f103_usb_driver = {
+	._init = stm32f103_usbd_init,
+	._set_address = stm32f103_set_address,
+	.ep_setup = stm32f103_ep_setup,
+	._ep_reset = stm32f103_endpoints_reset,
+	.ep_stall_set = stm32f103_ep_stall_set,
+	.ep_stall_get = stm32f103_ep_stall_get,
+	.ep_write_packet = stm32f103_ep_write_packet,
+	.ep_read_packet = stm32f103_ep_read_packet,
+	.poll = stm32f103_poll,
+};
+
 /** Initialize the USB device controller hardware of the STM32. */
-void _usbd_hw_init(void)
+static void stm32f103_usbd_init(void)
 {
 	SET_REG(USB_CNTR_REG, 0);
 	SET_REG(USB_BTABLE_REG, 0);
@@ -35,7 +58,7 @@ void _usbd_hw_init(void)
 		USB_CNTR_SUSPM | USB_CNTR_WKUPM);
 }
 
-void _usbd_hw_set_address(u8 addr)
+static void stm32f103_set_address(u8 addr)
 {
 	/* Set device address and enable. */
 	SET_REG(USB_DADDR_REG, (addr & USB_DADDR_ADDR) | USB_DADDR_ENABLE);
@@ -60,7 +83,8 @@ static void usb_set_ep_rx_bufsize(u8 ep, u32 size)
 	}
 }
 
-void usbd_ep_setup(u8 addr, u8 type, u16 max_size, void (*callback) (u8 ep))
+static void stm32f103_ep_setup(u8 addr, u8 type, u16 max_size, 
+				void (*callback) (u8 ep))
 {
 	/* Translate USB standard type codes to STM32. */
 	const u16 typelookup[] = {
@@ -102,7 +126,7 @@ void usbd_ep_setup(u8 addr, u8 type, u16 max_size, void (*callback) (u8 ep))
 	}
 }
 
-void _usbd_hw_endpoints_reset(void)
+static void stm32f103_endpoints_reset(void)
 {
 	int i;
 
@@ -114,7 +138,7 @@ void _usbd_hw_endpoints_reset(void)
 	_usbd_device.pm_top = 0x40 + (2 * _usbd_device.desc->bMaxPacketSize0);
 }
 
-void usbd_ep_stall_set(u8 addr, u8 stall)
+static void stm32f103_ep_stall_set(u8 addr, u8 stall)
 {
 	if (addr == 0)
 		USB_SET_EP_TX_STAT(addr, stall ? USB_EP_TX_STAT_STALL :
@@ -139,7 +163,7 @@ void usbd_ep_stall_set(u8 addr, u8 stall)
 	}
 }
 
-u8 usbd_ep_stall_get(u8 addr)
+static u8 stm32f103_ep_stall_get(u8 addr)
 {
 	if (addr & 0x80) {
 		if ((*USB_EP_REG(addr & 0x7F) & USB_EP_TX_STAT) ==
@@ -169,7 +193,7 @@ static void usb_copy_to_pm(volatile void *vPM, const void *buf, u16 len)
 		*PM = *lbuf;
 }
 
-u16 usbd_ep_write_packet(u8 addr, const void *buf, u16 len)
+static u16 stm32f103_ep_write_packet(u8 addr, const void *buf, u16 len)
 {
 	addr &= 0x7F;
 
@@ -203,7 +227,7 @@ static void usb_copy_from_pm(void *buf, const volatile void *vPM, u16 len)
 		*(u8 *) lbuf = *(u8 *) PM;
 }
 
-u16 usbd_ep_read_packet(u8 addr, void *buf, u16 len)
+static u16 stm32f103_ep_read_packet(u8 addr, void *buf, u16 len)
 {
 	if ((*USB_EP_REG(addr) & USB_EP_RX_STAT) == USB_EP_RX_STAT_VALID)
 		return 0;
@@ -217,7 +241,7 @@ u16 usbd_ep_read_packet(u8 addr, void *buf, u16 len)
 	return len;
 }
 
-void usbd_poll(void)
+static void stm32f103_poll(void)
 {
 	u16 istr = *USB_ISTR_REG;
 

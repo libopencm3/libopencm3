@@ -42,9 +42,11 @@ u8 usbd_control_buffer[128] __attribute__((weak));
  * @param strings TODO
  * @return Zero on success (currently cannot fail).
  */
-int usbd_init(const struct usb_device_descriptor *dev,
+int usbd_init(const usbd_driver *driver,
+	      const struct usb_device_descriptor *dev,
 	      const struct usb_config_descriptor *conf, const char **strings)
 {
+	_usbd_device.driver = driver;
 	_usbd_device.desc = dev;
 	_usbd_device.config = conf;
 	_usbd_device.strings = strings;
@@ -93,3 +95,36 @@ void _usbd_reset(void)
 	if (_usbd_device.user_callback_reset)
 		_usbd_device.user_callback_reset();
 }
+
+/* Functions to wrap the low-level driver */
+void usbd_poll(void)
+{
+	_usbd_device.driver->poll();
+}
+
+void usbd_ep_setup(u8 addr, u8 type, u16 max_size,
+	      void (*callback)(u8 ep))
+{
+	_usbd_device.driver->ep_setup(addr, type, max_size, callback);
+}
+
+u16 usbd_ep_write_packet(u8 addr, const void *buf, u16 len)
+{	
+	return _usbd_device.driver->ep_write_packet(addr, buf, len);
+}
+
+u16 usbd_ep_read_packet(u8 addr, void *buf, u16 len)
+{
+	return _usbd_device.driver->ep_read_packet(addr, buf, len);
+}
+
+void usbd_ep_stall_set(u8 addr, u8 stall)
+{
+	_usbd_device.driver->ep_stall_set(addr, stall);
+}
+
+u8 usbd_ep_stall_get(u8 addr)
+{
+	return _usbd_device.driver->ep_stall_get(addr);
+}
+

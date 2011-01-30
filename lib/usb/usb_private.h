@@ -53,6 +53,8 @@ extern struct _usbd_device {
 
 	/* User callback function for some standard USB function hooks */
 	void (*user_callback_set_config)(u16 wValue);
+
+	struct _usbd_driver *driver;
 } _usbd_device;
 
 enum _usbd_transaction {
@@ -70,8 +72,20 @@ int _usbd_standard_request(struct usb_setup_data *req, u8 **buf, u16 *len);
 void _usbd_reset(void);
 
 /* Functions provided by the hardware abstraction. */
-void _usbd_hw_init(void);
-void _usbd_hw_set_address(u8 addr);
-void _usbd_hw_endpoints_reset(void);
+struct _usbd_driver {
+	void (*_init)(void);
+	void (*_set_address)(u8 addr);
+	void (*ep_setup)(u8 addr, u8 type, u16 max_size, void (*cb)(u8 ep));
+	void (*_ep_reset)(void);
+	void (*ep_stall_set)(u8 addr, u8 stall);
+	u8 (*ep_stall_get)(u8 addr);
+	u16 (*ep_write_packet)(u8 addr, const void *buf, u16 len);
+	u16 (*ep_read_packet)(u8 addr, void *buf, u16 len);
+	void (*poll)(void);
+};
+
+#define _usbd_hw_init() _usbd_device.driver->_init()
+#define _usbd_hw_set_address(addr) _usbd_device.driver->_set_address(addr)
+#define _usbd_hw_endpoints_reset() _usbd_device.driver->_ep_reset()
 
 #endif

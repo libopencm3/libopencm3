@@ -260,7 +260,7 @@ int main(void)
 			GPIO_CNF_OUTPUT_PUSHPULL, GPIO13);
 
 
-	usbd_init(&dev, &config, usb_strings);
+	usbd_init(&stm32f103_usb_driver, &dev, &config, usb_strings);
 	usbd_register_set_config_callback(hid_set_config);
 
 	/* delay some seconds to show that pull-up switch works */

@@ -22,13 +22,17 @@
 
 #include <libopencm3/usb/usbstd.h>
 
+typedef struct _usbd_driver usbd_driver;
+extern const usbd_driver stm32f103_usb_driver;
+
 /* Static buffer for control transactions:
  * This is defined as weak in the library, applicaiton
  * may provide if a larger buffer is requred. */
 extern u8 usbd_control_buffer[];
 
 /* <usb.c> */
-extern int usbd_init(const struct usb_device_descriptor *dev,
+extern int usbd_init(const usbd_driver *driver,
+		     const struct usb_device_descriptor *dev,
                      const struct usb_config_descriptor *conf,
 		     const char **strings);
 extern void usbd_set_control_buffer_size(u16 size);
