@@ -239,6 +239,8 @@ void usbd_poll(void)
 
 		if (_usbd_device.user_callback_ctr[ep][type])
 			_usbd_device.user_callback_ctr[ep][type] (ep);
+		else
+			USB_CLR_EP_RX_CTR(ep);
 	}
 
 	if (istr & USB_ISTR_SUSP) {
