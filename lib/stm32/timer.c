@@ -27,6 +27,16 @@
 
 #include <libopencm3/stm32/timer.h>
 
+void timer_enable_irq(u32 timer_peripheral, u32 irq)
+{
+	TIM_DIER(timer_peripheral) |= irq;
+}
+
+void timer_disable_irq(u32 timer_peripheral, u32 irq)
+{
+	TIM_DIER(timer_peripheral) &= ~irq;
+}
+
 void timer_set_mode(u32 timer_peripheral, u8 clock_div,
 		    u8 alignment, u8 direction)
 {
@@ -828,4 +838,9 @@ void timer_set_deadtime(u32 timer_peripheral, u32 deadtime)
 	    (timer_peripheral == TIM8)) {
 		TIM_BDTR(timer_peripheral) |= deadtime;
 	}
+}
+
+void timer_generate_event(u32 timer_peripheral, u32 event)
+{
+	TIM_EGR(timer_peripheral) |= event;
 }
