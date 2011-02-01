@@ -883,6 +883,8 @@ void timer_enable_compare_control_update_on_trigger(u32 timer_peripheral);
 void timer_disable_compare_control_update_on_trigger(u32 timer_peripheral);
 void timer_enable_preload_complementry_enable_bits(u32 timer_peripheral);
 void timer_disable_preload_complementry_enable_bits(u32 timer_peripheral);
+void timer_set_prescaler(u32 timer_peripheral, u32 value);
+void timer_set_repetition_counter(u32 timer_peripheral, u32 value);
 void timer_set_period(u32 timer_peripheral, u32 period);
 void timer_enable_oc_clear(u32 timer_peripheral, enum tim_oc_id oc_id);
 void timer_disable_oc_clear(u32 timer_peripheral, enum tim_oc_id oc_id);

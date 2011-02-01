@@ -124,9 +124,6 @@ void tim_setup(void)
 	/* Reset TIM1 peripheral */
 	timer_reset(TIM1);
 
-	/* Clock division. */
-	timer_set_clock_division(TIM1, TIM_CR1_CKD_CK_INT);
-
 	/* Timer global mode:
 	 * - No divider
 	 * - alignment edge
@@ -135,6 +132,12 @@ void tim_setup(void)
 	timer_set_mode(TIM1, TIM_CR1_CKD_CK_INT,
 		       TIM_CR1_CMS_EDGE,
 		       TIM_CR1_DIR_UP);
+
+	/* Reset prescaler value. */
+	timer_set_prescaler(TIM1, 0);
+
+	/* Reset repetition counter value. */
+	timer_set_repetition_counter(TIM1, 0);
 
 	/* Enable preload. */
 	timer_enable_preload(TIM1);

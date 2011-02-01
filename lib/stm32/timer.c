@@ -253,6 +253,19 @@ void timer_disable_preload_complementry_enable_bits(u32 timer_peripheral)
 	TIM_CR2(timer_peripheral) &= ~TIM_CR2_CCPC;
 }
 
+void timer_set_prescaler(u32 timer_peripheral, u32 value)
+{
+	TIM_PSC(timer_peripheral) = value;
+}
+
+void timer_set_repetition_counter(u32 timer_peripheral, u32 value)
+{
+	if ((timer_peripheral == TIM1) ||
+	    (timer_peripheral == TIM8)) {
+		TIM_RCR(timer_peripheral) = value;
+	}
+}
+
 void timer_set_period(u32 timer_peripheral, u32 period)
 {
 	TIM_ARR(timer_peripheral) = period;
