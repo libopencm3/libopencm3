@@ -37,6 +37,11 @@ void timer_disable_irq(u32 timer_peripheral, u32 irq)
 	TIM_DIER(timer_peripheral) &= ~irq;
 }
 
+void timer_clear_flag(u32 timer_peripheral, u32 flag)
+{
+	TIM_SR(timer_peripheral) &= ~flag;
+}
+
 void timer_set_mode(u32 timer_peripheral, u8 clock_div,
 		    u8 alignment, u8 direction)
 {

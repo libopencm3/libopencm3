@@ -253,7 +253,8 @@ void tim1_trg_com_isr(void)
 {
 	static int step = 0;
 
-	TIM1_SR &= ~TIM_SR_COMIF;
+	/* Clear the COM trigger interrupt flag. */
+	timer_clear_flag(TIM1, TIM_SR_COMIF);
 
 	/* A simplified and inefficient implementation of PWM On
 	 * scheme. Look at the implementation in Open-BLDC on
