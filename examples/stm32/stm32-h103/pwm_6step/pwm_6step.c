@@ -121,6 +121,9 @@ void tim_setup(void)
 	/* Enable TIM1 commutation interrupt. */
 	nvic_enable_irq(NVIC_TIM1_TRG_COM_IRQ);
 
+	/* Reset TIM1 peripheral */
+	timer_reset(TIM1);
+
 	/* Clock division. */
 	timer_set_clock_division(TIM1, TIM_CR1_CKD_CK_INT);
 

@@ -852,6 +852,7 @@ enum tim_oc_mode {
 };
 
 /* --- TIM functions ------------------------------------------------------- */
+void timer_reset(u32 timer_peripheral);
 void timer_enable_irq(u32 timer_peripheral, u32 irq);
 void timer_disable_irq(u32 timer_peripheral, u32 irq);
 void timer_clear_flag(u32 timer_peripheral, u32 flag);

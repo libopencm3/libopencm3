@@ -26,6 +26,73 @@
  */
 
 #include <libopencm3/stm32/timer.h>
+#include <libopencm3/stm32/rcc.h>
+
+void timer_reset(u32 timer_peripheral)
+{
+	switch (timer_peripheral)
+	{
+	case TIM1:
+		rcc_peripheral_reset(&RCC_APB2RSTR, RCC_APB2RSTR_TIM1RST);
+		rcc_peripheral_clear_reset(&RCC_APB2RSTR, RCC_APB2RSTR_TIM1RST);
+		break;
+	case TIM2:
+		rcc_peripheral_reset(&RCC_APB1RSTR, RCC_APB1RSTR_TIM2RST);
+		rcc_peripheral_clear_reset(&RCC_APB1RSTR, RCC_APB1RSTR_TIM2RST);
+		break;
+	case TIM3:
+		rcc_peripheral_reset(&RCC_APB1RSTR, RCC_APB1RSTR_TIM3RST);
+		rcc_peripheral_clear_reset(&RCC_APB1RSTR, RCC_APB1RSTR_TIM3RST);
+		break;
+	case TIM4:
+		rcc_peripheral_reset(&RCC_APB1RSTR, RCC_APB1RSTR_TIM4RST);
+		rcc_peripheral_clear_reset(&RCC_APB1RSTR, RCC_APB1RSTR_TIM4RST);
+		break;
+	case TIM5:
+		rcc_peripheral_reset(&RCC_APB1RSTR, RCC_APB1RSTR_TIM5RST);
+		rcc_peripheral_clear_reset(&RCC_APB1RSTR, RCC_APB1RSTR_TIM5RST);
+		break;
+	case TIM6:
+		rcc_peripheral_reset(&RCC_APB1RSTR, RCC_APB1RSTR_TIM6RST);
+		rcc_peripheral_clear_reset(&RCC_APB1RSTR, RCC_APB1RSTR_TIM6RST);
+		break;
+	case TIM7:
+		rcc_peripheral_reset(&RCC_APB1RSTR, RCC_APB1RSTR_TIM7RST);
+		rcc_peripheral_clear_reset(&RCC_APB1RSTR, RCC_APB1RSTR_TIM7RST);
+		break;
+	case TIM8:
+		rcc_peripheral_reset(&RCC_APB2RSTR, RCC_APB2RSTR_TIM8RST);
+		rcc_peripheral_clear_reset(&RCC_APB2RSTR, RCC_APB2RSTR_TIM8RST);
+		break;
+/* These timers are not supported in libopencm3 yet */
+/*
+	case TIM9:
+		rcc_peripheral_reset(&RCC_APB2RSTR, RCC_APB2RSTR_TIM9RST);
+		rcc_peripheral_clear_reset(&RCC_APB2RSTR, RCC_APB2RSTR_TIM9RST);
+		break;
+	case TIM10:
+		rcc_peripheral_reset(&RCC_APB2RSTR, RCC_APB2RSTR_TIM10RST);
+		rcc_peripheral_clear_reset(&RCC_APB2RSTR, RCC_APB2RSTR_TIM10RST);
+		break;
+	case TIM11:
+		rcc_peripheral_reset(&RCC_APB2RSTR, RCC_APB2RSTR_TIM11RST);
+		rcc_peripheral_clear_reset(&RCC_APB2RSTR, RCC_APB2RSTR_TIM11RST);
+		break;
+	case TIM12:
+		rcc_peripheral_reset(&RCC_APB1RSTR, RCC_APB1RSTR_TIM12RST);
+		rcc_peripheral_clear_reset(&RCC_APB1RSTR, RCC_APB1RSTR_TIM12RST);
+		break;
+	case TIM13:
+		rcc_peripheral_reset(&RCC_APB1RSTR, RCC_APB1RSTR_TIM13RST);
+		rcc_peripheral_clear_reset(&RCC_APB1RSTR, RCC_APB1RSTR_TIM13RST);
+		break;
+	case TIM14:
+		rcc_peripheral_reset(&RCC_APB1RSTR, RCC_APB1RSTR_TIM14RST);
+		rcc_peripheral_clear_reset(&RCC_APB1RSTR, RCC_APB1RSTR_TIM14RST);
+		break;
+*/
+	}
+}
 
 void timer_enable_irq(u32 timer_peripheral, u32 irq)
 {
