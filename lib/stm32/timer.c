@@ -104,6 +104,16 @@ void timer_disable_irq(u32 timer_peripheral, u32 irq)
 	TIM_DIER(timer_peripheral) &= ~irq;
 }
 
+bool timer_get_flag(u32 timer_peripheral, u32 flag)
+{
+	if (((TIM_SR(timer_peripheral) & flag) != 0) &&
+	    ((TIM_DIER(timer_peripheral) & flag) != 0)) {
+		return true;
+	}
+
+	return false;
+}
+
 void timer_clear_flag(u32 timer_peripheral, u32 flag)
 {
 	TIM_SR(timer_peripheral) &= ~flag;
@@ -928,4 +938,9 @@ void timer_set_deadtime(u32 timer_peripheral, u32 deadtime)
 void timer_generate_event(u32 timer_peripheral, u32 event)
 {
 	TIM_EGR(timer_peripheral) |= event;
+}
+
+u32 timer_get_counter(u32 timer_peripheral)
+{
+	return TIM_CNT(timer_peripheral);
 }
