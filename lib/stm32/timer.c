@@ -30,8 +30,7 @@
 
 void timer_reset(u32 timer_peripheral)
 {
-	switch (timer_peripheral)
-	{
+	switch (timer_peripheral) {
 	case TIM1:
 		rcc_peripheral_reset(&RCC_APB2RSTR, RCC_APB2RSTR_TIM1RST);
 		rcc_peripheral_clear_reset(&RCC_APB2RSTR, RCC_APB2RSTR_TIM1RST);
@@ -122,7 +121,9 @@ void timer_clear_flag(u32 timer_peripheral, u32 flag)
 void timer_set_mode(u32 timer_peripheral, u8 clock_div,
 		    u8 alignment, u8 direction)
 {
-	u32 cr1 = TIM_CR1(timer_peripheral);
+	u32 cr1;
+
+	cr1 = TIM_CR1(timer_peripheral);
 
 	cr1 &= ~(TIM_CR1_CKD_CK_INT_MASK |
 		 TIM_CR1_CMS_MASK |
@@ -270,10 +271,8 @@ void timer_set_prescaler(u32 timer_peripheral, u32 value)
 
 void timer_set_repetition_counter(u32 timer_peripheral, u32 value)
 {
-	if ((timer_peripheral == TIM1) ||
-	    (timer_peripheral == TIM8)) {
+	if ((timer_peripheral == TIM1) || (timer_peripheral == TIM8))
 		TIM_RCR(timer_peripheral) = value;
-	}
 }
 
 void timer_set_period(u32 timer_peripheral, u32 period)
@@ -373,7 +372,8 @@ void timer_set_oc_slow_mode(u32 timer_peripheral, enum tim_oc_id oc_id)
 	}
 }
 
-void timer_set_oc_mode(u32 timer_peripheral, enum tim_oc_id oc_id, enum tim_oc_mode oc_mode)
+void timer_set_oc_mode(u32 timer_peripheral, enum tim_oc_id oc_id,
+		       enum tim_oc_mode oc_mode)
 {
 	switch (oc_id) {
 	case TIM_OC1:
@@ -576,26 +576,26 @@ void timer_set_oc_polarity_high(u32 timer_peripheral, enum tim_oc_id oc_id)
 		break;
 	}
 
-	if ((timer_peripheral == TIM1) ||
-	    (timer_peripheral == TIM8)) {
-		switch (oc_id) {
-		case TIM_OC1N:
-			TIM_CCER(timer_peripheral) &= ~TIM_CCER_CC1NP;
-			break;
-		case TIM_OC2N:
-			TIM_CCER(timer_peripheral) &= ~TIM_CCER_CC2NP;
-			break;
-		case TIM_OC3N:
-			TIM_CCER(timer_peripheral) &= ~TIM_CCER_CC3NP;
-			break;
-		case TIM_OC1:
-		case TIM_OC2:
-		case TIM_OC3:
-		case TIM_OC4:
-			/* Ignoring as this option was already set above. */
-			break;
-		}
+	/* Acting for TIM1 and TIM8 only from here onwards. */
+	if ((timer_peripheral != TIM1) && (timer_peripheral != TIM8))
+		return;
 
+	switch (oc_id) {
+	case TIM_OC1N:
+		TIM_CCER(timer_peripheral) &= ~TIM_CCER_CC1NP;
+		break;
+	case TIM_OC2N:
+		TIM_CCER(timer_peripheral) &= ~TIM_CCER_CC2NP;
+		break;
+	case TIM_OC3N:
+		TIM_CCER(timer_peripheral) &= ~TIM_CCER_CC3NP;
+		break;
+	case TIM_OC1:
+	case TIM_OC2:
+	case TIM_OC3:
+	case TIM_OC4:
+		/* Ignoring as this option was already set above. */
+		break;
 	}
 }
 
@@ -621,26 +621,26 @@ void timer_set_oc_polarity_low(u32 timer_peripheral, enum tim_oc_id oc_id)
 		break;
 	}
 
-	if ((timer_peripheral == TIM1) ||
-	    (timer_peripheral == TIM8)) {
-		switch (oc_id) {
-		case TIM_OC1N:
-			TIM_CCER(timer_peripheral) |= TIM_CCER_CC1NP;
-			break;
-		case TIM_OC2N:
-			TIM_CCER(timer_peripheral) |= TIM_CCER_CC2NP;
-			break;
-		case TIM_OC3N:
-			TIM_CCER(timer_peripheral) |= TIM_CCER_CC3NP;
-			break;
-		case TIM_OC1:
-		case TIM_OC2:
-		case TIM_OC3:
-		case TIM_OC4:
-			/* Ignoring as this option was already set above. */
-			break;
-		}
+	/* Acting for TIM1 and TIM8 only from here onwards. */
+	if ((timer_peripheral != TIM1) && (timer_peripheral != TIM8))
+		return;
 
+	switch (oc_id) {
+	case TIM_OC1N:
+		TIM_CCER(timer_peripheral) |= TIM_CCER_CC1NP;
+		break;
+	case TIM_OC2N:
+		TIM_CCER(timer_peripheral) |= TIM_CCER_CC2NP;
+		break;
+	case TIM_OC3N:
+		TIM_CCER(timer_peripheral) |= TIM_CCER_CC3NP;
+		break;
+	case TIM_OC1:
+	case TIM_OC2:
+	case TIM_OC3:
+	case TIM_OC4:
+		/* Ignoring as this option was already set above. */
+		break;
 	}
 }
 
@@ -666,26 +666,26 @@ void timer_enable_oc_output(u32 timer_peripheral, enum tim_oc_id oc_id)
 		break;
 	}
 
-	if ((timer_peripheral == TIM1) ||
-	    (timer_peripheral == TIM8)) {
-		switch (oc_id) {
-		case TIM_OC1N:
-			TIM_CCER(timer_peripheral) |= TIM_CCER_CC1NE;
-			break;
-		case TIM_OC2N:
-			TIM_CCER(timer_peripheral) |= TIM_CCER_CC2NE;
-			break;
-		case TIM_OC3N:
-			TIM_CCER(timer_peripheral) |= TIM_CCER_CC3NE;
-			break;
-		case TIM_OC1:
-		case TIM_OC2:
-		case TIM_OC3:
-		case TIM_OC4:
-			/* Ignoring as this option was already set above. */
-			break;
-		}
+	/* Acting for TIM1 and TIM8 only from here onwards. */
+	if ((timer_peripheral != TIM1) && (timer_peripheral != TIM8))
+		return;
 
+	switch (oc_id) {
+	case TIM_OC1N:
+		TIM_CCER(timer_peripheral) |= TIM_CCER_CC1NE;
+		break;
+	case TIM_OC2N:
+		TIM_CCER(timer_peripheral) |= TIM_CCER_CC2NE;
+		break;
+	case TIM_OC3N:
+		TIM_CCER(timer_peripheral) |= TIM_CCER_CC3NE;
+		break;
+	case TIM_OC1:
+	case TIM_OC2:
+	case TIM_OC3:
+	case TIM_OC4:
+		/* Ignoring as this option was already set above. */
+		break;
 	}
 }
 
@@ -711,92 +711,88 @@ void timer_disable_oc_output(u32 timer_peripheral, enum tim_oc_id oc_id)
 		break;
 	}
 
-	if ((timer_peripheral == TIM1) ||
-	    (timer_peripheral == TIM8)) {
-		switch (oc_id) {
-		case TIM_OC1N:
-			TIM_CCER(timer_peripheral) &= ~TIM_CCER_CC1NE;
-			break;
-		case TIM_OC2N:
-			TIM_CCER(timer_peripheral) &= ~TIM_CCER_CC2NE;
-			break;
-		case TIM_OC3N:
-			TIM_CCER(timer_peripheral) &= ~TIM_CCER_CC3NE;
-			break;
-		case TIM_OC1:
-		case TIM_OC2:
-		case TIM_OC3:
-		case TIM_OC4:
-			/* Ignoring as this option was already set above. */
-			break;
-		}
+	/* Acting for TIM1 and TIM8 only from here onwards. */
+	if ((timer_peripheral != TIM1) && (timer_peripheral != TIM8))
+		return;
 
+	switch (oc_id) {
+	case TIM_OC1N:
+		TIM_CCER(timer_peripheral) &= ~TIM_CCER_CC1NE;
+		break;
+	case TIM_OC2N:
+		TIM_CCER(timer_peripheral) &= ~TIM_CCER_CC2NE;
+		break;
+	case TIM_OC3N:
+		TIM_CCER(timer_peripheral) &= ~TIM_CCER_CC3NE;
+		break;
+	case TIM_OC1:
+	case TIM_OC2:
+	case TIM_OC3:
+	case TIM_OC4:
+		/* Ignoring as this option was already set above. */
+		break;
 	}
 }
 
 void timer_set_oc_idle_state_set(u32 timer_peripheral, enum tim_oc_id oc_id)
 {
-
 	/* Acting for TIM1 and TIM8 only. */
-	if ((timer_peripheral == TIM1) ||
-	    (timer_peripheral == TIM8)) {
-		switch (oc_id) {
-		case TIM_OC1:
-			TIM_CR2(timer_peripheral) |= TIM_CR2_OIS1;
-			break;
-		case TIM_OC1N:
-			TIM_CR2(timer_peripheral) |= TIM_CR2_OIS1N;
-			break;
-		case TIM_OC2:
-			TIM_CR2(timer_peripheral) |= TIM_CR2_OIS2;
-			break;
-		case TIM_OC2N:
-			TIM_CR2(timer_peripheral) |= TIM_CR2_OIS2N;
-			break;
-		case TIM_OC3:
-			TIM_CR2(timer_peripheral) |= TIM_CR2_OIS3;
-			break;
-		case TIM_OC3N:
-			TIM_CR2(timer_peripheral) |= TIM_CR2_OIS3N;
-			break;
-		case TIM_OC4:
-			TIM_CR2(timer_peripheral) |= TIM_CR2_OIS4;
-			break;
-		}
+	if ((timer_peripheral != TIM1) && (timer_peripheral != TIM8))
+		return;
 
+	switch (oc_id) {
+	case TIM_OC1:
+		TIM_CR2(timer_peripheral) |= TIM_CR2_OIS1;
+		break;
+	case TIM_OC1N:
+		TIM_CR2(timer_peripheral) |= TIM_CR2_OIS1N;
+		break;
+	case TIM_OC2:
+		TIM_CR2(timer_peripheral) |= TIM_CR2_OIS2;
+		break;
+	case TIM_OC2N:
+		TIM_CR2(timer_peripheral) |= TIM_CR2_OIS2N;
+		break;
+	case TIM_OC3:
+		TIM_CR2(timer_peripheral) |= TIM_CR2_OIS3;
+		break;
+	case TIM_OC3N:
+		TIM_CR2(timer_peripheral) |= TIM_CR2_OIS3N;
+		break;
+	case TIM_OC4:
+		TIM_CR2(timer_peripheral) |= TIM_CR2_OIS4;
+		break;
 	}
 }
 
 void timer_set_oc_idle_state_unset(u32 timer_peripheral, enum tim_oc_id oc_id)
 {
-
 	/* Acting for TIM1 and TIM8 only. */
-	if ((timer_peripheral == TIM1) ||
-	    (timer_peripheral == TIM8)) {
-		switch (oc_id) {
-		case TIM_OC1:
-			TIM_CR2(timer_peripheral) &= ~TIM_CR2_OIS1;
-			break;
-		case TIM_OC1N:
-			TIM_CR2(timer_peripheral) &= ~TIM_CR2_OIS1N;
-			break;
-		case TIM_OC2:
-			TIM_CR2(timer_peripheral) &= ~TIM_CR2_OIS2;
-			break;
-		case TIM_OC2N:
-			TIM_CR2(timer_peripheral) &= ~TIM_CR2_OIS2N;
-			break;
-		case TIM_OC3:
-			TIM_CR2(timer_peripheral) &= ~TIM_CR2_OIS3;
-			break;
-		case TIM_OC3N:
-			TIM_CR2(timer_peripheral) &= ~TIM_CR2_OIS3N;
-			break;
-		case TIM_OC4:
-			TIM_CR2(timer_peripheral) &= ~TIM_CR2_OIS4;
-			break;
-		}
+	if ((timer_peripheral != TIM1) && (timer_peripheral != TIM8))
+		return;
 
+	switch (oc_id) {
+	case TIM_OC1:
+		TIM_CR2(timer_peripheral) &= ~TIM_CR2_OIS1;
+		break;
+	case TIM_OC1N:
+		TIM_CR2(timer_peripheral) &= ~TIM_CR2_OIS1N;
+		break;
+	case TIM_OC2:
+		TIM_CR2(timer_peripheral) &= ~TIM_CR2_OIS2;
+		break;
+	case TIM_OC2N:
+		TIM_CR2(timer_peripheral) &= ~TIM_CR2_OIS2N;
+		break;
+	case TIM_OC3:
+		TIM_CR2(timer_peripheral) &= ~TIM_CR2_OIS3;
+		break;
+	case TIM_OC3N:
+		TIM_CR2(timer_peripheral) &= ~TIM_CR2_OIS3N;
+		break;
+	case TIM_OC4:
+		TIM_CR2(timer_peripheral) &= ~TIM_CR2_OIS4;
+		break;
 	}
 }
 
@@ -825,114 +821,86 @@ void timer_set_oc_value(u32 timer_peripheral, enum tim_oc_id oc_id, u32 value)
 
 void timer_enable_break_main_output(u32 timer_peripheral)
 {
-	if ((timer_peripheral == TIM1) ||
-	    (timer_peripheral == TIM8)) {
+	if ((timer_peripheral == TIM1) || (timer_peripheral == TIM8))
 		TIM_BDTR(timer_peripheral) |= TIM_BDTR_MOE;
-	}
 }
 
 void timer_disable_break_main_output(u32 timer_peripheral)
 {
-	if ((timer_peripheral == TIM1) ||
-	    (timer_peripheral == TIM8)) {
+	if ((timer_peripheral == TIM1) || (timer_peripheral == TIM8))
 		TIM_BDTR(timer_peripheral) &= ~TIM_BDTR_MOE;
-	}
 }
 
 void timer_enable_break_automatic_output(u32 timer_peripheral)
 {
-	if ((timer_peripheral == TIM1) ||
-	    (timer_peripheral == TIM8)) {
+	if ((timer_peripheral == TIM1) || (timer_peripheral == TIM8))
 		TIM_BDTR(timer_peripheral) |= TIM_BDTR_AOE;
-	}
 }
 
 void timer_disable_break_automatic_output(u32 timer_peripheral)
 {
-	if ((timer_peripheral == TIM1) ||
-	    (timer_peripheral == TIM8)) {
+	if ((timer_peripheral == TIM1) || (timer_peripheral == TIM8))
 		TIM_BDTR(timer_peripheral) &= ~TIM_BDTR_AOE;
-	}
 }
 
 void timer_set_break_polarity_high(u32 timer_peripheral)
 {
-	if ((timer_peripheral == TIM1) ||
-	    (timer_peripheral == TIM8)) {
+	if ((timer_peripheral == TIM1) || (timer_peripheral == TIM8))
 		TIM_BDTR(timer_peripheral) |= TIM_BDTR_BKP;
-	}
 }
 
 void timer_set_break_polarity_low(u32 timer_peripheral)
 {
-	if ((timer_peripheral == TIM1) ||
-	    (timer_peripheral == TIM8)) {
+	if ((timer_peripheral == TIM1) || (timer_peripheral == TIM8))
 		TIM_BDTR(timer_peripheral) &= ~TIM_BDTR_BKP;
-	}
 }
 
 void timer_enable_break(u32 timer_peripheral)
 {
-	if ((timer_peripheral == TIM1) ||
-	    (timer_peripheral == TIM8)) {
+	if ((timer_peripheral == TIM1) || (timer_peripheral == TIM8))
 		TIM_BDTR(timer_peripheral) |= TIM_BDTR_BKE;
-	}
 }
 
 void timer_disable_break(u32 timer_peripheral)
 {
-	if ((timer_peripheral == TIM1) ||
-	    (timer_peripheral == TIM8)) {
+	if ((timer_peripheral == TIM1) || (timer_peripheral == TIM8))
 		TIM_BDTR(timer_peripheral) &= ~TIM_BDTR_BKE;
-	}
 }
 
 void timer_set_enabled_off_state_in_run_mode(u32 timer_peripheral)
 {
-	if ((timer_peripheral == TIM1) ||
-	    (timer_peripheral == TIM8)) {
+	if ((timer_peripheral == TIM1) || (timer_peripheral == TIM8))
 		TIM_BDTR(timer_peripheral) |= TIM_BDTR_OSSR;
-	}
 }
 
 void timer_set_disabled_off_state_in_run_mode(u32 timer_peripheral)
 {
-	if ((timer_peripheral == TIM1) ||
-	    (timer_peripheral == TIM8)) {
+	if ((timer_peripheral == TIM1) || (timer_peripheral == TIM8))
 		TIM_BDTR(timer_peripheral) &= ~TIM_BDTR_OSSR;
-	}
 }
 
 void timer_set_enabled_off_state_in_idle_mode(u32 timer_peripheral)
 {
-	if ((timer_peripheral == TIM1) ||
-	    (timer_peripheral == TIM8)) {
+	if ((timer_peripheral == TIM1) || (timer_peripheral == TIM8))
 		TIM_BDTR(timer_peripheral) |= TIM_BDTR_OSSI;
-	}
 }
 
 void timer_set_disabled_off_state_in_idle_mode(u32 timer_peripheral)
 {
-	if ((timer_peripheral == TIM1) ||
-	    (timer_peripheral == TIM8)) {
+	if ((timer_peripheral == TIM1) || (timer_peripheral == TIM8))
 		TIM_BDTR(timer_peripheral) &= ~TIM_BDTR_OSSI;
-	}
 }
 
 void timer_set_break_lock(u32 timer_peripheral, u32 lock)
 {
-	if ((timer_peripheral == TIM1) ||
-	    (timer_peripheral == TIM8)) {
+	if ((timer_peripheral == TIM1) || (timer_peripheral == TIM8))
 		TIM_BDTR(timer_peripheral) |= lock;
-	}
 }
 
 void timer_set_deadtime(u32 timer_peripheral, u32 deadtime)
 {
-	if ((timer_peripheral == TIM1) ||
-	    (timer_peripheral == TIM8)) {
+	if ((timer_peripheral == TIM1) || (timer_peripheral == TIM8))
 		TIM_BDTR(timer_peripheral) |= deadtime;
-	}
 }
 
 void timer_generate_event(u32 timer_peripheral, u32 event)
