@@ -40,14 +40,18 @@ lib:
 	$(Q)$(MAKE) -C lib/stm32 all
 	@printf "  BUILD   lib/lpc13xx\n"
 	$(Q)$(MAKE) -C lib/lpc13xx all
+	@printf "  BUILD   lib/lm3s\n"
+	$(Q)$(MAKE) -C lib/lm3s all
 
 examples: lib
 	@printf "  BUILD   examples/stm32\n"
 	$(Q)$(MAKE) -C examples/stm32 all
 	@printf "  BUILD   examples/lpc13xx\n"
 	$(Q)$(MAKE) -C examples/lpc13xx all
+	@printf "  BUILD   examples/lm3s\n"
+	$(Q)$(MAKE) -C examples/lm3s all
 
-install: build
+install: lib 
 	@printf "  INSTALL headers\n"
 	$(Q)$(INSTALL) -d $(INCDIR)/libopencm3
 	$(Q)$(INSTALL) -d $(LIBDIR)
@@ -62,6 +66,8 @@ clean:
 	$(Q)$(MAKE) -C lib/stm32 clean
 	$(Q)$(MAKE) -C examples/lpc13xx clean
 	$(Q)$(MAKE) -C lib/lpc13xx clean
+	$(Q)$(MAKE) -C examples/lm3s clean
+	$(Q)$(MAKE) -C lib/lm3s clean
 
 .PHONY: build lib examples install clean
 
