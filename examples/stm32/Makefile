@@ -24,7 +24,11 @@ Q := @
 MAKEFLAGS += --no-print-directory
 endif
 
-all: stm32-h103 stm32-h107 mb525 lisa-m obldc other
+all: stm32-discovery stm32-h103 stm32-h107 mb525 lisa-m obldc other
+
+stm32-discovery:
+	@printf "  BUILD   examples/stm32/stm32-discovery\n"
+	$(Q)$(MAKE) -C stm32-discovery
 
 stm32-h103:
 	@printf "  BUILD   examples/stm32/stm32-h103\n"
@@ -51,6 +55,8 @@ obldc:
 	$(Q)$(MAKE) -C obldc
 
 clean:
+	@printf "  CLEAN   examples/stm32/stm32-discovery\n"
+	$(Q)$(MAKE) -C stm32-discovery clean
 	@printf "  CLEAN   examples/stm32/stm32-h103\n"
 	$(Q)$(MAKE) -C stm32-h103 clean
 	@printf "  CLEAN   examples/stm32/stm32-h107\n"
@@ -64,5 +70,5 @@ clean:
 	@printf "  CLEAN   examples/stm32/obldc\n"
 	$(Q)$(MAKE) -C obldc clean
 
-.PHONY: stm32-h103 stm32-h107 mb525 lisa-m other obldc clean
+.PHONY: stm32-discovery stm32-h103 stm32-h107 mb525 lisa-m other obldc clean
 
