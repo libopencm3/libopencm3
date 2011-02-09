@@ -17,8 +17,8 @@
  * along with this program.  If not, see <http://www.gnu.org/licenses/>.
  */
 
-#ifndef CM3_MEMORYMAP_H
-#define CM3_MEMORYMAP_H
+#ifndef LIBOPENCM3_CM3_MEMORYMAP_H
+#define LIBOPENCM3_CM3_MEMORYMAP_H
 
 /* --- ARM Cortex-M3 specific definitions ---------------------------------- */
 
