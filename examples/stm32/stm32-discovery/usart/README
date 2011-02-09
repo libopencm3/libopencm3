@@ -2,8 +2,8 @@
 README
 ------------------------------------------------------------------------------
 
-This example program sends some characters on USART1 on the ST STM32 Discovery
-eval board.
+This example program sends some characters on USART1 on the
+ST STM32VLDISCOVERY eval board.
 
 The terminal settings for the receiving device/PC are 38400 8n1.
 

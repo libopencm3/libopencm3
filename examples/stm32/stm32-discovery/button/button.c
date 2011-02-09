@@ -61,6 +61,7 @@ int main(void)
 	while (1) {
 		gpio_toggle(GPIOC, GPIO9);
 
+		/* Upon button press, blink more slowly. */
 		exti_line_state = GPIOA_IDR;
 		if ((exti_line_state & (1 << 0)) != 0) {
 			for (i = 0; i < 800000; i++)	/* Wait a bit. */
