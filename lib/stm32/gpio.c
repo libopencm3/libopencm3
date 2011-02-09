@@ -26,7 +26,7 @@
  *  gpio_set(GPIOB, GPIO4);
  *  gpio_clear(GPIOG, GPIO2 | GPIO9);
  *  gpio_get(GPIOC, GPIO1);
- *  gpio_toggle(GPIOA, GPIO7);
+ *  gpio_toggle(GPIOA, GPIO7 | GPIO8);
  *  reg16 = gpio_port_read(GPIOD);
  *  gpio_port_write(GPIOF, 0xc8fe);
  *
@@ -88,13 +88,9 @@ u16 gpio_get(u32 gpioport, u16 gpios)
 	return gpio_port_read(gpioport) & gpios;
 }
 
-/* TODO: Should work for multiple GPIOs? */
-void gpio_toggle(u32 gpioport, u16 gpio)
+void gpio_toggle(u32 gpioport, u16 gpios)
 {
-	if ((gpio_port_read(gpioport) & gpio) == gpio)
-		gpio_clear(gpioport, gpio);
-	else
-		gpio_set(gpioport, gpio);
+	GPIO_ODR(gpioport) = GPIO_IDR(gpioport) ^ gpios;
 }
 
 u16 gpio_port_read(u32 gpioport)
