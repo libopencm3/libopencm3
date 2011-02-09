@@ -17,7 +17,7 @@
  * along with this program.  If not, see <http://www.gnu.org/licenses/>.
  */
 
-/* Linker script for LM3S3748-EVB */
+/* Linker script for Luminary Micro (now TI) Stellaris LM3S3748-EVB. */
 
 /* Define memory regions. */
 MEMORY

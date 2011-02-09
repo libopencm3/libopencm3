@@ -21,7 +21,7 @@
 
 /* Memory regions must be defined in the ld script which includes this one. */
 
-/* Enforce emmition of the vector table */
+/* Enforce emmition of the vector table. */
 EXTERN (vector_table)
 
 /* Define sections. */

@@ -28,8 +28,7 @@ CFLAGS		= -Os -g -Wall -Wextra -I../../include -fno-common \
 		  -ffunction-sections -fdata-sections
 # ARFLAGS	= rcsv
 ARFLAGS		= rcs
-OBJS		= gpio.o	\
-		vector.o
+OBJS		= gpio.o vector.o
 
 # VPATH += ../usb
 

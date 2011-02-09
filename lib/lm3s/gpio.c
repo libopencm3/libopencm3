@@ -29,4 +29,3 @@ void gpio_clear(u32 gpioport, u8 gpios)
 {
 	GPIO_DATA(gpioport)[gpios] = 0;
 }
-
