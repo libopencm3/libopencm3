@@ -27,23 +27,31 @@
 /* --- FPB registers ------------------------------------------------------- */
 
 /* Flash Patch Control (FPB_CTRL) */
-#define FPB_CTRL		MMIO32(FPB_BASE + 0)
+#define FPB_CTRL			MMIO32(FPB_BASE + 0)
 
 /* Flash Patch Remap (FPB_REMAP) */
-#define FPB_REMAP		MMIO32(FPB_BASE + 4)
+#define FPB_REMAP			MMIO32(FPB_BASE + 4)
 
 /* Flash Patch Comparator (FPB_COMPx) */
-#define FPB_COMP		(volatile u32 *)(FPB_BASE + 8)
+#define FPB_COMP			(volatile u32 *)(FPB_BASE + 8)
 
 /* TODO: PID, CID */
 
 /* --- FPB_CTRL values ----------------------------------------------------- */
 
-#define FPB_CTRL_ENABLE		0x0001
-#define FPB_CTRL_KEY		0x0002
-#define FPB_CTRL_NUM_CODE1_MASK	0x00F0
-#define FPB_CTRL_NUM_LIT_MASK	0x0F00
-#define FPB_CTRL_NUM_CODE2_MASK	0xE000
+/* Bits [31:15]: Reserved, read as zero, writes ignored */
+
+#define FPB_CTRL_NUM_CODE2_MASK		(0x7 << 12)
+
+#define FPB_CTRL_NUM_LIT_MASK		(0xf << 8)
+
+#define FPB_CTRL_NUM_CODE1_MASK		(0xf << 4)
+
+/* Bits [3:2]: Reserved */
+
+#define FPB_CTRL_KEY			(1 << 1)
+
+#define FPB_CTRL_ENABLE			(1 << 0)
 
 /* --- FPB_REMAP values ---------------------------------------------------- */
 
@@ -51,10 +59,18 @@
 
 /* --- FPB_COMPx values ---------------------------------------------------- */
 
-#define FPB_COMP_ENABLE			0x0001
-#define FPB_COMP_REPLACE_REMAP		0x0000
-#define FPB_COMP_REPLACE_BREAK_LOWER	0x4000
-#define FPB_COMP_REPLACE_BREAK_UPPER	0x8000
-#define FPB_COMP_REPLACE_BREAK_BOTH	0xC000
+#define FPB_COMP_REPLACE_REMAP		(0x0 << 30)
+#define FPB_COMP_REPLACE_BREAK_LOWER	(0x1 << 30)
+#define FPB_COMP_REPLACE_BREAK_UPPER	(0x2 << 30)
+#define FPB_COMP_REPLACE_BREAK_BOTH	(0x3 << 30)
+#define FPB_COMP_REPLACE_MASK		(0x3 << 30)
+
+/* Bit 29: Reserved */
+
+/* TODO */
+
+/* Bit 1: Reserved */
+
+#define FPB_COMP_ENABLE			(1 << 0)
 
 #endif
