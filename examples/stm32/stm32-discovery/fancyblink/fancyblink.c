@@ -33,7 +33,7 @@ void clock_setup(void)
 
 void gpio_setup(void)
 {
-	/* Set GPIO6/7 (in GPIO port C) to 'output push-pull'. */
+	/* Set GPIO8/9 (in GPIO port C) to 'output push-pull'. */
 	gpio_set_mode(GPIOC, GPIO_MODE_OUTPUT_50_MHZ,
 		      GPIO_CNF_OUTPUT_PUSHPULL, GPIO8);
 	gpio_set_mode(GPIOC, GPIO_MODE_OUTPUT_50_MHZ,
@@ -50,7 +50,7 @@ int main(void)
 	/* Set one LED for wigwag effect when toggling. */
 	gpio_set(GPIOC, GPIO8);
 
-	/* Blink the LEDs (PC6 and PC7) on the board. */
+	/* Blink the LEDs (PC8 and PC9) on the board. */
 	while (1) {
 		gpio_toggle(GPIOC, GPIO8 | GPIO9); /* Toggle LEDs. */
 		for (i = 0; i < 2000000; i++)      /* Wait a bit. */

@@ -62,7 +62,7 @@ void usart_setup(void)
 void gpio_setup(void)
 {
 	/* Set GPIO8 (in GPIO port C) to 'output push-pull'. */
-	/* This drives the blue LED on the discovery. */
+	/* This drives the blue LED on the STM32VLDISCOVERY. */
 	gpio_set_mode(GPIOC, GPIO_MODE_OUTPUT_2_MHZ,
 		      GPIO_CNF_OUTPUT_PUSHPULL, GPIO8);
 }

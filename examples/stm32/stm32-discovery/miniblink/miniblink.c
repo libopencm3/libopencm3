@@ -28,7 +28,7 @@ void gpio_setup(void)
 	/* Using API functions: */
 	rcc_peripheral_enable_clock(&RCC_APB2ENR, RCC_APB2ENR_IOPCEN);
 
-	/* Set GPIO12 (in GPIO port C) to 'output push-pull'. */
+	/* Set GPIO8 (in GPIO port C) to 'output push-pull'. */
 	/* Manually: */
 	// GPIOC_CRH = (GPIO_CNF_OUTPUT_PUSHPULL << (((8 - 8) * 4) + 2));
 	// GPIOC_CRH |= (GPIO_MODE_OUTPUT_2_MHZ << ((8 - 8) * 4));
