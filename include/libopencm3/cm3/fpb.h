@@ -20,18 +20,37 @@
 #ifndef LIBOPENCM3_CM3_FPB_H
 #define LIBOPENCM3_CM3_FPB_H
 
+/* Cortex-M3 Flash Patch and Breakpoint (FPB) unit */
+
+/* Note: We always use "FPB" as abbreviation, docs sometimes use only "FP". */
+
+/* --- FPB registers ------------------------------------------------------- */
+
+/* Flash Patch Control (FPB_CTRL) */
 #define FPB_CTRL		MMIO32(FPB_BASE + 0)
+
+/* Flash Patch Remap (FPB_REMAP) */
 #define FPB_REMAP		MMIO32(FPB_BASE + 4)
+
+/* Flash Patch Comparator (FPB_COMPx) */
 #define FPB_COMP		(voltile u32 *)(FPB_BASE + 8)
 
-/* Flash Patch Control Register (FP_CTRL) */
+/* TODO: PID, CID */
+
+/* --- FPB_CTRL values ----------------------------------------------------- */
+
 #define FPB_CTRL_ENABLE		0x0001
 #define FPB_CTRL_KEY		0x0002
 #define FPB_CTRL_NUM_CODE1_MASK	0x00F0
 #define FPB_CTRL_NUM_LIT_MASK	0x0F00
 #define FPB_CTRL_NUM_CODE2_MASK	0xE000
 
-/* Flash Patch Comparator Register (FP_COMPx) */
+/* --- FPB_REMAP values ---------------------------------------------------- */
+
+/* TODO */
+
+/* --- FPB_COMPx values ---------------------------------------------------- */
+
 #define FPB_COMP_ENABLE			0x0001
 #define FPB_COMP_REPLACE_REMAP		0x0000
 #define FPB_COMP_REPLACE_BREAK_LOWER	0x4000
@@ -39,4 +58,3 @@
 #define FPB_COMP_REPLACE_BREAK_BOTH	0xC000
 
 #endif
-
