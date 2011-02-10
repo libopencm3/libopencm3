@@ -35,10 +35,10 @@ static u16 stm32f103_ep_read_packet(u8 addr, void *buf, u16 len);
 static void stm32f103_poll(void);
 
 const struct _usbd_driver stm32f103_usb_driver = {
-	._init = stm32f103_usbd_init,
-	._set_address = stm32f103_set_address,
+	.init = stm32f103_usbd_init,
+	.set_address = stm32f103_set_address,
 	.ep_setup = stm32f103_ep_setup,
-	._ep_reset = stm32f103_endpoints_reset,
+	.ep_reset = stm32f103_endpoints_reset,
 	.ep_stall_set = stm32f103_ep_stall_set,
 	.ep_stall_get = stm32f103_ep_stall_get,
 	.ep_write_packet = stm32f103_ep_write_packet,

@@ -21,7 +21,7 @@
 #define LIBOPENCM3_OTG_FS_H
 
 #include <libopencm3/stm32/memorymap.h>
-#include <libopencm3/common.h>
+#include <libopencm3/cm3/common.h>
 
 /* Core Global Control and Status Registers */
 #define OTG_FS_OTGCTL			MMIO32(USB_OTG_FS_BASE + 0x000)
