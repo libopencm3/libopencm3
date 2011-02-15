@@ -17,27 +17,7 @@
 ## along with this program.  If not, see <http://www.gnu.org/licenses/>.
 ##
 
-# Be silent per default, but 'make V=1' will show all compiler calls.
-ifneq ($(V),1)
-Q := @
-# Do not print "Entering directory ...".
-MAKEFLAGS += --no-print-directory
-endif
+BINARY = fancyblink
 
-# TODO: Add usb_dfu later, doesn't build at the moment.
-all: fancyblink usb_hid
-
-fancyblink:
-	@printf "  BUILD   examples/stm32/lisa-m/fancyblink\n"
-	$(Q)$(MAKE) -C usb_hid
-
-usb_hid:
-	@printf "  BUILD   examples/stm32/lisa-m/usb_hid\n"
-	$(Q)$(MAKE) -C usb_hid
-
-clean:
-	@printf "  CLEAN   examples/stm32/lisa-m/usb_hid\n"
-	$(Q)$(MAKE) -C usb_hid clean
-
-.PHONY: fancyblink usb_hid clean
+include ../../Makefile.include
 
