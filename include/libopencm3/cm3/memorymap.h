@@ -30,6 +30,7 @@
 /* PPBI_BASE + 0x3000 (0xE000 3000 - 0xE000 DFFF): Reserved */
 #define SCS_BASE                        (PPBI_BASE + 0xE000)
 /* PPBI_BASE + 0xF000 (0xE000 F000 - 0xE003 FFFF): Reserved */
+#define TPIU_BASE                       (PPBI_BASE + 0x40000)
 
 /* --- ITM: Instrumentation Trace Macrocell --- */
 /* TODO */
