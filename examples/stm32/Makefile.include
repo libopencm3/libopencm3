@@ -28,10 +28,11 @@ OBJDUMP		= $(PREFIX)-objdump
 # TOOLCHAIN_DIR = `dirname \`which $(CC)\``/../$(PREFIX)
 TOOLCHAIN_DIR   = ../../../..
 CFLAGS		+= -Os -g -Wall -Wextra -I$(TOOLCHAIN_DIR)/include \
-		   -fno-common -mcpu=cortex-m3 -mthumb
+		   -fno-common -mcpu=cortex-m3 -mthumb -msoft-float
 LDSCRIPT	= $(BINARY).ld
-LDFLAGS		+= -L$(TOOLCHAIN_DIR)/lib -L$(TOOLCHAIN_DIR)/lib/stm32 \
-		   -T$(LDSCRIPT) -nostartfiles -Wl,--gc-sections
+LDFLAGS		+= -lc -lnosys -L$(TOOLCHAIN_DIR)/lib -L$(TOOLCHAIN_DIR)/lib/stm32 \
+		   -T$(LDSCRIPT) -nostartfiles -Wl,--gc-sections \
+		   -mthumb -march=armv7 -mfix-cortex-m3-ldrd -msoft-float
 OBJS		+= $(BINARY).o
 
 OOCD		?= openocd
@@ -76,7 +77,7 @@ flash: $(BINARY).flash
 
 %.elf: $(OBJS) $(LDSCRIPT)
 	@#printf "  LD      $(subst $(shell pwd)/,,$(@))\n"
-	$(Q)$(LD) $(LDFLAGS) -o $(*).elf $(OBJS) -lopencm3_stm32
+	$(Q)$(LD) -o $(*).elf $(OBJS) -lopencm3_stm32 $(LDFLAGS)
 
 %.o: %.c Makefile
 	@#printf "  CC      $(subst $(shell pwd)/,,$(@))\n"
