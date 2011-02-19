@@ -230,6 +230,10 @@
 
 /* --- RCC_AHBENR values --------------------------------------------------- */
 
+#define RCC_AHBENR_ETHMACENRX			(1 << 16)
+#define RCC_AHBENR_ETHMACENTX			(1 << 15)
+#define RCC_AHBENR_ETHMACEN			(1 << 14)
+#define RCC_AHBENR_OTGFSEN			(1 << 12)
 #define RCC_AHBENR_SDIOEN			(1 << 10)
 #define RCC_AHBENR_FSMCEN			(1 << 8)
 #define RCC_AHBENR_CRCEN			(1 << 6)
