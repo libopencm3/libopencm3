@@ -24,7 +24,7 @@ Q := @
 MAKEFLAGS += --no-print-directory
 endif
 
-all: miniblink fancyblink usart usart_irq usart_printf usart_irq_printf usb_cdcacm usb_hid button exti_both
+all: miniblink fancyblink usart usart_irq usart_printf usart_irq_printf timer usb_cdcacm usb_hid button exti_both
 
 miniblink:
 	@printf "  BUILD   examples/stm32/stm32-h103/miniblink\n"
@@ -49,6 +49,10 @@ usart_printf:
 usart_irq_printf:
 	@printf "  BUILD   examples/stm32/stm32-h103/usart_irq_printf\n"
 	$(Q)$(MAKE) -C usart_irq_printf
+
+timer:
+	@printf "  BUILD   examples/stm32/stm32-h103/timer\n"
+	$(Q)$(MAKE) -C timer
 
 spi:
 	@printf "  BUILD   examples/stm32/stm32-h103/spi\n"
@@ -94,5 +98,5 @@ clean:
 	@printf "  CLEAN   examples/stm32/stm32-h103/exti_both\n"
 	$(Q)$(MAKE) -C exti_both clean
 
-.PHONY: miniblink fancyblink usart usart_irq usart_printf usart_irq_printf spi usb_cdcacm usb_hid button exti_both clean
+.PHONY: miniblink fancyblink usart usart_irq usart_printf usart_irq_printf timer spi usb_cdcacm usb_hid button exti_both clean
 
