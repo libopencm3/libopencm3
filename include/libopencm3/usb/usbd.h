@@ -24,6 +24,7 @@
 
 typedef struct _usbd_driver usbd_driver;
 extern const usbd_driver stm32f103_usb_driver;
+extern const usbd_driver stm32f107_usb_driver;
 
 /* Static buffer for control transactions:
  * This is defined as weak in the library, applicaiton

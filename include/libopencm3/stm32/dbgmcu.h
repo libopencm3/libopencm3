@@ -26,7 +26,7 @@
 /* --- DBGMCU registers ---------------------------------------------------- */
 
 #define DBGMCU_IDCODE			MMIO32(DBGMCU_BASE + 0x00)
-#define DBGMCU_CR			MMIO32(DBGCMU_BASE + 0x04)
+#define DBGMCU_CR			MMIO32(DBGMCU_BASE + 0x04)
 
 /* DBGMCU_CR bits */
 #define DBGMCU_CR_SLEEP			0x00000001

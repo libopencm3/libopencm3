@@ -46,7 +46,7 @@ int usbd_init(const usbd_driver *driver,
 	      const struct usb_device_descriptor *dev,
 	      const struct usb_config_descriptor *conf, const char **strings)
 {
-	_usbd_device.driver = (usbd_driver *)driver;
+	_usbd_device.driver = driver;
 	_usbd_device.desc = dev;
 	_usbd_device.config = conf;
 	_usbd_device.strings = strings;
