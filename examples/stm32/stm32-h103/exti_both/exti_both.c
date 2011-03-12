@@ -53,7 +53,7 @@ void exti_setup(void)
 	/* Enable EXTI0 interrupt */
 	nvic_enable_irq(NVIC_EXTI0_IRQ);
 
-	/* Set GPIO0 (in GPIO port A) to 'input open-drain'. */
+	/* Set GPIO0 (in GPIO port A) to 'input float'. */
 	gpio_set_mode(GPIOA, GPIO_MODE_INPUT,
 		      GPIO_CNF_INPUT_FLOAT, GPIO0);
 
