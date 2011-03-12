@@ -369,6 +369,10 @@
 #define RCC_CFGR2_PREDIV2_DIV15			0xe
 #define RCC_CFGR2_PREDIV2_DIV16			0xf
 
+/* --- Variable definitions ------------------------------------------------ */
+extern u32 rcc_ppre1_frequency;
+extern u32 rcc_ppre2_frequency;
+
 /* --- Function prototypes ------------------------------------------------- */
 
 typedef enum {

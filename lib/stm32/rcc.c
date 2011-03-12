@@ -22,6 +22,10 @@
 #include <libopencm3/stm32/rcc.h>
 #include <libopencm3/stm32/flash.h>
 
+/* Set the default ppre1 and ppre2 peripheral clock frequencies after reset */
+u32 rcc_ppre1_frequency = 8000000;
+u32 rcc_ppre2_frequency = 8000000;
+
 void rcc_osc_ready_int_clear(osc_t osc)
 {
 	switch (osc) {
@@ -350,10 +354,10 @@ void rcc_clock_setup_in_hsi_out_64mhz(void)
 	 * Set prescalers for AHB, ADC, ABP1, ABP2.
 	 * Do this before touching the PLL (TODO: why?).
 	 */
-	rcc_set_hpre(RCC_CFGR_HPRE_SYSCLK_NODIV);	/* Max. 72MHz */
-	rcc_set_adcpre(RCC_CFGR_ADCPRE_PCLK2_DIV8);	/* Max. 14MHz */
-	rcc_set_ppre1(RCC_CFGR_PPRE1_HCLK_DIV2);	/* Max. 36MHz */
-	rcc_set_ppre2(RCC_CFGR_PPRE2_HCLK_NODIV);	/* Max. 72MHz */
+	rcc_set_hpre(RCC_CFGR_HPRE_SYSCLK_NODIV);	/* Set. 64MHz Max. 72MHz */
+	rcc_set_adcpre(RCC_CFGR_ADCPRE_PCLK2_DIV8);	/* Set.  8MHz Max. 14MHz */
+	rcc_set_ppre1(RCC_CFGR_PPRE1_HCLK_DIV2);	/* Set. 32MHz Max. 36MHz */
+	rcc_set_ppre2(RCC_CFGR_PPRE2_HCLK_NODIV);	/* Set. 64MHz Max. 72MHz */
 
 	/*
 	 * Sysclk is running with 64MHz -> 2 waitstates.
@@ -378,6 +382,10 @@ void rcc_clock_setup_in_hsi_out_64mhz(void)
 
 	/* Select PLL as SYSCLK source. */
 	rcc_set_sysclk_source(RCC_CFGR_SW_SYSCLKSEL_PLLCLK);
+
+	/* Set the peripheral clock frequencies used */
+	rcc_ppre1_frequency = 32000000;
+	rcc_ppre2_frequency = 64000000;
 }
 
 void rcc_clock_setup_in_hsi_out_48mhz(void)
@@ -393,11 +401,11 @@ void rcc_clock_setup_in_hsi_out_48mhz(void)
 	 * Set prescalers for AHB, ADC, ABP1, ABP2.
 	 * Do this before touching the PLL (TODO: why?).
 	 */
-	rcc_set_hpre(RCC_CFGR_HPRE_SYSCLK_NODIV);	/* Max. 72MHz */
-	rcc_set_adcpre(RCC_CFGR_ADCPRE_PCLK2_DIV8);	/* Max. 14MHz */
-	rcc_set_ppre1(RCC_CFGR_PPRE1_HCLK_DIV2);	/* Max. 36MHz */
-	rcc_set_ppre2(RCC_CFGR_PPRE2_HCLK_NODIV);	/* Max. 72MHz */
-	rcc_set_usbpre(RCC_CFGR_USBPRE_PLL_CLK_NODIV);	/* 48 MHz */
+	rcc_set_hpre(RCC_CFGR_HPRE_SYSCLK_NODIV);	/* Set. 48MHz Max. 72MHz */
+	rcc_set_adcpre(RCC_CFGR_ADCPRE_PCLK2_DIV8);	/* Set.  6MHz Max. 14MHz */
+	rcc_set_ppre1(RCC_CFGR_PPRE1_HCLK_DIV2);	/* Set. 24MHz Max. 36MHz */
+	rcc_set_ppre2(RCC_CFGR_PPRE2_HCLK_NODIV);	/* Set. 48MHz Max. 72MHz */
+	rcc_set_usbpre(RCC_CFGR_USBPRE_PLL_CLK_NODIV);	/* Set. 48MHz Max. 48MHz */
 
 	/*
 	 * Sysclk runs with 48MHz -> 1 waitstates.
@@ -422,6 +430,10 @@ void rcc_clock_setup_in_hsi_out_48mhz(void)
 
 	/* Select PLL as SYSCLK source. */
 	rcc_set_sysclk_source(RCC_CFGR_SW_SYSCLKSEL_PLLCLK);
+
+	/* Set the peripheral clock frequencies used */
+	rcc_ppre1_frequency = 24000000;
+	rcc_ppre2_frequency = 48000000;
 }
 
 void rcc_clock_setup_in_hse_8mhz_out_24mhz(void)
@@ -442,10 +454,10 @@ void rcc_clock_setup_in_hse_8mhz_out_24mhz(void)
 	 * Set prescalers for AHB, ADC, ABP1, ABP2.
 	 * Do this before touching the PLL (TODO: why?).
 	 */
-	rcc_set_hpre(RCC_CFGR_HPRE_SYSCLK_NODIV);	/* Max. 72MHz */
-	rcc_set_adcpre(RCC_CFGR_ADCPRE_PCLK2_DIV2);	/* Max. 14MHz */
-	rcc_set_ppre1(RCC_CFGR_PPRE1_HCLK_NODIV);	/* Max. 36MHz */
-	rcc_set_ppre2(RCC_CFGR_PPRE2_HCLK_NODIV);	/* Max. 72MHz */
+	rcc_set_hpre(RCC_CFGR_HPRE_SYSCLK_NODIV);	/* Set. 24MHz Max. 72MHz */
+	rcc_set_adcpre(RCC_CFGR_ADCPRE_PCLK2_DIV2);	/* Set. 12MHz Max. 14MHz */
+	rcc_set_ppre1(RCC_CFGR_PPRE1_HCLK_NODIV);	/* Set. 24MHz Max. 36MHz */
+	rcc_set_ppre2(RCC_CFGR_PPRE2_HCLK_NODIV);	/* Set. 24MHz Max. 72MHz */
 
 	/*
 	 * Sysclk runs with 24MHz -> 0 waitstates.
@@ -476,6 +488,10 @@ void rcc_clock_setup_in_hse_8mhz_out_24mhz(void)
 
 	/* Select PLL as SYSCLK source. */
 	rcc_set_sysclk_source(RCC_CFGR_SW_SYSCLKSEL_PLLCLK);
+
+	/* Set the peripheral clock frequencies used */
+	rcc_ppre1_frequency = 24000000;
+	rcc_ppre2_frequency = 24000000;
 }
 void rcc_clock_setup_in_hse_8mhz_out_72mhz(void)
 {
@@ -495,10 +511,10 @@ void rcc_clock_setup_in_hse_8mhz_out_72mhz(void)
 	 * Set prescalers for AHB, ADC, ABP1, ABP2.
 	 * Do this before touching the PLL (TODO: why?).
 	 */
-	rcc_set_hpre(RCC_CFGR_HPRE_SYSCLK_NODIV);	/* Max. 72MHz */
-	rcc_set_adcpre(RCC_CFGR_ADCPRE_PCLK2_DIV8);	/* Max. 14MHz */
-	rcc_set_ppre1(RCC_CFGR_PPRE1_HCLK_DIV2);	/* Max. 36MHz */
-	rcc_set_ppre2(RCC_CFGR_PPRE2_HCLK_NODIV);	/* Max. 72MHz */
+	rcc_set_hpre(RCC_CFGR_HPRE_SYSCLK_NODIV);	/* Set. 72MHz Max. 72MHz */
+	rcc_set_adcpre(RCC_CFGR_ADCPRE_PCLK2_DIV8);	/* Set. 9MHz Max. 14MHz */
+	rcc_set_ppre1(RCC_CFGR_PPRE1_HCLK_DIV2);	/* Set. 36MHz Max. 36MHz */
+	rcc_set_ppre2(RCC_CFGR_PPRE2_HCLK_NODIV);	/* Set. 72MHz Max. 72MHz */
 
 	/*
 	 * Sysclk runs with 72MHz -> 2 waitstates.
@@ -529,6 +545,10 @@ void rcc_clock_setup_in_hse_8mhz_out_72mhz(void)
 
 	/* Select PLL as SYSCLK source. */
 	rcc_set_sysclk_source(RCC_CFGR_SW_SYSCLKSEL_PLLCLK);
+
+	/* Set the peripheral clock frequencies used */
+	rcc_ppre1_frequency = 36000000;
+	rcc_ppre2_frequency = 72000000;
 }
 
 void rcc_clock_setup_in_hse_12mhz_out_72mhz(void)
@@ -549,10 +569,10 @@ void rcc_clock_setup_in_hse_12mhz_out_72mhz(void)
 	 * Set prescalers for AHB, ADC, ABP1, ABP2.
 	 * Do this before touching the PLL (TODO: why?).
 	 */
-	rcc_set_hpre(RCC_CFGR_HPRE_SYSCLK_NODIV);	/* Max. 72MHz */
-	rcc_set_adcpre(RCC_CFGR_ADCPRE_PCLK2_DIV6);	/* Max. 14MHz */
-	rcc_set_ppre1(RCC_CFGR_PPRE1_HCLK_DIV2);	/* Max. 36MHz */
-	rcc_set_ppre2(RCC_CFGR_PPRE2_HCLK_NODIV);	/* Max. 72MHz */
+	rcc_set_hpre(RCC_CFGR_HPRE_SYSCLK_NODIV);	/* Set. 72MHz Max. 72MHz */
+	rcc_set_adcpre(RCC_CFGR_ADCPRE_PCLK2_DIV6);	/* Set. 12MHz Max. 14MHz */
+	rcc_set_ppre1(RCC_CFGR_PPRE1_HCLK_DIV2);	/* Set. 36MHz Max. 36MHz */
+	rcc_set_ppre2(RCC_CFGR_PPRE2_HCLK_NODIV);	/* Set. 72MHz Max. 72MHz */
 
 	/*
 	 * Sysclk runs with 72MHz -> 2 waitstates.
@@ -583,6 +603,10 @@ void rcc_clock_setup_in_hse_12mhz_out_72mhz(void)
 
 	/* Select PLL as SYSCLK source. */
 	rcc_set_sysclk_source(RCC_CFGR_SW_SYSCLKSEL_PLLCLK);
+
+	/* Set the peripheral clock frequencies used */
+	rcc_ppre1_frequency = 36000000;
+	rcc_ppre2_frequency = 72000000;
 }
 
 void rcc_clock_setup_in_hse_16mhz_out_72mhz(void)
@@ -603,10 +627,10 @@ void rcc_clock_setup_in_hse_16mhz_out_72mhz(void)
 	 * Set prescalers for AHB, ADC, ABP1, ABP2.
 	 * Do this before touching the PLL (TODO: why?).
 	 */
-	rcc_set_hpre(RCC_CFGR_HPRE_SYSCLK_NODIV);	/* Max. 72MHz */
-	rcc_set_adcpre(RCC_CFGR_ADCPRE_PCLK2_DIV6);	/* Max. 14MHz */
-	rcc_set_ppre1(RCC_CFGR_PPRE1_HCLK_DIV2);	/* Max. 36MHz */
-	rcc_set_ppre2(RCC_CFGR_PPRE2_HCLK_NODIV);	/* Max. 72MHz */
+	rcc_set_hpre(RCC_CFGR_HPRE_SYSCLK_NODIV);	/* Set. 72MHz Max. 72MHz */
+	rcc_set_adcpre(RCC_CFGR_ADCPRE_PCLK2_DIV6);	/* Set. 12MHz Max. 14MHz */
+	rcc_set_ppre1(RCC_CFGR_PPRE1_HCLK_DIV2);	/* Set. 36MHz Max. 36MHz */
+	rcc_set_ppre2(RCC_CFGR_PPRE2_HCLK_NODIV);	/* Set. 72MHz Max. 72MHz */
 
 	/*
 	 * Sysclk runs with 72MHz -> 2 waitstates.
@@ -637,6 +661,10 @@ void rcc_clock_setup_in_hse_16mhz_out_72mhz(void)
 
 	/* Select PLL as SYSCLK source. */
 	rcc_set_sysclk_source(RCC_CFGR_SW_SYSCLKSEL_PLLCLK);
+
+	/* Set the peripheral clock frequencies used */
+	rcc_ppre1_frequency = 36000000;
+	rcc_ppre2_frequency = 72000000;
 }
 
 void rcc_backupdomain_reset(void)
