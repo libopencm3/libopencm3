@@ -17,14 +17,25 @@
  * along with this program.  If not, see <http://www.gnu.org/licenses/>.
  */
 
+#include <libopencm3/stm32/rcc.h>
+
 #include <libopencm3/stm32/usart.h>
 
 void usart_set_baudrate(u32 usart, u32 baud)
 {
-	u32 clock = 72000000; /* FIXME: Don't hardcode this clock! */
+	u32 clock = rcc_ppre1_frequency;
 
-	/* TODO: Document and explain calculation. */
-	USART_BRR(usart) = (u16)((clock << 4) / (baud * 16));
+	if (usart == USART1) {
+		clock = rcc_ppre2_frequency;
+	}
+
+	/* yes it is as simple as that. The reference manual is
+	 * talking about factional calculation but it seems to be only
+	 * marketting bable to sound awesome. It is nothing else but a
+	 * simple divider to generate the correct baudrate. >_< If I
+	 * am wrong feel free to correct me on that. :) (esden)
+	 */
+	USART_BRR(usart) = clock/baud;
 }
 
 void usart_set_databits(u32 usart, u32 bits)
