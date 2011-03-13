@@ -80,7 +80,7 @@ void usart1_isr(void)
 	static u8 data = 'A';
 
 	/* Check if we were called because of RXNE. */
-	if (((USART_CR1(USART1) & USART_SR_RXNEIE) != 0) &&
+	if (((USART_CR1(USART1) & USART_CR1_RXNEIE) != 0) &&
 		((USART_SR(USART1) & USART_SR_RXNE) != 0)) {
 		/* Indicate that we got data. */
 		gpio_toggle(GPIOA, GPIO6);
@@ -93,7 +93,7 @@ void usart1_isr(void)
 	}
 
 	/* Check if we were called because of TXE. */
-	if ((USART_CR1(USART1) & USART_SR_TXEIE) != 0) &&
+	if (((USART_CR1(USART1) & USART_CR1_TXEIE) != 0) &&
 		((USART_SR(USART1) & USART_SR_TXE) != 0)) {
 		/* Indicate that we are sending out data. */
 		gpio_toggle(GPIOA, GPIO7);

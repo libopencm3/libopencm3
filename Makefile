@@ -46,7 +46,7 @@ lib:
 	done
 
 examples:
-	$(Q)for i in $(addsuffix /*,$(addprefix $@/,$(TARGETS))); do \
+	$(Q)for i in $(addsuffix /*/*,$(addprefix $@/,$(TARGETS))); do \
 		if [ -d $$i ]; then \
 			printf "  BUILD   $$i\n"; \
 			$(MAKE) -C $$i; \
@@ -65,8 +65,9 @@ install: lib
 
 clean:
 	$(Q)for i in $(addprefix lib/,$(TARGETS)) \
-		     $(addsuffix /*,$(addprefix examples/,$(TARGETS))); do \
+		     $(addsuffix /*/*,$(addprefix examples/,$(TARGETS))); do \
 		if [ -d $$i ]; then \
+			printf "  CLEAN   $$i\n"; \
 			$(MAKE) -C $$i clean; \
 		fi; \
 	done
