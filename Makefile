@@ -24,6 +24,8 @@ INCDIR		= $(DESTDIR)/$(PREFIX)/include
 LIBDIR		= $(DESTDIR)/$(PREFIX)/lib
 INSTALL		= install
 
+TARGETS = stm32 lpc13xx lm3s
+
 # Be silent per default, but 'make V=1' will show all compiler calls.
 ifneq ($(V),1)
 Q := @
@@ -36,20 +38,20 @@ all: build
 build: lib examples
 
 lib:
-	@printf "  BUILD   lib/stm32\n"
-	$(Q)$(MAKE) -C lib/stm32 all
-	@printf "  BUILD   lib/lpc13xx\n"
-	$(Q)$(MAKE) -C lib/lpc13xx all
-	@printf "  BUILD   lib/lm3s\n"
-	$(Q)$(MAKE) -C lib/lm3s all
+	$(Q)for i in $(addprefix $@/,$(TARGETS)); do \
+		if [ -d $$i ]; then \
+			printf "  BUILD   $$i\n"; \
+			$(MAKE) -C $$i; \
+		fi; \
+	done
 
-examples: lib
-	@printf "  BUILD   examples/stm32\n"
-	$(Q)$(MAKE) -C examples/stm32 all
-	@printf "  BUILD   examples/lpc13xx\n"
-	$(Q)$(MAKE) -C examples/lpc13xx all
-	@printf "  BUILD   examples/lm3s\n"
-	$(Q)$(MAKE) -C examples/lm3s all
+examples:
+	$(Q)for i in $(addsuffix /*,$(addprefix $@/,$(TARGETS))); do \
+		if [ -d $$i ]; then \
+			printf "  BUILD   $$i\n"; \
+			$(MAKE) -C $$i; \
+		fi; \
+	done
 
 install: lib 
 	@printf "  INSTALL headers\n"
@@ -62,12 +64,12 @@ install: lib
 	$(Q)$(INSTALL) -m 0644 lib/*/*.ld $(LIBDIR)
 
 clean:
-	$(Q)$(MAKE) -C examples/stm32 clean
-	$(Q)$(MAKE) -C lib/stm32 clean
-	$(Q)$(MAKE) -C examples/lpc13xx clean
-	$(Q)$(MAKE) -C lib/lpc13xx clean
-	$(Q)$(MAKE) -C examples/lm3s clean
-	$(Q)$(MAKE) -C lib/lm3s clean
+	$(Q)for i in $(addprefix lib/,$(TARGETS)) \
+		     $(addsuffix /*,$(addprefix examples/,$(TARGETS))); do \
+		if [ -d $$i ]; then \
+			$(MAKE) -C $$i clean; \
+		fi; \
+	done
 
 .PHONY: build lib examples install clean
 
