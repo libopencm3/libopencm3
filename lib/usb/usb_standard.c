@@ -131,6 +131,12 @@ static int usb_standard_set_address(struct usb_setup_data *req, u8 **buf,
 
 	_usbd_device.current_address = req->wValue;
 
+	/* Special workaround for STM32F10[57] that require the address
+	 * to be set here.  This is undocumented! 
+	 */
+	if(_usbd_device.driver == &stm32f107_usb_driver)
+		_usbd_device.driver->set_address(req->wValue);
+
 	return 1;
 }
 

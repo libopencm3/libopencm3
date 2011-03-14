@@ -58,12 +58,13 @@ static void stm32f107_usbd_init(void)
 	int i;
 	/* TODO: Enable interrupts on Reset, Transfer, Suspend and Resume */
 
+	OTG_FS_GINTSTS = OTG_FS_GINTSTS_MMIS;
+
 	/* WARNING: Undocumented! Select internal PHY */
 	OTG_FS_GUSBCFG |= OTG_FS_GUSBCFG_PHYSEL;
 	/* Enable VBUS sensing in device mode and power down the phy */
 	OTG_FS_GCCFG |= OTG_FS_GCCFG_VBUSBSEN | OTG_FS_GCCFG_PWRDWN;
 
-	for(i = 0; i < 800000; i++) __asm__("nop");
 
 	/* Wait for AHB idle */
 	while(!(OTG_FS_GRSTCTL & OTG_FS_GRSTCTL_AHBIDL));
@@ -71,7 +72,6 @@ static void stm32f107_usbd_init(void)
 	OTG_FS_GRSTCTL |= OTG_FS_GRSTCTL_CSRST;
 	while(OTG_FS_GRSTCTL & OTG_FS_GRSTCTL_CSRST);
 
-	for(i = 0; i < 800000; i++) __asm__("nop");
 
 	/* Force peripheral only mode. */
 	OTG_FS_GUSBCFG |= OTG_FS_GUSBCFG_FDMOD;
@@ -82,6 +82,9 @@ static void stm32f107_usbd_init(void)
 	/* Restart the phy clock */
 	OTG_FS_PCGCCTL = 0;
 
+	OTG_FS_GRXFSIZ = 128;
+	OTG_FS_GNPTXFSIZ = (128 << 16) | 128;
+
 
 	/* Unmask interrupts for TX and RX */
 	OTG_FS_GINTMSK &= OTG_FS_GINTMSK_RXFLVLM;
@@ -89,15 +92,7 @@ static void stm32f107_usbd_init(void)
 
 static void stm32f107_set_address(u8 addr)
 {
-	/* There is something badly wrong gere! */
-
-	/* TODO: Set device address and enable. */
-
-	/* This I think is correct, but doesn't work at all... */
-	//OTG_FS_DCFG = (OTG_FS_DCFG & ~OTG_FS_DCFG_DAD) | (addr << 4);
-
-	/* This is obviously incorrect, but sometimes works... */
-	OTG_FS_DCFG |= addr << 4;
+	OTG_FS_DCFG = (OTG_FS_DCFG & ~OTG_FS_DCFG_DAD) | (addr << 4);
 }
 
 static void stm32f107_ep_setup(u8 addr, u8 type, u16 max_size, 
@@ -171,9 +166,9 @@ static void stm32f107_ep_stall_set(u8 addr, u8 stall)
 {
 	if(addr == 0) {
 		if(stall)
-			OTG_FS_DOEPCTL(addr) |= OTG_FS_DOEPCTL0_STALL;
+			OTG_FS_DIEPCTL(addr) |= OTG_FS_DIEPCTL0_STALL;
 		else
-			OTG_FS_DOEPCTL(addr) &= ~OTG_FS_DOEPCTL0_STALL;
+			OTG_FS_DIEPCTL(addr) &= ~OTG_FS_DIEPCTL0_STALL;
 	}
 
 	if(addr & 0x80) {

@@ -297,6 +297,16 @@
 #define OTG_FS_DIEPINTX_EPDISD		(1 << 1)
 #define OTG_FS_DIEPINTX_XFRC		(1 << 0)
 
+/* OTG_FS Device IN Endpoint Interrupt Register (OTG_FS_DOEPINTx) */
+/* Bits 31:7 - Reserved */
+#define OTG_FS_DOEPINTX_B2BSTUP		(1 << 6)
+/* Bit 5 - Reserved */
+#define OTG_FS_DOEPINTX_OTEPDIS		(1 << 4)
+#define OTG_FS_DOEPINTX_STUP		(1 << 3)
+/* Bit 2 - Reserved */
+#define OTG_FS_DOEPINTX_EPDISD		(1 << 1)
+#define OTG_FS_DOEPINTX_XFRC		(1 << 0)
+
 /* OTG_FS Device OUT Endpoint 0 Transfer Size Regsiter (OTG_FS_DOEPTSIZ0) */
 /* Bit 31 - Reserved */
 #define OTG_FS_DIEPSIZ0_STUPCNT_1	(0x1 << 29)
