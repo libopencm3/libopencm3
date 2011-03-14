@@ -24,7 +24,7 @@ Q := @
 MAKEFLAGS += --no-print-directory
 endif
 
-all: miniblink fancyblink usart usart_irq usart_printf usart_irq_printf timer usb_cdcacm usb_hid button exti_both traceswo
+all: miniblink fancyblink usart usart_irq usart_printf usart_irq_printf timer usb_cdcacm usb_hid button exti_both traceswo led_stripe
 
 miniblink:
 	@printf "  BUILD   examples/stm32/stm32-h103/miniblink\n"
@@ -78,6 +78,10 @@ traceswo:
 	@printf "  BUILD   examples/stm32/stm32-h103/traceswo\n"
 	$(Q)$(MAKE) -C traceswo
 
+led_stripe:
+	@printf "  BUILD   examples/stm32/stm32-h103/led_stripe\n"
+	$(Q)$(MAKE) -C led_stripe
+
 clean:
 	@printf "  CLEAN   examples/stm32/stm32-h103/miniblink\n"
 	$(Q)$(MAKE) -C miniblink clean
@@ -103,6 +107,8 @@ clean:
 	$(Q)$(MAKE) -C exti_both clean
 	@printf "  CLEAN   examples/stm32/stm32-h103/traceswo\n"
 	$(Q)$(MAKE) -C traceswo clean
+	@printf "  CLEAN   examples/stm32/stm32-h103/led_stripe\n"
+	$(Q)$(MAKE) -C led_stripe clean
 
-.PHONY: miniblink fancyblink usart usart_irq usart_printf usart_irq_printf timer spi usb_cdcacm usb_hid button exti_both traceswo clean
+.PHONY: miniblink fancyblink usart usart_irq usart_printf usart_irq_printf timer spi usb_cdcacm usb_hid button exti_both traceswo led_stripe clean
 
