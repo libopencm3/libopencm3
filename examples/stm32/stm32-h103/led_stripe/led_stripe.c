@@ -154,7 +154,6 @@ void reset_colors(struct color *colors, int count) {
 }
 
 void init_colors(struct color *colors, int count) {
-	int i;
 
 	colors[0].r = 0x1F;
 	colors[0].g = 0;
@@ -166,6 +165,7 @@ void init_colors(struct color *colors, int count) {
 	colors[2].g = 0;
 	colors[2].b = 0x1F;
 
+	count = count;
 }
 
 void step_colors(struct color *colors, int count) {
