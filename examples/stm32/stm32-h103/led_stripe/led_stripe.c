@@ -24,6 +24,8 @@
  * http://www.adafruit.com/datasheets/LPD6803.pdf
  */
 
+#include <stdlib.h>
+
 #include <libopencm3/stm32/rcc.h>
 #include <libopencm3/stm32/gpio.h>
 
@@ -173,7 +175,16 @@ void step_colors(struct color *colors, int count) {
 	struct color tmp_color1;
 	struct color tmp_color2;
 
+/* random blinking */
+/*
+	for (i=0; i<count; i++) {
+		colors[i].r = rand()&0x01;
+		colors[i].g = rand()&0x01;
+		colors[i].b = rand()&0x01;
+	}
+*/
 	/* generate next colors */
+
 	tmp_color1.r = colors[0].r;
 	tmp_color1.g = colors[0].g;
 	tmp_color1.b = colors[0].b;
@@ -191,6 +202,7 @@ void step_colors(struct color *colors, int count) {
 		tmp_color1.g = tmp_color2.g;
 		tmp_color1.b = tmp_color2.b;
 	}
+
 }
 
 int main(void)
@@ -213,13 +225,9 @@ int main(void)
 		step_colors(colors, COLOR_COUNT);
 
 		/* Wait a little */
-		for (i = 0; i < 500000; i++)	/* Wait a bit. */
+		for (i = 0; i < 1000000; i++)	/* Wait a bit. */
 			__asm__("nop");
 
-	}
-
-	/* Blink the LED (PC12) on the board. */
-	while (1) {
 	}
 
 	return 0;
