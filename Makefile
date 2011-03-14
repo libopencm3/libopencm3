@@ -41,7 +41,7 @@ lib:
 	$(Q)for i in $(addprefix $@/,$(TARGETS)); do \
 		if [ -d $$i ]; then \
 			printf "  BUILD   $$i\n"; \
-			$(MAKE) -C $$i; \
+			$(MAKE) -C $$i || exit $?; \
 		fi; \
 	done
 
@@ -49,7 +49,7 @@ examples:
 	$(Q)for i in $(addsuffix /*/*,$(addprefix $@/,$(TARGETS))); do \
 		if [ -d $$i ]; then \
 			printf "  BUILD   $$i\n"; \
-			$(MAKE) -C $$i; \
+			$(MAKE) -C $$i || exit $?; \
 		fi; \
 	done
 
@@ -68,7 +68,7 @@ clean:
 		     $(addsuffix /*/*,$(addprefix examples/,$(TARGETS))); do \
 		if [ -d $$i ]; then \
 			printf "  CLEAN   $$i\n"; \
-			$(MAKE) -C $$i clean; \
+			$(MAKE) -C $$i clean || exit $?; \
 		fi; \
 	done
 
