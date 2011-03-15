@@ -250,6 +250,7 @@
 #define OTG_FS_DIEPCTL0_EPENA		(1 << 31)
 #define OTG_FS_DIEPCTL0_EPDIS		(1 << 30)
 /* Bits 29:28 - Reserved */
+#define OTG_FS_DIEPCTLX_SD0PID		(1 << 28)
 #define OTG_FS_DIEPCTL0_SNAK		(1 << 27)
 #define OTG_FS_DIEPCTL0_CNAK		(1 << 26)
 #define OTG_FS_DIEPCTL0_TXFNUM_MASK	(0xf << 22)
@@ -270,6 +271,7 @@
 #define OTG_FS_DOEPCTL0_EPENA		(1 << 31)
 #define OTG_FS_DOEPCTL0_EPDIS		(1 << 30)
 /* Bits 29:28 - Reserved */
+#define OTG_FS_DOEPCTLX_SD0PID		(1 << 28)
 #define OTG_FS_DOEPCTL0_SNAK		(1 << 27)
 #define OTG_FS_DOEPCTL0_CNAK		(1 << 26)
 /* Bits 25:22 - Reserved */
