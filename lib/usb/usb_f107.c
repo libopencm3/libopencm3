@@ -29,6 +29,8 @@
 #define RX_FIFO_SIZE	128
 static uint16_t fifo_mem_top;
 
+static u8 force_nak[4];
+
 static void stm32f107_usbd_init(void);
 static void stm32f107_set_address(u8 addr);
 static void stm32f107_ep_setup(u8 addr, u8 type, u16 max_size,
@@ -36,6 +38,7 @@ static void stm32f107_ep_setup(u8 addr, u8 type, u16 max_size,
 static void stm32f107_endpoints_reset(void);
 static void stm32f107_ep_stall_set(u8 addr, u8 stall);
 static u8 stm32f107_ep_stall_get(u8 addr);
+static void stm32f107_ep_nak_set(u8 addr, u8 nak);
 static u16 stm32f107_ep_write_packet(u8 addr, const void *buf, u16 len);
 static u16 stm32f107_ep_read_packet(u8 addr, void *buf, u16 len);
 static void stm32f107_poll(void);
@@ -51,6 +54,7 @@ const struct _usbd_driver stm32f107_usb_driver = {
 	.ep_reset = stm32f107_endpoints_reset,
 	.ep_stall_set = stm32f107_ep_stall_set,
 	.ep_stall_get = stm32f107_ep_stall_get,
+	.ep_nak_set = stm32f107_ep_nak_set,
 	.ep_write_packet = stm32f107_ep_write_packet,
 	.ep_read_packet = stm32f107_ep_read_packet,
 	.poll = stm32f107_poll,
@@ -210,6 +214,20 @@ static u8 stm32f107_ep_stall_get(u8 addr)
 		return (OTG_FS_DOEPCTL(addr) & OTG_FS_DOEPCTL0_STALL)?1:0;
 }
 
+static void stm32f107_ep_nak_set(u8 addr, u8 nak)
+{
+	/* It does not make sence to force NAK on IN endpoints */
+	if(addr & 0x80)
+		return;
+
+	force_nak[addr] = nak;
+
+	if(nak) 
+		OTG_FS_DOEPCTL(addr) |= OTG_FS_DOEPCTL0_SNAK;
+	else 
+		OTG_FS_DOEPCTL(addr) |= OTG_FS_DOEPCTL0_CNAK;
+}
+
 static u16 stm32f107_ep_write_packet(u8 addr, const void *buf, u16 len)
 {
 	const u32 *buf32 = buf;
@@ -256,7 +274,8 @@ static u16 stm32f107_ep_read_packet(u8 addr, void *buf, u16 len)
 	}
 
 	OTG_FS_DOEPTSIZ(addr) = doeptsiz[addr];
-	OTG_FS_DOEPCTL(addr) |= OTG_FS_DOEPCTL0_EPENA | OTG_FS_DOEPCTL0_CNAK;
+	OTG_FS_DOEPCTL(addr) |= OTG_FS_DOEPCTL0_EPENA | 
+		(force_nak[addr] ? OTG_FS_DOEPCTL0_SNAK : OTG_FS_DOEPCTL0_CNAK);
 
 	return len;
 }

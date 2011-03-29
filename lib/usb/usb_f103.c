@@ -30,9 +30,12 @@ static void stm32f103_ep_setup(u8 addr, u8 type, u16 max_size,
 static void stm32f103_endpoints_reset(void);
 static void stm32f103_ep_stall_set(u8 addr, u8 stall);
 static u8 stm32f103_ep_stall_get(u8 addr);
+static void stm32f103_ep_nak_set(u8 addr, u8 nak);
 static u16 stm32f103_ep_write_packet(u8 addr, const void *buf, u16 len);
 static u16 stm32f103_ep_read_packet(u8 addr, void *buf, u16 len);
 static void stm32f103_poll(void);
+
+static u8 force_nak[8];
 
 const struct _usbd_driver stm32f103_usb_driver = {
 	.init = stm32f103_usbd_init,
@@ -41,6 +44,7 @@ const struct _usbd_driver stm32f103_usb_driver = {
 	.ep_reset = stm32f103_endpoints_reset,
 	.ep_stall_set = stm32f103_ep_stall_set,
 	.ep_stall_get = stm32f103_ep_stall_get,
+	.ep_nak_set = stm32f103_ep_nak_set,
 	.ep_write_packet = stm32f103_ep_write_packet,
 	.ep_read_packet = stm32f103_ep_read_packet,
 	.poll = stm32f103_poll,
@@ -177,6 +181,20 @@ static u8 stm32f103_ep_stall_get(u8 addr)
 	return 0;
 }
 
+static void stm32f103_ep_nak_set(u8 addr, u8 nak)
+{
+	/* It does not make sence to force NAK on IN endpoints */
+	if(addr & 0x80)
+		return;
+
+	force_nak[addr] = nak;
+
+	if(nak)
+		USB_SET_EP_RX_STAT(addr, USB_EP_RX_STAT_NAK);
+	else
+		USB_SET_EP_RX_STAT(addr, USB_EP_RX_STAT_VALID);
+}
+
 /**
  * Copy a data buffer to packet memory.
  *
@@ -236,7 +254,8 @@ static u16 stm32f103_ep_read_packet(u8 addr, void *buf, u16 len)
 	usb_copy_from_pm(buf, USB_GET_EP_RX_BUFF(addr), len);
 	USB_CLR_EP_RX_CTR(addr);
 
-	USB_SET_EP_RX_STAT(addr, USB_EP_RX_STAT_VALID);
+	if(!force_nak[addr])
+		USB_SET_EP_RX_STAT(addr, USB_EP_RX_STAT_VALID);
 
 	return len;
 }
