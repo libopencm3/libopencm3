@@ -63,8 +63,6 @@ const struct _usbd_driver stm32f107_usb_driver = {
 /** Initialize the USB device controller hardware of the STM32. */
 static void stm32f107_usbd_init(void)
 {
-	/* TODO: Enable interrupts on Reset, Transfer, Suspend and Resume */
-
 	OTG_FS_GINTSTS = OTG_FS_GINTSTS_MMIS;
 
 	/* WARNING: Undocumented! Select internal PHY */
@@ -93,7 +91,15 @@ static void stm32f107_usbd_init(void)
 	fifo_mem_top = RX_FIFO_SIZE;
 
 	/* Unmask interrupts for TX and RX */
-	OTG_FS_GINTMSK &= OTG_FS_GINTMSK_RXFLVLM;
+	OTG_FS_GAHBCFG |= OTG_FS_GAHBCFG_GINT;
+	OTG_FS_GINTMSK = OTG_FS_GINTMSK_ENUMDNEM |
+			OTG_FS_GINTMSK_RXFLVLM |
+			OTG_FS_GINTMSK_IEPINT |
+			OTG_FS_GINTMSK_USBSUSPM |
+			OTG_FS_GINTMSK_WUIM |
+			OTG_FS_GINTMSK_SOFM;
+	OTG_FS_DAINTMSK = 0xF;
+	OTG_FS_DIEPMSK = OTG_FS_DIEPMSK_XFRCM;
 }
 
 static void stm32f107_set_address(u8 addr)
@@ -104,7 +110,7 @@ static void stm32f107_set_address(u8 addr)
 static void stm32f107_ep_setup(u8 addr, u8 type, u16 max_size, 
 				void (*callback) (u8 ep))
 {
-	/* TODO: Configure endpoint address and type.
+	/* Configure endpoint address and type.
 	 * Allocate FIFO memory for endpoint.
 	 * Install callback funciton.
 	 */
@@ -137,7 +143,6 @@ static void stm32f107_ep_setup(u8 addr, u8 type, u16 max_size,
 		return;
 	}
 
-	/* TODO: Configuration for other endpoints */
 	if (dir) {
 		OTG_FS_DIEPTXF(addr) = ((max_size / 4) << 16) | fifo_mem_top;
 		fifo_mem_top += max_size / 4;
@@ -293,7 +298,6 @@ static void stm32f107_poll(void)
 		return;
 	}
 
-	/* TODO: Handle transfer complete condition */
 	/* Note: RX and TX handled differently in this device. */
 	if (intsts & OTG_FS_GINTSTS_RXFLVL) { 
 		/* Receive FIFO non-empty */
@@ -315,13 +319,11 @@ static void stm32f107_poll(void)
 
 		if (_usbd_device.user_callback_ctr[ep][type])
 			_usbd_device.user_callback_ctr[ep][type] (ep);
-		/* TODO: clear any interrupt flag */
 	}
 
 	/* There is no global interrupt flag for transmit complete. 
 	 * the XFRC bit must be checked in each OTG_FS_DIEPINT(x) 
 	 */
-	/* TODO: Check on endpoint interrupt... */
 	for (i = 0; i < 4; i++) { /* Iterate over endpoints */
 		if(OTG_FS_DIEPINT(i) & OTG_FS_DIEPINTX_XFRC) {
 			/* Transfer complete */
@@ -331,20 +333,19 @@ static void stm32f107_poll(void)
 		}
 	}
 
-	/* TODO: Handle suspend condition */
-	if (0) {
-		/* TODO: Clear suspend interrupt flag */
+	if (intsts & OTG_FS_GINTSTS_USBSUSP) {
 		if (_usbd_device.user_callback_suspend)
 			_usbd_device.user_callback_suspend();
+		OTG_FS_GINTSTS = OTG_FS_GINTSTS_USBSUSP;
 	}
 
-	/* TODO: Handle wakeup condition */
-	if (0) {
-		/* TODO: Clear wakeup interrupt flag */
+	if (intsts & OTG_FS_GINTSTS_WKUPINT) {
 		if (_usbd_device.user_callback_resume)
 			_usbd_device.user_callback_resume();
+		OTG_FS_GINTSTS = OTG_FS_GINTSTS_WKUPINT;
 	}
 
-	/* TODO: Handle SOF condition */
+	if (intsts & OTG_FS_GINTSTS_SOF)
+		OTG_FS_GINTSTS = OTG_FS_GINTSTS_SOF;
 }
 
