@@ -138,6 +138,14 @@
 #define NVIC_DMA2_CHANNEL2_IRQ		57
 #define NVIC_DMA2_CHANNEL3_IRQ		58
 #define NVIC_DMA2_CHANNEL4_5_IRQ	59
+#define NVIC_DMA2_CHANNEL5_IRQ		60
+#define NVIC_ETH_IRQ			61
+#define NVIC_ETH_WKUP_IRQ		62
+#define NVIC_CAN2_TX_IRQ		63
+#define NVIC_CAN2_RX0_IRQ		64
+#define NVIC_CAN2_RX1_IRQ		65
+#define NVIC_CAN2_SCE_IRQ		66
+#define NVIC_OTG_FS_IRQ			67
 
 /* --- NVIC functions ------------------------------------------------------ */
 
