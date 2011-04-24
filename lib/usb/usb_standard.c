@@ -98,6 +98,11 @@ static int usb_standard_get_descriptor(struct usb_setup_data *req,
 		if (!_usbd_device.strings)
 			return 0;	/* Device doesn't support strings. */
 
+		/* Check that string index is in range */
+		for(i = 0; i <= (req->wValue & 0xff); i++)
+			if(_usbd_device.strings[i] == NULL) 
+				return 0;
+
 		sd->bLength = strlen(_usbd_device.strings[req->wValue & 0xff])
 				* 2 + 2;
 		sd->bDescriptorType = USB_DT_STRING;
