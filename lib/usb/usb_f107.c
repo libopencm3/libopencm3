@@ -25,6 +25,12 @@
 
 #include <string.h>
 
+/* Receive FIFO size in 32-bit words */
+#define RX_FIFO_SIZE	128
+static uint16_t fifo_mem_top;
+
+static u8 force_nak[4];
+
 static void stm32f107_usbd_init(void);
 static void stm32f107_set_address(u8 addr);
 static void stm32f107_ep_setup(u8 addr, u8 type, u16 max_size,
@@ -32,6 +38,7 @@ static void stm32f107_ep_setup(u8 addr, u8 type, u16 max_size,
 static void stm32f107_endpoints_reset(void);
 static void stm32f107_ep_stall_set(u8 addr, u8 stall);
 static u8 stm32f107_ep_stall_get(u8 addr);
+static void stm32f107_ep_nak_set(u8 addr, u8 nak);
 static u16 stm32f107_ep_write_packet(u8 addr, const void *buf, u16 len);
 static u16 stm32f107_ep_read_packet(u8 addr, void *buf, u16 len);
 static void stm32f107_poll(void);
@@ -47,6 +54,7 @@ const struct _usbd_driver stm32f107_usb_driver = {
 	.ep_reset = stm32f107_endpoints_reset,
 	.ep_stall_set = stm32f107_ep_stall_set,
 	.ep_stall_get = stm32f107_ep_stall_get,
+	.ep_nak_set = stm32f107_ep_nak_set,
 	.ep_write_packet = stm32f107_ep_write_packet,
 	.ep_read_packet = stm32f107_ep_read_packet,
 	.poll = stm32f107_poll,
@@ -55,15 +63,13 @@ const struct _usbd_driver stm32f107_usb_driver = {
 /** Initialize the USB device controller hardware of the STM32. */
 static void stm32f107_usbd_init(void)
 {
-	int i;
-	/* TODO: Enable interrupts on Reset, Transfer, Suspend and Resume */
+	OTG_FS_GINTSTS = OTG_FS_GINTSTS_MMIS;
 
 	/* WARNING: Undocumented! Select internal PHY */
 	OTG_FS_GUSBCFG |= OTG_FS_GUSBCFG_PHYSEL;
 	/* Enable VBUS sensing in device mode and power down the phy */
 	OTG_FS_GCCFG |= OTG_FS_GCCFG_VBUSBSEN | OTG_FS_GCCFG_PWRDWN;
 
-	for(i = 0; i < 800000; i++) __asm__("nop");
 
 	/* Wait for AHB idle */
 	while(!(OTG_FS_GRSTCTL & OTG_FS_GRSTCTL_AHBIDL));
@@ -71,7 +77,6 @@ static void stm32f107_usbd_init(void)
 	OTG_FS_GRSTCTL |= OTG_FS_GRSTCTL_CSRST;
 	while(OTG_FS_GRSTCTL & OTG_FS_GRSTCTL_CSRST);
 
-	for(i = 0; i < 800000; i++) __asm__("nop");
 
 	/* Force peripheral only mode. */
 	OTG_FS_GUSBCFG |= OTG_FS_GUSBCFG_FDMOD;
@@ -82,28 +87,30 @@ static void stm32f107_usbd_init(void)
 	/* Restart the phy clock */
 	OTG_FS_PCGCCTL = 0;
 
+	OTG_FS_GRXFSIZ = RX_FIFO_SIZE;
+	fifo_mem_top = RX_FIFO_SIZE;
 
 	/* Unmask interrupts for TX and RX */
-	OTG_FS_GINTMSK &= OTG_FS_GINTMSK_RXFLVLM;
+	OTG_FS_GAHBCFG |= OTG_FS_GAHBCFG_GINT;
+	OTG_FS_GINTMSK = OTG_FS_GINTMSK_ENUMDNEM |
+			OTG_FS_GINTMSK_RXFLVLM |
+			OTG_FS_GINTMSK_IEPINT |
+			OTG_FS_GINTMSK_USBSUSPM |
+			OTG_FS_GINTMSK_WUIM |
+			OTG_FS_GINTMSK_SOFM;
+	OTG_FS_DAINTMSK = 0xF;
+	OTG_FS_DIEPMSK = OTG_FS_DIEPMSK_XFRCM;
 }
 
 static void stm32f107_set_address(u8 addr)
 {
-	/* There is something badly wrong gere! */
-
-	/* TODO: Set device address and enable. */
-
-	/* This I think is correct, but doesn't work at all... */
-	//OTG_FS_DCFG = (OTG_FS_DCFG & ~OTG_FS_DCFG_DAD) | (addr << 4);
-
-	/* This is obviously incorrect, but sometimes works... */
-	OTG_FS_DCFG |= addr << 4;
+	OTG_FS_DCFG = (OTG_FS_DCFG & ~OTG_FS_DCFG_DAD) | (addr << 4);
 }
 
 static void stm32f107_ep_setup(u8 addr, u8 type, u16 max_size, 
 				void (*callback) (u8 ep))
 {
-	/* TODO: Configure endpoint address and type.
+	/* Configure endpoint address and type.
 	 * Allocate FIFO memory for endpoint.
 	 * Install callback funciton.
 	 */
@@ -130,14 +137,20 @@ static void stm32f107_ep_setup(u8 addr, u8 type, u16 max_size,
 		OTG_FS_DOEPTSIZ(0) = doeptsiz[0];
 		OTG_FS_DOEPCTL(0) |= OTG_FS_DOEPCTL0_EPENA | OTG_FS_DIEPCTL0_SNAK;
 
+		OTG_FS_GNPTXFSIZ = ((max_size / 4) << 16) | RX_FIFO_SIZE;
+		fifo_mem_top += max_size / 4;
+
 		return;
 	}
 
-	/* TODO: Configuration for other endpoints */
 	if (dir) {
+		OTG_FS_DIEPTXF(addr) = ((max_size / 4) << 16) | fifo_mem_top;
+		fifo_mem_top += max_size / 4;
+
 		OTG_FS_DIEPTSIZ(addr) = (max_size & OTG_FS_DIEPSIZ0_XFRSIZ_MASK);
 		OTG_FS_DIEPCTL(addr) |= OTG_FS_DIEPCTL0_EPENA | 
 				OTG_FS_DIEPCTL0_SNAK | (type << 18) | 
+				OTG_FS_DIEPCTL0_USBAEP | 
 				(addr << 22) | max_size;
 
 		if (callback) {
@@ -152,7 +165,8 @@ static void stm32f107_ep_setup(u8 addr, u8 type, u16 max_size,
 				(max_size & OTG_FS_DIEPSIZ0_XFRSIZ_MASK);
 		OTG_FS_DOEPTSIZ(addr) = doeptsiz[addr];
 		OTG_FS_DOEPCTL(addr) |= OTG_FS_DOEPCTL0_EPENA | 
-				OTG_FS_DIEPCTL0_CNAK | (type << 18) | max_size;
+				OTG_FS_DOEPCTL0_USBAEP | OTG_FS_DIEPCTL0_CNAK | 
+				(type << 18) | max_size;
 
 		if (callback) {
 			_usbd_device.
@@ -164,41 +178,59 @@ static void stm32f107_ep_setup(u8 addr, u8 type, u16 max_size,
 
 static void stm32f107_endpoints_reset(void)
 {
-	/* TODO: Reset all endpoints. */
+	/* The core resets the endpoints automatically on reset */
+	fifo_mem_top = RX_FIFO_SIZE;
 }
 
 static void stm32f107_ep_stall_set(u8 addr, u8 stall)
 {
 	if(addr == 0) {
 		if(stall)
-			OTG_FS_DOEPCTL(addr) |= OTG_FS_DOEPCTL0_STALL;
+			OTG_FS_DIEPCTL(addr) |= OTG_FS_DIEPCTL0_STALL;
 		else
-			OTG_FS_DOEPCTL(addr) &= ~OTG_FS_DOEPCTL0_STALL;
+			OTG_FS_DIEPCTL(addr) &= ~OTG_FS_DIEPCTL0_STALL;
 	}
 
 	if(addr & 0x80) {
 		addr &= 0x7F;
 
-		if(stall)
+		if(stall) {
 			OTG_FS_DIEPCTL(addr) |= OTG_FS_DIEPCTL0_STALL;
-		else
+		} else {
 			OTG_FS_DIEPCTL(addr) &= ~OTG_FS_DIEPCTL0_STALL;
-			/* TODO: Reset to DATA0 */
+			OTG_FS_DIEPCTL(addr) |= OTG_FS_DIEPCTLX_SD0PID;
+		}
 	} else {
-		if(stall)
+		if(stall) {
 			OTG_FS_DOEPCTL(addr) |= OTG_FS_DOEPCTL0_STALL;
-		else
+		} else {
 			OTG_FS_DOEPCTL(addr) &= ~OTG_FS_DOEPCTL0_STALL;
-			/* TODO: Reset to DATA0 */
+			OTG_FS_DOEPCTL(addr) |= OTG_FS_DOEPCTLX_SD0PID;
+		}
 	}
 }
 
 static u8 stm32f107_ep_stall_get(u8 addr)
 {
-	/* TODO: return 1 if STALL set. */
-	(void)addr;
+	/* return non-zero  if STALL set. */
+	if(addr & 0x80) 
+		return (OTG_FS_DIEPCTL(addr&0x7f) & OTG_FS_DIEPCTL0_STALL)?1:0;
+	else
+		return (OTG_FS_DOEPCTL(addr) & OTG_FS_DOEPCTL0_STALL)?1:0;
+}
 
-	return 0;
+static void stm32f107_ep_nak_set(u8 addr, u8 nak)
+{
+	/* It does not make sence to force NAK on IN endpoints */
+	if(addr & 0x80)
+		return;
+
+	force_nak[addr] = nak;
+
+	if(nak) 
+		OTG_FS_DOEPCTL(addr) |= OTG_FS_DOEPCTL0_SNAK;
+	else 
+		OTG_FS_DOEPCTL(addr) |= OTG_FS_DOEPCTL0_CNAK;
 }
 
 static u16 stm32f107_ep_write_packet(u8 addr, const void *buf, u16 len)
@@ -247,31 +279,33 @@ static u16 stm32f107_ep_read_packet(u8 addr, void *buf, u16 len)
 	}
 
 	OTG_FS_DOEPTSIZ(addr) = doeptsiz[addr];
-	OTG_FS_DOEPCTL(addr) |= OTG_FS_DOEPCTL0_EPENA | OTG_FS_DOEPCTL0_CNAK;
+	OTG_FS_DOEPCTL(addr) |= OTG_FS_DOEPCTL0_EPENA | 
+		(force_nak[addr] ? OTG_FS_DOEPCTL0_SNAK : OTG_FS_DOEPCTL0_CNAK);
 
 	return len;
 }
 
 static void stm32f107_poll(void)
 {
-	/* TODO: Read interrupt status register */
+	/* Read interrupt status register */
 	u32 intsts = OTG_FS_GINTSTS;
+	int i;
 
 	if (intsts & OTG_FS_GINTSTS_ENUMDNE) {
-		/* TODO: Handle USB RESET condition */
+		/* Handle USB RESET condition */
 		OTG_FS_GINTSTS = OTG_FS_GINTSTS_ENUMDNE;
 		_usbd_reset();
 		return;
 	}
 
-	/* TODO: Handle transfer complete condition */
 	/* Note: RX and TX handled differently in this device. */
 	if (intsts & OTG_FS_GINTSTS_RXFLVL) { 
 		/* Receive FIFO non-empty */
 		u32 rxstsp = OTG_FS_GRXSTSP;
 		u32 pktsts = rxstsp & OTG_FS_GRXSTSP_PKTSTS_MASK;
 		if((pktsts != OTG_FS_GRXSTSP_PKTSTS_OUT) &&
-		   (pktsts != OTG_FS_GRXSTSP_PKTSTS_SETUP)) return;
+		   (pktsts != OTG_FS_GRXSTSP_PKTSTS_SETUP)) 
+			return;
 
 		u8 ep = rxstsp & OTG_FS_GRXSTSP_EPNUM_MASK;
 		u8 type;
@@ -285,39 +319,33 @@ static void stm32f107_poll(void)
 
 		if (_usbd_device.user_callback_ctr[ep][type])
 			_usbd_device.user_callback_ctr[ep][type] (ep);
-		/* TODO: clear any interrupt flag */
 	}
 
 	/* There is no global interrupt flag for transmit complete. 
 	 * the XFRC bit must be checked in each OTG_FS_DIEPINT(x) 
 	 */
-	/* TODO: Check on endpoint interrupt... */
-	{
-		int i;
-		for (i = 0; i < 4; i++) { /* Iterate over endpoints */
-			if(OTG_FS_DIEPINT(i) & OTG_FS_DIEPINTX_XFRC) {
-				/* Transfer complete */
-				if (_usbd_device.user_callback_ctr[i][USB_TRANSACTION_IN])
-					_usbd_device.user_callback_ctr[i][USB_TRANSACTION_IN] (i);
-				OTG_FS_DIEPINT(i) = OTG_FS_DIEPINTX_XFRC;
-			}
+	for (i = 0; i < 4; i++) { /* Iterate over endpoints */
+		if(OTG_FS_DIEPINT(i) & OTG_FS_DIEPINTX_XFRC) {
+			/* Transfer complete */
+			if (_usbd_device.user_callback_ctr[i][USB_TRANSACTION_IN])
+				_usbd_device.user_callback_ctr[i][USB_TRANSACTION_IN] (i);
+			OTG_FS_DIEPINT(i) = OTG_FS_DIEPINTX_XFRC;
 		}
 	}
 
-	/* TODO: Handle suspend condition */
-	if (0) {
-		/* TODO: Clear suspend interrupt flag */
+	if (intsts & OTG_FS_GINTSTS_USBSUSP) {
 		if (_usbd_device.user_callback_suspend)
 			_usbd_device.user_callback_suspend();
+		OTG_FS_GINTSTS = OTG_FS_GINTSTS_USBSUSP;
 	}
 
-	/* TODO: Handle wakeup condition */
-	if (0) {
-		/* TODO: Clear wakeup interrupt flag */
+	if (intsts & OTG_FS_GINTSTS_WKUPINT) {
 		if (_usbd_device.user_callback_resume)
 			_usbd_device.user_callback_resume();
+		OTG_FS_GINTSTS = OTG_FS_GINTSTS_WKUPINT;
 	}
 
-	/* TODO: Handle SOF condition */
+	if (intsts & OTG_FS_GINTSTS_SOF)
+		OTG_FS_GINTSTS = OTG_FS_GINTSTS_SOF;
 }
 

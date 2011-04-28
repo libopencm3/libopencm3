@@ -65,6 +65,8 @@ extern u16 usbd_ep_read_packet(u8 addr, void *buf, u16 len);
 extern void usbd_ep_stall_set(u8 addr, u8 stall);
 extern u8 usbd_ep_stall_get(u8 addr);
 
+extern void usbd_ep_nak_set(u8 addr, u8 nak);
+
 /* Optional */
 extern void usbd_cable_connect(u8 on);
 

@@ -25,7 +25,7 @@ CC		= $(PREFIX)-gcc
 AR		= $(PREFIX)-ar
 CFLAGS		= -Os -g -Wall -Wextra -I../../include -fno-common \
 		  -mcpu=cortex-m3 -mthumb -Wstrict-prototypes \
-		  -ffunction-sections -fdata-sections
+		  -ffunction-sections -fdata-sections -MD
 # ARFLAGS	= rcsv
 ARFLAGS		= rcs
 OBJS		= vector.o rcc.o gpio.o usart.o adc.o spi.o flash.o nvic.o \
@@ -52,8 +52,10 @@ $(LIBNAME).a: $(OBJS)
 
 clean:
 	@printf "  CLEAN   lib/stm32\n"
-	$(Q)rm -f *.o
+	$(Q)rm -f *.o *.d
 	$(Q)rm -f $(LIBNAME).a
 
 .PHONY: clean
+
+-include $(OBJS:.o=.d)
 

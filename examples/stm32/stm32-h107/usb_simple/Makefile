@@ -1,7 +1,7 @@
 ##
 ## This file is part of the libopencm3 project.
 ##
-## Copyright (C) 2010 Piotr Esden-Tempski <piotr@esden.net>
+## Copyright (C) 2009 Uwe Hermann <uwe@hermann-uwe.de>
 ##
 ## This program is free software: you can redistribute it and/or modify
 ## it under the terms of the GNU General Public License as published by
@@ -17,22 +17,7 @@
 ## along with this program.  If not, see <http://www.gnu.org/licenses/>.
 ##
 
-# Be silent per default, but 'make V=1' will show all compiler calls.
-ifneq ($(V),1)
-Q := @
-# Do not print "Entering directory ...".
-MAKEFLAGS += --no-print-directory
-endif
+BINARY = usb_simple
 
-all: lpc-p1343
-
-lpc-p1343:
-	@printf "  BUILD   examples/lpc13xx/lpc-p1343\n"
-	$(Q)$(MAKE) -C lpc-p1343
-
-clean:
-	@printf "  CLEAN   examples/lpc13xx/lpc-p1343\n"
-	$(Q)$(MAKE) -C lpc-p1343 clean
-
-.PHONY: lpc-p1343 clean
+include ../../Makefile.include
 

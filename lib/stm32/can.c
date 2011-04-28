@@ -211,6 +211,8 @@ int can_transmit(u32 canport, u32 id, bool ext, bool rtr, u8 length, u8 *data)
 	if (ret == -1)
 		return ret;
 
+	/* Clear stale register bits */
+	CAN_TIxR(canport, mailbox) = 0;
 	if (ext) {
 		/* Set extended ID. */
 		CAN_TIxR(canport, mailbox) |= id << CAN_TIxR_EXID_SHIFT;
@@ -219,15 +221,11 @@ int can_transmit(u32 canport, u32 id, bool ext, bool rtr, u8 length, u8 *data)
 	} else {
 		/* Set standard ID. */
 		CAN_TIxR(canport, mailbox) |= id << CAN_TIxR_STID_SHIFT;
-		/* Unset extended ID indicator bit. */
-		CAN_TIxR(canport, mailbox) &= ~CAN_TIxR_IDE;
 	}
 
 	/* Set/clear remote transmission request bit. */
 	if (rtr)
 		CAN_TIxR(canport, mailbox) |=  CAN_TIxR_RTR; /* Set */
-	else
-		CAN_TIxR(canport, mailbox) &= ~CAN_TIxR_RTR; /* Clear */
 
 	/* Set the DLC. */
 	CAN_TDTxR(canport, mailbox) &= 0xFFFFFFFF0;
@@ -270,12 +268,12 @@ void can_receive(u32 canport, u8 fifo, bool release, u32 *id, bool *ext,
 	if (CAN_RIxR(canport, fifo_id) & CAN_RIxR_IDE) {
 		*ext = true;
 		/* Get extended CAN ID. */
-		*id = ((CAN_RIxR(canport, fifo_id) & CAN_RIxR_EXID_MASK) >
+		*id = ((CAN_RIxR(canport, fifo_id) & CAN_RIxR_EXID_MASK) >>
 			CAN_RIxR_EXID_SHIFT);
 	} else {
 		*ext = false;
 		/* Get standard CAN ID. */
-		*id = ((CAN_RIxR(canport, fifo_id) & CAN_RIxR_STID_MASK) >
+		*id = ((CAN_RIxR(canport, fifo_id) & CAN_RIxR_STID_MASK) >>
 			CAN_RIxR_STID_SHIFT);
 	}
 

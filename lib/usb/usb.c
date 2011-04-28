@@ -127,3 +127,9 @@ u8 usbd_ep_stall_get(u8 addr)
 {
 	return _usbd_device.driver->ep_stall_get(addr);
 }
+
+void usbd_ep_nak_set(u8 addr, u8 nak)
+{
+	_usbd_device.driver->ep_nak_set(addr, nak);
+}
+

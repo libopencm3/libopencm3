@@ -96,6 +96,15 @@ void WEAK dma2_channel1_isr(void);
 void WEAK dma2_channel2_isr(void);
 void WEAK dma2_channel3_isr(void);
 void WEAK dma2_channel4_5_isr(void);
+void WEAK dma2_channel5_isr(void);
+void WEAK eth_isr(void);
+void WEAK eth_wkup_isr(void);
+void WEAK can2_tx_isr(void);
+void WEAK can2_rx0_isr(void);
+void WEAK can2_rx1_isr(void);
+void WEAK can2_sce_isr(void);
+void WEAK otg_fs_isr(void);
+
 
 __attribute__ ((section(".vectors")))
 void (*const vector_table[]) (void) = {
@@ -172,6 +181,14 @@ void (*const vector_table[]) (void) = {
 	dma2_channel2_isr,
 	dma2_channel3_isr,
 	dma2_channel4_5_isr,
+	dma2_channel5_isr,
+	eth_isr,
+	eth_wkup_isr,
+	can2_tx_isr,
+	can2_rx0_isr,
+	can2_rx1_isr,
+	can2_sce_isr,
+	otg_fs_isr,
 };
 
 void reset_handler(void)
@@ -268,3 +285,12 @@ void null_handler(void)
 #pragma weak dma2_channel2_isr = null_handler
 #pragma weak dma2_channel3_isr = null_handler
 #pragma weak dma2_channel4_5_isr = null_handler
+#pragma weak dma2_channel5_isr
+#pragma weak eth_isr = null_handler
+#pragma weak eth_wkup_isr = null_handler
+#pragma weak can2_tx_isr = null_handler
+#pragma weak can2_rx0_isr = null_handler
+#pragma weak can2_rx1_isr = null_handler
+#pragma weak can2_sce_isr = null_handler
+#pragma weak otg_fs_isr = null_handler
+

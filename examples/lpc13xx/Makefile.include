@@ -28,7 +28,7 @@ OBJDUMP		= $(PREFIX)-objdump
 # TOOLCHAIN_DIR = `dirname \`which $(CC)\``/../$(PREFIX)
 TOOLCHAIN_DIR   = ../../../..
 CFLAGS		+= -Os -g -Wall -Wextra -I$(TOOLCHAIN_DIR)/include -fno-common \
-		   -mcpu=cortex-m3 -mthumb
+		   -mcpu=cortex-m3 -mthumb -MD
 LDSCRIPT	= $(BINARY).ld
 LDFLAGS         += -L$(TOOLCHAIN_DIR)/lib -L$(TOOLCHAIN_DIR)/lib/lpc13xx \
 		   -T$(LDSCRIPT) -nostartfiles -Wl,--gc-sections
@@ -75,7 +75,7 @@ flash: $(BINARY).flash
 	@#printf "  OBJDUMP $(*).list\n"
 	$(Q)$(OBJDUMP) -S $(*).elf > $(*).list
 
-%.elf: $(OBJS) $(LDSCRIPT)
+%.elf: $(OBJS) $(LDSCRIPT) $(TOOLCHAIN_DIR)/lib/lpc13xx/libopencm3_lpc13xx.a
 	@#printf "  LD      $(subst $(shell pwd)/,,$(@))\n"
 	$(Q)$(LD) $(LDFLAGS) -o $(*).elf $(OBJS) -lopencm3_lpc13xx
 
@@ -85,6 +85,7 @@ flash: $(BINARY).flash
 
 clean:
 	$(Q)rm -f *.o
+	$(Q)rm -f *.d
 	$(Q)rm -f *.elf
 	$(Q)rm -f *.bin
 	$(Q)rm -f *.hex
@@ -118,4 +119,6 @@ else
 endif
 
 .PHONY: images clean
+
+-include $(OBJS:.o=.d)
 
