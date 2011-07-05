@@ -17,6 +17,7 @@
  * along with this program.  If not, see <http://www.gnu.org/licenses/>.
  */
 
+#include <libopencm3/stm32/rcc.h>
 #include <libopencm3/cm3/common.h>
 #include <libopencm3/stm32/tools.h>
 #include <libopencm3/stm32/usb.h>
@@ -53,6 +54,7 @@ const struct _usbd_driver stm32f103_usb_driver = {
 /** Initialize the USB device controller hardware of the STM32. */
 static void stm32f103_usbd_init(void)
 {
+	rcc_peripheral_enable_clock(&RCC_APB1ENR, RCC_APB1ENR_USBEN);
 	SET_REG(USB_CNTR_REG, 0);
 	SET_REG(USB_BTABLE_REG, 0);
 	SET_REG(USB_ISTR_REG, 0);
