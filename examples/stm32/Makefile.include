@@ -25,7 +25,7 @@ LD		= $(PREFIX)-gcc
 OBJCOPY		= $(PREFIX)-objcopy
 OBJDUMP		= $(PREFIX)-objdump
 # Uncomment this line if you want to use the installed (not local) library.
-# TOOLCHAIN_DIR = `dirname \`which $(CC)\``/../$(PREFIX)
+# TOOLCHAIN_DIR := $(shell dirname `which $(CC)`)/../$(PREFIX)
 TOOLCHAIN_DIR   = ../../../..
 CFLAGS		+= -Os -g -Wall -Wextra -I$(TOOLCHAIN_DIR)/include \
 		   -fno-common -mcpu=cortex-m3 -mthumb -msoft-float -MD
