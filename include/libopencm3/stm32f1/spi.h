@@ -160,7 +160,7 @@
 #define SPI_CR1_CPHA_CLK_TRANSITION_2	(1 << 0)
 #define SPI_CR1_CPHA			(1 << 0)
 
-/* --- SPI_CR1 values ------------------------------------------------------ */
+/* --- SPI_CR2 values ------------------------------------------------------ */
 
 /* Bits [15:8]: Reserved. Forced to 0 by hardware. */
 
