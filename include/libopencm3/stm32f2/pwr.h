@@ -21,8 +21,6 @@
 #define LIBOPENCM3_PWR_F2_H
 
 #include <libopencm3/stm32_common/pwr.h>
-#include <libopencm3/cm3/common.h>
-
 
 /*
  * This file extends the version in stm_common with definitions only
