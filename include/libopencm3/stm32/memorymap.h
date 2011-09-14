@@ -20,8 +20,6 @@
 #ifndef LIBOPENCM3_MEMORYMAP_COMMON_H
 #define LIBOPENCM3_MEMORYMAP_COMMON_H
 
-#include <libopencm3/cm3/memorymap.h>
-
 #ifdef STM32F1
 #include <libopencm3/stm32f1/memorymap.h>
 #else

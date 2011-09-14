@@ -17,19 +17,26 @@
  * along with this program.  If not, see <http://www.gnu.org/licenses/>.
  */
 
-#ifndef LIBOPENCM3_USART_F2_H
-#define LIBOPENCM3_USART_F2_H
+#ifndef LIBOPENCM3_SPI_F2_H
+#define LIBOPENCM3_SPI_F2_H
 
-#include <libopencm3/stm32_common/usart.h>
+#include <libopencm3/stm32/spi.h>
 
-/* --- USART_CR1 values ---------------------------------------------------- */
+/*
+ * This file extends the version in stm_common with definitions only
+ * applicable to the STM32F2 series of devices.
+ */
 
-/* OVER8: Oversampling mode */
-#define USART_CR1_OVER8			(1 << 15)
+/* --- SPI_CR2 values ------------------------------------------------------ */
 
-/* --- USART_CR3 values ---------------------------------------------------- */
+/* FRF: Frame format. */
+#define SPI_CR2_FRF			(1 << 4)
+#define SPI_CR2_FRF_TI		       	(1 << 4)
+#define SPI_CR2_FRF_MOTOROLA			(1 << 4)
 
-/* ONEBIT: One sample bit method enable */
-#define USART_CR3_ONEBIT			(1 << 11)
+/* --- SPI_SR values ------------------------------------------------------- */
+
+/* TIFRFE: TI frame format error. */
+#define SPI_SR_RXNE			(1 << 0)
 
 #endif

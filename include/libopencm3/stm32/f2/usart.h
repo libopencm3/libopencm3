@@ -17,24 +17,19 @@
  * along with this program.  If not, see <http://www.gnu.org/licenses/>.
  */
 
-#ifndef LIBOPENCM3_PWR_F2_H
-#define LIBOPENCM3_PWR_F2_H
+#ifndef LIBOPENCM3_USART_F2_H
+#define LIBOPENCM3_USART_F2_H
 
-#include <libopencm3/stm32_common/pwr.h>
+#include <libopencm3/stm32/usart.h>
 
-/*
- * This file extends the version in stm_common with definitions only
- * applicable to the STM32F2 series of devices.
- */
+/* --- USART_CR1 values ---------------------------------------------------- */
 
-/* --- PWR_CR values ------------------------------------------------------- */
+/* OVER8: Oversampling mode */
+#define USART_CR1_OVER8			(1 << 15)
 
-/* FPDS: Flash power down in stop mode, only available in F2 family devices. */
-#define PWR_CR_FPDS			(1 << 9)
+/* --- USART_CR3 values ---------------------------------------------------- */
 
-/* --- PWR_CSR values ------------------------------------------------------ */
-
-/* BRE: Backup regulator enable */
-#define PWR_CSR_BRE			(1 << 9)
+/* ONEBIT: One sample bit method enable */
+#define USART_CR3_ONEBIT			(1 << 11)
 
 #endif
