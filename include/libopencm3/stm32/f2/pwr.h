@@ -17,26 +17,24 @@
  * along with this program.  If not, see <http://www.gnu.org/licenses/>.
  */
 
-#ifndef LIBOPENCM3_SPI_F2_H
-#define LIBOPENCM3_SPI_F2_H
+#ifndef LIBOPENCM3_PWR_F2_H
+#define LIBOPENCM3_PWR_F2_H
 
-#include <libopencm3/stm32_common/spi.h>
+#include <libopencm3/stm32/pwr.h>
 
 /*
  * This file extends the version in stm_common with definitions only
  * applicable to the STM32F2 series of devices.
  */
 
-/* --- SPI_CR2 values ------------------------------------------------------ */
+/* --- PWR_CR values ------------------------------------------------------- */
 
-/* FRF: Frame format. */
-#define SPI_CR2_FRF			(1 << 4)
-#define SPI_CR2_FRF_TI		       	(1 << 4)
-#define SPI_CR2_FRF_MOTOROLA			(1 << 4)
+/* FPDS: Flash power down in stop mode, only available in F2 family devices. */
+#define PWR_CR_FPDS			(1 << 9)
 
-/* --- SPI_SR values ------------------------------------------------------- */
+/* --- PWR_CSR values ------------------------------------------------------ */
 
-/* TIFRFE: TI frame format error. */
-#define SPI_SR_RXNE			(1 << 0)
+/* BRE: Backup regulator enable */
+#define PWR_CSR_BRE			(1 << 9)
 
 #endif

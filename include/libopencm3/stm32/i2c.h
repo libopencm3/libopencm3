@@ -20,7 +20,7 @@
 #ifndef LIBOPENCM3_I2C_H
 #define LIBOPENCM3_I2C_H
 
-#include <libopencm3/stm32_common/memorymap.h>
+#include <libopencm3/stm32/memorymap.h>
 #include <libopencm3/cm3/common.h>
 
 /* --- Convenience macros -------------------------------------------------- */

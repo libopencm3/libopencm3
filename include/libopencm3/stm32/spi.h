@@ -20,7 +20,7 @@
 #ifndef LIBOPENCM3_SPI_H
 #define LIBOPENCM3_SPI_H
 
-#include <libopencm3/stm32_common/memorymap.h>
+#include <libopencm3/stm32/memorymap.h>
 #include <libopencm3/cm3/common.h>
 
 /* Registers can be accessed as 16bit or 32bit values. */
