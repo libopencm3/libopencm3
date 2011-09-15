@@ -26,7 +26,7 @@
  */
 
 #include <libopencm3/stm32/timer.h>
-#include <libopencm3/stm32/rcc.h>
+#include <libopencm3/stm32/f1/rcc.h>
 
 void timer_reset(u32 timer_peripheral)
 {

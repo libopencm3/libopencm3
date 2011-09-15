@@ -77,9 +77,9 @@ void gpio_set_output_options(u32 gpioport, u8 otype, u8 speed, u16 gpios)
 	
 	for (i = 0; i < 16; i++) {
 		if (!((1 << i) & gpios))
-			continue
-		ospeedr &= ~GPIO_OSPEEDR_MASK(i);
-		ospeedr |= GPIO_OSPEEDR(i, mode);
+			continue;
+		ospeedr &= ~GPIO_OSPEED_MASK(i);
+		ospeedr |= GPIO_OSPEED(i, speed);
 	}
 
 	GPIO_OSPEEDR(gpioport) = ospeedr;
@@ -95,14 +95,14 @@ void gpio_set_af(u32 gpioport, u8 alt_func_num, u16 gpios)
 
 	for (i = 0; i < 8; i++) {
 		if (!((1 << i) & gpios))
-			continue
+			continue;
 		afrl &= GPIO_AFR_MASK(i);
 		afrl |= GPIO_AFR(i, alt_func_num);
 	}
 
 	for (i = 8; i < 16; i++) {
 		if (!((1 << i) & gpios))
-			continue
+			continue;
 		afrl &= GPIO_AFR_MASK(i-8);
 		afrh |= GPIO_AFR(i-8, alt_func_num);
 	}

@@ -17,7 +17,7 @@
  * along with this program.  If not, see <http://www.gnu.org/licenses/>.
  */
 
-#include <libopencm3/stm32/dma.h>
+#include <libopencm3/stm32/f1/dma.h>
 
 void dma_enable_mem2mem_mode(u32 dma, u8 channel)
 {
