@@ -33,7 +33,7 @@ OBJS		= vector.o rcc.o gpio.o usart.o adc.o spi.o flash.o nvic.o \
 		  usb_f103.o usb.o usb_control.o usb_standard.o can.o \
 		  timer.o usb_f107.o
 
-VPATH += ../usb
+VPATH += ../usb:../stm32_common
 
 # Be silent per default, but 'make V=1' will show all compiler calls.
 ifneq ($(V),1)
