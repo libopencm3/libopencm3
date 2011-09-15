@@ -17,7 +17,7 @@
 ## along with this program.  If not, see <http://www.gnu.org/licenses/>.
 ##
 
-LIBNAME		= libopencm3_stm32
+LIBNAME		= libopencm3_stm32f1
 
 PREFIX		?= arm-none-eabi
 #PREFIX		?= arm-elf
@@ -51,7 +51,7 @@ $(LIBNAME).a: $(OBJS)
 	$(Q)$(CC) $(CFLAGS) -o $@ -c $<
 
 clean:
-	@printf "  CLEAN   lib/stm32\n"
+	@printf "  CLEAN   lib/stm32f1\n"
 	$(Q)rm -f *.o *.d
 	$(Q)rm -f $(LIBNAME).a
 
