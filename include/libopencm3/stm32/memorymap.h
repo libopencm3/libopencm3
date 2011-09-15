@@ -21,10 +21,10 @@
 #define LIBOPENCM3_MEMORYMAP_COMMON_H
 
 #ifdef STM32F1
-#include <libopencm3/stm32f1/memorymap.h>
+#include <libopencm3/stm32/f1/memorymap.h>
 #else
-#ifdef STM32F1
-#include <libopencm3/stm32f2/memorymap.h>
+#ifdef STM32F2
+#include <libopencm3/stm32/f2/memorymap.h>
 #else
 #error "stm32 family not defined."
 #endif
