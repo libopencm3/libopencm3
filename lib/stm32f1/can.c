@@ -18,7 +18,7 @@
  */
 
 #include <libopencm3/stm32/can.h>
-#include <libopencm3/stm32/rcc.h>
+#include <libopencm3/stm32/f1/rcc.h>
 
 void can_reset(u32 canport)
 {

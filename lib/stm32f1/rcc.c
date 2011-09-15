@@ -19,8 +19,8 @@
  * along with this program.  If not, see <http://www.gnu.org/licenses/>.
  */
 
-#include <libopencm3/stm32/rcc.h>
-#include <libopencm3/stm32/flash.h>
+#include <libopencm3/stm32/f1/rcc.h>
+#include <libopencm3/stm32/f1/flash.h>
 
 /* Set the default ppre1 and ppre2 peripheral clock frequencies after reset */
 u32 rcc_ppre1_frequency = 8000000;

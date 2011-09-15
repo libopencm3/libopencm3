@@ -31,7 +31,7 @@
  *  reg16 = adc_read(ADC1, ADC_CH_0);
  */
 
-#include <libopencm3/stm32/adc.h>
+#include <libopencm3/stm32/f1/adc.h>
 
 void rcc_set_adc_clk(u32 prescaler)
 {

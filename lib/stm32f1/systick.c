@@ -17,7 +17,7 @@
  * along with this program.  If not, see <http://www.gnu.org/licenses/>.
  */
 
-#include <libopencm3/stm32/systick.h>
+#include <libopencm3/stm32/f1/systick.h>
 
 void systick_set_reload(u32 value)
 {
