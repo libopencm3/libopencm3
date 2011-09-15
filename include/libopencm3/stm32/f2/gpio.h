@@ -179,7 +179,8 @@
 
 /* --- GPIOx_MODER values -------------------------------------------------- */
 
-#define GPIO_MODE(n, mode) (mode << (2*n))
+#define GPIO_MODE(n, mode) (mode << (2*(n)))
+#define GPIO_MODE_MASK(n) (0x3 << (2*(n)))
 #define GPIO_MODE_INPUT  0x0
 #define GPIO_MODE_OUTPUT 0x1
 #define GPIO_MODE_AF     0x2
@@ -192,7 +193,8 @@
 
 /* --- GPIOx_OSPEEDR values ------------------------------------------------ */
 
-#define GPIO_OSPEED(n, speed) (speed << (2*n))
+#define GPIO_OSPEED(n, speed) (speed << (2*(n)))
+#define GPIO_OSPEED_MASK(n) (0x3 << (2*(n)))
 #define GPIO_OSPEED_2MHZ   0x0
 #define GPIO_OSPEED_25MHZ  0x1
 #define GPIO_OSPEED_50MHZ  0x2
@@ -200,7 +202,8 @@
 
 /* --- GPIOx_PUPDR values -------------------------------------------------- */
 
-#define GPIO_PUPD(n, pupd) (pupd << (2*n))
+#define GPIO_PUPD(n, pupd) (pupd << (2*(n)))
+#define GPIO_PUPD_MASK(n) (0x3 << (2*(n)))
 #define GPIO_PUPD_NONE     0x0
 #define GPIO_PUPD_PULLUP   0x1
 #define GPIO_PUPD_PULLDOWN 0x2
@@ -228,7 +231,8 @@
 /* Note: AFRL is used for bits 0..7, AFRH is used for 8..15 */
 /* See Datasheet Table 6 (pg. 48) for alternate function mappings. */
 
-#define GPIO_AFR(n, af) (af << (n*4))
+#define GPIO_AFR(n, af) (af << ((n)*4))
+#define GPIO_AFR_MASK(n) (0xF << ((n)*4))
 #define GPIO_AF0  0x0
 #define GPIO_AF1  0x1
 #define GPIO_AF2  0x2
@@ -262,7 +266,7 @@ void gpio_mode_setup(u32 gpioport, u8 mode, u8 pull_up_down, u16 gpios);
 void gpio_set_output_options(u32 gpioport, u8 otype, u8 speed, u16 gpios);
 void gpio_set_af(u32 gpioport, u8 alt_func_num, u16 gpios);
 
-/* This part of the API is compatible with the F1 series */
+/* This part of the API is compatible with the F1 series ------------------- */
 void gpio_set(u32 gpioport, u16 gpios);
 void gpio_clear(u32 gpioport, u16 gpios);
 u16 gpio_get(u32 gpioport, u16 gpios);
