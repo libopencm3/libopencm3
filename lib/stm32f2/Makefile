@@ -28,9 +28,10 @@ CFLAGS		= -Os -g -Wall -Wextra -I../../include -fno-common \
 		  -ffunction-sections -fdata-sections -MD -DSTM32F2
 # ARFLAGS	= rcsv
 ARFLAGS		= rcs
-OBJS		= vector.o gpio.o
+OBJS		= vector.o gpio.o systick.o
 
 #VPATH += ../usb
+VPATH += ../stm32_common
 
 # Be silent per default, but 'make V=1' will show all compiler calls.
 ifneq ($(V),1)
