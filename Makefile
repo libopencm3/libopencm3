@@ -24,7 +24,7 @@ INCDIR		= $(DESTDIR)/$(PREFIX)/include
 LIBDIR		= $(DESTDIR)/$(PREFIX)/lib
 INSTALL		= install
 
-TARGETS = stm32 lpc13xx lm3s
+TARGETS = stm32f1 stm32f2 lpc13xx lm3s
 
 # Be silent per default, but 'make V=1' will show all compiler calls.
 ifneq ($(V),1)
