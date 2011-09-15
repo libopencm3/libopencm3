@@ -17,7 +17,7 @@
 ## along with this program.  If not, see <http://www.gnu.org/licenses/>.
 ##
 
-LIBNAME		= libopencm3_stm32f1
+LIBNAME		= libopencm3_stm32f2
 
 # PREFIX	?= arm-none-eabi
 PREFIX		?= arm-elf
@@ -25,15 +25,12 @@ CC		= $(PREFIX)-gcc
 AR		= $(PREFIX)-ar
 CFLAGS		= -Os -g -Wall -Wextra -I../../include -fno-common \
 		  -mcpu=cortex-m3 -mthumb -Wstrict-prototypes \
-		  -ffunction-sections -fdata-sections -MD -DSTM32F1
+		  -ffunction-sections -fdata-sections -MD -DSTM32F2
 # ARFLAGS	= rcsv
 ARFLAGS		= rcs
-OBJS		= vector.o rcc.o gpio.o usart.o adc.o spi.o flash.o nvic.o \
-		  rtc.o i2c.o dma.o systick.o exti.o scb.o ethernet.o \
-		  usb_f103.o usb.o usb_control.o usb_standard.o can.o \
-		  timer.o usb_f107.o
+OBJS		= vector.o gpio.o
 
-VPATH += ../usb
+#VPATH += ../usb
 
 # Be silent per default, but 'make V=1' will show all compiler calls.
 ifneq ($(V),1)
@@ -51,7 +48,7 @@ $(LIBNAME).a: $(OBJS)
 	$(Q)$(CC) $(CFLAGS) -o $@ -c $<
 
 clean:
-	@printf "  CLEAN   lib/stm32f1\n"
+	@printf "  CLEAN   lib/stm32f2\n"
 	$(Q)rm -f *.o *.d
 	$(Q)rm -f $(LIBNAME).a
 
