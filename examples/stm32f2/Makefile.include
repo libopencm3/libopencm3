@@ -20,7 +20,7 @@
 ##
 
 PREFIX	?= arm-none-eabi
-#PREFIX		?= arm-elf
+# PREFIX		?= arm-elf
 CC		= $(PREFIX)-gcc
 LD		= $(PREFIX)-gcc
 OBJCOPY		= $(PREFIX)-objcopy
