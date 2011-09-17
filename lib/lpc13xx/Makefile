@@ -19,8 +19,8 @@
 
 LIBNAME		= libopencm3_lpc13xx
 
-# PREFIX	?= arm-none-eabi
-PREFIX		?= arm-elf
+PREFIX	?= arm-none-eabi
+# PREFIX		?= arm-elf
 CC		= $(PREFIX)-gcc
 AR		= $(PREFIX)-ar
 CFLAGS		= -Os -g -Wall -Wextra -I../../include -fno-common \

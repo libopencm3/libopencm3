@@ -19,8 +19,8 @@
 
 LIBNAME		= libopencm3_stm32f2
 
-# PREFIX	?= arm-none-eabi
-PREFIX		?= arm-elf
+PREFIX	?= arm-none-eabi
+# PREFIX		?= arm-elf
 CC		= $(PREFIX)-gcc
 AR		= $(PREFIX)-ar
 CFLAGS		= -Os -g -Wall -Wextra -I../../include -fno-common \
@@ -28,7 +28,7 @@ CFLAGS		= -Os -g -Wall -Wextra -I../../include -fno-common \
 		  -ffunction-sections -fdata-sections -MD -DSTM32F2
 # ARFLAGS	= rcsv
 ARFLAGS		= rcs
-OBJS		= vector.o gpio.o systick.o i2c.o spi.o nvic.o
+OBJS		= vector.o gpio.o systick.o i2c.o spi.o nvic.o usart.o
 
 #VPATH += ../usb
 VPATH += ../stm32_common

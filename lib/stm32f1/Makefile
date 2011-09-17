@@ -19,8 +19,8 @@
 
 LIBNAME		= libopencm3_stm32f1
 
-# PREFIX	?= arm-none-eabi
-PREFIX		?= arm-elf
+PREFIX	?= arm-none-eabi
+# PREFIX		?= arm-elf
 CC		= $(PREFIX)-gcc
 AR		= $(PREFIX)-ar
 CFLAGS		= -Os -g -Wall -Wextra -I../../include -fno-common \
