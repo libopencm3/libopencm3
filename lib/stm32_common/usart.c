@@ -17,17 +17,15 @@
  * along with this program.  If not, see <http://www.gnu.org/licenses/>.
  */
 
-#include <libopencm3/stm32/f1/rcc.h>
-
 #include <libopencm3/stm32/usart.h>
 
-void usart_set_baudrate(u32 usart, u32 baud)
+void usart_set_baudrate(u32 usart, u32 baud, u32 clock)
 {
-	u32 clock = rcc_ppre1_frequency;
+	//u32 clock = rcc_ppre1_frequency;
 
-	if (usart == USART1) {
-		clock = rcc_ppre2_frequency;
-	}
+	//if (usart == USART1) {
+	//	clock = rcc_ppre2_frequency;
+	//}
 
 	/* yes it is as simple as that. The reference manual is
 	 * talking about factional calculation but it seems to be only

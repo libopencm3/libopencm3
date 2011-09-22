@@ -294,7 +294,7 @@
 
 /* --- Function prototypes ------------------------------------------------- */
 
-void usart_set_baudrate(u32 usart, u32 baud);
+void usart_set_baudrate(u32 usart, u32 baud, u32 clock);
 void usart_set_databits(u32 usart, u32 bits);
 void usart_set_stopbits(u32 usart, u32 stopbits);
 void usart_set_parity(u32 usart, u32 parity);
