@@ -17,29 +17,12 @@
  * along with this program.  If not, see <http://www.gnu.org/licenses/>.
  */
 
-/*
- * Basic GPIO handling API.
- *
- * Examples:
- *  gpio_set_mode(GPIOC, GPIO_MODE_OUTPUT_2_MHZ,
- *                GPIO_CNF_OUTPUT_PUSHPULL, GPIO12);
- *  gpio_set(GPIOB, GPIO4);
- *  gpio_clear(GPIOG, GPIO2 | GPIO9);
- *  gpio_get(GPIOC, GPIO1);
- *  gpio_toggle(GPIOA, GPIO7 | GPIO8);
- *  reg16 = gpio_port_read(GPIOD);
- *  gpio_port_write(GPIOF, 0xc8fe);
- *
- * TODO:
- *  - GPIO remapping support
- */
-
 #include <libopencm3/stm32/f2/gpio.h>
 
 void gpio_mode_setup(u32 gpioport, u8 mode, u8 pull_up_down, u16 gpios)
 {
 	u16 i;
-	u16 moder, pupd;
+	u32 moder, pupd;
 
 	/*
 	 * We want to set the config only for the pins mentioned in gpios,
