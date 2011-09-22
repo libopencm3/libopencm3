@@ -43,8 +43,7 @@ void clock_setup(void)
 
 void usart_setup(void)
 {
-	//gpio_mode_setup(GPIOA, GPIO_MODE_OUTPUT, GPIO_PUPD_NONE, GPIO9);
-	GPIO_MODER(GPIOA) |= GPIO_MODE(9, GPIO_MODE_AF);
+	gpio_mode_setup(GPIOA, GPIO_MODE_AF, GPIO_PUPD_NONE, GPIO9);
 	gpio_set_af(GPIOA, GPIO_AF7, GPIO9|GPIO10);
 
 	/* Setup UART parameters. */
