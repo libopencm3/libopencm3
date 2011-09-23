@@ -49,7 +49,7 @@ void gpio_mode_setup(u32 gpioport, u8 mode, u8 pull_up_down, u16 gpios)
 void gpio_set_output_options(u32 gpioport, u8 otype, u8 speed, u16 gpios)
 {
 	u16 i;
-	u16 ospeedr;
+	u32 ospeedr;
 
 	if (otype == 0x1)
 		GPIO_OTYPER(gpioport) |= gpios;
@@ -71,7 +71,7 @@ void gpio_set_output_options(u32 gpioport, u8 otype, u8 speed, u16 gpios)
 void gpio_set_af(u32 gpioport, u8 alt_func_num, u16 gpios)
 {
 	u16 i;
-	u16 afrl, afrh;
+	u32 afrl, afrh;
 
 	afrl = GPIO_AFRL(gpioport);
 	afrh = GPIO_AFRH(gpioport);
