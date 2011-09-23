@@ -54,11 +54,7 @@ int spi_init_master(u32 spi, u32 br, u32 cpol, u32 cpha, u32 dff, u32 lsbfirst)
 /* TODO: Error handling? */
 void spi_enable(u32 spi)
 {
-	u32 reg32;
-
-	reg32 = SPI_CR1(spi);
-	reg32 |= SPI_CR1_SPE;		/* Enable SPI. */
-	SPI_CR1(spi) = reg32;
+	SPI_CR1(spi) |= SPI_CR1_SPE; /* Enable SPI. */
 }
 
 /* TODO: Error handling? */
@@ -80,13 +76,11 @@ void spi_write(u32 spi, u16 data)
 
 void spi_send(u32 spi, u16 data)
 {
+	/* wait for transfer finished */
+  while (SPI_SR(spi) & SPI_SR_BSY );
+  
 	/* Write data (8 or 16 bits, depending on DFF) into DR. */
 	SPI_DR(spi) = data;
-	
-	/* wait for transfer finished */
-        while (SPI_SR(spi) & SPI_SR_BSY )
-        {
-        }
 }
 
 u16 spi_read(u32 spi)
