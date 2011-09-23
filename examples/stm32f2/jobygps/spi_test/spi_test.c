@@ -1,8 +1,8 @@
 /*
  * This file is part of the libopencm3 project.
  *
- * Copyright (C) 2009 Uwe Hermann <uwe@hermann-uwe.de>,
- *               2011 Piotr Esden-Tempski <piotr@esden.net>
+ * Copyright (C) 2011 Fergus Noble <fergusnoble@gmail.com>
+ * Copyright (C) 2011 Henry Hallam <henry@pericynthion.org>
  *
  * This program is free software: you can redistribute it and/or modify
  * it under the terms of the GNU General Public License as published by
@@ -29,27 +29,21 @@
 
 void clock_setup(void)
 {
-	//rcc_clock_setup_in_hse_8mhz_out_72mhz();
-
-	/* Enable GPIOA clock (for LED GPIOs). */
-	//rcc_peripheral_enable_clock(&RCC_APB2ENR, RCC_APB2ENR_IOPCEN);
-
-	/* Enable clocks for GPIO port A (for GPIO_USART1_TX) and USART1. */
-	//rcc_peripheral_enable_clock(&RCC_APB2ENR, RCC_APB2ENR_IOPAEN |
-//				RCC_APB2ENR_AFIOEN |
-//				RCC_APB2ENR_USART1EN);
   RCC_APB1ENR |= RCC_APB1ENR_SPI2EN;
   RCC_APB2ENR |= RCC_APB2ENR_USART1EN;
-	RCC_AHB1ENR |= RCC_AHB1ENR_GPIOCEN | RCC_AHB1ENR_GPIOAEN;   // PORT B not enabled...
+	RCC_AHB1ENR |= RCC_AHB1ENR_GPIOCEN | RCC_AHB1ENR_GPIOAEN | RCC_AHB1ENR_GPIOBEN;
 	
 }
 
 void spi_setup(void)
 {
-	gpio_mode_setup(GPIOB, GPIO_MODE_AF, GPIO_PUPD_NONE, GPIO12 | GPIO13 | GPIO14 | GPIO15);
+	gpio_mode_setup(GPIOB, GPIO_MODE_AF, GPIO_PUPD_NONE, GPIO13 | GPIO14 | GPIO15);
+	gpio_set_af(GPIOB, GPIO_AF5, GPIO13 | GPIO14 | GPIO15);
 
 	/* Setup SPI parameters. */
-  spi_init_master(SPI2, SPI_CR1_BAUDRATE_FPCLK_DIV_256, SPI_CR1_CPOL, SPI_CR1_CPHA, SPI_CR1_DFF_8BIT, SPI_CR1_MSBFIRST);
+  spi_init_master(SPI2, SPI_CR1_BAUDRATE_FPCLK_DIV_256, SPI_CR1_CPOL, \
+      SPI_CR1_CPHA, SPI_CR1_DFF_8BIT, SPI_CR1_MSBFIRST);
+  spi_enable_ss_output(SPI2); /* Required, see 25.3.1 section about NSS */
 
 	/* Finally enable the SPI. */
 	spi_enable(SPI2);
@@ -58,8 +52,7 @@ void spi_setup(void)
 void usart_setup(void)
 {
 	gpio_mode_setup(GPIOA, GPIO_MODE_AF, GPIO_PUPD_NONE, GPIO9);
-	//GPIO_MODER(GPIOA) |= GPIO_MODE(9, GPIO_MODE_AF);
-	//gpio_set_af(GPIOA, GPIO_AF7, GPIO9|GPIO10);
+	gpio_set_af(GPIOA, GPIO_AF7, GPIO9|GPIO10);
 
 	/* Setup UART parameters. */
 	usart_set_baudrate(USART1, 9600, 16000000);
@@ -77,46 +70,44 @@ void gpio_setup(void)
 {
 	gpio_set(GPIOC, GPIO3);
 
-	/* Setup GPIO6 and 7 (in GPIO port A) for led use. */
+	/* Setup GPIO3 (in GPIO port C) for led use. */
 	gpio_mode_setup(GPIOC, GPIO_MODE_OUTPUT,
 		      GPIO_MODE_OUTPUT, GPIO3);
 }
 
 int _write (int file, char *ptr, int len)
 {
-        int i;
+  int i;
 
 	if (file == 1) {
 		for (i = 0; i < len; i++){
 			usart_send_blocking(USART1, ptr[i]);
 		}
-
 		return i;
 	}
-
-        errno = EIO;
-        return -1;
+  errno = EIO;
+  return -1;
 }
 
 int main(void)
 {
 	int counter = 0;
+  volatile u16 dummy;
 
 	clock_setup();
 	gpio_setup();
 	usart_setup();
   spi_setup();
 
-	/*
-	 * Write Hello World an integer, float and double all over
-	 * again while incrementing the numbers.
-	 */
-	while (1) {
-		gpio_toggle(GPIOC, GPIO3);
-		printf("Hello World! %i\r\n", counter);
+	while (1)
+  {
 		counter++;
+	  printf("Hello, world! %i\r\n", counter);
+    dummy = spi_read(SPI2); /* Stops RX buff overflow, but probably not needed */
     spi_send(SPI2,(u8)counter);
+	  gpio_toggle(GPIOC, GPIO3);
 	}
 
+  while(1);
 	return 0;
 }
