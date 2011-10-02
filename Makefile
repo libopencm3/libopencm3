@@ -22,6 +22,7 @@ PREFIX		?= arm-elf
 DESTDIR		?= /usr/local
 INCDIR		= $(DESTDIR)/$(PREFIX)/include
 LIBDIR		= $(DESTDIR)/$(PREFIX)/lib
+SHAREDIR        = $(DESTDIR)/$(PREFIX)/share/libopencm3/scripts
 INSTALL		= install
 
 TARGETS = stm32 lpc13xx lm3s
@@ -57,11 +58,14 @@ install: lib
 	@printf "  INSTALL headers\n"
 	$(Q)$(INSTALL) -d $(INCDIR)/libopencm3
 	$(Q)$(INSTALL) -d $(LIBDIR)
+	$(Q)$(INSTALL) -d $(SHAREDIR)
 	$(Q)cp -r include/libopencm3/* $(INCDIR)/libopencm3
 	@printf "  INSTALL libs\n"
 	$(Q)$(INSTALL) -m 0644 lib/*/*.a $(LIBDIR)
 	@printf "  INSTALL ldscripts\n"
 	$(Q)$(INSTALL) -m 0644 lib/*/*.ld $(LIBDIR)
+	@printf "  INSTALL scripts\n"
+	$(Q)$(INSTALL) -m 0644 scripts/* $(SHAREDIR)
 
 clean:
 	$(Q)for i in $(addprefix lib/,$(TARGETS)) \
