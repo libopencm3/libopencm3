@@ -18,8 +18,8 @@
 ## along with this program.  If not, see <http://www.gnu.org/licenses/>.
 ##
 
-# PREFIX	?= arm-none-eabi
-PREFIX		?= arm-elf
+PREFIX	?= arm-none-eabi
+#PREFIX		?= arm-elf
 CC		= $(PREFIX)-gcc
 LD		= $(PREFIX)-gcc
 OBJCOPY		= $(PREFIX)-objcopy
