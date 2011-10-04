@@ -17,8 +17,8 @@
 ## along with this program.  If not, see <http://www.gnu.org/licenses/>.
 ##
 
-# PREFIX	?= arm-none-eabi
-PREFIX		?= arm-elf
+PREFIX		?= arm-none-eabi
+#PREFIX		?= arm-elf
 DESTDIR		?= /usr/local
 INCDIR		= $(DESTDIR)/$(PREFIX)/include
 LIBDIR		= $(DESTDIR)/$(PREFIX)/lib
