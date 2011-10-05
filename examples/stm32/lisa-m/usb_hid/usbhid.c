@@ -22,6 +22,7 @@
 #include <libopencm3/stm32/rcc.h>
 #include <libopencm3/stm32/gpio.h>
 #include <libopencm3/stm32/systick.h>
+#include <libopencm3/stm32/otg_fs.h>
 #include <libopencm3/usb/usbd.h>
 #include <libopencm3/usb/hid.h>
 
@@ -240,7 +241,7 @@ static void hid_set_config(u16 wValue)
 int main(void)
 {
 	int usb_connect_blink = 0;
-	rcc_clock_setup_in_hsi_out_48mhz();
+	rcc_clock_setup_in_hse_12mhz_out_72mhz();
 
 
 	rcc_peripheral_enable_clock(&RCC_APB2ENR, RCC_APB2ENR_IOPAEN);
@@ -249,11 +250,6 @@ int main(void)
 	/* USB_DETECT as input */
 	gpio_set_mode(GPIOA, GPIO_MODE_INPUT,
 			GPIO_CNF_INPUT_FLOAT, GPIO8);
-
-	/* disconnect USB_DISC, as output */
-	gpio_set(GPIOC, GPIO15);
-	gpio_set_mode(GPIOC, GPIO_MODE_OUTPUT_2_MHZ,
-			GPIO_CNF_OUTPUT_PUSHPULL, GPIO15);
 
 	/* green LED off, as output */
 	gpio_set(GPIOC, GPIO2);
@@ -272,9 +268,7 @@ int main(void)
 
 	/* green LED on, connect USB */
 	gpio_clear(GPIOC, GPIO2);
-	gpio_set_mode(GPIOC, GPIO_MODE_INPUT,
-		      GPIO_CNF_INPUT_FLOAT, GPIO15);
-	//gpio_clear(GPIOC, GPIO15);
+	//OTG_FS_GCCFG &= ~OTG_FS_GCCFG_VBUSBSEN;
 
 	while (1)
 		usbd_poll();
