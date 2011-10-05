@@ -69,7 +69,7 @@ void exti_reset_request(u32 extis)
  * Remap an external interrupt line to the corresponding pin on the
  * specified GPIO port.
  *
- * TODO: This could be rewritten in less lines of code.
+ * TODO: This could be rewritten in fewer lines of code.
  */
 void exti_select_source(u32 exti, u32 gpioport)
 {
