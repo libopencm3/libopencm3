@@ -17,9 +17,9 @@
  * along with this program.  If not, see <http://www.gnu.org/licenses/>.
  */
 
-#include <libopencm3/stm32/rcc.h>
-#include <libopencm3/stm32/flash.h>
-#include <libopencm3/stm32/gpio.h>
+#include <libopencm3/stm32/f1/rcc.h>
+#include <libopencm3/stm32/f1/flash.h>
+#include <libopencm3/stm32/f1/gpio.h>
 #include <libopencm3/stm32/timer.h>
 #include <libopencm3/stm32/nvic.h>
 

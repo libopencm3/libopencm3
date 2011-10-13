@@ -21,7 +21,7 @@
 #define DOGM128_H
 
 #include <libopencm3/cm3/common.h>
-#include <libopencm3/stm32/gpio.h>
+#include <libopencm3/stm32/f1/gpio.h>
 #include <libopencm3/stm32/spi.h>
 
 /* PB10 GPIO       - ~RESET 
