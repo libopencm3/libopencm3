@@ -77,10 +77,6 @@ flash: $(BINARY).flash
 	@#printf "  OBJDUMP $(*).list\n"
 	$(Q)$(OBJDUMP) -S $(*).elf > $(*).list
 
-foo.elf: $(OBJS) $(LDSCRIPT) $(TOOLCHAIN_DIR)/lib/stm32f2/libopencm3_stm32f2.a
-	@#printf "  LD      $(subst $(shell pwd)/,,$(@))\n"
-	$(Q)$(LD) -o foo.elf $(OBJS) -lopencm3_stm32f2 $(LDFLAGS)
-
 %.elf: $(OBJS) $(LDSCRIPT) $(TOOLCHAIN_DIR)/lib/stm32f2/libopencm3_stm32f2.a
 	@#printf "  LD      $(subst $(shell pwd)/,,$(@))\n"
 	$(Q)$(LD) -o $(*).elf $(OBJS) -lopencm3_stm32f2 $(LDFLAGS)
