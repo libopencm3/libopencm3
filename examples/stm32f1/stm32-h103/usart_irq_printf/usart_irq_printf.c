@@ -18,8 +18,8 @@
  * along with this program.  If not, see <http://www.gnu.org/licenses/>.
  */
 
-#include <libopencm3/stm32/rcc.h>
-#include <libopencm3/stm32/gpio.h>
+#include <libopencm3/stm32/f1/rcc.h>
+#include <libopencm3/stm32/f1/gpio.h>
 #include <libopencm3/stm32/usart.h>
 #include <libopencm3/stm32/nvic.h>
 #include <libopencm3/stm32/systick.h>
@@ -145,7 +145,7 @@ void usart_setup(void)
 		      GPIO_CNF_INPUT_FLOAT, GPIO_USART1_RX);
 
 	/* Setup UART parameters. */
-	usart_set_baudrate(USART1, 230400);
+	usart_set_baudrate(USART1, 230400, rcc_ppre2_frequency);
 	usart_set_databits(USART1, 8);
 	usart_set_stopbits(USART1, USART_STOPBITS_1);
 	usart_set_parity(USART1, USART_PARITY_NONE);

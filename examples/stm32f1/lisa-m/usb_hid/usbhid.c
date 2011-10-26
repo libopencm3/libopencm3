@@ -2,6 +2,7 @@
  * This file is part of the libopencm3 project.
  *
  * Copyright (C) 2010 Gareth McMullin <gareth@blacksphere.co.nz>
+ * Copyright (C) 2011 Piotr Esden-Tempski <piotr@esden.net>
  *
  * This program is free software: you can redistribute it and/or modify
  * it under the terms of the GNU General Public License as published by
@@ -18,9 +19,10 @@
  */
 
 #include <stdlib.h>
-#include <libopencm3/stm32/rcc.h>
-#include <libopencm3/stm32/gpio.h>
+#include <libopencm3/stm32/f1/rcc.h>
+#include <libopencm3/stm32/f1/gpio.h>
 #include <libopencm3/stm32/systick.h>
+#include <libopencm3/stm32/otg_fs.h>
 #include <libopencm3/usb/usbd.h>
 #include <libopencm3/usb/hid.h>
 
@@ -28,25 +30,25 @@
 #define INCLUDE_DFU_INTERFACE
 
 #ifdef INCLUDE_DFU_INTERFACE
-#include <libopencm3/stm32/scb.h>
+#include <libopencm3/stm32/f1/scb.h>
 #include <libopencm3/usb/dfu.h>
 #endif
 
 const struct usb_device_descriptor dev = {
-        .bLength = USB_DT_DEVICE_SIZE,
-        .bDescriptorType = USB_DT_DEVICE,
-        .bcdUSB = 0x0200,
-        .bDeviceClass = 0,
-        .bDeviceSubClass = 0,
-        .bDeviceProtocol = 0,
-        .bMaxPacketSize0 = 64,
-        .idVendor = 0x0483,
-        .idProduct = 0x5710,
-        .bcdDevice = 0x0200,
-        .iManufacturer = 1,
-        .iProduct = 2,
-        .iSerialNumber = 3,
-        .bNumConfigurations = 1,
+	.bLength = USB_DT_DEVICE_SIZE,
+	.bDescriptorType = USB_DT_DEVICE,
+	.bcdUSB = 0x0200,
+	.bDeviceClass = 0,
+	.bDeviceSubClass = 0,
+	.bDeviceProtocol = 0,
+	.bMaxPacketSize0 = 64,
+	.idVendor = 0x0483,
+	.idProduct = 0x5710,
+	.bcdDevice = 0x0200,
+	.iManufacturer = 1,
+	.iProduct = 2,
+	.iSerialNumber = 3,
+	.bNumConfigurations = 1,
 };
 
 /* I have no idea what this means.  I haven't read the HID spec. */
@@ -174,10 +176,10 @@ static int hid_control_request(struct usb_setup_data *req, u8 **buf, u16 *len,
 {
 	(void)complete;
 
-	if((req->bmRequestType != 0x81) || 
+	if((req->bmRequestType != 0x81) ||
 	   (req->bRequest != USB_REQ_GET_DESCRIPTOR) ||
-	   (req->wValue != 0x2200)) 
-		return 0; 
+	   (req->wValue != 0x2200))
+		return 0;
 
 	/* Handle the HID report descriptor */
 	*buf = (u8*)hid_report_descriptor;
@@ -192,7 +194,7 @@ static void dfu_detach_complete(struct usb_setup_data *req)
 	(void)req;
 
 	gpio_set_mode(GPIOA, GPIO_MODE_INPUT, 0, GPIO15);
-	gpio_set_mode(GPIOA, GPIO_MODE_OUTPUT_2_MHZ, 
+	gpio_set_mode(GPIOA, GPIO_MODE_OUTPUT_2_MHZ,
 			GPIO_CNF_OUTPUT_PUSHPULL, GPIO10);
 	gpio_set(GPIOA, GPIO10);
 	scb_reset_core();
@@ -201,10 +203,10 @@ static void dfu_detach_complete(struct usb_setup_data *req)
 static int dfu_control_request(struct usb_setup_data *req, u8 **buf, u16 *len,
 			void (**complete)(struct usb_setup_data *req))
 {
-	(void)buf; 
+	(void)buf;
 	(void)len;
 
-	if((req->bmRequestType != 0x21) || (req->bRequest != DFU_DETACH)) 
+	if((req->bmRequestType != 0x21) || (req->bRequest != DFU_DETACH))
 		return 0; /* Only accept class request */
 
 	*complete = dfu_detach_complete;
@@ -230,7 +232,7 @@ static void hid_set_config(u16 wValue)
 				dfu_control_request);
 #endif
 
-	systick_set_clocksource(STK_CTRL_CLKSOURCE_AHB_DIV8); 
+	systick_set_clocksource(STK_CTRL_CLKSOURCE_AHB_DIV8);
 	systick_set_reload(100000);
 	systick_interrupt_enable();
 	systick_counter_enable();
@@ -238,41 +240,37 @@ static void hid_set_config(u16 wValue)
 
 int main(void)
 {
-        rcc_clock_setup_in_hsi_out_48mhz();
+	int usb_connect_blink = 0;
+	rcc_clock_setup_in_hse_12mhz_out_72mhz();
 
 
 	rcc_peripheral_enable_clock(&RCC_APB2ENR, RCC_APB2ENR_IOPAEN);
 	rcc_peripheral_enable_clock(&RCC_APB2ENR, RCC_APB2ENR_IOPCEN);
 
 	/* USB_DETECT as input */
-	gpio_set_mode(GPIOA, GPIO_MODE_INPUT, 
+	gpio_set_mode(GPIOA, GPIO_MODE_INPUT,
 			GPIO_CNF_INPUT_FLOAT, GPIO8);
 
-	/* disconnect USB_DISC, as output */
-	gpio_set(GPIOC, GPIO15);
-	gpio_set_mode(GPIOC, GPIO_MODE_OUTPUT_2_MHZ, 
-			GPIO_CNF_OUTPUT_PUSHPULL, GPIO15);
-
 	/* green LED off, as output */
-	gpio_clear(GPIOC, GPIO13);
-	gpio_set_mode(GPIOC, GPIO_MODE_OUTPUT_2_MHZ, 
-			GPIO_CNF_OUTPUT_PUSHPULL, GPIO13);
+	gpio_set(GPIOC, GPIO2);
+	gpio_set_mode(GPIOC, GPIO_MODE_OUTPUT_2_MHZ,
+			GPIO_CNF_OUTPUT_PUSHPULL, GPIO2);
 
 
-	usbd_init(&stm32f103_usb_driver, &dev, &config, usb_strings);
+	usbd_init(&stm32f107_usb_driver, &dev, &config, usb_strings);
 	usbd_register_set_config_callback(hid_set_config);
 
 	/* delay some seconds to show that pull-up switch works */
-	{int i; for (i=0;i<0x800000;i++);}
+	{int i; for (i=0;i<0x800000;i++) asm("nop");}
 
 	/* wait for USB Vbus */
-	while(gpio_get(GPIOA, GPIO8) == 0);
+	while(gpio_get(GPIOA, GPIO8) == 0) asm("nop");
 
 	/* green LED on, connect USB */
-	gpio_set(GPIOC, GPIO13);
-	gpio_clear(GPIOC, GPIO15);
+	gpio_clear(GPIOC, GPIO2);
+	//OTG_FS_GCCFG &= ~OTG_FS_GCCFG_VBUSBSEN;
 
-	while (1) 
+	while (1)
 		usbd_poll();
 }
 

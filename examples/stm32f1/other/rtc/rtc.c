@@ -17,10 +17,10 @@
  * along with this program.  If not, see <http://www.gnu.org/licenses/>.
  */
 
-#include <libopencm3/stm32/rcc.h>
-#include <libopencm3/stm32/gpio.h>
+#include <libopencm3/stm32/f1/rcc.h>
+#include <libopencm3/stm32/f1/gpio.h>
+#include <libopencm3/stm32/f1/rtc.h>
 #include <libopencm3/stm32/usart.h>
-#include <libopencm3/stm32/rtc.h>
 #include <libopencm3/stm32/pwr.h>
 #include <libopencm3/stm32/nvic.h>
 
@@ -43,7 +43,7 @@ void usart_setup(void)
                       GPIO_CNF_OUTPUT_ALTFN_PUSHPULL, GPIO_USART1_TX);
 
 	/* Setup UART parameters. */
-	usart_set_baudrate(USART1, 38400);
+	usart_set_baudrate(USART1, 38400, rcc_ppre2_frequency);
 	usart_set_databits(USART1, 8);
 	usart_set_stopbits(USART1, USART_STOPBITS_1);
 	usart_set_mode(USART1, USART_MODE_TX);
