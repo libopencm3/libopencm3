@@ -18,7 +18,8 @@
  */
 
 #include <libopencm3/stm32/exti.h>
-#include <libopencm3/stm32/f1/gpio.h>
+#include <libopencm3/stm32/f2/syscfg.h>
+#include <libopencm3/stm32/f2/gpio.h>
 
 void exti_set_trigger(u32 extis, exti_trigger_type trig)
 {
@@ -62,7 +63,7 @@ void exti_disable_request(u32 extis)
  */
 void exti_reset_request(u32 extis)
 {
-	EXTI_PR |= extis;
+	EXTI_PR = extis;
 }
 
 /*
@@ -130,16 +131,16 @@ void exti_select_source(u32 exti, u32 gpioport)
 
 	/* Ensure that only valid EXTI lines are used. */
 	if (exti < EXTI4) {
-		AFIO_EXTICR1 &= ~(0x000F << shift);
-		AFIO_EXTICR1 |= (~bits   << shift);
+		SYSCFG_EXTICR1 &= ~(0x000F << shift);
+		SYSCFG_EXTICR1 |= (~bits   << shift);
 	} else if (exti < EXTI8) {
-		AFIO_EXTICR2 &= ~(0x000F << shift);
-		AFIO_EXTICR2 |= (~bits   << shift);
+		SYSCFG_EXTICR2 &= ~(0x000F << shift);
+		SYSCFG_EXTICR2 |= (~bits   << shift);
 	} else if (exti < EXTI12) {
-		AFIO_EXTICR3 &= ~(0x000F << shift);
-		AFIO_EXTICR3 |= (~bits   << shift);
+		SYSCFG_EXTICR3 &= ~(0x000F << shift);
+		SYSCFG_EXTICR3 |= (~bits   << shift);
 	} else if (exti < EXTI16) {
-		AFIO_EXTICR4 &= ~(0x000F << shift);
-		AFIO_EXTICR4 |= (~bits   << shift);
+		SYSCFG_EXTICR4 &= ~(0x000F << shift);
+		SYSCFG_EXTICR4 |= (~bits   << shift);
 	}
 }

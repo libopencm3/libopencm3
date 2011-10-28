@@ -28,7 +28,7 @@ CFLAGS		= -Os -g -Wall -Wextra -I../../include -fno-common \
 		  -ffunction-sections -fdata-sections -MD -DSTM32F2
 # ARFLAGS	= rcsv
 ARFLAGS		= rcs
-OBJS		= vector.o gpio.o systick.o i2c.o spi.o nvic.o usart.o rcc.o flash.o
+OBJS		= vector.o gpio.o systick.o i2c.o spi.o nvic.o usart.o exti.o rcc.o flash.o
 
 #VPATH += ../usb
 VPATH += ../stm32_common

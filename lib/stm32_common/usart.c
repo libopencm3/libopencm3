@@ -116,9 +116,8 @@ void usart_wait_recv_ready(u32 usart)
 
 void usart_send_blocking(u32 usart, u16 data)
 {
-	usart_send(usart, data);
-
 	usart_wait_send_ready(usart);
+	usart_send(usart, data);
 }
 
 u16 usart_recv_blocking(u32 usart)
