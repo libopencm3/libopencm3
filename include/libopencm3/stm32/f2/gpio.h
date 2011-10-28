@@ -26,39 +26,39 @@
 /* --- Convenience macros -------------------------------------------------- */
 
 /* GPIO port base addresses (for convenience) */
-#define GPIOA       GPIO_PORT_A_BASE
-#define GPIOB       GPIO_PORT_B_BASE
-#define GPIOC       GPIO_PORT_C_BASE
-#define GPIOD       GPIO_PORT_D_BASE
-#define GPIOE       GPIO_PORT_E_BASE
-#define GPIOF       GPIO_PORT_F_BASE
-#define GPIOG       GPIO_PORT_G_BASE
-#define GPIOH       GPIO_PORT_H_BASE
-#define GPIOI       GPIO_PORT_I_BASE
+#define GPIOA				GPIO_PORT_A_BASE
+#define GPIOB				GPIO_PORT_B_BASE
+#define GPIOC				GPIO_PORT_C_BASE
+#define GPIOD				GPIO_PORT_D_BASE
+#define GPIOE				GPIO_PORT_E_BASE
+#define GPIOF				GPIO_PORT_F_BASE
+#define GPIOG				GPIO_PORT_G_BASE
+#define GPIOH				GPIO_PORT_H_BASE
+#define GPIOI				GPIO_PORT_I_BASE
 
 /* GPIO number definitions (for convenience) */
-#define GPIO0       (1 << 0)
-#define GPIO1       (1 << 1)
-#define GPIO2       (1 << 2)
-#define GPIO3       (1 << 3)
-#define GPIO4       (1 << 4)
-#define GPIO5       (1 << 5)
-#define GPIO6       (1 << 6)
-#define GPIO7       (1 << 7)
-#define GPIO8       (1 << 8)
-#define GPIO9       (1 << 9)
-#define GPIO10      (1 << 10)
-#define GPIO11      (1 << 11)
-#define GPIO12      (1 << 12)
-#define GPIO13      (1 << 13)
-#define GPIO14      (1 << 14)
-#define GPIO15      (1 << 15)
-#define GPIO_ALL    0xffff
+#define GPIO0				(1 << 0)
+#define GPIO1				(1 << 1)
+#define GPIO2				(1 << 2)
+#define GPIO3				(1 << 3)
+#define GPIO4				(1 << 4)
+#define GPIO5				(1 << 5)
+#define GPIO6				(1 << 6)
+#define GPIO7				(1 << 7)
+#define GPIO8				(1 << 8)
+#define GPIO9				(1 << 9)
+#define GPIO10				(1 << 10)
+#define GPIO11				(1 << 11)
+#define GPIO12				(1 << 12)
+#define GPIO13				(1 << 13)
+#define GPIO14				(1 << 14)
+#define GPIO15				(1 << 15)
+#define GPIO_ALL			0xffff
 
 /* --- GPIO registers ------------------------------------------------------ */
 
 /* Port mode register (GPIOx_MODER) */
-#define GPIO_MODER(port)			MMIO32(port + 0x00)
+#define GPIO_MODER(port)		MMIO32(port + 0x00)
 #define GPIOA_MODER			GPIO_MODER(GPIOA)
 #define GPIOB_MODER			GPIO_MODER(GPIOB)
 #define GPIOC_MODER			GPIO_MODER(GPIOC)
@@ -70,7 +70,7 @@
 #define GPIOI_MODER			GPIO_MODER(GPIOI)
 
 /* Port output type register (GPIOx_OTYPER) */
-#define GPIO_OTYPER(port)			MMIO32(port + 0x04)
+#define GPIO_OTYPER(port)		MMIO32(port + 0x04)
 #define GPIOA_OTYPER			GPIO_OTYPER(GPIOA)
 #define GPIOB_OTYPER			GPIO_OTYPER(GPIOB)
 #define GPIOC_OTYPER			GPIO_OTYPER(GPIOC)
@@ -82,7 +82,7 @@
 #define GPIOI_OTYPER			GPIO_OTYPER(GPIOI)
 
 /* Port output speed register (GPIOx_OSPEEDR) */
-#define GPIO_OSPEEDR(port)			MMIO32(port + 0x08)
+#define GPIO_OSPEEDR(port)		MMIO32(port + 0x08)
 #define GPIOA_OSPEEDR			GPIO_OSPEEDR(GPIOA)
 #define GPIOB_OSPEEDR			GPIO_OSPEEDR(GPIOB)
 #define GPIOC_OSPEEDR			GPIO_OSPEEDR(GPIOC)
@@ -94,7 +94,7 @@
 #define GPIOI_OSPEEDR			GPIO_OSPEEDR(GPIOI)
 
 /* Port pull-up/pull-down register (GPIOx_PUPDR) */
-#define GPIO_PUPDR(port)			MMIO32(port + 0x0C)
+#define GPIO_PUPDR(port)		MMIO32(port + 0x0c)
 #define GPIOA_PUPDR			GPIO_PUPDR(GPIOA)
 #define GPIOB_PUPDR			GPIO_PUPDR(GPIOB)
 #define GPIOC_PUPDR			GPIO_PUPDR(GPIOC)
@@ -142,7 +142,7 @@
 #define GPIOI_BSRR			GPIO_BSRR(GPIOI)
 
 /* Port configuration lock register (GPIOx_LCKR) */
-#define GPIO_LCKR(port)			MMIO32(port + 0x1C)
+#define GPIO_LCKR(port)			MMIO32(port + 0x1c)
 #define GPIOA_LCKR			GPIO_LCKR(GPIOA)
 #define GPIOB_LCKR			GPIO_LCKR(GPIOB)
 #define GPIOC_LCKR			GPIO_LCKR(GPIOC)
@@ -179,34 +179,34 @@
 
 /* --- GPIOx_MODER values -------------------------------------------------- */
 
-#define GPIO_MODE(n, mode) (mode << (2*(n)))
-#define GPIO_MODE_MASK(n) (0x3 << (2*(n)))
-#define GPIO_MODE_INPUT  0x0
-#define GPIO_MODE_OUTPUT 0x1
-#define GPIO_MODE_AF     0x2
-#define GPIO_MODE_ANALOG 0x3
+#define GPIO_MODE(n, mode)		(mode << (2*(n)))
+#define GPIO_MODE_MASK(n)		(0x3 << (2*(n)))
+#define GPIO_MODE_INPUT			0x0
+#define GPIO_MODE_OUTPUT		0x1
+#define GPIO_MODE_AF			0x2
+#define GPIO_MODE_ANALOG		0x3
 
 /* --- GPIOx_OTYPER values ------------------------------------------------- */
 
-#define GPIO_OTYPE_PP 0x0
-#define GPIO_OTYPE_OD 0x1
+#define GPIO_OTYPE_PP			0x0
+#define GPIO_OTYPE_OD			0x1
 
 /* --- GPIOx_OSPEEDR values ------------------------------------------------ */
 
-#define GPIO_OSPEED(n, speed) (speed << (2*(n)))
-#define GPIO_OSPEED_MASK(n) (0x3 << (2*(n)))
-#define GPIO_OSPEED_2MHZ   0x0
-#define GPIO_OSPEED_25MHZ  0x1
-#define GPIO_OSPEED_50MHZ  0x2
-#define GPIO_OSPEED_100MHZ 0x3
+#define GPIO_OSPEED(n, speed)		(speed << (2*(n)))
+#define GPIO_OSPEED_MASK(n)		(0x3 << (2*(n)))
+#define GPIO_OSPEED_2MHZ		0x0
+#define GPIO_OSPEED_25MHZ		0x1
+#define GPIO_OSPEED_50MHZ		0x2
+#define GPIO_OSPEED_100MHZ		0x3
 
 /* --- GPIOx_PUPDR values -------------------------------------------------- */
 
-#define GPIO_PUPD(n, pupd) (pupd << (2*(n)))
-#define GPIO_PUPD_MASK(n) (0x3 << (2*(n)))
-#define GPIO_PUPD_NONE     0x0
-#define GPIO_PUPD_PULLUP   0x1
-#define GPIO_PUPD_PULLDOWN 0x2
+#define GPIO_PUPD(n, pupd)		(pupd << (2*(n)))
+#define GPIO_PUPD_MASK(n)		(0x3 << (2*(n)))
+#define GPIO_PUPD_NONE			0x0
+#define GPIO_PUPD_PULLUP		0x1
+#define GPIO_PUPD_PULLDOWN		0x2
 
 /* --- GPIOx_IDR values ---------------------------------------------------- */
 
@@ -231,24 +231,24 @@
 /* Note: AFRL is used for bits 0..7, AFRH is used for 8..15 */
 /* See Datasheet Table 6 (pg. 48) for alternate function mappings. */
 
-#define GPIO_AFR(n, af) (af << ((n)*4))
-#define GPIO_AFR_MASK(n) (0xF << ((n)*4))
-#define GPIO_AF0  0x0
-#define GPIO_AF1  0x1
-#define GPIO_AF2  0x2
-#define GPIO_AF3  0x3
-#define GPIO_AF4  0x4
-#define GPIO_AF5  0x5
-#define GPIO_AF6  0x6
-#define GPIO_AF7  0x7
-#define GPIO_AF8  0x8
-#define GPIO_AF9  0x9
-#define GPIO_AF10 0xA
-#define GPIO_AF11 0xB
-#define GPIO_AF12 0xC
-#define GPIO_AF13 0xD
-#define GPIO_AF14 0xE
-#define GPIO_AF15 0xF
+#define GPIO_AFR(n, af)			(af << ((n)*4))
+#define GPIO_AFR_MASK(n)		(0xf << ((n)*4))
+#define GPIO_AF0			0x0
+#define GPIO_AF1			0x1
+#define GPIO_AF2			0x2
+#define GPIO_AF3			0x3
+#define GPIO_AF4			0x4
+#define GPIO_AF5			0x5
+#define GPIO_AF6			0x6
+#define GPIO_AF7			0x7
+#define GPIO_AF8			0x8
+#define GPIO_AF9			0x9
+#define GPIO_AF10			0xa
+#define GPIO_AF11			0xb
+#define GPIO_AF12			0xc
+#define GPIO_AF13			0xd
+#define GPIO_AF14			0xe
+#define GPIO_AF15			0xf
 
 /* Note: EXTI source selection is now in the SYSCFG peripheral. */
 
