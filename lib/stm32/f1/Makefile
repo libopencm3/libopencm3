@@ -23,7 +23,7 @@ PREFIX		?= arm-none-eabi
 #PREFIX		?= arm-elf
 CC		= $(PREFIX)-gcc
 AR		= $(PREFIX)-ar
-CFLAGS		= -Os -g -Wall -Wextra -I../../include -fno-common \
+CFLAGS		= -Os -g -Wall -Wextra -I../../../include -fno-common \
 		  -mcpu=cortex-m3 -mthumb -Wstrict-prototypes \
 		  -ffunction-sections -fdata-sections -MD -DSTM32F1
 # ARFLAGS	= rcsv
@@ -33,7 +33,7 @@ OBJS		= vector.o rcc.o gpio.o usart.o adc.o spi.o flash.o nvic.o \
 		  usb_f103.o usb.o usb_control.o usb_standard.o can.o \
 		  timer.o usb_f107.o
 
-VPATH += ../usb:../stm32_common
+VPATH += ../../usb:../
 
 # Be silent per default, but 'make V=1' will show all compiler calls.
 ifneq ($(V),1)
@@ -51,7 +51,7 @@ $(LIBNAME).a: $(OBJS)
 	$(Q)$(CC) $(CFLAGS) -o $@ -c $<
 
 clean:
-	@printf "  CLEAN   lib/stm32f1\n"
+	@printf "  CLEAN   lib/stm32/f1\n"
 	$(Q)rm -f *.o *.d
 	$(Q)rm -f $(LIBNAME).a
 

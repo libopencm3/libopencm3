@@ -23,15 +23,15 @@ PREFIX	?= arm-none-eabi
 # PREFIX		?= arm-elf
 CC		= $(PREFIX)-gcc
 AR		= $(PREFIX)-ar
-CFLAGS		= -Os -g -Wall -Wextra -I../../include -fno-common \
+CFLAGS		= -Os -g -Wall -Wextra -I../../../include -fno-common \
 		  -mcpu=cortex-m3 -mthumb -Wstrict-prototypes \
 		  -ffunction-sections -fdata-sections -MD -DSTM32F2
 # ARFLAGS	= rcsv
 ARFLAGS		= rcs
-OBJS		= vector.o gpio.o systick.o i2c.o spi.o nvic.o usart.o exti.o rcc.o flash.o
+OBJS		= vector.o rcc.o gpio.o usart.o spi.o flash.o nvic.o \
+		  i2c.o systick.o exti.o \
 
-#VPATH += ../usb
-VPATH += ../stm32_common
+VPATH += ../../usb:../
 
 # Be silent per default, but 'make V=1' will show all compiler calls.
 ifneq ($(V),1)
@@ -49,7 +49,7 @@ $(LIBNAME).a: $(OBJS)
 	$(Q)$(CC) $(CFLAGS) -o $@ -c $<
 
 clean:
-	@printf "  CLEAN   lib/stm32f2\n"
+	@printf "  CLEAN   lib/stm32/f2\n"
 	$(Q)rm -f *.o *.d
 	$(Q)rm -f $(LIBNAME).a
 
