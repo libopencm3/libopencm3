@@ -22,7 +22,7 @@ PREFIX		?= arm-none-eabi
 DESTDIR		?= /usr/local
 INCDIR		= $(DESTDIR)/$(PREFIX)/include
 LIBDIR		= $(DESTDIR)/$(PREFIX)/lib
-SHAREDIR        = $(DESTDIR)/$(PREFIX)/share/libopencm3/scripts
+SHAREDIR	= $(DESTDIR)/$(PREFIX)/share/libopencm3/scripts
 INSTALL		= install
 
 TARGETS = stm32 lpc13xx lm3s
@@ -46,7 +46,7 @@ lib:
 		fi; \
 	done
 
-examples:	lib
+examples: lib
 	$(Q)for i in $(addsuffix /*/*,$(addprefix $@/,$(TARGETS))); do \
 		if [ -d $$i ]; then \
 			printf "  BUILD   $$i\n"; \
@@ -54,7 +54,7 @@ examples:	lib
 		fi; \
 	done
 
-install: lib 
+install: lib
 	@printf "  INSTALL headers\n"
 	$(Q)$(INSTALL) -d $(INCDIR)/libopencm3
 	$(Q)$(INSTALL) -d $(LIBDIR)
