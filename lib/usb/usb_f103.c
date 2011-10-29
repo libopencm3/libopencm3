@@ -300,6 +300,10 @@ static void stm32f103_poll(void)
 			_usbd_device.user_callback_resume();
 	}
 
-	if (istr & USB_ISTR_SOF)
+	if (istr & USB_ISTR_SOF) {
+		if (_usbd_device.user_callback_sof)
+			_usbd_device.user_callback_sof();
 		USB_CLR_ISTR_SOF();
+	}
 }
+

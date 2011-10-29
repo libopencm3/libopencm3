@@ -41,6 +41,7 @@ extern void usbd_set_control_buffer_size(u16 size);
 extern void usbd_register_reset_callback(void (*callback)(void));
 extern void usbd_register_suspend_callback(void (*callback)(void));
 extern void usbd_register_resume_callback(void (*callback)(void));
+extern void usbd_register_sof_callback(void (*callback)(void));
 
 typedef int (*usbd_control_callback)(struct usb_setup_data *req, u8 **buf,
 	    u16 *len, void (**complete)(struct usb_setup_data *req));

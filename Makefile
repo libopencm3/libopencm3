@@ -46,7 +46,7 @@ lib:
 		fi; \
 	done
 
-examples:
+examples:	lib
 	$(Q)for i in $(addsuffix /*/*,$(addprefix $@/,$(TARGETS))); do \
 		if [ -d $$i ]; then \
 			printf "  BUILD   $$i\n"; \

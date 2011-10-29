@@ -42,6 +42,7 @@ extern struct _usbd_device {
 	void (*user_callback_reset)(void);
 	void (*user_callback_suspend)(void);
 	void (*user_callback_resume)(void);
+	void (*user_callback_sof)(void);
 
 	struct user_control_callback {
 		usbd_control_callback cb;

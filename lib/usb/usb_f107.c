@@ -17,7 +17,6 @@
  * along with this program.  If not, see <http://www.gnu.org/licenses/>.
  */
 
-#include <libopencm3/stm32/rcc.h>
 #include <libopencm3/cm3/common.h>
 #include <libopencm3/stm32/tools.h>
 #include <libopencm3/stm32/otg_fs.h>
@@ -29,6 +28,7 @@
 /* Receive FIFO size in 32-bit words */
 #define RX_FIFO_SIZE	128
 static uint16_t fifo_mem_top;
+static uint16_t fifo_mem_top_ep0;
 
 static u8 force_nak[4];
 
@@ -64,10 +64,8 @@ const struct _usbd_driver stm32f107_usb_driver = {
 /** Initialize the USB device controller hardware of the STM32. */
 static void stm32f107_usbd_init(void)
 {
-	rcc_peripheral_enable_clock(&RCC_AHBENR, RCC_AHBENR_OTGFSEN);
 	OTG_FS_GINTSTS = OTG_FS_GINTSTS_MMIS;
 
-	/* WARNING: Undocumented! Select internal PHY */
 	OTG_FS_GUSBCFG |= OTG_FS_GUSBCFG_PHYSEL;
 	/* Enable VBUS sensing in device mode and power down the phy */
 	OTG_FS_GCCFG |= OTG_FS_GCCFG_VBUSBSEN | OTG_FS_GCCFG_PWRDWN;
@@ -141,6 +139,7 @@ static void stm32f107_ep_setup(u8 addr, u8 type, u16 max_size,
 
 		OTG_FS_GNPTXFSIZ = ((max_size / 4) << 16) | RX_FIFO_SIZE;
 		fifo_mem_top += max_size / 4;
+		fifo_mem_top_ep0 = fifo_mem_top;
 
 		return;
 	}
@@ -152,7 +151,7 @@ static void stm32f107_ep_setup(u8 addr, u8 type, u16 max_size,
 		OTG_FS_DIEPTSIZ(addr) = (max_size & OTG_FS_DIEPSIZ0_XFRSIZ_MASK);
 		OTG_FS_DIEPCTL(addr) |= OTG_FS_DIEPCTL0_EPENA | 
 				OTG_FS_DIEPCTL0_SNAK | (type << 18) | 
-				OTG_FS_DIEPCTL0_USBAEP | 
+				OTG_FS_DIEPCTL0_USBAEP | OTG_FS_DIEPCTLX_SD0PID |
 				(addr << 22) | max_size;
 
 		if (callback) {
@@ -168,6 +167,7 @@ static void stm32f107_ep_setup(u8 addr, u8 type, u16 max_size,
 		OTG_FS_DOEPTSIZ(addr) = doeptsiz[addr];
 		OTG_FS_DOEPCTL(addr) |= OTG_FS_DOEPCTL0_EPENA | 
 				OTG_FS_DOEPCTL0_USBAEP | OTG_FS_DIEPCTL0_CNAK | 
+				OTG_FS_DOEPCTLX_SD0PID |
 				(type << 18) | max_size;
 
 		if (callback) {
@@ -181,7 +181,7 @@ static void stm32f107_ep_setup(u8 addr, u8 type, u16 max_size,
 static void stm32f107_endpoints_reset(void)
 {
 	/* The core resets the endpoints automatically on reset */
-	fifo_mem_top = RX_FIFO_SIZE;
+	fifo_mem_top = fifo_mem_top_ep0;
 }
 
 static void stm32f107_ep_stall_set(u8 addr, u8 stall)
@@ -242,12 +242,16 @@ static u16 stm32f107_ep_write_packet(u8 addr, const void *buf, u16 len)
 
 	addr &= 0x7F;
 
+	/* Return if endpoint is already enabled. */
+	if(OTG_FS_DTXFSTS(addr) < (len >> 2))
+		return 0;
+
 	/* Enable endpoint for transmission */
 	OTG_FS_DIEPTSIZ(addr) = (1 << 19) | len;
 	OTG_FS_DIEPCTL(addr) |= OTG_FS_DIEPCTL0_EPENA | OTG_FS_DIEPCTL0_CNAK;
 
 	/* Copy buffer to endpoint FIFO */
-	u32 *fifo = OTG_FS_FIFO(addr);
+	volatile u32 *fifo = OTG_FS_FIFO(addr);
 	for(i = len; i > 0; i -= 4) {
 		*fifo++ = *buf32++;
 	}
@@ -270,15 +274,18 @@ static u16 stm32f107_ep_read_packet(u8 addr, void *buf, u16 len)
 	len = MIN(len, rxbcnt[addr]);
 	rxbcnt[addr] = 0;
 
-	u32 *fifo = OTG_FS_FIFO(addr);
+	volatile u32 *fifo = OTG_FS_FIFO(addr);
 	for(i = len; i >= 4; i -= 4) {
 		*buf32++ = *fifo++;
 	}
 
 	if(i) {
-		extra = *fifo;
+		extra = *fifo++;
 		memcpy(buf32, &extra, i);
 	}
+
+	if(len == 8)
+		extra = *fifo++;
 
 	OTG_FS_DOEPTSIZ(addr) = doeptsiz[addr];
 	OTG_FS_DOEPCTL(addr) |= OTG_FS_DOEPCTL0_EPENA | 
@@ -296,6 +303,7 @@ static void stm32f107_poll(void)
 	if (intsts & OTG_FS_GINTSTS_ENUMDNE) {
 		/* Handle USB RESET condition */
 		OTG_FS_GINTSTS = OTG_FS_GINTSTS_ENUMDNE;
+		fifo_mem_top = RX_FIFO_SIZE;
 		_usbd_reset();
 		return;
 	}
@@ -347,7 +355,10 @@ static void stm32f107_poll(void)
 		OTG_FS_GINTSTS = OTG_FS_GINTSTS_WKUPINT;
 	}
 
-	if (intsts & OTG_FS_GINTSTS_SOF)
+	if (intsts & OTG_FS_GINTSTS_SOF) {
+		if (_usbd_device.user_callback_sof)
+			_usbd_device.user_callback_sof();
 		OTG_FS_GINTSTS = OTG_FS_GINTSTS_SOF;
+	}
 }
 

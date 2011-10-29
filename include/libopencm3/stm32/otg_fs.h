@@ -39,7 +39,7 @@
 #define OTG_FS_GCCFG			MMIO32(USB_OTG_FS_BASE + 0x038)
 #define OTG_FS_CID			MMIO32(USB_OTG_FS_BASE + 0x03C)
 #define OTG_FS_HPTXFSIZ			MMIO32(USB_OTG_FS_BASE + 0x100)
-#define OTG_FS_DIEPTXF(x)		MMIO32(USB_OTG_FS_BASE + 0x104 + 4*(x))
+#define OTG_FS_DIEPTXF(x)		MMIO32(USB_OTG_FS_BASE + 0x104 + 4*(x-1))
 
 /* Host-mode Control and Status Registers */
 #define OTG_FS_HCFG 			MMIO32(USB_OTG_FS_BASE + 0x400)
@@ -81,7 +81,7 @@
 #define OTG_FS_PCGCCTL			MMIO32(USB_OTG_FS_BASE + 0xE00)
 
 /* Data FIFO */
-#define OTG_FS_FIFO(x)			((u32*)(USB_OTG_FS_BASE + (((x) + 1) << 12)))
+#define OTG_FS_FIFO(x)			((volatile u32*)(USB_OTG_FS_BASE + (((x) + 1) << 12)))
 
 /* Global CSRs */
 /* OTG_FS AHB configuration register (OTG_FS_GAHBCFG) */
@@ -100,8 +100,7 @@
 #define OTG_FS_GUSBCFG_FHMOD		0x20000000
 #define OTG_FS_GUSBCFG_FDMOD		0x40000000
 #define OTG_FS_GUSBCFG_CTXPKT		0x80000000
-/* WARNING: not in reference manual */
-#define OTG_FS_GUSBCFG_PHYSEL		(1 << 6)
+#define OTG_FS_GUSBCFG_PHYSEL		(1 << 7)
 
 /* OTG_FS reset register (OTG_FS_GRSTCTL) */
 #define OTG_FS_GRSTCTL_AHBIDL		(1 << 31)

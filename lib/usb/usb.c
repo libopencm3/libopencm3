@@ -80,6 +80,11 @@ void usbd_register_resume_callback(void (*callback)(void))
 	_usbd_device.user_callback_resume = callback;
 }
 
+void usbd_register_sof_callback(void (*callback)(void))
+{
+	_usbd_device.user_callback_sof = callback;
+}
+
 void usbd_set_control_buffer_size(u16 size)
 {
 	_usbd_device.ctrl_buf_len = size;
