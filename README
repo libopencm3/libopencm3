@@ -58,7 +58,7 @@ Makefile if you use a different one.
 
 You can also flash manually like this:
 
- $ openocd -f interface/jtagkey-tiny.cfg -f target/stm32.cfg
+ $ openocd -f interface/jtagkey-tiny.cfg -f target/stm32f1x.cfg
  $ telnet localhost 4444
  > reset halt
  > flash write_image erase foobar.hex
