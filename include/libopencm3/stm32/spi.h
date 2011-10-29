@@ -160,7 +160,7 @@
 #define SPI_CR1_CPHA_CLK_TRANSITION_2	(1 << 0)
 #define SPI_CR1_CPHA			(1 << 0)
 
-/* --- SPI_CR1 values ------------------------------------------------------ */
+/* --- SPI_CR2 values ------------------------------------------------------ */
 
 /* Bits [15:8]: Reserved. Forced to 0 by hardware. */
 
@@ -212,7 +212,7 @@
 /* RXNE: Receive buffer not empty */
 #define SPI_SR_RXNE			(1 << 0)
 
-/* --- SPI_SR values ------------------------------------------------------- */
+/* --- SPI_DR values ------------------------------------------------------- */
 
 /* SPI_DR[15:0]: Data Register. */
 
@@ -290,6 +290,7 @@ void spi_disable(u32 spi);
 void spi_write(u32 spi, u16 data);
 void spi_send(u32 spi, u16 data);
 u16 spi_read(u32 spi);
+u16 spi_xfer(u32 spi, u16 data);
 void spi_set_bidirectional_mode(u32 spi);
 void spi_set_unidirectional_mode(u32 spi);
 void spi_set_bidirectional_receive_only_mode(u32 spi);

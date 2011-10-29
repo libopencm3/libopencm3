@@ -30,10 +30,12 @@ typedef int32_t s32;
 typedef uint8_t u8;
 typedef uint16_t u16;
 typedef uint32_t u32;
+typedef uint64_t u64;
 
 /* Generic memory-mapped I/O accessor functions */
 #define MMIO8(addr)		(*(volatile u8 *)(addr))
 #define MMIO16(addr)		(*(volatile u16 *)(addr))
 #define MMIO32(addr)		(*(volatile u32 *)(addr))
+#define MMIO64(addr)		(*(volatile u64 *)(addr))
 
 #endif

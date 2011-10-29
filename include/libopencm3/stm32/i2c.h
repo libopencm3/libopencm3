@@ -195,7 +195,7 @@
 
 /* ADD: Address bits: [7:1] in 7-bit mode, bits [9:0] in 10-bit mode */
 
-/* --- I2Cx_OAR1 values ---------------------------------------------------- */
+/* --- I2Cx_OAR2 values ---------------------------------------------------- */
 
 /* Note: Bits [15:8] are reserved, and forced to 0 by hardware. */
 
