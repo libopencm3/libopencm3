@@ -240,7 +240,6 @@ static void hid_set_config(u16 wValue)
 
 int main(void)
 {
-	int usb_connect_blink = 0;
 	rcc_clock_setup_in_hse_12mhz_out_72mhz();
 
 
