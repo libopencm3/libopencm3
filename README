@@ -49,7 +49,7 @@ libopencm3.
 For flashing the 'miniblink' example (after you built libopencm3 and the
 examples by typing 'make' at the top-level directory) you can execute:
 
- $ cd examples/stm32/stm32-h103/miniblink
+ $ cd examples/stm32f1/stm32-h103/miniblink
  $ make flash
 
 The Makefiles of the examples are configured to use a certain OpenOCD
