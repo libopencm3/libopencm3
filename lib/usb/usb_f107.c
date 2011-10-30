@@ -81,7 +81,7 @@ static void stm32f107_usbd_init(void)
 
 
 	/* Force peripheral only mode. */
-	OTG_FS_GUSBCFG |= OTG_FS_GUSBCFG_FDMOD;
+	OTG_FS_GUSBCFG |= OTG_FS_GUSBCFG_FDMOD | OTG_FS_GUSBCFG_TRDT_MASK;
 
 	/* Full speed device */
 	OTG_FS_DCFG |= OTG_FS_DCFG_DSPD;
@@ -265,7 +265,7 @@ static u16 stm32f107_ep_write_packet(u8 addr, const void *buf, u16 len)
  * stm32f107_poll() which reads the packet status push register GRXSTSP
  * for use in stm32f107_ep_read_packet().
  */
-static uint16_t rxbcnt[4];
+static uint16_t rxbcnt;
 
 static u16 stm32f107_ep_read_packet(u8 addr, void *buf, u16 len)
 {
@@ -273,8 +273,8 @@ static u16 stm32f107_ep_read_packet(u8 addr, void *buf, u16 len)
 	u32 *buf32 = buf;
 	u32 extra;
 
-	len = MIN(len, rxbcnt[addr]);
-	rxbcnt[addr] = 0;
+	len = MIN(len, rxbcnt);
+	rxbcnt -= len;
 
 	volatile u32 *fifo = OTG_FS_FIFO(addr);
 	for(i = len; i >= 4; i -= 4) {
@@ -285,9 +285,6 @@ static u16 stm32f107_ep_read_packet(u8 addr, void *buf, u16 len)
 		extra = *fifo++;
 		memcpy(buf32, &extra, i);
 	}
-
-	if(len == 8)
-		extra = *fifo++;
 
 	OTG_FS_DOEPTSIZ(addr) = doeptsiz[addr];
 	OTG_FS_DOEPCTL(addr) |= OTG_FS_DOEPCTL0_EPENA | 
@@ -327,10 +324,22 @@ static void stm32f107_poll(void)
 			type = USB_TRANSACTION_OUT;
 
 		/* Save packet size for stm32f107_ep_read_packet() */
-		rxbcnt[ep] = (rxstsp & OTG_FS_GRXSTSP_BCNT_MASK) >> 4;
+		rxbcnt = (rxstsp & OTG_FS_GRXSTSP_BCNT_MASK) >> 4;
+
+		/* FIXME: Why is a delay needed here?
+		 * This appears to fix a problem where the first 4 bytes
+		 * of the DATA OUT stage of a control transaction are lost.
+		 */
+		for(i = 0; i < 1000; i++) asm("nop");
 
 		if (_usbd_device.user_callback_ctr[ep][type])
 			_usbd_device.user_callback_ctr[ep][type] (ep);
+
+		/* Discard unread packet data */
+		for(i = 0; i < rxbcnt; i += 4)
+			(void)*OTG_FS_FIFO(ep);
+
+		rxbcnt = 0;
 	}
 
 	/* There is no global interrupt flag for transmit complete. 
