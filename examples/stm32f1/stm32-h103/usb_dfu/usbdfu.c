@@ -248,11 +248,11 @@ int main(void)
 
         rcc_clock_setup_in_hsi_out_48mhz();
 
-	rcc_peripheral_enable_clock(&RCC_APB2ENR, RCC_APB2ENR_IOPAEN);
-	rcc_peripheral_enable_clock(&RCC_APB2ENR, RCC_APB2ENR_AFIOEN);
+	rcc_peripheral_enable_clock(&RCC_APB2ENR, RCC_APB2ENR_IOPCEN);
 
-	AFIO_MAPR |= AFIO_MAPR_SWJ_CFG_JTAG_OFF_SW_ON;
-	gpio_set_mode(GPIOA, GPIO_MODE_INPUT, 0, GPIO15);
+	gpio_set_mode(GPIOC, GPIO_MODE_OUTPUT_50_MHZ,
+		      GPIO_CNF_OUTPUT_PUSHPULL, GPIO11);
+	gpio_set(GPIOC, GPIO11);
 
 	usbd_init(&stm32f103_usb_driver, &dev, &config, usb_strings);
 	usbd_set_control_buffer_size(sizeof(usbd_control_buffer));
@@ -261,9 +261,7 @@ int main(void)
 				USB_REQ_TYPE_TYPE | USB_REQ_TYPE_RECIPIENT,
 				usbdfu_control_request);
 
-	gpio_set(GPIOA, GPIO15);
-	gpio_set_mode(GPIOA, GPIO_MODE_OUTPUT_2_MHZ, 
-			GPIO_CNF_OUTPUT_PUSHPULL, GPIO15);
+	gpio_clear(GPIOC, GPIO11);
 
 	while (1) 
 		usbd_poll();
