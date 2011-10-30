@@ -23,15 +23,15 @@
 #include <libopencm3/stm32/f2/flash.h>
 
 /* Set the default ppre1 and ppre2 peripheral clock frequencies after reset */
-u32 rcc_ppre1_frequency = 8000000;
-u32 rcc_ppre2_frequency = 8000000;
+u32 rcc_ppre1_frequency = 16000000;
+u32 rcc_ppre2_frequency = 16000000;
 
 /* TODO: Create a table for these values */
 #define RCC_PLL_M      8
-#define RCC_PLL_N      336
+#define RCC_PLL_N      240
 #define RCC_PLL_P      2
-#define RCC_PLL_Q      7
-#define RCC_PLLI2S_N   192
+#define RCC_PLL_Q      5
+#define RCC_PLLI2S_N   256
 #define RCC_PLLI2S_R   5
 
 void rcc_osc_ready_int_clear(osc_t osc)
@@ -340,11 +340,11 @@ void rcc_set_main_pll_hsi(u32 pllm, u32 plln, u32 pllp, u32 pllq)
 
 void rcc_set_main_pll_hse(u32 pllm, u32 plln, u32 pllp, u32 pllq)
 {
-	RCC_PLLCFGR = pllm |
-		(plln << 6) |
-		(((pllp >> 1) - 1) << 16) |
+	RCC_PLLCFGR = (pllm << RCC_PLLCFGR_PLLM_SHIFT) |
+		(plln << RCC_PLLCFGR_PLLN_SHIFT) |
+		(((pllp >> 1) - 1) << RCC_PLLCFGR_PLLP_SHIFT) |
 		RCC_PLLCFGR_PLLSRC |
-		(pllq << 24);
+		(pllq << RCC_PLLCFGR_PLLQ_SHIFT);
 }
 
 u32 rcc_system_clock_source(void)
