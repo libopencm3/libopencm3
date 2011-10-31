@@ -12,7 +12,7 @@ def signal_handler(signal, frame):
 
 signal.signal(signal.SIGINT, signal_handler);
 
-ser = serial.Serial('/dev/cu.usbmodemDEM1', 115200, timeout=1);
+ser = serial.Serial('/dev/cu.usbmodemDEM1', 115200, timeout=0.05);
 
 error = 0
 
