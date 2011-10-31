@@ -30,13 +30,13 @@
 /* --- SPI_CR2 values ------------------------------------------------------ */
 
 /* FRF: Frame format. */
-#define SPI_CR2_FRF			(1 << 4)
-#define SPI_CR2_FRF_TI		       	(1 << 4)
+#define SPI_CR2_FRF				(1 << 4)
+#define SPI_CR2_FRF_TI				(1 << 4)
 #define SPI_CR2_FRF_MOTOROLA			(1 << 4)
 
 /* --- SPI_SR values ------------------------------------------------------- */
 
 /* TIFRFE: TI frame format error. */
-#define SPI_SR_RXNE			(1 << 0)
+#define SPI_SR_RXNE				(1 << 0)
 
 #endif

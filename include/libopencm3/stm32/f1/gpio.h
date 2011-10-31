@@ -63,22 +63,22 @@
 #define GPIO_CAN_RX			GPIO_CAN1_RX	/* Alias */
 #define GPIO_CAN_TX			GPIO_CAN1_TX	/* Alias */
 
-#define GPIO_CAN_PB_RX                  GPIO8           /* PB8 */
-#define GPIO_CAN_PB_TX                  GPIO9           /* PB9 */
-#define GPIO_CAN1_PB_RX                 GPIO_CAN_PB_RX  /* Alias */
-#define GPIO_CAN1_PB_TX                 GPIO_CAN_PB_TX  /* Alias */
+#define GPIO_CAN_PB_RX			GPIO8		/* PB8 */
+#define GPIO_CAN_PB_TX			GPIO9		/* PB9 */
+#define GPIO_CAN1_PB_RX			GPIO_CAN_PB_RX	/* Alias */
+#define GPIO_CAN1_PB_TX			GPIO_CAN_PB_TX	/* Alias */
 
-#define GPIO_CAN_PD_RX                  GPIO0           /* PD0 */
-#define GPIO_CAN_PD_TX                  GPIO1           /* PD1 */
-#define GPIO_CAN1_PD_RX                 GPIO_CAN_PD_RX  /* Alias */
-#define GPIO_CAN1_PD_TX                 GPIO_CAN_PD_TX  /* Alias */
+#define GPIO_CAN_PD_RX			GPIO0		/* PD0 */
+#define GPIO_CAN_PD_TX			GPIO1		/* PD1 */
+#define GPIO_CAN1_PD_RX			GPIO_CAN_PD_RX	/* Alias */
+#define GPIO_CAN1_PD_TX			GPIO_CAN_PD_TX	/* Alias */
 
 /* CAN2 */
 #define GPIO_CAN2_RX			GPIO12		/* PB12 */
 #define GPIO_CAN2_TX			GPIO13		/* PB13 */
 
-#define GPIO_CAN2_RE_RX                 GPIO5           /* PB5 */
-#define GPIO_CAN2_RE_TX                 GPIO6           /* PB6 */
+#define GPIO_CAN2_RE_RX			GPIO5		/* PB5 */
+#define GPIO_CAN2_RE_TX			GPIO6		/* PB6 */
 
 /* JTAG/SWD */
 #define GPIO_JTMS_SWDIO			GPIO13		/* PA13 */
@@ -404,32 +404,32 @@
 /* --- AFIO_EVCR values ---------------------------------------------------- */
 
 /* EVOE: Event output enable */
-#define AFIO_EVCR_EVOE                  (1 << 7)
+#define AFIO_EVCR_EVOE			(1 << 7)
 
 /* PORT[2:0]: Port selection */
-#define AFIO_EVCR_PORT_PA               (0x0 << 4)
-#define AFIO_EVCR_PORT_PB               (0x1 << 4)
-#define AFIO_EVCR_PORT_PC               (0x2 << 4)
-#define AFIO_EVCR_PORT_PD               (0x3 << 4)
-#define AFIO_EVCR_PORT_PE               (0x4 << 4)
+#define AFIO_EVCR_PORT_PA		(0x0 << 4)
+#define AFIO_EVCR_PORT_PB		(0x1 << 4)
+#define AFIO_EVCR_PORT_PC		(0x2 << 4)
+#define AFIO_EVCR_PORT_PD		(0x3 << 4)
+#define AFIO_EVCR_PORT_PE		(0x4 << 4)
 
 /* PIN[3:0]: Pin selection */
-#define AFIO_EVCR_PIN_Px0               (0x0 << 0)
-#define AFIO_EVCR_PIN_Px1               (0x1 << 0)
-#define AFIO_EVCR_PIN_Px2               (0x2 << 0)
-#define AFIO_EVCR_PIN_Px3               (0x3 << 0)
-#define AFIO_EVCR_PIN_Px4               (0x4 << 0)
-#define AFIO_EVCR_PIN_Px5               (0x5 << 0)
-#define AFIO_EVCR_PIN_Px6               (0x6 << 0)
-#define AFIO_EVCR_PIN_Px7               (0x7 << 0)
-#define AFIO_EVCR_PIN_Px8               (0x8 << 0)
-#define AFIO_EVCR_PIN_Px9               (0x9 << 0)
-#define AFIO_EVCR_PIN_Px10              (0xA << 0)
-#define AFIO_EVCR_PIN_Px11              (0xB << 0)
-#define AFIO_EVCR_PIN_Px12              (0xC << 0)
-#define AFIO_EVCR_PIN_Px13              (0xD << 0)
-#define AFIO_EVCR_PIN_Px14              (0xE << 0)
-#define AFIO_EVCR_PIN_Px15              (0xF << 0)
+#define AFIO_EVCR_PIN_Px0		(0x0 << 0)
+#define AFIO_EVCR_PIN_Px1		(0x1 << 0)
+#define AFIO_EVCR_PIN_Px2		(0x2 << 0)
+#define AFIO_EVCR_PIN_Px3		(0x3 << 0)
+#define AFIO_EVCR_PIN_Px4		(0x4 << 0)
+#define AFIO_EVCR_PIN_Px5		(0x5 << 0)
+#define AFIO_EVCR_PIN_Px6		(0x6 << 0)
+#define AFIO_EVCR_PIN_Px7		(0x7 << 0)
+#define AFIO_EVCR_PIN_Px8		(0x8 << 0)
+#define AFIO_EVCR_PIN_Px9		(0x9 << 0)
+#define AFIO_EVCR_PIN_Px10		(0xA << 0)
+#define AFIO_EVCR_PIN_Px11		(0xB << 0)
+#define AFIO_EVCR_PIN_Px12		(0xC << 0)
+#define AFIO_EVCR_PIN_Px13		(0xD << 0)
+#define AFIO_EVCR_PIN_Px14		(0xE << 0)
+#define AFIO_EVCR_PIN_Px15		(0xF << 0)
 
 /* --- AFIO_MAPR values ---------------------------------------------------- */
 
@@ -437,98 +437,98 @@
 
 /* PTP_PPS_REMAP: Ethernet PTP PPS remapping
  * (only connectivity line devices) */
-#define AFIO_MAPR_PTP_PPS_REMAP              (1 << 30)
+#define AFIO_MAPR_PTP_PPS_REMAP			(1 << 30)
 
 /* TIM2ITR1_IREMAP: TIM2 internal trigger 1 remapping
  * (only connectivity line devices) */
-#define AFIO_MAPR_TIM2ITR1_IREMAP            (1 << 29)
+#define AFIO_MAPR_TIM2ITR1_IREMAP		(1 << 29)
 
 /* SPI3_REMAP: SPI3/I2S3 remapping
  * (only connectivity line devices) */
-#define AFIO_MAPR_SPI3_REMAP                 (1 << 28)
+#define AFIO_MAPR_SPI3_REMAP			(1 << 28)
 
 /* 27 reserved */
 
 /* SWJ_CFG[2:0]: Serial wire JTAG configuration */
-#define AFIO_MAPR_SWJ_CFG_FULL_SWJ           (0x0 << 24)
-#define AFIO_MAPR_SWJ_CFG_FULL_SWJ_NO_JNTRST (0x1 << 24)
-#define AFIO_MAPR_SWJ_CFG_JTAG_OFF_SW_ON     (0x2 << 24)
-#define AFIO_MAPR_SWJ_CFG_JTAG_OFF_SW_OFF    (0x4 << 24)
+#define AFIO_MAPR_SWJ_CFG_FULL_SWJ		(0x0 << 24)
+#define AFIO_MAPR_SWJ_CFG_FULL_SWJ_NO_JNTRST	(0x1 << 24)
+#define AFIO_MAPR_SWJ_CFG_JTAG_OFF_SW_ON	(0x2 << 24)
+#define AFIO_MAPR_SWJ_CFG_JTAG_OFF_SW_OFF	(0x4 << 24)
 
 /* MII_REMAP: MII or RMII selection
  * (only connectivity line devices) */
-#define AFIO_MAPR_MII_RMII_SEL               (1 << 23)
+#define AFIO_MAPR_MII_RMII_SEL			(1 << 23)
 
 /* CAN2_REMAP: CAN2 I/O remapping
  * (only connectivity line devices) */
-#define AFIO_MAPR_CAN2_REMAP                 (1 << 22)
+#define AFIO_MAPR_CAN2_REMAP			(1 << 22)
 
 /* ETH_REMAP: Ethernet MAC I/O remapping
  * (only connectivity line devices) */
-#define AFIO_MAPR_ETH_REMAP                  (1 << 21)
+#define AFIO_MAPR_ETH_REMAP			(1 << 21)
 
 /* ADC2_ETRGREG_REMAP: ADC2 external trigger regulator conversion remapping
  * (only low-, medium-, high- and XL-densitiy devices) */
-#define AFIO_MAPR_ADC2_ETRGREG_REMAP         (1 << 20)
+#define AFIO_MAPR_ADC2_ETRGREG_REMAP		(1 << 20)
 
 /* ADC2_ETRGINJ_REMAP: ADC2 external trigger injected conversion remapping
  * (only low-, medium-, high- and XL-densitiy devices) */
-#define AFIO_MAPR_ADC2_ETRGINJ_REMAP         (1 << 19)
+#define AFIO_MAPR_ADC2_ETRGINJ_REMAP		(1 << 19)
 
 /* ADC1_ETRGREG_REMAP: ADC1 external trigger regulator conversion remapping
  * (only low-, medium-, high- and XL-densitiy devices) */
-#define AFIO_MAPR_ADC1_ETRGREG_REMAP         (1 << 18)
+#define AFIO_MAPR_ADC1_ETRGREG_REMAP		(1 << 18)
 
 /* ADC1_ETRGINJ_REMAP: ADC1 external trigger injected conversion remapping
  * (only low-, medium-, high- and XL-densitiy devices) */
-#define AFIO_MAPR_ADC1_ETRGINJ_REMAP         (1 << 17)
+#define AFIO_MAPR_ADC1_ETRGINJ_REMAP		(1 << 17)
 
 /* TIM5CH4_IREMAP: TIM5 channel4 internal remap */
-#define AFIO_MAPR_TIM5CH4_IREMAP             (1 << 16)
+#define AFIO_MAPR_TIM5CH4_IREMAP		(1 << 16)
 
 /* PD01_REMAP: Port D0/Port D1 mapping on OSC_IN/OSC_OUT */
-#define AFIO_MAPR_PD01_REMAP                 (1 << 15)
+#define AFIO_MAPR_PD01_REMAP			(1 << 15)
 
 /* CAN_REMAP[1:0]: CAN1 alternate function remapping */
-#define AFIO_MAPR_CAN1_REMAP_PORTA           (0x0 << 13)
-#define AFIO_MAPR_CAN1_REMAP_PORTB           (0x2 << 13) /* Not on 36pin pkg */
-#define AFIO_MAPR_CAN1_REMAP_PORTD           (0x3 << 13)
+#define AFIO_MAPR_CAN1_REMAP_PORTA		(0x0 << 13)
+#define AFIO_MAPR_CAN1_REMAP_PORTB		(0x2 << 13) /* Not on 36pin pkg */
+#define AFIO_MAPR_CAN1_REMAP_PORTD		(0x3 << 13)
 
 /* TIM4_REMAP: TIM4 remapping */
-#define AFIO_MAPR_TIM4_REMAP                 (1 << 12)
+#define AFIO_MAPR_TIM4_REMAP			(1 << 12)
 
 /* TIM3_REMAP[1:0]: TIM3 remapping */
-#define AFIO_MAPR_TIM3_REMAP_NO_REMAP        (0x0 << 10)
-#define AFIO_MAPR_TIM3_REMAP_PARTIAL_REMAP   (0x2 << 10)
-#define AFIO_MAPR_TIM3_REMAP_FULL_REMAP      (0x3 << 10)
+#define AFIO_MAPR_TIM3_REMAP_NO_REMAP		(0x0 << 10)
+#define AFIO_MAPR_TIM3_REMAP_PARTIAL_REMAP	(0x2 << 10)
+#define AFIO_MAPR_TIM3_REMAP_FULL_REMAP		(0x3 << 10)
 
 /* TIM2_REMAP[1:0]: TIM2 remapping */
-#define AFIO_MAPR_TIM2_REMAP_NO_REMAP        (0x0 << 8)
-#define AFIO_MAPR_TIM2_REMAP_PARTIAL_REMAP1  (0x1 << 8)
-#define AFIO_MAPR_TIM2_REMAP_PARTIAL_REMAP2  (0x2 << 8)
-#define AFIO_MAPR_TIM2_REMAP_FULL_REMAP      (0x3 << 8)
+#define AFIO_MAPR_TIM2_REMAP_NO_REMAP		(0x0 << 8)
+#define AFIO_MAPR_TIM2_REMAP_PARTIAL_REMAP1	(0x1 << 8)
+#define AFIO_MAPR_TIM2_REMAP_PARTIAL_REMAP2	(0x2 << 8)
+#define AFIO_MAPR_TIM2_REMAP_FULL_REMAP		(0x3 << 8)
 
 /* TIM1_REMAP[1:0]: TIM1 remapping */
-#define AFIO_MAPR_TIM1_REMAP_NO_REMAP        (0x0 << 6)
-#define AFIO_MAPR_TIM1_REMAP_PARTIAL_REMAP   (0x1 << 6)
-#define AFIO_MAPR_TIM1_REMAP_FULL_REMAP      (0x3 << 6)
+#define AFIO_MAPR_TIM1_REMAP_NO_REMAP		(0x0 << 6)
+#define AFIO_MAPR_TIM1_REMAP_PARTIAL_REMAP	(0x1 << 6)
+#define AFIO_MAPR_TIM1_REMAP_FULL_REMAP		(0x3 << 6)
 
 /* USART3_REMAP[1:0]: USART3 remapping */
-#define AFIO_MAPR_USART3_REMAP_NO_REMAP      (0x0 << 4)
-#define AFIO_MAPR_USART3_REMAP_PARTIAL_REMAP (0x1 << 4)
-#define AFIO_MAPR_USART3_REMAP_FULL_REMAP    (0x3 << 4)
+#define AFIO_MAPR_USART3_REMAP_NO_REMAP		(0x0 << 4)
+#define AFIO_MAPR_USART3_REMAP_PARTIAL_REMAP	(0x1 << 4)
+#define AFIO_MAPR_USART3_REMAP_FULL_REMAP	(0x3 << 4)
 
 /* USART2_REMAP[1:0]: USART2 remapping */
-#define AFIO_MAPR_USART2_REMAP               (1 << 3)
+#define AFIO_MAPR_USART2_REMAP			(1 << 3)
 
 /* USART1_REMAP[1:0]: USART1 remapping */
-#define AFIO_MAPR_USART1_REMAP               (1 << 2)
+#define AFIO_MAPR_USART1_REMAP			(1 << 2)
 
 /* I2C1_REMAP[1:0]: I2C1 remapping */
-#define AFIO_MAPR_I2C1_REMAP                 (1 << 1)
+#define AFIO_MAPR_I2C1_REMAP			(1 << 1)
 
 /* SPI1_REMAP[1:0]: SPI1 remapping */
-#define AFIO_MAPR_SPI1_REMAP                 (1 << 0)
+#define AFIO_MAPR_SPI1_REMAP			(1 << 0)
 
 /* --- AFIO_EXTICR1 values ------------------------------------------------- */
 /* --- AFIO_EXTICR2 values ------------------------------------------------- */

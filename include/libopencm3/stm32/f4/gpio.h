@@ -179,8 +179,8 @@
 
 /* --- GPIOx_MODER values -------------------------------------------------- */
 
-#define GPIO_MODE(n, mode)		(mode << (2*(n)))
-#define GPIO_MODE_MASK(n)		(0x3 << (2*(n)))
+#define GPIO_MODE(n, mode)		(mode << (2 * (n)))
+#define GPIO_MODE_MASK(n)		(0x3 << (2 * (n)))
 #define GPIO_MODE_INPUT			0x0
 #define GPIO_MODE_OUTPUT		0x1
 #define GPIO_MODE_AF			0x2
@@ -193,8 +193,8 @@
 
 /* --- GPIOx_OSPEEDR values ------------------------------------------------ */
 
-#define GPIO_OSPEED(n, speed)		(speed << (2*(n)))
-#define GPIO_OSPEED_MASK(n)		(0x3 << (2*(n)))
+#define GPIO_OSPEED(n, speed)		(speed << (2 * (n)))
+#define GPIO_OSPEED_MASK(n)		(0x3 << (2 * (n)))
 #define GPIO_OSPEED_2MHZ		0x0
 #define GPIO_OSPEED_25MHZ		0x1
 #define GPIO_OSPEED_50MHZ		0x2
@@ -202,8 +202,8 @@
 
 /* --- GPIOx_PUPDR values -------------------------------------------------- */
 
-#define GPIO_PUPD(n, pupd)		(pupd << (2*(n)))
-#define GPIO_PUPD_MASK(n)		(0x3 << (2*(n)))
+#define GPIO_PUPD(n, pupd)		(pupd << (2 * (n)))
+#define GPIO_PUPD_MASK(n)		(0x3 << (2 * (n)))
 #define GPIO_PUPD_NONE			0x0
 #define GPIO_PUPD_PULLUP		0x1
 #define GPIO_PUPD_PULLDOWN		0x2
@@ -231,8 +231,8 @@
 /* Note: AFRL is used for bits 0..7, AFRH is used for 8..15 */
 /* See Datasheet Table 6 (pg. 48) for alternate function mappings. */
 
-#define GPIO_AFR(n, af)			(af << ((n)*4))
-#define GPIO_AFR_MASK(n)		(0xf << ((n)*4))
+#define GPIO_AFR(n, af)			(af << ((n) * 4))
+#define GPIO_AFR_MASK(n)		(0xf << ((n) * 4))
 #define GPIO_AF0			0x0
 #define GPIO_AF1			0x1
 #define GPIO_AF2			0x2
@@ -258,7 +258,7 @@
  * Note: The F2 series has a completely new GPIO peripheral with different
  * configuration options. Here we implement a different API partly to more
  * closely match the peripheral capabilities and also to deliberately break
- * compatibility with old F1 code so there is no confusion with similar 
+ * compatibility with old F1 code so there is no confusion with similar
  * sounding functions that have very different functionality.
  */
 

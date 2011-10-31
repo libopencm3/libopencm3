@@ -31,8 +31,8 @@
 
 /* FRF: Frame format. */
 #define SPI_CR2_FRF			(1 << 4)
-#define SPI_CR2_FRF_TI		       	(1 << 4)
-#define SPI_CR2_FRF_MOTOROLA			(1 << 4)
+#define SPI_CR2_FRF_TI			(1 << 4)
+#define SPI_CR2_FRF_MOTOROLA		(1 << 4)
 
 /* --- SPI_SR values ------------------------------------------------------- */
 

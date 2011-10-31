@@ -132,14 +132,14 @@
 /* HPRE: AHB high-speed prescaler */
 #define RCC_CFGR_HPRE_SHIFT			4
 #define RCC_CFGR_HPRE_DIV_NONE			0x0
-#define RCC_CFGR_HPRE_DIV_2			(0x8+0)
-#define RCC_CFGR_HPRE_DIV_4			(0x8+1)
-#define RCC_CFGR_HPRE_DIV_8			(0x8+2)
-#define RCC_CFGR_HPRE_DIV_16			(0x8+3)
-#define RCC_CFGR_HPRE_DIV_64			(0x8+4)
-#define RCC_CFGR_HPRE_DIV_128			(0x8+5)
-#define RCC_CFGR_HPRE_DIV_256			(0x8+6)
-#define RCC_CFGR_HPRE_DIV_512			(0x8+7)
+#define RCC_CFGR_HPRE_DIV_2			(0x8 + 0)
+#define RCC_CFGR_HPRE_DIV_4			(0x8 + 1)
+#define RCC_CFGR_HPRE_DIV_8			(0x8 + 2)
+#define RCC_CFGR_HPRE_DIV_16			(0x8 + 3)
+#define RCC_CFGR_HPRE_DIV_64			(0x8 + 4)
+#define RCC_CFGR_HPRE_DIV_128			(0x8 + 5)
+#define RCC_CFGR_HPRE_DIV_256			(0x8 + 6)
+#define RCC_CFGR_HPRE_DIV_512			(0x8 + 7)
 
 /* SWS: System clock switch status */
 #define RCC_CFGR_SWS_SHIFT			2

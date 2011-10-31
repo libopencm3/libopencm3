@@ -22,33 +22,32 @@
 
 #include <libopencm3/stm32/timer.h>
 
-
-/* 
+/*
  * TIM2 and TIM5 are now 32bit and the following registers are now 32-bit wide:
  * CNT, ARR, CCR1, CCR2, CCR3, CCR4
  */
 
 /* Timer 2/5 option register (TIMx_OR) */
-#define TIM_OR(tim_base)              MMIO32(tim_base + 0x50)
-#define TIM2_OR                       TIM_OR(TIM2)
-#define TIM5_OR                       TIM_OR(TIM5)
+#define TIM_OR(tim_base)		MMIO32(tim_base + 0x50)
+#define TIM2_OR				TIM_OR(TIM2)
+#define TIM5_OR				TIM_OR(TIM5)
 
 /* --- TIM2_OR values ---------------------------------------------------- */
 
 /* MOE: Main output enable */
-#define TIM2_OR_ITR1_RMP_TIM8_TRGOUT    (0x0 << 10)
-#define TIM2_OR_ITR1_RMP_PTP            (0x1 << 10)
-#define TIM2_OR_ITR1_RMP_OTG_FS_SOF     (0x2 << 10)
-#define TIM2_OR_ITR1_RMP_OTG_HS_SOF     (0x3 << 10)
-#define TIM2_OR_ITR1_RMP_MASK           (0x3 << 10)
+#define TIM2_OR_ITR1_RMP_TIM8_TRGOUT	(0x0 << 10)
+#define TIM2_OR_ITR1_RMP_PTP		(0x1 << 10)
+#define TIM2_OR_ITR1_RMP_OTG_FS_SOF	(0x2 << 10)
+#define TIM2_OR_ITR1_RMP_OTG_HS_SOF	(0x3 << 10)
+#define TIM2_OR_ITR1_RMP_MASK		(0x3 << 10)
 
 /* --- TIM5_OR values ---------------------------------------------------- */
 
 /* MOE: Main output enable */
-#define TIM5_OR_TI4_RMP_GPIO    (0x0 << 6)
-#define TIM5_OR_TI4_RMP_LSI     (0x1 << 6)
-#define TIM5_OR_TI4_RMP_LSE     (0x2 << 6)
-#define TIM5_OR_TI4_RMP_RTC     (0x3 << 6)
-#define TIM5_OR_TI4_RMP_MASK    (0x3 << 6)
+#define TIM5_OR_TI4_RMP_GPIO		(0x0 << 6)
+#define TIM5_OR_TI4_RMP_LSI		(0x1 << 6)
+#define TIM5_OR_TI4_RMP_LSE		(0x2 << 6)
+#define TIM5_OR_TI4_RMP_RTC		(0x3 << 6)
+#define TIM5_OR_TI4_RMP_MASK		(0x3 << 6)
 
 #endif

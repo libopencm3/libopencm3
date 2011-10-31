@@ -30,6 +30,6 @@
 /* --- USART_CR3 values ---------------------------------------------------- */
 
 /* ONEBIT: One sample bit method enable */
-#define USART_CR3_ONEBIT			(1 << 11)
+#define USART_CR3_ONEBIT		(1 << 11)
 
 #endif

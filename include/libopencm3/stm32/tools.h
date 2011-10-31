@@ -25,20 +25,20 @@
  */
 
 /* Get register content. */
-#define GET_REG(REG) ((u16) *REG)
+#define GET_REG(REG)		((u16) *REG)
 
 /* Set register content. */
-#define SET_REG(REG, VAL) (*REG = (u16)VAL)
+#define SET_REG(REG, VAL)	(*REG = (u16)VAL)
 
 /* Clear register bit. */
-#define CLR_REG_BIT(REG, BIT) SET_REG(REG, (~BIT))
+#define CLR_REG_BIT(REG, BIT)	SET_REG(REG, (~BIT))
 
 /* Clear register bit masking out some bits that must not be touched. */
 #define CLR_REG_BIT_MSK(REG, MSK, BIT) \
 		SET_REG(REG, (GET_REG(REG) & MSK & (~BIT)))
 
 /* Get masked out bit value. */
-#define GET_REG_BIT(REG, BIT) (GET_REG(REG) & BIT)
+#define GET_REG_BIT(REG, BIT)	(GET_REG(REG) & BIT)
 
 /*
  * Set/reset a bit in a masked window by using toggle mechanism.
@@ -52,10 +52,10 @@
  */
 #define TOG_SET_REG_BIT_MSK(REG, MSK, BIT)				\
 do {									\
-	register u16 toggle_mask = GET_REG(REG) & (MSK);			\
+	register u16 toggle_mask = GET_REG(REG) & (MSK);		\
 	register u16 bit_selector;					\
 	for (bit_selector = 1; bit_selector; bit_selector <<= 1) {	\
-		if ((bit_selector & (BIT)) != 0)				\
+		if ((bit_selector & (BIT)) != 0)			\
 			toggle_mask ^= bit_selector;			\
 	}								\
 	SET_REG(REG, toggle_mask);					\

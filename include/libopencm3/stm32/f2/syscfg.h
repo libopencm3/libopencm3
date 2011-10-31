@@ -40,7 +40,7 @@
 /* External interrupt configuration register 4 (SYSCFG_EXTICR4) */
 #define SYSCFG_EXTICR4			MMIO32(SYSCFG_BASE + 0x14)
 
-#define SYSCFG_CMPCR      MMIO32(SYSCFG_BASE + 0x20)
+#define SYSCFG_CMPCR			MMIO32(SYSCFG_BASE + 0x20)
 
 #endif
 

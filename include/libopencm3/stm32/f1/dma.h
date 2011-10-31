@@ -26,152 +26,152 @@
 /* --- Convenience macros -------------------------------------------------- */
 
 /* DMA register base adresses (for convenience) */
-#define DMA1                            DMA1_BASE
-#define DMA2                            DMA2_BASE
+#define DMA1				DMA1_BASE
+#define DMA2				DMA2_BASE
 
 /* --- DMA registers ------------------------------------------------------- */
 
 /* DMA interrupt status register (DMAx_ISR) */
-#define DMA_ISR(dma_base)               MMIO32(dma_base + 0x00)
-#define DMA1_ISR                        DMA_ISR(DMA1)
-#define DMA2_ISR                        DMA_ISR(DMA2)
+#define DMA_ISR(dma_base)		MMIO32(dma_base + 0x00)
+#define DMA1_ISR			DMA_ISR(DMA1)
+#define DMA2_ISR			DMA_ISR(DMA2)
 
 /* DMA interrupt flag clear register (DMAx_IFCR) */
-#define DMA_IFCR(dma_base)              MMIO32(dma_base + 0x04)
-#define DMA1_IFCR                       DMA_IFCR(DMA1)
-#define DMA2_IFCR                       DMA_IFCR(DMA2)
+#define DMA_IFCR(dma_base)		MMIO32(dma_base + 0x04)
+#define DMA1_IFCR			DMA_IFCR(DMA1)
+#define DMA2_IFCR			DMA_IFCR(DMA2)
 
 /* DMA channel 1 configuration register (DMAx_CCR1) */
-#define DMA_CCR1(dma_base)              MMIO32(dma_base + 0x08 + 0x14 * 0)
-#define DMA1_CCR1                       DMA_CCR1(DMA1)
-#define DMA2_CCR1                       DMA_CCR1(DMA2)
+#define DMA_CCR1(dma_base)		MMIO32(dma_base + 0x08 + 0x14 * 0)
+#define DMA1_CCR1			DMA_CCR1(DMA1)
+#define DMA2_CCR1			DMA_CCR1(DMA2)
 
 /* DMA channel 2 configuration register (DMAx_CCR2) */
-#define DMA_CCR2(dma_base)              MMIO32(dma_base + 0x08 + 0x14 * 1)
-#define DMA1_CCR2                       DMA_CCR2(DMA1)
-#define DMA2_CCR2                       DMA_CCR2(DMA2)
+#define DMA_CCR2(dma_base)		MMIO32(dma_base + 0x08 + 0x14 * 1)
+#define DMA1_CCR2			DMA_CCR2(DMA1)
+#define DMA2_CCR2			DMA_CCR2(DMA2)
 
 /* DMA channel 3 configuration register (DMAx_CCR3) */
-#define DMA_CCR3(dma_base)              MMIO32(dma_base + 0x08 + 0x14 * 2)
-#define DMA1_CCR3                       DMA_CCR3(DMA1)
-#define DMA2_CCR3                       DMA_CCR3(DMA2)
+#define DMA_CCR3(dma_base)		MMIO32(dma_base + 0x08 + 0x14 * 2)
+#define DMA1_CCR3			DMA_CCR3(DMA1)
+#define DMA2_CCR3			DMA_CCR3(DMA2)
 
 /* DMA channel 4 configuration register (DMAx_CCR4) */
 #define DMA_CCR4(dma_base)              MMIO32(dma_base + 0x08 + 0x14 * 3)
-#define DMA1_CCR4                       DMA_CCR4(DMA1)
-#define DMA2_CCR4                       DMA_CCR4(DMA2)
+#define DMA1_CCR4			DMA_CCR4(DMA1)
+#define DMA2_CCR4			DMA_CCR4(DMA2)
 
 /* DMA channel 5 configuration register (DMAx_CCR5) */
-#define DMA_CCR5(dma_base)              MMIO32(dma_base + 0x08 + 0x14 * 4)
-#define DMA1_CCR5                       DMA_CCR5(DMA1)
-#define DMA2_CCR5                       DMA_CCR5(DMA2)
+#define DMA_CCR5(dma_base)		MMIO32(dma_base + 0x08 + 0x14 * 4)
+#define DMA1_CCR5			DMA_CCR5(DMA1)
+#define DMA2_CCR5			DMA_CCR5(DMA2)
 
 /* DMA channel 6 configuration register (DMAx_CCR6) */
-#define DMA_CCR6(dma_base)              MMIO32(dma_base + 0x08 + 0x14 * 5)
-#define DMA1_CCR6                       DMA_CCR6(DMA1)
+#define DMA_CCR6(dma_base)		MMIO32(dma_base + 0x08 + 0x14 * 5)
+#define DMA1_CCR6			DMA_CCR6(DMA1)
 
 /* DMA channel 7 configuration register (DMAx_CCR7) */
-#define DMA_CCR7(dma_base)              MMIO32(dma_base + 0x08 + 0x14 * 6)
-#define DMA1_CCR7                       DMA_CCR7(DMA1)
+#define DMA_CCR7(dma_base)		MMIO32(dma_base + 0x08 + 0x14 * 6)
+#define DMA1_CCR7			DMA_CCR7(DMA1)
 
 /* DMA channel 1 number of data register (DMAx_CNDTR1) */
-#define DMA_CNDTR1(dma_base)            MMIO32(dma_base + 0x0C + 0x14 * 0)
-#define DMA1_CNDTR1                     DMA_CNDTR1(DMA1)
-#define DMA2_CNDTR1                     DMA_CNDTR1(DMA2)
+#define DMA_CNDTR1(dma_base)		MMIO32(dma_base + 0x0C + 0x14 * 0)
+#define DMA1_CNDTR1			DMA_CNDTR1(DMA1)
+#define DMA2_CNDTR1			DMA_CNDTR1(DMA2)
 
 /* DMA channel 2 number of data register (DMAx_CNDTR2) */
-#define DMA_CNDTR2(dma_base)            MMIO32(dma_base + 0x0C + 0x14 * 1)
-#define DMA1_CNDTR2                     DMA_CNDTR2(DMA1)
-#define DMA2_CNDTR2                     DMA_CNDTR2(DMA2)
+#define DMA_CNDTR2(dma_base)		MMIO32(dma_base + 0x0C + 0x14 * 1)
+#define DMA1_CNDTR2			DMA_CNDTR2(DMA1)
+#define DMA2_CNDTR2			DMA_CNDTR2(DMA2)
 
 /* DMA channel 3 number of data register (DMAx_CNDTR3) */
-#define DMA_CNDTR3(dma_base)            MMIO32(dma_base + 0x0C + 0x14 * 2)
-#define DMA1_CNDTR3                     DMA_CNDTR3(DMA1)
-#define DMA2_CNDTR3                     DMA_CNDTR3(DMA2)
+#define DMA_CNDTR3(dma_base)		MMIO32(dma_base + 0x0C + 0x14 * 2)
+#define DMA1_CNDTR3			DMA_CNDTR3(DMA1)
+#define DMA2_CNDTR3			DMA_CNDTR3(DMA2)
 
 /* DMA channel 4 number of data register (DMAx_CNDTR4) */
-#define DMA_CNDTR4(dma_base)            MMIO32(dma_base + 0x0C + 0x14 * 3)
-#define DMA1_CNDTR4                     DMA_CNDTR4(DMA1)
-#define DMA2_CNDTR4                     DMA_CNDTR4(DMA2)
+#define DMA_CNDTR4(dma_base)		MMIO32(dma_base + 0x0C + 0x14 * 3)
+#define DMA1_CNDTR4			DMA_CNDTR4(DMA1)
+#define DMA2_CNDTR4			DMA_CNDTR4(DMA2)
 
 /* DMA channel 5 number of data register (DMAx_CNDTR5) */
-#define DMA_CNDTR5(dma_base)            MMIO32(dma_base + 0x0C + 0x14 * 4)
-#define DMA1_CNDTR5                     DMA_CNDTR5(DMA1)
-#define DMA2_CNDTR5                     DMA_CNDTR5(DMA2)
+#define DMA_CNDTR5(dma_base)		MMIO32(dma_base + 0x0C + 0x14 * 4)
+#define DMA1_CNDTR5			DMA_CNDTR5(DMA1)
+#define DMA2_CNDTR5			DMA_CNDTR5(DMA2)
 
 /* DMA channel 6 number of data register (DMAx_CNDTR6) */
-#define DMA_CNDTR6(dma_base)            MMIO32(dma_base + 0x0C + 0x14 * 5)
-#define DMA1_CNDTR6                     DMA_CNDTR6(DMA1)
+#define DMA_CNDTR6(dma_base)		MMIO32(dma_base + 0x0C + 0x14 * 5)
+#define DMA1_CNDTR6			DMA_CNDTR6(DMA1)
 
 /* DMA channel 7 number of data register (DMAx_CNDTR7) */
-#define DMA_CNDTR7(dma_base)            MMIO32(dma_base + 0x0C + 0x14 * 6)
-#define DMA1_CNDTR7                     DMA_CNDTR7(DMA1)
+#define DMA_CNDTR7(dma_base)		MMIO32(dma_base + 0x0C + 0x14 * 6)
+#define DMA1_CNDTR7			DMA_CNDTR7(DMA1)
 
 /* DMA channel 1 peripheral address register (DMAx_CPAR1) */
-#define DMA_CPAR1(dma_base)             MMIO32(dma_base + 0x10 + 0x14 * 0)
-#define DMA1_CPAR1                      DMA_CPAR1(DMA1)
-#define DMA2_CPAR1                      DMA_CPAR1(DMA2)
+#define DMA_CPAR1(dma_base)		MMIO32(dma_base + 0x10 + 0x14 * 0)
+#define DMA1_CPAR1			DMA_CPAR1(DMA1)
+#define DMA2_CPAR1			DMA_CPAR1(DMA2)
 
 /* DMA channel 2 peripheral address register (DMAx_CPAR2) */
-#define DMA_CPAR2(dma_base)             MMIO32(dma_base + 0x10 + 0x14 * 1)
-#define DMA1_CPAR2                      DMA_CPAR2(DMA1)
-#define DMA2_CPAR2                      DMA_CPAR2(DMA2)
+#define DMA_CPAR2(dma_base)		MMIO32(dma_base + 0x10 + 0x14 * 1)
+#define DMA1_CPAR2			DMA_CPAR2(DMA1)
+#define DMA2_CPAR2			DMA_CPAR2(DMA2)
 
 /* DMA channel 3 peripheral address register (DMAx_CPAR3) */
-#define DMA_CPAR3(dma_base)             MMIO32(dma_base + 0x10 + 0x14 * 2)
-#define DMA1_CPAR3                      DMA_CPAR3(DMA1)
-#define DMA2_CPAR3                      DMA_CPAR3(DMA2)
+#define DMA_CPAR3(dma_base)		MMIO32(dma_base + 0x10 + 0x14 * 2)
+#define DMA1_CPAR3			DMA_CPAR3(DMA1)
+#define DMA2_CPAR3			DMA_CPAR3(DMA2)
 
 /* DMA channel 4 peripheral address register (DMAx_CPAR4) */
-#define DMA_CPAR4(dma_base)             MMIO32(dma_base + 0x10 + 0x14 * 3)
-#define DMA1_CPAR4                      DMA_CPAR4(DMA1)
-#define DMA2_CPAR4                      DMA_CPAR4(DMA2)
+#define DMA_CPAR4(dma_base)		MMIO32(dma_base + 0x10 + 0x14 * 3)
+#define DMA1_CPAR4			DMA_CPAR4(DMA1)
+#define DMA2_CPAR4			DMA_CPAR4(DMA2)
 
 /* DMA channel 5 peripheral address register (DMAx_CPAR5) */
-#define DMA_CPAR5(dma_base)             MMIO32(dma_base + 0x10 + 0x14 * 4)
-#define DMA1_CPAR5                      DMA_CPAR5(DMA1)
-#define DMA2_CPAR5                      DMA_CPAR5(DMA2)
+#define DMA_CPAR5(dma_base)		MMIO32(dma_base + 0x10 + 0x14 * 4)
+#define DMA1_CPAR5			DMA_CPAR5(DMA1)
+#define DMA2_CPAR5			DMA_CPAR5(DMA2)
 
 /* DMA channel 6 peripheral address register (DMAx_CPAR6) */
-#define DMA_CPAR6(dma_base)             MMIO32(dma_base + 0x10 + 0x14 * 5)
-#define DMA1_CPAR6                      DMA_CPAR6(DMA1)
+#define DMA_CPAR6(dma_base)		MMIO32(dma_base + 0x10 + 0x14 * 5)
+#define DMA1_CPAR6			DMA_CPAR6(DMA1)
 
 /* DMA channel 7 peripheral address register (DMAx_CPAR7) */
-#define DMA_CPAR7(dma_base)             MMIO32(dma_base + 0x10 + 0x14 * 6)
-#define DMA1_CPAR7                      DMA_CPAR7(DMA1)
+#define DMA_CPAR7(dma_base)		MMIO32(dma_base + 0x10 + 0x14 * 6)
+#define DMA1_CPAR7			DMA_CPAR7(DMA1)
 
 /* DMA channel 1 memory address register (DMAx_CMAR1) */
-#define DMA_CMAR1(dma_base)             MMIO32(dma_base + 0x14 + 0x14 * 0)
-#define DMA1_CMAR1                      DMA_CMAR1(DMA1)
-#define DMA2_CMAR1                      DMA_CMAR1(DMA2)
+#define DMA_CMAR1(dma_base)		MMIO32(dma_base + 0x14 + 0x14 * 0)
+#define DMA1_CMAR1			DMA_CMAR1(DMA1)
+#define DMA2_CMAR1			DMA_CMAR1(DMA2)
 
 /* DMA channel 2 memory address register (DMAx_CMAR2) */
-#define DMA_CMAR2(dma_base)             MMIO32(dma_base + 0x14 + 0x14 * 1)
-#define DMA1_CMAR2                      DMA_CMAR2(DMA1)
-#define DMA2_CMAR2                      DMA_CMAR2(DMA2)
+#define DMA_CMAR2(dma_base)		MMIO32(dma_base + 0x14 + 0x14 * 1)
+#define DMA1_CMAR2			DMA_CMAR2(DMA1)
+#define DMA2_CMAR2			DMA_CMAR2(DMA2)
 
 /* DMA channel 3 memory address register (DMAx_CMAR3) */
-#define DMA_CMAR3(dma_base)             MMIO32(dma_base + 0x14 + 0x14 * 2)
-#define DMA1_CMAR3                      DMA_CMAR3(DMA1)
-#define DMA2_CMAR3                      DMA_CMAR3(DMA2)
+#define DMA_CMAR3(dma_base)		MMIO32(dma_base + 0x14 + 0x14 * 2)
+#define DMA1_CMAR3			DMA_CMAR3(DMA1)
+#define DMA2_CMAR3			DMA_CMAR3(DMA2)
 
 /* DMA channel 4 memory address register (DMAx_CMAR4) */
-#define DMA_CMAR4(dma_base)             MMIO32(dma_base + 0x14 + 0x14 * 3)
-#define DMA1_CMAR4                      DMA_CMAR4(DMA1)
-#define DMA2_CMAR4                      DMA_CMAR4(DMA2)
+#define DMA_CMAR4(dma_base)		MMIO32(dma_base + 0x14 + 0x14 * 3)
+#define DMA1_CMAR4			DMA_CMAR4(DMA1)
+#define DMA2_CMAR4			DMA_CMAR4(DMA2)
 
 /* DMA channel 5 memory address register (DMAx_CMAR5) */
-#define DMA_CMAR5(dma_base)             MMIO32(dma_base + 0x14 + 0x14 * 4)
-#define DMA1_CMAR5                      DMA_CMAR5(DMA1)
-#define DMA2_CMAR5                      DMA_CMAR5(DMA2)
+#define DMA_CMAR5(dma_base)		MMIO32(dma_base + 0x14 + 0x14 * 4)
+#define DMA1_CMAR5			DMA_CMAR5(DMA1)
+#define DMA2_CMAR5			DMA_CMAR5(DMA2)
 
 /* DMA channel 6 memory address register (DMAx_CMAR6) */
-#define DMA_CMAR6(dma_base)             MMIO32(dma_base + 0x14 + 0x14 * 5)
-#define DMA1_CMAR6                      DMA_CMAR6(DMA1)
+#define DMA_CMAR6(dma_base)		MMIO32(dma_base + 0x14 + 0x14 * 5)
+#define DMA1_CMAR6			DMA_CMAR6(DMA1)
 
 /* DMA channel 7 memory address register (DMAx_CMAR7) */
-#define DMA_CMAR7(dma_base)             MMIO32(dma_base + 0x14 + 0x14 * 6)
-#define DMA1_CMAR7                      DMA_CMAR7(DMA1)
+#define DMA_CMAR7(dma_base)		MMIO32(dma_base + 0x14 + 0x14 * 6)
+#define DMA1_CMAR7			DMA_CMAR7(DMA1)
 
 /* --- DMA_ISR values ------------------------------------------------------ */
 

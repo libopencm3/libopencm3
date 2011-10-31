@@ -26,8 +26,8 @@
 /* --- Convenience macros -------------------------------------------------- */
 
 /* I2C register base adresses (for convenience) */
-#define I2C1                            I2C1_BASE
-#define I2C2                            I2C2_BASE
+#define I2C1				I2C1_BASE
+#define I2C2				I2C2_BASE
 
 /* --- I2C registers ------------------------------------------------------- */
 

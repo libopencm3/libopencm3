@@ -27,50 +27,50 @@
 /* --- SCB: Registers ------------------------------------------------------ */
 
 /* CPUID: CPUID base register */
-#define SCB_CPUID                       MMIO32(SCB_BASE + 0x00)
+#define SCB_CPUID				MMIO32(SCB_BASE + 0x00)
 
 /* ICSR: Interrupt Control State Register */
-#define SCB_ICSR                        MMIO32(SCB_BASE + 0x04)
+#define SCB_ICSR				MMIO32(SCB_BASE + 0x04)
 
 /* VTOR: Vector Table Offset Register */
-#define SCB_VTOR                        MMIO32(SCB_BASE + 0x08)
+#define SCB_VTOR				MMIO32(SCB_BASE + 0x08)
 
 /* AIRCR: Application Interrupt and Reset Control Register */
-#define SCB_AIRCR                       MMIO32(SCB_BASE + 0x0C)
+#define SCB_AIRCR				MMIO32(SCB_BASE + 0x0C)
 
 /* SCR: System Control Register */
-#define SCB_SCR                         MMIO32(SCB_BASE + 0x10)
+#define SCB_SCR					MMIO32(SCB_BASE + 0x10)
 
 /* CCR: Configuration Control Register */
-#define SCB_CCR                         MMIO32(SCB_BASE + 0x14)
+#define SCB_CCR					MMIO32(SCB_BASE + 0x14)
 
 /* SHP: System Handler Priority Registers */
 /* Note: 12 8bit registers */
-#define SCB_SHPR(shpr_id)               MMIO8(SCB_BASE + 0x18 + shpr_id)
-#define SCB_SHPR1			MMIO8(SCB_BASE + 0x18 + 1)
-#define SCB_SHPR2			MMIO8(SCB_BASE + 0x18 + 2)
-#define SCB_SHPR3			MMIO8(SCB_BASE + 0x18 + 3)
+#define SCB_SHPR(shpr_id)			MMIO8(SCB_BASE + 0x18 + shpr_id)
+#define SCB_SHPR1				MMIO8(SCB_BASE + 0x18 + 1)
+#define SCB_SHPR2				MMIO8(SCB_BASE + 0x18 + 2)
+#define SCB_SHPR3				MMIO8(SCB_BASE + 0x18 + 3)
 
 /* SHCSR: System Handler Control and State Register */
-#define SCB_SHCSR                       MMIO32(SCB_BASE + 0x24)
+#define SCB_SHCSR				MMIO32(SCB_BASE + 0x24)
 
 /* CFSR: Configurable Fault Status Registers */
-#define SCB_CFSR                        MMIO32(SCB_BASE + 0x28)
+#define SCB_CFSR				MMIO32(SCB_BASE + 0x28)
 
 /* HFSR: Hard Fault Status Register */
-#define SCB_HFSR                        MMIO32(SCB_BASE + 0x2C)
+#define SCB_HFSR				MMIO32(SCB_BASE + 0x2C)
 
 /* DFSR: Debug Fault Status Register */
-#define SCB_DFSR                        MMIO32(SCB_BASE + 0x30)
+#define SCB_DFSR				MMIO32(SCB_BASE + 0x30)
 
 /* MMFAR: Memory Manage Fault Address Register */
-#define SCB_MMFAR                       MMIO32(SCB_BASE + 0x34)
+#define SCB_MMFAR				MMIO32(SCB_BASE + 0x34)
 
 /* BFAR: Bus Fault Address Register */
-#define SCB_BFAR                        MMIO32(SCB_BASE + 0x38)
+#define SCB_BFAR				MMIO32(SCB_BASE + 0x38)
 
 /* AFSR: Auxiliary Fault Status Register */
-#define SCB_AFSR                        MMIO32(SCB_BASE + 0x3C)
+#define SCB_AFSR				MMIO32(SCB_BASE + 0x3C)
 
 /* --- SCB values ---------------------------------------------------------- */
 
