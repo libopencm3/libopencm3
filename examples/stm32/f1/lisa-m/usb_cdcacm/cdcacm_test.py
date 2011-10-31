@@ -24,7 +24,7 @@ while 1==1:
 
     ser.write("abcdefghijklmnopqrstuvwxyzABCDEFGHIJKLMNOPQRSTUVWXYZ1234567890!@#$%^&*(){}");
 
-    buf = ser.read(75);
+    buf = ser.read(1024);
 
     cycles += 1
 
