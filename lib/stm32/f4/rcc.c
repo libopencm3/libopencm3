@@ -37,6 +37,7 @@ const clock_scale_t hse_8mhz_3v3[CLOCK_3V3_END] =
 		.hpre = RCC_CFGR_HPRE_DIV_NONE,
 		.ppre1 = RCC_CFGR_HPRE_DIV_4,
 		.ppre2 = RCC_CFGR_HPRE_DIV_2,
+		.power_save = 1,
 		.flash_config = FLASH_ICE | FLASH_DCE | FLASH_LATENCY_3WS,
 		.apb1_frequency = 30000000,
 		.apb2_frequency = 60000000,
@@ -50,8 +51,8 @@ const clock_scale_t hse_8mhz_3v3[CLOCK_3V3_END] =
 		.ppre1 = RCC_CFGR_HPRE_DIV_4,
 		.ppre2 = RCC_CFGR_HPRE_DIV_2,
 		.flash_config = FLASH_ICE | FLASH_DCE | FLASH_LATENCY_5WS,
-		.apb1_frequency = 30000000,
-		.apb2_frequency = 60000000,
+		.apb1_frequency = 42000000,
+		.apb2_frequency = 84000000,
 	},
 };
 
@@ -320,8 +321,8 @@ void rcc_set_ppre2(u32 ppre2)
 	u32 reg32;
 
 	reg32 = RCC_CFGR;
-	reg32 &= ~((1 << 11) | (1 << 12) | (1 << 13));
-	RCC_CFGR = (reg32 | (ppre2 << 11));
+	reg32 &= ~((1 << 13) | (1 << 14) | (1 << 15));
+	RCC_CFGR = (reg32 | (ppre2 << 13));
 }
 
 void rcc_set_ppre1(u32 ppre1)
@@ -329,8 +330,8 @@ void rcc_set_ppre1(u32 ppre1)
 	u32 reg32;
 
 	reg32 = RCC_CFGR;
-	reg32 &= ~((1 << 8) | (1 << 9) | (1 << 10));
-	RCC_CFGR = (reg32 | (ppre1 << 8));
+	reg32 &= ~((1 << 10) | (1 << 11) | (1 << 12));
+	RCC_CFGR = (reg32 | (ppre1 << 10));
 }
 
 void rcc_set_hpre(u32 hpre)

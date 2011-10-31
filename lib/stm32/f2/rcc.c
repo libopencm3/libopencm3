@@ -42,12 +42,6 @@ const clock_scale_t hse_8mhz_3v3[CLOCK_3V3_END] =
 	},
 };
 
-/* TODO: Create a table for these values */
-#define RCC_PLL_M      8
-#define RCC_PLL_N      240
-#define RCC_PLL_P      2
-#define RCC_PLL_Q      5
-
 void rcc_osc_ready_int_clear(osc_t osc)
 {
 	switch (osc) {
@@ -313,8 +307,8 @@ void rcc_set_ppre2(u32 ppre2)
 	u32 reg32;
 
 	reg32 = RCC_CFGR;
-	reg32 &= ~((1 << 11) | (1 << 12) | (1 << 13));
-	RCC_CFGR = (reg32 | (ppre2 << 11));
+	reg32 &= ~((1 << 13) | (1 << 14) | (1 << 15));
+	RCC_CFGR = (reg32 | (ppre2 << 13));
 }
 
 void rcc_set_ppre1(u32 ppre1)
@@ -322,8 +316,8 @@ void rcc_set_ppre1(u32 ppre1)
 	u32 reg32;
 
 	reg32 = RCC_CFGR;
-	reg32 &= ~((1 << 8) | (1 << 9) | (1 << 10));
-	RCC_CFGR = (reg32 | (ppre1 << 8));
+	reg32 &= ~((1 << 10) | (1 << 11) | (1 << 12));
+	RCC_CFGR = (reg32 | (ppre1 << 10));
 }
 
 void rcc_set_hpre(u32 hpre)
