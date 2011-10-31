@@ -200,8 +200,8 @@ static void cdcacm_data_rx_cb(u8 ep)
 {
 	(void)ep;
 
-	char buf[64];
-	int len = usbd_ep_read_packet(0x01, buf, 64);
+	char buf[128];
+	int len = usbd_ep_read_packet(0x01, buf, 128);
 	if(len) { 
 		usbd_ep_write_packet(0x82, buf, len);
 		buf[len] = 0;
