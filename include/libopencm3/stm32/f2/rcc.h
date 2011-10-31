@@ -456,6 +456,26 @@ extern u32 rcc_ppre2_frequency;
 /* --- Function prototypes ------------------------------------------------- */
 
 typedef enum {
+	CLOCK_3V3_120MHZ,
+	CLOCK_3V3_END
+} clock_3v3_t;
+
+typedef struct {
+	uint8_t pllm;
+	uint16_t plln;
+	uint8_t pllp;
+	uint8_t pllq;
+	uint32_t flash_config;
+	uint8_t hpre;
+	uint8_t ppre1;
+	uint8_t ppre2;
+	uint32_t apb1_frequency;
+	uint32_t apb2_frequency;
+} clock_scale_t;
+
+extern const clock_scale_t hse_8mhz_3v3[CLOCK_3V3_END];
+
+typedef enum {
 	PLL, HSE, HSI, LSE, LSI
 } osc_t;
 
@@ -486,7 +506,7 @@ void rcc_set_rtcpre(u32 rtcpre);
 void rcc_set_main_pll_hsi(u32 pllm, u32 plln, u32 pllp, u32 pllq);
 void rcc_set_main_pll_hse(u32 pllm, u32 plln, u32 pllp, u32 pllq);
 u32 rcc_get_system_clock_source(int i);
-void rcc_clock_setup_in_hse_8mhz_out_120mhz(void);
+void rcc_clock_setup_hse_3v3(const clock_scale_t *clock);
 void rcc_backupdomain_reset(void);
 
 #endif

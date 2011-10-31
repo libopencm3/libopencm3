@@ -26,13 +26,27 @@
 u32 rcc_ppre1_frequency = 16000000;
 u32 rcc_ppre2_frequency = 16000000;
 
+const clock_scale_t hse_8mhz_3v3[CLOCK_3V3_END] =
+{
+	{ /* 120MHz */
+		.pllm = 8,
+		.plln = 240,
+		.pllp = 2,
+		.pllq = 5,
+		.hpre = RCC_CFGR_HPRE_DIV_NONE,
+		.ppre1 = RCC_CFGR_HPRE_DIV_4,
+		.ppre2 = RCC_CFGR_HPRE_DIV_2,
+		.flash_config = FLASH_ICE | FLASH_DCE | FLASH_LATENCY_3WS,
+		.apb1_frequency = 30000000,
+		.apb2_frequency = 60000000,
+	},
+};
+
 /* TODO: Create a table for these values */
 #define RCC_PLL_M      8
 #define RCC_PLL_N      240
 #define RCC_PLL_P      2
 #define RCC_PLL_Q      5
-#define RCC_PLLI2S_N   256
-#define RCC_PLLI2S_R   5
 
 void rcc_osc_ready_int_clear(osc_t osc)
 {
@@ -332,10 +346,10 @@ void rcc_set_rtcpre(u32 rtcpre)
 
 void rcc_set_main_pll_hsi(u32 pllm, u32 plln, u32 pllp, u32 pllq)
 {
-	RCC_PLLCFGR = pllm |
-		(plln << 6) |
-		(((pllp >> 1) - 1) << 16) |
-		(pllq << 24);
+	RCC_PLLCFGR = (pllm << RCC_PLLCFGR_PLLM_SHIFT) |
+		(plln << RCC_PLLCFGR_PLLN_SHIFT) |
+		(((pllp >> 1) - 1) << RCC_PLLCFGR_PLLP_SHIFT) |
+		(pllq << RCC_PLLCFGR_PLLQ_SHIFT);
 }
 
 void rcc_set_main_pll_hse(u32 pllm, u32 plln, u32 pllp, u32 pllq)
@@ -353,7 +367,7 @@ u32 rcc_system_clock_source(void)
 	return ((RCC_CFGR & 0x000c) >> 2);
 }
 
-void rcc_clock_setup_in_hse_8mhz_out_120mhz(void)
+void rcc_clock_setup_hse_3v3(const clock_scale_t *clock)
 {
 	/* Enable internal high-speed oscillator. */
 	rcc_osc_on(HSI);
@@ -365,31 +379,26 @@ void rcc_clock_setup_in_hse_8mhz_out_120mhz(void)
 	/* Enable external high-speed oscillator 8MHz. */
 	rcc_osc_on(HSE);
 	rcc_wait_for_osc_ready(HSE);
-	rcc_set_sysclk_source(RCC_CFGR_SW_HSE);
 
 	/*
 	 * Set prescalers for AHB, ADC, ABP1, ABP2.
 	 * Do this before touching the PLL (TODO: why?).
 	 */
-	rcc_set_hpre(RCC_CFGR_HPRE_DIV_NONE);	/* Set. 120MHz Max. 120MHz */
-	rcc_set_ppre1(RCC_CFGR_PPRE_DIV_4);	/* Set. 30MHz Max. 30MHz */
-	rcc_set_ppre2(RCC_CFGR_PPRE_DIV_2);	/* Set. 60MHz Max. 60MHz */
+	rcc_set_hpre(clock->hpre);
+	rcc_set_ppre1(clock->ppre1);
+	rcc_set_ppre2(clock->ppre2);
 
-	rcc_set_main_pll_hse(RCC_PLL_M,  RCC_PLL_N, RCC_PLL_P, RCC_PLL_Q);
+	rcc_set_main_pll_hse(clock->pllm,
+			clock->plln,
+			clock->pllp,
+			clock->pllq);
 
 	/* Enable PLL oscillator and wait for it to stabilize. */
 	rcc_osc_on(PLL);
 	rcc_wait_for_osc_ready(PLL);
 
-	/*
-	 * @3.3V
-	 * Sysclk runs with 120MHz -> 3 waitstates.
-	 * 0WS from 0-30MHz
-	 * 1WS from 30-60MHz
-	 * 2WS from 60-90MHz
-	 * 3WS from 90-120MHz
-	 */
-	flash_set_ws(FLASH_PRFTEN | FLASH_ICE | FLASH_DCE | FLASH_LATENCY_3WS);
+	/* Configure flash settings */
+	flash_set_ws(clock->flash_config);
 
 	/* Select PLL as SYSCLK source. */
 	rcc_set_sysclk_source(RCC_CFGR_SW_PLL);
@@ -398,8 +407,8 @@ void rcc_clock_setup_in_hse_8mhz_out_120mhz(void)
 	rcc_wait_for_sysclk_status(PLL);
 
 	/* Set the peripheral clock frequencies used */
-	rcc_ppre1_frequency = 30000000;
-	rcc_ppre2_frequency = 60000000;
+	rcc_ppre1_frequency = clock->apb1_frequency;
+	rcc_ppre2_frequency = clock->apb2_frequency;
 }
 
 void rcc_backupdomain_reset(void)
