@@ -22,9 +22,12 @@
 #include <libopencm3/stm32/f1/rcc.h>
 #include <libopencm3/stm32/f1/gpio.h>
 #include <libopencm3/stm32/systick.h>
+#include <libopencm3/stm32/spi.h>
 #include <libopencm3/stm32/otg_fs.h>
 #include <libopencm3/usb/usbd.h>
 #include <libopencm3/usb/hid.h>
+
+#include "adxl345.h"
 
 /* Define this to include the DFU APP interface. */
 #define INCLUDE_DFU_INTERFACE
@@ -91,7 +94,7 @@ const struct usb_endpoint_descriptor hid_endpoint = {
 	.bEndpointAddress = 0x81,
 	.bmAttributes = USB_ENDPOINT_ATTR_INTERRUPT,
 	.wMaxPacketSize = 4,
-	.bInterval = 0x20,
+	.bInterval = 0x02,
 };
 
 const struct usb_interface_descriptor hid_iface = {
@@ -238,13 +241,81 @@ static void hid_set_config(u16 wValue)
 	systick_counter_enable();
 }
 
+static uint8_t spi_readwrite(uint32_t spi, uint8_t data)
+{
+	while(SPI_SR(spi) & SPI_SR_BSY);
+	SPI_DR(spi) = data;
+	while(!(SPI_SR(spi) & SPI_SR_RXNE));
+	return SPI_DR(spi);
+}
+
+static uint8_t accel_read(uint8_t addr)
+{
+	uint8_t ret;
+	gpio_clear(GPIOB, GPIO12);
+	spi_readwrite(SPI2, addr | 0x80);
+	ret = spi_readwrite(SPI2, 0);
+	gpio_set(GPIOB, GPIO12);
+	return ret;
+}
+
+static void accel_write(uint8_t addr, uint8_t data)
+{
+	gpio_clear(GPIOB, GPIO12);
+	spi_readwrite(SPI2, addr);
+	spi_readwrite(SPI2, data);
+	gpio_set(GPIOB, GPIO12);
+}
+
+static void accel_get(int16_t *x, int16_t *y, int16_t *z)
+{
+	if(x) 
+		*x = accel_read(ADXL345_DATAX0) | 
+			(accel_read(ADXL345_DATAX1) << 8);
+	if(y) 
+		*y = accel_read(ADXL345_DATAY0) | 
+			(accel_read(ADXL345_DATAY1) << 8);
+	if(z) 
+		*z = accel_read(ADXL345_DATAZ0) | 
+			(accel_read(ADXL345_DATAZ1) << 8);
+}
+
 int main(void)
 {
 	rcc_clock_setup_in_hse_12mhz_out_72mhz();
 
-
 	rcc_peripheral_enable_clock(&RCC_APB2ENR, RCC_APB2ENR_IOPAEN);
+	rcc_peripheral_enable_clock(&RCC_APB2ENR, RCC_APB2ENR_IOPBEN);
 	rcc_peripheral_enable_clock(&RCC_APB2ENR, RCC_APB2ENR_IOPCEN);
+	rcc_peripheral_enable_clock(&RCC_APB1ENR, RCC_APB1ENR_SPI2EN);
+
+	/* Configure SPI2: PB13(SCK), PB14(MISO), PB15(MOSI) */
+	gpio_set_mode(GPIOB, GPIO_MODE_OUTPUT_10_MHZ, 
+			GPIO_CNF_OUTPUT_ALTFN_PUSHPULL,
+			GPIO_SPI2_SCK | GPIO_SPI2_MOSI);
+	gpio_set_mode(GPIOB, GPIO_MODE_INPUT, GPIO_CNF_INPUT_FLOAT,
+			GPIO_SPI2_MISO);
+	/* Enable CS pin on PB12 */
+	gpio_set(GPIOB, GPIO12);
+	gpio_set_mode(GPIOB, GPIO_MODE_OUTPUT_10_MHZ, 
+			GPIO_CNF_OUTPUT_PUSHPULL, GPIO12);
+
+	/* Force to SPI mode.  This should be default after reset! */
+	SPI2_I2SCFGR = 0; 
+	spi_init_master(SPI2,
+			SPI_CR1_BAUDRATE_FPCLK_DIV_256, 
+			SPI_CR1_CPOL_CLK_TO_1_WHEN_IDLE, 
+			SPI_CR1_CPHA_CLK_TRANSITION_2, 
+			SPI_CR1_DFF_8BIT,
+			SPI_CR1_MSBFIRST);
+	/* Ignore the stupid NSS pin */
+	spi_enable_software_slave_management(SPI2);
+	spi_set_nss_high(SPI2);
+	spi_enable(SPI2);
+
+	uint8_t x = accel_read(ADXL345_DEVID);
+	accel_write(ADXL345_POWER_CTL, ADXL345_POWER_CTL_MEASURE);
+	accel_write(ADXL345_DATA_FORMAT, ADXL345_DATA_FORMAT_LALIGN);
 
 	/* USB_DETECT as input */
 	gpio_set_mode(GPIOA, GPIO_MODE_INPUT,
@@ -275,14 +346,12 @@ int main(void)
 
 void sys_tick_handler(void)
 {
-	static int x = 0;
-	static int dir = 1;
+	int16_t x, y;
 	u8 buf[4] = {0, 0, 0, 0};
 
-	buf[1] = dir;
-	x += dir;
-	if(x > 30) dir = -dir;
-	if(x < -30) dir = -dir;
+	accel_get(&x, &y, NULL);
+	buf[1] = x >> 9;
+	buf[2] = y >> 9;
 
 	usbd_ep_write_packet(0x81, buf, 4);
 }
