@@ -17,21 +17,26 @@
  * along with this program.  If not, see <http://www.gnu.org/licenses/>.
  */
 
-#ifndef LIBOPENCM3_MEMORYMAP_COMMON_H
-#define LIBOPENCM3_MEMORYMAP_COMMON_H
+#ifndef LIBOPENCM3_SPI_F4_H
+#define LIBOPENCM3_SPI_F4_H
 
-#ifdef STM32F1
-#include <libopencm3/stm32/f1/memorymap.h>
-#else
-#ifdef STM32F2
-#include <libopencm3/stm32/f2/memorymap.h>
-#else
-#ifdef STM32F4
-#include <libopencm3/stm32/f4/memorymap.h>
-#else
-#error "stm32 family not defined."
-#endif
-#endif
-#endif
+#include <libopencm3/stm32/spi.h>
+
+/*
+ * This file extends the version in stm_common with definitions only
+ * applicable to the STM32F2 series of devices.
+ */
+
+/* --- SPI_CR2 values ------------------------------------------------------ */
+
+/* FRF: Frame format. */
+#define SPI_CR2_FRF			(1 << 4)
+#define SPI_CR2_FRF_TI		       	(1 << 4)
+#define SPI_CR2_FRF_MOTOROLA			(1 << 4)
+
+/* --- SPI_SR values ------------------------------------------------------- */
+
+/* TIFRFE: TI frame format error. */
+#define SPI_SR_RXNE			(1 << 0)
 
 #endif

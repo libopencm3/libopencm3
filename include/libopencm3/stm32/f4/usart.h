@@ -17,21 +17,19 @@
  * along with this program.  If not, see <http://www.gnu.org/licenses/>.
  */
 
-#ifndef LIBOPENCM3_MEMORYMAP_COMMON_H
-#define LIBOPENCM3_MEMORYMAP_COMMON_H
+#ifndef LIBOPENCM3_USART_F4_H
+#define LIBOPENCM3_USART_F4_H
 
-#ifdef STM32F1
-#include <libopencm3/stm32/f1/memorymap.h>
-#else
-#ifdef STM32F2
-#include <libopencm3/stm32/f2/memorymap.h>
-#else
-#ifdef STM32F4
-#include <libopencm3/stm32/f4/memorymap.h>
-#else
-#error "stm32 family not defined."
-#endif
-#endif
-#endif
+#include <libopencm3/stm32/usart.h>
+
+/* --- USART_CR1 values ---------------------------------------------------- */
+
+/* OVER8: Oversampling mode */
+#define USART_CR1_OVER8			(1 << 15)
+
+/* --- USART_CR3 values ---------------------------------------------------- */
+
+/* ONEBIT: One sample bit method enable */
+#define USART_CR3_ONEBIT			(1 << 11)
 
 #endif
