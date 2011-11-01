@@ -17,6 +17,7 @@ programming manuals, and application notes. The code is meant to be used
 with a GCC toolchain for ARM (arm-elf or arm-none-eabi), flashing of the
 code to a microcontroller can be done using the OpenOCD ARM JTAG software.
 
+
 Status and API
 --------------
 
@@ -26,6 +27,7 @@ of the microcontrollers are supported, yet.
 IMPORTANT: The API of the library is NOT yet considered stable! Please do
            not rely on it, yet! Changes to function names, macro names etc.
            can happen at any time without prior notice!
+
 
 Building
 --------
@@ -49,7 +51,8 @@ individual subsystems of the microcontrollers can be configured and used with
 libopencm3.
 
 For flashing the 'miniblink' example (after you built libopencm3 and the
-examples by typing 'make' at the top-level directory) you can execute:
+examples by typing 'make' at the top-level directory) onto the Olimex
+STM32-H103 eval board (ST STM32F1 series microcontroller), you can execute:
 
  $ cd examples/stm32/f1/stm32-h103/miniblink
  $ make flash
@@ -87,6 +90,7 @@ script from https://github.com/esden/summon-arm-toolchain.
 
  $ DESTDIR=~/sat make install
 
+
 Coding style and development guidelines
 ---------------------------------------
 
@@ -106,20 +110,15 @@ Mailing lists
 -------------
 
  * Developer mailing list (for patches and discussions):
-   https://lists.sourceforge.net/lists/listinfo/libopenstm32-devel
+   https://lists.sourceforge.net/lists/listinfo/libopencm3-devel
 
  * Commits mailing list (receives one mail per 'git push'):
-   https://lists.sourceforge.net/lists/listinfo/libopenstm32-commits
+   https://lists.sourceforge.net/lists/listinfo/libopencm3-commits
 
 
 Website
 -------
 
-The official website is:
-
- http://sourceforge.net/projects/libopenstm32/
-
-There's a wiki at:
-
- http://sourceforge.net/apps/mediawiki/libopenstm32/
+ http://libopencm3.org
+ http://sourceforge.net/projects/libopencm3/
 
