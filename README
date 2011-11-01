@@ -51,7 +51,7 @@ libopencm3.
 For flashing the 'miniblink' example (after you built libopencm3 and the
 examples by typing 'make' at the top-level directory) you can execute:
 
- $ cd examples/stm32f1/stm32-h103/miniblink
+ $ cd examples/stm32/f1/stm32-h103/miniblink
  $ make flash
 
 The Makefiles of the examples are configured to use a certain OpenOCD
@@ -67,7 +67,7 @@ You can also flash manually like this:
  > reset
 
 Replace the "jtagkey-tiny.cfg" with whatever JTAG device you are using, and/or
-replace "stm32.cfg" with your respective config file. Replace "foobar.hex"
+replace "stm32f1x.cfg" with your respective config file. Replace "foobar.hex"
 with the file name of the image you want to flash.
 
 
