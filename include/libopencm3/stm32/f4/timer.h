@@ -50,4 +50,8 @@
 #define TIM5_OR_TI4_RMP_RTC		(0x3 << 6)
 #define TIM5_OR_TI4_RMP_MASK		(0x3 << 6)
 
+/* --- Function prototypes ------------------------------------------------- */
+
+void timer_set_option(u32 timer_peripheral, u32 option);
+
 #endif

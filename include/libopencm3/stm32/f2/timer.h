@@ -35,7 +35,7 @@
 /* --- TIM2_OR values ---------------------------------------------------- */
 
 /* MOE: Main output enable */
-#define TIM2_OR_ITR1_RMP_TIM8_TRGOUT	(0x0 << 10)
+#define TIM2_OR_ITR1_RMP_TIM8_TRGOU	(0x0 << 10)
 #define TIM2_OR_ITR1_RMP_PTP		(0x1 << 10)
 #define TIM2_OR_ITR1_RMP_OTG_FS_SOF	(0x2 << 10)
 #define TIM2_OR_ITR1_RMP_OTG_HS_SOF	(0x3 << 10)
@@ -49,5 +49,9 @@
 #define TIM5_OR_TI4_RMP_LSE		(0x2 << 6)
 #define TIM5_OR_TI4_RMP_RTC		(0x3 << 6)
 #define TIM5_OR_TI4_RMP_MASK		(0x3 << 6)
+
+/* --- Function prototypes ------------------------------------------------- */
+
+void timer_set_option(u32 timer_peripheral, u32 option);
 
 #endif
