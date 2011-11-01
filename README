@@ -7,7 +7,9 @@ various ARM Cortex-M3 microcontrollers.
 
 Currently (at least partly) supported microcontrollers:
 
- - ST STM32
+ - ST STM32F1 series
+ - ST STM32F2 series
+ - ST STM32F4 series
  - NXP LPC1311/13/42/43
 
 The library is written completely from scratch based on the vendor datasheets,
