@@ -116,7 +116,7 @@ static const char *usb_strings[] = {
 
 static u8 usbdfu_getstatus(u32 *bwPollTimeout)
 {
-	switch(usbdfu_state) {
+	switch (usbdfu_state) {
 	case STATE_DFU_DNLOAD_SYNC:
 		usbdfu_state = STATE_DFU_DNBUSY;
 		*bwPollTimeout = 100;
@@ -139,7 +139,7 @@ static void usbdfu_getstatus_complete(struct usb_setup_data *req)
 	case STATE_DFU_DNBUSY:
 		flash_unlock();
 		if (prog.blocknum == 0) {
-			switch(prog.buf[0]) {
+			switch (prog.buf[0]) {
 			case CMD_ERASE:
 				flash_erase_page(*(u32 *)(prog.buf + 1));
 			case CMD_SETADDR:
@@ -169,10 +169,10 @@ static void usbdfu_getstatus_complete(struct usb_setup_data *req)
 static int usbdfu_control_request(struct usb_setup_data *req, u8 **buf,
 		u16 *len, void (**complete)(struct usb_setup_data *req))
 {
-	if ((req->bmRequestType & 0x7f) != 0x21)
+	if ((req->bmRequestType & 0x7F) != 0x21)
 		return 0; /* Only accept class request. */
 
-	switch(req->bRequest) {
+	switch (req->bRequest) {
 	case DFU_DNLOAD:
 		if ((len == NULL) || (*len == 0)) {
 			usbdfu_state = STATE_DFU_MANIFEST_SYNC;
@@ -187,7 +187,7 @@ static int usbdfu_control_request(struct usb_setup_data *req, u8 **buf,
 		}
 	case DFU_CLRSTATUS:
 		/* Clear error and return to dfuIDLE. */
-		if(usbdfu_state == STATE_DFU_ERROR)
+		if (usbdfu_state == STATE_DFU_ERROR)
 			usbdfu_state = STATE_DFU_IDLE;
 		return 1;
 	case DFU_ABORT:
@@ -199,7 +199,6 @@ static int usbdfu_control_request(struct usb_setup_data *req, u8 **buf,
 		return 0;
 	case DFU_GETSTATUS: {
 		u32 bwPollTimeout = 0; /* 24-bit integer in DFU class spec */
-
 		(*buf)[0] = usbdfu_getstatus(&bwPollTimeout);
 		(*buf)[1] = bwPollTimeout & 0xFF;
 		(*buf)[2] = (bwPollTimeout >> 8) & 0xFF;
@@ -207,9 +206,7 @@ static int usbdfu_control_request(struct usb_setup_data *req, u8 **buf,
 		(*buf)[4] = usbdfu_state;
 		(*buf)[5] = 0; /* iString not used here */
 		*len = 6;
-
 		*complete = usbdfu_getstatus_complete;
-
 		return 1;
 		}
 	case DFU_GETSTATE:
@@ -228,14 +225,14 @@ int main(void)
 
 	if (!gpio_get(GPIOA, GPIO10)) {
 		/* Boot the application if it's valid. */
-		if ((*(volatile u32*)APP_ADDRESS & 0x2FFE0000) == 0x20000000) {
+		if ((*(volatile u32 *)APP_ADDRESS & 0x2FFE0000) == 0x20000000) {
 			/* Set vector table base address. */
 			SCB_VTOR = APP_ADDRESS & 0xFFFF;
 			/* Initialise master stack pointer. */
-			asm volatile ("msr msp, %0"::"g"
-					(*(volatile u32 *)APP_ADDRESS));
+			asm volatile("msr msp, %0"::"g"
+				     (*(volatile u32 *)APP_ADDRESS));
 			/* Jump to application. */
-			(*(void(**)())(APP_ADDRESS + 4))();
+			(*(void (**)())(APP_ADDRESS + 4))();
 		}
 	}
 
