@@ -2,7 +2,7 @@
  * This file is part of the libopencm3 project.
  *
  * Copyright (C) 2009 Uwe Hermann <uwe@hermann-uwe.de>,
- *               2010 Piotr Esden-Tempski <piotr@esden.net>
+ * Copyright (C) 2010 Piotr Esden-Tempski <piotr@esden.net>
  *
  * This program is free software: you can redistribute it and/or modify
  * it under the terms of the GNU General Public License as published by
@@ -32,7 +32,6 @@ u16 exti_direction = FALLING;
 void clock_setup(void)
 {
 	rcc_clock_setup_in_hse_8mhz_out_72mhz();
-
 }
 
 void gpio_setup(void)
@@ -53,21 +52,20 @@ void exti_setup(void)
 	/* Enable AFIO clock. */
 	rcc_peripheral_enable_clock(&RCC_APB2ENR, RCC_APB2ENR_AFIOEN);
 
-	/* Enable EXTI0 interrupt */
+	/* Enable EXTI0 interrupt. */
 	nvic_enable_irq(NVIC_EXTI0_IRQ);
 
 	/* Set GPIO0 (in GPIO port A) to 'input open-drain'. */
-	gpio_set_mode(GPIOA, GPIO_MODE_INPUT,
-		      GPIO_CNF_INPUT_FLOAT, GPIO0);
+	gpio_set_mode(GPIOA, GPIO_MODE_INPUT, GPIO_CNF_INPUT_FLOAT, GPIO0);
 
-	/* configure EXTI subsystem */
+	/* Configure the EXTI subsystem. */
 	exti_select_source(EXTI0, GPIOA);
 	exti_direction = FALLING;
 	exti_set_trigger(EXTI0, EXTI_TRIGGER_FALLING);
 	exti_enable_request(EXTI0);
 }
 
-void exti0_isr()
+void exti0_isr(void)
 {
 	exti_reset_request(EXTI0);
 
@@ -84,15 +82,12 @@ void exti0_isr()
 
 int main(void)
 {
-
 	clock_setup();
 	gpio_setup();
 	exti_setup();
 
-	/* Blink the LED (PC12) on the board. */
-	while (1) {
+	while (1)
 		__asm("nop");
-	}
 
 	return 0;
 }

@@ -31,8 +31,7 @@ void clock_setup(void)
 
 	/* Enable clocks for GPIO port A (for GPIO_USART1_TX) and USART1. */
 	rcc_peripheral_enable_clock(&RCC_APB2ENR, RCC_APB2ENR_IOPAEN |
-				RCC_APB2ENR_AFIOEN |
-				RCC_APB2ENR_USART1EN);
+				    RCC_APB2ENR_AFIOEN | RCC_APB2ENR_USART1EN);
 }
 
 void usart_setup(void)
@@ -42,7 +41,7 @@ void usart_setup(void)
 
 	/* Setup GPIO pin GPIO_USART1_RE_TX on GPIO port B for transmit. */
 	gpio_set_mode(GPIOA, GPIO_MODE_OUTPUT_50_MHZ,
-                      GPIO_CNF_OUTPUT_ALTFN_PUSHPULL, GPIO_USART1_TX);
+		      GPIO_CNF_OUTPUT_ALTFN_PUSHPULL, GPIO_USART1_TX);
 
 	/* Setup GPIO pin GPIO_USART1_RE_RX on GPIO port B for receive. */
 	gpio_set_mode(GPIOA, GPIO_MODE_INPUT,
@@ -67,7 +66,7 @@ void gpio_setup(void)
 {
 	gpio_set(GPIOC, GPIO12);
 
-	/* Setup GPIO6 and 7 (in GPIO port A) for led use. */
+	/* Setup GPIO6 and 7 (in GPIO port A) for LED use. */
 	gpio_set_mode(GPIOC, GPIO_MODE_OUTPUT_50_MHZ,
 		      GPIO_CNF_OUTPUT_PUSHPULL, GPIO12);
 }
@@ -78,7 +77,7 @@ void usart1_isr(void)
 
 	/* Check if we were called because of RXNE. */
 	if (((USART_CR1(USART1) & USART_CR1_RXNEIE) != 0) &&
-		((USART_SR(USART1) & USART_SR_RXNE) != 0)) {
+	    ((USART_SR(USART1) & USART_SR_RXNE) != 0)) {
 
 		/* Indicate that we got data. */
 		gpio_toggle(GPIOC, GPIO12);
@@ -92,10 +91,10 @@ void usart1_isr(void)
 
 	/* Check if we were called because of TXE. */
 	if (((USART_CR1(USART1) & USART_CR1_TXEIE) != 0) &&
-		((USART_SR(USART1) & USART_SR_TXE) != 0)) {
+	    ((USART_SR(USART1) & USART_SR_TXE) != 0)) {
 
 		/* Indicate that we are sending out data. */
-		//gpio_toggle(GPIOA, GPIO7);
+		// gpio_toggle(GPIOA, GPIO7);
 
 		/* Put data into the transmit register. */
 		usart_send(USART1, data);

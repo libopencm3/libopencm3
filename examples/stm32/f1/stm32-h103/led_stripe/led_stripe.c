@@ -18,14 +18,13 @@
  */
 
 /*
- * This example is implementing the protocol of ZJ168 addressable led
+ * This example is implementing the protocol of ZJ168 addressable LED
  * strips. These strips use the LPD6803 controller. You may be able to
  * find the datasheet here:
  * http://www.adafruit.com/datasheets/LPD6803.pdf
  */
 
 #include <stdlib.h>
-
 #include <libopencm3/stm32/f1/rcc.h>
 #include <libopencm3/stm32/f1/gpio.h>
 
@@ -68,10 +67,9 @@ void clock_setup(void)
 {
 	rcc_clock_setup_in_hse_8mhz_out_72mhz();
 
-	/* Enable GPIOC clock. */
+	/* Enable GPIOB and GPIOC clock. */
 	rcc_peripheral_enable_clock(&RCC_APB2ENR, RCC_APB2ENR_IOPCEN);
 	rcc_peripheral_enable_clock(&RCC_APB2ENR, RCC_APB2ENR_IOPBEN);
-
 }
 
 void gpio_setup(void)
@@ -79,28 +77,33 @@ void gpio_setup(void)
 	/* Set GPIO12 (in GPIO port C) to 'output push-pull'. */
 	gpio_set_mode(GPIOC, GPIO_MODE_OUTPUT_50_MHZ,
 		      GPIO_CNF_OUTPUT_PUSHPULL, GPIO12);
+
+	/* Set GPIO13 (in GPIO port B) to 'output push-pull'. */
 	gpio_set_mode(GPIOB, GPIO_MODE_OUTPUT_50_MHZ,
 		      GPIO_CNF_OUTPUT_PUSHPULL, GPIO13);
+
+	/* Set GPIO15 (in GPIO port B) to 'output push-pull'. */
 	gpio_set_mode(GPIOB, GPIO_MODE_OUTPUT_50_MHZ,
 		      GPIO_CNF_OUTPUT_PUSHPULL, GPIO15);
 }
 
-void send_colors(struct color *colors, int count) {
+void send_colors(struct color *colors, int count)
+{
 	int i, k;
 
-	/* initialize spi pins */
+	/* Initialize SPI pins. */
 	SCLK(0);
 	MOSI(0);
 
-	/* start frame */
-	for (i=0; i<32; i++) {
+	/* Start frame */
+	for (i = 0; i < 32; i++) {
 		SCLK(1);
 		SMALL_DELAY();
 		SCLK(0);
 		SMALL_DELAY();
 	}
 
-	/* color cell output */
+	/* Color cell output */
 	for (k = 0; k < count; k++) {
 		/* Start bit */
 		MOSI(1);
@@ -110,7 +113,7 @@ void send_colors(struct color *colors, int count) {
 		SMALL_DELAY();
 
 		/* Blue */
-		for (i=0; i<5; i++) {
+		for (i = 0; i < 5; i++) {
 			MOSI(((colors[k].b & ((1 << 4) >> i)) != 0));
 			SCLK(1);
 			SMALL_DELAY();
@@ -118,7 +121,7 @@ void send_colors(struct color *colors, int count) {
 			SMALL_DELAY();
 		}
 		/* Red */
-		for (i=0; i<5; i++) {
+		for (i = 0; i < 5; i++) {
 			MOSI(((colors[k].r & ((1 << 4) >> i)) != 0));
 			SCLK(1);
 			SMALL_DELAY();
@@ -126,7 +129,7 @@ void send_colors(struct color *colors, int count) {
 			SMALL_DELAY();
 		}
 		/* Green */
-		for (i=0; i<5; i++) {
+		for (i = 0; i < 5; i++) {
 			MOSI(((colors[k].g & ((1 << 4) >> i)) != 0));
 			SCLK(1);
 			SMALL_DELAY();
@@ -137,7 +140,7 @@ void send_colors(struct color *colors, int count) {
 
 	/* End frame */
 	MOSI(0);
-	for (k=0; k < count; k++) {
+	for (k = 0; k < count; k++) {
 		SCLK(1);
 		SMALL_DELAY();
 		SCLK(0);
@@ -145,18 +148,19 @@ void send_colors(struct color *colors, int count) {
 	}
 }
 
-void reset_colors(struct color *colors, int count) {
+void reset_colors(struct color *colors, int count)
+{
 	int i;
 
-	for (i=0; i<count; i++) {
+	for (i = 0; i < count; i++) {
 		colors[i].r = 0;
 		colors[i].g = 0;
 		colors[i].b = 0;
 	}
 }
 
-void init_colors(struct color *colors, int count) {
-
+void init_colors(struct color *colors, int count)
+{
 	colors[0].r = 0x1F;
 	colors[0].g = 0;
 	colors[0].b = 0;
@@ -170,28 +174,29 @@ void init_colors(struct color *colors, int count) {
 	count = count;
 }
 
-void step_colors(struct color *colors, int count) {
+void step_colors(struct color *colors, int count)
+{
 	int i;
 	struct color tmp_color1;
 	struct color tmp_color2;
 
-/* random blinking */
-/*
-	for (i=0; i<count; i++) {
-		colors[i].r = rand()&0x01;
-		colors[i].g = rand()&0x01;
-		colors[i].b = rand()&0x01;
+#if 0
+	/* Random blinking. */
+	for (i = 0; i < count; i++) {
+		colors[i].r = rand() & 0x01;
+		colors[i].g = rand() & 0x01;
+		colors[i].b = rand() & 0x01;
 	}
-*/
-	/* generate next colors */
+#endif
 
+	/* Generate next colors. */
 	tmp_color1.r = colors[0].r;
 	tmp_color1.g = colors[0].g;
 	tmp_color1.b = colors[0].b;
-	colors[0].r = colors[count-1].r;
-	colors[0].g = colors[count-1].g;
-	colors[0].b = colors[count-1].b;
-	for(i=1; i<count; i++) {
+	colors[0].r = colors[count - 1].r;
+	colors[0].g = colors[count - 1].g;
+	colors[0].b = colors[count - 1].b;
+	for (i = 1; i < count; i++) {
 		tmp_color2.r = colors[i].r;
 		tmp_color2.g = colors[i].g;
 		tmp_color2.b = colors[i].b;
@@ -202,7 +207,6 @@ void step_colors(struct color *colors, int count) {
 		tmp_color1.g = tmp_color2.g;
 		tmp_color1.b = tmp_color2.b;
 	}
-
 }
 
 int main(void)
@@ -224,10 +228,8 @@ int main(void)
 
 		step_colors(colors, COLOR_COUNT);
 
-		/* Wait a little */
 		for (i = 0; i < 1000000; i++)	/* Wait a bit. */
 			__asm__("nop");
-
 	}
 
 	return 0;

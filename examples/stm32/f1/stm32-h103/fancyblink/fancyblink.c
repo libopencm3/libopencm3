@@ -27,7 +27,6 @@ void clock_setup(void)
 
 	/* Enable GPIOC clock. */
 	rcc_peripheral_enable_clock(&RCC_APB2ENR, RCC_APB2ENR_IOPCEN);
-
 }
 
 void gpio_setup(void)

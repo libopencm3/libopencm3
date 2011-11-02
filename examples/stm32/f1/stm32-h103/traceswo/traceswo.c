@@ -35,31 +35,30 @@ void clock_setup(void)
 
 void trace_setup(void)
 {
-	/* Enable trace subsystem (we'll use ITM and TPIU) */
+	/* Enable trace subsystem (we'll use ITM and TPIU). */
 	SCS_DEMCR |= SCS_DEMCR_TRCENA;
 
-	/* Use Manchester code for asynchronous transmission */
+	/* Use Manchester code for asynchronous transmission. */
 	TPIU_SPPR = TPIU_SPPR_ASYNC_MANCHESTER;
 	TPIU_ACPR = 7;
 
-	/* Data width is 1 byte */
+	/* Data width is 1 byte. */
 	TPIU_CSPSR = TPIU_CSPSR_BYTE;
 
-	/* Formatter and flush control */
+	/* Formatter and flush control. */
 	TPIU_FFCR &= ~TPIU_FFCR_ENFCONT;
 
-	/* Enable TRACESWO pin for async mode */
+	/* Enable TRACESWO pin for async mode. */
 	DBGMCU_CR = DBGMCU_CR_TRACE_IOEN | DBGMCU_CR_TRACE_MODE_ASYNC;
 
-	/* Unlock access to ITM registers */
+	/* Unlock access to ITM registers. */
 	/* FIXME: Magic numbers... Is this Cortex-M3 generic? */
-	*((volatile uint32_t*)0xE0000FB0) = 0xC5ACCE55;
+	*((volatile u32 *)0xE0000FB0) = 0xC5ACCE55;
 
-	/* Enable ITM with ID = 1 */
+	/* Enable ITM with ID = 1. */
 	ITM_TCR = (1 << 16) | ITM_TCR_ITMENA;
-	/* Enable stimulus port 1 */
-	ITM_TER[0] = 1;	
-
+	/* Enable stimulus port 1. */
+	ITM_TER[0] = 1;
 }
 
 void gpio_setup(void)
@@ -71,7 +70,9 @@ void gpio_setup(void)
 
 void trace_send_blocking(char c)
 {
-	while(!(ITM_STIM[0] & ITM_STIM_FIFOREADY));
+	while (!(ITM_STIM[0] & ITM_STIM_FIFOREADY))
+		;
+
 	ITM_STIM[0] = c;
 }
 
@@ -86,14 +87,14 @@ int main(void)
 	/* Blink the LED (PC12) on the board with every transmitted byte. */
 	while (1) {
 		gpio_toggle(GPIOC, GPIO12);	/* LED on/off */
-		trace_send_blocking(c + '0'); 
+		trace_send_blocking(c + '0');
 		c = (c == 9) ? 0 : c + 1;	/* Increment c. */
 		if ((j++ % 80) == 0) {		/* Newline after line full. */
 			trace_send_blocking('\r');
 			trace_send_blocking('\n');
 		}
 		for (i = 0; i < 800000; i++)	/* Wait a bit. */
-			__asm__("NOP");
+			__asm__("nop");
 	}
 
 	return 0;

@@ -2,7 +2,7 @@
  * This file is part of the libopencm3 project.
  *
  * Copyright (C) 2009 Uwe Hermann <uwe@hermann-uwe.de>,
- *               2010 Piotr Esden-Tempski <piotr@esden.net>
+ * Copyright (C) 2010 Piotr Esden-Tempski <piotr@esden.net>
  *
  * This program is free software: you can redistribute it and/or modify
  * it under the terms of the GNU General Public License as published by
@@ -29,7 +29,6 @@ u16 exti_line_state;
 void clock_setup(void)
 {
 	rcc_clock_setup_in_hse_8mhz_out_72mhz();
-
 }
 
 void gpio_setup(void)
@@ -48,9 +47,7 @@ void button_setup(void)
 	rcc_peripheral_enable_clock(&RCC_APB2ENR, RCC_APB2ENR_IOPAEN);
 
 	/* Set GPIO0 (in GPIO port A) to 'input open-drain'. */
-	gpio_set_mode(GPIOA, GPIO_MODE_INPUT,
-		      GPIO_CNF_INPUT_FLOAT, GPIO0);
-
+	gpio_set_mode(GPIOA, GPIO_MODE_INPUT, GPIO_CNF_INPUT_FLOAT, GPIO0);
 }
 
 int main(void)

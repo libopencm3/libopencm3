@@ -41,9 +41,8 @@ u16 frequency_sequence[18] = {
 	1000,
 	500,
 	1000,
-        5000
+	5000,
 };
-
 
 int frequency_sel = 0;
 
@@ -55,7 +54,6 @@ int debug = 0;
 void clock_setup(void)
 {
 	rcc_clock_setup_in_hse_8mhz_out_72mhz();
-
 }
 
 void gpio_setup(void)
@@ -63,38 +61,31 @@ void gpio_setup(void)
 	/* Enable GPIOC clock. */
 	rcc_peripheral_enable_clock(&RCC_APB2ENR, RCC_APB2ENR_IOPCEN);
 
-	/*
-	 * Set GPIO12 (PORTC) (led) to
-	 * 'output alternate function push-pull'.
-	 */
+	/* Set GPIO12 (in GPIO port C) to 'output push-pull'. */
 	gpio_set_mode(GPIOC, GPIO_MODE_OUTPUT_50_MHZ,
-		GPIO_CNF_OUTPUT_PUSHPULL, GPIO12);
+		      GPIO_CNF_OUTPUT_PUSHPULL, GPIO12);
 
 	gpio_set(GPIOC, GPIO12);
-
 }
 
 void tim_setup(void)
 {
-
 	/* Enable TIM2 clock. */
 	rcc_peripheral_enable_clock(&RCC_APB1ENR, RCC_APB1ENR_TIM2EN);
-
 
 	/* Enable TIM2 interrupt. */
 	nvic_enable_irq(NVIC_TIM2_IRQ);
 
-	/* Reset TIM2 peripheral */
+	/* Reset TIM2 peripheral. */
 	timer_reset(TIM2);
 
 	/* Timer global mode:
 	 * - No divider
-	 * - alignment edge
-	 * - direction up
+	 * - Alignment edge
+	 * - Direction up
 	 */
 	timer_set_mode(TIM2, TIM_CR1_CKD_CK_INT,
-		       TIM_CR1_CMS_EDGE,
-		       TIM_CR1_DIR_UP);
+		       TIM_CR1_CMS_EDGE, TIM_CR1_DIR_UP);
 
 	/* Reset prescaler value. */
 	timer_set_prescaler(TIM2, 36000);
@@ -105,7 +96,7 @@ void tim_setup(void)
 	/* Continous mode. */
 	timer_continuous_mode(TIM2);
 
-	/* Period (36kHz) */
+	/* Period (36kHz). */
 	timer_set_period(TIM2, 65535);
 
 	/* Disable outputs. */
@@ -126,19 +117,19 @@ void tim_setup(void)
 	timer_set_oc_value(TIM2, TIM_OC1, 1000);
 
 	/* ---- */
-	/* ARR reload enable */
+
+	/* ARR reload enable. */
 	timer_disable_preload(TIM2);
 
-	/* Counter enable */
+	/* Counter enable. */
 	timer_enable_counter(TIM2);
 
-	/* Enable commutation interrupt */
+	/* Enable commutation interrupt. */
 	timer_enable_irq(TIM2, TIM_DIER_CC1IE);
 }
 
 void tim2_isr(void)
 {
-
 	if (timer_get_flag(TIM2, TIM_SR_CC1IF)) {
 
 		/* Clear compare interrupt flag. */
@@ -146,38 +137,31 @@ void tim2_isr(void)
 
 		/*
 		 * Get current timer value to calculate next
-		 * compare register value
+		 * compare register value.
 		 */
 		compare_time = timer_get_counter(TIM2);
 
-		/*
-		 * Calculate and set the next compare value.
-		 */
+		/* Calculate and set the next compare value. */
 		frequency = frequency_sequence[frequency_sel++];
 		new_time = compare_time + frequency;
 
-		timer_set_oc_value(TIM2, TIM_OC1,
-				new_time);
-		if (frequency_sel == 18) {
+		timer_set_oc_value(TIM2, TIM_OC1, new_time);
+		if (frequency_sel == 18)
 			frequency_sel = 0;
-		}
 
-		/* Toggle led to indicate compare event */
+		/* Toggle LED to indicate compare event. */
 		gpio_toggle(GPIOC, GPIO12);
-
 	}
 }
 
 int main(void)
 {
-
 	clock_setup();
 	gpio_setup();
 	tim_setup();
 
-	while (1) {
+	while (1)
 		__asm("nop");
-	}
 
 	return 0;
 }

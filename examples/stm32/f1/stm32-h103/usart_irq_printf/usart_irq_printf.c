@@ -2,7 +2,7 @@
  * This file is part of the libopencm3 project.
  *
  * Copyright (C) 2009 Uwe Hermann <uwe@hermann-uwe.de>,
- *               2011 Piotr Esden-Tempski <piotr@esden.net>
+ * Copyright (C) 2011 Piotr Esden-Tempski <piotr@esden.net>
  *
  * This program is free software: you can redistribute it and/or modify
  * it under the terms of the GNU General Public License as published by
@@ -23,7 +23,6 @@
 #include <libopencm3/stm32/usart.h>
 #include <libopencm3/stm32/nvic.h>
 #include <libopencm3/stm32/systick.h>
-
 #include <stdio.h>
 #include <errno.h>
 
@@ -31,83 +30,81 @@
  * Simple ringbuffer implementation from open-bldc's libgovernor that
  * you can find at:
  * https://github.com/open-bldc/open-bldc/tree/master/source/libgovernor
- ******************************************************************************/
+ *****************************************************************************/
 
 typedef s32 ring_size_t;
 
 struct ring {
-        u8 *data;
-        ring_size_t size;
-        u32 begin;
-        u32 end;
+	u8 *data;
+	ring_size_t size;
+	u32 begin;
+	u32 end;
 };
 
-#define RING_SIZE(RING) ((RING)->size - 1)
-#define RING_DATA(RING) (RING)->data
+#define RING_SIZE(RING)  ((RING)->size - 1)
+#define RING_DATA(RING)  (RING)->data
 #define RING_EMPTY(RING) ((RING)->begin == (RING)->end)
 
-void ring_init(struct ring *ring, u8 * buf, ring_size_t size)
+void ring_init(struct ring *ring, u8 *buf, ring_size_t size)
 {
-        ring->data = buf;
-        ring->size = size;
-        ring->begin = 0;
-        ring->end = 0;
+	ring->data = buf;
+	ring->size = size;
+	ring->begin = 0;
+	ring->end = 0;
 }
 
 s32 ring_write_ch(struct ring *ring, u8 ch)
 {
-        if (((ring->end + 1) % ring->size) != ring->begin) {
-                ring->data[ring->end++] = ch;
-                ring->end %= ring->size;
-                return (u32) ch;
-        }
+	if (((ring->end + 1) % ring->size) != ring->begin) {
+		ring->data[ring->end++] = ch;
+		ring->end %= ring->size;
+		return (u32)ch;
+	}
 
-        return -1;
+	return -1;
 }
 
-s32 ring_write(struct ring * ring, u8 * data, ring_size_t size)
+s32 ring_write(struct ring *ring, u8 *data, ring_size_t size)
 {
-        s32 i;
+	s32 i;
 
-        for (i = 0; i < size; i++) {
-                if (ring_write_ch(ring, data[i]) < 0) {
-                        return -i;
-                }
-        }
+	for (i = 0; i < size; i++) {
+		if (ring_write_ch(ring, data[i]) < 0)
+			return -i;
+	}
 
-        return i;
+	return i;
 }
 
-s32 ring_read_ch(struct ring * ring, u8 * ch)
+s32 ring_read_ch(struct ring *ring, u8 *ch)
 {
-        s32 ret = -1;
+	s32 ret = -1;
 
-        if (ring->begin != ring->end) {
-                ret = ring->data[ring->begin++];
-                ring->begin %= ring->size;
-                if (ch)
-                        *ch = ret;
-        }
+	if (ring->begin != ring->end) {
+		ret = ring->data[ring->begin++];
+		ring->begin %= ring->size;
+		if (ch)
+			*ch = ret;
+	}
 
-        return ret;
+	return ret;
 }
 
-s32 ring_read(struct ring * ring, u8 * data, ring_size_t size)
+s32 ring_read(struct ring *ring, u8 *data, ring_size_t size)
 {
-        s32 i;
+	s32 i;
 
-        for (i = 0; i < size; i++) {
-                if (ring_read_ch(ring, data + i) < 0) {
-                        return i;
-                }
-        }
+	for (i = 0; i < size; i++) {
+		if (ring_read_ch(ring, data + i) < 0)
+			return i;
+	}
 
-        return -i;
+	return -i;
 }
 
 /******************************************************************************
  * The example implementation
- ******************************************************************************/
+ *****************************************************************************/
 
 #define BUFFER_SIZE 1024
 
@@ -123,14 +120,12 @@ void clock_setup(void)
 
 	/* Enable clocks for GPIO port A (for GPIO_USART1_TX) and USART1. */
 	rcc_peripheral_enable_clock(&RCC_APB2ENR, RCC_APB2ENR_IOPAEN |
-				RCC_APB2ENR_AFIOEN |
-				RCC_APB2ENR_USART1EN);
+				    RCC_APB2ENR_AFIOEN | RCC_APB2ENR_USART1EN);
 }
 
 void usart_setup(void)
 {
-
-        /* Initialize output ring buffer */
+	/* Initialize output ring buffer. */
 	ring_init(&output_ring, output_ring_buffer, BUFFER_SIZE);
 
 	/* Enable the USART1 interrupt. */
@@ -138,7 +133,7 @@ void usart_setup(void)
 
 	/* Setup GPIO pin GPIO_USART1_RE_TX on GPIO port B for transmit. */
 	gpio_set_mode(GPIOA, GPIO_MODE_OUTPUT_50_MHZ,
-                      GPIO_CNF_OUTPUT_ALTFN_PUSHPULL, GPIO_USART1_TX);
+		      GPIO_CNF_OUTPUT_ALTFN_PUSHPULL, GPIO_USART1_TX);
 
 	/* Setup GPIO pin GPIO_USART1_RE_RX on GPIO port B for receive. */
 	gpio_set_mode(GPIOA, GPIO_MODE_INPUT,
@@ -172,7 +167,7 @@ void usart1_isr(void)
 {
 	/* Check if we were called because of RXNE. */
 	if (((USART_CR1(USART1) & USART_CR1_RXNEIE) != 0) &&
-		((USART_SR(USART1) & USART_SR_RXNE) != 0)) {
+	    ((USART_SR(USART1) & USART_SR_RXNE) != 0)) {
 
 		/* Indicate that we got data. */
 		gpio_toggle(GPIOC, GPIO12);
@@ -186,14 +181,14 @@ void usart1_isr(void)
 
 	/* Check if we were called because of TXE. */
 	if (((USART_CR1(USART1) & USART_CR1_TXEIE) != 0) &&
-		((USART_SR(USART1) & USART_SR_TXE) != 0)) {
+	    ((USART_SR(USART1) & USART_SR_TXE) != 0)) {
 
 		s32 data;
 
 		data = ring_read_ch(&output_ring, NULL);
 
 		if (data == -1) {
-			/* Disable the TXE interrupt as we don't need it anymore. */
+			/* Disable the TXE interrupt, it's no longer needed. */
 			USART_CR1(USART1) &= ~USART_CR1_TXEIE;
 		} else {
 			/* Put data into the transmit register. */
@@ -202,27 +197,28 @@ void usart1_isr(void)
 	}
 }
 
-int _write (int file, char *ptr, int len)
+int _write(int file, char *ptr, int len)
 {
 	int ret;
 
 	if (file == 1) {
 		ret = ring_write(&output_ring, (u8 *)ptr, len);
 
-		if (ret < 0) ret = -ret;
+		if (ret < 0)
+			ret = -ret;
 
 		USART_CR1(USART1) |= USART_CR1_TXEIE;
 
 		return ret;
 	}
 
-        errno = EIO;
-        return -1;
+	errno = EIO;
+	return -1;
 }
 
-void systick_setup(void) {
-
-	/* 72MHz / 8 => 9000000 counts per second */
+void systick_setup(void)
+{
+	/* 72MHz / 8 => 9000000 counts per second. */
 	systick_set_clocksource(STK_CTRL_CLKSOURCE_AHB_DIV8);
 
 	/* 9000000/9000 = 1000 overflows per second - every 1ms one interrupt */
@@ -232,7 +228,6 @@ void systick_setup(void) {
 
 	/* Start counting. */
 	systick_counter_enable();
-
 }
 
 void sys_tick_handler(void)
@@ -240,17 +235,20 @@ void sys_tick_handler(void)
 	static int counter = 0;
 	static float fcounter = 0.0;
 	static double dcounter = 0.0;
-
 	static u32 temp32 = 0;
 
 	temp32++;
 
-	/* We call this handler every 1ms so we are sending hello world every 10ms / 100Hz. */
+	/*
+	 * We call this handler every 1ms so we are sending hello world
+	 * every 10ms / 100Hz.
+	 */
 	if (temp32 == 10) {
-		printf("Hello World! %i %f %f\r\n", counter, fcounter, dcounter);
+		printf("Hello World! %i %f %f\r\n", counter, fcounter,
+		       dcounter);
 		counter++;
-		fcounter+=0.01;
-		dcounter+=0.01;
+		fcounter += 0.01;
+		dcounter += 0.01;
 
 		temp32 = 0;
 	}
@@ -258,15 +256,13 @@ void sys_tick_handler(void)
 
 int main(void)
 {
-
 	clock_setup();
 	gpio_setup();
 	usart_setup();
 	systick_setup();
 
-	while (1) {
+	while (1)
 		__asm__("nop");
-	}
 
 	return 0;
 }

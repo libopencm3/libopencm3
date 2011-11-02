@@ -31,7 +31,6 @@ u16 exti_direction = FALLING;
 void clock_setup(void)
 {
 	rcc_clock_setup_in_hse_8mhz_out_72mhz();
-
 }
 
 void gpio_setup(void)
@@ -39,13 +38,9 @@ void gpio_setup(void)
 	/* Enable GPIOC clock. */
 	rcc_peripheral_enable_clock(&RCC_APB2ENR, RCC_APB2ENR_IOPCEN);
 
-	/*
-	 * Set GPIO12 (PORTC) (led) to
-	 * 'output alternate function push-pull'.
-	 */
+	/* Set GPIO12 (in GPIO port C) to 'output push-pull'. */
 	gpio_set_mode(GPIOC, GPIO_MODE_OUTPUT_50_MHZ,
-		GPIO_CNF_OUTPUT_PUSHPULL, GPIO12);
-
+		      GPIO_CNF_OUTPUT_PUSHPULL, GPIO12);
 }
 
 void exti_setup(void)
@@ -56,30 +51,29 @@ void exti_setup(void)
 	/* Enable AFIO clock. */
 	rcc_peripheral_enable_clock(&RCC_APB2ENR, RCC_APB2ENR_AFIOEN);
 
-	/* Enable EXTI0 interrupt */
+	/* Enable EXTI0 interrupt. */
 	nvic_enable_irq(NVIC_EXTI0_IRQ);
 
 	/* Set GPIO0 (in GPIO port A) to 'input open-drain'. */
-	gpio_set_mode(GPIOA, GPIO_MODE_INPUT,
-		      GPIO_CNF_INPUT_FLOAT, GPIO0);
+	gpio_set_mode(GPIOA, GPIO_MODE_INPUT, GPIO_CNF_INPUT_FLOAT, GPIO0);
 
-	/* configure EXTI subsystem */
+	/* Configure the EXTI subsystem. */
 	exti_select_source(EXTI0, GPIOA);
 	exti_direction = FALLING;
 	exti_set_trigger(EXTI0, EXTI_TRIGGER_FALLING);
 	exti_enable_request(EXTI0);
 }
 
-void exti0_isr()
+void exti0_isr(void)
 {
 	exti_reset_request(EXTI0);
 
 	if (exti_direction == FALLING) {
-		//gpio_toggle(GPIOA, GPIO12);
+		// gpio_toggle(GPIOA, GPIO12);
 		exti_direction = RISING;
 		exti_set_trigger(EXTI0, EXTI_TRIGGER_RISING);
 	} else {
-		//gpio_toggle(GPIOA, GPIO12);
+		// gpio_toggle(GPIOA, GPIO12);
 		timer_generate_event(TIM1, TIM_EGR_COMG);
 		exti_direction = FALLING;
 		exti_set_trigger(EXTI0, EXTI_TRIGGER_FALLING);
@@ -88,50 +82,43 @@ void exti0_isr()
 
 void tim_setup(void)
 {
-
 	/* Enable TIM1 clock. */
 	rcc_peripheral_enable_clock(&RCC_APB2ENR, RCC_APB2ENR_TIM1EN);
 
 	/* Enable GPIOA, GPIOB and Alternate Function clocks. */
 	rcc_peripheral_enable_clock(&RCC_APB2ENR,
 				    RCC_APB2ENR_IOPAEN |
-				    RCC_APB2ENR_IOPBEN |
-				    RCC_APB2ENR_AFIOEN);
+				    RCC_APB2ENR_IOPBEN | RCC_APB2ENR_AFIOEN);
 
 	/*
-	 * Set TIM1 chanel output pins to
+	 * Set TIM1 channel output pins to
 	 * 'output alternate function push-pull'.
 	 */
 	gpio_set_mode(GPIOA, GPIO_MODE_OUTPUT_50_MHZ,
 		      GPIO_CNF_OUTPUT_ALTFN_PUSHPULL,
-		      GPIO_TIM1_CH1 |
-		      GPIO_TIM1_CH2 |
-		      GPIO_TIM1_CH3);
+		      GPIO_TIM1_CH1 | GPIO_TIM1_CH2 | GPIO_TIM1_CH3);
 
 	/*
-	 * Set TIM1 complementary chanel output pins to
+	 * Set TIM1 complementary channel output pins to
 	 * 'output alternate function push-pull'.
 	 */
 	gpio_set_mode(GPIOB, GPIO_MODE_OUTPUT_50_MHZ,
 		      GPIO_CNF_OUTPUT_ALTFN_PUSHPULL,
-		      GPIO_TIM1_CH1N |
-		      GPIO_TIM1_CH2N |
-		      GPIO_TIM1_CH3N);
+		      GPIO_TIM1_CH1N | GPIO_TIM1_CH2N | GPIO_TIM1_CH3N);
 
 	/* Enable TIM1 commutation interrupt. */
 	nvic_enable_irq(NVIC_TIM1_TRG_COM_IRQ);
 
-	/* Reset TIM1 peripheral */
+	/* Reset TIM1 peripheral. */
 	timer_reset(TIM1);
 
 	/* Timer global mode:
 	 * - No divider
-	 * - alignment edge
-	 * - direction up
+	 * - Alignment edge
+	 * - Direction up
 	 */
 	timer_set_mode(TIM1, TIM_CR1_CKD_CK_INT,
-		       TIM_CR1_CMS_EDGE,
-		       TIM_CR1_DIR_UP);
+		       TIM_CR1_CMS_EDGE, TIM_CR1_DIR_UP);
 
 	/* Reset prescaler value. */
 	timer_set_prescaler(TIM1, 0);
@@ -142,13 +129,13 @@ void tim_setup(void)
 	/* Enable preload. */
 	timer_enable_preload(TIM1);
 
-	/* Continous mode. */
+	/* Continuous mode. */
 	timer_continuous_mode(TIM1);
 
-	/* Period (32kHz) */
+	/* Period (32kHz). */
 	timer_set_period(TIM1, 72000000 / 32000);
 
-	/* Configure break and deadtime */
+	/* Configure break and deadtime. */
 	timer_set_deadtime(TIM1, 10);
 	timer_set_enabled_off_state_in_idle_mode(TIM1);
 	timer_set_enabled_off_state_in_run_mode(TIM1);
@@ -239,19 +226,23 @@ void tim_setup(void)
 	timer_enable_oc_output(TIM1, TIM_OC3N);
 
 	/* ---- */
-	/* ARR reload enable */
+
+	/* ARR reload enable. */
 	timer_enable_preload(TIM1);
 
-	/* Enable preload of complementary channel configurations and update on COM event */
+	/*
+	 * Enable preload of complementary channel configurations and
+	 * update on COM event.
+	 */
 	timer_enable_preload_complementry_enable_bits(TIM1);
 
-	/* Enable outputs in the break subsystem */
+	/* Enable outputs in the break subsystem. */
 	timer_enable_break_main_output(TIM1);
 
-	/* Counter enable */
+	/* Counter enable. */
 	timer_enable_counter(TIM1);
 
-	/* Enable commutation interrupt */
+	/* Enable commutation interrupt. */
 	timer_enable_irq(TIM1, TIM_DIER_COMIE);
 }
 
@@ -262,12 +253,13 @@ void tim1_trg_com_isr(void)
 	/* Clear the COM trigger interrupt flag. */
 	timer_clear_flag(TIM1, TIM_SR_COMIF);
 
-	/* A simplified and inefficient implementation of PWM On
+	/*
+	 * A simplified and inefficient implementation of PWM On
 	 * scheme. Look at the implementation in Open-BLDC on
 	 * http://open-bldc.org for the proper implementation. This
 	 * one only serves as an example.
 	 *
-	 * Table of the pwm scheme zone configurations when driving:
+	 * Table of the PWM scheme zone configurations when driving:
 	 * @verbatim
 	 *  | 1| 2| 3| 4| 5| 6|
 	 * -+--+--+--+--+--+--+
@@ -388,7 +380,7 @@ void tim1_trg_com_isr(void)
 		timer_disable_oc_output(TIM1, TIM_OC3);
 		timer_enable_oc_output(TIM1, TIM_OC3N);
 
-		step=0;
+		step = 0;
 		break;
 	}
 	gpio_toggle(GPIOC, GPIO12);
@@ -401,9 +393,8 @@ int main(void)
 	tim_setup();
 	exti_setup();
 
-	while (1) {
+	while (1)
 		__asm("nop");
-	}
 
 	return 0;
 }

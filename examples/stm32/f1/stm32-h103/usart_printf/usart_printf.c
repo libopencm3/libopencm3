@@ -2,7 +2,7 @@
  * This file is part of the libopencm3 project.
  *
  * Copyright (C) 2009 Uwe Hermann <uwe@hermann-uwe.de>,
- *               2011 Piotr Esden-Tempski <piotr@esden.net>
+ * Copyright (C) 2011 Piotr Esden-Tempski <piotr@esden.net>
  *
  * This program is free software: you can redistribute it and/or modify
  * it under the terms of the GNU General Public License as published by
@@ -22,7 +22,6 @@
 #include <libopencm3/stm32/f1/gpio.h>
 #include <libopencm3/stm32/usart.h>
 #include <libopencm3/stm32/nvic.h>
-
 #include <stdio.h>
 #include <errno.h>
 
@@ -35,15 +34,14 @@ void clock_setup(void)
 
 	/* Enable clocks for GPIO port A (for GPIO_USART1_TX) and USART1. */
 	rcc_peripheral_enable_clock(&RCC_APB2ENR, RCC_APB2ENR_IOPAEN |
-				RCC_APB2ENR_AFIOEN |
-				RCC_APB2ENR_USART1EN);
+				    RCC_APB2ENR_AFIOEN | RCC_APB2ENR_USART1EN);
 }
 
 void usart_setup(void)
 {
 	/* Setup GPIO pin GPIO_USART1_RE_TX on GPIO port B for transmit. */
 	gpio_set_mode(GPIOA, GPIO_MODE_OUTPUT_50_MHZ,
-                      GPIO_CNF_OUTPUT_ALTFN_PUSHPULL, GPIO_USART1_TX);
+		      GPIO_CNF_OUTPUT_ALTFN_PUSHPULL, GPIO_USART1_TX);
 
 	/* Setup UART parameters. */
 	usart_set_baudrate(USART1, 230400, rcc_ppre2_frequency);
@@ -61,25 +59,23 @@ void gpio_setup(void)
 {
 	gpio_set(GPIOC, GPIO12);
 
-	/* Setup GPIO6 and 7 (in GPIO port A) for led use. */
+	/* Setup GPIO6 and 7 (in GPIO port A) for LED use. */
 	gpio_set_mode(GPIOC, GPIO_MODE_OUTPUT_50_MHZ,
 		      GPIO_CNF_OUTPUT_PUSHPULL, GPIO12);
 }
 
-int _write (int file, char *ptr, int len)
+int _write(int file, char *ptr, int len)
 {
-        int i;
+	int i;
 
 	if (file == 1) {
-		for (i = 0; i < len; i++){
+		for (i = 0; i < len; i++)
 			usart_send_blocking(USART1, ptr[i]);
-		}
-
 		return i;
 	}
 
-        errno = EIO;
-        return -1;
+	errno = EIO;
+	return -1;
 }
 
 int main(void)
@@ -93,15 +89,16 @@ int main(void)
 	usart_setup();
 
 	/*
-	 * Write Hello World an integer, float and double all over
+	 * Write Hello World, an integer, float and double all over
 	 * again while incrementing the numbers.
 	 */
 	while (1) {
 		gpio_toggle(GPIOC, GPIO12);
-		printf("Hello World! %i %f %f\r\n", counter, fcounter, dcounter);
+		printf("Hello World! %i %f %f\r\n", counter, fcounter,
+		       dcounter);
 		counter++;
-		fcounter+=0.01;
-		dcounter+=0.01;
+		fcounter += 0.01;
+		dcounter += 0.01;
 	}
 
 	return 0;
