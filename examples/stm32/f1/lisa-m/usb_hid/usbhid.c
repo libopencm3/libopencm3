@@ -313,7 +313,7 @@ int main(void)
 	spi_set_nss_high(SPI2);
 	spi_enable(SPI2);
 
-	uint8_t x = accel_read(ADXL345_DEVID);
+	(void)accel_read(ADXL345_DEVID);
 	accel_write(ADXL345_POWER_CTL, ADXL345_POWER_CTL_MEASURE);
 	accel_write(ADXL345_DATA_FORMAT, ADXL345_DATA_FORMAT_LALIGN);
 
