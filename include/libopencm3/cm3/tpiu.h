@@ -48,6 +48,7 @@
 /* TODO: PID, CID */
 
 /* --- TPIU_SSPSR values --------------------------------------------------- */
+
 /*
  * bit[N] == 0, trace port width of (N+1) not supported
  * bit[N] == 1, trace port width of (N+1) supported
@@ -57,22 +58,26 @@
 #define TPIU_SSPSR_WORD			(1 << 3)
 
 /* --- TPIU_SSPSR values --------------------------------------------------- */
+
 /* Same format as TPIU_SSPSR, except only one is set */
 #define TPIU_CSPSR_BYTE 		(1 << 0)
 #define TPIU_CSPSR_HALFWORD		(1 << 1)
 #define TPIU_CSPSR_WORD			(1 << 3)
 
 /* --- TPIU_ACPR values ---------------------------------------------------- */
+
 /* Bits 31:16 - Reserved */
 /* Bits 15:0 - SWO output clock = Asynchronous_Reference_Clock/(value +1) */
 
 /* --- TPIU_SPPR values ---------------------------------------------------- */
+
 /* Bits 31:2 - Reserved */
 #define TPIU_SPPR_SYNC			(0x0)
 #define TPIU_SPPR_ASYNC_MANCHESTER	(0x1)
 #define TPIU_SPPR_ASYNC_NRZ		(0x2)
 
 /* --- TPIU_FFSR values ---------------------------------------------------- */
+
 /* Bits 31:4 - Reserved */
 #define TPIU_FFSR_FTNONSTOP		(1 << 3)
 #define TPIU_FFSR_TCPRESENT		(1 << 2)
@@ -80,6 +85,7 @@
 #define TPIU_FFSR_FLINPROG		(1 << 0)
 
 /* --- TPIU_FFCR values ---------------------------------------------------- */
+
 /* Bits 31:9 - Reserved */
 #define TPIU_FFCR_TRIGIN		(1 << 8)
 /* Bits 7:2 - Reserved */

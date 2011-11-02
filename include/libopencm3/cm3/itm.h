@@ -39,11 +39,13 @@
 /* TODO: PID, CID */
 
 /* --- ITM_STIM values ----------------------------------------------------- */
+
 /* Bits 31:0 - Write to port FIFO for forwarding as software event packet */
 /* Bits 31:1 - RAZ */
 #define ITM_STIM_FIFOREADY		(1 << 0)
 
 /* --- ITM_TER values ------------------------------------------------------ */
+
 /* Bits 31:0 - Stimulus port #N is enabled with STIMENA[N] is set */
 
 /* --- ITM_TPR values ------------------------------------------------------ */
@@ -54,6 +56,7 @@
  */
 
 /* --- ITM_TCR values ------------------------------------------------------ */
+
 /* Bits 31:24 - Reserved */
 #define ITM_TCR_BUSY			(1 << 23)
 #define ITM_TCR_TRACE_BUS_ID_MASK	(0x3f << 16)
@@ -69,6 +72,5 @@
 #define ITM_TCR_SYNCENA			(1 << 2)
 #define ITM_TCR_TSENA			(1 << 1)
 #define ITM_TCR_ITMENA			(1 << 0)
-
 
 #endif
