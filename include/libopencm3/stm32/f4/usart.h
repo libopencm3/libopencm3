@@ -2,6 +2,7 @@
  * This file is part of the libopencm3 project.
  *
  * Copyright (C) 2011 Fergus Noble <fergusnoble@gmail.com>
+ * Copyright (C) 2011 Stephen Caudle <scaudle@doceme.com>
  *
  * This program is free software: you can redistribute it and/or modify
  * it under the terms of the GNU General Public License as published by
@@ -21,6 +22,33 @@
 #define LIBOPENCM3_USART_F4_H
 
 #include <libopencm3/stm32/usart.h>
+
+/* --- Convenience macros -------------------------------------------------- */
+
+#define USART6				USART6_BASE
+
+/* --- USART registers ----------------------------------------------------- */
+
+/* Status register (USARTx_SR) */
+#define USART6_SR			USART_SR(USART6_BASE)
+
+/* Data register (USARTx_DR) */
+#define USART6_DR			USART_DR(USART6_BASE)
+
+/* Baud rate register (USARTx_BRR) */
+#define USART6_BRR			USART_BRR(USART6_BASE)
+
+/* Control register 1 (USARTx_CR1) */
+#define USART6_CR1			USART_CR1(USART6_BASE)
+
+/* Control register 2 (USARTx_CR2) */
+#define USART6_CR2			USART_CR2(USART6_BASE)
+
+/* Control register 3 (USARTx_CR3) */
+#define USART6_CR3			USART_CR3(USART6_BASE)
+
+/* Guard time and prescaler register (USARTx_GTPR) */
+#define USART6_GTPR			USART_GTPR(USART6_BASE)
 
 /* --- USART_CR1 values ---------------------------------------------------- */
 
