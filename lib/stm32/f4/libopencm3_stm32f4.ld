@@ -32,7 +32,9 @@ SECTIONS
 	.text : {
 		*(.vectors)	/* Vector table */
 		*(.text*)	/* Program code */
+		. = ALIGN(4);
 		*(.rodata*)	/* Read-only data */
+		. = ALIGN(4);
 		_etext = .;
 	} >rom
 
@@ -41,12 +43,14 @@ SECTIONS
 	.data : {
 		_data = .;
 		*(.data*)	/* Read-write initialized data */
+		. = ALIGN(4);
 		_edata = .;
 	} >ram AT >rom
 
 	.bss : {
 		*(.bss*)	/* Read-write zero initialized data */
 		*(COMMON)
+		. = ALIGN(4);
 		_ebss = .;
 	} >ram AT >rom
 
@@ -56,6 +60,7 @@ SECTIONS
 	 */
 	/DISCARD/ : { *(.eh_frame) }
 
+	. = ALIGN(4);
 	end = .;
 }
 
