@@ -23,20 +23,21 @@
 #include <libopencm3/stm32/spi.h>
 
 /*
- * This file extends the version in stm_common with definitions only
- * applicable to the STM32F2 series of devices.
+ * This file extends the common STM32 version with definitions only
+ * applicable to the STM32F4 series of devices.
  */
 
 /* --- SPI_CR2 values ------------------------------------------------------ */
 
-/* FRF: Frame format. */
+/* FRF: Frame format */
+/* Note: Not used in I2S mode. */
 #define SPI_CR2_FRF			(1 << 4)
-#define SPI_CR2_FRF_TI			(1 << 4)
-#define SPI_CR2_FRF_MOTOROLA		(1 << 4)
+#define SPI_CR2_FRF_MOTOROLA_MODE	(0 << 4)
+#define SPI_CR2_FRF_TI_MODE		(1 << 4)
 
 /* --- SPI_SR values ------------------------------------------------------- */
 
-/* TIFRFE: TI frame format error. */
-#define SPI_SR_RXNE			(1 << 0)
+/* TIFRFE: TI frame format error */
+#define SPI_SR_TIFRFE			(1 << 8)
 
 #endif
