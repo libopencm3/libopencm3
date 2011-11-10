@@ -34,6 +34,7 @@
 /* --- SPI registers ------------------------------------------------------- */
 
 /* Control register 1 (SPIx_CR1) */
+/* Note: Not used in I2S mode. */
 #define SPI_CR1(spi_base)		MMIO32(spi_base + 0x00)
 #define SPI1_CR1			SPI_CR1(SPI1_BASE)
 #define SPI2_CR1			SPI_CR1(SPI2_I2S_BASE)
@@ -167,7 +168,7 @@
 /* TXEIE: Tx buffer empty interrupt enable */
 #define SPI_CR2_TXEIE			(1 << 7)
 
-/* RXNEIE: RX buffer not empty interrupt enable */
+/* RXNEIE: Rx buffer not empty interrupt enable */
 #define SPI_CR2_RXNEIE			(1 << 6)
 
 /* ERRIE: Error interrupt enable */
@@ -176,6 +177,7 @@
 /* Bits [4:3]: Reserved. Forced to 0 by hardware. */
 
 /* SSOE: SS output enable */
+/* Note: Not used in I2S mode. */
 #define SPI_CR2_SSOE			(1 << 2)
 
 /* TXDMAEN: Tx buffer DMA enable */
@@ -195,15 +197,19 @@
 #define SPI_SR_OVR			(1 << 6)
 
 /* MODF: Mode fault */
+/* Note: Not used in I2S mode. */
 #define SPI_SR_MODF			(1 << 5)
 
 /* CRCERR: CRC error flag */
+/* Note: Not used in I2S mode. */
 #define SPI_SR_CRCERR			(1 << 4)
 
 /* UDR: Underrun flag */
+/* Note: Not used in SPI mode. */
 #define SPI_SR_UDR			(1 << 3)
 
 /* CHSIDE: Channel side */
+/* Note: Not used in SPI mode. No meaning in PCM mode. */
 #define SPI_SR_CHSIDE			(1 << 2)
 
 /* TXE: Transmit buffer empty */
@@ -218,24 +224,29 @@
 
 /* --- SPI_CRCPR values ---------------------------------------------------- */
 
+/* Note: Not used in I2S mode. */
 /* SPI_CRCPR [15:0]: CRC Polynomial Register. */
 
 /* --- SPI_RXCRCR values --------------------------------------------------- */
 
+/* Note: Not used in I2S mode. */
 /* SPI_RXCRCR [15:0]: RX CRC Register. */
 
 /* --- SPI_TXCRCR values --------------------------------------------------- */
 
+/* Note: Not used in I2S mode. */
 /* SPI_TXCRCR [15:0]: TX CRC Register. */
 
 /* --- SPI_I2SCFGR values -------------------------------------------------- */
+
+/* Note: None of these bits are used in SPI mode. */
 
 /* Bits [15:12]: Reserved. Forced to 0 by hardware. */
 
 /* I2SMOD: I2S mode selection */
 #define SPI_I2SCFGR_I2SMOD			(1 << 11)
 
-/* I2SE: I2S Enable */
+/* I2SE: I2S enable */
 #define SPI_I2SCFGR_I2SE			(1 << 10)
 
 /* I2SCFG[9:8]: I2S configuration mode */
@@ -271,6 +282,8 @@
 
 /* --- SPI_I2SPR values ---------------------------------------------------- */
 
+/* Note: None of these bits are used in SPI mode. */
+
 /* Bits [15:10]: Reserved. Forced to 0 by hardware. */
 
 /* MCKOE: Master clock output enable */
@@ -279,7 +292,7 @@
 /* ODD: Odd factor for the prescaler */
 #define SPI_I2SPR_ODD				(1 << 8)
 
-/* I2SDIV[7:0]: I2S Linear prescaler */
+/* I2SDIV[7:0]: I2S linear prescaler */
 /* 0 and 1 are forbidden values */
 
 /* --- Function prototypes ------------------------------------------------- */
