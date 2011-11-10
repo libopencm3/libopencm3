@@ -38,7 +38,7 @@ int spi_init_master(u32 spi, u32 br, u32 cpol, u32 cpha, u32 dff, u32 lsbfirst)
 
 	reg32 |= SPI_CR1_MSTR;	/* Configure SPI as master. */
 
-	reg32 |= br;		/* Set BAUD rate bits. */
+	reg32 |= br;		/* Set baud rate bits. */
 	reg32 |= cpol;		/* Set CPOL value. */
 	reg32 |= cpha;		/* Set CPHA value. */
 	reg32 |= dff;		/* Set data format (8 or 16 bits). */
@@ -62,9 +62,9 @@ void spi_disable(u32 spi)
 {
 	u32 reg32;
 
-	/* TODO: Follow procedure from section 23.3.8 in the techref manual. */
+	/* TODO: Follow procedure from section 23.3.8 in the TRM. */
 	reg32 = SPI_CR1(spi);
-	reg32 &= ~(SPI_CR1_SPE);	/* Disable SPI. */
+	reg32 &= ~(SPI_CR1_SPE); /* Disable SPI. */
 	SPI_CR1(spi) = reg32;
 }
 
@@ -76,17 +76,19 @@ void spi_write(u32 spi, u16 data)
 
 void spi_send(u32 spi, u16 data)
 {
-	/* wait for transfer finished */
-  while (!(SPI_SR(spi) & SPI_SR_TXE ));
-  
+	/* Wait for transfer finished. */
+	while (!(SPI_SR(spi) & SPI_SR_TXE))
+		;
+
 	/* Write data (8 or 16 bits, depending on DFF) into DR. */
 	SPI_DR(spi) = data;
 }
 
 u16 spi_read(u32 spi)
 {
-	/* wait for transfer finished */
-  while (!(SPI_SR(spi) & SPI_SR_RXNE ));
+	/* Wait for transfer finished. */
+	while (!(SPI_SR(spi) & SPI_SR_RXNE))
+		;
 
 	/* Read the data (8 or 16 bits, depending on DFF bit) from DR. */
 	return SPI_DR(spi);
@@ -94,10 +96,11 @@ u16 spi_read(u32 spi)
 
 u16 spi_xfer(u32 spi, u16 data)
 {
-  spi_write(spi, data);
+	spi_write(spi, data);
 
-	/* wait for transfer finished */
-  while (!(SPI_SR(spi) & SPI_SR_RXNE ));
+	/* Wait for transfer finished. */
+	while (!(SPI_SR(spi) & SPI_SR_RXNE))
+		;
 
 	/* Read the data (8 or 16 bits, depending on DFF bit) from DR. */
 	return SPI_DR(spi);
@@ -199,10 +202,10 @@ void spi_set_baudrate_prescaler(u32 spi, u8 baudrate)
 {
 	u32 reg32;
 
-	if (baudrate > 7) 
+	if (baudrate > 7)
 		return;
 
-	reg32 = ( SPI_CR1(spi) & 0xffc7 ); /* clear bits [5:3] */
+	reg32 = (SPI_CR1(spi) & 0xffc7); /* Clear bits [5:3]. */
 	reg32 |= (baudrate << 3);
 	SPI_CR1(spi) = reg32;
 }
