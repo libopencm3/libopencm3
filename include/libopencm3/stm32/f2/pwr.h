@@ -23,18 +23,24 @@
 #include <libopencm3/stm32/pwr.h>
 
 /*
- * This file extends the version in stm_common with definitions only
+ * This file extends the common STM32 version with definitions only
  * applicable to the STM32F2 series of devices.
  */
 
 /* --- PWR_CR values ------------------------------------------------------- */
 
-/* FPDS: Flash power down in stop mode, only available in F2 family devices. */
+/* Bits [31:10]: Reserved, always read as 0. */
+
+/* FPDS: Flash power down in stop mode */
 #define PWR_CR_FPDS			(1 << 9)
 
 /* --- PWR_CSR values ------------------------------------------------------ */
 
+/* Bits [31:10]: Reserved, always read as 0. */
+
 /* BRE: Backup regulator enable */
 #define PWR_CSR_BRE			(1 << 9)
+
+/* Bits [7:4]: Reserved, always read as 0. */
 
 #endif
