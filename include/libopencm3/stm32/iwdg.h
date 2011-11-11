@@ -35,16 +35,20 @@
 #define IWDG_RLR			MMIO32(IWDG_BASE + 0x08)
 
 /* Status register (IWDG_SR) */
-#define IWDG_SR				MMIO32(IWDG_BASE + 0x0C)
+#define IWDG_SR				MMIO32(IWDG_BASE + 0x0c)
 
 /* --- IWDG_KR values ------------------------------------------------------ */
 
-/* KEY[15:0]: Key value */
-#define IWDG_KR_RESET			0xAAAA
+/* Bits [31:16]: Reserved. */
+
+/* KEY[15:0]: Key value (write-only, reads as 0x0000) */
+#define IWDG_KR_RESET			0xaaaa
 #define IWDG_KR_UNLOCK			0x5555
-#define IWDG_KR_START			0xCCCC
+#define IWDG_KR_START			0xcccc
 
 /* --- IWDG_PR values ------------------------------------------------------ */
+
+/* Bits [31:3]: Reserved. */
 
 /* PR[2:0]: Prescaler divider */
 #define IWDG_PR_LSB			0
@@ -60,9 +64,13 @@
 
 /* --- IWDG_RLR values ----------------------------------------------------- */
 
+/* Bits [31:12]: Reserved. */
+
 /* RL[11:0]: Watchdog counter reload value */
 
 /* --- IWDG_SR values ------------------------------------------------------ */
+
+/* Bits [31:2]: Reserved. */
 
 /* RVU: Watchdog counter reload value update */
 #define IWDG_SR_RVU			(1 << 1)
@@ -71,5 +79,7 @@
 #define IWDG_SR_PVU			(1 << 0)
 
 /* --- IWDG funtion prototypes---------------------------------------------- */
+
+/* TODO */
 
 #endif
