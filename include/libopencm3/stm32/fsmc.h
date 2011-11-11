@@ -243,7 +243,7 @@
 #define FSMC_PMEM_MEMHOLDX		(1 << 16)
 
 /* MEMWAITx[15:8]: Common memory x wait time */
-#define FSMC_PMEM_MEMHOLDX		(1 << 8)
+#define FSMC_PMEM_MEMWAITX		(1 << 8)
 
 /* MEMSETx[7:0]: Common memory x setup time */
 #define FSMC_PMEM_MEMSETX		(1 << 0)
