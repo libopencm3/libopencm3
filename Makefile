@@ -67,6 +67,9 @@ install: lib
 	@printf "  INSTALL scripts\n"
 	$(Q)$(INSTALL) -m 0644 scripts/* $(SHAREDIR)
 
+doxy:
+	doxygen Doxyfile
+
 clean:
 	$(Q)for i in $(addprefix lib/,$(TARGETS)) \
 		     $(addsuffix /*/*,$(addprefix examples/,$(TARGETS))); do \
@@ -75,6 +78,8 @@ clean:
 			$(MAKE) -C $$i clean || exit $?; \
 		fi; \
 	done
+	@printf "  CLEAN   doxygen\n"
+	$(Q)rm -rf doxygen
 
-.PHONY: build lib examples install clean
+.PHONY: build lib examples install doxy clean
 
