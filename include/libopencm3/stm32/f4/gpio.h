@@ -255,7 +255,7 @@
 /* --- Function prototypes ------------------------------------------------- */
 
 /*
- * Note: The F2 series has a completely new GPIO peripheral with different
+ * Note: The F4 series has a completely new GPIO peripheral with different
  * configuration options. Here we implement a different API partly to more
  * closely match the peripheral capabilities and also to deliberately break
  * compatibility with old F1 code so there is no confusion with similar

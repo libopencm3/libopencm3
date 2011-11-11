@@ -22,7 +22,7 @@
 
 /* --- IRQ channel numbers-------------------------------------------------- */
 
-/* Note: These F2 specific user interrupt definitions supplement the
+/* Note: These F4 specific user interrupt definitions supplement the
  * general NVIC definitions in ../nvic.h
  */
 
