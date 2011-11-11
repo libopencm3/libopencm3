@@ -33,6 +33,8 @@
 
 /* --- PWR_CR values ------------------------------------------------------- */
 
+/* Bits [31:9]: Reserved, must be kept at reset value. */
+
 /* DBP: Disable backup domain write protection */
 #define PWR_CR_DBP			(1 << 8)
 
@@ -64,8 +66,12 @@
 
 /* --- PWR_CSR values ------------------------------------------------------ */
 
+/* Bits [31:9]: Reserved, must be kept at reset value. */
+
 /* EWUP: Enable WKUP pin */
 #define PWR_CSR_EWUP			(1 << 8)
+
+/* Bits [7:3]: Reserved, must be kept at reset value. */
 
 /* PVDO: PVD output */
 #define PWR_CSR_PVDO			(1 << 2)
@@ -77,5 +83,7 @@
 #define PWR_CSR_WUF			(1 << 0)
 
 /* --- PWR function prototypes ------------------------------------------- */
+
+/* TODO */
 
 #endif
