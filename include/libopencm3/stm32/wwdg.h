@@ -36,6 +36,8 @@
 
 /* --- WWDG_CR values ------------------------------------------------------ */
 
+/* Bits [31:8]: Reserved */
+
 /* WDGA: Activation bit */
 #define WWDG_CR_WDGA			(1 << 7)
 
@@ -51,6 +53,8 @@
 
 /* --- WWDG_CFR values ----------------------------------------------------- */
 
+/* Bits [31:10]: Reserved */
+
 /* EWI: Early wakeup interrupt */
 #define WWDG_CFR_EWI			(1 << 9)
 
@@ -63,12 +67,17 @@
 
 /* W[6:0]: 7-bit window value */
 #define WWDG_CFG_W_LSB			0
+#define WWDG_CFG_W			(1 << 0)
 
 /* --- WWDG_SR values ------------------------------------------------------ */
+
+/* Bits [31:1]: Reserved */
 
 /* EWIF: Early wakeup interrupt flag */
 #define WWDG_SR_EWIF			(1 << 0)
 
 /* --- WWDG funtion prototypes---------------------------------------------- */
+
+/* TODO */
 
 #endif
