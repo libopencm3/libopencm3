@@ -36,17 +36,23 @@
 
 /* --- CRC_DR values ------------------------------------------------------- */
 
-/* Bits[31:0] Data register */
+/* Bits [31:0]: Data register */
 
 /* --- CRC_IDR values ------------------------------------------------------ */
 
-/* Bits[7:0] General-purpose 8-bit data register bits */
+/* Bits [31:8]: Reserved */
+
+/* Bits [7:0]: General-purpose 8-bit data register bits */
 
 /* --- CRC_CR values ------------------------------------------------------- */
+
+/* Bits [31:1]: Reserved */
 
 /* RESET bit */
 #define CRC_CR_RESET			(1 << 0)
 
 /* --- CRC function prototypes --------------------------------------------- */
+
+/* TODO */
 
 #endif
