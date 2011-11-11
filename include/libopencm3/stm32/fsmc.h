@@ -90,10 +90,12 @@
 
 /* --- FSMC_BCRx values ---------------------------------------------------- */
 
+/* Bits [31:20]: Reserved. */
+
 /* CBURSTRW: Write burst enable */
 #define FSMC_BCR_CBURSTRW		(1 << 19)
 
-/* Bits 18..16: Reserved. */
+/* Bits [18:16]: Reserved. */
 
 /* ASYNCWAIT: Wait signal during asynchronous transfers */
 #define FSMC_BCR_ASYNCWAIT		(1 << 15)
@@ -138,6 +140,8 @@
 
 /* --- FSMC_BTRx values ---------------------------------------------------- */
 
+/* Bits [31:30]: Reserved. */
+
 /* ACCMOD[29:28]: Access mode */
 #define FSMC_BTR_ACCMOD			(1 << 28)
 
@@ -161,6 +165,8 @@
 
 /* --- FSMC_BWTRx values --------------------------------------------------- */
 
+/* Bits [31:30]: Reserved. */
+
 /* ACCMOD[29:28]: Access mode */
 #define FSMC_BWTR_ACCMOD		(1 << 28)
 
@@ -170,7 +176,7 @@
 /* CLKDIV[23:20]: Clock divide ratio (for CLK signal) */
 #define FSMC_BWTR_CLKDIV		(1 << 20)
 
-/* Bits 19..16: Reserved. */
+/* Bits [19..16]: Reserved. */
 
 /* DATAST[15:8]: Data-phase duration */
 #define FSMC_BWTR_DATAST		(1 << 8)
@@ -183,6 +189,8 @@
 
 /* --- FSMC_PCRx values ---------------------------------------------------- */
 
+/* Bits [31:20]: Reserved. */
+
 /* ECCPS[19:17]: ECC page size */
 #define FSMC_PCR_ECCPS			(1 << 17)
 
@@ -192,7 +200,7 @@
 /* TCLR[12:9]: CLE to RE delay */
 #define FSMC_PCR_TCLR			(1 << 9)
 
-/* Bits 8..7: Reserved. */
+/* Bits [8..7]: Reserved. */
 
 /* ECCEN: ECC computation logic enable bit */
 #define FSMC_PCR_ECCEN			(1 << 6)
@@ -212,6 +220,8 @@
 /* Bit 0: Reserved. */
 
 /* --- FSMC_SRx values ----------------------------------------------------- */
+
+/* Bits [31:7]: Reserved. */
 
 /* FEMPT: FIFO empty */
 #define FSMC_SR_FEMPT			(1 << 6)
