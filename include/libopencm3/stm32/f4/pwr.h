@@ -23,25 +23,35 @@
 #include <libopencm3/stm32/pwr.h>
 
 /*
- * This file extends the version in stm_common with definitions only
+ * This file extends the common STM32 version with definitions only
  * applicable to the STM32F4 series of devices.
  */
 
 /* --- PWR_CR values ------------------------------------------------------- */
 
+/* Bits [31:15]: Reserved */
+
 /* VOS: Regulator voltage scaling output selection */
 #define PWR_CR_VOS			(1 << 14)
 
-/* FPDS: Flash power down in stop mode, only available in F2 family devices. */
+/* Bits [13:10]: Reserved */
+
+/* FPDS: Flash power down in stop mode */
 #define PWR_CR_FPDS			(1 << 9)
 
 /* --- PWR_CSR values ------------------------------------------------------ */
 
-/* VOSRDY: Regulator voltage scaling output selection ready */
+/* Bits [31:15]: Reserved */
+
+/* VOSRDY: Regulator voltage scaling output selection ready bit */
 #define PWR_CSR_VOSRDY			(1 << 14)
+
+/* Bits [13:10]: Reserved */
 
 /* BRE: Backup regulator enable */
 #define PWR_CSR_BRE			(1 << 9)
+
+/* Bits [7:4]: Reserved */
 
 /* BRR: Backup regulator ready */
 #define PWR_CSR_BRR			(1 << 3)
@@ -49,7 +59,8 @@
 /* --- Function prototypes ------------------------------------------------- */
 
 typedef enum {
-	SCALE1, SCALE2
+	SCALE1,
+	SCALE2,
 } vos_scale_t;
 
 void pwr_set_vos_scale(vos_scale_t scale);
