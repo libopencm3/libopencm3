@@ -25,10 +25,26 @@
 
 /* --- DBGMCU registers ---------------------------------------------------- */
 
+/* Debug MCU IDCODE register (DBGMCU_IDCODE) */
 #define DBGMCU_IDCODE			MMIO32(DBGMCU_BASE + 0x00)
+
+/* Debug MCU configuration register (DBGMCU_CR) */
+/* Note: Only 32bit access supported. */
 #define DBGMCU_CR			MMIO32(DBGMCU_BASE + 0x04)
 
-/* DBGMCU_CR bits */
+/* --- DBGMCU_IDCODE values ------------------------------------------------ */
+
+#define DBGMCU_IDCODE_DEV_ID_MASK	0x00000fff
+#define DBGMCU_IDCODE_REV_ID_MASK	0xffff0000
+
+/* --- DBGMCU_CR values ---------------------------------------------------- */
+
+/* Bit 31: Reserved. */
+
+/* Bits [24:22]: Reserved, must be kept cleared. */
+
+/* Bits [4:3]: Reserved. */
+
 #define DBGMCU_CR_SLEEP			0x00000001
 #define DBGMCU_CR_STOP			0x00000002
 #define DBGMCU_CR_STANDBY		0x00000004
@@ -52,9 +68,5 @@
 #define DBGMCU_CR_TIM6_STOP		0x00080000
 #define DBGMCU_CR_TIM7_STOP		0x00100000
 #define DBGMCU_CR_CAN2_STOP		0x00200000
-
-/* DBGMCU_IDCODE bits */
-#define DBGMCU_IDCODE_DEV_ID_MASK	0x00000fff
-#define DBGMCU_IDCODE_REV_ID_MASK	0xffff0000
 
 #endif
