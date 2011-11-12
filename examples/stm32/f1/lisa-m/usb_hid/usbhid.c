@@ -240,7 +240,7 @@ static void hid_set_config(u16 wValue)
 	systick_counter_enable();
 }
 
-static uint8_t spi_readwrite(uint32_t spi, uint8_t data)
+static u8 spi_readwrite(u32 spi, u8 data)
 {
 	while (SPI_SR(spi) & SPI_SR_BSY)
 		;
@@ -250,9 +250,9 @@ static uint8_t spi_readwrite(uint32_t spi, uint8_t data)
 	return SPI_DR(spi);
 }
 
-static uint8_t accel_read(uint8_t addr)
+static u8 accel_read(u8 addr)
 {
-	uint8_t ret;
+	u8 ret;
 	gpio_clear(GPIOB, GPIO12);
 	spi_readwrite(SPI2, addr | 0x80);
 	ret = spi_readwrite(SPI2, 0);
@@ -260,7 +260,7 @@ static uint8_t accel_read(uint8_t addr)
 	return ret;
 }
 
-static void accel_write(uint8_t addr, uint8_t data)
+static void accel_write(u8 addr, u8 data)
 {
 	gpio_clear(GPIOB, GPIO12);
 	spi_readwrite(SPI2, addr);
@@ -268,7 +268,7 @@ static void accel_write(uint8_t addr, uint8_t data)
 	gpio_set(GPIOB, GPIO12);
 }
 
-static void accel_get(int16_t *x, int16_t *y, int16_t *z)
+static void accel_get(s16 *x, s16 *y, s16 *z)
 {
 	if (x)
 		*x = accel_read(ADXL345_DATAX0) |
@@ -349,7 +349,7 @@ int main(void)
 
 void sys_tick_handler(void)
 {
-	int16_t x, y;
+	s16 x, y;
 	u8 buf[4] = {0, 0, 0, 0};
 
 	accel_get(&x, &y, NULL);
