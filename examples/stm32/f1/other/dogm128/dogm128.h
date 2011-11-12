@@ -24,11 +24,13 @@
 #include <libopencm3/stm32/f1/gpio.h>
 #include <libopencm3/stm32/spi.h>
 
-/* PB10 GPIO       - ~RESET 
+/*
+ * PB10 GPIO       - ~RESET
  * PB12 SPI2_NSS   - ~CS1
- * PB13 SPI2_SCK   - SCL 
- * PB14 SPI2_MISO  - A0 
- * PB15 SPI2_MOSI  - SI */
+ * PB13 SPI2_SCK   - SCL
+ * PB14 SPI2_MISO  - A0
+ * PB15 SPI2_MOSI  - SI
+ */
 
 #define DOGM128_SPI				SPI2
 #define DOGM128_RESET_PIN			GPIO10
@@ -75,12 +77,12 @@ extern u8 dogm128_cursor_y;
 void dogm128_send_command(u8 command);
 void dogm128_set_cursor(u8 xcoord, u8 ycoord);
 void dogm128_print_char(u8 data);
-void dogm128_print_string(char * s);
+void dogm128_print_string(char *s);
 void dogm128_set_dot(u8 xcoord, u8 ycoord);
 void dogm128_clear_dot(u8 xcoord, u8 ycoord);
 void dogm128_send_data(u8 data);
-void dogm128_init();
-void dogm128_update_display();
-void dogm128_clear();
+void dogm128_init(void);
+void dogm128_update_display(void);
+void dogm128_clear(void);
 
 #endif

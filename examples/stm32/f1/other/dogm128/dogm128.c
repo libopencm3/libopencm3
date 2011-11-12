@@ -25,100 +25,105 @@ u8 dogm128_cursor_y;
 
 void dogm128_send_command(u8 command)
 {
-	u32 counter;
+	u32 i;
 
-	gpio_clear(DOGM128_A0_PORT, DOGM128_A0_PIN);      /* A0 low for commands */
+	gpio_clear(DOGM128_A0_PORT, DOGM128_A0_PIN); /* A0 low for commands */
 	spi_send(DOGM128_SPI, command);
 
-       	for (counter = 0; counter<=500; counter++) /* wait */
-       	{}
+	for (i = 0; i <= 500; i++) /* Wait a bit. */
+		;
 }
 
 void dogm128_send_data(u8 data)
 {
-	u32 counter;
+	u32 i;
 
-	gpio_set(DOGM128_A0_PORT, DOGM128_A0_PIN);      /* A0 high for data */
+	gpio_set(DOGM128_A0_PORT, DOGM128_A0_PIN); /* A0 high for data */
 	spi_send(DOGM128_SPI, data);
 
-       	for (counter = 0; counter<=500; counter++) /* wait */
-       	{}
+	for (i = 0; i <= 500; i++) /* Wait a bit. */
+		;
 }
 
-void dogm128_init()
+void dogm128_init(void)
 {
-	u32 counter;
+	u32 i;
 
-	/* reset the display */
-        gpio_clear(DOGM128_RESET_PORT, DOGM128_RESET_PIN);      /* reset low for dogm128 */
-        for (counter = 0; counter<=60000; counter++) /* wait */
-        {}
-        gpio_set(DOGM128_RESET_PORT, DOGM128_RESET_PIN);        /* reset high for dogm128 */
+	/* Reset the display (reset low for dogm128). */
+	gpio_clear(DOGM128_RESET_PORT, DOGM128_RESET_PIN);
+	for (i = 0; i <= 60000; i++) /* Wait a bit. */
+		;
 
-        for (counter = 0; counter<=60000; counter++) /* wait */
-        {}
+	/* Get the display out of reset (reset high for dogm128). */
+	gpio_set(DOGM128_RESET_PORT, DOGM128_RESET_PIN);
+	for (i = 0; i <= 60000; i++) /* Wait a bit. */
+		;
 
-        gpio_clear(DOGM128_A0_PORT, DOGM128_A0_PIN);      /* A0 low for init */
+	gpio_clear(DOGM128_A0_PORT, DOGM128_A0_PIN); /* A0 low for init */
 
-	/* tell the display that we want to start */
-        spi_set_nss_low(DOGM128_SPI);
+	/* Tell the display that we want to start. */
+	spi_set_nss_low(DOGM128_SPI);
 
-	/* init sequence */
-        dogm128_send_command(DOGM128_DISPLAY_START_ADDRESS_BASE + 0);
-        dogm128_send_command(DOGM128_ADC_REVERSE);
-        dogm128_send_command(DOGM128_COM_OUTPUT_SCAN_NORMAL);
-        dogm128_send_command(DOGM128_DISPLAY_NORMAL);
-        dogm128_send_command(DOGM128_BIAS_19);
-        dogm128_send_command(DOGM128_POWER_CONTROL_BASE + 0x07);
-        dogm128_send_command(DOGM128_BOOSTER_RATIO_SET);
-        dogm128_send_command(0x00); /* Booster x4 */
-        dogm128_send_command(DOGM128_V0_OUTPUT_RESISTOR_BASE + 0x07);
-        dogm128_send_command(DOGM128_ELECTRONIC_VOLUME_MODE_SET);
-        dogm128_send_command(0x16); /* Contrast */
-        dogm128_send_command(DOGM128_STATIC_INDICATOR_OFF);
-        dogm128_send_command(0x00); /* Flashing OFF */
-        dogm128_send_command(DOGM128_DISPLAY_ON);
+	/* Init sequence. */
+	dogm128_send_command(DOGM128_DISPLAY_START_ADDRESS_BASE + 0);
+	dogm128_send_command(DOGM128_ADC_REVERSE);
+	dogm128_send_command(DOGM128_COM_OUTPUT_SCAN_NORMAL);
+	dogm128_send_command(DOGM128_DISPLAY_NORMAL);
+	dogm128_send_command(DOGM128_BIAS_19);
+	dogm128_send_command(DOGM128_POWER_CONTROL_BASE + 0x07);
+	dogm128_send_command(DOGM128_BOOSTER_RATIO_SET);
+	dogm128_send_command(0x00); /* Booster x4 */
+	dogm128_send_command(DOGM128_V0_OUTPUT_RESISTOR_BASE + 0x07);
+	dogm128_send_command(DOGM128_ELECTRONIC_VOLUME_MODE_SET);
+	dogm128_send_command(0x16); /* Contrast */
+	dogm128_send_command(DOGM128_STATIC_INDICATOR_OFF);
+	dogm128_send_command(0x00); /* Flashing OFF */
+	dogm128_send_command(DOGM128_DISPLAY_ON);
 
-	/* end transfer */
-        spi_set_nss_high(DOGM128_SPI);
+	/* End transfer. */
+	spi_set_nss_high(DOGM128_SPI);
 }
 
 void dogm128_print_char(u8 data)
 {
-	u8 i;
-	u8 page;
-	u8 shift;
-	u8 xcoord;
-	u8 ycoord;
+	u8 i, page, shift, xcoord, ycoord;
 
 	xcoord = dogm128_cursor_x;
 	ycoord = dogm128_cursor_y;
 
-	page = (63 - ycoord) / 8; /* the display consists of 8 lines a 8 dots each. */
+	/* The display consists of 8 lines a 8 dots each. */
+	page = (63 - ycoord) / 8;
 	shift = (7 -((63 - ycoord) % 8)); /* vertical shift */
 
-	/* font is 8x5 so iterate each column of the character */	
+	/* Font is 8x5 so iterate each column of the character. */
 	for (i = 0; i <= 5; i++) {
-		/* right border reached? */
+		/* Right border reached? */
 		if ((xcoord + i) > 127)
 			return;
 		dogm128_cursor_x++;
 
-		/* 0xAA = end of character - no dots in this line */
-		if (dogm128_font[data - 0x20][i] == 0xAA) { 
-			dogm128_ram[(page * 128) + xcoord + i] &= ~(0xFF >> shift); /* clear area */
-			if ((shift > 0) && (page > 0)) 
-				dogm128_ram[((page - 1) * 128) + xcoord + i] &= ~(0xFF << (8 - shift)); /* clear area */
+		/* 0xAA = end of character - no dots in this line. */
+		if (dogm128_font[data - 0x20][i] == 0xAA) {
+			dogm128_ram[(page * 128) + xcoord + i] &=
+				~(0xFF >> shift); /* Clear area. */
+			if ((shift > 0) && (page > 0))
+				dogm128_ram[((page - 1) * 128) + xcoord + i]
+				  &= ~(0xFF << (8 - shift)); /* Clear area. */
 			return;
 		}
 
-		/* lower part */
-		dogm128_ram[(page * 128) + xcoord + i] &= ~(0xFF >> shift); /* clear area */
-		dogm128_ram[(page * 128) + xcoord + i] = (dogm128_font[data - 0x20][i] >> shift);
-		/* higher part if needed */
+		/* Lower part. */
+		dogm128_ram[(page * 128) + xcoord + i] &=
+			~(0xFF >> shift); /* Clear area. */
+		dogm128_ram[(page * 128) + xcoord + i] =
+			(dogm128_font[data - 0x20][i] >> shift);
+
+		/* Higher part if needed. */
 		if ((shift > 0) && (page > 0)) {
-			dogm128_ram[((page - 1) * 128) + xcoord + i] &= ~(0xFF << (8 - shift)); /* clear area */
-			dogm128_ram[((page - 1) * 128) + xcoord + i] = (dogm128_font[data - 0x20][i] << (8 - shift)); 
+			dogm128_ram[((page - 1) * 128) + xcoord + i] &=
+				~(0xFF << (8 - shift)); /* Clear area. */
+			dogm128_ram[((page - 1) * 128) + xcoord + i] =
+				(dogm128_font[data - 0x20][i] << (8 - shift));
 		}
 	}
 }
@@ -129,7 +134,7 @@ void dogm128_set_cursor(u8 xcoord, u8 ycoord)
 	dogm128_cursor_y = ycoord;
 }
 
-void dogm128_print_string(char * s)
+void dogm128_print_string(char *s)
 {
 	while (*s != 0) {
 		dogm128_print_char(*s);
@@ -139,50 +144,57 @@ void dogm128_print_string(char * s)
 
 void dogm128_set_dot(u8 xcoord, u8 ycoord)
 {
-	dogm128_ram[(((63 - ycoord) / 8) * 128) + xcoord] |= (1 << ((63 - ycoord) % 8)); 
+	dogm128_ram[(((63 - ycoord) / 8) * 128) + xcoord] |=
+		(1 << ((63 - ycoord) % 8));
 }
 
 void dogm128_clear_dot(u8 xcoord, u8 ycoord)
 {
-	dogm128_ram[(((63 - ycoord) / 8) * 128) + xcoord] &= ~(1 << ((63 - ycoord) % 8)); 
+	dogm128_ram[(((63 - ycoord) / 8) * 128) + xcoord] &=
+		~(1 << ((63 - ycoord) % 8));
 }
 
-void dogm128_update_display()
+void dogm128_update_display(void)
 {
-	u8 page;
-	u8 column;
+	u8 page, column;
 
-	/* tell the display that we want to start */
+	/* Tell the display that we want to start. */
         spi_set_nss_low(DOGM128_SPI);
 
 	for (page = 0; page <= 7; page++) {
-        	dogm128_send_command(0xB0 + page); /* set page */
-		dogm128_send_command(0x10); /* set column upper address to 0 */
-		dogm128_send_command(0x00); /* set column lower address to 0 */
+		dogm128_send_command(0xB0 + page); /* Set page. */
+		dogm128_send_command(0x10); /* Set column upper address to 0. */
+		dogm128_send_command(0x00); /* Set column lower address to 0. */
 
-		for (column = 0; column <= 127; column++) {
+		for (column = 0; column <= 127; column++)
 			dogm128_send_data(dogm128_ram[(page * 128) + column]);
-		}
 	}
-	
-        spi_set_nss_high(DOGM128_SPI);
+
+	spi_set_nss_high(DOGM128_SPI);
 }
 
-void dogm128_clear()
+void dogm128_clear(void)
 {
-	u16 i;
-	
-	for (i = 0; i<=1023; i++) {
+	int i;
+
+	for (i = 0; i <= 1023; i++)
 		dogm128_ram[i] = 0;
-	}	
+
 	dogm128_update_display();
 }
 
-/* This is a non-monospace font definition (upside down for better handling).
- * 0xAA is the end of the character so its not space efficient in your memory, but on your display.
- * We are starting with " " as the first printable character at 0x20, so we have to substract 0x20 later.
- * Its the only defined to 127/0x7F so if you have german umlauts or other special characters from above
- * you have to expand this definition a little bit. */
+/*
+ * This is a non-monospace font definition (upside down for better handling).
+ * 0xAA is the end of the character so it's not space efficient in your memory,
+ * but on your display.
+ *
+ * We are starting with " " as the first printable character at 0x20, so we
+ * have to substract 0x20 later.
+ *
+ * Its the only defined to 127/0x7F so if you have German umlauts or other
+ * special characters from above you have to expand this definition a
+ * little bit.
+ */
 
 const u8 dogm128_font[96][6] = {
 
@@ -192,18 +204,18 @@ const u8 dogm128_font[96][6] = {
   /* 23 # */  {0x28, 0x7C, 0x28, 0x7C, 0x28, 0xAA},
   /* 24 $ */  {0x24, 0x2A, 0x7F, 0x2A, 0x10, 0xAA},
   /* 25 % */  {0x62, 0x18, 0x46, 0xAA, 0xAA, 0xAA},
-  /* 26 & */  {0x30, 0x4C, 0x5A, 0x24, 0x50, 0xAA}, 
+  /* 26 & */  {0x30, 0x4C, 0x5A, 0x24, 0x50, 0xAA},
   /* 27 ' */  {0x06, 0xAA, 0xAA, 0xAA, 0xAA, 0xAA},
   /* 28 ( */  {0x3E, 0x41, 0xAA, 0xAA, 0xAA, 0xAA},
   /* 29 ) */  {0x41, 0x3E, 0xAA, 0xAA, 0xAA, 0xAA},
-  /* 2A * */  {0x28, 0x10, 0x7C, 0x10, 0x28, 0xAA}, 
+  /* 2A * */  {0x28, 0x10, 0x7C, 0x10, 0x28, 0xAA},
   /* 2B + */  {0x10, 0x38, 0x10, 0xAA, 0xAA, 0xAA},
   /* 2C , */  {0xC0, 0xAA, 0xAA, 0xAA, 0xAA, 0xAA},
   /* 2D - */  {0x10, 0x10, 0x10, 0xAA, 0xAA, 0xAA},
   /* 2E . */  {0x40, 0xAA, 0xAA, 0xAA, 0xAA, 0xAA},
   /* 2F / */  {0x60, 0x18, 0x06, 0xAA, 0xAA, 0xAA},
 
-  /* 30 0 */  {0x3C, 0x42, 0x42, 0x3C, 0xAA, 0xAA}, 
+  /* 30 0 */  {0x3C, 0x42, 0x42, 0x3C, 0xAA, 0xAA},
   /* 31 1 */  {0x44, 0x7E, 0x40, 0xAA, 0xAA, 0xAA},
   /* 32 2 */  {0x44, 0x62, 0x52, 0x4C, 0xAA, 0xAA},
   /* 33 3 */  {0x4A, 0x4A, 0x34, 0xAA, 0xAA, 0xAA},
@@ -286,6 +298,5 @@ const u8 dogm128_font[96][6] = {
   /* 7C | */  {0x7E, 0xAA, 0xAA, 0xAA, 0xAA, 0xAA},
   /* 7D } */  {0x41, 0x36, 0x08, 0xAA, 0xAA, 0xAA},
   /* 7E ~ */  {0x20, 0x10, 0x20, 0x10, 0xAA, 0xAA},
-  /* 7F DEL  */  {0xAA, 0xAA, 0xAA, 0xAA, 0xAA, 0xAA} 
+  /* 7F DEL  */  {0xAA, 0xAA, 0xAA, 0xAA, 0xAA, 0xAA},
 };
-
