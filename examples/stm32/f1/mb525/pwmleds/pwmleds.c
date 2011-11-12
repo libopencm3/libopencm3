@@ -156,7 +156,7 @@ static const u16 gamma_table_2_2[] = {
 	49275,	49761,	50249,	50739,	51232,	51728,	52226,	52727,
 	53230,	53736,	54245,	54756,	55270,	55787,	56306,	56828,
 	57352,	57879,	58409,	58941,	59476,	60014,	60554,	61097,
-	61642,	62190,	62741,	63295,	63851,	64410,	64971,	65535
+	61642,	62190,	62741,	63295,	63851,	64410,	64971,	65535,
 };
 #endif
 
@@ -251,29 +251,30 @@ void clock_setup(void)
 void gpio_setup(void)
 {
 	/*
-	 * Set GPIO6 (in GPIO port C) to
+	 * Set GPIO_TIM1_CH1/2/3/4 (in GPIO port A) to
 	 * 'output alternate function push-pull'.
 	 */
 	gpio_set_mode(GPIOA, GPIO_MODE_OUTPUT_50_MHZ,
-			GPIO_CNF_OUTPUT_ALTFN_PUSHPULL,
-			GPIO_TIM1_CH1 |
-			GPIO_TIM1_CH2 |
-			GPIO_TIM1_CH3 |
-			GPIO_TIM1_CH4);
+		      GPIO_CNF_OUTPUT_ALTFN_PUSHPULL,
+		      GPIO_TIM1_CH1 | GPIO_TIM1_CH2 |
+		      GPIO_TIM1_CH3 | GPIO_TIM1_CH4);
 
-	/* Remap TIM1:
+	/*
+	 * Remap TIM1:
 	 * CH1 -> PC6
 	 * CH2 -> PC7
 	 * CH3 -> PC8
 	 * CH4 -> PC9
 	 */
-	//AFIO_MAPR |= AFIO_MAPR_TIM3_REMAP_FULL_REMAP;
+	// AFIO_MAPR |= AFIO_MAPR_TIM3_REMAP_FULL_REMAP;
 }
+
 void tim_setup(void)
 {
 #if 0
 	TIM1_CR1 = TIM_CR1_CMS_CENTER_1 | TIM_CR1_ARPE;
-	TIM1_CCMR1 = TIM_CCMR1_OC1M_PWM1 | TIM_CCMR1_OC1PE | TIM_CCMR1_OC2M_PWM1 | TIM_CCMR1_OC2PE;
+	TIM1_CCMR1 = TIM_CCMR1_OC1M_PWM1 | TIM_CCMR1_OC1PE |
+		     TIM_CCMR1_OC2M_PWM1 | TIM_CCMR1_OC2PE;
 	TIM1_CCMR2 = TIM_CCMR2_OC3M_PWM1 | TIM_CCMR2_OC3PE;
 
 	TIM1_CCER &= ~TIM_CCER_CC1P;
@@ -471,18 +472,18 @@ int main(void)
 		if (j == 100) {
 			j = 0;
 			switch (k += kd) {
-				case 0:
-					j0 = 255;
-					break;
-				case 1:
-					j1 = 255;
-					break;
-				case 2:
-					j2 = 255;
-					break;
-				case 3:
-					j3 = 255;
-					break;
+			case 0:
+				j0 = 255;
+				break;
+			case 1:
+				j1 = 255;
+				break;
+			case 2:
+				j2 = 255;
+				break;
+			case 3:
+				j3 = 255;
+				break;
 			}
 			if (k == 3)
 				kd =- 1;

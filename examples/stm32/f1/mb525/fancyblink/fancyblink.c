@@ -31,7 +31,7 @@ void clock_setup(void)
 
 void gpio_setup(void)
 {
-	/* Set GPIO6 (in GPIO port C) to 'output push-pull'. */
+	/* Set GPIO6/7/8/9 (in GPIO port C) to 'output push-pull'. */
 	gpio_set_mode(GPIOC, GPIO_MODE_OUTPUT_50_MHZ,
 		      GPIO_CNF_OUTPUT_PUSHPULL, GPIO6 | GPIO7 | GPIO8 | GPIO9);
 }
@@ -43,7 +43,7 @@ int main(void)
 	clock_setup();
 	gpio_setup();
 
-	/* Blink the LED (PC12) on the board. */
+	/* Blink the LEDs on the board. */
 	gpio_set(GPIOC, GPIO6);
 	while (1) {
 		gpio_toggle(GPIOC, GPIO6);	/* LED on/off */
