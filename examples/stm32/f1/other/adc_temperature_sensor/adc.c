@@ -63,7 +63,7 @@ void adc_setup(void)
 
 	rcc_peripheral_enable_clock(&RCC_APB2ENR, RCC_APB2ENR_ADC1EN);
 
-	/* Make shure it doesn't run during config. */
+	/* Make sure the ADC doesn't run during config. */
 	adc_off(ADC1);
 
 	/* We configure everything for one single conversion. */
@@ -96,12 +96,12 @@ void my_usart_print_int(u32 usart, int value)
 		 usart_send(usart, '-');
 		 value = value * -1;
 	}
-	
+
 	while (value > 0) {
 		buffer[nr_digits++] = "0123456789"[value % 10];
 		value /= 10;
 	}
-	
+
 	for (i = nr_digits; i >= 0; i--)
 		usart_send(usart, buffer[i]);
 }
@@ -129,16 +129,16 @@ int main(void)
 	/* Select the channel we want to convert. 16=temperature_sensor. */
 	channel_array[0] = 16;
 	adc_set_regular_sequence(ADC1, 1, channel_array);
-	
+
 	/*
 	 * If the ADC_CR2_ON bit is already set -> setting it another time
 	 * starts the conversion.
 	 */
 	adc_on(ADC1);
-	
+
 	/* Wait for end of conversion. */
 	while (!(ADC_SR(ADC1) & ADC_SR_EOC));
-	
+
 	temperature = ADC_DR(ADC1);
 
 	/*
