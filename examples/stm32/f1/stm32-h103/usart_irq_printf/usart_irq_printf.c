@@ -158,7 +158,7 @@ void gpio_setup(void)
 {
 	gpio_set(GPIOC, GPIO12);
 
-	/* Setup GPIO6 and 7 (in GPIO port A) for led use. */
+	/* Setup GPIO6 and 7 (in GPIO port A) for LED use. */
 	gpio_set_mode(GPIOC, GPIO_MODE_OUTPUT_50_MHZ,
 		      GPIO_CNF_OUTPUT_PUSHPULL, GPIO12);
 }
