@@ -245,7 +245,7 @@ static u16 stm32f107_ep_write_packet(u8 addr, const void *buf, u16 len)
 	addr &= 0x7F;
 
 	/* Return if endpoint is already enabled. */
-	if(OTG_FS_DTXFSTS(addr) < (len >> 2))
+	if(OTG_FS_DIEPTSIZ(addr) & OTG_FS_DIEPSIZ0_PKTCNT)
 		return 0;
 
 	/* Enable endpoint for transmission */
