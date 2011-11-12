@@ -40,12 +40,12 @@ SECTIONS
 
 	. = ORIGIN(ram);
 
-	.data : {
+	.data : AT(_etext) {
 		_data = .;
 		*(.data*)	/* Read-write initialized data */
 		. = ALIGN(4);
 		_edata = .;
-	} >ram AT >rom
+	} >ram
 
 	.bss : {
 		*(.bss*)	/* Read-write zero initialized data */
