@@ -26,7 +26,6 @@
 #include <libopencm3/stm32/otg_fs.h>
 #include <libopencm3/usb/usbd.h>
 #include <libopencm3/usb/hid.h>
-
 #include "adxl345.h"
 
 /* Define this to include the DFU APP interface. */
@@ -54,7 +53,7 @@ const struct usb_device_descriptor dev = {
 	.bNumConfigurations = 1,
 };
 
-/* I have no idea what this means.  I haven't read the HID spec. */
+/* I have no idea what this means. I haven't read the HID spec. */
 static const u8 hid_report_descriptor[] = {
 	0x05, 0x01, 0x09, 0x02, 0xA1, 0x01, 0x09, 0x01,
 	0xA1, 0x00, 0x05, 0x09, 0x19, 0x01, 0x29, 0x03,
@@ -65,7 +64,7 @@ static const u8 hid_report_descriptor[] = {
 	0x81, 0x06, 0xC0, 0x09, 0x3c, 0x05, 0xff, 0x09,
 	0x01, 0x15, 0x00, 0x25, 0x01, 0x75, 0x01, 0x95,
 	0x02, 0xb1, 0x22, 0x75, 0x06, 0x95, 0x01, 0xb1,
-	0x01, 0xc0
+	0x01, 0xc0,
 };
 
 static const struct {
@@ -184,8 +183,8 @@ static int hid_control_request(struct usb_setup_data *req, u8 **buf, u16 *len,
 	   (req->wValue != 0x2200))
 		return 0;
 
-	/* Handle the HID report descriptor */
-	*buf = (u8*)hid_report_descriptor;
+	/* Handle the HID report descriptor. */
+	*buf = (u8 *)hid_report_descriptor;
 	*len = sizeof(hid_report_descriptor);
 
 	return 1;
@@ -209,8 +208,8 @@ static int dfu_control_request(struct usb_setup_data *req, u8 **buf, u16 *len,
 	(void)buf;
 	(void)len;
 
-	if((req->bmRequestType != 0x21) || (req->bRequest != DFU_DETACH))
-		return 0; /* Only accept class request */
+	if ((req->bmRequestType != 0x21) || (req->bRequest != DFU_DETACH))
+		return 0; /* Only accept class request. */
 
 	*complete = dfu_detach_complete;
 
@@ -243,9 +242,11 @@ static void hid_set_config(u16 wValue)
 
 static uint8_t spi_readwrite(uint32_t spi, uint8_t data)
 {
-	while(SPI_SR(spi) & SPI_SR_BSY);
+	while (SPI_SR(spi) & SPI_SR_BSY)
+		;
 	SPI_DR(spi) = data;
-	while(!(SPI_SR(spi) & SPI_SR_RXNE));
+	while (!(SPI_SR(spi) & SPI_SR_RXNE))
+		;
 	return SPI_DR(spi);
 }
 
@@ -269,19 +270,21 @@ static void accel_write(uint8_t addr, uint8_t data)
 
 static void accel_get(int16_t *x, int16_t *y, int16_t *z)
 {
-	if(x) 
-		*x = accel_read(ADXL345_DATAX0) | 
+	if (x)
+		*x = accel_read(ADXL345_DATAX0) |
 			(accel_read(ADXL345_DATAX1) << 8);
-	if(y) 
-		*y = accel_read(ADXL345_DATAY0) | 
+	if (y)
+		*y = accel_read(ADXL345_DATAY0) |
 			(accel_read(ADXL345_DATAY1) << 8);
-	if(z) 
-		*z = accel_read(ADXL345_DATAZ0) | 
+	if (z)
+		*z = accel_read(ADXL345_DATAZ0) |
 			(accel_read(ADXL345_DATAZ1) << 8);
 }
 
 int main(void)
 {
+	int i;
+
 	rcc_clock_setup_in_hse_12mhz_out_72mhz();
 
 	rcc_peripheral_enable_clock(&RCC_APB2ENR, RCC_APB2ENR_IOPAEN);
@@ -289,26 +292,26 @@ int main(void)
 	rcc_peripheral_enable_clock(&RCC_APB2ENR, RCC_APB2ENR_IOPCEN);
 	rcc_peripheral_enable_clock(&RCC_APB1ENR, RCC_APB1ENR_SPI2EN);
 
-	/* Configure SPI2: PB13(SCK), PB14(MISO), PB15(MOSI) */
-	gpio_set_mode(GPIOB, GPIO_MODE_OUTPUT_10_MHZ, 
-			GPIO_CNF_OUTPUT_ALTFN_PUSHPULL,
-			GPIO_SPI2_SCK | GPIO_SPI2_MOSI);
+	/* Configure SPI2: PB13(SCK), PB14(MISO), PB15(MOSI). */
+	gpio_set_mode(GPIOB, GPIO_MODE_OUTPUT_10_MHZ,
+		      GPIO_CNF_OUTPUT_ALTFN_PUSHPULL,
+		      GPIO_SPI2_SCK | GPIO_SPI2_MOSI);
 	gpio_set_mode(GPIOB, GPIO_MODE_INPUT, GPIO_CNF_INPUT_FLOAT,
-			GPIO_SPI2_MISO);
-	/* Enable CS pin on PB12 */
+		      GPIO_SPI2_MISO);
+	/* Enable CS pin on PB12. */
 	gpio_set(GPIOB, GPIO12);
-	gpio_set_mode(GPIOB, GPIO_MODE_OUTPUT_10_MHZ, 
-			GPIO_CNF_OUTPUT_PUSHPULL, GPIO12);
+	gpio_set_mode(GPIOB, GPIO_MODE_OUTPUT_10_MHZ,
+		      GPIO_CNF_OUTPUT_PUSHPULL, GPIO12);
 
-	/* Force to SPI mode.  This should be default after reset! */
-	SPI2_I2SCFGR = 0; 
+	/* Force to SPI mode. This should be default after reset! */
+	SPI2_I2SCFGR = 0;
 	spi_init_master(SPI2,
-			SPI_CR1_BAUDRATE_FPCLK_DIV_256, 
-			SPI_CR1_CPOL_CLK_TO_1_WHEN_IDLE, 
-			SPI_CR1_CPHA_CLK_TRANSITION_2, 
+			SPI_CR1_BAUDRATE_FPCLK_DIV_256,
+			SPI_CR1_CPOL_CLK_TO_1_WHEN_IDLE,
+			SPI_CR1_CPHA_CLK_TRANSITION_2,
 			SPI_CR1_DFF_8BIT,
 			SPI_CR1_MSBFIRST);
-	/* Ignore the stupid NSS pin */
+	/* Ignore the stupid NSS pin. */
 	spi_enable_software_slave_management(SPI2);
 	spi_set_nss_high(SPI2);
 	spi_enable(SPI2);
@@ -317,28 +320,28 @@ int main(void)
 	accel_write(ADXL345_POWER_CTL, ADXL345_POWER_CTL_MEASURE);
 	accel_write(ADXL345_DATA_FORMAT, ADXL345_DATA_FORMAT_LALIGN);
 
-	/* USB_DETECT as input */
-	gpio_set_mode(GPIOA, GPIO_MODE_INPUT,
-			GPIO_CNF_INPUT_FLOAT, GPIO8);
+	/* USB_DETECT as input. */
+	gpio_set_mode(GPIOA, GPIO_MODE_INPUT, GPIO_CNF_INPUT_FLOAT, GPIO8);
 
-	/* green LED off, as output */
+	/* Green LED off, as output. */
 	gpio_set(GPIOC, GPIO2);
 	gpio_set_mode(GPIOC, GPIO_MODE_OUTPUT_2_MHZ,
-			GPIO_CNF_OUTPUT_PUSHPULL, GPIO2);
-
+		      GPIO_CNF_OUTPUT_PUSHPULL, GPIO2);
 
 	usbd_init(&stm32f107_usb_driver, &dev, &config, usb_strings);
 	usbd_register_set_config_callback(hid_set_config);
 
-	/* delay some seconds to show that pull-up switch works */
-	{int i; for (i=0;i<0x800000;i++) asm("nop");}
+	/* Delay some seconds to show that pull-up switch works. */
+	for (i = 0; i < 0x800000; i++)
+		__asm__("nop");
 
-	/* wait for USB Vbus */
-	while(gpio_get(GPIOA, GPIO8) == 0) asm("nop");
+	/* Wait for USB Vbus. */
+	while (gpio_get(GPIOA, GPIO8) == 0)
+		__asm__("nop");
 
-	/* green LED on, connect USB */
+	/* Green LED on, connect USB. */
 	gpio_clear(GPIOC, GPIO2);
-	//OTG_FS_GCCFG &= ~OTG_FS_GCCFG_VBUSBSEN;
+	// OTG_FS_GCCFG &= ~OTG_FS_GCCFG_VBUSBSEN;
 
 	while (1)
 		usbd_poll();
