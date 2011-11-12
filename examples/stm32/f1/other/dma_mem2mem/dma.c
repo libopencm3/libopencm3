@@ -57,7 +57,7 @@ void gpio_setup(void)
 	              GPIO_CNF_OUTPUT_PUSHPULL, GPIO7);
 }
 
-void my_usart_print_string(u32 usart, char * s)
+void my_usart_print_string(u32 usart, char *s)
 {
 	while (*s != 0) {
 		usart_send(usart, *s);
@@ -67,12 +67,14 @@ void my_usart_print_string(u32 usart, char * s)
 
 int main(void)
 {
-	/* Exactly 20 bytes including '0' at the end.
-	   We want to transfer 32bit * 5 so it should fit */
+	/*
+	 * Exactly 20 bytes including '\0' at the end.
+	 * We want to transfer 32bit * 5 so it should fit.
+	 */
 	char s1[20] = "Hello STM MEM2MEM\r\n";
 	char s2[20];
 
-        rcc_clock_setup_in_hse_16mhz_out_72mhz();
+	rcc_clock_setup_in_hse_16mhz_out_72mhz();
 	gpio_setup();
 	usart_setup();
 
@@ -94,7 +96,10 @@ int main(void)
 	dma_set_memory_size(DMA1, DMA_CHANNEL1, DMA_CCR1_MSIZE_32BIT);
 	dma_set_peripheral_size(DMA1, DMA_CHANNEL1, DMA_CCR1_PSIZE_32BIT);
 
-	/* After each 32Bit we have to increase the addres because we use RAM. */
+	/*
+	 * After every 32bits we have to increase the address because
+	 * we use RAM.
+	 */
 	dma_enable_memory_increment_mode(DMA1, DMA_CHANNEL1);
 	dma_enable_peripheral_increment_mode(DMA1, DMA_CHANNEL1);
 
@@ -102,23 +107,24 @@ int main(void)
 	dma_set_read_from_peripheral(DMA1, DMA_CHANNEL1);
 
 	/* We want to transfer string s1. */
-	dma_set_peripheral_address(DMA1, DMA_CHANNEL1, (u32) &s1);
+	dma_set_peripheral_address(DMA1, DMA_CHANNEL1, (u32)&s1);
 
 	/* Destination should be string s2. */
-	dma_set_memory_address(DMA1, DMA_CHANNEL1, (u32) &s2);
+	dma_set_memory_address(DMA1, DMA_CHANNEL1, (u32)&s2);
 
-	/* Set number of DATA to transfer.
-	   Remember that this means not necessary bytes but MSIZE or PSIZE
-	   depending from your source device. */
-	dma_set_number_of_data(DMA1, DMA_CHANNEL1, 5); 
+	/*
+	 * Set number of DATA to transfer.
+	 * Remember that this means not necessary bytes but MSIZE or PSIZE
+	 * depending on your source device.
+	 */
+	dma_set_number_of_data(DMA1, DMA_CHANNEL1, 5);
 
 	/* Start DMA transfer. */
 	dma_enable_channel(DMA1, DMA_CHANNEL1);
 
-	/* TODO: write a function to get the interrupt flags. */
-	while(!(DMA_ISR(DMA1) & 0x0000001))
-	{
-	}
+	/* TODO: Write a function to get the interrupt flags. */
+	while (!(DMA_ISR(DMA1) & 0x0000001))
+		;
 
 	dma_disable_channel(DMA1, DMA_CHANNEL1);
 
@@ -127,7 +133,8 @@ int main(void)
 	my_usart_print_string(USART1, s2);
 
 	gpio_clear(GPIOB, GPIO6);	/* LED2 on */
-	while(1); /* Halt. */
+
+	while (1); /* Halt. */
 
 	return 0;
 }
