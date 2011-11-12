@@ -25,7 +25,7 @@ void gpio_setup(void)
 	SYSTEMCONTROL_RCGC2 |= 0x20; /* Enable GPIOF in run mode. */
 
 	GPIO_DIR(GPIOF) |= (1 << 0); /* Configure PF0 as output. */
-	GPIO_DEN(GPIOF) |= (1 << 0); /* Enable digital function on PF0 */
+	GPIO_DEN(GPIOF) |= (1 << 0); /* Enable digital function on PF0. */
 }
 
 int main(void)
@@ -49,4 +49,3 @@ int main(void)
 
 	return 0;
 }
-
