@@ -40,7 +40,7 @@ void usart_setup(void)
 	/* Enable the USART1 interrupt. */
 	nvic_enable_irq(NVIC_USART1_IRQ);
 
-	/* enable USART1 pin software remapping */
+	/* Enable USART1 pin software remapping. */
 	AFIO_MAPR |= AFIO_MAPR_USART1_REMAP;
 
 	/* Setup GPIO pin GPIO_USART1_RE_TX on GPIO port B for transmit. */
@@ -70,7 +70,7 @@ void gpio_setup(void)
 {
 	gpio_set(GPIOA, GPIO6 | GPIO7);
 
-	/* Setup GPIO6 and 7 (in GPIO port A) for led use. */
+	/* Setup GPIO6 and 7 (in GPIO port A) for LED use. */
 	gpio_set_mode(GPIOA, GPIO_MODE_OUTPUT_50_MHZ,
 		      GPIO_CNF_OUTPUT_PUSHPULL, GPIO6 | GPIO7);
 }

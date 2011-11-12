@@ -60,7 +60,7 @@ void usart_setup(void)
 
 void gpio_setup(void)
 {
-	/* Set GPIO12 (in GPIO port C) to 'output push-pull'. */
+	/* Set GPIO6 (in GPIO port A) to 'output push-pull'. */
 	gpio_set_mode(GPIOA, GPIO_MODE_OUTPUT_50_MHZ,
 		      GPIO_CNF_OUTPUT_PUSHPULL, GPIO6);
 }
@@ -73,7 +73,7 @@ int main(void)
 	gpio_setup();
 	usart_setup();
 
-	/* Blink the LED (PC12) on the board with every transmitted byte. */
+	/* Blink the LED (PA6) on the board with every transmitted byte. */
 	while (1) {
 		gpio_toggle(GPIOA, GPIO6);	/* LED on/off */
 		usart_send_blocking(USART1, c + '0');	/* Send a byte. */

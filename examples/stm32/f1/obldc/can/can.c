@@ -55,10 +55,10 @@ void gpio_setup(void)
 	/* Enable GPIOB clock. */
 	rcc_peripheral_enable_clock(&RCC_APB2ENR, RCC_APB2ENR_IOPBEN);
 
-	gpio_set(GPIOA, GPIO6);		/* LED0 off */
-	gpio_set(GPIOA, GPIO7);		/* LED1 off */
-	gpio_set(GPIOB, GPIO0);		/* LED2 off */
-	gpio_set(GPIOB, GPIO1);		/* LED3 off */
+	gpio_set(GPIOA, GPIO6); /* LED0 off */
+	gpio_set(GPIOA, GPIO7); /* LED1 off */
+	gpio_set(GPIOB, GPIO0); /* LED2 off */
+	gpio_set(GPIOB, GPIO1); /* LED3 off */
 
 	/* Set GPIO6/7 (in GPIO port A) to 'output push-pull' for the LEDs. */
 	gpio_set_mode(GPIOA, GPIO_MODE_OUTPUT_50_MHZ,
@@ -66,7 +66,7 @@ void gpio_setup(void)
 	gpio_set_mode(GPIOA, GPIO_MODE_OUTPUT_50_MHZ,
 	              GPIO_CNF_OUTPUT_PUSHPULL, GPIO7);
 
-	/* Set GPIO6/7 (in GPIO port B) to 'output push-pull' for the LEDs. */
+	/* Set GPIO0/1 (in GPIO port B) to 'output push-pull' for the LEDs. */
 	gpio_set_mode(GPIOB, GPIO_MODE_OUTPUT_50_MHZ,
 	              GPIO_CNF_OUTPUT_PUSHPULL, GPIO0);
 	gpio_set_mode(GPIOB, GPIO_MODE_OUTPUT_50_MHZ,

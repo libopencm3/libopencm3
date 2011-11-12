@@ -21,9 +21,9 @@
 #include <libopencm3/stm32/f1/rcc.h>
 #include <libopencm3/stm32/f1/gpio.h>
 
-/* Set STM32 to 72 MHz. */
 void clock_setup(void)
 {
+	/* Set STM32 to 72 MHz. */
 	rcc_clock_setup_in_hse_8mhz_out_72mhz();
 
 	/* Enable GPIOA clock. */

@@ -156,7 +156,7 @@ static const u16 gamma_table_2_2[] = {
 	49275,	49761,	50249,	50739,	51232,	51728,	52226,	52727,
 	53230,	53736,	54245,	54756,	55270,	55787,	56306,	56828,
 	57352,	57879,	58409,	58941,	59476,	60014,	60554,	61097,
-	61642,	62190,	62741,	63295,	63851,	64410,	64971,	65535
+	61642,	62190,	62741,	63295,	63851,	64410,	64971,	65535,
 };
 #endif
 
@@ -245,9 +245,9 @@ void clock_setup(void)
 
 	/* Enable GPIOC, Alternate Function clocks. */
 	rcc_peripheral_enable_clock(&RCC_APB2ENR,
-				RCC_APB2ENR_IOPAEN |
-				RCC_APB2ENR_IOPBEN |
-				RCC_APB2ENR_AFIOEN);
+				    RCC_APB2ENR_IOPAEN |
+				    RCC_APB2ENR_IOPBEN |
+				    RCC_APB2ENR_AFIOEN);
 }
 
 void gpio_setup(void)
@@ -460,18 +460,18 @@ int main(void)
 		if (j == 100) {
 			j = 0;
 			switch (k += kd) {
-				case 0:
-					j0 = 255;
-					break;
-				case 1:
-					j1 = 255;
-					break;
-				case 2:
-					j2 = 255;
-					break;
-				case 3:
-					j3 = 255;
-					break;
+			case 0:
+				j0 = 255;
+				break;
+			case 1:
+				j1 = 255;
+				break;
+			case 2:
+				j2 = 255;
+				break;
+			case 3:
+				j3 = 255;
+				break;
 			}
 			if (k == 3)
 				kd =- 1;
