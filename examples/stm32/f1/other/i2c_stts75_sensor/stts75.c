@@ -43,7 +43,8 @@ void stts75_write_config(u32 i2c, u8 sensor)
 	/* Sending the data. */
 	i2c_send_data(i2c, 0x1); /* stts75 config register */
 	while (!(I2C_SR1(i2c) & I2C_SR1_BTF)); /* Await ByteTransferedFlag. */
-	i2c_send_data(i2c, 0x4); /* pol reverse - LED glows if temp is below Tos/Thyst */
+	/* Polarity reverse - LED glows if temp is below Tos/Thyst. */
+	i2c_send_data(i2c, 0x4);
 	while (!(I2C_SR1(i2c) & (I2C_SR1_BTF | I2C_SR1_TxE)));
 
 	/* Send STOP condition. */
@@ -75,8 +76,9 @@ void stts75_write_temp_os(u32 i2c, u8 sensor, u16 temp_os)
 	while (!(I2C_SR1(i2c) & I2C_SR1_BTF));
 	i2c_send_data(i2c, (u8)(temp_os >> 8)); /* MSB */
 	while (!(I2C_SR1(i2c) & I2C_SR1_BTF));
-	i2c_send_data(i2c, (u8)(temp_os & 0xff00)); /* LSB  */
-	while (!(I2C_SR1(i2c) & (I2C_SR1_BTF | I2C_SR1_TxE))); /* After the last byte we have to wait for TxE too. */
+	i2c_send_data(i2c, (u8)(temp_os & 0xff00)); /* LSB */
+	/* After the last byte we have to wait for TxE too. */
+	while (!(I2C_SR1(i2c) & (I2C_SR1_BTF | I2C_SR1_TxE)));
 
 	/* Send STOP condition. */
 	i2c_send_stop(i2c);
@@ -107,8 +109,9 @@ void stts75_write_temp_hyst(u32 i2c, u8 sensor, u16 temp_hyst)
 	while (!(I2C_SR1(i2c) & I2C_SR1_BTF));
 	i2c_send_data(i2c, (u8)(temp_hyst >> 8)); /* MSB */
 	while (!(I2C_SR1(i2c) & I2C_SR1_BTF));
-	i2c_send_data(i2c, (u8)(temp_hyst & 0xff00)); /* LSB  */
-	while (!(I2C_SR1(i2c) & (I2C_SR1_BTF | I2C_SR1_TxE))); /* After the last byte we have to wait for TxE too. */
+	i2c_send_data(i2c, (u8)(temp_hyst & 0xff00)); /* LSB */
+	/* After the last byte we have to wait for TxE too. */
+	while (!(I2C_SR1(i2c) & (I2C_SR1_BTF | I2C_SR1_TxE)));
 
 	/* Send STOP condition. */
 	i2c_send_stop(i2c);
@@ -154,7 +157,7 @@ u16 stts75_read_temperature(u32 i2c, u8 sensor)
 
 	/* Say to what address we want to talk to. */
 	i2c_send_7bit_address(i2c, sensor, I2C_READ); 
-	
+
 	/* 2-byte receive is a special case. See datasheet POS bit. */
 	I2C_CR1(i2c) |= (I2C_CR1_POS | I2C_CR1_ACK);
 
@@ -165,7 +168,7 @@ u16 stts75_read_temperature(u32 i2c, u8 sensor)
 	reg32 = I2C_SR2(i2c);
 
 	/* Cleaning I2C_SR1_ACK. */
-	I2C_CR1(i2c) &= ~ I2C_CR1_ACK;
+	I2C_CR1(i2c) &= ~I2C_CR1_ACK;
 
 	/* Now the slave should begin to send us the first byte. Await BTF. */
 	while (!(I2C_SR1(i2c) & I2C_SR1_BTF));

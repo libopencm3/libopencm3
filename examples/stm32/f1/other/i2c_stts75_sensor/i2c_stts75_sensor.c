@@ -79,16 +79,16 @@ void i2c_setup(void)
 	i2c_set_fast_mode(I2C2);
 
 	/*
-	 * fclock for I2C is 36MHz APB2 -> cycle time 28ns, low time at 400KHz
-	 * incl trise -> Thigh= 1600ns; CCR= tlow/tcycle= 0x1C,9;
-	 * datasheet suggests 0x1e.
+	 * fclock for I2C is 36MHz APB2 -> cycle time 28ns, low time at 400kHz
+	 * incl trise -> Thigh = 1600ns; CCR = tlow/tcycle = 0x1C,9;
+	 * Datasheet suggests 0x1e.
 	 */
 	i2c_set_ccr(I2C2, 0x1e);
 
 	/*
 	 * fclock for I2C is 36MHz -> cycle time 28ns, rise time for
-	 * 400KHz => 300ns and 100KHz => 1000ns; 300ns/28ns = 10;
-	 * incremented by 1 -> 11.
+	 * 400kHz => 300ns and 100kHz => 1000ns; 300ns/28ns = 10;
+	 * Incremented by 1 -> 11.
 	 */
 	i2c_set_trise(I2C2, 0x0b);
 
@@ -107,7 +107,7 @@ int main(void)
 	int i = 0;
 	u16 temperature;
 
-        rcc_clock_setup_in_hse_16mhz_out_72mhz();
+	rcc_clock_setup_in_hse_16mhz_out_72mhz();
 	gpio_setup();
 	usart_setup();
 	i2c_setup();
@@ -140,7 +140,7 @@ int main(void)
 
 	gpio_clear(GPIOB, GPIO6); /* LED2 on */
 
-	while(1); /* Halt. */
+	while (1); /* Halt. */
 
 	return 0;
 }
