@@ -170,7 +170,7 @@ static int cdcacm_control_request(struct usb_setup_data *req, u8 **buf,
 	(void)complete;
 	(void)buf;
 
-	switch(req->bRequest) {
+	switch (req->bRequest) {
 	case USB_CDC_REQ_SET_CONTROL_LINE_STATE: {
 		/*
 		 * This Linux cdc_acm driver requires this to be implemented
@@ -240,10 +240,10 @@ int main(void)
 
 	gpio_set(GPIOC, GPIO2);
 	gpio_set_mode(GPIOC, GPIO_MODE_OUTPUT_2_MHZ,
-			GPIO_CNF_OUTPUT_PUSHPULL, GPIO2);
+		      GPIO_CNF_OUTPUT_PUSHPULL, GPIO2);
 	gpio_set(GPIOC, GPIO5);
 	gpio_set_mode(GPIOC, GPIO_MODE_OUTPUT_2_MHZ,
-			GPIO_CNF_OUTPUT_PUSHPULL, GPIO5);
+		      GPIO_CNF_OUTPUT_PUSHPULL, GPIO5);
 
 	usbd_init(&stm32f107_usb_driver, &dev, &config, usb_strings);
 	usbd_register_set_config_callback(cdcacm_set_config);

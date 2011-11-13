@@ -193,7 +193,7 @@ static void dfu_detach_complete(struct usb_setup_data *req)
 
 	gpio_set_mode(GPIOA, GPIO_MODE_INPUT, 0, GPIO15);
 	gpio_set_mode(GPIOA, GPIO_MODE_OUTPUT_2_MHZ,
-			GPIO_CNF_OUTPUT_PUSHPULL, GPIO10);
+		      GPIO_CNF_OUTPUT_PUSHPULL, GPIO10);
 	gpio_set(GPIOA, GPIO10);
 	scb_reset_core();
 }
@@ -230,7 +230,7 @@ static void hid_set_config(u16 wValue)
 				dfu_control_request);
 #endif
 
-	systick_set_clocksource(STK_CTRL_CLKSOURCE_AHB_DIV8); 
+	systick_set_clocksource(STK_CTRL_CLKSOURCE_AHB_DIV8);
 	systick_set_reload(100000);
 	systick_interrupt_enable();
 	systick_counter_enable();

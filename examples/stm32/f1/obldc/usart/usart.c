@@ -44,7 +44,7 @@ void usart_setup(void)
 
 	/* Setup GPIO pin GPIO_USART3_TX/GPIO10 on GPIO port B for transmit. */
 	gpio_set_mode(GPIOB, GPIO_MODE_OUTPUT_50_MHZ,
-                      GPIO_CNF_OUTPUT_ALTFN_PUSHPULL, GPIO_USART1_RE_TX);
+		      GPIO_CNF_OUTPUT_ALTFN_PUSHPULL, GPIO_USART1_RE_TX);
 
 	/* Setup UART parameters. */
 	usart_set_baudrate(USART1, 230400, rcc_ppre2_frequency);

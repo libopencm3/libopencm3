@@ -33,8 +33,8 @@ void gpio_setup(void)
 	// GPIOC_CRH = (GPIO_CNF_OUTPUT_PUSHPULL << (((12 - 8) * 4) + 2));
 	// GPIOC_CRH |= (GPIO_MODE_OUTPUT_2_MHZ << ((12 - 8) * 4));
 	/* Using API functions: */
-	MMIO32(RCC_BASE+0x30) |= (1<<2);
-	gpio_mode_setup(GPIOC, GPIO_MODE_OUTPUT, GPIO_PUPD_NONE, GPIO3|GPIO4);
+	MMIO32(RCC_BASE + 0x30) |= (1 << 2);
+	gpio_mode_setup(GPIOC, GPIO_MODE_OUTPUT, GPIO_PUPD_NONE, GPIO3 | GPIO4);
 }
 
 int main(void)

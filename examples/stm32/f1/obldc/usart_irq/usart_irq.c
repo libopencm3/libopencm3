@@ -45,7 +45,7 @@ void usart_setup(void)
 
 	/* Setup GPIO pin GPIO_USART1_RE_TX on GPIO port B for transmit. */
 	gpio_set_mode(GPIOB, GPIO_MODE_OUTPUT_50_MHZ,
-                      GPIO_CNF_OUTPUT_ALTFN_PUSHPULL, GPIO_USART1_RE_TX);
+		      GPIO_CNF_OUTPUT_ALTFN_PUSHPULL, GPIO_USART1_RE_TX);
 
 	/* Setup GPIO pin GPIO_USART1_RE_RX on GPIO port B for receive. */
 	gpio_set_mode(GPIOB, GPIO_MODE_INPUT,

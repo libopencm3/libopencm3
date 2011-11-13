@@ -19,24 +19,23 @@
 
 #include <libopencm3/stm32/f1/rcc.h>
 #include <libopencm3/stm32/f1/gpio.h>
-
 #include <libopencm3/usb/usbd.h>
 
 const struct usb_device_descriptor dev = {
-        .bLength = USB_DT_DEVICE_SIZE,
-        .bDescriptorType = USB_DT_DEVICE,
-        .bcdUSB = 0x0200,
-        .bDeviceClass = 0xFF,
-        .bDeviceSubClass = 0,
-        .bDeviceProtocol = 0,
-        .bMaxPacketSize0 = 64,
-        .idVendor = 0xCAFE,
-        .idProduct = 0xCAFE,
-        .bcdDevice = 0x0200,
-        .iManufacturer = 1,
-        .iProduct = 2,
-        .iSerialNumber = 3,
-        .bNumConfigurations = 1,
+	.bLength = USB_DT_DEVICE_SIZE,
+	.bDescriptorType = USB_DT_DEVICE,
+	.bcdUSB = 0x0200,
+	.bDeviceClass = 0xFF,
+	.bDeviceSubClass = 0,
+	.bDeviceProtocol = 0,
+	.bMaxPacketSize0 = 64,
+	.idVendor = 0xCAFE,
+	.idProduct = 0xCAFE,
+	.bcdDevice = 0x0200,
+	.iManufacturer = 1,
+	.iProduct = 2,
+	.iSerialNumber = 3,
+	.bNumConfigurations = 1,
 };
 
 const struct usb_interface_descriptor iface = {
@@ -73,20 +72,20 @@ const char *usb_strings[] = {
 	"x",
 	"Black Sphere Technologies",
 	"Simple Device",
-	"1001"
+	"1001",
 };
 
-static int simple_control_callback(struct usb_setup_data *req, u8 **buf, 
+static int simple_control_callback(struct usb_setup_data *req, u8 **buf,
 		u16 *len, void (**complete)(struct usb_setup_data *req))
 {
 	(void)buf;
 	(void)len;
 	(void)complete;
 
-	if(req->bmRequestType != 0x40) 
-		return 0; /* Only accept vendor request */
+	if (req->bmRequestType != 0x40)
+		return 0; /* Only accept vendor request. */
 	
-	if(req->wValue & 1)
+	if (req->wValue & 1)
 		gpio_set(GPIOC, GPIO6);
 	else
 		gpio_clear(GPIOC, GPIO6);
@@ -102,16 +101,16 @@ int main(void)
 	rcc_peripheral_enable_clock(&RCC_APB2ENR, RCC_APB2ENR_IOPCEN);
 
 	/* LED output */
-	gpio_set_mode(GPIOC, GPIO_MODE_OUTPUT_2_MHZ, 
-			GPIO_CNF_OUTPUT_PUSHPULL, GPIO6);
+	gpio_set_mode(GPIOC, GPIO_MODE_OUTPUT_2_MHZ,
+		      GPIO_CNF_OUTPUT_PUSHPULL, GPIO6);
 
 	usbd_init(&stm32f107_usb_driver, &dev, &config, usb_strings);
 	usbd_register_control_callback(
-				USB_REQ_TYPE_VENDOR, 
+				USB_REQ_TYPE_VENDOR,
 				USB_REQ_TYPE_TYPE,
 				simple_control_callback);
 
-	while (1) 
+	while (1)
 		usbd_poll();
 }
 

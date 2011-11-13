@@ -140,7 +140,7 @@ u16 stts75_read_temperature(u32 i2c, u8 sensor)
 	reg32 = I2C_SR2(i2c);
 
 	i2c_send_data(i2c, 0x0); /* temperature register */
-	while (!(I2C_SR1(i2c) & (I2C_SR1_BTF|I2C_SR1_TxE)));
+	while (!(I2C_SR1(i2c) & (I2C_SR1_BTF | I2C_SR1_TxE)));
 
 	/*
 	 * Now we transferred that we want to ACCESS the temperature register.

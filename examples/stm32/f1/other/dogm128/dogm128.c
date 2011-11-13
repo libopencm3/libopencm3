@@ -159,7 +159,7 @@ void dogm128_update_display(void)
 	u8 page, column;
 
 	/* Tell the display that we want to start. */
-        spi_set_nss_low(DOGM128_SPI);
+	spi_set_nss_low(DOGM128_SPI);
 
 	for (page = 0; page <= 7; page++) {
 		dogm128_send_command(0xB0 + page); /* Set page. */

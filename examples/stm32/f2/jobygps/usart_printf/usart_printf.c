@@ -34,17 +34,16 @@ void clock_setup(void)
 	//rcc_peripheral_enable_clock(&RCC_APB2ENR, RCC_APB2ENR_IOPCEN);
 
 	/* Enable clocks for GPIO port A (for GPIO_USART1_TX) and USART1. */
-	//rcc_peripheral_enable_clock(&RCC_APB2ENR, RCC_APB2ENR_IOPAEN |
-//				RCC_APB2ENR_AFIOEN |
-//				RCC_APB2ENR_USART1EN);
-  RCC_APB2ENR |= RCC_APB2ENR_USART1EN;
+	// rcc_peripheral_enable_clock(&RCC_APB2ENR, RCC_APB2ENR_IOPAEN |
+	// 			RCC_APB2ENR_AFIOEN | RCC_APB2ENR_USART1EN);
+	RCC_APB2ENR |= RCC_APB2ENR_USART1EN;
 	RCC_AHB1ENR |= RCC_AHB1ENR_IOPCEN | RCC_AHB1ENR_IOPAEN;
 }
 
 void usart_setup(void)
 {
 	gpio_mode_setup(GPIOA, GPIO_MODE_AF, GPIO_PUPD_NONE, GPIO9);
-	gpio_set_af(GPIOA, GPIO_AF7, GPIO9|GPIO10);
+	gpio_set_af(GPIOA, GPIO_AF7, GPIO9 | GPIO10);
 
 	/* Setup UART parameters. */
 	usart_set_baudrate(USART1, 9600, 16000000);
@@ -62,25 +61,22 @@ void gpio_setup(void)
 {
 	gpio_set(GPIOC, GPIO3);
 
-	/* Setup GPIO6 and 7 (in GPIO port A) for led use. */
-	gpio_mode_setup(GPIOC, GPIO_MODE_OUTPUT,
-		      GPIO_MODE_OUTPUT, GPIO3);
+	/* Setup GPIO6 and 7 (in GPIO port A) for LED use. */
+	gpio_mode_setup(GPIOC, GPIO_MODE_OUTPUT, GPIO_MODE_OUTPUT, GPIO3);
 }
 
-int _write (int file, char *ptr, int len)
+int _write(int file, char *ptr, int len)
 {
-        int i;
+	int i;
 
 	if (file == 1) {
-		for (i = 0; i < len; i++){
+		for (i = 0; i < len; i++)
 			usart_send_blocking(USART1, ptr[i]);
-		}
-
 		return i;
 	}
 
-        errno = EIO;
-        return -1;
+	errno = EIO;
+	return -1;
 }
 
 int main(void)
@@ -99,10 +95,11 @@ int main(void)
 	 */
 	while (1) {
 		gpio_toggle(GPIOC, GPIO3);
-		printf("Hello World! %i %f %f\r\n", counter, fcounter, dcounter);
+		printf("Hello World! %i %f %f\r\n", counter, fcounter,
+		       dcounter);
 		counter++;
-		fcounter+=0.01;
-		dcounter+=0.01;
+		fcounter += 0.01;
+		dcounter += 0.01;
 	}
 
 	return 0;

@@ -128,7 +128,7 @@ int main(void)
 	temperature = stts75_read_temperature(I2C2, STTS75_SENSOR0);
 
 	/* Send the temperature as binary over USART1. */
-	for (i = 15; i >= 0 ; i--) {
+	for (i = 15; i >= 0; i--) {
 		if (temperature & (1 << i))
 			usart_send(USART1, '1');
 		else

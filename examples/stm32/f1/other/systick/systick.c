@@ -32,9 +32,9 @@ void gpio_setup(void)
 
 	/* Set GPIO6/7 (in GPIO port B) to 'output push-pull' for the LEDs. */
 	gpio_set_mode(GPIOB, GPIO_MODE_OUTPUT_2_MHZ,
-	              GPIO_CNF_OUTPUT_PUSHPULL, GPIO6);
+		      GPIO_CNF_OUTPUT_PUSHPULL, GPIO6);
 	gpio_set_mode(GPIOB, GPIO_MODE_OUTPUT_2_MHZ,
-	              GPIO_CNF_OUTPUT_PUSHPULL, GPIO7);
+		      GPIO_CNF_OUTPUT_PUSHPULL, GPIO7);
 }
 
 void sys_tick_handler(void)

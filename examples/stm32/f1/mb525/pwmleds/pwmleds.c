@@ -367,25 +367,25 @@ int main(void)
 		TIM1_CCR1 = gamma_table_linear[j0];
 		j0 += d0;
 		if (j0 == 255)
-			d0 =- 1;
+			d0 = -1;
 		if (j0 == 0)
 			d0 = 1;
 		TIM1_CCR2 = gamma_table_1_3[j1];
 		j1 += d1;
 		if (j1 == 255)
-			d1 =- 1;
+			d1 = -1;
 		if (j1 == 0)
 			d1 = 1;
 		TIM1_CCR3 = gamma_table_2_5[j2];
 		j2 += d2;
 		if (j2 == 255)
-			d2 =- 1;
+			d2 = -1;
 		if (j2 == 0)
 			d2 = 1;
-		TIM1_CCR4= gamma_table_3_0[j3];
+		TIM1_CCR4 = gamma_table_3_0[j3];
 		j3 += d3;
 		if (j3 == 255)
-			d3 =- 1;
+			d3 = -1;
 		if (j3 == 0)
 			d3 = 1;
 		for (i = 0; i < 50000; i++);
@@ -405,25 +405,25 @@ int main(void)
 		TIM1_CCR1 = GAMMA_TABLE[j0];
 		j0 += d0;
 		if (j0 == 255)
-			d0 =- 1;
+			d0 = -1;
 		if (j0 == 0)
 			d0 = 1;
 		TIM1_CCR2 = GAMMA_TABLE[j1];
 		j1 += d1;
 		if (j1 == 255)
-			d1 =- 1;
+			d1 = - 1;
 		if (j1 == 0)
 			d1 = 1;
 		TIM1_CCR3 = GAMMA_TABLE[j2];
 		j2 += d2;
 		if (j2 == 255)
-			d2 =- 1;
+			d2 = -1;
 		if (j2 == 0)
 			d2 = 1;
 		TIM1_CCR4 = GAMMA_TABLE[j3];
 		j3 += d3;
 		if (j3 == 255)
-			d3 =- 1;
+			d3 = -1;
 		if (j3 == 0)
 			d3 = 1;
 		for (i = 0; i < 10000; i++);
@@ -446,25 +446,25 @@ int main(void)
 		TIM1_CCR1 = GAMMA_TABLE[j0];
 		j0 += d0;
 		if (j0 == 255)
-			d0 =- 1;
+			d0 = -1;
 		if (j0 == 19)
 			j0 = 20;
 		TIM1_CCR2 = GAMMA_TABLE[j1];
 		j1 += d1;
 		if (j1 == 255)
-			d1 =- 1;
+			d1 = -1;
 		if (j1 == 19)
 			j1 = 20;
 		TIM1_CCR3 = GAMMA_TABLE[j2];
 		j2 += d2;
 		if (j2 == 255)
-			d2 =- 1;
+			d2 = -1;
 		if (j2 == 19)
 			j2 = 20;
 		TIM1_CCR4 = GAMMA_TABLE[j3];
 		j3 += d3;
 		if (j3 == 255)
-			d3 =- 1;
+			d3 = -1;
 		if (j3 == 19)
 			j3 = 20;
 		for (i = 0; i < 5000; i++);
@@ -486,7 +486,7 @@ int main(void)
 				break;
 			}
 			if (k == 3)
-				kd =- 1;
+				kd = -1;
 			if (k == 0)
 				kd = 1;
 		}

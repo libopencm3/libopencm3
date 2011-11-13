@@ -35,8 +35,7 @@ void gpio_setup(void)
 {
 	/* Set GPIO12-15 (in GPIO port D) to 'output push-pull'. */
 	gpio_mode_setup(GPIOD, GPIO_MODE_OUTPUT,
-			GPIO_PUPD_NONE,
-			GPIO12 | GPIO13 | GPIO14 | GPIO15);
+			GPIO_PUPD_NONE, GPIO12 | GPIO13 | GPIO14 | GPIO15);
 }
 
 int main(void)
@@ -53,7 +52,7 @@ int main(void)
 	while (1) {
 		/* Toggle LEDs. */
 		gpio_toggle(GPIOD, GPIO12 | GPIO13 | GPIO14 | GPIO15);
-		for (i = 0; i < 6000000; i++)      /* Wait a bit. */
+		for (i = 0; i < 6000000; i++) /* Wait a bit. */
 			__asm__("nop");
 	}
 

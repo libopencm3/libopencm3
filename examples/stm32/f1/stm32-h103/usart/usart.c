@@ -102,12 +102,12 @@ int main(void)
 
 	/* Blink the LED (PC12) on the board with every transmitted byte. */
 	while (1) {
-		gpio_toggle(GPIOC, GPIO12);           /* LED on/off */
-		usart_send_blocking(USART1, c + '0'); /* USART1: Send byte. */
-		usart_send_blocking(USART2, c + '0'); /* USART2: Send byte. */
-		usart_send_blocking(USART3, c + '0'); /* USART3: Send byte. */
+		gpio_toggle(GPIOC, GPIO12);	/* LED on/off */
+		usart_send_blocking(USART1, c + '0');	/* USART1: Send byte. */
+		usart_send_blocking(USART2, c + '0');	/* USART2: Send byte. */
+		usart_send_blocking(USART3, c + '0');	/* USART3: Send byte. */
 		c = (c == 9) ? 0 : c + 1;	/* Increment c. */
-		if ((j++ % 80) == 0) {		/* Newline after line full. */
+		if ((j++ % 80) == 0) {	/* Newline after line full. */
 			usart_send_blocking(USART1, '\r');
 			usart_send_blocking(USART1, '\n');
 			usart_send_blocking(USART2, '\r');

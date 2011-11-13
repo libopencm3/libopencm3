@@ -45,8 +45,8 @@ void gpio_setup(void)
 	AFIO_MAPR |= AFIO_MAPR_SWJ_CFG_FULL_SWJ_NO_JNTRST;
 
 	/* Preconfigure the LEDs. */
-	gpio_set(GPIOB, GPIO4); /* Switch off LED. */
-	gpio_clear(GPIOC, GPIO13); /* Switch on LED. */
+	gpio_set(GPIOB, GPIO4);	/* Switch off LED. */
+	gpio_clear(GPIOC, GPIO13);	/* Switch on LED. */
 }
 
 int main(void)

@@ -197,7 +197,7 @@ static void dfu_detach_complete(struct usb_setup_data *req)
 
 	gpio_set_mode(GPIOA, GPIO_MODE_INPUT, 0, GPIO15);
 	gpio_set_mode(GPIOA, GPIO_MODE_OUTPUT_2_MHZ,
-			GPIO_CNF_OUTPUT_PUSHPULL, GPIO10);
+		      GPIO_CNF_OUTPUT_PUSHPULL, GPIO10);
 	gpio_set(GPIOA, GPIO10);
 	scb_reset_core();
 }

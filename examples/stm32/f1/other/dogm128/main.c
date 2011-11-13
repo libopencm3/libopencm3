@@ -33,24 +33,24 @@ void gpio_setup(void)
 
 	/* Set GPIO6/7 (in GPIO port B) to 'output push-pull' for the LEDs. */
 	gpio_set_mode(GPIOB, GPIO_MODE_OUTPUT_2_MHZ,
-	              GPIO_CNF_OUTPUT_PUSHPULL, GPIO6);
+		      GPIO_CNF_OUTPUT_PUSHPULL, GPIO6);
 	gpio_set_mode(GPIOB, GPIO_MODE_OUTPUT_2_MHZ,
-	              GPIO_CNF_OUTPUT_PUSHPULL, GPIO7);
+		      GPIO_CNF_OUTPUT_PUSHPULL, GPIO7);
 
 	/* A0 of DOGM128 */
 	gpio_set_mode(GPIOB, GPIO_MODE_OUTPUT_50_MHZ,
-	              GPIO_CNF_OUTPUT_PUSHPULL, GPIO14);
+		      GPIO_CNF_OUTPUT_PUSHPULL, GPIO14);
 	/* Reset of DOGM128 */
 	gpio_set_mode(GPIOB, GPIO_MODE_OUTPUT_50_MHZ,
-	              GPIO_CNF_OUTPUT_PUSHPULL, GPIO10);
+		      GPIO_CNF_OUTPUT_PUSHPULL, GPIO10);
 
 	/* DOGM128/SPI2 clock and MOSI and NSS(CS1) */
 	gpio_set_mode(GPIOB, GPIO_MODE_OUTPUT_50_MHZ,
-	              GPIO_CNF_OUTPUT_ALTFN_PUSHPULL, GPIO12);
+		      GPIO_CNF_OUTPUT_ALTFN_PUSHPULL, GPIO12);
 	gpio_set_mode(GPIOB, GPIO_MODE_OUTPUT_50_MHZ,
-	              GPIO_CNF_OUTPUT_ALTFN_PUSHPULL, GPIO13);
+		      GPIO_CNF_OUTPUT_ALTFN_PUSHPULL, GPIO13);
 	gpio_set_mode(GPIOB, GPIO_MODE_OUTPUT_50_MHZ,
-	              GPIO_CNF_OUTPUT_ALTFN_PUSHPULL, GPIO15);
+		      GPIO_CNF_OUTPUT_ALTFN_PUSHPULL, GPIO15);
 }
 
 void spi_setup(void)

@@ -31,7 +31,7 @@ void usart_setup(void)
 
 	/* Setup GPIO pin GPIO_USART1_TX/GPIO9 on GPIO port A for transmit. */
 	gpio_set_mode(GPIOA, GPIO_MODE_OUTPUT_50_MHZ,
-	              GPIO_CNF_OUTPUT_ALTFN_PUSHPULL, GPIO_USART1_TX);
+		      GPIO_CNF_OUTPUT_ALTFN_PUSHPULL, GPIO_USART1_TX);
 
 	/* Setup UART parameters. */
 	usart_set_baudrate(USART1, 115200, rcc_ppre2_frequency);
@@ -52,9 +52,9 @@ void gpio_setup(void)
 
 	/* Set GPIO6/7 (in GPIO port B) to 'output push-pull' for the LEDs. */
 	gpio_set_mode(GPIOB, GPIO_MODE_OUTPUT_2_MHZ,
-	              GPIO_CNF_OUTPUT_PUSHPULL, GPIO6);
+		      GPIO_CNF_OUTPUT_PUSHPULL, GPIO6);
 	gpio_set_mode(GPIOB, GPIO_MODE_OUTPUT_2_MHZ,
-	              GPIO_CNF_OUTPUT_PUSHPULL, GPIO7);
+		      GPIO_CNF_OUTPUT_PUSHPULL, GPIO7);
 }
 
 void my_usart_print_string(u32 usart, char *s)
