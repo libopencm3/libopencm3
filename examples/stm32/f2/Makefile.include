@@ -31,7 +31,7 @@ GDB		= $(PREFIX)-gdb
 TOOLCHAIN_DIR   = ../../../../..
 CFLAGS		+= -Os -g -Wall -Wextra -I$(TOOLCHAIN_DIR)/include \
 		   -fno-common -mcpu=cortex-m3 -mthumb -msoft-float -MD -DSTM32F2
-LDSCRIPT	= $(BINARY).ld
+LDSCRIPT	?= $(BINARY).ld
 LDFLAGS		+= -lc -lnosys -L$(TOOLCHAIN_DIR)/lib \
 			 -L$(TOOLCHAIN_DIR)/lib/stm32/f2 \
 		   -T$(LDSCRIPT) -nostartfiles -Wl,--gc-sections \

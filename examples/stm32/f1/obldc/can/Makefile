@@ -19,5 +19,7 @@
 
 BINARY = can
 
+LDSCRIPT = ../obldc.ld
+
 include ../../Makefile.include
 

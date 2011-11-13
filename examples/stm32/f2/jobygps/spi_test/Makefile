@@ -19,5 +19,7 @@
 
 BINARY = spi_test
 
+LDSCRIPT = ../jobygps.ld
+
 include ../../Makefile.include
 

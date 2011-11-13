@@ -19,5 +19,7 @@
 
 BINARY = fancyblink
 
+LDSCRIPT = ../stm32-h107.ld
+
 include ../../Makefile.include
 

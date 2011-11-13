@@ -19,5 +19,7 @@
 
 BINARY = led_stripe
 
+LDSCRIPT = ../stm32-h103.ld
+
 include ../../Makefile.include
 

@@ -19,5 +19,7 @@
 
 BINARY = led
 
+LDSCRIPT = ../obldc.ld
+
 include ../../Makefile.include
 

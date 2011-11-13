@@ -21,5 +21,7 @@ BINARY = usart_irq
 
 OOCD_BOARD = open-bldc
 
+LDSCRIPT = ../obldc.ld
+
 include ../../Makefile.include
 

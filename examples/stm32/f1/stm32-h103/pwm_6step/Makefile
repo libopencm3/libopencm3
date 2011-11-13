@@ -19,5 +19,7 @@
 
 BINARY = pwm_6step
 
+LDSCRIPT = ../stm32-h103.ld
+
 include ../../Makefile.include
 

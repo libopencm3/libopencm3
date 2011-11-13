@@ -19,5 +19,7 @@
 
 BINARY = miniblink
 
+LDSCRIPT = ../jobygps.ld
+
 include ../../Makefile.include
 

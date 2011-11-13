@@ -19,5 +19,7 @@
 
 BINARY = usart
 
+LDSCRIPT = ../obldc.ld
+
 include ../../Makefile.include
 

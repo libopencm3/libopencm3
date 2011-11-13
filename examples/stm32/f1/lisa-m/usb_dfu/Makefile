@@ -19,5 +19,7 @@
 
 BINARY = usbdfu
 
+LDSCRIPT = ../lisa-m.ld
+
 include ../../Makefile.include
 

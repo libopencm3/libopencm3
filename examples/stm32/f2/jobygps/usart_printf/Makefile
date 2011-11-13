@@ -19,5 +19,7 @@
 
 BINARY = usart_printf
 
+LDSCRIPT = ../jobygps.ld
+
 include ../../Makefile.include
 

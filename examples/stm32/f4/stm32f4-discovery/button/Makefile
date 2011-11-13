@@ -19,5 +19,7 @@
 
 BINARY = button
 
+LDSCRIPT = ../stm32f4-discovery.ld
+
 include ../../Makefile.include
 

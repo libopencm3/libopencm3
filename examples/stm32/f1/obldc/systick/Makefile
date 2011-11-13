@@ -19,5 +19,7 @@
 
 BINARY = systick
 
+LDSCRIPT = ../obldc.ld
+
 include ../../Makefile.include
 

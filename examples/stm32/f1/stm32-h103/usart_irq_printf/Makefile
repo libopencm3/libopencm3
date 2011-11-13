@@ -19,5 +19,7 @@
 
 BINARY = usart_irq_printf
 
+LDSCRIPT = ../stm32-h103.ld
+
 include ../../Makefile.include
 

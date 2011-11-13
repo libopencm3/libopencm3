@@ -19,5 +19,7 @@
 
 BINARY = pwmleds
 
+LDSCRIPT = ../mb525.ld
+
 include ../../Makefile.include
 

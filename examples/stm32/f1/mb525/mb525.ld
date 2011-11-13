@@ -17,13 +17,14 @@
  * along with this program.  If not, see <http://www.gnu.org/licenses/>.
  */
 
-/* Linker script for ST STM32VLDISCOVERY (STM32F100RB, 128K flash, 8K RAM). */
+/* TODO: Fix description and sizes. */
+/* Linker script for Olimex STM32-H103 (STM32F103RBT6, 128K flash, 20K RAM). */
 
 /* Define memory regions. */
 MEMORY
 {
 	rom (rx) : ORIGIN = 0x08000000, LENGTH = 128K
-	ram (rwx) : ORIGIN = 0x20000000, LENGTH = 8K
+	ram (rwx) : ORIGIN = 0x20000000, LENGTH = 20K
 }
 
 /* Include the common ld script. */

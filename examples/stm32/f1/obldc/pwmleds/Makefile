@@ -19,5 +19,7 @@
 
 BINARY = pwmleds
 
+LDSCRIPT = ../obldc.ld
+
 include ../../Makefile.include
 

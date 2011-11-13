@@ -19,5 +19,7 @@
 
 BINARY = usbhid
 
+LDSCRIPT = ../lisa-m.ld
+
 include ../../Makefile.include
 

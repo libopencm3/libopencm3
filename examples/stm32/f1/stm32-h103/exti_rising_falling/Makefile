@@ -19,5 +19,7 @@
 
 BINARY = exti_rising_falling
 
+LDSCRIPT = ../stm32-h103.ld
+
 include ../../Makefile.include
 
