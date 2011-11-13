@@ -33,23 +33,23 @@
 #endif
 
 const struct usb_device_descriptor dev = {
-        .bLength = USB_DT_DEVICE_SIZE,
-        .bDescriptorType = USB_DT_DEVICE,
-        .bcdUSB = 0x0200,
-        .bDeviceClass = 0,
-        .bDeviceSubClass = 0,
-        .bDeviceProtocol = 0,
-        .bMaxPacketSize0 = 64,
-        .idVendor = 0x0483,
-        .idProduct = 0x5710,
-        .bcdDevice = 0x0200,
-        .iManufacturer = 1,
-        .iProduct = 2,
-        .iSerialNumber = 3,
-        .bNumConfigurations = 1,
+	.bLength = USB_DT_DEVICE_SIZE,
+	.bDescriptorType = USB_DT_DEVICE,
+	.bcdUSB = 0x0200,
+	.bDeviceClass = 0,
+	.bDeviceSubClass = 0,
+	.bDeviceProtocol = 0,
+	.bMaxPacketSize0 = 64,
+	.idVendor = 0x0483,
+	.idProduct = 0x5710,
+	.bcdDevice = 0x0200,
+	.iManufacturer = 1,
+	.iProduct = 2,
+	.iSerialNumber = 3,
+	.bNumConfigurations = 1,
 };
 
-/* I have no idea what this means.  I haven't read the HID spec. */
+/* I have no idea what this means. I haven't read the HID spec. */
 static const u8 hid_report_descriptor[] = {
 	0x05, 0x01, 0x09, 0x02, 0xA1, 0x01, 0x09, 0x01,
 	0xA1, 0x00, 0x05, 0x09, 0x19, 0x01, 0x29, 0x03,
@@ -60,7 +60,7 @@ static const u8 hid_report_descriptor[] = {
 	0x81, 0x06, 0xC0, 0x09, 0x3c, 0x05, 0xff, 0x09,
 	0x01, 0x15, 0x00, 0x25, 0x01, 0x75, 0x01, 0x95,
 	0x02, 0xb1, 0x22, 0x75, 0x06, 0x95, 0x01, 0xb1,
-	0x01, 0xc0
+	0x01, 0xc0,
 };
 
 static const struct {
@@ -174,13 +174,13 @@ static int hid_control_request(struct usb_setup_data *req, u8 **buf, u16 *len,
 {
 	(void)complete;
 
-	if((req->bmRequestType != 0x81) || 
+	if((req->bmRequestType != 0x81) ||
 	   (req->bRequest != USB_REQ_GET_DESCRIPTOR) ||
-	   (req->wValue != 0x2200)) 
-		return 0; 
+	   (req->wValue != 0x2200))
+		return 0;
 
-	/* Handle the HID report descriptor */
-	*buf = (u8*)hid_report_descriptor;
+	/* Handle the HID report descriptor. */
+	*buf = (u8 *)hid_report_descriptor;
 	*len = sizeof(hid_report_descriptor);
 
 	return 1;
@@ -192,8 +192,8 @@ static void dfu_detach_complete(struct usb_setup_data *req)
 	(void)req;
 
 	gpio_set_mode(GPIOA, GPIO_MODE_INPUT, 0, GPIO15);
-	gpio_set_mode(GPIOA, GPIO_MODE_OUTPUT_2_MHZ, 
-			GPIO_CNF_OUTPUT_PUSHPULL, GPIO10);
+	gpio_set_mode(GPIOA, GPIO_MODE_OUTPUT_2_MHZ,
+		      GPIO_CNF_OUTPUT_PUSHPULL, GPIO10);
 	gpio_set(GPIOA, GPIO10);
 	scb_reset_core();
 }
@@ -201,11 +201,11 @@ static void dfu_detach_complete(struct usb_setup_data *req)
 static int dfu_control_request(struct usb_setup_data *req, u8 **buf, u16 *len,
 			void (**complete)(struct usb_setup_data *req))
 {
-	(void)buf; 
+	(void)buf;
 	(void)len;
 
-	if((req->bmRequestType != 0x21) || (req->bRequest != DFU_DETACH)) 
-		return 0; /* Only accept class request */
+	if ((req->bmRequestType != 0x21) || (req->bRequest != DFU_DETACH))
+		return 0; /* Only accept class request. */
 
 	*complete = dfu_detach_complete;
 
@@ -230,7 +230,7 @@ static void hid_set_config(u16 wValue)
 				dfu_control_request);
 #endif
 
-	systick_set_clocksource(STK_CTRL_CLKSOURCE_AHB_DIV8); 
+	systick_set_clocksource(STK_CTRL_CLKSOURCE_AHB_DIV8);
 	systick_set_reload(100000);
 	systick_interrupt_enable();
 	systick_counter_enable();
@@ -238,7 +238,7 @@ static void hid_set_config(u16 wValue)
 
 int main(void)
 {
-        rcc_clock_setup_in_hsi_out_48mhz();
+	rcc_clock_setup_in_hsi_out_48mhz();
 
 	rcc_peripheral_enable_clock(&RCC_APB2ENR, RCC_APB2ENR_IOPAEN);
 	rcc_peripheral_enable_clock(&RCC_APB2ENR, RCC_APB2ENR_AFIOEN);
@@ -250,10 +250,10 @@ int main(void)
 	usbd_register_set_config_callback(hid_set_config);
 
 	gpio_set(GPIOA, GPIO15);
-	gpio_set_mode(GPIOA, GPIO_MODE_OUTPUT_2_MHZ, 
-			GPIO_CNF_OUTPUT_PUSHPULL, GPIO15);
+	gpio_set_mode(GPIOA, GPIO_MODE_OUTPUT_2_MHZ,
+		      GPIO_CNF_OUTPUT_PUSHPULL, GPIO15);
 
-	while (1) 
+	while (1)
 		usbd_poll();
 }
 
@@ -265,8 +265,10 @@ void sys_tick_handler(void)
 
 	buf[1] = dir;
 	x += dir;
-	if(x > 30) dir = -dir;
-	if(x < -30) dir = -dir;
+	if (x > 30)
+		dir = -dir;
+	if (x < -30)
+		dir = -dir;
 
 	usbd_ep_write_packet(0x81, buf, 4);
 }

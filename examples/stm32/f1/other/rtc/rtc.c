@@ -73,7 +73,7 @@ void rtc_isr(void)
 	volatile u32 j = 0, c = 0;
 
 	/* The interrupt flag isn't cleared by hardware, we have to do it. */
-	rtc_clear_flag(RTC_SEC); 
+	rtc_clear_flag(RTC_SEC);
 
 	/* Visual output. */
 	gpio_toggle(GPIOC, GPIO12);
@@ -110,7 +110,7 @@ int main(void)
 	/* Enable the RTC interrupt to occur off the SEC flag. */
 	rtc_interrupt_enable(RTC_SEC);
 
-	while(1);
+	while (1);
 
 	return 0;
 }

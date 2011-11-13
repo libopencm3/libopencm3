@@ -111,7 +111,7 @@ static const char *usb_strings[] = {
 	"DFU Demo",
 	"DEMO",
 	/* This string is used by ST Microelectronics' DfuSe utility. */
-	"@Internal Flash   /0x08000000/8*001Ka,56*001Kg"
+	"@Internal Flash   /0x08000000/8*001Ka,56*001Kg",
 };
 
 static u8 usbdfu_getstatus(u32 *bwPollTimeout)
