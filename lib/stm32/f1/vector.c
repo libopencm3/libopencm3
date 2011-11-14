@@ -88,8 +88,8 @@ void WEAK fsmc_isr(void);
 void WEAK sdio_isr(void);
 void WEAK tim5_isr(void);
 void WEAK spi3_isr(void);
-void WEAK usart4_isr(void);
-void WEAK usart5_isr(void);
+void WEAK uart4_isr(void);
+void WEAK uart5_isr(void);
 void WEAK tim6_isr(void);
 void WEAK tim7_isr(void);
 void WEAK dma2_channel1_isr(void);
@@ -173,8 +173,8 @@ void (*const vector_table[]) (void) = {
 	sdio_isr,
 	tim5_isr,
 	spi3_isr,
-	usart4_isr,
-	usart5_isr,
+	uart4_isr,
+	uart5_isr,
 	tim6_isr,
 	tim7_isr,
 	dma2_channel1_isr,
@@ -278,8 +278,8 @@ void null_handler(void)
 #pragma weak sdio_isr = null_handler
 #pragma weak tim5_isr = null_handler
 #pragma weak spi3_isr = null_handler
-#pragma weak usart4_isr = null_handler
-#pragma weak usart5_isr = null_handler
+#pragma weak uart4_isr = null_handler
+#pragma weak uart5_isr = null_handler
 #pragma weak tim6_isr = null_handler
 #pragma weak tim7_isr = null_handler
 #pragma weak dma2_channel1_isr = null_handler

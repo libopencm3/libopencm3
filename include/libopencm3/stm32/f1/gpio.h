@@ -174,6 +174,14 @@
 #define GPIO_TIM1_FR_CH2N		GPIO10		/* PE10 */
 #define GPIO_TIM1_FR_CH3N		GPIO12		/* PE12 */
 
+/* UART5 */
+#define GPIO_UART5_TX			GPIO12		/* PC12 */
+#define GPIO_UART5_RX			GPIO2		/* PD2 */
+
+/* UART4 */
+#define GPIO_UART4_TX			GPIO10		/* PC10 */
+#define GPIO_UART4_RX			GPIO11		/* PC11 */
+
 /* USART3 */
 #define GPIO_USART3_TX			GPIO10		/* PB10 */
 #define GPIO_USART3_RX			GPIO11		/* PB11 */

@@ -214,8 +214,8 @@
 #define RCC_APB1RSTR_USBRST			(1 << 23) /* (XX) */
 #define RCC_APB1RSTR_I2C2RST			(1 << 22)
 #define RCC_APB1RSTR_I2C1RST			(1 << 21)
-#define RCC_APB1RSTR_USART5RST			(1 << 20)
-#define RCC_APB1RSTR_USART4RST			(1 << 19)
+#define RCC_APB1RSTR_UART5RST			(1 << 20)
+#define RCC_APB1RSTR_UART4RST			(1 << 19)
 #define RCC_APB1RSTR_USART3RST			(1 << 18)
 #define RCC_APB1RSTR_USART2RST			(1 << 17)
 #define RCC_APB1RSTR_SPI3RST			(1 << 15)
@@ -271,8 +271,8 @@
 #define RCC_APB1ENR_USBEN			(1 << 23) /* (XX) */
 #define RCC_APB1ENR_I2C2EN			(1 << 22)
 #define RCC_APB1ENR_I2C1EN			(1 << 21)
-#define RCC_APB1ENR_USART5EN			(1 << 20)
-#define RCC_APB1ENR_USART4EN			(1 << 19)
+#define RCC_APB1ENR_UART5EN			(1 << 20)
+#define RCC_APB1ENR_UART4EN			(1 << 19)
 #define RCC_APB1ENR_USART3EN			(1 << 18)
 #define RCC_APB1ENR_USART2EN			(1 << 17)
 #define RCC_APB1ENR_SPI3EN			(1 << 15)

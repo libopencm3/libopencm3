@@ -79,8 +79,8 @@
 #define NVIC_SDIO_IRQ			49
 #define NVIC_TIM5_IRQ			50
 #define NVIC_SPI3_IRQ			51
-#define NVIC_USART4_IRQ			52
-#define NVIC_USART5_IRQ			53
+#define NVIC_UART4_IRQ			52
+#define NVIC_UART5_IRQ			53
 #define NVIC_TIM6_IRQ			54
 #define NVIC_TIM7_IRQ			55
 #define NVIC_DMA2_CHANNEL1_IRQ		56
