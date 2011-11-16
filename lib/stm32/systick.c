@@ -21,7 +21,7 @@
 
 void systick_set_reload(u32 value)
 {
-	STK_LOAD = (value &  0x00FFFFFF);
+	STK_LOAD = (value & 0x00FFFFFF);
 }
 
 u32 systick_get_value(void)
@@ -60,5 +60,5 @@ u8 systick_get_countflag(void)
 	if (STK_CTRL & STK_CTRL_COUNTFLAG)
 		return 1;
 	else
-		return 0;	
+		return 0;
 }

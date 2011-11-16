@@ -33,7 +33,7 @@ void usart_set_baudrate(u32 usart, u32 baud, u32 clock)
 	 * simple divider to generate the correct baudrate. >_< If I
 	 * am wrong feel free to correct me on that. :) (esden)
 	 */
-	USART_BRR(usart) = clock/baud;
+	USART_BRR(usart) = clock / baud;
 }
 
 void usart_set_databits(u32 usart, u32 bits)
