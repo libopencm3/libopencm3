@@ -19,7 +19,7 @@
 
 #define WEAK __attribute__ ((weak))
 
-/* Symbols exported by linker script */
+/* Symbols exported by the linker script(s): */
 extern unsigned _etext, _data, _edata, _ebss, _stack;
 
 void main(void);
@@ -41,7 +41,7 @@ void WEAK sys_tick_handler(void);
 
 __attribute__ ((section(".vectors")))
 void (*const vector_table[]) (void) = {
-	(void*)&_stack,
+	(void *)&_stack,
 	reset_handler,
 	nmi_handler,
 	hard_fault_handler,
@@ -61,7 +61,7 @@ void (*const vector_table[]) (void) = {
 void reset_handler(void)
 {
 	volatile unsigned *src, *dest;
-	asm("MSR msp, %0" : : "r"(&_stack));
+	__asm__("MSR msp, %0" : : "r"(&_stack));
 
 	for (src = &_etext, dest = &_data; dest < &_edata; src++, dest++)
 		*dest = *src;
@@ -93,4 +93,3 @@ void null_handler(void)
 #pragma weak pend_sv_handler = null_handler
 #pragma weak sys_tick_handler = null_handler
 /* TODO: Interrupt handler weak aliases */
-

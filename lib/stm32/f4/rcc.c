@@ -402,16 +402,14 @@ void rcc_clock_setup_hse_3v3(const clock_scale_t *clock)
 	rcc_set_ppre1(clock->ppre1);
 	rcc_set_ppre2(clock->ppre2);
 
-	rcc_set_main_pll_hse(clock->pllm,
-			clock->plln,
-			clock->pllp,
-			clock->pllq);
+	rcc_set_main_pll_hse(clock->pllm, clock->plln,
+			     clock->pllp, clock->pllq);
 
 	/* Enable PLL oscillator and wait for it to stabilize. */
 	rcc_osc_on(PLL);
 	rcc_wait_for_osc_ready(PLL);
 
-	/* Configure flash settings */
+	/* Configure flash settings. */
 	flash_set_ws(clock->flash_config);
 
 	/* Select PLL as SYSCLK source. */
@@ -420,7 +418,7 @@ void rcc_clock_setup_hse_3v3(const clock_scale_t *clock)
 	/* Wait for PLL clock to be selected. */
 	rcc_wait_for_sysclk_status(PLL);
 
-	/* Set the peripheral clock frequencies used */
+	/* Set the peripheral clock frequencies used. */
 	rcc_ppre1_frequency = clock->apb1_frequency;
 	rcc_ppre2_frequency = clock->apb2_frequency;
 }

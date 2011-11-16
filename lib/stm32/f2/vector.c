@@ -122,7 +122,7 @@ void WEAK hash_rng_isr(void);
 
 __attribute__ ((section(".vectors")))
 void (*const vector_table[]) (void) = {
-	(void*)&_stack,
+	(void *)&_stack,
 	reset_handler,
 	nmi_handler,
 	hard_fault_handler,
