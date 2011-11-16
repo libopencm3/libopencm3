@@ -20,7 +20,7 @@
 
 #define WEAK __attribute__ ((weak))
 
-/* Symbols exported by linker script */
+/* Symbols exported by the linker script(s): */
 extern unsigned _etext, _data, _edata, _ebss, _stack;
 
 void main(void);
@@ -122,7 +122,7 @@ void WEAK hash_rng_isr(void);
 
 __attribute__ ((section(".vectors")))
 void (*const vector_table[]) (void) = {
-	(void*)&_stack,
+	(void *)&_stack,
 	reset_handler,
 	nmi_handler,
 	hard_fault_handler,
@@ -206,10 +206,10 @@ void (*const vector_table[]) (void) = {
 	dma2_stream5_isr,
 	dma2_stream6_isr,
 	dma2_stream7_isr,
-  usart6_isr,
+	usart6_isr,
 	i2c3_ev_isr,
 	i2c3_er_isr,
-  otg_hs_ep1_out_isr,
+	otg_hs_ep1_out_isr,
 	otg_hs_ep1_in_isr,
 	otg_hs_wkup_isr,
 	otg_hs_isr,
@@ -221,7 +221,8 @@ void (*const vector_table[]) (void) = {
 void reset_handler(void)
 {
 	volatile unsigned *src, *dest;
-	asm("MSR msp, %0" : : "r"(&_stack));
+
+	__asm__("MSR msp, %0" : : "r"(&_stack));
 
 	for (src = &_etext, dest = &_data; dest < &_edata; src++, dest++)
 		*dest = *src;
@@ -333,4 +334,3 @@ void null_handler(void)
 #pragma weak dcmi_isr = null_handler
 #pragma weak cryp_isr = null_handler
 #pragma weak hash_rng_isr = null_handler
-

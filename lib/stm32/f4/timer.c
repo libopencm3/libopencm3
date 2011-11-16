@@ -126,9 +126,7 @@ void timer_set_mode(u32 timer_peripheral, u8 clock_div,
 
 	cr1 = TIM_CR1(timer_peripheral);
 
-	cr1 &= ~(TIM_CR1_CKD_CK_INT_MASK |
-		 TIM_CR1_CMS_MASK |
-		 TIM_CR1_DIR_DOWN);
+	cr1 &= ~(TIM_CR1_CKD_CK_INT_MASK | TIM_CR1_CMS_MASK | TIM_CR1_DIR_DOWN);
 
 	cr1 |= clock_div | alignment | direction;
 
@@ -398,7 +396,8 @@ void timer_set_oc_mode(u32 timer_peripheral, enum tim_oc_id oc_id,
 			TIM_CCMR1(timer_peripheral) |= TIM_CCMR1_OC1M_FORCE_LOW;
 			break;
 		case TIM_OCM_FORCE_HIGH:
-			TIM_CCMR1(timer_peripheral) |= TIM_CCMR1_OC1M_FORCE_HIGH;
+			TIM_CCMR1(timer_peripheral) |=
+			    TIM_CCMR1_OC1M_FORCE_HIGH;
 			break;
 		case TIM_OCM_PWM1:
 			TIM_CCMR1(timer_peripheral) |= TIM_CCMR1_OC1M_PWM1;
@@ -429,7 +428,8 @@ void timer_set_oc_mode(u32 timer_peripheral, enum tim_oc_id oc_id,
 			TIM_CCMR1(timer_peripheral) |= TIM_CCMR1_OC2M_FORCE_LOW;
 			break;
 		case TIM_OCM_FORCE_HIGH:
-			TIM_CCMR1(timer_peripheral) |= TIM_CCMR1_OC2M_FORCE_HIGH;
+			TIM_CCMR1(timer_peripheral) |=
+			    TIM_CCMR1_OC2M_FORCE_HIGH;
 			break;
 		case TIM_OCM_PWM1:
 			TIM_CCMR1(timer_peripheral) |= TIM_CCMR1_OC2M_PWM1;
@@ -460,7 +460,8 @@ void timer_set_oc_mode(u32 timer_peripheral, enum tim_oc_id oc_id,
 			TIM_CCMR2(timer_peripheral) |= TIM_CCMR2_OC3M_FORCE_LOW;
 			break;
 		case TIM_OCM_FORCE_HIGH:
-			TIM_CCMR2(timer_peripheral) |= TIM_CCMR2_OC3M_FORCE_HIGH;
+			TIM_CCMR2(timer_peripheral) |=
+			    TIM_CCMR2_OC3M_FORCE_HIGH;
 			break;
 		case TIM_OCM_PWM1:
 			TIM_CCMR2(timer_peripheral) |= TIM_CCMR2_OC3M_PWM1;
@@ -491,7 +492,8 @@ void timer_set_oc_mode(u32 timer_peripheral, enum tim_oc_id oc_id,
 			TIM_CCMR2(timer_peripheral) |= TIM_CCMR2_OC4M_FORCE_LOW;
 			break;
 		case TIM_OCM_FORCE_HIGH:
-			TIM_CCMR2(timer_peripheral) |= TIM_CCMR2_OC4M_FORCE_HIGH;
+			TIM_CCMR2(timer_peripheral) |=
+			    TIM_CCMR2_OC4M_FORCE_HIGH;
 			break;
 		case TIM_OCM_PWM1:
 			TIM_CCMR2(timer_peripheral) |= TIM_CCMR2_OC4M_PWM1;
@@ -916,13 +918,10 @@ u32 timer_get_counter(u32 timer_peripheral)
 
 void timer_set_option(u32 timer_peripheral, u32 option)
 {
-	if (timer_peripheral == TIM2)
-	{
+	if (timer_peripheral == TIM2) {
 		TIM_OR(timer_peripheral) &= ~TIM2_OR_ITR1_RMP_MASK;
 		TIM_OR(timer_peripheral) |= option;
-	}
-	else if (timer_peripheral == TIM5)
-	{
+	} else if (timer_peripheral == TIM5) {
 		TIM_OR(timer_peripheral) &= ~TIM5_OR_TI4_RMP_MASK;
 		TIM_OR(timer_peripheral) |= option;
 	}

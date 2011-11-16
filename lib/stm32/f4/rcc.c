@@ -23,7 +23,7 @@
 #include <libopencm3/stm32/f4/pwr.h>
 #include <libopencm3/stm32/f4/flash.h>
 
-/* Set the default ppre1 and ppre2 peripheral clock frequencies after reset */
+/* Set the default ppre1 and ppre2 peripheral clock frequencies after reset. */
 u32 rcc_ppre1_frequency = 16000000;
 u32 rcc_ppre2_frequency = 16000000;
 
