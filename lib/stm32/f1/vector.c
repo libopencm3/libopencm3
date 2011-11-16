@@ -108,7 +108,7 @@ void WEAK otg_fs_isr(void);
 
 __attribute__ ((section(".vectors")))
 void (*const vector_table[]) (void) = {
-	(void*)&_stack,
+	(void *)&_stack,
 	reset_handler,
 	nmi_handler,
 	hard_fault_handler,
@@ -194,7 +194,8 @@ void (*const vector_table[]) (void) = {
 void reset_handler(void)
 {
 	volatile unsigned *src, *dest;
-	asm("MSR msp, %0" : : "r"(&_stack));
+
+	__asm__("MSR msp, %0" : : "r"(&_stack));
 
 	for (src = &_etext, dest = &_data; dest < &_edata; src++, dest++)
 		*dest = *src;
@@ -293,4 +294,3 @@ void null_handler(void)
 #pragma weak can2_rx1_isr = null_handler
 #pragma weak can2_sce_isr = null_handler
 #pragma weak otg_fs_isr = null_handler
-

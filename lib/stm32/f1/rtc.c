@@ -167,7 +167,7 @@ void rtc_interrupt_enable(rtcflag_t flag_val)
 	rtc_enter_config_mode();
 
 	/* Set the correct interrupt enable. */
-	switch(flag_val) {
+	switch (flag_val) {
 	case RTC_SEC:
 		RTC_CRH |= RTC_CRH_SECIE;
 		break;
@@ -187,7 +187,7 @@ void rtc_interrupt_disable(rtcflag_t flag_val)
 	rtc_enter_config_mode();
 
 	/* Disable the correct interrupt enable. */
-	switch(flag_val) {
+	switch (flag_val) {
 	case RTC_SEC:
 		RTC_CRH &= ~RTC_CRH_SECIE;
 		break;
@@ -207,7 +207,7 @@ void rtc_clear_flag(rtcflag_t flag_val)
 	/* Configuration mode not needed. */
 
 	/* Clear the correct flag. */
-	switch(flag_val) {
+	switch (flag_val) {
 	case RTC_SEC:
 		RTC_CRL &= ~RTC_CRL_SECF;
 		break;
@@ -225,7 +225,7 @@ u32 rtc_check_flag(rtcflag_t flag_val)
 	u32 reg32;
 
 	/* Read correct flag. */
-	switch(flag_val) {
+	switch (flag_val) {
 	case RTC_SEC:
 		reg32 = RTC_CRL & RTC_CRL_SECF;
 		break;

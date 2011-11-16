@@ -493,6 +493,7 @@ void rcc_clock_setup_in_hse_8mhz_out_24mhz(void)
 	rcc_ppre1_frequency = 24000000;
 	rcc_ppre2_frequency = 24000000;
 }
+
 void rcc_clock_setup_in_hse_8mhz_out_72mhz(void)
 {
 	/* Enable internal high-speed oscillator. */

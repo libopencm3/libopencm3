@@ -125,9 +125,7 @@ void timer_set_mode(u32 timer_peripheral, u8 clock_div,
 
 	cr1 = TIM_CR1(timer_peripheral);
 
-	cr1 &= ~(TIM_CR1_CKD_CK_INT_MASK |
-		 TIM_CR1_CMS_MASK |
-		 TIM_CR1_DIR_DOWN);
+	cr1 &= ~(TIM_CR1_CKD_CK_INT_MASK | TIM_CR1_CMS_MASK | TIM_CR1_DIR_DOWN);
 
 	cr1 |= clock_div | alignment | direction;
 
@@ -397,7 +395,8 @@ void timer_set_oc_mode(u32 timer_peripheral, enum tim_oc_id oc_id,
 			TIM_CCMR1(timer_peripheral) |= TIM_CCMR1_OC1M_FORCE_LOW;
 			break;
 		case TIM_OCM_FORCE_HIGH:
-			TIM_CCMR1(timer_peripheral) |= TIM_CCMR1_OC1M_FORCE_HIGH;
+			TIM_CCMR1(timer_peripheral) |=
+			    TIM_CCMR1_OC1M_FORCE_HIGH;
 			break;
 		case TIM_OCM_PWM1:
 			TIM_CCMR1(timer_peripheral) |= TIM_CCMR1_OC1M_PWM1;
@@ -428,7 +427,8 @@ void timer_set_oc_mode(u32 timer_peripheral, enum tim_oc_id oc_id,
 			TIM_CCMR1(timer_peripheral) |= TIM_CCMR1_OC2M_FORCE_LOW;
 			break;
 		case TIM_OCM_FORCE_HIGH:
-			TIM_CCMR1(timer_peripheral) |= TIM_CCMR1_OC2M_FORCE_HIGH;
+			TIM_CCMR1(timer_peripheral) |=
+			    TIM_CCMR1_OC2M_FORCE_HIGH;
 			break;
 		case TIM_OCM_PWM1:
 			TIM_CCMR1(timer_peripheral) |= TIM_CCMR1_OC2M_PWM1;
@@ -459,7 +459,8 @@ void timer_set_oc_mode(u32 timer_peripheral, enum tim_oc_id oc_id,
 			TIM_CCMR2(timer_peripheral) |= TIM_CCMR2_OC3M_FORCE_LOW;
 			break;
 		case TIM_OCM_FORCE_HIGH:
-			TIM_CCMR2(timer_peripheral) |= TIM_CCMR2_OC3M_FORCE_HIGH;
+			TIM_CCMR2(timer_peripheral) |=
+			    TIM_CCMR2_OC3M_FORCE_HIGH;
 			break;
 		case TIM_OCM_PWM1:
 			TIM_CCMR2(timer_peripheral) |= TIM_CCMR2_OC3M_PWM1;
@@ -490,7 +491,8 @@ void timer_set_oc_mode(u32 timer_peripheral, enum tim_oc_id oc_id,
 			TIM_CCMR2(timer_peripheral) |= TIM_CCMR2_OC4M_FORCE_LOW;
 			break;
 		case TIM_OCM_FORCE_HIGH:
-			TIM_CCMR2(timer_peripheral) |= TIM_CCMR2_OC4M_FORCE_HIGH;
+			TIM_CCMR2(timer_peripheral) |=
+			    TIM_CCMR2_OC4M_FORCE_HIGH;
 			break;
 		case TIM_OCM_PWM1:
 			TIM_CCMR2(timer_peripheral) |= TIM_CCMR2_OC4M_PWM1;

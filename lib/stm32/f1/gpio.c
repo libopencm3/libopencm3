@@ -47,7 +47,7 @@ void gpio_set_mode(u32 gpioport, u8 mode, u8 cnf, u16 gpios)
 	 */
 	crl = GPIO_CRL(gpioport);
 	crh = GPIO_CRH(gpioport);
-	
+
 	/* Iterate over all bits, use i as the bitnumber. */
 	for (i = 0; i < 16; i++) {
 		/* Only set the config if the bit is set in gpios. */
@@ -61,7 +61,7 @@ void gpio_set_mode(u32 gpioport, u8 mode, u8 cnf, u16 gpios)
 		tmp32 = (i < 8) ? crl : crh;
 
 		/* Modify bits are needed. */
-		tmp32 &= ~(0b1111 << offset); /* Clear the bits first. */
+		tmp32 &= ~(0xf << offset);	/* Clear the bits first. */
 		tmp32 |= (mode << offset) | (cnf << (offset + 2));
 
 		/* Write tmp32 into crl or crh, leave the other unchanged. */
@@ -113,6 +113,6 @@ void gpio_port_config_lock(u32 gpioport, u16 gpios)
 	GPIO_LCKR(gpioport) = GPIO_LCKK | gpios;	/* Set LCKK. */
 	reg32 = GPIO_LCKR(gpioport);			/* Read LCKK. */
 	reg32 = GPIO_LCKR(gpioport);			/* Read LCKK again. */
-	
+
 	/* If (reg32 & GPIO_LCKK) is true, the lock is now active. */
 }

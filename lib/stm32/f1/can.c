@@ -56,32 +56,32 @@ int can_init(u32 canport, bool ttcm, bool abom, bool awum, bool nart,
 
 	/* Set the automatic bus-off management. */
 	if (ttcm)
-		CAN_MCR(canport) |=  CAN_MCR_TTCM;
+		CAN_MCR(canport) |= CAN_MCR_TTCM;
 	else
 		CAN_MCR(canport) &= ~CAN_MCR_TTCM;
 
 	if (abom)
-		CAN_MCR(canport) |=  CAN_MCR_ABOM;
+		CAN_MCR(canport) |= CAN_MCR_ABOM;
 	else
 		CAN_MCR(canport) &= ~CAN_MCR_ABOM;
 
 	if (awum)
-		CAN_MCR(canport) |=  CAN_MCR_AWUM;
+		CAN_MCR(canport) |= CAN_MCR_AWUM;
 	else
 		CAN_MCR(canport) &= ~CAN_MCR_AWUM;
 
 	if (nart)
-		CAN_MCR(canport) |=  CAN_MCR_NART;
+		CAN_MCR(canport) |= CAN_MCR_NART;
 	else
 		CAN_MCR(canport) &= ~CAN_MCR_NART;
 
 	if (rflm)
-		CAN_MCR(canport) |=  CAN_MCR_RFLM;
+		CAN_MCR(canport) |= CAN_MCR_RFLM;
 	else
 		CAN_MCR(canport) &= ~CAN_MCR_RFLM;
 
 	if (txfp)
-		CAN_MCR(canport) |=  CAN_MCR_TXFP;
+		CAN_MCR(canport) |= CAN_MCR_TXFP;
 	else
 		CAN_MCR(canport) &= ~CAN_MCR_TXFP;
 
@@ -126,7 +126,7 @@ void can_filter_init(u32 canport, u32 nr, bool scale_32bit, bool id_list_mode,
 
 	if (id_list_mode) {
 		/* Set filter mode to ID list mode. */
-		CAN_FM1R(canport) |=  filter_select_bit;
+		CAN_FM1R(canport) |= filter_select_bit;
 	} else {
 		/* Set filter mode to id/mask mode. */
 		CAN_FM1R(canport) &= ~filter_select_bit;
@@ -140,7 +140,7 @@ void can_filter_init(u32 canport, u32 nr, bool scale_32bit, bool id_list_mode,
 
 	/* Select FIFO0 or FIFO1 as filter assignement. */
 	if (fifo)
-		CAN_FFA1R(canport) |=  filter_select_bit; /* FIFO1 */
+		CAN_FFA1R(canport) |= filter_select_bit;  /* FIFO1 */
 	else
 		CAN_FFA1R(canport) &= ~filter_select_bit; /* FIFO0 */
 
@@ -225,7 +225,7 @@ int can_transmit(u32 canport, u32 id, bool ext, bool rtr, u8 length, u8 *data)
 
 	/* Set/clear remote transmission request bit. */
 	if (rtr)
-		CAN_TIxR(canport, mailbox) |=  CAN_TIxR_RTR; /* Set */
+		CAN_TIxR(canport, mailbox) |= CAN_TIxR_RTR; /* Set */
 
 	/* Set the DLC. */
 	CAN_TDTxR(canport, mailbox) &= 0xFFFFFFFF0;
