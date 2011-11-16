@@ -107,14 +107,13 @@ void usbd_poll(void)
 	_usbd_device.driver->poll();
 }
 
-void usbd_ep_setup(u8 addr, u8 type, u16 max_size,
-	      void (*callback)(u8 ep))
+void usbd_ep_setup(u8 addr, u8 type, u16 max_size, void (*callback)(u8 ep))
 {
 	_usbd_device.driver->ep_setup(addr, type, max_size, callback);
 }
 
 u16 usbd_ep_write_packet(u8 addr, const void *buf, u16 len)
-{	
+{
 	return _usbd_device.driver->ep_write_packet(addr, buf, len);
 }
 
@@ -137,4 +136,3 @@ void usbd_ep_nak_set(u8 addr, u8 nak)
 {
 	_usbd_device.driver->ep_nak_set(addr, nak);
 }
-

@@ -186,8 +186,9 @@ void _usbd_control_out(u8 ea)
 	case LAST_DATA_OUT:
 		if (usb_control_recv_chunk() < 0)
 			break;
-		/* We have now received the full data payload. 
-		 * Invoke callback to process. 
+		/*
+		 * We have now received the full data payload.
+		 * Invoke callback to process.
 		 */
 		if (usb_control_request_dispatch(&control_state.req)) {
 			/* Got to status stage on success. */

@@ -96,11 +96,11 @@ static int usb_standard_get_descriptor(struct usb_setup_data *req,
 		sd = (struct usb_string_descriptor *)_usbd_device.ctrl_buf;
 
 		if (!_usbd_device.strings)
-			return 0;	/* Device doesn't support strings. */
+			return 0; /* Device doesn't support strings. */
 
-		/* Check that string index is in range */
-		for(i = 0; i <= (req->wValue & 0xff); i++)
-			if(_usbd_device.strings[i] == NULL) 
+		/* Check that string index is in range. */
+		for (i = 0; i <= (req->wValue & 0xff); i++)
+			if (_usbd_device.strings[i] == NULL)
 				return 0;
 
 		sd->bLength = strlen(_usbd_device.strings[req->wValue & 0xff])
@@ -136,10 +136,11 @@ static int usb_standard_set_address(struct usb_setup_data *req, u8 **buf,
 
 	_usbd_device.current_address = req->wValue;
 
-	/* Special workaround for STM32F10[57] that require the address
-	 * to be set here.  This is undocumented! 
+	/*
+	 * Special workaround for STM32F10[57] that require the address
+	 * to be set here. This is undocumented!
 	 */
-	if(_usbd_device.driver == &stm32f107_usb_driver)
+	if (_usbd_device.driver == &stm32f107_usb_driver)
 		_usbd_device.driver->set_address(req->wValue);
 
 	return 1;
@@ -220,6 +221,7 @@ static int usb_standard_device_get_status(struct usb_setup_data *req,
 					  u8 **buf, u16 *len)
 {
 	(void)req;
+
 	/* bit 0: self powered */
 	/* bit 1: remote wakeup */
 	if (*len > 2)
@@ -311,8 +313,10 @@ int _usbd_standard_request_device(struct usb_setup_data *req, u8 **buf,
 		command = usb_standard_get_descriptor;
 		break;
 	case USB_REQ_GET_STATUS:
-		/* GET_STATUS always responds with zero reply.
-		 * The application may override this behaviour. */
+		/*
+		 * GET_STATUS always responds with zero reply.
+		 * The application may override this behaviour.
+		 */
 		command = usb_standard_device_get_status;
 		break;
 	case USB_REQ_SET_DESCRIPTOR:
@@ -372,8 +376,10 @@ int _usbd_standard_request_endpoint(struct usb_setup_data *req, u8 **buf,
 		break;
 	case USB_REQ_SET_SYNCH_FRAME:
 		/* FIXME: SYNCH_FRAME is not implemented. */
-		/* SYNCH_FRAME is used for synchronization of isochronous 
-		 * endpoints which are not yet implemented. */
+		/*
+		 * SYNCH_FRAME is used for synchronization of isochronous
+		 * endpoints which are not yet implemented.
+		 */
 		break;
 	}
 
