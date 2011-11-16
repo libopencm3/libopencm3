@@ -73,11 +73,25 @@ void gpio_set_mode(u32 gpioport, u8 mode, u8 cnf, u16 gpios)
 	GPIO_CRH(gpioport) = crh;
 }
 
+/**
+ * Set one or more pins of the given GPIO port to 1.
+ *
+ * @param gpioport The GPIO port to use (GPIOA - GPIOG).
+ * @param gpios The GPIO pin(s) to set to 1 (GPIO0 - GPIO15, or GPIO_ALL).
+ *              If multiple pins shall be set, use '|' to separate them.
+ */
 void gpio_set(u32 gpioport, u16 gpios)
 {
 	GPIO_BSRR(gpioport) = gpios;
 }
 
+/**
+ * Clear one or more pins of the given GPIO port to 0.
+ *
+ * @param gpioport The GPIO port to use (GPIOA - GPIOG).
+ * @param gpios The GPIO pin(s) to set to 0 (GPIO0 - GPIO15, or GPIO_ALL).
+ *              If multiple pins shall be cleared, use '|' to separate them.
+ */
 void gpio_clear(u32 gpioport, u16 gpios)
 {
 	GPIO_BRR(gpioport) = gpios;
@@ -88,16 +102,35 @@ u16 gpio_get(u32 gpioport, u16 gpios)
 	return gpio_port_read(gpioport) & gpios;
 }
 
+/**
+ * Toggle one or more pins of the given GPIO port.
+ *
+ * @param gpioport The GPIO port to use (GPIOA - GPIOG).
+ * @param gpios The GPIO pin(s) to toggle (GPIO0 - GPIO15, or GPIO_ALL).
+ *              If multiple pins shall be toggled, use '|' to separate them.
+ */
 void gpio_toggle(u32 gpioport, u16 gpios)
 {
 	GPIO_ODR(gpioport) ^= gpios;
 }
 
+/**
+ * Read the current value of the given GPIO port.
+ *
+ * @param gpioport The GPIO port to read (GPIOA - GPIOG).
+ * @return The value of the current GPIO port.
+ */
 u16 gpio_port_read(u32 gpioport)
 {
 	return (u16)GPIO_IDR(gpioport);
 }
 
+/**
+ * Write to the given GPIO port.
+ *
+ * @param gpioport The GPIO port to write to (GPIOA - GPIOG).
+ * @param data The data to write to the specified GPIO port.
+ */
 void gpio_port_write(u32 gpioport, u16 data)
 {
 	GPIO_ODR(gpioport) = data;
