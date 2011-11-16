@@ -30,7 +30,7 @@ void gpio_mode_setup(u32 gpioport, u8 mode, u8 pull_up_down, u16 gpios)
 	 */
 	moder = GPIO_MODER(gpioport);
 	pupd = GPIO_PUPDR(gpioport);
-	
+
 	for (i = 0; i < 16; i++) {
 		if (!((1 << i) & gpios))
 			continue;
@@ -57,7 +57,7 @@ void gpio_set_output_options(u32 gpioport, u8 otype, u8 speed, u16 gpios)
 		GPIO_OTYPER(gpioport) &= ~gpios;
 
 	ospeedr = GPIO_OSPEEDR(gpioport);
-	
+
 	for (i = 0; i < 16; i++) {
 		if (!((1 << i) & gpios))
 			continue;
@@ -86,8 +86,8 @@ void gpio_set_af(u32 gpioport, u8 alt_func_num, u16 gpios)
 	for (i = 8; i < 16; i++) {
 		if (!((1 << i) & gpios))
 			continue;
-		afrl &= GPIO_AFR_MASK(i-8);
-		afrh |= GPIO_AFR(i-8, alt_func_num);
+		afrl &= GPIO_AFR_MASK(i - 8);
+		afrh |= GPIO_AFR(i - 8, alt_func_num);
 	}
 
 	GPIO_AFRL(gpioport) = afrl;
@@ -134,6 +134,6 @@ void gpio_port_config_lock(u32 gpioport, u16 gpios)
 	GPIO_LCKR(gpioport) = GPIO_LCKK | gpios;	/* Set LCKK. */
 	reg32 = GPIO_LCKR(gpioport);			/* Read LCKK. */
 	reg32 = GPIO_LCKR(gpioport);			/* Read LCKK again. */
-	
+
 	/* If (reg32 & GPIO_LCKK) is true, the lock is now active. */
 }
