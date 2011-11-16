@@ -74,7 +74,7 @@ static void stm32f103_set_address(u8 addr)
  * Set the receive buffer size for a given USB endpoint.
  *
  * @param ep Index of endpoint to configure.
- * @param addr Size in bytes of the RX buffer.
+ * @param size Size in bytes of the RX buffer.
  */
 static void usb_set_ep_rx_bufsize(u8 ep, u32 size)
 {
@@ -200,7 +200,7 @@ static void stm32f103_ep_nak_set(u8 addr, u8 nak)
 /**
  * Copy a data buffer to packet memory.
  *
- * @param PM Destination pointer into packet memory.
+ * @param vPM Destination pointer into packet memory.
  * @param buf Source pointer to data buffer.
  * @param len Number of bytes to copy.
  */
@@ -228,10 +228,10 @@ static u16 stm32f103_ep_write_packet(u8 addr, const void *buf, u16 len)
 }
 
 /**
- * Copy a data buffer from Packet Memory.
+ * Copy a data buffer from packet memory.
  *
  * @param buf Source pointer to data buffer.
- * @param PM Destination pointer into packet memory.
+ * @param vPM Destination pointer into packet memory.
  * @param len Number of bytes to copy.
  */
 static void usb_copy_from_pm(void *buf, const volatile void *vPM, u16 len)

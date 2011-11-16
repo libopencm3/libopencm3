@@ -33,6 +33,7 @@ u8 usbd_control_buffer[128] __attribute__((weak));
  *
  * It is required that the 48MHz USB clock is already available.
  *
+ * @param driver TODO
  * @param dev Pointer to USB device descriptor. This must not be changed while
  *            the device is in use.
  * @param conf Pointer to array of USB configuration descriptors. These must
