@@ -19,13 +19,33 @@
 
 #include <libopencm3/stm32/usart.h>
 
-void usart_set_baudrate(u32 usart, u32 baud, u32 clock)
-{
-	//u32 clock = rcc_ppre1_frequency;
+#if defined(STM32F1)
+#	include <libopencm3/stm32/f1/rcc.h>
+#elif defined(STM32F2)
+#	include <libopencm3/stm32/f2/rcc.h>
+#elif defined(STM32F4)
+#	include <libopencm3/stm32/f4/rcc.h>
+#else
+#	error "stm32 family not defined."
+#endif
 
-	//if (usart == USART1) {
-	//	clock = rcc_ppre2_frequency;
-	//}
+void usart_set_baudrate(u32 usart, u32 baud)
+{
+	u32 clock = rcc_ppre1_frequency;
+
+//#ifdef STM32F1
+	if (usart == USART1) {
+		clock = rcc_ppre2_frequency;
+	}
+/* This has to be added for F2 when it get's support for USART6 */
+/*
+#else
+	if ((usart == USART1) ||
+	    (usart == USART6)) {
+		clock = rcc_ppre2_frequency;
+	}
+#endif
+*/
 
 	/* yes it is as simple as that. The reference manual is
 	 * talking about factional calculation but it seems to be only
