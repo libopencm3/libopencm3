@@ -20,18 +20,14 @@
 #ifndef LIBOPENCM3_MEMORYMAP_COMMON_H
 #define LIBOPENCM3_MEMORYMAP_COMMON_H
 
-#ifdef STM32F1
-#include <libopencm3/stm32/f1/memorymap.h>
+#if defined(STM32F1)
+#	include <libopencm3/stm32/f1/memorymap.h>
+#elif defined(STM32F2)
+#	include <libopencm3/stm32/f2/memorymap.h>
+#elif defined(STM32F4)
+#	include <libopencm3/stm32/f4/memorymap.h>
 #else
-#ifdef STM32F2
-#include <libopencm3/stm32/f2/memorymap.h>
-#else
-#ifdef STM32F4
-#include <libopencm3/stm32/f4/memorymap.h>
-#else
-#error "stm32 family not defined."
-#endif
-#endif
+#	error "stm32 family not defined."
 #endif
 
-#endif
+#endif /* LIBOPENCM3_MEMORYMAP_COMMON_H */
