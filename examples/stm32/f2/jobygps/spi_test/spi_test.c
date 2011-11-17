@@ -28,6 +28,9 @@
 
 void clock_setup(void)
 {
+
+#warning "This code has to call some kind of rcc clock setup function!!!"
+
 	RCC_APB1ENR |= RCC_APB1ENR_SPI2EN;
 	RCC_APB2ENR |= RCC_APB2ENR_USART1EN;
 	RCC_AHB1ENR |=
@@ -55,7 +58,7 @@ void usart_setup(void)
 	gpio_set_af(GPIOA, GPIO_AF7, GPIO9 | GPIO10);
 
 	/* Setup UART parameters. */
-	usart_set_baudrate(USART1, 9600, 16000000);
+	usart_set_baudrate(USART1, 9600);
 	usart_set_databits(USART1, 8);
 	usart_set_stopbits(USART1, USART_STOPBITS_1);
 	usart_set_parity(USART1, USART_PARITY_NONE);

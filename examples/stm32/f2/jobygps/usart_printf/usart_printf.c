@@ -28,6 +28,9 @@
 
 void clock_setup(void)
 {
+
+#warning "This code has to call some kind of rcc clock setup function!!!"
+
 	//rcc_clock_setup_in_hse_8mhz_out_72mhz();
 
 	/* Enable GPIOA clock (for LED GPIOs). */
@@ -46,7 +49,7 @@ void usart_setup(void)
 	gpio_set_af(GPIOA, GPIO_AF7, GPIO9 | GPIO10);
 
 	/* Setup UART parameters. */
-	usart_set_baudrate(USART1, 9600, 16000000);
+	usart_set_baudrate(USART1, 9600);
 	usart_set_databits(USART1, 8);
 	usart_set_stopbits(USART1, USART_STOPBITS_1);
 	usart_set_parity(USART1, USART_PARITY_NONE);
