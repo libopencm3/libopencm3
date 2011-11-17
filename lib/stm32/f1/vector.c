@@ -108,87 +108,87 @@ void WEAK otg_fs_isr(void);
 
 __attribute__ ((section(".vectors")))
 void (*const vector_table[]) (void) = {
-	(void *)&_stack,
-	reset_handler,
-	nmi_handler,
-	hard_fault_handler,
-	mem_manage_handler,
-	bus_fault_handler,
-	usage_fault_handler,
-	0, 0, 0, 0,		/* Reserved */
-	sv_call_handler,
-	debug_monitor_handler,
-	0,			/* Reserved */
-	pend_sv_handler,
-	sys_tick_handler,
-	wwdg_isr,
-	pvd_isr,
-	tamper_isr,
-	rtc_isr,
-	flash_isr,
-	rcc_isr,
-	exti0_isr,
-	exti1_isr,
-	exti2_isr,
-	exti3_isr,
-	exti4_isr,
-	dma1_channel1_isr,
-	dma1_channel2_isr,
-	dma1_channel3_isr,
-	dma1_channel4_isr,
-	dma1_channel5_isr,
-	dma1_channel6_isr,
-	dma1_channel7_isr,
-	adc1_2_isr,
-	usb_hp_can_tx_isr,
-	usb_lp_can_rx0_isr,
-	can_rx1_isr,
-	can_sce_isr,
-	exti9_5_isr,
-	tim1_brk_isr,
-	tim1_up_isr,
-	tim1_trg_com_isr,
-	tim1_cc_isr,
-	tim2_isr,
-	tim3_isr,
-	tim4_isr,
-	i2c1_ev_isr,
-	i2c1_er_isr,
-	i2c2_ev_isr,
-	i2c2_er_isr,
-	spi1_isr,
-	spi2_isr,
-	usart1_isr,
-	usart2_isr,
-	usart3_isr,
-	exti15_10_isr,
-	rtc_alarm_isr,
-	usb_wakeup_isr,
-	tim8_brk_isr,
-	tim8_up_isr,
-	tim8_trg_com_isr,
-	tim8_cc_isr,
-	adc3_isr,
-	fsmc_isr,
-	sdio_isr,
-	tim5_isr,
-	spi3_isr,
-	uart4_isr,
-	uart5_isr,
-	tim6_isr,
-	tim7_isr,
-	dma2_channel1_isr,
-	dma2_channel2_isr,
-	dma2_channel3_isr,
-	dma2_channel4_5_isr,
-	dma2_channel5_isr,
-	eth_isr,
-	eth_wkup_isr,
-	can2_tx_isr,
-	can2_rx0_isr,
-	can2_rx1_isr,
-	can2_sce_isr,
-	otg_fs_isr,
+	(void*)&_stack,		/* Addr: 0x0000_0000 */
+	reset_handler,		/* Addr: 0x0000_0004 */
+	nmi_handler,		/* Addr: 0x0000_0008 */
+	hard_fault_handler,	/* Addr: 0x0000_000C */
+	mem_manage_handler,	/* Addr: 0x0000_0010 */
+	bus_fault_handler,	/* Addr: 0x0000_0014 */
+	usage_fault_handler,	/* Addr: 0x0000_0018 */
+	0, 0, 0, 0,		/* Reserved Addr: 0x0000_001C - 0x0000_002B */
+	sv_call_handler,	/* Addr: 0x0000_002C */
+	debug_monitor_handler,	/* Addr: 0x0000_0030*/
+	0,			/* Reserved Addr: 0x0000_00034 */
+	pend_sv_handler,	/* Addr: 0x0000_0038 */
+	sys_tick_handler,	/* Addr: 0x0000_003C */
+	wwdg_isr,		/* Addr: 0x0000_0040 */
+	pvd_isr,		/* Addr: 0x0000_0044 */
+	tamper_isr,		/* Addr: 0x0000_0048 */
+	rtc_isr,		/* Addr: 0x0000_004C */
+	flash_isr,		/* Addr: 0x0000_0050 */
+	rcc_isr,		/* Addr: 0x0000_0054 */
+	exti0_isr,		/* Addr: 0x0000_0058 */
+	exti1_isr,		/* Addr: 0x0000_005C */
+	exti2_isr,		/* Addr: 0x0000_0060 */
+	exti3_isr,		/* Addr: 0x0000_0064 */
+	exti4_isr,		/* Addr: 0x0000_0068 */
+	dma1_channel1_isr,	/* Addr: 0x0000_006C */
+	dma1_channel2_isr,	/* Addr: 0x0000_0070 */
+	dma1_channel3_isr,	/* Addr: 0x0000_0074 */
+	dma1_channel4_isr,	/* Addr: 0x0000_0078 */
+	dma1_channel5_isr,	/* Addr: 0x0000_007C */
+	dma1_channel6_isr,	/* Addr: 0x0000_0080 */
+	dma1_channel7_isr,	/* Addr: 0x0000_0084 */
+	adc1_2_isr,		/* Addr: 0x0000_0088 */
+	usb_hp_can_tx_isr,	/* Addr: 0x0000_008C */
+	usb_lp_can_rx0_isr,	/* Addr: 0x0000_0090 */
+	can_rx1_isr,		/* Addr: 0x0000_0094 */
+	can_sce_isr,		/* Addr: 0x0000_0098 */
+	exti9_5_isr,		/* Addr: 0x0000_009C */
+	tim1_brk_isr,		/* Addr: 0x0000_00A0 */
+	tim1_up_isr,		/* Addr: 0x0000_00A4 */
+	tim1_trg_com_isr,	/* Addr: 0x0000_00A8 */
+	tim1_cc_isr,		/* Addr: 0x0000_00AC */
+	tim2_isr,		/* Addr: 0x0000_00B0 */
+	tim3_isr,		/* Addr: 0x0000_00B4 */
+	tim4_isr,		/* Addr: 0x0000_00B8 */
+	i2c1_ev_isr,		/* Addr: 0x0000_00BC */
+	i2c1_er_isr,		/* Addr: 0x0000_00C0 */
+	i2c2_ev_isr,		/* Addr: 0x0000_00C4 */
+	i2c2_er_isr,		/* Addr: 0x0000_00C8 */
+	spi1_isr,		/* Addr: 0x0000_00CC */
+	spi2_isr,		/* Addr: 0x0000_00D0 */
+	usart1_isr,		/* Addr: 0x0000_00D4 */
+	usart2_isr,		/* Addr: 0x0000_00D8 */
+	usart3_isr,		/* Addr: 0x0000_00DC */
+	exti15_10_isr,		/* Addr: 0x0000_00E0 */
+	rtc_alarm_isr,		/* Addr: 0x0000_00E4 */
+	usb_wakeup_isr,		/* Addr: 0x0000_00E8 */
+	tim8_brk_isr,		/* Addr: 0x0000_00EC */
+	tim8_up_isr,		/* Addr: 0x0000_00F0 */
+	tim8_trg_com_isr,	/* Addr: 0x0000_00F4 */
+	tim8_cc_isr,		/* Addr: 0x0000_00F8 */
+	adc3_isr,		/* Addr: 0x0000_00FC */
+	fsmc_isr,		/* Addr: 0x0000_0100 */
+	sdio_isr,		/* Addr: 0x0000_0104 */
+	tim5_isr,		/* Addr: 0x0000_0108 */
+	spi3_isr,		/* Addr: 0x0000_010C */
+	uart4_isr,		/* Addr: 0x0000_0110 */
+	uart5_isr,		/* Addr: 0x0000_0114 */
+	tim6_isr,		/* Addr: 0x0000_0118 */
+	tim7_isr,		/* Addr: 0x0000_011C */
+	dma2_channel1_isr,	/* Addr: 0x0000_0120 */
+	dma2_channel2_isr,	/* Addr: 0x0000_0124 */
+	dma2_channel3_isr,	/* Addr: 0x0000_0128 */
+	dma2_channel4_5_isr,	/* Addr: 0x0000_012C */
+	dma2_channel5_isr,	/* Addr: 0x0000_0130 */
+	eth_isr,		/* Addr: 0x0000_0134 */
+	eth_wkup_isr,		/* Addr: 0x0000_0138 */
+	can2_tx_isr,		/* Addr: 0x0000_013C */
+	can2_rx0_isr,		/* Addr: 0x0000_0140 */
+	can2_rx1_isr,		/* Addr: 0x0000_0144 */
+	can2_sce_isr,		/* Addr: 0x0000_0148 */
+	otg_fs_isr,		/* Addr: 0x0000_014C */
 };
 
 void reset_handler(void)
