@@ -18,7 +18,6 @@
  */
 
 #include <string.h>
-#include <libopencm3/stm32/f1/rcc.h>
 #include <libopencm3/cm3/common.h>
 #include <libopencm3/stm32/tools.h>
 #include <libopencm3/stm32/otg_fs.h>
@@ -66,7 +65,6 @@ const struct _usbd_driver stm32f107_usb_driver = {
 /** Initialize the USB device controller hardware of the STM32. */
 static void stm32f107_usbd_init(void)
 {
-	rcc_peripheral_enable_clock(&RCC_AHBENR, RCC_AHBENR_OTGFSEN);
 	OTG_FS_GINTSTS = OTG_FS_GINTSTS_MMIS;
 
 	OTG_FS_GUSBCFG |= OTG_FS_GUSBCFG_PHYSEL;

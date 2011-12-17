@@ -99,6 +99,7 @@ int main(void)
 
 	rcc_peripheral_enable_clock(&RCC_APB2ENR, RCC_APB2ENR_IOPAEN);
 	rcc_peripheral_enable_clock(&RCC_APB2ENR, RCC_APB2ENR_IOPCEN);
+	rcc_peripheral_enable_clock(&RCC_AHBENR, RCC_AHBENR_OTGFSEN);
 
 	/* LED output */
 	gpio_set_mode(GPIOC, GPIO_MODE_OUTPUT_2_MHZ,

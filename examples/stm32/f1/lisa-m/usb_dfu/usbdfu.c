@@ -239,6 +239,7 @@ int main(void)
 	rcc_clock_setup_in_hsi_out_48mhz();
 
 	rcc_peripheral_enable_clock(&RCC_APB2ENR, RCC_APB2ENR_IOPCEN);
+	rcc_peripheral_enable_clock(&RCC_AHBENR, RCC_AHBENR_OTGFSEN);
 
 	gpio_set(GPIOC, GPIO2);
 	gpio_set_mode(GPIOC, GPIO_MODE_OUTPUT_50_MHZ,

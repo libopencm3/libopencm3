@@ -18,8 +18,8 @@
  */
 
 #include <stdlib.h>
-#include <libopencm3/stm32/f1/rcc.h>
-#include <libopencm3/stm32/f1/gpio.h>
+#include <libopencm3/stm32/f4/rcc.h>
+#include <libopencm3/stm32/f4/gpio.h>
 #include <libopencm3/usb/usbd.h>
 #include <libopencm3/usb/cdc.h>
 
@@ -177,18 +177,6 @@ static int cdcacm_control_request(struct usb_setup_data *req, u8 **buf,
 		 * even though it's optional in the CDC spec, and we don't
 		 * advertise it in the ACM functional descriptor.
 		 */
-		char buf[10];
-		struct usb_cdc_notification *notif = (void*)buf;
-
-		/* We echo signals back to host as notification. */
-		notif->bmRequestType = 0xA1;
-		notif->bNotification = USB_CDC_NOTIFY_SERIAL_STATE;
-		notif->wValue = 0;
-		notif->wIndex = 0;
-		notif->wLength = 2;
-		buf[8] = req->wValue & 3;
-		buf[9] = 0;
-		// usbd_ep_write_packet(0x83, buf, 10);
 		return 1;
 		}
 	case USB_CDC_REQ_SET_LINE_CODING:
@@ -210,7 +198,6 @@ static void cdcacm_data_rx_cb(u8 ep)
 	if (len) {
 		while (usbd_ep_write_packet(0x82, buf, len) == 0)
 			;
-		buf[len] = 0;
 	}
 
 	gpio_toggle(GPIOC, GPIO5);
@@ -232,27 +219,19 @@ static void cdcacm_set_config(u16 wValue)
 
 int main(void)
 {
-	int i;
+	rcc_clock_setup_hse_3v3(&hse_8mhz_3v3[CLOCK_3V3_120MHZ]);
 
-	rcc_clock_setup_in_hsi_out_48mhz();
+	rcc_peripheral_enable_clock(&RCC_AHB1ENR, RCC_AHB1ENR_IOPAEN);
+	rcc_peripheral_enable_clock(&RCC_AHB2ENR, RCC_AHB2ENR_OTGFSEN);
 
-	rcc_peripheral_enable_clock(&RCC_APB2ENR, RCC_APB2ENR_IOPCEN);
-	rcc_peripheral_enable_clock(&RCC_AHBENR, RCC_AHBENR_OTGFSEN);
+	gpio_mode_setup(GPIOA, GPIO_MODE_AF, GPIO_PUPD_NONE, 
+			GPIO9 | GPIO11 | GPIO12);
+	gpio_set_af(GPIOA, GPIO_AF10, GPIO9 | GPIO11 | GPIO12);
 
-	gpio_set(GPIOC, GPIO2);
-	gpio_set_mode(GPIOC, GPIO_MODE_OUTPUT_2_MHZ,
-		      GPIO_CNF_OUTPUT_PUSHPULL, GPIO2);
-	gpio_set(GPIOC, GPIO5);
-	gpio_set_mode(GPIOC, GPIO_MODE_OUTPUT_2_MHZ,
-		      GPIO_CNF_OUTPUT_PUSHPULL, GPIO5);
-
-	usbd_init(&stm32f107_usb_driver, &dev, &config, usb_strings);
+	usbd_init(&otgfs_usb_driver, &dev, &config, usb_strings);
 	usbd_register_set_config_callback(cdcacm_set_config);
-
-	for (i = 0; i < 0x800000; i++)
-		__asm__("nop");
-	gpio_clear(GPIOC, GPIO2);
 
 	while (1)
 		usbd_poll();
 }
+
