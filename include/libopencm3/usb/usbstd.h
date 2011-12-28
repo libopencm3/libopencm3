@@ -75,6 +75,10 @@ struct usb_setup_data {
 #define USB_DT_DEVICE_QUALIFIER			6
 #define USB_DT_OTHER_SPEED_CONFIGURATION	7
 #define USB_DT_INTERFACE_POWER			8
+/* From ECNs */
+#define USB_DT_OTG				9
+#define USB_DT_DEBUG				10
+#define USB_DT_INTERFACE_ASSOCIATION		11
 
 /* USB Standard Feature Selectors - Table 9-6 */
 #define USB_FEAT_ENDPOINT_HALT			0
@@ -134,6 +138,7 @@ struct usb_config_descriptor {
 	/* Descriptor ends here.  The following are used internally: */
 	const struct usb_interface {
 		int num_altsetting;
+		const struct usb_iface_assoc_descriptor *iface_assoc;
 		const struct usb_interface_descriptor *altsetting;
 	} *interface;
 } __attribute__((packed));
@@ -200,5 +205,19 @@ struct usb_string_descriptor {
 	u8 bDescriptorType;
 	u16 wData[];
 } __attribute__((packed));
+
+/* From ECN: Interface Association Descriptors, Table 9-Z */
+struct usb_iface_assoc_descriptor {
+	u8 bLength;
+	u8 bDescriptorType;
+	u8 bFirstInterface;
+	u8 bInterfaceCount;
+	u8 bFunctionClass;
+	u8 bFunctionSubClass;
+	u8 bFunctionProtocol;
+	u8 iFunction;
+} __attribute__((packed));
+#define USB_DT_INTERFACE_ASSOCIATION_SIZE \
+				sizeof(struct usb_iface_assoc_descriptor)
 
 #endif

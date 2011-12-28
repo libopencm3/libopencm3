@@ -41,10 +41,20 @@ static u16 build_config_descriptor(u8 index, u8 *buf, u16 len)
 
 	/* For each interface... */
 	for (i = 0; i < cfg->bNumInterfaces; i++) {
+		/* Interface Association Descriptor, if any */
+		if (cfg->interface[i].iface_assoc) {
+			const struct usb_iface_assoc_descriptor *assoc = 
+					cfg->interface[i].iface_assoc;
+			memcpy(buf, assoc, count = MIN(len, assoc->bLength));
+			buf += count;
+			len -= count;
+			total += count;
+			totallen += assoc->bLength;
+		}
 		/* For each alternate setting... */
 		for (j = 0; j < cfg->interface[i].num_altsetting; j++) {
 			const struct usb_interface_descriptor *iface =
-			    &cfg->interface[i].altsetting[j];
+					&cfg->interface[i].altsetting[j];
 			/* Copy interface descriptor. */
 			memcpy(buf, iface, count = MIN(len, iface->bLength));
 			buf += count;
