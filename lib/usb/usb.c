@@ -108,6 +108,13 @@ void usbd_poll(void)
 	_usbd_device.driver->poll();
 }
 
+void usbd_disconnect(bool disconnected)
+{
+	/* not all drivers support disconnection */
+	if (_usbd_device.driver->disconnect)
+		_usbd_device.driver->disconnect(disconnected);
+}
+
 void usbd_ep_setup(u8 addr, u8 type, u16 max_size, void (*callback)(u8 ep))
 {
 	_usbd_device.driver->ep_setup(addr, type, max_size, callback);

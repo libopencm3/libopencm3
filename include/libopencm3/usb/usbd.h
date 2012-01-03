@@ -56,6 +56,7 @@ extern void usbd_register_set_config_callback(void (*callback)(u16 wValue));
 
 /* Functions to be provided by the hardware abstraction layer */
 extern void usbd_poll(void);
+extern void usbd_disconnect(bool disconnected);
 
 extern void usbd_ep_setup(u8 addr, u8 type, u16 max_size,
 	      void (*callback)(u8 ep));
