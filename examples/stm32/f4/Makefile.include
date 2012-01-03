@@ -30,12 +30,12 @@ GDB		= $(PREFIX)-gdb
 #TOOLCHAIN_DIR := $(shell dirname `which $(CC)`)/../$(PREFIX)
 TOOLCHAIN_DIR   = ../../../../..
 CFLAGS		+= -Os -g -Wall -Wextra -I$(TOOLCHAIN_DIR)/include \
-		   -fno-common -mcpu=cortex-m3 -mthumb -msoft-float -MD -DSTM32F4
+		   -fno-common -mcpu=cortex-m4 -mthumb -msoft-float -MD -DSTM32F4
 LDSCRIPT	?= $(BINARY).ld
 LDFLAGS		+= -lc -lnosys -L$(TOOLCHAIN_DIR)/lib \
 			 -L$(TOOLCHAIN_DIR)/lib/stm32/f4 \
 		   -T$(LDSCRIPT) -nostartfiles -Wl,--gc-sections \
-		   -mthumb -march=armv7 -mfix-cortex-m3-ldrd -msoft-float
+		   -mthumb -mcpu=cortex-m4 -march=armv7 -mfix-cortex-m3-ldrd -msoft-float
 OBJS		+= $(BINARY).o
 
 OOCD		?= openocd
