@@ -232,7 +232,7 @@
 /* See Datasheet Table 6 (pg. 48) for alternate function mappings. */
 
 #define GPIO_AFR(n, af)			(af << ((n) * 4))
-#define GPIO_AFR_MASK(n)		(0xf << ((n) * 4))
+#define GPIO_AFR_MASK(n)		~(0xf << ((n) * 4))
 #define GPIO_AF0			0x0
 #define GPIO_AF1			0x1
 #define GPIO_AF2			0x2
