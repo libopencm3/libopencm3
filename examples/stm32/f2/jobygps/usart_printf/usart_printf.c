@@ -28,19 +28,9 @@
 
 void clock_setup(void)
 {
-
-#warning "This code has to call some kind of rcc clock setup function!!!"
-
-	//rcc_clock_setup_in_hse_8mhz_out_72mhz();
-
-	/* Enable GPIOA clock (for LED GPIOs). */
-	//rcc_peripheral_enable_clock(&RCC_APB2ENR, RCC_APB2ENR_IOPCEN);
-
-	/* Enable clocks for GPIO port A (for GPIO_USART1_TX) and USART1. */
-	// rcc_peripheral_enable_clock(&RCC_APB2ENR, RCC_APB2ENR_IOPAEN |
-	// 			RCC_APB2ENR_AFIOEN | RCC_APB2ENR_USART1EN);
-	RCC_APB2ENR |= RCC_APB2ENR_USART1EN;
-	RCC_AHB1ENR |= RCC_AHB1ENR_IOPCEN | RCC_AHB1ENR_IOPAEN;
+  /* Enable clocks on all the peripherals we are going to use. */
+	rcc_peripheral_enable_clock(&RCC_APB2ENR, RCC_APB2ENR_USART1EN);
+	rcc_peripheral_enable_clock(&RCC_AHB1ENR, RCC_AHB1ENR_IOPCEN | RCC_AHB1ENR_IOPAEN);
 }
 
 void usart_setup(void)
@@ -62,10 +52,8 @@ void usart_setup(void)
 
 void gpio_setup(void)
 {
-	gpio_set(GPIOC, GPIO3);
-
-	/* Setup GPIO6 and 7 (in GPIO port A) for LED use. */
 	gpio_mode_setup(GPIOC, GPIO_MODE_OUTPUT, GPIO_MODE_OUTPUT, GPIO3);
+	gpio_set(GPIOC, GPIO3);
 }
 
 int _write(int file, char *ptr, int len)

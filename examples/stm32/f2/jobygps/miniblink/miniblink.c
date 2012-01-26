@@ -2,6 +2,7 @@
  * This file is part of the libopencm3 project.
  *
  * Copyright (C) 2009 Uwe Hermann <uwe@hermann-uwe.de>
+ * Copyright (C) 2011 Fergus Noble <fergusnoble@gmail.com>
  *
  * This program is free software: you can redistribute it and/or modify
  * it under the terms of the GNU General Public License as published by
@@ -17,23 +18,17 @@
  * along with this program.  If not, see <http://www.gnu.org/licenses/>.
  */
 
-//#include <libopencm3/stm32/rcc.h>
+#include <libopencm3/stm32/f2/rcc.h>
 #include <libopencm3/stm32/f2/gpio.h>
 
 void gpio_setup(void)
 {
 	/* Enable GPIOC clock. */
-	/* Manually: */
-	// RCC_APB2ENR |= RCC_APB2ENR_IOPCEN;
 	/* Using API functions: */
-	//rcc_peripheral_enable_clock(&RCC_APB2ENR, RCC_APB2ENR_IOPCEN);
+	rcc_peripheral_enable_clock(&RCC_AHB1ENR, RCC_AHB1ENR_IOPCEN);
 
-	/* Set GPIO12 (in GPIO port C) to 'output push-pull'. */
-	/* Manually: */
-	// GPIOC_CRH = (GPIO_CNF_OUTPUT_PUSHPULL << (((12 - 8) * 4) + 2));
-	// GPIOC_CRH |= (GPIO_MODE_OUTPUT_2_MHZ << ((12 - 8) * 4));
+	/* Set GPIO3 and GPIO4 (in GPIO port C) to 'output push-pull'. */
 	/* Using API functions: */
-	MMIO32(RCC_BASE + 0x30) |= (1 << 2);
 	gpio_mode_setup(GPIOC, GPIO_MODE_OUTPUT, GPIO_PUPD_NONE, GPIO3 | GPIO4);
 }
 
@@ -43,32 +38,15 @@ int main(void)
 
 	gpio_setup();
 
-	/* Blink the LED (PC12) on the board. */
-	while (1) {
-		/* Manually: */
-		// GPIOC_BSRR = GPIO12;		/* LED off */
-		// for (i = 0; i < 800000; i++)	/* Wait a bit. */
-		// 	__asm__("nop");
-		// GPIOC_BRR = GPIO12;		/* LED on */
-		// for (i = 0; i < 800000; i++)	/* Wait a bit. */
-		// 	__asm__("nop");
+  gpio_set(GPIOC, GPIO3);
+  gpio_clear(GPIOC, GPIO4);
 
-		/* Using API functions gpio_set()/gpio_clear(): */
-		// gpio_set(GPIOC, GPIO12);	/* LED off */
-		// for (i = 0; i < 800000; i++)	/* Wait a bit. */
-		// 	__asm__("nop");
-		// gpio_clear(GPIOC, GPIO12);	/* LED on */
-		// for (i = 0; i < 800000; i++)	/* Wait a bit. */
-		// 	__asm__("nop");
-
+	/* Blink the LEDs (PC3, PC4) on the board. */
+	while (1)
+  {
 		/* Using API function gpio_toggle(): */
-		//gpio_toggle(GPIOC, GPIO3);	/* LED on/off */
-		gpio_set(GPIOC, GPIO3);
-		gpio_clear(GPIOC, GPIO4);
-		for (i = 0; i < 800000; i++)	/* Wait a bit. */
-			__asm__("nop");
-		gpio_clear(GPIOC, GPIO3);
-		gpio_set(GPIOC, GPIO4);
+		gpio_toggle(GPIOC, GPIO3);
+		gpio_toggle(GPIOC, GPIO4);
 		for (i = 0; i < 800000; i++)	/* Wait a bit. */
 			__asm__("nop");
 	}

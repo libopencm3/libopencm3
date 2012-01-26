@@ -28,13 +28,12 @@
 
 void clock_setup(void)
 {
-
-#warning "This code has to call some kind of rcc clock setup function!!!"
-
-	RCC_APB1ENR |= RCC_APB1ENR_SPI2EN;
-	RCC_APB2ENR |= RCC_APB2ENR_USART1EN;
-	RCC_AHB1ENR |=
-	    RCC_AHB1ENR_IOPCEN | RCC_AHB1ENR_IOPAEN | RCC_AHB1ENR_IOPBEN;
+  /* Enable clocks on all the peripherals we are going to use. */
+	rcc_peripheral_enable_clock(&RCC_APB1ENR, RCC_APB1ENR_SPI2EN);
+	rcc_peripheral_enable_clock(&RCC_APB2ENR, RCC_APB2ENR_USART1EN);
+	rcc_peripheral_enable_clock(&RCC_AHB1ENR, RCC_AHB1ENR_IOPCEN | \
+                                            RCC_AHB1ENR_IOPAEN | \
+                                            RCC_AHB1ENR_IOPBEN);
 }
 
 void spi_setup(void)
