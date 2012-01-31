@@ -52,8 +52,10 @@ void usart_set_baudrate(u32 usart, u32 baud)
 	 * marketting bable to sound awesome. It is nothing else but a
 	 * simple divider to generate the correct baudrate. >_< If I
 	 * am wrong feel free to correct me on that. :) (esden)
+   *
+   * Changed to round rather than floor (Fergus)
 	 */
-	USART_BRR(usart) = clock / baud;
+	USART_BRR(usart) = (2*clock + baud) / (2*baud);
 }
 
 void usart_set_databits(u32 usart, u32 bits)
