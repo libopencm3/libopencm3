@@ -148,3 +148,24 @@ u16 usart_recv_blocking(u32 usart)
 
 	return usart_recv(usart);
 }
+
+void usart_enable_rx_dma(u32 usart)
+{
+  USART_CR3(usart) |= USART_CR3_DMAR;
+}
+
+void usart_disable_rx_dma(u32 usart)
+{
+  USART_CR3(usart) &= ~USART_CR3_DMAR;
+}
+
+void usart_enable_tx_dma(u32 usart)
+{
+  USART_CR3(usart) |= USART_CR3_DMAT;
+}
+
+void usart_disable_tx_dma(u32 usart)
+{
+  USART_CR3(usart) &= ~USART_CR3_DMAT;
+}
+
