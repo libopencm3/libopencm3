@@ -406,6 +406,6 @@
 #define DMA_SxFCR_FS_FULL        (4<<3)
 #define DMA_SxFCR_FS_EMPTY       (5<<3)
 
-#define DMA_SxFCR_FEIF (1<<7)
+#define DMA_SxFCR_FEIE (1<<7)
 
 #endif
