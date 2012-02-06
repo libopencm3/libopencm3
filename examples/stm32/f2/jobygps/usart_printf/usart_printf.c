@@ -18,19 +18,19 @@
  * along with this program.  If not, see <http://www.gnu.org/licenses/>.
  */
 
+#include <stdio.h>
+#include <errno.h>
 #include <libopencm3/stm32/f2/gpio.h>
 #include <libopencm3/stm32/usart.h>
 #include <libopencm3/stm32/nvic.h>
 #include <libopencm3/stm32/f2/rcc.h>
 
-#include <stdio.h>
-#include <errno.h>
-
 void clock_setup(void)
 {
-  /* Enable clocks on all the peripherals we are going to use. */
+	/* Enable clocks on all the peripherals we are going to use. */
 	rcc_peripheral_enable_clock(&RCC_APB2ENR, RCC_APB2ENR_USART1EN);
-	rcc_peripheral_enable_clock(&RCC_AHB1ENR, RCC_AHB1ENR_IOPCEN | RCC_AHB1ENR_IOPAEN);
+	rcc_peripheral_enable_clock(&RCC_AHB1ENR,
+			RCC_AHB1ENR_IOPCEN | RCC_AHB1ENR_IOPAEN);
 }
 
 void usart_setup(void)

@@ -22,37 +22,37 @@
 
 void nvic_enable_irq(u8 irqn)
 {
-  NVIC_ISER(irqn / 32) = (1 << (irqn % 32));
+	NVIC_ISER(irqn / 32) = (1 << (irqn % 32));
 }
 
 void nvic_disable_irq(u8 irqn)
 {
-  NVIC_ICER(irqn / 32) = (1 << (irqn % 32));
+	NVIC_ICER(irqn / 32) = (1 << (irqn % 32));
 }
 
 u8 nvic_get_pending_irq(u8 irqn)
 {
-  return NVIC_ISPR(irqn / 32) & (1 << (irqn % 32)) ? 1:0;
+	return NVIC_ISPR(irqn / 32) & (1 << (irqn % 32)) ? 1 : 0;
 }
 
 void nvic_set_pending_irq(u8 irqn)
 {
-  NVIC_ISPR(irqn / 32) = (1 << (irqn % 32));
+	NVIC_ISPR(irqn / 32) = (1 << (irqn % 32));
 }
 
 void nvic_clear_pending_irq(u8 irqn)
 {
-  NVIC_ICPR(irqn / 32) = (1 << (irqn % 32));
+	NVIC_ICPR(irqn / 32) = (1 << (irqn % 32));
 }
 
 u8 nvic_get_active_irq(u8 irqn)
 {
-  return NVIC_IABR(irqn / 32) & (1 << (irqn % 32)) ? 1:0;
+	return NVIC_IABR(irqn / 32) & (1 << (irqn % 32)) ? 1 : 0;
 }
 
 u8 nvic_get_irq_enabled(u8 irqn)
 {
-  return NVIC_ISER(irqn / 32) & (1 << (irqn % 32)) ? 1:0;
+	return NVIC_ISER(irqn / 32) & (1 << (irqn % 32)) ? 1 : 0;
 }
 
 void nvic_set_priority(u8 irqn, u8 priority)

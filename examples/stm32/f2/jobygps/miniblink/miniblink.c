@@ -24,11 +24,9 @@
 void gpio_setup(void)
 {
 	/* Enable GPIOC clock. */
-	/* Using API functions: */
 	rcc_peripheral_enable_clock(&RCC_AHB1ENR, RCC_AHB1ENR_IOPCEN);
 
 	/* Set GPIO3 and GPIO4 (in GPIO port C) to 'output push-pull'. */
-	/* Using API functions: */
 	gpio_mode_setup(GPIOC, GPIO_MODE_OUTPUT, GPIO_PUPD_NONE, GPIO3 | GPIO4);
 }
 
@@ -38,12 +36,11 @@ int main(void)
 
 	gpio_setup();
 
-  gpio_set(GPIOC, GPIO3);
-  gpio_clear(GPIOC, GPIO4);
+	gpio_set(GPIOC, GPIO3);
+	gpio_clear(GPIOC, GPIO4);
 
 	/* Blink the LEDs (PC3, PC4) on the board. */
-	while (1)
-  {
+	while (1) {
 		/* Using API function gpio_toggle(): */
 		gpio_toggle(GPIOC, GPIO3);
 		gpio_toggle(GPIOC, GPIO4);
