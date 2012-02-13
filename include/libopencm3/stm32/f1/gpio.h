@@ -307,8 +307,8 @@
 #define GPIO_UART4_RX			GPIO11		/* PC11 */
 
 /* UART4 BANK */
-#define GPIO_UART4_TX			GPIOC		/* PC10 */
-#define GPIO_UART4_RX			GPIOC		/* PC11 */
+#define GPIO_BANK_UART4_TX		GPIOC		/* PC10 */
+#define GPIO_BANK_UART4_RX		GPIOC		/* PC11 */
 
 /* USART3 GPIO */
 #define GPIO_USART3_TX			GPIO10		/* PB10 */
@@ -402,9 +402,9 @@
 #define GPIO_BANK_I2C1_SCL		GPIOB		/* PB6 */
 #define GPIO_BANK_I2C1_SDA		GPIOB		/* PB7 */
 
-#define GPIO_I2C1_RE_SMBAI		GPIOB		/* PB5 */
-#define GPIO_I2C1_RE_SCL		GPIOB		/* PB8 */
-#define GPIO_I2C1_RE_SDA		GPIOB		/* PB9 */
+#define GPIO_BANK_I2C1_RE_SMBAI		GPIOB		/* PB5 */
+#define GPIO_BANK_I2C1_RE_SCL		GPIOB		/* PB8 */
+#define GPIO_BANK_I2C1_RE_SDA		GPIOB		/* PB9 */
 
 /* I2C2 GPIO */
 #define GPIO_I2C2_SCL			GPIO10		/* PB10 */
