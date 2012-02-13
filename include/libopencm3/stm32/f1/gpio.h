@@ -2,6 +2,7 @@
  * This file is part of the libopencm3 project.
  *
  * Copyright (C) 2009 Uwe Hermann <uwe@hermann-uwe.de>
+ * Copyright (C) 2012 Piotr Esden-Tempski <piotr@esden.net>
  *
  * This program is free software: you can redistribute it and/or modify
  * it under the terms of the GNU General Public License as published by
@@ -57,7 +58,7 @@
 
 /* Default alternate functions of some pins (with and without remapping) */
 
-/* CAN1 / CAN */
+/* CAN1 / CAN GPIO */
 #define GPIO_CAN1_RX			GPIO11		/* PA11 */
 #define GPIO_CAN1_TX			GPIO12		/* PA12 */
 #define GPIO_CAN_RX			GPIO_CAN1_RX	/* Alias */
@@ -73,14 +74,37 @@
 #define GPIO_CAN1_PD_RX			GPIO_CAN_PD_RX	/* Alias */
 #define GPIO_CAN1_PD_TX			GPIO_CAN_PD_TX	/* Alias */
 
-/* CAN2 */
+/* CAN1 / CAN BANK */
+#define GPIO_BANK_CAN1_RX		GPIOA		/* PA11 */
+#define GPIO_BANK_CAN1_TX		GPIOA		/* PA12 */
+#define GPIO_BANK_CAN_RX		GPIO_CAN1_RX	/* Alias */
+#define GPIO_BANK_CAN_TX		GPIO_CAN1_TX	/* Alias */
+
+#define GPIO_BANK_CAN_PB_RX		GPIOB		/* PB8 */
+#define GPIO_BANK_CAN_PB_TX		GPIOB		/* PB9 */
+#define GPIO_BANK_CAN1_PB_RX		GPIO_CAN_PB_RX	/* Alias */
+#define GPIO_BANK_CAN1_PB_TX		GPIO_CAN_PB_TX	/* Alias */
+
+#define GPIO_BANK_CAN_PD_RX		GPIOD		/* PD0 */
+#define GPIO_BANK_CAN_PD_TX		GPIOD		/* PD1 */
+#define GPIO_BANK_CAN1_PD_RX		GPIO_CAN_PD_RX	/* Alias */
+#define GPIO_BANK_CAN1_PD_TX		GPIO_CAN_PD_TX	/* Alias */
+
+/* CAN2 GPIO */
 #define GPIO_CAN2_RX			GPIO12		/* PB12 */
 #define GPIO_CAN2_TX			GPIO13		/* PB13 */
 
 #define GPIO_CAN2_RE_RX			GPIO5		/* PB5 */
 #define GPIO_CAN2_RE_TX			GPIO6		/* PB6 */
 
-/* JTAG/SWD */
+/* CAN2 BANK */
+#define GPIO_BANK_CAN2_RX		GPIOB		/* PB12 */
+#define GPIO_BANK_CAN2_TX		GPIOB		/* PB13 */
+
+#define GPIO_BANK_CAN2_RE_RX		GPIOB		/* PB5 */
+#define GPIO_BANK_CAN2_RE_TX		GPIOB		/* PB6 */
+
+/* JTAG/SWD GPIO */
 #define GPIO_JTMS_SWDIO			GPIO13		/* PA13 */
 #define GPIO_JTCK_SWCLK			GPIO14		/* PA14 */
 #define GPIO_JTDI			GPIO15		/* PA15 */
@@ -92,10 +116,25 @@
 #define GPIO_TRACED2			GPIO5		/* PE5 */
 #define GPIO_TRACED3			GPIO6		/* PE6 */
 
-/* Timer5 */
+/* JTAG/SWD BANK */
+#define GPIO_BANK_JTMS_SWDIO		GPIOA		/* PA13 */
+#define GPIO_BANK_JTCK_SWCLK		GPIOA		/* PA14 */
+#define GPIO_BANK_JTDI			GPIOA		/* PA15 */
+#define GPIO_BANK_JTDO_TRACESWO		GPIOB		/* PB3 */
+#define GPIO_BANK_JNTRST		GPIOB		/* PB4 */
+#define GPIO_BANK_TRACECK		GPIOE		/* PE2 */
+#define GPIO_BANK_TRACED0		GPIOE		/* PE3 */
+#define GPIO_BANK_TRACED1		GPIOE		/* PE4 */
+#define GPIO_BANK_TRACED2		GPIOE		/* PE5 */
+#define GPIO_BANK_TRACED3		GPIOE		/* PE6 */
+
+/* Timer5 GPIO */
 #define GPIO_TIM5_CH4			GPIO3		/* PA3 */
 
-/* Timer4 */
+/* Timer5 BANK */
+#define GPIO_BANK_TIM5_CH4		GPIOA		/* PA3 */
+
+/* Timer4 GPIO */
 #define GPIO_TIM4_CH1			GPIO6		/* PB6 */
 #define GPIO_TIM4_CH2			GPIO7		/* PB7 */
 #define GPIO_TIM4_CH3			GPIO8		/* PB8 */
@@ -106,7 +145,18 @@
 #define GPIO_TIM4_RE_CH3		GPIO14		/* PD14 */
 #define GPIO_TIM4_RE_CH4		GPIO15		/* PD15 */
 
-/* Timer3 */
+/* Timer4 BANK */
+#define GPIO_BANK_TIM4_CH1		GPIOB		/* PB6 */
+#define GPIO_BANK_TIM4_CH2		GPIOB		/* PB7 */
+#define GPIO_BANK_TIM4_CH3		GPIOB		/* PB8 */
+#define GPIO_BANK_TIM4_CH4		GPIOB		/* PB9 */
+
+#define GPIO_BANK_TIM4_RE_CH1		GPIOD		/* PD12 */
+#define GPIO_BANK_TIM4_RE_CH2		GPIOD		/* PD13 */
+#define GPIO_BANK_TIM4_RE_CH3		GPIOD		/* PD14 */
+#define GPIO_BANK_TIM4_RE_CH4		GPIOD		/* PD15 */
+
+/* Timer3 GPIO */
 #define GPIO_TIM3_CH1			GPIO6		/* PA6 */
 #define GPIO_TIM3_CH2			GPIO7		/* PA7 */
 #define GPIO_TIM3_CH3			GPIO0		/* PB0 */
@@ -122,8 +172,25 @@
 #define GPIO_TIM3_FR_CH3		GPIO8		/* PC8 */
 #define GPIO_TIM3_FR_CH4		GPIO9		/* PC9 */
 
-/* Timer2 */
+/* Timer3 BANK */
+#define GPIO_BANK_TIM3_CH1		GPIOA		/* PA6 */
+#define GPIO_BANK_TIM3_CH2		GPIOA		/* PA7 */
+#define GPIO_BANK_TIM3_CH3		GPIOB		/* PB0 */
+#define GPIO_BANK_TIM3_CH4		GPIOB		/* PB1 */
+
+#define GPIO_BANK_TIM3_PR_CH1		GPIOB		/* PB4 */
+#define GPIO_BANK_TIM3_PR_CH2		GPIOB		/* PB5 */
+#define GPIO_BANK_TIM3_PR_CH3		GPIOB		/* PB0 */
+#define GPIO_BANK_TIM3_PR_CH4		GPIOB		/* PB1 */
+
+#define GPIO_BANK_TIM3_FR_CH1		GPIOC		/* PC6 */
+#define GPIO_BANK_TIM3_FR_CH2		GPIOC		/* PC7 */
+#define GPIO_BANK_TIM3_FR_CH3		GPIOC		/* PC8 */
+#define GPIO_BANK_TIM3_FR_CH4		GPIOC		/* PC9 */
+
+/* Timer2 GPIO */
 #define GPIO_TIM2_CH1_ETR		GPIO0		/* PA0 */
+#define GPIO_BANK_TIM2_CH1_ETR		GPIOA		/* PA0 */
 #define GPIO_TIM2_CH2			GPIO1		/* PA1 */
 #define GPIO_TIM2_CH3			GPIO2		/* PA2 */
 #define GPIO_TIM2_CH4			GPIO3		/* PA3 */
@@ -143,7 +210,29 @@
 #define GPIO_TIM2_FR_CH3		GPIO10		/* PB10 */
 #define GPIO_TIM2_FR_CH4		GPIO11		/* PB11 */
 
-/* Timer1 */
+/* Timer2 BANK */
+#define GPIO_BANK_TIM2_CH1_ETR		GPIOA		/* PA0 */
+#define GPIO_BANK_TIM2_CH1_ETR		GPIOA		/* PA0 */
+#define GPIO_BANK_TIM2_CH2		GPIOA		/* PA1 */
+#define GPIO_BANK_TIM2_CH3		GPIOA		/* PA2 */
+#define GPIO_BANK_TIM2_CH4		GPIOA		/* PA3 */
+
+#define GPIO_BANK_TIM2_PR1_CH1_ETR	GPIOA		/* PA15 */
+#define GPIO_BANK_TIM2_PR1_CH2		GPIOB		/* PB3 */
+#define GPIO_BANK_TIM2_PR1_CH3		GPIOA		/* PA2 */
+#define GPIO_BANK_TIM2_PR1_CH4		GPIOA		/* PA3 */
+
+#define GPIO_BANK_TIM2_PR2_CH1_ETR	GPIOA		/* PA0 */
+#define GPIO_BANK_TIM2_PR2_CH2		GPIOA		/* PA1 */
+#define GPIO_BANK_TIM2_PR2_CH3		GPIOB		/* PB10 */
+#define GPIO_BANK_TIM2_PR2_CH4		GPIOB		/* PB11 */
+
+#define GPIO_BANK_TIM2_FR_CH1_ETR	GPIOA		/* PA15 */
+#define GPIO_BANK_TIM2_FR_CH2		GPIOB		/* PB3 */
+#define GPIO_BANK_TIM2_FR_CH3		GPIOB		/* PB10 */
+#define GPIO_BANK_TIM2_FR_CH4		GPIOB		/* PB11 */
+
+/* Timer1 GPIO */
 #define GPIO_TIM1_ETR			GPIO12		/* PA12 */
 #define GPIO_TIM1_CH1			GPIO8		/* PA8 */
 #define GPIO_TIM1_CH2			GPIO9		/* PA9 */
@@ -174,15 +263,54 @@
 #define GPIO_TIM1_FR_CH2N		GPIO10		/* PE10 */
 #define GPIO_TIM1_FR_CH3N		GPIO12		/* PE12 */
 
-/* UART5 */
+/* Timer1 BANK */
+#define GPIO_BANK_TIM1_ETR		GPIOA		/* PA12 */
+#define GPIO_BANK_TIM1_CH1		GPIOA		/* PA8 */
+#define GPIO_BANK_TIM1_CH2		GPIOA		/* PA9 */
+#define GPIO_BANK_TIM1_CH3		GPIOA		/* PA10 */
+#define GPIO_BANK_TIM1_CH4		GPIOA		/* PA11 */
+#define GPIO_BANK_TIM1_BKIN		GPIOB		/* PB12 */
+#define GPIO_BANK_TIM1_CH1N		GPIOB		/* PB13 */
+#define GPIO_BANK_TIM1_CH2N		GPIOB		/* PB14 */
+#define GPIO_BANK_TIM1_CH3N		GPIOB		/* PB15 */
+
+#define GPIO_BANK_TIM1_PR_ETR		GPIOA		/* PA12 */
+#define GPIO_BANK_TIM1_PR_CH1		GPIOA		/* PA8 */
+#define GPIO_BANK_TIM1_PR_CH2		GPIOA		/* PA9 */
+#define GPIO_BANK_TIM1_PR_CH3		GPIOA		/* PA10 */
+#define GPIO_BANK_TIM1_PR_CH4		GPIOA		/* PA11 */
+#define GPIO_BANK_TIM1_PR_BKIN		GPIOA		/* PA6 */
+#define GPIO_BANK_TIM1_PR_CH1N		GPIOA		/* PA7 */
+#define GPIO_BANK_TIM1_PR_CH2N		GPIOB		/* PB0 */
+#define GPIO_BANK_TIM1_PR_CH3N		GPIOB		/* PB1 */
+
+#define GPIO_BANK_TIM1_FR_ETR		GPIOE		/* PE7 */
+#define GPIO_BANK_TIM1_FR_CH1		GPIOE		/* PE9 */
+#define GPIO_BANK_TIM1_FR_CH2		GPIOE		/* PE11 */
+#define GPIO_BANK_TIM1_FR_CH3		GPIOE		/* PE13 */
+#define GPIO_BANK_TIM1_FR_CH4		GPIOE		/* PE14 */
+#define GPIO_BANK_TIM1_FR_BKIN		GPIOE		/* PE15 */
+#define GPIO_BANK_TIM1_FR_CH1N		GPIOE		/* PE8 */
+#define GPIO_BANK_TIM1_FR_CH2N		GPIOE		/* PE10 */
+#define GPIO_BANK_TIM1_FR_CH3N		GPIOE		/* PE12 */
+
+/* UART5 GPIO */
 #define GPIO_UART5_TX			GPIO12		/* PC12 */
 #define GPIO_UART5_RX			GPIO2		/* PD2 */
 
-/* UART4 */
+/* UART5 BANK */
+#define GPIO_BANK_UART5_TX		GPIOC		/* PC12 */
+#define GPIO_BANK_UART5_RX		GPIOD		/* PD2 */
+
+/* UART4 GPIO */
 #define GPIO_UART4_TX			GPIO10		/* PC10 */
 #define GPIO_UART4_RX			GPIO11		/* PC11 */
 
-/* USART3 */
+/* UART4 BANK */
+#define GPIO_UART4_TX			GPIOC		/* PC10 */
+#define GPIO_UART4_RX			GPIOC		/* PC11 */
+
+/* USART3 GPIO */
 #define GPIO_USART3_TX			GPIO10		/* PB10 */
 #define GPIO_USART3_RX			GPIO11		/* PB11 */
 #define GPIO_USART3_CK			GPIO12		/* PB12 */
@@ -201,7 +329,26 @@
 #define GPIO_USART3_FR_CTS		GPIO11		/* PD11 */
 #define GPIO_USART3_FR_RTS		GPIO12		/* PD12 */
 
-/* USART2 */
+/* USART3 BANK */
+#define GPIO_BANK_USART3_TX		GPIOB		/* PB10 */
+#define GPIO_BANK_USART3_RX		GPIOB		/* PB11 */
+#define GPIO_BANK_USART3_CK		GPIOB		/* PB12 */
+#define GPIO_BANK_USART3_CTS		GPIOB		/* PB13 */
+#define GPIO_BANK_USART3_RTS		GPIOB		/* PB14 */
+
+#define GPIO_BANK_USART3_PR_TX		GPIOC		/* PC10 */
+#define GPIO_BANK_USART3_PR_RX		GPIOC		/* PC11 */
+#define GPIO_BANK_USART3_PR_CK		GPIOC		/* PC12 */
+#define GPIO_BANK_USART3_PR_CTS		GPIOB		/* PB13 */
+#define GPIO_BANK_USART3_PR_RTS		GPIOB		/* PB14 */
+
+#define GPIO_BANK_USART3_FR_TX		GPIOD		/* PD8 */
+#define GPIO_BANK_USART3_FR_RX		GPIOD		/* PD9 */
+#define GPIO_BANK_USART3_FR_CK		GPIOD		/* PD10 */
+#define GPIO_BANK_USART3_FR_CTS		GPIOD		/* PD11 */
+#define GPIO_BANK_USART3_FR_RTS		GPIOD		/* PD12 */
+
+/* USART2 GPIO */
 #define GPIO_USART2_CTS			GPIO0		/* PA0 */
 #define GPIO_USART2_RTS			GPIO1		/* PA1 */
 #define GPIO_USART2_TX			GPIO2		/* PA2 */
@@ -214,14 +361,34 @@
 #define GPIO_USART2_RE_RX		GPIO6		/* PD6 */
 #define GPIO_USART2_RE_CK		GPIO7		/* PD7 */
 
-/* USART1 */
+/* USART2 BANK */
+#define GPIO_BANK_USART2_CTS		GPIOA		/* PA0 */
+#define GPIO_BANK_USART2_RTS		GPIOA		/* PA1 */
+#define GPIO_BANK_USART2_TX		GPIOA		/* PA2 */
+#define GPIO_BANK_USART2_RX		GPIOA		/* PA3 */
+#define GPIO_BANK_USART2_CK		GPIOA		/* PA4 */
+
+#define GPIO_BANK_USART2_RE_CTS		GPIOD		/* PD3 */
+#define GPIO_BANK_USART2_RE_RTS		GPIOD		/* PD4 */
+#define GPIO_BANK_USART2_RE_TX		GPIOD		/* PD5 */
+#define GPIO_BANK_USART2_RE_RX		GPIOD		/* PD6 */
+#define GPIO_BANK_USART2_RE_CK		GPIOD		/* PD7 */
+
+/* USART1 GPIO */
 #define GPIO_USART1_TX			GPIO9		/* PA9 */
 #define GPIO_USART1_RX			GPIO10		/* PA10 */
 
 #define GPIO_USART1_RE_TX		GPIO6		/* PB6 */
 #define GPIO_USART1_RE_RX		GPIO7		/* PB7 */
 
-/* I2C1 */
+/* USART1 BANK */
+#define GPIO_BANK_USART1_TX		GPIOA		/* PA9 */
+#define GPIO_BANK_USART1_RX		GPIOA		/* PA10 */
+
+#define GPIO_BANK_USART1_RE_TX		GPIOB		/* PB6 */
+#define GPIO_BANK_USART1_RE_RX		GPIOB		/* PB7 */
+
+/* I2C1 GPIO */
 #define GPIO_I2C1_SMBAI			GPIO5		/* PB5 */
 #define GPIO_I2C1_SCL			GPIO6		/* PB6 */
 #define GPIO_I2C1_SDA			GPIO7		/* PB7 */
@@ -230,12 +397,26 @@
 #define GPIO_I2C1_RE_SCL		GPIO8		/* PB8 */
 #define GPIO_I2C1_RE_SDA		GPIO9		/* PB9 */
 
-/* I2C2 */
+/* I2C1 BANK */
+#define GPIO_BANK_I2C1_SMBAI		GPIOB		/* PB5 */
+#define GPIO_BANK_I2C1_SCL		GPIOB		/* PB6 */
+#define GPIO_BANK_I2C1_SDA		GPIOB		/* PB7 */
+
+#define GPIO_I2C1_RE_SMBAI		GPIOB		/* PB5 */
+#define GPIO_I2C1_RE_SCL		GPIOB		/* PB8 */
+#define GPIO_I2C1_RE_SDA		GPIOB		/* PB9 */
+
+/* I2C2 GPIO */
 #define GPIO_I2C2_SCL			GPIO10		/* PB10 */
 #define GPIO_I2C2_SDA			GPIO11		/* PB11 */
 #define GPIO_I2C2_SMBAI			GPIO12		/* PB12 */
 
-/* SPI1 */
+/* I2C2 BANK */
+#define GPIO_BANK_I2C2_SCL		GPIOB		/* PB10 */
+#define GPIO_BANK_I2C2_SDA		GPIOB		/* PB11 */
+#define GPIO_BANK_I2C2_SMBAI		GPIOB		/* PB12 */
+
+/* SPI1 GPIO */
 #define GPIO_SPI1_NSS			GPIO4		/* PA4 */
 #define GPIO_SPI1_SCK			GPIO5		/* PA5 */
 #define GPIO_SPI1_MISO			GPIO6		/* PA6 */
@@ -246,13 +427,30 @@
 #define GPIO_SPI1_RE_MISO		GPIO4		/* PB4 */
 #define GPIO_SPI1_RE_MOSI		GPIO5		/* PB5 */
 
-/* SPI2 */
+/* SPI1 BANK */
+#define GPIO_BANK_SPI1_NSS		GPIOA		/* PA4 */
+#define GPIO_BANK_SPI1_SCK		GPIOA		/* PA5 */
+#define GPIO_BANK_SPI1_MISO		GPIOA		/* PA6 */
+#define GPIO_BANK_SPI1_MOSI		GPIOA		/* PA7 */
+
+#define GPIO_BANK_SPI1_RE_NSS		GPIOA		/* PA15 */
+#define GPIO_BANK_SPI1_RE_SCK		GPIOB		/* PB3 */
+#define GPIO_BANK_SPI1_RE_MISO		GPIOB		/* PB4 */
+#define GPIO_BANK_SPI1_RE_MOSI		GPIOB		/* PB5 */
+
+/* SPI2 GPIO */
 #define GPIO_SPI2_NSS			GPIO12		/* PB12 */
 #define GPIO_SPI2_SCK			GPIO13		/* PB13 */
 #define GPIO_SPI2_MISO			GPIO14		/* PB14 */
 #define GPIO_SPI2_MOSI			GPIO15		/* PB15 */
 
-/* SPI3 */
+/* SPI2 BANK */
+#define GPIO_BANK_SPI2_NSS		GPIOB		/* PB12 */
+#define GPIO_BANK_SPI2_SCK		GPIOB		/* PB13 */
+#define GPIO_BANK_SPI2_MISO		GPIOB		/* PB14 */
+#define GPIO_BANK_SPI2_MOSI		GPIOB		/* PB15 */
+
+/* SPI3 GPIO */
 #define GPIO_SPI3_NSS			GPIO15		/* PA15 */
 #define GPIO_SPI3_SCK			GPIO3		/* PB3 */
 #define GPIO_SPI3_MISO			GPIO4		/* PB4 */
@@ -263,7 +461,18 @@
 #define GPIO_SPI3_RE_MISO		GPIO11		/* PC11 */
 #define GPIO_SPI3_RE_MOSI		GPIO12		/* PC12 */
 
-/* ETH */
+/* SPI3 BANK */
+#define GPIO_BANK_SPI3_NSS		GPIOA		/* PA15 */
+#define GPIO_BANK_SPI3_SCK		GPIOB		/* PB3 */
+#define GPIO_BANK_SPI3_MISO		GPIOB		/* PB4 */
+#define GPIO_BANK_SPI3_MOSI		GPIOB		/* PB5 */
+
+#define GPIO_BANK_SPI3_RE_NSS		GPIOA		/* PA4 */
+#define GPIO_BANK_SPI3_RE_SCK		GPIOC		/* PC10 */
+#define GPIO_BANK_SPI3_RE_MISO		GPIOC		/* PC11 */
+#define GPIO_BANK_SPI3_RE_MOSI		GPIOC		/* PC12 */
+
+/* ETH GPIO */
 #define GPIO_ETH_RX_DV_CRS_DV		GPIO7		/* PA7 */
 #define GPIO_ETH_RXD0  			GPIO4		/* PC4 */
 #define GPIO_ETH_RXD1			GPIO5		/* PC5 */
@@ -275,6 +484,19 @@
 #define GPIO_ETH_RE_RXD1		GPIO10		/* PD10 */
 #define GPIO_ETH_RE_RXD2		GPIO11		/* PD11 */
 #define GPIO_ETH_RE_RXD3		GPIO12		/* PD12 */
+
+/* ETH BANK */
+#define GPIO_BANK_ETH_RX_DV_CRS_DV	GPIOA		/* PA7 */
+#define GPIO_BANK_ETH_RXD0  		GPIOC		/* PC4 */
+#define GPIO_BANK_ETH_RXD1		GPIOC		/* PC5 */
+#define GPIO_BANK_ETH_RXD2		GPIOB		/* PB0 */
+#define GPIO_BANK_ETH_RXD3		GPIOB		/* PB1 */
+
+#define GPIO_BANK_ETH_RE_RX_DV_CRS_DV	GPIOD		/* PD8 */
+#define GPIO_BANK_ETH_RE_RXD0  		GPIOD		/* PD9 */
+#define GPIO_BANK_ETH_RE_RXD1		GPIOD		/* PD10 */
+#define GPIO_BANK_ETH_RE_RXD2		GPIOD		/* PD11 */
+#define GPIO_BANK_ETH_RE_RXD3		GPIOD		/* PD12 */
 
 /* --- GPIO registers ------------------------------------------------------ */
 
