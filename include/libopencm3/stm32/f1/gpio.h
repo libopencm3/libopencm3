@@ -129,10 +129,17 @@
 #define GPIO_BANK_TRACED3		GPIOE		/* PE6 */
 
 /* Timer5 GPIO */
+#define GPIO_TIM5_CH1			GPIO0		/* PA0 */
+#define GPIO_TIM5_CH2			GPIO1		/* PA1 */
+#define GPIO_TIM5_CH3			GPIO2		/* PA2 */
 #define GPIO_TIM5_CH4			GPIO3		/* PA3 */
 
 /* Timer5 BANK */
+#define GPIO_BANK_TIM5_CH1		GPIOA		/* PA0 */
+#define GPIO_BANK_TIM5_CH2		GPIOA		/* PA1 */
+#define GPIO_BANK_TIM5_CH3		GPIOA		/* PA2 */
 #define GPIO_BANK_TIM5_CH4		GPIOA		/* PA3 */
+#define GPIO_BANK_TIM5			GPIOA
 
 /* Timer4 GPIO */
 #define GPIO_TIM4_CH1			GPIO6		/* PB6 */
