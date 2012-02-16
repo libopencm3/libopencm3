@@ -308,5 +308,9 @@ void usart_wait_send_ready(u32 usart);
 void usart_wait_recv_ready(u32 usart);
 void usart_send_blocking(u32 usart, u16 data);
 u16 usart_recv_blocking(u32 usart);
+void usart_enable_rx_dma(u32 usart);
+void usart_disable_rx_dma(u32 usart);
+void usart_enable_tx_dma(u32 usart);
+void usart_disable_tx_dma(u32 usart);
 
 #endif

@@ -218,6 +218,7 @@ void flash_erase_sector(u32 sector, u32 program_size)
 
 	FLASH_CR &= ~(((1 << 0) | (1 << 1) | (1 << 2) | (1 << 3)) << 3);
 	FLASH_CR |= sector;
+	FLASH_CR |= FLASH_SER;
 	FLASH_CR |= FLASH_STRT;
 
 	flash_wait_for_last_operation();

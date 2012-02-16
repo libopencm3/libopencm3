@@ -24,6 +24,9 @@
 /* Enforce emmition of the vector table. */
 EXTERN (vector_table)
 
+/* Define the entry point of the output file. */
+ENTRY(reset_handler)
+
 /* Define sections. */
 SECTIONS
 {
@@ -59,6 +62,12 @@ SECTIONS
 	 * You may need to fix this if you're using C++.
 	 */
 	/DISCARD/ : { *(.eh_frame) }
+
+	/*
+	 * Another section used by C++ stuff, appears when using newlib with
+	 * 64bit (long long) printf support - discard it for now.
+	 */
+	/DISCARD/ : { *(.ARM.exidx) }
 
 	. = ALIGN(4);
 	end = .;

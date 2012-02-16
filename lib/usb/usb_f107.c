@@ -42,6 +42,7 @@ static void stm32f107_ep_nak_set(u8 addr, u8 nak);
 static u16 stm32f107_ep_write_packet(u8 addr, const void *buf, u16 len);
 static u16 stm32f107_ep_read_packet(u8 addr, void *buf, u16 len);
 static void stm32f107_poll(void);
+static void stm32f107_disconnect(bool disconnected);
 
 /*
  * We keep a backup copy of the out endpoint size registers to restore them
@@ -60,6 +61,7 @@ const struct _usbd_driver stm32f107_usb_driver = {
 	.ep_write_packet = stm32f107_ep_write_packet,
 	.ep_read_packet = stm32f107_ep_read_packet,
 	.poll = stm32f107_poll,
+	.disconnect = stm32f107_disconnect,
 };
 
 /** Initialize the USB device controller hardware of the STM32. */
@@ -374,5 +376,14 @@ static void stm32f107_poll(void)
 		if (_usbd_device.user_callback_sof)
 			_usbd_device.user_callback_sof();
 		OTG_FS_GINTSTS = OTG_FS_GINTSTS_SOF;
+	}
+}
+
+static void stm32f107_disconnect(bool disconnected)
+{
+	if (disconnected) {
+		OTG_FS_DCTL |= OTG_FS_DCTL_SDIS;
+	} else {
+		OTG_FS_DCTL &= ~OTG_FS_DCTL_SDIS;
 	}
 }

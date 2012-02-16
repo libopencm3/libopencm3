@@ -47,13 +47,16 @@ void usart_set_baudrate(u32 usart, u32 baud)
 #endif
 */
 
-	/* yes it is as simple as that. The reference manual is
-	 * talking about factional calculation but it seems to be only
-	 * marketting bable to sound awesome. It is nothing else but a
-	 * simple divider to generate the correct baudrate. >_< If I
-	 * am wrong feel free to correct me on that. :) (esden)
+	/*
+	 * Yes it is as simple as that. The reference manual is
+	 * talking about fractional calculation but it seems to be only
+	 * marketting babble to sound awesome. It is nothing else but a
+	 * simple divider to generate the correct baudrate.
+	 *
+	 * Note: We round() the value rather than floor()ing it, for more
+	 * accurate divisor selection.
 	 */
-	USART_BRR(usart) = clock / baud;
+	USART_BRR(usart) = ((2 * clock) + baud) / (2 * baud);
 }
 
 void usart_set_databits(u32 usart, u32 bits)
@@ -145,4 +148,24 @@ u16 usart_recv_blocking(u32 usart)
 	usart_wait_recv_ready(usart);
 
 	return usart_recv(usart);
+}
+
+void usart_enable_rx_dma(u32 usart)
+{
+	USART_CR3(usart) |= USART_CR3_DMAR;
+}
+
+void usart_disable_rx_dma(u32 usart)
+{
+	USART_CR3(usart) &= ~USART_CR3_DMAR;
+}
+
+void usart_enable_tx_dma(u32 usart)
+{
+	USART_CR3(usart) |= USART_CR3_DMAT;
+}
+
+void usart_disable_tx_dma(u32 usart)
+{
+	USART_CR3(usart) &= ~USART_CR3_DMAT;
 }

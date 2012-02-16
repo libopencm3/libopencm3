@@ -84,6 +84,7 @@ struct _usbd_driver {
 	u16 (*ep_write_packet)(u8 addr, const void *buf, u16 len);
 	u16 (*ep_read_packet)(u8 addr, void *buf, u16 len);
 	void (*poll)(void);
+	void (*disconnect)(bool disconnected);
 };
 
 #define _usbd_hw_init() _usbd_device.driver->init()
