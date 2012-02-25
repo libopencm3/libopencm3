@@ -295,6 +295,7 @@
 /* --- SCB functions ------------------------------------------------------- */
 void scb_reset_core(void);
 void scb_reset_system(void);
+void scb_set_priority_grouping(u32 prigroup);
 
 /* TODO: */
 
