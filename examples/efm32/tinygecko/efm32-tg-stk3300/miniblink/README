@@ -1,0 +1,9 @@
+==========================================
+EFM32-TG-STK3300 Examples miniblink README
+==========================================
+
+This is the smallest-possible example program using libopencm3.
+
+It's intended for the EFM32-TG-STK3300 eval board. It should blink
+the user LED on the board.
+

@@ -1,0 +1,9 @@
+=========================
+EFM32-TG-STK3300 Examples
+=========================
+
+Examples in this directory are designed to be run on the Energy Micro EFM32
+Tiny Gecko Starter Kit, which is based on the EFM32TG840F32 MCU, has an onboard
+USB debug and power management interface, and a bunch of peripherials built in
+that demonstrate the chip's low power capabilities (LED, LCD display, light
+sensor, touch slider, LC sensor, push buttons).
