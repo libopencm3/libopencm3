@@ -18,55 +18,28 @@
  * along with this program.  If not, see <http://www.gnu.org/licenses/>.
  */
 
-//#include <libopencm3/efm32/tinygecko/gpio.h>
-//
-//void gpio_setup(void)
-//{
-//	/* Enable GPIOC clock. */
-//	/* Manually: */
-//	// RCC_APB2ENR |= RCC_APB2ENR_IOPCEN;
-//	/* Using API functions: */
-//	rcc_peripheral_enable_clock(&RCC_APB2ENR, RCC_APB2ENR_IOPCEN);
-//
-//	/* Set GPIO8 (in GPIO port C) to 'output push-pull'. */
-//	/* Manually: */
-//	// GPIOC_CRH = (GPIO_CNF_OUTPUT_PUSHPULL << (((8 - 8) * 4) + 2));
-//	// GPIOC_CRH |= (GPIO_MODE_OUTPUT_2_MHZ << ((8 - 8) * 4));
-//	/* Using API functions: */
-//	gpio_set_mode(GPIOC, GPIO_MODE_OUTPUT_2_MHZ,
-//		      GPIO_CNF_OUTPUT_PUSHPULL, GPIO8);
-//}
+#include <libopencm3/efm32/tinygecko/gpio.h>
+#include <libopencm3/efm32/tinygecko/cmu.h>
 
 int main(void)
 {
-//	int i;
-//
-//	gpio_setup();
-//
-//	/* Blink the LED (PC8) on the board. */
-//	while (1) {
-//		/* Manually: */
-//		// GPIOC_BSRR = GPIO8;		/* LED off */
-//		// for (i = 0; i < 800000; i++)	/* Wait a bit. */
-//		// 	__asm__("nop");
-//		// GPIOC_BRR = GPIO8;		/* LED on */
-//		// for (i = 0; i < 800000; i++)	/* Wait a bit. */
-//		// 	__asm__("nop");
-//
-//		/* Using API functions gpio_set()/gpio_clear(): */
-//		// gpio_set(GPIOC, GPIO8);	/* LED off */
-//		// for (i = 0; i < 800000; i++)	/* Wait a bit. */
-//		// 	__asm__("nop");
-//		// gpio_clear(GPIOC, GPIO8);	/* LED on */
-//		// for (i = 0; i < 800000; i++)	/* Wait a bit. */
-//		// 	__asm__("nop");
-//
-//		/* Using API function gpio_toggle(): */
-//		gpio_toggle(GPIOC, GPIO8);	/* LED on/off */
-//		for (i = 0; i < 800000; i++)	/* Wait a bit. */
-//			__asm__("nop");
-//	}
-//
-//	return 0;
-	for(;;);
+	// FIXME: As of now, this doesn't work without x being volatile; an issue with linking?
+	volatile int x;
+
+	// Before GPIO works, according to d0034_efm32tg_reference_manual.pdf
+	// note in section 28.3.7, we'll have to enable GPIO in CMU_HFPERCLKEN0
+	
+	CMU_HFPERCLKEN0 |= CMU_HFPERCLKEN0_GPIO;
+
+	// The User LED is connected to PD7 to the plus side of the LED
+	// according to t0011_efm32_tiny_gecko_stk_user_manual.pdf figures 16.2
+	// and 16.3 (called UIF_LED0)
+	
+	GPIO_PD_MODEL = GPIO_MODE_PUSHPULL<<(7*4);
+	GPIO_PD_DOUTSET = 1<<7;
+
+	while(1) {
+		for(x = 0; x < 200000; ++x);
+		GPIO_PD_DOUTTGL = 1<<7;
+	};
 }
