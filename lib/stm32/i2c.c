@@ -18,6 +18,21 @@
  */
 
 #include <libopencm3/stm32/i2c.h>
+#include <libopencm3/stm32/f4/rcc.h>
+
+void i2c_reset(u32 i2c)
+{
+	switch (i2c) {
+	case I2C1:
+		rcc_peripheral_reset(&RCC_APB1RSTR, RCC_APB1RSTR_I2C1RST);
+		rcc_peripheral_clear_reset(&RCC_APB1RSTR, RCC_APB1RSTR_I2C1RST);
+		break;
+	case I2C2:
+		rcc_peripheral_reset(&RCC_APB1RSTR, RCC_APB1RSTR_I2C2RST);
+		rcc_peripheral_clear_reset(&RCC_APB1RSTR, RCC_APB1RSTR_I2C2RST);
+		break;
+	}
+}
 
 void i2c_peripheral_enable(u32 i2c)
 {
