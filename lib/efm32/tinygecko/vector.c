@@ -18,7 +18,7 @@
  * along with this program.  If not, see <http://www.gnu.org/licenses/>.
  */
 
-#include <libopencm3/efm32/tinygecko/vector.h>
+#include <libopencm3/efm32/vector.h>
 
 #define WEAK __attribute__ ((weak))
 

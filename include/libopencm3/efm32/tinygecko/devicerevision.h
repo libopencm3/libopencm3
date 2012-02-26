@@ -1,3 +1,7 @@
+/* FIXME: proper documentation, see where this fits, if we need this at all
+ * etc. this was just a first attempt at implementing something easy with
+ * MMIO32. */
+
 /* this implements d0034_efm32tg_reference_manual.pdf's 7.3.4 "Device Revision"
  * section */
 

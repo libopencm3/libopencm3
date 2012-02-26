@@ -19,6 +19,7 @@
 ##
 
 LIBNAME		= libopencm3_efm32tinygecko
+FAMILY		= TINYGECKO
 
 PREFIX		?= arm-none-eabi
 #PREFIX		?= arm-elf
@@ -26,7 +27,7 @@ CC		= $(PREFIX)-gcc
 AR		= $(PREFIX)-ar
 CFLAGS		= -Os -g -Wall -Wextra -I../../../include -fno-common \
 		  -mcpu=cortex-m3 -mthumb -Wstrict-prototypes \
-		  -ffunction-sections -fdata-sections -MD -DSTM32F1
+		  -ffunction-sections -fdata-sections -MD -D$(FAMILY)
 # ARFLAGS	= rcsv
 ARFLAGS		= rcs
 OBJS		= vector.o devicerevision.o

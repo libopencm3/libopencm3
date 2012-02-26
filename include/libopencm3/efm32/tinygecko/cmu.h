@@ -17,17 +17,29 @@
  * along with this program.  If not, see <http://www.gnu.org/licenses/>.
  */
 
-/* this interface correspons to the description in
- * d0034_efm32tg_reference_manual.pdf section 11. */
+/** @file
+ *
+ * Definitions for the CMU (Clock Management Unit).
+ *
+ * This corresponds to the description in d0034_efm32tg_reference_manual.pdf
+ * section 11.
+ *
+ * @see CMU_registers
+ */
+/* FIXME: i'd prefer not to @see CMU_registers but have some direct link placed
+ * automatically from a file to its groups */
 
 #ifndef LIBOPENCM3_EFM32_TINYGECKO_CMU_H
 #define LIBOPENCM3_EFM32_TINYGECKO_CMU_H
 
 #include <libopencm3/cm3/common.h>
 
-#define CMU_BASE 0x400C8000 /* according to d0034_efm32tg_reference_manual.pdf figure 5.2 */
+#define CMU_BASE 0x400C8000 /**< Register base address for the CMU according to d0034_efm32tg_reference_manual.pdf figure 5.2. */
 
-/* this is d0034_efm32tg_reference_manual.pdf section 11.4 */
+/** These definitions reflect d0034_efm32tg_reference_manual.pdf section 11.4.
+ *
+ * @defgroup CMU_registers CMU registers
+ * @{ */
 
 #define CMU_CTRL		MMIO32(CMU_BASE + 0x000)
 #define CMU_HFCORECLKDIV	MMIO32(CMU_BASE + 0x004)
@@ -58,8 +70,14 @@
 #define CMU_ROUTE		MMIO32(CMU_BASE + 0x080)
 #define CMU_LOCK		MMIO32(CMU_BASE + 0x084)
 
-/* this is incomplete because i'm impatient and want a working result
- * quickly */
+/** @} */
+
+/**
+ * This section is incomplete because i'm impatient and want a working result
+ * quickly
+ *
+ * @todo Include all bits and bit groups from the manual.
+ */
 
 #define CMU_HFPERCLKEN0_GPIO (1<<6)
 

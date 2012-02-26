@@ -21,11 +21,37 @@
 #include <libopencm3/efm32/tinygecko/gpio.h>
 #include <libopencm3/efm32/tinygecko/cmu.h>
 
+void led_setup(void);
+void led_toggle(void);
+
+/** @file
+ * Minimal example for making the User LED of the EFM32-TG-STK330 eval board blink.
+ */
+
+/**
+ * Toggle the User LED in an infinite loop, with time between the toggling
+ * determined by a busy loop stupidly counting up.
+ */
+
 int main(void)
 {
 	// FIXME: As of now, this doesn't work without x being volatile; an issue with linking?
 	volatile int x;
 
+	led_setup();
+
+	while(1) {
+		for(x = 0; x < 200000; ++x);
+		led_toggle();
+	};
+}
+
+/**
+ * Enable GPIO, and set up port D7 as an output pin.
+ */
+
+void led_setup(void)
+{
 	// Before GPIO works, according to d0034_efm32tg_reference_manual.pdf
 	// note in section 28.3.7, we'll have to enable GPIO in CMU_HFPERCLKEN0
 	
@@ -36,10 +62,9 @@ int main(void)
 	// and 16.3 (called UIF_LED0)
 	
 	GPIO_PD_MODEL = GPIO_MODE_PUSHPULL<<(7*4);
-	GPIO_PD_DOUTSET = 1<<7;
+}
 
-	while(1) {
-		for(x = 0; x < 200000; ++x);
-		GPIO_PD_DOUTTGL = 1<<7;
-	};
+void led_toggle(void)
+{
+	GPIO_PD_DOUTTGL = 1<<7;
 }

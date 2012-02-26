@@ -17,18 +17,36 @@
  * along with this program.  If not, see <http://www.gnu.org/licenses/>.
  */
 
-/* this interface corresponds to the description in
- * d0034_efm32tg_reference_manual.pdf section 28. the interface tries to be
- * close to stm32/f1's gpio interface. */
+/** @file
+ *
+ * Definitions for the GPIO subsystem (General Purpose Input Output).
+ *
+ * This corresponds to the description in d0034_efm32tg_reference_manual.pdf
+ * section 28.
+ *
+ * @see GPIO_registers
+ * @see GPIO_MODE_values
+ */
+/* FIXME: i'd prefer not to @see CMU_registers but have some direct link placed
+ * automatically from a file to its groups */
 
 #ifndef LIBOPENCM3_EFM32_TINYGECKO_GPIO_H
 #define LIBOPENCM3_EFM32_TINYGECKO_GPIO_H
 
 #include <libopencm3/cm3/common.h>
 
-#define GPIO_BASE 0x40006000 /* according to d0034_efm32tg_reference_manual.pdf figure 5.2 */
+#define GPIO_BASE 0x40006000 /**< Register base address for the GPIO according to d0034_efm32tg_reference_manual.pdf figure 5.2. */
 
-/* this is rather straight forward d0034_efm32tg_reference_manual.pdf section 28.4 */
+/** These definitions reflect d0034_efm32tg_reference_manual.pdf section 28.4
+ *
+ * The bulk of the registers defined here (like GPIO_PA_CTRL) will not be used
+ * inside the convenience functions, but are provided for direct access.
+ *
+ * @todo This section could profit from bit-banding.
+ *
+ * @defgroup GPIO_registers GPIO registers
+ * @{
+ */
 #define GPIO_Px_CTRL_OFFSET	0x000
 #define GPIO_Px_MODEL_OFFSET	0x004
 #define GPIO_Px_MODEH_OFFSET	0x008
@@ -122,10 +140,24 @@
 #define GPIO_EM4WUPOL		MMIO32(GPIO_BASE + 0x138)
 #define GPIO_EM4WUCAUSE		MMIO32(GPIO_BASE + 0x13C)
 
-/* these are the modes defined for the MODEx fields in the MODEL/MODEH
- * registers, named as in d0034_efm32tg_reference_manual.pdf's sections
- * 28.5.2/28.5.3. for explanations of what they really do, rather see section
- * 28.3.1. */
+/** @} */
+
+/** These are the modes defined for the MODEx fields in the MODEL/MODEH
+ * registers.
+ *
+ * For example, to set the mode for the 3rd pin of port A to pushpull, set
+ * `GPIO_PA_MODEL = GPIO_MODE_PUSHPULL << (3*4);`.
+ *
+ * @todo Update the example as soon as there are convenience functions to do
+ * this properly.
+ *
+ * They are named as in d0034_efm32tg_reference_manual.pdf's sections
+ * 28.5.2/28.5.3. For explanations of what they really do, rather see section
+ * 28.3.1.
+ *
+ * @defgroup GPIO_MODE_values GPIO MODE values
+ * @{
+ */
 
 #define GPIO_MODE_DISABLED			0
 #define GPIO_MODE_INPUT				1
@@ -143,6 +175,8 @@
 #define GPIO_MODE_WIREDANDDRIVEFILTER		13
 #define GPIO_MODE_WIREDANDDRIVEPULLUP		14
 #define GPIO_MODE_WIREDANDDRIVEPULLUPFILTER	15
+
+/** @} */
 
 //void gpio_set(u32 gpioport, u16 gpios);
 //void gpio_clear(u32 gpioport, u16 gpios);
