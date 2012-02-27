@@ -35,13 +35,12 @@ void led_toggle(void);
 
 int main(void)
 {
-	// FIXME: As of now, this doesn't work without x being volatile; an issue with linking?
-	volatile int x;
+	int x;
 
 	led_setup();
 
 	while(1) {
-		for(x = 0; x < 200000; ++x);
+		for(x = 0; x < 200000; ++x) asm("mov r0,r0"); /* no-op, prevent compiler from optimizing this away */
 		led_toggle();
 	};
 }
