@@ -18,8 +18,6 @@
 ##
 
 MCU = EFM32TG840F32
+FAMILY = TINYGECKO
 
-# Linker scripts are always relative to the current directory. This file is
-# intended for inclusion from example subdirectories, so the Makefile.include
-# meant here would be called ../Makefile.include relative to here.
-include ../../Makefile.include
+include $(dir $(lastword $(MAKEFILE_LIST)))../Makefile.include
