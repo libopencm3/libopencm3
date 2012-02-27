@@ -1,7 +1,7 @@
 /*
  * This file is part of the libopencm3 project.
  *
- * Copyright (C) 2010 Gareth McMullin <gareth@blacksphere.co.nz>
+ * Copyright (C) 2009 Uwe Hermann <uwe@hermann-uwe.de>
  *
  * This program is free software: you can redistribute it and/or modify
  * it under the terms of the GNU General Public License as published by
@@ -17,19 +17,15 @@
  * along with this program.  If not, see <http://www.gnu.org/licenses/>.
  */
 
-#include <libopencm3/stm32/f4/scb.h>
+/* Linker script for Lisa-M (STM32F103RBT6, 128K flash, 20K RAM). */
 
-void scb_reset_core(void)
+/* Define memory regions. */
+MEMORY
 {
-	SCB_AIRCR = SCB_AIRCR_VECTKEY | SCB_AIRCR_VECTRESET;
+	rom (rx) : ORIGIN = 0x08000000, LENGTH = 128K
+	ram (rwx) : ORIGIN = 0x20000000, LENGTH = 20K
 }
 
-void scb_reset_system(void)
-{
-	SCB_AIRCR = SCB_AIRCR_VECTKEY | SCB_AIRCR_SYSRESETREQ;
-}
+/* Include the common ld script. */
+INCLUDE libopencm3_stm32f1.ld
 
-void scb_set_priority_grouping(u32 prigroup)
-{
-	SCB_AIRCR = SCB_AIRCR_VECTKEY | prigroup;
-}

@@ -316,6 +316,7 @@
 
 /* --- I2C funtion prototypes----------------------------------------------- */
 
+void i2c_reset(u32 i2c);
 void i2c_peripheral_enable(u32 i2c);
 void i2c_peripheral_disable(u32 i2c);
 void i2c_send_start(u32 i2c);
