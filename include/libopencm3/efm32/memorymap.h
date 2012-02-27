@@ -17,6 +17,14 @@
  * along with this program.  If not, see <http://www.gnu.org/licenses/>.
  */
 
+/** @file
+ *
+ * Dispatcher for the base address definitions, depending on the particular
+ * Gecko family.
+ *
+ * @see tinygecko/memorymap.h
+ */
+
 #ifndef LIBOPENCM3_EFM32_MEMORYMAP_H
 #define LIBOPENCM3_EFM32_MEMORYMAP_H
 
