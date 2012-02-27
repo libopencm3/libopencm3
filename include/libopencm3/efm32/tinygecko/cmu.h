@@ -33,8 +33,7 @@
 #define LIBOPENCM3_EFM32_TINYGECKO_CMU_H
 
 #include <libopencm3/cm3/common.h>
-
-#define CMU_BASE 0x400C8000 /**< Register base address for the CMU according to d0034_efm32tg_reference_manual.pdf figure 5.2. */
+#include <libopencm3/efm32/memorymap.h>
 
 /** These definitions reflect d0034_efm32tg_reference_manual.pdf section 11.4.
  *

@@ -34,8 +34,7 @@
 #define LIBOPENCM3_EFM32_TINYGECKO_GPIO_H
 
 #include <libopencm3/cm3/common.h>
-
-#define GPIO_BASE 0x40006000 /**< Register base address for the GPIO according to d0034_efm32tg_reference_manual.pdf figure 5.2. */
+#include <libopencm3/efm32/memorymap.h>
 
 /** These definitions reflect d0034_efm32tg_reference_manual.pdf section 28.4
  *
