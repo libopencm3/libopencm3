@@ -32,6 +32,24 @@
  *  reg16 = spi_read(SPI1);		// 16-bit read
  */
 
+void spi_reset(u32 spi_peripheral)
+{
+	switch (spi_peripheral) {
+	case SPI1:
+		rcc_peripheral_reset(&RCC_APB2RSTR, RCC_APB2RSTR_SPI1RST);
+		rcc_peripheral_clear_reset(&RCC_APB2RSTR, RCC_APB2RSTR_SPI1RST);
+		break;
+	case SPI2:
+		rcc_peripheral_reset(&RCC_APB1RSTR, RCC_APB2RSTR_SPI2RST);
+		rcc_peripheral_clear_reset(&RCC_APB1RSTR, RCC_APB2RSTR_SPI2RST);
+		break;
+	case SPI3:
+		rcc_peripheral_reset(&RCC_APB1RSTR, RCC_APB2RSTR_SPI3RST);
+		rcc_peripheral_clear_reset(&RCC_APB1RSTR, RCC_APB2RSTR_SPI3RST);
+		break;
+	}
+}
+
 int spi_init_master(u32 spi, u32 br, u32 cpol, u32 cpha, u32 dff, u32 lsbfirst)
 {
 	u32 reg32 = 0;
