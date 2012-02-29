@@ -18,6 +18,15 @@
  */
 
 #include <libopencm3/stm32/spi.h>
+#if defined(STM32F1)
+#       include <libopencm3/stm32/f1/rcc.h>
+#elif defined(STM32F2)
+#       include <libopencm3/stm32/f2/rcc.h>
+#elif defined(STM32F4)
+#       include <libopencm3/stm32/f4/rcc.h>
+#else
+#       error "stm32 family not defined."
+#endif
 
 /*
  * SPI and I2S code.
@@ -40,12 +49,12 @@ void spi_reset(u32 spi_peripheral)
 		rcc_peripheral_clear_reset(&RCC_APB2RSTR, RCC_APB2RSTR_SPI1RST);
 		break;
 	case SPI2:
-		rcc_peripheral_reset(&RCC_APB1RSTR, RCC_APB2RSTR_SPI2RST);
-		rcc_peripheral_clear_reset(&RCC_APB1RSTR, RCC_APB2RSTR_SPI2RST);
+		rcc_peripheral_reset(&RCC_APB1RSTR, RCC_APB1RSTR_SPI2RST);
+		rcc_peripheral_clear_reset(&RCC_APB1RSTR, RCC_APB1RSTR_SPI2RST);
 		break;
 	case SPI3:
-		rcc_peripheral_reset(&RCC_APB1RSTR, RCC_APB2RSTR_SPI3RST);
-		rcc_peripheral_clear_reset(&RCC_APB1RSTR, RCC_APB2RSTR_SPI3RST);
+		rcc_peripheral_reset(&RCC_APB1RSTR, RCC_APB1RSTR_SPI3RST);
+		rcc_peripheral_clear_reset(&RCC_APB1RSTR, RCC_APB1RSTR_SPI3RST);
 		break;
 	}
 }
