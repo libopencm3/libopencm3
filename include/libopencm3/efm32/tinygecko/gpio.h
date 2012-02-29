@@ -24,17 +24,20 @@
  * This corresponds to the description in d0034_efm32tg_reference_manual.pdf
  * section 28.
  *
- * @see GPIO_registers
- * @see GPIO_MODE_values
+ * @see EFM32TG_GPIO
  */
-/* FIXME: i'd prefer not to @see CMU_registers but have some direct link placed
- * automatically from a file to its groups */
 
 #ifndef LIBOPENCM3_EFM32_TINYGECKO_GPIO_H
 #define LIBOPENCM3_EFM32_TINYGECKO_GPIO_H
 
 #include <libopencm3/cm3/common.h>
 #include <libopencm3/efm32/memorymap.h>
+
+/** Register definitions and register value definitions for the GPIO subsystem
+ *
+ * @defgroup EFM32TG_GPIO EFM32 Tiny Gecko GPIO registers and values
+ * @{
+ */
 
 /** These definitions reflect d0034_efm32tg_reference_manual.pdf section 28.4
  *
@@ -43,7 +46,7 @@
  *
  * @todo This section could profit from bit-banding.
  *
- * @defgroup GPIO_registers GPIO registers
+ * @defgroup EFM32TG_GPIO_registers EFM32 Tiny Gecko GPIO registers
  * @{
  */
 #define GPIO_Px_CTRL_OFFSET	0x000
@@ -141,8 +144,29 @@
 
 /** @} */
 
-/** These are the modes defined for the MODEx fields in the MODEL/MODEH
- * registers.
+/** Bit states for the GPIO_Px_CTRL register
+ *
+ * They are named as in d0034_efm32tg_reference_manual.pdf's section
+ * 28.5.1.
+ *
+ * @defgroup EFM32TG_GPIO_Px_CTRL_bits EFM32 Tiny Gecko GPIO Px CTRL bits
+ * @{
+ */
+
+#define GPIO_CTRL_DRIVEMODE_STANDARD		0 /**< 6mA drive current */
+#define GPIO_CTRL_DRIVEMODE_LOWEST		1 /**< 0.5mA drive current */
+#define GPIO_CTRL_DRIVEMODE_HIGH		2 /**< 20mA drive current */
+#define GPIO_CTRL_DRIVEMODE_LOW			3 /**< 2mA drive current */
+
+/** @} */
+
+/** These are the modes defined for the MODEx fields in the GPIO_Px_MODEL and
+ * GPIO_Px_MODEH registers.
+ *
+ * These bit state definitions are not localized, meaning that they have to be
+ * bitshifted by multiples of 4 to configure other pins than 0; configurations
+ * for pins 0 to 7 go to GPIO_Px_MODEL (shifted by 4*pin), configurations for
+ * pins 8 to 15 go to GPIO_Px_MODEH (shifted by 4*(pin-8)).
  *
  * For example, to set the mode for the 3rd pin of port A to pushpull, set
  * `GPIO_PA_MODEL = GPIO_MODE_PUSHPULL << (3*4);`.
@@ -154,7 +178,7 @@
  * 28.5.2/28.5.3. For explanations of what they really do, rather see section
  * 28.3.1.
  *
- * @defgroup GPIO_MODE_values GPIO MODE values
+ * @defgroup EFM32TG_GPIO_MODE_values EFM32 Tiny Gecko GPIO MODE values
  * @{
  */
 
@@ -174,6 +198,165 @@
 #define GPIO_MODE_WIREDANDDRIVEFILTER		13
 #define GPIO_MODE_WIREDANDDRIVEPULLUP		14
 #define GPIO_MODE_WIREDANDDRIVEPULLUPFILTER	15
+
+/** @} */
+
+/** These are the modes defined for the EXTIPSELx fields in the GPIO_EXTIPSELL
+ * and GPIO_EXTIPSELH registers.
+ *
+ * These bit state definitions are not localized, meaning that they have to be
+ * bitshifted by multiples of 4 to configure other pins than 0; configurations
+ * for pins 0 to 7 go to GPIO_EXTIPSELL (shifted by 4*pin), configurations for
+ * pins 8 to 15 go to GPIO_EXTIPSELH (shifted by 4*(pin-8)).
+ *
+ * They are named as in d0034_efm32tg_reference_manual.pdf's sections
+ * 28.5.10/28.5.11. For explanations of what they do, rather see section
+ * 28.3.5.
+ *
+ * @defgroup EFM32TG_GPIO_EXTIP_values EFM32 Tiny Gecko GPIO EXTIPSEL values
+ * @{
+ */
+
+#define GPIO_EXTIPSEL_PORTA			0 /**< Port A pin x selected for external interrupt x */
+#define GPIO_EXTIPSEL_PORTB			1 /**< Port B pin x selected for external interrupt x */
+#define GPIO_EXTIPSEL_PORTC			2 /**< Port C pin x selected for external interrupt x */
+#define GPIO_EXTIPSEL_PORTD			3 /**< Port D pin x selected for external interrupt x */
+#define GPIO_EXTIPSEL_PORTE			4 /**< Port E pin x selected for external interrupt x */
+#define GPIO_EXTIPSEL_PORTF			5 /**< Port F pin x selected for external interrupt x */
+
+/** @} */
+
+/** Bit states for the GPIO_ROUTE register
+ *
+ * See d0034_efm32tg_reference_manual.pdf section 28.5.18 for definitions, and
+ * 28.3.4.1 for explanations.
+ *
+ * @defgroup EFM32TG_GPIO_ROUTE_bits EFM32 Tiny Gecko GPIO ROUTE bits
+ * @{
+ */
+
+#define GPIO_ROUTE_SWLOCATION_MASK		(0x03<<8)
+#define GPIO_ROUTE_SWLOCATION_LOC0		(0<<8) /**< Route SW pins to location 0 (see chip data sheet for exact pins */
+#define GPIO_ROUTE_SWLOCATION_LOC1		(1<<8) /**< Route SW pins to location 1 (see chip data sheet for exact pins */
+#define GPIO_ROUTE_SWLOCATION_LOC2		(2<<8) /**< Route SW pins to location 2 (see chip data sheet for exact pins */
+#define GPIO_ROUTE_SWLOCATION_LOC3		(3<<8) /**< Route SW pins to location 3 (see chip data sheet for exact pins */
+
+#define GPIO_ROUTE_SWOPEN			(1<<2) /**< Serial Wire Viewer Output pin enabled */
+#define GPIO_ROUTE_SWDIOPEN			(1<<1) /**< Serial Wire Data pin enabled */
+#define GPIO_ROUTE_SWCLKPEN			(1<<0) /**< Serial Wire Clock pin enabled */
+
+/** @} */
+
+/** Bit states for the GPIO_INSENSE register
+ *
+ * See d0034_efm32tg_reference_manual.pdf section 28.5.19 for definitions, and
+ * 28.3.7 for details.
+ *
+ * @defgroup EFM32TG_GPIO_INSENSE_bits EFM32 Tiny Gecko GPIO INSENSE bits
+ * @{
+ */
+
+#define GPIO_INSENSE_PRS			(1<<1) /**< Input sensing for PRS enabled */
+#define GPIO_INSENSE_INT			(1<<0) /**< Input sensing for interrupts enabled */
+
+/** @} */
+
+/** Values for the GPIO_LOCK register
+ *
+ * See d0034_efm32tg_reference_manual.pdf section 28.5.20 for definitions, and
+ * 28.3.1.1 for explanations.
+ *
+ * @defgroup EFM32TG_GPIO_LOCK_values EFM32 Tiny Gecko GPIO LOCK bits
+ * @{
+ */
+
+#define GPIO_LOCK_IS_UNLOCKED			0 /**< When the LOCK register reads as this value, it is open */
+#define GPIO_LOCK_IS_LOCKED			1 /**< When the LOCK register reads as this value, it is locked */
+#define GPIO_LOCK_SET_LOCKED			0 /**< Write this to the LOCK register to lock down GPIO */
+#define GPIO_LOCK_SET_UNLOCKED			0xa543 /**< Write this to the LOCK register to unlock the GPIO */
+
+/** @} */
+
+/** Bit states for the GPIO_CTRL register
+ *
+ * See d0034_efm32tg_reference_manual.pdf section 28.5.21 for definitions, and
+ * 28.3.4 for explanations.
+ *
+ * @defgroup EFM32TG_GPIO_CTRL_bits EFM32 Tiny Gecko GPIO CTRL bits
+ * @{
+ */
+
+#define GPIO_CTRL_EM4RET			(1<<0) /**< Retention of states in EM4 */
+
+/** @} */
+
+/** Bit states for the GPIO_CMD register
+ *
+ * See d0034_efm32tg_reference_manual.pdf section 28.5.22 for definitions and
+ * figure 28.5 in case you wonder if that register is mentioned anywhere else
+ * at all.
+ *
+ * @defgroup EFM32TG_GPIO_CMD_bits EFM32 Tiny Gecko GPIO CMD bits
+ * @{
+ */
+
+#define GPIO_CMD_EM4WUCLR			(1<<0) /**< Write this flag to clear EM4 wakeup requests */
+
+/** @} */
+
+/** Bit states for the GPIO_EM4WUEN register
+ *
+ * See d0034_efm32tg_reference_manual.pdf section 28.5.23 for definitions, and
+ * 28.3.2 for explanations.
+ *
+ * @defgroup EFM32TG_GPIO_EM4WUEN_bits EFM32 Tiny Gecko GPIO EM4WUEN bits
+ * @{
+ */
+
+#define GPIO_EM4WUEN_A0			0x01 /**< Wake up from EM4 on A0 activity */
+#define GPIO_EM4WUEN_A6			0x02 /**< Wake up from EM4 on A6 activity */
+#define GPIO_EM4WUEN_C9			0x04 /**< Wake up from EM4 on C9 activity */
+#define GPIO_EM4WUEN_F1			0x08 /**< Wake up from EM4 on F1 activity */
+#define GPIO_EM4WUEN_F3			0x10 /**< Wake up from EM4 on F3 activity */
+#define GPIO_EM4WUEN_E13		0x20 /**< Wake up from EM4 on E13 activity */
+
+/** @} */
+
+/** Bit states for the GPIO_EM4WUPOL register
+ *
+ * See d0034_efm32tg_reference_manual.pdf section 28.5.24 for definitions, and
+ * 28.3.2 for explanations.
+ *
+ * @defgroup EFM32TG_GPIO_EM4WUPOL_bits EFM32 Tiny Gecko GPIO EM4WUPOL bits
+ * @{
+ */
+
+#define GPIO_EM4WUPOL_A0		0x01 /**< High wake up from EM4 on A0 */
+#define GPIO_EM4WUPOL_A6		0x02 /**< High wake up from EM4 on A6 */
+#define GPIO_EM4WUPOL_C9		0x04 /**< High wake up from EM4 on C9 */
+#define GPIO_EM4WUPOL_F1		0x08 /**< High wake up from EM4 on F1 */
+#define GPIO_EM4WUPOL_F3		0x10 /**< High wake up from EM4 on F3 */
+#define GPIO_EM4WUPOL_E13		0x20 /**< High wake up from EM4 on E13 */
+
+/** @} */
+
+/** Bit states for the GPIO_EM4WUCAUSE register
+ *
+ * See d0034_efm32tg_reference_manual.pdf section 28.5.25 for definitions, and
+ * 28.3.2 for explanations.
+ *
+ * @defgroup EFM32TG_GPIO_EM4WUCAUSE_bits EFM32 Tiny Gecko GPIO EM4WUCAUSE bits
+ * @{
+ */
+
+#define GPIO_EM4WUCAUSE_A0		0x01 /**< Woke up from EM4 on A0 */
+#define GPIO_EM4WUCAUSE_A6		0x02 /**< Woke up from EM4 on A6 */
+#define GPIO_EM4WUCAUSE_C9		0x04 /**< Woke up from EM4 on C9 */
+#define GPIO_EM4WUCAUSE_F1		0x08 /**< Woke up from EM4 on F1 */
+#define GPIO_EM4WUCAUSE_F3		0x10 /**< Woke up from EM4 on F3 */
+#define GPIO_EM4WUCAUSE_E13		0x20 /**< Woke up from EM4 on E13 */
+
+/** @} */
 
 /** @} */
 
