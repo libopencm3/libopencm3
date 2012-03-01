@@ -60,10 +60,12 @@ void led_setup(void)
 	// according to t0011_efm32_tiny_gecko_stk_user_manual.pdf figures 16.2
 	// and 16.3 (called UIF_LED0)
 	
-	GPIO_PD_MODEL = GPIO_MODE_PUSHPULL<<(7*4);
+	gpio_set_mode(GPIO_PD, GPIO_MODE_PUSHPULL, GPIO7);
+	// GPIO_PD_MODEL = GPIO_MODE_PUSHPULL<<(7*4);
 }
 
 void led_toggle(void)
 {
-	GPIO_PD_DOUTTGL = 1<<7;
+	gpio_toggle(GPIO_PD, GPIO7);
+	// GPIO_PD_DOUTTGL = 1<<7;
 }

@@ -18,13 +18,16 @@
  */
 
 /** @file
- *
- * Definitions for the GPIO subsystem (General Purpose Input Output).
+ * @see EFM32TG_GPIO
+ */
+
+/** Definitions for the GPIO subsystem (General Purpose Input Output).
  *
  * This corresponds to the description in d0034_efm32tg_reference_manual.pdf
  * section 28.
  *
- * @see EFM32TG_GPIO
+ * @defgroup EFM32TG_GPIO EFM32 Tiny Gecko GPIO
+ * @{
  */
 
 #ifndef LIBOPENCM3_EFM32_TINYGECKO_GPIO_H
@@ -35,7 +38,7 @@
 
 /** Register definitions and register value definitions for the GPIO subsystem
  *
- * @defgroup EFM32TG_GPIO EFM32 Tiny Gecko GPIO registers and values
+ * @defgroup EFM32TG_GPIO_regsandvals EFM32 Tiny Gecko GPIO registers and values
  * @{
  */
 
@@ -49,98 +52,129 @@
  * @defgroup EFM32TG_GPIO_registers EFM32 Tiny Gecko GPIO registers
  * @{
  */
-#define GPIO_Px_CTRL_OFFSET	0x000
-#define GPIO_Px_MODEL_OFFSET	0x004
-#define GPIO_Px_MODEH_OFFSET	0x008
-#define GPIO_Px_DOUT_OFFSET	0x00C
-#define GPIO_Px_DOUTSET_OFFSET	0x010
-#define GPIO_Px_DOUTCLR_OFFSET	0x014
-#define GPIO_Px_DOUTTGL_OFFSET	0x018
-#define GPIO_Px_DIN_OFFSET	0x01C
-#define GPIO_Px_PINLOCKN_OFFSET	0x020
+#define GPIO_Px_CTRL(port)	MMIO32(port + 0x000) /**< @see EFM32TG_GPIO_Px_CTRL_bits */
+#define GPIO_Px_MODEL(port)	MMIO32(port + 0x004) /**< @see EFM32TG_GPIO_MODE_values */
+#define GPIO_Px_MODEH(port)	MMIO32(port + 0x008) /**< @see EFM32TG_GPIO_MODE_values */
+#define GPIO_Px_DOUT(port)	MMIO32(port + 0x00C) /**< @see EFM32TG_GPIO_pinnumberbits */
+#define GPIO_Px_DOUTSET(port)	MMIO32(port + 0x010) /**< @see EFM32TG_GPIO_pinnumberbits */
+#define GPIO_Px_DOUTCLR(port)	MMIO32(port + 0x014) /**< @see EFM32TG_GPIO_pinnumberbits */
+#define GPIO_Px_DOUTTGL(port)	MMIO32(port + 0x018) /**< @see EFM32TG_GPIO_pinnumberbits */
+#define GPIO_Px_DIN(port)	MMIO32(port + 0x01C) /**< @see EFM32TG_GPIO_pinnumberbits */
+#define GPIO_Px_PINLOCKN(port)	MMIO32(port + 0x020) /**< @see EFM32TG_GPIO_pinnumberbits */
 
 #define GPIO_PA			(GPIO_BASE + 0x000)
-#define GPIO_PA_CTRL		MMIO32(GPIO_PA + GPIO_Px_CTRL_OFFSET)
-#define GPIO_PA_MODEL		MMIO32(GPIO_PA + GPIO_Px_MODEL_OFFSET)
-#define GPIO_PA_MODEH		MMIO32(GPIO_PA + GPIO_Px_MODEH_OFFSET)
-#define GPIO_PA_DOUT		MMIO32(GPIO_PA + GPIO_Px_DOUT_OFFSET)
-#define GPIO_PA_DOUTSET		MMIO32(GPIO_PA + GPIO_Px_DOUTSET_OFFSET)
-#define GPIO_PA_DOUTCLR		MMIO32(GPIO_PA + GPIO_Px_DOUTCLR_OFFSET)
-#define GPIO_PA_DOUTTGL		MMIO32(GPIO_PA + GPIO_Px_DOUTTGL_OFFSET)
-#define GPIO_PA_DIN		MMIO32(GPIO_PA + GPIO_Px_DIN_OFFSET)
-#define GPIO_PA_PINLOCKN	MMIO32(GPIO_PA + GPIO_Px_PINLOCKN_OFFSET)
+#define GPIO_PA_CTRL		GPIO_Px_CTRL(GPIO_PA)
+#define GPIO_PA_MODEL		GPIO_Px_MODEL(GPIO_PA)
+#define GPIO_PA_MODEH		GPIO_Px_MODEH(GPIO_PA)
+#define GPIO_PA_DOUT		GPIO_Px_DOUT(GPIO_PA)
+#define GPIO_PA_DOUTSET		GPIO_Px_DOUTSET(GPIO_PA)
+#define GPIO_PA_DOUTCLR		GPIO_Px_DOUTCLR(GPIO_PA)
+#define GPIO_PA_DOUTTGL		GPIO_Px_DOUTTGL(GPIO_PA)
+#define GPIO_PA_DIN		GPIO_Px_DIN(GPIO_PA)
+#define GPIO_PA_PINLOCKN	GPIO_Px_PINLOCKN(GPIO_PA)
 
 #define GPIO_PB			(GPIO_BASE + 0x024)
-#define GPIO_PB_CTRL		MMIO32(GPIO_PB + GPIO_Px_CTRL_OFFSET)
-#define GPIO_PB_MODEL		MMIO32(GPIO_PB + GPIO_Px_MODEL_OFFSET)
-#define GPIO_PB_MODEH		MMIO32(GPIO_PB + GPIO_Px_MODEH_OFFSET)
-#define GPIO_PB_DOUT		MMIO32(GPIO_PB + GPIO_Px_DOUT_OFFSET)
-#define GPIO_PB_DOUTSET		MMIO32(GPIO_PB + GPIO_Px_DOUTSET_OFFSET)
-#define GPIO_PB_DOUTCLR		MMIO32(GPIO_PB + GPIO_Px_DOUTCLR_OFFSET)
-#define GPIO_PB_DOUTTGL		MMIO32(GPIO_PB + GPIO_Px_DOUTTGL_OFFSET)
-#define GPIO_PB_DIN		MMIO32(GPIO_PB + GPIO_Px_DIN_OFFSET)
-#define GPIO_PB_PINLOCKN	MMIO32(GPIO_PB + GPIO_Px_PINLOCKN_OFFSET)
+#define GPIO_PB_CTRL		GPIO_Px_CTRL(GPIO_PB)
+#define GPIO_PB_MODEL		GPIO_Px_MODEL(GPIO_PB)
+#define GPIO_PB_MODEH		GPIO_Px_MODEH(GPIO_PB)
+#define GPIO_PB_DOUT		GPIO_Px_DOUT(GPIO_PB)
+#define GPIO_PB_DOUTSET		GPIO_Px_DOUTSET(GPIO_PB)
+#define GPIO_PB_DOUTCLR		GPIO_Px_DOUTCLR(GPIO_PB)
+#define GPIO_PB_DOUTTGL		GPIO_Px_DOUTTGL(GPIO_PB)
+#define GPIO_PB_DIN		GPIO_Px_DIN(GPIO_PB)
+#define GPIO_PB_PINLOCKN	GPIO_Px_PINLOCKN(GPIO_PB)
 
 #define GPIO_PC			(GPIO_BASE + 0x048)
-#define GPIO_PC_CTRL		MMIO32(GPIO_PC + GPIO_Px_CTRL_OFFSET)
-#define GPIO_PC_MODEL		MMIO32(GPIO_PC + GPIO_Px_MODEL_OFFSET)
-#define GPIO_PC_MODEH		MMIO32(GPIO_PC + GPIO_Px_MODEH_OFFSET)
-#define GPIO_PC_DOUT		MMIO32(GPIO_PC + GPIO_Px_DOUT_OFFSET)
-#define GPIO_PC_DOUTSET		MMIO32(GPIO_PC + GPIO_Px_DOUTSET_OFFSET)
-#define GPIO_PC_DOUTCLR		MMIO32(GPIO_PC + GPIO_Px_DOUTCLR_OFFSET)
-#define GPIO_PC_DOUTTGL		MMIO32(GPIO_PC + GPIO_Px_DOUTTGL_OFFSET)
-#define GPIO_PC_DIN		MMIO32(GPIO_PC + GPIO_Px_DIN_OFFSET)
-#define GPIO_PC_PINLOCKN	MMIO32(GPIO_PC + GPIO_Px_PINLOCKN_OFFSET)
+#define GPIO_PC_CTRL		GPIO_Px_CTRL(GPIO_PC)
+#define GPIO_PC_MODEL		GPIO_Px_MODEL(GPIO_PC)
+#define GPIO_PC_MODEH		GPIO_Px_MODEH(GPIO_PC)
+#define GPIO_PC_DOUT		GPIO_Px_DOUT(GPIO_PC)
+#define GPIO_PC_DOUTSET		GPIO_Px_DOUTSET(GPIO_PC)
+#define GPIO_PC_DOUTCLR		GPIO_Px_DOUTCLR(GPIO_PC)
+#define GPIO_PC_DOUTTGL		GPIO_Px_DOUTTGL(GPIO_PC)
+#define GPIO_PC_DIN		GPIO_Px_DIN(GPIO_PC)
+#define GPIO_PC_PINLOCKN	GPIO_Px_PINLOCKN(GPIO_PC)
 
 #define GPIO_PD			(GPIO_BASE + 0x06C)
-#define GPIO_PD_CTRL		MMIO32(GPIO_PD + GPIO_Px_CTRL_OFFSET)
-#define GPIO_PD_MODEL		MMIO32(GPIO_PD + GPIO_Px_MODEL_OFFSET)
-#define GPIO_PD_MODEH		MMIO32(GPIO_PD + GPIO_Px_MODEH_OFFSET)
-#define GPIO_PD_DOUT		MMIO32(GPIO_PD + GPIO_Px_DOUT_OFFSET)
-#define GPIO_PD_DOUTSET		MMIO32(GPIO_PD + GPIO_Px_DOUTSET_OFFSET)
-#define GPIO_PD_DOUTCLR		MMIO32(GPIO_PD + GPIO_Px_DOUTCLR_OFFSET)
-#define GPIO_PD_DOUTTGL		MMIO32(GPIO_PD + GPIO_Px_DOUTTGL_OFFSET)
-#define GPIO_PD_DIN		MMIO32(GPIO_PD + GPIO_Px_DIN_OFFSET)
-#define GPIO_PD_PINLOCKN	MMIO32(GPIO_PD + GPIO_Px_PINLOCKN_OFFSET)
+#define GPIO_PD_CTRL		GPIO_Px_CTRL(GPIO_PD)
+#define GPIO_PD_MODEL		GPIO_Px_MODEL(GPIO_PD)
+#define GPIO_PD_MODEH		GPIO_Px_MODEH(GPIO_PD)
+#define GPIO_PD_DOUT		GPIO_Px_DOUT(GPIO_PD)
+#define GPIO_PD_DOUTSET		GPIO_Px_DOUTSET(GPIO_PD)
+#define GPIO_PD_DOUTCLR		GPIO_Px_DOUTCLR(GPIO_PD)
+#define GPIO_PD_DOUTTGL		GPIO_Px_DOUTTGL(GPIO_PD)
+#define GPIO_PD_DIN		GPIO_Px_DIN(GPIO_PD)
+#define GPIO_PD_PINLOCKN	GPIO_Px_PINLOCKN(GPIO_PD)
 
 #define GPIO_PE			(GPIO_BASE + 0x090)
-#define GPIO_PE_CTRL		MMIO32(GPIO_PE + GPIO_Px_CTRL_OFFSET)
-#define GPIO_PE_MODEL		MMIO32(GPIO_PE + GPIO_Px_MODEL_OFFSET)
-#define GPIO_PE_MODEH		MMIO32(GPIO_PE + GPIO_Px_MODEH_OFFSET)
-#define GPIO_PE_DOUT		MMIO32(GPIO_PE + GPIO_Px_DOUT_OFFSET)
-#define GPIO_PE_DOUTSET		MMIO32(GPIO_PE + GPIO_Px_DOUTSET_OFFSET)
-#define GPIO_PE_DOUTCLR		MMIO32(GPIO_PE + GPIO_Px_DOUTCLR_OFFSET)
-#define GPIO_PE_DOUTTGL		MMIO32(GPIO_PE + GPIO_Px_DOUTTGL_OFFSET)
-#define GPIO_PE_DIN		MMIO32(GPIO_PE + GPIO_Px_DIN_OFFSET)
-#define GPIO_PE_PINLOCKN	MMIO32(GPIO_PE + GPIO_Px_PINLOCKN_OFFSET)
+#define GPIO_PE_CTRL		GPIO_Px_CTRL(GPIO_PE)
+#define GPIO_PE_MODEL		GPIO_Px_MODEL(GPIO_PE)
+#define GPIO_PE_MODEH		GPIO_Px_MODEH(GPIO_PE)
+#define GPIO_PE_DOUT		GPIO_Px_DOUT(GPIO_PE)
+#define GPIO_PE_DOUTSET		GPIO_Px_DOUTSET(GPIO_PE)
+#define GPIO_PE_DOUTCLR		GPIO_Px_DOUTCLR(GPIO_PE)
+#define GPIO_PE_DOUTTGL		GPIO_Px_DOUTTGL(GPIO_PE)
+#define GPIO_PE_DIN		GPIO_Px_DIN(GPIO_PE)
+#define GPIO_PE_PINLOCKN	GPIO_Px_PINLOCKN(GPIO_PE)
 
 #define GPIO_PF			(GPIO_BASE + 0x0B4)
-#define GPIO_PF_CTRL		MMIO32(GPIO_PF + GPIO_Px_CTRL_OFFSET)
-#define GPIO_PF_MODEL		MMIO32(GPIO_PF + GPIO_Px_MODEL_OFFSET)
-#define GPIO_PF_MODEH		MMIO32(GPIO_PF + GPIO_Px_MODEH_OFFSET)
-#define GPIO_PF_DOUT		MMIO32(GPIO_PF + GPIO_Px_DOUT_OFFSET)
-#define GPIO_PF_DOUTSET		MMIO32(GPIO_PF + GPIO_Px_DOUTSET_OFFSET)
-#define GPIO_PF_DOUTCLR		MMIO32(GPIO_PF + GPIO_Px_DOUTCLR_OFFSET)
-#define GPIO_PF_DOUTTGL		MMIO32(GPIO_PF + GPIO_Px_DOUTTGL_OFFSET)
-#define GPIO_PF_DIN		MMIO32(GPIO_PF + GPIO_Px_DIN_OFFSET)
-#define GPIO_PF_PINLOCKN	MMIO32(GPIO_PF + GPIO_Px_PINLOCKN_OFFSET)
+#define GPIO_PF_CTRL		GPIO_Px_CTRL(GPIO_PF)
+#define GPIO_PF_MODEL		GPIO_Px_MODEL(GPIO_PF)
+#define GPIO_PF_MODEH		GPIO_Px_MODEH(GPIO_PF)
+#define GPIO_PF_DOUT		GPIO_Px_DOUT(GPIO_PF)
+#define GPIO_PF_DOUTSET		GPIO_Px_DOUTSET(GPIO_PF)
+#define GPIO_PF_DOUTCLR		GPIO_Px_DOUTCLR(GPIO_PF)
+#define GPIO_PF_DOUTTGL		GPIO_Px_DOUTTGL(GPIO_PF)
+#define GPIO_PF_DIN		GPIO_Px_DIN(GPIO_PF)
+#define GPIO_PF_PINLOCKN	GPIO_Px_PINLOCKN(GPIO_PF)
 
-#define GPIO_EXTIPSELL		MMIO32(GPIO_BASE + 0x100)
-#define GPIO_EXTIPSELH		MMIO32(GPIO_BASE + 0x104)
-#define GPIO_EXTIRISE		MMIO32(GPIO_BASE + 0x108)
-#define GPIO_EXTIFALL		MMIO32(GPIO_BASE + 0x10C)
-#define GPIO_IEN		MMIO32(GPIO_BASE + 0x110)
-#define GPIO_IF			MMIO32(GPIO_BASE + 0x114)
-#define GPIO_IFS		MMIO32(GPIO_BASE + 0x118)
-#define GPIO_IFC		MMIO32(GPIO_BASE + 0x11C)
-#define GPIO_ROUTE		MMIO32(GPIO_BASE + 0x120)
-#define GPIO_INSENSE		MMIO32(GPIO_BASE + 0x124)
-#define GPIO_LOCK		MMIO32(GPIO_BASE + 0x128)
-#define GPIO_CTRL		MMIO32(GPIO_BASE + 0x12C)
-#define GPIO_CMD		MMIO32(GPIO_BASE + 0x130)
-#define GPIO_EM4WUEN		MMIO32(GPIO_BASE + 0x134)
-#define GPIO_EM4WUPOL		MMIO32(GPIO_BASE + 0x138)
-#define GPIO_EM4WUCAUSE		MMIO32(GPIO_BASE + 0x13C)
+#define GPIO_EXTIPSELL		MMIO32(GPIO_BASE + 0x100) /**< @see EFM32TG_GPIO_EXTIP_values */
+#define GPIO_EXTIPSELH		MMIO32(GPIO_BASE + 0x104) /**< @see EFM32TG_GPIO_EXTIP_values */
+#define GPIO_EXTIRISE		MMIO32(GPIO_BASE + 0x108) /**< @see EFM32TG_GPIO_pinnumberbits */
+#define GPIO_EXTIFALL		MMIO32(GPIO_BASE + 0x10C) /**< @see EFM32TG_GPIO_pinnumberbits */
+#define GPIO_IEN		MMIO32(GPIO_BASE + 0x110) /**< @see EFM32TG_GPIO_pinnumberbits */
+#define GPIO_IF			MMIO32(GPIO_BASE + 0x114) /**< @see EFM32TG_GPIO_pinnumberbits */
+#define GPIO_IFS		MMIO32(GPIO_BASE + 0x118) /**< @see EFM32TG_GPIO_pinnumberbits */
+#define GPIO_IFC		MMIO32(GPIO_BASE + 0x11C) /**< @see EFM32TG_GPIO_pinnumberbits */
+#define GPIO_ROUTE		MMIO32(GPIO_BASE + 0x120) /**< @see EFM32TG_GPIO_ROUTE_bits */
+#define GPIO_INSENSE		MMIO32(GPIO_BASE + 0x124) /**< @see EFM32TG_GPIO_INSENSE_bits */
+#define GPIO_LOCK		MMIO32(GPIO_BASE + 0x128) /**< @see EFM32TG_GPIO_LOCK_values */
+#define GPIO_CTRL		MMIO32(GPIO_BASE + 0x12C) /**< @see EFM32TG_GPIO_CTRL_bits */
+#define GPIO_CMD		MMIO32(GPIO_BASE + 0x130) /**< @see EFM32TG_GPIO_CMD_bits */
+#define GPIO_EM4WUEN		MMIO32(GPIO_BASE + 0x134) /**< @see EFM32TG_GPIO_EM4WUEN_bits */
+#define GPIO_EM4WUPOL		MMIO32(GPIO_BASE + 0x138) /**< @see EFM32TG_GPIO_EM4WUPOL_bits */
+#define GPIO_EM4WUCAUSE		MMIO32(GPIO_BASE + 0x13C) /**< @see EFM32TG_GPIO_EM4WUCAUSE_bits */
+
+/** @} */
+
+/** Pin number bits
+ *
+ * Provided for convenience. They can be used on the GPIO_Px_DOUT,
+ * GPIO_Px_DOUTSET, GPIO_Px_DOUTCLR, GPIO_Px_DOUTTGL, GPIO_Px_DIN,
+ * GPIO_Px_PINLOCKN, GPIO_Px_EXTIRISE, GPIO_Px_EXTIFALL, GPIO_IEN, GPIO_IF,
+ * GPIO_IFS, and GPIO_IFC registers.
+ *
+ * @defgroup EFM32TG_GPIO_pinnumberbits EFM32 Tiny Gecko GPIO pin number bits
+ * @{
+ */
+
+#define GPIO0				(1 << 0)
+#define GPIO1				(1 << 1)
+#define GPIO2				(1 << 2)
+#define GPIO3				(1 << 3)
+#define GPIO4				(1 << 4)
+#define GPIO5				(1 << 5)
+#define GPIO6				(1 << 6)
+#define GPIO7				(1 << 7)
+#define GPIO8				(1 << 8)
+#define GPIO9				(1 << 9)
+#define GPIO10				(1 << 10)
+#define GPIO11				(1 << 11)
+#define GPIO12				(1 << 12)
+#define GPIO13				(1 << 13)
+#define GPIO14				(1 << 14)
+#define GPIO15				(1 << 15)
+#define GPIO_ALL			0xffff
 
 /** @} */
 
@@ -198,6 +232,7 @@
 #define GPIO_MODE_WIREDANDDRIVEFILTER		13
 #define GPIO_MODE_WIREDANDDRIVEPULLUP		14
 #define GPIO_MODE_WIREDANDDRIVEPULLUPFILTER	15
+#define GPIO_MODE_MASK				0x0f
 
 /** @} */
 
@@ -360,9 +395,108 @@
 
 /** @} */
 
-//void gpio_set(u32 gpioport, u16 gpios);
-//void gpio_clear(u32 gpioport, u16 gpios);
-//void gpio_toggle(u32 gpioport, u16 gpios);
-//u16 gpio_get(u32 gpioport, u16 gpios);
+/** GPIO convenience functions
+ *
+ * These functions try to be close to the STM32 F1 utility functions where
+ * possible.
+ *
+ * The functions intentionally don't cover all the possible read- and write
+ * operations to the GPIO registers. For example, reading the configured output
+ * strength for a port is rarely required.
+ *
+ * Many convenience functions are static to allow inlining by the compiler.
+ *
+ * @todo Implement all the non-trivial but useful convenience functions.
+ *
+ * @defgroup EFM32TG_GPIO_convenience EFM32 Tiny Gecko GPIO convenience functions
+ * @{
+ */
+
+/** Set a whole GPIO port's out data to a particular value
+ *
+ * \param gpioport Address of a GPIO port to use (eg GPIO_PA)
+ * \param gpios Bit pattern the output of the port will be configured to (eg GPIO6|GPIO3 to switch pins 6 and 3 to high and all the others to low)
+ */
+static void gpio_port_write(u32 gpioport, u16 data)
+{
+	GPIO_Px_DOUT(gpioport) = data;
+}
+/** Set some bits in a GPIO port's out data
+ *
+ * \param gpioport Address of a GPIO port to use (eg GPIO_PA)
+ * \param gpios GPIO pin(s) to be set to 1 (eg GPIO6|GPIO3 to switch pins 6 and 3 to high and leave all the others in their previous state)
+ */
+static void gpio_set(u32 gpioport, u16 gpios)
+{
+	GPIO_Px_DOUTSET(gpioport) = gpios;
+}
+/** Clear some bits in a GPIO port's out data
+ *
+ * \param gpioport Address of a GPIO port to use (eg GPIO_PA)
+ * \param gpios GPIO pin(s) to be set to 0 (eg GPIO6|GPIO3 to switch pins 6 and 3 to low and leave all the others in their previous state)
+ */
+static void gpio_clear(u32 gpioport, u16 gpios)
+{
+	GPIO_Px_DOUTCLR(gpioport) = gpios;
+}
+/** Toggle some bits in a GPIO port's out data
+ *
+ * \param gpioport Address of a GPIO port to use (eg GPIO_PA)
+ * \param gpios GPIO pin(s) that will be toggled (eg GPIO6|GPIO3 to toggle the output directions of pins 6 and 3 and leave all the others in their previous state)
+ */
+static void gpio_toggle(u32 gpioport, u16 gpios)
+{
+	GPIO_Px_DOUTTGL(gpioport) = gpios;
+}
+
+/** Read input bits from a GPIO's port in data
+ *
+ * \param gpioport Address of a GPIO port to use (eg GPIO_PA)
+ * \returns Current value of the in register of the given port
+ */
+static u16 gpio_port_read(u32 gpioport)
+{
+	return GPIO_Px_DIN(gpioport);
+}
+/** Read input bits from a GPIO's port in data
+ *
+ * \param gpioport Address of a GPIO port to use (eg GPIO_PA)
+ * \param gpios Bits that will be read (eg GPIO6|GPIO3 to read pins 6 and 3)
+ * \returns Bit pattern that contains 1 in all pin positions that currently read as high (eg GPIO6 if port A's 6th pin is currently high and the 3rd pin is low)
+ */
+static u16 gpio_get(u32 gpioport, u16 gpios)
+{
+	return gpio_port_read(gpioport) & gpios;
+}
+
+/** Configure a particular pin configuration on one or more pins
+ *
+ * This function is not atomic. It has to be made sure that it is not
+ * interrupted by other code that modifies the port's configuration.
+ *
+ * @todo Find out if that is really the case (if &= and |= are atomic, the
+ * worst thing that happens when this function is interrupted with itself is
+ * that the ports stay disabled for the time being, which is to be expected
+ * anyway when changing a pin's mode.
+ *
+ * \param gpioport Address of a GPIO port to use (eg GPIO_PA)
+ * \param mode Pin configuration mode to set (eg GPIO_MODE_INPUT)
+ * \param gpios Pins to configure (eg GPIO6|GPIO3 to set the mode on pins 6 and 3)
+ */
+void gpio_set_mode(u32 gpioport, u8 mode, u16 gpios);
+
+/** Configure the alternate drive strength for a port
+ *
+ * \param gpioport Address of a GPIO port to use (eg GPIO_PA)
+ * \param strength Alternate drive strength to configure for the port (eg GPIO_CTRL_DRIVEMODE_HIGH)
+ */
+static void gpio_set_strength(u32 gpioport, u8 strength)
+{
+	GPIO_Px_CTRL(gpioport) = strength;
+}
+
+/** @} */
+
+/** @} */
 
 #endif
