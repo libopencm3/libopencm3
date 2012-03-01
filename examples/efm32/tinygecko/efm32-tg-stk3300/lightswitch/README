@@ -1,0 +1,9 @@
+============================================
+EFM32-TG-STK3300 Examples lightswitch README
+============================================
+
+This is a small example program for GPIO input and output (and, in future, IRQ
+handling).
+
+It's intended for the EFM32-TG-STK3300 eval board. It turn the User LED on when
+PB0 is pressed, and off when PB1 is pressed.
