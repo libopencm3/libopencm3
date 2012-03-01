@@ -310,6 +310,7 @@
 
 /* --- function prototypes ------------------------------------------------- */
 
+void dma_channel_reset(u32 dma, u8 channel);
 void dma_enable_mem2mem_mode(u32 dma, u8 channel);
 void dma_set_priority(u32 dma, u8 channel, u32 prio);
 void dma_set_memory_size(u32 dma, u8 channel, u32 mem_size);
