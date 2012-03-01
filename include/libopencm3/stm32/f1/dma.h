@@ -127,7 +127,7 @@
 
 /* TEIF: Transfer error interrupt flag */
 #define DMA_ISR_TEIF_BIT       		(1 << 3)
-#define DMA_ISR_TEIF(channel)		(DMA_ISR_TEIF << (4 * (channel) -1))
+#define DMA_ISR_TEIF(channel)		(DMA_ISR_TEIF_BIT << (4 * (channel) -1))
 
 #define DMA_ISR_TEIF1			DMA_ISR_TEIF(DMA_CHANNEL1)
 #define DMA_ISR_TEIF2			DMA_ISR_TEIF(DMA_CHANNEL2)
@@ -139,7 +139,7 @@
 
 /* HTIF: Half transfer interrupt flag */
 #define DMA_ISR_HTIF_BIT       		(1 << 2)
-#define DMA_ISR_HTIF(channel)		(DMA_ISR_HTIF << (4 * (channel) -1))
+#define DMA_ISR_HTIF(channel)		(DMA_ISR_HTIF_BIT << (4 * (channel) -1))
 
 #define DMA_ISR_HTIF1			DMA_ISR_HTIF(DMA_CHANNEL1)
 #define DMA_ISR_HTIF2			DMA_ISR_HTIF(DMA_CHANNEL2)
@@ -151,7 +151,7 @@
 
 /* TCIF: Transfer complete interrupt flag */
 #define DMA_ISR_TCIF_BIT       		(1 << 1)
-#define DMA_ISR_TCIF(channel)		(DMA_ISR_TCIF << (4 * (channel) -1))
+#define DMA_ISR_TCIF(channel)		(DMA_ISR_TCIF_BIT << (4 * (channel) -1))
 
 #define DMA_ISR_TCIF1			DMA_ISR_TCIF(DMA_CHANNEL1)
 #define DMA_ISR_TCIF2			DMA_ISR_TCIF(DMA_CHANNEL2)
@@ -163,7 +163,7 @@
 
 /* GIF: Global interrupt flag */
 #define DMA_ISR_GIF_BIT			(1 << 0)
-#define DMA_ISR_GIF(channel)		(DMA_ISR_GIF << (4 * (channel) -1))
+#define DMA_ISR_GIF(channel)		(DMA_ISR_GIF_BIT << (4 * (channel) -1))
 
 #define DMA_ISR_GIF1			DMA_ISR_GIF(DMA_CHANNEL1)
 #define DMA_ISR_GIF2			DMA_ISR_GIF(DMA_CHANNEL2)
