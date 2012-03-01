@@ -90,11 +90,11 @@ int main(void)
 	dma_enable_mem2mem_mode(DMA1, DMA_CHANNEL1);
 
 	/* Highest priority. */
-	dma_set_priority(DMA1, DMA_CHANNEL1, DMA_CCR1_PL_VERY_HIGH);
+	dma_set_priority(DMA1, DMA_CHANNEL1, DMA_CCR_PL_VERY_HIGH);
 
 	/* 32Bit wide transfer for source and destination. */
-	dma_set_memory_size(DMA1, DMA_CHANNEL1, DMA_CCR1_MSIZE_32BIT);
-	dma_set_peripheral_size(DMA1, DMA_CHANNEL1, DMA_CCR1_PSIZE_32BIT);
+	dma_set_memory_size(DMA1, DMA_CHANNEL1, DMA_CCR_MSIZE_32BIT);
+	dma_set_peripheral_size(DMA1, DMA_CHANNEL1, DMA_CCR_PSIZE_32BIT);
 
 	/*
 	 * After every 32bits we have to increase the address because
