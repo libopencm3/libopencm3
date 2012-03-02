@@ -149,7 +149,7 @@ static void usbdfu_getstatus_complete(struct usb_setup_data *req)
 			u32 baseaddr = prog.addr + ((prog.blocknum - 2) *
 				       dfu_function.wTransferSize);
 			for (i = 0; i < prog.len; i += 2)
-				flash_library_half_word(baseaddr + i,
+				flash_program_half_word(baseaddr + i,
 						*(u16 *)(prog.buf + i));
 		}
 		flash_lock();
