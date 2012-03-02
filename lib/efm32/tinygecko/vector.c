@@ -2,7 +2,7 @@
  * This file is part of the libopencm3 project.
  *
  * Copyright (C) 2010 Piotr Esden-Tempski <piotr@esden.net>,
- *               2012 chrysn <chrysn@fsfe.org>
+ * Copyright (C) 2012 chrysn <chrysn@fsfe.org>
  *
  * This library is free software: you can redistribute it and/or modify
  * it under the terms of the GNU Lesser General Public License as published by
