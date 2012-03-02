@@ -3,18 +3,18 @@
  *
  * Copyright (C) 2010 Thomas Otto <tommi@viadmin.org>
  *
- * This program is free software: you can redistribute it and/or modify
- * it under the terms of the GNU General Public License as published by
+ * This library is free software: you can redistribute it and/or modify
+ * it under the terms of the GNU Lesser General Public License as published by
  * the Free Software Foundation, either version 3 of the License, or
  * (at your option) any later version.
  *
- * This program is distributed in the hope that it will be useful,
+ * This library is distributed in the hope that it will be useful,
  * but WITHOUT ANY WARRANTY; without even the implied warranty of
  * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
- * GNU General Public License for more details.
+ * GNU Lesser General Public License for more details.
  *
- * You should have received a copy of the GNU General Public License
- * along with this program.  If not, see <http://www.gnu.org/licenses/>.
+ * You should have received a copy of the GNU Lesser General Public License
+ * along with this library.  If not, see <http://www.gnu.org/licenses/>.
  */
 
 #include <libopencm3/stm32/f1/rcc.h>
@@ -90,11 +90,11 @@ int main(void)
 	dma_enable_mem2mem_mode(DMA1, DMA_CHANNEL1);
 
 	/* Highest priority. */
-	dma_set_priority(DMA1, DMA_CHANNEL1, DMA_CCR1_PL_VERY_HIGH);
+	dma_set_priority(DMA1, DMA_CHANNEL1, DMA_CCR_PL_VERY_HIGH);
 
 	/* 32Bit wide transfer for source and destination. */
-	dma_set_memory_size(DMA1, DMA_CHANNEL1, DMA_CCR1_MSIZE_32BIT);
-	dma_set_peripheral_size(DMA1, DMA_CHANNEL1, DMA_CCR1_PSIZE_32BIT);
+	dma_set_memory_size(DMA1, DMA_CHANNEL1, DMA_CCR_MSIZE_32BIT);
+	dma_set_peripheral_size(DMA1, DMA_CHANNEL1, DMA_CCR_PSIZE_32BIT);
 
 	/*
 	 * After every 32bits we have to increase the address because

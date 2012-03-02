@@ -3,21 +3,30 @@
  *
  * Copyright (C) 2009 Uwe Hermann <uwe@hermann-uwe.de>
  *
- * This program is free software: you can redistribute it and/or modify
- * it under the terms of the GNU General Public License as published by
+ * This library is free software: you can redistribute it and/or modify
+ * it under the terms of the GNU Lesser General Public License as published by
  * the Free Software Foundation, either version 3 of the License, or
  * (at your option) any later version.
  *
- * This program is distributed in the hope that it will be useful,
+ * This library is distributed in the hope that it will be useful,
  * but WITHOUT ANY WARRANTY; without even the implied warranty of
  * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
- * GNU General Public License for more details.
+ * GNU Lesser General Public License for more details.
  *
- * You should have received a copy of the GNU General Public License
- * along with this program.  If not, see <http://www.gnu.org/licenses/>.
+ * You should have received a copy of the GNU Lesser General Public License
+ * along with this library.  If not, see <http://www.gnu.org/licenses/>.
  */
 
 #include <libopencm3/stm32/spi.h>
+#if defined(STM32F1)
+#       include <libopencm3/stm32/f1/rcc.h>
+#elif defined(STM32F2)
+#       include <libopencm3/stm32/f2/rcc.h>
+#elif defined(STM32F4)
+#       include <libopencm3/stm32/f4/rcc.h>
+#else
+#       error "stm32 family not defined."
+#endif
 
 /*
  * SPI and I2S code.
@@ -31,6 +40,24 @@
  *  reg8 = spi_read(SPI1);		// 8-bit read
  *  reg16 = spi_read(SPI1);		// 16-bit read
  */
+
+void spi_reset(u32 spi_peripheral)
+{
+	switch (spi_peripheral) {
+	case SPI1:
+		rcc_peripheral_reset(&RCC_APB2RSTR, RCC_APB2RSTR_SPI1RST);
+		rcc_peripheral_clear_reset(&RCC_APB2RSTR, RCC_APB2RSTR_SPI1RST);
+		break;
+	case SPI2:
+		rcc_peripheral_reset(&RCC_APB1RSTR, RCC_APB1RSTR_SPI2RST);
+		rcc_peripheral_clear_reset(&RCC_APB1RSTR, RCC_APB1RSTR_SPI2RST);
+		break;
+	case SPI3:
+		rcc_peripheral_reset(&RCC_APB1RSTR, RCC_APB1RSTR_SPI3RST);
+		rcc_peripheral_clear_reset(&RCC_APB1RSTR, RCC_APB1RSTR_SPI3RST);
+		break;
+	}
+}
 
 int spi_init_master(u32 spi, u32 br, u32 cpol, u32 cpha, u32 dff, u32 lsbfirst)
 {
