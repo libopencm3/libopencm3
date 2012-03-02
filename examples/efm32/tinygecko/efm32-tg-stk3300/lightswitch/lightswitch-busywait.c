@@ -17,14 +17,24 @@
  * along with this program.  If not, see <http://www.gnu.org/licenses/>.
  */
 
-/** @file
- * Example for switching the User LED of the EFM32-TG-STK330 eval board on and
- * off using the buttons.
- */
+#include <libopencm3/efm32/tinygecko/irq.h>
+#include <libopencm3/efm32/tinygecko/emu.h>
 
-#include "lightswitch-common.c"
+#define ISER0 MMIO32(0xE000E100)
+#define ICER0 MMIO32(0xE000E180)
+#define ISPR0 MMIO32(0XE000E200)
+#define ICPR0 MMIO32(0XE000E280)
 
-/** Change this include to -busywait, -interrupt, or -prs (not implemented
- * yet). The overall behavior will not change, but different implementations
- * will be used. */
-#include "lightswitch-busywait.c"
+/** @file Simplest implementation of the lightswitch mechanism. */
+
+int main(void)
+{
+	gpio_setup();
+
+	while(1) {
+		if (pb0_get())
+			led_on();
+		if (pb1_get())
+			led_off();
+	};
+}

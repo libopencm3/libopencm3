@@ -2,8 +2,12 @@
 EFM32-TG-STK3300 Examples lightswitch README
 ============================================
 
-This is a small example program for GPIO input and output (and, in future, IRQ
-handling).
+This is a small example program for GPIO input and output, and how the device
+can be configured to use minimal power (although the example is merely
+scratching the surface of what is possible powersaving-wise).
 
 It's intended for the EFM32-TG-STK3300 eval board. It turn the User LED on when
 PB0 is pressed, and off when PB1 is pressed.
+
+Various implementations are offered (-busywait, -interrupt), and can configured
+in lightswitch.c.
