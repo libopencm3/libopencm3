@@ -474,11 +474,6 @@ static u16 gpio_get(u32 gpioport, u16 gpios)
  * This function is not atomic. It has to be made sure that it is not
  * interrupted by other code that modifies the port's configuration.
  *
- * @todo Find out if that is really the case (if &= and |= are atomic, the
- * worst thing that happens when this function is interrupted with itself is
- * that the ports stay disabled for the time being, which is to be expected
- * anyway when changing a pin's mode.
- *
  * \param gpioport Address of a GPIO port to use (eg GPIO_PA)
  * \param mode Pin configuration mode to set (eg GPIO_MODE_INPUT)
  * \param gpios Pins to configure (eg GPIO6|GPIO3 to set the mode on pins 6 and 3)
