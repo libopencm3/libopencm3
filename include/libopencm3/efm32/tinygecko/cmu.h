@@ -18,16 +18,17 @@
  */
 
 /** @file
- *
- * Definitions for the CMU (Clock Management Unit).
+ * @see EFM32TG_CMU
+ */
+
+/** Definitions for the CMU (Clock Management Unit).
  *
  * This corresponds to the description in d0034_efm32tg_reference_manual.pdf
  * section 11.
  *
- * @see CMU_registers
+ * @defgroup EFM32TG_CMU EFM32 Tiny Geco CMU
+ * @{
  */
-/* FIXME: i'd prefer not to @see CMU_registers but have some direct link placed
- * automatically from a file to its groups */
 
 #ifndef LIBOPENCM3_EFM32_TINYGECKO_CMU_H
 #define LIBOPENCM3_EFM32_TINYGECKO_CMU_H
@@ -35,10 +36,17 @@
 #include <libopencm3/cm3/common.h>
 #include <libopencm3/efm32/memorymap.h>
 
+/** Register definitions and register value definitions for the CMU subsystem
+ *
+ * @defgroup EFM32TG_CMU_regsandvals EFM32 Tiny Gecko CMU registers and values
+ * @{
+ */
+
 /** These definitions reflect d0034_efm32tg_reference_manual.pdf section 11.4.
  *
- * @defgroup CMU_registers CMU registers
- * @{ */
+ * @defgroup EFM32TG_CMU_registers EFM32 Tiny Gecko CMU registers
+ * @{
+ */
 
 #define CMU_CTRL		MMIO32(CMU_BASE + 0x000)
 #define CMU_HFCORECLKDIV	MMIO32(CMU_BASE + 0x004)
@@ -71,6 +79,10 @@
 
 /** @} */
 
+/** @} */
+
+/** @} */
+
 /**
  * This section is incomplete because i'm impatient and want a working result
  * quickly
@@ -78,6 +90,16 @@
  * @todo Include all bits and bit groups from the manual.
  */
 
-#define CMU_HFPERCLKEN0_GPIO (1<<6)
+#define CMU_HFPERCLKEN0_GPIO			(1<<6)
+#define CMU_LFCLKSEL_LFB_DISABLED		(0<<2)
+#define CMU_LFCLKSEL_LFB_LFRCO			(1<<2)
+#define CMU_LFCLKSEL_LFB_LFXO			(2<<2)
+#define CMU_LFCLKSEL_LFB_HFCORECLKLEDIV2	(3<<2)
+#define CMU_LFCLKSEL_LFB_MASK			(0x03<<2)
+#define CMU_LFCLKSEL_LFA_DISABLED		0
+#define CMU_LFCLKSEL_LFA_LFRCO			1
+#define CMU_LFCLKSEL_LFA_LFXO			2
+#define CMU_LFCLKSEL_LFA_HFCORECLKLEDIV2	3
+#define CMU_LFCLKSEL_LFA_MASK			0x03
 
 #endif
