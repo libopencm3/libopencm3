@@ -19,7 +19,7 @@ registers:
           - name: CLKOUTSEL1
             shift: 23
             length: 3
-            values: &CLKOUTSEL1_values
+            values:
                 - {name: LFRCO, value: 0}
                 - {name: LFXO, value: 1}
                 - {name: HFCLK, value: 2}
@@ -31,7 +31,15 @@ registers:
           - name: CLKOUTSEL0
             shift: 20
             length: 3
-            values: *CLKOUTSEL1_values
+            values:
+                - {name: HFRCO, value: 0}
+                - {name: HFXO, value: 1}
+                - {name: HFCLK2, value: 2}
+                - {name: HFCLK4, value: 3}
+                - {name: HFCLK8, value: 4}
+                - {name: HFCLK16, value: 5}
+                - {name: ULFRCO, value: 6}
+                - {name: AUXHFRCO, value: 7}
           - name: LFXOTIMEOUT
             shift: 18
             length: 2

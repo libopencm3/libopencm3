@@ -100,14 +100,14 @@
 #define CMU_CTRL_CLKOUTSEL1_HFRCOQ (6<<23)
 #define CMU_CTRL_CLKOUTSEL1_AUXHFRCOQ (7<<23)
 #define CMU_CTRL_CLKOUTSEL1_MASK (0x7<<23)
-#define CMU_CTRL_CLKOUTSEL0_LFRCO (0<<20)
-#define CMU_CTRL_CLKOUTSEL0_LFXO (1<<20)
-#define CMU_CTRL_CLKOUTSEL0_HFCLK (2<<20)
-#define CMU_CTRL_CLKOUTSEL0_LFXOQ (3<<20)
-#define CMU_CTRL_CLKOUTSEL0_HFXOQ (4<<20)
-#define CMU_CTRL_CLKOUTSEL0_LFRCOQ (5<<20)
-#define CMU_CTRL_CLKOUTSEL0_HFRCOQ (6<<20)
-#define CMU_CTRL_CLKOUTSEL0_AUXHFRCOQ (7<<20)
+#define CMU_CTRL_CLKOUTSEL0_HFRCO (0<<20)
+#define CMU_CTRL_CLKOUTSEL0_HFXO (1<<20)
+#define CMU_CTRL_CLKOUTSEL0_HFCLK2 (2<<20)
+#define CMU_CTRL_CLKOUTSEL0_HFCLK4 (3<<20)
+#define CMU_CTRL_CLKOUTSEL0_HFCLK8 (4<<20)
+#define CMU_CTRL_CLKOUTSEL0_HFCLK16 (5<<20)
+#define CMU_CTRL_CLKOUTSEL0_ULFRCO (6<<20)
+#define CMU_CTRL_CLKOUTSEL0_AUXHFRCO (7<<20)
 #define CMU_CTRL_CLKOUTSEL0_MASK (0x7<<20)
 #define CMU_CTRL_LFXOTIMEOUT_8CYCLES (0<<18)
 #define CMU_CTRL_LFXOTIMEOUT_1KCYCLES (1<<18)
@@ -580,6 +580,69 @@
 
 /** @} */
 
+/** CMU convenience functions
+ *
+ * These functions assist in clock switching, and are intended to be safer to
+ * use than direct fiddling with registers. They try to be suitable for typical
+ * applications, and will invest some bytes of code in order to minimize power
+ * consumption.
+ *
+ * @todo Work on this module is stalled until I can figure out if there is a
+ * way to have a cmu_shutdown_unused function at all.
+ *
+ * @defgroup EFM32TG_CMU_convenience CMU convenience functions
+ * @{
+ */
+
+/** Disable all oscillators not currently in use.
+ *
+ * The implementation follows d0034_efm32tg_reference_manual.pdf figure 11.1.
+ * The clock out pin configurations are not depicted there, but described in
+ * section 11.3.4.
+ *
+ * @todo This function is ignorant of ongoing calibrations.
+ *
+ * @todo This doesn't work at all: Fields like HFCLKSEL are write-only.
+ * */
+static void cmu_shutdown_unused(void)
+{
+	/* Is HFXO needed? */
+	if (!(
+	    (CMU_CMD & CMU_CMD_HFCLKSEL_MASK) == CMU_CMD_HFCLKSEL_HFXO ||
+	    (
+	        (CMU_CTRL & CMU_CTRL_CLKOUTSEL1_MASK) == CMU_CTRL_CLKOUTSEL1_HFXOQ &&
+		(CMU_ROUTE & CMU_ROUTE_CLKOUT1PEN)
+	    ) || (
+	        (CMU_CTRL & CMU_CTRL_CLKOUTSEL0_MASK) == CMU_CTRL_CLKOUTSEL0_HFXO &&
+		(CMU_ROUTE & CMU_ROUTE_CLKOUT0PEN)
+	    )))
+		CMU_OSCENCMD = CMU_OSCENCMD_HFXODIS;
+
+	/* Is HFRCO neede? */
+	if (!(
+	    (CMU_CMD & CMU_CMD_HFCLKSEL_MASK) == CMU_CMD_HFCLKSEL_HFRCO ||
+	    (
+	        (CMU_CTRL & CMU_CTRL_CLKOUTSEL1_MASK) == CMU_CTRL_CLKOUTSEL1_HFRCOQ &&
+		(CMU_ROUTE & CMU_ROUTE_CLKOUT1PEN)
+	    ) || (
+	        (CMU_CTRL & CMU_CTRL_CLKOUTSEL0_MASK) == CMU_CTRL_CLKOUTSEL0_HFRCO &&
+		(CMU_ROUTE & CMU_ROUTE_CLKOUT0PEN)
+	    )))
+	{}
+//		CMU_OSCENCMD = CMU_OSCENCMD_HFRCODIS;
+}
+
+/** Switch HFCLK to LFRC. This call is not only blocking, but even freezes
+ * everything depending on HFCLK until LFRC is stable. The procedure is
+ * sketched in d0034_efm32tg_reference_manual.pdf figure 11.2. */
+static void cmu_hfclk_switch_blocking(void)
+{
+	CMU_OSCENCMD = CMU_OSCENCMD_LFRCOEN;
+	CMU_CMD = CMU_CMD_HFCLKSEL_LFRCO;
+	CMU_OSCENCMD = CMU_OSCENCMD_HFRCODIS;
+}
+
+/** @} */
 
 /** @} */
 
