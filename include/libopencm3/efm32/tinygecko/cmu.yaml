@@ -153,6 +153,7 @@ registers:
       offset: 0x010
       definition_baserefext: ".5.5"
       length: 7
+      type: uint
     - name: AUXHFRCOCTRL
       offset: 0x014
       definition_baserefext: ".5.6"
@@ -200,6 +201,7 @@ registers:
       offset: 0x01c
       definition_baserefext: ".5.8"
       length: 19
+      type: uint
     - name: OSCENCMD
       offset: 0x020
       definition_baserefext: ".5.9"

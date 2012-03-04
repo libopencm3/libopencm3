@@ -53,10 +53,10 @@
 #define CMU_HFCORECLKDIV        MMIO32(CMU_BASE + 0x004) /**< @see EFM32TG_CMU_HFCORECLKDIV_values */
 #define CMU_HFPERCLKDIV         MMIO32(CMU_BASE + 0x008) /**< @see EFM32TG_CMU_HFPERCLKDIV_bits */
 #define CMU_HFRCOCTRL           MMIO32(CMU_BASE + 0x00c) /**< @see EFM32TG_CMU_HFRCOCTRL_bits */
-#define CMU_LFRCOCTRL           MMIO32(CMU_BASE + 0x010) /**< @see EFM32TG_CMU_LFRCOCTRL_bits */
+#define CMU_LFRCOCTRL           MMIO32(CMU_BASE + 0x010)
 #define CMU_AUXHFRCOCTRL        MMIO32(CMU_BASE + 0x014) /**< @see EFM32TG_CMU_AUXHFRCOCTRL_bits */
 #define CMU_CALCTRL             MMIO32(CMU_BASE + 0x018) /**< @see EFM32TG_CMU_CALCTRL_bits */
-#define CMU_CALCNT              MMIO32(CMU_BASE + 0x01c) /**< @see EFM32TG_CMU_CALCNT_bits */
+#define CMU_CALCNT              MMIO32(CMU_BASE + 0x01c)
 #define CMU_OSCENCMD            MMIO32(CMU_BASE + 0x020) /**< @see EFM32TG_CMU_OSCENCMD_bits */
 #define CMU_CMD                 MMIO32(CMU_BASE + 0x024) /**< @see EFM32TG_CMU_CMD_bits */
 #define CMU_LFCLKSEL            MMIO32(CMU_BASE + 0x028) /**< @see EFM32TG_CMU_LFCLKSEL_bits */
@@ -128,7 +128,6 @@
 #define CMU_CTRL_HFXOTIMEOUT_16KCYCLES (3<<9)
 #define CMU_CTRL_HFXOTIMEOUT_MASK (0x3<<9)
 #define CMU_CTRL_HFXOGLITCHDETEN (1<<7)
-/* No values defined for the field HFXOBUFCUR */
 #define CMU_CTRL_HFXOBUFCUR_MASK (0x3<<5)
 #define CMU_CTRL_HFXOBOOST_50PCENT (0<<2)
 #define CMU_CTRL_HFXOBOOST_70PCENT (1<<2)
@@ -194,7 +193,6 @@
  * @{
  */
 
-/* No values defined for the field SUDELAY */
 #define CMU_HFRCOCTRL_SUDELAY_MASK (0x1f<<12)
 #define CMU_HFRCOCTRL_BAND_1MHZ (0<<8)
 #define CMU_HFRCOCTRL_BAND_7MHZ (1<<8)
@@ -203,7 +201,6 @@
 #define CMU_HFRCOCTRL_BAND_21MHZ (4<<8)
 #define CMU_HFRCOCTRL_BAND_28MHZ (5<<8)
 #define CMU_HFRCOCTRL_BAND_MASK (0x7<<8)
-/* No values defined for the field TUNING */
 #define CMU_HFRCOCTRL_TUNING_MASK (0xff<<0)
 
 /** @} */
@@ -223,7 +220,6 @@
 #define CMU_AUXHFRCOCTRL_BAND_28MHZ (6<<8)
 #define CMU_AUXHFRCOCTRL_BAND_21MHZ (7<<8)
 #define CMU_AUXHFRCOCTRL_BAND_MASK (0x7<<8)
-/* No values defined for the field TUNING */
 #define CMU_AUXHFRCOCTRL_TUNING_MASK (0xff<<0)
 
 /** @} */
@@ -542,7 +538,6 @@
 #define CMU_LCDCTRL_VBFDIV_DIV128 (7<<4)
 #define CMU_LCDCTRL_VBFDIV_MASK (0x7<<4)
 #define CMU_LCDCTRL_VBOOSTEN    (1<<3)
-/* No values defined for the field FDIV */
 #define CMU_LCDCTRL_FDIV_MASK   (0x7<<0)
 
 /** @} */

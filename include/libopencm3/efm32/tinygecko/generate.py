@@ -75,16 +75,19 @@ def yaml2h(filenamebase):
         nl()
 
         for regdata in regs:
-            if 'is_template' in regdata:
+            has_bits = "fields" in regdata
+            has_values = "values" in regdata
+            is_template = "is_template" in regdata
+            if is_template:
                 # this isn't a real register, just a template
                 continue
             secondcomponent_name = regdata['name']
-            if ('fields' in regdata and isinstance(regdata['fields'], str)) or ('values' in regdata and isinstance(regdata['values'], str)):
+            if (has_bits and isinstance(regdata['fields'], str)) or (has_values and isinstance(regdata['values'], str)):
                 # uses a template
-                secondcomponent_name = regdata['fields'] if 'fields' in regdata else regdata['values']
+                secondcomponent_name = regdata['fields'] if has_bits else regdata['values']
                 regs_dict[secondcomponent_name]['is_template'].append(regdata['name'])
 
-            define("%s_%s"%(data['shortname'], regdata['name']), "MMIO32(%s_BASE + %#.003x)"%(data['shortname'], regdata['offset']), "@see %s_%s_%s"%(data['shortdocname'], secondcomponent_name, 'values' if 'values' in regdata else 'bits'))
+            define("%s_%s"%(data['shortname'], regdata['name']), "MMIO32(%s_BASE + %#.003x)"%(data['shortname'], regdata['offset']), "@see %s_%s_%s"%(data['shortdocname'], secondcomponent_name, 'values' if 'values' in regdata else 'bits') if has_bits or has_values else None)
         nl()
         wc_close() # close register definitions
         nl()
@@ -104,15 +107,18 @@ def yaml2h(filenamebase):
             if is_template:
                 commentlines.append("%s for the {shortname} \"{name}\" group of registers (%s)"%("Bit states" if has_bits else "Values", ", ".join(regdata['is_template'])))
                 assert len(regdata['is_template']) > 0, "What should I talk about when nobody uses this template?"
-                commentlines.append("These registers use this:")
-                commentlines.append("<ul>") # FIXME: once we're using markdown 1.8, this can be changed to markdown
-                for user in regdata['is_template']:
-                    userdata = regs_dict[user]
-                    # FIXME: this is an ugly hack around this being in a single wc() line which doesn't take per-line contexts
-                    mergeddata = data.copy()
-                    mergeddata.update(userdata)
-                    commentlines.append(("<li>The {shortname}_{name} register; see {baseref}{definition_baserefext} for definitions"+regdata.get("details", "."+"</li>")).format(**mergeddata))
-                commentlines.append("</ul>")
+                if 'override_backref' in regdata:
+                    commentlines.append(regdata['override_backref'])
+                else:
+                    commentlines.append("These registers use this:")
+                    commentlines.append("<ul>") # FIXME: once we're using markdown 1.8, this can be changed to markdown
+                    for user in regdata['is_template']:
+                        userdata = regs_dict[user]
+                        # FIXME: this is an ugly hack around this being in a single wc() line which doesn't take per-line contexts
+                        mergeddata = data.copy()
+                        mergeddata.update(userdata)
+                        commentlines.append(("<li>The {shortname}_{name} register; see {baseref}{definition_baserefext} for definitions"+regdata.get("details", "."+"</li>")).format(**mergeddata))
+                    commentlines.append("</ul>")
                 commentlines.append('@defgroup {shortdocname}_{name}_%s {shortname} {name} %s'%(('bits' if has_bits else 'values', 'bits group' if has_bits else 'values group')))
             else:
                 commentlines.append("%s for the {shortname}_{name} register"%("Bit states" if has_bits else "Values"))
@@ -126,18 +132,26 @@ def yaml2h(filenamebase):
                 for field in regdata['fields']:
                     #shiftdefine = "_%s_%s_%s_shift"%(shortname, regdata['name'], field['name'])
                     #define(shiftdefine, field['shift'])
+
+                    # there is one condition under which field's doc would get shown; show it immediately otherwise
+                    if 'doc' in field and not ("values" not in field and field.get("length", 1) == 1):
+                        wc(field['doc'])
+
                     if "values" in field:
                         for value in field.get("values"):
-                            define("%s_%s_%s_%s"%(data['shortname'], regdata['name'], field['name'], value['name']), "(%s<<%s)"%(value['value'], field['shift']), value.get('doc', None))
+                            define("%s_%s_%s_%s"%(data['shortname'], regdata['name'], field['name'], value['name']), value['value'] if "mask" in field else "(%s<<%s)"%(value['value'], field['shift']), value.get('doc', None))
                     else:
                         if field.get('length', 1) == 1:
                             define("%s_%s_%s"%(data['shortname'], regdata['name'], field['name']), "(1<<%s)"%field['shift'], field.get('doc', None))
                         else:
                             # FIXME: this should require the 'type' parameter to be set on this field
-                            outfile.write("/* No values defined for the field %s */\n"%field['name'])
+                            pass
 
                     if "values" in field or field.get("length", 1) != 1:
-                        mask = "(%#x<<%s)"%(~(~0<<field.get('length', 1)), field['shift'])
+                        if "mask" in field:
+                            mask = field['mask']
+                        else:
+                            mask = "(%#x<<%s)"%(~(~0<<field.get('length', 1)), field['shift'])
                         define("%s_%s_%s_MASK"%(data['shortname'], regdata['name'], field['name']), mask)
             else:
                 for value in regdata['values']:
