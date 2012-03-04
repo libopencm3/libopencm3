@@ -6,6 +6,17 @@ shortname: CMU
 longname: Clock Management Unit
 baseref: d0034_efm32tg_reference_manual.pdf section 11
 registers_baserefext: ".4"
+templateregs:
+    - name: I
+      comment: Bits for the various CMU interrupt registers
+      fields:
+          - {name: CALOF, shift: 6}
+          - {name: CALRDY, shift: 5}
+          - {name: AUXHFRCORDY, shift: 4}
+          - {name: LFXORDY, shift: 3}
+          - {name: LFRCORDY, shift: 2}
+          - {name: HFXORDY, shift: 1}
+          - {name: HFRCORDY, shift: 0}
 registers:
     - name: CTRL
       offset: 0x000
@@ -265,19 +276,19 @@ registers:
     - name: IF
       offset: 0x030
       definition_baserefext: ".5.13"
-      #fields: I
+      fields: I
     - name: IFS
       offset: 0x034
       definition_baserefext: ".5.14"
-      #fields: I
+      fields: I
     - name: IFC
       offset: 0x038
       definition_baserefext: ".5.15"
-      #fields: I
+      fields: I
     - name: IEN
       offset: 0x03c
       definition_baserefext: ".5.16"
-      #fields: I
+      fields: I
     - name: HFCORECLKEN0
       offset: 0x040
       definition_baserefext: ".5.17"

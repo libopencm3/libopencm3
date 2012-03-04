@@ -64,20 +64,62 @@ def yaml2h(filenamebase):
         nl()
 
         regs = data['registers']
+
+        for template in data.get('templateregs', []):
+            template['is_template'] = []
+            regs.append(template)
+
+        regs_dict = dict((x['name'], x) for x in regs) # for easier access. they've got to be a list in yaml to preserve order
+
         wc("These definitions reflect {baseref}{registers_baserefext}", "@defgroup {shortdocname}_registers {shortname} registers", "@{{")
         nl()
+
         for regdata in regs:
-            define("%s_%s"%(data['shortname'], regdata['name']), "MMIO32(%s_BASE + %#.003x)"%(data['shortname'], regdata['offset']), "@see %s_%s_%s"%(data['shortdocname'], regdata['name'], 'values' if 'values' in regdata else 'bits'))
+            if 'is_template' in regdata:
+                # this isn't a real register, just a template
+                continue
+            secondcomponent_name = regdata['name']
+            if ('fields' in regdata and isinstance(regdata['fields'], str)) or ('values' in regdata and isinstance(regdata['values'], str)):
+                # uses a template
+                secondcomponent_name = regdata['fields'] if 'fields' in regdata else regdata['values']
+                regs_dict[secondcomponent_name]['is_template'].append(regdata['name'])
+
+            define("%s_%s"%(data['shortname'], regdata['name']), "MMIO32(%s_BASE + %#.003x)"%(data['shortname'], regdata['offset']), "@see %s_%s_%s"%(data['shortdocname'], secondcomponent_name, 'values' if 'values' in regdata else 'bits'))
         nl()
         wc_close() # close register definitions
         nl()
+
         for regdata in regs:
             has_bits = "fields" in regdata
             has_values = "values" in regdata
+            is_template = "is_template" in regdata
             if not has_bits and not has_values:
                 continue
 
-            wc("%s for the {shortname}_{name} register"%("Bit states" if has_bits else "Values"), "See {baseref}{definition_baserefext} for definitions"+regdata.get("details", "."), '@defgroup {shortdocname}_{name}_%s {shortname} {name} %s'%(('bits' if has_bits else 'values',)*2), '@{{', **regdata)
+            if (has_bits and isinstance(regdata['fields'], str)) or (has_values and isinstance(regdata['values'], str)):
+                # uses a template, doesn't need own section
+                continue
+
+            commentlines = []
+            if is_template:
+                commentlines.append("%s for the {shortname} \"{name}\" group of registers (%s)"%("Bit states" if has_bits else "Values", ", ".join(regdata['is_template'])))
+                assert len(regdata['is_template']) > 0, "What should I talk about when nobody uses this template?"
+                commentlines.append("These registers use this:")
+                commentlines.append("<ul>") # FIXME: once we're using markdown 1.8, this can be changed to markdown
+                for user in regdata['is_template']:
+                    userdata = regs_dict[user]
+                    # FIXME: this is an ugly hack around this being in a single wc() line which doesn't take per-line contexts
+                    mergeddata = data.copy()
+                    mergeddata.update(userdata)
+                    commentlines.append(("<li>The {shortname}_{name} register; see {baseref}{definition_baserefext} for definitions"+regdata.get("details", "."+"</li>")).format(**mergeddata))
+                commentlines.append("</ul>")
+                commentlines.append('@defgroup {shortdocname}_{name}_%s {shortname} {name} %s'%(('bits' if has_bits else 'values', 'bits group' if has_bits else 'values group')))
+            else:
+                commentlines.append("%s for the {shortname}_{name} register"%("Bit states" if has_bits else "Values"))
+                commentlines.append("See {baseref}{definition_baserefext} for definitions"+regdata.get("details", "."))
+                commentlines.append('@defgroup {shortdocname}_{name}_%s {shortname} {name} %s'%(('bits' if has_bits else 'values',)*2))
+            commentlines.append('@{{')
+            wc(*commentlines, **regdata)
             nl()
 
             if has_bits:

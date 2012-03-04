@@ -61,10 +61,10 @@
 #define CMU_CMD                 MMIO32(CMU_BASE + 0x024) /**< @see EFM32TG_CMU_CMD_bits */
 #define CMU_LFCLKSEL            MMIO32(CMU_BASE + 0x028) /**< @see EFM32TG_CMU_LFCLKSEL_bits */
 #define CMU_STATUS              MMIO32(CMU_BASE + 0x02c) /**< @see EFM32TG_CMU_STATUS_bits */
-#define CMU_IF                  MMIO32(CMU_BASE + 0x030) /**< @see EFM32TG_CMU_IF_bits */
-#define CMU_IFS                 MMIO32(CMU_BASE + 0x034) /**< @see EFM32TG_CMU_IFS_bits */
-#define CMU_IFC                 MMIO32(CMU_BASE + 0x038) /**< @see EFM32TG_CMU_IFC_bits */
-#define CMU_IEN                 MMIO32(CMU_BASE + 0x03c) /**< @see EFM32TG_CMU_IEN_bits */
+#define CMU_IF                  MMIO32(CMU_BASE + 0x030) /**< @see EFM32TG_CMU_I_bits */
+#define CMU_IFS                 MMIO32(CMU_BASE + 0x034) /**< @see EFM32TG_CMU_I_bits */
+#define CMU_IFC                 MMIO32(CMU_BASE + 0x038) /**< @see EFM32TG_CMU_I_bits */
+#define CMU_IEN                 MMIO32(CMU_BASE + 0x03c) /**< @see EFM32TG_CMU_I_bits */
 #define CMU_HFCORECLKEN0        MMIO32(CMU_BASE + 0x040) /**< @see EFM32TG_CMU_HFCORECLKEN0_bits */
 #define CMU_HFPERCLKEN0         MMIO32(CMU_BASE + 0x044) /**< @see EFM32TG_CMU_HFPERCLKEN0_bits */
 #define CMU_SYNCBUSY            MMIO32(CMU_BASE + 0x050) /**< @see EFM32TG_CMU_SYNCBUSY_bits */
@@ -575,6 +575,40 @@
 #define CMU_LOCK_IS_LOCKED      1
 #define CMU_LOCK_SET_LOCKED     0
 #define CMU_LOCK_SET_UNLOCKED   0x580E
+
+/** @} */
+
+/** Bit states for the CMU "I" group of registers (IF, IFS, IFC, IEN)
+ *
+ * These registers use this:
+ *
+ * <ul>
+ *
+ * <li>The CMU_IF register; see d0034_efm32tg_reference_manual.pdf section
+ * 11.5.13 for definitions.</li>
+ *
+ * <li>The CMU_IFS register; see d0034_efm32tg_reference_manual.pdf section
+ * 11.5.14 for definitions.</li>
+ *
+ * <li>The CMU_IFC register; see d0034_efm32tg_reference_manual.pdf section
+ * 11.5.15 for definitions.</li>
+ *
+ * <li>The CMU_IEN register; see d0034_efm32tg_reference_manual.pdf section
+ * 11.5.16 for definitions.</li>
+ *
+ * </ul>
+ *
+ * @defgroup EFM32TG_CMU_I_bits CMU I bits group
+ * @{
+ */
+
+#define CMU_I_CALOF             (1<<6)
+#define CMU_I_CALRDY            (1<<5)
+#define CMU_I_AUXHFRCORDY       (1<<4)
+#define CMU_I_LFXORDY           (1<<3)
+#define CMU_I_LFRCORDY          (1<<2)
+#define CMU_I_HFXORDY           (1<<1)
+#define CMU_I_HFRCORDY          (1<<0)
 
 /** @} */
 
