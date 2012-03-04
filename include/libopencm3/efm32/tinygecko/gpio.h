@@ -26,7 +26,8 @@
  * This corresponds to the description in d0034_efm32tg_reference_manual.pdf
  * section 28.
  *
- * @defgroup EFM32TG_GPIO EFM32 Tiny Gecko GPIO
+ * @ingroup EFM32TG
+ * @defgroup EFM32TG_GPIO GPIO (General Purpose Input Output)
  * @{
  */
 
@@ -38,7 +39,7 @@
 
 /** Register definitions and register value definitions for the GPIO subsystem
  *
- * @defgroup EFM32TG_GPIO_regsandvals EFM32 Tiny Gecko GPIO registers and values
+ * @defgroup EFM32TG_GPIO_regsandvals GPIO registers and values
  * @{
  */
 
@@ -49,7 +50,7 @@
  *
  * @todo This section could profit from bit-banding.
  *
- * @defgroup EFM32TG_GPIO_registers EFM32 Tiny Gecko GPIO registers
+ * @defgroup EFM32TG_GPIO_registers GPIO registers
  * @{
  */
 #define GPIO_Px_CTRL(port)	MMIO32(port + 0x000) /**< @see EFM32TG_GPIO_Px_CTRL_bits */
@@ -154,7 +155,7 @@
  * GPIO_Px_PINLOCKN, GPIO_Px_EXTIRISE, GPIO_Px_EXTIFALL, GPIO_IEN, GPIO_IF,
  * GPIO_IFS, and GPIO_IFC registers.
  *
- * @defgroup EFM32TG_GPIO_pinnumberbits EFM32 Tiny Gecko GPIO pin number bits
+ * @defgroup EFM32TG_GPIO_pinnumberbits GPIO pin number bits
  * @{
  */
 
@@ -183,7 +184,7 @@
  * They are named as in d0034_efm32tg_reference_manual.pdf's section
  * 28.5.1.
  *
- * @defgroup EFM32TG_GPIO_Px_CTRL_bits EFM32 Tiny Gecko GPIO Px CTRL bits
+ * @defgroup EFM32TG_GPIO_Px_CTRL_bits GPIO Px CTRL bits
  * @{
  */
 
@@ -212,7 +213,7 @@
  * 28.5.2/28.5.3. For explanations of what they really do, rather see section
  * 28.3.1.
  *
- * @defgroup EFM32TG_GPIO_MODE_values EFM32 Tiny Gecko GPIO MODE values
+ * @defgroup EFM32TG_GPIO_MODE_values GPIO MODE values
  * @{
  */
 
@@ -248,7 +249,7 @@
  * 28.5.10/28.5.11. For explanations of what they do, rather see section
  * 28.3.5.
  *
- * @defgroup EFM32TG_GPIO_EXTIP_values EFM32 Tiny Gecko GPIO EXTIPSEL values
+ * @defgroup EFM32TG_GPIO_EXTIP_values GPIO EXTIPSEL values
  * @{
  */
 
@@ -266,7 +267,7 @@
  * See d0034_efm32tg_reference_manual.pdf section 28.5.18 for definitions, and
  * 28.3.4.1 for explanations.
  *
- * @defgroup EFM32TG_GPIO_ROUTE_bits EFM32 Tiny Gecko GPIO ROUTE bits
+ * @defgroup EFM32TG_GPIO_ROUTE_bits GPIO ROUTE bits
  * @{
  */
 
@@ -287,7 +288,7 @@
  * See d0034_efm32tg_reference_manual.pdf section 28.5.19 for definitions, and
  * 28.3.7 for details.
  *
- * @defgroup EFM32TG_GPIO_INSENSE_bits EFM32 Tiny Gecko GPIO INSENSE bits
+ * @defgroup EFM32TG_GPIO_INSENSE_bits GPIO INSENSE bits
  * @{
  */
 
@@ -301,7 +302,7 @@
  * See d0034_efm32tg_reference_manual.pdf section 28.5.20 for definitions, and
  * 28.3.1.1 for explanations.
  *
- * @defgroup EFM32TG_GPIO_LOCK_values EFM32 Tiny Gecko GPIO LOCK bits
+ * @defgroup EFM32TG_GPIO_LOCK_values GPIO LOCK bits
  * @{
  */
 
@@ -317,7 +318,7 @@
  * See d0034_efm32tg_reference_manual.pdf section 28.5.21 for definitions, and
  * 28.3.4 for explanations.
  *
- * @defgroup EFM32TG_GPIO_CTRL_bits EFM32 Tiny Gecko GPIO CTRL bits
+ * @defgroup EFM32TG_GPIO_CTRL_bits GPIO CTRL bits
  * @{
  */
 
@@ -331,7 +332,7 @@
  * figure 28.5 in case you wonder if that register is mentioned anywhere else
  * at all.
  *
- * @defgroup EFM32TG_GPIO_CMD_bits EFM32 Tiny Gecko GPIO CMD bits
+ * @defgroup EFM32TG_GPIO_CMD_bits GPIO CMD bits
  * @{
  */
 
@@ -344,7 +345,7 @@
  * See d0034_efm32tg_reference_manual.pdf section 28.5.23 for definitions, and
  * 28.3.2 for explanations.
  *
- * @defgroup EFM32TG_GPIO_EM4WUEN_bits EFM32 Tiny Gecko GPIO EM4WUEN bits
+ * @defgroup EFM32TG_GPIO_EM4WUEN_bits GPIO EM4WUEN bits
  * @{
  */
 
@@ -362,7 +363,7 @@
  * See d0034_efm32tg_reference_manual.pdf section 28.5.24 for definitions, and
  * 28.3.2 for explanations.
  *
- * @defgroup EFM32TG_GPIO_EM4WUPOL_bits EFM32 Tiny Gecko GPIO EM4WUPOL bits
+ * @defgroup EFM32TG_GPIO_EM4WUPOL_bits GPIO EM4WUPOL bits
  * @{
  */
 
@@ -380,7 +381,7 @@
  * See d0034_efm32tg_reference_manual.pdf section 28.5.25 for definitions, and
  * 28.3.2 for explanations.
  *
- * @defgroup EFM32TG_GPIO_EM4WUCAUSE_bits EFM32 Tiny Gecko GPIO EM4WUCAUSE bits
+ * @defgroup EFM32TG_GPIO_EM4WUCAUSE_bits GPIO EM4WUCAUSE bits
  * @{
  */
 
@@ -408,7 +409,7 @@
  *
  * @todo Implement all the non-trivial but useful convenience functions.
  *
- * @defgroup EFM32TG_GPIO_convenience EFM32 Tiny Gecko GPIO convenience functions
+ * @defgroup EFM32TG_GPIO_convenience GPIO convenience functions
  * @{
  */
 

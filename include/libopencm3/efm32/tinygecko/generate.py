@@ -6,13 +6,18 @@ import textwrap
 
 def commentblock(*textblocks, **formatargs):
     ret = []
+    nowrapcommands = set("@defgroup")
     ret.extend(textwrap.wrap(textblocks[0].format(**formatargs), 80, initial_indent="/** ", subsequent_indent=" * "))
     last_block_was_at = textblocks[0].startswith('@')
     for b in textblocks[1:]:
+        formatted = b.format(**formatargs)
+
         if not (last_block_was_at and b.startswith('@')):
             ret.append(" *")
-        # FIXME: some blocks don't like being wrapped, eg @defgroup
-        ret.extend(textwrap.wrap(b.format(**formatargs), 80, initial_indent=" * ", subsequent_indent=" * "))
+        if any(b.startswith(c) for c in nowrapcommands):
+            ret.append(" * " + formatted)
+        else:
+            ret.extend(textwrap.wrap(formatted, 80, initial_indent=" * ", subsequent_indent=" * "))
         last_block_was_at = b.startswith('@')
     return "\n".join(ret) + "\n */\n"
 
@@ -49,17 +54,17 @@ def yaml2h(filenamebase):
         nl()
         wc("@file", "@see {shortdocname}")
         nl()
-        wc("Definitions for the {shortname} subsystem ({longname}).", "This corresponds to the description in {baseref}.", "@defgroup {shortdocname} {longdocname}", "@{{")
+        wc("Definitions for the {shortname} subsystem ({longname}).", "This corresponds to the description in {baseref}.", "@ingroup {ingroup}", "@defgroup {shortdocname} {shortname} ({longname})", "@{{")
         nl()
         outfile.write("#ifndef {includeguard}\n#define {includeguard}\n".format(**data))
         nl()
         outfile.write("#include <libopencm3/cm3/common.h>\n#include <libopencm3/efm32/memorymap.h>\n")
         nl()
-        wc("Register definitions and register value definitions for the {shortname} subsystem", "@defgroup {shortdocname}_regsandvals {longdocname} registers and values", "@{{")
+        wc("Register definitions and register value definitions for the {shortname} subsystem", "@defgroup {shortdocname}_regsandvals {shortname} registers and values", "@{{")
         nl()
 
         regs = data['registers']
-        wc("These definitions reflect {baseref}{registers_baserefext}", "@defgroup {shortdocname}_registers {longdocname} registers", "@{{")
+        wc("These definitions reflect {baseref}{registers_baserefext}", "@defgroup {shortdocname}_registers {shortname} registers", "@{{")
         nl()
         for regdata in regs:
             define("%s_%s"%(data['shortname'], regdata['name']), "MMIO32(%s_BASE + %#.003x)"%(data['shortname'], regdata['offset']), "@see %s_%s_%s"%(data['shortdocname'], regdata['name'], 'values' if 'values' in regdata else 'bits'))
@@ -72,7 +77,7 @@ def yaml2h(filenamebase):
             if not has_bits and not has_values:
                 continue
 
-            wc("%s for the {shortname}_{name} register"%("Bit states" if has_bits else "Values"), "See {baseref}{definition_baserefext} for definitions"+regdata.get("details", "."), '@defgroup {shortdocname}_{name}_%s {longdocname} {name} %s'%(('bits' if has_bits else 'values',)*2), '@{{', **regdata)
+            wc("%s for the {shortname}_{name} register"%("Bit states" if has_bits else "Values"), "See {baseref}{definition_baserefext} for definitions"+regdata.get("details", "."), '@defgroup {shortdocname}_{name}_%s {shortname} {name} %s'%(('bits' if has_bits else 'values',)*2), '@{{', **regdata)
             nl()
 
             if has_bits:

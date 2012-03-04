@@ -1,7 +1,7 @@
 copyright: "2012 chrysn <chrysn@fsfe.org>"
 license: lgpl-3+
+ingroup: EFM32TG
 shortdocname: EFM32TG_CMU
-longdocname: EFM32 Tiny Gecko CMU
 shortname: CMU
 longname: Clock Management Unit
 baseref: d0034_efm32tg_reference_manual.pdf section 11

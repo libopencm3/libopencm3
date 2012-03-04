@@ -26,7 +26,8 @@
  * This corresponds to the description in d0034_efm32tg_reference_manual.pdf
  * section 10.
  *
- * @defgroup EFM32TG_EMU EFM32 Tiny Gecko EMU
+ * @ingroup EFM32TG
+ * @defgroup EFM32TG_EMU EMU (Energy Management Unit)
  * @{
  */
 
@@ -38,13 +39,13 @@
 
 /** Register definitions and register value definitions for the EMU subsystem
  *
- * @defgroup EFM32TG_EMU_regsandvals EFM32 Tiny Gecko EMU registers and values
+ * @defgroup EFM32TG_EMU_regsandvals EMU registers and values
  * @{
  */
 
 /** These definitions reflect d0034_efm32tg_reference_manual.pdf section 10.4
  *
- * @defgroup EFM32TG_EMU_registers EFM32 Tiny Gecko EMU registers
+ * @defgroup EFM32TG_EMU_registers EMU registers
  * @{
  */
 
@@ -59,7 +60,7 @@
  * See d0034_efm32tg_reference_manual.pdf section 10.5.1 for definitions, and
  * 10.3.2 for details (especially on why EM4CTRL_TWO and _THREE are defined).
  *
- * @defgroup EFM32TG_EMU_CTRL_bits EFM32 Tiny Gecko EMU CTRL bits
+ * @defgroup EFM32TG_EMU_CTRL_bits EMU CTRL bits
  * @{
  */
 
@@ -75,7 +76,7 @@
  * See d0034_efm32tg_reference_manual.pdf section 10.5.2 for definitions. There
  * seems not to be another mention of it.
  *
- * @defgroup EFM32TG_EMU_LOCK_values EFM32 Tiny Gecko EMU LOCK values
+ * @defgroup EFM32TG_EMU_LOCK_values EMU LOCK values
  * @{
  */
 
@@ -91,7 +92,7 @@
  * See d0034_efm32tg_reference_manual.pdf section 10.5.3 for definitions, and
  * 9.5.3 for details.
  *
- * @defgroup EFM32TG_EMU_AUXCTRL_bits EFM32 Tiny Gecko EMU AUXCTRL bits
+ * @defgroup EFM32TG_EMU_AUXCTRL_bits EMU AUXCTRL bits
  * @{
  */
 
@@ -107,7 +108,7 @@
  *
  * @todo Implement other sleep modes than EM1. Implement WFI vs WFE waits.
  *
- * @defgroup EFM32TG_EMU_convenience EFM32 Tiny Gecko EMU convenience functions
+ * @defgroup EFM32TG_EMU_convenience EMU convenience functions
  * @{
  */
 

@@ -26,7 +26,8 @@
  * This corresponds to the description in d0034_efm32tg_reference_manual.pdf
  * section 11.
  *
- * @defgroup EFM32TG_CMU EFM32 Tiny Gecko CMU
+ * @ingroup EFM32TG
+ * @defgroup EFM32TG_CMU CMU (Clock Management Unit)
  * @{
  */
 
@@ -38,13 +39,13 @@
 
 /** Register definitions and register value definitions for the CMU subsystem
  *
- * @defgroup EFM32TG_CMU_regsandvals EFM32 Tiny Gecko CMU registers and values
+ * @defgroup EFM32TG_CMU_regsandvals CMU registers and values
  * @{
  */
 
 /** These definitions reflect d0034_efm32tg_reference_manual.pdf section 11.4
  *
- * @defgroup EFM32TG_CMU_registers EFM32 Tiny Gecko CMU registers
+ * @defgroup EFM32TG_CMU_registers CMU registers
  * @{
  */
 
@@ -83,7 +84,7 @@
  *
  * See d0034_efm32tg_reference_manual.pdf section 11.5.1 for definitions.
  *
- * @defgroup EFM32TG_CMU_CTRL_bits EFM32 Tiny Gecko CMU CTRL bits
+ * @defgroup EFM32TG_CMU_CTRL_bits CMU CTRL bits
  * @{
  */
 
@@ -135,8 +136,7 @@
  *
  * See d0034_efm32tg_reference_manual.pdf section 11.5.2 for definitions.
  *
- * @defgroup EFM32TG_CMU_HFCORECLKDIV_values EFM32 Tiny Gecko CMU HFCORECLKDIV
- * values
+ * @defgroup EFM32TG_CMU_HFCORECLKDIV_values CMU HFCORECLKDIV values
  * @{
  */
 
@@ -157,7 +157,7 @@
  *
  * See d0034_efm32tg_reference_manual.pdf section 11.5.3 for definitions.
  *
- * @defgroup EFM32TG_CMU_HFPERCLKDIV_bits EFM32 Tiny Gecko CMU HFPERCLKDIV bits
+ * @defgroup EFM32TG_CMU_HFPERCLKDIV_bits CMU HFPERCLKDIV bits
  * @{
  */
 
@@ -179,7 +179,7 @@
  *
  * See d0034_efm32tg_reference_manual.pdf section 11.5.4 for definitions.
  *
- * @defgroup EFM32TG_CMU_HFRCOCTRL_bits EFM32 Tiny Gecko CMU HFRCOCTRL bits
+ * @defgroup EFM32TG_CMU_HFRCOCTRL_bits CMU HFRCOCTRL bits
  * @{
  */
 
@@ -198,8 +198,7 @@
  *
  * See d0034_efm32tg_reference_manual.pdf section 11.5.6 for definitions.
  *
- * @defgroup EFM32TG_CMU_AUXHFRCOCTRL_bits EFM32 Tiny Gecko CMU AUXHFRCOCTRL
- * bits
+ * @defgroup EFM32TG_CMU_AUXHFRCOCTRL_bits CMU AUXHFRCOCTRL bits
  * @{
  */
 
@@ -217,7 +216,7 @@
  *
  * See d0034_efm32tg_reference_manual.pdf section 11.6.7 for definitions.
  *
- * @defgroup EFM32TG_CMU_CALCTRL_bits EFM32 Tiny Gecko CMU CALCTRL bits
+ * @defgroup EFM32TG_CMU_CALCTRL_bits CMU CALCTRL bits
  * @{
  */
 
@@ -240,7 +239,7 @@
  *
  * See d0034_efm32tg_reference_manual.pdf section 11.5.9 for definitions.
  *
- * @defgroup EFM32TG_CMU_OSCENCMD_bits EFM32 Tiny Gecko CMU OSCENCMD bits
+ * @defgroup EFM32TG_CMU_OSCENCMD_bits CMU OSCENCMD bits
  * @{
  */
 
@@ -261,7 +260,7 @@
  *
  * See d0034_efm32tg_reference_manual.pdf section 11.5.10 for definitions.
  *
- * @defgroup EFM32TG_CMU_CMD_bits EFM32 Tiny Gecko CMU CMD bits
+ * @defgroup EFM32TG_CMU_CMD_bits CMU CMD bits
  * @{
  */
 
@@ -278,7 +277,7 @@
  *
  * See d0034_efm32tg_reference_manual.pdf section 11.5.11 for definitions.
  *
- * @defgroup EFM32TG_CMU_LFCLKSEL_bits EFM32 Tiny Gecko CMU LFCLKSEL bits
+ * @defgroup EFM32TG_CMU_LFCLKSEL_bits CMU LFCLKSEL bits
  * @{
  */
 
@@ -301,7 +300,7 @@
  *
  * See d0034_efm32tg_reference_manual.pdf section 11.5.12 for definitions.
  *
- * @defgroup EFM32TG_CMU_STATUS_bits EFM32 Tiny Gecko CMU STATUS bits
+ * @defgroup EFM32TG_CMU_STATUS_bits CMU STATUS bits
  * @{
  */
 
@@ -327,8 +326,7 @@
  *
  * See d0034_efm32tg_reference_manual.pdf section 11.5.17 for definitions.
  *
- * @defgroup EFM32TG_CMU_HFCORECLKEN0_bits EFM32 Tiny Gecko CMU HFCORECLKEN0
- * bits
+ * @defgroup EFM32TG_CMU_HFCORECLKEN0_bits CMU HFCORECLKEN0 bits
  * @{
  */
 
@@ -342,7 +340,7 @@
  *
  * See d0034_efm32tg_reference_manual.pdf section 11.5.18 for definitions.
  *
- * @defgroup EFM32TG_CMU_HFPERCLKEN0_bits EFM32 Tiny Gecko CMU HFPERCLKEN0 bits
+ * @defgroup EFM32TG_CMU_HFPERCLKEN0_bits CMU HFPERCLKEN0 bits
  * @{
  */
 
@@ -365,7 +363,7 @@
  *
  * See d0034_efm32tg_reference_manual.pdf section 11.5.19 for definitions.
  *
- * @defgroup EFM32TG_CMU_SYNCBUSY_bits EFM32 Tiny Gecko CMU SYNCBUSY bits
+ * @defgroup EFM32TG_CMU_SYNCBUSY_bits CMU SYNCBUSY bits
  * @{
  */
 
@@ -380,7 +378,7 @@
  *
  * See d0034_efm32tg_reference_manual.pdf section 11.5.20 for definitions.
  *
- * @defgroup EFM32TG_CMU_FREEZE_bits EFM32 Tiny Gecko CMU FREEZE bits
+ * @defgroup EFM32TG_CMU_FREEZE_bits CMU FREEZE bits
  * @{
  */
 
@@ -393,7 +391,7 @@
  *
  * See d0034_efm32tg_reference_manual.pdf section 11.5.21 for definitions.
  *
- * @defgroup EFM32TG_CMU_LFACLKEN0_bits EFM32 Tiny Gecko CMU LFACLKEN0 bits
+ * @defgroup EFM32TG_CMU_LFACLKEN0_bits CMU LFACLKEN0 bits
  * @{
  */
 
@@ -408,7 +406,7 @@
  *
  * See d0034_efm32tg_reference_manual.pdf section 11.5.22 for definitions.
  *
- * @defgroup EFM32TG_CMU_LFBCLKEN0_bits EFM32 Tiny Gecko CMU LFBCLKEN0 bits
+ * @defgroup EFM32TG_CMU_LFBCLKEN0_bits CMU LFBCLKEN0 bits
  * @{
  */
 
@@ -420,7 +418,7 @@
  *
  * See d0034_efm32tg_reference_manual.pdf section 11.5.23 for definitions.
  *
- * @defgroup EFM32TG_CMU_LFAPRESC0_bits EFM32 Tiny Gecko CMU LFAPRESC0 bits
+ * @defgroup EFM32TG_CMU_LFAPRESC0_bits CMU LFAPRESC0 bits
  * @{
  */
 
@@ -471,7 +469,7 @@
  *
  * See d0034_efm32tg_reference_manual.pdf section 11.5.24 for definitions.
  *
- * @defgroup EFM32TG_CMU_LFBPRESC0_bits EFM32 Tiny Gecko CMU LFBPRESC0 bits
+ * @defgroup EFM32TG_CMU_LFBPRESC0_bits CMU LFBPRESC0 bits
  * @{
  */
 
@@ -486,7 +484,7 @@
  *
  * See d0034_efm32tg_reference_manual.pdf section 11.5.25 for definitions.
  *
- * @defgroup EFM32TG_CMU_PCNTCTRL_bits EFM32 Tiny Gecko CMU PCNTCTRL bits
+ * @defgroup EFM32TG_CMU_PCNTCTRL_bits CMU PCNTCTRL bits
  * @{
  */
 
@@ -500,7 +498,7 @@
  *
  * See d0034_efm32tg_reference_manual.pdf section 11.5.26 for definitions.
  *
- * @defgroup EFM32TG_CMU_LCDCTRL_bits EFM32 Tiny Gecko CMU LCDCTRL bits
+ * @defgroup EFM32TG_CMU_LCDCTRL_bits CMU LCDCTRL bits
  * @{
  */
 
@@ -521,7 +519,7 @@
  *
  * See d0034_efm32tg_reference_manual.pdf section 11.5.27 for definitions.
  *
- * @defgroup EFM32TG_CMU_ROUTE_bits EFM32 Tiny Gecko CMU ROUTE bits
+ * @defgroup EFM32TG_CMU_ROUTE_bits CMU ROUTE bits
  * @{
  */
 
@@ -536,7 +534,7 @@
  *
  * See d0034_efm32tg_reference_manual.pdf section 11.5.28 for definitions.
  *
- * @defgroup EFM32TG_CMU_LOCK_values EFM32 Tiny Gecko CMU LOCK values
+ * @defgroup EFM32TG_CMU_LOCK_values CMU LOCK values
  * @{
  */
 

@@ -4,7 +4,7 @@
  *
  * @todo Implement other sleep modes than EM1. Implement WFI vs WFE waits.
  *
- * @defgroup EFM32TG_EMU_convenience EFM32 Tiny Gecko EMU convenience functions
+ * @defgroup EFM32TG_EMU_convenience EMU convenience functions
  * @{
  */
 

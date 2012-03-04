@@ -1,0 +1,14 @@
+/**
+
+@brief EFM32 Tiny Gecko headers
+
+This directory contains all headers specific to the Tiny Gecko family of the
+Energy Micro EFM32 series.
+
+The individual peripherials described here all include hints at where the
+information was taken from, but usually it stems from
+d0034_efm32tg_reference_manual.pdf.
+
+@defgroup EFM32TG EFM32 Tiny Gecko
+
+*/
