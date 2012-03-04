@@ -1,0 +1,50 @@
+copyright: "2012 chrysn <chrysn@fsfe.org>"
+license: lgpl-3+
+shortdocname: EFM32TG_EMU
+longdocname: EFM32 Tiny Gecko EMU
+shortname: EMU
+longname: Energy Management Unit
+baseref: d0034_efm32tg_reference_manual.pdf section 10
+registers_baserefext: ".4"
+registers:
+    - name: CTRL
+      definition_baserefext: .5.1
+      details: ", and 10.3.2 for details (especially on why EM4CTRL_TWO and _THREE are defined)."
+      offset: 0x000
+      fields:
+          - name: EM4CTRL
+            shift: 2
+            length: 2
+            values:
+                - {name: TWO, value: 2}
+                - {name: THREE, value: 3}
+          - name: EM2BLOCK
+            shift: 1
+            doc: When this bit is set, no mode lower than EM1 will be entered
+          - name: EMVREG
+            shift: 0
+            doc: When this bit is set, the voltage regulator will stay on in modes lower than EM1
+    - name: LOCK
+      definition_baserefext: .5.2
+      details: ". There seems not to be another mention of it."
+      offset: 0x008
+      values:
+          - name: IS_UNLOCKED
+            value: 0
+            doc: When the LOCK register reads as this value, it is open
+          - name: IS_LOCKED
+            value: 1
+            doc: When the LOCK register reads as this value, it is locked
+          - name: SET_LOCKED
+            value: 0
+            doc: Write this to the LOCK register to lock the EMU
+          - name: SET_UNLOCKED
+            value: "0xade8"
+            doc: Write this to the LOCK register to unlock the EMU
+    - name: AUXCTRL
+      definition_baserefext: .5.3
+      details: ", and 9.5.3 for details."
+      offset: 0x024
+      fields:
+          - name: HRCCLR
+            shift: 0
