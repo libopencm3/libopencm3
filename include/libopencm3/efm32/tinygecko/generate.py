@@ -93,7 +93,10 @@ def yaml2h(filenamebase):
                         else:
                             # FIXME: this should require the 'type' parameter to be set on this field
                             outfile.write("/* No values defined for the field %s */\n"%field['name'])
-                    # FIXME: define mask
+
+                    if "values" in field or field.get("length", 1) != 1:
+                        mask = "(%#x<<%s)"%(~(~0<<field.get('length', 1)), field['shift'])
+                        define("%s_%s_%s_MASK"%(data['shortname'], regdata['name'], field['name']), mask)
             else:
                 for value in regdata['values']:
                     define("%s_%s_%s"%(data['shortname'], regdata['name'], value['name']), value['value'], value.get('doc', None))

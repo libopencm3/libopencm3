@@ -66,6 +66,7 @@
 
 #define EMU_CTRL_EM4CTRL_TWO    (2<<2)
 #define EMU_CTRL_EM4CTRL_THREE  (3<<2)
+#define EMU_CTRL_EM4CTRL_MASK   (0x3<<2)
 #define EMU_CTRL_EM2BLOCK       (1<<1) /**< When this bit is set, no mode lower than EM1 will be entered */
 #define EMU_CTRL_EMVREG         (1<<0) /**< When this bit is set, the voltage regulator will stay on in modes lower than EM1 */
 
