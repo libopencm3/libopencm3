@@ -41,9 +41,22 @@ SECTIONS
 		_etext = .;
 	} >rom
 
+	/*
+	* Another section used by C++ stuff, appears when using newlib with
+	* 64bit (long long) printf support
+	*/
+	.ARM.extab : {
+		*(.ARM.extab*)
+	} >rom
+	.ARM.exidx : {
+		__exidx_start = .;
+		*(.ARM.exidx*)
+		__exidx_end = .;
+	} >rom
+
 	. = ORIGIN(ram);
 
-	.data : AT(_etext) {
+	.data : AT (__exidx_end) {
 		_data = .;
 		*(.data*)	/* Read-write initialized data */
 		. = ALIGN(4);
@@ -62,12 +75,6 @@ SECTIONS
 	 * You may need to fix this if you're using C++.
 	 */
 	/DISCARD/ : { *(.eh_frame) }
-
-	/*
-	 * Another section used by C++ stuff, appears when using newlib with
-	 * 64bit (long long) printf support - discard it for now.
-	 */
-	/DISCARD/ : { *(.ARM.exidx) }
 
 	. = ALIGN(4);
 	end = .;

@@ -20,7 +20,7 @@
 #define WEAK __attribute__ ((weak))
 
 /* Symbols exported by the linker script(s). */
-extern unsigned _etext, _data, _edata, _ebss, _stack;
+extern unsigned __exidx_end, _data, _edata, _ebss, _stack;
 
 void main(void);
 void reset_handler(void);
@@ -197,7 +197,7 @@ void reset_handler(void)
 
 	__asm__("MSR msp, %0" : : "r"(&_stack));
 
-	for (src = &_etext, dest = &_data; dest < &_edata; src++, dest++)
+	for (src = &__exidx_end, dest = &_data; dest < &_edata; src++, dest++)
 		*dest = *src;
 
 	while (dest < &_ebss)
