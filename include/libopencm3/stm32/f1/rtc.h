@@ -23,6 +23,7 @@
 #include <libopencm3/stm32/memorymap.h>
 #include <libopencm3/cm3/common.h>
 #include <libopencm3/stm32/pwr.h>
+#include <libopencm3/stm32/f1/rcc.h>
 
 /* --- RTC registers ------------------------------------------------------- */
 
