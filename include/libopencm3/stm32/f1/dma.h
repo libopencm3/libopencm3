@@ -127,7 +127,7 @@
 
 /* TEIF: Transfer error interrupt flag */
 #define DMA_ISR_TEIF_BIT       		(1 << 3)
-#define DMA_ISR_TEIF(channel)		(DMA_ISR_TEIF_BIT << (4 * (channel) -1))
+#define DMA_ISR_TEIF(channel)		(DMA_ISR_TEIF_BIT << (4 * ((channel) -1)))
 
 #define DMA_ISR_TEIF1			DMA_ISR_TEIF(DMA_CHANNEL1)
 #define DMA_ISR_TEIF2			DMA_ISR_TEIF(DMA_CHANNEL2)
@@ -139,7 +139,7 @@
 
 /* HTIF: Half transfer interrupt flag */
 #define DMA_ISR_HTIF_BIT       		(1 << 2)
-#define DMA_ISR_HTIF(channel)		(DMA_ISR_HTIF_BIT << (4 * (channel) -1))
+#define DMA_ISR_HTIF(channel)		(DMA_ISR_HTIF_BIT << (4 * ((channel) -1)))
 
 #define DMA_ISR_HTIF1			DMA_ISR_HTIF(DMA_CHANNEL1)
 #define DMA_ISR_HTIF2			DMA_ISR_HTIF(DMA_CHANNEL2)
@@ -151,7 +151,7 @@
 
 /* TCIF: Transfer complete interrupt flag */
 #define DMA_ISR_TCIF_BIT       		(1 << 1)
-#define DMA_ISR_TCIF(channel)		(DMA_ISR_TCIF_BIT << (4 * (channel) -1))
+#define DMA_ISR_TCIF(channel)		(DMA_ISR_TCIF_BIT << (4 * ((channel) -1)))
 
 #define DMA_ISR_TCIF1			DMA_ISR_TCIF(DMA_CHANNEL1)
 #define DMA_ISR_TCIF2			DMA_ISR_TCIF(DMA_CHANNEL2)
@@ -163,7 +163,7 @@
 
 /* GIF: Global interrupt flag */
 #define DMA_ISR_GIF_BIT			(1 << 0)
-#define DMA_ISR_GIF(channel)		(DMA_ISR_GIF_BIT << (4 * (channel) -1))
+#define DMA_ISR_GIF(channel)		(DMA_ISR_GIF_BIT << (4 * ((channel) -1)))
 
 #define DMA_ISR_GIF1			DMA_ISR_GIF(DMA_CHANNEL1)
 #define DMA_ISR_GIF2			DMA_ISR_GIF(DMA_CHANNEL2)
@@ -177,7 +177,7 @@
 
 /* CTEIF: Transfer error clear */
 #define DMA_IFCR_CTEIF_BIT     		(1 << 3)
-#define DMA_IFCR_CTEIF(channel)		(DMA_IFCR_CTEIF_BIT << (4 * (channel) -1))
+#define DMA_IFCR_CTEIF(channel)		(DMA_IFCR_CTEIF_BIT << (4 * ((channel) -1)))
 
 #define DMA_IFCR_CTEIF1			DMA_IFCR_CTEIF(DMA_CHANNEL1)
 #define DMA_IFCR_CTEIF2			DMA_IFCR_CTEIF(DMA_CHANNEL2)
@@ -189,7 +189,7 @@
 
 /* CHTIF: Half transfer clear */
 #define DMA_IFCR_CHTIF_BIT     		(1 << 2)
-#define DMA_IFCR_CHTIF(channel)		(DMA_IFCR_CHTIF_BIT << (4 * (channel) -1))
+#define DMA_IFCR_CHTIF(channel)		(DMA_IFCR_CHTIF_BIT << (4 * ((channel) -1)))
 
 #define DMA_IFCR_CHTIF1			DMA_IFCR_CHTIF(DMA_CHANNEL1)
 #define DMA_IFCR_CHTIF2			DMA_IFCR_CHTIF(DMA_CHANNEL2)
@@ -201,7 +201,7 @@
 
 /* CTCIF: Transfer complete clear */
 #define DMA_IFCR_CTCIF_BIT     		(1 << 1)
-#define DMA_IFCR_CTCIF(channel)		(DMA_IFCR_CTCIF_BIT << (4 * (channel) -1))
+#define DMA_IFCR_CTCIF(channel)		(DMA_IFCR_CTCIF_BIT << (4 * ((channel) -1)))
 
 #define DMA_IFCR_CTCIF1			DMA_IFCR_CTCIF(DMA_CHANNEL1)
 #define DMA_IFCR_CTCIF2			DMA_IFCR_CTCIF(DMA_CHANNEL2)
@@ -213,7 +213,7 @@
 
 /* CGIF: Global interrupt clear */
 #define DMA_IFCR_CGIF_BIT      		(1 << 0)
-#define DMA_IFCR_CGIF(channel)		(DMA_IFCR_CGIF_BIT << (4 * (channel) -1))
+#define DMA_IFCR_CGIF(channel)		(DMA_IFCR_CGIF_BIT << (4 * ((channel) -1)))
 
 #define DMA_IFCR_CGIF1			DMA_IFCR_CGIF(DMA_CHANNEL1)
 #define DMA_IFCR_CGIF2			DMA_IFCR_CGIF(DMA_CHANNEL2)
