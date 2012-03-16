@@ -99,14 +99,13 @@ void rtc_enter_config_mode(void)
 
 void rtc_exit_config_mode(void)
 {
-	/* u32 reg32; */
+	u32 reg32;
 
 	/* Exit configuration mode. */
 	RTC_CRL &= ~RTC_CRL_CNF;
 
 	/* Wait until the RTOFF bit is 1 (our RTC register write finished). */
-	/* while ((reg32 = (RTC_CRL & RTC_CRL_RTOFF)) == 0); */
-	/* TODO: Unnecessary since we poll the bit on config entry(?) */
+	while ((reg32 = (RTC_CRL & RTC_CRL_RTOFF)) == 0);
 }
 
 void rtc_set_alarm_time(u32 alarm_time)
