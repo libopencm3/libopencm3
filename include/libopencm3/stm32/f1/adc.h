@@ -150,77 +150,194 @@
 
 /* --- ADC_CR1 values ------------------------------------------------------ */
 
+/* AWDEN: Analog watchdog enable on regular channels */
 #define ADC_CR1_AWDEN			(1 << 23)
+
+/* JAWDEN: Analog watchdog enable on injected channels */
 #define ADC_CR1_JAWDEN			(1 << 22)
-#define ADC_CR1_DUALMOD_LSB		16
-#define ADC_CR1_DUALMOD_MSK		(0xf << ADC_DUALMOD_LSB) /* ADC1 only */
-#define ADC_CR1_DISCNUM_LSB		13
-#define ADC_CR1_DISCNUM_MSK		(0x7 << ADC_DISCNUM_LSB)
+
+/* Note: Bits [21:20] are reserved, and must be kept at reset value. */
+
+/* DUALMOD[3:0]: Dual mode selection. (ADC1 only) */
+/* Legend:
+ * IND: Independent mode.
+ * CRSISM: Combined regular simultaneous + injected simultaneous mode.
+ * CRSATM: Combined regular simultaneous + alternate trigger mode.
+ * CISFIM: Combined injected simultaneous + fast interleaved mode.
+ * CISSIM: Combined injected simultaneous + slow interleaved mode.
+ * ISM: Injected simultaneous mode only.
+ * RSM: Regular simultaneous mode only.
+ * FIM: Fast interleaved mode only.
+ * SIM: Slow interleaved mode only.
+ * ATM: Alternate trigger mode only.
+ */
+#define ADC_CR1_DUALMOD_IND             (0x0 << 16)
+#define ADC_CR1_DUALMOD_CRSISM          (0x1 << 16)
+#define ADC_CR1_DUALMOD_CRSATM          (0x2 << 16)
+#define ADC_CR1_DUALMOD_CISFIM          (0x3 << 16)
+#define ADC_CR1_DUALMOD_CISSIM          (0x4 << 16)
+#define ADC_CR1_DUALMOD_ISM             (0x5 << 16)
+#define ADC_CR1_DUALMOD_RSM             (0x6 << 16)
+#define ADC_CR1_DUALMOD_FIM             (0x7 << 16)
+#define ADC_CR1_DUALMOD_SIM             (0x8 << 16)
+#define ADC_CR1_DUALMOD_ATM             (0x9 << 16)
+#define ADC_CR1_DUALMOD_MASK		(0xF << 16)
+#define ADC_CR1_DUALMOD_SHIFT		16
+
+/* DISCNUM[2:0]: Discontinous mode channel count. */
+#define ADC_CR1_DISCNUM_1CHANNELS       (0x0 << 13)
+#define ADC_CR1_DISCNUM_2CHANNELS       (0x1 << 13)
+#define ADC_CR1_DISCNUM_3CHANNELS       (0x2 << 13)
+#define ADC_CR1_DISCNUM_4CHANNELS       (0x3 << 13)
+#define ADC_CR1_DISCNUM_5CHANNELS       (0x4 << 13)
+#define ADC_CR1_DISCNUM_6CHANNELS       (0x5 << 13)
+#define ADC_CR1_DISCNUM_7CHANNELS       (0x6 << 13)
+#define ADC_CR1_DISCNUM_8CHANNELS       (0x7 << 13)
+#define ADC_CR1_DISCNUM_MASK		(0x7 << 13)
+#define ADC_CR1_DISCNUM_SHIFT		13
+
+/* JDISCEN: Discontinous mode on injected channels. */
 #define ADC_CR1_JDISCEN			(1 << 12)
+
+/* DISCEN: Discontinous mode on regular channels. */
 #define ADC_CR1_DISCEN			(1 << 11)
+
+/* JAUTO: Automatic Injection Group conversion. */
 #define ADC_CR1_JAUTO			(1 << 10)
+
+/* AWDSGL: Enable the watchdog on a single channel in scan mode. */
 #define ADC_CR1_AWDSGL			(1 << 9)
+
+/* SCAN: Scan mode. */
 #define ADC_CR1_SCAN			(1 << 8)
+
+/* JEOCIE: Interrupt enable for injected channels. */
 #define ADC_CR1_JEOCIE			(1 << 7)
+
+/* AWDIE: Analog watchdog interrupt enable. */
 #define ADC_CR1_AWDIE			(1 << 6)
+
+/* EOCIE: Interrupt enable EOC. */
 #define ADC_CR1_EOCIE			(1 << 5)
-#define ADC_CR1_AWDCH_LSB		0
-#define ADC_CR1_AWDCH_MSK		(0x1f << ADC_AWDCH_LSB)
+
+/* AWDCH[4:0]: Analog watchdog channel bits. (Up to 17 other values reserved) */
+/* Notes:
+ * ADC1: Analog channel 16 and 17 are internally connected to the temperature
+ * sensor and V_REFINT, respectively.
+ * ADC2: Analog channel 16 and 17 are internally connected to V_SS.
+ * ADC3: Analog channel 9, 14, 15, 16 and 17 are internally connected to V_SS.
+ */
+#define ADC_CR1_AWDCH_CHANNEL0		(0x00 << 0)
+#define ADC_CR1_AWDCH_CHANNEL1		(0x01 << 0)
+#define ADC_CR1_AWDCH_CHANNEL2		(0x02 << 0)
+#define ADC_CR1_AWDCH_CHANNEL3		(0x03 << 0)
+#define ADC_CR1_AWDCH_CHANNEL4		(0x04 << 0)
+#define ADC_CR1_AWDCH_CHANNEL5		(0x05 << 0)
+#define ADC_CR1_AWDCH_CHANNEL6		(0x06 << 0)
+#define ADC_CR1_AWDCH_CHANNEL7		(0x07 << 0)
+#define ADC_CR1_AWDCH_CHANNEL8		(0x08 << 0)
+#define ADC_CR1_AWDCH_CHANNEL9		(0x09 << 0)
+#define ADC_CR1_AWDCH_CHANNEL10		(0x0A << 0)
+#define ADC_CR1_AWDCH_CHANNEL11		(0x0B << 0)
+#define ADC_CR1_AWDCH_CHANNEL12		(0x0C << 0)
+#define ADC_CR1_AWDCH_CHANNEL13		(0x0D << 0)
+#define ADC_CR1_AWDCH_CHANNEL14		(0x0E << 0)
+#define ADC_CR1_AWDCH_CHANNEL15		(0x0F << 0)
+#define ADC_CR1_AWDCH_CHANNEL16		(0x10 << 0)
+#define ADC_CR1_AWDCH_CHANNEL17		(0x11 << 0)
+#define ADC_CR1_AWDCH_MASK		(0x1F << 0)
+#define ADC_CR1_AWDCH_SHIFT		0
 
 /* --- ADC_CR2 values ------------------------------------------------------ */
 
-#define ADC_CR2_TSVREFE			(1 << 23) /* ADC1 only! */
+/* TSVREFE: Temperature sensor and V_REFINT enable. (ADC1 only!) */
+#define ADC_CR2_TSVREFE			(1 << 23)
+
+/* SWSTART: Start conversion of regular channels. */
 #define ADC_CR2_SWSTART			(1 << 22)
+
+/* JSWSTART: Start conversion of injected channels. */
 #define ADC_CR2_JSWSTART		(1 << 21)
+
+/* EXTTRIG: External trigger conversion mode for regular channels. */
 #define ADC_CR2_EXTTRIG			(1 << 20)
-#define ADC_CR2_EXTSEL_LSB		17
-#define ADC_CR2_EXTSEL_MSK		(0x7 << ADC_EXTSEL_LSB)
+
+/* EXTSEL[2:0]: External event select for regular group. */
 /* The following are only valid for ADC1 and ADC2. */
-#define ADC_CR2_EXTSEL_TIM1_CC1		0x0
-#define ADC_CR2_EXTSEL_TIM1_CC2		0x1
-#define ADC_CR2_EXTSEL_TIM1_CC3		0x2
-#define ADC_CR2_EXTSEL_TIM2_CC2		0x3
-#define ADC_CR2_EXTSEL_TIM3_TRGO	0x4
-#define ADC_CR2_EXTSEL_TIM4_CC4		0x5
-#define ADC_CR2_EXTSEL_EXTI11		0x6
-#define ADC_CR2_EXTSEL_SWSTART		0x7
+#define ADC_CR2_EXTSEL_TIM1_CC1		(0x0 << 17)
+#define ADC_CR2_EXTSEL_TIM1_CC2		(0x1 << 17)
+#define ADC_CR2_EXTSEL_TIM1_CC3		(0x2 << 17)
+#define ADC_CR2_EXTSEL_TIM2_CC2		(0x3 << 17)
+#define ADC_CR2_EXTSEL_TIM3_TRGO	(0x4 << 17)
+#define ADC_CR2_EXTSEL_TIM4_CC4		(0x5 << 17)
+#define ADC_CR2_EXTSEL_EXTI11		(0x6 << 17)
+#define ADC_CR2_EXTSEL_SWSTART		(0x7 << 17)
 
 /* The following are only valid for ADC3 */
-#define ADC_CR2_EXTSEL_TIM3_CC1		0x0
-#define ADC_CR2_EXTSEL_TIM2_CC3		0x1
-#define ADC_CR2_EXTSEL_TIM8_CC1		0x3
-#define ADC_CR2_EXTSEL_TIM8_TRGO	0x4
-#define ADC_CR2_EXTSEL_TIM5_CC1		0x5
-#define ADC_CR2_EXTSEL_TIM5_CC3		0x6
+#define ADC_CR2_EXTSEL_TIM3_CC1		(0x0 << 17)
+#define ADC_CR2_EXTSEL_TIM2_CC3		(0x1 << 17)
+#define ADC_CR2_EXTSEL_TIM8_CC1		(0x3 << 17)
+#define ADC_CR2_EXTSEL_TIM8_TRGO	(0x4 << 17)
+#define ADC_CR2_EXTSEL_TIM5_CC1		(0x5 << 17)
+#define ADC_CR2_EXTSEL_TIM5_CC3		(0x6 << 17)
 
-/* Bit 16: reserved, must be kept cleared */
+#define ADC_CR2_EXTSEL_MASK		(0x7 << 17)
+#define ADC_CR2_EXTSEL_SHIFT		17
+
+/* Note: Bit 16 is reserved, must be kept at reset value. */
+
+/* JEXTTRIG: External trigger conversion mode for injected channels. */
 #define ADC_CR2_JEXTTRIG		(1 << 15)
-#define ADC_CR2_JEXTSEL_LSB		12
-#define ADC_CR2_JEXTSEL_MSK		(0x7 << ADC_JEXTSEL_LSB)
+
+/* JEXTSEL[2:0]: External event selection for injected group. */
 /* The following are only valid for ADC1 and ADC2. */
-#define ADC_CR2_JEXTSEL_TIM1_TRGO	0x0
-#define ADC_CR2_JEXTSEL_TIM1_CC4	0x1
-#define ADC_CR2_JEXTSEL_TIM2_TRGO	0x2
-#define ADC_CR2_JEXTSEL_TIM2_CC1	0x3
-#define ADC_CR2_JEXTSEL_TIM3_CC4	0x4
-#define ADC_CR2_JEXTSEL_TIM4_TRGO	0x5
-#define ADC_CR2_JEXTSEL_EXTI15		0x6
-#define ADC_CR2_JEXTSEL_JSWSTART	0x7
+#define ADC_CR2_JEXTSEL_TIM1_TRGO	(0x0 << 12)
+#define ADC_CR2_JEXTSEL_TIM1_CC4	(0x1 << 12)
+#define ADC_CR2_JEXTSEL_TIM2_TRGO	(0x2 << 12)
+#define ADC_CR2_JEXTSEL_TIM2_CC1	(0x3 << 12)
+#define ADC_CR2_JEXTSEL_TIM3_CC4	(0x4 << 12)
+#define ADC_CR2_JEXTSEL_TIM4_TRGO	(0x5 << 12)
+#define ADC_CR2_JEXTSEL_EXTI15		(0x6 << 12)
+#define ADC_CR2_JEXTSEL_JSWSTART	(0x7 << 12)
 
 /* The following are the different meanings for ADC3 only. */
-#define ADC_CR2_JEXTSEL_TIM4_CC3	0x2
-#define ADC_CR2_JEXTSEL_TIM8_CC2	0x3
-#define ADC_CR2_JEXTSEL_TIM8_CC4	0x4
-#define ADC_CR2_JEXTSEL_TIM5_TRGO	0x5
-#define ADC_CR2_JEXTSEL_TIM5_CC4	0x6
+#define ADC_CR2_JEXTSEL_TIM4_CC3	(0x2 << 12)
+#define ADC_CR2_JEXTSEL_TIM8_CC2	(0x3 << 12)
+#define ADC_CR2_JEXTSEL_TIM8_CC4	(0x4 << 12)
+#define ADC_CR2_JEXTSEL_TIM5_TRGO	(0x5 << 12)
+#define ADC_CR2_JEXTSEL_TIM5_CC4	(0x6 << 12)
 
+#define ADC_CR2_JEXTSEL_MASK		(0x7 << 12)
+#define ADC_CR2_JEXTSEL_SHIFT		12
+
+/* ALIGN: Data alignement. */
+#define ADC_CR2_ALIGN_RIGHT             (0 << 11)
+#define ADC_CR2_ALIGN_LEFT              (1 << 11)
 #define ADC_CR2_ALIGN			(1 << 11)
-#define ADC_CR2_DMA			(1 << 8) /* ADC 1 & 3 only! */
-/* Bits [7:4] have to be kept 0. */
+
+/* Note: Bits [10:9] are reserved and must be kept at reset value. */
+
+/* DMA: Direct memory access mode. (ADC1 and ADC3 only!) */
+#define ADC_CR2_DMA			(1 << 8)
+
+/* Note: Bits [7:4] are reserved and must be kept at reset value. */
+
+/* RSTCAL: Reset calibration. */
 #define ADC_CR2_RSTCAL			(1 << 3)
+
+/* CAL: A/D Calibration. */
 #define ADC_CR2_CAL			(1 << 2)
+
+/* CONT: Continous conversion. */
 #define ADC_CR2_CONT			(1 << 1)
-#define ADC_CR2_ADON			(1 << 0) /* Must be separately written. */
+
+/* ADON: A/D converter On/Off. */
+/* Note: If any other bit in this register apart from ADON is changed at the
+ * same time, then conversion is not triggered. This is to prevent triggering
+ * an erroneous conversion.
+ * Conclusion: Must be separately written.
+ */
+#define ADC_CR2_ADON			(1 << 0)
 
 /* --- ADC_SMPR1 values ---------------------------------------------------- */
 
