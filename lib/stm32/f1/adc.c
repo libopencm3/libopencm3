@@ -193,7 +193,7 @@ void adc_start_conversion_injected(u32 adc)
 	while (ADC_CR2(adc) & ADC_CR2_JSWSTART);
 }
 
-void adc_enable_external_trigger_regular(u32 adc, u8 trigger)
+void adc_enable_external_trigger_regular(u32 adc, u32 trigger)
 {
 	u32 reg32;
 
@@ -209,7 +209,7 @@ void adc_disable_external_trigger_regular(u32 adc)
 	ADC_CR2(adc) &= ~ADC_CR2_EXTTRIG;
 }
 
-void adc_enable_external_trigger_injected(u32 adc, u8 trigger)
+void adc_enable_external_trigger_injected(u32 adc, u32 trigger)
 {
 	u32 reg32;
 

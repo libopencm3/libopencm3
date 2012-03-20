@@ -298,7 +298,7 @@
 #define ADC_CR2_JEXTSEL_TIM3_CC4	(0x4 << 12)
 #define ADC_CR2_JEXTSEL_TIM4_TRGO	(0x5 << 12)
 #define ADC_CR2_JEXTSEL_EXTI15		(0x6 << 12)
-#define ADC_CR2_JEXTSEL_JSWSTART	(0x7 << 12)
+#define ADC_CR2_JEXTSEL_JSWSTART	(0x7 << 12) /* Software start. */
 
 /* The following are the different meanings for ADC3 only. */
 #define ADC_CR2_JEXTSEL_TIM4_CC3	(0x2 << 12)
@@ -511,9 +511,9 @@ void adc_enable_temperature_sensor(u32 adc);
 void adc_disable_temperature_sensor(u32 adc);
 void adc_start_conversion_regular(u32 adc);
 void adc_start_conversion_injected(u32 adc);
-void adc_enable_external_trigger_regular(u32 adc, u8 trigger);
+void adc_enable_external_trigger_regular(u32 adc, u32 trigger);
 void adc_disable_external_trigger_regular(u32 adc);
-void adc_enable_external_trigger_injected(u32 adc, u8 trigger);
+void adc_enable_external_trigger_injected(u32 adc, u32 trigger);
 void adc_disable_external_trigger_injected(u32 adc);
 void adc_set_left_aligned(u32 adc);
 void adc_set_right_aligned(u32 adc);
