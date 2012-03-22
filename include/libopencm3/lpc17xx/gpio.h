@@ -68,3 +68,5 @@
 #define GPIO2_CLR			GPIO_CLR(GPIO2)
 #define GPIO3_CLR			GPIO_CLR(GPIO3)
 #define GPIO4_CLR			GPIO_CLR(GPIO4)
+
+#endif
