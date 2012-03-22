@@ -25,9 +25,6 @@
 
 /* --- Convenience macros -------------------------------------------------- */
 
-/* TODO: Move to memorymap.h? */
-#define FSMC_BASE			0xa0000000
-
 #define FSMC_BANK1_BASE			0x60000000 /* NOR / PSRAM */
 #define FSMC_BANK2_BASE			0x70000000 /* NAND flash */
 #define FSMC_BANK3_BASE			0x80000000 /* NAND flash */
@@ -142,26 +139,39 @@
 
 /* Bits [31:30]: Reserved. */
 
+/* Same for read and write */
+#define FSMC_BTx_ACCMOD_A		(0)
+#define FSMC_BTx_ACCMOD_B		(1)
+#define FSMC_BTx_ACCMOD_C		(2)
+#define FSMC_BTx_ACCMOD_D		(3)
+
 /* ACCMOD[29:28]: Access mode */
 #define FSMC_BTR_ACCMOD			(1 << 28)
+#define FSMC_BTR_ACCMODx(x)		(((x) & 0x03) << 28)
 
 /* DATLAT[27:24]: Data latency (for synchronous burst NOR flash) */
 #define FSMC_BTR_DATLAT			(1 << 24)
+#define FSMC_BTR_DATLATx(x)		(((x) & 0x0f) << 24)
 
 /* CLKDIV[23:20]: Clock divide ratio (for CLK signal) */
 #define FSMC_BTR_CLKDIV			(1 << 20)
+#define FSMC_BTR_CLKDIVx(x)		(((x) & 0x0f) << 20)
 
 /* BUSTURN[19:16]: Bus turnaround phase duration */
 #define FSMC_BTR_BUSTURN		(1 << 16)
+#define FSMC_BTR_BUSTURNx(x)		(((x) & 0x0f) << 16)
 
 /* DATAST[15:8]: Data-phase duration */
 #define FSMC_BTR_DATAST			(1 << 8)
+#define FSMC_BTR_DATASTx(x)		(((x) & 0xff) << 8)
 
 /* ADDHLD[7:4]: Address-hold phase duration */
 #define FSMC_BTR_ADDHLD			(1 << 4)
+#define FSMC_BTR_ADDHLDx(x)		(((x) & 0x0f) << 4)
 
 /* ADDSET[3:0]: Address setup phase duration */
 #define FSMC_BTR_ADDSET			(1 << 0)
+#define FSMC_BTR_ADDSETx(x)		(((x) & 0x0f) << 0)
 
 /* --- FSMC_BWTRx values --------------------------------------------------- */
 
