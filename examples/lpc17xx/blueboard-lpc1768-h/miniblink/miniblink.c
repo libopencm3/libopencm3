@@ -33,17 +33,17 @@ int main(void)
 	/* Blink LED0 (P3_0) on the board. */
 	while (1) {
 		/* Manually: */
-		//GPIO1_SET = (1 << 29);		/* LED off */
+		//GPIO1_SET = (1 << 29);		/* LED on */
 		//for (i = 0; i < 800000; i++)	/* Wait a bit. */
 		//	__asm__("nop");
-		//GPIO1_CLR = (1 << 29);	/* LED on */
+		//GPIO1_CLR = (1 << 29);	/* LED off */
 		//for (i = 0; i < 800000; i++)	/* Wait a bit. */
 		//	__asm__("nop");
                 
-		gpio_set(GPIO1, GPIOPIN29); /* LED off */
+		gpio_set(GPIO1, GPIOPIN29); /* LED on */
 		for (i = 0; i < 800000; i++)	/* Wait a bit. */
 			__asm__("nop");
-		GPIO1_CLR = (1 << 29);	/* LED on */
+		gpio_clear(GPIO1, GPIOPIN29); /* LED off */
 		for (i = 0; i < 800000; i++)	/* Wait a bit. */
 			__asm__("nop");
 	}

@@ -133,5 +133,6 @@
 #define GPIO_IS                         MMIO32(GPIOINTERRPUT_BASE + 0x80)
 
 void gpio_set(u32 gpioport, u32 gpios);
+void gpio_clear(u32 gpioport, u32 gpios); 
 
 #endif
