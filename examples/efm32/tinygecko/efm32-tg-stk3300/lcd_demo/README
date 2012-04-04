@@ -1,0 +1,8 @@
+=========================================
+EFM32-TG-STK3300 Examples LCD Demo README
+=========================================
+
+This is an example on how to use the LCD peripherial on Energy Micro Tiny Gecko
+chips.
+
+It's intended for the EFM32-TG-STK3300 eval board.

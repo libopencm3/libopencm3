@@ -1,0 +1,192 @@
+description:
+    LCD segment layout for the EFM32TG_STK3300 kit.
+
+    Determined by trial and error.
+
+    The digit display is called D1..D4 left to right, the alphanumerics
+    A1..A7.
+
+    The 7 segment display bars are labeled a..g from top cw with g being
+    the last in the center.
+
+    The 14 segment display bars are labelled a..f as with 7-segment, g1
+    and g2 the parts of 7-segment's g from left to right, and then h, i,
+    j left to right top parts, and k, l, m left to right bottom parts.
+
+    (Labelling according to the 7 segment display Wikipedia article; for 14,
+    found in German Wikipedia.)
+
+    Sectors start at the top, CCW.
+
+    Rings are numbered from the outside startin at 0, the dot in the middle
+    being 4.
+symbols: [efm, antenna, celsius, fahrenheit]
+coms:
+    -
+        - sector_0
+        - sector_1
+        - sector_2
+        - sector_3
+        - sector_4
+        - sector_5
+        - sector_6
+        - sector_7
+        - efm
+        - a5_a
+        - a4_colon
+        - a6_a
+        - antenna
+        - battery_outline
+        - celsius
+        - fahrenheit
+        - battery_1
+        - battery_0
+        - battery_2
+        - ring0
+    -
+        - gecko
+        - a1_a
+        - a1_b
+        - a2_a
+        - a2_b
+        - a3_a
+        - a3_b
+        - a4_a
+        - a4_b
+        - a5_h
+        - a5_b
+        - a6_h
+        - a6_b
+        - a7_a
+        - a7_b
+        - d4_d
+        - d3_d
+        - d2_d
+        - d1_d
+        - ring1
+    -
+        - lock_closed
+        - a1_h
+        - a1_j
+        - a2_h
+        - a2_j
+        - a3_h
+        - a3_j
+        - a4_h
+        - a4_j
+        - a5_f
+        - a5_j
+        - a6_f
+        - a6_j
+        - a7_h
+        - a7_j
+        - d4_c
+        - d3_c
+        - d2_c
+        - d1_c
+        - ring3
+    -
+        - a_minus
+        - a1_f
+        - a1_i
+        - a2_f
+        - a2_i
+        - a3_f
+        - a3_i
+        - a4_f
+        - a4_i
+        - a5_g1
+        - a5_i
+        - a6_g1
+        - a6_i
+        - a7_f
+        - a7_i
+        - d4_e
+        - d3_e
+        - d2_e
+        - d1_e
+        - lock_open
+    -
+        - a2_colon
+        - a1_g1
+        - a1_g2
+        - a2_g1
+        - a2_g2
+        - a3_g1
+        - a3_g2
+        - a4_g1
+        - a4_g2
+        - a5_l
+        - a5_g2
+        - a6_l
+        - a6_g2
+        - a7_g1
+        - a7_g2
+        - d4_g
+        - d3_g
+        - d2_g
+        - d1_g
+        - d2_dp
+    -
+        - a2_dp
+        - a1_l
+        - a1_c
+        - a2_l
+        - a2_c
+        - a3_l
+        - a3_c
+        - a4_l
+        - a4_c
+        - a5_k
+        - a5_c
+        - a6_k
+        - a6_c
+        - a7_l
+        - a7_c
+        - d4_b
+        - d3_b
+        - d2_b
+        - d1_b
+        - d2_dp
+    -
+        - a4_dp
+        - a1_k
+        - a1_m
+        - a2_k
+        - a2_m
+        - a3_k
+        - a3_m
+        - a4_k
+        - a4_m
+        - a5_e
+        - a5_m
+        - a6_e
+        - a6_m
+        - a7_k
+        - a7_m
+        - d4_f
+        - d3_f
+        - d2_f
+        - d1_f
+        - ring4
+    -
+        - a1_dp
+        - a1_e
+        - a1_d
+        - a2_e
+        - a2_d
+        - a3_e
+        - a3_d
+        - a4_e
+        - a4_d
+        - a4_dp
+        - a5_d
+        - a5_dp
+        - a6_d
+        - a7_e
+        - a7_d
+        - d4_a
+        - d3_a
+        - d2_a
+        - d1_a
+        - ring2

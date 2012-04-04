@@ -87,6 +87,9 @@ registers:
             length: 5
             type: uint
             doc: "By this parameter, the voltage V_LCD_OUT is interpolated linearly from 0.5V_LCD to V_LCD."
+            values:
+                - {value: 0, name: MIN}
+                - {value: 31, name: MAX}
           - name: WAVE
             shift: 4
             values:
@@ -208,7 +211,7 @@ registers:
                 - {value: 0, name: UPDATE}
                 - {value: 1, name: FREEZE}
       # FIXME: this seems to be a typical FREEZE register
-    - name: SYNGBUSY
+    - name: SYNCBUSY
       offset: 0x064
       definition_baserefext: .5.17
       fields:

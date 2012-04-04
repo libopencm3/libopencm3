@@ -65,7 +65,7 @@
 #define LCD_SEGD2L              MMIO32(LCD_BASE + 0x048) /**< @see EFM32TG_LCD_SEG_bits */
 #define LCD_SEGD3L              MMIO32(LCD_BASE + 0x04c) /**< @see EFM32TG_LCD_SEG_bits */
 #define LCD_FREEZE              MMIO32(LCD_BASE + 0x060) /**< @see EFM32TG_LCD_FREEZE_bits */
-#define LCD_SYNGBUSY            MMIO32(LCD_BASE + 0x064) /**< @see EFM32TG_LCD_SYNGBUSY_bits */
+#define LCD_SYNCBUSY            MMIO32(LCD_BASE + 0x064) /**< @see EFM32TG_LCD_SYNCBUSY_bits */
 #define LCD_SEGD4L              MMIO32(LCD_BASE + 0x0cc) /**< @see EFM32TG_LCD_SEG_bits */
 #define LCD_SEGD5L              MMIO32(LCD_BASE + 0x0d0) /**< @see EFM32TG_LCD_SEG_bits */
 #define LCD_SEGD6L              MMIO32(LCD_BASE + 0x0d4) /**< @see EFM32TG_LCD_SEG_bits */
@@ -116,6 +116,8 @@
 /** By this parameter, the voltage V_LCD_OUT is interpolated linearly from
  * 0.5V_LCD to V_LCD.
  */
+#define LCD_DISPCTRL_CONLEV_MIN (0<<8)
+#define LCD_DISPCTRL_CONLEV_MAX (31<<8)
 #define LCD_DISPCTRL_CONLEV_MASK (0x1f<<8)
 #define LCD_DISPCTRL_WAVE_LOWPOWER (0<<4)
 #define LCD_DISPCTRL_WAVE_NORMAL (1<<4)
@@ -197,26 +199,26 @@
 
 /** @} */
 
-/** Bit states for the LCD_SYNGBUSY register
+/** Bit states for the LCD_SYNCBUSY register
  *
  * See d0034_efm32tg_reference_manual.pdf section 29.5.17 for definitions.
  *
- * @defgroup EFM32TG_LCD_SYNGBUSY_bits LCD SYNGBUSY bits
+ * @defgroup EFM32TG_LCD_SYNCBUSY_bits LCD SYNCBUSY bits
  * @{
  */
 
-#define LCD_SYNGBUSY_SEGD7L     (1<<19)
-#define LCD_SYNGBUSY_SEGD6L     (1<<18)
-#define LCD_SYNGBUSY_SEGD5L     (1<<17)
-#define LCD_SYNGBUSY_SEGD4L     (1<<16)
-#define LCD_SYNGBUSY_SEGD3L     (1<<7)
-#define LCD_SYNGBUSY_SEGD2L     (1<<6)
-#define LCD_SYNGBUSY_SEGD1L     (1<<5)
-#define LCD_SYNGBUSY_SEGD0L     (1<<4)
-#define LCD_SYNGBUSY_AREGB      (1<<3)
-#define LCD_SYNGBUSY_AREGA      (1<<2)
-#define LCD_SYNGBUSY_BACTRL     (1<<1)
-#define LCD_SYNGBUSY_CTRL       (1<<0)
+#define LCD_SYNCBUSY_SEGD7L     (1<<19)
+#define LCD_SYNCBUSY_SEGD6L     (1<<18)
+#define LCD_SYNCBUSY_SEGD5L     (1<<17)
+#define LCD_SYNCBUSY_SEGD4L     (1<<16)
+#define LCD_SYNCBUSY_SEGD3L     (1<<7)
+#define LCD_SYNCBUSY_SEGD2L     (1<<6)
+#define LCD_SYNCBUSY_SEGD1L     (1<<5)
+#define LCD_SYNCBUSY_SEGD0L     (1<<4)
+#define LCD_SYNCBUSY_AREGB      (1<<3)
+#define LCD_SYNCBUSY_AREGA      (1<<2)
+#define LCD_SYNCBUSY_BACTRL     (1<<1)
+#define LCD_SYNCBUSY_CTRL       (1<<0)
 
 /** @} */
 
