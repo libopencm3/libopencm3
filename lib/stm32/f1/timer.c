@@ -959,3 +959,33 @@ void timer_ic_set_prescaler(u32 timer, enum tim_ic_id ic, enum tim_ic_psc psc)
 	}
 }
 
+void timer_ic_set_input(u32 timer, enum tim_ic_id ic, enum tim_ic_input in)
+{
+	in &= 3;
+
+	if (((ic == TIM_IC2) || (ic == TIM_IC4)) &&
+	    ((in == TIM_IC_IN_TI1) || (in = TIM_IC_IN_TI2))) {
+		/* Input select bits are flipped for these combinations */
+		in ^= 3;
+	}
+	
+	switch (ic) {
+	case TIM_IC1:
+		TIM_CCMR1(timer) &= ~TIM_CCMR1_CC1S_MASK;
+		TIM_CCMR1(timer) |= in;
+		break;
+	case TIM_IC2:
+		TIM_CCMR1(timer) &= ~TIM_CCMR1_CC2S_MASK;
+		TIM_CCMR1(timer) |= in << 8;
+		break;
+	case TIM_IC3:
+		TIM_CCMR2(timer) &= ~TIM_CCMR2_CC3S_MASK;
+		TIM_CCMR2(timer) |= in;
+		break;
+	case TIM_IC4:
+		TIM_CCMR2(timer) &= ~TIM_CCMR2_CC4S_MASK;
+		TIM_CCMR2(timer) |= in << 8;
+		break;
+	}
+}
+
