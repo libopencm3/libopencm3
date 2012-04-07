@@ -914,3 +914,48 @@ u32 timer_get_counter(u32 timer_peripheral)
 {
 	return TIM_CNT(timer_peripheral);
 }
+
+void timer_ic_set_filter(u32 timer, enum tim_ic_id ic, enum tim_ic_filter flt)
+{
+	switch (ic) {
+	case TIM_IC1:
+		TIM_CCMR1(timer) &= ~TIM_CCMR1_IC1F_MASK;
+		TIM_CCMR1(timer) |= flt << 4;
+		break;
+	case TIM_IC2:
+		TIM_CCMR1(timer) &= ~TIM_CCMR1_IC2F_MASK;
+		TIM_CCMR1(timer) |= flt << 12;
+		break;
+	case TIM_IC3:
+		TIM_CCMR2(timer) &= ~TIM_CCMR2_IC3F_MASK;
+		TIM_CCMR2(timer) |= flt << 4;
+		break;
+	case TIM_IC4:
+		TIM_CCMR2(timer) &= ~TIM_CCMR2_IC4F_MASK;
+		TIM_CCMR2(timer) |= flt << 12;
+		break;
+	}
+}
+
+void timer_ic_set_prescaler(u32 timer, enum tim_ic_id ic, enum tim_ic_psc psc)
+{
+	switch (ic) {
+	case TIM_IC1:
+		TIM_CCMR1(timer) &= ~TIM_CCMR1_IC1PSC_MASK;
+		TIM_CCMR1(timer) |= psc << 2;
+		break;
+	case TIM_IC2:
+		TIM_CCMR1(timer) &= ~TIM_CCMR1_IC2PSC_MASK;
+		TIM_CCMR1(timer) |= psc << 10;
+		break;
+	case TIM_IC3:
+		TIM_CCMR2(timer) &= ~TIM_CCMR2_IC3PSC_MASK;
+		TIM_CCMR2(timer) |= psc << 4;
+		break;
+	case TIM_IC4:
+		TIM_CCMR2(timer) &= ~TIM_CCMR2_IC4PSC_MASK;
+		TIM_CCMR2(timer) |= psc << 10;
+		break;
+	}
+}
+
