@@ -1007,3 +1007,35 @@ void timer_ic_disable(u32 timer, enum tim_ic_id ic)
 	TIM_CCER(timer) &= ~(0x1 << (ic * 4));
 }
 
+void timer_slave_set_filter(u32 timer, enum tim_ic_filter flt)
+{
+	TIM_SMCR(timer) &= ~TIM_SMCR_ETF_MASK;
+	TIM_SMCR(timer) |= flt << 8;
+}
+
+void timer_slave_set_prescaler(u32 timer, enum tim_ic_psc psc)
+{
+	TIM_SMCR(timer) &= ~TIM_SMCR_ETPS_MASK;
+	TIM_SMCR(timer) |= psc << 12;
+}
+
+void timer_slave_set_polarity(u32 timer, enum tim_ic_pol pol)
+{
+	if (pol)
+		TIM_SMCR(timer) |= TIM_SMCR_ETP;
+	else
+		TIM_SMCR(timer) &= ~TIM_SMCR_ETP;
+}
+
+void timer_slave_set_mode(u32 timer, u8 mode)
+{
+	TIM_SMCR(timer) &= ~TIM_SMCR_SMS_MASK;
+	TIM_SMCR(timer) |= mode;
+}
+
+void timer_slave_set_trigger(u32 timer, u8 trigger)
+{
+	TIM_SMCR(timer) &= ~TIM_SMCR_TS_MASK;
+	TIM_SMCR(timer) |= trigger;
+}
+

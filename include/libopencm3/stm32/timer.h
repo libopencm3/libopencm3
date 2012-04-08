@@ -977,4 +977,10 @@ void timer_ic_set_polarity(u32 timer, enum tim_ic_id ic, enum tim_ic_pol pol);
 void timer_ic_enable(u32 timer, enum tim_ic_id ic);
 void timer_ic_disable(u32 timer, enum tim_ic_id ic);
 
+void timer_slave_set_filter(u32 timer, enum tim_ic_filter flt);
+void timer_slave_set_prescaler(u32 timer, enum tim_ic_psc psc);
+void timer_slave_set_polarity(u32 timer, enum tim_ic_pol pol);
+void timer_slave_set_mode(u32 timer, u8 mode);
+void timer_slave_set_trigger(u32 timer, u8 trigger);
+
 #endif
