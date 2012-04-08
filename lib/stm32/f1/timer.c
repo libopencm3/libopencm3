@@ -989,3 +989,21 @@ void timer_ic_set_input(u32 timer, enum tim_ic_id ic, enum tim_ic_input in)
 	}
 }
 
+void timer_ic_set_polarity(u32 timer, enum tim_ic_id ic, enum tim_ic_pol pol)
+{
+	if (pol)
+		TIM_CCER(timer) |= (0x2 << (ic * 4));
+	else
+		TIM_CCER(timer) &= ~(0x2 << (ic * 4));
+}
+
+void timer_ic_enable(u32 timer, enum tim_ic_id ic)
+{
+	TIM_CCER(timer) |= (0x1 << (ic * 4));
+}
+
+void timer_ic_disable(u32 timer, enum tim_ic_id ic)
+{
+	TIM_CCER(timer) &= ~(0x1 << (ic * 4));
+}
+

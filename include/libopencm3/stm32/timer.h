@@ -897,6 +897,12 @@ enum tim_ic_input {
 	TIM_IC_IN_TI4 = 6,
 };
 
+/* Input Capture input prescaler */
+enum tim_ic_pol {
+	TIM_IC_RISING,
+	TIM_IC_FALLING,
+};
+
 /* --- TIM functions ------------------------------------------------------- */
 void timer_reset(u32 timer_peripheral);
 void timer_enable_irq(u32 timer_peripheral, u32 irq);
@@ -967,5 +973,8 @@ u32 timer_get_counter(u32 timer_peripheral);
 void timer_ic_set_filter(u32 timer, enum tim_ic_id ic, enum tim_ic_filter flt);
 void timer_ic_set_prescaler(u32 timer, enum tim_ic_id ic, enum tim_ic_psc psc);
 void timer_ic_set_input(u32 timer, enum tim_ic_id ic, enum tim_ic_input in);
+void timer_ic_set_polarity(u32 timer, enum tim_ic_id ic, enum tim_ic_pol pol);
+void timer_ic_enable(u32 timer, enum tim_ic_id ic);
+void timer_ic_disable(u32 timer, enum tim_ic_id ic);
 
 #endif
