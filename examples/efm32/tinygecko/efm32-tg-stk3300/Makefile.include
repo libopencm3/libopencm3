@@ -20,30 +20,10 @@
 MCU = EFM32TG840F32
 FAMILY = TINYGECKO
 
+EACOMMANDER = ~/energymicro/energymicro/eACommander.sh
+
 include $(dir $(lastword $(MAKEFILE_LIST)))../Makefile.include
 
-# FIXME: i'd much rather have this in a heredoc, but heredocs are not that easy
-# in makefiles. furthermore, this isn't caught by the clean target. actually,
-# i'd very much prefer using openocd anyway, this would also get rid of the
-# Default.ini and JLink.log files jlink.sh drops.
-
-# just the next hack: jlink, as shipped in energy micro's
-# energyAwareToolsBeta_30082011.tgz, needs its LD_LIBRARY_PATH explicitly set.
-# it provides a wrapper script, but that fails to pass on arguments. set this
-# path to the energymicro folder extracted from the tools, and we'll take care
-# of the test
-JLINKDIR = ${HOME}/energymicro/energymicro
-
-$(BINARY)-upload.sh:
-	rm -f "$@"
-	echo "exec device = EFM32TG840F32" >> "$@"
-	echo "exec EnableFlashDL" >> "$@"
-	echo "h" >> "$@"
-	echo "loadbin ${BINARY}.bin 0" >> "$@"
-	echo "r" >> "$@"
-	echo "go" >> "$@"
-	echo "q" >> "$@"
-	chmod +x "$@"
-
-upload: $(BINARY)-upload.sh $(BINARY).bin
-	LD_LIBRARY_PATH=$(JLINKDIR)/lib/ $(JLINKDIR)/bin/JLinkExe "$<" || echo "JLink exited with non-zero exit status, but that's normal."
+upload: $(BINARY).bin
+	# eacommander is just as nonfree as jlink.sh, but much less of a hasle
+	$(EACOMMANDER) --flash $< --verify --mode mcu --address 0 --reset
