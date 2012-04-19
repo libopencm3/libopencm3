@@ -1,0 +1,14 @@
+# gets set when loading the file, without this i get the "Remote 'g' packet
+# reply is too long" errors
+set arm abi AAPCS
+
+target remote localhost:2331
+monitor speed auto
+# this seems to be less about the architecture and more about how to
+# communicate with gdb. "set endian big" works just as well.
+monitor endian little
+
+# sometimes this doesn't work, then the gdbserver has to be restarted
+monitor reset
+monitor go
+monitor halt
