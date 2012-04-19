@@ -1,7 +1,7 @@
 /*
  * This file is part of the libopencm3 project.
  *
- * Copyright (C) 2009 Uwe Hermann <uwe@hermann-uwe.de>
+ * Copyright (C) 2010 Uwe Hermann <uwe@hermann-uwe.de>
  *
  * This library is free software: you can redistribute it and/or modify
  * it under the terms of the GNU Lesser General Public License as published by
@@ -17,16 +17,14 @@
  * along with this library.  If not, see <http://www.gnu.org/licenses/>.
  */
 
-/* TODO: Fix board name, chip name, and sizes. */
-/* Linker script for Olimex STM32-H103 (STM32F103RBT6, 128K flash, 20K RAM). */
+#include <libopencm3/lpc17xx/gpio.h>
 
-/* Define memory regions. */
-MEMORY
+void gpio_set(u32 gpioport, u32 gpios)
 {
-	rom (rx) : ORIGIN = 0x08000000, LENGTH = 256K
-	ram (rwx) : ORIGIN = 0x20000000, LENGTH = 64K
+	GPIO_SET(gpioport) = gpios;
 }
 
-/* Include the common ld script. */
-INCLUDE libopencm3_stm32f2.ld
-
+void gpio_clear(u32 gpioport, u32 gpios)
+{
+        GPIO_CLR(gpioport) = gpios;
+}

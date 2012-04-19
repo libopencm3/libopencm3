@@ -228,7 +228,7 @@ int can_transmit(u32 canport, u32 id, bool ext, bool rtr, u8 length, u8 *data)
 		CAN_TIxR(canport, mailbox) |= CAN_TIxR_RTR; /* Set */
 
 	/* Set the DLC. */
-	CAN_TDTxR(canport, mailbox) &= 0xFFFFFFFF0;
+	CAN_TDTxR(canport, mailbox) &= 0xFFFFFFF0;
 	CAN_TDTxR(canport, mailbox) |= length & CAN_TDTxR_DLC_MASK;
 
 	/* Set the data. */

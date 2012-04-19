@@ -61,7 +61,10 @@ void spi_reset(u32 spi_peripheral)
 
 int spi_init_master(u32 spi, u32 br, u32 cpol, u32 cpha, u32 dff, u32 lsbfirst)
 {
-	u32 reg32 = 0;
+	u32 reg32 = SPI_CR1(spi);
+
+	/* Reset all bits omitting SPE, CRCEN and CRCNEXT bits. */
+	reg32 &= SPI_CR1_SPE | SPI_CR1_CRCEN | SPI_CR1_CRCNEXT;
 
 	reg32 |= SPI_CR1_MSTR;	/* Configure SPI as master. */
 

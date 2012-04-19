@@ -1,7 +1,7 @@
 /*
  * This file is part of the libopencm3 project.
  *
- * Copyright (C) 2009 Uwe Hermann <uwe@hermann-uwe.de>
+ * Copyright (C) 2010 Uwe Hermann <uwe@hermann-uwe.de>
  *
  * This library is free software: you can redistribute it and/or modify
  * it under the terms of the GNU Lesser General Public License as published by
@@ -17,16 +17,16 @@
  * along with this library.  If not, see <http://www.gnu.org/licenses/>.
  */
 
-/* TODO: Fix board name, chip name, and sizes. */
-/* Linker script for Olimex STM32-H103 (STM32F103RBT6, 128K flash, 20K RAM). */
+/* Linker script for Blueboard-LPC1768-H (LPC1768, 512K flash, 64K SRAM). */
 
 /* Define memory regions. */
 MEMORY
 {
-	rom (rx) : ORIGIN = 0x08000000, LENGTH = 256K
-	ram (rwx) : ORIGIN = 0x20000000, LENGTH = 64K
+  rom (rx)  : ORIGIN = 0x00000000, LENGTH = 512K
+  ram (rwx) : ORIGIN = 0x10000000, LENGTH =  32K
+  ram1 (rwx) : ORIGIN = 0x2007C000, LENGTH = 16K
+  ram2 (rwx) : ORIGIN = 0x20080000, LENGTH = 16K
 }
 
 /* Include the common ld script. */
-INCLUDE libopencm3_stm32f2.ld
-
+INCLUDE libopencm3_lpc17xx.ld

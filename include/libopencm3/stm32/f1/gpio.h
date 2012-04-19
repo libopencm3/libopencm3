@@ -701,6 +701,7 @@
 /* 27 reserved */
 
 /* SWJ_CFG[2:0]: Serial wire JTAG configuration */
+#define AFIO_MAPR_SWJ_MASK			(0x7 << 24)
 #define AFIO_MAPR_SWJ_CFG_FULL_SWJ		(0x0 << 24)
 #define AFIO_MAPR_SWJ_CFG_FULL_SWJ_NO_JNTRST	(0x1 << 24)
 #define AFIO_MAPR_SWJ_CFG_JTAG_OFF_SW_ON	(0x2 << 24)

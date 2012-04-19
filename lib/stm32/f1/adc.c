@@ -193,13 +193,13 @@ void adc_start_conversion_injected(u32 adc)
 	while (ADC_CR2(adc) & ADC_CR2_JSWSTART);
 }
 
-void adc_enable_external_trigger_regular(u32 adc, u8 trigger)
+void adc_enable_external_trigger_regular(u32 adc, u32 trigger)
 {
 	u32 reg32;
 
-	reg32 = (ADC_CR2(adc) & 0xfff1ffff); /* Clear bits [19:17]. */
+	reg32 = (ADC_CR2(adc) & ~(ADC_CR2_EXTSEL_MASK));
 	if (trigger < 8)
-		reg32 |= (trigger << ADC_CR2_EXTSEL_LSB);
+		reg32 |= (trigger);
 	ADC_CR2(adc) = reg32;
 	ADC_CR2(adc) |= ADC_CR2_EXTTRIG;
 }
@@ -209,13 +209,13 @@ void adc_disable_external_trigger_regular(u32 adc)
 	ADC_CR2(adc) &= ~ADC_CR2_EXTTRIG;
 }
 
-void adc_enable_external_trigger_injected(u32 adc, u8 trigger)
+void adc_enable_external_trigger_injected(u32 adc, u32 trigger)
 {
 	u32 reg32;
 
-	reg32 = (ADC_CR2(adc) & 0xffff8fff); /* Clear bits [12:14]. */
+	reg32 = (ADC_CR2(adc) & ~(ADC_CR2_JEXTSEL_MASK)); /* Clear bits [12:14]. */
 	if (trigger < 8)
-		reg32 |= (trigger << ADC_CR2_JEXTSEL_LSB);
+		reg32 |= (trigger);
 	ADC_CR2(adc) = reg32;
 	ADC_CR2(adc) |= ADC_CR2_JEXTTRIG;
 }

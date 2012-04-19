@@ -17,41 +17,9 @@
 ## along with this library.  If not, see <http://www.gnu.org/licenses/>.
 ##
 
-LIBNAME		= libopencm3_lm3s
+BINARY = usart_irq
 
-PREFIX		?= arm-none-eabi
-#PREFIX		?= arm-elf
-CC		= $(PREFIX)-gcc
-AR		= $(PREFIX)-ar
-CFLAGS		= -Os -g -Wall -Wextra -I../../include -fno-common \
-		  -mcpu=cortex-m3 -mthumb -Wstrict-prototypes \
-		  -ffunction-sections -fdata-sections -MD
-# ARFLAGS	= rcsv
-ARFLAGS		= rcs
-OBJS		= gpio.o vector.o
+LDSCRIPT = ../lisa-m.ld
 
-# VPATH += ../usb
+include ../../Makefile.include
 
-# Be silent per default, but 'make V=1' will show all compiler calls.
-ifneq ($(V),1)
-Q := @
-endif
-
-all: $(LIBNAME).a
-
-$(LIBNAME).a: $(OBJS)
-	@printf "  AR      $(subst $(shell pwd)/,,$(@))\n"
-	$(Q)$(AR) $(ARFLAGS) $@ $^
-
-%.o: %.c
-	@printf "  CC      $(subst $(shell pwd)/,,$(@))\n"
-	$(Q)$(CC) $(CFLAGS) -o $@ -c $<
-
-clean:
-	@printf "  CLEAN   lib/lpc13xx\n"
-	$(Q)rm -f *.o *.d
-	$(Q)rm -f $(LIBNAME).a
-
-.PHONY: clean
-
--include $(OBJS:.o=.d)

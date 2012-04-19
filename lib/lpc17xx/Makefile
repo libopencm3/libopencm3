@@ -17,13 +17,13 @@
 ## along with this library.  If not, see <http://www.gnu.org/licenses/>.
 ##
 
-LIBNAME		= libopencm3_lm3s
+LIBNAME		= libopencm3_lpc17xx
 
 PREFIX		?= arm-none-eabi
 #PREFIX		?= arm-elf
 CC		= $(PREFIX)-gcc
 AR		= $(PREFIX)-ar
-CFLAGS		= -Os -g -Wall -Wextra -I../../include -fno-common \
+CFLAGS		= -O0 -g -Wall -Wextra -I../../include -fno-common \
 		  -mcpu=cortex-m3 -mthumb -Wstrict-prototypes \
 		  -ffunction-sections -fdata-sections -MD
 # ARFLAGS	= rcsv
@@ -48,10 +48,11 @@ $(LIBNAME).a: $(OBJS)
 	$(Q)$(CC) $(CFLAGS) -o $@ -c $<
 
 clean:
-	@printf "  CLEAN   lib/lpc13xx\n"
+	@printf "  CLEAN   lib/lpc17xx\n"
 	$(Q)rm -f *.o *.d
 	$(Q)rm -f $(LIBNAME).a
 
 .PHONY: clean
 
 -include $(OBJS:.o=.d)
+

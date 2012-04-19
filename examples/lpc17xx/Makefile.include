@@ -1,0 +1,124 @@
+##
+## This file is part of the libopencm3 project.
+##
+## Copyright (C) 2009 Uwe Hermann <uwe@hermann-uwe.de>
+## Copyright (C) 2010 Piotr Esden-Tempski <piotr@esden.net>
+##
+## This library is free software: you can redistribute it and/or modify
+## it under the terms of the GNU Lesser General Public License as published by
+## the Free Software Foundation, either version 3 of the License, or
+## (at your option) any later version.
+##
+## This library is distributed in the hope that it will be useful,
+## but WITHOUT ANY WARRANTY; without even the implied warranty of
+## MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
+## GNU Lesser General Public License for more details.
+##
+## You should have received a copy of the GNU Lesser General Public License
+## along with this library.  If not, see <http://www.gnu.org/licenses/>.
+##
+
+PREFIX		?= arm-none-eabi
+#PREFIX		?= arm-elf
+CC		= $(PREFIX)-gcc
+LD		= $(PREFIX)-gcc
+OBJCOPY		= $(PREFIX)-objcopy
+OBJDUMP		= $(PREFIX)-objdump
+# Uncomment this line if you want to use the installed (not local) library.
+# TOOLCHAIN_DIR := $(shell dirname `which $(CC)`)/../$(PREFIX)
+TOOLCHAIN_DIR   = ../../../..
+CFLAGS		+= -O0 -g -Wall -Wextra -I$(TOOLCHAIN_DIR)/include -fno-common \
+		   -mcpu=cortex-m3 -mthumb -MD
+LDSCRIPT	?= $(BINARY).ld
+LDFLAGS         += -L$(TOOLCHAIN_DIR)/lib -L$(TOOLCHAIN_DIR)/lib/lpc17xx \
+		   -T$(LDSCRIPT) -nostartfiles -Wl,--gc-sections
+OBJS		+= $(BINARY).o
+
+OOCD		?= openocd
+OOCD_INTERFACE	?= flossjtag
+OOCD_BOARD	?= olimex_stm32_h103
+# FIXME
+
+# Be silent per default, but 'make V=1' will show all compiler calls.
+ifneq ($(V),1)
+Q := @
+NULL := 2>/dev/null
+else
+LDFLAGS += -Wl,--print-gc-sections
+endif
+
+.SUFFIXES: .elf .bin .hex .srec .list .images
+.SECONDEXPANSION:
+.SECONDARY:
+
+all: images
+
+images: $(BINARY).images
+flash: $(BINARY).flash
+
+%.images: %.bin %.hex %.srec %.list
+	@#echo "*** $* images generated ***"
+
+%.bin: %.elf
+	@#printf "  OBJCOPY $(*).bin\n"
+	$(Q)$(OBJCOPY) -Obinary $(*).elf $(*).bin
+
+%.hex: %.elf
+	@#printf "  OBJCOPY $(*).hex\n"
+	$(Q)$(OBJCOPY) -Oihex $(*).elf $(*).hex
+
+%.srec: %.elf
+	@#printf "  OBJCOPY $(*).srec\n"
+	$(Q)$(OBJCOPY) -Osrec $(*).elf $(*).srec
+
+%.list: %.elf
+	@#printf "  OBJDUMP $(*).list\n"
+	$(Q)$(OBJDUMP) -S $(*).elf > $(*).list
+
+%.elf: $(OBJS) $(LDSCRIPT) $(TOOLCHAIN_DIR)/lib/lpc17xx/libopencm3_lpc17xx.a
+	@#printf "  LD      $(subst $(shell pwd)/,,$(@))\n"
+	$(Q)$(LD) $(LDFLAGS) -o $(*).elf $(OBJS) -lopencm3_lpc17xx
+
+%.o: %.c Makefile
+	@#printf "  CC      $(subst $(shell pwd)/,,$(@))\n"
+	$(Q)$(CC) $(CFLAGS) -o $@ -c $<
+
+clean:
+	$(Q)rm -f *.o
+	$(Q)rm -f *.d
+	$(Q)rm -f *.elf
+	$(Q)rm -f *.bin
+	$(Q)rm -f *.hex
+	$(Q)rm -f *.srec
+	$(Q)rm -f *.list
+
+# FIXME: Replace STM32 stuff with proper LPC13XX OpenOCD support later.
+ifeq ($(OOCD_SERIAL),)
+%.flash: %.hex
+	@printf "  FLASH   $<\n"
+	@# IMPORTANT: Don't use "resume", only "reset" will work correctly!
+	$(Q)$(OOCD) -f interface/$(OOCD_INTERFACE).cfg \
+		    -f board/$(OOCD_BOARD).cfg \
+		    -c "init" -c "reset init" \
+		    -c "stm32x mass_erase 0" \
+		    -c "flash write_image $(*).hex" \
+		    -c "reset" \
+		    -c "shutdown" $(NULL)
+else
+%.flash: %.hex
+	@printf "  FLASH   $<\n"
+	@# IMPORTANT: Don't use "resume", only "reset" will work correctly!
+	$(Q)$(OOCD) -f interface/$(OOCD_INTERFACE).cfg \
+		    -f board/$(OOCD_BOARD).cfg \
+		    -c "ft2232_serial $(OOCD_SERIAL)" \
+		    -c "init" -c "reset init" \
+		    -c "stm32x mass_erase 0" \
+		    -c "flash write_image $(*).hex" \
+		    -c "reset" \
+		    -c "shutdown" $(NULL)
+endif
+
+.PHONY: images clean
+
+-include $(OBJS:.o=.d)
+
