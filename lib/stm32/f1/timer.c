@@ -118,8 +118,8 @@ void timer_clear_flag(u32 timer_peripheral, u32 flag)
 	TIM_SR(timer_peripheral) &= ~flag;
 }
 
-void timer_set_mode(u32 timer_peripheral, u8 clock_div,
-		    u8 alignment, u8 direction)
+void timer_set_mode(u32 timer_peripheral, u32 clock_div,
+		    u32 alignment, u32 direction)
 {
 	u32 cr1;
 
@@ -914,3 +914,128 @@ u32 timer_get_counter(u32 timer_peripheral)
 {
 	return TIM_CNT(timer_peripheral);
 }
+
+void timer_ic_set_filter(u32 timer, enum tim_ic_id ic, enum tim_ic_filter flt)
+{
+	switch (ic) {
+	case TIM_IC1:
+		TIM_CCMR1(timer) &= ~TIM_CCMR1_IC1F_MASK;
+		TIM_CCMR1(timer) |= flt << 4;
+		break;
+	case TIM_IC2:
+		TIM_CCMR1(timer) &= ~TIM_CCMR1_IC2F_MASK;
+		TIM_CCMR1(timer) |= flt << 12;
+		break;
+	case TIM_IC3:
+		TIM_CCMR2(timer) &= ~TIM_CCMR2_IC3F_MASK;
+		TIM_CCMR2(timer) |= flt << 4;
+		break;
+	case TIM_IC4:
+		TIM_CCMR2(timer) &= ~TIM_CCMR2_IC4F_MASK;
+		TIM_CCMR2(timer) |= flt << 12;
+		break;
+	}
+}
+
+void timer_ic_set_prescaler(u32 timer, enum tim_ic_id ic, enum tim_ic_psc psc)
+{
+	switch (ic) {
+	case TIM_IC1:
+		TIM_CCMR1(timer) &= ~TIM_CCMR1_IC1PSC_MASK;
+		TIM_CCMR1(timer) |= psc << 2;
+		break;
+	case TIM_IC2:
+		TIM_CCMR1(timer) &= ~TIM_CCMR1_IC2PSC_MASK;
+		TIM_CCMR1(timer) |= psc << 10;
+		break;
+	case TIM_IC3:
+		TIM_CCMR2(timer) &= ~TIM_CCMR2_IC3PSC_MASK;
+		TIM_CCMR2(timer) |= psc << 4;
+		break;
+	case TIM_IC4:
+		TIM_CCMR2(timer) &= ~TIM_CCMR2_IC4PSC_MASK;
+		TIM_CCMR2(timer) |= psc << 10;
+		break;
+	}
+}
+
+void timer_ic_set_input(u32 timer, enum tim_ic_id ic, enum tim_ic_input in)
+{
+	in &= 3;
+
+	if (((ic == TIM_IC2) || (ic == TIM_IC4)) &&
+	    ((in == TIM_IC_IN_TI1) || (in = TIM_IC_IN_TI2))) {
+		/* Input select bits are flipped for these combinations */
+		in ^= 3;
+	}
+	
+	switch (ic) {
+	case TIM_IC1:
+		TIM_CCMR1(timer) &= ~TIM_CCMR1_CC1S_MASK;
+		TIM_CCMR1(timer) |= in;
+		break;
+	case TIM_IC2:
+		TIM_CCMR1(timer) &= ~TIM_CCMR1_CC2S_MASK;
+		TIM_CCMR1(timer) |= in << 8;
+		break;
+	case TIM_IC3:
+		TIM_CCMR2(timer) &= ~TIM_CCMR2_CC3S_MASK;
+		TIM_CCMR2(timer) |= in;
+		break;
+	case TIM_IC4:
+		TIM_CCMR2(timer) &= ~TIM_CCMR2_CC4S_MASK;
+		TIM_CCMR2(timer) |= in << 8;
+		break;
+	}
+}
+
+void timer_ic_set_polarity(u32 timer, enum tim_ic_id ic, enum tim_ic_pol pol)
+{
+	if (pol)
+		TIM_CCER(timer) |= (0x2 << (ic * 4));
+	else
+		TIM_CCER(timer) &= ~(0x2 << (ic * 4));
+}
+
+void timer_ic_enable(u32 timer, enum tim_ic_id ic)
+{
+	TIM_CCER(timer) |= (0x1 << (ic * 4));
+}
+
+void timer_ic_disable(u32 timer, enum tim_ic_id ic)
+{
+	TIM_CCER(timer) &= ~(0x1 << (ic * 4));
+}
+
+void timer_slave_set_filter(u32 timer, enum tim_ic_filter flt)
+{
+	TIM_SMCR(timer) &= ~TIM_SMCR_ETF_MASK;
+	TIM_SMCR(timer) |= flt << 8;
+}
+
+void timer_slave_set_prescaler(u32 timer, enum tim_ic_psc psc)
+{
+	TIM_SMCR(timer) &= ~TIM_SMCR_ETPS_MASK;
+	TIM_SMCR(timer) |= psc << 12;
+}
+
+void timer_slave_set_polarity(u32 timer, enum tim_ic_pol pol)
+{
+	if (pol)
+		TIM_SMCR(timer) |= TIM_SMCR_ETP;
+	else
+		TIM_SMCR(timer) &= ~TIM_SMCR_ETP;
+}
+
+void timer_slave_set_mode(u32 timer, u8 mode)
+{
+	TIM_SMCR(timer) &= ~TIM_SMCR_SMS_MASK;
+	TIM_SMCR(timer) |= mode;
+}
+
+void timer_slave_set_trigger(u32 timer, u8 trigger)
+{
+	TIM_SMCR(timer) &= ~TIM_SMCR_TS_MASK;
+	TIM_SMCR(timer) |= trigger;
+}
+
