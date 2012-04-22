@@ -49,8 +49,8 @@ typedef struct
 #define __REV(x) __builtin_bswap32(x)
 
 /* stubs for efm32_cmu.c */
-uint32_t SystemCoreClockGet(void);
-uint32_t SystemHFClockGet(void);
+#define SystemCoreClockGet() 1
+#define SystemHFClockGet() 1
 
 uint32_t SystemLFRCOClockGet(void);
 uint32_t SystemLFXOClockGet(void);
