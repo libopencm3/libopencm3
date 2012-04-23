@@ -25,7 +25,7 @@ LIBDIR		= $(DESTDIR)/$(PREFIX)/lib
 SHAREDIR	= $(DESTDIR)/$(PREFIX)/share/libopencm3/scripts
 INSTALL		= install
 
-TARGETS = stm32/f1 stm32/f2 stm32/f4 lpc13xx lm3s
+TARGETS = stm32/f1 stm32/f2 stm32/f4 lpc13xx lpc17xx lm3s 
 
 # Be silent per default, but 'make V=1' will show all compiler calls.
 ifneq ($(V),1)
