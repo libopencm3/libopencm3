@@ -38,36 +38,43 @@ SECTIONS
 		. = ALIGN(4);
 		*(.rodata*)	/* Read-only data */
 		. = ALIGN(4);
+		_etext = .;
 	} >rom
 
-	/* exception index - required due to libgcc.a issuing /0 exceptions */
-	__exidx_start = .;
+	/*
+	* Another section used by C++ stuff, appears when using newlib with
+	* 64bit (long long) printf support
+	*/
+	.ARM.extab : {
+		*(.ARM.extab*)
+	} >rom
 	.ARM.exidx : {
-		   *(.ARM.exidx*)
-	} > rom
-	__exidx_end = .;
+		__exidx_start = .;
+		*(.ARM.exidx*)
+		__exidx_end = .;
+	} >rom
 
+	. = ORIGIN(ram);
 
-	_etext = .;
-
-	.data : {
+	.data : AT (__exidx_end) {
 		_data = .;
 		*(.data*)	/* Read-write initialized data */
 		. = ALIGN(4);
 		_edata = .;
-	} >ram AT >rom
+	} >ram
 
 	.bss : {
 		*(.bss*)	/* Read-write zero initialized data */
 		*(COMMON)
 		. = ALIGN(4);
 		_ebss = .;
-	} >ram
+	} >ram AT >rom
 
-	/* exception unwind data - required due to libgcc.a issuing /0 exceptions */
-	.ARM.extab : {
-		*(.ARM.extab*)
-	} >ram
+	/*
+	 * The .eh_frame section appears to be used for C++ exception handling.
+	 * You may need to fix this if you're using C++.
+	 */
+	/DISCARD/ : { *(.eh_frame) }
 
 	. = ALIGN(4);
 	end = .;
