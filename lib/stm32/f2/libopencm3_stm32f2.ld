@@ -55,7 +55,7 @@ SECTIONS
 
 	. = ORIGIN(ram);
 
-	.data : AT (__exidx_end) {
+	.data : {
 		_data = .;
 		*(.data*)	/* Read-write initialized data */
 		. = ALIGN(4);
