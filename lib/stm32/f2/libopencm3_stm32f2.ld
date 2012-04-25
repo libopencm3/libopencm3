@@ -38,6 +38,7 @@ SECTIONS
 		. = ALIGN(4);
 		*(.rodata*)	/* Read-only data */
 		. = ALIGN(4);
+		_etext = .;
 	} >rom
 
 	/*
@@ -55,19 +56,25 @@ SECTIONS
 
 	. = ORIGIN(ram);
 
-	.data : {
+	.data : AT (__exidx_end) {
 		_data = .;
 		*(.data*)	/* Read-write initialized data */
 		. = ALIGN(4);
 		_edata = .;
-	} >ram AT >rom
+	} >ram
 
 	.bss : {
 		*(.bss*)	/* Read-write zero initialized data */
 		*(COMMON)
 		. = ALIGN(4);
 		_ebss = .;
-	} >ram
+	} >ram AT >rom
+
+	/*
+	 * The .eh_frame section appears to be used for C++ exception handling.
+	 * You may need to fix this if you're using C++.
+	 */
+	/DISCARD/ : { *(.eh_frame) }
 
 	. = ALIGN(4);
 	end = .;
