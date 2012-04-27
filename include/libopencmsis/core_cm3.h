@@ -168,4 +168,8 @@ typedef struct
 #define GPIO_EVEN_IRQHandler gpio_even_isr
 #define RTC_IRQHandler rtc_isr
 
+/* for inttemp (i should really get a list and convert them all) */
+
+#define ADC0_IRQHandler adc0_isr
+
 #endif
