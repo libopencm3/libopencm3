@@ -96,7 +96,41 @@ typedef struct
 
 /* required for the blink example */
 
-#define SysTick_Config(x) 0
+/* if if (SysTick_Config(CMU_ClockFreqGet(cmuClock_CORE) / 1000)) while (1) ;
+ * configures the sys ticks to 1ms, then the argument to SysTick_Config
+ * describes how many cycles to wait between two systicks.
+ *
+ * the endless loop part looks like an "if it returns an error condition,
+ * rather loop here than continue"; every other solution would involve things
+ * that are dark magic to my understanding.
+ *
+ * implementation more or less copypasted from lib/stm32/systick.c, FIXME until
+ * the generic cm3 functionality is moved out from stm32 and can be used here
+ * easily (systick_set_reload, systick_interrupt_enable, systick_counter_enable
+ * and systick_set_clocksource).
+ * */
+#define SYS_TICK_BASE                   (SCS_BASE + 0x0010)
+#define MMIO32(addr)                    (*(volatile uint32_t *)(addr))
+#define STK_LOAD			MMIO32(SYS_TICK_BASE + 0x04)
+#define STK_CTRL			MMIO32(SYS_TICK_BASE + 0x00)
+#define STK_CTRL_TICKINT		(1 << 1)
+#define STK_CTRL_ENABLE			(1 << 0)
+
+#define STK_CTRL_CLKSOURCE_LSB		2
+#define STK_CTRL_CLKSOURCE_AHB		1
+static inline uint32_t SysTick_Config(uint32_t n_ticks)
+{
+	if (n_ticks & ~0x00FFFFFF) return 1;
+	STK_LOAD = n_ticks;
+
+	STK_CTRL |= (STK_CTRL_CLKSOURCE_AHB << STK_CTRL_CLKSOURCE_LSB);
+
+	STK_CTRL |= STK_CTRL_TICKINT;
+
+	STK_CTRL |= STK_CTRL_ENABLE;
+
+	return 0;
+}
 
 /* stubs for efm32tg stk trace.c */
 typedef struct
@@ -105,5 +139,10 @@ typedef struct
 	uint32_t TCR;
 } ITM_TypeDef;
 #define ITM ((ITM_TypeDef *) 0)
+
+/* blink.h expects the isr for systicks to be named SysTick_Handler. with this,
+ * its Systick_Handler function gets renamed to the weak symbol exported by
+ * vector.c */
+#define SysTick_Handler sys_tick_handler
 
 #endif
