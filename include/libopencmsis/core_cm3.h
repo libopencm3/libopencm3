@@ -1,6 +1,9 @@
 #ifndef OPENCMSIS_CORECM3_H
 #define OPENCMSIS_CORECM3_H
 
+/* needed in various places where we rather should include libopencm3 functionality */
+#define MMIO32(addr)                    (*(volatile uint32_t *)(addr))
+
 /* the original core_cm3.h is nonfree by arm; this provides libopencm3 variant of the symbols efm32lib needs of CMSIS. */
 #include <stdint.h>
 
@@ -62,9 +65,25 @@ typedef struct
 
 /* stubs for efm32_dma */
 
-#define NVIC_ClearPendingIRQ(irq) 1
-#define NVIC_EnableIRQ(irq) 1
-#define NVIC_DisableIRQ(irq) 1
+/* also used by the clock example. code taken from stm32's nvic.[hc], FIXME until
+ * the generic cm3 functionality is moved out from stm32 and can be used here
+ * easily (nvic_clear_pending_irq, nvic_enable_irq, nvic_disable_irq). */
+#define NVIC_BASE                       (SCS_BASE + 0x0100)
+#define NVIC_ISER(iser_id)		MMIO32(NVIC_BASE + 0x00 + (iser_id * 4))
+#define NVIC_ICER(icer_id)		MMIO32(NVIC_BASE + 0x80 + (icer_id * 4))
+#define NVIC_ICPR(icpr_id)		MMIO32(NVIC_BASE + 0x180 + (icpr_id * 4))
+static inline void NVIC_ClearPendingIRQ(uint8_t irqn)
+{
+	NVIC_ICPR(irqn / 32) = (1 << (irqn % 32));
+}
+static inline void NVIC_EnableIRQ(uint8_t irqn)
+{
+	NVIC_ISER(irqn / 32) = (1 << (irqn % 32));
+}
+static inline void NVIC_DisableIRQ(uint8_t irqn)
+{
+	NVIC_ICER(irqn / 32) = (1 << (irqn % 32));
+}
 
 /* stubs for efm32_int */
 
@@ -110,7 +129,6 @@ typedef struct
  * and systick_set_clocksource).
  * */
 #define SYS_TICK_BASE                   (SCS_BASE + 0x0010)
-#define MMIO32(addr)                    (*(volatile uint32_t *)(addr))
 #define STK_LOAD			MMIO32(SYS_TICK_BASE + 0x04)
 #define STK_CTRL			MMIO32(SYS_TICK_BASE + 0x00)
 #define STK_CTRL_TICKINT		(1 << 1)
@@ -144,5 +162,10 @@ typedef struct
  * its Systick_Handler function gets renamed to the weak symbol exported by
  * vector.c */
 #define SysTick_Handler sys_tick_handler
+
+/* likewise, clock.c defines GPIO_ODD_IRQHandler and GPIO_EVEN_IRQHandler */
+#define GPIO_ODD_IRQHandler gpio_odd_isr
+#define GPIO_EVEN_IRQHandler gpio_even_isr
+#define RTC_IRQHandler rtc_isr
 
 #endif
