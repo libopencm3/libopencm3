@@ -6,6 +6,8 @@
 
 /* needed by system_efm32.h:196, guessing */
 #define __INLINE inline
+/* new since emlib 3.0 */
+#define __STATIC_INLINE static inline
 
 /* needed around efm32tg840f32.h:229. comparing the efm32lib definitions to the
  * libopencm3 ones, "volatile" is all that's missing. */
@@ -48,20 +50,15 @@ typedef struct
 /* needed by efm32_aes.c. __builtin_bswap32 does the same thing as the rev instruction according to https://bugzilla.mozilla.org/show_bug.cgi?id=600106 */
 #define __REV(x) __builtin_bswap32(x)
 
-/* stubs for efm32_cmu.c */
-#define SystemCoreClockGet() 1
-#define SystemHFClockGet() 1
-
-uint32_t SystemLFRCOClockGet(void);
-uint32_t SystemLFXOClockGet(void);
-
 /* stubs for efm32_dbg.h */
 typedef struct
 {
 	uint32_t DHCSR;
+	uint32_t DEMCR; /* needed by efm32tg stk trace.c */
 } CoreDebug_TypeDef;
 #define CoreDebug ((CoreDebug_TypeDef *) 0)
 #define CoreDebug_DHCSR_C_DEBUGEN_Msk 0
+#define CoreDebug_DEMCR_TRCENA_Msk 0
 
 /* stubs for efm32_dma */
 
@@ -95,6 +92,18 @@ typedef struct
 #define MPU_RASR_B_Pos 0
 #define MPU_RASR_SRD_Pos 0
 #define MPU_RASR_SIZE_Pos 0
-#define MPU_RASR_ENA_Pos 0
+#define MPU_RASR_ENABLE_Pos 0
+
+/* required for the blink example */
+
+#define SysTick_Config(x) 0
+
+/* stubs for efm32tg stk trace.c */
+typedef struct
+{
+	uint32_t LAR;
+	uint32_t TCR;
+} ITM_TypeDef;
+#define ITM ((ITM_TypeDef *) 0)
 
 #endif
