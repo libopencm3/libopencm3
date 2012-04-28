@@ -127,10 +127,21 @@ typedef struct
  * the generic cm3 functionality is moved out from stm32 and can be used here
  * easily (systick_set_reload, systick_interrupt_enable, systick_counter_enable
  * and systick_set_clocksource).
+ *
+ * modified for CMSIS style array as the powertest example needs it.
  * */
 #define SYS_TICK_BASE                   (SCS_BASE + 0x0010)
-#define STK_LOAD			MMIO32(SYS_TICK_BASE + 0x04)
-#define STK_CTRL			MMIO32(SYS_TICK_BASE + 0x00)
+
+/* from d0002_efm32_cortex-m3_reference_manual.pdf section 4.4 */
+typedef struct
+{
+	uint32_t CTRL;
+	uint32_t LOAD;
+	uint32_t VAL;
+	uint32_t CALIB;
+} SysTick_TypeDef;
+#define SysTick ((SysTick_TypeDef *) SYS_TICK_BASE)
+
 #define STK_CTRL_TICKINT		(1 << 1)
 #define STK_CTRL_ENABLE			(1 << 0)
 
@@ -139,13 +150,13 @@ typedef struct
 static inline uint32_t SysTick_Config(uint32_t n_ticks)
 {
 	if (n_ticks & ~0x00FFFFFF) return 1;
-	STK_LOAD = n_ticks;
+	SysTick->LOAD = n_ticks;
 
-	STK_CTRL |= (STK_CTRL_CLKSOURCE_AHB << STK_CTRL_CLKSOURCE_LSB);
+	SysTick->CTRL |= (STK_CTRL_CLKSOURCE_AHB << STK_CTRL_CLKSOURCE_LSB);
 
-	STK_CTRL |= STK_CTRL_TICKINT;
+	SysTick->CTRL |= STK_CTRL_TICKINT;
 
-	STK_CTRL |= STK_CTRL_ENABLE;
+	SysTick->CTRL |= STK_CTRL_ENABLE;
 
 	return 0;
 }
@@ -171,5 +182,10 @@ typedef struct
 /* for inttemp (i should really get a list and convert them all) */
 
 #define ADC0_IRQHandler adc0_isr
+
+/* for the lightsense example */
+
+#define LESENSE_IRQHandler lesense_isr
+#define PCNT0_IRQHandler pcnt0_isr
 
 #endif
