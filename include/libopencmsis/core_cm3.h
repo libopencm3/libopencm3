@@ -1,3 +1,9 @@
+/* big fat FIXME: this should use a consistent structure, and reference
+ * functionality from libopencm3 instead of copypasting.
+ *
+ * particularly unimplemented features are FIXME'd extra
+ * */
+
 #ifndef OPENCMSIS_CORECM3_H
 #define OPENCMSIS_CORECM3_H
 
@@ -25,7 +31,7 @@
 #define SCB_SCR_SLEEPDEEP_Msk  (1 << 2)
 /* structure as in, for example,
  * DeviceSupport/EnergyMicro/EFM32/efm32tg840f32.h, data from
- * libopencm3/stm32/f1/scb.h. incomplete. */
+ * libopencm3/stm32/f1/scb.h. FIXME incomplete. */
 typedef struct
 {
 	__IO uint32_t CPUID;
@@ -59,6 +65,7 @@ typedef struct
 	uint32_t DHCSR;
 	uint32_t DEMCR; /* needed by efm32tg stk trace.c */
 } CoreDebug_TypeDef;
+/* FIXME let's just hope writes to flash are protected */
 #define CoreDebug ((CoreDebug_TypeDef *) 0)
 #define CoreDebug_DHCSR_C_DEBUGEN_Msk 0
 #define CoreDebug_DEMCR_TRCENA_Msk 0
@@ -85,12 +92,13 @@ static inline void NVIC_DisableIRQ(uint8_t irqn)
 	NVIC_ICER(irqn / 32) = (1 << (irqn % 32));
 }
 
-/* stubs for efm32_int */
+/* stubs for efm32_int. FIXME: how do they do that? nvic documentation in the
+ * efm32 core manual doesn't tell anything of a global on/off switch */
 
 #define __enable_irq() 1
 #define __disable_irq() 1
 
-/* stubs for efm32_mpu */
+/* stubs for efm32_mpu FIXME */
 
 #define SCB_SHCSR_MEMFAULTENA_Msk 0
 
@@ -101,6 +109,7 @@ typedef struct
 	uint32_t RBAR;
 	uint32_t RASR;
 } MPU_TypeDef;
+/* FIXME struct at NULL */
 #define MPU ((MPU_TypeDef *) 0)
 #define MPU_CTRL_ENABLE_Msk 0
 #define MPU_RASR_XN_Pos 0
@@ -167,6 +176,7 @@ typedef struct
 	uint32_t LAR;
 	uint32_t TCR;
 } ITM_TypeDef;
+/* FIXME struct at NULL */
 #define ITM ((ITM_TypeDef *) 0)
 
 /* blink.h expects the isr for systicks to be named SysTick_Handler. with this,
