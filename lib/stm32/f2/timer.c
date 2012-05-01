@@ -119,8 +119,8 @@ void timer_clear_flag(u32 timer_peripheral, u32 flag)
 	TIM_SR(timer_peripheral) &= ~flag;
 }
 
-void timer_set_mode(u32 timer_peripheral, u8 clock_div,
-		    u8 alignment, u8 direction)
+void timer_set_mode(u32 timer_peripheral, u32 clock_div,
+		    u32 alignment, u32 direction)
 {
 	u32 cr1;
 

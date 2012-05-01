@@ -252,14 +252,14 @@
 #define DMA_CCR_MSIZE_8BIT		(0x0 << 10)
 #define DMA_CCR_MSIZE_16BIT		(0x1 << 10)
 #define DMA_CCR_MSIZE_32BIT		(0x2 << 10)
-#define DMA_CCR_MSIZE_MASK		(0x2 << 10)
+#define DMA_CCR_MSIZE_MASK		(0x3 << 10)
 #define DMA_CCR_MSIZE_SHIFT		10
 
 /* PSIZE[9:8]: Peripheral size */
 #define DMA_CCR_PSIZE_8BIT		(0x0 << 8)
 #define DMA_CCR_PSIZE_16BIT		(0x1 << 8)
 #define DMA_CCR_PSIZE_32BIT		(0x2 << 8)
-#define DMA_CCR_PSIZE_MASK		(0x2 << 8)
+#define DMA_CCR_PSIZE_MASK		(0x3 << 8)
 #define DMA_CCR_PSIZE_SHIFT		8
 
 /* MINC: Memory increment mode */

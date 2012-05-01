@@ -533,8 +533,8 @@
 /* Note: CC2S bits are writable only when the channel is OFF (CC2E = 0 in
  * TIMx_CCER). */
 #define TIM_CCMR1_CC1S_OUT		(0x0 << 0)
-#define TIM_CCMR1_CC1S_IN_TI2		(0x1 << 0)
-#define TIM_CCMR1_CC1S_IN_TI1		(0x2 << 0)
+#define TIM_CCMR1_CC1S_IN_TI2		(0x2 << 0)
+#define TIM_CCMR1_CC1S_IN_TI1		(0x1 << 0)
 #define TIM_CCMR1_CC1S_IN_TRC		(0x3 << 0)
 #define TIM_CCMR1_CC1S_MASK		(0x3 << 0)
 
@@ -851,14 +851,66 @@ enum tim_oc_mode {
 	TIM_OCM_PWM2,
 };
 
+/* Input Capture channel designators */
+enum tim_ic_id {
+	TIM_IC1,
+	TIM_IC2,
+	TIM_IC3,
+	TIM_IC4,
+};
+
+/* Input Capture input filter */
+enum tim_ic_filter {
+	TIM_IC_OFF,
+	TIM_IC_CK_INT_N_2,
+	TIM_IC_CK_INT_N_4,
+	TIM_IC_CK_INT_N_8,
+	TIM_IC_DTF_DIV_2_N_6,
+	TIM_IC_DTF_DIV_2_N_8,
+	TIM_IC_DTF_DIV_4_N_6,
+	TIM_IC_DTF_DIV_4_N_8,
+	TIM_IC_DTF_DIV_8_N_6,
+	TIM_IC_DTF_DIV_8_N_8,
+	TIM_IC_DTF_DIV_16_N_5,
+	TIM_IC_DTF_DIV_16_N_6,
+	TIM_IC_DTF_DIV_16_N_8,
+	TIM_IC_DTF_DIV_32_N_5,
+	TIM_IC_DTF_DIV_32_N_6,
+	TIM_IC_DTF_DIV_32_N_8,
+};
+
+/* Input Capture input prescaler */
+enum tim_ic_psc {
+	TIM_IC_PSC_OFF,
+	TIM_IC_PSC_2,
+	TIM_IC_PSC_4,
+	TIM_IC_PSC_8,
+};
+
+/* Input Capture input prescaler */
+enum tim_ic_input {
+	TIM_IC_OUT = 0,
+	TIM_IC_IN_TI1 = 1,
+	TIM_IC_IN_TI2 = 2,
+	TIM_IC_IN_TRC = 3,
+	TIM_IC_IN_TI3 = 5,
+	TIM_IC_IN_TI4 = 6,
+};
+
+/* Input Capture input prescaler */
+enum tim_ic_pol {
+	TIM_IC_RISING,
+	TIM_IC_FALLING,
+};
+
 /* --- TIM functions ------------------------------------------------------- */
 void timer_reset(u32 timer_peripheral);
 void timer_enable_irq(u32 timer_peripheral, u32 irq);
 void timer_disable_irq(u32 timer_peripheral, u32 irq);
 bool timer_get_flag(u32 timer_peripheral, u32 flag);
 void timer_clear_flag(u32 timer_peripheral, u32 flag);
-void timer_set_mode(u32 timer_peripheral, u8 clock_div,
-		    u8 alignment, u8 direction);
+void timer_set_mode(u32 timer_peripheral, u32 clock_div,
+		    u32 alignment, u32 direction);
 void timer_set_clock_division(u32 timer_peripheral, u32 clock_div);
 void timer_enable_preload(u32 timer_peripheral);
 void timer_disable_preload(u32 timer_peripheral);
@@ -917,5 +969,18 @@ void timer_set_break_lock(u32 timer_peripheral, u32 lock);
 void timer_set_deadtime(u32 timer_peripheral, u32 deadtime);
 void timer_generate_event(u32 timer_peripheral, u32 event);
 u32 timer_get_counter(u32 timer_peripheral);
+
+void timer_ic_set_filter(u32 timer, enum tim_ic_id ic, enum tim_ic_filter flt);
+void timer_ic_set_prescaler(u32 timer, enum tim_ic_id ic, enum tim_ic_psc psc);
+void timer_ic_set_input(u32 timer, enum tim_ic_id ic, enum tim_ic_input in);
+void timer_ic_set_polarity(u32 timer, enum tim_ic_id ic, enum tim_ic_pol pol);
+void timer_ic_enable(u32 timer, enum tim_ic_id ic);
+void timer_ic_disable(u32 timer, enum tim_ic_id ic);
+
+void timer_slave_set_filter(u32 timer, enum tim_ic_filter flt);
+void timer_slave_set_prescaler(u32 timer, enum tim_ic_psc psc);
+void timer_slave_set_polarity(u32 timer, enum tim_ic_pol pol);
+void timer_slave_set_mode(u32 timer, u8 mode);
+void timer_slave_set_trigger(u32 timer, u8 trigger);
 
 #endif
