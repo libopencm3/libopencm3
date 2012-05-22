@@ -22,7 +22,7 @@
 #define LPC43XX_GPIO_H
 
 #include <libopencm3/cm3/common.h>
-#include <libopencm3/lpc17xx/memorymap.h>
+#include <libopencm3/lpc43xx/memorymap.h>
 
 /* --- Convenience macros -------------------------------------------------- */
 
