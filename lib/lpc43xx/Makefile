@@ -2,6 +2,7 @@
 ## This file is part of the libopencm3 project.
 ##
 ## Copyright (C) 2009 Uwe Hermann <uwe@hermann-uwe.de>
+## Copyright (C) 2012 Michael Ossmann <mike@ossmann.com>
 ##
 ## This library is free software: you can redistribute it and/or modify
 ## it under the terms of the GNU Lesser General Public License as published by
@@ -17,15 +18,16 @@
 ## along with this library.  If not, see <http://www.gnu.org/licenses/>.
 ##
 
-LIBNAME		= libopencm3_lpc17xx
+LIBNAME		= libopencm3_lpc43xx
 
 PREFIX		?= arm-none-eabi
 #PREFIX		?= arm-elf
 CC		= $(PREFIX)-gcc
 AR		= $(PREFIX)-ar
 CFLAGS		= -O0 -g -Wall -Wextra -I../../include -fno-common \
-		  -mcpu=cortex-m3 -mthumb -Wstrict-prototypes \
-		  -ffunction-sections -fdata-sections -MD
+		  -mcpu=cortex-m4 -mthumb -Wstrict-prototypes \
+		  -ffunction-sections -fdata-sections -MD \
+		  -mfloat-abi=hard -mfpu=fpv4-sp-d16
 # ARFLAGS	= rcsv
 ARFLAGS		= rcs
 OBJS		= gpio.o vector.o
