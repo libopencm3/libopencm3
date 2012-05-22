@@ -108,15 +108,15 @@
 #define GPIO7_PIN                       GPIO_PIN(GPIO7)
 
 /* GPIO port masked pin value register (GPIOn_MPIN) */
-#define GPIO_PIN(port)                  MMIO32(port + 0x180)
-#define GPIO0_PIN                       GPIO_PIN(GPIO0)
-#define GPIO1_PIN                       GPIO_PIN(GPIO1)
-#define GPIO2_PIN                       GPIO_PIN(GPIO2)
-#define GPIO3_PIN                       GPIO_PIN(GPIO3)
-#define GPIO4_PIN                       GPIO_PIN(GPIO4)
-#define GPIO5_PIN                       GPIO_PIN(GPIO5)
-#define GPIO6_PIN                       GPIO_PIN(GPIO6)
-#define GPIO7_PIN                       GPIO_PIN(GPIO7)
+#define GPIO_MPIN(port)                 MMIO32(port + 0x180)
+#define GPIO0_MPIN                      GPIO_MPIN(GPIO0)
+#define GPIO1_MPIN                      GPIO_MPIN(GPIO1)
+#define GPIO2_MPIN                      GPIO_MPIN(GPIO2)
+#define GPIO3_MPIN                      GPIO_MPIN(GPIO3)
+#define GPIO4_MPIN                      GPIO_MPIN(GPIO4)
+#define GPIO5_MPIN                      GPIO_MPIN(GPIO5)
+#define GPIO6_MPIN                      GPIO_MPIN(GPIO6)
+#define GPIO7_MPIN                      GPIO_MPIN(GPIO7)
 
 /* GPIO port output set register (GPIOn_SET) */
 #define GPIO_SET(port)                  MMIO32(port + 0x200)
