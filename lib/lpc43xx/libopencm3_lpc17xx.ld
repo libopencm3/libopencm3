@@ -1,8 +1,8 @@
-
 /*
  * This file is part of the libopencm3 project.
  *
  * Copyright (C) 2009 Uwe Hermann <uwe@hermann-uwe.de>
+ * Copyright (C) 2012 Michael Ossmann <mike@ossmann.com>
  *
  * This library is free software: you can redistribute it and/or modify
  * it under the terms of the GNU Lesser General Public License as published by
@@ -18,7 +18,7 @@
  * along with this library.  If not, see <http://www.gnu.org/licenses/>.
  */
 
-/* Generic linker script for LPC13XX targets using libopencm3. */
+/* Generic linker script for LPC43XX targets using libopencm3. */
 
 /* Memory regions must be defined in the ld script which includes this one. */
 
@@ -34,25 +34,43 @@ SECTIONS
 	. = ORIGIN(rom);
 
 	.text : {
+		. = ALIGN(0x400);
 		*(.vectors)	/* Vector table */
 		*(.text*)	/* Program code */
+		. = ALIGN(4);
 		*(.rodata*)	/* Read-only data */
-		_etext = .;
+		. = ALIGN(4);
 	} >rom
+
+	/* exception index - required due to libgcc.a issuing /0 exceptions */
+	__exidx_start = .;
+	.ARM.exidx : {
+		*(.ARM.exidx*)
+	} > rom
+	__exidx_end = .;
+
+	_etext = .;
 
 	. = ORIGIN(ram);
 
 	.data : {
 		_data = .;
 		*(.data*)	/* Read-write initialized data */
+		. = ALIGN(4);
 		_edata = .;
 	} >ram AT >rom
 
 	.bss : {
 		*(.bss*)	/* Read-write zero initialized data */
 		*(COMMON)
+		. = ALIGN(4);
 		_ebss = .;
-	} >ram AT >rom
+	} >ram
+
+	/* exception unwind data - required due to libgcc.a issuing /0 exceptions */
+	.ARM.extab : {
+		*(.ARM.extab*)
+	} >ram
 
 	/*
 	 * The .eh_frame section appears to be used for C++ exception handling.
@@ -67,7 +85,8 @@ SECTIONS
 	/DISCARD/ : { *(.ARM.exidx) }
 
 	end = .;
+
+	/* Leave room above stack for IAP to run. */
+	__StackTop = ORIGIN(ram) + LENGTH(ram) - 32;
+	PROVIDE(_stack = __StackTop);
 }
-
-PROVIDE(_stack = ORIGIN(ram) + LENGTH(ram));
-
