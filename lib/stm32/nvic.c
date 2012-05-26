@@ -57,7 +57,7 @@ u8 nvic_get_irq_enabled(u8 irqn)
 
 void nvic_set_priority(u8 irqn, u8 priority)
 {
-	NVIC_IPR(irqn / 4) |= (priority << ((irqn % 4) * 8));
+	NVIC_IPR(irqn) = priority;
 }
 
 void nvic_generate_software_interrupt(u8 irqn)
