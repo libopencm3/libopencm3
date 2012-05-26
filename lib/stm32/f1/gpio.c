@@ -147,5 +147,8 @@ void gpio_port_config_lock(u32 gpioport, u16 gpios)
 	reg32 = GPIO_LCKR(gpioport);			/* Read LCKK. */
 	reg32 = GPIO_LCKR(gpioport);			/* Read LCKK again. */
 
+	/* Tell the compiler the variable is actually used. It will get optimized out anyways. */
+	reg32 = reg32; 
+
 	/* If (reg32 & GPIO_LCKK) is true, the lock is now active. */
 }
