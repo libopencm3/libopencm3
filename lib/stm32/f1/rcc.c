@@ -1,8 +1,34 @@
+/** @file
+
+@ingroup STM32F1xx
+
+@brief <b>libopencm3 STM32F1xx Reset and Clock Control</b>
+
+@version 1.0.0
+
+@author @htmlonly &copy; @endhtmlonly 2009 Federico Ruiz-Ugalde \<memeruiz at gmail dot com\>
+@author @htmlonly &copy; @endhtmlonly 2009 Uwe Hermann <uwe@hermann-uwe.de>
+@author @htmlonly &copy; @endhtmlonly 2010 Thomas Otto <tommi@viadmin.org>
+
+@date 18 May 2012
+
+This library supports the Reset and Clock
+Control System in the STM32F1xx series of ARM Cortex Microcontrollers
+by ST Microelectronics.
+
+Clock settings and resets for many peripherals are given here rather than in the
+peripheral library.
+
+The library also provides a number of common configurations for the processor
+system clock. Not all possible configurations are given here.
+
+@bugs None known
+
+LGPL License Terms @ref lgpl_license
+ */
 /*
  * This file is part of the libopencm3 project.
  *
- * Copyright (C) 2009 Federico Ruiz-Ugalde <memeruiz at gmail dot com>
- * Copyright (C) 2009 Uwe Hermann <uwe@hermann-uwe.de>
  * Copyright (C) 2010 Thomas Otto <tommi@viadmin.org>
  *
  * This library is free software: you can redistribute it and/or modify
@@ -19,12 +45,22 @@
  * along with this library.  If not, see <http://www.gnu.org/licenses/>.
  */
 
+
 #include <libopencm3/stm32/f1/rcc.h>
 #include <libopencm3/stm32/f1/flash.h>
 
-/* Set the default ppre1 and ppre2 peripheral clock frequencies after reset. */
+/** Default ppre1 peripheral clock frequency after reset. */
 u32 rcc_ppre1_frequency = 8000000;
+/** Default ppre2 peripheral clock frequency after reset. */
 u32 rcc_ppre2_frequency = 8000000;
+
+//-----------------------------------------------------------------------------
+/** @brief RCC Clear the Oscillator Ready Interrupt
+
+Clear the interrupt flag that was set when a clock oscillator became ready to use.
+
+@param[in] enum ::osc_t. Oscillator ID
+*/
 
 void rcc_osc_ready_int_clear(osc_t osc)
 {
@@ -229,6 +265,20 @@ void rcc_osc_bypass_disable(osc_t osc)
 		break;
 	}
 }
+
+//-----------------------------------------------------------------------------
+/** @brief RCC Enable a peripheral clock.
+
+Enable the clock on a particular peripheral. Several peripherals could be
+enabled simultaneously if they are controlled by the same register.
+
+@param[in] Unsigned int32 *reg. Pointer to a Clock Enable Register
+			 (either RCC_AHBENR, RCC_APB1RENR or RCC_APB2RENR)
+@param[in] Unsigned int32 en. OR of all enables to be set
+@li If register is RCC_AHBER, from @ref rcc_ahbenr_en
+@li If register is RCC_APB1RENR, from @ref rcc_apb1enr_en
+@li If register is RCC_APB2RENR, from @ref rcc_apb2enr_en
+*/
 
 void rcc_peripheral_enable_clock(volatile u32 *reg, u32 en)
 {
