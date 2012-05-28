@@ -29,48 +29,48 @@
  * Chip configuration register 32 kHz oscillator output and BOD control
  * register
  */
-#define CREG0                           (CREG_BASE + 0x004)
+#define CREG0                           MMIO32(CREG_BASE + 0x004)
 
 /* ARM Cortex-M4 memory mapping */
-#define M4MEMMAP                        (CREG_BASE + 0x100)
+#define M4MEMMAP                        MMIO32(CREG_BASE + 0x100)
 
 /* Chip configuration register 1 */
-#define CREG1                           (CREG_BASE + 0x108)
+#define CREG1                           MMIO32(CREG_BASE + 0x108)
 
 /* Chip configuration register 2 */
-#define CREG2                           (CREG_BASE + 0x10C)
+#define CREG2                           MMIO32(CREG_BASE + 0x10C)
 
 /* Chip configuration register 3 */
-#define CREG3                           (CREG_BASE + 0x110)
+#define CREG3                           MMIO32(CREG_BASE + 0x110)
 
 /* Chip configuration register 4 */
-#define CREG4                           (CREG_BASE + 0x114)
+#define CREG4                           MMIO32(CREG_BASE + 0x114)
 
 /* Chip configuration register 5 */
-#define CREG5                           (CREG_BASE + 0x118)
+#define CREG5                           MMIO32(CREG_BASE + 0x118)
 
 /* DMA muxing control */
-#define DMAMUX                          (CREG_BASE + 0x11C)
+#define DMAMUX                          MMIO32(CREG_BASE + 0x11C)
 
 /* ETB RAM configuration */
-#define ETBCFG                          (CREG_BASE + 0x128)
+#define ETBCFG                          MMIO32(CREG_BASE + 0x128)
 
 /*
  * Chip configuration register 6. Controls multiple functions: Ethernet
  * interface, SCT output, I2S0/1 inputs, EMC clock.
  */
-#define CREG6                           (CREG_BASE + 0x12C)
+#define CREG6                           MMIO32(CREG_BASE + 0x12C)
 
 /* Cortex-M4 TXEV event clear */
-#define M4TXEVENT                       (CREG_BASE + 0x130)
+#define M4TXEVENT                       MMIO32(CREG_BASE + 0x130)
 
 /* Part ID */
-#define CHIPID                          (CREG_BASE + 0x200)
+#define CHIPID                          MMIO32(CREG_BASE + 0x200)
 
 /* Cortex-M0 TXEV event clear */
-#define M0TXEVENT                       (CREG_BASE + 0x400)
+#define M0TXEVENT                       MMIO32(CREG_BASE + 0x400)
 
 /* ARM Cortex-M0 memory mapping */
-#define M0APPMEMMAP                     (CREG_BASE + 0x404)
+#define M0APPMEMMAP                     MMIO32(CREG_BASE + 0x404)
 
 #endif
