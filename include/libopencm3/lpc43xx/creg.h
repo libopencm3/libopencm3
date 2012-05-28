@@ -57,7 +57,7 @@
 
 /*
  * Chip configuration register 6. Controls multiple functions: Ethernet
- * interface, SCT output, I2S0/1 inputs, EMC clock. 
+ * interface, SCT output, I2S0/1 inputs, EMC clock.
  */
 #define CREG6                           (CREG_BASE + 0x12C)
 
