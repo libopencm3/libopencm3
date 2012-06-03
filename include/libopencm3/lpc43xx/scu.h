@@ -312,6 +312,80 @@
 /* Pin interrupt select register for pin interrupts 4 to 7 */
 #define SCU_PINTSEL1                    MMIO32(SCU_BASE + 0xE04)
 
+/**************************/
+/* SCU I2C0 Configuration */
+/**************************/
+/* Select input glitch filter time constant for the SCL pin.
+    0 = 50 ns glitch filter.
+    1 = 3ns glitch filter.
+ */
+#define SCU_SCL_EFP (BIT0)
+
+/* BIT1 Reserved. Always write a 0 to this bit. */
+
+/* Select I2C mode for the SCL pin. 
+    0 = Standard/Fast mode transmit.
+    1 = Fast-mode Plus transmit.
+*/
+#define SCU_SCL_EHD (BIT2)
+
+/* Enable the input receiver for the SCL pin.
+Always write a 1 to this bit when using the
+I2C0.
+    0 = Disabled.
+    1 = Enabled.
+*/
+#define SCU_SCL_EZI_EN (BIT3)
+
+/* BIT4-6 Reserved. */
+
+/* Enable or disable input glitch filter for the
+SCL pin. The filter time constant is
+determined by bit EFP.
+    0 = Enable input filter.
+    1 = Disable input filter.
+*/
+#define SCU_SCL_ZIF_DIS (BIT7)
+
+/* Select input glitch filter time constant for the SDA pin.
+    0 = 50 ns glitch filter.
+    1 = 3ns glitch filter.
+ */
+#define SCU_SDA_EFP (BIT8)
+
+/* BIT9 Reserved. Always write a 0 to this bit. */
+
+/* Select I2C mode for the SDA pin. 
+    0 = Standard/Fast mode transmit.
+    1 = Fast-mode Plus transmit.
+*/
+#define SCU_SDA_EHD (BIT10)
+
+/* Enable the input receiver for the SDA pin.
+Always write a 1 to this bit when using the
+I2C0.
+    0 = Disabled.
+    1 = Enabled.
+*/
+#define SCU_SDA_EZI_EN (BIT11)
+
+/* BIT 12-14 - Reserved */
+
+/* Enable or disable input glitch filter for the
+SDA pin. The filter time constant is
+determined by bit SDA_EFP.
+    0 = Enable input filter.
+    1 = Disable input filter.
+*/
+#define SCU_SDA_ZIF_DIS (BIT15)
+
+/* Standard mode for I2C SCL/SDA Standard/Fast mode */
+#define SCU_I2C0_NOMINAL  (SCU_SCL_EZI_EN | SCU_SDA_EZI_EN)
+
+/* Standard mode for I2C SCL/SDA Fast-mode Plus transmit */
+#define SCU_I2C0_FAST  (SCU_SCL_EFP | SCU_SCL_EHD | SCU_SCL_EZI_EN | SCU_SCL_ZIF_DIS \
+                        SCU_SDA_EFP | SCU_SDA_EHD | SCU_SDA_EZI_EN)
+
 /* 
 SCU PIN Normal Drive:
 The pin configuration registers for normal-drive pins control the following pins:

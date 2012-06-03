@@ -37,6 +37,9 @@ void gpio_setup(void)
     scu_pinmux(SCU_PINMUX_BOOT2, SCU_GPIO_FAST);
     scu_pinmux(SCU_PINMUX_BOOT3, SCU_GPIO_FAST);
 
+    /* Configure SCU I2C0 Peripheral (to be moved later in I2C driver) */
+    SCU_SFSI2C0 = SCU_I2C0_NOMINAL;
+
     /* Configure all GPIO as Input (safe state) */
     GPIO0_DIR = 0;
     GPIO1_DIR = 0;
