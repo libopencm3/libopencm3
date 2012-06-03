@@ -23,6 +23,11 @@
 #include <libopencm3/lpc43xx/cgu.h>
 #include <libopencm3/lpc43xx/i2c.h>
 
+void gpio_setup(void)
+{
+	GPIO2_DIR |= (1 << 1); /* Configure GPIO2[1] (P4_1) as output. */
+}
+
 //FIXME generalize and move to drivers
 
 #define SCU_SFSI2C0_SCL_EFP (1 << 1)  /* 3 ns glitch filter */
@@ -75,12 +80,13 @@ void i2c0_init()
 	//FIXME assuming we're on IRC at 96 MHz
 
 	/* 400 kHz I2C */
-	I2C0_SCLH = 120;
-	I2C0_SCLL = 120;
+	//I2C0_SCLH = 120;
+	//I2C0_SCLL = 120;
 
 	/* 100 kHz I2C */
-	//I2C0_SCLH = 480;
-	//I2C0_SCLL = 480;
+	I2C0_SCLH = 480;
+	I2C0_SCLL = 480;
+	//FIXME not sure why this appears to run at about 290 kHz
 
 	/* clear the control bits */
 	I2C0_CONCLR = (I2C_CONCLR_AAC | I2C_CONCLR_SIC
@@ -90,13 +96,93 @@ void i2c0_init()
 	I2C0_CONSET = I2C_CONSET_I2EN;
 }
 
+/* transmit start bit */
+void i2c0_tx_start()
+{
+	I2C0_CONCLR = I2C_CONCLR_SIC;
+	I2C0_CONSET = I2C_CONSET_STA;
+	while (!(I2C0_CONSET & I2C_CONSET_SI));
+	I2C0_CONCLR = I2C_CONCLR_STAC;
+}
+
+/* transmit data byte */
+void i2c0_tx_byte(u8 byte)
+{
+	if (I2C0_CONSET & I2C_CONSET_STA)
+		I2C0_CONCLR = I2C_CONCLR_STAC;
+	I2C0_DAT = byte;
+	I2C0_CONCLR = I2C_CONCLR_SIC;
+	while (!(I2C0_CONSET & I2C_CONSET_SI));
+}
+
+/* receive data byte */
+u8 i2c0_rx_byte()
+{
+	if (I2C0_CONSET & I2C_CONSET_STA)
+		I2C0_CONCLR = I2C_CONCLR_STAC;
+	I2C0_CONCLR = I2C_CONCLR_SIC;
+	while (!(I2C0_CONSET & I2C_CONSET_SI));
+	return I2C0_DAT;
+}
+
+/* transmit stop bit */
+void i2c0_stop()
+{
+	if (I2C0_CONSET & I2C_CONSET_STA)
+		I2C0_CONCLR = I2C_CONCLR_STAC;
+	I2C0_CONSET = I2C_CONSET_STO;
+	I2C0_CONCLR = I2C_CONCLR_SIC;
+}
+
+#define SI5351C_I2C_ADDR (0x60 << 1)
+#define I2C_WRITE        0
+#define I2C_READ         1
+
+/* write to single register */
+void si5351c_write_reg(uint8_t reg, uint8_t val)
+{
+	i2c0_tx_start();
+	i2c0_tx_byte(SI5351C_I2C_ADDR | I2C_WRITE);
+	i2c0_tx_byte(reg);
+	i2c0_tx_byte(val);
+	i2c0_stop();
+}
+
+/* read single register */
+uint8_t si5351c_read_reg(uint8_t reg)
+{
+	uint8_t val;
+
+	/* set register address with write */
+	i2c0_tx_start();
+	i2c0_tx_byte(SI5351C_I2C_ADDR | I2C_WRITE);
+	i2c0_tx_byte(reg);
+
+	/* read the value */
+	i2c0_tx_start();
+	i2c0_tx_byte(SI5351C_I2C_ADDR | I2C_READ);
+	val = i2c0_rx_byte();
+	i2c0_stop();
+
+	return val;
+}
+
 int main(void)
 {
 	int i;
 
+	gpio_setup();
 	i2c0_init();
 
-	//TODO I2C tx/rx
+	while (1) {
+		if (si5351c_read_reg(0) == 0x10)
+			gpio_set(GPIO2, GPIOPIN1); /* LED on */
+		else
+			gpio_clear(GPIO2, GPIOPIN1); /* LED off */
+
+		for (i = 0; i < 1000; i++)    /* Wait a bit. */
+			__asm__("nop");
+	}
 
 	return 0;
 }
