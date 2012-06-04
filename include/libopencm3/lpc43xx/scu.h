@@ -2,6 +2,7 @@
  * This file is part of the libopencm3 project.
  *
  * Copyright (C) 2012 Michael Ossmann <mike@ossmann.com>
+ * Copyright (C) 2012 Benjamin Vernoux <titanmkd@gmail.com>
  *
  * This library is free software: you can redistribute it and/or modify
  * it under the terms of the GNU Lesser General Public License as published by
@@ -299,10 +300,8 @@
 /* Analog function select register */
 #define SCU_ENAIO2                      MMIO32(SCU_BASE + 0xC90)
 
-
 /* EMC clock delay register */
 #define SCU_EMCDELAYCLK                 MMIO32(SCU_BASE + 0xD00)
-
 
 /* Pin interrupt select registers */
 
@@ -315,68 +314,76 @@
 /**************************/
 /* SCU I2C0 Configuration */
 /**************************/
-/* Select input glitch filter time constant for the SCL pin.
-    0 = 50 ns glitch filter.
-    1 = 3ns glitch filter.
+/* 
+ * Select input glitch filter time constant for the SCL pin.
+ *  0 = 50 ns glitch filter.
+ *  1 = 3ns glitch filter.
  */
 #define SCU_SCL_EFP (BIT0)
 
 /* BIT1 Reserved. Always write a 0 to this bit. */
 
-/* Select I2C mode for the SCL pin. 
-    0 = Standard/Fast mode transmit.
-    1 = Fast-mode Plus transmit.
-*/
+/*
+ * Select I2C mode for the SCL pin. 
+ *  0 = Standard/Fast mode transmit.
+ *  1 = Fast-mode Plus transmit.
+ */
 #define SCU_SCL_EHD (BIT2)
 
-/* Enable the input receiver for the SCL pin.
-Always write a 1 to this bit when using the
-I2C0.
-    0 = Disabled.
-    1 = Enabled.
-*/
+/*
+ * Enable the input receiver for the SCL pin.
+ * Always write a 1 to this bit when using the
+ * I2C0.
+ *  0 = Disabled.
+ *  1 = Enabled.
+ */
 #define SCU_SCL_EZI_EN (BIT3)
 
 /* BIT4-6 Reserved. */
 
-/* Enable or disable input glitch filter for the
-SCL pin. The filter time constant is
-determined by bit EFP.
-    0 = Enable input filter.
-    1 = Disable input filter.
-*/
+/* 
+ * Enable or disable input glitch filter for the
+ * SCL pin. The filter time constant is
+ * determined by bit EFP.
+ *  0 = Enable input filter.
+ *  1 = Disable input filter.
+ */
 #define SCU_SCL_ZIF_DIS (BIT7)
 
-/* Select input glitch filter time constant for the SDA pin.
-    0 = 50 ns glitch filter.
-    1 = 3ns glitch filter.
+/*
+ * Select input glitch filter time constant for the SDA pin.
+ *  0 = 50 ns glitch filter.
+ *  1 = 3ns glitch filter.
  */
 #define SCU_SDA_EFP (BIT8)
 
 /* BIT9 Reserved. Always write a 0 to this bit. */
 
-/* Select I2C mode for the SDA pin. 
-    0 = Standard/Fast mode transmit.
-    1 = Fast-mode Plus transmit.
-*/
+/* 
+ * Select I2C mode for the SDA pin. 
+ *  0 = Standard/Fast mode transmit.
+ *  1 = Fast-mode Plus transmit.
+ */
 #define SCU_SDA_EHD (BIT10)
 
-/* Enable the input receiver for the SDA pin.
-Always write a 1 to this bit when using the
-I2C0.
-    0 = Disabled.
-    1 = Enabled.
-*/
+/*
+ * Enable the input receiver for the SDA pin.
+ * Always write a 1 to this bit when using the
+ * I2C0.
+ *  0 = Disabled.
+ *  1 = Enabled.
+ */
 #define SCU_SDA_EZI_EN (BIT11)
 
 /* BIT 12-14 - Reserved */
 
-/* Enable or disable input glitch filter for the
-SDA pin. The filter time constant is
-determined by bit SDA_EFP.
-    0 = Enable input filter.
-    1 = Disable input filter.
-*/
+/*
+ * Enable or disable input glitch filter for the
+ * SDA pin. The filter time constant is
+ * determined by bit SDA_EFP.
+ *  0 = Enable input filter.
+ *   1 = Disable input filter.
+ */
 #define SCU_SDA_ZIF_DIS (BIT15)
 
 /* Standard mode for I2C SCL/SDA Standard/Fast mode */
@@ -387,35 +394,35 @@ determined by bit SDA_EFP.
                         SCU_SDA_EFP | SCU_SDA_EHD | SCU_SDA_EZI_EN)
 
 /* 
-SCU PIN Normal Drive:
-The pin configuration registers for normal-drive pins control the following pins:
-- P0_0 and P0_1
-- P1_0 to P1_16 and P1_18 to P1_20
-- P2_0 to P2_2 and P2_6 to P2_13
-- P3_0 to P3_2 and P3_4 to P3_8
-- P4_0 to P4_10
-- P5_0 to P5_7
-- P6_0 to P6_12
-- P7_0 to P7_7
-- P8_3 to P8_8
-- P9_0 to P9_6
-- PA_0 and PA_4
-- PB_0 to PB_6
-- PC_0 to PC_14
-- PE_0 to PE_15
-- PF_0 to PF_11
-
-Pin configuration registers for High-Drive pins.
-The pin configuration registers for high-drive pins control the following pins:
-• P1_17
-• P2_3 to P2_5
-• P8_0 to P8_2
-• PA_1 to PA_3
-
-Pin configuration registers for High-Speed pins.
-This register controls the following pins: 
-P3_3 and pins CLK0 to CLK3.
-*/
+ * SCU PIN Normal Drive:
+ * The pin configuration registers for normal-drive pins control the following pins:
+ *  - P0_0 and P0_1
+ *  - P1_0 to P1_16 and P1_18 to P1_20
+ *  - P2_0 to P2_2 and P2_6 to P2_13
+ *  - P3_0 to P3_2 and P3_4 to P3_8
+ *  - P4_0 to P4_10
+ *  - P5_0 to P5_7
+ *  - P6_0 to P6_12
+ *  - P7_0 to P7_7
+ *  - P8_3 to P8_8
+ *  - P9_0 to P9_6
+ *  - PA_0 and PA_4
+ *  - PB_0 to PB_6
+ *  - PC_0 to PC_14
+ *  - PE_0 to PE_15
+ *  - PF_0 to PF_11
+ * 
+ * Pin configuration registers for High-Drive pins.
+ * The pin configuration registers for high-drive pins control the following pins:
+ *  - P1_17
+ *  - P2_3 to P2_5
+ *  - P8_0 to P8_2
+ *  - PA_1 to PA_3
+ * 
+ * Pin configuration registers for High-Speed pins.
+ * This register controls the following pins: 
+ *  - P3_3 and pins CLK0 to CLK3.
+ */
 typedef enum {
     /* Group Port 0 */
 	P0_0 = (PIN_GROUP0+PIN0),
@@ -643,12 +650,14 @@ typedef enum {
 
 } scu_grp_pin_t;
 
-/******************************************************************/
-/* Pin Configuration to be used for scu_pinmux() parameter scu_conf
- For normal-drive pins, high-drive pins, high-speed pins */
-/******************************************************************/
-/* Function BIT0 to 2.
-Common to normal-drive pins, high-drive pins, high-speed pins. */
+/* 
+ * Pin Configuration to be used for scu_pinmux() parameter scu_conf
+ * For normal-drive pins, high-drive pins, high-speed pins 
+ */
+/* 
+ * Function BIT0 to 2.
+ * Common to normal-drive pins, high-drive pins, high-speed pins. 
+ */
 #define SCU_CONF_FUNCTION0  (0x0)
 #define SCU_CONF_FUNCTION1  (0x1)
 #define SCU_CONF_FUNCTION2  (0x2)
@@ -658,34 +667,46 @@ Common to normal-drive pins, high-drive pins, high-speed pins. */
 #define SCU_CONF_FUNCTION6  (0x6)
 #define SCU_CONF_FUNCTION7  (0x7)
 
-/* Enable pull-down resistor at pad
-By default=0 Disable pull-down.
-Available to normal-drive pins, high-drive pins, high-speed pins */
+/* 
+ * Enable pull-down resistor at pad
+ * By default=0 Disable pull-down.
+ * Available to normal-drive pins, high-drive pins, high-speed pins 
+ */
 #define SCU_CONF_EPD_EN_PULLDOWN    (BIT3)
 
-/* Disable pull-up resistor at pad.
-By default=0 the pull-up resistor is enabled at reset. 
-Available to normal-drive pins, high-drive pins, high-speed pins */
+/* 
+ * Disable pull-up resistor at pad.
+ * By default=0 the pull-up resistor is enabled at reset. 
+ * Available to normal-drive pins, high-drive pins, high-speed pins
+ */
 #define SCU_CONF_EPUN_DIS_PULLUP   (BIT4)
 
-/* Select Slew Rate.
-By Default=0 Slow.
-Available to normal-drive pins and high-speed pins, reserved for high-drive pins. */
+/* 
+ * Select Slew Rate.
+ * By Default=0 Slow.
+ * Available to normal-drive pins and high-speed pins, reserved for high-drive pins.
+ */
 #define SCU_CONF_EHS_FAST          (BIT5)
 
-/* Input buffer enable.
-By Default=0 Disable Input Buffer.
-The input buffer is disabled by default at reset and must be enabled 
-for receiving(in normal/highspeed-drive) or to transfer data from the I/O buffer to the pad(in high-drive pins). 
-Available to normal-drive pins, high-drive pins, high-speed pins */
+/*
+ * Input buffer enable.
+ * By Default=0 Disable Input Buffer.
+ * The input buffer is disabled by default at reset and must be enabled.
+ * for receiving(in normal/highspeed-drive) or to transfer data from the I/O buffer to the pad(in high-drive pins). 
+ * Available to normal-drive pins, high-drive pins, high-speed pins.
+ */
 #define SCU_CONF_EZI_EN_IN_BUFFER   (BIT6)
 
-/* Input glitch filter. Disable the input glitch filter for clocking signals higher than 30 MHz. 
-Available to normal-drive pins, high-drive pins, high-speed pins */
+/*
+ * Input glitch filter. Disable the input glitch filter for clocking signals higher than 30 MHz. 
+ * Available to normal-drive pins, high-drive pins, high-speed pins.
+ */
 #define SCU_CONF_ZIF_DIS_IN_GLITCH_FILT  (BIT7)
 
-/* Select drive strength. (default=0 Normal-drive: 4 mA drive strength) (BIT8/9) 
-Available to high-drive pins, reserved for others. */
+/*
+ * Select drive strength. (default=0 Normal-drive: 4 mA drive strength) (BIT8/9).
+ * Available to high-drive pins, reserved for others.
+ */
 #define SCU_CONF_EHD_NORMAL_DRIVE_8MILLIA   (0x100)
 #define SCU_CONF_EHD_NORMAL_DRIVE_14MILLIA  (0x200)
 #define SCU_CONF_EHD_NORMAL_DRIVE_20MILLIA  (0x300)
