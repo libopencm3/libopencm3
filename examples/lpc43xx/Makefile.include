@@ -4,6 +4,7 @@
 ## Copyright (C) 2009 Uwe Hermann <uwe@hermann-uwe.de>
 ## Copyright (C) 2010 Piotr Esden-Tempski <piotr@esden.net>
 ## Copyright (C) 2012 Michael Ossmann <mike@ossmann.com>
+## Copyright (C) 2012 Benjamin Vernoux <titanmkd@gmail.com>
 ##
 ## This library is free software: you can redistribute it and/or modify
 ## it under the terms of the GNU Lesser General Public License as published by
@@ -29,12 +30,12 @@ GDB		= $(PREFIX)-gdb
 # Uncomment this line if you want to use the installed (not local) library.
 # TOOLCHAIN_DIR := $(shell dirname `which $(CC)`)/../$(PREFIX)
 TOOLCHAIN_DIR   = ../../../..
-CFLAGS		+= -O0 -g -Wall -Wextra -I$(TOOLCHAIN_DIR)/include -fno-common \
+CFLAGS		+= -O2 -g -Wall -Wextra -I$(TOOLCHAIN_DIR)/include -fno-common \
 		   -mcpu=cortex-m4 -mthumb -MD \
 		   -mfloat-abi=hard -mfpu=fpv4-sp-d16
 LDSCRIPT	?= $(BINARY).ld
 LDFLAGS         += -L$(TOOLCHAIN_DIR)/lib -L$(TOOLCHAIN_DIR)/lib/lpc43xx \
-		   -T$(LDSCRIPT) -nostartfiles -Wl,--gc-sections
+		   -T$(LDSCRIPT) -nostartfiles -Wl,--gc-sections -Xlinker -Map=$(BINARY).map
 OBJS		+= $(BINARY).o
 
 OOCD		?= openocd

@@ -3,6 +3,7 @@
 ##
 ## Copyright (C) 2009 Uwe Hermann <uwe@hermann-uwe.de>
 ## Copyright (C) 2012 Michael Ossmann <mike@ossmann.com>
+## Copyright (C) 2012 Benjamin Vernoux <titanmkd@gmail.com>
 ##
 ## This library is free software: you can redistribute it and/or modify
 ## it under the terms of the GNU Lesser General Public License as published by
@@ -24,13 +25,13 @@ PREFIX		?= arm-none-eabi
 #PREFIX		?= arm-elf
 CC		= $(PREFIX)-gcc
 AR		= $(PREFIX)-ar
-CFLAGS		= -O0 -g -Wall -Wextra -I../../include -fno-common \
+CFLAGS		= -O2 -g -Wall -Wextra -I../../include -fno-common \
 		  -mcpu=cortex-m4 -mthumb -Wstrict-prototypes \
 		  -ffunction-sections -fdata-sections -MD \
 		  -mfloat-abi=hard -mfpu=fpv4-sp-d16
 # ARFLAGS	= rcsv
 ARFLAGS		= rcs
-OBJS		= gpio.o vector.o
+OBJS		= gpio.o vector.o scu.o
 
 # VPATH += ../usb
 
@@ -50,7 +51,7 @@ $(LIBNAME).a: $(OBJS)
 	$(Q)$(CC) $(CFLAGS) -o $@ -c $<
 
 clean:
-	@printf "  CLEAN   lib/lpc17xx\n"
+	@printf "  CLEAN   lib/lpc43xx\n"
 	$(Q)rm -f *.o *.d
 	$(Q)rm -f $(LIBNAME).a
 
