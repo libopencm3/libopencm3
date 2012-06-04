@@ -163,4 +163,27 @@
 /* Output stage 27 control CLK register for base clock */
 #define CGU_BASE_CGU_OUT1_CLK           MMIO32(CGU_BASE + 0x0C8)
 
+/* --- CGU_BASE_x_CLK values ----------------------------------------------- */
+
+#define CGU_BASE_CLK_PD        (1 << 0)  /* output stage power-down */
+#define CGU_BASE_CLK_AUTOBLOCK (1 << 11) /* block clock automatically */
+#define CGU_BASE_CLK_SEL_SHIFT 24        /* clock source selection (5 bits) */
+
+/* --- CGU_BASE_x_CLK clock sources  --------------------------------------- */
+
+#define CGU_SRC_32K       0x00
+#define CGU_SRC_IRC       0x01
+#define CGU_SRC_ENET_RX   0x02
+#define CGU_SRC_ENET_TX   0x03
+#define CGU_SRC_GP_CLKIN  0x04
+#define CGU_SRC_XTAL      0x06
+#define CGU_SRC_PLL0USB   0x07
+#define CGU_SRC_PLL0AUDIO 0x08
+#define CGU_SRC_PLL1      0x09
+#define CGU_SRC_IDIVA     0x0C
+#define CGU_SRC_IDIVB     0x0D
+#define CGU_SRC_IDIVC     0x0E
+#define CGU_SRC_IDIVD     0x0F
+#define CGU_SRC_IDIVE     0x10
+
 #endif

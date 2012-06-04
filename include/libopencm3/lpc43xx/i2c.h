@@ -29,7 +29,6 @@
 #define I2C0                            I2C0_BASE
 #define I2C1                            I2C1_BASE
 
-
 /* --- I2C registers ------------------------------------------------------- */
 
 /* I2C Control Set Register */
@@ -111,5 +110,33 @@
 #define I2C_MASK3(port)                 MMIO32(port + 0x03C)
 #define I2C0_MASK3                      I2C_MASK3(I2C0)
 #define I2C1_MASK3                      I2C_MASK3(I2C1)
+
+/* --- I2Cx_CONCLR values -------------------------------------------------- */
+
+#define I2C_CONCLR_AAC   (1 << 2) /* Assert acknowledge Clear */
+#define I2C_CONCLR_SIC   (1 << 3) /* I2C interrupt Clear */
+#define I2C_CONCLR_STAC  (1 << 5) /* START flag Clear */
+#define I2C_CONCLR_I2ENC (1 << 6) /* I2C interface Disable bit */
+
+/* --- I2Cx_CONSET values -------------------------------------------------- */
+
+#define I2C_CONSET_AA   (1 << 2) /* Assert acknowledge flag */
+#define I2C_CONSET_SI   (1 << 3) /* I2C interrupt flag */
+#define I2C_CONSET_STO  (1 << 4) /* STOP flag */
+#define I2C_CONSET_STA  (1 << 5) /* START flag */
+#define I2C_CONSET_I2EN (1 << 6) /* I2C interface enable */
+
+/* --- I2C const definitions ----------------------------------------------- */
+
+#define I2C_WRITE           0
+#define I2C_READ            1
+
+/* --- I2C funtion prototypes----------------------------------------------- */
+
+void i2c0_init(void);
+void i2c0_tx_start(void);
+void i2c0_tx_byte(u8 byte);
+u8 i2c0_rx_byte(void);
+void i2c0_stop(void);
 
 #endif
