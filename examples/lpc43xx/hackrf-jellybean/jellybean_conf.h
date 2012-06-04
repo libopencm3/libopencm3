@@ -27,9 +27,9 @@ extern "C"
 
 #include <libopencm3/lpc43xx/scu.h>
 
-/************************/
-/* JellyBean SCU PinMux */
-/************************/
+/*
+ * JellyBean SCU PinMux
+ */
 
 /* GPIO Output PinMux */
 #define SCU_PINMUX_LED1     (P4_1) /* GPIO2[1] on P4_1 */
@@ -44,12 +44,17 @@ extern "C"
 #define SCU_PINMUX_BOOT2    (P2_8) /* GPIO5[7] on P2_8 */
 #define SCU_PINMUX_BOOT3    (P2_9) /* GPIO1[10] on P2_9 */
 
+/* SSP1 Peripheral PinMux */
+#define SCU_SSP1_MISO       (P1_3) /* P1_3 */
+#define SCU_SSP1_MOSI       (P1_4) /* P1_4 */
+#define SCU_SSP1_SCK        (P1_19) /* P1_19 */
+#define SCU_SSP1_SSEL       (P1_20) /* P1_20 */
+
 /* TODO add other Pins */
 
-/**********************/
-/* JellyBean GPIO Pin */
-/**********************/
-
+/*
+ * JellyBean GPIO Pin
+ */
 /* GPIO Output */
 #define PIN_LED1    (BIT1) /* GPIO2[1] on P4_1 */
 #define PIN_LED2    (BIT2) /* GPIO2[2] on P4_2 */

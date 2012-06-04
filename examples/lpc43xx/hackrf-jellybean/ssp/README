@@ -1,0 +1,20 @@
+------------------------------------------------------------------------------
+README
+------------------------------------------------------------------------------
+
+This program exercises the SSP1 peripheral on Jellybean's LPC43xx.
+
+   Jellybean (connector)
+    P9 SPI
+ |-----------------|
+ | Pin2  Pin4 Pin6 |
+||------|          |
+|| Pin1 |Pin3 Pin5 |
+||------|----------|
+|-------|
+
+SSP1_MISO: Jellybean P9 SPI Pin6
+SSP1_MOSI: Jellybean P9 SPI Pin4
+SSP1_SCK:  Jellybean P9 SPI Pin2
+SSP1_SSEL: Jellybean P9 SPI Pin3
+GND: Can be connected to P12 SD Pin1
