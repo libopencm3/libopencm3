@@ -94,6 +94,7 @@ clean:
 	$(Q)rm -f *.hex
 	$(Q)rm -f *.srec
 	$(Q)rm -f *.list
+	$(Q)rm -f *.map
 
 # FIXME: Replace STM32 stuff with proper LPC43XX OpenOCD support later.
 ifeq ($(OOCD_SERIAL),)
