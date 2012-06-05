@@ -79,16 +79,12 @@ Installation
 
  $ make install
 
-This will install the library in /usr/local. If you want to install it
-elsewhere, use the following syntax:
+This will install the library into your toolchain. The toolchain is found by
+looking for $PREFIX-gcc in your PATH.  (eg, which arm-none-eabi-gcc)
+
+If you want to install it elsewhere, use the following syntax:
 
  $ DESTDIR=/opt make install
-
-The recommended location is to install into your toolchain directory, e.g.
-/home/someuser/sat for a toolchain built using the summon-arm-toolchain
-script from https://github.com/esden/summon-arm-toolchain.
-
- $ DESTDIR=~/sat make install
 
 
 Coding style and development guidelines
