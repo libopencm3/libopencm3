@@ -37,15 +37,6 @@ void gpio_setup(void)
 	scu_pinmux(SCU_PINMUX_BOOT2, SCU_GPIO_FAST);
 	scu_pinmux(SCU_PINMUX_BOOT3, SCU_GPIO_FAST);
 
-	/* Configure SCU I2C0 Peripheral (to be moved later in I2C driver) */
-	SCU_SFSI2C0 = SCU_I2C0_NOMINAL;
-
-	/* Configure SSP1 Peripheral (to be moved later in SSP driver) */
-	scu_pinmux(SCU_SSP1_MISO, (SCU_SSP_IO | SCU_CONF_FUNCTION5));
-	scu_pinmux(SCU_SSP1_MOSI, (SCU_SSP_IO | SCU_CONF_FUNCTION5));
-	scu_pinmux(SCU_SSP1_SCK,  (SCU_SSP_IO | SCU_CONF_FUNCTION1));
-	scu_pinmux(SCU_SSP1_SSEL, (SCU_SSP_IO | SCU_CONF_FUNCTION1));
-
 	/* Configure all GPIO as Input (safe state) */
 	GPIO0_DIR = 0;
 	GPIO1_DIR = 0;
