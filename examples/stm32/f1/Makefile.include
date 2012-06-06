@@ -43,6 +43,9 @@ OOCD_BOARD	?= olimex_stm32_h103
 # Black magic probe specific variables
 # Set the BMP_PORT to a serial port and then BMP is used for flashing
 BMP_PORT        ?=
+# texane/stlink can be used by uncommenting this...
+# or defining it in your own makefiles
+#STLINK_PORT ?= :4242
 
 # Be silent per default, but 'make V=1' will show all compiler calls.
 ifneq ($(V),1)
@@ -97,6 +100,7 @@ clean:
 	$(Q)rm -f *.srec
 	$(Q)rm -f *.list
 
+ifeq ($(STLINK_PORT),)
 ifeq ($(BMP_PORT),)
 ifeq ($(OOCD_SERIAL),)
 %.flash: %.hex
@@ -128,6 +132,14 @@ else
 	$(Q)$(GDB) --batch \
 		   -ex 'target extended-remote $(BMP_PORT)' \
 		   -x $(TOOLCHAIN_DIR)/scripts/black_magic_probe_flash.scr \
+		   $(*).elf
+endif
+else
+%.flash: %.elf
+	@echo "  GDB   $(*).elf (flash)"
+	$(Q)$(GDB) --batch \
+		   -ex 'target extended-remote $(STLINK_PORT)' \
+		   -x $(TOOLCHAIN_DIR)/scripts/stlink_flash.scr \
 		   $(*).elf
 endif
 
