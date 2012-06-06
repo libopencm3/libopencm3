@@ -159,11 +159,17 @@ typedef enum {
 
 void ssp_disable(ssp_num_t ssp_num);
 
+/* 
+ * SSP Init
+ * clk_prescale shall be in range 2 to 254 (even number only).
+ * Clock computation: PCLK / (CPSDVSR * [SCR+1]) => CPSDVSR=clk_prescale, SCR=serial_clock_rate
+ */
 void ssp_init(ssp_num_t ssp_num,
 				ssp_datasize_t data_size,
 				ssp_frame_format_t frame_format,
 				ssp_cpol_cpha_t cpol_cpha_format,
 				u8 serial_clock_rate,
+				u8 clk_prescale,
 				ssp_mode_t mode,
 				ssp_master_slave_t master_slave,
 				ssp_slave_option_t slave_option);

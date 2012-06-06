@@ -62,6 +62,7 @@ void ssp_init(ssp_num_t ssp_num,
 			ssp_frame_format_t frame_format,
 			ssp_cpol_cpha_t cpol_cpha_format,
 			u8 serial_clock_rate,
+			u8 clk_prescale,
 			ssp_mode_t mode,
 			ssp_master_slave_t master_slave,
 			ssp_slave_option_t slave_option)
@@ -85,6 +86,7 @@ void ssp_init(ssp_num_t ssp_num,
 
 	/* Configure SSP */
 	clock = serial_clock_rate;
+	SSP_CPSR(ssp_port) = clk_prescale;
 	SSP_CR0(ssp_port) = (data_size | frame_format | cpol_cpha_format | (clock<<8) );
 
 	/* Enable SSP */
