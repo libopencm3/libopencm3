@@ -62,8 +62,10 @@ install: lib
 	$(Q)cp -r include/libopencm3/* $(INCDIR)/libopencm3
 	@printf "  INSTALL libs\n"
 	$(Q)$(INSTALL) -m 0644 lib/*/*/*.a $(LIBDIR)
+	$(Q)$(INSTALL) -m 0644 lib/*/*.a $(LIBDIR)
 	@printf "  INSTALL ldscripts\n"
 	$(Q)$(INSTALL) -m 0644 lib/*/*/*.ld $(LIBDIR)
+	$(Q)$(INSTALL) -m 0644 lib/*/*.ld $(LIBDIR)
 	@printf "  INSTALL scripts\n"
 	$(Q)$(INSTALL) -m 0644 scripts/* $(SHAREDIR)
 
