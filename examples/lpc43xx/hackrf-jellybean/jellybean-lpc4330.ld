@@ -17,7 +17,7 @@
  * along with this library.  If not, see <http://www.gnu.org/licenses/>.
  */
 
-/* Linker script for HackRF Jellybean (LPC4330, 1M SPI flash, 64K SRAM). */
+/* Linker script for HackRF Jellybean (LPC4330, 1M SPI flash, 264K SRAM). */
 
 /* Define memory regions. */
 MEMORY
