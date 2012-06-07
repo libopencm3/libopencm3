@@ -163,6 +163,56 @@
 /* Output stage 27 control CLK register for base clock */
 #define CGU_BASE_CGU_OUT1_CLK           MMIO32(CGU_BASE + 0x0C8)
 
+/* --- CGU_XTAL_OSC_CTRL values -------------------------------------------- */
+
+#define CGU_XTAL_OSC_CTRL_ENABLE (1 << 0) /* enable or power down xtal osc */
+#define CGU_XTAL_OSC_CTRL_BYPASS (1 << 1) /* external clock input (not xtal) */
+#define CGU_XTAL_OSC_CTRL_HF     (1 << 2) /* high frequency mode (>15 MHz) */
+
+/* --- CGU_PLL1_STAT values ------------------------------------------------ */
+
+#define CGU_PLL1_STAT_LOCK (1 << 0)
+
+/* --- CGU_PLL1_CTRL values ------------------------------------------------ */
+
+#define CGU_PLL1_CTRL_PD            (1 << 0)  /* power down */
+#define CGU_PLL1_CTRL_BYPASS        (1 << 1)  /* PLL input to post-dividers */
+#define CGU_PLL1_CTRL_FBSEL         (1 << 6)  /* use clkout as feedback input */
+#define CGU_PLL1_CTRL_DIRECT        (1 << 7)  /* enable direct CCO output */
+#define CGU_PLL1_CTRL_PSEL_SHIFT    8         /* division ratio P (2 bits) */
+#define CGU_PLL1_CTRL_AUTOBLOCK     (1 << 11) /* block clock automatically */
+#define CGU_PLL1_CTRL_NSEL_SHIFT    12        /* division ratio N (2 bits) */
+#define CGU_PLL1_CTRL_MSEL_SHIFT    16        /* division ratio M (8 bits) */
+#define CGU_PLL1_CTRL_CLK_SEL_SHIFT 24        /* clock source (5 bits) */
+
+/* --- CGU_PLL0USB_STAT values --------------------------------------------- */
+
+#define CGU_PLL0USB_STAT_LOCK (1 << 0) /* PLL0 lock indicator */
+#define CGU_PLL0USB_STAT_FR   (1 << 1) /* PLL0 free running indicator */
+
+/* --- CGU_PLL0USB_CTRL values --------------------------------------------- */
+
+#define CGU_PLL0USB_CTRL_PD            (1 << 0)  /* power down */
+#define CGU_PLL0USB_CTRL_BYPASS        (1 << 1)  /* input to post-dividers */
+#define CGU_PLL0USB_CTRL_DIRECTI       (1 << 2)  /* direct input */
+#define CGU_PLL0USB_CTRL_DIRECTO       (1 << 3)  /* direct output */
+#define CGU_PLL0USB_CTRL_CLKEN         (1 << 4)  /* clock enable */
+#define CGU_PLL0USB_CTRL_FRM           (1 << 6)  /* free running mode */
+#define CGU_PLL0USB_CTRL_AUTOBLOCK     (1 << 11) /* block clock automatically */
+#define CGU_PLL0USB_CTRL_CLK_SEL_SHIFT 24        /* clock source (5 bits) */
+
+/* --- CGU_PLL0USB_MDIV values --------------------------------------------- */
+
+#define CGU_PLL0USB_MDIV_MDEC_SHIFT 0  /* Decoded M-divider value (17 bits) */
+#define CGU_PLL0USB_SELP_MDEC_SHIFT 17 /* Bandwidth select P value (5 bits) */
+#define CGU_PLL0USB_SELI_MDEC_SHIFT 22 /* Bandwidth select I value (6 bits) */
+#define CGU_PLL0USB_SELR_MDEC_SHIFT 28 /* Bandwidth select R value (4 bits) */
+
+/* --- CGU_PLL0USB_NP_DIV values ------------------------------------------- */
+
+#define CGU_PLL0USB_NP_DIV_PDEC_SHIFT 0  /* Decoded P-divider value (7 bits) */
+#define CGU_PLL0USB_NP_DIV_NDEC_SHIFT 12 /* Decoded N-divider value (8 bits) */
+
 /* --- CGU_BASE_x_CLK values ----------------------------------------------- */
 
 #define CGU_BASE_CLK_PD        (1 << 0)  /* output stage power-down */
