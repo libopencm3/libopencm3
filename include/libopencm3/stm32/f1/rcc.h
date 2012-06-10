@@ -1,3 +1,27 @@
+/** @file
+
+@ingroup STM32F1xx
+
+@brief <b>libopencm3 STM32F1xx Reset and Clock Control</b>
+
+@version 1.0.0
+
+@author @htmlonly &copy; @endhtmlonly 2009 Federico Ruiz-Ugalde \<memeruiz at gmail dot com\>
+@author @htmlonly &copy; @endhtmlonly 2009 Uwe Hermann <uwe@hermann-uwe.de>
+
+@date 18 May 2012
+
+LGPL License Terms @ref lgpl_license
+ */
+/** @defgroup STM32F1xx_rcc_defines
+
+@brief Defined Constants and Types for the STM32F1xx Reset and Clock Control
+
+@ingroup STM32F1xx_defines
+
+LGPL License Terms @ref lgpl_license
+
+ */
 /*
  * This file is part of the libopencm3 project.
  *
@@ -230,6 +254,10 @@
 
 /* --- RCC_AHBENR values --------------------------------------------------- */
 
+/** @defgroup rcc_ahbenr_en RCC_AHBENR enable values
+@ingroup STM32F1xx_rcc_defines
+
+@{*/
 #define RCC_AHBENR_ETHMACENRX			(1 << 16)
 #define RCC_AHBENR_ETHMACENTX			(1 << 15)
 #define RCC_AHBENR_ETHMACEN			(1 << 14)
@@ -241,9 +269,14 @@
 #define RCC_AHBENR_SRAMEN			(1 << 2)
 #define RCC_AHBENR_DMA2EN			(1 << 1)
 #define RCC_AHBENR_DMA1EN			(1 << 0)
+/*@}*/
 
 /* --- RCC_APB2ENR values -------------------------------------------------- */
 
+/** @defgroup rcc_apb2enr_en RCC_APB2ENR enable values
+@ingroup STM32F1xx_rcc_defines
+
+@{*/
 #define RCC_APB2ENR_ADC3EN			(1 << 15) /* (XX) */
 #define RCC_APB2ENR_USART1EN			(1 << 14)
 #define RCC_APB2ENR_TIM8EN			(1 << 13) /* (XX) */
@@ -259,9 +292,14 @@
 #define RCC_APB2ENR_IOPBEN			(1 << 3)
 #define RCC_APB2ENR_IOPAEN			(1 << 2)
 #define RCC_APB2ENR_AFIOEN			(1 << 0)
+/*@}*/
 
 /* --- RCC_APB1ENR values -------------------------------------------------- */
 
+/** @defgroup rcc_apb1enr_en RCC_APB1ENR enable values
+@ingroup STM32F1xx_rcc_defines
+
+@{*/
 #define RCC_APB1ENR_DACEN			(1 << 29)
 #define RCC_APB1ENR_PWREN			(1 << 28)
 #define RCC_APB1ENR_BKPEN			(1 << 27)
@@ -284,6 +322,7 @@
 #define RCC_APB1ENR_TIM4EN			(1 << 2)
 #define RCC_APB1ENR_TIM3EN			(1 << 1)
 #define RCC_APB1ENR_TIM2EN			(1 << 0)
+/*@}*/
 
 /* --- RCC_BDCR values ----------------------------------------------------- */
 
