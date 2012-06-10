@@ -36,7 +36,8 @@ SECTIONS
 
 	.text : {
 		. = ALIGN(0x400);
-		_text_ram = 0; /* Start of Code in RAM NULL because Copy of Code from ROM to RAM disabled */
+		_text_ram = . + ORIGIN(ram); /* Start of Code in RAM */
+
 		*(.vectors)	/* Vector table */
 		*(.text*)	/* Program code */
 		. = ALIGN(4);
@@ -52,8 +53,8 @@ SECTIONS
 	__exidx_end = .;
 
 	_etext = .;
-	_etext_ram = 0; /* Start of Code in RAM NULL because Copy of Code from ROM to RAM disabled */
-	_etext_rom = 0; /* Start of Code in RAM NULL because Copy of Code from ROM to RAM disabled */
+	_etext_ram = . + ORIGIN(ram);
+	_etext_rom = . + ORIGIN(rom_flash);
 
 	. = ORIGIN(ram);
 

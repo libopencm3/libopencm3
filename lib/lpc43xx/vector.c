@@ -22,6 +22,7 @@
 
 /* Symbols exported by the linker script(s). */
 extern unsigned _etext, _data, _edata, _ebss, _stack;
+extern unsigned _etext_ram, _text_ram, _etext_rom;
 
 void main(void);
 void reset_handler(void);
@@ -158,10 +159,28 @@ void (*const vector_table[]) (void) = {
 	qei_irqhandler,
 };
 
+#define MMIO32(addr)    (*(volatile unsigned long*)(addr))
+#define CREG_M4MEMMAP   MMIO32( (0x40043000 + 0x100) )
+
 void reset_handler(void)
 {
 	volatile unsigned *src, *dest;
 	__asm__("MSR msp, %0" : : "r"(&_stack));
+
+	/* Copy the code from ROM to Real RAM (if enabled) */
+	if( (&_etext_ram-&_text_ram) > 0 )
+	{
+		src = &_etext_rom-(&_etext_ram-&_text_ram);
+		for(dest = &_text_ram; dest < &_etext_ram; )
+		{
+			*dest++ = *src++;
+		}
+
+		/* Change Shadow memory to Real RAM */
+		CREG_M4MEMMAP = (unsigned long)&_text_ram;
+
+		/* Continue Execution in RAM */
+	}
 
 	for (src = &_etext, dest = &_data; dest < &_edata; src++, dest++)
 		*dest = *src;
