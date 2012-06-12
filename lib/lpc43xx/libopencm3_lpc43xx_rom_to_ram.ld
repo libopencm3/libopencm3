@@ -56,26 +56,26 @@ SECTIONS
 	_etext_ram = . + ORIGIN(ram);
 	_etext_rom = . + ORIGIN(rom_flash);
 
-	. = ORIGIN(ram);
-
 	.data : {
 		_data = .;
 		*(.data*)	/* Read-write initialized data */
 		. = ALIGN(4);
 		_edata = .;
-	} >ram AT >rom
+	} >ram_data AT >rom
 
 	.bss : {
+		. = _edata;
 		*(.bss*)	/* Read-write zero initialized data */
 		*(COMMON)
 		. = ALIGN(4);
 		_ebss = .;
-	} >ram
+	} >ram_data
 
 	/* exception unwind data - required due to libgcc.a issuing /0 exceptions */
 	.ARM.extab : {
+		. = _ebss;
 		*(.ARM.extab*)
-	} >ram
+	} >ram_data
 
 	/*
 	 * The .eh_frame section appears to be used for C++ exception handling.

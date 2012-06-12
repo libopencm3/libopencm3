@@ -171,6 +171,9 @@ void reset_handler(void)
 	if( (&_etext_ram-&_text_ram) > 0 )
 	{
 		src = &_etext_rom-(&_etext_ram-&_text_ram);
+		/* Change Shadow memory to ROM (for Debug Purpose in case Boot has not set correctly the M4MEMMAP because of debug) */
+		CREG_M4MEMMAP = (unsigned long)src;
+
 		for(dest = &_text_ram; dest < &_etext_ram; )
 		{
 			*dest++ = *src++;
