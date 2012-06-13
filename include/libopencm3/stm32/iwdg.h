@@ -78,8 +78,12 @@
 /* PVU: Watchdog prescaler value update */
 #define IWDG_SR_PVU			(1 << 0)
 
-/* --- IWDG funtion prototypes---------------------------------------------- */
+/* --- IWDG function prototypes---------------------------------------------- */
 
-/* TODO */
+void iwdg_start(void);
+void iwdg_set_period_ms(u32 period);
+bool iwdg_reload_busy(void);
+bool iwdg_prescaler_busy(void);
+void iwdg_reset(void);
 
 #endif
