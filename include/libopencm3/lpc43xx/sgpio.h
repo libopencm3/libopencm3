@@ -2,6 +2,7 @@
  * This file is part of the libopencm3 project.
  *
  * Copyright (C) 2012 Michael Ossmann <mike@ossmann.com>
+ * Copyright (C) 2012 Jared Boone <jared@sharebrained.com>
  *
  * This library is free software: you can redistribute it and/or modify
  * it under the terms of the GNU Lesser General Public License as published by
@@ -26,6 +27,7 @@
 /* --- SGPIO registers ----------------------------------------------------- */
 
 /* Pin multiplexer configuration registers (OUT_MUX_CFG0 to 15) */
+#define SGPIO_OUT_MUX_CFG(pin)          MMIO32(SGPIO_PORT_BASE + (pin * 0x04))
 #define SGPIO_OUT_MUX_CFG0              MMIO32(SGPIO_PORT_BASE + 0x00)
 #define SGPIO_OUT_MUX_CFG1              MMIO32(SGPIO_PORT_BASE + 0x04)
 #define SGPIO_OUT_MUX_CFG2              MMIO32(SGPIO_PORT_BASE + 0x08)
@@ -44,6 +46,7 @@
 #define SGPIO_OUT_MUX_CFG15             MMIO32(SGPIO_PORT_BASE + 0x3C)
 
 /* SGPIO multiplexer configuration registers (SGPIO_MUX_CFG0 to 15) */
+#define SGPIO_MUX_CFG(slice)            MMIO32(SGPIO_PORT_BASE + 0x40 + (slice * 0x04))
 #define SGPIO_MUX_CFG0                  MMIO32(SGPIO_PORT_BASE + 0x40)
 #define SGPIO_MUX_CFG1                  MMIO32(SGPIO_PORT_BASE + 0x44)
 #define SGPIO_MUX_CFG2                  MMIO32(SGPIO_PORT_BASE + 0x48)
@@ -62,6 +65,7 @@
 #define SGPIO_MUX_CFG15                 MMIO32(SGPIO_PORT_BASE + 0x7C)
 
 /* Slice multiplexer configuration registers (SLICE_MUX_CFG0 to 15) */
+#define SGPIO_SLICE_MUX_CFG(slice)      MMIO32(SGPIO_PORT_BASE + 0x80 + (slice * 0x04))
 #define SGPIO_SLICE_MUX_CFG0            MMIO32(SGPIO_PORT_BASE + 0x80)
 #define SGPIO_SLICE_MUX_CFG1            MMIO32(SGPIO_PORT_BASE + 0x84)
 #define SGPIO_SLICE_MUX_CFG2            MMIO32(SGPIO_PORT_BASE + 0x88)
@@ -80,6 +84,7 @@
 #define SGPIO_SLICE_MUX_CFG15           MMIO32(SGPIO_PORT_BASE + 0xBC)
 
 /* Slice data registers (REG0 to 15) */
+#define SGPIO_REG(slice)                MMIO32(SGPIO_PORT_BASE + 0xC0 + (slice * 0x04))
 #define SGPIO_REG0                      MMIO32(SGPIO_PORT_BASE + 0xC0)
 #define SGPIO_REG1                      MMIO32(SGPIO_PORT_BASE + 0xC4)
 #define SGPIO_REG2                      MMIO32(SGPIO_PORT_BASE + 0xC8)
@@ -98,6 +103,7 @@
 #define SGPIO_REG15                     MMIO32(SGPIO_PORT_BASE + 0xFC)
 
 /* Slice data shadow registers (REG_SS0 to 15) */
+#define SGPIO_REG_SS(slice)             MMIO32(SGPIO_PORT_BASE + 0x100 + (slice * 0x04))
 #define SGPIO_REG_SS0                   MMIO32(SGPIO_PORT_BASE + 0x100)
 #define SGPIO_REG_SS1                   MMIO32(SGPIO_PORT_BASE + 0x104)
 #define SGPIO_REG_SS2                   MMIO32(SGPIO_PORT_BASE + 0x108)
@@ -116,6 +122,7 @@
 #define SGPIO_REG_SS15                  MMIO32(SGPIO_PORT_BASE + 0x13C)
 
 /* Reload registers (PRESET0 to 15) */
+#define SGPIO_PRESET(slice)             MMIO32(SGPIO_PORT_BASE + 0x140 + (slice * 0x04))
 #define SGPIO_PRESET0                   MMIO32(SGPIO_PORT_BASE + 0x140)
 #define SGPIO_PRESET1                   MMIO32(SGPIO_PORT_BASE + 0x144)
 #define SGPIO_PRESET2                   MMIO32(SGPIO_PORT_BASE + 0x148)
@@ -134,6 +141,7 @@
 #define SGPIO_PRESET15                  MMIO32(SGPIO_PORT_BASE + 0x17C)
 
 /* Down counter registers (COUNT0 to 15) */
+#define SGPIO_COUNT(slice)              MMIO32(SGPIO_PORT_BASE + 0x180 + (slice * 0x04))
 #define SGPIO_COUNT0                    MMIO32(SGPIO_PORT_BASE + 0x180)
 #define SGPIO_COUNT1                    MMIO32(SGPIO_PORT_BASE + 0x184)
 #define SGPIO_COUNT2                    MMIO32(SGPIO_PORT_BASE + 0x188)
@@ -152,6 +160,7 @@
 #define SGPIO_COUNT15                   MMIO32(SGPIO_PORT_BASE + 0x1BC)
 
 /* Position registers (POS0 to 15) */
+#define SGPIO_POS(slice)                MMIO32(SGPIO_PORT_BASE + 0x1C0 + (slice * 0x04))
 #define SGPIO_POS0                      MMIO32(SGPIO_PORT_BASE + 0x1C0)
 #define SGPIO_POS1                      MMIO32(SGPIO_PORT_BASE + 0x1C4)
 #define SGPIO_POS2                      MMIO32(SGPIO_PORT_BASE + 0x1C8)
@@ -168,6 +177,24 @@
 #define SGPIO_POS13                     MMIO32(SGPIO_PORT_BASE + 0x1F4)
 #define SGPIO_POS14                     MMIO32(SGPIO_PORT_BASE + 0x1F8)
 #define SGPIO_POS15                     MMIO32(SGPIO_PORT_BASE + 0x1FC)
+
+/* Slice name to slice index mapping */
+#define SGPIO_SLICE_A                   0
+#define SGPIO_SLICE_B                   1
+#define SGPIO_SLICE_C                   2
+#define SGPIO_SLICE_D                   3
+#define SGPIO_SLICE_E                   4
+#define SGPIO_SLICE_F                   5
+#define SGPIO_SLICE_G                   6
+#define SGPIO_SLICE_H                   7
+#define SGPIO_SLICE_I                   8
+#define SGPIO_SLICE_J                   9
+#define SGPIO_SLICE_K                   10
+#define SGPIO_SLICE_L                   11
+#define SGPIO_SLICE_M                   12
+#define SGPIO_SLICE_N                   13
+#define SGPIO_SLICE_O                   14
+#define SGPIO_SLICE_P                   15
 
 /* Mask for pattern match function of slice A */
 #define SGPIO_MASK_A                    MMIO32(SGPIO_PORT_BASE + 0x200)
@@ -209,28 +236,28 @@
 #define SGPIO_STATUS_0                  MMIO32(SGPIO_PORT_BASE + 0xF0C)
 
 /* Shift clock interrupt clear status */
-#define SGPIO_CTR_STAT_0                MMIO32(SGPIO_PORT_BASE + 0xF10)
+#define SGPIO_CLR_STATUS_0              MMIO32(SGPIO_PORT_BASE + 0xF10)
 
 /* Shift clock interrupt set status */
-#define SGPIO_SET_STAT_0                MMIO32(SGPIO_PORT_BASE + 0xF14)
+#define SGPIO_SET_STATUS_0              MMIO32(SGPIO_PORT_BASE + 0xF14)
 
-/* Capture clock interrupt clear mask */
+/* Exchange clock interrupt clear mask */
 #define SGPIO_CLR_EN_1                  MMIO32(SGPIO_PORT_BASE + 0xF20)
 
-/* Capture clock interrupt set mask */
+/* Exchange clock interrupt set mask */
 #define SGPIO_SET_EN_1                  MMIO32(SGPIO_PORT_BASE + 0xF24)
 
-/* Capture clock interrupt enable */
+/* Exchange clock interrupt enable */
 #define SGPIO_ENABLE_1                  MMIO32(SGPIO_PORT_BASE + 0xF28)
 
-/* Capture clock interrupt status */
+/* Exchange clock interrupt status */
 #define SGPIO_STATUS_1                  MMIO32(SGPIO_PORT_BASE + 0xF2C)
 
-/* Capture clock interrupt clear status */
-#define SGPIO_CTR_STAT_1                MMIO32(SGPIO_PORT_BASE + 0xF30)
+/* Exchange clock interrupt clear status */
+#define SGPIO_CLR_STATUS_1              MMIO32(SGPIO_PORT_BASE + 0xF30)
 
-/* Capture clock interrupt set status */
-#define SGPIO_SET_STAT_1                MMIO32(SGPIO_PORT_BASE + 0xF34)
+/* Exchange clock interrupt set status */
+#define SGPIO_SET_STATUS_1              MMIO32(SGPIO_PORT_BASE + 0xF34)
 
 /* Pattern match interrupt clear mask */
 #define SGPIO_CLR_EN_2                  MMIO32(SGPIO_PORT_BASE + 0xF40)
@@ -245,10 +272,10 @@
 #define SGPIO_STATUS_2                  MMIO32(SGPIO_PORT_BASE + 0xF4C)
 
 /* Pattern match interrupt clear status */
-#define SGPIO_CTR_STAT_2                MMIO32(SGPIO_PORT_BASE + 0xF50)
+#define SGPIO_CLR_STATUS_2              MMIO32(SGPIO_PORT_BASE + 0xF50)
 
 /* Pattern match interrupt set status */
-#define SGPIO_SET_STAT_2                MMIO32(SGPIO_PORT_BASE + 0xF54)
+#define SGPIO_SET_STATUS_2              MMIO32(SGPIO_PORT_BASE + 0xF54)
 
 /* Input interrupt clear mask */
 #define SGPIO_CLR_EN_3                  MMIO32(SGPIO_PORT_BASE + 0xF60)
@@ -263,9 +290,9 @@
 #define SGPIO_STATUS_3                  MMIO32(SGPIO_PORT_BASE + 0xF6C)
 
 /* Input bit match interrupt clear status */
-#define SGPIO_CTR_STAT_3                MMIO32(SGPIO_PORT_BASE + 0xF70)
+#define SGPIO_CLR_STATUS_3              MMIO32(SGPIO_PORT_BASE + 0xF70)
 
 /* Input bit match interrupt set status */
-#define SGPIO_SET_STAT_3                MMIO32(SGPIO_PORT_BASE + 0xF74)
+#define SGPIO_SET_STATUS_3              MMIO32(SGPIO_PORT_BASE + 0xF74)
 
 #endif
