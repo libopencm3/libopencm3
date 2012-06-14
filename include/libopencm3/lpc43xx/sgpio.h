@@ -236,28 +236,28 @@
 #define SGPIO_STATUS_0                  MMIO32(SGPIO_PORT_BASE + 0xF0C)
 
 /* Shift clock interrupt clear status */
-#define SGPIO_CTR_STAT_0                MMIO32(SGPIO_PORT_BASE + 0xF10)
+#define SGPIO_CLR_STATUS_0              MMIO32(SGPIO_PORT_BASE + 0xF10)
 
 /* Shift clock interrupt set status */
-#define SGPIO_SET_STAT_0                MMIO32(SGPIO_PORT_BASE + 0xF14)
+#define SGPIO_SET_STATUS_0              MMIO32(SGPIO_PORT_BASE + 0xF14)
 
-/* Capture clock interrupt clear mask */
+/* Exchange clock interrupt clear mask */
 #define SGPIO_CLR_EN_1                  MMIO32(SGPIO_PORT_BASE + 0xF20)
 
-/* Capture clock interrupt set mask */
+/* Exchange clock interrupt set mask */
 #define SGPIO_SET_EN_1                  MMIO32(SGPIO_PORT_BASE + 0xF24)
 
-/* Capture clock interrupt enable */
+/* Exchange clock interrupt enable */
 #define SGPIO_ENABLE_1                  MMIO32(SGPIO_PORT_BASE + 0xF28)
 
-/* Capture clock interrupt status */
+/* Exchange clock interrupt status */
 #define SGPIO_STATUS_1                  MMIO32(SGPIO_PORT_BASE + 0xF2C)
 
-/* Capture clock interrupt clear status */
-#define SGPIO_CTR_STAT_1                MMIO32(SGPIO_PORT_BASE + 0xF30)
+/* Exchange clock interrupt clear status */
+#define SGPIO_CLR_STATUS_1              MMIO32(SGPIO_PORT_BASE + 0xF30)
 
-/* Capture clock interrupt set status */
-#define SGPIO_SET_STAT_1                MMIO32(SGPIO_PORT_BASE + 0xF34)
+/* Exchange clock interrupt set status */
+#define SGPIO_SET_STATUS_1              MMIO32(SGPIO_PORT_BASE + 0xF34)
 
 /* Pattern match interrupt clear mask */
 #define SGPIO_CLR_EN_2                  MMIO32(SGPIO_PORT_BASE + 0xF40)
@@ -272,10 +272,10 @@
 #define SGPIO_STATUS_2                  MMIO32(SGPIO_PORT_BASE + 0xF4C)
 
 /* Pattern match interrupt clear status */
-#define SGPIO_CTR_STAT_2                MMIO32(SGPIO_PORT_BASE + 0xF50)
+#define SGPIO_CLR_STATUS_2              MMIO32(SGPIO_PORT_BASE + 0xF50)
 
 /* Pattern match interrupt set status */
-#define SGPIO_SET_STAT_2                MMIO32(SGPIO_PORT_BASE + 0xF54)
+#define SGPIO_SET_STATUS_2              MMIO32(SGPIO_PORT_BASE + 0xF54)
 
 /* Input interrupt clear mask */
 #define SGPIO_CLR_EN_3                  MMIO32(SGPIO_PORT_BASE + 0xF60)
@@ -290,9 +290,9 @@
 #define SGPIO_STATUS_3                  MMIO32(SGPIO_PORT_BASE + 0xF6C)
 
 /* Input bit match interrupt clear status */
-#define SGPIO_CTR_STAT_3                MMIO32(SGPIO_PORT_BASE + 0xF70)
+#define SGPIO_CLR_STATUS_3              MMIO32(SGPIO_PORT_BASE + 0xF70)
 
 /* Input bit match interrupt set status */
-#define SGPIO_SET_STAT_3                MMIO32(SGPIO_PORT_BASE + 0xF74)
+#define SGPIO_SET_STATUS_3              MMIO32(SGPIO_PORT_BASE + 0xF74)
 
 #endif
