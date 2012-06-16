@@ -113,6 +113,21 @@ u16 ssp_read(ssp_num_t ssp_num)
 	return SSP_DR(ssp_port);
 }
 
+void ssp_wait_until_not_busy(ssp_num_t ssp_num)
+{
+	u32 ssp_port;
+	
+	if(ssp_num == SSP0_NUM)
+	{
+		ssp_port = SSP0;
+	}else
+	{
+		ssp_port = SSP1;
+	}
+
+	while( (SSP_SR(ssp_port) & SSP_SR_BSY) );
+}
+
 /* This Function Wait Data TX Ready, and Write Data to SSP */
 void ssp_write(ssp_num_t ssp_num, u16 data)
 {
@@ -130,5 +145,16 @@ void ssp_write(ssp_num_t ssp_num, u16 data)
 	while( (SSP_SR(ssp_port) & SSP_SR_TNF) == 0);
 
 	SSP_DR(ssp_port) = data;
+	
+	/* Wait for not busy, since we're controlling CS# of
+	 * devices manually and need to wait for the data to
+	 * be sent. It may also be important to wait here
+	 * in case we're configuring devices via SPI and also
+	 * with GPIO control -- we need to know when SPI
+	 * commands are effective before altering a device's
+	 * state with GPIO. I'm thinking the MAX2837, for
+	 * example...
+	 */
+	ssp_wait_until_not_busy(ssp_num);
 }
 
