@@ -55,4 +55,24 @@
 
 /* TODO */
 
+/**
+ * Reset the CRC calculator to initial values.
+ */
+void crc_reset(void);
+
+/**
+ * Add a word to the crc calculator and return the result.
+ * @param data new word to add to the crc calculator
+ * @return final crc calculator value
+ */
+u32 crc_calculate(u32 data);
+
+/**
+ * Add a block of data to the CRC calculator and return the final result
+ * @param datap pointer to the start of a block of 32bit data words
+ * @param size length of data, in 32bit increments
+ * @return final CRC calculator value
+ */
+u32 crc_calculate_block(u32 *datap, int size);
+
 #endif
