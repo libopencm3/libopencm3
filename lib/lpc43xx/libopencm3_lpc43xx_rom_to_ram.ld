@@ -36,7 +36,7 @@ SECTIONS
 
 	.text : {
 		. = ALIGN(0x400);
-		_text_ram = . + ORIGIN(ram); /* Start of Code in RAM */
+		_text_ram = (. - ORIGIN(rom)) + ORIGIN(ram); /* Start of Code in RAM */
 
 		*(.vectors)	/* Vector table */
 		*(.text*)	/* Program code */
@@ -53,8 +53,8 @@ SECTIONS
 	__exidx_end = .;
 
 	_etext = .;
-	_etext_ram = . + ORIGIN(ram);
-	_etext_rom = . + ORIGIN(rom_flash);
+	_etext_ram = (. - ORIGIN(rom)) + ORIGIN(ram);
+	_etext_rom = (. - ORIGIN(rom)) + ORIGIN(rom_flash);
 
 	.data : {
 		_data = .;
