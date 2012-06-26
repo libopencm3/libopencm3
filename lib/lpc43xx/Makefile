@@ -25,7 +25,7 @@ PREFIX		?= arm-none-eabi
 #PREFIX		?= arm-elf
 CC		= $(PREFIX)-gcc
 AR		= $(PREFIX)-ar
-CFLAGS		= -O2 -g -Wall -Wextra -I../../include -fno-common \
+CFLAGS		= -O2 -g3 -Wall -Wextra -I../../include -fno-common \
 		  -mcpu=cortex-m4 -mthumb -Wstrict-prototypes \
 		  -ffunction-sections -fdata-sections -MD \
 		  -mfloat-abi=hard -mfpu=fpv4-sp-d16

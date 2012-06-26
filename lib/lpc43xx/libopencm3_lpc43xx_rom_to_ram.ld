@@ -36,7 +36,7 @@ SECTIONS
 
 	.text : {
 		. = ALIGN(0x400);
-		_text_ram = . + ORIGIN(ram); /* Start of Code in RAM */
+		_text_ram = (. - ORIGIN(rom)) + ORIGIN(ram); /* Start of Code in RAM */
 
 		*(.vectors)	/* Vector table */
 		*(.text*)	/* Program code */
@@ -53,29 +53,29 @@ SECTIONS
 	__exidx_end = .;
 
 	_etext = .;
-	_etext_ram = . + ORIGIN(ram);
-	_etext_rom = . + ORIGIN(rom_flash);
-
-	. = ORIGIN(ram);
+	_etext_ram = (. - ORIGIN(rom)) + ORIGIN(ram);
+	_etext_rom = (. - ORIGIN(rom)) + ORIGIN(rom_flash);
 
 	.data : {
 		_data = .;
 		*(.data*)	/* Read-write initialized data */
 		. = ALIGN(4);
 		_edata = .;
-	} >ram AT >rom
+	} >ram_data AT >rom
 
 	.bss : {
+		. = _edata;
 		*(.bss*)	/* Read-write zero initialized data */
 		*(COMMON)
 		. = ALIGN(4);
 		_ebss = .;
-	} >ram
+	} >ram_data
 
 	/* exception unwind data - required due to libgcc.a issuing /0 exceptions */
 	.ARM.extab : {
+		. = _ebss;
 		*(.ARM.extab*)
-	} >ram
+	} >ram_data
 
 	/*
 	 * The .eh_frame section appears to be used for C++ exception handling.
