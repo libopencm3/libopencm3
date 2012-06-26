@@ -1,0 +1,51 @@
+#!/usr/bin/python
+#
+# Compute and insert the vector table checksum required for booting the
+# LPC43xx and some other NXP ARM microcontrollers.
+#
+# usage: lpcvtcksum firmware.bin
+#
+# This file is part of the libopencm3 project.
+#
+# Copyright (C) 2012 Michael Ossmann <mike@ossmann.com>
+#
+# This library is free software: you can redistribute it and/or modify
+# it under the terms of the GNU Lesser General Public License as published by
+# the Free Software Foundation, either version 3 of the License, or
+# (at your option) any later version.
+#
+# This library is distributed in the hope that it will be useful,
+# but WITHOUT ANY WARRANTY; without even the implied warranty of
+# MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
+# GNU Lesser General Public License for more details.
+#
+# You should have received a copy of the GNU Lesser General Public License
+# along with this library.  If not, see <http://www.gnu.org/licenses/>.
+
+import sys, struct
+
+binfile = open(sys.argv[1], 'r+b')
+rawvectors = binfile.read(32)
+vectors = list(struct.unpack('<IIIIIIII', rawvectors))
+
+# compute vector table checksum
+sum = 0
+for i in range(7):
+	sum += vectors[i]
+vectors[7] = 1 + (0xffffffff ^ (0xffffffff & sum))
+
+print "computed vector table checksum: 0x%08x" % vectors[7]
+
+rawremainder = binfile.read()
+remainder = list(struct.unpack('B' * len(rawremainder), rawremainder))
+numbytes = len(remainder) + 32
+
+# pad to multiple of 4096 bytes to make GoodFET happy
+if (numbytes % 4096):
+	remainder.extend([0] * (4096 - numbytes % 4096))
+
+# rewrite file with checksum and padding
+data = vectors
+data.extend(remainder)
+binfile.seek(0)
+binfile.write(struct.pack('<IIIIIIII' + 'B' * len(remainder), *data))
