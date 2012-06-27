@@ -447,6 +447,11 @@ void rcc_set_usbpre(u32 usbpre);
 u32 rcc_get_system_clock_source(int i);
 void rcc_clock_setup_in_hsi_out_64mhz(void);
 void rcc_clock_setup_in_hsi_out_48mhz(void);
+
+/**
+ * Maximum speed possible for F100 (Value Line) on HSI
+ */
+void rcc_clock_setup_in_hsi_out_24mhz(void);
 void rcc_clock_setup_in_hse_8mhz_out_24mhz(void);
 void rcc_clock_setup_in_hse_8mhz_out_72mhz(void);
 void rcc_clock_setup_in_hse_12mhz_out_72mhz(void);
