@@ -25,7 +25,7 @@ LIBDIR		= $(DESTDIR)/$(PREFIX)/lib
 SHAREDIR	= $(DESTDIR)/$(PREFIX)/share/libopencm3/scripts
 INSTALL		= install
 
-TARGETS = stm32/f1 stm32/f2 stm32/f4 lpc13xx lpc17xx lm3s 
+TARGETS = stm32/f1 stm32/f2 stm32/f4 lpc13xx lpc17xx lpc43xx lm3s 
 
 # Be silent per default, but 'make V=1' will show all compiler calls.
 ifneq ($(V),1)
@@ -62,8 +62,10 @@ install: lib
 	$(Q)cp -r include/libopencm3/* $(INCDIR)/libopencm3
 	@printf "  INSTALL libs\n"
 	$(Q)$(INSTALL) -m 0644 lib/*/*/*.a $(LIBDIR)
+	$(Q)$(INSTALL) -m 0644 lib/*/*.a $(LIBDIR)
 	@printf "  INSTALL ldscripts\n"
 	$(Q)$(INSTALL) -m 0644 lib/*/*/*.ld $(LIBDIR)
+	$(Q)$(INSTALL) -m 0644 lib/*/*.ld $(LIBDIR)
 	@printf "  INSTALL scripts\n"
 	$(Q)$(INSTALL) -m 0644 scripts/* $(SHAREDIR)
 
