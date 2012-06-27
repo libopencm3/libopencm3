@@ -111,7 +111,7 @@ u16 gpio_get(u32 gpioport, u16 gpios)
 
 void gpio_toggle(u32 gpioport, u16 gpios)
 {
-	GPIO_ODR(gpioport) = GPIO_IDR(gpioport) ^ gpios;
+	GPIO_ODR(gpioport) ^= gpios;
 }
 
 u16 gpio_port_read(u32 gpioport)
