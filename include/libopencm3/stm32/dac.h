@@ -1,3 +1,27 @@
+/** @file
+
+@ingroup STM32F
+
+@brief <b>libopencm3 STM32F1xx Digital to Analog Converter</b>
+
+@version 1.0.0
+
+@author @htmlonly &copy; @endhtmlonly 2012 Felix Held <felix-libopencm3@felixheld.de>
+@author @htmlonly &copy; @endhtmlonly 2012 Ken Sarkies
+
+@date 30 June 2012
+
+LGPL License Terms @ref lgpl_license
+ */
+/** @defgroup STM32F1xx_dac_defines
+
+@brief Defined Constants and Types for the STM32F1xx Digital to Analog Converter 
+
+@ingroup STM32F1xx_defines
+
+LGPL License Terms @ref lgpl_license
+
+ */
 /*
  * This file is part of the libopencm3 project.
  *
@@ -69,7 +93,7 @@
 /* --- DAC_CR values ------------------------------------------------------- */
 
 /* DMAUDRIE2: DAC channel2 DMA underrun interrupt enable */
-/* doesn't exist in most members of the stm32f1 family */
+/* doesn't exist in most members of the STM32F1 family */
 #define DAC_CR_DMAUDRIE2		(1 << 29)
 
 /* DMAEN2: DAC channel2 DMA enable */
@@ -80,6 +104,11 @@
  * Unmask bits [(n-1)..0] of LFSR/Triangle Amplitude equal to (2**n)-1
  */
 #define DAC_CR_MAMP2_SHIFT		24
+/** @defgroup dac_mamp2 DAC Channel 2 LFSR Mask and Triangle Wave Amplitude values
+@ingroup STM32F1xx_dac_defines
+
+Unmask bits [(n-1)..0] of LFSR/Triangle Amplitude equal to (2**(n)-1
+@{*/
 #define DAC_CR_MAMP2_1			(0x0 << DAC_CR_MAMP2_SHIFT)
 #define DAC_CR_MAMP2_2			(0x1 << DAC_CR_MAMP2_SHIFT)
 #define DAC_CR_MAMP2_3			(0x2 << DAC_CR_MAMP2_SHIFT)
@@ -92,6 +121,7 @@
 #define DAC_CR_MAMP2_10			(0x9 << DAC_CR_MAMP2_SHIFT)
 #define DAC_CR_MAMP2_11			(0xA << DAC_CR_MAMP2_SHIFT)
 #define DAC_CR_MAMP2_12			(0xB << DAC_CR_MAMP2_SHIFT)
+/*@}*/
 
 /* WAVE2[1:0]: DAC channel2 noise/triangle wave generation enable */
 /* Legend:
@@ -102,9 +132,18 @@
  * Note: only used if bit TEN2 = 1 (DAC channel2 trigger enabled)
  */
 #define DAC_CR_WAVE2_SHIFT		22
-#define DAC_CR_WAVE2_DIS		(0x0 << DAC_CR_WAVE2_SHIFT)
+#define DAC_CR_WAVE2_DIS		(0x3 << DAC_CR_WAVE2_SHIFT)
+/** @defgroup dac_wave2_en DAC Channel 2 Waveform Generation Enable
+@ingroup STM32F1xx_dac_defines
+
+@li NOISE: Noise wave generation enabled
+@li TRI: Triangle wave generation enabled
+
+@note: only used if bit TEN2 is set (DAC channel2 trigger enabled)
+@{*/
 #define DAC_CR_WAVE2_NOISE		(0x1 << DAC_CR_WAVE2_SHIFT)
 #define DAC_CR_WAVE2_TRI		(0x2 << DAC_CR_WAVE2_SHIFT)
+/*@}*/
 
 /* TSEL2[2:0]: DAC channel2 trigger selection */
 /* Legend:
@@ -125,6 +164,25 @@
  * Note: this is *not* valid for the STM32L1 family
  */
 #define DAC_CR_TSEL2_SHIFT		19
+/** @defgroup dac_trig2_sel DAC Channel 2 Trigger Source Selection
+@ingroup STM32F1xx_dac_defines
+
+@li T6: Timer 6 TRGO event
+@li T3: Timer 3 TRGO event
+@li T8: Timer 8 TRGO event
+@li T7: Timer 7 TRGO event
+@li T5: Timer 5 TRGO event
+@li T15: Timer 15 TRGO event
+@li T2: Timer 2 TRGO event
+@li T4: Timer 4 TRGO event
+@li E9: External line9
+@li SW: Software trigger
+
+@note: Refer to the timer documentation for details of the TRGO event.
+@note: T3 replaced by T8 and T5 replaced by T15 in some devices.
+@note: this is <b>not</b> valid for the STM32L1 family.
+@note: only used if bit TEN2 is set (DAC channel 2 trigger enabled)
+@{*/
 #define DAC_CR_TSEL2_T6			(0x0 << DAC_CR_TSEL2_SHIFT)
 #define DAC_CR_TSEL2_T3			(0x1 << DAC_CR_TSEL2_SHIFT)
 #define DAC_CR_TSEL2_T8			(0x1 << DAC_CR_TSEL2_SHIFT)
@@ -135,6 +193,7 @@
 #define DAC_CR_TSEL2_T4			(0x5 << DAC_CR_TSEL2_SHIFT)
 #define DAC_CR_TSEL2_E9			(0x6 << DAC_CR_TSEL2_SHIFT)
 #define DAC_CR_TSEL2_SW			(0x7 << DAC_CR_TSEL2_SHIFT)
+/*@}*/
 
 /* TEN2: DAC channel2 trigger enable */
 #define DAC_CR_TEN2			(1 << 18)
@@ -146,7 +205,7 @@
 #define DAC_CR_EN2			(1 << 16)
 
 /* DMAUDRIE1: DAC channel1 DMA underrun interrupt enable */
-/* doesn't exist in most members of the stm32f1 family */
+/* doesn't exist in most members of the STM32F1 family */
 #define DAC_CR_DMAUDRIE1	(1 << 13)
 
 /* DMAEN1: DAC channel1 DMA enable */
@@ -157,6 +216,11 @@
  * Unmask bits [(n-1)..0] of LFSR/Triangle Amplitude equal to (2**n)-1
  */
 #define DAC_CR_MAMP1_SHIFT		8
+/** @defgroup dac_mamp1 DAC Channel 1 LFSR Mask and Triangle Wave Amplitude values
+@ingroup STM32F1xx_dac_defines
+
+Unmask bits [(n-1)..0] of LFSR/Triangle Amplitude equal to (2**(n+1)-1
+@{*/
 #define DAC_CR_MAMP1_1			(0x0 << DAC_CR_MAMP1_SHIFT)
 #define DAC_CR_MAMP1_2			(0x1 << DAC_CR_MAMP1_SHIFT)
 #define DAC_CR_MAMP1_3			(0x2 << DAC_CR_MAMP1_SHIFT)
@@ -169,6 +233,7 @@
 #define DAC_CR_MAMP1_10			(0x9 << DAC_CR_MAMP1_SHIFT)
 #define DAC_CR_MAMP1_11			(0xA << DAC_CR_MAMP1_SHIFT)
 #define DAC_CR_MAMP1_12			(0xB << DAC_CR_MAMP1_SHIFT)
+/*@}*/
 
 /* WAVE1[1:0]: DAC channel1 noise/triangle wave generation enable */
 /* Legend:
@@ -179,9 +244,19 @@
  * Note: only used if bit TEN1 = 1 (DAC channel1 trigger enabled)
  */
 #define DAC_CR_WAVE1_SHIFT		6
-#define DAC_CR_WAVE1_DIS		(0x0 << DAC_CR_WAVE1_SHIFT)
+#define DAC_CR_WAVE1_DIS		(0x3 << DAC_CR_WAVE1_SHIFT)
+/** @defgroup dac_wave1_en DAC Channel 1 Waveform Generation Enable
+@ingroup STM32F1xx_dac_defines
+
+@li DIS: wave generation disabled
+@li NOISE: Noise wave generation enabled
+@li TRI: Triangle wave generation enabled
+
+@note: only used if bit TEN2 = 1 (DAC channel2 trigger enabled)
+@{*/
 #define DAC_CR_WAVE1_NOISE		(0x1 << DAC_CR_WAVE1_SHIFT)
 #define DAC_CR_WAVE1_TRI		(0x2 << DAC_CR_WAVE1_SHIFT)
+/*@}*/
 
 /* TSEL1[2:0]: DAC channel1 trigger selection */
 /* Legend:
@@ -202,6 +277,25 @@
  * Note: this is *not* valid for the STM32L1 family
  */
 #define DAC_CR_TSEL1_SHIFT		3
+/** @defgroup dac_trig1_sel DAC Channel 1 Trigger Source Selection
+@ingroup STM32F1xx_dac_defines
+
+@li T6: Timer 6 TRGO event
+@li T3: Timer 3 TRGO event
+@li T8: Timer 8 TRGO event
+@li T7: Timer 7 TRGO event
+@li T5: Timer 5 TRGO event
+@li T15: Timer 15 TRGO event
+@li T2: Timer 2 TRGO event
+@li T4: Timer 4 TRGO event
+@li E9: External line 9
+@li SW: Software trigger
+
+@note: Refer to the timer documentation for details of the TRGO event.
+@note: T3 replaced by T8 and T5 replaced by T15 in some devices.
+@note: this is <b>not</b> valid for the STM32L1 family.
+@note: only used if bit TEN2 is set (DAC channel 1 trigger enabled).
+@{*/
 #define DAC_CR_TSEL1_T6			(0x0 << DAC_CR_TSEL1_SHIFT)
 #define DAC_CR_TSEL1_T3			(0x1 << DAC_CR_TSEL1_SHIFT)
 #define DAC_CR_TSEL1_T8			(0x1 << DAC_CR_TSEL1_SHIFT)
@@ -212,6 +306,7 @@
 #define DAC_CR_TSEL1_T4			(0x5 << DAC_CR_TSEL1_SHIFT)
 #define DAC_CR_TSEL1_E9			(0x6 << DAC_CR_TSEL1_SHIFT)
 #define DAC_CR_TSEL1_SW			(0x7 << DAC_CR_TSEL1_SHIFT)
+/*@}*/
 
 /* TEN1: DAC channel1 trigger enable */
 #define DAC_CR_TEN1			(1 << 2)
@@ -292,11 +387,32 @@
 #define DAC_DOR2_DACC2DOR_LSB		(1 << 0)
 #define DAC_DOR2_DACC2DOR_MSK		(0x0FFF << 0)
 
+/** DAC channel identifier */
+typedef enum {
+	CHANNEL_1, CHANNEL_2, CHANNEL_D
+} data_channel;
+
+/** DAC data size (8/12 bits), alignment (right/left) */
+typedef enum {
+	RIGHT8, RIGHT12, LEFT12
+} data_align;
 
 /* --- Function prototypes ------------------------------------------------- */
 
-
-/* TODO */
-
+void dac_enable(data_channel dac_channel);
+void dac_disable(data_channel dac_channel);
+void dac_buffer_enable(data_channel dac_channel);
+void dac_buffer_disable(data_channel dac_channel);
+void dac_dma_enable(data_channel dac_channel);
+void dac_dma_disable(data_channel dac_channel);
+void dac_trigger_enable(data_channel dac_channel);
+void dac_trigger_disable(data_channel dac_channel);
+void dac_set_trigger_source(u32 dac_trig_src);
+void dac_set_waveform_generation(u32 dac_wave_ens);
+void dac_disable_waveform_generation(data_channel dac_channel);
+void dac_set_waveform_characteristics(u32 dac_mamp);
+void dac_load_data_buffer_single(u32 dac_data, data_align dac_data_format, data_channel dac_channel);
+void dac_load_data_buffer_dual(u32 dac_data1, u32 dac_data2, data_align dac_data_format);
+void dac_software_trigger(data_channel dac_channel);
 
 #endif

@@ -9,3 +9,7 @@
 *.swp
 \#*
 .\#*
+*~
+*.map
+*.log
+doxygen/
