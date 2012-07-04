@@ -19,7 +19,13 @@
 
 PREFIX		?= arm-none-eabi
 #PREFIX		?= arm-elf
+
+ifeq ($(DETECT_TOOLCHAIN),)
 DESTDIR		?= /usr/local
+else
+DESTDIR		?= $(shell dirname $(shell readlink -f $(shell which $(PREFIX)-gcc)))/..
+endif
+
 INCDIR		= $(DESTDIR)/$(PREFIX)/include
 LIBDIR		= $(DESTDIR)/$(PREFIX)/lib
 SHAREDIR	= $(DESTDIR)/$(PREFIX)/share/libopencm3/scripts
