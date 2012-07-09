@@ -27,6 +27,10 @@
  */
 
 /* User Interrupts */
+/** @defgroup nvic_stn32f1_userint STM32F1xx User Interrupts
+@ingroup STM32F_nvic_defines
+
+@{*/
 #define NVIC_WWDG_IRQ			0
 #define NVIC_PVD_IRQ			1
 #define NVIC_TAMPER_IRQ			2
@@ -95,5 +99,6 @@
 #define NVIC_CAN2_RX1_IRQ		65
 #define NVIC_CAN2_SCE_IRQ		66
 #define NVIC_OTG_FS_IRQ			67
+/*@}*/
 
 #endif

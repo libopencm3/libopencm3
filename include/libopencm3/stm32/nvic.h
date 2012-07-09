@@ -1,3 +1,26 @@
+/** @file
+
+@ingroup STM32F
+
+@brief <b>libopencm3 STM32F Nested Vectored Interrupt Controller</b>
+
+@version 1.0.0
+
+@author @htmlonly &copy; @endhtmlonly 2010 Piotr Esden-Tempski <piotr@esden.net>
+
+@date 8 July 2012
+
+LGPL License Terms @ref lgpl_license
+ */
+/** @defgroup STM32F_nvic_defines
+
+@brief Defined Constants and Types for the STM32F Nested Vectored Interrupt Controller
+
+@ingroup STM32F_defines
+
+LGPL License Terms @ref lgpl_license
+
+ */
 /*
  * This file is part of the libopencm3 project.
  *
@@ -65,6 +88,11 @@
 /* --- IRQ channel numbers-------------------------------------------------- */
 
 /* Cortex M3 System Interrupts */
+/** @defgroup nvic_sysint Cortex M3 System Interrupts
+@ingroup STM32F_nvic_defines
+
+IRQ numbers -3 and -6 to -9 are reserved
+@{*/
 #define NVIC_NMI_IRQ			-14
 #define NVIC_HARD_FAULT_IRQ		-13
 #define NVIC_MEM_MANAGE_IRQ		-12
@@ -76,9 +104,10 @@
 /* irq number -3 reserved */
 #define NVIC_PENDSV_IRQ			-2
 #define NVIC_SYSTICK_IRQ		-1
+/*@}*/
 
 
-/* Note: User interrupts are family specific and are defined in a familiy
+/* Note: User interrupts are family specific and are defined in a family
  * specific header file in the corresponding subfolder.
  */
 
@@ -103,6 +132,6 @@ void nvic_clear_pending_irq(u8 irqn);
 u8 nvic_get_active_irq(u8 irqn);
 u8 nvic_get_irq_enabled(u8 irqn);
 void nvic_set_priority(u8 irqn, u8 priority);
-void nvic_generate_software_interrupt(u8 irqn);
+void nvic_generate_software_interrupt(u16 irqn);
 
 #endif
