@@ -2,7 +2,7 @@
 
 @ingroup STM32F
 
-@brief <b>libopencm3 STM32F1xx Digital to Analog Converter</b>
+@brief <b>libopencm3 STM32F Digital to Analog Converter</b>
 
 @version 1.0.0
 
@@ -13,11 +13,11 @@
 
 LGPL License Terms @ref lgpl_license
  */
-/** @defgroup STM32F1xx_dac_defines
+/** @defgroup STM32F_dac_defines
 
-@brief Defined Constants and Types for the STM32F1xx Digital to Analog Converter 
+@brief Defined Constants and Types for the STM32F Digital to Analog Converter 
 
-@ingroup STM32F1xx_defines
+@ingroup STM32F_defines
 
 LGPL License Terms @ref lgpl_license
 
@@ -105,7 +105,7 @@ LGPL License Terms @ref lgpl_license
  */
 #define DAC_CR_MAMP2_SHIFT		24
 /** @defgroup dac_mamp2 DAC Channel 2 LFSR Mask and Triangle Wave Amplitude values
-@ingroup STM32F1xx_dac_defines
+@ingroup STM32F_dac_defines
 
 Unmask bits [(n-1)..0] of LFSR/Triangle Amplitude equal to (2**(n)-1
 @{*/
@@ -134,7 +134,7 @@ Unmask bits [(n-1)..0] of LFSR/Triangle Amplitude equal to (2**(n)-1
 #define DAC_CR_WAVE2_SHIFT		22
 #define DAC_CR_WAVE2_DIS		(0x3 << DAC_CR_WAVE2_SHIFT)
 /** @defgroup dac_wave2_en DAC Channel 2 Waveform Generation Enable
-@ingroup STM32F1xx_dac_defines
+@ingroup STM32F_dac_defines
 
 @li NOISE: Noise wave generation enabled
 @li TRI: Triangle wave generation enabled
@@ -165,7 +165,7 @@ Unmask bits [(n-1)..0] of LFSR/Triangle Amplitude equal to (2**(n)-1
  */
 #define DAC_CR_TSEL2_SHIFT		19
 /** @defgroup dac_trig2_sel DAC Channel 2 Trigger Source Selection
-@ingroup STM32F1xx_dac_defines
+@ingroup STM32F_dac_defines
 
 @li T6: Timer 6 TRGO event
 @li T3: Timer 3 TRGO event
@@ -217,7 +217,7 @@ Unmask bits [(n-1)..0] of LFSR/Triangle Amplitude equal to (2**(n)-1
  */
 #define DAC_CR_MAMP1_SHIFT		8
 /** @defgroup dac_mamp1 DAC Channel 1 LFSR Mask and Triangle Wave Amplitude values
-@ingroup STM32F1xx_dac_defines
+@ingroup STM32F_dac_defines
 
 Unmask bits [(n-1)..0] of LFSR/Triangle Amplitude equal to (2**(n+1)-1
 @{*/
@@ -246,7 +246,7 @@ Unmask bits [(n-1)..0] of LFSR/Triangle Amplitude equal to (2**(n+1)-1
 #define DAC_CR_WAVE1_SHIFT		6
 #define DAC_CR_WAVE1_DIS		(0x3 << DAC_CR_WAVE1_SHIFT)
 /** @defgroup dac_wave1_en DAC Channel 1 Waveform Generation Enable
-@ingroup STM32F1xx_dac_defines
+@ingroup STM32F_dac_defines
 
 @li DIS: wave generation disabled
 @li NOISE: Noise wave generation enabled
@@ -278,7 +278,7 @@ Unmask bits [(n-1)..0] of LFSR/Triangle Amplitude equal to (2**(n+1)-1
  */
 #define DAC_CR_TSEL1_SHIFT		3
 /** @defgroup dac_trig1_sel DAC Channel 1 Trigger Source Selection
-@ingroup STM32F1xx_dac_defines
+@ingroup STM32F_dac_defines
 
 @li T6: Timer 6 TRGO event
 @li T3: Timer 3 TRGO event
