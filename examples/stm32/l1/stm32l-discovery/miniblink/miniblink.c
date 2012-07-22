@@ -29,9 +29,9 @@ void gpio_setup(void)
 {
 	/* Enable GPIOB clock. */
 	/* Manually: */
-	RCC_AHBENR |= RCC_AHBENR_GPIOBEN;
+	//RCC_AHBENR |= RCC_AHBENR_GPIOBEN;
 	/* Using API functions: */
-	//rcc_peripheral_enable_clock(&RCC_AHBENR, RCC_AHBENR_IOPBEN);
+	rcc_peripheral_enable_clock(&RCC_AHBENR, RCC_AHBENR_GPIOBEN);
 
 	/* Set GPIO6 (in GPIO port B) to 'output push-pull'. */
 	/* Using API functions: */

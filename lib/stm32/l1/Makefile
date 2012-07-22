@@ -28,7 +28,7 @@ CFLAGS		= -Os -g -Wall -Wextra -I../../../include -fno-common \
 		  -ffunction-sections -fdata-sections -MD -DSTM32L1
 # ARFLAGS	= rcsv
 ARFLAGS		= rcs
-OBJS		= vector.o desig.o crc.o gpio.o
+OBJS		= vector.o desig.o crc.o gpio.o rcc.o
 
 VPATH += ../../usb:../
 

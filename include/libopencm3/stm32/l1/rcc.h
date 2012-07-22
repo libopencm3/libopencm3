@@ -84,6 +84,11 @@ LGPL License Terms @ref lgpl_license
 #define RCC_CR_HSIRDY				(1 << 1)
 #define RCC_CR_HSION				(1 << 0)
 
+#define RCC_CR_RTCPRE_DIV2	0
+#define RCC_CR_RTCPRE_DIV4	1
+#define RCC_CR_RTCPRE_DIV8	2
+#define RCC_CR_RTCPRE_DIV18	3
+
 /* --- RCC_ICSCR values ---------------------------------------------------- */
 
 // TODO
@@ -360,7 +365,6 @@ typedef enum {
 	PLL, HSE, HSI, MSI, LSE, LSI
 } osc_t;
 
-#if FINISHED == 0
 void rcc_osc_ready_int_clear(osc_t osc);
 void rcc_osc_ready_int_enable(osc_t osc);
 void rcc_osc_ready_int_disable(osc_t osc);
@@ -400,6 +404,5 @@ void rcc_clock_setup_in_hse_8mhz_out_72mhz(void);
 void rcc_clock_setup_in_hse_12mhz_out_72mhz(void);
 void rcc_clock_setup_in_hse_16mhz_out_72mhz(void);
 void rcc_backupdomain_reset(void);
-#endif
 
 #endif
