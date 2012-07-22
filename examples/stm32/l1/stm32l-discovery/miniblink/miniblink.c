@@ -29,7 +29,7 @@ void gpio_setup(void)
 {
 	/* Enable GPIOB clock. */
 	/* Manually: */
-	RCC_AHBENR |= RCC_AHBENR_IOPBEN;
+	RCC_AHBENR |= RCC_AHBENR_GPIOBEN;
 	/* Using API functions: */
 	//rcc_peripheral_enable_clock(&RCC_AHBENR, RCC_AHBENR_IOPBEN);
 
@@ -63,7 +63,7 @@ int main(void)
 		// 	__asm__("nop");
 
 		/* Using API function gpio_toggle(): */
-		gpio_toggle(PORT_LED, PORT_LED);	/* LED on/off */
+		gpio_toggle(PORT_LED, PIN_LED);	/* LED on/off */
 		for (i = 0; i < 1000000; i++)	/* Wait a bit. */
 			__asm__("nop");
 	}
