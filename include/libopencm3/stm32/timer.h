@@ -1,3 +1,26 @@
+/** @file
+
+@ingroup STM32F1xx
+
+@brief <b>libopencm3 STM32F1xx Timers</b>
+
+@version 1.0.0
+
+@author @htmlonly &copy; @endhtmlonly 2009 Piotr Esden-Tempski <piotr@esden.net>
+
+@date 18 May 2012
+
+LGPL License Terms @ref lgpl_license
+ */
+/** @defgroup STM32F1xx_tim_defines
+
+@brief Defined Constants and Types for the STM32F1xx Timers
+
+@ingroup STM32F1xx_defines
+
+LGPL License Terms @ref lgpl_license
+
+ */
 /*
  * This file is part of the libopencm3 project.
  *
@@ -26,6 +49,11 @@
 /* --- Convenience macros -------------------------------------------------- */
 
 /* Timer register base adresses (for convenience) */
+/****************************************************************************/
+/** @defgroup tim_reg_base Timer register base addresses
+@ingroup STM32F1xx_tim_defines
+
+@{*/
 #define TIM1				TIM1_BASE
 #define TIM2				TIM2_BASE
 #define TIM3				TIM3_BASE
@@ -34,6 +62,7 @@
 #define TIM6				TIM6_BASE
 #define TIM7				TIM7_BASE
 #define TIM8				TIM8_BASE
+/*@}*/
 
 /* --- Timer registers ----------------------------------------------------- */
 
@@ -227,25 +256,43 @@
 
 /* --- TIMx_CR1 values ----------------------------------------------------- */
 
+/****************************************************************************/
+/** @defgroup tim_x_cr1_cdr TIMx_CR1 CKD[1:0] Clock Division Ratio
+@ingroup STM32F1xx_tim_defines
+
+@{*/
 /* CKD[1:0]: Clock division */
 #define TIM_CR1_CKD_CK_INT		(0x0 << 8)
 #define TIM_CR1_CKD_CK_INT_MUL_2	(0x1 << 8)
 #define TIM_CR1_CKD_CK_INT_MUL_4	(0x2 << 8)
 #define TIM_CR1_CKD_CK_INT_MASK		(0x3 << 8)
+/*@}*/
 
 /* ARPE: Auto-reload preload enable */
 #define TIM_CR1_ARPE			(1 << 7)
 
 /* CMS[1:0]: Center-aligned mode selection */
+/****************************************************************************/
+/** @defgroup tim_x_cr1_cms TIMx_CR1 CMS[1:0]: Center-aligned Mode Selection
+@ingroup STM32F1xx_tim_defines
+
+@{*/
 #define TIM_CR1_CMS_EDGE		(0x0 << 5)
 #define TIM_CR1_CMS_CENTER_1		(0x1 << 5)
 #define TIM_CR1_CMS_CENTER_2		(0x2 << 5)
 #define TIM_CR1_CMS_CENTER_3		(0x3 << 5)
 #define TIM_CR1_CMS_MASK		(0x3 << 5)
+/*@}*/
 
 /* DIR: Direction */
+/****************************************************************************/
+/** @defgroup tim_x_cr1_dir TIMx_CR1 DIR: Direction
+@ingroup STM32F1xx_tim_defines
+
+@{*/
 #define TIM_CR1_DIR_UP			(0 << 4)
 #define TIM_CR1_DIR_DOWN		(1 << 4)
+/*@}*/
 
 /* OPM: One pulse mode */
 #define TIM_CR1_OPM			(1 << 3)
@@ -261,32 +308,43 @@
 
 /* --- TIMx_CR2 values ----------------------------------------------------- */
 
-/* OIS4: Output idle state 4 (OC4 output) */
+/****************************************************************************/
+/** @defgroup tim_x_cr2_ois TIMx_CR2_OIS: Force Output Idle State Control Values
+@ingroup STM32F1xx_tim_defines
+
+@{*/
+/* OIS4:*//** Output idle state 4 (OC4 output) */
 #define TIM_CR2_OIS4			(1 << 14)
 
-/* OIS3N: Output idle state 3 (OC3N output) */
+/* OIS3N:*//** Output idle state 3 (OC3N output) */
 #define TIM_CR2_OIS3N			(1 << 13)
 
-/* OIS3: Output idle state 3 (OC3 output) */
+/* OIS3:*//** Output idle state 3 (OC3 output) */
 #define TIM_CR2_OIS3			(1 << 12)
 
-/* OIS2N: Output idle state 2 (OC2N output) */
+/* OIS2N:*//** Output idle state 2 (OC2N output) */
 #define TIM_CR2_OIS2N			(1 << 11)
 
-/* OIS2: Output idle state 2 (OC2 output) */
+/* OIS2:*//** Output idle state 2 (OC2 output) */
 #define TIM_CR2_OIS2			(1 << 10)
 
-/* OIS1N: Output idle state 1 (OC1N output) */
+/* OIS1N:*//** Output idle state 1 (OC1N output) */
 #define TIM_CR2_OIS1N			(1 << 9)
 
-/* OIS1: Output idle state 1 (OC1 output) */
+/* OIS1:*//** Output idle state 1 (OC1 output) */
 #define TIM_CR2_OIS1			(1 << 8)
 #define TIM_CR2_OIS_MASK		(0x7f << 8)
+/*@}*/
 
 /* TI1S: TI1 selection */
 #define TIM_CR2_TI1S			(1 << 7)
 
 /* MMS[2:0]: Master mode selection */
+/****************************************************************************/
+/** @defgroup tim_mastermode TIMx_CR2 MMS[6:4]: Master Mode Selection
+@ingroup STM32F1xx_tim_defines
+
+@{*/
 #define TIM_CR2_MMS_RESET		(0x0 << 4)
 #define TIM_CR2_MMS_ENABLE		(0x1 << 4)
 #define TIM_CR2_MMS_UPDATE		(0x2 << 4)
@@ -296,6 +354,7 @@
 #define TIM_CR2_MMS_COMPARE_OC3REF	(0x6 << 4)
 #define TIM_CR2_MMS_COMPARE_OC4REF	(0x7 << 4)
 #define TIM_CR2_MMS_MASK		(0x7 << 4)
+/*@}*/
 
 /* CCDS: Capture/compare DMA selection */
 #define TIM_CR2_CCDS			(1 << 3)
@@ -344,137 +403,186 @@
 #define TIM_SMCR_MSM			(1 << 7)
 
 /* TS[2:0]: Trigger selection */
+/** @defgroup tim_ts TS Trigger selection
+@ingroup STM32F1xx_tim_defines
+
+@{*/
+/** Internal Trigger 0 (ITR0) */
 #define TIM_SMCR_TS_ITR0		(0x0 << 4)
+/** Internal Trigger 1 (ITR1) */
 #define TIM_SMCR_TS_ITR1		(0x1 << 4)
+/** Internal Trigger 2 (ITR2) */
 #define TIM_SMCR_TS_ITR2		(0x2 << 4)
+/** Internal Trigger 3 (ITR3) */
 #define TIM_SMCR_TS_ITR3		(0x3 << 4)
+/** TI1 Edge Detector (TI1F_ED) */
 #define TIM_SMCR_TS_IT1F_ED		(0x4 << 4)
+/** Filtered Timer Input 1 (TI1FP1) */
 #define TIM_SMCR_TS_IT1FP1		(0x5 << 4)
+/** Filtered Timer Input 2 (TI1FP2) */
 #define TIM_SMCR_TS_IT1FP2		(0x6 << 4)
+/** External Trigger input (ETRF) */
 #define TIM_SMCR_TS_ETRF		(0x7 << 4)
 #define TIM_SMCR_TS_MASK		(0x7 << 4)
+/*@}*/
 
 /* SMS[2:0]: Slave mode selection */
+/** @defgroup tim_sms SMS Slave mode selection
+@ingroup STM32F1xx_tim_defines
+
+@{*/
+/** Slave mode disabled */
 #define TIM_SMCR_SMS_OFF		(0x0 << 0)
+/** Encoder mode 1 - Counter counts up/down on TI2FP2 edge depending on TI1FP1
+level. */
 #define TIM_SMCR_SMS_EM1		(0x1 << 0)
+/** Encoder mode 2 - Counter counts up/down on TI1FP1 edge depending on TI2FP2
+level. */
 #define TIM_SMCR_SMS_EM2		(0x2 << 0)
+/** Encoder mode 3 - Counter counts up/down on both TI1FP1 and TI2FP2 edges
+depending on the level of the complementary input. */
 #define TIM_SMCR_SMS_EM3		(0x3 << 0)
+/** Reset Mode - Rising edge of the selected trigger input (TRGI) reinitializes the counter
+and generates an update of the registers. */
 #define TIM_SMCR_SMS_RM			(0x4 << 0)
+/** Gated Mode - The counter clock is enabled when the trigger input (TRGI) is high. */
 #define TIM_SMCR_SMS_GM			(0x5 << 0)
+/**  Trigger Mode - The counter starts at a rising edge of the trigger TRGI. */
 #define TIM_SMCR_SMS_TM			(0x6 << 0)
+/** External Clock Mode 1 - Rising edges of the selected trigger (TRGI) clock the counter. */
 #define TIM_SMCR_SMS_ECM1		(0x7 << 0)
 #define TIM_SMCR_SMS_MASK		(0x7 << 0)
+/*@}*/
 
 /* --- TIMx_DIER values ---------------------------------------------------- */
 
-/* TDE: Trigger DMA request enable */
+/****************************************************************************/
+/** @defgroup tim_irq_enable TIMx_DIER Timer DMA and Interrupt Enable Values
+@ingroup STM32F1xx_tim_defines
+
+@{*/
+/* TDE:*//** Trigger DMA request enable */
 #define TIM_DIER_TDE			(1 << 14)
 
-/* COMDE: COM DMA request enable */
+/* COMDE:*//** COM DMA request enable */
 #define TIM_DIER_COMDE			(1 << 13)
 
-/* CC4DE: Capture/Compare 4 DMA request enable */
+/* CC4DE:*//** Capture/Compare 4 DMA request enable */
 #define TIM_DIER_CC4DE			(1 << 12)
 
-/* CC3DE: Capture/Compare 3 DMA request enable */
+/* CC3DE:*//** Capture/Compare 3 DMA request enable */
 #define TIM_DIER_CC3DE			(1 << 11)
 
-/* CC2DE: Capture/Compare 2 DMA request enable */
+/* CC2DE:*//** Capture/Compare 2 DMA request enable */
 #define TIM_DIER_CC2DE			(1 << 10)
 
-/* CC1DE: Capture/Compare 1 DMA request enable */
+/* CC1DE:*//** Capture/Compare 1 DMA request enable */
 #define TIM_DIER_CC1DE			(1 << 9)
 
-/* UDE: Update DMA request enable */
+/* UDE*//**: Update DMA request enable */
 #define TIM_DIER_UDE			(1 << 8)
 
-/* BIE: Break interrupt enable */
+/* BIE:*//** Break interrupt enable */
 #define TIM_DIER_BIE			(1 << 7)
 
-/* TIE: Trigger interrupt enable */
+/* TIE:*//** Trigger interrupt enable */
 #define TIM_DIER_TIE			(1 << 6)
 
-/* COMIE: COM interrupt enable */
+/* COMIE:*//** COM interrupt enable */
 #define TIM_DIER_COMIE			(1 << 5)
 
-/* CC4IE: Capture/compare 4 interrupt enable */
+/* CC4IE:*//** Capture/compare 4 interrupt enable */
 #define TIM_DIER_CC4IE			(1 << 4)
 
-/* CC3IE: Capture/compare 3 interrupt enable */
+/* CC3IE:*//** Capture/compare 3 interrupt enable */
 #define TIM_DIER_CC3IE			(1 << 3)
 
-/* CC2IE: Capture/compare 2 interrupt enable */
+/* CC2IE:*//** Capture/compare 2 interrupt enable */
 #define TIM_DIER_CC2IE			(1 << 2)
 
-/* CC1IE: Capture/compare 1 interrupt enable */
+/* CC1IE:*//** Capture/compare 1 interrupt enable */
 #define TIM_DIER_CC1IE			(1 << 1)
 
-/* UIE: Update interrupt enable */
+/* UIE:*//** Update interrupt enable */
 #define TIM_DIER_UIE			(1 << 0)
+/*@}*/
 
 /* --- TIMx_SR values ------------------------------------------------------ */
+/****************************************************************************/
+/** @defgroup tim_sr_values TIMx_SR Timer Status Register Flags
+@ingroup STM32F1xx_tim_defines
 
-/* CC4OF: Capture/compare 4 overcapture flag */
+@{*/
+
+/* CC4OF:*//** Capture/compare 4 overcapture flag */
 #define TIM_SR_CC4OF			(1 << 12)
 
-/* CC3OF: Capture/compare 3 overcapture flag */
+/* CC3OF:*//** Capture/compare 3 overcapture flag */
 #define TIM_SR_CC3OF			(1 << 11)
 
-/* CC2OF: Capture/compare 2 overcapture flag */
+/* CC2OF:*//** Capture/compare 2 overcapture flag */
 #define TIM_SR_CC2OF			(1 << 10)
 
-/* CC1OF: Capture/compare 1 overcapture flag */
+/* CC1OF:*//** Capture/compare 1 overcapture flag */
 #define TIM_SR_CC1OF			(1 << 9)
 
-/* BIF: Break interrupt flag */
+/* BIF:*//** Break interrupt flag */
 #define TIM_SR_BIF			(1 << 7)
 
-/* TIF: Trigger interrupt flag */
+/* TIF:*//** Trigger interrupt flag */
 #define TIM_SR_TIF			(1 << 6)
 
-/* COMIF: COM interrupt flag */
+/* COMIF:*//** COM interrupt flag */
 #define TIM_SR_COMIF			(1 << 5)
 
-/* CC4IF: Capture/compare 4 interrupt flag */
+/* CC4IF:*//** Capture/compare 4 interrupt flag */
 #define TIM_SR_CC4IF			(1 << 4)
 
-/* CC3IF: Capture/compare 3 interrupt flag */
+/* CC3IF:*//** Capture/compare 3 interrupt flag */
 #define TIM_SR_CC3IF			(1 << 3)
 
-/* CC2IF: Capture/compare 2 interrupt flag */
+/* CC2IF:*//** Capture/compare 2 interrupt flag */
 #define TIM_SR_CC2IF			(1 << 2)
 
-/* CC1IF: Capture/compare 1 interrupt flag */
+/* CC1IF:*//** Capture/compare 1 interrupt flag */
 #define TIM_SR_CC1IF			(1 << 1)
 
-/* UIF: Update interrupt flag */
+/* UIF:*//** Update interrupt flag */
 #define TIM_SR_UIF			(1 << 0)
+/*@}*/
 
 /* --- TIMx_EGR values ----------------------------------------------------- */
 
-/* BG: Break generation */
+/****************************************************************************/
+/** @defgroup tim_event_gen TIMx_EGR Timer Event Generator Values
+@ingroup STM32F1xx_tim_defines
+
+@{*/
+
+/* BG:*//** Break generation */
 #define TIM_EGR_BG			(1 << 7)
 
-/* TG: Trigger generation */
+/* TG:*//** Trigger generation */
 #define TIM_EGR_TG			(1 << 6)
 
-/* COMG: Capture/compare control update generation */
+/* COMG:*//** Capture/compare control update generation */
 #define TIM_EGR_COMG			(1 << 5)
 
-/* CC4G: Capture/compare 4 generation */
+/* CC4G:*//** Capture/compare 4 generation */
 #define TIM_EGR_CC4G			(1 << 4)
 
-/* CC3G: Capture/compare 3 generation */
+/* CC3G:*//** Capture/compare 3 generation */
 #define TIM_EGR_CC3G			(1 << 3)
 
-/* CC2G: Capture/compare 2 generation */
+/* CC2G:*//** Capture/compare 2 generation */
 #define TIM_EGR_CC2G			(1 << 2)
 
-/* CC1G: Capture/compare 1 generation */
+/* CC1G:*//** Capture/compare 1 generation */
 #define TIM_EGR_CC1G			(1 << 1)
 
-/* UG: Update generation */
+/* UG:*//** Update generation */
 #define TIM_EGR_UG			(1 << 0)
+/*@}*/
 
 /* --- TIMx_CCMR1 values --------------------------------------------------- */
 
@@ -805,11 +913,17 @@
 #define TIM_BDTR_OSSI			(1 << 10)
 
 /* LOCK[1:0]: Lock configuration */
+/****************************************************************************/
+/** @defgroup tim_lock TIM_BDTR_LOCK Timer Lock Values
+@ingroup STM32F1xx_tim_defines
+
+@{*/
 #define TIM_BDTR_LOCK_OFF		(0x0 << 8)
 #define TIM_BDTR_LOCK_LEVEL_1		(0x1 << 8)
 #define TIM_BDTR_LOCK_LEVEL_2		(0x2 << 8)
 #define TIM_BDTR_LOCK_LEVEL_3		(0x3 << 8)
 #define TIM_BDTR_LOCK_MASK		(0x3 << 8)
+/*@}*/
 
 /* DTG[7:0]: Dead-time generator set-up */
 #define TIM_BDTR_DTG_MASK		0x00FF
@@ -828,7 +942,7 @@
 
 /* --- TIMx convenience defines -------------------------------------------- */
 
-/* Output Compare channel designators */
+/** Output Compare channel designators */
 enum tim_oc_id {
 	TIM_OC1=0,
 	TIM_OC1N,
@@ -839,7 +953,7 @@ enum tim_oc_id {
 	TIM_OC4,
 };
 
-/* Output Compare mode designators */
+/** Output Compare mode designators */
 enum tim_oc_mode {
 	TIM_OCM_FROZEN,
 	TIM_OCM_ACTIVE,
@@ -851,7 +965,7 @@ enum tim_oc_mode {
 	TIM_OCM_PWM2,
 };
 
-/* Input Capture channel designators */
+/** Input Capture channel designators */
 enum tim_ic_id {
 	TIM_IC1,
 	TIM_IC2,
@@ -859,7 +973,13 @@ enum tim_ic_id {
 	TIM_IC4,
 };
 
-/* Input Capture input filter */
+/** Input Capture input filter. The frequency used to sample the
+input and the number of events needed to validate an output transition.
+
+TIM_IC_CK_INT_N_x No division from the Deadtime and Sampling Clock frequency (DTF),
+filter length x
+TIM_IC_DTF_DIV_y_N_x Division by y from the DTF, filter length x
+ */
 enum tim_ic_filter {
 	TIM_IC_OFF,
 	TIM_IC_CK_INT_N_2,
@@ -879,7 +999,9 @@ enum tim_ic_filter {
 	TIM_IC_DTF_DIV_32_N_8,
 };
 
-/* Input Capture input prescaler */
+/** Input Capture input prescaler.
+
+TIM_IC_PSC_x Input capture is done every x events*/
 enum tim_ic_psc {
 	TIM_IC_PSC_OFF,
 	TIM_IC_PSC_2,
@@ -887,7 +1009,10 @@ enum tim_ic_psc {
 	TIM_IC_PSC_8,
 };
 
-/* Input Capture input prescaler */
+/** Input Capture input source.
+
+The direction of the channel (input/output) as well as the input used.
+ */
 enum tim_ic_input {
 	TIM_IC_OUT = 0,
 	TIM_IC_IN_TI1 = 1,
@@ -897,13 +1022,13 @@ enum tim_ic_input {
 	TIM_IC_IN_TI4 = 6,
 };
 
-/* Input Capture input prescaler */
+/** Input Capture input polarity */
 enum tim_ic_pol {
 	TIM_IC_RISING,
 	TIM_IC_FALLING,
 };
 
-/* --- TIM functions ------------------------------------------------------- */
+/* --- TIM function prototypes ------------------------------------------------------- */
 void timer_reset(u32 timer_peripheral);
 void timer_enable_irq(u32 timer_peripheral, u32 irq);
 void timer_disable_irq(u32 timer_peripheral, u32 irq);
@@ -982,5 +1107,6 @@ void timer_slave_set_prescaler(u32 timer, enum tim_ic_psc psc);
 void timer_slave_set_polarity(u32 timer, enum tim_ic_pol pol);
 void timer_slave_set_mode(u32 timer, u8 mode);
 void timer_slave_set_trigger(u32 timer, u8 trigger);
+void timer_force_event(u32 timer, u8 event);
 
 #endif
