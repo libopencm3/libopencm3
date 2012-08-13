@@ -24,9 +24,14 @@ CC		= $(PREFIX)-gcc
 LD		= $(PREFIX)-gcc
 OBJCOPY		= $(PREFIX)-objcopy
 OBJDUMP		= $(PREFIX)-objdump
-# Uncomment this line if you want to use the installed (not local) library.
-# TOOLCHAIN_DIR := $(shell dirname `which $(CC)`)/../$(PREFIX)
-TOOLCHAIN_DIR   = ../../../..
+ifeq ($(shell ls ../../../../../lib/libopencm3_lm3s.a 2>/dev/null),)
+TOOLCHAIN_DIR := $(shell dirname `which $(CC)`)/../$(PREFIX)
+else
+ifeq ($(V),1)
+$(info We seem to be building the example in the source directory. Using local library!)
+endif
+TOOLCHAIN_DIR := ../../../..
+endif
 CFLAGS		+= -O0 -g3 -Wall -Wextra -I$(TOOLCHAIN_DIR)/include -fno-common \
 		   -mcpu=cortex-m3 -mthumb -MD
 LDSCRIPT	?= $(BINARY).ld

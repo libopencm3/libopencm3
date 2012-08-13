@@ -27,9 +27,14 @@ LD		= $(PREFIX)-gcc
 OBJCOPY		= $(PREFIX)-objcopy
 OBJDUMP		= $(PREFIX)-objdump
 GDB		= $(PREFIX)-gdb
-# Uncomment this line if you want to use the installed (not local) library.
-# TOOLCHAIN_DIR := $(shell dirname `which $(CC)`)/../$(PREFIX)
-TOOLCHAIN_DIR   = ../../../..
+ifeq ($(shell ls ../../../../../lib/libopencm3_lpc43xx.a 2>/dev/null),)
+TOOLCHAIN_DIR := $(shell dirname `which $(CC)`)/../$(PREFIX)
+else
+ifeq ($(V),1)
+$(info We seem to be building the example in the source directory. Using local library!)
+endif
+TOOLCHAIN_DIR := ../../../..
+endif
 CFLAGS		+= -O2 -g -Wall -Wextra -I$(TOOLCHAIN_DIR)/include -fno-common \
 		   -mcpu=cortex-m4 -mthumb -MD \
 		   -mfloat-abi=hard -mfpu=fpv4-sp-d16
