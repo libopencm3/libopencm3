@@ -35,27 +35,4 @@ OBJS		= gpio.o vector.o scu.o i2c.o ssp.o nvic.o systick.o
 
 # VPATH += ../usb
 
-# Be silent per default, but 'make V=1' will show all compiler calls.
-ifneq ($(V),1)
-Q := @
-endif
-
-all: $(LIBNAME).a
-
-$(LIBNAME).a: $(OBJS)
-	@printf "  AR      $(subst $(shell pwd)/,,$(@))\n"
-	$(Q)$(AR) $(ARFLAGS) $@ $^
-
-%.o: %.c
-	@printf "  CC      $(subst $(shell pwd)/,,$(@))\n"
-	$(Q)$(CC) $(CFLAGS) -o $@ -c $<
-
-clean:
-	@printf "  CLEAN   lib/lpc43xx\n"
-	$(Q)rm -f *.o *.d
-	$(Q)rm -f $(LIBNAME).a
-
-.PHONY: clean
-
--include $(OBJS:.o=.d)
-
+include ../Makefile.include

@@ -2,6 +2,7 @@
 ## This file is part of the libopencm3 project.
 ##
 ## Copyright (C) 2009 Uwe Hermann <uwe@hermann-uwe.de>
+## Copyright (C) 2012 Piotr Esden-Tempski <piotr@esden.net>
 ##
 ## This library is free software: you can redistribute it and/or modify
 ## it under the terms of the GNU Lesser General Public License as published by
@@ -17,19 +18,31 @@
 ## along with this library.  If not, see <http://www.gnu.org/licenses/>.
 ##
 
-LIBNAME		= libopencm3_lpc13xx
+# Be silent per default, but 'make V=1' will show all compiler calls.
+ifneq ($(V),1)
+Q := @
+endif
 
-PREFIX		?= arm-none-eabi
-#PREFIX		?= arm-elf
-CC		= $(PREFIX)-gcc
-AR		= $(PREFIX)-ar
-CFLAGS		= -Os -g -Wall -Wextra -I../../include -fno-common \
-		  -mcpu=cortex-m3 -mthumb -Wstrict-prototypes \
-		  -ffunction-sections -fdata-sections -MD
-# ARFLAGS	= rcsv
-ARFLAGS		= rcs
-OBJS		= gpio.o
+all: $(SRCLIBDIR)/$(LIBNAME).a
 
-# VPATH += ../usb
+$(SRCLIBDIR)/$(LIBNAME).a: $(SRCLIBDIR)/$(LIBNAME).ld $(OBJS)
+	@printf "  AR      $(shell basename $(@))\n"
+	$(Q)$(AR) $(ARFLAGS) $(SRCLIBDIR)/$(shell basename $(@)) $(OBJS)
 
-include ../Makefile.include
+$(SRCLIBDIR)/$(LIBNAME).ld: $(LIBNAME).ld
+	@printf "  CP      $(LIBNAME).ld\n"
+	$(Q)cp $^ $@
+
+%.o: %.c
+	@printf "  CC      $(subst $(shell pwd)/,,$(@))\n"
+	$(Q)$(CC) $(CFLAGS) -o $@ -c $<
+
+clean:
+	@printf "  CLEAN   lib/stm32/f1\n"
+	$(Q)rm -f *.o *.d
+	$(Q)rm -f $(SRCLIBDIR)/$(LIBNAME).a
+	$(Q)rm -f $(SRCLIBDIR)/$(LIBNAME).ld
+
+.PHONY: clean
+
+-include $(OBJS:.o=.d)

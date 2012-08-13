@@ -33,7 +33,7 @@ CFLAGS		+= -Os -g -Wall -Wextra -I$(TOOLCHAIN_DIR)/include \
 		   -fno-common $(ARCH_FLAGS) -MD -DSTM32F1
 LDSCRIPT	?= $(BINARY).ld
 LDFLAGS		+= -Wl,--start-group -lc -lgcc -lnosys -Wl,--end-group \
-		   -L$(TOOLCHAIN_DIR)/lib -L$(TOOLCHAIN_DIR)/lib/stm32/f1 \
+		   -L$(TOOLCHAIN_DIR)/lib \
 		   -T$(LDSCRIPT) -nostartfiles -Wl,--gc-sections \
 		   $(ARCH_FLAGS) -mfix-cortex-m3-ldrd
 OBJS		+= $(BINARY).o
@@ -81,7 +81,7 @@ flash: $(BINARY).flash
 	@#printf "  OBJDUMP $(*).list\n"
 	$(Q)$(OBJDUMP) -S $(*).elf > $(*).list
 
-%.elf: $(OBJS) $(LDSCRIPT) $(TOOLCHAIN_DIR)/lib/stm32/f1/libopencm3_stm32f1.a
+%.elf: $(OBJS) $(LDSCRIPT) $(TOOLCHAIN_DIR)/lib/libopencm3_stm32f1.a
 	@#printf "  LD      $(subst $(shell pwd)/,,$(@))\n"
 	$(Q)$(LD) -o $(*).elf $(OBJS) -lopencm3_stm32f1 $(LDFLAGS)
 

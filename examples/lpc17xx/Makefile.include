@@ -30,7 +30,7 @@ TOOLCHAIN_DIR   = ../../../..
 CFLAGS		+= -O0 -g -Wall -Wextra -I$(TOOLCHAIN_DIR)/include -fno-common \
 		   -mcpu=cortex-m3 -mthumb -MD
 LDSCRIPT	?= $(BINARY).ld
-LDFLAGS         += -L$(TOOLCHAIN_DIR)/lib -L$(TOOLCHAIN_DIR)/lib/lpc17xx \
+LDFLAGS         += -L$(TOOLCHAIN_DIR)/lib \
 		   -T$(LDSCRIPT) -nostartfiles -Wl,--gc-sections
 OBJS		+= $(BINARY).o
 
@@ -75,7 +75,7 @@ flash: $(BINARY).flash
 	@#printf "  OBJDUMP $(*).list\n"
 	$(Q)$(OBJDUMP) -S $(*).elf > $(*).list
 
-%.elf: $(OBJS) $(LDSCRIPT) $(TOOLCHAIN_DIR)/lib/lpc17xx/libopencm3_lpc17xx.a
+%.elf: $(OBJS) $(LDSCRIPT) $(TOOLCHAIN_DIR)/lib/libopencm3_lpc17xx.a
 	@#printf "  LD      $(subst $(shell pwd)/,,$(@))\n"
 	$(Q)$(LD) $(LDFLAGS) -o $(*).elf $(OBJS) -lopencm3_lpc17xx
 
