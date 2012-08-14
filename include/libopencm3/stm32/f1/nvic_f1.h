@@ -27,7 +27,7 @@
  */
 
 /* User Interrupts */
-/** @defgroup nvic_stn32f1_userint STM32F1xx User Interrupts
+/** @defgroup nvic_stm32f1_userint STM32F1xx User Interrupts
 @ingroup STM32F_nvic_defines
 
 @{*/

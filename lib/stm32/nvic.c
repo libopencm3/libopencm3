@@ -9,13 +9,15 @@
 @author @htmlonly &copy; @endhtmlonly 2010 Thomas Otto <tommi@viadmin.org>
 @author @htmlonly &copy; @endhtmlonly 2012 Fergus Noble <fergusnoble@gmail.com>
 
-@date 7 July 2012
+@date 14 August 2012
 
 The STM32F series provides up to 68 maskable user interrupts for the STM32F10x
 series, and 87 for the STM32F2xx and STM32F4xx series.
 
-The NVIC registers are defined by the ARM standards
+The NVIC registers are defined by the ARM standards but the STM32F series have some
+additional limitations
 @see Cortex-M3 Devices Generic User Guide
+@see STM32F10xxx Cortex-M3 programming manual
 
 
 LGPL License Terms @ref lgpl_license
@@ -47,7 +49,7 @@ LGPL License Terms @ref lgpl_license
 
 Enables a user interrupt.
 
-@param[in] irqn Unsigned int8. Interrupt number @ref nvic_stn32f1_userint
+@param[in] irqn Unsigned int8. Interrupt number @ref nvic_stm32f1_userint
 */
 
 void nvic_enable_irq(u8 irqn)
@@ -60,7 +62,7 @@ void nvic_enable_irq(u8 irqn)
 
 Disables a user interrupt.
 
-@param[in] irqn Unsigned int8. Interrupt number @ref nvic_stn32f1_userint
+@param[in] irqn Unsigned int8. Interrupt number @ref nvic_stm32f1_userint
 */
 
 void nvic_disable_irq(u8 irqn)
@@ -73,7 +75,7 @@ void nvic_disable_irq(u8 irqn)
 
 True if the interrupt has occurred and is waiting for service.
 
-@param[in] irqn Unsigned int8. Interrupt number @ref nvic_stn32f1_userint
+@param[in] irqn Unsigned int8. Interrupt number @ref nvic_stm32f1_userint
 @return Boolean. Interrupt pending.
 */
 
@@ -85,10 +87,10 @@ u8 nvic_get_pending_irq(u8 irqn)
 /*-----------------------------------------------------------------------------*/
 /** @brief NVIC Set Pending Interrupt
 
-Force a user interrupt to a pending state. No effect if the interrupt is already
-pending.
+Force a user interrupt to a pending state. This has no effect if the interrupt
+is already pending.
 
-@param[in] irqn Unsigned int8. Interrupt number @ref nvic_stn32f1_userint
+@param[in] irqn Unsigned int8. Interrupt number @ref nvic_stm32f1_userint
 */
 
 void nvic_set_pending_irq(u8 irqn)
@@ -99,10 +101,10 @@ void nvic_set_pending_irq(u8 irqn)
 /*-----------------------------------------------------------------------------*/
 /** @brief NVIC Clear Pending Interrupt
 
-Force remove a user interrupt from a pending state. No effect if the interrupt is
-actively being serviced.
+Force remove a user interrupt from a pending state. This has no effect if the
+interrupt is actively being serviced.
 
-@param[in] irqn Unsigned int8. Interrupt number @ref nvic_stn32f1_userint
+@param[in] irqn Unsigned int8. Interrupt number @ref nvic_stm32f1_userint
 */
 
 void nvic_clear_pending_irq(u8 irqn)
@@ -115,7 +117,7 @@ void nvic_clear_pending_irq(u8 irqn)
 
 Interrupt has occurred and is currently being serviced.
 
-@param[in] irqn Unsigned int8. Interrupt number @ref nvic_stn32f1_userint
+@param[in] irqn Unsigned int8. Interrupt number @ref nvic_stm32f1_userint
 @return Boolean. Interrupt active.
 */
 
@@ -127,7 +129,7 @@ u8 nvic_get_active_irq(u8 irqn)
 /*-----------------------------------------------------------------------------*/
 /** @brief NVIC Return Enabled Interrupt
 
-@param[in] irqn Unsigned int8. Interrupt number @ref nvic_stn32f1_userint
+@param[in] irqn Unsigned int8. Interrupt number @ref nvic_stm32f1_userint
 @return Boolean. Interrupt enabled.
 */
 
@@ -139,13 +141,18 @@ u8 nvic_get_irq_enabled(u8 irqn)
 /*-----------------------------------------------------------------------------*/
 /** @brief NVIC Set Interrupt Priority
 
-@param[in] irqn Unsigned int8. Interrupt number @ref nvic_stn32f1_userint
-@param[in] priority Unsigned int8. Interrupt priority (0 ... 255)
+There are 16 priority levels only, given by the upper four bits of the priority
+byte, as required by ARM standards. The priority levels are interpreted according
+to the pre-emptive priority grouping set in the SCB Application Interrupt and Reset
+Control Register (SCB_AIRCR), as done in @ref scb_set_priority_grouping.
+
+@param[in] irqn Unsigned int8. Interrupt number @ref nvic_stm32f1_userint
+@param[in] priority Unsigned int8. Interrupt priority (0 ... 255 in steps of 16)
 */
 
 void nvic_set_priority(u8 irqn, u8 priority)
 {
-	NVIC_IPR(irqn / 4) = (priority << ((irqn % 4) * 8));
+	NVIC_IPR(irqn) = priority;
 }
 
 /*-----------------------------------------------------------------------------*/
@@ -154,7 +161,7 @@ void nvic_set_priority(u8 irqn, u8 priority)
 Generate an interrupt from software. This has no effect for unprivileged access
 unless the privilege level has been elevated through the System Control Registers.
 
-@param[in] sgin Unsigned int16. Interrupt number (0 ... 239)
+@param[in] irqn Unsigned int16. Interrupt number (0 ... 239)
 */
 
 void nvic_generate_software_interrupt(u16 irqn)
