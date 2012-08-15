@@ -25,7 +25,7 @@ LD		= $(PREFIX)-gcc
 OBJCOPY		= $(PREFIX)-objcopy
 OBJDUMP		= $(PREFIX)-objdump
 GDB		= $(PREFIX)-gdb
-ifeq ($(shell ls ../../../../../lib/libopencm3_stm32f1.a 2>/dev/null),)
+ifeq ($(wildcard ../../../../../lib/libopencm3_stm32f1.a),)
 TOOLCHAIN_DIR := $(shell dirname `which $(CC)`)/../$(PREFIX)
 else
 ifeq ($(V),1)
