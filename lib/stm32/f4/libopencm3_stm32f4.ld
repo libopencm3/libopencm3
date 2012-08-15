@@ -48,7 +48,7 @@ SECTIONS
 	__exidx_end = .;
 
 
-	_etext = .;
+	_etext = ALIGN(8);
 
 	.data : {
 		_data = .;

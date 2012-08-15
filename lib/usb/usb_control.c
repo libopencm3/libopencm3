@@ -27,7 +27,7 @@ static struct usb_control_state {
 		DATA_IN, LAST_DATA_IN, STATUS_IN,
 		DATA_OUT, LAST_DATA_OUT, STATUS_OUT,
 	} state;
-	struct usb_setup_data req;
+	struct usb_setup_data req __attribute__((aligned(4)));
 	u8 *ctrl_buf;
 	u16 ctrl_len;
 	void (*complete)(struct usb_setup_data *req);
