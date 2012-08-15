@@ -34,27 +34,4 @@ OBJS		= vector.o rcc.o gpio.o usart.o spi.o flash.o nvic.o \
 
 VPATH += ../../usb:../
 
-# Be silent per default, but 'make V=1' will show all compiler calls.
-ifneq ($(V),1)
-Q := @
-endif
-
-all: $(LIBNAME).a
-
-$(LIBNAME).a: $(OBJS)
-	@printf "  AR      $(subst $(shell pwd)/,,$(@))\n"
-	$(Q)$(AR) $(ARFLAGS) $@ $^
-
-%.o: %.c
-	@printf "  CC      $(subst $(shell pwd)/,,$(@))\n"
-	$(Q)$(CC) $(CFLAGS) -o $@ -c $<
-
-clean:
-	@printf "  CLEAN   lib/stm32/f4\n"
-	$(Q)rm -f *.o *.d
-	$(Q)rm -f $(LIBNAME).a
-
-.PHONY: clean
-
--include $(OBJS:.o=.d)
-
+include ../../Makefile.include
