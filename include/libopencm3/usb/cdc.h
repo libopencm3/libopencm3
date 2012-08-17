@@ -112,7 +112,7 @@ struct usb_cdc_line_coding {
 
 /* Table 30: Class-Specific Notification Codes for PSTN subclasses */
 /* ... */
-#define USB_CDC_NOTIFY_SERIAL_STATE	0x20
+#define USB_CDC_NOTIFY_SERIAL_STATE		0x20
 /* ... */
 
 /* Notification Structure */
