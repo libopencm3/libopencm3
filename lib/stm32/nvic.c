@@ -1,6 +1,6 @@
-/** @file
+/** @defgroup STM32F-nvic-file NVIC
 
-@ingroup STM32F
+@ingroup STM32F-files
 
 @brief <b>libopencm3 STM32F Nested Vectored Interrupt Controller</b>
 
@@ -9,7 +9,7 @@
 @author @htmlonly &copy; @endhtmlonly 2010 Thomas Otto <tommi@viadmin.org>
 @author @htmlonly &copy; @endhtmlonly 2012 Fergus Noble <fergusnoble@gmail.com>
 
-@date 14 August 2012
+@date 18 August 2012
 
 The STM32F series provides up to 68 maskable user interrupts for the STM32F10x
 series, and 87 for the STM32F2xx and STM32F4xx series.
@@ -18,7 +18,6 @@ The NVIC registers are defined by the ARM standards but the STM32F series have s
 additional limitations
 @see Cortex-M3 Devices Generic User Guide
 @see STM32F10xxx Cortex-M3 programming manual
-
 
 LGPL License Terms @ref lgpl_license
 */
@@ -41,6 +40,8 @@ LGPL License Terms @ref lgpl_license
  * You should have received a copy of the GNU Lesser General Public License
  * along with this library.  If not, see <http://www.gnu.org/licenses/>.
  */
+
+/**@{*/
 
 #include <libopencm3/stm32/nvic.h>
 
@@ -169,3 +170,5 @@ void nvic_generate_software_interrupt(u16 irqn)
 	if (irqn <= 239)
 		NVIC_STIR |= irqn;
 }
+/**@}*/
+

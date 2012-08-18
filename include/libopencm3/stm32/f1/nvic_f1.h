@@ -1,3 +1,17 @@
+/** @defgroup STM32F_nvic_f1_defines STM32F NVIC Defines
+
+@brief <b>Defined Constants and Types for the STM32F1xx Nested Vectored Interrupt Controller</b>
+
+@ingroup STM32F_defines
+
+@version 1.0.0
+
+@author @htmlonly &copy; @endhtmlonly 2010 Thomas Otto <tommi@viadmin.org>
+
+@date 18 August 2012
+
+LGPL License Terms @ref lgpl_license
+ */
 /*
  * This file is part of the libopencm3 project.
  *
