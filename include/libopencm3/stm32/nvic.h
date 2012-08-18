@@ -8,18 +8,9 @@
 
 @author @htmlonly &copy; @endhtmlonly 2010 Piotr Esden-Tempski <piotr@esden.net>
 
-@date 8 July 2012
+@date 18 August 2012
 
 LGPL License Terms @ref lgpl_license
- */
-/** @defgroup STM32F_nvic_defines
-
-@brief Defined Constants and Types for the STM32F Nested Vectored Interrupt Controller
-
-@ingroup STM32F_defines
-
-LGPL License Terms @ref lgpl_license
-
  */
 /*
  * This file is part of the libopencm3 project.
