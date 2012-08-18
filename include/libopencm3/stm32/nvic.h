@@ -39,6 +39,7 @@ LGPL License Terms @ref lgpl_license
  * You should have received a copy of the GNU Lesser General Public License
  * along with this library.  If not, see <http://www.gnu.org/licenses/>.
  */
+/**@{*/
 
 #ifndef LIBOPENCM3_NVIC_H
 #define LIBOPENCM3_NVIC_H
@@ -135,3 +136,5 @@ void nvic_set_priority(u8 irqn, u8 priority);
 void nvic_generate_software_interrupt(u16 irqn);
 
 #endif
+/**@}*/
+
