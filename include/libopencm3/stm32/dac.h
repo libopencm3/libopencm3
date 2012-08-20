@@ -1,27 +1,19 @@
-/** @file
+/** @defgroup STM32F_dac_defines DAC Defines
 
-@ingroup STM32F
+@brief <b>libopencm3 Defined Constants and Types for the STM32F Digital to Analog Converter </b>
 
-@brief <b>libopencm3 STM32F Digital to Analog Converter</b>
+@ingroup STM32F_defines
 
 @version 1.0.0
 
 @author @htmlonly &copy; @endhtmlonly 2012 Felix Held <felix-libopencm3@felixheld.de>
 @author @htmlonly &copy; @endhtmlonly 2012 Ken Sarkies
 
-@date 30 June 2012
+@date 18 August 2012
 
 LGPL License Terms @ref lgpl_license
  */
-/** @defgroup STM32F_dac_defines
 
-@brief Defined Constants and Types for the STM32F Digital to Analog Converter 
-
-@ingroup STM32F_defines
-
-LGPL License Terms @ref lgpl_license
-
- */
 /*
  * This file is part of the libopencm3 project.
  *
@@ -40,6 +32,8 @@ LGPL License Terms @ref lgpl_license
  * You should have received a copy of the GNU Lesser General Public License
  * along with this library.  If not, see <http://www.gnu.org/licenses/>.
  */
+
+/**@{*/
 
 #ifndef LIBOPENCM3_DAC_H
 #define LIBOPENCM3_DAC_H
@@ -121,7 +115,7 @@ Unmask bits [(n-1)..0] of LFSR/Triangle Amplitude equal to (2**(n)-1
 #define DAC_CR_MAMP2_10			(0x9 << DAC_CR_MAMP2_SHIFT)
 #define DAC_CR_MAMP2_11			(0xA << DAC_CR_MAMP2_SHIFT)
 #define DAC_CR_MAMP2_12			(0xB << DAC_CR_MAMP2_SHIFT)
-/*@}*/
+/**@}*/
 
 /* WAVE2[1:0]: DAC channel2 noise/triangle wave generation enable */
 /* Legend:
@@ -143,7 +137,7 @@ Unmask bits [(n-1)..0] of LFSR/Triangle Amplitude equal to (2**(n)-1
 @{*/
 #define DAC_CR_WAVE2_NOISE		(0x1 << DAC_CR_WAVE2_SHIFT)
 #define DAC_CR_WAVE2_TRI		(0x2 << DAC_CR_WAVE2_SHIFT)
-/*@}*/
+/**@}*/
 
 /* TSEL2[2:0]: DAC channel2 trigger selection */
 /* Legend:
@@ -193,7 +187,7 @@ Unmask bits [(n-1)..0] of LFSR/Triangle Amplitude equal to (2**(n)-1
 #define DAC_CR_TSEL2_T4			(0x5 << DAC_CR_TSEL2_SHIFT)
 #define DAC_CR_TSEL2_E9			(0x6 << DAC_CR_TSEL2_SHIFT)
 #define DAC_CR_TSEL2_SW			(0x7 << DAC_CR_TSEL2_SHIFT)
-/*@}*/
+/**@}*/
 
 /* TEN2: DAC channel2 trigger enable */
 #define DAC_CR_TEN2			(1 << 18)
@@ -233,7 +227,7 @@ Unmask bits [(n-1)..0] of LFSR/Triangle Amplitude equal to (2**(n+1)-1
 #define DAC_CR_MAMP1_10			(0x9 << DAC_CR_MAMP1_SHIFT)
 #define DAC_CR_MAMP1_11			(0xA << DAC_CR_MAMP1_SHIFT)
 #define DAC_CR_MAMP1_12			(0xB << DAC_CR_MAMP1_SHIFT)
-/*@}*/
+/**@}*/
 
 /* WAVE1[1:0]: DAC channel1 noise/triangle wave generation enable */
 /* Legend:
@@ -256,7 +250,7 @@ Unmask bits [(n-1)..0] of LFSR/Triangle Amplitude equal to (2**(n+1)-1
 @{*/
 #define DAC_CR_WAVE1_NOISE		(0x1 << DAC_CR_WAVE1_SHIFT)
 #define DAC_CR_WAVE1_TRI		(0x2 << DAC_CR_WAVE1_SHIFT)
-/*@}*/
+/**@}*/
 
 /* TSEL1[2:0]: DAC channel1 trigger selection */
 /* Legend:
@@ -306,7 +300,7 @@ Unmask bits [(n-1)..0] of LFSR/Triangle Amplitude equal to (2**(n+1)-1
 #define DAC_CR_TSEL1_T4			(0x5 << DAC_CR_TSEL1_SHIFT)
 #define DAC_CR_TSEL1_E9			(0x6 << DAC_CR_TSEL1_SHIFT)
 #define DAC_CR_TSEL1_SW			(0x7 << DAC_CR_TSEL1_SHIFT)
-/*@}*/
+/**@}*/
 
 /* TEN1: DAC channel1 trigger enable */
 #define DAC_CR_TEN1			(1 << 2)
@@ -416,3 +410,5 @@ void dac_load_data_buffer_dual(u32 dac_data1, u32 dac_data2, data_align dac_data
 void dac_software_trigger(data_channel dac_channel);
 
 #endif
+/**@}*/
+

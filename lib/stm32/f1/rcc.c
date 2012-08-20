@@ -1,4 +1,4 @@
-/** @file
+/** @defgroup STM32F1xx-rcc-file RCC
 
 @ingroup STM32F1xx
 
@@ -10,25 +10,26 @@
 @author @htmlonly &copy; @endhtmlonly 2009 Uwe Hermann <uwe@hermann-uwe.de>
 @author @htmlonly &copy; @endhtmlonly 2010 Thomas Otto <tommi@viadmin.org>
 
-@date 18 May 2012
+@date 18 August 2012
 
-This library supports the Reset and Clock
-Control System in the STM32F1xx series of ARM Cortex Microcontrollers
-by ST Microelectronics.
+This library supports the Reset and Clock Control System in the STM32F1xx
+series of ARM Cortex Microcontrollers by ST Microelectronics.
+
+@note Full support for connection line devices is not yet provided.
 
 Clock settings and resets for many peripherals are given here rather than in the
-peripheral library.
+corresponding peripheral library.
 
 The library also provides a number of common configurations for the processor
-system clock. Not all possible configurations are given here.
-
-@bugs None known
+system clock. Not all possible configurations are included.
 
 LGPL License Terms @ref lgpl_license
  */
 /*
  * This file is part of the libopencm3 project.
  *
+ * Copyright (C) 2009 Federico Ruiz-Ugalde <memeruiz at gmail dot com>
+ * Copyright (C) 2009 Uwe Hermann <uwe@hermann-uwe.de>
  * Copyright (C) 2010 Thomas Otto <tommi@viadmin.org>
  *
  * This library is free software: you can redistribute it and/or modify
@@ -45,6 +46,7 @@ LGPL License Terms @ref lgpl_license
  * along with this library.  If not, see <http://www.gnu.org/licenses/>.
  */
 
+/**@{*/
 
 #include <libopencm3/stm32/f1/rcc.h>
 #include <libopencm3/stm32/f1/flash.h>
@@ -54,12 +56,12 @@ u32 rcc_ppre1_frequency = 8000000;
 /** Default ppre2 peripheral clock frequency after reset. */
 u32 rcc_ppre2_frequency = 8000000;
 
-//-----------------------------------------------------------------------------
-/** @brief RCC Clear the Oscillator Ready Interrupt
+/*-----------------------------------------------------------------------------*/
+/** @brief RCC Clear the Oscillator Ready Interrupt Flag
 
 Clear the interrupt flag that was set when a clock oscillator became ready to use.
 
-@param[in] enum ::osc_t. Oscillator ID
+@param[in] osc enum ::osc_t. Oscillator ID
 */
 
 void rcc_osc_ready_int_clear(osc_t osc)
@@ -83,6 +85,12 @@ void rcc_osc_ready_int_clear(osc_t osc)
 	}
 }
 
+/*-----------------------------------------------------------------------------*/
+/** @brief RCC Enable the Oscillator Ready Interrupt
+
+@param[in] osc enum ::osc_t. Oscillator ID
+*/
+
 void rcc_osc_ready_int_enable(osc_t osc)
 {
 	switch (osc) {
@@ -104,6 +112,12 @@ void rcc_osc_ready_int_enable(osc_t osc)
 	}
 }
 
+/*-----------------------------------------------------------------------------*/
+/** @brief RCC Disable the Oscillator Ready Interrupt
+
+@param[in] osc enum ::osc_t. Oscillator ID
+*/
+
 void rcc_osc_ready_int_disable(osc_t osc)
 {
 	switch (osc) {
@@ -124,6 +138,13 @@ void rcc_osc_ready_int_disable(osc_t osc)
 		break;
 	}
 }
+
+/*-----------------------------------------------------------------------------*/
+/** @brief RCC Read the Oscillator Ready Interrupt Flag
+
+@param[in] osc enum ::osc_t. Oscillator ID
+@returns int. Boolean value for flag set.
+*/
 
 int rcc_osc_ready_int_flag(osc_t osc)
 {
@@ -149,15 +170,32 @@ int rcc_osc_ready_int_flag(osc_t osc)
 	return -1;
 }
 
+/*-----------------------------------------------------------------------------*/
+/** @brief RCC Clear the Clock Security System Interrupt Flag
+
+*/
+
 void rcc_css_int_clear(void)
 {
 	RCC_CIR |= RCC_CIR_CSSC;
 }
 
+/*-----------------------------------------------------------------------------*/
+/** @brief RCC Read the Clock Security System Interrupt Flag
+
+@returns int. Boolean value for flag set.
+*/
+
 int rcc_css_int_flag(void)
 {
 	return ((RCC_CIR & RCC_CIR_CSSF) != 0);
 }
+
+/*-----------------------------------------------------------------------------*/
+/** @brief RCC Wait for Oscillator Ready.
+
+@param[in] osc enum ::osc_t. Oscillator ID
+*/
 
 void rcc_wait_for_osc_ready(osc_t osc)
 {
@@ -180,6 +218,20 @@ void rcc_wait_for_osc_ready(osc_t osc)
 	}
 }
 
+/*-----------------------------------------------------------------------------*/
+/** @brief RCC Turn on an Oscillator.
+
+Enable an oscillator and power on. Each oscillator requires an amount of time to
+settle to a usable state. Refer to datasheets for time delay information. A status
+flag is available to indicate when the oscillator becomes ready (see
+@ref rcc_osc_ready_int_flag and @ref rcc_wait_for_osc_ready).
+
+@note The LSE clock is in the backup domain and cannot be enabled until the
+backup domain write protection has been removed (see @ref pwr_disable_backup_domain_write_protect).
+
+@param[in] osc enum ::osc_t. Oscillator ID
+*/
+
 void rcc_osc_on(osc_t osc)
 {
 	switch (osc) {
@@ -200,6 +252,20 @@ void rcc_osc_on(osc_t osc)
 		break;
 	}
 }
+
+/*-----------------------------------------------------------------------------*/
+/** @brief RCC Turn off an Oscillator.
+
+Disable an oscillator and power off.
+
+@note An oscillator cannot be turned off if it is selected as the system clock.
+@note The LSE clock is in the backup domain and cannot be disabled until the
+backup domain write protection has been removed (see
+@ref pwr_disable_backup_domain_write_protect) or the backup domain has been
+(see reset @ref rcc_backupdomain_reset).
+
+@param[in] osc enum ::osc_t. Oscillator ID
+*/
 
 void rcc_osc_off(osc_t osc)
 {
@@ -222,15 +288,38 @@ void rcc_osc_off(osc_t osc)
 	}
 }
 
+/*-----------------------------------------------------------------------------*/
+/** @brief RCC Enable the Clock Security System.
+
+*/
+
 void rcc_css_enable(void)
 {
 	RCC_CR |= RCC_CR_CSSON;
 }
 
+/*-----------------------------------------------------------------------------*/
+/** @brief RCC Disable the Clock Security System.
+
+*/
+
 void rcc_css_disable(void)
 {
 	RCC_CR &= ~RCC_CR_CSSON;
 }
+
+/*-----------------------------------------------------------------------------*/
+/** @brief RCC Enable Bypass.
+
+Enable an external clock to bypass the internal clock (high speed and low speed
+clocks only). The external clock must be enabled (see @ref rcc_osc_on)
+and the internal clock must be disabled (see @ref rcc_osc_off) for this to have effect.
+
+@note The LSE clock is in the backup domain and cannot be bypassed until the
+backup domain write protection has been removed (see @ref pwr_disable_backup_domain_write_protect).
+
+@param[in] osc enum ::osc_t. Oscillator ID. Only HSE and LSE have effect.
+*/
 
 void rcc_osc_bypass_enable(osc_t osc)
 {
@@ -249,6 +338,19 @@ void rcc_osc_bypass_enable(osc_t osc)
 	}
 }
 
+/*-----------------------------------------------------------------------------*/
+/** @brief RCC Disable Bypass.
+
+Re-enable the internal clock (high speed and low speed clocks only). The internal
+clock must be disabled (see @ref rcc_osc_off) for this to have effect.
+
+@note The LSE clock is in the backup domain and cannot have bypass removed until the
+backup domain write protection has been removed (see @ref pwr_disable_backup_domain_write_protect)
+or the backup domain has been reset (see @ref rcc_backupdomain_reset).
+
+@param[in] osc enum ::osc_t. Oscillator ID. Only HSE and LSE have effect.
+*/
+
 void rcc_osc_bypass_disable(osc_t osc)
 {
 	switch (osc) {
@@ -266,18 +368,20 @@ void rcc_osc_bypass_disable(osc_t osc)
 	}
 }
 
-//-----------------------------------------------------------------------------
-/** @brief RCC Enable a peripheral clock.
+/*-----------------------------------------------------------------------------*/
+/** @brief RCC Enable Peripheral Clocks.
 
-Enable the clock on a particular peripheral. Several peripherals could be
-enabled simultaneously if they are controlled by the same register.
+Enable the clock on particular peripherals. There are three registers
+involved, each one controlling the enabling of clocks associated with the AHB,
+APB1 and APB2 respectively. Several peripherals could be
+enabled simultaneously <em>only if they are controlled by the same register</em>.
 
-@param[in] Unsigned int32 *reg. Pointer to a Clock Enable Register
-			 (either RCC_AHBENR, RCC_APB1RENR or RCC_APB2RENR)
-@param[in] Unsigned int32 en. OR of all enables to be set
+@param[in] *reg Unsigned int32. Pointer to a Clock Enable Register
+			 (either RCC_AHBENR, RCC_APB1ENR or RCC_APB2ENR)
+@param[in] en Unsigned int32. Logical OR of all enables to be set
 @li If register is RCC_AHBER, from @ref rcc_ahbenr_en
-@li If register is RCC_APB1RENR, from @ref rcc_apb1enr_en
-@li If register is RCC_APB2RENR, from @ref rcc_apb2enr_en
+@li If register is RCC_APB1ENR, from @ref rcc_apb1enr_en
+@li If register is RCC_APB2ENR, from @ref rcc_apb2enr_en
 */
 
 void rcc_peripheral_enable_clock(volatile u32 *reg, u32 en)
@@ -285,20 +389,74 @@ void rcc_peripheral_enable_clock(volatile u32 *reg, u32 en)
 	*reg |= en;
 }
 
+/*-----------------------------------------------------------------------------*/
+/** @brief RCC Disable Peripheral Clocks.
+
+Enable the clock on particular peripherals. There are three registers
+involved, each one controlling the enabling of clocks associated with the AHB,
+APB1 and APB2 respectively. Several peripherals could be
+disabled simultaneously <em>only if they are controlled by the same register</em>.
+
+@param[in] *reg Unsigned int32. Pointer to a Clock Enable Register
+			 (either RCC_AHBENR, RCC_APB1ENR or RCC_APB2ENR)
+@param[in] en Unsigned int32. Logical OR of all enables to be used for disabling.
+@li If register is RCC_AHBER, from @ref rcc_ahbenr_en
+@li If register is RCC_APB1ENR, from @ref rcc_apb1enr_en
+@li If register is RCC_APB2ENR, from @ref rcc_apb2enr_en
+*/
+
 void rcc_peripheral_disable_clock(volatile u32 *reg, u32 en)
 {
 	*reg &= ~en;
 }
+
+/*-----------------------------------------------------------------------------*/
+/** @brief RCC Reset Peripherals.
+
+Reset particular peripherals. There are three registers
+involved, each one controlling reset of peripherals associated with the AHB,
+APB1 and APB2 respectively. Several peripherals could be reset simultaneously
+<em>only if they are controlled by the same register</em>.
+
+@param[in] *reg Unsigned int32. Pointer to a Reset Register
+			 (either RCC_AHBENR, RCC_APB1ENR or RCC_APB2ENR)
+@param[in] reset Unsigned int32. Logical OR of all resets.
+@li If register is RCC_AHBRSTR, from @ref rcc_ahbrstr_rst
+@li If register is RCC_APB1RSTR, from @ref rcc_apb1rstr_rst
+@li If register is RCC_APB2RSTR, from @ref rcc_apb2rstr_rst
+*/
 
 void rcc_peripheral_reset(volatile u32 *reg, u32 reset)
 {
 	*reg |= reset;
 }
 
+/*-----------------------------------------------------------------------------*/
+/** @brief RCC Remove Reset on Peripherals.
+
+Remove the reset on particular peripherals. There are three registers
+involved, each one controlling reset of peripherals associated with the AHB,
+APB1 and APB2 respectively. Several peripherals could have the reset removed
+simultaneously <em>only if they are controlled by the same register</em>.
+
+@param[in] *reg Unsigned int32. Pointer to a Reset Register
+			 (either RCC_AHBENR, RCC_APB1ENR or RCC_APB2ENR)
+@param[in] clear_reset Unsigned int32. Logical OR of all resets to be removed:
+@li If register is RCC_AHBRSTR, from @ref rcc_ahbrstr_rst
+@li If register is RCC_APB1RSTR, from @ref rcc_apb1rstr_rst
+@li If register is RCC_APB2RSTR, from @ref rcc_apb2rstr_rst
+*/
+
 void rcc_peripheral_clear_reset(volatile u32 *reg, u32 clear_reset)
 {
 	*reg &= ~clear_reset;
 }
+
+/*-----------------------------------------------------------------------------*/
+/** @brief RCC Set the Source for the System Clock.
+
+@param[in] clk Unsigned int32. System Clock Selection @ref rcc_cfgr_scs
+*/
 
 void rcc_set_sysclk_source(u32 clk)
 {
@@ -309,6 +467,14 @@ void rcc_set_sysclk_source(u32 clk)
 	RCC_CFGR = (reg32 | clk);
 }
 
+/*-----------------------------------------------------------------------------*/
+/** @brief RCC Set the PLL Multiplication Factor.
+
+@note This only has effect when the PLL is disabled.
+
+@param[in] mul Unsigned int32. PLL multiplication factor @ref rcc_cfgr_pmf
+*/
+
 void rcc_set_pll_multiplication_factor(u32 mul)
 {
 	u32 reg32;
@@ -317,6 +483,14 @@ void rcc_set_pll_multiplication_factor(u32 mul)
 	reg32 &= ~((1 << 21) | (1 << 20) | (1 << 19) | (1 << 18));
 	RCC_CFGR = (reg32 | (mul << 18));
 }
+
+/*-----------------------------------------------------------------------------*/
+/** @brief RCC Set the PLL Clock Source.
+
+@note This only has effect when the PLL is disabled.
+
+@param[in] pllsrc Unsigned int32. PLL clock source @ref rcc_cfgr_pcs
+*/
 
 void rcc_set_pll_source(u32 pllsrc)
 {
@@ -327,6 +501,14 @@ void rcc_set_pll_source(u32 pllsrc)
 	RCC_CFGR = (reg32 | (pllsrc << 16));
 }
 
+/*-----------------------------------------------------------------------------*/
+/** @brief RCC Set the HSE Frequency Divider used as PLL Clock Source.
+
+@note This only has effect when the PLL is disabled.
+
+@param[in] pllxtpre Unsigned int32. HSE division factor @ref rcc_cfgr_hsepre
+*/
+
 void rcc_set_pllxtpre(u32 pllxtpre)
 {
 	u32 reg32;
@@ -335,6 +517,14 @@ void rcc_set_pllxtpre(u32 pllxtpre)
 	reg32 &= ~(1 << 17);
 	RCC_CFGR = (reg32 | (pllxtpre << 17));
 }
+
+/*-----------------------------------------------------------------------------*/
+/** @brief ADC Setup the A/D Clock
+
+The ADC's have a common clock prescale setting.
+
+@param[in] adcpre u32. Prescale divider taken from @ref rcc_cfgr_adcpre
+*/
 
 void rcc_set_adcpre(u32 adcpre)
 {
@@ -345,6 +535,12 @@ void rcc_set_adcpre(u32 adcpre)
 	RCC_CFGR = (reg32 | (adcpre << 14));
 }
 
+/*-----------------------------------------------------------------------------*/
+/** @brief RCC Set the APB2 Prescale Factor.
+
+@param[in] ppre2 Unsigned int32. APB2 prescale factor @ref rcc_cfgr_apb2pre
+*/
+
 void rcc_set_ppre2(u32 ppre2)
 {
 	u32 reg32;
@@ -353,6 +549,14 @@ void rcc_set_ppre2(u32 ppre2)
 	reg32 &= ~((1 << 11) | (1 << 12) | (1 << 13));
 	RCC_CFGR = (reg32 | (ppre2 << 11));
 }
+
+/*-----------------------------------------------------------------------------*/
+/** @brief RCC Set the APB1 Prescale Factor.
+
+@note The APB1 clock frequency must not exceed 36MHz.
+
+@param[in] ppre1 Unsigned int32. APB1 prescale factor @ref rcc_cfgr_apb1pre
+*/
 
 void rcc_set_ppre1(u32 ppre1)
 {
@@ -363,6 +567,12 @@ void rcc_set_ppre1(u32 ppre1)
 	RCC_CFGR = (reg32 | (ppre1 << 8));
 }
 
+/*-----------------------------------------------------------------------------*/
+/** @brief RCC Set the AHB Prescale Factor.
+
+@param[in] hpre Unsigned int32. AHB prescale factor @ref rcc_cfgr_ahbpre
+*/
+
 void rcc_set_hpre(u32 hpre)
 {
 	u32 reg32;
@@ -371,6 +581,17 @@ void rcc_set_hpre(u32 hpre)
 	reg32 &= ~((1 << 4) | (1 << 5) | (1 << 6) | (1 << 7));
 	RCC_CFGR = (reg32 | (hpre << 4));
 }
+
+/*-----------------------------------------------------------------------------*/
+/** @brief RCC Set the USB Prescale Factor.
+
+The prescale factor can be set to 1 (no prescale) for use when the PLL clock is
+48MHz, or 1.5 to generate the 48MHz USB clock from a 64MHz PLL clock.
+
+@note This bit cannot be reset while the USB clock is enabled.
+
+@param[in] usbpre Unsigned int32. USB prescale factor @ref rcc_cfgr_usbpre
+*/
 
 void rcc_set_usbpre(u32 usbpre)
 {
@@ -381,16 +602,31 @@ void rcc_set_usbpre(u32 usbpre)
 	RCC_CFGR = (reg32 | (usbpre << 22));
 }
 
+/*-----------------------------------------------------------------------------*/
+/** @brief RCC Get the System Clock Source.
+
+@returns Unsigned int32. System clock source:
+@li 00 indicates HSE
+@li 01 indicates LSE
+@li 02 indicates PLL
+*/
+
 u32 rcc_system_clock_source(void)
 {
 	/* Return the clock source which is used as system clock. */
 	return ((RCC_CFGR & 0x000c) >> 2);
 }
 
+/*-----------------------------------------------------------------------------*/
 /*
  * These functions are setting up the whole clock system for the most common
  * input clock and output clock configurations.
  */
+/*-----------------------------------------------------------------------------*/
+/** @brief RCC Set System Clock PLL at 64MHz from HSI
+
+*/
+
 void rcc_clock_setup_in_hsi_out_64mhz(void)
 {
 	/* Enable internal high-speed oscillator. */
@@ -437,6 +673,11 @@ void rcc_clock_setup_in_hsi_out_64mhz(void)
 	rcc_ppre1_frequency = 32000000;
 	rcc_ppre2_frequency = 64000000;
 }
+
+/*-----------------------------------------------------------------------------*/
+/** @brief RCC Set System Clock PLL at 48MHz from HSI
+
+*/
 
 void rcc_clock_setup_in_hsi_out_48mhz(void)
 {
@@ -486,6 +727,11 @@ void rcc_clock_setup_in_hsi_out_48mhz(void)
 	rcc_ppre2_frequency = 48000000;
 }
 
+/*-----------------------------------------------------------------------------*/
+/** @brief RCC Set System Clock PLL at 24MHz from HSI
+
+*/
+
 void rcc_clock_setup_in_hsi_out_24mhz(void) {
 	/* Enable internal high-speed oscillator. */
 	rcc_osc_on(HSI);
@@ -532,6 +778,10 @@ void rcc_clock_setup_in_hsi_out_24mhz(void) {
 	rcc_ppre2_frequency = 24000000;
 }
 
+/*-----------------------------------------------------------------------------*/
+/** @brief RCC Set System Clock PLL at 24MHz from HSE at 8MHz
+
+*/
 
 void rcc_clock_setup_in_hse_8mhz_out_24mhz(void)
 {
@@ -591,6 +841,11 @@ void rcc_clock_setup_in_hse_8mhz_out_24mhz(void)
 	rcc_ppre2_frequency = 24000000;
 }
 
+/*-----------------------------------------------------------------------------*/
+/** @brief RCC Set System Clock PLL at 72MHz from HSE at 8MHz
+
+*/
+
 void rcc_clock_setup_in_hse_8mhz_out_72mhz(void)
 {
 	/* Enable internal high-speed oscillator. */
@@ -648,6 +903,11 @@ void rcc_clock_setup_in_hse_8mhz_out_72mhz(void)
 	rcc_ppre1_frequency = 36000000;
 	rcc_ppre2_frequency = 72000000;
 }
+
+/*-----------------------------------------------------------------------------*/
+/** @brief RCC Set System Clock PLL at 24MHz from HSE at 12MHz
+
+*/
 
 void rcc_clock_setup_in_hse_12mhz_out_72mhz(void)
 {
@@ -707,6 +967,11 @@ void rcc_clock_setup_in_hse_12mhz_out_72mhz(void)
 	rcc_ppre2_frequency = 72000000;
 }
 
+/*-----------------------------------------------------------------------------*/
+/** @brief RCC Set System Clock PLL at 24MHz from HSE at 16MHz
+
+*/
+
 void rcc_clock_setup_in_hse_16mhz_out_72mhz(void)
 {
 	/* Enable internal high-speed oscillator. */
@@ -765,6 +1030,12 @@ void rcc_clock_setup_in_hse_16mhz_out_72mhz(void)
 	rcc_ppre2_frequency = 72000000;
 }
 
+/*-----------------------------------------------------------------------------*/
+/** @brief RCC Reset the backup domain
+
+The backup domain register is reset to disable all controls.
+*/
+
 void rcc_backupdomain_reset(void)
 {
 	/* Set the backup domain software reset. */
@@ -773,3 +1044,5 @@ void rcc_backupdomain_reset(void)
 	/* Clear the backup domain software reset. */
 	RCC_BDCR &= ~RCC_BDCR_BDRST;
 }
+/**@}*/
+

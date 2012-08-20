@@ -1,3 +1,17 @@
+/** @defgroup STM32F1xx_pwr_defines PWR Defines
+
+@ingroup STM32F_defines
+
+@brief <b>libopencm3 STM32F Power Control</b>
+
+@version 1.0.0
+
+@author @htmlonly &copy; @endhtmlonly 2010 Thomas Otto <tommi@viadmin.org>
+
+@date 17 August 2012
+
+LGPL License Terms @ref lgpl_license
+ */
 /*
  * This file is part of the libopencm3 project.
  *
@@ -16,6 +30,8 @@
  * You should have received a copy of the GNU Lesser General Public License
  * along with this library.  If not, see <http://www.gnu.org/licenses/>.
  */
+
+/**@{*/
 
 #ifndef LIBOPENCM3_PWR_H
 #define LIBOPENCM3_PWR_H
@@ -40,14 +56,20 @@
 
 /* PLS[7:5]: PVD level selection */
 #define PWR_CR_PLS_LSB			5
-#define PWR_CR_PLS_2V2			0x0
-#define PWR_CR_PLS_2V3			0x1
-#define PWR_CR_PLS_2V4			0x2
-#define PWR_CR_PLS_2V5			0x3
-#define PWR_CR_PLS_2V6			0x4
-#define PWR_CR_PLS_2V7			0x5
-#define PWR_CR_PLS_2V8			0x6
-#define PWR_CR_PLS_2V9			0x7
+/** @defgroup pwr_pls PVD level selection
+@ingroup STM32F_pwr_defines
+
+@{*/
+#define PWR_CR_PLS_2V2			(0x0 << PWR_CR_PLS_LSB)
+#define PWR_CR_PLS_2V3			(0x1 << PWR_CR_PLS_LSB)
+#define PWR_CR_PLS_2V4			(0x2 << PWR_CR_PLS_LSB)
+#define PWR_CR_PLS_2V5			(0x3 << PWR_CR_PLS_LSB)
+#define PWR_CR_PLS_2V6			(0x4 << PWR_CR_PLS_LSB)
+#define PWR_CR_PLS_2V7			(0x5 << PWR_CR_PLS_LSB)
+#define PWR_CR_PLS_2V8			(0x6 << PWR_CR_PLS_LSB)
+#define PWR_CR_PLS_2V9			(0x7 << PWR_CR_PLS_LSB)
+/**@}*/
+#define PWR_CR_PLS_MASK			(0x7 << PWR_CR_PLS_LSB)
 
 /* PVDE: Power voltage detector enable */
 #define PWR_CR_PVDE			(1 << 4)
@@ -84,6 +106,22 @@
 
 /* --- PWR function prototypes ------------------------------------------- */
 
-/* TODO */
+void pwr_disable_backup_domain_write_protect(void);
+void pwr_enable_backup_domain_write_protect(void);
+void pwr_enable_power_voltage_detect(u32 pvd_level);
+void pwr_disable_power_voltage_detect(void);
+void pwr_clear_standby_flag(void);
+void pwr_clear_wakeup_flag(void);
+void pwr_set_standby_mode(void);
+void pwr_set_stop_mode(void);
+void pwr_voltage_regulator_on_in_stop(void);
+void pwr_voltage_regulator_low_power_in_stop(void);
+void pwr_enable_wakeup_pin(void);
+void pwr_disable_wakeup_pin(void);
+bool pwr_voltage_high(void);
+bool pwr_get_standby_flag(void);
+bool pwr_get_wakeup_flag(void);
 
 #endif
+/**@}*/
+

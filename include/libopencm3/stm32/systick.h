@@ -1,3 +1,18 @@
+/** @defgroup STM32F_systick_defines SysTick Defines
+
+@brief <b>libopencm3 Defined Constants and Types for the STM32F SysTick </b>
+
+@ingroup STM32F_defines
+
+@version 1.0.0
+
+@author @htmlonly &copy; @endhtmlonly 2010 Thomas Otto <tommi@viadmin.org>
+
+@date 19 August 2012
+
+LGPL License Terms @ref lgpl_license
+ */
+
 /*
  * This file is part of the libopencm3 project.
  *
@@ -16,6 +31,8 @@
  * You should have received a copy of the GNU Lesser General Public License
  * along with this library.  If not, see <http://www.gnu.org/licenses/>.
  */
+
+/**@{*/
 
 #ifndef LIBOPENCM3_SYSTICK_H
 #define LIBOPENCM3_SYSTICK_H
@@ -45,8 +62,14 @@
 /* CLKSOURCE: Clock source selection */
 #define STK_CTRL_CLKSOURCE		(1 << 2)
 #define STK_CTRL_CLKSOURCE_LSB		2
+/** @defgroup systick_clksource Clock source selection
+@ingroup STM32F_systick_defines
+
+@{*/
 #define STK_CTRL_CLKSOURCE_AHB_DIV8	0
 #define STK_CTRL_CLKSOURCE_AHB		1
+/**@}*/
+
 /* TICKINT: SysTick exception request enable */
 #define STK_CTRL_TICKINT		(1 << 1)
 /* ENABLE: Counter enable */
@@ -80,3 +103,5 @@ void systick_counter_disable(void);
 u8 systick_get_countflag(void);
 
 #endif
+/**@}*/
+

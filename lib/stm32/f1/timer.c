@@ -1,4 +1,4 @@
-/** @file
+/** @defgroup STM32F1xx-timer-file Timers
 
 @ingroup STM32F1xx
 
@@ -8,7 +8,7 @@
 
 @author @htmlonly &copy; @endhtmlonly 2010 Edward Cheeseman <evbuilder@users.sourceforge.org>
 
-@date 8 July 2012
+@date 18 August 2012
 
 This library supports the General Purpose and Advanced Control Timers for
 the STM32F1xx series of ARM Cortex Microcontrollers by ST Microelectronics.
@@ -92,6 +92,8 @@ push-pull outputs where the PWM output will appear.
  *  timer_set_mode(TIM1, TIM_CR1_CKD_CK_INT_MUL_2,
  *                 TIM_CR1_CMS_CENTRE_3, TIM_CR1_DIR_UP);
  */
+
+/**@{*/
 
 #include <libopencm3/stm32/timer.h>
 #include <libopencm3/stm32/f1/rcc.h>
@@ -561,8 +563,8 @@ void timer_set_dma_on_update_event(u32 timer_peripheral)
 /** @brief Enable Timer Capture/Compare Control Update with Trigger.
 
 If the capture/compare control bits CCxE, CCxNE and OCxM are set to be
-preloaded, they are updated by software setting the COM bit (@ref ) or when a
-rising edge occurs on the trigger input TRGI.
+preloaded, they are updated by software generating the COMG event (@ref
+timer_generate_event) or when a rising edge occurs on the trigger input TRGI.
 
 @note This setting is only valid for the advanced timer channels with complementary
 outputs.
@@ -580,7 +582,8 @@ void timer_enable_compare_control_update_on_trigger(u32 timer_peripheral)
 /** @brief Disable Timer Capture/Compare Control Update with Trigger.
 
 If the capture/compare control bits CCxE, CCxNE and OCxM are set to be
-preloaded, they are updated by software setting the COM bit (@ref ).
+preloaded, they are updated by software generating the COMG event (@ref
+timer_generate_event).
 
 @note This setting is only valid for the advanced timer channels with complementary
 outputs.
@@ -1391,7 +1394,7 @@ the Break and Deadtime Register.
 @note This setting is only valid for the advanced timers.
 
 @note It is necessary to call this function to enable the output on an advanced
-timer <b>even if break or deadtime features are not being used<\b>.
+timer <b>even if break or deadtime features are not being used</b>.
 
 @param[in] timer_peripheral Unsigned int32. Timer register address base TIM1 or TIM8
 */
@@ -1681,24 +1684,24 @@ Set the input filter parameters for an input channel, specifying:
 @param[in] flt ::tim_ic_filter. Input Capture Filter identifier.
 */
 
-void timer_ic_set_filter(u32 timer, enum tim_ic_id ic, enum tim_ic_filter flt)
+void timer_ic_set_filter(u32 timer_peripheral, enum tim_ic_id ic, enum tim_ic_filter flt)
 {
 	switch (ic) {
 	case TIM_IC1:
-		TIM_CCMR1(timer) &= ~TIM_CCMR1_IC1F_MASK;
-		TIM_CCMR1(timer) |= flt << 4;
+		TIM_CCMR1(timer_peripheral) &= ~TIM_CCMR1_IC1F_MASK;
+		TIM_CCMR1(timer_peripheral) |= flt << 4;
 		break;
 	case TIM_IC2:
-		TIM_CCMR1(timer) &= ~TIM_CCMR1_IC2F_MASK;
-		TIM_CCMR1(timer) |= flt << 12;
+		TIM_CCMR1(timer_peripheral) &= ~TIM_CCMR1_IC2F_MASK;
+		TIM_CCMR1(timer_peripheral) |= flt << 12;
 		break;
 	case TIM_IC3:
-		TIM_CCMR2(timer) &= ~TIM_CCMR2_IC3F_MASK;
-		TIM_CCMR2(timer) |= flt << 4;
+		TIM_CCMR2(timer_peripheral) &= ~TIM_CCMR2_IC3F_MASK;
+		TIM_CCMR2(timer_peripheral) |= flt << 4;
 		break;
 	case TIM_IC4:
-		TIM_CCMR2(timer) &= ~TIM_CCMR2_IC4F_MASK;
-		TIM_CCMR2(timer) |= flt << 12;
+		TIM_CCMR2(timer_peripheral) &= ~TIM_CCMR2_IC4F_MASK;
+		TIM_CCMR2(timer_peripheral) |= flt << 12;
 		break;
 	}
 }
@@ -1713,24 +1716,24 @@ Set the number of events between each capture.
 @param[in] psc ::tim_ic_psc. Input Capture sample clock prescaler.
 */
 
-void timer_ic_set_prescaler(u32 timer, enum tim_ic_id ic, enum tim_ic_psc psc)
+void timer_ic_set_prescaler(u32 timer_peripheral, enum tim_ic_id ic, enum tim_ic_psc psc)
 {
 	switch (ic) {
 	case TIM_IC1:
-		TIM_CCMR1(timer) &= ~TIM_CCMR1_IC1PSC_MASK;
-		TIM_CCMR1(timer) |= psc << 2;
+		TIM_CCMR1(timer_peripheral) &= ~TIM_CCMR1_IC1PSC_MASK;
+		TIM_CCMR1(timer_peripheral) |= psc << 2;
 		break;
 	case TIM_IC2:
-		TIM_CCMR1(timer) &= ~TIM_CCMR1_IC2PSC_MASK;
-		TIM_CCMR1(timer) |= psc << 10;
+		TIM_CCMR1(timer_peripheral) &= ~TIM_CCMR1_IC2PSC_MASK;
+		TIM_CCMR1(timer_peripheral) |= psc << 10;
 		break;
 	case TIM_IC3:
-		TIM_CCMR2(timer) &= ~TIM_CCMR2_IC3PSC_MASK;
-		TIM_CCMR2(timer) |= psc << 4;
+		TIM_CCMR2(timer_peripheral) &= ~TIM_CCMR2_IC3PSC_MASK;
+		TIM_CCMR2(timer_peripheral) |= psc << 4;
 		break;
 	case TIM_IC4:
-		TIM_CCMR2(timer) &= ~TIM_CCMR2_IC4PSC_MASK;
-		TIM_CCMR2(timer) |= psc << 10;
+		TIM_CCMR2(timer_peripheral) &= ~TIM_CCMR2_IC4PSC_MASK;
+		TIM_CCMR2(timer_peripheral) |= psc << 10;
 		break;
 	}
 }
@@ -1756,7 +1759,7 @@ internal trigger input selected through TS bit
 @param[in] in ::tim_ic_input. Input Capture channel direction and source input.
 */
 
-void timer_ic_set_input(u32 timer, enum tim_ic_id ic, enum tim_ic_input in)
+void timer_ic_set_input(u32 timer_peripheral, enum tim_ic_id ic, enum tim_ic_input in)
 {
 	in &= 3;
 
@@ -1768,20 +1771,20 @@ void timer_ic_set_input(u32 timer, enum tim_ic_id ic, enum tim_ic_input in)
 	
 	switch (ic) {
 	case TIM_IC1:
-		TIM_CCMR1(timer) &= ~TIM_CCMR1_CC1S_MASK;
-		TIM_CCMR1(timer) |= in;
+		TIM_CCMR1(timer_peripheral) &= ~TIM_CCMR1_CC1S_MASK;
+		TIM_CCMR1(timer_peripheral) |= in;
 		break;
 	case TIM_IC2:
-		TIM_CCMR1(timer) &= ~TIM_CCMR1_CC2S_MASK;
-		TIM_CCMR1(timer) |= in << 8;
+		TIM_CCMR1(timer_peripheral) &= ~TIM_CCMR1_CC2S_MASK;
+		TIM_CCMR1(timer_peripheral) |= in << 8;
 		break;
 	case TIM_IC3:
-		TIM_CCMR2(timer) &= ~TIM_CCMR2_CC3S_MASK;
-		TIM_CCMR2(timer) |= in;
+		TIM_CCMR2(timer_peripheral) &= ~TIM_CCMR2_CC3S_MASK;
+		TIM_CCMR2(timer_peripheral) |= in;
 		break;
 	case TIM_IC4:
-		TIM_CCMR2(timer) &= ~TIM_CCMR2_CC4S_MASK;
-		TIM_CCMR2(timer) |= in << 8;
+		TIM_CCMR2(timer_peripheral) &= ~TIM_CCMR2_CC4S_MASK;
+		TIM_CCMR2(timer_peripheral) |= in << 8;
 		break;
 	}
 }
@@ -1794,12 +1797,12 @@ void timer_ic_set_input(u32 timer, enum tim_ic_id ic, enum tim_ic_input in)
 @param[in] pol ::tim_ic_pol. Input Capture polarity.
 */
 
-void timer_ic_set_polarity(u32 timer, enum tim_ic_id ic, enum tim_ic_pol pol)
+void timer_ic_set_polarity(u32 timer_peripheral, enum tim_ic_id ic, enum tim_ic_pol pol)
 {
 	if (pol)
-		TIM_CCER(timer) |= (0x2 << (ic * 4));
+		TIM_CCER(timer_peripheral) |= (0x2 << (ic * 4));
 	else
-		TIM_CCER(timer) &= ~(0x2 << (ic * 4));
+		TIM_CCER(timer_peripheral) &= ~(0x2 << (ic * 4));
 }
 
 /*---------------------------------------------------------------------------*/
@@ -1809,9 +1812,9 @@ void timer_ic_set_polarity(u32 timer, enum tim_ic_id ic, enum tim_ic_pol pol)
 @param[in] ic ::tim_ic_id. Input Capture channel designator.
 */
 
-void timer_ic_enable(u32 timer, enum tim_ic_id ic)
+void timer_ic_enable(u32 timer_peripheral, enum tim_ic_id ic)
 {
-	TIM_CCER(timer) |= (0x1 << (ic * 4));
+	TIM_CCER(timer_peripheral) |= (0x1 << (ic * 4));
 }
 
 /*---------------------------------------------------------------------------*/
@@ -1821,9 +1824,9 @@ void timer_ic_enable(u32 timer, enum tim_ic_id ic)
 @param[in] ic ::tim_ic_id. Input Capture channel designator.
 */
 
-void timer_ic_disable(u32 timer, enum tim_ic_id ic)
+void timer_ic_disable(u32 timer_peripheral, enum tim_ic_id ic)
 {
-	TIM_CCER(timer) &= ~(0x1 << (ic * 4));
+	TIM_CCER(timer_peripheral) &= ~(0x1 << (ic * 4));
 }
 
 /*---------------------------------------------------------------------------*/
@@ -1838,10 +1841,10 @@ Set the input filter parameters for the external trigger, specifying:
 @param[in] flt ::tim_ic_filter. Input Capture Filter identifier.
 */
 
-void timer_slave_set_filter(u32 timer, enum tim_ic_filter flt)
+void timer_slave_set_filter(u32 timer_peripheral, enum tim_ic_filter flt)
 {
-	TIM_SMCR(timer) &= ~TIM_SMCR_ETF_MASK;
-	TIM_SMCR(timer) |= flt << 8;
+	TIM_SMCR(timer_peripheral) &= ~TIM_SMCR_ETF_MASK;
+	TIM_SMCR(timer_peripheral) |= flt << 8;
 }
 
 /*---------------------------------------------------------------------------*/
@@ -1853,10 +1856,10 @@ Set the external trigger frequency division ratio.
 @param[in] psc ::tim_ic_psc. Input Capture sample clock prescaler.
 */
 
-void timer_slave_set_prescaler(u32 timer, enum tim_ic_psc psc)
+void timer_slave_set_prescaler(u32 timer_peripheral, enum tim_ic_psc psc)
 {
-	TIM_SMCR(timer) &= ~TIM_SMCR_ETPS_MASK;
-	TIM_SMCR(timer) |= psc << 12;
+	TIM_SMCR(timer_peripheral) &= ~TIM_SMCR_ETPS_MASK;
+	TIM_SMCR(timer_peripheral) |= psc << 12;
 }
 
 /*---------------------------------------------------------------------------*/
@@ -1866,12 +1869,12 @@ void timer_slave_set_prescaler(u32 timer, enum tim_ic_psc psc)
 @param[in] pol ::tim_ic_pol. Input Capture polarity.
 */
 
-void timer_slave_set_polarity(u32 timer, enum tim_ic_pol pol)
+void timer_slave_set_polarity(u32 timer_peripheral, enum tim_ic_pol pol)
 {
 	if (pol)
-		TIM_SMCR(timer) |= TIM_SMCR_ETP;
+		TIM_SMCR(timer_peripheral) |= TIM_SMCR_ETP;
 	else
-		TIM_SMCR(timer) &= ~TIM_SMCR_ETP;
+		TIM_SMCR(timer_peripheral) &= ~TIM_SMCR_ETP;
 }
 
 /*---------------------------------------------------------------------------*/
@@ -1881,10 +1884,10 @@ void timer_slave_set_polarity(u32 timer, enum tim_ic_pol pol)
 @param[in] mode Unsigned int8. Slave mode @ref tim_sms
 */
 
-void timer_slave_set_mode(u32 timer, u8 mode)
+void timer_slave_set_mode(u32 timer_peripheral, u8 mode)
 {
-	TIM_SMCR(timer) &= ~TIM_SMCR_SMS_MASK;
-	TIM_SMCR(timer) |= mode;
+	TIM_SMCR(timer_peripheral) &= ~TIM_SMCR_SMS_MASK;
+	TIM_SMCR(timer_peripheral) |= mode;
 }
 
 /*---------------------------------------------------------------------------*/
@@ -1894,28 +1897,13 @@ void timer_slave_set_mode(u32 timer, u8 mode)
 @param[in] trigger Unsigned int8. Slave trigger source @ref tim_ts
 */
 
-void timer_slave_set_trigger(u32 timer, u8 trigger)
+void timer_slave_set_trigger(u32 timer_peripheral, u8 trigger)
 {
-	TIM_SMCR(timer) &= ~TIM_SMCR_TS_MASK;
-	TIM_SMCR(timer) |= trigger;
-}
-
-/*---------------------------------------------------------------------------*/
-/** @brief Force Timer Event
-
-A number of events can be forced by software action. All events are cleared by
-hardware on completion.
-
-@param[in] timer_peripheral Unsigned int32. Timer register address base
-@param[in] event Unsigned int8. Event identifier @ref tim_event_gen.
-More than one event can be forced at the same time by logical OR of the event
-identifiers.
-*/
-
-void timer_force_event(u32 timer, u8 event)
-{
-	TIM_EGR(timer) = event;
+	TIM_SMCR(timer_peripheral) &= ~TIM_SMCR_TS_MASK;
+	TIM_SMCR(timer_peripheral) |= trigger;
 }
 
 /* TODO Timer DMA burst */
+
+/**@}*/
 
