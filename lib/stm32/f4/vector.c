@@ -18,6 +18,8 @@
  * along with this library.  If not, see <http://www.gnu.org/licenses/>.
  */
 
+#include <libopencm3/stm32/f4/scb.h>
+
 #define WEAK __attribute__ ((weak))
 
 /* Symbols exported by the linker script(s): */
@@ -223,6 +225,9 @@ void reset_handler(void)
 	volatile unsigned *src, *dest;
 
 	__asm__("MSR msp, %0" : : "r"(&_stack));
+
+	/* Enable access to Floating-Point coprocessor. */
+	SCB_CPACR |= SCB_CPACR_FULL * (SCB_CPACR_CP10 | SCB_CPACR_CP11);
 
 	for (src = &_data_loadaddr, dest = &_data; dest < &_edata; src++, dest++)
 		*dest = *src;
