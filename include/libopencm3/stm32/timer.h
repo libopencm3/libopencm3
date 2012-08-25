@@ -1,8 +1,8 @@
-/** @file
+/** @defgroup STM32F_tim_defines Timers Defines
 
-@ingroup STM32F1xx
+@brief <b>libopencm3 Defined Constants and Types for the STM32F1xx Timers</b>
 
-@brief <b>libopencm3 STM32F1xx Timers</b>
+@ingroup STM32F_defines
 
 @version 1.0.0
 
@@ -11,15 +11,6 @@
 @date 18 May 2012
 
 LGPL License Terms @ref lgpl_license
- */
-/** @defgroup STM32F1xx_tim_defines
-
-@brief Defined Constants and Types for the STM32F1xx Timers
-
-@ingroup STM32F1xx_defines
-
-LGPL License Terms @ref lgpl_license
-
  */
 /*
  * This file is part of the libopencm3 project.
@@ -39,6 +30,8 @@ LGPL License Terms @ref lgpl_license
  * You should have received a copy of the GNU Lesser General Public License
  * along with this library.  If not, see <http://www.gnu.org/licenses/>.
  */
+
+/**@{*/
 
 #ifndef LIBOPENCM3_TIMER_H
 #define LIBOPENCM3_TIMER_H
@@ -62,7 +55,7 @@ LGPL License Terms @ref lgpl_license
 #define TIM6				TIM6_BASE
 #define TIM7				TIM7_BASE
 #define TIM8				TIM8_BASE
-/*@}*/
+/**@}*/
 
 /* --- Timer registers ----------------------------------------------------- */
 
@@ -266,7 +259,7 @@ LGPL License Terms @ref lgpl_license
 #define TIM_CR1_CKD_CK_INT_MUL_2	(0x1 << 8)
 #define TIM_CR1_CKD_CK_INT_MUL_4	(0x2 << 8)
 #define TIM_CR1_CKD_CK_INT_MASK		(0x3 << 8)
-/*@}*/
+/**@}*/
 
 /* ARPE: Auto-reload preload enable */
 #define TIM_CR1_ARPE			(1 << 7)
@@ -282,7 +275,7 @@ LGPL License Terms @ref lgpl_license
 #define TIM_CR1_CMS_CENTER_2		(0x2 << 5)
 #define TIM_CR1_CMS_CENTER_3		(0x3 << 5)
 #define TIM_CR1_CMS_MASK		(0x3 << 5)
-/*@}*/
+/**@}*/
 
 /* DIR: Direction */
 /****************************************************************************/
@@ -292,7 +285,7 @@ LGPL License Terms @ref lgpl_license
 @{*/
 #define TIM_CR1_DIR_UP			(0 << 4)
 #define TIM_CR1_DIR_DOWN		(1 << 4)
-/*@}*/
+/**@}*/
 
 /* OPM: One pulse mode */
 #define TIM_CR1_OPM			(1 << 3)
@@ -334,7 +327,7 @@ LGPL License Terms @ref lgpl_license
 /* OIS1:*//** Output idle state 1 (OC1 output) */
 #define TIM_CR2_OIS1			(1 << 8)
 #define TIM_CR2_OIS_MASK		(0x7f << 8)
-/*@}*/
+/**@}*/
 
 /* TI1S: TI1 selection */
 #define TIM_CR2_TI1S			(1 << 7)
@@ -354,7 +347,7 @@ LGPL License Terms @ref lgpl_license
 #define TIM_CR2_MMS_COMPARE_OC3REF	(0x6 << 4)
 #define TIM_CR2_MMS_COMPARE_OC4REF	(0x7 << 4)
 #define TIM_CR2_MMS_MASK		(0x7 << 4)
-/*@}*/
+/**@}*/
 
 /* CCDS: Capture/compare DMA selection */
 #define TIM_CR2_CCDS			(1 << 3)
@@ -424,7 +417,7 @@ LGPL License Terms @ref lgpl_license
 /** External Trigger input (ETRF) */
 #define TIM_SMCR_TS_ETRF		(0x7 << 4)
 #define TIM_SMCR_TS_MASK		(0x7 << 4)
-/*@}*/
+/**@}*/
 
 /* SMS[2:0]: Slave mode selection */
 /** @defgroup tim_sms SMS Slave mode selection
@@ -452,7 +445,7 @@ and generates an update of the registers. */
 /** External Clock Mode 1 - Rising edges of the selected trigger (TRGI) clock the counter. */
 #define TIM_SMCR_SMS_ECM1		(0x7 << 0)
 #define TIM_SMCR_SMS_MASK		(0x7 << 0)
-/*@}*/
+/**@}*/
 
 /* --- TIMx_DIER values ---------------------------------------------------- */
 
@@ -505,7 +498,7 @@ and generates an update of the registers. */
 
 /* UIE:*//** Update interrupt enable */
 #define TIM_DIER_UIE			(1 << 0)
-/*@}*/
+/**@}*/
 
 /* --- TIMx_SR values ------------------------------------------------------ */
 /****************************************************************************/
@@ -549,7 +542,7 @@ and generates an update of the registers. */
 
 /* UIF:*//** Update interrupt flag */
 #define TIM_SR_UIF			(1 << 0)
-/*@}*/
+/**@}*/
 
 /* --- TIMx_EGR values ----------------------------------------------------- */
 
@@ -582,7 +575,7 @@ and generates an update of the registers. */
 
 /* UG:*//** Update generation */
 #define TIM_EGR_UG			(1 << 0)
-/*@}*/
+/**@}*/
 
 /* --- TIMx_CCMR1 values --------------------------------------------------- */
 
@@ -923,7 +916,7 @@ and generates an update of the registers. */
 #define TIM_BDTR_LOCK_LEVEL_2		(0x2 << 8)
 #define TIM_BDTR_LOCK_LEVEL_3		(0x3 << 8)
 #define TIM_BDTR_LOCK_MASK		(0x3 << 8)
-/*@}*/
+/**@}*/
 
 /* DTG[7:0]: Dead-time generator set-up */
 #define TIM_BDTR_DTG_MASK		0x00FF
@@ -1107,6 +1100,7 @@ void timer_slave_set_prescaler(u32 timer, enum tim_ic_psc psc);
 void timer_slave_set_polarity(u32 timer, enum tim_ic_pol pol);
 void timer_slave_set_mode(u32 timer, u8 mode);
 void timer_slave_set_trigger(u32 timer, u8 trigger);
-void timer_force_event(u32 timer, u8 event);
 
 #endif
+/**@}*/
+

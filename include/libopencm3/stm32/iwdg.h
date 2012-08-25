@@ -1,3 +1,17 @@
+/** @defgroup STM32F_iwdg_defines IWDG Defines
+
+@brief <b>libopencm3 Defined Constants and Types for the STM32F Independent Watchdog Timer</b>
+
+@ingroup STM32F_defines
+
+@version 1.0.0
+
+@author @htmlonly &copy; @endhtmlonly 2010 Thomas Otto <tommi@viadmin.org>
+
+@date 18 August 2012
+
+LGPL License Terms @ref lgpl_license
+ */
 /*
  * This file is part of the libopencm3 project.
  *
@@ -16,6 +30,8 @@
  * You should have received a copy of the GNU Lesser General Public License
  * along with this library.  If not, see <http://www.gnu.org/licenses/>.
  */
+
+/**@{*/
 
 #ifndef LIBOPENCM3_IWDG_H
 #define LIBOPENCM3_IWDG_H
@@ -42,9 +58,14 @@
 /* Bits [31:16]: Reserved. */
 
 /* KEY[15:0]: Key value (write-only, reads as 0x0000) */
+/** @defgroup iwdg_key IWDG Key Values
+@ingroup STM32F_iwdg_defines
+
+@{*/
 #define IWDG_KR_RESET			0xaaaa
 #define IWDG_KR_UNLOCK			0x5555
 #define IWDG_KR_START			0xcccc
+/**@}*/
 
 /* --- IWDG_PR values ------------------------------------------------------ */
 
@@ -52,6 +73,10 @@
 
 /* PR[2:0]: Prescaler divider */
 #define IWDG_PR_LSB			0
+/** @defgroup iwdg_prediv IWDG Prescaler divider
+@ingroup STM32F_iwdg_defines
+
+@{*/
 #define IWDG_PR_DIV4			0x0
 #define IWDG_PR_DIV8			0x1
 #define IWDG_PR_DIV16			0x2
@@ -59,6 +84,7 @@
 #define IWDG_PR_DIV64			0x4
 #define IWDG_PR_DIV128			0x5
 #define IWDG_PR_DIV256			0x6
+/**@}*/
 /* Double definition: 0x06 and 0x07 both mean DIV256 as per datasheet. */
 /* #define IWDG_PR_DIV256			0x7 */
 
@@ -87,3 +113,5 @@ bool iwdg_prescaler_busy(void);
 void iwdg_reset(void);
 
 #endif
+/**@}*/
+

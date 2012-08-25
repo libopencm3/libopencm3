@@ -1,26 +1,17 @@
-/** @file
-
-@ingroup STM32F1xx
+/** @defgroup STM32F1xx_rcc_defines RCC Defines
 
 @brief <b>libopencm3 STM32F1xx Reset and Clock Control</b>
+
+@ingroup STM32F1xx_defines
 
 @version 1.0.0
 
 @author @htmlonly &copy; @endhtmlonly 2009 Federico Ruiz-Ugalde \<memeruiz at gmail dot com\>
 @author @htmlonly &copy; @endhtmlonly 2009 Uwe Hermann <uwe@hermann-uwe.de>
 
-@date 18 May 2012
+@date 18 August 2012
 
 LGPL License Terms @ref lgpl_license
- */
-/** @defgroup STM32F1xx_rcc_defines
-
-@brief Defined Constants and Types for the STM32F1xx Reset and Clock Control
-
-@ingroup STM32F1xx_defines
-
-LGPL License Terms @ref lgpl_license
-
  */
 /*
  * This file is part of the libopencm3 project.
@@ -41,6 +32,7 @@ LGPL License Terms @ref lgpl_license
  * You should have received a copy of the GNU Lesser General Public License
  * along with this library.  If not, see <http://www.gnu.org/licenses/>.
  */
+/**@{*/
 
 #ifndef LIBOPENCM3_RCC_H
 #define LIBOPENCM3_RCC_H
@@ -86,6 +78,10 @@ LGPL License Terms @ref lgpl_license
 /* --- RCC_CFGR values ----------------------------------------------------- */
 
 /* MCO: Microcontroller clock output */
+/** @defgroup rcc_cfgr_co RCC_CFGR Microcontroller Clock Output Source
+@ingroup STM32F1xx_rcc_defines
+
+@{*/
 #define RCC_CFGR_MCO_NOCLK			0x0
 #define RCC_CFGR_MCO_SYSCLK			0x4
 #define RCC_CFGR_MCO_HSICLK			0x5
@@ -95,16 +91,26 @@ LGPL License Terms @ref lgpl_license
 #define RCC_CFGR_MCO_PLL3CLK_DIV2		0x9 /* (**) */
 #define RCC_CFGR_MCO_XT1			0xa /* (**) */
 #define RCC_CFGR_MCO_PLL3			0xb /* (**) */
+/**@}*/
 
 /* USBPRE: USB prescaler (RCC_CFGR[22]) */
+/** @defgroup rcc_cfgr_usbpre RCC_CFGR USB prescale Factors
+@ingroup STM32F1xx_rcc_defines
+
+@{*/
 #define RCC_CFGR_USBPRE_PLL_CLK_DIV1_5		0x0
 #define RCC_CFGR_USBPRE_PLL_CLK_NODIV		0x1
+/**@}*/
 
 /* OTGFSPRE: USB OTG FS prescaler (RCC_CFGR[22]; only in conn. line STM32s) */
 #define RCC_CFGR_USBPRE_PLL_VCO_CLK_DIV3	0x0
 #define RCC_CFGR_USBPRE_PLL_VCO_CLK_DIV2	0x1
 
 /* PLLMUL: PLL multiplication factor */
+/** @defgroup rcc_cfgr_pmf RCC_CFGR PLL Multiplication Factor
+@ingroup STM32F1xx_rcc_defines
+
+@{*/
 #define RCC_CFGR_PLLMUL_PLL_CLK_MUL2		0x0 /* (XX) */
 #define RCC_CFGR_PLLMUL_PLL_CLK_MUL3		0x1 /* (XX) */
 #define RCC_CFGR_PLLMUL_PLL_CLK_MUL4		0x2
@@ -122,38 +128,69 @@ LGPL License Terms @ref lgpl_license
 #define RCC_CFGR_PLLMUL_PLL_CLK_MUL6_5		0xd /* 0xd: PLL x 6.5 for conn. line */
 #define RCC_CFGR_PLLMUL_PLL_CLK_MUL16		0xe /* (XX) */
 // #define PLLMUL_PLL_CLK_MUL16		0xf /* (XX) */ /* Errata? 17? */
+/**@}*/
 
 /* TODO: conn. line differs. */
 /* PLLXTPRE: HSE divider for PLL entry */
+/** @defgroup rcc_cfgr_hsepre RCC_CFGR HSE Divider for PLL
+@ingroup STM32F1xx_rcc_defines
+
+@{*/
 #define RCC_CFGR_PLLXTPRE_HSE_CLK		0x0
 #define RCC_CFGR_PLLXTPRE_HSE_CLK_DIV2		0x1
+/**@}*/
 
 /* PLLSRC: PLL entry clock source */
+/** @defgroup rcc_cfgr_pcs RCC_CFGR PLL Clock Source
+@ingroup STM32F1xx_rcc_defines
+
+@{*/
 #define RCC_CFGR_PLLSRC_HSI_CLK_DIV2		0x0
 #define RCC_CFGR_PLLSRC_HSE_CLK			0x1
 #define RCC_CFGR_PLLSRC_PREDIV1_CLK		0x1 /* On conn. line */
+/**@}*/
 
 /* ADCPRE: ADC prescaler */
+/****************************************************************************/
+/** @defgroup rcc_cfgr_adcpre RCC ADC Clock Prescaler enable values
+@ingroup STM32F1xx_rcc_defines
+
+@{*/
 #define RCC_CFGR_ADCPRE_PCLK2_DIV2		0x0
 #define RCC_CFGR_ADCPRE_PCLK2_DIV4		0x1
 #define RCC_CFGR_ADCPRE_PCLK2_DIV6		0x2
 #define RCC_CFGR_ADCPRE_PCLK2_DIV8		0x3
+/**@}*/
 
 /* PPRE2: APB high-speed prescaler (APB2) */
+/** @defgroup rcc_cfgr_apb2pre RCC_CFGR APB2 Prescale Factors
+@ingroup STM32F1xx_rcc_defines
+
+@{*/
 #define RCC_CFGR_PPRE2_HCLK_NODIV		0x0
 #define RCC_CFGR_PPRE2_HCLK_DIV2		0x4
 #define RCC_CFGR_PPRE2_HCLK_DIV4		0x5
 #define RCC_CFGR_PPRE2_HCLK_DIV8		0x6
 #define RCC_CFGR_PPRE2_HCLK_DIV16		0x7
+/**@}*/
 
 /* PPRE1: APB low-speed prescaler (APB1) */
+/** @defgroup rcc_cfgr_apb1pre RCC_CFGR APB1 Prescale Factors
+@ingroup STM32F1xx_rcc_defines
+
+@{*/
 #define RCC_CFGR_PPRE1_HCLK_NODIV		0x0
 #define RCC_CFGR_PPRE1_HCLK_DIV2		0x4
 #define RCC_CFGR_PPRE1_HCLK_DIV4		0x5
 #define RCC_CFGR_PPRE1_HCLK_DIV8		0x6
 #define RCC_CFGR_PPRE1_HCLK_DIV16		0x7
+/**@}*/
 
 /* HPRE: AHB prescaler */
+/** @defgroup rcc_cfgr_ahbpre RCC_CFGR AHB Prescale Factors
+@ingroup STM32F1xx_rcc_defines
+
+@{*/
 #define RCC_CFGR_HPRE_SYSCLK_NODIV		0x0
 #define RCC_CFGR_HPRE_SYSCLK_DIV2		0x8
 #define RCC_CFGR_HPRE_SYSCLK_DIV4		0x9
@@ -163,6 +200,7 @@ LGPL License Terms @ref lgpl_license
 #define RCC_CFGR_HPRE_SYSCLK_DIV128		0xd
 #define RCC_CFGR_HPRE_SYSCLK_DIV256		0xe
 #define RCC_CFGR_HPRE_SYSCLK_DIV512		0xf
+/**@}*/
 
 /* SWS: System clock switch status */
 #define RCC_CFGR_SWS_SYSCLKSEL_HSICLK		0x0
@@ -170,9 +208,14 @@ LGPL License Terms @ref lgpl_license
 #define RCC_CFGR_SWS_SYSCLKSEL_PLLCLK		0x2
 
 /* SW: System clock switch */
+/** @defgroup rcc_cfgr_scs RCC_CFGR System Clock Selection
+@ingroup STM32F1xx_rcc_defines
+
+@{*/
 #define RCC_CFGR_SW_SYSCLKSEL_HSICLK		0x0
 #define RCC_CFGR_SW_SYSCLKSEL_HSECLK		0x1
 #define RCC_CFGR_SW_SYSCLKSEL_PLLCLK		0x2
+/**@}*/
 
 /* --- RCC_CIR values ------------------------------------------------------ */
 
@@ -211,6 +254,10 @@ LGPL License Terms @ref lgpl_license
 
 /* --- RCC_APB2RSTR values ------------------------------------------------- */
 
+/** @defgroup rcc_apb2rstr_rst RCC_APB2RSTR reset values
+@ingroup STM32F1xx_rcc_defines
+
+@{*/
 #define RCC_APB2RSTR_ADC3RST			(1 << 15) /* (XX) */
 #define RCC_APB2RSTR_USART1RST			(1 << 14)
 #define RCC_APB2RSTR_TIM8RST			(1 << 13) /* (XX) */
@@ -226,9 +273,14 @@ LGPL License Terms @ref lgpl_license
 #define RCC_APB2RSTR_IOPBRST			(1 << 3)
 #define RCC_APB2RSTR_IOPARST			(1 << 2)
 #define RCC_APB2RSTR_AFIORST			(1 << 0)
+/**@}*/
 
 /* --- RCC_APB1RSTR values ------------------------------------------------- */
 
+/** @defgroup rcc_apb1rstr_rst RCC_APB1RSTR reset values
+@ingroup STM32F1xx_rcc_defines
+
+@{*/
 #define RCC_APB1RSTR_DACRST			(1 << 29)
 #define RCC_APB1RSTR_PWRRST			(1 << 28)
 #define RCC_APB1RSTR_BKPRST			(1 << 27)
@@ -251,6 +303,7 @@ LGPL License Terms @ref lgpl_license
 #define RCC_APB1RSTR_TIM4RST			(1 << 2)
 #define RCC_APB1RSTR_TIM3RST			(1 << 1)
 #define RCC_APB1RSTR_TIM2RST			(1 << 0)
+/**@}*/
 
 /* --- RCC_AHBENR values --------------------------------------------------- */
 
@@ -269,7 +322,7 @@ LGPL License Terms @ref lgpl_license
 #define RCC_AHBENR_SRAMEN			(1 << 2)
 #define RCC_AHBENR_DMA2EN			(1 << 1)
 #define RCC_AHBENR_DMA1EN			(1 << 0)
-/*@}*/
+/**@}*/
 
 /* --- RCC_APB2ENR values -------------------------------------------------- */
 
@@ -292,7 +345,7 @@ LGPL License Terms @ref lgpl_license
 #define RCC_APB2ENR_IOPBEN			(1 << 3)
 #define RCC_APB2ENR_IOPAEN			(1 << 2)
 #define RCC_APB2ENR_AFIOEN			(1 << 0)
-/*@}*/
+/**@}*/
 
 /* --- RCC_APB1ENR values -------------------------------------------------- */
 
@@ -322,7 +375,7 @@ LGPL License Terms @ref lgpl_license
 #define RCC_APB1ENR_TIM4EN			(1 << 2)
 #define RCC_APB1ENR_TIM3EN			(1 << 1)
 #define RCC_APB1ENR_TIM2EN			(1 << 0)
-/*@}*/
+/**@}*/
 
 /* --- RCC_BDCR values ----------------------------------------------------- */
 
@@ -347,8 +400,13 @@ LGPL License Terms @ref lgpl_license
 
 /* --- RCC_AHBRSTR values -------------------------------------------------- */
 
+/** @defgroup rcc_ahbrstr_rst RCC_AHBRSTR reset values
+@ingroup STM32F1xx_rcc_defines
+
+@{*/
 #define RCC_AHBRSTR_ETHMACRST			(1 << 14)
 #define RCC_AHBRSTR_OTGFSRST			(1 << 12)
+/**@}*/
 
 /* --- RCC_CFGR2 values ---------------------------------------------------- */
 
@@ -447,10 +505,6 @@ void rcc_set_usbpre(u32 usbpre);
 u32 rcc_get_system_clock_source(int i);
 void rcc_clock_setup_in_hsi_out_64mhz(void);
 void rcc_clock_setup_in_hsi_out_48mhz(void);
-
-/**
- * Maximum speed possible for F100 (Value Line) on HSI
- */
 void rcc_clock_setup_in_hsi_out_24mhz(void);
 void rcc_clock_setup_in_hse_8mhz_out_24mhz(void);
 void rcc_clock_setup_in_hse_8mhz_out_72mhz(void);
@@ -459,3 +513,5 @@ void rcc_clock_setup_in_hse_16mhz_out_72mhz(void);
 void rcc_backupdomain_reset(void);
 
 #endif
+/**@}*/
+

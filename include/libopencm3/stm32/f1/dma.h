@@ -1,3 +1,17 @@
+/** @defgroup STM32F1xx_dma_defines DMA Defines
+
+@ingroup STM32F1xx_defines
+
+@brief Defined Constants and Types for the STM32F1xx DMA Controller
+
+@version 1.0.0
+
+@author @htmlonly &copy; @endhtmlonly 2010 Thomas Otto <tommi@viadmin.org>
+
+@date 18 August 2012
+
+LGPL License Terms @ref lgpl_license
+ */
 /*
  * This file is part of the libopencm3 project.
  *
@@ -17,6 +31,8 @@
  * You should have received a copy of the GNU Lesser General Public License
  * along with this library.  If not, see <http://www.gnu.org/licenses/>.
  */
+
+/**@{*/
 
 #ifndef LIBOPENCM3_DMA_H
 #define LIBOPENCM3_DMA_H
@@ -241,24 +257,39 @@
 #define DMA_CCR_MEM2MEM			(1 << 14)
 
 /* PL[13:12]: Channel priority level */
+/** @defgroup dma_ch_pri DMA Channel Priority Levels
+@ingroup STM32F1xx_dma_defines
+
+@{*/
 #define DMA_CCR_PL_LOW			(0x0 << 12)
 #define DMA_CCR_PL_MEDIUM		(0x1 << 12)
 #define DMA_CCR_PL_HIGH			(0x2 << 12)
 #define DMA_CCR_PL_VERY_HIGH		(0x3 << 12)
+/**@}*/
 #define DMA_CCR_PL_MASK			(0x3 << 12)
 #define DMA_CCR_PL_SHIFT		12
 
 /* MSIZE[11:10]: Memory size */
+/** @defgroup dma_ch_memwidth DMA Channel Memory Word Width
+@ingroup STM32F1xx_dma_defines
+
+@{*/
 #define DMA_CCR_MSIZE_8BIT		(0x0 << 10)
 #define DMA_CCR_MSIZE_16BIT		(0x1 << 10)
 #define DMA_CCR_MSIZE_32BIT		(0x2 << 10)
+/**@}*/
 #define DMA_CCR_MSIZE_MASK		(0x3 << 10)
 #define DMA_CCR_MSIZE_SHIFT		10
 
 /* PSIZE[9:8]: Peripheral size */
+/** @defgroup dma_ch_perwidth DMA Channel Peripheral Word Width
+@ingroup STM32F1xx_dma_defines
+
+@{*/
 #define DMA_CCR_PSIZE_8BIT		(0x0 << 8)
 #define DMA_CCR_PSIZE_16BIT		(0x1 << 8)
 #define DMA_CCR_PSIZE_32BIT		(0x2 << 8)
+/**@}*/
 #define DMA_CCR_PSIZE_MASK		(0x3 << 8)
 #define DMA_CCR_PSIZE_SHIFT		8
 
@@ -300,6 +331,10 @@
 
 /* --- Generic values ------------------------------------------------------ */
 
+/** @defgroup dma_ch DMA Channel Number
+@ingroup STM32F1xx_dma_defines
+
+@{*/
 #define DMA_CHANNEL1			1
 #define DMA_CHANNEL2			2
 #define DMA_CHANNEL3			3
@@ -307,6 +342,7 @@
 #define DMA_CHANNEL5			5
 #define DMA_CHANNEL6			6
 #define DMA_CHANNEL7			7
+/**@}*/
 
 /* --- function prototypes ------------------------------------------------- */
 
@@ -333,3 +369,5 @@ void dma_set_memory_address(u32 dma, u8 channel, u32 address);
 void dma_set_number_of_data(u32 dma, u8 channel, u16 number);
 
 #endif
+/**@}*/
+
