@@ -1,6 +1,12 @@
 /**
  * @mainpage libopencm3 Developer Documentation
- *
+
+@version 1.0.0
+
+@author @htmlonly &copy; @endhtmlonly 2012 Ken Sarkies ksarkies@internode.on.net
+
+@date 18 August 2012
+
  * The libopencm3 project (previously known as libopenstm32) aims to create
  * a free/libre/open-source (GPL v3, or later) firmware library for various
  * ARM Cortex-M3 microcontrollers, including ST STM32, Toshiba TX03,
@@ -31,33 +37,33 @@ program.  If not, see <http://www.gnu.org/licenses/>.
 
 */
 
-/** @defgroup LM3S
+/** @defgroup LM3S LM3S
 Libraries for Texas instruments LM3S series.
 */
 
-/** @defgroup LPC13xx
+/** @defgroup LPC13xx LPC13xx
 Libraries for NXP Semiconductor LPC13xx series.
 */
 
-/** @defgroup LPC17xx
+/** @defgroup LPC17xx LPC17xx
 Libraries for NXP Semiconductor LPC17xx series.
 */
 
-/** @defgroup STM32F
+/** @defgroup STM32F STM32F
 Libraries for ST Microelectronics STM32F series.
 */
 
-/** @defgroup STM32F1xx
+/** @defgroup STM32F1xx STM32F1xx
 @ingroup STM32F
 Libraries for ST Microelectronics STM32F1xx series.
 */
 
-/** @defgroup STM32F2xx
+/** @defgroup STM32F2xx STM32F2xx
 @ingroup STM32F
 Libraries for ST Microelectronics STM32F2xx series.
 */
 
-/** @defgroup STM32F4xx
+/** @defgroup STM32F4xx STM32F4xx
 @ingroup STM32F
 Libraries for ST Microelectronics STM32F4xx series.
 */

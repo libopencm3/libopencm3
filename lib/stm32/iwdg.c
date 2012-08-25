@@ -1,6 +1,6 @@
-/** @file
+/** @defgroup STM32F-iwdg-file IWDG
 
-@ingroup STM32F
+@ingroup STM32F-files
 
 @brief <b>libopencm3 STM32F1xx Independent Watchdog Timer</b>
 
@@ -8,7 +8,7 @@
 
 @author @htmlonly &copy; @endhtmlonly 2012 Ken Sarkies ksarkies@internode.on.net
 
-@date 11 June 2012
+@date 18 August 2012
 
 This library supports the Independent Watchdog Timer System in the STM32F1xx
 series of ARM Cortex Microcontrollers by ST Microelectronics.
@@ -21,8 +21,6 @@ as 17kHz up to 60kHz (refer to datasheet electrical characteristics).
 Note that the User Configuration option byte provides a means of automatically
 enabling the IWDG timer at power on (with counter value 0xFFF). If the
 relevant bit is not set, the IWDG timer must be enabled by software.
-
-@bugs None known
 
 @note: Tested: CPU STM32F103RET6, Board ET-ARM Stamp STM32
 
@@ -45,9 +43,13 @@ LGPL License Terms @ref lgpl_license
  * along with this library.  If not, see <http://www.gnu.org/licenses/>.
  */
 
+/**@{*/
+
 #include <libopencm3/stm32/iwdg.h>
 
 #define LSI_FREQUENCY 32000
+#define COUNT_LENGTH 12
+#define COUNT_MASK ((1 << COUNT_LENGTH)-1)
 
 /*-----------------------------------------------------------------------------*/
 /** @brief IWDG Enable Watchdog Timer
@@ -73,12 +75,9 @@ A delay of up to 5 clock cycles of the LSI clock (about 156 microseconds)
 can occasionally occur if the prescale or preload registers are currently busy
 loading a previous value.
 
-@param[in] u32 Period in milliseconds (< 32760) from a watchdog reset until
+@param[in] period u32 Period in milliseconds (< 32760) from a watchdog reset until
 a system reset is issued.
 */
-
-#define COUNT_LENGTH 12
-#define COUNT_MASK ((1 << COUNT_LENGTH)-1)
 
 void iwdg_set_period_ms(u32 period)
 {
@@ -141,4 +140,5 @@ void iwdg_reset(void)
 {
 	IWDG_KR = IWDG_KR_RESET;
 }
+/**@}*/
 

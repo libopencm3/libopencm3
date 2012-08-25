@@ -1,6 +1,6 @@
-/** @file
+/** @defgroup STM32F-dac-file DAC
 
-@ingroup STM32F
+@ingroup STM32F-files
 
 @brief <b>libopencm3 STM32Fxx Digital to Analog Converter</b>
 
@@ -8,7 +8,7 @@
 
 @author @htmlonly &copy; @endhtmlonly 2012 Ken Sarkies
 
-@date 30 June 2012
+@date 18 August 2012
 
 This library supports the Digital to Analog Conversion System in the
 STM32F series of ARM Cortex Microcontrollers by ST Microelectronics.
@@ -121,6 +121,8 @@ LGPL License Terms @ref lgpl_license
  * along with this library.  If not, see <http://www.gnu.org/licenses/>.
  */
 
+/**@{*/
+
 #include <libopencm3/stm32/dac.h>
 
 #define MASK8 0xFF
@@ -133,7 +135,7 @@ Enable a digital to analog converter channel. After setting this enable, the DAC
 requires a t<sub>wakeup</sub> time typically around 10 microseconds before it
 actually wakes up.
 
-@param[in] enum ::data_channel, dac_channel.
+@param[in] dac_channel enum ::data_channel.
 */
 
 void dac_enable(data_channel dac_channel)
@@ -156,7 +158,7 @@ void dac_enable(data_channel dac_channel)
 
 Disable a digital to analog converter channel.
 
-@param[in] enum ::data_channel, dac_channel.
+@param[in] dac_channel enum ::data_channel.
 */
 
 void dac_disable(data_channel dac_channel)
@@ -182,7 +184,7 @@ amplifying buffer that provides additional drive for the output signal. The
 buffer is enabled by default after a reset and needs to be explicitly disabled
 if required.
 
-@param[in] enum ::data_channel, dac_channel.
+@param[in] dac_channel enum ::data_channel.
 */
 
 void dac_buffer_enable(data_channel dac_channel)
@@ -206,7 +208,7 @@ Disable a digital to analog converter channel output drive buffer. Disabling thi
 reduce power consumption slightly and will increase the output impedance of the DAC.
 The buffers are enabled by default after a reset.
 
-@param[in] enum ::data_channel, dac_channel.
+@param[in] dac_channel enum ::data_channel.
 */
 
 void dac_buffer_disable(data_channel dac_channel)
@@ -230,7 +232,7 @@ Enable a digital to analog converter channel DMA mode (connected to DMA2 channel
 3 for DAC channel 1 and DMA2 channel 4 for DAC channel 2). A DMA request is
 generated following an external trigger.
 
-@param[in] enum ::data_channel, dac_channel.
+@param[in] dac_channel enum ::data_channel.
 */
 
 void dac_dma_enable(data_channel dac_channel)
@@ -253,7 +255,7 @@ void dac_dma_enable(data_channel dac_channel)
 
 Disable a digital to analog converter channel DMA mode.
 
-@param[in] enum ::data_channel, dac_channel.
+@param[in] dac_channel enum ::data_channel.
 */
 
 void dac_dma_disable(data_channel dac_channel)
@@ -279,7 +281,7 @@ external trigger to initiate register transfers from the buffer register to the 
 output register, followed by a DMA transfer to the buffer register if DMA is enabled.
 The trigger source must also be selected.
 
-@param[in] enum ::data_channel, dac_channel.
+@param[in] dac_channel enum ::data_channel.
 */
 
 void dac_trigger_enable(data_channel dac_channel)
@@ -302,7 +304,7 @@ void dac_trigger_enable(data_channel dac_channel)
 
 Disable a digital to analog converter channel external trigger.
 
-@param[in] enum ::data_channel, dac_channel.
+@param[in] dac_channel enum ::data_channel.
 */
 
 void dac_trigger_disable(data_channel dac_channel)
@@ -326,7 +328,7 @@ void dac_trigger_disable(data_channel dac_channel)
 Sets the digital to analog converter trigger source, which can be taken from various
 timers, an external trigger or a software trigger.
 
-@param[in] u32 dac_trig_src. Taken from @ref dac_trig2_sel or @ref dac_trig1_sel or
+@param[in] dac_trig_src u32. Taken from @ref dac_trig2_sel or @ref dac_trig1_sel or
 a logical OR of one of each of these to set both channels simultaneously.
 */
 
@@ -344,7 +346,7 @@ in the DAC output registers.
 
 @note The DAC trigger must be enabled for this to work.
 
-@param[in] u32 dac_trig_src. Taken from @ref dac_wave1_en or @ref dac_wave2_en or
+@param[in] dac_wave_ens u32. Taken from @ref dac_wave1_en or @ref dac_wave2_en or
 a logical OR of one of each of these to set both channels simultaneously.
 */
 
@@ -358,7 +360,7 @@ void dac_set_waveform_generation(u32 dac_wave_ens)
 
 Disable a digital to analog converter channel superimposed waveform generation.
 
-@param[in] enum ::data_channel, dac_channel.
+@param[in] dac_channel enum ::data_channel.
 */
 
 void dac_disable_waveform_generation(data_channel dac_channel)
@@ -390,7 +392,7 @@ signal output.
 @note This must be called before enabling the DAC as the settings will then become read-only.
 @note The DAC trigger must be enabled for this to work.
 
-@param[in] u32 dac_mamp. Taken from @ref dac_mamp2 or @ref dac_mamp1 or a logical OR
+@param[in] dac_mamp u32. Taken from @ref dac_mamp2 or @ref dac_mamp1 or a logical OR
 of one of each of these to set both channels simultaneously.
 */
 
@@ -414,9 +416,9 @@ formatted according to the datasheets:
 @li right-aligned 12 bit data in bits 0-11 for channel 1 and 16-27 for channel 2
 @li left aligned 12 bit data in bits 4-15 for channel 1 and 20-31 for channel 2
 
-@param[in] u32 dac_data with appropriate alignment.
-@param[in] enum ::data_align, dac_data_format. Alignment and size.
-@param[in] enum ::data_channel, dac_channel.
+@param[in] dac_data u32 with appropriate alignment.
+@param[in] dac_data_format enum ::data_align. Alignment and size.
+@param[in] dac_channel enum ::data_channel.
 */
 
 void dac_load_data_buffer_single(u32 dac_data, data_align dac_data_format, data_channel dac_channel)
@@ -471,9 +473,9 @@ Loads the appropriate digital to analog converter dual data register with 12 or
 simultaneous or independent analog output. The data in both channels are aligned
 identically.
 
-@param[in] u32 dac_data for channel 1 with appropriate alignment.
-@param[in] u32 dac_data for channel 2 with appropriate alignment.
-@param[in] enum ::data_align, dac_data_format. Right or left aligned, and 8 or 12 bit.
+@param[in] dac_data1 u32 for channel 1 with appropriate alignment.
+@param[in] dac_data2 u32 for channel 2 with appropriate alignment.
+@param[in] dac_data_format enum ::data_align. Right or left aligned, and 8 or 12 bit.
 */
 
 void dac_load_data_buffer_dual(u32 dac_data1, u32 dac_data2, data_align dac_data_format)
@@ -497,7 +499,7 @@ void dac_load_data_buffer_dual(u32 dac_data1, u32 dac_data2, data_align dac_data
 If the trigger source is set to be a software trigger, cause a trigger to occur.
 The trigger is cleared by hardware after conversion.
 
-@param[in] enum ::data_channel, dac_channel.
+@param[in] dac_channel enum ::data_channel.
 */
 
 void dac_software_trigger(data_channel dac_channel)
@@ -514,4 +516,5 @@ void dac_software_trigger(data_channel dac_channel)
 		break;
 	}
 }
+/**@}*/
 
