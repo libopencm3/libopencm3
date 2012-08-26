@@ -32,6 +32,7 @@ $(SRCLIBDIR)/$(LIBNAME).a: $(SRCLIBDIR)/$(LIBNAME).ld $(OBJS)
 $(SRCLIBDIR)/$(LIBNAME).ld: $(LIBNAME).ld
 	@printf "  CP      $(LIBNAME).ld\n"
 	$(Q)cp $^ $@
+	$(Q)if [ -f $(LIBNAME)_rom_to_ram.ld ]; then cp $(LIBNAME)_rom_to_ram.ld $(SRCLIBDIR); fi
 
 %.o: %.c
 	@printf "  CC      $(subst $(shell pwd)/,,$(@))\n"
@@ -42,6 +43,7 @@ clean:
 	$(Q)rm -f *.o *.d
 	$(Q)rm -f $(SRCLIBDIR)/$(LIBNAME).a
 	$(Q)rm -f $(SRCLIBDIR)/$(LIBNAME).ld
+	$(Q)rm -f $(SRCLIBDIR)/$(LIBNAME)_rom_to_ram.ld
 
 .PHONY: clean
 
