@@ -31,6 +31,7 @@ ARFLAGS		= rcs
 OBJS		= vector.o rcc.o gpio.o usart.o spi.o flash.o nvic.o \
 		  i2c.o systick.o exti.o scb.o pwr.o timer.o \
 		  usb.o usb_standard.o usb_control.o usb_f107.o \
+		  iwdg.o dac.o adc.o
 
 VPATH += ../../usb:../
 
