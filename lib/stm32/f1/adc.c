@@ -272,11 +272,16 @@ void adc_disable_automatic_injected_group_conversion(u32 adc)
 }
 
 /*-----------------------------------------------------------------------------*/
-/** @brief ADC Enable Analog Watchdog for All Regular and Injected Channels
+/** @brief ADC Enable Analog Watchdog for All Regular and/or Injected Channels
 
 The analog watchdog allows the monitoring of an analog signal between two threshold
 levels. The thresholds must be preset. Comparison is done before data alignment
 takes place, so the thresholds are left-aligned.
+
+@note The analog watchdog must be enabled for either or both of the regular or
+injected channels. If neither are enabled, the analog watchdog feature will be
+disabled.
+@ref adc_enable_analog_watchdog_injected, @ref adc_enable_analog_watchdog_regular.
 
 @param[in] adc Unsigned int32. ADC block register address base @ref adc_reg_base
 */
@@ -292,6 +297,11 @@ void adc_enable_analog_watchdog_on_all_channels(u32 adc)
 The analog watchdog allows the monitoring of an analog signal between two threshold
 levels. The thresholds must be preset. Comparison is done before data alignment
 takes place, so the thresholds are left-aligned.
+
+@note The analog watchdog must be enabled for either or both of the regular or
+injected channels. If neither are enabled, the analog watchdog feature will be
+disabled. If both are enabled, the same channel number is monitored.
+@ref adc_enable_analog_watchdog_injected, @ref adc_enable_analog_watchdog_regular.
 
 @param[in] adc Unsigned int32. ADC block register address base @ref adc_reg_base
 @param[in] channel Unsigned int8. ADC channel number @ref adc_watchdog_channel
