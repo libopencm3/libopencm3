@@ -1,8 +1,4 @@
-/** @defgroup STM32F_nvic_f1_defines STM32F NVIC Defines
-
-@brief <b>Defined Constants and Types for the STM32F1xx Nested Vectored Interrupt Controller</b>
-
-@ingroup STM32F_defines
+/** @brief <b>Defined Constants and Types for the STM32F1xx Nested Vectored Interrupt Controller</b>
 
 @version 1.0.0
 
@@ -113,6 +109,6 @@ LGPL License Terms @ref lgpl_license
 #define NVIC_CAN2_RX1_IRQ		65
 #define NVIC_CAN2_SCE_IRQ		66
 #define NVIC_OTG_FS_IRQ			67
-/*@}*/
+/**@}*/
 
 #endif

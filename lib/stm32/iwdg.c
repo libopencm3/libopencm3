@@ -1,6 +1,6 @@
-/** @defgroup STM32F-iwdg-file IWDG
+/** @defgroup STM32F_iwdg_file IWDG
 
-@ingroup STM32F-files
+@ingroup STM32F_files
 
 @brief <b>libopencm3 STM32F1xx Independent Watchdog Timer</b>
 
