@@ -1,6 +1,6 @@
-/** @defgroup STM32F-nvic-file NVIC
+/** @defgroup STM32F_nvic_file NVIC
 
-@ingroup STM32F-files
+@ingroup STM32F_files
 
 @brief <b>libopencm3 STM32F Nested Vectored Interrupt Controller</b>
 

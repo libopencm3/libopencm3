@@ -1,6 +1,6 @@
-/** @defgroup STM32F-systick-file SysTick
+/** @defgroup STM32F_systick_file SysTick
 
-@ingroup STM32F-files
+@ingroup STM32F_files
 
 @brief <b>libopencm3 STM32Fxx System Tick Timer</b>
 

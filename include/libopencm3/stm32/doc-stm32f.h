@@ -13,7 +13,7 @@
 LGPL License Terms @ref lgpl_license
  */
 
-/** @defgroup STM32F-files STM32F Top Level Files
+/** @defgroup STM32F_files STM32F Top Level Files
 
 @brief Common Files for ST Microelectronics STM32F series.
 

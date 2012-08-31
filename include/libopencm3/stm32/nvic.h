@@ -1,4 +1,4 @@
-/** @defgroup STM32F_nvic_defines STM32F NVIC Defines
+/** @defgroup STM32F_nvic_defines NVIC Defines
 
 @brief <b>libopencm3 STM32F Nested Vectored Interrupt Controller</b>
 
@@ -96,7 +96,7 @@ IRQ numbers -3 and -6 to -9 are reserved
 /* irq number -3 reserved */
 #define NVIC_PENDSV_IRQ			-2
 #define NVIC_SYSTICK_IRQ		-1
-/*@}*/
+/**@}*/
 
 
 /* Note: User interrupts are family specific and are defined in a family
