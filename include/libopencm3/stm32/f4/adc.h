@@ -531,11 +531,11 @@ LGPL License Terms @ref lgpl_license
 #define ADC_SQR1_SQ15_LSB		10
 #define ADC_SQR1_SQ14_LSB		5
 #define ADC_SQR1_SQ13_LSB		0
-#define ADC_SQR1_L_MSK			(0xf << ADC_L_LSB)
-#define ADC_SQR1_SQ16_MSK		(0x1f << ADC_SQ16_LSB)
-#define ADC_SQR1_SQ15_MSK		(0x1f << ADC_SQ15_LSB)
-#define ADC_SQR1_SQ14_MSK		(0x1f << ADC_SQ14_LSB)
-#define ADC_SQR1_SQ13_MSK		(0x1f << ADC_SQ13_LSB)
+#define ADC_SQR1_L_MSK			(0xf << ADC_SQR1_L_LSB)
+#define ADC_SQR1_SQ16_MSK		(0x1f << ADC_SQR1_SQ16_LSB)
+#define ADC_SQR1_SQ15_MSK		(0x1f << ADC_SQR1_SQ15_LSB)
+#define ADC_SQR1_SQ14_MSK		(0x1f << ADC_SQR1_SQ14_LSB)
+#define ADC_SQR1_SQ13_MSK		(0x1f << ADC_SQR1_SQ13_LSB)
 
 /* --- ADC_SQR2 values ----------------------------------------------------- */
 
@@ -545,12 +545,12 @@ LGPL License Terms @ref lgpl_license
 #define ADC_SQR2_SQ9_LSB		10
 #define ADC_SQR2_SQ8_LSB		5
 #define ADC_SQR2_SQ7_LSB		0
-#define ADC_SQR2_SQ12_MSK		(0x1f << ADC_SQ12_LSB)
-#define ADC_SQR2_SQ11_MSK		(0x1f << ADC_SQ11_LSB)
-#define ADC_SQR2_SQ10_MSK		(0x1f << ADC_SQ10_LSB)
-#define ADC_SQR2_SQ9_MSK		(0x1f << ADC_SQ9_LSB)
-#define ADC_SQR2_SQ8_MSK		(0x1f << ADC_SQ8_LSB)
-#define ADC_SQR2_SQ7_MSK		(0x1f << ADC_SQ7_LSB)
+#define ADC_SQR2_SQ12_MSK		(0x1f << ADC_SQR2_SQ12_LSB)
+#define ADC_SQR2_SQ11_MSK		(0x1f << ADC_SQR2_SQ11_LSB)
+#define ADC_SQR2_SQ10_MSK		(0x1f << ADC_SQR2_SQ10_LSB)
+#define ADC_SQR2_SQ9_MSK		(0x1f << ADC_SQR2_SQ9_LSB)
+#define ADC_SQR2_SQ8_MSK		(0x1f << ADC_SQR2_SQ8_LSB)
+#define ADC_SQR2_SQ7_MSK		(0x1f << ADC_SQR2_SQ7_LSB)
 
 /* --- ADC_SQR3 values ----------------------------------------------------- */
 
@@ -560,12 +560,12 @@ LGPL License Terms @ref lgpl_license
 #define ADC_SQR3_SQ3_LSB		10
 #define ADC_SQR3_SQ2_LSB		5
 #define ADC_SQR3_SQ1_LSB		0
-#define ADC_SQR3_SQ6_MSK		(0x1f << ADC_SQ6_LSB)
-#define ADC_SQR3_SQ5_MSK		(0x1f << ADC_SQ5_LSB)
-#define ADC_SQR3_SQ4_MSK		(0x1f << ADC_SQ4_LSB)
-#define ADC_SQR3_SQ3_MSK		(0x1f << ADC_SQ3_LSB)
-#define ADC_SQR3_SQ2_MSK		(0x1f << ADC_SQ2_LSB)
-#define ADC_SQR3_SQ1_MSK		(0x1f << ADC_SQ1_LSB)
+#define ADC_SQR3_SQ6_MSK		(0x1f << ADC_SQR3_SQ6_LSB)
+#define ADC_SQR3_SQ5_MSK		(0x1f << ADC_SQR3_SQ5_LSB)
+#define ADC_SQR3_SQ4_MSK		(0x1f << ADC_SQR3_SQ4_LSB)
+#define ADC_SQR3_SQ3_MSK		(0x1f << ADC_SQR3_SQ3_LSB)
+#define ADC_SQR3_SQ2_MSK		(0x1f << ADC_SQR3_SQ2_LSB)
+#define ADC_SQR3_SQ1_MSK		(0x1f << ADC_SQR3_SQ1_LSB)
 
 /* --- ADC_JSQR values ----------------------------------------------------- */
 
@@ -574,11 +574,11 @@ LGPL License Terms @ref lgpl_license
 #define ADC_JSQR_JSQ3_LSB		10
 #define ADC_JSQR_JSQ2_LSB		5
 #define ADC_JSQR_JSQ1_LSB		0
-#define ADC_JSQR_JL_MSK			(0x2 << ADC_JL_LSB)
-#define ADC_JSQR_JSQ4_MSK		(0x1f << ADC_JSQ4_LSB)
-#define ADC_JSQR_JSQ3_MSK		(0x1f << ADC_JSQ3_LSB)
-#define ADC_JSQR_JSQ2_MSK		(0x1f << ADC_JSQ2_LSB)
-#define ADC_JSQR_JSQ1_MSK		(0x1f << ADC_JSQ1_LSB)
+#define ADC_JSQR_JL_MSK			(0x2 << ADC_JSQR_JL_LSB)
+#define ADC_JSQR_JSQ4_MSK		(0x1f << ADC_JSQR_JSQ4_LSB)
+#define ADC_JSQR_JSQ3_MSK		(0x1f << ADC_JSQR_JSQ3_LSB)
+#define ADC_JSQR_JSQ2_MSK		(0x1f << ADC_JSQR_JSQ2_LSB)
+#define ADC_JSQR_JSQ1_MSK		(0x1f << ADC_JSQR_JSQ1_LSB)
 
 /* --- ADC_JDRx, ADC_DR values --------------------------------------------- */
 
@@ -752,7 +752,7 @@ void adc_enable_analog_watchdog_regular(u32 adc);
 void adc_disable_analog_watchdog_regular(u32 adc);
 void adc_enable_analog_watchdog_injected(u32 adc);
 void adc_disable_analog_watchdog_injected(u32 adc);
-void adc_enable_discontinous_mode_regular(u32 adc);
+void adc_enable_discontinous_mode_regular(u32 adc, u8 length);
 void adc_disable_discontinous_mode_regular(u32 adc);
 void adc_enable_discontinous_mode_injected(u32 adc);
 void adc_disable_discontinous_mode_injected(u32 adc);
@@ -768,13 +768,13 @@ void adc_enable_awd_interrupt(u32 adc);
 void adc_disable_awd_interrupt(u32 adc);
 void adc_enable_eoc_interrupt(u32 adc);
 void adc_disable_eoc_interrupt(u32 adc);
-void adc_enable_temperature_sensor(u32 adc);
-void adc_disable_temperature_sensor(u32 adc);
+void adc_enable_temperature_sensor(void);
+void adc_disable_temperature_sensor(void);
 void adc_start_conversion_regular(u32 adc);
 void adc_start_conversion_injected(u32 adc);
-void adc_enable_external_trigger_regular(u32 adc, u32 trigger, u8 polarity);
+void adc_enable_external_trigger_regular(u32 adc, u32 trigger, u32 polarity);
 void adc_disable_external_trigger_regular(u32 adc);
-void adc_enable_external_trigger_injected(u32 adc, u32 trigger, u8 polarity);
+void adc_enable_external_trigger_injected(u32 adc, u32 trigger, u32 polarity);
 void adc_disable_external_trigger_injected(u32 adc);
 void adc_set_left_aligned(u32 adc);
 void adc_set_right_aligned(u32 adc);

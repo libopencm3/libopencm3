@@ -111,7 +111,7 @@ The ADC clock taken from the APB2 clock can be scaled down by 2, 4, 6 or 8.
 
 void adc_set_clk(u32 prescale)
 {
-	ADC_CCR(adc) = ((ADC_CCR(adc) & ~ADC_CCR_ADCPRE_MASK) | prescale);
+	ADC_CCR = ((ADC_CCR & ~ADC_CCR_ADCPRE_MASK) | prescale);
 }
 
 /*-----------------------------------------------------------------------------*/
@@ -412,12 +412,11 @@ DONE
 This enables both the sensor and the reference voltage measurements on channels
 16 and 17.
 
-@param[in] adc Unsigned int32. ADC block register address base @ref adcf4_reg_base
 */
 
-void adc_enable_temperature_sensor(u32 adc)
+void adc_enable_temperature_sensor(void)
 {
-	ADC_CCR(adc) |= ADC_CCR_TSVREFE;
+	ADC_CCR |= ADC_CCR_TSVREFE;
 }
 
 /*-----------------------------------------------------------------------------*/
@@ -429,9 +428,9 @@ voltage measurements.
 @param[in] adc Unsigned int32. ADC block register address base @ref adcf4_reg_base
 */
 
-void adc_disable_temperature_sensor(u32 adc)
+void adc_disable_temperature_sensor(void)
 {
-	ADC_CCR(adc) &= ~ADC_CCR_TSVREFE;
+	ADC_CCR &= ~ADC_CCR_TSVREFE;
 }
 
 /*-----------------------------------------------------------------------------*/
