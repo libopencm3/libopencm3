@@ -93,6 +93,8 @@ LGPL License Terms @ref lgpl_license
 
 /* --- Function Prototypes ------------------------------------------------- */
 
+BEGIN_DECLS
+
 void systick_set_reload(u32 value);
 u32 systick_get_value(void);
 void systick_set_clocksource(u8 clocksource);
@@ -101,6 +103,8 @@ void systick_interrupt_disable(void);
 void systick_counter_enable(void);
 void systick_counter_disable(void);
 u8 systick_get_countflag(void);
+
+END_DECLS
 
 #endif
 /**@}*/

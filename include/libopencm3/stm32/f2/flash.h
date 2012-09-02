@@ -116,6 +116,8 @@
 
 /* --- Function prototypes ------------------------------------------------- */
 
+BEGIN_DECLS
+
 void flash_dcache_enable(void);
 void flash_dcache_disable(void);
 void flash_icache_enable(void);
@@ -144,5 +146,7 @@ void flash_program_half_word(u32 address, u16 data, u32 program_size);
 void flash_program_byte(u32 address, u8 data, u32 program_size);
 void flash_wait_for_last_operation(void);
 void flash_program_option_bytes(u32 data);
+
+END_DECLS
 
 #endif

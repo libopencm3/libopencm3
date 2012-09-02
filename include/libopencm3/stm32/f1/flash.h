@@ -89,6 +89,8 @@
 
 /* --- Function prototypes ------------------------------------------------- */
 
+BEGIN_DECLS
+
 void flash_prefetch_buffer_enable(void);
 void flash_prefetch_buffer_disable(void);
 void flash_halfcycle_enable(void);
@@ -109,5 +111,7 @@ void flash_program_half_word(u32 address, u16 data);
 void flash_wait_for_last_operation(void);
 void flash_erase_option_bytes(void);
 void flash_program_option_bytes(u32 address, u16 data);
+
+END_DECLS
 
 #endif

@@ -53,6 +53,8 @@
 
 /* --- CRC function prototypes --------------------------------------------- */
 
+BEGIN_DECLS
+
 /* TODO */
 
 /**
@@ -74,5 +76,7 @@ u32 crc_calculate(u32 data);
  * @return final CRC calculator value
  */
 u32 crc_calculate_block(u32 *datap, int size);
+
+END_DECLS
 
 #endif
