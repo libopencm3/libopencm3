@@ -131,7 +131,7 @@
 #define I2C_WRITE           0
 #define I2C_READ            1
 
-/* --- I2C funtion prototypes----------------------------------------------- */
+/* --- I2C function prototypes --------------------------------------------- */
 
 BEGIN_DECLS
 
