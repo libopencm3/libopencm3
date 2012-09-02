@@ -22,6 +22,8 @@
 
 #include <libopencm3/usb/usbstd.h>
 
+BEGIN_DECLS
+
 typedef struct _usbd_driver usbd_driver;
 extern const usbd_driver stm32f103_usb_driver;
 extern const usbd_driver stm32f107_usb_driver;
@@ -72,5 +74,7 @@ extern void usbd_ep_nak_set(u8 addr, u8 nak);
 
 /* Optional */
 extern void usbd_cable_connect(u8 on);
+
+END_DECLS
 
 #endif

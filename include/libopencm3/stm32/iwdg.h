@@ -106,11 +106,15 @@ LGPL License Terms @ref lgpl_license
 
 /* --- IWDG function prototypes---------------------------------------------- */
 
+BEGIN_DECLS
+
 void iwdg_start(void);
 void iwdg_set_period_ms(u32 period);
 bool iwdg_reload_busy(void);
 bool iwdg_prescaler_busy(void);
 void iwdg_reset(void);
+
+END_DECLS
 
 #endif
 /**@}*/

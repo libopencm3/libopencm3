@@ -254,6 +254,8 @@
 
 /* --- Function prototypes ------------------------------------------------- */
 
+BEGIN_DECLS
+
 /*
  * Note: The F4 series has a completely new GPIO peripheral with different
  * configuration options. Here we implement a different API partly to more
@@ -274,5 +276,7 @@ void gpio_toggle(u32 gpioport, u16 gpios);
 u16 gpio_port_read(u32 gpioport);
 void gpio_port_write(u32 gpioport, u16 data);
 void gpio_port_config_lock(u32 gpioport, u16 gpios);
+
+END_DECLS
 
 #endif

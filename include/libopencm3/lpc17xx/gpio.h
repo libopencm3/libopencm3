@@ -132,7 +132,11 @@
 /* Overall interrupt status */
 #define GPIO_IS                         MMIO32(GPIOINTERRPUT_BASE + 0x80)
 
+BEGIN_DECLS
+
 void gpio_set(u32 gpioport, u32 gpios);
 void gpio_clear(u32 gpioport, u32 gpios); 
+
+END_DECLS
 
 #endif

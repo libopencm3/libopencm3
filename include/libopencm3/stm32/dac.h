@@ -393,6 +393,8 @@ typedef enum {
 
 /* --- Function prototypes ------------------------------------------------- */
 
+BEGIN_DECLS
+
 void dac_enable(data_channel dac_channel);
 void dac_disable(data_channel dac_channel);
 void dac_buffer_enable(data_channel dac_channel);
@@ -408,6 +410,8 @@ void dac_set_waveform_characteristics(u32 dac_mamp);
 void dac_load_data_buffer_single(u32 dac_data, data_align dac_data_format, data_channel dac_channel);
 void dac_load_data_buffer_dual(u32 dac_data1, u32 dac_data2, data_align dac_data_format);
 void dac_software_trigger(data_channel dac_channel);
+
+END_DECLS
 
 #endif
 /**@}*/

@@ -1022,6 +1022,9 @@ enum tim_ic_pol {
 };
 
 /* --- TIM function prototypes ------------------------------------------------------- */
+
+BEGIN_DECLS
+
 void timer_reset(u32 timer_peripheral);
 void timer_enable_irq(u32 timer_peripheral, u32 irq);
 void timer_disable_irq(u32 timer_peripheral, u32 irq);
@@ -1100,6 +1103,8 @@ void timer_slave_set_prescaler(u32 timer, enum tim_ic_psc psc);
 void timer_slave_set_polarity(u32 timer, enum tim_ic_pol pol);
 void timer_slave_set_mode(u32 timer, u8 mode);
 void timer_slave_set_trigger(u32 timer, u8 trigger);
+
+END_DECLS
 
 #endif
 /**@}*/

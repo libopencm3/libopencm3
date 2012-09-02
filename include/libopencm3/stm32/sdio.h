@@ -142,7 +142,7 @@
 #define SDIO_CMD_WAITRESP_SHIFT		6
 /* 00: No response, expect CMDSENT flag */
 #define SDIO_CMD_WAITRESP_NO_0		(0x0 << SDIO_CMD_WAITRESP_SHIFT)
-/* 01: Short response, expect CMDREND or CCRCFAIL flag
+/* 01: Short response, expect CMDREND or CCRCFAIL flag */
 #define SDIO_CMD_WAITRESP_SHORT		(0x1 << SDIO_CMD_WAITRESP_SHIFT)
 /* 10: No response, expect CMDSENT flag */
 #define SDIO_CMD_WAITRESP_NO_2		(0x2 << SDIO_CMD_WAITRESP_SHIFT)
