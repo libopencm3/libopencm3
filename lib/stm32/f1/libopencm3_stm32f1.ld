@@ -52,12 +52,13 @@ SECTIONS
 		__exidx_end = .;
 	} >rom
 
-	.data : AT (__exidx_end) {
+	.data : {
 		_data = .;
 		*(.data*)	/* Read-write initialized data */
 		. = ALIGN(4);
 		_edata = .;
-	} >ram
+	} >ram AT >rom
+	_data_loadaddr = LOADADDR(.data);
 
 	.bss : {
 		*(.bss*)	/* Read-write zero initialized data */

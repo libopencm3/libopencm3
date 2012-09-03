@@ -61,6 +61,7 @@ SECTIONS
 		. = ALIGN(4);
 		_edata = .;
 	} >ram_data AT >rom
+	_data_loadaddr = LOADADDR(.data);
 
 	.bss : {
 		*(.bss*)	/* Read-write zero initialized data */
