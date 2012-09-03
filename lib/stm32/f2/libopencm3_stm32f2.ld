@@ -36,7 +36,6 @@ SECTIONS
 		. = ALIGN(4);
 		*(.rodata*)	/* Read-only data */
 		. = ALIGN(4);
-		_etext = .;
 	} >rom
 
 	/*
@@ -51,6 +50,9 @@ SECTIONS
 		*(.ARM.exidx*)
 		__exidx_end = .;
 	} >rom
+
+	. = ALIGN(4);
+	_etext = .;
 
 	.data : {
 		_data = .;
