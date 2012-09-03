@@ -30,8 +30,6 @@ ENTRY(reset_handler)
 /* Define sections. */
 SECTIONS
 {
-	. = ORIGIN(rom);
-
 	.text : {
 		*(.vectors)	/* Vector table */
 		*(.text*)	/* Program code */
@@ -48,6 +46,7 @@ SECTIONS
 	__exidx_end = .;
 
 
+	. = ALIGN(4);
 	_etext = .;
 
 	.data : {

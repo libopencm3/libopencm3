@@ -24,31 +24,34 @@
 /* Enforce emmition of the vector table. */
 EXTERN (vector_table)
 
+/* Define the entry point of the output file. */
+ENTRY(reset_handler)
+
 /* Define sections. */
 SECTIONS
 {
-	. = ORIGIN(rom);
-
 	.text : {
 		*(.vectors)	/* Vector table */
 		*(.text*)	/* Program code */
+		. = ALIGN(4);
 		*(.rodata*)	/* Read-only data */
+		. = ALIGN(4);
 		_etext = .;
 	} >rom
-
-	. = ORIGIN(ram);
 
 	.data : {
 		_data = .;
 		*(.data*)	/* Read-write initialized data */
+		. = ALIGN(4);
 		_edata = .;
 	} >ram AT >rom
 
 	.bss : {
 		*(.bss*)	/* Read-write zero initialized data */
 		*(COMMON)
+		. = ALIGN(4);
 		_ebss = .;
-	} >ram AT >rom
+	} >ram
 
 	/*
 	 * The .eh_frame section appears to be used for C++ exception handling.
@@ -62,6 +65,7 @@ SECTIONS
 	 */
 	/DISCARD/ : { *(.ARM.exidx) }
 
+	. = ALIGN(4);
 	end = .;
 }
 

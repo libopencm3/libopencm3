@@ -32,8 +32,6 @@ ENTRY(reset_handler)
 /* Define sections. */
 SECTIONS
 {
-	. = ORIGIN(rom);
-
 	.text : {
 		. = ALIGN(0x400);
 		_text_ram = 0; /* Start of Code in RAM NULL because Copy of Code from ROM to RAM disabled */
@@ -51,11 +49,10 @@ SECTIONS
 	} > rom
 	__exidx_end = .;
 
+	. = ALIGN(4);
 	_etext = .;
 	_etext_ram = 0; /* Start of Code in RAM NULL because Copy of Code from ROM to RAM disabled */
 	_etext_rom = 0; /* Start of Code in RAM NULL because Copy of Code from ROM to RAM disabled */
-
-	. = ORIGIN(ram);
 
 	.data : {
 		_data = .;
@@ -88,6 +85,7 @@ SECTIONS
 	 */
 	/DISCARD/ : { *(.ARM.exidx) }
 
+	. = ALIGN(4);
 	end = .;
 
 	/* Leave room above stack for IAP to run. */

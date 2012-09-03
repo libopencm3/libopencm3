@@ -30,8 +30,6 @@ ENTRY(reset_handler)
 /* Define sections. */
 SECTIONS
 {
-	. = ORIGIN(rom);
-
 	.text : {
 		*(.vectors)	/* Vector table */
 		*(.text*)	/* Program code */
@@ -42,9 +40,9 @@ SECTIONS
 	} >rom
 
 	/*
-	* Another section used by C++ stuff, appears when using newlib with
-	* 64bit (long long) printf support
-	*/
+	 * Another section used by C++ stuff, appears when using newlib with
+	 * 64bit (long long) printf support
+	 */
 	.ARM.extab : {
 		*(.ARM.extab*)
 	} >rom
@@ -53,8 +51,6 @@ SECTIONS
 		*(.ARM.exidx*)
 		__exidx_end = .;
 	} >rom
-
-	. = ORIGIN(ram);
 
 	.data : AT (__exidx_end) {
 		_data = .;
@@ -68,7 +64,7 @@ SECTIONS
 		*(COMMON)
 		. = ALIGN(4);
 		_ebss = .;
-	} >ram AT >rom
+	} >ram
 
 	/*
 	 * The .eh_frame section appears to be used for C++ exception handling.
