@@ -32,8 +32,6 @@ ENTRY(reset_handler)
 /* Define sections. */
 SECTIONS
 {
-	. = ORIGIN(rom);
-
 	.text : {
 		. = ALIGN(0x400);
 		_text_ram = (. - ORIGIN(rom)) + ORIGIN(ram); /* Start of Code in RAM */
@@ -45,13 +43,20 @@ SECTIONS
 		. = ALIGN(4);
 	} >rom
 
-	/* exception index - required due to libgcc.a issuing /0 exceptions */
-	__exidx_start = .;
+	/*
+	 * Another section used by C++ stuff, appears when using newlib with
+	 * 64bit (long long) printf support
+	 */
+	.ARM.extab : {
+		*(.ARM.extab*)
+	} >rom
 	.ARM.exidx : {
+		__exidx_start = .;
 		*(.ARM.exidx*)
-	} > rom
-	__exidx_end = .;
+		__exidx_end = .;
+	} >rom
 
+	. = ALIGN(4);
 	_etext = .;
 	_etext_ram = (. - ORIGIN(rom)) + ORIGIN(ram);
 	_etext_rom = (. - ORIGIN(rom)) + ORIGIN(rom_flash);
@@ -62,19 +67,13 @@ SECTIONS
 		. = ALIGN(4);
 		_edata = .;
 	} >ram_data AT >rom
+	_data_loadaddr = LOADADDR(.data);
 
 	.bss : {
-		. = _edata;
 		*(.bss*)	/* Read-write zero initialized data */
 		*(COMMON)
 		. = ALIGN(4);
 		_ebss = .;
-	} >ram_data
-
-	/* exception unwind data - required due to libgcc.a issuing /0 exceptions */
-	.ARM.extab : {
-		. = _ebss;
-		*(.ARM.extab*)
 	} >ram_data
 
 	/*
@@ -83,12 +82,7 @@ SECTIONS
 	 */
 	/DISCARD/ : { *(.eh_frame) }
 
-	/*
-	 * Another section used by C++ stuff, appears when using newlib with
-	 * 64bit (long long) printf support - discard it for now.
-	 */
-	/DISCARD/ : { *(.ARM.exidx) }
-
+	. = ALIGN(4);
 	end = .;
 
 	/* Leave room above stack for IAP to run. */
