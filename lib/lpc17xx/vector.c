@@ -19,8 +19,8 @@
 
 #define WEAK __attribute__ ((weak))
 
-/* Symbols exported by the linker script(s). */
-extern unsigned _etext, _data, _edata, _ebss, _stack;
+/* Symbols exported by the linker script(s): */
+extern unsigned _data_loadaddr, _data, _edata, _ebss, _stack;
 
 void main(void);
 void reset_handler(void);
@@ -60,9 +60,10 @@ void (*const vector_table[]) (void) = {
 void reset_handler(void)
 {
 	volatile unsigned *src, *dest;
+
 	__asm__("MSR msp, %0" : : "r"(&_stack));
 
-	for (src = &_etext, dest = &_data; dest < &_edata; src++, dest++)
+	for (src = &_data_loadaddr, dest = &_data; dest < &_edata; src++, dest++)
 		*dest = *src;
 
 	while (dest < &_ebss)
