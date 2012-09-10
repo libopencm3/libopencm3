@@ -63,6 +63,10 @@ typedef enum {
 	SCALE2,
 } vos_scale_t;
 
+BEGIN_DECLS
+
 void pwr_set_vos_scale(vos_scale_t scale);
+
+END_DECLS
 
 #endif

@@ -157,6 +157,8 @@ typedef enum {
 	SSP_SLAVE_OUT_DISABLE = BIT3
 } ssp_slave_option_t; /* This option is relevant only in slave mode */
 
+BEGIN_DECLS
+
 void ssp_disable(ssp_num_t ssp_num);
 
 /* 
@@ -177,5 +179,7 @@ void ssp_init(ssp_num_t ssp_num,
 u16 ssp_read(ssp_num_t ssp_num);
 
 void ssp_write(ssp_num_t ssp_num, u16 data);
+
+END_DECLS
 
 #endif

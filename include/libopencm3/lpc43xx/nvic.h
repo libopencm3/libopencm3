@@ -134,6 +134,8 @@
 
 /* --- NVIC functions ------------------------------------------------------ */
 
+BEGIN_DECLS
+
 void nvic_enable_irq(u8 irqn);
 void nvic_disable_irq(u8 irqn);
 u8 nvic_get_pending_irq(u8 irqn);
@@ -143,5 +145,7 @@ u8 nvic_get_active_irq(u8 irqn);
 u8 nvic_get_irq_enabled(u8 irqn);
 void nvic_set_priority(u8 irqn, u8 priority);
 void nvic_generate_software_interrupt(u8 irqn);
+
+END_DECLS
 
 #endif

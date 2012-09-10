@@ -293,10 +293,15 @@
 /* BFAR [31:0]: Bus fault address */
 
 /* --- SCB functions ------------------------------------------------------- */
+
+BEGIN_DECLS
+
 void scb_reset_core(void);
 void scb_reset_system(void);
 void scb_set_priority_grouping(u32 prigroup);
 
 /* TODO: */
+
+END_DECLS
 
 #endif

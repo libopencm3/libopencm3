@@ -70,6 +70,8 @@
 
 /* --- Function Prototypes ------------------------------------------------- */
 
+BEGIN_DECLS
+
 void systick_set_reload(u32 value);
 u32 systick_get_value(void);
 void systick_set_clocksource(u8 clocksource);
@@ -80,5 +82,7 @@ void systick_counter_disable(void);
 u8 systick_get_countflag(void);
 
 u32 systick_get_calib(void);
+
+END_DECLS
 
 #endif

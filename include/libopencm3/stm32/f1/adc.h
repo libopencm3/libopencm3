@@ -677,6 +677,9 @@ LGPL License Terms @ref lgpl_license
 
 /* --- Function prototypes ------------------------------------------------- */
 
+BEGIN_DECLS
+
+/* TODO */
 void adc_enable_analog_watchdog_regular(u32 adc);
 void adc_disable_analog_watchdog_regular(u32 adc);
 void adc_enable_analog_watchdog_injected(u32 adc);
@@ -721,6 +724,8 @@ void adc_set_watchdog_high_threshold(u32 adc, u16 threshold);
 void adc_set_watchdog_low_threshold(u32 adc, u16 threshold);
 void adc_set_regular_sequence(u32 adc, u8 length, u8 channel[]);
 void adc_set_injected_sequence(u32 adc, u8 length, u8 channel[]);
+
+END_DECLS
 
 #endif
 /**@}*/
