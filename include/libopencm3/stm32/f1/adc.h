@@ -679,7 +679,6 @@ LGPL License Terms @ref lgpl_license
 
 BEGIN_DECLS
 
-/* TODO */
 void adc_enable_analog_watchdog_regular(u32 adc);
 void adc_disable_analog_watchdog_regular(u32 adc);
 void adc_enable_analog_watchdog_injected(u32 adc);
