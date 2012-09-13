@@ -1,0 +1,5 @@
+libopencm3 (0) unstable; urgency=low
+
+  * First packaging attempt to see where it installs
+
+ -- Christian M. Amsüss <chrysn@fsfe.org>  Wed, 18 Apr 2012 11:20:37 +0200
