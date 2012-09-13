@@ -126,6 +126,8 @@ typedef enum {
 	RTC_SEC, RTC_ALR, RTC_OW,
 } rtcflag_t;
 
+BEGIN_DECLS
+
 void rtc_awake_from_off(osc_t clock_source);
 void rtc_enter_config_mode(void);
 void rtc_exit_config_mode(void);
@@ -143,5 +145,7 @@ void rtc_clear_flag(rtcflag_t flag_val);
 u32 rtc_check_flag(rtcflag_t flag_val);
 void rtc_awake_from_standby(void);
 void rtc_auto_awake(osc_t clock_source, u32 prescale_val);
+
+END_DECLS
 
 #endif

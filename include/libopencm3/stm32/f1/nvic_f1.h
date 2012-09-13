@@ -1,3 +1,13 @@
+/** @brief <b>Defined Constants and Types for the STM32F1xx Nested Vectored Interrupt Controller</b>
+
+@version 1.0.0
+
+@author @htmlonly &copy; @endhtmlonly 2010 Thomas Otto <tommi@viadmin.org>
+
+@date 18 August 2012
+
+LGPL License Terms @ref lgpl_license
+ */
 /*
  * This file is part of the libopencm3 project.
  *
@@ -27,6 +37,10 @@
  */
 
 /* User Interrupts */
+/** @defgroup nvic_stm32f1_userint STM32F1xx User Interrupts
+@ingroup STM32F_nvic_defines
+
+@{*/
 #define NVIC_WWDG_IRQ			0
 #define NVIC_PVD_IRQ			1
 #define NVIC_TAMPER_IRQ			2
@@ -95,5 +109,6 @@
 #define NVIC_CAN2_RX1_IRQ		65
 #define NVIC_CAN2_SCE_IRQ		66
 #define NVIC_OTG_FS_IRQ			67
+/**@}*/
 
 #endif

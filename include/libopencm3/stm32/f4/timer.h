@@ -52,6 +52,10 @@
 
 /* --- Function prototypes ------------------------------------------------- */
 
+BEGIN_DECLS
+
 void timer_set_option(u32 timer_peripheral, u32 option);
+
+END_DECLS
 
 #endif

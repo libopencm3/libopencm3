@@ -1,4 +1,3 @@
-
 /*
  * This file is part of the libopencm3 project.
  *
@@ -31,28 +30,44 @@ ENTRY(reset_handler)
 /* Define sections. */
 SECTIONS
 {
-	. = ORIGIN(rom);
-
 	.text : {
 		*(.vectors)	/* Vector table */
 		*(.text*)	/* Program code */
+		. = ALIGN(4);
 		*(.rodata*)	/* Read-only data */
-		_etext = .;
+		. = ALIGN(4);
 	} >rom
 
-	. = ORIGIN(ram);
+	/*
+	 * Another section used by C++ stuff, appears when using newlib with
+	 * 64bit (long long) printf support
+	 */
+	.ARM.extab : {
+		*(.ARM.extab*)
+	} >rom
+	.ARM.exidx : {
+		__exidx_start = .;
+		*(.ARM.exidx*)
+		__exidx_end = .;
+	} >rom
+
+	. = ALIGN(4);
+	_etext = .;
 
 	.data : {
 		_data = .;
 		*(.data*)	/* Read-write initialized data */
+		. = ALIGN(4);
 		_edata = .;
 	} >ram AT >rom
+	_data_loadaddr = LOADADDR(.data);
 
 	.bss : {
 		*(.bss*)	/* Read-write zero initialized data */
 		*(COMMON)
+		. = ALIGN(4);
 		_ebss = .;
-	} >ram AT >rom
+	} >ram
 
 	/*
 	 * The .eh_frame section appears to be used for C++ exception handling.
@@ -60,12 +75,7 @@ SECTIONS
 	 */
 	/DISCARD/ : { *(.eh_frame) }
 
-	/*
-	 * Another section used by C++ stuff, appears when using newlib with
-	 * 64bit (long long) printf support - discard it for now.
-	 */
-	/DISCARD/ : { *(.ARM.exidx) }
-
+	. = ALIGN(4);
 	end = .;
 }
 

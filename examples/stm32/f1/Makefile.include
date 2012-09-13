@@ -25,16 +25,22 @@ LD		= $(PREFIX)-gcc
 OBJCOPY		= $(PREFIX)-objcopy
 OBJDUMP		= $(PREFIX)-objdump
 GDB		= $(PREFIX)-gdb
-# Uncomment this line if you want to use the installed (not local) library.
-#TOOLCHAIN_DIR := $(shell dirname `which $(CC)`)/../$(PREFIX)
-TOOLCHAIN_DIR   = ../../../../..
+ifeq ($(wildcard ../../../../../lib/libopencm3_stm32f1.a),)
+TOOLCHAIN_DIR := $(shell dirname `which $(CC)`)/../$(PREFIX)
+else
+ifeq ($(V),1)
+$(info We seem to be building the example in the source directory. Using local library!) 
+endif
+TOOLCHAIN_DIR := ../../../../..
+endif
+ARCH_FLAGS      = -mthumb -mcpu=cortex-m3 -msoft-float
 CFLAGS		+= -Os -g -Wall -Wextra -I$(TOOLCHAIN_DIR)/include \
-		   -fno-common -mcpu=cortex-m3 -mthumb -msoft-float -MD -DSTM32F1
+		   -fno-common $(ARCH_FLAGS) -MD -DSTM32F1
 LDSCRIPT	?= $(BINARY).ld
 LDFLAGS		+= -Wl,--start-group -lc -lgcc -lnosys -Wl,--end-group \
-		   -L$(TOOLCHAIN_DIR)/lib -L$(TOOLCHAIN_DIR)/lib/stm32/f1 \
+		   -L$(TOOLCHAIN_DIR)/lib \
 		   -T$(LDSCRIPT) -nostartfiles -Wl,--gc-sections \
-		   -mthumb -march=armv7 -mfix-cortex-m3-ldrd -msoft-float
+		   $(ARCH_FLAGS) -mfix-cortex-m3-ldrd
 OBJS		+= $(BINARY).o
 
 OOCD		?= openocd
@@ -80,7 +86,7 @@ flash: $(BINARY).flash
 	@#printf "  OBJDUMP $(*).list\n"
 	$(Q)$(OBJDUMP) -S $(*).elf > $(*).list
 
-%.elf: $(OBJS) $(LDSCRIPT) $(TOOLCHAIN_DIR)/lib/stm32/f1/libopencm3_stm32f1.a
+%.elf: $(OBJS) $(LDSCRIPT) $(TOOLCHAIN_DIR)/lib/libopencm3_stm32f1.a
 	@#printf "  LD      $(subst $(shell pwd)/,,$(@))\n"
 	$(Q)$(LD) -o $(*).elf $(OBJS) -lopencm3_stm32f1 $(LDFLAGS)
 

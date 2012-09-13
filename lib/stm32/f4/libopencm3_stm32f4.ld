@@ -30,8 +30,6 @@ ENTRY(reset_handler)
 /* Define sections. */
 SECTIONS
 {
-	. = ORIGIN(rom);
-
 	.text : {
 		*(.vectors)	/* Vector table */
 		*(.text*)	/* Program code */
@@ -40,14 +38,20 @@ SECTIONS
 		. = ALIGN(4);
 	} >rom
 
-	/* exception index - required due to libgcc.a issuing /0 exceptions */
-	__exidx_start = .;
+	/*
+	 * Another section used by C++ stuff, appears when using newlib with
+	 * 64bit (long long) printf support
+	 */
+	.ARM.extab : {
+		*(.ARM.extab*)
+	} >rom
 	.ARM.exidx : {
-		   *(.ARM.exidx*)
-	} > rom
-	__exidx_end = .;
+		__exidx_start = .;
+		*(.ARM.exidx*)
+		__exidx_end = .;
+	} >rom
 
-
+	. = ALIGN(4);
 	_etext = .;
 
 	.data : {
@@ -56,6 +60,7 @@ SECTIONS
 		. = ALIGN(4);
 		_edata = .;
 	} >ram AT >rom
+	_data_loadaddr = LOADADDR(.data);
 
 	.bss : {
 		*(.bss*)	/* Read-write zero initialized data */
@@ -64,10 +69,11 @@ SECTIONS
 		_ebss = .;
 	} >ram
 
-	/* exception unwind data - required due to libgcc.a issuing /0 exceptions */
-	.ARM.extab : {
-		*(.ARM.extab*)
-	} >ram
+	/*
+	 * The .eh_frame section appears to be used for C++ exception handling.
+	 * You may need to fix this if you're using C++.
+	 */
+	/DISCARD/ : { *(.eh_frame) }
 
 	. = ALIGN(4);
 	end = .;

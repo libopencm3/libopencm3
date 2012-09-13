@@ -26,9 +26,15 @@ LD		= $(PREFIX)-gcc
 OBJCOPY		= $(PREFIX)-objcopy
 OBJDUMP		= $(PREFIX)-objdump
 GDB		= $(PREFIX)-gdb
-# Uncomment this line if you want to use the installed (not local) library.
-#TOOLCHAIN_DIR := $(shell dirname `which $(CC)`)/../$(PREFIX)
-TOOLCHAIN_DIR   = ../../../../..
+FLASH		= $(shell which st-flash)
+ifeq ($(wildcard ../../../../../lib/libopencm3_stm32f4.a),)
+TOOLCHAIN_DIR := $(shell dirname `which $(CC)`)/../$(PREFIX)
+else
+ifeq ($(V),1)
+$(info We seem to be building the example in the source directory. Using local library!)
+endif
+TOOLCHAIN_DIR := ../../../../..
+endif
 CFLAGS		+= -Os -g -Wall -Wextra -I$(TOOLCHAIN_DIR)/include \
 		   -fno-common -mcpu=cortex-m4 -mthumb -msoft-float -MD -DSTM32F4
 LDSCRIPT	?= $(BINARY).ld
@@ -81,7 +87,7 @@ flash: $(BINARY).flash
 	@#printf "  OBJDUMP $(*).list\n"
 	$(Q)$(OBJDUMP) -S $(*).elf > $(*).list
 
-%.elf: $(OBJS) $(LDSCRIPT) $(TOOLCHAIN_DIR)/lib/stm32/f4/libopencm3_stm32f4.a
+%.elf: $(OBJS) $(LDSCRIPT) $(TOOLCHAIN_DIR)/lib/libopencm3_stm32f4.a
 	@#printf "  LD      $(subst $(shell pwd)/,,$(@))\n"
 	$(Q)$(LD) -o $(*).elf $(OBJS) -lopencm3_stm32f4 $(LDFLAGS)
 
@@ -98,6 +104,11 @@ clean:
 	$(Q)rm -f *.srec
 	$(Q)rm -f *.list
 
+%.stlink-flash: %.bin
+	@printf "  FLASH  $<\n"
+	$(Q)$(FLASH) write $(*).bin 0x8000000
+
+	
 ifeq ($(BMP_PORT),)
 ifeq ($(OOCD_SERIAL),)
 %.flash: %.hex

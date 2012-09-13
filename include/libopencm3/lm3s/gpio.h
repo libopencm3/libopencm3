@@ -69,7 +69,11 @@
 #define GPIO_CR(port)			MMIO32(port + 0x524)
 #define GPIO_AMSEL(port)		MMIO32(port + 0x528)
 
+BEGIN_DECLS
+
 void gpio_set(u32 gpioport, u8 gpios);
 void gpio_clear(u32 gpioport, u8 gpios);
+
+END_DECLS
 
 #endif

@@ -25,7 +25,8 @@ LIBDIR		= $(DESTDIR)/$(PREFIX)/lib
 SHAREDIR	= $(DESTDIR)/$(PREFIX)/share/libopencm3/scripts
 INSTALL		= install
 
-TARGETS = stm32/f1 stm32/f2 stm32/f4 lpc13xx lpc17xx lm3s efm32/tinygecko
+SRCLIBDIR = $(shell pwd)/lib
+TARGETS = stm32/f1 stm32/f2 stm32/f4 lpc13xx lpc17xx lpc43xx lm3s  efm32/tinygecko
 
 # Be silent per default, but 'make V=1' will show all compiler calls.
 ifneq ($(V),1)
@@ -42,7 +43,7 @@ lib:
 	$(Q)for i in $(addprefix $@/,$(TARGETS)); do \
 		if [ -d $$i ]; then \
 			printf "  BUILD   $$i\n"; \
-			$(MAKE) -C $$i || exit $?; \
+			$(MAKE) -C $$i SRCLIBDIR=$(SRCLIBDIR) || exit $?; \
 		fi; \
 	done
 
@@ -61,9 +62,9 @@ install: lib
 	$(Q)$(INSTALL) -d $(SHAREDIR)
 	$(Q)cp -r include/libopencm3/* $(INCDIR)/libopencm3
 	@printf "  INSTALL libs\n"
-	$(Q)$(INSTALL) -m 0644 lib/*/*/*.a $(LIBDIR)
+	$(Q)$(INSTALL) -m 0644 lib/*.a $(LIBDIR)
 	@printf "  INSTALL ldscripts\n"
-	$(Q)$(INSTALL) -m 0644 lib/*/*/*.ld $(LIBDIR)
+	$(Q)$(INSTALL) -m 0644 lib/*.ld $(LIBDIR)
 	@printf "  INSTALL scripts\n"
 	$(Q)$(INSTALL) -m 0644 scripts/* $(SHAREDIR)
 
@@ -75,7 +76,7 @@ clean:
 		     $(addsuffix /*/*,$(addprefix examples/,$(TARGETS))); do \
 		if [ -d $$i ]; then \
 			printf "  CLEAN   $$i\n"; \
-			$(MAKE) -C $$i clean || exit $?; \
+			$(MAKE) -C $$i clean SRCLIBDIR=$(SRCLIBDIR) || exit $?; \
 		fi; \
 	done
 	@printf "  CLEAN   doxygen\n"

@@ -111,7 +111,7 @@ u16 gpio_get(u32 gpioport, u16 gpios)
 
 void gpio_toggle(u32 gpioport, u16 gpios)
 {
-	GPIO_ODR(gpioport) = GPIO_IDR(gpioport) ^ gpios;
+	GPIO_ODR(gpioport) ^= gpios;
 }
 
 u16 gpio_port_read(u32 gpioport)
@@ -134,6 +134,9 @@ void gpio_port_config_lock(u32 gpioport, u16 gpios)
 	GPIO_LCKR(gpioport) = GPIO_LCKK | gpios;	/* Set LCKK. */
 	reg32 = GPIO_LCKR(gpioport);			/* Read LCKK. */
 	reg32 = GPIO_LCKR(gpioport);			/* Read LCKK again. */
+
+	/* Tell the compiler the variable is actually used. It will get optimized out anyways. */
+	reg32 = reg32; 
 
 	/* If (reg32 & GPIO_LCKK) is true, the lock is now active. */
 }

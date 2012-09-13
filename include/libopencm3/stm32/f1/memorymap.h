@@ -26,6 +26,7 @@
 
 /* Memory map for all busses */
 #define PERIPH_BASE			((u32)0x40000000)
+#define INFO_BASE			((u32)0x1ffff000)
 #define PERIPH_BASE_APB1		(PERIPH_BASE + 0x00000)
 #define PERIPH_BASE_APB2		(PERIPH_BASE + 0x10000)
 #define PERIPH_BASE_AHB			(PERIPH_BASE + 0x18000)
@@ -109,5 +110,9 @@
 
 /* FSMC */
 #define FSMC_BASE			(PERIPH_BASE +  0x60000000)
+
+/* Device Electronic Signature */
+#define DESIG_FLASH_SIZE_BASE           (INFO_BASE + 0x7e0)
+#define DESIG_UNIQUE_ID_BASE            (INFO_BASE + 0x7e8)
 
 #endif
