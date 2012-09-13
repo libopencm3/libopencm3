@@ -1,9 +1,0 @@
-===================================================
-EFM32-TG-STK3300 Examples miniblink-efm32lib README
-===================================================
-
-This is a port of the miniblink example to the efm32lib library.
-
-It's intended for the EFM32-TG-STK3300 eval board. It should blink the user LED
-on the board, just as the original miniblink example does.
-

@@ -1,9 +1,0 @@
-====================================================
-EM32-32G880F128-H Examples miniblink-efm32lib README
-====================================================
-
-This is a port of the miniblink example to the efm32lib library.
-
-It's intended for the EM32-32G880F128-H eval board. It should blink LED1 on the
-board, just as the original miniblink example does.
-
