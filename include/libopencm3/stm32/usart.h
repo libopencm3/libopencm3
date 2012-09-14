@@ -294,6 +294,8 @@
 
 /* --- Function prototypes ------------------------------------------------- */
 
+BEGIN_DECLS
+
 void usart_set_baudrate(u32 usart, u32 baud);
 void usart_set_databits(u32 usart, u32 bits);
 void usart_set_stopbits(u32 usart, u32 stopbits);
@@ -312,5 +314,7 @@ void usart_enable_rx_dma(u32 usart);
 void usart_disable_rx_dma(u32 usart);
 void usart_enable_tx_dma(u32 usart);
 void usart_disable_tx_dma(u32 usart);
+
+END_DECLS
 
 #endif

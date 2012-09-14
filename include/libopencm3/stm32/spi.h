@@ -297,6 +297,8 @@
 
 /* --- Function prototypes ------------------------------------------------- */
 
+BEGIN_DECLS
+
 void spi_reset(u32 spi_peripheral);
 int spi_init_master(u32 spi, u32 br, u32 cpol, u32 cpha, u32 dff, u32 lsbfirst);
 void spi_enable(u32 spi);
@@ -342,5 +344,7 @@ void spi_enable_tx_dma(u32 spi);
 void spi_disable_tx_dma(u32 spi);
 void spi_enable_rx_dma(u32 spi);
 void spi_disable_rx_dma(u32 spi);
+
+END_DECLS
 
 #endif

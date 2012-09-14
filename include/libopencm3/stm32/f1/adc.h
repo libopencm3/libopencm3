@@ -187,9 +187,9 @@ LGPL License Terms @ref lgpl_license
 #define ADC_CHANNEL15		0x0F
 #define ADC_CHANNEL16		0x10
 #define ADC_CHANNEL17		0x11
+/**@}*/
 #define ADC_MASK		    0x1F
 #define ADC_SHIFT		    0
-/**@}*/
 
 /* --- ADC_SR values ------------------------------------------------------- */
 
@@ -248,9 +248,9 @@ LGPL License Terms @ref lgpl_license
 #define ADC_CR1_DUALMOD_SIM             (0x8 << 16)
 /** Alternate trigger mode only. */
 #define ADC_CR1_DUALMOD_ATM             (0x9 << 16)
+/**@}*/
 #define ADC_CR1_DUALMOD_MASK		(0xF << 16)
 #define ADC_CR1_DUALMOD_SHIFT		16
-/**@}*/
 
 /* DISCNUM[2:0]: Discontinous mode channel count. */
 /****************************************************************************/
@@ -266,9 +266,9 @@ LGPL License Terms @ref lgpl_license
 #define ADC_CR1_DISCNUM_6CHANNELS       (0x5 << 13)
 #define ADC_CR1_DISCNUM_7CHANNELS       (0x6 << 13)
 #define ADC_CR1_DISCNUM_8CHANNELS       (0x7 << 13)
+/**@}*/
 #define ADC_CR1_DISCNUM_MASK		(0x7 << 13)
 #define ADC_CR1_DISCNUM_SHIFT		13
-/**@}*/
 
 /* JDISCEN: */ /** Discontinous mode on injected channels. */
 #define ADC_CR1_JDISCEN			(1 << 12)
@@ -325,9 +325,9 @@ LGPL License Terms @ref lgpl_license
 #define ADC_CR1_AWDCH_CHANNEL15		(0x0F << 0)
 #define ADC_CR1_AWDCH_CHANNEL16		(0x10 << 0)
 #define ADC_CR1_AWDCH_CHANNEL17		(0x11 << 0)
+/**@}*/
 #define ADC_CR1_AWDCH_MASK		(0x1F << 0)
 #define ADC_CR1_AWDCH_SHIFT		0
-/**@}*/
 
 /* --- ADC_CR2 values ------------------------------------------------------ */
 
@@ -677,6 +677,9 @@ LGPL License Terms @ref lgpl_license
 
 /* --- Function prototypes ------------------------------------------------- */
 
+BEGIN_DECLS
+
+/* TODO */
 void adc_enable_analog_watchdog_regular(u32 adc);
 void adc_disable_analog_watchdog_regular(u32 adc);
 void adc_enable_analog_watchdog_injected(u32 adc);
@@ -721,6 +724,8 @@ void adc_set_watchdog_high_threshold(u32 adc, u16 threshold);
 void adc_set_watchdog_low_threshold(u32 adc, u16 threshold);
 void adc_set_regular_sequence(u32 adc, u8 length, u8 channel[]);
 void adc_set_injected_sequence(u32 adc, u8 length, u8 channel[]);
+
+END_DECLS
 
 #endif
 /**@}*/

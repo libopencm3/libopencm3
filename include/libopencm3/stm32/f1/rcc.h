@@ -476,6 +476,8 @@ typedef enum {
 	PLL, HSE, HSI, LSE, LSI
 } osc_t;
 
+BEGIN_DECLS
+
 void rcc_osc_ready_int_clear(osc_t osc);
 void rcc_osc_ready_int_enable(osc_t osc);
 void rcc_osc_ready_int_disable(osc_t osc);
@@ -511,6 +513,8 @@ void rcc_clock_setup_in_hse_8mhz_out_72mhz(void);
 void rcc_clock_setup_in_hse_12mhz_out_72mhz(void);
 void rcc_clock_setup_in_hse_16mhz_out_72mhz(void);
 void rcc_backupdomain_reset(void);
+
+END_DECLS
 
 #endif
 /**@}*/

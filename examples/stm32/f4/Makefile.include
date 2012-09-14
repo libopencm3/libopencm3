@@ -26,6 +26,7 @@ LD		= $(PREFIX)-gcc
 OBJCOPY		= $(PREFIX)-objcopy
 OBJDUMP		= $(PREFIX)-objdump
 GDB		= $(PREFIX)-gdb
+FLASH		= $(shell which st-flash)
 ifeq ($(wildcard ../../../../../lib/libopencm3_stm32f4.a),)
 TOOLCHAIN_DIR := $(shell dirname `which $(CC)`)/../$(PREFIX)
 else
@@ -103,6 +104,11 @@ clean:
 	$(Q)rm -f *.srec
 	$(Q)rm -f *.list
 
+%.stlink-flash: %.bin
+	@printf "  FLASH  $<\n"
+	$(Q)$(FLASH) write $(*).bin 0x8000000
+
+	
 ifeq ($(BMP_PORT),)
 ifeq ($(OOCD_SERIAL),)
 %.flash: %.hex

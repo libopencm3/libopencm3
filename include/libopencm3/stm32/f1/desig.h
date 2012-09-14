@@ -36,6 +36,8 @@
 #define DESIG_UID_63_32			MMIO32(DESIG_UNIQUE_ID_BASE + 0x04)
 #define DESIG_UID_95_64			MMIO32(DESIG_UNIQUE_ID_BASE + 0x08)
 
+BEGIN_DECLS
+
 /**
  * Read the onboard flash size
  * @return flash size in KB
@@ -48,5 +50,7 @@ u16 desig_get_flash_size(void);
  * @param result pointer to at least 3xu32s (96 bits)
  */
 void desig_get_unique_id(u32 result[]);
+
+END_DECLS
 
 #endif

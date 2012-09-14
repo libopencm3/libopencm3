@@ -106,6 +106,8 @@ LGPL License Terms @ref lgpl_license
 
 /* --- PWR function prototypes ------------------------------------------- */
 
+BEGIN_DECLS
+
 void pwr_disable_backup_domain_write_protect(void);
 void pwr_enable_backup_domain_write_protect(void);
 void pwr_enable_power_voltage_detect(u32 pvd_level);
@@ -121,6 +123,8 @@ void pwr_disable_wakeup_pin(void);
 bool pwr_voltage_high(void);
 bool pwr_get_standby_flag(void);
 bool pwr_get_wakeup_flag(void);
+
+END_DECLS
 
 #endif
 /**@}*/

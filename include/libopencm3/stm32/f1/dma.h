@@ -346,6 +346,8 @@ LGPL License Terms @ref lgpl_license
 
 /* --- function prototypes ------------------------------------------------- */
 
+BEGIN_DECLS
+
 void dma_channel_reset(u32 dma, u8 channel);
 void dma_enable_mem2mem_mode(u32 dma, u8 channel);
 void dma_set_priority(u32 dma, u8 channel, u32 prio);
@@ -367,6 +369,8 @@ void dma_disable_channel(u32 dma, u8 channel);
 void dma_set_peripheral_address(u32 dma, u8 channel, u32 address);
 void dma_set_memory_address(u32 dma, u8 channel, u32 address);
 void dma_set_number_of_data(u32 dma, u8 channel, u16 number);
+
+END_DECLS
 
 #endif
 /**@}*/

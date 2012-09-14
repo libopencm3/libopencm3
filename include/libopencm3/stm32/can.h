@@ -615,6 +615,8 @@
 
 /* --- CAN functions -------------------------------------------------------- */
 
+BEGIN_DECLS
+
 void can_reset(u32 canport);
 int can_init(u32 canport, bool ttcm, bool abom, bool awum, bool nart,
 	     bool rflm, bool txfp, u32 sjw, u32 ts1, u32 ts2, u32 brp);
@@ -638,5 +640,7 @@ void can_receive(u32 canport, u8 fifo, bool release, u32 *id, bool *ext,
 		 bool *rtr, u32 *fmi, u8 *length, u8 *data);
 
 void can_fifo_release(u32 canport, u8 fifo);
+
+END_DECLS
 
 #endif

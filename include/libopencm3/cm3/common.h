@@ -32,6 +32,16 @@ typedef uint16_t u16;
 typedef uint32_t u32;
 typedef uint64_t u64;
 
+/* This must be placed around external function declaration for C++
+ * support. */
+#ifdef __cplusplus
+# define BEGIN_DECLS extern "C" {
+# define END_DECLS }
+#else
+# define BEGIN_DECLS
+# define END_DECLS
+#endif
+
 /* Generic memory-mapped I/O accessor functions */
 #define MMIO8(addr)		(*(volatile u8 *)(addr))
 #define MMIO16(addr)		(*(volatile u16 *)(addr))

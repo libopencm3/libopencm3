@@ -131,12 +131,16 @@
 #define I2C_WRITE           0
 #define I2C_READ            1
 
-/* --- I2C funtion prototypes----------------------------------------------- */
+/* --- I2C function prototypes --------------------------------------------- */
+
+BEGIN_DECLS
 
 void i2c0_init(void);
 void i2c0_tx_start(void);
 void i2c0_tx_byte(u8 byte);
 u8 i2c0_rx_byte(void);
 void i2c0_stop(void);
+
+END_DECLS
 
 #endif
