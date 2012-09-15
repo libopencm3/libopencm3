@@ -12,4 +12,7 @@
 *~
 *.map
 *.log
-doxygen/
+html/
+latex/
+*.pdf
+

@@ -1,0 +1,31 @@
+# Doxygen include file to generate top level entry document
+
+# 14 September 2012
+# (C) Ken Sarkies <ksarkies@internode.on.net>
+
+#---------------------------------------------------------------------------
+# Common Include File
+#---------------------------------------------------------------------------
+
+@INCLUDE 			   = ./Doxyfile_common
+
+#---------------------------------------------------------------------------
+# Local settings
+#---------------------------------------------------------------------------
+
+INPUT                  = ../include/libopencm3/docmain.dox
+
+LAYOUT_FILE 		   = DoxygenLayout.xml
+
+GENERATE_LATEX		   = NO
+
+TAGFILES               = ./cm3/cm3.tag=../cm3/html \
+                         ./stm32/stm32.tag=../stm32/html \
+                         ./stm32f1/stm32f1.tag=../stm32f1/html \
+                         ./stm32f4/stm32f4.tag=../stm32f4/html \
+                         ./lm3s/lm3s.tag=../lm3s/html \
+                         ./lpc13xx/lpc13xx.tag=../lpc13xx/html \
+                         ./lpc17xx/lpc17xx.tag=../lpc17xx/html \
+                         ./lpc43xx/lpc43xx.tag=../lpc43xx/html
+
+

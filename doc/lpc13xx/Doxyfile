@@ -1,0 +1,27 @@
+# HTML Documentation for LPC13xx code level
+
+# 14 September 2012
+# (C) Ken Sarkies <ksarkies@internode.on.net>
+
+#---------------------------------------------------------------------------
+# Common Include File
+#---------------------------------------------------------------------------
+
+@INCLUDE = ../Doxyfile_common
+
+#---------------------------------------------------------------------------
+# Local settings
+#---------------------------------------------------------------------------
+
+WARN_LOGFILE           = doxygen_lpc13xx.log
+
+INPUT                  = ../../include/libopencm3/license.dox \
+					     ../../include/libopencm3/lpc13xx \
+                         ../../lib/lpc13xx
+
+LAYOUT_FILE 		   = DoxygenLayout_lpc13xx.xml
+
+TAGFILES               = ../cm3/cm3.tag=../../cm3/html
+
+GENERATE_TAGFILE       = lpc13xx.tag
+

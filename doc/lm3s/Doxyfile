@@ -1,0 +1,27 @@
+# HTML Documentation for LM3S code level
+
+# 14 September 2012
+# (C) Ken Sarkies <ksarkies@internode.on.net>
+
+#---------------------------------------------------------------------------
+# Common Include File
+#---------------------------------------------------------------------------
+
+@INCLUDE = ../Doxyfile_common
+
+#---------------------------------------------------------------------------
+# Local settings
+#---------------------------------------------------------------------------
+
+WARN_LOGFILE           = doxygen_lm3s.log
+
+INPUT                  = ../../include/libopencm3/license.dox \
+					     ../../include/libopencm3/lm3s \
+                         ../../lib/lm3s
+
+LAYOUT_FILE 		   = DoxygenLayout_lm3s.xml
+
+TAGFILES               = ../cm3/cm3.tag=../../cm3/html
+
+GENERATE_TAGFILE       = lm3s.tag
+
