@@ -44,12 +44,12 @@ conversion, which occurs after all channels have been scanned.
 @section adc_api_ex Basic ADC Handling API.
 
 Example 1: Simple single channel conversion polled. Enable the peripheral clock
-and ADC, reset ADC and set the prescaler divider. Set dual mode to independent.
+and ADC, reset ADC and set the prescaler divider. Set dual mode to independent
+(default). Enable triggering for a software trigger.
 
 @code
     rcc_peripheral_enable_clock(&RCC_APB2ENR, RCC_APB2ENR_ADC1EN);
-    adc_power_on(ADC1);
-    adc_calibration(ADC1);
+    adc_off(ADC1);
     rcc_peripheral_reset(&RCC_APB2RSTR, RCC_APB2RSTR_ADC1RST);
     rcc_peripheral_clear_reset(&RCC_APB2RSTR, RCC_APB2RSTR_ADC1RST);
     rcc_set_adcpre(RCC_CFGR_ADCPRE_PCLK2_DIV2);
@@ -58,6 +58,10 @@ and ADC, reset ADC and set the prescaler divider. Set dual mode to independent.
     adc_set_single_conversion_mode(ADC1);
     adc_set_sample_time(ADC1, ADC_CHANNEL0, ADC_SMPR1_SMP_1DOT5CYC);
     adc_set_single_channel(ADC1, ADC_CHANNEL0);
+    adc_enable_trigger(ADC1, ADC_CR2_EXTSEL_SWSTART);
+    adc_power_on(ADC1);
+    adc_reset_calibration(ADC1);
+    adc_calibration(ADC1);
     adc_start_conversion_regular(ADC1);
     while (! adc_eoc(ADC1));
     reg16 = adc_read_regular(ADC1);
@@ -119,11 +123,15 @@ void adc_power_on(u32 adc)
 }
 
 /*-----------------------------------------------------------------------------*/
-/** @brief ADC Start a Conversion
+/** @brief ADC Start a Conversion Without Trigger
 
-This initiates a conversion as a software trigger. The ADC needs to be powered on
-before this is called, otherwise this function has no effect.
+This initiates a conversion by software without a trigger. The ADC needs to be
+powered on before this is called, otherwise this function has no effect. 
 
+Note that this is not available in other STM32F families. To ensure code compatibility,
+enable triggering and use a software trigger source @see adc_start_conversion_regular.
+
+@param[in] adc Unsigned int32. ADC block register address base @ref adc_reg_base
 */
 
 void adc_start_conversion_direct(u32 adc)
@@ -139,6 +147,31 @@ The dual mode uses ADC1 as master and ADC2 in a slave arrangement. This setting
 is applied to ADC1 only. Start of conversion when triggered can cause simultaneous
 conversion with ADC2, or alternate conversion. Regular and injected conversions
 can be configured, each one being separately simultaneous or alternate.
+
+Fast interleaved mode starts ADC1 immediately on trigger, and ADC2 seven clock
+cycles later.
+
+Slow interleaved mode starts ADC1 immediately on trigger, and ADC2 fourteen clock
+cycles later, followed by ADC1 fourteen cycles later again. This can only be used
+on a single channel.
+
+Alternate trigger mode must occur on an injected channel group, and alternates
+between the ADCs on each trigger.
+
+Note that sampling must not overlap between ADCs on the same channel.
+
+Dual A/D converter modes possible:
+
+@li IND: Independent mode.
+@li CRSISM: Combined regular simultaneous + injected simultaneous mode.
+@li CRSATM: Combined regular simultaneous + alternate trigger mode.
+@li CISFIM: Combined injected simultaneous + fast interleaved mode.
+@li CISSIM: Combined injected simultaneous + slow interleaved mode.
+@li ISM: Injected simultaneous mode only.
+@li RSM: Regular simultaneous mode only.
+@li FIM: Fast interleaved mode only.
+@li SIM: Slow interleaved mode only.
+@li ATM: Alternate trigger mode only.
 
 @param[in] mode Unsigned int32. Dual mode selection from @ref adc_cr1_dualmod
 */
@@ -681,7 +714,6 @@ For ADC3
 @param[in] trigger Unsigned int8. Trigger identifier @ref adc_trigger_injected_12
 for ADC1 and ADC2, or @ref adc_trigger_injected_3 for ADC3
 */
-
 void adc_enable_external_trigger_injected(u32 adc, u32 trigger)
 {
 	u32 reg32;
@@ -822,7 +854,7 @@ If the ADC is in power-down mode then it is powered up. The application needs
 to wait a time of about 3 microseconds for stabilization before using the ADC.
 If the ADC is already on this function call will initiate a conversion.
 
-@todo fix this.
+@deprecated to be removed in a later release
 
 @param[in] adc Unsigned int32. ADC block register address base @ref adc_reg_base
 */
