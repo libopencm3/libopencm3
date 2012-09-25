@@ -102,38 +102,152 @@ LGPL License Terms @ref lgpl_license
 
 #include <libopencm3/stm32/f1/adc.h>
 
-void rcc_set_adc_clk(u32 prescaler)
+/*-----------------------------------------------------------------------------*/
+/** @brief ADC Power On
+
+If the ADC is in power-down mode then it is powered up. The application needs
+to wait a time of about 3 microseconds for stabilization before using the ADC.
+If the ADC is already on this function call has no effect.
+
+@param[in] adc Unsigned int32. ADC block register address base @ref adc_reg_base
+*/
+
+void adc_power_on(u32 adc)
 {
-	/* TODO */
-
-	/* FIXME: QUICK HACK to prevent compiler warnings. */
-	prescaler = prescaler;
-}
-
-void adc_set_mode(u32 block, /* TODO */ u8 mode)
-{
-	/* TODO */
-
-	/* FIXME: QUICK HACK to prevent compiler warnings. */
-	block = block;
-	mode = mode;
+    if (!(ADC_CR2(adc) & ADC_CR2_ADON))
+		ADC_CR2(adc) |= ADC_CR2_ADON;
 }
 
 /*-----------------------------------------------------------------------------*/
-/** @brief ADC Read from a Conversion Result Register
+/** @brief ADC Start a Conversion
+
+This initiates a conversion as a software trigger. The ADC needs to be powered on
+before this is called, otherwise this function has no effect.
+
+*/
+
+void adc_start_conversion_direct(u32 adc)
+{
+	if (ADC_CR2(adc) & ADC_CR2_ADON)
+	    ADC_CR2(adc) |= ADC_CR2_ADON;
+}
+
+/*-----------------------------------------------------------------------------*/
+/** @brief ADC Set Dual A/D Mode
+
+The dual mode uses ADC1 as master and ADC2 in a slave arrangement. This setting
+is applied to ADC1 only. Start of conversion when triggered can cause simultaneous
+conversion with ADC2, or alternate conversion. Regular and injected conversions
+can be configured, each one being separately simultaneous or alternate.
+
+@param[in] mode Unsigned int32. Dual mode selection from @ref adc_cr1_dualmod
+*/
+
+void adc_set_dual_mode(u32 mode)
+{
+	ADC1_CR1 |= mode;
+}
+
+/*-----------------------------------------------------------------------------*/
+/** @brief ADC Read the End-of-Conversion Flag
+
+This flag is set after all channels of a regular or injected group have been
+converted.
+
+@param[in] adc Unsigned int32. ADC block register address base @ref adc_reg_base
+@returns bool. End of conversion flag.
+*/
+
+bool adc_eoc(u32 adc)
+{
+    return ((ADC_SR(adc) & ADC_SR_EOC) != 0);
+}
+
+/*-----------------------------------------------------------------------------*/
+/** @brief ADC Read the End-of-Conversion Flag for Injected Conversion
+
+This flag is set after all channels of an injected group have been converted.
+
+@param[in] adc Unsigned int32. ADC block register address base @ref adc_reg_base
+@returns bool. End of conversion flag.
+*/
+
+bool adc_eoc_injected(u32 adc)
+{
+    return ((ADC_SR(adc) & ADC_SR_JEOC) != 0);
+}
+
+/*-----------------------------------------------------------------------------*/
+/** @brief ADC Read from the Regular Conversion Result Register
+
+The result read back is 12 bits, right or left aligned within the first 16 bits.
+For ADC1 only, the higher 16 bits will hold the result from ADC2 if
+an appropriate dual mode has been set @see adc_set_dual_mode.
+
+@param[in] adc Unsigned int32. ADC block register address base @ref adc_reg_base
+@returns Unsigned int32 conversion result.
+*/
+
+u32 adc_read_regular(u32 adc)
+{
+    return ADC_DR(adc);
+}
+
+/*-----------------------------------------------------------------------------*/
+/** @brief ADC Read from an Injected Conversion Result Register
+
+The result read back from the selected injected result register (one of four) is
+12 bits, right or left aligned within the first 16 bits. The result can have a
+negative value if the injected channel offset has been set @see adc_set_injected_offset.
 
 @param[in] adc Unsigned int32. ADC block register address base @ref adc_reg_base
 @param[in] reg Unsigned int8. Register number (1 ... 4).
 @returns Unsigned int32 conversion result.
 */
 
-void adc_read(u32 block, u32 channel)
+u32 adc_read_injected(u32 adc, u8 reg)
 {
-	/* TODO */
+    switch (reg) {
+    case 1:
+        return ADC_JDR1(adc);
+    case 2:
+        return ADC_JDR2(adc);
+    case 3:
+        return ADC_JDR3(adc);
+    case 4:
+        return ADC_JDR4(adc);
+    }
+	return 0;
+}
 
-	/* FIXME: QUICK HACK to prevent compiler warnings. */
-	block = block;
-	channel = channel;
+/*-----------------------------------------------------------------------------*/
+/** @brief ADC Set the Injected Channel Data Offset
+
+This value is subtracted from the injected channel results after conversion
+is complete, and can result in negative results. A separate value can be specified
+for each injected data register.
+
+@param[in] adc Unsigned int32. ADC block register address base @ref adc_reg_base
+@param[in] reg Unsigned int8. Register number (1 ... 4).
+@param[in] offset Unsigned int32.
+*/
+
+void adc_set_injected_offset(u32 adc, u8 reg, u32 offset)
+{
+    switch (reg) {
+    case 1:
+        ADC_JOFR1(adc) = offset;
+        break;
+    case 2:
+        ADC_JOFR2(adc) = offset;
+        break;
+    case 3:
+        ADC_JOFR3(adc) = offset;
+        break;
+    case 4:
+        ADC_JOFR4(adc) = offset;
+        break;
+    }
 }
 
 /*-----------------------------------------------------------------------------*/
@@ -203,9 +317,11 @@ of the subgroup at the beginning of the whole group.
 @param[in] length Unsigned int8. Number of channels in the group @ref adc_cr1_discnum
 */
 
-void adc_enable_discontinous_mode_regular(u32 adc)
+void adc_enable_discontinuous_mode_regular(u32 adc, u8 length)
 {
-	ADC_CR1(adc) |= ADC_CR1_DISCEN;
+    if ( (length-1) > 7 ) return;
+	ADC_CR1(adc) |= ADC_CR1_DISCEN;	
+    ADC_CR2(adc) |= ((length-1) << ADC_CR1_DISCNUM_SHIFT);
 }
 
 /*-----------------------------------------------------------------------------*/
@@ -214,7 +330,7 @@ void adc_enable_discontinous_mode_regular(u32 adc)
 @param[in] adc Unsigned int32. ADC block register address base @ref adc_reg_base
 */
 
-void adc_disable_discontinous_mode_regular(u32 adc)
+void adc_disable_discontinuous_mode_regular(u32 adc)
 {
 	ADC_CR1(adc) &= ~ADC_CR1_DISCEN;
 }
@@ -229,7 +345,7 @@ entire group has been converted.
 @param[in] adc Unsigned int32. ADC block register address base @ref adc_reg_base
 */
 
-void adc_enable_discontinous_mode_injected(u32 adc)
+void adc_enable_discontinuous_mode_injected(u32 adc)
 {
 	ADC_CR1(adc) |= ADC_CR1_JDISCEN;
 }
@@ -240,7 +356,7 @@ void adc_enable_discontinous_mode_injected(u32 adc)
 @param[in] adc Unsigned int32. ADC block register address base @ref adc_reg_base
 */
 
-void adc_disable_discontinous_mode_injected(u32 adc)
+void adc_disable_discontinuous_mode_injected(u32 adc)
 {
 	ADC_CR1(adc) &= ~ADC_CR1_JDISCEN;
 }
@@ -257,6 +373,7 @@ channels is disabled as required.
 
 void adc_enable_automatic_injected_group_conversion(u32 adc)
 {
+    adc_disable_external_trigger_injected(adc);
 	ADC_CR1(adc) |= ADC_CR1_JAUTO;
 }
 
@@ -288,7 +405,7 @@ disabled.
 
 void adc_enable_analog_watchdog_on_all_channels(u32 adc)
 {
-	ADC_CR1(adc) |= ADC_CR1_AWDSGL;
+	ADC_CR1(adc) &= ~ADC_CR1_AWDSGL;
 }
 
 /*-----------------------------------------------------------------------------*/
@@ -315,7 +432,7 @@ void adc_enable_analog_watchdog_on_selected_channel(u32 adc, u8 channel)
 	if (channel < 18)
 		reg32 |= channel;
 	ADC_CR1(adc) = reg32;
-	ADC_CR1(adc) &= ~ADC_CR1_AWDSGL;
+	ADC_CR1(adc) |= ADC_CR1_AWDSGL;
 }
 
 /*-----------------------------------------------------------------------------*/
@@ -350,7 +467,7 @@ void adc_disable_scan_mode(u32 adc)
 @param[in] adc Unsigned int32. ADC block register address base @ref adc_reg_base
 */
 
-void adc_enable_jeoc_interrupt(u32 adc)
+void adc_enable_eoc_interrupt_injected(u32 adc)
 {
 	ADC_CR1(adc) |= ADC_CR1_JEOCIE;
 }
@@ -361,7 +478,7 @@ void adc_enable_jeoc_interrupt(u32 adc)
 @param[in] adc Unsigned int32. ADC block register address base @ref adc_reg_base
 */
 
-void adc_disable_jeoc_interrupt(u32 adc)
+void adc_disable_eoc_interrupt_injected(u32 adc)
 {
 	ADC_CR1(adc) &= ~ADC_CR1_JEOCIE;
 }
@@ -519,8 +636,7 @@ void adc_enable_external_trigger_regular(u32 adc, u32 trigger)
 	u32 reg32;
 
 	reg32 = (ADC_CR2(adc) & ~(ADC_CR2_EXTSEL_MASK));
-	if (trigger < 8)
-		reg32 |= (trigger);
+	reg32 |= (trigger);
 	ADC_CR2(adc) = reg32;
 	ADC_CR2(adc) |= ADC_CR2_EXTTRIG;
 }
@@ -571,8 +687,7 @@ void adc_enable_external_trigger_injected(u32 adc, u32 trigger)
 	u32 reg32;
 
 	reg32 = (ADC_CR2(adc) & ~(ADC_CR2_JEXTSEL_MASK)); /* Clear bits [12:14]. */
-	if (trigger < 8)
-		reg32 |= (trigger);
+	reg32 |= (trigger);
 	ADC_CR2(adc) = reg32;
 	ADC_CR2(adc) |= ADC_CR2_JEXTTRIG;
 }
@@ -681,7 +796,7 @@ group immediately following completion of the previous channel group conversion.
 @param[in] adc Unsigned int32. ADC block register address base @ref adc_reg_base
 */
 
-void adc_set_continous_conversion_mode(u32 adc)
+void adc_set_continuous_conversion_mode(u32 adc)
 {
 	ADC_CR2(adc) |= ADC_CR2_CONT;
 }
@@ -740,7 +855,7 @@ The sampling time can be selected in ADC clock cycles from 1.5 to 239.5.
 @param[in] time Unsigned int8. Sampling time selection from @ref adc_sample_rg
 */
 
-void adc_set_conversion_time(u32 adc, u8 channel, u8 time)
+void adc_set_sample_time(u32 adc, u8 channel, u8 time)
 {
 	u32 reg32;
 
@@ -767,7 +882,7 @@ all channels.
 @param[in] time Unsigned int8. Sampling time selection from @ref adc_sample_rg
 */
 
-void adc_set_conversion_time_on_all_channels(u32 adc, u8 time)
+void adc_set_sample_time_on_all_channels(u32 adc, u8 time)
 {
 	u8 i;
 	u32 reg32 = 0;
@@ -871,12 +986,24 @@ void adc_set_injected_sequence(u32 adc, u8 length, u8 channel[])
 		return;
 
 	for (i = 1; i <= length; i++)
-		reg32 |= (channel[i - 1] << ((i - 1) * 5));
+		reg32 |= (channel[4 - i] << ((4 - i) * 5));
 
 	reg32 |= ((length - 1) << ADC_JSQR_JL_LSB);
 
 	ADC_JSQR(adc) = reg32;
 }
+
+/*-----------------------------------------------------------------------------*/
+
+/* Aliases */
+
+#ifdef __GNUC__
+void adc_set_continous_conversion_mode(u32 adc) __attribute__ ((alias("adc_set_continuous_conversion_mode")));
+void adc_set_conversion_time(u32 adc, u8 channel, u8 time) __attribute__ ((alias ("adc_set_sample_time")));
+void adc_set_conversion_time_on_all_channels(u32 adc, u8 time) __attribute__ ((alias ("adc_set_sample_time_on_all_channels")));
+void adc_enable_jeoc_interrupt(u32 adc) __attribute__ ((alias ("adc_enable_eoc_interrupt_injected")));
+void adc_disable_jeoc_interrupt(u32 adc) __attribute__ ((alias ("adc_disable_eoc_interrupt_injected")));
+#endif
 
 /**@}*/
 
