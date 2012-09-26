@@ -69,6 +69,12 @@ LGPL License Terms @ref lgpl_license
 /* DMA muxing control */
 #define CREG_DMAMUX                     MMIO32(CREG_BASE + 0x11C)
 
+/* Flash accelerator configuration register for flash bank A */
+#define CREG_FLASHCFGA                  MMIO32(CREG_BASE + 0x120)
+
+/* Flash accelerator configuration register for flash bank B */
+#define CREG_FLASHCFGB                  MMIO32(CREG_BASE + 0x124)
+
 /* ETB RAM configuration */
 #define CREG_ETBCFG                     MMIO32(CREG_BASE + 0x128)
 
@@ -81,7 +87,7 @@ LGPL License Terms @ref lgpl_license
 /* Cortex-M4 TXEV event clear */
 #define CREG_M4TXEVENT                  MMIO32(CREG_BASE + 0x130)
 
-/* Part ID */
+/* Part ID (Boundary scan ID code, read-only) */
 #define CREG_CHIPID                     MMIO32(CREG_BASE + 0x200)
 
 /* Cortex-M0 TXEV event clear */
@@ -89,6 +95,12 @@ LGPL License Terms @ref lgpl_license
 
 /* ARM Cortex-M0 memory mapping */
 #define CREG_M0APPMEMMAP                MMIO32(CREG_BASE + 0x404)
+
+/* USB0 frame length adjust register */
+#define CREG_USB0FLADJ                  MMIO32(CREG_BASE + 0x500)
+
+/* USB1 frame length adjust register */
+#define CREG_USB1FLADJ                  MMIO32(CREG_BASE + 0x600)
 
 /**@}*/
 
