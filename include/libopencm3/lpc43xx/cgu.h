@@ -179,61 +179,710 @@ LGPL License Terms @ref lgpl_license
 /* Output stage 27 control CLK register for base clock */
 #define CGU_BASE_CGU_OUT1_CLK           MMIO32(CGU_BASE + 0x0C8)
 
-/* --- CGU_XTAL_OSC_CTRL values -------------------------------------------- */
+/* --- CGU_FREQ_MON values -------------------------------------- */
 
-#define CGU_XTAL_OSC_CTRL_ENABLE (1 << 0) /* enable or power down xtal osc */
-#define CGU_XTAL_OSC_CTRL_BYPASS (1 << 1) /* external clock input (not xtal) */
-#define CGU_XTAL_OSC_CTRL_HF     (1 << 2) /* high frequency mode (>15 MHz) */
+/* RCNT: 9-bit reference clock-counter value */
+#define CGU_FREQ_MON_RCNT_SHIFT (0)
+#define CGU_FREQ_MON_RCNT_MASK (0x1ff << CGU_FREQ_MON_RCNT_SHIFT)
+#define CGU_FREQ_MON_RCNT(x) ((x) << CGU_FREQ_MON_RCNT_SHIFT)
 
-/* --- CGU_PLL1_STAT values ------------------------------------------------ */
+/* FCNT: 14-bit selected clock-counter value */
+#define CGU_FREQ_MON_FCNT_SHIFT (9)
+#define CGU_FREQ_MON_FCNT_MASK (0x3fff << CGU_FREQ_MON_FCNT_SHIFT)
+#define CGU_FREQ_MON_FCNT(x) ((x) << CGU_FREQ_MON_FCNT_SHIFT)
 
-#define CGU_PLL1_STAT_LOCK (1 << 0)
+/* MEAS: Measure frequency */
+#define CGU_FREQ_MON_MEAS_SHIFT (23)
+#define CGU_FREQ_MON_MEAS (1 << CGU_FREQ_MON_MEAS_SHIFT)
 
-/* --- CGU_PLL1_CTRL values ------------------------------------------------ */
+/* CLK_SEL: Clock-source selection for the clock to be measured */
+#define CGU_FREQ_MON_CLK_SEL_SHIFT (24)
+#define CGU_FREQ_MON_CLK_SEL_MASK (0x1f << CGU_FREQ_MON_CLK_SEL_SHIFT)
+#define CGU_FREQ_MON_CLK_SEL(x) ((x) << CGU_FREQ_MON_CLK_SEL_SHIFT)
 
-#define CGU_PLL1_CTRL_PD            (1 << 0)  /* power down */
-#define CGU_PLL1_CTRL_BYPASS        (1 << 1)  /* PLL input to post-dividers */
-#define CGU_PLL1_CTRL_FBSEL         (1 << 6)  /* use clkout as feedback input */
-#define CGU_PLL1_CTRL_DIRECT        (1 << 7)  /* enable direct CCO output */
-#define CGU_PLL1_CTRL_PSEL_SHIFT    8         /* division ratio P (2 bits) */
-#define CGU_PLL1_CTRL_AUTOBLOCK     (1 << 11) /* block clock automatically */
-#define CGU_PLL1_CTRL_NSEL_SHIFT    12        /* division ratio N (2 bits) */
-#define CGU_PLL1_CTRL_MSEL_SHIFT    16        /* division ratio M (8 bits) */
-#define CGU_PLL1_CTRL_CLK_SEL_SHIFT 24        /* clock source (5 bits) */
+/* --- CGU_XTAL_OSC_CTRL values --------------------------------- */
 
-/* --- CGU_PLL0USB_STAT values --------------------------------------------- */
+/* ENABLE: Oscillator-pad enable */
+#define CGU_XTAL_OSC_CTRL_ENABLE_SHIFT (0)
+#define CGU_XTAL_OSC_CTRL_ENABLE (1 << CGU_XTAL_OSC_CTRL_ENABLE_SHIFT)
 
-#define CGU_PLL0USB_STAT_LOCK (1 << 0) /* PLL0 lock indicator */
-#define CGU_PLL0USB_STAT_FR   (1 << 1) /* PLL0 free running indicator */
+/* BYPASS: Configure crystal operation or external-clock input pin XTAL1 */
+#define CGU_XTAL_OSC_CTRL_BYPASS_SHIFT (1)
+#define CGU_XTAL_OSC_CTRL_BYPASS (1 << CGU_XTAL_OSC_CTRL_BYPASS_SHIFT)
 
-/* --- CGU_PLL0USB_CTRL values --------------------------------------------- */
+/* HF: Select frequency range */
+#define CGU_XTAL_OSC_CTRL_HF_SHIFT (2)
+#define CGU_XTAL_OSC_CTRL_HF (1 << CGU_XTAL_OSC_CTRL_HF_SHIFT)
 
-#define CGU_PLL0USB_CTRL_PD            (1 << 0)  /* power down */
-#define CGU_PLL0USB_CTRL_BYPASS        (1 << 1)  /* input to post-dividers */
-#define CGU_PLL0USB_CTRL_DIRECTI       (1 << 2)  /* direct input */
-#define CGU_PLL0USB_CTRL_DIRECTO       (1 << 3)  /* direct output */
-#define CGU_PLL0USB_CTRL_CLKEN         (1 << 4)  /* clock enable */
-#define CGU_PLL0USB_CTRL_FRM           (1 << 6)  /* free running mode */
-#define CGU_PLL0USB_CTRL_AUTOBLOCK     (1 << 11) /* block clock automatically */
-#define CGU_PLL0USB_CTRL_CLK_SEL_SHIFT 24        /* clock source (5 bits) */
+/* --- CGU_PLL0USB_STAT values ---------------------------------- */
 
-/* --- CGU_PLL0USB_MDIV values --------------------------------------------- */
+/* LOCK: PLL0 lock indicator */
+#define CGU_PLL0USB_STAT_LOCK_SHIFT (0)
+#define CGU_PLL0USB_STAT_LOCK (1 << CGU_PLL0USB_STAT_LOCK_SHIFT)
 
-#define CGU_PLL0USB_MDIV_MDEC_SHIFT 0  /* Decoded M-divider value (17 bits) */
-#define CGU_PLL0USB_SELP_MDEC_SHIFT 17 /* Bandwidth select P value (5 bits) */
-#define CGU_PLL0USB_SELI_MDEC_SHIFT 22 /* Bandwidth select I value (6 bits) */
-#define CGU_PLL0USB_SELR_MDEC_SHIFT 28 /* Bandwidth select R value (4 bits) */
+/* FR: PLL0 free running indicator */
+#define CGU_PLL0USB_STAT_FR_SHIFT (1)
+#define CGU_PLL0USB_STAT_FR (1 << CGU_PLL0USB_STAT_FR_SHIFT)
 
-/* --- CGU_PLL0USB_NP_DIV values ------------------------------------------- */
+/* --- CGU_PLL0USB_CTRL values ---------------------------------- */
 
-#define CGU_PLL0USB_NP_DIV_PDEC_SHIFT 0  /* Decoded P-divider value (7 bits) */
-#define CGU_PLL0USB_NP_DIV_NDEC_SHIFT 12 /* Decoded N-divider value (8 bits) */
+/* PD: PLL0 power down */
+#define CGU_PLL0USB_CTRL_PD_SHIFT (0)
+#define CGU_PLL0USB_CTRL_PD (1 << CGU_PLL0USB_CTRL_PD_SHIFT)
 
-/* --- CGU_BASE_x_CLK values ----------------------------------------------- */
+/* BYPASS: Input clock bypass control */
+#define CGU_PLL0USB_CTRL_BYPASS_SHIFT (1)
+#define CGU_PLL0USB_CTRL_BYPASS (1 << CGU_PLL0USB_CTRL_BYPASS_SHIFT)
 
-#define CGU_BASE_CLK_PD        (1 << 0)  /* output stage power-down */
-#define CGU_BASE_CLK_AUTOBLOCK (1 << 11) /* block clock automatically */
-#define CGU_BASE_CLK_SEL_SHIFT 24        /* clock source selection (5 bits) */
+/* DIRECTI: PLL0 direct input */
+#define CGU_PLL0USB_CTRL_DIRECTI_SHIFT (2)
+#define CGU_PLL0USB_CTRL_DIRECTI (1 << CGU_PLL0USB_CTRL_DIRECTI_SHIFT)
+
+/* DIRECTO: PLL0 direct output */
+#define CGU_PLL0USB_CTRL_DIRECTO_SHIFT (3)
+#define CGU_PLL0USB_CTRL_DIRECTO (1 << CGU_PLL0USB_CTRL_DIRECTO_SHIFT)
+
+/* CLKEN: PLL0 clock enable */
+#define CGU_PLL0USB_CTRL_CLKEN_SHIFT (4)
+#define CGU_PLL0USB_CTRL_CLKEN (1 << CGU_PLL0USB_CTRL_CLKEN_SHIFT)
+
+/* FRM: Free running mode */
+#define CGU_PLL0USB_CTRL_FRM_SHIFT (6)
+#define CGU_PLL0USB_CTRL_FRM (1 << CGU_PLL0USB_CTRL_FRM_SHIFT)
+
+/* AUTOBLOCK: Block clock automatically during frequency change */
+#define CGU_PLL0USB_CTRL_AUTOBLOCK_SHIFT (11)
+#define CGU_PLL0USB_CTRL_AUTOBLOCK (1 << CGU_PLL0USB_CTRL_AUTOBLOCK_SHIFT)
+
+/* CLK_SEL: Clock source selection */
+#define CGU_PLL0USB_CTRL_CLK_SEL_SHIFT (24)
+#define CGU_PLL0USB_CTRL_CLK_SEL_MASK (0x1f << CGU_PLL0USB_CTRL_CLK_SEL_SHIFT)
+#define CGU_PLL0USB_CTRL_CLK_SEL(x) ((x) << CGU_PLL0USB_CTRL_CLK_SEL_SHIFT)
+
+/* --- CGU_PLL0USB_MDIV values ---------------------------------- */
+
+/* MDEC: Decoded M-divider coefficient value */
+#define CGU_PLL0USB_MDIV_MDEC_SHIFT (0)
+#define CGU_PLL0USB_MDIV_MDEC_MASK (0x1ffff << CGU_PLL0USB_MDIV_MDEC_SHIFT)
+#define CGU_PLL0USB_MDIV_MDEC(x) ((x) << CGU_PLL0USB_MDIV_MDEC_SHIFT)
+
+/* SELP: Bandwidth select P value */
+#define CGU_PLL0USB_MDIV_SELP_SHIFT (17)
+#define CGU_PLL0USB_MDIV_SELP_MASK (0x1f << CGU_PLL0USB_MDIV_SELP_SHIFT)
+#define CGU_PLL0USB_MDIV_SELP(x) ((x) << CGU_PLL0USB_MDIV_SELP_SHIFT)
+
+/* SELI: Bandwidth select I value */
+#define CGU_PLL0USB_MDIV_SELI_SHIFT (22)
+#define CGU_PLL0USB_MDIV_SELI_MASK (0x3f << CGU_PLL0USB_MDIV_SELI_SHIFT)
+#define CGU_PLL0USB_MDIV_SELI(x) ((x) << CGU_PLL0USB_MDIV_SELI_SHIFT)
+
+/* SELR: Bandwidth select R value */
+#define CGU_PLL0USB_MDIV_SELR_SHIFT (28)
+#define CGU_PLL0USB_MDIV_SELR_MASK (0xf << CGU_PLL0USB_MDIV_SELR_SHIFT)
+#define CGU_PLL0USB_MDIV_SELR(x) ((x) << CGU_PLL0USB_MDIV_SELR_SHIFT)
+
+/* --- CGU_PLL0USB_NP_DIV values -------------------------------- */
+
+/* PDEC: Decoded P-divider coefficient value */
+#define CGU_PLL0USB_NP_DIV_PDEC_SHIFT (0)
+#define CGU_PLL0USB_NP_DIV_PDEC_MASK (0x7f << CGU_PLL0USB_NP_DIV_PDEC_SHIFT)
+#define CGU_PLL0USB_NP_DIV_PDEC(x) ((x) << CGU_PLL0USB_NP_DIV_PDEC_SHIFT)
+
+/* NDEC: Decoded N-divider coefficient value */
+#define CGU_PLL0USB_NP_DIV_NDEC_SHIFT (12)
+#define CGU_PLL0USB_NP_DIV_NDEC_MASK (0x3ff << CGU_PLL0USB_NP_DIV_NDEC_SHIFT)
+#define CGU_PLL0USB_NP_DIV_NDEC(x) ((x) << CGU_PLL0USB_NP_DIV_NDEC_SHIFT)
+
+/* --- CGU_PLL0AUDIO_STAT values -------------------------------- */
+
+/* LOCK: PLL0 lock indicator */
+#define CGU_PLL0AUDIO_STAT_LOCK_SHIFT (0)
+#define CGU_PLL0AUDIO_STAT_LOCK (1 << CGU_PLL0AUDIO_STAT_LOCK_SHIFT)
+
+/* FR: PLL0 free running indicator */
+#define CGU_PLL0AUDIO_STAT_FR_SHIFT (1)
+#define CGU_PLL0AUDIO_STAT_FR (1 << CGU_PLL0AUDIO_STAT_FR_SHIFT)
+
+/* --- CGU_PLL0AUDIO_CTRL values -------------------------------- */
+
+/* PD: PLL0 power down */
+#define CGU_PLL0AUDIO_CTRL_PD_SHIFT (0)
+#define CGU_PLL0AUDIO_CTRL_PD (1 << CGU_PLL0AUDIO_CTRL_PD_SHIFT)
+
+/* BYPASS: Input clock bypass control */
+#define CGU_PLL0AUDIO_CTRL_BYPASS_SHIFT (1)
+#define CGU_PLL0AUDIO_CTRL_BYPASS (1 << CGU_PLL0AUDIO_CTRL_BYPASS_SHIFT)
+
+/* DIRECTI: PLL0 direct input */
+#define CGU_PLL0AUDIO_CTRL_DIRECTI_SHIFT (2)
+#define CGU_PLL0AUDIO_CTRL_DIRECTI (1 << CGU_PLL0AUDIO_CTRL_DIRECTI_SHIFT)
+
+/* DIRECTO: PLL0 direct output */
+#define CGU_PLL0AUDIO_CTRL_DIRECTO_SHIFT (3)
+#define CGU_PLL0AUDIO_CTRL_DIRECTO (1 << CGU_PLL0AUDIO_CTRL_DIRECTO_SHIFT)
+
+/* CLKEN: PLL0 clock enable */
+#define CGU_PLL0AUDIO_CTRL_CLKEN_SHIFT (4)
+#define CGU_PLL0AUDIO_CTRL_CLKEN (1 << CGU_PLL0AUDIO_CTRL_CLKEN_SHIFT)
+
+/* FRM: Free running mode */
+#define CGU_PLL0AUDIO_CTRL_FRM_SHIFT (6)
+#define CGU_PLL0AUDIO_CTRL_FRM (1 << CGU_PLL0AUDIO_CTRL_FRM_SHIFT)
+
+/* AUTOBLOCK: Block clock automatically during frequency change */
+#define CGU_PLL0AUDIO_CTRL_AUTOBLOCK_SHIFT (11)
+#define CGU_PLL0AUDIO_CTRL_AUTOBLOCK (1 << CGU_PLL0AUDIO_CTRL_AUTOBLOCK_SHIFT)
+
+/* PLLFRACT_REQ: Fractional PLL word write request */
+#define CGU_PLL0AUDIO_CTRL_PLLFRACT_REQ_SHIFT (12)
+#define CGU_PLL0AUDIO_CTRL_PLLFRACT_REQ (1 << CGU_PLL0AUDIO_CTRL_PLLFRACT_REQ_SHIFT)
+
+/* SEL_EXT: Select fractional divider */
+#define CGU_PLL0AUDIO_CTRL_SEL_EXT_SHIFT (13)
+#define CGU_PLL0AUDIO_CTRL_SEL_EXT (1 << CGU_PLL0AUDIO_CTRL_SEL_EXT_SHIFT)
+
+/* MOD_PD: Sigma-Delta modulator power-down */
+#define CGU_PLL0AUDIO_CTRL_MOD_PD_SHIFT (14)
+#define CGU_PLL0AUDIO_CTRL_MOD_PD (1 << CGU_PLL0AUDIO_CTRL_MOD_PD_SHIFT)
+
+/* CLK_SEL: Clock source selection */
+#define CGU_PLL0AUDIO_CTRL_CLK_SEL_SHIFT (24)
+#define CGU_PLL0AUDIO_CTRL_CLK_SEL_MASK (0x1f << CGU_PLL0AUDIO_CTRL_CLK_SEL_SHIFT)
+#define CGU_PLL0AUDIO_CTRL_CLK_SEL(x) ((x) << CGU_PLL0AUDIO_CTRL_CLK_SEL_SHIFT)
+
+/* --- CGU_PLL0AUDIO_MDIV values -------------------------------- */
+
+/* MDEC: Decoded M-divider coefficient value */
+#define CGU_PLL0AUDIO_MDIV_MDEC_SHIFT (0)
+#define CGU_PLL0AUDIO_MDIV_MDEC_MASK (0x1ffff << CGU_PLL0AUDIO_MDIV_MDEC_SHIFT)
+#define CGU_PLL0AUDIO_MDIV_MDEC(x) ((x) << CGU_PLL0AUDIO_MDIV_MDEC_SHIFT)
+
+/* --- CGU_PLL0AUDIO_NP_DIV values ------------------------------ */
+
+/* PDEC: Decoded P-divider coefficient value */
+#define CGU_PLL0AUDIO_NP_DIV_PDEC_SHIFT (0)
+#define CGU_PLL0AUDIO_NP_DIV_PDEC_MASK (0x7f << CGU_PLL0AUDIO_NP_DIV_PDEC_SHIFT)
+#define CGU_PLL0AUDIO_NP_DIV_PDEC(x) ((x) << CGU_PLL0AUDIO_NP_DIV_PDEC_SHIFT)
+
+/* NDEC: Decoded N-divider coefficient value */
+#define CGU_PLL0AUDIO_NP_DIV_NDEC_SHIFT (12)
+#define CGU_PLL0AUDIO_NP_DIV_NDEC_MASK (0x3ff << CGU_PLL0AUDIO_NP_DIV_NDEC_SHIFT)
+#define CGU_PLL0AUDIO_NP_DIV_NDEC(x) ((x) << CGU_PLL0AUDIO_NP_DIV_NDEC_SHIFT)
+
+/* --- CGU_PLLAUDIO_FRAC values --------------------------------- */
+
+/* PLLFRACT_CTRL: PLL fractional divider control word */
+#define CGU_PLLAUDIO_FRAC_PLLFRACT_CTRL_SHIFT (0)
+#define CGU_PLLAUDIO_FRAC_PLLFRACT_CTRL_MASK (0x3fffff << CGU_PLLAUDIO_FRAC_PLLFRACT_CTRL_SHIFT)
+#define CGU_PLLAUDIO_FRAC_PLLFRACT_CTRL(x) ((x) << CGU_PLLAUDIO_FRAC_PLLFRACT_CTRL_SHIFT)
+
+/* --- CGU_PLL1_STAT values ------------------------------------- */
+
+/* LOCK: PLL1 lock indicator */
+#define CGU_PLL1_STAT_LOCK_SHIFT (0)
+#define CGU_PLL1_STAT_LOCK (1 << CGU_PLL1_STAT_LOCK_SHIFT)
+
+/* --- CGU_PLL1_CTRL values ------------------------------------- */
+
+/* PD: PLL1 power down */
+#define CGU_PLL1_CTRL_PD_SHIFT (0)
+#define CGU_PLL1_CTRL_PD (1 << CGU_PLL1_CTRL_PD_SHIFT)
+
+/* BYPASS: Input clock bypass control */
+#define CGU_PLL1_CTRL_BYPASS_SHIFT (1)
+#define CGU_PLL1_CTRL_BYPASS (1 << CGU_PLL1_CTRL_BYPASS_SHIFT)
+
+/* FBSEL: PLL feedback select */
+#define CGU_PLL1_CTRL_FBSEL_SHIFT (6)
+#define CGU_PLL1_CTRL_FBSEL (1 << CGU_PLL1_CTRL_FBSEL_SHIFT)
+
+/* DIRECT: PLL direct CCO output */
+#define CGU_PLL1_CTRL_DIRECT_SHIFT (7)
+#define CGU_PLL1_CTRL_DIRECT (1 << CGU_PLL1_CTRL_DIRECT_SHIFT)
+
+/* PSEL: Post-divider division ratio P */
+#define CGU_PLL1_CTRL_PSEL_SHIFT (8)
+#define CGU_PLL1_CTRL_PSEL_MASK (0x3 << CGU_PLL1_CTRL_PSEL_SHIFT)
+#define CGU_PLL1_CTRL_PSEL(x) ((x) << CGU_PLL1_CTRL_PSEL_SHIFT)
+
+/* AUTOBLOCK: Block clock automatically during frequency change */
+#define CGU_PLL1_CTRL_AUTOBLOCK_SHIFT (11)
+#define CGU_PLL1_CTRL_AUTOBLOCK (1 << CGU_PLL1_CTRL_AUTOBLOCK_SHIFT)
+
+/* NSEL: Pre-divider division ratio N */
+#define CGU_PLL1_CTRL_NSEL_SHIFT (12)
+#define CGU_PLL1_CTRL_NSEL_MASK (0x3 << CGU_PLL1_CTRL_NSEL_SHIFT)
+#define CGU_PLL1_CTRL_NSEL(x) ((x) << CGU_PLL1_CTRL_NSEL_SHIFT)
+
+/* MSEL: Feedback-divider division ratio (M) */
+#define CGU_PLL1_CTRL_MSEL_SHIFT (16)
+#define CGU_PLL1_CTRL_MSEL_MASK (0xff << CGU_PLL1_CTRL_MSEL_SHIFT)
+#define CGU_PLL1_CTRL_MSEL(x) ((x) << CGU_PLL1_CTRL_MSEL_SHIFT)
+
+/* CLK_SEL: Clock-source selection */
+#define CGU_PLL1_CTRL_CLK_SEL_SHIFT (24)
+#define CGU_PLL1_CTRL_CLK_SEL_MASK (0x1f << CGU_PLL1_CTRL_CLK_SEL_SHIFT)
+#define CGU_PLL1_CTRL_CLK_SEL(x) ((x) << CGU_PLL1_CTRL_CLK_SEL_SHIFT)
+
+/* --- CGU_IDIVA_CTRL values ------------------------------------ */
+
+/* PD: Integer divider power down */
+#define CGU_IDIVA_CTRL_PD_SHIFT (0)
+#define CGU_IDIVA_CTRL_PD (1 << CGU_IDIVA_CTRL_PD_SHIFT)
+
+/* IDIV: Integer divider A divider value (1/(IDIV + 1)) */
+#define CGU_IDIVA_CTRL_IDIV_SHIFT (2)
+#define CGU_IDIVA_CTRL_IDIV_MASK (0x3 << CGU_IDIVA_CTRL_IDIV_SHIFT)
+#define CGU_IDIVA_CTRL_IDIV(x) ((x) << CGU_IDIVA_CTRL_IDIV_SHIFT)
+
+/* AUTOBLOCK: Block clock automatically during frequency change */
+#define CGU_IDIVA_CTRL_AUTOBLOCK_SHIFT (11)
+#define CGU_IDIVA_CTRL_AUTOBLOCK (1 << CGU_IDIVA_CTRL_AUTOBLOCK_SHIFT)
+
+/* CLK_SEL: Clock source selection */
+#define CGU_IDIVA_CTRL_CLK_SEL_SHIFT (24)
+#define CGU_IDIVA_CTRL_CLK_SEL_MASK (0x1f << CGU_IDIVA_CTRL_CLK_SEL_SHIFT)
+#define CGU_IDIVA_CTRL_CLK_SEL(x) ((x) << CGU_IDIVA_CTRL_CLK_SEL_SHIFT)
+
+/* --- CGU_IDIVB_CTRL values ------------------------------------ */
+
+/* PD: Integer divider power down */
+#define CGU_IDIVB_CTRL_PD_SHIFT (0)
+#define CGU_IDIVB_CTRL_PD (1 << CGU_IDIVB_CTRL_PD_SHIFT)
+
+/* IDIV: Integer divider B divider value (1/(IDIV + 1)) */
+#define CGU_IDIVB_CTRL_IDIV_SHIFT (2)
+#define CGU_IDIVB_CTRL_IDIV_MASK (0xf << CGU_IDIVB_CTRL_IDIV_SHIFT)
+#define CGU_IDIVB_CTRL_IDIV(x) ((x) << CGU_IDIVB_CTRL_IDIV_SHIFT)
+
+/* AUTOBLOCK: Block clock automatically during frequency change */
+#define CGU_IDIVB_CTRL_AUTOBLOCK_SHIFT (11)
+#define CGU_IDIVB_CTRL_AUTOBLOCK (1 << CGU_IDIVB_CTRL_AUTOBLOCK_SHIFT)
+
+/* CLK_SEL: Clock source selection */
+#define CGU_IDIVB_CTRL_CLK_SEL_SHIFT (24)
+#define CGU_IDIVB_CTRL_CLK_SEL_MASK (0x1f << CGU_IDIVB_CTRL_CLK_SEL_SHIFT)
+#define CGU_IDIVB_CTRL_CLK_SEL(x) ((x) << CGU_IDIVB_CTRL_CLK_SEL_SHIFT)
+
+/* --- CGU_IDIVC_CTRL values ------------------------------------ */
+
+/* PD: Integer divider power down */
+#define CGU_IDIVC_CTRL_PD_SHIFT (0)
+#define CGU_IDIVC_CTRL_PD (1 << CGU_IDIVC_CTRL_PD_SHIFT)
+
+/* IDIV: Integer divider C divider value (1/(IDIV + 1)) */
+#define CGU_IDIVC_CTRL_IDIV_SHIFT (2)
+#define CGU_IDIVC_CTRL_IDIV_MASK (0xf << CGU_IDIVC_CTRL_IDIV_SHIFT)
+#define CGU_IDIVC_CTRL_IDIV(x) ((x) << CGU_IDIVC_CTRL_IDIV_SHIFT)
+
+/* AUTOBLOCK: Block clock automatically during frequency change */
+#define CGU_IDIVC_CTRL_AUTOBLOCK_SHIFT (11)
+#define CGU_IDIVC_CTRL_AUTOBLOCK (1 << CGU_IDIVC_CTRL_AUTOBLOCK_SHIFT)
+
+/* CLK_SEL: Clock source selection */
+#define CGU_IDIVC_CTRL_CLK_SEL_SHIFT (24)
+#define CGU_IDIVC_CTRL_CLK_SEL_MASK (0x1f << CGU_IDIVC_CTRL_CLK_SEL_SHIFT)
+#define CGU_IDIVC_CTRL_CLK_SEL(x) ((x) << CGU_IDIVC_CTRL_CLK_SEL_SHIFT)
+
+/* --- CGU_IDIVD_CTRL values ------------------------------------ */
+
+/* PD: Integer divider power down */
+#define CGU_IDIVD_CTRL_PD_SHIFT (0)
+#define CGU_IDIVD_CTRL_PD (1 << CGU_IDIVD_CTRL_PD_SHIFT)
+
+/* IDIV: Integer divider D divider value (1/(IDIV + 1)) */
+#define CGU_IDIVD_CTRL_IDIV_SHIFT (2)
+#define CGU_IDIVD_CTRL_IDIV_MASK (0xf << CGU_IDIVD_CTRL_IDIV_SHIFT)
+#define CGU_IDIVD_CTRL_IDIV(x) ((x) << CGU_IDIVD_CTRL_IDIV_SHIFT)
+
+/* AUTOBLOCK: Block clock automatically during frequency change */
+#define CGU_IDIVD_CTRL_AUTOBLOCK_SHIFT (11)
+#define CGU_IDIVD_CTRL_AUTOBLOCK (1 << CGU_IDIVD_CTRL_AUTOBLOCK_SHIFT)
+
+/* CLK_SEL: Clock source selection */
+#define CGU_IDIVD_CTRL_CLK_SEL_SHIFT (24)
+#define CGU_IDIVD_CTRL_CLK_SEL_MASK (0x1f << CGU_IDIVD_CTRL_CLK_SEL_SHIFT)
+#define CGU_IDIVD_CTRL_CLK_SEL(x) ((x) << CGU_IDIVD_CTRL_CLK_SEL_SHIFT)
+
+/* --- CGU_IDIVE_CTRL values ------------------------------------ */
+
+/* PD: Integer divider power down */
+#define CGU_IDIVE_CTRL_PD_SHIFT (0)
+#define CGU_IDIVE_CTRL_PD (1 << CGU_IDIVE_CTRL_PD_SHIFT)
+
+/* IDIV: Integer divider E divider value (1/(IDIV + 1)) */
+#define CGU_IDIVE_CTRL_IDIV_SHIFT (2)
+#define CGU_IDIVE_CTRL_IDIV_MASK (0xff << CGU_IDIVE_CTRL_IDIV_SHIFT)
+#define CGU_IDIVE_CTRL_IDIV(x) ((x) << CGU_IDIVE_CTRL_IDIV_SHIFT)
+
+/* AUTOBLOCK: Block clock automatically during frequency change */
+#define CGU_IDIVE_CTRL_AUTOBLOCK_SHIFT (11)
+#define CGU_IDIVE_CTRL_AUTOBLOCK (1 << CGU_IDIVE_CTRL_AUTOBLOCK_SHIFT)
+
+/* CLK_SEL: Clock source selection */
+#define CGU_IDIVE_CTRL_CLK_SEL_SHIFT (24)
+#define CGU_IDIVE_CTRL_CLK_SEL_MASK (0x1f << CGU_IDIVE_CTRL_CLK_SEL_SHIFT)
+#define CGU_IDIVE_CTRL_CLK_SEL(x) ((x) << CGU_IDIVE_CTRL_CLK_SEL_SHIFT)
+
+/* --- CGU_BASE_SAFE_CLK values --------------------------------- */
+
+/* PD: Output stage power down */
+#define CGU_BASE_SAFE_CLK_PD_SHIFT (0)
+#define CGU_BASE_SAFE_CLK_PD (1 << CGU_BASE_SAFE_CLK_PD_SHIFT)
+
+/* AUTOBLOCK: Block clock automatically during frequency change */
+#define CGU_BASE_SAFE_CLK_AUTOBLOCK_SHIFT (11)
+#define CGU_BASE_SAFE_CLK_AUTOBLOCK (1 << CGU_BASE_SAFE_CLK_AUTOBLOCK_SHIFT)
+
+/* CLK_SEL: Clock source selection */
+#define CGU_BASE_SAFE_CLK_CLK_SEL_SHIFT (24)
+#define CGU_BASE_SAFE_CLK_CLK_SEL_MASK (0x1f << CGU_BASE_SAFE_CLK_CLK_SEL_SHIFT)
+#define CGU_BASE_SAFE_CLK_CLK_SEL(x) ((x) << CGU_BASE_SAFE_CLK_CLK_SEL_SHIFT)
+
+/* --- CGU_BASE_USB0_CLK values --------------------------------- */
+
+/* PD: Output stage power down */
+#define CGU_BASE_USB0_CLK_PD_SHIFT (0)
+#define CGU_BASE_USB0_CLK_PD (1 << CGU_BASE_USB0_CLK_PD_SHIFT)
+
+/* AUTOBLOCK: Block clock automatically during frequency change */
+#define CGU_BASE_USB0_CLK_AUTOBLOCK_SHIFT (11)
+#define CGU_BASE_USB0_CLK_AUTOBLOCK (1 << CGU_BASE_USB0_CLK_AUTOBLOCK_SHIFT)
+
+/* CLK_SEL: Clock source selection */
+#define CGU_BASE_USB0_CLK_CLK_SEL_SHIFT (24)
+#define CGU_BASE_USB0_CLK_CLK_SEL_MASK (0x1f << CGU_BASE_USB0_CLK_CLK_SEL_SHIFT)
+#define CGU_BASE_USB0_CLK_CLK_SEL(x) ((x) << CGU_BASE_USB0_CLK_CLK_SEL_SHIFT)
+
+/* --- CGU_BASE_PERIPH_CLK values ------------------------------- */
+
+/* PD: Output stage power down */
+#define CGU_BASE_PERIPH_CLK_PD_SHIFT (0)
+#define CGU_BASE_PERIPH_CLK_PD (1 << CGU_BASE_PERIPH_CLK_PD_SHIFT)
+
+/* AUTOBLOCK: Block clock automatically during frequency change */
+#define CGU_BASE_PERIPH_CLK_AUTOBLOCK_SHIFT (11)
+#define CGU_BASE_PERIPH_CLK_AUTOBLOCK (1 << CGU_BASE_PERIPH_CLK_AUTOBLOCK_SHIFT)
+
+/* CLK_SEL: Clock source selection */
+#define CGU_BASE_PERIPH_CLK_CLK_SEL_SHIFT (24)
+#define CGU_BASE_PERIPH_CLK_CLK_SEL_MASK (0x1f << CGU_BASE_PERIPH_CLK_CLK_SEL_SHIFT)
+#define CGU_BASE_PERIPH_CLK_CLK_SEL(x) ((x) << CGU_BASE_PERIPH_CLK_CLK_SEL_SHIFT)
+
+/* --- CGU_BASE_USB1_CLK values --------------------------------- */
+
+/* PD: Output stage power down */
+#define CGU_BASE_USB1_CLK_PD_SHIFT (0)
+#define CGU_BASE_USB1_CLK_PD (1 << CGU_BASE_USB1_CLK_PD_SHIFT)
+
+/* AUTOBLOCK: Block clock automatically during frequency change */
+#define CGU_BASE_USB1_CLK_AUTOBLOCK_SHIFT (11)
+#define CGU_BASE_USB1_CLK_AUTOBLOCK (1 << CGU_BASE_USB1_CLK_AUTOBLOCK_SHIFT)
+
+/* CLK_SEL: Clock source selection */
+#define CGU_BASE_USB1_CLK_CLK_SEL_SHIFT (24)
+#define CGU_BASE_USB1_CLK_CLK_SEL_MASK (0x1f << CGU_BASE_USB1_CLK_CLK_SEL_SHIFT)
+#define CGU_BASE_USB1_CLK_CLK_SEL(x) ((x) << CGU_BASE_USB1_CLK_CLK_SEL_SHIFT)
+
+/* --- CGU_BASE_M4_CLK values ----------------------------------- */
+
+/* PD: Output stage power down */
+#define CGU_BASE_M4_CLK_PD_SHIFT (0)
+#define CGU_BASE_M4_CLK_PD (1 << CGU_BASE_M4_CLK_PD_SHIFT)
+
+/* AUTOBLOCK: Block clock automatically during frequency change */
+#define CGU_BASE_M4_CLK_AUTOBLOCK_SHIFT (11)
+#define CGU_BASE_M4_CLK_AUTOBLOCK (1 << CGU_BASE_M4_CLK_AUTOBLOCK_SHIFT)
+
+/* CLK_SEL: Clock source selection */
+#define CGU_BASE_M4_CLK_CLK_SEL_SHIFT (24)
+#define CGU_BASE_M4_CLK_CLK_SEL_MASK (0x1f << CGU_BASE_M4_CLK_CLK_SEL_SHIFT)
+#define CGU_BASE_M4_CLK_CLK_SEL(x) ((x) << CGU_BASE_M4_CLK_CLK_SEL_SHIFT)
+
+/* --- CGU_BASE_SPIFI_CLK values -------------------------------- */
+
+/* PD: Output stage power down */
+#define CGU_BASE_SPIFI_CLK_PD_SHIFT (0)
+#define CGU_BASE_SPIFI_CLK_PD (1 << CGU_BASE_SPIFI_CLK_PD_SHIFT)
+
+/* AUTOBLOCK: Block clock automatically during frequency change */
+#define CGU_BASE_SPIFI_CLK_AUTOBLOCK_SHIFT (11)
+#define CGU_BASE_SPIFI_CLK_AUTOBLOCK (1 << CGU_BASE_SPIFI_CLK_AUTOBLOCK_SHIFT)
+
+/* CLK_SEL: Clock source selection */
+#define CGU_BASE_SPIFI_CLK_CLK_SEL_SHIFT (24)
+#define CGU_BASE_SPIFI_CLK_CLK_SEL_MASK (0x1f << CGU_BASE_SPIFI_CLK_CLK_SEL_SHIFT)
+#define CGU_BASE_SPIFI_CLK_CLK_SEL(x) ((x) << CGU_BASE_SPIFI_CLK_CLK_SEL_SHIFT)
+
+/* --- CGU_BASE_SPI_CLK values ---------------------------------- */
+
+/* PD: Output stage power down */
+#define CGU_BASE_SPI_CLK_PD_SHIFT (0)
+#define CGU_BASE_SPI_CLK_PD (1 << CGU_BASE_SPI_CLK_PD_SHIFT)
+
+/* AUTOBLOCK: Block clock automatically during frequency change */
+#define CGU_BASE_SPI_CLK_AUTOBLOCK_SHIFT (11)
+#define CGU_BASE_SPI_CLK_AUTOBLOCK (1 << CGU_BASE_SPI_CLK_AUTOBLOCK_SHIFT)
+
+/* CLK_SEL: Clock source selection */
+#define CGU_BASE_SPI_CLK_CLK_SEL_SHIFT (24)
+#define CGU_BASE_SPI_CLK_CLK_SEL_MASK (0x1f << CGU_BASE_SPI_CLK_CLK_SEL_SHIFT)
+#define CGU_BASE_SPI_CLK_CLK_SEL(x) ((x) << CGU_BASE_SPI_CLK_CLK_SEL_SHIFT)
+
+/* --- CGU_BASE_PHY_RX_CLK values ------------------------------- */
+
+/* PD: Output stage power down */
+#define CGU_BASE_PHY_RX_CLK_PD_SHIFT (0)
+#define CGU_BASE_PHY_RX_CLK_PD (1 << CGU_BASE_PHY_RX_CLK_PD_SHIFT)
+
+/* AUTOBLOCK: Block clock automatically during frequency change */
+#define CGU_BASE_PHY_RX_CLK_AUTOBLOCK_SHIFT (11)
+#define CGU_BASE_PHY_RX_CLK_AUTOBLOCK (1 << CGU_BASE_PHY_RX_CLK_AUTOBLOCK_SHIFT)
+
+/* CLK_SEL: Clock source selection */
+#define CGU_BASE_PHY_RX_CLK_CLK_SEL_SHIFT (24)
+#define CGU_BASE_PHY_RX_CLK_CLK_SEL_MASK (0x1f << CGU_BASE_PHY_RX_CLK_CLK_SEL_SHIFT)
+#define CGU_BASE_PHY_RX_CLK_CLK_SEL(x) ((x) << CGU_BASE_PHY_RX_CLK_CLK_SEL_SHIFT)
+
+/* --- CGU_BASE_PHY_TX_CLK values ------------------------------- */
+
+/* PD: Output stage power down */
+#define CGU_BASE_PHY_TX_CLK_PD_SHIFT (0)
+#define CGU_BASE_PHY_TX_CLK_PD (1 << CGU_BASE_PHY_TX_CLK_PD_SHIFT)
+
+/* AUTOBLOCK: Block clock automatically during frequency change */
+#define CGU_BASE_PHY_TX_CLK_AUTOBLOCK_SHIFT (11)
+#define CGU_BASE_PHY_TX_CLK_AUTOBLOCK (1 << CGU_BASE_PHY_TX_CLK_AUTOBLOCK_SHIFT)
+
+/* CLK_SEL: Clock source selection */
+#define CGU_BASE_PHY_TX_CLK_CLK_SEL_SHIFT (24)
+#define CGU_BASE_PHY_TX_CLK_CLK_SEL_MASK (0x1f << CGU_BASE_PHY_TX_CLK_CLK_SEL_SHIFT)
+#define CGU_BASE_PHY_TX_CLK_CLK_SEL(x) ((x) << CGU_BASE_PHY_TX_CLK_CLK_SEL_SHIFT)
+
+/* --- CGU_BASE_APB1_CLK values --------------------------------- */
+
+/* PD: Output stage power down */
+#define CGU_BASE_APB1_CLK_PD_SHIFT (0)
+#define CGU_BASE_APB1_CLK_PD (1 << CGU_BASE_APB1_CLK_PD_SHIFT)
+
+/* AUTOBLOCK: Block clock automatically during frequency change */
+#define CGU_BASE_APB1_CLK_AUTOBLOCK_SHIFT (11)
+#define CGU_BASE_APB1_CLK_AUTOBLOCK (1 << CGU_BASE_APB1_CLK_AUTOBLOCK_SHIFT)
+
+/* CLK_SEL: Clock source selection */
+#define CGU_BASE_APB1_CLK_CLK_SEL_SHIFT (24)
+#define CGU_BASE_APB1_CLK_CLK_SEL_MASK (0x1f << CGU_BASE_APB1_CLK_CLK_SEL_SHIFT)
+#define CGU_BASE_APB1_CLK_CLK_SEL(x) ((x) << CGU_BASE_APB1_CLK_CLK_SEL_SHIFT)
+
+/* --- CGU_BASE_APB3_CLK values --------------------------------- */
+
+/* PD: Output stage power down */
+#define CGU_BASE_APB3_CLK_PD_SHIFT (0)
+#define CGU_BASE_APB3_CLK_PD (1 << CGU_BASE_APB3_CLK_PD_SHIFT)
+
+/* AUTOBLOCK: Block clock automatically during frequency change */
+#define CGU_BASE_APB3_CLK_AUTOBLOCK_SHIFT (11)
+#define CGU_BASE_APB3_CLK_AUTOBLOCK (1 << CGU_BASE_APB3_CLK_AUTOBLOCK_SHIFT)
+
+/* CLK_SEL: Clock source selection */
+#define CGU_BASE_APB3_CLK_CLK_SEL_SHIFT (24)
+#define CGU_BASE_APB3_CLK_CLK_SEL_MASK (0x1f << CGU_BASE_APB3_CLK_CLK_SEL_SHIFT)
+#define CGU_BASE_APB3_CLK_CLK_SEL(x) ((x) << CGU_BASE_APB3_CLK_CLK_SEL_SHIFT)
+
+/* --- CGU_BASE_LCD_CLK values ---------------------------------- */
+
+/* PD: Output stage power down */
+#define CGU_BASE_LCD_CLK_PD_SHIFT (0)
+#define CGU_BASE_LCD_CLK_PD (1 << CGU_BASE_LCD_CLK_PD_SHIFT)
+
+/* AUTOBLOCK: Block clock automatically during frequency change */
+#define CGU_BASE_LCD_CLK_AUTOBLOCK_SHIFT (11)
+#define CGU_BASE_LCD_CLK_AUTOBLOCK (1 << CGU_BASE_LCD_CLK_AUTOBLOCK_SHIFT)
+
+/* CLK_SEL: Clock source selection */
+#define CGU_BASE_LCD_CLK_CLK_SEL_SHIFT (24)
+#define CGU_BASE_LCD_CLK_CLK_SEL_MASK (0x1f << CGU_BASE_LCD_CLK_CLK_SEL_SHIFT)
+#define CGU_BASE_LCD_CLK_CLK_SEL(x) ((x) << CGU_BASE_LCD_CLK_CLK_SEL_SHIFT)
+
+/* --- CGU_BASE_VADC_CLK values --------------------------------- */
+
+/* PD: Output stage power down */
+#define CGU_BASE_VADC_CLK_PD_SHIFT (0)
+#define CGU_BASE_VADC_CLK_PD (1 << CGU_BASE_VADC_CLK_PD_SHIFT)
+
+/* AUTOBLOCK: Block clock automatically during frequency change */
+#define CGU_BASE_VADC_CLK_AUTOBLOCK_SHIFT (11)
+#define CGU_BASE_VADC_CLK_AUTOBLOCK (1 << CGU_BASE_VADC_CLK_AUTOBLOCK_SHIFT)
+
+/* CLK_SEL: Clock source selection */
+#define CGU_BASE_VADC_CLK_CLK_SEL_SHIFT (24)
+#define CGU_BASE_VADC_CLK_CLK_SEL_MASK (0x1f << CGU_BASE_VADC_CLK_CLK_SEL_SHIFT)
+#define CGU_BASE_VADC_CLK_CLK_SEL(x) ((x) << CGU_BASE_VADC_CLK_CLK_SEL_SHIFT)
+
+/* --- CGU_BASE_SDIO_CLK values --------------------------------- */
+
+/* PD: Output stage power down */
+#define CGU_BASE_SDIO_CLK_PD_SHIFT (0)
+#define CGU_BASE_SDIO_CLK_PD (1 << CGU_BASE_SDIO_CLK_PD_SHIFT)
+
+/* AUTOBLOCK: Block clock automatically during frequency change */
+#define CGU_BASE_SDIO_CLK_AUTOBLOCK_SHIFT (11)
+#define CGU_BASE_SDIO_CLK_AUTOBLOCK (1 << CGU_BASE_SDIO_CLK_AUTOBLOCK_SHIFT)
+
+/* CLK_SEL: Clock source selection */
+#define CGU_BASE_SDIO_CLK_CLK_SEL_SHIFT (24)
+#define CGU_BASE_SDIO_CLK_CLK_SEL_MASK (0x1f << CGU_BASE_SDIO_CLK_CLK_SEL_SHIFT)
+#define CGU_BASE_SDIO_CLK_CLK_SEL(x) ((x) << CGU_BASE_SDIO_CLK_CLK_SEL_SHIFT)
+
+/* --- CGU_BASE_SSP0_CLK values --------------------------------- */
+
+/* PD: Output stage power down */
+#define CGU_BASE_SSP0_CLK_PD_SHIFT (0)
+#define CGU_BASE_SSP0_CLK_PD (1 << CGU_BASE_SSP0_CLK_PD_SHIFT)
+
+/* AUTOBLOCK: Block clock automatically during frequency change */
+#define CGU_BASE_SSP0_CLK_AUTOBLOCK_SHIFT (11)
+#define CGU_BASE_SSP0_CLK_AUTOBLOCK (1 << CGU_BASE_SSP0_CLK_AUTOBLOCK_SHIFT)
+
+/* CLK_SEL: Clock source selection */
+#define CGU_BASE_SSP0_CLK_CLK_SEL_SHIFT (24)
+#define CGU_BASE_SSP0_CLK_CLK_SEL_MASK (0x1f << CGU_BASE_SSP0_CLK_CLK_SEL_SHIFT)
+#define CGU_BASE_SSP0_CLK_CLK_SEL(x) ((x) << CGU_BASE_SSP0_CLK_CLK_SEL_SHIFT)
+
+/* --- CGU_BASE_SSP1_CLK values --------------------------------- */
+
+/* PD: Output stage power down */
+#define CGU_BASE_SSP1_CLK_PD_SHIFT (0)
+#define CGU_BASE_SSP1_CLK_PD (1 << CGU_BASE_SSP1_CLK_PD_SHIFT)
+
+/* AUTOBLOCK: Block clock automatically during frequency change */
+#define CGU_BASE_SSP1_CLK_AUTOBLOCK_SHIFT (11)
+#define CGU_BASE_SSP1_CLK_AUTOBLOCK (1 << CGU_BASE_SSP1_CLK_AUTOBLOCK_SHIFT)
+
+/* CLK_SEL: Clock source selection */
+#define CGU_BASE_SSP1_CLK_CLK_SEL_SHIFT (24)
+#define CGU_BASE_SSP1_CLK_CLK_SEL_MASK (0x1f << CGU_BASE_SSP1_CLK_CLK_SEL_SHIFT)
+#define CGU_BASE_SSP1_CLK_CLK_SEL(x) ((x) << CGU_BASE_SSP1_CLK_CLK_SEL_SHIFT)
+
+/* --- CGU_BASE_UART0_CLK values -------------------------------- */
+
+/* PD: Output stage power down */
+#define CGU_BASE_UART0_CLK_PD_SHIFT (0)
+#define CGU_BASE_UART0_CLK_PD (1 << CGU_BASE_UART0_CLK_PD_SHIFT)
+
+/* AUTOBLOCK: Block clock automatically during frequency change */
+#define CGU_BASE_UART0_CLK_AUTOBLOCK_SHIFT (11)
+#define CGU_BASE_UART0_CLK_AUTOBLOCK (1 << CGU_BASE_UART0_CLK_AUTOBLOCK_SHIFT)
+
+/* CLK_SEL: Clock source selection */
+#define CGU_BASE_UART0_CLK_CLK_SEL_SHIFT (24)
+#define CGU_BASE_UART0_CLK_CLK_SEL_MASK (0x1f << CGU_BASE_UART0_CLK_CLK_SEL_SHIFT)
+#define CGU_BASE_UART0_CLK_CLK_SEL(x) ((x) << CGU_BASE_UART0_CLK_CLK_SEL_SHIFT)
+
+/* --- CGU_BASE_UART1_CLK values -------------------------------- */
+
+/* PD: Output stage power down */
+#define CGU_BASE_UART1_CLK_PD_SHIFT (0)
+#define CGU_BASE_UART1_CLK_PD (1 << CGU_BASE_UART1_CLK_PD_SHIFT)
+
+/* AUTOBLOCK: Block clock automatically during frequency change */
+#define CGU_BASE_UART1_CLK_AUTOBLOCK_SHIFT (11)
+#define CGU_BASE_UART1_CLK_AUTOBLOCK (1 << CGU_BASE_UART1_CLK_AUTOBLOCK_SHIFT)
+
+/* CLK_SEL: Clock source selection */
+#define CGU_BASE_UART1_CLK_CLK_SEL_SHIFT (24)
+#define CGU_BASE_UART1_CLK_CLK_SEL_MASK (0x1f << CGU_BASE_UART1_CLK_CLK_SEL_SHIFT)
+#define CGU_BASE_UART1_CLK_CLK_SEL(x) ((x) << CGU_BASE_UART1_CLK_CLK_SEL_SHIFT)
+
+/* --- CGU_BASE_UART2_CLK values -------------------------------- */
+
+/* PD: Output stage power down */
+#define CGU_BASE_UART2_CLK_PD_SHIFT (0)
+#define CGU_BASE_UART2_CLK_PD (1 << CGU_BASE_UART2_CLK_PD_SHIFT)
+
+/* AUTOBLOCK: Block clock automatically during frequency change */
+#define CGU_BASE_UART2_CLK_AUTOBLOCK_SHIFT (11)
+#define CGU_BASE_UART2_CLK_AUTOBLOCK (1 << CGU_BASE_UART2_CLK_AUTOBLOCK_SHIFT)
+
+/* CLK_SEL: Clock source selection */
+#define CGU_BASE_UART2_CLK_CLK_SEL_SHIFT (24)
+#define CGU_BASE_UART2_CLK_CLK_SEL_MASK (0x1f << CGU_BASE_UART2_CLK_CLK_SEL_SHIFT)
+#define CGU_BASE_UART2_CLK_CLK_SEL(x) ((x) << CGU_BASE_UART2_CLK_CLK_SEL_SHIFT)
+
+/* --- CGU_BASE_UART3_CLK values -------------------------------- */
+
+/* PD: Output stage power down */
+#define CGU_BASE_UART3_CLK_PD_SHIFT (0)
+#define CGU_BASE_UART3_CLK_PD (1 << CGU_BASE_UART3_CLK_PD_SHIFT)
+
+/* AUTOBLOCK: Block clock automatically during frequency change */
+#define CGU_BASE_UART3_CLK_AUTOBLOCK_SHIFT (11)
+#define CGU_BASE_UART3_CLK_AUTOBLOCK (1 << CGU_BASE_UART3_CLK_AUTOBLOCK_SHIFT)
+
+/* CLK_SEL: Clock source selection */
+#define CGU_BASE_UART3_CLK_CLK_SEL_SHIFT (24)
+#define CGU_BASE_UART3_CLK_CLK_SEL_MASK (0x1f << CGU_BASE_UART3_CLK_CLK_SEL_SHIFT)
+#define CGU_BASE_UART3_CLK_CLK_SEL(x) ((x) << CGU_BASE_UART3_CLK_CLK_SEL_SHIFT)
+
+/* --- CGU_BASE_OUT_CLK values ---------------------------------- */
+
+/* PD: Output stage power down */
+#define CGU_BASE_OUT_CLK_PD_SHIFT (0)
+#define CGU_BASE_OUT_CLK_PD (1 << CGU_BASE_OUT_CLK_PD_SHIFT)
+
+/* AUTOBLOCK: Block clock automatically during frequency change */
+#define CGU_BASE_OUT_CLK_AUTOBLOCK_SHIFT (11)
+#define CGU_BASE_OUT_CLK_AUTOBLOCK (1 << CGU_BASE_OUT_CLK_AUTOBLOCK_SHIFT)
+
+/* CLK_SEL: Clock source selection */
+#define CGU_BASE_OUT_CLK_CLK_SEL_SHIFT (24)
+#define CGU_BASE_OUT_CLK_CLK_SEL_MASK (0x1f << CGU_BASE_OUT_CLK_CLK_SEL_SHIFT)
+#define CGU_BASE_OUT_CLK_CLK_SEL(x) ((x) << CGU_BASE_OUT_CLK_CLK_SEL_SHIFT)
+
+/* --- CGU_BASE_APLL_CLK values --------------------------------- */
+
+/* PD: Output stage power down */
+#define CGU_BASE_APLL_CLK_PD_SHIFT (0)
+#define CGU_BASE_APLL_CLK_PD (1 << CGU_BASE_APLL_CLK_PD_SHIFT)
+
+/* AUTOBLOCK: Block clock automatically during frequency change */
+#define CGU_BASE_APLL_CLK_AUTOBLOCK_SHIFT (11)
+#define CGU_BASE_APLL_CLK_AUTOBLOCK (1 << CGU_BASE_APLL_CLK_AUTOBLOCK_SHIFT)
+
+/* CLK_SEL: Clock source selection */
+#define CGU_BASE_APLL_CLK_CLK_SEL_SHIFT (24)
+#define CGU_BASE_APLL_CLK_CLK_SEL_MASK (0x1f << CGU_BASE_APLL_CLK_CLK_SEL_SHIFT)
+#define CGU_BASE_APLL_CLK_CLK_SEL(x) ((x) << CGU_BASE_APLL_CLK_CLK_SEL_SHIFT)
+
+/* --- CGU_BASE_CGU_OUT0_CLK values ----------------------------- */
+
+/* PD: Output stage power down */
+#define CGU_BASE_CGU_OUT0_CLK_PD_SHIFT (0)
+#define CGU_BASE_CGU_OUT0_CLK_PD (1 << CGU_BASE_CGU_OUT0_CLK_PD_SHIFT)
+
+/* AUTOBLOCK: Block clock automatically during frequency change */
+#define CGU_BASE_CGU_OUT0_CLK_AUTOBLOCK_SHIFT (11)
+#define CGU_BASE_CGU_OUT0_CLK_AUTOBLOCK (1 << CGU_BASE_CGU_OUT0_CLK_AUTOBLOCK_SHIFT)
+
+/* CLK_SEL: Clock source selection */
+#define CGU_BASE_CGU_OUT0_CLK_CLK_SEL_SHIFT (24)
+#define CGU_BASE_CGU_OUT0_CLK_CLK_SEL_MASK (0x1f << CGU_BASE_CGU_OUT0_CLK_CLK_SEL_SHIFT)
+#define CGU_BASE_CGU_OUT0_CLK_CLK_SEL(x) ((x) << CGU_BASE_CGU_OUT0_CLK_CLK_SEL_SHIFT)
+
+/* --- CGU_BASE_CGU_OUT1_CLK values ----------------------------- */
+
+/* PD: Output stage power down */
+#define CGU_BASE_CGU_OUT1_CLK_PD_SHIFT (0)
+#define CGU_BASE_CGU_OUT1_CLK_PD (1 << CGU_BASE_CGU_OUT1_CLK_PD_SHIFT)
+
+/* AUTOBLOCK: Block clock automatically during frequency change */
+#define CGU_BASE_CGU_OUT1_CLK_AUTOBLOCK_SHIFT (11)
+#define CGU_BASE_CGU_OUT1_CLK_AUTOBLOCK (1 << CGU_BASE_CGU_OUT1_CLK_AUTOBLOCK_SHIFT)
+
+/* CLK_SEL: Clock source selection */
+#define CGU_BASE_CGU_OUT1_CLK_CLK_SEL_SHIFT (24)
+#define CGU_BASE_CGU_OUT1_CLK_CLK_SEL_MASK (0x1f << CGU_BASE_CGU_OUT1_CLK_CLK_SEL_SHIFT)
+#define CGU_BASE_CGU_OUT1_CLK_CLK_SEL(x) ((x) << CGU_BASE_CGU_OUT1_CLK_CLK_SEL_SHIFT)
 
 /* --- CGU_BASE_x_CLK clock sources  --------------------------------------- */
 

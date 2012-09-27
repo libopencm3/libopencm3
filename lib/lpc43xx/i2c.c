@@ -47,7 +47,7 @@ void i2c0_init(void)
 	SCU_SFSI2C0 = SCU_I2C0_NOMINAL;
 
 	/* use IRC as clock source for APB1 (including I2C0) */
-	CGU_BASE_APB1_CLK = (CGU_SRC_IRC << CGU_BASE_CLK_SEL_SHIFT);
+	CGU_BASE_APB1_CLK = CGU_BASE_APB1_CLK_CLK_SEL(CGU_SRC_IRC);
 
 	/* FIXME assuming we're on IRC at 12 MHz */
 
