@@ -1,4 +1,4 @@
-These files contain information derived from the LPC43xx data sheet (UM10503).
+These files contain information derived from the LPC43xx user manual (UM10503).
 They are intended to be used by scripts for the generation of header files and
 functions.
 
