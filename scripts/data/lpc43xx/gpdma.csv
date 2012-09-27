@@ -1,0 +1,224 @@
+GPDMA_NTSTAT,0,8,INTSTAT,Status of DMA channel interrupts after masking,0x00,r
+GPDMA_INTTCSTAT,0,8,INTTCSTAT,Terminal count interrupt request status for DMA channels,0x00,r
+GPDMA_INTTCCLEAR,0,8,INTTCCLEAR,Allows clearing the Terminal count interrupt request (IntTCStat) for DMA channels,0x00,w
+GPDMA_INTERRSTAT,0,8,INTERRSTAT,Interrupt error status for DMA channels,0x00,r
+GPDMA_INTERRCLR,0,8,INTERRCLR,Writing a 1 clears the error interrupt request (IntErrStat) for DMA channels,0x00,w
+GPDMA_RAWINTTCSTAT,0,8,RAWINTTCSTAT,Status of the terminal count interrupt for DMA channels prior to masking,0x00,r
+GPDMA_RAWINTERRSTAT,0,8,RAWINTERRSTAT,Status of the error interrupt for DMA channels prior to masking,0x00,r
+GPDMA_ENBLDCHNS,0,8,ENABLEDCHANNELS,Enable status for DMA channels,0x00,r
+GPDMA_SOFTBREQ,0,16,SOFTBREQ,Software burst request flags for each of 16 possible sources,0x00,rw
+GPDMA_SOFTSREQ,0,16,SOFTSREQ,Software single transfer request flags for each of 16 possible sources,0x00,rw
+GPDMA_SOFTLBREQ,0,16,SOFTLBREQ,Software last burst request flags for each of 16 possible sources,0x00,rw
+GPDMA_SOFTLSREQ,0,16,SOFTLSREQ,Software last single transfer request flags for each of 16 possible sources,0x00,rw
+GPDMA_CONFIG,0,1,E,DMA Controller enable,0,rw
+GPDMA_CONFIG,1,1,M0,AHB Master 0 endianness configuration,0,rw
+GPDMA_CONFIG,2,1,M1,AHB Master 1 endianness configuration,0,rw
+GPDMA_SYNC,0,16,DMACSYNC,Controls the synchronization logic for DMA request signals,0x00,rw
+GPDMA_C0SRCADDR,0,32,SRCADDR,DMA source address,0x00000000,rw
+GPDMA_C1SRCADDR,0,32,SRCADDR,DMA source address,0x00000000,rw
+GPDMA_C2SRCADDR,0,32,SRCADDR,DMA source address,0x00000000,rw
+GPDMA_C3SRCADDR,0,32,SRCADDR,DMA source address,0x00000000,rw
+GPDMA_C4SRCADDR,0,32,SRCADDR,DMA source address,0x00000000,rw
+GPDMA_C5SRCADDR,0,32,SRCADDR,DMA source address,0x00000000,rw
+GPDMA_C6SRCADDR,0,32,SRCADDR,DMA source address,0x00000000,rw
+GPDMA_C7SRCADDR,0,32,SRCADDR,DMA source address,0x00000000,rw
+GPDMA_C0DESTADDR,0,32,DESTADDR,DMA source address,0x00000000,rw
+GPDMA_C1DESTADDR,0,32,DESTADDR,DMA source address,0x00000000,rw
+GPDMA_C2DESTADDR,0,32,DESTADDR,DMA source address,0x00000000,rw
+GPDMA_C3DESTADDR,0,32,DESTADDR,DMA source address,0x00000000,rw
+GPDMA_C4DESTADDR,0,32,DESTADDR,DMA source address,0x00000000,rw
+GPDMA_C5DESTADDR,0,32,DESTADDR,DMA source address,0x00000000,rw
+GPDMA_C6DESTADDR,0,32,DESTADDR,DMA source address,0x00000000,rw
+GPDMA_C7DESTADDR,0,32,DESTADDR,DMA source address,0x00000000,rw
+GPDMA_C0LLI,0,1,LM,AHB master select for loading the next LLI,0,rw
+GPDMA_C0LLI,2,30,LLI,Linked list item,0x00000000,rw
+GPDMA_C1LLI,0,1,LM,AHB master select for loading the next LLI,0,rw
+GPDMA_C1LLI,2,30,LLI,Linked list item,0x00000000,rw
+GPDMA_C2LLI,0,1,LM,AHB master select for loading the next LLI,0,rw
+GPDMA_C2LLI,2,30,LLI,Linked list item,0x00000000,rw
+GPDMA_C3LLI,0,1,LM,AHB master select for loading the next LLI,0,rw
+GPDMA_C3LLI,2,30,LLI,Linked list item,0x00000000,rw
+GPDMA_C4LLI,0,1,LM,AHB master select for loading the next LLI,0,rw
+GPDMA_C4LLI,2,30,LLI,Linked list item,0x00000000,rw
+GPDMA_C5LLI,0,1,LM,AHB master select for loading the next LLI,0,rw
+GPDMA_C5LLI,2,30,LLI,Linked list item,0x00000000,rw
+GPDMA_C6LLI,0,1,LM,AHB master select for loading the next LLI,0,rw
+GPDMA_C6LLI,2,30,LLI,Linked list item,0x00000000,rw
+GPDMA_C7LLI,0,1,LM,AHB master select for loading the next LLI,0,rw
+GPDMA_C7LLI,2,30,LLI,Linked list item,0x00000000,rw
+GPDMA_C0CONTROL,0,12,TRANSFERSIZE,Transfer size in number of transfers,0x00,rw
+GPDMA_C0CONTROL,12,3,SBSIZE,Source burst size,0x0,rw
+GPDMA_C0CONTROL,15,3,DBSIZE,Destination burst size,0x0,rw
+GPDMA_C0CONTROL,18,3,SWIDTH,Source transfer width,0x0,rw
+GPDMA_C0CONTROL,21,3,DWIDTH,Destination transfer width,0x0,rw
+GPDMA_C0CONTROL,24,1,S,Source AHB master select,0,rw
+GPDMA_C0CONTROL,25,1,D,Destination AHB master select,0,rw
+GPDMA_C0CONTROL,26,1,SI,Source increment,0,rw
+GPDMA_C0CONTROL,27,1,DI,Destination increment,0,rw
+GPDMA_C0CONTROL,28,1,PROT1,This information is provided to the peripheral during a DMA bus access and indicates that the access is in user mode or privileged mode,0,rw
+GPDMA_C0CONTROL,29,1,PROT2,This information is provided to the peripheral during a DMA bus access and indicates to the peripheral that the access is bufferable or not bufferable,0,rw
+GPDMA_C0CONTROL,30,1,PROT3,This information is provided to the peripheral during a DMA bus access and indicates to the peripheral that the access is cacheable or not cacheable,0,rw
+GPDMA_C0CONTROL,31,1,I,Terminal count interrupt enable bit,0,rw
+GPDMA_C1CONTROL,0,12,TRANSFERSIZE,Transfer size in number of transfers,0x00,rw
+GPDMA_C1CONTROL,12,3,SBSIZE,Source burst size,0x0,rw
+GPDMA_C1CONTROL,15,3,DBSIZE,Destination burst size,0x0,rw
+GPDMA_C1CONTROL,18,3,SWIDTH,Source transfer width,0x0,rw
+GPDMA_C1CONTROL,21,3,DWIDTH,Destination transfer width,0x0,rw
+GPDMA_C1CONTROL,24,1,S,Source AHB master select,0,rw
+GPDMA_C1CONTROL,25,1,D,Destination AHB master select,0,rw
+GPDMA_C1CONTROL,26,1,SI,Source increment,0,rw
+GPDMA_C1CONTROL,27,1,DI,Destination increment,0,rw
+GPDMA_C1CONTROL,28,1,PROT1,This information is provided to the peripheral during a DMA bus access and indicates that the access is in user mode or privileged mode,0,rw
+GPDMA_C1CONTROL,29,1,PROT2,This information is provided to the peripheral during a DMA bus access and indicates to the peripheral that the access is bufferable or not bufferable,0,rw
+GPDMA_C1CONTROL,30,1,PROT3,This information is provided to the peripheral during a DMA bus access and indicates to the peripheral that the access is cacheable or not cacheable,0,rw
+GPDMA_C1CONTROL,31,1,I,Terminal count interrupt enable bit,0,rw
+GPDMA_C2CONTROL,0,12,TRANSFERSIZE,Transfer size in number of transfers,0x00,rw
+GPDMA_C2CONTROL,12,3,SBSIZE,Source burst size,0x0,rw
+GPDMA_C2CONTROL,15,3,DBSIZE,Destination burst size,0x0,rw
+GPDMA_C2CONTROL,18,3,SWIDTH,Source transfer width,0x0,rw
+GPDMA_C2CONTROL,21,3,DWIDTH,Destination transfer width,0x0,rw
+GPDMA_C2CONTROL,24,1,S,Source AHB master select,0,rw
+GPDMA_C2CONTROL,25,1,D,Destination AHB master select,0,rw
+GPDMA_C2CONTROL,26,1,SI,Source increment,0,rw
+GPDMA_C2CONTROL,27,1,DI,Destination increment,0,rw
+GPDMA_C2CONTROL,28,1,PROT1,This information is provided to the peripheral during a DMA bus access and indicates that the access is in user mode or privileged mode,0,rw
+GPDMA_C2CONTROL,29,1,PROT2,This information is provided to the peripheral during a DMA bus access and indicates to the peripheral that the access is bufferable or not bufferable,0,rw
+GPDMA_C2CONTROL,30,1,PROT3,This information is provided to the peripheral during a DMA bus access and indicates to the peripheral that the access is cacheable or not cacheable,0,rw
+GPDMA_C2CONTROL,31,1,I,Terminal count interrupt enable bit,0,rw
+GPDMA_C3CONTROL,0,12,TRANSFERSIZE,Transfer size in number of transfers,0x00,rw
+GPDMA_C3CONTROL,12,3,SBSIZE,Source burst size,0x0,rw
+GPDMA_C3CONTROL,15,3,DBSIZE,Destination burst size,0x0,rw
+GPDMA_C3CONTROL,18,3,SWIDTH,Source transfer width,0x0,rw
+GPDMA_C3CONTROL,21,3,DWIDTH,Destination transfer width,0x0,rw
+GPDMA_C3CONTROL,24,1,S,Source AHB master select,0,rw
+GPDMA_C3CONTROL,25,1,D,Destination AHB master select,0,rw
+GPDMA_C3CONTROL,26,1,SI,Source increment,0,rw
+GPDMA_C3CONTROL,27,1,DI,Destination increment,0,rw
+GPDMA_C3CONTROL,28,1,PROT1,This information is provided to the peripheral during a DMA bus access and indicates that the access is in user mode or privileged mode,0,rw
+GPDMA_C3CONTROL,29,1,PROT2,This information is provided to the peripheral during a DMA bus access and indicates to the peripheral that the access is bufferable or not bufferable,0,rw
+GPDMA_C3CONTROL,30,1,PROT3,This information is provided to the peripheral during a DMA bus access and indicates to the peripheral that the access is cacheable or not cacheable,0,rw
+GPDMA_C3CONTROL,31,1,I,Terminal count interrupt enable bit,0,rw
+GPDMA_C4CONTROL,0,12,TRANSFERSIZE,Transfer size in number of transfers,0x00,rw
+GPDMA_C4CONTROL,12,3,SBSIZE,Source burst size,0x0,rw
+GPDMA_C4CONTROL,15,3,DBSIZE,Destination burst size,0x0,rw
+GPDMA_C4CONTROL,18,3,SWIDTH,Source transfer width,0x0,rw
+GPDMA_C4CONTROL,21,3,DWIDTH,Destination transfer width,0x0,rw
+GPDMA_C4CONTROL,24,1,S,Source AHB master select,0,rw
+GPDMA_C4CONTROL,25,1,D,Destination AHB master select,0,rw
+GPDMA_C4CONTROL,26,1,SI,Source increment,0,rw
+GPDMA_C4CONTROL,27,1,DI,Destination increment,0,rw
+GPDMA_C4CONTROL,28,1,PROT1,This information is provided to the peripheral during a DMA bus access and indicates that the access is in user mode or privileged mode,0,rw
+GPDMA_C4CONTROL,29,1,PROT2,This information is provided to the peripheral during a DMA bus access and indicates to the peripheral that the access is bufferable or not bufferable,0,rw
+GPDMA_C4CONTROL,30,1,PROT3,This information is provided to the peripheral during a DMA bus access and indicates to the peripheral that the access is cacheable or not cacheable,0,rw
+GPDMA_C4CONTROL,31,1,I,Terminal count interrupt enable bit,0,rw
+GPDMA_C5CONTROL,0,12,TRANSFERSIZE,Transfer size in number of transfers,0x00,rw
+GPDMA_C5CONTROL,12,3,SBSIZE,Source burst size,0x0,rw
+GPDMA_C5CONTROL,15,3,DBSIZE,Destination burst size,0x0,rw
+GPDMA_C5CONTROL,18,3,SWIDTH,Source transfer width,0x0,rw
+GPDMA_C5CONTROL,21,3,DWIDTH,Destination transfer width,0x0,rw
+GPDMA_C5CONTROL,24,1,S,Source AHB master select,0,rw
+GPDMA_C5CONTROL,25,1,D,Destination AHB master select,0,rw
+GPDMA_C5CONTROL,26,1,SI,Source increment,0,rw
+GPDMA_C5CONTROL,27,1,DI,Destination increment,0,rw
+GPDMA_C5CONTROL,28,1,PROT1,This information is provided to the peripheral during a DMA bus access and indicates that the access is in user mode or privileged mode,0,rw
+GPDMA_C5CONTROL,29,1,PROT2,This information is provided to the peripheral during a DMA bus access and indicates to the peripheral that the access is bufferable or not bufferable,0,rw
+GPDMA_C5CONTROL,30,1,PROT3,This information is provided to the peripheral during a DMA bus access and indicates to the peripheral that the access is cacheable or not cacheable,0,rw
+GPDMA_C5CONTROL,31,1,I,Terminal count interrupt enable bit,0,rw
+GPDMA_C6CONTROL,0,12,TRANSFERSIZE,Transfer size in number of transfers,0x00,rw
+GPDMA_C6CONTROL,12,3,SBSIZE,Source burst size,0x0,rw
+GPDMA_C6CONTROL,15,3,DBSIZE,Destination burst size,0x0,rw
+GPDMA_C6CONTROL,18,3,SWIDTH,Source transfer width,0x0,rw
+GPDMA_C6CONTROL,21,3,DWIDTH,Destination transfer width,0x0,rw
+GPDMA_C6CONTROL,24,1,S,Source AHB master select,0,rw
+GPDMA_C6CONTROL,25,1,D,Destination AHB master select,0,rw
+GPDMA_C6CONTROL,26,1,SI,Source increment,0,rw
+GPDMA_C6CONTROL,27,1,DI,Destination increment,0,rw
+GPDMA_C6CONTROL,28,1,PROT1,This information is provided to the peripheral during a DMA bus access and indicates that the access is in user mode or privileged mode,0,rw
+GPDMA_C6CONTROL,29,1,PROT2,This information is provided to the peripheral during a DMA bus access and indicates to the peripheral that the access is bufferable or not bufferable,0,rw
+GPDMA_C6CONTROL,30,1,PROT3,This information is provided to the peripheral during a DMA bus access and indicates to the peripheral that the access is cacheable or not cacheable,0,rw
+GPDMA_C6CONTROL,31,1,I,Terminal count interrupt enable bit,0,rw
+GPDMA_C7CONTROL,0,12,TRANSFERSIZE,Transfer size in number of transfers,0x00,rw
+GPDMA_C7CONTROL,12,3,SBSIZE,Source burst size,0x0,rw
+GPDMA_C7CONTROL,15,3,DBSIZE,Destination burst size,0x0,rw
+GPDMA_C7CONTROL,18,3,SWIDTH,Source transfer width,0x0,rw
+GPDMA_C7CONTROL,21,3,DWIDTH,Destination transfer width,0x0,rw
+GPDMA_C7CONTROL,24,1,S,Source AHB master select,0,rw
+GPDMA_C7CONTROL,25,1,D,Destination AHB master select,0,rw
+GPDMA_C7CONTROL,26,1,SI,Source increment,0,rw
+GPDMA_C7CONTROL,27,1,DI,Destination increment,0,rw
+GPDMA_C7CONTROL,28,1,PROT1,This information is provided to the peripheral during a DMA bus access and indicates that the access is in user mode or privileged mode,0,rw
+GPDMA_C7CONTROL,29,1,PROT2,This information is provided to the peripheral during a DMA bus access and indicates to the peripheral that the access is bufferable or not bufferable,0,rw
+GPDMA_C7CONTROL,30,1,PROT3,This information is provided to the peripheral during a DMA bus access and indicates to the peripheral that the access is cacheable or not cacheable,0,rw
+GPDMA_C7CONTROL,31,1,I,Terminal count interrupt enable bit,0,rw
+GPDMA_C0CONFIG,0,1,E,Channel enable,0,rw
+GPDMA_C0CONFIG,1,5,SRCPERIPHERAL,Source peripheral,,rw
+GPDMA_C0CONFIG,6,5,DESTPERIPHERAL,Destination peripheral,,rw
+GPDMA_C0CONFIG,11,3,FLOWCNTRL,Flow control and transfer type,,rw
+GPDMA_C0CONFIG,14,1,IE,Interrupt error mask,,rw
+GPDMA_C0CONFIG,15,1,ITC,Terminal count interrupt mask,,rw
+GPDMA_C0CONFIG,16,1,L,Lock,,rw
+GPDMA_C0CONFIG,17,1,A,Active,,r
+GPDMA_C0CONFIG,18,1,H,Halt,,rw
+GPDMA_C1CONFIG,0,1,E,Channel enable,0,rw
+GPDMA_C1CONFIG,1,5,SRCPERIPHERAL,Source peripheral,,rw
+GPDMA_C1CONFIG,6,5,DESTPERIPHERAL,Destination peripheral,,rw
+GPDMA_C1CONFIG,11,3,FLOWCNTRL,Flow control and transfer type,,rw
+GPDMA_C1CONFIG,14,1,IE,Interrupt error mask,,rw
+GPDMA_C1CONFIG,15,1,ITC,Terminal count interrupt mask,,rw
+GPDMA_C1CONFIG,16,1,L,Lock,,rw
+GPDMA_C1CONFIG,17,1,A,Active,,r
+GPDMA_C1CONFIG,18,1,H,Halt,,rw
+GPDMA_C2CONFIG,0,1,E,Channel enable,0,rw
+GPDMA_C2CONFIG,1,5,SRCPERIPHERAL,Source peripheral,,rw
+GPDMA_C2CONFIG,6,5,DESTPERIPHERAL,Destination peripheral,,rw
+GPDMA_C2CONFIG,11,3,FLOWCNTRL,Flow control and transfer type,,rw
+GPDMA_C2CONFIG,14,1,IE,Interrupt error mask,,rw
+GPDMA_C2CONFIG,15,1,ITC,Terminal count interrupt mask,,rw
+GPDMA_C2CONFIG,16,1,L,Lock,,rw
+GPDMA_C2CONFIG,17,1,A,Active,,r
+GPDMA_C2CONFIG,18,1,H,Halt,,rw
+GPDMA_C3CONFIG,0,1,E,Channel enable,0,rw
+GPDMA_C3CONFIG,1,5,SRCPERIPHERAL,Source peripheral,,rw
+GPDMA_C3CONFIG,6,5,DESTPERIPHERAL,Destination peripheral,,rw
+GPDMA_C3CONFIG,11,3,FLOWCNTRL,Flow control and transfer type,,rw
+GPDMA_C3CONFIG,14,1,IE,Interrupt error mask,,rw
+GPDMA_C3CONFIG,15,1,ITC,Terminal count interrupt mask,,rw
+GPDMA_C3CONFIG,16,1,L,Lock,,rw
+GPDMA_C3CONFIG,17,1,A,Active,,r
+GPDMA_C3CONFIG,18,1,H,Halt,,rw
+GPDMA_C4CONFIG,0,1,E,Channel enable,0,rw
+GPDMA_C4CONFIG,1,5,SRCPERIPHERAL,Source peripheral,,rw
+GPDMA_C4CONFIG,6,5,DESTPERIPHERAL,Destination peripheral,,rw
+GPDMA_C4CONFIG,11,3,FLOWCNTRL,Flow control and transfer type,,rw
+GPDMA_C4CONFIG,14,1,IE,Interrupt error mask,,rw
+GPDMA_C4CONFIG,15,1,ITC,Terminal count interrupt mask,,rw
+GPDMA_C4CONFIG,16,1,L,Lock,,rw
+GPDMA_C4CONFIG,17,1,A,Active,,r
+GPDMA_C4CONFIG,18,1,H,Halt,,rw
+GPDMA_C5CONFIG,0,1,E,Channel enable,0,rw
+GPDMA_C5CONFIG,1,5,SRCPERIPHERAL,Source peripheral,,rw
+GPDMA_C5CONFIG,6,5,DESTPERIPHERAL,Destination peripheral,,rw
+GPDMA_C5CONFIG,11,3,FLOWCNTRL,Flow control and transfer type,,rw
+GPDMA_C5CONFIG,14,1,IE,Interrupt error mask,,rw
+GPDMA_C5CONFIG,15,1,ITC,Terminal count interrupt mask,,rw
+GPDMA_C5CONFIG,16,1,L,Lock,,rw
+GPDMA_C5CONFIG,17,1,A,Active,,r
+GPDMA_C5CONFIG,18,1,H,Halt,,rw
+GPDMA_C6CONFIG,0,1,E,Channel enable,0,rw
+GPDMA_C6CONFIG,1,5,SRCPERIPHERAL,Source peripheral,,rw
+GPDMA_C6CONFIG,6,5,DESTPERIPHERAL,Destination peripheral,,rw
+GPDMA_C6CONFIG,11,3,FLOWCNTRL,Flow control and transfer type,,rw
+GPDMA_C6CONFIG,14,1,IE,Interrupt error mask,,rw
+GPDMA_C6CONFIG,15,1,ITC,Terminal count interrupt mask,,rw
+GPDMA_C6CONFIG,16,1,L,Lock,,rw
+GPDMA_C6CONFIG,17,1,A,Active,,r
+GPDMA_C6CONFIG,18,1,H,Halt,,rw
+GPDMA_C7CONFIG,0,1,E,Channel enable,0,rw
+GPDMA_C7CONFIG,1,5,SRCPERIPHERAL,Source peripheral,,rw
+GPDMA_C7CONFIG,6,5,DESTPERIPHERAL,Destination peripheral,,rw
+GPDMA_C7CONFIG,11,3,FLOWCNTRL,Flow control and transfer type,,rw
+GPDMA_C7CONFIG,14,1,IE,Interrupt error mask,,rw
+GPDMA_C7CONFIG,15,1,ITC,Terminal count interrupt mask,,rw
+GPDMA_C7CONFIG,16,1,L,Lock,,rw
+GPDMA_C7CONFIG,17,1,A,Active,,r
+GPDMA_C7CONFIG,18,1,H,Halt,,rw
