@@ -10,6 +10,7 @@ CGU_PLL0USB_STAT,1,1,FR,PLL0 free running indicator,0,r
 CGU_PLL0USB_CTRL,0,1,PD,PLL0 power down,1,rw
 CGU_PLL0USB_CTRL,1,1,BYPASS,Input clock bypass control,1,rw
 CGU_PLL0USB_CTRL,2,1,DIRECTI,PLL0 direct input,0,rw
+CGU_PLL0USB_CTRL,3,1,DIRECTO,PLL0 direct output,0,rw
 CGU_PLL0USB_CTRL,4,1,CLKEN,PLL0 clock enable,0,rw
 CGU_PLL0USB_CTRL,6,1,FRM,Free running mode,0,rw
 CGU_PLL0USB_CTRL,11,1,AUTOBLOCK,Block clock automatically during frequency change,0,rw
