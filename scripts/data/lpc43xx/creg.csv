@@ -1,0 +1,47 @@
+CREG_CREG0,0,1,EN1KHZ,Enable 1 kHz output,0,rw
+CREG_CREG0,1,1,EN32KHZ,Enable 32 kHz output,0,rw
+CREG_CREG0,2,1,RESET32KHZ,32 kHz oscillator reset,1,rw
+CREG_CREG0,3,1,PD32KHZ,32 kHz power control,1,rw
+CREG_CREG0,5,1,USB0PHY,USB0 PHY power control,1,rw
+CREG_CREG0,6,2,ALARMCTRL,RTC_ALARM pin output control,0,rw
+CREG_CREG0,8,2,BODLVL1,BOD trip level to generate an interrupt,0x3,rw
+CREG_CREG0,10,2,BODLVL2,BOD trip level to generate a reset,0x3,rw
+CREG_CREG0,12,2,SAMPLECTRL,SAMPLE pin input/output control,0,rw
+CREG_CREG0,14,2,WAKEUP0CTRL,WAKEUP0 pin input/output control,0,rw
+CREG_CREG0,16,2,WAKEUP1CTRL,WAKEUP1 pin input/output control,0,rw
+CREG_M4MEMMAP,12,20,M4MAP,Shadow address when accessing memory at address 0x00000000,0x10400000,rw
+CREG_CREG5,6,1,M4TAPSEL,JTAG debug select for M4 core,1,rw
+CREG_CREG5,9,1,M0APPTAPSEL,JTAG debug select for M0 co-processor,1,rw
+CREG_DMAMUX,0,2,DMAMUXPER0,Select DMA to peripheral connection for DMA peripheral 0,0,rw
+CREG_DMAMUX,2,2,DMAMUXPER1,Select DMA to peripheral connection for DMA peripheral 1,0,rw
+CREG_DMAMUX,4,2,DMAMUXPER2,Select DMA to peripheral connection for DMA peripheral 2,0,rw
+CREG_DMAMUX,6,2,DMAMUXPER3,Select DMA to peripheral connection for DMA peripheral 3,0,rw
+CREG_DMAMUX,8,2,DMAMUXPER4,Select DMA to peripheral connection for DMA peripheral 4,0,rw
+CREG_DMAMUX,10,2,DMAMUXPER5,Select DMA to peripheral connection for DMA peripheral 5,0,rw
+CREG_DMAMUX,12,2,DMAMUXPER6,Select DMA to peripheral connection for DMA peripheral 6,0,rw
+CREG_DMAMUX,14,2,DMAMUXPER7,Select DMA to peripheral connection for DMA peripheral 7,0,rw
+CREG_DMAMUX,16,2,DMAMUXPER8,Select DMA to peripheral connection for DMA peripheral 8,0,rw
+CREG_DMAMUX,18,2,DMAMUXPER9,Select DMA to peripheral connection for DMA peripheral 9,0,rw
+CREG_DMAMUX,20,2,DMAMUXPER10,Select DMA to peripheral connection for DMA peripheral 10,0,rw
+CREG_DMAMUX,22,2,DMAMUXPER11,Select DMA to peripheral connection for DMA peripheral 11,0,rw
+CREG_DMAMUX,24,2,DMAMUXPER12,Select DMA to peripheral connection for DMA peripheral 12,0,rw
+CREG_DMAMUX,26,2,DMAMUXPER13,Select DMA to peripheral connection for DMA peripheral 13,0,rw
+CREG_DMAMUX,28,2,DMAMUXPER14,Select DMA to peripheral connection for DMA peripheral 14,0,rw
+CREG_DMAMUX,30,2,DMAMUXPER15,Select DMA to peripheral connection for DMA peripheral 15,0,rw
+CREG_FLASHCFGA,12,4,FLASHTIM,Flash access time. The value of this field plus 1 gives the number of BASE_M4_CLK clocks used for a flash access,,rw
+CREG_FLASHCFGA,31,1,POW,Flash bank A power control,1,rw
+CREG_FLASHCFGB,12,4,FLASHTIM,Flash access time. The value of this field plus 1 gives the number of BASE_M4_CLK clocks used for a flash access,,rw
+CREG_FLASHCFGB,31,1,POW,Flash bank B power control,1,rw
+CREG_ETBCFG,0,1,ETB,Select SRAM interface,1,rw
+CREG_CREG6,0,3,ETHMODE,Selects the Ethernet mode. Reset the ethernet after changing the PHY interface,,rw
+CREG_CREG6,4,1,CTOUTCTRL,Selects the functionality of the SCT outputs,0,rw
+CREG_CREG6,12,1,I2S0_TX_SCK_IN_SEL,I2S0_TX_SCK input select,0,rw
+CREG_CREG6,13,1,I2S0_RX_SCK_IN_SEL,I2S0_RX_SCK input select,0,rw
+CREG_CREG6,14,1,I2S1_TX_SCK_IN_SEL,I2S1_TX_SCK input select,0,rw
+CREG_CREG6,15,1,I2S1_RX_SCK_IN_SEL,I2S1_RX_SCK input select,0,rw
+CREG_CREG6,16,1,EMC_CLK_SEL,EMC_CLK divided clock select,0,rw
+CREG_M4TXEVENT,0,1,TXEVCLR,Cortex-M4 TXEV event,0,rw
+CREG_M0TXEVENT,0,1,TXEVCLR,Cortex-M0 TXEV event,0,rw
+CREG_M0APPMEMMAP,12,20,M0APPMAP,Shadow address when accessing memory at address 0x00000000,0x20000000,rw
+CREG_USB0FLADJ,0,6,FLTV,Frame length timing value,0x20,rw
+CREG_USB1FLADJ,0,6,FLTV,Frame length timing value,0x20,rw
