@@ -132,23 +132,27 @@
 /* Endpoint complete */
 #define USB0_ENDPTCOMPLETE              MMIO32(USB0_BASE + 0x1BC)
 
+/* Endpoint control */
+#define USB0_ENDPTCTRL(logical_ep)      MMIO32(USB0_BASE + 0x1C0 + (logical_ep * 4))
+
 /* Endpoint control 0 */
-#define USB0_ENDPTCTRL0                 MMIO32(USB0_BASE + 0x1C0)
+#define USB0_ENDPTCTRL0                 USB0_ENDPTCTRL(0)
 
 /* Endpoint control 1 */
-#define USB0_ENDPTCTRL1                 MMIO32(USB0_BASE + 0x1C4)
+#define USB0_ENDPTCTRL1                 USB0_ENDPTCTRL(1)
 
 /* Endpoint control 2 */
-#define USB0_ENDPTCTRL2                 MMIO32(USB0_BASE + 0x1C8)
+#define USB0_ENDPTCTRL2                 USB0_ENDPTCTRL(2)
 
 /* Endpoint control 3 */
-#define USB0_ENDPTCTRL3                 MMIO32(USB0_BASE + 0x1CC)
+#define USB0_ENDPTCTRL3                 USB0_ENDPTCTRL(3)
 
 /* Endpoint control 4 */
-#define USB0_ENDPTCTRL4                 MMIO32(USB0_BASE + 0x1D0)
+#define USB0_ENDPTCTRL4                 USB0_ENDPTCTRL(4)
 
 /* Endpoint control 5 */
-#define USB0_ENDPTCTRL5                 MMIO32(USB0_BASE + 0x1D4)
+#define USB0_ENDPTCTRL5                 USB0_ENDPTCTRL(5)
+
 /* --- USB0_CAPLENGTH values ------------------------------------ */
 
 /* CAPLENGTH: Indicates offset to add to the register base address at the beginning of the Operational Register */
