@@ -19,3 +19,5 @@ The access field may consist of any of the following codes:
 	rws: read/write one to set
 	w:   write only
 	ws:  write one to set
+
+Descriptions containing commas are quoted.
