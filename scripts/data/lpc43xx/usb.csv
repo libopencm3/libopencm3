@@ -154,7 +154,7 @@ USB0_USBMODE_H,0,2,CM,Controller mode,0,rwo
 USB0_USBMODE_H,2,1,ES,Endian select,0,rw
 USB0_USBMODE_H,4,1,SDIS,Stream disable mode,0,rw
 USB0_USBMODE_H,5,1,VBPS,VBUS power select,0,rwo
-USB0_ENDPTSETUPSTAT,0,6,ENDPSETUPSTAT,Setup endpoint status for logical endpoints 0 to 5,0,rwc
+USB0_ENDPTSETUPSTAT,0,6,ENDPTSETUPSTAT,Setup endpoint status for logical endpoints 0 to 5,0,rwc
 USB0_ENDPTPRIME,0,6,PERB,Prime endpoint receive buffer for physical OUT endpoints 5 to 0,0,rws
 USB0_ENDPTPRIME,16,6,PETB,Prime endpoint transmit buffer for physical IN endpoints 5 to 0,0,rws
 USB0_ENDPTFLUSH,0,6,FERB,Flush endpoint receive buffer for physical OUT endpoints 5 to 0,0,rwc
