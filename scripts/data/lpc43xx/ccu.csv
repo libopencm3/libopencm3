@@ -1,0 +1,359 @@
+CCU1_PM,0,1,PD,Initiate power-down mode,0,rw
+CCU1_BASE_STAT,0,1,BASE_APB3_CLK_IND,Base clock indicator for BASE_APB3_CLK,1,r
+CCU1_BASE_STAT,1,1,BASE_APB1_CLK_IND,Base clock indicator for BASE_APB1_CLK,1,r
+CCU1_BASE_STAT,2,1,BASE_SPIFI_CLK_IND,Base clock indicator for BASE_SPIFI_CLK,1,r
+CCU1_BASE_STAT,3,1,BASE_M4_CLK_IND,Base clock indicator for BASE_M4_CLK,1,r
+CCU1_BASE_STAT,6,1,BASE_PERIPH_CLK_IND,Base clock indicator for BASE_PERIPH_CLK,1,r
+CCU1_BASE_STAT,7,1,BASE_USB0_CLK_IND,Base clock indicator for BASE_USB0_CLK,1,r
+CCU1_BASE_STAT,8,1,BASE_USB1_CLK_IND,Base clock indicator for BASE_USB1_CLK,1,r
+CCU1_BASE_STAT,9,1,BASE_SPI_CLK_IND,Base clock indicator for BASE_SPI_CLK,1,r
+CCU1_CLK_APB3_BUS_CFG,0,1,RUN,Run enable,1,rw
+CCU1_CLK_APB3_BUS_CFG,1,1,AUTO,Auto (AHB disable mechanism) enable,0,rw
+CCU1_CLK_APB3_BUS_CFG,2,1,WAKEUP,Wake-up mechanism enable,0,rw
+CCU1_CLK_APB3_BUS_STAT,0,1,RUN,Run enable status,1,r
+CCU1_CLK_APB3_BUS_STAT,1,1,AUTO,Auto (AHB disable mechanism) enable status,0,r
+CCU1_CLK_APB3_BUS_STAT,2,1,WAKEUP,Wake-up mechanism enable status,0,r
+CCU1_CLK_APB3_I2C1_CFG,0,1,RUN,Run enable,1,rw
+CCU1_CLK_APB3_I2C1_CFG,1,1,AUTO,Auto (AHB disable mechanism) enable,0,rw
+CCU1_CLK_APB3_I2C1_CFG,2,1,WAKEUP,Wake-up mechanism enable,0,rw
+CCU1_CLK_APB3_I2C1_STAT,0,1,RUN,Run enable status,1,r
+CCU1_CLK_APB3_I2C1_STAT,1,1,AUTO,Auto (AHB disable mechanism) enable status,0,r
+CCU1_CLK_APB3_I2C1_STAT,2,1,WAKEUP,Wake-up mechanism enable status,0,r
+CCU1_CLK_APB3_DAC_CFG,0,1,RUN,Run enable,1,rw
+CCU1_CLK_APB3_DAC_CFG,1,1,AUTO,Auto (AHB disable mechanism) enable,0,rw
+CCU1_CLK_APB3_DAC_CFG,2,1,WAKEUP,Wake-up mechanism enable,0,rw
+CCU1_CLK_APB3_DAC_STAT,0,1,RUN,Run enable status,1,r
+CCU1_CLK_APB3_DAC_STAT,1,1,AUTO,Auto (AHB disable mechanism) enable status,0,r
+CCU1_CLK_APB3_DAC_STAT,2,1,WAKEUP,Wake-up mechanism enable status,0,r
+CCU1_CLK_APB3_ADC0_CFG,0,1,RUN,Run enable,1,rw
+CCU1_CLK_APB3_ADC0_CFG,1,1,AUTO,Auto (AHB disable mechanism) enable,0,rw
+CCU1_CLK_APB3_ADC0_CFG,2,1,WAKEUP,Wake-up mechanism enable,0,rw
+CCU1_CLK_APB3_ADC0_STAT,0,1,RUN,Run enable status,1,r
+CCU1_CLK_APB3_ADC0_STAT,1,1,AUTO,Auto (AHB disable mechanism) enable status,0,r
+CCU1_CLK_APB3_ADC0_STAT,2,1,WAKEUP,Wake-up mechanism enable status,0,r
+CCU1_CLK_APB3_ADC1_CFG,0,1,RUN,Run enable,1,rw
+CCU1_CLK_APB3_ADC1_CFG,1,1,AUTO,Auto (AHB disable mechanism) enable,0,rw
+CCU1_CLK_APB3_ADC1_CFG,2,1,WAKEUP,Wake-up mechanism enable,0,rw
+CCU1_CLK_APB3_ADC1_STAT,0,1,RUN,Run enable status,1,r
+CCU1_CLK_APB3_ADC1_STAT,1,1,AUTO,Auto (AHB disable mechanism) enable status,0,r
+CCU1_CLK_APB3_ADC1_STAT,2,1,WAKEUP,Wake-up mechanism enable status,0,r
+CCU1_CLK_APB3_CAN0_CFG,0,1,RUN,Run enable,1,rw
+CCU1_CLK_APB3_CAN0_CFG,1,1,AUTO,Auto (AHB disable mechanism) enable,0,rw
+CCU1_CLK_APB3_CAN0_CFG,2,1,WAKEUP,Wake-up mechanism enable,0,rw
+CCU1_CLK_APB3_CAN0_STAT,0,1,RUN,Run enable status,1,r
+CCU1_CLK_APB3_CAN0_STAT,1,1,AUTO,Auto (AHB disable mechanism) enable status,0,r
+CCU1_CLK_APB3_CAN0_STAT,2,1,WAKEUP,Wake-up mechanism enable status,0,r
+CCU1_CLK_APB1_BUS_CFG,0,1,RUN,Run enable,1,rw
+CCU1_CLK_APB1_BUS_CFG,1,1,AUTO,Auto (AHB disable mechanism) enable,0,rw
+CCU1_CLK_APB1_BUS_CFG,2,1,WAKEUP,Wake-up mechanism enable,0,rw
+CCU1_CLK_APB1_BUS_STAT,0,1,RUN,Run enable status,1,r
+CCU1_CLK_APB1_BUS_STAT,1,1,AUTO,Auto (AHB disable mechanism) enable status,0,r
+CCU1_CLK_APB1_BUS_STAT,2,1,WAKEUP,Wake-up mechanism enable status,0,r
+CCU1_CLK_APB1_MOTOCONPWM_CFG,0,1,RUN,Run enable,1,rw
+CCU1_CLK_APB1_MOTOCONPWM_CFG,1,1,AUTO,Auto (AHB disable mechanism) enable,0,rw
+CCU1_CLK_APB1_MOTOCONPWM_CFG,2,1,WAKEUP,Wake-up mechanism enable,0,rw
+CCU1_CLK_APB1_MOTOCONPWM_STAT,0,1,RUN,Run enable status,1,r
+CCU1_CLK_APB1_MOTOCONPWM_STAT,1,1,AUTO,Auto (AHB disable mechanism) enable status,0,r
+CCU1_CLK_APB1_MOTOCONPWM_STAT,2,1,WAKEUP,Wake-up mechanism enable status,0,r
+CCU1_CLK_APB1_I2C0_CFG,0,1,RUN,Run enable,1,rw
+CCU1_CLK_APB1_I2C0_CFG,1,1,AUTO,Auto (AHB disable mechanism) enable,0,rw
+CCU1_CLK_APB1_I2C0_CFG,2,1,WAKEUP,Wake-up mechanism enable,0,rw
+CCU1_CLK_APB1_I2C0_STAT,0,1,RUN,Run enable status,1,r
+CCU1_CLK_APB1_I2C0_STAT,1,1,AUTO,Auto (AHB disable mechanism) enable status,0,r
+CCU1_CLK_APB1_I2C0_STAT,2,1,WAKEUP,Wake-up mechanism enable status,0,r
+CCU1_CLK_APB1_I2S_CFG,0,1,RUN,Run enable,1,rw
+CCU1_CLK_APB1_I2S_CFG,1,1,AUTO,Auto (AHB disable mechanism) enable,0,rw
+CCU1_CLK_APB1_I2S_CFG,2,1,WAKEUP,Wake-up mechanism enable,0,rw
+CCU1_CLK_APB1_I2S_STAT,0,1,RUN,Run enable status,1,r
+CCU1_CLK_APB1_I2S_STAT,1,1,AUTO,Auto (AHB disable mechanism) enable status,0,r
+CCU1_CLK_APB1_I2S_STAT,2,1,WAKEUP,Wake-up mechanism enable status,0,r
+CCU1_CLK_APB1_CAN1_CFG,0,1,RUN,Run enable,1,rw
+CCU1_CLK_APB1_CAN1_CFG,1,1,AUTO,Auto (AHB disable mechanism) enable,0,rw
+CCU1_CLK_APB1_CAN1_CFG,2,1,WAKEUP,Wake-up mechanism enable,0,rw
+CCU1_CLK_APB1_CAN1_STAT,0,1,RUN,Run enable status,1,r
+CCU1_CLK_APB1_CAN1_STAT,1,1,AUTO,Auto (AHB disable mechanism) enable status,0,r
+CCU1_CLK_APB1_CAN1_STAT,2,1,WAKEUP,Wake-up mechanism enable status,0,r
+CCU1_CLK_SPIFI_CFG,0,1,RUN,Run enable,1,rw
+CCU1_CLK_SPIFI_CFG,1,1,AUTO,Auto (AHB disable mechanism) enable,0,rw
+CCU1_CLK_SPIFI_CFG,2,1,WAKEUP,Wake-up mechanism enable,0,rw
+CCU1_CLK_SPIFI_STAT,0,1,RUN,Run enable status,1,r
+CCU1_CLK_SPIFI_STAT,1,1,AUTO,Auto (AHB disable mechanism) enable status,0,r
+CCU1_CLK_SPIFI_STAT,2,1,WAKEUP,Wake-up mechanism enable status,0,r
+CCU1_CLK_M4_BUS_CFG,0,1,RUN,Run enable,1,rw
+CCU1_CLK_M4_BUS_CFG,1,1,AUTO,Auto (AHB disable mechanism) enable,0,rw
+CCU1_CLK_M4_BUS_CFG,2,1,WAKEUP,Wake-up mechanism enable,0,rw
+CCU1_CLK_M4_BUS_STAT,0,1,RUN,Run enable status,1,r
+CCU1_CLK_M4_BUS_STAT,1,1,AUTO,Auto (AHB disable mechanism) enable status,0,r
+CCU1_CLK_M4_BUS_STAT,2,1,WAKEUP,Wake-up mechanism enable status,0,r
+CCU1_CLK_M4_SPIFI_CFG,0,1,RUN,Run enable,1,rw
+CCU1_CLK_M4_SPIFI_CFG,1,1,AUTO,Auto (AHB disable mechanism) enable,0,rw
+CCU1_CLK_M4_SPIFI_CFG,2,1,WAKEUP,Wake-up mechanism enable,0,rw
+CCU1_CLK_M4_SPIFI_STAT,0,1,RUN,Run enable status,1,r
+CCU1_CLK_M4_SPIFI_STAT,1,1,AUTO,Auto (AHB disable mechanism) enable status,0,r
+CCU1_CLK_M4_SPIFI_STAT,2,1,WAKEUP,Wake-up mechanism enable status,0,r
+CCU1_CLK_M4_GPIO_CFG,0,1,RUN,Run enable,1,rw
+CCU1_CLK_M4_GPIO_CFG,1,1,AUTO,Auto (AHB disable mechanism) enable,0,rw
+CCU1_CLK_M4_GPIO_CFG,2,1,WAKEUP,Wake-up mechanism enable,0,rw
+CCU1_CLK_M4_GPIO_STAT,0,1,RUN,Run enable status,1,r
+CCU1_CLK_M4_GPIO_STAT,1,1,AUTO,Auto (AHB disable mechanism) enable status,0,r
+CCU1_CLK_M4_GPIO_STAT,2,1,WAKEUP,Wake-up mechanism enable status,0,r
+CCU1_CLK_M4_LCD_CFG,0,1,RUN,Run enable,1,rw
+CCU1_CLK_M4_LCD_CFG,1,1,AUTO,Auto (AHB disable mechanism) enable,0,rw
+CCU1_CLK_M4_LCD_CFG,2,1,WAKEUP,Wake-up mechanism enable,0,rw
+CCU1_CLK_M4_LCD_STAT,0,1,RUN,Run enable status,1,r
+CCU1_CLK_M4_LCD_STAT,1,1,AUTO,Auto (AHB disable mechanism) enable status,0,r
+CCU1_CLK_M4_LCD_STAT,2,1,WAKEUP,Wake-up mechanism enable status,0,r
+CCU1_CLK_M4_ETHERNET_CFG,0,1,RUN,Run enable,1,rw
+CCU1_CLK_M4_ETHERNET_CFG,1,1,AUTO,Auto (AHB disable mechanism) enable,0,rw
+CCU1_CLK_M4_ETHERNET_CFG,2,1,WAKEUP,Wake-up mechanism enable,0,rw
+CCU1_CLK_M4_ETHERNET_STAT,0,1,RUN,Run enable status,1,r
+CCU1_CLK_M4_ETHERNET_STAT,1,1,AUTO,Auto (AHB disable mechanism) enable status,0,r
+CCU1_CLK_M4_ETHERNET_STAT,2,1,WAKEUP,Wake-up mechanism enable status,0,r
+CCU1_CLK_M4_USB0_CFG,0,1,RUN,Run enable,1,rw
+CCU1_CLK_M4_USB0_CFG,1,1,AUTO,Auto (AHB disable mechanism) enable,0,rw
+CCU1_CLK_M4_USB0_CFG,2,1,WAKEUP,Wake-up mechanism enable,0,rw
+CCU1_CLK_M4_USB0_STAT,0,1,RUN,Run enable status,1,r
+CCU1_CLK_M4_USB0_STAT,1,1,AUTO,Auto (AHB disable mechanism) enable status,0,r
+CCU1_CLK_M4_USB0_STAT,2,1,WAKEUP,Wake-up mechanism enable status,0,r
+CCU1_CLK_M4_EMC_CFG,0,1,RUN,Run enable,1,rw
+CCU1_CLK_M4_EMC_CFG,1,1,AUTO,Auto (AHB disable mechanism) enable,0,rw
+CCU1_CLK_M4_EMC_CFG,2,1,WAKEUP,Wake-up mechanism enable,0,rw
+CCU1_CLK_M4_EMC_STAT,0,1,RUN,Run enable status,1,r
+CCU1_CLK_M4_EMC_STAT,1,1,AUTO,Auto (AHB disable mechanism) enable status,0,r
+CCU1_CLK_M4_EMC_STAT,2,1,WAKEUP,Wake-up mechanism enable status,0,r
+CCU1_CLK_M4_SDIO_CFG,0,1,RUN,Run enable,1,rw
+CCU1_CLK_M4_SDIO_CFG,1,1,AUTO,Auto (AHB disable mechanism) enable,0,rw
+CCU1_CLK_M4_SDIO_CFG,2,1,WAKEUP,Wake-up mechanism enable,0,rw
+CCU1_CLK_M4_SDIO_STAT,0,1,RUN,Run enable status,1,r
+CCU1_CLK_M4_SDIO_STAT,1,1,AUTO,Auto (AHB disable mechanism) enable status,0,r
+CCU1_CLK_M4_SDIO_STAT,2,1,WAKEUP,Wake-up mechanism enable status,0,r
+CCU1_CLK_M4_DMA_CFG,0,1,RUN,Run enable,1,rw
+CCU1_CLK_M4_DMA_CFG,1,1,AUTO,Auto (AHB disable mechanism) enable,0,rw
+CCU1_CLK_M4_DMA_CFG,2,1,WAKEUP,Wake-up mechanism enable,0,rw
+CCU1_CLK_M4_DMA_STAT,0,1,RUN,Run enable status,1,r
+CCU1_CLK_M4_DMA_STAT,1,1,AUTO,Auto (AHB disable mechanism) enable status,0,r
+CCU1_CLK_M4_DMA_STAT,2,1,WAKEUP,Wake-up mechanism enable status,0,r
+CCU1_CLK_M4_M4CORE_CFG,0,1,RUN,Run enable,1,rw
+CCU1_CLK_M4_M4CORE_CFG,1,1,AUTO,Auto (AHB disable mechanism) enable,0,rw
+CCU1_CLK_M4_M4CORE_CFG,2,1,WAKEUP,Wake-up mechanism enable,0,rw
+CCU1_CLK_M4_M4CORE_STAT,0,1,RUN,Run enable status,1,r
+CCU1_CLK_M4_M4CORE_STAT,1,1,AUTO,Auto (AHB disable mechanism) enable status,0,r
+CCU1_CLK_M4_M4CORE_STAT,2,1,WAKEUP,Wake-up mechanism enable status,0,r
+CCU1_CLK_M4_SCT_CFG,0,1,RUN,Run enable,1,rw
+CCU1_CLK_M4_SCT_CFG,1,1,AUTO,Auto (AHB disable mechanism) enable,0,rw
+CCU1_CLK_M4_SCT_CFG,2,1,WAKEUP,Wake-up mechanism enable,0,rw
+CCU1_CLK_M4_SCT_STAT,0,1,RUN,Run enable status,1,r
+CCU1_CLK_M4_SCT_STAT,1,1,AUTO,Auto (AHB disable mechanism) enable status,0,r
+CCU1_CLK_M4_SCT_STAT,2,1,WAKEUP,Wake-up mechanism enable status,0,r
+CCU1_CLK_M4_USB1_CFG,0,1,RUN,Run enable,1,rw
+CCU1_CLK_M4_USB1_CFG,1,1,AUTO,Auto (AHB disable mechanism) enable,0,rw
+CCU1_CLK_M4_USB1_CFG,2,1,WAKEUP,Wake-up mechanism enable,0,rw
+CCU1_CLK_M4_USB1_STAT,0,1,RUN,Run enable status,1,r
+CCU1_CLK_M4_USB1_STAT,1,1,AUTO,Auto (AHB disable mechanism) enable status,0,r
+CCU1_CLK_M4_USB1_STAT,2,1,WAKEUP,Wake-up mechanism enable status,0,r
+CCU1_CLK_M4_EMCDIV_CFG,0,1,RUN,Run enable,1,rw
+CCU1_CLK_M4_EMCDIV_CFG,1,1,AUTO,Auto (AHB disable mechanism) enable,0,rw
+CCU1_CLK_M4_EMCDIV_CFG,2,1,WAKEUP,Wake-up mechanism enable,0,rw
+CCU1_CLK_M4_EMCDIV_CFG,5,3,DIV,Clock divider value,0,rw
+CCU1_CLK_M4_EMCDIV_STAT,0,1,RUN,Run enable status,1,r
+CCU1_CLK_M4_EMCDIV_STAT,1,1,AUTO,Auto (AHB disable mechanism) enable status,0,r
+CCU1_CLK_M4_EMCDIV_STAT,2,1,WAKEUP,Wake-up mechanism enable status,0,r
+CCU1_CLK_M4_M0APP_CFG,0,1,RUN,Run enable,1,rw
+CCU1_CLK_M4_M0APP_CFG,1,1,AUTO,Auto (AHB disable mechanism) enable,0,rw
+CCU1_CLK_M4_M0APP_CFG,2,1,WAKEUP,Wake-up mechanism enable,0,rw
+CCU1_CLK_M4_M0APP_STAT,0,1,RUN,Run enable status,1,r
+CCU1_CLK_M4_M0APP_STAT,1,1,AUTO,Auto (AHB disable mechanism) enable status,0,r
+CCU1_CLK_M4_M0APP_STAT,2,1,WAKEUP,Wake-up mechanism enable status,0,r
+CCU1_CLK_M4_VADC_CFG,0,1,RUN,Run enable,1,rw
+CCU1_CLK_M4_VADC_CFG,1,1,AUTO,Auto (AHB disable mechanism) enable,0,rw
+CCU1_CLK_M4_VADC_CFG,2,1,WAKEUP,Wake-up mechanism enable,0,rw
+CCU1_CLK_M4_VADC_STAT,0,1,RUN,Run enable status,1,r
+CCU1_CLK_M4_VADC_STAT,1,1,AUTO,Auto (AHB disable mechanism) enable status,0,r
+CCU1_CLK_M4_VADC_STAT,2,1,WAKEUP,Wake-up mechanism enable status,0,r
+CCU1_CLK_M4_WWDT_CFG,0,1,RUN,Run enable,1,rw
+CCU1_CLK_M4_WWDT_CFG,1,1,AUTO,Auto (AHB disable mechanism) enable,0,rw
+CCU1_CLK_M4_WWDT_CFG,2,1,WAKEUP,Wake-up mechanism enable,0,rw
+CCU1_CLK_M4_WWDT_STAT,0,1,RUN,Run enable status,1,r
+CCU1_CLK_M4_WWDT_STAT,1,1,AUTO,Auto (AHB disable mechanism) enable status,0,r
+CCU1_CLK_M4_WWDT_STAT,2,1,WAKEUP,Wake-up mechanism enable status,0,r
+CCU1_CLK_M4_USART0_CFG,0,1,RUN,Run enable,1,rw
+CCU1_CLK_M4_USART0_CFG,1,1,AUTO,Auto (AHB disable mechanism) enable,0,rw
+CCU1_CLK_M4_USART0_CFG,2,1,WAKEUP,Wake-up mechanism enable,0,rw
+CCU1_CLK_M4_USART0_STAT,0,1,RUN,Run enable status,1,r
+CCU1_CLK_M4_USART0_STAT,1,1,AUTO,Auto (AHB disable mechanism) enable status,0,r
+CCU1_CLK_M4_USART0_STAT,2,1,WAKEUP,Wake-up mechanism enable status,0,r
+CCU1_CLK_M4_UART1_CFG,0,1,RUN,Run enable,1,rw
+CCU1_CLK_M4_UART1_CFG,1,1,AUTO,Auto (AHB disable mechanism) enable,0,rw
+CCU1_CLK_M4_UART1_CFG,2,1,WAKEUP,Wake-up mechanism enable,0,rw
+CCU1_CLK_M4_UART1_STAT,0,1,RUN,Run enable status,1,r
+CCU1_CLK_M4_UART1_STAT,1,1,AUTO,Auto (AHB disable mechanism) enable status,0,r
+CCU1_CLK_M4_UART1_STAT,2,1,WAKEUP,Wake-up mechanism enable status,0,r
+CCU1_CLK_M4_SSP0_CFG,0,1,RUN,Run enable,1,rw
+CCU1_CLK_M4_SSP0_CFG,1,1,AUTO,Auto (AHB disable mechanism) enable,0,rw
+CCU1_CLK_M4_SSP0_CFG,2,1,WAKEUP,Wake-up mechanism enable,0,rw
+CCU1_CLK_M4_SSP0_STAT,0,1,RUN,Run enable status,1,r
+CCU1_CLK_M4_SSP0_STAT,1,1,AUTO,Auto (AHB disable mechanism) enable status,0,r
+CCU1_CLK_M4_SSP0_STAT,2,1,WAKEUP,Wake-up mechanism enable status,0,r
+CCU1_CLK_M4_TIMER0_CFG,0,1,RUN,Run enable,1,rw
+CCU1_CLK_M4_TIMER0_CFG,1,1,AUTO,Auto (AHB disable mechanism) enable,0,rw
+CCU1_CLK_M4_TIMER0_CFG,2,1,WAKEUP,Wake-up mechanism enable,0,rw
+CCU1_CLK_M4_TIMER0_STAT,0,1,RUN,Run enable status,1,r
+CCU1_CLK_M4_TIMER0_STAT,1,1,AUTO,Auto (AHB disable mechanism) enable status,0,r
+CCU1_CLK_M4_TIMER0_STAT,2,1,WAKEUP,Wake-up mechanism enable status,0,r
+CCU1_CLK_M4_TIMER1_CFG,0,1,RUN,Run enable,1,rw
+CCU1_CLK_M4_TIMER1_CFG,1,1,AUTO,Auto (AHB disable mechanism) enable,0,rw
+CCU1_CLK_M4_TIMER1_CFG,2,1,WAKEUP,Wake-up mechanism enable,0,rw
+CCU1_CLK_M4_TIMER1_STAT,0,1,RUN,Run enable status,1,r
+CCU1_CLK_M4_TIMER1_STAT,1,1,AUTO,Auto (AHB disable mechanism) enable status,0,r
+CCU1_CLK_M4_TIMER1_STAT,2,1,WAKEUP,Wake-up mechanism enable status,0,r
+CCU1_CLK_M4_SCU_CFG,0,1,RUN,Run enable,1,rw
+CCU1_CLK_M4_SCU_CFG,1,1,AUTO,Auto (AHB disable mechanism) enable,0,rw
+CCU1_CLK_M4_SCU_CFG,2,1,WAKEUP,Wake-up mechanism enable,0,rw
+CCU1_CLK_M4_SCU_STAT,0,1,RUN,Run enable status,1,r
+CCU1_CLK_M4_SCU_STAT,1,1,AUTO,Auto (AHB disable mechanism) enable status,0,r
+CCU1_CLK_M4_SCU_STAT,2,1,WAKEUP,Wake-up mechanism enable status,0,r
+CCU1_CLK_M4_CREG_CFG,0,1,RUN,Run enable,1,rw
+CCU1_CLK_M4_CREG_CFG,1,1,AUTO,Auto (AHB disable mechanism) enable,0,rw
+CCU1_CLK_M4_CREG_CFG,2,1,WAKEUP,Wake-up mechanism enable,0,rw
+CCU1_CLK_M4_CREG_STAT,0,1,RUN,Run enable status,1,r
+CCU1_CLK_M4_CREG_STAT,1,1,AUTO,Auto (AHB disable mechanism) enable status,0,r
+CCU1_CLK_M4_CREG_STAT,2,1,WAKEUP,Wake-up mechanism enable status,0,r
+CCU1_CLK_M4_RITIMER_CFG,0,1,RUN,Run enable,1,rw
+CCU1_CLK_M4_RITIMER_CFG,1,1,AUTO,Auto (AHB disable mechanism) enable,0,rw
+CCU1_CLK_M4_RITIMER_CFG,2,1,WAKEUP,Wake-up mechanism enable,0,rw
+CCU1_CLK_M4_RITIMER_STAT,0,1,RUN,Run enable status,1,r
+CCU1_CLK_M4_RITIMER_STAT,1,1,AUTO,Auto (AHB disable mechanism) enable status,0,r
+CCU1_CLK_M4_RITIMER_STAT,2,1,WAKEUP,Wake-up mechanism enable status,0,r
+CCU1_CLK_M4_USART2_CFG,0,1,RUN,Run enable,1,rw
+CCU1_CLK_M4_USART2_CFG,1,1,AUTO,Auto (AHB disable mechanism) enable,0,rw
+CCU1_CLK_M4_USART2_CFG,2,1,WAKEUP,Wake-up mechanism enable,0,rw
+CCU1_CLK_M4_USART2_STAT,0,1,RUN,Run enable status,1,r
+CCU1_CLK_M4_USART2_STAT,1,1,AUTO,Auto (AHB disable mechanism) enable status,0,r
+CCU1_CLK_M4_USART2_STAT,2,1,WAKEUP,Wake-up mechanism enable status,0,r
+CCU1_CLK_M4_USART3_CFG,0,1,RUN,Run enable,1,rw
+CCU1_CLK_M4_USART3_CFG,1,1,AUTO,Auto (AHB disable mechanism) enable,0,rw
+CCU1_CLK_M4_USART3_CFG,2,1,WAKEUP,Wake-up mechanism enable,0,rw
+CCU1_CLK_M4_USART3_STAT,0,1,RUN,Run enable status,1,r
+CCU1_CLK_M4_USART3_STAT,1,1,AUTO,Auto (AHB disable mechanism) enable status,0,r
+CCU1_CLK_M4_USART3_STAT,2,1,WAKEUP,Wake-up mechanism enable status,0,r
+CCU1_CLK_M4_TIMER2_CFG,0,1,RUN,Run enable,1,rw
+CCU1_CLK_M4_TIMER2_CFG,1,1,AUTO,Auto (AHB disable mechanism) enable,0,rw
+CCU1_CLK_M4_TIMER2_CFG,2,1,WAKEUP,Wake-up mechanism enable,0,rw
+CCU1_CLK_M4_TIMER2_STAT,0,1,RUN,Run enable status,1,r
+CCU1_CLK_M4_TIMER2_STAT,1,1,AUTO,Auto (AHB disable mechanism) enable status,0,r
+CCU1_CLK_M4_TIMER2_STAT,2,1,WAKEUP,Wake-up mechanism enable status,0,r
+CCU1_CLK_M4_TIMER3_CFG,0,1,RUN,Run enable,1,rw
+CCU1_CLK_M4_TIMER3_CFG,1,1,AUTO,Auto (AHB disable mechanism) enable,0,rw
+CCU1_CLK_M4_TIMER3_CFG,2,1,WAKEUP,Wake-up mechanism enable,0,rw
+CCU1_CLK_M4_TIMER3_STAT,0,1,RUN,Run enable status,1,r
+CCU1_CLK_M4_TIMER3_STAT,1,1,AUTO,Auto (AHB disable mechanism) enable status,0,r
+CCU1_CLK_M4_TIMER3_STAT,2,1,WAKEUP,Wake-up mechanism enable status,0,r
+CCU1_CLK_M4_SSP1_CFG,0,1,RUN,Run enable,1,rw
+CCU1_CLK_M4_SSP1_CFG,1,1,AUTO,Auto (AHB disable mechanism) enable,0,rw
+CCU1_CLK_M4_SSP1_CFG,2,1,WAKEUP,Wake-up mechanism enable,0,rw
+CCU1_CLK_M4_SSP1_STAT,0,1,RUN,Run enable status,1,r
+CCU1_CLK_M4_SSP1_STAT,1,1,AUTO,Auto (AHB disable mechanism) enable status,0,r
+CCU1_CLK_M4_SSP1_STAT,2,1,WAKEUP,Wake-up mechanism enable status,0,r
+CCU1_CLK_M4_QEI_CFG,0,1,RUN,Run enable,1,rw
+CCU1_CLK_M4_QEI_CFG,1,1,AUTO,Auto (AHB disable mechanism) enable,0,rw
+CCU1_CLK_M4_QEI_CFG,2,1,WAKEUP,Wake-up mechanism enable,0,rw
+CCU1_CLK_M4_QEI_STAT,0,1,RUN,Run enable status,1,r
+CCU1_CLK_M4_QEI_STAT,1,1,AUTO,Auto (AHB disable mechanism) enable status,0,r
+CCU1_CLK_M4_QEI_STAT,2,1,WAKEUP,Wake-up mechanism enable status,0,r
+CCU1_CLK_PERIPH_BUS_CFG,0,1,RUN,Run enable,1,rw
+CCU1_CLK_PERIPH_BUS_CFG,1,1,AUTO,Auto (AHB disable mechanism) enable,0,rw
+CCU1_CLK_PERIPH_BUS_CFG,2,1,WAKEUP,Wake-up mechanism enable,0,rw
+CCU1_CLK_PERIPH_BUS_STAT,0,1,RUN,Run enable status,1,r
+CCU1_CLK_PERIPH_BUS_STAT,1,1,AUTO,Auto (AHB disable mechanism) enable status,0,r
+CCU1_CLK_PERIPH_BUS_STAT,2,1,WAKEUP,Wake-up mechanism enable status,0,r
+CCU1_CLK_PERIPH_CORE_CFG,0,1,RUN,Run enable,1,rw
+CCU1_CLK_PERIPH_CORE_CFG,1,1,AUTO,Auto (AHB disable mechanism) enable,0,rw
+CCU1_CLK_PERIPH_CORE_CFG,2,1,WAKEUP,Wake-up mechanism enable,0,rw
+CCU1_CLK_PERIPH_CORE_STAT,0,1,RUN,Run enable status,1,r
+CCU1_CLK_PERIPH_CORE_STAT,1,1,AUTO,Auto (AHB disable mechanism) enable status,0,r
+CCU1_CLK_PERIPH_CORE_STAT,2,1,WAKEUP,Wake-up mechanism enable status,0,r
+CCU1_CLK_PERIPH_SGPIO_CFG,0,1,RUN,Run enable,1,rw
+CCU1_CLK_PERIPH_SGPIO_CFG,1,1,AUTO,Auto (AHB disable mechanism) enable,0,rw
+CCU1_CLK_PERIPH_SGPIO_CFG,2,1,WAKEUP,Wake-up mechanism enable,0,rw
+CCU1_CLK_PERIPH_SGPIO_STAT,0,1,RUN,Run enable status,1,r
+CCU1_CLK_PERIPH_SGPIO_STAT,1,1,AUTO,Auto (AHB disable mechanism) enable status,0,r
+CCU1_CLK_PERIPH_SGPIO_STAT,2,1,WAKEUP,Wake-up mechanism enable status,0,r
+CCU1_CLK_USB0_CFG,0,1,RUN,Run enable,1,rw
+CCU1_CLK_USB0_CFG,1,1,AUTO,Auto (AHB disable mechanism) enable,0,rw
+CCU1_CLK_USB0_CFG,2,1,WAKEUP,Wake-up mechanism enable,0,rw
+CCU1_CLK_USB0_STAT,0,1,RUN,Run enable status,1,r
+CCU1_CLK_USB0_STAT,1,1,AUTO,Auto (AHB disable mechanism) enable status,0,r
+CCU1_CLK_USB0_STAT,2,1,WAKEUP,Wake-up mechanism enable status,0,r
+CCU1_CLK_USB1_CFG,0,1,RUN,Run enable,1,rw
+CCU1_CLK_USB1_CFG,1,1,AUTO,Auto (AHB disable mechanism) enable,0,rw
+CCU1_CLK_USB1_CFG,2,1,WAKEUP,Wake-up mechanism enable,0,rw
+CCU1_CLK_USB1_STAT,0,1,RUN,Run enable status,1,r
+CCU1_CLK_USB1_STAT,1,1,AUTO,Auto (AHB disable mechanism) enable status,0,r
+CCU1_CLK_USB1_STAT,2,1,WAKEUP,Wake-up mechanism enable status,0,r
+CCU1_CLK_SPI_CFG,0,1,RUN,Run enable,1,rw
+CCU1_CLK_SPI_CFG,1,1,AUTO,Auto (AHB disable mechanism) enable,0,rw
+CCU1_CLK_SPI_CFG,2,1,WAKEUP,Wake-up mechanism enable,0,rw
+CCU1_CLK_SPI_STAT,0,1,RUN,Run enable status,1,r
+CCU1_CLK_SPI_STAT,1,1,AUTO,Auto (AHB disable mechanism) enable status,0,r
+CCU1_CLK_SPI_STAT,2,1,WAKEUP,Wake-up mechanism enable status,0,r
+CCU1_CLK_VADC_CFG,0,1,RUN,Run enable,1,rw
+CCU1_CLK_VADC_CFG,1,1,AUTO,Auto (AHB disable mechanism) enable,0,rw
+CCU1_CLK_VADC_CFG,2,1,WAKEUP,Wake-up mechanism enable,0,rw
+CCU1_CLK_VADC_STAT,0,1,RUN,Run enable status,1,r
+CCU1_CLK_VADC_STAT,1,1,AUTO,Auto (AHB disable mechanism) enable status,0,r
+CCU1_CLK_VADC_STAT,2,1,WAKEUP,Wake-up mechanism enable status,0,r
+CCU2_PM,0,1,PD,Initiate power-down mode,0,rw
+CCU2_BASE_STAT,1,1,BASE_UART3_CLK_IND,Base clock indicator for BASE_UART3_CLK,1,r
+CCU2_BASE_STAT,2,1,BASE_UART2_CLK_IND,Base clock indicator for BASE_UART2_CLK,1,r
+CCU2_BASE_STAT,3,1,BASE_UART1_CLK_IND,Base clock indicator for BASE_UART1_CLK,1,r
+CCU2_BASE_STAT,4,1,BASE_UART0_CLK_IND,Base clock indicator for BASE_UART0_CLK,1,r
+CCU2_BASE_STAT,5,1,BASE_SSP1_CLK_IND,Base clock indicator for BASE_SSP1_CLK,1,r
+CCU2_BASE_STAT,6,1,BASE_SSP0_CLK_IND,Base clock indicator for BASE_SSP0_CLK,1,r
+CCU2_CLK_APLL_CFG,0,1,RUN,Run enable,1,rw
+CCU2_CLK_APLL_CFG,1,1,AUTO,Auto (AHB disable mechanism) enable,0,rw
+CCU2_CLK_APLL_CFG,2,1,WAKEUP,Wake-up mechanism enable,0,rw
+CCU2_CLK_APLL_STAT,0,1,RUN,Run enable status,1,r
+CCU2_CLK_APLL_STAT,1,1,AUTO,Auto (AHB disable mechanism) enable status,0,r
+CCU2_CLK_APLL_STAT,2,1,WAKEUP,Wake-up mechanism enable status,0,r
+CCU2_CLK_APB2_USART3_CFG,0,1,RUN,Run enable,1,rw
+CCU2_CLK_APB2_USART3_CFG,1,1,AUTO,Auto (AHB disable mechanism) enable,0,rw
+CCU2_CLK_APB2_USART3_CFG,2,1,WAKEUP,Wake-up mechanism enable,0,rw
+CCU2_CLK_APB2_USART3_STAT,0,1,RUN,Run enable status,1,r
+CCU2_CLK_APB2_USART3_STAT,1,1,AUTO,Auto (AHB disable mechanism) enable status,0,r
+CCU2_CLK_APB2_USART3_STAT,2,1,WAKEUP,Wake-up mechanism enable status,0,r
+CCU2_CLK_APB2_USART2_CFG,0,1,RUN,Run enable,1,rw
+CCU2_CLK_APB2_USART2_CFG,1,1,AUTO,Auto (AHB disable mechanism) enable,0,rw
+CCU2_CLK_APB2_USART2_CFG,2,1,WAKEUP,Wake-up mechanism enable,0,rw
+CCU2_CLK_APB2_USART2_STAT,0,1,RUN,Run enable status,1,r
+CCU2_CLK_APB2_USART2_STAT,1,1,AUTO,Auto (AHB disable mechanism) enable status,0,r
+CCU2_CLK_APB2_USART2_STAT,2,1,WAKEUP,Wake-up mechanism enable status,0,r
+CCU2_CLK_APB0_UART1_CFG,0,1,RUN,Run enable,1,rw
+CCU2_CLK_APB0_UART1_CFG,1,1,AUTO,Auto (AHB disable mechanism) enable,0,rw
+CCU2_CLK_APB0_UART1_CFG,2,1,WAKEUP,Wake-up mechanism enable,0,rw
+CCU2_CLK_APB0_UART1_STAT,0,1,RUN,Run enable status,1,r
+CCU2_CLK_APB0_UART1_STAT,1,1,AUTO,Auto (AHB disable mechanism) enable status,0,r
+CCU2_CLK_APB0_UART1_STAT,2,1,WAKEUP,Wake-up mechanism enable status,0,r
+CCU2_CLK_APB0_USART0_CFG,0,1,RUN,Run enable,1,rw
+CCU2_CLK_APB0_USART0_CFG,1,1,AUTO,Auto (AHB disable mechanism) enable,0,rw
+CCU2_CLK_APB0_USART0_CFG,2,1,WAKEUP,Wake-up mechanism enable,0,rw
+CCU2_CLK_APB0_USART0_STAT,0,1,RUN,Run enable status,1,r
+CCU2_CLK_APB0_USART0_STAT,1,1,AUTO,Auto (AHB disable mechanism) enable status,0,r
+CCU2_CLK_APB0_USART0_STAT,2,1,WAKEUP,Wake-up mechanism enable status,0,r
+CCU2_CLK_APB2_SSP1_CFG,0,1,RUN,Run enable,1,rw
+CCU2_CLK_APB2_SSP1_CFG,1,1,AUTO,Auto (AHB disable mechanism) enable,0,rw
+CCU2_CLK_APB2_SSP1_CFG,2,1,WAKEUP,Wake-up mechanism enable,0,rw
+CCU2_CLK_APB2_SSP1_STAT,0,1,RUN,Run enable status,1,r
+CCU2_CLK_APB2_SSP1_STAT,1,1,AUTO,Auto (AHB disable mechanism) enable status,0,r
+CCU2_CLK_APB2_SSP1_STAT,2,1,WAKEUP,Wake-up mechanism enable status,0,r
+CCU2_CLK_APB0_SSP0_CFG,0,1,RUN,Run enable,1,rw
+CCU2_CLK_APB0_SSP0_CFG,1,1,AUTO,Auto (AHB disable mechanism) enable,0,rw
+CCU2_CLK_APB0_SSP0_CFG,2,1,WAKEUP,Wake-up mechanism enable,0,rw
+CCU2_CLK_APB0_SSP0_STAT,0,1,RUN,Run enable status,1,r
+CCU2_CLK_APB0_SSP0_STAT,1,1,AUTO,Auto (AHB disable mechanism) enable status,0,r
+CCU2_CLK_APB0_SSP0_STAT,2,1,WAKEUP,Wake-up mechanism enable status,0,r
+CCU2_CLK_SDIO_CFG,0,1,RUN,Run enable,1,rw
+CCU2_CLK_SDIO_CFG,1,1,AUTO,Auto (AHB disable mechanism) enable,0,rw
+CCU2_CLK_SDIO_CFG,2,1,WAKEUP,Wake-up mechanism enable,0,rw
+CCU2_CLK_SDIO_STAT,0,1,RUN,Run enable status,1,r
+CCU2_CLK_SDIO_STAT,1,1,AUTO,Auto (AHB disable mechanism) enable status,0,r
+CCU2_CLK_SDIO_STAT,2,1,WAKEUP,Wake-up mechanism enable status,0,r
