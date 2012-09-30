@@ -1,0 +1,8 @@
+ATIMER_DOWNCOUNTER,0,16,CVAL,When equal to zero an interrupt is raised,0,rw
+ATIMER_PRESET,0,16,PRESETVAL,Value loaded in DOWNCOUNTER when DOWNCOUNTER equals zero,0,rw
+ATIMER_CLR_EN,0,1,CLR_EN,Writing a 1 to this bit clears the interrupt enable bit in the ENABLE register,0,w
+ATIMER_SET_EN,0,1,SET_EN,Writing a 1 to this bit sets the interrupt enable bit in the ENABLE register,0,w
+ATIMER_STATUS,0,1,STAT,A 1 in this bit shows that the STATUS interrupt has been raised,0,r
+ATIMER_ENABLE,0,1,ENA,A 1 in this bit shows that the STATUS interrupt has been enabled and that the STATUS interrupt request signal is asserted when STAT = 1 in the STATUS register,0,r
+ATIMER_CLR_STAT,0,1,CSTAT,Writing a 1 to this bit clears the STATUS interrupt bit in the STATUS register,0,w
+ATIMER_SET_STAT,0,1,SSTAT,Writing a 1 to this bit sets the STATUS interrupt bit in the STATUS register,0,w
