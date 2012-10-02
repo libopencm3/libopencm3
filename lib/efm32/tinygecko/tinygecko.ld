@@ -57,6 +57,7 @@ SECTIONS
 		. = ALIGN(4);
 		_ebss = .;
 	} >ram AT >rom
+	_data_loadaddr = LOADADDR(.data);
 
 	/*
 	 * The .eh_frame section appears to be used for C++ exception handling.
