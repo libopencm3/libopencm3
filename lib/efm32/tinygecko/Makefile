@@ -30,7 +30,7 @@ CFLAGS		= -Os -g -Wall -Wextra -I../../../include -fno-common \
 		  -ffunction-sections -fdata-sections -MD -D$(FAMILY)
 # ARFLAGS	= rcsv
 ARFLAGS		= rcs
-OBJS		= vector.o devicerevision.o gpio.o
+OBJS		= vector.o
 
 VPATH += ../
 
