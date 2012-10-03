@@ -23,6 +23,8 @@
 #include <libopencm3/cm3/common.h>
 #include <libopencm3/lpc43xx/memorymap.h>
 
+#define BIT_MASK(base_name) (((1 << base_name##_WIDTH) - 1) << base_name##_SHIFT)
+#define BIT_ARG(base_name, x) ((x) << base_name##_SHIFT)
 /* --- USB0 registers ------------------------------------------------------ */
 
 /* Device/host capability registers */
