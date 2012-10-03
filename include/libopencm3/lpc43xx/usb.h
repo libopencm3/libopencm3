@@ -25,6 +25,81 @@
 
 #define BIT_MASK(base_name) (((1 << base_name##_WIDTH) - 1) << base_name##_SHIFT)
 #define BIT_ARG(base_name, x) ((x) << base_name##_SHIFT)
+
+/* USB device data structures */
+
+/* "The software must ensure that no interface data structure reachable
+ *  by the Device controller crosses a 4kB-page boundary."
+ */
+
+/* --- Endpoint Transfer Descriptor (dTD) ---------------------------------- */
+
+typedef struct usb_transfer_descriptor_t usb_transfer_descriptor_t;
+struct usb_transfer_descriptor_t {
+	volatile usb_transfer_descriptor_t* next_dtd_pointer;
+	volatile uint32_t total_bytes;
+	volatile uint32_t buffer_pointer_page[5];
+	volatile uint32_t _reserved;
+};
+
+#define USB_TD_NEXT_DTD_POINTER_TERMINATE_SHIFT (0)
+#define USB_TD_NEXT_DTD_POINTER_TERMINATE ((volatile usb_transfer_descriptor_t*)(1 << USB_TD_NEXT_DTD_POINTER_TERMINATE_SHIFT))
+
+#define USB_TD_DTD_TOKEN_TOTAL_BYTES_SHIFT (16)
+#define USB_TD_DTD_TOKEN_TOTAL_BYTES_WIDTH (15)
+#define USB_TD_DTD_TOKEN_TOTAL_BYTES_MASK BIT_MASK(USB_TD_DTD_TOKEN_TOTAL_BYTES)
+#define USB_TD_DTD_TOKEN_TOTAL_BYTES(x) BIT_ARG(USB_TD_DTD_TOKEN_TOTAL_BYTES, x)
+
+#define USB_TD_DTD_TOKEN_IOC_SHIFT (15)
+#define USB_TD_DTD_TOKEN_IOC (1 << USB_TD_DTD_TOKEN_IOC_SHIFT)
+
+#define USB_TD_DTD_TOKEN_MULTO_SHIFT (10)
+#define USB_TD_DTD_TOKEN_MULTO_WIDTH (2)
+#define USB_TD_DTD_TOKEN_MULTO_MASK BIT_MASK(USB_TD_DTD_TOKEN_MULTO)
+#define USB_TD_DTD_TOKEN_MULTO(x) BIT_ARG(USB_TD_DTD_TOKEN_MULTO, x)
+
+#define USB_TD_DTD_TOKEN_STATUS_ACTIVE_SHIFT (7)
+#define USB_TD_DTD_TOKEN_STATUS_ACTIVE (1 << USB_TD_DTD_TOKEN_STATUS_ACTIVE_SHIFT)
+
+#define USB_TD_DTD_TOKEN_STATUS_HALTED_SHIFT (6)
+#define USB_TD_DTD_TOKEN_STATUS_HALTED (1 << USB_TD_DTD_TOKEN_STATUS_HALTED_SHIFT)
+
+#define USB_TD_DTD_TOKEN_STATUS_BUFFER_ERROR_SHIFT (5)
+#define USB_TD_DTD_TOKEN_STATUS_BUFFER_ERROR (1 << USB_TD_DTD_TOKEN_STATUS_BUFFER_ERROR_SHIFT)
+
+#define USB_TD_DTD_TOKEN_STATUS_TRANSACTION_ERROR_SHIFT (3)
+#define USB_TD_DTD_TOKEN_STATUS_TRANSACTION_ERROR (1 << USB_TD_DTD_TOKEN_STATUS_TRANSACTION_ERROR_SHIFT)
+
+/* --- Endpoint Queue Head (dQH) ------------------------------------------- */
+
+/* - must be aligned on 64-byte boundaries. */
+typedef struct {
+	volatile uint32_t capabilities;
+	volatile usb_transfer_descriptor_t* current_dtd_pointer;
+	volatile usb_transfer_descriptor_t* next_dtd_pointer;
+	volatile uint32_t total_bytes;
+	volatile uint32_t buffer_pointer_page[5];
+	volatile uint32_t _reserved_0;
+	volatile uint8_t setup[8];
+	volatile uint32_t _reserved_1[4];
+} usb_queue_head_t;
+
+#define USB_QH_CAPABILITIES_IOS_SHIFT (15)
+#define USB_QH_CAPABILITIES_IOS (1 << USB_QH_CAPABILITIES_IOS_SHIFT)
+	
+#define USB_QH_CAPABILITIES_MPL_SHIFT (16)
+#define USB_QH_CAPABILITIES_MPL_WIDTH (11)
+#define USB_QH_CAPABILITIES_MPL_MASK BIT_MASK(USB_QH_CAPABILITIES_MPL)
+#define USB_QH_CAPABILITIES_MPL(x) BIT_ARG(USB_QH_CAPABILITIES_MPL, x)
+
+#define USB_QH_CAPABILITIES_ZLT_SHIFT (29)
+#define USB_QH_CAPABILITIES_ZLT (1 << USB_QH_CAPABILITIES_ZLT_SHIFT)
+
+#define USB_QH_CAPABILITIES_MULT_SHIFT (30)
+#define USB_QH_CAPABILITIES_MULT_WIDTH (2)
+#define USB_QH_CAPABILITIES_MULT_MASK BIT_MASK(USB_QH_CAPABILITIES_MULT)
+#define USB_QH_CAPABILITIES_MULT(x) BIT_ARG(USB_QH_CAPABILITIES_MULT, x)
+
 /* --- USB0 registers ------------------------------------------------------ */
 
 /* Device/host capability registers */
