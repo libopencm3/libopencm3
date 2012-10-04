@@ -41,7 +41,7 @@ static const struct usb_device_descriptor dev = {
 };
 
 /*
- * This notification endpoint isn't implemented. According to CDC spec its 
+ * This notification endpoint isn't implemented. According to CDC spec its
  * optional, but its absence causes a NULL pointer dereference in Linux
  * cdc_acm driver.
  */
@@ -83,7 +83,7 @@ static const struct {
 		.bcdCDC = 0x0110,
 	},
 	.call_mgmt = {
-		.bFunctionLength = 
+		.bFunctionLength =
 			sizeof(struct usb_cdc_call_management_descriptor),
 		.bDescriptorType = CS_INTERFACE,
 		.bDescriptorSubtype = USB_CDC_TYPE_CALL_MANAGEMENT,
@@ -101,7 +101,7 @@ static const struct {
 		.bDescriptorType = CS_INTERFACE,
 		.bDescriptorSubtype = USB_CDC_TYPE_UNION,
 		.bControlInterface = 0,
-		.bSubordinateInterface0 = 1, 
+		.bSubordinateInterface0 = 1,
 	 },
 };
 
@@ -164,11 +164,12 @@ static const char *usb_strings[] = {
 	"DEMO",
 };
 
-static int cdcacm_control_request(struct usb_setup_data *req, u8 **buf,
-		u16 *len, void (**complete)(struct usb_setup_data *req))
+static int cdcacm_control_request(usbd_device *usbd_dev, struct usb_setup_data *req, u8 **buf,
+		u16 *len, void (**complete)(usbd_device *usbd_dev, struct usb_setup_data *req))
 {
 	(void)complete;
 	(void)buf;
+	(void)usbd_dev;
 
 	switch (req->bRequest) {
 	case USB_CDC_REQ_SET_CONTROL_LINE_STATE: {
@@ -199,28 +200,31 @@ static int cdcacm_control_request(struct usb_setup_data *req, u8 **buf,
 	return 0;
 }
 
-static void cdcacm_data_rx_cb(u8 ep)
+static void cdcacm_data_rx_cb(usbd_device *usbd_dev, u8 ep)
 {
 	(void)ep;
+	(void)usbd_dev;
 
 	char buf[64];
-	int len = usbd_ep_read_packet(0x01, buf, 64);
+	int len = usbd_ep_read_packet(usbd_dev, 0x01, buf, 64);
 
 	if (len) {
-		usbd_ep_write_packet(0x82, buf, len);
+		usbd_ep_write_packet(usbd_dev, 0x82, buf, len);
 		buf[len] = 0;
 	}
 }
 
-static void cdcacm_set_config(u16 wValue)
+static void cdcacm_set_config(usbd_device *usbd_dev, u16 wValue)
 {
 	(void)wValue;
+	(void)usbd_dev;
 
-	usbd_ep_setup(0x01, USB_ENDPOINT_ATTR_BULK, 64, cdcacm_data_rx_cb);
-	usbd_ep_setup(0x82, USB_ENDPOINT_ATTR_BULK, 64, NULL);
-	usbd_ep_setup(0x83, USB_ENDPOINT_ATTR_INTERRUPT, 16, NULL);
+	usbd_ep_setup(usbd_dev, 0x01, USB_ENDPOINT_ATTR_BULK, 64, cdcacm_data_rx_cb);
+	usbd_ep_setup(usbd_dev, 0x82, USB_ENDPOINT_ATTR_BULK, 64, NULL);
+	usbd_ep_setup(usbd_dev, 0x83, USB_ENDPOINT_ATTR_INTERRUPT, 16, NULL);
 
 	usbd_register_control_callback(
+				usbd_dev,
 				USB_REQ_TYPE_CLASS | USB_REQ_TYPE_INTERFACE,
 				USB_REQ_TYPE_TYPE | USB_REQ_TYPE_RECIPIENT,
 				cdcacm_control_request);
@@ -230,6 +234,8 @@ int main(void)
 {
 	int i;
 
+	usbd_device *usbd_dev;
+
 	rcc_clock_setup_in_hsi_out_48mhz();
 
 	rcc_peripheral_enable_clock(&RCC_APB2ENR, RCC_APB2ENR_IOPCEN);
@@ -238,13 +244,13 @@ int main(void)
 	gpio_set_mode(GPIOC, GPIO_MODE_OUTPUT_2_MHZ,
 		      GPIO_CNF_OUTPUT_PUSHPULL, GPIO11);
 
-	usbd_init(&stm32f103_usb_driver, &dev, &config, usb_strings);
-	usbd_register_set_config_callback(cdcacm_set_config);
+	usbd_dev = usbd_init(&stm32f103_usb_driver, &dev, &config, usb_strings);
+	usbd_register_set_config_callback(usbd_dev, cdcacm_set_config);
 
 	for (i = 0; i < 0x800000; i++)
 		__asm__("nop");
 	gpio_clear(GPIOC, GPIO11);
 
 	while (1)
-		usbd_poll();
+		usbd_poll(usbd_dev);
 }
