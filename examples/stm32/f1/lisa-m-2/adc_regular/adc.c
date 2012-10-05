@@ -3,6 +3,7 @@
  *
  * Copyright (C) 2010 Thomas Otto <tommi@viadmin.org>
  * Copyright (C) 2012 Piotr Esden-Tempski <piotr@esden.net>
+ * Copyright (C) 2012 Ken Sarkies <ksarkies@internode.on.net>
  *
  * This library is free software: you can redistribute it and/or modify
  * it under the terms of the GNU Lesser General Public License as published by
@@ -71,14 +72,13 @@ void adc_setup(void)
 	/* We configure everything for one single conversion. */
 	adc_disable_scan_mode(ADC1);
 	adc_set_single_conversion_mode(ADC1);
-	adc_enable_discontinous_mode_regular(ADC1);
 	adc_disable_external_trigger_regular(ADC1);
 	adc_set_right_aligned(ADC1);
 	/* We want to read the temperature sensor, so we have to enable it. */
 	adc_enable_temperature_sensor(ADC1);
-	adc_set_conversion_time_on_all_channels(ADC1, ADC_SMPR_SMP_28DOT5CYC);
+	adc_set_sample_time_on_all_channels(ADC1, ADC_SMPR_SMP_28DOT5CYC);
 
-	adc_on(ADC1);
+	adc_power_on(ADC1);
 
 	/* Wait for ADC starting up. */
 	for (i = 0; i < 800000; i++)    /* Wait a bit. */
@@ -138,10 +138,9 @@ int main(void)
 	/* Continously convert and poll the temperature ADC. */
 	while (1) {
 		/*
-		 * If the ADC_CR2_ON bit is already set -> setting it another time
-		 * starts the conversion.
+		 * Start the conversion directly (ie without a trigger).
 		 */
-		adc_on(ADC1);
+		adc_start_conversion_direct(ADC1);
 
 		/* Wait for end of conversion. */
 		while (!(ADC_SR(ADC1) & ADC_SR_EOC));
