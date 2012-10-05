@@ -17,23 +17,9 @@
 ## along with this library.  If not, see <http://www.gnu.org/licenses/>.
 ##
 
-LIBNAME		= libopencm3_stm32f4
+BINARY = mandel
 
-PREFIX	?= arm-none-eabi
-# PREFIX		?= arm-elf
-CC		= $(PREFIX)-gcc
-AR		= $(PREFIX)-ar
-CFLAGS		= -Os -g -Wall -Wextra -I../../../include -fno-common \
-		  -mcpu=cortex-m4 -mthumb -mfloat-abi=hard -mfpu=fpv4-sp-d16 \
-		  -Wstrict-prototypes \
-		  -ffunction-sections -fdata-sections -MD -DSTM32F4
-# ARFLAGS	= rcsv
-ARFLAGS		= rcs
-OBJS		= vector.o rcc.o gpio.o usart.o spi.o flash.o nvic.o \
-		  i2c.o systick.o exti.o scb.o pwr.o timer.o \
-		  usb.o usb_standard.o usb_control.o usb_f107.o \
-		  assert.o
-
-VPATH += ../../usb:../:../../cm3
+LDSCRIPT = ../stm32f4-discovery.ld
 
 include ../../Makefile.include
+

@@ -1,0 +1,12 @@
+------------------------------------------------------------------------------
+README
+------------------------------------------------------------------------------
+
+This example program demonstrates the floating point coprocessor usage on
+the ST STM32F4DISCOVERY eval board.
+
+A mandelbrot fractal is calculated and sent as "ascii-art" image through
+the USART2.
+
+The terminal settings for the receiving device/PC are 38400 8n1.
+
