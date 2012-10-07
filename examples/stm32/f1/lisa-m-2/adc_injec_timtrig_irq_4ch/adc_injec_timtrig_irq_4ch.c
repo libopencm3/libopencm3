@@ -3,7 +3,7 @@
  *
  * Copyright (C) 2010 Thomas Otto <tommi@viadmin.org>
  * Copyright (C) 2012 Piotr Esden-Tempski <piotr@esden.net>
- * Copyright (C) 2012 Ken Sarkies <ksarkies@internode.on.net>
+ * Copyright (C) 2012 Stephen Dwyer <dwyer.sc@gmail.com>
  *
  * This library is free software: you can redistribute it and/or modify
  * it under the terms of the GNU Lesser General Public License as published by
@@ -24,6 +24,14 @@
 #include <libopencm3/stm32/f1/gpio.h>
 #include <libopencm3/stm32/f1/adc.h>
 #include <libopencm3/stm32/usart.h>
+#include <libopencm3/stm32/timer.h>
+#include <libopencm3/stm32/nvic.h>
+
+volatile u16 temperature = 0;
+volatile u16 v_refint = 0;
+volatile u16 lisam_adc1 = 0;
+volatile u16 lisam_adc2 = 0;
+u8 channel_array[4]; /* for injected sampling, 4 channels max, for regular, 16 max */
 
 void usart_setup(void)
 {
@@ -58,6 +66,42 @@ void gpio_setup(void)
 		      GPIO_CNF_OUTPUT_PUSHPULL, GPIO8);
 	gpio_set_mode(GPIOC, GPIO_MODE_OUTPUT_2_MHZ,
 		      GPIO_CNF_OUTPUT_PUSHPULL, GPIO15);
+
+	/* Setup Lisa/M v2 ADC1,2 on ANALOG1 connector */
+	gpio_set_mode(GPIOC, GPIO_MODE_INPUT, GPIO_CNF_INPUT_ANALOG,                                \
+					GPIO3 | GPIO0 );    
+}
+
+void timer_setup(void)
+{
+	/* Set up the timer TIM2 for injected sampling */
+	uint32_t timer;
+    volatile uint32_t *rcc_apbenr;
+    uint32_t rcc_apb;
+
+	timer   = TIM2;
+    rcc_apbenr = &RCC_APB1ENR;
+    rcc_apb = RCC_APB1ENR_TIM2EN;
+
+	rcc_peripheral_enable_clock(rcc_apbenr, rcc_apb);
+
+	/* Time Base configuration */
+    timer_reset(timer);
+    timer_set_mode(timer, TIM_CR1_CKD_CK_INT,
+	    TIM_CR1_CMS_EDGE, TIM_CR1_DIR_UP);
+    timer_set_period(timer, 0xFF);
+    timer_set_prescaler(timer, 0x8);
+    timer_set_clock_division(timer, 0x0);
+    /* Generate TRGO on every update. */
+    timer_set_master_mode(timer, TIM_CR2_MMS_UPDATE);
+    timer_enable_counter(timer);
+}
+
+void irq_setup(void)
+{
+	/* Enable the adc1_2_isr() routine */
+    nvic_set_priority(NVIC_ADC1_2_IRQ, 0);
+    nvic_enable_irq(NVIC_ADC1_2_IRQ);
 }
 
 void adc_setup(void)
@@ -69,14 +113,29 @@ void adc_setup(void)
 	/* Make sure the ADC doesn't run during config. */
 	adc_off(ADC1);
 
-	/* We configure everything for one single conversion. */
-	adc_disable_scan_mode(ADC1);
+	/* We configure everything for one single timer triggered injected conversion with interrupt generation. */
+	/* While not needed for a single channel, try out scan mode which does all channels in one sweep and
+	 * generates the interrupt/EOC/JEOC flags set at the end of all channels, not each one.
+	 */
+	adc_enable_scan_mode(ADC1);
 	adc_set_single_conversion_mode(ADC1);
-	adc_disable_external_trigger_regular(ADC1);
+	/* We want to start the injected conversion with the TIM2 TRGO */
+	adc_enable_external_trigger_injected(ADC1,ADC_CR2_JEXTSEL_TIM2_TRGO);
+	/* Generate the ADC1_2_IRQ */
+	adc_enable_eoc_interrupt_injected(ADC1);
 	adc_set_right_aligned(ADC1);
 	/* We want to read the temperature sensor, so we have to enable it. */
 	adc_enable_temperature_sensor(ADC1);
 	adc_set_sample_time_on_all_channels(ADC1, ADC_SMPR_SMP_28DOT5CYC);
+
+	/* Select the channels we want to convert.
+	 * 16=temperature_sensor, 17=Vrefint, 13=ADC1, 10=ADC2
+	 */
+	channel_array[0] = 16;
+	channel_array[1] = 17;
+	channel_array[2] = 13;
+	channel_array[3] = 10;
+	adc_set_injected_sequence(ADC1, 4, channel_array);
 
 	adc_power_on(ADC1);
 
@@ -85,7 +144,9 @@ void adc_setup(void)
 		__asm__("nop");
 
 	adc_reset_calibration(ADC1);
+	while ((ADC_CR2(ADC1) & ADC_CR2_RSTCAL) != 0); //added this check
 	adc_calibration(ADC1);
+	while ((ADC_CR2(ADC1) & ADC_CR2_CAL) != 0); //added this check
 }
 
 void my_usart_print_int(u32 usart, int value)
@@ -104,25 +165,25 @@ void my_usart_print_int(u32 usart, int value)
 		value /= 10;
 	}
 
-	for (i = nr_digits; i >= 0; i--) {
+	for (i = (nr_digits - 1); i >= 0; i--) {
 		usart_send_blocking(usart, buffer[i]);
 	}
 
-	usart_send_blocking(usart, '\r');
+	//usart_send_blocking(usart, '\r');
 }
 
 int main(void)
 {
-	u8 channel_array[16];
-	u16 temperature = 0;
 
 	rcc_clock_setup_in_hse_12mhz_out_72mhz();
 	gpio_setup();
 	usart_setup();
+	timer_setup();
+	irq_setup();
 	adc_setup();
 
-	gpio_set(GPIOA, GPIO8);	                /* LED1 on */
-	gpio_set(GPIOC, GPIO15);		/* LED2 off */
+	gpio_set(GPIOA, GPIO8);	                /* LED1 off */
+	gpio_set(GPIOC, GPIO15);		/* LED5 off */
 
 	/* Send a message on USART1. */
 	usart_send_blocking(USART2, 's');
@@ -131,31 +192,39 @@ int main(void)
 	usart_send_blocking(USART2, '\r');
 	usart_send_blocking(USART2, '\n');
 
-	/* Select the channel we want to convert. 16=temperature_sensor. */
-	channel_array[0] = 16;
-	adc_set_regular_sequence(ADC1, 1, channel_array);
+	/* Moved the channel selection and sequence init to adc_setup() */
 
 	/* Continously convert and poll the temperature ADC. */
 	while (1) {
 		/*
-		 * Start the conversion directly (ie without a trigger).
+		 * Since sampling is triggered by the timer and copying the values
+		 * out of the data registers is handled by the interrupt routine,
+		 * we just need to print the values and toggle the LED. It may be useful
+		 * to buffer the adc values in some cases.
 		 */
-		adc_start_conversion_direct(ADC1);
 
-		/* Wait for end of conversion. */
-		while (!(adc_eoc(ADC1)));
-
-		temperature = adc_read_regular(ADC1);
-
-		/*
-		 * That's actually not the real temperature - you have to compute it
-		 * as described in the datasheet.
-		 */
 		my_usart_print_int(USART2, temperature);
+		usart_send_blocking(USART2, ' ');
+		my_usart_print_int(USART2, v_refint);
+		usart_send_blocking(USART2, ' ');
+		my_usart_print_int(USART2, lisam_adc1);
+		usart_send_blocking(USART2, ' ');
+		my_usart_print_int(USART2, lisam_adc2);
+		usart_send_blocking(USART2, '\r');
 
 		gpio_toggle(GPIOA, GPIO8); /* LED2 on */
 
 	}
 
 	return 0;
+}
+
+void adc1_2_isr(void)
+{
+    /* Clear Injected End Of Conversion (JEOC) */
+    ADC_SR(ADC1) &= ~ADC_SR_JEOC;
+    temperature = adc_read_injected(ADC1,1);
+    v_refint = adc_read_injected(ADC1,2);
+    lisam_adc1 = adc_read_injected(ADC1,3);
+    lisam_adc2 = adc_read_injected(ADC1,4);
 }

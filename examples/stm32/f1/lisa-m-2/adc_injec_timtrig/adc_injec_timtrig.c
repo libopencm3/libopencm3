@@ -3,7 +3,7 @@
  *
  * Copyright (C) 2010 Thomas Otto <tommi@viadmin.org>
  * Copyright (C) 2012 Piotr Esden-Tempski <piotr@esden.net>
- * Copyright (C) 2012 Ken Sarkies <ksarkies@internode.on.net>
+ * Copyright (C) 2012 Stephen Dwyer <dwyer.sc@gmail.com>
  *
  * This library is free software: you can redistribute it and/or modify
  * it under the terms of the GNU Lesser General Public License as published by
@@ -24,6 +24,7 @@
 #include <libopencm3/stm32/f1/gpio.h>
 #include <libopencm3/stm32/f1/adc.h>
 #include <libopencm3/stm32/usart.h>
+#include <libopencm3/stm32/timer.h>
 
 void usart_setup(void)
 {
@@ -60,6 +61,31 @@ void gpio_setup(void)
 		      GPIO_CNF_OUTPUT_PUSHPULL, GPIO15);
 }
 
+void timer_setup(void)
+{
+	/* Set up the timer TIM2 for injected sampling */
+	uint32_t timer;
+    volatile uint32_t *rcc_apbenr;
+    uint32_t rcc_apb;
+
+	timer   = TIM2;
+    rcc_apbenr = &RCC_APB1ENR;
+    rcc_apb = RCC_APB1ENR_TIM2EN;
+
+	rcc_peripheral_enable_clock(rcc_apbenr, rcc_apb);
+
+	/* Time Base configuration */
+    timer_reset(timer);
+    timer_set_mode(timer, TIM_CR1_CKD_CK_INT,
+	    TIM_CR1_CMS_EDGE, TIM_CR1_DIR_UP);
+    timer_set_period(timer, 0xFF);
+    timer_set_prescaler(timer, 0x8);
+    timer_set_clock_division(timer, 0x0);
+    /* Generate TRGO on every update. */
+    timer_set_master_mode(timer, TIM_CR2_MMS_UPDATE);
+    timer_enable_counter(timer);
+}
+
 void adc_setup(void)
 {
 	int i;
@@ -69,10 +95,14 @@ void adc_setup(void)
 	/* Make sure the ADC doesn't run during config. */
 	adc_off(ADC1);
 
-	/* We configure everything for one single conversion. */
+	/* We configure everything for one single timer triggered injected conversion. */
 	adc_disable_scan_mode(ADC1);
 	adc_set_single_conversion_mode(ADC1);
-	adc_disable_external_trigger_regular(ADC1);
+	/* We can only use discontinuous mode on either the regular OR injected channels, not both */
+	adc_disable_discontinuous_mode_regular(ADC1);
+	adc_enable_discontinuous_mode_injected(ADC1);
+	/* We want to start the injected conversion with the TIM2 TRGO */
+	adc_enable_external_trigger_injected(ADC1,ADC_CR2_JEXTSEL_TIM2_TRGO);
 	adc_set_right_aligned(ADC1);
 	/* We want to read the temperature sensor, so we have to enable it. */
 	adc_enable_temperature_sensor(ADC1);
@@ -85,7 +115,9 @@ void adc_setup(void)
 		__asm__("nop");
 
 	adc_reset_calibration(ADC1);
+	while ((ADC_CR2(ADC1) & ADC_CR2_RSTCAL) != 0);
 	adc_calibration(ADC1);
+	while ((ADC_CR2(ADC1) & ADC_CR2_CAL) != 0);
 }
 
 void my_usart_print_int(u32 usart, int value)
@@ -104,7 +136,7 @@ void my_usart_print_int(u32 usart, int value)
 		value /= 10;
 	}
 
-	for (i = nr_digits; i >= 0; i--) {
+	for (i = (nr_digits - 1); i >= 0; i--) {
 		usart_send_blocking(usart, buffer[i]);
 	}
 
@@ -119,10 +151,11 @@ int main(void)
 	rcc_clock_setup_in_hse_12mhz_out_72mhz();
 	gpio_setup();
 	usart_setup();
+	timer_setup();
 	adc_setup();
 
 	gpio_set(GPIOA, GPIO8);	                /* LED1 on */
-	gpio_set(GPIOC, GPIO15);		/* LED2 off */
+	gpio_set(GPIOC, GPIO15);		/* LED2 on */
 
 	/* Send a message on USART1. */
 	usart_send_blocking(USART2, 's');
@@ -133,19 +166,20 @@ int main(void)
 
 	/* Select the channel we want to convert. 16=temperature_sensor. */
 	channel_array[0] = 16;
-	adc_set_regular_sequence(ADC1, 1, channel_array);
+	/* Set the injected sequence here, with number of channels */
+	adc_set_injected_sequence(ADC1, 1, channel_array);
 
 	/* Continously convert and poll the temperature ADC. */
 	while (1) {
 		/*
-		 * Start the conversion directly (ie without a trigger).
+		 * Since the injected sampling is triggered by the timer, it gets
+		 * updated automatically, we just need to periodically read out the value.
+		 * It would be better to check if the JEOC bit is set, and clear it following
+		 * so that you do not read the same value twice, especially for a slower
+		 * sampling rate.
 		 */
-		adc_start_conversion_direct(ADC1);
 
-		/* Wait for end of conversion. */
-		while (!(adc_eoc(ADC1)));
-
-		temperature = adc_read_regular(ADC1);
+		temperature = adc_read_injected(ADC1,1); //get the result from ADC_JDR1 on ADC1 (only bottom 16bits)
 
 		/*
 		 * That's actually not the real temperature - you have to compute it
