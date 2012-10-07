@@ -143,9 +143,9 @@ int main(void)
 		adc_start_conversion_direct(ADC1);
 
 		/* Wait for end of conversion. */
-		while (!(ADC_SR(ADC1) & ADC_SR_EOC));
+		while (!(adc_eoc(ADC1)));
 
-		temperature = ADC_DR(ADC1);
+		temperature = adc_read_regular(ADC1);
 
 		/*
 		 * That's actually not the real temperature - you have to compute it

@@ -99,16 +99,16 @@ void adc_setup(void)
 	adc_disable_scan_mode(ADC1);
 	adc_set_single_conversion_mode(ADC1);
 	/* We can only use discontinuous mode on either the regular OR injected channels, not both */
-	adc_disable_discontinous_mode_regular(ADC1);
-	adc_enable_discontinous_mode_injected(ADC1);
+	adc_disable_discontinuous_mode_regular(ADC1);
+	adc_enable_discontinuous_mode_injected(ADC1);
 	/* We want to start the injected conversion with the TIM2 TRGO */
 	adc_enable_external_trigger_injected(ADC1,ADC_CR2_JEXTSEL_TIM2_TRGO);
 	adc_set_right_aligned(ADC1);
 	/* We want to read the temperature sensor, so we have to enable it. */
 	adc_enable_temperature_sensor(ADC1);
-	adc_set_conversion_time_on_all_channels(ADC1, ADC_SMPR_SMP_28DOT5CYC);
+	adc_set_sample_time_on_all_channels(ADC1, ADC_SMPR_SMP_28DOT5CYC);
 
-	adc_on(ADC1);
+	adc_power_on(ADC1);
 
 	/* Wait for ADC starting up. */
 	for (i = 0; i < 800000; i++)    /* Wait a bit. */
@@ -179,7 +179,7 @@ int main(void)
 		 * sampling rate.
 		 */
 
-		temperature = ADC_JDR1(ADC1); //get the result from ADC_JDR1 on ADC1 (only bottom 16bits)
+		temperature = adc_read_injected(ADC1,1); //get the result from ADC_JDR1 on ADC1 (only bottom 16bits)
 
 		/*
 		 * That's actually not the real temperature - you have to compute it

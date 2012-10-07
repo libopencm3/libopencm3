@@ -122,11 +122,11 @@ void adc_setup(void)
 	/* We want to start the injected conversion with the TIM2 TRGO */
 	adc_enable_external_trigger_injected(ADC1,ADC_CR2_JEXTSEL_TIM2_TRGO);
 	/* Generate the ADC1_2_IRQ */
-	adc_enable_jeoc_interrupt(ADC1);
+	adc_enable_eoc_interrupt_injected(ADC1);
 	adc_set_right_aligned(ADC1);
 	/* We want to read the temperature sensor, so we have to enable it. */
 	adc_enable_temperature_sensor(ADC1);
-	adc_set_conversion_time_on_all_channels(ADC1, ADC_SMPR_SMP_28DOT5CYC);
+	adc_set_sample_time_on_all_channels(ADC1, ADC_SMPR_SMP_28DOT5CYC);
 
 	/* Select the channels we want to convert.
 	 * 16=temperature_sensor, 17=Vrefint, 13=ADC1, 10=ADC2
@@ -137,7 +137,7 @@ void adc_setup(void)
 	channel_array[3] = 10;
 	adc_set_injected_sequence(ADC1, 4, channel_array);
 
-	adc_on(ADC1);
+	adc_power_on(ADC1);
 
 	/* Wait for ADC starting up. */
 	for (i = 0; i < 800000; i++)    /* Wait a bit. */
@@ -223,8 +223,8 @@ void adc1_2_isr(void)
 {
     /* Clear Injected End Of Conversion (JEOC) */
     ADC_SR(ADC1) &= ~ADC_SR_JEOC;
-    temperature = ADC_JDR1(ADC1);
-    v_refint = ADC_JDR2(ADC1);
-    lisam_adc1 = ADC_JDR3(ADC1);
-    lisam_adc2 = ADC_JDR4(ADC1);
+    temperature = adc_read_injected(ADC1,1);
+    v_refint = adc_read_injected(ADC1,2);
+    lisam_adc1 = adc_read_injected(ADC1,3);
+    lisam_adc2 = adc_read_injected(ADC1,4);
 }
