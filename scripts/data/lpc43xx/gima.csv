@@ -1,0 +1,150 @@
+GIMA_CAP0_0_IN,0,1,INV,Invert input,0,rw
+GIMA_CAP0_0_IN,1,1,EDGE,Enable rising edge detection,0,rw
+GIMA_CAP0_0_IN,2,1,SYNCH,Enable synchronization,0,rw
+GIMA_CAP0_0_IN,3,1,PULSE,Enable single pulse generation,0,rw
+GIMA_CAP0_0_IN,4,4,SELECT,Select input,0,rw
+GIMA_CAP0_1_IN,0,1,INV,Invert input,0,rw
+GIMA_CAP0_1_IN,1,1,EDGE,Enable rising edge detection,0,rw
+GIMA_CAP0_1_IN,2,1,SYNCH,Enable synchronization,0,rw
+GIMA_CAP0_1_IN,3,1,PULSE,Enable single pulse generation,0,rw
+GIMA_CAP0_1_IN,4,4,SELECT,Select input,0,rw
+GIMA_CAP0_2_IN,0,1,INV,Invert input,0,rw
+GIMA_CAP0_2_IN,1,1,EDGE,Enable rising edge detection,0,rw
+GIMA_CAP0_2_IN,2,1,SYNCH,Enable synchronization,0,rw
+GIMA_CAP0_2_IN,3,1,PULSE,Enable single pulse generation,0,rw
+GIMA_CAP0_2_IN,4,4,SELECT,Select input,0,rw
+GIMA_CAP0_3_IN,0,1,INV,Invert input,0,rw
+GIMA_CAP0_3_IN,1,1,EDGE,Enable rising edge detection,0,rw
+GIMA_CAP0_3_IN,2,1,SYNCH,Enable synchronization,0,rw
+GIMA_CAP0_3_IN,3,1,PULSE,Enable single pulse generation,0,rw
+GIMA_CAP0_3_IN,4,4,SELECT,Select input,0,rw
+GIMA_CAP1_0_IN,0,1,INV,Invert input,0,rw
+GIMA_CAP1_0_IN,1,1,EDGE,Enable rising edge detection,0,rw
+GIMA_CAP1_0_IN,2,1,SYNCH,Enable synchronization,0,rw
+GIMA_CAP1_0_IN,3,1,PULSE,Enable single pulse generation,0,rw
+GIMA_CAP1_0_IN,4,4,SELECT,Select input,0,rw
+GIMA_CAP1_1_IN,0,1,INV,Invert input,0,rw
+GIMA_CAP1_1_IN,1,1,EDGE,Enable rising edge detection,0,rw
+GIMA_CAP1_1_IN,2,1,SYNCH,Enable synchronization,0,rw
+GIMA_CAP1_1_IN,3,1,PULSE,Enable single pulse generation,0,rw
+GIMA_CAP1_1_IN,4,4,SELECT,Select input,0,rw
+GIMA_CAP1_2_IN,0,1,INV,Invert input,0,rw
+GIMA_CAP1_2_IN,1,1,EDGE,Enable rising edge detection,0,rw
+GIMA_CAP1_2_IN,2,1,SYNCH,Enable synchronization,0,rw
+GIMA_CAP1_2_IN,3,1,PULSE,Enable single pulse generation,0,rw
+GIMA_CAP1_2_IN,4,4,SELECT,Select input,0,rw
+GIMA_CAP1_3_IN,0,1,INV,Invert input,0,rw
+GIMA_CAP1_3_IN,1,1,EDGE,Enable rising edge detection,0,rw
+GIMA_CAP1_3_IN,2,1,SYNCH,Enable synchronization,0,rw
+GIMA_CAP1_3_IN,3,1,PULSE,Enable single pulse generation,0,rw
+GIMA_CAP1_3_IN,4,4,SELECT,Select input,0,rw
+GIMA_CAP2_0_IN,0,1,INV,Invert input,0,rw
+GIMA_CAP2_0_IN,1,1,EDGE,Enable rising edge detection,0,rw
+GIMA_CAP2_0_IN,2,1,SYNCH,Enable synchronization,0,rw
+GIMA_CAP2_0_IN,3,1,PULSE,Enable single pulse generation,0,rw
+GIMA_CAP2_0_IN,4,4,SELECT,Select input,0,rw
+GIMA_CAP2_1_IN,0,1,INV,Invert input,0,rw
+GIMA_CAP2_1_IN,1,1,EDGE,Enable rising edge detection,0,rw
+GIMA_CAP2_1_IN,2,1,SYNCH,Enable synchronization,0,rw
+GIMA_CAP2_1_IN,3,1,PULSE,Enable single pulse generation,0,rw
+GIMA_CAP2_1_IN,4,4,SELECT,Select input,0,rw
+GIMA_CAP2_2_IN,0,1,INV,Invert input,0,rw
+GIMA_CAP2_2_IN,1,1,EDGE,Enable rising edge detection,0,rw
+GIMA_CAP2_2_IN,2,1,SYNCH,Enable synchronization,0,rw
+GIMA_CAP2_2_IN,3,1,PULSE,Enable single pulse generation,0,rw
+GIMA_CAP2_2_IN,4,4,SELECT,Select input,0,rw
+GIMA_CAP2_3_IN,0,1,INV,Invert input,0,rw
+GIMA_CAP2_3_IN,1,1,EDGE,Enable rising edge detection,0,rw
+GIMA_CAP2_3_IN,2,1,SYNCH,Enable synchronization,0,rw
+GIMA_CAP2_3_IN,3,1,PULSE,Enable single pulse generation,0,rw
+GIMA_CAP2_3_IN,4,4,SELECT,Select input,0,rw
+GIMA_CAP3_0_IN,0,1,INV,Invert input,0,rw
+GIMA_CAP3_0_IN,1,1,EDGE,Enable rising edge detection,0,rw
+GIMA_CAP3_0_IN,2,1,SYNCH,Enable synchronization,0,rw
+GIMA_CAP3_0_IN,3,1,PULSE,Enable single pulse generation,0,rw
+GIMA_CAP3_0_IN,4,4,SELECT,Select input,0,rw
+GIMA_CAP3_1_IN,0,1,INV,Invert input,0,rw
+GIMA_CAP3_1_IN,1,1,EDGE,Enable rising edge detection,0,rw
+GIMA_CAP3_1_IN,2,1,SYNCH,Enable synchronization,0,rw
+GIMA_CAP3_1_IN,3,1,PULSE,Enable single pulse generation,0,rw
+GIMA_CAP3_1_IN,4,4,SELECT,Select input,0,rw
+GIMA_CAP3_2_IN,0,1,INV,Invert input,0,rw
+GIMA_CAP3_2_IN,1,1,EDGE,Enable rising edge detection,0,rw
+GIMA_CAP3_2_IN,2,1,SYNCH,Enable synchronization,0,rw
+GIMA_CAP3_2_IN,3,1,PULSE,Enable single pulse generation,0,rw
+GIMA_CAP3_2_IN,4,4,SELECT,Select input,0,rw
+GIMA_CAP3_3_IN,0,1,INV,Invert input,0,rw
+GIMA_CAP3_3_IN,1,1,EDGE,Enable rising edge detection,0,rw
+GIMA_CAP3_3_IN,2,1,SYNCH,Enable synchronization,0,rw
+GIMA_CAP3_3_IN,3,1,PULSE,Enable single pulse generation,0,rw
+GIMA_CAP3_3_IN,4,4,SELECT,Select input,0,rw
+GIMA_CTIN_0_IN,0,1,INV,Invert input,0,rw
+GIMA_CTIN_0_IN,1,1,EDGE,Enable rising edge detection,0,rw
+GIMA_CTIN_0_IN,2,1,SYNCH,Enable synchronization,0,rw
+GIMA_CTIN_0_IN,3,1,PULSE,Enable single pulse generation,0,rw
+GIMA_CTIN_0_IN,4,4,SELECT,Select input,0,rw
+GIMA_CTIN_1_IN,0,1,INV,Invert input,0,rw
+GIMA_CTIN_1_IN,1,1,EDGE,Enable rising edge detection,0,rw
+GIMA_CTIN_1_IN,2,1,SYNCH,Enable synchronization,0,rw
+GIMA_CTIN_1_IN,3,1,PULSE,Enable single pulse generation,0,rw
+GIMA_CTIN_1_IN,4,4,SELECT,Select input,0,rw
+GIMA_CTIN_2_IN,0,1,INV,Invert input,0,rw
+GIMA_CTIN_2_IN,1,1,EDGE,Enable rising edge detection,0,rw
+GIMA_CTIN_2_IN,2,1,SYNCH,Enable synchronization,0,rw
+GIMA_CTIN_2_IN,3,1,PULSE,Enable single pulse generation,0,rw
+GIMA_CTIN_2_IN,4,4,SELECT,Select input,0,rw
+GIMA_CTIN_3_IN,0,1,INV,Invert input,0,rw
+GIMA_CTIN_3_IN,1,1,EDGE,Enable rising edge detection,0,rw
+GIMA_CTIN_3_IN,2,1,SYNCH,Enable synchronization,0,rw
+GIMA_CTIN_3_IN,3,1,PULSE,Enable single pulse generation,0,rw
+GIMA_CTIN_3_IN,4,4,SELECT,Select input,0,rw
+GIMA_CTIN_4_IN,0,1,INV,Invert input,0,rw
+GIMA_CTIN_4_IN,1,1,EDGE,Enable rising edge detection,0,rw
+GIMA_CTIN_4_IN,2,1,SYNCH,Enable synchronization,0,rw
+GIMA_CTIN_4_IN,3,1,PULSE,Enable single pulse generation,0,rw
+GIMA_CTIN_4_IN,4,4,SELECT,Select input,0,rw
+GIMA_CTIN_5_IN,0,1,INV,Invert input,0,rw
+GIMA_CTIN_5_IN,1,1,EDGE,Enable rising edge detection,0,rw
+GIMA_CTIN_5_IN,2,1,SYNCH,Enable synchronization,0,rw
+GIMA_CTIN_5_IN,3,1,PULSE,Enable single pulse generation,0,rw
+GIMA_CTIN_5_IN,4,4,SELECT,Select input,0,rw
+GIMA_CTIN_6_IN,0,1,INV,Invert input,0,rw
+GIMA_CTIN_6_IN,1,1,EDGE,Enable rising edge detection,0,rw
+GIMA_CTIN_6_IN,2,1,SYNCH,Enable synchronization,0,rw
+GIMA_CTIN_6_IN,3,1,PULSE,Enable single pulse generation,0,rw
+GIMA_CTIN_6_IN,4,4,SELECT,Select input,0,rw
+GIMA_CTIN_7_IN,0,1,INV,Invert input,0,rw
+GIMA_CTIN_7_IN,1,1,EDGE,Enable rising edge detection,0,rw
+GIMA_CTIN_7_IN,2,1,SYNCH,Enable synchronization,0,rw
+GIMA_CTIN_7_IN,3,1,PULSE,Enable single pulse generation,0,rw
+GIMA_CTIN_7_IN,4,4,SELECT,Select input,0,rw
+GIMA_VADC_TRIGGER_IN,0,1,INV,Invert input,0,rw
+GIMA_VADC_TRIGGER_IN,1,1,EDGE,Enable rising edge detection,0,rw
+GIMA_VADC_TRIGGER_IN,2,1,SYNCH,Enable synchronization,0,rw
+GIMA_VADC_TRIGGER_IN,3,1,PULSE,Enable single pulse generation,0,rw
+GIMA_VADC_TRIGGER_IN,4,4,SELECT,Select input,0,rw
+GIMA_EVENTROUTER_13_IN,0,1,INV,Invert input,0,rw
+GIMA_EVENTROUTER_13_IN,1,1,EDGE,Enable rising edge detection,0,rw
+GIMA_EVENTROUTER_13_IN,2,1,SYNCH,Enable synchronization,0,rw
+GIMA_EVENTROUTER_13_IN,3,1,PULSE,Enable single pulse generation,0,rw
+GIMA_EVENTROUTER_13_IN,4,4,SELECT,Select input,0,rw
+GIMA_EVENTROUTER_14_IN,0,1,INV,Invert input,0,rw
+GIMA_EVENTROUTER_14_IN,1,1,EDGE,Enable rising edge detection,0,rw
+GIMA_EVENTROUTER_14_IN,2,1,SYNCH,Enable synchronization,0,rw
+GIMA_EVENTROUTER_14_IN,3,1,PULSE,Enable single pulse generation,0,rw
+GIMA_EVENTROUTER_14_IN,4,4,SELECT,Select input,0,rw
+GIMA_EVENTROUTER_16_IN,0,1,INV,Invert input,0,rw
+GIMA_EVENTROUTER_16_IN,1,1,EDGE,Enable rising edge detection,0,rw
+GIMA_EVENTROUTER_16_IN,2,1,SYNCH,Enable synchronization,0,rw
+GIMA_EVENTROUTER_16_IN,3,1,PULSE,Enable single pulse generation,0,rw
+GIMA_EVENTROUTER_16_IN,4,4,SELECT,Select input,0,rw
+GIMA_ADCSTART0_IN,0,1,INV,Invert input,0,rw
+GIMA_ADCSTART0_IN,1,1,EDGE,Enable rising edge detection,0,rw
+GIMA_ADCSTART0_IN,2,1,SYNCH,Enable synchronization,0,rw
+GIMA_ADCSTART0_IN,3,1,PULSE,Enable single pulse generation,0,rw
+GIMA_ADCSTART0_IN,4,4,SELECT,Select input,0,rw
+GIMA_ADCSTART1_IN,0,1,INV,Invert input,0,rw
+GIMA_ADCSTART1_IN,1,1,EDGE,Enable rising edge detection,0,rw
+GIMA_ADCSTART1_IN,2,1,SYNCH,Enable synchronization,0,rw
+GIMA_ADCSTART1_IN,3,1,PULSE,Enable single pulse generation,0,rw
+GIMA_ADCSTART1_IN,4,4,SELECT,Select input,0,rw
