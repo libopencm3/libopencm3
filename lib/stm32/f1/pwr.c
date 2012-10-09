@@ -157,7 +157,7 @@ The wakeup pin is used for waking the processor from standby mode.
 
 void pwr_enable_wakeup_pin(void)
 {
-	PWR_CSR |= PWR_CR_EWUP;
+	PWR_CSR |= PWR_CSR_EWUP;
 }
 
 /*---------------------------------------------------------------------------*/
@@ -168,7 +168,7 @@ The wakeup pin is used for general purpose I/O.
 
 void pwr_disable_wakeup_pin(void)
 {
-	PWR_CSR &= ~PWR_CR_EWUP;
+	PWR_CSR &= ~PWR_CSR_EWUP;
 }
 
 /*---------------------------------------------------------------------------*/
@@ -183,7 +183,7 @@ threshold.
 
 bool pwr_voltage_high(void)
 {
-	return (PWR_CSR & PWR_CR_PVDO);
+	return (PWR_CSR & PWR_CSR_PVDO);
 }
 
 /*---------------------------------------------------------------------------*/
@@ -197,7 +197,7 @@ cleared by software (see @ref pwr_clear_standby_flag).
 
 bool pwr_get_standby_flag(void)
 {
-	return (PWR_CSR & PWR_CR_SBF);
+	return (PWR_CSR & PWR_CSR_SBF);
 }
 
 /*---------------------------------------------------------------------------*/
@@ -211,7 +211,7 @@ cleared by software (see @ref pwr_clear_wakeup_flag).
 
 bool pwr_get_wakeup_flag(void)
 {
-	return (PWR_CSR & PWR_CR_WUF);
+	return (PWR_CSR & PWR_CSR_WUF);
 }
 /**@}*/
 

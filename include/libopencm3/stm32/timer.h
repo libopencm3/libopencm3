@@ -1028,6 +1028,7 @@ BEGIN_DECLS
 void timer_reset(u32 timer_peripheral);
 void timer_enable_irq(u32 timer_peripheral, u32 irq);
 void timer_disable_irq(u32 timer_peripheral, u32 irq);
+bool timer_return_interrupt_source(u32 timer_peripheral, u32 flag);
 bool timer_get_flag(u32 timer_peripheral, u32 flag);
 void timer_clear_flag(u32 timer_peripheral, u32 flag);
 void timer_set_mode(u32 timer_peripheral, u32 clock_div,
@@ -1090,6 +1091,7 @@ void timer_set_break_lock(u32 timer_peripheral, u32 lock);
 void timer_set_deadtime(u32 timer_peripheral, u32 deadtime);
 void timer_generate_event(u32 timer_peripheral, u32 event);
 u32 timer_get_counter(u32 timer_peripheral);
+void timer_set_counter(u32 timer_peripheral, u32 count);
 
 void timer_ic_set_filter(u32 timer, enum tim_ic_id ic, enum tim_ic_filter flt);
 void timer_ic_set_prescaler(u32 timer, enum tim_ic_id ic, enum tim_ic_psc psc);
