@@ -353,6 +353,92 @@ void usart_disable_tx_dma(u32 usart)
 	USART_CR3(usart) &= ~USART_CR3_DMAT;
 }
 
+/*-----------------------------------------------------------------------------*/
+/** @brief USART Receiver Interrupt Enable.
+
+@param[in] usart unsigned 32 bit. USART block register address base @ref usart_reg_base
+*/
+
+void usart_enable_rx_interrupt(u32 usart)
+{
+	USART_CR1(usart) |= USART_CR1_RXNEIE;
+}
+
+
+/*-----------------------------------------------------------------------------*/
+/** @brief USART Receiver Interrupt Disable.
+
+@param[in] usart unsigned 32 bit. USART block register address base @ref usart_reg_base
+*/
+
+void usart_disable_rx_interrupt(u32 usart)
+{
+	USART_CR1(usart) &= ~USART_CR1_RXNEIE;
+}
+
+/*-----------------------------------------------------------------------------*/
+/** @brief USART Transmitter Interrupt Enable.
+
+@param[in] usart unsigned 32 bit. USART block register address base @ref usart_reg_base
+*/
+
+void usart_enable_tx_interrupt(u32 usart)
+{
+	USART_CR1(usart) |= USART_CR1_TXEIE;
+}
+
+/*-----------------------------------------------------------------------------*/
+/** @brief USART Transmitter Interrupt Disable.
+
+@param[in] usart unsigned 32 bit. USART block register address base @ref usart_reg_base
+*/
+
+void usart_disable_tx_interrupt(u32 usart)
+{
+	USART_CR1(usart) &= ~USART_CR1_TXEIE;
+}
+
+
+/*---------------------------------------------------------------------------*/
+/** @brief USART Read a Status Flag.
+
+@param[in] usart unsigned 32 bit. USART block register address base @ref usart_reg_base
+@param[in] flag Unsigned int32. Status register flag  @ref usart_sr_flags.
+@returns boolean: flag set.
+*/
+
+bool usart_get_flag(u32 usart, u32 flag)
+{
+	return ((USART_SR(usart) & flag) != 0);
+}
+
+/*---------------------------------------------------------------------------*/
+/** @brief USART Return Interrupt Source.
+
+Returns true if the specified interrupt flag (IDLE, RXNE, TC, TXE or OE) was
+set and the interrupt was enabled. If the specified flag is not an interrupt
+flag, the function returns false.
+
+@todo  These are the most important interrupts likely to be used. Others
+relating to LIN break, and error conditions in multibuffer communication, need
+to be added for completeness.
+
+@param[in] usart unsigned 32 bit. USART block register address base @ref usart_reg_base
+@param[in] flag Unsigned int32. Status register flag  @ref usart_sr_flags.
+@returns boolean: flag and interrupt enable both set.
+*/
+
+bool usart_get_interrupt_source(u32 usart, u32 flag)
+{
+u32 flag_set = (USART_SR(usart) & flag);
+/* IDLE, RXNE, TC, TXE interrupts */
+	if ((flag >= USART_SR_IDLE) && (flag <= USART_SR_TXE))
+		return ((flag_set & USART_CR1(usart)) != 0);
+/* Overrun error */
+	else if (flag == USART_SR_ORE)
+		return (flag_set && (USART_CR3(usart) & USART_CR3_CTSIE));
+	return (false);
+}
 
 /**@}*/
 
