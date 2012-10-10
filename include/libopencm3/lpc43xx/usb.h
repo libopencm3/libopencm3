@@ -1252,6 +1252,57 @@ typedef struct {
 #define USB0_ENDPTCTRL5_TXE_SHIFT (23)
 #define USB0_ENDPTCTRL5_TXE (1 << USB0_ENDPTCTRL5_TXE_SHIFT)
 
+/* -------------------------------------------------------------- */
+
+
+/* --- USB0_ENDPTCTRL common values ----------------------------- */
+
+/* RXS: Rx endpoint stall */
+#define USB0_ENDPTCTRL_RXS_SHIFT (0)
+#define USB0_ENDPTCTRL_RXS (1 << USB0_ENDPTCTRL_RXS_SHIFT)
+
+/* RXT: Endpoint type */
+#define USB0_ENDPTCTRL_RXT_SHIFT (2)
+#define USB0_ENDPTCTRL_RXT_MASK (0x3 << USB0_ENDPTCTRL_RXT_SHIFT)
+#define USB0_ENDPTCTRL_RXT(x) ((x) << USB0_ENDPTCTRL_RXT_SHIFT)
+
+/* RXI: Rx data toggle inhibit */
+#define USB0_ENDPTCTRL_RXI_SHIFT (5)
+#define USB0_ENDPTCTRL_RXI (1 << USB0_ENDPTCTRL_RXI_SHIFT)
+
+/* RXR: Rx data toggle reset */
+#define USB0_ENDPTCTRL_RXR_SHIFT (6)
+#define USB0_ENDPTCTRL_RXR (1 << USB0_ENDPTCTRL_RXR_SHIFT)
+
+/* RXE: Rx endpoint enable */
+#define USB0_ENDPTCTRL_RXE_SHIFT (7)
+#define USB0_ENDPTCTRL_RXE (1 << USB0_ENDPTCTRL_RXE_SHIFT)
+
+/* TXS: Tx endpoint stall */
+#define USB0_ENDPTCTRL_TXS_SHIFT (16)
+#define USB0_ENDPTCTRL_TXS (1 << USB0_ENDPTCTRL_TXS_SHIFT)
+
+/* TXT1_0: Tx Endpoint type */
+#define USB0_ENDPTCTRL_TXT1_0_SHIFT (18)
+#define USB0_ENDPTCTRL_TXT1_0_MASK (0x3 << USB0_ENDPTCTRL_TXT1_0_SHIFT)
+#define USB0_ENDPTCTRL_TXT1_0(x) ((x) << USB0_ENDPTCTRL_TXT1_0_SHIFT)
+
+/* TXI: Tx data toggle inhibit */
+#define USB0_ENDPTCTRL_TXI_SHIFT (21)
+#define USB0_ENDPTCTRL_TXI (1 << USB0_ENDPTCTRL_TXI_SHIFT)
+
+/* TXR: Tx data toggle reset */
+#define USB0_ENDPTCTRL_TXR_SHIFT (22)
+#define USB0_ENDPTCTRL_TXR (1 << USB0_ENDPTCTRL_TXR_SHIFT)
+
+/* TXE: Tx endpoint enable */
+#define USB0_ENDPTCTRL_TXE_SHIFT (23)
+#define USB0_ENDPTCTRL_TXE (1 << USB0_ENDPTCTRL_TXE_SHIFT)
+
+
+
+
+
 /* --- USB1 registers ------------------------------------------------------ */
 /* TODO */
 
