@@ -1,3 +1,18 @@
+/** @defgroup STM32F_usart_defines USART Defines
+
+@brief <b>libopencm3 Defined Constants and Types for the STM32F Digital to Analog Converter </b>
+
+@ingroup STM32F_defines
+
+@version 1.0.0
+
+@author @htmlonly &copy; @endhtmlonly 2009 Uwe Hermann <uwe@hermann-uwe.de>
+
+@date 1 September 2012
+
+LGPL License Terms @ref lgpl_license
+ */
+
 /*
  * This file is part of the libopencm3 project.
  *
@@ -17,6 +32,8 @@
  * along with this library.  If not, see <http://www.gnu.org/licenses/>.
  */
 
+/**@{*/
+
 #ifndef LIBOPENCM3_USART_H
 #define LIBOPENCM3_USART_H
 
@@ -25,9 +42,15 @@
 
 /* --- Convenience macros -------------------------------------------------- */
 
+/****************************************************************************/
+/** @defgroup usart_reg_base USART register base addresses
+@ingroup STM32F_usart_defines
+
+@{*/
 #define USART1				USART1_BASE
 #define USART2				USART2_BASE
 #define USART3				USART3_BASE
+/**@}*/
 #define UART4				UART4_BASE
 #define UART5				UART5_BASE
 
@@ -90,37 +113,43 @@
 #define UART5_GTPR			USART_GTPR(UART5_BASE)
 
 /* --- USART_SR values ----------------------------------------------------- */
+/****************************************************************************/
+/** @defgroup usart_sr_flags USART Status register Flags
+@ingroup STM32F_usart_defines
 
-/* CTS: CTS flag */
-/* Note: N/A on UART4/5 */
+@{*/
+
+/** CTS: CTS flag */
+/** @note: undefined on UART4 and UART5 */
 #define USART_SR_CTS			(1 << 9)
 
-/* LBD: LIN break detection flag */
+/** LBD: LIN break detection flag */
 #define USART_SR_LBD			(1 << 8)
 
-/* TXE: Transmit data buffer empty */
+/** TXE: Transmit data buffer empty */
 #define USART_SR_TXE			(1 << 7)
 
-/* TC: Transmission complete */
+/** TC: Transmission complete */
 #define USART_SR_TC			(1 << 6)
 
-/* RXNE: Read data register not empty */
+/** RXNE: Read data register not empty */
 #define USART_SR_RXNE			(1 << 5)
 
-/* IDLE: Idle line detected */
+/** IDLE: Idle line detected */
 #define USART_SR_IDLE			(1 << 4)
 
-/* ORE: Overrun error */
+/** ORE: Overrun error */
 #define USART_SR_ORE			(1 << 3)
 
-/* NE: Noise error flag */
+/** NE: Noise error flag */
 #define USART_SR_NE			(1 << 2)
 
-/* FE: Framing error */
+/** FE: Framing error */
 #define USART_SR_FE			(1 << 1)
 
-/* PE: Parity error */
+/** PE: Parity error */
 #define USART_SR_PE			(1 << 0)
+/**@}*/
 
 /* --- USART_DR values ----------------------------------------------------- */
 
@@ -269,27 +298,51 @@
 /* --- Convenience defines ------------------------------------------------- */
 
 /* CR1_PCE / CR1_PS combined values */
+/****************************************************************************/
+/** @defgroup usart_cr1_parity USART Parity Selection
+@ingroup STM32F_usart_defines
+
+@{*/
 #define USART_PARITY_NONE		0x00
 #define USART_PARITY_EVEN		USART_CR1_PCE
 #define USART_PARITY_ODD		(USART_CR1_PS | USART_CR1_PCE)
+/**@}*/
 #define USART_PARITY_MASK		(USART_CR1_PS | USART_CR1_PCE)
 
 /* CR1_TE/CR1_RE combined values */
+/****************************************************************************/
+/** @defgroup usart_cr1_mode USART Tx/Rx Mode Selection
+@ingroup STM32F_usart_defines
+
+@{*/
 #define USART_MODE_RX                   USART_CR1_RE
 #define USART_MODE_TX		        USART_CR1_TE
 #define USART_MODE_TX_RX		(USART_CR1_RE | USART_CR1_TE)
+/**@}*/
 #define USART_MODE_MASK		        (USART_CR1_RE | USART_CR1_TE)
 
+/****************************************************************************/
+/** @defgroup usart_cr2_stopbits USART Stop Bit Selection
+@ingroup STM32F_usart_defines
+
+@{*/
 #define USART_STOPBITS_1		USART_CR2_STOPBITS_1   /* 1 stop bit */
 #define USART_STOPBITS_0_5		USART_CR2_STOPBITS_0_5 /* 0.5 stop bits */
 #define USART_STOPBITS_2		USART_CR2_STOPBITS_2   /* 2 stop bits */
 #define USART_STOPBITS_1_5		USART_CR2_STOPBITS_1_5 /* 1.5 stop bits */
+/**@}*/
 
 /* CR3_CTSE/CR3_RTSE combined values */
+/****************************************************************************/
+/** @defgroup usart_cr3_flowcontrol USART Hardware Flow Control Selection
+@ingroup STM32F_usart_defines
+
+@{*/
 #define USART_FLOWCONTROL_NONE	        0x00
 #define USART_FLOWCONTROL_RTS	        USART_CR3_RTSE
 #define USART_FLOWCONTROL_CTS	        USART_CR3_CTSE
 #define USART_FLOWCONTROL_RTS_CTS	(USART_CR3_RTSE | USART_CR3_CTSE)
+/**@}*/
 #define USART_FLOWCONTROL_MASK	        (USART_CR3_RTSE | USART_CR3_CTSE)
 
 /* --- Function prototypes ------------------------------------------------- */
@@ -318,3 +371,5 @@ void usart_disable_tx_dma(u32 usart);
 END_DECLS
 
 #endif
+/**@}*/
+
