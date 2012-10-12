@@ -82,7 +82,9 @@ install: lib
 	$(Q)$(INSTALL) -m 0644 lib/*.ld $(LIBDIR)
 	$(Q)$(INSTALL) -m 0644 lib/efm32/*/*.ld $(LIBDIR)
 	@printf "  INSTALL scripts\n"
-	$(Q)$(INSTALL) -m 0644 scripts/* $(SHAREDIR)
+	$(Q)$(INSTALL) -m 0644 scripts/black_magic_probe_debug.scr $(SHAREDIR)
+	$(Q)$(INSTALL) -m 0644 scripts/black_magic_probe_flash.scr $(SHAREDIR)
+	$(Q)$(INSTALL) -m 0644 scripts/lpcvtcksum $(SHAREDIR)
 
 doc:
 	$(Q)$(MAKE) -C doc html
