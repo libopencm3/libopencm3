@@ -42,14 +42,14 @@ LGPL License Terms @ref lgpl_license
 /* --- Convenience macros -------------------------------------------------- */
 
 /* GPDMA channel base addresses */
-#define GPDMA_CHANNEL0                  (GPDMA_PORT_BASE + 0x100)
-#define GPDMA_CHANNEL1                  (GPDMA_PORT_BASE + 0x120)
-#define GPDMA_CHANNEL2                  (GPDMA_PORT_BASE + 0x140)
-#define GPDMA_CHANNEL3                  (GPDMA_PORT_BASE + 0x160)
-#define GPDMA_CHANNEL4                  (GPDMA_PORT_BASE + 0x180)
-#define GPDMA_CHANNEL5                  (GPDMA_PORT_BASE + 0x1A0)
-#define GPDMA_CHANNEL6                  (GPDMA_PORT_BASE + 0x1C0)
-#define GPDMA_CHANNEL7                  (GPDMA_PORT_BASE + 0x1E0)
+#define GPDMA_CHANNEL0                  (GPDMA_BASE + 0x100)
+#define GPDMA_CHANNEL1                  (GPDMA_BASE + 0x120)
+#define GPDMA_CHANNEL2                  (GPDMA_BASE + 0x140)
+#define GPDMA_CHANNEL3                  (GPDMA_BASE + 0x160)
+#define GPDMA_CHANNEL4                  (GPDMA_BASE + 0x180)
+#define GPDMA_CHANNEL5                  (GPDMA_BASE + 0x1A0)
+#define GPDMA_CHANNEL6                  (GPDMA_BASE + 0x1C0)
+#define GPDMA_CHANNEL7                  (GPDMA_BASE + 0x1E0)
 
 
 /* --- GPDMA registers ----------------------------------------------------- */
