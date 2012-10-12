@@ -37,7 +37,7 @@
 /* AHB (0x4000 0000 - 0x4001 2000) */
 #define SCT_BASE                        (PERIPH_BASE_AHB + 0x00000)
 /* PERIPH_BASE_AHB + 0x01000 (0x4000 1000 - 0x4000 1FFF): Reserved */
-#define DMA_BASE                        (PERIPH_BASE_AHB + 0x02000)
+#define GPDMA_BASE                      (PERIPH_BASE_AHB + 0x02000)
 #define SPIFI_BASE                      (PERIPH_BASE_AHB + 0x03000)
 #define SDIO_BASE                       (PERIPH_BASE_AHB + 0x04000)
 #define EMC_BASE                        (PERIPH_BASE_AHB + 0x05000)
