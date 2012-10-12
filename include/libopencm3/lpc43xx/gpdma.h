@@ -39,19 +39,6 @@ LGPL License Terms @ref lgpl_license
 #include <libopencm3/cm3/common.h>
 #include <libopencm3/lpc43xx/memorymap.h>
 
-/* --- Convenience macros -------------------------------------------------- */
-
-/* GPDMA channel base addresses */
-#define GPDMA_CHANNEL0                  (GPDMA_BASE + 0x100)
-#define GPDMA_CHANNEL1                  (GPDMA_BASE + 0x120)
-#define GPDMA_CHANNEL2                  (GPDMA_BASE + 0x140)
-#define GPDMA_CHANNEL3                  (GPDMA_BASE + 0x160)
-#define GPDMA_CHANNEL4                  (GPDMA_BASE + 0x180)
-#define GPDMA_CHANNEL5                  (GPDMA_BASE + 0x1A0)
-#define GPDMA_CHANNEL6                  (GPDMA_BASE + 0x1C0)
-#define GPDMA_CHANNEL7                  (GPDMA_BASE + 0x1E0)
-
-
 /* --- GPDMA registers ----------------------------------------------------- */
 
 /* General registers */
@@ -102,59 +89,59 @@ LGPL License Terms @ref lgpl_license
 /* Channel registers */
 
 /* Source Address Register */
-#define GPDMA_CSRCADDR(channel)          MMIO32(channel + 0x000)
-#define GPDMA_C0SRCADDR                 GPDMA_CSRCADDR(GPDMA_CHANNEL0)
-#define GPDMA_C1SRCADDR                 GPDMA_CSRCADDR(GPDMA_CHANNEL1)
-#define GPDMA_C2SRCADDR                 GPDMA_CSRCADDR(GPDMA_CHANNEL2)
-#define GPDMA_C3SRCADDR                 GPDMA_CSRCADDR(GPDMA_CHANNEL3)
-#define GPDMA_C4SRCADDR                 GPDMA_CSRCADDR(GPDMA_CHANNEL4)
-#define GPDMA_C5SRCADDR                 GPDMA_CSRCADDR(GPDMA_CHANNEL5)
-#define GPDMA_C6SRCADDR                 GPDMA_CSRCADDR(GPDMA_CHANNEL6)
-#define GPDMA_C7SRCADDR                 GPDMA_CSRCADDR(GPDMA_CHANNEL7)
+#define GPDMA_CSRCADDR(channel)         MMIO32(GPDMA_BASE + (channel * 0x20) + 0x100)
+#define GPDMA_C0SRCADDR                 GPDMA_CSRCADDR(0)
+#define GPDMA_C1SRCADDR                 GPDMA_CSRCADDR(1)
+#define GPDMA_C2SRCADDR                 GPDMA_CSRCADDR(2)
+#define GPDMA_C3SRCADDR                 GPDMA_CSRCADDR(3)
+#define GPDMA_C4SRCADDR                 GPDMA_CSRCADDR(4)
+#define GPDMA_C5SRCADDR                 GPDMA_CSRCADDR(5)
+#define GPDMA_C6SRCADDR                 GPDMA_CSRCADDR(6)
+#define GPDMA_C7SRCADDR                 GPDMA_CSRCADDR(7)
 
 /* Destination Address Register */
-#define GPDMA_CDESTADDR(channel)         MMIO32(channel + 0x004)
-#define GPDMA_C0DESTADDR                GPDMA_CDESTADDR(GPDMA_CHANNEL0)
-#define GPDMA_C1DESTADDR                GPDMA_CDESTADDR(GPDMA_CHANNEL1)
-#define GPDMA_C2DESTADDR                GPDMA_CDESTADDR(GPDMA_CHANNEL2)
-#define GPDMA_C3DESTADDR                GPDMA_CDESTADDR(GPDMA_CHANNEL3)
-#define GPDMA_C4DESTADDR                GPDMA_CDESTADDR(GPDMA_CHANNEL4)
-#define GPDMA_C5DESTADDR                GPDMA_CDESTADDR(GPDMA_CHANNEL5)
-#define GPDMA_C6DESTADDR                GPDMA_CDESTADDR(GPDMA_CHANNEL6)
-#define GPDMA_C7DESTADDR                GPDMA_CDESTADDR(GPDMA_CHANNEL7)
+#define GPDMA_CDESTADDR(channel)        MMIO32(GPDMA_BASE + (channel * 0x20) + 0x104)
+#define GPDMA_C0DESTADDR                GPDMA_CDESTADDR(0)
+#define GPDMA_C1DESTADDR                GPDMA_CDESTADDR(1)
+#define GPDMA_C2DESTADDR                GPDMA_CDESTADDR(2)
+#define GPDMA_C3DESTADDR                GPDMA_CDESTADDR(3)
+#define GPDMA_C4DESTADDR                GPDMA_CDESTADDR(4)
+#define GPDMA_C5DESTADDR                GPDMA_CDESTADDR(5)
+#define GPDMA_C6DESTADDR                GPDMA_CDESTADDR(6)
+#define GPDMA_C7DESTADDR                GPDMA_CDESTADDR(7)
 
 /* Linked List Item Register */
-#define GPDMA_CLLI(channel)              MMIO32(channel + 0x008)
-#define GPDMA_C0LLI                     GPDMA_CLLI(GPDMA_CHANNEL0)
-#define GPDMA_C1LLI                     GPDMA_CLLI(GPDMA_CHANNEL1)
-#define GPDMA_C2LLI                     GPDMA_CLLI(GPDMA_CHANNEL2)
-#define GPDMA_C3LLI                     GPDMA_CLLI(GPDMA_CHANNEL3)
-#define GPDMA_C4LLI                     GPDMA_CLLI(GPDMA_CHANNEL4)
-#define GPDMA_C5LLI                     GPDMA_CLLI(GPDMA_CHANNEL5)
-#define GPDMA_C6LLI                     GPDMA_CLLI(GPDMA_CHANNEL6)
-#define GPDMA_C7LLI                     GPDMA_CLLI(GPDMA_CHANNEL7)
+#define GPDMA_CLLI(channel)             MMIO32(GPDMA_BASE + (channel * 0x20) + 0x108)
+#define GPDMA_C0LLI                     GPDMA_CLLI(0)
+#define GPDMA_C1LLI                     GPDMA_CLLI(1)
+#define GPDMA_C2LLI                     GPDMA_CLLI(2)
+#define GPDMA_C3LLI                     GPDMA_CLLI(3)
+#define GPDMA_C4LLI                     GPDMA_CLLI(4)
+#define GPDMA_C5LLI                     GPDMA_CLLI(5)
+#define GPDMA_C6LLI                     GPDMA_CLLI(6)
+#define GPDMA_C7LLI                     GPDMA_CLLI(7)
 
 /* Control Register */
-#define GPDMA_CCONTROL(channel)          MMIO32(channel + 0x00C)
-#define GPDMA_C0CONTROL                 GPDMA_CCONTROL(GPDMA_CHANNEL0)
-#define GPDMA_C1CONTROL                 GPDMA_CCONTROL(GPDMA_CHANNEL1)
-#define GPDMA_C2CONTROL                 GPDMA_CCONTROL(GPDMA_CHANNEL2)
-#define GPDMA_C3CONTROL                 GPDMA_CCONTROL(GPDMA_CHANNEL3)
-#define GPDMA_C4CONTROL                 GPDMA_CCONTROL(GPDMA_CHANNEL4)
-#define GPDMA_C5CONTROL                 GPDMA_CCONTROL(GPDMA_CHANNEL5)
-#define GPDMA_C6CONTROL                 GPDMA_CCONTROL(GPDMA_CHANNEL6)
-#define GPDMA_C7CONTROL                 GPDMA_CCONTROL(GPDMA_CHANNEL7)
+#define GPDMA_CCONTROL(channel)         MMIO32(GPDMA_BASE + (channel * 0x20) + 0x10C)
+#define GPDMA_C0CONTROL                 GPDMA_CCONTROL(0)
+#define GPDMA_C1CONTROL                 GPDMA_CCONTROL(1)
+#define GPDMA_C2CONTROL                 GPDMA_CCONTROL(2)
+#define GPDMA_C3CONTROL                 GPDMA_CCONTROL(3)
+#define GPDMA_C4CONTROL                 GPDMA_CCONTROL(4)
+#define GPDMA_C5CONTROL                 GPDMA_CCONTROL(5)
+#define GPDMA_C6CONTROL                 GPDMA_CCONTROL(6)
+#define GPDMA_C7CONTROL                 GPDMA_CCONTROL(7)
 
 /* Configuration Register */
-#define GPDMA_CCONFIG(channel)         MMIO32(channel + 0x010)
-#define GPDMA_C0CONFIG                  GPDMA_CCONFIG(GPDMA_CHANNEL0)
-#define GPDMA_C1CONFIG                  GPDMA_CCONFIG(GPDMA_CHANNEL1)
-#define GPDMA_C2CONFIG                  GPDMA_CCONFIG(GPDMA_CHANNEL2)
-#define GPDMA_C3CONFIG                  GPDMA_CCONFIG(GPDMA_CHANNEL3)
-#define GPDMA_C4CONFIG                  GPDMA_CCONFIG(GPDMA_CHANNEL4)
-#define GPDMA_C5CONFIG                  GPDMA_CCONFIG(GPDMA_CHANNEL5)
-#define GPDMA_C6CONFIG                  GPDMA_CCONFIG(GPDMA_CHANNEL6)
-#define GPDMA_C7CONFIG                  GPDMA_CCONFIG(GPDMA_CHANNEL7)
+#define GPDMA_CCONFIG(channel)          MMIO32(GPDMA_BASE + (channel * 0x20) + 0x110)
+#define GPDMA_C0CONFIG                  GPDMA_CCONFIG(0)
+#define GPDMA_C1CONFIG                  GPDMA_CCONFIG(1)
+#define GPDMA_C2CONFIG                  GPDMA_CCONFIG(2)
+#define GPDMA_C3CONFIG                  GPDMA_CCONFIG(3)
+#define GPDMA_C4CONFIG                  GPDMA_CCONFIG(4)
+#define GPDMA_C5CONFIG                  GPDMA_CCONFIG(5)
+#define GPDMA_C6CONFIG                  GPDMA_CCONFIG(6)
+#define GPDMA_C7CONFIG                  GPDMA_CCONFIG(7)
 
 /* --- Common fields -------------------------------------------- */
 
