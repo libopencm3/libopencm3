@@ -40,15 +40,10 @@ for register_name, register in registers.iteritems():
         print('#define %s_%s_SHIFT (%d)' % (
             register_name, field_name, field['lsb'],
         ))
-        if mask_bits > 1:
-            print('#define %s_%s_MASK (0x%x << %s_%s_SHIFT)' % (
-                register_name, field_name, mask_bits, register_name, field_name,
-            ))
-            print('#define %s_%s(x) ((x) << %s_%s_SHIFT)' % (
-                register_name, field_name, register_name, field_name,
-            ))
-        else:
-            print('#define %s_%s (1 << %s_%s_SHIFT)' % (
-                register_name, field_name, register_name, field_name,
-            ))
+        print('#define %s_%s_MASK (0x%x << %s_%s_SHIFT)' % (
+            register_name, field_name, mask_bits, register_name, field_name,
+        ))
+        print('#define %s_%s(x) ((x) << %s_%s_SHIFT)' % (
+            register_name, field_name, register_name, field_name,
+        ))
         print
