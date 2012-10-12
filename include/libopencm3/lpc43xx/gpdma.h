@@ -44,7 +44,7 @@ LGPL License Terms @ref lgpl_license
 /* General registers */
 
 /* DMA Interrupt Status Register */
-#define GPDMA_NTSTAT                    MMIO32(GPDMA_BASE + 0x000)
+#define GPDMA_INTSTAT                   MMIO32(GPDMA_BASE + 0x000)
 
 /* DMA Interrupt Terminal Count Request Status Register */
 #define GPDMA_INTTCSTAT                 MMIO32(GPDMA_BASE + 0x004)
