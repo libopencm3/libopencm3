@@ -24,14 +24,18 @@ CC		= $(PREFIX)-gcc
 LD		= $(PREFIX)-gcc
 OBJCOPY		= $(PREFIX)-objcopy
 OBJDUMP		= $(PREFIX)-objdump
+
+TOOLCHAIN_DIR ?= ../../../..
 ifeq ($(wildcard ../../../../lib/libopencm3_lpc13xx.a),)
+ifneq ($(strip $(shell which $(CC))),)
 TOOLCHAIN_DIR := $(shell dirname `which $(CC)`)/../$(PREFIX)
+endif
 else
 ifeq ($(V),1)
 $(info We seem to be building the example in the source directory. Using local library!)
 endif
-TOOLCHAIN_DIR := ../../../..
 endif
+
 CFLAGS		+= -Os -g -Wall -Wextra -I$(TOOLCHAIN_DIR)/include -fno-common \
 		   -mcpu=cortex-m3 -mthumb -MD
 LDSCRIPT	?= $(BINARY).ld
