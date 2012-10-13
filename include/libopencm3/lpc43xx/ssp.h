@@ -194,9 +194,7 @@ void ssp_init(ssp_num_t ssp_num,
 				ssp_master_slave_t master_slave,
 				ssp_slave_option_t slave_option);
 
-uint16_t ssp_read(ssp_num_t ssp_num);
-
-void ssp_write(ssp_num_t ssp_num, uint16_t data);
+u16 ssp_transfer(ssp_num_t ssp_num, u16 data);
 
 END_DECLS
 
