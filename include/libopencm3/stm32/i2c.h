@@ -1,3 +1,19 @@
+/** @defgroup i2c_defines I2C Defines
+
+@ingroup STM32F_defines
+
+@brief <b>libopencm3 Defined Constants and Types for the STM32 I2C </b>
+
+@version 1.0.0
+
+@author @htmlonly &copy; @endhtmlonly 2010 Thomas Otto <tommi@viadmin.org>
+@author @htmlonly &copy; @endhtmlonly 2012 Ken Sarkies <ksarkies@internode.on.net>
+
+@date 12 October 2012
+
+LGPL License Terms @ref lgpl_license
+ */
+
 /*
  * This file is part of the libopencm3 project.
  *
@@ -23,11 +39,19 @@
 #include <libopencm3/stm32/memorymap.h>
 #include <libopencm3/cm3/common.h>
 
+/**@{*/
+
 /* --- Convenience macros -------------------------------------------------- */
 
 /* I2C register base adresses (for convenience) */
+/****************************************************************************/
+/** @defgroup i2c_reg_base I2C register base address
+@ingroup i2c_defines
+
+@{*/
 #define I2C1				I2C1_BASE
 #define I2C2				I2C2_BASE
+/**@}*/
 
 /* --- I2C registers ------------------------------------------------------- */
 
@@ -146,6 +170,11 @@
 /* Note: Bits [7:6] are reserved, and forced to 0 by hardware. */
 
 /* FREQ[5:0]: Peripheral clock frequency (valid values: 2-36 MHz) */
+/****************************************************************************/
+/** @defgroup i2c_clock I2C clock frequency settings
+@ingroup i2c_defines
+
+@{*/
 #define I2C_CR2_FREQ_2MHZ		0x02
 #define I2C_CR2_FREQ_3MHZ		0x03
 #define I2C_CR2_FREQ_4MHZ		0x04
@@ -181,6 +210,7 @@
 #define I2C_CR2_FREQ_34MHZ		0x22
 #define I2C_CR2_FREQ_35MHZ		0x23
 #define I2C_CR2_FREQ_36MHZ		0x24
+/**@}*/
 
 /* --- I2Cx_OAR1 values ---------------------------------------------------- */
 
@@ -311,8 +341,14 @@
 
 /* --- I2C const definitions ----------------------------------------------- */
 
+/****************************************************************************/
+/** @defgroup i2c_rw I2C Read/Write bit
+@ingroup i2c_defines
+
+@{*/
 #define I2C_WRITE			0
 #define I2C_READ			1
+/**@}*/
 
 /* --- I2C funtion prototypes----------------------------------------------- */
 
@@ -336,3 +372,5 @@ void i2c_send_data(u32 i2c, u8 data);
 END_DECLS
 
 #endif
+/**@}*/
+

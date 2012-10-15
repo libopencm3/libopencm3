@@ -1,3 +1,17 @@
+/** @defgroup crc_defines CRC Defines
+
+@brief <b>libopencm3 Defined Constants and Types for the STM32F CRC Generator </b>
+
+@ingroup STM32F_defines
+
+@version 1.0.0
+
+@author @htmlonly &copy; @endhtmlonly 2010 Thomas Otto <tommi@viadmin.org>
+
+@date 18 August 2012
+
+LGPL License Terms @ref lgpl_license
+ */
 /*
  * This file is part of the libopencm3 project.
  *
