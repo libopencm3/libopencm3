@@ -199,6 +199,31 @@ void timer_disable_irq(u32 timer_peripheral, u32 irq)
 }
 
 /*---------------------------------------------------------------------------*/
+/** @brief Return Interrupt Source.
+
+Returns true if the specified interrupt flag (UIF, TIF or CCxIF, with BIF or COMIF
+for advanced timers) was set and the interrupt was enabled. If the specified flag
+is not an interrupt flag, the function returns false.
+
+@todo Timers 6-7, 9-14 have fewer interrupts, but invalid flags are not caught here.
+
+@param[in] timer_peripheral Unsigned int32. Timer register address base @ref tim_reg_base
+@param[in] flag Unsigned int32. Status register flag  @ref tim_sr_values.
+@returns boolean: flag set.
+*/
+
+bool timer_interrupt_source(u32 timer_peripheral, u32 flag)
+{
+/* flag not set or interrupt disabled or not an interrupt source */
+	if (((TIM_SR(timer_peripheral) & TIM_DIER(timer_peripheral) & flag) == 0) ||
+		(flag > TIM_SR_BIF)) return false;
+/* Only an interrupt source for advanced timers */
+	if ((flag == TIM_SR_BIF) || (flag == TIM_SR_COMIF))
+		return ((timer_peripheral == TIM1) || (timer_peripheral == TIM8));
+	return true;
+}
+
+/*---------------------------------------------------------------------------*/
 /** @brief Read a Status Flag.
 
 @param[in] timer_peripheral Unsigned int32. Timer register address base @ref tim_reg_base
@@ -1669,6 +1694,20 @@ Read back the value of a timer's counter register contents
 u32 timer_get_counter(u32 timer_peripheral)
 {
 	return TIM_CNT(timer_peripheral);
+}
+
+/*---------------------------------------------------------------------------*/
+/** @brief Set Counter
+
+Set the value of a timer's counter register contents.
+
+@param[in] timer_peripheral Unsigned int32. Timer register address base
+@param[in] Unsigned int32. Counter value.
+*/
+
+void timer_set_counter(u32 timer_peripheral, u32 count)
+{
+	TIM_CNT(timer_peripheral) = count;
 }
 
 /*---------------------------------------------------------------------------*/

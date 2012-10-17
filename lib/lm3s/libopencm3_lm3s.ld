@@ -77,6 +77,8 @@ SECTIONS
 
 	. = ALIGN(4);
 	end = .;
+	_end = .;
+	__end = .;
 }
 
 PROVIDE(_stack = ORIGIN(ram) + LENGTH(ram));

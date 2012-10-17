@@ -17,23 +17,11 @@
 ## along with this library.  If not, see <http://www.gnu.org/licenses/>.
 ##
 
-LIBNAME		= libopencm3_stm32f1
-
-PREFIX		?= arm-none-eabi
-#PREFIX		?= arm-elf
-CC		= $(PREFIX)-gcc
-AR		= $(PREFIX)-ar
-CFLAGS		= -Os -g -Wall -Wextra -I../../../include -fno-common \
-		  -mcpu=cortex-m3 -mthumb -Wstrict-prototypes \
-		  -ffunction-sections -fdata-sections -MD -DSTM32F1
-# ARFLAGS	= rcsv
-ARFLAGS		= rcs
-OBJS		= vector.o rcc.o gpio.o usart.o adc.o spi.o flash.o nvic.o \
-		  rtc.o i2c.o dma.o systick.o exti.o scb.o ethernet.o \
-		  usb_f103.o usb.o usb_control.o usb_standard.o can.o \
-		  timer.o usb_f107.o desig.o crc.o assert.o dac.o iwdg.o pwr.o
-
-VPATH += ../../usb:../:../../cm3
+BINARY = adc_injec_timtrig
+# Comment the following line if you _don't_ have luftboot flashed!
+LDFLAGS += -Wl,-Ttext=0x8002000
+CFLAGS += -std=c99
+LDSCRIPT = ../lisa-m.ld
 
 include ../../Makefile.include
 

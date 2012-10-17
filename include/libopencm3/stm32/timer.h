@@ -1,6 +1,6 @@
 /** @defgroup STM32F_tim_defines Timers Defines
 
-@brief <b>libopencm3 Defined Constants and Types for the STM32F1xx Timers</b>
+@brief <b>libopencm3 Defined Constants and Types for the STM32 Timers</b>
 
 @ingroup STM32F_defines
 
@@ -44,7 +44,7 @@ LGPL License Terms @ref lgpl_license
 /* Timer register base adresses (for convenience) */
 /****************************************************************************/
 /** @defgroup tim_reg_base Timer register base addresses
-@ingroup STM32F1xx_tim_defines
+@ingroup STM32F_tim_defines
 
 @{*/
 #define TIM1				TIM1_BASE
@@ -251,7 +251,7 @@ LGPL License Terms @ref lgpl_license
 
 /****************************************************************************/
 /** @defgroup tim_x_cr1_cdr TIMx_CR1 CKD[1:0] Clock Division Ratio
-@ingroup STM32F1xx_tim_defines
+@ingroup STM32F_tim_defines
 
 @{*/
 /* CKD[1:0]: Clock division */
@@ -267,7 +267,7 @@ LGPL License Terms @ref lgpl_license
 /* CMS[1:0]: Center-aligned mode selection */
 /****************************************************************************/
 /** @defgroup tim_x_cr1_cms TIMx_CR1 CMS[1:0]: Center-aligned Mode Selection
-@ingroup STM32F1xx_tim_defines
+@ingroup STM32F_tim_defines
 
 @{*/
 #define TIM_CR1_CMS_EDGE		(0x0 << 5)
@@ -280,7 +280,7 @@ LGPL License Terms @ref lgpl_license
 /* DIR: Direction */
 /****************************************************************************/
 /** @defgroup tim_x_cr1_dir TIMx_CR1 DIR: Direction
-@ingroup STM32F1xx_tim_defines
+@ingroup STM32F_tim_defines
 
 @{*/
 #define TIM_CR1_DIR_UP			(0 << 4)
@@ -303,7 +303,7 @@ LGPL License Terms @ref lgpl_license
 
 /****************************************************************************/
 /** @defgroup tim_x_cr2_ois TIMx_CR2_OIS: Force Output Idle State Control Values
-@ingroup STM32F1xx_tim_defines
+@ingroup STM32F_tim_defines
 
 @{*/
 /* OIS4:*//** Output idle state 4 (OC4 output) */
@@ -335,7 +335,7 @@ LGPL License Terms @ref lgpl_license
 /* MMS[2:0]: Master mode selection */
 /****************************************************************************/
 /** @defgroup tim_mastermode TIMx_CR2 MMS[6:4]: Master Mode Selection
-@ingroup STM32F1xx_tim_defines
+@ingroup STM32F_tim_defines
 
 @{*/
 #define TIM_CR2_MMS_RESET		(0x0 << 4)
@@ -397,7 +397,7 @@ LGPL License Terms @ref lgpl_license
 
 /* TS[2:0]: Trigger selection */
 /** @defgroup tim_ts TS Trigger selection
-@ingroup STM32F1xx_tim_defines
+@ingroup STM32F_tim_defines
 
 @{*/
 /** Internal Trigger 0 (ITR0) */
@@ -421,7 +421,7 @@ LGPL License Terms @ref lgpl_license
 
 /* SMS[2:0]: Slave mode selection */
 /** @defgroup tim_sms SMS Slave mode selection
-@ingroup STM32F1xx_tim_defines
+@ingroup STM32F_tim_defines
 
 @{*/
 /** Slave mode disabled */
@@ -451,7 +451,7 @@ and generates an update of the registers. */
 
 /****************************************************************************/
 /** @defgroup tim_irq_enable TIMx_DIER Timer DMA and Interrupt Enable Values
-@ingroup STM32F1xx_tim_defines
+@ingroup STM32F_tim_defines
 
 @{*/
 /* TDE:*//** Trigger DMA request enable */
@@ -503,7 +503,7 @@ and generates an update of the registers. */
 /* --- TIMx_SR values ------------------------------------------------------ */
 /****************************************************************************/
 /** @defgroup tim_sr_values TIMx_SR Timer Status Register Flags
-@ingroup STM32F1xx_tim_defines
+@ingroup STM32F_tim_defines
 
 @{*/
 
@@ -548,7 +548,7 @@ and generates an update of the registers. */
 
 /****************************************************************************/
 /** @defgroup tim_event_gen TIMx_EGR Timer Event Generator Values
-@ingroup STM32F1xx_tim_defines
+@ingroup STM32F_tim_defines
 
 @{*/
 
@@ -908,7 +908,7 @@ and generates an update of the registers. */
 /* LOCK[1:0]: Lock configuration */
 /****************************************************************************/
 /** @defgroup tim_lock TIM_BDTR_LOCK Timer Lock Values
-@ingroup STM32F1xx_tim_defines
+@ingroup STM32F_tim_defines
 
 @{*/
 #define TIM_BDTR_LOCK_OFF		(0x0 << 8)
@@ -1028,6 +1028,7 @@ BEGIN_DECLS
 void timer_reset(u32 timer_peripheral);
 void timer_enable_irq(u32 timer_peripheral, u32 irq);
 void timer_disable_irq(u32 timer_peripheral, u32 irq);
+bool timer_return_interrupt_source(u32 timer_peripheral, u32 flag);
 bool timer_get_flag(u32 timer_peripheral, u32 flag);
 void timer_clear_flag(u32 timer_peripheral, u32 flag);
 void timer_set_mode(u32 timer_peripheral, u32 clock_div,
@@ -1090,6 +1091,7 @@ void timer_set_break_lock(u32 timer_peripheral, u32 lock);
 void timer_set_deadtime(u32 timer_peripheral, u32 deadtime);
 void timer_generate_event(u32 timer_peripheral, u32 event);
 u32 timer_get_counter(u32 timer_peripheral);
+void timer_set_counter(u32 timer_peripheral, u32 count);
 
 void timer_ic_set_filter(u32 timer, enum tim_ic_id ic, enum tim_ic_filter flt);
 void timer_ic_set_prescaler(u32 timer, enum tim_ic_id ic, enum tim_ic_psc psc);

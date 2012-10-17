@@ -40,7 +40,7 @@ $(SRCLIBDIR)/$(LIBNAME).ld: $(LIBNAME).ld
 
 clean:
 	@printf "  CLEAN   lib/stm32/f1\n"
-	$(Q)rm -f *.o *.d
+	$(Q)rm -f *.o *.d ../*.o ../*.d
 	$(Q)rm -f $(SRCLIBDIR)/$(LIBNAME).a
 	$(Q)rm -f $(SRCLIBDIR)/$(LIBNAME).ld
 	$(Q)rm -f $(SRCLIBDIR)/$(LIBNAME)_rom_to_ram.ld

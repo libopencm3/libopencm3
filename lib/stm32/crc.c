@@ -1,3 +1,17 @@
+/** @defgroup crc_file CRC
+
+@ingroup STM32F_files
+
+@brief <b>libopencm3 STM32Fxxx CRC</b>
+
+@version 1.0.0
+
+@author @htmlonly &copy; @endhtmlonly 2012 Karl Palsson <karlp@remake.is>
+
+@date 15 October 2012
+
+LGPL License Terms @ref lgpl_license
+ */
 /*
  * This file is part of the libopencm3 project.
  *
@@ -19,10 +33,29 @@
 
 #include <libopencm3/stm32/crc.h>
 
+/**@{*/
+
+/*-----------------------------------------------------------------------------*/
+/** @brief CRC Reset.
+
+Reset the CRC unit and forces the data register to all 1s.
+
+*/
+
 void crc_reset(void)
 {
 	CRC_CR |= CRC_CR_RESET;
 }
+
+/*-----------------------------------------------------------------------------*/
+/** @brief CRC Calculate.
+
+Writes a data word to the register, the write operation stalling until the
+computation is complete.
+
+@param[in] data Unsigned int32.
+@returns int32 Computed CRC result
+*/
 
 u32 crc_calculate(u32 data)
 {
@@ -30,6 +63,16 @@ u32 crc_calculate(u32 data)
 	// Data sheet says this blocks until it's ready....
 	return CRC_DR;
 }
+
+/*-----------------------------------------------------------------------------*/
+/** @brief CRC Calculate of a Block of Data.
+
+Writes data words consecutively to the register, the write operation stalling
+until the computation of each word is complete.
+
+@param[in] datap Unsigned int32. pointer to an array of 32 bit data words.
+@returns int32 Final computed CRC result
+*/
 
 u32 crc_calculate_block(u32 *datap, int size)
 {
@@ -39,6 +82,5 @@ u32 crc_calculate_block(u32 *datap, int size)
 	}
 	return CRC_DR;
 }
-
-
+/**@}*/
 

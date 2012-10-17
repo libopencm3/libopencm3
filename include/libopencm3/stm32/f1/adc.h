@@ -252,7 +252,7 @@ LGPL License Terms @ref lgpl_license
 #define ADC_CR1_DUALMOD_MASK		(0xF << 16)
 #define ADC_CR1_DUALMOD_SHIFT		16
 
-/* DISCNUM[2:0]: Discontinous mode channel count. */
+/* DISCNUM[2:0]: Discontinuous mode channel count. */
 /****************************************************************************/
 /** @defgroup adc_cr1_discnum ADC Number of channels in discontinuous mode.
 @ingroup STM32F1xx_adc_defines
@@ -270,10 +270,10 @@ LGPL License Terms @ref lgpl_license
 #define ADC_CR1_DISCNUM_MASK		(0x7 << 13)
 #define ADC_CR1_DISCNUM_SHIFT		13
 
-/* JDISCEN: */ /** Discontinous mode on injected channels. */
+/* JDISCEN: */ /** Discontinuous mode on injected channels. */
 #define ADC_CR1_JDISCEN			(1 << 12)
 
-/* DISCEN: */ /** Discontinous mode on regular channels. */
+/* DISCEN: */ /** Discontinuous mode on regular channels. */
 #define ADC_CR1_DISCEN			(1 << 11)
 
 /* JAUTO: */ /** Automatic Injection Group conversion. */
@@ -557,7 +557,7 @@ LGPL License Terms @ref lgpl_license
 /* --- ADC_SMPRx generic values -------------------------------------------- */
 /****************************************************************************/
 /* ADC_SMPRG ADC Sample Time Selection for Channels */
-/** @defgroup adc_sample_rg ADC Sample Time Selection Generic
+/** @defgroup adc_sample_rg ADC Sample Time Selection for All Channels
 @ingroup STM32F1xx_adc_defines
 
 @{*/
@@ -587,18 +587,11 @@ LGPL License Terms @ref lgpl_license
 #define ADC_SQR1_SQ15_LSB		10
 #define ADC_SQR1_SQ14_LSB		5
 #define ADC_SQR1_SQ13_LSB		0
-#define ADC_SQR1_L_MSK			(0xf << ADC_L_LSB)
-#define ADC_SQR1_SQ16_MSK		(0x1f << ADC_SQ16_LSB)
-#define ADC_SQR1_SQ15_MSK		(0x1f << ADC_SQ15_LSB)
-#define ADC_SQR1_SQ14_MSK		(0x1f << ADC_SQ14_LSB)
-#define ADC_SQR1_SQ13_MSK		(0x1f << ADC_SQ13_LSB)
-/* TODO Fix error
 #define ADC_SQR1_L_MSK			(0xf << ADC_SQR1_L_LSB)
 #define ADC_SQR1_SQ16_MSK		(0x1f << ADC_SQR1_SQ16_LSB)
 #define ADC_SQR1_SQ15_MSK		(0x1f << ADC_SQR1_SQ15_LSB)
 #define ADC_SQR1_SQ14_MSK		(0x1f << ADC_SQR1_SQ14_LSB)
 #define ADC_SQR1_SQ13_MSK		(0x1f << ADC_SQR1_SQ13_LSB)
-*/
 
 /* --- ADC_SQR2 values ----------------------------------------------------- */
 
@@ -608,20 +601,12 @@ LGPL License Terms @ref lgpl_license
 #define ADC_SQR2_SQ9_LSB		10
 #define ADC_SQR2_SQ8_LSB		5
 #define ADC_SQR2_SQ7_LSB		0
-#define ADC_SQR2_SQ12_MSK		(0x1f << ADC_SQ12_LSB)
-#define ADC_SQR2_SQ11_MSK		(0x1f << ADC_SQ11_LSB)
-#define ADC_SQR2_SQ10_MSK		(0x1f << ADC_SQ10_LSB)
-#define ADC_SQR2_SQ9_MSK		(0x1f << ADC_SQ9_LSB)
-#define ADC_SQR2_SQ8_MSK		(0x1f << ADC_SQ8_LSB)
-#define ADC_SQR2_SQ7_MSK		(0x1f << ADC_SQ7_LSB)
-/* TODO Fix error
 #define ADC_SQR2_SQ12_MSK		(0x1f << ADC_SQR2_SQ12_LSB)
 #define ADC_SQR2_SQ11_MSK		(0x1f << ADC_SQR2_SQ11_LSB)
 #define ADC_SQR2_SQ10_MSK		(0x1f << ADC_SQR2_SQ10_LSB)
 #define ADC_SQR2_SQ9_MSK		(0x1f << ADC_SQR2_SQ9_LSB)
 #define ADC_SQR2_SQ8_MSK		(0x1f << ADC_SQR2_SQ8_LSB)
 #define ADC_SQR2_SQ7_MSK		(0x1f << ADC_SQR2_SQ7_LSB)
-*/
 
 /* --- ADC_SQR3 values ----------------------------------------------------- */
 
@@ -631,20 +616,12 @@ LGPL License Terms @ref lgpl_license
 #define ADC_SQR3_SQ3_LSB		10
 #define ADC_SQR3_SQ2_LSB		5
 #define ADC_SQR3_SQ1_LSB		0
-#define ADC_SQR3_SQ6_MSK		(0x1f << ADC_SQ6_LSB)
-#define ADC_SQR3_SQ5_MSK		(0x1f << ADC_SQ5_LSB)
-#define ADC_SQR3_SQ4_MSK		(0x1f << ADC_SQ4_LSB)
-#define ADC_SQR3_SQ3_MSK		(0x1f << ADC_SQ3_LSB)
-#define ADC_SQR3_SQ2_MSK		(0x1f << ADC_SQ2_LSB)
-#define ADC_SQR3_SQ1_MSK		(0x1f << ADC_SQ1_LSB)
-/* TODO Fix error
 #define ADC_SQR3_SQ6_MSK		(0x1f << ADC_SQR3_SQ6_LSB)
 #define ADC_SQR3_SQ5_MSK		(0x1f << ADC_SQR3_SQ5_LSB)
 #define ADC_SQR3_SQ4_MSK		(0x1f << ADC_SQR3_SQ4_LSB)
 #define ADC_SQR3_SQ3_MSK		(0x1f << ADC_SQR3_SQ3_LSB)
 #define ADC_SQR3_SQ2_MSK		(0x1f << ADC_SQR3_SQ2_LSB)
 #define ADC_SQR3_SQ1_MSK		(0x1f << ADC_SQR3_SQ1_LSB)
-*/
 /* --- ADC_JSQR values ----------------------------------------------------- */
 
 #define ADC_JSQR_JL_LSB			20
@@ -652,18 +629,24 @@ LGPL License Terms @ref lgpl_license
 #define ADC_JSQR_JSQ3_LSB		10
 #define ADC_JSQR_JSQ2_LSB		5
 #define ADC_JSQR_JSQ1_LSB		0
-#define ADC_JSQR_JL_MSK			(0x2 << ADC_JL_LSB)
-#define ADC_JSQR_JSQ4_MSK		(0x1f << ADC_JSQ4_LSB)
-#define ADC_JSQR_JSQ3_MSK		(0x1f << ADC_JSQ3_LSB)
-#define ADC_JSQR_JSQ2_MSK		(0x1f << ADC_JSQ2_LSB)
-#define ADC_JSQR_JSQ1_MSK		(0x1f << ADC_JSQ1_LSB)
-/* TODO Fix error
+
+/* JL[2:0]: Discontinous mode channel count injected channels. */
+/****************************************************************************/
+/** @defgroup adc_jsqr_jl ADC Number of channels in discontinuous mode fro injected channels.
+@ingroup STM32F1xx_adc_defines
+
+@{*/
+#define ADC_JSQR_JL_1CHANNELS       (0x0 << ADC_JSQR_JL_LSB)
+#define ADC_JSQR_JL_2CHANNELS       (0x1 << ADC_JSQR_JL_LSB)
+#define ADC_JSQR_JL_3CHANNELS       (0x2 << ADC_JSQR_JL_LSB)
+#define ADC_JSQR_JL_4CHANNELS       (0x3 << ADC_JSQR_JL_LSB)
+/**@}*/
+#define ADC_JSQR_JL_SHIFT		13
 #define ADC_JSQR_JL_MSK			(0x2 << ADC_JSQR_JL_LSB)
 #define ADC_JSQR_JSQ4_MSK		(0x1f << ADC_JSQR_JSQ4_LSB)
 #define ADC_JSQR_JSQ3_MSK		(0x1f << ADC_JSQR_JSQ3_LSB)
 #define ADC_JSQR_JSQ2_MSK		(0x1f << ADC_JSQR_JSQ2_LSB)
 #define ADC_JSQR_JSQ1_MSK		(0x1f << ADC_JSQR_JSQ1_LSB)
-*/
 
 /* --- ADC_JDRx, ADC_DR values --------------------------------------------- */
 
@@ -679,22 +662,31 @@ LGPL License Terms @ref lgpl_license
 
 BEGIN_DECLS
 
+void adc_power_on(u32 adc);
+void adc_start_conversion_direct(u32 adc);
+void adc_set_single_channel(u32 adc, u8 channel);
+void adc_set_dual_mode(u32 mode);
+bool adc_eoc(u32 adc);
+bool adc_eoc_injected(u32 adc);
+u32 adc_read_regular(u32 adc);
+u32 adc_read_injected(u32 adc, u8 reg);
+void adc_set_injected_offset(u32 adc, u8 reg, u32 offset);
 void adc_enable_analog_watchdog_regular(u32 adc);
 void adc_disable_analog_watchdog_regular(u32 adc);
 void adc_enable_analog_watchdog_injected(u32 adc);
 void adc_disable_analog_watchdog_injected(u32 adc);
-void adc_enable_discontinous_mode_regular(u32 adc);
-void adc_disable_discontinous_mode_regular(u32 adc);
-void adc_enable_discontinous_mode_injected(u32 adc);
-void adc_disable_discontinous_mode_injected(u32 adc);
+void adc_enable_discontinuous_mode_regular(u32 adc, u8 length);
+void adc_disable_discontinuous_mode_regular(u32 adc);
+void adc_enable_discontinuous_mode_injected(u32 adc);
+void adc_disable_discontinuous_mode_injected(u32 adc);
 void adc_enable_automatic_injected_group_conversion(u32 adc);
 void adc_disable_automatic_injected_group_conversion(u32 adc);
 void adc_enable_analog_watchdog_on_all_channels(u32 adc);
 void adc_enable_analog_watchdog_on_selected_channel(u32 adc, u8 channel);
 void adc_enable_scan_mode(u32 adc);
 void adc_disable_scan_mode(u32 adc);
-void adc_enable_jeoc_interrupt(u32 adc);
-void adc_disable_jeoc_interrupt(u32 adc);
+void adc_enable_eoc_interrupt_injected(u32 adc);
+void adc_disable_eoc_interrupt_injected(u32 adc);
 void adc_enable_awd_interrupt(u32 adc);
 void adc_disable_awd_interrupt(u32 adc);
 void adc_enable_eoc_interrupt(u32 adc);
@@ -713,17 +705,28 @@ void adc_enable_dma(u32 adc);
 void adc_disable_dma(u32 adc);
 void adc_reset_calibration(u32 adc);
 void adc_calibration(u32 adc);
-void adc_set_continous_conversion_mode(u32 adc);
+void adc_set_continuous_conversion_mode(u32 adc);
 void adc_set_single_conversion_mode(u32 adc);
+#ifdef __GNUC__
+void adc_on(u32 adc) __attribute__ ((deprecated ("will be removed in the first release")));
+#else
 void adc_on(u32 adc);
+#endif
 void adc_off(u32 adc);
-void adc_set_conversion_time(u32 adc, u8 channel, u8 time);
-void adc_set_conversion_time_on_all_channels(u32 adc, u8 time);
+void adc_set_sample_time(u32 adc, u8 channel, u8 time);
+void adc_set_sample_time_on_all_channels(u32 adc, u8 time);
 void adc_set_watchdog_high_threshold(u32 adc, u16 threshold);
 void adc_set_watchdog_low_threshold(u32 adc, u16 threshold);
 void adc_set_regular_sequence(u32 adc, u8 length, u8 channel[]);
 void adc_set_injected_sequence(u32 adc, u8 length, u8 channel[]);
 
+#ifdef __GNUC__
+void adc_set_continous_conversion_mode(u32 adc) __attribute__ ((deprecated ("change to adc_set_continuous_conversion_mode")));
+void adc_set_conversion_time(u32 adc, u8 channel, u8 time) __attribute__ ((deprecated ("change to adc_set_sample_time")));
+void adc_set_conversion_time_on_all_channels(u32 adc, u8 time) __attribute__ ((deprecated ("change to adc_set_sample_time_on_all_channels")));
+void adc_enable_jeoc_interrupt(u32 adc) __attribute__ ((deprecated ("change to adc_enable_eoc_interrupt_injected")));
+void adc_disable_jeoc_interrupt(u32 adc) __attribute__ ((deprecated ("change to adc_disable_eoc_interrupt_injected")));
+#endif
 END_DECLS
 
 #endif
