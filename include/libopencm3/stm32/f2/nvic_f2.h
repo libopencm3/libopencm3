@@ -109,4 +109,6 @@
 #define NVIC_CRYP_IRQ			79
 #define NVIC_HASH_RNG_IRQ		80
 
+#define NVIC_IRQ_COUNT 81
+
 #endif

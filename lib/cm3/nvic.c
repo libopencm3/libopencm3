@@ -1,31 +1,9 @@
-/** @defgroup STM32F_nvic_file NVIC
-
-@ingroup STM32F_files
-
-@brief <b>libopencm3 STM32F Nested Vectored Interrupt Controller</b>
-
-@version 1.0.0
-
-@author @htmlonly &copy; @endhtmlonly 2010 Thomas Otto <tommi@viadmin.org>
-@author @htmlonly &copy; @endhtmlonly 2012 Fergus Noble <fergusnoble@gmail.com>
-
-@date 18 August 2012
-
-The STM32F series provides up to 68 maskable user interrupts for the STM32F10x
-series, and 87 for the STM32F2xx and STM32F4xx series.
-
-The NVIC registers are defined by the ARM standards but the STM32F series have some
-additional limitations
-@see Cortex-M3 Devices Generic User Guide
-@see STM32F10xxx Cortex-M3 programming manual
-
-LGPL License Terms @ref lgpl_license
-*/
 /*
  * This file is part of the libopencm3 project.
  *
  * Copyright (C) 2010 Thomas Otto <tommi@viadmin.org>
  * Copyright (C) 2012 Fergus Noble <fergusnoble@gmail.com>
+ * Copyright (C) 2012 Benjamin Vernoux <titanmkd@gmail.com>
  *
  * This library is free software: you can redistribute it and/or modify
  * it under the terms of the GNU Lesser General Public License as published by
@@ -40,10 +18,32 @@ LGPL License Terms @ref lgpl_license
  * You should have received a copy of the GNU Lesser General Public License
  * along with this library.  If not, see <http://www.gnu.org/licenses/>.
  */
+/** @defgroup CM3_nvic_file NVIC
 
+@ingroup CM3_files
+
+@brief <b>libopencm3 Cortex Nested Vectored Interrupt Controller</b>
+
+@version 1.0.0
+
+@author @htmlonly &copy; @endhtmlonly 2010 Thomas Otto <tommi@viadmin.org>
+@author @htmlonly &copy; @endhtmlonly 2012 Fergus Noble <fergusnoble@gmail.com>
+
+@date 18 August 2012
+
+Cortex processors provide 14 cortex-defined interrupts (NMI, usage faults,
+systicks etc.) and varying numbers of implementation defined interrupts
+(typically peripherial interrupts and DMA).
+
+@see Cortex-M3 Devices Generic User Guide
+@see STM32F10xxx Cortex-M3 programming manual
+
+LGPL License Terms @ref lgpl_license
+*/
 /**@{*/
 
-#include <libopencm3/stm32/nvic.h>
+#include <libopencm3/cm3/nvic.h>
+#include <libopencm3/cm3/scs.h>
 
 /*-----------------------------------------------------------------------------*/
 /** @brief NVIC Enable Interrupt
@@ -153,7 +153,18 @@ Control Register (SCB_AIRCR), as done in @ref scb_set_priority_grouping.
 
 void nvic_set_priority(u8 irqn, u8 priority)
 {
-	NVIC_IPR(irqn) = priority;
+	/* code from lpc43xx/nvic.c -- this is quite a hack and alludes to the
+	 * negative interrupt numbers assigned to the system interrupts. better
+	 * handling would mean signed integers. */
+	if(irqn>=NVIC_IRQ_COUNT)
+	{
+		/* Cortex-M  system interrupts */
+		SCS_SHPR( (irqn&0xF)-4 ) = priority;
+	}else
+	{
+		/* Device specific interrupts */
+		NVIC_IPR(irqn) = priority;
+	}
 }
 
 /*-----------------------------------------------------------------------------*/
@@ -171,4 +182,3 @@ void nvic_generate_software_interrupt(u16 irqn)
 		NVIC_STIR |= irqn;
 }
 /**@}*/
-
