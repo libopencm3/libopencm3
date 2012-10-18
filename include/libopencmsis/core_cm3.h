@@ -4,14 +4,15 @@
  * particularly unimplemented features are FIXME'd extra
  * */
 
+/* the original core_cm3.h is nonfree by arm; this provides libopencm3 variant of the symbols efm32lib needs of CMSIS. */
+
 #ifndef OPENCMSIS_CORECM3_H
 #define OPENCMSIS_CORECM3_H
 
-/* needed in various places where we rather should include libopencm3 functionality */
-#define MMIO32(addr)                    (*(volatile uint32_t *)(addr))
-
-/* the original core_cm3.h is nonfree by arm; this provides libopencm3 variant of the symbols efm32lib needs of CMSIS. */
-#include <stdint.h>
+#include <libopencm3/cm3/common.h>
+#include <libopencm3/cm3/memorymap.h>
+#include <libopencm3/cm3/systick.h>
+#include <libopencm3/cm3/scb.h>
 
 /* needed by system_efm32.h:196, guessing */
 #define __INLINE inline
@@ -27,11 +28,12 @@
 /* -> style access for what is defined in libopencm3/stm32/f1/scb.h /
  * cm3/memorymap.h, as it's needed by efm32lib/inc/efm32_emu.h */
 
-/* from stm32/f1/scb.h */
-#define SCB_SCR_SLEEPDEEP_Msk  (1 << 2)
+/* from cm3/scb.h */
+#define SCB_SCR_SLEEPDEEP_Msk  SCB_SCR_SLEEPDEEP
+
 /* structure as in, for example,
  * DeviceSupport/EnergyMicro/EFM32/efm32tg840f32.h, data from
- * libopencm3/stm32/f1/scb.h. FIXME incomplete. */
+ * libopencm3/cm3/scb.h. FIXME incomplete. */
 typedef struct
 {
 	__IO uint32_t CPUID;
@@ -44,10 +46,6 @@ typedef struct
 	__IO uint32_t SHCSR;
 } SCB_TypeDef;
 #define SCB ((SCB_TypeDef *) SCB_BASE)
-/* from libopencm3/cm3/memorymap.h */
-#define PPBI_BASE                       0xE0000000
-#define SCS_BASE                        (PPBI_BASE + 0xE000)
-#define SCB_BASE                        (SCS_BASE + 0x0D00)
 
 /* needed by efm32_emu.h, guessing and taking the implementation used in
  * lightswitch-interrupt.c */
@@ -72,24 +70,17 @@ typedef struct
 
 /* stubs for efm32_dma */
 
-/* also used by the clock example. code taken from stm32's nvic.[hc], FIXME until
- * the generic cm3 functionality is moved out from stm32 and can be used here
- * easily (nvic_clear_pending_irq, nvic_enable_irq, nvic_disable_irq). */
-#define NVIC_BASE                       (SCS_BASE + 0x0100)
-#define NVIC_ISER(iser_id)		MMIO32(NVIC_BASE + 0x00 + (iser_id * 4))
-#define NVIC_ICER(icer_id)		MMIO32(NVIC_BASE + 0x80 + (icer_id * 4))
-#define NVIC_ICPR(icpr_id)		MMIO32(NVIC_BASE + 0x180 + (icpr_id * 4))
 static inline void NVIC_ClearPendingIRQ(uint8_t irqn)
 {
-	NVIC_ICPR(irqn / 32) = (1 << (irqn % 32));
+	nvic_clear_pending_irq(irqn);
 }
 static inline void NVIC_EnableIRQ(uint8_t irqn)
 {
-	NVIC_ISER(irqn / 32) = (1 << (irqn % 32));
+	nvic_enable_irq(irqn);
 }
 static inline void NVIC_DisableIRQ(uint8_t irqn)
 {
-	NVIC_ICER(irqn / 32) = (1 << (irqn % 32));
+	nvic_disable_irq(irqn);
 }
 
 /* stubs for efm32_int. FIXME: how do they do that? nvic documentation in the
@@ -139,7 +130,6 @@ typedef struct
  *
  * modified for CMSIS style array as the powertest example needs it.
  * */
-#define SYS_TICK_BASE                   (SCS_BASE + 0x0010)
 
 /* from d0002_efm32_cortex-m3_reference_manual.pdf section 4.4 */
 typedef struct
@@ -151,21 +141,16 @@ typedef struct
 } SysTick_TypeDef;
 #define SysTick ((SysTick_TypeDef *) SYS_TICK_BASE)
 
-#define STK_CTRL_TICKINT		(1 << 1)
-#define STK_CTRL_ENABLE			(1 << 0)
-
-#define STK_CTRL_CLKSOURCE_LSB		2
-#define STK_CTRL_CLKSOURCE_AHB		1
 static inline uint32_t SysTick_Config(uint32_t n_ticks)
 {
+	/* constant from systick_set_reload -- as this returns something that's
+	 * not void, this is the only possible error condition */
 	if (n_ticks & ~0x00FFFFFF) return 1;
-	SysTick->LOAD = n_ticks;
 
-	SysTick->CTRL |= (STK_CTRL_CLKSOURCE_AHB << STK_CTRL_CLKSOURCE_LSB);
-
-	SysTick->CTRL |= STK_CTRL_TICKINT;
-
-	SysTick->CTRL |= STK_CTRL_ENABLE;
+	systick_set_reload(n_ticks);
+	systick_set_clocksource(true);
+	systick_interrupt_enable();
+	systick_counter_enable();
 
 	return 0;
 }
@@ -182,20 +167,10 @@ typedef struct
 /* blink.h expects the isr for systicks to be named SysTick_Handler. with this,
  * its Systick_Handler function gets renamed to the weak symbol exported by
  * vector.c */
+
 #define SysTick_Handler sys_tick_handler
+/* FIXME: this needs to be done for all of the 14 hard vectors */
 
-/* likewise, clock.c defines GPIO_ODD_IRQHandler and GPIO_EVEN_IRQHandler */
-#define GPIO_ODD_IRQHandler gpio_odd_isr
-#define GPIO_EVEN_IRQHandler gpio_even_isr
-#define RTC_IRQHandler rtc_isr
-
-/* for inttemp (i should really get a list and convert them all) */
-
-#define ADC0_IRQHandler adc0_isr
-
-/* for the lightsense example */
-
-#define LESENSE_IRQHandler lesense_isr
-#define PCNT0_IRQHandler pcnt0_isr
+#include <libopencmsis/dispatch/irqhandlers.h>
 
 #endif
