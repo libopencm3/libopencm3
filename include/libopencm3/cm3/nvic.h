@@ -104,6 +104,8 @@ IRQ numbers -3 and -6 to -9 are reserved
  * specific header file in the corresponding subfolder.
  */
 
+#include <libopencm3/dispatch/nvic.h>
+
 /* --- NVIC functions ------------------------------------------------------ */
 
 BEGIN_DECLS

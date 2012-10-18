@@ -38,8 +38,7 @@
 #define LIBOPENCM3_VECTOR_H
 
 #include <libopencm3/cm3/common.h>
-
-// #include "irq.h" /* we'll nede some definitions */
+#include <libopencm3/cm3/nvic.h>
 
 /** Type of an interrupt function. Only used to avoid hard-to-read function
  * pointers in the efm32_vector_table_t struct. */
@@ -59,7 +58,7 @@ typedef struct {
 	vector_table_entry_t reserved_x0034;
 	vector_table_entry_t pend_sv;
 	vector_table_entry_t systick;
-	vector_table_entry_t irq[IRQ_COUNT];
+	vector_table_entry_t irq[NVIC_IRQ_COUNT];
 } vector_table_t;
 
 #endif
