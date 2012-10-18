@@ -39,7 +39,13 @@ all: build
 
 build: lib examples
 
-lib:
+generatedheaders:
+	@printf "  UPDATING HEADERS\n"
+	$(Q)for yamlfile in `find -name 'irq.yaml'`; do \
+		./scripts/irq2nvic_h $$yamlfile ; \
+	done
+
+lib: generatedheaders
 	$(Q)for i in $(addprefix $@/,$(TARGETS)); do \
 		if [ -d $$i ]; then \
 			printf "  BUILD   $$i\n"; \

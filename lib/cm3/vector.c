@@ -20,6 +20,11 @@
 
 #include <libopencm3/cm3/vector.h>
 
+/* load optional platform dependent initialization routines */
+#include "../dispatch/vector.c"
+/* load the weak symbols for IRQ_HANDLERS */
+#include "../dispatch/vector_nvic.c"
+
 #define WEAK __attribute__ ((weak))
 
 /* Symbols exported by the linker script(s): */
@@ -69,6 +74,9 @@ void WEAK reset_handler(void)
 
 	while (dest < &_ebss)
 		*dest++ = 0;
+
+	/* might be provided by platform specific vector.c */
+	pre_main();
 
 	/* Call the application's entry point. */
 	main();
