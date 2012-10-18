@@ -5,7 +5,7 @@
 #elif defined(STM32F4)
 #	include <libopencm3/stm32/f4/nvic.h>
 
-#elif defined(TINYGECKO)
+#elif defined(EFM32TG)
 #	include <libopencm3/efm32/tinygecko/nvic.h>
 
 #elif defined(LPC43XX)

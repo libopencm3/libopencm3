@@ -12,6 +12,7 @@
 #include <libopencm3/cm3/common.h>
 #include <libopencm3/cm3/memorymap.h>
 #include <libopencm3/cm3/systick.h>
+#include <libopencm3/cm3/nvic.h>
 #include <libopencm3/cm3/scb.h>
 
 /* needed by system_efm32.h:196, guessing */

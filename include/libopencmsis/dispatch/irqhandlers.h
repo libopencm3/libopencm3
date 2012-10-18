@@ -5,7 +5,7 @@
 #elif defined(STM32F4)
 #	include <libopencmsis/stm32/f4/irqhandlers.h>
 
-#elif defined(TINYGECKO)
+#elif defined(EFM32TG)
 #	include <libopencmsis/efm32/tinygecko/irqhandlers.h>
 
 #elif defined(LPC43XX)

@@ -5,7 +5,7 @@
 #elif defined(STM32F4)
 #	include "../stm32/f4/vector_nvic.c"
 
-#elif defined(TINYGECKO)
+#elif defined(EFM32TG)
 #	include "../efm32/tinygecko/vector_nvic.c"
 
 #elif defined(LPC43XX)
