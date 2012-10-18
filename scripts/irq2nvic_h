@@ -60,7 +60,11 @@ template_nvic_h = '''\
 
     @{{*/
 
+BEGIN_DECLS
+
 {isrprototypes}
+
+END_DECLS
 
 /**@}}*/
 
