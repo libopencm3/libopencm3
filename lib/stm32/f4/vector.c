@@ -18,16 +18,10 @@
  * along with this library.  If not, see <http://www.gnu.org/licenses/>.
  */
 
-#include <libopencm3/stm32/f4/irq.h>
-#define reset_handler original_reset_handler
-#include "../../cm3/vector.c"
-#undef reset_handler
 #include <libopencm3/stm32/f4/scb.h>
 
-void WEAK reset_handler(void)
+static void pre_main(void)
 {
 	/* Enable access to Floating-Point coprocessor. */
 	SCB_CPACR |= SCB_CPACR_FULL * (SCB_CPACR_CP10 | SCB_CPACR_CP11);
-
-	original_reset_handler();
 }

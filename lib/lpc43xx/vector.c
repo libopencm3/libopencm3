@@ -18,17 +18,13 @@
  * along with this library.  If not, see <http://www.gnu.org/licenses/>.
  */
 
-#include <libopencm3/lpc43xx/irq.h>
-#define reset_handler original_reset_handler
-#include "../cm3/vector.c"
-#undef reset_handler
 #include <libopencm3/cm3/common.h>
 
 extern unsigned _etext_ram, _text_ram, _etext_rom;
 
 #define CREG_M4MEMMAP   MMIO32( (0x40043000 + 0x100) )
 
-void WEAK reset_handler(void)
+static void pre_main(void)
 {
 	volatile unsigned *src, *dest;
 
@@ -49,6 +45,4 @@ void WEAK reset_handler(void)
 
 		/* Continue Execution in RAM */
 	}
-
-	original_reset_handler();
 }
