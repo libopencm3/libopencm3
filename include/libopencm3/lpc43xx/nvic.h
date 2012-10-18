@@ -62,5 +62,7 @@
 #define NVIC_M4_C_CAN0_IRQ              51
 #define NVIC_M4_QEI_IRQ                 52
 
+#define NVIC_IRQ_COUNT 53
+
 /* LPC43xx M0 specific user interrupts */
 //TODO

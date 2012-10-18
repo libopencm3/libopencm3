@@ -109,6 +109,8 @@ LGPL License Terms @ref lgpl_license
 #define NVIC_CAN2_RX1_IRQ		65
 #define NVIC_CAN2_SCE_IRQ		66
 #define NVIC_OTG_FS_IRQ			67
+
+#define NVIC_IRQ_COUNT 68
 /**@}*/
 
 #endif
