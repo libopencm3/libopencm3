@@ -1,27 +1,8 @@
-/** @defgroup STM32F_systick_file SysTick
-
-@ingroup STM32F_files
-
-@brief <b>libopencm3 STM32Fxx System Tick Timer</b>
-
-@version 1.0.0
-
-@author @htmlonly &copy; @endhtmlonly 2010 Thomas Otto <tommi@viadmin.org>
-
-@date 19 August 2012
-
-This library supports the System Tick timer in the
-STM32F series of ARM Cortex Microcontrollers by ST Microelectronics.
-
-The System Tick timer is part of the ARM Cortex core. It is a 24 bit
-down counter that can be configured with an automatical reload value.
-
-LGPL License Terms @ref lgpl_license
- */
 /*
  * This file is part of the libopencm3 project.
  *
  * Copyright (C) 2010 Thomas Otto <tommi@viadmin.org>
+ * Copyright (C) 2012 Benjamin Vernoux <titanmkd@gmail.com>
  *
  * This library is free software: you can redistribute it and/or modify
  * it under the terms of the GNU Lesser General Public License as published by
@@ -36,9 +17,28 @@ LGPL License Terms @ref lgpl_license
  * You should have received a copy of the GNU Lesser General Public License
  * along with this library.  If not, see <http://www.gnu.org/licenses/>.
  */
+/** @defgroup CM3_systick_file SysTick
+
+@ingroup CM3_files
+
+@brief <b>libopencm3 Cortex System Tick Timer</b>
+
+@version 1.0.0
+
+@author @htmlonly &copy; @endhtmlonly 2010 Thomas Otto <tommi@viadmin.org>
+
+@date 19 August 2012
+
+This library supports the System Tick timer in ARM Cortex Microcontrollers.
+
+The System Tick timer is part of the ARM Cortex core. It is a 24 bit
+down counter that can be configured with an automatical reload value.
+
+LGPL License Terms @ref lgpl_license
+ */
 
 /**@{*/
-#include <libopencm3/stm32/systick.h>
+#include <libopencm3/cm3/systick.h>
 
 /*-----------------------------------------------------------------------------*/
 /** @brief SysTick Set the Automatic Reload Value.
@@ -134,6 +134,16 @@ u8 systick_get_countflag(void)
 		return 1;
 	else
 		return 0;
+}
+
+/*-----------------------------------------------------------------------------*/
+/** @brief SysTick Get Calibration Value
+
+@returns Current calibration value
+*/
+u32 systick_get_calib(void)
+{
+	return (STK_CALIB&0x00FFFFFF);
 }
 /**@}*/
 

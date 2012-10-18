@@ -17,7 +17,7 @@
  * along with this library.  If not, see <http://www.gnu.org/licenses/>.
  */
 
-#include <libopencm3/stm32/f2/scb.h>
+#include <libopencm3/cm3/scb.h>
 
 void scb_reset_core(void)
 {
