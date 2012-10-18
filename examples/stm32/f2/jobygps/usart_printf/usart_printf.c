@@ -22,7 +22,7 @@
 #include <errno.h>
 #include <libopencm3/stm32/f2/gpio.h>
 #include <libopencm3/stm32/usart.h>
-#include <libopencm3/stm32/nvic.h>
+#include <libopencm3/cm3/nvic.h>
 #include <libopencm3/stm32/f2/rcc.h>
 
 void clock_setup(void)
