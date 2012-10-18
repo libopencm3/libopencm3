@@ -22,6 +22,8 @@
 
 /* load optional platform dependent initialization routines */
 #include "../dispatch/vector.c"
+/* load the weak symbols for IRQ_HANDLERS */
+#include <libopencm3/dispatch/vector_nvic.h>
 
 #define WEAK __attribute__ ((weak))
 

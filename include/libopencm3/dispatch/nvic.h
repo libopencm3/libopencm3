@@ -15,6 +15,5 @@
 #	warning"no chipset defined; user interrupts are disabled"
 
 #define NVIC_IRQ_COUNT 0
-#define IRQ_HANDLERS
 
 #endif
