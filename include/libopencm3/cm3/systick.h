@@ -17,16 +17,30 @@
  * You should have received a copy of the GNU Lesser General Public License
  * along with this library.  If not, see <http://www.gnu.org/licenses/>.
  */
+/** @defgroup CM3_systick_defines SysTick Defines
+
+@brief <b>libopencm3 Defined Constants and Types for the Cortex SysTick </b>
+
+@ingroup CM3_defines
+
+@version 1.0.0
+
+@author @htmlonly &copy; @endhtmlonly 2010 Thomas Otto <tommi@viadmin.org>
+
+@date 19 August 2012
+
+LGPL License Terms @ref lgpl_license
+ */
+
+/**@{*/
 
 #ifndef LIBOPENCM3_SYSTICK_H
 #define LIBOPENCM3_SYSTICK_H
 
-#include <libopencm3/lpc43xx/memorymap.h>
 #include <libopencm3/cm3/memorymap.h>
 #include <libopencm3/cm3/common.h>
 
 /* --- SYSTICK registers --------------------------------------------------- */
-/* See also libopencm3\cm3\scs.h for details on SysTicks registers */
 
 /* Control and status register (STK_CTRL) */
 #define STK_CTRL			MMIO32(SYS_TICK_BASE + 0x00)
@@ -47,6 +61,15 @@
 /* Bits [15:3] Reserved, must be kept cleared. */
 /* CLKSOURCE: Clock source selection */
 #define STK_CTRL_CLKSOURCE		(1 << 2)
+#define STK_CTRL_CLKSOURCE_LSB		2
+/** @defgroup systick_clksource Clock source selection
+@ingroup CM3_systick_defines
+
+@{*/
+#define STK_CTRL_CLKSOURCE_AHB_DIV8	0
+#define STK_CTRL_CLKSOURCE_AHB		1
+/**@}*/
+
 /* TICKINT: SysTick exception request enable */
 #define STK_CTRL_TICKINT		(1 << 1)
 /* ENABLE: Counter enable */
@@ -86,3 +109,5 @@ u32 systick_get_calib(void);
 END_DECLS
 
 #endif
+/**@}*/
+

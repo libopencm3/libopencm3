@@ -22,7 +22,7 @@
 #include <libopencm3/stm32/f1/flash.h>
 #include <libopencm3/stm32/f1/gpio.h>
 #include <libopencm3/cm3/nvic.h>
-#include <libopencm3/stm32/systick.h>
+#include <libopencm3/cm3/systick.h>
 
 u32 temp32;
 

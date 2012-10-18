@@ -21,7 +21,7 @@
 #include <stdlib.h>
 #include <libopencm3/stm32/f1/rcc.h>
 #include <libopencm3/stm32/f1/gpio.h>
-#include <libopencm3/stm32/systick.h>
+#include <libopencm3/cm3/systick.h>
 #include <libopencm3/stm32/spi.h>
 #include <libopencm3/stm32/otg_fs.h>
 #include <libopencm3/usb/usbd.h>
