@@ -12,5 +12,9 @@
 #	include <libopencm3/lpc43xx/nvic.h>
 
 #else
-#	error "no chipset defined."
+#	warning"no chipset defined; user interrupts are disabled"
+
+#define NVIC_IRQ_COUNT 0
+#define IRQ_HANDLERS
+
 #endif
