@@ -6,7 +6,7 @@
 #	include <libopencm3/stm32/f4/nvic.h>
 
 #elif defined(EFM32TG)
-#	include <libopencm3/efm32/tinygecko/nvic.h>
+#	include <libopencm3/efm32/efm32tg/nvic.h>
 
 #elif defined(LPC43XX)
 #	include <libopencm3/lpc43xx/nvic.h>

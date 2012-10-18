@@ -26,7 +26,7 @@ SHAREDIR	= $(DESTDIR)/$(PREFIX)/share/libopencm3/scripts
 INSTALL		= install
 
 SRCLIBDIR = $(shell pwd)/lib
-TARGETS = stm32/f1 stm32/f2 stm32/f4 lpc13xx lpc17xx lpc43xx lm3s  efm32/tinygecko
+TARGETS = stm32/f1 stm32/f2 stm32/f4 lpc13xx lpc17xx lpc43xx lm3s  efm32/efm32tg
 
 # Be silent per default, but 'make V=1' will show all compiler calls.
 ifneq ($(V),1)

@@ -6,7 +6,7 @@
 #	include <libopencmsis/stm32/f4/irqhandlers.h>
 
 #elif defined(EFM32TG)
-#	include <libopencmsis/efm32/tinygecko/irqhandlers.h>
+#	include <libopencmsis/efm32/efm32tg/irqhandlers.h>
 
 #elif defined(LPC43XX)
 #	include <libopencmsis/lpc43xx/irqhandlers.h>

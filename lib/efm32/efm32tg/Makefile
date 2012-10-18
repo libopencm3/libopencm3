@@ -18,8 +18,8 @@
 ## along with this library. If not, see <http://www.gnu.org/licenses/>.
 ##
 
-LIBNAME		= libopencm3_efm32tinygecko
-FAMILY		= TINYGECKO
+LIBNAME		= libopencm3_efm32tg
+FAMILY		= EFM32TG
 
 PREFIX		?= arm-none-eabi
 #PREFIX		?= arm-elf
