@@ -7,6 +7,12 @@
 
 #elif defined(EFM32TG)
 #	include <libopencmsis/efm32/efm32tg/irqhandlers.h>
+#elif defined(EFM32G)
+#	include <libopencmsis/efm32/efm32g/irqhandlers.h>
+#elif defined(EFM32LG)
+#	include <libopencmsis/efm32/efm32lg/irqhandlers.h>
+#elif defined(EFM32GG)
+#	include <libopencmsis/efm32/efm32gg/irqhandlers.h>
 
 #elif defined(LPC43XX)
 #	include <libopencmsis/lpc43xx/irqhandlers.h>

@@ -7,6 +7,12 @@
 
 #elif defined(EFM32TG)
 #	include <libopencm3/efm32/efm32tg/nvic.h>
+#elif defined(EFM32G)
+#	include <libopencm3/efm32/efm32g/nvic.h>
+#elif defined(EFM32LG)
+#	include <libopencm3/efm32/efm32lg/nvic.h>
+#elif defined(EFM32GG)
+#	include <libopencm3/efm32/efm32gg/nvic.h>
 
 #elif defined(LPC43XX)
 #	include <libopencm3/lpc43xx/nvic.h>
