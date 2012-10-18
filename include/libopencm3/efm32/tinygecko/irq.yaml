@@ -1,4 +1,4 @@
-includeguard: LIBOPENCM3_EFM32_TINYGECKO_VECTOR_H
+includeguard: LIBOPENCM3_EFM32_TINYGECKO_NVIC_H
 partname_humanreadable: EFM32 Tiny Gecko series
 partname_doxygen: EFM32TG
 # The names and sequence are taken from d0034_efm32tg_reference_manual.pdf table 4.1.

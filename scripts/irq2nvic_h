@@ -17,6 +17,15 @@
 # You should have received a copy of the GNU Lesser General Public License
 # along with this library. If not, see <http://www.gnu.org/licenses/>.
 
+"""Generate an nvic.h header from a small YAML file describing the interrupt
+numbers.
+
+Code generation is chosen here because the resulting C code needs to be very
+repetetive (definition of the IRQ numbers, function prototypes, weak fallback
+definition and vector table definition), all being very repetitive. No portable
+method to achive the same thing with C preprocessor is known to the author.
+(Neither is any non-portable method, for that matter.)"""
+
 import sys
 import yaml
 
@@ -77,8 +86,12 @@ def convert(infile, outfile):
     irq2name = list(enumerate(data['irqs']) if isinstance(data['irqs'], list) else data['irqs'].items())
     irqnames = [v for (k,v) in irq2name]
 
+    if isinstance(data['irqs'], list):
+        data['irqcount'] = len(irq2name)
+    else:
+        data['irqcount'] = max(data['irqs'].keys()) + 1
+
     data['irqdefinitions'] = "\n".join('#define NVIC_%s_IRQ %d'%(v.upper(),k) for (k,v) in irq2name)
-    data['irqcount'] = len(irq2name) # FIXME: what if it's a sparse dictionary?
     data['isrprototypes'] = "\n".join('void WEAK %s_isr(void);'%name.lower() for name in irqnames)
     data['isrpragmas'] = "\n".join('#pragma weak %s_isr = blocking_handler'%name.lower() for name in irqnames)
     data['vectortableinitialization'] = ', \\\n    '.join('[NVIC_%s_IRQ] = %s_isr'%(name.upper(), name.lower()) for name in irqnames)
