@@ -6,10 +6,14 @@
 *.srec
 *.a
 *.elf
+lib/*.ld
 *.swp
 \#*
 .\#*
 *~
 *.map
 *.log
-doxygen/
+html/
+latex/
+*.pdf
+

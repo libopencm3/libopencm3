@@ -24,14 +24,16 @@ PREFIX	?= arm-none-eabi
 CC		= $(PREFIX)-gcc
 AR		= $(PREFIX)-ar
 CFLAGS		= -Os -g -Wall -Wextra -I../../../include -fno-common \
-		  -mcpu=cortex-m3 -mthumb -Wstrict-prototypes \
+		  -mcpu=cortex-m4 -mthumb -mfloat-abi=hard -mfpu=fpv4-sp-d16 \
+		  -Wstrict-prototypes \
 		  -ffunction-sections -fdata-sections -MD -DSTM32F4
 # ARFLAGS	= rcsv
 ARFLAGS		= rcs
 OBJS		= vector.o rcc.o gpio.o usart.o spi.o flash.o nvic.o \
 		  i2c.o systick.o exti.o scb.o pwr.o timer.o \
 		  usb.o usb_standard.o usb_control.o usb_f107.o \
+		  assert.o
 
-VPATH += ../../usb:../
+VPATH += ../../usb:../:../../cm3
 
 include ../../Makefile.include

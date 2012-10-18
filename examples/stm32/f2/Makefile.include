@@ -26,18 +26,22 @@ LD		= $(PREFIX)-gcc
 OBJCOPY		= $(PREFIX)-objcopy
 OBJDUMP		= $(PREFIX)-objdump
 GDB		= $(PREFIX)-gdb
+
+TOOLCHAIN_DIR ?= ../../../../..
 ifeq ($(wildcard ../../../../../lib/libopencm3_stm32f2.a),)
+ifneq ($(strip $(shell which $(CC))),)
 TOOLCHAIN_DIR := $(shell dirname `which $(CC)`)/../$(PREFIX)
+endif
 else
 ifeq ($(V),1)
 $(info We seem to be building the example in the source directory. Using local library!)
 endif
-TOOLCHAIN_DIR := ../../../../..
 endif
+
 CFLAGS		+= -Os -g -Wall -Wextra -I$(TOOLCHAIN_DIR)/include \
 		   -fno-common -mcpu=cortex-m3 -mthumb -msoft-float -MD -DSTM32F2
 LDSCRIPT	?= $(BINARY).ld
-LDFLAGS		+= -Wl,--start-group -lc -lgcc -lnosys -Wl,--end-group \
+LDFLAGS		+= --static -Wl,--start-group -lc -lgcc -lnosys -Wl,--end-group \
 		   -L$(TOOLCHAIN_DIR)/lib -L$(TOOLCHAIN_DIR)/lib/stm32/f2 \
 		   -T$(LDSCRIPT) -nostartfiles -Wl,--gc-sections \
 		   -mthumb -march=armv7 -mfix-cortex-m3-ldrd -msoft-float

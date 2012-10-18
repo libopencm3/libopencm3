@@ -39,7 +39,13 @@ all: build
 
 build: lib examples
 
-lib:
+generatedheaders:
+	@printf "  UPDATING HEADERS\n"
+	$(Q)for yamlfile in `find -name 'irq.yaml'`; do \
+		./scripts/irq2nvic_h $$yamlfile ; \
+	done
+
+lib: generatedheaders
 	$(Q)for i in $(addprefix $@/,$(TARGETS)); do \
 		if [ -d $$i ]; then \
 			printf "  BUILD   $$i\n"; \
@@ -68,8 +74,8 @@ install: lib
 	@printf "  INSTALL scripts\n"
 	$(Q)$(INSTALL) -m 0644 scripts/* $(SHAREDIR)
 
-doxy:
-	doxygen Doxyfile
+doc:
+	$(Q)$(MAKE) -C doc doc
 
 clean:
 	$(Q)for i in $(addprefix lib/,$(TARGETS)) \
@@ -80,7 +86,7 @@ clean:
 		fi; \
 	done
 	@printf "  CLEAN   doxygen\n"
-	$(Q)rm -rf doxygen
+	$(Q)$(MAKE) -C doc clean
 
-.PHONY: build lib examples install doxy clean
+.PHONY: build lib examples install doc clean
 

@@ -1,3 +1,19 @@
+/** @defgroup spi_defines SPI Defines
+
+@ingroup STM32F_defines
+
+@brief <b>libopencm3 Defined Constants and Types for the STM32 SPI </b>
+
+@version 1.0.0
+
+@author @htmlonly &copy; @endhtmlonly 2009 Uwe Hermann <uwe@hermann-uwe.de>
+@author @htmlonly &copy; @endhtmlonly 2012 Ken Sarkies <ksarkies@internode.on.net>
+
+@date 12 October 2012
+
+LGPL License Terms @ref lgpl_license
+ */
+
 /*
  * This file is part of the libopencm3 project.
  *
@@ -23,13 +39,21 @@
 #include <libopencm3/stm32/memorymap.h>
 #include <libopencm3/cm3/common.h>
 
+/**@{*/
+
 /* Registers can be accessed as 16bit or 32bit values. */
 
 /* --- Convenience macros -------------------------------------------------- */
 
+/****************************************************************************/
+/** @defgroup spi_reg_base SPI Register base address
+@ingroup spi_defines
+
+@{*/
 #define SPI1				SPI1_BASE
 #define SPI2				SPI2_I2S_BASE
 #define SPI3				SPI3_I2S_BASE
+/**@}*/
 
 /* --- SPI registers ------------------------------------------------------- */
 
@@ -110,8 +134,14 @@
 #define SPI_CR1_CRCNEXT			(1 << 12)
 
 /* DFF: Data frame format */
+/****************************************************************************/
+/** @defgroup spi_dff SPI data frame format
+@ingroup spi_defines
+
+@{*/
 #define SPI_CR1_DFF_8BIT		(0 << 11)
 #define SPI_CR1_DFF_16BIT		(1 << 11)
+/**@}*/
 #define SPI_CR1_DFF			(1 << 11)
 
 /* RXONLY: Receive only */
@@ -124,13 +154,24 @@
 #define SPI_CR1_SSI			(1 << 8)
 
 /* LSBFIRST: Frame format */
+/****************************************************************************/
+/** @defgroup spi_lsbfirst SPI lsb/msb first
+@ingroup spi_defines
+
+@{*/
 #define SPI_CR1_MSBFIRST		(0 << 7)
 #define SPI_CR1_LSBFIRST		(1 << 7)
+/**@}*/
 
 /* SPE: SPI enable */
 #define SPI_CR1_SPE			(1 << 6)
 
 /* BR[2:0]: Baud rate control */
+/****************************************************************************/
+/** @defgroup spi_baudrate SPI peripheral baud rates
+@ingroup spi_defines
+
+@{*/
 #define SPI_CR1_BAUDRATE_FPCLK_DIV_2	(0x00 << 3)
 #define SPI_CR1_BAUDRATE_FPCLK_DIV_4	(0x01 << 3)
 #define SPI_CR1_BAUDRATE_FPCLK_DIV_8	(0x02 << 3)
@@ -139,6 +180,12 @@
 #define SPI_CR1_BAUDRATE_FPCLK_DIV_64	(0x05 << 3)
 #define SPI_CR1_BAUDRATE_FPCLK_DIV_128	(0x06 << 3)
 #define SPI_CR1_BAUDRATE_FPCLK_DIV_256	(0x07 << 3)
+/**@}*/
+/****************************************************************************/
+/** @defgroup spi_br_pre SPI peripheral baud rate prescale values
+@ingroup spi_defines
+
+@{*/
 #define SPI_CR1_BR_FPCLK_DIV_2		0x0
 #define SPI_CR1_BR_FPCLK_DIV_4		0x1
 #define SPI_CR1_BR_FPCLK_DIV_8		0x2
@@ -147,18 +194,31 @@
 #define SPI_CR1_BR_FPCLK_DIV_64		0x5
 #define SPI_CR1_BR_FPCLK_DIV_128	0x6
 #define SPI_CR1_BR_FPCLK_DIV_256	0x7
+/**@}*/
 
 /* MSTR: Master selection */
 #define SPI_CR1_MSTR			(1 << 2)
 
 /* CPOL: Clock polarity */
+/****************************************************************************/
+/** @defgroup spi_cpol SPI clock polarity
+@ingroup spi_defines
+
+@{*/
 #define SPI_CR1_CPOL_CLK_TO_0_WHEN_IDLE	(0 << 1)
 #define SPI_CR1_CPOL_CLK_TO_1_WHEN_IDLE	(1 << 1)
+/**@}*/
 #define SPI_CR1_CPOL			(1 << 1)
 
 /* CPHA: Clock phase */
+/****************************************************************************/
+/** @defgroup spi_cpha SPI clock phase
+@ingroup spi_defines
+
+@{*/
 #define SPI_CR1_CPHA_CLK_TRANSITION_1	(0 << 0)
 #define SPI_CR1_CPHA_CLK_TRANSITION_2	(1 << 0)
+/**@}*/
 #define SPI_CR1_CPHA			(1 << 0)
 
 /* --- SPI_CR2 values ------------------------------------------------------ */
@@ -346,5 +406,7 @@ void spi_enable_rx_dma(u32 spi);
 void spi_disable_rx_dma(u32 spi);
 
 END_DECLS
+
+/**@}*/
 
 #endif

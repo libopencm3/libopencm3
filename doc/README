@@ -1,0 +1,68 @@
+libopencm3 Documentation
+14 September 2012 (C) K Sarkies
+------------------------
+
+To generate documentation run 'make doc' in the doc directory. This
+runs doxygen for each of the processor families then integrates the whole.
+
+This requires doxygen v 1.8.2 or later.
+
+HTML, LaTeX, and pdf output is produced.
+
+Generation of HTML
+------------------
+
+To view HTML, point a browser to doc/html/index.html.
+
+The directory structure is important and should be maintained.
+Each of the subdirectories has a configuration file, a layout file and
+subdirectories for the documentation. Doxygen is intended to be run inside
+these subdirectories. The Makefile will handle this in the appropriate
+order. Tag files are generated and used by other doxygen runs to resolve links.
+
+Tagfiles contain all information about the document, and are used to resolve
+references in other documents. The groups defined in these external documents
+are not shown when EXTERNAL_GROUPS = NO. The high level tagfiles must be generated
+before any others.
+
+As well as the processor families, a "cm3" subdirectory is used to generate
+a tagfile to integrate the CM3 common core defines.
+
+Doxyfile_common holds global settings.
+
+OUTPUT_DIRECTORY blank so that the output is placed in the current directory.
+RECURSIVE = NO
+EXTERNAL_GROUPS = NO
+
+Each Doxyfile_include for a processor family has:
+
+@INCLUDE = ../Doxyfile_common
+INPUT = specific directories needed, including /include/libopencm3/cm3
+		in top directory to set the top level page and GNU license.
+LAYOUT_FILE = DoxygenLayout_$processor.xml
+WARN_LOGFILE = doxygen_$processor.log
+TAGFILES = ../cm3/cm3.tag=../../cm3/html
+GENERATE_TAGFILE = $processor.tag
+
+For the STM32 subfamilies, to include the common files references, add
+TAGFILES += ../stm32/stm32.tag=../../stm32/html
+
+For the top level Doxyfile
+
+INPUT = ../include/libopencm3/docmain.dox to add in the main page text
+LAYOUT_FILE = DoxygenLayout.xml
+WARN_LOGFILE = doxygen.log
+TAGFILES = cm3/cm3.tag=../cm3/html plus all families to be included.
+
+Generation of PDF
+-----------------
+
+The pdf is generated via LaTeX. The needs for the documents differ from HTML
+so separate Doxyfile_latex are provided. The pdf files are placed in the
+doc directory. Each file contains all documentation for the core and common
+features.
+
+@INCLUDE = ../Doxyfile_common
+GENERATE_LATEX = YES
+GENERATE_HTML = NO
+

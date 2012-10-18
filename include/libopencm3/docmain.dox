@@ -1,0 +1,21 @@
+/** @mainpage libopencm3 Developer Documentation
+
+@version 1.0.0
+
+@date 7 September 2012
+
+ * The libopencm3 project (previously known as libopenstm32) aims to create
+ * a free/libre/open-source (GPL v3, or later) firmware library for various
+ * ARM Cortex-M3 microcontrollers, including ST STM32, Toshiba TX03,
+ * Atmel SAM3U, NXP LPC1000 and others.
+ *
+ * @par ""
+ *
+ * See the <a href="http://www.libopencm3.org">libopencm3 wiki</a> for
+ * more information.
+
+LGPL License Terms @ref lgpl_license
+*/
+
+
+

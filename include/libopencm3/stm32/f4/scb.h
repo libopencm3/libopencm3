@@ -72,6 +72,63 @@
 /* AFSR: Auxiliary Fault Status Register */
 #define SCB_AFSR				MMIO32(SCB_BASE + 0x3C)
 
+/* ID_PFR0: Processor Feature Register 0 */
+#define SCB_ID_PFR0				MMIO32(SCB_BASE + 0x40)
+
+/* ID_PFR1: Processor Feature Register 1 */
+#define SCB_ID_PFR1				MMIO32(SCB_BASE + 0x44)
+
+/* ID_DFR0: Debug Features Register 0 */
+#define SCB_ID_DFR0				MMIO32(SCB_BASE + 0x48)
+
+/* ID_AFR0: Auxiliary Features Register 0 */
+#define SCB_ID_AFR0				MMIO32(SCB_BASE + 0x4C)
+
+/* ID_MMFR0: Memory Model Feature Register 0 */
+#define SCB_ID_MMFR0				MMIO32(SCB_BASE + 0x50)
+
+/* ID_MMFR1: Memory Model Feature Register 1 */
+#define SCB_ID_MMFR1				MMIO32(SCB_BASE + 0x54)
+
+/* ID_MMFR2: Memory Model Feature Register 2 */
+#define SCB_ID_MMFR2				MMIO32(SCB_BASE + 0x58)
+
+/* ID_MMFR3: Memory Model Feature Register 3 */
+#define SCB_ID_MMFR3				MMIO32(SCB_BASE + 0x5C)
+
+/* ID_ISAR0: Instruction Set Attributes Register 0 */
+#define SCB_ID_ISAR0				MMIO32(SCB_BASE + 0x60)
+
+/* ID_ISAR1: Instruction Set Attributes Register 1 */
+#define SCB_ID_ISAR1				MMIO32(SCB_BASE + 0x64)
+
+/* ID_ISAR2: Instruction Set Attributes Register 2 */
+#define SCB_ID_ISAR2				MMIO32(SCB_BASE + 0x68)
+
+/* ID_ISAR3: Instruction Set Attributes Register 3 */
+#define SCB_ID_ISAR3				MMIO32(SCB_BASE + 0x6C)
+
+/* ID_ISAR4: Instruction Set Attributes Register 4 */
+#define SCB_ID_ISAR4				MMIO32(SCB_BASE + 0x70)
+
+/* CPACR: Coprocessor Access Control Register */
+#define SCB_CPACR				MMIO32(SCB_BASE + 0x88)
+
+/* FPCCR: Floating-Point Context Control Register */
+#define SCB_FPCCR				MMIO32(SCB_BASE + 0x234)
+
+/* FPCAR: Floating-Point Context Address Register */
+#define SCB_FPCAR				MMIO32(SCB_BASE + 0x238)
+
+/* FPDSCR: Floating-Point Default Status Control Register */
+#define SCB_FPDSCR				MMIO32(SCB_BASE + 0x23C)
+
+/* MVFR0: Media and Floating-Point Feature Register 0 */
+#define SCB_MVFR0				MMIO32(SCB_BASE + 0x240)
+
+/* MVFR1: Media and Floating-Point Feature Register 1 */
+#define SCB_MVFR1				MMIO32(SCB_BASE + 0x244)
+
 /* --- SCB values ---------------------------------------------------------- */
 
 /* --- SCB_CPUID values ---------------------------------------------------- */
@@ -291,6 +348,18 @@
 /* --- SCB_BFAR values ----------------------------------------------------- */
 
 /* BFAR [31:0]: Bus fault address */
+
+/* --- SCB_CPACR values ---------------------------------------------------- */
+
+/* CPACR CPn: Access privileges values */
+#define SCB_CPACR_NONE			0	/* Access denied */
+#define SCB_CPACR_PRIV			1	/* Privileged access only */
+#define SCB_CPACR_FULL			3	/* Full access */
+
+/* CPACR [20:21]: Access privileges for coprocessor 10 */
+#define SCB_CPACR_CP10			(1 << 20)
+/* CPACR [22:23]: Access privileges for coprocessor 11 */
+#define SCB_CPACR_CP11			(1 << 22)
 
 /* --- SCB functions ------------------------------------------------------- */
 

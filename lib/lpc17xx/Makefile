@@ -28,8 +28,8 @@ CFLAGS		= -O0 -g -Wall -Wextra -I../../include -fno-common \
 		  -ffunction-sections -fdata-sections -MD
 # ARFLAGS	= rcsv
 ARFLAGS		= rcs
-OBJS		= gpio.o vector.o
+OBJS		= gpio.o vector.o assert.o
 
-# VPATH += ../usb
+VPATH += ../cm3
 
 include ../Makefile.include
