@@ -21,7 +21,7 @@
 #include <libopencm3/cm3/vector.h>
 
 /* load optional platform dependent initialization routines */
-#include "../dispatch/vector.c"
+#include "../dispatch/vector_chipset.c"
 /* load the weak symbols for IRQ_HANDLERS */
 #include "../dispatch/vector_nvic.c"
 
