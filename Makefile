@@ -73,6 +73,7 @@ install: lib
 	$(Q)$(INSTALL) -m 0644 lib/*.a $(LIBDIR)
 	@printf "  INSTALL ldscripts\n"
 	$(Q)$(INSTALL) -m 0644 lib/*.ld $(LIBDIR)
+	$(Q)$(INSTALL) -m 0644 lib/efm32/*/*.ld $(LIBDIR)
 	@printf "  INSTALL scripts\n"
 	$(Q)$(INSTALL) -m 0644 scripts/* $(SHAREDIR)
 
