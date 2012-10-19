@@ -191,10 +191,19 @@ void (*const vector_table[]) (void) = {
 	otg_fs_isr,		/* Addr: 0x0000_014C */
 };
 
+#include <stdint.h>
 void reset_handler(void)
 {
 	volatile unsigned *src, *dest;
+	uint32_t reset_str = *((uint32_t *)0x2000FFF0);
 
+	if (reset_str == 0xDEADBEEF) {
+		*((uint32_t *)0x2000FFF0) = 0x00;
+		asm("ldr   r0, =0x1fffb000");
+		asm("ldr   sp, [r0, #0]");
+		asm("ldr   r0, [r0, #4]");
+		asm("bx    r0");
+	}
 	__asm__("MSR msp, %0" : : "r"(&_stack));
 
 	for (src = &_data_loadaddr, dest = &_data; dest < &_edata; src++, dest++)
