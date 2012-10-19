@@ -8,6 +8,10 @@
 #elif defined(TINYGECKO)
 #	include <libopencm3/efm32/tinygecko/nvic.h>
 
+#elif defined(LPC13XX)
+#	include <libopencm3/lpc13xx/nvic.h>
+#elif defined(LPC17XX)
+#	include <libopencm3/lpc17xx/nvic.h>
 #elif defined(LPC43XX)
 #	include <libopencm3/lpc43xx/nvic.h>
 
