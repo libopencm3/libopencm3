@@ -64,9 +64,11 @@ examples: lib
 install: lib
 	@printf "  INSTALL headers\n"
 	$(Q)$(INSTALL) -d $(INCDIR)/libopencm3
+	$(Q)$(INSTALL) -d $(INCDIR)/libopencmsis
 	$(Q)$(INSTALL) -d $(LIBDIR)
 	$(Q)$(INSTALL) -d $(SHAREDIR)
 	$(Q)cp -r include/libopencm3/* $(INCDIR)/libopencm3
+	$(Q)cp -r include/libopencmsis/* $(INCDIR)/libopencmsis
 	@printf "  INSTALL libs\n"
 	$(Q)$(INSTALL) -m 0644 lib/*.a $(LIBDIR)
 	@printf "  INSTALL ldscripts\n"
