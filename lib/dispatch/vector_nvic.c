@@ -11,8 +11,11 @@
 #elif defined(LPC43XX)
 #	include "../lpc43xx/vector_nvic.c"
 
+#elif defined(LM3S)
+#	include "../lm3s/vector_nvic.c"
+
 #else
-#	warning"no chipset defined; user interrupts are disabled"
+#	warning"no interrupts defined for chipset; not allocating space in the vector table"
 
 #define IRQ_HANDLERS
 
