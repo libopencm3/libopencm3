@@ -32,7 +32,8 @@ void can_reset(u32 canport)
 }
 
 int can_init(u32 canport, bool ttcm, bool abom, bool awum, bool nart,
-	     bool rflm, bool txfp, u32 sjw, u32 ts1, u32 ts2, u32 brp)
+	     bool rflm, bool txfp, u32 sjw, u32 ts1, u32 ts2, u32 brp,
+	     bool loopback, bool silent)
 {
 	u32 wait_ack = 0x00000000;
 	u32 can_msr_inak_timeout = 0x0000FFFF;
@@ -85,8 +86,19 @@ int can_init(u32 canport, bool ttcm, bool abom, bool awum, bool nart,
 	else
 		CAN_MCR(canport) &= ~CAN_MCR_TXFP;
 
+	if (silent)
+		CAN_BTR(canport) |= (CAN_BTR_SILM);
+	else
+		CAN_BTR(canport) &= !(CAN_BTR_SILM);
+
+	if (loopback)
+		CAN_BTR(canport) |= (CAN_BTR_LBKM);
+	else
+		CAN_BTR(canport) &= !(CAN_BTR_LBKM);
+
+
 	/* Set bit timings. */
-	CAN_BTR(canport) = sjw | ts2 | ts1 |
+	CAN_BTR(canport) |= sjw | ts2 | ts1 |
 		           (u32)(CAN_BTR_BRP_MASK & (brp - 1));
 
 	/* Request initialization "leave". */
