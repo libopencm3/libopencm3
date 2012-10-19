@@ -17,8 +17,11 @@
 #elif defined(LPC43XX)
 #	include <libopencm3/lpc43xx/nvic.h>
 
+#elif defined(LM3S)
+#	include <libopencm3/lm3s/nvic.h>
+
 #else
-#	warning"no chipset defined; user interrupts are disabled"
+#	warning"no interrupts defined for chipset; NVIC_IRQ_COUNT = 0"
 
 #define NVIC_IRQ_COUNT 0
 

@@ -37,7 +37,7 @@ endif
 endif
 
 CFLAGS		+= -O0 -g3 -Wall -Wextra -I$(TOOLCHAIN_DIR)/include -fno-common \
-		   -mcpu=cortex-m3 -mthumb -MD
+		   -mcpu=cortex-m3 -mthumb -MD -DLM3S
 LDSCRIPT	?= $(BINARY).ld
 LDFLAGS         += -L$(TOOLCHAIN_DIR)/lib \
 		   -T$(LDSCRIPT) -nostartfiles -Wl,--gc-sections
