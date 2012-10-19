@@ -25,7 +25,7 @@ CC		= $(PREFIX)-gcc
 AR		= $(PREFIX)-ar
 CFLAGS		= -O0 -g -Wall -Wextra -I../../include -fno-common \
 		  -mcpu=cortex-m3 -mthumb -Wstrict-prototypes \
-		  -ffunction-sections -fdata-sections -MD
+		  -ffunction-sections -fdata-sections -MD -DLPC17XX
 # ARFLAGS	= rcsv
 ARFLAGS		= rcs
 OBJS		= gpio.o
