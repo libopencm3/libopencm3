@@ -8,8 +8,8 @@
 
 MEMORY
 {
-	rom (rx) : ORIGIN = 0, LENGTH = 32k
-	ram (rwx) : ORIGIN = 0x20000000, LENGTH = 4k
+	rom (rx) : ORIGIN = 0, LENGTH = 128k
+	ram (rwx) : ORIGIN = 0x20000000, LENGTH = 16k
 }
 
-INCLUDE tinygecko.ld;
+INCLUDE libopencm3_efm32g.ld;
