@@ -87,14 +87,14 @@ int can_init(u32 canport, bool ttcm, bool abom, bool awum, bool nart,
 		CAN_MCR(canport) &= ~CAN_MCR_TXFP;
 
 	if (silent)
-		CAN_BTR(canport) |= (CAN_BTR_SILM);
+		CAN_BTR(canport) |= CAN_BTR_SILM;
 	else
-		CAN_BTR(canport) &= !(CAN_BTR_SILM);
+		CAN_BTR(canport) &= ~CAN_BTR_SILM;
 
 	if (loopback)
-		CAN_BTR(canport) |= (CAN_BTR_LBKM);
+		CAN_BTR(canport) |= CAN_BTR_LBKM;
 	else
-		CAN_BTR(canport) &= !(CAN_BTR_LBKM);
+		CAN_BTR(canport) &= ~CAN_BTR_LBKM;
 
 
 	/* Set bit timings. */
