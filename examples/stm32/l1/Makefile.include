@@ -25,27 +25,32 @@ LD		= $(PREFIX)-gcc
 OBJCOPY		= $(PREFIX)-objcopy
 OBJDUMP		= $(PREFIX)-objdump
 GDB		= $(PREFIX)-gdb
-# If you are copying this file to use in your own project,
-# You will need to change this... (Leave unset to assume installed
-# in the toolchain itself)
-#OPENCM3_DIR    ?= /opt/libopencm3/$(PREFIX)
-OPENCM3_DIR     ?= ../../../../..
 
-ARCH_FLAGS      = -mcpu=cortex-m3 -mthumb -msoft-float
-CFLAGS		+= -g -Os -Wall -Wextra \
+TOOLCHAIN_DIR ?= ../../../../..
+ifeq ($(wildcard ../../../../../lib/libopencm3_stm32l1.a),)
+ifneq ($(strip $(shell which $(CC))),)
+TOOLCHAIN_DIR := $(shell dirname `which $(CC)`)/../$(PREFIX)
+endif
+else
+ifeq ($(V),1)
+$(info We seem to be building the example in the source directory. Using local library!)
+endif
+endif
+
+$(info GAHHHH toolchain: $(TOOLCHAIN_DIR))
+
+ARCH_FLAGS      = -mthumb -mcpu=cortex-m3 -msoft-float
+CFLAGS		+= -Os -g -Wall -Wextra -I$(TOOLCHAIN_DIR)/include \
 		   -fno-common $(ARCH_FLAGS) -MD -DSTM32L1
 LDSCRIPT	?= $(BINARY).ld
-LDFLAGS		+= -Wl,--start-group -lc -lgcc -lnosys -Wl,--end-group \
+LDFLAGS		+= --static -Wl,--start-group -lc -lgcc -lnosys -Wl,--end-group \
+		   -L$(TOOLCHAIN_DIR)/lib \
 		   -T$(LDSCRIPT) -nostartfiles -Wl,--gc-sections \
 		   $(ARCH_FLAGS) -mfix-cortex-m3-ldrd
 
-ifneq ($(OPENCM3_DIR),)
-CFLAGS          += -I$(OPENCM3_DIR)/include
-LDFLAGS         += -L$(OPENCM3_DIR)/lib -L$(OPENCM3_DIR)/lib/stm32/l1
-SCRIPT_DIR      = $(OPENCM3_DIR)/share
-else
-SCRIPT_DIR      = $(shell dirname $(shell readlink -f $(shell which $(PREFIX)-gcc)))/../$(PREFIX)/share
-endif
+CFLAGS          += -I$(TOOLCHAIN_DIR)/include
+LDFLAGS         += -L$(TOOLCHAIN_DIR)/lib -L$(TOOLCHAIN_DIR)/lib/stm32/l1
+SCRIPT_DIR      = $(TOOLCHAIN_DIR)/share
 
 OBJS		+= $(BINARY).o
 
@@ -95,11 +100,7 @@ flash: $(BINARY).flash
 	@#printf "  OBJDUMP $(*).list\n"
 	$(Q)$(OBJDUMP) -S $(*).elf > $(*).list
 
-ifeq ($(OPENCM3_DIR),)
-%.elf: $(OBJS) $(LDSCRIPT)
-else
-%.elf: $(OBJS) $(LDSCRIPT) $(OPENCM3_DIR)/lib/stm32/l1/libopencm3_stm32l1.a
-endif
+%.elf: $(OBJS) $(LDSCRIPT) $(TOOLCHAIN_DIR)/lib/libopencm3_stm32l1.a
 	@#printf "  LD      $(subst $(shell pwd)/,,$(@))\n"
 	$(Q)$(LD) -o $(*).elf $(OBJS) -lopencm3_stm32l1 $(LDFLAGS)
 

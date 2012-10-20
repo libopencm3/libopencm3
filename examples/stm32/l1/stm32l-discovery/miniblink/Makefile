@@ -19,7 +19,7 @@
 
 BINARY = miniblink
 
-LDSCRIPT = ../stm32l15xxB.ld
+LDSCRIPT = ../../../../../lib/stm32/l1/stm32l15xxb.ld
 
 include ../../Makefile.include
 

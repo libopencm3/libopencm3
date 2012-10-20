@@ -1,0 +1,49 @@
+includeguard: LIBOPENCM3_STM32_L1_NVIC_H
+partname_humanreadable: STM32 L1 series
+partname_doxygen: STM32L1
+irqs:
+  - wwdg
+  - pvd
+  - tamper
+  - rtc
+  - flash
+  - rcc
+  - exti0
+  - exti1
+  - exti2
+  - exti3
+  - exti4
+  - dma1_channel1
+  - dma1_channel2
+  - dma1_channel3
+  - dma1_channel4
+  - dma1_channel5
+  - dma1_channel6
+  - dma1_channel7
+  - adc1
+  - usb_hp
+  - usb_lp
+  - dac
+  - comp
+  - exti9_5
+  - lcd
+  - tim9
+  - tim10
+  - tim11
+  - tim2
+  - tim3
+  - tim4
+  - i2c1_ev
+  - i2c1_er
+  - i2c2_ev
+  - i2c2_er
+  - spi1
+  - spi2
+  - usart1
+  - usart2
+  - usart3
+  - exti15_10
+  - rtc_alarm
+  - usb_wakeup
+  - tim6
+  - tim7
