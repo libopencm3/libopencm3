@@ -288,7 +288,7 @@ void i2c_send_data(u32 i2c, u8 data)
 */
 uint8_t i2c_get_data(u32 i2c)
 {
-	return (I2C_DR(i2c) & 0xff);
+	return I2C_DR(i2c) & 0xff;
 }
 
 /*-----------------------------------------------------------------------------*/
