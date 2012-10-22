@@ -18,7 +18,8 @@
  */
 
 #define WEAK __attribute__ ((weak))
-
+#define NAKED __attribute__((naked))
+#include <stdint.h>
 /* Symbols exported by the linker script(s): */
 extern unsigned _data_loadaddr, _data, _edata, _ebss, _stack;
 
@@ -191,10 +192,10 @@ void (*const vector_table[]) (void) = {
 	otg_fs_isr,		/* Addr: 0x0000_014C */
 };
 
-#include <stdint.h>
-void reset_handler(void)
+void WEAK user_reset_hook(void);
+
+void handle_dfu_bootloader(void)
 {
-	volatile unsigned *src, *dest;
 	uint32_t reset_str = *((uint32_t *)0x2000FFF0);
 
 	if (reset_str == 0xDEADBEEF) {
@@ -204,7 +205,16 @@ void reset_handler(void)
 		asm("ldr   r0, [r0, #4]");
 		asm("bx    r0");
 	}
+
+}
+
+void NAKED reset_handler(void)
+{
+	volatile unsigned *src, *dest;
+
 	__asm__("MSR msp, %0" : : "r"(&_stack));
+
+	user_reset_hook();
 
 	for (src = &_data_loadaddr, dest = &_data; dest < &_edata; src++, dest++)
 		*dest = *src;
@@ -226,6 +236,7 @@ void null_handler(void)
 	/* Do nothing. */
 }
 
+#pragma weak user_reset_hook = handle_dfu_bootloader
 #pragma weak nmi_handler = null_handler
 #pragma weak hard_fault_handler = blocking_handler
 #pragma weak mem_manage_handler = blocking_handler
