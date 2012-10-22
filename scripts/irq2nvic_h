@@ -142,8 +142,10 @@ def main():
     vector_nvic_c = infile.replace('./include/libopencm3/', './lib/').replace('irq.yaml', 'vector_nvic.c')
 
     if remove:
-        os.unlink(nvic_h)
-        os.unlink(vector_nvic_c)
+        if os.path.exists(nvic_h):
+            os.unlink(nvic_h)
+        if os.path.exists(vector_nvic_c):
+            os.unlink(vector_nvic_c)
         sys.exit(0)
 
     if not needs_update([__file__, infile], [nvic_h, vector_nvic_c]):
