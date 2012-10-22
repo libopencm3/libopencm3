@@ -321,9 +321,15 @@ LGPL License Terms @ref lgpl_license
 #define I2C_CCR_FS			(1 << 15)
 
 /* DUTY: Fast Mode Duty Cycle */
+/** @defgroup i2c_duty_cycle I2C peripheral clock duty cycles
+@ingroup i2c_defines
+
+@{*/
 #define I2C_CCR_DUTY			(1 << 14)
 #define I2C_CCR_DUTY_DIV2		0
 #define I2C_CCR_DUTY_16_DIV_9		1
+/**@}*/
+
 /* Note: Bits [13:12] are reserved, and forced to 0 by hardware. */
 
 /*

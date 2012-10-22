@@ -313,26 +313,57 @@ void i2c_disable_interrupt(u32 i2c, u32 interrupt)
 	I2C_CR2(i2c) &= ~interrupt;
 }
 
+/*-----------------------------------------------------------------------------*/
+/** @brief I2C Enable ACK
+
+Enables acking of own 7/10 bit address
+@param[in] i2c Unsigned int32. I2C register base address @ref i2c_reg_base.
+*/
 void i2c_enable_ack(u32 i2c)
 {
 	I2C_CR1(i2c) |= I2C_CR1_ACK;
 }
 
+/*-----------------------------------------------------------------------------*/
+/** @brief I2C Disable ACK
+
+Disables acking of own 7/10 bit address
+@param[in] i2c Unsigned int32. I2C register base address @ref i2c_reg_base.
+*/
 void i2c_disable_ack(u32 i2c)
 {
 	I2C_CR1(i2c) &= ~I2C_CR1_ACK;
 }
 
+/*-----------------------------------------------------------------------------*/
+/** @brief I2C NACK Next Byte
+
+Causes the I2C controller to NACK the reception of the next byte
+@param[in] i2c Unsigned int32. I2C register base address @ref i2c_reg_base.
+*/
 void i2c_nack_next(u32 i2c)
 {
 	I2C_CR1(i2c) |= I2C_CR1_POS;
 }
 
+/*-----------------------------------------------------------------------------*/
+/** @brief I2C NACK Next Byte
+
+Causes the I2C controller to NACK the reception of the current byte
+
+@param[in] i2c Unsigned int32. I2C register base address @ref i2c_reg_base.
+*/
 void i2c_nack_current(u32 i2c)
 {
 	I2C_CR1(i2c) &= ~I2C_CR1_POS;
 }
 
+/*-----------------------------------------------------------------------------*/
+/** @brief I2C Set clock duty cycle
+
+@param[in] i2c Unsigned int32. I2C register base address @ref i2c_reg_base.
+@param[in] dutycycle Unsigned int32. I2C duty cycle @ref i2c_duty_cycle.
+*/
 void i2c_set_dutycycle(u32 i2c, u32 dutycycle)
 {
 	if (dutycycle == I2C_CCR_DUTY_DIV2)
@@ -341,21 +372,41 @@ void i2c_set_dutycycle(u32 i2c, u32 dutycycle)
 		I2C_CCR(i2c) |= I2C_CCR_DUTY;
 }
 
+/*-----------------------------------------------------------------------------*/
+/** @brief I2C Enable DMA
+
+@param[in] i2c Unsigned int32. I2C register base address @ref i2c_reg_base.
+*/
 void i2c_enable_dma(u32 i2c)
 {
 	I2C_CR2(i2c) |= I2C_CR2_DMAEN;
 }
 
+/*-----------------------------------------------------------------------------*/
+/** @brief I2C Disable DMA
+
+@param[in] i2c Unsigned int32. I2C register base address @ref i2c_reg_base.
+*/
 void i2c_disable_dma(u32 i2c)
 {
 	I2C_CR2(i2c) &= ~I2C_CR2_DMAEN;
 }
 
+/*-----------------------------------------------------------------------------*/
+/** @brief I2C Set DMA last transfer
+
+@param[in] i2c Unsigned int32. I2C register base address @ref i2c_reg_base.
+*/
 void i2c_set_dma_last_transfer(u32 i2c)
 {
 	I2C_CR2(i2c) |= I2C_CR2_LAST;
 }
 
+/*-----------------------------------------------------------------------------*/
+/** @brief I2C Clear DMA last transfer
+
+@param[in] i2c Unsigned int32. I2C register base address @ref i2c_reg_base.
+*/
 void i2c_clear_dma_last_transfer(u32 i2c)
 {
 	I2C_CR2(i2c) &= ~I2C_CR2_LAST;
