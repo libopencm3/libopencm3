@@ -25,10 +25,10 @@ CC		= $(PREFIX)-gcc
 AR		= $(PREFIX)-ar
 CFLAGS		= -Os -g -Wall -Wextra -I../../../include -fno-common \
 		  -mcpu=cortex-m3 -mthumb -Wstrict-prototypes \
-		  -ffunction-sections -fdata-sections -MD -DSTM32F1
+		  -ffunction-sections -fdata-sections -MD -DSTM32L1
 # ARFLAGS	= rcsv
 ARFLAGS		= rcs
-OBJS		= rcc.o gpio.o desig.o crc.o usart.o
+OBJS		= rcc.o gpio.o desig.o crc.o usart.o exti2.o
 
 VPATH += ../../usb:../:../../cm3
 
