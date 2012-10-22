@@ -130,11 +130,21 @@ def needs_update(infiles, outfiles):
     return any(not os.path.exists(o) for o in outfiles) or max(map(timestamp, infiles)) > min(map(timestamp, outfiles))
 
 def main():
+    if sys.argv[1] == '--remove':
+        remove = True
+        del sys.argv[1]
+    else:
+        remove = False
     infile = sys.argv[1]
     if not infile.startswith('./include/libopencm3/') or not infile.endswith('/irq.yaml'):
         raise ValueError("Arguent must match ./include/libopencm3/**/irq.yaml")
     nvic_h = infile.replace('irq.yaml', 'nvic.h')
     vector_nvic_c = infile.replace('./include/libopencm3/', './lib/').replace('irq.yaml', 'vector_nvic.c')
+
+    if remove:
+        os.unlink(nvic_h)
+        os.unlink(vector_nvic_c)
+        sys.exit(0)
 
     if not needs_update([__file__, infile], [nvic_h, vector_nvic_c]):
         sys.exit(0)

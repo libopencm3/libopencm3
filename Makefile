@@ -45,6 +45,12 @@ generatedheaders:
 		./scripts/irq2nvic_h $$yamlfile ; \
 	done
 
+cleanheaders:
+	@printf "  CLEANING HEADERS\n"
+	$(Q)for yamlfile in `find -name 'irq.yaml'`; do \
+		./scripts/irq2nvic_h --remove $$yamlfile ; \
+	done
+
 lib: generatedheaders
 	$(Q)for i in $(addprefix $@/,$(TARGETS)); do \
 		if [ -d $$i ]; then \
@@ -77,7 +83,7 @@ install: lib
 doc:
 	$(Q)$(MAKE) -C doc doc
 
-clean:
+clean: cleanheaders
 	$(Q)for i in $(addprefix lib/,$(TARGETS)) \
 		     $(addsuffix /*/*,$(addprefix examples/,$(TARGETS))); do \
 		if [ -d $$i ]; then \
