@@ -127,6 +127,12 @@ void exti_select_source(u32 exti, u32 gpioport)
 	case GPIOG:
 		bits = 0x9;
 		break;
+	case GPIOH:
+		bits = 0x8;
+		break;
+	case GPIOI:
+		bits = 0x7;
+		break;
 	}
 
 	/* Ensure that only valid EXTI lines are used. */
