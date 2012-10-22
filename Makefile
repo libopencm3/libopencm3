@@ -88,5 +88,5 @@ clean:
 	@printf "  CLEAN   doxygen\n"
 	$(Q)$(MAKE) -C doc clean
 
-.PHONY: build lib examples install doc clean
+.PHONY: build lib examples install doc clean generatedheaders
 
