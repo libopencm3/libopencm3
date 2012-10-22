@@ -152,7 +152,7 @@
 #define GPIO_MODE_MASK(n)               (0x3 << (2 * (n)))
 #define GPIO_MODE_INPUT			0x00	/* Default */
 #define GPIO_MODE_OUTPUT		0x01
-#define GPIO_MODE_ALTFN			0x02
+#define GPIO_MODE_AF			0x02
 #define GPIO_MODE_ANALOG		0x03
 
 /* --- GPIOx_OTYPER values -------------------------------------------- */

@@ -17,20 +17,9 @@
 ## along with this library.  If not, see <http://www.gnu.org/licenses/>.
 ##
 
-LIBNAME		= libopencm3_stm32l1
+BINARY = usart
 
-PREFIX		?= arm-none-eabi
-#PREFIX		?= arm-elf
-CC		= $(PREFIX)-gcc
-AR		= $(PREFIX)-ar
-CFLAGS		= -Os -g -Wall -Wextra -I../../../include -fno-common \
-		  -mcpu=cortex-m3 -mthumb -Wstrict-prototypes \
-		  -ffunction-sections -fdata-sections -MD -DSTM32F1
-# ARFLAGS	= rcsv
-ARFLAGS		= rcs
-OBJS		= rcc.o gpio.o desig.o crc.o usart.o
-
-VPATH += ../../usb:../:../../cm3
+LDSCRIPT = ../../../../../lib/stm32/l1/stm32l15xxb.ld
 
 include ../../Makefile.include
 
