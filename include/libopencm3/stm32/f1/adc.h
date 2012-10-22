@@ -707,15 +707,7 @@ void adc_reset_calibration(u32 adc);
 void adc_calibration(u32 adc);
 void adc_set_continuous_conversion_mode(u32 adc);
 void adc_set_single_conversion_mode(u32 adc);
-#ifdef __GNUC__
-#if __GNUC__ > 4 || (__GNUC__ == 4 && __GNUC_MINOR_ > 4)
-void adc_on(u32 adc) __attribute__ ((deprecated ("will be removed in the first release")));
-#else
-void adc_on(u32 adc) __attribute__ ((deprecated));
-#endif
-#else
-void adc_on(u32 adc);
-#endif
+void adc_on(u32 adc) LIBOPENCM3_DEPRECATED("will be removed in the first release");
 void adc_off(u32 adc);
 void adc_set_sample_time(u32 adc, u8 channel, u8 time);
 void adc_set_sample_time_on_all_channels(u32 adc, u8 time);
@@ -724,21 +716,11 @@ void adc_set_watchdog_low_threshold(u32 adc, u16 threshold);
 void adc_set_regular_sequence(u32 adc, u8 length, u8 channel[]);
 void adc_set_injected_sequence(u32 adc, u8 length, u8 channel[]);
 
-#ifdef __GNUC__
-#if __GNUC__ > 4 || (__GNUC__ == 4 && __GNUC_MINOR_ > 4)
-void adc_set_continous_conversion_mode(u32 adc) __attribute__ ((deprecated ("change to adc_set_continuous_conversion_mode")));
-void adc_set_conversion_time(u32 adc, u8 channel, u8 time) __attribute__ ((deprecated ("change to adc_set_sample_time")));
-void adc_set_conversion_time_on_all_channels(u32 adc, u8 time) __attribute__ ((deprecated ("change to adc_set_sample_time_on_all_channels")));
-void adc_enable_jeoc_interrupt(u32 adc) __attribute__ ((deprecated ("change to adc_enable_eoc_interrupt_injected")));
-void adc_disable_jeoc_interrupt(u32 adc) __attribute__ ((deprecated ("change to adc_disable_eoc_interrupt_injected")));
-#else
-void adc_set_continous_conversion_mode(u32 adc) __attribute__ ((deprecated));
-void adc_set_conversion_time(u32 adc, u8 channel, u8 time) __attribute__ ((deprecated));
-void adc_set_conversion_time_on_all_channels(u32 adc, u8 time) __attribute__ ((deprecated));
-void adc_enable_jeoc_interrupt(u32 adc) __attribute__ ((deprecated));
-void adc_disable_jeoc_interrupt(u32 adc) __attribute__ ((deprecated));
-#endif
-#endif
+void adc_set_continous_conversion_mode(u32 adc) LIBOPENCM3_DEPRECATED("change to adc_set_continuous_conversion_mode");
+void adc_set_conversion_time(u32 adc, u8 channel, u8 time) LIBOPENCM3_DEPRECATED("change to adc_set_sample_time");
+void adc_set_conversion_time_on_all_channels(u32 adc, u8 time) LIBOPENCM3_DEPRECATED("change to adc_set_sample_time_on_all_channels");
+void adc_enable_jeoc_interrupt(u32 adc) LIBOPENCM3_DEPRECATED("change to adc_enable_eoc_interrupt_injected");
+void adc_disable_jeoc_interrupt(u32 adc) LIBOPENCM3_DEPRECATED("change to adc_disable_eoc_interrupt_injected");
 END_DECLS
 
 #endif
