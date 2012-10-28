@@ -308,5 +308,5 @@ void can_receive(u32 canport, u8 fifo, bool release, u32 *id, bool *ext,
 
 	/* Release the FIFO. */
 	if (release)
-		can_fifo_release(CAN1, 0);
+		can_fifo_release(canport, fifo);
 }
