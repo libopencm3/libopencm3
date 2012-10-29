@@ -1,4 +1,3 @@
-* Counts how long the user button was held down (in ms)
-* Uses one free running counter plus EXTI as an ugly input capture
-115200@8n1 console on PA2 (tx only)
+* Prints to the screen when the button is pushed/released (irq driven)
+  115200@8n1 console on PA2 (tx only)
 
