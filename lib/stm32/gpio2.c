@@ -2,7 +2,6 @@
  * This file is part of the libopencm3 project.
  *
  * Copyright (C) 2011 Fergus Noble <fergusnoble@gmail.com>
- * Copyright (C) 2012 Karl Palsson <karlp@tweak.net.au>
  *
  * This library is free software: you can redistribute it and/or modify
  * it under the terms of the GNU Lesser General Public License as published by
@@ -16,12 +15,17 @@
  *
  * You should have received a copy of the GNU Lesser General Public License
  * along with this library.  If not, see <http://www.gnu.org/licenses/>.
- *
- * This is virtually a carbon copy of the F4 code...
- * TODO: make this code shared by f2, f4, l1
  */
 
+#if defined(STM32F2)
+#include <libopencm3/stm32/f2/gpio.h>
+#elif defined(STM32F4)
+#include <libopencm3/stm32/f4/gpio.h>
+#elif defined(STM32L1)
 #include <libopencm3/stm32/l1/gpio.h>
+#else
+#error "invalid/unknown stm32 family for this code"
+#endif
 
 void gpio_mode_setup(u32 gpioport, u8 mode, u8 pull_up_down, u16 gpios)
 {
@@ -55,7 +59,7 @@ void gpio_set_output_options(u32 gpioport, u8 otype, u8 speed, u16 gpios)
 	u16 i;
 	u32 ospeedr;
 
-	if (otype == GPIO_OTYPE_OD)
+	if (otype == 0x1)
 		GPIO_OTYPER(gpioport) |= gpios;
 	else
 		GPIO_OTYPER(gpioport) &= ~gpios;
@@ -90,7 +94,7 @@ void gpio_set_af(u32 gpioport, u8 alt_func_num, u16 gpios)
 	for (i = 8; i < 16; i++) {
 		if (!((1 << i) & gpios))
 			continue;
-		afrl &= ~GPIO_AFR_MASK(i - 8);
+		afrh &= ~GPIO_AFR_MASK(i - 8);
 		afrh |= GPIO_AFR(i - 8, alt_func_num);
 	}
 

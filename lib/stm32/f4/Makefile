@@ -29,7 +29,7 @@ CFLAGS		= -Os -g -Wall -Wextra -I../../../include -fno-common \
 		  -ffunction-sections -fdata-sections -MD -DSTM32F4
 # ARFLAGS	= rcsv
 ARFLAGS		= rcs
-OBJS		= rcc.o gpio.o usart.o spi.o flash.o \
+OBJS		= rcc.o gpio2.o usart.o spi.o flash.o \
 		  i2c.o exti2.o pwr.o timer.o \
 		  usb.o usb_standard.o usb_control.o usb_fx07_common.o usb_f107.o \
 		  usb_f207.o adc.o
