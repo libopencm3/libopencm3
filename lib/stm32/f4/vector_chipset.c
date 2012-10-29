@@ -1,7 +1,8 @@
 /*
  * This file is part of the libopencm3 project.
  *
- * Copyright (C) 2010 Gareth McMullin <gareth@blacksphere.co.nz>
+ * Copyright (C) 2010 Piotr Esden-Tempski <piotr@esden.net>
+ * Copyright (C) 2011 Fergus Noble <fergusnoble@gmail.com>
  *
  * This library is free software: you can redistribute it and/or modify
  * it under the terms of the GNU Lesser General Public License as published by
@@ -17,19 +18,10 @@
  * along with this library.  If not, see <http://www.gnu.org/licenses/>.
  */
 
-#include <libopencm3/stm32/f2/scb.h>
+#include <libopencm3/cm3/scb.h>
 
-void scb_reset_core(void)
+static void pre_main(void)
 {
-	SCB_AIRCR = SCB_AIRCR_VECTKEY | SCB_AIRCR_VECTRESET;
-}
-
-void scb_reset_system(void)
-{
-	SCB_AIRCR = SCB_AIRCR_VECTKEY | SCB_AIRCR_SYSRESETREQ;
-}
-
-void scb_set_priority_grouping(u32 prigroup)
-{
-	SCB_AIRCR = SCB_AIRCR_VECTKEY | prigroup;
+	/* Enable access to Floating-Point coprocessor. */
+	SCB_CPACR |= SCB_CPACR_FULL * (SCB_CPACR_CP10 | SCB_CPACR_CP11);
 }

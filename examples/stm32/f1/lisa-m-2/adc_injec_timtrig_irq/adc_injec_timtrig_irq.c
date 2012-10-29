@@ -25,7 +25,7 @@
 #include <libopencm3/stm32/f1/adc.h>
 #include <libopencm3/stm32/usart.h>
 #include <libopencm3/stm32/timer.h>
-#include <libopencm3/stm32/nvic.h>
+#include <libopencm3/cm3/nvic.h>
 
 volatile u16 temperature = 0;
 

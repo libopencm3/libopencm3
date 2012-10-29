@@ -28,11 +28,10 @@ AR		= $(PREFIX)-ar
 CFLAGS		= -O2 -g3 -Wall -Wextra -I../../include -fno-common \
 		  -mcpu=cortex-m4 -mthumb -Wstrict-prototypes \
 		  -ffunction-sections -fdata-sections -MD \
-		  -mfloat-abi=hard -mfpu=fpv4-sp-d16
+		  -mfloat-abi=hard -mfpu=fpv4-sp-d16 -DLPC43XX
 # ARFLAGS	= rcsv
 ARFLAGS		= rcs
-OBJS		= gpio.o vector.o scu.o i2c.o ssp.o nvic.o systick.o \
-		  assert.o
+OBJS		= gpio.o scu.o i2c.o ssp.o
 
 VPATH += ../cm3
 

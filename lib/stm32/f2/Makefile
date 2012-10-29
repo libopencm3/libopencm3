@@ -28,8 +28,8 @@ CFLAGS		= -Os -g -Wall -Wextra -I../../../include -fno-common \
 		  -ffunction-sections -fdata-sections -MD -DSTM32F2
 # ARFLAGS	= rcsv
 ARFLAGS		= rcs
-OBJS		= vector.o rcc.o gpio.o usart.o spi.o flash.o nvic.o \
-		  i2c.o systick.o exti.o scb.o timer.o assert.o
+OBJS		= rcc.o gpio.o usart.o spi.o flash.o \
+		  i2c.o exti.o timer.o
 
 VPATH += ../../usb:../:../../cm3
 

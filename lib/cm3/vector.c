@@ -1,7 +1,8 @@
 /*
  * This file is part of the libopencm3 project.
  *
- * Copyright (C) 2010 Piotr Esden-Tempski <piotr@esden.net>
+ * Copyright (C) 2010 Piotr Esden-Tempski <piotr@esden.net>,
+ * Copyright (C) 2012 chrysn <chrysn@fsfe.org>
  *
  * This library is free software: you can redistribute it and/or modify
  * it under the terms of the GNU Lesser General Public License as published by
@@ -14,8 +15,15 @@
  * GNU Lesser General Public License for more details.
  *
  * You should have received a copy of the GNU Lesser General Public License
- * along with this library.  If not, see <http://www.gnu.org/licenses/>.
+ * along with this library. If not, see <http://www.gnu.org/licenses/>.
  */
+
+#include <libopencm3/cm3/vector.h>
+
+/* load optional platform dependent initialization routines */
+#include "../dispatch/vector_chipset.c"
+/* load the weak symbols for IRQ_HANDLERS */
+#include "../dispatch/vector_nvic.c"
 
 #define WEAK __attribute__ ((weak))
 
@@ -23,10 +31,10 @@
 extern unsigned _data_loadaddr, _data, _edata, _ebss, _stack;
 
 void main(void);
-void reset_handler(void);
 void blocking_handler(void);
 void null_handler(void);
 
+void WEAK reset_handler(void);
 void WEAK nmi_handler(void);
 void WEAK hard_fault_handler(void);
 void WEAK mem_manage_handler(void);
@@ -37,27 +45,25 @@ void WEAK debug_monitor_handler(void);
 void WEAK pend_sv_handler(void);
 void WEAK sys_tick_handler(void);
 
-/* TODO: Interrupt handler prototypes */
-
 __attribute__ ((section(".vectors")))
-void (*const vector_table[]) (void) = {
-	(void*)&_stack,		/* Addr: 0x0000_0000 */
-	reset_handler,		/* Addr: 0x0000_0004 */
-	nmi_handler,		/* Addr: 0x0000_0008 */
-	hard_fault_handler,	/* Addr: 0x0000_000C */
-	mem_manage_handler,	/* Addr: 0x0000_0010 */
-	bus_fault_handler,	/* Addr: 0x0000_0014 */
-	usage_fault_handler,	/* Addr: 0x0000_0018 */
-	0, 0, 0, 0,		/* Reserved Addr: 0x0000_001C - 0x0000_002B */
-	sv_call_handler,	/* Addr: 0x0000_002C */
-	debug_monitor_handler,	/* Addr: 0x0000_0030 */
-	0,			/* Reserved Addr: 0x0000_00034 */
-	pend_sv_handler,	/* Addr: 0x0000_0038 */
-	sys_tick_handler,	/* Addr: 0x0000_003C */
+vector_table_t vector_table = {
+	.initial_sp_value = &_stack,
+	.reset = reset_handler,
+	.nmi = nmi_handler,
+	.hard_fault = hard_fault_handler,
+	.memory_manage_fault = mem_manage_handler,
+	.bus_fault = bus_fault_handler,
+	.usage_fault = usage_fault_handler,
+	.debug_monitor = debug_monitor_handler,
+	.sv_call = sv_call_handler,
+	.pend_sv = pend_sv_handler,
+	.systick = sys_tick_handler,
+	.irq = {
+		IRQ_HANDLERS
+	}
 };
 
-
-void reset_handler(void)
+void WEAK reset_handler(void)
 {
 	volatile unsigned *src, *dest;
 
@@ -68,6 +74,9 @@ void reset_handler(void)
 
 	while (dest < &_ebss)
 		*dest++ = 0;
+
+	/* might be provided by platform specific vector.c */
+	pre_main();
 
 	/* Call the application's entry point. */
 	main();
@@ -92,4 +101,3 @@ void null_handler(void)
 #pragma weak debug_monitor_handler = null_handler
 #pragma weak pend_sv_handler = null_handler
 #pragma weak sys_tick_handler = null_handler
-/* TODO: Interrupt handler weak aliases */

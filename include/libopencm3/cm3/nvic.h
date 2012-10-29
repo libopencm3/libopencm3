@@ -1,21 +1,9 @@
-/** @defgroup STM32F_nvic_defines NVIC Defines
-
-@brief <b>libopencm3 STM32F Nested Vectored Interrupt Controller</b>
-
-@ingroup STM32F_defines
-
-@version 1.0.0
-
-@author @htmlonly &copy; @endhtmlonly 2010 Piotr Esden-Tempski <piotr@esden.net>
-
-@date 18 August 2012
-
-LGPL License Terms @ref lgpl_license
- */
 /*
  * This file is part of the libopencm3 project.
  *
  * Copyright (C) 2010 Piotr Esden-Tempski <piotr@esden.net>
+ * Copyright (C) 2012 Michael Ossmann <mike@ossmann.com>
+ * Copyright (C) 2012 Benjamin Vernoux <titanmkd@gmail.com>
  *
  * This library is free software: you can redistribute it and/or modify
  * it under the terms of the GNU Lesser General Public License as published by
@@ -30,13 +18,27 @@ LGPL License Terms @ref lgpl_license
  * You should have received a copy of the GNU Lesser General Public License
  * along with this library.  If not, see <http://www.gnu.org/licenses/>.
  */
+/** @defgroup CM3_nvic_defines NVIC Defines
+
+@brief <b>libopencm3 Cortex Nested Vectored Interrupt Controller</b>
+
+@ingroup CM3_defines
+
+@version 1.0.0
+
+@author @htmlonly &copy; @endhtmlonly 2010 Piotr Esden-Tempski <piotr@esden.net>
+
+@date 18 August 2012
+
+LGPL License Terms @ref lgpl_license
+ */
 /**@{*/
 
 #ifndef LIBOPENCM3_NVIC_H
 #define LIBOPENCM3_NVIC_H
 
-#include <libopencm3/stm32/memorymap.h>
 #include <libopencm3/cm3/common.h>
+#include <libopencm3/cm3/memorymap.h>
 
 /* --- NVIC Registers ------------------------------------------------------ */
 
@@ -79,9 +81,9 @@ LGPL License Terms @ref lgpl_license
 
 /* --- IRQ channel numbers-------------------------------------------------- */
 
-/* Cortex M3 System Interrupts */
-/** @defgroup nvic_sysint Cortex M3 System Interrupts
-@ingroup STM32F_nvic_defines
+/* Cortex M3 and M4 System Interrupts */
+/** @defgroup nvic_sysint Cortex M3/M4 System Interrupts
+@ingroup CM3_nvic_defines
 
 IRQ numbers -3 and -6 to -9 are reserved
 @{*/
@@ -98,21 +100,11 @@ IRQ numbers -3 and -6 to -9 are reserved
 #define NVIC_SYSTICK_IRQ		-1
 /**@}*/
 
-
 /* Note: User interrupts are family specific and are defined in a family
  * specific header file in the corresponding subfolder.
  */
 
-#if defined(STM32F1)
-#	include <libopencm3/stm32/f1/nvic_f1.h>
-#elif defined(STM32F2)
-#	include <libopencm3/stm32/f2/nvic_f2.h>
-#elif defined(STM32F4)
-#	include <libopencm3/stm32/f4/nvic_f4.h>
-#else
-#	error "stm32 family not defined."
-#endif
-
+#include <libopencm3/dispatch/nvic.h>
 
 /* --- NVIC functions ------------------------------------------------------ */
 
@@ -131,5 +123,3 @@ void nvic_generate_software_interrupt(u16 irqn);
 END_DECLS
 
 #endif
-/**@}*/
-
