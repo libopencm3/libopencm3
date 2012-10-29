@@ -26,7 +26,7 @@ SHAREDIR	= $(DESTDIR)/$(PREFIX)/share/libopencm3/scripts
 INSTALL		= install
 
 SRCLIBDIR = $(shell pwd)/lib
-TARGETS = stm32/f1 stm32/f2 stm32/f4 lpc13xx lpc17xx lpc43xx lm3s
+TARGETS = stm32/f1 stm32/f2 stm32/f4 lpc13xx lpc17xx lpc43xx lm3s  efm32/efm32tg efm32/efm32g efm32/efm32lg efm32/efm32gg
 
 # Be silent per default, but 'make V=1' will show all compiler calls.
 ifneq ($(V),1)
@@ -70,13 +70,16 @@ examples: lib
 install: lib
 	@printf "  INSTALL headers\n"
 	$(Q)$(INSTALL) -d $(INCDIR)/libopencm3
+	$(Q)$(INSTALL) -d $(INCDIR)/libopencmsis
 	$(Q)$(INSTALL) -d $(LIBDIR)
 	$(Q)$(INSTALL) -d $(SHAREDIR)
 	$(Q)cp -r include/libopencm3/* $(INCDIR)/libopencm3
+	$(Q)cp -r include/libopencmsis/* $(INCDIR)/libopencmsis
 	@printf "  INSTALL libs\n"
 	$(Q)$(INSTALL) -m 0644 lib/*.a $(LIBDIR)
 	@printf "  INSTALL ldscripts\n"
 	$(Q)$(INSTALL) -m 0644 lib/*.ld $(LIBDIR)
+	$(Q)$(INSTALL) -m 0644 lib/efm32/*/*.ld $(LIBDIR)
 	@printf "  INSTALL scripts\n"
 	$(Q)$(INSTALL) -m 0644 scripts/* $(SHAREDIR)
 
