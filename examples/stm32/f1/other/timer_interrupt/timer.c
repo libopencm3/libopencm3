@@ -21,7 +21,7 @@
 #include <libopencm3/stm32/f1/flash.h>
 #include <libopencm3/stm32/f1/gpio.h>
 #include <libopencm3/stm32/timer.h>
-#include <libopencm3/stm32/nvic.h>
+#include <libopencm3/cm3/nvic.h>
 
 void gpio_setup(void)
 {

@@ -23,6 +23,9 @@ ifneq ($(V),1)
 Q := @
 endif
 
+# common objects
+OBJS += vector.o systick.o scb.o nvic.o assert.o
+
 all: $(SRCLIBDIR)/$(LIBNAME).a
 
 $(SRCLIBDIR)/$(LIBNAME).a: $(SRCLIBDIR)/$(LIBNAME).ld $(OBJS)
