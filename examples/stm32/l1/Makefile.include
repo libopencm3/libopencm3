@@ -37,8 +37,6 @@ $(info We seem to be building the example in the source directory. Using local l
 endif
 endif
 
-$(info GAHHHH toolchain: $(TOOLCHAIN_DIR))
-
 ARCH_FLAGS      = -mthumb -mcpu=cortex-m3 -msoft-float
 CFLAGS		+= -Os -g -Wall -Wextra -I$(TOOLCHAIN_DIR)/include \
 		   -fno-common $(ARCH_FLAGS) -MD -DSTM32L1
