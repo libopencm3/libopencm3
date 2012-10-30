@@ -96,7 +96,16 @@ push-pull outputs where the PWM output will appear.
 /**@{*/
 
 #include <libopencm3/stm32/timer.h>
-#include <libopencm3/stm32/f1/rcc.h>
+
+#if defined(STM32F1)
+#	include <libopencm3/stm32/f1/rcc.h>
+#elif defined(STM32F2)
+#	include <libopencm3/stm32/f2/rcc.h>
+#elif defined(STM32F4)
+#	include <libopencm3/stm32/f4/rcc.h>
+#else
+#	error "stm32 family not defined."
+#endif
 
 /*---------------------------------------------------------------------------*/
 /** @brief Reset a Timer.
