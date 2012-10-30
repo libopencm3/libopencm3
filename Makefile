@@ -51,21 +51,21 @@ cleanheaders:
 		./scripts/irq2nvic_h --remove $$yamlfile ; \
 	done
 
-lib: generatedheaders
-	$(Q)for i in $(addprefix $@/,$(TARGETS)); do \
-		if [ -d $$i ]; then \
-			printf "  BUILD   $$i\n"; \
-			$(MAKE) -C $$i SRCLIBDIR=$(SRCLIBDIR) || exit $?; \
-		fi; \
-	done
+LIB_DIRS:=$(wildcard $(addprefix lib/,$(TARGETS)))
+$(LIB_DIRS): generatedheaders
+	@printf "  BUILD   $@\n";
+	$(Q)$(MAKE) --directory=$@ SRCLIBDIR=$(SRCLIBDIR)
 
-examples: lib
-	$(Q)for i in $(addsuffix /*/*,$(addprefix $@/,$(TARGETS))); do \
-		if [ -d $$i ]; then \
-			printf "  BUILD   $$i\n"; \
-			$(MAKE) -C $$i || exit $?; \
-		fi; \
-	done
+lib: $(LIB_DIRS)
+	$(Q)true
+
+EXAMPLE_DIRS:=$(sort $(dir $(wildcard $(addsuffix /*/*/Makefile,$(addprefix examples/,$(TARGETS))))))
+$(EXAMPLE_DIRS): lib
+	@printf "  BUILD   $@\n";
+	$(Q)$(MAKE) --directory=$@
+
+examples: $(EXAMPLE_DIRS)
+	$(Q)true
 
 install: lib
 	@printf "  INSTALL headers\n"
@@ -86,9 +86,10 @@ install: lib
 doc:
 	$(Q)$(MAKE) -C doc doc
 
+# Bleh http://www.makelinux.net/make3/make3-CHP-6-SECT-1#make3-CHP-6-SECT-1
 clean: cleanheaders
-	$(Q)for i in $(addprefix lib/,$(TARGETS)) \
-		     $(addsuffix /*/*,$(addprefix examples/,$(TARGETS))); do \
+	$(Q)for i in $(LIB_DIRS) \
+		     $(EXAMPLE_DIRS); do \
 		if [ -d $$i ]; then \
 			printf "  CLEAN   $$i\n"; \
 			$(MAKE) -C $$i clean SRCLIBDIR=$(SRCLIBDIR) || exit $?; \
@@ -97,5 +98,5 @@ clean: cleanheaders
 	@printf "  CLEAN   doxygen\n"
 	$(Q)$(MAKE) -C doc clean
 
-.PHONY: build lib examples install doc clean generatedheaders cleanheaders
+.PHONY: build lib $(LIB_DIRS) examples $(EXAMPLE_DIRS) install doc clean generatedheaders cleanheaders
 
