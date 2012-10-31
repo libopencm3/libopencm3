@@ -130,10 +130,11 @@ static u8 usbdfu_getstatus(u32 *bwPollTimeout)
 	}
 }
 
-static void usbdfu_getstatus_complete(struct usb_setup_data *req)
+static void usbdfu_getstatus_complete(usbd_device *usbd_dev, struct usb_setup_data *req)
 {
 	int i;
 	(void)req;
+	(void)usbd_dev;
 
 	switch (usbdfu_state) {
 	case STATE_DFU_DNBUSY:
@@ -166,9 +167,11 @@ static void usbdfu_getstatus_complete(struct usb_setup_data *req)
 	}
 }
 
-static int usbdfu_control_request(struct usb_setup_data *req, u8 **buf,
-		u16 *len, void (**complete)(struct usb_setup_data *req))
+static int usbdfu_control_request(usbd_device *usbd_dev, struct usb_setup_data *req, u8 **buf,
+		u16 *len, void (**complete)(usbd_device *usbd_dev, struct usb_setup_data *req))
 {
+	(void)usbd_dev;
+
 	if ((req->bmRequestType & 0x7F) != 0x21)
 		return 0; /* Only accept class request. */
 
@@ -221,6 +224,8 @@ static int usbdfu_control_request(struct usb_setup_data *req, u8 **buf,
 
 int main(void)
 {
+	usbd_device *usbd_dev;
+
 	rcc_peripheral_enable_clock(&RCC_APB2ENR, RCC_APB2ENR_IOPAEN);
 
 	if (!gpio_get(GPIOA, GPIO10)) {
@@ -244,9 +249,10 @@ int main(void)
 	AFIO_MAPR |= AFIO_MAPR_SWJ_CFG_JTAG_OFF_SW_ON;
 	gpio_set_mode(GPIOA, GPIO_MODE_INPUT, 0, GPIO15);
 
-	usbd_init(&stm32f107_usb_driver, &dev, &config, usb_strings);
-	usbd_set_control_buffer_size(sizeof(usbd_control_buffer));
+	usbd_dev = usbd_init(&stm32f107_usb_driver, &dev, &config, usb_strings);
+	usbd_set_control_buffer_size(usbd_dev, sizeof(usbd_control_buffer));
 	usbd_register_control_callback(
+				usbd_dev,
 				USB_REQ_TYPE_CLASS | USB_REQ_TYPE_INTERFACE,
 				USB_REQ_TYPE_TYPE | USB_REQ_TYPE_RECIPIENT,
 				usbdfu_control_request);
@@ -256,5 +262,5 @@ int main(void)
 		      GPIO_CNF_OUTPUT_PUSHPULL, GPIO15);
 
 	while (1)
-		usbd_poll();
+		usbd_poll(usbd_dev);
 }
