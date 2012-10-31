@@ -2,7 +2,7 @@
 
 @ingroup STM32F1xx
 
-@brief <b>libopencm3 STM32F1xx Timers</b>
+@brief <b>libopencm3 STM32 Timers</b>
 
 @version 1.0.0
 
@@ -11,9 +11,9 @@
 @date 18 August 2012
 
 This library supports the General Purpose and Advanced Control Timers for
-the STM32F1xx series of ARM Cortex Microcontrollers by ST Microelectronics.
+the STM32 series of ARM Cortex Microcontrollers by ST Microelectronics.
 
-The STM32F1xx series have four general purpose timers (2-5), while some have
+The STM32 series have four general purpose timers (2-5), while some have
 an additional two advanced timers (1,8), and some have two basic timers (6,7).
 Some of the larger devices have additional general purpose timers (9-14).
 
@@ -70,6 +70,7 @@ push-pull outputs where the PWM output will appear.
  * This file is part of the libopencm3 project.
  *
  * Copyright (C) 2010 Edward Cheeseman <evbuilder@users.sourceforge.org>
+ * Copyright (C) 2011 Stephen Caudle <scaudle@doceme.com>
  *
  * This library is free software: you can redistribute it and/or modify
  * it under the terms of the GNU Lesser General Public License as published by
@@ -96,7 +97,18 @@ push-pull outputs where the PWM output will appear.
 /**@{*/
 
 #include <libopencm3/stm32/timer.h>
-#include <libopencm3/stm32/f1/rcc.h>
+
+#if defined(STM32F1)
+#	include <libopencm3/stm32/f1/rcc.h>
+#elif defined(STM32F2)
+#	include <libopencm3/stm32/f2/timer.h>
+#	include <libopencm3/stm32/f2/rcc.h>
+#elif defined(STM32F4)
+#	include <libopencm3/stm32/f4/timer.h>
+#	include <libopencm3/stm32/f4/rcc.h>
+#else
+#	error "stm32 family not defined."
+#endif
 
 /*---------------------------------------------------------------------------*/
 /** @brief Reset a Timer.
@@ -1695,6 +1707,29 @@ u32 timer_get_counter(u32 timer_peripheral)
 {
 	return TIM_CNT(timer_peripheral);
 }
+
+/*---------------------------------------------------------------------------*/
+/** @brief Set Timer Option
+
+Set timer options register on TIM2 or TIM5, used for oscillator calibration
+on TIM5 and trigger remapping on TIM2. Only available on F4 and F2.
+
+@param[in] timer_peripheral Unsigned int32. Timer register address base
+@returns Unsigned int32. Option flags.
+*/
+
+#if (defined(STM32F4) || defined(STM32F2))
+void timer_set_option(u32 timer_peripheral, u32 option)
+{
+	if (timer_peripheral == TIM2) {
+		TIM_OR(timer_peripheral) &= ~TIM2_OR_ITR1_RMP_MASK;
+		TIM_OR(timer_peripheral) |= option;
+	} else if (timer_peripheral == TIM5) {
+		TIM_OR(timer_peripheral) &= ~TIM5_OR_TI4_RMP_MASK;
+		TIM_OR(timer_peripheral) |= option;
+	}
+}
+#endif
 
 /*---------------------------------------------------------------------------*/
 /** @brief Set Counter
