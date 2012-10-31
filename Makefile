@@ -47,7 +47,7 @@ generatedheaders:
 
 cleanheaders:
 	@printf "  CLEANING HEADERS\n"
-	$(Q)for yamlfile in `find -name 'irq.yaml'`; do \
+	$(Q)for yamlfile in `find . -name 'irq.yaml'`; do \
 		./scripts/irq2nvic_h --remove $$yamlfile ; \
 	done
 
