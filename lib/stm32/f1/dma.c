@@ -10,12 +10,18 @@
 
 @date 18 August 2012
 
-This library supports the DMA
-Control System in the STM32F1xx series of ARM Cortex Microcontrollers
-by ST Microelectronics. It can provide for two DMA controllers,
-one with 7 channels and one with 5. Channels are hardware dedicated
-and each is shared with a number of different sources (only one can be
-used at a time, under the responsibility of the programmer).
+This library supports the DMA Control System in the STM32 series of ARM Cortex
+Microcontrollers by ST Microelectronics.
+
+Up to two DMA controllers are supported. 12 DMA channels are allocated 7 to
+the first DMA controller and 5 to the second. Each channel is connected to
+between 3 and 6 hardware peripheral DMA signals in a logical OR arrangement.
+
+DMA transfers can be configured to occur between peripheral and memory in
+any combination including memory to memory. Circular mode transfers are
+also supported in transfers involving a peripheral. An arbiter is provided
+to resolve priority DMA requests. Transfers can be made with 8, 16 or 32 bit
+words.
 
 LGPL License Terms @ref lgpl_license
  */
@@ -65,6 +71,42 @@ void dma_channel_reset(u32 dma, u8 channel)
 	DMA_CMAR(dma, channel) = 0;
 	/* Reset interrupt flags. */
 	DMA_IFCR(dma) |= DMA_IFCR_CIF(channel);
+}
+
+/*-----------------------------------------------------------------------------*/
+/** @brief DMA Channel Clear Interrupt Flag
+
+The interrupt flag for the channel is cleared. More than one interrupt for the
+same channel may be cleared by using the logical OR of the interrupt flags.
+
+@param[in] dma unsigned int32. DMA controller base address: DMA1 or DMA2
+@param[in] channel unsigned int8. Channel number: @ref dma_st_number
+@param[in] interrupts unsigned int32. Logical OR of interrupt numbers: @ref dma_if_offset
+*/
+
+void dma_clear_interrupt_flags(u32 dma, u8 channel, u32 interrupts)
+{
+/* Get offset to interrupt flag location in channel field */
+	u32 flags = (interrupts << DMA_FLAG_OFFSET(channel));
+	DMA_IFCR(dma) = flags;
+}
+
+/*-----------------------------------------------------------------------------*/
+/** @brief DMA Channel Read Interrupt Flag
+
+The interrupt flag for the channel is returned.
+
+@param[in] dma unsigned int32. DMA controller base address: DMA1 or DMA2
+@param[in] channel unsigned int8. Channel number: @ref dma_st_number
+@param[in] interrupt unsigned int32. Interrupt number: @ref dma_st_number
+@returns bool interrupt flag is set.
+*/
+
+bool dma_get_interrupt_flag(u32 dma, u8 channel, u32 interrupt)
+{
+/* get offset to interrupt flag location in channel field. */
+	u32 flag = (interrupt << DMA_FLAG_OFFSET(channel));
+	return ((DMA_ISR(dma) & flag) > 0);
 }
 
 /*-----------------------------------------------------------------------------*/
@@ -160,9 +202,37 @@ void dma_enable_memory_increment_mode(u32 dma, u8 channel)
 @param[in] channel unsigned int8. Channel number: 1-7 for DMA1 or 1-5 for DMA2
 */
 
+void dma_disable_memory_increment_mode(u32 dma, u8 channel)
+{
+	DMA_CCR(dma, channel) &= ~DMA_CCR_MINC;
+}
+
+/*-----------------------------------------------------------------------------*/
+/** @brief DMA Channel Enable Peripheral Increment after Transfer
+
+Following each transfer the current peripheral address is incremented by
+1, 2 or 4 depending on the data size set in @ref dma_set_peripheral_size. The
+value held by the base peripheral address register is unchanged.
+
+@param[in] dma unsigned int32. DMA controller base address: DMA1 or DMA2
+@param[in] channel unsigned int8. Channel number: 1-7 for DMA1 or 1-5 for DMA2
+*/
+
 void dma_enable_peripheral_increment_mode(u32 dma, u8 channel)
 {
 	DMA_CCR(dma, channel) |= DMA_CCR_PINC;
+}
+
+/*-----------------------------------------------------------------------------*/
+/** @brief DMA Channel Disable Peripheral Increment after Transfer
+
+@param[in] dma unsigned int32. DMA controller base address: DMA1 or DMA2
+@param[in] channel unsigned int8. Channel number: 1-7 for DMA1 or 1-5 for DMA2
+*/
+
+void dma_disable_peripheral_increment_mode(u32 dma, u8 channel)
+{
+	DMA_CCR(dma, channel) &= ~DMA_CCR_PINC;
 }
 
 /*-----------------------------------------------------------------------------*/
