@@ -2,7 +2,7 @@
 
 @ingroup STM32F1xx
 
-@brief <b>libopencm3 STM32F1xx Timers</b>
+@brief <b>libopencm3 STM32 Timers</b>
 
 @version 1.0.0
 
@@ -11,9 +11,9 @@
 @date 18 August 2012
 
 This library supports the General Purpose and Advanced Control Timers for
-the STM32F1xx series of ARM Cortex Microcontrollers by ST Microelectronics.
+the STM32 series of ARM Cortex Microcontrollers by ST Microelectronics.
 
-The STM32F1xx series have four general purpose timers (2-5), while some have
+The STM32 series have four general purpose timers (2-5), while some have
 an additional two advanced timers (1,8), and some have two basic timers (6,7).
 Some of the larger devices have additional general purpose timers (9-14).
 
@@ -70,6 +70,7 @@ push-pull outputs where the PWM output will appear.
  * This file is part of the libopencm3 project.
  *
  * Copyright (C) 2010 Edward Cheeseman <evbuilder@users.sourceforge.org>
+ * Copyright (C) 2011 Stephen Caudle <scaudle@doceme.com>
  *
  * This library is free software: you can redistribute it and/or modify
  * it under the terms of the GNU Lesser General Public License as published by
