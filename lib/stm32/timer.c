@@ -103,6 +103,7 @@ push-pull outputs where the PWM output will appear.
 #elif defined(STM32F2)
 #	include <libopencm3/stm32/f2/rcc.h>
 #elif defined(STM32F4)
+#	include <libopencm3/stm32/f4/timer.h>
 #	include <libopencm3/stm32/f4/rcc.h>
 #else
 #	error "stm32 family not defined."
@@ -1705,6 +1706,29 @@ u32 timer_get_counter(u32 timer_peripheral)
 {
 	return TIM_CNT(timer_peripheral);
 }
+
+/*---------------------------------------------------------------------------*/
+/** @brief Set Timer Option
+
+Set timer options register on TIM2 or TIM5, used for oscillator calibration
+on TIM5 and trigger remapping on TIM2. Only available on F4.
+
+@param[in] timer_peripheral Unsigned int32. Timer register address base
+@returns Unsigned int32. Option flags.
+*/
+
+#if (defined(STM32F4))
+void timer_set_option(u32 timer_peripheral, u32 option)
+{
+	if (timer_peripheral == TIM2) {
+		TIM_OR(timer_peripheral) &= ~TIM2_OR_ITR1_RMP_MASK;
+		TIM_OR(timer_peripheral) |= option;
+	} else if (timer_peripheral == TIM5) {
+		TIM_OR(timer_peripheral) &= ~TIM5_OR_TI4_RMP_MASK;
+		TIM_OR(timer_peripheral) |= option;
+	}
+}
+#endif
 
 /*---------------------------------------------------------------------------*/
 /** @brief Set Counter
