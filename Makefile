@@ -41,7 +41,7 @@ build: lib examples
 
 generatedheaders:
 	@printf "  UPDATING HEADERS\n"
-	$(Q)for yamlfile in `find -name 'irq.yaml'`; do \
+	$(Q)for yamlfile in `find . -name 'irq.yaml'`; do \
 		./scripts/irq2nvic_h $$yamlfile ; \
 	done
 
