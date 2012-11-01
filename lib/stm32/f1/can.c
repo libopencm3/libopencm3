@@ -316,13 +316,5 @@ void can_receive(u32 canport, u8 fifo, bool release, u32 *id, bool *ext,
 
 bool can_available_mailbox(u32 canport)
 {
-	if ((CAN_TSR(canport) & CAN_TSR_TME0) == CAN_TSR_TME0) {
-		return true;
-	} else if ((CAN_TSR(canport) & CAN_TSR_TME1) == CAN_TSR_TME1) {
-		return true;
-	} else if ((CAN_TSR(canport) & CAN_TSR_TME2) == CAN_TSR_TME2) {
-		return true;
-	} else {
-		return false;
-	}
+	return CAN_TSR(canport) & (CAN_TSR_TME0 | CAN_TSR_TME1 | CAN_TSR_TME2);
 }
