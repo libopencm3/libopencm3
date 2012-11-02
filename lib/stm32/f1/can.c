@@ -55,6 +55,9 @@ int can_init(u32 canport, bool ttcm, bool abom, bool awum, bool nart,
 	if ((CAN_MSR(canport) & CAN_MSR_INAK) != CAN_MSR_INAK)
 		return 1;
 
+	/* clear can timing bits */
+	CAN_BTR(canport) = 0;
+
 	/* Set the automatic bus-off management. */
 	if (ttcm)
 		CAN_MCR(canport) |= CAN_MCR_TTCM;
