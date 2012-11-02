@@ -507,6 +507,7 @@ void rcc_osc_on(osc_t osc);
 void rcc_osc_off(osc_t osc);
 void rcc_css_enable(void);
 void rcc_css_disable(void);
+void rcc_set_mco(u32 mcosrc);
 void rcc_osc_bypass_enable(osc_t osc);
 void rcc_osc_bypass_disable(osc_t osc);
 void rcc_peripheral_enable_clock(volatile u32 *reg, u32 en);
