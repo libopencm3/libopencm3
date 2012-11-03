@@ -28,9 +28,10 @@ CFLAGS		= -Os -g -Wall -Wextra -I../../../include -fno-common \
 		  -ffunction-sections -fdata-sections -MD -DSTM32F2
 # ARFLAGS	= rcsv
 ARFLAGS		= rcs
-OBJS		= rcc.o gpio2.o usart.o spi.o flash.o \
-		  i2c.o exti2.o timer.o
+OBJS		= rcc.o gpio.o usart.o spi.o flash.o \
+		  i2c.o exti2.o timer.o \
+		  gpio_common_all.o gpio_common_f24.o
 
-VPATH += ../../usb:../:../../cm3
+VPATH += ../../usb:../:../../cm3:../common
 
 include ../../Makefile.include

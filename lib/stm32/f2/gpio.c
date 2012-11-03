@@ -1,19 +1,10 @@
-/** @defgroup gpio_defines GPIO Defines
+/** @defgroup gpio_file GPIO
 
-@brief <b>Defined Constants and Types for the STM32F2xx General Purpose I/O</b>
+@ingroup STM32F2xx
 
-@ingroup STM32F2xx_defines
+@brief <b>libopencm3 STM32F2xx General Purpose I/O</b>
 
-@version 1.0.0
-
-@author @htmlonly &copy; @endhtmlonly 2009 Uwe Hermann <uwe@hermann-uwe.de>
-@author @htmlonly &copy; @endhtmlonly 2012 Piotr Esden-Tempski <piotr@esden.net>
-@author @htmlonly &copy; @endhtmlonly 2012 Ken Sarkies <ksarkies@internode.on.net>
-
-@date 1 July 2012
-
-LGPL License Terms @ref lgpl_license
- */
+*/
 
 /*
  * This file is part of the libopencm3 project.
@@ -32,11 +23,6 @@ LGPL License Terms @ref lgpl_license
  * along with this library.  If not, see <http://www.gnu.org/licenses/>.
  */
 
-#ifndef LIBOPENCM3_GPIO_H
-#define LIBOPENCM3_GPIO_H
-
-#include <libopencm3/stm32/f2/memorymap.h>
+#include <libopencm3/stm32/gpio.h>
 #include <libopencm3/stm32/common/gpio_common_f24.h>
-
-#endif
 

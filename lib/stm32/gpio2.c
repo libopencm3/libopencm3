@@ -1,7 +1,13 @@
+/** @defgroup gpio_file GPIO
+
+@ingroup STM32F2xx
+
+@brief <b>libopencm3 STM32F2xx General Purpose I/O</b>
+
+*/
+
 /*
  * This file is part of the libopencm3 project.
- *
- * Copyright (C) 2011 Fergus Noble <fergusnoble@gmail.com>
  *
  * This library is free software: you can redistribute it and/or modify
  * it under the terms of the GNU Lesser General Public License as published by
@@ -148,3 +154,4 @@ void gpio_port_config_lock(u32 gpioport, u16 gpios)
 
 	/* If (reg32 & GPIO_LCKK) is true, the lock is now active. */
 }
+
