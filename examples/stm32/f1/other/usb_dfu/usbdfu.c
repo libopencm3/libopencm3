@@ -244,6 +244,8 @@ int main(void)
 	AFIO_MAPR |= AFIO_MAPR_SWJ_CFG_JTAG_OFF_SW_ON;
 	gpio_set_mode(GPIOA, GPIO_MODE_INPUT, 0, GPIO15);
 
+	rcc_peripheral_enable_clock(&RCC_AHBENR, RCC_AHBENR_OTGFSEN);
+
 	usbd_init(&stm32f107_usb_driver, &dev, &config, usb_strings);
 	usbd_set_control_buffer_size(sizeof(usbd_control_buffer));
 	usbd_register_control_callback(

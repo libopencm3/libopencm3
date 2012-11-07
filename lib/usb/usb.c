@@ -45,12 +45,14 @@ u8 usbd_control_buffer[128] __attribute__((weak));
  */
 int usbd_init(const usbd_driver *driver,
 	      const struct usb_device_descriptor *dev,
-	      const struct usb_config_descriptor *conf, const char **strings)
+	      const struct usb_config_descriptor *conf,
+	      const char **strings, int num_strings)
 {
 	_usbd_device.driver = driver;
 	_usbd_device.desc = dev;
 	_usbd_device.config = conf;
 	_usbd_device.strings = strings;
+	_usbd_device.num_strings = num_strings;
 	_usbd_device.ctrl_buf = usbd_control_buffer;
 	_usbd_device.ctrl_buf_len = sizeof(usbd_control_buffer);
 

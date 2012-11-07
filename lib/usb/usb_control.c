@@ -102,7 +102,8 @@ static int usb_control_request_dispatch(struct usb_setup_data *req)
 			result = cb[i].cb(req, &control_state.ctrl_buf,
 					  &control_state.ctrl_len,
 					  &control_state.complete);
-			if (result)
+			if (result == USBD_REQ_HANDLED ||
+			    result == USBD_REQ_NOTSUPP)
 				return result;
 		}
 	}

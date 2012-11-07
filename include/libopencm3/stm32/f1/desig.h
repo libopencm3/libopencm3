@@ -51,6 +51,15 @@ u16 desig_get_flash_size(void);
  */
 void desig_get_unique_id(u32 result[]);
 
+/**
+ * Read the full 96 bit unique identifier and return it as a
+ * zero-terminated string
+ * @param string memory region to write the result to
+ 8 @param string_len the size of string in bytes
+ */
+void desig_get_unique_id_as_string(char *string,
+				   unsigned int string_len);
+
 END_DECLS
 
 #endif
