@@ -87,50 +87,74 @@ static u16 build_config_descriptor(u8 index, u8 *buf, u16 len)
 	return total;
 }
 
+static int usb_descriptor_type(u16 wValue)
+{
+	return wValue >> 8;
+}
+
+static int usb_descriptor_index(u16 wValue)
+{
+	return wValue & 0xFF;
+}
+
 static int usb_standard_get_descriptor(struct usb_setup_data *req,
 				       u8 **buf, u16 *len)
 {
-	int i, index;
+	int i, array_idx, descr_idx;
 	struct usb_string_descriptor *sd;
 
-	switch (req->wValue >> 8) {
+	descr_idx = usb_descriptor_index(req->wValue);
+
+	switch (usb_descriptor_type(req->wValue)) {
 	case USB_DT_DEVICE:
 		*buf = (u8 *) _usbd_device.desc;
 		*len = MIN(*len, _usbd_device.desc->bLength);
-		return 1;
+		return USBD_REQ_HANDLED;
 	case USB_DT_CONFIGURATION:
 		*buf = _usbd_device.ctrl_buf;
-		*len = build_config_descriptor(req->wValue & 0xff, *buf, *len);
-		return 1;
+		*len = build_config_descriptor(descr_idx, *buf, *len);
+		return USBD_REQ_HANDLED;
 	case USB_DT_STRING:
 		sd = (struct usb_string_descriptor *)_usbd_device.ctrl_buf;
 
-		/* Send sane Language ID descriptor... */
-		if ((req->wValue & 0xff) == 0)
-			sd->wData[0] = 0x409;
+		if (descr_idx == 0) {
+			/* Send sane Language ID descriptor... */
+			sd->wData[0] = USB_LANGID_ENGLISH_US;
+			sd->bLength = sizeof(sd->bLength) + sizeof(sd->bDescriptorType) 
+				+ sizeof(sd->wData[0]);
 
-		index = (req->wValue & 0xff) - 1;
+			*len = MIN(*len, sd->bLength);
+		} else {
+			array_idx = descr_idx - 1;
 
-		if (!_usbd_device.strings)
-			return 0; /* Device doesn't support strings. */
+			if (!_usbd_device.strings)
+				return USBD_REQ_NOTSUPP; /* Device doesn't support strings. */
+			/* Check that string index is in range. */
+			if (array_idx >= _usbd_device.num_strings)
+				return USBD_REQ_NOTSUPP;
 
-		/* Check that string index is in range. */
-		if (index >= _usbd_device.num_strings)
-			return 0;
+			/* Strings with Language ID differnet from
+			 * USB_LANGID_ENGLISH_US are not supported */
+			if (req->wIndex != USB_LANGID_ENGLISH_US)
+				return USBD_REQ_NOTSUPP;
 
-		sd->bLength = strlen(_usbd_device.strings[index]) * 2 + 2;
+			/* Ths string is returned as UTF16, hence the multiplication */
+			sd->bLength = strlen(_usbd_device.strings[array_idx]) * 2 +
+				sizeof(sd->bLength) + sizeof(sd->bDescriptorType);
+
+			*len = MIN(*len, sd->bLength);
+
+			for (i = 0; i < (*len / 2) - 1; i++)
+				sd->wData[i] =
+					_usbd_device.strings[array_idx][i];
+		}
+
 		sd->bDescriptorType = USB_DT_STRING;
-
 		*buf = (u8 *)sd;
-		*len = MIN(*len, sd->bLength);
 
-		for (i = 0; i < (*len / 2) - 1; i++)
-			sd->wData[i] =
-			    _usbd_device.strings[index][i];
-
-		return 1;
+		return USBD_REQ_HANDLED;
 	}
-	return 0;
+	return USBD_REQ_NOTSUPP;
 }
 
 static int usb_standard_set_address(struct usb_setup_data *req, u8 **buf,
