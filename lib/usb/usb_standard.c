@@ -90,7 +90,7 @@ static u16 build_config_descriptor(u8 index, u8 *buf, u16 len)
 static int usb_standard_get_descriptor(struct usb_setup_data *req,
 				       u8 **buf, u16 *len)
 {
-	int i;
+	int i, index;
 	struct usb_string_descriptor *sd;
 
 	switch (req->wValue >> 8) {
@@ -105,16 +105,20 @@ static int usb_standard_get_descriptor(struct usb_setup_data *req,
 	case USB_DT_STRING:
 		sd = (struct usb_string_descriptor *)_usbd_device.ctrl_buf;
 
+		/* Send sane Language ID descriptor... */
+		if ((req->wValue & 0xff) == 0)
+			sd->wData[0] = 0x409;
+
+		index = (req->wValue & 0xff) - 1;
+
 		if (!_usbd_device.strings)
 			return 0; /* Device doesn't support strings. */
 
 		/* Check that string index is in range. */
-		for (i = 0; i <= (req->wValue & 0xff); i++)
-			if (_usbd_device.strings[i] == NULL)
-				return 0;
+		if (index >= _usbd_device.num_strings)
+			return 0;
 
-		sd->bLength = strlen(_usbd_device.strings[req->wValue & 0xff])
-				* 2 + 2;
+		sd->bLength = strlen(_usbd_device.strings[index]) * 2 + 2;
 		sd->bDescriptorType = USB_DT_STRING;
 
 		*buf = (u8 *)sd;
@@ -122,11 +126,7 @@ static int usb_standard_get_descriptor(struct usb_setup_data *req,
 
 		for (i = 0; i < (*len / 2) - 1; i++)
 			sd->wData[i] =
-			    _usbd_device.strings[req->wValue & 0xff][i];
-
-		/* Send sane Language ID descriptor... */
-		if ((req->wValue & 0xff) == 0)
-			sd->wData[0] = 0x409;
+			    _usbd_device.strings[index][i];
 
 		return 1;
 	}

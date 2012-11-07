@@ -38,7 +38,7 @@ extern u8 usbd_control_buffer[];
 extern int usbd_init(const usbd_driver *driver,
 		     const struct usb_device_descriptor *dev,
                      const struct usb_config_descriptor *conf,
-		     const char **strings);
+		     const char **strings, int num_strings);
 extern void usbd_set_control_buffer_size(u16 size);
 
 extern void usbd_register_reset_callback(void (*callback)(void));
