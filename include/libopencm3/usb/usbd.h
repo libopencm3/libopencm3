@@ -24,6 +24,13 @@
 
 BEGIN_DECLS
 
+
+enum usbd_request_return_codes {
+	USBD_REQ_NOTSUPP	= 0,
+	USBD_REQ_HANDLED	= 1,
+	USBD_REQ_NEXT_CALLBACK	= 2,
+};
+
 typedef struct _usbd_driver usbd_driver;
 extern const usbd_driver stm32f103_usb_driver;
 extern const usbd_driver stm32f107_usb_driver;
