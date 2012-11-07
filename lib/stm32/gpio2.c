@@ -17,7 +17,15 @@
  * along with this library.  If not, see <http://www.gnu.org/licenses/>.
  */
 
+#if defined(STM32F2)
+#include <libopencm3/stm32/f2/gpio.h>
+#elif defined(STM32F4)
 #include <libopencm3/stm32/f4/gpio.h>
+#elif defined(STM32L1)
+#include <libopencm3/stm32/l1/gpio.h>
+#else
+#error "invalid/unknown stm32 family for this code"
+#endif
 
 void gpio_mode_setup(u32 gpioport, u8 mode, u8 pull_up_down, u16 gpios)
 {

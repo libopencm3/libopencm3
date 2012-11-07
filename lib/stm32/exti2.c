@@ -2,6 +2,7 @@
  * This file is part of the libopencm3 project.
  *
  * Copyright (C) 2010 Mark Butler <mbutler@physics.otago.ac.nz>
+ * Copyright (C) 2012 Karl Palsson <karlp@tweak.net.au>
  *
  * This library is free software: you can redistribute it and/or modify
  * it under the terms of the GNU Lesser General Public License as published by
@@ -15,11 +16,22 @@
  *
  * You should have received a copy of the GNU Lesser General Public License
  * along with this library.  If not, see <http://www.gnu.org/licenses/>.
+ *
+ * This provides the code for the "next gen" EXTI block provided in F2/F4/L1
+ * devices.  (differences only in the source selection)
  */
 
 #include <libopencm3/stm32/exti.h>
-#include <libopencm3/stm32/f2/syscfg.h>
+#include <libopencm3/stm32/syscfg.h>
+#if defined(STM32F2)
 #include <libopencm3/stm32/f2/gpio.h>
+#elif defined(STM32F4)
+#include <libopencm3/stm32/f4/gpio.h>
+#elif defined(STM32L1)
+#include <libopencm3/stm32/l1/gpio.h>
+#else
+#error "invalid/unknown stm32 family for this code"
+#endif
 
 void exti_set_trigger(u32 extis, exti_trigger_type trig)
 {
@@ -121,12 +133,24 @@ void exti_select_source(u32 exti, u32 gpioport)
 	case GPIOE:
 		bits = 0xb;
 		break;
+#if defined(STM32L1)
+#else
 	case GPIOF:
 		bits = 0xa;
 		break;
 	case GPIOG:
 		bits = 0x9;
 		break;
+#endif
+	case GPIOH:
+		bits = 0x8;
+		break;
+#if defined(STM32L1)
+#else
+	case GPIOI:
+		bits = 0x7;
+		break;
+#endif
 	}
 
 	/* Ensure that only valid EXTI lines are used. */
