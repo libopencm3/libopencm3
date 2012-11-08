@@ -123,7 +123,7 @@ The interrupt flag for the stream is returned.
 
 @param[in] dma unsigned int32. DMA controller base address: DMA1 or DMA2
 @param[in] stream unsigned int8. Stream number: @ref dma_st_number
-@param[in] interrupt unsigned int32. Interrupt number: @ref dma_st_number
+@param[in] interrupt unsigned int32. Interrupt number: @ref dma_if_offset
 @returns bool interrupt flag is set.
 */
 
