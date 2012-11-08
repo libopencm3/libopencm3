@@ -12,7 +12,7 @@ extern "C" {
 #endif
 
 #include <libopencm3/stm32/l1/gpio.h>
-#include <libopencm3/stm32/nvic.h>
+#include <libopencm3/stm32/l1/nvic.h>
 #include <libopencm3/stm32/exti.h>
 #include <libopencm3/stm32/usart.h>
 
