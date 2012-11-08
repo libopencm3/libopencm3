@@ -233,7 +233,7 @@ LGPL License Terms @ref lgpl_license
 /**@}*/
 
 /* Offset within interrupt status register to start of stream interrupt flag field */
-#define DMA_ISR_OFFSET(stream)		(6*(stream & 0x01)+16*(stream & 0x02))
+#define DMA_ISR_OFFSET(stream)		(6*(stream & 0x01)+16*((stream & 0x02) >> 1))
 #define DMA_ISR_FLAGS			(DMA_ISR_TCIF | DMA_ISR_HTIF | DMA_ISR_TEIF | DMA_ISR_DMEIF | DMA_ISR_FEIF)
 #define DMA_ISR_MASK(stream)		DMA_ISR_FLAGS << DMA_ISR_OFFSET(stream)
 
