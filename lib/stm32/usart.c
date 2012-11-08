@@ -398,6 +398,27 @@ void usart_disable_tx_interrupt(u32 usart)
 	USART_CR1(usart) &= ~USART_CR1_TXEIE;
 }
 
+/*-----------------------------------------------------------------------------*/
+/** @brief USART Error Interrupt Enable.
+
+@param[in] usart unsigned 32 bit. USART block register address base @ref usart_reg_base
+*/
+
+void usart_enable_error_interrupt(u32 usart)
+{
+	USART_CR3(usart) |= USART_CR3_EIE;
+}
+
+/*-----------------------------------------------------------------------------*/
+/** @brief USART Error Interrupt Disable.
+
+@param[in] usart unsigned 32 bit. USART block register address base @ref usart_reg_base
+*/
+
+void usart_disable_error_interrupt(u32 usart)
+{
+	USART_CR3(usart) &= ~USART_CR3_EIE;
+}
 
 /*---------------------------------------------------------------------------*/
 /** @brief USART Read a Status Flag.
