@@ -19,11 +19,10 @@
 
 BINARY = can
 
-LDSCRIPT = ../lisa-m.ld
-
-# You need to set this if your device is running luftboot.
-# All Lisa/M 2.0 come with Luftboot preflashed.
+# Comment the following line if you _don't_ have luftboot flashed!
 LDFLAGS += -Wl,-Ttext=0x8002000
+CFLAGS += -std=c99
+LDSCRIPT = ../lisa-m.ld
 
 include ../../Makefile.include
 
