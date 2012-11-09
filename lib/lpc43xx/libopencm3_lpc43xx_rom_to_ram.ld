@@ -92,6 +92,9 @@ SECTIONS
 		_edata = .;
 	} >ram_local2 AT >rom
 
+	_data_rom = LOADADDR (.data) + ORIGIN(rom_flash);
+	_edata_rom = _data_rom + SIZEOF (.data);
+
 	.bss : {
 		. = _edata;
 		_bss = .;

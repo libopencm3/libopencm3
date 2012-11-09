@@ -64,6 +64,9 @@ SECTIONS
 	} >ram_local2
 
    /* Running from RAM only, loading the .elf will initialize data for us. */
+	_data_rom = .;
+	_edata_rom = .;
+
 	_data = .;
 	_edata = .;
 
