@@ -29,12 +29,12 @@ On reset all ports are configured as digital floating input.
 
 @section gpio_api_ex Basic GPIO Handling API.
 
-Example 1: Push-pull digital output actions on ports C2 and C9
+Example 1: Push-pull digital output actions with pullup on ports C2 and C9
 
 @code
 	gpio_mode_setup(GPIOC, GPIO_MODE_OUTPUT,
 		            GPIO_PUPD_PULLUP,  GPIO2 | GPIO9);
-	gpio_output_options((GPIOC, GPIO_OTYPE_PP,
+	gpio_output_options(GPIOC, GPIO_OTYPE_PP,
 		            GPIO_OSPEED_25MHZ,  GPIO2 | GPIO9);
 	gpio_set(GPIOC, GPIO2 | GPIO9);
 	gpio_clear(GPIOC, GPIO2);
@@ -42,10 +42,10 @@ Example 1: Push-pull digital output actions on ports C2 and C9
 	gpio_port_write(GPIOC, 0x204);
 @endcode
 
-Example 1: Digital input on port C12
+Example 2: Digital input on port C12 with pullup
 
 @code
-	gpio_mode_setup(GPIOC, GPIO_MODE_OUTPUT,
+	gpio_mode_setup(GPIOC, GPIO_MODE_INPUT,
 		            GPIO_PUPD_PULLUP, GPIO12);
 	reg16 = gpio_port_read(GPIOC);
 @endcode
@@ -86,7 +86,7 @@ for a set of GPIO pins on a given GPIO port.
 @param[in] mode Unsigned int8. Pin mode @ref gpio_mode
 @param[in] pull_up_down Unsigned int8. Pin pullup/pulldown configuration @ref gpio_pup
 @param[in] gpios Unsigned int16. Pin identifiers @ref gpio_pin_id
-             If multiple pins are to be set, use logical OR '|' to separate them.
+             If multiple pins are to be set, use bitwise OR '|' to separate them.
 */
 void gpio_mode_setup(u32 gpioport, u8 mode, u8 pull_up_down, u16 gpios)
 {
@@ -125,7 +125,7 @@ open drain/push pull) and speed, for a set of GPIO pins on a given GPIO port.
 @param[in] otype Unsigned int8. Pin output type @ref gpio_output_type
 @param[in] speed Unsigned int8. Pin speed @ref gpio_speed
 @param[in] gpios Unsigned int16. Pin identifiers @ref gpio_pin_id
-             If multiple pins are to be set, use logical OR '|' to separate them.
+             If multiple pins are to be set, use bitwise OR '|' to separate them.
 */
 void gpio_set_output_options(u32 gpioport, u8 otype, u8 speed, u16 gpios)
 {
@@ -164,7 +164,7 @@ this would rarely be useful as each pin is likely to require a different number.
 @param[in] gpioport Unsigned int32. Port identifier @ref gpio_port_id
 @param[in] alt_func_num Unsigned int8. Pin alternate function number @ref gpio_af_num
 @param[in] gpios Unsigned int16. Pin identifiers @ref gpio_pin_id
-             If multiple pins are to be set, use logical OR '|' to separate them.
+             If multiple pins are to be set, use bitwise OR '|' to separate them.
 */
 void gpio_set_af(u32 gpioport, u8 alt_func_num, u16 gpios)
 {
