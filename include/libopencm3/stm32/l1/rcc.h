@@ -231,6 +231,7 @@ LGPL License Terms @ref lgpl_license
 #define RCC_APB1RSTR_LCDRST			(1 << 9)
 #define RCC_APB1RSTR_TIM7RST			(1 << 5)
 #define RCC_APB1RSTR_TIM6RST			(1 << 4)
+#define RCC_APB1RSTR_TIM5RST			(1 << 3)
 #define RCC_APB1RSTR_TIM4RST			(1 << 2)
 #define RCC_APB1RSTR_TIM3RST			(1 << 1)
 #define RCC_APB1RSTR_TIM2RST			(1 << 0)
