@@ -1,3 +1,19 @@
+/** @defgroup gpio_defines GPIO Defines
+
+@brief <b>Defined Constants and Types for the STM32L1xx General Purpose I/O</b>
+
+@ingroup STM32L1xx_defines
+
+@version 1.0.0
+
+@author @htmlonly &copy; @endhtmlonly 2009 Uwe Hermann <uwe@hermann-uwe.de>
+@author @htmlonly &copy; @endhtmlonly 2012 Piotr Esden-Tempski <piotr@esden.net>
+@author @htmlonly &copy; @endhtmlonly 2012 Karl Palsson <karlp@tweak.net.au>
+
+@date 1 July 2012
+
+LGPL License Terms @ref lgpl_license
+ */
 /*
  * This file is part of the libopencm3 project.
  *
@@ -19,40 +35,29 @@
  * along with this library.  If not, see <http://www.gnu.org/licenses/>.
  */
 
+/**@{*/
+
 #ifndef LIBOPENCM3_GPIO_H
 #define LIBOPENCM3_GPIO_H
 
 #include <libopencm3/stm32/memorymap.h>
-#include <libopencm3/cm3/common.h>
+#include <libopencm3/stm32/common/gpio_common_all.h>
 
 /* --- Convenience macros -------------------------------------------------- */
 
 /* GPIO port base addresses (for convenience) */
+/* GPIO port base addresses (for convenience) */
+/** @defgroup gpio_port_id GPIO Port IDs
+@ingroup gpio_defines
+
+@{*/
 #define GPIOA				GPIO_PORT_A_BASE
 #define GPIOB				GPIO_PORT_B_BASE
 #define GPIOC				GPIO_PORT_C_BASE
 #define GPIOD				GPIO_PORT_D_BASE
 #define GPIOE				GPIO_PORT_E_BASE
 #define GPIOH				GPIO_PORT_H_BASE
-
-/* GPIO number definitions (for convenience) */
-#define GPIO0				(1 << 0)
-#define GPIO1				(1 << 1)
-#define GPIO2				(1 << 2)
-#define GPIO3				(1 << 3)
-#define GPIO4				(1 << 4)
-#define GPIO5				(1 << 5)
-#define GPIO6				(1 << 6)
-#define GPIO7				(1 << 7)
-#define GPIO8				(1 << 8)
-#define GPIO9				(1 << 9)
-#define GPIO10				(1 << 10)
-#define GPIO11				(1 << 11)
-#define GPIO12				(1 << 12)
-#define GPIO13				(1 << 13)
-#define GPIO14				(1 << 14)
-#define GPIO15				(1 << 15)
-#define GPIO_ALL			0xffff
+/**@}*/
 
 /* --- GPIO registers ------------------------------------------------------ */
 
@@ -150,31 +155,49 @@
 
 #define GPIO_MODE(n, mode)              (mode << (2 * (n)))
 #define GPIO_MODE_MASK(n)               (0x3 << (2 * (n)))
+/** @defgroup gpio_mode GPIO Pin Direction and Analog/Digital Mode
+@ingroup gpio_defines
+@{*/
 #define GPIO_MODE_INPUT			0x00	/* Default */
 #define GPIO_MODE_OUTPUT		0x01
 #define GPIO_MODE_AF			0x02
 #define GPIO_MODE_ANALOG		0x03
+/**@}*/
 
 /* --- GPIOx_OTYPER values -------------------------------------------- */
 /* Output type (OTx values) */
+/** @defgroup gpio_output_type GPIO Output Pin Driver Type
+@ingroup gpio_defines
+@list Push Pull
+@list Open Drain
+@{*/
 #define GPIO_OTYPE_PP			0x0
 #define GPIO_OTYPE_OD			0x1
+/**@}*/
 
 /* Output speed values */	
 #define GPIO_OSPEED(n, speed)           (speed << (2 * (n)))
 #define GPIO_OSPEED_MASK(n)             (0x3 << (2 * (n)))
+/** @defgroup gpio_speed GPIO Output Pin Speed
+@ingroup gpio_defines
+@{*/
 #define GPIO_OSPEED_400KHZ		0x0
 #define GPIO_OSPEED_2MHZ		0x1
 #define GPIO_OSPEED_10MHZ		0x2
 #define GPIO_OSPEED_40MHZ		0x3
+/**@}*/
 
 /* --- GPIOx_PUPDR values ------------------------------------------- */
 
 #define GPIO_PUPD(n, pupd)              (pupd << (2 * (n)))
 #define GPIO_PUPD_MASK(n)               (0x3 << (2 * (n)))
+/** @defgroup gpio_pup GPIO Output Pin Pullup
+@ingroup gpio_defines
+@{*/
 #define GPIO_PUPD_NONE                  0x0
 #define GPIO_PUPD_PULLUP                0x1
 #define GPIO_PUPD_PULLDOWN              0x2
+/**@}*/
 
 /* --- GPIO_IDR values ----------------------------------------------------- */
 
@@ -201,6 +224,9 @@
 
 #define GPIO_AFR(n, af)                 (af << ((n) * 4))
 #define GPIO_AFR_MASK(n)                (0xf << ((n) * 4))
+/** @defgroup gpio_af_num Alternate Function Pin Selection
+@ingroup gpio_defines
+@{*/
 #define GPIO_AF0                        0x0
 #define GPIO_AF1                        0x1
 #define GPIO_AF2                        0x2
@@ -217,11 +243,15 @@
 #define GPIO_AF13                       0xd
 #define GPIO_AF14                       0xe
 #define GPIO_AF15                       0xf
+/**@}*/
 
 /* --- Function prototypes ------------------------------------------------- */
 
+BEGIN_DECLS
+
 /*
  * L1, like F2 and F4, has the "new" GPIO peripheral, so use that style
+ * however the number of ports is reduced and H port naming is different.
  * TODO: this should all really be moved to a "common" gpio header
  */
 
@@ -229,13 +259,8 @@ void gpio_mode_setup(u32 gpioport, u8 mode, u8 pull_up_down, u16 gpios);
 void gpio_set_output_options(u32 gpioport, u8 otype, u8 speed, u16 gpios);
 void gpio_set_af(u32 gpioport, u8 alt_func_num, u16 gpios);
 
-/* F1 compatible api */
-void gpio_set(u32 gpioport, u16 gpios);
-void gpio_clear(u32 gpioport, u16 gpios);
-u16 gpio_get(u32 gpioport, u16 gpios);
-void gpio_toggle(u32 gpioport, u16 gpios);
-u16 gpio_port_read(u32 gpioport);
-void gpio_port_write(u32 gpioport, u16 data);
-void gpio_port_config_lock(u32 gpioport, u16 gpios);
+END_DECLS
 
 #endif
+/**@}*/
+
