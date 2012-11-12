@@ -80,7 +80,7 @@ The interrupt flag for the channel is cleared. More than one interrupt for the
 same channel may be cleared by using the logical OR of the interrupt flags.
 
 @param[in] dma unsigned int32. DMA controller base address: DMA1 or DMA2
-@param[in] channel unsigned int8. Channel number: @ref dma_st_number
+@param[in] channel unsigned int8. Channel number: @ref dma_ch
 @param[in] interrupts unsigned int32. Logical OR of interrupt numbers: @ref dma_if_offset
 */
 
@@ -97,8 +97,8 @@ void dma_clear_interrupt_flags(u32 dma, u8 channel, u32 interrupts)
 The interrupt flag for the channel is returned.
 
 @param[in] dma unsigned int32. DMA controller base address: DMA1 or DMA2
-@param[in] channel unsigned int8. Channel number: @ref dma_st_number
-@param[in] interrupt unsigned int32. Interrupt number: @ref dma_st_number
+@param[in] channel unsigned int8. Channel number: @ref dma_ch
+@param[in] interrupt unsigned int32. Interrupt number: @ref dma_ch
 @returns bool interrupt flag is set.
 */
 
