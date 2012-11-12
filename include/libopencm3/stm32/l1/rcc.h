@@ -1,6 +1,6 @@
-/** @file
+/** @defgroup STM32L1xx_rcc_defines RCC Defines
 
-@ingroup STM32L1xx
+@ingroup STM32L1xx_defines
 
 @brief <b>libopencm3 STM32L1xx Reset and Clock Control</b>
 
@@ -10,19 +10,11 @@
 @author @htmlonly &copy; @endhtmlonly 2009 Uwe Hermann <uwe@hermann-uwe.de>
 @author @htmlonly &copy; @endhtmlonly 2012 Karl Palsson <karlp@tweak.net.au>
 
-@date 18 May 2012
+@date 11 November 2012
 
 LGPL License Terms @ref lgpl_license
  */
-/** @defgroup STM32L1xx_rcc_defines
 
-@brief Defined Constants and Types for the STM32L1xx Reset and Clock Control
-
-@ingroup STM32L1xx_defines
-
-LGPL License Terms @ref lgpl_license
-
- */
 /*
  * This file is part of the libopencm3 project.
  *
@@ -46,6 +38,8 @@ LGPL License Terms @ref lgpl_license
  * Originally based on the F1 code, as it seemed most similar to the L1
  * TODO: very incomplete still!
  */
+
+/**@{*/
 
 #ifndef LIBOPENCM3_RCC_H
 #define LIBOPENCM3_RCC_H
@@ -404,5 +398,7 @@ void rcc_clock_setup_in_hse_8mhz_out_72mhz(void);
 void rcc_clock_setup_in_hse_12mhz_out_72mhz(void);
 void rcc_clock_setup_in_hse_16mhz_out_72mhz(void);
 void rcc_backupdomain_reset(void);
+
+/**@}*/
 
 #endif

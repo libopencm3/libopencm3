@@ -16,15 +16,13 @@
 WARN_LOGFILE           = doxygen_stm32f2_latex.log
 
 INPUT                  = ../../include/libopencm3/docmain.dox \
-						 ../../include/libopencm3/license.dox \
-						 ../../include/libopencm3/cm3/ \
-					     ../../include/libopencm3/stm32/ \
+                         ../../include/libopencm3/license.dox \
 					     ../../include/libopencm3/stm32/f2 \
-                         ../../lib/stm32/ \
-                         ../../lib/stm32/f2
+					     ../../include/libopencm3/stm32/common \
+                         ../../lib/stm32/f2 \
+						 ../../lib/stm32/common
 
-EXCLUDE                = ../../include/libopencm3/stm32/f2/doc-stm32f2.h \
-                         ../../include/libopencm3/stm32/doc-stm32f.h
+EXCLUDE                = ../../include/libopencm3/stm32/f2/doc-stm32f2.h
 
 LAYOUT_FILE 		   = DoxygenLayout_stm32f2.xml
 
