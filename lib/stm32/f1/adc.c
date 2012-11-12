@@ -187,7 +187,7 @@ void adc_set_dual_mode(u32 mode)
 This flag is set after all channels of a regular or injected group have been
 converted.
 
-@param[in] adc Unsigned int32. ADC block register address base @ref adc_reg_base
+@param[in] adc Unsigned int32. ADC block register address base @ref adc_reg_base.
 @returns bool. End of conversion flag.
 */
 
@@ -201,7 +201,7 @@ bool adc_eoc(u32 adc)
 
 This flag is set after all channels of an injected group have been converted.
 
-@param[in] adc Unsigned int32. ADC block register address base @ref adc_reg_base
+@param[in] adc Unsigned int32. ADC block register address base @ref adc_reg_base.
 @returns bool. End of conversion flag.
 */
 
@@ -217,7 +217,7 @@ The result read back is 12 bits, right or left aligned within the first 16 bits.
 For ADC1 only, the higher 16 bits will hold the result from ADC2 if
 an appropriate dual mode has been set @see adc_set_dual_mode.
 
-@param[in] adc Unsigned int32. ADC block register address base @ref adc_reg_base
+@param[in] adc Unsigned int32. ADC block register address base @ref adc_reg_base.
 @returns Unsigned int32 conversion result.
 */
 
@@ -233,7 +233,7 @@ The result read back from the selected injected result register (one of four) is
 12 bits, right or left aligned within the first 16 bits. The result can have a
 negative value if the injected channel offset has been set @see adc_set_injected_offset.
 
-@param[in] adc Unsigned int32. ADC block register address base @ref adc_reg_base
+@param[in] adc Unsigned int32. ADC block register address base @ref adc_reg_base.
 @param[in] reg Unsigned int8. Register number (1 ... 4).
 @returns Unsigned int32 conversion result.
 */
@@ -260,7 +260,7 @@ This value is subtracted from the injected channel results after conversion
 is complete, and can result in negative results. A separate value can be specified
 for each injected data register.
 
-@param[in] adc Unsigned int32. ADC block register address base @ref adc_reg_base
+@param[in] adc Unsigned int32. ADC block register address base @ref adc_reg_base.
 @param[in] reg Unsigned int8. Register number (1 ... 4).
 @param[in] offset Unsigned int32.
 */
@@ -290,7 +290,7 @@ The analog watchdog allows the monitoring of an analog signal between two thresh
 levels. The thresholds must be preset. Comparison is done before data alignment
 takes place, so the thresholds are left-aligned.
 
-@param[in] adc Unsigned int32. ADC block register address base @ref adc_reg_base
+@param[in] adc Unsigned int32. ADC block register address base @ref adc_reg_base.
 */
 
 void adc_enable_analog_watchdog_regular(u32 adc)
@@ -301,7 +301,7 @@ void adc_enable_analog_watchdog_regular(u32 adc)
 /*-----------------------------------------------------------------------------*/
 /** @brief ADC Disable Analog Watchdog for Regular Conversions
 
-@param[in] adc Unsigned int32. ADC block register address base @ref adc_reg_base
+@param[in] adc Unsigned int32. ADC block register address base @ref adc_reg_base.
 */
 
 void adc_disable_analog_watchdog_regular(u32 adc)
@@ -316,7 +316,7 @@ The analog watchdog allows the monitoring of an analog signal between two thresh
 levels. The thresholds must be preset. Comparison is done before data alignment
 takes place, so the thresholds are left-aligned.
 
-@param[in] adc Unsigned int32. ADC block register address base @ref adc_reg_base
+@param[in] adc Unsigned int32. ADC block register address base @ref adc_reg_base.
 */
 
 void adc_enable_analog_watchdog_injected(u32 adc)
@@ -327,7 +327,7 @@ void adc_enable_analog_watchdog_injected(u32 adc)
 /*-----------------------------------------------------------------------------*/
 /** @brief ADC Disable Analog Watchdog for Injected Conversions
 
-@param[in] adc Unsigned int32. ADC block register address base @ref adc_reg_base
+@param[in] adc Unsigned int32. ADC block register address base @ref adc_reg_base.
 */
 
 void adc_disable_analog_watchdog_injected(u32 adc)
@@ -346,8 +346,8 @@ of the same length or until the whole group has all been converted. When the
 the whole group has been converted, the next trigger will restart conversion
 of the subgroup at the beginning of the whole group.
 
-@param[in] adc Unsigned int32. ADC block register address base @ref adc_reg_base
-@param[in] length Unsigned int8. Number of channels in the group @ref adc_cr1_discnum
+@param[in] adc Unsigned int32. ADC block register address base @ref adc_reg_base.
+@param[in] length Unsigned int8. Number of channels in the group @ref adc_cr1_discnum.
 */
 
 void adc_enable_discontinuous_mode_regular(u32 adc, u8 length)
@@ -360,7 +360,7 @@ void adc_enable_discontinuous_mode_regular(u32 adc, u8 length)
 /*-----------------------------------------------------------------------------*/
 /** @brief ADC Disable Discontinuous Mode for Regular Conversions
 
-@param[in] adc Unsigned int32. ADC block register address base @ref adc_reg_base
+@param[in] adc Unsigned int32. ADC block register address base @ref adc_reg_base.
 */
 
 void adc_disable_discontinuous_mode_regular(u32 adc)
@@ -375,7 +375,7 @@ In this mode the ADC converts sequentially one channel of the defined group of
 injected channels, cycling back to the first channel in the group once the
 entire group has been converted.
 
-@param[in] adc Unsigned int32. ADC block register address base @ref adc_reg_base
+@param[in] adc Unsigned int32. ADC block register address base @ref adc_reg_base.
 */
 
 void adc_enable_discontinuous_mode_injected(u32 adc)
@@ -386,7 +386,7 @@ void adc_enable_discontinuous_mode_injected(u32 adc)
 /*-----------------------------------------------------------------------------*/
 /** @brief ADC Disable Discontinuous Mode for Injected Conversions
 
-@param[in] adc Unsigned int32. ADC block register address base @ref adc_reg_base
+@param[in] adc Unsigned int32. ADC block register address base @ref adc_reg_base.
 */
 
 void adc_disable_discontinuous_mode_injected(u32 adc)
@@ -413,7 +413,7 @@ void adc_enable_automatic_injected_group_conversion(u32 adc)
 /*-----------------------------------------------------------------------------*/
 /** @brief ADC Disable Automatic Injected Conversions
 
-@param[in] adc Unsigned int32. ADC block register address base @ref adc_reg_base
+@param[in] adc Unsigned int32. ADC block register address base @ref adc_reg_base.
 */
 
 void adc_disable_automatic_injected_group_conversion(u32 adc)
@@ -433,7 +433,7 @@ injected channels. If neither are enabled, the analog watchdog feature will be
 disabled.
 @ref adc_enable_analog_watchdog_injected, @ref adc_enable_analog_watchdog_regular.
 
-@param[in] adc Unsigned int32. ADC block register address base @ref adc_reg_base
+@param[in] adc Unsigned int32. ADC block register address base @ref adc_reg_base.
 */
 
 void adc_enable_analog_watchdog_on_all_channels(u32 adc)
@@ -453,8 +453,8 @@ injected channels. If neither are enabled, the analog watchdog feature will be
 disabled. If both are enabled, the same channel number is monitored.
 @ref adc_enable_analog_watchdog_injected, @ref adc_enable_analog_watchdog_regular.
 
-@param[in] adc Unsigned int32. ADC block register address base @ref adc_reg_base
-@param[in] channel Unsigned int8. ADC channel number @ref adc_watchdog_channel
+@param[in] adc Unsigned int32. ADC block register address base @ref adc_reg_base.
+@param[in] channel Unsigned int8. ADC channel number @ref adc_watchdog_channel.
 */
 
 void adc_enable_analog_watchdog_on_selected_channel(u32 adc, u8 channel)
@@ -475,7 +475,7 @@ In this mode a conversion consists of a scan of the predefined set of channels,
 regular and injected, each channel conversion immediately following the
 previous one. It can use single, continuous or discontinuous mode.
 
-@param[in] adc Unsigned int32. ADC block register address base @ref adc_reg_base
+@param[in] adc Unsigned int32. ADC block register address base @ref adc_reg_base.
 */
 
 void adc_enable_scan_mode(u32 adc)
@@ -497,7 +497,7 @@ void adc_disable_scan_mode(u32 adc)
 /*-----------------------------------------------------------------------------*/
 /** @brief ADC Enable Injected End-Of-Conversion Interrupt
 
-@param[in] adc Unsigned int32. ADC block register address base @ref adc_reg_base
+@param[in] adc Unsigned int32. ADC block register address base @ref adc_reg_base.
 */
 
 void adc_enable_eoc_interrupt_injected(u32 adc)
@@ -508,7 +508,7 @@ void adc_enable_eoc_interrupt_injected(u32 adc)
 /*-----------------------------------------------------------------------------*/
 /** @brief ADC Disable Injected End-Of-Conversion Interrupt
 
-@param[in] adc Unsigned int32. ADC block register address base @ref adc_reg_base
+@param[in] adc Unsigned int32. ADC block register address base @ref adc_reg_base.
 */
 
 void adc_disable_eoc_interrupt_injected(u32 adc)
@@ -519,7 +519,7 @@ void adc_disable_eoc_interrupt_injected(u32 adc)
 /*-----------------------------------------------------------------------------*/
 /** @brief ADC Enable Analog Watchdog Interrupt
 
-@param[in] adc Unsigned int32. ADC block register address base @ref adc_reg_base
+@param[in] adc Unsigned int32. ADC block register address base @ref adc_reg_base.
 */
 
 void adc_enable_awd_interrupt(u32 adc)
@@ -530,7 +530,7 @@ void adc_enable_awd_interrupt(u32 adc)
 /*-----------------------------------------------------------------------------*/
 /** @brief ADC Disable Analog Watchdog Interrupt
 
-@param[in] adc Unsigned int32. ADC block register address base @ref adc_reg_base
+@param[in] adc Unsigned int32. ADC block register address base @ref adc_reg_base.
 */
 
 void adc_disable_awd_interrupt(u32 adc)
@@ -541,7 +541,7 @@ void adc_disable_awd_interrupt(u32 adc)
 /*-----------------------------------------------------------------------------*/
 /** @brief ADC Enable Regular End-Of-Conversion Interrupt
 
-@param[in] adc Unsigned int32. ADC block register address base @ref adc_reg_base
+@param[in] adc Unsigned int32. ADC block register address base @ref adc_reg_base.
 */
 
 void adc_enable_eoc_interrupt(u32 adc)
@@ -552,7 +552,7 @@ void adc_enable_eoc_interrupt(u32 adc)
 /*-----------------------------------------------------------------------------*/
 /** @brief ADC Disable Regular End-Of-Conversion Interrupt
 
-@param[in] adc Unsigned int32. ADC block register address base @ref adc_reg_base
+@param[in] adc Unsigned int32. ADC block register address base @ref adc_reg_base.
 */
 
 void adc_disable_eoc_interrupt(u32 adc)
@@ -566,7 +566,7 @@ void adc_disable_eoc_interrupt(u32 adc)
 This enables both the sensor and the reference voltage measurements on channels
 16 and 17.
 
-@param[in] adc Unsigned int32. ADC block register address base @ref adc_reg_base
+@param[in] adc Unsigned int32. ADC block register address base @ref adc_reg_base.
 */
 
 void adc_enable_temperature_sensor(u32 adc)
@@ -580,7 +580,7 @@ void adc_enable_temperature_sensor(u32 adc)
 Disabling this will reduce power consumption from the sensor and the reference
 voltage measurements.
 
-@param[in] adc Unsigned int32. ADC block register address base @ref adc_reg_base
+@param[in] adc Unsigned int32. ADC block register address base @ref adc_reg_base.
 */
 
 void adc_disable_temperature_sensor(u32 adc)
@@ -599,7 +599,7 @@ Note this is a software trigger and requires triggering to be enabled and the
 trigger source to be set appropriately otherwise conversion will not start.
 This is not the same as the ADC start conversion operation.
 
-@param[in] adc Unsigned int32. ADC block register address base @ref adc_reg_base
+@param[in] adc Unsigned int32. ADC block register address base @ref adc_reg_base.
 */
 
 void adc_start_conversion_regular(u32 adc)
@@ -622,7 +622,7 @@ Note this is a software trigger and requires triggering to be enabled and the
 trigger source to be set appropriately otherwise conversion will not start.
 This is not the same as the ADC start conversion operation.
 
-@param[in] adc Unsigned int32. ADC block register address base @ref adc_reg_base
+@param[in] adc Unsigned int32. ADC block register address base @ref adc_reg_base.
 */
 
 void adc_start_conversion_injected(u32 adc)
@@ -659,9 +659,9 @@ For ADC3
 @li Timer 5 CC3 event
 @li Software Start
 
-@param[in] adc Unsigned int32. ADC block register address base @ref adc_reg_base
+@param[in] adc Unsigned int32. ADC block register address base @ref adc_reg_base.
 @param[in] trigger Unsigned int8. Trigger identifier @ref adc_trigger_regular_12
-for ADC1 and ADC2, or @ref adc_trigger_regular_3 for ADC3
+for ADC1 and ADC2, or @ref adc_trigger_regular_3 for ADC3.
 */
 
 void adc_enable_external_trigger_regular(u32 adc, u32 trigger)
@@ -677,7 +677,7 @@ void adc_enable_external_trigger_regular(u32 adc, u32 trigger)
 /*-----------------------------------------------------------------------------*/
 /** @brief ADC Disable an External Trigger for Regular Channels
 
-@param[in] adc Unsigned int32. ADC block register address base @ref adc_reg_base
+@param[in] adc Unsigned int32. ADC block register address base @ref adc_reg_base.
 */
 
 void adc_disable_external_trigger_regular(u32 adc)
@@ -710,9 +710,9 @@ For ADC3
 @li Timer 5 CC4 event
 @li Software Start
 
-@param[in] adc Unsigned int32. ADC block register address base @ref adc_reg_base
+@param[in] adc Unsigned int32. ADC block register address base @ref adc_reg_base.
 @param[in] trigger Unsigned int8. Trigger identifier @ref adc_trigger_injected_12
-for ADC1 and ADC2, or @ref adc_trigger_injected_3 for ADC3
+for ADC1 and ADC2, or @ref adc_trigger_injected_3 for ADC3.
 */
 void adc_enable_external_trigger_injected(u32 adc, u32 trigger)
 {
@@ -727,7 +727,7 @@ void adc_enable_external_trigger_injected(u32 adc, u32 trigger)
 /*-----------------------------------------------------------------------------*/
 /** @brief ADC Disable an External Trigger for Injected Channels
 
-@param[in] adc Unsigned int32. ADC block register address base @ref adc_reg_base
+@param[in] adc Unsigned int32. ADC block register address base @ref adc_reg_base.
 */
 
 void adc_disable_external_trigger_injected(u32 adc)
@@ -738,7 +738,7 @@ void adc_disable_external_trigger_injected(u32 adc)
 /*-----------------------------------------------------------------------------*/
 /** @brief ADC Set the Data as Left Aligned
 
-@param[in] adc Unsigned int32. ADC block register address base @ref adc_reg_base
+@param[in] adc Unsigned int32. ADC block register address base @ref adc_reg_base.
 */
 
 void adc_set_left_aligned(u32 adc)
@@ -749,7 +749,7 @@ void adc_set_left_aligned(u32 adc)
 /*-----------------------------------------------------------------------------*/
 /** @brief ADC Set the Data as Right Aligned
 
-@param[in] adc Unsigned int32. ADC block register address base @ref adc_reg_base
+@param[in] adc Unsigned int32. ADC block register address base @ref adc_reg_base.
 */
 
 void adc_set_right_aligned(u32 adc)
@@ -764,7 +764,7 @@ Only available for ADC1 through DMA1 channel1, and ADC3 through DMA2 channel5.
 ADC2 will use DMA if it is set as slave in dual mode with ADC1 in DMA transfer
 mode.
 
-@param[in] adc Unsigned int32. ADC block register address base @ref adc_reg_base
+@param[in] adc Unsigned int32. ADC block register address base @ref adc_reg_base.
 */
 
 void adc_enable_dma(u32 adc)
@@ -776,7 +776,7 @@ void adc_enable_dma(u32 adc)
 /*-----------------------------------------------------------------------------*/
 /** @brief ADC Disable DMA Transfers
 
-@param[in] adc Unsigned int32. ADC block register address base @ref adc_reg_base
+@param[in] adc Unsigned int32. ADC block register address base @ref adc_reg_base.
 */
 
 void adc_disable_dma(u32 adc)
@@ -791,7 +791,7 @@ void adc_disable_dma(u32 adc)
 This resets the calibration registers. It is not clear if this is required to be
 done before every calibration operation.
 
-@param[in] adc Unsigned int32. ADC block register address base @ref adc_reg_base
+@param[in] adc Unsigned int32. ADC block register address base @ref adc_reg_base.
 */
 
 void adc_reset_calibration(u32 adc)
@@ -810,7 +810,7 @@ until this happens and the ADC is ready for use.
 The ADC must have been powered down for at least 2 ADC clock cycles, then powered on.
 before calibration starts
 
-@param[in] adc Unsigned int32. ADC block register address base @ref adc_reg_base
+@param[in] adc Unsigned int32. ADC block register address base @ref adc_reg_base.
 */
 
 void adc_calibration(u32 adc)
@@ -825,7 +825,7 @@ void adc_calibration(u32 adc)
 In this mode the ADC starts a new conversion of a single channel or a channel
 group immediately following completion of the previous channel group conversion.
 
-@param[in] adc Unsigned int32. ADC block register address base @ref adc_reg_base
+@param[in] adc Unsigned int32. ADC block register address base @ref adc_reg_base.
 */
 
 void adc_set_continuous_conversion_mode(u32 adc)
@@ -839,7 +839,7 @@ void adc_set_continuous_conversion_mode(u32 adc)
 In this mode the ADC performs a conversion of one channel or a channel group
 and stops.
 
-@param[in] adc Unsigned int32. ADC block register address base @ref adc_reg_base
+@param[in] adc Unsigned int32. ADC block register address base @ref adc_reg_base.
 */
 
 void adc_set_single_conversion_mode(u32 adc)
@@ -856,7 +856,7 @@ If the ADC is already on this function call will initiate a conversion.
 
 @deprecated to be removed in a later release
 
-@param[in] adc Unsigned int32. ADC block register address base @ref adc_reg_base
+@param[in] adc Unsigned int32. ADC block register address base @ref adc_reg_base.
 */
 
 void adc_on(u32 adc)
@@ -869,7 +869,7 @@ void adc_on(u32 adc)
 
 Turn off the ADC to reduce power consumption to a few microamps.
 
-@param[in] adc Unsigned int32. ADC block register address base @ref adc_reg_base
+@param[in] adc Unsigned int32. ADC block register address base @ref adc_reg_base.
 */
 
 void adc_off(u32 adc)
@@ -882,9 +882,9 @@ void adc_off(u32 adc)
 
 The sampling time can be selected in ADC clock cycles from 1.5 to 239.5.
 
-@param[in] adc Unsigned int32. ADC block register address base @ref adc_reg_base
-@param[in] channel Unsigned int8. ADC Channel integer 0..18 or from @ref adc_channel
-@param[in] time Unsigned int8. Sampling time selection from @ref adc_sample_rg
+@param[in] adc Unsigned int32. ADC block register address base @ref adc_reg_base.
+@param[in] channel Unsigned int8. ADC Channel integer 0..18 or from @ref adc_channel.
+@param[in] time Unsigned int8. Sampling time selection from @ref adc_sample_rg.
 */
 
 void adc_set_sample_time(u32 adc, u8 channel, u8 time)
@@ -910,8 +910,8 @@ void adc_set_sample_time(u32 adc, u8 channel, u8 time)
 The sampling time can be selected in ADC clock cycles from 1.5 to 239.5, same for
 all channels.
 
-@param[in] adc Unsigned int32. ADC block register address base @ref adc_reg_base
-@param[in] time Unsigned int8. Sampling time selection from @ref adc_sample_rg
+@param[in] adc Unsigned int32. ADC block register address base @ref adc_reg_base.
+@param[in] time Unsigned int8. Sampling time selection from @ref adc_sample_rg.
 */
 
 void adc_set_sample_time_on_all_channels(u32 adc, u8 time)
@@ -931,8 +931,8 @@ void adc_set_sample_time_on_all_channels(u32 adc, u8 time)
 /*-----------------------------------------------------------------------------*/
 /** @brief ADC Set Analog Watchdog Upper Threshold
 
-@param[in] adc Unsigned int32. ADC block register address base @ref adc_reg_base
-@param[in] threshold Unsigned int8. Upper threshold value
+@param[in] adc Unsigned int32. ADC block register address base @ref adc_reg_base.
+@param[in] threshold Unsigned int8. Upper threshold value.
 */
 
 void adc_set_watchdog_high_threshold(u32 adc, u16 threshold)
@@ -947,8 +947,8 @@ void adc_set_watchdog_high_threshold(u32 adc, u16 threshold)
 /*-----------------------------------------------------------------------------*/
 /** @brief ADC Set Analog Watchdog Lower Threshold
 
-@param[in] adc Unsigned int32. ADC block register address base @ref adc_reg_base
-@param[in] threshold Unsigned int8. Lower threshold value
+@param[in] adc Unsigned int32. ADC block register address base @ref adc_reg_base.
+@param[in] threshold Unsigned int8. Lower threshold value.
 */
 
 void adc_set_watchdog_low_threshold(u32 adc, u16 threshold)
@@ -967,7 +967,7 @@ Define a sequence of channels to be converted as a regular group with a length
 from 1 to 16 channels. If this is called during conversion, the current conversion
 is reset and conversion begins again with the newly defined group.
 
-@param[in] adc Unsigned int32. ADC block register address base @ref adc_reg_base
+@param[in] adc Unsigned int32. ADC block register address base @ref adc_reg_base.
 @param[in] length Unsigned int8. Number of channels in the group.
 @param[in] channel Unsigned int8[]. Set of channels in sequence, integers 0..18.
 */
@@ -1003,9 +1003,9 @@ Defines a sequence of channels to be converted as an injected group with a lengt
 from 1 to 4 channels. If this is called during conversion, the current conversion
 is reset and conversion begins again with the newly defined group.
 
-@param[in] adc Unsigned int32. ADC block register address base @ref adc_reg_base
+@param[in] adc Unsigned int32. ADC block register address base @ref adc_reg_base.
 @param[in] length Unsigned int8. Number of channels in the group.
-@param[in] channel Unsigned int8[]. Set of channels in sequence, integers 0..18
+@param[in] channel Unsigned int8[]. Set of channels in sequence, integers 0..18.
 */
 
 void adc_set_injected_sequence(u32 adc, u8 length, u8 channel[])
