@@ -1,4 +1,4 @@
-/** @defgroup STM32F1xx_pwr_defines PWR Defines
+/** @defgroup STM32F_pwr_defines PWR Defines
 
 @ingroup STM32F_defines
 

@@ -1,4 +1,4 @@
-# HTML Documentation for STM32F4 code level
+# HTML Documentation for STM32F1 code level
 
 # 14 September 2012
 # (C) Ken Sarkies <ksarkies@internode.on.net>
@@ -7,25 +7,27 @@
 # Common Include File
 #---------------------------------------------------------------------------
 
-@INCLUDE 			   = ../Doxyfile_common
+@INCLUDE                = ../Doxyfile_common
 
 #---------------------------------------------------------------------------
 # Local settings
 #---------------------------------------------------------------------------
 
-WARN_LOGFILE           = doxygen_stm32f4.log
+WARN_LOGFILE           = doxygen_stm32l1.log
 
 INPUT                  = ../../include/libopencm3/license.dox \
-					     ../../include/libopencm3/stm32/f4 \
-					     ../../include/libopencm3/stm32/common \
-                         ../../lib/stm32/f4 \
-						 ../../lib/stm32/common
+                         ../../include/libopencm3/stm32/l1 \
+			 ../../include/libopencm3/stm32/common \
+                         ../../lib/stm32/l1 \
+			 ../../lib/stm32/common
 
-EXCLUDE                =
+EXCLUDE                = 
 
-LAYOUT_FILE 		   = DoxygenLayout_stm32f4.xml
+EXCLUDE_PATTERNS       = *_common_f24.h
+
+LAYOUT_FILE 	       = DoxygenLayout_stm32l1.xml
 
 TAGFILES               = ../cm3/cm3.tag=../../cm3/html \
 
-GENERATE_TAGFILE       = stm32f4.tag
+GENERATE_TAGFILE       = stm32l1.tag
 

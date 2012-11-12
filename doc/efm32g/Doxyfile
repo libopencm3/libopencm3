@@ -1,6 +1,6 @@
-# HTML Documentation for STM32F4 code level
+# HTML Documentation for efm32 code level
 
-# 14 September 2012
+# 11 November 2012
 # (C) Ken Sarkies <ksarkies@internode.on.net>
 
 #---------------------------------------------------------------------------
@@ -13,19 +13,17 @@
 # Local settings
 #---------------------------------------------------------------------------
 
-WARN_LOGFILE           = doxygen_stm32f4.log
+WARN_LOGFILE           = doxygen_efm32g.log
 
 INPUT                  = ../../include/libopencm3/license.dox \
-					     ../../include/libopencm3/stm32/f4 \
-					     ../../include/libopencm3/stm32/common \
-                         ../../lib/stm32/f4 \
-						 ../../lib/stm32/common
+					     ../../include/libopencm3/efm32/efm32g \
+                         ../../lib/efm32/efm32g
 
 EXCLUDE                =
 
-LAYOUT_FILE 		   = DoxygenLayout_stm32f4.xml
+LAYOUT_FILE 		   = DoxygenLayout_efm32g.xml
 
 TAGFILES               = ../cm3/cm3.tag=../../cm3/html \
 
-GENERATE_TAGFILE       = stm32f4.tag
+GENERATE_TAGFILE       = efm32g.tag
 

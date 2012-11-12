@@ -122,4 +122,6 @@ void nvic_generate_software_interrupt(u16 irqn);
 
 END_DECLS
 
+/**@}*/
+
 #endif

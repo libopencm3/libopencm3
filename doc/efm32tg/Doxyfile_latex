@@ -1,6 +1,6 @@
-# LaTeX Documentation for LPC13xx code level
+# LaTeX Documentation for efm32 code level
 
-# 14 September 2012
+# 12 November 2012
 # (C) Ken Sarkies <ksarkies@internode.on.net>
 
 #---------------------------------------------------------------------------
@@ -13,20 +13,20 @@
 # Local settings
 #---------------------------------------------------------------------------
 
-WARN_LOGFILE           = doxygen_lpc13xx_latex.log
+WARN_LOGFILE           = doxygen_efm32tg_latex.log
 
 INPUT                  = ../../include/libopencm3/docmain.dox \
-						 ../../include/libopencm3/license.dox \
-					     ../../include/libopencm3/lpc13xx/ \
-                         ../../lib/lpc13xx
+                         ../../include/libopencm3/license.dox \
+					     ../../include/libopencm3/efm32/efm32tg \
+                         ../../lib/efm32/efm32tg
 
-EXCLUDE                = ../../include/libopencm3/lpc13xx/doc-lpc13xx.h
+EXCLUDE                = ../../include/libopencm3/efm32/doc-efm32tg.h
 
-LAYOUT_FILE 		   = DoxygenLayout_lpc13xx.xml
+LAYOUT_FILE 		   = DoxygenLayout_efm32tg.xml
 
 GENERATE_HTML		   = NO
 
 GENERATE_LATEX		   = YES
 
-LATEX_HEADER           = header_lpc13xx.tex
+LATEX_HEADER           = header_efm32tg.tex
 
