@@ -435,17 +435,12 @@ void adc_set_right_aligned(u32 adc)
 /*-----------------------------------------------------------------------------*/
 /** @brief ADC Enable DMA Transfers
 
-Only available for ADC1 through DMA1 channel1, and ADC3 through DMA2 channel5.
-ADC2 will use DMA if it is set as slave in dual mode with ADC1 in DMA transfer
-mode.
-
 @param[in] adc Unsigned int32. ADC block register address base @ref adc_reg_base
 */
 
 void adc_enable_dma(u32 adc)
 {
-	if ((adc == ADC1) | (adc == ADC3))
-		ADC_CR2(adc) |= ADC_CR2_DMA;
+        ADC_CR2(adc) |= ADC_CR2_DMA;
 }
 
 /*-----------------------------------------------------------------------------*/
@@ -456,8 +451,7 @@ void adc_enable_dma(u32 adc)
 
 void adc_disable_dma(u32 adc)
 {
-	if ((adc == ADC1) | (adc == ADC3))
-		ADC_CR2(adc) &= ~ADC_CR2_DMA;
+        ADC_CR2(adc) &= ~ADC_CR2_DMA;
 }
 
 /*-----------------------------------------------------------------------------*/
