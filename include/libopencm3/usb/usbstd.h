@@ -38,6 +38,9 @@ struct usb_setup_data {
 	u16 wLength;
 } __attribute__((packed));
 
+/* Class Definition */
+#define USB_CLASS_VENDOR            		0xFF
+
 /* bmRequestType bit definitions */
 #define USB_REQ_TYPE_IN				0x80
 #define USB_REQ_TYPE_STANDARD			0x00
@@ -220,4 +223,7 @@ struct usb_iface_assoc_descriptor {
 #define USB_DT_INTERFACE_ASSOCIATION_SIZE \
 				sizeof(struct usb_iface_assoc_descriptor)
 
+enum usb_language_id {
+	USB_LANGID_ENGLISH_US = 0x409,
+};
 #endif

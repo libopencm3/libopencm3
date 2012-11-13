@@ -417,6 +417,7 @@
 #define CAN_BTR_SJW_3TQ			(0x2 << 24)
 #define CAN_BTR_SJW_4TQ			(0x3 << 24)
 #define CAN_BTR_SJW_MASK		(0x3 << 24)
+#define CAN_BTR_SJW_SHIFT		24
 
 /* 23 Reserved, forced by hardware to 0 */
 
@@ -430,6 +431,7 @@
 #define CAN_BTR_TS2_7TQ			(0x6 << 20)
 #define CAN_BTR_TS2_8TQ			(0x7 << 20)
 #define CAN_BTR_TS2_MASK		(0x7 << 20)
+#define CAN_BTR_TS2_SHIFT		20
 
 /* TS1[3:0]: Time segment 1 */
 #define CAN_BTR_TS1_1TQ			(0x0 << 16)
@@ -449,6 +451,7 @@
 #define CAN_BTR_TS1_15TQ		(0xE << 16)
 #define CAN_BTR_TS1_16TQ		(0xF << 16)
 #define CAN_BTR_TS1_MASK		(0xF << 16)
+#define CAN_BTR_TS1_SHIFT		16
 
 /* 15:10 Reserved, forced by hardware to 0 */
 
@@ -458,7 +461,7 @@
 /* --- CAN_TIxR values ------------------------------------------------------ */
 
 /* STID[10:0]: Standard identifier */
-#define CAN_TIxR_STID_MASK		(0x3FF << 21)
+#define CAN_TIxR_STID_MASK		(0x7FF << 21)
 #define CAN_TIxR_STID_SHIFT		21
 
 /* EXID[15:0]: Extended identifier */

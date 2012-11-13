@@ -103,18 +103,18 @@ LGPL License Terms @ref lgpl_license
 /* CAN1 / CAN BANK */
 #define GPIO_BANK_CAN1_RX		GPIOA		/* PA11 */
 #define GPIO_BANK_CAN1_TX		GPIOA		/* PA12 */
-#define GPIO_BANK_CAN_RX		GPIO_CAN1_RX	/* Alias */
-#define GPIO_BANK_CAN_TX		GPIO_CAN1_TX	/* Alias */
+#define GPIO_BANK_CAN_RX		GPIO_BANK_CAN1_RX /* Alias */
+#define GPIO_BANK_CAN_TX		GPIO_BANK_CAN1_TX /* Alias */
 
 #define GPIO_BANK_CAN_PB_RX		GPIOB		/* PB8 */
 #define GPIO_BANK_CAN_PB_TX		GPIOB		/* PB9 */
-#define GPIO_BANK_CAN1_PB_RX		GPIO_CAN_PB_RX	/* Alias */
-#define GPIO_BANK_CAN1_PB_TX		GPIO_CAN_PB_TX	/* Alias */
+#define GPIO_BANK_CAN1_PB_RX		GPIO_BANK_CAN_PB_RX /* Alias */
+#define GPIO_BANK_CAN1_PB_TX		GPIO_BANK_CAN_PB_TX /* Alias */
 
 #define GPIO_BANK_CAN_PD_RX		GPIOD		/* PD0 */
 #define GPIO_BANK_CAN_PD_TX		GPIOD		/* PD1 */
-#define GPIO_BANK_CAN1_PD_RX		GPIO_CAN_PD_RX	/* Alias */
-#define GPIO_BANK_CAN1_PD_TX		GPIO_CAN_PD_TX	/* Alias */
+#define GPIO_BANK_CAN1_PD_RX		GPIO_BANK_CAN_PD_RX /* Alias */
+#define GPIO_BANK_CAN1_PD_TX		GPIO_BANK_CAN_PD_TX /* Alias */
 
 /* CAN2 GPIO */
 #define GPIO_CAN2_RX			GPIO12		/* PB12 */

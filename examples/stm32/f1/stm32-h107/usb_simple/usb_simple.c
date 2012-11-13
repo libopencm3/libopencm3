@@ -75,16 +75,17 @@ const char *usb_strings[] = {
 	"1001",
 };
 
-static int simple_control_callback(struct usb_setup_data *req, u8 **buf,
-		u16 *len, void (**complete)(struct usb_setup_data *req))
+static int simple_control_callback(usbd_device *usbd_dev, struct usb_setup_data *req, u8 **buf,
+		u16 *len, void (**complete)(usbd_device *usbd_dev, struct usb_setup_data *req))
 {
 	(void)buf;
 	(void)len;
 	(void)complete;
+	(void)usbd_dev;
 
 	if (req->bmRequestType != 0x40)
 		return 0; /* Only accept vendor request. */
-	
+
 	if (req->wValue & 1)
 		gpio_set(GPIOC, GPIO6);
 	else
@@ -95,6 +96,8 @@ static int simple_control_callback(struct usb_setup_data *req, u8 **buf,
 
 int main(void)
 {
+	usbd_device *usbd_dev;
+
 	rcc_clock_setup_in_hse_8mhz_out_72mhz();
 
 	rcc_peripheral_enable_clock(&RCC_APB2ENR, RCC_APB2ENR_IOPAEN);
@@ -105,13 +108,14 @@ int main(void)
 	gpio_set_mode(GPIOC, GPIO_MODE_OUTPUT_2_MHZ,
 		      GPIO_CNF_OUTPUT_PUSHPULL, GPIO6);
 
-	usbd_init(&stm32f107_usb_driver, &dev, &config, usb_strings);
+	usbd_dev = usbd_init(&stm32f107_usb_driver, &dev, &config, usb_strings);
 	usbd_register_control_callback(
+				usbd_dev,
 				USB_REQ_TYPE_VENDOR,
 				USB_REQ_TYPE_TYPE,
 				simple_control_callback);
 
 	while (1)
-		usbd_poll();
+		usbd_poll(usbd_dev);
 }
 

@@ -21,7 +21,7 @@
 #include <libopencm3/stm32/f1/rcc.h>
 #include <libopencm3/stm32/f1/gpio.h>
 #include <libopencm3/stm32/f1/flash.h>
-#include <libopencm3/stm32/f1/scb.h>
+#include <libopencm3/cm3/scb.h>
 #include <libopencm3/usb/usbd.h>
 #include <libopencm3/usb/dfu.h>
 
@@ -114,8 +114,10 @@ static const char *usb_strings[] = {
 	"@Internal Flash   /0x08000000/8*001Ka,56*001Kg",
 };
 
-static u8 usbdfu_getstatus(u32 *bwPollTimeout)
+static u8 usbdfu_getstatus(usbd_device *usbd_dev, u32 *bwPollTimeout)
 {
+	(void)usbd_dev;
+
 	switch (usbdfu_state) {
 	case STATE_DFU_DNLOAD_SYNC:
 		usbdfu_state = STATE_DFU_DNBUSY;
@@ -130,10 +132,11 @@ static u8 usbdfu_getstatus(u32 *bwPollTimeout)
 	}
 }
 
-static void usbdfu_getstatus_complete(struct usb_setup_data *req)
+static void usbdfu_getstatus_complete(usbd_device *usbd_dev, struct usb_setup_data *req)
 {
 	int i;
 	(void)req;
+	(void)usbd_dev;
 
 	switch (usbdfu_state) {
 	case STATE_DFU_DNBUSY:
@@ -166,8 +169,8 @@ static void usbdfu_getstatus_complete(struct usb_setup_data *req)
 	}
 }
 
-static int usbdfu_control_request(struct usb_setup_data *req, u8 **buf,
-		u16 *len, void (**complete)(struct usb_setup_data *req))
+static int usbdfu_control_request(usbd_device *usbd_dev, struct usb_setup_data *req, u8 **buf,
+		u16 *len, void (**complete)(usbd_device *usbd_dev, struct usb_setup_data *req))
 {
 	if ((req->bmRequestType & 0x7F) != 0x21)
 		return 0; /* Only accept class request. */
@@ -199,7 +202,7 @@ static int usbdfu_control_request(struct usb_setup_data *req, u8 **buf,
 		return 0;
 	case DFU_GETSTATUS: {
 		u32 bwPollTimeout = 0; /* 24-bit integer in DFU class spec */
-		(*buf)[0] = usbdfu_getstatus(&bwPollTimeout);
+		(*buf)[0] = usbdfu_getstatus(usbd_dev, &bwPollTimeout);
 		(*buf)[1] = bwPollTimeout & 0xFF;
 		(*buf)[2] = (bwPollTimeout >> 8) & 0xFF;
 		(*buf)[3] = (bwPollTimeout >> 16) & 0xFF;
@@ -221,6 +224,8 @@ static int usbdfu_control_request(struct usb_setup_data *req, u8 **buf,
 
 int main(void)
 {
+	usbd_device *usbd_dev;
+
 	rcc_peripheral_enable_clock(&RCC_APB2ENR, RCC_APB2ENR_IOPAEN);
 
 	if (!gpio_get(GPIOA, GPIO10)) {
@@ -244,9 +249,10 @@ int main(void)
 	AFIO_MAPR |= AFIO_MAPR_SWJ_CFG_JTAG_OFF_SW_ON;
 	gpio_set_mode(GPIOA, GPIO_MODE_INPUT, 0, GPIO15);
 
-	usbd_init(&stm32f103_usb_driver, &dev, &config, usb_strings);
-	usbd_set_control_buffer_size(sizeof(usbd_control_buffer));
+	usbd_dev = usbd_init(&stm32f103_usb_driver, &dev, &config, usb_strings);
+	usbd_set_control_buffer_size(usbd_dev, sizeof(usbd_control_buffer));
 	usbd_register_control_callback(
+				usbd_dev,
 				USB_REQ_TYPE_CLASS | USB_REQ_TYPE_INTERFACE,
 				USB_REQ_TYPE_TYPE | USB_REQ_TYPE_RECIPIENT,
 				usbdfu_control_request);
@@ -256,5 +262,5 @@ int main(void)
 		      GPIO_CNF_OUTPUT_PUSHPULL, GPIO15);
 
 	while (1)
-		usbd_poll();
+		usbd_poll(usbd_dev);
 }
