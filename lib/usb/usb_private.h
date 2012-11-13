@@ -25,7 +25,7 @@
 #define MIN(a, b) ((a)<(b) ? (a) : (b))
 
 /** Internal collection of device information. */
-extern struct _usbd_device {
+struct _usbd_device {
 	const struct usb_device_descriptor *desc;
 	const struct usb_config_descriptor *config;
 	const char **strings;
@@ -45,19 +45,49 @@ extern struct _usbd_device {
 	void (*user_callback_resume)(void);
 	void (*user_callback_sof)(void);
 
+	struct usb_control_state {
+		enum {
+			IDLE, STALLED,
+			DATA_IN, LAST_DATA_IN, STATUS_IN,
+			DATA_OUT, LAST_DATA_OUT, STATUS_OUT,
+		} state;
+		struct usb_setup_data req __attribute__((aligned(4)));
+		u8 *ctrl_buf;
+		u16 ctrl_len;
+		void (*complete)(usbd_device *usbd_dev,
+				 struct usb_setup_data *req);
+	} control_state;
+
 	struct user_control_callback {
 		usbd_control_callback cb;
 		u8 type;
 		u8 type_mask;
 	} user_control_callback[MAX_USER_CONTROL_CALLBACK];
 
-	void (*user_callback_ctr[8][3])(u8 ea);
+	void (*user_callback_ctr[8][3])(usbd_device *usbd_dev, u8 ea);
 
 	/* User callback function for some standard USB function hooks */
-	void (*user_callback_set_config)(u16 wValue);
+	void (*user_callback_set_config)(usbd_device *usbd_dev, u16 wValue);
 
 	const struct _usbd_driver *driver;
-} _usbd_device;
+
+	/* private driver data */
+
+	uint16_t fifo_mem_top;
+	uint16_t fifo_mem_top_ep0;
+    u8 force_nak[4];
+    /*
+     * We keep a backup copy of the out endpoint size registers to restore them
+     * after a transaction.
+     */
+    u32 doeptsiz[4];
+    /*
+     * Received packet size for each endpoint. This is assigned in
+     * stm32f107_poll() which reads the packet status push register GRXSTSP
+     * for use in stm32f107_ep_read_packet().
+     */
+    uint16_t rxbcnt;
+};
 
 enum _usbd_transaction {
 	USB_TRANSACTION_IN,
@@ -65,31 +95,34 @@ enum _usbd_transaction {
 	USB_TRANSACTION_SETUP,
 };
 
-void _usbd_control_in(u8 ea);
-void _usbd_control_out(u8 ea);
-void _usbd_control_setup(u8 ea);
+void _usbd_control_in(usbd_device *usbd_dev, u8 ea);
+void _usbd_control_out(usbd_device *usbd_dev, u8 ea);
+void _usbd_control_setup(usbd_device *usbd_dev, u8 ea);
 
-int _usbd_standard_request(struct usb_setup_data *req, u8 **buf, u16 *len);
+int _usbd_standard_request(usbd_device *usbd_dev, struct usb_setup_data *req,
+			   u8 **buf, u16 *len);
 
-void _usbd_reset(void);
+void _usbd_reset(usbd_device *usbd_dev);
 
 /* Functions provided by the hardware abstraction. */
 struct _usbd_driver {
-	void (*init)(void);
-	void (*set_address)(u8 addr);
-	void (*ep_setup)(u8 addr, u8 type, u16 max_size, void (*cb)(u8 ep));
-	void (*ep_reset)(void);
-	void (*ep_stall_set)(u8 addr, u8 stall);
-	void (*ep_nak_set)(u8 addr, u8 nak);
-	u8 (*ep_stall_get)(u8 addr);
-	u16 (*ep_write_packet)(u8 addr, const void *buf, u16 len);
-	u16 (*ep_read_packet)(u8 addr, void *buf, u16 len);
-	void (*poll)(void);
-	void (*disconnect)(bool disconnected);
+	usbd_device *(*init)(void);
+	void (*set_address)(usbd_device *usbd_dev, u8 addr);
+	void (*ep_setup)(usbd_device *usbd_dev, u8 addr, u8 type, u16 max_size,
+			 void (*cb)(usbd_device *usbd_dev, u8 ep));
+	void (*ep_reset)(usbd_device *usbd_dev);
+	void (*ep_stall_set)(usbd_device *usbd_dev, u8 addr, u8 stall);
+	void (*ep_nak_set)(usbd_device *usbd_dev, u8 addr, u8 nak);
+	u8 (*ep_stall_get)(usbd_device *usbd_dev, u8 addr);
+	u16 (*ep_write_packet)(usbd_device *usbd_dev, u8 addr, const void *buf,
+			       u16 len);
+	u16 (*ep_read_packet)(usbd_device *usbd_dev, u8 addr, void *buf,
+			      u16 len);
+	void (*poll)(usbd_device *usbd_dev);
+	void (*disconnect)(usbd_device *usbd_dev, bool disconnected);
+	u32 base_address;
+	bool set_address_before_status;
+	u16 rx_fifo_size;
 };
-
-#define _usbd_hw_init() _usbd_device.driver->init()
-#define _usbd_hw_set_address(addr) _usbd_device.driver->set_address(addr)
-#define _usbd_hw_endpoints_reset() _usbd_device.driver->ep_reset()
 
 #endif

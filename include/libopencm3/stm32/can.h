@@ -461,7 +461,7 @@
 /* --- CAN_TIxR values ------------------------------------------------------ */
 
 /* STID[10:0]: Standard identifier */
-#define CAN_TIxR_STID_MASK		(0x3FF << 21)
+#define CAN_TIxR_STID_MASK		(0x7FF << 21)
 #define CAN_TIxR_STID_SHIFT		21
 
 /* EXID[15:0]: Extended identifier */

@@ -21,8 +21,8 @@
 #include <libopencm3/stm32/f1/rcc.h>
 #include <libopencm3/stm32/f1/flash.h>
 #include <libopencm3/stm32/f1/gpio.h>
-#include <libopencm3/stm32/nvic.h>
-#include <libopencm3/stm32/systick.h>
+#include <libopencm3/cm3/nvic.h>
+#include <libopencm3/cm3/systick.h>
 #include <libopencm3/stm32/can.h>
 
 struct can_tx_msg {
@@ -106,15 +106,15 @@ void can_setup(void)
 	rcc_peripheral_enable_clock(&RCC_APB2ENR, RCC_APB2ENR_IOPBEN);
 	rcc_peripheral_enable_clock(&RCC_APB1ENR, RCC_APB1ENR_CANEN);
 
-	AFIO_MAPR = AFIO_MAPR_CAN1_REMAP_PORTB;
+	AFIO_MAPR |= AFIO_MAPR_CAN1_REMAP_PORTB;
 
 	/* Configure CAN pin: RX (input pull-up). */
-	gpio_set_mode(GPIOB, GPIO_MODE_INPUT,
+	gpio_set_mode(GPIO_BANK_CAN1_PB_RX, GPIO_MODE_INPUT,
 		      GPIO_CNF_INPUT_PULL_UPDOWN, GPIO_CAN1_PB_RX);
 	gpio_set(GPIOB, GPIO_CAN1_PB_RX);
 
 	/* Configure CAN pin: TX. */
-	gpio_set_mode(GPIOB, GPIO_MODE_OUTPUT_50_MHZ,
+	gpio_set_mode(GPIO_BANK_CAN1_PB_TX, GPIO_MODE_OUTPUT_50_MHZ,
 		      GPIO_CNF_OUTPUT_ALTFN_PUSHPULL, GPIO_CAN1_PB_TX);
 
 	/* NVIC setup. */
@@ -167,8 +167,10 @@ void sys_tick_handler(void)
 	static int temp32 = 0;
 	static u8 data[8] = {0, 1, 2, 0, 0, 0, 0, 0};
 
-	/* We call this handler every 1ms so 1000ms = 1s on/off. */
-	if (++temp32 != 1000)
+	/* We call this handler every 1ms so 100ms = 1s
+	 * Resulting in 100Hz message frequency.
+	 */
+	if (++temp32 != 100)
 		return;
 
 	temp32 = 0;

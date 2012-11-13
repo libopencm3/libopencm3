@@ -22,6 +22,7 @@
 #include <libopencm3/stm32/f4/gpio.h>
 #include <libopencm3/usb/usbd.h>
 #include <libopencm3/usb/cdc.h>
+#include <libopencm3/cm3/scb.h>
 
 static const struct usb_device_descriptor dev = {
 	.bLength = USB_DT_DEVICE_SIZE,
@@ -164,11 +165,12 @@ static const char *usb_strings[] = {
 	"DEMO",
 };
 
-static int cdcacm_control_request(struct usb_setup_data *req, u8 **buf,
-		u16 *len, void (**complete)(struct usb_setup_data *req))
+static int cdcacm_control_request(usbd_device *usbd_dev, struct usb_setup_data *req, u8 **buf,
+		u16 *len, void (**complete)(usbd_device *usbd_dev, struct usb_setup_data *req))
 {
 	(void)complete;
 	(void)buf;
+	(void)usbd_dev;
 
 	switch (req->bRequest) {
 	case USB_CDC_REQ_SET_CONTROL_LINE_STATE: {
@@ -188,30 +190,31 @@ static int cdcacm_control_request(struct usb_setup_data *req, u8 **buf,
 	return 0;
 }
 
-static void cdcacm_data_rx_cb(u8 ep)
+static void cdcacm_data_rx_cb(usbd_device *usbd_dev, u8 ep)
 {
 	(void)ep;
 
 	char buf[64];
-	int len = usbd_ep_read_packet(0x01, buf, 64);
+	int len = usbd_ep_read_packet(usbd_dev, 0x01, buf, 64);
 
 	if (len) {
-		while (usbd_ep_write_packet(0x82, buf, len) == 0)
+		while (usbd_ep_write_packet(usbd_dev, 0x82, buf, len) == 0)
 			;
 	}
 
 	gpio_toggle(GPIOC, GPIO5);
 }
 
-static void cdcacm_set_config(u16 wValue)
+static void cdcacm_set_config(usbd_device *usbd_dev, u16 wValue)
 {
 	(void)wValue;
 
-	usbd_ep_setup(0x01, USB_ENDPOINT_ATTR_BULK, 64, cdcacm_data_rx_cb);
-	usbd_ep_setup(0x82, USB_ENDPOINT_ATTR_BULK, 64, NULL);
-	usbd_ep_setup(0x83, USB_ENDPOINT_ATTR_INTERRUPT, 16, NULL);
+	usbd_ep_setup(usbd_dev, 0x01, USB_ENDPOINT_ATTR_BULK, 64, cdcacm_data_rx_cb);
+	usbd_ep_setup(usbd_dev, 0x82, USB_ENDPOINT_ATTR_BULK, 64, NULL);
+	usbd_ep_setup(usbd_dev, 0x83, USB_ENDPOINT_ATTR_INTERRUPT, 16, NULL);
 
 	usbd_register_control_callback(
+				usbd_dev,
 				USB_REQ_TYPE_CLASS | USB_REQ_TYPE_INTERFACE,
 				USB_REQ_TYPE_TYPE | USB_REQ_TYPE_RECIPIENT,
 				cdcacm_control_request);
@@ -219,19 +222,20 @@ static void cdcacm_set_config(u16 wValue)
 
 int main(void)
 {
+	usbd_device *usbd_dev;
+
 	rcc_clock_setup_hse_3v3(&hse_8mhz_3v3[CLOCK_3V3_120MHZ]);
 
 	rcc_peripheral_enable_clock(&RCC_AHB1ENR, RCC_AHB1ENR_IOPAEN);
 	rcc_peripheral_enable_clock(&RCC_AHB2ENR, RCC_AHB2ENR_OTGFSEN);
 
-	gpio_mode_setup(GPIOA, GPIO_MODE_AF, GPIO_PUPD_NONE, 
+	gpio_mode_setup(GPIOA, GPIO_MODE_AF, GPIO_PUPD_NONE,
 			GPIO9 | GPIO11 | GPIO12);
 	gpio_set_af(GPIOA, GPIO_AF10, GPIO9 | GPIO11 | GPIO12);
 
-	usbd_init(&otgfs_usb_driver, &dev, &config, usb_strings);
-	usbd_register_set_config_callback(cdcacm_set_config);
+	usbd_dev = usbd_init(&otgfs_usb_driver, &dev, &config, usb_strings);
+	usbd_register_set_config_callback(usbd_dev, cdcacm_set_config);
 
 	while (1)
-		usbd_poll();
+		usbd_poll(usbd_dev);
 }
-

@@ -53,6 +53,9 @@
 #define EXTI17				(1 << 17)
 #define EXTI18				(1 << 18)
 #define EXTI19				(1 << 19)
+#define EXTI20				(1 << 20)
+#define EXTI21				(1 << 21)
+#define EXTI22				(1 << 22)
 
 /* Trigger types */
 typedef enum trigger_e {

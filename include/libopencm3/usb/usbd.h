@@ -32,9 +32,13 @@ enum usbd_request_return_codes {
 };
 
 typedef struct _usbd_driver usbd_driver;
+typedef struct _usbd_device usbd_device;
+
 extern const usbd_driver stm32f103_usb_driver;
 extern const usbd_driver stm32f107_usb_driver;
+extern const usbd_driver stm32f207_usb_driver;
 #define otgfs_usb_driver stm32f107_usb_driver
+#define otghs_usb_driver stm32f207_usb_driver
 
 /* Static buffer for control transactions:
  * This is defined as weak in the library, applicaiton
@@ -42,45 +46,56 @@ extern const usbd_driver stm32f107_usb_driver;
 extern u8 usbd_control_buffer[];
 
 /* <usb.c> */
-extern int usbd_init(const usbd_driver *driver,
-		     const struct usb_device_descriptor *dev,
-                     const struct usb_config_descriptor *conf,
-		     const char **strings, int num_strings);
-extern void usbd_set_control_buffer_size(u16 size);
+extern usbd_device *usbd_init(const usbd_driver *driver,
+			      const struct usb_device_descriptor *dev,
+			      const struct usb_config_descriptor *conf,
+			      const char **strings, int num_strings);
 
-extern void usbd_register_reset_callback(void (*callback)(void));
-extern void usbd_register_suspend_callback(void (*callback)(void));
-extern void usbd_register_resume_callback(void (*callback)(void));
-extern void usbd_register_sof_callback(void (*callback)(void));
+extern void usbd_set_control_buffer_size(usbd_device *usbd_dev, u16 size);
 
-typedef int (*usbd_control_callback)(struct usb_setup_data *req, u8 **buf,
-	    u16 *len, void (**complete)(struct usb_setup_data *req));
+extern void usbd_register_reset_callback(usbd_device *usbd_dev,
+					 void (*callback)(void));
+extern void usbd_register_suspend_callback(usbd_device *usbd_dev,
+					   void (*callback)(void));
+extern void usbd_register_resume_callback(usbd_device *usbd_dev,
+					  void (*callback)(void));
+extern void usbd_register_sof_callback(usbd_device *usbd_dev,
+				       void (*callback)(void));
+
+typedef int (*usbd_control_callback)(usbd_device *usbd_dev,
+		struct usb_setup_data *req, u8 **buf, u16 *len,
+		void (**complete)(usbd_device *usbd_dev,
+				  struct usb_setup_data *req));
 
 /* <usb_control.c> */
-extern int usbd_register_control_callback(u8 type, u8 type_mask,
-			usbd_control_callback callback);
+extern int usbd_register_control_callback(usbd_device *usbd_dev, u8 type,
+					  u8 type_mask,
+					  usbd_control_callback callback);
 
 /* <usb_standard.c> */
-extern void usbd_register_set_config_callback(void (*callback)(u16 wValue));
+extern void usbd_register_set_config_callback(usbd_device *usbd_dev,
+		void (*callback)(usbd_device *usbd_dev, u16 wValue));
 
 /* Functions to be provided by the hardware abstraction layer */
-extern void usbd_poll(void);
-extern void usbd_disconnect(bool disconnected);
+extern void usbd_poll(usbd_device *usbd_dev);
+extern void usbd_disconnect(usbd_device *usbd_dev, bool disconnected);
 
-extern void usbd_ep_setup(u8 addr, u8 type, u16 max_size,
-	      void (*callback)(u8 ep));
+extern void usbd_ep_setup(usbd_device *usbd_dev, u8 addr, u8 type, u16 max_size,
+	      void (*callback)(usbd_device *usbd_dev, u8 ep));
 
-extern u16 usbd_ep_write_packet(u8 addr, const void *buf, u16 len);
+extern u16 usbd_ep_write_packet(usbd_device *usbd_dev, u8 addr,
+				const void *buf, u16 len);
 
-extern u16 usbd_ep_read_packet(u8 addr, void *buf, u16 len);
+extern u16 usbd_ep_read_packet(usbd_device *usbd_dev, u8 addr,
+			       void *buf, u16 len);
 
-extern void usbd_ep_stall_set(u8 addr, u8 stall);
-extern u8 usbd_ep_stall_get(u8 addr);
+extern void usbd_ep_stall_set(usbd_device *usbd_dev, u8 addr, u8 stall);
+extern u8 usbd_ep_stall_get(usbd_device *usbd_dev, u8 addr);
 
-extern void usbd_ep_nak_set(u8 addr, u8 nak);
+extern void usbd_ep_nak_set(usbd_device *usbd_dev, u8 addr, u8 nak);
 
 /* Optional */
-extern void usbd_cable_connect(u8 on);
+extern void usbd_cable_connect(usbd_device *usbd_dev, u8 on);
 
 END_DECLS
 

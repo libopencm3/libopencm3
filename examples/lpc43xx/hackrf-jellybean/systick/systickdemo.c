@@ -20,8 +20,8 @@
 #include <libopencm3/lpc43xx/gpio.h>
 #include <libopencm3/lpc43xx/scu.h>
 #include <libopencm3/lpc43xx/cgu.h>
-#include <libopencm3/lpc43xx/nvic.h>
-#include <libopencm3/lpc43xx/systick.h>
+#include <libopencm3/cm3/nvic.h>
+#include <libopencm3/cm3/systick.h>
 #include <libopencm3/cm3/scs.h>
 
 #include "../jellybean_conf.h"

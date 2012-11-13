@@ -48,7 +48,8 @@ Example projects
 
 The library ships with a few small example projects which illustrate how
 individual subsystems of the microcontrollers can be configured and used with
-libopencm3.
+libopencm3. The makefiles are generally useable for your own projects with
+only minimal changes for the libopencm3 install path (See Installation)
 
 For flashing the 'miniblink' example (after you built libopencm3 and the
 examples by typing 'make' at the top-level directory) onto the Olimex
@@ -79,16 +80,23 @@ Installation
 
  $ make install
 
-This will install the library in /usr/local. If you want to install it
-elsewhere, use the following syntax:
+This will install the library into /usr/local. (permissions permitting)
 
- $ DESTDIR=/opt make install
+If you want to install it elsewhere, use the following syntax:
 
-The recommended location is to install into your toolchain directory, e.g.
-/home/someuser/sat for a toolchain built using the summon-arm-toolchain
-script from https://github.com/esden/summon-arm-toolchain.
+ $ make DESTDIR=/opt/libopencm3 install
 
- $ DESTDIR=~/sat make install
+If you want to attempt to install into your toolchain, use this:
+
+ $ make DETECT_TOOLCHAIN=1 install
+
+Note: If you install this into your toolchain, you don't need to pass
+any extra -L or -I flags into your projects.  However, this also means
+you must NOT pass any -L or -I flags that point into the toolchain. This
+_will_ confuse the linker.  (ie, for summon-arm-toolchain, do NOT pass
+-L/home/user/sat/lib) Common symptoms of confusing
+the linker are hard faults caused by branches into arm code.
+You can use objdump to check for this in your final elf.
 
 
 Coding style and development guidelines

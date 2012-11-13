@@ -20,7 +20,7 @@
 #include <stdlib.h>
 #include <libopencm3/stm32/f1/rcc.h>
 #include <libopencm3/stm32/f1/gpio.h>
-#include <libopencm3/stm32/systick.h>
+#include <libopencm3/cm3/systick.h>
 #include <libopencm3/usb/usbd.h>
 #include <libopencm3/usb/hid.h>
 
@@ -28,7 +28,7 @@
 #define INCLUDE_DFU_INTERFACE
 
 #ifdef INCLUDE_DFU_INTERFACE
-#include <libopencm3/stm32/f1/scb.h>
+#include <libopencm3/cm3/scb.h>
 #include <libopencm3/usb/dfu.h>
 #endif
 
@@ -169,10 +169,11 @@ static const char *usb_strings[] = {
 	"DEMO",
 };
 
-static int hid_control_request(struct usb_setup_data *req, u8 **buf, u16 *len,
-			void (**complete)(struct usb_setup_data *req))
+static int hid_control_request(usbd_device *usbd_dev, struct usb_setup_data *req, u8 **buf, u16 *len,
+			void (**complete)(usbd_device *usbd_dev, struct usb_setup_data *req))
 {
 	(void)complete;
+	(void)usbd_dev;
 
 	if ((req->bmRequestType != 0x81) ||
 	   (req->bRequest != USB_REQ_GET_DESCRIPTOR) ||
@@ -187,9 +188,10 @@ static int hid_control_request(struct usb_setup_data *req, u8 **buf, u16 *len,
 }
 
 #ifdef INCLUDE_DFU_INTERFACE
-static void dfu_detach_complete(struct usb_setup_data *req)
+static void dfu_detach_complete(usbd_device *usbd_dev, struct usb_setup_data *req)
 {
 	(void)req;
+	(void)usbd_dev;
 
 	gpio_set_mode(GPIOA, GPIO_MODE_INPUT, 0, GPIO15);
 	gpio_set_mode(GPIOA, GPIO_MODE_OUTPUT_2_MHZ,
@@ -198,11 +200,12 @@ static void dfu_detach_complete(struct usb_setup_data *req)
 	scb_reset_core();
 }
 
-static int dfu_control_request(struct usb_setup_data *req, u8 **buf, u16 *len,
-			void (**complete)(struct usb_setup_data *req))
+static int dfu_control_request(usbd_device *usbd_dev, struct usb_setup_data *req, u8 **buf, u16 *len,
+			void (**complete)(usbd_device *usbd_dev, struct usb_setup_data *req))
 {
 	(void)buf;
 	(void)len;
+	(void)usbd_dev;
 
 	if ((req->bmRequestType != 0x21) || (req->bRequest != DFU_DETACH))
 		return 0; /* Only accept class request. */
@@ -213,18 +216,21 @@ static int dfu_control_request(struct usb_setup_data *req, u8 **buf, u16 *len,
 }
 #endif
 
-static void hid_set_config(u16 wValue)
+static void hid_set_config(usbd_device *usbd_dev, u16 wValue)
 {
 	(void)wValue;
+	(void)usbd_dev;
 
-	usbd_ep_setup(0x81, USB_ENDPOINT_ATTR_INTERRUPT, 4, NULL);
+	usbd_ep_setup(usbd_dev, 0x81, USB_ENDPOINT_ATTR_INTERRUPT, 4, NULL);
 
 	usbd_register_control_callback(
+				usbd_dev,
 				USB_REQ_TYPE_STANDARD | USB_REQ_TYPE_INTERFACE,
 				USB_REQ_TYPE_TYPE | USB_REQ_TYPE_RECIPIENT,
 				hid_control_request);
 #ifdef INCLUDE_DFU_INTERFACE
 	usbd_register_control_callback(
+				usbd_dev,
 				USB_REQ_TYPE_CLASS | USB_REQ_TYPE_INTERFACE,
 				USB_REQ_TYPE_TYPE | USB_REQ_TYPE_RECIPIENT,
 				dfu_control_request);
@@ -240,6 +246,8 @@ int main(void)
 {
 	int i;
 
+	usbd_device *usbd_dev;
+
 	rcc_clock_setup_in_hsi_out_48mhz();
 
 	rcc_peripheral_enable_clock(&RCC_APB2ENR, RCC_APB2ENR_IOPCEN);
@@ -248,8 +256,8 @@ int main(void)
 	gpio_set_mode(GPIOC, GPIO_MODE_OUTPUT_2_MHZ,
 		      GPIO_CNF_OUTPUT_PUSHPULL, GPIO11);
 
-	usbd_init(&stm32f103_usb_driver, &dev, &config, usb_strings);
-	usbd_register_set_config_callback(hid_set_config);
+	usbd_dev = usbd_init(&stm32f103_usb_driver, &dev, &config, usb_strings);
+	usbd_register_set_config_callback(usbd_dev, hid_set_config);
 
 	for (i = 0; i < 0x80000; i++)
 		__asm__("nop");
@@ -257,9 +265,10 @@ int main(void)
 	gpio_clear(GPIOC, GPIO11);
 
 	while (1)
-		usbd_poll();
+		usbd_poll(usbd_dev);
 }
 
+#if 0 /* is this used? */
 void sys_tick_handler(void)
 {
 	static int x = 0;
@@ -273,5 +282,6 @@ void sys_tick_handler(void)
 	if (x < -30)
 		dir = -dir;
 
-	usbd_ep_write_packet(0x81, buf, 4);
+	usbd_ep_write_packet(usbd_dev, 0x81, buf, 4);
 }
+#endif
