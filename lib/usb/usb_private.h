@@ -29,6 +29,7 @@ struct _usbd_device {
 	const struct usb_device_descriptor *desc;
 	const struct usb_config_descriptor *config;
 	const char **strings;
+	int num_strings;
 
 	u8 *ctrl_buf;  /**< Internal buffer used for control transfers */
 	u16 ctrl_buf_len;

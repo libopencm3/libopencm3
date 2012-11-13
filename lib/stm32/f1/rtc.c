@@ -67,6 +67,8 @@ void rtc_awake_from_off(osc_t clock_source)
 		RCC_BDCR |= (1 << 9) | (1 << 8);
 		break;
 	case PLL:
+	case PLL2:
+	case PLL3:
 	case HSI:
 		/* Unusable clock source, here to prevent warnings. */
 		/* Turn off clock sources to RTC. */

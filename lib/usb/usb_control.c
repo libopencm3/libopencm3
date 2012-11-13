@@ -99,11 +99,12 @@ static int usb_control_request_dispatch(usbd_device *usbd_dev,
 					  &(usbd_dev->control_state.ctrl_buf),
 					  &(usbd_dev->control_state.ctrl_len),
 					  &(usbd_dev->control_state.complete));
-			if (result)
+			if (result == USBD_REQ_HANDLED ||
+			    result == USBD_REQ_NOTSUPP)
 				return result;
 		}
 	}
-
+	
 	/* Try standard request if not already handled. */
 	return _usbd_standard_request(usbd_dev, req,
 				      &(usbd_dev->control_state.ctrl_buf),

@@ -433,5 +433,10 @@ void dma_set_number_of_data(u32 dma, u8 channel, u16 number)
 {
 	DMA_CNDTR(dma, channel) = number;
 }
+
+void dma_clear_flag(u32 dma, u32 flag)
+{
+	DMA_ISR(dma) &= ~flag;
+}
 /**@}*/
 

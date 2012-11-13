@@ -85,7 +85,8 @@ Initialize the selected CAN peripheral block.
 @returns int 0 on success, 1 on initialization failure.
 */
 int can_init(u32 canport, bool ttcm, bool abom, bool awum, bool nart,
-	     bool rflm, bool txfp, u32 sjw, u32 ts1, u32 ts2, u32 brp)
+	     bool rflm, bool txfp, u32 sjw, u32 ts1, u32 ts2, u32 brp,
+	     bool loopback, bool silent)
 {
 	u32 wait_ack = 0x00000000;
 	u32 can_msr_inak_timeout = 0x0000FFFF;
@@ -106,6 +107,9 @@ int can_init(u32 canport, bool ttcm, bool abom, bool awum, bool nart,
 	/* Check the acknowledge. */
 	if ((CAN_MSR(canport) & CAN_MSR_INAK) != CAN_MSR_INAK)
 		return 1;
+
+	/* clear can timing bits */
+	CAN_BTR(canport) = 0;
 
 	/* Set the automatic bus-off management. */
 	if (ttcm)
@@ -138,8 +142,19 @@ int can_init(u32 canport, bool ttcm, bool abom, bool awum, bool nart,
 	else
 		CAN_MCR(canport) &= ~CAN_MCR_TXFP;
 
+	if (silent)
+		CAN_BTR(canport) |= CAN_BTR_SILM;
+	else
+		CAN_BTR(canport) &= ~CAN_BTR_SILM;
+
+	if (loopback)
+		CAN_BTR(canport) |= CAN_BTR_LBKM;
+	else
+		CAN_BTR(canport) &= ~CAN_BTR_LBKM;
+
+
 	/* Set bit timings. */
-	CAN_BTR(canport) = sjw | ts2 | ts1 |
+	CAN_BTR(canport) |= sjw | ts2 | ts1 |
 		           (u32)(CAN_BTR_BRP_MASK & (brp - 1));
 
 	/* Request initialization "leave". */
@@ -455,4 +470,9 @@ void can_receive(u32 canport, u8 fifo, bool release, u32 *id, bool *ext,
 	/* Release the FIFO. */
 	if (release)
 		can_fifo_release(canport, fifo);
+}
+
+bool can_available_mailbox(u32 canport)
+{
+	return CAN_TSR(canport) & (CAN_TSR_TME0 | CAN_TSR_TME1 | CAN_TSR_TME2);
 }

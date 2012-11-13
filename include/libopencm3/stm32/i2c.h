@@ -321,7 +321,14 @@ LGPL License Terms @ref lgpl_license
 #define I2C_CCR_FS			(1 << 15)
 
 /* DUTY: Fast Mode Duty Cycle */
+/** @defgroup i2c_duty_cycle I2C peripheral clock duty cycles
+@ingroup i2c_defines
+
+@{*/
 #define I2C_CCR_DUTY			(1 << 14)
+#define I2C_CCR_DUTY_DIV2		0
+#define I2C_CCR_DUTY_16_DIV_9		1
+/**@}*/
 
 /* Note: Bits [13:12] are reserved, and forced to 0 by hardware. */
 
@@ -359,6 +366,7 @@ void i2c_peripheral_enable(u32 i2c);
 void i2c_peripheral_disable(u32 i2c);
 void i2c_send_start(u32 i2c);
 void i2c_send_stop(u32 i2c);
+void i2c_clear_stop(u32 i2c);
 void i2c_set_own_7bit_slave_address(u32 i2c, u8 slave);
 void i2c_set_own_10bit_slave_address(u32 i2c, u16 slave);
 void i2c_set_fast_mode(u32 i2c);
@@ -368,6 +376,18 @@ void i2c_set_ccr(u32 i2c, u16 freq);
 void i2c_set_trise(u32 i2c, u16 trise);
 void i2c_send_7bit_address(u32 i2c, u8 slave, u8 readwrite);
 void i2c_send_data(u32 i2c, u8 data);
+uint8_t i2c_get_data(u32 i2c);
+void i2c_enable_interrupt(u32 i2c, u32 interrupt);
+void i2c_disable_interrupt(u32 i2c, u32 interrupt);
+void i2c_enable_ack(u32 i2c);
+void i2c_disable_ack(u32 i2c);
+void i2c_nack_next(u32 i2c);
+void i2c_nack_current(u32 i2c);
+void i2c_set_dutycycle(u32 i2c, u32 dutycycle);
+void i2c_enable_dma(u32 i2c);
+void i2c_disable_dma(u32 i2c);
+void i2c_set_dma_last_transfer(u32 i2c);
+void i2c_clear_dma_last_transfer(u32 i2c);
 
 END_DECLS
 
