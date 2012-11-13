@@ -1,19 +1,4 @@
-/** @defgroup gpio_defines GPIO Defines
-
-@brief <b>Defined Constants and Types for the STM32F2xx General Purpose I/O</b>
-
-@ingroup STM32F2xx_defines
-
-@version 1.0.0
-
-@author @htmlonly &copy; @endhtmlonly 2009 Uwe Hermann <uwe@hermann-uwe.de>
-@author @htmlonly &copy; @endhtmlonly 2012 Piotr Esden-Tempski <piotr@esden.net>
-@author @htmlonly &copy; @endhtmlonly 2012 Ken Sarkies <ksarkies@internode.on.net>
-
-@date 1 July 2012
-
-LGPL License Terms @ref lgpl_license
- */
+/* This provides unification of code over STM32F subfamilies */
 
 /*
  * This file is part of the libopencm3 project.
@@ -32,11 +17,15 @@ LGPL License Terms @ref lgpl_license
  * along with this library.  If not, see <http://www.gnu.org/licenses/>.
  */
 
-#ifndef LIBOPENCM3_GPIO_H
-#define LIBOPENCM3_GPIO_H
-
-#include <libopencm3/stm32/f2/memorymap.h>
-#include <libopencm3/stm32/common/gpio_common_f24.h>
-
+#if defined(STM32F1)
+#       include <libopencm3/stm32/f1/gpio.h>
+#elif defined(STM32F2)
+#       include <libopencm3/stm32/f2/gpio.h>
+#elif defined(STM32F4)
+#       include <libopencm3/stm32/f4/gpio.h>
+#elif defined(STM32L1)
+#       include <libopencm3/stm32/l1/gpio.h>
+#else
+#       error "stm32 family not defined."
 #endif
 

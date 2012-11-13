@@ -1,0 +1,62 @@
+Files for each peripheral (examples given for STM32 GPIO)
+---------------------------------------------------------
+
+In include/libopencm3/stm32.
+A "dispatch" header to point to the subfamily header (gpio.h)
+
+In include/libopencm3/stm32/f*
+A file with defines that are specific to the subfamily, and an include of
+needed common header files (gpio.h).
+
+In include/libopencm3/stm32/common
+A file with defines common to all subfamilies. Includes the cm3 common header
+(gpio_common_all.h).
+
+In include/libopencm3/stm32/common
+May be one other file with defines common to a subgroup of devices.
+This includes the file common to all (gpio_common_f24.h).
+
+In lib/stm32/f*
+A file with functions specific to the subfamily. Includes the "dispatch" header
+and any common headers needed (gpio.c).
+
+In lib/stm32/common
+Has functions common to all subfamilies. Includes the "dispatch" header
+(gpio_common_all.c).
+
+In lib/stm32/common
+May be one other file with functions common to a group of subfamilies. Includes
+the "dispatch" header and the file common to all (gpio_common_f24.h).
+
+Makefiles in lib/stm32/f? have the common object files added and the
+common directory added to VPATH.
+
+NOTE: The common source files MUST have the "dispatch" header so that
+compilation will use the specific defines for the subfamily being compiled.
+These can differ between subfamilies.
+
+Documentation
+-------------
+
+In include/libopencm3/stm32/f*
+A file doc-stm32f*.h contains a definition of the particular family grouping.
+This grouping will appear in the main index of the resulting document with all
+documentation under it.
+
+All header files for a peripheral (common or otherwise) will subgroup under a
+name which is the same in all families (such as gpio_defines). The peripheral
+header file in include/libopencm3/stm32/f* will then include this group as a
+subgroup under the specific family group. Doxygen is run separately for each
+family so there is no danger of accidentally including the wrong stuff.
+
+Similarly for the source files for a peripheral which will subgroup under a
+same name (such as gpio_files). The peripheral source file in lib/stm32/f*
+will include this as a subgroup under the specific family group.
+
+DOXYFILE for a particular family will list the family specific and common files
+(headers and source) that are to be included. The result (in the long run) will
+be that all peripherals will appear under the same family grouping in the
+documentation, even if they are identical over a number of families. That is
+probably most useful to end users who only need to see the documentation for
+one family.
+
