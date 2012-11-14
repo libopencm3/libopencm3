@@ -31,7 +31,7 @@ ARFLAGS		= rcs
 OBJS		= rcc.o gpio.o desig.o crc.o usart.o exti2.o
 OBJS += flash.o gpio_common_all.o gpio_common_f24.o
 OBJS += pwr_chipset.o # TODO, get pwr.o to fix f2/f4 first...  pwr.o
-#OBJS += timer.o  # WORK IN PROGRESS
+OBJS += timer.o
 
 VPATH += ../../usb:../:../../cm3:../common
 
