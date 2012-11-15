@@ -45,7 +45,7 @@ CFLAGS		+= -Os -g -Wall -Wextra -I$(TOOLCHAIN_DIR)/include \
 LDSCRIPT	?= $(BINARY).ld
 LDFLAGS		+= --static -lc -lnosys \
 		   -L$(TOOLCHAIN_DIR)/lib/thumb/cortex-m4/float-abi-hard/fpuv4-sp-d16 \
-		   -T$(LDSCRIPT) -nostartfiles -Wl,--gc-sections \
+		   -L$(TOOLCHAIN_DIR)/lib -T$(LDSCRIPT) -nostartfiles -Wl,--gc-sections \
 		   -mthumb -mcpu=cortex-m4 -mthumb -mfloat-abi=hard -mfpu=fpv4-sp-d16
 OBJS		+= $(BINARY).o
 
