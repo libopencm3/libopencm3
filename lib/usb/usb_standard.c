@@ -28,11 +28,18 @@ void usbd_register_set_config_callback(usbd_device *usbd_dev,
 	usbd_dev->user_callback_set_config = callback;
 }
 
+void usbd_register_set_altsetting_callback(usbd_device *usbd_dev,
+					   void (*callback)(usbd_device *usbd_dev,
+							    u16 wIndex, u16 wValue))
+{
+	usbd_dev->user_callback_set_altsetting = callback;
+}
+
 static u16 build_config_descriptor(usbd_device *usbd_dev,
-				   u8 index, u8 *buf, u16 len)
+				   u8 idx, u8 *buf, u16 len)
 {
 	u8 *tmpbuf = buf;
-	const struct usb_config_descriptor *cfg = &usbd_dev->config[index];
+	const struct usb_config_descriptor *cfg = &usbd_dev->config[idx];
 	u16 count, total = 0, totallen = 0;
 	u16 i, j, k;
 
@@ -80,6 +87,12 @@ static u16 build_config_descriptor(usbd_device *usbd_dev,
 				len -= count;
 				total += count;
 				totallen += ep->bLength;
+				memcpy(buf, ep->extra,
+						count = MIN(len, ep->extralen));
+				buf += count;
+				len -= count;
+				total += count;
+				totallen += ep->extralen;
 			}
 		}
 	}
@@ -235,31 +248,43 @@ static int usb_standard_set_interface(usbd_device *usbd_dev,
 				      struct usb_setup_data *req,
 				      u8 **buf, u16 *len)
 {
-	(void)usbd_dev;
-	(void)req;
+	u8 bNumInterfaces;
+	u8 num_altsetting;
+
 	(void)buf;
 
-	/* FIXME: Adapt if we have more than one interface. */
-	if (req->wValue != 0)
-		return 0;
+	bNumInterfaces = usbd_dev->config->bNumInterfaces;
+
+	if (req->wIndex >= bNumInterfaces)
+		return USBD_REQ_NOTSUPP;
+
+	num_altsetting = usbd_dev->config->interface[req->wIndex].num_altsetting;
+
+	if (req->wValue >= num_altsetting)
+		return USBD_REQ_NOTSUPP;
+
+	if (usbd_dev->config->interface[req->wIndex].cur_altsetting != req->wValue) {
+		usbd_dev->config->interface[req->wIndex].cur_altsetting = req->wValue;
+		if(usbd_dev->user_callback_set_altsetting)
+			usbd_dev->user_callback_set_altsetting(usbd_dev,
+		      		req->wIndex, req->wValue);
+	}
 	*len = 0;
 
-	return 1;
+	return USBD_REQ_HANDLED;
 }
 
 static int usb_standard_get_interface(usbd_device *usbd_dev,
 				      struct usb_setup_data *req,
 				      u8 **buf, u16 *len)
 {
-	(void)usbd_dev;
-	(void)req;
-	(void)buf;
+	if (req->wIndex >= usbd_dev->config->bNumInterfaces)
+		return USBD_REQ_NOTSUPP;
 
-	/* FIXME: Adapt if we have more than one interface. */
-	*len = 1;
-	(*buf)[0] = 0;
+	*len = sizeof(usbd_dev->config->interface[req->wIndex].cur_altsetting);
+	(*buf)[0] = usbd_dev->config->interface[req->wIndex].cur_altsetting;
 
-	return 1;
+	return USBD_REQ_HANDLED;
 }
 
 static int usb_standard_device_get_status(usbd_device *usbd_dev,

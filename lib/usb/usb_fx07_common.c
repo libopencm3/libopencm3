@@ -89,8 +89,7 @@ void stm32fx07_ep_setup(usbd_device *usbd_dev, u8 addr, u8 type, u16 max_size,
 		    (max_size & OTG_FS_DIEPSIZ0_XFRSIZ_MASK);
 		REBASE(OTG_DIEPCTL(addr)) |=
 		    OTG_FS_DIEPCTL0_EPENA | OTG_FS_DIEPCTL0_SNAK | (type << 18)
-		    | OTG_FS_DIEPCTL0_USBAEP | OTG_FS_DIEPCTLX_SD0PID
-		    | (addr << 22) | max_size;
+		    | OTG_FS_DIEPCTL0_USBAEP | (addr << 22) | max_size;
 
 		if (callback) {
 			usbd_dev->user_callback_ctr[addr][USB_TRANSACTION_IN] =
@@ -177,12 +176,22 @@ u16 stm32fx07_ep_write_packet(usbd_device *usbd_dev, u8 addr,
 {
 	const u32 *buf32 = buf;
 	int i;
-
 	addr &= 0x7F;
 
 	/* Return if endpoint is already enabled. */
 	if (REBASE(OTG_DIEPTSIZ(addr)) & OTG_FS_DIEPSIZ0_PKTCNT)
 		return 0;
+
+	if ( REBASE(OTG_DIEPCTL(addr)) & OTG_HS_DOEOCTL0_EPTYPE_ISOC) {
+		REBASE(OTG_DIEPCTL(addr)) &= OTG_HS_DOEPCTL0_RM_FRM_MSK;
+		if (REBASE(OTG_DSTS)&FNSOF_MASK) {
+			REBASE(OTG_DIEPCTL(addr)) |= OTG_HS_DOEPCTLX_SEVNFRM;
+		} else {
+			REBASE(OTG_DIEPCTL(addr)) |= OTG_HS_DOEPCTLX_SETODDFRM;
+		}
+	} else {
+		REBASE(OTG_DIEPCTL(addr)) |= OTG_HS_DOEPCTLX_SD0PID;
+	}
 
 	/* Enable endpoint for transmission. */
 	REBASE(OTG_DIEPTSIZ(addr)) = OTG_FS_DIEPSIZ0_PKTCNT | len;

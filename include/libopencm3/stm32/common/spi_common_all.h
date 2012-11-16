@@ -350,7 +350,6 @@ void spi_reset(u32 spi_peripheral);
 int spi_init_master(u32 spi, u32 br, u32 cpol, u32 cpha, u32 dff, u32 lsbfirst);
 void spi_enable(u32 spi);
 void spi_disable(u32 spi);
-u16 spi_clean_disable(u32 spi);
 void spi_write(u32 spi, u16 data);
 void spi_send(u32 spi, u16 data);
 u16 spi_read(u32 spi);
@@ -392,6 +391,12 @@ void spi_enable_tx_dma(u32 spi);
 void spi_disable_tx_dma(u32 spi);
 void spi_enable_rx_dma(u32 spi);
 void spi_disable_rx_dma(u32 spi);
+u16 spi_clean_disable(u32 spi);
+void i2s_set_baud(u32 spi, u32 mck_enable, u32 odd, u32 div);
+void i2s_init(u32 spi, u32 standard, u32 pcmsync, u32 data_length,
+	u32 ck_polarity, u32 channel_length, u32 mode);
+void i2s_enable(u32 spi);
+void i2s_disable(u32 spi);
 
 END_DECLS
 

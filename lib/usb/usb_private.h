@@ -69,6 +69,13 @@ struct _usbd_device {
 	/* User callback function for some standard USB function hooks */
 	void (*user_callback_set_config)(usbd_device *usbd_dev, u16 wValue);
 
+	void (*user_callback_set_altsetting)(usbd_device *usbd_dev,
+			u16 wIndex, u16 wValue);
+	void (*user_callback_class)(usbd_device *usbd_dev, u16 bmRequestType,
+			u8 bRequest, u16 wValue, u16 wLength);
+        void (*user_callback_vendor)(usbd_device *usbd_dev, u16 bmRequestType,
+			u8 bRequest, u16 wValue, u16 wLength);
+
 	const struct _usbd_driver *driver;
 
 	/* private driver data */
