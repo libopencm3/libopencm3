@@ -89,6 +89,9 @@ extern int usbd_register_control_callback(usbd_device *usbd_dev, uint8_t type,
 extern int usbd_register_set_config_callback(usbd_device *usbd_dev,
 	void (*callback)(usbd_device *usbd_dev, uint16_t wValue));
 
+extern void usbd_register_set_altsetting_callback(usbd_device *usbd_dev,
+						  void (*callback)(usbd_device *usbd_dev, uint16_t wIndex, uint16_t wValue));
+
 /* Functions to be provided by the hardware abstraction layer */
 extern void usbd_poll(usbd_device *usbd_dev);
 extern void usbd_disconnect(usbd_device *usbd_dev, bool disconnected);

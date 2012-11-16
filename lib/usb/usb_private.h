@@ -89,6 +89,9 @@ struct _usbd_device {
 	void (*user_callback_set_config[MAX_USER_SET_CONFIG_CALLBACK])
 				(usbd_device *usbd_dev, uint16_t wValue);
 
+	void (*user_callback_set_altsetting)(usbd_device *usbd_dev,
+					     uint16_t wIndex, uint16_t wValue);
+
 	const struct _usbd_driver *driver;
 
 	/* private driver data */
