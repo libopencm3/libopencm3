@@ -365,6 +365,23 @@
 
 BEGIN_DECLS
 
+struct scb_exception_stack_frame {
+	u32 r0;
+	u32 r1;
+	u32 r2;
+	u32 r3;
+	u32 r12;
+	u32 lr;
+	u32 pc;
+	u32 xpsr;
+} __attribute__((packed));
+
+#define SCB_GET_EXCEPTION_STACK_FRAME(f)				\
+	do {								\
+		asm volatile ("mov %[frameptr], sp"			\
+			      : [frameptr]"=r" (f));			\
+	} while (0)
+
 void scb_reset_core(void);
 void scb_reset_system(void);
 void scb_set_priority_grouping(u32 prigroup);
