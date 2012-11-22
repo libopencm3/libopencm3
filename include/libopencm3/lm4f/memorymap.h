@@ -17,12 +17,12 @@
  * along with this library.  If not, see <http://www.gnu.org/licenses/>.
  */
 
-#ifndef LM3S_MEMORYMAP_H
-#define LM3S_MEMORYMAP_H
+#ifndef LM4F_MEMORYMAP_H
+#define LM4F_MEMORYMAP_H
 
 #include <libopencm3/cm3/common.h>
 
-/* --- LM3S specific peripheral definitions ----------------------------- */
+/* --- LM4F specific peripheral definitions ----------------------------- */
 
 #define GPIOA_APB_BASE			(0x40004000)
 #define GPIOB_APB_BASE			(0x40005000)

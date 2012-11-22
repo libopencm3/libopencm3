@@ -17,8 +17,8 @@
  * along with this library.  If not, see <http://www.gnu.org/licenses/>.
  */
 
-#ifndef LM3S_SYSTEMCONTROL_H
-#define LM3S_SYSTEMCONTROL_H
+#ifndef LM4F_SYSTEMCONTROL_H
+#define LM4F_SYSTEMCONTROL_H
 
 #include <libopencm3/cm3/common.h>
 

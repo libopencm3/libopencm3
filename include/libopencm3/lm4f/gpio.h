@@ -17,11 +17,11 @@
  * along with this library.  If not, see <http://www.gnu.org/licenses/>.
  */
 
-#ifndef LM3S_GPIO_H
-#define LM3S_GPIO_H
+#ifndef LM4F_GPIO_H
+#define LM4F_GPIO_H
 
 #include <libopencm3/cm3/common.h>
-#include <libopencm3/lm3s/memorymap.h>
+#include <libopencm3/lm4f/memorymap.h>
 
 /* --- Convenience macros -------------------------------------------------- */
 

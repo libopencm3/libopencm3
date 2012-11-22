@@ -17,7 +17,7 @@
  * along with this library.  If not, see <http://www.gnu.org/licenses/>.
  */
 
-#include <libopencm3/lm3s/gpio.h>
+#include <libopencm3/lm4f/gpio.h>
 
 void gpio_set(u32 gpioport, u8 gpios)
 {
