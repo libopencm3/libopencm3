@@ -32,6 +32,7 @@ LGPL License Terms @ref lgpl_license
  *
  * Copyright (C) 2012 Michael Ossmann <mike@ossmann.com>
  * Copyright (C) 2012 Jared Boone <jared@sharebrained.com>
+ * Copyright (C) 2012 Benjamin Vernoux <titanmkd@gmail.com>
  *
  * This library is free software: you can redistribute it and/or modify
  * it under the terms of the GNU Lesser General Public License as published by
@@ -1949,6 +1950,59 @@ LGPL License Terms @ref lgpl_license
 #define SGPIO_POS15_POS_RESET_SHIFT (8)
 #define SGPIO_POS15_POS_RESET_MASK (0xff << SGPIO_POS15_POS_RESET_SHIFT)
 #define SGPIO_POS15_POS_RESET(x) ((x) << SGPIO_POS15_POS_RESET_SHIFT)
+
+/* SGPIO structure for faster/better code generation (especially when optimized with -O2/-O3) */
+/* This structure is compliant with LPC43xx User Manual UM10503 Rev.1.4 - 3 September 2012 */
+typedef struct {
+  volatile u32 OUT_MUX_CFG[16];     /* Pin multiplexer configuration registers. RW */
+  volatile u32 SGPIO_MUX_CFG[16];   /* SGPIO multiplexer configuration registers. RW */
+  volatile u32 SLICE_MUX_CFG[16];   /* Slice multiplexer configuration registers. RW */
+  volatile u32 REG[16];             /* Slice data registers. RW */
+  volatile u32 REG_SS[16];          /* Slice data shadow registers. Each time POS reaches 0x0 the contents of REG_SS is exchanged with the content of REG. RW */
+  volatile u32 PRESET[16];          /* Reload registers. Counter reload value; loaded when COUNT reaches 0x0 RW */
+  volatile u32 COUNT[16];           /* Down counter registers, counts down each shift clock cycle. RW */
+  volatile u32 POS[16];             /* Position registers. POS Each time COUNT reaches 0x0 POS counts down. POS_RESET Reload value for POS after POS reaches 0x0. RW */
+  volatile u32 MASK_A;              /* Slice A mask register. Mask for pattern match function of slice A. RW */
+  volatile u32 MASK_H;              /* Slice H mask register. Mask for pattern match function of slice H. RW */
+  volatile u32 MASK_I;              /* Slice I mask register. Mask for pattern match function of slice I. RW */
+  volatile u32 MASK_P;              /* Slice P mask register. Mask for pattern match function of slice P. RW */
+  volatile u32 GPIO_INREG;          /* GPIO input status register. R */
+  volatile u32 GPIO_OUTREG;         /* GPIO output control register. RW */
+  volatile u32 GPIO_OENREG;         /* GPIO output enable register. RW */
+  volatile u32 CTRL_ENABLE;         /* Slice count enable register. RW */
+  volatile u32 CTRL_DISABLE;        /* Slice count disable register. RW */
+  volatile u32 RES0[823];
+  volatile u32 CLR_EN_0;            /* Shift clock interrupt clear mask register. W */
+  volatile u32 SET_EN_0;            /* Shift clock interrupt set mask register. W */
+  volatile u32 ENABLE_0;            /* Shift clock interrupt enable register. R */
+  volatile u32 STATUS_0;            /* Shift clock interrupt status register. R */
+  volatile u32 CLR_STATUS_0;        /* Shift clock interrupt clear status register. W */
+  volatile u32 SET_STATUS_0;        /* Shift clock interrupt set status register. W */
+  volatile u32 RES1[2];
+  volatile u32 CLR_EN_1;            /* Exchange clock interrupt clear mask register. W */
+  volatile u32 SET_EN_1;            /* Exchange clock interrupt set mask register. W */
+  volatile u32 ENABLE_1;            /* Exchange clock interrupt enable. R */
+  volatile u32 STATUS_1;            /* Exchange clock interrupt status register. R */
+  volatile u32 CLR_STATUS_1;        /* Exchange clock interrupt clear status register. W */
+  volatile u32 SET_STATUS_1;        /* Exchange clock interrupt set status register. W */
+  volatile u32 RES2[2];
+  volatile u32 CLR_EN_2;            /* Pattern match interrupt clear mask register. W */
+  volatile u32 SET_EN_2;            /* Pattern match interrupt set mask register. W */
+  volatile u32 ENABLE_2;            /* Pattern match interrupt enable register. R */
+  volatile u32 STATUS_2;            /* Pattern match interrupt status register. R */
+  volatile u32 CLR_STATUS_2;        /* Pattern match interrupt clear status register. W */
+  volatile u32 SET_STATUS_2;        /* Pattern match interrupt set status register. W */
+  volatile u32 RES3[2];
+  volatile u32 CLR_EN_3;            /* Input interrupt clear mask register. W */
+  volatile u32 SET_EN_3;            /* Input bit match interrupt set mask register. W */
+  volatile u32 ENABLE_3;            /* Input bit match interrupt enable register. R */
+  volatile u32 STATUS_3;            /* Input bit match interrupt status register. R */
+  volatile u32 CLR_STATUS_3;        /* Input bit match interrupt clear status register. W */
+  volatile u32 SET_STATUS_3;        /* Input bit match interrupt set status register. W */
+} sgpio_t;
+
+/* Global access to SGPIO structure */
+#define SGPIO   ((sgpio_t*)SGPIO_PORT_BASE)
 
 /**@}*/
 
