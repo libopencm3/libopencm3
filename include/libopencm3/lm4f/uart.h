@@ -357,6 +357,61 @@
 #define UART_CC_CS_SYSCLK		(0x0 << 0)
 #define UART_CC_CS_PIOSC		(0x5 << 0)
 
+/* =============================================================================
+ * Convenience enums
+ * ---------------------------------------------------------------------------*/
+enum uart_parity {
+	UART_PARITY_NONE,
+	UART_PARITY_ODD,
+	UART_PARITY_EVEN,
+	UART_PARITY_STICK_0,
+	UART_PARITY_STICK_1,
+};
+
+enum uart_flowctl {
+	UART_FLOWCTL_NONE,
+	UART_FLOWCTL_RTS,
+	UART_FLOWCTL_CTS,
+	UART_FLOWCTL_RTS_CTS,
+};
+
+/* =============================================================================
+ * Function prototypes
+ * ---------------------------------------------------------------------------*/
+BEGIN_DECLS
+
+void uart_set_baudrate(u32 uart, u32 baud);
+void uart_set_databits(u32 uart, u8 databits);
+void uart_set_stopbits(u32 uart, u8 stopbits);
+void uart_set_parity(u32 uart, enum uart_parity parity);
+void uart_set_mode(u32 uart, u32 mode);
+void uart_set_flow_control(u32 uart, enum uart_flowctl flow);
+void uart_enable(u32 uart);
+void uart_disable(u32 uart);
+void uart_clock_from_piosc(u32 uart);
+void uart_clock_from_sysclk(u32 uart);
+
+void uart_send(u32 uart, u16 data);
+u16 uart_recv(u32 uart);
+void uart_wait_send_ready(u32 uart);
+void uart_wait_recv_ready(u32 uart);
+void uart_send_blocking(u32 uart, u16 data);
+u16 uart_recv_blocking(u32 uart);
+
+void uart_enable_rx_dma(u32 uart);
+void uart_disable_rx_dma(u32 uart);
+void uart_enable_tx_dma(u32 uart);
+void uart_disable_tx_dma(u32 uart);
+
+void uart_enable_rx_interrupt(u32 uart);
+void uart_disable_rx_interrupt(u32 uart);
+void uart_enable_tx_interrupt(u32 uart);
+void uart_disable_tx_interrupt(u32 uart);
+bool uart_get_flag(u32 uart, u32 flag);
+bool uart_get_interrupt_source(u32 uart, u32 flag);
+
+END_DECLS
+
 /**@}*/
 
 #endif /* LIBOPENCM3_LM4F_UART_H */
