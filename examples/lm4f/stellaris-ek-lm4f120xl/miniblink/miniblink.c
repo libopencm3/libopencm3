@@ -27,13 +27,12 @@
  * Green controlled by PF3
  * Blue controlled by PF2
  */
-
 #include <libopencm3/lm4f/systemcontrol.h>
 #include <libopencm3/lm4f/gpio.h>
 
 void gpio_setup(void)
 {
-	SYSTEMCONTROL_RCGC2 |= 0x20; /* Enable GPIOF in run mode. */
+	SYSCTL_RCGCGPIO |= 0x20; /* Enable GPIOF in run mode. */
 	const u32 outpins = ((1<<3) | (1<<2) | (1<<1));
 
 	GPIO_DIR(GPIOF) |= outpins; /* Configure outputs. */
