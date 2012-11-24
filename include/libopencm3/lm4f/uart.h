@@ -40,6 +40,25 @@
 #include <libopencm3/lm4f/memorymap.h>
 #include <libopencm3/cm3/common.h>
 
+/* =============================================================================
+ * Convenience macros
+ * ---------------------------------------------------------------------------*/
+/** @defgroup uart_reg_base UART register base addresses
+ * @{*/
+#define UART0				UART0_BASE
+#define UART1				UART1_BASE
+#define UART2				UART2_BASE
+#define UART3				UART3_BASE
+#define UART4				UART4_BASE
+#define UART5				UART5_BASE
+#define UART6				UART6_BASE
+#define UART7				UART7_BASE
+/** @} */
+
+/* =============================================================================
+ * UART registers
+ * ---------------------------------------------------------------------------*/
+
 /* UART data register */
 #define UART_DR(uart_base)		MMIO32(uart_base + 0x00)
 
