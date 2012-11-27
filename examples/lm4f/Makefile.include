@@ -6,7 +6,7 @@
 ## Copyright (C) 2012 Alexandru Gagniuc <mr.nuke.me@gmail.com>
 ##
 ## This library is free software: you can redistribute it and/or modify
-## it under the terms of the GNU Lesser General Public License as published by
+## it undebipr the terms of the GNU Lesser General Public License as published by
 ## the Free Software Foundation, either version 3 of the License, or
 ## (at your option) any later version.
 ##
@@ -20,7 +20,6 @@
 ##
 
 PREFIX		?= arm-none-eabi
-#PREFIX		?= arm-elf
 CC		= $(PREFIX)-gcc
 LD		= $(PREFIX)-gcc
 OBJCOPY		= $(PREFIX)-objcopy
@@ -37,17 +36,23 @@ $(info We seem to be building the example in the source directory. Using local l
 endif
 endif
 
-CFLAGS		+= -O0 -g3 -Wall -Wextra -I$(TOOLCHAIN_DIR)/include -fno-common \
-		   -mcpu=cortex-m3 -mthumb -MD -DLM4F
+ARCH_FLAGS      = -mthumb -mcpu=cortex-m4
+CFLAGS		+= -O0 -g3 -Wall -Wextra -I$(TOOLCHAIN_DIR)/include \
+		   -fno-common $(ARCH_FLAGS) -MD -DLM4F
 LDSCRIPT	?= $(BINARY).ld
-LDFLAGS         += -L$(TOOLCHAIN_DIR)/lib \
-		   -T$(LDSCRIPT) -nostartfiles -Wl,--gc-sections
+LDFLAGS         += --static -Wl,--start-group -lc -lgcc -lnosys -Wl,--end-group \
+		   -L$(TOOLCHAIN_DIR)/lib \
+		   -T$(LDSCRIPT) -nostartfiles -Wl,--gc-sections \
+		   $(ARCH_FLAGS)
+
 OBJS		+= $(BINARY).o
 
+# Support for ICDI is not in any openocd release as of yet
+# A patch to add support for ICDI is under review
 OOCD		?= openocd
-OOCD_INTERFACE	?= flossjtag
-OOCD_BOARD	?= olimex_stm32_h103
-# FIXME
+OOCD_INTERFACE	?= ti-icdi
+# No official board.cfg for the stellaris launchpad
+OOCD_BOARD	?= stellaris_launchpad
 
 # Be silent per default, but 'make V=1' will show all compiler calls.
 ifneq ($(V),1)
@@ -87,7 +92,7 @@ flash: $(BINARY).flash
 
 %.elf: $(OBJS) $(LDSCRIPT) $(TOOLCHAIN_DIR)/lib/libopencm3_lm4f.a
 	@#printf "  LD      $(subst $(shell pwd)/,,$(@))\n"
-	$(Q)$(LD) $(LDFLAGS) -o $(*).elf $(OBJS) -lopencm3_lm4f
+	$(Q)$(LD) -o $(*).elf $(OBJS) -lopencm3_lm4f $(LDFLAGS)
 
 %.o: %.c Makefile
 	@#printf "  CC      $(subst $(shell pwd)/,,$(@))\n"
@@ -102,7 +107,7 @@ clean:
 	$(Q)rm -f *.srec
 	$(Q)rm -f *.list
 
-# FIXME: Replace STM32 stuff with proper LPC13XX OpenOCD support later.
+# FIXME: Replace STM32 stuff with proper Stellaris support.
 ifeq ($(OOCD_SERIAL),)
 %.flash: %.hex
 	@printf "  FLASH   $<\n"
