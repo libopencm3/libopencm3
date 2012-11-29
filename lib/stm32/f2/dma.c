@@ -1,18 +1,10 @@
-/** @defgroup STM32F2xx_dma_defines DMA Defines
+/** @defgroup dma_file DMA
 
-@ingroup STM32F2xx_defines
+@ingroup STM32F2xx
 
-@brief Defined Constants and Types for the STM32F2xx DMA Controller
+@brief <b>libopencm3 STM32F2xx DMA</b>
 
-@version 1.0.0
-
-@author @htmlonly &copy; @endhtmlonly 2011 Fergus Noble <fergusnoble@gmail.com>
-@author @htmlonly &copy; @endhtmlonly 2012 Ken Sarkies <ksarkies@internode.on.net>
-
-@date 18 October 2012
-
-LGPL License Terms @ref lgpl_license
- */
+*/
 
 /*
  * This file is part of the libopencm3 project.
@@ -31,11 +23,6 @@ LGPL License Terms @ref lgpl_license
  * along with this library.  If not, see <http://www.gnu.org/licenses/>.
  */
 
-#ifndef LIBOPENCM3_DMA_H
-#define LIBOPENCM3_DMA_H
-
-#include <libopencm3/stm32/f2/memorymap.h>
+#include <libopencm3/stm32/dma.h>
 #include <libopencm3/stm32/common/dma_common_f24.h>
-
-#endif
 
