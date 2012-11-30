@@ -24,7 +24,7 @@ PREFIX		?= arm-none-eabi
 CC		= $(PREFIX)-gcc
 AR		= $(PREFIX)-ar
 CFLAGS		= -Os -g -Wall -Wextra -I../../../include -fno-common \
-		  -mcpu=cortex-m3 -mthumb -Wstrict-prototypes \
+		  -mcpu=cortex-m3 -msoft-float -mthumb -Wstrict-prototypes \
 		  -ffunction-sections -fdata-sections -MD -DSTM32F1
 # ARFLAGS	= rcsv
 ARFLAGS		= rcs
@@ -33,7 +33,7 @@ OBJS		= rcc.o gpio.o usart.o adc.o spi.o flash.o \
 		  usb_f103.o usb.o usb_control.o usb_standard.o can.o \
 		  timer.o usb_f107.o desig.o crc.o dac.o iwdg.o pwr.o \
 		  usb_fx07_common.o \
-		  gpio_common_all.o
+		  gpio_common_all.o dma_common_f13.o
 
 VPATH += ../../usb:../:../../cm3:../common
 
