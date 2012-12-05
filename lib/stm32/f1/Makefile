@@ -34,7 +34,7 @@ OBJS		= rcc.o gpio.o usart.o adc.o flash.o \
 		  timer.o usb_f107.o desig.o crc.o pwr.o \
 		  usb_fx07_common.o \
 		  gpio_common_all.o spi_common_all.o dac_common_all.o \
-              usart_common_all.o iwdg_common_all.o
+              usart_common_all.o iwdg_common_all.o i2c_common_all.o
 
 VPATH += ../../usb:../:../../cm3:../common
 
