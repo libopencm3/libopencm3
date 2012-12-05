@@ -33,7 +33,7 @@ LGPL License Terms @ref lgpl_license
 #ifndef LIBOPENCM3_USART_H
 #define LIBOPENCM3_USART_H
 
-#include <libopencm3/stm32/f1/memorymap.h>
+#include <libopencm3/stm32/memorymap.h>
 #include <libopencm3/stm32/common/usart_common_all.h>
 
 #endif
