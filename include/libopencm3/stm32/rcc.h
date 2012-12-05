@@ -18,13 +18,13 @@
  */
 
 #if defined(STM32F1)
-#       include <libopencm3/stm32/f1/spi.h>
+#       include <libopencm3/stm32/f1/rcc.h>
 #elif defined(STM32F2)
-#       include <libopencm3/stm32/f2/spi.h>
+#       include <libopencm3/stm32/f2/rcc.h>
 #elif defined(STM32F4)
-#       include <libopencm3/stm32/f4/spi.h>
+#       include <libopencm3/stm32/f4/rcc.h>
 #elif defined(STM32L1)
-#       include <libopencm3/stm32/l1/spi.h>
+#       include <libopencm3/stm32/l1/rcc.h>
 #else
 #       error "stm32 family not defined."
 #endif
