@@ -1,4 +1,10 @@
-/* This provides unification of code over STM32F subfamilies */
+/** @defgroup dac_file DAC
+
+@ingroup STM32F2xx
+
+@brief <b>libopencm3 STM32F2xx DAC</b>
+
+*/
 
 /*
  * This file is part of the libopencm3 project.
@@ -17,15 +23,6 @@
  * along with this library.  If not, see <http://www.gnu.org/licenses/>.
  */
 
-#if defined(STM32F1)
-#       include <libopencm3/stm32/f1/dac.h>
-#elif defined(STM32F2)
-#       include <libopencm3/stm32/f2/dac.h>
-#elif defined(STM32F4)
-#       include <libopencm3/stm32/f4/dac.h>
-#elif defined(STM32L1)
-#       include <libopencm3/stm32/l1/dac.h>
-#else
-#       error "stm32 family not defined."
-#endif
+#include <libopencm3/stm32/dac.h>
+#include <libopencm3/stm32/common/dac_common_all.h>
 

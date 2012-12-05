@@ -28,10 +28,9 @@ CFLAGS		= -Os -g -Wall -Wextra -I../../../include -fno-common \
 		  -ffunction-sections -fdata-sections -MD -DSTM32L1
 # ARFLAGS	= rcsv
 ARFLAGS		= rcs
-OBJS		= rcc.o desig.o crc.o usart.o exti2.o
-OBJS += flash.o gpio_common_all.o gpio_common_f24.o  spi_common_all.o
-OBJS += pwr_chipset.o # TODO, get pwr.o to fix f2/f4 first...  pwr.o
-OBJS += timer.o
+OBJS		= rcc.o desig.o crc.o usart.o exti2.o flash.o timer.o
+OBJS +=     gpio_common_all.o gpio_common_f24.o spi_common_all.o dac_common_all.o
+OBJS +=     pwr_chipset.o # TODO, get pwr.o to fix f2/f4 first...  pwr.o
 
 VPATH += ../../usb:../:../../cm3:../common
 
