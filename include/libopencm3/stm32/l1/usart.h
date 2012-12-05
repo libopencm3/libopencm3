@@ -1,8 +1,8 @@
 /** @defgroup usart_defines USART Defines
 
-@brief <b>Defined Constants and Types for the STM32F2xx USART</b>
+@brief <b>Defined Constants and Types for the STM32L1xx USART</b>
 
-@ingroup STM32F2xx_defines
+@ingroup STM32L1xx_defines
 
 @version 1.0.0
 
@@ -33,8 +33,8 @@ LGPL License Terms @ref lgpl_license
 #ifndef LIBOPENCM3_USART_H
 #define LIBOPENCM3_USART_H
 
-#include <libopencm3/stm32/f2/memorymap.h>
-#include <libopencm3/stm32/common/usart_common_f24.h>
+#include <libopencm3/stm32/l1/memorymap.h>
+#include <libopencm3/stm32/common/usart_common_all.h>
 
 #endif
 

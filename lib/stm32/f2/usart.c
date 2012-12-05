@@ -1,17 +1,10 @@
-/** @defgroup usart_defines USART Defines
+/** @defgroup usart_file USART
 
-@brief <b>Defined Constants and Types for the STM32F2xx USART</b>
+@ingroup STM32F2xx
 
-@ingroup STM32F2xx_defines
+@brief <b>libopencm3 STM32F2xx USART</b>
 
-@version 1.0.0
-
-@author @htmlonly &copy; @endhtmlonly 2012 Ken Sarkies <ksarkies@internode.on.net>
-
-@date 5 December 2012
-
-LGPL License Terms @ref lgpl_license
- */
+*/
 
 /*
  * This file is part of the libopencm3 project.
@@ -30,11 +23,6 @@ LGPL License Terms @ref lgpl_license
  * along with this library.  If not, see <http://www.gnu.org/licenses/>.
  */
 
-#ifndef LIBOPENCM3_USART_H
-#define LIBOPENCM3_USART_H
-
-#include <libopencm3/stm32/f2/memorymap.h>
-#include <libopencm3/stm32/common/usart_common_f24.h>
-
-#endif
+#include <libopencm3/stm32/usart.h>
+#include <libopencm3/stm32/common/usart_common_all.h>
 

@@ -1,7 +1,9 @@
-/* This provides unification of code over STM32F subfamilies */
+/** @addtogroup usart_defines */
 
 /*
  * This file is part of the libopencm3 project.
+ *
+ * Copyright (C) 2009 Uwe Hermann <uwe@hermann-uwe.de>
  *
  * This library is free software: you can redistribute it and/or modify
  * it under the terms of the GNU Lesser General Public License as published by
@@ -17,13 +19,13 @@
  * along with this library.  If not, see <http://www.gnu.org/licenses/>.
  */
 
-<<<<<<< HEAD
 /**@{*/
 
-#ifndef LIBOPENCM3_USART_H
-#define LIBOPENCM3_USART_H
+/* THIS FILE SHOULD NOT BE INCLUDED DIRECTLY, BUT ONLY VIA SPI.H */
 
-#include <libopencm3/stm32/memorymap.h>
+#ifndef LIBOPENCM3_USART_COMMON_ALL_H
+#define LIBOPENCM3_USART_COMMON_ALL_H
+
 #include <libopencm3/cm3/common.h>
 
 /* --- Convenience macros -------------------------------------------------- */
@@ -357,24 +359,11 @@ void usart_enable_rx_interrupt(u32 usart);
 void usart_disable_rx_interrupt(u32 usart);
 void usart_enable_tx_interrupt(u32 usart);
 void usart_disable_tx_interrupt(u32 usart);
-void usart_enable_error_interrupt(u32 usart);
-void usart_disable_error_interrupt(u32 usart);
 bool usart_get_flag(u32 usart, u32 flag);
 bool usart_get_interrupt_source(u32 usart, u32 flag);
 
 END_DECLS
 
-=======
-#if defined(STM32F1)
-#       include <libopencm3/stm32/f1/usart.h>
-#elif defined(STM32F2)
-#       include <libopencm3/stm32/f2/usart.h>
-#elif defined(STM32F4)
-#       include <libopencm3/stm32/f4/usart.h>
-#elif defined(STM32L1)
-#       include <libopencm3/stm32/l1/usart.h>
-#else
-#       error "stm32 family not defined."
->>>>>>> Move usart files to common area
 #endif
+/**@}*/
 

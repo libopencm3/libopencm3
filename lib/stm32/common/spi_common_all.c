@@ -1,4 +1,4 @@
-/** @addtogroup gpio_file
+/** @addtogroup spi_file
 
 @version 1.0.0
 
