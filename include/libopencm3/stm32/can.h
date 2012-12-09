@@ -1,3 +1,17 @@
+/** @defgroup can_defines CAN defines
+
+@ingroup STM32F_defines
+
+@brief <b>libopencm3 Defined Constants and Types for STM32 CAN </b>
+
+@version 1.0.0
+
+@author @htmlonly &copy; @endhtmlonly 2010 Piotr Esden-Tempski <piotr@esden.net>
+
+@date 12 November 2012
+
+LGPL License Terms @ref lgpl_license
+*/
 /*
  * This file is part of the libopencm3 project.
  *
@@ -23,11 +37,19 @@
 #include <libopencm3/stm32/memorymap.h>
 #include <libopencm3/cm3/common.h>
 
+/**@{*/
+
 /* --- Convenience macros -------------------------------------------------- */
 
 /* CAN register base adresses (for convenience) */
+/*****************************************************************************/
+/** @defgroup can_reg_base CAN register base address
+@ingroup can_defines
+
+@{*/
 #define CAN1				BX_CAN1_BASE
 #define CAN2				BX_CAN2_BASE
+/**@}*/
 
 /* --- CAN registers ------------------------------------------------------- */
 
@@ -458,7 +480,7 @@
 /* --- CAN_TIxR values ------------------------------------------------------ */
 
 /* STID[10:0]: Standard identifier */
-#define CAN_TIxR_STID_MASK		(0x3FF << 21)
+#define CAN_TIxR_STID_MASK		(0x7FF << 21)
 #define CAN_TIxR_STID_SHIFT		21
 
 /* EXID[15:0]: Extended identifier */

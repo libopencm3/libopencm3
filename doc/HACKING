@@ -1,0 +1,89 @@
+libopencm3 Documentation
+12 October 2012 (C) K Sarkies
+-----------------------------
+
+Each family and subfamily of devices has a separate directory and configuration
+files. Doxygen is run independently on each of these and the result is
+integrated under a single HTML page. LaTeX and pdf files are produced
+separately. Due to relative referencing used in the files, the directory
+structure is important and should be maintained.
+
+Each of the subdirectories has a configuration file, a layout file and
+subdirectories for the documentation. Doxygen is intended to be run inside
+these subdirectories. The Makefile will handle this in the appropriate
+order. Tag files are generated and used by other doxygen runs to resolve links.
+
+Tagfiles
+--------
+
+Tagfiles contain all information about the document, and are used to resolve
+references in other documents. The groups defined in these external documents
+are not shown when EXTERNAL_GROUPS = NO. The high level tagfiles must be
+generated before any others so order is important.
+
+As well as the processor families, a "cm3" subdirectory is used to generate
+a tagfile to integrate the CM3 common core defines.
+
+Markup
+------
+
+Each family has been given a group name that will allow subgrouping of API
+functions and defines in the documentation. 
+
+The header and source files for each family must have a heading section
+in which an @defgroup defines the group names. For a peripheral xxx the
+header will have a group name xxx_defines and the source file will have
+xxx_file. This will allow the group to appear separately. An @ingroup must
+be provided to place the group as a subgroup of the appropriate family
+grouping. Note that @file is not used.
+
+Common header and source files must have an @addgroup to include its
+documentation into the appropriate peripheral group. These must not have any
+reference to family groupings to allow them to be incorporated into multiple
+family groups.
+
+Each function must have a header with an @brief, and where appropriate
+@parameter and @return elements. These must describe the allowable parameter
+ranges preferably with reference to a suitable define.
+
+The Doxyfile for a family must include input files from the header and source
+subdirectories, as well as all needed common files. The common files can be
+added separately or as an entire directory with exclusions of inappropriate
+files.
+
+Doxyfiles
+---------
+
+Doxyfile_common holds global settings.
+
+OUTPUT_DIRECTORY blank so that the output is placed in the current directory.
+RECURSIVE = NO
+EXTERNAL_GROUPS = NO
+
+Each Doxyfile_include for a processor family has:
+
+@INCLUDE = ../Doxyfile_common
+INPUT = specific directories needed, including /include/libopencm3/cm3
+		in top directory to set the top level page and GNU license.
+LAYOUT_FILE = DoxygenLayout_$processor.xml
+WARN_LOGFILE = doxygen_$processor.log
+TAGFILES = ../cm3/cm3.tag=../../cm3/html
+GENERATE_TAGFILE = $processor.tag
+
+For the top level Doxyfile
+
+INPUT = ../include/libopencm3/docmain.dox to add in the main page text
+LAYOUT_FILE = DoxygenLayout.xml
+WARN_LOGFILE = doxygen.log
+TAGFILES = cm3/cm3.tag=../cm3/html plus all families to be included.
+
+Generation of PDF
+-----------------
+
+The needs for pdf documents differ from HTML so separate Doxyfile_latex
+files are provided.
+
+@INCLUDE = ../Doxyfile_common
+GENERATE_LATEX = YES
+GENERATE_HTML = NO
+

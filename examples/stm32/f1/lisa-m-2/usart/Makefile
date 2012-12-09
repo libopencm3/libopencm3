@@ -19,6 +19,9 @@
 
 BINARY = usart
 
+# Comment the following line if you _don't_ have luftboot flashed!
+LDFLAGS += -Wl,-Ttext=0x8002000
+CFLAGS += -std=c99
 LDSCRIPT = ../lisa-m.ld
 
 include ../../Makefile.include

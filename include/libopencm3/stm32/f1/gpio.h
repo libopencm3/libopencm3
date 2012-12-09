@@ -1,4 +1,4 @@
-/** @defgroup STM32F1xx_gpio_defines GPIO Defines
+/** @defgroup gpio_defines GPIO Defines
 
 @brief <b>Defined Constants and Types for the STM32F1xx General Purpose I/O</b>
 
@@ -8,6 +8,7 @@
 
 @author @htmlonly &copy; @endhtmlonly 2009 Uwe Hermann <uwe@hermann-uwe.de>
 @author @htmlonly &copy; @endhtmlonly 2012 Piotr Esden-Tempski <piotr@esden.net>
+@author @htmlonly &copy; @endhtmlonly 2012 Ken Sarkies <ksarkies@internode.on.net>
 
 @date 1 July 2012
 
@@ -18,6 +19,7 @@ LGPL License Terms @ref lgpl_license
  *
  * Copyright (C) 2009 Uwe Hermann <uwe@hermann-uwe.de>
  * Copyright (C) 2012 Piotr Esden-Tempski <piotr@esden.net>
+ * Copyright (C) 2012 Ken Sarkies <ksarkies@internode.on.net>
  *
  * This library is free software: you can redistribute it and/or modify
  * it under the terms of the GNU Lesser General Public License as published by
@@ -32,21 +34,23 @@ LGPL License Terms @ref lgpl_license
  * You should have received a copy of the GNU Lesser General Public License
  * along with this library.  If not, see <http://www.gnu.org/licenses/>.
  */
+
 /**@{*/
 
 #ifndef LIBOPENCM3_GPIO_H
 #define LIBOPENCM3_GPIO_H
 
-#include <libopencm3/stm32/memorymap.h>
-#include <libopencm3/cm3/common.h>
+#include <libopencm3/stm32/f1/memorymap.h>
+#include <libopencm3/stm32/common/gpio_common_all.h>
 
 /* --- Convenience macros -------------------------------------------------- */
 
 /* GPIO port base addresses (for convenience) */
 /** @defgroup gpio_port_id GPIO Port IDs
-@ingroup STM32F1xx_gpio_defines
+@ingroup gpio_defines
 
 @{*/
+/* GPIO port base addresses (for convenience) */
 #define GPIOA				GPIO_PORT_A_BASE
 #define GPIOB				GPIO_PORT_B_BASE
 #define GPIOC				GPIO_PORT_C_BASE
@@ -54,30 +58,6 @@ LGPL License Terms @ref lgpl_license
 #define GPIOE				GPIO_PORT_E_BASE
 #define GPIOF				GPIO_PORT_F_BASE
 #define GPIOG				GPIO_PORT_G_BASE
-/**@}*/
-
-/* GPIO number definitions (for convenience) */
-/** @defgroup gpio_pin_id GPIO Pin Identifiers
-@ingroup STM32F1xx_gpio_defines
-
-@{*/
-#define GPIO0				(1 << 0)
-#define GPIO1				(1 << 1)
-#define GPIO2				(1 << 2)
-#define GPIO3				(1 << 3)
-#define GPIO4				(1 << 4)
-#define GPIO5				(1 << 5)
-#define GPIO6				(1 << 6)
-#define GPIO7				(1 << 7)
-#define GPIO8				(1 << 8)
-#define GPIO9				(1 << 9)
-#define GPIO10				(1 << 10)
-#define GPIO11				(1 << 11)
-#define GPIO12				(1 << 12)
-#define GPIO13				(1 << 13)
-#define GPIO14				(1 << 14)
-#define GPIO15				(1 << 15)
-#define GPIO_ALL			0xffff
 /**@}*/
 
 /* --- Alternate function GPIOs -------------------------------------------- */
@@ -103,18 +83,18 @@ LGPL License Terms @ref lgpl_license
 /* CAN1 / CAN BANK */
 #define GPIO_BANK_CAN1_RX		GPIOA		/* PA11 */
 #define GPIO_BANK_CAN1_TX		GPIOA		/* PA12 */
-#define GPIO_BANK_CAN_RX		GPIO_CAN1_RX	/* Alias */
-#define GPIO_BANK_CAN_TX		GPIO_CAN1_TX	/* Alias */
+#define GPIO_BANK_CAN_RX		GPIO_BANK_CAN1_RX /* Alias */
+#define GPIO_BANK_CAN_TX		GPIO_BANK_CAN1_TX /* Alias */
 
 #define GPIO_BANK_CAN_PB_RX		GPIOB		/* PB8 */
 #define GPIO_BANK_CAN_PB_TX		GPIOB		/* PB9 */
-#define GPIO_BANK_CAN1_PB_RX		GPIO_CAN_PB_RX	/* Alias */
-#define GPIO_BANK_CAN1_PB_TX		GPIO_CAN_PB_TX	/* Alias */
+#define GPIO_BANK_CAN1_PB_RX		GPIO_BANK_CAN_PB_RX /* Alias */
+#define GPIO_BANK_CAN1_PB_TX		GPIO_BANK_CAN_PB_TX /* Alias */
 
 #define GPIO_BANK_CAN_PD_RX		GPIOD		/* PD0 */
 #define GPIO_BANK_CAN_PD_TX		GPIOD		/* PD1 */
-#define GPIO_BANK_CAN1_PD_RX		GPIO_CAN_PD_RX	/* Alias */
-#define GPIO_BANK_CAN1_PD_TX		GPIO_CAN_PD_TX	/* Alias */
+#define GPIO_BANK_CAN1_PD_RX		GPIO_BANK_CAN_PD_RX /* Alias */
+#define GPIO_BANK_CAN1_PD_TX		GPIO_BANK_CAN_PD_TX /* Alias */
 
 /* CAN2 GPIO */
 #define GPIO_CAN2_RX			GPIO12		/* PB12 */
@@ -620,7 +600,7 @@ LGPL License Terms @ref lgpl_license
 /* --- GPIO_CRL/GPIO_CRH values -------------------------------------------- */
 
 /** @defgroup gpio_cnf GPIO Pin Configuration
-@ingroup STM32F1xx_gpio_defines
+@ingroup gpio_defines
 If mode specifies input, configuration can be
 @li Analog input
 @li Floating input
@@ -652,7 +632,7 @@ If mode specifies output, configuration can be
 
 /* Pin mode (MODE[1:0]) values */
 /** @defgroup gpio_mode GPIO Pin Mode
-@ingroup STM32F1xx_gpio_defines
+@ingroup gpio_defines
 @li Input (default after reset)
 @li Output mode at 10 MHz maximum speed
 @li Output mode at 2 MHz maximum speed
@@ -680,11 +660,6 @@ If mode specifies output, configuration can be
 /* --- GPIO_BRR values ----------------------------------------------------- */
 
 /* GPIO_BRR[15:0]: BRy: Port x reset bit y (y = 0..15) */
-
-/* --- GPIO_LCKR values ---------------------------------------------------- */
-
-#define GPIO_LCKK			(1 << 16)
-/* GPIO_LCKR[15:0]: LCKy: Port x lock bit y (y = 0..15) */
 
 /* --- AFIO registers ------------------------------------------------------ */
 
@@ -716,7 +691,7 @@ If mode specifies output, configuration can be
 
 /* PORT[2:0]: Port selection */
 /** @defgroup afio_evcr_port EVENTOUT Port selection
-@ingroup STM32F1xx_gpio_defines
+@ingroup gpio_defines
 
 @{*/
 #define AFIO_EVCR_PORT_PA		(0x0 << 4)
@@ -728,7 +703,7 @@ If mode specifies output, configuration can be
 
 /* PIN[3:0]: Pin selection */
 /** @defgroup afio_evcr_pin EVENTOUT Pin selection
-@ingroup STM32F1xx_gpio_defines
+@ingroup gpio_defines
 
 @{*/
 #define AFIO_EVCR_PIN_Px0		(0x0 << 0)
@@ -755,7 +730,7 @@ If mode specifies output, configuration can be
 
 /** @defgroup afio_remap_cld Alternate Function Remap Controls for Connectivity
 Line Devices only
-@ingroup STM32F1xx_gpio_defines
+@ingroup gpio_defines
 
 @{*/
 /* PTP_PPS_REMAP: *//** Ethernet PTP PPS remapping
@@ -788,7 +763,7 @@ Line Devices only
 
 /* SWJ_CFG[2:0]: Serial wire JTAG configuration */
 /** @defgroup afio_swj_disable Serial Wire JTAG disables
-@ingroup STM32F1xx_gpio_defines
+@ingroup gpio_defines
 
 @{*/
 #define AFIO_MAPR_SWJ_MASK			(0x7 << 24)
@@ -803,7 +778,7 @@ Line Devices only
 /**@}*/
 
 /** @defgroup afio_remap Alternate Function Remap Controls
-@ingroup STM32F1xx_gpio_defines
+@ingroup gpio_defines
 
 @{*/
 /* ADC2_ETRGREG_REMAP: */ /**  ADC2 external trigger regulator conversion remapping
@@ -846,7 +821,7 @@ Line Devices only
 
 /* CAN_REMAP[1:0]: CAN1 alternate function remapping */
 /** @defgroup afio_remap_can1 Alternate Function Remap Controls for CAN 1
-@ingroup STM32F1xx_gpio_defines
+@ingroup gpio_defines
 
 @{*/
 #define AFIO_MAPR_CAN1_REMAP_PORTA		(0x0 << 13)
@@ -856,7 +831,7 @@ Line Devices only
 
 /* TIM3_REMAP[1:0]: TIM3 remapping */
 /** @defgroup afio_remap_tim3 Alternate Function Remap Controls for Timer 3
-@ingroup STM32F1xx_gpio_defines
+@ingroup gpio_defines
 
 @{*/
 #define AFIO_MAPR_TIM3_REMAP_NO_REMAP		(0x0 << 10)
@@ -866,7 +841,7 @@ Line Devices only
 
 /* TIM2_REMAP[1:0]: TIM2 remapping */
 /** @defgroup afio_remap_tim2 Alternate Function Remap Controls for Timer 2
-@ingroup STM32F1xx_gpio_defines
+@ingroup gpio_defines
 
 @{*/
 #define AFIO_MAPR_TIM2_REMAP_NO_REMAP		(0x0 << 8)
@@ -877,7 +852,7 @@ Line Devices only
 
 /* TIM1_REMAP[1:0]: TIM1 remapping */
 /** @defgroup afio_remap_tim1 Alternate Function Remap Controls for Timer 1
-@ingroup STM32F1xx_gpio_defines
+@ingroup gpio_defines
 
 @{*/
 #define AFIO_MAPR_TIM1_REMAP_NO_REMAP		(0x0 << 6)
@@ -887,7 +862,7 @@ Line Devices only
 
 /* USART3_REMAP[1:0]: USART3 remapping */
 /** @defgroup afio_remap_usart3 Alternate Function Remap Controls for USART 3
-@ingroup STM32F1xx_gpio_defines
+@ingroup gpio_defines
 
 @{*/
 #define AFIO_MAPR_USART3_REMAP_NO_REMAP		(0x0 << 4)
@@ -896,7 +871,7 @@ Line Devices only
 /**@}*/
 
 /** @defgroup afio_remap2 Alternate Function Remap Controls Secondary Set
-@ingroup STM32F1xx_gpio_defines
+@ingroup gpio_defines
 
 @{*/
 /* FSMC_NADV_DISCONNECT: */ /** The NADV is disconnected from its allocated pin */
@@ -925,7 +900,7 @@ Line Devices only
 /* --- AFIO_EXTICR4 values ------------------------------------------------- */
 
 /** @defgroup afio_exti Alternate Function EXTI pin number
-@ingroup STM32F1xx_gpio_defines
+@ingroup gpio_defines
 
 @{*/
 
@@ -953,13 +928,6 @@ Line Devices only
 BEGIN_DECLS
 
 void gpio_set_mode(u32 gpioport, u8 mode, u8 cnf, u16 gpios);
-void gpio_set(u32 gpioport, u16 gpios);
-void gpio_clear(u32 gpioport, u16 gpios);
-u16 gpio_get(u32 gpioport, u16 gpios);
-void gpio_toggle(u32 gpioport, u16 gpios);
-u16 gpio_port_read(u32 gpioport);
-void gpio_port_write(u32 gpioport, u16 data);
-void gpio_port_config_lock(u32 gpioport, u16 gpios);
 void gpio_set_eventout(u8 evoutport, u8 evoutpin);
 void gpio_primary_remap(u8 swjenable, u32 maps);
 void gpio_secondary_remap(u32 maps);

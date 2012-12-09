@@ -31,9 +31,11 @@ ARFLAGS		= rcs
 OBJS		= rcc.o gpio.o usart.o adc.o spi.o flash.o \
 		  rtc.o i2c.o dma.o exti.o ethernet.o \
 		  usb_f103.o usb.o usb_control.o usb_standard.o can.o \
-		  timer.o usb_f107.o desig.o crc.o dac.o iwdg.o pwr.o
+		  timer.o usb_f107.o desig.o crc.o dac.o iwdg.o pwr.o \
+		  usb_fx07_common.o \
+		  gpio_common_all.o
 
-VPATH += ../../usb:../:../../cm3
+VPATH += ../../usb:../:../../cm3:../common
 
 include ../../Makefile.include
 

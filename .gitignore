@@ -16,4 +16,14 @@ lib/*.ld
 html/
 latex/
 *.pdf
-
+# These are generated
+include/libopencm3/**/nvic.h
+include/libopencm3/**/**/nvic.h
+lib/**/vector_nvic.c
+lib/**/**/vector_nvic.c
+include/libopencmsis/efm32/
+include/libopencmsis/lm3s/
+include/libopencmsis/lpc13xx/
+include/libopencmsis/lpc17xx/
+include/libopencmsis/lpc43xx/
+include/libopencmsis/stm32/

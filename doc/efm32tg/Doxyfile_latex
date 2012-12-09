@@ -1,0 +1,32 @@
+# LaTeX Documentation for efm32 code level
+
+# 12 November 2012
+# (C) Ken Sarkies <ksarkies@internode.on.net>
+
+#---------------------------------------------------------------------------
+# Common Include File
+#---------------------------------------------------------------------------
+
+@INCLUDE 			   = ../Doxyfile_common
+
+#---------------------------------------------------------------------------
+# Local settings
+#---------------------------------------------------------------------------
+
+WARN_LOGFILE           = doxygen_efm32tg_latex.log
+
+INPUT                  = ../../include/libopencm3/docmain.dox \
+                         ../../include/libopencm3/license.dox \
+					     ../../include/libopencm3/efm32/efm32tg \
+                         ../../lib/efm32/efm32tg
+
+EXCLUDE                = ../../include/libopencm3/efm32/doc-efm32tg.h
+
+LAYOUT_FILE 		   = DoxygenLayout_efm32tg.xml
+
+GENERATE_HTML		   = NO
+
+GENERATE_LATEX		   = YES
+
+LATEX_HEADER           = header_efm32tg.tex
+

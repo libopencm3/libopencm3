@@ -1,0 +1,29 @@
+# HTML Documentation for efm32 code level
+
+# 11 November 2012
+# (C) Ken Sarkies <ksarkies@internode.on.net>
+
+#---------------------------------------------------------------------------
+# Common Include File
+#---------------------------------------------------------------------------
+
+@INCLUDE 			   = ../Doxyfile_common
+
+#---------------------------------------------------------------------------
+# Local settings
+#---------------------------------------------------------------------------
+
+WARN_LOGFILE           = doxygen_efm32tg.log
+
+INPUT                  = ../../include/libopencm3/license.dox \
+					     ../../include/libopencm3/efm32/efm32tg \
+                         ../../lib/efm32/efm32tg
+
+EXCLUDE                =
+
+LAYOUT_FILE 		   = DoxygenLayout_efm32tg.xml
+
+TAGFILES               = ../cm3/cm3.tag=../../cm3/html \
+
+GENERATE_TAGFILE       = efm32tg.tag
+

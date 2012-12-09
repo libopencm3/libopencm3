@@ -1,0 +1,36 @@
+# LaTeX Documentation for STM32L1 code level
+
+# 14 September 2012
+# (C) Ken Sarkies <ksarkies@internode.on.net>
+
+#---------------------------------------------------------------------------
+# Common Include File
+#---------------------------------------------------------------------------
+
+@INCLUDE 			   = ../Doxyfile_common
+
+#---------------------------------------------------------------------------
+# Local settings
+#---------------------------------------------------------------------------
+
+WARN_LOGFILE           = doxygen_stm32l1_latex.log
+
+INPUT                  = ../../include/libopencm3/docmain.dox \
+                         ../../include/libopencm3/license.dox \
+                         ../../include/libopencm3/stm32/l1 \
+			             ../../include/libopencm3/stm32/common \
+                         ../../lib/stm32/l1 \
+			             ../../lib/stm32/common
+
+EXCLUDE                = ../../include/libopencm3/stm32/l1/doc-stm32l1.h
+
+EXCLUDE_PATTERNS       = *_common_f24.h
+
+LAYOUT_FILE 		   = DoxygenLayout_stm32l1.xml
+
+GENERATE_HTML		   = NO
+
+GENERATE_LATEX		   = YES
+
+LATEX_HEADER           = header_stm32l1.tex
+
