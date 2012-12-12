@@ -40,7 +40,7 @@ static void rng_setup(void)
 	/* Enable the random number generation by setting the RNGEN bit in the RNG_CR
 	register. This activates the analog part, the RNG_LFSR and the error detector.
 	*/
-	RNG_CR |= RNG_CR_EN;
+	RNG_CR |= RNG_CR_RNGEN;
 }
 
 static void gpio_setup(void)

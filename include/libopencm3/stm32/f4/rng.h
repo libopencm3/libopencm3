@@ -36,7 +36,7 @@
 /* --- RNG_CR values ------------------------------------------------------- */
 
 /* RNG ENABLE */
-#define RNG_CR_EN			(1 << 2)
+#define RNG_CR_RNGEN		(1 << 2)
 
 /* RNG interupt enable */
 #define RNG_CR_IE			(1 << 3)
