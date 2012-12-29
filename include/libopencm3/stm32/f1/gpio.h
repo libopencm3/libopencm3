@@ -927,10 +927,19 @@ Line Devices only
 
 BEGIN_DECLS
 
+struct gpio_port_config {
+        u32 port;
+        u16 pins;
+        u8 cnf;
+        u8 mode;
+        u8 level;
+};
+
 void gpio_set_mode(u32 gpioport, u8 mode, u8 cnf, u16 gpios);
 void gpio_set_eventout(u8 evoutport, u8 evoutpin);
 void gpio_primary_remap(u32 swjenable, u32 maps);
 void gpio_secondary_remap(u32 maps);
+void gpio_set_port_config(const struct gpio_port_config *config, int num_config);
 
 END_DECLS
 
