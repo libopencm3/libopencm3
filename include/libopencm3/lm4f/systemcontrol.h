@@ -370,9 +370,11 @@
 /** Auto Clock Gating */
 #define SYSCTL_RCC2_ACG			(1 << 27)
 /** System Clock Divisor 2 */
-#define SYSCTL_RCC2_SYSDIV2_MASK	(0xF << 23)
+#define SYSCTL_RCC2_SYSDIV2_MASK	(0x3F << 23)
 /** Additional LSB for SYSDIV2 */
 #define SYSCTL_RCC2_SYSDIV2LSB		(1 << 22)
+/** System clock divisor mask when RCC2_DIV400 is set */
+#define SYSCTL_RCC2_SYSDIV400_MASK	(0x7F << 22)
 /** Power-Down USB PLL */
 #define SYSCTL_RCC2_USBPWRDN		(1 << 14)
 /** PLL Power Down 2 */

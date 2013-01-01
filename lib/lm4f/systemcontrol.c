@@ -19,7 +19,6 @@
 
 #include <libopencm3/lm4f/systemcontrol.h>
 
-
 /**
  * \brief Enable the clock source for the peripheral
  *
