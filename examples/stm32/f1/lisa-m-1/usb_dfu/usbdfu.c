@@ -250,7 +250,7 @@ int main(void)
 	gpio_set_mode(GPIOC, GPIO_MODE_OUTPUT_50_MHZ,
 		      GPIO_CNF_OUTPUT_PUSHPULL, GPIO2);
 
-	usbd_dev = usbd_init(&stm32f107_usb_driver, &dev, &config, usb_strings);
+	usbd_dev = usbd_init(&stm32f107_usb_driver, &dev, &config, usb_strings, 5);
 	usbd_set_control_buffer_size(usbd_dev, sizeof(usbd_control_buffer));
 	usbd_register_control_callback(
 				usbd_dev,

@@ -249,7 +249,7 @@ int main(void)
 	AFIO_MAPR |= AFIO_MAPR_SWJ_CFG_JTAG_OFF_SW_ON;
 	gpio_set_mode(GPIOA, GPIO_MODE_INPUT, 0, GPIO15);
 
-	usbd_dev = usbd_init(&stm32f103_usb_driver, &dev, &config, usb_strings);
+	usbd_dev = usbd_init(&stm32f103_usb_driver, &dev, &config, usb_strings, 5);
 	usbd_set_control_buffer_size(usbd_dev, sizeof(usbd_control_buffer));
 	usbd_register_control_callback(
 				usbd_dev,
