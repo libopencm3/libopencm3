@@ -1,0 +1,33 @@
+# LaTeX Documentation for LM3S code level
+
+# 14 September 2012
+# Copyright (C) Ken Sarkies <ksarkies@internode.on.net>
+# Copyright (C) 2012 Alexandru Gagniuc <mr.nuke.me@gmail.com>
+
+#---------------------------------------------------------------------------
+# Common Include File
+#---------------------------------------------------------------------------
+
+@INCLUDE 			   = ../Doxyfile_common
+
+#---------------------------------------------------------------------------
+# Local settings
+#---------------------------------------------------------------------------
+
+WARN_LOGFILE           = doxygen_lm4f_latex.log
+
+INPUT                  = ../../include/libopencm3/docmain.dox \
+						 ../../include/libopencm3/license.dox \
+					     ../../include/libopencm3/lm4f \
+                         ../../lib/lm4f
+
+EXCLUDE                = ../../include/libopencm3/lm4f/doc-lm4f.h
+
+LAYOUT_FILE 		   = DoxygenLayout_lm4f.xml
+
+GENERATE_HTML		   = NO
+
+GENERATE_LATEX		   = YES
+
+LATEX_HEADER           = header_lm4f.tex
+
