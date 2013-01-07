@@ -1,0 +1,9 @@
+------------------------------------------------------------------------------
+README
+------------------------------------------------------------------------------
+
+Flashes the Red, Green and Blue diodes on the board, in order.
+RED controlled by PF1
+Green controlled by PF3
+Blue controlled by PF2
+
