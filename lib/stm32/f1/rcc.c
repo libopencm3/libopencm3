@@ -71,6 +71,12 @@ void rcc_osc_ready_int_clear(osc_t osc)
 	case PLL:
 		RCC_CIR |= RCC_CIR_PLLRDYC;
 		break;
+	case PLL2:
+		RCC_CIR |= RCC_CIR_PLL2RDYC;
+		break;
+	case PLL3:
+		RCC_CIR |= RCC_CIR_PLL3RDYC;
+		break;
 	case HSE:
 		RCC_CIR |= RCC_CIR_HSERDYC;
 		break;
@@ -97,6 +103,12 @@ void rcc_osc_ready_int_enable(osc_t osc)
 	switch (osc) {
 	case PLL:
 		RCC_CIR |= RCC_CIR_PLLRDYIE;
+		break;
+	case PLL2:
+		RCC_CIR |= RCC_CIR_PLL2RDYIE;
+		break;
+	case PLL3:
+		RCC_CIR |= RCC_CIR_PLL3RDYIE;
 		break;
 	case HSE:
 		RCC_CIR |= RCC_CIR_HSERDYIE;
@@ -125,6 +137,12 @@ void rcc_osc_ready_int_disable(osc_t osc)
 	case PLL:
 		RCC_CIR &= ~RCC_CIR_PLLRDYIE;
 		break;
+	case PLL2:
+		RCC_CIR &= ~RCC_CIR_PLL2RDYIE;
+		break;
+	case PLL3:
+		RCC_CIR &= ~RCC_CIR_PLL3RDYIE;
+		break;
 	case HSE:
 		RCC_CIR &= ~RCC_CIR_HSERDYIE;
 		break;
@@ -152,6 +170,12 @@ int rcc_osc_ready_int_flag(osc_t osc)
 	switch (osc) {
 	case PLL:
 		return ((RCC_CIR & RCC_CIR_PLLRDYF) != 0);
+		break;
+	case PLL2:
+		return ((RCC_CIR & RCC_CIR_PLL2RDYF) != 0);
+		break;
+	case PLL3:
+		return ((RCC_CIR & RCC_CIR_PLL3RDYF) != 0);
 		break;
 	case HSE:
 		return ((RCC_CIR & RCC_CIR_HSERDYF) != 0);
@@ -203,6 +227,12 @@ void rcc_wait_for_osc_ready(osc_t osc)
 	case PLL:
 		while ((RCC_CR & RCC_CR_PLLRDY) == 0);
 		break;
+	case PLL2:
+		while ((RCC_CR & RCC_CR_PLL2RDY) == 0);
+		break;
+	case PLL3:
+		while ((RCC_CR & RCC_CR_PLL3RDY) == 0);
+		break;
 	case HSE:
 		while ((RCC_CR & RCC_CR_HSERDY) == 0);
 		break;
@@ -238,6 +268,12 @@ void rcc_osc_on(osc_t osc)
 	case PLL:
 		RCC_CR |= RCC_CR_PLLON;
 		break;
+	case PLL2:
+		RCC_CR |= RCC_CR_PLL2ON;
+		break;
+	case PLL3:
+		RCC_CR |= RCC_CR_PLL3ON;
+		break;
 	case HSE:
 		RCC_CR |= RCC_CR_HSEON;
 		break;
@@ -272,6 +308,12 @@ void rcc_osc_off(osc_t osc)
 	switch (osc) {
 	case PLL:
 		RCC_CR &= ~RCC_CR_PLLON;
+		break;
+	case PLL2:
+		RCC_CR &= ~RCC_CR_PLL2ON;
+		break;
+	case PLL3:
+		RCC_CR &= ~RCC_CR_PLL3ON;
 		break;
 	case HSE:
 		RCC_CR &= ~RCC_CR_HSEON;
@@ -331,6 +373,8 @@ void rcc_osc_bypass_enable(osc_t osc)
 		RCC_BDCR |= RCC_BDCR_LSEBYP;
 		break;
 	case PLL:
+	case PLL2:
+	case PLL3:
 	case HSI:
 	case LSI:
 		/* Do nothing, only HSE/LSE allowed here. */
@@ -361,6 +405,8 @@ void rcc_osc_bypass_disable(osc_t osc)
 		RCC_BDCR &= ~RCC_BDCR_LSEBYP;
 		break;
 	case PLL:
+	case PLL2:
+	case PLL3:
 	case HSI:
 	case LSI:
 		/* Do nothing, only HSE/LSE allowed here. */
@@ -485,6 +531,40 @@ void rcc_set_pll_multiplication_factor(u32 mul)
 }
 
 /*-----------------------------------------------------------------------------*/
+/** @brief RCC Set the PLL2 Multiplication Factor.
+
+@note This only has effect when the PLL is disabled.
+
+@param[in] mul Unsigned int32. PLL multiplication factor @ref rcc_cfgr_pmf
+*/
+
+void rcc_set_pll2_multiplication_factor(u32 mul)
+{
+	u32 reg32;
+
+	reg32 = RCC_CFGR2;
+	reg32 &= ~((1 << 11) | (1 << 10) | (1 << 9) | (1 << 8));
+	RCC_CFGR2 = (reg32 | (mul << 8));
+}
+
+/*-----------------------------------------------------------------------------*/
+/** @brief RCC Set the PLL3 Multiplication Factor.
+
+@note This only has effect when the PLL is disabled.
+
+@param[in] mul Unsigned int32. PLL multiplication factor @ref rcc_cfgr_pmf
+*/
+
+void rcc_set_pll3_multiplication_factor(u32 mul)
+{
+	u32 reg32;
+
+	reg32 = RCC_CFGR2;
+	reg32 &= ~((1 << 15) | (1 << 14) | (1 << 13) | (1 << 12));
+	RCC_CFGR2 = (reg32 | (mul << 12));
+}
+
+/*-----------------------------------------------------------------------------*/
 /** @brief RCC Set the PLL Clock Source.
 
 @note This only has effect when the PLL is disabled.
@@ -600,6 +680,36 @@ void rcc_set_usbpre(u32 usbpre)
 	reg32 = RCC_CFGR;
 	reg32 &= ~(1 << 22);
 	RCC_CFGR = (reg32 | (usbpre << 22));
+}
+
+void rcc_set_prediv1(u32 prediv)
+{
+	u32 reg32;
+	reg32 = RCC_CFGR2;
+	reg32 &= ~(1 << 3) | (1 << 2) | (1 << 1) | (1 << 0);
+	RCC_CFGR2 |= (reg32 | prediv);
+}
+
+void rcc_set_prediv2(u32 prediv)
+{
+	u32 reg32;
+	reg32 = RCC_CFGR2;
+	reg32 &= ~(1 << 7) | (1 << 6) | (1 << 5) | (1 << 4);
+	RCC_CFGR2 |= (reg32 | (prediv << 4));
+}
+
+void rcc_set_prediv1_source(u32 rccsrc)
+{
+	RCC_CFGR2 &= ~(1 << 16);
+	RCC_CFGR2 |= (rccsrc << 16);
+}
+
+void rcc_set_mco(u32 mcosrc)
+{
+	u32 reg32;
+	reg32 = RCC_CFGR;
+	reg32 &= ~((1 << 27) | (1 << 26) | (1 << 25) | (1 << 24));
+	RCC_CFGR |= (reg32 | (mcosrc << 24));
 }
 
 /*-----------------------------------------------------------------------------*/
@@ -1019,6 +1129,63 @@ void rcc_clock_setup_in_hse_16mhz_out_72mhz(void)
 	rcc_set_pllxtpre(RCC_CFGR_PLLXTPRE_HSE_CLK_DIV2);
 
 	/* Enable PLL oscillator and wait for it to stabilize. */
+	rcc_osc_on(PLL);
+	rcc_wait_for_osc_ready(PLL);
+
+	/* Select PLL as SYSCLK source. */
+	rcc_set_sysclk_source(RCC_CFGR_SW_SYSCLKSEL_PLLCLK);
+
+	/* Set the peripheral clock frequencies used */
+	rcc_ppre1_frequency = 36000000;
+	rcc_ppre2_frequency = 72000000;
+}
+
+/*-----------------------------------------------------------------------------*/
+/** @brief RCC Set System Clock PLL at 72MHz from HSE at 25MHz
+
+*/
+
+void rcc_clock_setup_in_hse_25mhz_out_72mhz(void)
+{
+	/* Enable external high-speed oscillator 25MHz. */
+	rcc_osc_on(HSE);
+	rcc_wait_for_osc_ready(HSE);
+	rcc_set_sysclk_source(RCC_CFGR_SW_SYSCLKSEL_HSECLK);
+
+	/*
+	 * Sysclk runs with 72MHz -> 2 waitstates.
+	 * 0WS from 0-24MHz
+	 * 1WS from 24-48MHz
+	 * 2WS from 48-72MHz
+	 */
+	flash_set_ws(FLASH_LATENCY_2WS);
+
+	/*
+	 * Set prescalers for AHB, ADC, ABP1, ABP2.
+	 * Do this before touching the PLL (TODO: why?).
+	 */
+	rcc_set_hpre(RCC_CFGR_HPRE_SYSCLK_NODIV);	/* Set. 72MHz Max. 72MHz */
+	rcc_set_adcpre(RCC_CFGR_ADCPRE_PCLK2_DIV6);	/* Set. 12MHz Max. 14MHz */
+	rcc_set_ppre1(RCC_CFGR_PPRE1_HCLK_DIV2);	/* Set. 36MHz Max. 36MHz */
+	rcc_set_ppre2(RCC_CFGR_PPRE2_HCLK_NODIV);	/* Set. 72MHz Max. 72MHz */
+
+	/* Set pll2 prediv and multiplier */
+	rcc_set_prediv2(RCC_CFGR2_PREDIV2_DIV5);
+	rcc_set_pll2_multiplication_factor(RCC_CFGR2_PLL2MUL_PLL2_CLK_MUL8);
+
+	/* Enable PLL2 oscillator and wait for it to stabilize */
+	rcc_osc_on(PLL2);
+	rcc_wait_for_osc_ready(PLL2);
+
+	/* Set pll1 prediv/multiplier, prediv1 src, and usb predivider */
+	rcc_set_pllxtpre(RCC_CFGR_PLLXTPRE_HSE_CLK);
+	rcc_set_prediv1_source(RCC_CFGR2_PREDIV1SRC_PLL2_CLK);
+	rcc_set_prediv1(RCC_CFGR2_PREDIV_DIV5);
+	rcc_set_pll_multiplication_factor(RCC_CFGR_PLLMUL_PLL_CLK_MUL9);
+	rcc_set_pll_source(RCC_CFGR_PLLSRC_PREDIV1_CLK);
+	rcc_set_usbpre(RCC_CFGR_USBPRE_PLL_VCO_CLK_DIV3);
+
+	/* enable PLL1 and wait for it to stabilize */
 	rcc_osc_on(PLL);
 	rcc_wait_for_osc_ready(PLL);
 

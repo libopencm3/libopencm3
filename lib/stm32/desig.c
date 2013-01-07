@@ -35,3 +35,25 @@ void desig_get_unique_id(u32 result[])
     result[1] = bits63_32;
     result[2] = bits31_16 << 16 | bits15_0;
 }
+
+void desig_get_unique_id_as_string(char *string,
+				   unsigned int string_len)
+{
+	int i, len;
+	u8 device_id[12];
+	static const char chars[] = "0123456789ABCDEF";
+
+	desig_get_unique_id((u32 *)device_id);
+
+	/* Each byte produces two characters */
+	len = (2 * sizeof(device_id) < string_len) ?
+		2 * sizeof(device_id) : string_len - 1;
+
+	for (i = 0; i < len; i += 2) {
+		string[i]     = chars[(device_id[i / 2] >> 0) & 0x0F];
+		string[i + 1] = chars[(device_id[i / 2] >> 4) & 0x0F];
+	}
+
+	string[len] = '\0';
+}
+

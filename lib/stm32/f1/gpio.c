@@ -164,7 +164,7 @@ value cannot be ascertained from the hardware.
 */
 void gpio_primary_remap(u8 swjdisable, u32 maps)
 {
-	AFIO_MAPR = swjdisable | (maps & 0x1FFFFF);
+	AFIO_MAPR |= swjdisable | (maps & 0x1FFFFF);
 }
 
 /*-----------------------------------------------------------------------------*/
@@ -182,7 +182,7 @@ The AFIO remapping feature is used only with the STM32F10x series.
 */
 void gpio_secondary_remap(u32 maps)
 {
-	AFIO_MAPR2 = maps;
+	AFIO_MAPR2 |= maps;
 }
 
 /**@}*/

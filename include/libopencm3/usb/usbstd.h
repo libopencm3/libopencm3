@@ -223,4 +223,7 @@ struct usb_iface_assoc_descriptor {
 #define USB_DT_INTERFACE_ASSOCIATION_SIZE \
 				sizeof(struct usb_iface_assoc_descriptor)
 
+enum usb_language_id {
+	USB_LANGID_ENGLISH_US = 0x409,
+};
 #endif
