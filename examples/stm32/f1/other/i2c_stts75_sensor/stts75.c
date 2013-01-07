@@ -22,7 +22,7 @@
 
 void stts75_write_config(u32 i2c, u8 sensor)
 {
-	u32 reg32;
+	u32 reg32 __attribute__((unused));
 
 	/* Send START condition. */
 	i2c_send_start(i2c);
@@ -53,7 +53,7 @@ void stts75_write_config(u32 i2c, u8 sensor)
 
 void stts75_write_temp_os(u32 i2c, u8 sensor, u16 temp_os)
 {
-	u32 reg32;
+	u32 reg32 __attribute__((unused));
 
 	/* Send START condition. */
 	i2c_send_start(i2c);
@@ -86,7 +86,7 @@ void stts75_write_temp_os(u32 i2c, u8 sensor, u16 temp_os)
 
 void stts75_write_temp_hyst(u32 i2c, u8 sensor, u16 temp_hyst)
 {
-	u32 reg32;
+	u32 reg32 __attribute__((unused));
 
 	/* Send START condition. */
 	i2c_send_start(i2c);
@@ -119,7 +119,7 @@ void stts75_write_temp_hyst(u32 i2c, u8 sensor, u16 temp_hyst)
 
 u16 stts75_read_temperature(u32 i2c, u8 sensor)
 {
-	u32 reg32;
+	u32 reg32 __attribute__((unused));
 	u16 temperature;
 
 	/* Send START condition. */

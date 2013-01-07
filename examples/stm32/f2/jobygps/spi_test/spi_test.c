@@ -91,7 +91,7 @@ int _write(int file, char *ptr, int len)
 int main(void)
 {
 	int counter = 0;
-	volatile u16 dummy;
+	volatile u16 dummy __attribute__((unused));
 
 	clock_setup();
 	gpio_setup();
