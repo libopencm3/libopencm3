@@ -46,6 +46,7 @@ LGPL License Terms @ref lgpl_license
 
 #include <libopencm3/stm32/memorymap.h>
 #include <libopencm3/cm3/common.h>
+#include <libopencm3/stm32/l1/pwr.h>
 
 /* --- RCC registers ------------------------------------------------------- */
 
@@ -110,6 +111,8 @@ LGPL License Terms @ref lgpl_license
 #define RCC_CFGR_PLLDIV_DIV2	0x1
 #define RCC_CFGR_PLLDIV_DIV3	0x2
 #define RCC_CFGR_PLLDIV_DIV4	0x3
+#define RCC_CFGR_PLLDIV_SHIFT	22
+#define RCC_CFGR_PLLDIV_MASK	0x3
 
 /* PLLMUL: PLL multiplication factor */
 #define RCC_CFGR_PLLMUL_MUL3		0x0
@@ -121,6 +124,8 @@ LGPL License Terms @ref lgpl_license
 #define RCC_CFGR_PLLMUL_MUL24		0x6
 #define RCC_CFGR_PLLMUL_MUL32		0x7
 #define RCC_CFGR_PLLMUL_MUL48		0x8
+#define RCC_CFGR_PLLMUL_SHIFT		18
+#define RCC_CFGR_PLLMUL_MASK		0xf
 
 /* PLLSRC: PLL entry clock source */
 #define RCC_CFGR_PLLSRC_HSI_CLK		0x0
@@ -231,6 +236,7 @@ LGPL License Terms @ref lgpl_license
 #define RCC_APB1RSTR_LCDRST			(1 << 9)
 #define RCC_APB1RSTR_TIM7RST			(1 << 5)
 #define RCC_APB1RSTR_TIM6RST			(1 << 4)
+#define RCC_APB1RSTR_TIM5RST			(1 << 3)
 #define RCC_APB1RSTR_TIM4RST			(1 << 2)
 #define RCC_APB1RSTR_TIM3RST			(1 << 1)
 #define RCC_APB1RSTR_TIM2RST			(1 << 0)
@@ -348,6 +354,28 @@ LGPL License Terms @ref lgpl_license
 #define RCC_CSR_LSIRDY				(1 << 1)
 #define RCC_CSR_LSION				(1 << 0)
 
+typedef struct {
+	uint8_t pll_mul;
+	uint16_t pll_div;
+	uint8_t pll_source;
+	uint32_t flash_config;
+	uint8_t hpre;
+	uint8_t ppre1;
+	uint8_t ppre2;
+	vos_scale_t voltage_scale;
+	uint32_t apb1_frequency;
+	uint32_t apb2_frequency;
+} clock_scale_t;
+
+typedef enum {
+	CLOCK_VRANGE1_HSI_PLL_24MHZ,
+	CLOCK_VRANGE1_HSI_PLL_32MHZ,
+	CLOCK_VRANGE1_HSI_RAW_16MHZ,
+	CLOCK_VRANGE1_END
+} clock_volt_range1_t;
+
+extern const clock_scale_t clock_vrange1_config[CLOCK_VRANGE1_END];
+
 
 /* --- Variable definitions ------------------------------------------------ */
 extern u32 rcc_ppre1_frequency;
@@ -377,26 +405,16 @@ void rcc_peripheral_disable_clock(volatile u32 *reg, u32 en);
 void rcc_peripheral_reset(volatile u32 *reg, u32 reset);
 void rcc_peripheral_clear_reset(volatile u32 *reg, u32 clear_reset);
 void rcc_set_sysclk_source(u32 clk);
-void rcc_set_pll_multiplication_factor(u32 mul);
+void rcc_set_pll_configuration(u32 source, u32 multiplier, u32 divisor);
 void rcc_set_pll_source(u32 pllsrc);
-void rcc_set_pllxtpre(u32 pllxtpre);
 void rcc_set_adcpre(u32 adcpre);
 void rcc_set_ppre2(u32 ppre2);
 void rcc_set_ppre1(u32 ppre1);
 void rcc_set_hpre(u32 hpre);
 void rcc_set_usbpre(u32 usbpre);
 u32 rcc_get_system_clock_source(int i);
-void rcc_clock_setup_in_hsi_out_64mhz(void);
-void rcc_clock_setup_in_hsi_out_48mhz(void);
-
-/**
- * Maximum speed possible for F100 (Value Line) on HSI
- */
-void rcc_clock_setup_in_hsi_out_24mhz(void);
-void rcc_clock_setup_in_hse_8mhz_out_24mhz(void);
-void rcc_clock_setup_in_hse_8mhz_out_72mhz(void);
-void rcc_clock_setup_in_hse_12mhz_out_72mhz(void);
-void rcc_clock_setup_in_hse_16mhz_out_72mhz(void);
+void rcc_clock_setup_hsi(const clock_scale_t *clock);
+void rcc_clock_setup_pll(const clock_scale_t *clock);
 void rcc_backupdomain_reset(void);
 
 /**@}*/
