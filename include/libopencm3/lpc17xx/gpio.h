@@ -110,27 +110,27 @@
 
 /* GPIO interrupt register map */
 /* Interrupt enable rising edge */
-#define GPIO0_IER                       MMIO32(GPIOINTERRPUT_BASE + 0x90)
-#define GPIO2_IER                       MMIO32(GPIOINTERRPUT_BASE + 0xB0)
+#define GPIO0_IER                       MMIO32(GPIOINTERRUPT_BASE + 0x90)
+#define GPIO2_IER                       MMIO32(GPIOINTERRUPT_BASE + 0xB0)
 
 /* Interrupt enable falling edge */
-#define GPIO0_IEF                       MMIO32(GPIOINTERRPUT_BASE + 0x94)
-#define GPIO2_IEF                       MMIO32(GPIOINTERRPUT_BASE + 0xB4)
+#define GPIO0_IEF                       MMIO32(GPIOINTERRUPT_BASE + 0x94)
+#define GPIO2_IEF                       MMIO32(GPIOINTERRUPT_BASE + 0xB4)
 
 /* Interrupt status rising edge */
-#define GPIO0_ISR                       MMIO32(GPIOINTERRPUT_BASE + 0x84)
-#define GPIO2_ISR                       MMIO32(GPIOINTERRPUT_BASE + 0xA4)
+#define GPIO0_ISR                       MMIO32(GPIOINTERRUPT_BASE + 0x84)
+#define GPIO2_ISR                       MMIO32(GPIOINTERRUPT_BASE + 0xA4)
 
 /* Interrupt status falling edge */
-#define GPIO0_ISF                       MMIO32(GPIOINTERRPUT_BASE + 0x88)
-#define GPIO2_ISF                       MMIO32(GPIOINTERRPUT_BASE + 0xA8)
+#define GPIO0_ISF                       MMIO32(GPIOINTERRUPT_BASE + 0x88)
+#define GPIO2_ISF                       MMIO32(GPIOINTERRUPT_BASE + 0xA8)
 
 /* Interrupt clear */
-#define GPIO0_IC                        MMIO32(GPIOINTERRPUT_BASE + 0x8C)
-#define GPIO1_IC                        MMIO32(GPIOINTERRPUT_BASE + 0xAC)
+#define GPIO0_IC                        MMIO32(GPIOINTERRUPT_BASE + 0x8C)
+#define GPIO1_IC                        MMIO32(GPIOINTERRUPT_BASE + 0xAC)
 
 /* Overall interrupt status */
-#define GPIO_IS                         MMIO32(GPIOINTERRPUT_BASE + 0x80)
+#define GPIO_IS                         MMIO32(GPIOINTERRUPT_BASE + 0x80)
 
 BEGIN_DECLS
 
