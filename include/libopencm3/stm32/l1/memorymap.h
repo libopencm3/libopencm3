@@ -105,4 +105,9 @@
 #define DESIG_FLASH_SIZE_BASE           (INFO_BASE + 0x8004C)
 #define DESIG_UNIQUE_ID_BASE            (INFO_BASE + 0x80050)
 
+/* Make the map names match those for other families to allow commonality */
+#define SPI1_I2S_BASE       SPI1_BASE
+#define SPI2_I2S_BASE       SPI2_BASE
+#define SPI3_I2S_BASE       SPI3_BASE
+
 #endif

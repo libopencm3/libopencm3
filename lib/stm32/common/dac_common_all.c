@@ -1,8 +1,4 @@
-/** @defgroup STM32F_dac_file DAC
-
-@ingroup STM32F_files
-
-@brief <b>libopencm3 STM32Fxx Digital to Analog Converter</b>
+/** @addtogroup dac_file
 
 @version 1.0.0
 

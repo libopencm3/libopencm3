@@ -1,8 +1,4 @@
-/** @defgroup spi_file SPI
-
-@ingroup STM32F_files
-
-@brief <b>libopencm3 STM32Fxxx SPI</b>
+/** @addtogroup spi_file
 
 @version 1.0.0
 
@@ -58,15 +54,7 @@ LGPL License Terms @ref lgpl_license
  */
 
 #include <libopencm3/stm32/spi.h>
-#if defined(STM32F1)
-#       include <libopencm3/stm32/f1/rcc.h>
-#elif defined(STM32F2)
-#       include <libopencm3/stm32/f2/rcc.h>
-#elif defined(STM32F4)
-#       include <libopencm3/stm32/f4/rcc.h>
-#else
-#       error "stm32 family not defined."
-#endif
+#include <libopencm3/stm32/rcc.h>
 
 /*
  * SPI and I2S code.
@@ -103,10 +91,12 @@ void spi_reset(u32 spi_peripheral)
 		rcc_peripheral_reset(&RCC_APB1RSTR, RCC_APB1RSTR_SPI2RST);
 		rcc_peripheral_clear_reset(&RCC_APB1RSTR, RCC_APB1RSTR_SPI2RST);
 		break;
+#if defined(STM32F1) || defined(STM32F2) || defined(STM32F3) || defined(STM32F4)
 	case SPI3:
 		rcc_peripheral_reset(&RCC_APB1RSTR, RCC_APB1RSTR_SPI3RST);
 		rcc_peripheral_clear_reset(&RCC_APB1RSTR, RCC_APB1RSTR_SPI3RST);
 		break;
+#endif
 	}
 }
 

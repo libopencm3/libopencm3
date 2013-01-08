@@ -1,8 +1,4 @@
-/** @defgroup crc_file CRC
-
-@ingroup STM32F_files
-
-@brief <b>libopencm3 STM32Fxxx CRC</b>
+/** @addtogroup crc_file
 
 @version 1.0.0
 
