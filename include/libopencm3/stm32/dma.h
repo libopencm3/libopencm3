@@ -1,18 +1,4 @@
-/** @defgroup STM32F1xx_dma_defines DMA Defines
-
-@ingroup STM32F1xx_defines
-
-@brief Defined Constants and Types for the STM32F1xx DMA Controller
-
-@version 1.0.0
-
-@author @htmlonly &copy; @endhtmlonly 2010 Thomas Otto <tommi@viadmin.org>
-@author @htmlonly &copy; @endhtmlonly 2012 Ken Sarkies <ksarkies@internode.on.net>
-
-@date 30 November 2012
-
-LGPL License Terms @ref lgpl_license
- */
+/* This provides unification of code over STM32F subfamilies */
 
 /*
  * This file is part of the libopencm3 project.
@@ -31,11 +17,15 @@ LGPL License Terms @ref lgpl_license
  * along with this library.  If not, see <http://www.gnu.org/licenses/>.
  */
 
-#ifndef LIBOPENCM3_DMA_H
-#define LIBOPENCM3_DMA_H
-
-#include <libopencm3/stm32/f2/memorymap.h>
-#include <libopencm3/stm32/common/dma_common_f13.h>
-
+#if defined(STM32F1)
+#       include <libopencm3/stm32/f1/dma.h>
+#elif defined(STM32F2)
+#       include <libopencm3/stm32/f2/dma.h>
+#elif defined(STM32F4)
+#       include <libopencm3/stm32/f4/dma.h>
+/*#elif defined(STM32L1)
+#       include <libopencm3/stm32/l1/dma.h>*/
+#else
+#       error "stm32 family not defined."
 #endif
 

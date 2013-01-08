@@ -33,7 +33,7 @@ OBJS		= rcc.o gpio.o usart.o spi.o flash.o \
 		  i2c.o exti2.o pwr.o timer.o \
 		  usb.o usb_standard.o usb_control.o usb_fx07_common.o usb_f107.o \
 		  usb_f207.o adc.o dma.o \
-		  gpio_common_all.o gpio_common_f24.o
+		  gpio_common_all.o gpio_common_f24.o dma_common_f24.o
 
 VPATH += ../../usb:../:../../cm3:../common
 
