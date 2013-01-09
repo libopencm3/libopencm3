@@ -1,8 +1,4 @@
-/** @defgroup STM32F_iwdg_file IWDG
-
-@ingroup STM32F_files
-
-@brief <b>libopencm3 STM32F1xx Independent Watchdog Timer</b>
+/** @addtogroup iwdg_file
 
 @version 1.0.0
 

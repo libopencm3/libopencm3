@@ -28,12 +28,13 @@ CFLAGS		= -Os -g -Wall -Wextra -I../../../include -fno-common \
 		  -ffunction-sections -fdata-sections -MD -DSTM32F1
 # ARFLAGS	= rcsv
 ARFLAGS		= rcs
-OBJS		= rcc.o gpio.o usart.o adc.o spi.o flash.o \
-		  rtc.o i2c.o dma.o exti.o ethernet.o \
+OBJS		= rcc.o gpio.o adc.o flash.o rtc.o dma.o exti.o ethernet.o \
 		  usb_f103.o usb.o usb_control.o usb_standard.o can.o \
-		  timer.o usb_f107.o desig.o crc.o dac.o iwdg.o pwr.o \
+		  timer.o usb_f107.o desig.o pwr.o \
 		  usb_fx07_common.o \
-		  gpio_common_all.o dma_common_f13.o
+		  gpio_common_all.o dma_common_f13.o spi_common_all.o \
+		  dac_common_all.o usart_common_all.o iwdg_common_all.o \
+		  i2c_common_all.o crc_common_all.o
 
 VPATH += ../../usb:../:../../cm3:../common
 

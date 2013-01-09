@@ -1,8 +1,4 @@
-/** @defgroup i2c_file I2C
-
-@ingroup STM32F_files
-
-@brief <b>libopencm3 STM32Fxxx I2C</b>
+/** @addtogroup i2c_file
 
 @version 1.0.0
 
@@ -43,7 +39,7 @@ LGPL License Terms @ref lgpl_license
  */
 
 #include <libopencm3/stm32/i2c.h>
-#include <libopencm3/stm32/f4/rcc.h>
+#include <libopencm3/stm32/rcc.h>
 
 /**@{*/
 
