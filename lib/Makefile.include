@@ -42,7 +42,7 @@ $(SRCLIBDIR)/$(LIBNAME).ld: $(LIBNAME).ld
 	$(Q)$(CC) $(CFLAGS) -o $@ -c $<
 
 clean:
-	@printf "  CLEAN   lib/stm32/f1\n"
+	@printf "  CLEAN   lib$(subst $(shell cd $(dir $(lastword $(MAKEFILE_LIST))) && pwd),,$(shell pwd))\n"
 	$(Q)rm -f *.o *.d ../*.o ../*.d
 	$(Q)rm -f $(SRCLIBDIR)/$(LIBNAME).a
 	$(Q)rm -f $(SRCLIBDIR)/$(LIBNAME).ld
