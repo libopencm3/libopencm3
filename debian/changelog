@@ -1,4 +1,11 @@
-libopencm3 (0) unstable; urgency=low
+libopencm3 (0.0~20130110+git20bfcaeb1-1) UNRELEASED; urgency=low
+
+  * Merged current upstream state
+    - started indicating upstream revision in debian version number
+
+ -- Christian M. Amsüss <chrysn@fsfe.org>  Thu, 10 Jan 2013 11:43:09 +0100
+
+libopencm3 (0) UNRELEASED; urgency=low
 
   * First packaging attempt to see where it installs
 
