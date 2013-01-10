@@ -86,7 +86,7 @@ LGPL License Terms @ref lgpl_license
 #define RCC_CFGR_MCO_SYSCLK			0x4
 #define RCC_CFGR_MCO_HSICLK			0x5
 #define RCC_CFGR_MCO_HSECLK			0x6
-#define RCC_CFGR_RMCO_PLLCLK_DIV2		0x7
+#define RCC_CFGR_MCO_PLLCLK_DIV2		0x7
 #define RCC_CFGR_MCO_PLL2CLK			0x8 /* (**) */
 #define RCC_CFGR_MCO_PLL3CLK_DIV2		0x9 /* (**) */
 #define RCC_CFGR_MCO_XT1			0xa /* (**) */
@@ -448,6 +448,24 @@ LGPL License Terms @ref lgpl_license
 #define RCC_CFGR2_PLL2MUL_PLL2_CLK_MUL16	0xe
 #define RCC_CFGR2_PLL2MUL_PLL2_CLK_MUL20	0xf
 
+/* PREDIV: PREDIV division factor */
+#define RCC_CFGR2_PREDIV_NODIV			0x0
+#define RCC_CFGR2_PREDIV_DIV2			0x1
+#define RCC_CFGR2_PREDIV_DIV3			0x2
+#define RCC_CFGR2_PREDIV_DIV4			0x3
+#define RCC_CFGR2_PREDIV_DIV5			0x4
+#define RCC_CFGR2_PREDIV_DIV6			0x5
+#define RCC_CFGR2_PREDIV_DIV7			0x6
+#define RCC_CFGR2_PREDIV_DIV8			0x7
+#define RCC_CFGR2_PREDIV_DIV9			0x8
+#define RCC_CFGR2_PREDIV_DIV10			0x9
+#define RCC_CFGR2_PREDIV_DIV11			0xa
+#define RCC_CFGR2_PREDIV_DIV12			0xb
+#define RCC_CFGR2_PREDIV_DIV13			0xc
+#define RCC_CFGR2_PREDIV_DIV14			0xd
+#define RCC_CFGR2_PREDIV_DIV15			0xe
+#define RCC_CFGR2_PREDIV_DIV16			0xf
+
 /* PREDIV2: PREDIV2 division factor */
 #define RCC_CFGR2_PREDIV2_NODIV			0x0
 #define RCC_CFGR2_PREDIV2_DIV2			0x1
@@ -473,7 +491,7 @@ extern u32 rcc_ppre2_frequency;
 /* --- Function prototypes ------------------------------------------------- */
 
 typedef enum {
-	PLL, HSE, HSI, LSE, LSI
+	PLL, PLL2, PLL3, HSE, HSI, LSE, LSI
 } osc_t;
 
 BEGIN_DECLS
@@ -489,6 +507,7 @@ void rcc_osc_on(osc_t osc);
 void rcc_osc_off(osc_t osc);
 void rcc_css_enable(void);
 void rcc_css_disable(void);
+void rcc_set_mco(u32 mcosrc);
 void rcc_osc_bypass_enable(osc_t osc);
 void rcc_osc_bypass_disable(osc_t osc);
 void rcc_peripheral_enable_clock(volatile u32 *reg, u32 en);
@@ -497,6 +516,7 @@ void rcc_peripheral_reset(volatile u32 *reg, u32 reset);
 void rcc_peripheral_clear_reset(volatile u32 *reg, u32 clear_reset);
 void rcc_set_sysclk_source(u32 clk);
 void rcc_set_pll_multiplication_factor(u32 mul);
+void rcc_set_pll2_multiplication_factor(u32 mul);
 void rcc_set_pll_source(u32 pllsrc);
 void rcc_set_pllxtpre(u32 pllxtpre);
 void rcc_set_adcpre(u32 adcpre);
@@ -512,6 +532,7 @@ void rcc_clock_setup_in_hse_8mhz_out_24mhz(void);
 void rcc_clock_setup_in_hse_8mhz_out_72mhz(void);
 void rcc_clock_setup_in_hse_12mhz_out_72mhz(void);
 void rcc_clock_setup_in_hse_16mhz_out_72mhz(void);
+void rcc_clock_setup_in_hse_25mhz_out_72mhz(void);
 void rcc_backupdomain_reset(void);
 
 END_DECLS

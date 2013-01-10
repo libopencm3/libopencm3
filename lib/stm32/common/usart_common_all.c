@@ -1,8 +1,4 @@
-/** @defgroup STM32F1xx_usart_file USART
-
-@ingroup STM32F_files
-
-@brief <b>libopencm3 STM32F USART</b>
+/** @addtogroup usart_file
 
 @version 1.0.0
 
@@ -39,18 +35,7 @@ LGPL License Terms @ref lgpl_license
 /**@{*/
 
 #include <libopencm3/stm32/usart.h>
-
-#if defined(STM32F1)
-#	include <libopencm3/stm32/f1/rcc.h>
-#elif defined(STM32F2)
-#	include <libopencm3/stm32/f2/rcc.h>
-#elif defined(STM32F4)
-#	include <libopencm3/stm32/f4/rcc.h>
-#elif defined(STM32L1)
-#	include <libopencm3/stm32/l1/rcc.h>
-#else
-#	error "stm32 family not defined."
-#endif
+#include <libopencm3/stm32/rcc.h>
 
 /*-----------------------------------------------------------------------------*/
 /** @brief USART Set Baudrate.
@@ -400,6 +385,27 @@ void usart_disable_tx_interrupt(u32 usart)
 	USART_CR1(usart) &= ~USART_CR1_TXEIE;
 }
 
+/*-----------------------------------------------------------------------------*/
+/** @brief USART Error Interrupt Enable.
+
+@param[in] usart unsigned 32 bit. USART block register address base @ref usart_reg_base
+*/
+
+void usart_enable_error_interrupt(u32 usart)
+{
+	USART_CR3(usart) |= USART_CR3_EIE;
+}
+
+/*-----------------------------------------------------------------------------*/
+/** @brief USART Error Interrupt Disable.
+
+@param[in] usart unsigned 32 bit. USART block register address base @ref usart_reg_base
+*/
+
+void usart_disable_error_interrupt(u32 usart)
+{
+	USART_CR3(usart) &= ~USART_CR3_EIE;
+}
 
 /*---------------------------------------------------------------------------*/
 /** @brief USART Read a Status Flag.

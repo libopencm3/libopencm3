@@ -135,7 +135,9 @@ void can_setup(void)
 		     CAN_BTR_SJW_1TQ,
 		     CAN_BTR_TS1_3TQ,
 		     CAN_BTR_TS2_4TQ,
-		     12))             /* BRP+1: Baud rate prescaler */
+		     12,
+		     false,
+		     false))             /* BRP+1: Baud rate prescaler */
 	{
 		gpio_set(GPIOA, GPIO8);   /* LED1 off */
 		gpio_set(GPIOB, GPIO4);   /* LED2 off */

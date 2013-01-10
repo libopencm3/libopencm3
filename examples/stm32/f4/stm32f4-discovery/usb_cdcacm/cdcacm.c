@@ -159,7 +159,6 @@ static const struct usb_config_descriptor config = {
 };
 
 static const char *usb_strings[] = {
-	"x",
 	"Black Sphere Technologies",
 	"CDC-ACM Demo",
 	"DEMO",
@@ -233,7 +232,7 @@ int main(void)
 			GPIO9 | GPIO11 | GPIO12);
 	gpio_set_af(GPIOA, GPIO_AF10, GPIO9 | GPIO11 | GPIO12);
 
-	usbd_dev = usbd_init(&otgfs_usb_driver, &dev, &config, usb_strings);
+	usbd_dev = usbd_init(&otgfs_usb_driver, &dev, &config, usb_strings, 3);
 	usbd_register_set_config_callback(usbd_dev, cdcacm_set_config);
 
 	while (1)

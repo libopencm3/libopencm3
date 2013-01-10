@@ -106,7 +106,6 @@ const struct usb_config_descriptor config = {
 };
 
 static const char *usb_strings[] = {
-	"x",
 	"Black Sphere Technologies",
 	"DFU Demo",
 	"DEMO",
@@ -249,7 +248,9 @@ int main(void)
 	AFIO_MAPR |= AFIO_MAPR_SWJ_CFG_JTAG_OFF_SW_ON;
 	gpio_set_mode(GPIOA, GPIO_MODE_INPUT, 0, GPIO15);
 
-	usbd_dev = usbd_init(&stm32f107_usb_driver, &dev, &config, usb_strings);
+	rcc_peripheral_enable_clock(&RCC_AHBENR, RCC_AHBENR_OTGFSEN);
+
+	usbd_dev = usbd_init(&stm32f107_usb_driver, &dev, &config, usb_strings, 4);
 	usbd_set_control_buffer_size(usbd_dev, sizeof(usbd_control_buffer));
 	usbd_register_control_callback(
 				usbd_dev,

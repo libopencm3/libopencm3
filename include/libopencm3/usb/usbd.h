@@ -24,6 +24,13 @@
 
 BEGIN_DECLS
 
+
+enum usbd_request_return_codes {
+	USBD_REQ_NOTSUPP	= 0,
+	USBD_REQ_HANDLED	= 1,
+	USBD_REQ_NEXT_CALLBACK	= 2,
+};
+
 typedef struct _usbd_driver usbd_driver;
 typedef struct _usbd_device usbd_device;
 
@@ -40,9 +47,10 @@ extern u8 usbd_control_buffer[];
 
 /* <usb.c> */
 extern usbd_device *usbd_init(const usbd_driver *driver,
-		     const struct usb_device_descriptor *dev,
-                     const struct usb_config_descriptor *conf,
-		     const char **strings);
+			      const struct usb_device_descriptor *dev,
+			      const struct usb_config_descriptor *conf,
+			      const char **strings, int num_strings);
+
 extern void usbd_set_control_buffer_size(usbd_device *usbd_dev, u16 size);
 
 extern void usbd_register_reset_callback(usbd_device *usbd_dev,
