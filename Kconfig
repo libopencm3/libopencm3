@@ -1,0 +1,22 @@
+
+mainmenu "libopencm3 Configuration"
+
+choice
+	prompt "Microcontroller Family"
+
+config STM32
+	bool "STM32F1/2/3/4, L1"
+
+config LPC
+	bool "LPC13XX, LPC17XX, LPC43XX"
+
+config LM
+	bool "LM3S, LM4F"
+
+config EFM32
+	bool "EFM32TG/G/LG/GG"
+endchoice
+
+config EXAMPLES
+       bool "Build usage examples"
+
