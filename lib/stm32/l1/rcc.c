@@ -29,8 +29,7 @@
 u32 rcc_ppre1_frequency = 2097000;
 u32 rcc_ppre2_frequency = 2097000;
 
-const clock_scale_t clock_vrange1_config[CLOCK_VRANGE1_END] =
-{
+const clock_scale_t clock_vrange1_config[CLOCK_VRANGE1_END] ={
 	{ /* 24MHz PLL from HSI */
 		.pll_source = RCC_CFGR_PLLSRC_HSI_CLK,
 		.pll_mul = RCC_CFGR_PLLMUL_MUL3,
