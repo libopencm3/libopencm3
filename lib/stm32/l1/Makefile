@@ -32,6 +32,7 @@ OBJS		= rcc.o desig.o crc.o usart.o exti2.o flash.o timer.o
 OBJS +=     gpio_common_all.o gpio_common_f24.o spi_common_all.o crc_common_all.o
 OBJS +=     dac_common_all.o usart_common_all.o iwdg_common_all.o i2c_common_all.o
 OBJS +=     pwr_common_all.o pwr.o
+OBJS +=     rtc_common_bcd.o
 
 VPATH += ../../usb:../:../../cm3:../common
 
