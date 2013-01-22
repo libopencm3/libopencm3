@@ -1,3 +1,18 @@
+/** @defgroup pwr_defines PWR Defines
+
+@brief <b>Defined Constants and Types for the STM32L1xx Power Control</b>
+
+@ingroup STM32L1xx_defines
+
+@version 1.0.0
+
+@author @htmlonly &copy; @endhtmlonly 2011 Stephen Caudle <scaudle@doceme.com>
+@author @htmlonly &copy; @endhtmlonly 2012 Karl Palsson <karlp@tweak.net.au>
+
+@date 1 July 2012
+
+LGPL License Terms @ref lgpl_license
+ */
 /*
  * This file is part of the libopencm3 project.
  *
@@ -18,10 +33,11 @@
  * along with this library.  If not, see <http://www.gnu.org/licenses/>.
  */
 
-#ifndef LIBOPENCM3_PWR_L1_H
-#define LIBOPENCM3_PWR_L1_H
+#ifndef LIBOPENCM3_PWR_H
+#define LIBOPENCM3_PWR_H
 
-#include <libopencm3/stm32/pwr.h>
+#include <libopencm3/stm32/memorymap.h>
+#include <libopencm3/stm32/common/pwr_common_all.h>
 
 /*
  * This file extends the common STM32 version with definitions only
@@ -33,46 +49,51 @@
 /* Bits [31:15]: Reserved */
 
 /* LPRUN: Low power run mode */
-#define PWR_CR_LPRUN		(1 << 14)
+#define PWR_CR_LPRUN        (1 << 14)
 
 /* VOS[12:11]: Regulator voltage scaling output selection */
-#define PWR_CR_VOS_LSB		11
+#define PWR_CR_VOS_LSB			11
 /** @defgroup pwr_vos Voltage Scaling Output level selection
 @ingroup STM32F_pwr_defines
 
 @{*/
-#define PWR_CR_VOS_RANGE1	(0x1 << PWR_CR_VOS_LSB)
-#define PWR_CR_VOS_RANGE2	(0x2 << PWR_CR_VOS_LSB)
-#define PWR_CR_VOS_RANGE3	(0x3 << PWR_CR_VOS_LSB)
+#define PWR_CR_VOS_RANGE1		(0x1 << PWR_CR_VOS_LSB)
+#define PWR_CR_VOS_RANGE2		(0x2 << PWR_CR_VOS_LSB)
+#define PWR_CR_VOS_RANGE3		(0x3 << PWR_CR_VOS_LSB)
 /**@}*/
-#define PWR_CR_VOS_MASK		(0x3 << PWR_CR_VOS_LSB)
+#define PWR_CR_VOS_MASK			(0x3 << PWR_CR_VOS_LSB)
 
 /* FWU: Fast wakeup */
-#define PWR_CR_FWU		(1 << 10)
+#define PWR_CR_FWU          (1 << 10)
 
 /* ULP: Ultralow power mode */
-#define PWR_CR_ULP		(1 << 9)
+#define PWR_CR_ULP          (1 << 9)
+
+/* LPSDSR: Low-power deepsleep/sleep/low power run */
+#define PWR_CR_LPSDSR		(1 << 0)  /* masks common PWR_CR_LPDS */
 
 /* --- PWR_CSR values ------------------------------------------------------- */
 
 /* Bits [31:11]: Reserved */
 /* EWUP3: Enable WKUP3 pin */
-#define PWR_CSR_EWUP3		(1 << 10)
+#define PWR_CSR_EWUP3			(1 << 10)
 
 /* EWUP2: Enable WKUP2 pin */
-#define PWR_CSR_EWUP2		(1 << 9)
+#define PWR_CSR_EWUP2			(1 << 9)
 
 /* EWUP1: Enable WKUP1 pin */
-#define PWR_CSR_EWUP1		PWR_CSR_EWUP
+#define PWR_CSR_EWUP1			PWR_CSR_EWUP
 
 /* REGLPF : Regulator LP flag */
-#define PWR_CSR_REGLPF		(1 << 5)
+#define PWR_CSR_REGLPF          (1 << 5)
 
 /* VOSF: Voltage Scaling select flag */
-#define PWR_CSR_VOSF		(1 << 4)
+#define PWR_CSR_VOSF            (1 << 4)
 
 /* VREFINTRDYF: Internal voltage reference (VREFINT) ready flag */
 #define PWR_CSR_VREFINTRDYF	(1 << 3)
+
+
 
 /* --- Function prototypes ------------------------------------------------- */
 

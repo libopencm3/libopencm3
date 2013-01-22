@@ -46,7 +46,7 @@ LGPL License Terms @ref lgpl_license
 
 #include <libopencm3/stm32/memorymap.h>
 #include <libopencm3/cm3/common.h>
-#include <libopencm3/stm32/l1/pwr.h>
+#include <libopencm3/stm32/pwr.h>
 
 /* --- RCC registers ------------------------------------------------------- */
 

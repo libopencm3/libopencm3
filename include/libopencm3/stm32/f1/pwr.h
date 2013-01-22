@@ -1,7 +1,20 @@
+/** @defgroup pwr_defines PWR Defines
+
+@brief <b>Defined Constants and Types for the STM32F1xx PWR Control</b>
+
+@ingroup STM32F1xx_defines
+
+@version 1.0.0
+
+@author @htmlonly &copy; @endhtmlonly 2012 Ken Sarkies <ksarkies@internode.on.net>
+
+@date 5 December 2012
+
+LGPL License Terms @ref lgpl_license
+ */
+
 /*
  * This file is part of the libopencm3 project.
- *
- * Copyright (C) 2012 Karl Palsson <karlp@tweak.net.au>
  *
  * This library is free software: you can redistribute it and/or modify
  * it under the terms of the GNU Lesser General Public License as published by
@@ -17,21 +30,11 @@
  * along with this library.  If not, see <http://www.gnu.org/licenses/>.
  */
 
-#include <libopencm3/stm32/l1/pwr.h>
+#ifndef LIBOPENCM3_PWR_H
+#define LIBOPENCM3_PWR_H
 
-void pwr_set_vos_scale(vos_scale_t scale)
-{
-	PWR_CR &= ~(PWR_CR_VOS_MASK);
-	switch (scale) {
-	case RANGE1:
-		PWR_CR |= PWR_CR_VOS_RANGE1;
-		break;
-	case RANGE2:
-		PWR_CR |= PWR_CR_VOS_RANGE2;
-		break;
-	case RANGE3:
-		PWR_CR |= PWR_CR_VOS_RANGE3;
-		break;
-	}
-}
+#include <libopencm3/stm32/memorymap.h>
+#include <libopencm3/stm32/common/pwr_common_all.h>
+
+#endif
 

@@ -23,7 +23,7 @@
 
 #include <libopencm3/stm32/l1/rcc.h>
 #include <libopencm3/stm32/l1/flash.h>
-#include <libopencm3/stm32/l1/pwr.h>
+#include <libopencm3/stm32/pwr.h>
 
 /* Set the default ppre1 and ppre2 peripheral clock frequencies after reset. */
 u32 rcc_ppre1_frequency = 2097000;

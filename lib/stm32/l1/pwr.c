@@ -1,7 +1,7 @@
-/* This provides unification of code over STM32F subfamilies */
-
 /*
  * This file is part of the libopencm3 project.
+ *
+ * Copyright (C) 2012 Karl Palsson <karlp@tweak.net.au>
  *
  * This library is free software: you can redistribute it and/or modify
  * it under the terms of the GNU Lesser General Public License as published by
@@ -17,15 +17,21 @@
  * along with this library.  If not, see <http://www.gnu.org/licenses/>.
  */
 
-#if defined(STM32F1)
-#       include <libopencm3/stm32/f1/pwr.h>
-#elif defined(STM32F2)
-#       include <libopencm3/stm32/f2/pwr.h>
-#elif defined(STM32F4)
-#       include <libopencm3/stm32/f4/pwr.h>
-#elif defined(STM32L1)
-#       include <libopencm3/stm32/l1/pwr.h>
-#else
-#       error "stm32 family not defined."
-#endif
+#include <libopencm3/stm32/pwr.h>
+
+void pwr_set_vos_scale(vos_scale_t scale)
+{
+	PWR_CR &= ~(PWR_CR_VOS_MASK);
+	switch (scale) {
+	case RANGE1:
+		PWR_CR |= PWR_CR_VOS_RANGE1;
+		break;
+	case RANGE2:
+		PWR_CR |= PWR_CR_VOS_RANGE2;
+		break;
+	case RANGE3:
+		PWR_CR |= PWR_CR_VOS_RANGE3;
+		break;
+	}
+}
 
