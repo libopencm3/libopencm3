@@ -28,6 +28,16 @@ IMPORTANT: The API of the library is NOT yet considered stable! Please do
            not rely on it, yet! Changes to function names, macro names etc.
            can happen at any time without prior notice!
 
+Prerequisites
+-------------
+
+Building requires python, and a python YAML module. (Some code is generated)
+
+For Ubuntu
+ $ [sudo] apt-get install python-yaml
+
+For Fedora
+ $ [sudo] yum install PyYAML
 
 Building
 --------
