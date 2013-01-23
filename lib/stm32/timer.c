@@ -105,6 +105,10 @@ push-pull outputs where the PWM output will appear.
 #define ADVANCED_TIMERS (defined (TIM1_BASE) || defined(TIM8_BASE))
 #	include <libopencm3/stm32/f2/timer.h>
 #	include <libopencm3/stm32/f2/rcc.h>
+#elif defined(STM32F3)
+#define ADVANCED_TIMERS (defined (TIM1_BASE) || defined(TIM8_BASE))
+#	include <libopencm3/stm32/f3/timer.h>
+#	include <libopencm3/stm32/f3/rcc.h>
 #elif defined(STM32F4)
 #define ADVANCED_TIMERS (defined (TIM1_BASE) || defined(TIM8_BASE))
 #	include <libopencm3/stm32/f4/timer.h>
@@ -114,6 +118,7 @@ push-pull outputs where the PWM output will appear.
 #else
 #	error "stm32 family not defined."
 #endif
+
 
 /*---------------------------------------------------------------------------*/
 /** @brief Reset a Timer.
@@ -518,6 +523,7 @@ If several settings are to be made, use the logical OR of the output control val
 void timer_set_output_idle_state(u32 timer_peripheral, u32 outputs)
 {
 #if (defined(ADVANCED_TIMERS) && (ADVANCED_TIMERS))
+
 	if ((timer_peripheral == TIM1) || (timer_peripheral == TIM8))
     	TIM_CR2(timer_peripheral) |= outputs & TIM_CR2_OIS_MASK;
 #endif

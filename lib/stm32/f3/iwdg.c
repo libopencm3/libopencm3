@@ -1,7 +1,13 @@
+/** @defgroup iwdg_file IWDG
+
+@ingroup STM32F3xx
+
+@brief <b>libopencm3 STM32F3xx Independent Watchdog Timer</b>
+
+*/
+
 /*
  * This file is part of the libopencm3 project.
- *
- * Copyright (C) 2011 Fergus Noble <fergusnoble@gmail.com>
  *
  * This library is free software: you can redistribute it and/or modify
  * it under the terms of the GNU Lesser General Public License as published by
@@ -17,21 +23,6 @@
  * along with this library.  If not, see <http://www.gnu.org/licenses/>.
  */
 
-#ifndef LIBOPENCM3_MEMORYMAP_COMMON_H
-#define LIBOPENCM3_MEMORYMAP_COMMON_H
+#include <libopencm3/stm32/iwdg.h>
+#include <libopencm3/stm32/common/iwdg_common_all.h>
 
-#if defined(STM32F1)
-#	include <libopencm3/stm32/f1/memorymap.h>
-#elif defined(STM32F2)
-#	include <libopencm3/stm32/f2/memorymap.h>
-#elif defined(STM32F3)
-#       include <libopencm3/stm32/f3/memorymap.h>        
-#elif defined(STM32F4)
-#	include <libopencm3/stm32/f4/memorymap.h>
-#elif defined(STM32L1)
-#	include <libopencm3/stm32/l1/memorymap.h>
-#else
-#	error "stm32 family not defined."
-#endif
-
-#endif /* LIBOPENCM3_MEMORYMAP_COMMON_H */
