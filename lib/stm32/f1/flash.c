@@ -22,22 +22,22 @@
 
 void flash_prefetch_buffer_enable(void)
 {
-	FLASH_ACR |= FLASH_PRFTBE;
+	FLASH_ACR |= FLASH_ACR_PRFTBE;
 }
 
 void flash_prefetch_buffer_disable(void)
 {
-	FLASH_ACR &= ~FLASH_PRFTBE;
+	FLASH_ACR &= ~FLASH_ACR_PRFTBE;
 }
 
 void flash_halfcycle_enable(void)
 {
-	FLASH_ACR |= FLASH_HLFCYA;
+	FLASH_ACR |= FLASH_ACR_HLFCYA;
 }
 
 void flash_halfcycle_disable(void)
 {
-	FLASH_ACR &= ~FLASH_HLFCYA;
+	FLASH_ACR &= ~FLASH_ACR_HLFCYA;
 }
 
 void flash_set_ws(u32 ws)
@@ -53,33 +53,33 @@ void flash_set_ws(u32 ws)
 void flash_unlock(void)
 {
 	/* Authorize the FPEC access. */
-	FLASH_KEYR = FLASH_KEY1;
-	FLASH_KEYR = FLASH_KEY2;
+	FLASH_KEYR = FLASH_KEYR_KEY1;
+	FLASH_KEYR = FLASH_KEYR_KEY2;
 }
 
 void flash_lock(void)
 {
-	FLASH_CR |= FLASH_LOCK;
+	FLASH_CR |= FLASH_CR_LOCK;
 }
 
 void flash_clear_pgerr_flag(void)
 {
-	FLASH_SR |= FLASH_PGERR;
+	FLASH_SR |= FLASH_SR_PGERR;
 }
 
 void flash_clear_eop_flag(void)
 {
-	FLASH_SR |= FLASH_EOP;
+	FLASH_SR |= FLASH_SR_EOP;
 }
 
 void flash_clear_wrprterr_flag(void)
 {
-	FLASH_SR |= FLASH_WRPRTERR;
+	FLASH_SR |= FLASH_SR_WRPRTERR;
 }
 
 void flash_clear_bsy_flag(void)
 {
-	FLASH_SR &= ~FLASH_BSY;
+	FLASH_SR &= ~FLASH_SR_BSY;
 }
 
 void flash_clear_status_flags(void)
@@ -92,13 +92,14 @@ void flash_clear_status_flags(void)
 
 void flash_unlock_option_bytes(void)
 {
-	FLASH_OPTKEYR = FLASH_KEY1;
-	FLASH_OPTKEYR = FLASH_KEY2;
+	/* F1 uses same keys for flash and option */
+	FLASH_OPTKEYR = FLASH_KEYR_KEY1;
+	FLASH_OPTKEYR = FLASH_KEYR_KEY2;
 }
 
 void flash_wait_for_last_operation(void)
 {
-	while ((FLASH_SR & FLASH_BSY) == FLASH_BSY)
+	while ((FLASH_SR & FLASH_SR_BSY) == FLASH_SR_BSY)
 		;
 }
 
@@ -108,7 +109,7 @@ void flash_program_word(u32 address, u32 data)
 	flash_wait_for_last_operation();
 
 	/* Enable writes to flash. */
-	FLASH_CR |= FLASH_PG;
+	FLASH_CR |= FLASH_CR_PG;
 
 	/* Program the first half of the word. */
 	(*(volatile u16 *)address) = (u16)data;
@@ -123,67 +124,67 @@ void flash_program_word(u32 address, u32 data)
 	flash_wait_for_last_operation();
 
 	/* Disable writes to flash. */
-	FLASH_CR &= ~FLASH_PG;
+	FLASH_CR &= ~FLASH_CR_PG;
 }
 
 void flash_program_half_word(u32 address, u16 data)
 {
 	flash_wait_for_last_operation();
 
-	FLASH_CR |= FLASH_PG;
+	FLASH_CR |= FLASH_CR_PG;
 
 	(*(volatile u16 *)address) = data;
 
 	flash_wait_for_last_operation();
 
-	FLASH_CR &= ~FLASH_PG;		/* Disable the PG bit. */
+	FLASH_CR &= ~FLASH_CR_PG;		/* Disable the PG bit. */
 }
 
 void flash_erase_page(u32 page_address)
 {
 	flash_wait_for_last_operation();
 
-	FLASH_CR |= FLASH_PER;
+	FLASH_CR |= FLASH_CR_PER;
 	FLASH_AR = page_address;
-	FLASH_CR |= FLASH_STRT;
+	FLASH_CR |= FLASH_CR_STRT;
 
 	flash_wait_for_last_operation();
-	FLASH_CR &= ~FLASH_PER;
+	FLASH_CR &= ~FLASH_CR_PER;
 }
 
 void flash_erase_all_pages(void)
 {
 	flash_wait_for_last_operation();
 
-	FLASH_CR |= FLASH_MER;		/* Enable mass erase. */
-	FLASH_CR |= FLASH_STRT;		/* Trigger the erase. */
+	FLASH_CR |= FLASH_CR_MER;		/* Enable mass erase. */
+	FLASH_CR |= FLASH_CR_STRT;		/* Trigger the erase. */
 
 	flash_wait_for_last_operation();
-	FLASH_CR &= ~FLASH_MER;		/* Disable mass erase. */
+	FLASH_CR &= ~FLASH_CR_MER;		/* Disable mass erase. */
 }
 
 void flash_erase_option_bytes(void)
 {
 	flash_wait_for_last_operation();
 
-	if ((FLASH_CR & FLASH_OPTWRE) == 0)
+	if ((FLASH_CR & FLASH_CR_OPTWRE) == 0)
 		flash_unlock_option_bytes();
 
-	FLASH_CR |= FLASH_OPTER;	/* Enable option byte erase. */
-	FLASH_CR |= FLASH_STRT;
+	FLASH_CR |= FLASH_CR_OPTER;	/* Enable option byte erase. */
+	FLASH_CR |= FLASH_CR_STRT;
 	flash_wait_for_last_operation();
-	FLASH_CR &= ~FLASH_OPTER;	/* Disable option byte erase. */
+	FLASH_CR &= ~FLASH_CR_OPTER;	/* Disable option byte erase. */
 }
 
 void flash_program_option_bytes(u32 address, u16 data)
 {
 	flash_wait_for_last_operation();
 
-	if ((FLASH_CR & FLASH_OPTWRE) == 0)
+	if ((FLASH_CR & FLASH_CR_OPTWRE) == 0)
 		flash_unlock_option_bytes();
 
-	FLASH_CR |= FLASH_OPTPG;	/* Enable option byte programming. */
+	FLASH_CR |= FLASH_CR_OPTPG;	/* Enable option byte programming. */
 	(*(volatile u16 *)address) = data;
 	flash_wait_for_last_operation();
-	FLASH_CR &= ~FLASH_OPTPG;	/* Disable option byte programming. */
+	FLASH_CR &= ~FLASH_CR_OPTPG;	/* Disable option byte programming. */
 }
