@@ -28,42 +28,42 @@ static inline void flash_set_program_size(u32 psize)
 
 void flash_data_cache_enable(void)
 {
-	FLASH_ACR |= FLASH_DCE;
+	FLASH_ACR |= FLASH_ACR_DCE;
 }
 
 void flash_dcache_disable(void)
 {
-	FLASH_ACR &= ~FLASH_DCE;
+	FLASH_ACR &= ~FLASH_ACR_DCE;
 }
 
 void flash_icache_enable(void)
 {
-	FLASH_ACR |= FLASH_ICE;
+	FLASH_ACR |= FLASH_ACR_ICE;
 }
 
 void flash_icache_disable(void)
 {
-	FLASH_ACR &= ~FLASH_ICE;
+	FLASH_ACR &= ~FLASH_ACR_ICE;
 }
 
 void flash_prefetch_enable(void)
 {
-	FLASH_ACR |= FLASH_PRFTEN;
+	FLASH_ACR |= FLASH_ACR_PRFTEN;
 }
 
 void flash_prefetch_disable(void)
 {
-	FLASH_ACR &= ~FLASH_PRFTEN;
+	FLASH_ACR &= ~FLASH_ACR_PRFTEN;
 }
 
 void flash_dcache_reset(void)
 {
-	FLASH_ACR |= FLASH_DCRST;
+	FLASH_ACR |= FLASH_ACR_DCRST;
 }
 
 void flash_icache_reset(void)
 {
-	FLASH_ACR |= FLASH_ICRST;
+	FLASH_ACR |= FLASH_ACR_ICRST;
 }
 
 void flash_set_ws(u32 ws)
@@ -79,43 +79,43 @@ void flash_set_ws(u32 ws)
 void flash_unlock(void)
 {
 	/* Authorize the FPEC access. */
-	FLASH_KEYR = FLASH_KEY1;
-	FLASH_KEYR = FLASH_KEY2;
+	FLASH_KEYR = FLASH_KEYR_KEY1;
+	FLASH_KEYR = FLASH_KEYR_KEY2;
 }
 
 void flash_lock(void)
 {
-	FLASH_CR |= FLASH_LOCK;
+	FLASH_CR |= FLASH_CR_LOCK;
 }
 
 void flash_clear_pgserr_flag(void)
 {
-	FLASH_SR |= FLASH_PGSERR;
+	FLASH_SR |= FLASH_SR_PGSERR;
 }
 
 void flash_clear_pgperr_flag(void)
 {
-	FLASH_SR |= FLASH_PGPERR;
+	FLASH_SR |= FLASH_SR_PGPERR;
 }
 
 void flash_clear_pgaerr_flag(void)
 {
-	FLASH_SR |= FLASH_PGAERR;
+	FLASH_SR |= FLASH_SR_PGAERR;
 }
 
 void flash_clear_eop_flag(void)
 {
-	FLASH_SR |= FLASH_EOP;
+	FLASH_SR |= FLASH_SR_EOP;
 }
 
 void flash_clear_wrperr_flag(void)
 {
-	FLASH_SR |= FLASH_WRPERR;
+	FLASH_SR |= FLASH_SR_WRPERR;
 }
 
 void flash_clear_bsy_flag(void)
 {
-	FLASH_SR &= ~FLASH_BSY;
+	FLASH_SR &= ~FLASH_SR_BSY;
 }
 
 void flash_clear_status_flags(void)
@@ -130,18 +130,18 @@ void flash_clear_status_flags(void)
 
 void flash_unlock_option_bytes(void)
 {
-	FLASH_OPTKEYR = FLASH_OPTKEY1;
-	FLASH_OPTKEYR = FLASH_OPTKEY2;
+	FLASH_OPTKEYR = FLASH_OPTKEYR_KEY1;
+	FLASH_OPTKEYR = FLASH_OPTKEYR_KEY2;
 }
 
 void flash_lock_option_bytes(void)
 {
-	FLASH_OPTCR |= FLASH_OPTLOCK;
+	FLASH_OPTCR |= FLASH_OPTCR_OPTLOCK;
 }
 
 void flash_wait_for_last_operation(void)
 {
-	while ((FLASH_SR & FLASH_BSY) == FLASH_BSY)
+	while ((FLASH_SR & FLASH_SR_BSY) == FLASH_SR_BSY)
 		;
 }
 
@@ -152,7 +152,7 @@ void flash_program_double_word(u32 address, u64 data, u32 program_size)
 	flash_set_program_size(program_size);
 
 	/* Enable writes to flash. */
-	FLASH_CR |= FLASH_PG;
+	FLASH_CR |= FLASH_CR_PG;
 
 	/* Program the first half of the word. */
 	MMIO64(address) = data;
@@ -161,7 +161,7 @@ void flash_program_double_word(u32 address, u64 data, u32 program_size)
 	flash_wait_for_last_operation();
 
 	/* Disable writes to flash. */
-	FLASH_CR &= ~FLASH_PG;
+	FLASH_CR &= ~FLASH_CR_PG;
 }
 
 void flash_program_word(u32 address, u32 data, u32 program_size)
@@ -171,7 +171,7 @@ void flash_program_word(u32 address, u32 data, u32 program_size)
 	flash_set_program_size(program_size);
 
 	/* Enable writes to flash. */
-	FLASH_CR |= FLASH_PG;
+	FLASH_CR |= FLASH_CR_PG;
 
 	/* Program the first half of the word. */
 	MMIO32(address) = data;
@@ -180,7 +180,7 @@ void flash_program_word(u32 address, u32 data, u32 program_size)
 	flash_wait_for_last_operation();
 
 	/* Disable writes to flash. */
-	FLASH_CR &= ~FLASH_PG;
+	FLASH_CR &= ~FLASH_CR_PG;
 }
 
 void flash_program_half_word(u32 address, u16 data, u32 program_size)
@@ -188,13 +188,13 @@ void flash_program_half_word(u32 address, u16 data, u32 program_size)
 	flash_wait_for_last_operation();
 	flash_set_program_size(program_size);
 
-	FLASH_CR |= FLASH_PG;
+	FLASH_CR |= FLASH_CR_PG;
 
 	MMIO16(address) = data;
 
 	flash_wait_for_last_operation();
 
-	FLASH_CR &= ~FLASH_PG;		/* Disable the PG bit. */
+	FLASH_CR &= ~FLASH_CR_PG;		/* Disable the PG bit. */
 }
 
 void flash_program_byte(u32 address, u8 data, u32 program_size)
@@ -202,13 +202,13 @@ void flash_program_byte(u32 address, u8 data, u32 program_size)
 	flash_wait_for_last_operation();
 	flash_set_program_size(program_size);
 
-	FLASH_CR |= FLASH_PG;
+	FLASH_CR |= FLASH_CR_PG;
 
 	MMIO8(address) = data;
 
 	flash_wait_for_last_operation();
 
-	FLASH_CR &= ~FLASH_PG;		/* Disable the PG bit. */
+	FLASH_CR &= ~FLASH_CR_PG;		/* Disable the PG bit. */
 }
 
 void flash_erase_sector(u32 sector, u32 program_size)
@@ -218,10 +218,10 @@ void flash_erase_sector(u32 sector, u32 program_size)
 
 	FLASH_CR &= ~(((1 << 0) | (1 << 1) | (1 << 2) | (1 << 3)) << 3);
 	FLASH_CR |= sector;
-	FLASH_CR |= FLASH_STRT;
+	FLASH_CR |= FLASH_CR_STRT;
 
 	flash_wait_for_last_operation();
-	FLASH_CR &= ~FLASH_SER;
+	FLASH_CR &= ~FLASH_CR_SER;
 	FLASH_CR &= ~(((1 << 0) | (1 << 1) | (1 << 2) | (1 << 3)) << 3);
 }
 
@@ -230,21 +230,21 @@ void flash_erase_all_sectors(u32 program_size)
 	flash_wait_for_last_operation();
 	flash_set_program_size(program_size);
 
-	FLASH_CR |= FLASH_MER;		/* Enable mass erase. */
-	FLASH_CR |= FLASH_STRT;		/* Trigger the erase. */
+	FLASH_CR |= FLASH_CR_MER;		/* Enable mass erase. */
+	FLASH_CR |= FLASH_CR_STRT;		/* Trigger the erase. */
 
 	flash_wait_for_last_operation();
-	FLASH_CR &= ~FLASH_MER;		/* Disable mass erase. */
+	FLASH_CR &= ~FLASH_CR_MER;		/* Disable mass erase. */
 }
 
 void flash_program_option_bytes(u32 data)
 {
 	flash_wait_for_last_operation();
 
-	if (FLASH_OPTCR & FLASH_OPTLOCK)
+	if (FLASH_OPTCR & FLASH_OPTCR_OPTLOCK)
 		flash_unlock_option_bytes();
 
 	FLASH_OPTCR = data & ~0x3;
-	FLASH_OPTCR |= FLASH_OPTSTRT;	/* Enable option byte programming. */
+	FLASH_OPTCR |= FLASH_OPTCR_OPTSTRT;	/* Enable option byte programming. */
 	flash_wait_for_last_operation();
 }
