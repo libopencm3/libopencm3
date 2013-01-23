@@ -437,6 +437,12 @@ u32 rcc_system_clock_source(void)
 	return ((RCC_CFGR & 0x000c) >> 2);
 }
 
+void rcc_rtc_select_clock(u32 clock)
+{
+	RCC_CSR &= ~(RCC_CSR_RTCSEL_MASK << RCC_CSR_RTCSEL_SHIFT);
+	RCC_CSR |= (clock << RCC_CSR_RTCSEL_SHIFT);
+}
+
 void rcc_clock_setup_msi(const clock_scale_t *clock)
 {
 	/* Enable internal multi-speed oscillator. */

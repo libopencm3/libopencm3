@@ -444,6 +444,7 @@ void rcc_set_ppre1(u32 ppre1);
 void rcc_set_hpre(u32 hpre);
 void rcc_set_usbpre(u32 usbpre);
 u32 rcc_get_system_clock_source(int i);
+void rcc_rtc_select_clock(u32 clock);
 void rcc_clock_setup_msi(const clock_scale_t *clock);
 void rcc_clock_setup_hsi(const clock_scale_t *clock);
 void rcc_clock_setup_pll(const clock_scale_t *clock);

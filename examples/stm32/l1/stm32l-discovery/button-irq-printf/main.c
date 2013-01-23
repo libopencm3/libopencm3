@@ -22,8 +22,9 @@
 #include <unistd.h>
 #include <libopencm3/cm3/nvic.h>
 #include <libopencm3/stm32/l1/rcc.h>
-#include <libopencm3/stm32/l1/gpio.h>
+#include <libopencm3/stm32/gpio.h>
 #include <libopencm3/stm32/exti.h>
+#include <libopencm3/stm32/timer.h>
 #include <libopencm3/stm32/usart.h>
 
 #include "syscfg.h"
@@ -32,17 +33,25 @@ static struct state_t state;
 
 void clock_setup(void)
 {
+	rcc_clock_setup_pll(&clock_config[CLOCK_VRANGE1_HSI_PLL_24MHZ]);
 	/* Lots of things on all ports... */
 	rcc_peripheral_enable_clock(&RCC_AHBENR, RCC_AHBENR_GPIOAEN);
 	rcc_peripheral_enable_clock(&RCC_AHBENR, RCC_AHBENR_GPIOBEN);
 
 	/* Enable clocks for USART2. */
 	rcc_peripheral_enable_clock(&RCC_APB1ENR, RCC_APB1ENR_USART2EN);
+
+	/* And timers. */
+	rcc_peripheral_enable_clock(&RCC_APB1ENR, RCC_APB1ENR_TIM6EN);
+	rcc_peripheral_enable_clock(&RCC_APB1ENR, RCC_APB1ENR_TIM7EN);
+
 }
 
 void gpio_setup(void)
 {
+	/* green led for ticking, blue for button feedback */
 	gpio_mode_setup(LED_DISCO_GREEN_PORT, GPIO_MODE_OUTPUT, GPIO_PUPD_NONE, LED_DISCO_GREEN_PIN);
+	gpio_mode_setup(LED_DISCO_BLUE_PORT, GPIO_MODE_OUTPUT, GPIO_PUPD_NONE, LED_DISCO_BLUE_PIN);
 
 	/* Setup GPIO pins for USART2 transmit. */
 	gpio_mode_setup(GPIOA, GPIO_MODE_AF, GPIO_PUPD_NONE, GPIO2);
@@ -92,16 +101,59 @@ void BUTTON_DISCO_USER_isr(void)
 {
 	exti_reset_request(BUTTON_DISCO_USER_EXTI);
 	if (state.falling) {
+		gpio_clear(LED_DISCO_BLUE_PORT, LED_DISCO_BLUE_PIN);
 		state.falling = false;
 		exti_set_trigger(BUTTON_DISCO_USER_EXTI, EXTI_TRIGGER_RISING);
-		//        ILOG("fell: %d\n", TIM_CNT(TIM7));
-		puts("fell!\n");
+		unsigned int x = TIM_CNT(TIM7);
+		printf("held: %u ms\n", x);
 	} else {
-		puts("Rose!\n");
-		//        TIM_CNT(TIM7) = 0;
+		gpio_set(LED_DISCO_BLUE_PORT, LED_DISCO_BLUE_PIN);
+		printf("Pushed down!\n");
+		TIM_CNT(TIM7) = 0;
 		state.falling = true;
 		exti_set_trigger(BUTTON_DISCO_USER_EXTI, EXTI_TRIGGER_FALLING);
 	}
+}
+
+static volatile int t6ovf = 0;
+
+void tim6_isr(void)
+{
+	TIM_SR(TIM6) &= ~TIM_SR_UIF;
+	if (t6ovf++ > 1000) {
+		printf("TICK %d\n", state.tickcount++);
+		t6ovf = 0;
+		gpio_toggle(LED_DISCO_GREEN_PORT, LED_DISCO_GREEN_PIN);
+	}
+}
+
+/*
+ * Another ms timer, this one used to generate an overflow interrupt at 1ms
+ * It is used to toggle leds and write tick counts
+ */
+void setup_tim6(void)
+{
+	timer_reset(TIM6);
+	// 24Mhz / 10khz -1.
+	timer_set_prescaler(TIM6, 2399); // 24Mhz/10000hz - 1
+	// 10khz for 10 ticks = 1 khz overflow = 1ms overflow interrupts
+	timer_set_period(TIM6, 10);
+
+	nvic_enable_irq(NVIC_TIM6_IRQ);
+	timer_enable_update_event(TIM6); // default at reset!
+	timer_enable_irq(TIM6, TIM_DIER_UIE);
+	timer_enable_counter(TIM6);
+}
+
+/*
+ * Free running ms timer.
+ */
+void setup_tim7(void)
+{
+	timer_reset(TIM7);
+	timer_set_prescaler(TIM7, 23999); // 24Mhz/1000hz - 1
+	timer_set_period(TIM7, 0xffff);
+	timer_enable_counter(TIM7);
 }
 
 void setup_buttons(void)
@@ -120,19 +172,15 @@ void setup_buttons(void)
 
 int main(void)
 {
-	int i;
-	int j = 0;
 	clock_setup();
 	gpio_setup();
 	usart_setup();
-	puts("hi guys!\n");
+	printf("hi guys!\n");
 	setup_buttons();
+	setup_tim6();
+	setup_tim7();
 	while (1) {
-		puts("tick:");
-		putchar('a' + (j++ % 26));
-		gpio_toggle(GPIOB, GPIO7); /* LED on/off */
-		for (i = 0; i < 100000; i++) /* Wait a bit. */
-			__asm__("NOP");
+		;
 	}
 
 	return 0;
