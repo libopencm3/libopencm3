@@ -178,13 +178,13 @@ void gpio_set_af(u32 gpioport, u8 alt_func_num, u16 gpios)
 		if (!((1 << i) & gpios))
 			continue;
 		afrl &= ~GPIO_AFR_MASK(i);
-		afrh |= GPIO_AFR(i, alt_func_num);
+		afrl |= GPIO_AFR(i, alt_func_num);
 	}
 
 	for (i = 8; i < 16; i++) {
 		if (!((1 << i) & gpios))
 			continue;
-		afrl &= ~GPIO_AFR_MASK(i - 8);
+		afrh &= ~GPIO_AFR_MASK(i - 8);
 		afrh |= GPIO_AFR(i - 8, alt_func_num);
 	}
 
