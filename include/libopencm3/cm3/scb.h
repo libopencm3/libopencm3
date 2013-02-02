@@ -382,8 +382,8 @@ struct scb_exception_stack_frame {
 			      : [frameptr]"=r" (f));			\
 	} while (0)
 
-void scb_reset_core(void);
-void scb_reset_system(void);
+void scb_reset_core(void) __attribute__((noreturn, naked));
+void scb_reset_system(void) __attribute__((noreturn, naked));
 void scb_set_priority_grouping(u32 prigroup);
 
 /* TODO: */

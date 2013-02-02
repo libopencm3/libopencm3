@@ -17,16 +17,22 @@
  * along with this library.  If not, see <http://www.gnu.org/licenses/>.
  */
 
+#include <stdlib.h>
+
 #include <libopencm3/cm3/scb.h>
 
 void scb_reset_core(void)
 {
 	SCB_AIRCR = SCB_AIRCR_VECTKEY | SCB_AIRCR_VECTRESET;
+
+	exit(1);
 }
 
 void scb_reset_system(void)
 {
 	SCB_AIRCR = SCB_AIRCR_VECTKEY | SCB_AIRCR_SYSRESETREQ;
+
+	exit(1);
 }
 
 void scb_set_priority_grouping(u32 prigroup)
