@@ -55,9 +55,7 @@ The channel is disabled and configuration registers are cleared.
 
 void dma_channel_reset(u32 dma, u8 channel)
 {
-	/* Disable channel. */
-	DMA_CCR(dma, channel) &= ~DMA_CCR_EN;
-	/* Reset config bits. */
+	/* Disable channel and reset config bits. */
 	DMA_CCR(dma, channel) = 0;
 	/* Reset data transfer number. */
 	DMA_CNDTR(dma, channel) = 0;
