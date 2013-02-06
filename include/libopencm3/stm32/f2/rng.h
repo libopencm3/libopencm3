@@ -18,7 +18,7 @@
 #ifndef LIBOPENCM3_RNG_F2_H
 #define LIBOPENCM3_RNG_F2_H
 
-#include <libopencm3/stm32/f2/memorymap.h>
+#include <libopencm3/stm32/memorymap.h>
 #include <libopencm3/stm32/common/rng_common_f24.h>
 
 #endif
