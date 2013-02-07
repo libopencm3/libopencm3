@@ -51,17 +51,5 @@
 #define PWR_CSR_SBF			(1 << 1)
 #define PWR_CSR_WUF			(1 << 0)
 
-/* --- Function prototypes ------------------------------------------------- */
-
-typedef enum {
-	SCALE1,
-	SCALE2,
-} vos_scale_t;
-
-BEGIN_DECLS
-
-//void pwr_set_pvd();
-
-END_DECLS
 
 #endif

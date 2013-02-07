@@ -17,7 +17,7 @@
 ## along with this library.  If not, see <http://www.gnu.org/licenses/>.
 ##
 
-BINARY = fastblink
+BINARY = mandel-usart
 
 LDSCRIPT = ../stm32f3-discovery.ld
 

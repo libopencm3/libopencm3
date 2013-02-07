@@ -2,9 +2,10 @@
  * This file is part of the libopencm3 project.
  *
  * Copyright (C) 2009 Uwe Hermann <uwe@hermann-uwe.de>
- * Copyright (C) 2011 Stephen Caudle <scaudle@doceme.com>\
+ * Copyright (C) 2011 Stephen Caudle <scaudle@doceme.com>
+ * Copyright (C) 2012 Daniel Serpell <daniel.serpell@gmail.com>
  * Modified by Fernando Cortes <fermando.corcam@gmail.com>
- * modified by Guillermo Rivera <memogrg@gmail.com>
+ * Modified by Guillermo Rivera <memogrg@gmail.com>
  *
  * This library is free software: you can redistribute it and/or modify
  * it under the terms of the GNU Lesser General Public License as published by
@@ -21,11 +22,14 @@
  */
 
 #include <libopencm3/stm32/f3/rcc.h>
-#include <libopencm3/stm32/f3/gpio.h>
+#include <libopencm3/stm32/gpio.h>
 #include <libopencm3/stm32/f3/usart.h>
 
 void clock_setup(void)
 {
+	/* Enable high-speed clock at 64MHz */
+	rcc_clock_setup_hsi(&hsi_8mhz[CLOCK_64MHZ]);
+
 	/* Enable GPIOD clock for LED & USARTs. */
 	rcc_peripheral_enable_clock(&RCC_AHBENR, RCC_AHBENR_IOPEEN);
 	rcc_peripheral_enable_clock(&RCC_AHBENR, RCC_AHBENR_IOPAEN);
@@ -60,25 +64,66 @@ void gpio_setup(void)
 	gpio_set_af(GPIOA, GPIO_AF7, GPIO2);
 }
 
+/* Maximum number of iterations for the escape-time calculation */
+#define maxIter 32
+/* This array converts the iteration count to a character representation. */
+static char color[maxIter+1] = " .:++xxXXX%%%%%%################";
+
+/* Main mandelbrot calculation */
+static int iterate(float px, float py)
+{
+	int it=0;
+	float x=0,y=0;
+	while(it<maxIter)
+	{
+		float nx = x*x;
+		float ny = y*y;
+		if( (nx + ny) > 4 )
+			return it;
+		// Zn+1 = Zn^2 + P
+		y = 2*x*y + py;
+		x = nx - ny + px;
+		it++;
+	}
+	return 0;
+}
+
+static void mandel(float cX, float cY, float scale)
+{
+	int x,y;
+	for(x=-60;x<60;x++)
+	{
+		for(y=-50;y<50;y++)
+		{
+			int i = iterate(cX+x*scale, cY+y*scale);
+			usart_send_blocking(USART2, color[i]);
+		}
+		usart_send_blocking(USART2, '\r');
+		usart_send_blocking(USART2, '\n');
+	}
+}
+
 int main(void)
 {
-	int i, j = 0, c = 0;
+	float scale = 0.25f, centerX = -0.5f, centerY = 0.0f;
+	int i;
 
 	clock_setup();
 	gpio_setup();
 	usart_setup();
 
-	/* Blink the LED (PD12) on the board with every transmitted byte. */
 	while (1) {
+		/* Blink the LED (PD12) on the board with each fractal drawn. */
 		gpio_toggle(GPIOE, GPIO12);	/* LED on/off */
-		usart_send_blocking(USART2, c + '0'); /* USART2: Send byte. */
-		c = (c == 9) ? 0 : c + 1;	/* Increment c. */
-		if ((j++ % 80) == 0) {		/* Newline after line full. */
-			usart_send_blocking(USART2, '\r');
-			usart_send_blocking(USART2, '\n');
-		}
-		for (i = 0; i < 3000000; i++)	/* Wait a bit. */
-			__asm__("nop");
+		mandel(centerX,centerY,scale);	/* draw mandelbrot */
+
+		/* Change scale and center */
+		centerX += 0.175f * scale;
+		centerY += 0.522f * scale;
+		scale	*= 0.875f;
+
+		usart_send_blocking(USART2, '\r');
+		usart_send_blocking(USART2, '\n');
 	}
 
 	return 0;

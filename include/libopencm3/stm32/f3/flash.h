@@ -95,8 +95,6 @@
 
 #define FLASH_KEY1			((u32)0x45670123)
 #define FLASH_KEY2			((u32)0xcdef89ab)
-//#define FLASH_OPTKEY1			((u32)0x08192a3b)
-//#define FLASH_OPTKEY2			((u32)0x4c5d6e7f)
 
 /* --- Function prototypes ------------------------------------------------- */
 
@@ -109,8 +107,6 @@ void flash_clear_pgperr_flag(void);
 void flash_clear_eop_flag(void);
 void flash_clear_bsy_flag(void);
 void flash_clear_status_flags(void);
-//void flash_unlock_option_bytes(void);
-//void flash_lock_option_bytes(void);
 void flash_erase_all_pages(u32 program_size);
 void flash_erase_page(u32 page, u32 program_size);
 void flash_program_double_word(u32 address, u64 data, u32 program_size);

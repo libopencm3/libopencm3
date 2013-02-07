@@ -125,11 +125,23 @@
 /** @defgroup spi_dff SPI data frame format
 @ingroup spi_defines
 
+
 @{*/
+#if defined(STM32F3)
+
+#define SPI_CR1_CRCL_8BIT		(0 << 11)
+#define SPI_CR1_CRCL_16BIT		(1 << 11)
+/**@}*/
+#define SPI_CR1_CRCL			(1 << 11)
+
+#elif !defined(STM32F3)
+
 #define SPI_CR1_DFF_8BIT		(0 << 11)
 #define SPI_CR1_DFF_16BIT		(1 << 11)
 /**@}*/
 #define SPI_CR1_DFF			(1 << 11)
+
+#endif
 
 /* RXONLY: Receive only */
 #define SPI_CR1_RXONLY			(1 << 10)
@@ -212,6 +224,39 @@
 
 /* Bits [15:8]: Reserved. Forced to 0 by hardware. */
 
+#if defined(STM32F3)
+
+/* LDMA_TX: Last DMA transfer for transmission */
+#define SPI_CR2_LDMA_TX			(1 << 14)
+
+/* LDMA_RX: Last DMA transfer for reception */
+#define SPI_CR2_LDMA_RX			(1 << 13)
+
+/* FRXTH: FIFO reception threshold */
+#define SPI_CR2_FRXTH			(1 << 12)
+
+/* DS [3:0]: Data size */
+// 0x0 - 0x2 NOT USED
+#define SPI_CR2_DS_4BIT			(0x3 << 8)
+#define SPI_CR2_DS_5BIT			(0x4 << 8)
+#define SPI_CR2_DS_6BIT			(0x5 << 8)
+#define SPI_CR2_DS_7BIT			(0x6 << 8)
+#define SPI_CR2_DS_8BIT			(0x7 << 8)
+#define SPI_CR2_DS_9BIT			(0x8 << 8)
+#define SPI_CR2_DS_10BIT		(0x9 << 8)
+#define SPI_CR2_DS_11BIT		(0xA << 8)
+#define SPI_CR2_DS_12BIT		(0xB << 8)
+#define SPI_CR2_DS_13BIT		(0xC << 8)
+#define SPI_CR2_DS_14BIT		(0xD << 8)
+#define SPI_CR2_DS_15BIT		(0xE << 8)
+#define SPI_CR2_DS_16BIT		(0xF << 8)
+
+
+/* NSSP: NSS pulse management */
+#define SPI_CR2_NSSP			(1 << 3)
+
+#endif
+
 /* TXEIE: Tx buffer empty interrupt enable */
 #define SPI_CR2_TXEIE			(1 << 7)
 
@@ -236,6 +281,22 @@
 /* --- SPI_SR values ------------------------------------------------------- */
 
 /* Bits [15:8]: Reserved. Forced to 0 by hardware. */
+
+#if defined(STM32F3)
+
+/* FTLVL[1:0]: FIFO Transmission Level */
+#define SPI_SR_FTLVL_FIFO_EMPTY		(0x0 << 11)
+#define SPI_SR_FTLVL_QUARTER_FIFO	(0x1 << 11)
+#define SPI_SR_FTLVL_HALF_FIFO		(0x2 << 11)
+#define SPI_SR_FTLVL_FIFO_FULL		(0x3 << 11)
+
+/* FRLVL[1:0]: FIFO Reception Level */
+#define SPI_SR_FRLVL_FIFO_EMPTY		(0x0 << 9)
+#define SPI_SR_FRLVL_QUARTER_FIFO	(0x1 << 9)
+#define SPI_SR_FRLVL_HALF_FIFO		(0x2 << 9)
+#define SPI_SR_FRLVL_FIFO_FULL		(0x3 << 9)
+
+#endif
 
 /* BSY: Busy flag */
 #define SPI_SR_BSY			(1 << 7)

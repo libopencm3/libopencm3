@@ -21,17 +21,17 @@
  */
 
 #include <libopencm3/stm32/f3/rcc.h>
-#include <libopencm3/stm32/f3/gpio.h>
+#include <libopencm3/stm32/gpio.h>
 
 void gpio_setup(void)
 {
-	/* Enable GPIOD clock. */
+	/* Enable GPIOE clock. */
 	/* Manually: */
 	// RCC_AHB1ENR |= RCC_AHB1ENR_IOPDEN;
 	/* Using API functions: */
 	rcc_peripheral_enable_clock(&RCC_AHBENR, RCC_AHBENR_IOPEEN);
 
-	/* Set GPIO12 (in GPIO port D) to 'output push-pull'. */
+	/* Set GPIO12 (in GPIO port E) to 'output push-pull'. */
 	/* Manually: */
 	//GPIOE_CRH = (GPIO_CNF_OUTPUT_PUSHPULL << (((8 - 8) * 4) + 2));
 	//GPIOE_CRH |= (GPIO_MODE_OUTPUT_2_MHZ << ((8 - 8) * 4));
@@ -41,7 +41,7 @@ void gpio_setup(void)
 
 int main(void)
 {
-  int i, j;
+	int i, j;
 
 	gpio_setup();
 

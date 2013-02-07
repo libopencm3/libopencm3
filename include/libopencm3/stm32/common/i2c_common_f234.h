@@ -21,15 +21,19 @@
 
 /* THIS FILE SHOULD NOT BE INCLUDED DIRECTLY, BUT ONLY VIA I2C.H */
 
-#ifndef LIBOPENCM3_I2C_COMMON_F24_H
-#define LIBOPENCM3_I2C_COMMON_F24_H
+#ifndef LIBOPENCM3_I2C_COMMON_F234_H
+#define LIBOPENCM3_I2C_COMMON_F234_H
 
 #include <libopencm3/stm32/common/i2c_common_all.h>
 
 /**@{*/
 
+#if !defined (STM32F3)
+
 #define I2C3				I2C3_BASE
 
 /**@}*/
+
+#endif
 
 #endif

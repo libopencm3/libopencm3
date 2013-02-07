@@ -97,7 +97,7 @@
 
 /* PPRE2: APB high-speed prescaler (APB2) */
 #define RCC_CFGR_PPRE2_SHIFT			11
-// 0XX
+// 0XX: HCLK not divided 
 #define RCC_CFGR_PPRE2_DIV_NONE            0x0
 
 #define RCC_CFGR_PPRE2_DIV_2               0x4
@@ -107,7 +107,7 @@
 
 /* PPRE1:APB Low-speed prescaler (APB1) */ 
 #define RCC_CFGR_PPRE1_SHIFT			8	
-// 0XX
+// 0XX: HCLK not divided
 #define RCC_CFGR_PPRE1_DIV_NONE            0x0
 #define RCC_CFGR_PPRE1_DIV_2               0x4
 #define RCC_CFGR_PPRE1_DIV_4               0x5
@@ -116,7 +116,7 @@
 
 /* HPRE: HLCK prescaler */
 #define RCC_CFGR_HPRE_SHIFT                     4
-// 0XXX
+// 0XXX: SYSCLK not divided  
 #define RCC_CFGR_HPRE_DIV_NONE  	         0x0
 #define RCC_CFGR_HPRE_DIV_2     	         0x8
 #define RCC_CFGR_HPRE_DIV_4     	         0x9
@@ -421,11 +421,8 @@ void rcc_set_pll_source(u32 pllsrc);
 void rcc_set_ppre2(u32 ppre2);
 void rcc_set_ppre1(u32 ppre1);
 void rcc_set_hpre(u32 hpre);
-//void rcc_set_rtcpre(u32 rtcpre);
 void rcc_set_main_pll_hsi(u32 pll);
-void rcc_set_main_pll_hse(u32 pllm, u32 plln, u32 pllp, u32 pllq);
 u32 rcc_get_system_clock_source(int i);
-void rcc_clock_setup_hse_3v3(const clock_scale_t *clock);
 void rcc_backupdomain_reset(void);
 
 END_DECLS

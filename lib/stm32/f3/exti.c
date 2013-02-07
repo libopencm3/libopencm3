@@ -2,8 +2,6 @@
  * This file is part of the libopencm3 project.
  *
  * Copyright (C) 2010 Mark Butler <mbutler@physics.otago.ac.nz>
- * Modified by 2013 Fernando Cortes <fernando.corcam@gmail.com>
- * Modified by 2013 Guillermo Rivera <memogrg@gmail.com>
  *
  * This library is free software: you can redistribute it and/or modify
  * it under the terms of the GNU Lesser General Public License as published by
@@ -19,9 +17,9 @@
  * along with this library.  If not, see <http://www.gnu.org/licenses/>.
  */
 
-#include <libopencm3/stm32/f3/exti.h>
+#include <libopencm3/stm32/exti.h>
 #include <libopencm3/stm32/f3/syscfg.h>
-#include <libopencm3/stm32/f3/gpio.h>
+#include <libopencm3/stm32/gpio.h>
 
 void exti_set_trigger(u32 extis, exti_trigger_type trig)
 {

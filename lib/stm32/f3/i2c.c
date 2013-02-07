@@ -157,34 +157,6 @@ void i2c_set_own_10bit_slave_address(u32 i2c, u16 slave)
 }
 
 /*-----------------------------------------------------------------------------*/
-/** @brief I2C Set Fast Mode.
-
-Set the clock frequency to the high clock rate mode (up to 400kHz). The actual
-clock frequency must be set with @ref i2c_set_clock_frequency
-
-@param[in] i2c Unsigned int32. I2C register base address @ref i2c_reg_base.
-*/
-
-/*void i2c_set_fast_mode(u32 i2c)
-{
-	I2C_CCR(i2c) |= I2C_CCR_FS;
-}*/
-
-/*-----------------------------------------------------------------------------*/
-/** @brief I2C Set Standard Mode.
-
-Set the clock frequency to the standard clock rate mode (up to 100kHz). The actual
-clock frequency must be set with @ref i2c_set_clock_frequency
-
-@param[in] i2c Unsigned int32. I2C register base address @ref i2c_reg_base.
-*/
-
-/*void i2c_set_standard_mode(u32 i2c)
-{
-	I2C_CCR(i2c) &= ~I2C_CCR_FS;
-}*/
-
-/*-----------------------------------------------------------------------------*/
 /** @brief I2C Set Peripheral Clock Frequency.
 
 Set the peripheral clock frequency: 2MHz to 36MHz (the APB frequency). Note that
@@ -203,59 +175,6 @@ void i2c_set_clock_frequency(u32 i2c, u8 freq)
 	I2C_CR2(i2c) = reg16;
 }
 
-/*-----------------------------------------------------------------------------*/
-/** @brief I2C Set Bus Clock Frequency.
-
-Set the bus clock frequency. This is a 12 bit number (0...4095) calculated
-from the formulae given in the STM32F1 reference manual in the description
-of the CCR field. It is a divisor of the peripheral clock frequency
-@ref i2c_set_clock_frequency modified by the fast mode setting
-@ref i2c_set_fast_mode
-
-@todo provide additional API assitance to set the clock, eg macros
-
-@param[in] i2c Unsigned int32. I2C register base address @ref i2c_reg_base.
-@param[in] freq Unsigned int16. Bus Clock Frequency Setting 0...4095.
-*/
-
-/*void i2c_set_ccr(u32 i2c, u16 freq)
-{
-	u16 reg16;
-	reg16 = I2C_CCR(i2c) & 0xf000; // Clear bits [11:0]. 
-	reg16 |= freq;
-	I2C_CCR(i2c) = reg16;
-}*/
-
-/*-----------------------------------------------------------------------------*/
-/** @brief I2C Set the Rise Time.
-
-Set the maximum rise time on the bus according to the I2C specification, as 1
-more than the specified rise time in peripheral clock cycles. This is a 6 bit
-number.
-
-@todo provide additional APIP assistance.
-
-@param[in] i2c Unsigned int32. I2C register base address @ref i2c_reg_base.
-@param[in] trise Unsigned int16. Rise Time Setting 0...63.
-*/
-
-/*void i2c_set_trise(u32 i2c, u16 trise)
-{
-	I2C_TRISE(i2c) = trise;
-}*/
-
-/*-----------------------------------------------------------------------------*/
-/** @brief I2C Send the 7-bit Slave Address.
-
-@param[in] i2c Unsigned int32. I2C register base address @ref i2c_reg_base.
-@param[in] slave Unsigned int16. Slave address 0...1023.
-@param[in] readwrite Unsigned int8. Single bit to instruct slave to receive or send @ref i2c_rw.
-*/
-
-/*void i2c_send_7bit_address(u32 i2c, u8 slave, u8 readwrite)
-{
-	I2C_DR(i2c) = (u8)((slave << 1) | readwrite);
-}*/
 
 /*-----------------------------------------------------------------------------*/
 /** @brief I2C Send Data.
@@ -264,10 +183,10 @@ number.
 @param[in] data Unsigned int8. Byte to send.
 */
 
-/*void i2c_send_data(u32 i2c, u8 data)
+void i2c_send_data(u32 i2c, u8 data)
 {
-	I2C_DR(i2c) = data;
-}*/
+	I2C_TXDR(i2c) = data;
+}
 
 /**@}*/
 

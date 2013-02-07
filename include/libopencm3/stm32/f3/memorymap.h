@@ -27,7 +27,7 @@
 /* --- STM32F3 specific peripheral definitions ----------------------------- */
 
 /* Memory map for all busses */
-#define PERIPH_BASE				0x40000000
+#define PERIPH_BASE			0x40000000
 #define PERIPH_BASE_APB1		(PERIPH_BASE + 0x00000)
 #define PERIPH_BASE_APB2		(PERIPH_BASE + 0x10000)
 #define PERIPH_BASE_AHB1		(PERIPH_BASE + 0x20000)
@@ -48,8 +48,8 @@
 #define WWDG_BASE			(PERIPH_BASE_APB1 + 0x2c00)
 #define IWWDG_BASE			(PERIPH_BASE_APB1 + 0x3000)
 #define I2S2_EXT_BASE			(PERIPH_BASE_APB1 + 0x3400)
-#define SPI2_I2S2_BASE			(PERIPH_BASE_APB1 + 0x3800)
-#define SPI3_I2S3_BASE			(PERIPH_BASE_APB1 + 0x3c00)
+#define SPI2_I2S_BASE			(PERIPH_BASE_APB1 + 0x3800)
+#define SPI3_I2S_BASE			(PERIPH_BASE_APB1 + 0x3c00)
 #define I2S3_EXT_BASE			(PERIPH_BASE_APB1 + 0x4000)
 #define USART2_BASE			(PERIPH_BASE_APB1 + 0x4400)
 #define USART3_BASE			(PERIPH_BASE_APB1 + 0x4800)
@@ -112,12 +112,6 @@
 #define ADC2_BASE			(PERIPH_BASE_AHB3 + 0x0000)
 
 /* PPIB */
-// #define DBGMCU_BASE			(PPBI_BASE + 0x00042000)
-
-// #define SRAM_BASE			(PPBI_BASE + 0x20000000)
-// #define OPTION_BYTES_BASE	(PPBI_BASE + 0x1FFFF800)
-// #define SYSTEM_MEMORY_BASE	(PPBI_BASE + 0x1FFFD800)
-// #define CCM_RAM_BASE			(PPBI_BASE + 0x10000000)
-
+#define DBGMCU_BASE			(PPBI_BASE + 0x00042000)
 
 #endif

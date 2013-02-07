@@ -70,16 +70,6 @@ void flash_clear_status_flags(void)
 	flash_clear_bsy_flag();
 }
 
-/*void flash_unlock_option_bytes(void)
-{
-	FLASH_OPTKEYR = FLASH_OPTKEY1;
-	FLASH_OPTKEYR = FLASH_OPTKEY2;
-}
-
-void flash_lock_option_bytes(void)
-{
-	FLASH_OPTCR |= FLASH_OPTLOCK;
-}*/
 
 void flash_wait_for_last_operation(void)
 {
@@ -164,7 +154,7 @@ void flash_erase_page(u32 page, u32 program_size)
 	FLASH_CR |= FLASH_STRT;
 
 	flash_wait_for_last_operation();
-	//FLASH_CR &= ~FLASH_SER;
+	FLASH_CR &= ~FLASH_PER;
 	FLASH_CR &= ~(((1 << 0) | (1 << 1) | (1 << 2) | (1 << 3)) << 3);
 }
 
@@ -180,15 +170,5 @@ void flash_erase_all_pages(u32 program_size)
 	FLASH_CR &= ~FLASH_MER;		/* Disable mass erase. */
 }
 
-//void flash_program_option_bytes(u32 data)
-//{
-//	flash_wait_for_last_operation();
-//
-//	if (FLASH_OPTCR & FLASH_OPTLOCK)
-//		flash_unlock_option_bytes();
-//
-//	FLASH_OPTCR = data & ~0x3;
-//	FLASH_OPTCR |= FLASH_OPTSTRT;	/* Enable option byte programming. */
-//	flash_wait_for_last_operation();
-//}
+
 

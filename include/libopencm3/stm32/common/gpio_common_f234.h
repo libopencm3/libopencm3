@@ -21,8 +21,8 @@
 
 /* THIS FILE SHOULD NOT BE INCLUDED DIRECTLY, BUT ONLY VIA GPIO.H */
 
-#ifndef LIBOPENCM3_GPIO_COMMON_F24_H
-#define LIBOPENCM3_GPIO_COMMON_F24_H
+#ifndef LIBOPENCM3_GPIO_COMMON_F234_H
+#define LIBOPENCM3_GPIO_COMMON_F234_H
 
 /**@{*/
 
@@ -39,9 +39,14 @@
 #define GPIOD				GPIO_PORT_D_BASE
 #define GPIOE				GPIO_PORT_E_BASE
 #define GPIOF				GPIO_PORT_F_BASE
+
+#if !defined (STM32F3)
+
 #define GPIOG				GPIO_PORT_G_BASE
 #define GPIOH				GPIO_PORT_H_BASE
 #define GPIOI				GPIO_PORT_I_BASE
+
+#endif
 /**@}*/
 
 /* --- GPIO registers for STM32F2 and STM32F4 --------------------------- */
@@ -54,9 +59,14 @@
 #define GPIOD_MODER			GPIO_MODER(GPIOD)
 #define GPIOE_MODER			GPIO_MODER(GPIOE)
 #define GPIOF_MODER			GPIO_MODER(GPIOF)
+
+#if !defined (STM32F3)
+
 #define GPIOG_MODER			GPIO_MODER(GPIOG)
 #define GPIOH_MODER			GPIO_MODER(GPIOH)
 #define GPIOI_MODER			GPIO_MODER(GPIOI)
+
+#endif
 
 /* Port output type register (GPIOx_OTYPER) */
 #define GPIO_OTYPER(port)		MMIO32(port + 0x04)
@@ -66,9 +76,14 @@
 #define GPIOD_OTYPER			GPIO_OTYPER(GPIOD)
 #define GPIOE_OTYPER			GPIO_OTYPER(GPIOE)
 #define GPIOF_OTYPER			GPIO_OTYPER(GPIOF)
+
+#if !defined (STM32F3)
+
 #define GPIOG_OTYPER			GPIO_OTYPER(GPIOG)
 #define GPIOH_OTYPER			GPIO_OTYPER(GPIOH)
 #define GPIOI_OTYPER			GPIO_OTYPER(GPIOI)
+
+#endif
 
 /* Port output speed register (GPIOx_OSPEEDR) */
 #define GPIO_OSPEEDR(port)		MMIO32(port + 0x08)
@@ -78,9 +93,15 @@
 #define GPIOD_OSPEEDR			GPIO_OSPEEDR(GPIOD)
 #define GPIOE_OSPEEDR			GPIO_OSPEEDR(GPIOE)
 #define GPIOF_OSPEEDR			GPIO_OSPEEDR(GPIOF)
+
+#if !defined (STM32F3)
+
 #define GPIOG_OSPEEDR			GPIO_OSPEEDR(GPIOG)
 #define GPIOH_OSPEEDR			GPIO_OSPEEDR(GPIOH)
 #define GPIOI_OSPEEDR			GPIO_OSPEEDR(GPIOI)
+
+#endif 
+
 
 /* Port pull-up/pull-down register (GPIOx_PUPDR) */
 #define GPIO_PUPDR(port)		MMIO32(port + 0x0c)
@@ -90,9 +111,14 @@
 #define GPIOD_PUPDR			GPIO_PUPDR(GPIOD)
 #define GPIOE_PUPDR			GPIO_PUPDR(GPIOE)
 #define GPIOF_PUPDR			GPIO_PUPDR(GPIOF)
+
+#if !defined (STM32F3)
+
 #define GPIOG_PUPDR			GPIO_PUPDR(GPIOG)
 #define GPIOH_PUPDR			GPIO_PUPDR(GPIOH)
 #define GPIOI_PUPDR			GPIO_PUPDR(GPIOI)
+
+#endif
 
 /* Port input data register (GPIOx_IDR) */
 #define GPIO_IDR(port)			MMIO32(port + 0x10)
@@ -102,9 +128,14 @@
 #define GPIOD_IDR			GPIO_IDR(GPIOD)
 #define GPIOE_IDR			GPIO_IDR(GPIOE)
 #define GPIOF_IDR			GPIO_IDR(GPIOF)
+
+#if !defined (STM32F3)
+
 #define GPIOG_IDR			GPIO_IDR(GPIOG)
 #define GPIOH_IDR			GPIO_IDR(GPIOH)
 #define GPIOI_IDR			GPIO_IDR(GPIOI)
+
+#endif
 
 /* Port output data register (GPIOx_ODR) */
 #define GPIO_ODR(port)			MMIO32(port + 0x14)
@@ -114,9 +145,14 @@
 #define GPIOD_ODR			GPIO_ODR(GPIOD)
 #define GPIOE_ODR			GPIO_ODR(GPIOE)
 #define GPIOF_ODR			GPIO_ODR(GPIOF)
+
+#if !defined (STM32F3)
+
 #define GPIOG_ODR			GPIO_ODR(GPIOG)
 #define GPIOH_ODR			GPIO_ODR(GPIOH)
 #define GPIOI_ODR			GPIO_ODR(GPIOI)
+
+#endif
 
 /* Port bit set/reset register (GPIOx_BSRR) */
 #define GPIO_BSRR(port)			MMIO32(port + 0x18)
@@ -126,9 +162,14 @@
 #define GPIOD_BSRR			GPIO_BSRR(GPIOD)
 #define GPIOE_BSRR			GPIO_BSRR(GPIOE)
 #define GPIOF_BSRR			GPIO_BSRR(GPIOF)
+
+#if !defined (STM32F3)
+
 #define GPIOG_BSRR			GPIO_BSRR(GPIOG)
 #define GPIOH_BSRR			GPIO_BSRR(GPIOH)
 #define GPIOI_BSRR			GPIO_BSRR(GPIOI)
+
+#endif
 
 /* Port configuration lock register (GPIOx_LCKR) */
 #define GPIO_LCKR(port)			MMIO32(port + 0x1c)
@@ -138,9 +179,14 @@
 #define GPIOD_LCKR			GPIO_LCKR(GPIOD)
 #define GPIOE_LCKR			GPIO_LCKR(GPIOE)
 #define GPIOF_LCKR			GPIO_LCKR(GPIOF)
+
+#if !defined (STM32F3)
+
 #define GPIOG_LCKR			GPIO_LCKR(GPIOG)
 #define GPIOH_LCKR			GPIO_LCKR(GPIOH)
 #define GPIOI_LCKR			GPIO_LCKR(GPIOI)
+
+#endif
 
 /* Alternate function low register (GPIOx_AFRL) */
 #define GPIO_AFRL(port)			MMIO32(port + 0x20)
@@ -151,8 +197,13 @@
 #define GPIOE_AFRL			GPIO_AFRL(GPIOE)
 #define GPIOF_AFRL			GPIO_AFRL(GPIOF)
 #define GPIOG_AFRL			GPIO_AFRL(GPIOG)
+
+#if !defined (STM32F3)
+
 #define GPIOH_AFRL			GPIO_AFRL(GPIOH)
 #define GPIOI_AFRL			GPIO_AFRL(GPIOI)
+
+#endif
 
 /* Alternate function high register (GPIOx_AFRH) */
 #define GPIO_AFRH(port)			MMIO32(port + 0x24)
@@ -162,14 +213,20 @@
 #define GPIOD_AFRH			GPIO_AFRH(GPIOD)
 #define GPIOE_AFRH			GPIO_AFRH(GPIOE)
 #define GPIOF_AFRH			GPIO_AFRH(GPIOF)
+
+#if !defined (STM32F3)
+
 #define GPIOG_AFRH			GPIO_AFRH(GPIOG)
 #define GPIOH_AFRH			GPIO_AFRH(GPIOH)
 #define GPIOI_AFRH			GPIO_AFRH(GPIOI)
+
+#endif
 
 /* --- GPIOx_MODER values -------------------------------------------------- */
 
 #define GPIO_MODE(n, mode)		(mode << (2 * (n)))
 #define GPIO_MODE_MASK(n)		(0x3 << (2 * (n)))
+
 /** @defgroup gpio_mode GPIO Pin Direction and Analog/Digital Mode
 @ingroup gpio_defines
 @{*/

@@ -21,12 +21,12 @@
  * along with this library.  If not, see <http://www.gnu.org/licenses/>.
  */
 
-#include <libopencm3/stm32/f3/rcc.h>
-#include <libopencm3/stm32/f3/gpio.h>
+#include <libopencm3/stm32/rcc.h>
+#include <libopencm3/stm32/gpio.h>
 
 u16 exti_line_state;
 
-/* Set STM32 to 168 MHz. */
+/* Set STM32 to 64 MHz. */
 void clock_setup(void)
 {
 	rcc_clock_setup_hsi(&hsi_8mhz[CLOCK_64MHZ]);
@@ -70,7 +70,7 @@ int main(void)
 				__asm__("nop");
 		}
 
-		for (i = 0; i < 3000000; i++)		/* Wait a bit. */
+		for (i = 0; i < 1000000; i++)		/* Wait a bit. */
 			__asm__("nop");
 	}
 

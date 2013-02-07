@@ -330,28 +330,12 @@ void rcc_set_hpre(u32 hpre)
 	RCC_CFGR = (reg32 | (hpre << 4));
 }
 
-/*void rcc_set_rtcpre(u32 rtcpre)
-{
-	u32 reg32;
-
-	reg32 = RCC_CFGR;
-	reg32 &= ~((1 << 16) | (1 << 17) | (1 << 18) | (1 << 19) | (1 << 20));
-	RCC_CFGR = (reg32 | (rtcpre << 16));
-}*/
 
 void rcc_set_main_pll_hsi(u32 pll)
 {
   RCC_CFGR = (~RCC_CFGR_PLLMUL_MASK & RCC_CFGR) | (pll << RCC_CFGR_PLLMUL_SHIFT);
 }
 
-/* void rcc_set_main_pll_hse(u32 pllm, u32 plln, u32 pllp, u32 pllq) */
-/* { */
-/* 	RCC_PLLCFGR = (pllm << RCC_PLLCFGR_PLLM_SHIFT) | */
-/* 		(plln << RCC_PLLCFGR_PLLN_SHIFT) | */
-/* 		(((pllp >> 1) - 1) << RCC_PLLCFGR_PLLP_SHIFT) | */
-/* 		RCC_PLLCFGR_PLLSRC | */
-/* 		(pllq << RCC_PLLCFGR_PLLQ_SHIFT); */
-/* } */
 
 u32 rcc_system_clock_source(void)
 {
@@ -359,54 +343,6 @@ u32 rcc_system_clock_source(void)
 	return ((RCC_CFGR & 0x000c) >> 2);
 }
 
-void rcc_clock_setup_hse_3v3(const clock_scale_t *clock)
-{
-	/* Enable internal high-speed oscillator. */
-	rcc_osc_on(HSI);
-	rcc_wait_for_osc_ready(HSI);
-
-	/* Select HSI as SYSCLK source. */
-	rcc_set_sysclk_source(RCC_CFGR_SW_HSI);
-
-	/* Enable external high-speed oscillator 8MHz. */
-	rcc_osc_on(HSE);
-	rcc_wait_for_osc_ready(HSE);
-
-	/* Enable/disable high performance mode */
-	/*if (!clock->power_save)
-		pwr_set_pvd(SCALE1);
-	else
-		pwr_set_pvd(SCALE2);
-	*/
-	/*
-	 * Set prescalers for AHB, ADC, ABP1, ABP2.
-	 * Do this before touching the PLL (TODO: why?).
-	 */
-	rcc_set_hpre(clock->hpre);
-	rcc_set_ppre1(clock->ppre1);
-	rcc_set_ppre2(clock->ppre2);
-
-	/*rcc_set_main_pll_hse(clock->pllm, clock->plln,
-			     clock->pllp, clock->pllq);
-	*/
-
-	/* Enable PLL oscillator and wait for it to stabilize. */
-	rcc_osc_on(PLL);
-	rcc_wait_for_osc_ready(PLL);
-
-	/* Configure flash settings. */
-	flash_set_ws(clock->flash_config);
-
-	/* Select PLL as SYSCLK source. */
-	rcc_set_sysclk_source(RCC_CFGR_SW_PLL);
-
-	/* Wait for PLL clock to be selected. */
-	rcc_wait_for_sysclk_status(PLL);
-
-	/* Set the peripheral clock frequencies used. */
-	rcc_ppre1_frequency = clock->apb1_frequency;
-	rcc_ppre2_frequency = clock->apb2_frequency;
-}
 
 void rcc_clock_setup_hsi(const clock_scale_t *clock)
 {
@@ -417,12 +353,6 @@ void rcc_clock_setup_hsi(const clock_scale_t *clock)
 	/* Select HSI as SYSCLK source. */
 	rcc_set_sysclk_source(RCC_CFGR_SW_HSI);
 
-	/* Enable/disable high performance mode */
-	/*if (!clock->power_save)
-		pwr_set_vos_scale(SCALE1);
-	else
-		pwr_set_vos_scale(SCALE2);
-	*/
 	/*
 	 * Set prescalers for AHB, ADC, ABP1, ABP2.
 	 * Do this before touching the PLL (TODO: why?).
