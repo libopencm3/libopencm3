@@ -1,7 +1,7 @@
 /*
  * This file is part of the libopencm3 project.
  *
- * Copyright (C) 2012 Karl Palsson <karlp@tweak.net.au>
+ * Copyright (C) 2013 Karl Palsson <karlp@tweak.net.au>
  *
  * This library is free software: you can redistribute it and/or modify
  * it under the terms of the GNU Lesser General Public License as published by
@@ -17,12 +17,12 @@
  * along with this library.  If not, see <http://www.gnu.org/licenses/>.
  */
 
-/* Linker script for STM32L15xx8, 64K flash, 10K RAM. */
+/* Linker script for STM32L15xx6, 32K flash, 10K RAM. */
 
 /* Define memory regions. */
 MEMORY
 {
-	rom (rx) : ORIGIN = 0x08000000, LENGTH = 64K
+	rom (rx) : ORIGIN = 0x08000000, LENGTH = 32K
 	ram (rwx) : ORIGIN = 0x20000000, LENGTH = 10K
 	eep (r) : ORIGIN = 0x08080000, LENGTH = 4K
 }
