@@ -426,7 +426,7 @@
 #define RCC_CSR_SFTRSTF				(1 << 28)
 #define RCC_CSR_PORRSTF				(1 << 27)
 #define RCC_CSR_PINRSTF				(1 << 26)
-#define RCC_CSR_BORRSTF				(1 << 26)
+#define RCC_CSR_BORRSTF				(1 << 25)
 #define RCC_CSR_RMVF				(1 << 24)
 #define RCC_CSR_LSIRDY				(1 << 1)
 #define RCC_CSR_LSION				(1 << 0)
