@@ -67,8 +67,6 @@ void WEAK __attribute__ ((naked)) reset_handler(void)
 {
 	volatile unsigned *src, *dest;
 
-	__asm__("MSR msp, %0" : : "r"(&_stack));
-
 	for (src = &_data_loadaddr, dest = &_data; dest < &_edata; src++, dest++)
 		*dest = *src;
 
