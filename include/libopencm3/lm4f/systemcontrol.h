@@ -21,6 +21,7 @@
 #define LM4F_SYSTEMCONTROL_H
 
 #include <libopencm3/cm3/common.h>
+#include <libopencm3/lm4f/memorymap.h>
 
 #define SYSCTL_DID0			MMIO32(SYSCTL_BASE + 0x000)
 #define SYSCTL_DID1			MMIO32(SYSCTL_BASE + 0x004)
@@ -369,9 +370,11 @@
 /** Auto Clock Gating */
 #define SYSCTL_RCC2_ACG			(1 << 27)
 /** System Clock Divisor 2 */
-#define SYSCTL_RCC2_SYSDIV2_MASK	(0xF << 23)
+#define SYSCTL_RCC2_SYSDIV2_MASK	(0x3F << 23)
 /** Additional LSB for SYSDIV2 */
 #define SYSCTL_RCC2_SYSDIV2LSB		(1 << 22)
+/** System clock divisor mask when RCC2_DIV400 is set */
+#define SYSCTL_RCC2_SYSDIV400_MASK	(0x7F << 22)
 /** Power-Down USB PLL */
 #define SYSCTL_RCC2_USBPWRDN		(1 << 14)
 /** PLL Power Down 2 */
@@ -449,6 +452,273 @@
  * ---------------------------------------------------------------------------*/
 /** PLL lock */
 #define SYSCTL_PLLSTAT_LOCK		(1 << 0)
+
+/* =============================================================================
+ * Convenience definitions for a readable API
+ * ---------------------------------------------------------------------------*/
+/**
+ * \brief Clock enable definitions
+ *
+ * The definitions are specified in the form
+ * 31:5 register offset from SYSCTL_BASE for the clock register
+ * 4:0  bit offset for the given peripheral
+ *
+ * The names have the form [clock_type]_[periph_type]_[periph_number]
+ * Where clock_type is
+ *     RCC for run clock
+ *     SCC for sleep clock
+ *     DCC for deep-sleep clock
+ */
+typedef enum {
+	/*
+	 * Run clock control
+	 */
+	RCC_WD0 = ((u32)&SYSCTL_RCGCWD - SYSCTL_BASE) << 5,
+	RCC_WD1,
+
+	RCC_TIMER0 = ((u32)&SYSCTL_RCGCTIMER - SYSCTL_BASE) << 5,
+	RCC_TIMER1,
+	RCC_TIMER2,
+	RCC_TIMER3,
+	RCC_TIMER4,
+	RCC_TIMER5,
+
+	RCC_GPIOA = ((u32)&SYSCTL_RCGCGPIO - SYSCTL_BASE) << 5,
+	RCC_GPIOB,
+	RCC_GPIOC,
+	RCC_GPIOD,
+	RCC_GPIOE,
+	RCC_GPIOF,
+	RCC_GPIOG,
+	RCC_GPIOH,
+	RCC_GPIOJ,
+	RCC_GPIOK,
+	RCC_GPIOL,
+	RCC_GPIOM,
+	RCC_GPION,
+	RCC_GPIOP,
+	RCC_GPIOQ,
+
+	RCC_DMA = ((u32)&SYSCTL_RCGCDMA - SYSCTL_BASE) << 5,
+
+	RCC_HIB = ((u32)&SYSCTL_RCGCGPIO - SYSCTL_BASE) << 5,
+
+	RCC_UART0 = ((u32)&SYSCTL_RCGCUART - SYSCTL_BASE) << 5,
+	RCC_UART1,
+	RCC_UART2,
+	RCC_UART3,
+	RCC_UART4,
+	RCC_UART5,
+	RCC_UART6,
+	RCC_UART7,
+
+	RCC_SSI0 = ((u32)&SYSCTL_RCGCSSI - SYSCTL_BASE) << 5,
+	RCC_SSI1,
+	RCC_SSI2,
+	RCC_SSI3,
+
+	RCC_I2C0 = ((u32)&SYSCTL_RCGCI2C - SYSCTL_BASE) << 5,
+	RCC_I2C1,
+	RCC_I2C2,
+	RCC_I2C3,
+	RCC_I2C4,
+	RCC_I2C5,
+
+	RCC_USB0 = ((u32)&SYSCTL_RCGCUSB - SYSCTL_BASE) << 5,
+
+	RCC_CAN0 = ((u32)&SYSCTL_RCGCCAN - SYSCTL_BASE) << 5,
+	RCC_CAN1,
+
+	RCC_ADC0 = ((u32)&SYSCTL_RCGCADC - SYSCTL_BASE) << 5,
+	RCC_ADC1,
+
+	RCC_ACMP0 = ((u32)&SYSCTL_RCGCACMP - SYSCTL_BASE) << 5,
+
+	RCC_PWM0 = ((u32)&SYSCTL_RCGCPWM - SYSCTL_BASE) << 5,
+	RCC_PWM1,
+
+	RCC_QEI0 = ((u32)&SYSCTL_RCGCQEI - SYSCTL_BASE) << 5,
+	RCC_QEI1,
+
+	RCC_EEPROM0 = ((u32)&SYSCTL_RCGCEEPROM - SYSCTL_BASE) << 5,
+
+	RCC_WTIMER0 = ((u32)&SYSCTL_RCGCWTIMER - SYSCTL_BASE) << 5,
+	RCC_WTIMER1,
+	RCC_WTIMER2,
+	RCC_WTIMER3,
+	RCC_WTIMER4,
+	RCC_WTIMER5,
+
+
+	/*
+	 * Sleep clock control
+	 */
+	SCC_WD0 = ((u32)&SYSCTL_SCGCWD - SYSCTL_BASE) << 5,
+	SCC_WD1,
+
+	SCC_TIMER0 = ((u32)&SYSCTL_SCGCTIMER - SYSCTL_BASE) << 5,
+	SCC_TIMER1,
+	SCC_TIMER2,
+	SCC_TIMER3,
+	SCC_TIMER4,
+	SCC_TIMER5,
+
+	SCC_GPIOA = ((u32)&SYSCTL_SCGCGPIO - SYSCTL_BASE) << 5,
+	SCC_GPIOB,
+	SCC_GPIOC,
+	SCC_GPIOD,
+	SCC_GPIOE,
+	SCC_GPIOF,
+	SCC_GPIOG,
+	SCC_GPIOH,
+	SCC_GPIOJ,
+	SCC_GPIOK,
+	SCC_GPIOL,
+	SCC_GPIOM,
+	SCC_GPION,
+	SCC_GPIOP,
+	SCC_GPIOQ,
+
+	SCC_DMA = ((u32)&SYSCTL_SCGCDMA - SYSCTL_BASE) << 5,
+
+	SCC_HIB = ((u32)&SYSCTL_SCGCGPIO - SYSCTL_BASE) << 5,
+
+	SCC_UART0 = ((u32)&SYSCTL_SCGCUART - SYSCTL_BASE) << 5,
+	SCC_UART1,
+	SCC_UART2,
+	SCC_UART3,
+	SCC_UART4,
+	SCC_UART5,
+	SCC_UART6,
+	SCC_UART7,
+
+	SCC_SSI0 = ((u32)&SYSCTL_SCGCSSI - SYSCTL_BASE) << 5,
+	SCC_SSI1,
+	SCC_SSI2,
+	SCC_SSI3,
+
+	SCC_I2C0 = ((u32)&SYSCTL_SCGCI2C - SYSCTL_BASE) << 5,
+	SCC_I2C1,
+	SCC_I2C2,
+	SCC_I2C3,
+	SCC_I2C4,
+	SCC_I2C5,
+
+	SCC_USB0 = ((u32)&SYSCTL_SCGCUSB - SYSCTL_BASE) << 5,
+
+	SCC_CAN0 = ((u32)&SYSCTL_SCGCCAN - SYSCTL_BASE) << 5,
+	SCC_CAN1,
+
+	SCC_ADC0 = ((u32)&SYSCTL_SCGCADC - SYSCTL_BASE) << 5,
+	SCC_ADC1,
+
+	SCC_ACMP0 = ((u32)&SYSCTL_SCGCACMP - SYSCTL_BASE) << 5,
+
+	SCC_PWM0 = ((u32)&SYSCTL_SCGCPWM - SYSCTL_BASE) << 5,
+	SCC_PWM1,
+
+	SCC_QEI0 = ((u32)&SYSCTL_SCGCQEI - SYSCTL_BASE) << 5,
+	SCC_QEI1,
+
+	SCC_EEPROM0 = ((u32)&SYSCTL_SCGCEEPROM - SYSCTL_BASE) << 5,
+
+	SCC_WTIMER0 = ((u32)&SYSCTL_SCGCWTIMER - SYSCTL_BASE) << 5,
+	SCC_WTIMER1,
+	SCC_WTIMER2,
+	SCC_WTIMER3,
+	SCC_WTIMER4,
+	SCC_WTIMER5,
+
+	/*
+	 * Deep-sleep clock control
+	 */
+	DCC_WD0 = ((u32)&SYSCTL_DCGCWD - SYSCTL_BASE) << 5,
+	DCC_WD1,
+
+	DCC_TIMER0 = ((u32)&SYSCTL_DCGCTIMER - SYSCTL_BASE) << 5,
+	DCC_TIMER1,
+	DCC_TIMER2,
+	DCC_TIMER3,
+	DCC_TIMER4,
+	DCC_TIMER5,
+
+	DCC_GPIOA = ((u32)&SYSCTL_DCGCGPIO - SYSCTL_BASE) << 5,
+	DCC_GPIOB,
+	DCC_GPIOC,
+	DCC_GPIOD,
+	DCC_GPIOE,
+	DCC_GPIOF,
+	DCC_GPIOG,
+	DCC_GPIOH,
+	DCC_GPIOJ,
+	DCC_GPIOK,
+	DCC_GPIOL,
+	DCC_GPIOM,
+	DCC_GPION,
+	DCC_GPIOP,
+	DCC_GPIOQ,
+
+	DCC_DMA = ((u32)&SYSCTL_DCGCDMA - SYSCTL_BASE) << 5,
+
+	DCC_HIB = ((u32)&SYSCTL_DCGCGPIO - SYSCTL_BASE) << 5,
+
+	DCC_UART0 = ((u32)&SYSCTL_DCGCUART - SYSCTL_BASE) << 5,
+	DCC_UART1,
+	DCC_UART2,
+	DCC_UART3,
+	DCC_UART4,
+	DCC_UART5,
+	DCC_UART6,
+	DCC_UART7,
+
+	DCC_SSI0 = ((u32)&SYSCTL_DCGCSSI - SYSCTL_BASE) << 5,
+	DCC_SSI1,
+	DCC_SSI2,
+	DCC_SSI3,
+
+	DCC_I2C0 = ((u32)&SYSCTL_DCGCI2C - SYSCTL_BASE) << 5,
+	DCC_I2C1,
+	DCC_I2C2,
+	DCC_I2C3,
+	DCC_I2C4,
+	DCC_I2C5,
+
+	DCC_USB0 = ((u32)&SYSCTL_DCGCUSB - SYSCTL_BASE) << 5,
+
+	DCC_CAN0 = ((u32)&SYSCTL_DCGCCAN - SYSCTL_BASE) << 5,
+	DCC_CAN1,
+
+	DCC_ADC0 = ((u32)&SYSCTL_DCGCADC - SYSCTL_BASE) << 5,
+	DCC_ADC1,
+
+	DCC_ACMP0 = ((u32)&SYSCTL_DCGCACMP - SYSCTL_BASE) << 5,
+
+	DCC_PWM0 = ((u32)&SYSCTL_DCGCPWM - SYSCTL_BASE) << 5,
+	DCC_PWM1,
+
+	DCC_QEI0 = ((u32)&SYSCTL_DCGCQEI - SYSCTL_BASE) << 5,
+	DCC_QEI1,
+
+	DCC_EEPROM0 = ((u32)&SYSCTL_DCGCEEPROM - SYSCTL_BASE) << 5,
+
+	DCC_WTIMER0 = ((u32)&SYSCTL_DCGCWTIMER - SYSCTL_BASE) << 5,
+	DCC_WTIMER1,
+	DCC_WTIMER2,
+	DCC_WTIMER3,
+	DCC_WTIMER4,
+	DCC_WTIMER5,
+
+} clken_t;
+
+/* =============================================================================
+ * Function prototypes
+ * ---------------------------------------------------------------------------*/
+BEGIN_DECLS
+
+void periph_clock_enable(clken_t periph);
+void periph_clock_disable(clken_t periph);
+
+END_DECLS
 
 #endif /* LM4F_SYSTEMCONTROL_H */
 

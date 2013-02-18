@@ -28,7 +28,7 @@ CFLAGS		= -Os -g -Wall -Wextra -I../../include -fno-common \
 		  -ffunction-sections -fdata-sections -MD -DLM4F
 # ARFLAGS	= rcsv
 ARFLAGS		= rcs
-OBJS		= gpio.o vector.o assert.o
+OBJS		= gpio.o vector.o assert.o systemcontrol.o rcc.o
 
 VPATH += ../cm3
 
