@@ -4,8 +4,8 @@ partname_doxygen: STM32L1
 irqs:
   - wwdg
   - pvd
-  - tamper
-  - rtc
+  - tamper_stamp
+  - rtc_wkup
   - flash
   - rcc
   - exti0
@@ -44,6 +44,19 @@ irqs:
   - usart3
   - exti15_10
   - rtc_alarm
-  - usb_wakeup
+  - usb_fs_wakeup
   - tim6
   - tim7
+  # below here is medium+/high density
+  - sdio
+  - tim5
+  - spi3
+  - uart4
+  - uart5
+  - dma2_ch1
+  - dma2_ch2
+  - dma2_ch3
+  - dma2_ch4
+  - dma2_ch5
+  - aes
+  - comp_acq

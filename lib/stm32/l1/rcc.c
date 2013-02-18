@@ -23,13 +23,13 @@
 
 #include <libopencm3/stm32/l1/rcc.h>
 #include <libopencm3/stm32/l1/flash.h>
-#include <libopencm3/stm32/l1/pwr.h>
+#include <libopencm3/stm32/pwr.h>
 
 /* Set the default ppre1 and ppre2 peripheral clock frequencies after reset. */
 u32 rcc_ppre1_frequency = 2097000;
 u32 rcc_ppre2_frequency = 2097000;
 
-const clock_scale_t clock_vrange1_config[CLOCK_VRANGE1_END] =
+const clock_scale_t clock_config[CLOCK_CONFIG_END] =
 {
 	{ /* 24MHz PLL from HSI */
 		.pll_source = RCC_CFGR_PLLSRC_HSI_CLK,
@@ -63,6 +63,35 @@ const clock_scale_t clock_vrange1_config[CLOCK_VRANGE1_END] =
 		.flash_config = FLASH_LATENCY_0WS,
 		.apb1_frequency = 16000000,
 		.apb2_frequency = 16000000,
+	},
+	{ /* 4MHz HSI raw */
+		.hpre = RCC_CFGR_HPRE_SYSCLK_DIV4,
+		.ppre1 = RCC_CFGR_PPRE1_HCLK_NODIV,
+		.ppre2 = RCC_CFGR_PPRE2_HCLK_NODIV,
+		.voltage_scale = RANGE1,
+		.flash_config = FLASH_LATENCY_0WS,
+		.apb1_frequency = 4000000,
+		.apb2_frequency = 4000000,
+	},
+	{ /* 4MHz MSI raw */
+		.hpre = RCC_CFGR_HPRE_SYSCLK_NODIV,
+		.ppre1 = RCC_CFGR_PPRE1_HCLK_NODIV,
+		.ppre2 = RCC_CFGR_PPRE2_HCLK_NODIV,
+		.voltage_scale = RANGE1,
+		.flash_config = FLASH_LATENCY_0WS,
+		.apb1_frequency = 4194000,
+		.apb2_frequency = 4194000,
+		.msi_range = RCC_ICSCR_MSIRANGE_4MHZ,
+	},
+	{ /* 2MHz MSI raw */
+		.hpre = RCC_CFGR_HPRE_SYSCLK_NODIV,
+		.ppre1 = RCC_CFGR_PPRE1_HCLK_NODIV,
+		.ppre2 = RCC_CFGR_PPRE2_HCLK_NODIV,
+		.voltage_scale = RANGE1,
+		.flash_config = FLASH_LATENCY_0WS,
+		.apb1_frequency = 2097000,
+		.apb2_frequency = 2097000,
+		.msi_range = RCC_ICSCR_MSIRANGE_2MHZ,
 	},
 };
 
@@ -406,6 +435,48 @@ u32 rcc_system_clock_source(void)
 {
 	/* Return the clock source which is used as system clock. */
 	return ((RCC_CFGR & 0x000c) >> 2);
+}
+
+void rcc_rtc_select_clock(u32 clock)
+{
+	RCC_CSR &= ~(RCC_CSR_RTCSEL_MASK << RCC_CSR_RTCSEL_SHIFT);
+	RCC_CSR |= (clock << RCC_CSR_RTCSEL_SHIFT);
+}
+
+void rcc_clock_setup_msi(const clock_scale_t *clock)
+{
+	/* Enable internal multi-speed oscillator. */
+
+	u32 reg = RCC_ICSCR;
+	reg &= ~(RCC_ICSCR_MSIRANGE_MASK << RCC_ICSCR_MSIRANGE_SHIFT);
+	reg |= (clock->msi_range << RCC_ICSCR_MSIRANGE_SHIFT);
+	RCC_ICSCR = reg;
+
+	rcc_osc_on(MSI);
+	rcc_wait_for_osc_ready(MSI);
+
+	/* Select MSI as SYSCLK source. */
+	rcc_set_sysclk_source(RCC_CFGR_SW_SYSCLKSEL_MSICLK);
+
+	/*
+	 * Set prescalers for AHB, ADC, ABP1, ABP2.
+	 * Do this before touching the PLL (TODO: why?).
+	 */
+	rcc_set_hpre(clock->hpre);
+	rcc_set_ppre1(clock->ppre1);
+	rcc_set_ppre2(clock->ppre2);
+
+	pwr_set_vos_scale(clock->voltage_scale);
+
+	// I guess this should be in the settings?
+	flash_64bit_enable();
+	flash_prefetch_enable();
+	/* Configure flash settings. */
+	flash_set_ws(clock->flash_config);
+
+	/* Set the peripheral clock frequencies used. */
+	rcc_ppre1_frequency = clock->apb1_frequency;
+	rcc_ppre2_frequency = clock->apb2_frequency;
 }
 
 void rcc_clock_setup_hsi(const clock_scale_t *clock)

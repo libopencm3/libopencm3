@@ -1,4 +1,4 @@
-/* This provides unification of code over STM32F subfamilies */
+/* This provides unification of code over STM32 subfamilies */
 
 /*
  * This file is part of the libopencm3 project.
@@ -18,13 +18,13 @@
  */
 
 #if defined(STM32F1)
-#       include <libopencm3/stm32/f1/pwr.h>
+#       include <libopencm3/stm32/f1/rtc.h>
 #elif defined(STM32F2)
-#       include <libopencm3/stm32/f2/pwr.h>
+#       include <libopencm3/stm32/f2/rtc.h>
 #elif defined(STM32F4)
-#       include <libopencm3/stm32/f4/pwr.h>
+#       include <libopencm3/stm32/f4/rtc.h>
 #elif defined(STM32L1)
-#       include <libopencm3/stm32/l1/pwr.h>
+#       include <libopencm3/stm32/l1/rtc.h>
 #else
 #       error "stm32 family not defined."
 #endif

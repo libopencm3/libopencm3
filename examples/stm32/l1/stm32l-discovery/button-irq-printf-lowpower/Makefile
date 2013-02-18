@@ -17,23 +17,8 @@
 ## along with this library.  If not, see <http://www.gnu.org/licenses/>.
 ##
 
-LIBNAME		= libopencm3_stm32f2
-
-PREFIX	?= arm-none-eabi
-# PREFIX		?= arm-elf
-CC		= $(PREFIX)-gcc
-AR		= $(PREFIX)-ar
-CFLAGS		= -Os -g -Wall -Wextra -I../../../include -fno-common \
-		  -mcpu=cortex-m3 -mthumb -Wstrict-prototypes \
-		  -ffunction-sections -fdata-sections -MD -DSTM32F2
-# ARFLAGS	= rcsv
-ARFLAGS		= rcs
-OBJS		= rcc.o gpio.o flash.o exti2.o timer.o \
-		  gpio_common_all.o gpio_common_f24.o dma_common_f24.o spi_common_all.o \
-		  dac_common_all.o usart_common_all.o iwdg_common_all.o i2c_common_all.o \
-		  crc_common_all.o \
-		  rtc_common_bcd.o
-
-VPATH += ../../usb:../:../../cm3:../common
+BINARY = main
+LDSCRIPT = ../../../../../lib/stm32/l1/stm32l15xxb.ld
 
 include ../../Makefile.include
+

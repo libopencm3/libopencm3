@@ -1,7 +1,13 @@
+/** @defgroup rtc_file RTC
+
+@ingroup STM32F4xx
+
+@brief <b>libopencm3 STM32F4xx RTC</b>
+
+*/
+
 /*
  * This file is part of the libopencm3 project.
- *
- * Copyright (C) 2012 Karl Palsson <karlp@tweak.net.au>
  *
  * This library is free software: you can redistribute it and/or modify
  * it under the terms of the GNU Lesser General Public License as published by
@@ -17,21 +23,5 @@
  * along with this library.  If not, see <http://www.gnu.org/licenses/>.
  */
 
-#include <libopencm3/stm32/l1/pwr.h>
-
-void pwr_set_vos_scale(vos_scale_t scale)
-{
-	PWR_CR &= ~(PWR_CR_VOS_MASK);
-	switch (scale) {
-	case RANGE1:
-		PWR_CR |= PWR_CR_VOS_RANGE1;
-		break;
-	case RANGE2:
-		PWR_CR |= PWR_CR_VOS_RANGE2;
-		break;
-	case RANGE3:
-		PWR_CR |= PWR_CR_VOS_RANGE3;
-		break;
-	}
-}
-
+#include <libopencm3/stm32/rtc.h>
+#include <libopencm3/stm32/common/rtc_common_bcd.h>
