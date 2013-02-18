@@ -36,7 +36,7 @@ LGPL License Terms @ref lgpl_license
 #ifndef LIBOPENCM3_ADC_H
 #define LIBOPENCM3_ADC_H
 
-#include <libopencm3/stm32/f4/memorymap.h>
+#include <libopencm3/stm32/memorymap.h>
 #include <libopencm3/cm3/common.h>
 
 /* --- Convenience macros -------------------------------------------------- */
