@@ -1,3 +1,18 @@
+/** @defgroup pwr_defines PWR Defines
+
+@brief <b>Defined Constants and Types for the STM32L1xx Power Control</b>
+
+@ingroup STM32L1xx_defines
+
+@version 1.0.0
+
+@author @htmlonly &copy; @endhtmlonly 2011 Stephen Caudle <scaudle@doceme.com>
+@author @htmlonly &copy; @endhtmlonly 2012 Karl Palsson <karlp@tweak.net.au>
+
+@date 1 July 2012
+
+LGPL License Terms @ref lgpl_license
+ */
 /*
  * This file is part of the libopencm3 project.
  *
@@ -18,10 +33,11 @@
  * along with this library.  If not, see <http://www.gnu.org/licenses/>.
  */
 
-#ifndef LIBOPENCM3_PWR_L1_H
-#define LIBOPENCM3_PWR_L1_H
+#ifndef LIBOPENCM3_PWR_H
+#define LIBOPENCM3_PWR_H
 
-#include <libopencm3/stm32/pwr.h>
+#include <libopencm3/stm32/memorymap.h>
+#include <libopencm3/stm32/common/pwr_common_all.h>
 
 /*
  * This file extends the common STM32 version with definitions only
@@ -52,6 +68,9 @@
 
 /* ULP: Ultralow power mode */
 #define PWR_CR_ULP          (1 << 9)
+
+/* LPSDSR: Low-power deepsleep/sleep/low power run */
+#define PWR_CR_LPSDSR		(1 << 0)  /* masks common PWR_CR_LPDS */
 
 /* --- PWR_CSR values ------------------------------------------------------- */
 

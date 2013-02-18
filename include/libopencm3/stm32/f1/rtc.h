@@ -17,6 +17,11 @@
  * along with this library.  If not, see <http://www.gnu.org/licenses/>.
  */
 
+/*
+ * The F1 RTC is a straight timestamp, a completely different peripheral to
+ * that found in the F2, F3, F4, L1 and F0.
+ */
+
 #ifndef LIBOPENCM3_RTC_H
 #define LIBOPENCM3_RTC_H
 

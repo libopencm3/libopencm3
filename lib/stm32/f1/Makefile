@@ -30,7 +30,7 @@ CFLAGS		= -Os -g -Wall -Wextra -I../../../include -fno-common \
 ARFLAGS		= rcs
 OBJS		= rcc.o gpio.o adc.o flash.o rtc.o dma.o exti.o ethernet.o \
 		  usb_f103.o usb.o usb_control.o usb_standard.o can.o \
-		  timer.o usb_f107.o desig.o pwr.o \
+		  timer.o usb_f107.o desig.o pwr_common_all.o \
 		  usb_fx07_common.o \
 		  gpio_common_all.o dma_common_f13.o spi_common_all.o \
 		  dac_common_all.o usart_common_all.o iwdg_common_all.o \
