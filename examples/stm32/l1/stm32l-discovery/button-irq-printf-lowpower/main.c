@@ -259,7 +259,7 @@ void reset_clocks(void)
 		.ppre1 = RCC_CFGR_PPRE1_HCLK_NODIV,
 		.ppre2 = RCC_CFGR_PPRE2_HCLK_NODIV,
 		.voltage_scale = RANGE2,
-		.flash_config = FLASH_LATENCY_0WS,
+		.flash_config = FLASH_ACR_LATENCY_0WS,
 		.apb1_frequency = 4194000,
 		.apb2_frequency = 4194000,
 		.msi_range = RCC_ICSCR_MSIRANGE_4MHZ,
