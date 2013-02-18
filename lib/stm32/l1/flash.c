@@ -23,22 +23,22 @@
 
 void flash_64bit_enable(void)
 {
-	FLASH_ACR |= FLASH_ACC64;
+	FLASH_ACR |= FLASH_ACR_ACC64;
 }
 
 void flash_64bit_disable(void)
 {
-	FLASH_ACR &= ~FLASH_ACC64;
+	FLASH_ACR &= ~FLASH_ACR_ACC64;
 }
 
 void flash_prefetch_enable(void)
 {
-	FLASH_ACR |= FLASH_PRFTEN;
+	FLASH_ACR |= FLASH_ACR_PRFTEN;
 }
 
 void flash_prefetch_disable(void)
 {
-	FLASH_ACR &= ~FLASH_PRFTEN;
+	FLASH_ACR &= ~FLASH_ACR_PRFTEN;
 }
 
 void flash_set_ws(u32 ws)
