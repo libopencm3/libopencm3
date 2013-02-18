@@ -43,76 +43,76 @@
 
 /* --- FLASH_ACR values ---------------------------------------------------- */
 
-#define FLASH_DCRST			(1 << 12)
-#define FLASH_ICRST			(1 << 11)
-#define FLASH_DCE			(1 << 10)
-#define FLASH_ICE			(1 << 9)
-#define FLASH_PRFTEN			(1 << 8)
-#define FLASH_LATENCY_0WS		0x00
-#define FLASH_LATENCY_1WS		0x01
-#define FLASH_LATENCY_2WS		0x02
-#define FLASH_LATENCY_3WS		0x03
-#define FLASH_LATENCY_4WS		0x04
-#define FLASH_LATENCY_5WS		0x05
-#define FLASH_LATENCY_6WS		0x06
-#define FLASH_LATENCY_7WS		0x07
+#define FLASH_ACR_DCRST			(1 << 12)
+#define FLASH_ACR_ICRST			(1 << 11)
+#define FLASH_ACR_DCE			(1 << 10)
+#define FLASH_ACR_ICE			(1 << 9)
+#define FLASH_ACR_PRFTEN		(1 << 8)
+#define FLASH_ACR_LATENCY_0WS		0x00
+#define FLASH_ACR_LATENCY_1WS		0x01
+#define FLASH_ACR_LATENCY_2WS		0x02
+#define FLASH_ACR_LATENCY_3WS		0x03
+#define FLASH_ACR_LATENCY_4WS		0x04
+#define FLASH_ACR_LATENCY_5WS		0x05
+#define FLASH_ACR_LATENCY_6WS		0x06
+#define FLASH_ACR_LATENCY_7WS		0x07
 
 /* --- FLASH_SR values ----------------------------------------------------- */
 
-#define FLASH_BSY			(1 << 16)
-#define FLASH_PGSERR			(1 << 7)
-#define FLASH_PGPERR			(1 << 6)
-#define FLASH_PGAERR			(1 << 5)
-#define FLASH_WRPERR			(1 << 4)
-#define FLASH_OPERR			(1 << 1)
-#define FLASH_EOP			(1 << 0)
+#define FLASH_SR_BSY			(1 << 16)
+#define FLASH_SR_PGSERR			(1 << 7)
+#define FLASH_SR_PGPERR			(1 << 6)
+#define FLASH_SR_PGAERR			(1 << 5)
+#define FLASH_SR_WRPERR			(1 << 4)
+#define FLASH_SR_OPERR			(1 << 1)
+#define FLASH_SR_EOP			(1 << 0)
 
 /* --- FLASH_CR values ----------------------------------------------------- */
 
-#define FLASH_LOCK			(1 << 31)
-#define FLASH_ERRIE			(1 << 25)
-#define FLASH_EOPIE			(1 << 24)
-#define FLASH_STRT			(1 << 16)
-#define FLASH_MER			(1 << 2)
-#define FLASH_SER			(1 << 1)
-#define FLASH_PG			(1 << 0)
-#define FLASH_SECTOR_0			(0x00 << 3)
-#define FLASH_SECTOR_1			(0x01 << 3)
-#define FLASH_SECTOR_2			(0x02 << 3)
-#define FLASH_SECTOR_3			(0x03 << 3)
-#define FLASH_SECTOR_4			(0x04 << 3)
-#define FLASH_SECTOR_5			(0x05 << 3)
-#define FLASH_SECTOR_6			(0x06 << 3)
-#define FLASH_SECTOR_7			(0x07 << 3)
-#define FLASH_SECTOR_8			(0x08 << 3)
-#define FLASH_SECTOR_9			(0x09 << 3)
-#define FLASH_SECTOR_10			(0x0a << 3)
-#define FLASH_SECTOR_11			(0x0b << 3)
-#define FLASH_PROGRAM_X8		(0x00 << 8)
-#define FLASH_PROGRAM_X16		(0x01 << 8)
-#define FLASH_PROGRAM_X32		(0x02 << 8)
-#define FLASH_PROGRAM_X64		(0x03 << 8)
+#define FLASH_CR_LOCK			(1 << 31)
+#define FLASH_CR_ERRIE			(1 << 25)
+#define FLASH_CR_EOPIE			(1 << 24)
+#define FLASH_CR_STRT			(1 << 16)
+#define FLASH_CR_MER			(1 << 2)
+#define FLASH_CR_SER			(1 << 1)
+#define FLASH_CR_PG			(1 << 0)
+#define FLASH_CR_SECTOR_0		(0x00 << 3)
+#define FLASH_CR_SECTOR_1		(0x01 << 3)
+#define FLASH_CR_SECTOR_2		(0x02 << 3)
+#define FLASH_CR_SECTOR_3		(0x03 << 3)
+#define FLASH_CR_SECTOR_4		(0x04 << 3)
+#define FLASH_CR_SECTOR_5		(0x05 << 3)
+#define FLASH_CR_SECTOR_6		(0x06 << 3)
+#define FLASH_CR_SECTOR_7		(0x07 << 3)
+#define FLASH_CR_SECTOR_8		(0x08 << 3)
+#define FLASH_CR_SECTOR_9		(0x09 << 3)
+#define FLASH_CR_SECTOR_10		(0x0a << 3)
+#define FLASH_CR_SECTOR_11		(0x0b << 3)
+#define FLASH_CR_PROGRAM_X8		(0x00 << 8)
+#define FLASH_CR_PROGRAM_X16		(0x01 << 8)
+#define FLASH_CR_PROGRAM_X32		(0x02 << 8)
+#define FLASH_CR_PROGRAM_X64		(0x03 << 8)
 
 /* --- FLASH_OPTCR values -------------------------------------------------- */
 
 /* FLASH_OPTCR[27:16]: nWRP */
 /* FLASH_OBR[15:8]: RDP */
-#define FLASH_NRST_STDBY		(1 << 7)
-#define FLASH_NRST_STOP			(1 << 6)
-#define FLASH_WDG_SW			(1 << 5)
-#define FLASH_OPTSTRT			(1 << 1)
-#define FLASH_OPTLOCK			(1 << 0)
-#define FLASH_BOR_LEVEL_3		(0x00 << 2)
-#define FLASH_BOR_LEVEL_2		(0x01 << 2)
-#define FLASH_BOR_LEVEL_1		(0x02 << 2)
-#define FLASH_BOR_OFF			(0x03 << 2)
+#define FLASH_OPTCR_NRST_STDBY		(1 << 7)
+#define FLASH_OPTCR_NRST_STOP		(1 << 6)
+#define FLASH_OPTCR_WDG_SW		(1 << 5)
+#define FLASH_OPTCR_OPTSTRT		(1 << 1)
+#define FLASH_OPTCR_OPTLOCK		(1 << 0)
+#define FLASH_OPTCR_BOR_LEVEL_3		(0x00 << 2)
+#define FLASH_OPTCR_BOR_LEVEL_2		(0x01 << 2)
+#define FLASH_OPTCR_BOR_LEVEL_1		(0x02 << 2)
+#define FLASH_OPTCR_BOR_OFF		(0x03 << 2)
 
 /* --- FLASH Keys -----------------------------------------------------------*/
 
-#define FLASH_KEY1			((u32)0x45670123)
-#define FLASH_KEY2			((u32)0xcdef89ab)
-#define FLASH_OPTKEY1			((u32)0x08192a3b)
-#define FLASH_OPTKEY2			((u32)0x4c5d6e7f)
+#define FLASH_KEYR_KEY1			((u32)0x45670123)
+#define FLASH_KEYR_KEY2			((u32)0xcdef89ab)
+#define FLASH_OPTKEYR_KEY1		((u32)0x08192a3b)
+#define FLASH_OPTKEYR_KEY2		((u32)0x4c5d6e7f)
 
 /* --- Function prototypes ------------------------------------------------- */
 

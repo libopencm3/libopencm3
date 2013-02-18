@@ -45,70 +45,70 @@
 
 /* --- FLASH_ACR values ---------------------------------------------------- */
 
-#define FLASH_RUNPD			(1 << 4)
-#define FLASH_SLEEPPD		(1 << 3)
-#define FLASH_ACC64			(1 << 2)
-#define FLASH_PRFTEN		(1 << 1)
-#define FLASH_LATENCY_0WS		0x00
-#define FLASH_LATENCY_1WS		0x01
+#define FLASH_ACR_RUNPD			(1 << 4)
+#define FLASH_ACR_SLEEPPD		(1 << 3)
+#define FLASH_ACR_ACC64			(1 << 2)
+#define FLASH_ACR_PRFTEN		(1 << 1)
+#define FLASH_ACR_LATENCY_0WS		0x00
+#define FLASH_ACR_LATENCY_1WS		0x01
 
 /* --- FLASH_PECR values. Program/erase control register */
-#define FLASH_OBL_LAUNCH    (1 << 18)
-#define FLASH_ERRIE         (1 << 17)
-#define FLASH_EOPIE         (1 << 16)
-#define FLASH_PARALLBANK    (1 << 15)
-#define FLASH_FPRG          (1 << 10)
-#define FLASH_ERASE         (1 << 9)
-#define FLASH_FTDW          (1 << 8)
-#define FLASH_FTDW          (1 << 8)
-#define FLASH_DATA          (1 << 4)
-#define FLASH_PROG          (1 << 3)
-#define FLASH_OPTLOCK       (1 << 2)
-#define FLASH_PRGLOCK       (1 << 1)
-#define FLASH_PELOCK        (1 << 0)
+#define FLASH_PECR_OBL_LAUNCH		(1 << 18)
+#define FLASH_PECR_ERRIE		(1 << 17)
+#define FLASH_PECR_EOPIE		(1 << 16)
+#define FLASH_PECR_PARALLBANK		(1 << 15)
+#define FLASH_PECR_FPRG			(1 << 10)
+#define FLASH_PECR_ERASE		(1 << 9)
+#define FLASH_PECR_FTDW			(1 << 8)
+#define FLASH_PECR_FTDW			(1 << 8)
+#define FLASH_PECR_DATA			(1 << 4)
+#define FLASH_PECR_PROG			(1 << 3)
+#define FLASH_PECR_OPTLOCK		(1 << 2)
+#define FLASH_PECR_PRGLOCK		(1 << 1)
+#define FLASH_PECR_PELOCK		(1 << 0)
 
 /* Power down key register (FLASH_PDKEYR) */
-#define FLASH_PDKEY1        ((u32)0x04152637)
-#define FLASH_PDKEY2        ((u32)0xFAFBFCFD)
+#define FLASH_PDKEYR_PDKEY1		((u32)0x04152637)
+#define FLASH_PDKEYR_PDKEY2		((u32)0xFAFBFCFD)
 
 /* Program/erase key register (FLASH_PEKEYR) */
-#define FLASH_PEKEY1        ((u32)0x89ABCDEF)
-#define FLASH_PEKEY2        ((u32)0x02030405)
+#define FLASH_PEKEYR_PEKEY1		((u32)0x89ABCDEF)
+#define FLASH_PEKEYR_PEKEY2		((u32)0x02030405)
 
 /* Program memory key register (FLASH_PRGKEYR) */
-#define FLASH_PRGKEY1       ((u32)0x8C9DAEBF)
-#define FLASH_PRGKEY2       ((u32)0x13141516)
+#define FLASH_PRGKEYR_PRGKEY1		((u32)0x8C9DAEBF)
+#define FLASH_PRGKEYR_PRGKEY2		((u32)0x13141516)
 
 /* Option byte key register (FLASH_OPTKEYR) */
-#define FLASH_OPTKEY1       ((u32)0xFBEAD9C8)
-#define FLASH_OPTKEY2       ((u32)0x24252627)
+#define FLASH_OPTKEYR_OPTKEY1		((u32)0xFBEAD9C8)
+#define FLASH_OPTKEYR_OPTKEY2		((u32)0x24252627)
 
 
 /* --- FLASH_SR values ----------------------------------------------------- */
-#define FLASH_OPTVERRUSR    (1 << 12)
-#define FLASH_OPTVERR       (1 << 11)
-#define FLASH_SIZEERR       (1 << 10)
-#define FLASH_PGAERR        (1 << 9)
-#define FLASH_WRPERR        (1 << 8)
-#define FLASH_READY         (1 << 3)
-#define FLASH_ENDHV         (1 << 2)
-#define FLASH_EOP			(1 << 1)
-#define FLASH_BSY			(1 << 0)
+#define FLASH_SR_OPTVERRUSR		(1 << 12)
+#define FLASH_SR_OPTVERR		(1 << 11)
+#define FLASH_SR_SIZEERR		(1 << 10)
+#define FLASH_SR_PGAERR			(1 << 9)
+#define FLASH_SR_WRPERR			(1 << 8)
+#define FLASH_SR_READY			(1 << 3)
+#define FLASH_SR_ENDHV			(1 << 2)
+#define FLASH_SR_EOP			(1 << 1)
+#define FLASH_SR_BSY			(1 << 0)
 
 /* --- FLASH_OBR values ----------------------------------------------------- */
-#define FLASH_BFB2          (1 << 23)
-#define FLASH_NRST_STDBY	(1 << 22)
-#define FLASH_NRST_STOP     (1 << 21)
-#define FLASH_IWDG_SW       (1 << 20)
-#define FLASH_BOR_OFF       (0x0 << 16)
-#define FLASH_BOR_LEVEL_1   (0x8 << 16)
-#define FLASH_BOR_LEVEL_2   (0x9 << 16)
-#define FLASH_BOR_LEVEL_3   (0xa << 16)
-#define FLASH_BOR_LEVEL_4   (0xb << 16)
-#define FLASH_BOR_LEVEL_5   (0xc << 16)
-#define FLASH_RDPRT_LEVEL_0 (0xaa)
-#define FLASH_RDPRT_LEVEL_1 (0x00)
-#define FLASH_RDPRT_LEVEL_2 (0xcc)
+#define FLASH_OBR_BFB2			(1 << 23)
+#define FLASH_OBR_NRST_STDBY		(1 << 22)
+#define FLASH_OBR_NRST_STOP		(1 << 21)
+#define FLASH_OBR_IWDG_SW		(1 << 20)
+#define FLASH_OBR_BOR_OFF		(0x0 << 16)
+#define FLASH_OBR_BOR_LEVEL_1		(0x8 << 16)
+#define FLASH_OBR_BOR_LEVEL_2		(0x9 << 16)
+#define FLASH_OBR_BOR_LEVEL_3		(0xa << 16)
+#define FLASH_OBR_BOR_LEVEL_4		(0xb << 16)
+#define FLASH_OBR_BOR_LEVEL_5		(0xc << 16)
+#define FLASH_OBR_RDPRT_LEVEL_0		(0xaa)
+#define FLASH_OBR_RDPRT_LEVEL_1		(0x00)
+#define FLASH_OBR_RDPRT_LEVEL_2		(0xcc)
 
 /* --- Function prototypes ------------------------------------------------- */
 

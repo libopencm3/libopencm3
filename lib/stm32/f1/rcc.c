@@ -761,7 +761,7 @@ void rcc_clock_setup_in_hsi_out_64mhz(void)
 	 * 1WS from 24-48MHz
 	 * 2WS from 48-72MHz
 	 */
-	flash_set_ws(FLASH_LATENCY_2WS);
+	flash_set_ws(FLASH_ACR_LATENCY_2WS);
 
 	/*
 	 * Set the PLL multiplication factor to 16.
@@ -814,7 +814,7 @@ void rcc_clock_setup_in_hsi_out_48mhz(void)
 	 * 1WS from 24-48MHz
 	 * 2WS from 48-72MHz
 	 */
-	flash_set_ws(FLASH_LATENCY_1WS);
+	flash_set_ws(FLASH_ACR_LATENCY_1WS);
 
 	/*
 	 * Set the PLL multiplication factor to 12.
@@ -865,7 +865,7 @@ void rcc_clock_setup_in_hsi_out_24mhz(void) {
 	 * 1WS from 24-48MHz
 	 * 2WS from 48-72MHz
 	 */
-	flash_set_ws(FLASH_LATENCY_0WS);
+	flash_set_ws(FLASH_ACR_LATENCY_0WS);
 
 	/*
 	 * Set the PLL multiplication factor to 6.
@@ -922,7 +922,7 @@ void rcc_clock_setup_in_hse_8mhz_out_24mhz(void)
 	 * 1WS from 24-48MHz
 	 * 2WS from 48-72MHz
 	 */
-	flash_set_ws(FLASH_LATENCY_0WS);
+	flash_set_ws(FLASH_ACR_LATENCY_0WS);
 
 	/*
 	 * Set the PLL multiplication factor to 3.
@@ -985,7 +985,7 @@ void rcc_clock_setup_in_hse_8mhz_out_72mhz(void)
 	 * 1WS from 24-48MHz
 	 * 2WS from 48-72MHz
 	 */
-	flash_set_ws(FLASH_LATENCY_2WS);
+	flash_set_ws(FLASH_ACR_LATENCY_2WS);
 
 	/*
 	 * Set the PLL multiplication factor to 9.
@@ -1048,7 +1048,7 @@ void rcc_clock_setup_in_hse_12mhz_out_72mhz(void)
 	 * 1WS from 24-48MHz
 	 * 2WS from 48-72MHz
 	 */
-	flash_set_ws(FLASH_LATENCY_2WS);
+	flash_set_ws(FLASH_ACR_LATENCY_2WS);
 
 	/*
 	 * Set the PLL multiplication factor to 9.
@@ -1111,7 +1111,7 @@ void rcc_clock_setup_in_hse_16mhz_out_72mhz(void)
 	 * 1WS from 24-48MHz
 	 * 2WS from 48-72MHz
 	 */
-	flash_set_ws(FLASH_LATENCY_2WS);
+	flash_set_ws(FLASH_ACR_LATENCY_2WS);
 
 	/*
 	 * Set the PLL multiplication factor to 9.
@@ -1158,7 +1158,7 @@ void rcc_clock_setup_in_hse_25mhz_out_72mhz(void)
 	 * 1WS from 24-48MHz
 	 * 2WS from 48-72MHz
 	 */
-	flash_set_ws(FLASH_LATENCY_2WS);
+	flash_set_ws(FLASH_ACR_LATENCY_2WS);
 
 	/*
 	 * Set prescalers for AHB, ADC, ABP1, ABP2.
