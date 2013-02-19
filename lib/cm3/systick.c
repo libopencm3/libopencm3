@@ -60,9 +60,20 @@ void systick_set_reload(u32 value)
 @returns 24 bit reload value as u32.
 */
 
+u32 systick_get_reload(void)
+{
+	return (STK_LOAD & 0x00FFFFFF);
+}
+
+/*-----------------------------------------------------------------------------*/
+/** @brief Get the current SysTick counter value.
+
+@returns 24 bit current value as u32.
+*/
+
 u32 systick_get_value(void)
 {
-	return STK_VAL;
+	return (STK_VAL & 0x00FFFFFF);
 }
 
 /*-----------------------------------------------------------------------------*/

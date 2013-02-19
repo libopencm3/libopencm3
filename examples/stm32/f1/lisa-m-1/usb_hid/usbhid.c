@@ -241,7 +241,8 @@ static void hid_set_config(usbd_device *usbd_dev, u16 wValue)
 #endif
 
 	systick_set_clocksource(STK_CTRL_CLKSOURCE_AHB_DIV8);
-	systick_set_reload(100000);
+	/* SysTick interrupt every N clock pulses: set reload to N-1 */
+	systick_set_reload(99999);
 	systick_interrupt_enable();
 	systick_counter_enable();
 }
