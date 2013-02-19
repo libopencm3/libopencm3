@@ -42,6 +42,19 @@ typedef uint64_t u64;
 # define END_DECLS
 #endif
 
+/* Full-featured deprecation attribute with fallback for older compilers. */
+
+#ifdef __GNUC__
+#	if __GNUC__ > 4 || (__GNUC__ == 4 && __GNUC_MINOR_ > 4)
+#		define LIBOPENCM3_DEPRECATED(x) __attribute__ ((deprecated (x)))
+#	else
+#		define LIBOPENCM3_DEPRECATED(x) __attribute__ ((deprecated))
+#	endif
+#else
+#	define LIBOPENCM3_DEPRECATED(x)
+#endif
+
+
 /* Generic memory-mapped I/O accessor functions */
 #define MMIO8(addr)		(*(volatile u8 *)(addr))
 #define MMIO16(addr)		(*(volatile u16 *)(addr))
