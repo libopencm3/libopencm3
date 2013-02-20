@@ -133,7 +133,6 @@ const struct usb_config_descriptor config = {
 };
 
 static const char *usb_strings[] = {
-	"x",
 	"Black Sphere Technologies",
 	"DFU Demo",
 	"DEMO",
@@ -344,7 +343,7 @@ int main(void)
 			GPIO9 | GPIO11 | GPIO12);
 	gpio_set_af(GPIOA, GPIO_AF10, GPIO9 | GPIO11 | GPIO12);
 
-	usbd_dev = usbd_init(&otgfs_usb_driver, &dev, &config, usb_strings);
+	usbd_dev = usbd_init(&otgfs_usb_driver, &dev, &config, usb_strings, 4);
 	usbd_set_control_buffer_size(usbd_dev, sizeof(usbd_control_buffer));
 	usbd_register_control_callback(
 				usbd_dev,
