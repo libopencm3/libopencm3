@@ -22,7 +22,7 @@
  * For details see:
  * PM0081 Programming manual: STM32F40xxx and STM32F41xxx Flash programming
  * September 2011, Doc ID 018520 Rev 1
- * http://www.st.com/internet/com/TECHNICAL_RESOURCES/TECHNICAL_LITERATURE/PROGRAMMING_MANUAL/DM00023388.pdf
+ * http://www.st.com/st-web-ui/static/active/en/resource/technical/document/programming_manual/DM00023388.pdf
  */
 
 #ifndef LIBOPENCM3_FLASH_H

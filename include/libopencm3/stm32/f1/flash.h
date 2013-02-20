@@ -22,7 +22,7 @@
  * For details see:
  * PM0075 programming manual: STM32F10xxx Flash programming
  * August 2010, Doc ID 17863 Rev 1
- * http://www.st.com/internet/com/TECHNICAL_RESOURCES/TECHNICAL_LITERATURE/PROGRAMMING_MANUAL/CD00283419.pdf
+ * http://www.st.com/st-web-ui/static/active/en/resource/technical/document/programming_manual/CD00283419.pdf
  */
 
 #ifndef LIBOPENCM3_FLASH_H
