@@ -23,7 +23,7 @@
  * PM0059 Programming manual: STM32F205xx, STM32F207xx, STM32F215xx, STM32F217xx
  * Flash programming
  * May 2011, Doc ID 15687 Rev 4
- * http://www.st.com/internet/com/TECHNICAL_RESOURCES/TECHNICAL_LITERATURE/PROGRAMMING_MANUAL/CD00233952.pdf
+ * http://www.st.com/st-web-ui/static/active/en/resource/technical/document/programming_manual/CD00233952.pdf
  */
 
 #ifndef LIBOPENCM3_FLASH_H
