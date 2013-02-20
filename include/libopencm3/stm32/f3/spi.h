@@ -1,9 +1,20 @@
-/** @addtogroup i2c_defines */
+/** @defgroup spi_defines SPI Defines
+
+@brief <b>Defined Constants and Types for the STM32F3xx SPI</b>
+
+@ingroup STM32F3xx_defines
+
+@version 1.0.0
+
+@author @htmlonly &copy; @endhtmlonly 2012 Ken Sarkies <ksarkies@internode.on.net>
+
+@date 5 December 2012
+
+LGPL License Terms @ref lgpl_license
+ */
 
 /*
  * This file is part of the libopencm3 project.
- *
- * Copyright (C) 2012 Ken Sarkies <ksarkies@internode.on.net>
  *
  * This library is free software: you can redistribute it and/or modify
  * it under the terms of the GNU Lesser General Public License as published by
@@ -19,17 +30,11 @@
  * along with this library.  If not, see <http://www.gnu.org/licenses/>.
  */
 
-/* THIS FILE SHOULD NOT BE INCLUDED DIRECTLY, BUT ONLY VIA I2C.H */
+#ifndef LIBOPENCM3_SPI_H
+#define LIBOPENCM3_SPI_H
 
-#ifndef LIBOPENCM3_I2C_COMMON_F24_H
-#define LIBOPENCM3_I2C_COMMON_F24_H
-
-#include <libopencm3/stm32/common/i2c_common_all.h>
-
-/**@{*/
-
-#define I2C3				I2C3_BASE
-
-/**@}*/
+#include <libopencm3/stm32/memorymap.h>
+#include <libopencm3/stm32/common/spi_common_f234.h>
 
 #endif
+
