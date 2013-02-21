@@ -71,6 +71,7 @@ void exti_enable_request(u32 extis);
 void exti_disable_request(u32 extis);
 void exti_reset_request(u32 extis);
 void exti_select_source(u32 exti, u32 gpioport);
+u32 exti_get_flag_status(u32 exti);
 
 END_DECLS
 
