@@ -66,6 +66,14 @@ void exti_reset_request(u32 extis)
 }
 
 /*
+ * Check the flag of a given EXTI interrupt.
+ * */
+u32 exti_get_flag_status(u32 exti)
+{
+	return EXTI_PR & exti;
+}
+
+/*
  * Remap an external interrupt line to the corresponding pin on the
  * specified GPIO port.
  *
