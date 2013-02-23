@@ -19,7 +19,7 @@
 
 BINARY = usbdfu
 
-LDSCRIPT = usbdfu.ld
+LDSCRIPT = ../krooz.ld
 
 include ../../Makefile.include
 

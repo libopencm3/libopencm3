@@ -18,10 +18,9 @@
  * along with this library.  If not, see <http://www.gnu.org/licenses/>.
  */
 
-#include <stdlib.h>
 #include <string.h>
-#include <libopencm3/stm32/f4/rcc.h>
-#include <libopencm3/stm32/f4/gpio.h>
+#include <libopencm3/stm32/rcc.h>
+#include <libopencm3/stm32/gpio.h>
 #include <libopencm3/stm32/f4/flash.h>
 #include <libopencm3/cm3/scb.h>
 #include <libopencm3/usb/usbd.h>
@@ -179,7 +178,6 @@ static void usbdfu_getstatus_complete(usbd_device *usbd_dev, struct usb_setup_da
 				addr = *(u32 *)(prog.buf + 1);
 				/* Unprotect user application area */
 				if(addr == APP_ADDRESS) {
-					//if(!(FLASH_OPTCR & USER_AP_WP))
 					#ifdef USE_LED
 						LED_ON(GREEN)
 					#endif
@@ -292,20 +290,17 @@ bool gpio_force_bootloader()
 		rcc_peripheral_enable_clock(&RCC_AHB1ENR, RCC_AHB1ENR_IOPAEN);
 		gpio_mode_setup(GPIOA, GPIO_MODE_INPUT, GPIO_PUPD_PULLDOWN, GPIO9);
 		gpio_clear(GPIOA, GPIO9);
-
+    
 		if(gpio_get(GPIOA, GPIO9)) {
-			//gpio_mode_setup(GPIOA, GPIO_MODE_INPUT, GPIO_PUPD_NONE, GPIO9);
 			rcc_peripheral_disable_clock(&RCC_AHB1ENR, RCC_AHB1ENR_IOPAEN);
 			return true;
 		}
-	//gpio_set_mode(GPIOA, GPIO_MODE_INPUT, GPIO_PUPD_NONE, GPIO9);
 	rcc_peripheral_disable_clock(&RCC_AHB1ENR, RCC_AHB1ENR_IOPAEN);
 	return false;
 }
 
 int main(void)
 {
-	//if ((*(volatile u32 *)APP_ADDRESS & 0x2FFE0000) == 0x20000000)
 	if (!(gpio_force_bootloader() && 1)
 				 || (FLASH_OPTCR & USER_AP_WP)
 			) 
@@ -334,8 +329,8 @@ int main(void)
 	gpio_set(GPIOA, GPIO14 | GPIO15);
 	
 	/* Write protect bootloader sector if not yet */
-	//if((FLASH_OPTCR & 0x10000))
-	//	flash_program_option_bytes(FLASH_OPTCR & ~0x10000);
+	if((FLASH_OPTCR & 0x10000))
+    flash_program_option_bytes(FLASH_OPTCR & ~0x10000);
 	
 	rcc_peripheral_enable_clock(&RCC_AHB2ENR, RCC_AHB2ENR_OTGFSEN);
 
