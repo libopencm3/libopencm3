@@ -96,6 +96,7 @@ LGPL License Terms @ref lgpl_license
 BEGIN_DECLS
 
 void systick_set_reload(u32 value);
+u32 systick_get_reload(void);
 u32 systick_get_value(void);
 void systick_set_clocksource(u8 clocksource);
 void systick_interrupt_enable(void);
