@@ -96,7 +96,6 @@ SECTIONS
 	_edata_rom = _data_rom + SIZEOF (.data);
 
 	.bss : {
-		. = _edata;
 		_bss = .;
 		*(.bss*)	/* Read-write zero initialized data */
 		*(COMMON)
@@ -106,7 +105,6 @@ SECTIONS
 
 	/* exception unwind data - required due to libgcc.a issuing /0 exceptions */
 	.ARM.extab : {
-		. = _ebss;
 		*(.ARM.extab*)
 	} >ram_local2
 
