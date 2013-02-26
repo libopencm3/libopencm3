@@ -78,6 +78,9 @@ void flash_set_ws(u32 ws)
 
 void flash_unlock(void)
 {
+	/* Clear the unlock sequence state. */
+	FLASH_CR |= FLASH_CR_LOCK;
+
 	/* Authorize the FPEC access. */
 	FLASH_KEYR = FLASH_KEYR_KEY1;
 	FLASH_KEYR = FLASH_KEYR_KEY2;
@@ -130,6 +133,10 @@ void flash_clear_status_flags(void)
 
 void flash_unlock_option_bytes(void)
 {
+	/* Clear the unlock state. */
+	FLASH_OPTCR |= FLASH_OPTCR_OPTLOCK;
+
+	/* Unlock option bytes. */
 	FLASH_OPTKEYR = FLASH_OPTKEYR_KEY1;
 	FLASH_OPTKEYR = FLASH_OPTKEYR_KEY2;
 }
