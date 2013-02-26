@@ -929,7 +929,7 @@ BEGIN_DECLS
 
 void gpio_set_mode(u32 gpioport, u8 mode, u8 cnf, u16 gpios);
 void gpio_set_eventout(u8 evoutport, u8 evoutpin);
-void gpio_primary_remap(u8 swjenable, u32 maps);
+void gpio_primary_remap(u32 swjenable, u32 maps);
 void gpio_secondary_remap(u32 maps);
 
 END_DECLS
