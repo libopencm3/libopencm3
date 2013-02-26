@@ -168,7 +168,7 @@ void adc_enable_discontinuous_mode_regular(u32 adc, u8 length)
 {
     if ( (length-1) > 7 ) return;
 	ADC_CR1(adc) |= ADC_CR1_DISCEN;	
-    ADC_CR2(adc) |= ((length-1) << ADC_CR1_DISCNUM_SHIFT);
+    ADC_CR1(adc) |= ((length-1) << ADC_CR1_DISCNUM_SHIFT);
 }
 
 /*-----------------------------------------------------------------------------*/
