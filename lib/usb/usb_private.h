@@ -99,6 +99,15 @@ void _usbd_control_in(usbd_device *usbd_dev, u8 ea);
 void _usbd_control_out(usbd_device *usbd_dev, u8 ea);
 void _usbd_control_setup(usbd_device *usbd_dev, u8 ea);
 
+int _usbd_standard_request_device(usbd_device *usbd_dev,
+				  struct usb_setup_data *req, u8 **buf,
+				  u16 *len);
+int _usbd_standard_request_interface(usbd_device *usbd_dev,
+				     struct usb_setup_data *req, u8 **buf,
+				     u16 *len);
+int _usbd_standard_request_endpoint(usbd_device *usbd_dev,
+				    struct usb_setup_data *req, u8 **buf,
+				    u16 *len);
 int _usbd_standard_request(usbd_device *usbd_dev, struct usb_setup_data *req,
 			   u8 **buf, u16 *len);
 

@@ -1028,7 +1028,7 @@ BEGIN_DECLS
 void timer_reset(u32 timer_peripheral);
 void timer_enable_irq(u32 timer_peripheral, u32 irq);
 void timer_disable_irq(u32 timer_peripheral, u32 irq);
-bool timer_return_interrupt_source(u32 timer_peripheral, u32 flag);
+bool timer_interrupt_source(u32 timer_peripheral, u32 flag);
 bool timer_get_flag(u32 timer_peripheral, u32 flag);
 void timer_clear_flag(u32 timer_peripheral, u32 flag);
 void timer_set_mode(u32 timer_peripheral, u32 clock_div,

@@ -359,6 +359,8 @@ void usart_enable_rx_interrupt(u32 usart);
 void usart_disable_rx_interrupt(u32 usart);
 void usart_enable_tx_interrupt(u32 usart);
 void usart_disable_tx_interrupt(u32 usart);
+void usart_enable_error_interrupt(u32 usart);
+void usart_disable_error_interrupt(u32 usart);
 bool usart_get_flag(u32 usart, u32 flag);
 bool usart_get_interrupt_source(u32 usart, u32 flag);
 

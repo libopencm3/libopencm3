@@ -200,4 +200,11 @@
 #define ETH_DMAIER_AISE			0x00008000
 #define ETH_DMAIER_NSIE			0x00010000
 
+BEGIN_DECLS
+
+void eth_smi_write(u8 phy, u8 reg, u16 data);
+u16 eth_smi_read(u8 phy, u8 reg);
+
+END_DECLS
+
 #endif
