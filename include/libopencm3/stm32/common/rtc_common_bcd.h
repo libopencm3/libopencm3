@@ -305,6 +305,8 @@ void rtc_set_prescaler(u32 sync, u32 async);
 void rtc_wait_for_synchro(void);
 void rtc_lock(void);
 void rtc_unlock(void);
+void rtc_set_wakeup_time(u16 wkup_time, u8 rtc_cr_wucksel);
+void rtc_clear_wakeup_flag(void);
 
 END_DECLS
 /**@}*/
