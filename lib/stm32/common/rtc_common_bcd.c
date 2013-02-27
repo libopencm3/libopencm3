@@ -75,4 +75,35 @@ void rtc_lock(void) {
 	RTC_WPR = 0xff;
 }
 
+/*---------------------------------------------------------------------------*/
+/** @brief Sets the wakeup time auto-reload value
+
+*/
+void rtc_set_wakeup_time(u16 wkup_time, u8 rtc_cr_wucksel) {
+// FTFM:
+// The following sequence is required to configure or change the wakeup timer
+// auto-reload value (WUT[15:0] in RTC_WUTR):
+// 1. Clear WUTE in RTC_CR to disable the wakeup timer.
+  RTC_CR &= ~RTC_CR_WUTE;
+// 2. Poll WUTWF until it is set in RTC_ISR to make sure the access to wakeup
+//    auto-reload counter and to WUCKSEL[2:0] bits is allowed. It takes around 2
+//    RTCCLK clock cycles (due to clock synchronization).
+  while (!((RTC_ISR) & (RTC_ISR_WUTWF))) { }
+// 3. Program the wakeup auto-reload value WUT[15:0], and the wakeup clock
+//    selection (WUCKSEL[2:0] bits in RTC_CR).Set WUTE in RTC_CR to enable the
+//    timer again. The wakeup timer restarts down-counting.
+  RTC_WUTR = wkup_time;
+  RTC_CR |= (rtc_cr_wucksel << RTC_CR_WUCLKSEL_SHIFT);
+  RTC_CR |= RTC_CR_WUTE;
+}
+
+/*---------------------------------------------------------------------------*/
+/** @brief Clears the wakeup flag
+
+		@details This function should be called first in the rtc_wkup_isr()
+*/
+void rtc_clear_wakeup_flag(void) {
+  RTC_ISR &= ~RTC_ISR_WUTF;
+}
+
 /**@}*/
