@@ -93,7 +93,7 @@
 
 
 /* RTC time register (RTC_TR) bits */
-#define RTC_TR_TR_PM		(1 << 22)
+#define RTC_TR_PM	      	(1 << 22)
 #define RTC_TR_HT_SHIFT		(20)
 #define RTC_TR_HT_MASK		(0x3)
 #define RTC_TR_HU_SHIFT		(16)
@@ -103,7 +103,7 @@
 #define RTC_TR_MNU_SHIFT	(8)
 #define RTC_TR_MNU_MASK		(0xf)
 #define RTC_TR_ST_SHIFT		(4)
-#define RTC_TR_ST_MASK		(0x3)
+#define RTC_TR_ST_MASK		(0x7)
 #define RTC_TR_SU_SHIFT		(0)
 #define RTC_TR_SU_MASK		(0xf)
 
@@ -115,6 +115,7 @@
 #define RTC_DR_WDU_SHIFT	(13)
 #define RTC_DR_WDU_MASK		(0x7)
 #define RTC_DR_MT		(1<<12)
+#define RTC_DR_MT_SHIFT   (12)
 #define RTC_DR_MU_SHIFT		(8)
 #define RTC_DR_MU_MASK		(0xf)
 #define RTC_DR_DT_SHIFT		(4)
