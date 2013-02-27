@@ -31,7 +31,9 @@
 
 static struct state_t state;
 
-void clock_setup(void)
+int _write(int file, char *ptr, int len);
+
+static void clock_setup(void)
 {
 	rcc_clock_setup_pll(&clock_config[CLOCK_VRANGE1_HSI_PLL_24MHZ]);
 	/* Lots of things on all ports... */
@@ -47,7 +49,7 @@ void clock_setup(void)
 
 }
 
-void gpio_setup(void)
+static void gpio_setup(void)
 {
 	/* green led for ticking, blue for button feedback */
 	gpio_mode_setup(LED_DISCO_GREEN_PORT, GPIO_MODE_OUTPUT, GPIO_PUPD_NONE, LED_DISCO_GREEN_PIN);
@@ -60,7 +62,7 @@ void gpio_setup(void)
 	gpio_set_af(GPIOA, GPIO_AF7, GPIO2);
 }
 
-void usart_setup(void)
+static void usart_setup(void)
 {
 	usart_set_baudrate(USART_CONSOLE, 115200);
 	usart_set_databits(USART_CONSOLE, 8);
@@ -131,7 +133,7 @@ void tim6_isr(void)
  * Another ms timer, this one used to generate an overflow interrupt at 1ms
  * It is used to toggle leds and write tick counts
  */
-void setup_tim6(void)
+static void setup_tim6(void)
 {
 	timer_reset(TIM6);
 	// 24Mhz / 10khz -1.
@@ -148,7 +150,7 @@ void setup_tim6(void)
 /*
  * Free running ms timer.
  */
-void setup_tim7(void)
+static void setup_tim7(void)
 {
 	timer_reset(TIM7);
 	timer_set_prescaler(TIM7, 23999); // 24Mhz/1000hz - 1
@@ -156,7 +158,7 @@ void setup_tim7(void)
 	timer_enable_counter(TIM7);
 }
 
-void setup_buttons(void)
+static void setup_buttons(void)
 {
 	/* Enable EXTI0 interrupt. */
 	nvic_enable_irq(BUTTON_DISCO_USER_NVIC);

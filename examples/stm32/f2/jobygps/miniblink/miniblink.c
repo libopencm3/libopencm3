@@ -21,7 +21,7 @@
 #include <libopencm3/stm32/f2/rcc.h>
 #include <libopencm3/stm32/f2/gpio.h>
 
-void gpio_setup(void)
+static void gpio_setup(void)
 {
 	/* Enable GPIOC clock. */
 	rcc_peripheral_enable_clock(&RCC_AHB1ENR, RCC_AHB1ENR_IOPCEN);

@@ -23,7 +23,7 @@
 
 #include "../jellybean_conf.h"
 
-void gpio_setup(void)
+static void gpio_setup(void)
 {
 	/* Configure SCU Pin Mux as GPIO */
 	scu_pinmux(SCU_PINMUX_LED1, SCU_GPIO_FAST);

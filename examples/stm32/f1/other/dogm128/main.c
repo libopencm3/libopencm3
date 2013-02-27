@@ -26,7 +26,7 @@
 #include <libopencm3/stm32/spi.h>
 #include "./dogm128.h"
 
-void gpio_setup(void)
+static void gpio_setup(void)
 {
 	/* Enable GPIOB clock. */
 	rcc_peripheral_enable_clock(&RCC_APB2ENR, RCC_APB2ENR_IOPBEN);
@@ -53,7 +53,7 @@ void gpio_setup(void)
 		      GPIO_CNF_OUTPUT_ALTFN_PUSHPULL, GPIO15);
 }
 
-void spi_setup(void)
+static void spi_setup(void)
 {
 	/* The DOGM128 display is connected to SPI2, so initialise it. */
 

@@ -34,17 +34,6 @@ void main(void);
 void blocking_handler(void);
 void null_handler(void);
 
-void WEAK reset_handler(void);
-void WEAK nmi_handler(void);
-void WEAK hard_fault_handler(void);
-void WEAK mem_manage_handler(void);
-void WEAK bus_fault_handler(void);
-void WEAK usage_fault_handler(void);
-void WEAK sv_call_handler(void);
-void WEAK debug_monitor_handler(void);
-void WEAK pend_sv_handler(void);
-void WEAK sys_tick_handler(void);
-
 __attribute__ ((section(".vectors")))
 vector_table_t vector_table = {
 	.initial_sp_value = &_stack,

@@ -108,6 +108,8 @@ IRQ numbers -3 and -6 to -9 are reserved
 
 /* --- NVIC functions ------------------------------------------------------ */
 
+#define WEAK __attribute__ ((weak))
+
 BEGIN_DECLS
 
 void nvic_enable_irq(u8 irqn);
@@ -119,6 +121,17 @@ u8 nvic_get_active_irq(u8 irqn);
 u8 nvic_get_irq_enabled(u8 irqn);
 void nvic_set_priority(u8 irqn, u8 priority);
 void nvic_generate_software_interrupt(u16 irqn);
+
+void WEAK reset_handler(void);
+void WEAK nmi_handler(void);
+void WEAK hard_fault_handler(void);
+void WEAK mem_manage_handler(void);
+void WEAK bus_fault_handler(void);
+void WEAK usage_fault_handler(void);
+void WEAK sv_call_handler(void);
+void WEAK debug_monitor_handler(void);
+void WEAK pend_sv_handler(void);
+void WEAK sys_tick_handler(void);
 
 END_DECLS
 

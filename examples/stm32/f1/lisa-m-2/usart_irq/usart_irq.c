@@ -22,7 +22,7 @@
 #include <libopencm3/stm32/usart.h>
 #include <libopencm3/cm3/nvic.h>
 
-void clock_setup(void)
+static void clock_setup(void)
 {
 	rcc_clock_setup_in_hse_12mhz_out_72mhz();
 
@@ -36,7 +36,7 @@ void clock_setup(void)
 	rcc_peripheral_enable_clock(&RCC_APB1ENR, RCC_APB1ENR_USART2EN);
 }
 
-void usart_setup(void)
+static void usart_setup(void)
 {
 	/* Enable the USART2 interrupt. */
 	nvic_enable_irq(NVIC_USART2_IRQ);
@@ -64,7 +64,7 @@ void usart_setup(void)
 	usart_enable(USART2);
 }
 
-void gpio_setup(void)
+static void gpio_setup(void)
 {
 	gpio_set(GPIOA, GPIO8);
 

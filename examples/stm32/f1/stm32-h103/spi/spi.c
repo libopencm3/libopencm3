@@ -20,17 +20,17 @@
 #include <libopencm3/stm32/f1/rcc.h>
 #include <libopencm3/stm32/spi.h>
 
-void clock_setup(void)
+static void clock_setup(void)
 {
 	rcc_clock_setup_in_hse_8mhz_out_72mhz();
 }
 
-void spi_setup(void)
+static void spi_setup(void)
 {
 	/* TODO */
 }
 
-void gpio_setup(void)
+static void gpio_setup(void)
 {
 	/* TODO */
 }

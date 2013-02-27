@@ -47,7 +47,7 @@ struct can_rx_msg {
 struct can_tx_msg can_tx_msg;
 struct can_rx_msg can_rx_msg;
 
-void gpio_setup(void)
+static void gpio_setup(void)
 {
 	/* Enable GPIOA clock. */
 	rcc_peripheral_enable_clock(&RCC_APB2ENR, RCC_APB2ENR_IOPAEN);
@@ -73,7 +73,7 @@ void gpio_setup(void)
 		      GPIO_CNF_OUTPUT_PUSHPULL, GPIO1);
 }
 
-void systick_setup(void)
+static void systick_setup(void)
 {
 	/* 72MHz / 8 => 9000000 counts per second */
 	systick_set_clocksource(STK_CTRL_CLKSOURCE_AHB_DIV8);
@@ -88,7 +88,7 @@ void systick_setup(void)
 	systick_counter_enable();
 }
 
-void can_setup(void)
+static void can_setup(void)
 {
 	/* Enable peripheral clocks. */
 	rcc_peripheral_enable_clock(&RCC_APB2ENR, RCC_APB2ENR_AFIOEN);

@@ -21,7 +21,7 @@
 #include <libopencm3/stm32/f4/rcc.h>
 #include <libopencm3/stm32/f4/gpio.h>
 
-void gpio_setup(void)
+static void gpio_setup(void)
 {
 	/* Enable GPIOD clock. */
 	/* Manually: */

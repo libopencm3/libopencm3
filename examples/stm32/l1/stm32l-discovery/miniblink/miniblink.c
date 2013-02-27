@@ -25,7 +25,7 @@
 #define PORT_LED GPIOB
 #define PIN_LED GPIO6
 
-void gpio_setup(void)
+static void gpio_setup(void)
 {
 	/* Enable GPIOB clock. */
 	/* Manually: */

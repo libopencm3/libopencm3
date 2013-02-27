@@ -28,12 +28,12 @@
 
 u16 exti_direction = FALLING;
 
-void clock_setup(void)
+static void clock_setup(void)
 {
 	rcc_clock_setup_in_hse_8mhz_out_72mhz();
 }
 
-void gpio_setup(void)
+static void gpio_setup(void)
 {
 	/* Enable GPIOC clock. */
 	rcc_peripheral_enable_clock(&RCC_APB2ENR, RCC_APB2ENR_IOPCEN);
@@ -43,7 +43,7 @@ void gpio_setup(void)
 		      GPIO_CNF_OUTPUT_PUSHPULL, GPIO12);
 }
 
-void exti_setup(void)
+static void exti_setup(void)
 {
 	/* Enable GPIOA clock. */
 	rcc_peripheral_enable_clock(&RCC_APB2ENR, RCC_APB2ENR_IOPAEN);
@@ -80,7 +80,7 @@ void exti0_isr(void)
 	}
 }
 
-void tim_setup(void)
+static void tim_setup(void)
 {
 	/* Enable TIM1 clock. */
 	rcc_peripheral_enable_clock(&RCC_APB2ENR, RCC_APB2ENR_TIM1EN);

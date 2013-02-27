@@ -20,7 +20,7 @@
 #include <libopencm3/lm3s/systemcontrol.h>
 #include <libopencm3/lm3s/gpio.h>
 
-void gpio_setup(void)
+static void gpio_setup(void)
 {
 	SYSTEMCONTROL_RCGC2 |= 0x20; /* Enable GPIOF in run mode. */
 

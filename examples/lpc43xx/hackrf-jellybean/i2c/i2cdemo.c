@@ -23,7 +23,7 @@
 
 #include "../jellybean_conf.h"
 
-void gpio_setup(void)
+static void gpio_setup(void)
 {
 	/* Configure SCU Pin Mux as GPIO */
 	scu_pinmux(SCU_PINMUX_LED1, SCU_GPIO_FAST);
@@ -55,7 +55,8 @@ void gpio_setup(void)
 #define SI5351C_I2C_ADDR (0x60 << 1)
 
 /* write to single register */
-void si5351c_write_reg(uint8_t reg, uint8_t val)
+/* Not used!
+static void si5351c_write_reg(uint8_t reg, uint8_t val)
 {
 	i2c0_tx_start();
 	i2c0_tx_byte(SI5351C_I2C_ADDR | I2C_WRITE);
@@ -63,9 +64,10 @@ void si5351c_write_reg(uint8_t reg, uint8_t val)
 	i2c0_tx_byte(val);
 	i2c0_stop();
 }
+*/
 
 /* read single register */
-uint8_t si5351c_read_reg(uint8_t reg)
+static uint8_t si5351c_read_reg(uint8_t reg)
 {
 	uint8_t val;
 

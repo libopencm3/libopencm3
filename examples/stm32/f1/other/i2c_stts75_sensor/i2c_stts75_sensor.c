@@ -24,7 +24,7 @@
 #include <libopencm3/stm32/i2c.h>
 #include "stts75.h"
 
-void usart_setup(void)
+static void usart_setup(void)
 {
 	/* Enable clocks for GPIO port A (for GPIO_USART1_TX) and USART1. */
 	rcc_peripheral_enable_clock(&RCC_APB2ENR, RCC_APB2ENR_IOPAEN);
@@ -46,7 +46,7 @@ void usart_setup(void)
 	usart_enable(USART1);
 }
 
-void gpio_setup(void)
+static void gpio_setup(void)
 {
 	/* Enable GPIOB clock. */
 	rcc_peripheral_enable_clock(&RCC_APB2ENR, RCC_APB2ENR_IOPBEN);
@@ -58,7 +58,7 @@ void gpio_setup(void)
 	              GPIO_CNF_OUTPUT_PUSHPULL, GPIO7);
 }
 
-void i2c_setup(void)
+static void i2c_setup(void)
 {
 	/* Enable clocks for I2C2 and AFIO. */
 	rcc_peripheral_enable_clock(&RCC_APB1ENR, RCC_APB1ENR_I2C2EN);

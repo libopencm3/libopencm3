@@ -24,7 +24,7 @@
 #include <libopencm3/stm32/usart.h>
 #include <libopencm3/cm3/nvic.h>
 
-void clock_setup(void)
+static void clock_setup(void)
 {
 	/* Enable GPIOD clock for LED & USARTs. */
 	rcc_peripheral_enable_clock(&RCC_AHB1ENR, RCC_AHB1ENR_IOPDEN);
@@ -34,7 +34,7 @@ void clock_setup(void)
 	rcc_peripheral_enable_clock(&RCC_APB1ENR, RCC_APB1ENR_USART2EN);
 }
 
-void usart_setup(void)
+static void usart_setup(void)
 {
 	/* Enable the USART2 interrupt. */
 	nvic_enable_irq(NVIC_USART2_IRQ);
@@ -65,7 +65,7 @@ void usart_setup(void)
 	usart_enable(USART2);
 }
 
-void gpio_setup(void)
+static void gpio_setup(void)
 {
 	/* Setup GPIO pin GPIO12 on GPIO port D for LED. */
 	gpio_mode_setup(GPIOD, GPIO_MODE_OUTPUT, GPIO_PUPD_NONE, GPIO12);

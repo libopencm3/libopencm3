@@ -45,7 +45,7 @@ struct ring {
 #define RING_DATA(RING)  (RING)->data
 #define RING_EMPTY(RING) ((RING)->begin == (RING)->end)
 
-void ring_init(struct ring *ring, u8 *buf, ring_size_t size)
+static void ring_init(struct ring *ring, u8 *buf, ring_size_t size)
 {
 	ring->data = buf;
 	ring->size = size;
@@ -53,7 +53,7 @@ void ring_init(struct ring *ring, u8 *buf, ring_size_t size)
 	ring->end = 0;
 }
 
-s32 ring_write_ch(struct ring *ring, u8 ch)
+static s32 ring_write_ch(struct ring *ring, u8 ch)
 {
 	if (((ring->end + 1) % ring->size) != ring->begin) {
 		ring->data[ring->end++] = ch;
@@ -64,7 +64,7 @@ s32 ring_write_ch(struct ring *ring, u8 ch)
 	return -1;
 }
 
-s32 ring_write(struct ring *ring, u8 *data, ring_size_t size)
+static s32 ring_write(struct ring *ring, u8 *data, ring_size_t size)
 {
 	s32 i;
 
@@ -76,7 +76,7 @@ s32 ring_write(struct ring *ring, u8 *data, ring_size_t size)
 	return i;
 }
 
-s32 ring_read_ch(struct ring *ring, u8 *ch)
+static s32 ring_read_ch(struct ring *ring, u8 *ch)
 {
 	s32 ret = -1;
 
@@ -90,7 +90,8 @@ s32 ring_read_ch(struct ring *ring, u8 *ch)
 	return ret;
 }
 
-s32 ring_read(struct ring *ring, u8 *data, ring_size_t size)
+/* Not used!
+static s32 ring_read(struct ring *ring, u8 *data, ring_size_t size)
 {
 	s32 i;
 
@@ -101,6 +102,7 @@ s32 ring_read(struct ring *ring, u8 *data, ring_size_t size)
 
 	return -i;
 }
+*/
 
 /******************************************************************************
  * The example implementation
@@ -111,7 +113,9 @@ s32 ring_read(struct ring *ring, u8 *data, ring_size_t size)
 struct ring output_ring;
 u8 output_ring_buffer[BUFFER_SIZE];
 
-void clock_setup(void)
+int _write(int file, char *ptr, int len);
+
+static void clock_setup(void)
 {
 	rcc_clock_setup_in_hse_8mhz_out_72mhz();
 
@@ -123,7 +127,7 @@ void clock_setup(void)
 				    RCC_APB2ENR_AFIOEN | RCC_APB2ENR_USART1EN);
 }
 
-void usart_setup(void)
+static void usart_setup(void)
 {
 	/* Initialize output ring buffer. */
 	ring_init(&output_ring, output_ring_buffer, BUFFER_SIZE);
@@ -154,7 +158,7 @@ void usart_setup(void)
 	usart_enable(USART1);
 }
 
-void gpio_setup(void)
+static void gpio_setup(void)
 {
 	gpio_set(GPIOC, GPIO12);
 
@@ -216,7 +220,7 @@ int _write(int file, char *ptr, int len)
 	return -1;
 }
 
-void systick_setup(void)
+static void systick_setup(void)
 {
 	/* 72MHz / 8 => 9000000 counts per second. */
 	systick_set_clocksource(STK_CTRL_CLKSOURCE_AHB_DIV8);

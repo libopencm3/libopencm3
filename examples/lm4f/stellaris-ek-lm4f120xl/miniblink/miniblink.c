@@ -149,8 +149,6 @@ static void delay(void)
 
 int main(void)
 {
-	int i;
-
 	clock_setup();
 	gpio_setup();
 	irq_setup();

@@ -20,7 +20,7 @@
 #include <libopencm3/stm32/f1/rcc.h>
 #include <libopencm3/stm32/f1/gpio.h>
 
-void clock_setup(void)
+static void clock_setup(void)
 {
 	/* Set STM32 to 64 MHz. */
 	rcc_clock_setup_in_hsi_out_64mhz();
@@ -32,7 +32,7 @@ void clock_setup(void)
 	rcc_peripheral_enable_clock(&RCC_APB2ENR, RCC_APB2ENR_IOPBEN);
 }
 
-void gpio_setup(void)
+static void gpio_setup(void)
 {
 
 	/* Configure PB4 as GPIO. */

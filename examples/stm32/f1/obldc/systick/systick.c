@@ -26,7 +26,7 @@
 
 u32 temp32;
 
-void gpio_setup(void)
+static void gpio_setup(void)
 {
 	/* Enable GPIOA clock. */
 	rcc_peripheral_enable_clock(&RCC_APB2ENR, RCC_APB2ENR_IOPAEN);

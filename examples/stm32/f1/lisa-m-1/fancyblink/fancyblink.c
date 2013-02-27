@@ -22,7 +22,7 @@
 #include <libopencm3/stm32/f1/gpio.h>
 
 /* Set STM32 to 72 MHz. */
-void clock_setup(void)
+static void clock_setup(void)
 {
 	rcc_clock_setup_in_hse_12mhz_out_72mhz();
 
@@ -32,7 +32,7 @@ void clock_setup(void)
 	rcc_peripheral_enable_clock(&RCC_APB2ENR, RCC_APB2ENR_AFIOEN);
 }
 
-void gpio_setup(void)
+static void gpio_setup(void)
 {
 	/* Set GPIO13 (in GPIO port C) to 'output push-pull'. */
 	gpio_set_mode(GPIOC, GPIO_MODE_OUTPUT_50_MHZ,

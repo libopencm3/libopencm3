@@ -25,7 +25,9 @@
 #include <libopencm3/cm3/nvic.h>
 #include <libopencm3/stm32/f2/rcc.h>
 
-void clock_setup(void)
+int _write(int file, char *ptr, int len);
+
+static void clock_setup(void)
 {
 	/* Enable clocks on all the peripherals we are going to use. */
 	rcc_peripheral_enable_clock(&RCC_APB2ENR, RCC_APB2ENR_USART1EN);
@@ -33,7 +35,7 @@ void clock_setup(void)
 			RCC_AHB1ENR_IOPCEN | RCC_AHB1ENR_IOPAEN);
 }
 
-void usart_setup(void)
+static void usart_setup(void)
 {
 	gpio_mode_setup(GPIOA, GPIO_MODE_AF, GPIO_PUPD_NONE, GPIO9);
 	gpio_set_af(GPIOA, GPIO_AF7, GPIO9 | GPIO10);
@@ -50,7 +52,7 @@ void usart_setup(void)
 	usart_enable(USART1);
 }
 
-void gpio_setup(void)
+static void gpio_setup(void)
 {
 	gpio_mode_setup(GPIOC, GPIO_MODE_OUTPUT, GPIO_MODE_OUTPUT, GPIO3);
 	gpio_set(GPIOC, GPIO3);

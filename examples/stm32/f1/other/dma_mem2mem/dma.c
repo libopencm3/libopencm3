@@ -23,7 +23,7 @@
 #include <libopencm3/stm32/f1/dma.h>
 #include <libopencm3/stm32/usart.h>
 
-void usart_setup(void)
+static void usart_setup(void)
 {
 	/* Enable clocks for GPIO port A (for GPIO_USART1_TX) and USART1. */
 	rcc_peripheral_enable_clock(&RCC_APB2ENR, RCC_APB2ENR_IOPAEN);
@@ -45,7 +45,7 @@ void usart_setup(void)
 	usart_enable(USART1);
 }
 
-void gpio_setup(void)
+static void gpio_setup(void)
 {
 	/* Enable GPIOB clock. */
 	rcc_peripheral_enable_clock(&RCC_APB2ENR, RCC_APB2ENR_IOPBEN);
@@ -57,7 +57,7 @@ void gpio_setup(void)
 		      GPIO_CNF_OUTPUT_PUSHPULL, GPIO7);
 }
 
-void my_usart_print_string(u32 usart, char *s)
+static void my_usart_print_string(u32 usart, char *s)
 {
 	while (*s != 0) {
 		usart_send(usart, *s);

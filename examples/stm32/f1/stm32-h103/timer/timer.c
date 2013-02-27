@@ -51,12 +51,12 @@ u16 new_time;
 u16 frequency;
 int debug = 0;
 
-void clock_setup(void)
+static void clock_setup(void)
 {
 	rcc_clock_setup_in_hse_8mhz_out_72mhz();
 }
 
-void gpio_setup(void)
+static void gpio_setup(void)
 {
 	/* Enable GPIOC clock. */
 	rcc_peripheral_enable_clock(&RCC_APB2ENR, RCC_APB2ENR_IOPCEN);
@@ -68,7 +68,7 @@ void gpio_setup(void)
 	gpio_set(GPIOC, GPIO12);
 }
 
-void tim_setup(void)
+static void tim_setup(void)
 {
 	/* Enable TIM2 clock. */
 	rcc_peripheral_enable_clock(&RCC_APB1ENR, RCC_APB1ENR_TIM2EN);

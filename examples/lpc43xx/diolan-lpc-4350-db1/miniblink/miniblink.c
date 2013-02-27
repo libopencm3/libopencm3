@@ -20,7 +20,7 @@
 
 #include <libopencm3/lpc43xx/gpio.h>
 
-void gpio_setup(void)
+static void gpio_setup(void)
 {
 	GPIO0_DIR |= (1 << 5); /* Configure GPIO0[5] (P6_6) as output. */
 }

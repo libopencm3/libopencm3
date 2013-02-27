@@ -236,7 +236,7 @@ static const u16 gamma_table_3_0[] = {
 };
 #endif
 
-void clock_setup(void)
+static void clock_setup(void)
 {
 	rcc_clock_setup_in_hse_8mhz_out_72mhz();
 
@@ -250,7 +250,7 @@ void clock_setup(void)
 				    RCC_APB2ENR_AFIOEN);
 }
 
-void gpio_setup(void)
+static void gpio_setup(void)
 {
 	/*
 	 * Set GPIO6 and 7 (in GPIO port A) to
@@ -269,7 +269,8 @@ void gpio_setup(void)
 		      GPIO_TIM3_CH3 | GPIO_TIM3_CH4);
 
 }
-void tim_setup(void)
+
+static void tim_setup(void)
 {
 	/* Clock division and mode */
 	TIM3_CR1 = TIM_CR1_CKD_CK_INT | TIM_CR1_CMS_EDGE;

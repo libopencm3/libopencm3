@@ -23,7 +23,7 @@
 #include <libopencm3/stm32/f4/gpio.h>
 
 /* Set STM32 to 168 MHz. */
-void clock_setup(void)
+static void clock_setup(void)
 {
 	rcc_clock_setup_hse_3v3(&hse_8mhz_3v3[CLOCK_3V3_168MHZ]);
 
@@ -31,7 +31,7 @@ void clock_setup(void)
 	rcc_peripheral_enable_clock(&RCC_AHB1ENR, RCC_AHB1ENR_IOPDEN);
 }
 
-void gpio_setup(void)
+static void gpio_setup(void)
 {
 	/* Set GPIO12-15 (in GPIO port D) to 'output push-pull'. */
 	gpio_mode_setup(GPIOD, GPIO_MODE_OUTPUT,

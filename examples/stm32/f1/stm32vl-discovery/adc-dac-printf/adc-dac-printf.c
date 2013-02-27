@@ -33,7 +33,9 @@
 
 #define USART_CONSOLE USART2
 
-void clock_setup(void)
+int _write(int file, char *ptr, int len);
+
+static void clock_setup(void)
 {
 	rcc_clock_setup_in_hsi_out_24mhz();
 	/* Enable clocks for USART2 and DAC*/
@@ -46,7 +48,7 @@ void clock_setup(void)
 	rcc_peripheral_enable_clock(&RCC_APB2ENR, RCC_APB2ENR_ADC1EN);
 }
 
-void usart_setup(void)
+static void usart_setup(void)
 {
 	gpio_set_mode(GPIOA, GPIO_MODE_OUTPUT_50_MHZ,
 		GPIO_CNF_OUTPUT_ALTFN_PUSHPULL, GPIO_USART2_TX);
@@ -87,7 +89,7 @@ int _write(int file, char *ptr, int len)
 	return -1;
 }
 
-void adc_setup(void)
+static void adc_setup(void)
 {
 	gpio_set_mode(GPIOA, GPIO_MODE_INPUT, GPIO_CNF_INPUT_ANALOG, GPIO0);
 	gpio_set_mode(GPIOA, GPIO_MODE_INPUT, GPIO_CNF_INPUT_ANALOG, GPIO1);
@@ -113,7 +115,7 @@ void adc_setup(void)
 	adc_calibration(ADC1);
 }
 
-void dac_setup(void)
+static void dac_setup(void)
 {
 	gpio_set_mode(GPIOA, GPIO_MODE_OUTPUT_50_MHZ, GPIO_CNF_OUTPUT_ALTFN_PUSHPULL, GPIO5);
 	dac_disable(CHANNEL_2);
@@ -122,7 +124,7 @@ void dac_setup(void)
 	dac_set_trigger_source(DAC_CR_TSEL2_SW);
 }
 
-u16 read_adc_naiive(u8 channel)
+static u16 read_adc_naiive(u8 channel)
 {
 	u8 channel_array[16];
 	channel_array[0] = channel;

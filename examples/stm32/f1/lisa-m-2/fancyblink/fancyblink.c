@@ -22,7 +22,7 @@
 #include <libopencm3/stm32/f1/gpio.h>
 
 /* Set STM32 to 72 MHz. */
-void clock_setup(void)
+static void clock_setup(void)
 {
 	rcc_clock_setup_in_hse_12mhz_out_72mhz();
 
@@ -33,7 +33,7 @@ void clock_setup(void)
 	rcc_peripheral_enable_clock(&RCC_APB2ENR, RCC_APB2ENR_AFIOEN);
 }
 
-void gpio_setup(void)
+static void gpio_setup(void)
 {
 	/* LED1 */
 	/* Set GPIO8 (in GPIO port A) to 'output push-pull'. */
@@ -70,7 +70,7 @@ void gpio_setup(void)
 	gpio_set(GPIOC, GPIO2);
 }
 
-void led_set(int id, int on)
+static void led_set(int id, int on)
 {
 	if (on) {
 		switch (id) {
@@ -111,7 +111,7 @@ void led_set(int id, int on)
 	}
 }
 
-void led_advance(void)
+static void led_advance(void)
 {
 	static int state = 0;
 

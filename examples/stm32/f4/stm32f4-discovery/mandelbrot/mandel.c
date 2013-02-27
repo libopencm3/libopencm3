@@ -23,7 +23,7 @@
 #include <libopencm3/stm32/f4/gpio.h>
 #include <libopencm3/stm32/usart.h>
 
-void clock_setup(void)
+static void clock_setup(void)
 {
 	/* Enable high-speed clock at 120MHz */
 	rcc_clock_setup_hse_3v3(&hse_8mhz_3v3[CLOCK_3V3_120MHZ]);
@@ -36,7 +36,7 @@ void clock_setup(void)
 	rcc_peripheral_enable_clock(&RCC_APB1ENR, RCC_APB1ENR_USART2EN);
 }
 
-void usart_setup(void)
+static void usart_setup(void)
 {
 	/* Setup USART2 parameters. */
 	usart_set_baudrate(USART2, 38400);
@@ -50,7 +50,7 @@ void usart_setup(void)
 	usart_enable(USART2);
 }
 
-void gpio_setup(void)
+static void gpio_setup(void)
 {
 	/* Setup GPIO pin GPIO12 on GPIO port D for LED. */
 	gpio_mode_setup(GPIOD, GPIO_MODE_OUTPUT, GPIO_PUPD_NONE, GPIO12);

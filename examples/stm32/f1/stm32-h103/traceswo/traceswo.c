@@ -25,7 +25,7 @@
 #include <libopencm3/cm3/tpiu.h>
 #include <libopencm3/cm3/itm.h>
 
-void clock_setup(void)
+static void clock_setup(void)
 {
 	rcc_clock_setup_in_hse_8mhz_out_72mhz();
 
@@ -33,7 +33,7 @@ void clock_setup(void)
 	rcc_peripheral_enable_clock(&RCC_APB2ENR, RCC_APB2ENR_IOPCEN);
 }
 
-void trace_setup(void)
+static void trace_setup(void)
 {
 	/* Enable trace subsystem (we'll use ITM and TPIU). */
 	SCS_DEMCR |= SCS_DEMCR_TRCENA;
@@ -61,14 +61,14 @@ void trace_setup(void)
 	ITM_TER[0] = 1;
 }
 
-void gpio_setup(void)
+static void gpio_setup(void)
 {
 	/* Set GPIO12 (in GPIO port C) to 'output push-pull'. */
 	gpio_set_mode(GPIOC, GPIO_MODE_OUTPUT_2_MHZ,
 		      GPIO_CNF_OUTPUT_PUSHPULL, GPIO12);
 }
 
-void trace_send_blocking(char c)
+static void trace_send_blocking(char c)
 {
 	while (!(ITM_STIM[0] & ITM_STIM_FIFOREADY))
 		;

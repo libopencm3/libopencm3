@@ -63,7 +63,7 @@ struct color {
 };
 
 /* Set STM32 to 72 MHz. */
-void clock_setup(void)
+static void clock_setup(void)
 {
 	rcc_clock_setup_in_hse_8mhz_out_72mhz();
 
@@ -72,7 +72,7 @@ void clock_setup(void)
 	rcc_peripheral_enable_clock(&RCC_APB2ENR, RCC_APB2ENR_IOPBEN);
 }
 
-void gpio_setup(void)
+static void gpio_setup(void)
 {
 	/* Set GPIO12 (in GPIO port C) to 'output push-pull'. */
 	gpio_set_mode(GPIOC, GPIO_MODE_OUTPUT_50_MHZ,
@@ -87,7 +87,7 @@ void gpio_setup(void)
 		      GPIO_CNF_OUTPUT_PUSHPULL, GPIO15);
 }
 
-void send_colors(struct color *colors, int count)
+static void send_colors(struct color *colors, int count)
 {
 	int i, k;
 
@@ -148,7 +148,7 @@ void send_colors(struct color *colors, int count)
 	}
 }
 
-void reset_colors(struct color *colors, int count)
+static void reset_colors(struct color *colors, int count)
 {
 	int i;
 
@@ -159,7 +159,7 @@ void reset_colors(struct color *colors, int count)
 	}
 }
 
-void init_colors(struct color *colors, int count)
+static void init_colors(struct color *colors, int count)
 {
 	colors[0].r = 0x1F;
 	colors[0].g = 0;
@@ -174,7 +174,7 @@ void init_colors(struct color *colors, int count)
 	count = count;
 }
 
-void step_colors(struct color *colors, int count)
+static void step_colors(struct color *colors, int count)
 {
 	int i;
 	struct color tmp_color1;

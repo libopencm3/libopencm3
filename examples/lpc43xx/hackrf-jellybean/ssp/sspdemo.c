@@ -24,7 +24,7 @@
 
 #include "../jellybean_conf.h"
 
-void gpio_setup(void)
+static void gpio_setup(void)
 {
 	/* Configure all GPIO as Input (safe state) */
 	GPIO0_DIR = 0;

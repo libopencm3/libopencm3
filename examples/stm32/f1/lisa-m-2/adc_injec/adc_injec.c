@@ -25,7 +25,7 @@
 #include <libopencm3/stm32/f1/adc.h>
 #include <libopencm3/stm32/usart.h>
 
-void usart_setup(void)
+static void usart_setup(void)
 {
 	/* Enable clocks for GPIO port A (for GPIO_USART1_TX) and USART1. */
 	rcc_peripheral_enable_clock(&RCC_APB2ENR, RCC_APB2ENR_IOPAEN);
@@ -47,7 +47,7 @@ void usart_setup(void)
 	usart_enable(USART2);
 }
 
-void gpio_setup(void)
+static void gpio_setup(void)
 {
 	/* Enable GPIO clocks. */
 	rcc_peripheral_enable_clock(&RCC_APB2ENR, RCC_APB2ENR_IOPAEN);
@@ -60,7 +60,7 @@ void gpio_setup(void)
 		      GPIO_CNF_OUTPUT_PUSHPULL, GPIO15);
 }
 
-void adc_setup(void)
+static void adc_setup(void)
 {
 	int i;
 
@@ -94,7 +94,7 @@ void adc_setup(void)
 	while ((ADC_CR2(ADC1) & ADC_CR2_CAL) != 0); //added this check
 }
 
-void my_usart_print_int(u32 usart, int value)
+static void my_usart_print_int(u32 usart, int value)
 {
 	s8 i;
 	u8 nr_digits = 0;

@@ -30,7 +30,7 @@
 volatile u32 g_ulSysTickCount;
 u32 g_NbCyclePerSecond;
 
-void gpio_setup(void)
+static void gpio_setup(void)
 {
 	/* Configure all GPIO as Input (safe state) */
 	GPIO0_DIR = 0;
@@ -65,7 +65,7 @@ void gpio_setup(void)
 	GPIO3_DIR |= PIN_EN1V8; /* GPIO3[6] on P6_10  as output. */
 }
 
-void systick_setup(void)
+static void systick_setup(void)
 {
 	u32 systick_reload_val;
 	g_ulSysTickCount = 0;
@@ -100,18 +100,18 @@ void systick_setup(void)
 	asm volatile ("cpsie i");
 }
 
-void scs_dwt_cycle_counter_enabled(void)
+static void scs_dwt_cycle_counter_enabled(void)
 {
 	SCS_DEMCR |= SCS_DEMCR_TRCENA;
 	SCS_DWT_CTRL  |= SCS_DWT_CTRL_CYCCNTENA;
 }
 
-u32 sys_tick_get_time_ms(void)
+static u32 sys_tick_get_time_ms(void)
 {
     return g_ulSysTickCount;
 }
 
-u32 sys_tick_delta_time_ms(u32 start, u32 end)
+static u32 sys_tick_delta_time_ms(u32 start, u32 end)
 {
 	#define MAX_T_U32 ((2^32)-1)
     u32 diff;
@@ -127,7 +127,7 @@ u32 sys_tick_delta_time_ms(u32 start, u32 end)
     return diff;
 }
 
-void sys_tick_wait_time_ms(u32 wait_ms)
+static void sys_tick_wait_time_ms(u32 wait_ms)
 {
     u32 start, end;
     u32 tickms;

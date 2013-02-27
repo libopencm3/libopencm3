@@ -23,7 +23,7 @@
 #include <libopencm3/stm32/f1/dma.h>
 #include <libopencm3/cm3/nvic.h>
 
-void clock_setup(void)
+static void clock_setup(void)
 {
 	rcc_clock_setup_in_hse_12mhz_out_72mhz();
 
@@ -40,7 +40,7 @@ void clock_setup(void)
 	rcc_peripheral_enable_clock(&RCC_AHBENR, RCC_AHBENR_DMA1EN);
 }
 
-void usart_setup(void)
+static void usart_setup(void)
 {
 	/* Setup GPIO pin GPIO_USART2_TX and GPIO_USART2_RX. */
 	gpio_set_mode(GPIOA, GPIO_MODE_OUTPUT_50_MHZ,
@@ -67,7 +67,7 @@ void usart_setup(void)
 
 }
 
-void dma_write(char *data, int size)
+static void dma_write(char *data, int size)
 {
 	/*
 	 * Using channel 7 for USART2_TX
@@ -109,7 +109,7 @@ void dma1_channel7_isr(void)
 	dma_disable_channel(DMA1, DMA_CHANNEL7);
 }
 
-void dma_read(char *data, int size)
+static void dma_read(char *data, int size)
 {
 	/*
 	 * Using channel 6 for USART2_RX
@@ -151,7 +151,7 @@ void dma1_channel6_isr(void)
 	dma_disable_channel(DMA1, DMA_CHANNEL6);
 }
 
-void gpio_setup(void)
+static void gpio_setup(void)
 {
 	/* Set GPIO8 (in GPIO port A) to 'output push-pull'. */
 	gpio_set_mode(GPIOA, GPIO_MODE_OUTPUT_2_MHZ,

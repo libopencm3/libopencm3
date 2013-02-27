@@ -21,7 +21,7 @@
 #include <libopencm3/stm32/f1/gpio.h>
 #include <libopencm3/stm32/usart.h>
 
-void clock_setup(void)
+static void clock_setup(void)
 {
 	rcc_clock_setup_in_hsi_out_64mhz();
 
@@ -31,7 +31,7 @@ void clock_setup(void)
 	rcc_peripheral_enable_clock(&RCC_APB2ENR, RCC_APB2ENR_USART1EN);
 }
 
-void usart_setup(void)
+static void usart_setup(void)
 {
 	/* Setup GPIO6 (in GPIO port A) to 'output push-pull' for LED use. */
 	gpio_set_mode(GPIOB, GPIO_MODE_OUTPUT_50_MHZ,
@@ -55,7 +55,7 @@ void usart_setup(void)
 	usart_enable(USART1);
 }
 
-void gpio_setup(void)
+static void gpio_setup(void)
 {
 	/* Set GPIO5 (in GPIO port B) to 'output push-pull'. */
 	gpio_set_mode(GPIOB, GPIO_MODE_OUTPUT_50_MHZ,

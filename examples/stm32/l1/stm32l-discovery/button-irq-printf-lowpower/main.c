@@ -36,12 +36,14 @@
 
 static volatile struct state_t state;
 
+int _write(int file, char *ptr, int len);
+
 __attribute__((always_inline)) static inline void __WFI(void)
 {
 	__asm volatile ("wfi");
 }
 
-void gpio_setup(void)
+static void gpio_setup(void)
 {
 	/* green led for ticking, blue for button feedback */
 	gpio_mode_setup(LED_DISCO_GREEN_PORT, GPIO_MODE_OUTPUT, GPIO_PUPD_NONE, LED_DISCO_GREEN_PIN);
@@ -69,7 +71,7 @@ void BUTTON_DISCO_USER_isr(void)
 	}
 }
 
-void setup_buttons(void)
+static void setup_buttons(void)
 {
 	/* Enable EXTI0 interrupt. */
 	nvic_enable_irq(BUTTON_DISCO_USER_NVIC);
@@ -83,7 +85,7 @@ void setup_buttons(void)
 	exti_enable_request(BUTTON_DISCO_USER_EXTI);
 }
 
-void usart_setup(void)
+static void usart_setup(void)
 {
 	usart_set_baudrate(USART_CONSOLE, 115200);
 	usart_set_databits(USART_CONSOLE, 8);
@@ -123,7 +125,7 @@ int _write(int file, char *ptr, int len)
 /*
  * Free running ms timer.
  */
-void setup_button_press_timer(void)
+static void setup_button_press_timer(void)
 {
 	timer_reset(TIMER_BUTTON_PRESS);
 	timer_set_prescaler(TIMER_BUTTON_PRESS, 3999); // 4Mhz/1000hz - 1
@@ -131,7 +133,7 @@ void setup_button_press_timer(void)
 	timer_enable_counter(TIMER_BUTTON_PRESS);
 }
 
-int setup_rtc(void)
+static int setup_rtc(void)
 {
 	/* turn on power block to enable unlocking */
 	rcc_peripheral_enable_clock(&RCC_APB1ENR, RCC_APB1ENR_PWREN);
@@ -180,7 +182,7 @@ int setup_rtc(void)
 	return 0;
 }
 
-int setup_rtc_wakeup(int period)
+static int setup_rtc_wakeup(int period)
 {
 	rtc_unlock();
 
@@ -227,12 +229,12 @@ void rtc_wkup_isr(void)
 	state.rtc_ticked = true;
 }
 
-int process_state(volatile struct state_t *st)
+static int process_state(volatile struct state_t *st)
 {
 	if (st->rtc_ticked) {
 		st->rtc_ticked = 0;
 		printf("Tick: %x\n", (unsigned int) RTC_TR);
-#if FULL_USER_EXPERIENCE
+#if defined(FULL_USER_EXPERIENCE)
 		gpio_toggle(LED_DISCO_GREEN_PORT, LED_DISCO_GREEN_PIN);
 #else
 		gpio_clear(LED_DISCO_GREEN_PORT, LED_DISCO_GREEN_PIN);
@@ -251,7 +253,7 @@ int process_state(volatile struct state_t *st)
 	return 0;
 }
 
-void reset_clocks(void)
+static void reset_clocks(void)
 {
 	/* 4MHz MSI raw range 2*/
 	clock_scale_t myclock_config = {

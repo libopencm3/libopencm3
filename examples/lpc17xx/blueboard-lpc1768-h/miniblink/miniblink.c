@@ -19,7 +19,7 @@
 
 #include <libopencm3/lpc17xx/gpio.h>
 
-void gpio_setup(void)
+static void gpio_setup(void)
 {
 	GPIO1_DIR |= (1 << 29); /* Configure P1_29 as output. */
 }

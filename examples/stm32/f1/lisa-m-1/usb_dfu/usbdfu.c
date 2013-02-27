@@ -141,16 +141,24 @@ static void usbdfu_getstatus_complete(usbd_device *usbd_dev, struct usb_setup_da
 		if (prog.blocknum == 0) {
 			switch (prog.buf[0]) {
 			case CMD_ERASE:
-				flash_erase_page(*(u32 *)(prog.buf + 1));
+				{
+					u32 *dat = (u32 *)(prog.buf + 1);
+					flash_erase_page(*dat);
+				}
 			case CMD_SETADDR:
-				prog.addr = *(u32 *)(prog.buf + 1);
+				{
+					u32 *dat = (u32 *)(prog.buf + 1);
+					prog.addr = *dat;
+				}
 			}
 		} else {
 			u32 baseaddr = prog.addr + ((prog.blocknum - 2) *
 				       dfu_function.wTransferSize);
-			for (i = 0; i < prog.len; i += 2)
+			for (i = 0; i < prog.len; i += 2) {
+				u16 *dat = (u16 *)(prog.buf + i);
 				flash_program_half_word(baseaddr + i,
-						*(u16 *)(prog.buf + i));
+						*dat);
+			}
 		}
 		flash_lock();
 

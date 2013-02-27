@@ -33,7 +33,7 @@ volatile u16 lisam_adc1 = 0;
 volatile u16 lisam_adc2 = 0;
 u8 channel_array[4]; /* for injected sampling, 4 channels max, for regular, 16 max */
 
-void usart_setup(void)
+static void usart_setup(void)
 {
 	/* Enable clocks for GPIO port A (for GPIO_USART1_TX) and USART1. */
 	rcc_peripheral_enable_clock(&RCC_APB2ENR, RCC_APB2ENR_IOPAEN);
@@ -55,7 +55,7 @@ void usart_setup(void)
 	usart_enable(USART2);
 }
 
-void gpio_setup(void)
+static void gpio_setup(void)
 {
 	/* Enable GPIO clocks. */
 	rcc_peripheral_enable_clock(&RCC_APB2ENR, RCC_APB2ENR_IOPAEN);
@@ -72,7 +72,7 @@ void gpio_setup(void)
 					GPIO3 | GPIO0 );    
 }
 
-void timer_setup(void)
+static void timer_setup(void)
 {
 	/* Set up the timer TIM2 for injected sampling */
 	uint32_t timer;
@@ -97,14 +97,14 @@ void timer_setup(void)
     timer_enable_counter(timer);
 }
 
-void irq_setup(void)
+static void irq_setup(void)
 {
 	/* Enable the adc1_2_isr() routine */
     nvic_set_priority(NVIC_ADC1_2_IRQ, 0);
     nvic_enable_irq(NVIC_ADC1_2_IRQ);
 }
 
-void adc_setup(void)
+static void adc_setup(void)
 {
 	int i;
 
@@ -149,7 +149,7 @@ void adc_setup(void)
 	while ((ADC_CR2(ADC1) & ADC_CR2_CAL) != 0); //added this check
 }
 
-void my_usart_print_int(u32 usart, int value)
+static void my_usart_print_int(u32 usart, int value)
 {
 	s8 i;
 	u8 nr_digits = 0;

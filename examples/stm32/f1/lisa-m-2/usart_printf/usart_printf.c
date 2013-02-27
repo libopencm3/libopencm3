@@ -25,7 +25,9 @@
 #include <stdio.h>
 #include <errno.h>
 
-void clock_setup(void)
+int _write(int file, char *ptr, int len);
+
+static void clock_setup(void)
 {
 	rcc_clock_setup_in_hse_12mhz_out_72mhz();
 
@@ -38,7 +40,7 @@ void clock_setup(void)
 	rcc_peripheral_enable_clock(&RCC_APB1ENR, RCC_APB1ENR_USART2EN);
 }
 
-void usart_setup(void)
+static void usart_setup(void)
 {
 	/* Setup GPIO pin GPIO_USART2_RE_TX on GPIO port B for transmit. */
 	gpio_set_mode(GPIOA, GPIO_MODE_OUTPUT_50_MHZ,
@@ -56,7 +58,7 @@ void usart_setup(void)
 	usart_enable(USART2);
 }
 
-void gpio_setup(void)
+static void gpio_setup(void)
 {
 	gpio_set(GPIOA, GPIO8);
 

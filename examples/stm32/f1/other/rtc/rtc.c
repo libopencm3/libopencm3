@@ -24,7 +24,7 @@
 #include <libopencm3/stm32/pwr.h>
 #include <libopencm3/cm3/nvic.h>
 
-void clock_setup(void)
+static void clock_setup(void)
 {
 	rcc_clock_setup_in_hse_8mhz_out_72mhz();
 
@@ -36,7 +36,7 @@ void clock_setup(void)
 	rcc_peripheral_enable_clock(&RCC_APB2ENR, RCC_APB2ENR_USART1EN);
 }
 
-void usart_setup(void)
+static void usart_setup(void)
 {
 	/* Setup GPIO pin GPIO_USART1_TX/GPIO9 on GPIO port A for transmit. */
 	gpio_set_mode(GPIOA, GPIO_MODE_OUTPUT_50_MHZ,
@@ -54,14 +54,14 @@ void usart_setup(void)
 	usart_enable(USART1);
 }
 
-void gpio_setup(void)
+static void gpio_setup(void)
 {
 	/* Set GPIO12 (in GPIO port C) to 'output push-pull'. */
 	gpio_set_mode(GPIOC, GPIO_MODE_OUTPUT_2_MHZ,
 		      GPIO_CNF_OUTPUT_PUSHPULL, GPIO12);
 }
 
-void nvic_setup(void)
+static void nvic_setup(void)
 {
 	/* Without this the RTC interrupt routine will never be called. */
 	nvic_enable_irq(NVIC_RTC_IRQ);

@@ -21,7 +21,7 @@
 #include <libopencm3/stm32/f1/gpio.h>
 #include <libopencm3/stm32/usart.h>
 
-void clock_setup(void)
+static void clock_setup(void)
 {
 	rcc_clock_setup_in_hse_12mhz_out_72mhz();
 
@@ -35,7 +35,7 @@ void clock_setup(void)
 				    RCC_APB1ENR_USART2EN);
 }
 
-void usart_setup(void)
+static void usart_setup(void)
 {
 	/* Setup GPIO pin GPIO_USART2_TX. */
 	gpio_set_mode(GPIOA, GPIO_MODE_OUTPUT_50_MHZ,
@@ -54,7 +54,7 @@ void usart_setup(void)
 
 }
 
-void gpio_setup(void)
+static void gpio_setup(void)
 {
 	/* Set GPIO8 (in GPIO port A) to 'output push-pull'. */
 	gpio_set_mode(GPIOA, GPIO_MODE_OUTPUT_2_MHZ,

@@ -22,7 +22,7 @@
 #include <libopencm3/stm32/l1/gpio.h>
 #include <libopencm3/stm32/usart.h>
 
-void clock_setup(void)
+static void clock_setup(void)
 {
 	/* We are running on MSI after boot. */
 	/* Enable GPIOD clock for LED & USARTs. */
@@ -33,7 +33,7 @@ void clock_setup(void)
 	rcc_peripheral_enable_clock(&RCC_APB1ENR, RCC_APB1ENR_USART2EN);
 }
 
-void usart_setup(void)
+static void usart_setup(void)
 {
 	/* Setup USART2 parameters. */
 	usart_set_baudrate(USART2, 38400);
@@ -47,7 +47,7 @@ void usart_setup(void)
 	usart_enable(USART2);
 }
 
-void gpio_setup(void)
+static void gpio_setup(void)
 {
 	/* Setup GPIO pin GPIO7 on GPIO port B for Green LED. */
 	gpio_mode_setup(GPIOB, GPIO_MODE_OUTPUT, GPIO_PUPD_NONE, GPIO7);

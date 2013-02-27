@@ -23,7 +23,7 @@
 #include <libopencm3/stm32/timer.h>
 #include <libopencm3/cm3/nvic.h>
 
-void gpio_setup(void)
+static void gpio_setup(void)
 {
 	/* Enable GPIOB clock. */
 	rcc_peripheral_enable_clock(&RCC_APB2ENR, RCC_APB2ENR_IOPBEN);
@@ -35,7 +35,7 @@ void gpio_setup(void)
 		      GPIO_CNF_OUTPUT_PUSHPULL, GPIO7);
 }
 
-void nvic_setup(void)
+static void nvic_setup(void)
 {
 	/* Without this the timer interrupt routine will never be called. */
 	nvic_enable_irq(NVIC_TIM2_IRQ);

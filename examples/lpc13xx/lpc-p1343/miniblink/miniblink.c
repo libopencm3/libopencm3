@@ -20,7 +20,7 @@
 // #include <libopencm3/lpc13xx/rcc.h>
 #include <libopencm3/lpc13xx/gpio.h>
 
-void gpio_setup(void)
+static void gpio_setup(void)
 {
 	GPIO3_DIR |= (1 << 0); /* Configure P3_0 as output. */
 }
