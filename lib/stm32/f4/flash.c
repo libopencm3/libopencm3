@@ -26,7 +26,7 @@ static inline void flash_set_program_size(u32 psize)
 	FLASH_CR |= psize;
 }
 
-void flash_data_cache_enable(void)
+void flash_dcache_enable(void)
 {
 	FLASH_ACR |= FLASH_ACR_DCE;
 }
