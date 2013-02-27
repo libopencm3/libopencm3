@@ -45,7 +45,7 @@ typedef uint64_t u64;
 /* Full-featured deprecation attribute with fallback for older compilers. */
 
 #ifdef __GNUC__
-#	if __GNUC__ > 4 || (__GNUC__ == 4 && __GNUC_MINOR_ > 4)
+#	if __GNUC__ > 4 || (__GNUC__ == 4 && __GNUC_MINOR__ > 4)
 #		define LIBOPENCM3_DEPRECATED(x) __attribute__ ((deprecated (x)))
 #	else
 #		define LIBOPENCM3_DEPRECATED(x) __attribute__ ((deprecated))
