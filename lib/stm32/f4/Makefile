@@ -41,6 +41,7 @@ OBJS		= rcc.o gpio.o flash.o exti2.o pwr.o timer.o \
 		  dac_common_all.o usart_common_all.o iwdg_common_all.o i2c_common_all.o \
 		  crc_common_all.o \
 		  rtc_common_bcd.o \
+		  rtc.o \
 		  can.o
 
 VPATH += ../../usb:../:../../cm3:../common

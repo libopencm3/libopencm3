@@ -23,6 +23,8 @@
  * along with this library.  If not, see <http://www.gnu.org/licenses/>.
  */
 
+#include <libopencm3/stm32/exti.h>
+#include <libopencm3/stm32/f4/nvic.h>
 #include <libopencm3/stm32/rtc.h>
 #include <libopencm3/stm32/common/rtc_common_bcd.h>
 
