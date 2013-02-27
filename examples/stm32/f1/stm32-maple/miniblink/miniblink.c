@@ -20,7 +20,7 @@
 #include <libopencm3/stm32/f1/rcc.h>
 #include <libopencm3/stm32/f1/gpio.h>
 
-void gpio_setup(void)
+static void gpio_setup(void)
 {
 	/* Enable GPIOA clock. */
 	/* Manually: */

@@ -178,8 +178,8 @@ static int cdcacm_control_request(usbd_device *usbd_dev, struct usb_setup_data *
 		 * even though it's optional in the CDC spec, and we don't
 		 * advertise it in the ACM functional descriptor.
 		 */
-		char buf[10];
-		struct usb_cdc_notification *notif = (void *)buf;
+		char local_buf[10];
+		struct usb_cdc_notification *notif = (void *)local_buf;
 
 		/* We echo signals back to host as notification. */
 		notif->bmRequestType = 0xA1;
@@ -187,8 +187,8 @@ static int cdcacm_control_request(usbd_device *usbd_dev, struct usb_setup_data *
 		notif->wValue = 0;
 		notif->wIndex = 0;
 		notif->wLength = 2;
-		buf[8] = req->wValue & 3;
-		buf[9] = 0;
+		local_buf[8] = req->wValue & 3;
+		local_buf[9] = 0;
 		// usbd_ep_write_packet(0x83, buf, 10);
 		return 1;
 		}
