@@ -25,3 +25,61 @@
 
 #include <libopencm3/stm32/rtc.h>
 #include <libopencm3/stm32/common/rtc_common_bcd.h>
+
+
+/*---------------------------------------------------------------------------*/
+/** @brief Enable the wakeup timer
+    @warning You must unlock the registers before using this function
+
+*/
+void rtc_enable_wakeup_timer(void) {
+  RTC_CR |= RTC_CR_WUTE | (RTC_CR_OSEL_WAKEUP << RTC_CR_OSEL_SHIFT);
+  rtc_enable_wakeup_timer_interrupt();
+}
+
+/*---------------------------------------------------------------------------*/
+/** @brief Disable the wakeup timer
+    @warning You must unlock the registers before using this function
+
+*/
+void rtc_disable_wakeup_timer(void) {
+  RTC_CR &= ~RTC_CR_WUTE;
+  rtc_disable_wakeup_timer_interrupt();
+}
+
+/*---------------------------------------------------------------------------*/
+/** @brief Enable the wakeup timer interrupt
+    @warning You must unlock the registers before using this function
+
+*/
+void rtc_enable_wakeup_timer_interrupt(void) {
+// FTFM:
+// To enable the RTC Wakeup interrupt, the following sequence is required:
+// 1. Configure and enable the EXTI Line 22 in interrupt mode and select the
+//    rising edge sensitivity.
+  exti_enable_request(EXTI22);
+  exti_set_trigger(EXTI22, EXTI_TRIGGER_RISING);
+
+// 2. Configure and enable the RTC_WKUP IRQ channel in the NVIC.
+  nvic_enable_irq(NVIC_RTC_WKUP_IRQ);
+  nvic_set_priority(NVIC_RTC_WKUP_IRQ, 1);
+
+// 3. Configure the RTC to generate the RTC wakeup timer event.
+  RTC_CR |= RTC_CR_WUTIE;   // Enable the interrupt
+}
+
+/*---------------------------------------------------------------------------*/
+/** @brief Disable the wakeup timer interrupt
+    @warning You must unlock the registers before using this function
+
+*/
+void rtc_disable_wakeup_timer_interrupt(void) {
+// 1. Disable EXTI Line 22
+  exti_disable_request(EXTI22);
+
+// 2. Disable RTC_WKUP IRQ channel in the NVIC.
+  nvic_disable_irq(NVIC_RTC_WKUP_IRQ);
+
+// 3. Disable RTC wakeup timer event.
+  RTC_CR &= ~RTC_CR_WUTIE;
+}

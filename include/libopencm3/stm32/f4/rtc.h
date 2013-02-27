@@ -36,4 +36,13 @@ LGPL License Terms @ref lgpl_license
 #include <libopencm3/stm32/memorymap.h>
 #include <libopencm3/stm32/common/rtc_common_bcd.h>
 
+BEGIN_DECLS
+
+void rtc_enable_wakeup_timer(void);
+void rtc_disable_wakeup_timer(void);
+void rtc_enable_wakeup_timer_interrupt(void);
+void rtc_disable_wakeup_timer_interrupt(void);
+
+END_DECLS
+
 #endif
