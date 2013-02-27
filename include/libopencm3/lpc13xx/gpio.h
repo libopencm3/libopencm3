@@ -97,4 +97,10 @@
 #define GPIO2_IC			GPIO_IC(GPIO2)
 #define GPIO3_IC			GPIO_IC(GPIO3)
 
+BEGIN_DECLS
+
+void gpio_set(u32 gpioport, u16 gpios);
+
+END_DECLS
+
 #endif

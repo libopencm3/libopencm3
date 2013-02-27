@@ -38,6 +38,9 @@
 #define CGU_AUTOBLOCK_CLOCK_BIT	11
 #define CGU_BASE_CLK_SEL_SHIFT	24   /* clock source selection (5 bits) */
 
+/* Local declarations. */
+void ssp_wait_until_not_busy(ssp_num_t ssp_num);
+
 /* Disable SSP */
 void ssp_disable(ssp_num_t ssp_num)
 {
