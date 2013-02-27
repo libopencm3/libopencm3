@@ -47,7 +47,9 @@ typedef enum {
 
 volatile trans_status transceive_status;
 
-void clock_setup(void)
+int _write(int file, char *ptr, int len);
+
+static void clock_setup(void)
 {
 	rcc_clock_setup_in_hse_12mhz_out_72mhz();
 
@@ -69,7 +71,7 @@ void clock_setup(void)
 	rcc_peripheral_enable_clock(&RCC_AHBENR, RCC_AHBENR_DMA1EN);
 }
 
-void spi_setup(void) {
+static void spi_setup(void) {
 
 	/* Configure GPIOs: SS=PA4, SCK=PA5, MISO=PA6 and MOSI=PA7
 	 * For now ignore the SS pin so we can use it to time the ISRs
@@ -134,15 +136,15 @@ static void dma_int_disable(void) {
 }
 */
 
-void dma_setup(void)
+static void dma_setup(void)
 {
 	dma_int_enable();	
 }
 
 #if USE_16BIT_TRANSFERS
-int spi_dma_transceive(u16 *tx_buf, int tx_len, u16 *rx_buf, int rx_len)
+static int spi_dma_transceive(u16 *tx_buf, int tx_len, u16 *rx_buf, int rx_len)
 #else
-int spi_dma_transceive(u8 *tx_buf, int tx_len, u8 *rx_buf, int rx_len)
+static int spi_dma_transceive(u8 *tx_buf, int tx_len, u8 *rx_buf, int rx_len)
 #endif
 {
 	/* Check for 0 length in both tx and rx */
@@ -277,7 +279,7 @@ void dma1_channel3_isr(void)
 	gpio_clear(GPIOB,GPIO1);
 }
 
-void usart_setup(void)
+static void usart_setup(void)
 {
 	/* Setup GPIO pin GPIO_USART2_TX and GPIO_USART2_RX. */
 	gpio_set_mode(GPIOA, GPIO_MODE_OUTPUT_50_MHZ,
@@ -311,7 +313,7 @@ int _write(int file, char *ptr, int len)
 	return -1;
 }
 
-void gpio_setup(void)
+static void gpio_setup(void)
 {
 	/* Set GPIO8 (in GPIO port A) to 'output push-pull'. */
 	gpio_set_mode(GPIOA, GPIO_MODE_OUTPUT_2_MHZ,

@@ -27,7 +27,9 @@
 #include <stdio.h>
 #include <errno.h>
 
-void clock_setup(void)
+int _write(int file, char *ptr, int len);
+
+static void clock_setup(void)
 {
 	rcc_clock_setup_in_hse_12mhz_out_72mhz();
 
@@ -47,7 +49,7 @@ void clock_setup(void)
 
 }
 
-void spi_setup(void) {
+static void spi_setup(void) {
 
   /* Configure GPIOs: SS=PA4, SCK=PA5, MISO=PA6 and MOSI=PA7 */
   gpio_set_mode(GPIOA, GPIO_MODE_OUTPUT_50_MHZ,
@@ -86,7 +88,7 @@ void spi_setup(void) {
   spi_enable(SPI1);
 }
 
-void usart_setup(void)
+static void usart_setup(void)
 {
 	/* Setup GPIO pin GPIO_USART2_TX and GPIO_USART2_RX. */
 	gpio_set_mode(GPIOA, GPIO_MODE_OUTPUT_50_MHZ,
@@ -120,7 +122,7 @@ int _write(int file, char *ptr, int len)
 	return -1;
 }
 
-void gpio_setup(void)
+static void gpio_setup(void)
 {
 	/* Set GPIO8 (in GPIO port A) to 'output push-pull'. */
 	gpio_set_mode(GPIOA, GPIO_MODE_OUTPUT_2_MHZ,
