@@ -568,7 +568,6 @@ void dma_disable_peripheral_increment_mode(u32 dma, u8 channel);
 void dma_enable_fixed_peripheral_increment_mode(u32 dma, u8 stream);
 void dma_enable_circular_mode(u32 dma, u8 stream);
 void dma_channel_select(u32 dma, u8 stream, u32 channel);
-void dma_channel_select(u32 dma, u8 stream, u32 channel);
 void dma_set_memory_burst(u32 dma, u8 stream, u32 burst);
 void dma_set_peripheral_burst(u32 dma, u8 stream, u32 burst);
 void dma_set_initial_target(u32 dma, u8 stream, u8 memory);
