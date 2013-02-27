@@ -163,9 +163,6 @@ void spi_enable(u32 spi)
 
 The SPI peripheral is disabled.
 
-@todo  Follow procedure from section 23.3.8 in the TRM. 
-(possibly create a "clean disable" function separately)
-
 @param[in] spi Unsigned int32. SPI peripheral identifier @ref spi_reg_base.
 */
 
@@ -176,6 +173,38 @@ void spi_disable(u32 spi)
 	reg32 = SPI_CR1(spi);
 	reg32 &= ~(SPI_CR1_SPE); /* Disable SPI. */
 	SPI_CR1(spi) = reg32;
+}
+
+/*-----------------------------------------------------------------------------*/
+/** @brief SPI Clean Disable.
+
+Disable the SPI peripheral according to the procedure in section 23.3.8 of the
+reference manual.  This prevents corruption of any ongoing transfers and
+prevents the BSY flag from becoming unreliable.
+
+@param[in] spi Unsigned int32. SPI peripheral identifier @ref spi_reg_base.
+@returns data Unsigned int16. 8 or 16 bit data from final read.
+*/
+
+u16 spi_clean_disable(u32 spi)
+{
+	/* Wait to receive last data */
+	while (!(SPI_SR(spi) & SPI_SR_RXNE))
+		;
+
+	u16 data = SPI_DR(spi);
+
+	/* Wait to transmit last data */
+	while (!(SPI_SR(spi) & SPI_SR_TXE))
+		;
+
+	/* Wait until not busy */
+	while (SPI_SR(spi) & SPI_SR_BSY)
+		;
+
+	SPI_CR1(spi) &= ~SPI_CR1_SPE;
+
+	return data;
 }
 
 /*-----------------------------------------------------------------------------*/
