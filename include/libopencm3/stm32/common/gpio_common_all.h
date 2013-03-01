@@ -60,6 +60,8 @@
 #define GPIO_ALL			0xffff
 /**@}*/
 
+BEGIN_DECLS
+
 void gpio_set(u32 gpioport, u16 gpios);
 void gpio_clear(u32 gpioport, u16 gpios);
 u16 gpio_get(u32 gpioport, u16 gpios);
@@ -67,6 +69,8 @@ void gpio_toggle(u32 gpioport, u16 gpios);
 u16 gpio_port_read(u32 gpioport);
 void gpio_port_write(u32 gpioport, u16 data);
 void gpio_port_config_lock(u32 gpioport, u16 gpios);
+
+END_DECLS
 
 /**@}*/
 #endif
