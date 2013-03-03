@@ -192,8 +192,11 @@ void can_filter_init(u32 canport, u32 nr, bool scale_32bit, bool id_list_mode,
 {
 	u32 filter_select_bit = 0x00000001 << nr;
 
-	/* Request initialization "enter". */
+    /* Request initialization "enter". */
 	CAN_FMR(canport) |= CAN_FMR_FINIT;
+
+	CAN_FMR(canport) &= (~0x3fUL)<<8;
+	CAN_FMR(canport) |= (14UL)<<8;
 
 	/* Deactivate the filter. */
 	CAN_FA1R(canport) &= ~filter_select_bit;
