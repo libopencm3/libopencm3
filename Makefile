@@ -74,7 +74,7 @@ examples: $(EXAMPLE_DIRS)
 	$(Q)true
 
 install: lib
-	@printf "  INSTALL headers\n"
+	@printf "  INSTALL headers to $(INCDIR)\n"
 	$(Q)$(INSTALL) -d $(INCDIR)/libopencm3
 	$(Q)$(INSTALL) -d $(INCDIR)/libopencmsis
 	$(Q)$(INSTALL) -d $(LIBDIR)

@@ -454,7 +454,7 @@ void can_receive(u32 canport, u8 fifo, bool release, u32 *id, bool *ext,
 		*rtr = false;
 
 	/* Get filter match ID. */
-	*fmi = ((CAN_RDTxR(canport, fifo_id) & CAN_RDTxR_FMI_MASK) >
+	*fmi = ((CAN_RDTxR(canport, fifo_id) & CAN_RDTxR_FMI_MASK) >>
 		CAN_RDTxR_FMI_SHIFT);
 
 	/* Get data length. */
