@@ -17,6 +17,8 @@
 ## along with this library.  If not, see <http://www.gnu.org/licenses/>.
 ##
 
+-include .config
+
 PREFIX		?= arm-none-eabi
 #PREFIX		?= arm-elf
 
@@ -32,7 +34,11 @@ SHAREDIR	= $(DESTDIR)/$(PREFIX)/share/libopencm3/scripts
 INSTALL		= install
 
 SRCLIBDIR = $(shell pwd)/lib
-TARGETS = stm32/f1 stm32/f2 stm32/f4 stm32/l1 lpc13xx lpc17xx lpc43xx lm3s lm4f efm32/efm32tg efm32/efm32g efm32/efm32lg efm32/efm32gg
+
+TARGETS-$(CONFIG_STM32) += stm32/f1 stm32/f2 stm32/f4 stm32/l1
+TARGETS-$(CONFIG_LPC)   += lpc13xx lpc17xx lpc43xx
+TARGETS-$(CONFIG_LM)    += lm3s lm4f
+TARGETS-$(CONFIG_EFM32) += efm32/efm32tg efm32/efm32g efm32/efm32lg efm32/efm32gg
 
 # Be silent per default, but 'make V=1' will show all compiler calls.
 ifneq ($(V),1)
@@ -43,7 +49,26 @@ endif
 
 all: build
 
-build: lib examples
+
+BUILDDEP = lib
+ifneq ($(CONFIG_EXAMPES),)
+BUILDDEP += examples
+endif
+
+build: $(BUILDDEP)
+
+# Configuration targets
+#
+# They depend on a kconfig-frontends package. In order to invoke them
+# you need to download and install kconfig-frontends from
+# http://ymorin.is-a-geek.org/projects/kconfig-frontends
+
+config:
+	kconfig-conf Kconfig
+oldconfig:
+	kconfig-conf --oldconfig Kconfig
+menuconfig:
+	kconfig-mconf Kconfig
 
 generatedheaders:
 	@printf "  UPDATING HEADERS\n"
@@ -57,7 +82,7 @@ cleanheaders:
 		./scripts/irq2nvic_h --remove $$yamlfile ; \
 	done
 
-LIB_DIRS:=$(wildcard $(addprefix lib/,$(TARGETS)))
+LIB_DIRS:=$(wildcard $(addprefix lib/,$(TARGETS-y)))
 $(LIB_DIRS): generatedheaders
 	@printf "  BUILD   $@\n";
 	$(Q)$(MAKE) --directory=$@ SRCLIBDIR=$(SRCLIBDIR)
@@ -65,7 +90,7 @@ $(LIB_DIRS): generatedheaders
 lib: $(LIB_DIRS)
 	$(Q)true
 
-EXAMPLE_DIRS:=$(sort $(dir $(wildcard $(addsuffix /*/*/Makefile,$(addprefix examples/,$(TARGETS))))))
+EXAMPLE_DIRS:=$(sort $(dir $(wildcard $(addsuffix /*/*/Makefile,$(addprefix examples/,$(TARGETS-y))))))
 $(EXAMPLE_DIRS): lib
 	@printf "  BUILD   $@\n";
 	$(Q)$(MAKE) --directory=$@
