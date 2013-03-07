@@ -25,8 +25,11 @@
  * along with this library.  If not, see <http://www.gnu.org/licenses/>.
  */
 
-/* THIS FILE SHOULD NOT BE INCLUDED DIRECTLY, BUT ONLY VIA GPIO.H */
+/* THIS FILE SHOULD NOT BE INCLUDED DIRECTLY, BUT ONLY VIA GPIO.H 
+The order of header inclusion is important. gpio.h includes the device
+specific memorymap.h header before including this header file.*/
 
+#if defined (LIBOPENCM3_GPIO_H) || defined (LIBOPENCM3_GPIO_COMMON_F24_H)
 #ifndef LIBOPENCM3_GPIO_COMMON_ALL_H
 #define LIBOPENCM3_GPIO_COMMON_ALL_H
 
@@ -78,5 +81,8 @@ void gpio_port_config_lock(u32 gpioport, u16 gpios);
 END_DECLS
 
 /**@}*/
+#endif
+#else
+#warning "gpio_common_all.h should not be included explicitly, only via gpio.h"
 #endif
 

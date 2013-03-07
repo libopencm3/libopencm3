@@ -68,7 +68,6 @@ Example 2: Digital input on port C12 with pullup
 
 /**@{*/
 
-#include <libopencm3/stm32/common/gpio_common_all.h>
 #include <libopencm3/stm32/gpio.h>
 
 /*-----------------------------------------------------------------------------*/
