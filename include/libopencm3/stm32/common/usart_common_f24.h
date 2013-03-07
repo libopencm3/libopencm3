@@ -1,4 +1,9 @@
-/** @addtogroup usart_defines */
+/** @addtogroup usart_defines
+
+@author @htmlonly &copy; @endhtmlonly 2011 Uwe Hermann <uwe@hermann-uwe.de>
+@author @htmlonly &copy; @endhtmlonly 2011 Stephen Caudle <scaudle@doceme.com>
+
+*/
 /*
  * This file is part of the libopencm3 project.
  *

@@ -1,10 +1,6 @@
 /** @addtogroup dma_file
 
-@version 1.0.0
-
 @author @htmlonly &copy; @endhtmlonly 2012 Ken Sarkies <ksarkies@internode.on.net>
-
-@date 30 November 2012
 
 This library supports the DMA Control System in the STM32F2 and STM32F4
 series of ARM Cortex Microcontrollers by ST Microelectronics.
@@ -22,8 +18,8 @@ Each stream has access to a 4 word deep FIFO and can use double buffering
 by means of two memory pointers. When using the FIFO it is possible to
 configure transfers to occur in indivisible bursts.
 
-It is also possible to select a peripheral to control the flow of data rather
-than the DMA controller. This limits the functionality but is udeful when the
+It is also possible to select a peripheral instead of the DMA controller to
+control the flow of data. This limits the functionality but is useful when the
 number of transfers is unknown.
 
 LGPL License Terms @ref lgpl_license
@@ -49,7 +45,7 @@ LGPL License Terms @ref lgpl_license
 
 /**@{*/
 
-#include <libopencm3/stm32/f4/dma.h>
+#include <libopencm3/stm32/dma.h>
 
 /*-----------------------------------------------------------------------------*/
 /** @brief DMA Stream Reset

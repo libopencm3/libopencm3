@@ -1,4 +1,8 @@
-/** @addtogroup iwdg_defines */
+/** @addtogroup iwdg_defines
+
+@author @htmlonly &copy; @endhtmlonly 2010 Thomas Otto <tommi@viadmin.org>
+
+*/
 /*
  * This file is part of the libopencm3 project.
  *

@@ -6,10 +6,6 @@
 
 @version 1.0.0
 
-@author @htmlonly &copy; @endhtmlonly 2009 Uwe Hermann <uwe@hermann-uwe.de>
-@author @htmlonly &copy; @endhtmlonly 2012 Piotr Esden-Tempski <piotr@esden.net>
-@author @htmlonly &copy; @endhtmlonly 2012 Ken Sarkies <ksarkies@internode.on.net>
-
 @date 1 July 2012
 
 LGPL License Terms @ref lgpl_license

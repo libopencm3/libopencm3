@@ -1,11 +1,7 @@
 /** @addtogroup i2c_file
 
-@version 1.0.0
-
 @author @htmlonly &copy; @endhtmlonly 2010 Thomas Otto <tommi@viadmin.org>
 @author @htmlonly &copy; @endhtmlonly 2012 Ken Sarkies <ksarkies@internode.on.net>
-
-@date 15 October 2012
 
 Devices can have up to two I2C peripherals. The peripherals support SMBus and
 PMBus variants.
@@ -17,8 +13,7 @@ a multimaster contention is lost or a stop condition is generated.
 @todo all sorts of lovely stuff like DMA, Interrupts, SMBus variant, Status
 register access, Error conditions
 
-LGPL License Terms @ref lgpl_license
- */
+*/
 /*
  * This file is part of the libopencm3 project.
  *

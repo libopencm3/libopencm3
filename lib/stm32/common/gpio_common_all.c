@@ -1,4 +1,8 @@
-/** @addtogroup gpio_file */
+/** @addtogroup gpio_file
+
+@author @htmlonly &copy; @endhtmlonly 2009 Uwe Hermann <uwe@hermann-uwe.de>
+
+*/
 
 /*
  * This file is part of the libopencm3 project.

@@ -6,8 +6,6 @@
 
 @version 1.0.0
 
-@author @htmlonly &copy; @endhtmlonly 2010 Thomas Otto <tommi@viadmin.org>
-
 @date 18 August 2012
 
 LGPL License Terms @ref lgpl_license

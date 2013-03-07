@@ -1,3 +1,17 @@
+/** @defgroup rtc_defines RTC Defines
+
+@brief <b>Defined Constants and Types for the STM32F1xx Real Time Clock</b>
+
+@ingroup STM32F1xx_defines
+
+@author @htmlonly &copy; @endhtmlonly 2010 Uwe Hermann <uwe@hermann-uwe.de>
+
+@version 1.0.0
+
+@date 4 March 2013
+
+LGPL License Terms @ref lgpl_license
+ */
 /*
  * This file is part of the libopencm3 project.
  *

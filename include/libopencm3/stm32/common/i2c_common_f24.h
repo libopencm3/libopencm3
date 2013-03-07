@@ -1,4 +1,8 @@
-/** @addtogroup i2c_defines */
+/** @addtogroup i2c_defines
+
+@author @htmlonly &copy; @endhtmlonly 2012 Ken Sarkies <ksarkies@internode.on.net>
+
+*/
 
 /*
  * This file is part of the libopencm3 project.

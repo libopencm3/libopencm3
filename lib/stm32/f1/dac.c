@@ -4,6 +4,11 @@
 
 @brief <b>libopencm3 STM32F1xx DAC</b>
 
+@version 1.0.0
+
+@date 18 August 2012
+
+LGPL License Terms @ref lgpl_license
 */
 
 /*

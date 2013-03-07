@@ -1,4 +1,8 @@
-/** @addtogroup dac_defines */
+/** @addtogroup dac_defines
+
+@author @htmlonly &copy; @endhtmlonly 2012 Felix Held <felix-libopencm3@felixheld.de>
+
+*/
 
 /*
  * This file is part of the libopencm3 project.

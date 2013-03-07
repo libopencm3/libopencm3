@@ -1,4 +1,8 @@
-/** @addtogroup rtc_defines */
+/** @addtogroup rtc_defines
+
+@author @htmlonly &copy; @endhtmlonly 2012 Karl Palsson <karlp@tweak.net.au>
+
+*/
 /*
  * This file is part of the libopencm3 project.
  *

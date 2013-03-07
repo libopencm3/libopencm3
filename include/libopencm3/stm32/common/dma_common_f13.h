@@ -1,4 +1,10 @@
-/** @addtogroup dma_defines */
+/** @addtogroup dma_defines 
+
+@author @htmlonly &copy; @endhtmlonly 2010 Thomas Otto <tommi@viadmin.org>
+@author @htmlonly &copy; @endhtmlonly 2012 Piotr Esden-Tempski <piotr@esden.net>
+
+*/
+
 /*
  * This file is part of the libopencm3 project.
  *

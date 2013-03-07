@@ -1,11 +1,7 @@
 /** @addtogroup gpio_file
 
-@version 1.0.0
-
 @author @htmlonly &copy; @endhtmlonly 2009 Uwe Hermann <uwe@hermann-uwe.de>
 @author @htmlonly &copy; @endhtmlonly 2012 Ken Sarkies <ksarkies@internode.on.net>
-
-@date 18 August 2012
 
 Each I/O port has 16 individually configurable bits. Many I/O pins share GPIO
 functionality with a number of alternate functions and must be configured to the
@@ -50,7 +46,6 @@ Example 2: Digital input on port C12 with pullup
 	reg16 = gpio_port_read(GPIOC);
 @endcode
 
-LGPL License Terms @ref lgpl_license
 */
 /*
  * This file is part of the libopencm3 project.
