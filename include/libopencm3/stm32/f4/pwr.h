@@ -8,6 +8,8 @@
 
 @author @htmlonly &copy; @endhtmlonly 2011 Stephen Caudle <scaudle@doceme.com>
 
+@date 4 March 2013
+
 LGPL License Terms @ref lgpl_license
  */
 /*

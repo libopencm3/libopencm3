@@ -6,9 +6,6 @@
 
 @version 1.0.0
 
-@author @htmlonly &copy; @endhtmlonly 2010 Thomas Otto <tommi@viadmin.org>
-@author @htmlonly &copy; @endhtmlonly 2012 Ken Sarkies <ksarkies@internode.on.net>
-
 @date 12 October 2012
 
 LGPL License Terms @ref lgpl_license

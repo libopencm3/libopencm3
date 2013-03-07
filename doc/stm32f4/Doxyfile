@@ -24,6 +24,8 @@ INPUT                 += ../../lib/stm32/f4 \
 
 EXCLUDE                =
 
+EXCLUDE_PATTERNS       = *_common_f13.h *_common_f13.c
+
 LAYOUT_FILE 	       = DoxygenLayout_stm32f4.xml
 
 TAGFILES               = ../cm3/cm3.tag=../../cm3/html

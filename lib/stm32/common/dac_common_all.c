@@ -1,10 +1,6 @@
 /** @addtogroup dac_file
 
-@version 1.0.0
-
-@author @htmlonly &copy; @endhtmlonly 2012 Ken Sarkies
-
-@date 18 August 2012
+@author @htmlonly &copy; @endhtmlonly 2012 Ken Sarkies ksarkies@internode.on.net
 
 This library supports the Digital to Analog Conversion System in the
 STM32F series of ARM Cortex Microcontrollers by ST Microelectronics.

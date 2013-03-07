@@ -4,6 +4,11 @@
 
 @brief <b>libopencm3 STM32F2xx DMA</b>
 
+@version 1.0.0
+
+@date 30 November 2012
+
+LGPL License Terms @ref lgpl_license
 */
 
 /*

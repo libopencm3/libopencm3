@@ -1,4 +1,8 @@
-/** @addtogroup spi_defines */
+/** @addtogroup spi_defines
+
+@author @htmlonly &copy; @endhtmlonly 2011 Fergus Noble <fergusnoble@gmail.com>
+
+*/
 /*
  * This file is part of the libopencm3 project.
  *

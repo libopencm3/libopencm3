@@ -1,4 +1,9 @@
-/** @addtogroup gpio_defines */
+/** @addtogroup gpio_defines
+
+@author @htmlonly &copy; @endhtmlonly 2011 Fergus Noble <fergusnoble@gmail.com>
+@author @htmlonly &copy; @endhtmlonly 2012 Ken Sarkies <ksarkies@internode.on.net>
+
+*/
 /*
  * This file is part of the libopencm3 project.
  *

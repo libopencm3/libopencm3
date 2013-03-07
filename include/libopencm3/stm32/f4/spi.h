@@ -6,8 +6,6 @@
 
 @version 1.0.0
 
-@author @htmlonly &copy; @endhtmlonly 2012 Ken Sarkies <ksarkies@internode.on.net>
-
 @date 5 December 2012
 
 LGPL License Terms @ref lgpl_license

@@ -1,10 +1,6 @@
 /** @addtogroup iwdg_file
 
-@version 1.0.0
-
 @author @htmlonly &copy; @endhtmlonly 2012 Ken Sarkies ksarkies@internode.on.net
-
-@date 18 August 2012
 
 This library supports the Independent Watchdog Timer System in the STM32F1xx
 series of ARM Cortex Microcontrollers by ST Microelectronics.
@@ -20,8 +16,7 @@ relevant bit is not set, the IWDG timer must be enabled by software.
 
 @note: Tested: CPU STM32F103RET6, Board ET-ARM Stamp STM32
 
-LGPL License Terms @ref lgpl_license
- */
+*/
 /*
  * This file is part of the libopencm3 project.
  *

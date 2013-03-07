@@ -1,18 +1,14 @@
 /** @addtogroup usart_file
 
-@version 1.0.0
-
 @author @htmlonly &copy; @endhtmlonly 2009 Uwe Hermann <uwe@hermann-uwe.de>
-
-@date 30 August 2012
 
 This library supports the USART/UART in the STM32F series
 of ARM Cortex Microcontrollers by ST Microelectronics.
 
 Devices can have up to 3 USARTs and 2 UARTs.
 
-LGPL License Terms @ref lgpl_license
- */
+*/
+
 /*
  * This file is part of the libopencm3 project.
  *

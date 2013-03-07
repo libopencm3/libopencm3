@@ -1,4 +1,8 @@
-/** @addtogroup pwr_defines */
+/** @addtogroup pwr_defines
+
+@author @htmlonly &copy; @endhtmlonly 2010 Thomas Otto <tommi@viadmin.org>
+
+*/
 
 /*
  * This file is part of the libopencm3 project.

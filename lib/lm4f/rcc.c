@@ -23,6 +23,8 @@
  *
  * @ingroup LM4F
  *
+@author @htmlonly &copy; @endhtmlonly 2012 Alexandru Gagniuc <mr.nuke.me@gmail.com>
+
  * \brief <b>libopencm3 LM4F Clock control API</b>
  *
  * The LM$F clock API provides functionaliity for manipulating the system clock,

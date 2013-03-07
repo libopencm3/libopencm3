@@ -1,11 +1,7 @@
 /** @addtogroup spi_file
 
-@version 1.0.0
-
 @author @htmlonly &copy; @endhtmlonly 2009 Uwe Hermann <uwe@hermann-uwe.de>
 @author @htmlonly &copy; @endhtmlonly 2012 Ken Sarkies <ksarkies@internode.on.net>
-
-@date 15 October 2012
 
 Devices can have up to three SPI peripherals. The common 4-wire full-duplex
 mode of operation is supported, along with 3-wire variants using unidirectional
@@ -32,8 +28,8 @@ LSB first.
 
 @todo need additional functions to aid ISRs in retrieving status
 
-LGPL License Terms @ref lgpl_license
- */
+*/
+
 /*
  * This file is part of the libopencm3 project.
  *
