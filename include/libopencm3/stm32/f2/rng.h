@@ -15,8 +15,8 @@
  * along with this library.  If not, see <http://www.gnu.org/licenses/>.
  */
 
-#ifndef LIBOPENCM3_RNG_F2_H
-#define LIBOPENCM3_RNG_F2_H
+#ifndef LIBOPENCM3_RNG_H
+#define LIBOPENCM3_RNG_H
 
 #include <libopencm3/stm32/memorymap.h>
 #include <libopencm3/stm32/common/rng_common_f24.h>

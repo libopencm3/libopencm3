@@ -25,8 +25,11 @@
 
 /**@{*/
 
-/* THIS FILE SHOULD NOT BE INCLUDED DIRECTLY, BUT ONLY VIA SPI.H */
+/* THIS FILE SHOULD NOT BE INCLUDED DIRECTLY, BUT ONLY VIA USART.H 
+The order of header inclusion is important. usart.h includes the device
+specific memorymap.h header before including this header file.*/
 
+#if defined (LIBOPENCM3_USART_H) || defined (LIBOPENCM3_USART_COMMON_F24_H)
 #ifndef LIBOPENCM3_USART_COMMON_ALL_H
 #define LIBOPENCM3_USART_COMMON_ALL_H
 
@@ -370,6 +373,9 @@ bool usart_get_interrupt_source(u32 usart, u32 flag);
 
 END_DECLS
 
+#endif
+#else
+#warning "usart_common_all.h should not be included explicitly, only via usart.h"
 #endif
 /**@}*/
 

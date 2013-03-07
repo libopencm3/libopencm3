@@ -22,8 +22,6 @@
  * along with this library.  If not, see <http://www.gnu.org/licenses/>.
  */
 
-/* THIS FILE SHOULD NOT BE INCLUDED DIRECTLY, BUT ONLY VIA RTC.H */
-
 /*
  * This covers the "version 2" RTC peripheral.  This is completely different
  * to the v1 RTC periph on the F1 series devices.  It has BCD counters, with
@@ -32,6 +30,11 @@
  * only support a subset.
  */
 
+/* THIS FILE SHOULD NOT BE INCLUDED DIRECTLY, BUT ONLY VIA RTC.H 
+The order of header inclusion is important. rtc.h includes the device
+specific memorymap.h header before including this header file.*/
+
+#ifdef LIBOPENCM3_RTC_H
 #ifndef LIBOPENCM3_RTC2_H
 #define LIBOPENCM3_RTC2_H
 
@@ -316,4 +319,8 @@ END_DECLS
 /**@}*/
 
 #endif  /* RTC2_H */
+#else
+#warning "rtc_common_bcd.h should not be included explicitly, only via rtc.h"
+#endif
+
 
