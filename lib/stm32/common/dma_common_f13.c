@@ -1,10 +1,6 @@
 /** @addtogroup dma_file
 
-@version 1.0.0
-
 @author @htmlonly &copy; @endhtmlonly 2010 Thomas Otto <tommi@viadmin.org>
-
-@date 18 August 2012
 
 This library supports the DMA Control System in the STM32 series of ARM Cortex
 Microcontrollers by ST Microelectronics.
@@ -42,7 +38,7 @@ LGPL License Terms @ref lgpl_license
 
 /**@{*/
 
-#include <libopencm3/stm32/f1/dma.h>
+#include <libopencm3/stm32/dma.h>
 
 /*-----------------------------------------------------------------------------*/
 /** @brief DMA Channel Reset

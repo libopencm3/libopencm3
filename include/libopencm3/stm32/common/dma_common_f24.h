@@ -1,4 +1,9 @@
-/** @addtogroup dma_defines */
+/** @addtogroup dma_defines
+
+@author @htmlonly &copy; @endhtmlonly 2011 Fergus Noble <fergusnoble@gmail.com>
+@author @htmlonly &copy; @endhtmlonly 2012 Ken Sarkies <ksarkies@internode.on.net>
+
+*/
 /*
  * This file is part of the libopencm3 project.
  *
@@ -19,8 +24,11 @@
  * along with this library.  If not, see <http://www.gnu.org/licenses/>.
  */
 
-/* THIS FILE SHOULD NOT BE INCLUDED DIRECTLY, BUT ONLY VIA DMA.H */
+/* THIS FILE SHOULD NOT BE INCLUDED DIRECTLY, BUT ONLY VIA DMA.H 
+The order of header inclusion is important. dma.h includes the device
+specific memorymap.h header before including this header file.*/
 
+#ifdef LIBOPENCM3_DMA_H
 #ifndef LIBOPENCM3_DMA_COMMON_F24_H
 #define LIBOPENCM3_DMA_COMMON_F24_H
 
@@ -599,5 +607,8 @@ void dma_set_number_of_data(u32 dma, u8 stream, u16 number);
 
 END_DECLS
 /**@}*/
+#endif
+#else
+#warning "dma_common_f24.h should not be included explicitly, only via dma.h"
 #endif
 

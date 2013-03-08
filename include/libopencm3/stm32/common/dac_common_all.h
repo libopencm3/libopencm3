@@ -1,4 +1,8 @@
-/** @addtogroup dac_defines */
+/** @addtogroup dac_defines
+
+@author @htmlonly &copy; @endhtmlonly 2012 Felix Held <felix-libopencm3@felixheld.de>
+
+*/
 
 /*
  * This file is part of the libopencm3 project.
@@ -21,6 +25,11 @@
 
 /**@{*/
 
+/* THIS FILE SHOULD NOT BE INCLUDED DIRECTLY, BUT ONLY VIA DAC.H 
+The order of header inclusion is important. dac.h includes the device
+specific memorymap.h header before including this header file.*/
+
+#ifdef LIBOPENCM3_DAC_H
 #ifndef LIBOPENCM3_DAC_COMMON_ALL_H
 #define LIBOPENCM3_DAC_COMMON_ALL_H
 
@@ -399,5 +408,9 @@ void dac_software_trigger(data_channel dac_channel);
 END_DECLS
 
 #endif
+#else
+#warning "dac_common_all.h should not be included explicitly, only via dac.h"
+#endif
+
 /**@}*/
 

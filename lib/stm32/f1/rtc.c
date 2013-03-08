@@ -1,3 +1,19 @@
+/** @defgroup rtc_file RTC
+
+@ingroup STM32F1xx
+
+@brief <b>libopencm3 STM32F1xx RTC</b>
+
+@author @htmlonly &copy; @endhtmlonly 2010 Uwe Hermann <uwe@hermann-uwe.de>
+@author @htmlonly &copy; @endhtmlonly 2010 Lord James <lordjames@y7mail.com>
+
+@version 1.0.0
+
+@date 4 March 2013
+
+LGPL License Terms @ref lgpl_license
+*/
+
 /*
  * This file is part of the libopencm3 project.
  *
@@ -18,8 +34,8 @@
  * along with this library.  If not, see <http://www.gnu.org/licenses/>.
  */
 
-#include <libopencm3/stm32/f1/rcc.h>
-#include <libopencm3/stm32/f1/rtc.h>
+#include <libopencm3/stm32/rcc.h>
+#include <libopencm3/stm32/rtc.h>
 #include <libopencm3/stm32/pwr.h>
 
 void rtc_awake_from_off(osc_t clock_source)

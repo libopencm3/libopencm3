@@ -1,4 +1,8 @@
-/** @addtogroup iwdg_defines */
+/** @addtogroup iwdg_defines
+
+@author @htmlonly &copy; @endhtmlonly 2010 Thomas Otto <tommi@viadmin.org>
+
+*/
 /*
  * This file is part of the libopencm3 project.
  *
@@ -18,8 +22,11 @@
  * along with this library.  If not, see <http://www.gnu.org/licenses/>.
  */
 
-/* THIS FILE SHOULD NOT BE INCLUDED DIRECTLY, BUT ONLY VIA IWDG.H */
+/* THIS FILE SHOULD NOT BE INCLUDED DIRECTLY, BUT ONLY VIA IWDG.H 
+The order of header inclusion is important. iwdg.h includes the device
+specific memorymap.h header before including this header file.*/
 
+#ifdef LIBOPENCM3_IWDG_H
 #ifndef LIBOPENCM3_IWDG_COMMON_ALL_H
 #define LIBOPENCM3_IWDG_COMMON_ALL_H
 
@@ -104,6 +111,9 @@ void iwdg_reset(void);
 
 END_DECLS
 
+#endif
+#else
+#warning "iwdg_common_all.h should not be included explicitly, only via iwdg.h"
 #endif
 /**@}*/
 

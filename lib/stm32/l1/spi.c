@@ -4,6 +4,11 @@
 
 @brief <b>libopencm3 STM32L1xx SPI</b>
 
+@version 1.0.0
+
+@date 15 October 2012
+
+LGPL License Terms @ref lgpl_license
 */
 
 /*

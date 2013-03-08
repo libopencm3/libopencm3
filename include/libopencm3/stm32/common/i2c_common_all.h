@@ -1,4 +1,8 @@
-/** @addtogroup i2c_defines */
+/** @addtogroup i2c_defines
+
+@author @htmlonly &copy; @endhtmlonly 2010 Thomas Otto <tommi@viadmin.org>
+
+*/
 
 /*
  * This file is part of the libopencm3 project.
@@ -19,8 +23,11 @@
  * along with this library.  If not, see <http://www.gnu.org/licenses/>.
  */
 
-/* THIS FILE SHOULD NOT BE INCLUDED DIRECTLY, BUT ONLY VIA I2C.H */
+/* THIS FILE SHOULD NOT BE INCLUDED DIRECTLY, BUT ONLY VIA I2C.H 
+The order of header inclusion is important. i2c.h includes the device
+specific memorymap.h header before including this header file.*/
 
+#if defined (LIBOPENCM3_I2C_H) || defined (LIBOPENCM3_I2C_COMMON_F24_H)
 #ifndef LIBOPENCM3_I2C_COMMON_ALL_H
 #define LIBOPENCM3_I2C_COMMON_ALL_H
 
@@ -378,6 +385,9 @@ void i2c_clear_dma_last_transfer(u32 i2c);
 
 END_DECLS
 
+#endif
+#else
+#warning "i2c_common_all.h should not be included explicitly, only via i2c.h"
 #endif
 /**@}*/
 

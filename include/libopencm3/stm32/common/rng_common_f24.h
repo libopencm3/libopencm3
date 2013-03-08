@@ -16,6 +16,11 @@
  * along with this library.  If not, see <http://www.gnu.org/licenses/>.
  */
 
+/* THIS FILE SHOULD NOT BE INCLUDED DIRECTLY, BUT ONLY VIA RNG.H 
+The order of header inclusion is important. rng.h includes the device
+specific memorymap.h header before including this header file.*/
+
+#ifdef LIBOPENCM3_RNG_H
 #ifndef LIBOPENCM3_RNG_COMMON_F24_H
 #define LIBOPENCM3_RNG_COMMON_F24_H
 
@@ -59,3 +64,7 @@
 #define RNG_SR_SEIS		(1 << 6)
 
 #endif
+#else
+#warning "rng_common_f24.h should not be included explicitly, only via rng.h"
+#endif
+

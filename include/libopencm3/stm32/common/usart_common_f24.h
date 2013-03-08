@@ -1,4 +1,9 @@
-/** @addtogroup usart_defines */
+/** @addtogroup usart_defines
+
+@author @htmlonly &copy; @endhtmlonly 2011 Uwe Hermann <uwe@hermann-uwe.de>
+@author @htmlonly &copy; @endhtmlonly 2011 Stephen Caudle <scaudle@doceme.com>
+
+*/
 /*
  * This file is part of the libopencm3 project.
  *
@@ -19,8 +24,11 @@
  * along with this library.  If not, see <http://www.gnu.org/licenses/>.
  */
 
-/* THIS FILE SHOULD NOT BE INCLUDED DIRECTLY, BUT ONLY VIA SPI.H */
+/* THIS FILE SHOULD NOT BE INCLUDED DIRECTLY, BUT ONLY VIA USART.H 
+The order of header inclusion is important. usart.h includes the device
+specific memorymap.h header before including this header file.*/
 
+#ifdef LIBOPENCM3_USART_H
 #ifndef LIBOPENCM3_USART_COMMON_F24_H
 #define LIBOPENCM3_USART_COMMON_F24_H
 
@@ -64,3 +72,7 @@
 #define USART_CR3_ONEBIT		(1 << 11)
 
 #endif
+#else
+#warning "usart_common_f24.h should not be included explicitly, only via usart.h"
+#endif
+

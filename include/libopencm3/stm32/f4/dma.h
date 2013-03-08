@@ -1,13 +1,10 @@
-/** @defgroup STM32F4xx_dma_defines DMA Defines
+/** @defgroup dma_defines DMA Defines
 
 @ingroup STM32F4xx_defines
 
 @brief Defined Constants and Types for the STM32F4xx DMA Controller
 
 @version 1.0.0
-
-@author @htmlonly &copy; @endhtmlonly 2011 Fergus Noble <fergusnoble@gmail.com>
-@author @htmlonly &copy; @endhtmlonly 2012 Ken Sarkies <ksarkies@internode.on.net>
 
 @date 30 November 2012
 

@@ -1,4 +1,8 @@
-/** @addtogroup crc_defines */
+/** @addtogroup crc_defines
+
+@author @htmlonly &copy; @endhtmlonly 2010 Thomas Otto <tommi@viadmin.org>
+
+*/
 
 /*
  * This file is part of the libopencm3 project.
@@ -19,8 +23,11 @@
  * along with this library.  If not, see <http://www.gnu.org/licenses/>.
  */
 
-/* THIS FILE SHOULD NOT BE INCLUDED DIRECTLY, BUT ONLY VIA SPI.H */
+/* THIS FILE SHOULD NOT BE INCLUDED DIRECTLY, BUT ONLY VIA CRC.H 
+The order of header inclusion is important. crc.h includes the device
+specific memorymap.h header before including this header file.*/
 
+#ifdef LIBOPENCM3_CRC_H
 #ifndef LIBOPENCM3_CRC_COMMON_ALL_H
 #define LIBOPENCM3_CRC_COMMON_ALL_H
 
@@ -83,3 +90,7 @@ u32 crc_calculate_block(u32 *datap, int size);
 END_DECLS
 
 #endif
+#else
+#warning "crc_common_all.h should not be included explicitly, only via crc.h"
+#endif
+

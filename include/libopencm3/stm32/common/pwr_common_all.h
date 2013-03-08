@@ -1,4 +1,8 @@
-/** @addtogroup pwr_defines */
+/** @addtogroup pwr_defines
+
+@author @htmlonly &copy; @endhtmlonly 2010 Thomas Otto <tommi@viadmin.org>
+
+*/
 
 /*
  * This file is part of the libopencm3 project.
@@ -19,8 +23,11 @@
  * along with this library.  If not, see <http://www.gnu.org/licenses/>.
  */
 
-/* THIS FILE SHOULD NOT BE INCLUDED DIRECTLY, BUT ONLY VIA PWR.H */
+/* THIS FILE SHOULD NOT BE INCLUDED DIRECTLY, BUT ONLY VIA PWR.H 
+The order of header inclusion is important. pwr.h includes the device
+specific memorymap.h header before including this header file.*/
 
+#ifdef LIBOPENCM3_PWR_H
 #ifndef LIBOPENCM3_PWR_COMMON_ALL_H
 #define LIBOPENCM3_PWR_COMMON_ALL_H
 
@@ -117,3 +124,7 @@ END_DECLS
 
 /**@}*/
 #endif
+#else
+#warning "pwr_common_all.h should not be included explicitly, only via pwr.h"
+#endif
+

@@ -4,6 +4,11 @@
 
 @brief <b>libopencm3 STM32L1xx General Purpose I/O</b>
 
+@version 1.0.0
+
+@date 18 August 2012
+
+LGPL License Terms @ref lgpl_license
 */
 
 /*
@@ -24,5 +29,3 @@
  */
 
 #include <libopencm3/stm32/gpio.h>
-#include <libopencm3/stm32/common/gpio_common_all.h>
-

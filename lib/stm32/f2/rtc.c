@@ -4,6 +4,11 @@
 
 @brief <b>libopencm3 STM32F2xx RTC</b>
 
+@version 1.0.0
+
+@date 4 March 2013
+
+LGPL License Terms @ref lgpl_license
 */
 
 /*
