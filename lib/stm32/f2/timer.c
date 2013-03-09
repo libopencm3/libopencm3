@@ -1,21 +1,25 @@
-/** @defgroup timer_defines Timer Defines
+/* This file is used for documentation purposes. It does not need
+to be compiled. All source code is in the common area.
+If there is any device specific code required it can be included here,
+in which case this file must be added to the compile list. */
 
-@brief <b>libopencm3 Defined Constants and Types for the STM32F4xx Timers</b>
+/** @defgroup timer_file Timers
 
-@ingroup STM32F4xx_defines
+@ingroup STM32F2xx
+
+@brief <b>libopencm3 STM32F2xx Timers</b>
 
 @version 1.0.0
 
-@date 8 March 2013
+@date 18 August 2012
 
-@author @htmlonly &copy; @endhtmlonly 2011 Fergus Noble <fergusnoble@gmail.com>
+*/
 
-LGPL License Terms @ref lgpl_license
- */
 /*
  * This file is part of the libopencm3 project.
  *
- * Copyright (C) 2011 Fergus Noble <fergusnoble@gmail.com>
+ * Copyright (C) 2010 Edward Cheeseman <evbuilder@users.sourceforge.org>
+ * Copyright (C) 2011 Stephen Caudle <scaudle@doceme.com>
  *
  * This library is free software: you can redistribute it and/or modify
  * it under the terms of the GNU Lesser General Public License as published by
@@ -31,9 +35,6 @@ LGPL License Terms @ref lgpl_license
  * along with this library.  If not, see <http://www.gnu.org/licenses/>.
  */
 
-#ifndef LIBOPENCM3_TIMER_H
-#define LIBOPENCM3_TIMER_H
-
+#include <libopencm3/stm32/timer.h>
 #include <libopencm3/stm32/common/timer_common_f24.h>
 
-#endif

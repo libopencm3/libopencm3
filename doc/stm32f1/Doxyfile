@@ -16,14 +16,14 @@
 WARN_LOGFILE           = doxygen_stm32f1.log
 
 INPUT                  = ../../include/libopencm3/license.dox \
-			 ../../include/libopencm3/stm32/f1 \
-			 ../../include/libopencm3/stm32/common
+                         ../../include/libopencm3/stm32/f1 \
+                         ../../include/libopencm3/stm32/common
 
 INPUT                 += ../../lib/stm32/f1 \
-			 ../../lib/stm32/common
+                         ../../lib/stm32/common
 
 EXCLUDE                = ../../include/libopencm3/stm32/f1/usb.h \
-			 ../../include/libopencm3/stm32/f1/usb_desc.h
+                         ../../include/libopencm3/stm32/f1/usb_desc.h
 
 EXCLUDE_PATTERNS       = *_common_f24.h *_common_f24.c
 
@@ -32,4 +32,7 @@ LAYOUT_FILE 	       = DoxygenLayout_stm32f1.xml
 TAGFILES               = ../cm3/cm3.tag=../../cm3/html
 
 GENERATE_TAGFILE       = stm32f1.tag
+
+ENABLE_PREPROCESSING    = NO
+
 
