@@ -47,6 +47,18 @@ LGPL License Terms @ref lgpl_license
 #	error "stm32 family not defined."
 #endif
 
+/* Timeout for CAN INIT acknowledge
+ * this value is difficult to define.
+ * INIT is set latest after finishing the current transfer.
+ * Assuming the lowest CAN speed of 100kbps one CAN frame may take about 1.6ms
+ * WAIT loop timeout varies on compiler switches, optimization, CPU architecture
+ * and CPU speed
+ *
+ * The same timeout value is used for leaving INIT where the longest time is
+ * 11 bits(110 us on 100 kbps).
+ */
+#define CAN_MSR_INAK_TIMEOUT 0x0000FFFF
+
 /*-----------------------------------------------------------------------------*/
 /** @brief CAN Reset
 
@@ -88,8 +100,7 @@ int can_init(u32 canport, bool ttcm, bool abom, bool awum, bool nart,
 	     bool rflm, bool txfp, u32 sjw, u32 ts1, u32 ts2, u32 brp,
 	     bool loopback, bool silent)
 {
-	u32 wait_ack = 0x00000000;
-	u32 can_msr_inak_timeout = 0x0000FFFF;
+	volatile u32 wait_ack;
 	int ret = 0;
 
 	/* Exit from sleep mode. */
@@ -99,76 +110,93 @@ int can_init(u32 canport, bool ttcm, bool abom, bool awum, bool nart,
 	CAN_MCR(canport) |= CAN_MCR_INRQ;
 
 	/* Wait for acknowledge. */
-	while ((wait_ack != can_msr_inak_timeout) &&
+	wait_ack = CAN_MSR_INAK_TIMEOUT;
+	while ((--wait_ack) &&
 	       ((CAN_MSR(canport) & CAN_MSR_INAK) != CAN_MSR_INAK)) {
-		wait_ack++;
 	}
 
 	/* Check the acknowledge. */
-	if ((CAN_MSR(canport) & CAN_MSR_INAK) != CAN_MSR_INAK)
+	if ((CAN_MSR(canport) & CAN_MSR_INAK) != CAN_MSR_INAK){
 		return 1;
+	}
 
 	/* clear can timing bits */
 	CAN_BTR(canport) = 0;
 
 	/* Set the automatic bus-off management. */
-	if (ttcm)
+	if (ttcm) {
 		CAN_MCR(canport) |= CAN_MCR_TTCM;
-	else
+	}
+	else {
 		CAN_MCR(canport) &= ~CAN_MCR_TTCM;
+	}
 
-	if (abom)
+	if (abom) {
 		CAN_MCR(canport) |= CAN_MCR_ABOM;
-	else
+	}
+	else {
 		CAN_MCR(canport) &= ~CAN_MCR_ABOM;
+	}
 
-	if (awum)
+	if (awum) {
 		CAN_MCR(canport) |= CAN_MCR_AWUM;
-	else
+	}
+	else {
 		CAN_MCR(canport) &= ~CAN_MCR_AWUM;
+	}
 
-	if (nart)
+	if (nart) {
 		CAN_MCR(canport) |= CAN_MCR_NART;
-	else
+	}
+	else{
 		CAN_MCR(canport) &= ~CAN_MCR_NART;
+	}
 
-	if (rflm)
+	if (rflm) {
 		CAN_MCR(canport) |= CAN_MCR_RFLM;
-	else
+	}
+	else {
 		CAN_MCR(canport) &= ~CAN_MCR_RFLM;
+	}
 
-	if (txfp)
+	if (txfp) {
 		CAN_MCR(canport) |= CAN_MCR_TXFP;
-	else
+	}
+	else {
 		CAN_MCR(canport) &= ~CAN_MCR_TXFP;
+	}
 
-	if (silent)
+	if (silent) {
 		CAN_BTR(canport) |= CAN_BTR_SILM;
-	else
+	}
+	else {
 		CAN_BTR(canport) &= ~CAN_BTR_SILM;
+	}
 
-	if (loopback)
+	if (loopback) {
 		CAN_BTR(canport) |= CAN_BTR_LBKM;
-	else
+	}
+	else {
 		CAN_BTR(canport) &= ~CAN_BTR_LBKM;
+	}
 
 
 	/* Set bit timings. */
 	CAN_BTR(canport) |= sjw | ts2 | ts1 |
-		           (u32)(CAN_BTR_BRP_MASK & (brp - 1));
+		           ((brp - 1ul) & CAN_BTR_BRP_MASK);
 
 	/* Request initialization "leave". */
 	CAN_MCR(canport) &= ~CAN_MCR_INRQ;
 
 	/* Wait for acknowledge. */
-	wait_ack = 0x00000000;
-	while ((wait_ack != can_msr_inak_timeout) &&
+	wait_ack = CAN_MSR_INAK_TIMEOUT;
+	while ((--wait_ack) &&
 	       ((CAN_MSR(canport) & CAN_MSR_INAK) == CAN_MSR_INAK)) {
-		wait_ack++;
 	}
 
-	if ((CAN_MSR(canport) & CAN_MSR_INAK) == CAN_MSR_INAK)
+	if ((CAN_MSR(canport) & CAN_MSR_INAK) == CAN_MSR_INAK) {
 		ret = 1;
+	}
 
 	return ret;
 }
@@ -221,13 +249,15 @@ void can_filter_init(u32 canport, u32 nr, bool scale_32bit, bool id_list_mode,
 	CAN_FiR2(canport, nr) = fr2;
 
 	/* Select FIFO0 or FIFO1 as filter assignement. */
-	if (fifo)
+	if (fifo) {
 		CAN_FFA1R(canport) |= filter_select_bit;  /* FIFO1 */
-	else
+	}
+	else {
 		CAN_FFA1R(canport) &= ~filter_select_bit; /* FIFO0 */
-
-	if (enable)
+	}
+	if (enable) {
 		CAN_FA1R(canport) |= filter_select_bit; /* Activate filter. */
+	}
 
 	/* Request initialization "leave". */
 	CAN_FMR(canport) &= ~CAN_FMR_FINIT;
@@ -431,10 +461,12 @@ int can_transmit(u32 canport, u32 id, bool ext, bool rtr, u8 length, u8 *data)
  */
 void can_fifo_release(u32 canport, u8 fifo)
 {
-	if (fifo == 0)
+	if (fifo == 0) {
 		CAN_RF0R(canport) |= CAN_RF1R_RFOM1;
-	else
+	}
+	else {
 		CAN_RF1R(canport) |= CAN_RF1R_RFOM1;
+	}
 }
 
 /*-----------------------------------------------------------------------------*/
@@ -466,22 +498,18 @@ void can_receive(u32 canport, u8 fifo, bool release, u32 *id, bool *ext,
 	if (CAN_RIxR(canport, fifo_id) & CAN_RIxR_IDE) {
 		*ext = true;
 		/* Get extended CAN ID. */
-		*id = ((CAN_RIxR(canport, fifo_id) & CAN_RIxR_EXID_MASK) >>
-			CAN_RIxR_EXID_SHIFT);
+		*id = (CAN_RIxR(canport, fifo_id) >> CAN_RIxR_EXID_SHIFT) & CAN_RIxR_EXID_MASK;
 	} else {
 		*ext = false;
 		/* Get standard CAN ID. */
-		*id = ((CAN_RIxR(canport, fifo_id) & CAN_RIxR_STID_MASK) >>
-			CAN_RIxR_STID_SHIFT);
+		*id = (CAN_RIxR(canport, fifo_id) >> CAN_RIxR_STID_SHIFT) & CAN_RIxR_STID_MASK;
 	}
 
 	/* Get remote transmit flag. */
-	if (CAN_RIxR(canport, fifo_id) & CAN_RIxR_RTR)
-	{
+	if (CAN_RIxR(canport, fifo_id) & CAN_RIxR_RTR)	{
 		*rtr = true;
 	}
-	else
-	{
+	else {
 		*rtr = false;
 	}
 
@@ -500,11 +528,11 @@ void can_receive(u32 canport, u8 fifo, bool release, u32 *id, bool *ext,
 	/* Get data.
 	 * Byte wise copy is needed because we do not know the alignment
 	 * of the input buffer.
-	 * Here copying 8 bytes each is faster than using loop
+	 * Here copying 8 bytes unconditionally is faster than using loop
 	 *
 	 * It is OK to copy all 8 bytes because the upper layer must be
-	 * prepared that the data length of the CAN frame is bigger
-	 * than expected. In contrary the driver has no clue what is expected.
+	 * prepared for data length bigger expected.
+	 * In contrary the driver has no information about the intended size.
 	 * This could be different if the max length would be handed over
 	 * to the function, but it is not the case
 	 */

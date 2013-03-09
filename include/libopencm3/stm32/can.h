@@ -478,7 +478,7 @@ LGPL License Terms @ref lgpl_license
 /* 15:10 Reserved, forced by hardware to 0 */
 
 /* BRP[9:0]: Baud rate prescaler */
-#define CAN_BTR_BRP_MASK		(0x1FF << 0)
+#define CAN_BTR_BRP_MASK		(0x1FFUL << 0)
 
 /* --- CAN_TIxR values ------------------------------------------------------ */
 
@@ -533,11 +533,11 @@ LGPL License Terms @ref lgpl_license
 /* --- CAN_RIxR values ------------------------------------------------------ */
 
 /* STID[10:0]: Standard identifier */
-#define CAN_RIxR_STID_MASK		(0x3FF << 21)
+#define CAN_RIxR_STID_MASK		(0x7FF)
 #define CAN_RIxR_STID_SHIFT		21
 
 /* EXID[15:0]: Extended identifier */
-#define CAN_RIxR_EXID_MASK		(0x1FFFFFF << 3)
+#define CAN_RIxR_EXID_MASK		(0x1FFFFFFF)
 #define CAN_RIxR_EXID_SHIFT		3
 
 /* IDE: Identifier extension */
