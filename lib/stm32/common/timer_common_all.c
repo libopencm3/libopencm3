@@ -1,14 +1,9 @@
-/** @defgroup STM32F1xx-timer-file Timers
-
-@ingroup STM32F1xx
-
-@brief <b>libopencm3 STM32 Timers</b>
-
-@version 1.0.0
+/** @addtogroup timer_file
 
 @author @htmlonly &copy; @endhtmlonly 2010 Edward Cheeseman <evbuilder@users.sourceforge.org>
+@author @htmlonly &copy; @endhtmlonly 2011 Stephen Caudle <scaudle@doceme.com>
 
-@date 18 August 2012
+@section  tim_common Notes for All Timers
 
 This library supports the General Purpose and Advanced Control Timers for
 the STM32 series of ARM Cortex Microcontrollers by ST Microelectronics.
@@ -66,6 +61,7 @@ push-pull outputs where the PWM output will appear.
 @todo input capture example
 
 */
+
 /*
  * This file is part of the libopencm3 project.
  *
@@ -97,23 +93,9 @@ push-pull outputs where the PWM output will appear.
 /**@{*/
 
 #include <libopencm3/stm32/timer.h>
+#include <libopencm3/stm32/rcc.h>
 
-#if defined(STM32F1)
 #define ADVANCED_TIMERS (defined (TIM1_BASE) || defined(TIM8_BASE))
-#	include <libopencm3/stm32/f1/rcc.h>
-#elif defined(STM32F2)
-#define ADVANCED_TIMERS (defined (TIM1_BASE) || defined(TIM8_BASE))
-#	include <libopencm3/stm32/f2/timer.h>
-#	include <libopencm3/stm32/f2/rcc.h>
-#elif defined(STM32F4)
-#define ADVANCED_TIMERS (defined (TIM1_BASE) || defined(TIM8_BASE))
-#	include <libopencm3/stm32/f4/timer.h>
-#	include <libopencm3/stm32/f4/rcc.h>
-#elif defined(STM32L1)
-#	include <libopencm3/stm32/l1/rcc.h>
-#else
-#	error "stm32 family not defined."
-#endif
 
 /*---------------------------------------------------------------------------*/
 /** @brief Reset a Timer.
@@ -1835,29 +1817,6 @@ u32 timer_get_counter(u32 timer_peripheral)
 {
 	return TIM_CNT(timer_peripheral);
 }
-
-/*---------------------------------------------------------------------------*/
-/** @brief Set Timer Option
-
-Set timer options register on TIM2 or TIM5, used for oscillator calibration
-on TIM5 and trigger remapping on TIM2. Only available on F4 and F2.
-
-@param[in] timer_peripheral Unsigned int32. Timer register address base
-@returns Unsigned int32. Option flags.
-*/
-
-#if (defined(STM32F4) || defined(STM32F2))
-void timer_set_option(u32 timer_peripheral, u32 option)
-{
-	if (timer_peripheral == TIM2) {
-		TIM_OR(timer_peripheral) &= ~TIM2_OR_ITR1_RMP_MASK;
-		TIM_OR(timer_peripheral) |= option;
-	} else if (timer_peripheral == TIM5) {
-		TIM_OR(timer_peripheral) &= ~TIM5_OR_TI4_RMP_MASK;
-		TIM_OR(timer_peripheral) |= option;
-	}
-}
-#endif
 
 /*---------------------------------------------------------------------------*/
 /** @brief Set Counter

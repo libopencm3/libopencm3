@@ -19,8 +19,8 @@
 
 LIBNAME		= libopencm3_stm32f2
 
-PREFIX	?= arm-none-eabi
-# PREFIX		?= arm-elf
+PREFIX          ?= arm-none-eabi
+# PREFIX	?= arm-elf
 CC		= $(PREFIX)-gcc
 AR		= $(PREFIX)-ar
 CFLAGS		= -Os -g \
@@ -32,11 +32,13 @@ CFLAGS		= -Os -g \
 		  -ffunction-sections -fdata-sections -MD -DSTM32F2
 # ARFLAGS	= rcsv
 ARFLAGS		= rcs
-OBJS		= rcc.o gpio.o flash.o exti2.o timer.o \
-		  gpio_common_all.o gpio_common_f24.o dma_common_f24.o spi_common_all.o \
-		  dac_common_all.o usart_common_all.o iwdg_common_all.o i2c_common_all.o \
-		  crc_common_all.o \
-		  rtc_common_bcd.o
+
+OBJS		= gpio.o exti2.o flash.o rcc.o
+
+OBJS            += crc_common_all.o dac_common_all.o dma_common_f24.o \
+                   gpio_common_all.o gpio_common_f24.o i2c_common_all.o \
+                   iwdg_common_all.o rtc_common_bcd.o spi_common_all.o \
+                   timer_common_all.o timer_common_f24.o usart_common_all.o
 
 VPATH += ../../usb:../:../../cm3:../common
 

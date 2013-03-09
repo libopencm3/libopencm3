@@ -54,7 +54,7 @@ LGPL License Terms @ref lgpl_license
 /* VOS[12:11]: Regulator voltage scaling output selection */
 #define PWR_CR_VOS_LSB			11
 /** @defgroup pwr_vos Voltage Scaling Output level selection
-@ingroup STM32F_pwr_defines
+@ingroup pwr_defines
 
 @{*/
 #define PWR_CR_VOS_RANGE1		(0x1 << PWR_CR_VOS_LSB)
