@@ -1,3 +1,17 @@
+/** @defgroup ssp_defines Synchronous Serial Port
+
+@brief <b>Defined Constants and Types for the LPC43xx Synchronous Serial Port</b>
+
+@ingroup LPC43xx_defines
+
+@version 1.0.0
+
+@author @htmlonly &copy; @endhtmlonly 2012 Michael Ossmann <mike@ossmann.com>
+
+@date 10 March 2013
+
+LGPL License Terms @ref lgpl_license
+ */
 /*
 * This file is part of the libopencm3 project.
 *
@@ -19,6 +33,8 @@
 
 #ifndef LPC43XX_SSP_H
 #define LPC43XX_SSP_H
+
+/**@{*/
 
 #include <libopencm3/cm3/common.h>
 #include <libopencm3/lpc43xx/memorymap.h>
@@ -181,5 +197,7 @@ u16 ssp_read(ssp_num_t ssp_num);
 void ssp_write(ssp_num_t ssp_num, u16 data);
 
 END_DECLS
+
+/**@}*/
 
 #endif

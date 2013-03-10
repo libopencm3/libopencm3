@@ -1,3 +1,18 @@
+/** @defgroup rcc_defines Reset and Clock Control
+
+@brief <b>Defined Constants and Types for the LM4F Reset and Clock Control</b>
+
+@ingroup LM4Fxx_defines
+
+@version 1.0.0
+
+@author @htmlonly &copy; @endhtmlonly 2012 Alexandru Gagniuc <mr.nuke.me@gmail.com>
+
+@date 10 March 2013
+
+LGPL License Terms @ref lgpl_license
+*/
+
 /*
  * This file is part of the libopencm3 project.
  *

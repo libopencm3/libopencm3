@@ -1,3 +1,17 @@
+/** @defgroup gpio_defines GPIO Defines
+
+@brief <b>Defined Constants and Types for the LPC13xx General Purpose I/O</b>
+
+@ingroup LPC13xx_defines
+
+@version 1.0.0
+
+@author @htmlonly &copy; @endhtmlonly 2009 Uwe Hermann <uwe@hermann-uwe.de>
+
+@date 10 March 2013
+
+LGPL License Terms @ref lgpl_license
+ */
 /*
  * This file is part of the libopencm3 project.
  *
@@ -16,6 +30,8 @@
  * You should have received a copy of the GNU Lesser General Public License
  * along with this library.  If not, see <http://www.gnu.org/licenses/>.
  */
+
+/**@{*/
 
 #ifndef LPC13XX_GPIO_H
 #define LPC13XX_GPIO_H
@@ -102,5 +118,7 @@ BEGIN_DECLS
 void gpio_set(u32 gpioport, u16 gpios);
 
 END_DECLS
+
+/**@}*/
 
 #endif

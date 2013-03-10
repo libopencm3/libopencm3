@@ -1,3 +1,17 @@
+/** @defgroup gpio_defines GPIO Defines
+
+@brief <b>Defined Constants and Types for the LPC17xx General Purpose I/O</b>
+
+@ingroup LPC17xx_defines
+
+@version 1.0.0
+
+@author @htmlonly &copy; @endhtmlonly 2009 Uwe Hermann <uwe@hermann-uwe.de>
+
+@date 10 March 2013
+
+LGPL License Terms @ref lgpl_license
+ */
 /*
  * This file is part of the libopencm3 project.
  *
@@ -19,6 +33,8 @@
 
 #ifndef LPC17XX_GPIO_H
 #define LPC17XX_GPIO_H
+
+/**@{*/
 
 #include <libopencm3/cm3/common.h>
 #include <libopencm3/lpc17xx/memorymap.h>
@@ -138,5 +154,7 @@ void gpio_set(u32 gpioport, u32 gpios);
 void gpio_clear(u32 gpioport, u32 gpios); 
 
 END_DECLS
+
+/**@}*/
 
 #endif

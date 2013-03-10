@@ -1,3 +1,16 @@
+/** @defgroup i2c_file I2C
+
+@ingroup LPC43xx
+
+@brief <b>libopencm3 LPC43xx I2C</b>
+
+@version 1.0.0
+
+@author @htmlonly &copy; @endhtmlonly 2012 Michael Ossmann <mike@ossmann.com>
+
+LGPL License Terms @ref lgpl_license
+*/
+
 /*
  * This file is part of the libopencm3 project.
  *
@@ -21,6 +34,8 @@
  * This is a very minimal I2C driver just to make sure we can get the
  * peripheral working.
  */
+
+/**@{*/
 
 #include <libopencm3/lpc43xx/i2c.h>
 #include <libopencm3/lpc43xx/scu.h>
@@ -91,3 +106,6 @@ void i2c0_stop(void)
 	I2C0_CONSET = I2C_CONSET_STO;
 	I2C0_CONCLR = I2C_CONCLR_SIC;
 }
+
+/**@}*/
+

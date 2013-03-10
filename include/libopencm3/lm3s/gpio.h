@@ -1,3 +1,17 @@
+/** @defgroup gpio_defines General Purpose I/O Defines
+
+@brief <b>Defined Constants and Types for the LM3S General Purpose I/O</b>
+
+@ingroup LM3Sxx_defines
+
+@version 1.0.0
+
+@author @htmlonly &copy; @endhtmlonly 2011 Gareth McMullin <gareth@blacksphere.co.nz>
+
+@date 10 March 2013
+
+LGPL License Terms @ref lgpl_license
+ */
 /*
  * This file is part of the libopencm3 project.
  *
@@ -19,6 +33,8 @@
 
 #ifndef LM3S_GPIO_H
 #define LM3S_GPIO_H
+
+/**@{*/
 
 #include <libopencm3/cm3/common.h>
 #include <libopencm3/lm3s/memorymap.h>
@@ -76,4 +92,7 @@ void gpio_clear(u32 gpioport, u8 gpios);
 
 END_DECLS
 
+/**@}*/
+
 #endif
+

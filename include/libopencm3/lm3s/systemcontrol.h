@@ -1,3 +1,18 @@
+/** @defgroup systemcontrol_defines System Control
+
+@brief <b>Defined Constants and Types for the LM3S System Control</b>
+
+@ingroup LM3Sxx_defines
+
+@version 1.0.0
+
+@author @htmlonly &copy; @endhtmlonly 2011 Gareth McMullin <gareth@blacksphere.co.nz>
+
+@date 10 March 2013
+
+LGPL License Terms @ref lgpl_license
+*/
+
 /*
  * This file is part of the libopencm3 project.
  *
@@ -19,6 +34,8 @@
 
 #ifndef LM3S_SYSTEMCONTROL_H
 #define LM3S_SYSTEMCONTROL_H
+
+/**@{*/
 
 #include <libopencm3/cm3/common.h>
 
@@ -56,6 +73,8 @@
 #define SYSTEMCONTROL_DCGC1		MMIO32(SYSTEMCONTROL_BASE + 0x124)
 #define SYSTEMCONTROL_DCGC2		MMIO32(SYSTEMCONTROL_BASE + 0x128)
 #define SYSTEMCONTROL_DSLPCLKCFG	MMIO32(SYSTEMCONTROL_BASE + 0x144)
+
+/**@}*/
 
 #endif
 

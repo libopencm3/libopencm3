@@ -1,3 +1,31 @@
+/** @defgroup sgpio_defines Serial General Purpose I/O
+
+@brief <b>Defined Constants and Types for the LPC43xx Serial General Purpose I/O</b>
+
+@ingroup LPC43xx_defines
+
+@version 1.0.0
+
+@author @htmlonly &copy; @endhtmlonly 2012 Michael Ossmann <mike@ossmann.com>
+
+@date 10 March 2013
+
+LGPL License Terms @ref lgpl_license
+ */
+/** @defgroup sdio_defines SDIO
+
+@brief <b>Defined Constants and Types for the LPC43xx SDIO</b>
+
+@ingroup LPC43xx_defines
+
+@version 1.0.0
+
+@author @htmlonly &copy; @endhtmlonly 2012 Michael Ossmann <mike@ossmann.com>
+
+@date 10 March 2013
+
+LGPL License Terms @ref lgpl_license
+ */
 /*
  * This file is part of the libopencm3 project.
  *
@@ -20,6 +48,8 @@
 
 #ifndef LPC43XX_SGPIO_H
 #define LPC43XX_SGPIO_H
+
+/**@{*/
 
 #include <libopencm3/cm3/common.h>
 #include <libopencm3/lpc43xx/memorymap.h>
@@ -294,5 +324,7 @@
 
 /* Input bit match interrupt set status */
 #define SGPIO_SET_STATUS_3              MMIO32(SGPIO_PORT_BASE + 0xF74)
+
+/**@}*/
 
 #endif

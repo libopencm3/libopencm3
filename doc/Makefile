@@ -5,10 +5,13 @@
 
 doc: html latex
 
-html: cm3 stm32l1 stm32f1 stm32f2 stm32f4 efm32g efm32gg efm32lg efm32tg lm3s lm4f lpc13 lpc17 lpc43 top
+html: cm3 usb stm32l1 stm32f1 stm32f2 stm32f4 efm32g efm32gg efm32lg efm32tg lm3s lm4f lpc13 lpc17 lpc43 top
 
 cm3:
 	cd cm3/; doxygen
+
+usb:
+	cd usb/; doxygen
 
 lm3s:
 	cd lm3s/; doxygen
@@ -96,5 +99,5 @@ efm32tg.pdf:
 clean:
 	@rm -rf html/ */html/ */latex/ *.pdf */*.tag
 
-.PHONY: doc html cm3 lm3s lm4f lpc13 lpc17 lpc43 stm32l1 stm32f1 stm32f2 stm32f4 efm32g efm32gg efm32lg efm32tg top latex
+.PHONY: doc html cm3 usb lm3s lm4f lpc13 lpc17 lpc43 stm32l1 stm32f1 stm32f2 stm32f4 efm32g efm32gg efm32lg efm32tg top latex
 
