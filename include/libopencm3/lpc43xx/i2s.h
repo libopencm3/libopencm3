@@ -1,3 +1,17 @@
+/** @defgroup i2s_defines I2S Defines
+
+@brief <b>Defined Constants and Types for the LPC43xx I2S</b>
+
+@ingroup LPC43xx_defines
+
+@version 1.0.0
+
+@author @htmlonly &copy; @endhtmlonly 2012 Michael Ossmann <mike@ossmann.com>
+
+@date 10 March 2013
+
+LGPL License Terms @ref lgpl_license
+ */
 /*
  * This file is part of the libopencm3 project.
  *
@@ -19,6 +33,8 @@
 
 #ifndef LPC43XX_I2S_H
 #define LPC43XX_I2S_H
+
+/**@{*/
 
 #include <libopencm3/cm3/common.h>
 #include <libopencm3/lpc43xx/memorymap.h>
@@ -101,5 +117,7 @@
 #define I2S_RXMODE(port)                MMIO32(port + 0x034)
 #define I2S0_RXMODE                     I2S_RXMODE(I2S0)
 #define I2S1_RXMODE                     I2S_RXMODE(I2S1)
+
+/**@}*/
 
 #endif

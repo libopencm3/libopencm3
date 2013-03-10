@@ -1,3 +1,17 @@
+/** @defgroup ritimer_defines Repetitive Interrupt Timer Defines
+
+@brief <b>Defined Constants and Types for the LPC43xx Repetitive Interrupt Timer</b>
+
+@ingroup LPC43xx_defines
+
+@version 1.0.0
+
+@author @htmlonly &copy; @endhtmlonly 2012 Michael Ossmann <mike@ossmann.com>
+
+@date 10 March 2013
+
+LGPL License Terms @ref lgpl_license
+ */
 /*
  * This file is part of the libopencm3 project.
  *
@@ -20,6 +34,8 @@
 #ifndef LPC43XX_RITIMER_H
 #define LPC43XX_RITIMER_H
 
+/**@{*/
+
 #include <libopencm3/cm3/common.h>
 #include <libopencm3/lpc43xx/memorymap.h>
 
@@ -36,5 +52,7 @@
 
 /* 32-bit counter */
 #define RITIMER_COUNTER                 MMIO32(RITIMER_BASE + 0x00C)
+
+/**@}*/
 
 #endif

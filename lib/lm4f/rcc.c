@@ -21,7 +21,7 @@
 /**
  * @defgroup rcc_file RCC
  *
- * @ingroup LM4F
+ * @ingroup LM4Fxx
  *
 @author @htmlonly &copy; @endhtmlonly 2012 Alexandru Gagniuc <mr.nuke.me@gmail.com>
 
@@ -79,6 +79,7 @@
 
 /**
  * @defgroup rcc_low_level Low-level clock control API
+@ingroup rcc_file
  * @{
  */
 /**
@@ -342,6 +343,7 @@ void rcc_wait_for_pll_ready(void)
 
 /**
  * @defgroup rcc_high_level High-level clock control API
+@ingroup rcc_file
  * @{
  */
 

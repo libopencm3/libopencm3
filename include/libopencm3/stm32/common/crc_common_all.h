@@ -31,6 +31,8 @@ specific memorymap.h header before including this header file.*/
 #ifndef LIBOPENCM3_CRC_COMMON_ALL_H
 #define LIBOPENCM3_CRC_COMMON_ALL_H
 
+/**@{*/
+
 #include <libopencm3/cm3/common.h>
 
 /* --- CRC registers ------------------------------------------------------- */
@@ -88,6 +90,8 @@ u32 crc_calculate(u32 data);
 u32 crc_calculate_block(u32 *datap, int size);
 
 END_DECLS
+
+/**@}*/
 
 #endif
 #else

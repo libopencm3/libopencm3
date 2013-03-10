@@ -9,7 +9,7 @@ API documentation for TI Stellaris LM3S Cortex M3 series.
 LGPL License Terms @ref lgpl_license
 */
 
-/** @defgroup LM3S LM3S
+/** @defgroup LM3Sxx LM3S
 Libraries for TI Stellaris  LM3S series.
 
 @version 1.0.0
@@ -19,7 +19,7 @@ Libraries for TI Stellaris  LM3S series.
 LGPL License Terms @ref lgpl_license
 */
 
-/** @defgroup LM3S_defines LM3S Defines
+/** @defgroup LM3Sxx_defines LM3S Defines
 
 @brief Defined Constants and Types for the LM3S series
 

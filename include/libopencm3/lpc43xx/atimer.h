@@ -1,3 +1,17 @@
+/** @defgroup atimer_defines Alarm Timer Defines
+
+@brief <b>Defined Constants and Types for the LPC43xx Alarm Timer</b>
+
+@ingroup LPC43xx_defines
+
+@version 1.0.0
+
+@author @htmlonly &copy; @endhtmlonly 2012 Michael Ossmann <mike@ossmann.com>
+
+@date 10 March 2013
+
+LGPL License Terms @ref lgpl_license
+ */
 /*
  * This file is part of the libopencm3 project.
  *
@@ -19,6 +33,8 @@
 
 #ifndef LPC43XX_ATIMER_H
 #define LPC43XX_ATIMER_H
+
+/**@{*/
 
 #include <libopencm3/cm3/common.h>
 #include <libopencm3/lpc43xx/memorymap.h>
@@ -48,5 +64,7 @@
 
 /* Set register */
 #define ATIMER_SET_STAT                 MMIO32(ATIMER_BASE + 0xFEC)
+
+/**@}*/
 
 #endif

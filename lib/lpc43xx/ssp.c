@@ -1,3 +1,16 @@
+/** @defgroup ssp_file SSP
+
+@ingroup LPC43xx
+
+@brief <b>libopencm3 LPC43xx SSP</b>
+
+@version 1.0.0
+
+@author @htmlonly &copy; @endhtmlonly 2012 Benjamin Vernoux <titanmkd@gmail.com>
+
+LGPL License Terms @ref lgpl_license
+*/
+
 /*
  * This file is part of the libopencm3 project.
  *
@@ -16,6 +29,8 @@
  * You should have received a copy of the GNU Lesser General Public License
  * along with this library.  If not, see <http://www.gnu.org/licenses/>.
  */
+
+/**@{*/
 
 #include <libopencm3/lpc43xx/ssp.h>
 #include <libopencm3/lpc43xx/cgu.h>
@@ -160,4 +175,5 @@ void ssp_write(ssp_num_t ssp_num, u16 data)
 	 */
 	ssp_wait_until_not_busy(ssp_num);
 }
+/**@}*/
 
