@@ -1,3 +1,18 @@
+/** @defgroup usb_standard_file Generic USB Standard Request Interface
+
+@ingroup USB
+
+@brief <b>Generic USB Standard Request Interface</b>
+
+@version 1.0.0
+
+@author @htmlonly &copy; @endhtmlonly 2010 Gareth McMullin <gareth@blacksphere.co.nz>
+
+@date 10 March 2013
+
+LGPL License Terms @ref lgpl_license
+*/
+
 /*
  * This file is part of the libopencm3 project.
  *
@@ -16,6 +31,8 @@
  * You should have received a copy of the GNU Lesser General Public License
  * along with this library.  If not, see <http://www.gnu.org/licenses/>.
  */
+
+/**@{*/
 
 #include <string.h>
 #include <libopencm3/usb/usbd.h>
@@ -333,6 +350,9 @@ static int usb_standard_endpoint_unstall(usbd_device *usbd_dev,
 	return 1;
 }
 
+/* Do not appear to belong to the API, so are omitted from docs */
+/**@}*/
+
 int _usbd_standard_request_device(usbd_device *usbd_dev,
 				  struct usb_setup_data *req, u8 **buf,
 				  u16 *len)
@@ -466,3 +486,4 @@ int _usbd_standard_request(usbd_device *usbd_dev,
 		return 0;
 	}
 }
+

@@ -1,3 +1,18 @@
+/** @defgroup usb_dfu_defines USB DFU Type Definitions
+
+@brief <b>Defined Constants and Types for the USB DFU Type Definitions</b>
+
+@ingroup USB_defines
+
+@version 1.0.0
+
+@author @htmlonly &copy; @endhtmlonly 2010 Gareth McMullin <gareth@blacksphere.co.nz>
+
+@date 10 March 2013
+
+LGPL License Terms @ref lgpl_license
+*/
+
 /*
  * This file is part of the libopencm3 project.
  *
@@ -16,6 +31,8 @@
  * You should have received a copy of the GNU Lesser General Public License
  * along with this library.  If not, see <http://www.gnu.org/licenses/>.
  */
+
+/**@{*/
 
 #ifndef __DFU_H
 #define __DFU_H
@@ -79,3 +96,6 @@ struct usb_dfu_descriptor {
 } __attribute__((packed));
 
 #endif
+
+/**@}*/
+

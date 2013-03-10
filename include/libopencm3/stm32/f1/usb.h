@@ -1,3 +1,17 @@
+/** @defgroup adc_defines USB Defines
+
+@brief <b>Defined Constants and Types for the STM32F1xx USB Module</b>
+
+@ingroup STM32F1xx_defines
+
+@version 1.0.0
+
+@author @htmlonly &copy; @endhtmlonly 2009 Piotr Esden-Tempski <piotr@esden.net>
+
+@date 11 March 2013
+
+LGPL License Terms @ref lgpl_license
+ */
 /*
  * This file is part of the libopencm3 project.
  *
@@ -16,6 +30,8 @@
  * You should have received a copy of the GNU Lesser General Public License
  * along with this library.  If not, see <http://www.gnu.org/licenses/>.
  */
+
+/**@{*/
 
 #ifndef LIBOPENCM3_USB_H
 #define LIBOPENCM3_USB_H
@@ -257,3 +273,6 @@
 	(USB_PMA_BASE + (u8 *)(USB_GET_EP_RX_ADDR(EP) * 2))
 
 #endif
+
+/**@}*/
+

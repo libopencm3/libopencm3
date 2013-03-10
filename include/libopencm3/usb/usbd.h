@@ -1,3 +1,18 @@
+/** @defgroup usb_driver_defines USB Drivers
+
+@brief <b>Defined Constants and Types for the USB Drivers</b>
+
+@ingroup USB_defines
+
+@version 1.0.0
+
+@author @htmlonly &copy; @endhtmlonly 2010 Gareth McMullin <gareth@blacksphere.co.nz>
+
+@date 10 March 2013
+
+LGPL License Terms @ref lgpl_license
+*/
+
 /*
  * This file is part of the libopencm3 project.
  *
@@ -16,6 +31,8 @@
  * You should have received a copy of the GNU Lesser General Public License
  * along with this library.  If not, see <http://www.gnu.org/licenses/>.
  */
+
+/**@{*/
 
 #ifndef __USBD_H
 #define __USBD_H
@@ -100,3 +117,6 @@ extern void usbd_cable_connect(usbd_device *usbd_dev, u8 on);
 END_DECLS
 
 #endif
+
+/**@}*/
+

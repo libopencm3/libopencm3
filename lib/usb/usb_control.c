@@ -1,3 +1,18 @@
+/** @defgroup usb_control_file Generic USB Control Requests
+
+@ingroup USB
+
+@brief <b>Generic USB Control Requests</b>
+
+@version 1.0.0
+
+@author @htmlonly &copy; @endhtmlonly 2010 Gareth McMullin <gareth@blacksphere.co.nz>
+
+@date 10 March 2013
+
+LGPL License Terms @ref lgpl_license
+*/
+
 /*
  * This file is part of the libopencm3 project.
  *
@@ -16,6 +31,8 @@
  * You should have received a copy of the GNU Lesser General Public License
  * along with this library.  If not, see <http://www.gnu.org/licenses/>.
  */
+
+/**@{*/
 
 #include <stdlib.h>
 #include <libopencm3/usb/usbd.h>
@@ -151,6 +168,9 @@ static void usb_control_setup_write(usbd_device *usbd_dev,
 		usbd_dev->control_state.state = LAST_DATA_OUT;
 }
 
+/* Do not appear to belong to the API, so are omitted from docs */
+/**@}*/
+
 void _usbd_control_setup(usbd_device *usbd_dev, u8 ea)
 {
 	struct usb_setup_data *req = &usbd_dev->control_state.req;
@@ -241,3 +261,4 @@ void _usbd_control_in(usbd_device *usbd_dev, u8 ea)
 		usbd_ep_stall_set(usbd_dev, 0, 1);
 	}
 }
+
