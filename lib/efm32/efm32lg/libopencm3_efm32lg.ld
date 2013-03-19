@@ -1,8 +1,7 @@
 /*
  * This file is part of the libopencm3 project.
  *
- * Copyright (C) 2009 Uwe Hermann <uwe@hermann-uwe.de>,
- * Copyright (C) 2012 chrysn <chrysn@fsfe.org>
+ * Copyright (C) 2009 Uwe Hermann <uwe@hermann-uwe.de>
  *
  * This library is free software: you can redistribute it and/or modify
  * it under the terms of the GNU Lesser General Public License as published by
@@ -15,7 +14,7 @@
  * GNU Lesser General Public License for more details.
  *
  * You should have received a copy of the GNU Lesser General Public License
- * along with this library. If not, see <http://www.gnu.org/licenses/>.
+ * along with this library.  If not, see <http://www.gnu.org/licenses/>.
  */
 
 /* Generic linker script for EFM32 targets using libopencm3. */
@@ -31,45 +30,50 @@ ENTRY(reset_handler)
 /* Define sections. */
 SECTIONS
 {
-	. = ORIGIN(rom);
-
 	.text : {
 		*(.vectors)	/* Vector table */
 		*(.text*)	/* Program code */
 		. = ALIGN(4);
 		*(.rodata*)	/* Read-only data */
 		. = ALIGN(4);
-		_etext = .;
 	} >rom
 
-	. = ORIGIN(ram);
+	/*
+	 * Another section used by C++ stuff, appears when using newlib with
+	 * 64bit (long long) printf support
+	 */
+	.ARM.extab : {
+		*(.ARM.extab*)
+	} >rom
+	.ARM.exidx : {
+		__exidx_start = .;
+		*(.ARM.exidx*)
+		__exidx_end = .;
+	} >rom
 
-	.data : AT(_etext) {
+	. = ALIGN(4);
+	_etext = .;
+
+	.data : {
 		_data = .;
 		*(.data*)	/* Read-write initialized data */
 		. = ALIGN(4);
 		_edata = .;
-	} >ram
+	} >ram AT >rom
+	_data_loadaddr = LOADADDR(.data);
 
 	.bss : {
 		*(.bss*)	/* Read-write zero initialized data */
 		*(COMMON)
 		. = ALIGN(4);
 		_ebss = .;
-	} >ram AT >rom
-	_data_loadaddr = LOADADDR(.data);
+	} >ram
 
 	/*
 	 * The .eh_frame section appears to be used for C++ exception handling.
 	 * You may need to fix this if you're using C++.
 	 */
 	/DISCARD/ : { *(.eh_frame) }
-
-	/*
-	 * Another section used by C++ stuff, appears when using newlib with
-	 * 64bit (long long) printf support - discard it for now.
-	 */
-	/DISCARD/ : { *(.ARM.exidx) }
 
 	. = ALIGN(4);
 	end = .;
