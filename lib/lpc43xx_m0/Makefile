@@ -3,7 +3,7 @@
 ##
 ## Copyright (C) 2009 Uwe Hermann <uwe@hermann-uwe.de>
 ## Copyright (C) 2012 Michael Ossmann <mike@ossmann.com>
-## Copyright (C) 2012 Benjamin Vernoux <titanmkd@gmail.com>
+## Copyright (C) 2012/2013 Benjamin Vernoux <titanmkd@gmail.com>
 ##
 ## This library is free software: you can redistribute it and/or modify
 ## it under the terms of the GNU Lesser General Public License as published by
@@ -32,9 +32,7 @@ CFLAGS		= -O2 -g3 -Wall -Wextra -I../../include -fno-common \
 ARFLAGS		= rcs
 
 # LPC43xx common files for M4 / M0
-COPIED_FILE_LPC43XX = ../lpc43xx/gpio.c ../lpc43xx/scu.c ../lpc43xx/i2c.c ../lpc43xx/ssp.c ../lpc43xx/nvic.c ../lpc43xx/uart.c
 OBJ_LPC43XX = gpio.o scu.o i2c.o ssp.o nvic.o uart.o
-SRC_LPC43XX = $(OBJ_LPC43XX:.o=.c)
 
 #LPC43xx M0 specific file + Generic LPC43xx M4/M0 files
 OBJS		= vector.o $(OBJ_LPC43XX)
@@ -46,10 +44,7 @@ ifneq ($(V),1)
 Q := @
 endif
 
-all: copy_files_lpc43xx $(LIBNAME).a
-
-copy_files_lpc43xx: $(COPIED_FILE_LPC43XX)
-	$(Q)cp $^ ./
+all: $(LIBNAME).a
 
 $(LIBNAME).a: $(OBJS)
 	@printf "  AR      $(subst $(shell pwd)/,,$(@))\n"
@@ -59,10 +54,13 @@ $(LIBNAME).a: $(OBJS)
 	@printf "  CC      $(subst $(shell pwd)/,,$(@))\n"
 	$(Q)$(CC) $(CFLAGS) -o $@ -c $<
 
+%.o: ../lpc43xx/%.c
+	@printf "  CC      $(subst $(shell pwd)/,,$(@))\n"
+	$(Q)$(CC) $(CFLAGS) -o $@ -c $<
+	
 clean:
 	@printf "  CLEAN   lib/lpc43xx_m0\n"
 	$(Q)rm -f *.o *.d
-	$(Q)rm -f $(SRC_LPC43XX)
 	$(Q)rm -f $(LIBNAME).a
 
 .PHONY: clean
