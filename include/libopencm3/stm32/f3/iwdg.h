@@ -18,10 +18,12 @@
  * along with this library.  If not, see <http://www.gnu.org/licenses/>.
  */
 
-#ifndef LIBOPENCM3_IWDG_F3_H
-#define LIBOPENCM3_IWDG_F3_H
+#ifndef LIBOPENCM3_IWDG_H
+#define LIBOPENCM3_IWDG_H
 
-#include <libopencm3/stm32/iwdg.h>
+#include <libopencm3/stm32/memorymap.h>
+#include <libopencm3/stm32/common/iwdg_common_all.h>
+
 
 /* --- IWDG registers ------------------------------------------------------ */
 

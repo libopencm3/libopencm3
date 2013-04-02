@@ -375,7 +375,11 @@ void spi_set_next_tx_from_crc(u32 spi)
 
 void spi_set_dff_8bit(u32 spi)
 {
-	SPI_CR1(spi) &= ~SPI_CR1_DFF;
+	#if defined(STM32F3)
+		SPI_CR1(spi) &= ~SPI_CR1_CRCL;
+	#else
+		SPI_CR1(spi) &= ~SPI_CR1_DFF;
+	#endif
 }
 
 /*-----------------------------------------------------------------------------*/
@@ -386,7 +390,12 @@ void spi_set_dff_8bit(u32 spi)
 
 void spi_set_dff_16bit(u32 spi)
 {
-	SPI_CR1(spi) |= SPI_CR1_DFF;
+	#if defined(STM32F3)
+		SPI_CR1(spi) &= SPI_CR1_CRCL;
+	#else
+		SPI_CR1(spi) &= SPI_CR1_DFF;
+	#endif
+
 }
 
 /*-----------------------------------------------------------------------------*/

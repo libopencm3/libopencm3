@@ -19,8 +19,8 @@
 
 LIBNAME		= libopencm3_stm32f4
 
-PREFIX	?= arm-none-eabi
-# PREFIX		?= arm-elf
+PREFIX		?= arm-none-eabi
+# PREFIX	?= arm-elf
 CC		= $(PREFIX)-gcc
 AR		= $(PREFIX)-ar
 CFLAGS		= -Os -g -Wall -Wextra -I../../../include -fno-common \
@@ -32,7 +32,7 @@ ARFLAGS		= rcs
 OBJS		= rcc.o gpio.o flash.o exti2.o pwr.o timer.o \
 		  usb.o usb_standard.o usb_control.o usb_fx07_common.o usb_f107.o \
 		  usb_f207.o adc.o dma.o \
-		  gpio_common_all.o gpio_common_f24.o dma_common_f24.o spi_common_all.o \
+		  gpio_common_all.o gpio_common_f234.o dma_common_f24.o spi_common_all.o \
 		  dac_common_all.o usart_common_all.o iwdg_common_all.o i2c_common_all.o \
 		  crc_common_all.o
 

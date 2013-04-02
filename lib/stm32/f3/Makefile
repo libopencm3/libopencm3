@@ -19,8 +19,8 @@
 
 LIBNAME		= libopencm3_stm32f3
 
-PREFIX	?= arm-none-eabi
-# PREFIX		?= arm-elf
+PREFIX		?= arm-none-eabi
+# PREFIX	?= arm-elf
 CC		= $(PREFIX)-gcc
 AR		= $(PREFIX)-ar
 CFLAGS		= -Os -g -Wall -Wextra -I../../../include -fno-common \
@@ -29,11 +29,11 @@ CFLAGS		= -Os -g -Wall -Wextra -I../../../include -fno-common \
 		  -ffunction-sections -fdata-sections -MD -DSTM32F3
 # ARFLAGS	= rcsv
 ARFLAGS		= rcs
-OBJS		= vector.o rcc.o gpio.o usart.o spi.o flash.o nvic.o \
-		  i2c.o systick.o exti.o scb.o timer.o \
-		  usb.o usb_standard.o usb_control.o\
-		  assert.o
+OBJS		= rcc.o gpio.o flash.o exti.o timer.o \
+		  gpio_common_all.o gpio_common_f234.o dma_common_f13.o spi_common_all.o \
+		  dac_common_all.o iwdg_common_all.o i2c_common_all.o \
+		  crc_common_all.o
 
-VPATH += ../../usb:../:../../cm3
+VPATH += ../../usb:../:../../cm3:../common
 
 include ../../Makefile.include

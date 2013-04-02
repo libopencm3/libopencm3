@@ -29,7 +29,7 @@ CFLAGS		= -Os -g -Wall -Wextra -I../../../include -fno-common \
 # ARFLAGS	= rcsv
 ARFLAGS		= rcs
 OBJS		= rcc.o gpio.o flash.o exti2.o timer.o \
-		  gpio_common_all.o gpio_common_f24.o dma_common_f24.o spi_common_all.o \
+		  gpio_common_all.o gpio_common_f234.o dma_common_f24.o spi_common_all.o \
 		  dac_common_all.o usart_common_all.o iwdg_common_all.o i2c_common_all.o \
 		  crc_common_all.o
 

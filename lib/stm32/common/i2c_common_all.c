@@ -103,7 +103,11 @@ when the current bus activity is completed.
 
 void i2c_send_start(u32 i2c)
 {
+#if defined(STM32F3)
+	I2C_CR2(i2c) |= I2C_CR2_START;
+#else
 	I2C_CR1(i2c) |= I2C_CR1_START;
+#endif
 }
 
 /*-----------------------------------------------------------------------------*/
@@ -117,7 +121,11 @@ mode, or simply release the bus if in Slave mode.
 
 void i2c_send_stop(u32 i2c)
 {
+#if defined(STM32F3)
+	I2C_CR2(i2c) |= I2C_CR2_STOP;
+#else
 	I2C_CR1(i2c) |= I2C_CR1_STOP;
+#endif
 }
 
 /*-----------------------------------------------------------------------------*/
@@ -129,7 +137,11 @@ Clear the "Send Stop" flag in the I2C config register
 */
 void i2c_clear_stop(u32 i2c)
 {
+#if defined(STM32F3)
+	I2C_CR2(i2c) &= ~I2C_CR2_STOP;
+#else
 	I2C_CR1(i2c) &= ~I2C_CR1_STOP;
+#endif
 }
 
 /*-----------------------------------------------------------------------------*/
@@ -144,7 +156,11 @@ This sets an address for Slave mode operation, in 7 bit form.
 void i2c_set_own_7bit_slave_address(u32 i2c, u8 slave)
 {
 	I2C_OAR1(i2c) = (u16)(slave << 1);
+#if defined(STM32F3)
+	I2C_OAR1(i2c) &= ~I2C_OAR1_OA1MODE;
+#else
 	I2C_OAR1(i2c) &= ~I2C_OAR1_ADDMODE;
+#endif
 	I2C_OAR1(i2c) |= (1 << 14); /* Datasheet: always keep 1 by software. */
 }
 
@@ -161,9 +177,30 @@ This sets an address for Slave mode operation, in 10 bit form.
 
 void i2c_set_own_10bit_slave_address(u32 i2c, u16 slave)
 {
+#if defined(STM32F3)
+	I2C_OAR1(i2c) = (u16)(I2C_OAR1_OA1MODE | slave);
+#else
 	I2C_OAR1(i2c) = (u16)(I2C_OAR1_ADDMODE | slave);
+#endif
 }
 
+/*-----------------------------------------------------------------------------*/
+/** @brief I2C Send Data.
+
+@param[in] i2c Unsigned int32. I2C register base address @ref i2c_reg_base.
+@param[in] data Unsigned int8. Byte to send.
+*/
+
+void i2c_send_data(u32 i2c, u8 data)
+{
+#if defined(STM32F3)
+	I2C_TXDR(i2c) = data;
+#else
+	I2C_DR(i2c) = data;
+#endif
+}
+
+#if !defined(STM32F3)
 /*-----------------------------------------------------------------------------*/
 /** @brief I2C Set Fast Mode.
 
@@ -265,17 +302,7 @@ void i2c_send_7bit_address(u32 i2c, u8 slave, u8 readwrite)
 	I2C_DR(i2c) = (u8)((slave << 1) | readwrite);
 }
 
-/*-----------------------------------------------------------------------------*/
-/** @brief I2C Send Data.
 
-@param[in] i2c Unsigned int32. I2C register base address @ref i2c_reg_base.
-@param[in] data Unsigned int8. Byte to send.
-*/
-
-void i2c_send_data(u32 i2c, u8 data)
-{
-	I2C_DR(i2c) = data;
-}
 
 /*-----------------------------------------------------------------------------*/
 /** @brief I2C Get Data.
@@ -407,5 +434,7 @@ void i2c_clear_dma_last_transfer(u32 i2c)
 {
 	I2C_CR2(i2c) &= ~I2C_CR2_LAST;
 }
+
+#endif
 
 /**@}*/
