@@ -477,7 +477,7 @@ void dac_load_data_buffer_dual(u32 dac_data1, u32 dac_data2, data_align dac_data
 		DAC_DHR8RD = ((dac_data1 & MASK8) | ((dac_data2 & MASK8) << 8));
 		break;
 	case RIGHT12:
-		DAC_DHR12RD = ((dac_data1 & MASK12) | ((dac_data2 & MASK12) << 12));
+		DAC_DHR12RD = ((dac_data1 & MASK12) | ((dac_data2 & MASK12) << 16));
 		break;
 	case LEFT12:
 		DAC_DHR12LD = ((dac_data1 & MASK12) | ((dac_data2 & MASK12) << 16));
