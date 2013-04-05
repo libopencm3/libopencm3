@@ -401,8 +401,8 @@ void dac_set_trigger_source(u32 dac_trig_src);
 void dac_set_waveform_generation(u32 dac_wave_ens);
 void dac_disable_waveform_generation(data_channel dac_channel);
 void dac_set_waveform_characteristics(u32 dac_mamp);
-void dac_load_data_buffer_single(u32 dac_data, data_align dac_data_format, data_channel dac_channel);
-void dac_load_data_buffer_dual(u32 dac_data1, u32 dac_data2, data_align dac_data_format);
+void dac_load_data_buffer_single(u16 dac_data, data_align dac_data_format, data_channel dac_channel);
+void dac_load_data_buffer_dual(u16 dac_data1, u16 dac_data2, data_align dac_data_format);
 void dac_software_trigger(data_channel dac_channel);
 
 END_DECLS

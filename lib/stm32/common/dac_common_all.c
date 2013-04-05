@@ -408,12 +408,12 @@ formatted according to the datasheets:
 @li right-aligned 12 bit data in bits 0-11 for channel 1 and 16-27 for channel 2
 @li left aligned 12 bit data in bits 4-15 for channel 1 and 20-31 for channel 2
 
-@param[in] dac_data u32 with appropriate alignment.
+@param[in] dac_data u16 with appropriate alignment.
 @param[in] dac_data_format enum ::data_align. Alignment and size.
 @param[in] dac_channel enum ::data_channel.
 */
 
-void dac_load_data_buffer_single(u32 dac_data, data_align dac_data_format, data_channel dac_channel)
+void dac_load_data_buffer_single(u16 dac_data, data_align dac_data_format, data_channel dac_channel)
 {
 	if (dac_channel == CHANNEL_1)
 	{
@@ -465,19 +465,19 @@ Loads the appropriate digital to analog converter dual data register with 12 or
 simultaneous or independent analog output. The data in both channels are aligned
 identically.
 
-@param[in] dac_data1 u32 for channel 1 with appropriate alignment.
-@param[in] dac_data2 u32 for channel 2 with appropriate alignment.
+@param[in] dac_data1 u16 for channel 1 with appropriate alignment.
+@param[in] dac_data2 u16 for channel 2 with appropriate alignment.
 @param[in] dac_data_format enum ::data_align. Right or left aligned, and 8 or 12 bit.
 */
 
-void dac_load_data_buffer_dual(u32 dac_data1, u32 dac_data2, data_align dac_data_format)
+void dac_load_data_buffer_dual(u16 dac_data1, u16 dac_data2, data_align dac_data_format)
 {
 	switch (dac_data_format) {
 	case RIGHT8:
 		DAC_DHR8RD = ((dac_data1 & MASK8) | ((dac_data2 & MASK8) << 8));
 		break;
 	case RIGHT12:
-		DAC_DHR12RD = ((dac_data1 & MASK12) | ((dac_data2 & MASK12) << 12));
+		DAC_DHR12RD = ((dac_data1 & MASK12) | ((dac_data2 & MASK12) << 16));
 		break;
 	case LEFT12:
 		DAC_DHR12LD = ((dac_data1 & MASK12) | ((dac_data2 & MASK12) << 16));
