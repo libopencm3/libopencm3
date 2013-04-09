@@ -457,6 +457,7 @@ extern u32 rcc_ppre2_frequency;
 /* --- Function prototypes ------------------------------------------------- */
 
 typedef enum {
+	CLOCK_3V3_48MHZ,
 	CLOCK_3V3_120MHZ,
 	CLOCK_3V3_168MHZ,
 	CLOCK_3V3_END
@@ -477,6 +478,8 @@ typedef struct {
 } clock_scale_t;
 
 extern const clock_scale_t hse_8mhz_3v3[CLOCK_3V3_END];
+extern const clock_scale_t hse_12mhz_3v3[CLOCK_3V3_END];
+extern const clock_scale_t hse_16mhz_3v3[CLOCK_3V3_END];
 
 typedef enum {
 	PLL, HSE, HSI, LSE, LSI
