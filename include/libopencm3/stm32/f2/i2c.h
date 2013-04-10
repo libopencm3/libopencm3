@@ -35,7 +35,7 @@ LGPL License Terms @ref lgpl_license
 #define LIBOPENCM3_I2C_H
 
 #include <libopencm3/stm32/memorymap.h>
-#include <libopencm3/stm32/common/i2c_common_f24.h>
+#include <libopencm3/stm32/common/i2c_common_f234.h>
 
 #endif
 
