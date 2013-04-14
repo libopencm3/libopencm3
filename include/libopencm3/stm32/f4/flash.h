@@ -139,10 +139,10 @@ void flash_unlock_option_bytes(void);
 void flash_lock_option_bytes(void);
 void flash_erase_all_sectors(u32 program_size);
 void flash_erase_sector(u32 sector, u32 program_size);
-void flash_program_double_word(u32 address, u64 data, u32 program_size);
-void flash_program_word(u32 address, u32 data, u32 program_size);
-void flash_program_half_word(u32 address, u16 data, u32 program_size);
-void flash_program_byte(u32 address, u8 data, u32 program_size);
+void flash_program_double_word(u32 address, u64 data);
+void flash_program_word(u32 address, u32 data);
+void flash_program_half_word(u32 address, u16 data);
+void flash_program_byte(u32 address, u8 data);
 void flash_wait_for_last_operation(void);
 void flash_program_option_bytes(u32 data);
 

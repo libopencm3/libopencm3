@@ -152,11 +152,11 @@ void flash_wait_for_last_operation(void)
 		;
 }
 
-void flash_program_double_word(u32 address, u64 data, u32 program_size)
+void flash_program_double_word(u32 address, u64 data)
 {
 	/* Ensure that all flash operations are complete. */
 	flash_wait_for_last_operation();
-	flash_set_program_size(program_size);
+	flash_set_program_size(FLASH_CR_PROGRAM_X64);
 
 	/* Enable writes to flash. */
 	FLASH_CR |= FLASH_CR_PG;
@@ -171,11 +171,11 @@ void flash_program_double_word(u32 address, u64 data, u32 program_size)
 	FLASH_CR &= ~FLASH_CR_PG;
 }
 
-void flash_program_word(u32 address, u32 data, u32 program_size)
+void flash_program_word(u32 address, u32 data)
 {
 	/* Ensure that all flash operations are complete. */
 	flash_wait_for_last_operation();
-	flash_set_program_size(program_size);
+	flash_set_program_size(FLASH_CR_PROGRAM_X32);
 
 	/* Enable writes to flash. */
 	FLASH_CR |= FLASH_CR_PG;
@@ -190,10 +190,10 @@ void flash_program_word(u32 address, u32 data, u32 program_size)
 	FLASH_CR &= ~FLASH_CR_PG;
 }
 
-void flash_program_half_word(u32 address, u16 data, u32 program_size)
+void flash_program_half_word(u32 address, u16 data)
 {
 	flash_wait_for_last_operation();
-	flash_set_program_size(program_size);
+	flash_set_program_size(FLASH_CR_PROGRAM_X16);
 
 	FLASH_CR |= FLASH_CR_PG;
 
@@ -204,10 +204,10 @@ void flash_program_half_word(u32 address, u16 data, u32 program_size)
 	FLASH_CR &= ~FLASH_CR_PG;		/* Disable the PG bit. */
 }
 
-void flash_program_byte(u32 address, u8 data, u32 program_size)
+void flash_program_byte(u32 address, u8 data)
 {
 	flash_wait_for_last_operation();
-	flash_set_program_size(program_size);
+	flash_set_program_size(FLASH_CR_PROGRAM_X8);
 
 	FLASH_CR |= FLASH_CR_PG;
 
