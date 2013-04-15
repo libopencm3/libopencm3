@@ -49,6 +49,11 @@ specific memorymap.h header before including this header file.*/
 #define UART4				UART4_BASE
 #define UART5				UART5_BASE
 
+/* --- USART control registers labels -------------------------------------- */
+#define USART_CR1_REG 1
+#define USART_CR2_REG 2
+#define USART_CR3_REG 3
+
 /* --- USART registers ----------------------------------------------------- */
 
 /* Status register (USARTx_SR) */
@@ -370,6 +375,8 @@ void usart_enable_error_interrupt(u32 usart);
 void usart_disable_error_interrupt(u32 usart);
 bool usart_get_flag(u32 usart, u32 flag);
 bool usart_get_interrupt_source(u32 usart, u32 flag);
+void usart_enable_flag(u32 usart, u32 flag, u8 cr);
+void usart_disable_flag(u32 usart, u32 flag, u8 cr);
 
 END_DECLS
 

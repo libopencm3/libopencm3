@@ -417,6 +417,58 @@ bool usart_get_flag(u32 usart, u32 flag)
 }
 
 /*---------------------------------------------------------------------------*/
+/** @brief USART Enable Flag.
+
+@param[in] usart unsigned 32 bit. USART block register address base @ref usart_reg_base
+@param[in] flag Unsigned int32. Status register flag  @ref usart_sr_flags.
+@param[in] flag Unsigned int8. Number of control register (1,2,3)
+*/
+
+void usart_enable_flag(u32 usart, u32 flag, u8 cr)
+{
+	switch (cr)
+	  {
+	    case USART_CR1_REG:
+	      USART_CR1(usart) |= flag;
+	      break;
+	    case USART_CR2_REG:
+	      USART_CR2(usart) |= flag;
+	      break;
+	    case USART_CR3_REG:
+	      USART_CR3(usart) |= flag;
+	      break;
+	    default:
+	      break;
+	  }
+}
+
+/*---------------------------------------------------------------------------*/
+/** @brief USART Disable Flag.
+
+@param[in] usart unsigned 32 bit. USART block register address base @ref usart_reg_base
+@param[in] flag Unsigned int32. Status register flag  @ref usart_sr_flags.
+@param[in] flag Unsigned int8. Number of control register (1,2,3)
+*/
+
+void usart_disable_flag(u32 usart, u32 flag, u8 cr)
+{
+	switch (cr)
+	  {
+	    case USART_CR1_REG:
+	      USART_CR1(usart) &= ~flag;
+	      break;
+	    case USART_CR2_REG:
+	      USART_CR2(usart) &= ~flag;
+	      break;
+	    case USART_CR3_REG:
+	      USART_CR3(usart) &= ~flag;
+	      break;
+	    default:
+	      break;
+	  }
+}
+
+/*---------------------------------------------------------------------------*/
 /** @brief USART Return Interrupt Source.
 
 Returns true if the specified interrupt flag (IDLE, RXNE, TC, TXE or OE) was
