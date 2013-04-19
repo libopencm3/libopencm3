@@ -402,12 +402,6 @@ data to be converted on a channel. The data can be aligned as follows:
 @li right-aligned 12 bit data in bits 0-11
 @li left aligned 12 bit data in bits 4-15
 
-This function can also be used to load the dual channel registers if the data is
-formatted according to the datasheets:
-@li right-aligned 8 bit data in bits 0-7 for channel 1 and 8-15 for channel 2
-@li right-aligned 12 bit data in bits 0-11 for channel 1 and 16-27 for channel 2
-@li left aligned 12 bit data in bits 4-15 for channel 1 and 20-31 for channel 2
-
 @param[in] dac_data u16 with appropriate alignment.
 @param[in] dac_data_format enum ::data_align. Alignment and size.
 @param[in] dac_channel enum ::data_channel.
