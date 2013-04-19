@@ -1,3 +1,18 @@
+/** @defgroup gpio_file General Purpose I/O
+
+@brief <b>LM3S General Purpose I/O</b>
+
+@ingroup LM3Sxx
+
+@version 1.0.0
+
+@author @htmlonly &copy; @endhtmlonly 2011 Gareth McMullin <gareth@blacksphere.co.nz>
+
+@date 10 March 2013
+
+LGPL License Terms @ref lgpl_license
+*/
+
 /*
  * This file is part of the libopencm3 project.
  *
@@ -17,6 +32,8 @@
  * along with this library.  If not, see <http://www.gnu.org/licenses/>.
  */
 
+/**@{*/
+
 #include <libopencm3/lm3s/gpio.h>
 
 void gpio_set(u32 gpioport, u8 gpios)
@@ -29,3 +46,6 @@ void gpio_clear(u32 gpioport, u8 gpios)
 {
 	GPIO_DATA(gpioport)[gpios] = 0;
 }
+
+/**@}*/
+

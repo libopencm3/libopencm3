@@ -1,3 +1,17 @@
+/** @defgroup cgu_defines Clock Generation Unit Defines
+
+@brief <b>Defined Constants and Types for the LPC43xx Clock Generation Unit</b>
+
+@ingroup LPC43xx_defines
+
+@version 1.0.0
+
+@author @htmlonly &copy; @endhtmlonly 2012 Michael Ossmann <mike@ossmann.com>
+
+@date 10 March 2013
+
+LGPL License Terms @ref lgpl_license
+ */
 /*
  * This file is part of the libopencm3 project.
  *
@@ -19,6 +33,8 @@
 
 #ifndef LPC43XX_CGU_H
 #define CGU_LPC43XX_CGU_H
+
+/**@{*/
 
 #include <libopencm3/cm3/common.h>
 #include <libopencm3/lpc43xx/memorymap.h>
@@ -235,5 +251,7 @@
 #define CGU_SRC_IDIVC     0x0E
 #define CGU_SRC_IDIVD     0x0F
 #define CGU_SRC_IDIVE     0x10
+
+/**@}*/
 
 #endif

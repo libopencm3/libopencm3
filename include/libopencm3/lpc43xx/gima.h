@@ -1,3 +1,17 @@
+/** @defgroup gima_defines Global Input Multiplexer Array Defines
+
+@brief <b>Defined Constants and Types for the LPC43xx Global Input Multiplexer Array</b>
+
+@ingroup LPC43xx_defines
+
+@version 1.0.0
+
+@author @htmlonly &copy; @endhtmlonly 2012 Michael Ossmann <mike@ossmann.com>
+
+@date 10 March 2013
+
+LGPL License Terms @ref lgpl_license
+ */
 /*
  * This file is part of the libopencm3 project.
  *
@@ -19,6 +33,8 @@
 
 #ifndef LPC43XX_GIMA_H
 #define LPC43XX_GIMA_H
+
+/**@{*/
 
 #include <libopencm3/cm3/common.h>
 #include <libopencm3/lpc43xx/memorymap.h>
@@ -114,5 +130,7 @@
 
 /* ADC start1 input multiplexer (GIMA output 29) */
 #define GIMA_ADCSTART1_IN               MMIO32(GIMA_BASE + 0x074)
+
+/**@}*/
 
 #endif

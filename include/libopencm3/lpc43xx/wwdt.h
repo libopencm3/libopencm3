@@ -1,3 +1,17 @@
+/** @defgroup wwdt_defines Windowed Watchdog Timer
+
+@brief <b>Defined Constants and Types for the LPC43xx Windowed Watchdog Timer</b>
+
+@ingroup LPC43xx_defines
+
+@version 1.0.0
+
+@author @htmlonly &copy; @endhtmlonly 2012 Michael Ossmann <mike@ossmann.com>
+
+@date 10 March 2013
+
+LGPL License Terms @ref lgpl_license
+ */
 /*
  * This file is part of the libopencm3 project.
  *
@@ -19,6 +33,8 @@
 
 #ifndef LPC43XX_WWDT_H
 #define LPC43XX_WWDT_H
+
+/**@{*/
 
 #include <libopencm3/cm3/common.h>
 #include <libopencm3/lpc43xx/memorymap.h>
@@ -42,5 +58,7 @@
 
 /* Watchdog timer window register */
 #define WWDT_WINDOW                     MMIO32(WWDT_BASE + 0x018)
+
+/**@}*/
 
 #endif

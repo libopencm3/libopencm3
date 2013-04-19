@@ -1,3 +1,17 @@
+/** @defgroup timer_defines Timer
+
+@brief <b>Defined Constants and Types for the LPC43xx timer</b>
+
+@ingroup LPC43xx_defines
+
+@version 1.0.0
+
+@author @htmlonly &copy; @endhtmlonly 2012 Michael Ossmann <mike@ossmann.com>
+
+@date 10 March 2013
+
+LGPL License Terms @ref lgpl_license
+ */
 /*
  * This file is part of the libopencm3 project.
  *
@@ -19,6 +33,8 @@
 
 #ifndef LPC43XX_TIMER_H
 #define LPC43XX_TIMER_H
+
+/**@{*/
 
 #include <libopencm3/cm3/common.h>
 #include <libopencm3/lpc43xx/memorymap.h>
@@ -152,5 +168,7 @@
 #define TIMER1_CTCR                     TIMER_CTCR(TIMER1)
 #define TIMER2_CTCR                     TIMER_CTCR(TIMER2)
 #define TIMER3_CTCR                     TIMER_CTCR(TIMER3)
+
+/**@}*/
 
 #endif

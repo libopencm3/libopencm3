@@ -1,3 +1,17 @@
+/** @defgroup scu_defines System Control Unit Defines
+
+@brief <b>Defined Constants and Types for the LPC43xx System Control Unit</b>
+
+@ingroup LPC43xx_defines
+
+@version 1.0.0
+
+@author @htmlonly &copy; @endhtmlonly 2012 Michael Ossmann <mike@ossmann.com>
+
+@date 10 March 2013
+
+LGPL License Terms @ref lgpl_license
+ */
 /*
 * This file is part of the libopencm3 project.
 *
@@ -20,6 +34,8 @@
 
 #ifndef LPC43XX_SCU_H
 #define LPC43XX_SCU_H
+
+/**@{*/
 
 #include <libopencm3/cm3/common.h>
 #include <libopencm3/lpc43xx/memorymap.h>
@@ -730,5 +746,7 @@ BEGIN_DECLS
 void scu_pinmux(scu_grp_pin_t group_pin, u32 scu_conf);
 
 END_DECLS
+
+/**@}*/
 
 #endif

@@ -1,7 +1,21 @@
+/** @defgroup STM32L1xx_dma_defines DMA Defines
+
+@ingroup STM32L1xx_defines
+
+@brief Defined Constants and Types for the STM32L1xx DMA Controller
+
+@version 1.0.0
+
+@author @htmlonly &copy; @endhtmlonly 2011 Fergus Noble <fergusnoble@gmail.com>
+@author @htmlonly &copy; @endhtmlonly 2012 Ken Sarkies <ksarkies@internode.on.net>
+
+@date 18 October 2012
+
+LGPL License Terms @ref lgpl_license
+ */
+
 /*
  * This file is part of the libopencm3 project.
- *
- * Copyright (C) 2010 Gareth McMullin <gareth@blacksphere.co.nz>
  *
  * This library is free software: you can redistribute it and/or modify
  * it under the terms of the GNU Lesser General Public License as published by
@@ -17,25 +31,11 @@
  * along with this library.  If not, see <http://www.gnu.org/licenses/>.
  */
 
-#include <stdlib.h>
+#ifndef LIBOPENCM3_DMA_H
+#define LIBOPENCM3_DMA_H
 
-#include <libopencm3/cm3/scb.h>
+#include <libopencm3/stm32/l1/memorymap.h>
+#include <libopencm3/stm32/common/dma_common_f13.h>
 
-void scb_reset_core(void)
-{
-	SCB_AIRCR = SCB_AIRCR_VECTKEY | SCB_AIRCR_VECTRESET;
+#endif
 
-	exit(1);
-}
-
-void scb_reset_system(void)
-{
-	SCB_AIRCR = SCB_AIRCR_VECTKEY | SCB_AIRCR_SYSRESETREQ;
-
-	exit(1);
-}
-
-void scb_set_priority_grouping(u32 prigroup)
-{
-	SCB_AIRCR = SCB_AIRCR_VECTKEY | prigroup;
-}

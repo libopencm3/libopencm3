@@ -47,6 +47,18 @@ LGPL License Terms @ref lgpl_license
 #	error "stm32 family not defined."
 #endif
 
+/* Timeout for CAN INIT acknowledge
+ * this value is difficult to define.
+ * INIT is set latest after finishing the current transfer.
+ * Assuming the lowest CAN speed of 100kbps one CAN frame may take about 1.6ms
+ * WAIT loop timeout varies on compiler switches, optimization, CPU architecture
+ * and CPU speed
+ *
+ * The same timeout value is used for leaving INIT where the longest time is
+ * 11 bits(110 us on 100 kbps).
+ */
+#define CAN_MSR_INAK_TIMEOUT 0x0000FFFF
+
 /*-----------------------------------------------------------------------------*/
 /** @brief CAN Reset
 
@@ -88,8 +100,7 @@ int can_init(u32 canport, bool ttcm, bool abom, bool awum, bool nart,
 	     bool rflm, bool txfp, u32 sjw, u32 ts1, u32 ts2, u32 brp,
 	     bool loopback, bool silent)
 {
-	u32 wait_ack = 0x00000000;
-	u32 can_msr_inak_timeout = 0x0000FFFF;
+	volatile u32 wait_ack;
 	int ret = 0;
 
 	/* Exit from sleep mode. */
@@ -99,76 +110,93 @@ int can_init(u32 canport, bool ttcm, bool abom, bool awum, bool nart,
 	CAN_MCR(canport) |= CAN_MCR_INRQ;
 
 	/* Wait for acknowledge. */
-	while ((wait_ack != can_msr_inak_timeout) &&
+	wait_ack = CAN_MSR_INAK_TIMEOUT;
+	while ((--wait_ack) &&
 	       ((CAN_MSR(canport) & CAN_MSR_INAK) != CAN_MSR_INAK)) {
-		wait_ack++;
 	}
 
 	/* Check the acknowledge. */
-	if ((CAN_MSR(canport) & CAN_MSR_INAK) != CAN_MSR_INAK)
+	if ((CAN_MSR(canport) & CAN_MSR_INAK) != CAN_MSR_INAK){
 		return 1;
+	}
 
 	/* clear can timing bits */
 	CAN_BTR(canport) = 0;
 
 	/* Set the automatic bus-off management. */
-	if (ttcm)
+	if (ttcm) {
 		CAN_MCR(canport) |= CAN_MCR_TTCM;
-	else
+	}
+	else {
 		CAN_MCR(canport) &= ~CAN_MCR_TTCM;
+	}
 
-	if (abom)
+	if (abom) {
 		CAN_MCR(canport) |= CAN_MCR_ABOM;
-	else
+	}
+	else {
 		CAN_MCR(canport) &= ~CAN_MCR_ABOM;
+	}
 
-	if (awum)
+	if (awum) {
 		CAN_MCR(canport) |= CAN_MCR_AWUM;
-	else
+	}
+	else {
 		CAN_MCR(canport) &= ~CAN_MCR_AWUM;
+	}
 
-	if (nart)
+	if (nart) {
 		CAN_MCR(canport) |= CAN_MCR_NART;
-	else
+	}
+	else{
 		CAN_MCR(canport) &= ~CAN_MCR_NART;
+	}
 
-	if (rflm)
+	if (rflm) {
 		CAN_MCR(canport) |= CAN_MCR_RFLM;
-	else
+	}
+	else {
 		CAN_MCR(canport) &= ~CAN_MCR_RFLM;
+	}
 
-	if (txfp)
+	if (txfp) {
 		CAN_MCR(canport) |= CAN_MCR_TXFP;
-	else
+	}
+	else {
 		CAN_MCR(canport) &= ~CAN_MCR_TXFP;
+	}
 
-	if (silent)
+	if (silent) {
 		CAN_BTR(canport) |= CAN_BTR_SILM;
-	else
+	}
+	else {
 		CAN_BTR(canport) &= ~CAN_BTR_SILM;
+	}
 
-	if (loopback)
+	if (loopback) {
 		CAN_BTR(canport) |= CAN_BTR_LBKM;
-	else
+	}
+	else {
 		CAN_BTR(canport) &= ~CAN_BTR_LBKM;
+	}
 
 
 	/* Set bit timings. */
 	CAN_BTR(canport) |= sjw | ts2 | ts1 |
-		           (u32)(CAN_BTR_BRP_MASK & (brp - 1));
+		           ((brp - 1ul) & CAN_BTR_BRP_MASK);
 
 	/* Request initialization "leave". */
 	CAN_MCR(canport) &= ~CAN_MCR_INRQ;
 
 	/* Wait for acknowledge. */
-	wait_ack = 0x00000000;
-	while ((wait_ack != can_msr_inak_timeout) &&
+	wait_ack = CAN_MSR_INAK_TIMEOUT;
+	while ((--wait_ack) &&
 	       ((CAN_MSR(canport) & CAN_MSR_INAK) == CAN_MSR_INAK)) {
-		wait_ack++;
 	}
 
-	if ((CAN_MSR(canport) & CAN_MSR_INAK) == CAN_MSR_INAK)
+	if ((CAN_MSR(canport) & CAN_MSR_INAK) == CAN_MSR_INAK) {
 		ret = 1;
+	}
 
 	return ret;
 }
@@ -221,13 +249,15 @@ void can_filter_init(u32 canport, u32 nr, bool scale_32bit, bool id_list_mode,
 	CAN_FiR2(canport, nr) = fr2;
 
 	/* Select FIFO0 or FIFO1 as filter assignement. */
-	if (fifo)
+	if (fifo) {
 		CAN_FFA1R(canport) |= filter_select_bit;  /* FIFO1 */
-	else
+	}
+	else {
 		CAN_FFA1R(canport) &= ~filter_select_bit; /* FIFO0 */
-
-	if (enable)
+	}
+	if (enable) {
 		CAN_FA1R(canport) |= filter_select_bit; /* Activate filter. */
+	}
 
 	/* Request initialization "leave". */
 	CAN_FMR(canport) &= ~CAN_FMR_FINIT;
@@ -341,8 +371,12 @@ selected. -1 if no mailbox was available and no transmission got queued.
  */
 int can_transmit(u32 canport, u32 id, bool ext, bool rtr, u8 length, u8 *data)
 {
-	int ret = 0, i;
+	int ret = 0;
 	u32 mailbox = 0;
+	union {
+		u8 data8[4];
+		u32 data32;
+	}tdlxr,tdhxr;
 
 	/* Check which transmit mailbox is empty if any. */
 	if ((CAN_TSR(canport) & CAN_TSR_TME0) == CAN_TSR_TME0) {
@@ -359,36 +393,59 @@ int can_transmit(u32 canport, u32 id, bool ext, bool rtr, u8 length, u8 *data)
 	}
 
 	/* If we have no empty mailbox return with an error. */
-	if (ret == -1)
-		return ret;
+	if (ret == -1) {
 
-	/* Clear stale register bits */
-	CAN_TIxR(canport, mailbox) = 0;
+		return ret;
+	}
+
 	if (ext) {
 		/* Set extended ID. */
-		CAN_TIxR(canport, mailbox) |= id << CAN_TIxR_EXID_SHIFT;
-		/* Set extended ID indicator bit. */
-		CAN_TIxR(canport, mailbox) |= CAN_TIxR_IDE;
+		CAN_TIxR(canport, mailbox) = (id << CAN_TIxR_EXID_SHIFT) | CAN_TIxR_IDE;
 	} else {
 		/* Set standard ID. */
-		CAN_TIxR(canport, mailbox) |= id << CAN_TIxR_STID_SHIFT;
+		CAN_TIxR(canport, mailbox) = id << CAN_TIxR_STID_SHIFT;
 	}
 
 	/* Set/clear remote transmission request bit. */
-	if (rtr)
+	if (rtr){
 		CAN_TIxR(canport, mailbox) |= CAN_TIxR_RTR; /* Set */
-
+	}
 	/* Set the DLC. */
-	CAN_TDTxR(canport, mailbox) &= 0xFFFFFFF0;
-	CAN_TDTxR(canport, mailbox) |= length & CAN_TDTxR_DLC_MASK;
+	CAN_TDTxR(canport, mailbox) &= ~CAN_TDTxR_DLC_MASK;
+	CAN_TDTxR(canport, mailbox) |= (length & CAN_TDTxR_DLC_MASK);
 
+	switch(length) {
+		case 8:
+			tdhxr.data8[3] = data[7];
+			/* no break */
+		case 7:
+			tdhxr.data8[2] = data[6];
+			/* no break */
+		case 6:
+			tdhxr.data8[1] = data[5];
+			/* no break */
+		case 5:
+			tdhxr.data8[0] = data[4];
+			/* no break */
+		case 4:
+			tdlxr.data8[3] = data[3];
+			/* no break */
+		case 3:
+			tdlxr.data8[2] = data[2];
+			/* no break */
+		case 2:
+			tdlxr.data8[1] = data[1];
+			/* no break */
+		case 1:
+			tdlxr.data8[0] = data[0];
+			/* no break */
+		default:
+			break;
+	}
 	/* Set the data. */
-	CAN_TDLxR(canport, mailbox) = 0;
-	CAN_TDHxR(canport, mailbox) = 0;
-	for (i = 0; (i < 4) && (i < length); i++)
-		CAN_TDLxR(canport, mailbox) |= (u32)data[i] << (8 * i);
-	for (i = 4; (i < 8) && (i < length); i++)
-		CAN_TDHxR(canport, mailbox) |= (u32)data[i] << (8 * (i - 4));
+
+	CAN_TDLxR(canport, mailbox) = tdlxr.data32;
+	CAN_TDHxR(canport, mailbox) = tdhxr.data32;
 
 	/* Request transmission. */
 	CAN_TIxR(canport, mailbox) |= CAN_TIxR_TXRQ;
@@ -404,10 +461,12 @@ int can_transmit(u32 canport, u32 id, bool ext, bool rtr, u8 length, u8 *data)
  */
 void can_fifo_release(u32 canport, u8 fifo)
 {
-	if (fifo == 0)
+	if (fifo == 0) {
 		CAN_RF0R(canport) |= CAN_RF1R_RFOM1;
-	else
+	}
+	else {
 		CAN_RF1R(canport) |= CAN_RF1R_RFOM1;
+	}
 }
 
 /*-----------------------------------------------------------------------------*/
@@ -427,49 +486,69 @@ void can_receive(u32 canport, u8 fifo, bool release, u32 *id, bool *ext,
 		 bool *rtr, u32 *fmi, u8 *length, u8 *data)
 {
 	u32 fifo_id = 0;
-	int i;
+	union {
+		u8 data8[4];
+		u32 data32;
+	}rdlxr,rdhxr;
+	const u32 fifoid_array[2] = {CAN_FIFO0,CAN_FIFO1};
 
-	if (fifo == 0)
-		fifo_id = CAN_FIFO0;
-	else
-		fifo_id = CAN_FIFO1;
+	fifo_id = fifoid_array[fifo];
 
 	/* Get type of CAN ID and CAN ID. */
 	if (CAN_RIxR(canport, fifo_id) & CAN_RIxR_IDE) {
 		*ext = true;
 		/* Get extended CAN ID. */
-		*id = ((CAN_RIxR(canport, fifo_id) & CAN_RIxR_EXID_MASK) >>
-			CAN_RIxR_EXID_SHIFT);
+		*id = (CAN_RIxR(canport, fifo_id) >> CAN_RIxR_EXID_SHIFT) & CAN_RIxR_EXID_MASK;
 	} else {
 		*ext = false;
 		/* Get standard CAN ID. */
-		*id = ((CAN_RIxR(canport, fifo_id) & CAN_RIxR_STID_MASK) >>
-			CAN_RIxR_STID_SHIFT);
+		*id = (CAN_RIxR(canport, fifo_id) >> CAN_RIxR_STID_SHIFT) & CAN_RIxR_STID_MASK;
 	}
 
-	/* Get request transmit flag. */
-	if (CAN_RIxR(canport, fifo_id) & CAN_RIxR_RTR)
+	/* Get remote transmit flag. */
+	if (CAN_RIxR(canport, fifo_id) & CAN_RIxR_RTR)	{
 		*rtr = true;
-	else
+	}
+	else {
 		*rtr = false;
+	}
 
 	/* Get filter match ID. */
-	*fmi = ((CAN_RDTxR(canport, fifo_id) & CAN_RDTxR_FMI_MASK) >
+	*fmi = ((CAN_RDTxR(canport, fifo_id) & CAN_RDTxR_FMI_MASK) >>
 		CAN_RDTxR_FMI_SHIFT);
 
 	/* Get data length. */
 	*length = CAN_RDTxR(canport, fifo_id) & CAN_RDTxR_DLC_MASK;
+	/* accelerate reception by copying the CAN data from the controller memory to
+	 * the fast internal RAM */
 
-	/* Get data. */
-	for (i = 0; (i < 4) && (i < *length); i++)
-		data[i] = (CAN_RDLxR(canport, fifo_id) >> (8 * i)) & 0xFF;
-
-	for (i = 4; (i < 8) && (i < *length); i++)
-		data[i] = (CAN_RDHxR(canport, fifo_id) >> (8 * (i - 4))) & 0xFF;
+	rdlxr.data32 = CAN_RDLxR(canport, fifo_id);
+	rdhxr.data32 = CAN_RDHxR(canport, fifo_id);
+	/* */
+	/* Get data.
+	 * Byte wise copy is needed because we do not know the alignment
+	 * of the input buffer.
+	 * Here copying 8 bytes unconditionally is faster than using loop
+	 *
+	 * It is OK to copy all 8 bytes because the upper layer must be
+	 * prepared for data length bigger expected.
+	 * In contrary the driver has no information about the intended size.
+	 * This could be different if the max length would be handed over
+	 * to the function, but it is not the case
+	 */
+	data[0] = rdlxr.data8[0];
+	data[1] = rdlxr.data8[1];
+	data[2] = rdlxr.data8[2];
+	data[3] = rdlxr.data8[3];
+	data[4] = rdhxr.data8[0];
+	data[5] = rdhxr.data8[1];
+	data[6] = rdhxr.data8[2];
+	data[7] = rdhxr.data8[3];
 
 	/* Release the FIFO. */
-	if (release)
+	if (release){
 		can_fifo_release(canport, fifo);
+	}
 }
 
 bool can_available_mailbox(u32 canport)

@@ -39,6 +39,16 @@ For Ubuntu
 For Fedora
  $ [sudo] yum install PyYAML
 
+For Windows
+ Download and install: 
+ msys - sourceforge.net/projects/mingw/files/MSYS/Base/msys-core/msys-1.0.11/MSYS-1.0.11.exe
+ Python - http://www.python.org/ftp/python/2.7/python-2.7.msi (use installer to get the right registry keys for PyYAML)
+ PyYAML - http://pyyaml.org/download/pyyaml/PyYAML-3.10.win32-py2.7.exe
+ arm-none-eabi toolchain - for example this one https://launchpad.net/gcc-arm-embedded
+ Run msys shell and set the path without standard Windows paths, so Windows programs such as 'find' won't interfere:
+ export PATH="/c//Python27:/c/ARMToolchain/bin:/usr/local/bin:/usr/bin:/bin"
+ After that you can navigate to the folder where you've extracted libopencm3 and build it.
+
 Building
 --------
 

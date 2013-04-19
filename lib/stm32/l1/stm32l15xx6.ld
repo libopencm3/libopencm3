@@ -1,7 +1,7 @@
 /*
  * This file is part of the libopencm3 project.
  *
- * Copyright (C) 2010 Gareth McMullin <gareth@blacksphere.co.nz>
+ * Copyright (C) 2013 Karl Palsson <karlp@tweak.net.au>
  *
  * This library is free software: you can redistribute it and/or modify
  * it under the terms of the GNU Lesser General Public License as published by
@@ -17,25 +17,16 @@
  * along with this library.  If not, see <http://www.gnu.org/licenses/>.
  */
 
-#include <stdlib.h>
+/* Linker script for STM32L15xx6, 32K flash, 10K RAM. */
 
-#include <libopencm3/cm3/scb.h>
-
-void scb_reset_core(void)
+/* Define memory regions. */
+MEMORY
 {
-	SCB_AIRCR = SCB_AIRCR_VECTKEY | SCB_AIRCR_VECTRESET;
-
-	exit(1);
+	rom (rx) : ORIGIN = 0x08000000, LENGTH = 32K
+	ram (rwx) : ORIGIN = 0x20000000, LENGTH = 10K
+	eep (r) : ORIGIN = 0x08080000, LENGTH = 4K
 }
 
-void scb_reset_system(void)
-{
-	SCB_AIRCR = SCB_AIRCR_VECTKEY | SCB_AIRCR_SYSRESETREQ;
+/* Include the common ld script. */
+INCLUDE libopencm3_stm32l1.ld
 
-	exit(1);
-}
-
-void scb_set_priority_grouping(u32 prigroup)
-{
-	SCB_AIRCR = SCB_AIRCR_VECTKEY | prigroup;
-}

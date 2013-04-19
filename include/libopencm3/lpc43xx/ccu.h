@@ -1,3 +1,17 @@
+/** @defgroup ccu_defines Clock Control Unit Defines
+
+@brief <b>Defined Constants and Types for the LPC43xx Clock Control Unit</b>
+
+@ingroup LPC43xx_defines
+
+@version 1.0.0
+
+@author @htmlonly &copy; @endhtmlonly 2012 Michael Ossmann <mike@ossmann.com>
+
+@date 10 March 2013
+
+LGPL License Terms @ref lgpl_license
+ */
 /*
  * This file is part of the libopencm3 project.
  *
@@ -19,6 +33,8 @@
 
 #ifndef LPC43XX_CCU_H
 #define LPC43XX_CCU_H
+
+/**@{*/
 
 #include <libopencm3/cm3/common.h>
 #include <libopencm3/lpc43xx/memorymap.h>
@@ -380,5 +396,7 @@
 
 /* CLK_SDIO status register (for SD/MMC) */
 #define CCU2_CLK_SDIO_STAT              MMIO32(CCU2_BASE + 0x804)
+
+/**@}*/
 
 #endif

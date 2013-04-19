@@ -1,3 +1,17 @@
+/** @defgroup rgu_defines Reset Generation Unit Defines
+
+@brief <b>Defined Constants and Types for the LPC43xx Reset Generation Unit</b>
+
+@ingroup LPC43xx_defines
+
+@version 1.0.0
+
+@author @htmlonly &copy; @endhtmlonly 2012 Michael Ossmann <mike@ossmann.com>
+
+@date 10 March 2013
+
+LGPL License Terms @ref lgpl_license
+ */
 /*
  * This file is part of the libopencm3 project.
  *
@@ -19,6 +33,8 @@
 
 #ifndef LPC43XX_RGU_H
 #define LPC43XX_RGU_H
+
+/**@{*/
 
 #include <libopencm3/cm3/common.h>
 #include <libopencm3/lpc43xx/memorymap.h>
@@ -240,5 +256,7 @@
 
 /* Reserved */
 #define RESET_EXT_STAT63                MMIO32(RGU_BASE + 0x4FC)
+
+/**@}*/
 
 #endif

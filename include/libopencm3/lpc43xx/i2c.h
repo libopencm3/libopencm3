@@ -1,3 +1,17 @@
+/** @defgroup i2c_defines I2C Defines
+
+@brief <b>Defined Constants and Types for the LPC43xx I2C</b>
+
+@ingroup LPC43xx_defines
+
+@version 1.0.0
+
+@author @htmlonly &copy; @endhtmlonly 2012 Michael Ossmann <mike@ossmann.com>
+
+@date 10 March 2013
+
+LGPL License Terms @ref lgpl_license
+ */
 /*
  * This file is part of the libopencm3 project.
  *
@@ -19,6 +33,8 @@
 
 #ifndef LPC43XX_I2C_H
 #define LPC43XX_I2C_H
+
+/**@{*/
 
 #include <libopencm3/cm3/common.h>
 #include <libopencm3/lpc43xx/memorymap.h>
@@ -142,5 +158,7 @@ u8 i2c0_rx_byte(void);
 void i2c0_stop(void);
 
 END_DECLS
+
+/**@}*/
 
 #endif

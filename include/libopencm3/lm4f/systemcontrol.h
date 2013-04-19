@@ -1,3 +1,17 @@
+/** @defgroup systemcontrol_defines System Control
+
+@brief <b>Defined Constants and Types for the LM4F System Control</b>
+
+@ingroup LM4Fxx_defines
+
+@version 1.0.0
+
+@author @htmlonly &copy; @endhtmlonly 2012 Alexandru Gagniuc <mr.nuke.me@gmail.com>
+
+@date 10 March 2013
+
+LGPL License Terms @ref lgpl_license
+ */
 /*
  * This file is part of the libopencm3 project.
  *
@@ -19,6 +33,8 @@
 
 #ifndef LM4F_SYSTEMCONTROL_H
 #define LM4F_SYSTEMCONTROL_H
+
+/**@{*/
 
 #include <libopencm3/cm3/common.h>
 #include <libopencm3/lm4f/memorymap.h>
@@ -719,6 +735,8 @@ void periph_clock_enable(clken_t periph);
 void periph_clock_disable(clken_t periph);
 
 END_DECLS
+
+/**@}*/
 
 #endif /* LM4F_SYSTEMCONTROL_H */
 
