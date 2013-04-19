@@ -1,3 +1,18 @@
+/** @defgroup usb_drivers_file Generic USB Drivers
+
+@ingroup USB
+
+@brief <b>Generic USB Drivers</b>
+
+@version 1.0.0
+
+@author @htmlonly &copy; @endhtmlonly 2010 Gareth McMullin <gareth@blacksphere.co.nz>
+
+@date 10 March 2013
+
+LGPL License Terms @ref lgpl_license
+*/
+
 /*
  * This file is part of the libopencm3 project.
  *
@@ -16,6 +31,8 @@
  * You should have received a copy of the GNU Lesser General Public License
  * along with this library.  If not, see <http://www.gnu.org/licenses/>.
  */
+
+/**@{*/
 
 #include <string.h>
 #include <libopencm3/usb/usbd.h>
@@ -150,3 +167,6 @@ void usbd_ep_nak_set(usbd_device *usbd_dev, u8 addr, u8 nak)
 {
 	usbd_dev->driver->ep_nak_set(usbd_dev, addr, nak);
 }
+
+/**@}*/
+
