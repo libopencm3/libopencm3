@@ -443,18 +443,6 @@ void dac_load_data_buffer_single(u16 dac_data, data_align dac_data_format, data_
 			break;
 		}
 	}
-	else
-		switch (dac_data_format) {
-		case RIGHT8:
-			DAC_DHR8RD = dac_data;
-			break;
-		case RIGHT12:
-			DAC_DHR12RD = dac_data;
-			break;
-		case LEFT12:
-			DAC_DHR12LD = dac_data;
-			break;
-		}
 }
 
 /*-----------------------------------------------------------------------------*/
