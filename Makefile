@@ -43,7 +43,7 @@ endif
 
 all: build
 
-build: lib examples
+build: lib
 
 generatedheaders:
 	@printf "  UPDATING HEADERS\n"
@@ -63,14 +63,6 @@ $(LIB_DIRS): generatedheaders
 	$(Q)$(MAKE) --directory=$@ SRCLIBDIR=$(SRCLIBDIR)
 
 lib: $(LIB_DIRS)
-	$(Q)true
-
-EXAMPLE_DIRS:=$(sort $(dir $(wildcard $(addsuffix /*/*/Makefile,$(addprefix examples/,$(TARGETS))))))
-$(EXAMPLE_DIRS): lib
-	@printf "  BUILD   $@\n";
-	$(Q)$(MAKE) --directory=$@
-
-examples: $(EXAMPLE_DIRS)
 	$(Q)true
 
 install: lib
@@ -104,5 +96,5 @@ clean: cleanheaders
 	@printf "  CLEAN   doxygen\n"
 	$(Q)$(MAKE) -C doc clean
 
-.PHONY: build lib $(LIB_DIRS) examples $(EXAMPLE_DIRS) install doc clean generatedheaders cleanheaders
+.PHONY: build lib $(LIB_DIRS) install doc clean generatedheaders cleanheaders
 

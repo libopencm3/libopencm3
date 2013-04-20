@@ -66,34 +66,11 @@ For a more verbose build you can use
 Example projects
 ----------------
 
-The library ships with a few small example projects which illustrate how
-individual subsystems of the microcontrollers can be configured and used with
-libopencm3. The makefiles are generally useable for your own projects with
-only minimal changes for the libopencm3 install path (See Installation)
+The libopencm3 community has written and is maintaining a huge collection of
+examples, displaying the capabilities and uses of the library. You can find all
+of them in the libopencm3-examples repository:
 
-For flashing the 'miniblink' example (after you built libopencm3 and the
-examples by typing 'make' at the top-level directory) onto the Olimex
-STM32-H103 eval board (ST STM32F1 series microcontroller), you can execute:
-
- $ cd examples/stm32/f1/stm32-h103/miniblink
- $ make flash
-
-The Makefiles of the examples are configured to use a certain OpenOCD
-flash programmer, you might need to change some of the variables in the
-Makefile if you use a different one.
-
-You can also flash manually like this:
-
- $ openocd -f interface/jtagkey-tiny.cfg -f target/stm32f1x.cfg
- $ telnet localhost 4444
- > reset halt
- > flash write_image erase foobar.hex
- > reset
-
-Replace the "jtagkey-tiny.cfg" with whatever JTAG device you are using, and/or
-replace "stm32f1x.cfg" with your respective config file. Replace "foobar.hex"
-with the file name of the image you want to flash.
-
+https://github.com/libopencm3/libopencm3-examples
 
 Installation
 ------------
