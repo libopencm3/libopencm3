@@ -93,6 +93,11 @@ void flash_clear_status_flags(void)
 	flash_clear_bsy_flag();
 }
 
+u32 flash_get_status_flags(void)
+{
+	return (FLASH_SR &= (FLASH_SR_PGERR | FLASH_SR_EOP | FLASH_SR_WRPRTERR | FLASH_SR_BSY));
+}
+
 void flash_unlock_option_bytes(void)
 {
 	/* F1 uses same keys for flash and option */
@@ -102,8 +107,7 @@ void flash_unlock_option_bytes(void)
 
 void flash_wait_for_last_operation(void)
 {
-	while ((FLASH_SR & FLASH_SR_BSY) == FLASH_SR_BSY)
-		;
+	while ((FLASH_SR & FLASH_SR_BSY) == FLASH_SR_BSY);
 }
 
 void flash_program_word(u32 address, u32 data)
