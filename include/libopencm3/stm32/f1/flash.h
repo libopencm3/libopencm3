@@ -103,6 +103,7 @@ void flash_clear_eop_flag(void);
 void flash_clear_wrprterr_flag(void);
 void flash_clear_bsy_flag(void);
 void flash_clear_status_flags(void);
+u32 flash_get_status_flags(void);
 void flash_unlock_option_bytes(void);
 void flash_erase_all_pages(void);
 void flash_erase_page(u32 page_address);
