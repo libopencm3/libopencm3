@@ -160,8 +160,8 @@ specific memorymap.h header before including this header file.*/
 #define DMA_ISR_MASK(channel)		DMA_FLAGS << DMA_FLAG_OFFSET(channel)
 
 /* TEIF: Transfer error interrupt flag */
-#define DMA_ISR_TEIF_BIT       		DMA_ISR_TEIF
-#define DMA_ISR_TEIF(channel)		(DMA_ISR_TEIF_BIT << DMA_FLAG_OFFSET(channel)))
+#define DMA_ISR_TEIF_BIT       		DMA_TEIF
+#define DMA_ISR_TEIF(channel)		(DMA_ISR_TEIF_BIT << (DMA_FLAG_OFFSET(channel)))
 
 #define DMA_ISR_TEIF1			DMA_ISR_TEIF(DMA_CHANNEL1)
 #define DMA_ISR_TEIF2			DMA_ISR_TEIF(DMA_CHANNEL2)
@@ -173,7 +173,7 @@ specific memorymap.h header before including this header file.*/
 
 /* HTIF: Half transfer interrupt flag */
 #define DMA_ISR_HTIF_BIT       		DMA_HTIF
-#define DMA_ISR_HTIF(channel)		(DMA_ISR_HTIF_BIT << DMA_FLAG_OFFSET(channel)))
+#define DMA_ISR_HTIF(channel)		(DMA_ISR_HTIF_BIT << (DMA_FLAG_OFFSET(channel)))
 
 #define DMA_ISR_HTIF1			DMA_ISR_HTIF(DMA_CHANNEL1)
 #define DMA_ISR_HTIF2			DMA_ISR_HTIF(DMA_CHANNEL2)
