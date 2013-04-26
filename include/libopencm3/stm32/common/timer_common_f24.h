@@ -85,11 +85,19 @@ Only available in F2 and F4 series.
 /**@}*/
 #define TIM5_OR_TI4_RMP_MASK		(0x3 << 6)
 
+/** Input Capture input polarity */
+enum tim_ic_pol {
+	TIM_IC_RISING,
+	TIM_IC_FALLING,
+	TIM_IC_BOTH,
+};
+
 /* --- Function prototypes ------------------------------------------------- */
 
 BEGIN_DECLS
 
 void timer_set_option(u32 timer_peripheral, u32 option);
+void timer_ic_set_polarity(u32 timer, enum tim_ic_id ic, enum tim_ic_pol pol);
 
 END_DECLS
 

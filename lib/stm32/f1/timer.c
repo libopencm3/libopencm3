@@ -38,3 +38,19 @@ in which case this file must be added to the compile list. */
 #include <libopencm3/stm32/timer.h>
 #include <libopencm3/stm32/common/timer_common_all.h>
 
+/*---------------------------------------------------------------------------*/
+/** @brief Set Input Polarity
+
+@param[in] timer_peripheral Unsigned int32. Timer register address base
+@param[in] ic ::tim_ic_id. Input Capture channel designator.
+@param[in] pol ::tim_ic_pol. Input Capture polarity.
+*/
+
+void timer_ic_set_polarity(u32 timer_peripheral, enum tim_ic_id ic, enum tim_ic_pol pol)
+{
+	if (pol)
+		TIM_CCER(timer_peripheral) |= (0x2 << (ic * 4));
+	else
+		TIM_CCER(timer_peripheral) &= ~(0x2 << (ic * 4));
+}
+

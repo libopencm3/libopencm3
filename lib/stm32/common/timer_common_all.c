@@ -1951,22 +1951,6 @@ void timer_ic_set_input(u32 timer_peripheral, enum tim_ic_id ic, enum tim_ic_inp
 }
 
 /*---------------------------------------------------------------------------*/
-/** @brief Set Input Polarity
-
-@param[in] timer_peripheral Unsigned int32. Timer register address base
-@param[in] ic ::tim_ic_id. Input Capture channel designator.
-@param[in] pol ::tim_ic_pol. Input Capture polarity.
-*/
-
-void timer_ic_set_polarity(u32 timer_peripheral, enum tim_ic_id ic, enum tim_ic_pol pol)
-{
-	if (pol)
-		TIM_CCER(timer_peripheral) |= (0x2 << (ic * 4));
-	else
-		TIM_CCER(timer_peripheral) &= ~(0x2 << (ic * 4));
-}
-
-/*---------------------------------------------------------------------------*/
 /** @brief Enable Timer Input Capture
 
 @param[in] timer_peripheral Unsigned int32. Timer register address base
@@ -2027,10 +2011,10 @@ void timer_slave_set_prescaler(u32 timer_peripheral, enum tim_ic_psc psc)
 /** @brief Set External Trigger Polarity for Slave
 
 @param[in] timer_peripheral Unsigned int32. Timer register address base
-@param[in] pol ::tim_ic_pol. Input Capture polarity.
+@param[in] pol ::tim_et_pol. Slave External Trigger polarity.
 */
 
-void timer_slave_set_polarity(u32 timer_peripheral, enum tim_ic_pol pol)
+void timer_slave_set_polarity(u32 timer_peripheral, enum tim_et_pol pol)
 {
 	if (pol)
 		TIM_SMCR(timer_peripheral) |= TIM_SMCR_ETP;
