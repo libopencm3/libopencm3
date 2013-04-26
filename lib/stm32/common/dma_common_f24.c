@@ -490,7 +490,7 @@ void dma_set_dma_flow_control(u32 dma, u8 stream)
 
 void dma_enable_transfer_error_interrupt(u32 dma, u8 stream)
 {
-	dma_clear_interrupt_flags(dma, stream, DMA_ISR_TEIF);
+	dma_clear_interrupt_flags(dma, stream, DMA_TEIF);
 	DMA_SCR(dma, stream) |= DMA_SxCR_TEIE;
 }
 
@@ -515,7 +515,7 @@ void dma_disable_transfer_error_interrupt(u32 dma, u8 stream)
 
 void dma_enable_half_transfer_interrupt(u32 dma, u8 stream)
 {
-	dma_clear_interrupt_flags(dma, stream, DMA_ISR_HTIF);
+	dma_clear_interrupt_flags(dma, stream, DMA_HTIF);
 	DMA_SCR(dma, stream) |= DMA_SxCR_HTIE;
 }
 
@@ -540,7 +540,7 @@ void dma_disable_half_transfer_interrupt(u32 dma, u8 stream)
 
 void dma_enable_transfer_complete_interrupt(u32 dma, u8 stream)
 {
-	dma_clear_interrupt_flags(dma, stream, DMA_ISR_TCIF);
+	dma_clear_interrupt_flags(dma, stream, DMA_TCIF);
 	DMA_SCR(dma, stream) |= DMA_SxCR_TCIE;
 }
 
@@ -565,7 +565,7 @@ void dma_disable_transfer_complete_interrupt(u32 dma, u8 stream)
 
 void dma_enable_direct_mode_error_interrupt(u32 dma, u8 stream)
 {
-	dma_clear_interrupt_flags(dma, stream, DMA_ISR_DMEIF);
+	dma_clear_interrupt_flags(dma, stream, DMA_DMEIF);
 	DMA_SCR(dma, stream) |= DMA_SxCR_DMEIE;
 }
 
@@ -590,7 +590,7 @@ void dma_disable_direct_mode_error_interrupt(u32 dma, u8 stream)
 
 void dma_enable_fifo_error_interrupt(u32 dma, u8 stream)
 {
-	dma_clear_interrupt_flags(dma, stream, DMA_ISR_FEIF);
+	dma_clear_interrupt_flags(dma, stream, DMA_FEIF);
 	DMA_SFCR(dma, stream) |= DMA_SxFCR_FEIE;
 }
 

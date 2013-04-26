@@ -250,20 +250,20 @@ being at the same relative location */
 
 @{*/
 /** Transfer Complete Interrupt Flag */
-#define DMA_ISR_TCIF       		(1 << 5)
+#define DMA_TCIF       		    (1 << 5)
 /** Half Transfer Interrupt Flag */
-#define DMA_ISR_HTIF       		(1 << 4)
+#define DMA_HTIF       		    (1 << 4)
 /** Transfer Error Interrupt Flag */
-#define DMA_ISR_TEIF       		(1 << 3)
+#define DMA_TEIF       		    (1 << 3)
 /** Direct Mode Error Interrupt Flag */
-#define DMA_ISR_DMEIF       	(1 << 2)
+#define DMA_DMEIF       	    (1 << 2)
 /** FIFO Error Interrupt Flag */
-#define DMA_ISR_FEIF       		(1 << 0)
+#define DMA_FEIF       		    (1 << 0)
 /**@}*/
 
 /* Offset within interrupt status register to start of stream interrupt flag field */
 #define DMA_ISR_OFFSET(stream)		(6*(stream & 0x01)+16*((stream & 0x02) >> 1))
-#define DMA_ISR_FLAGS			(DMA_ISR_TCIF | DMA_ISR_HTIF | DMA_ISR_TEIF | DMA_ISR_DMEIF | DMA_ISR_FEIF)
+#define DMA_ISR_FLAGS			    (DMA_TCIF | DMA_HTIF | DMA_TEIF | DMA_DMEIF | DMA_FEIF)
 #define DMA_ISR_MASK(stream)		DMA_ISR_FLAGS << DMA_ISR_OFFSET(stream)
 
 /* --- DMA_LISR values ----------------------------------------------------- */
