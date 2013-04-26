@@ -1012,10 +1012,10 @@ enum tim_ic_input {
 	TIM_IC_IN_TI4 = 6,
 };
 
-/** Input Capture input polarity */
-enum tim_ic_pol {
-	TIM_IC_RISING,
-	TIM_IC_FALLING,
+/** Slave external trigger polarity */
+enum tim_et_pol {
+	TIM_ET_RISING,
+	TIM_ET_FALLING,
 };
 
 /* --- TIM function prototypes ------------------------------------------------------- */
@@ -1093,13 +1093,12 @@ void timer_set_counter(u32 timer_peripheral, u32 count);
 void timer_ic_set_filter(u32 timer, enum tim_ic_id ic, enum tim_ic_filter flt);
 void timer_ic_set_prescaler(u32 timer, enum tim_ic_id ic, enum tim_ic_psc psc);
 void timer_ic_set_input(u32 timer, enum tim_ic_id ic, enum tim_ic_input in);
-void timer_ic_set_polarity(u32 timer, enum tim_ic_id ic, enum tim_ic_pol pol);
 void timer_ic_enable(u32 timer, enum tim_ic_id ic);
 void timer_ic_disable(u32 timer, enum tim_ic_id ic);
 
 void timer_slave_set_filter(u32 timer, enum tim_ic_filter flt);
 void timer_slave_set_prescaler(u32 timer, enum tim_ic_psc psc);
-void timer_slave_set_polarity(u32 timer, enum tim_ic_pol pol);
+void timer_slave_set_polarity(u32 timer, enum tim_et_pol pol);
 void timer_slave_set_mode(u32 timer, u8 mode);
 void timer_slave_set_trigger(u32 timer, u8 trigger);
 
