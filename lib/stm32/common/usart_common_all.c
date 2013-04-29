@@ -51,19 +51,16 @@ void usart_set_baudrate(u32 usart, u32 baud)
 {
 	u32 clock = rcc_ppre1_frequency;
 
-//#ifdef STM32F1
-	if (usart == USART1) {
-		clock = rcc_ppre2_frequency;
-	}
-/* This has to be added for F2 when it get's support for USART6 */
-/*
-#else
+#if defined STM32F2 || defined STM32F4
 	if ((usart == USART1) ||
 	    (usart == USART6)) {
 		clock = rcc_ppre2_frequency;
 	}
+#else
+	if (usart == USART1) {
+		clock = rcc_ppre2_frequency;
+	}
 #endif
-*/
 
 	/*
 	 * Yes it is as simple as that. The reference manual is
