@@ -36,12 +36,10 @@ Devices can have up to 3 USARTs and 2 UARTs.
 /*-----------------------------------------------------------------------------*/
 /** @brief USART Set Baudrate.
 
-The baud rate is computed from the APB high-speed prescaler clock (for USART1)
+The baud rate is computed from the APB high-speed prescaler clock (for USART1/6)
 or the APB low-speed prescaler clock (for other USARTs). These values must
 be correctly set before calling this function (refer to the rcc_clock_setup-*
 functions in RCC).
-
-@todo Add support for USART6 and oversampling in F2/F4
 
 @param[in] usart unsigned 32 bit. USART block register address base @ref usart_reg_base
 @param[in] baud unsigned 32 bit. Baud rate specified in Hz.
