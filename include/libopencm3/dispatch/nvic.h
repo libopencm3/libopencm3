@@ -23,6 +23,9 @@
 #elif defined(LPC43XX)
 #	include <libopencm3/lpc43xx/nvic.h>
 
+#elif defined(SAM3X)
+#	include <libopencm3/sam3x/nvic.h>
+
 #elif defined(LM3S) || defined(LM4F)
 /* Yes, we use the same interrupt table for both LM3S and LM4F */
 #	include <libopencm3/lm3s/nvic.h>
