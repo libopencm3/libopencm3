@@ -27,7 +27,7 @@ static inline void gpio_set(u32 gpioport, u32 gpios)
 	PIO_SODR(gpioport) = gpios;
 }
 
-void gpio_clear(u32 gpioport, u32 gpios)
+static inline void gpio_clear(u32 gpioport, u32 gpios)
 {
 	PIO_CODR(gpioport) = gpios;
 }
