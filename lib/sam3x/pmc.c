@@ -19,9 +19,20 @@
 
 #include <libopencm3/sam3x/pmc.h>
 
+void pmc_xtal_enable(bool en, u8 startup_time)
+{
+	if (en) {
+		CKGR_MOR |= CKGR_MOR_KEY |
+				CKGR_MOR_MOSCXTEN | CKGR_MOR_MOSCXTST_MASK;
+		while (!(PMC_SR & PMC_SR_MOSCXTS));
+	} else {
+		CKGR_MOR = CKGR_MOR_KEY | (CKGR_MOR & ~CKGR_MOR_MOSCXTEN);
+	}
+}
+
 void pmc_plla_config(u8 mul, u8 div)
 {
-	CKGR_PLLAR = CKGR_PLLAR_ONE | (mul << 16) |
+	CKGR_PLLAR = CKGR_PLLAR_ONE | ((mul - 1) << 16) |
 			CKGR_PLLAR_PLLACOUNT_MASK | div;
 	while (!(PMC_SR & PMC_SR_LOCKA));
 }
@@ -40,5 +51,11 @@ void pmc_peripheral_clock_disable(u8 pid)
 		PMC_PCDR0 = 1 << pid;
 	else
 		PMC_PCDR1 = 1 << (pid & 31);
+}
+
+void pmc_mck_set_source(enum mck_src src)
+{
+	PMC_MCKR = (PMC_MCKR & ~PMC_MCKR_CSS_MASK) | src;
+	while (!(PMC_SR & PMC_SR_MCKRDY));
 }
 

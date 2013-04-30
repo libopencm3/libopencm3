@@ -125,6 +125,15 @@
 #define PMC_SR_LOCKA			(0x01 << 1)
 #define PMC_SR_MOSCXTS			(0x01 << 0)
 
+enum mck_src {
+	MCK_SRC_SLOW = 0,
+	MCK_SRC_MAIN = 1,
+	MCK_SRC_PLLA = 2,
+	MCK_SRC_UPLL = 3,
+};
+
+void pmc_mck_set_source(enum mck_src src);
+void pmc_xtal_enable(bool en, u8 startup_time);
 void pmc_plla_config(u8 mul, u8 div);
 void pmc_peripheral_clock_enable(u8 pid);
 void pmc_peripheral_clock_disable(u8 pid);
