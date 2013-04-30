@@ -17,19 +17,9 @@
  * along with this library.  If not, see <http://www.gnu.org/licenses/>.
  */
 
-#include <libopencm3/sam3x/pio.h>
+#include <libopencm3/sam3x/gpio.h>
 
-void pio_set(u32 gpioport, u32 gpios)
-{
-	PIO_SODR(gpioport) = gpios;
-}
-
-void pio_clear(u32 gpioport, u32 gpios)
-{
-	PIO_CODR(gpioport) = gpios;
-}
-
-void pio_toggle(u32 gpioport, u32 gpios)
+void gpio_toggle(u32 gpioport, u32 gpios)
 {
 	u32 odsr = PIO_ODSR(gpioport);
 	PIO_CODR(gpioport) = odsr & gpios;
