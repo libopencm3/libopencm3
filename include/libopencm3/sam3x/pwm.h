@@ -78,4 +78,24 @@
 #define PWM_DT(x)			MMIO32(PWM_BASE + 0x0218 + 0x20*(x))
 #define PWM_DTUPD(x)			MMIO32(PWM_BASE + 0x021C + 0x20*(x))
 
+static inline pwm_set_period(int ch, u32 period)
+{
+	PWM_CPRD(ch) = period;
+}
+
+static inline pwm_set_duty(int ch, u32 duty)
+{
+	PWM_CDTY(ch) = duty;
+}
+
+static inline pwm_enable(int ch)
+{
+	PWM_ENA = 1 << ch;
+}
+
+static inline pwm_disable(int ch)
+{
+	PWM_DIS = 1 << ch;
+}
+
 #endif
