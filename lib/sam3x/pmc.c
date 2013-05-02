@@ -22,8 +22,9 @@
 void pmc_xtal_enable(bool en, u8 startup_time)
 {
 	if (en) {
-		CKGR_MOR |= CKGR_MOR_KEY |
-				CKGR_MOR_MOSCXTEN | CKGR_MOR_MOSCXTST_MASK;
+		CKGR_MOR = (CKGR_MOR & ~CKGR_MOR_MOSCXTST_MASK) |
+				CKGR_MOR_KEY | CKGR_MOR_MOSCXTEN |
+				(startup_time << 8);
 		while (!(PMC_SR & PMC_SR_MOSCXTS));
 	} else {
 		CKGR_MOR = CKGR_MOR_KEY | (CKGR_MOR & ~CKGR_MOR_MOSCXTEN);
