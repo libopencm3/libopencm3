@@ -18,6 +18,12 @@
  */
 
 #include <libopencm3/sam3x/usart.h>
+#include <libopencm3/sam3x/pmc.h>
+
+void usart_set_baudrate(u32 usart, u32 baud)
+{
+	USART_BRGR(usart) = pmc_mck_frequency / (16 * baud);
+}
 
 void usart_set_databits(u32 usart, int bits)
 {
