@@ -18,6 +18,10 @@
  */
 
 #include <libopencm3/sam3x/pmc.h>
+#include <libopencm3/sam3x/eefc.h>
+
+/** Default peripheral clock frequency after reset. */
+u32 pmc_mck_frequency = 4000000;
 
 void pmc_xtal_enable(bool en, u8 startup_time)
 {
@@ -58,5 +62,20 @@ void pmc_mck_set_source(enum mck_src src)
 {
 	PMC_MCKR = (PMC_MCKR & ~PMC_MCKR_CSS_MASK) | src;
 	while (!(PMC_SR & PMC_SR_MCKRDY));
+}
+
+void pmc_clock_setup_in_xtal_12mhz_out_84mhz(void)
+{
+	eefc_set_latency(4);
+
+	/* 12MHz external xtal, maximum possible startup time */
+	pmc_xtal_enable(true, 0xff);
+	/* Select as main oscillator */
+	CKGR_MOR |= CKGR_MOR_KEY | CKGR_MOR_MOSCSEL;
+	/* Multiply by 7 for 84MHz */
+	pmc_plla_config(7, 1);
+	pmc_mck_set_source(MCK_SRC_PLLA);
+
+	pmc_mck_frequency = 84000000;
 }
 

@@ -196,6 +196,7 @@ enum usart_flowcontrol {
 	USART_FLOWCONTROL_RTS_CTS,
 };
 
+void usart_set_baudrate(u32 usart, u32 baud);
 void usart_set_databits(u32 usart, int bits);
 void usart_set_stopbits(u32 usart, enum usart_stopbits);
 void usart_set_parity(u32 usart, enum usart_parity);
