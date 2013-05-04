@@ -97,3 +97,13 @@ u16 usart_recv_blocking(u32 usart)
 	return usart_recv(usart);
 }
 
+void usart_enable_rx_interrupt(u32 usart)
+{
+	USART_IER(usart) = USART_CSR_RXRDY;
+}
+
+void usart_disable_rx_interrupt(u32 usart)
+{
+	USART_IDR(usart) = USART_CSR_RXRDY;
+}
+
