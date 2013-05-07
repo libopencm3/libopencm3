@@ -277,7 +277,7 @@ void rcc_set_pll_divisor(u8 div400)
 
 	reg32 = SYSCTL_RCC2;
 	reg32 &= ~SYSCTL_RCC2_SYSDIV400_MASK;
-	reg32 |= (div400 << 22) & SYSCTL_RCC2_SYSDIV400_MASK;
+	reg32 |= ((div400 - 1) << 22) & SYSCTL_RCC2_SYSDIV400_MASK;
 	/* We are expecting a divider from 400MHz */
 	reg32 |= SYSCTL_RCC2_DIV400;
 	SYSCTL_RCC2 = reg32;
