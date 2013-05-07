@@ -32,17 +32,10 @@ LGPL License Terms @ref lgpl_license
  * along with this library.  If not, see <http://www.gnu.org/licenses/>.
  */
 
-/**
- * @defgroup rcc_defines RCC Defines
- *
- * @ingroup LM4F_defines
- *
- * \brief <b>Defined Constants and Types for the LM4F Clock control API</b>
- * @{
- */
-
 #ifndef LM4F_RCC_H
 #define LM4F_RCC_H
+
+/**@{*/
 
 #include <libopencm3/lm4f/systemcontrol.h>
 
@@ -106,9 +99,6 @@ typedef enum {
 	XTAL_25M		= SYSCTL_RCC_XTAL_25M,
 } xtal_t;
 
-/**
- * @}
- */
 /* =============================================================================
  * Function prototypes
  * ---------------------------------------------------------------------------*/
@@ -137,5 +127,6 @@ void rcc_sysclk_config(osc_src_t src, xtal_t xtal, u8 pll_div400);
 
 END_DECLS
 
+/**@}*/
 
 #endif /* LM4F_RCC_H */
