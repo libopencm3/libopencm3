@@ -351,29 +351,164 @@ u16 uart_recv_blocking(u32 uart)
  *
  * \brief <b>Configuring interrupts from the UART</b>
  *
+ * To have an event generate an interrupt, its interrupt source must be
+ * unmasked. This can be achieved with @ref uart_enable_interrupts(). Interrupts
+ * which are no longer needed can be disabled through
+ * @ref uart_disable_interrupts().
+ *
+ * In order for the interrupt to generate an IRQ and a call to the interrupt
+ * service routine, the interrupt for the target UART must be routed through the
+ * NVIC with @ref nvic_enable_irq(). For this last step, the nvic.h header is
+ * needed:
+ * @code{.c}
+ *	#include <libopencm3/lm4f/nvic.h>
+ * @endcode
+ *
+ * Enabling an interrupt is as simple as unmasking the desired interrupt, and
+ * routing the desired UART's interrupt through the NVIC.
+ * @code{.c}
+ *	// Unmask receive interrupt
+ *	uart_enable_rx_interrupt(UART0);
+ *	// Make sure the interrupt is routed through the NVIC
+ *	nvic_enable_irq(NVIC_UART0_IRQ);
+ * @endcode
+ *
+ * If a more than one interrupt is to be enabled at one time, the interrupts
+ * can be enabled by a single call to @ref uart_enable_interrupts().
+ * For example:
+ * @code{.c}
+ *	// Unmask receive, CTS, and RI, interrupts
+ *	uart_enable_interrupts(UART0, UART_INT_RX | UART_INT_RI | UART_INT_CTS);
+ * @endcode
+ *
+ * After interrupts are properly enabled and routed through the NVIC, when an
+ * event occurs, the appropriate IRQ flag is set by hardware, and execution
+ * jumps to the UART ISR. The ISR should query the IRQ flags to determine which
+ * event caused the interrupt. For this, use @ref uart_is_interrupt_source(),
+ * with the desired UART_INT flag. After one or more interrupt sources are
+ * serviced, the IRQ flags must be cleared by the ISR. This can be done with
+ * @ref uart_clear_interrupt_flag().
+ *
+ * A typical UART ISR may look like the following:
+ * @code{.c}
+ * void uart0_isr(void)
+ * {
+ *	u32 serviced_irqs = 0;
+ *
+ *	// Process individual IRQs
+ *	if (uart_is_interrupt_source(UART0, UART_INT_RX)) {
+ *		process_rx_event();
+ *		serviced_irq |= UART_INT_RX;
+ *	}
+ *	if (uart_is_interrupt_source(UART0, UART_INT_CTS)) {
+ *		process_cts_event();
+ *		serviced_irq |= UART_INT_CTS;
+ *	}
+ *
+ *	// Clear the interupt flag for the processed IRQs
+ *	uart_clear_interrupt_flag(UART0, serviced_irqs);
+ * }
+ * @endcode
  */
 /**@{*/
+/**
+ * \brief Enable Specific UART Interrupts
+ *
+ * Enable any combination of interrupts. Interrupts may be OR'ed together to
+ * enable them with one call. For example, to enable both the RX and CTS
+ * interrupts, pass (UART_INT_RX | UART_INT_CTS)
+ *
+ * Note that the NVIC must be enabled and properly configured for the interrupt
+ * to be routed to the CPU.
+ *
+ * @param[in] uart UART block register address base @ref uart_reg_base
+ * @param[in] ints Interrupts which to enable. Any combination of interrupts may
+ *                 be specified by OR'ing then together
+ */
+void uart_enable_interrupts(u32 uart, enum uart_interrupt_flag ints)
+{
+	UART_IM(uart) |= ints;
+}
+
+/**
+ * \brief Enable Specific UART Interrupts
+ *
+ * Disabe any combination of interrupts. Interrupts may be OR'ed together to
+ * disable them with one call. For example, to disable both the RX and CTS
+ * interrupts, pass (UART_INT_RX | UART_INT_CTS)
+ *
+ * @param[in] uart UART block register address base @ref uart_reg_base
+ * @param[in] ints Interrupts which to disable. Any combination of interrupts may
+ *                 be specified by OR'ing then together
+ */
+void uart_disable_interrupts(u32 uart, enum uart_interrupt_flag ints)
+{
+	UART_IM(uart) &= ~ints;
+}
+
+/**
+ * \brief Enable the UART Receive Interrupt.
+ *
+ * Note that the NVIC must be enabled and properly configured for the interrupt
+ * to be routed to the CPU.
+ *
+ * @param[in] uart UART block register address base @ref uart_reg_base
+ */
 void uart_enable_rx_interrupt(u32 uart)
 {
-	/* TODO: this is just a stub. */
+	uart_enable_interrupts(uart, UART_INT_RX);
 }
 
+/**
+ * \brief Disable the UART Receive Interrupt.
+ *
+ * @param[in] uart UART block register address base @ref uart_reg_base
+ */
 void uart_disable_rx_interrupt(u32 uart)
 {
-	/* TODO: this is just a stub. */
+	uart_disable_interrupts(uart, UART_INT_RX);
 }
 
+/**
+ * \brief Enable the UART Transmit Interrupt.
+ *
+ * Note that the NVIC must be enabled and properly configured for the interrupt
+ * to be routed to the CPU.
+ *
+ * @param[in] uart UART block register address base @ref uart_reg_base
+ */
 void uart_enable_tx_interrupt(u32 uart)
 {
-	/* TODO: this is just a stub. */
+	uart_enable_interrupts(uart, UART_INT_TX);
 }
 
+/**
+ * \brief Disable the UART Transmit Interrupt.
+ *
+ * @param[in] uart UART block register address base @ref uart_reg_base
+ */
 void uart_disable_tx_interrupt(u32 uart)
 {
-	/* TODO: this is just a stub. */
+	uart_disable_interrupts(uart, UART_INT_TX);
 }
 
+/**
+ * \brief Mark interrupt as serviced
+ *
+ * After an interrupt is services, its flag must be cleared. If the flag is not
+ * cleared, then execution will jump back to the start of the ISR after the ISR
+ * returns.
+ *
+ * @param[in] uart UART block register address base @ref uart_reg_base
+ * @param[in] ints Interrupts which to clear. Any combination of interrupts may
+ *                 be specified by OR'ing then together
+ */
+void uart_clear_interrupt_flag(u32 uart, enum uart_interrupt_flag ints)
+{
+	UART_ICR(uart) |= ints;
+}
 /**@}*/
+
 /** @defgroup uart_dma UART DMA control
  * @ingroup uart_file
  *
@@ -402,11 +537,6 @@ void uart_disable_tx_dma(u32 uart)
 	/* TODO: this is just a stub. */
 }
 /**@}*/
-
-/*
-bool uart_get_flag(u32 uart, u32 flag);
-bool uart_get_interrupt_source(u32 uart, u32 flag);
-*/
 
 /**
  * @}
