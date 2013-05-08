@@ -32,8 +32,8 @@ LGPL License Terms @ref lgpl_license
  * along with this library.  If not, see <http://www.gnu.org/licenses/>.
  */
 
-#ifndef LIBOPENCM3_LM3S_NVIC_H
-#define LIBOPENCM3_LM3S_NVIC_H
+#ifndef LIBOPENCM3_LM4F_NVIC_H
+#define LIBOPENCM3_LM4F_NVIC_H
 
 /**@{*/
 
@@ -50,4 +50,4 @@ LGPL License Terms @ref lgpl_license
 
 /**@}*/
 
-#endif /* LIBOPENCM3_LM3S_NVIC_H */
+#endif /* LIBOPENCM3_LM4F_NVIC_H */
