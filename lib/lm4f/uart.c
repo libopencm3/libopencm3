@@ -517,24 +517,44 @@ void uart_clear_interrupt_flag(u32 uart, enum uart_interrupt_flag ints)
  */
 /**@{*/
 
+/**
+ * \brief Enable the UART Receive DMA.
+ *
+ * @param[in] uart UART block register address base @ref uart_reg_base
+ */
 void uart_enable_rx_dma(u32 uart)
 {
-	/* TODO: this is just a stub. */
+	UART_DMACTL(uart) |= UART_DMACTL_RXDMAE;
 }
 
+/**
+ * \brief Disable the UART Receive DMA.
+ *
+ * @param[in] uart UART block register address base @ref uart_reg_base
+ */
 void uart_disable_rx_dma(u32 uart)
 {
-	/* TODO: this is just a stub. */
+	UART_DMACTL(uart) &= ~UART_DMACTL_RXDMAE;
 }
 
+/**
+ * \brief Enable the UART Transmit DMA.
+ *
+ * @param[in] uart UART block register address base @ref uart_reg_base
+ */
 void uart_enable_tx_dma(u32 uart)
 {
-	/* TODO: this is just a stub. */
+	UART_DMACTL(uart) |= UART_DMACTL_TXDMAE;
 }
 
+/**
+ * \brief Disable the UART Transmit DMA.
+ *
+ * @param[in] uart UART block register address base @ref uart_reg_base
+ */
 void uart_disable_tx_dma(u32 uart)
 {
-	/* TODO: this is just a stub. */
+	UART_DMACTL(uart) &= ~UART_DMACTL_TXDMAE;
 }
 /**@}*/
 
