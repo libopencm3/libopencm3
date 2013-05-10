@@ -18,7 +18,7 @@
  * along with this library.  If not, see <http://www.gnu.org/licenses/>.
  */
 
-#include <libopencm3/stm32/f4/flash.h>
+#include <libopencm3/stm32/flash.h>
 
 static inline void flash_set_program_size(u32 psize)
 {
@@ -218,19 +218,28 @@ void flash_program_byte(u32 address, u8 data)
 	FLASH_CR &= ~FLASH_CR_PG;		/* Disable the PG bit. */
 }
 
-void flash_erase_sector(u32 sector, u32 program_size)
+void flash_program(u32 address, u8* data, u32 len)
+{
+  /* TODO: Use dword and word size program operations where possible for turbo
+   * speed. */
+  u32 i;
+  for (i=0; i<len; i++)
+    flash_program_byte(address+i, data[i]);
+}
+
+void flash_erase_sector(u8 sector, u32 program_size)
 {
 	flash_wait_for_last_operation();
 	flash_set_program_size(program_size);
 
-	FLASH_CR &= ~(((1 << 0) | (1 << 1) | (1 << 2) | (1 << 3)) << 3);
-	FLASH_CR |= sector;
+	FLASH_CR &= ~(0xF << 3);
+	FLASH_CR |= (sector << 3) & 0x78;
 	FLASH_CR |= FLASH_CR_SER;
 	FLASH_CR |= FLASH_CR_STRT;
 
 	flash_wait_for_last_operation();
 	FLASH_CR &= ~FLASH_CR_SER;
-	FLASH_CR &= ~(((1 << 0) | (1 << 1) | (1 << 2) | (1 << 3)) << 3);
+	FLASH_CR &= ~(0xF << 3);
 }
 
 void flash_erase_all_sectors(u32 program_size)
