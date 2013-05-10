@@ -277,7 +277,7 @@ void i2c_send_data(u32 i2c, u8 data)
 
 @param[in] i2c Unsigned int32. I2C register base address @ref i2c_reg_base.
 */
-uint8_t i2c_get_data(u32 i2c)
+u8 i2c_get_data(u32 i2c)
 {
 	return I2C_DR(i2c) & 0xff;
 }

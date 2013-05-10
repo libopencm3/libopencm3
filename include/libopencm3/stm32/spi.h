@@ -28,4 +28,3 @@
 #else
 #       error "stm32 family not defined."
 #endif
-

@@ -343,7 +343,8 @@
 /* OTG_FS Device Control OUT Endpoint 0 Control Register (OTG_HS_DOEPCTL0) */
 #define OTG_HS_DOEPCTL0_EPENA		(1 << 31)
 #define OTG_HS_DOEPCTL0_EPDIS		(1 << 30)
-/* Bits 29:28 - Reserved */
+#define OTG_HS_DOEPCTLX_SETODDFRM	(1 << 29)
+#define OTG_HS_DOEPCTLX_SEVNFRM		(1 << 28) /* Name in ISOC context */
 #define OTG_HS_DOEPCTLX_SD0PID		(1 << 28)
 #define OTG_HS_DOEPCTL0_SNAK		(1 << 27)
 #define OTG_HS_DOEPCTL0_CNAK		(1 << 26)
@@ -351,6 +352,7 @@
 #define OTG_HS_DOEPCTL0_STALL		(1 << 21)
 #define OTG_HS_DOEPCTL0_SNPM		(1 << 20)
 #define OTG_HS_DOEPCTL0_EPTYP_MASK	(0x3 << 18)
+#define OTG_HS_DOEOCTL0_EPTYPE_ISOC 	(1 << 18)
 #define OTG_HS_DOEPCTL0_NAKSTS		(1 << 17)
 /* Bit 16 - Reserved */
 #define OTG_HS_DOEPCTL0_USBAEP		(1 << 15)
@@ -360,6 +362,10 @@
 #define OTG_HS_DOEPCTL0_MPSIZ_32	(0x1 << 0)
 #define OTG_HS_DOEPCTL0_MPSIZ_16	(0x2 << 0)
 #define OTG_HS_DOEPCTL0_MPSIZ_8		(0x3 << 0)
+
+/* Mask for removing frame bits from register for ISOC handling */
+#define OTG_HS_DOEPCTL0_RM_FRM_MSK 	0xCFFFFFFF
+#define FNSOF_MASK 			(0x1 << 8)
 
 /* OTG_FS Device IN Endpoint Interrupt Register (OTG_HS_DIEPINTx) */
 /* Bits 31:8 - Reserved */
