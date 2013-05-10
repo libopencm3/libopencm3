@@ -1,3 +1,5 @@
+/* This provides unification of code over STM32F subfamilies */
+
 /*
  * This file is part of the libopencm3 project.
  *
@@ -15,11 +17,15 @@
  * along with this library.  If not, see <http://www.gnu.org/licenses/>.
  */
 
-#ifndef LIBOPENCM3_FLASH_H
-#define LIBOPENCM3_FLASH_H
-
-#include <libopencm3/stm32/memorymap.h>
-#include <libopencm3/stm32/common/flash_common_f24.h>
-
+#if defined(STM32F1)
+#       include <libopencm3/stm32/f1/flash.h>
+#elif defined(STM32F2)
+#       include <libopencm3/stm32/f2/flash.h>
+#elif defined(STM32F4)
+#       include <libopencm3/stm32/f4/flash.h>
+#elif defined(STM32L1)
+#       include <libopencm3/stm32/l1/flash.h>
+#else
+#       error "stm32 family not defined."
 #endif
 

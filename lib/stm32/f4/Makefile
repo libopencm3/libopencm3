@@ -34,13 +34,13 @@ CFLAGS		= -Os -g \
 # ARFLAGS	= rcsv
 ARFLAGS		= rcs
 
-OBJS		= adc.o can.o gpio.o exti2.o flash.o pwr.o rcc.o
+OBJS		= adc.o can.o gpio.o exti2.o pwr.o rcc.o
 
 OBJS            += crc_common_all.o dac_common_all.o dma_common_f24.o \
                    gpio_common_all.o gpio_common_f24.o i2c_common_all.o \
                    iwdg_common_all.o pwr_common_all.o rtc_common_bcd.o \
                    spi_common_all.o timer_common_all.o timer_common_f24.o \
-                   usart_common_all.o
+                   usart_common_all.o flash_common_f24.o
 
 OBJS            += usb.o usb_standard.o usb_control.o usb_fx07_common.o \
 		   usb_f107.o usb_f207.o
