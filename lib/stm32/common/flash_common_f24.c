@@ -218,6 +218,15 @@ void flash_program_byte(u32 address, u8 data)
 	FLASH_CR &= ~FLASH_CR_PG;		/* Disable the PG bit. */
 }
 
+void flash_program(u32 address, u8* data, u32 len)
+{
+  /* TODO: Use dword and word size program operations where possible for turbo
+   * speed. */
+  u32 i;
+  for (i=0; i<len; i++)
+    flash_program_byte(address+i, data[i]);
+}
+
 void flash_erase_sector(u8 sector, u32 program_size)
 {
 	flash_wait_for_last_operation();

@@ -143,6 +143,7 @@ void flash_program_double_word(u32 address, u64 data);
 void flash_program_word(u32 address, u32 data);
 void flash_program_half_word(u32 address, u16 data);
 void flash_program_byte(u32 address, u8 data);
+void flash_program(u32 address, u8* data, u32 len);
 void flash_wait_for_last_operation(void);
 void flash_program_option_bytes(u32 data);
 
