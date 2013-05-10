@@ -16,6 +16,7 @@ lib/*.ld
 html/
 latex/
 *.pdf
+*.tag
 # These are generated
 include/libopencm3/**/nvic.h
 include/libopencm3/**/**/nvic.h
@@ -27,3 +28,4 @@ include/libopencmsis/lpc13xx/
 include/libopencmsis/lpc17xx/
 include/libopencmsis/lpc43xx/
 include/libopencmsis/stm32/
+include/libopencmsis/sam3x/
