@@ -218,19 +218,19 @@ void flash_program_byte(u32 address, u8 data)
 	FLASH_CR &= ~FLASH_CR_PG;		/* Disable the PG bit. */
 }
 
-void flash_erase_sector(u32 sector, u32 program_size)
+void flash_erase_sector(u8 sector, u32 program_size)
 {
 	flash_wait_for_last_operation();
 	flash_set_program_size(program_size);
 
-	FLASH_CR &= ~(((1 << 0) | (1 << 1) | (1 << 2) | (1 << 3)) << 3);
-	FLASH_CR |= sector;
+	FLASH_CR &= ~(0xF << 3);
+	FLASH_CR |= (sector << 3) & 0x78;
 	FLASH_CR |= FLASH_CR_SER;
 	FLASH_CR |= FLASH_CR_STRT;
 
 	flash_wait_for_last_operation();
 	FLASH_CR &= ~FLASH_CR_SER;
-	FLASH_CR &= ~(((1 << 0) | (1 << 1) | (1 << 2) | (1 << 3)) << 3);
+	FLASH_CR &= ~(0xF << 3);
 }
 
 void flash_erase_all_sectors(u32 program_size)

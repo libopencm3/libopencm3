@@ -138,7 +138,7 @@ void flash_clear_status_flags(void);
 void flash_unlock_option_bytes(void);
 void flash_lock_option_bytes(void);
 void flash_erase_all_sectors(u32 program_size);
-void flash_erase_sector(u32 sector, u32 program_size);
+void flash_erase_sector(u8 sector, u32 program_size);
 void flash_program_double_word(u32 address, u64 data);
 void flash_program_word(u32 address, u32 data);
 void flash_program_half_word(u32 address, u16 data);
