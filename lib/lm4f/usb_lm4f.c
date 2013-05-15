@@ -17,6 +17,32 @@
  * along with this library.  If not, see <http://www.gnu.org/licenses/>.
  */
 
+/**
+ * @defgroup usb_file USB
+ *
+ * @ingroup LM4Fxx
+ *
+ * @author @htmlonly &copy; @endhtmlonly 2013 Alexandru Gagniuc <mr.nuke.me@gmail.com>
+ *
+ * \brief <b>libopencm3 LM4F Universal Serial Bus controller </b>
+ *
+ * The LM4F USB driver is integrated with the libopencm3 USB stack. You should
+ * use the generic stack.
+ *
+ * To use this driver, tell the linker to look for it:
+ * @code{.c}
+ *	extern usbd_driver lm4f_usb_driver;
+ * @endcode
+ *
+ * And pass this driver as an argument when initializing the USB stack:
+ * @code{.c}
+ * usbd_device *usbd_dev;
+ * usbd_dev = usbd_init(&lm4f_usb_driver, ...);
+ * @endcode
+ *
+ * @{
+ */
+
 /*
  * TODO list:
  *
@@ -44,6 +70,9 @@
 
 const struct _usbd_driver lm4f_usb_driver;
 
+/**
+ * @cond private
+ */
 static inline void lm4f_usb_soft_disconnect(void)
 {
 	USB_POWER &= ~USB_POWER_SOFTCONN;
@@ -476,4 +505,10 @@ const struct _usbd_driver lm4f_usb_driver = {
 	.set_address_before_status = false,
 	.rx_fifo_size = RX_FIFO_SIZE,
 };
+/**
+ * @endcond
+ */
 
+/**
+ * @}
+ */

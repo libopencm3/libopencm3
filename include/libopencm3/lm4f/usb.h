@@ -17,8 +17,26 @@
  * along with this library.  If not, see <http://www.gnu.org/licenses/>.
  */
 
+/** @defgroup usb_defines USB Controller
+ *
+ * @brief <b>Defined Constants and Types for the LM4F USB Controller</b>
+ *
+ * @ingroup LM4Fxx_defines
+ *
+ * @version 1.0.0
+ *
+ * @author @htmlonly &copy; @endhtmlonly 2013 Alexandru Gagniuc <mr.nuke.me@gmail.com>
+ *
+ * @date 15 May 2013
+ *
+ * LGPL License Terms @ref lgpl_license
+ */
+
+
 #ifndef LIBOPENCM3_LM4F_USB_H
 #define LIBOPENCM3_LM4F_USB_H
+
+/**@{*/
 
 #include <libopencm3/lm4f/memorymap.h>
 #include <libopencm3/cm3/common.h>
@@ -364,5 +382,6 @@
 /** Controller type */
 #define USB_PP_TYPE_MASK		(0x0F << 0)
 
+/**@}*/
 
 #endif /* LIBOPENCM3_LM4F_USB_H */
