@@ -40,6 +40,47 @@
  * usbd_dev = usbd_init(&lm4f_usb_driver, ...);
  * @endcode
  *
+ * <b>Polling or interrupt-driven? </b>
+ *
+ * The LM4F USB driver will work fine regardless of whether it is called from an
+ * interrupt service routine, or from the main program loop.
+ *
+ * Polling USB from the main loop requires calling @ref usbd_poll() from the
+ * main program loop.
+ * For example:
+ * @code{.c}
+ *	// Main program loop
+ *	while(1) {
+ *		usbd_poll(usb_dev);
+ *		do_other_stuff();
+ *		...
+ * @endcode
+ *
+ * Running @ref usbd_poll() from an interrupt has the advantage that it is only
+ * called when needed, saving CPU cycles for the main program.
+ *
+ * RESET, DISCON, RESUME, and SUSPEND interrupts must be enabled, along with the
+ * interrupts for any endpoint that is used. The EP0_TX interrupt must be
+ * enabled for the control endpoint to function correctly.
+ * For example, if EP1IN and EP2OUT are used, then the EP0_TX, EP1_TX, and
+ * EP2_RX interrupts should be enabled:
+ * @code{.c}
+ *	// Enable USB interrupts for EP0, EP1IN, and EP2OUT
+ *	ints = USB_INT_RESET | USB_INT_DISCON | USB_INT_RESUME |
+ *		 USB_INT_SUSPEND;
+ *	usb_enable_interrupts(ints, USB_EP2_INT, USB_EP0_INT | USB_EP1_INT);
+ *	// Route the interrupts through the NVIC
+ *	nvic_enable_irq(NVIC_USB0_IRQ);
+ * @endcode
+ *
+ * The USB ISR only has to call @ref usbd_poll().
+ *
+ * @code{.c}
+ *	void usb0_isr(void)
+ *	{
+ *		usbd_poll(usb_dev);
+ *	}
+ * @endcode
  * @{
  */
 
@@ -69,6 +110,58 @@
 #define MAX_FIFO_RAM	(4 * 1024)
 
 const struct _usbd_driver lm4f_usb_driver;
+
+/**
+ * \brief Enable Specific USB Interrupts
+ *
+ * Enable any combination of interrupts. Interrupts may be OR'ed together to
+ * enable them with one call. For example, to enable both the RESUME and RESET
+ * interrupts, pass (USB_INT_RESUME | USB_INT_RESET)
+ *
+ * Note that the NVIC must be enabled and properly configured for the interrupt
+ * to be routed to the CPU.
+ *
+ * @param[in] ints Interrupts which to enable. Any combination of interrupts may
+ *                 be specified by OR'ing then together
+ * @param[in] rx_ints Endpoints for which to generate an interrupt when a packet
+ *                    packet is received.
+ * @param[in] tx_ints Endpoints for which to generate an interrupt when a packet
+ *                    packet is finished transmitting.
+ */
+void usb_enable_interrupts(enum usb_interrupt ints,
+			   enum usb_ep_interrupt rx_ints,
+			   enum usb_ep_interrupt tx_ints)
+{
+	USB_IE |= ints;
+	USB_RXIE |= rx_ints;
+	USB_TXIE |= tx_ints;
+}
+
+/**
+ * \brief Disable Specific USB Interrupts
+ *
+ * Disable any combination of interrupts. Interrupts may be OR'ed together to
+ * enable them with one call. For example, to disable both the RESUME and RESET
+ * interrupts, pass (USB_INT_RESUME | USB_INT_RESET)
+ *
+ * Note that the NVIC must be enabled and properly configured for the interrupt
+ * to be routed to the CPU.
+ *
+ * @param[in] ints Interrupts which to disable. Any combination of interrupts
+ *                 may be specified by OR'ing then together
+ * @param[in] rx_ints Endpoints for which to stop generating an interrupt when a
+ *                    packet packet is received.
+ * @param[in] tx_ints Endpoints for which to stop generating an interrupt when a
+ *                    packet packet is finished transmitting.
+ */
+void usb_disable_interrupts(enum usb_interrupt ints,
+			    enum usb_ep_interrupt rx_ints,
+			    enum usb_ep_interrupt tx_ints)
+{
+	USB_IE &= ~ints;
+	USB_RXIE &= ~rx_ints;
+	USB_TXIE &= ~tx_ints;
+}
 
 /**
  * @cond private

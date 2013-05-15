@@ -382,6 +382,41 @@
 /** Controller type */
 #define USB_PP_TYPE_MASK		(0x0F << 0)
 
+/* =============================================================================
+ * Convenience enums
+ * ---------------------------------------------------------------------------*/
+enum usb_interrupt {
+	USB_INT_DISCON			= USB_IM_DISCON,
+	USB_INT_SOF			= USB_IM_SOF,
+	USB_INT_RESET			= USB_IM_RESET,
+	USB_INT_RESUME			= USB_IM_RESUME,
+	USB_INT_SUSPEND			= USB_IM_SUSPEND,
+};
+
+enum usb_ep_interrupt {
+	USB_EP0_INT			= USB_EP0,
+	USB_EP1_INT			= USB_EP1,
+	USB_EP2_INT			= USB_EP2,
+	USB_EP3_INT			= USB_EP3,
+	USB_EP4_INT			= USB_EP4,
+	USB_EP5_INT			= USB_EP5,
+	USB_EP6_INT			= USB_EP6,
+	USB_EP7_INT			= USB_EP7,
+};
+/* =============================================================================
+ * Function prototypes
+ * ---------------------------------------------------------------------------*/
+BEGIN_DECLS
+
+void usb_enable_interrupts(enum usb_interrupt ints,
+			   enum usb_ep_interrupt rx_ints,
+			   enum usb_ep_interrupt tx_ints);
+void usb_disable_interrupts(enum usb_interrupt ints,
+			    enum usb_ep_interrupt rx_ints,
+			    enum usb_ep_interrupt tx_ints);
+
+END_DECLS
+
 /**@}*/
 
 #endif /* LIBOPENCM3_LM4F_USB_H */
