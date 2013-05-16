@@ -43,14 +43,14 @@ LGPL License Terms @ref lgpl_license
 /* --- Convenience macros -------------------------------------------------- */
 
 /* GPIO port base addresses (for convenience) */
-#define GPIOA				GPIOA_APB_BASE
-#define GPIOB				GPIOB_APB_BASE
-#define GPIOC				GPIOC_APB_BASE
-#define GPIOD				GPIOD_APB_BASE
-#define GPIOE				GPIOE_APB_BASE
-#define GPIOF				GPIOF_APB_BASE
-#define GPIOG				GPIOG_APB_BASE
-#define GPIOH				GPIOH_APB_BASE
+#define GPIOA				GPIOA_BASE
+#define GPIOB				GPIOB_BASE
+#define GPIOC				GPIOC_BASE
+#define GPIOD				GPIOD_BASE
+#define GPIOE				GPIOE_BASE
+#define GPIOF				GPIOF_BASE
+#define GPIOG				GPIOG_BASE
+#define GPIOH				GPIOH_BASE
 
 /* GPIO number definitions (for convenience) */
 #define GPIO0				(1 << 0)
