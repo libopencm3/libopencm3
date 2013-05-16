@@ -1,17 +1,17 @@
 /** @defgroup gpio_defines General Purpose I/O Defines
-
-@brief <b>Defined Constants and Types for the LM4F General Purpose I/O</b>
-
-@ingroup LM4Fxx_defines
-
-@version 1.0.0
-
-@author @htmlonly &copy; @endhtmlonly 2011 Gareth McMullin <gareth@blacksphere.co.nz>
-
-@date 10 March 2013
-
-LGPL License Terms @ref lgpl_license
-*/
+ *
+ * @brief <b>Defined Constants and Types for the LM4F General Purpose I/O</b>
+ *
+ * @ingroup LM4Fxx_defines
+ *
+ * @version 1.0.0
+ *
+ * @author @htmlonly &copy; @endhtmlonly 2011 Gareth McMullin <gareth@blacksphere.co.nz>
+ *
+ * @date 10 March 2013
+ *
+ * LGPL License Terms @ref lgpl_license
+ */
 
 /*
  * This file is part of the libopencm3 project.

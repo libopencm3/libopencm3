@@ -1,17 +1,17 @@
 /** @defgroup gpio_file General Purpose I/O
-
-@brief <b>LM4F General Purpose I/O</b>
-
-@ingroup LM4Fxx
-
-@version 1.0.0
-
-@author @htmlonly &copy; @endhtmlonly 2011 Gareth McMullin <gareth@blacksphere.co.nz>
-
-@date 10 March 2013
-
-LGPL License Terms @ref lgpl_license
-*/
+ *
+ * @brief <b>LM4F General Purpose I/O</b>
+ *
+ * @ingroup LM4Fxx
+ *
+ * @version 1.0.0
+ *
+ * @author @htmlonly &copy; @endhtmlonly 2011 Gareth McMullin <gareth@blacksphere.co.nz>
+ *
+ * @date 10 March 2013
+ *
+ * LGPL License Terms @ref lgpl_license
+ */
 
 /*
  * This file is part of the libopencm3 project.
