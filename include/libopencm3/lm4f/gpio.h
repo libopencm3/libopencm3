@@ -6,9 +6,10 @@
  *
  * @version 1.0.0
  *
+ * @author @htmlonly &copy; @endhtmlonly 2011 Gareth McMullin <gareth@blacksphere.co.nz>
  * @author @htmlonly &copy; @endhtmlonly 2013 Alexandru Gagniuc <mr.nuke.me@gmail.com>
  *
- * @date 10 March 2013
+ * @date 16 March 2013
  *
  * LGPL License Terms @ref lgpl_license
  */
@@ -69,6 +70,8 @@
  * These are usable across all GPIO registers,
  * except GPIO_LOCK and GPIO_PCTL
  * ---------------------------------------------------------------------------*/
+/** @defgroup gpio_pin_id GPIO pin identifiers
+ * @{*/
 #define GPIO0				(1 << 0)
 #define GPIO1				(1 << 1)
 #define GPIO2				(1 << 2)
@@ -78,6 +81,7 @@
 #define GPIO6				(1 << 6)
 #define GPIO7				(1 << 7)
 #define GPIO_ALL			0xff
+/** @} */
 
 /* =============================================================================
  * GPIO registers
@@ -171,11 +175,157 @@
 #define GPIO_PCELL_ID2(port)		MMIO32(port + 0xFF8)
 #define GPIO_PCELL_ID3(port)		MMIO32(port + 0xFFC)
 
+/* =============================================================================
+ * Convenience enums
+ * ---------------------------------------------------------------------------*/
+enum gpio_mode {
+	GPIO_MODE_OUTPUT,	/**< Configure pin as output */
+	GPIO_MODE_INPUT,	/**< Configure pin as input */
+	GPIO_MODE_ANALOG,	/**< Configure pin as analog function */
+};
 
+enum gpio_pullup {
+	GPIO_PUPD_NONE,		/**< Do not pull the pin high or low */
+	GPIO_PUPD_PULLUP,	/**< Pull the pin high */
+	GPIO_PUPD_PULLDOWN,	/**< Pull the pin low */
+};
+
+enum gpio_output_type {
+	GPIO_OTYPE_PP,		/**< Push-pull configuration */
+	GPIO_OTYPE_OD,		/**< Open drain configuration */
+};
+
+enum gpio_drive_strength {
+	GPIO_DRIVE_2MA,		/**< 2mA drive */
+	GPIO_DRIVE_4MA,		/**< 4mA drive */
+	GPIO_DRIVE_8MA,		/**< 8mA drive */
+	GPIO_DRIVE_8MA_SLEW_CTL,/**< 8mA drive with slew rate control */
+};
+/* =============================================================================
+ * Function prototypes
+ * ---------------------------------------------------------------------------*/
 BEGIN_DECLS
 
-void gpio_set(u32 gpioport, u8 gpios);
-void gpio_clear(u32 gpioport, u8 gpios);
+void gpio_enable_ahb_aperture(void);
+void gpio_mode_setup(u32 gpioport, enum gpio_mode mode, enum gpio_pullup pullup,
+		     u8 gpios);
+void gpio_set_output_config(u32 gpioport, enum gpio_output_type otype,
+			    enum gpio_drive_strength drive, u8 gpios);
+void gpio_set_af(u32 gpioport, u8 alt_func_num, u8 gpios);
+
+void gpio_toggle(u32 gpioport, u8 gpios);
+void gpio_unlock_commit(u32 gpioport, u8 gpios);
+
+/* Let's keep these ones inlined. GPIO control should be fast */
+/** @ingroup gpio_control
+ * @{ */
+
+/**
+ * \brief Get status of a Group of Pins (atomic)
+ *
+ * Reads the level of the given pins. Bit 0 of the returned data corresponds to
+ * GPIO0 level, bit 1 to GPIO1 level. and so on. Bits corresponding to masked
+ * pins (corresponding bit of gpios parameter set to zero) are returned as 0.
+ *
+ * This is an atomic operation.
+ *
+ * @param[in] gpioport GPIO block register address base @ref gpio_reg_base
+ * @param[in] gpios @ref gpio_pin_id. Any combination of pins may be specified
+ *		    by OR'ing then together.
+ *
+ * @return The level of the GPIO port. The pins not specified in gpios are
+ * 	   masked to zero.
+ */
+static inline u8 gpio_read(u32 gpioport, u8 gpios)
+{
+	return GPIO_DATA(gpioport)[gpios];
+}
+
+/**
+ * \brief Set level of a Group of Pins (atomic)
+ *
+ * Sets the level of the given pins. Bit 0 of the data parameter corresponds to
+ * GPIO0, bit 1 to GPIO1. and so on. Maskedpins (corresponding bit of gpios
+ * parameter set to zero) are returned not affected.
+ *
+ * This is an atomic operation.
+ *
+ * @param[in] gpioport GPIO block register address base @ref gpio_reg_base
+ * @param[in] gpios @ref gpio_pin_id. Any combination of pins may be specified
+ *		    by OR'ing then together.
+ * @param[in] data Level to set pin to. Bit 0 of data corresponds to GPIO0, bit
+ *		   1 to GPIO1. and so on.
+ */
+static inline void gpio_write(u32 gpioport, u8 gpios, u8 data)
+{
+	/* ipaddr[9:2] mask the bits to be set, hence the array index */
+	GPIO_DATA(gpioport)[gpios] = data;
+}
+
+/**
+ * \brief Set a Group of Pins (atomic)
+ *
+ * Set one or more pins of the given GPIO port. This is an atomic operation.
+ *
+ * @param[in] gpioport GPIO block register address base @ref gpio_reg_base
+ * @param[in] gpios @ref gpio_pin_id. Any combination of pins may be specified
+ *		    by OR'ing then together.
+ */
+static inline void gpio_set(u32 gpioport, u8 gpios)
+{
+	gpio_write(gpioport, gpios, 0xff);
+}
+
+/**
+ * \brief Clear a Group of Pins (atomic)
+ *
+ * Clear one or more pins of the given GPIO port. This is an atomic operation.
+ *
+ * @param[in] gpioport GPIO block register address base @ref gpio_reg_base
+ * @param[in] gpios @ref gpio_pin_id. Any combination of pins may be specified
+ *		    by OR'ing then together.
+ */
+static inline void gpio_clear(u32 gpioport, u8 gpios)
+{
+	gpio_write(gpioport, gpios, 0);
+}
+
+/**
+ * \brief Read level of all pins from a port (atomic)
+ *
+ * Read the current value of the given GPIO port. This is an atomic operation.
+ *
+ * This is functionally identical to @ref gpio_read (gpioport, GPIO_ALL).
+ *
+ * @param[in] gpioport GPIO block register address base @ref gpio_reg_base
+ *
+ * @return The level of all the pins on the GPIO port.
+ */
+static inline u8 gpio_port_read(u32 gpioport)
+{
+	return gpio_read(gpioport, GPIO_ALL);
+}
+
+/**
+ * \brief Set level of of all pins from a port (atomic)
+ *
+ * Set the level of all pins on the given GPIO port. This is an atomic operation.
+ *
+ * This is functionally identical to @ref gpio_write (gpioport, GPIO_ALL, data).
+ *
+ * @param[in] gpioport GPIO block register address base @ref gpio_reg_base
+ * @param[in] gpios @ref gpio_pin_id. Any combination of pins may be specified
+ *		    by OR'ing then together.
+ * @param[in] data Level to set pin to. Bit 0 of data corresponds to GPIO0, bit
+ *		   1 to GPIO1. and so on.
+ */
+static inline void gpio_port_write(u32 gpioport, u8 data)
+{
+	gpio_write(gpioport, GPIO_ALL, data);
+}
+
+
+/** @} */
 
 END_DECLS
 
