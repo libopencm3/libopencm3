@@ -442,5 +442,153 @@ void gpio_toggle(u32 gpioport, u8 gpios)
 }
 /**@}*/
 
+
+/** @defgroup gpio_irq GPIO Interrupt control
+ * @ingroup gpio_file
+ *
+ * \brief <b>Configuring interrupts from GPIO pins</b>
+ *
+ * GPIO pins can trigger interrupts on either edges or levels. The type of
+ * trigger can be configured with @ref gpio_configure_int_trigger(). To have an
+ * event on the given pin generate an interrupt, its interrupt source must be
+ * unmasked. This can be achieved with @ref gpio_enable_interrupts(). Interrupts
+ * which are no longer needed can be disabled through
+ * @ref gpio_disable_interrupts().
+ *
+ * In order for the interrupt to generate an IRQ and a call to the interrupt
+ * service routine, the interrupt for the GPIO port must be routed through the
+ * NVIC with @ref nvic_enable_irq(). For this last step, the nvic.h header is
+ * needed:
+ * @code{.c}
+ *	#include <libopencm3/lm4f/nvic.h>
+ * @endcode
+ *
+ * Enabling an interrupt is as simple as configuring the desired trigger,
+ * unmasking the desired interrupt, and routing the desired GPIO port's
+ * interrupt through the NVIC.
+ * @code{.c}
+ *	// Trigger interrupt on each rising edge
+ *	gpio_configure_trigger(GPIOF, GPIO_TRIG_EDGE_RISE, GPIO0 | GPIO4);
+ *	// Unmask the interrupt on those pins
+ *	gpio_enable_interrupts(GPIOF, GPIO0 | GPIO4);
+ *	// Enable the interrupt in the NVIC as well
+ *	nvic_enable_irq(NVIC_GPIOF_IRQ);
+ * @endcode
+ *
+ * After interrupts are properly enabled and routed through the NVIC, when an
+ * event occurs, the appropriate IRQ flag is set by hardware, and execution
+ * jumps to the GPIO ISR. The ISR should query the IRQ flags to determine which
+ * event caused the interrupt. For this, use @ref gpio_is_interrupt_source(),
+ * with the desired GPIO flag. After one or more interrupt sources are
+ * serviced, the IRQ flags must be cleared by the ISR. This can be done with
+ * @ref gpio_clear_interrupt_flag().
+ *
+ * A typical GPIO ISR may look like the following:
+ * @code{.c}
+ * void gpiof_isr(void)
+ * {
+ *	u8 serviced_irqs = 0;
+ *
+ *	// Process individual IRQs
+ *	if (gpio_is_interrupt_source(GPIOF, GPIO0)) {
+ *		process_gpio0_event();
+ *		serviced_irq |= GPIO0;
+ *	}
+ *	if (gpio_is_interrupt_source(GPIOF, GPIO4)) {
+ *		process_gpio4_event();
+ *		serviced_irq |= GPIO4;
+ *	}
+ *
+ *	// Clear the interupt flag for the processed IRQs
+ *	gpio_clear_interrupt_flag(GPIOF, serviced_irqs);
+ * }
+ * @endcode
+ */
+/**@{*/
+/**
+ * \brief Configure the interrupt trigger on the given GPIO pins
+ *
+ * Sets the Pin direction, analog/digital mode, and pull-up configuration of
+ * or a set of GPIO pins on a given GPIO port.
+ *
+ * @param[in] gpioport GPIO block register address base @ref gpio_reg_base
+ * @param[in] trigger Trigger configuration (@ref gpio_trigger) \n
+ *		      - GPIO_TRIG_LVL_LOW -- Trigger on low level \n
+ *		      - GPIO_TRIG_LVL_HIGH -- Trigger on high level \n
+ *		      - GPIO_TRIG_EDGE_FALL -- Trigger on falling edges \n
+ *		      - GPIO_TRIG_EDGE_RISE -- Trigger on rising edges \n
+ *		      - GPIO_TRIG_EDGE_BOTH -- Trigger on all edges
+ * @param[in] gpios @ref gpio_pin_id. Any combination of pins may be specified
+ *		    by OR'ing then together
+ */
+void gpio_configure_trigger(u32 gpioport, enum gpio_trigger trigger, u8 gpios)
+{
+	switch (trigger) {
+	case GPIO_TRIG_LVL_LOW:
+		GPIO_IS(gpioport) |= gpios;
+		GPIO_IEV(gpioport) &= ~gpios;
+		break;
+	case GPIO_TRIG_LVL_HIGH:
+		GPIO_IS(gpioport) |= gpios;
+		GPIO_IEV(gpioport) |= gpios;
+		break;
+	case GPIO_TRIG_EDGE_FALL:
+		GPIO_IS(gpioport) &= ~gpios;
+		GPIO_IBE(gpioport) &= ~gpios;
+		GPIO_IEV(gpioport) &= ~gpios;
+		break;
+	case GPIO_TRIG_EDGE_RISE:
+		GPIO_IS(gpioport) &= ~gpios;
+		GPIO_IBE(gpioport) &= ~gpios;
+		GPIO_IEV(gpioport) |= gpios;
+		break;
+	case GPIO_TRIG_EDGE_BOTH:
+		GPIO_IS(gpioport) &= ~gpios;
+		GPIO_IBE(gpioport) |= gpios;
+		break;
+	default:
+		/* Don't do anything */
+		break;
+	}
+}
+
+/**
+ * \brief Enable interrupts on specified GPIO pins
+ *
+ * Enable interrupts on the specified GPIO pins
+ *
+ * Note that the NVIC must be enabled and properly configured for the interrupt
+ * to be routed to the CPU.
+ *
+ * @param[in] gpioport GPIO block register address base @ref gpio_reg_base
+ * @param[in] gpios @ref gpio_pin_id. Pins whose interrupts to enable. Any
+ *		    combination of pins may be specified by OR'ing them
+ *		    together.
+ */
+void gpio_enable_interrupts(u32 gpioport, u8 gpios)
+{
+	GPIO_IM(gpioport) |= gpios;
+}
+
+/**
+ * \brief Disable interrupts on specified GPIO pins
+ *
+ * Disable interrupts on the specified GPIO pins
+ *
+ * Note that the NVIC must be enabled and properly configured for the interrupt
+ * to be routed to the CPU.
+ *
+ * @param[in] gpioport GPIO block register address base @ref gpio_reg_base
+ * @param[in] gpios @ref gpio_pin_id. Pins whose interrupts to disable. Any
+ *		    combination of pins may be specified by OR'ing them
+ *		    together.
+ */
+void gpio_disable_interrupts(u32 gpioport, u8 gpios)
+{
+	GPIO_IM(gpioport) |= gpios;
+}
+
+/**@}*/
+
 /**@}*/
 
