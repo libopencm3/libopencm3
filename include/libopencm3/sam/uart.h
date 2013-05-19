@@ -21,7 +21,7 @@
 #define SAM3X_UART_H
 
 #include <libopencm3/cm3/common.h>
-#include <libopencm3/sam3x/memorymap.h>
+#include <libopencm3/sam/memorymap.h>
 
 /* --- Universal Asynchronous Receiver Transmitter (UART) registers ------- */
 #define UART_CR				MMIO32(UART_BASE + 0x0000)

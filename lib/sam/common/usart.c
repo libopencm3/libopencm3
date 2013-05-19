@@ -17,8 +17,8 @@
  * along with this library.  If not, see <http://www.gnu.org/licenses/>.
  */
 
-#include <libopencm3/sam3x/usart.h>
-#include <libopencm3/sam3x/pmc.h>
+#include <libopencm3/sam/usart.h>
+#include <libopencm3/sam/pmc.h>
 
 void usart_set_baudrate(u32 usart, u32 baud)
 {

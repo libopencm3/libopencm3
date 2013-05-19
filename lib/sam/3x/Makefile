@@ -23,14 +23,14 @@ PREFIX		?= arm-none-eabi
 #PREFIX		?= arm-elf
 CC		= $(PREFIX)-gcc
 AR		= $(PREFIX)-ar
-CFLAGS		= -Os -g -Wall -Wextra -I../../include -fno-common \
+CFLAGS		= -Os -g -Wall -Wextra -I../../../include -fno-common \
 		  -mcpu=cortex-m3 -mthumb -Wstrict-prototypes \
 		  -ffunction-sections -fdata-sections -MD -DSAM3X
 # ARFLAGS	= rcsv
 ARFLAGS		= rcs
 OBJS		= gpio.o pmc.o usart.o
 
-VPATH += ../usb:../cm3
+VPATH += ../../usb:../../cm3:../common
 
-include ../Makefile.include
+include ../../Makefile.include
 

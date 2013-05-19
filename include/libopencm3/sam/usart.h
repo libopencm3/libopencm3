@@ -21,7 +21,7 @@
 #define SAM3X_USART_H
 
 #include <libopencm3/cm3/common.h>
-#include <libopencm3/sam3x/memorymap.h>
+#include <libopencm3/sam/memorymap.h>
 
 #define USART0		USART0_BASE
 #define USART1		USART1_BASE
