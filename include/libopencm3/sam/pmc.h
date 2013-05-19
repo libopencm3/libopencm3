@@ -140,6 +140,7 @@ void pmc_plla_config(u8 mul, u8 div);
 void pmc_peripheral_clock_enable(u8 pid);
 void pmc_peripheral_clock_disable(u8 pid);
 void pmc_clock_setup_in_xtal_12mhz_out_84mhz(void);
+void pmc_clock_setup_in_rc_4mhz_out_84mhz(void);
 
 #endif
 
