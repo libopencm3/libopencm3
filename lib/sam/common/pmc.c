@@ -79,3 +79,17 @@ void pmc_clock_setup_in_xtal_12mhz_out_84mhz(void)
 	pmc_mck_frequency = 84000000;
 }
 
+void pmc_clock_setup_in_rc_4mhz_out_84mhz(void)
+{
+	eefc_set_latency(4);
+
+	/* Select as main oscillator */
+	CKGR_MOR = CKGR_MOR_KEY |
+		(CKGR_MOR & ~(CKGR_MOR_MOSCSEL | CKGR_MOR_MOSCRCF_MASK));
+	/* Multiply by 21 for 84MHz */
+	pmc_plla_config(21, 1);
+	pmc_mck_set_source(MCK_SRC_PLLA);
+
+	pmc_mck_frequency = 84000000;
+}
+
