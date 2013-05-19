@@ -17,8 +17,8 @@
  * along with this library.  If not, see <http://www.gnu.org/licenses/>.
  */
 
-#include <libopencm3/sam3x/pmc.h>
-#include <libopencm3/sam3x/eefc.h>
+#include <libopencm3/sam/pmc.h>
+#include <libopencm3/sam/eefc.h>
 
 /** Default peripheral clock frequency after reset. */
 u32 pmc_mck_frequency = 4000000;

@@ -21,9 +21,10 @@
 #define SAM3X_EEFC_H
 
 #include <libopencm3/cm3/common.h>
-#include <libopencm3/sam3x/memorymap.h>
+#include <libopencm3/sam/memorymap.h>
 
 /* --- Convenience macros ------------------------------------------------ */
+#define EEFC				EEFC_BASE
 #define EEFC0				EEFC0_BASE
 #define EEFC1				EEFC1_BASE
 
@@ -70,8 +71,12 @@
 
 static inline void eefc_set_latency(u8 wait)
 {
+#if defined(SAM3X)
 	EEFC_FMR(EEFC0) = (EEFC_FMR(EEFC0) & ~EEFC_FMR_FWS_MASK) | (wait << 8);
 	EEFC_FMR(EEFC1) = (EEFC_FMR(EEFC1) & ~EEFC_FMR_FWS_MASK) | (wait << 8);
+#elif defined(SAM3N)
+	EEFC_FMR(EEFC) = (EEFC_FMR(EEFC) & ~EEFC_FMR_FWS_MASK) | (wait << 8);
+#endif
 }
 
 #endif

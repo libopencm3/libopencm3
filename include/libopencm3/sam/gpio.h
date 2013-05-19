@@ -20,7 +20,7 @@
 #ifndef SAM3X_GPIO_H
 #define SAM3X_GPIO_H
 
-#include <libopencm3/sam3x/pio.h>
+#include <libopencm3/sam/pio.h>
 
 /* flags may be or'd together, but only contain one of
  * GPOUTPUT, PERIPHA and PERIPHB */

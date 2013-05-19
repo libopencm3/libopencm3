@@ -21,7 +21,7 @@
 #define SAM3X_TC_H
 
 #include <libopencm3/cm3/common.h>
-#include <libopencm3/sam3x/memorymap.h>
+#include <libopencm3/sam/memorymap.h>
 
 /* --- Timer Counter (TC) registers -------------------------------------- */
 

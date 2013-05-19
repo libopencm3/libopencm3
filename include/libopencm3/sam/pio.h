@@ -17,11 +17,11 @@
  * along with this library.  If not, see <http://www.gnu.org/licenses/>.
  */
 
-#ifndef SAM3X_PIO_H
-#define SAM3X_PIO_H
+#ifndef SAM_PIO_H
+#define SAM_PIO_H
 
 #include <libopencm3/cm3/common.h>
-#include <libopencm3/sam3x/memorymap.h>
+#include <libopencm3/sam/memorymap.h>
 
 /* --- Convenience macros ------------------------------------------------ */
 

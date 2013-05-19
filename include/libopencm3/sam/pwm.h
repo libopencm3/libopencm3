@@ -21,7 +21,7 @@
 #define SAM3X_PWM_H
 
 #include <libopencm3/cm3/common.h>
-#include <libopencm3/sam3x/memorymap.h>
+#include <libopencm3/sam/memorymap.h>
 
 /* --- Pulse Width Modulation (PWM) registers ----------------------- */
 
@@ -71,12 +71,20 @@
 /* 0x01B0:0x01FC - Reserved */
 #define PWM_CMR(x)			MMIO32(PWM_BASE + 0x0200 + 0x20*(x))
 #define PWM_CDTY(x)			MMIO32(PWM_BASE + 0x0204 + 0x20*(x))
-#define PWM_CDTYUPD(x)			MMIO32(PWM_BASE + 0x0208 + 0x20*(x))
-#define PWM_CPRD(x)			MMIO32(PWM_BASE + 0x020C + 0x20*(x))
-#define PWM_CPRDUPD(x)			MMIO32(PWM_BASE + 0x0210 + 0x20*(x))
-#define PWM_CCNT(x)			MMIO32(PWM_BASE + 0x0214 + 0x20*(x))
-#define PWM_DT(x)			MMIO32(PWM_BASE + 0x0218 + 0x20*(x))
-#define PWM_DTUPD(x)			MMIO32(PWM_BASE + 0x021C + 0x20*(x))
+#if defined(SAM3X)
+#	define PWM_CDTYUPD(x)		MMIO32(PWM_BASE + 0x0208 + 0x20*(x))
+#	define PWM_CPRD(x)		MMIO32(PWM_BASE + 0x020C + 0x20*(x))
+#	define PWM_CPRDUPD(x)		MMIO32(PWM_BASE + 0x0210 + 0x20*(x))
+#	define PWM_CCNT(x)		MMIO32(PWM_BASE + 0x0214 + 0x20*(x))
+#	define PWM_DT(x)		MMIO32(PWM_BASE + 0x0218 + 0x20*(x))
+#	define PWM_DTUPD(x)		MMIO32(PWM_BASE + 0x021C + 0x20*(x))
+#elif defined(SAM3N)
+#	define PWM_CPRD(x)		MMIO32(PWM_BASE + 0x0208 + 0x20*(x))
+#	define PWM_CCNT(x)		MMIO32(PWM_BASE + 0x020C + 0x20*(x))
+#	define PWM_CUPD(x)		MMIO32(PWM_BASE + 0x0210 + 0x20*(x))
+#else
+#	error "Processor family not defined."
+#endif
 
 static inline void pwm_set_period(int ch, u32 period)
 {
