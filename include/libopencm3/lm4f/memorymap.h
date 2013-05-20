@@ -51,6 +51,8 @@
 #define UART6_BASE			(0x40012000)
 #define UART7_BASE			(0x40013000)
 
+#define USB_BASE			(0x40050000)
+
 #define SYSCTL_BASE			(0x400FE000)
 
 #endif

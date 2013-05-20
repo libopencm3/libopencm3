@@ -32,8 +32,9 @@ CFLAGS		= -Os -g \
 		  -ffunction-sections -fdata-sections -MD -DLM4F
 # ARFLAGS	= rcsv
 ARFLAGS		= rcs
-OBJS		= gpio.o vector.o assert.o systemcontrol.o rcc.o uart.o
+OBJS		= gpio.o vector.o assert.o systemcontrol.o rcc.o uart.o \
+		  usb_lm4f.o usb.o usb_control.o usb_standard.o
 
-VPATH += ../cm3
+VPATH += ../usb:../cm3
 
 include ../Makefile.include
