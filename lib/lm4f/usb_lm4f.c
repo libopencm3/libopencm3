@@ -364,12 +364,18 @@ static u16 lm4f_ep_write_packet(usbd_device *usbd_dev, u8 addr,
 	}
 
 	/*
-	 * For some reason, using 16 or 32-bit transfers to the FIFO does not
-	 * work well.
+	 * We don't need to worry about buf not being aligned. If it's not,
+	 * the reads are downgraded to 8-bit in hardware. We lose a bit of
+	 * performance, but we don't crash.
 	 */
-	for (i = 0; i < len; i++)
-		USB_FIFO8(ep) = ((u8 *)buf)[i];
-
+	for (i = 0; i < (len & ~0x3); i += 4)
+		USB_FIFO32(ep) = *((u32 *)(buf + i));
+	if (len & 0x2) {
+		USB_FIFO16(ep) = *((u16 *)(buf + i));
+		i += 2;
+	}
+	if (len & 0x1)
+		USB_FIFO8(ep)  = *((u8 *)(buf + i));
 
 	if (ep == 0) {
 		/*
@@ -394,7 +400,6 @@ static u16 lm4f_ep_read_packet(usbd_device *usbd_dev, u8 addr, void *buf, u16 le
 {
 	(void)usbd_dev;
 
-	u8 * buffy = buf;
 	u16 rlen;
 	u8 ep = addr & 0xf;
 
@@ -402,8 +407,19 @@ static u16 lm4f_ep_read_packet(usbd_device *usbd_dev, u8 addr, void *buf, u16 le
 
 	rlen = (fifoin > len) ? len : fifoin;
 
-	for (len = 0; len < rlen; len++)
-		buffy[len] = USB_FIFO8(ep);
+	/*
+	 * We don't need to worry about buf not being aligned. If it's not,
+	 * the writes are downgraded to 8-bit in hardware. We lose a bit of
+	 * performance, but we don't crash.
+	 */
+	for (len = 0; len < (rlen & ~0x3); len += 4)
+		*((u32 *)(buf + len)) = USB_FIFO32(ep);
+	if (rlen & 0x2) {
+		*((u16 *)(buf + len)) = USB_FIFO16(ep);
+		len += 2;
+	}
+	if (rlen & 0x1)
+		*((u8 *)(buf + len)) = USB_FIFO8(ep);
 
 	if (ep == 0) {
 		/*
