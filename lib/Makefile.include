@@ -29,20 +29,19 @@ OBJS += vector.o systick.o scb.o nvic.o assert.o sync.o
 all: $(SRCLIBDIR)/$(LIBNAME).a
 
 $(SRCLIBDIR)/$(LIBNAME).a: $(SRCLIBDIR)/$(LIBNAME).ld $(OBJS)
-	@printf "  AR      $(shell basename $(@))\n"
-	$(Q)$(AR) $(ARFLAGS) $(SRCLIBDIR)/$(shell basename $(@)) $(OBJS)
+	@printf "  AR      $(@F)\n"
+	$(Q)$(AR) $(ARFLAGS) $@ $(OBJS)
 
 $(SRCLIBDIR)/$(LIBNAME).ld: $(LIBNAME).ld
-	@printf "  CP      $(LIBNAME).ld\n"
+	@printf "  CP      $(@F)\n"
 	$(Q)cp $^ $@
 	$(Q)if [ -f $(LIBNAME)_rom_to_ram.ld ]; then cp $(LIBNAME)_rom_to_ram.ld $(SRCLIBDIR); fi
 
 %.o: %.c
-	@printf "  CC      $(subst $(shell pwd)/,,$(@))\n"
+	@printf "  CC      $(<F)\n"
 	$(Q)$(CC) $(CFLAGS) -o $@ -c $<
 
 clean:
-	@printf "  CLEAN   lib$(subst $(shell cd $(dir $(lastword $(MAKEFILE_LIST))) && pwd),,$(shell pwd))\n"
 	$(Q)rm -f *.o *.d ../*.o ../*.d
 	$(Q)rm -f $(SRCLIBDIR)/$(LIBNAME).a
 	$(Q)rm -f $(SRCLIBDIR)/$(LIBNAME).ld
