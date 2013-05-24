@@ -558,6 +558,68 @@ void uart_disable_tx_dma(u32 uart)
 }
 /**@}*/
 
+/** @defgroup uart_fifo UART FIFO control
+ * @ingroup uart_file
+ *
+ * \brief <b>Enabling and controlling UART FIFO</b>
+ *
+ * The UART on the LM4F can either be used with a single character TX and RX
+ * buffer, or with a 8 character TX and RX FIFO. In order to use the FIFO it
+ * must be enabled, this is done with uart_enable_fifo() and can be disabled
+ * again with uart_disable_fifo().  On reset the FIFO is disabled, and it must
+ * be explicitly be enabled.
+ *
+ * When enabling the UART FIFOs, RX and TX interrupts are triggered according
+ * to the amount of data in the FIFOs. For the RX FIFO the trigger level is
+ * defined by how full the FIFO is.  The TX FIFO trigger level is defined by
+ * how empty the FIFO is instead.
+ *
+ * For example, to enable the FIFOs and trigger interrupts for a single
+ * received and single transmitted character:
+ * @code{.c}
+ *	uart_enable_fifo(UART0);
+ *	uart_set_fifo_trigger_levels(UART0, UART_FIFO_RX_TRIG_1_8,
+ *	                             UART_FIFO_TX_TRIG_7_8);
+ * @endcode
+ */
+/**@{*/
+
+/**
+ * \brief Enable FIFO for the UART.
+ *
+ * @param[in] uart UART block register address base @ref uart_reg_base
+ */
+void uart_enable_fifo(u32 uart)
+{
+	UART_LCRH(uart) |= UART_LCRH_FEN;
+}
+
+/**
+ * \brief Disable FIFO for the UART.
+ *
+ * @param[in] uart UART block register address base @ref uart_reg_base
+ */
+void uart_disable_fifo(u32 uart)
+{
+	UART_LCRH(uart) &= ~UART_LCRH_FEN;
+}
+
+/**
+ * \brief Set the FIFO trigger levels.
+ *
+ * @param[in] uart UART block register address base @ref uart_reg_base
+ * @param[in] rx_level Trigger level for RX FIFO
+ * @param[in] tx_level Trigger level for TX FIFO
+ */
+void uart_set_fifo_trigger_levels(u32 uart,
+				  enum uart_fifo_rx_trigger_level rx_level,
+				  enum uart_fifo_tx_trigger_level tx_level)
+{
+	UART_IFLS(uart) = rx_level | tx_level;
+}
+/**@}*/
+
+
 /**
  * @}
  */
