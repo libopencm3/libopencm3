@@ -400,6 +400,41 @@ enum uart_interrupt_flag {
 	UART_INT_RI	= UART_IM_RIIM,
 };
 
+/**
+ * \brief UART RX FIFO interrupt trigger levels
+ *
+ * The levels indicate how full the FIFO should be before an interrupt is
+ * generated.  UART_FIFO_RX_TRIG_3_4 means that an interrupt is triggered when
+ * the FIFO is 3/4 full. As the FIFO is 8 elements deep, 1/8 is equal to being
+ * triggered by a single character.
+ */
+enum uart_fifo_rx_trigger_level {
+	UART_FIFO_RX_TRIG_1_8	= UART_IFLS_RXIFLSEL_1_8,
+	UART_FIFO_RX_TRIG_1_4	= UART_IFLS_RXIFLSEL_1_4,
+	UART_FIFO_RX_TRIG_1_2	= UART_IFLS_RXIFLSEL_1_2,
+	UART_FIFO_RX_TRIG_3_4	= UART_IFLS_RXIFLSEL_3_4,
+	UART_FIFO_RX_TRIG_7_8	= UART_IFLS_RXIFLSEL_7_8
+};
+
+/**
+ * \brief UART TX FIFO interrupt trigger levels
+ *
+ * The levels indicate how empty the FIFO should be before an interrupt is
+ * generated.  Note that this indicates the emptiness of the FIFO and not the
+ * fullness. This is somewhat confusing, but it follows the wording of the
+ * LM4F120H5QR datasheet.
+ *
+ * UART_FIFO_TX_TRIG_3_4 means that an interrupt is triggered when the FIFO is
+ * 3/4 empty. As the FIFO is 8 elements deep, 7/8 is equal to being triggered
+ * by a single character.
+ */
+enum uart_fifo_tx_trigger_level {
+	UART_FIFO_TX_TRIG_7_8	= UART_IFLS_TXIFLSEL_7_8,
+	UART_FIFO_TX_TRIG_3_4	= UART_IFLS_TXIFLSEL_3_4,
+	UART_FIFO_TX_TRIG_1_2	= UART_IFLS_TXIFLSEL_1_2,
+	UART_FIFO_TX_TRIG_1_4	= UART_IFLS_TXIFLSEL_1_4,
+	UART_FIFO_TX_TRIG_1_8	= UART_IFLS_TXIFLSEL_1_8
+};
 
 /* =============================================================================
  * Function prototypes
@@ -428,6 +463,57 @@ void uart_enable_rx_dma(u32 uart);
 void uart_disable_rx_dma(u32 uart);
 void uart_enable_tx_dma(u32 uart);
 void uart_disable_tx_dma(u32 uart);
+
+void uart_enable_fifo(u32 uart);
+void uart_disable_fifo(u32 uart);
+void uart_set_fifo_trigger_levels(u32 uart,
+				  enum uart_fifo_rx_trigger_level rx_level,
+				  enum uart_fifo_tx_trigger_level tx_level);
+
+/* We inline FIFO full/empty checks as they are intended to be called from ISRs
+ * */
+/** @ingroup uart_fifo
+ * @{
+ * \brief Determine if the TX fifo is full
+ *
+ * @param[in] uart UART block register address base @ref uart_reg_base
+ */
+static inline
+bool uart_is_tx_fifo_full(u32 uart) {
+	return UART_FR(uart) & UART_FR_TXFF;
+}
+
+
+/**
+ * \brief Determine if the TX fifo is empty
+ *
+ * @param[in] uart UART block register address base @ref uart_reg_base
+ */
+static inline
+bool uart_is_tx_fifo_empty(u32 uart) {
+	return UART_FR(uart) & UART_FR_TXFE;
+}
+
+/**
+ * \brief Determine if the RX fifo is full
+ *
+ * @param[in] uart UART block register address base @ref uart_reg_base
+ */
+static inline
+bool uart_is_rx_fifo_full(u32 uart) {
+	return UART_FR(uart) & UART_FR_RXFF;
+}
+
+/**
+ * \brief Determine if the RX fifo is empty
+ *
+ * @param[in] uart UART block register address base @ref uart_reg_base
+ */
+static inline
+bool uart_is_rx_fifo_empty(u32 uart) {
+	return UART_FR(uart) & UART_FR_RXFE;
+}
+/**@}*/
 
 void uart_enable_interrupts(u32 uart, enum uart_interrupt_flag ints);
 void uart_disable_interrupts(u32 uart, enum uart_interrupt_flag ints);
