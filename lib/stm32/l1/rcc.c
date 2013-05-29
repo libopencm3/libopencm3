@@ -466,6 +466,7 @@ void rcc_clock_setup_msi(const clock_scale_t *clock)
 	rcc_set_ppre1(clock->ppre1);
 	rcc_set_ppre2(clock->ppre2);
 
+	rcc_peripheral_enable_clock(&RCC_APB1ENR, RCC_APB1ENR_PWREN);
 	pwr_set_vos_scale(clock->voltage_scale);
 
 	// I guess this should be in the settings?
@@ -496,6 +497,7 @@ void rcc_clock_setup_hsi(const clock_scale_t *clock)
 	rcc_set_ppre1(clock->ppre1);
 	rcc_set_ppre2(clock->ppre2);
 
+	rcc_peripheral_enable_clock(&RCC_APB1ENR, RCC_APB1ENR_PWREN);
 	pwr_set_vos_scale(clock->voltage_scale);
 
 	// I guess this should be in the settings?
@@ -523,6 +525,7 @@ void rcc_clock_setup_pll(const clock_scale_t *clock)
 	rcc_set_ppre1(clock->ppre1);
 	rcc_set_ppre2(clock->ppre2);
 
+	rcc_peripheral_enable_clock(&RCC_APB1ENR, RCC_APB1ENR_PWREN);
 	pwr_set_vos_scale(clock->voltage_scale);
 
 	// I guess this should be in the settings?
