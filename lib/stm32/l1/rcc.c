@@ -515,9 +515,6 @@ void rcc_clock_setup_pll(const clock_scale_t *clock)
 	rcc_osc_on(HSI);
 	rcc_wait_for_osc_ready(HSI);
 
-	/* Select HSI as SYSCLK source. */
-	rcc_set_sysclk_source(RCC_CFGR_SW_SYSCLKSEL_HSICLK);
-
 	/*
 	 * Set prescalers for AHB, ADC, ABP1, ABP2.
 	 * Do this before touching the PLL (TODO: why?).
