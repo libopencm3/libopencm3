@@ -726,6 +726,7 @@ void adc_enable_temperature_sensor(u32 adc);
 void adc_disable_temperature_sensor(u32 adc);
 void adc_start_conversion_regular(u32 adc);
 void adc_start_conversion_injected(u32 adc);
+void adc_set_clk_prescale(u32 prescaler);
 void adc_enable_external_trigger_regular(u32 adc, u32 mode, u32 trigger);
 void adc_disable_external_trigger_regular(u32 adc);
 void adc_enable_external_trigger_injected(u32 adc, u32 mode, u32 trigger);

@@ -121,6 +121,21 @@ void adc_power_on(u32 adc)
 }
 
 /*-----------------------------------------------------------------------------*/
+/** @brief ADC Set Clock Prescale
+
+The ADC clock taken from the APB2 clock can be scaled down by 2, 4, 6 or 8.
+
+@param[in] prescale Unsigned int32. Prescale value for ADC Clock @ref adc_ccr_adcpre
+*/
+
+void adc_set_clk_prescale(u32 prescale)
+{
+	u32 reg32 = ((ADC_CCR & ~ADC_CCR_ADCPRE_MASK) | prescale);
+	ADC_CCR = reg32;
+}
+
+
+/*-----------------------------------------------------------------------------*/
 /** @brief ADC Start a Conversion Without Trigger
 
 This initiates a conversion by software without a trigger. The ADC needs to be
