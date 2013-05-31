@@ -354,7 +354,7 @@ LGPL License Terms @ref lgpl_license
 /* JEXTEN: */ /** External trigger conversion mode for injected channels. */
 /****************************************************************************/
 /* ADC_CR2 JEXTEN[1:0] ADC Trigger Identifier */
-/** @defgroup adc_trigger_mode_regular ADC Trigger Mode
+/** @defgroup adc_trigger_mode_injected ADC Trigger Mode
 @ingroup STM32F1xx_adc_defines
 
 @{*/

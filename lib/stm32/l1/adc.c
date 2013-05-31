@@ -139,47 +139,6 @@ void adc_start_conversion_direct(u32 adc)
 }
 
 /*-----------------------------------------------------------------------------*/
-/** @brief ADC Set Dual A/D Mode
-
-The dual mode uses ADC1 as master and ADC2 in a slave arrangement. This setting
-is applied to ADC1 only. Start of conversion when triggered can cause simultaneous
-conversion with ADC2, or alternate conversion. Regular and injected conversions
-can be configured, each one being separately simultaneous or alternate.
-
-Fast interleaved mode starts ADC1 immediately on trigger, and ADC2 seven clock
-cycles later.
-
-Slow interleaved mode starts ADC1 immediately on trigger, and ADC2 fourteen clock
-cycles later, followed by ADC1 fourteen cycles later again. This can only be used
-on a single channel.
-
-Alternate trigger mode must occur on an injected channel group, and alternates
-between the ADCs on each trigger.
-
-Note that sampling must not overlap between ADCs on the same channel.
-
-Dual A/D converter modes possible:
-
-@li IND: Independent mode.
-@li CRSISM: Combined regular simultaneous + injected simultaneous mode.
-@li CRSATM: Combined regular simultaneous + alternate trigger mode.
-@li CISFIM: Combined injected simultaneous + fast interleaved mode.
-@li CISSIM: Combined injected simultaneous + slow interleaved mode.
-@li ISM: Injected simultaneous mode only.
-@li RSM: Regular simultaneous mode only.
-@li FIM: Fast interleaved mode only.
-@li SIM: Slow interleaved mode only.
-@li ATM: Alternate trigger mode only.
-
-@param[in] mode Unsigned int32. Dual mode selection from @ref adc_cr1_dualmod
-*/
-
-void adc_set_dual_mode(u32 mode)
-{
-	ADC1_CR1 |= mode;
-}
-
-/*-----------------------------------------------------------------------------*/
 /** @brief ADC Read the End-of-Conversion Flag
 
 This flag is set after all channels of a regular or injected group have been
