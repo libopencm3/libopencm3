@@ -987,17 +987,5 @@ void adc_set_injected_sequence(u32 adc, u8 length, u8 channel[])
 	ADC_JSQR(adc) = reg32;
 }
 
-/*-----------------------------------------------------------------------------*/
-
-/* Aliases */
-
-#ifdef __GNUC__
-void adc_set_continous_conversion_mode(u32 adc) __attribute__ ((alias("adc_set_continuous_conversion_mode")));
-void adc_set_conversion_time(u32 adc, u8 channel, u8 time) __attribute__ ((alias ("adc_set_sample_time")));
-void adc_set_conversion_time_on_all_channels(u32 adc, u8 time) __attribute__ ((alias ("adc_set_sample_time_on_all_channels")));
-void adc_enable_jeoc_interrupt(u32 adc) __attribute__ ((alias ("adc_enable_eoc_interrupt_injected")));
-void adc_disable_jeoc_interrupt(u32 adc) __attribute__ ((alias ("adc_disable_eoc_interrupt_injected")));
-#endif
-
 /**@}*/
 

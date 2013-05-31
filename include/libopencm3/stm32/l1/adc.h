@@ -733,11 +733,6 @@ void adc_set_watchdog_low_threshold(u32 adc, u16 threshold);
 void adc_set_regular_sequence(u32 adc, u8 length, u8 channel[]);
 void adc_set_injected_sequence(u32 adc, u8 length, u8 channel[]);
 
-void adc_set_continous_conversion_mode(u32 adc) LIBOPENCM3_DEPRECATED("change to adc_set_continuous_conversion_mode");
-void adc_set_conversion_time(u32 adc, u8 channel, u8 time) LIBOPENCM3_DEPRECATED("change to adc_set_sample_time");
-void adc_set_conversion_time_on_all_channels(u32 adc, u8 time) LIBOPENCM3_DEPRECATED("change to adc_set_sample_time_on_all_channels");
-void adc_enable_jeoc_interrupt(u32 adc) LIBOPENCM3_DEPRECATED("change to adc_enable_eoc_interrupt_injected");
-void adc_disable_jeoc_interrupt(u32 adc) LIBOPENCM3_DEPRECATED("change to adc_disable_eoc_interrupt_injected");
 END_DECLS
 
 #endif
