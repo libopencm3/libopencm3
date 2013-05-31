@@ -470,14 +470,14 @@ LGPL License Terms @ref lgpl_license
 @ingroup STM32F4xx_adc_defines
 
 @{*/
-#define ADC_SMPR1_SMP_1DOT5CYC		0x0
-#define ADC_SMPR1_SMP_7DOT5CYC		0x1
-#define ADC_SMPR1_SMP_13DOT5CYC		0x2
-#define ADC_SMPR1_SMP_28DOT5CYC		0x3
-#define ADC_SMPR1_SMP_41DOT5CYC		0x4
-#define ADC_SMPR1_SMP_55DOT5CYC		0x5
-#define ADC_SMPR1_SMP_71DOT5CYC		0x6
-#define ADC_SMPR1_SMP_239DOT5CYC	0x7
+#define ADC_SMPR1_SMP_3CYC		0x0
+#define ADC_SMPR1_SMP_15CYC		0x1
+#define ADC_SMPR1_SMP_28CYC		0x2
+#define ADC_SMPR1_SMP_56CYC		0x3
+#define ADC_SMPR1_SMP_84CYC		0x4
+#define ADC_SMPR1_SMP_112CYC		0x5
+#define ADC_SMPR1_SMP_144CYC		0x6
+#define ADC_SMPR1_SMP_480CYC		0x7
 /**@}*/
 
 /* --- ADC_SMPR2 values ---------------------------------------------------- */
@@ -508,14 +508,14 @@ LGPL License Terms @ref lgpl_license
 @ingroup STM32F4xx_adc_defines
 
 @{*/
-#define ADC_SMPR2_SMP_1DOT5CYC		0x0
-#define ADC_SMPR2_SMP_7DOT5CYC		0x1
-#define ADC_SMPR2_SMP_13DOT5CYC		0x2
-#define ADC_SMPR2_SMP_28DOT5CYC		0x3
-#define ADC_SMPR2_SMP_41DOT5CYC		0x4
-#define ADC_SMPR2_SMP_55DOT5CYC		0x5
-#define ADC_SMPR2_SMP_71DOT5CYC		0x6
-#define ADC_SMPR2_SMP_239DOT5CYC	0x7
+#define ADC_SMPR2_SMP_3CYC		0x0
+#define ADC_SMPR2_SMP_15CYC		0x1
+#define ADC_SMPR2_SMP_28CYC		0x2
+#define ADC_SMPR2_SMP_56CYC		0x3
+#define ADC_SMPR2_SMP_84CYC		0x4
+#define ADC_SMPR2_SMP_112CYC		0x5
+#define ADC_SMPR2_SMP_144CYC		0x6
+#define ADC_SMPR2_SMP_480CYC		0x7
 /**@}*/
 
 /* --- ADC_SMPRx generic values -------------------------------------------- */
@@ -525,14 +525,14 @@ LGPL License Terms @ref lgpl_license
 @ingroup STM32F4xx_adc_defines
 
 @{*/
-#define ADC_SMPR_SMP_1DOT5CYC		0x0
-#define ADC_SMPR_SMP_7DOT5CYC		0x1
-#define ADC_SMPR_SMP_13DOT5CYC		0x2
-#define ADC_SMPR_SMP_28DOT5CYC		0x3
-#define ADC_SMPR_SMP_41DOT5CYC		0x4
-#define ADC_SMPR_SMP_55DOT5CYC		0x5
-#define ADC_SMPR_SMP_71DOT5CYC		0x6
-#define ADC_SMPR_SMP_239DOT5CYC		0x7
+#define ADC_SMPR_SMP_3CYC		0x0
+#define ADC_SMPR_SMP_15CYC		0x1
+#define ADC_SMPR_SMP_28CYC		0x2
+#define ADC_SMPR_SMP_56CYC		0x3
+#define ADC_SMPR_SMP_84CYC		0x4
+#define ADC_SMPR_SMP_112CYC		0x5
+#define ADC_SMPR_SMP_144CYC		0x6
+#define ADC_SMPR_SMP_480CYC		0x7
 /**@}*/
 
 /* --- ADC_JOFRx, ADC_HTR, ADC_LTR values ---------------------------------- */
