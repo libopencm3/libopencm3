@@ -658,7 +658,7 @@ For ADC3
 @li Software Start
 
 @param[in] adc Unsigned int32. ADC block register address base @ref adc_reg_base.
-@param[in] exten Unsigned int32. External trigger mode @ref adc_trigger_mode
+@param[in] mode Unsigned int32. External trigger mode @ref adc_trigger_mode_regular
 @param[in] trigger Unsigned int8. Trigger identifier @ref adc_trigger_regular
 */
 
@@ -680,7 +680,7 @@ void adc_enable_external_trigger_regular(u32 adc, u32 mode, u32 trigger)
 
 void adc_disable_external_trigger_regular(u32 adc)
 {
-  ADC_CR2(adc) = (ADC_CR2(adc) & ~(ADC_CR2_EXTEN_MASK)) | ADC_CR2_EXTEN_DISABLED;
+	ADC_CR2(adc) = (ADC_CR2(adc) & ~(ADC_CR2_EXTEN_MASK)) | ADC_CR2_EXTEN_DISABLED;
 }
 
 /*-----------------------------------------------------------------------------*/
@@ -709,8 +709,8 @@ For ADC3
 @li Software Start
 
 @param[in] adc Unsigned int32. ADC block register address base @ref adc_reg_base.
-@param[in] trigger Unsigned int8. Trigger identifier @ref adc_trigger_injected_12
-for ADC1 and ADC2, or @ref adc_trigger_injected_3 for ADC3.
+@param[in] mode Unsigned int32. External trigger mode @ref adc_trigger_mode_injected
+@param[in] trigger Unsigned int8. Trigger identifier @ref adc_trigger_injected
 */
 void adc_enable_external_trigger_injected(u32 adc, u32 mode, u32 trigger)
 {
@@ -730,7 +730,7 @@ void adc_enable_external_trigger_injected(u32 adc, u32 mode, u32 trigger)
 
 void adc_disable_external_trigger_injected(u32 adc)
 {
-	ADC_CR2(adc) &= ~ADC_CR2_JEXTTRIG;
+	ADC_CR2(adc) &= ~ADC_CR2_JEXTEN_MASK;
 }
 
 /*-----------------------------------------------------------------------------*/

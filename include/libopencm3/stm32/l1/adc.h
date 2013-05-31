@@ -297,8 +297,8 @@ LGPL License Terms @ref lgpl_license
 
 /* EXTEN: */ /** External trigger conversion mode for regular channels. */
 /****************************************************************************/
-/* ADC_CR2 EXTSEL[3:0] ADC Trigger Identifier */
-/** @defgroup adc_trigger_mode ADC Trigger Identifier
+/* ADC_CR2 EXTEN[1:0] ADC Trigger Identifier */
+/** @defgroup adc_trigger_mode_regular ADC Trigger Mode
 @ingroup STM32F1xx_adc_defines
 
 @{*/
@@ -351,8 +351,20 @@ LGPL License Terms @ref lgpl_license
 
 /* Note: Bits [12:15] are reserved and must be kept at reset value. */
 
-/* JEXTTRIG: External trigger conversion mode for injected channels. */
-#define ADC_CR2_JEXTTRIG		(1 << 15)
+/* JEXTEN: */ /** External trigger conversion mode for injected channels. */
+/****************************************************************************/
+/* ADC_CR2 JEXTEN[1:0] ADC Trigger Identifier */
+/** @defgroup adc_trigger_mode_regular ADC Trigger Mode
+@ingroup STM32F1xx_adc_defines
+
+@{*/
+#define ADC_CR2_JEXTEN_DISABLED		(0x0 << 20)
+#define ADC_CR2_JEXTEN_RISING		(0x1 << 20)
+#define ADC_CR2_JEXTEN_FALLING		(0x2 << 20)
+#define ADC_CR2_JEXTEN_BOTH		(0x3 << 20)
+#define ADC_CR2_JEXTEN_MASK		(0x3 << 20)
+#define ADC_CR2_JEXTEN_SHIFT		20
+/**@}*/
 
 /* JEXTSEL[3:0]: External event selection for injected group. */
 /****************************************************************************/
@@ -716,7 +728,7 @@ void adc_start_conversion_regular(u32 adc);
 void adc_start_conversion_injected(u32 adc);
 void adc_enable_external_trigger_regular(u32 adc, u32 mode, u32 trigger);
 void adc_disable_external_trigger_regular(u32 adc);
-void adc_enable_external_trigger_injected(u32 adc, u32 trigger);
+void adc_enable_external_trigger_injected(u32 adc, u32 mode, u32 trigger);
 void adc_disable_external_trigger_injected(u32 adc);
 void adc_set_left_aligned(u32 adc);
 void adc_set_right_aligned(u32 adc);
