@@ -136,13 +136,13 @@ LGPL License Terms @ref lgpl_license
 #define ADC_SMPR0(block)		MMIO32(block + 0x5c)
 #define ADC1_SMPR0			ADC_SMPR0(ADC1)
 
+#define ADC_COMMON_REGISTERS_BASE	(PERIPH_BASE_APB2 + 0x2400)
+
 /* ADC common status register (ADC_CSR) */
-#define ADC_CSR(block)			MMIO32(block + 0x60)
-#define ADC1_CSR			ADC_CSR(ADC1)
+#define ADC_CSR			        MMIO32(ADC_COMMON_REGISTERS_BASE + 0x0)
 
 /* ADC common control register (ADC_CSR) */
-#define ADC_CCR(block)			MMIO32(block + 0x64)
-#define ADC1_CCR			ADC_CCR(ADC1)
+#define ADC_CCR	          		MMIO32(ADC_COMMON_REGISTERS_BASE + 0x4)
 
 /* --- ADC Channels ------------------------------------------------------- */
 
@@ -722,8 +722,8 @@ void adc_enable_awd_interrupt(u32 adc);
 void adc_disable_awd_interrupt(u32 adc);
 void adc_enable_eoc_interrupt(u32 adc);
 void adc_disable_eoc_interrupt(u32 adc);
-void adc_enable_temperature_sensor(u32 adc);
-void adc_disable_temperature_sensor(u32 adc);
+void adc_enable_temperature_sensor(void);
+void adc_disable_temperature_sensor(void);
 void adc_start_conversion_regular(u32 adc);
 void adc_start_conversion_injected(u32 adc);
 void adc_set_clk_prescale(u32 prescaler);
