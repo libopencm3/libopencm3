@@ -741,7 +741,7 @@ mode.
 
 void adc_enable_dma(u32 adc)
 {
-        ADC_CR2(adc) |= ADC_CR2_DMA;
+    ADC_CR2(adc) |= ADC_CR2_DMA;
 }
 
 /*-----------------------------------------------------------------------------*/
@@ -752,7 +752,7 @@ void adc_enable_dma(u32 adc)
 
 void adc_disable_dma(u32 adc)
 {
-        ADC_CR2(adc) &= ~ADC_CR2_DMA;
+    ADC_CR2(adc) &= ~ADC_CR2_DMA;
 }
 
 /*-----------------------------------------------------------------------------*/
