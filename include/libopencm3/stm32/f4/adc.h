@@ -464,21 +464,6 @@ LGPL License Terms @ref lgpl_license
 #define ADC_SMPR1_SMP12_MSK		(0x7 << ADC_SMP12_LSB)
 #define ADC_SMPR1_SMP11_MSK		(0x7 << ADC_SMP11_LSB)
 #define ADC_SMPR1_SMP10_MSK		(0x7 << ADC_SMP10_LSB)
-/****************************************************************************/
-/* ADC_SMPR1 ADC Sample Time Selection for Channels */
-/** @defgroup adc_sample_r1 ADC Sample Time Selection for ADC1
-@ingroup STM32F4xx_adc_defines
-
-@{*/
-#define ADC_SMPR1_SMP_3CYC		0x0
-#define ADC_SMPR1_SMP_15CYC		0x1
-#define ADC_SMPR1_SMP_28CYC		0x2
-#define ADC_SMPR1_SMP_56CYC		0x3
-#define ADC_SMPR1_SMP_84CYC		0x4
-#define ADC_SMPR1_SMP_112CYC		0x5
-#define ADC_SMPR1_SMP_144CYC		0x6
-#define ADC_SMPR1_SMP_480CYC		0x7
-/**@}*/
 
 /* --- ADC_SMPR2 values ---------------------------------------------------- */
 
@@ -502,23 +487,8 @@ LGPL License Terms @ref lgpl_license
 #define ADC_SMPR2_SMP2_MSK		(0x7 << ADC_SMP2_LSB)
 #define ADC_SMPR2_SMP1_MSK		(0x7 << ADC_SMP1_LSB)
 #define ADC_SMPR2_SMP0_MSK		(0x7 << ADC_SMP0_LSB)
-/****************************************************************************/
-/* ADC_SMPR2 ADC Sample Time Selection for Channels */
-/** @defgroup adc_sample_r2 ADC Sample Time Selection for ADC2
-@ingroup STM32F4xx_adc_defines
 
-@{*/
-#define ADC_SMPR2_SMP_3CYC		0x0
-#define ADC_SMPR2_SMP_15CYC		0x1
-#define ADC_SMPR2_SMP_28CYC		0x2
-#define ADC_SMPR2_SMP_56CYC		0x3
-#define ADC_SMPR2_SMP_84CYC		0x4
-#define ADC_SMPR2_SMP_112CYC		0x5
-#define ADC_SMPR2_SMP_144CYC		0x6
-#define ADC_SMPR2_SMP_480CYC		0x7
-/**@}*/
-
-/* --- ADC_SMPRx generic values -------------------------------------------- */
+/* --- ADC_SMPRx values --------------------------------------------------- */
 /****************************************************************************/
 /* ADC_SMPRG ADC Sample Time Selection for Channels */
 /** @defgroup adc_sample_rg ADC Sample Time Selection for All Channels
