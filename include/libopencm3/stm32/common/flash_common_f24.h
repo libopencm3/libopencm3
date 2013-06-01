@@ -25,7 +25,9 @@
  * http://www.st.com/st-web-ui/static/active/en/resource/technical/document/programming_manual/DM00023388.pdf
  */
 
+/** @cond */
 #ifdef LIBOPENCM3_FLASH_H
+/** @endcond */
 #ifndef LIBOPENCM3_FLASH_COMMON_F24_H
 #define LIBOPENCM3_FLASH_COMMON_F24_H
 
@@ -150,7 +152,9 @@ void flash_program_option_bytes(u32 data);
 END_DECLS
 
 #endif
+/** @cond */
 #else
 #warning "flash_common_f24.h should not be included explicitly, only via flash.h"
 #endif
+/** @endcond */
 

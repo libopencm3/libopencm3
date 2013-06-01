@@ -63,6 +63,7 @@ Writes data words consecutively to the register, the write operation stalling
 until the computation of each word is complete.
 
 @param[in] datap Unsigned int32. pointer to an array of 32 bit data words.
+@param[in] size int. Size of the array.
 @returns int32 Final computed CRC result
 */
 

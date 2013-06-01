@@ -33,6 +33,6 @@ TAGFILES               = ../cm3/cm3.tag=../../cm3/html
 
 GENERATE_TAGFILE       = stm32f1.tag
 
-ENABLE_PREPROCESSING    = NO
+ENABLE_PREPROCESSING   = YES
 
 

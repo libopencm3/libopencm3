@@ -33,7 +33,7 @@ functions and defines in the documentation.
 The header and source files for each peripheral in each family must have a
 heading section in which an @defgroup defines the group name for the particular
 peripheral. This group name will be the same across all families as each one
-is documented deparately. Thus for a peripheral xxx the header will have a
+is documented separately. Thus for a peripheral xxx the header will have a
 group name xxx_defines and the source file will have xxx_file. This will allow
 the group to appear separately. An @ingroup must be provided to place the group
 as a subgroup of the appropriate family grouping. Note that @file is not used.
@@ -78,6 +78,7 @@ LAYOUT_FILE = DoxygenLayout_$processor.xml
 WARN_LOGFILE = doxygen_$processor.log
 TAGFILES = ../cm3/cm3.tag=../../cm3/html
 GENERATE_TAGFILE = $processor.tag
+PREDEFINED = list of macro definitions
 
 For the top level Doxyfile
 

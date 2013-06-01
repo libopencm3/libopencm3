@@ -27,7 +27,9 @@
 The order of header inclusion is important. spi.h includes the device
 specific memorymap.h header before including this header file.*/
 
+/** @cond */
 #if defined (LIBOPENCM3_SPI_H) || defined (LIBOPENCM3_SPI_COMMON_F24_H)
+/** @endcond */
 #ifndef LIBOPENCM3_SPI_COMMON_ALL_H
 #define LIBOPENCM3_SPI_COMMON_ALL_H
 
@@ -405,7 +407,9 @@ END_DECLS
 /**@}*/
 
 #endif
+/** @cond */
 #else
 #warning "spi_common_all.h should not be included explicitly, only via spi.h"
 #endif
+/** @endcond */
 

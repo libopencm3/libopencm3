@@ -88,7 +88,7 @@ The interrupt flag for the channel is returned.
 
 @param[in] dma unsigned int32. DMA controller base address: DMA1 or DMA2
 @param[in] channel unsigned int8. Channel number: @ref dma_ch
-@param[in] interrupt unsigned int32. Interrupt number: @ref dma_ch
+@param[in] interrupt unsigned int32. Interrupt number: @ref dma_if_offset
 @returns bool interrupt flag is set.
 */
 

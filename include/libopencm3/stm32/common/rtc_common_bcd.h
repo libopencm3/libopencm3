@@ -34,7 +34,9 @@
 The order of header inclusion is important. rtc.h includes the device
 specific memorymap.h header before including this header file.*/
 
+/** @cond */
 #ifdef LIBOPENCM3_RTC_H
+/** @endcond */
 #ifndef LIBOPENCM3_RTC2_H
 #define LIBOPENCM3_RTC2_H
 
@@ -319,8 +321,10 @@ END_DECLS
 /**@}*/
 
 #endif  /* RTC2_H */
+/** @cond */
 #else
 #warning "rtc_common_bcd.h should not be included explicitly, only via rtc.h"
 #endif
+/** @endcond */
 
 

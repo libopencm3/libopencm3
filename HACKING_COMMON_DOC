@@ -35,6 +35,20 @@ NOTE: The common source files MUST have the "dispatch" header so that
 compilation will use the specific defines for the subfamily being compiled.
 These can differ between subfamilies.
 
+NOTE: The common source files must have a line of the form
+
+#ifdef LIBOPENCM3_xxx_H
+
+where xxx is the associated peripheral name. This prevents the common files
+from being included accidentally into a user's application. This however
+causes doxygen to skip processing of the remainder of the file. Thus a
+
+@cond ... @endcond
+
+directive must be placed around the statement to prevent doxygen from
+processing it. This works only for doxygen 1.8.4 or later. At the present
+time most distros have an earlier buggy version.
+
 Documentation
 -------------
 
