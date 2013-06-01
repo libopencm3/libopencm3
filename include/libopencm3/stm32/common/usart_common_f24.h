@@ -28,7 +28,9 @@
 The order of header inclusion is important. usart.h includes the device
 specific memorymap.h header before including this header file.*/
 
+/** @cond */
 #ifdef LIBOPENCM3_USART_H
+/** @endcond */
 #ifndef LIBOPENCM3_USART_COMMON_F24_H
 #define LIBOPENCM3_USART_COMMON_F24_H
 
@@ -72,7 +74,9 @@ specific memorymap.h header before including this header file.*/
 #define USART_CR3_ONEBIT		(1 << 11)
 
 #endif
+/** @cond */
 #else
 #warning "usart_common_f24.h should not be included explicitly, only via usart.h"
 #endif
+/** @endcond */
 

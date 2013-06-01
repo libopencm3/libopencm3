@@ -20,7 +20,9 @@
 The order of header inclusion is important. rng.h includes the device
 specific memorymap.h header before including this header file.*/
 
+/** @cond */
 #ifdef LIBOPENCM3_RNG_H
+/** @endcond */
 #ifndef LIBOPENCM3_RNG_COMMON_F24_H
 #define LIBOPENCM3_RNG_COMMON_F24_H
 
@@ -64,7 +66,9 @@ specific memorymap.h header before including this header file.*/
 #define RNG_SR_SEIS		(1 << 6)
 
 #endif
+/** @cond */
 #else
 #warning "rng_common_f24.h should not be included explicitly, only via rng.h"
 #endif
+/** @endcond */
 

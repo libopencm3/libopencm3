@@ -95,7 +95,7 @@ push-pull outputs where the PWM output will appear.
 #include <libopencm3/stm32/timer.h>
 #include <libopencm3/stm32/rcc.h>
 
-#define ADVANCED_TIMERS (defined (TIM1_BASE) || defined(TIM8_BASE))
+#define ADVANCED_TIMERS (defined(TIM1_BASE) || defined(TIM8_BASE))
 
 /*---------------------------------------------------------------------------*/
 /** @brief Reset a Timer.
@@ -223,7 +223,7 @@ bool timer_interrupt_source(u32 timer_peripheral, u32 flag)
 	if (((TIM_SR(timer_peripheral) & TIM_DIER(timer_peripheral) & flag) == 0) ||
 		(flag > TIM_SR_BIF)) return false;
 /* Only an interrupt source for advanced timers */
-#if (defined(ADVANCED_TIMERS) && (ADVANCED_TIMERS))
+#if (defined(TIM1_BASE) || defined(TIM8_BASE))
 	if ((flag == TIM_SR_BIF) || (flag == TIM_SR_COMIF))
 		return ((timer_peripheral == TIM1) || (timer_peripheral == TIM8));
 #endif
@@ -499,7 +499,7 @@ If several settings are to be made, use the logical OR of the output control val
 
 void timer_set_output_idle_state(u32 timer_peripheral, u32 outputs)
 {
-#if (defined(ADVANCED_TIMERS) && (ADVANCED_TIMERS))
+#if (defined(TIM1_BASE) || defined(TIM8_BASE))
 	if ((timer_peripheral == TIM1) || (timer_peripheral == TIM8))
     	TIM_CR2(timer_peripheral) |= outputs & TIM_CR2_OIS_MASK;
 #else
@@ -523,7 +523,7 @@ This determines the value of the timer output compare when it enters idle state.
 
 void timer_reset_output_idle_state(u32 timer_peripheral, u32 outputs)
 {
-#if (defined(ADVANCED_TIMERS) && (ADVANCED_TIMERS))
+#if (defined(TIM1_BASE) || defined(TIM8_BASE))
 	if ((timer_peripheral == TIM1) || (timer_peripheral == TIM8))
     	TIM_CR2(timer_peripheral) &= ~(outputs & TIM_CR2_OIS_MASK);
 #else
@@ -616,7 +616,7 @@ outputs.
 
 void timer_enable_compare_control_update_on_trigger(u32 timer_peripheral)
 {
-#if (defined(ADVANCED_TIMERS) && (ADVANCED_TIMERS))
+#if (defined(TIM1_BASE) || defined(TIM8_BASE))
 	if ((timer_peripheral == TIM1) || (timer_peripheral == TIM8))
 		TIM_CR2(timer_peripheral) |= TIM_CR2_CCUS;
 #else
@@ -639,7 +639,7 @@ outputs.
 
 void timer_disable_compare_control_update_on_trigger(u32 timer_peripheral)
 {
-#if (defined(ADVANCED_TIMERS) && (ADVANCED_TIMERS))
+#if (defined(TIM1_BASE) || defined(TIM8_BASE))
 	if ((timer_peripheral == TIM1) || (timer_peripheral == TIM8))
 		TIM_CR2(timer_peripheral) &= ~TIM_CR2_CCUS;
 #else
@@ -661,7 +661,7 @@ outputs.
 
 void timer_enable_preload_complementry_enable_bits(u32 timer_peripheral)
 {
-#if (defined(ADVANCED_TIMERS) && (ADVANCED_TIMERS))
+#if (defined(TIM1_BASE) || defined(TIM8_BASE))
 	if ((timer_peripheral == TIM1) || (timer_peripheral == TIM8))
 		TIM_CR2(timer_peripheral) |= TIM_CR2_CCPC;
 #else
@@ -682,7 +682,7 @@ outputs.
 
 void timer_disable_preload_complementry_enable_bits(u32 timer_peripheral)
 {
-#if (defined(ADVANCED_TIMERS) && (ADVANCED_TIMERS))
+#if (defined(TIM1_BASE) || defined(TIM8_BASE))
 	if ((timer_peripheral == TIM1) || (timer_peripheral == TIM8))
 		TIM_CR2(timer_peripheral) &= ~TIM_CR2_CCPC;
 #else
@@ -718,7 +718,7 @@ count cycles have been completed.
 
 void timer_set_repetition_counter(u32 timer_peripheral, u32 value)
 {
-#if (defined(ADVANCED_TIMERS) && (ADVANCED_TIMERS))
+#if (defined(TIM1_BASE) || defined(TIM8_BASE))
 	if ((timer_peripheral == TIM1) || (timer_peripheral == TIM8))
 		TIM_RCR(timer_peripheral) = value;
 #else
@@ -1136,7 +1136,7 @@ void timer_set_oc_polarity_high(u32 timer_peripheral, enum tim_oc_id oc_id)
 	}
 
 	/* Acting for TIM1 and TIM8 only from here onwards. */
-#if (defined(ADVANCED_TIMERS) && (ADVANCED_TIMERS))
+#if (defined(TIM1_BASE) || defined(TIM8_BASE))
 	if ((timer_peripheral != TIM1) && (timer_peripheral != TIM8))
 		return;
 #else
@@ -1195,7 +1195,7 @@ void timer_set_oc_polarity_low(u32 timer_peripheral, enum tim_oc_id oc_id)
 	}
 
 	/* Acting for TIM1 and TIM8 only from here onwards. */
-#if (defined(ADVANCED_TIMERS) && (ADVANCED_TIMERS))
+#if (defined(TIM1_BASE) || defined(TIM8_BASE))
 	if ((timer_peripheral != TIM1) && (timer_peripheral != TIM8))
 		return;
 #else
@@ -1254,7 +1254,7 @@ void timer_enable_oc_output(u32 timer_peripheral, enum tim_oc_id oc_id)
 	}
 
 	/* Acting for TIM1 and TIM8 only from here onwards. */
-#if (defined(ADVANCED_TIMERS) && (ADVANCED_TIMERS))
+#if (defined(TIM1_BASE) || defined(TIM8_BASE))
 	if ((timer_peripheral != TIM1) && (timer_peripheral != TIM8))
 		return;
 #else
@@ -1313,7 +1313,7 @@ void timer_disable_oc_output(u32 timer_peripheral, enum tim_oc_id oc_id)
 	}
 
 	/* Acting for TIM1 and TIM8 only from here onwards. */
-#if (defined(ADVANCED_TIMERS) && (ADVANCED_TIMERS))
+#if (defined(TIM1_BASE) || defined(TIM8_BASE))
 	if ((timer_peripheral != TIM1) && (timer_peripheral != TIM8))
 		return;
 #else
@@ -1354,7 +1354,7 @@ void timer_disable_oc_output(u32 timer_peripheral, enum tim_oc_id oc_id)
 
 void timer_set_oc_idle_state_set(u32 timer_peripheral, enum tim_oc_id oc_id)
 {
-#if (defined(ADVANCED_TIMERS) && (ADVANCED_TIMERS))
+#if (defined(TIM1_BASE) || defined(TIM8_BASE))
 	/* Acting for TIM1 and TIM8 only. */
 	if ((timer_peripheral != TIM1) && (timer_peripheral != TIM8))
 		return;
@@ -1403,7 +1403,7 @@ void timer_set_oc_idle_state_set(u32 timer_peripheral, enum tim_oc_id oc_id)
 
 void timer_set_oc_idle_state_unset(u32 timer_peripheral, enum tim_oc_id oc_id)
 {
-#if (defined(ADVANCED_TIMERS) && (ADVANCED_TIMERS))
+#if (defined(TIM1_BASE) || defined(TIM8_BASE))
 	/* Acting for TIM1 and TIM8 only. */
 	if ((timer_peripheral != TIM1) && (timer_peripheral != TIM8))
 		return;
@@ -1490,7 +1490,7 @@ timer <b>even if break or deadtime features are not being used</b>.
 
 void timer_enable_break_main_output(u32 timer_peripheral)
 {
-#if (defined(ADVANCED_TIMERS) && (ADVANCED_TIMERS))
+#if (defined(TIM1_BASE) || defined(TIM8_BASE))
 	if ((timer_peripheral == TIM1) || (timer_peripheral == TIM8))
 		TIM_BDTR(timer_peripheral) |= TIM_BDTR_MOE;
 #else
@@ -1511,7 +1511,7 @@ the Master Output Enable in the Break and Deadtime Register.
 
 void timer_disable_break_main_output(u32 timer_peripheral)
 {
-#if (defined(ADVANCED_TIMERS) && (ADVANCED_TIMERS))
+#if (defined(TIM1_BASE) || defined(TIM8_BASE))
 	if ((timer_peripheral == TIM1) || (timer_peripheral == TIM8))
 		TIM_BDTR(timer_peripheral) &= ~TIM_BDTR_MOE;
 #else
@@ -1533,7 +1533,7 @@ break event.
 
 void timer_enable_break_automatic_output(u32 timer_peripheral)
 {
-#if (defined(ADVANCED_TIMERS) && (ADVANCED_TIMERS))
+#if (defined(TIM1_BASE) || defined(TIM8_BASE))
 	if ((timer_peripheral == TIM1) || (timer_peripheral == TIM8))
 		TIM_BDTR(timer_peripheral) |= TIM_BDTR_AOE;
 #else
@@ -1555,7 +1555,7 @@ break event.
 
 void timer_disable_break_automatic_output(u32 timer_peripheral)
 {
-#if (defined(ADVANCED_TIMERS) && (ADVANCED_TIMERS))
+#if (defined(TIM1_BASE) || defined(TIM8_BASE))
 	if ((timer_peripheral == TIM1) || (timer_peripheral == TIM8))
 		TIM_BDTR(timer_peripheral) &= ~TIM_BDTR_AOE;
 #else
@@ -1575,7 +1575,7 @@ Sets the break function to activate when the break input becomes high.
 
 void timer_set_break_polarity_high(u32 timer_peripheral)
 {
-#if (defined(ADVANCED_TIMERS) && (ADVANCED_TIMERS))
+#if (defined(TIM1_BASE) || defined(TIM8_BASE))
 	if ((timer_peripheral == TIM1) || (timer_peripheral == TIM8))
 		TIM_BDTR(timer_peripheral) |= TIM_BDTR_BKP;
 #else
@@ -1595,7 +1595,7 @@ Sets the break function to activate when the break input becomes low.
 
 void timer_set_break_polarity_low(u32 timer_peripheral)
 {
-#if (defined(ADVANCED_TIMERS) && (ADVANCED_TIMERS))
+#if (defined(TIM1_BASE) || defined(TIM8_BASE))
 	if ((timer_peripheral == TIM1) || (timer_peripheral == TIM8))
 		TIM_BDTR(timer_peripheral) &= ~TIM_BDTR_BKP;
 #else
@@ -1615,7 +1615,7 @@ Enables the break function of an advanced timer.
 
 void timer_enable_break(u32 timer_peripheral)
 {
-#if (defined(ADVANCED_TIMERS) && (ADVANCED_TIMERS))
+#if (defined(TIM1_BASE) || defined(TIM8_BASE))
 	if ((timer_peripheral == TIM1) || (timer_peripheral == TIM8))
 		TIM_BDTR(timer_peripheral) |= TIM_BDTR_BKE;
 #else
@@ -1635,7 +1635,7 @@ Disables the break function of an advanced timer.
 
 void timer_disable_break(u32 timer_peripheral)
 {
-#if (defined(ADVANCED_TIMERS) && (ADVANCED_TIMERS))
+#if (defined(TIM1_BASE) || defined(TIM8_BASE))
 	if ((timer_peripheral == TIM1) || (timer_peripheral == TIM8))
 		TIM_BDTR(timer_peripheral) &= ~TIM_BDTR_BKE;
 #else
@@ -1659,7 +1659,7 @@ inactive level as defined by the output polarity.
 
 void timer_set_enabled_off_state_in_run_mode(u32 timer_peripheral)
 {
-#if (defined(ADVANCED_TIMERS) && (ADVANCED_TIMERS))
+#if (defined(TIM1_BASE) || defined(TIM8_BASE))
 	if ((timer_peripheral == TIM1) || (timer_peripheral == TIM8))
 		TIM_BDTR(timer_peripheral) |= TIM_BDTR_OSSR;
 #else
@@ -1682,7 +1682,7 @@ disabled, the output is also disabled.
 
 void timer_set_disabled_off_state_in_run_mode(u32 timer_peripheral)
 {
-#if (defined(ADVANCED_TIMERS) && (ADVANCED_TIMERS))
+#if (defined(TIM1_BASE) || defined(TIM8_BASE))
 	if ((timer_peripheral == TIM1) || (timer_peripheral == TIM8))
 		TIM_BDTR(timer_peripheral) &= ~TIM_BDTR_OSSR;
 #else
@@ -1704,7 +1704,7 @@ inactive level as defined by the output polarity.
 
 void timer_set_enabled_off_state_in_idle_mode(u32 timer_peripheral)
 {
-#if (defined(ADVANCED_TIMERS) && (ADVANCED_TIMERS))
+#if (defined(TIM1_BASE) || defined(TIM8_BASE))
 	if ((timer_peripheral == TIM1) || (timer_peripheral == TIM8))
 		TIM_BDTR(timer_peripheral) |= TIM_BDTR_OSSI;
 #else
@@ -1725,7 +1725,7 @@ timer. When the master output is disabled the output is also disabled.
 
 void timer_set_disabled_off_state_in_idle_mode(u32 timer_peripheral)
 {
-#if (defined(ADVANCED_TIMERS) && (ADVANCED_TIMERS))
+#if (defined(TIM1_BASE) || defined(TIM8_BASE))
 	if ((timer_peripheral == TIM1) || (timer_peripheral == TIM8))
 		TIM_BDTR(timer_peripheral) &= ~TIM_BDTR_OSSI;
 #else
@@ -1748,7 +1748,7 @@ timer reset has occurred.
 
 void timer_set_break_lock(u32 timer_peripheral, u32 lock)
 {
-#if (defined(ADVANCED_TIMERS) && (ADVANCED_TIMERS))
+#if (defined(TIM1_BASE) || defined(TIM8_BASE))
 	if ((timer_peripheral == TIM1) || (timer_peripheral == TIM8))
 		TIM_BDTR(timer_peripheral) |= lock;
 #else
@@ -1777,7 +1777,7 @@ number of DTSC cycles:
 
 void timer_set_deadtime(u32 timer_peripheral, u32 deadtime)
 {
-#if (defined(ADVANCED_TIMERS) && (ADVANCED_TIMERS))
+#if (defined(TIM1_BASE) || defined(TIM8_BASE))
 	if ((timer_peripheral == TIM1) || (timer_peripheral == TIM8))
 		TIM_BDTR(timer_peripheral) |= deadtime;
 #else
@@ -1824,7 +1824,7 @@ u32 timer_get_counter(u32 timer_peripheral)
 Set the value of a timer's counter register contents.
 
 @param[in] timer_peripheral Unsigned int32. Timer register address base
-@param[in] Unsigned int32. Counter value.
+@param[in] count Unsigned int32. Counter value.
 */
 
 void timer_set_counter(u32 timer_peripheral, u32 count)

@@ -27,7 +27,9 @@
 The order of header inclusion is important. crc.h includes the device
 specific memorymap.h header before including this header file.*/
 
+/** @cond */
 #ifdef LIBOPENCM3_CRC_H
+/** @endcond */
 #ifndef LIBOPENCM3_CRC_COMMON_ALL_H
 #define LIBOPENCM3_CRC_COMMON_ALL_H
 
@@ -94,7 +96,9 @@ END_DECLS
 /**@}*/
 
 #endif
+/** @cond */
 #else
 #warning "crc_common_all.h should not be included explicitly, only via crc.h"
 #endif
+/** @endcond */
 

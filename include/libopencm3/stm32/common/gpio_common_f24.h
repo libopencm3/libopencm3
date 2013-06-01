@@ -28,7 +28,9 @@
 The order of header inclusion is important. gpio.h includes the device
 specific memorymap.h header before including this header file.*/
 
+/** @cond */
 #ifdef LIBOPENCM3_GPIO_H
+/** @endcond */
 #ifndef LIBOPENCM3_GPIO_COMMON_F24_H
 #define LIBOPENCM3_GPIO_COMMON_F24_H
 
@@ -290,7 +292,9 @@ void gpio_set_af(u32 gpioport, u8 alt_func_num, u16 gpios);
 END_DECLS
 /**@}*/
 #endif
+/** @cond */
 #else
 #warning "gpio_common_f24.h should not be included explicitly, only via gpio.h"
 #endif
+/** @endcond */
 

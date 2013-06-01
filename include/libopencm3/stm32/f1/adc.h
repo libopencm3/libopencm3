@@ -44,7 +44,7 @@ LGPL License Terms @ref lgpl_license
 /* ADC port base addresses (for convenience) */
 /****************************************************************************/
 /** @defgroup adc_reg_base ADC register base addresses
-@ingroup STM32F1xx_adc_defines
+@ingroup adc_defines
 
 @{*/
 #define ADC1				ADC1_BASE
@@ -166,7 +166,7 @@ LGPL License Terms @ref lgpl_license
 
 /****************************************************************************/
 /** @defgroup adc_channel ADC Channel Numbers
-@ingroup STM32F1xx_adc_defines
+@ingroup adc_defines
 
 @{*/
 #define ADC_CHANNEL0		0x00
@@ -225,7 +225,7 @@ LGPL License Terms @ref lgpl_license
 /****************************************************************************/
 /* ADC_CR1 DUALMOD[3:0] ADC Mode Selection */
 /** @defgroup adc_cr1_dualmod ADC Mode Selection
-@ingroup STM32F1xx_adc_defines
+@ingroup adc_defines
 
 @{*/
 /** Independent (non-dual) mode */
@@ -255,7 +255,7 @@ LGPL License Terms @ref lgpl_license
 /* DISCNUM[2:0]: Discontinuous mode channel count. */
 /****************************************************************************/
 /** @defgroup adc_cr1_discnum ADC Number of channels in discontinuous mode.
-@ingroup STM32F1xx_adc_defines
+@ingroup adc_defines
 
 @{*/
 #define ADC_CR1_DISCNUM_1CHANNELS       (0x0 << 13)
@@ -304,7 +304,7 @@ LGPL License Terms @ref lgpl_license
 /****************************************************************************/
 /* ADC_CR1 AWDCH[4:0] ADC watchdog channel */
 /** @defgroup adc_watchdog_channel ADC watchdog channel
-@ingroup STM32F1xx_adc_defines
+@ingroup adc_defines
 
 @{*/
 #define ADC_CR1_AWDCH_CHANNEL0		(0x00 << 0)
@@ -348,7 +348,7 @@ LGPL License Terms @ref lgpl_license
 /****************************************************************************/
 /* ADC_CR2 EXTSEL[2:0] ADC Trigger Identifier for ADC1 and ADC2 */
 /** @defgroup adc_trigger_regular_12 ADC Trigger Identifier for ADC1 and ADC2
-@ingroup STM32F1xx_adc_defines
+@ingroup adc_defines
 
 @{*/
 /** Timer 1 Compare Output 1 */
@@ -373,7 +373,7 @@ LGPL License Terms @ref lgpl_license
 /****************************************************************************/
 /* ADC_CR2 EXTSEL[2:0] ADC Trigger Identifier for ADC3 */
 /** @defgroup adc_trigger_regular_3 ADC Trigger Identifier for ADC3
-@ingroup STM32F1xx_adc_defines
+@ingroup adc_defines
 
 @{*/
 /** Timer 2 Compare Output 1 */
@@ -405,7 +405,7 @@ LGPL License Terms @ref lgpl_license
 /****************************************************************************/
 /* ADC_CR2 JEXTSEL[2:0] ADC Injected Trigger Identifier for ADC1 and ADC2 */
 /** @defgroup adc_trigger_injected_12 ADC Injected Trigger Identifier for ADC1 and ADC2
-@ingroup STM32F1xx_adc_defines
+@ingroup adc_defines
 
 @{*/
 /** Timer 1 Trigger Output */
@@ -430,7 +430,7 @@ LGPL License Terms @ref lgpl_license
 /****************************************************************************/
 /* ADC_CR2 JEXTSEL[2:0] ADC Injected Trigger Identifier for ADC3 */
 /** @defgroup adc_trigger_injected_3 ADC Injected Trigger Identifier for ADC3
-@ingroup STM32F1xx_adc_defines
+@ingroup adc_defines
 
 @{*/
 /** Timer 1 Trigger Output */
@@ -503,7 +503,7 @@ LGPL License Terms @ref lgpl_license
 /****************************************************************************/
 /* ADC_SMPR1 ADC Sample Time Selection for Channels */
 /** @defgroup adc_sample_r1 ADC Sample Time Selection for ADC1
-@ingroup STM32F1xx_adc_defines
+@ingroup adc_defines
 
 @{*/
 #define ADC_SMPR1_SMP_1DOT5CYC		0x0
@@ -541,7 +541,7 @@ LGPL License Terms @ref lgpl_license
 /****************************************************************************/
 /* ADC_SMPR2 ADC Sample Time Selection for Channels */
 /** @defgroup adc_sample_r2 ADC Sample Time Selection for ADC2
-@ingroup STM32F1xx_adc_defines
+@ingroup adc_defines
 
 @{*/
 #define ADC_SMPR2_SMP_1DOT5CYC		0x0
@@ -558,7 +558,7 @@ LGPL License Terms @ref lgpl_license
 /****************************************************************************/
 /* ADC_SMPRG ADC Sample Time Selection for Channels */
 /** @defgroup adc_sample_rg ADC Sample Time Selection for All Channels
-@ingroup STM32F1xx_adc_defines
+@ingroup adc_defines
 
 @{*/
 #define ADC_SMPR_SMP_1DOT5CYC		0x0
@@ -633,7 +633,7 @@ LGPL License Terms @ref lgpl_license
 /* JL[2:0]: Discontinous mode channel count injected channels. */
 /****************************************************************************/
 /** @defgroup adc_jsqr_jl ADC Number of channels in discontinuous mode fro injected channels.
-@ingroup STM32F1xx_adc_defines
+@ingroup adc_defines
 
 @{*/
 #define ADC_JSQR_JL_1CHANNELS       (0x0 << ADC_JSQR_JL_LSB)

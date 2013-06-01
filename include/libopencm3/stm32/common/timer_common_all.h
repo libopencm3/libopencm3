@@ -29,7 +29,9 @@
 The order of header inclusion is important. timer.h includes the device
 specific memorymap.h header before including this header file.*/
 
+/** @cond */
 #if defined (LIBOPENCM3_TIMER_H) || defined (LIBOPENCM3_TIMER_COMMON_F24_H)
+/** @endcond */
 #ifndef LIBOPENCM3_TIMER_COMMON_H
 #define LIBOPENCM3_TIMER_COMMON_H
 
@@ -1105,8 +1107,10 @@ void timer_slave_set_trigger(u32 timer, u8 trigger);
 END_DECLS
 
 #endif
+/** @cond */
 #else
 #warning "timer_common_all.h should not be included explicitly, only via timer.h"
 #endif
+/** @endcond */
 /**@}*/
 
