@@ -164,9 +164,9 @@ void hash_set_algorithm(u8 algorithm);
 void hash_set_data_type(u8 datatype);
 void hash_set_key_length(u8 keylength);
 void hash_set_last_word_valid_bits(u8 validbits);
-void hash_init();
+void hash_init(void);
 void hash_add_data(u32 data);
-void hash_digest();
+void hash_digest(void);
 void hash_get_result(u32 *data);
 
 END_DECLS
