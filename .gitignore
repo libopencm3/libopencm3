@@ -29,3 +29,4 @@ include/libopencmsis/lpc17xx/
 include/libopencmsis/lpc43xx/
 include/libopencmsis/stm32/
 include/libopencmsis/sam3x/
+include/libopencmsis/sam/
