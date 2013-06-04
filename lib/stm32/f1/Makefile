@@ -34,7 +34,7 @@ CFLAGS		= -Os -g \
 ARFLAGS		= rcs
 
 OBJS		= adc.o can.o desig.o exti.o ethernet.o flash.o gpio.o \
-                  rcc.o rtc.o
+                  rcc.o rtc.o timer.o
 
 OBJS            += crc_common_all.o dac_common_all.o dma_common_f13.o \
                    gpio_common_all.o i2c_common_all.o iwdg_common_all.o \
