@@ -19,8 +19,9 @@
 
 LIBNAME		= libopencm3_stm32f3
 
+FP_FLAGS	?= -mfloat-abi=hard -mfpu=fpv4-sp-d16
 PREFIX	        ?= arm-none-eabi
-# PREFIX	?= arm-elf
+
 CC		= $(PREFIX)-gcc
 AR		= $(PREFIX)-ar
 CFLAGS		= -Os -g \
@@ -28,10 +29,9 @@ CFLAGS		= -Os -g \
 		  -Wredundant-decls -Wmissing-prototypes -Wstrict-prototypes \
 		  -Wundef -Wshadow \
 		  -I../../../include -fno-common \
-		  -mcpu=cortex-m4 -mthumb -mfloat-abi=hard -mfpu=fpv4-sp-d16 \
-		  -Wstrict-prototypes \
+		  -mcpu=cortex-m4 -mthumb $(FP_FLAGS) -Wstrict-prototypes \
 		  -ffunction-sections -fdata-sections -MD -DSTM32F3
-# ARFLAGS	= rcsv
+
 ARFLAGS		= rcs
 
 OBJS		= rcc.o gpio.o adc.o exti.o i2c.o spi.o usart.o
