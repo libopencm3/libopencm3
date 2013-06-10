@@ -125,18 +125,10 @@ void (*const vector_table[]) (void) = {
 	/* IrqID 31, ExcNo 47 */ 0
 };
 
-#define MMIO32(addr)    (*(volatile unsigned long*)(addr))
-#define CREG_M0APPMAP   MMIO32( (0x40043404) )
-
 void WEAK reset_handler(void)
 {
 	volatile unsigned long *dest;
-	volatile unsigned long *src;
 	__asm__("MSR msp, %0" : : "r"(&_stack));
-
-	src = (unsigned long*)&vector_table;
-	/* Change Shadow memory to RAM (vector table) to have access to Vector Table from virtual adr 0x0 */
-	CREG_M0APPMAP = (unsigned long)src;
 
 	/* Data does not need to be copied as M4 have already copied the whole bin including code+data */
 
