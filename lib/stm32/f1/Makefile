@@ -20,7 +20,7 @@
 LIBNAME		= libopencm3_stm32f1
 
 PREFIX		?= arm-none-eabi
-#PREFIX		?= arm-elf
+
 CC		= $(PREFIX)-gcc
 AR		= $(PREFIX)-ar
 CFLAGS		= -Os -g \
@@ -28,7 +28,7 @@ CFLAGS		= -Os -g \
 		  -Wredundant-decls -Wmissing-prototypes -Wstrict-prototypes \
 		  -Wundef -Wshadow \
 		  -I../../../include -fno-common \
-		  -mcpu=cortex-m3 -msoft-float -mthumb -Wstrict-prototypes \
+		  -mcpu=cortex-m3 $(FP_FLAGS) -mthumb -Wstrict-prototypes \
 		  -ffunction-sections -fdata-sections -MD -DSTM32F1
 # ARFLAGS	= rcsv
 ARFLAGS		= rcs

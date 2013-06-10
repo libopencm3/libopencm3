@@ -44,7 +44,7 @@ For Fedora
  $ [sudo] yum install PyYAML
 
 For Windows
- Download and install: 
+ Download and install:
  msys - sourceforge.net/projects/mingw/files/MSYS/Base/msys-core/msys-1.0.11/MSYS-1.0.11.exe
  Python - http://www.python.org/ftp/python/2.7/python-2.7.msi (use installer to get the right registry keys for PyYAML)
  PyYAML - http://pyyaml.org/download/pyyaml/PyYAML-3.10.win32-py2.7.exe
@@ -66,6 +66,22 @@ For a more verbose build you can use
 
  $ make V=1
 
+Fine-tuning the build
+---------------------
+
+The build may be fine-tuned with a limited number of parameters, by specifying
+them as environment variables, for example:
+
+ $ VARIABLE=value make
+
+* FP_FLAGS - Control the floating-point ABI
+   If the Cortex-M core supports a hard float ABI, it will be compiled with
+   floating-point support by default. In cases where this is not desired, the
+   behavior can be specified by setting FP_FLAGS. Currently, M4F cores default
+   to "-mfloat-abi=hard -mfpu=fpv4-sp-d16" and others to no FP flags
+   Examples:
+     $ FP_FLAGS="-mfloat-abi=soft" make               # No hardfloat
+     $ FP_FLAGS="-mfloat-abi=hard -mfpu=magic" make   # New FPU we don't know of
 
 Example projects
 ----------------

@@ -4,6 +4,7 @@
 ## Copyright (C) 2009 Uwe Hermann <uwe@hermann-uwe.de>
 ## Copyright (C) 2012 Michael Ossmann <mike@ossmann.com>
 ## Copyright (C) 2012 Benjamin Vernoux <titanmkd@gmail.com>
+## Copyright (C) 2013 Alexandru Gagniuc <mr.nuke.me@gmail.com>
 ##
 ## This library is free software: you can redistribute it and/or modify
 ## it under the terms of the GNU Lesser General Public License as published by
@@ -21,8 +22,9 @@
 
 LIBNAME		= libopencm3_lpc43xx
 
+FP_FLAGS	?= -mfloat-abi=hard -mfpu=fpv4-sp-d16
 PREFIX		?= arm-none-eabi
-#PREFIX		?= arm-elf
+
 CC		= $(PREFIX)-gcc
 AR		= $(PREFIX)-ar
 CFLAGS		= -O2 -g3 \
@@ -32,8 +34,8 @@ CFLAGS		= -O2 -g3 \
 		  -I../../../include -fno-common \
 		  -mcpu=cortex-m4 -mthumb -Wstrict-prototypes \
 		  -ffunction-sections -fdata-sections -MD \
-		  -mfloat-abi=hard -mfpu=fpv4-sp-d16 -DLPC43XX -DLPC43XX_M4
-# ARFLAGS	= rcsv
+		  $(FP_FLAGS) -DLPC43XX -DLPC43XX_M4
+
 ARFLAGS		= rcs
 
 # LPC43xx common files for M4 / M0

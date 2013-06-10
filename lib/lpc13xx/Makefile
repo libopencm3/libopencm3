@@ -20,7 +20,7 @@
 LIBNAME		= libopencm3_lpc13xx
 
 PREFIX		?= arm-none-eabi
-#PREFIX		?= arm-elf
+
 CC		= $(PREFIX)-gcc
 AR		= $(PREFIX)-ar
 CFLAGS		= -Os -g \
@@ -28,7 +28,7 @@ CFLAGS		= -Os -g \
 		  -Wredundant-decls -Wmissing-prototypes -Wstrict-prototypes \
 		  -Wundef -Wshadow \
 		  -I../../include -fno-common \
-		  -mcpu=cortex-m3 -mthumb -Wstrict-prototypes \
+		  -mcpu=cortex-m3 -mthumb $(FP_FLAGS) -Wstrict-prototypes \
 		  -ffunction-sections -fdata-sections -MD -DLPC13XX
 # ARFLAGS	= rcsv
 ARFLAGS		= rcs
