@@ -28,6 +28,10 @@ IMPORTANT: The API of the library is NOT yet considered stable! Please do
            not rely on it, yet! Changes to function names, macro names etc.
            can happen at any time without prior notice!
 
+TIP: Include this repository as a GIT submodule in your project. To make sure
+     your users get the right version of the library to compile your project.
+     For how that can be done refer to the libopencm3-examples repository.
+
 Prerequisites
 -------------
 
@@ -110,6 +114,10 @@ Public License (LGPL), version 3 or later.
 
 See COPYING.GPL3 and COPYING.LGPL3 for details.
 
+IRC
+---
+
+ * You can reach us in #libopencm3 on the freenode IRC network.
 
 Mailing lists
 -------------
