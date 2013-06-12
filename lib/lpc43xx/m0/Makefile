@@ -25,45 +25,18 @@ PREFIX		?= arm-none-eabi
 #PREFIX		?= arm-elf
 CC		= $(PREFIX)-gcc
 AR		= $(PREFIX)-ar
-CFLAGS		= -O2 -g3 -Wall -Wextra -I../../include -fno-common \
+CFLAGS		= -O2 -g3 -Wall -Wextra -I../../../include -fno-common \
 		  -mcpu=cortex-m0 -mthumb -Wstrict-prototypes \
 		  -ffunction-sections -fdata-sections -MD
 # ARFLAGS	= rcsv
 ARFLAGS		= rcs
 
 # LPC43xx common files for M4 / M0
-OBJ_LPC43XX = gpio.o scu.o i2c.o ssp.o nvic.o uart.o
+OBJ_LPC43XX     = gpio.o scu.o i2c.o ssp.o uart.o
 
 #LPC43xx M0 specific file + Generic LPC43xx M4/M0 files
-OBJS		= vector.o $(OBJ_LPC43XX)
+OBJS		= $(OBJ_LPC43XX)
 
-# VPATH += ../usb
+VPATH += ../:../../cm3
 
-# Be silent per default, but 'make V=1' will show all compiler calls.
-ifneq ($(V),1)
-Q := @
-endif
-
-all: $(LIBNAME).a
-
-$(LIBNAME).a: $(OBJS)
-	@printf "  AR      $(subst $(shell pwd)/,,$(@))\n"
-	$(Q)$(AR) $(ARFLAGS) $@ $^
-
-%.o: %.c
-	@printf "  CC      $(subst $(shell pwd)/,,$(@))\n"
-	$(Q)$(CC) $(CFLAGS) -o $@ -c $<
-
-%.o: ../lpc43xx/%.c
-	@printf "  CC      $(subst $(shell pwd)/,,$(@))\n"
-	$(Q)$(CC) $(CFLAGS) -o $@ -c $<
-	
-clean:
-	@printf "  CLEAN   lib/lpc43xx_m0\n"
-	$(Q)rm -f *.o *.d
-	$(Q)rm -f $(LIBNAME).a
-
-.PHONY: clean
-
--include $(OBJS:.o=.d)
-
+include ../../Makefile.include

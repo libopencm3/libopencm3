@@ -29,14 +29,19 @@ CFLAGS		= -O2 -g3 \
 		  -Wall -Wextra -Wimplicit-function-declaration \
 		  -Wredundant-decls -Wmissing-prototypes -Wstrict-prototypes \
 		  -Wundef -Wshadow \
-		  -I../../include -fno-common \
+		  -I../../../include -fno-common \
 		  -mcpu=cortex-m4 -mthumb -Wstrict-prototypes \
 		  -ffunction-sections -fdata-sections -MD \
 		  -mfloat-abi=hard -mfpu=fpv4-sp-d16 -DLPC43XX
 # ARFLAGS	= rcsv
 ARFLAGS		= rcs
-OBJS		= gpio.o vector.o scu.o i2c.o ssp.o nvic.o systick.o uart.o ipc.o
 
-VPATH += ../cm3
+# LPC43xx common files for M4 / M0
+OBJ_LPC43XX     = gpio.o scu.o i2c.o ssp.o uart.o
 
-include ../Makefile.include
+#LPC43xx M4 specific file + Generic LPC43xx M4/M0 files
+OBJS		= $(OBJ_LPC43XX) ipc.o
+
+VPATH += ../:../../cm3
+
+include ../../Makefile.include
