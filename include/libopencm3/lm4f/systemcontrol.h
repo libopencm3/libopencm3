@@ -6,7 +6,8 @@
 
 @version 1.0.0
 
-@author @htmlonly &copy; @endhtmlonly 2012 Alexandru Gagniuc <mr.nuke.me@gmail.com>
+@author @htmlonly &copy; @endhtmlonly 2012
+Alexandru Gagniuc <mr.nuke.me@gmail.com>
 
 @date 10 March 2013
 
@@ -726,9 +727,9 @@ typedef enum {
 
 } clken_t;
 
-/* =============================================================================
+/* ============================================================================
  * Function prototypes
- * ---------------------------------------------------------------------------*/
+ * --------------------------------------------------------------------------*/
 BEGIN_DECLS
 
 void periph_clock_enable(clken_t periph);
@@ -739,6 +740,4 @@ END_DECLS
 /**@}*/
 
 #endif /* LM4F_SYSTEMCONTROL_H */
-
-
 

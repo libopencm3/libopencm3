@@ -6,7 +6,8 @@
 
 @version 1.0.0
 
-@author @htmlonly &copy; @endhtmlonly 2012 Ken Sarkies <ksarkies@internode.on.net>
+@author @htmlonly &copy; @endhtmlonly 2012
+Ken Sarkies <ksarkies@internode.on.net>
 
 @date 18 August 2012
 

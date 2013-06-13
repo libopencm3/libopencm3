@@ -159,8 +159,10 @@ LGPL License Terms @ref lgpl_license
  * Connectivity line devices have 28 banks so the bank ID spans 0..27
  * all other devices have 14 banks so the bank ID spans 0..13.
  */
-#define CAN_FiR1(can_base, bank)	MMIO32(can_base + 0x240 + (bank * 0x8) + 0x0)
-#define CAN_FiR2(can_base, bank)	MMIO32(can_base + 0x240 + (bank * 0x8) + 0x4)
+#define CAN_FiR1(can_base, bank)	MMIO32(can_base + 0x240 + \
+						(bank * 0x8) + 0x0)
+#define CAN_FiR2(can_base, bank)	MMIO32(can_base + 0x240 + \
+						(bank * 0x8) + 0x4)
 
 /* --- CAN_MCR values ------------------------------------------------------ */
 

@@ -1,12 +1,14 @@
 /** @defgroup adc_defines ADC Defines
 
-@brief <b>Defined Constants and Types for the STM32F1xx Analog to Digital Converters</b>
+@brief <b>Defined Constants and Types for the STM32F1xx Analog to Digital
+Converters</b>
 
 @ingroup STM32F1xx_defines
 
 @version 1.0.0
 
-@author @htmlonly &copy; @endhtmlonly 2009 Edward Cheeseman <evbuilder@users.sourceforge.net>
+@author @htmlonly &copy; @endhtmlonly 2009
+Edward Cheeseman <evbuilder@users.sourceforge.net>
 
 @date 18 August 2012
 
@@ -404,7 +406,8 @@ LGPL License Terms @ref lgpl_license
 /* The following are only valid for ADC1 and ADC2. */
 /****************************************************************************/
 /* ADC_CR2 JEXTSEL[2:0] ADC Injected Trigger Identifier for ADC1 and ADC2 */
-/** @defgroup adc_trigger_injected_12 ADC Injected Trigger Identifier for ADC1 and ADC2
+/** @defgroup adc_trigger_injected_12 ADC Injected Trigger Identifier for ADC1
+and ADC2
 @ingroup adc_defines
 
 @{*/
@@ -677,7 +680,8 @@ void adc_reset_calibration(u32 adc);
 void adc_calibration(u32 adc);
 void adc_set_continuous_conversion_mode(u32 adc);
 void adc_set_single_conversion_mode(u32 adc);
-void adc_on(u32 adc) LIBOPENCM3_DEPRECATED("will be removed in the first release");
+void adc_on(u32 adc)
+	LIBOPENCM3_DEPRECATED("will be removed in the first release");
 void adc_off(u32 adc);
 void adc_set_sample_time(u32 adc, u8 channel, u8 time);
 void adc_set_sample_time_on_all_channels(u32 adc, u8 time);
@@ -686,11 +690,16 @@ void adc_set_watchdog_low_threshold(u32 adc, u16 threshold);
 void adc_set_regular_sequence(u32 adc, u8 length, u8 channel[]);
 void adc_set_injected_sequence(u32 adc, u8 length, u8 channel[]);
 
-void adc_set_continous_conversion_mode(u32 adc) LIBOPENCM3_DEPRECATED("change to adc_set_continuous_conversion_mode");
-void adc_set_conversion_time(u32 adc, u8 channel, u8 time) LIBOPENCM3_DEPRECATED("change to adc_set_sample_time");
-void adc_set_conversion_time_on_all_channels(u32 adc, u8 time) LIBOPENCM3_DEPRECATED("change to adc_set_sample_time_on_all_channels");
-void adc_enable_jeoc_interrupt(u32 adc) LIBOPENCM3_DEPRECATED("change to adc_enable_eoc_interrupt_injected");
-void adc_disable_jeoc_interrupt(u32 adc) LIBOPENCM3_DEPRECATED("change to adc_disable_eoc_interrupt_injected");
+void adc_set_continous_conversion_mode(u32 adc)
+	LIBOPENCM3_DEPRECATED("change to adc_set_continuous_conversion_mode");
+void adc_set_conversion_time(u32 adc, u8 channel, u8 time)
+	LIBOPENCM3_DEPRECATED("change to adc_set_sample_time");
+void adc_set_conversion_time_on_all_channels(u32 adc, u8 time)
+	LIBOPENCM3_DEPRECATED("change to adc_set_sample_time_on_all_channels");
+void adc_enable_jeoc_interrupt(u32 adc)
+	LIBOPENCM3_DEPRECATED("change to adc_enable_eoc_interrupt_injected");
+void adc_disable_jeoc_interrupt(u32 adc)
+	LIBOPENCM3_DEPRECATED("change to adc_disable_eoc_interrupt_injected");
 END_DECLS
 
 #endif

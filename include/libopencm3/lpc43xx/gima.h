@@ -1,6 +1,7 @@
 /** @defgroup gima_defines Global Input Multiplexer Array Defines
 
-@brief <b>Defined Constants and Types for the LPC43xx Global Input Multiplexer Array</b>
+@brief <b>Defined Constants and Types for the LPC43xx Global Input Multiplexer
+Array</b>
 
 @ingroup LPC43xx_defines
 

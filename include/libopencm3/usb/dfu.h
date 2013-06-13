@@ -6,7 +6,8 @@
 
 @version 1.0.0
 
-@author @htmlonly &copy; @endhtmlonly 2010 Gareth McMullin <gareth@blacksphere.co.nz>
+@author @htmlonly &copy; @endhtmlonly 2010
+Gareth McMullin <gareth@blacksphere.co.nz>
 
 @date 10 March 2013
 
@@ -93,7 +94,7 @@ struct usb_dfu_descriptor {
 	u16 wDetachTimeout;
 	u16 wTransferSize;
 	u16 bcdDFUVersion;
-} __attribute__((packed));
+} __packed;
 
 #endif
 

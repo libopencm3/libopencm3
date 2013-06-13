@@ -135,21 +135,24 @@
 #define OTG_HS_DOEPINT(x)		MMIO32(USB_OTG_HS_BASE + OTG_DOEPINT(x))
 #define OTG_HS_DIEPTSIZ0		MMIO32(USB_OTG_HS_BASE + OTG_DIEPTSIZ0)
 #define OTG_HS_DOEPTSIZ0		MMIO32(USB_OTG_HS_BASE + OTG_DOEPTSIZ0)
-#define OTG_HS_DIEPTSIZ(x)		MMIO32(USB_OTG_HS_BASE + OTG_DIEPTSIZ(x)))
+#define OTG_HS_DIEPTSIZ(x)		MMIO32(USB_OTG_HS_BASE + \
+						OTG_DIEPTSIZ(x))
 #define OTG_HS_DTXFSTS(x)		MMIO32(USB_OTG_HS_BASE + OTG_DTXFSTS(x))
-#define OTG_HS_DOEPTSIZ(x)		MMIO32(USB_OTG_HS_BASE + OTG_DOEPTSIZ(x))
+#define OTG_HS_DOEPTSIZ(x)		MMIO32(USB_OTG_HS_BASE + \
+						OTG_DOEPTSIZ(x))
 
 /* Power and clock gating control and status register */
 #define OTG_HS_PCGCCTL			MMIO32(USB_OTG_HS_BASE + OTG_PCGCCTL)
 
 /* Data FIFO */
-#define OTG_HS_FIFO(x)			((volatile u32*)(USB_OTG_HS_BASE + OTG_FIFO(x)))
+#define OTG_HS_FIFO(x)			((volatile u32*)(USB_OTG_HS_BASE + \
+						OTG_FIFO(x)))
 
 /* Global CSRs */
 /* OTG_HS USB control registers (OTG_FS_GOTGCTL) */
 #define OTG_HS_GOTGCTL_BSVLD		(1 << 19)
 #define OTG_HS_GOTGCTL_ASVLD		(1 << 18)
-#define OTG_HS_GOTGCTL_DBCT 		(1 << 17)
+#define OTG_HS_GOTGCTL_DBCT		(1 << 17)
 #define OTG_HS_GOTGCTL_CIDSTS		(1 << 16)
 #define OTG_HS_GOTGCTL_DHNPEN		(1 << 11)
 #define OTG_HS_GOTGCTL_HSHNPEN		(1 << 10)

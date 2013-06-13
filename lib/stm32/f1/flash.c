@@ -95,7 +95,10 @@ void flash_clear_status_flags(void)
 
 u32 flash_get_status_flags(void)
 {
-	return (FLASH_SR &= (FLASH_SR_PGERR | FLASH_SR_EOP | FLASH_SR_WRPRTERR | FLASH_SR_BSY));
+	return FLASH_SR &= (FLASH_SR_PGERR |
+			FLASH_SR_EOP |
+			FLASH_SR_WRPRTERR |
+			FLASH_SR_BSY);
 }
 
 void flash_unlock_option_bytes(void)
@@ -174,8 +177,9 @@ void flash_erase_option_bytes(void)
 {
 	flash_wait_for_last_operation();
 
-	if ((FLASH_CR & FLASH_CR_OPTWRE) == 0)
+	if ((FLASH_CR & FLASH_CR_OPTWRE) == 0) {
 		flash_unlock_option_bytes();
+	}
 
 	FLASH_CR |= FLASH_CR_OPTER;	/* Enable option byte erase. */
 	FLASH_CR |= FLASH_CR_STRT;
@@ -187,8 +191,9 @@ void flash_program_option_bytes(u32 address, u16 data)
 {
 	flash_wait_for_last_operation();
 
-	if ((FLASH_CR & FLASH_CR_OPTWRE) == 0)
+	if ((FLASH_CR & FLASH_CR_OPTWRE) == 0) {
 		flash_unlock_option_bytes();
+	}
 
 	FLASH_CR |= FLASH_CR_OPTPG;	/* Enable option byte programming. */
 	(*(volatile u16 *)address) = data;

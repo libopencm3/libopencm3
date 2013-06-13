@@ -27,7 +27,7 @@
 
 /**@{*/
 
-/*-----------------------------------------------------------------------------*/
+/*---------------------------------------------------------------------------*/
 /** @brief CRC Reset.
 
 Reset the CRC unit and forces the data register to all 1s.
@@ -39,7 +39,7 @@ void crc_reset(void)
 	CRC_CR |= CRC_CR_RESET;
 }
 
-/*-----------------------------------------------------------------------------*/
+/*---------------------------------------------------------------------------*/
 /** @brief CRC Calculate.
 
 Writes a data word to the register, the write operation stalling until the
@@ -52,11 +52,11 @@ computation is complete.
 u32 crc_calculate(u32 data)
 {
 	CRC_DR = data;
-	// Data sheet says this blocks until it's ready....
+	/* Data sheet says this blocks until it's ready.... */
 	return CRC_DR;
 }
 
-/*-----------------------------------------------------------------------------*/
+/*---------------------------------------------------------------------------*/
 /** @brief CRC Calculate of a Block of Data.
 
 Writes data words consecutively to the register, the write operation stalling
@@ -70,9 +70,11 @@ until the computation of each word is complete.
 u32 crc_calculate_block(u32 *datap, int size)
 {
 	int i;
+
 	for (i = 0; i < size; i++) {
 		CRC_DR = datap[i];
 	}
+
 	return CRC_DR;
 }
 /**@}*/

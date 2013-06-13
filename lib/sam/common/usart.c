@@ -28,13 +28,13 @@ void usart_set_baudrate(u32 usart, u32 baud)
 void usart_set_databits(u32 usart, int bits)
 {
 	USART_MR(usart) = (USART_MR(usart) & ~USART_MR_CHRL_MASK) |
-			((bits - 5) << 6);
+			  ((bits - 5) << 6);
 }
 
 void usart_set_stopbits(u32 usart, enum usart_stopbits sb)
 {
 	USART_MR(usart) = (USART_MR(usart) & ~USART_MR_NBSTOP_MASK) |
-			(sb << 12);
+			  (sb << 12);
 }
 
 void usart_set_parity(u32 usart, enum usart_parity par)
@@ -46,14 +46,14 @@ void usart_set_mode(u32 usart, enum usart_mode mode)
 {
 	USART_CR(usart) =
 		(mode & USART_MODE_RX) ? USART_CR_RXEN : USART_CR_RXDIS;
-	USART_CR(usart) =
-		(mode & USART_MODE_TX) ? USART_CR_TXEN : USART_CR_TXDIS;
+	USART_CR(usart) = (mode & USART_MODE_TX) ? USART_CR_TXEN
+						 : USART_CR_TXDIS;
 }
 
 void usart_set_flow_control(u32 usart, enum usart_flowcontrol fc)
 {
 	USART_MR(usart) = (USART_MR(usart) & ~USART_MR_MODE_MASK) |
-			(fc ? USART_MR_MODE_HW_HANDSHAKING : 0);
+			  (fc ? USART_MR_MODE_HW_HANDSHAKING : 0);
 }
 
 void usart_enable(u32 usart)

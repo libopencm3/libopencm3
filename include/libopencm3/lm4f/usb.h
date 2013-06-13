@@ -41,15 +41,15 @@
 #include <libopencm3/lm4f/memorymap.h>
 #include <libopencm3/cm3/common.h>
 
-/* =============================================================================
+/* ============================================================================
  * USB registers
- * ---------------------------------------------------------------------------*/
+ * --------------------------------------------------------------------------*/
 
 /* USB Device Functional Address */
-#define USB_FADDR			MMIO8 (USB_BASE + 0x00)
+#define USB_FADDR			MMIO8(USB_BASE + 0x00)
 
 /* USB Power */
-#define USB_POWER			MMIO8 (USB_BASE + 0x01)
+#define USB_POWER			MMIO8(USB_BASE + 0x01)
 
 /* USB Transmit Interrupt Status */
 #define USB_TXIS			MMIO16(USB_BASE + 0x02)
@@ -64,19 +64,19 @@
 #define USB_RXIE			MMIO16(USB_BASE + 0x08)
 
 /* USB General Interrupt Status */
-#define USB_IS				MMIO8 (USB_BASE + 0x0A)
+#define USB_IS				MMIO8(USB_BASE + 0x0A)
 
 /* USB Interrupt Enable */
-#define USB_IE				MMIO8 (USB_BASE + 0x0B)
+#define USB_IE				MMIO8(USB_BASE + 0x0B)
 
 /* USB Frame Value */
 #define USB_FRAME			MMIO16(USB_BASE + 0x0C)
 
 /* USB Endpoint Index */
-#define USB_EPIDX			MMIO8 (USB_BASE + 0x0E)
+#define USB_EPIDX			MMIO8(USB_BASE + 0x0E)
 
 /* USB Test Mode */
-#define USB_TEST			MMIO8 (USB_BASE + 0x0F)
+#define USB_TEST			MMIO8(USB_BASE + 0x0F)
 
 /* USB FIFO Endpoint [0-7] */
 #define USB_FIFO8(n)			MMIO8(USB_BASE + 0x20 + n*0x04)
@@ -84,10 +84,10 @@
 #define USB_FIFO32(n)			MMIO32(USB_BASE + 0x20 + n*0x04)
 
 /* USB Transmit Dynamic FIFO Sizing */
-#define USB_TXFIFOSZ			MMIO8 (USB_BASE + 0x62)
+#define USB_TXFIFOSZ			MMIO8(USB_BASE + 0x62)
 
 /* USB Receive Dynamic FIFO Sizing */
-#define USB_RXFIFOSZ			MMIO8 (USB_BASE + 0x63)
+#define USB_RXFIFOSZ			MMIO8(USB_BASE + 0x63)
 
 /* USB Transmit FIFO Start Address */
 #define USB_TXFIFOADD			MMIO16(USB_BASE + 0x64)
@@ -96,40 +96,40 @@
 #define USB_RXFIFOADD			MMIO16(USB_BASE + 0x66)
 
 /* USB Connect Timing */
-#define USB_CONTIM			MMIO8 (USB_BASE + 0x7A)
+#define USB_CONTIM			MMIO8(USB_BASE + 0x7A)
 
 /* USB Full-Speed Last Transaction to End of Frame Timing */
-#define USB_FSEOF			MMIO8 (USB_BASE + 0x7D)
+#define USB_FSEOF			MMIO8(USB_BASE + 0x7D)
 
 /* USB Low-Speed Last Transaction to End of Frame Timing */
-#define USB_LSEOF			MMIO8 (USB_BASE + 0x7E)
+#define USB_LSEOF			MMIO8(USB_BASE + 0x7E)
 
 /* USB Control and Status Endpoint 0 Low */
-#define USB_CSRL0			MMIO8 (USB_BASE + 0x102)
+#define USB_CSRL0			MMIO8(USB_BASE + 0x102)
 
 /* USB Control and Status Endpoint 0 High */
-#define USB_CSRH0			MMIO8 (USB_BASE + 0x103)
+#define USB_CSRH0			MMIO8(USB_BASE + 0x103)
 
 /* USB Receive Byte Count Endpoint 0 */
-#define USB_COUNT0			MMIO8 (USB_BASE + 0x108)
+#define USB_COUNT0			MMIO8(USB_BASE + 0x108)
 
 /* USB Maximum Transmit Data Endpoint [1-7] */
 #define USB_TXMAXP(n)			MMIO16(USB_BASE + 0x100 + n*0x10)
 
 /* USB Transmit Control and Status Endpoint [1-7] Low */
-#define USB_TXCSRL(n)			MMIO8 (USB_BASE + 0x102 + n*0x10)
+#define USB_TXCSRL(n)			MMIO8(USB_BASE + 0x102 + n*0x10)
 
 /* USB Transmit Control and Status Endpoint [1-7] High */
-#define USB_TXCSRH(n)			MMIO8 (USB_BASE + 0x103 + n*0x10)
+#define USB_TXCSRH(n)			MMIO8(USB_BASE + 0x103 + n*0x10)
 
 /* USB Maximum Receive Data Endpoint [1-7] */
 #define USB_RXMAXP(n)			MMIO16(USB_BASE + 0x104 + n*0x10)
 
 /* USB Receive Control and Status Endpoint [1-7] Low */
-#define USB_RXCSRL(n)			MMIO8 (USB_BASE + 0x106 + n*0x10)
+#define USB_RXCSRL(n)			MMIO8(USB_BASE + 0x106 + n*0x10)
 
 /* USB Receive Control and Status Endpoint [1-7] High */
-#define USB_RXCSRH(n)			MMIO8 (USB_BASE + 0x107 + n*0x10)
+#define USB_RXCSRH(n)			MMIO8(USB_BASE + 0x107 + n*0x10)
 
 /* USB Receive Byte Count Endpoint [1-7] */
 #define USB_RXCOUNT(n)			MMIO16(USB_BASE + 0x108 + n*0x10)

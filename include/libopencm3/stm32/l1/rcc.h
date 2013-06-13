@@ -6,9 +6,12 @@
 
 @version 1.0.0
 
-@author @htmlonly &copy; @endhtmlonly 2009 Federico Ruiz-Ugalde \<memeruiz at gmail dot com\>
-@author @htmlonly &copy; @endhtmlonly 2009 Uwe Hermann <uwe@hermann-uwe.de>
-@author @htmlonly &copy; @endhtmlonly 2012 Karl Palsson <karlp@tweak.net.au>
+@author @htmlonly &copy; @endhtmlonly 2009
+Federico Ruiz-Ugalde \<memeruiz at gmail dot com\>
+@author @htmlonly &copy; @endhtmlonly 2009
+Uwe Hermann <uwe@hermann-uwe.de>
+@author @htmlonly &copy; @endhtmlonly 2012
+Karl Palsson <karlp@tweak.net.au>
 
 @date 11 November 2012
 

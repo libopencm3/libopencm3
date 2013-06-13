@@ -22,21 +22,21 @@
 
 extern unsigned _etext_ram, _text_ram, _etext_rom;
 
-#define CREG_M4MEMMAP   MMIO32( (0x40043000 + 0x100) )
+#define CREG_M4MEMMAP   MMIO32((0x40043000 + 0x100))
 
 static void pre_main(void)
 {
 	volatile unsigned *src, *dest;
 
 	/* Copy the code from ROM to Real RAM (if enabled) */
-	if( (&_etext_ram-&_text_ram) > 0 )
-	{
+	if ((&_etext_ram-&_text_ram) > 0) {
 		src = &_etext_rom-(&_etext_ram-&_text_ram);
-		/* Change Shadow memory to ROM (for Debug Purpose in case Boot has not set correctly the M4MEMMAP because of debug) */
+		/* Change Shadow memory to ROM (for Debug Purpose in case Boot
+		 * has not set correctly the M4MEMMAP because of debug)
+		 */
 		CREG_M4MEMMAP = (unsigned long)src;
 
-		for(dest = &_text_ram; dest < &_etext_ram; )
-		{
+		for (dest = &_text_ram; dest < &_etext_ram; ) {
 			*dest++ = *src++;
 		}
 

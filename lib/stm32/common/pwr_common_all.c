@@ -1,6 +1,7 @@
 /** @addtogroup pwr-file PWR
 
-@author @htmlonly &copy; @endhtmlonly 2012 Ken Sarkies <ksarkies@internode.on.net>
+@author @htmlonly &copy; @endhtmlonly 2012
+Ken Sarkies <ksarkies@internode.on.net>
 
 */
 /*
@@ -199,7 +200,7 @@ cleared by software (see @ref pwr_clear_wakeup_flag).
 
 bool pwr_get_wakeup_flag(void)
 {
-	return (PWR_CSR & PWR_CSR_WUF);
+	return PWR_CSR & PWR_CSR_WUF;
 }
 /**@}*/
 

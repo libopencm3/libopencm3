@@ -46,9 +46,9 @@ typedef uint64_t u64;
 
 #ifdef __GNUC__
 #	if __GNUC__ > 4 || (__GNUC__ == 4 && __GNUC_MINOR__ > 4)
-#		define LIBOPENCM3_DEPRECATED(x) __attribute__ ((deprecated (x)))
+#		define LIBOPENCM3_DEPRECATED(x) __attribute__((deprecated(x)))
 #	else
-#		define LIBOPENCM3_DEPRECATED(x) __attribute__ ((deprecated))
+#		define LIBOPENCM3_DEPRECATED(x) __attribute__((deprecated))
 #	endif
 #else
 #	define LIBOPENCM3_DEPRECATED(x)
@@ -94,5 +94,8 @@ typedef uint64_t u64;
 #define BIT29 (1<<29)
 #define BIT30 (1<<30)
 #define BIT31 (1<<31)
+
+#define __packed __attribute__((packed))
+#define __aligned(x) __attribute__((aligned(x)))
 
 #endif

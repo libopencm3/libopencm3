@@ -290,7 +290,9 @@ void rtc_auto_awake(osc_t clock_source, u32 prescale_val)
 	/* TODO: Not sure if this is necessary to just read the flag. */
 	PWR_CR |= PWR_CR_DBP;
 
-	if ((reg32 = RCC_BDCR & RCC_BDCR_RTCEN) != 0) {
+	reg32 = RCC_BDCR & RCC_BDCR_RTCEN;
+
+	if (reg32 != 0) {
 		rtc_awake_from_standby();
 	} else {
 		rtc_awake_from_off(clock_source);

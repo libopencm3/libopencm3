@@ -148,8 +148,7 @@ void flash_lock_option_bytes(void)
 
 void flash_wait_for_last_operation(void)
 {
-	while ((FLASH_SR & FLASH_SR_BSY) == FLASH_SR_BSY)
-		;
+	while ((FLASH_SR & FLASH_SR_BSY) == FLASH_SR_BSY);
 }
 
 void flash_program_double_word(u32 address, u64 data)
@@ -218,13 +217,15 @@ void flash_program_byte(u32 address, u8 data)
 	FLASH_CR &= ~FLASH_CR_PG;		/* Disable the PG bit. */
 }
 
-void flash_program(u32 address, u8* data, u32 len)
+void flash_program(u32 address, u8 *data, u32 len)
 {
-  /* TODO: Use dword and word size program operations where possible for turbo
-   * speed. */
-  u32 i;
-  for (i=0; i<len; i++)
-    flash_program_byte(address+i, data[i]);
+	/* TODO: Use dword and word size program operations where possible for
+	 * turbo speed.
+	 */
+	u32 i;
+	for (i = 0; i < len; i++) {
+		flash_program_byte(address+i, data[i]);
+	}
 }
 
 void flash_erase_sector(u8 sector, u32 program_size)
@@ -258,10 +259,11 @@ void flash_program_option_bytes(u32 data)
 {
 	flash_wait_for_last_operation();
 
-	if (FLASH_OPTCR & FLASH_OPTCR_OPTLOCK)
+	if (FLASH_OPTCR & FLASH_OPTCR_OPTLOCK) {
 		flash_unlock_option_bytes();
+	}
 
 	FLASH_OPTCR = data & ~0x3;
-	FLASH_OPTCR |= FLASH_OPTCR_OPTSTRT;	/* Enable option byte programming. */
+	FLASH_OPTCR |= FLASH_OPTCR_OPTSTRT;  /* Enable option byte prog. */
 	flash_wait_for_last_operation();
 }

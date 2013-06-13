@@ -6,7 +6,8 @@
 
 @version 1.0.0
 
-@author @htmlonly &copy; @endhtmlonly 2010 Gareth McMullin <gareth@blacksphere.co.nz>
+@author @htmlonly &copy; @endhtmlonly 2010
+Gareth McMullin <gareth@blacksphere.co.nz>
 
 @date 10 March 2013
 
@@ -87,7 +88,7 @@ struct usb_cdc_union_descriptor {
 	u8 bControlInterface;
 	u8 bSubordinateInterface0;
 	/* ... */
-} __attribute__((packed));
+} __packed;
 
 
 /* Definitions for Abstract Control Model devices from:
@@ -102,7 +103,7 @@ struct usb_cdc_call_management_descriptor {
 	u8 bDescriptorSubtype;
 	u8 bmCapabilities;
 	u8 bDataInterface;
-} __attribute__((packed));
+} __packed;
 
 /* Table 4: Abstract Control Management Functional Descriptor */
 struct usb_cdc_acm_descriptor {
@@ -110,7 +111,7 @@ struct usb_cdc_acm_descriptor {
 	u8 bDescriptorType;
 	u8 bDescriptorSubtype;
 	u8 bmCapabilities;
-} __attribute__((packed));
+} __packed;
 
 /* Table 13: Class-Specific Request Codes for PSTN subclasses */
 /* ... */
@@ -125,7 +126,7 @@ struct usb_cdc_line_coding {
 	u8 bCharFormat;
 	u8 bParityType;
 	u8 bDataBits;
-} __attribute__((packed));
+} __packed;
 
 /* Table 30: Class-Specific Notification Codes for PSTN subclasses */
 /* ... */
@@ -139,7 +140,7 @@ struct usb_cdc_notification {
 	u16 wValue;
 	u16 wIndex;
 	u16 wLength;
-} __attribute__((packed));
+} __packed;
 
 #endif
 

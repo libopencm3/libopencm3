@@ -1,7 +1,9 @@
-/** @addtogroup dma_defines 
+/** @addtogroup dma_defines
 
-@author @htmlonly &copy; @endhtmlonly 2010 Thomas Otto <tommi@viadmin.org>
-@author @htmlonly &copy; @endhtmlonly 2012 Piotr Esden-Tempski <piotr@esden.net>
+@author @htmlonly &copy; @endhtmlonly 2010
+Thomas Otto <tommi@viadmin.org>
+@author @htmlonly &copy; @endhtmlonly 2012
+Piotr Esden-Tempski <piotr@esden.net>
 
 */
 
@@ -27,7 +29,7 @@
 
 /**@{*/
 
-/* THIS FILE SHOULD NOT BE INCLUDED DIRECTLY, BUT ONLY VIA DMA.H 
+/* THIS FILE SHOULD NOT BE INCLUDED DIRECTLY, BUT ONLY VIA DMA.H
 The order of header inclusion is important. dma.h includes the device
 specific memorymap.h header before including this header file.*/
 
@@ -141,29 +143,36 @@ specific memorymap.h header before including this header file.*/
 /* --- DMA_ISR values ------------------------------------------------------ */
 
 /* --- DMA Interrupt Flag offset values ------------------------------------- */
-/* These are based on every interrupt flag and flag clear being at the same relative location */
-/** @defgroup dma_if_offset DMA Interrupt Flag Offsets within channel flag group.
+/* These are based on every interrupt flag and flag clear being at the same
+ * relative location
+ */
+/** @defgroup dma_if_offset DMA Interrupt Flag Offsets within channel flag
+group.
 @ingroup dma_defines
 
 @{*/
 /** Transfer Error Interrupt Flag */
-#define DMA_TEIF       		(1 << 3)
+#define DMA_TEIF		(1 << 3)
 /** Half Transfer Interrupt Flag */
-#define DMA_HTIF       		(1 << 2)
+#define DMA_HTIF		(1 << 2)
 /** Transfer Complete Interrupt Flag */
-#define DMA_TCIF       		(1 << 1)
+#define DMA_TCIF		(1 << 1)
 /** Global Interrupt Flag */
-#define DMA_GIF       		(1 << 0)
+#define DMA_GIF			(1 << 0)
 /**@}*/
 
-/* Offset within interrupt status register to start of channel interrupt flag field */
-#define DMA_FLAG_OFFSET(channel)		(4*(channel - 1))
-#define DMA_FLAGS				(DMA_TEIF | DMA_TCIF | DMA_HTIF | DMA_GIF)
-#define DMA_ISR_MASK(channel)		DMA_FLAGS << DMA_FLAG_OFFSET(channel)
+/* Offset within interrupt status register to start of channel interrupt flag
+ * field
+ */
+#define DMA_FLAG_OFFSET(channel)	(4*(channel - 1))
+#define DMA_FLAGS			(DMA_TEIF | DMA_TCIF | DMA_HTIF | \
+					 DMA_GIF)
+#define DMA_ISR_MASK(channel)		(DMA_FLAGS << DMA_FLAG_OFFSET(channel))
 
 /* TEIF: Transfer error interrupt flag */
-#define DMA_ISR_TEIF_BIT       		DMA_TEIF
-#define DMA_ISR_TEIF(channel)		(DMA_ISR_TEIF_BIT << (DMA_FLAG_OFFSET(channel)))
+#define DMA_ISR_TEIF_BIT		DMA_TEIF
+#define DMA_ISR_TEIF(channel)		(DMA_ISR_TEIF_BIT << \
+					 (DMA_FLAG_OFFSET(channel)))
 
 #define DMA_ISR_TEIF1			DMA_ISR_TEIF(DMA_CHANNEL1)
 #define DMA_ISR_TEIF2			DMA_ISR_TEIF(DMA_CHANNEL2)
@@ -174,8 +183,9 @@ specific memorymap.h header before including this header file.*/
 #define DMA_ISR_TEIF7			DMA_ISR_TEIF(DMA_CHANNEL7)
 
 /* HTIF: Half transfer interrupt flag */
-#define DMA_ISR_HTIF_BIT       		DMA_HTIF
-#define DMA_ISR_HTIF(channel)		(DMA_ISR_HTIF_BIT << (DMA_FLAG_OFFSET(channel)))
+#define DMA_ISR_HTIF_BIT		DMA_HTIF
+#define DMA_ISR_HTIF(channel)		(DMA_ISR_HTIF_BIT << \
+					 (DMA_FLAG_OFFSET(channel)))
 
 #define DMA_ISR_HTIF1			DMA_ISR_HTIF(DMA_CHANNEL1)
 #define DMA_ISR_HTIF2			DMA_ISR_HTIF(DMA_CHANNEL2)
@@ -186,8 +196,9 @@ specific memorymap.h header before including this header file.*/
 #define DMA_ISR_HTIF7			DMA_ISR_HTIF(DMA_CHANNEL7)
 
 /* TCIF: Transfer complete interrupt flag */
-#define DMA_ISR_TCIF_BIT       		DMA_TCIF
-#define DMA_ISR_TCIF(channel)		(DMA_ISR_TCIF_BIT << (DMA_FLAG_OFFSET(channel)))
+#define DMA_ISR_TCIF_BIT		DMA_TCIF
+#define DMA_ISR_TCIF(channel)		(DMA_ISR_TCIF_BIT << \
+					 (DMA_FLAG_OFFSET(channel)))
 
 #define DMA_ISR_TCIF1			DMA_ISR_TCIF(DMA_CHANNEL1)
 #define DMA_ISR_TCIF2			DMA_ISR_TCIF(DMA_CHANNEL2)
@@ -199,7 +210,8 @@ specific memorymap.h header before including this header file.*/
 
 /* GIF: Global interrupt flag */
 #define DMA_ISR_GIF_BIT			DMA_GIF
-#define DMA_ISR_GIF(channel)		(DMA_ISR_GIF_BIT << (DMA_FLAG_OFFSET(channel)))
+#define DMA_ISR_GIF(channel)		(DMA_ISR_GIF_BIT << \
+					 (DMA_FLAG_OFFSET(channel)))
 
 #define DMA_ISR_GIF1			DMA_ISR_GIF(DMA_CHANNEL1)
 #define DMA_ISR_GIF2			DMA_ISR_GIF(DMA_CHANNEL2)
@@ -212,8 +224,9 @@ specific memorymap.h header before including this header file.*/
 /* --- DMA_IFCR values ----------------------------------------------------- */
 
 /* CTEIF: Transfer error clear */
-#define DMA_IFCR_CTEIF_BIT     		DMA_TEIF
-#define DMA_IFCR_CTEIF(channel)		(DMA_IFCR_CTEIF_BIT << (DMA_FLAG_OFFSET(channel)))
+#define DMA_IFCR_CTEIF_BIT		DMA_TEIF
+#define DMA_IFCR_CTEIF(channel)		(DMA_IFCR_CTEIF_BIT << \
+					 (DMA_FLAG_OFFSET(channel)))
 
 #define DMA_IFCR_CTEIF1			DMA_IFCR_CTEIF(DMA_CHANNEL1)
 #define DMA_IFCR_CTEIF2			DMA_IFCR_CTEIF(DMA_CHANNEL2)
@@ -224,8 +237,9 @@ specific memorymap.h header before including this header file.*/
 #define DMA_IFCR_CTEIF7			DMA_IFCR_CTEIF(DMA_CHANNEL7)
 
 /* CHTIF: Half transfer clear */
-#define DMA_IFCR_CHTIF_BIT     		DMA_HTIF
-#define DMA_IFCR_CHTIF(channel)		(DMA_IFCR_CHTIF_BIT << (DMA_FLAG_OFFSET(channel)))
+#define DMA_IFCR_CHTIF_BIT		DMA_HTIF
+#define DMA_IFCR_CHTIF(channel)		(DMA_IFCR_CHTIF_BIT << \
+					 (DMA_FLAG_OFFSET(channel)))
 
 #define DMA_IFCR_CHTIF1			DMA_IFCR_CHTIF(DMA_CHANNEL1)
 #define DMA_IFCR_CHTIF2			DMA_IFCR_CHTIF(DMA_CHANNEL2)
@@ -236,8 +250,9 @@ specific memorymap.h header before including this header file.*/
 #define DMA_IFCR_CHTIF7			DMA_IFCR_CHTIF(DMA_CHANNEL7)
 
 /* CTCIF: Transfer complete clear */
-#define DMA_IFCR_CTCIF_BIT     		DMA_TCIF
-#define DMA_IFCR_CTCIF(channel)		(DMA_IFCR_CTCIF_BIT << (DMA_FLAG_OFFSET(channel)))
+#define DMA_IFCR_CTCIF_BIT		DMA_TCIF
+#define DMA_IFCR_CTCIF(channel)		(DMA_IFCR_CTCIF_BIT << \
+					 (DMA_FLAG_OFFSET(channel)))
 
 #define DMA_IFCR_CTCIF1			DMA_IFCR_CTCIF(DMA_CHANNEL1)
 #define DMA_IFCR_CTCIF2			DMA_IFCR_CTCIF(DMA_CHANNEL2)
@@ -248,8 +263,9 @@ specific memorymap.h header before including this header file.*/
 #define DMA_IFCR_CTCIF7			DMA_IFCR_CTCIF(DMA_CHANNEL7)
 
 /* CGIF: Global interrupt clear */
-#define DMA_IFCR_CGIF_BIT      		DMA_GIF
-#define DMA_IFCR_CGIF(channel)		(DMA_IFCR_CGIF_BIT << (DMA_FLAG_OFFSET(channel)))
+#define DMA_IFCR_CGIF_BIT		DMA_GIF
+#define DMA_IFCR_CGIF(channel)		(DMA_IFCR_CGIF_BIT << \
+					 (DMA_FLAG_OFFSET(channel)))
 
 #define DMA_IFCR_CGIF1			DMA_IFCR_CGIF(DMA_CHANNEL1)
 #define DMA_IFCR_CGIF2			DMA_IFCR_CGIF(DMA_CHANNEL2)
@@ -260,8 +276,9 @@ specific memorymap.h header before including this header file.*/
 #define DMA_IFCR_CGIF7			DMA_IFCR_CGIF(DMA_CHANNEL7)
 
 /* Clear interrupts mask */
-#define DMA_IFCR_CIF_BIT       		0xF
-#define DMA_IFCR_CIF(channel)		(DMA_IFCR_CIF_BIT << (DMA_FLAG_OFFSET(channel)))
+#define DMA_IFCR_CIF_BIT		0xF
+#define DMA_IFCR_CIF(channel)		(DMA_IFCR_CIF_BIT << \
+					 (DMA_FLAG_OFFSET(channel)))
 
 #define DMA_IFCR_CIF1			DMA_IFCR_CIF(DMA_CHANNEL1)
 #define DMA_IFCR_CIF2			DMA_IFCR_CIF(DMA_CHANNEL2)

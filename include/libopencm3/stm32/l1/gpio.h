@@ -171,7 +171,7 @@ LGPL License Terms @ref lgpl_license
 #define GPIO_OTYPE_OD			0x1
 /**@}*/
 
-/* Output speed values */	
+/* Output speed values */
 #define GPIO_OSPEED(n, speed)           (speed << (2 * (n)))
 #define GPIO_OSPEED_MASK(n)             (0x3 << (2 * (n)))
 /** @defgroup gpio_speed GPIO Output Pin Speed

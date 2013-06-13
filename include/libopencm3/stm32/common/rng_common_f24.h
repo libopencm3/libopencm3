@@ -16,7 +16,7 @@
  * along with this library.  If not, see <http://www.gnu.org/licenses/>.
  */
 
-/* THIS FILE SHOULD NOT BE INCLUDED DIRECTLY, BUT ONLY VIA RNG.H 
+/* THIS FILE SHOULD NOT BE INCLUDED DIRECTLY, BUT ONLY VIA RNG.H
 The order of header inclusion is important. rng.h includes the device
 specific memorymap.h header before including this header file.*/
 
@@ -32,7 +32,7 @@ specific memorymap.h header before including this header file.*/
 /* --- Random number generator registers ----------------------------------- */
 
 /* Control register */
-#define RNG_CR			MMIO32(RNG_BASE + 0x00) 
+#define RNG_CR			MMIO32(RNG_BASE + 0x00)
 
 /* Status register */
 #define RNG_SR			MMIO32(RNG_BASE + 0x04)

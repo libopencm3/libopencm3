@@ -1,7 +1,9 @@
 /** @addtogroup gpio_defines
 
-@author @htmlonly &copy; @endhtmlonly 2011 Fergus Noble <fergusnoble@gmail.com>
-@author @htmlonly &copy; @endhtmlonly 2012 Ken Sarkies <ksarkies@internode.on.net>
+@author @htmlonly &copy; @endhtmlonly 2011
+Fergus Noble <fergusnoble@gmail.com>
+@author @htmlonly &copy; @endhtmlonly 2012
+Ken Sarkies <ksarkies@internode.on.net>
 
 */
 
@@ -25,12 +27,12 @@
  * along with this library.  If not, see <http://www.gnu.org/licenses/>.
  */
 
-/* THIS FILE SHOULD NOT BE INCLUDED DIRECTLY, BUT ONLY VIA GPIO.H 
+/* THIS FILE SHOULD NOT BE INCLUDED DIRECTLY, BUT ONLY VIA GPIO.H
 The order of header inclusion is important. gpio.h includes the device
 specific memorymap.h header before including this header file.*/
 
 /** @cond */
-#if defined (LIBOPENCM3_GPIO_H) || defined (LIBOPENCM3_GPIO_COMMON_F24_H)
+#if defined(LIBOPENCM3_GPIO_H) || defined(LIBOPENCM3_GPIO_COMMON_F24_H)
 /** @endcond */
 #ifndef LIBOPENCM3_GPIO_COMMON_ALL_H
 #define LIBOPENCM3_GPIO_COMMON_ALL_H

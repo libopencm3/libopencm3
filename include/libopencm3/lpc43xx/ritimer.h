@@ -1,6 +1,7 @@
 /** @defgroup ritimer_defines Repetitive Interrupt Timer Defines
 
-@brief <b>Defined Constants and Types for the LPC43xx Repetitive Interrupt Timer</b>
+@brief <b>Defined Constants and Types for the LPC43xx Repetitive Interrupt
+Timer</b>
 
 @ingroup LPC43xx_defines
 

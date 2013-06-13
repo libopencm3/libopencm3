@@ -1,12 +1,14 @@
 /** @defgroup usb_type_defines USB Standard Structure Definitions
 
-@brief <b>Defined Constants and Types for the USB Standard Structure  Definitions</b>
+@brief <b>Defined Constants and Types for the USB Standard Structure
+Definitions</b>
 
 @ingroup USB_defines
 
 @version 1.0.0
 
-@author @htmlonly &copy; @endhtmlonly 2010 Gareth McMullin <gareth@blacksphere.co.nz>
+@author @htmlonly &copy; @endhtmlonly 2010
+Gareth McMullin <gareth@blacksphere.co.nz>
 
 @date 10 March 2013
 
@@ -57,10 +59,10 @@ struct usb_setup_data {
 	u16 wValue;
 	u16 wIndex;
 	u16 wLength;
-} __attribute__((packed));
+} __packed;
 
 /* Class Definition */
-#define USB_CLASS_VENDOR            		0xFF
+#define USB_CLASS_VENDOR			0xFF
 
 /* bmRequestType bit definitions */
 #define USB_REQ_TYPE_IN				0x80
@@ -129,7 +131,7 @@ struct usb_device_descriptor {
 	u8 iProduct;
 	u8 iSerialNumber;
 	u8 bNumConfigurations;
-} __attribute__((packed));
+} __packed;
 
 #define USB_DT_DEVICE_SIZE sizeof(struct usb_device_descriptor)
 
@@ -146,7 +148,7 @@ struct usb_device_qualifier_descriptor {
 	u8 bMaxPacketSize0;
 	u8 bNumConfigurations;
 	u8 bReserved;
-} __attribute__((packed));
+} __packed;
 
 /* USB Standard Configuration Descriptor - Table 9-10 */
 struct usb_config_descriptor {
@@ -165,7 +167,7 @@ struct usb_config_descriptor {
 		const struct usb_iface_assoc_descriptor *iface_assoc;
 		const struct usb_interface_descriptor *altsetting;
 	} *interface;
-} __attribute__((packed));
+} __packed;
 #define USB_DT_CONFIGURATION_SIZE		9
 
 /* USB Configuration Descriptor bmAttributes bit definitions */
@@ -192,7 +194,7 @@ struct usb_interface_descriptor {
 	const struct usb_endpoint_descriptor *endpoint;
 	const void *extra;
 	int extralen;
-} __attribute__((packed));
+} __packed;
 #define USB_DT_INTERFACE_SIZE			9
 
 /* USB Standard Endpoint Descriptor - Table 9-13 */
@@ -203,7 +205,7 @@ struct usb_endpoint_descriptor {
 	u8 bmAttributes;
 	u16 wMaxPacketSize;
 	u8 bInterval;
-} __attribute__((packed));
+} __packed;
 #define USB_DT_ENDPOINT_SIZE		sizeof(struct usb_endpoint_descriptor)
 
 /* USB Endpoint Descriptor bmAttributes bit definitions */
@@ -228,7 +230,7 @@ struct usb_string_descriptor {
 	u8 bLength;
 	u8 bDescriptorType;
 	u16 wData[];
-} __attribute__((packed));
+} __packed;
 
 /* From ECN: Interface Association Descriptors, Table 9-Z */
 struct usb_iface_assoc_descriptor {
@@ -240,7 +242,7 @@ struct usb_iface_assoc_descriptor {
 	u8 bFunctionSubClass;
 	u8 bFunctionProtocol;
 	u8 iFunction;
-} __attribute__((packed));
+} __packed;
 #define USB_DT_INTERFACE_ASSOCIATION_SIZE \
 				sizeof(struct usb_iface_assoc_descriptor)
 

@@ -6,8 +6,10 @@
 
 @version 1.0.0
 
-@author @htmlonly &copy; @endhtmlonly 2009 Federico Ruiz-Ugalde \<memeruiz at gmail dot com\>
-@author @htmlonly &copy; @endhtmlonly 2009 Uwe Hermann <uwe@hermann-uwe.de>
+@author @htmlonly &copy; @endhtmlonly 2009
+Federico Ruiz-Ugalde \<memeruiz at gmail dot com\>
+@author @htmlonly &copy; @endhtmlonly 2009
+Uwe Hermann <uwe@hermann-uwe.de>
 
 @date 18 August 2012
 
@@ -55,8 +57,8 @@ LGPL License Terms @ref lgpl_license
 #define RCC_APB1ENR				MMIO32(RCC_BASE + 0x1c)
 #define RCC_BDCR				MMIO32(RCC_BASE + 0x20)
 #define RCC_CSR					MMIO32(RCC_BASE + 0x24)
-#define RCC_AHBRSTR				MMIO32(RCC_BASE + 0x28) /* (**) */
-#define RCC_CFGR2				MMIO32(RCC_BASE + 0x2c) /* (**) */
+#define RCC_AHBRSTR				MMIO32(RCC_BASE + 0x28) /*(**)*/
+#define RCC_CFGR2				MMIO32(RCC_BASE + 0x2c) /*(**)*/
 
 /* --- RCC_CR values ------------------------------------------------------- */
 
@@ -125,9 +127,10 @@ LGPL License Terms @ref lgpl_license
 #define RCC_CFGR_PLLMUL_PLL_CLK_MUL13		0xb /* (XX) */
 #define RCC_CFGR_PLLMUL_PLL_CLK_MUL14		0xc /* (XX) */
 #define RCC_CFGR_PLLMUL_PLL_CLK_MUL15		0xd /* 0xd: PLL x 15 */
-#define RCC_CFGR_PLLMUL_PLL_CLK_MUL6_5		0xd /* 0xd: PLL x 6.5 for conn. line */
+#define RCC_CFGR_PLLMUL_PLL_CLK_MUL6_5		0xd /* 0xd: PLL x 6.5 for conn.
+						       line */
 #define RCC_CFGR_PLLMUL_PLL_CLK_MUL16		0xe /* (XX) */
-// #define PLLMUL_PLL_CLK_MUL16		0xf /* (XX) */ /* Errata? 17? */
+/* #define PLLMUL_PLL_CLK_MUL16		0xf */ /* (XX) */ /* Errata? 17? */
 /**@}*/
 
 /* TODO: conn. line differs. */
@@ -286,7 +289,8 @@ LGPL License Terms @ref lgpl_license
 #define RCC_APB1RSTR_BKPRST			(1 << 27)
 #define RCC_APB1RSTR_CAN2RST			(1 << 26) /* (**) */
 #define RCC_APB1RSTR_CAN1RST			(1 << 25) /* (**) */
-#define RCC_APB1RSTR_CANRST			(1 << 25) /* (XX) Alias for CAN1RST */
+#define RCC_APB1RSTR_CANRST			(1 << 25) /* (XX) Alias for
+							     CAN1RST */
 #define RCC_APB1RSTR_USBRST			(1 << 23) /* (XX) */
 #define RCC_APB1RSTR_I2C2RST			(1 << 22)
 #define RCC_APB1RSTR_I2C1RST			(1 << 21)
@@ -358,7 +362,8 @@ LGPL License Terms @ref lgpl_license
 #define RCC_APB1ENR_BKPEN			(1 << 27)
 #define RCC_APB1ENR_CAN2EN			(1 << 26) /* (**) */
 #define RCC_APB1ENR_CAN1EN			(1 << 25) /* (**) */
-#define RCC_APB1ENR_CANEN			(1 << 25) /* (XX) Alias for CAN1EN */
+#define RCC_APB1ENR_CANEN			(1 << 25) /* (XX) Alias for
+							     CAN1EN */
 #define RCC_APB1ENR_USBEN			(1 << 23) /* (XX) */
 #define RCC_APB1ENR_I2C2EN			(1 << 22)
 #define RCC_APB1ENR_I2C1EN			(1 << 21)

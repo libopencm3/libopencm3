@@ -6,7 +6,8 @@
 
 @version 1.0.0
 
-@author @htmlonly &copy; @endhtmlonly 2010 Gareth McMullin <gareth@blacksphere.co.nz>
+@author @htmlonly &copy; @endhtmlonly 2010
+Gareth McMullin <gareth@blacksphere.co.nz>
 
 @date 10 March 2013
 
@@ -61,8 +62,8 @@ LGPL License Terms @ref lgpl_license
  * @return Zero on success (currently cannot fail).
  */
 usbd_device *usbd_init(const usbd_driver *driver,
-	      	       const struct usb_device_descriptor *dev,
-	      	       const struct usb_config_descriptor *conf,
+		       const struct usb_device_descriptor *dev,
+		       const struct usb_config_descriptor *conf,
 		       const char **strings, int num_strings,
 		       u8 *control_buffer, u16 control_buffer_size)
 {
@@ -117,8 +118,9 @@ void _usbd_reset(usbd_device *usbd_dev)
 	usbd_ep_setup(usbd_dev, 0, USB_ENDPOINT_ATTR_CONTROL, 64, NULL);
 	usbd_dev->driver->set_address(usbd_dev, 0);
 
-	if (usbd_dev->user_callback_reset)
+	if (usbd_dev->user_callback_reset) {
 		usbd_dev->user_callback_reset();
+	}
 }
 
 /* Functions to wrap the low-level driver */
@@ -130,8 +132,9 @@ void usbd_poll(usbd_device *usbd_dev)
 void usbd_disconnect(usbd_device *usbd_dev, bool disconnected)
 {
 	/* not all drivers support disconnection */
-	if (usbd_dev->driver->disconnect)
+	if (usbd_dev->driver->disconnect) {
 		usbd_dev->driver->disconnect(usbd_dev, disconnected);
+	}
 }
 
 void usbd_ep_setup(usbd_device *usbd_dev, u8 addr, u8 type, u16 max_size,

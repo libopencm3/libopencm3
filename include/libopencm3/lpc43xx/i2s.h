@@ -45,7 +45,6 @@ LGPL License Terms @ref lgpl_license
 #define I2S0                            I2S0_BASE
 #define I2S1                            I2S1_BASE
 
-
 /* --- I2S registers ------------------------------------------------------- */
 
 /* I2S Digital Audio Output Register */

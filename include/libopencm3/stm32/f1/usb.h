@@ -6,7 +6,8 @@
 
 @version 1.0.0
 
-@author @htmlonly &copy; @endhtmlonly 2009 Piotr Esden-Tempski <piotr@esden.net>
+@author @htmlonly &copy; @endhtmlonly 2009
+Piotr Esden-Tempski <piotr@esden.net>
 
 @date 11 March 2013
 
@@ -131,9 +132,9 @@ LGPL License Terms @ref lgpl_license
 #define USB_EP_SETUP		0x0800 /* Setup transaction completed */
 #define USB_EP_TYPE		0x0600 /* Endpoint type */
 #define USB_EP_KIND		0x0100 /* Endpoint kind.
-                               * When set and type=bulk    -> double buffer
-                               * When set and type=control -> status out
-                               */
+				* When set and type=bulk    -> double buffer
+				* When set and type=control -> status out
+				*/
 
 #define USB_EP_TX_CTR		0x0080 /* Correct transfer TX */
 #define USB_EP_TX_DTOG		0x0040 /* Data toggle TX */

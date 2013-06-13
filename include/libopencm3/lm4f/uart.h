@@ -6,7 +6,8 @@
  *
  * @version 1.0.0
  *
- * @author @htmlonly &copy; @endhtmlonly 2013 Alexandru Gagniuc <mr.nuke.me@gmail.com>
+ * @author @htmlonly &copy; @endhtmlonly 2013
+ * Alexandru Gagniuc <mr.nuke.me@gmail.com>
  *
  * @date 07 May 2013
  *
@@ -479,7 +480,8 @@ void uart_set_fifo_trigger_levels(u32 uart,
  * @param[in] uart UART block register address base @ref uart_reg_base
  */
 static inline
-bool uart_is_tx_fifo_full(u32 uart) {
+bool uart_is_tx_fifo_full(u32 uart)
+{
 	return UART_FR(uart) & UART_FR_TXFF;
 }
 
@@ -490,7 +492,8 @@ bool uart_is_tx_fifo_full(u32 uart) {
  * @param[in] uart UART block register address base @ref uart_reg_base
  */
 static inline
-bool uart_is_tx_fifo_empty(u32 uart) {
+bool uart_is_tx_fifo_empty(u32 uart)
+{
 	return UART_FR(uart) & UART_FR_TXFE;
 }
 
@@ -500,7 +503,8 @@ bool uart_is_tx_fifo_empty(u32 uart) {
  * @param[in] uart UART block register address base @ref uart_reg_base
  */
 static inline
-bool uart_is_rx_fifo_full(u32 uart) {
+bool uart_is_rx_fifo_full(u32 uart)
+{
 	return UART_FR(uart) & UART_FR_RXFF;
 }
 
@@ -510,7 +514,8 @@ bool uart_is_rx_fifo_full(u32 uart) {
  * @param[in] uart UART block register address base @ref uart_reg_base
  */
 static inline
-bool uart_is_rx_fifo_empty(u32 uart) {
+bool uart_is_rx_fifo_empty(u32 uart)
+{
 	return UART_FR(uart) & UART_FR_RXFE;
 }
 /**@}*/

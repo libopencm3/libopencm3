@@ -25,8 +25,10 @@
  *
  * @version 1.0.0
  *
- * @author @htmlonly &copy; @endhtmlonly 2011 Gareth McMullin <gareth@blacksphere.co.nz>
- * @author @htmlonly &copy; @endhtmlonly 2013 Alexandru Gagniuc <mr.nuke.me@gmail.com>
+ * @author @htmlonly &copy; @endhtmlonly 2011
+ * Gareth McMullin <gareth@blacksphere.co.nz>
+ * @author @htmlonly &copy; @endhtmlonly 2013
+ * Alexandru Gagniuc <mr.nuke.me@gmail.com>
  *
  * @date 16 March 2013
  *
@@ -268,17 +270,17 @@ void gpio_mode_setup(u32 gpioport, enum gpio_mode mode, enum gpio_pullup pullup,
 void gpio_set_output_config(u32 gpioport, enum gpio_output_type otype,
 			     enum gpio_drive_strength drive, u8 gpios)
 {
-	if (otype == GPIO_OTYPE_OD)
+	if (otype == GPIO_OTYPE_OD) {
 		GPIO_ODR(gpioport) |= gpios;
-	else
+	} else {
 		GPIO_ODR(gpioport) &= ~gpios;
+	}
 
 	/*
 	 * Setting a bit in the GPIO_DRxR register clears the corresponding bit
 	 * in the other GPIO_DRyR registers, and vice-versa.
 	 */
-	switch (drive)
-	{
+	switch (drive) {
 	case GPIO_DRIVE_8MA_SLEW_CTL:
 		GPIO_DR8R(gpioport) |= gpios;
 		GPIO_SLR(gpioport) |= gpios;
@@ -312,7 +314,7 @@ void gpio_set_output_config(u32 gpioport, enum gpio_output_type otype,
  *
  * @param[in] gpioport GPIO block register address base @ref gpio_reg_base
  * @param[in] alt_func_num Pin alternate function number or 0 to disable the
- * 			   alternate function multiplexing.
+ *			   alternate function multiplexing.
  * @param[in] gpios @ref gpio_pin_id. Any combination of pins may be specified
  *		    by OR'ing then together
  */
@@ -327,7 +329,7 @@ void gpio_set_af(u32 gpioport, u8 alt_func_num, u8 gpios)
 		GPIO_AFSEL(gpioport) &= ~gpios;
 		return;
 	}
-	
+
 	/* Enable the alternate function */
 	GPIO_AFSEL(gpioport) |= gpios;
 	/* Alternate functions are digital */
@@ -338,11 +340,12 @@ void gpio_set_af(u32 gpioport, u8 alt_func_num, u8 gpios)
 	for (i = 0; i < 8; i++) {
 		pin_mask = (1 << i);
 
-		if (!(gpios & pin_mask))
+		if (!(gpios & pin_mask)) {
 			continue;
+		}
 
 		pctl32 &= ~PCTL_MASK(i);
-		pctl32 |= PCTL_AF( i, (alt_func_num & 0xf) );
+		pctl32 |= PCTL_AF(i, (alt_func_num & 0xf));
 	}
 
 	GPIO_PCTL(gpioport) = pctl32;

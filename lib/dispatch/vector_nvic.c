@@ -33,7 +33,8 @@
 #	include "../lm3s/vector_nvic.c"
 
 #else
-#	warning"no interrupts defined for chipset; not allocating space in the vector table"
+#	warning "no interrupts defined for chipset;"\
+	"not allocating space in the vector table"
 
 #define IRQ_HANDLERS
 

@@ -48,7 +48,7 @@
 #define EEFC_FCR_FKEY			(0x5A << 24)
 #define EEFC_FCR_FARG_MASK		(0xFFFF << 8)
 #define EEFC_FCR_FCMD_MASK		(0xFF << 0)
-#define EEFC_FCR_FCMD_GETD 		(0x00 << 0)
+#define EEFC_FCR_FCMD_GETD		(0x00 << 0)
 #define EEFC_FCR_FCMD_WP		(0x01 << 0)
 #define EEFC_FCR_FCMD_WPL		(0x02 << 0)
 #define EEFC_FCR_FCMD_EWP		(0x03 << 0)

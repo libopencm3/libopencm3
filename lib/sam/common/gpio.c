@@ -1,4 +1,4 @@
-/*
+/* 
  * This file is part of the libopencm3 project.
  *
  * Copyright (C) 2012 Gareth McMullin <gareth@blacksphere.co.nz>
@@ -42,15 +42,17 @@ void gpio_init(u32 port, u32 pins, enum gpio_flags flags)
 		PIO_PDR(port) = pins;
 	}
 
-	if (flags & GPIO_FLAG_OPEN_DRAIN)
+	if (flags & GPIO_FLAG_OPEN_DRAIN) {
 		PIO_MDER(port) = pins;
-	else
+	} else {
 		PIO_MDDR(port) = pins;
+	}
 
-	if (flags & GPIO_FLAG_PULL_UP)
+	if (flags & GPIO_FLAG_PULL_UP) {
 		PIO_PUER(port) = pins;
-	else
+	} else {
 		PIO_PUDR(port) = pins;
+	}
 }
 
 void gpio_toggle(u32 gpioport, u32 gpios)

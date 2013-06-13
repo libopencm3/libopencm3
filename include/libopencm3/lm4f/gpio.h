@@ -6,8 +6,10 @@
  *
  * @version 1.0.0
  *
- * @author @htmlonly &copy; @endhtmlonly 2011 Gareth McMullin <gareth@blacksphere.co.nz>
- * @author @htmlonly &copy; @endhtmlonly 2013 Alexandru Gagniuc <mr.nuke.me@gmail.com>
+ * @author @htmlonly &copy; @endhtmlonly 2011
+ * Gareth McMullin <gareth@blacksphere.co.nz>
+ * @author @htmlonly &copy; @endhtmlonly 2013
+ * Alexandru Gagniuc <mr.nuke.me@gmail.com>
  *
  * @date 16 March 2013
  *

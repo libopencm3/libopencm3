@@ -116,10 +116,11 @@ void uart_set_baudrate(u32 uart, u32 baud)
 	u32 clock;
 
 	/* Are we running off the internal clock or system clock? */
-	if (UART_CC(uart) == UART_CC_CS_PIOSC)
+	if (UART_CC(uart) == UART_CC_CS_PIOSC) {
 		clock = 16000000;
-	else
+	} else {
 		clock = rcc_get_system_clock_frequency();
+	}
 
 	/* Find the baudrate divisor */
 	u32 div = (((clock * 8) / baud) + 1) / 2;
@@ -143,7 +144,7 @@ void uart_set_databits(u32 uart, u8 databits)
 	bits32 = (databits - 5) << 5;
 
 	/* TODO: What about 9 data bits? */
-	
+
 	reg32 = UART_LCRH(uart);
 	reg32 &= ~UART_LCRH_WLEN_MASK;
 	reg32 |= bits32;
@@ -158,10 +159,11 @@ void uart_set_databits(u32 uart, u8 databits)
  */
 void uart_set_stopbits(u32 uart, u8 stopbits)
 {
-	if (stopbits == 2)
+	if (stopbits == 2) {
 		UART_LCRH(uart) |= UART_LCRH_STP2;
-	else
+	} else {
 		UART_LCRH(uart) &= ~UART_LCRH_STP2;
+	}
 }
 
 /**
@@ -178,8 +180,7 @@ void uart_set_parity(u32 uart, enum uart_parity parity)
 	reg32 |= UART_LCRH_PEN;
 	reg32 &= ~(UART_LCRH_SPS | UART_LCRH_EPS);
 
-	switch (parity)
-	{
+	switch (parity) {
 	case UART_PARITY_NONE:
 		/* Once we disable parity the other bits are meaningless */
 		UART_LCRH(uart) &= ~UART_LCRH_PEN;
@@ -218,12 +219,13 @@ void uart_set_flow_control(u32 uart, enum uart_flowctl flow)
 
 	reg32 &= ~(UART_CTL_RTSEN | UART_CTL_CTSEN);
 
-	if (flow == UART_FLOWCTL_RTS)
-		 reg32 |= UART_CTL_RTSEN;
-	else if (flow == UART_FLOWCTL_CTS)
+	if (flow == UART_FLOWCTL_RTS) {
+		reg32 |= UART_CTL_RTSEN;
+	} else if (flow == UART_FLOWCTL_CTS) {
 		reg32 |= UART_CTL_CTSEN;
-	else if (flow == UART_FLOWCTL_RTS_CTS)
+	} else if (flow == UART_FLOWCTL_RTS_CTS) {
 		reg32 |= (UART_CTL_RTSEN | UART_CTL_CTSEN);
+	}
 
 	UART_CTL(uart) = reg32;
 }
@@ -301,7 +303,7 @@ u16 uart_recv(u32 uart)
 void uart_wait_send_ready(u32 uart)
 {
 	/* Wait until the Tx FIFO is no longer full */
-	while(UART_FR(uart) & UART_FR_TXFF);
+	while (UART_FR(uart) & UART_FR_TXFF);
 }
 
 /**
@@ -314,7 +316,7 @@ void uart_wait_send_ready(u32 uart)
 void uart_wait_recv_ready(u32 uart)
 {
 	/* Wait until the Tx FIFO is no longer empty */
-	while(UART_FR(uart) & UART_FR_RXFE);
+	while (UART_FR(uart) & UART_FR_RXFE);
 }
 
 /**
@@ -438,8 +440,8 @@ void uart_enable_interrupts(u32 uart, enum uart_interrupt_flag ints)
  * interrupts, pass (UART_INT_RX | UART_INT_CTS)
  *
  * @param[in] uart UART block register address base @ref uart_reg_base
- * @param[in] ints Interrupts which to disable. Any combination of interrupts may
- *                 be specified by OR'ing then together
+ * @param[in] ints Interrupts which to disable. Any combination of interrupts
+ *		   may be specified by OR'ing then together
  */
 void uart_disable_interrupts(u32 uart, enum uart_interrupt_flag ints)
 {

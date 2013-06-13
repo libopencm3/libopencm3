@@ -23,7 +23,7 @@
  * along with this library.  If not, see <http://www.gnu.org/licenses/>.
  */
 
-/* THIS FILE SHOULD NOT BE INCLUDED DIRECTLY, BUT ONLY VIA TIMER.H 
+/* THIS FILE SHOULD NOT BE INCLUDED DIRECTLY, BUT ONLY VIA TIMER.H
 The order of header inclusion is important. timer.h includes the device
 specific memorymap.h header before including this header file.*/
 
@@ -106,7 +106,7 @@ END_DECLS
 #endif
 /** @cond */
 #else
-#warning "timer_common_f24.h should not be included explicitly, only via timer.h"
+#warning "timer_common_f24.h should not be included directly, only via timer.h"
 #endif
 /** @endcond */
 

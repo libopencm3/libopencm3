@@ -31,4 +31,3 @@ LGPL License Terms @ref lgpl_license
 #include <libopencm3/stm32/crc.h>
 #include <libopencm3/stm32/common/crc_common_all.h>
 
-

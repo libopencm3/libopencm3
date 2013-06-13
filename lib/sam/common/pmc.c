@@ -44,18 +44,20 @@ void pmc_plla_config(u8 mul, u8 div)
 
 void pmc_peripheral_clock_enable(u8 pid)
 {
-	if (pid < 32)
+	if (pid < 32) {
 		PMC_PCER0 = 1 << pid;
-	else
+	} else {
 		PMC_PCER1 = 1 << (pid & 31);
+	}
 }
 
 void pmc_peripheral_clock_disable(u8 pid)
 {
-	if (pid < 32)
+	if (pid < 32) {
 		PMC_PCDR0 = 1 << pid;
-	else
+	} else {
 		PMC_PCDR1 = 1 << (pid & 31);
+	}
 }
 
 void pmc_mck_set_source(enum mck_src src)

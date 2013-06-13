@@ -29,8 +29,7 @@
 u32 rcc_ppre1_frequency = 2097000;
 u32 rcc_ppre2_frequency = 2097000;
 
-const clock_scale_t clock_config[CLOCK_CONFIG_END] =
-{
+const clock_scale_t clock_config[CLOCK_CONFIG_END] = {
 	{ /* 24MHz PLL from HSI */
 		.pll_source = RCC_CFGR_PLLSRC_HSI_CLK,
 		.pll_mul = RCC_CFGR_PLLMUL_MUL3,
@@ -232,16 +231,20 @@ void rcc_wait_for_sysclk_status(osc_t osc)
 {
 	switch (osc) {
 	case PLL:
-		while ((RCC_CFGR & ((1 << 1) | (1 << 0))) != RCC_CFGR_SWS_SYSCLKSEL_PLLCLK);
+		while ((RCC_CFGR & ((1 << 1) | (1 << 0))) !=
+				RCC_CFGR_SWS_SYSCLKSEL_PLLCLK);
 		break;
 	case HSE:
-		while ((RCC_CFGR & ((1 << 1) | (1 << 0))) != RCC_CFGR_SWS_SYSCLKSEL_HSECLK);
+		while ((RCC_CFGR & ((1 << 1) | (1 << 0))) !=
+				RCC_CFGR_SWS_SYSCLKSEL_HSECLK);
 		break;
 	case HSI:
-		while ((RCC_CFGR & ((1 << 1) | (1 << 0))) != RCC_CFGR_SWS_SYSCLKSEL_HSICLK);
+		while ((RCC_CFGR & ((1 << 1) | (1 << 0))) !=
+				RCC_CFGR_SWS_SYSCLKSEL_HSICLK);
 		break;
 	case MSI:
-		while ((RCC_CFGR & ((1 << 1) | (1 << 0))) != RCC_CFGR_SWS_SYSCLKSEL_MSICLK);
+		while ((RCC_CFGR & ((1 << 1) | (1 << 0))) !=
+				RCC_CFGR_SWS_SYSCLKSEL_MSICLK);
 		break;
 	default:
 		/* Shouldn't be reached. */
@@ -434,7 +437,7 @@ void rcc_set_rtcpre(u32 rtcpre)
 u32 rcc_system_clock_source(void)
 {
 	/* Return the clock source which is used as system clock. */
-	return ((RCC_CFGR & 0x000c) >> 2);
+	return (RCC_CFGR & 0x000c) >> 2;
 }
 
 void rcc_rtc_select_clock(u32 clock)
@@ -469,7 +472,7 @@ void rcc_clock_setup_msi(const clock_scale_t *clock)
 	rcc_peripheral_enable_clock(&RCC_APB1ENR, RCC_APB1ENR_PWREN);
 	pwr_set_vos_scale(clock->voltage_scale);
 
-	// I guess this should be in the settings?
+	/* I guess this should be in the settings? */
 	flash_64bit_enable();
 	flash_prefetch_enable();
 	/* Configure flash settings. */
@@ -500,7 +503,7 @@ void rcc_clock_setup_hsi(const clock_scale_t *clock)
 	rcc_peripheral_enable_clock(&RCC_APB1ENR, RCC_APB1ENR_PWREN);
 	pwr_set_vos_scale(clock->voltage_scale);
 
-	// I guess this should be in the settings?
+	/* I guess this should be in the settings? */
 	flash_64bit_enable();
 	flash_prefetch_enable();
 	/* Configure flash settings. */
@@ -528,13 +531,14 @@ void rcc_clock_setup_pll(const clock_scale_t *clock)
 	rcc_peripheral_enable_clock(&RCC_APB1ENR, RCC_APB1ENR_PWREN);
 	pwr_set_vos_scale(clock->voltage_scale);
 
-	// I guess this should be in the settings?
+	/* I guess this should be in the settings? */
 	flash_64bit_enable();
 	flash_prefetch_enable();
 	/* Configure flash settings. */
 	flash_set_ws(clock->flash_config);
 
-	rcc_set_pll_configuration(clock->pll_source, clock->pll_mul, clock->pll_div);
+	rcc_set_pll_configuration(clock->pll_source, clock->pll_mul,
+				  clock->pll_div);
 
 	/* Enable PLL oscillator and wait for it to stabilize. */
 	rcc_osc_on(PLL);

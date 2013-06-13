@@ -49,25 +49,26 @@ LGPL License Terms @ref lgpl_license
 
 #include <libopencm3/cm3/common.h>
 
-#define CM3_LIKELY(expr) (__builtin_expect (!!(expr), 1))
+#define CM3_LIKELY(expr) (__builtin_expect(!!(expr), 1))
 
 #ifdef NDEBUG
-# define cm3_assert(expr) do { (void)0; } while(0)
-# define cm3_assert_not_reached() while(1)
+# define cm3_assert(expr) (void)0
+# define cm3_assert_not_reached() do { } while (1)
 #else
 # ifdef CM3_ASSERT_VERBOSE
 #  define cm3_assert(expr) do { \
-				if(CM3_LIKELY(expr)) { (void)0; } else { \
+				if (CM3_LIKELY(expr)) { \
+					(void)0; \
+				} else { \
 					cm3_assert_failed_verbose( \
 						__FILE__, __LINE__, \
 						__func__, #expr); \
 				} \
-			} while(0)
-#  define cm3_assert_not_reached() do { \
-				cm3_assert_failed_verbose( \
-					__FILE__, __LINE__, \
-					__func__, 0); \
-			} while(0)
+			   } while (0)
+#  define cm3_assert_not_reached() \
+	cm3_assert_failed_verbose( \
+			__FILE__, __LINE__, \
+			__func__, 0)
 # else
 /** @brief Check if assertion is true.
  *
@@ -82,10 +83,12 @@ LGPL License Terms @ref lgpl_license
  *
  * @param expr expression to check */
 #  define cm3_assert(expr) do { \
-				if(CM3_LIKELY(expr)) { (void)0; } else { \
+				if (CM3_LIKELY(expr)) { \
+					(void)0; \
+				} else { \
 					cm3_assert_failed(); \
 				} \
-			} while(0)
+			} while (0)
 /** @brief Check if unreachable code is reached.
  *
  * If NDEBUG macro is defined, this macro generates code for an infinite loop.
@@ -95,9 +98,7 @@ LGPL License Terms @ref lgpl_license
  * The purpose of this macro is to aid in debugging libopencm3 and
  * applications using it. It can be used for example to stop execution if an
  * unreachable portion of code is reached. */
-#  define cm3_assert_not_reached() do { \
-				cm3_assert_failed(); \
-			} while(0)
+#  define cm3_assert_not_reached() cm3_assert_failed()
 # endif
 #endif
 
@@ -111,7 +112,7 @@ BEGIN_DECLS
  * implementation. Usually, a custom implementation of this function should
  * report an error in some way (print a message to a debug console, display,
  * LED, ...) and halt execution or reboot the device. */
-void cm3_assert_failed(void) __attribute__ ((__noreturn__));
+void cm3_assert_failed(void) __attribute__((__noreturn__));
 
 /** @brief Called on a failed assertion with verbose messages enabled.
  *
@@ -127,7 +128,7 @@ void cm3_assert_failed(void) __attribute__ ((__noreturn__));
  * @param func Name of the function where the failed assertion occurred
  * @param assert_expr Expression that evaluated to false (can be NULL) */
 void cm3_assert_failed_verbose(const char *file, int line, const char *func,
-		const char *assert_expr) __attribute__ ((__noreturn__));
+		const char *assert_expr) __attribute__((__noreturn__));
 
 END_DECLS
 

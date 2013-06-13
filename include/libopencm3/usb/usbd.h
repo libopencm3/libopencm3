@@ -6,7 +6,8 @@
 
 @version 1.0.0
 
-@author @htmlonly &copy; @endhtmlonly 2010 Gareth McMullin <gareth@blacksphere.co.nz>
+@author @htmlonly &copy; @endhtmlonly 2010
+Gareth McMullin <gareth@blacksphere.co.nz>
 
 @date 10 March 2013
 
@@ -58,11 +59,11 @@ extern const usbd_driver stm32f207_usb_driver;
 #define otghs_usb_driver stm32f207_usb_driver
 
 /* <usb.c> */
-extern usbd_device *usbd_init(const usbd_driver *driver,
-			      const struct usb_device_descriptor *dev,
-			      const struct usb_config_descriptor *conf,
-			      const char **strings, int num_strings,
-			      u8 *control_buffer, u16 control_buffer_size);
+extern usbd_device * usbd_init(const usbd_driver *driver,
+			       const struct usb_device_descriptor *dev,
+			       const struct usb_config_descriptor *conf,
+			       const char **strings, int num_strings,
+			       u8 *control_buffer, u16 control_buffer_size);
 
 extern void usbd_register_reset_callback(usbd_device *usbd_dev,
 					 void (*callback)(void));

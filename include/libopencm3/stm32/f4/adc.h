@@ -1,13 +1,16 @@
 /** @defgroup STM32F4xx_adc_defines ADC Defines
 
-@brief <b>Defined Constants and Types for the STM32F4xx Analog to Digital Converters</b>
+@brief <b>Defined Constants and Types for the STM32F4xx Analog to Digital
+Converters</b>
 
 @ingroup STM32F4xx_defines
 
 @version 1.0.0
 
-@author @htmlonly &copy; @endhtmlonly 2012 Matthew Lai <m@matthewlai.ca>
-@author @htmlonly &copy; @endhtmlonly 2009 Edward Cheeseman <evbuilder@users.sourceforge.net>
+@author @htmlonly &copy; @endhtmlonly 2012
+Matthew Lai <m@matthewlai.ca>
+@author @htmlonly &copy; @endhtmlonly 2009
+Edward Cheeseman <evbuilder@users.sourceforge.net>
 
 @date 31 August 2012
 
@@ -164,9 +167,9 @@ LGPL License Terms @ref lgpl_license
 
 /* ADC common (shared) registers */
 #define	ADC_COMMON_REGISTERS_BASE	(ADC1_BASE+0x300)
-#define ADC_CSR						MMIO32(ADC_COMMON_REGISTERS_BASE + 0x0)
-#define ADC_CCR						MMIO32(ADC_COMMON_REGISTERS_BASE + 0x4)
-#define ADC_CDR						MMIO32(ADC_COMMON_REGISTERS_BASE + 0x8)
+#define ADC_CSR				MMIO32(ADC_COMMON_REGISTERS_BASE + 0x0)
+#define ADC_CCR				MMIO32(ADC_COMMON_REGISTERS_BASE + 0x4)
+#define ADC_CDR				MMIO32(ADC_COMMON_REGISTERS_BASE + 0x8)
 
 /* --- ADC Channels ------------------------------------------------------- */
 
@@ -207,7 +210,7 @@ LGPL License Terms @ref lgpl_license
 #define ADC_SR_EOC			(1 << 1)
 #define ADC_SR_AWD			(1 << 0)
 
-/* --- ADC_CR1 values specific to STM32F2,4------------------------------------ */
+/* --- ADC_CR1 values specific to STM32F2,4--------------------------------- */
 
 /* OVRIE: Overrun interrupt enable */
 #define ADC_CR1_OVRIE			(1 << 26)
@@ -281,7 +284,7 @@ LGPL License Terms @ref lgpl_license
 /* AWDCH[4:0]: Analog watchdog channel bits. (Up to 17 other values reserved) */
 /* Notes:
  * ADC1: Analog channel 16 and 17 are internally connected to the temperature
- * sensor and V_REFINT, respectively.
+ *       sensor and V_REFINT, respectively.
  * ADC2: Analog channel 16 and 17 are internally connected to V_SS.
  * ADC3: Analog channel 9, 14, 15, 16 and 17 are internally connected to V_SS.
  */
@@ -567,7 +570,8 @@ LGPL License Terms @ref lgpl_license
 
 /* JL[2:0]: Discontinous mode channel count injected channels. */
 /****************************************************************************/
-/** @defgroup adc_jsqr_jl ADC Number of channels in discontinuous mode fro injected channels.
+/** @defgroup adc_jsqr_jl ADC Number of channels in discontinuous mode fro
+injected channels.
 @ingroup STM32F4xx_adc_defines
 
 @{*/
@@ -733,33 +737,45 @@ LGPL License Terms @ref lgpl_license
 /** All ADCs independent */
 #define ADC_CCR_MULTI_INDEPENDENT	(0x00 << 0)
 
-/* dual modes (ADC1 + ADC2) */
-/** Dual modes (ADC1 + ADC2) Combined regular simultaneous + injected simultaneous mode */
+/* Dual modes (ADC1 + ADC2) */
+/** 
+ * Dual modes (ADC1 + ADC2) Combined regular simultaneous +
+ * injected simultaneous mode.
+ */
 #define ADC_CCR_MULTI_DUAL_REG_SIMUL_AND_INJECTED_SIMUL		(0x01 << 0)
-/** Dual modes (ADC1 + ADC2) Combined regular simultaneous + alternate trigger mode. */
+/**
+ * Dual modes (ADC1 + ADC2) Combined regular simultaneous +
+ * alternate trigger mode.
+ */
 #define ADC_CCR_MULTI_DUAL_REG_SIMUL_AND_ALTERNATE_TRIG		(0x02 << 0)
 /** Dual modes (ADC1 + ADC2) Injected simultaneous mode only. */
-#define ADC_CCR_MULTI_DUAL_INJECTED_SIMUL					(0x05 << 0)
+#define ADC_CCR_MULTI_DUAL_INJECTED_SIMUL			(0x05 << 0)
 /** Dual modes (ADC1 + ADC2) Regular simultaneous mode only. */
-#define ADC_CCR_MULTI_DUAL_REGULAR_SIMUL					(0x06 << 0)
+#define ADC_CCR_MULTI_DUAL_REGULAR_SIMUL			(0x06 << 0)
 /** Dual modes (ADC1 + ADC2) Interleaved mode only. */
-#define ADC_CCR_MULTI_DUAL_INTERLEAVED						(0x07 << 0)
+#define ADC_CCR_MULTI_DUAL_INTERLEAVED				(0x07 << 0)
 /** Dual modes (ADC1 + ADC2) Alternate trigger mode only. */
-#define ADC_CCR_MULTI_DUAL_ALTERNATE_TRIG					(0x09 << 0)
+#define ADC_CCR_MULTI_DUAL_ALTERNATE_TRIG			(0x09 << 0)
 
 /* Triple modes (ADC1 + ADC2 + ADC3) */
-/** Triple modes (ADC1 + ADC2 + ADC3) Combined regular simultaneous + injected simultaneous mode */
-#define ADC_CCR_MULTI_TRIPLE_REG_SIMUL_AND_INJECTED_SIMUL		(0x11 << 0)
-/** Triple modes (ADC1 + ADC2 + ADC3) Combined regular simultaneous + alternate trigger mode. */
-#define ADC_CCR_MULTI_TRIPLE_REG_SIMUL_AND_ALTERNATE_TRIG		(0x12 << 0)
+/**
+ * Triple modes (ADC1 + ADC2 + ADC3) Combined regular simultaneous +
+ * injected simultaneous mode.
+ */
+#define ADC_CCR_MULTI_TRIPLE_REG_SIMUL_AND_INJECTED_SIMUL	(0x11 << 0)
+/**
+ * Triple modes (ADC1 + ADC2 + ADC3) Combined regular simultaneous +
+ * alternate trigger mode.
+ */
+#define ADC_CCR_MULTI_TRIPLE_REG_SIMUL_AND_ALTERNATE_TRIG	(0x12 << 0)
 /** Triple modes (ADC1 + ADC2 + ADC3) Injected simultaneous mode only. */
-#define ADC_CCR_MULTI_TRIPLE_INJECTED_SIMUL						(0x15 << 0)
+#define ADC_CCR_MULTI_TRIPLE_INJECTED_SIMUL			(0x15 << 0)
 /** Triple modes (ADC1 + ADC2 + ADC3) Regular simultaneous mode only. */
-#define ADC_CCR_MULTI_TRIPLE_REGULAR_SIMUL						(0x16 << 0)
+#define ADC_CCR_MULTI_TRIPLE_REGULAR_SIMUL			(0x16 << 0)
 /** Triple modes (ADC1 + ADC2 + ADC3) Interleaved mode only. */
-#define ADC_CCR_MULTI_TRIPLE_INTERLEAVED						(0x17 << 0)
+#define ADC_CCR_MULTI_TRIPLE_INTERLEAVED			(0x17 << 0)
 /** Triple modes (ADC1 + ADC2 + ADC3) Alternate trigger mode only. */
-#define ADC_CCR_MULTI_TRIPLE_ALTERNATE_TRIG						(0x19 << 0)
+#define ADC_CCR_MULTI_TRIPLE_ALTERNATE_TRIG			(0x19 << 0)
 /**@}*/
 
 #define ADC_CCR_MULTI_MASK		(0x1f << 0)

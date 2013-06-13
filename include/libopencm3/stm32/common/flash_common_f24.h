@@ -22,7 +22,7 @@
  * For details see:
  * PM0081 Programming manual: STM32F40xxx and STM32F41xxx Flash programming
  * September 2011, Doc ID 018520 Rev 1
- * http://www.st.com/st-web-ui/static/active/en/resource/technical/document/programming_manual/DM00023388.pdf
+ * http://goo.gl/3ylKe
  */
 
 /** @cond */
@@ -145,7 +145,7 @@ void flash_program_double_word(u32 address, u64 data);
 void flash_program_word(u32 address, u32 data);
 void flash_program_half_word(u32 address, u16 data);
 void flash_program_byte(u32 address, u8 data);
-void flash_program(u32 address, u8* data, u32 len);
+void flash_program(u32 address, u8 *data, u32 len);
 void flash_wait_for_last_operation(void);
 void flash_program_option_bytes(u32 data);
 
@@ -154,7 +154,7 @@ END_DECLS
 #endif
 /** @cond */
 #else
-#warning "flash_common_f24.h should not be included explicitly, only via flash.h"
+#warning "flash_common_f24.h should not be included direcitly, only via flash.h"
 #endif
 /** @endcond */
 

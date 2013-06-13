@@ -1,6 +1,7 @@
 /** @defgroup wwdt_defines Windowed Watchdog Timer
 
-@brief <b>Defined Constants and Types for the LPC43xx Windowed Watchdog Timer</b>
+@brief <b>Defined Constants and Types for the LPC43xx Windowed Watchdog
+Timer</b>
 
 @ingroup LPC43xx_defines
 

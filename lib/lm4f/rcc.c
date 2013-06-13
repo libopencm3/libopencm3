@@ -23,7 +23,8 @@
  *
  * @ingroup LM4Fxx
  *
-@author @htmlonly &copy; @endhtmlonly 2012 Alexandru Gagniuc <mr.nuke.me@gmail.com>
+@author @htmlonly &copy; @endhtmlonly 2012
+Alexandru Gagniuc <mr.nuke.me@gmail.com>
 
  * \brief <b>libopencm3 LM4F Clock control API</b>
  *
@@ -93,13 +94,13 @@
  * High-level routines update the system clock automatically.
  * For read access, it is recommended to acces this variable via
  * @code
- * 	rcc_get_system_clock_frequency();
+ *	rcc_get_system_clock_frequency();
  * @endcode
  *
  * If write access is desired (i.e. when changing the system clock via the
  * fine-grained mechanisms), then include the following  line in your code:
  * @code
- * 	extern u32 lm4f_rcc_sysclk_freq;
+ *	extern u32 lm4f_rcc_sysclk_freq;
  * @endcode
  */
 u32 lm4f_rcc_sysclk_freq = 16000000;
@@ -266,8 +267,8 @@ void rcc_pll_bypass_enable(void)
  * function.
  *
  * @param[in] div clock divisor to apply to the 400MHz PLL clock. It is the
- * 	      caller's responsibility to ensure that the divisor will not create
- * 	      a system clock that is out of spec.
+ *	      caller's responsibility to ensure that the divisor will not create
+ *	      a system clock that is out of spec.
  */
 void rcc_set_pll_divisor(u8 div400)
 {
@@ -334,7 +335,7 @@ void rcc_usb_pll_on(void)
  */
 void rcc_wait_for_pll_ready(void)
 {
-	while(!(SYSCTL_PLLSTAT & SYSCTL_PLLSTAT_LOCK));
+	while (!(SYSCTL_PLLSTAT & SYSCTL_PLLSTAT_LOCK));
 }
 
 /**
@@ -434,8 +435,8 @@ static u32 xtal_to_freq(xtal_t xtal)
  * @param [in] osc_src Oscillator from where to derive the system clock.
  * @param [in] xtal Type of crystal connected to the OSCO/OSCI pins
  * @param [in] pll_div400 The clock divisor to apply to the 400MHz PLL clock.
- * 			  If 0, then the PLL is disabled, and the system runs
- * 			  off a "raw" clock.
+ *			  If 0, then the PLL is disabled, and the system runs
+ *			  off a "raw" clock.
  *
  * @return System clock frequency in Hz
  */
@@ -448,8 +449,9 @@ void rcc_sysclk_config(osc_src_t osc_src, xtal_t xtal, u8 pll_div400)
 	rcc_pll_bypass_enable();
 
 	/* Enable the main oscillator, if needed */
-	if (osc_src == OSCSRC_MOSC)
+	if (osc_src == OSCSRC_MOSC) {
 		rcc_enable_main_osc();
+	}
 
 	/* Make RCC2 override RCC */
 	rcc_enable_rcc2();

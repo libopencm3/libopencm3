@@ -6,7 +6,8 @@
 
 @version 1.0.0
 
-@author @htmlonly &copy; @endhtmlonly 2010 Gareth McMullin <gareth@blacksphere.co.nz>
+@author @htmlonly &copy; @endhtmlonly 2010
+Gareth McMullin <gareth@blacksphere.co.nz>
 
 @date 10 March 2013
 
@@ -50,7 +51,7 @@ struct usb_hid_descriptor {
 	u16 bcdHID;
 	u8 bCountryCode;
 	u8 bNumDescriptors;
-} __attribute__((packed));
+} __packed;
 
 #endif
 

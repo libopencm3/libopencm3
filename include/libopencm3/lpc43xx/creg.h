@@ -1,6 +1,7 @@
 /** @defgroup creg_defines Configuration Registers Defines
 
-@brief <b>Defined Constants and Types for the LPC43xx Configuration Registers</b>
+@brief <b>Defined Constants and Types for the LPC43xx Configuration
+Registers</b>
 
 @ingroup LPC43xx_defines
 

@@ -27,8 +27,7 @@
 u32 rcc_ppre1_frequency = 16000000;
 u32 rcc_ppre2_frequency = 16000000;
 
-const clock_scale_t hse_8mhz_3v3[CLOCK_3V3_END] =
-{
+const clock_scale_t hse_8mhz_3v3[CLOCK_3V3_END] = {
 	{ /* 120MHz */
 		.pllm = 8,
 		.plln = 240,
@@ -37,7 +36,8 @@ const clock_scale_t hse_8mhz_3v3[CLOCK_3V3_END] =
 		.hpre = RCC_CFGR_HPRE_DIV_NONE,
 		.ppre1 = RCC_CFGR_PPRE_DIV_4,
 		.ppre2 = RCC_CFGR_PPRE_DIV_2,
-		.flash_config = FLASH_ACR_ICE | FLASH_ACR_DCE | FLASH_ACR_LATENCY_3WS,
+		.flash_config = FLASH_ACR_ICE | FLASH_ACR_DCE |
+				FLASH_ACR_LATENCY_3WS,
 		.apb1_frequency = 30000000,
 		.apb2_frequency = 60000000,
 	},
@@ -358,7 +358,7 @@ void rcc_set_main_pll_hse(u32 pllm, u32 plln, u32 pllp, u32 pllq)
 u32 rcc_system_clock_source(void)
 {
 	/* Return the clock source which is used as system clock. */
-	return ((RCC_CFGR & 0x000c) >> 2);
+	return (RCC_CFGR & 0x000c) >> 2;
 }
 
 void rcc_clock_setup_hse_3v3(const clock_scale_t *clock)

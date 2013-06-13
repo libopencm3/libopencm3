@@ -22,5 +22,6 @@
 #elif defined(STM32F4)
 #       include <libopencm3/stm32/f4/hash.h>
 #else
-#       error "hash processor is supported only in stm32f21, stm32f41 and stm32f43 families."
+#       error "hash processor is supported only" \
+	"in stm32f21, stm32f41 and stm32f43 families."
 #endif

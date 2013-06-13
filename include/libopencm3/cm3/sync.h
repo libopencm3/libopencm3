@@ -29,8 +29,8 @@
 
 /* --- Exclusive load and store instructions ------------------------------- */
 
-u32 __ldrex(volatile u32* addr);
-u32 __strex(u32 val, volatile u32* addr);
+u32 __ldrex(volatile u32 *addr);
+u32 __strex(u32 val, volatile u32 *addr);
 void __dmb(void);
 
 /* --- Convenience functions ----------------------------------------------- */
@@ -42,7 +42,7 @@ typedef u32 mutex_t;
 #define MUTEX_UNLOCKED 0
 #define MUTEX_LOCKED	 1
 
-void mutex_lock(mutex_t* m);
-void mutex_unlock(mutex_t* m);
+void mutex_lock(mutex_t *m);
+void mutex_unlock(mutex_t *m);
 
 #endif

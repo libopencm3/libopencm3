@@ -20,7 +20,8 @@
  */
 
 /*
- * All extracted from PM0062 rev2, L15xx and L16xx Flash/EEPROM programming manual
+ * All extracted from PM0062 rev2, L15xx and L16xx Flash/EEPROM programming
+ * manual.
  */
 
 #ifndef LIBOPENCM3_FLASH_H

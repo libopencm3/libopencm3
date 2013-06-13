@@ -88,7 +88,7 @@ LGPL License Terms @ref lgpl_license
 
 /* --- GPIO registers ------------------------------------------------------ */
 
-//TODO byte/word access registers
+/* TODO byte/word access registers */
 
 /* GPIO data direction register (GPIOn_DIR) */
 #define GPIO_DIR(port)                  MMIO32(port + 0x00)
@@ -167,7 +167,7 @@ LGPL License Terms @ref lgpl_license
 #define GPIO6_NOT                       GPIO_NOT(GPIO6)
 #define GPIO7_NOT                       GPIO_NOT(GPIO7)
 
-//TODO interrupts
+/* TODO interrupts */
 
 BEGIN_DECLS
 

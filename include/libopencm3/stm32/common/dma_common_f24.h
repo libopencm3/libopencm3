@@ -1,7 +1,9 @@
 /** @addtogroup dma_defines
 
-@author @htmlonly &copy; @endhtmlonly 2011 Fergus Noble <fergusnoble@gmail.com>
-@author @htmlonly &copy; @endhtmlonly 2012 Ken Sarkies <ksarkies@internode.on.net>
+@author @htmlonly &copy; @endhtmlonly 2011
+Fergus Noble <fergusnoble@gmail.com>
+@author @htmlonly &copy; @endhtmlonly 2012
+Ken Sarkies <ksarkies@internode.on.net>
 
 */
 /*
@@ -24,7 +26,7 @@
  * along with this library.  If not, see <http://www.gnu.org/licenses/>.
  */
 
-/* THIS FILE SHOULD NOT BE INCLUDED DIRECTLY, BUT ONLY VIA DMA.H 
+/* THIS FILE SHOULD NOT BE INCLUDED DIRECTLY, BUT ONLY VIA DMA.H
 The order of header inclusion is important. dma.h includes the device
 specific memorymap.h header before including this header file.*/
 
@@ -152,7 +154,8 @@ specific memorymap.h header before including this header file.*/
 #define DMA2_S7NDTR			DMA2_SNDTR(7)
 
 /* DMA Stream x peripheral address register (DMA_SxPAR) */
-#define DMA_SPAR(port, n)		*(volatile void **)(DMA_STREAM(port, n) + 0x08)
+#define DMA_SPAR(port, n)		(*(volatile void **)\
+					 (DMA_STREAM(port, n) + 0x08))
 #define DMA1_SPAR(n)			DMA_SPAR(DMA1, n)
 #define DMA2_SPAR(n)			DMA_SPAR(DMA2, n)
 
@@ -175,7 +178,8 @@ specific memorymap.h header before including this header file.*/
 #define DMA2_S7PAR			DMA2_SPAR(7)
 
 /* DMA Stream x memory address 0 register (DMA_SxM0AR) */
-#define DMA_SM0AR(port, n)		*(volatile void **)(DMA_STREAM(port, n) + 0x0c)
+#define DMA_SM0AR(port, n)		(*(volatile void **) \
+					 (DMA_STREAM(port, n) + 0x0c))
 #define DMA1_SM0AR(n)			DMA_SM0AR(DMA1, n)
 #define DMA2_SM0AR(n)			DMA_SM0AR(DMA2, n)
 
@@ -198,7 +202,8 @@ specific memorymap.h header before including this header file.*/
 #define DMA2_S7M0AR			DMA2_SM0AR(7)
 
 /* DMA Stream x memory address 1 register (DMA_SxM1AR) */
-#define DMA_SM1AR(port, n)		*(volatile void **)(DMA_STREAM(port, n) + 0x10)
+#define DMA_SM1AR(port, n)		(*(volatile void **)\
+					 (DMA_STREAM(port, n) + 0x10))
 #define DMA1_SM1AR(n)			DMA_SM1AR(DMA1, n)
 #define DMA2_SM1AR(n)			DMA_SM1AR(DMA2, n)
 
@@ -252,21 +257,24 @@ being at the same relative location */
 
 @{*/
 /** Transfer Complete Interrupt Flag */
-#define DMA_TCIF       		    (1 << 5)
+#define DMA_TCIF		    (1 << 5)
 /** Half Transfer Interrupt Flag */
-#define DMA_HTIF       		    (1 << 4)
+#define DMA_HTIF		    (1 << 4)
 /** Transfer Error Interrupt Flag */
-#define DMA_TEIF       		    (1 << 3)
+#define DMA_TEIF		    (1 << 3)
 /** Direct Mode Error Interrupt Flag */
-#define DMA_DMEIF       	    (1 << 2)
+#define DMA_DMEIF		    (1 << 2)
 /** FIFO Error Interrupt Flag */
-#define DMA_FEIF       		    (1 << 0)
+#define DMA_FEIF		    (1 << 0)
 /**@}*/
 
-/* Offset within interrupt status register to start of stream interrupt flag field */
-#define DMA_ISR_OFFSET(stream)		(6*(stream & 0x01)+16*((stream & 0x02) >> 1))
-#define DMA_ISR_FLAGS			    (DMA_TCIF | DMA_HTIF | DMA_TEIF | DMA_DMEIF | DMA_FEIF)
-#define DMA_ISR_MASK(stream)		DMA_ISR_FLAGS << DMA_ISR_OFFSET(stream)
+/* Offset within interrupt status register to start of stream interrupt flag
+ * field
+ */
+#define DMA_ISR_OFFSET(stream)	(6*(stream & 0x01)+16*((stream & 0x02) >> 1))
+#define DMA_ISR_FLAGS		(DMA_TCIF | DMA_HTIF | DMA_TEIF | DMA_DMEIF | \
+				 DMA_FEIF)
+#define DMA_ISR_MASK(stream)	(DMA_ISR_FLAGS << DMA_ISR_OFFSET(stream))
 
 /* --- DMA_LISR values ----------------------------------------------------- */
 
@@ -560,8 +568,8 @@ being at the same relative location */
 BEGIN_DECLS
 
 /*
- * Note: The F2 and F4 series have a completely new DMA peripheral with different
- * configuration options.
+ * Note: The F2 and F4 series have a completely new DMA peripheral with
+ * different configuration options.
  */
 
 void dma_stream_reset(u32 dma, u8 stream);

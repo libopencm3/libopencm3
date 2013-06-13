@@ -1,12 +1,14 @@
 /** @defgroup nvic_defines Nested Vectored Interrupt Controller
 
-@brief <b>Defined Constants and Types for the LM4F Nested Vectored Interrupt Controller</b>
+@brief <b>Defined Constants and Types for the LM4F Nested Vectored Interrupt
+Controller</b>
 
 @ingroup LM4Fxx_defines
 
 @version 1.0.0
 
-@author @htmlonly &copy; @endhtmlonly 2012 Alexandru Gagniuc <mr.nuke.me@gmail.com>
+@author @htmlonly &copy; @endhtmlonly 2012
+Alexandru Gagniuc <mr.nuke.me@gmail.com>
 
 @date 10 March 2013
 
@@ -40,9 +42,9 @@ LGPL License Terms @ref lgpl_license
 #include <libopencm3/cm3/nvic.h>
 
 /** @ingroup nvic_defines
- * The LM3S interrupt table applies to the LM4F as well.
- * Some interrupt vectors marked as reserved in LM3S are used in LM4F, and some
- * vectors in LM3S are marked reserved for LM4F. However, the common vectors are
+ * The LM3S interrupt table applies to the LM4F as well.  Some interrupt
+ * vectors marked as reserved in LM3S are used in LM4F, and some vectors in
+ * LM3S are marked reserved for LM4F. However, the common vectors are
  * identical, and we can safely use the same interrupt table. Reserved vectors
  * will never be triggered, so having them is perfectly safe.
  */

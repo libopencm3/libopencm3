@@ -6,7 +6,8 @@
 
 @version 1.0.0
 
-@author @htmlonly &copy; @endhtmlonly 2012 Alexandru Gagniuc <mr.nuke.me@gmail.com>
+@author @htmlonly &copy; @endhtmlonly 2012
+Alexandru Gagniuc <mr.nuke.me@gmail.com>
 
 @date 10 March 2013
 

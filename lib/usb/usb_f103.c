@@ -86,12 +86,14 @@ static void usb_set_ep_rx_bufsize(usbd_device *dev, u8 ep, u32 size)
 {
 	(void)dev;
 	if (size > 62) {
-		if (size & 0x1f)
+		if (size & 0x1f) {
 			size -= 32;
+		}
 		USB_SET_EP_RX_COUNT(ep, (size << 5) | 0x8000);
 	} else {
-		if (size & 1)
+		if (size & 1) {
 			size++;
+		}
 		USB_SET_EP_RX_COUNT(ep, size << 10);
 	}
 }
@@ -153,9 +155,10 @@ static void stm32f103_endpoints_reset(usbd_device *dev)
 static void stm32f103_ep_stall_set(usbd_device *dev, u8 addr, u8 stall)
 {
 	(void)dev;
-	if (addr == 0)
+	if (addr == 0) {
 		USB_SET_EP_TX_STAT(addr, stall ? USB_EP_TX_STAT_STALL :
 				   USB_EP_TX_STAT_NAK);
+	}
 
 	if (addr & 0x80) {
 		addr &= 0x7F;
@@ -164,12 +167,14 @@ static void stm32f103_ep_stall_set(usbd_device *dev, u8 addr, u8 stall)
 				   USB_EP_TX_STAT_NAK);
 
 		/* Reset to DATA0 if clearing stall condition. */
-		if (!stall)
+		if (!stall) {
 			USB_CLR_EP_TX_DTOG(addr);
+		}
 	} else {
 		/* Reset to DATA0 if clearing stall condition. */
-		if (!stall)
+		if (!stall) {
 			USB_CLR_EP_RX_DTOG(addr);
+		}
 
 		USB_SET_EP_RX_STAT(addr, stall ? USB_EP_RX_STAT_STALL :
 				   USB_EP_RX_STAT_VALID);
@@ -195,13 +200,15 @@ static void stm32f103_ep_nak_set(usbd_device *dev, u8 addr, u8 nak)
 {
 	(void)dev;
 	/* It does not make sence to force NAK on IN endpoints. */
-	if (addr & 0x80)
+	if (addr & 0x80) {
 		return;
+	}
 
 	force_nak[addr] = nak;
 
-	if (nak)
+	if (nak) {
 		USB_SET_EP_RX_STAT(addr, USB_EP_RX_STAT_NAK);
+	}
 	else
 		USB_SET_EP_RX_STAT(addr, USB_EP_RX_STAT_VALID);
 }
@@ -218,8 +225,9 @@ static void usb_copy_to_pm(volatile void *vPM, const void *buf, u16 len)
 	const u16 *lbuf = buf;
 	volatile u16 *PM = vPM;
 
-	for (len = (len + 1) >> 1; len; PM += 2, lbuf++, len--)
+	for (len = (len + 1) >> 1; len; PM += 2, lbuf++, len--) {
 		*PM = *lbuf;
+	}
 }
 
 static u16 stm32f103_ep_write_packet(usbd_device *dev, u8 addr,
@@ -228,8 +236,9 @@ static u16 stm32f103_ep_write_packet(usbd_device *dev, u8 addr,
 	(void)dev;
 	addr &= 0x7F;
 
-	if ((*USB_EP_REG(addr) & USB_EP_TX_STAT) == USB_EP_TX_STAT_VALID)
+	if ((*USB_EP_REG(addr) & USB_EP_TX_STAT) == USB_EP_TX_STAT_VALID) {
 		return 0;
+	}
 
 	usb_copy_to_pm(USB_GET_EP_TX_BUFF(addr), buf, len);
 	USB_SET_EP_TX_COUNT(addr, len);
@@ -251,26 +260,30 @@ static void usb_copy_from_pm(void *buf, const volatile void *vPM, u16 len)
 	const volatile u16 *PM = vPM;
 	u8 odd = len & 1;
 
-	for (len >>= 1; len; PM += 2, lbuf++, len--)
+	for (len >>= 1; len; PM += 2, lbuf++, len--) {
 		*lbuf = *PM;
+	}
 
-	if (odd)
+	if (odd) {
 		*(u8 *) lbuf = *(u8 *) PM;
+	}
 }
 
 static u16 stm32f103_ep_read_packet(usbd_device *dev, u8 addr, void *buf,
 				    u16 len)
 {
 	(void)dev;
-	if ((*USB_EP_REG(addr) & USB_EP_RX_STAT) == USB_EP_RX_STAT_VALID)
+	if ((*USB_EP_REG(addr) & USB_EP_RX_STAT) == USB_EP_RX_STAT_VALID) {
 		return 0;
+	}
 
 	len = MIN(USB_GET_EP_RX_COUNT(addr) & 0x3ff, len);
 	usb_copy_from_pm(buf, USB_GET_EP_RX_BUFF(addr), len);
 	USB_CLR_EP_RX_CTR(addr);
 
-	if (!force_nak[addr])
+	if (!force_nak[addr]) {
 		USB_SET_EP_RX_STAT(addr, USB_EP_RX_STAT_VALID);
+	}
 
 	return len;
 }
@@ -295,27 +308,31 @@ static void stm32f103_poll(usbd_device *dev)
 		else /* IN transaction */
 			USB_CLR_EP_TX_CTR(ep);
 
-		if (dev->user_callback_ctr[ep][type])
+		if (dev->user_callback_ctr[ep][type]) {
 			dev->user_callback_ctr[ep][type] (dev, ep);
-		else
+		} else {
 			USB_CLR_EP_RX_CTR(ep);
+		}
 	}
 
 	if (istr & USB_ISTR_SUSP) {
 		USB_CLR_ISTR_SUSP();
-		if (dev->user_callback_suspend)
+		if (dev->user_callback_suspend) {
 			dev->user_callback_suspend();
+		}
 	}
 
 	if (istr & USB_ISTR_WKUP) {
 		USB_CLR_ISTR_WKUP();
-		if (dev->user_callback_resume)
+		if (dev->user_callback_resume) {
 			dev->user_callback_resume();
+		}
 	}
 
 	if (istr & USB_ISTR_SOF) {
-		if (dev->user_callback_sof)
+		if (dev->user_callback_sof) {
 			dev->user_callback_sof();
+		}
 		USB_CLR_ISTR_SOF();
 	}
 }

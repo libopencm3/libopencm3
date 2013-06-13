@@ -77,7 +77,7 @@
 #define RCC_CR_HSIRDY				(1 << 1)
 #define RCC_CR_HSION				(1 << 0)
 
-/* --- RCC_PLLCFGR values ------------------------------------------------------- */
+/* --- RCC_PLLCFGR values -------------------------------------------------- */
 
 /* PLLQ: [27:24] */
 #define RCC_PLLCFGR_PLLQ_SHIFT			24
@@ -342,8 +342,8 @@
 #define RCC_AHB1LPENR_DMA1LPEN			(1 << 21)
 #define RCC_AHB1LPENR_BKPSRAMLPEN		(1 << 18)
 #define RCC_AHB1LPENR_SRAM2LPEN			(1 << 17)
-#define RCC_AHB1LPENR_SRAM1LPEN 		(1 << 16)
-#define RCC_AHB1LPENR_FLITFLPEN 		(1 << 15)
+#define RCC_AHB1LPENR_SRAM1LPEN			(1 << 16)
+#define RCC_AHB1LPENR_FLITFLPEN			(1 << 15)
 #define RCC_AHB1LPENR_CRCLPEN			(1 << 12)
 #define RCC_AHB1LPENR_IOPILPEN			(1 << 8)
 #define RCC_AHB1LPENR_IOPHLPEN			(1 << 7)

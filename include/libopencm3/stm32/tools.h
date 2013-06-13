@@ -59,6 +59,6 @@ do {									\
 			toggle_mask ^= bit_selector;			\
 	}								\
 	SET_REG(REG, toggle_mask);					\
-} while(0)
+} while (0)
 
 #endif

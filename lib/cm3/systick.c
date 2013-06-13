@@ -40,7 +40,7 @@ LGPL License Terms @ref lgpl_license
 /**@{*/
 #include <libopencm3/cm3/systick.h>
 
-/*-----------------------------------------------------------------------------*/
+/*---------------------------------------------------------------------------*/
 /** @brief SysTick Set the Automatic Reload Value.
 
 The counter is set to the reload value when the counter starts and after it
@@ -54,7 +54,7 @@ void systick_set_reload(u32 value)
 	STK_LOAD = (value & 0x00FFFFFF);
 }
 
-/*-----------------------------------------------------------------------------*/
+/*---------------------------------------------------------------------------*/
 /** @brief SysTick Read the Automatic Reload Value.
 
 @returns 24 bit reload value as u32.
@@ -62,10 +62,10 @@ void systick_set_reload(u32 value)
 
 u32 systick_get_reload(void)
 {
-	return (STK_LOAD & 0x00FFFFFF);
+	return STK_LOAD & 0x00FFFFFF;
 }
 
-/*-----------------------------------------------------------------------------*/
+/*---------------------------------------------------------------------------*/
 /** @brief Get the current SysTick counter value.
 
 @returns 24 bit current value as u32.
@@ -73,10 +73,10 @@ u32 systick_get_reload(void)
 
 u32 systick_get_value(void)
 {
-	return (STK_VAL & 0x00FFFFFF);
+	return STK_VAL & 0x00FFFFFF;
 }
 
-/*-----------------------------------------------------------------------------*/
+/*---------------------------------------------------------------------------*/
 /** @brief Set the SysTick Clock Source.
 
 The clock source can be either the AHB clock or the same clock divided by 8.
@@ -86,11 +86,12 @@ The clock source can be either the AHB clock or the same clock divided by 8.
 
 void systick_set_clocksource(u8 clocksource)
 {
-	if (clocksource < 2)
+	if (clocksource < 2) {
 		STK_CTRL |= (clocksource << STK_CTRL_CLKSOURCE_LSB);
+	}
 }
 
-/*-----------------------------------------------------------------------------*/
+/*---------------------------------------------------------------------------*/
 /** @brief Enable SysTick Interrupt.
 
 */
@@ -100,7 +101,7 @@ void systick_interrupt_enable(void)
 	STK_CTRL |= STK_CTRL_TICKINT;
 }
 
-/*-----------------------------------------------------------------------------*/
+/*---------------------------------------------------------------------------*/
 /** @brief Disable SysTick Interrupt.
 
 */
@@ -110,7 +111,7 @@ void systick_interrupt_disable(void)
 	STK_CTRL &= ~STK_CTRL_TICKINT;
 }
 
-/*-----------------------------------------------------------------------------*/
+/*---------------------------------------------------------------------------*/
 /** @brief Enable SysTick Counter.
 
 */
@@ -120,7 +121,7 @@ void systick_counter_enable(void)
 	STK_CTRL |= STK_CTRL_ENABLE;
 }
 
-/*-----------------------------------------------------------------------------*/
+/*---------------------------------------------------------------------------*/
 /** @brief Disable SysTick Counter.
 
 */
@@ -130,31 +131,32 @@ void systick_counter_disable(void)
 	STK_CTRL &= ~STK_CTRL_ENABLE;
 }
 
-/*-----------------------------------------------------------------------------*/
+/*---------------------------------------------------------------------------*/
 /** @brief SysTick Read the Counter Flag.
 
-The count flag is set when the timer count becomes zero, and is cleared when the
-flag is read.
+The count flag is set when the timer count becomes zero, and is cleared when
+the flag is read.
 
 @returns Boolean if flag set.
 */
 
 u8 systick_get_countflag(void)
 {
-	if (STK_CTRL & STK_CTRL_COUNTFLAG)
+	if (STK_CTRL & STK_CTRL_COUNTFLAG) {
 		return 1;
-	else
+	} else {
 		return 0;
+	}
 }
 
-/*-----------------------------------------------------------------------------*/
+/*---------------------------------------------------------------------------*/
 /** @brief SysTick Get Calibration Value
 
 @returns Current calibration value
 */
 u32 systick_get_calib(void)
 {
-	return (STK_CALIB&0x00FFFFFF);
+	return STK_CALIB & 0x00FFFFFF;
 }
 /**@}*/
 

@@ -24,7 +24,7 @@
  * along with this library.  If not, see <http://www.gnu.org/licenses/>.
  */
 
-/* THIS FILE SHOULD NOT BE INCLUDED DIRECTLY, BUT ONLY VIA USART.H 
+/* THIS FILE SHOULD NOT BE INCLUDED DIRECTLY, BUT ONLY VIA USART.H
 The order of header inclusion is important. usart.h includes the device
 specific memorymap.h header before including this header file.*/
 
@@ -76,7 +76,7 @@ specific memorymap.h header before including this header file.*/
 #endif
 /** @cond */
 #else
-#warning "usart_common_f24.h should not be included explicitly, only via usart.h"
+#warning "usart_common_f24.h should not be included directly, only via usart.h"
 #endif
 /** @endcond */
 

@@ -6,7 +6,8 @@
 
 @version 1.0.0
 
-@author @htmlonly &copy; @endhtmlonly 2010 Gareth McMullin <gareth@blacksphere.co.nz>
+@author @htmlonly &copy; @endhtmlonly 2010
+Gareth McMullin <gareth@blacksphere.co.nz>
 
 @date 10 March 2013
 
@@ -40,7 +41,7 @@ LGPL License Terms @ref lgpl_license
 
 void usbd_register_set_config_callback(usbd_device *usbd_dev,
 				       void (*callback)(usbd_device *usbd_dev,
-					       		u16 wValue))
+				       u16 wValue))
 {
 	usbd_dev->user_callback_set_config = callback;
 }
@@ -141,33 +142,43 @@ static int usb_standard_get_descriptor(usbd_device *usbd_dev,
 		if (descr_idx == 0) {
 			/* Send sane Language ID descriptor... */
 			sd->wData[0] = USB_LANGID_ENGLISH_US;
-			sd->bLength = sizeof(sd->bLength) + sizeof(sd->bDescriptorType) 
-				+ sizeof(sd->wData[0]);
+			sd->bLength = sizeof(sd->bLength) +
+				      sizeof(sd->bDescriptorType) +
+				      sizeof(sd->wData[0]);
 
 			*len = MIN(*len, sd->bLength);
 		} else {
 			array_idx = descr_idx - 1;
 
-			if (!usbd_dev->strings)
-				return USBD_REQ_NOTSUPP; /* Device doesn't support strings. */
-			/* Check that string index is in range. */
-			if (array_idx >= usbd_dev->num_strings)
+			if (!usbd_dev->strings) {
+				/* Device doesn't support strings. */
 				return USBD_REQ_NOTSUPP;
+			}
+
+			/* Check that string index is in range. */
+			if (array_idx >= usbd_dev->num_strings) {
+				return USBD_REQ_NOTSUPP;
+			}
 
 			/* Strings with Language ID differnet from
 			 * USB_LANGID_ENGLISH_US are not supported */
-			if (req->wIndex != USB_LANGID_ENGLISH_US)
+			if (req->wIndex != USB_LANGID_ENGLISH_US) {
 				return USBD_REQ_NOTSUPP;
+			}
 
-			/* Ths string is returned as UTF16, hence the multiplication */
+			/* Ths string is returned as UTF16, hence the
+			 * multiplication
+			 */
 			sd->bLength = strlen(usbd_dev->strings[array_idx]) * 2 +
-				sizeof(sd->bLength) + sizeof(sd->bDescriptorType);
+				      sizeof(sd->bLength) +
+				      sizeof(sd->bDescriptorType);
 
 			*len = MIN(*len, sd->bLength);
 
-			for (i = 0; i < (*len / 2) - 1; i++)
+			for (i = 0; i < (*len / 2) - 1; i++) {
 				sd->wData[i] =
 					usbd_dev->strings[array_idx][i];
+			}
 		}
 
 		sd->bDescriptorType = USB_DT_STRING;
@@ -187,8 +198,9 @@ static int usb_standard_set_address(usbd_device *usbd_dev,
 	(void)len;
 
 	/* The actual address is only latched at the STATUS IN stage. */
-	if ((req->bmRequestType != 0) || (req->wValue >= 128))
+	if ((req->bmRequestType != 0) || (req->wValue >= 128)) {
 		return 0;
+	}
 
 	usbd_dev->current_address = req->wValue;
 
@@ -196,8 +208,9 @@ static int usb_standard_set_address(usbd_device *usbd_dev,
 	 * Special workaround for STM32F10[57] that require the address
 	 * to be set here. This is undocumented!
 	 */
-	if ( usbd_dev->driver->set_address_before_status)
+	if (usbd_dev->driver->set_address_before_status) {
 		usbd_dev->driver->set_address(usbd_dev, req->wValue);
+	}
 
 	return 1;
 }
@@ -213,8 +226,9 @@ static int usb_standard_set_configuration(usbd_device *usbd_dev,
 	(void)len;
 
 	/* Is this correct, or should we reset alternate settings. */
-	if (req->wValue == usbd_dev->current_config)
+	if (req->wValue == usbd_dev->current_config) {
 		return 1;
+	}
 
 	usbd_dev->current_config = req->wValue;
 
@@ -226,8 +240,9 @@ static int usb_standard_set_configuration(usbd_device *usbd_dev,
 		 * Flush control callbacks. These will be reregistered
 		 * by the user handler.
 		 */
-		for (i = 0; i < MAX_USER_CONTROL_CALLBACK; i++)
+		for (i = 0; i < MAX_USER_CONTROL_CALLBACK; i++) {
 			usbd_dev->user_control_callback[i].cb = NULL;
+		}
 
 		usbd_dev->user_callback_set_config(usbd_dev, req->wValue);
 	}
@@ -241,8 +256,9 @@ static int usb_standard_get_configuration(usbd_device *usbd_dev,
 {
 	(void)req;
 
-	if (*len > 1)
+	if (*len > 1) {
 		*len = 1;
+	}
 	(*buf)[0] = usbd_dev->current_config;
 
 	return 1;
@@ -257,8 +273,9 @@ static int usb_standard_set_interface(usbd_device *usbd_dev,
 	(void)buf;
 
 	/* FIXME: Adapt if we have more than one interface. */
-	if (req->wValue != 0)
+	if (req->wValue != 0) {
 		return 0;
+	}
 	*len = 0;
 
 	return 1;
@@ -288,8 +305,9 @@ static int usb_standard_device_get_status(usbd_device *usbd_dev,
 
 	/* bit 0: self powered */
 	/* bit 1: remote wakeup */
-	if (*len > 2)
+	if (*len > 2) {
 		*len = 2;
+	}
 	(*buf)[0] = 0;
 	(*buf)[1] = 0;
 
@@ -304,8 +322,9 @@ static int usb_standard_interface_get_status(usbd_device *usbd_dev,
 	(void)req;
 	/* not defined */
 
-	if (*len > 2)
+	if (*len > 2) {
 		*len = 2;
+	}
 	(*buf)[0] = 0;
 	(*buf)[1] = 0;
 
@@ -318,8 +337,9 @@ static int usb_standard_endpoint_get_status(usbd_device *usbd_dev,
 {
 	(void)req;
 
-	if (*len > 2)
+	if (*len > 2) {
 		*len = 2;
+	}
 	(*buf)[0] = usbd_ep_stall_get(usbd_dev, req->wIndex) ? 1 : 0;
 	(*buf)[1] = 0;
 
@@ -366,9 +386,11 @@ int _usbd_standard_request_device(usbd_device *usbd_dev,
 		if (req->wValue == USB_FEAT_DEVICE_REMOTE_WAKEUP) {
 			/* Device wakeup code goes here. */
 		}
+
 		if (req->wValue == USB_FEAT_TEST_MODE) {
 			/* Test mode code goes here. */
 		}
+
 		break;
 	case USB_REQ_SET_ADDRESS:
 		/*
@@ -398,8 +420,9 @@ int _usbd_standard_request_device(usbd_device *usbd_dev,
 		break;
 	}
 
-	if (!command)
+	if (!command) {
 		return 0;
+	}
 
 	return command(usbd_dev, req, buf, len);
 }
@@ -427,8 +450,9 @@ int _usbd_standard_request_interface(usbd_device *usbd_dev,
 		break;
 	}
 
-	if (!command)
+	if (!command) {
 		return 0;
+	}
 
 	return command(usbd_dev, req, buf, len);
 }
@@ -442,12 +466,14 @@ int _usbd_standard_request_endpoint(usbd_device *usbd_dev,
 
 	switch (req->bRequest) {
 	case USB_REQ_CLEAR_FEATURE:
-		if (req->wValue == USB_FEAT_ENDPOINT_HALT)
+		if (req->wValue == USB_FEAT_ENDPOINT_HALT) {
 			command = usb_standard_endpoint_unstall;
+		}
 		break;
 	case USB_REQ_SET_FEATURE:
-		if (req->wValue == USB_FEAT_ENDPOINT_HALT)
+		if (req->wValue == USB_FEAT_ENDPOINT_HALT) {
 			command = usb_standard_endpoint_stall;
+		}
 		break;
 	case USB_REQ_GET_STATUS:
 		command = usb_standard_endpoint_get_status;
@@ -461,8 +487,9 @@ int _usbd_standard_request_endpoint(usbd_device *usbd_dev,
 		break;
 	}
 
-	if (!command)
+	if (!command) {
 		return 0;
+	}
 
 	return command(usbd_dev, req, buf, len);
 }
@@ -471,8 +498,9 @@ int _usbd_standard_request(usbd_device *usbd_dev,
 			   struct usb_setup_data *req, u8 **buf, u16 *len)
 {
 	/* FIXME: Have class/vendor requests as well. */
-	if ((req->bmRequestType & USB_REQ_TYPE_TYPE) != USB_REQ_TYPE_STANDARD)
+	if ((req->bmRequestType & USB_REQ_TYPE_TYPE) != USB_REQ_TYPE_STANDARD) {
 		return 0;
+	}
 
 	switch (req->bmRequestType & USB_REQ_TYPE_RECIPIENT) {
 	case USB_REQ_TYPE_DEVICE:

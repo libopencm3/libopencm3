@@ -1,7 +1,9 @@
 /** @addtogroup gpio_defines
 
-@author @htmlonly &copy; @endhtmlonly 2011 Fergus Noble <fergusnoble@gmail.com>
-@author @htmlonly &copy; @endhtmlonly 2012 Ken Sarkies <ksarkies@internode.on.net>
+@author @htmlonly &copy; @endhtmlonly 2011
+Fergus Noble <fergusnoble@gmail.com>
+@author @htmlonly &copy; @endhtmlonly 2012
+Ken Sarkies <ksarkies@internode.on.net>
 
 */
 /*
@@ -24,7 +26,7 @@
  * along with this library.  If not, see <http://www.gnu.org/licenses/>.
  */
 
-/* THIS FILE SHOULD NOT BE INCLUDED DIRECTLY, BUT ONLY VIA GPIO.H 
+/* THIS FILE SHOULD NOT BE INCLUDED DIRECTLY, BUT ONLY VIA GPIO.H
 The order of header inclusion is important. gpio.h includes the device
 specific memorymap.h header before including this header file.*/
 
@@ -278,10 +280,10 @@ specific memorymap.h header before including this header file.*/
 BEGIN_DECLS
 
 /*
- * Note: The F2 and F4 series have a completely new GPIO peripheral with different
- * configuration options. Here we implement a different API partly to more
- * closely match the peripheral capabilities and also to deliberately break
- * compatibility with old F1 code so there is no confusion with similar
+ * Note: The F2 and F4 series have a completely new GPIO peripheral with
+ * different configuration options. Here we implement a different API partly to
+ * more closely match the peripheral capabilities and also to deliberately
+ * break compatibility with old F1 code so there is no confusion with similar
  * sounding functions that have very different functionality.
  */
 

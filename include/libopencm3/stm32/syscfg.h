@@ -22,7 +22,7 @@
 
 #include <libopencm3/stm32/memorymap.h>
 
-/* --- SYSCFG registers ------------------------------------------------------ */
+/* --- SYSCFG registers ---------------------------------------------------- */
 
 #define SYSCFG_MEMRM			MMIO32(SYSCFG_BASE + 0x00)
 

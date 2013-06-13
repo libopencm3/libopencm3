@@ -41,7 +41,8 @@
 Set timer options register on TIM2 or TIM3, used for trigger remapping.
 
 @param[in] timer_peripheral Unsigned int32. Timer register address base
-@returns Unsigned int32. Option flags TIM2: @ref tim2_opt_trigger_remap, TIM3: @ref tim3_opt_trigger_remap.
+@returns Unsigned int32. Option flags TIM2: @ref tim2_opt_trigger_remap, TIM3:
+@ref tim3_opt_trigger_remap.
 */
 
 void timer_set_option(u32 timer_peripheral, u32 option)

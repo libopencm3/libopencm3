@@ -39,7 +39,7 @@ LGPL License Terms @ref lgpl_license
 
 #define MAX_USER_CONTROL_CALLBACK	4
 
-#define MIN(a, b) ((a)<(b) ? (a) : (b))
+#define MIN(a, b) ((a) < (b) ? (a) : (b))
 
 /** Internal collection of device information. */
 struct _usbd_device {
@@ -68,7 +68,7 @@ struct _usbd_device {
 			DATA_IN, LAST_DATA_IN, STATUS_IN,
 			DATA_OUT, LAST_DATA_OUT, STATUS_OUT,
 		} state;
-		struct usb_setup_data req __attribute__((aligned(4)));
+		struct usb_setup_data req __aligned(4);
 		u8 *ctrl_buf;
 		u16 ctrl_len;
 		void (*complete)(usbd_device *usbd_dev,
@@ -92,18 +92,18 @@ struct _usbd_device {
 
 	uint16_t fifo_mem_top;
 	uint16_t fifo_mem_top_ep0;
-    u8 force_nak[4];
-    /*
-     * We keep a backup copy of the out endpoint size registers to restore them
-     * after a transaction.
-     */
-    u32 doeptsiz[4];
-    /*
-     * Received packet size for each endpoint. This is assigned in
-     * stm32f107_poll() which reads the packet status push register GRXSTSP
-     * for use in stm32f107_ep_read_packet().
-     */
-    uint16_t rxbcnt;
+	u8 force_nak[4];
+	/*
+	 * We keep a backup copy of the out endpoint size registers to restore
+	 * them after a transaction.
+	 */
+	u32 doeptsiz[4];
+	/*
+	 * Received packet size for each endpoint. This is assigned in
+	 * stm32f107_poll() which reads the packet status push register GRXSTSP
+	 * for use in stm32f107_ep_read_packet().
+	 */
+	uint16_t rxbcnt;
 };
 
 enum _usbd_transaction {

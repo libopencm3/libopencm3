@@ -21,7 +21,7 @@
 
 void __attribute__((weak)) cm3_assert_failed(void)
 {
-	while(1);
+	while (1);
 }
 
 void __attribute__((weak)) cm3_assert_failed_verbose(

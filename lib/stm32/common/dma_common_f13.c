@@ -40,7 +40,7 @@ LGPL License Terms @ref lgpl_license
 
 #include <libopencm3/stm32/dma.h>
 
-/*-----------------------------------------------------------------------------*/
+/*---------------------------------------------------------------------------*/
 /** @brief DMA Channel Reset
 
 The channel is disabled and configuration registers are cleared.
@@ -63,7 +63,7 @@ void dma_channel_reset(u32 dma, u8 channel)
 	DMA_IFCR(dma) |= DMA_IFCR_CIF(channel);
 }
 
-/*-----------------------------------------------------------------------------*/
+/*---------------------------------------------------------------------------*/
 /** @brief DMA Channel Clear Interrupt Flag
 
 The interrupt flag for the channel is cleared. More than one interrupt for the
@@ -71,7 +71,8 @@ same channel may be cleared by using the logical OR of the interrupt flags.
 
 @param[in] dma unsigned int32. DMA controller base address: DMA1 or DMA2
 @param[in] channel unsigned int8. Channel number: @ref dma_ch
-@param[in] interrupts unsigned int32. Logical OR of interrupt numbers: @ref dma_if_offset
+@param[in] interrupts unsigned int32. Logical OR of interrupt numbers: @ref
+dma_if_offset
 */
 
 void dma_clear_interrupt_flags(u32 dma, u8 channel, u32 interrupts)
@@ -81,7 +82,7 @@ void dma_clear_interrupt_flags(u32 dma, u8 channel, u32 interrupts)
 	DMA_IFCR(dma) = flags;
 }
 
-/*-----------------------------------------------------------------------------*/
+/*---------------------------------------------------------------------------*/
 /** @brief DMA Channel Read Interrupt Flag
 
 The interrupt flag for the channel is returned.
@@ -99,7 +100,7 @@ bool dma_get_interrupt_flag(u32 dma, u8 channel, u32 interrupt)
 	return ((DMA_ISR(dma) & flag) > 0);
 }
 
-/*-----------------------------------------------------------------------------*/
+/*---------------------------------------------------------------------------*/
 /** @brief DMA Channel Enable Memory to Memory Transfers
 
 Memory to memory transfers do not require a trigger to activate each transfer.
@@ -116,7 +117,7 @@ void dma_enable_mem2mem_mode(u32 dma, u8 channel)
 	DMA_CCR(dma, channel) &= ~DMA_CCR_CIRC;
 }
 
-/*-----------------------------------------------------------------------------*/
+/*---------------------------------------------------------------------------*/
 /** @brief DMA Channel Set Priority
 
 Channel Priority has four levels: low to very high. This has precedence over the
@@ -133,7 +134,7 @@ void dma_set_priority(u32 dma, u8 channel, u32 prio)
 	DMA_CCR(dma, channel) |= prio;
 }
 
-/*-----------------------------------------------------------------------------*/
+/*---------------------------------------------------------------------------*/
 /** @brief DMA Channel Set Memory Word Width
 
 Set the memory word width 8 bits, 16 bits, or 32 bits. Refer to datasheet for
@@ -151,16 +152,17 @@ void dma_set_memory_size(u32 dma, u8 channel, u32 mem_size)
 	DMA_CCR(dma, channel) |= mem_size;
 }
 
-/*-----------------------------------------------------------------------------*/
+/*---------------------------------------------------------------------------*/
 /** @brief DMA Channel Set Peripheral Word Width
 
-Set the peripheral word width 8 bits, 16 bits, or 32 bits. Refer to datasheet for
-alignment information if the source and destination widths do not match, or
+Set the peripheral word width 8 bits, 16 bits, or 32 bits. Refer to datasheet
+for alignment information if the source and destination widths do not match, or
 if the peripheral does not support byte or half-word writes.
 
 @param[in] dma unsigned int32. DMA controller base address: DMA1 or DMA2
 @param[in] channel unsigned int8. Channel number: 1-7 for DMA1 or 1-5 for DMA2
-@param[in] peripheral_size unsigned int32. Peripheral word width @ref dma_ch_perwidth.
+@param[in] peripheral_size unsigned int32. Peripheral word width @ref
+dma_ch_perwidth.
 */
 
 void dma_set_peripheral_size(u32 dma, u8 channel, u32 peripheral_size)
@@ -169,7 +171,7 @@ void dma_set_peripheral_size(u32 dma, u8 channel, u32 peripheral_size)
 	DMA_CCR(dma, channel) |= peripheral_size;
 }
 
-/*-----------------------------------------------------------------------------*/
+/*---------------------------------------------------------------------------*/
 /** @brief DMA Channel Enable Memory Increment after Transfer
 
 Following each transfer the current memory address is incremented by
@@ -185,7 +187,7 @@ void dma_enable_memory_increment_mode(u32 dma, u8 channel)
 	DMA_CCR(dma, channel) |= DMA_CCR_MINC;
 }
 
-/*-----------------------------------------------------------------------------*/
+/*---------------------------------------------------------------------------*/
 /** @brief DMA Channel Disable Memory Increment after Transfer
 
 @param[in] dma unsigned int32. DMA controller base address: DMA1 or DMA2
@@ -197,7 +199,7 @@ void dma_disable_memory_increment_mode(u32 dma, u8 channel)
 	DMA_CCR(dma, channel) &= ~DMA_CCR_MINC;
 }
 
-/*-----------------------------------------------------------------------------*/
+/*---------------------------------------------------------------------------*/
 /** @brief DMA Channel Enable Peripheral Increment after Transfer
 
 Following each transfer the current peripheral address is incremented by
@@ -213,7 +215,7 @@ void dma_enable_peripheral_increment_mode(u32 dma, u8 channel)
 	DMA_CCR(dma, channel) |= DMA_CCR_PINC;
 }
 
-/*-----------------------------------------------------------------------------*/
+/*---------------------------------------------------------------------------*/
 /** @brief DMA Channel Disable Peripheral Increment after Transfer
 
 @param[in] dma unsigned int32. DMA controller base address: DMA1 or DMA2
@@ -225,7 +227,7 @@ void dma_disable_peripheral_increment_mode(u32 dma, u8 channel)
 	DMA_CCR(dma, channel) &= ~DMA_CCR_PINC;
 }
 
-/*-----------------------------------------------------------------------------*/
+/*---------------------------------------------------------------------------*/
 /** @brief DMA Channel Enable Memory Circular Mode
 
 After the number of bytes/words to be transferred has been completed, the
@@ -245,7 +247,7 @@ void dma_enable_circular_mode(u32 dma, u8 channel)
 	DMA_CCR(dma, channel) &= ~DMA_CCR_MEM2MEM;
 }
 
-/*-----------------------------------------------------------------------------*/
+/*---------------------------------------------------------------------------*/
 /** @brief DMA Channel Enable Transfers from a Peripheral
 
 The data direction is set to read from a peripheral.
@@ -259,7 +261,7 @@ void dma_set_read_from_peripheral(u32 dma, u8 channel)
 	DMA_CCR(dma, channel) &= ~DMA_CCR_DIR;
 }
 
-/*-----------------------------------------------------------------------------*/
+/*---------------------------------------------------------------------------*/
 /** @brief DMA Channel Enable Transfers from Memory
 
 The data direction is set to read from memory.
@@ -273,7 +275,7 @@ void dma_set_read_from_memory(u32 dma, u8 channel)
 	DMA_CCR(dma, channel) |= DMA_CCR_DIR;
 }
 
-/*-----------------------------------------------------------------------------*/
+/*---------------------------------------------------------------------------*/
 /** @brief DMA Channel Enable Interrupt on Transfer Error
 
 @param[in] dma unsigned int32. DMA controller base address: DMA1 or DMA2
@@ -285,7 +287,7 @@ void dma_enable_transfer_error_interrupt(u32 dma, u8 channel)
 	DMA_CCR(dma, channel) |= DMA_CCR_TEIE;
 }
 
-/*-----------------------------------------------------------------------------*/
+/*---------------------------------------------------------------------------*/
 /** @brief DMA Channel Disable Interrupt on Transfer Error
 
 @param[in] dma unsigned int32. DMA controller base address: DMA1 or DMA2
@@ -297,7 +299,7 @@ void dma_disable_transfer_error_interrupt(u32 dma, u8 channel)
 	DMA_CCR(dma, channel) &= ~DMA_CCR_TEIE;
 }
 
-/*-----------------------------------------------------------------------------*/
+/*---------------------------------------------------------------------------*/
 /** @brief DMA Channel Enable Interrupt on Transfer Half Complete
 
 @param[in] dma unsigned int32. DMA controller base address: DMA1 or DMA2
@@ -309,7 +311,7 @@ void dma_enable_half_transfer_interrupt(u32 dma, u8 channel)
 	DMA_CCR(dma, channel) |= DMA_CCR_HTIE;
 }
 
-/*-----------------------------------------------------------------------------*/
+/*---------------------------------------------------------------------------*/
 /** @brief DMA Channel Disable Interrupt on Transfer Half Complete
 
 @param[in] dma unsigned int32. DMA controller base address: DMA1 or DMA2
@@ -321,7 +323,7 @@ void dma_disable_half_transfer_interrupt(u32 dma, u8 channel)
 	DMA_CCR(dma, channel) &= ~DMA_CCR_HTIE;
 }
 
-/*-----------------------------------------------------------------------------*/
+/*---------------------------------------------------------------------------*/
 /** @brief DMA Channel Enable Interrupt on Transfer Complete
 
 @param[in] dma unsigned int32. DMA controller base address: DMA1 or DMA2
@@ -333,7 +335,7 @@ void dma_enable_transfer_complete_interrupt(u32 dma, u8 channel)
 	DMA_CCR(dma, channel) |= DMA_CCR_TCIE;
 }
 
-/*-----------------------------------------------------------------------------*/
+/*---------------------------------------------------------------------------*/
 /** @brief DMA Channel Disable Interrupt on Transfer Complete
 
 @param[in] dma unsigned int32. DMA controller base address: DMA1 or DMA2
@@ -345,7 +347,7 @@ void dma_disable_transfer_complete_interrupt(u32 dma, u8 channel)
 	DMA_CCR(dma, channel) &= ~DMA_CCR_TCIE;
 }
 
-/*-----------------------------------------------------------------------------*/
+/*---------------------------------------------------------------------------*/
 /** @brief DMA Channel Enable
 
 @param[in] dma unsigned int32. DMA controller base address: DMA1 or DMA2
@@ -357,10 +359,11 @@ void dma_enable_channel(u32 dma, u8 channel)
 	DMA_CCR(dma, channel) |= DMA_CCR_EN;
 }
 
-/*-----------------------------------------------------------------------------*/
+/*---------------------------------------------------------------------------*/
 /** @brief DMA Channel Disable
 
-@note The DMA channel registers retain their values when the channel is disabled.
+@note The DMA channel registers retain their values when the channel is
+disabled.
 
 @param[in] dma unsigned int32. DMA controller base address: DMA1 or DMA2
 @param[in] channel unsigned int8. Channel number: 1-7 for DMA1 or 1-5 for DMA2
@@ -371,14 +374,14 @@ void dma_disable_channel(u32 dma, u8 channel)
 	DMA_CCR(dma, channel) &= ~DMA_CCR_EN;
 }
 
-/*-----------------------------------------------------------------------------*/
+/*---------------------------------------------------------------------------*/
 /** @brief DMA Channel Set the Peripheral Address
 
-Set the address of the peripheral register to or from which data is to be transferred.
-Refer to the documentation for the specific peripheral.
+Set the address of the peripheral register to or from which data is to be
+transferred.  Refer to the documentation for the specific peripheral.
 
-@note The DMA channel must be disabled before setting this address. This function
-has no effect if the channel is enabled.
+@note The DMA channel must be disabled before setting this address. This
+function has no effect if the channel is enabled.
 
 @param[in] dma unsigned int32. DMA controller base address: DMA1 or DMA2
 @param[in] channel unsigned int8. Channel number: 1-7 for DMA1 or 1-5 for DMA2
@@ -387,15 +390,16 @@ has no effect if the channel is enabled.
 
 void dma_set_peripheral_address(u32 dma, u8 channel, u32 address)
 {
-	if (!(DMA_CCR(dma, channel) & DMA_CCR_EN))
+	if (!(DMA_CCR(dma, channel) & DMA_CCR_EN)) {
 		DMA_CPAR(dma, channel) = (u32) address;
+	}
 }
 
-/*-----------------------------------------------------------------------------*/
+/*---------------------------------------------------------------------------*/
 /** @brief DMA Channel Set the Base Memory Address
 
-@note The DMA channel must be disabled before setting this address. This function
-has no effect if the channel is enabled.
+@note The DMA channel must be disabled before setting this address. This
+function has no effect if the channel is enabled.
 
 @param[in] dma unsigned int32. DMA controller base address: DMA1 or DMA2
 @param[in] channel unsigned int8. Channel number: 1-7 for DMA1 or 1-5 for DMA2
@@ -404,19 +408,21 @@ has no effect if the channel is enabled.
 
 void dma_set_memory_address(u32 dma, u8 channel, u32 address)
 {
-	if (!(DMA_CCR(dma, channel) & DMA_CCR_EN))
+	if (!(DMA_CCR(dma, channel) & DMA_CCR_EN)) {
 		DMA_CMAR(dma, channel) = (u32) address;
+	}
 }
 
-/*-----------------------------------------------------------------------------*/
+/*---------------------------------------------------------------------------*/
 /** @brief DMA Channel Set the Transfer Block Size
 
-@note The DMA channel must be disabled before setting this count value. The count
-is not changed if the channel is enabled.
+@note The DMA channel must be disabled before setting this count value. The
+count is not changed if the channel is enabled.
 
 @param[in] dma unsigned int32. DMA controller base address: DMA1 or DMA2
 @param[in] channel unsigned int8. Channel number: 1-7 for DMA1 or 1-5 for DMA2
-@param[in] number unsigned int16. Number of data words to transfer (65535 maximum).
+@param[in] number unsigned int16. Number of data words to transfer (65535
+maximum).
 */
 
 void dma_set_number_of_data(u32 dma, u8 channel, u16 number)

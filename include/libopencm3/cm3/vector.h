@@ -45,7 +45,7 @@
 typedef void (*vector_table_entry_t)(void);
 
 typedef struct {
-	unsigned int *initial_sp_value; /**< The value the stack pointer is set to initially */
+	unsigned int *initial_sp_value; /**< Initial stack pointer value. */
 	vector_table_entry_t reset;
 	vector_table_entry_t nmi;
 	vector_table_entry_t hard_fault;

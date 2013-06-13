@@ -25,12 +25,12 @@
 
 /**@{*/
 
-/* THIS FILE SHOULD NOT BE INCLUDED DIRECTLY, BUT ONLY VIA TIMER.H 
+/* THIS FILE SHOULD NOT BE INCLUDED DIRECTLY, BUT ONLY VIA TIMER.H
 The order of header inclusion is important. timer.h includes the device
 specific memorymap.h header before including this header file.*/
 
 /** @cond */
-#if defined (LIBOPENCM3_TIMER_H) || defined (LIBOPENCM3_TIMER_COMMON_F24_H)
+#if defined(LIBOPENCM3_TIMER_H) || defined(LIBOPENCM3_TIMER_COMMON_F24_H)
 /** @endcond */
 #ifndef LIBOPENCM3_TIMER_COMMON_H
 #define LIBOPENCM3_TIMER_COMMON_H
@@ -434,14 +434,19 @@ level. */
 /** Encoder mode 3 - Counter counts up/down on both TI1FP1 and TI2FP2 edges
 depending on the level of the complementary input. */
 #define TIM_SMCR_SMS_EM3		(0x3 << 0)
-/** Reset Mode - Rising edge of the selected trigger input (TRGI) reinitializes the counter
-and generates an update of the registers. */
+/** Reset Mode - Rising edge of the selected trigger input (TRGI) reinitializes
+ * the counter and generates an update of the registers.
+ */
 #define TIM_SMCR_SMS_RM			(0x4 << 0)
-/** Gated Mode - The counter clock is enabled when the trigger input (TRGI) is high. */
+/** Gated Mode - The counter clock is enabled when the trigger input (TRGI) is
+ * high.
+ */
 #define TIM_SMCR_SMS_GM			(0x5 << 0)
 /**  Trigger Mode - The counter starts at a rising edge of the trigger TRGI. */
 #define TIM_SMCR_SMS_TM			(0x6 << 0)
-/** External Clock Mode 1 - Rising edges of the selected trigger (TRGI) clock the counter. */
+/** External Clock Mode 1 - Rising edges of the selected trigger (TRGI) clock
+ * the counter.
+ */
 #define TIM_SMCR_SMS_ECM1		(0x7 << 0)
 #define TIM_SMCR_SMS_MASK		(0x7 << 0)
 /**@}*/
@@ -936,7 +941,7 @@ and generates an update of the registers. */
 
 /** Output Compare channel designators */
 enum tim_oc_id {
-	TIM_OC1=0,
+	TIM_OC1 = 0,
 	TIM_OC1N,
 	TIM_OC2,
 	TIM_OC2N,
@@ -968,8 +973,8 @@ enum tim_ic_id {
 /** Input Capture input filter. The frequency used to sample the
 input and the number of events needed to validate an output transition.
 
-TIM_IC_CK_INT_N_x No division from the Deadtime and Sampling Clock frequency (DTF),
-filter length x
+TIM_IC_CK_INT_N_x No division from the Deadtime and Sampling Clock frequency
+(DTF), filter length x
 TIM_IC_DTF_DIV_y_N_x Division by y from the DTF, filter length x
  */
 enum tim_ic_filter {
@@ -1020,7 +1025,7 @@ enum tim_et_pol {
 	TIM_ET_FALLING,
 };
 
-/* --- TIM function prototypes ------------------------------------------------------- */
+/* --- TIM function prototypes --------------------------------------------- */
 
 BEGIN_DECLS
 
@@ -1064,7 +1069,8 @@ void timer_enable_oc_clear(u32 timer_peripheral, enum tim_oc_id oc_id);
 void timer_disable_oc_clear(u32 timer_peripheral, enum tim_oc_id oc_id);
 void timer_set_oc_fast_mode(u32 timer_peripheral, enum tim_oc_id oc_id);
 void timer_set_oc_slow_mode(u32 timer_peripheral, enum tim_oc_id oc_id);
-void timer_set_oc_mode(u32 timer_peripheral, enum tim_oc_id oc_id, enum tim_oc_mode oc_mode);
+void timer_set_oc_mode(u32 timer_peripheral, enum tim_oc_id oc_id,
+			enum tim_oc_mode oc_mode);
 void timer_enable_oc_preload(u32 timer_peripheral, enum tim_oc_id oc_id);
 void timer_disable_oc_preload(u32 timer_peripheral, enum tim_oc_id oc_id);
 void timer_set_oc_polarity_high(u32 timer_peripheral, enum tim_oc_id oc_id);
@@ -1109,7 +1115,7 @@ END_DECLS
 #endif
 /** @cond */
 #else
-#warning "timer_common_all.h should not be included explicitly, only via timer.h"
+#warning "timer_common_all.h should not be included directly, only via timer.h"
 #endif
 /** @endcond */
 /**@}*/

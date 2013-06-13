@@ -1,6 +1,7 @@
 /** @addtogroup dac_defines
 
-@author @htmlonly &copy; @endhtmlonly 2012 Felix Held <felix-libopencm3@felixheld.de>
+@author @htmlonly &copy; @endhtmlonly 2012
+Felix Held <felix-libopencm3@felixheld.de>
 
 */
 
@@ -25,7 +26,7 @@
 
 /**@{*/
 
-/* THIS FILE SHOULD NOT BE INCLUDED DIRECTLY, BUT ONLY VIA DAC.H 
+/* THIS FILE SHOULD NOT BE INCLUDED DIRECTLY, BUT ONLY VIA DAC.H
 The order of header inclusion is important. dac.h includes the device
 specific memorymap.h header before including this header file.*/
 
