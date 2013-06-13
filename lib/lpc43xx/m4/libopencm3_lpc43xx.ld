@@ -92,6 +92,7 @@ SECTIONS
 		. = ALIGN(4);
 		_edata = .;
 	} >ram_local2 AT >rom
+	_data_loadaddr = LOADADDR(.data);
 
 	_data_rom = LOADADDR (.data) + ORIGIN(rom);
 	_edata_rom = _data_rom + SIZEOF (.data);

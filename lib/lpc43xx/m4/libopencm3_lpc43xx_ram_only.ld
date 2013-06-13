@@ -45,23 +45,59 @@ SECTIONS
 		. = ALIGN(4);
 	} >ram_local1
 
+	/* C++ Static constructors/destructors, also used for __attribute__
+	 * ((constructor)) and the likes */
+	.preinit_array : {
+		. = ALIGN(4);
+		__preinit_array_start = .;
+		KEEP (*(.preinit_array))
+		__preinit_array_end = .;
+	} >ram_local1
+	.init_array : {
+		. = ALIGN(4);
+		__init_array_start = .;
+		KEEP (*(SORT(.init_array.*)))
+		KEEP (*(.init_array))
+		__init_array_end = .;
+	} >ram_local1
+	.fini_array : {
+		. = ALIGN(4);
+		__fini_array_start = .;
+		KEEP (*(.fini_array))
+		KEEP (*(SORT(.fini_array.*)))
+		__fini_array_end = .;
+	} >ram_local1
+
+	/*
+	 * Another section used by C++ stuff, appears when using newlib with
+	 * 64bit (long long) printf support
+	 */
+	.ARM.extab : {
+		*(.ARM.extab*)
+	} >.ram_local1
+    
 	/* exception index - required due to libgcc.a issuing /0 exceptions */
 	__exidx_start = .;
 	.ARM.exidx : {
+		__exidx_start = .;
 		*(.ARM.exidx*)
+		__exidx_end = .;
 	} > ram_local1
-	__exidx_end = .;
 
+	. = ALIGN(4);
 	_etext = .;
 	_etext_ram = 0; /* Start of Code in RAM NULL because Copy of Code from ROM to RAM disabled */
 	_etext_rom = 0; /* Start of Code in RAM NULL because Copy of Code from ROM to RAM disabled */
 
 	. = ORIGIN(ram_local2);
-	
+
 	.data : {
+		_data = .;
 		*(.data*)	/* Read-write initialized data */
 		. = ALIGN(4);
+		_edata = .;
 	} >ram_local2
+	_data_loadaddr = LOADADDR(.data);
 
    /* Running from RAM only, loading the .elf will initialize data for us. */
 	_data_rom = .;
@@ -71,11 +107,11 @@ SECTIONS
 	_edata = .;
 
 	.bss : {
-	   _bss = .;
+		_bss = .;
 		*(.bss*)	/* Read-write zero initialized data */
 		*(COMMON)
 		. = ALIGN(4);
-	   _ebss = .;
+		_ebss = .;
 	} >ram_local2
 
 	/* exception unwind data - required due to libgcc.a issuing /0 exceptions */
