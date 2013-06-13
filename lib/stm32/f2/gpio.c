@@ -24,5 +24,5 @@
  */
 
 #include <libopencm3/stm32/gpio.h>
-#include <libopencm3/stm32/common/gpio_common_f24.h>
+#include <libopencm3/stm32/common/gpio_common_f234.h>
 
