@@ -86,7 +86,4 @@
 #define BIT30 (1<<30)
 #define BIT31 (1<<31)
 
-#define __packed __attribute__((packed))
-#define __aligned(x) __attribute__((aligned(x)))
-
 #endif

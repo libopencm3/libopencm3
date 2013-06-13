@@ -375,7 +375,7 @@ struct scb_exception_stack_frame {
 	uint32_t lr;
 	uint32_t pc;
 	uint32_t xpsr;
-} __packed;
+} __attribute__((packed));
 
 #define SCB_GET_EXCEPTION_STACK_FRAME(f)				\
 	do {								\

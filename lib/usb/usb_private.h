@@ -69,7 +69,7 @@ struct _usbd_device {
 			DATA_IN, LAST_DATA_IN, STATUS_IN,
 			DATA_OUT, LAST_DATA_OUT, STATUS_OUT,
 		} state;
-		struct usb_setup_data req __aligned(4);
+		struct usb_setup_data req __attribute__((aligned(4)));
 		uint8_t *ctrl_buf;
 		uint16_t ctrl_len;
 		void (*complete)(usbd_device *usbd_dev,

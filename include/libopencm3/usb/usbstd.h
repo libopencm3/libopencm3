@@ -59,7 +59,7 @@ struct usb_setup_data {
 	uint16_t wValue;
 	uint16_t wIndex;
 	uint16_t wLength;
-} __packed;
+} __attribute__((packed));
 
 /* Class Definition */
 #define USB_CLASS_VENDOR			0xFF
@@ -131,7 +131,7 @@ struct usb_device_descriptor {
 	uint8_t iProduct;
 	uint8_t iSerialNumber;
 	uint8_t bNumConfigurations;
-} __packed;
+} __attribute__((packed));
 
 #define USB_DT_DEVICE_SIZE sizeof(struct usb_device_descriptor)
 
@@ -148,7 +148,7 @@ struct usb_device_qualifier_descriptor {
 	uint8_t bMaxPacketSize0;
 	uint8_t bNumConfigurations;
 	uint8_t bReserved;
-} __packed;
+} __attribute__((packed));
 
 /* USB Standard Configuration Descriptor - Table 9-10 */
 struct usb_config_descriptor {
@@ -167,7 +167,7 @@ struct usb_config_descriptor {
 		const struct usb_iface_assoc_descriptor *iface_assoc;
 		const struct usb_interface_descriptor *altsetting;
 	} *interface;
-} __packed;
+} __attribute__((packed));
 #define USB_DT_CONFIGURATION_SIZE		9
 
 /* USB Configuration Descriptor bmAttributes bit definitions */
@@ -194,7 +194,7 @@ struct usb_interface_descriptor {
 	const struct usb_endpoint_descriptor *endpoint;
 	const void *extra;
 	int extralen;
-} __packed;
+} __attribute__((packed));
 #define USB_DT_INTERFACE_SIZE			9
 
 /* USB Standard Endpoint Descriptor - Table 9-13 */
@@ -205,7 +205,7 @@ struct usb_endpoint_descriptor {
 	uint8_t bmAttributes;
 	uint16_t wMaxPacketSize;
 	uint8_t bInterval;
-} __packed;
+} __attribute__((packed));
 #define USB_DT_ENDPOINT_SIZE		sizeof(struct usb_endpoint_descriptor)
 
 /* USB Endpoint Descriptor bmAttributes bit definitions */
@@ -230,7 +230,7 @@ struct usb_string_descriptor {
 	uint8_t bLength;
 	uint8_t bDescriptorType;
 	uint16_t wData[];
-} __packed;
+} __attribute__((packed));
 
 /* From ECN: Interface Association Descriptors, Table 9-Z */
 struct usb_iface_assoc_descriptor {
@@ -242,7 +242,7 @@ struct usb_iface_assoc_descriptor {
 	uint8_t bFunctionSubClass;
 	uint8_t bFunctionProtocol;
 	uint8_t iFunction;
-} __packed;
+} __attribute__((packed));
 #define USB_DT_INTERFACE_ASSOCIATION_SIZE \
 				sizeof(struct usb_iface_assoc_descriptor)
 

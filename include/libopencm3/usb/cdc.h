@@ -88,7 +88,7 @@ struct usb_cdc_union_descriptor {
 	uint8_t bControlInterface;
 	uint8_t bSubordinateInterface0;
 	/* ... */
-} __packed;
+} __attribute__((packed));
 
 
 /* Definitions for Abstract Control Model devices from:
@@ -103,7 +103,7 @@ struct usb_cdc_call_management_descriptor {
 	uint8_t bDescriptorSubtype;
 	uint8_t bmCapabilities;
 	uint8_t bDataInterface;
-} __packed;
+} __attribute__((packed));
 
 /* Table 4: Abstract Control Management Functional Descriptor */
 struct usb_cdc_acm_descriptor {
@@ -111,7 +111,7 @@ struct usb_cdc_acm_descriptor {
 	uint8_t bDescriptorType;
 	uint8_t bDescriptorSubtype;
 	uint8_t bmCapabilities;
-} __packed;
+} __attribute__((packed));
 
 /* Table 13: Class-Specific Request Codes for PSTN subclasses */
 /* ... */
@@ -126,7 +126,7 @@ struct usb_cdc_line_coding {
 	uint8_t bCharFormat;
 	uint8_t bParityType;
 	uint8_t bDataBits;
-} __packed;
+} __attribute__((packed));
 
 /* Table 30: Class-Specific Notification Codes for PSTN subclasses */
 /* ... */
@@ -140,7 +140,7 @@ struct usb_cdc_notification {
 	uint16_t wValue;
 	uint16_t wIndex;
 	uint16_t wLength;
-} __packed;
+} __attribute__((packed));
 
 #endif
 

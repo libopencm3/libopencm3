@@ -94,7 +94,7 @@ struct usb_dfu_descriptor {
 	uint16_t wDetachTimeout;
 	uint16_t wTransferSize;
 	uint16_t bcdDFUVersion;
-} __packed;
+} __attribute__((packed));
 
 #endif
 
