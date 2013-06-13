@@ -287,9 +287,9 @@ BEGIN_DECLS
  * sounding functions that have very different functionality.
  */
 
-void gpio_mode_setup(uint32_t gpioport, uint8_t mode, uint8_t pull_up_down, uint16_t gpios);
-void gpio_set_output_options(uint32_t gpioport, uint8_t otype, uint8_t speed, uint16_t gpios);
-void gpio_set_af(uint32_t gpioport, uint8_t alt_func_num, uint16_t gpios);
+void gpio_mode_setup(u32 gpioport, u8 mode, u8 pull_up_down, u16 gpios);
+void gpio_set_output_options(u32 gpioport, u8 otype, u8 speed, u16 gpios);
+void gpio_set_af(u32 gpioport, u8 alt_func_num, u16 gpios);
 
 END_DECLS
 /**@}*/

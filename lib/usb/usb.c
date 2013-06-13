@@ -65,7 +65,7 @@ usbd_device *usbd_init(const usbd_driver *driver,
 		       const struct usb_device_descriptor *dev,
 		       const struct usb_config_descriptor *conf,
 		       const char **strings, int num_strings,
-		       uint8_t *control_buffer, uint16_t control_buffer_size)
+		       u8 *control_buffer, u16 control_buffer_size)
 {
 	usbd_device *usbd_dev;
 
@@ -137,34 +137,34 @@ void usbd_disconnect(usbd_device *usbd_dev, bool disconnected)
 	}
 }
 
-void usbd_ep_setup(usbd_device *usbd_dev, uint8_t addr, uint8_t type, uint16_t max_size,
-		   void (*callback)(usbd_device *usbd_dev, uint8_t ep))
+void usbd_ep_setup(usbd_device *usbd_dev, u8 addr, u8 type, u16 max_size,
+		   void (*callback)(usbd_device *usbd_dev, u8 ep))
 {
 	usbd_dev->driver->ep_setup(usbd_dev, addr, type, max_size, callback);
 }
 
-uint16_t usbd_ep_write_packet(usbd_device *usbd_dev, uint8_t addr,
-			 const void *buf, uint16_t len)
+u16 usbd_ep_write_packet(usbd_device *usbd_dev, u8 addr,
+			 const void *buf, u16 len)
 {
 	return usbd_dev->driver->ep_write_packet(usbd_dev, addr, buf, len);
 }
 
-uint16_t usbd_ep_read_packet(usbd_device *usbd_dev, uint8_t addr, void *buf, uint16_t len)
+u16 usbd_ep_read_packet(usbd_device *usbd_dev, u8 addr, void *buf, u16 len)
 {
 	return usbd_dev->driver->ep_read_packet(usbd_dev, addr, buf, len);
 }
 
-void usbd_ep_stall_set(usbd_device *usbd_dev, uint8_t addr, uint8_t stall)
+void usbd_ep_stall_set(usbd_device *usbd_dev, u8 addr, u8 stall)
 {
 	usbd_dev->driver->ep_stall_set(usbd_dev, addr, stall);
 }
 
-uint8_t usbd_ep_stall_get(usbd_device *usbd_dev, uint8_t addr)
+u8 usbd_ep_stall_get(usbd_device *usbd_dev, u8 addr)
 {
 	return usbd_dev->driver->ep_stall_get(usbd_dev, addr);
 }
 
-void usbd_ep_nak_set(usbd_device *usbd_dev, uint8_t addr, uint8_t nak)
+void usbd_ep_nak_set(usbd_device *usbd_dev, u8 addr, u8 nak)
 {
 	usbd_dev->driver->ep_nak_set(usbd_dev, addr, nak);
 }

@@ -92,10 +92,10 @@ open drain/push pull), for a set of GPIO pins on a given GPIO port.
 	     them.
 */
 
-void gpio_set_mode(uint32_t gpioport, uint8_t mode, uint8_t cnf, uint16_t gpios)
+void gpio_set_mode(u32 gpioport, u8 mode, u8 cnf, u16 gpios)
 {
-	uint16_t i, offset = 0;
-	uint32_t crl = 0, crh = 0, tmp32 = 0;
+	u16 i, offset = 0;
+	u32 crl = 0, crh = 0, tmp32 = 0;
 
 	/*
 	 * We want to set the config only for the pins mentioned in gpios,
@@ -138,7 +138,7 @@ Enable the EVENTOUT signal and select the port and pin to be used.
 @param[in] evoutport Unsigned int8. Port for EVENTOUT signal @ref afio_evcr_port
 @param[in] evoutpin Unsigned int8. Pin for EVENTOUT signal @ref afio_evcr_pin
 */
-void gpio_set_eventout(uint8_t evoutport, uint8_t evoutpin)
+void gpio_set_eventout(u8 evoutport, u8 evoutpin)
 {
 	AFIO_EVCR = AFIO_EVCR_EVOE | evoutport | evoutpin;
 }
@@ -166,7 +166,7 @@ afio_remap, @ref afio_remap_can1, @ref afio_remap_tim3, @ref afio_remap_tim2,
 @ref afio_remap_tim1, @ref afio_remap_usart3. For connectivity line devices
 only @ref afio_remap_cld are also available.
 */
-void gpio_primary_remap(uint32_t swjdisable, uint32_t maps)
+void gpio_primary_remap(u32 swjdisable, u32 maps)
 {
 	AFIO_MAPR |= (swjdisable & AFIO_MAPR_SWJ_MASK) | (maps & 0x1FFFFF);
 }
@@ -185,7 +185,7 @@ The AFIO remapping feature is used only with the STM32F10x series.
 @param[in] maps Unsigned int32. Logical OR of map enable controls from @ref
 afio_remap2
 */
-void gpio_secondary_remap(uint32_t maps)
+void gpio_secondary_remap(u32 maps)
 {
 	AFIO_MAPR2 |= maps;
 }

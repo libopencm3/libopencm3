@@ -37,7 +37,7 @@ LGPL License Terms @ref lgpl_license
 /* For pin_conf_normal value see scu.h define SCU_CONF_XXX or Configuration for
  * different I/O pins types
  */
-void scu_pinmux(scu_grp_pin_t group_pin, uint32_t scu_conf)
+void scu_pinmux(scu_grp_pin_t group_pin, u32 scu_conf)
 {
 	MMIO32(group_pin) = scu_conf;
 }

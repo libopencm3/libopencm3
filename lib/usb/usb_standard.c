@@ -41,18 +41,18 @@ LGPL License Terms @ref lgpl_license
 
 void usbd_register_set_config_callback(usbd_device *usbd_dev,
 				       void (*callback)(usbd_device *usbd_dev,
-				       uint16_t wValue))
+				       u16 wValue))
 {
 	usbd_dev->user_callback_set_config = callback;
 }
 
-static uint16_t build_config_descriptor(usbd_device *usbd_dev,
-				   uint8_t index, uint8_t *buf, uint16_t len)
+static u16 build_config_descriptor(usbd_device *usbd_dev,
+				   u8 index, u8 *buf, u16 len)
 {
-	uint8_t *tmpbuf = buf;
+	u8 *tmpbuf = buf;
 	const struct usb_config_descriptor *cfg = &usbd_dev->config[index];
-	uint16_t count, total = 0, totallen = 0;
-	uint16_t i, j, k;
+	u16 count, total = 0, totallen = 0;
+	u16 i, j, k;
 
 	memcpy(buf, cfg, count = MIN(len, cfg->bLength));
 	buf += count;
@@ -103,24 +103,24 @@ static uint16_t build_config_descriptor(usbd_device *usbd_dev,
 	}
 
 	/* Fill in wTotalLength. */
-	*(uint16_t *)(tmpbuf + 2) = totallen;
+	*(u16 *)(tmpbuf + 2) = totallen;
 
 	return total;
 }
 
-static int usb_descriptor_type(uint16_t wValue)
+static int usb_descriptor_type(u16 wValue)
 {
 	return wValue >> 8;
 }
 
-static int usb_descriptor_index(uint16_t wValue)
+static int usb_descriptor_index(u16 wValue)
 {
 	return wValue & 0xFF;
 }
 
 static int usb_standard_get_descriptor(usbd_device *usbd_dev,
 				       struct usb_setup_data *req,
-				       uint8_t **buf, uint16_t *len)
+				       u8 **buf, u16 *len)
 {
 	int i, array_idx, descr_idx;
 	struct usb_string_descriptor *sd;
@@ -129,7 +129,7 @@ static int usb_standard_get_descriptor(usbd_device *usbd_dev,
 
 	switch (usb_descriptor_type(req->wValue)) {
 	case USB_DT_DEVICE:
-		*buf = (uint8_t *) usbd_dev->desc;
+		*buf = (u8 *) usbd_dev->desc;
 		*len = MIN(*len, usbd_dev->desc->bLength);
 		return USBD_REQ_HANDLED;
 	case USB_DT_CONFIGURATION:
@@ -182,7 +182,7 @@ static int usb_standard_get_descriptor(usbd_device *usbd_dev,
 		}
 
 		sd->bDescriptorType = USB_DT_STRING;
-		*buf = (uint8_t *)sd;
+		*buf = (u8 *)sd;
 
 		return USBD_REQ_HANDLED;
 	}
@@ -190,8 +190,8 @@ static int usb_standard_get_descriptor(usbd_device *usbd_dev,
 }
 
 static int usb_standard_set_address(usbd_device *usbd_dev,
-				    struct usb_setup_data *req, uint8_t **buf,
-				    uint16_t *len)
+				    struct usb_setup_data *req, u8 **buf,
+				    u16 *len)
 {
 	(void)req;
 	(void)buf;
@@ -217,7 +217,7 @@ static int usb_standard_set_address(usbd_device *usbd_dev,
 
 static int usb_standard_set_configuration(usbd_device *usbd_dev,
 					  struct usb_setup_data *req,
-					  uint8_t **buf, uint16_t *len)
+					  u8 **buf, u16 *len)
 {
 	int i;
 
@@ -252,7 +252,7 @@ static int usb_standard_set_configuration(usbd_device *usbd_dev,
 
 static int usb_standard_get_configuration(usbd_device *usbd_dev,
 					  struct usb_setup_data *req,
-					  uint8_t **buf, uint16_t *len)
+					  u8 **buf, u16 *len)
 {
 	(void)req;
 
@@ -266,7 +266,7 @@ static int usb_standard_get_configuration(usbd_device *usbd_dev,
 
 static int usb_standard_set_interface(usbd_device *usbd_dev,
 				      struct usb_setup_data *req,
-				      uint8_t **buf, uint16_t *len)
+				      u8 **buf, u16 *len)
 {
 	(void)usbd_dev;
 	(void)req;
@@ -283,7 +283,7 @@ static int usb_standard_set_interface(usbd_device *usbd_dev,
 
 static int usb_standard_get_interface(usbd_device *usbd_dev,
 				      struct usb_setup_data *req,
-				      uint8_t **buf, uint16_t *len)
+				      u8 **buf, u16 *len)
 {
 	(void)usbd_dev;
 	(void)req;
@@ -298,7 +298,7 @@ static int usb_standard_get_interface(usbd_device *usbd_dev,
 
 static int usb_standard_device_get_status(usbd_device *usbd_dev,
 					  struct usb_setup_data *req,
-					  uint8_t **buf, uint16_t *len)
+					  u8 **buf, u16 *len)
 {
 	(void)usbd_dev;
 	(void)req;
@@ -316,7 +316,7 @@ static int usb_standard_device_get_status(usbd_device *usbd_dev,
 
 static int usb_standard_interface_get_status(usbd_device *usbd_dev,
 					     struct usb_setup_data *req,
-					     uint8_t **buf, uint16_t *len)
+					     u8 **buf, u16 *len)
 {
 	(void)usbd_dev;
 	(void)req;
@@ -333,7 +333,7 @@ static int usb_standard_interface_get_status(usbd_device *usbd_dev,
 
 static int usb_standard_endpoint_get_status(usbd_device *usbd_dev,
 					    struct usb_setup_data *req,
-					    uint8_t **buf, uint16_t *len)
+					    u8 **buf, u16 *len)
 {
 	(void)req;
 
@@ -348,7 +348,7 @@ static int usb_standard_endpoint_get_status(usbd_device *usbd_dev,
 
 static int usb_standard_endpoint_stall(usbd_device *usbd_dev,
 				       struct usb_setup_data *req,
-				       uint8_t **buf, uint16_t *len)
+				       u8 **buf, u16 *len)
 {
 	(void)buf;
 	(void)len;
@@ -360,7 +360,7 @@ static int usb_standard_endpoint_stall(usbd_device *usbd_dev,
 
 static int usb_standard_endpoint_unstall(usbd_device *usbd_dev,
 					 struct usb_setup_data *req,
-					 uint8_t **buf, uint16_t *len)
+					 u8 **buf, u16 *len)
 {
 	(void)buf;
 	(void)len;
@@ -374,11 +374,11 @@ static int usb_standard_endpoint_unstall(usbd_device *usbd_dev,
 /**@}*/
 
 int _usbd_standard_request_device(usbd_device *usbd_dev,
-				  struct usb_setup_data *req, uint8_t **buf,
-				  uint16_t *len)
+				  struct usb_setup_data *req, u8 **buf,
+				  u16 *len)
 {
-	int (*command)(usbd_device *usbd_dev, struct usb_setup_data *req, uint8_t
-		       **buf, uint16_t *len) = NULL;
+	int (*command)(usbd_device *usbd_dev, struct usb_setup_data *req, u8
+		       **buf, u16 *len) = NULL;
 
 	switch (req->bRequest) {
 	case USB_REQ_CLEAR_FEATURE:
@@ -428,11 +428,11 @@ int _usbd_standard_request_device(usbd_device *usbd_dev,
 }
 
 int _usbd_standard_request_interface(usbd_device *usbd_dev,
-				     struct usb_setup_data *req, uint8_t **buf,
-				     uint16_t *len)
+				     struct usb_setup_data *req, u8 **buf,
+				     u16 *len)
 {
 	int (*command)(usbd_device *usbd_dev, struct usb_setup_data *req,
-		       uint8_t **buf, uint16_t *len) = NULL;
+		       u8 **buf, u16 *len) = NULL;
 
 	switch (req->bRequest) {
 	case USB_REQ_CLEAR_FEATURE:
@@ -458,11 +458,11 @@ int _usbd_standard_request_interface(usbd_device *usbd_dev,
 }
 
 int _usbd_standard_request_endpoint(usbd_device *usbd_dev,
-				    struct usb_setup_data *req, uint8_t **buf,
-				    uint16_t *len)
+				    struct usb_setup_data *req, u8 **buf,
+				    u16 *len)
 {
 	int (*command) (usbd_device *usbd_dev, struct usb_setup_data *req,
-			uint8_t **buf, uint16_t *len) = NULL;
+			u8 **buf, u16 *len) = NULL;
 
 	switch (req->bRequest) {
 	case USB_REQ_CLEAR_FEATURE:
@@ -495,7 +495,7 @@ int _usbd_standard_request_endpoint(usbd_device *usbd_dev,
 }
 
 int _usbd_standard_request(usbd_device *usbd_dev,
-			   struct usb_setup_data *req, uint8_t **buf, uint16_t *len)
+			   struct usb_setup_data *req, u8 **buf, u16 *len)
 {
 	/* FIXME: Have class/vendor requests as well. */
 	if ((req->bmRequestType & USB_REQ_TYPE_TYPE) != USB_REQ_TYPE_STANDARD) {

@@ -188,15 +188,15 @@ void ssp_init(ssp_num_t ssp_num,
 				ssp_datasize_t data_size,
 				ssp_frame_format_t frame_format,
 				ssp_cpol_cpha_t cpol_cpha_format,
-				uint8_t serial_clock_rate,
-				uint8_t clk_prescale,
+				u8 serial_clock_rate,
+				u8 clk_prescale,
 				ssp_mode_t mode,
 				ssp_master_slave_t master_slave,
 				ssp_slave_option_t slave_option);
 
-uint16_t ssp_read(ssp_num_t ssp_num);
+u16 ssp_read(ssp_num_t ssp_num);
 
-void ssp_write(ssp_num_t ssp_num, uint16_t data);
+void ssp_write(ssp_num_t ssp_num, u16 data);
 
 END_DECLS
 

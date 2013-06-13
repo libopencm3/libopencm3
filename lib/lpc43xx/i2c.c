@@ -79,7 +79,7 @@ void i2c0_tx_start(void)
 }
 
 /* transmit data byte */
-void i2c0_tx_byte(uint8_t byte)
+void i2c0_tx_byte(u8 byte)
 {
 	if (I2C0_CONSET & I2C_CONSET_STA) {
 		I2C0_CONCLR = I2C_CONCLR_STAC;
@@ -90,7 +90,7 @@ void i2c0_tx_byte(uint8_t byte)
 }
 
 /* receive data byte */
-uint8_t i2c0_rx_byte(void)
+u8 i2c0_rx_byte(void)
 {
 	if (I2C0_CONSET & I2C_CONSET_STA) {
 		I2C0_CONCLR = I2C_CONCLR_STAC;

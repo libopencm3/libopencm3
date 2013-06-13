@@ -74,19 +74,19 @@ LGPL License Terms @ref lgpl_license
 
 /* Table 15: Class-Specific Descriptor Header Format */
 struct usb_cdc_header_descriptor {
-	uint8_t bFunctionLength;
-	uint8_t bDescriptorType;
-	uint8_t bDescriptorSubtype;
-	uint16_t bcdCDC;
+	u8 bFunctionLength;
+	u8 bDescriptorType;
+	u8 bDescriptorSubtype;
+	u16 bcdCDC;
 } __attribute__((packed));
 
 /* Table 16: Union Interface Functional Descriptor */
 struct usb_cdc_union_descriptor {
-	uint8_t bFunctionLength;
-	uint8_t bDescriptorType;
-	uint8_t bDescriptorSubtype;
-	uint8_t bControlInterface;
-	uint8_t bSubordinateInterface0;
+	u8 bFunctionLength;
+	u8 bDescriptorType;
+	u8 bDescriptorSubtype;
+	u8 bControlInterface;
+	u8 bSubordinateInterface0;
 	/* ... */
 } __packed;
 
@@ -98,19 +98,19 @@ struct usb_cdc_union_descriptor {
 
 /* Table 3: Call Management Functional Descriptor */
 struct usb_cdc_call_management_descriptor {
-	uint8_t bFunctionLength;
-	uint8_t bDescriptorType;
-	uint8_t bDescriptorSubtype;
-	uint8_t bmCapabilities;
-	uint8_t bDataInterface;
+	u8 bFunctionLength;
+	u8 bDescriptorType;
+	u8 bDescriptorSubtype;
+	u8 bmCapabilities;
+	u8 bDataInterface;
 } __packed;
 
 /* Table 4: Abstract Control Management Functional Descriptor */
 struct usb_cdc_acm_descriptor {
-	uint8_t bFunctionLength;
-	uint8_t bDescriptorType;
-	uint8_t bDescriptorSubtype;
-	uint8_t bmCapabilities;
+	u8 bFunctionLength;
+	u8 bDescriptorType;
+	u8 bDescriptorSubtype;
+	u8 bmCapabilities;
 } __packed;
 
 /* Table 13: Class-Specific Request Codes for PSTN subclasses */
@@ -122,10 +122,10 @@ struct usb_cdc_acm_descriptor {
 
 /* Table 17: Line Coding Structure */
 struct usb_cdc_line_coding {
-	uint32_t dwDTERate;
-	uint8_t bCharFormat;
-	uint8_t bParityType;
-	uint8_t bDataBits;
+	u32 dwDTERate;
+	u8 bCharFormat;
+	u8 bParityType;
+	u8 bDataBits;
 } __packed;
 
 /* Table 30: Class-Specific Notification Codes for PSTN subclasses */
@@ -135,11 +135,11 @@ struct usb_cdc_line_coding {
 
 /* Notification Structure */
 struct usb_cdc_notification {
-	uint8_t bmRequestType;
-	uint8_t bNotification;
-	uint16_t wValue;
-	uint16_t wIndex;
-	uint16_t wLength;
+	u8 bmRequestType;
+	u8 bNotification;
+	u16 wValue;
+	u16 wIndex;
+	u16 wLength;
 } __packed;
 
 #endif

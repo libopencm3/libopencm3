@@ -46,9 +46,9 @@ usart_reg_base
 @param[in] baud unsigned 32 bit. Baud rate specified in Hz.
 */
 
-void usart_set_baudrate(uint32_t usart, uint32_t baud)
+void usart_set_baudrate(u32 usart, u32 baud)
 {
-	uint32_t clock = rcc_ppre1_frequency;
+	u32 clock = rcc_ppre1_frequency;
 
 #if defined STM32F2 || defined STM32F4
 	if ((usart == USART1) ||
@@ -85,7 +85,7 @@ usart_reg_base
 @param[in] bits unsigned 32 bit. Word length in bits 8 or 9.
 */
 
-void usart_set_databits(uint32_t usart, uint32_t bits)
+void usart_set_databits(u32 usart, u32 bits)
 {
 	if (bits == 8) {
 		USART_CR1(usart) &= ~USART_CR1_M; /* 8 data bits */
@@ -104,9 +104,9 @@ usart_reg_base
 @param[in] stopbits unsigned 32 bit. Stop bits @ref usart_cr2_stopbits.
 */
 
-void usart_set_stopbits(uint32_t usart, uint32_t stopbits)
+void usart_set_stopbits(u32 usart, u32 stopbits)
 {
-	uint32_t reg32;
+	u32 reg32;
 
 	reg32 = USART_CR2(usart);
 	reg32 = (reg32 & ~USART_CR2_STOPBITS_MASK) | stopbits;
@@ -123,9 +123,9 @@ usart_reg_base
 @param[in] parity unsigned 32 bit. Parity @ref usart_cr1_parity.
 */
 
-void usart_set_parity(uint32_t usart, uint32_t parity)
+void usart_set_parity(u32 usart, u32 parity)
 {
-	uint32_t reg32;
+	u32 reg32;
 
 	reg32 = USART_CR1(usart);
 	reg32 = (reg32 & ~USART_PARITY_MASK) | parity;
@@ -142,9 +142,9 @@ usart_reg_base
 @param[in] mode unsigned 32 bit. Mode @ref usart_cr1_mode.
 */
 
-void usart_set_mode(uint32_t usart, uint32_t mode)
+void usart_set_mode(u32 usart, u32 mode)
 {
-	uint32_t reg32;
+	u32 reg32;
 
 	reg32 = USART_CR1(usart);
 	reg32 = (reg32 & ~USART_MODE_MASK) | mode;
@@ -161,9 +161,9 @@ usart_reg_base
 @param[in] flowcontrol unsigned 32 bit. Flowcontrol @ref usart_cr3_flowcontrol.
 */
 
-void usart_set_flow_control(uint32_t usart, uint32_t flowcontrol)
+void usart_set_flow_control(u32 usart, u32 flowcontrol)
 {
-	uint32_t reg32;
+	u32 reg32;
 
 	reg32 = USART_CR3(usart);
 	reg32 = (reg32 & ~USART_FLOWCONTROL_MASK) | flowcontrol;
@@ -177,7 +177,7 @@ void usart_set_flow_control(uint32_t usart, uint32_t flowcontrol)
 usart_reg_base
 */
 
-void usart_enable(uint32_t usart)
+void usart_enable(u32 usart)
 {
 	USART_CR1(usart) |= USART_CR1_UE;
 }
@@ -191,7 +191,7 @@ At the end of the current frame, the USART is disabled to reduce power.
 usart_reg_base
 */
 
-void usart_disable(uint32_t usart)
+void usart_disable(u32 usart)
 {
 	USART_CR1(usart) &= ~USART_CR1_UE;
 }
@@ -204,7 +204,7 @@ usart_reg_base
 @param[in] data unsigned 16 bit.
 */
 
-void usart_send(uint32_t usart, uint16_t data)
+void usart_send(u32 usart, u16 data)
 {
 	/* Send data. */
 	USART_DR(usart) = (data & USART_DR_MASK);
@@ -221,7 +221,7 @@ usart_reg_base
 @returns unsigned 16 bit data word.
 */
 
-uint16_t usart_recv(uint32_t usart)
+u16 usart_recv(u32 usart)
 {
 	/* Receive data. */
 	return USART_DR(usart) & USART_DR_MASK;
@@ -237,7 +237,7 @@ next data word.
 usart_reg_base
 */
 
-void usart_wait_send_ready(uint32_t usart)
+void usart_wait_send_ready(u32 usart)
 {
 	/* Wait until the data has been transferred into the shift register. */
 	while ((USART_SR(usart) & USART_SR_TXE) == 0);
@@ -252,7 +252,7 @@ Blocks until the receive data buffer holds a valid received data word.
 usart_reg_base
 */
 
-void usart_wait_recv_ready(uint32_t usart)
+void usart_wait_recv_ready(u32 usart)
 {
 	/* Wait until the data is ready to be received. */
 	while ((USART_SR(usart) & USART_SR_RXNE) == 0);
@@ -269,7 +269,7 @@ usart_reg_base
 @param[in] data unsigned 16 bit.
 */
 
-void usart_send_blocking(uint32_t usart, uint16_t data)
+void usart_send_blocking(u32 usart, u16 data)
 {
 	usart_wait_send_ready(usart);
 	usart_send(usart, data);
@@ -285,7 +285,7 @@ usart_reg_base
 @returns unsigned 16 bit data word.
 */
 
-uint16_t usart_recv_blocking(uint32_t usart)
+u16 usart_recv_blocking(u32 usart)
 {
 	usart_wait_recv_ready(usart);
 
@@ -305,7 +305,7 @@ DMA is available on:
 usart_reg_base
 */
 
-void usart_enable_rx_dma(uint32_t usart)
+void usart_enable_rx_dma(u32 usart)
 {
 	USART_CR3(usart) |= USART_CR3_DMAR;
 }
@@ -317,7 +317,7 @@ void usart_enable_rx_dma(uint32_t usart)
 usart_reg_base
 */
 
-void usart_disable_rx_dma(uint32_t usart)
+void usart_disable_rx_dma(u32 usart)
 {
 	USART_CR3(usart) &= ~USART_CR3_DMAR;
 }
@@ -335,7 +335,7 @@ DMA is available on:
 usart_reg_base
 */
 
-void usart_enable_tx_dma(uint32_t usart)
+void usart_enable_tx_dma(u32 usart)
 {
 	USART_CR3(usart) |= USART_CR3_DMAT;
 }
@@ -347,7 +347,7 @@ void usart_enable_tx_dma(uint32_t usart)
 usart_reg_base
 */
 
-void usart_disable_tx_dma(uint32_t usart)
+void usart_disable_tx_dma(u32 usart)
 {
 	USART_CR3(usart) &= ~USART_CR3_DMAT;
 }
@@ -359,7 +359,7 @@ void usart_disable_tx_dma(uint32_t usart)
 usart_reg_base
 */
 
-void usart_enable_rx_interrupt(uint32_t usart)
+void usart_enable_rx_interrupt(u32 usart)
 {
 	USART_CR1(usart) |= USART_CR1_RXNEIE;
 }
@@ -372,7 +372,7 @@ void usart_enable_rx_interrupt(uint32_t usart)
 usart_reg_base
 */
 
-void usart_disable_rx_interrupt(uint32_t usart)
+void usart_disable_rx_interrupt(u32 usart)
 {
 	USART_CR1(usart) &= ~USART_CR1_RXNEIE;
 }
@@ -384,7 +384,7 @@ void usart_disable_rx_interrupt(uint32_t usart)
 usart_reg_base
 */
 
-void usart_enable_tx_interrupt(uint32_t usart)
+void usart_enable_tx_interrupt(u32 usart)
 {
 	USART_CR1(usart) |= USART_CR1_TXEIE;
 }
@@ -396,7 +396,7 @@ void usart_enable_tx_interrupt(uint32_t usart)
 usart_reg_base
 */
 
-void usart_disable_tx_interrupt(uint32_t usart)
+void usart_disable_tx_interrupt(u32 usart)
 {
 	USART_CR1(usart) &= ~USART_CR1_TXEIE;
 }
@@ -408,7 +408,7 @@ void usart_disable_tx_interrupt(uint32_t usart)
 usart_reg_base
 */
 
-void usart_enable_error_interrupt(uint32_t usart)
+void usart_enable_error_interrupt(u32 usart)
 {
 	USART_CR3(usart) |= USART_CR3_EIE;
 }
@@ -420,7 +420,7 @@ void usart_enable_error_interrupt(uint32_t usart)
 usart_reg_base
 */
 
-void usart_disable_error_interrupt(uint32_t usart)
+void usart_disable_error_interrupt(u32 usart)
 {
 	USART_CR3(usart) &= ~USART_CR3_EIE;
 }
@@ -434,7 +434,7 @@ usart_reg_base
 @returns boolean: flag set.
 */
 
-bool usart_get_flag(uint32_t usart, uint32_t flag)
+bool usart_get_flag(u32 usart, u32 flag)
 {
 	return ((USART_SR(usart) & flag) != 0);
 }
@@ -456,9 +456,9 @@ usart_reg_base
 @returns boolean: flag and interrupt enable both set.
 */
 
-bool usart_get_interrupt_source(uint32_t usart, uint32_t flag)
+bool usart_get_interrupt_source(u32 usart, u32 flag)
 {
-uint32_t flag_set = (USART_SR(usart) & flag);
+u32 flag_set = (USART_SR(usart) & flag);
 	/* IDLE, RXNE, TC, TXE interrupts */
 	if ((flag >= USART_SR_IDLE) && (flag <= USART_SR_TXE)) {
 		return ((flag_set & USART_CR1(usart)) != 0);

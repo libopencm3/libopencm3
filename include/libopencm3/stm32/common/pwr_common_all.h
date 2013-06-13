@@ -108,7 +108,7 @@ BEGIN_DECLS
 
 void pwr_disable_backup_domain_write_protect(void);
 void pwr_enable_backup_domain_write_protect(void);
-void pwr_enable_power_voltage_detect(uint32_t pvd_level);
+void pwr_enable_power_voltage_detect(u32 pvd_level);
 void pwr_disable_power_voltage_detect(void);
 void pwr_clear_standby_flag(void);
 void pwr_clear_wakeup_flag(void);

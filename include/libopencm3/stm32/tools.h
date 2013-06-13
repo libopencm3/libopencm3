@@ -25,10 +25,10 @@
  */
 
 /* Get register content. */
-#define GET_REG(REG)		((uint16_t) *REG)
+#define GET_REG(REG)		((u16) *REG)
 
 /* Set register content. */
-#define SET_REG(REG, VAL)	(*REG = (uint16_t)VAL)
+#define SET_REG(REG, VAL)	(*REG = (u16)VAL)
 
 /* Clear register bit. */
 #define CLR_REG_BIT(REG, BIT)	SET_REG(REG, (~BIT))
@@ -52,8 +52,8 @@
  */
 #define TOG_SET_REG_BIT_MSK(REG, MSK, BIT)				\
 do {									\
-	register uint16_t toggle_mask = GET_REG(REG) & (MSK);		\
-	register uint16_t bit_selector;					\
+	register u16 toggle_mask = GET_REG(REG) & (MSK);		\
+	register u16 bit_selector;					\
 	for (bit_selector = 1; bit_selector; bit_selector <<= 1) {	\
 		if ((bit_selector & (BIT)) != 0)			\
 			toggle_mask ^= bit_selector;			\

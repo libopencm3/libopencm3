@@ -100,10 +100,10 @@ Alexandru Gagniuc <mr.nuke.me@gmail.com>
  * If write access is desired (i.e. when changing the system clock via the
  * fine-grained mechanisms), then include the following  line in your code:
  * @code
- *	extern uint32_t lm4f_rcc_sysclk_freq;
+ *	extern u32 lm4f_rcc_sysclk_freq;
  * @endcode
  */
-uint32_t lm4f_rcc_sysclk_freq = 16000000;
+u32 lm4f_rcc_sysclk_freq = 16000000;
 
 
 /**
@@ -118,7 +118,7 @@ uint32_t lm4f_rcc_sysclk_freq = 16000000;
  */
 void rcc_configure_xtal(xtal_t xtal)
 {
-	uint32_t reg32;
+	u32 reg32;
 
 	reg32 = SYSCTL_RCC;
 	reg32 &= ~SYSCTL_RCC_XTAL_MASK;
@@ -215,7 +215,7 @@ void rcc_pll_on(void)
  */
 void rcc_set_osc_source(osc_src_t src)
 {
-	uint32_t reg32;
+	u32 reg32;
 
 	reg32 = SYSCTL_RCC2;
 	reg32 &= ~SYSCTL_RCC2_OSCSRC2_MASK;
@@ -270,9 +270,9 @@ void rcc_pll_bypass_enable(void)
  *	      caller's responsibility to ensure that the divisor will not create
  *	      a system clock that is out of spec.
  */
-void rcc_set_pll_divisor(uint8_t div400)
+void rcc_set_pll_divisor(u8 div400)
 {
-	uint32_t reg32;
+	u32 reg32;
 
 	SYSCTL_RCC |= SYSCTL_RCC_USESYSDIV;
 
@@ -293,7 +293,7 @@ void rcc_set_pll_divisor(uint8_t div400)
  */
 void rcc_set_pwm_divisor(pwm_clkdiv_t div)
 {
-	uint32_t reg32;
+	u32 reg32;
 
 	reg32 = SYSCTL_RCC;
 	reg32 &= ~SYSCTL_RCC_PWMDIV_MASK;
@@ -361,7 +361,7 @@ void rcc_wait_for_pll_ready(void)
  *
  * @param [in] pll_div400 The clock divisor to apply to the 400MHz PLL clock.
  */
-void rcc_change_pll_divisor(uint8_t pll_div400)
+void rcc_change_pll_divisor(u8 pll_div400)
 {
 	/* Bypass the PLL while its settings are modified */
 	rcc_pll_bypass_enable();
@@ -372,7 +372,7 @@ void rcc_change_pll_divisor(uint8_t pll_div400)
 	/* Disable PLL bypass to derive the system clock from the PLL clock */
 	rcc_pll_bypass_disable();
 	/* Update the system clock frequency for housekeeping */
-	lm4f_rcc_sysclk_freq = (uint32_t)400E6 / pll_div400;
+	lm4f_rcc_sysclk_freq = (u32)400E6 / pll_div400;
 }
 
 /**
@@ -380,15 +380,15 @@ void rcc_change_pll_divisor(uint8_t pll_div400)
  *
  * @return System clock frequency in Hz
  */
-uint32_t rcc_get_system_clock_frequency(void)
+u32 rcc_get_system_clock_frequency(void)
 {
 	return lm4f_rcc_sysclk_freq;
 }
 
 /* Get the clock frequency corresponging to a given XTAL value */
-static uint32_t xtal_to_freq(xtal_t xtal)
+static u32 xtal_to_freq(xtal_t xtal)
 {
-	const uint32_t freqs[] = {
+	const u32 freqs[] = {
 		 4000000,	/* XTAL_4M */
 		 4096000,	/* XTAL_4M_096 */
 		 4915200,	/* XTAL_4M_9152 */
@@ -440,7 +440,7 @@ static uint32_t xtal_to_freq(xtal_t xtal)
  *
  * @return System clock frequency in Hz
  */
-void rcc_sysclk_config(osc_src_t osc_src, xtal_t xtal, uint8_t pll_div400)
+void rcc_sysclk_config(osc_src_t osc_src, xtal_t xtal, u8 pll_div400)
 {
 	/*
 	 * We could be using the PLL at this point, or we could be running of a

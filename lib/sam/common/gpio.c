@@ -19,7 +19,7 @@
 
 #include <libopencm3/sam/gpio.h>
 
-void gpio_init(uint32_t port, uint32_t pins, enum gpio_flags flags)
+void gpio_init(u32 port, u32 pins, enum gpio_flags flags)
 {
 	switch (flags & 3) {
 	case GPIO_FLAG_GPINPUT:
@@ -55,9 +55,9 @@ void gpio_init(uint32_t port, uint32_t pins, enum gpio_flags flags)
 	}
 }
 
-void gpio_toggle(uint32_t gpioport, uint32_t gpios)
+void gpio_toggle(u32 gpioport, u32 gpios)
 {
-	uint32_t odsr = PIO_ODSR(gpioport);
+	u32 odsr = PIO_ODSR(gpioport);
 	PIO_CODR(gpioport) = odsr & gpios;
 	PIO_SODR(gpioport) = ~odsr & gpios;
 }

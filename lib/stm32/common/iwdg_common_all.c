@@ -66,13 +66,13 @@ A delay of up to 5 clock cycles of the LSI clock (about 156 microseconds)
 can occasionally occur if the prescale or preload registers are currently busy
 loading a previous value.
 
-@param[in] period uint32_t Period in milliseconds (< 32760) from a watchdog reset
+@param[in] period u32 Period in milliseconds (< 32760) from a watchdog reset
 until a system reset is issued.
 */
 
-void iwdg_set_period_ms(uint32_t period)
+void iwdg_set_period_ms(u32 period)
 {
-	uint32_t count, prescale, reload, exponent;
+	u32 count, prescale, reload, exponent;
 
 	/* Set the count to represent ticks of the 32kHz LSI clock */
 	count = (period << 5);

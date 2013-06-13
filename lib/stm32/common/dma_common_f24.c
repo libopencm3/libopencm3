@@ -57,7 +57,7 @@ The specified stream is disabled and configuration registers are cleared.
 @param[in] stream unsigned int8. Stream number: @ref dma_st_number
 */
 
-void dma_stream_reset(uint32_t dma, uint8_t stream)
+void dma_stream_reset(u32 dma, u8 stream)
 {
 /* Disable stream (must be done before register is otherwise changed). */
 	DMA_SCR(dma, stream) &= ~DMA_SxCR_EN;
@@ -72,7 +72,7 @@ void dma_stream_reset(uint32_t dma, uint8_t stream)
 /* This is the default setting */
 	DMA_SFCR(dma, stream) = 0x21;
 /* Reset all stream interrupt flags using the interrupt flag clear register. */
-	uint32_t mask = DMA_ISR_MASK(stream);
+	u32 mask = DMA_ISR_MASK(stream);
 	if (stream < 4) {
 		DMA_LIFCR(dma) |= mask;
 	} else {
@@ -92,10 +92,10 @@ same stream may be cleared by using the bitwise OR of the interrupt flags.
 dma_if_offset
 */
 
-void dma_clear_interrupt_flags(uint32_t dma, uint8_t stream, uint32_t interrupts)
+void dma_clear_interrupt_flags(u32 dma, u8 stream, u32 interrupts)
 {
 	/* Get offset to interrupt flag location in stream field */
-	uint32_t flags = (interrupts << DMA_ISR_OFFSET(stream));
+	u32 flags = (interrupts << DMA_ISR_OFFSET(stream));
 	/* First four streams are in low register. Flag clear must be set then
 	 * reset.
 	 */
@@ -117,12 +117,12 @@ The interrupt flag for the stream is returned.
 @returns bool interrupt flag is set.
 */
 
-bool dma_get_interrupt_flag(uint32_t dma, uint8_t stream, uint32_t interrupt)
+bool dma_get_interrupt_flag(u32 dma, u8 stream, u32 interrupt)
 {
 	/* get offset to interrupt flag location in stream field. Assumes
 	 * stream and interrupt parameters are integers.
 	 */
-	uint32_t flag = (interrupt << DMA_ISR_OFFSET(stream));
+	u32 flag = (interrupt << DMA_ISR_OFFSET(stream));
 	/* First four streams are in low register */
 	if (stream < 4) {
 		return ((DMA_LISR(dma) & flag) > 0);
@@ -145,9 +145,9 @@ Ensure that the stream is disabled otherwise the setting will not be changed.
 @param[in] direction unsigned int32. Data transfer direction @ref dma_st_dir
 */
 
-void dma_set_transfer_mode(uint32_t dma, uint8_t stream, uint32_t direction)
+void dma_set_transfer_mode(u32 dma, u8 stream, u32 direction)
 {
-	uint32_t reg32 = (DMA_SCR(dma, stream) & ~DMA_SxCR_DIR_MASK);
+	u32 reg32 = (DMA_SCR(dma, stream) & ~DMA_SxCR_DIR_MASK);
 	/* Disable circular and double buffer modes if memory to memory
 	 * transfers are in effect. (Direct Mode is automatically disabled by
 	 * hardware)
@@ -173,7 +173,7 @@ Ensure that the stream is disabled otherwise the setting will not be changed.
 @param[in] prio unsigned int32. Priority level @ref dma_st_pri.
 */
 
-void dma_set_priority(uint32_t dma, uint8_t stream, uint32_t prio)
+void dma_set_priority(u32 dma, u8 stream, u32 prio)
 {
 	DMA_SCR(dma, stream) &= ~(DMA_SxCR_PL_MASK);
 	DMA_SCR(dma, stream) |= prio;
@@ -192,7 +192,7 @@ Ensure that the stream is disabled otherwise the setting will not be changed.
 @param[in] mem_size unsigned int32. Memory word width @ref dma_st_memwidth.
 */
 
-void dma_set_memory_size(uint32_t dma, uint8_t stream, uint32_t mem_size)
+void dma_set_memory_size(u32 dma, u8 stream, u32 mem_size)
 {
 	DMA_SCR(dma, stream) &= ~(DMA_SxCR_MSIZE_MASK);
 	DMA_SCR(dma, stream) |= mem_size;
@@ -213,7 +213,7 @@ Ensure that the stream is disabled otherwise the setting will not be changed.
 dma_st_perwidth.
 */
 
-void dma_set_peripheral_size(uint32_t dma, uint8_t stream, uint32_t peripheral_size)
+void dma_set_peripheral_size(u32 dma, u8 stream, u32 peripheral_size)
 {
 	DMA_SCR(dma, stream) &= ~(DMA_SxCR_PSIZE_MASK);
 	DMA_SCR(dma, stream) |= peripheral_size;
@@ -232,7 +232,7 @@ Ensure that the stream is disabled otherwise the setting will not be changed.
 @param[in] stream unsigned int8. Stream number: @ref dma_st_number
 */
 
-void dma_enable_memory_increment_mode(uint32_t dma, uint8_t stream)
+void dma_enable_memory_increment_mode(u32 dma, u8 stream)
 {
 	DMA_SCR(dma, stream) |= DMA_SxCR_MINC;
 }
@@ -246,7 +246,7 @@ Ensure that the stream is disabled otherwise the setting will not be changed.
 @param[in] stream unsigned int8. Stream number: @ref dma_st_number
 */
 
-void dma_disable_memory_increment_mode(uint32_t dma, uint8_t stream)
+void dma_disable_memory_increment_mode(u32 dma, u8 stream)
 {
 	DMA_SCR(dma, stream) &= ~DMA_SxCR_MINC;
 }
@@ -264,9 +264,9 @@ Ensure that the stream is disabled otherwise the setting will not be changed.
 @param[in] stream unsigned int8. Stream number: @ref dma_st_number
 */
 
-void dma_enable_peripheral_increment_mode(uint32_t dma, uint8_t stream)
+void dma_enable_peripheral_increment_mode(u32 dma, u8 stream)
 {
-	uint32_t reg32 = (DMA_SCR(dma, stream) | DMA_SxCR_PINC);
+	u32 reg32 = (DMA_SCR(dma, stream) | DMA_SxCR_PINC);
 	DMA_SCR(dma, stream) = (reg32 & ~DMA_SxCR_PINCOS);
 }
 
@@ -279,7 +279,7 @@ Ensure that the stream is disabled otherwise the setting will not be changed.
 @param[in] stream unsigned int8. Stream number: @ref dma_st_number
 */
 
-void dma_disable_peripheral_increment_mode(uint32_t dma, uint8_t stream)
+void dma_disable_peripheral_increment_mode(u32 dma, u8 stream)
 {
 	DMA_SCR(dma, stream) &= ~DMA_SxCR_PINC;
 }
@@ -297,7 +297,7 @@ Ensure that the stream is disabled otherwise the setting will not be changed.
 @param[in] stream unsigned int8. Stream number: @ref dma_st_number
 */
 
-void dma_enable_fixed_peripheral_increment_mode(uint32_t dma, uint8_t stream)
+void dma_enable_fixed_peripheral_increment_mode(u32 dma, u8 stream)
 {
 	DMA_SCR(dma, stream) |= (DMA_SxCR_PINC | DMA_SxCR_PINCOS);
 }
@@ -319,7 +319,7 @@ It is enabled automatically if double buffered mode is selected.
 @param[in] stream unsigned int8. Stream number: @ref dma_st_number
 */
 
-void dma_enable_circular_mode(uint32_t dma, uint8_t stream)
+void dma_enable_circular_mode(u32 dma, u8 stream)
 {
 	DMA_SCR(dma, stream) |= DMA_SxCR_CIRC;
 }
@@ -338,7 +338,7 @@ Ensure that the stream is disabled otherwise the setting will not be changed.
 @param[in] channel unsigned int8. Channel selection @ref dma_ch_sel
 */
 
-void dma_channel_select(uint32_t dma, uint8_t stream, uint32_t channel)
+void dma_channel_select(u32 dma, u8 stream, u32 channel)
 {
 	DMA_SCR(dma, stream) |= channel;
 }
@@ -356,9 +356,9 @@ Ensure that the stream is disabled otherwise the setting will not be changed.
 @param[in] burst unsigned int8. Memory Burst selection @ref dma_mburst
 */
 
-void dma_set_memory_burst(uint32_t dma, uint8_t stream, uint32_t burst)
+void dma_set_memory_burst(u32 dma, u8 stream, u32 burst)
 {
-	uint32_t reg32 = (DMA_SCR(dma, stream) & ~DMA_SxCR_MBURST_MASK);
+	u32 reg32 = (DMA_SCR(dma, stream) & ~DMA_SxCR_MBURST_MASK);
 	DMA_SCR(dma, stream) = (reg32 | burst);
 }
 
@@ -375,9 +375,9 @@ Ensure that the stream is disabled otherwise the setting will not be changed.
 @param[in] burst unsigned int8. Peripheral Burst selection @ref dma_pburst
 */
 
-void dma_set_peripheral_burst(uint32_t dma, uint8_t stream, uint32_t burst)
+void dma_set_peripheral_burst(u32 dma, u8 stream, u32 burst)
 {
-	uint32_t reg32 = (DMA_SCR(dma, stream) & ~DMA_SxCR_PBURST_MASK);
+	u32 reg32 = (DMA_SCR(dma, stream) & ~DMA_SxCR_PBURST_MASK);
 	DMA_SCR(dma, stream) = (reg32 | burst);
 }
 
@@ -394,9 +394,9 @@ Ensure that the stream is disabled otherwise the setting will not be changed.
 @param[in] memory unsigned int8. Initial memory pointer to use: 0 or 1
 */
 
-void dma_set_initial_target(uint32_t dma, uint8_t stream, uint8_t memory)
+void dma_set_initial_target(u32 dma, u8 stream, u8 memory)
 {
-	uint32_t reg32 = (DMA_SCR(dma, stream) & ~DMA_SxCR_CT);
+	u32 reg32 = (DMA_SCR(dma, stream) & ~DMA_SxCR_CT);
 	if (memory == 1) {
 		reg32 |= DMA_SxCR_CT;
 	}
@@ -417,7 +417,7 @@ the stream to be disabled and the transfer error flag to be set.
 @returns unsigned int8. Memory buffer in use: 0 or 1
 */
 
-uint8_t dma_get_target(uint32_t dma, uint8_t stream)
+u8 dma_get_target(u32 dma, u8 stream)
 {
 	if (DMA_SCR(dma, stream) & DMA_SxCR_CT) {
 		return 1;
@@ -441,7 +441,7 @@ Ensure that the stream is disabled otherwise the setting will not be changed.
 @param[in] stream unsigned int8. Stream number: @ref dma_st_number
 */
 
-void dma_enable_double_buffer_mode(uint32_t dma, uint8_t stream)
+void dma_enable_double_buffer_mode(u32 dma, u8 stream)
 {
 	DMA_SCR(dma, stream) |= DMA_SxCR_DBM;
 }
@@ -453,7 +453,7 @@ void dma_enable_double_buffer_mode(uint32_t dma, uint8_t stream)
 @param[in] stream unsigned int8. Stream number: @ref dma_st_number
 */
 
-void dma_disable_double_buffer_mode(uint32_t dma, uint8_t stream)
+void dma_disable_double_buffer_mode(u32 dma, u8 stream)
 {
 	DMA_SCR(dma, stream) &= ~DMA_SxCR_DBM;
 }
@@ -470,7 +470,7 @@ Ensure that the stream is disabled otherwise the setting will not be changed.
 @param[in] stream unsigned int8. Stream number: @ref dma_st_number
 */
 
-void dma_set_peripheral_flow_control(uint32_t dma, uint8_t stream)
+void dma_set_peripheral_flow_control(u32 dma, u8 stream)
 {
 	DMA_SCR(dma, stream) |= DMA_SxCR_PFCTRL;
 }
@@ -486,7 +486,7 @@ Ensure that the stream is disabled otherwise the setting will not be changed.
 @param[in] stream unsigned int8. Stream number: @ref dma_st_number
 */
 
-void dma_set_dma_flow_control(uint32_t dma, uint8_t stream)
+void dma_set_dma_flow_control(u32 dma, u8 stream)
 {
 	DMA_SCR(dma, stream) &= ~DMA_SxCR_PFCTRL;
 }
@@ -498,7 +498,7 @@ void dma_set_dma_flow_control(uint32_t dma, uint8_t stream)
 @param[in] stream unsigned int8. Stream number: @ref dma_st_number
 */
 
-void dma_enable_transfer_error_interrupt(uint32_t dma, uint8_t stream)
+void dma_enable_transfer_error_interrupt(u32 dma, u8 stream)
 {
 	dma_clear_interrupt_flags(dma, stream, DMA_TEIF);
 	DMA_SCR(dma, stream) |= DMA_SxCR_TEIE;
@@ -511,7 +511,7 @@ void dma_enable_transfer_error_interrupt(uint32_t dma, uint8_t stream)
 @param[in] stream unsigned int8. Stream number: @ref dma_st_number
 */
 
-void dma_disable_transfer_error_interrupt(uint32_t dma, uint8_t stream)
+void dma_disable_transfer_error_interrupt(u32 dma, u8 stream)
 {
 	DMA_SCR(dma, stream) &= ~DMA_SxCR_TEIE;
 }
@@ -523,7 +523,7 @@ void dma_disable_transfer_error_interrupt(uint32_t dma, uint8_t stream)
 @param[in] stream unsigned int8. Stream number: @ref dma_st_number
 */
 
-void dma_enable_half_transfer_interrupt(uint32_t dma, uint8_t stream)
+void dma_enable_half_transfer_interrupt(u32 dma, u8 stream)
 {
 	dma_clear_interrupt_flags(dma, stream, DMA_HTIF);
 	DMA_SCR(dma, stream) |= DMA_SxCR_HTIE;
@@ -536,7 +536,7 @@ void dma_enable_half_transfer_interrupt(uint32_t dma, uint8_t stream)
 @param[in] stream unsigned int8. Stream number: @ref dma_st_number
 */
 
-void dma_disable_half_transfer_interrupt(uint32_t dma, uint8_t stream)
+void dma_disable_half_transfer_interrupt(u32 dma, u8 stream)
 {
 	DMA_SCR(dma, stream) &= ~DMA_SxCR_HTIE;
 }
@@ -548,7 +548,7 @@ void dma_disable_half_transfer_interrupt(uint32_t dma, uint8_t stream)
 @param[in] stream unsigned int8. Stream number: @ref dma_st_number
 */
 
-void dma_enable_transfer_complete_interrupt(uint32_t dma, uint8_t stream)
+void dma_enable_transfer_complete_interrupt(u32 dma, u8 stream)
 {
 	dma_clear_interrupt_flags(dma, stream, DMA_TCIF);
 	DMA_SCR(dma, stream) |= DMA_SxCR_TCIE;
@@ -561,7 +561,7 @@ void dma_enable_transfer_complete_interrupt(uint32_t dma, uint8_t stream)
 @param[in] stream unsigned int8. Stream number: @ref dma_st_number
 */
 
-void dma_disable_transfer_complete_interrupt(uint32_t dma, uint8_t stream)
+void dma_disable_transfer_complete_interrupt(u32 dma, u8 stream)
 {
 	DMA_SCR(dma, stream) &= ~DMA_SxCR_TCIE;
 }
@@ -573,7 +573,7 @@ void dma_disable_transfer_complete_interrupt(uint32_t dma, uint8_t stream)
 @param[in] stream unsigned int8. Stream number: @ref dma_st_number
 */
 
-void dma_enable_direct_mode_error_interrupt(uint32_t dma, uint8_t stream)
+void dma_enable_direct_mode_error_interrupt(u32 dma, u8 stream)
 {
 	dma_clear_interrupt_flags(dma, stream, DMA_DMEIF);
 	DMA_SCR(dma, stream) |= DMA_SxCR_DMEIE;
@@ -586,7 +586,7 @@ void dma_enable_direct_mode_error_interrupt(uint32_t dma, uint8_t stream)
 @param[in] stream unsigned int8. Stream number: @ref dma_st_number
 */
 
-void dma_disable_direct_mode_error_interrupt(uint32_t dma, uint8_t stream)
+void dma_disable_direct_mode_error_interrupt(u32 dma, u8 stream)
 {
 	DMA_SCR(dma, stream) &= ~DMA_SxCR_DMEIE;
 }
@@ -598,7 +598,7 @@ void dma_disable_direct_mode_error_interrupt(uint32_t dma, uint8_t stream)
 @param[in] stream unsigned int8. Stream number: @ref dma_st_number
 */
 
-void dma_enable_fifo_error_interrupt(uint32_t dma, uint8_t stream)
+void dma_enable_fifo_error_interrupt(u32 dma, u8 stream)
 {
 	dma_clear_interrupt_flags(dma, stream, DMA_FEIF);
 	DMA_SFCR(dma, stream) |= DMA_SxFCR_FEIE;
@@ -611,7 +611,7 @@ void dma_enable_fifo_error_interrupt(uint32_t dma, uint8_t stream)
 @param[in] stream unsigned int8. Stream number: @ref dma_st_number
 */
 
-void dma_disable_fifo_error_interrupt(uint32_t dma, uint8_t stream)
+void dma_disable_fifo_error_interrupt(u32 dma, u8 stream)
 {
 	DMA_SFCR(dma, stream) &= ~DMA_SxFCR_FEIE;
 }
@@ -624,10 +624,10 @@ meaning if direct mode is enabled (as the FIFO is not used).
 
 @param[in] dma unsigned int32. DMA controller base address: DMA1 or DMA2
 @param[in] stream unsigned int8. Stream number: @ref dma_st_number
-@returns uint32_t FIFO Status @ref dma_fifo_status
+@returns u32 FIFO Status @ref dma_fifo_status
 */
 
-uint32_t dma_fifo_status(uint32_t dma, uint8_t stream)
+u32 dma_fifo_status(u32 dma, u8 stream)
 {
 	return DMA_SFCR(dma, stream) & DMA_SxFCR_FS_MASK;
 }
@@ -643,7 +643,7 @@ mode is selected.
 @param[in] stream unsigned int8. Stream number: @ref dma_st_number
 */
 
-void dma_enable_direct_mode(uint32_t dma, uint8_t stream)
+void dma_enable_direct_mode(u32 dma, u8 stream)
 {
 	DMA_SFCR(dma, stream) &= ~DMA_SxFCR_DMDIS;
 }
@@ -657,7 +657,7 @@ Data is transferred via a FIFO.
 @param[in] stream unsigned int8. Stream number: @ref dma_st_number
 */
 
-void dma_enable_fifo_mode(uint32_t dma, uint8_t stream)
+void dma_enable_fifo_mode(u32 dma, u8 stream)
 {
 	DMA_SFCR(dma, stream) |= DMA_SxFCR_DMDIS;
 }
@@ -673,9 +673,9 @@ destination.
 @param[in] threshold unsigned int8. Threshold setting @ref dma_fifo_thresh
 */
 
-void dma_set_fifo_threshold(uint32_t dma, uint8_t stream, uint32_t threshold)
+void dma_set_fifo_threshold(u32 dma, u8 stream, u32 threshold)
 {
-	uint32_t reg32 = (DMA_SFCR(dma, stream) & ~DMA_SxFCR_FTH_MASK);
+	u32 reg32 = (DMA_SFCR(dma, stream) & ~DMA_SxFCR_FTH_MASK);
 	DMA_SFCR(dma, stream) = (reg32 | threshold);
 }
 
@@ -686,7 +686,7 @@ void dma_set_fifo_threshold(uint32_t dma, uint8_t stream, uint32_t threshold)
 @param[in] stream unsigned int8. Stream number: @ref dma_st_number
 */
 
-void dma_enable_stream(uint32_t dma, uint8_t stream)
+void dma_enable_stream(u32 dma, u8 stream)
 {
 	DMA_SCR(dma, stream) |= DMA_SxCR_EN;
 }
@@ -700,7 +700,7 @@ void dma_enable_stream(uint32_t dma, uint8_t stream)
 @param[in] stream unsigned int8. Stream number: @ref dma_st_number
 */
 
-void dma_disable_stream(uint32_t dma, uint8_t stream)
+void dma_disable_stream(u32 dma, u8 stream)
 {
 	DMA_SCR(dma, stream) &= ~DMA_SxCR_EN;
 }
@@ -719,10 +719,10 @@ has no effect if the stream is enabled.
 @param[in] address unsigned int32. Peripheral Address.
 */
 
-void dma_set_peripheral_address(uint32_t dma, uint8_t stream, uint32_t address)
+void dma_set_peripheral_address(u32 dma, u8 stream, u32 address)
 {
 	if (!(DMA_SCR(dma, stream) & DMA_SxCR_EN)) {
-		DMA_SPAR(dma, stream) = (uint32_t *) address;
+		DMA_SPAR(dma, stream) = (u32 *) address;
 	}
 }
 
@@ -741,12 +741,12 @@ This is the default base memory address used in direct mode.
 @param[in] address unsigned int32. Memory Initial Address.
 */
 
-void dma_set_memory_address(uint32_t dma, uint8_t stream, uint32_t address)
+void dma_set_memory_address(u32 dma, u8 stream, u32 address)
 {
-	uint32_t reg32 = DMA_SCR(dma, stream);
+	u32 reg32 = DMA_SCR(dma, stream);
 	if (!(reg32 & DMA_SxCR_EN) ||
 	     ((reg32 & DMA_SxCR_CT) && (reg32 & DMA_SxCR_DBM))) {
-		DMA_SM0AR(dma, stream) = (uint32_t *) address;
+		DMA_SM0AR(dma, stream) = (u32 *) address;
 	}
 }
 
@@ -763,12 +763,12 @@ to change this in double buffer mode when the current target is memory area 0
 @param[in] address unsigned int32. Memory Initial Address.
 */
 
-void dma_set_memory_address_1(uint32_t dma, uint8_t stream, uint32_t address)
+void dma_set_memory_address_1(u32 dma, u8 stream, u32 address)
 {
-	uint32_t reg32 = DMA_SCR(dma, stream);
+	u32 reg32 = DMA_SCR(dma, stream);
 	if (!(reg32 & DMA_SxCR_EN) ||
 	     (!(reg32 & DMA_SxCR_CT) && (reg32 & DMA_SxCR_DBM))) {
-		DMA_SM1AR(dma, stream) = (uint32_t *) address;
+		DMA_SM1AR(dma, stream) = (u32 *) address;
 	}
 }
 
@@ -784,7 +784,7 @@ is not changed if the stream is enabled.
 maximum).
 */
 
-void dma_set_number_of_data(uint32_t dma, uint8_t stream, uint16_t number)
+void dma_set_number_of_data(u32 dma, u8 stream, u16 number)
 {
 	DMA_SNDTR(dma, stream) = number;
 }

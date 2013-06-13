@@ -46,11 +46,11 @@ LGPL License Terms @ref lgpl_license
 #define USB_DT_REPORT	0x22
 
 struct usb_hid_descriptor {
-	uint8_t bLength;
-	uint8_t bDescriptorType;
-	uint16_t bcdHID;
-	uint8_t bCountryCode;
-	uint8_t bNumDescriptors;
+	u8 bLength;
+	u8 bDescriptorType;
+	u16 bcdHID;
+	u8 bCountryCode;
+	u8 bNumDescriptors;
 } __packed;
 
 #endif

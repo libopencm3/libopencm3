@@ -19,7 +19,7 @@
 
 #include <libopencm3/stm32/f1/ethernet.h>
 
-void eth_smi_write(uint8_t phy, uint8_t reg, uint16_t data)
+void eth_smi_write(u8 phy, u8 reg, u16 data)
 {
 	/* Set PHY and register addresses for write access. */
 	ETH_MACMIIAR &= ~(ETH_MACMIIAR_MR | ETH_MACMIIAR_PA);
@@ -35,7 +35,7 @@ void eth_smi_write(uint8_t phy, uint8_t reg, uint16_t data)
 	while (ETH_MACMIIAR & ETH_MACMIIAR_MB);
 }
 
-uint16_t eth_smi_read(uint8_t phy, uint8_t reg)
+u16 eth_smi_read(u8 phy, u8 reg)
 {
 	/* Set PHY and register addresses for write access. */
 	ETH_MACMIIAR &= ~(ETH_MACMIIAR_MR | ETH_MACMIIAR_PA | ETH_MACMIIAR_MW);
@@ -48,5 +48,5 @@ uint16_t eth_smi_read(uint8_t phy, uint8_t reg)
 	while (ETH_MACMIIAR & ETH_MACMIIAR_MB);
 
 	/* Set register value. */
-	return (uint16_t)(ETH_MACMIIDR);
+	return (u16)(ETH_MACMIIDR);
 }
