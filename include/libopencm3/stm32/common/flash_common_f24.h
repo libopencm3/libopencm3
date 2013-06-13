@@ -22,7 +22,7 @@
  * For details see:
  * PM0081 Programming manual: STM32F40xxx and STM32F41xxx Flash programming
  * September 2011, Doc ID 018520 Rev 1
- * https://github.com/libopencm3/libopencm3-archive/blob/master/st_micro/DM00023388.pdf?raw=true
+ * https://github.com/libopencm3/libopencm3-archive/blob/master/st_micro/DM00023388.pdf
  */
 
 /** @cond */

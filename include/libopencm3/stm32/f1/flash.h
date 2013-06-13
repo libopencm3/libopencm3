@@ -22,7 +22,7 @@
  * For details see:
  * PM0075 programming manual: STM32F10xxx Flash programming
  * August 2010, Doc ID 17863 Rev 1
- * https://github.com/libopencm3/libopencm3-archive/blob/master/st_micro/CD00283419.pdf?raw=true
+ * https://github.com/libopencm3/libopencm3-archive/blob/master/st_micro/CD00283419.pdf
  */
 
 #ifndef LIBOPENCM3_FLASH_H
