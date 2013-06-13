@@ -321,6 +321,8 @@ typedef enum {
 
 /* function prototypes */
 
+BEGIN_DECLS
+
 /* Init UART and set PLL1 as clock source (PCLK) */
 void uart_init(uart_num_t uart_num,
                uart_databit_t data_nb_bits,
@@ -337,5 +339,7 @@ u8 uart_read(uart_num_t uart_num);
 u8 uart_read_timeout(uart_num_t uart_num, u32 rx_timeout_nb_cycles, uart_error_t* error);
 
 void uart_write(uart_num_t uart_num, u8 data);
+
+END_DECLS
 
 #endif
