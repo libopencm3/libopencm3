@@ -30,9 +30,8 @@
  * As the code can be used on both cores, the registers offset is modified
  * according to the selected cores base address. */
 #define dev_base_address (usbd_dev->driver->base_address)
-#define REBASE(x)        MMIO32((x)+(dev_base_address))
-#define REBASE_FIFO(x)   ((volatile uint32_t*)((dev_base_address) \
-			                       + (OTG_FIFO(x))))
+#define REBASE(x)        MMIO32((x) + (dev_base_address))
+#define REBASE_FIFO(x)   (&MMIO32((dev_base_address) + (OTG_FIFO(x))))
 
 void stm32fx07_set_address(usbd_device *usbd_dev, uint8_t addr)
 {

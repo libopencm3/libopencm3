@@ -90,7 +90,7 @@
  * ---------------------------------------------------------------------------*/
 
 /* GPIO Data */
-#define GPIO_DATA(port)			((volatile uint32_t *)(port + 0x000))
+#define GPIO_DATA(port)			(&MMIO32(port + 0x000))
 
 /* GPIO Direction */
 #define GPIO_DIR(port)			MMIO32(port + 0x400)

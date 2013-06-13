@@ -64,7 +64,7 @@ LGPL License Terms @ref lgpl_license
 
 /* --- GPIO registers ------------------------------------------------------ */
 
-#define GPIO_DATA(port)			((volatile uint32_t *)(port + 0x000))
+#define GPIO_DATA(port)			(&MMIO32(port + 0x000))
 #define GPIO_DIR(port)			MMIO32(port + 0x400)
 #define GPIO_IS(port)			MMIO32(port + 0x404)
 #define GPIO_IBE(port)			MMIO32(port + 0x408)

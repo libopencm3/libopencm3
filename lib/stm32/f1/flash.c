@@ -122,13 +122,13 @@ void flash_program_word(uint32_t address, uint32_t data)
 	FLASH_CR |= FLASH_CR_PG;
 
 	/* Program the first half of the word. */
-	(*(volatile uint16_t *)address) = (uint16_t)data;
+	MMIO16(address) = (uint16_t)data;
 
 	/* Wait for the write to complete. */
 	flash_wait_for_last_operation();
 
 	/* Program the second half of the word. */
-	(*(volatile uint16_t *)(address + 2)) = data >> 16;
+	MMIO16(address + 2) = data >> 16;
 
 	/* Wait for the write to complete. */
 	flash_wait_for_last_operation();
@@ -143,7 +143,7 @@ void flash_program_half_word(uint32_t address, uint16_t data)
 
 	FLASH_CR |= FLASH_CR_PG;
 
-	(*(volatile uint16_t *)address) = data;
+	MMIO16(address) = data;
 
 	flash_wait_for_last_operation();
 
@@ -196,7 +196,7 @@ void flash_program_option_bytes(uint32_t address, uint16_t data)
 	}
 
 	FLASH_CR |= FLASH_CR_OPTPG;	/* Enable option byte programming. */
-	(*(volatile uint16_t *)address) = data;
+	MMIO16(address) = data;
 	flash_wait_for_last_operation();
 	FLASH_CR &= ~FLASH_CR_OPTPG;	/* Disable option byte programming. */
 }

@@ -55,7 +55,7 @@ Mikhail Avkhimenia <mikhail@avkhimenia.net>
 #define HASH_STR	MMIO32(HASH + 0x08)
 
 /* HASH digest registers (HASH_HR[5]) */
-#define HASH_HR		((volatile uint32_t*)(HASH + 0x0C)) /* x5 */
+#define HASH_HR		(&MMIO32(HASH + 0x0C)) /* x5 */
 
 /* HASH interrupt enable register (HASH_IMR) */
 #define HASH_IMR	MMIO32(HASH + 0x20)
@@ -64,7 +64,7 @@ Mikhail Avkhimenia <mikhail@avkhimenia.net>
 #define HASH_SR		MMIO32(HASH + 0x28)
 
 /* HASH context swap registers (HASH_CSR[51]) */
-#define HASH_CSR	((volatile uint32_t*)(HASH + 0xF8)) /* x51 */
+#define HASH_CSR	(&MMIO32(HASH + 0xF8)) /* x51 */
 
 /* --- HASH_CR values ------------------------------------------------------ */
 
