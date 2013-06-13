@@ -161,15 +161,15 @@ Mikhail Avkhimenia <mikhail@avkhimenia.net>
 
 BEGIN_DECLS
 
-void hash_set_mode(uint8_t mode);
-void hash_set_algorithm(uint8_t algorithm);
-void hash_set_data_type(uint8_t datatype);
-void hash_set_key_length(uint8_t keylength);
-void hash_set_last_word_valid_bits(uint8_t validbits);
+void hash_set_mode(u8 mode);
+void hash_set_algorithm(u8 algorithm);
+void hash_set_data_type(u8 datatype);
+void hash_set_key_length(u8 keylength);
+void hash_set_last_word_valid_bits(u8 validbits);
 void hash_init(void);
-void hash_add_data(uint32_t data);
+void hash_add_data(u32 data);
 void hash_digest(void);
-void hash_get_result(uint32_t *data);
+void hash_get_result(u32 *data);
 
 END_DECLS
 /**@}*/

@@ -45,7 +45,7 @@ Set timer options register on TIM2 or TIM3, used for trigger remapping.
 @ref tim3_opt_trigger_remap.
 */
 
-void timer_set_option(uint32_t timer_peripheral, uint32_t option)
+void timer_set_option(u32 timer_peripheral, u32 option)
 {
 	if (timer_peripheral == TIM2) {
 		TIM_OR(timer_peripheral) &= ~TIM2_OR_ITR1_RMP_MASK;

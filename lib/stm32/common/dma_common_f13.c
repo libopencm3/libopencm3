@@ -49,7 +49,7 @@ The channel is disabled and configuration registers are cleared.
 @param[in] channel unsigned int8. Channel number: 1-7 for DMA1 or 1-5 for DMA2
 */
 
-void dma_channel_reset(uint32_t dma, uint8_t channel)
+void dma_channel_reset(u32 dma, u8 channel)
 {
 	/* Disable channel and reset config bits. */
 	DMA_CCR(dma, channel) = 0;
@@ -75,10 +75,10 @@ same channel may be cleared by using the logical OR of the interrupt flags.
 dma_if_offset
 */
 
-void dma_clear_interrupt_flags(uint32_t dma, uint8_t channel, uint32_t interrupts)
+void dma_clear_interrupt_flags(u32 dma, u8 channel, u32 interrupts)
 {
 /* Get offset to interrupt flag location in channel field */
-	uint32_t flags = (interrupts << DMA_FLAG_OFFSET(channel));
+	u32 flags = (interrupts << DMA_FLAG_OFFSET(channel));
 	DMA_IFCR(dma) = flags;
 }
 
@@ -93,10 +93,10 @@ The interrupt flag for the channel is returned.
 @returns bool interrupt flag is set.
 */
 
-bool dma_get_interrupt_flag(uint32_t dma, uint8_t channel, uint32_t interrupt)
+bool dma_get_interrupt_flag(u32 dma, u8 channel, u32 interrupt)
 {
 /* get offset to interrupt flag location in channel field. */
-	uint32_t flag = (interrupt << DMA_FLAG_OFFSET(channel));
+	u32 flag = (interrupt << DMA_FLAG_OFFSET(channel));
 	return ((DMA_ISR(dma) & flag) > 0);
 }
 
@@ -111,7 +111,7 @@ intervention.
 @param[in] channel unsigned int8. Channel number: 1-7 for DMA1 or 1-5 for DMA2
 */
 
-void dma_enable_mem2mem_mode(uint32_t dma, uint8_t channel)
+void dma_enable_mem2mem_mode(u32 dma, u8 channel)
 {
 	DMA_CCR(dma, channel) |= DMA_CCR_MEM2MEM;
 	DMA_CCR(dma, channel) &= ~DMA_CCR_CIRC;
@@ -128,7 +128,7 @@ hardware priority.
 @param[in] prio unsigned int32. Priority level @ref dma_ch_pri.
 */
 
-void dma_set_priority(uint32_t dma, uint8_t channel, uint32_t prio)
+void dma_set_priority(u32 dma, u8 channel, u32 prio)
 {
 	DMA_CCR(dma, channel) &= ~(DMA_CCR_PL_MASK);
 	DMA_CCR(dma, channel) |= prio;
@@ -145,7 +145,7 @@ alignment information if the source and destination widths do not match.
 @param[in] mem_size unsigned int32. Memory word width @ref dma_ch_memwidth.
 */
 
-void dma_set_memory_size(uint32_t dma, uint8_t channel, uint32_t mem_size)
+void dma_set_memory_size(u32 dma, u8 channel, u32 mem_size)
 {
 
 	DMA_CCR(dma, channel) &= ~(DMA_CCR_MSIZE_MASK);
@@ -165,7 +165,7 @@ if the peripheral does not support byte or half-word writes.
 dma_ch_perwidth.
 */
 
-void dma_set_peripheral_size(uint32_t dma, uint8_t channel, uint32_t peripheral_size)
+void dma_set_peripheral_size(u32 dma, u8 channel, u32 peripheral_size)
 {
 	DMA_CCR(dma, channel) &= ~(DMA_CCR_PSIZE_MASK);
 	DMA_CCR(dma, channel) |= peripheral_size;
@@ -182,7 +182,7 @@ value held by the base memory address register is unchanged.
 @param[in] channel unsigned int8. Channel number: 1-7 for DMA1 or 1-5 for DMA2
 */
 
-void dma_enable_memory_increment_mode(uint32_t dma, uint8_t channel)
+void dma_enable_memory_increment_mode(u32 dma, u8 channel)
 {
 	DMA_CCR(dma, channel) |= DMA_CCR_MINC;
 }
@@ -194,7 +194,7 @@ void dma_enable_memory_increment_mode(uint32_t dma, uint8_t channel)
 @param[in] channel unsigned int8. Channel number: 1-7 for DMA1 or 1-5 for DMA2
 */
 
-void dma_disable_memory_increment_mode(uint32_t dma, uint8_t channel)
+void dma_disable_memory_increment_mode(u32 dma, u8 channel)
 {
 	DMA_CCR(dma, channel) &= ~DMA_CCR_MINC;
 }
@@ -210,7 +210,7 @@ value held by the base peripheral address register is unchanged.
 @param[in] channel unsigned int8. Channel number: 1-7 for DMA1 or 1-5 for DMA2
 */
 
-void dma_enable_peripheral_increment_mode(uint32_t dma, uint8_t channel)
+void dma_enable_peripheral_increment_mode(u32 dma, u8 channel)
 {
 	DMA_CCR(dma, channel) |= DMA_CCR_PINC;
 }
@@ -222,7 +222,7 @@ void dma_enable_peripheral_increment_mode(uint32_t dma, uint8_t channel)
 @param[in] channel unsigned int8. Channel number: 1-7 for DMA1 or 1-5 for DMA2
 */
 
-void dma_disable_peripheral_increment_mode(uint32_t dma, uint8_t channel)
+void dma_disable_peripheral_increment_mode(u32 dma, u8 channel)
 {
 	DMA_CCR(dma, channel) &= ~DMA_CCR_PINC;
 }
@@ -241,7 +241,7 @@ disabled here.
 @param[in] channel unsigned int8. Channel number: 1-7 for DMA1 or 1-5 for DMA2
 */
 
-void dma_enable_circular_mode(uint32_t dma, uint8_t channel)
+void dma_enable_circular_mode(u32 dma, u8 channel)
 {
 	DMA_CCR(dma, channel) |= DMA_CCR_CIRC;
 	DMA_CCR(dma, channel) &= ~DMA_CCR_MEM2MEM;
@@ -256,7 +256,7 @@ The data direction is set to read from a peripheral.
 @param[in] channel unsigned int8. Channel number: 1-7 for DMA1 or 1-5 for DMA2
 */
 
-void dma_set_read_from_peripheral(uint32_t dma, uint8_t channel)
+void dma_set_read_from_peripheral(u32 dma, u8 channel)
 {
 	DMA_CCR(dma, channel) &= ~DMA_CCR_DIR;
 }
@@ -270,7 +270,7 @@ The data direction is set to read from memory.
 @param[in] channel unsigned int8. Channel number: 1-7 for DMA1 or 1-5 for DMA2
 */
 
-void dma_set_read_from_memory(uint32_t dma, uint8_t channel)
+void dma_set_read_from_memory(u32 dma, u8 channel)
 {
 	DMA_CCR(dma, channel) |= DMA_CCR_DIR;
 }
@@ -282,7 +282,7 @@ void dma_set_read_from_memory(uint32_t dma, uint8_t channel)
 @param[in] channel unsigned int8. Channel number: 1-7 for DMA1 or 1-5 for DMA2
 */
 
-void dma_enable_transfer_error_interrupt(uint32_t dma, uint8_t channel)
+void dma_enable_transfer_error_interrupt(u32 dma, u8 channel)
 {
 	DMA_CCR(dma, channel) |= DMA_CCR_TEIE;
 }
@@ -294,7 +294,7 @@ void dma_enable_transfer_error_interrupt(uint32_t dma, uint8_t channel)
 @param[in] channel unsigned int8. Channel number: 1-7 for DMA1 or 1-5 for DMA2
 */
 
-void dma_disable_transfer_error_interrupt(uint32_t dma, uint8_t channel)
+void dma_disable_transfer_error_interrupt(u32 dma, u8 channel)
 {
 	DMA_CCR(dma, channel) &= ~DMA_CCR_TEIE;
 }
@@ -306,7 +306,7 @@ void dma_disable_transfer_error_interrupt(uint32_t dma, uint8_t channel)
 @param[in] channel unsigned int8. Channel number: 1-7 for DMA1 or 1-5 for DMA2
 */
 
-void dma_enable_half_transfer_interrupt(uint32_t dma, uint8_t channel)
+void dma_enable_half_transfer_interrupt(u32 dma, u8 channel)
 {
 	DMA_CCR(dma, channel) |= DMA_CCR_HTIE;
 }
@@ -318,7 +318,7 @@ void dma_enable_half_transfer_interrupt(uint32_t dma, uint8_t channel)
 @param[in] channel unsigned int8. Channel number: 1-7 for DMA1 or 1-5 for DMA2
 */
 
-void dma_disable_half_transfer_interrupt(uint32_t dma, uint8_t channel)
+void dma_disable_half_transfer_interrupt(u32 dma, u8 channel)
 {
 	DMA_CCR(dma, channel) &= ~DMA_CCR_HTIE;
 }
@@ -330,7 +330,7 @@ void dma_disable_half_transfer_interrupt(uint32_t dma, uint8_t channel)
 @param[in] channel unsigned int8. Channel number: 1-7 for DMA1 or 1-5 for DMA2
 */
 
-void dma_enable_transfer_complete_interrupt(uint32_t dma, uint8_t channel)
+void dma_enable_transfer_complete_interrupt(u32 dma, u8 channel)
 {
 	DMA_CCR(dma, channel) |= DMA_CCR_TCIE;
 }
@@ -342,7 +342,7 @@ void dma_enable_transfer_complete_interrupt(uint32_t dma, uint8_t channel)
 @param[in] channel unsigned int8. Channel number: 1-7 for DMA1 or 1-5 for DMA2
 */
 
-void dma_disable_transfer_complete_interrupt(uint32_t dma, uint8_t channel)
+void dma_disable_transfer_complete_interrupt(u32 dma, u8 channel)
 {
 	DMA_CCR(dma, channel) &= ~DMA_CCR_TCIE;
 }
@@ -354,7 +354,7 @@ void dma_disable_transfer_complete_interrupt(uint32_t dma, uint8_t channel)
 @param[in] channel unsigned int8. Channel number: 1-7 for DMA1 or 1-5 for DMA2
 */
 
-void dma_enable_channel(uint32_t dma, uint8_t channel)
+void dma_enable_channel(u32 dma, u8 channel)
 {
 	DMA_CCR(dma, channel) |= DMA_CCR_EN;
 }
@@ -369,7 +369,7 @@ disabled.
 @param[in] channel unsigned int8. Channel number: 1-7 for DMA1 or 1-5 for DMA2
 */
 
-void dma_disable_channel(uint32_t dma, uint8_t channel)
+void dma_disable_channel(u32 dma, u8 channel)
 {
 	DMA_CCR(dma, channel) &= ~DMA_CCR_EN;
 }
@@ -388,10 +388,10 @@ function has no effect if the channel is enabled.
 @param[in] address unsigned int32. Peripheral Address.
 */
 
-void dma_set_peripheral_address(uint32_t dma, uint8_t channel, uint32_t address)
+void dma_set_peripheral_address(u32 dma, u8 channel, u32 address)
 {
 	if (!(DMA_CCR(dma, channel) & DMA_CCR_EN)) {
-		DMA_CPAR(dma, channel) = (uint32_t) address;
+		DMA_CPAR(dma, channel) = (u32) address;
 	}
 }
 
@@ -406,10 +406,10 @@ function has no effect if the channel is enabled.
 @param[in] address unsigned int32. Memory Initial Address.
 */
 
-void dma_set_memory_address(uint32_t dma, uint8_t channel, uint32_t address)
+void dma_set_memory_address(u32 dma, u8 channel, u32 address)
 {
 	if (!(DMA_CCR(dma, channel) & DMA_CCR_EN)) {
-		DMA_CMAR(dma, channel) = (uint32_t) address;
+		DMA_CMAR(dma, channel) = (u32) address;
 	}
 }
 
@@ -425,7 +425,7 @@ count is not changed if the channel is enabled.
 maximum).
 */
 
-void dma_set_number_of_data(uint32_t dma, uint8_t channel, uint16_t number)
+void dma_set_number_of_data(u32 dma, u8 channel, u16 number)
 {
 	DMA_CNDTR(dma, channel) = number;
 }

@@ -90,7 +90,7 @@
  *
  * @param[in] uart UART block register address base @ref uart_reg_base
  */
-void uart_enable(uint32_t uart)
+void uart_enable(u32 uart)
 {
 	UART_CTL(uart) |= (UART_CTL_UARTEN | UART_CTL_RXE | UART_CTL_TXE);
 }
@@ -100,7 +100,7 @@ void uart_enable(uint32_t uart)
  *
  * @param[in] uart UART block register address base @ref uart_reg_base
  */
-void uart_disable(uint32_t uart)
+void uart_disable(u32 uart)
 {
 	UART_CTL(uart) &= ~UART_CTL_UARTEN;
 }
@@ -111,9 +111,9 @@ void uart_disable(uint32_t uart)
  * @param[in] uart UART block register address base @ref uart_reg_base
  * @param[in] baud Baud rate in bits per second (bps).*
  */
-void uart_set_baudrate(uint32_t uart, uint32_t baud)
+void uart_set_baudrate(u32 uart, u32 baud)
 {
-	uint32_t clock;
+	u32 clock;
 
 	/* Are we running off the internal clock or system clock? */
 	if (UART_CC(uart) == UART_CC_CS_PIOSC) {
@@ -123,7 +123,7 @@ void uart_set_baudrate(uint32_t uart, uint32_t baud)
 	}
 
 	/* Find the baudrate divisor */
-	uint32_t div = (((clock * 8) / baud) + 1) / 2;
+	u32 div = (((clock * 8) / baud) + 1) / 2;
 
 	/* Set the baudrate divisors */
 	UART_IBRD(uart) = div / 64;
@@ -136,18 +136,18 @@ void uart_set_baudrate(uint32_t uart, uint32_t baud)
  * @param[in] uart UART block register address base @ref uart_reg_base
  * @param[in] databits number of data bits per transmission.
  */
-void uart_set_databits(uint32_t uart, uint8_t databits)
+void uart_set_databits(u32 uart, u8 databits)
 {
-	uint32_t reg32, bitint32_t;
+	u32 reg32, bits32;
 
 	/* This has the same effect as using UART_LCRH_WLEN_5/6/7/8 directly */
-	bitint32_t = (databits - 5) << 5;
+	bits32 = (databits - 5) << 5;
 
 	/* TODO: What about 9 data bits? */
 
 	reg32 = UART_LCRH(uart);
 	reg32 &= ~UART_LCRH_WLEN_MASK;
-	reg32 |= bitint32_t;
+	reg32 |= bits32;
 	UART_LCRH(uart) = reg32;
 }
 
@@ -157,7 +157,7 @@ void uart_set_databits(uint32_t uart, uint8_t databits)
  * @param[in] uart UART block register address base @ref uart_reg_base
  * @param[in] bits the requested number of stopbits, either 1 or 2.
  */
-void uart_set_stopbits(uint32_t uart, uint8_t stopbits)
+void uart_set_stopbits(u32 uart, u8 stopbits)
 {
 	if (stopbits == 2) {
 		UART_LCRH(uart) |= UART_LCRH_STP2;
@@ -172,9 +172,9 @@ void uart_set_stopbits(uint32_t uart, uint8_t stopbits)
  * @param[in] uart UART block register address base @ref uart_reg_base
  * @param[in] bits the requested parity scheme.
  */
-void uart_set_parity(uint32_t uart, enum uart_parity parity)
+void uart_set_parity(u32 uart, enum uart_parity parity)
 {
-	uint32_t reg32;
+	u32 reg32;
 
 	reg32 = UART_LCRH(uart);
 	reg32 |= UART_LCRH_PEN;
@@ -213,9 +213,9 @@ void uart_set_parity(uint32_t uart, enum uart_parity parity)
  *                 UART_FLOWCTL_CTS -- enable the CTS line \n
  *                 UART_FLOWCTL_RTS_CTS -- enable both RTS and CTS lines
  */
-void uart_set_flow_control(uint32_t uart, enum uart_flowctl flow)
+void uart_set_flow_control(u32 uart, enum uart_flowctl flow)
 {
-	uint32_t reg32 = UART_CTL(uart);
+	u32 reg32 = UART_CTL(uart);
 
 	reg32 &= ~(UART_CTL_RTSEN | UART_CTL_CTSEN);
 
@@ -235,7 +235,7 @@ void uart_set_flow_control(uint32_t uart, enum uart_flowctl flow)
  *
  * @param[in] uart UART block register address base @ref uart_reg_base
  */
-void uart_clock_from_piosc(uint32_t uart)
+void uart_clock_from_piosc(u32 uart)
 {
 	UART_CC(uart) = UART_CC_CS_PIOSC;
 }
@@ -245,7 +245,7 @@ void uart_clock_from_piosc(uint32_t uart)
  *
  * @param[in] uart UART block register address base @ref uart_reg_base
  */
-void uart_clock_from_sysclk(uint32_t uart)
+void uart_clock_from_sysclk(u32 uart)
 {
 	UART_CC(uart) = UART_CC_CS_SYSCLK;
 }
@@ -272,7 +272,7 @@ void uart_clock_from_sysclk(uint32_t uart)
  * @param[in] uart UART block register address base @ref uart_reg_base
  * @param[in] data data to send.
  */
-void uart_send(uint32_t uart, uint16_t data)
+void uart_send(u32 uart, u16 data)
 {
 	data &= 0xFF;
 	UART_DR(uart) = data;
@@ -284,7 +284,7 @@ void uart_send(uint32_t uart, uint16_t data)
  * @param[in] uart UART block register address base @ref uart_reg_base
  * @return data from the Rx FIFO.
  */
-uint16_t uart_recv(uint32_t uart)
+u16 uart_recv(u32 uart)
 {
 	return UART_DR(uart) & UART_DR_DATA_MASK;
 }
@@ -300,7 +300,7 @@ uint16_t uart_recv(uint32_t uart)
  *
  * @param[in] uart UART block register address base @ref uart_reg_base
  */
-void uart_wait_send_ready(uint32_t uart)
+void uart_wait_send_ready(u32 uart)
 {
 	/* Wait until the Tx FIFO is no longer full */
 	while (UART_FR(uart) & UART_FR_TXFF);
@@ -313,7 +313,7 @@ void uart_wait_send_ready(uint32_t uart)
  *
  * @param[in] uart UART block register address base @ref uart_reg_base
  */
-void uart_wait_recv_ready(uint32_t uart)
+void uart_wait_recv_ready(u32 uart)
 {
 	/* Wait until the Tx FIFO is no longer empty */
 	while (UART_FR(uart) & UART_FR_RXFE);
@@ -327,7 +327,7 @@ void uart_wait_recv_ready(uint32_t uart)
  *
  * @param[in] uart UART block register address base @ref uart_reg_base
  */
-void uart_send_blocking(uint32_t uart, uint16_t data)
+void uart_send_blocking(u32 uart, u16 data)
 {
 	uart_wait_send_ready(uart);
 	uart_send(uart, data);
@@ -341,7 +341,7 @@ void uart_send_blocking(uint32_t uart, uint16_t data)
  * @param[in] uart UART block register address base @ref uart_reg_base
  * @return data from the Rx FIFO.
  */
-uint16_t uart_recv_blocking(uint32_t uart)
+u16 uart_recv_blocking(u32 uart)
 {
 	uart_wait_recv_ready(uart);
 	return uart_recv(uart);
@@ -395,7 +395,7 @@ uint16_t uart_recv_blocking(uint32_t uart)
  * @code{.c}
  * void uart0_isr(void)
  * {
- *	uint32_t serviced_irqs = 0;
+ *	u32 serviced_irqs = 0;
  *
  *	// Process individual IRQs
  *	if (uart_is_interrupt_source(UART0, UART_INT_RX)) {
@@ -427,7 +427,7 @@ uint16_t uart_recv_blocking(uint32_t uart)
  * @param[in] ints Interrupts which to enable. Any combination of interrupts may
  *                 be specified by OR'ing then together
  */
-void uart_enable_interrupts(uint32_t uart, enum uart_interrupt_flag ints)
+void uart_enable_interrupts(u32 uart, enum uart_interrupt_flag ints)
 {
 	UART_IM(uart) |= ints;
 }
@@ -443,7 +443,7 @@ void uart_enable_interrupts(uint32_t uart, enum uart_interrupt_flag ints)
  * @param[in] ints Interrupts which to disable. Any combination of interrupts
  *		   may be specified by OR'ing then together
  */
-void uart_disable_interrupts(uint32_t uart, enum uart_interrupt_flag ints)
+void uart_disable_interrupts(u32 uart, enum uart_interrupt_flag ints)
 {
 	UART_IM(uart) &= ~ints;
 }
@@ -456,7 +456,7 @@ void uart_disable_interrupts(uint32_t uart, enum uart_interrupt_flag ints)
  *
  * @param[in] uart UART block register address base @ref uart_reg_base
  */
-void uart_enable_rx_interrupt(uint32_t uart)
+void uart_enable_rx_interrupt(u32 uart)
 {
 	uart_enable_interrupts(uart, UART_INT_RX);
 }
@@ -466,7 +466,7 @@ void uart_enable_rx_interrupt(uint32_t uart)
  *
  * @param[in] uart UART block register address base @ref uart_reg_base
  */
-void uart_disable_rx_interrupt(uint32_t uart)
+void uart_disable_rx_interrupt(u32 uart)
 {
 	uart_disable_interrupts(uart, UART_INT_RX);
 }
@@ -479,7 +479,7 @@ void uart_disable_rx_interrupt(uint32_t uart)
  *
  * @param[in] uart UART block register address base @ref uart_reg_base
  */
-void uart_enable_tx_interrupt(uint32_t uart)
+void uart_enable_tx_interrupt(u32 uart)
 {
 	uart_enable_interrupts(uart, UART_INT_TX);
 }
@@ -489,7 +489,7 @@ void uart_enable_tx_interrupt(uint32_t uart)
  *
  * @param[in] uart UART block register address base @ref uart_reg_base
  */
-void uart_disable_tx_interrupt(uint32_t uart)
+void uart_disable_tx_interrupt(u32 uart)
 {
 	uart_disable_interrupts(uart, UART_INT_TX);
 }
@@ -505,7 +505,7 @@ void uart_disable_tx_interrupt(uint32_t uart)
  * @param[in] ints Interrupts which to clear. Any combination of interrupts may
  *                 be specified by OR'ing then together
  */
-void uart_clear_interrupt_flag(uint32_t uart, enum uart_interrupt_flag ints)
+void uart_clear_interrupt_flag(u32 uart, enum uart_interrupt_flag ints)
 {
 	UART_ICR(uart) |= ints;
 }
@@ -524,7 +524,7 @@ void uart_clear_interrupt_flag(uint32_t uart, enum uart_interrupt_flag ints)
  *
  * @param[in] uart UART block register address base @ref uart_reg_base
  */
-void uart_enable_rx_dma(uint32_t uart)
+void uart_enable_rx_dma(u32 uart)
 {
 	UART_DMACTL(uart) |= UART_DMACTL_RXDMAE;
 }
@@ -534,7 +534,7 @@ void uart_enable_rx_dma(uint32_t uart)
  *
  * @param[in] uart UART block register address base @ref uart_reg_base
  */
-void uart_disable_rx_dma(uint32_t uart)
+void uart_disable_rx_dma(u32 uart)
 {
 	UART_DMACTL(uart) &= ~UART_DMACTL_RXDMAE;
 }
@@ -544,7 +544,7 @@ void uart_disable_rx_dma(uint32_t uart)
  *
  * @param[in] uart UART block register address base @ref uart_reg_base
  */
-void uart_enable_tx_dma(uint32_t uart)
+void uart_enable_tx_dma(u32 uart)
 {
 	UART_DMACTL(uart) |= UART_DMACTL_TXDMAE;
 }
@@ -554,7 +554,7 @@ void uart_enable_tx_dma(uint32_t uart)
  *
  * @param[in] uart UART block register address base @ref uart_reg_base
  */
-void uart_disable_tx_dma(uint32_t uart)
+void uart_disable_tx_dma(u32 uart)
 {
 	UART_DMACTL(uart) &= ~UART_DMACTL_TXDMAE;
 }
@@ -591,7 +591,7 @@ void uart_disable_tx_dma(uint32_t uart)
  *
  * @param[in] uart UART block register address base @ref uart_reg_base
  */
-void uart_enable_fifo(uint32_t uart)
+void uart_enable_fifo(u32 uart)
 {
 	UART_LCRH(uart) |= UART_LCRH_FEN;
 }
@@ -601,7 +601,7 @@ void uart_enable_fifo(uint32_t uart)
  *
  * @param[in] uart UART block register address base @ref uart_reg_base
  */
-void uart_disable_fifo(uint32_t uart)
+void uart_disable_fifo(u32 uart)
 {
 	UART_LCRH(uart) &= ~UART_LCRH_FEN;
 }
@@ -613,7 +613,7 @@ void uart_disable_fifo(uint32_t uart)
  * @param[in] rx_level Trigger level for RX FIFO
  * @param[in] tx_level Trigger level for TX FIFO
  */
-void uart_set_fifo_trigger_levels(uint32_t uart,
+void uart_set_fifo_trigger_levels(u32 uart,
 				  enum uart_fifo_rx_trigger_level rx_level,
 				  enum uart_fifo_tx_trigger_level tx_level)
 {

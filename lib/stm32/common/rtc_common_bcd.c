@@ -33,7 +33,7 @@
 This sets the RTC synchronous and asynchronous prescalars.
 */
 
-void rtc_set_prescaler(uint32_t sync, uint32_t async)
+void rtc_set_prescaler(u32 sync, u32 async)
 {
 	/*
 	 * Even if only one of the two fields needs to be changed,
@@ -86,7 +86,7 @@ void rtc_lock(void)
 /** @brief Sets the wakeup time auto-reload value
 
 */
-void rtc_set_wakeup_time(uint16_t wkup_time, uint8_t rtc_cr_wucksel)
+void rtc_set_wakeup_time(u16 wkup_time, u8 rtc_cr_wucksel)
 {
 	/* FTFM:
 	 * The following sequence is required to configure or change the wakeup

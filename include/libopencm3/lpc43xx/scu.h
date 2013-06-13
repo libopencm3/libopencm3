@@ -771,7 +771,7 @@ typedef enum {
 
 BEGIN_DECLS
 
-void scu_pinmux(scu_grp_pin_t group_pin, uint32_t scu_conf);
+void scu_pinmux(scu_grp_pin_t group_pin, u32 scu_conf);
 
 END_DECLS
 

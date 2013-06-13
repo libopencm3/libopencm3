@@ -86,10 +86,10 @@ gpio_pup
 	     If multiple pins are to be set, use bitwise OR '|' to separate
 	     them.
 */
-void gpio_mode_setup(uint32_t gpioport, uint8_t mode, uint8_t pull_up_down, uint16_t gpios)
+void gpio_mode_setup(u32 gpioport, u8 mode, u8 pull_up_down, u16 gpios)
 {
-	uint16_t i;
-	uint32_t moder, pupd;
+	u16 i;
+	u32 moder, pupd;
 
 	/*
 	 * We want to set the config only for the pins mentioned in gpios,
@@ -128,10 +128,10 @@ port.
 	     If multiple pins are to be set, use bitwise OR '|' to separate
 	     them.
 */
-void gpio_set_output_options(uint32_t gpioport, uint8_t otype, uint8_t speed, uint16_t gpios)
+void gpio_set_output_options(u32 gpioport, u8 otype, u8 speed, u16 gpios)
 {
-	uint16_t i;
-	uint32_t ospeedr;
+	u16 i;
+	u32 ospeedr;
 
 	if (otype == 0x1) {
 		GPIO_OTYPER(gpioport) |= gpios;
@@ -173,10 +173,10 @@ gpio_af_num
 	     If multiple pins are to be set, use bitwise OR '|' to separate
 	     them.
 */
-void gpio_set_af(uint32_t gpioport, uint8_t alt_func_num, uint16_t gpios)
+void gpio_set_af(u32 gpioport, u8 alt_func_num, u16 gpios)
 {
-	uint16_t i;
-	uint32_t afrl, afrh;
+	u16 i;
+	u32 afrl, afrh;
 
 	afrl = GPIO_AFRL(gpioport);
 	afrh = GPIO_AFRH(gpioport);

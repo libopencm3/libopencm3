@@ -490,8 +490,8 @@ LGPL License Terms @ref lgpl_license
 #define RCC_CFGR2_PREDIV2_DIV16			0xf
 
 /* --- Variable definitions ------------------------------------------------ */
-extern uint32_t rcc_ppre1_frequency;
-extern uint32_t rcc_ppre2_frequency;
+extern u32 rcc_ppre1_frequency;
+extern u32 rcc_ppre2_frequency;
 
 /* --- Function prototypes ------------------------------------------------- */
 
@@ -512,28 +512,28 @@ void rcc_osc_on(osc_t osc);
 void rcc_osc_off(osc_t osc);
 void rcc_css_enable(void);
 void rcc_css_disable(void);
-void rcc_set_mco(uint32_t mcosrc);
+void rcc_set_mco(u32 mcosrc);
 void rcc_osc_bypass_enable(osc_t osc);
 void rcc_osc_bypass_disable(osc_t osc);
-void rcc_peripheral_enable_clock(volatile uint32_t *reg, uint32_t en);
-void rcc_peripheral_disable_clock(volatile uint32_t *reg, uint32_t en);
-void rcc_peripheral_reset(volatile uint32_t *reg, uint32_t reset);
-void rcc_peripheral_clear_reset(volatile uint32_t *reg, uint32_t clear_reset);
-void rcc_set_sysclk_source(uint32_t clk);
-void rcc_set_pll_multiplication_factor(uint32_t mul);
-void rcc_set_pll2_multiplication_factor(uint32_t mul);
-void rcc_set_pll3_multiplication_factor(uint32_t mul);
-void rcc_set_pll_source(uint32_t pllsrc);
-void rcc_set_pllxtpre(uint32_t pllxtpre);
-void rcc_set_adcpre(uint32_t adcpre);
-void rcc_set_ppre2(uint32_t ppre2);
-void rcc_set_ppre1(uint32_t ppre1);
-void rcc_set_hpre(uint32_t hpre);
-void rcc_set_usbpre(uint32_t usbpre);
-void rcc_set_prediv1(uint32_t prediv);
-void rcc_set_prediv2(uint32_t prediv);
-void rcc_set_prediv1_source(uint32_t rccsrc);
-uint32_t rcc_system_clock_source(void);
+void rcc_peripheral_enable_clock(volatile u32 *reg, u32 en);
+void rcc_peripheral_disable_clock(volatile u32 *reg, u32 en);
+void rcc_peripheral_reset(volatile u32 *reg, u32 reset);
+void rcc_peripheral_clear_reset(volatile u32 *reg, u32 clear_reset);
+void rcc_set_sysclk_source(u32 clk);
+void rcc_set_pll_multiplication_factor(u32 mul);
+void rcc_set_pll2_multiplication_factor(u32 mul);
+void rcc_set_pll3_multiplication_factor(u32 mul);
+void rcc_set_pll_source(u32 pllsrc);
+void rcc_set_pllxtpre(u32 pllxtpre);
+void rcc_set_adcpre(u32 adcpre);
+void rcc_set_ppre2(u32 ppre2);
+void rcc_set_ppre1(u32 ppre1);
+void rcc_set_hpre(u32 hpre);
+void rcc_set_usbpre(u32 usbpre);
+void rcc_set_prediv1(u32 prediv);
+void rcc_set_prediv2(u32 prediv);
+void rcc_set_prediv1_source(u32 rccsrc);
+u32 rcc_system_clock_source(void);
 void rcc_clock_setup_in_hsi_out_64mhz(void);
 void rcc_clock_setup_in_hsi_out_48mhz(void);
 void rcc_clock_setup_in_hsi_out_24mhz(void);

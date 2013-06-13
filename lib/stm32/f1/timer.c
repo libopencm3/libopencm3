@@ -46,7 +46,7 @@ in which case this file must be added to the compile list. */
 @param[in] pol ::tim_ic_pol. Input Capture polarity.
 */
 
-void timer_ic_set_polarity(uint32_t timer_peripheral, enum tim_ic_id ic,
+void timer_ic_set_polarity(u32 timer_peripheral, enum tim_ic_id ic,
 			   enum tim_ic_pol pol)
 {
 	if (pol) {

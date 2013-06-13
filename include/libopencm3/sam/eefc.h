@@ -69,7 +69,7 @@
 #define EEFC_FSR_FCMDE			(0x01 << 1)
 #define EEFC_FSR_FRDY			(0x01 << 0)
 
-static inline void eefc_set_latency(uint8_t wait)
+static inline void eefc_set_latency(u8 wait)
 {
 #if defined(SAM3X)
 	EEFC_FMR(EEFC0) = (EEFC_FMR(EEFC0) & ~EEFC_FMR_FWS_MASK) | (wait << 8);

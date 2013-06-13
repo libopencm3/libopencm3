@@ -49,7 +49,7 @@ computation is complete.
 @returns int32 Computed CRC result
 */
 
-uint32_t crc_calculate(uint32_t data)
+u32 crc_calculate(u32 data)
 {
 	CRC_DR = data;
 	/* Data sheet says this blocks until it's ready.... */
@@ -67,7 +67,7 @@ until the computation of each word is complete.
 @returns int32 Final computed CRC result
 */
 
-uint32_t crc_calculate_block(uint32_t *datap, int size)
+u32 crc_calculate_block(u32 *datap, int size)
 {
 	int i;
 
