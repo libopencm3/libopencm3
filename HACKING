@@ -10,6 +10,31 @@ http://lxr.linux.no/linux/Documentation/CodingStyle for details.
 
 Please use the same style for any code contributions, thanks!
 
+Amendments to the Linux kernel coding style
+-------------------------------------------
+
+1) We use the stdint types. The linux kernel accepts the abbreviated types (u8,
+   s8, u16 and so on) for legacy reasons. We should in general not introduce
+   things like types ourselves as long as they are not necessary to make our
+   job possible of refining the hardware and make it easier to be used. stdint
+   is a standard and it is not in the scope of our project to introduce a new
+   type standard.
+
+2) Based on the same logic as in (1) we do not use __packed and __aligned
+   definitions, it is not our job to add compiler extensions. If we need to
+   deal with compiler incompatibility we will do that the same way we are
+   dealing with the depricated attribute by introducing a normal macro that is
+   not in the compiler reserved keyword space.
+
+3) We accept to write an empty body busy waiting while loop like this:
+	while (1);
+   there is no need to put the colon on the next line as per linux kernel
+   style.
+
+4) We always add brackets around bodies of if, while and for statements, even
+   if the body contains only one expression. It is dangerous to not have them
+   as it easily happens that one adds a second expression and is hunting for
+   hours why the code is not working just because of a missing bracket pair.
 
 Development guidelines
 ----------------------
