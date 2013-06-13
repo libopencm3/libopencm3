@@ -339,8 +339,9 @@ existing output values in the DAC output registers.
 
 @note The DAC trigger must be enabled for this to work.
 
-@param[in] dac_wave_ens uint32_t. Taken from @ref dac_wave1_en or @ref dac_wave2_en
-or a logical OR of one of each of these to set both channels simultaneously.
+@param[in] dac_wave_ens uint32_t. Taken from @ref dac_wave1_en or @ref
+dac_wave2_en or a logical OR of one of each of these to set both channels
+simultaneously.
 */
 
 void dac_set_waveform_generation(uint32_t dac_wave_ens)

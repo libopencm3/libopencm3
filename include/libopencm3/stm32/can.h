@@ -646,26 +646,31 @@ BEGIN_DECLS
 
 void can_reset(uint32_t canport);
 int can_init(uint32_t canport, bool ttcm, bool abom, bool awum, bool nart,
-	     bool rflm, bool txfp, uint32_t sjw, uint32_t ts1, uint32_t ts2, uint32_t brp,
-	     bool loopback, bool silent);
+	     bool rflm, bool txfp, uint32_t sjw, uint32_t ts1, uint32_t ts2,
+	     uint32_t brp, bool loopback, bool silent);
 
-void can_filter_init(uint32_t canport, uint32_t nr, bool scale_32bit, bool id_list_mode,
-		     uint32_t fr1, uint32_t fr2, uint32_t fifo, bool enable);
-void can_filter_id_mask_16bit_init(uint32_t canport, uint32_t nr, uint16_t id1, uint16_t mask1,
-				   uint16_t id2, uint16_t mask2, uint32_t fifo, bool enable);
-void can_filter_id_mask_32bit_init(uint32_t canport, uint32_t nr, uint32_t id, uint32_t mask,
+void can_filter_init(uint32_t canport, uint32_t nr, bool scale_32bit,
+		     bool id_list_mode, uint32_t fr1, uint32_t fr2,
+		     uint32_t fifo, bool enable);
+void can_filter_id_mask_16bit_init(uint32_t canport, uint32_t nr, uint16_t id1,
+				   uint16_t mask1, uint16_t id2,
+				   uint16_t mask2, uint32_t fifo, bool enable);
+void can_filter_id_mask_32bit_init(uint32_t canport, uint32_t nr, uint32_t id,
+				   uint32_t mask, uint32_t fifo, bool enable);
+void can_filter_id_list_16bit_init(uint32_t canport, uint32_t nr, uint16_t id1,
+				   uint16_t id2, uint16_t id3, uint16_t id4,
 				   uint32_t fifo, bool enable);
-void can_filter_id_list_16bit_init(uint32_t canport, uint32_t nr, uint16_t id1, uint16_t id2,
-				   uint16_t id3, uint16_t id4, uint32_t fifo, bool enable);
-void can_filter_id_list_32bit_init(uint32_t canport, uint32_t nr, uint32_t id1, uint32_t id2,
-				   uint32_t fifo, bool enable);
+void can_filter_id_list_32bit_init(uint32_t canport, uint32_t nr, uint32_t id1,
+				   uint32_t id2, uint32_t fifo, bool enable);
 
 void can_enable_irq(uint32_t canport, uint32_t irq);
 void can_disable_irq(uint32_t canport, uint32_t irq);
 
-int can_transmit(uint32_t canport, uint32_t id, bool ext, bool rtr, uint8_t length, uint8_t *data);
-void can_receive(uint32_t canport, uint8_t fifo, bool release, uint32_t *id, bool *ext,
-		 bool *rtr, uint32_t *fmi, uint8_t *length, uint8_t *data);
+int can_transmit(uint32_t canport, uint32_t id, bool ext, bool rtr,
+		 uint8_t length, uint8_t *data);
+void can_receive(uint32_t canport, uint8_t fifo, bool release, uint32_t *id,
+		 bool *ext, bool *rtr, uint32_t *fmi, uint8_t *length,
+		 uint8_t *data);
 
 void can_fifo_release(uint32_t canport, uint8_t fifo);
 bool can_available_mailbox(uint32_t canport);

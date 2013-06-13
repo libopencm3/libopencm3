@@ -278,7 +278,8 @@ adc_enable_analog_watchdog_regular.
 @param[in] channel Unsigned int8. ADC channel number @ref adc_watchdog_channel
 */
 
-void adc_enable_analog_watchdog_on_selected_channel(uint32_t adc, uint8_t channel)
+void adc_enable_analog_watchdog_on_selected_channel(uint32_t adc,
+						    uint8_t channel)
 {
 	uint32_t reg32;
 
@@ -809,7 +810,8 @@ the trigger polarity is zero, triggering is disabled.
 adc_trigger_polarity_regular
 */
 
-void adc_enable_external_trigger_regular(uint32_t adc, uint32_t trigger, uint32_t polarity)
+void adc_enable_external_trigger_regular(uint32_t adc, uint32_t trigger,
+					 uint32_t polarity)
 {
 	uint32_t reg32 = ADC_CR2(adc);
 
@@ -841,7 +843,8 @@ the polarity of the trigger event: rising or falling edge or both.
 adc_trigger_polarity_injected
 */
 
-void adc_enable_external_trigger_injected(uint32_t adc, uint32_t trigger, uint32_t polarity)
+void adc_enable_external_trigger_injected(uint32_t adc, uint32_t trigger,
+					  uint32_t polarity)
 {
 	uint32_t reg32 = ADC_CR2(adc);
 

@@ -92,7 +92,8 @@ same stream may be cleared by using the bitwise OR of the interrupt flags.
 dma_if_offset
 */
 
-void dma_clear_interrupt_flags(uint32_t dma, uint8_t stream, uint32_t interrupts)
+void dma_clear_interrupt_flags(uint32_t dma, uint8_t stream,
+			       uint32_t interrupts)
 {
 	/* Get offset to interrupt flag location in stream field */
 	uint32_t flags = (interrupts << DMA_ISR_OFFSET(stream));
@@ -213,7 +214,8 @@ Ensure that the stream is disabled otherwise the setting will not be changed.
 dma_st_perwidth.
 */
 
-void dma_set_peripheral_size(uint32_t dma, uint8_t stream, uint32_t peripheral_size)
+void dma_set_peripheral_size(uint32_t dma, uint8_t stream,
+			     uint32_t peripheral_size)
 {
 	DMA_SCR(dma, stream) &= ~(DMA_SxCR_PSIZE_MASK);
 	DMA_SCR(dma, stream) |= peripheral_size;

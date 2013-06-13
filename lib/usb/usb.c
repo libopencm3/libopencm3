@@ -137,7 +137,8 @@ void usbd_disconnect(usbd_device *usbd_dev, bool disconnected)
 	}
 }
 
-void usbd_ep_setup(usbd_device *usbd_dev, uint8_t addr, uint8_t type, uint16_t max_size,
+void usbd_ep_setup(usbd_device *usbd_dev, uint8_t addr, uint8_t type,
+		   uint16_t max_size,
 		   void (*callback)(usbd_device *usbd_dev, uint8_t ep))
 {
 	usbd_dev->driver->ep_setup(usbd_dev, addr, type, max_size, callback);
@@ -149,7 +150,8 @@ uint16_t usbd_ep_write_packet(usbd_device *usbd_dev, uint8_t addr,
 	return usbd_dev->driver->ep_write_packet(usbd_dev, addr, buf, len);
 }
 
-uint16_t usbd_ep_read_packet(usbd_device *usbd_dev, uint8_t addr, void *buf, uint16_t len)
+uint16_t usbd_ep_read_packet(usbd_device *usbd_dev, uint8_t addr, void *buf,
+			     uint16_t len)
 {
 	return usbd_dev->driver->ep_read_packet(usbd_dev, addr, buf, len);
 }

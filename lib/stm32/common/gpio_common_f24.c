@@ -86,7 +86,8 @@ gpio_pup
 	     If multiple pins are to be set, use bitwise OR '|' to separate
 	     them.
 */
-void gpio_mode_setup(uint32_t gpioport, uint8_t mode, uint8_t pull_up_down, uint16_t gpios)
+void gpio_mode_setup(uint32_t gpioport, uint8_t mode, uint8_t pull_up_down,
+		     uint16_t gpios)
 {
 	uint16_t i;
 	uint32_t moder, pupd;
@@ -128,7 +129,8 @@ port.
 	     If multiple pins are to be set, use bitwise OR '|' to separate
 	     them.
 */
-void gpio_set_output_options(uint32_t gpioport, uint8_t otype, uint8_t speed, uint16_t gpios)
+void gpio_set_output_options(uint32_t gpioport, uint8_t otype, uint8_t speed,
+			     uint16_t gpios)
 {
 	uint16_t i;
 	uint32_t ospeedr;

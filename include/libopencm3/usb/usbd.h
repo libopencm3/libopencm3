@@ -63,7 +63,8 @@ extern usbd_device * usbd_init(const usbd_driver *driver,
 			       const struct usb_device_descriptor *dev,
 			       const struct usb_config_descriptor *conf,
 			       const char **strings, int num_strings,
-			       uint8_t *control_buffer, uint16_t control_buffer_size);
+			       uint8_t *control_buffer,
+			       uint16_t control_buffer_size);
 
 extern void usbd_register_reset_callback(usbd_device *usbd_dev,
 					 void (*callback)(void));
@@ -86,14 +87,15 @@ extern int usbd_register_control_callback(usbd_device *usbd_dev, uint8_t type,
 
 /* <usb_standard.c> */
 extern void usbd_register_set_config_callback(usbd_device *usbd_dev,
-		void (*callback)(usbd_device *usbd_dev, uint16_t wValue));
+	void (*callback)(usbd_device *usbd_dev, uint16_t wValue));
 
 /* Functions to be provided by the hardware abstraction layer */
 extern void usbd_poll(usbd_device *usbd_dev);
 extern void usbd_disconnect(usbd_device *usbd_dev, bool disconnected);
 
-extern void usbd_ep_setup(usbd_device *usbd_dev, uint8_t addr, uint8_t type, uint16_t max_size,
-	      void (*callback)(usbd_device *usbd_dev, uint8_t ep));
+extern void usbd_ep_setup(usbd_device *usbd_dev, uint8_t addr, uint8_t type,
+		uint16_t max_size,
+		void (*callback)(usbd_device *usbd_dev, uint8_t ep));
 
 extern uint16_t usbd_ep_write_packet(usbd_device *usbd_dev, uint8_t addr,
 				const void *buf, uint16_t len);
@@ -101,7 +103,8 @@ extern uint16_t usbd_ep_write_packet(usbd_device *usbd_dev, uint8_t addr,
 extern uint16_t usbd_ep_read_packet(usbd_device *usbd_dev, uint8_t addr,
 			       void *buf, uint16_t len);
 
-extern void usbd_ep_stall_set(usbd_device *usbd_dev, uint8_t addr, uint8_t stall);
+extern void usbd_ep_stall_set(usbd_device *usbd_dev, uint8_t addr,
+			      uint8_t stall);
 extern uint8_t usbd_ep_stall_get(usbd_device *usbd_dev, uint8_t addr);
 
 extern void usbd_ep_nak_set(usbd_device *usbd_dev, uint8_t addr, uint8_t nak);

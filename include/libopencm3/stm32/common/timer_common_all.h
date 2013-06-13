@@ -1070,16 +1070,20 @@ void timer_disable_oc_clear(uint32_t timer_peripheral, enum tim_oc_id oc_id);
 void timer_set_oc_fast_mode(uint32_t timer_peripheral, enum tim_oc_id oc_id);
 void timer_set_oc_slow_mode(uint32_t timer_peripheral, enum tim_oc_id oc_id);
 void timer_set_oc_mode(uint32_t timer_peripheral, enum tim_oc_id oc_id,
-			enum tim_oc_mode oc_mode);
+		       enum tim_oc_mode oc_mode);
 void timer_enable_oc_preload(uint32_t timer_peripheral, enum tim_oc_id oc_id);
 void timer_disable_oc_preload(uint32_t timer_peripheral, enum tim_oc_id oc_id);
-void timer_set_oc_polarity_high(uint32_t timer_peripheral, enum tim_oc_id oc_id);
+void timer_set_oc_polarity_high(uint32_t timer_peripheral,
+				enum tim_oc_id oc_id);
 void timer_set_oc_polarity_low(uint32_t timer_peripheral, enum tim_oc_id oc_id);
 void timer_enable_oc_output(uint32_t timer_peripheral, enum tim_oc_id oc_id);
 void timer_disable_oc_output(uint32_t timer_peripheral, enum tim_oc_id oc_id);
-void timer_set_oc_idle_state_set(uint32_t timer_peripheral, enum tim_oc_id oc_id);
-void timer_set_oc_idle_state_unset(uint32_t timer_peripheral, enum tim_oc_id oc_id);
-void timer_set_oc_value(uint32_t timer_peripheral, enum tim_oc_id oc_id, uint32_t value);
+void timer_set_oc_idle_state_set(uint32_t timer_peripheral,
+				 enum tim_oc_id oc_id);
+void timer_set_oc_idle_state_unset(uint32_t timer_peripheral,
+				   enum tim_oc_id oc_id);
+void timer_set_oc_value(uint32_t timer_peripheral, enum tim_oc_id oc_id,
+			uint32_t value);
 void timer_enable_break_main_output(uint32_t timer_peripheral);
 void timer_disable_break_main_output(uint32_t timer_peripheral);
 void timer_enable_break_automatic_output(uint32_t timer_peripheral);
@@ -1098,9 +1102,12 @@ void timer_generate_event(uint32_t timer_peripheral, uint32_t event);
 uint32_t timer_get_counter(uint32_t timer_peripheral);
 void timer_set_counter(uint32_t timer_peripheral, uint32_t count);
 
-void timer_ic_set_filter(uint32_t timer, enum tim_ic_id ic, enum tim_ic_filter flt);
-void timer_ic_set_prescaler(uint32_t timer, enum tim_ic_id ic, enum tim_ic_psc psc);
-void timer_ic_set_input(uint32_t timer, enum tim_ic_id ic, enum tim_ic_input in);
+void timer_ic_set_filter(uint32_t timer, enum tim_ic_id ic,
+			 enum tim_ic_filter flt);
+void timer_ic_set_prescaler(uint32_t timer, enum tim_ic_id ic,
+			    enum tim_ic_psc psc);
+void timer_ic_set_input(uint32_t timer, enum tim_ic_id ic,
+			enum tim_ic_input in);
 void timer_ic_enable(uint32_t timer, enum tim_ic_id ic);
 void timer_ic_disable(uint32_t timer, enum tim_ic_id ic);
 

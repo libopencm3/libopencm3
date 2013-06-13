@@ -40,7 +40,8 @@ LGPL License Terms @ref lgpl_license
 #include "usb_private.h"
 
 /* Register application callback function for handling USB control requests. */
-int usbd_register_control_callback(usbd_device *usbd_dev, uint8_t type, uint8_t type_mask,
+int usbd_register_control_callback(usbd_device *usbd_dev, uint8_t type,
+				   uint8_t type_mask,
 				   usbd_control_callback callback)
 {
 	int i;

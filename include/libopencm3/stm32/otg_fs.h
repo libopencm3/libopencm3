@@ -39,8 +39,8 @@
 #define OTG_FS_GCCFG			MMIO32(USB_OTG_FS_BASE + 0x038)
 #define OTG_FS_CID			MMIO32(USB_OTG_FS_BASE + 0x03C)
 #define OTG_FS_HPTXFSIZ			MMIO32(USB_OTG_FS_BASE + 0x100)
-#define OTG_FS_DIEPTXF(x)		MMIO32(USB_OTG_FS_BASE + 0x104 + \
-						4*(x-1))
+#define OTG_FS_DIEPTXF(x)		MMIO32(USB_OTG_FS_BASE + 0x104 \
+					       + 4*(x-1))
 
 /* Host-mode Control and Status Registers */
 #define OTG_FS_HCFG			MMIO32(USB_OTG_FS_BASE + 0x400)
@@ -89,8 +89,9 @@
 #define OTG_FS_PCGCCTL			MMIO32(USB_OTG_FS_BASE + 0xE00)
 
 /* Data FIFO */
-#define OTG_FS_FIFO(x)			((volatile uint32_t*)(USB_OTG_FS_BASE + \
-						(((x) + 1) << 12)))
+#define OTG_FS_FIFO(x) 			((volatile uint32_t*)(USB_OTG_FS_BASE \
+							      + (((x) + 1) \
+								 << 12)))
 
 /* Global CSRs */
 /* OTG_FS USB control registers (OTG_HS_GOTGCTL) */

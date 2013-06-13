@@ -375,7 +375,8 @@ void rcc_set_sysclk_source(uint32_t clk)
 	RCC_CFGR = (reg32 | clk);
 }
 
-void rcc_set_pll_configuration(uint32_t source, uint32_t multiplier, uint32_t divisor)
+void rcc_set_pll_configuration(uint32_t source, uint32_t multiplier,
+			       uint32_t divisor)
 {
 	uint32_t reg32;
 

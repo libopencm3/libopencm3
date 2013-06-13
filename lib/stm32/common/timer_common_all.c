@@ -1444,7 +1444,8 @@ tim_reg_base
 		timers 1 and 8)
 */
 
-void timer_set_oc_idle_state_set(uint32_t timer_peripheral, enum tim_oc_id oc_id)
+void timer_set_oc_idle_state_set(uint32_t timer_peripheral,
+				 enum tim_oc_id oc_id)
 {
 #if (defined(TIM1_BASE) || defined(TIM8_BASE))
 	/* Acting for TIM1 and TIM8 only. */
@@ -1496,7 +1497,8 @@ tim_reg_base
 		timers 1 and 8)
 */
 
-void timer_set_oc_idle_state_unset(uint32_t timer_peripheral, enum tim_oc_id oc_id)
+void timer_set_oc_idle_state_unset(uint32_t timer_peripheral,
+				   enum tim_oc_id oc_id)
 {
 #if (defined(TIM1_BASE) || defined(TIM8_BASE))
 	/* Acting for TIM1 and TIM8 only. */
@@ -1546,7 +1548,8 @@ to the compare register.
 @param[in] value Unsigned int32. Compare value.
 */
 
-void timer_set_oc_value(uint32_t timer_peripheral, enum tim_oc_id oc_id, uint32_t value)
+void timer_set_oc_value(uint32_t timer_peripheral, enum tim_oc_id oc_id,
+			uint32_t value)
 {
 	switch (oc_id) {
 	case TIM_OC1:

@@ -505,8 +505,10 @@ void rcc_set_ppre2(uint32_t ppre2);
 void rcc_set_ppre1(uint32_t ppre1);
 void rcc_set_hpre(uint32_t hpre);
 void rcc_set_rtcpre(uint32_t rtcpre);
-void rcc_set_main_pll_hsi(uint32_t pllm, uint32_t plln, uint32_t pllp, uint32_t pllq);
-void rcc_set_main_pll_hse(uint32_t pllm, uint32_t plln, uint32_t pllp, uint32_t pllq);
+void rcc_set_main_pll_hsi(uint32_t pllm, uint32_t plln, uint32_t pllp,
+			  uint32_t pllq);
+void rcc_set_main_pll_hse(uint32_t pllm, uint32_t plln, uint32_t pllp,
+			  uint32_t pllq);
 uint32_t rcc_system_clock_source(void);
 void rcc_clock_setup_hse_3v3(const clock_scale_t *clock);
 void rcc_backupdomain_reset(void);

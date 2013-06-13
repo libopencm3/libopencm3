@@ -804,7 +804,8 @@ void adc_disable_discontinuous_mode_injected(uint32_t adc);
 void adc_enable_automatic_injected_group_conversion(uint32_t adc);
 void adc_disable_automatic_injected_group_conversion(uint32_t adc);
 void adc_enable_analog_watchdog_on_all_channels(uint32_t adc);
-void adc_enable_analog_watchdog_on_selected_channel(uint32_t adc, uint8_t channel);
+void adc_enable_analog_watchdog_on_selected_channel(uint32_t adc,
+						    uint8_t channel);
 void adc_enable_scan_mode(uint32_t adc);
 void adc_disable_scan_mode(uint32_t adc);
 void adc_enable_eoc_interrupt_injected(uint32_t adc);
@@ -837,8 +838,10 @@ void adc_set_injected_offset(uint32_t adc, uint8_t reg, uint32_t offset);
 
 void adc_set_clk_prescale(uint32_t prescaler);
 void adc_set_multi_mode(uint32_t mode);
-void adc_enable_external_trigger_regular(uint32_t adc, uint32_t trigger, uint32_t polarity);
-void adc_enable_external_trigger_injected(uint32_t adc, uint32_t trigger, uint32_t polarity);
+void adc_enable_external_trigger_regular(uint32_t adc, uint32_t trigger,
+					 uint32_t polarity);
+void adc_enable_external_trigger_injected(uint32_t adc, uint32_t trigger,
+					  uint32_t polarity);
 void adc_set_resolution(uint32_t adc, uint16_t resolution);
 void adc_enable_overrun_interrupt(uint32_t adc);
 void adc_disable_overrun_interrupt(uint32_t adc);

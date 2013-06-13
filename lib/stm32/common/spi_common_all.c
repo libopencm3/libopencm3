@@ -119,7 +119,8 @@ spi_lsbfirst.
 @returns int. Error code.
 */
 
-int spi_init_master(uint32_t spi, uint32_t br, uint32_t cpol, uint32_t cpha, uint32_t dff, uint32_t lsbfirst)
+int spi_init_master(uint32_t spi, uint32_t br, uint32_t cpol, uint32_t cpha,
+		    uint32_t dff, uint32_t lsbfirst)
 {
 	uint32_t reg32 = SPI_CR1(spi);
 

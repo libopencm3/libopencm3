@@ -573,12 +573,14 @@ BEGIN_DECLS
  */
 
 void dma_stream_reset(uint32_t dma, uint8_t stream);
-void dma_clear_interrupt_flags(uint32_t dma, uint8_t stream, uint32_t interrupts);
+void dma_clear_interrupt_flags(uint32_t dma, uint8_t stream,
+			       uint32_t interrupts);
 bool dma_get_interrupt_flag(uint32_t dma, uint8_t stream, uint32_t interrupt);
 void dma_set_transfer_mode(uint32_t dma, uint8_t stream, uint32_t direction);
 void dma_set_priority(uint32_t dma, uint8_t stream, uint32_t prio);
 void dma_set_memory_size(uint32_t dma, uint8_t stream, uint32_t mem_size);
-void dma_set_peripheral_size(uint32_t dma, uint8_t stream, uint32_t peripheral_size);
+void dma_set_peripheral_size(uint32_t dma, uint8_t stream,
+			     uint32_t peripheral_size);
 void dma_enable_memory_increment_mode(uint32_t dma, uint8_t stream);
 void dma_disable_memory_increment_mode(uint32_t dma, uint8_t channel);
 void dma_enable_peripheral_increment_mode(uint32_t dma, uint8_t stream);

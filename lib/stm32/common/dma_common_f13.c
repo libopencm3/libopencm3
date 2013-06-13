@@ -75,7 +75,8 @@ same channel may be cleared by using the logical OR of the interrupt flags.
 dma_if_offset
 */
 
-void dma_clear_interrupt_flags(uint32_t dma, uint8_t channel, uint32_t interrupts)
+void dma_clear_interrupt_flags(uint32_t dma, uint8_t channel,
+			       uint32_t interrupts)
 {
 /* Get offset to interrupt flag location in channel field */
 	uint32_t flags = (interrupts << DMA_FLAG_OFFSET(channel));
@@ -165,7 +166,8 @@ if the peripheral does not support byte or half-word writes.
 dma_ch_perwidth.
 */
 
-void dma_set_peripheral_size(uint32_t dma, uint8_t channel, uint32_t peripheral_size)
+void dma_set_peripheral_size(uint32_t dma, uint8_t channel,
+			     uint32_t peripheral_size)
 {
 	DMA_CCR(dma, channel) &= ~(DMA_CCR_PSIZE_MASK);
 	DMA_CCR(dma, channel) |= peripheral_size;

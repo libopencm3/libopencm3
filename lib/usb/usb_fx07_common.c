@@ -31,15 +31,17 @@
  * according to the selected cores base address. */
 #define dev_base_address (usbd_dev->driver->base_address)
 #define REBASE(x)        MMIO32((x)+(dev_base_address))
-#define REBASE_FIFO(x)   ((volatile uint32_t*)((dev_base_address) + (OTG_FIFO(x))))
+#define REBASE_FIFO(x)   ((volatile uint32_t*)((dev_base_address) \
+			                       + (OTG_FIFO(x))))
 
 void stm32fx07_set_address(usbd_device *usbd_dev, uint8_t addr)
 {
 	REBASE(OTG_DCFG) = (REBASE(OTG_DCFG) & ~OTG_FS_DCFG_DAD) | (addr << 4);
 }
 
-void stm32fx07_ep_setup(usbd_device *usbd_dev, uint8_t addr, uint8_t type, uint16_t max_size,
-			       void (*callback) (usbd_device *usbd_dev, uint8_t ep))
+void stm32fx07_ep_setup(usbd_device *usbd_dev, uint8_t addr, uint8_t type,
+			uint16_t max_size,
+			void (*callback) (usbd_device *usbd_dev, uint8_t ep))
 {
 	/*
 	 * Configure endpoint address and type. Allocate FIFO memory for
@@ -204,7 +206,8 @@ uint16_t stm32fx07_ep_write_packet(usbd_device *usbd_dev, uint8_t addr,
 	return len;
 }
 
-uint16_t stm32fx07_ep_read_packet(usbd_device *usbd_dev, uint8_t addr, void *buf, uint16_t len)
+uint16_t stm32fx07_ep_read_packet(usbd_device *usbd_dev, uint8_t addr,
+				  void *buf, uint16_t len)
 {
 	int i;
 	uint32_t *buf32 = buf;
@@ -294,7 +297,8 @@ void stm32fx07_poll(usbd_device *usbd_dev)
 	for (i = 0; i < 4; i++) { /* Iterate over endpoints. */
 		if (REBASE(OTG_DIEPINT(i)) & OTG_FS_DIEPINTX_XFRC) {
 			/* Transfer complete. */
-			if (usbd_dev->user_callback_ctr[i][USB_TRANSACTION_IN]) {
+			if (usbd_dev->user_callback_ctr[i]
+						       [USB_TRANSACTION_IN]) {
 				usbd_dev->user_callback_ctr[i]
 					[USB_TRANSACTION_IN](usbd_dev, i);
 			}

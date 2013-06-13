@@ -217,8 +217,8 @@ enum gpio_trigger {
 BEGIN_DECLS
 
 void gpio_enable_ahb_aperture(void);
-void gpio_mode_setup(uint32_t gpioport, enum gpio_mode mode, enum gpio_pullup pullup,
-		     uint8_t gpios);
+void gpio_mode_setup(uint32_t gpioport, enum gpio_mode mode,
+		     enum gpio_pullup pullup, uint8_t gpios);
 void gpio_set_output_config(uint32_t gpioport, enum gpio_output_type otype,
 			    enum gpio_drive_strength drive, uint8_t gpios);
 void gpio_set_af(uint32_t gpioport, uint8_t alt_func_num, uint8_t gpios);
@@ -319,7 +319,8 @@ static inline uint8_t gpio_port_read(uint32_t gpioport)
 /**
  * \brief Set level of of all pins from a port (atomic)
  *
- * Set the level of all pins on the given GPIO port. This is an atomic operation.
+ * Set the level of all pins on the given GPIO port. This is an atomic
+ * operation.
  *
  * This is functionally identical to @ref gpio_write (gpioport, GPIO_ALL, data).
  *
@@ -335,7 +336,8 @@ static inline void gpio_port_write(uint32_t gpioport, uint8_t data)
 }
 /** @} */
 
-void gpio_configure_trigger(uint32_t gpioport, enum gpio_trigger trigger, uint8_t gpios);
+void gpio_configure_trigger(uint32_t gpioport, enum gpio_trigger trigger,
+			    uint8_t gpios);
 void gpio_enable_interrupts(uint32_t gpioport, uint8_t gpios);
 void gpio_disable_interrupts(uint32_t gpioport, uint8_t gpios);
 

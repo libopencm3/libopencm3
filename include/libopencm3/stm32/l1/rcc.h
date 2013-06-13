@@ -442,7 +442,8 @@ void rcc_peripheral_disable_clock(volatile uint32_t *reg, uint32_t en);
 void rcc_peripheral_reset(volatile uint32_t *reg, uint32_t reset);
 void rcc_peripheral_clear_reset(volatile uint32_t *reg, uint32_t clear_reset);
 void rcc_set_sysclk_source(uint32_t clk);
-void rcc_set_pll_configuration(uint32_t source, uint32_t multiplier, uint32_t divisor);
+void rcc_set_pll_configuration(uint32_t source, uint32_t multiplier,
+			       uint32_t divisor);
 void rcc_set_pll_source(uint32_t pllsrc);
 void rcc_set_adcpre(uint32_t adcpre);
 void rcc_set_ppre2(uint32_t ppre2);

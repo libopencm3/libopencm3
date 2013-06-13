@@ -6,7 +6,8 @@
 
 @version 1.0.0
 
-@author @htmlonly &copy; @endhtmlonly 2010 Gareth McMullin <gareth@blacksphere.co.nz>
+@author @htmlonly &copy; @endhtmlonly 2010
+Gareth McMullin <gareth@blacksphere.co.nz>
 
 @date 10 March 2013
 
@@ -84,7 +85,8 @@ struct _usbd_device {
 	void (*user_callback_ctr[8][3])(usbd_device *usbd_dev, uint8_t ea);
 
 	/* User callback function for some standard USB function hooks */
-	void (*user_callback_set_config)(usbd_device *usbd_dev, uint16_t wValue);
+	void (*user_callback_set_config)(usbd_device *usbd_dev,
+					 uint16_t wValue);
 
 	const struct _usbd_driver *driver;
 
@@ -137,16 +139,18 @@ void _usbd_reset(usbd_device *usbd_dev);
 struct _usbd_driver {
 	usbd_device *(*init)(void);
 	void (*set_address)(usbd_device *usbd_dev, uint8_t addr);
-	void (*ep_setup)(usbd_device *usbd_dev, uint8_t addr, uint8_t type, uint16_t max_size,
+	void (*ep_setup)(usbd_device *usbd_dev, uint8_t addr, uint8_t type,
+			 uint16_t max_size,
 			 void (*cb)(usbd_device *usbd_dev, uint8_t ep));
 	void (*ep_reset)(usbd_device *usbd_dev);
-	void (*ep_stall_set)(usbd_device *usbd_dev, uint8_t addr, uint8_t stall);
+	void (*ep_stall_set)(usbd_device *usbd_dev, uint8_t addr,
+			     uint8_t stall);
 	void (*ep_nak_set)(usbd_device *usbd_dev, uint8_t addr, uint8_t nak);
 	uint8_t (*ep_stall_get)(usbd_device *usbd_dev, uint8_t addr);
-	uint16_t (*ep_write_packet)(usbd_device *usbd_dev, uint8_t addr, const void *buf,
-			       uint16_t len);
-	uint16_t (*ep_read_packet)(usbd_device *usbd_dev, uint8_t addr, void *buf,
-			      uint16_t len);
+	uint16_t (*ep_write_packet)(usbd_device *usbd_dev, uint8_t addr,
+				    const void *buf, uint16_t len);
+	uint16_t (*ep_read_packet)(usbd_device *usbd_dev, uint8_t addr,
+				   void *buf, uint16_t len);
 	void (*poll)(usbd_device *usbd_dev);
 	void (*disconnect)(usbd_device *usbd_dev, bool disconnected);
 	uint32_t base_address;

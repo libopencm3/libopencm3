@@ -95,7 +95,8 @@ specific memorymap.h header before including this header file.*/
  * Unmask bits [(n-1)..0] of LFSR/Triangle Amplitude equal to (2**n)-1
  */
 #define DAC_CR_MAMP2_SHIFT		24
-/** @defgroup dac_mamp2 DAC Channel 2 LFSR Mask and Triangle Wave Amplitude values
+/** @defgroup dac_mamp2 DAC Channel 2 LFSR Mask and Triangle Wave Amplitude
+values
 @ingroup dac_defines
 
 Unmask bits [(n-1)..0] of LFSR/Triangle Amplitude equal to (2**(n)-1
@@ -207,7 +208,8 @@ Unmask bits [(n-1)..0] of LFSR/Triangle Amplitude equal to (2**(n)-1
  * Unmask bits [(n-1)..0] of LFSR/Triangle Amplitude equal to (2**n)-1
  */
 #define DAC_CR_MAMP1_SHIFT		8
-/** @defgroup dac_mamp1 DAC Channel 1 LFSR Mask and Triangle Wave Amplitude values
+/** @defgroup dac_mamp1 DAC Channel 1 LFSR Mask and Triangle Wave Amplitude
+values
 @ingroup dac_defines
 
 Unmask bits [(n-1)..0] of LFSR/Triangle Amplitude equal to (2**(n+1)-1
@@ -404,8 +406,10 @@ void dac_set_trigger_source(uint32_t dac_trig_src);
 void dac_set_waveform_generation(uint32_t dac_wave_ens);
 void dac_disable_waveform_generation(data_channel dac_channel);
 void dac_set_waveform_characteristics(uint32_t dac_mamp);
-void dac_load_data_buffer_single(uint16_t dac_data, data_align dac_data_format, data_channel dac_channel);
-void dac_load_data_buffer_dual(uint16_t dac_data1, uint16_t dac_data2, data_align dac_data_format);
+void dac_load_data_buffer_single(uint16_t dac_data, data_align dac_data_format,
+				 data_channel dac_channel);
+void dac_load_data_buffer_dual(uint16_t dac_data1, uint16_t dac_data2,
+			       data_align dac_data_format);
 void dac_software_trigger(data_channel dac_channel);
 
 END_DECLS

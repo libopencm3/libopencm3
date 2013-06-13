@@ -605,7 +605,8 @@ and ADC2
 
 /* JL[2:0]: Discontinous mode channel count injected channels. */
 /****************************************************************************/
-/** @defgroup adc_jsqr_jl ADC Number of channels in discontinuous mode fro injected channels.
+/** @defgroup adc_jsqr_jl ADC Number of channels in discontinuous mode fro
+injected channels.
 @ingroup adc_defines
 
 @{*/
@@ -655,7 +656,8 @@ void adc_disable_discontinuous_mode_injected(uint32_t adc);
 void adc_enable_automatic_injected_group_conversion(uint32_t adc);
 void adc_disable_automatic_injected_group_conversion(uint32_t adc);
 void adc_enable_analog_watchdog_on_all_channels(uint32_t adc);
-void adc_enable_analog_watchdog_on_selected_channel(uint32_t adc, uint8_t channel);
+void adc_enable_analog_watchdog_on_selected_channel(uint32_t adc,
+						    uint8_t channel);
 void adc_enable_scan_mode(uint32_t adc);
 void adc_disable_scan_mode(uint32_t adc);
 void adc_enable_eoc_interrupt_injected(uint32_t adc);

@@ -49,7 +49,8 @@ specific memorymap.h header before including this header file.*/
 
 /* ITR1_RMP */
 /****************************************************************************/
-/** @defgroup tim2_opt_trigger_remap TIM2_OR Timer 2 Option Register Internal Trigger 1 Remap
+/** @defgroup tim2_opt_trigger_remap TIM2_OR Timer 2 Option Register Internal
+Trigger 1 Remap
 
 Only available in F2 and F4 series.
 @ingroup timer_defines
@@ -99,7 +100,8 @@ enum tim_ic_pol {
 BEGIN_DECLS
 
 void timer_set_option(uint32_t timer_peripheral, uint32_t option);
-void timer_ic_set_polarity(uint32_t timer, enum tim_ic_id ic, enum tim_ic_pol pol);
+void timer_ic_set_polarity(uint32_t timer, enum tim_ic_id ic,
+			   enum tim_ic_pol pol);
 
 END_DECLS
 

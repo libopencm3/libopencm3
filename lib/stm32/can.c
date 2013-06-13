@@ -99,8 +99,8 @@ Initialize the selected CAN peripheral block.
 @returns int 0 on success, 1 on initialization failure.
 */
 int can_init(uint32_t canport, bool ttcm, bool abom, bool awum, bool nart,
-	     bool rflm, bool txfp, uint32_t sjw, uint32_t ts1, uint32_t ts2, uint32_t brp,
-	     bool loopback, bool silent)
+	     bool rflm, bool txfp, uint32_t sjw, uint32_t ts1, uint32_t ts2,
+	     uint32_t brp, bool loopback, bool silent)
 {
 	volatile uint32_t wait_ack;
 	int ret = 0;
@@ -206,8 +206,9 @@ Initialize incoming message filter and assign to FIFO.
 @param[in] fifo Unsigned int32. FIFO id.
 @param[in] enable bool. Enable filter?
  */
-void can_filter_init(uint32_t canport, uint32_t nr, bool scale_32bit, bool id_list_mode,
-		     uint32_t fr1, uint32_t fr2, uint32_t fifo, bool enable)
+void can_filter_init(uint32_t canport, uint32_t nr, bool scale_32bit,
+		     bool id_list_mode, uint32_t fr1, uint32_t fr2,
+		     uint32_t fifo, bool enable)
 {
 	uint32_t filter_select_bit = 0x00000001 << nr;
 
@@ -266,8 +267,9 @@ void can_filter_init(uint32_t canport, uint32_t nr, bool scale_32bit, bool id_li
 @param[in] fifo Unsigned int32. FIFO id.
 @param[in] enable bool. Enable filter?
  */
-void can_filter_id_mask_16bit_init(uint32_t canport, uint32_t nr, uint16_t id1, uint16_t mask1,
-				   uint16_t id2, uint16_t mask2, uint32_t fifo, bool enable)
+void can_filter_id_mask_16bit_init(uint32_t canport, uint32_t nr, uint16_t id1,
+				   uint16_t mask1, uint16_t id2,
+				   uint16_t mask2, uint32_t fifo, bool enable)
 {
 	can_filter_init(canport, nr, false, false,
 			((uint32_t)id1 << 16) | (uint32_t)mask1,
@@ -284,8 +286,8 @@ void can_filter_id_mask_16bit_init(uint32_t canport, uint32_t nr, uint16_t id1, 
 @param[in] fifo Unsigned int32. FIFO id.
 @param[in] enable bool. Enable filter?
  */
-void can_filter_id_mask_32bit_init(uint32_t canport, uint32_t nr, uint32_t id, uint32_t mask,
-				   uint32_t fifo, bool enable)
+void can_filter_id_mask_32bit_init(uint32_t canport, uint32_t nr, uint32_t id,
+				   uint32_t mask, uint32_t fifo, bool enable)
 {
 	can_filter_init(canport, nr, true, false, id, mask, fifo, enable);
 }
@@ -302,8 +304,10 @@ void can_filter_id_mask_32bit_init(uint32_t canport, uint32_t nr, uint32_t id, u
 @param[in] fifo Unsigned int32. FIFO id.
 @param[in] enable bool. Enable filter?
  */
-void can_filter_id_list_16bit_init(uint32_t canport, uint32_t nr, uint16_t id1, uint16_t id2,
-				   uint16_t id3, uint16_t id4, uint32_t fifo, bool enable)
+void can_filter_id_list_16bit_init(uint32_t canport, uint32_t nr,
+				   uint16_t id1, uint16_t id2,
+				   uint16_t id3, uint16_t id4,
+				   uint32_t fifo, bool enable)
 {
 	can_filter_init(canport, nr, false, true,
 			((uint32_t)id1 << 16) | (uint32_t)id2,
@@ -320,7 +324,8 @@ void can_filter_id_list_16bit_init(uint32_t canport, uint32_t nr, uint16_t id1, 
 @param[in] fifo Unsigned int32. FIFO id.
 @param[in] enable bool. Enable filter?
  */
-void can_filter_id_list_32bit_init(uint32_t canport, uint32_t nr, uint32_t id1, uint32_t id2,
+void can_filter_id_list_32bit_init(uint32_t canport, uint32_t nr,
+				   uint32_t id1, uint32_t id2,
 				   uint32_t fifo, bool enable)
 {
 	can_filter_init(canport, nr, true, true, id1, id2, fifo, enable);
@@ -360,7 +365,8 @@ void can_disable_irq(uint32_t canport, uint32_t irq)
 @returns int 0, 1 or 2 on success and depending on which outgoing mailbox got
 selected. -1 if no mailbox was available and no transmission got queued.
  */
-int can_transmit(uint32_t canport, uint32_t id, bool ext, bool rtr, uint8_t length, uint8_t *data)
+int can_transmit(uint32_t canport, uint32_t id, bool ext, bool rtr,
+		 uint8_t length, uint8_t *data)
 {
 	int ret = 0;
 	uint32_t mailbox = 0;
@@ -473,8 +479,9 @@ void can_fifo_release(uint32_t canport, uint8_t fifo)
 @param[out] length Unsigned int8 pointer. Length of message payload.
 @param[out] data Unsigned int8[]. Message payload data.
  */
-void can_receive(uint32_t canport, uint8_t fifo, bool release, uint32_t *id, bool *ext,
-		 bool *rtr, uint32_t *fmi, uint8_t *length, uint8_t *data)
+void can_receive(uint32_t canport, uint8_t fifo, bool release, uint32_t *id,
+		 bool *ext, bool *rtr, uint32_t *fmi, uint8_t *length,
+		 uint8_t *data)
 {
 	uint32_t fifo_id = 0;
 	union {

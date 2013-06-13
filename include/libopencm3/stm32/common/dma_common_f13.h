@@ -386,12 +386,14 @@ group.
 BEGIN_DECLS
 
 void dma_channel_reset(uint32_t dma, uint8_t channel);
-void dma_clear_interrupt_flags(uint32_t dma, uint8_t channel, uint32_t interrupts);
+void dma_clear_interrupt_flags(uint32_t dma, uint8_t channel,
+			       uint32_t interrupts);
 bool dma_get_interrupt_flag(uint32_t dma, uint8_t channel, uint32_t interrupts);
 void dma_enable_mem2mem_mode(uint32_t dma, uint8_t channel);
 void dma_set_priority(uint32_t dma, uint8_t channel, uint32_t prio);
 void dma_set_memory_size(uint32_t dma, uint8_t channel, uint32_t mem_size);
-void dma_set_peripheral_size(uint32_t dma, uint8_t channel, uint32_t peripheral_size);
+void dma_set_peripheral_size(uint32_t dma, uint8_t channel,
+			     uint32_t peripheral_size);
 void dma_enable_memory_increment_mode(uint32_t dma, uint8_t channel);
 void dma_disable_memory_increment_mode(uint32_t dma, uint8_t channel);
 void dma_enable_peripheral_increment_mode(uint32_t dma, uint8_t channel);
@@ -407,7 +409,8 @@ void dma_enable_transfer_complete_interrupt(uint32_t dma, uint8_t channel);
 void dma_disable_transfer_complete_interrupt(uint32_t dma, uint8_t channel);
 void dma_enable_channel(uint32_t dma, uint8_t channel);
 void dma_disable_channel(uint32_t dma, uint8_t channel);
-void dma_set_peripheral_address(uint32_t dma, uint8_t channel, uint32_t address);
+void dma_set_peripheral_address(uint32_t dma, uint8_t channel,
+				uint32_t address);
 void dma_set_memory_address(uint32_t dma, uint8_t channel, uint32_t address);
 void dma_set_number_of_data(uint32_t dma, uint8_t channel, uint16_t number);
 

@@ -490,7 +490,8 @@ adc_reg_base.
 @param[in] channel Unsigned int8. ADC channel number @ref adc_watchdog_channel.
 */
 
-void adc_enable_analog_watchdog_on_selected_channel(uint32_t adc, uint8_t channel)
+void adc_enable_analog_watchdog_on_selected_channel(uint32_t adc,
+						    uint8_t channel)
 {
 	uint32_t reg32;
 

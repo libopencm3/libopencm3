@@ -377,8 +377,8 @@ int _usbd_standard_request_device(usbd_device *usbd_dev,
 				  struct usb_setup_data *req, uint8_t **buf,
 				  uint16_t *len)
 {
-	int (*command)(usbd_device *usbd_dev, struct usb_setup_data *req, uint8_t
-		       **buf, uint16_t *len) = NULL;
+	int (*command)(usbd_device *usbd_dev, struct usb_setup_data *req,
+		       uint8_t **buf, uint16_t *len) = NULL;
 
 	switch (req->bRequest) {
 	case USB_REQ_CLEAR_FEATURE:
@@ -494,8 +494,8 @@ int _usbd_standard_request_endpoint(usbd_device *usbd_dev,
 	return command(usbd_dev, req, buf, len);
 }
 
-int _usbd_standard_request(usbd_device *usbd_dev,
-			   struct usb_setup_data *req, uint8_t **buf, uint16_t *len)
+int _usbd_standard_request(usbd_device *usbd_dev, struct usb_setup_data *req,
+			   uint8_t **buf, uint16_t *len)
 {
 	/* FIXME: Have class/vendor requests as well. */
 	if ((req->bmRequestType & USB_REQ_TYPE_TYPE) != USB_REQ_TYPE_STANDARD) {

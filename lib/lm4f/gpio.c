@@ -206,8 +206,8 @@ void gpio_enable_ahb_aperture(void)
  * @param[in] gpios @ref gpio_pin_id. Any combination of pins may be specified
  *		    by OR'ing then together
  */
-void gpio_mode_setup(uint32_t gpioport, enum gpio_mode mode, enum gpio_pullup pullup,
-		     uint8_t gpios)
+void gpio_mode_setup(uint32_t gpioport, enum gpio_mode mode,
+		     enum gpio_pullup pullup, uint8_t gpios)
 {
 	switch (mode) {
 	case GPIO_MODE_OUTPUT:
@@ -524,7 +524,8 @@ void gpio_toggle(uint32_t gpioport, uint8_t gpios)
  * @param[in] gpios @ref gpio_pin_id. Any combination of pins may be specified
  *		    by OR'ing then together
  */
-void gpio_configure_trigger(uint32_t gpioport, enum gpio_trigger trigger, uint8_t gpios)
+void gpio_configure_trigger(uint32_t gpioport, enum gpio_trigger trigger,
+			    uint8_t gpios)
 {
 	switch (trigger) {
 	case GPIO_TRIG_LVL_LOW:

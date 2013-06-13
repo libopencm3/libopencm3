@@ -22,7 +22,8 @@
  *
  * @ingroup LM4Fxx
  *
- * @author @htmlonly &copy; @endhtmlonly 2013 Alexandru Gagniuc <mr.nuke.me@gmail.com>
+ * @author @htmlonly &copy; @endhtmlonly 2013
+ * Alexandru Gagniuc <mr.nuke.me@gmail.com>
  *
  * \brief <b>libopencm3 LM4F Universal Serial Bus controller </b>
  *
@@ -183,8 +184,9 @@ static void lm4f_set_address(usbd_device *usbd_dev, uint8_t addr)
 	USB_FADDR = addr & USB_FADDR_FUNCADDR_MASK;
 }
 
-static void lm4f_ep_setup(usbd_device *usbd_dev, uint8_t addr, uint8_t type, uint16_t max_size,
-			void (*callback) (usbd_device *usbd_dev, uint8_t ep))
+static void lm4f_ep_setup(usbd_device *usbd_dev, uint8_t addr, uint8_t type,
+			  uint16_t max_size,
+			  void (*callback) (usbd_device *usbd_dev, uint8_t ep))
 {
 	(void)usbd_dev;
 	(void)type;
@@ -296,7 +298,8 @@ static void lm4f_endpoints_reset(usbd_device *usbd_dev)
 	usbd_dev->fifo_mem_top = 64;
 }
 
-static void lm4f_ep_stall_set(usbd_device *usbd_dev, uint8_t addr, uint8_t stall)
+static void lm4f_ep_stall_set(usbd_device *usbd_dev, uint8_t addr,
+			      uint8_t stall)
 {
 	(void)usbd_dev;
 
@@ -405,8 +408,8 @@ static uint16_t lm4f_ep_write_packet(usbd_device *usbd_dev, uint8_t addr,
 	return i;
 }
 
-static uint16_t lm4f_ep_read_packet(usbd_device *usbd_dev, uint8_t addr, void *buf,
-			       uint16_t len)
+static uint16_t lm4f_ep_read_packet(usbd_device *usbd_dev, uint8_t addr,
+				    void *buf, uint16_t len)
 {
 	(void)usbd_dev;
 

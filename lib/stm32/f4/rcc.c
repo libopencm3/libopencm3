@@ -455,7 +455,8 @@ void rcc_set_rtcpre(uint32_t rtcpre)
 	RCC_CFGR = (reg32 | (rtcpre << 16));
 }
 
-void rcc_set_main_pll_hsi(uint32_t pllm, uint32_t plln, uint32_t pllp, uint32_t pllq)
+void rcc_set_main_pll_hsi(uint32_t pllm, uint32_t plln, uint32_t pllp,
+			  uint32_t pllq)
 {
 	RCC_PLLCFGR = (pllm << RCC_PLLCFGR_PLLM_SHIFT) |
 		(plln << RCC_PLLCFGR_PLLN_SHIFT) |
@@ -463,7 +464,8 @@ void rcc_set_main_pll_hsi(uint32_t pllm, uint32_t plln, uint32_t pllp, uint32_t 
 		(pllq << RCC_PLLCFGR_PLLQ_SHIFT);
 }
 
-void rcc_set_main_pll_hse(uint32_t pllm, uint32_t plln, uint32_t pllp, uint32_t pllq)
+void rcc_set_main_pll_hse(uint32_t pllm, uint32_t plln, uint32_t pllp,
+			  uint32_t pllq)
 {
 	RCC_PLLCFGR = (pllm << RCC_PLLCFGR_PLLM_SHIFT) |
 		(plln << RCC_PLLCFGR_PLLN_SHIFT) |

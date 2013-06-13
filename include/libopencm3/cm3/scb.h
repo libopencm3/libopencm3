@@ -173,7 +173,8 @@
 
 /* Bits [31:30]: reserved - must be kept cleared */
 /* TBLOFF[29:9]: Vector table base offset field */
-#define SCB_VTOR_TBLOFF_LSB			9	/* inconsistent datasheet - LSB could be 11 */
+/* inconsistent datasheet - LSB could be 11 */
+#define SCB_VTOR_TBLOFF_LSB			9
 
 /* --- SCB_AIRCR values ---------------------------------------------------- */
 
