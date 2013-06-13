@@ -40,7 +40,7 @@ Sets up the specified mode - either HASH or HMAC.
 @param[in] mode unsigned int8. Hash processor mode: @ref hash_mode
 */
 
-void hash_set_mode(u8 mode)
+void hash_set_mode(uint8_t mode)
 {
 	HASH_CR &= ~HASH_CR_MODE;
 	HASH_CR |= mode;
@@ -54,7 +54,7 @@ Sets up the specified algorithm - either MD5 or SHA1.
 @param[in] algorithm unsigned int8. Hash algorithm: @ref hash_algorithm
 */
 
-void hash_set_algorithm(u8 algorithm)
+void hash_set_algorithm(uint8_t algorithm)
 {
 	HASH_CR &= ~HASH_CR_ALGO;
 	HASH_CR |= algorithm;
@@ -68,7 +68,7 @@ Sets up the specified data type: 32Bit, 16Bit, 8Bit, Bitstring.
 @param[in] datatype unsigned int8. Hash data type: @ref hash_data_type
 */
 
-void hash_set_data_type(u8 datatype)
+void hash_set_data_type(uint8_t datatype)
 {
 	HASH_CR &= ~HASH_CR_DATATYPE;
 	HASH_CR |= datatype;
@@ -82,7 +82,7 @@ Sets up the specified key length: Long, Short.
 @param[in] keylength unsigned int8. Hash data type: @ref hash_key_length
 */
 
-void hash_set_key_length(u8 keylength)
+void hash_set_key_length(uint8_t keylength)
 {
 	HASH_CR &= ~HASH_CR_LKEY;
 	HASH_CR |= keylength;
@@ -96,7 +96,7 @@ Specifies the number of valid bits in the last word.
 @param[in] validbits unsigned int8. Number of valid bits.
 */
 
-void hash_set_last_word_valid_bits(u8 validbits)
+void hash_set_last_word_valid_bits(uint8_t validbits)
 {
 	HASH_STR &= ~(HASH_STR_NBW);
 	HASH_STR |= 32 - validbits;
@@ -122,7 +122,7 @@ Puts data into the HASH processor's queue.
 @param[in] data unsigned int32. Hash input data.
 */
 
-void hash_add_data(u32 data)
+void hash_add_data(uint32_t data)
 {
 	HASH_DIN = data;
 }
@@ -148,7 +148,7 @@ Makes a copy of the resulting hash.
 @param[in] algorithm unsigned int8. Hash algorithm: @ref hash_algorithm
 */
 
-void hash_get_result(u32 *data)
+void hash_get_result(uint32_t *data)
 {
 	data[0] = HASH_HR[0];
 	data[1] = HASH_HR[1];

@@ -49,7 +49,7 @@ the reset condition. The reset is effected via the RCC peripheral reset system.
 @param[in] i2c Unsigned int32. I2C peripheral identifier @ref i2c_reg_base.
 */
 
-void i2c_reset(u32 i2c)
+void i2c_reset(uint32_t i2c)
 {
 	switch (i2c) {
 	case I2C1:
@@ -69,7 +69,7 @@ void i2c_reset(u32 i2c)
 @param[in] i2c Unsigned int32. I2C register base address @ref i2c_reg_base.
 */
 
-void i2c_peripheral_enable(u32 i2c)
+void i2c_peripheral_enable(uint32_t i2c)
 {
 	I2C_CR1(i2c) |= I2C_CR1_PE;
 }
@@ -83,7 +83,7 @@ In Slave mode, the peripheral is disabled only after communication has ended.
 @param[in] i2c Unsigned int32. I2C register base address @ref i2c_reg_base.
 */
 
-void i2c_peripheral_disable(u32 i2c)
+void i2c_peripheral_disable(uint32_t i2c)
 {
 	I2C_CR1(i2c) &= ~I2C_CR1_PE;
 }
@@ -98,7 +98,7 @@ when the current bus activity is completed.
 @param[in] i2c Unsigned int32. I2C register base address @ref i2c_reg_base.
 */
 
-void i2c_send_start(u32 i2c)
+void i2c_send_start(uint32_t i2c)
 {
 	I2C_CR1(i2c) |= I2C_CR1_START;
 }
@@ -112,7 +112,7 @@ mode, or simply release the bus if in Slave mode.
 @param[in] i2c Unsigned int32. I2C register base address @ref i2c_reg_base.
 */
 
-void i2c_send_stop(u32 i2c)
+void i2c_send_stop(uint32_t i2c)
 {
 	I2C_CR1(i2c) |= I2C_CR1_STOP;
 }
@@ -124,7 +124,7 @@ Clear the "Send Stop" flag in the I2C config register
 
 @param[in] i2c Unsigned int32. I2C register base address @ref i2c_reg_base.
 */
-void i2c_clear_stop(u32 i2c)
+void i2c_clear_stop(uint32_t i2c)
 {
 	I2C_CR1(i2c) &= ~I2C_CR1_STOP;
 }
@@ -138,9 +138,9 @@ This sets an address for Slave mode operation, in 7 bit form.
 @param[in] slave Unsigned int8. Slave address 0...127.
 */
 
-void i2c_set_own_7bit_slave_address(u32 i2c, u8 slave)
+void i2c_set_own_7bit_slave_address(uint32_t i2c, uint8_t slave)
 {
-	I2C_OAR1(i2c) = (u16)(slave << 1);
+	I2C_OAR1(i2c) = (uint16_t)(slave << 1);
 	I2C_OAR1(i2c) &= ~I2C_OAR1_ADDMODE;
 	I2C_OAR1(i2c) |= (1 << 14); /* Datasheet: always keep 1 by software. */
 }
@@ -156,9 +156,9 @@ This sets an address for Slave mode operation, in 10 bit form.
 @param[in] slave Unsigned int16. Slave address 0...1023.
 */
 
-void i2c_set_own_10bit_slave_address(u32 i2c, u16 slave)
+void i2c_set_own_10bit_slave_address(uint32_t i2c, uint16_t slave)
 {
-	I2C_OAR1(i2c) = (u16)(I2C_OAR1_ADDMODE | slave);
+	I2C_OAR1(i2c) = (uint16_t)(I2C_OAR1_ADDMODE | slave);
 }
 
 /*---------------------------------------------------------------------------*/
@@ -170,7 +170,7 @@ clock frequency must be set with @ref i2c_set_clock_frequency
 @param[in] i2c Unsigned int32. I2C register base address @ref i2c_reg_base.
 */
 
-void i2c_set_fast_mode(u32 i2c)
+void i2c_set_fast_mode(uint32_t i2c)
 {
 	I2C_CCR(i2c) |= I2C_CCR_FS;
 }
@@ -184,7 +184,7 @@ actual clock frequency must be set with @ref i2c_set_clock_frequency
 @param[in] i2c Unsigned int32. I2C register base address @ref i2c_reg_base.
 */
 
-void i2c_set_standard_mode(u32 i2c)
+void i2c_set_standard_mode(uint32_t i2c)
 {
 	I2C_CCR(i2c) &= ~I2C_CCR_FS;
 }
@@ -201,9 +201,9 @@ i2c_set_ccr
 @param[in] freq Unsigned int8. Clock Frequency Setting @ref i2c_clock.
 */
 
-void i2c_set_clock_frequency(u32 i2c, u8 freq)
+void i2c_set_clock_frequency(uint32_t i2c, uint8_t freq)
 {
-	u16 reg16;
+	uint16_t reg16;
 	reg16 = I2C_CR2(i2c) & 0xffc0; /* Clear bits [5:0]. */
 	reg16 |= freq;
 	I2C_CR2(i2c) = reg16;
@@ -224,9 +224,9 @@ of the CCR field. It is a divisor of the peripheral clock frequency
 @param[in] freq Unsigned int16. Bus Clock Frequency Setting 0...4095.
 */
 
-void i2c_set_ccr(u32 i2c, u16 freq)
+void i2c_set_ccr(uint32_t i2c, uint16_t freq)
 {
-	u16 reg16;
+	uint16_t reg16;
 	reg16 = I2C_CCR(i2c) & 0xf000; /* Clear bits [11:0]. */
 	reg16 |= freq;
 	I2C_CCR(i2c) = reg16;
@@ -245,7 +245,7 @@ number.
 @param[in] trise Unsigned int16. Rise Time Setting 0...63.
 */
 
-void i2c_set_trise(u32 i2c, u16 trise)
+void i2c_set_trise(uint32_t i2c, uint16_t trise)
 {
 	I2C_TRISE(i2c) = trise;
 }
@@ -259,9 +259,9 @@ void i2c_set_trise(u32 i2c, u16 trise)
 send @ref i2c_rw.
 */
 
-void i2c_send_7bit_address(u32 i2c, u8 slave, u8 readwrite)
+void i2c_send_7bit_address(uint32_t i2c, uint8_t slave, uint8_t readwrite)
 {
-	I2C_DR(i2c) = (u8)((slave << 1) | readwrite);
+	I2C_DR(i2c) = (uint8_t)((slave << 1) | readwrite);
 }
 
 /*---------------------------------------------------------------------------*/
@@ -271,7 +271,7 @@ void i2c_send_7bit_address(u32 i2c, u8 slave, u8 readwrite)
 @param[in] data Unsigned int8. Byte to send.
 */
 
-void i2c_send_data(u32 i2c, u8 data)
+void i2c_send_data(uint32_t i2c, uint8_t data)
 {
 	I2C_DR(i2c) = data;
 }
@@ -281,7 +281,7 @@ void i2c_send_data(u32 i2c, u8 data)
 
 @param[in] i2c Unsigned int32. I2C register base address @ref i2c_reg_base.
 */
-uint8_t i2c_get_data(u32 i2c)
+uint8_t i2c_get_data(uint32_t i2c)
 {
 	return I2C_DR(i2c) & 0xff;
 }
@@ -292,7 +292,7 @@ uint8_t i2c_get_data(u32 i2c)
 @param[in] i2c Unsigned int32. I2C register base address @ref i2c_reg_base.
 @param[in] interrupt Unsigned int32. Interrupt to enable.
 */
-void i2c_enable_interrupt(u32 i2c, u32 interrupt)
+void i2c_enable_interrupt(uint32_t i2c, uint32_t interrupt)
 {
 	I2C_CR2(i2c) |= interrupt;
 }
@@ -303,7 +303,7 @@ void i2c_enable_interrupt(u32 i2c, u32 interrupt)
 @param[in] i2c Unsigned int32. I2C register base address @ref i2c_reg_base.
 @param[in] interrupt Unsigned int32. Interrupt to disable.
 */
-void i2c_disable_interrupt(u32 i2c, u32 interrupt)
+void i2c_disable_interrupt(uint32_t i2c, uint32_t interrupt)
 {
 	I2C_CR2(i2c) &= ~interrupt;
 }
@@ -314,7 +314,7 @@ void i2c_disable_interrupt(u32 i2c, u32 interrupt)
 Enables acking of own 7/10 bit address
 @param[in] i2c Unsigned int32. I2C register base address @ref i2c_reg_base.
 */
-void i2c_enable_ack(u32 i2c)
+void i2c_enable_ack(uint32_t i2c)
 {
 	I2C_CR1(i2c) |= I2C_CR1_ACK;
 }
@@ -325,7 +325,7 @@ void i2c_enable_ack(u32 i2c)
 Disables acking of own 7/10 bit address
 @param[in] i2c Unsigned int32. I2C register base address @ref i2c_reg_base.
 */
-void i2c_disable_ack(u32 i2c)
+void i2c_disable_ack(uint32_t i2c)
 {
 	I2C_CR1(i2c) &= ~I2C_CR1_ACK;
 }
@@ -336,7 +336,7 @@ void i2c_disable_ack(u32 i2c)
 Causes the I2C controller to NACK the reception of the next byte
 @param[in] i2c Unsigned int32. I2C register base address @ref i2c_reg_base.
 */
-void i2c_nack_next(u32 i2c)
+void i2c_nack_next(uint32_t i2c)
 {
 	I2C_CR1(i2c) |= I2C_CR1_POS;
 }
@@ -348,7 +348,7 @@ Causes the I2C controller to NACK the reception of the current byte
 
 @param[in] i2c Unsigned int32. I2C register base address @ref i2c_reg_base.
 */
-void i2c_nack_current(u32 i2c)
+void i2c_nack_current(uint32_t i2c)
 {
 	I2C_CR1(i2c) &= ~I2C_CR1_POS;
 }
@@ -359,7 +359,7 @@ void i2c_nack_current(u32 i2c)
 @param[in] i2c Unsigned int32. I2C register base address @ref i2c_reg_base.
 @param[in] dutycycle Unsigned int32. I2C duty cycle @ref i2c_duty_cycle.
 */
-void i2c_set_dutycycle(u32 i2c, u32 dutycycle)
+void i2c_set_dutycycle(uint32_t i2c, uint32_t dutycycle)
 {
 	if (dutycycle == I2C_CCR_DUTY_DIV2) {
 		I2C_CCR(i2c) &= ~I2C_CCR_DUTY;
@@ -373,7 +373,7 @@ void i2c_set_dutycycle(u32 i2c, u32 dutycycle)
 
 @param[in] i2c Unsigned int32. I2C register base address @ref i2c_reg_base.
 */
-void i2c_enable_dma(u32 i2c)
+void i2c_enable_dma(uint32_t i2c)
 {
 	I2C_CR2(i2c) |= I2C_CR2_DMAEN;
 }
@@ -383,7 +383,7 @@ void i2c_enable_dma(u32 i2c)
 
 @param[in] i2c Unsigned int32. I2C register base address @ref i2c_reg_base.
 */
-void i2c_disable_dma(u32 i2c)
+void i2c_disable_dma(uint32_t i2c)
 {
 	I2C_CR2(i2c) &= ~I2C_CR2_DMAEN;
 }
@@ -393,7 +393,7 @@ void i2c_disable_dma(u32 i2c)
 
 @param[in] i2c Unsigned int32. I2C register base address @ref i2c_reg_base.
 */
-void i2c_set_dma_last_transfer(u32 i2c)
+void i2c_set_dma_last_transfer(uint32_t i2c)
 {
 	I2C_CR2(i2c) |= I2C_CR2_LAST;
 }
@@ -403,7 +403,7 @@ void i2c_set_dma_last_transfer(u32 i2c)
 
 @param[in] i2c Unsigned int32. I2C register base address @ref i2c_reg_base.
 */
-void i2c_clear_dma_last_transfer(u32 i2c)
+void i2c_clear_dma_last_transfer(uint32_t i2c)
 {
 	I2C_CR2(i2c) &= ~I2C_CR2_LAST;
 }

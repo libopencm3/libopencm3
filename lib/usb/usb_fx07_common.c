@@ -31,21 +31,21 @@
  * according to the selected cores base address. */
 #define dev_base_address (usbd_dev->driver->base_address)
 #define REBASE(x)        MMIO32((x)+(dev_base_address))
-#define REBASE_FIFO(x)   ((volatile u32*)((dev_base_address) + (OTG_FIFO(x))))
+#define REBASE_FIFO(x)   ((volatile uint32_t*)((dev_base_address) + (OTG_FIFO(x))))
 
-void stm32fx07_set_address(usbd_device *usbd_dev, u8 addr)
+void stm32fx07_set_address(usbd_device *usbd_dev, uint8_t addr)
 {
 	REBASE(OTG_DCFG) = (REBASE(OTG_DCFG) & ~OTG_FS_DCFG_DAD) | (addr << 4);
 }
 
-void stm32fx07_ep_setup(usbd_device *usbd_dev, u8 addr, u8 type, u16 max_size,
-			       void (*callback) (usbd_device *usbd_dev, u8 ep))
+void stm32fx07_ep_setup(usbd_device *usbd_dev, uint8_t addr, uint8_t type, uint16_t max_size,
+			       void (*callback) (usbd_device *usbd_dev, uint8_t ep))
 {
 	/*
 	 * Configure endpoint address and type. Allocate FIFO memory for
 	 * endpoint. Install callback funciton.
 	 */
-	u8 dir = addr & 0x80;
+	uint8_t dir = addr & 0x80;
 	addr &= 0x7f;
 
 	if (addr == 0) { /* For the default control endpoint */
@@ -120,7 +120,7 @@ void stm32fx07_endpoints_reset(usbd_device *usbd_dev)
 	usbd_dev->fifo_mem_top = usbd_dev->fifo_mem_top_ep0;
 }
 
-void stm32fx07_ep_stall_set(usbd_device *usbd_dev, u8 addr, u8 stall)
+void stm32fx07_ep_stall_set(usbd_device *usbd_dev, uint8_t addr, uint8_t stall)
 {
 	if (addr == 0) {
 		if (stall) {
@@ -149,7 +149,7 @@ void stm32fx07_ep_stall_set(usbd_device *usbd_dev, u8 addr, u8 stall)
 	}
 }
 
-u8 stm32fx07_ep_stall_get(usbd_device *usbd_dev, u8 addr)
+uint8_t stm32fx07_ep_stall_get(usbd_device *usbd_dev, uint8_t addr)
 {
 	/* Return non-zero if STALL set. */
 	if (addr & 0x80) {
@@ -161,7 +161,7 @@ u8 stm32fx07_ep_stall_get(usbd_device *usbd_dev, u8 addr)
 	}
 }
 
-void stm32fx07_ep_nak_set(usbd_device *usbd_dev, u8 addr, u8 nak)
+void stm32fx07_ep_nak_set(usbd_device *usbd_dev, uint8_t addr, uint8_t nak)
 {
 	/* It does not make sence to force NAK on IN endpoints. */
 	if (addr & 0x80) {
@@ -177,10 +177,10 @@ void stm32fx07_ep_nak_set(usbd_device *usbd_dev, u8 addr, u8 nak)
 	}
 }
 
-u16 stm32fx07_ep_write_packet(usbd_device *usbd_dev, u8 addr,
-			      const void *buf, u16 len)
+uint16_t stm32fx07_ep_write_packet(usbd_device *usbd_dev, uint8_t addr,
+			      const void *buf, uint16_t len)
 {
-	const u32 *buf32 = buf;
+	const uint32_t *buf32 = buf;
 	int i;
 
 	addr &= 0x7F;
@@ -194,7 +194,7 @@ u16 stm32fx07_ep_write_packet(usbd_device *usbd_dev, u8 addr,
 	REBASE(OTG_DIEPTSIZ(addr)) = OTG_FS_DIEPSIZ0_PKTCNT | len;
 	REBASE(OTG_DIEPCTL(addr)) |= OTG_FS_DIEPCTL0_EPENA |
 				     OTG_FS_DIEPCTL0_CNAK;
-	volatile u32 *fifo = REBASE_FIFO(addr);
+	volatile uint32_t *fifo = REBASE_FIFO(addr);
 
 	/* Copy buffer to endpoint FIFO, note - memcpy does not work */
 	for (i = len; i > 0; i -= 4) {
@@ -204,16 +204,16 @@ u16 stm32fx07_ep_write_packet(usbd_device *usbd_dev, u8 addr,
 	return len;
 }
 
-u16 stm32fx07_ep_read_packet(usbd_device *usbd_dev, u8 addr, void *buf, u16 len)
+uint16_t stm32fx07_ep_read_packet(usbd_device *usbd_dev, uint8_t addr, void *buf, uint16_t len)
 {
 	int i;
-	u32 *buf32 = buf;
-	u32 extra;
+	uint32_t *buf32 = buf;
+	uint32_t extra;
 
 	len = MIN(len, usbd_dev->rxbcnt);
 	usbd_dev->rxbcnt -= len;
 
-	volatile u32 *fifo = REBASE_FIFO(addr);
+	volatile uint32_t *fifo = REBASE_FIFO(addr);
 	for (i = len; i >= 4; i -= 4) {
 		*buf32++ = *fifo++;
 	}
@@ -234,7 +234,7 @@ u16 stm32fx07_ep_read_packet(usbd_device *usbd_dev, u8 addr, void *buf, u16 len)
 void stm32fx07_poll(usbd_device *usbd_dev)
 {
 	/* Read interrupt status register. */
-	u32 intsts = REBASE(OTG_GINTSTS);
+	uint32_t intsts = REBASE(OTG_GINTSTS);
 	int i;
 
 	if (intsts & OTG_FS_GINTSTS_ENUMDNE) {
@@ -248,15 +248,15 @@ void stm32fx07_poll(usbd_device *usbd_dev)
 	/* Note: RX and TX handled differently in this device. */
 	if (intsts & OTG_FS_GINTSTS_RXFLVL) {
 		/* Receive FIFO non-empty. */
-		u32 rxstsp = REBASE(OTG_GRXSTSP);
-		u32 pktsts = rxstsp & OTG_FS_GRXSTSP_PKTSTS_MASK;
+		uint32_t rxstsp = REBASE(OTG_GRXSTSP);
+		uint32_t pktsts = rxstsp & OTG_FS_GRXSTSP_PKTSTS_MASK;
 		if ((pktsts != OTG_FS_GRXSTSP_PKTSTS_OUT) &&
 		    (pktsts != OTG_FS_GRXSTSP_PKTSTS_SETUP)) {
 			return;
 		}
 
-		u8 ep = rxstsp & OTG_FS_GRXSTSP_EPNUM_MASK;
-		u8 type;
+		uint8_t ep = rxstsp & OTG_FS_GRXSTSP_EPNUM_MASK;
+		uint8_t type;
 		if (pktsts == OTG_FS_GRXSTSP_PKTSTS_SETUP) {
 			type = USB_TRANSACTION_SETUP;
 		} else {

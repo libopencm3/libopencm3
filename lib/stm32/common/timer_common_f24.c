@@ -37,7 +37,7 @@ and similarly for TIM5 for oscillator calibration purposes.
 @ref tim5_opt_trigger_remap.
 */
 
-void timer_set_option(u32 timer_peripheral, u32 option)
+void timer_set_option(uint32_t timer_peripheral, uint32_t option)
 {
 	if (timer_peripheral == TIM2) {
 		TIM_OR(timer_peripheral) &= ~TIM2_OR_ITR1_RMP_MASK;
@@ -58,7 +58,7 @@ The timer channel must be set to input capture mode.
 @param[in] pol ::tim_ic_pol. Input Capture polarity control.
 */
 
-void timer_ic_set_polarity(u32 timer_peripheral, enum tim_ic_id ic,
+void timer_ic_set_polarity(uint32_t timer_peripheral, enum tim_ic_id ic,
 			   enum tim_ic_pol pol)
 {
 	/* Clear CCxP and CCxNP to zero. For both edge trigger both fields are

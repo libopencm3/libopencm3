@@ -83,9 +83,9 @@
 
 /* --- FLASH Keys -----------------------------------------------------------*/
 
-#define FLASH_RDP_KEY				((u16)0x00a5)
-#define FLASH_KEYR_KEY1			((u32)0x45670123)
-#define FLASH_KEYR_KEY2			((u32)0xcdef89ab)
+#define FLASH_RDP_KEY				((uint16_t)0x00a5)
+#define FLASH_KEYR_KEY1			((uint32_t)0x45670123)
+#define FLASH_KEYR_KEY2			((uint32_t)0xcdef89ab)
 
 /* --- Function prototypes ------------------------------------------------- */
 
@@ -95,7 +95,7 @@ void flash_prefetch_buffer_enable(void);
 void flash_prefetch_buffer_disable(void);
 void flash_halfcycle_enable(void);
 void flash_halfcycle_disable(void);
-void flash_set_ws(u32 ws);
+void flash_set_ws(uint32_t ws);
 void flash_unlock(void);
 void flash_lock(void);
 void flash_clear_pgerr_flag(void);
@@ -103,15 +103,15 @@ void flash_clear_eop_flag(void);
 void flash_clear_wrprterr_flag(void);
 void flash_clear_bsy_flag(void);
 void flash_clear_status_flags(void);
-u32 flash_get_status_flags(void);
+uint32_t flash_get_status_flags(void);
 void flash_unlock_option_bytes(void);
 void flash_erase_all_pages(void);
-void flash_erase_page(u32 page_address);
-void flash_program_word(u32 address, u32 data);
-void flash_program_half_word(u32 address, u16 data);
+void flash_erase_page(uint32_t page_address);
+void flash_program_word(uint32_t address, uint32_t data);
+void flash_program_half_word(uint32_t address, uint16_t data);
 void flash_wait_for_last_operation(void);
 void flash_erase_option_bytes(void);
-void flash_program_option_bytes(u32 address, u16 data);
+void flash_program_option_bytes(uint32_t address, uint16_t data);
 
 END_DECLS
 

@@ -81,7 +81,7 @@ void crc_reset(void);
  * @param data new word to add to the crc calculator
  * @return final crc calculator value
  */
-u32 crc_calculate(u32 data);
+uint32_t crc_calculate(uint32_t data);
 
 /**
  * Add a block of data to the CRC calculator and return the final result
@@ -89,7 +89,7 @@ u32 crc_calculate(u32 data);
  * @param size length of data, in 32bit increments
  * @return final CRC calculator value
  */
-u32 crc_calculate_block(u32 *datap, int size);
+uint32_t crc_calculate_block(uint32_t *datap, int size);
 
 END_DECLS
 

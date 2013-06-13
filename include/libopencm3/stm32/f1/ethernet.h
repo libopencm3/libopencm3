@@ -202,8 +202,8 @@
 
 BEGIN_DECLS
 
-void eth_smi_write(u8 phy, u8 reg, u16 data);
-u16 eth_smi_read(u8 phy, u8 reg);
+void eth_smi_write(uint8_t phy, uint8_t reg, uint16_t data);
+uint16_t eth_smi_read(uint8_t phy, uint8_t reg);
 
 END_DECLS
 

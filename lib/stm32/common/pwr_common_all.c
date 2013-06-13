@@ -57,10 +57,10 @@ This provides voltage level threshold detection. The result of detection is
 provided in the power voltage detector output flag (see @ref pwr_voltage_high)
 or by setting the EXTI16 interrupt (see datasheet for configuration details).
 
-@param[in] pvd_level u32. Taken from @ref pwr_pls.
+@param[in] pvd_level uint32_t. Taken from @ref pwr_pls.
 */
 
-void pwr_enable_power_voltage_detect(u32 pvd_level)
+void pwr_enable_power_voltage_detect(uint32_t pvd_level)
 {
 	PWR_CR &= ~PWR_CR_PLS_MASK;
 	PWR_CR |= (PWR_CR_PVDE | pvd_level);

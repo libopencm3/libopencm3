@@ -54,9 +54,9 @@ LGPL License Terms @ref lgpl_license
 #include <libopencm3/stm32/f1/flash.h>
 
 /** Default ppre1 peripheral clock frequency after reset. */
-u32 rcc_ppre1_frequency = 8000000;
+uint32_t rcc_ppre1_frequency = 8000000;
 /** Default ppre2 peripheral clock frequency after reset. */
-u32 rcc_ppre2_frequency = 8000000;
+uint32_t rcc_ppre2_frequency = 8000000;
 
 /*---------------------------------------------------------------------------*/
 /** @brief RCC Clear the Oscillator Ready Interrupt Flag
@@ -435,7 +435,7 @@ if they are controlled by the same register</em>.
 @li If register is RCC_APB2ENR, from @ref rcc_apb2enr_en
 */
 
-void rcc_peripheral_enable_clock(volatile u32 *reg, u32 en)
+void rcc_peripheral_enable_clock(volatile uint32_t *reg, uint32_t en)
 {
 	*reg |= en;
 }
@@ -457,7 +457,7 @@ disabling.
 @li If register is RCC_APB2ENR, from @ref rcc_apb2enr_en
 */
 
-void rcc_peripheral_disable_clock(volatile u32 *reg, u32 en)
+void rcc_peripheral_disable_clock(volatile uint32_t *reg, uint32_t en)
 {
 	*reg &= ~en;
 }
@@ -478,7 +478,7 @@ they are controlled by the same register</em>.
 @li If register is RCC_APB2RSTR, from @ref rcc_apb2rstr_rst
 */
 
-void rcc_peripheral_reset(volatile u32 *reg, u32 reset)
+void rcc_peripheral_reset(volatile uint32_t *reg, uint32_t reset)
 {
 	*reg |= reset;
 }
@@ -499,7 +499,7 @@ simultaneously <em>only if they are controlled by the same register</em>.
 @li If register is RCC_APB2RSTR, from @ref rcc_apb2rstr_rst
 */
 
-void rcc_peripheral_clear_reset(volatile u32 *reg, u32 clear_reset)
+void rcc_peripheral_clear_reset(volatile uint32_t *reg, uint32_t clear_reset)
 {
 	*reg &= ~clear_reset;
 }
@@ -510,9 +510,9 @@ void rcc_peripheral_clear_reset(volatile u32 *reg, u32 clear_reset)
 @param[in] clk Unsigned int32. System Clock Selection @ref rcc_cfgr_scs
 */
 
-void rcc_set_sysclk_source(u32 clk)
+void rcc_set_sysclk_source(uint32_t clk)
 {
-	u32 reg32;
+	uint32_t reg32;
 
 	reg32 = RCC_CFGR;
 	reg32 &= ~((1 << 1) | (1 << 0));
@@ -527,9 +527,9 @@ void rcc_set_sysclk_source(u32 clk)
 @param[in] mul Unsigned int32. PLL multiplication factor @ref rcc_cfgr_pmf
 */
 
-void rcc_set_pll_multiplication_factor(u32 mul)
+void rcc_set_pll_multiplication_factor(uint32_t mul)
 {
-	u32 reg32;
+	uint32_t reg32;
 
 	reg32 = RCC_CFGR;
 	reg32 &= ~((1 << 21) | (1 << 20) | (1 << 19) | (1 << 18));
@@ -544,9 +544,9 @@ void rcc_set_pll_multiplication_factor(u32 mul)
 @param[in] mul Unsigned int32. PLL multiplication factor @ref rcc_cfgr_pmf
 */
 
-void rcc_set_pll2_multiplication_factor(u32 mul)
+void rcc_set_pll2_multiplication_factor(uint32_t mul)
 {
-	u32 reg32;
+	uint32_t reg32;
 
 	reg32 = RCC_CFGR2;
 	reg32 &= ~((1 << 11) | (1 << 10) | (1 << 9) | (1 << 8));
@@ -561,9 +561,9 @@ void rcc_set_pll2_multiplication_factor(u32 mul)
 @param[in] mul Unsigned int32. PLL multiplication factor @ref rcc_cfgr_pmf
 */
 
-void rcc_set_pll3_multiplication_factor(u32 mul)
+void rcc_set_pll3_multiplication_factor(uint32_t mul)
 {
-	u32 reg32;
+	uint32_t reg32;
 
 	reg32 = RCC_CFGR2;
 	reg32 &= ~((1 << 15) | (1 << 14) | (1 << 13) | (1 << 12));
@@ -578,9 +578,9 @@ void rcc_set_pll3_multiplication_factor(u32 mul)
 @param[in] pllsrc Unsigned int32. PLL clock source @ref rcc_cfgr_pcs
 */
 
-void rcc_set_pll_source(u32 pllsrc)
+void rcc_set_pll_source(uint32_t pllsrc)
 {
-	u32 reg32;
+	uint32_t reg32;
 
 	reg32 = RCC_CFGR;
 	reg32 &= ~(1 << 16);
@@ -595,9 +595,9 @@ void rcc_set_pll_source(u32 pllsrc)
 @param[in] pllxtpre Unsigned int32. HSE division factor @ref rcc_cfgr_hsepre
 */
 
-void rcc_set_pllxtpre(u32 pllxtpre)
+void rcc_set_pllxtpre(uint32_t pllxtpre)
 {
-	u32 reg32;
+	uint32_t reg32;
 
 	reg32 = RCC_CFGR;
 	reg32 &= ~(1 << 17);
@@ -609,12 +609,12 @@ void rcc_set_pllxtpre(u32 pllxtpre)
 
 The ADC's have a common clock prescale setting.
 
-@param[in] adcpre u32. Prescale divider taken from @ref rcc_cfgr_adcpre
+@param[in] adcpre uint32_t. Prescale divider taken from @ref rcc_cfgr_adcpre
 */
 
-void rcc_set_adcpre(u32 adcpre)
+void rcc_set_adcpre(uint32_t adcpre)
 {
-	u32 reg32;
+	uint32_t reg32;
 
 	reg32 = RCC_CFGR;
 	reg32 &= ~((1 << 14) | (1 << 15));
@@ -627,9 +627,9 @@ void rcc_set_adcpre(u32 adcpre)
 @param[in] ppre2 Unsigned int32. APB2 prescale factor @ref rcc_cfgr_apb2pre
 */
 
-void rcc_set_ppre2(u32 ppre2)
+void rcc_set_ppre2(uint32_t ppre2)
 {
-	u32 reg32;
+	uint32_t reg32;
 
 	reg32 = RCC_CFGR;
 	reg32 &= ~((1 << 11) | (1 << 12) | (1 << 13));
@@ -644,9 +644,9 @@ void rcc_set_ppre2(u32 ppre2)
 @param[in] ppre1 Unsigned int32. APB1 prescale factor @ref rcc_cfgr_apb1pre
 */
 
-void rcc_set_ppre1(u32 ppre1)
+void rcc_set_ppre1(uint32_t ppre1)
 {
-	u32 reg32;
+	uint32_t reg32;
 
 	reg32 = RCC_CFGR;
 	reg32 &= ~((1 << 8) | (1 << 9) | (1 << 10));
@@ -659,9 +659,9 @@ void rcc_set_ppre1(u32 ppre1)
 @param[in] hpre Unsigned int32. AHB prescale factor @ref rcc_cfgr_ahbpre
 */
 
-void rcc_set_hpre(u32 hpre)
+void rcc_set_hpre(uint32_t hpre)
 {
-	u32 reg32;
+	uint32_t reg32;
 
 	reg32 = RCC_CFGR;
 	reg32 &= ~((1 << 4) | (1 << 5) | (1 << 6) | (1 << 7));
@@ -679,40 +679,40 @@ The prescale factor can be set to 1 (no prescale) for use when the PLL clock is
 @param[in] usbpre Unsigned int32. USB prescale factor @ref rcc_cfgr_usbpre
 */
 
-void rcc_set_usbpre(u32 usbpre)
+void rcc_set_usbpre(uint32_t usbpre)
 {
-	u32 reg32;
+	uint32_t reg32;
 
 	reg32 = RCC_CFGR;
 	reg32 &= ~(1 << 22);
 	RCC_CFGR = (reg32 | (usbpre << 22));
 }
 
-void rcc_set_prediv1(u32 prediv)
+void rcc_set_prediv1(uint32_t prediv)
 {
-	u32 reg32;
+	uint32_t reg32;
 	reg32 = RCC_CFGR2;
 	reg32 &= ~(1 << 3) | (1 << 2) | (1 << 1) | (1 << 0);
 	RCC_CFGR2 |= (reg32 | prediv);
 }
 
-void rcc_set_prediv2(u32 prediv)
+void rcc_set_prediv2(uint32_t prediv)
 {
-	u32 reg32;
+	uint32_t reg32;
 	reg32 = RCC_CFGR2;
 	reg32 &= ~(1 << 7) | (1 << 6) | (1 << 5) | (1 << 4);
 	RCC_CFGR2 |= (reg32 | (prediv << 4));
 }
 
-void rcc_set_prediv1_source(u32 rccsrc)
+void rcc_set_prediv1_source(uint32_t rccsrc)
 {
 	RCC_CFGR2 &= ~(1 << 16);
 	RCC_CFGR2 |= (rccsrc << 16);
 }
 
-void rcc_set_mco(u32 mcosrc)
+void rcc_set_mco(uint32_t mcosrc)
 {
-	u32 reg32;
+	uint32_t reg32;
 	reg32 = RCC_CFGR;
 	reg32 &= ~((1 << 27) | (1 << 26) | (1 << 25) | (1 << 24));
 	RCC_CFGR |= (reg32 | (mcosrc << 24));
@@ -727,7 +727,7 @@ void rcc_set_mco(u32 mcosrc)
 @li 02 indicates PLL
 */
 
-u32 rcc_system_clock_source(void)
+uint32_t rcc_system_clock_source(void)
 {
 	/* Return the clock source which is used as system clock. */
 	return (RCC_CFGR & 0x000c) >> 2;

@@ -145,7 +145,7 @@
 #define OTG_HS_PCGCCTL			MMIO32(USB_OTG_HS_BASE + OTG_PCGCCTL)
 
 /* Data FIFO */
-#define OTG_HS_FIFO(x)			((volatile u32*)(USB_OTG_HS_BASE + \
+#define OTG_HS_FIFO(x)			((volatile uint32_t*)(USB_OTG_HS_BASE + \
 						OTG_FIFO(x)))
 
 /* Global CSRs */

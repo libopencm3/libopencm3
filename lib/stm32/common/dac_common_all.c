@@ -82,7 +82,7 @@ Both DAC channels are enabled, and both triggers are set to the same timer
 	dma_set_memory_size(DMA2,DMA_CHANNEL3,DMA_CCR_MSIZE_16BIT);
 	dma_set_peripheral_size(DMA2,DMA_CHANNEL3,DMA_CCR_PSIZE_16BIT);
 	dma_set_read_from_memory(DMA2,DMA_CHANNEL3);
-	dma_set_peripheral_address(DMA2,DMA_CHANNEL3,(u32) &DAC_DHR8RD);
+	dma_set_peripheral_address(DMA2,DMA_CHANNEL3,(uint32_t) &DAC_DHR8RD);
 	dma_enable_channel(DMA2,DMA_CHANNEL3);
 	...
 	dac_trigger_enable(CHANNEL_D);
@@ -320,12 +320,12 @@ void dac_trigger_disable(data_channel dac_channel)
 Sets the digital to analog converter trigger source, which can be taken from
 various timers, an external trigger or a software trigger.
 
-@param[in] dac_trig_src u32. Taken from @ref dac_trig2_sel or @ref
+@param[in] dac_trig_src uint32_t. Taken from @ref dac_trig2_sel or @ref
 dac_trig1_sel or a logical OR of one of each of these to set both channels
 simultaneously.
 */
 
-void dac_set_trigger_source(u32 dac_trig_src)
+void dac_set_trigger_source(uint32_t dac_trig_src)
 {
 	DAC_CR |= dac_trig_src;
 }
@@ -339,11 +339,11 @@ existing output values in the DAC output registers.
 
 @note The DAC trigger must be enabled for this to work.
 
-@param[in] dac_wave_ens u32. Taken from @ref dac_wave1_en or @ref dac_wave2_en
+@param[in] dac_wave_ens uint32_t. Taken from @ref dac_wave1_en or @ref dac_wave2_en
 or a logical OR of one of each of these to set both channels simultaneously.
 */
 
-void dac_set_waveform_generation(u32 dac_wave_ens)
+void dac_set_waveform_generation(uint32_t dac_wave_ens)
 {
 	DAC_CR |= dac_wave_ens;
 }
@@ -387,11 +387,11 @@ the signal output.
 become read-only.
 @note The DAC trigger must be enabled for this to work.
 
-@param[in] dac_mamp u32. Taken from @ref dac_mamp2 or @ref dac_mamp1 or a
+@param[in] dac_mamp uint32_t. Taken from @ref dac_mamp2 or @ref dac_mamp1 or a
 logical OR of one of each of these to set both channels simultaneously.
 */
 
-void dac_set_waveform_characteristics(u32 dac_mamp)
+void dac_set_waveform_characteristics(uint32_t dac_mamp)
 {
 	DAC_CR |= dac_mamp;
 }
@@ -405,12 +405,12 @@ data to be converted on a channel. The data can be aligned as follows:
 @li right-aligned 12 bit data in bits 0-11
 @li left aligned 12 bit data in bits 4-15
 
-@param[in] dac_data u16 with appropriate alignment.
+@param[in] dac_data uint16_t with appropriate alignment.
 @param[in] dac_data_format enum ::data_align. Alignment and size.
 @param[in] dac_channel enum ::data_channel.
 */
 
-void dac_load_data_buffer_single(u16 dac_data, data_align dac_data_format,
+void dac_load_data_buffer_single(uint16_t dac_data, data_align dac_data_format,
 		data_channel dac_channel)
 {
 	if (dac_channel == CHANNEL_1) {
@@ -448,13 +448,13 @@ Loads the appropriate digital to analog converter dual data register with 12 or
 simultaneous or independent analog output. The data in both channels are aligned
 identically.
 
-@param[in] dac_data1 u16 for channel 1 with appropriate alignment.
-@param[in] dac_data2 u16 for channel 2 with appropriate alignment.
+@param[in] dac_data1 uint16_t for channel 1 with appropriate alignment.
+@param[in] dac_data2 uint16_t for channel 2 with appropriate alignment.
 @param[in] dac_data_format enum ::data_align. Right or left aligned, and 8 or
 12 bit.
 */
 
-void dac_load_data_buffer_dual(u16 dac_data1, u16 dac_data2,
+void dac_load_data_buffer_dual(uint16_t dac_data1, uint16_t dac_data2,
 		data_align dac_data_format)
 {
 	switch (dac_data_format) {

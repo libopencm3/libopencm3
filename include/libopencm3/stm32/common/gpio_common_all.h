@@ -74,13 +74,13 @@ specific memorymap.h header before including this header file.*/
 
 BEGIN_DECLS
 
-void gpio_set(u32 gpioport, u16 gpios);
-void gpio_clear(u32 gpioport, u16 gpios);
-u16 gpio_get(u32 gpioport, u16 gpios);
-void gpio_toggle(u32 gpioport, u16 gpios);
-u16 gpio_port_read(u32 gpioport);
-void gpio_port_write(u32 gpioport, u16 data);
-void gpio_port_config_lock(u32 gpioport, u16 gpios);
+void gpio_set(uint32_t gpioport, uint16_t gpios);
+void gpio_clear(uint32_t gpioport, uint16_t gpios);
+uint16_t gpio_get(uint32_t gpioport, uint16_t gpios);
+void gpio_toggle(uint32_t gpioport, uint16_t gpios);
+uint16_t gpio_port_read(uint32_t gpioport);
+void gpio_port_write(uint32_t gpioport, uint16_t data);
+void gpio_port_config_lock(uint32_t gpioport, uint16_t gpios);
 
 END_DECLS
 

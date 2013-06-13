@@ -153,8 +153,8 @@ BEGIN_DECLS
 
 void i2c0_init(void);
 void i2c0_tx_start(void);
-void i2c0_tx_byte(u8 byte);
-u8 i2c0_rx_byte(void);
+void i2c0_tx_byte(uint8_t byte);
+uint8_t i2c0_rx_byte(void);
 void i2c0_stop(void);
 
 END_DECLS

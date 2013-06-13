@@ -118,15 +118,15 @@ IRQ numbers -3 and -6 to -9 are reserved
 
 BEGIN_DECLS
 
-void nvic_enable_irq(u8 irqn);
-void nvic_disable_irq(u8 irqn);
-u8 nvic_get_pending_irq(u8 irqn);
-void nvic_set_pending_irq(u8 irqn);
-void nvic_clear_pending_irq(u8 irqn);
-u8 nvic_get_active_irq(u8 irqn);
-u8 nvic_get_irq_enabled(u8 irqn);
-void nvic_set_priority(u8 irqn, u8 priority);
-void nvic_generate_software_interrupt(u16 irqn);
+void nvic_enable_irq(uint8_t irqn);
+void nvic_disable_irq(uint8_t irqn);
+uint8_t nvic_get_pending_irq(uint8_t irqn);
+void nvic_set_pending_irq(uint8_t irqn);
+void nvic_clear_pending_irq(uint8_t irqn);
+uint8_t nvic_get_active_irq(uint8_t irqn);
+uint8_t nvic_get_irq_enabled(uint8_t irqn);
+void nvic_set_priority(uint8_t irqn, uint8_t priority);
+void nvic_generate_software_interrupt(uint16_t irqn);
 
 void WEAK reset_handler(void);
 void WEAK nmi_handler(void);

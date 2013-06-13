@@ -366,14 +366,14 @@
 BEGIN_DECLS
 
 struct scb_exception_stack_frame {
-	u32 r0;
-	u32 r1;
-	u32 r2;
-	u32 r3;
-	u32 r12;
-	u32 lr;
-	u32 pc;
-	u32 xpsr;
+	uint32_t r0;
+	uint32_t r1;
+	uint32_t r2;
+	uint32_t r3;
+	uint32_t r12;
+	uint32_t lr;
+	uint32_t pc;
+	uint32_t xpsr;
 } __packed;
 
 #define SCB_GET_EXCEPTION_STACK_FRAME(f)				\
@@ -384,7 +384,7 @@ struct scb_exception_stack_frame {
 
 void scb_reset_core(void) __attribute__((noreturn, naked));
 void scb_reset_system(void) __attribute__((noreturn, naked));
-void scb_set_priority_grouping(u32 prigroup);
+void scb_set_priority_grouping(uint32_t prigroup);
 
 /* TODO: */
 

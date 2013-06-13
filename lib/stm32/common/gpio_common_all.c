@@ -39,7 +39,7 @@ Set one or more pins of the given GPIO port to 1 in an atomic operation.
 	     If multiple pins are to be changed, use logical OR '|' to separate
 	     them.
 */
-void gpio_set(u32 gpioport, u16 gpios)
+void gpio_set(uint32_t gpioport, uint16_t gpios)
 {
 	GPIO_BSRR(gpioport) = gpios;
 }
@@ -54,7 +54,7 @@ Clear one or more pins of the given GPIO port to 0 in an atomic operation.
 	     If multiple pins are to be changed, use logical OR '|' to separate
 	     them.
 */
-void  gpio_clear(u32 gpioport, u16 gpios)
+void  gpio_clear(uint32_t gpioport, uint16_t gpios)
 {
 	GPIO_BSRR(gpioport) = (gpios << 16);
 }
@@ -69,7 +69,7 @@ void  gpio_clear(u32 gpioport, u16 gpios)
 @return Unsigned int16 value of the pin values. The bit position of the pin
 	value returned corresponds to the pin number.
 */
-u16 gpio_get(u32 gpioport, u16 gpios)
+uint16_t gpio_get(uint32_t gpioport, uint16_t gpios)
 {
 	return gpio_port_read(gpioport) & gpios;
 }
@@ -84,7 +84,7 @@ Toggle one or more pins of the given GPIO port. This is not an atomic operation.
 	     If multiple pins are to be changed, use logical OR '|' to separate
 	     them.
 */
-void gpio_toggle(u32 gpioport, u16 gpios)
+void gpio_toggle(uint32_t gpioport, uint16_t gpios)
 {
 	GPIO_ODR(gpioport) ^= gpios;
 }
@@ -98,9 +98,9 @@ valid pin data.
 @param[in] gpioport Unsigned int32. Port identifier @ref gpio_port_id
 @return Unsigned int16. The value held in the specified GPIO port.
 */
-u16 gpio_port_read(u32 gpioport)
+uint16_t gpio_port_read(uint32_t gpioport)
 {
-	return (u16)GPIO_IDR(gpioport);
+	return (uint16_t)GPIO_IDR(gpioport);
 }
 
 /*---------------------------------------------------------------------------*/
@@ -111,7 +111,7 @@ Write a value to the given GPIO port.
 @param[in] gpioport Unsigned int32. Port identifier @ref gpio_port_id
 @param[in] data Unsigned int16. The value to be written to the GPIO port.
 */
-void gpio_port_write(u32 gpioport, u16 data)
+void gpio_port_write(uint32_t gpioport, uint16_t data)
 {
 	GPIO_ODR(gpioport) = data;
 }
@@ -128,9 +128,9 @@ reset.
 	     If multiple pins are to be locked, use logical OR '|' to separate
 	     them.
 */
-void gpio_port_config_lock(u32 gpioport, u16 gpios)
+void gpio_port_config_lock(uint32_t gpioport, uint16_t gpios)
 {
-	u32 reg32;
+	uint32_t reg32;
 
 	/* Special "Lock Key Writing Sequence", see datasheet. */
 	GPIO_LCKR(gpioport) = GPIO_LCKK | gpios;	/* Set LCKK. */

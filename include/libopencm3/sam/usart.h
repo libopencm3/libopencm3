@@ -196,22 +196,22 @@ enum usart_flowcontrol {
 	USART_FLOWCONTROL_RTS_CTS,
 };
 
-void usart_set_baudrate(u32 usart, u32 baud);
-void usart_set_databits(u32 usart, int bits);
-void usart_set_stopbits(u32 usart, enum usart_stopbits);
-void usart_set_parity(u32 usart, enum usart_parity);
-void usart_set_mode(u32 usart, enum usart_mode);
-void usart_set_flow_control(u32 usart, enum usart_flowcontrol);
-void usart_enable(u32 usart);
-void usart_disable(u32 usart);
-void usart_send(u32 usart, u16 data);
-u16 usart_recv(u32 usart);
-void usart_wait_send_ready(u32 usart);
-void usart_wait_recv_ready(u32 usart);
-void usart_send_blocking(u32 usart, u16 data);
-u16 usart_recv_blocking(u32 usart);
-void usart_enable_rx_interrupt(u32 usart);
-void usart_disable_rx_interrupt(u32 usart);
+void usart_set_baudrate(uint32_t usart, uint32_t baud);
+void usart_set_databits(uint32_t usart, int bits);
+void usart_set_stopbits(uint32_t usart, enum usart_stopbits);
+void usart_set_parity(uint32_t usart, enum usart_parity);
+void usart_set_mode(uint32_t usart, enum usart_mode);
+void usart_set_flow_control(uint32_t usart, enum usart_flowcontrol);
+void usart_enable(uint32_t usart);
+void usart_disable(uint32_t usart);
+void usart_send(uint32_t usart, uint16_t data);
+uint16_t usart_recv(uint32_t usart);
+void usart_wait_send_ready(uint32_t usart);
+void usart_wait_recv_ready(uint32_t usart);
+void usart_send_blocking(uint32_t usart, uint16_t data);
+uint16_t usart_recv_blocking(uint32_t usart);
+void usart_enable_rx_interrupt(uint32_t usart);
+void usart_disable_rx_interrupt(uint32_t usart);
 
 #endif
 

@@ -948,10 +948,10 @@ Line Devices only
 
 BEGIN_DECLS
 
-void gpio_set_mode(u32 gpioport, u8 mode, u8 cnf, u16 gpios);
-void gpio_set_eventout(u8 evoutport, u8 evoutpin);
-void gpio_primary_remap(u32 swjenable, u32 maps);
-void gpio_secondary_remap(u32 maps);
+void gpio_set_mode(uint32_t gpioport, uint8_t mode, uint8_t cnf, uint16_t gpios);
+void gpio_set_eventout(uint8_t evoutport, uint8_t evoutpin);
+void gpio_primary_remap(uint32_t swjenable, uint32_t maps);
+void gpio_secondary_remap(uint32_t maps);
 
 END_DECLS
 

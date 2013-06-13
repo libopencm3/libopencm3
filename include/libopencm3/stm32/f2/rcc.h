@@ -450,8 +450,8 @@
 #define RCC_PLLI2SCFGR_PLLI2SN_SHIFT		6
 
 /* --- Variable definitions ------------------------------------------------ */
-extern u32 rcc_ppre1_frequency;
-extern u32 rcc_ppre2_frequency;
+extern uint32_t rcc_ppre1_frequency;
+extern uint32_t rcc_ppre2_frequency;
 
 /* --- Function prototypes ------------------------------------------------- */
 
@@ -495,19 +495,19 @@ void rcc_css_enable(void);
 void rcc_css_disable(void);
 void rcc_osc_bypass_enable(osc_t osc);
 void rcc_osc_bypass_disable(osc_t osc);
-void rcc_peripheral_enable_clock(volatile u32 *reg, u32 en);
-void rcc_peripheral_disable_clock(volatile u32 *reg, u32 en);
-void rcc_peripheral_reset(volatile u32 *reg, u32 reset);
-void rcc_peripheral_clear_reset(volatile u32 *reg, u32 clear_reset);
-void rcc_set_sysclk_source(u32 clk);
-void rcc_set_pll_source(u32 pllsrc);
-void rcc_set_ppre2(u32 ppre2);
-void rcc_set_ppre1(u32 ppre1);
-void rcc_set_hpre(u32 hpre);
-void rcc_set_rtcpre(u32 rtcpre);
-void rcc_set_main_pll_hsi(u32 pllm, u32 plln, u32 pllp, u32 pllq);
-void rcc_set_main_pll_hse(u32 pllm, u32 plln, u32 pllp, u32 pllq);
-u32 rcc_system_clock_source(void);
+void rcc_peripheral_enable_clock(volatile uint32_t *reg, uint32_t en);
+void rcc_peripheral_disable_clock(volatile uint32_t *reg, uint32_t en);
+void rcc_peripheral_reset(volatile uint32_t *reg, uint32_t reset);
+void rcc_peripheral_clear_reset(volatile uint32_t *reg, uint32_t clear_reset);
+void rcc_set_sysclk_source(uint32_t clk);
+void rcc_set_pll_source(uint32_t pllsrc);
+void rcc_set_ppre2(uint32_t ppre2);
+void rcc_set_ppre1(uint32_t ppre1);
+void rcc_set_hpre(uint32_t hpre);
+void rcc_set_rtcpre(uint32_t rtcpre);
+void rcc_set_main_pll_hsi(uint32_t pllm, uint32_t plln, uint32_t pllp, uint32_t pllq);
+void rcc_set_main_pll_hse(uint32_t pllm, uint32_t plln, uint32_t pllp, uint32_t pllq);
+uint32_t rcc_system_clock_source(void);
 void rcc_clock_setup_hse_3v3(const clock_scale_t *clock);
 void rcc_backupdomain_reset(void);
 

@@ -41,9 +41,9 @@ void flash_prefetch_disable(void)
 	FLASH_ACR &= ~FLASH_ACR_PRFTEN;
 }
 
-void flash_set_ws(u32 ws)
+void flash_set_ws(uint32_t ws)
 {
-	u32 reg32;
+	uint32_t reg32;
 
 	reg32 = FLASH_ACR;
 	reg32 &= ~(1 << 0);

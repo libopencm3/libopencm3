@@ -20,7 +20,7 @@
 #include <libopencm3/stm32/exti.h>
 #include <libopencm3/stm32/f1/gpio.h>
 
-void exti_set_trigger(u32 extis, exti_trigger_type trig)
+void exti_set_trigger(uint32_t extis, exti_trigger_type trig)
 {
 	switch (trig) {
 	case EXTI_TRIGGER_RISING:
@@ -38,7 +38,7 @@ void exti_set_trigger(u32 extis, exti_trigger_type trig)
 	}
 }
 
-void exti_enable_request(u32 extis)
+void exti_enable_request(uint32_t extis)
 {
 	/* Enable interrupts. */
 	EXTI_IMR |= extis;
@@ -47,7 +47,7 @@ void exti_enable_request(u32 extis)
 	EXTI_EMR |= extis;
 }
 
-void exti_disable_request(u32 extis)
+void exti_disable_request(uint32_t extis)
 {
 	/* Disable interrupts. */
 	EXTI_IMR &= ~extis;
@@ -60,7 +60,7 @@ void exti_disable_request(u32 extis)
  * Reset the interrupt request by writing a 1 to the corresponding
  * pending bit register.
  */
-void exti_reset_request(u32 extis)
+void exti_reset_request(uint32_t extis)
 {
 	EXTI_PR |= extis;
 }
@@ -68,7 +68,7 @@ void exti_reset_request(u32 extis)
 /*
  * Check the flag of a given EXTI interrupt.
  * */
-u32 exti_get_flag_status(u32 exti)
+uint32_t exti_get_flag_status(uint32_t exti)
 {
 	return EXTI_PR & exti;
 }
@@ -79,9 +79,9 @@ u32 exti_get_flag_status(u32 exti)
  *
  * TODO: This could be rewritten in fewer lines of code.
  */
-void exti_select_source(u32 exti, u32 gpioport)
+void exti_select_source(uint32_t exti, uint32_t gpioport)
 {
-	u8 shift, bits;
+	uint8_t shift, bits;
 
 	shift = bits = 0;
 

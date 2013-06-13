@@ -176,24 +176,24 @@ static inline void lm4f_usb_soft_connect(void)
 	USB_POWER |= USB_POWER_SOFTCONN;
 }
 
-static void lm4f_set_address(usbd_device *usbd_dev, u8 addr)
+static void lm4f_set_address(usbd_device *usbd_dev, uint8_t addr)
 {
 	(void)usbd_dev;
 
 	USB_FADDR = addr & USB_FADDR_FUNCADDR_MASK;
 }
 
-static void lm4f_ep_setup(usbd_device *usbd_dev, u8 addr, u8 type, u16 max_size,
-			void (*callback) (usbd_device *usbd_dev, u8 ep))
+static void lm4f_ep_setup(usbd_device *usbd_dev, uint8_t addr, uint8_t type, uint16_t max_size,
+			void (*callback) (usbd_device *usbd_dev, uint8_t ep))
 {
 	(void)usbd_dev;
 	(void)type;
 
-	u8 reg8;
-	u16 fifo_size;
+	uint8_t reg8;
+	uint16_t fifo_size;
 
 	const bool dir_tx = addr & 0x80;
-	const u8 ep = addr & 0x0f;
+	const uint8_t ep = addr & 0x0f;
 
 	/*
 	 * We do not mess with the maximum packet size, but we can only allocate
@@ -296,11 +296,11 @@ static void lm4f_endpoints_reset(usbd_device *usbd_dev)
 	usbd_dev->fifo_mem_top = 64;
 }
 
-static void lm4f_ep_stall_set(usbd_device *usbd_dev, u8 addr, u8 stall)
+static void lm4f_ep_stall_set(usbd_device *usbd_dev, uint8_t addr, uint8_t stall)
 {
 	(void)usbd_dev;
 
-	const u8 ep = addr & 0x0f;
+	const uint8_t ep = addr & 0x0f;
 	const bool dir_tx = addr & 0x80;
 
 	if (ep == 0) {
@@ -328,11 +328,11 @@ static void lm4f_ep_stall_set(usbd_device *usbd_dev, u8 addr, u8 stall)
 	}
 }
 
-static u8 lm4f_ep_stall_get(usbd_device *usbd_dev, u8 addr)
+static uint8_t lm4f_ep_stall_get(usbd_device *usbd_dev, uint8_t addr)
 {
 	(void)usbd_dev;
 
-	const u8 ep = addr & 0x0f;
+	const uint8_t ep = addr & 0x0f;
 	const bool dir_tx = addr & 0x80;
 
 	if (ep == 0) {
@@ -346,7 +346,7 @@ static u8 lm4f_ep_stall_get(usbd_device *usbd_dev, u8 addr)
 	}
 }
 
-static void lm4f_ep_nak_set(usbd_device *usbd_dev, u8 addr, u8 nak)
+static void lm4f_ep_nak_set(usbd_device *usbd_dev, uint8_t addr, uint8_t nak)
 {
 	(void)usbd_dev;
 	(void)addr;
@@ -355,11 +355,11 @@ static void lm4f_ep_nak_set(usbd_device *usbd_dev, u8 addr, u8 nak)
 	/* NAK's are handled automatically by hardware. Move along. */
 }
 
-static u16 lm4f_ep_write_packet(usbd_device *usbd_dev, u8 addr,
-			      const void *buf, u16 len)
+static uint16_t lm4f_ep_write_packet(usbd_device *usbd_dev, uint8_t addr,
+			      const void *buf, uint16_t len)
 {
-	const u8 ep = addr & 0xf;
-	u16 i;
+	const uint8_t ep = addr & 0xf;
+	uint16_t i;
 
 	(void)usbd_dev;
 
@@ -376,14 +376,14 @@ static u16 lm4f_ep_write_packet(usbd_device *usbd_dev, u8 addr,
 	 * performance, but we don't crash.
 	 */
 	for (i = 0; i < (len & ~0x3); i += 4) {
-		USB_FIFO32(ep) = *((u32 *)(buf + i));
+		USB_FIFO32(ep) = *((uint32_t *)(buf + i));
 	}
 	if (len & 0x2) {
-		USB_FIFO16(ep) = *((u16 *)(buf + i));
+		USB_FIFO16(ep) = *((uint16_t *)(buf + i));
 		i += 2;
 	}
 	if (len & 0x1) {
-		USB_FIFO8(ep)  = *((u8 *)(buf + i));
+		USB_FIFO8(ep)  = *((uint8_t *)(buf + i));
 	}
 
 	if (ep == 0) {
@@ -405,15 +405,15 @@ static u16 lm4f_ep_write_packet(usbd_device *usbd_dev, u8 addr,
 	return i;
 }
 
-static u16 lm4f_ep_read_packet(usbd_device *usbd_dev, u8 addr, void *buf,
-			       u16 len)
+static uint16_t lm4f_ep_read_packet(usbd_device *usbd_dev, uint8_t addr, void *buf,
+			       uint16_t len)
 {
 	(void)usbd_dev;
 
-	u16 rlen;
-	u8 ep = addr & 0xf;
+	uint16_t rlen;
+	uint8_t ep = addr & 0xf;
 
-	u16 fifoin = USB_RXCOUNT(ep);
+	uint16_t fifoin = USB_RXCOUNT(ep);
 
 	rlen = (fifoin > len) ? len : fifoin;
 
@@ -423,14 +423,14 @@ static u16 lm4f_ep_read_packet(usbd_device *usbd_dev, u8 addr, void *buf,
 	 * performance, but we don't crash.
 	 */
 	for (len = 0; len < (rlen & ~0x3); len += 4) {
-		*((u32 *)(buf + len)) = USB_FIFO32(ep);
+		*((uint32_t *)(buf + len)) = USB_FIFO32(ep);
 	}
 	if (rlen & 0x2) {
-		*((u16 *)(buf + len)) = USB_FIFO16(ep);
+		*((uint16_t *)(buf + len)) = USB_FIFO16(ep);
 		len += 2;
 	}
 	if (rlen & 0x1) {
-		*((u8 *)(buf + len)) = USB_FIFO8(ep);
+		*((uint8_t *)(buf + len)) = USB_FIFO8(ep);
 	}
 
 	if (ep == 0) {
@@ -454,8 +454,8 @@ static u16 lm4f_ep_read_packet(usbd_device *usbd_dev, u8 addr, void *buf,
 
 static void lm4f_poll(usbd_device *usbd_dev)
 {
-	void (*tx_cb)(usbd_device *usbd_dev, u8 ea);
-	void (*rx_cb)(usbd_device *usbd_dev, u8 ea);
+	void (*tx_cb)(usbd_device *usbd_dev, uint8_t ea);
+	void (*rx_cb)(usbd_device *usbd_dev, uint8_t ea);
 	int i;
 
 	/*
@@ -463,10 +463,10 @@ static void lm4f_poll(usbd_device *usbd_dev)
 	 * interrupt, but we need the initial state in order to decide how to
 	 * handle events.
 	 */
-	const u8 usb_is = USB_IS;
-	const u8 usb_rxis = USB_RXIS;
-	const u8 usb_txis = USB_TXIS;
-	const u8 usb_csrl0 = USB_CSRL0;
+	const uint8_t usb_is = USB_IS;
+	const uint8_t usb_rxis = USB_RXIS;
+	const uint8_t usb_txis = USB_TXIS;
+	const uint8_t usb_csrl0 = USB_CSRL0;
 
 	if ((usb_is & USB_IM_SUSPEND) && (usbd_dev->user_callback_suspend)) {
 		usbd_dev->user_callback_suspend();

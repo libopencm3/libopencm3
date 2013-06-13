@@ -37,13 +37,13 @@ LGPL License Terms @ref lgpl_license
 
 #include <libopencm3/lm3s/gpio.h>
 
-void gpio_set(u32 gpioport, u8 gpios)
+void gpio_set(uint32_t gpioport, uint8_t gpios)
 {
 	/* ipaddr[9:2] mask the bits to be set, hence the array index */
 	GPIO_DATA(gpioport)[gpios] = 0xff;
 }
 
-void gpio_clear(u32 gpioport, u8 gpios)
+void gpio_clear(uint32_t gpioport, uint8_t gpios)
 {
 	GPIO_DATA(gpioport)[gpios] = 0;
 }

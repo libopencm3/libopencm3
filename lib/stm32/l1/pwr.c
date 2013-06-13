@@ -40,7 +40,7 @@ LGPL License Terms @ref lgpl_license
 void pwr_set_vos_scale(vos_scale_t scale)
 {
 	/* You are not allowed to write zeros here, don't try and optimize! */
-	u32 reg = PWR_CR;
+	uint32_t reg = PWR_CR;
 	reg &= ~(PWR_CR_VOS_MASK);
 	switch (scale) {
 	case RANGE1:

@@ -40,7 +40,7 @@ LGPL License Terms @ref lgpl_license
 #include "usb_private.h"
 
 /* Register application callback function for handling USB control requests. */
-int usbd_register_control_callback(usbd_device *usbd_dev, u8 type, u8 type_mask,
+int usbd_register_control_callback(usbd_device *usbd_dev, uint8_t type, uint8_t type_mask,
 				   usbd_control_callback callback)
 {
 	int i;
@@ -85,10 +85,10 @@ static void usb_control_send_chunk(usbd_device *usbd_dev)
 
 static int usb_control_recv_chunk(usbd_device *usbd_dev)
 {
-	u16 packetsize = MIN(usbd_dev->desc->bMaxPacketSize0,
+	uint16_t packetsize = MIN(usbd_dev->desc->bMaxPacketSize0,
 			usbd_dev->control_state.req.wLength -
 			usbd_dev->control_state.ctrl_len);
-	u16 size = usbd_ep_read_packet(usbd_dev, 0,
+	uint16_t size = usbd_ep_read_packet(usbd_dev, 0,
 				       usbd_dev->control_state.ctrl_buf +
 				       usbd_dev->control_state.ctrl_len,
 				       packetsize);
@@ -177,7 +177,7 @@ static void usb_control_setup_write(usbd_device *usbd_dev,
 /* Do not appear to belong to the API, so are omitted from docs */
 /**@}*/
 
-void _usbd_control_setup(usbd_device *usbd_dev, u8 ea)
+void _usbd_control_setup(usbd_device *usbd_dev, uint8_t ea)
 {
 	struct usb_setup_data *req = &usbd_dev->control_state.req;
 	(void)ea;
@@ -198,7 +198,7 @@ void _usbd_control_setup(usbd_device *usbd_dev, u8 ea)
 	}
 }
 
-void _usbd_control_out(usbd_device *usbd_dev, u8 ea)
+void _usbd_control_out(usbd_device *usbd_dev, uint8_t ea)
 {
 	(void)ea;
 
@@ -244,7 +244,7 @@ void _usbd_control_out(usbd_device *usbd_dev, u8 ea)
 	}
 }
 
-void _usbd_control_in(usbd_device *usbd_dev, u8 ea)
+void _usbd_control_in(usbd_device *usbd_dev, uint8_t ea)
 {
 	(void)ea;
 	struct usb_setup_data *req = &(usbd_dev->control_state.req);

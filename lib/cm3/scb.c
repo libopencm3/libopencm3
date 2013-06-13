@@ -35,7 +35,7 @@ void scb_reset_system(void)
 	while (1);
 }
 
-void scb_set_priority_grouping(u32 prigroup)
+void scb_set_priority_grouping(uint32_t prigroup)
 {
 	SCB_AIRCR = SCB_AIRCR_VECTKEY | prigroup;
 }

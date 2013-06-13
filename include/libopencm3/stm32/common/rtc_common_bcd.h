@@ -330,11 +330,11 @@ specific memorymap.h header before including this header file.*/
 
 BEGIN_DECLS
 
-void rtc_set_prescaler(u32 sync, u32 async);
+void rtc_set_prescaler(uint32_t sync, uint32_t async);
 void rtc_wait_for_synchro(void);
 void rtc_lock(void);
 void rtc_unlock(void);
-void rtc_set_wakeup_time(u16 wkup_time, u8 rtc_cr_wucksel);
+void rtc_set_wakeup_time(uint16_t wkup_time, uint8_t rtc_cr_wucksel);
 void rtc_clear_wakeup_flag(void);
 
 END_DECLS

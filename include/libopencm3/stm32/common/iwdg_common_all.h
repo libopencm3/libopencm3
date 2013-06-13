@@ -106,7 +106,7 @@ specific memorymap.h header before including this header file.*/
 BEGIN_DECLS
 
 void iwdg_start(void);
-void iwdg_set_period_ms(u32 period);
+void iwdg_set_period_ms(uint32_t period);
 bool iwdg_reload_busy(void);
 bool iwdg_prescaler_busy(void);
 void iwdg_reset(void);
