@@ -39,7 +39,7 @@
 BEGIN_DECLS
 
 /**
- * Read the onboard flash size
+ * Read the on board flash size
  * @return flash size in KB
  */
 uint16_t desig_get_flash_size(void);

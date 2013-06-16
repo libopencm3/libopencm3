@@ -39,7 +39,7 @@ specific memorymap.h header before including this header file.*/
 
 /* --- Convenience macros -------------------------------------------------- */
 
-/* I2C register base adresses (for convenience) */
+/* I2C register base addresses (for convenience) */
 /****************************************************************************/
 /** @defgroup i2c_reg_base I2C register base address
 @ingroup i2c_defines
@@ -109,7 +109,7 @@ specific memorymap.h header before including this header file.*/
 /* PEC: Packet error checking */
 #define I2C_CR1_PEC			(1 << 12)
 
-/* POS: Acknowledge / PEC postition */
+/* POS: Acknowledge / PEC position */
 #define I2C_CR1_POS			(1 << 11)
 
 /* ACK: Acknowledge enable */
@@ -342,7 +342,7 @@ specific memorymap.h header before including this header file.*/
  * TRISE[5:0]: Maximum rise time in Fast/Standard mode (master mode)
  */
 
-/* --- I2C const definitions ----------------------------------------------- */
+/* --- I2C constant definitions -------------------------------------------- */
 
 /****************************************************************************/
 /** @defgroup i2c_rw I2C Read/Write bit
@@ -353,7 +353,7 @@ specific memorymap.h header before including this header file.*/
 #define I2C_READ			1
 /**@}*/
 
-/* --- I2C funtion prototypes----------------------------------------------- */
+/* --- I2C function prototypes---------------------------------------------- */
 
 BEGIN_DECLS
 

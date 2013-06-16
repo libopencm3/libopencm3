@@ -155,7 +155,7 @@ LGPL License Terms @ref lgpl_license
 
 /* ADCPRE: ADC prescaler */
 /****************************************************************************/
-/** @defgroup rcc_cfgr_adcpre RCC ADC Clock Prescaler enable values
+/** @defgroup rcc_cfgr_adcpre RCC ADC clock prescaler enable values
 @ingroup STM32F1xx_rcc_defines
 
 @{*/
@@ -166,7 +166,7 @@ LGPL License Terms @ref lgpl_license
 /**@}*/
 
 /* PPRE2: APB high-speed prescaler (APB2) */
-/** @defgroup rcc_cfgr_apb2pre RCC_CFGR APB2 Prescale Factors
+/** @defgroup rcc_cfgr_apb2pre RCC_CFGR APB2 prescale Factors
 @ingroup STM32F1xx_rcc_defines
 
 @{*/
@@ -178,7 +178,7 @@ LGPL License Terms @ref lgpl_license
 /**@}*/
 
 /* PPRE1: APB low-speed prescaler (APB1) */
-/** @defgroup rcc_cfgr_apb1pre RCC_CFGR APB1 Prescale Factors
+/** @defgroup rcc_cfgr_apb1pre RCC_CFGR APB1 prescale Factors
 @ingroup STM32F1xx_rcc_defines
 
 @{*/
@@ -190,7 +190,7 @@ LGPL License Terms @ref lgpl_license
 /**@}*/
 
 /* HPRE: AHB prescaler */
-/** @defgroup rcc_cfgr_ahbpre RCC_CFGR AHB Prescale Factors
+/** @defgroup rcc_cfgr_ahbpre RCC_CFGR AHB prescale Factors
 @ingroup STM32F1xx_rcc_defines
 
 @{*/

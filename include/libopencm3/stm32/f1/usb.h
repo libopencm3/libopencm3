@@ -43,7 +43,7 @@ LGPL License Terms @ref lgpl_license
 
 /* --- USB base addresses -------------------------------------------------- */
 
-/* USB packet buffer memory base addr. */
+/* USB packet buffer memory base address. */
 #define USB_PMA_BASE		0x40006000L
 
 /* --- USB general registers ----------------------------------------------- */
@@ -104,12 +104,12 @@ LGPL License Terms @ref lgpl_license
 #define USB_CLR_ISTR_SOF()	CLR_REG_BIT(USB_ISTR_REG, USB_ISTR_SOF)
 #define USB_CLR_ISTR_ESOF()	CLR_REG_BIT(USB_ISTR_REG, USB_ISTR_ESOF)
 
-/* --- USB device addres register masks / bits ----------------------------- */
+/* --- USB device address register masks / bits ---------------------------- */
 
 #define USB_DADDR_ENABLE	0x0080
 #define USB_DADDR_ADDR		0x007F
 
-/* --- USB device addres register manipulators ----------------------------- */
+/* --- USB device address register manipulators ---------------------------- */
 
 /* --- USB endpoint register offsets --------------------------------------- */
 

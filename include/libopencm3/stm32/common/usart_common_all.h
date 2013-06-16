@@ -235,7 +235,7 @@ specific memorymap.h header before including this header file.*/
 /* LBDL: LIN break detection length */
 #define USART_CR2_LBDL			(1 << 5)
 
-/* ADD[3:0]: Addres of the usart node */
+/* ADD[3:0]: Address of the usart node */
 #define USART_CR2_ADD_MASK              0xF
 
 /* --- USART_CR3 values ---------------------------------------------------- */

@@ -780,33 +780,33 @@ Line Devices only
 /* ADC2_ETRGREG_REMAP: */
 /** 
  * ADC2 external trigger regulator conversion remapping
- * (only low-, medium-, high- and XL-densitiy devices)
+ * (only low-, medium-, high- and XL-density devices)
  */
 #define AFIO_MAPR_ADC2_ETRGREG_REMAP		(1 << 20)
 
 /* ADC2_ETRGINJ_REMAP: */
 /**
  * ADC2 external trigger injected conversion remapping
- * (only low-, medium-, high- and XL-densitiy devices)
+ * (only low-, medium-, high- and XL-density devices)
  */
 #define AFIO_MAPR_ADC2_ETRGINJ_REMAP		(1 << 19)
 
 /* ADC1_ETRGREG_REMAP: */
 /**
  * ADC1 external trigger regulator conversion remapping
- * (only low-, medium-, high- and XL-densitiy devices)
+ * (only low-, medium-, high- and XL-density devices)
  */
 #define AFIO_MAPR_ADC1_ETRGREG_REMAP		(1 << 18)
 
 /* ADC1_ETRGINJ_REMAP: */
 /**
  * ADC1 external trigger injected conversion remapping
- * (only low-, medium-, high- and XL-densitiy devices)
+ * (only low-, medium-, high- and XL-density devices)
  */
 #define AFIO_MAPR_ADC1_ETRGINJ_REMAP		(1 << 17)
 
 /* TIM5CH4_IREMAP: */
-/** TIM5 channel4 internal remap */
+/** TIM5 channel 4 internal remap */
 #define AFIO_MAPR_TIM5CH4_IREMAP		(1 << 16)
 
 /* PD01_REMAP: */

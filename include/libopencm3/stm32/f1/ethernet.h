@@ -137,14 +137,14 @@
 #define ETH_MACFCR_ZQPD			0x00000080
 #define ETH_MACFCR_PT			0xFFFF0000
 
-/* Ethernet MAC interrupt status regster ETH_MACSR bits */
+/* Ethernet MAC interrupt status register ETH_MACSR bits */
 #define ETH_MACSR_PMTS			0x0008
 #define ETH_MACSR_MMCS			0x0010
 #define ETH_MACSR_MMCRS			0x0020
 #define ETH_MACSR_MMCTS			0x0040
 #define ETH_MACSR_TSTS			0x0200
 
-/* Ethernet MAC interrupt mask regster ETH_MACIMR bits */
+/* Ethernet MAC interrupt mask register ETH_MACIMR bits */
 #define ETH_MACIMR_PMTIM		0x0008
 #define ETH_MACIMR_TSTIM		0x0200
 

@@ -45,7 +45,7 @@ specific memorymap.h header before including this header file.*/
 /* RNG ENABLE */
 #define RNG_CR_RNGEN		(1 << 2)
 
-/* RNG interupt enable */
+/* RNG interrupt enable */
 #define RNG_CR_IE			(1 << 3)
 
 /* --- RNG_SR values ------------------------------------------------------- */
@@ -59,10 +59,10 @@ specific memorymap.h header before including this header file.*/
 /* Seed error current status */
 #define RNG_SR_SECS		(1 << 2)
 
-/* Clock error interup status */
+/* Clock error interrupt status */
 #define RNG_SR_CEIS		(1 << 5)
 
-/* Seed error interup status */
+/* Seed error interrupt status */
 #define RNG_SR_SEIS		(1 << 6)
 
 #endif

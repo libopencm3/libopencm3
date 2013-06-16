@@ -448,7 +448,7 @@ and ADC2
 #define ADC_CR2_JEXTSEL_TIM8_CC4	(0x4 << 12)
 /** Timer 5 Trigger Output */
 #define ADC_CR2_JEXTSEL_TIM5_TRGO	(0x5 << 12)
-/** Timer53 Compare Output 4 */
+/** Timer 5 Compare Output 4 */
 #define ADC_CR2_JEXTSEL_TIM5_CC4	(0x6 << 12)
 /** Injected Software Trigger */
 #define ADC_CR2_JEXTSEL_JSWSTART	(0x7 << 12) /* Software start. */
@@ -457,7 +457,7 @@ and ADC2
 #define ADC_CR2_JEXTSEL_MASK		(0x7 << 12)
 #define ADC_CR2_JEXTSEL_SHIFT		12
 
-/* ALIGN: Data alignement. */
+/* ALIGN: Data alignment. */
 #define ADC_CR2_ALIGN_RIGHT             (0 << 11)
 #define ADC_CR2_ALIGN_LEFT              (1 << 11)
 #define ADC_CR2_ALIGN			(1 << 11)
@@ -603,9 +603,9 @@ and ADC2
 #define ADC_JSQR_JSQ2_LSB		5
 #define ADC_JSQR_JSQ1_LSB		0
 
-/* JL[2:0]: Discontinous mode channel count injected channels. */
+/* JL[2:0]: Discontinuous mode channel count injected channels. */
 /****************************************************************************/
-/** @defgroup adc_jsqr_jl ADC Number of channels in discontinuous mode fro
+/** @defgroup adc_jsqr_jl ADC Number of channels in discontinuous mode from
 injected channels.
 @ingroup adc_defines
 

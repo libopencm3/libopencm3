@@ -330,7 +330,7 @@
 #define OTG_FS_DOEPINTX_EPDISD		(1 << 1)
 #define OTG_FS_DOEPINTX_XFRC		(1 << 0)
 
-/* OTG_FS Device OUT Endpoint 0 Transfer Size Regsiter (OTG_FS_DOEPTSIZ0) */
+/* OTG_FS Device OUT Endpoint 0 Transfer Size Register (OTG_FS_DOEPTSIZ0) */
 /* Bit 31 - Reserved */
 #define OTG_FS_DIEPSIZ0_STUPCNT_1	(0x1 << 29)
 #define OTG_FS_DIEPSIZ0_STUPCNT_2	(0x2 << 29)

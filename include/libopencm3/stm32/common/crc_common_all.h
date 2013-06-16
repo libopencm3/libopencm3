@@ -77,9 +77,9 @@ BEGIN_DECLS
 void crc_reset(void);
 
 /**
- * Add a word to the crc calculator and return the result.
- * @param data new word to add to the crc calculator
- * @return final crc calculator value
+ * Add a word to the CRC calculator and return the result.
+ * @param data new word to add to the CRC calculator
+ * @return final CRC calculator value
  */
 uint32_t crc_calculate(uint32_t data);
 

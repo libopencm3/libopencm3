@@ -70,7 +70,7 @@ specific memorymap.h header before including this header file.*/
 
 /* PR[2:0]: Prescaler divider */
 #define IWDG_PR_LSB			0
-/** @defgroup iwdg_prediv IWDG Prescaler divider
+/** @defgroup iwdg_prediv IWDG prescaler divider
 @ingroup STM32F_iwdg_defines
 
 @{*/

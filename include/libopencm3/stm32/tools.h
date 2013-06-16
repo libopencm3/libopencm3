@@ -45,8 +45,8 @@
  *
  * This means that we look at the bits in the bit window designated by
  * the mask. If the bit in the masked window is not matching the
- * bitmask BIT then we write 1 and if the bit in the masked window is
- * matching the bitmask BIT we write 0.
+ * bit mask BIT then we write 1 and if the bit in the masked window is
+ * matching the bit mask BIT we write 0.
  *
  * TODO: We may need a faster implementation of that one?
  */

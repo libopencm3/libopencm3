@@ -41,7 +41,7 @@ LGPL License Terms @ref lgpl_license
 
 /* --- Convenience macros -------------------------------------------------- */
 
-/* CAN register base adresses (for convenience) */
+/* CAN register base addresses (for convenience) */
 /*****************************************************************************/
 /** @defgroup can_reg_base CAN register base address
 @ingroup can_defines

@@ -248,7 +248,7 @@ specific memorymap.h header before including this header file.*/
 /* --- GPIOx_AFRL/H values ------------------------------------------------- */
 
 /* Note: AFRL is used for bits 0..7, AFRH is used for 8..15 */
-/* See Datasheet Table 6 (pg. 48) for alternate function mappings. */
+/* See datasheet table 6 (pg. 48) for alternate function mappings. */
 
 #define GPIO_AFR(n, af)			(af << ((n) * 4))
 #define GPIO_AFR_MASK(n)		(0xf << ((n) * 4))

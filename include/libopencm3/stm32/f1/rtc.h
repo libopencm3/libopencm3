@@ -32,7 +32,7 @@ LGPL License Terms @ref lgpl_license
  */
 
 /*
- * The F1 RTC is a straight timestamp, a completely different peripheral to
+ * The F1 RTC is a straight time stamp, a completely different peripheral to
  * that found in the F2, F3, F4, L1 and F0.
  */
 

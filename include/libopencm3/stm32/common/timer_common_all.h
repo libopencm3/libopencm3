@@ -40,7 +40,7 @@ specific memorymap.h header before including this header file.*/
 
 /* --- Convenience macros -------------------------------------------------- */
 
-/* Timer register base adresses (for convenience) */
+/* Timer register base addresses (for convenience) */
 /****************************************************************************/
 /** @defgroup tim_reg_base Timer register base addresses
 @ingroup timer_defines
