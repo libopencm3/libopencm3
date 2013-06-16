@@ -50,6 +50,7 @@ specific memorymap.h header before including this header file.*/
 /**@}*/
 #define UART4				UART4_BASE
 #define UART5				UART5_BASE
+#define USART6				USART6_BASE
 
 /* --- USART registers ----------------------------------------------------- */
 
@@ -60,6 +61,7 @@ specific memorymap.h header before including this header file.*/
 #define USART3_SR			USART_SR(USART3_BASE)
 #define UART4_SR			USART_SR(UART4_BASE)
 #define UART5_SR			USART_SR(UART5_BASE)
+#define USART6_SR			USART_SR(USART6_BASE)
 
 /* Data register (USARTx_DR) */
 #define USART_DR(usart_base)		MMIO32(usart_base + 0x04)
@@ -68,6 +70,7 @@ specific memorymap.h header before including this header file.*/
 #define USART3_DR			USART_DR(USART3_BASE)
 #define UART4_DR			USART_DR(UART4_BASE)
 #define UART5_DR			USART_DR(UART5_BASE)
+#define USART6_DR			USART_DR(USART6_BASE)
 
 /* Baud rate register (USARTx_BRR) */
 #define USART_BRR(usart_base)		MMIO32(usart_base + 0x08)
@@ -76,6 +79,7 @@ specific memorymap.h header before including this header file.*/
 #define USART3_BRR			USART_BRR(USART3_BASE)
 #define UART4_BRR			USART_BRR(UART4_BASE)
 #define UART5_BRR			USART_BRR(UART5_BASE)
+#define USART6_BRR			USART_BRR(USART6_BASE)
 
 /* Control register 1 (USARTx_CR1) */
 #define USART_CR1(usart_base)		MMIO32(usart_base + 0x0c)
@@ -84,6 +88,7 @@ specific memorymap.h header before including this header file.*/
 #define USART3_CR1			USART_CR1(USART3_BASE)
 #define UART4_CR1			USART_CR1(UART4_BASE)
 #define UART5_CR1			USART_CR1(UART5_BASE)
+#define USART6_CR1			USART_CR1(USART6_BASE)
 
 /* Control register 2 (USARTx_CR2) */
 #define USART_CR2(usart_base)		MMIO32(usart_base + 0x10)
@@ -92,6 +97,7 @@ specific memorymap.h header before including this header file.*/
 #define USART3_CR2			USART_CR2(USART3_BASE)
 #define UART4_CR2			USART_CR2(UART4_BASE)
 #define UART5_CR2			USART_CR2(UART5_BASE)
+#define USART6_CR2			USART_CR2(USART6_BASE)
 
 /* Control register 3 (USARTx_CR3) */
 #define USART_CR3(usart_base)		MMIO32(usart_base + 0x14)
@@ -100,6 +106,7 @@ specific memorymap.h header before including this header file.*/
 #define USART3_CR3			USART_CR3(USART3_BASE)
 #define UART4_CR3			USART_CR3(UART4_BASE)
 #define UART5_CR3			USART_CR3(UART5_BASE)
+#define USART6_CR3			USART_CR3(USART6_BASE)
 
 /* Guard time and prescaler register (USARTx_GTPR) */
 #define USART_GTPR(usart_base)		MMIO32(usart_base + 0x18)
@@ -108,6 +115,7 @@ specific memorymap.h header before including this header file.*/
 #define USART3_GTPR			USART_GTPR(USART3_BASE)
 #define UART4_GTPR			USART_GTPR(UART4_BASE)
 #define UART5_GTPR			USART_GTPR(UART5_BASE)
+#define USART6_GTPR			USART_GTPR(USART6_BASE)
 
 /* --- USART_SR values ----------------------------------------------------- */
 /****************************************************************************/
