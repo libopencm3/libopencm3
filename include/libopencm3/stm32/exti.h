@@ -66,12 +66,12 @@ typedef enum trigger_e {
 
 BEGIN_DECLS
 
-void exti_set_trigger(u32 extis, exti_trigger_type trig);
-void exti_enable_request(u32 extis);
-void exti_disable_request(u32 extis);
-void exti_reset_request(u32 extis);
-void exti_select_source(u32 exti, u32 gpioport);
-u32 exti_get_flag_status(u32 exti);
+void exti_set_trigger(uint32_t extis, exti_trigger_type trig);
+void exti_enable_request(uint32_t extis);
+void exti_disable_request(uint32_t extis);
+void exti_reset_request(uint32_t extis);
+void exti_select_source(uint32_t exti, uint32_t gpioport);
+uint32_t exti_get_flag_status(uint32_t exti);
 
 END_DECLS
 

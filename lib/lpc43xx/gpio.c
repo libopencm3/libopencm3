@@ -34,17 +34,17 @@ LGPL License Terms @ref lgpl_license
 
 #include <libopencm3/lpc43xx/gpio.h>
 
-void gpio_set(u32 gpioport, u32 gpios)
+void gpio_set(uint32_t gpioport, uint32_t gpios)
 {
 	GPIO_SET(gpioport) = gpios;
 }
 
-void gpio_clear(u32 gpioport, u32 gpios)
+void gpio_clear(uint32_t gpioport, uint32_t gpios)
 {
 	GPIO_CLR(gpioport) = gpios;
 }
 
-void gpio_toggle(u32 gpioport, u32 gpios)
+void gpio_toggle(uint32_t gpioport, uint32_t gpios)
 {
 	GPIO_NOT(gpioport) = gpios;
 }

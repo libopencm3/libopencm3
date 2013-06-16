@@ -6,7 +6,8 @@
 
 @version 1.0.0
 
-@author @htmlonly &copy; @endhtmlonly 2009 Piotr Esden-Tempski <piotr@esden.net>
+@author @htmlonly &copy; @endhtmlonly 2009
+Piotr Esden-Tempski <piotr@esden.net>
 
 @date 11 March 2013
 
@@ -42,23 +43,23 @@ LGPL License Terms @ref lgpl_license
 
 /* --- USB base addresses -------------------------------------------------- */
 
-/* USB packet buffer memory base addr. */
+/* USB packet buffer memory base address. */
 #define USB_PMA_BASE		0x40006000L
 
 /* --- USB general registers ----------------------------------------------- */
 
 /* USB Control register */
-#define USB_CNTR_REG		((volatile u32 *)(USB_DEV_FS_BASE + 0x40))
+#define USB_CNTR_REG		(&MMIO32(USB_DEV_FS_BASE + 0x40))
 /* USB Interrupt status register */
-#define USB_ISTR_REG		((volatile u32 *)(USB_DEV_FS_BASE + 0x44))
+#define USB_ISTR_REG		(&MMIO32(USB_DEV_FS_BASE + 0x44))
 /* USB Frame number register */
-#define USB_FNR_REG		((volatile u32 *)(USB_DEV_FS_BASE + 0x48))
+#define USB_FNR_REG		(&MMIO32(USB_DEV_FS_BASE + 0x48))
 /* USB Device address register */
-#define USB_DADDR_REG		((volatile u32 *)(USB_DEV_FS_BASE + 0x4C))
+#define USB_DADDR_REG		(&MMIO32(USB_DEV_FS_BASE + 0x4C))
 /* USB Buffer table address register */
-#define USB_BTABLE_REG		((volatile u32 *)(USB_DEV_FS_BASE + 0x50))
+#define USB_BTABLE_REG		(&MMIO32(USB_DEV_FS_BASE + 0x50))
 /* USB EP register */
-#define USB_EP_REG(EP)		((volatile u32 *)(USB_DEV_FS_BASE) + (EP))
+#define USB_EP_REG(EP)		(&MMIO32(USB_DEV_FS_BASE) + (EP))
 
 /* --- USB control register masks / bits ----------------------------------- */
 
@@ -103,12 +104,12 @@ LGPL License Terms @ref lgpl_license
 #define USB_CLR_ISTR_SOF()	CLR_REG_BIT(USB_ISTR_REG, USB_ISTR_SOF)
 #define USB_CLR_ISTR_ESOF()	CLR_REG_BIT(USB_ISTR_REG, USB_ISTR_ESOF)
 
-/* --- USB device addres register masks / bits ----------------------------- */
+/* --- USB device address register masks / bits ---------------------------- */
 
 #define USB_DADDR_ENABLE	0x0080
 #define USB_DADDR_ADDR		0x007F
 
-/* --- USB device addres register manipulators ----------------------------- */
+/* --- USB device address register manipulators ---------------------------- */
 
 /* --- USB endpoint register offsets --------------------------------------- */
 
@@ -131,9 +132,9 @@ LGPL License Terms @ref lgpl_license
 #define USB_EP_SETUP		0x0800 /* Setup transaction completed */
 #define USB_EP_TYPE		0x0600 /* Endpoint type */
 #define USB_EP_KIND		0x0100 /* Endpoint kind.
-                               * When set and type=bulk    -> double buffer
-                               * When set and type=control -> status out
-                               */
+				* When set and type=bulk    -> double buffer
+				* When set and type=control -> status out
+				*/
 
 #define USB_EP_TX_CTR		0x0080 /* Correct transfer TX */
 #define USB_EP_TX_DTOG		0x0040 /* Data toggle TX */
@@ -244,16 +245,16 @@ LGPL License Terms @ref lgpl_license
 #define USB_GET_BTABLE		GET_REG(USB_BTABLE_REG)
 
 #define USB_EP_TX_ADDR(EP) \
-	((u32 *)(USB_PMA_BASE + (USB_GET_BTABLE + EP * 8 + 0) * 2))
+	((uint32_t *)(USB_PMA_BASE + (USB_GET_BTABLE + EP * 8 + 0) * 2))
 
 #define USB_EP_TX_COUNT(EP) \
-	((u32 *)(USB_PMA_BASE + (USB_GET_BTABLE + EP * 8 + 2) * 2))
+	((uint32_t *)(USB_PMA_BASE + (USB_GET_BTABLE + EP * 8 + 2) * 2))
 
 #define USB_EP_RX_ADDR(EP) \
-	((u32 *)(USB_PMA_BASE + (USB_GET_BTABLE + EP * 8 + 4) * 2))
+	((uint32_t *)(USB_PMA_BASE + (USB_GET_BTABLE + EP * 8 + 4) * 2))
 
 #define USB_EP_RX_COUNT(EP) \
-	((u32 *)(USB_PMA_BASE + (USB_GET_BTABLE + EP * 8 + 6) * 2))
+	((uint32_t *)(USB_PMA_BASE + (USB_GET_BTABLE + EP * 8 + 6) * 2))
 
 /* --- USB BTABLE manipulators --------------------------------------------- */
 
@@ -267,10 +268,10 @@ LGPL License Terms @ref lgpl_license
 #define USB_SET_EP_RX_COUNT(EP, COUNT)	SET_REG(USB_EP_RX_COUNT(EP), COUNT)
 
 #define USB_GET_EP_TX_BUFF(EP) \
-	(USB_PMA_BASE + (u8 *)(USB_GET_EP_TX_ADDR(EP) * 2))
+	(USB_PMA_BASE + (uint8_t *)(USB_GET_EP_TX_ADDR(EP) * 2))
 
 #define USB_GET_EP_RX_BUFF(EP) \
-	(USB_PMA_BASE + (u8 *)(USB_GET_EP_RX_ADDR(EP) * 2))
+	(USB_PMA_BASE + (uint8_t *)(USB_GET_EP_RX_ADDR(EP) * 2))
 
 #endif
 

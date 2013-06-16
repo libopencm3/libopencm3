@@ -150,8 +150,8 @@ LGPL License Terms @ref lgpl_license
 
 BEGIN_DECLS
 
-void gpio_set(u32 gpioport, u32 gpios);
-void gpio_clear(u32 gpioport, u32 gpios); 
+void gpio_set(uint32_t gpioport, uint32_t gpios);
+void gpio_clear(uint32_t gpioport, uint32_t gpios);
 
 END_DECLS
 

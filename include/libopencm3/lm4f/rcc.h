@@ -6,7 +6,8 @@
 
 @version 1.0.0
 
-@author @htmlonly &copy; @endhtmlonly 2012 Alexandru Gagniuc <mr.nuke.me@gmail.com>
+@author @htmlonly &copy; @endhtmlonly 2012
+Alexandru Gagniuc <mr.nuke.me@gmail.com>
 
 @date 10 March 2013
 
@@ -115,15 +116,15 @@ void rcc_pll_on(void);
 void rcc_set_osc_source(osc_src_t src);
 void rcc_pll_bypass_disable(void);
 void rcc_pll_bypass_enable(void);
-void rcc_set_pll_divisor(u8 div400);
+void rcc_set_pll_divisor(uint8_t div400);
 void rcc_set_pwm_divisor(pwm_clkdiv_t div);
 void rcc_usb_pll_off(void);
 void rcc_usb_pll_on(void);
 void rcc_wait_for_pll_ready(void);
 /* High-level clock API */
-void rcc_change_pll_divisor(u8 plldiv400);
-u32 rcc_get_system_clock_frequency(void);
-void rcc_sysclk_config(osc_src_t src, xtal_t xtal, u8 pll_div400);
+void rcc_change_pll_divisor(uint8_t plldiv400);
+uint32_t rcc_get_system_clock_frequency(void);
+void rcc_sysclk_config(osc_src_t src, xtal_t xtal, uint8_t pll_div400);
 
 END_DECLS
 

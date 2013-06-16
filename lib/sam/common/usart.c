@@ -20,89 +20,89 @@
 #include <libopencm3/sam/usart.h>
 #include <libopencm3/sam/pmc.h>
 
-void usart_set_baudrate(u32 usart, u32 baud)
+void usart_set_baudrate(uint32_t usart, uint32_t baud)
 {
 	USART_BRGR(usart) = pmc_mck_frequency / (16 * baud);
 }
 
-void usart_set_databits(u32 usart, int bits)
+void usart_set_databits(uint32_t usart, int bits)
 {
 	USART_MR(usart) = (USART_MR(usart) & ~USART_MR_CHRL_MASK) |
-			((bits - 5) << 6);
+			  ((bits - 5) << 6);
 }
 
-void usart_set_stopbits(u32 usart, enum usart_stopbits sb)
+void usart_set_stopbits(uint32_t usart, enum usart_stopbits sb)
 {
 	USART_MR(usart) = (USART_MR(usart) & ~USART_MR_NBSTOP_MASK) |
-			(sb << 12);
+			  (sb << 12);
 }
 
-void usart_set_parity(u32 usart, enum usart_parity par)
+void usart_set_parity(uint32_t usart, enum usart_parity par)
 {
 	USART_MR(usart) = (USART_MR(usart) & ~USART_MR_PAR_MASK) | (par << 9);
 }
 
-void usart_set_mode(u32 usart, enum usart_mode mode)
+void usart_set_mode(uint32_t usart, enum usart_mode mode)
 {
 	USART_CR(usart) =
 		(mode & USART_MODE_RX) ? USART_CR_RXEN : USART_CR_RXDIS;
-	USART_CR(usart) =
-		(mode & USART_MODE_TX) ? USART_CR_TXEN : USART_CR_TXDIS;
+	USART_CR(usart) = (mode & USART_MODE_TX) ? USART_CR_TXEN
+						 : USART_CR_TXDIS;
 }
 
-void usart_set_flow_control(u32 usart, enum usart_flowcontrol fc)
+void usart_set_flow_control(uint32_t usart, enum usart_flowcontrol fc)
 {
 	USART_MR(usart) = (USART_MR(usart) & ~USART_MR_MODE_MASK) |
-			(fc ? USART_MR_MODE_HW_HANDSHAKING : 0);
+			  (fc ? USART_MR_MODE_HW_HANDSHAKING : 0);
 }
 
-void usart_enable(u32 usart)
+void usart_enable(uint32_t usart)
 {
 }
 
-void usart_disable(u32 usart)
+void usart_disable(uint32_t usart)
 {
 }
 
-void usart_send(u32 usart, u16 data)
+void usart_send(uint32_t usart, uint16_t data)
 {
 	USART_THR(usart) = data;
 }
 
-u16 usart_recv(u32 usart)
+uint16_t usart_recv(uint32_t usart)
 {
 	return USART_RHR(usart) & 0x1f;
 }
 
-void usart_wait_send_ready(u32 usart)
+void usart_wait_send_ready(uint32_t usart)
 {
 	while ((USART_CSR(usart) & USART_CSR_TXRDY) == 0);
 }
 
-void usart_wait_recv_ready(u32 usart)
+void usart_wait_recv_ready(uint32_t usart)
 {
 	while ((USART_CSR(usart) & USART_CSR_RXRDY) == 0);
 }
 
-void usart_send_blocking(u32 usart, u16 data)
+void usart_send_blocking(uint32_t usart, uint16_t data)
 {
 	usart_wait_send_ready(usart);
 	usart_send(usart, data);
 }
 
-u16 usart_recv_blocking(u32 usart)
+uint16_t usart_recv_blocking(uint32_t usart)
 {
 	usart_wait_recv_ready(usart);
 
 	return usart_recv(usart);
 }
 
-void usart_enable_rx_interrupt(u32 usart)
+void usart_enable_rx_interrupt(uint32_t usart)
 {
 	USART_IER(usart) = USART_CSR_RXRDY;
 }
 
-void usart_disable_rx_interrupt(u32 usart)
+void usart_disable_rx_interrupt(uint32_t usart)
 {
 	USART_IDR(usart) = USART_CSR_RXRDY;
 }

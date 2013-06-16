@@ -23,15 +23,6 @@
 #include <stdint.h>
 #include <stdbool.h>
 
-/* Type definitions for shorter and nicer code */
-typedef int8_t s8;
-typedef int16_t s16;
-typedef int32_t s32;
-typedef uint8_t u8;
-typedef uint16_t u16;
-typedef uint32_t u32;
-typedef uint64_t u64;
-
 /* This must be placed around external function declaration for C++
  * support. */
 #ifdef __cplusplus
@@ -46,9 +37,9 @@ typedef uint64_t u64;
 
 #ifdef __GNUC__
 #	if __GNUC__ > 4 || (__GNUC__ == 4 && __GNUC_MINOR__ > 4)
-#		define LIBOPENCM3_DEPRECATED(x) __attribute__ ((deprecated (x)))
+#		define LIBOPENCM3_DEPRECATED(x) __attribute__((deprecated(x)))
 #	else
-#		define LIBOPENCM3_DEPRECATED(x) __attribute__ ((deprecated))
+#		define LIBOPENCM3_DEPRECATED(x) __attribute__((deprecated))
 #	endif
 #else
 #	define LIBOPENCM3_DEPRECATED(x)
@@ -56,10 +47,10 @@ typedef uint64_t u64;
 
 
 /* Generic memory-mapped I/O accessor functions */
-#define MMIO8(addr)		(*(volatile u8 *)(addr))
-#define MMIO16(addr)		(*(volatile u16 *)(addr))
-#define MMIO32(addr)		(*(volatile u32 *)(addr))
-#define MMIO64(addr)		(*(volatile u64 *)(addr))
+#define MMIO8(addr)		(*(volatile uint8_t *)(addr))
+#define MMIO16(addr)		(*(volatile uint16_t *)(addr))
+#define MMIO32(addr)		(*(volatile uint32_t *)(addr))
+#define MMIO64(addr)		(*(volatile uint64_t *)(addr))
 
 /* Generic bit definition */
 #define BIT0  (1<<0)

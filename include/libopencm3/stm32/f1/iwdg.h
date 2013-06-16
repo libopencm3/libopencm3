@@ -1,6 +1,7 @@
 /** @defgroup iwdg_defines IWDG Defines
 
-@brief <b>Defined Constants and Types for the STM32F1xx Independent Watchdog Timer</b>
+@brief <b>Defined Constants and Types for the STM32F1xx Independent Watchdog
+Timer</b>
 
 @ingroup STM32F1xx_defines
 

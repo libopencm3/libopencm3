@@ -6,8 +6,10 @@
 
 @version 1.0.0
 
-@author @htmlonly &copy; @endhtmlonly 2009 Federico Ruiz-Ugalde \<memeruiz at gmail dot com\>
-@author @htmlonly &copy; @endhtmlonly 2009 Uwe Hermann <uwe@hermann-uwe.de>
+@author @htmlonly &copy; @endhtmlonly 2009
+Federico Ruiz-Ugalde \<memeruiz at gmail dot com\>
+@author @htmlonly &copy; @endhtmlonly 2009
+Uwe Hermann <uwe@hermann-uwe.de>
 
 @date 18 August 2012
 
@@ -55,8 +57,8 @@ LGPL License Terms @ref lgpl_license
 #define RCC_APB1ENR				MMIO32(RCC_BASE + 0x1c)
 #define RCC_BDCR				MMIO32(RCC_BASE + 0x20)
 #define RCC_CSR					MMIO32(RCC_BASE + 0x24)
-#define RCC_AHBRSTR				MMIO32(RCC_BASE + 0x28) /* (**) */
-#define RCC_CFGR2				MMIO32(RCC_BASE + 0x2c) /* (**) */
+#define RCC_AHBRSTR				MMIO32(RCC_BASE + 0x28) /*(**)*/
+#define RCC_CFGR2				MMIO32(RCC_BASE + 0x2c) /*(**)*/
 
 /* --- RCC_CR values ------------------------------------------------------- */
 
@@ -125,9 +127,10 @@ LGPL License Terms @ref lgpl_license
 #define RCC_CFGR_PLLMUL_PLL_CLK_MUL13		0xb /* (XX) */
 #define RCC_CFGR_PLLMUL_PLL_CLK_MUL14		0xc /* (XX) */
 #define RCC_CFGR_PLLMUL_PLL_CLK_MUL15		0xd /* 0xd: PLL x 15 */
-#define RCC_CFGR_PLLMUL_PLL_CLK_MUL6_5		0xd /* 0xd: PLL x 6.5 for conn. line */
+#define RCC_CFGR_PLLMUL_PLL_CLK_MUL6_5		0xd /* 0xd: PLL x 6.5 for conn.
+						       line */
 #define RCC_CFGR_PLLMUL_PLL_CLK_MUL16		0xe /* (XX) */
-// #define PLLMUL_PLL_CLK_MUL16		0xf /* (XX) */ /* Errata? 17? */
+/* #define PLLMUL_PLL_CLK_MUL16		0xf */ /* (XX) */ /* Errata? 17? */
 /**@}*/
 
 /* TODO: conn. line differs. */
@@ -152,7 +155,7 @@ LGPL License Terms @ref lgpl_license
 
 /* ADCPRE: ADC prescaler */
 /****************************************************************************/
-/** @defgroup rcc_cfgr_adcpre RCC ADC Clock Prescaler enable values
+/** @defgroup rcc_cfgr_adcpre RCC ADC clock prescaler enable values
 @ingroup STM32F1xx_rcc_defines
 
 @{*/
@@ -163,7 +166,7 @@ LGPL License Terms @ref lgpl_license
 /**@}*/
 
 /* PPRE2: APB high-speed prescaler (APB2) */
-/** @defgroup rcc_cfgr_apb2pre RCC_CFGR APB2 Prescale Factors
+/** @defgroup rcc_cfgr_apb2pre RCC_CFGR APB2 prescale Factors
 @ingroup STM32F1xx_rcc_defines
 
 @{*/
@@ -175,7 +178,7 @@ LGPL License Terms @ref lgpl_license
 /**@}*/
 
 /* PPRE1: APB low-speed prescaler (APB1) */
-/** @defgroup rcc_cfgr_apb1pre RCC_CFGR APB1 Prescale Factors
+/** @defgroup rcc_cfgr_apb1pre RCC_CFGR APB1 prescale Factors
 @ingroup STM32F1xx_rcc_defines
 
 @{*/
@@ -187,7 +190,7 @@ LGPL License Terms @ref lgpl_license
 /**@}*/
 
 /* HPRE: AHB prescaler */
-/** @defgroup rcc_cfgr_ahbpre RCC_CFGR AHB Prescale Factors
+/** @defgroup rcc_cfgr_ahbpre RCC_CFGR AHB prescale Factors
 @ingroup STM32F1xx_rcc_defines
 
 @{*/
@@ -286,7 +289,8 @@ LGPL License Terms @ref lgpl_license
 #define RCC_APB1RSTR_BKPRST			(1 << 27)
 #define RCC_APB1RSTR_CAN2RST			(1 << 26) /* (**) */
 #define RCC_APB1RSTR_CAN1RST			(1 << 25) /* (**) */
-#define RCC_APB1RSTR_CANRST			(1 << 25) /* (XX) Alias for CAN1RST */
+#define RCC_APB1RSTR_CANRST			(1 << 25) /* (XX) Alias for
+							     CAN1RST */
 #define RCC_APB1RSTR_USBRST			(1 << 23) /* (XX) */
 #define RCC_APB1RSTR_I2C2RST			(1 << 22)
 #define RCC_APB1RSTR_I2C1RST			(1 << 21)
@@ -358,7 +362,8 @@ LGPL License Terms @ref lgpl_license
 #define RCC_APB1ENR_BKPEN			(1 << 27)
 #define RCC_APB1ENR_CAN2EN			(1 << 26) /* (**) */
 #define RCC_APB1ENR_CAN1EN			(1 << 25) /* (**) */
-#define RCC_APB1ENR_CANEN			(1 << 25) /* (XX) Alias for CAN1EN */
+#define RCC_APB1ENR_CANEN			(1 << 25) /* (XX) Alias for
+							     CAN1EN */
 #define RCC_APB1ENR_USBEN			(1 << 23) /* (XX) */
 #define RCC_APB1ENR_I2C2EN			(1 << 22)
 #define RCC_APB1ENR_I2C1EN			(1 << 21)
@@ -485,8 +490,8 @@ LGPL License Terms @ref lgpl_license
 #define RCC_CFGR2_PREDIV2_DIV16			0xf
 
 /* --- Variable definitions ------------------------------------------------ */
-extern u32 rcc_ppre1_frequency;
-extern u32 rcc_ppre2_frequency;
+extern uint32_t rcc_ppre1_frequency;
+extern uint32_t rcc_ppre2_frequency;
 
 /* --- Function prototypes ------------------------------------------------- */
 
@@ -507,28 +512,28 @@ void rcc_osc_on(osc_t osc);
 void rcc_osc_off(osc_t osc);
 void rcc_css_enable(void);
 void rcc_css_disable(void);
-void rcc_set_mco(u32 mcosrc);
+void rcc_set_mco(uint32_t mcosrc);
 void rcc_osc_bypass_enable(osc_t osc);
 void rcc_osc_bypass_disable(osc_t osc);
-void rcc_peripheral_enable_clock(volatile u32 *reg, u32 en);
-void rcc_peripheral_disable_clock(volatile u32 *reg, u32 en);
-void rcc_peripheral_reset(volatile u32 *reg, u32 reset);
-void rcc_peripheral_clear_reset(volatile u32 *reg, u32 clear_reset);
-void rcc_set_sysclk_source(u32 clk);
-void rcc_set_pll_multiplication_factor(u32 mul);
-void rcc_set_pll2_multiplication_factor(u32 mul);
-void rcc_set_pll3_multiplication_factor(u32 mul);
-void rcc_set_pll_source(u32 pllsrc);
-void rcc_set_pllxtpre(u32 pllxtpre);
-void rcc_set_adcpre(u32 adcpre);
-void rcc_set_ppre2(u32 ppre2);
-void rcc_set_ppre1(u32 ppre1);
-void rcc_set_hpre(u32 hpre);
-void rcc_set_usbpre(u32 usbpre);
-void rcc_set_prediv1(u32 prediv);
-void rcc_set_prediv2(u32 prediv);
-void rcc_set_prediv1_source(u32 rccsrc);
-u32 rcc_system_clock_source(void);
+void rcc_peripheral_enable_clock(volatile uint32_t *reg, uint32_t en);
+void rcc_peripheral_disable_clock(volatile uint32_t *reg, uint32_t en);
+void rcc_peripheral_reset(volatile uint32_t *reg, uint32_t reset);
+void rcc_peripheral_clear_reset(volatile uint32_t *reg, uint32_t clear_reset);
+void rcc_set_sysclk_source(uint32_t clk);
+void rcc_set_pll_multiplication_factor(uint32_t mul);
+void rcc_set_pll2_multiplication_factor(uint32_t mul);
+void rcc_set_pll3_multiplication_factor(uint32_t mul);
+void rcc_set_pll_source(uint32_t pllsrc);
+void rcc_set_pllxtpre(uint32_t pllxtpre);
+void rcc_set_adcpre(uint32_t adcpre);
+void rcc_set_ppre2(uint32_t ppre2);
+void rcc_set_ppre1(uint32_t ppre1);
+void rcc_set_hpre(uint32_t hpre);
+void rcc_set_usbpre(uint32_t usbpre);
+void rcc_set_prediv1(uint32_t prediv);
+void rcc_set_prediv2(uint32_t prediv);
+void rcc_set_prediv1_source(uint32_t rccsrc);
+uint32_t rcc_system_clock_source(void);
 void rcc_clock_setup_in_hsi_out_64mhz(void);
 void rcc_clock_setup_in_hsi_out_48mhz(void);
 void rcc_clock_setup_in_hsi_out_24mhz(void);

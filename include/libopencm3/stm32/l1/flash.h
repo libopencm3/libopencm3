@@ -20,7 +20,8 @@
  */
 
 /*
- * All extracted from PM0062 rev2, L15xx and L16xx Flash/EEPROM programming manual
+ * All extracted from PM0062 rev2, L15xx and L16xx Flash/EEPROM programming
+ * manual.
  */
 
 #ifndef LIBOPENCM3_FLASH_H
@@ -68,20 +69,20 @@
 #define FLASH_PECR_PELOCK		(1 << 0)
 
 /* Power down key register (FLASH_PDKEYR) */
-#define FLASH_PDKEYR_PDKEY1		((u32)0x04152637)
-#define FLASH_PDKEYR_PDKEY2		((u32)0xFAFBFCFD)
+#define FLASH_PDKEYR_PDKEY1		((uint32_t)0x04152637)
+#define FLASH_PDKEYR_PDKEY2		((uint32_t)0xFAFBFCFD)
 
 /* Program/erase key register (FLASH_PEKEYR) */
-#define FLASH_PEKEYR_PEKEY1		((u32)0x89ABCDEF)
-#define FLASH_PEKEYR_PEKEY2		((u32)0x02030405)
+#define FLASH_PEKEYR_PEKEY1		((uint32_t)0x89ABCDEF)
+#define FLASH_PEKEYR_PEKEY2		((uint32_t)0x02030405)
 
 /* Program memory key register (FLASH_PRGKEYR) */
-#define FLASH_PRGKEYR_PRGKEY1		((u32)0x8C9DAEBF)
-#define FLASH_PRGKEYR_PRGKEY2		((u32)0x13141516)
+#define FLASH_PRGKEYR_PRGKEY1		((uint32_t)0x8C9DAEBF)
+#define FLASH_PRGKEYR_PRGKEY2		((uint32_t)0x13141516)
 
 /* Option byte key register (FLASH_OPTKEYR) */
-#define FLASH_OPTKEYR_OPTKEY1		((u32)0xFBEAD9C8)
-#define FLASH_OPTKEYR_OPTKEY2		((u32)0x24252627)
+#define FLASH_OPTKEYR_OPTKEY1		((uint32_t)0xFBEAD9C8)
+#define FLASH_OPTKEYR_OPTKEY2		((uint32_t)0x24252627)
 
 
 /* --- FLASH_SR values ----------------------------------------------------- */
@@ -118,7 +119,7 @@ void flash_64bit_enable(void);
 void flash_64bit_disable(void);
 void flash_prefetch_enable(void);
 void flash_prefetch_disable(void);
-void flash_set_ws(u32 ws);
+void flash_set_ws(uint32_t ws);
 
 END_DECLS
 

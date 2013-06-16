@@ -29,23 +29,24 @@
 /* The FS core and the HS core have the same register layout.
  * As the code can be used on both cores, the registers offset is modified
  * according to the selected cores base address. */
-#define dev_base_address   (usbd_dev->driver->base_address)
-#define REBASE(x)          MMIO32((x)+(dev_base_address))
-#define REBASE_FIFO(x)     ((volatile u32*)((dev_base_address) + (OTG_FIFO(x))))
+#define dev_base_address (usbd_dev->driver->base_address)
+#define REBASE(x)        MMIO32((x) + (dev_base_address))
+#define REBASE_FIFO(x)   (&MMIO32((dev_base_address) + (OTG_FIFO(x))))
 
-void stm32fx07_set_address(usbd_device *usbd_dev, u8 addr)
+void stm32fx07_set_address(usbd_device *usbd_dev, uint8_t addr)
 {
 	REBASE(OTG_DCFG) = (REBASE(OTG_DCFG) & ~OTG_FS_DCFG_DAD) | (addr << 4);
 }
 
-void stm32fx07_ep_setup(usbd_device *usbd_dev, u8 addr, u8 type, u16 max_size,
-			       void (*callback) (usbd_device *usbd_dev, u8 ep))
+void stm32fx07_ep_setup(usbd_device *usbd_dev, uint8_t addr, uint8_t type,
+			uint16_t max_size,
+			void (*callback) (usbd_device *usbd_dev, uint8_t ep))
 {
 	/*
 	 * Configure endpoint address and type. Allocate FIFO memory for
 	 * endpoint. Install callback funciton.
 	 */
-	u8 dir = addr & 0x80;
+	uint8_t dir = addr & 0x80;
 	addr &= 0x7f;
 
 	if (addr == 0) { /* For the default control endpoint */
@@ -59,6 +60,7 @@ void stm32fx07_ep_setup(usbd_device *usbd_dev, u8 addr, u8 type, u16 max_size,
 		} else {
 			REBASE(OTG_DIEPCTL0) = OTG_FS_DIEPCTL0_MPSIZ_8;
 		}
+
 		REBASE(OTG_DIEPTSIZ0) =
 			(max_size & OTG_FS_DIEPSIZ0_XFRSIZ_MASK);
 		REBASE(OTG_DIEPCTL0) |=
@@ -119,13 +121,14 @@ void stm32fx07_endpoints_reset(usbd_device *usbd_dev)
 	usbd_dev->fifo_mem_top = usbd_dev->fifo_mem_top_ep0;
 }
 
-void stm32fx07_ep_stall_set(usbd_device *usbd_dev, u8 addr, u8 stall)
+void stm32fx07_ep_stall_set(usbd_device *usbd_dev, uint8_t addr, uint8_t stall)
 {
 	if (addr == 0) {
-		if (stall)
+		if (stall) {
 			REBASE(OTG_DIEPCTL(addr)) |= OTG_FS_DIEPCTL0_STALL;
-		else
+		} else {
 			REBASE(OTG_DIEPCTL(addr)) &= ~OTG_FS_DIEPCTL0_STALL;
+		}
 	}
 
 	if (addr & 0x80) {
@@ -147,68 +150,75 @@ void stm32fx07_ep_stall_set(usbd_device *usbd_dev, u8 addr, u8 stall)
 	}
 }
 
-u8 stm32fx07_ep_stall_get(usbd_device *usbd_dev, u8 addr)
+uint8_t stm32fx07_ep_stall_get(usbd_device *usbd_dev, uint8_t addr)
 {
 	/* Return non-zero if STALL set. */
-	if (addr & 0x80)
+	if (addr & 0x80) {
 		return (REBASE(OTG_DIEPCTL(addr & 0x7f)) &
 				OTG_FS_DIEPCTL0_STALL) ? 1 : 0;
-	else
+	} else {
 		return (REBASE(OTG_DOEPCTL(addr)) &
 				OTG_FS_DOEPCTL0_STALL) ? 1 : 0;
+	}
 }
 
-void stm32fx07_ep_nak_set(usbd_device *usbd_dev, u8 addr, u8 nak)
+void stm32fx07_ep_nak_set(usbd_device *usbd_dev, uint8_t addr, uint8_t nak)
 {
 	/* It does not make sence to force NAK on IN endpoints. */
-	if (addr & 0x80)
+	if (addr & 0x80) {
 		return;
+	}
 
 	usbd_dev->force_nak[addr] = nak;
 
-	if (nak)
+	if (nak) {
 		REBASE(OTG_DOEPCTL(addr)) |= OTG_FS_DOEPCTL0_SNAK;
-	else
+	} else {
 		REBASE(OTG_DOEPCTL(addr)) |= OTG_FS_DOEPCTL0_CNAK;
+	}
 }
 
-u16 stm32fx07_ep_write_packet(usbd_device *usbd_dev, u8 addr,
-			      const void *buf, u16 len)
+uint16_t stm32fx07_ep_write_packet(usbd_device *usbd_dev, uint8_t addr,
+			      const void *buf, uint16_t len)
 {
-	const u32 *buf32 = buf;
+	const uint32_t *buf32 = buf;
 	int i;
 
 	addr &= 0x7F;
 
 	/* Return if endpoint is already enabled. */
-	if (REBASE(OTG_DIEPTSIZ(addr)) & OTG_FS_DIEPSIZ0_PKTCNT)
+	if (REBASE(OTG_DIEPTSIZ(addr)) & OTG_FS_DIEPSIZ0_PKTCNT) {
 		return 0;
+	}
 
 	/* Enable endpoint for transmission. */
 	REBASE(OTG_DIEPTSIZ(addr)) = OTG_FS_DIEPSIZ0_PKTCNT | len;
 	REBASE(OTG_DIEPCTL(addr)) |= OTG_FS_DIEPCTL0_EPENA |
 				     OTG_FS_DIEPCTL0_CNAK;
-	volatile u32 *fifo = REBASE_FIFO(addr);
+	volatile uint32_t *fifo = REBASE_FIFO(addr);
 
 	/* Copy buffer to endpoint FIFO, note - memcpy does not work */
-	for (i = len; i > 0; i -= 4)
+	for (i = len; i > 0; i -= 4) {
 		*fifo++ = *buf32++;
+	}
 
 	return len;
 }
 
-u16 stm32fx07_ep_read_packet(usbd_device *usbd_dev, u8 addr, void *buf, u16 len)
+uint16_t stm32fx07_ep_read_packet(usbd_device *usbd_dev, uint8_t addr,
+				  void *buf, uint16_t len)
 {
 	int i;
-	u32 *buf32 = buf;
-	u32 extra;
+	uint32_t *buf32 = buf;
+	uint32_t extra;
 
 	len = MIN(len, usbd_dev->rxbcnt);
 	usbd_dev->rxbcnt -= len;
 
-	volatile u32 *fifo = REBASE_FIFO(addr);
-	for (i = len; i >= 4; i -= 4)
+	volatile uint32_t *fifo = REBASE_FIFO(addr);
+	for (i = len; i >= 4; i -= 4) {
 		*buf32++ = *fifo++;
+	}
 
 	if (i) {
 		extra = *fifo++;
@@ -226,7 +236,7 @@ u16 stm32fx07_ep_read_packet(usbd_device *usbd_dev, u8 addr, void *buf, u16 len)
 void stm32fx07_poll(usbd_device *usbd_dev)
 {
 	/* Read interrupt status register. */
-	u32 intsts = REBASE(OTG_GINTSTS);
+	uint32_t intsts = REBASE(OTG_GINTSTS);
 	int i;
 
 	if (intsts & OTG_FS_GINTSTS_ENUMDNE) {
@@ -240,18 +250,20 @@ void stm32fx07_poll(usbd_device *usbd_dev)
 	/* Note: RX and TX handled differently in this device. */
 	if (intsts & OTG_FS_GINTSTS_RXFLVL) {
 		/* Receive FIFO non-empty. */
-		u32 rxstsp = REBASE(OTG_GRXSTSP);
-		u32 pktsts = rxstsp & OTG_FS_GRXSTSP_PKTSTS_MASK;
+		uint32_t rxstsp = REBASE(OTG_GRXSTSP);
+		uint32_t pktsts = rxstsp & OTG_FS_GRXSTSP_PKTSTS_MASK;
 		if ((pktsts != OTG_FS_GRXSTSP_PKTSTS_OUT) &&
-		    (pktsts != OTG_FS_GRXSTSP_PKTSTS_SETUP))
+		    (pktsts != OTG_FS_GRXSTSP_PKTSTS_SETUP)) {
 			return;
+		}
 
-		u8 ep = rxstsp & OTG_FS_GRXSTSP_EPNUM_MASK;
-		u8 type;
-		if (pktsts == OTG_FS_GRXSTSP_PKTSTS_SETUP)
+		uint8_t ep = rxstsp & OTG_FS_GRXSTSP_EPNUM_MASK;
+		uint8_t type;
+		if (pktsts == OTG_FS_GRXSTSP_PKTSTS_SETUP) {
 			type = USB_TRANSACTION_SETUP;
-		else
+		} else {
 			type = USB_TRANSACTION_OUT;
+		}
 
 		/* Save packet size for stm32f107_ep_read_packet(). */
 		usbd_dev->rxbcnt = (rxstsp & OTG_FS_GRXSTSP_BCNT_MASK) >> 4;
@@ -261,15 +273,18 @@ void stm32fx07_poll(usbd_device *usbd_dev)
 		 * This appears to fix a problem where the first 4 bytes
 		 * of the DATA OUT stage of a control transaction are lost.
 		 */
-		for (i = 0; i < 1000; i++)
+		for (i = 0; i < 1000; i++) {
 			__asm__("nop");
+		}
 
-		if (usbd_dev->user_callback_ctr[ep][type])
+		if (usbd_dev->user_callback_ctr[ep][type]) {
 			usbd_dev->user_callback_ctr[ep][type] (usbd_dev, ep);
+		}
 
 		/* Discard unread packet data. */
-		for (i = 0; i < usbd_dev->rxbcnt; i += 4)
+		for (i = 0; i < usbd_dev->rxbcnt; i += 4) {
 			(void)*REBASE_FIFO(ep);
+		}
 
 		usbd_dev->rxbcnt = 0;
 	}
@@ -281,29 +296,34 @@ void stm32fx07_poll(usbd_device *usbd_dev)
 	for (i = 0; i < 4; i++) { /* Iterate over endpoints. */
 		if (REBASE(OTG_DIEPINT(i)) & OTG_FS_DIEPINTX_XFRC) {
 			/* Transfer complete. */
-			if (usbd_dev->user_callback_ctr[i][USB_TRANSACTION_IN])
+			if (usbd_dev->user_callback_ctr[i]
+						       [USB_TRANSACTION_IN]) {
 				usbd_dev->user_callback_ctr[i]
 					[USB_TRANSACTION_IN](usbd_dev, i);
+			}
 
 			REBASE(OTG_DIEPINT(i)) = OTG_FS_DIEPINTX_XFRC;
 		}
 	}
 
 	if (intsts & OTG_FS_GINTSTS_USBSUSP) {
-		if (usbd_dev->user_callback_suspend)
+		if (usbd_dev->user_callback_suspend) {
 			usbd_dev->user_callback_suspend();
+		}
 		REBASE(OTG_GINTSTS) = OTG_FS_GINTSTS_USBSUSP;
 	}
 
 	if (intsts & OTG_FS_GINTSTS_WKUPINT) {
-		if (usbd_dev->user_callback_resume)
+		if (usbd_dev->user_callback_resume) {
 			usbd_dev->user_callback_resume();
+		}
 		REBASE(OTG_GINTSTS) = OTG_FS_GINTSTS_WKUPINT;
 	}
 
 	if (intsts & OTG_FS_GINTSTS_SOF) {
-		if (usbd_dev->user_callback_sof)
+		if (usbd_dev->user_callback_sof) {
 			usbd_dev->user_callback_sof();
+		}
 		REBASE(OTG_GINTSTS) = OTG_FS_GINTSTS_SOF;
 	}
 }

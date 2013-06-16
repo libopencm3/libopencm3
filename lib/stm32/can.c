@@ -59,15 +59,17 @@ LGPL License Terms @ref lgpl_license
  */
 #define CAN_MSR_INAK_TIMEOUT 0x0000FFFF
 
-/*-----------------------------------------------------------------------------*/
+/*---------------------------------------------------------------------------*/
 /** @brief CAN Reset
 
-The CAN peripheral and all its associated configuration registers are placed in the
-reset condition. The reset is effective via the RCC peripheral reset system.
+The CAN peripheral and all its associated configuration registers are placed in
+the reset condition. The reset is effective via the RCC peripheral reset
+system.
 
-@param[in] canport Unsigned int32. CAN block register address base @ref can_reg_base.
+@param[in] canport Unsigned int32. CAN block register address base @ref
+can_reg_base.
  */
-void can_reset(u32 canport)
+void can_reset(uint32_t canport)
 {
 	if (canport == CAN1) {
 		rcc_peripheral_reset(&RCC_APB1RSTR, RCC_APB1RSTR_CAN1RST);
@@ -78,7 +80,7 @@ void can_reset(u32 canport)
 	}
 }
 
-/*-----------------------------------------------------------------------------*/
+/*---------------------------------------------------------------------------*/
 /** @brief CAN Init
 
 Initialize the selected CAN peripheral block.
@@ -96,11 +98,11 @@ Initialize the selected CAN peripheral block.
 @param[in] brp Unsigned int32. Baud rate prescaler.
 @returns int 0 on success, 1 on initialization failure.
 */
-int can_init(u32 canport, bool ttcm, bool abom, bool awum, bool nart,
-	     bool rflm, bool txfp, u32 sjw, u32 ts1, u32 ts2, u32 brp,
-	     bool loopback, bool silent)
+int can_init(uint32_t canport, bool ttcm, bool abom, bool awum, bool nart,
+	     bool rflm, bool txfp, uint32_t sjw, uint32_t ts1, uint32_t ts2,
+	     uint32_t brp, bool loopback, bool silent)
 {
-	volatile u32 wait_ack;
+	volatile uint32_t wait_ack;
 	int ret = 0;
 
 	/* Exit from sleep mode. */
@@ -112,11 +114,10 @@ int can_init(u32 canport, bool ttcm, bool abom, bool awum, bool nart,
 	/* Wait for acknowledge. */
 	wait_ack = CAN_MSR_INAK_TIMEOUT;
 	while ((--wait_ack) &&
-	       ((CAN_MSR(canport) & CAN_MSR_INAK) != CAN_MSR_INAK)) {
-	}
+		((CAN_MSR(canport) & CAN_MSR_INAK) != CAN_MSR_INAK));
 
 	/* Check the acknowledge. */
-	if ((CAN_MSR(canport) & CAN_MSR_INAK) != CAN_MSR_INAK){
+	if ((CAN_MSR(canport) & CAN_MSR_INAK) != CAN_MSR_INAK) {
 		return 1;
 	}
 
@@ -126,64 +127,55 @@ int can_init(u32 canport, bool ttcm, bool abom, bool awum, bool nart,
 	/* Set the automatic bus-off management. */
 	if (ttcm) {
 		CAN_MCR(canport) |= CAN_MCR_TTCM;
-	}
-	else {
+	} else {
 		CAN_MCR(canport) &= ~CAN_MCR_TTCM;
 	}
 
 	if (abom) {
 		CAN_MCR(canport) |= CAN_MCR_ABOM;
-	}
-	else {
+	} else {
 		CAN_MCR(canport) &= ~CAN_MCR_ABOM;
 	}
 
 	if (awum) {
 		CAN_MCR(canport) |= CAN_MCR_AWUM;
-	}
-	else {
+	} else {
 		CAN_MCR(canport) &= ~CAN_MCR_AWUM;
 	}
 
 	if (nart) {
 		CAN_MCR(canport) |= CAN_MCR_NART;
-	}
-	else{
+	} else {
 		CAN_MCR(canport) &= ~CAN_MCR_NART;
 	}
 
 	if (rflm) {
 		CAN_MCR(canport) |= CAN_MCR_RFLM;
-	}
-	else {
+	} else {
 		CAN_MCR(canport) &= ~CAN_MCR_RFLM;
 	}
 
 	if (txfp) {
 		CAN_MCR(canport) |= CAN_MCR_TXFP;
-	}
-	else {
+	} else {
 		CAN_MCR(canport) &= ~CAN_MCR_TXFP;
 	}
 
 	if (silent) {
 		CAN_BTR(canport) |= CAN_BTR_SILM;
-	}
-	else {
+	} else {
 		CAN_BTR(canport) &= ~CAN_BTR_SILM;
 	}
 
 	if (loopback) {
 		CAN_BTR(canport) |= CAN_BTR_LBKM;
-	}
-	else {
+	} else {
 		CAN_BTR(canport) &= ~CAN_BTR_LBKM;
 	}
 
-
 	/* Set bit timings. */
 	CAN_BTR(canport) |= sjw | ts2 | ts1 |
-		           ((brp - 1ul) & CAN_BTR_BRP_MASK);
+		((brp - 1ul) & CAN_BTR_BRP_MASK);
 
 	/* Request initialization "leave". */
 	CAN_MCR(canport) &= ~CAN_MCR_INRQ;
@@ -191,8 +183,7 @@ int can_init(u32 canport, bool ttcm, bool abom, bool awum, bool nart,
 	/* Wait for acknowledge. */
 	wait_ack = CAN_MSR_INAK_TIMEOUT;
 	while ((--wait_ack) &&
-	       ((CAN_MSR(canport) & CAN_MSR_INAK) == CAN_MSR_INAK)) {
-	}
+	       ((CAN_MSR(canport) & CAN_MSR_INAK) == CAN_MSR_INAK));
 
 	if ((CAN_MSR(canport) & CAN_MSR_INAK) == CAN_MSR_INAK) {
 		ret = 1;
@@ -201,7 +192,7 @@ int can_init(u32 canport, bool ttcm, bool abom, bool awum, bool nart,
 	return ret;
 }
 
-/*-----------------------------------------------------------------------------*/
+/*---------------------------------------------------------------------------*/
 /** @brief CAN Filter Init
 
 Initialize incoming message filter and assign to FIFO.
@@ -215,10 +206,11 @@ Initialize incoming message filter and assign to FIFO.
 @param[in] fifo Unsigned int32. FIFO id.
 @param[in] enable bool. Enable filter?
  */
-void can_filter_init(u32 canport, u32 nr, bool scale_32bit, bool id_list_mode,
-		     u32 fr1, u32 fr2, u32 fifo, bool enable)
+void can_filter_init(uint32_t canport, uint32_t nr, bool scale_32bit,
+		     bool id_list_mode, uint32_t fr1, uint32_t fr2,
+		     uint32_t fifo, bool enable)
 {
-	u32 filter_select_bit = 0x00000001 << nr;
+	uint32_t filter_select_bit = 0x00000001 << nr;
 
 	/* Request initialization "enter". */
 	CAN_FMR(canport) |= CAN_FMR_FINIT;
@@ -251,10 +243,10 @@ void can_filter_init(u32 canport, u32 nr, bool scale_32bit, bool id_list_mode,
 	/* Select FIFO0 or FIFO1 as filter assignement. */
 	if (fifo) {
 		CAN_FFA1R(canport) |= filter_select_bit;  /* FIFO1 */
-	}
-	else {
+	} else {
 		CAN_FFA1R(canport) &= ~filter_select_bit; /* FIFO0 */
 	}
+
 	if (enable) {
 		CAN_FA1R(canport) |= filter_select_bit; /* Activate filter. */
 	}
@@ -263,7 +255,7 @@ void can_filter_init(u32 canport, u32 nr, bool scale_32bit, bool id_list_mode,
 	CAN_FMR(canport) &= ~CAN_FMR_FINIT;
 }
 
-/*-----------------------------------------------------------------------------*/
+/*---------------------------------------------------------------------------*/
 /** @brief CAN Initialize a 16bit Message ID Mask Filter
 
 @param[in] canport Unsigned int32. CAN block register base @ref can_reg_base.
@@ -275,15 +267,16 @@ void can_filter_init(u32 canport, u32 nr, bool scale_32bit, bool id_list_mode,
 @param[in] fifo Unsigned int32. FIFO id.
 @param[in] enable bool. Enable filter?
  */
-void can_filter_id_mask_16bit_init(u32 canport, u32 nr, u16 id1, u16 mask1,
-				   u16 id2, u16 mask2, u32 fifo, bool enable)
+void can_filter_id_mask_16bit_init(uint32_t canport, uint32_t nr, uint16_t id1,
+				   uint16_t mask1, uint16_t id2,
+				   uint16_t mask2, uint32_t fifo, bool enable)
 {
 	can_filter_init(canport, nr, false, false,
-			((u32)id1 << 16) | (u32)mask1,
-			((u32)id2 << 16) | (u32)mask2, fifo, enable);
+			((uint32_t)id1 << 16) | (uint32_t)mask1,
+			((uint32_t)id2 << 16) | (uint32_t)mask2, fifo, enable);
 }
 
-/*-----------------------------------------------------------------------------*/
+/*---------------------------------------------------------------------------*/
 /** @brief CAN Initialize a 32bit Message ID Mask Filter
 
 @param[in] canport Unsigned int32. CAN block register base @ref can_reg_base.
@@ -293,13 +286,13 @@ void can_filter_id_mask_16bit_init(u32 canport, u32 nr, u16 id1, u16 mask1,
 @param[in] fifo Unsigned int32. FIFO id.
 @param[in] enable bool. Enable filter?
  */
-void can_filter_id_mask_32bit_init(u32 canport, u32 nr, u32 id, u32 mask,
-				   u32 fifo, bool enable)
+void can_filter_id_mask_32bit_init(uint32_t canport, uint32_t nr, uint32_t id,
+				   uint32_t mask, uint32_t fifo, bool enable)
 {
 	can_filter_init(canport, nr, true, false, id, mask, fifo, enable);
 }
 
-/*-----------------------------------------------------------------------------*/
+/*---------------------------------------------------------------------------*/
 /** @brief CAN Initialize a 16bit Message ID List Filter
 
 @param[in] canport Unsigned int32. CAN block register base @ref can_reg_base.
@@ -311,15 +304,17 @@ void can_filter_id_mask_32bit_init(u32 canport, u32 nr, u32 id, u32 mask,
 @param[in] fifo Unsigned int32. FIFO id.
 @param[in] enable bool. Enable filter?
  */
-void can_filter_id_list_16bit_init(u32 canport, u32 nr, u16 id1, u16 id2,
-				   u16 id3, u16 id4, u32 fifo, bool enable)
+void can_filter_id_list_16bit_init(uint32_t canport, uint32_t nr,
+				   uint16_t id1, uint16_t id2,
+				   uint16_t id3, uint16_t id4,
+				   uint32_t fifo, bool enable)
 {
 	can_filter_init(canport, nr, false, true,
-			((u32)id1 << 16) | (u32)id2,
-			((u32)id3 << 16) | (u32)id4, fifo, enable);
+			((uint32_t)id1 << 16) | (uint32_t)id2,
+			((uint32_t)id3 << 16) | (uint32_t)id4, fifo, enable);
 }
 
-/*-----------------------------------------------------------------------------*/
+/*---------------------------------------------------------------------------*/
 /** @brief CAN Initialize a 32bit Message ID List Filter
 
 @param[in] canport Unsigned int32. CAN block register base @ref can_reg_base.
@@ -329,35 +324,36 @@ void can_filter_id_list_16bit_init(u32 canport, u32 nr, u16 id1, u16 id2,
 @param[in] fifo Unsigned int32. FIFO id.
 @param[in] enable bool. Enable filter?
  */
-void can_filter_id_list_32bit_init(u32 canport, u32 nr, u32 id1, u32 id2,
-				   u32 fifo, bool enable)
+void can_filter_id_list_32bit_init(uint32_t canport, uint32_t nr,
+				   uint32_t id1, uint32_t id2,
+				   uint32_t fifo, bool enable)
 {
 	can_filter_init(canport, nr, true, true, id1, id2, fifo, enable);
 }
 
-/*-----------------------------------------------------------------------------*/
+/*---------------------------------------------------------------------------*/
 /** @brief CAN Enable IRQ
 
 @param[in] canport Unsigned int32. CAN block register base @ref can_reg_base.
 @param[in] irq Unsigned int32. IRQ bit(s).
  */
-void can_enable_irq(u32 canport, u32 irq)
+void can_enable_irq(uint32_t canport, uint32_t irq)
 {
 	CAN_IER(canport) |= irq;
 }
 
-/*-----------------------------------------------------------------------------*/
+/*---------------------------------------------------------------------------*/
 /** @brief CAN Disable IRQ
 
 @param[in] canport Unsigned int32. CAN block register base @ref can_reg_base.
 @param[in] irq Unsigned int32. IRQ bit(s).
  */
-void can_disable_irq(u32 canport, u32 irq)
+void can_disable_irq(uint32_t canport, uint32_t irq)
 {
 	CAN_IER(canport) &= ~irq;
 }
 
-/*-----------------------------------------------------------------------------*/
+/*---------------------------------------------------------------------------*/
 /** @brief CAN Transmit Message
 
 @param[in] canport Unsigned int32. CAN block register base @ref can_reg_base.
@@ -369,14 +365,15 @@ void can_disable_irq(u32 canport, u32 irq)
 @returns int 0, 1 or 2 on success and depending on which outgoing mailbox got
 selected. -1 if no mailbox was available and no transmission got queued.
  */
-int can_transmit(u32 canport, u32 id, bool ext, bool rtr, u8 length, u8 *data)
+int can_transmit(uint32_t canport, uint32_t id, bool ext, bool rtr,
+		 uint8_t length, uint8_t *data)
 {
 	int ret = 0;
-	u32 mailbox = 0;
+	uint32_t mailbox = 0;
 	union {
-		u8 data8[4];
-		u32 data32;
-	}tdlxr,tdhxr;
+		uint8_t data8[4];
+		uint32_t data32;
+	} tdlxr, tdhxr;
 
 	/* Check which transmit mailbox is empty if any. */
 	if ((CAN_TSR(canport) & CAN_TSR_TME0) == CAN_TSR_TME0) {
@@ -394,53 +391,54 @@ int can_transmit(u32 canport, u32 id, bool ext, bool rtr, u8 length, u8 *data)
 
 	/* If we have no empty mailbox return with an error. */
 	if (ret == -1) {
-
 		return ret;
 	}
 
 	if (ext) {
 		/* Set extended ID. */
-		CAN_TIxR(canport, mailbox) = (id << CAN_TIxR_EXID_SHIFT) | CAN_TIxR_IDE;
+		CAN_TIxR(canport, mailbox) = (id << CAN_TIxR_EXID_SHIFT) |
+			CAN_TIxR_IDE;
 	} else {
 		/* Set standard ID. */
 		CAN_TIxR(canport, mailbox) = id << CAN_TIxR_STID_SHIFT;
 	}
 
 	/* Set/clear remote transmission request bit. */
-	if (rtr){
+	if (rtr) {
 		CAN_TIxR(canport, mailbox) |= CAN_TIxR_RTR; /* Set */
 	}
+
 	/* Set the DLC. */
 	CAN_TDTxR(canport, mailbox) &= ~CAN_TDTxR_DLC_MASK;
 	CAN_TDTxR(canport, mailbox) |= (length & CAN_TDTxR_DLC_MASK);
 
-	switch(length) {
-		case 8:
-			tdhxr.data8[3] = data[7];
-			/* no break */
-		case 7:
-			tdhxr.data8[2] = data[6];
-			/* no break */
-		case 6:
-			tdhxr.data8[1] = data[5];
-			/* no break */
-		case 5:
-			tdhxr.data8[0] = data[4];
-			/* no break */
-		case 4:
-			tdlxr.data8[3] = data[3];
-			/* no break */
-		case 3:
-			tdlxr.data8[2] = data[2];
-			/* no break */
-		case 2:
-			tdlxr.data8[1] = data[1];
-			/* no break */
-		case 1:
-			tdlxr.data8[0] = data[0];
-			/* no break */
-		default:
-			break;
+	switch (length) {
+	case 8:
+		tdhxr.data8[3] = data[7];
+		/* no break */
+	case 7:
+		tdhxr.data8[2] = data[6];
+		/* no break */
+	case 6:
+		tdhxr.data8[1] = data[5];
+		/* no break */
+	case 5:
+		tdhxr.data8[0] = data[4];
+		/* no break */
+	case 4:
+		tdlxr.data8[3] = data[3];
+		/* no break */
+	case 3:
+		tdlxr.data8[2] = data[2];
+		/* no break */
+	case 2:
+		tdlxr.data8[1] = data[1];
+		/* no break */
+	case 1:
+		tdlxr.data8[0] = data[0];
+		/* no break */
+	default:
+		break;
 	}
 	/* Set the data. */
 
@@ -453,23 +451,22 @@ int can_transmit(u32 canport, u32 id, bool ext, bool rtr, u8 length, u8 *data)
 	return ret;
 }
 
-/*-----------------------------------------------------------------------------*/
+/*---------------------------------------------------------------------------*/
 /** @brief CAN Release FIFO
 
 @param[in] canport Unsigned int32. CAN block register base @ref can_reg_base.
 @param[in] fifo Unsigned int8. FIFO id.
  */
-void can_fifo_release(u32 canport, u8 fifo)
+void can_fifo_release(uint32_t canport, uint8_t fifo)
 {
 	if (fifo == 0) {
 		CAN_RF0R(canport) |= CAN_RF1R_RFOM1;
-	}
-	else {
+	} else {
 		CAN_RF1R(canport) |= CAN_RF1R_RFOM1;
 	}
 }
 
-/*-----------------------------------------------------------------------------*/
+/*---------------------------------------------------------------------------*/
 /** @brief CAN Receive Message
 
 @param[in] canport Unsigned int32. CAN block register base @ref can_reg_base.
@@ -482,15 +479,16 @@ void can_fifo_release(u32 canport, u8 fifo)
 @param[out] length Unsigned int8 pointer. Length of message payload.
 @param[out] data Unsigned int8[]. Message payload data.
  */
-void can_receive(u32 canport, u8 fifo, bool release, u32 *id, bool *ext,
-		 bool *rtr, u32 *fmi, u8 *length, u8 *data)
+void can_receive(uint32_t canport, uint8_t fifo, bool release, uint32_t *id,
+		 bool *ext, bool *rtr, uint32_t *fmi, uint8_t *length,
+		 uint8_t *data)
 {
-	u32 fifo_id = 0;
+	uint32_t fifo_id = 0;
 	union {
-		u8 data8[4];
-		u32 data32;
-	}rdlxr,rdhxr;
-	const u32 fifoid_array[2] = {CAN_FIFO0,CAN_FIFO1};
+		uint8_t data8[4];
+		uint32_t data32;
+	} rdlxr, rdhxr;
+	const uint32_t fifoid_array[2] = {CAN_FIFO0, CAN_FIFO1};
 
 	fifo_id = fifoid_array[fifo];
 
@@ -498,18 +496,19 @@ void can_receive(u32 canport, u8 fifo, bool release, u32 *id, bool *ext,
 	if (CAN_RIxR(canport, fifo_id) & CAN_RIxR_IDE) {
 		*ext = true;
 		/* Get extended CAN ID. */
-		*id = (CAN_RIxR(canport, fifo_id) >> CAN_RIxR_EXID_SHIFT) & CAN_RIxR_EXID_MASK;
+		*id = (CAN_RIxR(canport, fifo_id) >> CAN_RIxR_EXID_SHIFT) &
+			CAN_RIxR_EXID_MASK;
 	} else {
 		*ext = false;
 		/* Get standard CAN ID. */
-		*id = (CAN_RIxR(canport, fifo_id) >> CAN_RIxR_STID_SHIFT) & CAN_RIxR_STID_MASK;
+		*id = (CAN_RIxR(canport, fifo_id) >> CAN_RIxR_STID_SHIFT) &
+			CAN_RIxR_STID_MASK;
 	}
 
 	/* Get remote transmit flag. */
-	if (CAN_RIxR(canport, fifo_id) & CAN_RIxR_RTR)	{
+	if (CAN_RIxR(canport, fifo_id) & CAN_RIxR_RTR) {
 		*rtr = true;
-	}
-	else {
+	} else {
 		*rtr = false;
 	}
 
@@ -519,8 +518,9 @@ void can_receive(u32 canport, u8 fifo, bool release, u32 *id, bool *ext,
 
 	/* Get data length. */
 	*length = CAN_RDTxR(canport, fifo_id) & CAN_RDTxR_DLC_MASK;
-	/* accelerate reception by copying the CAN data from the controller memory to
-	 * the fast internal RAM */
+	/* accelerate reception by copying the CAN data from the controller
+	 * memory to the fast internal RAM
+	 */
 
 	rdlxr.data32 = CAN_RDLxR(canport, fifo_id);
 	rdhxr.data32 = CAN_RDHxR(canport, fifo_id);
@@ -546,12 +546,12 @@ void can_receive(u32 canport, u8 fifo, bool release, u32 *id, bool *ext,
 	data[7] = rdhxr.data8[3];
 
 	/* Release the FIFO. */
-	if (release){
+	if (release) {
 		can_fifo_release(canport, fifo);
 	}
 }
 
-bool can_available_mailbox(u32 canport)
+bool can_available_mailbox(uint32_t canport)
 {
 	return CAN_TSR(canport) & (CAN_TSR_TME0 | CAN_TSR_TME1 | CAN_TSR_TME2);
 }

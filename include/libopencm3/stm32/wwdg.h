@@ -76,7 +76,7 @@
 /* EWIF: Early wakeup interrupt flag */
 #define WWDG_SR_EWIF			(1 << 0)
 
-/* --- WWDG funtion prototypes---------------------------------------------- */
+/* --- WWDG function prototypes---------------------------------------------- */
 
 /* TODO */
 

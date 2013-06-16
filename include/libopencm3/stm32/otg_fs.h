@@ -39,7 +39,8 @@
 #define OTG_FS_GCCFG			MMIO32(USB_OTG_FS_BASE + 0x038)
 #define OTG_FS_CID			MMIO32(USB_OTG_FS_BASE + 0x03C)
 #define OTG_FS_HPTXFSIZ			MMIO32(USB_OTG_FS_BASE + 0x100)
-#define OTG_FS_DIEPTXF(x)		MMIO32(USB_OTG_FS_BASE + 0x104 + 4*(x-1))
+#define OTG_FS_DIEPTXF(x)		MMIO32(USB_OTG_FS_BASE + 0x104 \
+					       + 4*(x-1))
 
 /* Host-mode Control and Status Registers */
 #define OTG_FS_HCFG			MMIO32(USB_OTG_FS_BASE + 0x400)
@@ -66,28 +67,37 @@
 #define OTG_FS_DVBUSPULSE		MMIO32(USB_OTG_FS_BASE + 0x82C)
 #define OTG_FS_DIEPEMPMSK		MMIO32(USB_OTG_FS_BASE + 0x834)
 #define OTG_FS_DIEPCTL0			MMIO32(USB_OTG_FS_BASE + 0x900)
-#define OTG_FS_DIEPCTL(x)		MMIO32(USB_OTG_FS_BASE + 0x900 + 0x20*(x))
+#define OTG_FS_DIEPCTL(x)		MMIO32(USB_OTG_FS_BASE + 0x900 + \
+						0x20*(x))
 #define OTG_FS_DOEPCTL0			MMIO32(USB_OTG_FS_BASE + 0xB00)
-#define OTG_FS_DOEPCTL(x)		MMIO32(USB_OTG_FS_BASE + 0xB00 + 0x20*(x))
-#define OTG_FS_DIEPINT(x)		MMIO32(USB_OTG_FS_BASE + 0x908 + 0x20*(x))
-#define OTG_FS_DOEPINT(x)		MMIO32(USB_OTG_FS_BASE + 0xB08 + 0x20*(x))
+#define OTG_FS_DOEPCTL(x)		MMIO32(USB_OTG_FS_BASE + 0xB00 + \
+						0x20*(x))
+#define OTG_FS_DIEPINT(x)		MMIO32(USB_OTG_FS_BASE + 0x908 + \
+						0x20*(x))
+#define OTG_FS_DOEPINT(x)		MMIO32(USB_OTG_FS_BASE + 0xB08 + \
+						0x20*(x))
 #define OTG_FS_DIEPTSIZ0		MMIO32(USB_OTG_FS_BASE + 0x910)
 #define OTG_FS_DOEPTSIZ0		MMIO32(USB_OTG_FS_BASE + 0xB10)
-#define OTG_FS_DIEPTSIZ(x)		MMIO32(USB_OTG_FS_BASE + 0x910 + 0x20*(x))
-#define OTG_FS_DTXFSTS(x)		MMIO32(USB_OTG_FS_BASE + 0x918 + 0x20*(x))
-#define OTG_FS_DOEPTSIZ(x)		MMIO32(USB_OTG_FS_BASE + 0xB10 + 0x20*(x))
+#define OTG_FS_DIEPTSIZ(x)		MMIO32(USB_OTG_FS_BASE + 0x910 + \
+						0x20*(x))
+#define OTG_FS_DTXFSTS(x)		MMIO32(USB_OTG_FS_BASE + 0x918 + \
+						0x20*(x))
+#define OTG_FS_DOEPTSIZ(x)		MMIO32(USB_OTG_FS_BASE + 0xB10 + \
+						0x20*(x))
 
 /* Power and clock gating control and status register */
 #define OTG_FS_PCGCCTL			MMIO32(USB_OTG_FS_BASE + 0xE00)
 
 /* Data FIFO */
-#define OTG_FS_FIFO(x)			((volatile u32*)(USB_OTG_FS_BASE + (((x) + 1) << 12)))
+#define OTG_FS_FIFO(x) 			(&MMIO32(USB_OTG_FS_BASE \
+							      + (((x) + 1) \
+								 << 12)))
 
 /* Global CSRs */
 /* OTG_FS USB control registers (OTG_HS_GOTGCTL) */
 #define OTG_FS_GOTGCTL_BSVLD		(1 << 19)
 #define OTG_FS_GOTGCTL_ASVLD		(1 << 18)
-#define OTG_FS_GOTGCTL_DBCT 		(1 << 17)
+#define OTG_FS_GOTGCTL_DBCT		(1 << 17)
 #define OTG_FS_GOTGCTL_CIDSTS		(1 << 16)
 #define OTG_FS_GOTGCTL_DHNPEN		(1 << 11)
 #define OTG_FS_GOTGCTL_HSHNPEN		(1 << 10)
@@ -320,7 +330,7 @@
 #define OTG_FS_DOEPINTX_EPDISD		(1 << 1)
 #define OTG_FS_DOEPINTX_XFRC		(1 << 0)
 
-/* OTG_FS Device OUT Endpoint 0 Transfer Size Regsiter (OTG_FS_DOEPTSIZ0) */
+/* OTG_FS Device OUT Endpoint 0 Transfer Size Register (OTG_FS_DOEPTSIZ0) */
 /* Bit 31 - Reserved */
 #define OTG_FS_DIEPSIZ0_STUPCNT_1	(0x1 << 29)
 #define OTG_FS_DIEPSIZ0_STUPCNT_2	(0x2 << 29)

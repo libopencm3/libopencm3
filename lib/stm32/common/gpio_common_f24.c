@@ -1,20 +1,22 @@
 /** @addtogroup gpio_file
 
-@author @htmlonly &copy; @endhtmlonly 2009 Uwe Hermann <uwe@hermann-uwe.de>
-@author @htmlonly &copy; @endhtmlonly 2012 Ken Sarkies <ksarkies@internode.on.net>
+@author @htmlonly &copy; @endhtmlonly 2009
+Uwe Hermann <uwe@hermann-uwe.de>
+@author @htmlonly &copy; @endhtmlonly 2012
+Ken Sarkies <ksarkies@internode.on.net>
 
 Each I/O port has 16 individually configurable bits. Many I/O pins share GPIO
-functionality with a number of alternate functions and must be configured to the
-alternate function mode if these are to be accessed. A feature is available to
-remap alternative functions to a limited set of alternative pins in the event
-of a clash of requirements.
+functionality with a number of alternate functions and must be configured to
+the alternate function mode if these are to be accessed. A feature is available
+to remap alternative functions to a limited set of alternative pins in the
+event of a clash of requirements.
 
-The data registers associated with each port for input and output are 32 bit with
-the upper 16 bits unused. The output buffer must be written as a 32 bit word, but
-individual bits may be set or reset separately in atomic operations to avoid race
-conditions during interrupts. Bits may also be individually locked to prevent
-accidental configuration changes. Once locked the configuration cannot be changed
-until after the next reset.
+The data registers associated with each port for input and output are 32 bit
+with the upper 16 bits unused. The output buffer must be written as a 32 bit
+word, but individual bits may be set or reset separately in atomic operations
+to avoid race conditions during interrupts. Bits may also be individually
+locked to prevent accidental configuration changes. Once locked the
+configuration cannot be changed until after the next reset.
 
 Each port bit can be configured as analog or digital input, the latter can be
 floating or pulled up or down. As outputs they can be configured as either
@@ -29,9 +31,9 @@ Example 1: Push-pull digital output actions with pullup on ports C2 and C9
 
 @code
 	gpio_mode_setup(GPIOC, GPIO_MODE_OUTPUT,
-		            GPIO_PUPD_PULLUP,  GPIO2 | GPIO9);
+			GPIO_PUPD_PULLUP,  GPIO2 | GPIO9);
 	gpio_output_options(GPIOC, GPIO_OTYPE_PP,
-		            GPIO_OSPEED_25MHZ,  GPIO2 | GPIO9);
+			    GPIO_OSPEED_25MHZ,  GPIO2 | GPIO9);
 	gpio_set(GPIOC, GPIO2 | GPIO9);
 	gpio_clear(GPIOC, GPIO2);
 	gpio_toggle(GPIOC, GPIO2 | GPIO9);
@@ -42,7 +44,7 @@ Example 2: Digital input on port C12 with pullup
 
 @code
 	gpio_mode_setup(GPIOC, GPIO_MODE_INPUT,
-		            GPIO_PUPD_PULLUP, GPIO12);
+			GPIO_PUPD_PULLUP, GPIO12);
 	reg16 = gpio_port_read(GPIOC);
 @endcode
 
@@ -70,7 +72,7 @@ Example 2: Digital input on port C12 with pullup
 
 #include <libopencm3/stm32/gpio.h>
 
-/*-----------------------------------------------------------------------------*/
+/*---------------------------------------------------------------------------*/
 /** @brief Set GPIO Pin Mode
 
 Sets the Pin Direction and Analog/Digital Mode, and Output Pin Pullup,
@@ -78,14 +80,17 @@ for a set of GPIO pins on a given GPIO port.
 
 @param[in] gpioport Unsigned int32. Port identifier @ref gpio_port_id
 @param[in] mode Unsigned int8. Pin mode @ref gpio_mode
-@param[in] pull_up_down Unsigned int8. Pin pullup/pulldown configuration @ref gpio_pup
+@param[in] pull_up_down Unsigned int8. Pin pullup/pulldown configuration @ref
+gpio_pup
 @param[in] gpios Unsigned int16. Pin identifiers @ref gpio_pin_id
-             If multiple pins are to be set, use bitwise OR '|' to separate them.
+	     If multiple pins are to be set, use bitwise OR '|' to separate
+	     them.
 */
-void gpio_mode_setup(u32 gpioport, u8 mode, u8 pull_up_down, u16 gpios)
+void gpio_mode_setup(uint32_t gpioport, uint8_t mode, uint8_t pull_up_down,
+		     uint16_t gpios)
 {
-	u16 i;
-	u32 moder, pupd;
+	uint16_t i;
+	uint32_t moder, pupd;
 
 	/*
 	 * We want to set the config only for the pins mentioned in gpios,
@@ -95,8 +100,9 @@ void gpio_mode_setup(u32 gpioport, u8 mode, u8 pull_up_down, u16 gpios)
 	pupd = GPIO_PUPDR(gpioport);
 
 	for (i = 0; i < 16; i++) {
-		if (!((1 << i) & gpios))
+		if (!((1 << i) & gpios)) {
 			continue;
+		}
 
 		moder &= ~GPIO_MODE_MASK(i);
 		moder |= GPIO_MODE(i, mode);
@@ -109,33 +115,38 @@ void gpio_mode_setup(u32 gpioport, u8 mode, u8 pull_up_down, u16 gpios)
 	GPIO_PUPDR(gpioport) = pupd;
 }
 
-/*-----------------------------------------------------------------------------*/
+/*---------------------------------------------------------------------------*/
 /** @brief Set GPIO Output Options
 
-When the pin is set to output mode, this sets the configuration (analog/digital and
-open drain/push pull) and speed, for a set of GPIO pins on a given GPIO port.
+When the pin is set to output mode, this sets the configuration (analog/digital
+and open drain/push pull) and speed, for a set of GPIO pins on a given GPIO
+port.
 
 @param[in] gpioport Unsigned int32. Port identifier @ref gpio_port_id
 @param[in] otype Unsigned int8. Pin output type @ref gpio_output_type
 @param[in] speed Unsigned int8. Pin speed @ref gpio_speed
 @param[in] gpios Unsigned int16. Pin identifiers @ref gpio_pin_id
-             If multiple pins are to be set, use bitwise OR '|' to separate them.
+	     If multiple pins are to be set, use bitwise OR '|' to separate
+	     them.
 */
-void gpio_set_output_options(u32 gpioport, u8 otype, u8 speed, u16 gpios)
+void gpio_set_output_options(uint32_t gpioport, uint8_t otype, uint8_t speed,
+			     uint16_t gpios)
 {
-	u16 i;
-	u32 ospeedr;
+	uint16_t i;
+	uint32_t ospeedr;
 
-	if (otype == 0x1)
+	if (otype == 0x1) {
 		GPIO_OTYPER(gpioport) |= gpios;
+	}
 	else
 		GPIO_OTYPER(gpioport) &= ~gpios;
 
 	ospeedr = GPIO_OSPEEDR(gpioport);
 
 	for (i = 0; i < 16; i++) {
-		if (!((1 << i) & gpios))
+		if (!((1 << i) & gpios)) {
 			continue;
+		}
 		ospeedr &= ~GPIO_OSPEED_MASK(i);
 		ospeedr |= GPIO_OSPEED(i, speed);
 	}
@@ -143,41 +154,47 @@ void gpio_set_output_options(u32 gpioport, u8 otype, u8 speed, u16 gpios)
 	GPIO_OSPEEDR(gpioport) = ospeedr;
 }
 
-/*-----------------------------------------------------------------------------*/
+/*---------------------------------------------------------------------------*/
 /** @brief Set GPIO Alternate Function Selection
 
-Set the alternate function mapping number for each pin. Most pins have alternate
-functions associated with them. When set to AF mode, a pin may be used for one of
-its allocated alternate functions selected by the number given here. To determine
-the number to be used for the desired function refer to the individual datasheet
-for the particular device. A table is given under the Pin Selection chapter.
+Set the alternate function mapping number for each pin. Most pins have
+alternate functions associated with them. When set to AF mode, a pin may be
+used for one of its allocated alternate functions selected by the number given
+here. To determine the number to be used for the desired function refer to the
+individual datasheet for the particular device. A table is given under the Pin
+Selection chapter.
 
-Note that a number of pins may be set but only with a single AF number. In practice
-this would rarely be useful as each pin is likely to require a different number.
+Note that a number of pins may be set but only with a single AF number. In
+practice this would rarely be useful as each pin is likely to require a
+different number.
 
 @param[in] gpioport Unsigned int32. Port identifier @ref gpio_port_id
-@param[in] alt_func_num Unsigned int8. Pin alternate function number @ref gpio_af_num
+@param[in] alt_func_num Unsigned int8. Pin alternate function number @ref
+gpio_af_num
 @param[in] gpios Unsigned int16. Pin identifiers @ref gpio_pin_id
-             If multiple pins are to be set, use bitwise OR '|' to separate them.
+	     If multiple pins are to be set, use bitwise OR '|' to separate
+	     them.
 */
-void gpio_set_af(u32 gpioport, u8 alt_func_num, u16 gpios)
+void gpio_set_af(uint32_t gpioport, uint8_t alt_func_num, uint16_t gpios)
 {
-	u16 i;
-	u32 afrl, afrh;
+	uint16_t i;
+	uint32_t afrl, afrh;
 
 	afrl = GPIO_AFRL(gpioport);
 	afrh = GPIO_AFRH(gpioport);
 
 	for (i = 0; i < 8; i++) {
-		if (!((1 << i) & gpios))
+		if (!((1 << i) & gpios)) {
 			continue;
+		}
 		afrl &= ~GPIO_AFR_MASK(i);
 		afrl |= GPIO_AFR(i, alt_func_num);
 	}
 
 	for (i = 8; i < 16; i++) {
-		if (!((1 << i) & gpios))
+		if (!((1 << i) & gpios)) {
 			continue;
+		}
 		afrh &= ~GPIO_AFR_MASK(i - 8);
 		afrh |= GPIO_AFR(i - 8, alt_func_num);
 	}

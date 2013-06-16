@@ -34,13 +34,17 @@ LGPL License Terms @ref lgpl_license
 
 #include <libopencm3/lpc43xx/scu.h>
 
-/* For pin_conf_normal value see scu.h define SCU_CONF_XXX or Configuration for different I/O pins types */
-void scu_pinmux(scu_grp_pin_t group_pin, u32 scu_conf)
+/* For pin_conf_normal value see scu.h define SCU_CONF_XXX or Configuration for
+ * different I/O pins types
+ */
+void scu_pinmux(scu_grp_pin_t group_pin, uint32_t scu_conf)
 {
 	MMIO32(group_pin) = scu_conf;
 }
 
-/* For other special SCU register USB1, I2C0, ADC0/1, DAC, EMC clock delay See scu.h */
+/* For other special SCU register USB1, I2C0, ADC0/1, DAC, EMC clock delay See
+ * scu.h
+ */
 
 /* For Pin interrupt select register see scu.h SCU_PINTSEL0 & SCU_PINTSEL1 */
 

@@ -41,7 +41,7 @@ LGPL License Terms @ref lgpl_license
 
 /* --- Convenience macros -------------------------------------------------- */
 
-/* CAN register base adresses (for convenience) */
+/* CAN register base addresses (for convenience) */
 /*****************************************************************************/
 /** @defgroup can_reg_base CAN register base address
 @ingroup can_defines
@@ -159,8 +159,10 @@ LGPL License Terms @ref lgpl_license
  * Connectivity line devices have 28 banks so the bank ID spans 0..27
  * all other devices have 14 banks so the bank ID spans 0..13.
  */
-#define CAN_FiR1(can_base, bank)	MMIO32(can_base + 0x240 + (bank * 0x8) + 0x0)
-#define CAN_FiR2(can_base, bank)	MMIO32(can_base + 0x240 + (bank * 0x8) + 0x4)
+#define CAN_FiR1(can_base, bank)	MMIO32(can_base + 0x240 + \
+						(bank * 0x8) + 0x0)
+#define CAN_FiR2(can_base, bank)	MMIO32(can_base + 0x240 + \
+						(bank * 0x8) + 0x4)
 
 /* --- CAN_MCR values ------------------------------------------------------ */
 
@@ -642,31 +644,36 @@ LGPL License Terms @ref lgpl_license
 
 BEGIN_DECLS
 
-void can_reset(u32 canport);
-int can_init(u32 canport, bool ttcm, bool abom, bool awum, bool nart,
-	     bool rflm, bool txfp, u32 sjw, u32 ts1, u32 ts2, u32 brp,
-	     bool loopback, bool silent);
+void can_reset(uint32_t canport);
+int can_init(uint32_t canport, bool ttcm, bool abom, bool awum, bool nart,
+	     bool rflm, bool txfp, uint32_t sjw, uint32_t ts1, uint32_t ts2,
+	     uint32_t brp, bool loopback, bool silent);
 
-void can_filter_init(u32 canport, u32 nr, bool scale_32bit, bool id_list_mode,
-		     u32 fr1, u32 fr2, u32 fifo, bool enable);
-void can_filter_id_mask_16bit_init(u32 canport, u32 nr, u16 id1, u16 mask1,
-				   u16 id2, u16 mask2, u32 fifo, bool enable);
-void can_filter_id_mask_32bit_init(u32 canport, u32 nr, u32 id, u32 mask,
-				   u32 fifo, bool enable);
-void can_filter_id_list_16bit_init(u32 canport, u32 nr, u16 id1, u16 id2,
-				   u16 id3, u16 id4, u32 fifo, bool enable);
-void can_filter_id_list_32bit_init(u32 canport, u32 nr, u32 id1, u32 id2,
-				   u32 fifo, bool enable);
+void can_filter_init(uint32_t canport, uint32_t nr, bool scale_32bit,
+		     bool id_list_mode, uint32_t fr1, uint32_t fr2,
+		     uint32_t fifo, bool enable);
+void can_filter_id_mask_16bit_init(uint32_t canport, uint32_t nr, uint16_t id1,
+				   uint16_t mask1, uint16_t id2,
+				   uint16_t mask2, uint32_t fifo, bool enable);
+void can_filter_id_mask_32bit_init(uint32_t canport, uint32_t nr, uint32_t id,
+				   uint32_t mask, uint32_t fifo, bool enable);
+void can_filter_id_list_16bit_init(uint32_t canport, uint32_t nr, uint16_t id1,
+				   uint16_t id2, uint16_t id3, uint16_t id4,
+				   uint32_t fifo, bool enable);
+void can_filter_id_list_32bit_init(uint32_t canport, uint32_t nr, uint32_t id1,
+				   uint32_t id2, uint32_t fifo, bool enable);
 
-void can_enable_irq(u32 canport, u32 irq);
-void can_disable_irq(u32 canport, u32 irq);
+void can_enable_irq(uint32_t canport, uint32_t irq);
+void can_disable_irq(uint32_t canport, uint32_t irq);
 
-int can_transmit(u32 canport, u32 id, bool ext, bool rtr, u8 length, u8 *data);
-void can_receive(u32 canport, u8 fifo, bool release, u32 *id, bool *ext,
-		 bool *rtr, u32 *fmi, u8 *length, u8 *data);
+int can_transmit(uint32_t canport, uint32_t id, bool ext, bool rtr,
+		 uint8_t length, uint8_t *data);
+void can_receive(uint32_t canport, uint8_t fifo, bool release, uint32_t *id,
+		 bool *ext, bool *rtr, uint32_t *fmi, uint8_t *length,
+		 uint8_t *data);
 
-void can_fifo_release(u32 canport, u8 fifo);
-bool can_available_mailbox(u32 canport);
+void can_fifo_release(uint32_t canport, uint8_t fifo);
+bool can_available_mailbox(uint32_t canport);
 END_DECLS
 
 #endif

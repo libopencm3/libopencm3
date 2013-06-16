@@ -42,7 +42,7 @@ relevant bit is not set, the IWDG timer must be enabled by software.
 #define COUNT_LENGTH 12
 #define COUNT_MASK ((1 << COUNT_LENGTH)-1)
 
-/*-----------------------------------------------------------------------------*/
+/*---------------------------------------------------------------------------*/
 /** @brief IWDG Enable Watchdog Timer
 
 The watchdog timer is started. The timeout period defaults to 512 milliseconds
@@ -55,7 +55,7 @@ void iwdg_start(void)
 	IWDG_KR = IWDG_KR_START;
 }
 
-/*-----------------------------------------------------------------------------*/
+/*---------------------------------------------------------------------------*/
 /** @brief IWDG Set Period in Milliseconds
 
 The countdown period is converted into count and prescale values. The maximum
@@ -66,27 +66,41 @@ A delay of up to 5 clock cycles of the LSI clock (about 156 microseconds)
 can occasionally occur if the prescale or preload registers are currently busy
 loading a previous value.
 
-@param[in] period u32 Period in milliseconds (< 32760) from a watchdog reset until
-a system reset is issued.
+@param[in] period uint32_t Period in milliseconds (< 32760) from a watchdog
+reset until a system reset is issued.
 */
 
-void iwdg_set_period_ms(u32 period)
+void iwdg_set_period_ms(uint32_t period)
 {
-u32 count, prescale, reload, exponent;
-/* Set the count to represent ticks of the 32kHz LSI clock */
+	uint32_t count, prescale, reload, exponent;
+
+	/* Set the count to represent ticks of the 32kHz LSI clock */
 	count = (period << 5);
-/* Strip off the first 12 bits to get the prescale value required */
+
+	/* Strip off the first 12 bits to get the prescale value required */
 	prescale = (count >> 12);
-	if (prescale > 256)      {exponent = IWDG_PR_DIV256;  reload = COUNT_MASK;}
-	else if (prescale > 128) {exponent = IWDG_PR_DIV256;  reload = (count >> 8);}
-	else if (prescale > 64)  {exponent = IWDG_PR_DIV128;  reload = (count >> 7);}
-	else if (prescale > 32)  {exponent = IWDG_PR_DIV64;   reload = (count >> 6);}
-	else if (prescale > 16)  {exponent = IWDG_PR_DIV32;   reload = (count >> 5);}
-	else if (prescale > 8)   {exponent = IWDG_PR_DIV16;   reload = (count >> 4);}
-	else if (prescale > 4)   {exponent = IWDG_PR_DIV8;    reload = (count >> 3);}
-	else                     {exponent = IWDG_PR_DIV4;    reload = (count >> 2);}
-/* Avoid the undefined situation of a zero count */
-	if (count == 0) count = 1;
+	if (prescale > 256) {
+		exponent = IWDG_PR_DIV256; reload = COUNT_MASK;
+	} else if (prescale > 128) {
+		exponent = IWDG_PR_DIV256; reload = (count >> 8);
+	} else if (prescale > 64) {
+		exponent = IWDG_PR_DIV128; reload = (count >> 7);
+	} else if (prescale > 32) {
+		exponent = IWDG_PR_DIV64;  reload = (count >> 6);
+	} else if (prescale > 16) {
+		exponent = IWDG_PR_DIV32;  reload = (count >> 5);
+	} else if (prescale > 8) {
+		exponent = IWDG_PR_DIV16;  reload = (count >> 4);
+	} else if (prescale > 4) {
+		exponent = IWDG_PR_DIV8;   reload = (count >> 3);
+	} else {
+		exponent = IWDG_PR_DIV4;   reload = (count >> 2);
+	}
+
+	/* Avoid the undefined situation of a zero count */
+	if (count == 0) {
+		count = 1;
+	}
 
 	while (iwdg_prescaler_busy());
 	IWDG_KR = IWDG_KR_UNLOCK;
@@ -96,31 +110,31 @@ u32 count, prescale, reload, exponent;
 	IWDG_RLR = (reload & COUNT_MASK);
 }
 
-/*-----------------------------------------------------------------------------*/
+/*---------------------------------------------------------------------------*/
 /** @brief IWDG Get Reload Register Status
 
-@returns boolean: TRUE if the reload register is busy and unavailable for loading
-a new count value.
+@returns boolean: TRUE if the reload register is busy and unavailable for
+loading a new count value.
 */
 
 bool iwdg_reload_busy(void)
 {
-	return (IWDG_SR & IWDG_SR_RVU);
+	return IWDG_SR & IWDG_SR_RVU;
 }
 
-/*-----------------------------------------------------------------------------*/
+/*---------------------------------------------------------------------------*/
 /** @brief IWDG Get Prescaler Register Status
 
-@returns boolean: TRUE if the prescaler register is busy and unavailable for loading
-a new period value.
+@returns boolean: TRUE if the prescaler register is busy and unavailable for
+loading a new period value.
 */
 
 bool iwdg_prescaler_busy(void)
 {
-	return (IWDG_SR & IWDG_SR_PVU);
+	return IWDG_SR & IWDG_SR_PVU;
 }
 
-/*-----------------------------------------------------------------------------*/
+/*---------------------------------------------------------------------------*/
 /** @brief IWDG reset Watchdog Timer
 
 The watchdog timer is reset. The counter restarts from the value in the reload

@@ -1,7 +1,9 @@
 /** @addtogroup dma_defines
 
-@author @htmlonly &copy; @endhtmlonly 2011 Fergus Noble <fergusnoble@gmail.com>
-@author @htmlonly &copy; @endhtmlonly 2012 Ken Sarkies <ksarkies@internode.on.net>
+@author @htmlonly &copy; @endhtmlonly 2011
+Fergus Noble <fergusnoble@gmail.com>
+@author @htmlonly &copy; @endhtmlonly 2012
+Ken Sarkies <ksarkies@internode.on.net>
 
 */
 /*
@@ -24,7 +26,7 @@
  * along with this library.  If not, see <http://www.gnu.org/licenses/>.
  */
 
-/* THIS FILE SHOULD NOT BE INCLUDED DIRECTLY, BUT ONLY VIA DMA.H 
+/* THIS FILE SHOULD NOT BE INCLUDED DIRECTLY, BUT ONLY VIA DMA.H
 The order of header inclusion is important. dma.h includes the device
 specific memorymap.h header before including this header file.*/
 
@@ -152,7 +154,8 @@ specific memorymap.h header before including this header file.*/
 #define DMA2_S7NDTR			DMA2_SNDTR(7)
 
 /* DMA Stream x peripheral address register (DMA_SxPAR) */
-#define DMA_SPAR(port, n)		*(volatile void **)(DMA_STREAM(port, n) + 0x08)
+#define DMA_SPAR(port, n)		(*(volatile void **)\
+					 (DMA_STREAM(port, n) + 0x08))
 #define DMA1_SPAR(n)			DMA_SPAR(DMA1, n)
 #define DMA2_SPAR(n)			DMA_SPAR(DMA2, n)
 
@@ -175,7 +178,8 @@ specific memorymap.h header before including this header file.*/
 #define DMA2_S7PAR			DMA2_SPAR(7)
 
 /* DMA Stream x memory address 0 register (DMA_SxM0AR) */
-#define DMA_SM0AR(port, n)		*(volatile void **)(DMA_STREAM(port, n) + 0x0c)
+#define DMA_SM0AR(port, n)		(*(volatile void **) \
+					 (DMA_STREAM(port, n) + 0x0c))
 #define DMA1_SM0AR(n)			DMA_SM0AR(DMA1, n)
 #define DMA2_SM0AR(n)			DMA_SM0AR(DMA2, n)
 
@@ -198,7 +202,8 @@ specific memorymap.h header before including this header file.*/
 #define DMA2_S7M0AR			DMA2_SM0AR(7)
 
 /* DMA Stream x memory address 1 register (DMA_SxM1AR) */
-#define DMA_SM1AR(port, n)		*(volatile void **)(DMA_STREAM(port, n) + 0x10)
+#define DMA_SM1AR(port, n)		(*(volatile void **)\
+					 (DMA_STREAM(port, n) + 0x10))
 #define DMA1_SM1AR(n)			DMA_SM1AR(DMA1, n)
 #define DMA2_SM1AR(n)			DMA_SM1AR(DMA2, n)
 
@@ -252,21 +257,24 @@ being at the same relative location */
 
 @{*/
 /** Transfer Complete Interrupt Flag */
-#define DMA_TCIF       		    (1 << 5)
+#define DMA_TCIF		    (1 << 5)
 /** Half Transfer Interrupt Flag */
-#define DMA_HTIF       		    (1 << 4)
+#define DMA_HTIF		    (1 << 4)
 /** Transfer Error Interrupt Flag */
-#define DMA_TEIF       		    (1 << 3)
+#define DMA_TEIF		    (1 << 3)
 /** Direct Mode Error Interrupt Flag */
-#define DMA_DMEIF       	    (1 << 2)
+#define DMA_DMEIF		    (1 << 2)
 /** FIFO Error Interrupt Flag */
-#define DMA_FEIF       		    (1 << 0)
+#define DMA_FEIF		    (1 << 0)
 /**@}*/
 
-/* Offset within interrupt status register to start of stream interrupt flag field */
-#define DMA_ISR_OFFSET(stream)		(6*(stream & 0x01)+16*((stream & 0x02) >> 1))
-#define DMA_ISR_FLAGS			    (DMA_TCIF | DMA_HTIF | DMA_TEIF | DMA_DMEIF | DMA_FEIF)
-#define DMA_ISR_MASK(stream)		DMA_ISR_FLAGS << DMA_ISR_OFFSET(stream)
+/* Offset within interrupt status register to start of stream interrupt flag
+ * field
+ */
+#define DMA_ISR_OFFSET(stream)	(6*(stream & 0x01)+16*((stream & 0x02) >> 1))
+#define DMA_ISR_FLAGS		(DMA_TCIF | DMA_HTIF | DMA_TEIF | DMA_DMEIF | \
+				 DMA_FEIF)
+#define DMA_ISR_MASK(stream)	(DMA_ISR_FLAGS << DMA_ISR_OFFSET(stream))
 
 /* --- DMA_LISR values ----------------------------------------------------- */
 
@@ -560,52 +568,54 @@ being at the same relative location */
 BEGIN_DECLS
 
 /*
- * Note: The F2 and F4 series have a completely new DMA peripheral with different
- * configuration options.
+ * Note: The F2 and F4 series have a completely new DMA peripheral with
+ * different configuration options.
  */
 
-void dma_stream_reset(u32 dma, u8 stream);
-void dma_clear_interrupt_flags(u32 dma, u8 stream, u32 interrupts);
-bool dma_get_interrupt_flag(u32 dma, u8 stream, u32 interrupt);
-void dma_set_transfer_mode(u32 dma, u8 stream, u32 direction);
-void dma_set_priority(u32 dma, u8 stream, u32 prio);
-void dma_set_memory_size(u32 dma, u8 stream, u32 mem_size);
-void dma_set_peripheral_size(u32 dma, u8 stream, u32 peripheral_size);
-void dma_enable_memory_increment_mode(u32 dma, u8 stream);
-void dma_disable_memory_increment_mode(u32 dma, u8 channel);
-void dma_enable_peripheral_increment_mode(u32 dma, u8 stream);
-void dma_disable_peripheral_increment_mode(u32 dma, u8 channel);
-void dma_enable_fixed_peripheral_increment_mode(u32 dma, u8 stream);
-void dma_enable_circular_mode(u32 dma, u8 stream);
-void dma_channel_select(u32 dma, u8 stream, u32 channel);
-void dma_set_memory_burst(u32 dma, u8 stream, u32 burst);
-void dma_set_peripheral_burst(u32 dma, u8 stream, u32 burst);
-void dma_set_initial_target(u32 dma, u8 stream, u8 memory);
-u8 dma_get_target(u32 dma, u8 stream);
-void dma_enable_double_buffer_mode(u32 dma, u8 stream);
-void dma_disable_double_buffer_mode(u32 dma, u8 stream);
-void dma_set_peripheral_flow_control(u32 dma, u8 stream);
-void dma_set_dma_flow_control(u32 dma, u8 stream);
-void dma_enable_transfer_error_interrupt(u32 dma, u8 stream);
-void dma_disable_transfer_error_interrupt(u32 dma, u8 stream);
-void dma_enable_half_transfer_interrupt(u32 dma, u8 stream);
-void dma_disable_half_transfer_interrupt(u32 dma, u8 stream);
-void dma_enable_transfer_complete_interrupt(u32 dma, u8 stream);
-void dma_disable_transfer_complete_interrupt(u32 dma, u8 stream);
-u32 dma_fifo_status(u32 dma, u8 stream);
-void dma_enable_direct_mode_error_interrupt(u32 dma, u8 stream);
-void dma_disable_direct_mode_error_interrupt(u32 dma, u8 stream);
-void dma_enable_fifo_error_interrupt(u32 dma, u8 stream);
-void dma_disable_fifo_error_interrupt(u32 dma, u8 stream);
-void dma_enable_direct_mode(u32 dma, u8 stream);
-void dma_enable_fifo_mode(u32 dma, u8 stream);
-void dma_set_fifo_threshold(u32 dma, u8 stream, u32 threshold);
-void dma_enable_stream(u32 dma, u8 stream);
-void dma_disable_stream(u32 dma, u8 stream);
-void dma_set_peripheral_address(u32 dma, u8 stream, u32 address);
-void dma_set_memory_address(u32 dma, u8 stream, u32 address);
-void dma_set_memory_address_1(u32 dma, u8 stream, u32 address);
-void dma_set_number_of_data(u32 dma, u8 stream, u16 number);
+void dma_stream_reset(uint32_t dma, uint8_t stream);
+void dma_clear_interrupt_flags(uint32_t dma, uint8_t stream,
+			       uint32_t interrupts);
+bool dma_get_interrupt_flag(uint32_t dma, uint8_t stream, uint32_t interrupt);
+void dma_set_transfer_mode(uint32_t dma, uint8_t stream, uint32_t direction);
+void dma_set_priority(uint32_t dma, uint8_t stream, uint32_t prio);
+void dma_set_memory_size(uint32_t dma, uint8_t stream, uint32_t mem_size);
+void dma_set_peripheral_size(uint32_t dma, uint8_t stream,
+			     uint32_t peripheral_size);
+void dma_enable_memory_increment_mode(uint32_t dma, uint8_t stream);
+void dma_disable_memory_increment_mode(uint32_t dma, uint8_t channel);
+void dma_enable_peripheral_increment_mode(uint32_t dma, uint8_t stream);
+void dma_disable_peripheral_increment_mode(uint32_t dma, uint8_t channel);
+void dma_enable_fixed_peripheral_increment_mode(uint32_t dma, uint8_t stream);
+void dma_enable_circular_mode(uint32_t dma, uint8_t stream);
+void dma_channel_select(uint32_t dma, uint8_t stream, uint32_t channel);
+void dma_set_memory_burst(uint32_t dma, uint8_t stream, uint32_t burst);
+void dma_set_peripheral_burst(uint32_t dma, uint8_t stream, uint32_t burst);
+void dma_set_initial_target(uint32_t dma, uint8_t stream, uint8_t memory);
+uint8_t dma_get_target(uint32_t dma, uint8_t stream);
+void dma_enable_double_buffer_mode(uint32_t dma, uint8_t stream);
+void dma_disable_double_buffer_mode(uint32_t dma, uint8_t stream);
+void dma_set_peripheral_flow_control(uint32_t dma, uint8_t stream);
+void dma_set_dma_flow_control(uint32_t dma, uint8_t stream);
+void dma_enable_transfer_error_interrupt(uint32_t dma, uint8_t stream);
+void dma_disable_transfer_error_interrupt(uint32_t dma, uint8_t stream);
+void dma_enable_half_transfer_interrupt(uint32_t dma, uint8_t stream);
+void dma_disable_half_transfer_interrupt(uint32_t dma, uint8_t stream);
+void dma_enable_transfer_complete_interrupt(uint32_t dma, uint8_t stream);
+void dma_disable_transfer_complete_interrupt(uint32_t dma, uint8_t stream);
+uint32_t dma_fifo_status(uint32_t dma, uint8_t stream);
+void dma_enable_direct_mode_error_interrupt(uint32_t dma, uint8_t stream);
+void dma_disable_direct_mode_error_interrupt(uint32_t dma, uint8_t stream);
+void dma_enable_fifo_error_interrupt(uint32_t dma, uint8_t stream);
+void dma_disable_fifo_error_interrupt(uint32_t dma, uint8_t stream);
+void dma_enable_direct_mode(uint32_t dma, uint8_t stream);
+void dma_enable_fifo_mode(uint32_t dma, uint8_t stream);
+void dma_set_fifo_threshold(uint32_t dma, uint8_t stream, uint32_t threshold);
+void dma_enable_stream(uint32_t dma, uint8_t stream);
+void dma_disable_stream(uint32_t dma, uint8_t stream);
+void dma_set_peripheral_address(uint32_t dma, uint8_t stream, uint32_t address);
+void dma_set_memory_address(uint32_t dma, uint8_t stream, uint32_t address);
+void dma_set_memory_address_1(uint32_t dma, uint8_t stream, uint32_t address);
+void dma_set_number_of_data(uint32_t dma, uint8_t stream, uint16_t number);
 
 END_DECLS
 /**@}*/

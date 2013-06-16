@@ -22,7 +22,7 @@
  * For details see:
  * PM0081 Programming manual: STM32F40xxx and STM32F41xxx Flash programming
  * September 2011, Doc ID 018520 Rev 1
- * http://www.st.com/st-web-ui/static/active/en/resource/technical/document/programming_manual/DM00023388.pdf
+ * https://github.com/libopencm3/libopencm3-archive/blob/master/st_micro/DM00023388.pdf
  */
 
 /** @cond */
@@ -110,10 +110,10 @@
 
 /* --- FLASH Keys -----------------------------------------------------------*/
 
-#define FLASH_KEYR_KEY1			((u32)0x45670123)
-#define FLASH_KEYR_KEY2			((u32)0xcdef89ab)
-#define FLASH_OPTKEYR_KEY1		((u32)0x08192a3b)
-#define FLASH_OPTKEYR_KEY2		((u32)0x4c5d6e7f)
+#define FLASH_KEYR_KEY1			((uint32_t)0x45670123)
+#define FLASH_KEYR_KEY2			((uint32_t)0xcdef89ab)
+#define FLASH_OPTKEYR_KEY1		((uint32_t)0x08192a3b)
+#define FLASH_OPTKEYR_KEY2		((uint32_t)0x4c5d6e7f)
 
 /* --- Function prototypes ------------------------------------------------- */
 
@@ -127,7 +127,7 @@ void flash_prefetch_enable(void);
 void flash_prefetch_disable(void);
 void flash_dcache_reset(void);
 void flash_icache_reset(void);
-void flash_set_ws(u32 ws);
+void flash_set_ws(uint32_t ws);
 void flash_unlock(void);
 void flash_lock(void);
 void flash_clear_pgserr_flag(void);
@@ -139,22 +139,22 @@ void flash_clear_bsy_flag(void);
 void flash_clear_status_flags(void);
 void flash_unlock_option_bytes(void);
 void flash_lock_option_bytes(void);
-void flash_erase_all_sectors(u32 program_size);
-void flash_erase_sector(u8 sector, u32 program_size);
-void flash_program_double_word(u32 address, u64 data);
-void flash_program_word(u32 address, u32 data);
-void flash_program_half_word(u32 address, u16 data);
-void flash_program_byte(u32 address, u8 data);
-void flash_program(u32 address, u8* data, u32 len);
+void flash_erase_all_sectors(uint32_t program_size);
+void flash_erase_sector(uint8_t sector, uint32_t program_size);
+void flash_program_double_word(uint32_t address, uint64_t data);
+void flash_program_word(uint32_t address, uint32_t data);
+void flash_program_half_word(uint32_t address, uint16_t data);
+void flash_program_byte(uint32_t address, uint8_t data);
+void flash_program(uint32_t address, uint8_t *data, uint32_t len);
 void flash_wait_for_last_operation(void);
-void flash_program_option_bytes(u32 data);
+void flash_program_option_bytes(uint32_t data);
 
 END_DECLS
 
 #endif
 /** @cond */
 #else
-#warning "flash_common_f24.h should not be included explicitly, only via flash.h"
+#warning "flash_common_f24.h should not be included direcitly, only via flash.h"
 #endif
 /** @endcond */
 

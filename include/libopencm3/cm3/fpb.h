@@ -33,7 +33,7 @@
 #define FPB_REMAP			MMIO32(FPB_BASE + 4)
 
 /* Flash Patch Comparator (FPB_COMPx) */
-#define FPB_COMP			(volatile u32 *)(FPB_BASE + 8)
+#define FPB_COMP			(&MMIO32(FPB_BASE + 8))
 
 /* TODO: PID, CID */
 

@@ -171,7 +171,7 @@ LGPL License Terms @ref lgpl_license
 #define GPIO_OTYPE_OD			0x1
 /**@}*/
 
-/* Output speed values */	
+/* Output speed values */
 #define GPIO_OSPEED(n, speed)           (speed << (2 * (n)))
 #define GPIO_OSPEED_MASK(n)             (0x3 << (2 * (n)))
 /** @defgroup gpio_speed GPIO Output Pin Speed
@@ -251,9 +251,11 @@ BEGIN_DECLS
  * TODO: this should all really be moved to a "common" gpio header
  */
 
-void gpio_mode_setup(u32 gpioport, u8 mode, u8 pull_up_down, u16 gpios);
-void gpio_set_output_options(u32 gpioport, u8 otype, u8 speed, u16 gpios);
-void gpio_set_af(u32 gpioport, u8 alt_func_num, u16 gpios);
+void gpio_mode_setup(uint32_t gpioport, uint8_t mode, uint8_t pull_up_down,
+		     uint16_t gpios);
+void gpio_set_output_options(uint32_t gpioport, uint8_t otype, uint8_t speed,
+			     uint16_t gpios);
+void gpio_set_af(uint32_t gpioport, uint8_t alt_func_num, uint16_t gpios);
 
 END_DECLS
 

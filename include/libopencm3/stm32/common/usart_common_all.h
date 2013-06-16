@@ -25,12 +25,12 @@
 
 /**@{*/
 
-/* THIS FILE SHOULD NOT BE INCLUDED DIRECTLY, BUT ONLY VIA USART.H 
+/* THIS FILE SHOULD NOT BE INCLUDED DIRECTLY, BUT ONLY VIA USART.H
 The order of header inclusion is important. usart.h includes the device
 specific memorymap.h header before including this header file.*/
 
 /** @cond */
-#if defined (LIBOPENCM3_USART_H) || defined (LIBOPENCM3_USART_COMMON_F24_H)
+#if defined(LIBOPENCM3_USART_H) || defined(LIBOPENCM3_USART_COMMON_F24_H)
 /** @endcond */
 #ifndef LIBOPENCM3_USART_COMMON_ALL_H
 #define LIBOPENCM3_USART_COMMON_ALL_H
@@ -235,7 +235,7 @@ specific memorymap.h header before including this header file.*/
 /* LBDL: LIN break detection length */
 #define USART_CR2_LBDL			(1 << 5)
 
-/* ADD[3:0]: Addres of the usart node */
+/* ADD[3:0]: Address of the usart node */
 #define USART_CR2_ADD_MASK              0xF
 
 /* --- USART_CR3 values ---------------------------------------------------- */
@@ -324,9 +324,9 @@ specific memorymap.h header before including this header file.*/
 
 @{*/
 #define USART_STOPBITS_1		USART_CR2_STOPBITS_1   /* 1 stop bit */
-#define USART_STOPBITS_0_5		USART_CR2_STOPBITS_0_5 /* 0.5 stop bits */
+#define USART_STOPBITS_0_5		USART_CR2_STOPBITS_0_5 /* .5 stop bit */
 #define USART_STOPBITS_2		USART_CR2_STOPBITS_2   /* 2 stop bits */
-#define USART_STOPBITS_1_5		USART_CR2_STOPBITS_1_5 /* 1.5 stop bits */
+#define USART_STOPBITS_1_5		USART_CR2_STOPBITS_1_5 /* 1.5 stop bit*/
 /**@}*/
 
 /* CR3_CTSE/CR3_RTSE combined values */
@@ -346,39 +346,39 @@ specific memorymap.h header before including this header file.*/
 
 BEGIN_DECLS
 
-void usart_set_baudrate(u32 usart, u32 baud);
-void usart_set_databits(u32 usart, u32 bits);
-void usart_set_stopbits(u32 usart, u32 stopbits);
-void usart_set_parity(u32 usart, u32 parity);
-void usart_set_mode(u32 usart, u32 mode);
-void usart_set_flow_control(u32 usart, u32 flowcontrol);
-void usart_enable(u32 usart);
-void usart_disable(u32 usart);
-void usart_send(u32 usart, u16 data);
-u16 usart_recv(u32 usart);
-void usart_wait_send_ready(u32 usart);
-void usart_wait_recv_ready(u32 usart);
-void usart_send_blocking(u32 usart, u16 data);
-u16 usart_recv_blocking(u32 usart);
-void usart_enable_rx_dma(u32 usart);
-void usart_disable_rx_dma(u32 usart);
-void usart_enable_tx_dma(u32 usart);
-void usart_disable_tx_dma(u32 usart);
-void usart_enable_rx_interrupt(u32 usart);
-void usart_disable_rx_interrupt(u32 usart);
-void usart_enable_tx_interrupt(u32 usart);
-void usart_disable_tx_interrupt(u32 usart);
-void usart_enable_error_interrupt(u32 usart);
-void usart_disable_error_interrupt(u32 usart);
-bool usart_get_flag(u32 usart, u32 flag);
-bool usart_get_interrupt_source(u32 usart, u32 flag);
+void usart_set_baudrate(uint32_t usart, uint32_t baud);
+void usart_set_databits(uint32_t usart, uint32_t bits);
+void usart_set_stopbits(uint32_t usart, uint32_t stopbits);
+void usart_set_parity(uint32_t usart, uint32_t parity);
+void usart_set_mode(uint32_t usart, uint32_t mode);
+void usart_set_flow_control(uint32_t usart, uint32_t flowcontrol);
+void usart_enable(uint32_t usart);
+void usart_disable(uint32_t usart);
+void usart_send(uint32_t usart, uint16_t data);
+uint16_t usart_recv(uint32_t usart);
+void usart_wait_send_ready(uint32_t usart);
+void usart_wait_recv_ready(uint32_t usart);
+void usart_send_blocking(uint32_t usart, uint16_t data);
+uint16_t usart_recv_blocking(uint32_t usart);
+void usart_enable_rx_dma(uint32_t usart);
+void usart_disable_rx_dma(uint32_t usart);
+void usart_enable_tx_dma(uint32_t usart);
+void usart_disable_tx_dma(uint32_t usart);
+void usart_enable_rx_interrupt(uint32_t usart);
+void usart_disable_rx_interrupt(uint32_t usart);
+void usart_enable_tx_interrupt(uint32_t usart);
+void usart_disable_tx_interrupt(uint32_t usart);
+void usart_enable_error_interrupt(uint32_t usart);
+void usart_disable_error_interrupt(uint32_t usart);
+bool usart_get_flag(uint32_t usart, uint32_t flag);
+bool usart_get_interrupt_source(uint32_t usart, uint32_t flag);
 
 END_DECLS
 
 #endif
 /** @cond */
 #else
-#warning "usart_common_all.h should not be included explicitly, only via usart.h"
+#warning "usart_common_all.h should not be included directly, only via usart.h"
 #endif
 /** @endcond */
 /**@}*/

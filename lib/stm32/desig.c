@@ -19,31 +19,32 @@
 
 #include <libopencm3/stm32/desig.h>
 
-u16 desig_get_flash_size(void)
+uint16_t desig_get_flash_size(void)
 {
-    return DESIG_FLASH_SIZE;
+	return DESIG_FLASH_SIZE;
 }
 
-void desig_get_unique_id(u32 result[])
+void desig_get_unique_id(uint32_t result[])
 {
-    // Could also just return a pointer to the start? read it as they wish?
-    u16 bits15_0 = DESIG_UID_15_0;
-    u32 bits31_16 = DESIG_UID_31_16;
-    u32 bits63_32 = DESIG_UID_63_32;
-    u32 bits95_64 = DESIG_UID_95_64;
-    result[0] = bits95_64;
-    result[1] = bits63_32;
-    result[2] = bits31_16 << 16 | bits15_0;
+	/* Could also just return a pointer to the start? read it as they wish?
+	 */
+	uint16_t bits15_0 = DESIG_UID_15_0;
+	uint32_t bits31_16 = DESIG_UID_31_16;
+	uint32_t bits63_32 = DESIG_UID_63_32;
+	uint32_t bits95_64 = DESIG_UID_95_64;
+	result[0] = bits95_64;
+	result[1] = bits63_32;
+	result[2] = bits31_16 << 16 | bits15_0;
 }
 
 void desig_get_unique_id_as_string(char *string,
 				   unsigned int string_len)
 {
 	int i, len;
-	u8 device_id[12];
+	uint8_t device_id[12];
 	static const char chars[] = "0123456789ABCDEF";
 
-	desig_get_unique_id((u32 *)device_id);
+	desig_get_unique_id((uint32_t *)device_id);
 
 	/* Each byte produces two characters */
 	len = (2 * sizeof(device_id) < string_len) ?

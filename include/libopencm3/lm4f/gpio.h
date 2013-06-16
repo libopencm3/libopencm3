@@ -6,8 +6,10 @@
  *
  * @version 1.0.0
  *
- * @author @htmlonly &copy; @endhtmlonly 2011 Gareth McMullin <gareth@blacksphere.co.nz>
- * @author @htmlonly &copy; @endhtmlonly 2013 Alexandru Gagniuc <mr.nuke.me@gmail.com>
+ * @author @htmlonly &copy; @endhtmlonly 2011
+ * Gareth McMullin <gareth@blacksphere.co.nz>
+ * @author @htmlonly &copy; @endhtmlonly 2013
+ * Alexandru Gagniuc <mr.nuke.me@gmail.com>
  *
  * @date 16 March 2013
  *
@@ -88,7 +90,7 @@
  * ---------------------------------------------------------------------------*/
 
 /* GPIO Data */
-#define GPIO_DATA(port)			((volatile u32 *)(port + 0x000))
+#define GPIO_DATA(port)			(&MMIO32(port + 0x000))
 
 /* GPIO Direction */
 #define GPIO_DIR(port)			MMIO32(port + 0x400)
@@ -215,14 +217,14 @@ enum gpio_trigger {
 BEGIN_DECLS
 
 void gpio_enable_ahb_aperture(void);
-void gpio_mode_setup(u32 gpioport, enum gpio_mode mode, enum gpio_pullup pullup,
-		     u8 gpios);
-void gpio_set_output_config(u32 gpioport, enum gpio_output_type otype,
-			    enum gpio_drive_strength drive, u8 gpios);
-void gpio_set_af(u32 gpioport, u8 alt_func_num, u8 gpios);
+void gpio_mode_setup(uint32_t gpioport, enum gpio_mode mode,
+		     enum gpio_pullup pullup, uint8_t gpios);
+void gpio_set_output_config(uint32_t gpioport, enum gpio_output_type otype,
+			    enum gpio_drive_strength drive, uint8_t gpios);
+void gpio_set_af(uint32_t gpioport, uint8_t alt_func_num, uint8_t gpios);
 
-void gpio_toggle(u32 gpioport, u8 gpios);
-void gpio_unlock_commit(u32 gpioport, u8 gpios);
+void gpio_toggle(uint32_t gpioport, uint8_t gpios);
+void gpio_unlock_commit(uint32_t gpioport, uint8_t gpios);
 
 /* Let's keep these ones inlined. GPIO control should be fast */
 /** @ingroup gpio_control
@@ -244,7 +246,7 @@ void gpio_unlock_commit(u32 gpioport, u8 gpios);
  * @return The level of the GPIO port. The pins not specified in gpios are
  * 	   masked to zero.
  */
-static inline u8 gpio_read(u32 gpioport, u8 gpios)
+static inline uint8_t gpio_read(uint32_t gpioport, uint8_t gpios)
 {
 	return GPIO_DATA(gpioport)[gpios];
 }
@@ -264,7 +266,7 @@ static inline u8 gpio_read(u32 gpioport, u8 gpios)
  * @param[in] data Level to set pin to. Bit 0 of data corresponds to GPIO0, bit
  *		   1 to GPIO1. and so on.
  */
-static inline void gpio_write(u32 gpioport, u8 gpios, u8 data)
+static inline void gpio_write(uint32_t gpioport, uint8_t gpios, uint8_t data)
 {
 	/* ipaddr[9:2] mask the bits to be set, hence the array index */
 	GPIO_DATA(gpioport)[gpios] = data;
@@ -279,7 +281,7 @@ static inline void gpio_write(u32 gpioport, u8 gpios, u8 data)
  * @param[in] gpios @ref gpio_pin_id. Any combination of pins may be specified
  *		    by OR'ing then together.
  */
-static inline void gpio_set(u32 gpioport, u8 gpios)
+static inline void gpio_set(uint32_t gpioport, uint8_t gpios)
 {
 	gpio_write(gpioport, gpios, 0xff);
 }
@@ -293,7 +295,7 @@ static inline void gpio_set(u32 gpioport, u8 gpios)
  * @param[in] gpios @ref gpio_pin_id. Any combination of pins may be specified
  *		    by OR'ing then together.
  */
-static inline void gpio_clear(u32 gpioport, u8 gpios)
+static inline void gpio_clear(uint32_t gpioport, uint8_t gpios)
 {
 	gpio_write(gpioport, gpios, 0);
 }
@@ -309,7 +311,7 @@ static inline void gpio_clear(u32 gpioport, u8 gpios)
  *
  * @return The level of all the pins on the GPIO port.
  */
-static inline u8 gpio_port_read(u32 gpioport)
+static inline uint8_t gpio_port_read(uint32_t gpioport)
 {
 	return gpio_read(gpioport, GPIO_ALL);
 }
@@ -317,7 +319,8 @@ static inline u8 gpio_port_read(u32 gpioport)
 /**
  * \brief Set level of of all pins from a port (atomic)
  *
- * Set the level of all pins on the given GPIO port. This is an atomic operation.
+ * Set the level of all pins on the given GPIO port. This is an atomic
+ * operation.
  *
  * This is functionally identical to @ref gpio_write (gpioport, GPIO_ALL, data).
  *
@@ -327,15 +330,16 @@ static inline u8 gpio_port_read(u32 gpioport)
  * @param[in] data Level to set pin to. Bit 0 of data corresponds to GPIO0, bit
  *		   1 to GPIO1. and so on.
  */
-static inline void gpio_port_write(u32 gpioport, u8 data)
+static inline void gpio_port_write(uint32_t gpioport, uint8_t data)
 {
 	gpio_write(gpioport, GPIO_ALL, data);
 }
 /** @} */
 
-void gpio_configure_trigger(u32 gpioport, enum gpio_trigger trigger, u8 gpios);
-void gpio_enable_interrupts(u32 gpioport, u8 gpios);
-void gpio_disable_interrupts(u32 gpioport, u8 gpios);
+void gpio_configure_trigger(uint32_t gpioport, enum gpio_trigger trigger,
+			    uint8_t gpios);
+void gpio_enable_interrupts(uint32_t gpioport, uint8_t gpios);
+void gpio_disable_interrupts(uint32_t gpioport, uint8_t gpios);
 
 
 /* Let's keep these ones inlined. GPIO. They are designed to be used in ISRs */
@@ -346,7 +350,7 @@ void gpio_disable_interrupts(u32 gpioport, u8 gpios);
  * @param[in] gpioport GPIO block register address base @ref gpio_reg_base
  * @param[in] srcpins source pin or group of pins to check.
  */
-static inline bool gpio_is_interrupt_source(u32 gpioport, u8 srcpins)
+static inline bool gpio_is_interrupt_source(uint32_t gpioport, uint8_t srcpins)
 {
 	return GPIO_MIS(gpioport) & srcpins;
 }
@@ -362,7 +366,7 @@ static inline bool gpio_is_interrupt_source(u32 gpioport, u8 srcpins)
  * @param[in] gpios @ref gpio_pin_id. Any combination of pins may be specified
  *		    by OR'ing then together.
  */
-static inline void gpio_clear_interrupt_flag(u32 gpioport, u8 gpios)
+static inline void gpio_clear_interrupt_flag(uint32_t gpioport, uint8_t gpios)
 {
 	GPIO_ICR(gpioport) |= gpios;
 }

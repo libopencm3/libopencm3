@@ -23,12 +23,12 @@
  * along with this library.  If not, see <http://www.gnu.org/licenses/>.
  */
 
-/* THIS FILE SHOULD NOT BE INCLUDED DIRECTLY, BUT ONLY VIA SPI.H 
+/* THIS FILE SHOULD NOT BE INCLUDED DIRECTLY, BUT ONLY VIA SPI.H
 The order of header inclusion is important. spi.h includes the device
 specific memorymap.h header before including this header file.*/
 
 /** @cond */
-#if defined (LIBOPENCM3_SPI_H) || defined (LIBOPENCM3_SPI_COMMON_F24_H)
+#if defined(LIBOPENCM3_SPI_H) || defined(LIBOPENCM3_SPI_COMMON_F24_H)
 /** @endcond */
 #ifndef LIBOPENCM3_SPI_COMMON_ALL_H
 #define LIBOPENCM3_SPI_COMMON_ALL_H
@@ -355,52 +355,53 @@ specific memorymap.h header before including this header file.*/
 
 BEGIN_DECLS
 
-void spi_reset(u32 spi_peripheral);
-int spi_init_master(u32 spi, u32 br, u32 cpol, u32 cpha, u32 dff, u32 lsbfirst);
-void spi_enable(u32 spi);
-void spi_disable(u32 spi);
-u16 spi_clean_disable(u32 spi);
-void spi_write(u32 spi, u16 data);
-void spi_send(u32 spi, u16 data);
-u16 spi_read(u32 spi);
-u16 spi_xfer(u32 spi, u16 data);
-void spi_set_bidirectional_mode(u32 spi);
-void spi_set_unidirectional_mode(u32 spi);
-void spi_set_bidirectional_receive_only_mode(u32 spi);
-void spi_set_bidirectional_transmit_only_mode(u32 spi);
-void spi_enable_crc(u32 spi);
-void spi_disable_crc(u32 spi);
-void spi_set_next_tx_from_buffer(u32 spi);
-void spi_set_next_tx_from_crc(u32 spi);
-void spi_set_dff_8bit(u32 spi);
-void spi_set_dff_16bit(u32 spi);
-void spi_set_full_duplex_mode(u32 spi);
-void spi_set_receive_only_mode(u32 spi);
-void spi_disable_software_slave_management(u32 spi);
-void spi_enable_software_slave_management(u32 spi);
-void spi_set_nss_high(u32 spi);
-void spi_set_nss_low(u32 spi);
-void spi_send_lsb_first(u32 spi);
-void spi_send_msb_first(u32 spi);
-void spi_set_baudrate_prescaler(u32 spi, u8 baudrate);
-void spi_set_master_mode(u32 spi);
-void spi_set_slave_mode(u32 spi);
-void spi_set_clock_polarity_1(u32 spi);
-void spi_set_clock_polarity_0(u32 spi);
-void spi_set_clock_phase_1(u32 spi);
-void spi_set_clock_phase_0(u32 spi);
-void spi_enable_tx_buffer_empty_interrupt(u32 spi);
-void spi_disable_tx_buffer_empty_interrupt(u32 spi);
-void spi_enable_rx_buffer_not_empty_interrupt(u32 spi);
-void spi_disable_rx_buffer_not_empty_interrupt(u32 spi);
-void spi_enable_error_interrupt(u32 spi);
-void spi_disable_error_interrupt(u32 spi);
-void spi_enable_ss_output(u32 spi);
-void spi_disable_ss_output(u32 spi);
-void spi_enable_tx_dma(u32 spi);
-void spi_disable_tx_dma(u32 spi);
-void spi_enable_rx_dma(u32 spi);
-void spi_disable_rx_dma(u32 spi);
+void spi_reset(uint32_t spi_peripheral);
+int spi_init_master(uint32_t spi, uint32_t br, uint32_t cpol, uint32_t cpha,
+		    uint32_t dff, uint32_t lsbfirst);
+void spi_enable(uint32_t spi);
+void spi_disable(uint32_t spi);
+uint16_t spi_clean_disable(uint32_t spi);
+void spi_write(uint32_t spi, uint16_t data);
+void spi_send(uint32_t spi, uint16_t data);
+uint16_t spi_read(uint32_t spi);
+uint16_t spi_xfer(uint32_t spi, uint16_t data);
+void spi_set_bidirectional_mode(uint32_t spi);
+void spi_set_unidirectional_mode(uint32_t spi);
+void spi_set_bidirectional_receive_only_mode(uint32_t spi);
+void spi_set_bidirectional_transmit_only_mode(uint32_t spi);
+void spi_enable_crc(uint32_t spi);
+void spi_disable_crc(uint32_t spi);
+void spi_set_next_tx_from_buffer(uint32_t spi);
+void spi_set_next_tx_from_crc(uint32_t spi);
+void spi_set_dff_8bit(uint32_t spi);
+void spi_set_dff_16bit(uint32_t spi);
+void spi_set_full_duplex_mode(uint32_t spi);
+void spi_set_receive_only_mode(uint32_t spi);
+void spi_disable_software_slave_management(uint32_t spi);
+void spi_enable_software_slave_management(uint32_t spi);
+void spi_set_nss_high(uint32_t spi);
+void spi_set_nss_low(uint32_t spi);
+void spi_send_lsb_first(uint32_t spi);
+void spi_send_msb_first(uint32_t spi);
+void spi_set_baudrate_prescaler(uint32_t spi, uint8_t baudrate);
+void spi_set_master_mode(uint32_t spi);
+void spi_set_slave_mode(uint32_t spi);
+void spi_set_clock_polarity_1(uint32_t spi);
+void spi_set_clock_polarity_0(uint32_t spi);
+void spi_set_clock_phase_1(uint32_t spi);
+void spi_set_clock_phase_0(uint32_t spi);
+void spi_enable_tx_buffer_empty_interrupt(uint32_t spi);
+void spi_disable_tx_buffer_empty_interrupt(uint32_t spi);
+void spi_enable_rx_buffer_not_empty_interrupt(uint32_t spi);
+void spi_disable_rx_buffer_not_empty_interrupt(uint32_t spi);
+void spi_enable_error_interrupt(uint32_t spi);
+void spi_disable_error_interrupt(uint32_t spi);
+void spi_enable_ss_output(uint32_t spi);
+void spi_disable_ss_output(uint32_t spi);
+void spi_enable_tx_dma(uint32_t spi);
+void spi_disable_tx_dma(uint32_t spi);
+void spi_enable_rx_dma(uint32_t spi);
+void spi_disable_rx_dma(uint32_t spi);
 
 END_DECLS
 

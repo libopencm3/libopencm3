@@ -6,7 +6,8 @@
 
 @version 1.0.0
 
-@author @htmlonly &copy; @endhtmlonly 2011 Gareth McMullin <gareth@blacksphere.co.nz>
+@author @htmlonly &copy; @endhtmlonly 2011
+Gareth McMullin <gareth@blacksphere.co.nz>
 
 @date 10 March 2013
 
@@ -63,7 +64,7 @@ LGPL License Terms @ref lgpl_license
 
 /* --- GPIO registers ------------------------------------------------------ */
 
-#define GPIO_DATA(port)			((volatile u32 *)(port + 0x000))
+#define GPIO_DATA(port)			(&MMIO32(port + 0x000))
 #define GPIO_DIR(port)			MMIO32(port + 0x400)
 #define GPIO_IS(port)			MMIO32(port + 0x404)
 #define GPIO_IBE(port)			MMIO32(port + 0x408)
@@ -87,8 +88,8 @@ LGPL License Terms @ref lgpl_license
 
 BEGIN_DECLS
 
-void gpio_set(u32 gpioport, u8 gpios);
-void gpio_clear(u32 gpioport, u8 gpios);
+void gpio_set(uint32_t gpioport, uint8_t gpios);
+void gpio_clear(uint32_t gpioport, uint8_t gpios);
 
 END_DECLS
 

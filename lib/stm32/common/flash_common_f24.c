@@ -20,7 +20,7 @@
 
 #include <libopencm3/stm32/flash.h>
 
-static inline void flash_set_program_size(u32 psize)
+static inline void flash_set_program_size(uint32_t psize)
 {
 	FLASH_CR &= ~(((1 << 0) | (1 << 1)) << 8);
 	FLASH_CR |= psize;
@@ -66,9 +66,9 @@ void flash_icache_reset(void)
 	FLASH_ACR |= FLASH_ACR_ICRST;
 }
 
-void flash_set_ws(u32 ws)
+void flash_set_ws(uint32_t ws)
 {
-	u32 reg32;
+	uint32_t reg32;
 
 	reg32 = FLASH_ACR;
 	reg32 &= ~((1 << 0) | (1 << 1) | (1 << 2));
@@ -148,11 +148,10 @@ void flash_lock_option_bytes(void)
 
 void flash_wait_for_last_operation(void)
 {
-	while ((FLASH_SR & FLASH_SR_BSY) == FLASH_SR_BSY)
-		;
+	while ((FLASH_SR & FLASH_SR_BSY) == FLASH_SR_BSY);
 }
 
-void flash_program_double_word(u32 address, u64 data)
+void flash_program_double_word(uint32_t address, uint64_t data)
 {
 	/* Ensure that all flash operations are complete. */
 	flash_wait_for_last_operation();
@@ -171,7 +170,7 @@ void flash_program_double_word(u32 address, u64 data)
 	FLASH_CR &= ~FLASH_CR_PG;
 }
 
-void flash_program_word(u32 address, u32 data)
+void flash_program_word(uint32_t address, uint32_t data)
 {
 	/* Ensure that all flash operations are complete. */
 	flash_wait_for_last_operation();
@@ -190,7 +189,7 @@ void flash_program_word(u32 address, u32 data)
 	FLASH_CR &= ~FLASH_CR_PG;
 }
 
-void flash_program_half_word(u32 address, u16 data)
+void flash_program_half_word(uint32_t address, uint16_t data)
 {
 	flash_wait_for_last_operation();
 	flash_set_program_size(FLASH_CR_PROGRAM_X16);
@@ -204,7 +203,7 @@ void flash_program_half_word(u32 address, u16 data)
 	FLASH_CR &= ~FLASH_CR_PG;		/* Disable the PG bit. */
 }
 
-void flash_program_byte(u32 address, u8 data)
+void flash_program_byte(uint32_t address, uint8_t data)
 {
 	flash_wait_for_last_operation();
 	flash_set_program_size(FLASH_CR_PROGRAM_X8);
@@ -218,16 +217,18 @@ void flash_program_byte(u32 address, u8 data)
 	FLASH_CR &= ~FLASH_CR_PG;		/* Disable the PG bit. */
 }
 
-void flash_program(u32 address, u8* data, u32 len)
+void flash_program(uint32_t address, uint8_t *data, uint32_t len)
 {
-  /* TODO: Use dword and word size program operations where possible for turbo
-   * speed. */
-  u32 i;
-  for (i=0; i<len; i++)
-    flash_program_byte(address+i, data[i]);
+	/* TODO: Use dword and word size program operations where possible for
+	 * turbo speed.
+	 */
+	uint32_t i;
+	for (i = 0; i < len; i++) {
+		flash_program_byte(address+i, data[i]);
+	}
 }
 
-void flash_erase_sector(u8 sector, u32 program_size)
+void flash_erase_sector(uint8_t sector, uint32_t program_size)
 {
 	flash_wait_for_last_operation();
 	flash_set_program_size(program_size);
@@ -242,7 +243,7 @@ void flash_erase_sector(u8 sector, u32 program_size)
 	FLASH_CR &= ~(0xF << 3);
 }
 
-void flash_erase_all_sectors(u32 program_size)
+void flash_erase_all_sectors(uint32_t program_size)
 {
 	flash_wait_for_last_operation();
 	flash_set_program_size(program_size);
@@ -254,14 +255,15 @@ void flash_erase_all_sectors(u32 program_size)
 	FLASH_CR &= ~FLASH_CR_MER;		/* Disable mass erase. */
 }
 
-void flash_program_option_bytes(u32 data)
+void flash_program_option_bytes(uint32_t data)
 {
 	flash_wait_for_last_operation();
 
-	if (FLASH_OPTCR & FLASH_OPTCR_OPTLOCK)
+	if (FLASH_OPTCR & FLASH_OPTCR_OPTLOCK) {
 		flash_unlock_option_bytes();
+	}
 
 	FLASH_OPTCR = data & ~0x3;
-	FLASH_OPTCR |= FLASH_OPTCR_OPTSTRT;	/* Enable option byte programming. */
+	FLASH_OPTCR |= FLASH_OPTCR_OPTSTRT;  /* Enable option byte prog. */
 	flash_wait_for_last_operation();
 }

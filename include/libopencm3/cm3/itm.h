@@ -25,10 +25,10 @@
 /* --- ITM registers ------------------------------------------------------- */
 
 /* Stimulus Port x (ITM_STIM[x]) */
-#define ITM_STIM			((volatile u32*)(ITM_BASE))
+#define ITM_STIM			(&MMIO32(ITM_BASE))
 
 /* Trace Enable ports (ITM_TER[x]) */
-#define ITM_TER				((volatile u32*)(ITM_BASE + 0xE00))
+#define ITM_TER				(&MMIO32(ITM_BASE + 0xE00))
 
 /* Trace Privilege (ITM_TPR) */
 #define ITM_TPR				MMIO32(ITM_BASE + 0xE40)

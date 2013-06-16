@@ -51,7 +51,8 @@ LGPL License Terms @ref lgpl_license
 
 /* ITR1_RMP */
 /****************************************************************************/
-/** @defgroup tim2_opt_trigger_remap TIM2_OR Timer 2 Option Register Internal Trigger 1 Remap
+/** @defgroup tim2_opt_trigger_remap TIM2_OR Timer 2 Option Register Internal
+Trigger 1 Remap
 @ingroup timer_defines
 
 @{*/
@@ -81,7 +82,7 @@ LGPL License Terms @ref lgpl_license
 
 BEGIN_DECLS
 
-void timer_set_option(u32 timer_peripheral, u32 option);
+void timer_set_option(uint32_t timer_peripheral, uint32_t option);
 
 END_DECLS
 

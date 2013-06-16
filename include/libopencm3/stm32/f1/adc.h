@@ -1,12 +1,14 @@
 /** @defgroup adc_defines ADC Defines
 
-@brief <b>Defined Constants and Types for the STM32F1xx Analog to Digital Converters</b>
+@brief <b>Defined Constants and Types for the STM32F1xx Analog to Digital
+Converters</b>
 
 @ingroup STM32F1xx_defines
 
 @version 1.0.0
 
-@author @htmlonly &copy; @endhtmlonly 2009 Edward Cheeseman <evbuilder@users.sourceforge.net>
+@author @htmlonly &copy; @endhtmlonly 2009
+Edward Cheeseman <evbuilder@users.sourceforge.net>
 
 @date 18 August 2012
 
@@ -404,7 +406,8 @@ LGPL License Terms @ref lgpl_license
 /* The following are only valid for ADC1 and ADC2. */
 /****************************************************************************/
 /* ADC_CR2 JEXTSEL[2:0] ADC Injected Trigger Identifier for ADC1 and ADC2 */
-/** @defgroup adc_trigger_injected_12 ADC Injected Trigger Identifier for ADC1 and ADC2
+/** @defgroup adc_trigger_injected_12 ADC Injected Trigger Identifier for ADC1
+and ADC2
 @ingroup adc_defines
 
 @{*/
@@ -445,7 +448,7 @@ LGPL License Terms @ref lgpl_license
 #define ADC_CR2_JEXTSEL_TIM8_CC4	(0x4 << 12)
 /** Timer 5 Trigger Output */
 #define ADC_CR2_JEXTSEL_TIM5_TRGO	(0x5 << 12)
-/** Timer53 Compare Output 4 */
+/** Timer 5 Compare Output 4 */
 #define ADC_CR2_JEXTSEL_TIM5_CC4	(0x6 << 12)
 /** Injected Software Trigger */
 #define ADC_CR2_JEXTSEL_JSWSTART	(0x7 << 12) /* Software start. */
@@ -454,7 +457,7 @@ LGPL License Terms @ref lgpl_license
 #define ADC_CR2_JEXTSEL_MASK		(0x7 << 12)
 #define ADC_CR2_JEXTSEL_SHIFT		12
 
-/* ALIGN: Data alignement. */
+/* ALIGN: Data alignment. */
 #define ADC_CR2_ALIGN_RIGHT             (0 << 11)
 #define ADC_CR2_ALIGN_LEFT              (1 << 11)
 #define ADC_CR2_ALIGN			(1 << 11)
@@ -600,9 +603,10 @@ LGPL License Terms @ref lgpl_license
 #define ADC_JSQR_JSQ2_LSB		5
 #define ADC_JSQR_JSQ1_LSB		0
 
-/* JL[2:0]: Discontinous mode channel count injected channels. */
+/* JL[2:0]: Discontinuous mode channel count injected channels. */
 /****************************************************************************/
-/** @defgroup adc_jsqr_jl ADC Number of channels in discontinuous mode fro injected channels.
+/** @defgroup adc_jsqr_jl ADC Number of channels in discontinuous mode from
+injected channels.
 @ingroup adc_defines
 
 @{*/
@@ -632,65 +636,72 @@ LGPL License Terms @ref lgpl_license
 
 BEGIN_DECLS
 
-void adc_power_on(u32 adc);
-void adc_start_conversion_direct(u32 adc);
-void adc_set_single_channel(u32 adc, u8 channel);
-void adc_set_dual_mode(u32 mode);
-bool adc_eoc(u32 adc);
-bool adc_eoc_injected(u32 adc);
-u32 adc_read_regular(u32 adc);
-u32 adc_read_injected(u32 adc, u8 reg);
-void adc_set_injected_offset(u32 adc, u8 reg, u32 offset);
-void adc_enable_analog_watchdog_regular(u32 adc);
-void adc_disable_analog_watchdog_regular(u32 adc);
-void adc_enable_analog_watchdog_injected(u32 adc);
-void adc_disable_analog_watchdog_injected(u32 adc);
-void adc_enable_discontinuous_mode_regular(u32 adc, u8 length);
-void adc_disable_discontinuous_mode_regular(u32 adc);
-void adc_enable_discontinuous_mode_injected(u32 adc);
-void adc_disable_discontinuous_mode_injected(u32 adc);
-void adc_enable_automatic_injected_group_conversion(u32 adc);
-void adc_disable_automatic_injected_group_conversion(u32 adc);
-void adc_enable_analog_watchdog_on_all_channels(u32 adc);
-void adc_enable_analog_watchdog_on_selected_channel(u32 adc, u8 channel);
-void adc_enable_scan_mode(u32 adc);
-void adc_disable_scan_mode(u32 adc);
-void adc_enable_eoc_interrupt_injected(u32 adc);
-void adc_disable_eoc_interrupt_injected(u32 adc);
-void adc_enable_awd_interrupt(u32 adc);
-void adc_disable_awd_interrupt(u32 adc);
-void adc_enable_eoc_interrupt(u32 adc);
-void adc_disable_eoc_interrupt(u32 adc);
-void adc_enable_temperature_sensor(u32 adc);
-void adc_disable_temperature_sensor(u32 adc);
-void adc_start_conversion_regular(u32 adc);
-void adc_start_conversion_injected(u32 adc);
-void adc_enable_external_trigger_regular(u32 adc, u32 trigger);
-void adc_disable_external_trigger_regular(u32 adc);
-void adc_enable_external_trigger_injected(u32 adc, u32 trigger);
-void adc_disable_external_trigger_injected(u32 adc);
-void adc_set_left_aligned(u32 adc);
-void adc_set_right_aligned(u32 adc);
-void adc_enable_dma(u32 adc);
-void adc_disable_dma(u32 adc);
-void adc_reset_calibration(u32 adc);
-void adc_calibration(u32 adc);
-void adc_set_continuous_conversion_mode(u32 adc);
-void adc_set_single_conversion_mode(u32 adc);
-void adc_on(u32 adc) LIBOPENCM3_DEPRECATED("will be removed in the first release");
-void adc_off(u32 adc);
-void adc_set_sample_time(u32 adc, u8 channel, u8 time);
-void adc_set_sample_time_on_all_channels(u32 adc, u8 time);
-void adc_set_watchdog_high_threshold(u32 adc, u16 threshold);
-void adc_set_watchdog_low_threshold(u32 adc, u16 threshold);
-void adc_set_regular_sequence(u32 adc, u8 length, u8 channel[]);
-void adc_set_injected_sequence(u32 adc, u8 length, u8 channel[]);
+void adc_power_on(uint32_t adc);
+void adc_start_conversion_direct(uint32_t adc);
+void adc_set_single_channel(uint32_t adc, uint8_t channel);
+void adc_set_dual_mode(uint32_t mode);
+bool adc_eoc(uint32_t adc);
+bool adc_eoc_injected(uint32_t adc);
+uint32_t adc_read_regular(uint32_t adc);
+uint32_t adc_read_injected(uint32_t adc, uint8_t reg);
+void adc_set_injected_offset(uint32_t adc, uint8_t reg, uint32_t offset);
+void adc_enable_analog_watchdog_regular(uint32_t adc);
+void adc_disable_analog_watchdog_regular(uint32_t adc);
+void adc_enable_analog_watchdog_injected(uint32_t adc);
+void adc_disable_analog_watchdog_injected(uint32_t adc);
+void adc_enable_discontinuous_mode_regular(uint32_t adc, uint8_t length);
+void adc_disable_discontinuous_mode_regular(uint32_t adc);
+void adc_enable_discontinuous_mode_injected(uint32_t adc);
+void adc_disable_discontinuous_mode_injected(uint32_t adc);
+void adc_enable_automatic_injected_group_conversion(uint32_t adc);
+void adc_disable_automatic_injected_group_conversion(uint32_t adc);
+void adc_enable_analog_watchdog_on_all_channels(uint32_t adc);
+void adc_enable_analog_watchdog_on_selected_channel(uint32_t adc,
+						    uint8_t channel);
+void adc_enable_scan_mode(uint32_t adc);
+void adc_disable_scan_mode(uint32_t adc);
+void adc_enable_eoc_interrupt_injected(uint32_t adc);
+void adc_disable_eoc_interrupt_injected(uint32_t adc);
+void adc_enable_awd_interrupt(uint32_t adc);
+void adc_disable_awd_interrupt(uint32_t adc);
+void adc_enable_eoc_interrupt(uint32_t adc);
+void adc_disable_eoc_interrupt(uint32_t adc);
+void adc_enable_temperature_sensor(uint32_t adc);
+void adc_disable_temperature_sensor(uint32_t adc);
+void adc_start_conversion_regular(uint32_t adc);
+void adc_start_conversion_injected(uint32_t adc);
+void adc_enable_external_trigger_regular(uint32_t adc, uint32_t trigger);
+void adc_disable_external_trigger_regular(uint32_t adc);
+void adc_enable_external_trigger_injected(uint32_t adc, uint32_t trigger);
+void adc_disable_external_trigger_injected(uint32_t adc);
+void adc_set_left_aligned(uint32_t adc);
+void adc_set_right_aligned(uint32_t adc);
+void adc_enable_dma(uint32_t adc);
+void adc_disable_dma(uint32_t adc);
+void adc_reset_calibration(uint32_t adc);
+void adc_calibration(uint32_t adc);
+void adc_set_continuous_conversion_mode(uint32_t adc);
+void adc_set_single_conversion_mode(uint32_t adc);
+void adc_on(uint32_t adc)
+	LIBOPENCM3_DEPRECATED("will be removed in the first release");
+void adc_off(uint32_t adc);
+void adc_set_sample_time(uint32_t adc, uint8_t channel, uint8_t time);
+void adc_set_sample_time_on_all_channels(uint32_t adc, uint8_t time);
+void adc_set_watchdog_high_threshold(uint32_t adc, uint16_t threshold);
+void adc_set_watchdog_low_threshold(uint32_t adc, uint16_t threshold);
+void adc_set_regular_sequence(uint32_t adc, uint8_t length, uint8_t channel[]);
+void adc_set_injected_sequence(uint32_t adc, uint8_t length, uint8_t channel[]);
 
-void adc_set_continous_conversion_mode(u32 adc) LIBOPENCM3_DEPRECATED("change to adc_set_continuous_conversion_mode");
-void adc_set_conversion_time(u32 adc, u8 channel, u8 time) LIBOPENCM3_DEPRECATED("change to adc_set_sample_time");
-void adc_set_conversion_time_on_all_channels(u32 adc, u8 time) LIBOPENCM3_DEPRECATED("change to adc_set_sample_time_on_all_channels");
-void adc_enable_jeoc_interrupt(u32 adc) LIBOPENCM3_DEPRECATED("change to adc_enable_eoc_interrupt_injected");
-void adc_disable_jeoc_interrupt(u32 adc) LIBOPENCM3_DEPRECATED("change to adc_disable_eoc_interrupt_injected");
+void adc_set_continous_conversion_mode(uint32_t adc)
+	LIBOPENCM3_DEPRECATED("change to adc_set_continuous_conversion_mode");
+void adc_set_conversion_time(uint32_t adc, uint8_t channel, uint8_t time)
+	LIBOPENCM3_DEPRECATED("change to adc_set_sample_time");
+void adc_set_conversion_time_on_all_channels(uint32_t adc, uint8_t time)
+	LIBOPENCM3_DEPRECATED("change to adc_set_sample_time_on_all_channels");
+void adc_enable_jeoc_interrupt(uint32_t adc)
+	LIBOPENCM3_DEPRECATED("change to adc_enable_eoc_interrupt_injected");
+void adc_disable_jeoc_interrupt(uint32_t adc)
+	LIBOPENCM3_DEPRECATED("change to adc_disable_eoc_interrupt_injected");
 END_DECLS
 
 #endif

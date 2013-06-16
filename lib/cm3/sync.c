@@ -19,18 +19,18 @@
 
 #include <libopencm3/cm3/sync.h>
 
-u32 __ldrex(volatile u32* addr)
+uint32_t __ldrex(volatile uint32_t *addr)
 {
-	u32 res;
+	uint32_t res;
 	__asm__ volatile ("ldrex %0, [%1]" : "=r" (res) : "r" (addr));
 	return res;
 }
 
-u32 __strex(u32 val, volatile u32* addr)
+uint32_t __strex(uint32_t val, volatile uint32_t *addr)
 {
-	u32 res;
-	__asm__ volatile ("strex %0, %2, [%1]" :
-										"=&r" (res) : "r" (addr), "r" (val));
+	uint32_t res;
+	__asm__ volatile ("strex %0, %2, [%1]"
+			  : "=&r" (res) : "r" (addr), "r" (val));
 	return res;
 }
 
@@ -39,9 +39,9 @@ void __dmb()
 	__asm__ volatile ("dmb");
 }
 
-void mutex_lock(mutex_t* m)
+void mutex_lock(mutex_t *m)
 {
-	u32 status = 0;
+	uint32_t status = 0;
 
 	do {
 		/* Wait until the mutex is unlocked. */
@@ -57,7 +57,7 @@ void mutex_lock(mutex_t* m)
 	__dmb();
 }
 
-void mutex_unlock(mutex_t* m)
+void mutex_unlock(mutex_t *m)
 {
 	__dmb();
 

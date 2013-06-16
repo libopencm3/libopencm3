@@ -32,7 +32,7 @@ LGPL License Terms @ref lgpl_license
  */
 
 /*
- * The F1 RTC is a straight timestamp, a completely different peripheral to
+ * The F1 RTC is a straight time stamp, a completely different peripheral to
  * that found in the F2, F3, F4, L1 and F0.
  */
 
@@ -150,20 +150,20 @@ BEGIN_DECLS
 void rtc_awake_from_off(osc_t clock_source);
 void rtc_enter_config_mode(void);
 void rtc_exit_config_mode(void);
-void rtc_set_alarm_time(u32 alarm_time);
+void rtc_set_alarm_time(uint32_t alarm_time);
 void rtc_enable_alarm(void);
 void rtc_disable_alarm(void);
-void rtc_set_prescale_val(u32 prescale_val);
-u32 rtc_get_counter_val(void);
-u32 rtc_get_prescale_div_val(void);
-u32 rtc_get_alarm_val(void);
-void rtc_set_counter_val(u32 counter_val);
+void rtc_set_prescale_val(uint32_t prescale_val);
+uint32_t rtc_get_counter_val(void);
+uint32_t rtc_get_prescale_div_val(void);
+uint32_t rtc_get_alarm_val(void);
+void rtc_set_counter_val(uint32_t counter_val);
 void rtc_interrupt_enable(rtcflag_t flag_val);
 void rtc_interrupt_disable(rtcflag_t flag_val);
 void rtc_clear_flag(rtcflag_t flag_val);
-u32 rtc_check_flag(rtcflag_t flag_val);
+uint32_t rtc_check_flag(rtcflag_t flag_val);
 void rtc_awake_from_standby(void);
-void rtc_auto_awake(osc_t clock_source, u32 prescale_val);
+void rtc_auto_awake(osc_t clock_source, uint32_t prescale_val);
 
 END_DECLS
 

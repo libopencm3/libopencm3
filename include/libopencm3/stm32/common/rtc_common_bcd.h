@@ -30,7 +30,7 @@
  * only support a subset.
  */
 
-/* THIS FILE SHOULD NOT BE INCLUDED DIRECTLY, BUT ONLY VIA RTC.H 
+/* THIS FILE SHOULD NOT BE INCLUDED DIRECTLY, BUT ONLY VIA RTC.H
 The order of header inclusion is important. rtc.h includes the device
 specific memorymap.h header before including this header file.*/
 
@@ -102,7 +102,8 @@ specific memorymap.h header before including this header file.*/
 
 
 /* RTC time register (RTC_TR) ----------------------------------- */
-/* Note: Bits [31:23], 15, and 7 are reserved, and must be kept at reset value. */
+/* Note: Bits [31:23], 15, and 7 are reserved, and must be kept at reset value.
+ */
 #define RTC_TR_PM         (1 << 22)  /* AM/PM notation */
 #define RTC_TR_HT_SHIFT   (20)       /* Hour tens in BCD format shift */
 #define RTC_TR_HT_MASK    (0x3)      /* Hour tens in BCD format mask */
@@ -118,7 +119,8 @@ specific memorymap.h header before including this header file.*/
 #define RTC_TR_SU_MASK    (0xf)      /* Second units in BCD format mask */
 
 /* RTC date register (RTC_DR) ----------------------------------- */
-/* Note: Bits [31:24] and [7:6] are reserved, and must be kept at reset value. */
+/* Note: Bits [31:24] and [7:6] are reserved, and must be kept at reset value.
+ */
 #define RTC_DR_YT_SHIFT   (20)      /* Year tens in BCD format shift */
 #define RTC_DR_YT_MASK    (0xf)     /* Year tens in BCD format mask */
 #define RTC_DR_YU_SHIFT   (16)      /* Year units in BCD format shift */
@@ -136,12 +138,18 @@ specific memorymap.h header before including this header file.*/
 
 /* RTC control register (RTC_CR) -------------------------------- */
 /* Note: Bits [31:24] are reserved, and must be kept at reset value. */
-/* Note: Bits 7, 6 and 4 of this register can be written in initialization mode only (RTC_ISR/INITF = 1). */
-/* Note: Bits 2 to 0 of this register can be written only when RTC_CR WUTE bit = 0 and RTC_ISR WUTWF bit = 1. */
+/* Note: Bits 7, 6 and 4 of this register can be written in initialization mode
+ * only (RTC_ISR/INITF = 1).
+ */
+/* Note: Bits 2 to 0 of this register can be written only when RTC_CR WUTE bit
+ * = 0 and RTC_ISR WUTWF bit = 1.
+ */
 #define RTC_CR_COE    (1<<23)       /* RTC_CR_COE: Calibration output enable */
 
 /* RTC_CR_OSEL: Output selection values */
-/* Note: These bits are used to select the flag to be routed to AFO_ALARM RTC output */
+/* Note: These bits are used to select the flag to be routed to AFO_ALARM RTC
+ * output
+ */
 #define RTC_CR_OSEL_SHIFT       21
 #define RTC_CR_OSEL_MASK        (0x3)
 #define RTC_CR_OSEL_DISABLED    (0x0)
@@ -150,23 +158,34 @@ specific memorymap.h header before including this header file.*/
 #define RTC_CR_OSEL_WAKEUP      (0x3)
 
 #define RTC_CR_POL              (1<<20)  /* RTC_CR_POL: Output polarity */
-#define RTC_CR_COSEL            (1<<19)  /* RTC_CR_COSEL: Calibration output selection */
+#define RTC_CR_COSEL            (1<<19)  /* RTC_CR_COSEL: Calibration output
+					    selection */
 #define RTC_CR_BKP              (1<<18)  /* RTC_CR_BKP: Backup */
-#define RTC_CR_SUB1H            (1<<17)  /* RTC_CR_SUB1H: Subtract 1 hour (winter time change) */
-#define RTC_CR_ADD1H            (1<<16)  /* RTC_CR_ADD1H: Add 1 hour (summer time change) */
-#define RTC_CR_TSIE             (1<<15)  /* RTC_CR_TSIE: Timestamp interrupt enable */
-#define RTC_CR_WUTIE            (1<<14)  /* RTC_CR_WUTIE: Wakeup timer interrupt enable */
-#define RTC_CR_ALRBIE           (1<<13)  /* RTC_CR_ALRBIE: Alarm B interrupt enable */
-#define RTC_CR_ALRAIE           (1<<12)  /* RTC_CR_ALRAIE: Alarm A interrupt enable */
+#define RTC_CR_SUB1H            (1<<17)  /* RTC_CR_SUB1H: Subtract 1 hour
+					    (winter time change) */
+#define RTC_CR_ADD1H            (1<<16)  /* RTC_CR_ADD1H: Add 1 hour (summer
+					    time change) */
+#define RTC_CR_TSIE             (1<<15)  /* RTC_CR_TSIE: Timestamp interrupt
+					    enable */
+#define RTC_CR_WUTIE            (1<<14)  /* RTC_CR_WUTIE: Wakeup timer
+					    interrupt enable */
+#define RTC_CR_ALRBIE           (1<<13)  /* RTC_CR_ALRBIE: Alarm B interrupt
+					    enable */
+#define RTC_CR_ALRAIE           (1<<12)  /* RTC_CR_ALRAIE: Alarm A interrupt
+					    enable */
 #define RTC_CR_TSE              (1<<11)  /* RTC_CR_TSE: Time stamp enable */
 #define RTC_CR_WUTE             (1<<10)  /* RTC_CR_WUTE: Wakeup timer enable */
 #define RTC_CR_ALRBE            (1<<9)   /* RTC_CR_ALRBIE: Alarm B enable */
 #define RTC_CR_ALRAE            (1<<8)   /* RTC_CR_ALRAE: Alarm A enable */
-#define RTC_CR_DCE              (1<<7)   /* RTC_CR_DCE: Course digital calibration enable */
+#define RTC_CR_DCE              (1<<7)   /* RTC_CR_DCE: Course digital
+					    calibration enable */
 #define RTC_CR_FMT              (1<<6)   /* RTC_CR_FMT: Hour format */
-#define RTC_CR_BYPSHAD          (1<<5)   /* RTC_CR_BYPSHAD: Bypass the shadow registers */
-#define RTC_CR_REFCKON          (1<<4)   /* RTC_CR_REFCKON: Reference clock detection enable */
-#define RTC_CR_TSEDGE           (1<<3)   /* RTC_CR_TSEDGE: Timestamp event active edge */
+#define RTC_CR_BYPSHAD          (1<<5)   /* RTC_CR_BYPSHAD: Bypass the shadow
+					    registers */
+#define RTC_CR_REFCKON          (1<<4)   /* RTC_CR_REFCKON: Reference clock
+					    detection enable */
+#define RTC_CR_TSEDGE           (1<<3)   /* RTC_CR_TSEDGE: Timestamp event
+					    active edge */
 
 /* RTC_CR_WUCKSEL: Wakeup clock selection */
 #define RTC_CR_WUCLKSEL_SHIFT      (0)
@@ -181,8 +200,9 @@ specific memorymap.h header before including this header file.*/
 /* RTC initialization and status register (RTC_ISR) ------------- */
 /* Note: Bits [31:17] and [15] are reserved, and must be kept at reset value. */
 /* Note: This register is write protected (except for RTC_ISR[13:8] bits). */
-#define RTC_ISR_RECALPF            (1<<16) /* RECALPF: Recalibration pending flag */
-#define RTC_ISR_TAMP3F             (1<<15) /* TAMP3F: TAMPER3 detection flag (not available on F4)*/
+#define RTC_ISR_RECALPF            (1<<16) /* RECALPF: Recalib pending flag */
+#define RTC_ISR_TAMP3F             (1<<15) /* TAMP3F: TAMPER3 detection flag
+					      (not on F4)*/
 #define RTC_ISR_TAMP2F             (1<<14) /* TAMP2F: TAMPER2 detection flag */
 #define RTC_ISR_TAMP1F             (1<<13) /* TAMP1F: TAMPER detection flag */
 #define RTC_ISR_TSOVF              (1<<12) /* TSOVF: Timestamp overflow flag */
@@ -192,21 +212,21 @@ specific memorymap.h header before including this header file.*/
 #define RTC_ISR_ALRAF              (1<<8)  /* ALRAF: Alarm A flag */
 #define RTC_ISR_INIT               (1<<7)  /* INIT: Initialization mode */
 #define RTC_ISR_INITF              (1<<6)  /* INITF: Initialization flag */
-#define RTC_ISR_RSF                (1<<5)  /* RSF: Registers synchronization flag */
-#define RTC_ISR_INITS              (1<<4)  /* INITS: Initialization status flag */
+#define RTC_ISR_RSF                (1<<5)  /* RSF: Registers sync flag */
+#define RTC_ISR_INITS              (1<<4)  /* INITS: Init status flag */
 #define RTC_ISR_SHPF               (1<<3)  /* SHPF: Shift operation pending */
 #define RTC_ISR_WUTWF              (1<<2)  /* WUTWF: Wakeup timer write flag */
 #define RTC_ISR_ALRBWF             (1<<1)  /* ALRBWF: Alarm B write flag */
 #define RTC_ISR_ALRAWF             (1<<0)  /* ALRAWF: Alarm A write flag */
 
 /* RTC prescaler register (RTC_PRER) ---------------------------- */
-#define RTC_PRER_PREDIV_A_SHIFT   (16)     /* Asynchronous prescaler factor shift */
-#define RTC_PRER_PREDIV_A_MASK    (0x7f)   /* Asynchronous prescaler factor mask */
-#define RTC_PRER_PREDIV_S_SHIFT   (0)      /* Synchronous prescaler factor shift */
-#define RTC_PRER_PREDIV_S_MASK    (0x7fff) /* Synchronous prescaler factor mask */
+#define RTC_PRER_PREDIV_A_SHIFT   (16)     /* Async prescaler factor shift */
+#define RTC_PRER_PREDIV_A_MASK    (0x7f)   /* Async prescaler factor mask */
+#define RTC_PRER_PREDIV_S_SHIFT   (0)      /* Sync prescaler factor shift */
+#define RTC_PRER_PREDIV_S_MASK    (0x7fff) /* Sync prescaler factor mask */
 
 /* RTC calibration register (RTC_CALIBR) ------------------------ */
-// FIXME - TODO
+/* FIXME - TODO */
 
 /* RTC Alarm register ------------------------------------------- */
 /* Note: Applies to RTC_ALRMAR and RTC_ALRMBR */
@@ -234,7 +254,7 @@ specific memorymap.h header before including this header file.*/
 #define RTC_ALRMXR_SU_MASK        (0xf)
 
 /* RTC shift control register (RTC_SHIFTR) */
-// FIXME - TODO
+/* FIXME - TODO */
 
 /* RTC time stamp time register (RTC_TSTR) ---------------------- */
 #define RTC_TSTR_PM               (1<<22)
@@ -263,7 +283,7 @@ specific memorymap.h header before including this header file.*/
 #define RTC_TSDR_DU_MASK          (0xf)
 
 /* RTC calibration register (RTC_CALR) -------------------------- */
-// FIXME - TODO
+/* FIXME - TODO */
 
 /* RTC tamper and alternate function configuration register (RTC_TAFCR) --- */
 #define RTC_TAFCR_ALARMOUTTYPE    (1<<18)
@@ -304,17 +324,17 @@ specific memorymap.h header before including this header file.*/
 #define RTC_TAFCR_TAMP1E          (1<<0)
 
 /* RTC alarm X sub second register */
-// FIXME - TODO
+/* FIXME - TODO */
 
 
 
 BEGIN_DECLS
 
-void rtc_set_prescaler(u32 sync, u32 async);
+void rtc_set_prescaler(uint32_t sync, uint32_t async);
 void rtc_wait_for_synchro(void);
 void rtc_lock(void);
 void rtc_unlock(void);
-void rtc_set_wakeup_time(u16 wkup_time, u8 rtc_cr_wucksel);
+void rtc_set_wakeup_time(uint16_t wkup_time, uint8_t rtc_cr_wucksel);
 void rtc_clear_wakeup_flag(void);
 
 END_DECLS

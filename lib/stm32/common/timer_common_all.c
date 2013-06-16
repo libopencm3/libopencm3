@@ -1,7 +1,9 @@
 /** @addtogroup timer_file
 
-@author @htmlonly &copy; @endhtmlonly 2010 Edward Cheeseman <evbuilder@users.sourceforge.org>
-@author @htmlonly &copy; @endhtmlonly 2011 Stephen Caudle <scaudle@doceme.com>
+@author @htmlonly &copy; @endhtmlonly 2010
+Edward Cheeseman <evbuilder@users.sourceforge.org>
+@author @htmlonly &copy; @endhtmlonly 2011
+Stephen Caudle <scaudle@doceme.com>
 
 @section  tim_common Notes for All Timers
 
@@ -16,40 +18,44 @@ Some of the larger devices have additional general purpose timers (9-14).
 
 @section tim_api_ex Basic TIMER handling API.
 
-Enable the timer clock first. The timer mode sets the clock division ratio,
-the count alignment (edge or centred) and count direction. Finally enable the timer.
+Enable the timer clock first. The timer mode sets the clock division ratio, the
+count alignment (edge or centred) and count direction. Finally enable the
+timer.
 
 The timer output compare block produces a signal that can be configured for
-output to a pin or passed to other peripherals for use as a trigger. In all cases
-the output compare mode must be set to define how the output responds to a compare
-match, and the output must be enabled. If output to a pin is required, enable the
-appropriate GPIO clock and set the pin to alternate output mode.
+output to a pin or passed to other peripherals for use as a trigger. In all
+cases the output compare mode must be set to define how the output responds to
+a compare match, and the output must be enabled. If output to a pin is
+required, enable the appropriate GPIO clock and set the pin to alternate output
+mode.
 
 Example: Timer 2 with 2x clock divide, edge aligned and up counting.
 @code
 	rcc_peripheral_enable_clock(&RCC_APB2ENR, RCC_APB2ENR_TIM2EN);
 	timer_reset(TIM2);
 	timer_set_mode(TIM2, TIM_CR1_CKD_CK_INT_MUL_2,
-               TIM_CR1_CMS_EDGE, TIM_CR1_DIR_UP);
+		       TIM_CR1_CMS_EDGE, TIM_CR1_DIR_UP);
 	...
 	timer_set_period(TIM2, 1000);
 	timer_enable_counter(TIM2);
 @endcode
 Example: Timer 1 with PWM output, no clock divide and centre alignment. Set the
-Output Compare mode to PWM and enable the output of channel 1. Note that for the
-advanced timers the break functionality must be enabled before the signal will
-appear at the output, even though break is not being used. This is in addition to
-the normal output enable. Enable the alternate function clock (APB2 only) and port A
-clock. Set ports A8 and A9 (timer 1 channel 1 compare outputs) to alternate function
-push-pull outputs where the PWM output will appear.
+Output Compare mode to PWM and enable the output of channel 1. Note that for
+the advanced timers the break functionality must be enabled before the signal
+will appear at the output, even though break is not being used. This is in
+addition to the normal output enable. Enable the alternate function clock (APB2
+only) and port A clock. Set ports A8 and A9 (timer 1 channel 1 compare outputs)
+to alternate function push-pull outputs where the PWM output will appear.
 
 @code
-	rcc_peripheral_enable_clock(&RCC_APB2ENR, RCC_APB2ENR_IOPAEN | RCC_APB2ENR_AFIOEN);
+	rcc_peripheral_enable_clock(&RCC_APB2ENR, RCC_APB2ENR_IOPAEN |
+				    RCC_APB2ENR_AFIOEN);
 	gpio_set_mode(GPIOA, GPIO_MODE_OUTPUT_50_MHZ,
 		      GPIO_CNF_OUTPUT_ALTFN_PUSHPULL, GPIO8 | GPIO9);
 	rcc_peripheral_enable_clock(&RCC_APB2ENR, RCC_APB2ENR_TIM1EN);
 	timer_reset(TIM1);
-	timer_set_mode(TIM1, TIM_CR1_CKD_CK_INT, TIM_CR1_CMS_CENTER_1, TIM_CR1_DIR_UP);
+	timer_set_mode(TIM1, TIM_CR1_CKD_CK_INT, TIM_CR1_CMS_CENTER_1,
+		       TIM_CR1_DIR_UP);
 	timer_set_oc_mode(TIM1, TIM_OC1, TIM_OCM_PWM2);
 	timer_enable_oc_output(TIM1, TIM_OC1);
 	timer_enable_break_main_output(TIM1);
@@ -100,15 +106,14 @@ push-pull outputs where the PWM output will appear.
 /*---------------------------------------------------------------------------*/
 /** @brief Reset a Timer.
 
-The counter and all its associated configuration registers
-are placed in the reset condition. The reset is effected via the RCC peripheral reset
-system.
+The counter and all its associated configuration registers are placed in the
+reset condition. The reset is effected via the RCC peripheral reset system.
 
-@param[in] timer_peripheral Unsigned int32. Timer register address base @ref tim_reg_base
-			(TIM9 .. TIM14 not yet supported here).
+@param[in] timer_peripheral Unsigned int32. Timer register address base @ref
+			    tim_reg_base (TIM9 .. TIM14 not yet supported here).
 */
 
-void timer_reset(u32 timer_peripheral)
+void timer_reset(uint32_t timer_peripheral)
 {
 	switch (timer_peripheral) {
 #if defined(TIM1_BASE)
@@ -157,23 +162,28 @@ void timer_reset(u32 timer_peripheral)
 		break;
 	case TIM10:
 		rcc_peripheral_reset(&RCC_APB2RSTR, RCC_APB2RSTR_TIM10RST);
-		rcc_peripheral_clear_reset(&RCC_APB2RSTR, RCC_APB2RSTR_TIM10RST);
+		rcc_peripheral_clear_reset(&RCC_APB2RSTR,
+					   RCC_APB2RSTR_TIM10RST);
 		break;
 	case TIM11:
 		rcc_peripheral_reset(&RCC_APB2RSTR, RCC_APB2RSTR_TIM11RST);
-		rcc_peripheral_clear_reset(&RCC_APB2RSTR, RCC_APB2RSTR_TIM11RST);
+		rcc_peripheral_clear_reset(&RCC_APB2RSTR,
+					   RCC_APB2RSTR_TIM11RST);
 		break;
 	case TIM12:
 		rcc_peripheral_reset(&RCC_APB1RSTR, RCC_APB1RSTR_TIM12RST);
-		rcc_peripheral_clear_reset(&RCC_APB1RSTR, RCC_APB1RSTR_TIM12RST);
+		rcc_peripheral_clear_reset(&RCC_APB1RSTR,
+					   RCC_APB1RSTR_TIM12RST);
 		break;
 	case TIM13:
 		rcc_peripheral_reset(&RCC_APB1RSTR, RCC_APB1RSTR_TIM13RST);
-		rcc_peripheral_clear_reset(&RCC_APB1RSTR, RCC_APB1RSTR_TIM13RST);
+		rcc_peripheral_clear_reset(&RCC_APB1RSTR,
+					   RCC_APB1RSTR_TIM13RST);
 		break;
 	case TIM14:
 		rcc_peripheral_reset(&RCC_APB1RSTR, RCC_APB1RSTR_TIM14RST);
-		rcc_peripheral_clear_reset(&RCC_APB1RSTR, RCC_APB1RSTR_TIM14RST);
+		rcc_peripheral_clear_reset(&RCC_APB1RSTR,
+					   RCC_APB1RSTR_TIM14RST);
 		break;
 */
 	}
@@ -182,11 +192,13 @@ void timer_reset(u32 timer_peripheral)
 /*---------------------------------------------------------------------------*/
 /** @brief Enable Interrupts for a Timer
 
-@param[in] timer_peripheral Unsigned int32. Timer register address base @ref tim_reg_base
-@param[in] irq Unsigned int32. @ref tim_irq_enable. Logical OR of all interrupt enable bits to be set
+@param[in] timer_peripheral Unsigned int32. Timer register address base @ref
+tim_reg_base
+@param[in] irq Unsigned int32. @ref tim_irq_enable. Logical OR of all interrupt
+enable bits to be set
 */
 
-void timer_enable_irq(u32 timer_peripheral, u32 irq)
+void timer_enable_irq(uint32_t timer_peripheral, uint32_t irq)
 {
 	TIM_DIER(timer_peripheral) |= irq;
 }
@@ -194,11 +206,13 @@ void timer_enable_irq(u32 timer_peripheral, u32 irq)
 /*---------------------------------------------------------------------------*/
 /** @brief Disable Interrupts for a Timer.
 
-@param[in] timer_peripheral Unsigned int32. Timer register address base @ref tim_reg_base
-@param[in] irq Unsigned int32. @ref tim_irq_enable. Logical OR of all interrupt enable bits to be cleared
+@param[in] timer_peripheral Unsigned int32. Timer register address base @ref
+tim_reg_base
+@param[in] irq Unsigned int32. @ref tim_irq_enable. Logical OR of all interrupt
+enable bits to be cleared
 */
 
-void timer_disable_irq(u32 timer_peripheral, u32 irq)
+void timer_disable_irq(uint32_t timer_peripheral, uint32_t irq)
 {
 	TIM_DIER(timer_peripheral) &= ~irq;
 }
@@ -206,26 +220,32 @@ void timer_disable_irq(u32 timer_peripheral, u32 irq)
 /*---------------------------------------------------------------------------*/
 /** @brief Return Interrupt Source.
 
-Returns true if the specified interrupt flag (UIF, TIF or CCxIF, with BIF or COMIF
-for advanced timers) was set and the interrupt was enabled. If the specified flag
-is not an interrupt flag, the function returns false.
+Returns true if the specified interrupt flag (UIF, TIF or CCxIF, with BIF or
+COMIF for advanced timers) was set and the interrupt was enabled. If the
+specified flag is not an interrupt flag, the function returns false.
 
-@todo Timers 6-7, 9-14 have fewer interrupts, but invalid flags are not caught here.
+@todo Timers 6-7, 9-14 have fewer interrupts, but invalid flags are not caught
+here.
 
-@param[in] timer_peripheral Unsigned int32. Timer register address base @ref tim_reg_base
+@param[in] timer_peripheral Unsigned int32. Timer register address base @ref
+tim_reg_base
 @param[in] flag Unsigned int32. Status register flag  @ref tim_sr_values.
 @returns boolean: flag set.
 */
 
-bool timer_interrupt_source(u32 timer_peripheral, u32 flag)
+bool timer_interrupt_source(uint32_t timer_peripheral, uint32_t flag)
 {
 /* flag not set or interrupt disabled or not an interrupt source */
-	if (((TIM_SR(timer_peripheral) & TIM_DIER(timer_peripheral) & flag) == 0) ||
-		(flag > TIM_SR_BIF)) return false;
+	if (((TIM_SR(timer_peripheral) &
+		TIM_DIER(timer_peripheral) & flag) == 0) ||
+		(flag > TIM_SR_BIF)) {
+		return false;
+	}
 /* Only an interrupt source for advanced timers */
 #if (defined(TIM1_BASE) || defined(TIM8_BASE))
-	if ((flag == TIM_SR_BIF) || (flag == TIM_SR_COMIF))
-		return ((timer_peripheral == TIM1) || (timer_peripheral == TIM8));
+	if ((flag == TIM_SR_BIF) || (flag == TIM_SR_COMIF)) {
+		return (timer_peripheral == TIM1) || (timer_peripheral == TIM8);
+	}
 #endif
 	return true;
 }
@@ -233,12 +253,13 @@ bool timer_interrupt_source(u32 timer_peripheral, u32 flag)
 /*---------------------------------------------------------------------------*/
 /** @brief Read a Status Flag.
 
-@param[in] timer_peripheral Unsigned int32. Timer register address base @ref tim_reg_base
+@param[in] timer_peripheral Unsigned int32. Timer register address base @ref
+tim_reg_base
 @param[in] flag Unsigned int32. Status register flag  @ref tim_sr_values.
 @returns boolean: flag set.
 */
 
-bool timer_get_flag(u32 timer_peripheral, u32 flag)
+bool timer_get_flag(uint32_t timer_peripheral, uint32_t flag)
 {
 	if ((TIM_SR(timer_peripheral) & flag) != 0) {
 		return true;
@@ -250,11 +271,12 @@ bool timer_get_flag(u32 timer_peripheral, u32 flag)
 /*---------------------------------------------------------------------------*/
 /** @brief Clear a Status Flag.
 
-@param[in] timer_peripheral Unsigned int32. Timer register address base @ref tim_reg_base
+@param[in] timer_peripheral Unsigned int32. Timer register address base @ref
+tim_reg_base
 @param[in] flag Unsigned int32. @ref tim_sr_values. Status register flag.
 */
 
-void timer_clear_flag(u32 timer_peripheral, u32 flag)
+void timer_clear_flag(uint32_t timer_peripheral, uint32_t flag)
 {
 	TIM_SR(timer_peripheral) &= ~flag;
 }
@@ -278,16 +300,19 @@ settings.
 hardware and cannot be written. The count direction setting has no effect
 in this case.
 
-@param[in] timer_peripheral Unsigned int32. Timer register address base @ref tim_reg_base (TIM1, TIM2 ... TIM5, TIM8)
-@param[in] clock_div Unsigned int32. Clock Divider Ratio in bits 8,9: @ref tim_x_cr1_cdr
+@param[in] timer_peripheral Unsigned int32. Timer register address base @ref
+tim_reg_base (TIM1, TIM2 ... TIM5, TIM8)
+@param[in] clock_div Unsigned int32. Clock Divider Ratio in bits 8,9: @ref
+tim_x_cr1_cdr
 @param[in] alignment Unsigned int32. Alignment bits in 5,6: @ref tim_x_cr1_cms
-@param[in] direction Unsigned int32. Count direction in bit 4,: @ref tim_x_cr1_dir
+@param[in] direction Unsigned int32. Count direction in bit 4,: @ref
+tim_x_cr1_dir
 */
 
-void timer_set_mode(u32 timer_peripheral, u32 clock_div,
-		    u32 alignment, u32 direction)
+void timer_set_mode(uint32_t timer_peripheral, uint32_t clock_div,
+		    uint32_t alignment, uint32_t direction)
 {
-	u32 cr1;
+	uint32_t cr1;
 
 	cr1 = TIM_CR1(timer_peripheral);
 
@@ -304,11 +329,13 @@ void timer_set_mode(u32 timer_peripheral, u32 clock_div,
 This forms the sampling clock for the input filters and the dead-time clock
 in the advanced timers 1 and 8, by division from the timer clock.
 
-@param[in] timer_peripheral Unsigned int32. Timer register address base @ref tim_reg_base
-@param[in] clock_div Unsigned int32. Clock Divider Ratio in bits 8,9: @ref tim_x_cr1_cdr
+@param[in] timer_peripheral Unsigned int32. Timer register address base @ref
+tim_reg_base
+@param[in] clock_div Unsigned int32. Clock Divider Ratio in bits 8,9: @ref
+tim_x_cr1_cdr
 */
 
-void timer_set_clock_division(u32 timer_peripheral, u32 clock_div)
+void timer_set_clock_division(uint32_t timer_peripheral, uint32_t clock_div)
 {
 	clock_div &= TIM_CR1_CKD_CK_INT_MASK;
 	TIM_CR1(timer_peripheral) &= ~TIM_CR1_CKD_CK_INT_MASK;
@@ -321,10 +348,11 @@ void timer_set_clock_division(u32 timer_peripheral, u32 clock_div)
 During counter operation this causes the counter to be loaded from its
 auto-reload register only at the next update event.
 
-@param[in] timer_peripheral Unsigned int32. Timer register address base @ref tim_reg_base
+@param[in] timer_peripheral Unsigned int32. Timer register address base @ref
+tim_reg_base
 */
 
-void timer_enable_preload(u32 timer_peripheral)
+void timer_enable_preload(uint32_t timer_peripheral)
 {
 	TIM_CR1(timer_peripheral) |= TIM_CR1_ARPE;
 }
@@ -336,10 +364,11 @@ This causes the counter to be loaded immediately with a new count value when the
 auto-reload register is written, so that the new value becomes effective for the
 current count cycle rather than for the cycle following an update event.
 
-@param[in] timer_peripheral Unsigned int32. Timer register address base @ref tim_reg_base
+@param[in] timer_peripheral Unsigned int32. Timer register address base @ref
+tim_reg_base
 */
 
-void timer_disable_preload(u32 timer_peripheral)
+void timer_disable_preload(uint32_t timer_peripheral)
 {
 	TIM_CR1(timer_peripheral) &= ~TIM_CR1_ARPE;
 }
@@ -349,11 +378,12 @@ void timer_disable_preload(u32 timer_peripheral)
 
 The mode can be edge aligned or centered.
 
-@param[in] timer_peripheral Unsigned int32. Timer register address base @ref tim_reg_base
+@param[in] timer_peripheral Unsigned int32. Timer register address base @ref
+tim_reg_base
 @param[in] alignment Unsigned int32. Alignment bits in 5,6: @ref tim_x_cr1_cms
 */
 
-void timer_set_alignment(u32 timer_peripheral, u32 alignment)
+void timer_set_alignment(uint32_t timer_peripheral, uint32_t alignment)
 {
 	alignment &= TIM_CR1_CMS_MASK;
 	TIM_CR1(timer_peripheral) &= ~TIM_CR1_CMS_MASK;
@@ -365,10 +395,11 @@ void timer_set_alignment(u32 timer_peripheral, u32 alignment)
 
 This has no effect if the timer is set to center aligned.
 
-@param[in] timer_peripheral Unsigned int32. Timer register address base @ref tim_reg_base
+@param[in] timer_peripheral Unsigned int32. Timer register address base @ref
+tim_reg_base
 */
 
-void timer_direction_up(u32 timer_peripheral)
+void timer_direction_up(uint32_t timer_peripheral)
 {
 	TIM_CR1(timer_peripheral) &= ~TIM_CR1_DIR_DOWN;
 }
@@ -378,10 +409,11 @@ void timer_direction_up(u32 timer_peripheral)
 
 This has no effect if the timer is set to center aligned.
 
-@param[in] timer_peripheral Unsigned int32. Timer register address base @ref tim_reg_base
+@param[in] timer_peripheral Unsigned int32. Timer register address base @ref
+tim_reg_base
 */
 
-void timer_direction_down(u32 timer_peripheral)
+void timer_direction_down(uint32_t timer_peripheral)
 {
 	TIM_CR1(timer_peripheral) |= TIM_CR1_DIR_DOWN;
 }
@@ -389,10 +421,11 @@ void timer_direction_down(u32 timer_peripheral)
 /*---------------------------------------------------------------------------*/
 /** @brief Enable the Timer for One Cycle and Stop.
 
-@param[in] timer_peripheral Unsigned int32. Timer register address base @ref tim_reg_base
+@param[in] timer_peripheral Unsigned int32. Timer register address base @ref
+tim_reg_base
 */
 
-void timer_one_shot_mode(u32 timer_peripheral)
+void timer_one_shot_mode(uint32_t timer_peripheral)
 {
 	TIM_CR1(timer_peripheral) |= TIM_CR1_OPM;
 }
@@ -400,10 +433,11 @@ void timer_one_shot_mode(u32 timer_peripheral)
 /*---------------------------------------------------------------------------*/
 /** @brief Enable the Timer to Run Continuously.
 
-@param[in] timer_peripheral Unsigned int32. Timer register address base @ref tim_reg_base
+@param[in] timer_peripheral Unsigned int32. Timer register address base @ref
+tim_reg_base
 */
 
-void timer_continuous_mode(u32 timer_peripheral)
+void timer_continuous_mode(uint32_t timer_peripheral)
 {
 	TIM_CR1(timer_peripheral) &= ~TIM_CR1_OPM;
 }
@@ -416,21 +450,24 @@ The events which will generate an interrupt or DMA request can be
 @li a forced update,
 @li an event from the slave mode controller.
 
-@param[in] timer_peripheral Unsigned int32. Timer register address base @ref tim_reg_base
+@param[in] timer_peripheral Unsigned int32. Timer register address base @ref
+tim_reg_base
 */
 
-void timer_update_on_any(u32 timer_peripheral)
+void timer_update_on_any(uint32_t timer_peripheral)
 {
 	TIM_CR1(timer_peripheral) &= ~TIM_CR1_URS;
 }
 
 /*---------------------------------------------------------------------------*/
-/** @brief Set the Timer to Generate Update IRQ or DMA only from Under/Overflow Events.
+/** @brief Set the Timer to Generate Update IRQ or DMA only from Under/Overflow
+Events.
 
-@param[in] timer_peripheral Unsigned int32. Timer register address base @ref tim_reg_base
+@param[in] timer_peripheral Unsigned int32. Timer register address base @ref
+tim_reg_base
 */
 
-void timer_update_on_overflow(u32 timer_peripheral)
+void timer_update_on_overflow(uint32_t timer_peripheral)
 {
 	TIM_CR1(timer_peripheral) |= TIM_CR1_URS;
 }
@@ -438,10 +475,11 @@ void timer_update_on_overflow(u32 timer_peripheral)
 /*---------------------------------------------------------------------------*/
 /** @brief Enable Timer Update Events.
 
-@param[in] timer_peripheral Unsigned int32. Timer register address base @ref tim_reg_base
+@param[in] timer_peripheral Unsigned int32. Timer register address base @ref
+tim_reg_base
 */
 
-void timer_enable_update_event(u32 timer_peripheral)
+void timer_enable_update_event(uint32_t timer_peripheral)
 {
 	TIM_CR1(timer_peripheral) &= ~TIM_CR1_UDIS;
 }
@@ -451,10 +489,11 @@ void timer_enable_update_event(u32 timer_peripheral)
 
 Update events are not generated and the shadow registers keep their values.
 
-@param[in] timer_peripheral Unsigned int32. Timer register address base @ref tim_reg_base
+@param[in] timer_peripheral Unsigned int32. Timer register address base @ref
+tim_reg_base
 */
 
-void timer_disable_update_event(u32 timer_peripheral)
+void timer_disable_update_event(uint32_t timer_peripheral)
 {
 	TIM_CR1(timer_peripheral) |= TIM_CR1_UDIS;
 }
@@ -464,10 +503,11 @@ void timer_disable_update_event(u32 timer_peripheral)
 
 This should be called after the timer initial configuration has been completed.
 
-@param[in] timer_peripheral Unsigned int32. Timer register address base @ref tim_reg_base
+@param[in] timer_peripheral Unsigned int32. Timer register address base @ref
+tim_reg_base
 */
 
-void timer_enable_counter(u32 timer_peripheral)
+void timer_enable_counter(uint32_t timer_peripheral)
 {
 	TIM_CR1(timer_peripheral) |= TIM_CR1_CEN;
 }
@@ -475,10 +515,11 @@ void timer_enable_counter(u32 timer_peripheral)
 /*---------------------------------------------------------------------------*/
 /** @brief Stop the timer from counting.
 
-@param[in] timer_peripheral Unsigned int32. Timer register address base @ref tim_reg_base
+@param[in] timer_peripheral Unsigned int32. Timer register address base @ref
+tim_reg_base
 */
 
-void timer_disable_counter(u32 timer_peripheral)
+void timer_disable_counter(uint32_t timer_peripheral)
 {
 	TIM_CR1(timer_peripheral) &= ~TIM_CR1_CEN;
 }
@@ -492,16 +533,19 @@ This determines the value of the timer output compare when it enters idle state.
 
 @note This setting is only valid for the advanced timers.
 
-@param[in] timer_peripheral Unsigned int32. Timer register address base @ref tim_reg_base
-@param[in] outputs Unsigned int32. Timer Output Idle State Controls @ref tim_x_cr2_ois.
-If several settings are to be made, use the logical OR of the output control values.
+@param[in] timer_peripheral Unsigned int32. Timer register address base @ref
+tim_reg_base
+@param[in] outputs Unsigned int32. Timer Output Idle State Controls @ref
+tim_x_cr2_ois. If several settings are to be made, use the logical OR of the
+output control values.
 */
 
-void timer_set_output_idle_state(u32 timer_peripheral, u32 outputs)
+void timer_set_output_idle_state(uint32_t timer_peripheral, uint32_t outputs)
 {
 #if (defined(TIM1_BASE) || defined(TIM8_BASE))
-	if ((timer_peripheral == TIM1) || (timer_peripheral == TIM8))
-    	TIM_CR2(timer_peripheral) |= outputs & TIM_CR2_OIS_MASK;
+	if ((timer_peripheral == TIM1) || (timer_peripheral == TIM8)) {
+		TIM_CR2(timer_peripheral) |= outputs & TIM_CR2_OIS_MASK;
+	}
 #else
 	(void)timer_peripheral;
 	(void)outputs;
@@ -517,15 +561,18 @@ This determines the value of the timer output compare when it enters idle state.
 
 @note This setting is only valid for the advanced timers.
 
-@param[in] timer_peripheral Unsigned int32. Timer register address base @ref tim_reg_base
-@param[in] outputs Unsigned int32. Timer Output Idle State Controls @ref tim_x_cr2_ois
+@param[in] timer_peripheral Unsigned int32. Timer register address base @ref
+tim_reg_base
+@param[in] outputs Unsigned int32. Timer Output Idle State Controls @ref
+tim_x_cr2_ois
 */
 
-void timer_reset_output_idle_state(u32 timer_peripheral, u32 outputs)
+void timer_reset_output_idle_state(uint32_t timer_peripheral, uint32_t outputs)
 {
 #if (defined(TIM1_BASE) || defined(TIM8_BASE))
-	if ((timer_peripheral == TIM1) || (timer_peripheral == TIM8))
-    	TIM_CR2(timer_peripheral) &= ~(outputs & TIM_CR2_OIS_MASK);
+	if ((timer_peripheral == TIM1) || (timer_peripheral == TIM8)) {
+		TIM_CR2(timer_peripheral) &= ~(outputs & TIM_CR2_OIS_MASK);
+	}
 #else
 	(void)timer_peripheral;
 	(void)outputs;
@@ -535,13 +582,14 @@ void timer_reset_output_idle_state(u32 timer_peripheral, u32 outputs)
 /*---------------------------------------------------------------------------*/
 /** @brief Set Timer 1 Input to XOR of Three Channels.
 
-The first timer capture input is formed from the XOR of the first three timer input
-channels 1, 2, 3.
+The first timer capture input is formed from the XOR of the first three timer
+input channels 1, 2, 3.
 
-@param[in] timer_peripheral Unsigned int32. Timer register address base @ref tim_reg_base
+@param[in] timer_peripheral Unsigned int32. Timer register address base @ref
+tim_reg_base
 */
 
-void timer_set_ti1_ch123_xor(u32 timer_peripheral)
+void timer_set_ti1_ch123_xor(uint32_t timer_peripheral)
 {
 	TIM_CR2(timer_peripheral) |= TIM_CR2_TI1S;
 }
@@ -551,10 +599,11 @@ void timer_set_ti1_ch123_xor(u32 timer_peripheral)
 
 The first timer capture input is taken from the timer input channel 1 only.
 
-@param[in] timer_peripheral Unsigned int32. Timer register address base @ref tim_reg_base
+@param[in] timer_peripheral Unsigned int32. Timer register address base @ref
+tim_reg_base
 */
 
-void timer_set_ti1_ch1(u32 timer_peripheral)
+void timer_set_ti1_ch1(uint32_t timer_peripheral)
 {
 	TIM_CR2(timer_peripheral) &= ~TIM_CR2_TI1S;
 }
@@ -562,14 +611,15 @@ void timer_set_ti1_ch1(u32 timer_peripheral)
 /*---------------------------------------------------------------------------*/
 /** @brief Set the Master Mode
 
-This sets the Trigger Output TRGO for synchronizing with slave timers or passing as
-an internal trigger to the ADC or DAC.
+This sets the Trigger Output TRGO for synchronizing with slave timers or
+passing as an internal trigger to the ADC or DAC.
 
-@param[in] timer_peripheral Unsigned int32. Timer register address base @ref tim_reg_base
+@param[in] timer_peripheral Unsigned int32. Timer register address base @ref
+tim_reg_base
 @param[in] mode Unsigned int32. Master Mode @ref tim_mastermode
 */
 
-void timer_set_master_mode(u32 timer_peripheral, u32 mode)
+void timer_set_master_mode(uint32_t timer_peripheral, uint32_t mode)
 {
 	TIM_CR2(timer_peripheral) &= ~TIM_CR2_MMS_MASK;
 	TIM_CR2(timer_peripheral) |= mode;
@@ -580,10 +630,11 @@ void timer_set_master_mode(u32 timer_peripheral, u32 mode)
 
 Capture/compare events will cause DMA requests to be generated.
 
-@param[in] timer_peripheral Unsigned int32. Timer register address base @ref tim_reg_base
+@param[in] timer_peripheral Unsigned int32. Timer register address base @ref
+tim_reg_base
 */
 
-void timer_set_dma_on_compare_event(u32 timer_peripheral)
+void timer_set_dma_on_compare_event(uint32_t timer_peripheral)
 {
 	TIM_CR2(timer_peripheral) &= ~TIM_CR2_CCDS;
 }
@@ -593,10 +644,11 @@ void timer_set_dma_on_compare_event(u32 timer_peripheral)
 
 Update events will cause DMA requests to be generated.
 
-@param[in] timer_peripheral Unsigned int32. Timer register address base @ref tim_reg_base
+@param[in] timer_peripheral Unsigned int32. Timer register address base @ref
+tim_reg_base
 */
 
-void timer_set_dma_on_update_event(u32 timer_peripheral)
+void timer_set_dma_on_update_event(uint32_t timer_peripheral)
 {
 	TIM_CR2(timer_peripheral) |= TIM_CR2_CCDS;
 }
@@ -608,17 +660,19 @@ If the capture/compare control bits CCxE, CCxNE and OCxM are set to be
 preloaded, they are updated by software generating the COMG event (@ref
 timer_generate_event) or when a rising edge occurs on the trigger input TRGI.
 
-@note This setting is only valid for the advanced timer channels with complementary
-outputs.
+@note This setting is only valid for the advanced timer channels with
+complementary outputs.
 
-@param[in] timer_peripheral Unsigned int32. Timer register address base @ref tim_reg_base
+@param[in] timer_peripheral Unsigned int32. Timer register address base @ref
+tim_reg_base
 */
 
-void timer_enable_compare_control_update_on_trigger(u32 timer_peripheral)
+void timer_enable_compare_control_update_on_trigger(uint32_t timer_peripheral)
 {
 #if (defined(TIM1_BASE) || defined(TIM8_BASE))
-	if ((timer_peripheral == TIM1) || (timer_peripheral == TIM8))
+	if ((timer_peripheral == TIM1) || (timer_peripheral == TIM8)) {
 		TIM_CR2(timer_peripheral) |= TIM_CR2_CCUS;
+	}
 #else
 	(void)timer_peripheral;
 #endif
@@ -631,17 +685,19 @@ If the capture/compare control bits CCxE, CCxNE and OCxM are set to be
 preloaded, they are updated by software generating the COMG event (@ref
 timer_generate_event).
 
-@note This setting is only valid for the advanced timer channels with complementary
-outputs.
+@note This setting is only valid for the advanced timer channels with
+complementary outputs.
 
-@param[in] timer_peripheral Unsigned int32. Timer register address base @ref tim_reg_base
+@param[in] timer_peripheral Unsigned int32. Timer register address base @ref
+tim_reg_base
 */
 
-void timer_disable_compare_control_update_on_trigger(u32 timer_peripheral)
+void timer_disable_compare_control_update_on_trigger(uint32_t timer_peripheral)
 {
 #if (defined(TIM1_BASE) || defined(TIM8_BASE))
-	if ((timer_peripheral == TIM1) || (timer_peripheral == TIM8))
+	if ((timer_peripheral == TIM1) || (timer_peripheral == TIM8)) {
 		TIM_CR2(timer_peripheral) &= ~TIM_CR2_CCUS;
+	}
 #else
 	(void)timer_peripheral;
 #endif
@@ -653,17 +709,19 @@ void timer_disable_compare_control_update_on_trigger(u32 timer_peripheral)
 The capture/compare control bits CCxE, CCxNE and OCxM are set to be preloaded
 when a COM event occurs.
 
-@note This setting is only valid for the advanced timer channels with complementary
-outputs.
+@note This setting is only valid for the advanced timer channels with
+complementary outputs.
 
-@param[in] timer_peripheral Unsigned int32. Timer register address base @ref tim_reg_base
+@param[in] timer_peripheral Unsigned int32. Timer register address base @ref
+tim_reg_base
 */
 
-void timer_enable_preload_complementry_enable_bits(u32 timer_peripheral)
+void timer_enable_preload_complementry_enable_bits(uint32_t timer_peripheral)
 {
 #if (defined(TIM1_BASE) || defined(TIM8_BASE))
-	if ((timer_peripheral == TIM1) || (timer_peripheral == TIM8))
+	if ((timer_peripheral == TIM1) || (timer_peripheral == TIM8)) {
 		TIM_CR2(timer_peripheral) |= TIM_CR2_CCPC;
+	}
 #else
 	(void)timer_peripheral;
 #endif
@@ -674,17 +732,19 @@ void timer_enable_preload_complementry_enable_bits(u32 timer_peripheral)
 
 The capture/compare control bits CCxE, CCxNE and OCxM preload is disabled.
 
-@note This setting is only valid for the advanced timer channels with complementary
-outputs.
+@note This setting is only valid for the advanced timer channels with
+complementary outputs.
 
-@param[in] timer_peripheral Unsigned int32. Timer register address base @ref tim_reg_base
+@param[in] timer_peripheral Unsigned int32. Timer register address base @ref
+tim_reg_base
 */
 
-void timer_disable_preload_complementry_enable_bits(u32 timer_peripheral)
+void timer_disable_preload_complementry_enable_bits(uint32_t timer_peripheral)
 {
 #if (defined(TIM1_BASE) || defined(TIM8_BASE))
-	if ((timer_peripheral == TIM1) || (timer_peripheral == TIM8))
+	if ((timer_peripheral == TIM1) || (timer_peripheral == TIM8)) {
 		TIM_CR2(timer_peripheral) &= ~TIM_CR2_CCPC;
+	}
 #else
 	(void)timer_peripheral;
 #endif
@@ -695,11 +755,12 @@ void timer_disable_preload_complementry_enable_bits(u32 timer_peripheral)
 
 The timer clock is prescaled by the 16 bit scale value plus 1.
 
-@param[in] timer_peripheral Unsigned int32. Timer register address base @ref tim_reg_base
+@param[in] timer_peripheral Unsigned int32. Timer register address base @ref
+tim_reg_base
 @param[in] value Unsigned int32. Prescaler values 0...0xFFFF.
 */
 
-void timer_set_prescaler(u32 timer_peripheral, u32 value)
+void timer_set_prescaler(uint32_t timer_peripheral, uint32_t value)
 {
 	TIM_PSC(timer_peripheral) = value;
 }
@@ -712,15 +773,17 @@ count cycles have been completed.
 
 @note This setting is only valid for the advanced timers.
 
-@param[in] timer_peripheral Unsigned int32. Timer register address base @ref tim_reg_base
+@param[in] timer_peripheral Unsigned int32. Timer register address base @ref
+tim_reg_base
 @param[in] value Unsigned int32. Repetition values 0...0xFF.
 */
 
-void timer_set_repetition_counter(u32 timer_peripheral, u32 value)
+void timer_set_repetition_counter(uint32_t timer_peripheral, uint32_t value)
 {
 #if (defined(TIM1_BASE) || defined(TIM8_BASE))
-	if ((timer_peripheral == TIM1) || (timer_peripheral == TIM8))
+	if ((timer_peripheral == TIM1) || (timer_peripheral == TIM8)) {
 		TIM_RCR(timer_peripheral) = value;
+	}
 #else
 	(void)timer_peripheral;
 	(void)value;
@@ -732,11 +795,12 @@ void timer_set_repetition_counter(u32 timer_peripheral, u32 value)
 
 Specify the timer period in the auto-reload register.
 
-@param[in] timer_peripheral Unsigned int32. Timer register address base @ref tim_reg_base
+@param[in] timer_peripheral Unsigned int32. Timer register address base @ref
+tim_reg_base
 @param[in] period Unsigned int32. Period in counter clock ticks.
 */
 
-void timer_set_period(u32 timer_peripheral, u32 period)
+void timer_set_period(uint32_t timer_peripheral, uint32_t period)
 {
 	TIM_ARR(timer_peripheral) = period;
 }
@@ -744,17 +808,18 @@ void timer_set_period(u32 timer_peripheral, u32 period)
 /*---------------------------------------------------------------------------*/
 /** @brief Timer Enable the Output Compare Clear Function
 
-When this is enabled, the output compare signal is cleared when a high is detected
-on the external trigger input. This works in the output compare and PWM modes only
-(not forced mode).
+When this is enabled, the output compare signal is cleared when a high is
+detected on the external trigger input. This works in the output compare and
+PWM modes only (not forced mode).
 The output compare signal remains off until the next update event.
 
-@param[in] timer_peripheral Unsigned int32. Timer register address base @ref tim_reg_base
+@param[in] timer_peripheral Unsigned int32. Timer register address base @ref
+tim_reg_base
 @param[in] oc_id enum ::tim_oc_id OC channel designators
 		TIM_OCx where x=1..4, TIM_OCxN where x=1..3 (no action taken)
 */
 
-void timer_enable_oc_clear(u32 timer_peripheral, enum tim_oc_id oc_id)
+void timer_enable_oc_clear(uint32_t timer_peripheral, enum tim_oc_id oc_id)
 {
 	switch (oc_id) {
 	case TIM_OC1:
@@ -772,7 +837,9 @@ void timer_enable_oc_clear(u32 timer_peripheral, enum tim_oc_id oc_id)
 	case TIM_OC1N:
 	case TIM_OC2N:
 	case TIM_OC3N:
-		/* Ignoring as oc clear enable only applies to the whole channel. */
+		/* Ignoring as oc clear enable only applies to the whole
+		 * channel.
+		 */
 		break;
 	}
 }
@@ -780,12 +847,13 @@ void timer_enable_oc_clear(u32 timer_peripheral, enum tim_oc_id oc_id)
 /*---------------------------------------------------------------------------*/
 /** @brief Timer Disable the Output Compare Clear Function
 
-@param[in] timer_peripheral Unsigned int32. Timer register address base @ref tim_reg_base
+@param[in] timer_peripheral Unsigned int32. Timer register address base @ref
+tim_reg_base
 @param[in] oc_id enum ::tim_oc_id OC channel designators
 		TIM_OCx where x=1..4, TIM_OCxN where x=1..3 (no action taken)
 */
 
-void timer_disable_oc_clear(u32 timer_peripheral, enum tim_oc_id oc_id)
+void timer_disable_oc_clear(uint32_t timer_peripheral, enum tim_oc_id oc_id)
 {
 	switch (oc_id) {
 	case TIM_OC1:
@@ -803,7 +871,9 @@ void timer_disable_oc_clear(u32 timer_peripheral, enum tim_oc_id oc_id)
 	case TIM_OC1N:
 	case TIM_OC2N:
 	case TIM_OC3N:
-		/* Ignoring as oc clear enable only applies to the whole channel. */
+		/* Ignoring as oc clear enable only applies to the whole
+		 * channel.
+		 */
 		break;
 	}
 }
@@ -816,12 +886,13 @@ by a trigger input, independently of the compare match. This speeds up the
 setting of the output compare to 3 clock cycles as opposed to at least 5 in the
 slow mode. This works in the PWM1 and PWM2 modes only.
 
-@param[in] timer_peripheral Unsigned int32. Timer register address base @ref tim_reg_base
+@param[in] timer_peripheral Unsigned int32. Timer register address base @ref
+tim_reg_base
 @param[in] oc_id enum ::tim_oc_id OC channel designators
 		TIM_OCx where x=1..4, TIM_OCxN where x=1..3 (no action taken)
 */
 
-void timer_set_oc_fast_mode(u32 timer_peripheral, enum tim_oc_id oc_id)
+void timer_set_oc_fast_mode(uint32_t timer_peripheral, enum tim_oc_id oc_id)
 {
 	switch (oc_id) {
 	case TIM_OC1:
@@ -850,12 +921,13 @@ void timer_set_oc_fast_mode(u32 timer_peripheral, enum tim_oc_id oc_id)
 This disables the fast compare mode and the output compare depends on the
 counter and compare register values.
 
-@param[in] timer_peripheral Unsigned int32. Timer register address base @ref tim_reg_base
+@param[in] timer_peripheral Unsigned int32. Timer register address base @ref
+tim_reg_base
 @param[in] oc_id enum ::tim_oc_id OC channel designators
 		TIM_OCx where x=1..4, TIM_OCxN where x=1..3 (no action taken)
 */
 
-void timer_set_oc_slow_mode(u32 timer_peripheral, enum tim_oc_id oc_id)
+void timer_set_oc_slow_mode(uint32_t timer_peripheral, enum tim_oc_id oc_id)
 {
 	switch (oc_id) {
 	case TIM_OC1:
@@ -881,27 +953,31 @@ void timer_set_oc_slow_mode(u32 timer_peripheral, enum tim_oc_id oc_id)
 /*---------------------------------------------------------------------------*/
 /** @brief Timer Set Output Compare Mode
 
-Specifies how the comparator output will respond to a compare match. The mode can be:
+Specifies how the comparator output will respond to a compare match. The mode
+can be:
 @li Frozen - the output does not respond to a match.
 @li Active - the output assumes the active state on the first match.
 @li Inactive - the output assumes the inactive state on the first match.
-@li Toggle - The output switches between active and inactive states on each match.
+@li Toggle - The output switches between active and inactive states on each
+match.
 @li Force inactive. The output is forced low regardless of the compare state.
 @li Force active. The output is forced high regardless of the compare state.
-@li PWM1 - The output is active when the counter is less than the compare register contents
-and inactive otherwise.
-@li PWM2 - The output is inactive when the counter is less than the compare register contents
-and active otherwise.
+@li PWM1 - The output is active when the counter is less than the compare
+register contents and inactive otherwise.
+@li PWM2 - The output is inactive when the counter is less than the compare
+register contents and active otherwise.
 
-@param[in] timer_peripheral Unsigned int32. Timer register address base @ref tim_reg_base
+@param[in] timer_peripheral Unsigned int32. Timer register address base @ref
+tim_reg_base
 @param[in] oc_id enum ::tim_oc_id OC channel designators
 		TIM_OCx where x=1..4, TIM_OCxN where x=1..3 (no action taken)
 @param[in] oc_mode enum ::tim_oc_mode. OC mode designators.
-		TIM_OCM_FROZEN, TIM_OCM_ACTIVE, TIM_OCM_INACTIVE, TIM_OCM_TOGGLE,
-		TIM_OCM_FORCE_LOW, TIM_OCM_FORCE_HIGH, TIM_OCM_PWM1, TIM_OCM_PWM2
+		TIM_OCM_FROZEN, TIM_OCM_ACTIVE, TIM_OCM_INACTIVE,
+		TIM_OCM_TOGGLE, TIM_OCM_FORCE_LOW, TIM_OCM_FORCE_HIGH,
+		TIM_OCM_PWM1, TIM_OCM_PWM2
 */
 
-void timer_set_oc_mode(u32 timer_peripheral, enum tim_oc_id oc_id,
+void timer_set_oc_mode(uint32_t timer_peripheral, enum tim_oc_id oc_id,
 		       enum tim_oc_mode oc_mode)
 {
 	switch (oc_id) {
@@ -1044,12 +1120,13 @@ void timer_set_oc_mode(u32 timer_peripheral, enum tim_oc_id oc_id,
 /*---------------------------------------------------------------------------*/
 /** @brief Timer Enable the Output Compare Preload Register
 
-@param[in] timer_peripheral Unsigned int32. Timer register address base @ref tim_reg_base
+@param[in] timer_peripheral Unsigned int32. Timer register address base @ref
+tim_reg_base
 @param[in] oc_id enum ::tim_oc_id OC channel designators
 		TIM_OCx where x=1..4, TIM_OCxN where x=1..3 (no action taken)
 */
 
-void timer_enable_oc_preload(u32 timer_peripheral, enum tim_oc_id oc_id)
+void timer_enable_oc_preload(uint32_t timer_peripheral, enum tim_oc_id oc_id)
 {
 	switch (oc_id) {
 	case TIM_OC1:
@@ -1075,12 +1152,13 @@ void timer_enable_oc_preload(u32 timer_peripheral, enum tim_oc_id oc_id)
 /*---------------------------------------------------------------------------*/
 /** @brief Timer Disable the Output Compare Preload Register
 
-@param[in] timer_peripheral Unsigned int32. Timer register address base @ref tim_reg_base
+@param[in] timer_peripheral Unsigned int32. Timer register address base @ref
+tim_reg_base
 @param[in] oc_id enum ::tim_oc_id OC channel designators
 		TIM_OCx where x=1..4, TIM_OCxN where x=1..3 (no action)
 */
 
-void timer_disable_oc_preload(u32 timer_peripheral, enum tim_oc_id oc_id)
+void timer_disable_oc_preload(uint32_t timer_peripheral, enum tim_oc_id oc_id)
 {
 	switch (oc_id) {
 	case TIM_OC1:
@@ -1108,12 +1186,14 @@ void timer_disable_oc_preload(u32 timer_peripheral, enum tim_oc_id oc_id)
 
 The polarity of the channel output is set active high.
 
-@param[in] timer_peripheral Unsigned int32. Timer register address base @ref tim_reg_base
+@param[in] timer_peripheral Unsigned int32. Timer register address base @ref
+tim_reg_base
 @param[in] oc_id enum ::tim_oc_id OC channel designators
-		TIM_OCx where x=1..4, TIM_OCxN where x=1..3  (only for advanced timers 1 and 8)
+		TIM_OCx where x=1..4, TIM_OCxN where x=1..3  (only for advanced
+		timers 1 and 8)
 */
 
-void timer_set_oc_polarity_high(u32 timer_peripheral, enum tim_oc_id oc_id)
+void timer_set_oc_polarity_high(uint32_t timer_peripheral, enum tim_oc_id oc_id)
 {
 	switch (oc_id) {
 	case TIM_OC1:
@@ -1137,8 +1217,9 @@ void timer_set_oc_polarity_high(u32 timer_peripheral, enum tim_oc_id oc_id)
 
 	/* Acting for TIM1 and TIM8 only from here onwards. */
 #if (defined(TIM1_BASE) || defined(TIM8_BASE))
-	if ((timer_peripheral != TIM1) && (timer_peripheral != TIM8))
+	if ((timer_peripheral != TIM1) && (timer_peripheral != TIM8)) {
 		return;
+	}
 #else
 	return;
 #endif
@@ -1167,12 +1248,14 @@ void timer_set_oc_polarity_high(u32 timer_peripheral, enum tim_oc_id oc_id)
 
 The polarity of the channel output is set active low.
 
-@param[in] timer_peripheral Unsigned int32. Timer register address base @ref tim_reg_base
+@param[in] timer_peripheral Unsigned int32. Timer register address base @ref
+tim_reg_base
 @param[in] oc_id enum ::tim_oc_id OC channel designators
-		TIM_OCx where x=1..4, TIM_OCxN where x=1..3 (only for advanced timers 1 and 8)
+		TIM_OCx where x=1..4, TIM_OCxN where x=1..3 (only for advanced
+		timers 1 and 8)
 */
 
-void timer_set_oc_polarity_low(u32 timer_peripheral, enum tim_oc_id oc_id)
+void timer_set_oc_polarity_low(uint32_t timer_peripheral, enum tim_oc_id oc_id)
 {
 	switch (oc_id) {
 	case TIM_OC1:
@@ -1196,8 +1279,9 @@ void timer_set_oc_polarity_low(u32 timer_peripheral, enum tim_oc_id oc_id)
 
 	/* Acting for TIM1 and TIM8 only from here onwards. */
 #if (defined(TIM1_BASE) || defined(TIM8_BASE))
-	if ((timer_peripheral != TIM1) && (timer_peripheral != TIM8))
+	if ((timer_peripheral != TIM1) && (timer_peripheral != TIM8)) {
 		return;
+	}
 #else
 	return;
 #endif
@@ -1226,12 +1310,14 @@ void timer_set_oc_polarity_low(u32 timer_peripheral, enum tim_oc_id oc_id)
 
 The channel output compare functionality is enabled.
 
-@param[in] timer_peripheral Unsigned int32. Timer register address base @ref tim_reg_base
+@param[in] timer_peripheral Unsigned int32. Timer register address base @ref
+tim_reg_base
 @param[in] oc_id enum ::tim_oc_id OC channel designators
-		TIM_OCx where x=1..4, TIM_OCxN where x=1..3 (only for advanced timers 1 and 8)
+		TIM_OCx where x=1..4, TIM_OCxN where x=1..3 (only for advanced
+		timers 1 and 8)
 */
 
-void timer_enable_oc_output(u32 timer_peripheral, enum tim_oc_id oc_id)
+void timer_enable_oc_output(uint32_t timer_peripheral, enum tim_oc_id oc_id)
 {
 	switch (oc_id) {
 	case TIM_OC1:
@@ -1255,8 +1341,9 @@ void timer_enable_oc_output(u32 timer_peripheral, enum tim_oc_id oc_id)
 
 	/* Acting for TIM1 and TIM8 only from here onwards. */
 #if (defined(TIM1_BASE) || defined(TIM8_BASE))
-	if ((timer_peripheral != TIM1) && (timer_peripheral != TIM8))
+	if ((timer_peripheral != TIM1) && (timer_peripheral != TIM8)) {
 		return;
+	}
 #else
 	return;
 #endif
@@ -1285,12 +1372,14 @@ void timer_enable_oc_output(u32 timer_peripheral, enum tim_oc_id oc_id)
 
 The channel output compare functionality is disabled.
 
-@param[in] timer_peripheral Unsigned int32. Timer register address base @ref tim_reg_base
+@param[in] timer_peripheral Unsigned int32. Timer register address base @ref
+tim_reg_base
 @param[in] oc_id enum ::tim_oc_id OC channel designators
-		TIM_OCx where x=1..4, TIM_OCxN where x=1..3 (only for advanced timers 1 and 8)
+		TIM_OCx where x=1..4, TIM_OCxN where x=1..3 (only for advanced
+		timers 1 and 8)
 */
 
-void timer_disable_oc_output(u32 timer_peripheral, enum tim_oc_id oc_id)
+void timer_disable_oc_output(uint32_t timer_peripheral, enum tim_oc_id oc_id)
 {
 	switch (oc_id) {
 	case TIM_OC1:
@@ -1314,8 +1403,9 @@ void timer_disable_oc_output(u32 timer_peripheral, enum tim_oc_id oc_id)
 
 	/* Acting for TIM1 and TIM8 only from here onwards. */
 #if (defined(TIM1_BASE) || defined(TIM8_BASE))
-	if ((timer_peripheral != TIM1) && (timer_peripheral != TIM8))
+	if ((timer_peripheral != TIM1) && (timer_peripheral != TIM8)) {
 		return;
+	}
 #else
 	return;
 #endif
@@ -1347,17 +1437,21 @@ void timer_disable_oc_output(u32 timer_peripheral, enum tim_oc_id oc_id)
 
 @note This setting is only valid for the advanced timers.
 
-@param[in] timer_peripheral Unsigned int32. Timer register address base @ref tim_reg_base
+@param[in] timer_peripheral Unsigned int32. Timer register address base @ref
+tim_reg_base
 @param[in] oc_id enum ::tim_oc_id OC channel designators
-		TIM_OCx where x=1..4, TIM_OCxN where x=1..3 (only for advanced timers 1 and 8)
+		TIM_OCx where x=1..4, TIM_OCxN where x=1..3 (only for advanced
+		timers 1 and 8)
 */
 
-void timer_set_oc_idle_state_set(u32 timer_peripheral, enum tim_oc_id oc_id)
+void timer_set_oc_idle_state_set(uint32_t timer_peripheral,
+				 enum tim_oc_id oc_id)
 {
 #if (defined(TIM1_BASE) || defined(TIM8_BASE))
 	/* Acting for TIM1 and TIM8 only. */
-	if ((timer_peripheral != TIM1) && (timer_peripheral != TIM8))
+	if ((timer_peripheral != TIM1) && (timer_peripheral != TIM8)) {
 		return;
+	}
 
 	switch (oc_id) {
 	case TIM_OC1:
@@ -1396,17 +1490,21 @@ void timer_set_oc_idle_state_set(u32 timer_peripheral, enum tim_oc_id oc_id)
 
 @note This setting is only valid for the advanced timers.
 
-@param[in] timer_peripheral Unsigned int32. Timer register address base @ref tim_reg_base
+@param[in] timer_peripheral Unsigned int32. Timer register address base @ref
+tim_reg_base
 @param[in] oc_id enum ::tim_oc_id OC channel designators
-		TIM_OCx where x=1..4, TIM_OCxN where x=1..3 (only for advanced timers 1 and 8)
+		TIM_OCx where x=1..4, TIM_OCxN where x=1..3 (only for advanced
+		timers 1 and 8)
 */
 
-void timer_set_oc_idle_state_unset(u32 timer_peripheral, enum tim_oc_id oc_id)
+void timer_set_oc_idle_state_unset(uint32_t timer_peripheral,
+				   enum tim_oc_id oc_id)
 {
 #if (defined(TIM1_BASE) || defined(TIM8_BASE))
 	/* Acting for TIM1 and TIM8 only. */
-	if ((timer_peripheral != TIM1) && (timer_peripheral != TIM8))
+	if ((timer_peripheral != TIM1) && (timer_peripheral != TIM8)) {
 		return;
+	}
 
 	switch (oc_id) {
 	case TIM_OC1:
@@ -1443,14 +1541,15 @@ void timer_set_oc_idle_state_unset(u32 timer_peripheral, enum tim_oc_id oc_id)
 This is a convenience function to set the OC preload register value for loading
 to the compare register.
 
-@param[in] timer_peripheral Unsigned int32. Timer register address base @ref tim_reg_base
-			(TIM9 .. TIM14 not yet supported here).
+@param[in] timer_peripheral Unsigned int32. Timer register address base @ref
+		tim_reg_base (TIM9 .. TIM14 not yet supported here).
 @param[in] oc_id enum ::tim_oc_id OC channel designators
 		TIM_OCx where x=1..4, TIM_OCxN where x=1..3 (no action taken)
 @param[in] value Unsigned int32. Compare value.
 */
 
-void timer_set_oc_value(u32 timer_peripheral, enum tim_oc_id oc_id, u32 value)
+void timer_set_oc_value(uint32_t timer_peripheral, enum tim_oc_id oc_id,
+			uint32_t value)
 {
 	switch (oc_id) {
 	case TIM_OC1:
@@ -1485,14 +1584,16 @@ the Break and Deadtime Register.
 @note It is necessary to call this function to enable the output on an advanced
 timer <b>even if break or deadtime features are not being used</b>.
 
-@param[in] timer_peripheral Unsigned int32. Timer register address base TIM1 or TIM8
+@param[in] timer_peripheral Unsigned int32. Timer register address base TIM1 or
+TIM8
 */
 
-void timer_enable_break_main_output(u32 timer_peripheral)
+void timer_enable_break_main_output(uint32_t timer_peripheral)
 {
 #if (defined(TIM1_BASE) || defined(TIM8_BASE))
-	if ((timer_peripheral == TIM1) || (timer_peripheral == TIM8))
+	if ((timer_peripheral == TIM1) || (timer_peripheral == TIM8)) {
 		TIM_BDTR(timer_peripheral) |= TIM_BDTR_MOE;
+	}
 #else
 	(void)timer_peripheral;
 #endif
@@ -1506,14 +1607,16 @@ the Master Output Enable in the Break and Deadtime Register.
 
 @note This setting is only valid for the advanced timers.
 
-@param[in] timer_peripheral Unsigned int32. Timer register address base TIM1 or TIM8
+@param[in] timer_peripheral Unsigned int32. Timer register address base TIM1 or
+TIM8
 */
 
-void timer_disable_break_main_output(u32 timer_peripheral)
+void timer_disable_break_main_output(uint32_t timer_peripheral)
 {
 #if (defined(TIM1_BASE) || defined(TIM8_BASE))
-	if ((timer_peripheral == TIM1) || (timer_peripheral == TIM8))
+	if ((timer_peripheral == TIM1) || (timer_peripheral == TIM8)) {
 		TIM_BDTR(timer_peripheral) &= ~TIM_BDTR_MOE;
+	}
 #else
 	(void)timer_peripheral;
 #endif
@@ -1528,14 +1631,16 @@ break event.
 
 @note This setting is only valid for the advanced timers.
 
-@param[in] timer_peripheral Unsigned int32. Timer register address base TIM1 or TIM8
+@param[in] timer_peripheral Unsigned int32. Timer register address base TIM1 or
+TIM8
 */
 
-void timer_enable_break_automatic_output(u32 timer_peripheral)
+void timer_enable_break_automatic_output(uint32_t timer_peripheral)
 {
 #if (defined(TIM1_BASE) || defined(TIM8_BASE))
-	if ((timer_peripheral == TIM1) || (timer_peripheral == TIM8))
+	if ((timer_peripheral == TIM1) || (timer_peripheral == TIM8)) {
 		TIM_BDTR(timer_peripheral) |= TIM_BDTR_AOE;
+	}
 #else
 	(void)timer_peripheral;
 #endif
@@ -1550,14 +1655,16 @@ break event.
 
 @note This setting is only valid for the advanced timers.
 
-@param[in] timer_peripheral Unsigned int32. Timer register address base TIM1 or TIM8
+@param[in] timer_peripheral Unsigned int32. Timer register address base TIM1 or
+TIM8
 */
 
-void timer_disable_break_automatic_output(u32 timer_peripheral)
+void timer_disable_break_automatic_output(uint32_t timer_peripheral)
 {
 #if (defined(TIM1_BASE) || defined(TIM8_BASE))
-	if ((timer_peripheral == TIM1) || (timer_peripheral == TIM8))
+	if ((timer_peripheral == TIM1) || (timer_peripheral == TIM8)) {
 		TIM_BDTR(timer_peripheral) &= ~TIM_BDTR_AOE;
+	}
 #else
 	(void)timer_peripheral;
 #endif
@@ -1570,14 +1677,16 @@ Sets the break function to activate when the break input becomes high.
 
 @note This setting is only valid for the advanced timers.
 
-@param[in] timer_peripheral Unsigned int32. Timer register address base TIM1 or TIM8
+@param[in] timer_peripheral Unsigned int32. Timer register address base TIM1 or
+TIM8
 */
 
-void timer_set_break_polarity_high(u32 timer_peripheral)
+void timer_set_break_polarity_high(uint32_t timer_peripheral)
 {
 #if (defined(TIM1_BASE) || defined(TIM8_BASE))
-	if ((timer_peripheral == TIM1) || (timer_peripheral == TIM8))
+	if ((timer_peripheral == TIM1) || (timer_peripheral == TIM8)) {
 		TIM_BDTR(timer_peripheral) |= TIM_BDTR_BKP;
+	}
 #else
 	(void)timer_peripheral;
 #endif
@@ -1590,14 +1699,16 @@ Sets the break function to activate when the break input becomes low.
 
 @note This setting is only valid for the advanced timers.
 
-@param[in] timer_peripheral Unsigned int32. Timer register address base TIM1 or TIM8
+@param[in] timer_peripheral Unsigned int32. Timer register address base TIM1 or
+TIM8
 */
 
-void timer_set_break_polarity_low(u32 timer_peripheral)
+void timer_set_break_polarity_low(uint32_t timer_peripheral)
 {
 #if (defined(TIM1_BASE) || defined(TIM8_BASE))
-	if ((timer_peripheral == TIM1) || (timer_peripheral == TIM8))
+	if ((timer_peripheral == TIM1) || (timer_peripheral == TIM8)) {
 		TIM_BDTR(timer_peripheral) &= ~TIM_BDTR_BKP;
+	}
 #else
 	(void)timer_peripheral;
 #endif
@@ -1610,14 +1721,16 @@ Enables the break function of an advanced timer.
 
 @note This setting is only valid for the advanced timers.
 
-@param[in] timer_peripheral Unsigned int32. Timer register address base TIM1 or TIM8
+@param[in] timer_peripheral Unsigned int32. Timer register address base TIM1 or
+TIM8
 */
 
-void timer_enable_break(u32 timer_peripheral)
+void timer_enable_break(uint32_t timer_peripheral)
 {
 #if (defined(TIM1_BASE) || defined(TIM8_BASE))
-	if ((timer_peripheral == TIM1) || (timer_peripheral == TIM8))
+	if ((timer_peripheral == TIM1) || (timer_peripheral == TIM8)) {
 		TIM_BDTR(timer_peripheral) |= TIM_BDTR_BKE;
+	}
 #else
 	(void)timer_peripheral;
 #endif
@@ -1630,14 +1743,16 @@ Disables the break function of an advanced timer.
 
 @note This setting is only valid for the advanced timers.
 
-@param[in] timer_peripheral Unsigned int32. Timer register address base TIM1 or TIM8
+@param[in] timer_peripheral Unsigned int32. Timer register address base TIM1 or
+TIM8
 */
 
-void timer_disable_break(u32 timer_peripheral)
+void timer_disable_break(uint32_t timer_peripheral)
 {
 #if (defined(TIM1_BASE) || defined(TIM8_BASE))
-	if ((timer_peripheral == TIM1) || (timer_peripheral == TIM8))
+	if ((timer_peripheral == TIM1) || (timer_peripheral == TIM8)) {
 		TIM_BDTR(timer_peripheral) &= ~TIM_BDTR_BKE;
+	}
 #else
 	(void)timer_peripheral;
 #endif
@@ -1654,14 +1769,16 @@ inactive level as defined by the output polarity.
 
 @note This setting is only valid for the advanced timers.
 
-@param[in] timer_peripheral Unsigned int32. Timer register address base TIM1 or TIM8
+@param[in] timer_peripheral Unsigned int32. Timer register address base TIM1 or
+TIM8
 */
 
-void timer_set_enabled_off_state_in_run_mode(u32 timer_peripheral)
+void timer_set_enabled_off_state_in_run_mode(uint32_t timer_peripheral)
 {
 #if (defined(TIM1_BASE) || defined(TIM8_BASE))
-	if ((timer_peripheral == TIM1) || (timer_peripheral == TIM8))
+	if ((timer_peripheral == TIM1) || (timer_peripheral == TIM8)) {
 		TIM_BDTR(timer_peripheral) |= TIM_BDTR_OSSR;
+	}
 #else
 	(void)timer_peripheral;
 #endif
@@ -1677,14 +1794,16 @@ disabled, the output is also disabled.
 
 @note This setting is only valid for the advanced timers.
 
-@param[in] timer_peripheral Unsigned int32. Timer register address base TIM1 or TIM8
+@param[in] timer_peripheral Unsigned int32. Timer register address base TIM1 or
+TIM8
 */
 
-void timer_set_disabled_off_state_in_run_mode(u32 timer_peripheral)
+void timer_set_disabled_off_state_in_run_mode(uint32_t timer_peripheral)
 {
 #if (defined(TIM1_BASE) || defined(TIM8_BASE))
-	if ((timer_peripheral == TIM1) || (timer_peripheral == TIM8))
+	if ((timer_peripheral == TIM1) || (timer_peripheral == TIM8)) {
 		TIM_BDTR(timer_peripheral) &= ~TIM_BDTR_OSSR;
+	}
 #else
 	(void)timer_peripheral;
 #endif
@@ -1699,14 +1818,16 @@ inactive level as defined by the output polarity.
 
 @note This setting is only valid for the advanced timers.
 
-@param[in] timer_peripheral Unsigned int32. Timer register address base TIM1 or TIM8
+@param[in] timer_peripheral Unsigned int32. Timer register address base TIM1 or
+TIM8
 */
 
-void timer_set_enabled_off_state_in_idle_mode(u32 timer_peripheral)
+void timer_set_enabled_off_state_in_idle_mode(uint32_t timer_peripheral)
 {
 #if (defined(TIM1_BASE) || defined(TIM8_BASE))
-	if ((timer_peripheral == TIM1) || (timer_peripheral == TIM8))
+	if ((timer_peripheral == TIM1) || (timer_peripheral == TIM8)) {
 		TIM_BDTR(timer_peripheral) |= TIM_BDTR_OSSI;
+	}
 #else
 	(void)timer_peripheral;
 #endif
@@ -1720,14 +1841,16 @@ timer. When the master output is disabled the output is also disabled.
 
 @note This setting is only valid for the advanced timers.
 
-@param[in] timer_peripheral Unsigned int32. Timer register address base TIM1 or TIM8
+@param[in] timer_peripheral Unsigned int32. Timer register address base TIM1 or
+TIM8
 */
 
-void timer_set_disabled_off_state_in_idle_mode(u32 timer_peripheral)
+void timer_set_disabled_off_state_in_idle_mode(uint32_t timer_peripheral)
 {
 #if (defined(TIM1_BASE) || defined(TIM8_BASE))
-	if ((timer_peripheral == TIM1) || (timer_peripheral == TIM8))
+	if ((timer_peripheral == TIM1) || (timer_peripheral == TIM8)) {
 		TIM_BDTR(timer_peripheral) &= ~TIM_BDTR_OSSI;
+	}
 #else
 	(void)timer_peripheral;
 #endif
@@ -1742,15 +1865,17 @@ timer reset has occurred.
 
 @note This setting is only valid for the advanced timers.
 
-@param[in] timer_peripheral Unsigned int32. Timer register address base TIM1 or TIM8
+@param[in] timer_peripheral Unsigned int32. Timer register address base TIM1 or
+TIM8
 @param[in] lock Unsigned int32. Lock specification @ref tim_lock
 */
 
-void timer_set_break_lock(u32 timer_peripheral, u32 lock)
+void timer_set_break_lock(uint32_t timer_peripheral, uint32_t lock)
 {
 #if (defined(TIM1_BASE) || defined(TIM8_BASE))
-	if ((timer_peripheral == TIM1) || (timer_peripheral == TIM8))
+	if ((timer_peripheral == TIM1) || (timer_peripheral == TIM8)) {
 		TIM_BDTR(timer_peripheral) |= lock;
+	}
 #else
 	(void)timer_peripheral;
 	(void)lock;
@@ -1760,9 +1885,9 @@ void timer_set_break_lock(u32 timer_peripheral, u32 lock)
 /*---------------------------------------------------------------------------*/
 /** @brief Set Deadtime
 
-The deadtime and sampling clock (DTSC) is set in the clock division ratio part of the
-timer mode settings. The deadtime count is an 8 bit value defined in terms of the
-number of DTSC cycles:
+The deadtime and sampling clock (DTSC) is set in the clock division ratio part
+of the timer mode settings. The deadtime count is an 8 bit value defined in
+terms of the number of DTSC cycles:
 
 @li Bit 7 = 0, deadtime = bits(6:0)
 @li Bits 7:6 = 10, deadtime = 2x(64+bits(5:0))
@@ -1771,15 +1896,18 @@ number of DTSC cycles:
 
 @note This setting is only valid for the advanced timers.
 
-@param[in] timer_peripheral Unsigned int32. Timer register address base TIM1 or TIM8
-@param[in] deadtime Unsigned int32. Deadtime count specification as defined above.
+@param[in] timer_peripheral Unsigned int32. Timer register address base TIM1 or
+TIM8
+@param[in] deadtime Unsigned int32. Deadtime count specification as defined
+above.
 */
 
-void timer_set_deadtime(u32 timer_peripheral, u32 deadtime)
+void timer_set_deadtime(uint32_t timer_peripheral, uint32_t deadtime)
 {
 #if (defined(TIM1_BASE) || defined(TIM8_BASE))
-	if ((timer_peripheral == TIM1) || (timer_peripheral == TIM8))
+	if ((timer_peripheral == TIM1) || (timer_peripheral == TIM8)) {
 		TIM_BDTR(timer_peripheral) |= deadtime;
+	}
 #else
 	(void)timer_peripheral;
 	(void)deadtime;
@@ -1799,7 +1927,7 @@ generated.
 @param[in] event Unsigned int32. Event specification @ref tim_event_gen
 */
 
-void timer_generate_event(u32 timer_peripheral, u32 event)
+void timer_generate_event(uint32_t timer_peripheral, uint32_t event)
 {
 	TIM_EGR(timer_peripheral) |= event;
 }
@@ -1813,7 +1941,7 @@ Read back the value of a timer's counter register contents
 @returns Unsigned int32. Counter value.
 */
 
-u32 timer_get_counter(u32 timer_peripheral)
+uint32_t timer_get_counter(uint32_t timer_peripheral)
 {
 	return TIM_CNT(timer_peripheral);
 }
@@ -1827,7 +1955,7 @@ Set the value of a timer's counter register contents.
 @param[in] count Unsigned int32. Counter value.
 */
 
-void timer_set_counter(u32 timer_peripheral, u32 count)
+void timer_set_counter(uint32_t timer_peripheral, uint32_t count)
 {
 	TIM_CNT(timer_peripheral) = count;
 }
@@ -1838,14 +1966,16 @@ void timer_set_counter(u32 timer_peripheral, u32 count)
 Set the input filter parameters for an input channel, specifying:
 @li the frequency of sampling from the Deadtime and Sampling clock
 (@see @ref timer_set_clock_division)
-@li the number of events that must occur before a transition is considered valid.
+@li the number of events that must occur before a transition is considered
+valid.
 
 @param[in] timer_peripheral Unsigned int32. Timer register address base
 @param[in] ic ::tim_ic_id. Input Capture channel designator.
 @param[in] flt ::tim_ic_filter. Input Capture Filter identifier.
 */
 
-void timer_ic_set_filter(u32 timer_peripheral, enum tim_ic_id ic, enum tim_ic_filter flt)
+void timer_ic_set_filter(uint32_t timer_peripheral, enum tim_ic_id ic,
+			 enum tim_ic_filter flt)
 {
 	switch (ic) {
 	case TIM_IC1:
@@ -1877,7 +2007,8 @@ Set the number of events between each capture.
 @param[in] psc ::tim_ic_psc. Input Capture sample clock prescaler.
 */
 
-void timer_ic_set_prescaler(u32 timer_peripheral, enum tim_ic_id ic, enum tim_ic_psc psc)
+void timer_ic_set_prescaler(uint32_t timer_peripheral, enum tim_ic_id ic,
+			    enum tim_ic_psc psc)
 {
 	switch (ic) {
 	case TIM_IC1:
@@ -1902,8 +2033,8 @@ void timer_ic_set_prescaler(u32 timer_peripheral, enum tim_ic_id ic, enum tim_ic
 /*---------------------------------------------------------------------------*/
 /** @brief Set Capture/Compare Channel Direction/Input
 
-The Capture/Compare channel is defined as output (compare) or input with the input
-mapping specified:
+The Capture/Compare channel is defined as output (compare) or input with the
+input mapping specified:
 
 @li channel is configured as output
 @li channel is configured as input and mapped on corresponding input
@@ -1920,7 +2051,8 @@ internal trigger input selected through TS bit
 @param[in] in ::tim_ic_input. Input Capture channel direction and source input.
 */
 
-void timer_ic_set_input(u32 timer_peripheral, enum tim_ic_id ic, enum tim_ic_input in)
+void timer_ic_set_input(uint32_t timer_peripheral, enum tim_ic_id ic,
+			enum tim_ic_input in)
 {
 	in &= 3;
 
@@ -1957,7 +2089,7 @@ void timer_ic_set_input(u32 timer_peripheral, enum tim_ic_id ic, enum tim_ic_inp
 @param[in] ic ::tim_ic_id. Input Capture channel designator.
 */
 
-void timer_ic_enable(u32 timer_peripheral, enum tim_ic_id ic)
+void timer_ic_enable(uint32_t timer_peripheral, enum tim_ic_id ic)
 {
 	TIM_CCER(timer_peripheral) |= (0x1 << (ic * 4));
 }
@@ -1969,7 +2101,7 @@ void timer_ic_enable(u32 timer_peripheral, enum tim_ic_id ic)
 @param[in] ic ::tim_ic_id. Input Capture channel designator.
 */
 
-void timer_ic_disable(u32 timer_peripheral, enum tim_ic_id ic)
+void timer_ic_disable(uint32_t timer_peripheral, enum tim_ic_id ic)
 {
 	TIM_CCER(timer_peripheral) &= ~(0x1 << (ic * 4));
 }
@@ -1980,13 +2112,14 @@ void timer_ic_disable(u32 timer_peripheral, enum tim_ic_id ic)
 Set the input filter parameters for the external trigger, specifying:
 @li the frequency of sampling from the Deadtime and Sampling clock
 (@see @ref timer_set_clock_division)
-@li the number of events that must occur before a transition is considered valid.
+@li the number of events that must occur before a transition is considered
+valid.
 
 @param[in] timer_peripheral Unsigned int32. Timer register address base
 @param[in] flt ::tim_ic_filter. Input Capture Filter identifier.
 */
 
-void timer_slave_set_filter(u32 timer_peripheral, enum tim_ic_filter flt)
+void timer_slave_set_filter(uint32_t timer_peripheral, enum tim_ic_filter flt)
 {
 	TIM_SMCR(timer_peripheral) &= ~TIM_SMCR_ETF_MASK;
 	TIM_SMCR(timer_peripheral) |= flt << 8;
@@ -2001,7 +2134,7 @@ Set the external trigger frequency division ratio.
 @param[in] psc ::tim_ic_psc. Input Capture sample clock prescaler.
 */
 
-void timer_slave_set_prescaler(u32 timer_peripheral, enum tim_ic_psc psc)
+void timer_slave_set_prescaler(uint32_t timer_peripheral, enum tim_ic_psc psc)
 {
 	TIM_SMCR(timer_peripheral) &= ~TIM_SMCR_ETPS_MASK;
 	TIM_SMCR(timer_peripheral) |= psc << 12;
@@ -2014,12 +2147,13 @@ void timer_slave_set_prescaler(u32 timer_peripheral, enum tim_ic_psc psc)
 @param[in] pol ::tim_et_pol. Slave External Trigger polarity.
 */
 
-void timer_slave_set_polarity(u32 timer_peripheral, enum tim_et_pol pol)
+void timer_slave_set_polarity(uint32_t timer_peripheral, enum tim_et_pol pol)
 {
-	if (pol)
+	if (pol) {
 		TIM_SMCR(timer_peripheral) |= TIM_SMCR_ETP;
-	else
+	} else {
 		TIM_SMCR(timer_peripheral) &= ~TIM_SMCR_ETP;
+	}
 }
 
 /*---------------------------------------------------------------------------*/
@@ -2029,7 +2163,7 @@ void timer_slave_set_polarity(u32 timer_peripheral, enum tim_et_pol pol)
 @param[in] mode Unsigned int8. Slave mode @ref tim_sms
 */
 
-void timer_slave_set_mode(u32 timer_peripheral, u8 mode)
+void timer_slave_set_mode(uint32_t timer_peripheral, uint8_t mode)
 {
 	TIM_SMCR(timer_peripheral) &= ~TIM_SMCR_SMS_MASK;
 	TIM_SMCR(timer_peripheral) |= mode;
@@ -2042,7 +2176,7 @@ void timer_slave_set_mode(u32 timer_peripheral, u8 mode)
 @param[in] trigger Unsigned int8. Slave trigger source @ref tim_ts
 */
 
-void timer_slave_set_trigger(u32 timer_peripheral, u8 trigger)
+void timer_slave_set_trigger(uint32_t timer_peripheral, uint8_t trigger)
 {
 	TIM_SMCR(timer_peripheral) &= ~TIM_SMCR_TS_MASK;
 	TIM_SMCR(timer_peripheral) |= trigger;

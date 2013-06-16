@@ -406,12 +406,13 @@ LGPL License Terms @ref lgpl_license
 #define SCU_I2C0_NOMINAL    (SCU_SCL_EZI_EN | SCU_SDA_EZI_EN)
 
 /* Standard mode for I2C SCL/SDA Fast-mode Plus transmit */
-#define SCU_I2C0_FAST    (SCU_SCL_EFP | SCU_SCL_EHD | SCU_SCL_EZI_EN | SCU_SCL_ZIF_DIS \
-						SCU_SDA_EFP | SCU_SDA_EHD | SCU_SDA_EZI_EN)
+#define SCU_I2C0_FAST    (SCU_SCL_EFP | SCU_SCL_EHD | SCU_SCL_EZI_EN | \
+			  SCU_SCL_ZIF_DIS | SCU_SDA_EFP | SCU_SDA_EHD | \
+			  SCU_SDA_EZI_EN)
 
 /*
 * SCU PIN Normal Drive:
-* The pin configuration registers for normal-drive pins control the following pins:
+* The configuration registers for normal-drive pins control the following pins:
 *  - P0_0 and P0_1
 *  - P1_0 to P1_16 and P1_18 to P1_20
 *  - P2_0 to P2_2 and P2_6 to P2_13
@@ -429,7 +430,7 @@ LGPL License Terms @ref lgpl_license
 *  - PF_0 to PF_11
 *
 * Pin configuration registers for High-Drive pins.
-* The pin configuration registers for high-drive pins control the following pins:
+* The configuration registers for high-drive pins control the following pins:
 *  - P1_17
 *  - P2_3 to P2_5
 *  - P8_0 to P8_2
@@ -607,7 +608,9 @@ typedef enum {
 	PC_13  = (PIN_GROUPC+PIN13),
 	PC_14  = (PIN_GROUPC+PIN14),
 
-	/* Group Port D (seems not configurable through SCU, not defined in UM10503.pdf Rev.1, keep it here) */
+	/* Group Port D (seems not configurable through SCU, not defined in
+	 * UM10503.pdf Rev.1, keep it here)
+	 */
 	PD_0   = (PIN_GROUPD+PIN0),
 	PD_1   = (PIN_GROUPD+PIN1),
 	PD_2   = (PIN_GROUPD+PIN2),
@@ -700,21 +703,23 @@ typedef enum {
 /*
 * Select Slew Rate.
 * By Default=0 Slow.
-* Available to normal-drive pins and high-speed pins, reserved for high-drive pins.
+* Available to normal-drive and high-speed pins, reserved for high-drive pins.
 */
 #define SCU_CONF_EHS_FAST                (BIT5)
 
 /*
 * Input buffer enable.
 * By Default=0 Disable Input Buffer.
-* The input buffer is disabled by default at reset and must be enabled.
-* for receiving(in normal/highspeed-drive) or to transfer data from the I/O buffer to the pad(in high-drive pins).
+* The input buffer is disabled by default at reset and must be enabled for
+* receiving(in normal/highspeed-drive) or to transfer data from the I/O buffer
+* to the pad(in high-drive pins).
 * Available to normal-drive pins, high-drive pins, high-speed pins.
 */
 #define SCU_CONF_EZI_EN_IN_BUFFER        (BIT6)
 
 /*
-* Input glitch filter. Disable the input glitch filter for clocking signals higher than 30 MHz.
+* Input glitch filter. Disable the input glitch filter for clocking signals
+* higher than 30 MHz.
 * Available to normal-drive pins, high-drive pins, high-speed pins.
 */
 #define SCU_CONF_ZIF_DIS_IN_GLITCH_FILT    (BIT7)
@@ -730,20 +735,43 @@ typedef enum {
 /* BIT10 to 31 are Reserved */
 
 /* Configuration for different I/O pins types */
-#define SCU_EMC_IO      (SCU_CONF_EPD_EN_PULLDOWN | SCU_CONF_EHS_FAST | SCU_CONF_EZI_EN_IN_BUFFER  | SCU_CONF_ZIF_DIS_IN_GLITCH_FILT)
-#define SCU_LCD         (SCU_CONF_EPUN_DIS_PULLUP | SCU_CONF_EHS_FAST | SCU_CONF_EZI_EN_IN_BUFFER  | SCU_CONF_ZIF_DIS_IN_GLITCH_FILT)
-#define SCU_CLK_IN      (SCU_CONF_EPD_EN_PULLDOWN  | SCU_CONF_EHS_FAST | SCU_CONF_EZI_EN_IN_BUFFER  | SCU_CONF_ZIF_DIS_IN_GLITCH_FILT)
-#define SCU_CLK_OUT     (SCU_CONF_EPD_EN_PULLDOWN  | SCU_CONF_EHS_FAST | SCU_CONF_EZI_EN_IN_BUFFER  | SCU_CONF_ZIF_DIS_IN_GLITCH_FILT)
+#define SCU_EMC_IO      (SCU_CONF_EPD_EN_PULLDOWN | \
+			 SCU_CONF_EHS_FAST | \
+			 SCU_CONF_EZI_EN_IN_BUFFER | \
+			 SCU_CONF_ZIF_DIS_IN_GLITCH_FILT)
+#define SCU_LCD         (SCU_CONF_EPUN_DIS_PULLUP | \
+			 SCU_CONF_EHS_FAST | \
+			 SCU_CONF_EZI_EN_IN_BUFFER | \
+			 SCU_CONF_ZIF_DIS_IN_GLITCH_FILT)
+#define SCU_CLK_IN      (SCU_CONF_EPD_EN_PULLDOWN | \
+			 SCU_CONF_EHS_FAST | \
+			 SCU_CONF_EZI_EN_IN_BUFFER | \
+			 SCU_CONF_ZIF_DIS_IN_GLITCH_FILT)
+#define SCU_CLK_OUT     (SCU_CONF_EPD_EN_PULLDOWN | \
+			 SCU_CONF_EHS_FAST | \
+			 SCU_CONF_EZI_EN_IN_BUFFER | \
+			 SCU_CONF_ZIF_DIS_IN_GLITCH_FILT)
 #define SCU_GPIO_PUP    (SCU_CONF_EZI_EN_IN_BUFFER)
-#define SCU_GPIO_PDN    (SCU_CONF_EPUN_DIS_PULLUP | SCU_CONF_EPD_EN_PULLDOWN  | SCU_CONF_EZI_EN_IN_BUFFER)
-#define SCU_GPIO_NOPULL (SCU_CONF_EPUN_DIS_PULLUP | SCU_CONF_EZI_EN_IN_BUFFER)
-#define SCU_GPIO_FAST   (SCU_CONF_EPUN_DIS_PULLUP | SCU_CONF_EHS_FAST | SCU_CONF_EZI_EN_IN_BUFFER | SCU_CONF_ZIF_DIS_IN_GLITCH_FILT)
-#define SCU_UART_RX_TX  (SCU_CONF_EPUN_DIS_PULLUP | SCU_CONF_EPD_EN_PULLDOWN  | SCU_CONF_EZI_EN_IN_BUFFER)
-#define SCU_SSP_IO      (SCU_CONF_EPUN_DIS_PULLUP | SCU_CONF_EHS_FAST | SCU_CONF_EZI_EN_IN_BUFFER  | SCU_CONF_ZIF_DIS_IN_GLITCH_FILT)
+#define SCU_GPIO_PDN    (SCU_CONF_EPUN_DIS_PULLUP | \
+			 SCU_CONF_EPD_EN_PULLDOWN | \
+			 SCU_CONF_EZI_EN_IN_BUFFER)
+#define SCU_GPIO_NOPULL (SCU_CONF_EPUN_DIS_PULLUP | \
+			 SCU_CONF_EZI_EN_IN_BUFFER)
+#define SCU_GPIO_FAST   (SCU_CONF_EPUN_DIS_PULLUP | \
+			 SCU_CONF_EHS_FAST | \
+			 SCU_CONF_EZI_EN_IN_BUFFER | \
+			 SCU_CONF_ZIF_DIS_IN_GLITCH_FILT)
+#define SCU_UART_RX_TX  (SCU_CONF_EPUN_DIS_PULLUP | \
+			 SCU_CONF_EPD_EN_PULLDOWN | \
+			 SCU_CONF_EZI_EN_IN_BUFFER)
+#define SCU_SSP_IO      (SCU_CONF_EPUN_DIS_PULLUP | \
+			 SCU_CONF_EHS_FAST | \
+			 SCU_CONF_EZI_EN_IN_BUFFER | \
+			 SCU_CONF_ZIF_DIS_IN_GLITCH_FILT)
 
 BEGIN_DECLS
 
-void scu_pinmux(scu_grp_pin_t group_pin, u32 scu_conf);
+void scu_pinmux(scu_grp_pin_t group_pin, uint32_t scu_conf);
 
 END_DECLS
 

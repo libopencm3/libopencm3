@@ -6,9 +6,12 @@
 
 @version 1.0.0
 
-@author @htmlonly &copy; @endhtmlonly 2009 Federico Ruiz-Ugalde \<memeruiz at gmail dot com\>
-@author @htmlonly &copy; @endhtmlonly 2009 Uwe Hermann <uwe@hermann-uwe.de>
-@author @htmlonly &copy; @endhtmlonly 2012 Karl Palsson <karlp@tweak.net.au>
+@author @htmlonly &copy; @endhtmlonly 2009
+Federico Ruiz-Ugalde \<memeruiz at gmail dot com\>
+@author @htmlonly &copy; @endhtmlonly 2009
+Uwe Hermann <uwe@hermann-uwe.de>
+@author @htmlonly &copy; @endhtmlonly 2012
+Karl Palsson <karlp@tweak.net.au>
 
 @date 11 November 2012
 
@@ -409,8 +412,8 @@ extern const clock_scale_t clock_config[CLOCK_CONFIG_END];
 
 
 /* --- Variable definitions ------------------------------------------------ */
-extern u32 rcc_ppre1_frequency;
-extern u32 rcc_ppre2_frequency;
+extern uint32_t rcc_ppre1_frequency;
+extern uint32_t rcc_ppre2_frequency;
 
 /* --- Function prototypes ------------------------------------------------- */
 
@@ -434,21 +437,22 @@ void rcc_css_enable(void);
 void rcc_css_disable(void);
 void rcc_osc_bypass_enable(osc_t osc);
 void rcc_osc_bypass_disable(osc_t osc);
-void rcc_peripheral_enable_clock(volatile u32 *reg, u32 en);
-void rcc_peripheral_disable_clock(volatile u32 *reg, u32 en);
-void rcc_peripheral_reset(volatile u32 *reg, u32 reset);
-void rcc_peripheral_clear_reset(volatile u32 *reg, u32 clear_reset);
-void rcc_set_sysclk_source(u32 clk);
-void rcc_set_pll_configuration(u32 source, u32 multiplier, u32 divisor);
-void rcc_set_pll_source(u32 pllsrc);
-void rcc_set_adcpre(u32 adcpre);
-void rcc_set_ppre2(u32 ppre2);
-void rcc_set_ppre1(u32 ppre1);
-void rcc_set_hpre(u32 hpre);
-void rcc_set_usbpre(u32 usbpre);
-void rcc_set_rtcpre(u32 rtcpre);
-u32 rcc_system_clock_source(void);
-void rcc_rtc_select_clock(u32 clock);
+void rcc_peripheral_enable_clock(volatile uint32_t *reg, uint32_t en);
+void rcc_peripheral_disable_clock(volatile uint32_t *reg, uint32_t en);
+void rcc_peripheral_reset(volatile uint32_t *reg, uint32_t reset);
+void rcc_peripheral_clear_reset(volatile uint32_t *reg, uint32_t clear_reset);
+void rcc_set_sysclk_source(uint32_t clk);
+void rcc_set_pll_configuration(uint32_t source, uint32_t multiplier,
+			       uint32_t divisor);
+void rcc_set_pll_source(uint32_t pllsrc);
+void rcc_set_adcpre(uint32_t adcpre);
+void rcc_set_ppre2(uint32_t ppre2);
+void rcc_set_ppre1(uint32_t ppre1);
+void rcc_set_hpre(uint32_t hpre);
+void rcc_set_usbpre(uint32_t usbpre);
+void rcc_set_rtcpre(uint32_t rtcpre);
+uint32_t rcc_system_clock_source(void);
+void rcc_rtc_select_clock(uint32_t clock);
 void rcc_clock_setup_msi(const clock_scale_t *clock);
 void rcc_clock_setup_hsi(const clock_scale_t *clock);
 void rcc_clock_setup_pll(const clock_scale_t *clock);

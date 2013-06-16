@@ -1,6 +1,7 @@
 /** @defgroup crc_defines CRC Defines
 
-@brief <b>libopencm3 Defined Constants and Types for the STM32F2xx CRC Generator </b>
+@brief <b>libopencm3 Defined Constants and Types for the STM32F2xx CRC
+Generator </b>
 
 @ingroup STM32F2xx_defines
 

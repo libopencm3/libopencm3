@@ -28,61 +28,61 @@
 #define USB_DT_ENDPOINT		0x05
 
 struct usb_desc_head {
-	u8 length;		/* Descriptor size 0x012 */
-	u8 type;		/* Descriptor type ID */
+	uint8_t length;		/* Descriptor size 0x012 */
+	uint8_t type;		/* Descriptor type ID */
 };
 
 struct usb_device_desc {
 	struct usb_desc_head h;	/* Size 0x12, ID 0x01 */
-	u16 bcd_usb;		/* USB Version */
-	u8 class;		/* Device class */
-	u8 sub_class;		/* Subclass code */
-	u8 protocol;		/* Protocol code */
-	u8 max_psize;		/* Maximum packet size -> 64bytes */
-	u16 vendor;		/* Vendor number */
-	u16 product;		/* Device number */
-	u16 bcd_dev;		/* Device version */
-	u8 man_desc;		/* Index of manufacturer string desc */
-	u8 prod_desc;		/* Index of product string desc */
-	u8 sn_desc;		/* Index of serial number string desc */
-	u8 num_conf;		/* Number of possible configurations */
+	uint16_t bcd_usb;	/* USB Version */
+	uint8_t class;		/* Device class */
+	uint8_t sub_class;	/* Subclass code */
+	uint8_t protocol;	/* Protocol code */
+	uint8_t max_psize;	/* Maximum packet size -> 64bytes */
+	uint16_t vendor;	/* Vendor number */
+	uint16_t product;	/* Device number */
+	uint16_t bcd_dev;	/* Device version */
+	uint8_t man_desc;	/* Index of manufacturer string desc */
+	uint8_t prod_desc;	/* Index of product string desc */
+	uint8_t sn_desc;	/* Index of serial number string desc */
+	uint8_t num_conf;	/* Number of possible configurations */
 };
 
 struct usb_conf_desc_header {
 	struct usb_desc_head h;	/* Size 0x09, Id 0x02 */
-	u16 tot_leng;		/* Total length of data */
-	u8 num_int;		/* Number of interfaces */
-	u8 conf_val;		/* Configuration selector */
-	u8 conf_desc;		/* Index of conf string desc */
-	u8 attr;		/* Attribute bitmap:
+	uint16_t tot_leng;	/* Total length of data */
+	uint8_t num_int;	/* Number of interfaces */
+	uint8_t conf_val;	/* Configuration selector */
+	uint8_t conf_desc;	/* Index of conf string desc */
+	uint8_t attr;		/* Attribute bitmap:
 				 * 7    : Bus powered
 				 * 6    : Self powered
 				 * 5    : Remote wakeup
 				 * 4..0 : Reserved -> 0000
 				 */
-	u8 max_power;		/* Maximum power consumption in 2mA steps */
+	uint8_t max_power;	/* Maximum power consumption in 2mA steps */
 };
 
 struct usb_int_desc_header {
 	struct usb_desc_head h;	/* Size 0x09, Id 0x04 */
-	u8 iface_num;		/* Interface id number */
-	u8 alt_setting;		/* Alternative setting selector */
-	u8 num_endp;		/* Endpoints used */
-	u8 class;		/* Interface class */
-	u8 sub_class;		/* Subclass code */
-	u8 protocol;		/* Protocol code */
-	u8 iface_desc;		/* Index of interface string desc */
+	uint8_t iface_num;	/* Interface id number */
+	uint8_t alt_setting;	/* Alternative setting selector */
+	uint8_t num_endp;	/* Endpoints used */
+	uint8_t class;		/* Interface class */
+	uint8_t sub_class;	/* Subclass code */
+	uint8_t protocol;	/* Protocol code */
+	uint8_t iface_desc;	/* Index of interface string desc */
 };
 
 struct usb_ep_desc {
 	struct usb_desc_head h;	/* Size 0x07, Id 0x05 */
-	u8 ep_addr;		/* Endpoint address:
+	uint8_t ep_addr;	/* Endpoint address:
 				   0..3 : Endpoint Number
 				   4..6 : Reserved        -> 0
 				   7    : Direction 0=out 1=in */
-	u8 ep_attr;		/* Endpoint attributes */
-	u16 max_psize;		/* Maximum packet size -> 64bytes */
-	u8 interval;		/* Interval for polling endpoint
+	uint8_t ep_attr;	/* Endpoint attributes */
+	uint16_t max_psize;	/* Maximum packet size -> 64bytes */
+	uint8_t interval;	/* Interval for polling endpoint
 				   data. Ignored for bulk & control
 				   endpoints. */
 };
@@ -95,7 +95,7 @@ struct usb_conf_desc {
 
 struct usb_string_desc {
 	struct usb_desc_head h;	/* Size > 0x02, Id 0x03 */
-	u16 string[];		/* String UTF16 encoded */
+	uint16_t string[];	/* String UTF16 encoded */
 };
 
 #endif

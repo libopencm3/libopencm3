@@ -497,26 +497,26 @@ LGPL License Terms @ref lgpl_license
 
 /* ETH GPIO */
 #define GPIO_ETH_RX_DV_CRS_DV		GPIO7		/* PA7 */
-#define GPIO_ETH_RXD0  			GPIO4		/* PC4 */
+#define GPIO_ETH_RXD0			GPIO4		/* PC4 */
 #define GPIO_ETH_RXD1			GPIO5		/* PC5 */
 #define GPIO_ETH_RXD2			GPIO0		/* PB0 */
 #define GPIO_ETH_RXD3			GPIO1		/* PB1 */
 
 #define GPIO_ETH_RE_RX_DV_CRS_DV	GPIO8		/* PD8 */
-#define GPIO_ETH_RE_RXD0  		GPIO9		/* PD9 */
+#define GPIO_ETH_RE_RXD0		GPIO9		/* PD9 */
 #define GPIO_ETH_RE_RXD1		GPIO10		/* PD10 */
 #define GPIO_ETH_RE_RXD2		GPIO11		/* PD11 */
 #define GPIO_ETH_RE_RXD3		GPIO12		/* PD12 */
 
 /* ETH BANK */
 #define GPIO_BANK_ETH_RX_DV_CRS_DV	GPIOA		/* PA7 */
-#define GPIO_BANK_ETH_RXD0  		GPIOC		/* PC4 */
+#define GPIO_BANK_ETH_RXD0		GPIOC		/* PC4 */
 #define GPIO_BANK_ETH_RXD1		GPIOC		/* PC5 */
 #define GPIO_BANK_ETH_RXD2		GPIOB		/* PB0 */
 #define GPIO_BANK_ETH_RXD3		GPIOB		/* PB1 */
 
 #define GPIO_BANK_ETH_RE_RX_DV_CRS_DV	GPIOD		/* PD8 */
-#define GPIO_BANK_ETH_RE_RXD0  		GPIOD		/* PD9 */
+#define GPIO_BANK_ETH_RE_RXD0		GPIOD		/* PD9 */
 #define GPIO_BANK_ETH_RE_RXD1		GPIOD		/* PD10 */
 #define GPIO_BANK_ETH_RE_RXD2		GPIOD		/* PD11 */
 #define GPIO_BANK_ETH_RE_RXD3		GPIOD		/* PD12 */
@@ -729,28 +729,28 @@ Line Devices only
 @ingroup gpio_defines
 
 @{*/
-/* PTP_PPS_REMAP: *//** Ethernet PTP PPS remapping
- * (only connectivity line devices) */
+/* PTP_PPS_REMAP: */
+/** Ethernet PTP PPS remapping (only connectivity line devices) */
 #define AFIO_MAPR_PTP_PPS_REMAP			(1 << 30)
 
-/* TIM2ITR1_IREMAP: *//** TIM2 internal trigger 1 remapping
- * (only connectivity line devices) */
+/* TIM2ITR1_IREMAP: */
+/** TIM2 internal trigger 1 remapping (only connectivity line devices) */
 #define AFIO_MAPR_TIM2ITR1_IREMAP		(1 << 29)
 
-/* SPI3_REMAP: *//** SPI3/I2S3 remapping
- * (only connectivity line devices) */
+/* SPI3_REMAP: */
+/** SPI3/I2S3 remapping (only connectivity line devices) */
 #define AFIO_MAPR_SPI3_REMAP			(1 << 28)
 
-/* MII_REMAP: */ /** MII or RMII selection
- * (only connectivity line devices) */
+/* MII_REMAP: */
+/** MII or RMII selection (only connectivity line devices) */
 #define AFIO_MAPR_MII_RMII_SEL			(1 << 23)
 
-/* CAN2_REMAP: */ /**  CAN2 I/O remapping
- * (only connectivity line devices) */
+/* CAN2_REMAP: */
+/**  CAN2 I/O remapping (only connectivity line devices) */
 #define AFIO_MAPR_CAN2_REMAP			(1 << 22)
 
-/* ETH_REMAP: */ /**  Ethernet MAC I/O remapping
- * (only connectivity line devices) */
+/* ETH_REMAP: */
+/**  Ethernet MAC I/O remapping (only connectivity line devices) */
 #define AFIO_MAPR_ETH_REMAP			(1 << 21)
 
 /**@}*/
@@ -763,9 +763,9 @@ Line Devices only
 
 @{*/
 #define AFIO_MAPR_SWJ_MASK			(0x7 << 24)
-/** Full Serial Wire JTAG capability */ 
+/** Full Serial Wire JTAG capability */
 #define AFIO_MAPR_SWJ_CFG_FULL_SWJ		(0x0 << 24)
-/** Full Serial Wire JTAG capability without JNTRST */ 
+/** Full Serial Wire JTAG capability without JNTRST */
 #define AFIO_MAPR_SWJ_CFG_FULL_SWJ_NO_JNTRST	(0x1 << 24)
 /** JTAG-DP disabled with SW-DP enabled */
 #define AFIO_MAPR_SWJ_CFG_JTAG_OFF_SW_ON	(0x2 << 24)
@@ -777,41 +777,60 @@ Line Devices only
 @ingroup gpio_defines
 
 @{*/
-/* ADC2_ETRGREG_REMAP: */ /**  ADC2 external trigger regulator conversion remapping
- * (only low-, medium-, high- and XL-densitiy devices) */
+/* ADC2_ETRGREG_REMAP: */
+/** 
+ * ADC2 external trigger regulator conversion remapping
+ * (only low-, medium-, high- and XL-density devices)
+ */
 #define AFIO_MAPR_ADC2_ETRGREG_REMAP		(1 << 20)
 
-/* ADC2_ETRGINJ_REMAP: */ /**  ADC2 external trigger injected conversion remapping
- * (only low-, medium-, high- and XL-densitiy devices) */
+/* ADC2_ETRGINJ_REMAP: */
+/**
+ * ADC2 external trigger injected conversion remapping
+ * (only low-, medium-, high- and XL-density devices)
+ */
 #define AFIO_MAPR_ADC2_ETRGINJ_REMAP		(1 << 19)
 
-/* ADC1_ETRGREG_REMAP: */ /**  ADC1 external trigger regulator conversion remapping
- * (only low-, medium-, high- and XL-densitiy devices) */
+/* ADC1_ETRGREG_REMAP: */
+/**
+ * ADC1 external trigger regulator conversion remapping
+ * (only low-, medium-, high- and XL-density devices)
+ */
 #define AFIO_MAPR_ADC1_ETRGREG_REMAP		(1 << 18)
 
-/* ADC1_ETRGINJ_REMAP: */ /**  ADC1 external trigger injected conversion remapping
- * (only low-, medium-, high- and XL-densitiy devices) */
+/* ADC1_ETRGINJ_REMAP: */
+/**
+ * ADC1 external trigger injected conversion remapping
+ * (only low-, medium-, high- and XL-density devices)
+ */
 #define AFIO_MAPR_ADC1_ETRGINJ_REMAP		(1 << 17)
 
-/* TIM5CH4_IREMAP: */ /**  TIM5 channel4 internal remap */
+/* TIM5CH4_IREMAP: */
+/** TIM5 channel 4 internal remap */
 #define AFIO_MAPR_TIM5CH4_IREMAP		(1 << 16)
 
-/* PD01_REMAP: */ /**  Port D0/Port D1 mapping on OSC_IN/OSC_OUT */
+/* PD01_REMAP: */
+/** Port D0/Port D1 mapping on OSC_IN/OSC_OUT */
 #define AFIO_MAPR_PD01_REMAP			(1 << 15)
 
-/* TIM4_REMAP: */ /**  TIM4 remapping */
+/* TIM4_REMAP: */
+/** TIM4 remapping */
 #define AFIO_MAPR_TIM4_REMAP			(1 << 12)
 
-/* USART2_REMAP[1:0]: */ /**  USART2 remapping */
+/* USART2_REMAP[1:0]: */
+/** USART2 remapping */
 #define AFIO_MAPR_USART2_REMAP			(1 << 3)
 
-/* USART1_REMAP[1:0]: */ /**  USART1 remapping */
+/* USART1_REMAP[1:0]: */
+/** USART1 remapping */
 #define AFIO_MAPR_USART1_REMAP			(1 << 2)
 
-/* I2C1_REMAP[1:0]: */ /**  I2C1 remapping */
+/* I2C1_REMAP[1:0]: */
+/** I2C1 remapping */
 #define AFIO_MAPR_I2C1_REMAP			(1 << 1)
 
-/* SPI1_REMAP[1:0]: */ /**  SPI1 remapping */
+/* SPI1_REMAP[1:0]: */
+/** SPI1 remapping */
 #define AFIO_MAPR_SPI1_REMAP			(1 << 0)
 /**@}*/
 
@@ -821,7 +840,7 @@ Line Devices only
 
 @{*/
 #define AFIO_MAPR_CAN1_REMAP_PORTA		(0x0 << 13)
-#define AFIO_MAPR_CAN1_REMAP_PORTB		(0x2 << 13) /* Not on 36pin pkg */
+#define AFIO_MAPR_CAN1_REMAP_PORTB		(0x2 << 13) /* Not 36pin pkg */
 #define AFIO_MAPR_CAN1_REMAP_PORTD		(0x3 << 13)
 /**@}*/
 
@@ -870,22 +889,28 @@ Line Devices only
 @ingroup gpio_defines
 
 @{*/
-/* FSMC_NADV_DISCONNECT: */ /** The NADV is disconnected from its allocated pin */
+/* FSMC_NADV_DISCONNECT: */
+/** The NADV is disconnected from its allocated pin */
 #define AFIO_MAPR2_FSMC_NADV_DISCONNECT			(1 << 10)
 
-/* TIM14_REMAP: */ /**  TIM14 remapping */
+/* TIM14_REMAP: */
+/**  TIM14 remapping */
 #define AFIO_MAPR2_TIM14_REMAP			(1 << 9)
 
-/* TIM13_REMAP: */ /**  TIM13 remapping */
+/* TIM13_REMAP: */
+/**  TIM13 remapping */
 #define AFIO_MAPR2_TIM13_REMAP			(1 << 8)
 
-/* TIM11_REMAP: */ /**  TIM11 remapping */
+/* TIM11_REMAP: */
+/**  TIM11 remapping */
 #define AFIO_MAPR2_TIM11_REMAP			(1 << 7)
 
-/* TIM10_REMAP: */ /**  TIM10 remapping */
+/* TIM10_REMAP: */
+/**  TIM10 remapping */
 #define AFIO_MAPR2_TIM10_REMAP			(1 << 6)
 
-/* TIM9_REMAP: */ /**  TIM9 remapping */
+/* TIM9_REMAP: */
+/**  TIM9 remapping */
 #define AFIO_MAPR2_TIM9_REMAP			(1 << 5)
 
 /**@}*/
@@ -923,10 +948,11 @@ Line Devices only
 
 BEGIN_DECLS
 
-void gpio_set_mode(u32 gpioport, u8 mode, u8 cnf, u16 gpios);
-void gpio_set_eventout(u8 evoutport, u8 evoutpin);
-void gpio_primary_remap(u32 swjenable, u32 maps);
-void gpio_secondary_remap(u32 maps);
+void gpio_set_mode(uint32_t gpioport, uint8_t mode, uint8_t cnf,
+		   uint16_t gpios);
+void gpio_set_eventout(uint8_t evoutport, uint8_t evoutpin);
+void gpio_primary_remap(uint32_t swjenable, uint32_t maps);
+void gpio_secondary_remap(uint32_t maps);
 
 END_DECLS
 

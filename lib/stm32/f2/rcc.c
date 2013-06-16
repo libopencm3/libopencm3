@@ -24,11 +24,10 @@
 #include <libopencm3/stm32/f2/flash.h>
 
 /* Set the default ppre1 and ppre2 peripheral clock frequencies after reset. */
-u32 rcc_ppre1_frequency = 16000000;
-u32 rcc_ppre2_frequency = 16000000;
+uint32_t rcc_ppre1_frequency = 16000000;
+uint32_t rcc_ppre2_frequency = 16000000;
 
-const clock_scale_t hse_8mhz_3v3[CLOCK_3V3_END] =
-{
+const clock_scale_t hse_8mhz_3v3[CLOCK_3V3_END] = {
 	{ /* 120MHz */
 		.pllm = 8,
 		.plln = 240,
@@ -37,7 +36,8 @@ const clock_scale_t hse_8mhz_3v3[CLOCK_3V3_END] =
 		.hpre = RCC_CFGR_HPRE_DIV_NONE,
 		.ppre1 = RCC_CFGR_PPRE_DIV_4,
 		.ppre2 = RCC_CFGR_PPRE_DIV_2,
-		.flash_config = FLASH_ACR_ICE | FLASH_ACR_DCE | FLASH_ACR_LATENCY_3WS,
+		.flash_config = FLASH_ACR_ICE | FLASH_ACR_DCE |
+				FLASH_ACR_LATENCY_3WS,
 		.apb1_frequency = 30000000,
 		.apb2_frequency = 60000000,
 	},
@@ -264,81 +264,82 @@ void rcc_osc_bypass_disable(osc_t osc)
 	}
 }
 
-void rcc_peripheral_enable_clock(volatile u32 *reg, u32 en)
+void rcc_peripheral_enable_clock(volatile uint32_t *reg, uint32_t en)
 {
 	*reg |= en;
 }
 
-void rcc_peripheral_disable_clock(volatile u32 *reg, u32 en)
+void rcc_peripheral_disable_clock(volatile uint32_t *reg, uint32_t en)
 {
 	*reg &= ~en;
 }
 
-void rcc_peripheral_reset(volatile u32 *reg, u32 reset)
+void rcc_peripheral_reset(volatile uint32_t *reg, uint32_t reset)
 {
 	*reg |= reset;
 }
 
-void rcc_peripheral_clear_reset(volatile u32 *reg, u32 clear_reset)
+void rcc_peripheral_clear_reset(volatile uint32_t *reg, uint32_t clear_reset)
 {
 	*reg &= ~clear_reset;
 }
 
-void rcc_set_sysclk_source(u32 clk)
+void rcc_set_sysclk_source(uint32_t clk)
 {
-	u32 reg32;
+	uint32_t reg32;
 
 	reg32 = RCC_CFGR;
 	reg32 &= ~((1 << 1) | (1 << 0));
 	RCC_CFGR = (reg32 | clk);
 }
 
-void rcc_set_pll_source(u32 pllsrc)
+void rcc_set_pll_source(uint32_t pllsrc)
 {
-	u32 reg32;
+	uint32_t reg32;
 
 	reg32 = RCC_PLLCFGR;
 	reg32 &= ~(1 << 22);
 	RCC_PLLCFGR = (reg32 | (pllsrc << 22));
 }
 
-void rcc_set_ppre2(u32 ppre2)
+void rcc_set_ppre2(uint32_t ppre2)
 {
-	u32 reg32;
+	uint32_t reg32;
 
 	reg32 = RCC_CFGR;
 	reg32 &= ~((1 << 13) | (1 << 14) | (1 << 15));
 	RCC_CFGR = (reg32 | (ppre2 << 13));
 }
 
-void rcc_set_ppre1(u32 ppre1)
+void rcc_set_ppre1(uint32_t ppre1)
 {
-	u32 reg32;
+	uint32_t reg32;
 
 	reg32 = RCC_CFGR;
 	reg32 &= ~((1 << 10) | (1 << 11) | (1 << 12));
 	RCC_CFGR = (reg32 | (ppre1 << 10));
 }
 
-void rcc_set_hpre(u32 hpre)
+void rcc_set_hpre(uint32_t hpre)
 {
-	u32 reg32;
+	uint32_t reg32;
 
 	reg32 = RCC_CFGR;
 	reg32 &= ~((1 << 4) | (1 << 5) | (1 << 6) | (1 << 7));
 	RCC_CFGR = (reg32 | (hpre << 4));
 }
 
-void rcc_set_rtcpre(u32 rtcpre)
+void rcc_set_rtcpre(uint32_t rtcpre)
 {
-	u32 reg32;
+	uint32_t reg32;
 
 	reg32 = RCC_CFGR;
 	reg32 &= ~((1 << 16) | (1 << 17) | (1 << 18) | (1 << 19) | (1 << 20));
 	RCC_CFGR = (reg32 | (rtcpre << 16));
 }
 
-void rcc_set_main_pll_hsi(u32 pllm, u32 plln, u32 pllp, u32 pllq)
+void rcc_set_main_pll_hsi(uint32_t pllm, uint32_t plln, uint32_t pllp,
+			  uint32_t pllq)
 {
 	RCC_PLLCFGR = (pllm << RCC_PLLCFGR_PLLM_SHIFT) |
 		(plln << RCC_PLLCFGR_PLLN_SHIFT) |
@@ -346,7 +347,8 @@ void rcc_set_main_pll_hsi(u32 pllm, u32 plln, u32 pllp, u32 pllq)
 		(pllq << RCC_PLLCFGR_PLLQ_SHIFT);
 }
 
-void rcc_set_main_pll_hse(u32 pllm, u32 plln, u32 pllp, u32 pllq)
+void rcc_set_main_pll_hse(uint32_t pllm, uint32_t plln, uint32_t pllp,
+			  uint32_t pllq)
 {
 	RCC_PLLCFGR = (pllm << RCC_PLLCFGR_PLLM_SHIFT) |
 		(plln << RCC_PLLCFGR_PLLN_SHIFT) |
@@ -355,10 +357,10 @@ void rcc_set_main_pll_hse(u32 pllm, u32 plln, u32 pllp, u32 pllq)
 		(pllq << RCC_PLLCFGR_PLLQ_SHIFT);
 }
 
-u32 rcc_system_clock_source(void)
+uint32_t rcc_system_clock_source(void)
 {
 	/* Return the clock source which is used as system clock. */
-	return ((RCC_CFGR & 0x000c) >> 2);
+	return (RCC_CFGR & 0x000c) >> 2;
 }
 
 void rcc_clock_setup_hse_3v3(const clock_scale_t *clock)

@@ -79,20 +79,22 @@ void i2c0_tx_start(void)
 }
 
 /* transmit data byte */
-void i2c0_tx_byte(u8 byte)
+void i2c0_tx_byte(uint8_t byte)
 {
-	if (I2C0_CONSET & I2C_CONSET_STA)
+	if (I2C0_CONSET & I2C_CONSET_STA) {
 		I2C0_CONCLR = I2C_CONCLR_STAC;
+	}
 	I2C0_DAT = byte;
 	I2C0_CONCLR = I2C_CONCLR_SIC;
 	while (!(I2C0_CONSET & I2C_CONSET_SI));
 }
 
 /* receive data byte */
-u8 i2c0_rx_byte(void)
+uint8_t i2c0_rx_byte(void)
 {
-	if (I2C0_CONSET & I2C_CONSET_STA)
+	if (I2C0_CONSET & I2C_CONSET_STA) {
 		I2C0_CONCLR = I2C_CONCLR_STAC;
+	}
 	I2C0_CONCLR = I2C_CONCLR_SIC;
 	while (!(I2C0_CONSET & I2C_CONSET_SI));
 	return I2C0_DAT;
@@ -101,8 +103,9 @@ u8 i2c0_rx_byte(void)
 /* transmit stop bit */
 void i2c0_stop(void)
 {
-	if (I2C0_CONSET & I2C_CONSET_STA)
+	if (I2C0_CONSET & I2C_CONSET_STA) {
 		I2C0_CONCLR = I2C_CONCLR_STAC;
+	}
 	I2C0_CONSET = I2C_CONSET_STO;
 	I2C0_CONCLR = I2C_CONCLR_SIC;
 }

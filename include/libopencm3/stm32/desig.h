@@ -39,17 +39,17 @@
 BEGIN_DECLS
 
 /**
- * Read the onboard flash size
+ * Read the on board flash size
  * @return flash size in KB
  */
-u16 desig_get_flash_size(void);
+uint16_t desig_get_flash_size(void);
 
 /**
  * Read the full 96 bit unique identifier
  * Note: ST specifies that bits 31..16 are _also_ reserved for future use
- * @param result pointer to at least 3xu32s (96 bits)
+ * @param result pointer to at least 3xuint32_ts (96 bits)
  */
-void desig_get_unique_id(u32 result[]);
+void desig_get_unique_id(uint32_t result[]);
 
 /**
  * Read the full 96 bit unique identifier and return it as a

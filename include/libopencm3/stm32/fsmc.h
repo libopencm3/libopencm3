@@ -123,7 +123,7 @@
 /* FACCEN: Flash access enable */
 #define FSMC_BCR_FACCEN			(1 << 6)
 
-/* MWID[5:4]: Memory databus width */
+/* MWID[5:4]: Memory data bus width */
 #define FSMC_BCR_MWID			(1 << 4)
 
 /* MTYP[3:2]: Memory type */

@@ -1,7 +1,9 @@
 /** @addtogroup gpio_defines
 
-@author @htmlonly &copy; @endhtmlonly 2011 Fergus Noble <fergusnoble@gmail.com>
-@author @htmlonly &copy; @endhtmlonly 2012 Ken Sarkies <ksarkies@internode.on.net>
+@author @htmlonly &copy; @endhtmlonly 2011
+Fergus Noble <fergusnoble@gmail.com>
+@author @htmlonly &copy; @endhtmlonly 2012
+Ken Sarkies <ksarkies@internode.on.net>
 
 */
 /*
@@ -24,7 +26,7 @@
  * along with this library.  If not, see <http://www.gnu.org/licenses/>.
  */
 
-/* THIS FILE SHOULD NOT BE INCLUDED DIRECTLY, BUT ONLY VIA GPIO.H 
+/* THIS FILE SHOULD NOT BE INCLUDED DIRECTLY, BUT ONLY VIA GPIO.H
 The order of header inclusion is important. gpio.h includes the device
 specific memorymap.h header before including this header file.*/
 
@@ -246,7 +248,7 @@ specific memorymap.h header before including this header file.*/
 /* --- GPIOx_AFRL/H values ------------------------------------------------- */
 
 /* Note: AFRL is used for bits 0..7, AFRH is used for 8..15 */
-/* See Datasheet Table 6 (pg. 48) for alternate function mappings. */
+/* See datasheet table 6 (pg. 48) for alternate function mappings. */
 
 #define GPIO_AFR(n, af)			(af << ((n) * 4))
 #define GPIO_AFR_MASK(n)		(0xf << ((n) * 4))
@@ -278,16 +280,18 @@ specific memorymap.h header before including this header file.*/
 BEGIN_DECLS
 
 /*
- * Note: The F2 and F4 series have a completely new GPIO peripheral with different
- * configuration options. Here we implement a different API partly to more
- * closely match the peripheral capabilities and also to deliberately break
- * compatibility with old F1 code so there is no confusion with similar
+ * Note: The F2 and F4 series have a completely new GPIO peripheral with
+ * different configuration options. Here we implement a different API partly to
+ * more closely match the peripheral capabilities and also to deliberately
+ * break compatibility with old F1 code so there is no confusion with similar
  * sounding functions that have very different functionality.
  */
 
-void gpio_mode_setup(u32 gpioport, u8 mode, u8 pull_up_down, u16 gpios);
-void gpio_set_output_options(u32 gpioport, u8 otype, u8 speed, u16 gpios);
-void gpio_set_af(u32 gpioport, u8 alt_func_num, u16 gpios);
+void gpio_mode_setup(uint32_t gpioport, uint8_t mode, uint8_t pull_up_down,
+		     uint16_t gpios);
+void gpio_set_output_options(uint32_t gpioport, uint8_t otype, uint8_t speed,
+			     uint16_t gpios);
+void gpio_set_af(uint32_t gpioport, uint8_t alt_func_num, uint16_t gpios);
 
 END_DECLS
 /**@}*/

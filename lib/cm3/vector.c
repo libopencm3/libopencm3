@@ -25,8 +25,6 @@
 /* load the weak symbols for IRQ_HANDLERS */
 #include "../dispatch/vector_nvic.c"
 
-#define WEAK __attribute__ ((weak))
-
 /* Symbols exported by the linker script(s): */
 extern unsigned _data_loadaddr, _data, _edata, _ebss, _stack;
 typedef void (*funcp_t) (void);
@@ -61,17 +59,23 @@ void WEAK __attribute__ ((naked)) reset_handler(void)
 	volatile unsigned *src, *dest;
 	funcp_t *fp;
 
-	for (src = &_data_loadaddr, dest = &_data; dest < &_edata; src++, dest++)
+	for (src = &_data_loadaddr, dest = &_data;
+		dest < &_edata;
+		src++, dest++) {
 		*dest = *src;
+	}
 
-	while (dest < &_ebss)
+	while (dest < &_ebss) {
 		*dest++ = 0;
+	}
 
 	/* Constructors. */
-	for (fp = &__preinit_array_start; fp < &__preinit_array_end; fp++)
-	    (*fp)();
-	for (fp = &__init_array_start; fp < &__init_array_end; fp++)
-	    (*fp)();
+	for (fp = &__preinit_array_start; fp < &__preinit_array_end; fp++) {
+		(*fp)();
+	}
+	for (fp = &__init_array_start; fp < &__init_array_end; fp++) {
+		(*fp)();
+	}
 
 	/* might be provided by platform specific vector.c */
 	pre_main();
@@ -80,13 +84,15 @@ void WEAK __attribute__ ((naked)) reset_handler(void)
 	main();
 
 	/* Destructors. */
-	for (fp = &__fini_array_start; fp < &__fini_array_end; fp++)
-	    (*fp)();
+	for (fp = &__fini_array_start; fp < &__fini_array_end; fp++) {
+		(*fp)();
+	}
+
 }
 
 void blocking_handler(void)
 {
-	while (1) ;
+	while (1);
 }
 
 void null_handler(void)

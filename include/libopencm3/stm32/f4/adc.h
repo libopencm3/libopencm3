@@ -1,13 +1,16 @@
 /** @defgroup STM32F4xx_adc_defines ADC Defines
 
-@brief <b>Defined Constants and Types for the STM32F4xx Analog to Digital Converters</b>
+@brief <b>Defined Constants and Types for the STM32F4xx Analog to Digital
+Converters</b>
 
 @ingroup STM32F4xx_defines
 
 @version 1.0.0
 
-@author @htmlonly &copy; @endhtmlonly 2012 Matthew Lai <m@matthewlai.ca>
-@author @htmlonly &copy; @endhtmlonly 2009 Edward Cheeseman <evbuilder@users.sourceforge.net>
+@author @htmlonly &copy; @endhtmlonly 2012
+Matthew Lai <m@matthewlai.ca>
+@author @htmlonly &copy; @endhtmlonly 2009
+Edward Cheeseman <evbuilder@users.sourceforge.net>
 
 @date 31 August 2012
 
@@ -164,9 +167,9 @@ LGPL License Terms @ref lgpl_license
 
 /* ADC common (shared) registers */
 #define	ADC_COMMON_REGISTERS_BASE	(ADC1_BASE+0x300)
-#define ADC_CSR						MMIO32(ADC_COMMON_REGISTERS_BASE + 0x0)
-#define ADC_CCR						MMIO32(ADC_COMMON_REGISTERS_BASE + 0x4)
-#define ADC_CDR						MMIO32(ADC_COMMON_REGISTERS_BASE + 0x8)
+#define ADC_CSR				MMIO32(ADC_COMMON_REGISTERS_BASE + 0x0)
+#define ADC_CCR				MMIO32(ADC_COMMON_REGISTERS_BASE + 0x4)
+#define ADC_CDR				MMIO32(ADC_COMMON_REGISTERS_BASE + 0x8)
 
 /* --- ADC Channels ------------------------------------------------------- */
 
@@ -207,7 +210,7 @@ LGPL License Terms @ref lgpl_license
 #define ADC_SR_EOC			(1 << 1)
 #define ADC_SR_AWD			(1 << 0)
 
-/* --- ADC_CR1 values specific to STM32F2,4------------------------------------ */
+/* --- ADC_CR1 values specific to STM32F2,4--------------------------------- */
 
 /* OVRIE: Overrun interrupt enable */
 #define ADC_CR1_OVRIE			(1 << 26)
@@ -281,7 +284,7 @@ LGPL License Terms @ref lgpl_license
 /* AWDCH[4:0]: Analog watchdog channel bits. (Up to 17 other values reserved) */
 /* Notes:
  * ADC1: Analog channel 16 and 17 are internally connected to the temperature
- * sensor and V_REFINT, respectively.
+ *       sensor and V_REFINT, respectively.
  * ADC2: Analog channel 16 and 17 are internally connected to V_SS.
  * ADC3: Analog channel 9, 14, 15, 16 and 17 are internally connected to V_SS.
  */
@@ -567,7 +570,8 @@ LGPL License Terms @ref lgpl_license
 
 /* JL[2:0]: Discontinous mode channel count injected channels. */
 /****************************************************************************/
-/** @defgroup adc_jsqr_jl ADC Number of channels in discontinuous mode fro injected channels.
+/** @defgroup adc_jsqr_jl ADC Number of channels in discontinuous mode fro
+injected channels.
 @ingroup STM32F4xx_adc_defines
 
 @{*/
@@ -733,33 +737,45 @@ LGPL License Terms @ref lgpl_license
 /** All ADCs independent */
 #define ADC_CCR_MULTI_INDEPENDENT	(0x00 << 0)
 
-/* dual modes (ADC1 + ADC2) */
-/** Dual modes (ADC1 + ADC2) Combined regular simultaneous + injected simultaneous mode */
+/* Dual modes (ADC1 + ADC2) */
+/** 
+ * Dual modes (ADC1 + ADC2) Combined regular simultaneous +
+ * injected simultaneous mode.
+ */
 #define ADC_CCR_MULTI_DUAL_REG_SIMUL_AND_INJECTED_SIMUL		(0x01 << 0)
-/** Dual modes (ADC1 + ADC2) Combined regular simultaneous + alternate trigger mode. */
+/**
+ * Dual modes (ADC1 + ADC2) Combined regular simultaneous +
+ * alternate trigger mode.
+ */
 #define ADC_CCR_MULTI_DUAL_REG_SIMUL_AND_ALTERNATE_TRIG		(0x02 << 0)
 /** Dual modes (ADC1 + ADC2) Injected simultaneous mode only. */
-#define ADC_CCR_MULTI_DUAL_INJECTED_SIMUL					(0x05 << 0)
+#define ADC_CCR_MULTI_DUAL_INJECTED_SIMUL			(0x05 << 0)
 /** Dual modes (ADC1 + ADC2) Regular simultaneous mode only. */
-#define ADC_CCR_MULTI_DUAL_REGULAR_SIMUL					(0x06 << 0)
+#define ADC_CCR_MULTI_DUAL_REGULAR_SIMUL			(0x06 << 0)
 /** Dual modes (ADC1 + ADC2) Interleaved mode only. */
-#define ADC_CCR_MULTI_DUAL_INTERLEAVED						(0x07 << 0)
+#define ADC_CCR_MULTI_DUAL_INTERLEAVED				(0x07 << 0)
 /** Dual modes (ADC1 + ADC2) Alternate trigger mode only. */
-#define ADC_CCR_MULTI_DUAL_ALTERNATE_TRIG					(0x09 << 0)
+#define ADC_CCR_MULTI_DUAL_ALTERNATE_TRIG			(0x09 << 0)
 
 /* Triple modes (ADC1 + ADC2 + ADC3) */
-/** Triple modes (ADC1 + ADC2 + ADC3) Combined regular simultaneous + injected simultaneous mode */
-#define ADC_CCR_MULTI_TRIPLE_REG_SIMUL_AND_INJECTED_SIMUL		(0x11 << 0)
-/** Triple modes (ADC1 + ADC2 + ADC3) Combined regular simultaneous + alternate trigger mode. */
-#define ADC_CCR_MULTI_TRIPLE_REG_SIMUL_AND_ALTERNATE_TRIG		(0x12 << 0)
+/**
+ * Triple modes (ADC1 + ADC2 + ADC3) Combined regular simultaneous +
+ * injected simultaneous mode.
+ */
+#define ADC_CCR_MULTI_TRIPLE_REG_SIMUL_AND_INJECTED_SIMUL	(0x11 << 0)
+/**
+ * Triple modes (ADC1 + ADC2 + ADC3) Combined regular simultaneous +
+ * alternate trigger mode.
+ */
+#define ADC_CCR_MULTI_TRIPLE_REG_SIMUL_AND_ALTERNATE_TRIG	(0x12 << 0)
 /** Triple modes (ADC1 + ADC2 + ADC3) Injected simultaneous mode only. */
-#define ADC_CCR_MULTI_TRIPLE_INJECTED_SIMUL						(0x15 << 0)
+#define ADC_CCR_MULTI_TRIPLE_INJECTED_SIMUL			(0x15 << 0)
 /** Triple modes (ADC1 + ADC2 + ADC3) Regular simultaneous mode only. */
-#define ADC_CCR_MULTI_TRIPLE_REGULAR_SIMUL						(0x16 << 0)
+#define ADC_CCR_MULTI_TRIPLE_REGULAR_SIMUL			(0x16 << 0)
 /** Triple modes (ADC1 + ADC2 + ADC3) Interleaved mode only. */
-#define ADC_CCR_MULTI_TRIPLE_INTERLEAVED						(0x17 << 0)
+#define ADC_CCR_MULTI_TRIPLE_INTERLEAVED			(0x17 << 0)
 /** Triple modes (ADC1 + ADC2 + ADC3) Alternate trigger mode only. */
-#define ADC_CCR_MULTI_TRIPLE_ALTERNATE_TRIG						(0x19 << 0)
+#define ADC_CCR_MULTI_TRIPLE_ALTERNATE_TRIG			(0x19 << 0)
 /**@}*/
 
 #define ADC_CCR_MULTI_MASK		(0x1f << 0)
@@ -775,64 +791,67 @@ LGPL License Terms @ref lgpl_license
 
 BEGIN_DECLS
 
-void adc_power_on(u32 adc);
-void adc_off(u32 adc);
-void adc_enable_analog_watchdog_regular(u32 adc);
-void adc_disable_analog_watchdog_regular(u32 adc);
-void adc_enable_analog_watchdog_injected(u32 adc);
-void adc_disable_analog_watchdog_injected(u32 adc);
-void adc_enable_discontinuous_mode_regular(u32 adc, u8 length);
-void adc_disable_discontinuous_mode_regular(u32 adc);
-void adc_enable_discontinuous_mode_injected(u32 adc);
-void adc_disable_discontinuous_mode_injected(u32 adc);
-void adc_enable_automatic_injected_group_conversion(u32 adc);
-void adc_disable_automatic_injected_group_conversion(u32 adc);
-void adc_enable_analog_watchdog_on_all_channels(u32 adc);
-void adc_enable_analog_watchdog_on_selected_channel(u32 adc, u8 channel);
-void adc_enable_scan_mode(u32 adc);
-void adc_disable_scan_mode(u32 adc);
-void adc_enable_eoc_interrupt_injected(u32 adc);
-void adc_disable_eoc_interrupt_injected(u32 adc);
-void adc_enable_awd_interrupt(u32 adc);
-void adc_disable_awd_interrupt(u32 adc);
-void adc_enable_eoc_interrupt(u32 adc);
-void adc_disable_eoc_interrupt(u32 adc);
-void adc_start_conversion_regular(u32 adc);
-void adc_start_conversion_injected(u32 adc);
-void adc_disable_external_trigger_regular(u32 adc);
-void adc_disable_external_trigger_injected(u32 adc);
-void adc_set_left_aligned(u32 adc);
-void adc_set_right_aligned(u32 adc);
-void adc_enable_dma(u32 adc);
-void adc_disable_dma(u32 adc);
-void adc_set_continuous_conversion_mode(u32 adc);
-void adc_set_single_conversion_mode(u32 adc);
-void adc_set_sample_time(u32 adc, u8 channel, u8 time);
-void adc_set_sample_time_on_all_channels(u32 adc, u8 time);
-void adc_set_watchdog_high_threshold(u32 adc, u16 threshold);
-void adc_set_watchdog_low_threshold(u32 adc, u16 threshold);
-void adc_set_regular_sequence(u32 adc, u8 length, u8 channel[]);
-void adc_set_injected_sequence(u32 adc, u8 length, u8 channel[]);
-bool adc_eoc(u32 adc);
-bool adc_eoc_injected(u32 adc);
-u32 adc_read_regular(u32 adc);
-u32 adc_read_injected(u32 adc, u8 reg);
-void adc_set_injected_offset(u32 adc, u8 reg, u32 offset);
+void adc_power_on(uint32_t adc);
+void adc_off(uint32_t adc);
+void adc_enable_analog_watchdog_regular(uint32_t adc);
+void adc_disable_analog_watchdog_regular(uint32_t adc);
+void adc_enable_analog_watchdog_injected(uint32_t adc);
+void adc_disable_analog_watchdog_injected(uint32_t adc);
+void adc_enable_discontinuous_mode_regular(uint32_t adc, uint8_t length);
+void adc_disable_discontinuous_mode_regular(uint32_t adc);
+void adc_enable_discontinuous_mode_injected(uint32_t adc);
+void adc_disable_discontinuous_mode_injected(uint32_t adc);
+void adc_enable_automatic_injected_group_conversion(uint32_t adc);
+void adc_disable_automatic_injected_group_conversion(uint32_t adc);
+void adc_enable_analog_watchdog_on_all_channels(uint32_t adc);
+void adc_enable_analog_watchdog_on_selected_channel(uint32_t adc,
+						    uint8_t channel);
+void adc_enable_scan_mode(uint32_t adc);
+void adc_disable_scan_mode(uint32_t adc);
+void adc_enable_eoc_interrupt_injected(uint32_t adc);
+void adc_disable_eoc_interrupt_injected(uint32_t adc);
+void adc_enable_awd_interrupt(uint32_t adc);
+void adc_disable_awd_interrupt(uint32_t adc);
+void adc_enable_eoc_interrupt(uint32_t adc);
+void adc_disable_eoc_interrupt(uint32_t adc);
+void adc_start_conversion_regular(uint32_t adc);
+void adc_start_conversion_injected(uint32_t adc);
+void adc_disable_external_trigger_regular(uint32_t adc);
+void adc_disable_external_trigger_injected(uint32_t adc);
+void adc_set_left_aligned(uint32_t adc);
+void adc_set_right_aligned(uint32_t adc);
+void adc_enable_dma(uint32_t adc);
+void adc_disable_dma(uint32_t adc);
+void adc_set_continuous_conversion_mode(uint32_t adc);
+void adc_set_single_conversion_mode(uint32_t adc);
+void adc_set_sample_time(uint32_t adc, uint8_t channel, uint8_t time);
+void adc_set_sample_time_on_all_channels(uint32_t adc, uint8_t time);
+void adc_set_watchdog_high_threshold(uint32_t adc, uint16_t threshold);
+void adc_set_watchdog_low_threshold(uint32_t adc, uint16_t threshold);
+void adc_set_regular_sequence(uint32_t adc, uint8_t length, uint8_t channel[]);
+void adc_set_injected_sequence(uint32_t adc, uint8_t length, uint8_t channel[]);
+bool adc_eoc(uint32_t adc);
+bool adc_eoc_injected(uint32_t adc);
+uint32_t adc_read_regular(uint32_t adc);
+uint32_t adc_read_injected(uint32_t adc, uint8_t reg);
+void adc_set_injected_offset(uint32_t adc, uint8_t reg, uint32_t offset);
 
-void adc_set_clk_prescale(u32 prescaler);
-void adc_set_multi_mode(u32 mode);
-void adc_enable_external_trigger_regular(u32 adc, u32 trigger, u32 polarity);
-void adc_enable_external_trigger_injected(u32 adc, u32 trigger, u32 polarity);
-void adc_set_resolution(u32 adc, u16 resolution);
-void adc_enable_overrun_interrupt(u32 adc);
-void adc_disable_overrun_interrupt(u32 adc);
-bool adc_get_overrun_flag(u32 adc);
-void adc_clear_overrun_flag(u32 adc);
-bool adc_awd(u32 adc);
-void adc_eoc_after_each(u32 adc);
-void adc_eoc_after_group(u32 adc);
-void adc_set_dma_continue(u32 adc);
-void adc_set_dma_terminate(u32 adc);
+void adc_set_clk_prescale(uint32_t prescaler);
+void adc_set_multi_mode(uint32_t mode);
+void adc_enable_external_trigger_regular(uint32_t adc, uint32_t trigger,
+					 uint32_t polarity);
+void adc_enable_external_trigger_injected(uint32_t adc, uint32_t trigger,
+					  uint32_t polarity);
+void adc_set_resolution(uint32_t adc, uint16_t resolution);
+void adc_enable_overrun_interrupt(uint32_t adc);
+void adc_disable_overrun_interrupt(uint32_t adc);
+bool adc_get_overrun_flag(uint32_t adc);
+void adc_clear_overrun_flag(uint32_t adc);
+bool adc_awd(uint32_t adc);
+void adc_eoc_after_each(uint32_t adc);
+void adc_eoc_after_group(uint32_t adc);
+void adc_set_dma_continue(uint32_t adc);
+void adc_set_dma_terminate(uint32_t adc);
 void adc_enable_temperature_sensor(void);
 void adc_disable_temperature_sensor(void);
 

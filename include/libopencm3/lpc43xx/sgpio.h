@@ -1,6 +1,7 @@
 /** @defgroup sgpio_defines Serial General Purpose I/O
 
-@brief <b>Defined Constants and Types for the LPC43xx Serial General Purpose I/O</b>
+@brief <b>Defined Constants and Types for the LPC43xx Serial General Purpose
+I/O</b>
 
 @ingroup LPC43xx_defines
 
@@ -76,7 +77,8 @@ LGPL License Terms @ref lgpl_license
 #define SGPIO_OUT_MUX_CFG15             MMIO32(SGPIO_PORT_BASE + 0x3C)
 
 /* SGPIO multiplexer configuration registers (SGPIO_MUX_CFG0 to 15) */
-#define SGPIO_MUX_CFG(slice)            MMIO32(SGPIO_PORT_BASE + 0x40 + (slice * 0x04))
+#define SGPIO_MUX_CFG(slice)            MMIO32(SGPIO_PORT_BASE + 0x40 + \
+						(slice * 0x04))
 #define SGPIO_MUX_CFG0                  MMIO32(SGPIO_PORT_BASE + 0x40)
 #define SGPIO_MUX_CFG1                  MMIO32(SGPIO_PORT_BASE + 0x44)
 #define SGPIO_MUX_CFG2                  MMIO32(SGPIO_PORT_BASE + 0x48)
@@ -95,7 +97,8 @@ LGPL License Terms @ref lgpl_license
 #define SGPIO_MUX_CFG15                 MMIO32(SGPIO_PORT_BASE + 0x7C)
 
 /* Slice multiplexer configuration registers (SLICE_MUX_CFG0 to 15) */
-#define SGPIO_SLICE_MUX_CFG(slice)      MMIO32(SGPIO_PORT_BASE + 0x80 + (slice * 0x04))
+#define SGPIO_SLICE_MUX_CFG(slice)      MMIO32(SGPIO_PORT_BASE + 0x80 + \
+						(slice * 0x04))
 #define SGPIO_SLICE_MUX_CFG0            MMIO32(SGPIO_PORT_BASE + 0x80)
 #define SGPIO_SLICE_MUX_CFG1            MMIO32(SGPIO_PORT_BASE + 0x84)
 #define SGPIO_SLICE_MUX_CFG2            MMIO32(SGPIO_PORT_BASE + 0x88)
@@ -114,7 +117,8 @@ LGPL License Terms @ref lgpl_license
 #define SGPIO_SLICE_MUX_CFG15           MMIO32(SGPIO_PORT_BASE + 0xBC)
 
 /* Slice data registers (REG0 to 15) */
-#define SGPIO_REG(slice)                MMIO32(SGPIO_PORT_BASE + 0xC0 + (slice * 0x04))
+#define SGPIO_REG(slice)                MMIO32(SGPIO_PORT_BASE + 0xC0 + \
+						(slice * 0x04))
 #define SGPIO_REG0                      MMIO32(SGPIO_PORT_BASE + 0xC0)
 #define SGPIO_REG1                      MMIO32(SGPIO_PORT_BASE + 0xC4)
 #define SGPIO_REG2                      MMIO32(SGPIO_PORT_BASE + 0xC8)
@@ -133,7 +137,8 @@ LGPL License Terms @ref lgpl_license
 #define SGPIO_REG15                     MMIO32(SGPIO_PORT_BASE + 0xFC)
 
 /* Slice data shadow registers (REG_SS0 to 15) */
-#define SGPIO_REG_SS(slice)             MMIO32(SGPIO_PORT_BASE + 0x100 + (slice * 0x04))
+#define SGPIO_REG_SS(slice)             MMIO32(SGPIO_PORT_BASE + 0x100 + \
+						(slice * 0x04))
 #define SGPIO_REG_SS0                   MMIO32(SGPIO_PORT_BASE + 0x100)
 #define SGPIO_REG_SS1                   MMIO32(SGPIO_PORT_BASE + 0x104)
 #define SGPIO_REG_SS2                   MMIO32(SGPIO_PORT_BASE + 0x108)
@@ -152,7 +157,8 @@ LGPL License Terms @ref lgpl_license
 #define SGPIO_REG_SS15                  MMIO32(SGPIO_PORT_BASE + 0x13C)
 
 /* Reload registers (PRESET0 to 15) */
-#define SGPIO_PRESET(slice)             MMIO32(SGPIO_PORT_BASE + 0x140 + (slice * 0x04))
+#define SGPIO_PRESET(slice)             MMIO32(SGPIO_PORT_BASE + 0x140 + \
+						(slice * 0x04))
 #define SGPIO_PRESET0                   MMIO32(SGPIO_PORT_BASE + 0x140)
 #define SGPIO_PRESET1                   MMIO32(SGPIO_PORT_BASE + 0x144)
 #define SGPIO_PRESET2                   MMIO32(SGPIO_PORT_BASE + 0x148)
@@ -171,7 +177,8 @@ LGPL License Terms @ref lgpl_license
 #define SGPIO_PRESET15                  MMIO32(SGPIO_PORT_BASE + 0x17C)
 
 /* Down counter registers (COUNT0 to 15) */
-#define SGPIO_COUNT(slice)              MMIO32(SGPIO_PORT_BASE + 0x180 + (slice * 0x04))
+#define SGPIO_COUNT(slice)              MMIO32(SGPIO_PORT_BASE + 0x180 + \
+						(slice * 0x04))
 #define SGPIO_COUNT0                    MMIO32(SGPIO_PORT_BASE + 0x180)
 #define SGPIO_COUNT1                    MMIO32(SGPIO_PORT_BASE + 0x184)
 #define SGPIO_COUNT2                    MMIO32(SGPIO_PORT_BASE + 0x188)
@@ -190,7 +197,8 @@ LGPL License Terms @ref lgpl_license
 #define SGPIO_COUNT15                   MMIO32(SGPIO_PORT_BASE + 0x1BC)
 
 /* Position registers (POS0 to 15) */
-#define SGPIO_POS(slice)                MMIO32(SGPIO_PORT_BASE + 0x1C0 + (slice * 0x04))
+#define SGPIO_POS(slice)                MMIO32(SGPIO_PORT_BASE + 0x1C0 + \
+						(slice * 0x04))
 #define SGPIO_POS0                      MMIO32(SGPIO_PORT_BASE + 0x1C0)
 #define SGPIO_POS1                      MMIO32(SGPIO_PORT_BASE + 0x1C4)
 #define SGPIO_POS2                      MMIO32(SGPIO_PORT_BASE + 0x1C8)

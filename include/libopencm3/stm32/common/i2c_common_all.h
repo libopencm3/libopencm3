@@ -23,12 +23,12 @@
  * along with this library.  If not, see <http://www.gnu.org/licenses/>.
  */
 
-/* THIS FILE SHOULD NOT BE INCLUDED DIRECTLY, BUT ONLY VIA I2C.H 
+/* THIS FILE SHOULD NOT BE INCLUDED DIRECTLY, BUT ONLY VIA I2C.H
 The order of header inclusion is important. i2c.h includes the device
 specific memorymap.h header before including this header file.*/
 
 /** @cond */
-#if defined (LIBOPENCM3_I2C_H) || defined (LIBOPENCM3_I2C_COMMON_F24_H)
+#if defined(LIBOPENCM3_I2C_H) || defined(LIBOPENCM3_I2C_COMMON_F24_H)
 /** @endcond */
 #ifndef LIBOPENCM3_I2C_COMMON_ALL_H
 #define LIBOPENCM3_I2C_COMMON_ALL_H
@@ -39,7 +39,7 @@ specific memorymap.h header before including this header file.*/
 
 /* --- Convenience macros -------------------------------------------------- */
 
-/* I2C register base adresses (for convenience) */
+/* I2C register base addresses (for convenience) */
 /****************************************************************************/
 /** @defgroup i2c_reg_base I2C register base address
 @ingroup i2c_defines
@@ -109,7 +109,7 @@ specific memorymap.h header before including this header file.*/
 /* PEC: Packet error checking */
 #define I2C_CR1_PEC			(1 << 12)
 
-/* POS: Acknowledge / PEC postition */
+/* POS: Acknowledge / PEC position */
 #define I2C_CR1_POS			(1 << 11)
 
 /* ACK: Acknowledge enable */
@@ -342,7 +342,7 @@ specific memorymap.h header before including this header file.*/
  * TRISE[5:0]: Maximum rise time in Fast/Standard mode (master mode)
  */
 
-/* --- I2C const definitions ----------------------------------------------- */
+/* --- I2C constant definitions -------------------------------------------- */
 
 /****************************************************************************/
 /** @defgroup i2c_rw I2C Read/Write bit
@@ -353,37 +353,37 @@ specific memorymap.h header before including this header file.*/
 #define I2C_READ			1
 /**@}*/
 
-/* --- I2C funtion prototypes----------------------------------------------- */
+/* --- I2C function prototypes---------------------------------------------- */
 
 BEGIN_DECLS
 
-void i2c_reset(u32 i2c);
-void i2c_peripheral_enable(u32 i2c);
-void i2c_peripheral_disable(u32 i2c);
-void i2c_send_start(u32 i2c);
-void i2c_send_stop(u32 i2c);
-void i2c_clear_stop(u32 i2c);
-void i2c_set_own_7bit_slave_address(u32 i2c, u8 slave);
-void i2c_set_own_10bit_slave_address(u32 i2c, u16 slave);
-void i2c_set_fast_mode(u32 i2c);
-void i2c_set_standard_mode(u32 i2c);
-void i2c_set_clock_frequency(u32 i2c, u8 freq);
-void i2c_set_ccr(u32 i2c, u16 freq);
-void i2c_set_trise(u32 i2c, u16 trise);
-void i2c_send_7bit_address(u32 i2c, u8 slave, u8 readwrite);
-void i2c_send_data(u32 i2c, u8 data);
-uint8_t i2c_get_data(u32 i2c);
-void i2c_enable_interrupt(u32 i2c, u32 interrupt);
-void i2c_disable_interrupt(u32 i2c, u32 interrupt);
-void i2c_enable_ack(u32 i2c);
-void i2c_disable_ack(u32 i2c);
-void i2c_nack_next(u32 i2c);
-void i2c_nack_current(u32 i2c);
-void i2c_set_dutycycle(u32 i2c, u32 dutycycle);
-void i2c_enable_dma(u32 i2c);
-void i2c_disable_dma(u32 i2c);
-void i2c_set_dma_last_transfer(u32 i2c);
-void i2c_clear_dma_last_transfer(u32 i2c);
+void i2c_reset(uint32_t i2c);
+void i2c_peripheral_enable(uint32_t i2c);
+void i2c_peripheral_disable(uint32_t i2c);
+void i2c_send_start(uint32_t i2c);
+void i2c_send_stop(uint32_t i2c);
+void i2c_clear_stop(uint32_t i2c);
+void i2c_set_own_7bit_slave_address(uint32_t i2c, uint8_t slave);
+void i2c_set_own_10bit_slave_address(uint32_t i2c, uint16_t slave);
+void i2c_set_fast_mode(uint32_t i2c);
+void i2c_set_standard_mode(uint32_t i2c);
+void i2c_set_clock_frequency(uint32_t i2c, uint8_t freq);
+void i2c_set_ccr(uint32_t i2c, uint16_t freq);
+void i2c_set_trise(uint32_t i2c, uint16_t trise);
+void i2c_send_7bit_address(uint32_t i2c, uint8_t slave, uint8_t readwrite);
+void i2c_send_data(uint32_t i2c, uint8_t data);
+uint8_t i2c_get_data(uint32_t i2c);
+void i2c_enable_interrupt(uint32_t i2c, uint32_t interrupt);
+void i2c_disable_interrupt(uint32_t i2c, uint32_t interrupt);
+void i2c_enable_ack(uint32_t i2c);
+void i2c_disable_ack(uint32_t i2c);
+void i2c_nack_next(uint32_t i2c);
+void i2c_nack_current(uint32_t i2c);
+void i2c_set_dutycycle(uint32_t i2c, uint32_t dutycycle);
+void i2c_enable_dma(uint32_t i2c);
+void i2c_disable_dma(uint32_t i2c);
+void i2c_set_dma_last_transfer(uint32_t i2c);
+void i2c_clear_dma_last_transfer(uint32_t i2c);
 
 END_DECLS
 

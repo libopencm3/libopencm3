@@ -47,7 +47,9 @@ enum tim_ic_pol {
 
 BEGIN_DECLS
 
-void timer_ic_set_polarity(u32 timer, enum tim_ic_id ic, enum tim_ic_pol pol);
+void timer_ic_set_polarity(uint32_t timer,
+			   enum tim_ic_id ic,
+			   enum tim_ic_pol pol);
 
 END_DECLS
 

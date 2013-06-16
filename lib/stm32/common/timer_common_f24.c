@@ -33,10 +33,11 @@ Set timer options register on TIM2 or TIM5, used for trigger remapping on TIM2,
 and similarly for TIM5 for oscillator calibration purposes.
 
 @param[in] timer_peripheral Unsigned int32. Timer register address base
-@returns Unsigned int32. Option flags TIM2: @ref tim2_opt_trigger_remap, TIM5: @ref tim5_opt_trigger_remap.
+@returns Unsigned int32. Option flags TIM2: @ref tim2_opt_trigger_remap, TIM5:
+@ref tim5_opt_trigger_remap.
 */
 
-void timer_set_option(u32 timer_peripheral, u32 option)
+void timer_set_option(uint32_t timer_peripheral, uint32_t option)
 {
 	if (timer_peripheral == TIM2) {
 		TIM_OR(timer_peripheral) &= ~TIM2_OR_ITR1_RMP_MASK;
@@ -57,20 +58,22 @@ The timer channel must be set to input capture mode.
 @param[in] pol ::tim_ic_pol. Input Capture polarity control.
 */
 
-void timer_ic_set_polarity(u32 timer_peripheral, enum tim_ic_id ic, enum tim_ic_pol pol)
+void timer_ic_set_polarity(uint32_t timer_peripheral, enum tim_ic_id ic,
+			   enum tim_ic_pol pol)
 {
-/* Clear CCxP and CCxNP to zero. For both edge trigger both fields are set. Case 10 is invalid. */
-    TIM_CCER(timer_peripheral) &= ~(0x6 << (ic * 4));
-    switch (pol)
-    {
-    case    TIM_IC_RISING:  /* 00 */
-        break;
-    case    TIM_IC_BOTH:    /* 11 */
-        TIM_CCER(timer_peripheral) |= (0x6 << (ic * 4));
-        break;
-    case 	TIM_IC_FALLING: /* 01 */
-        TIM_CCER(timer_peripheral) |= (0x2 << (ic * 4));
-    }
+	/* Clear CCxP and CCxNP to zero. For both edge trigger both fields are
+	 * set. Case 10 is invalid.
+	 */
+	TIM_CCER(timer_peripheral) &= ~(0x6 << (ic * 4));
+	switch (pol) {
+	case TIM_IC_RISING:  /* 00 */
+		break;
+	case TIM_IC_BOTH:    /* 11 */
+		TIM_CCER(timer_peripheral) |= (0x6 << (ic * 4));
+		break;
+	case TIM_IC_FALLING: /* 01 */
+		TIM_CCER(timer_peripheral) |= (0x2 << (ic * 4));
+	}
 }
 /**@}*/
 

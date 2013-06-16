@@ -86,12 +86,12 @@
 #	error "Processor family not defined."
 #endif
 
-static inline void pwm_set_period(int ch, u32 period)
+static inline void pwm_set_period(int ch, uint32_t period)
 {
 	PWM_CPRD(ch) = period;
 }
 
-static inline void pwm_set_duty(int ch, u32 duty)
+static inline void pwm_set_duty(int ch, uint32_t duty)
 {
 	PWM_CDTY(ch) = duty;
 }

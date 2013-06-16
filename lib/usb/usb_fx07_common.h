@@ -20,17 +20,18 @@
 #ifndef __USB_FX07_COMMON_H_
 #define __USB_FX07_COMMON_H_
 
-void stm32fx07_set_address(usbd_device *usbd_dev, u8 addr);
-void stm32fx07_ep_setup(usbd_device *usbd_dev, u8 addr, u8 type, u16 max_size,
-			       void (*callback)(usbd_device *usbd_dev, u8 ep));
+void stm32fx07_set_address(usbd_device *usbd_dev, uint8_t addr);
+void stm32fx07_ep_setup(usbd_device *usbd_dev, uint8_t addr, uint8_t type,
+			uint16_t max_size,
+			void (*callback)(usbd_device *usbd_dev, uint8_t ep));
 void stm32fx07_endpoints_reset(usbd_device *usbd_dev);
-void stm32fx07_ep_stall_set(usbd_device *usbd_dev, u8 addr, u8 stall);
-u8 stm32fx07_ep_stall_get(usbd_device *usbd_dev, u8 addr);
-void stm32fx07_ep_nak_set(usbd_device *usbd_dev, u8 addr, u8 nak);
-u16 stm32fx07_ep_write_packet(usbd_device *usbd_dev, u8 addr, const void *buf,
-			      u16 len);
-u16 stm32fx07_ep_read_packet(usbd_device *usbd_dev, u8 addr, void *buf,
-			     u16 len);
+void stm32fx07_ep_stall_set(usbd_device *usbd_dev, uint8_t addr, uint8_t stall);
+uint8_t stm32fx07_ep_stall_get(usbd_device *usbd_dev, uint8_t addr);
+void stm32fx07_ep_nak_set(usbd_device *usbd_dev, uint8_t addr, uint8_t nak);
+uint16_t stm32fx07_ep_write_packet(usbd_device *usbd_dev, uint8_t addr,
+				   const void *buf, uint16_t len);
+uint16_t stm32fx07_ep_read_packet(usbd_device *usbd_dev, uint8_t addr,
+				  void *buf, uint16_t len);
 void stm32fx07_poll(usbd_device *usbd_dev);
 void stm32fx07_disconnect(usbd_device *usbd_dev, bool disconnected);
 

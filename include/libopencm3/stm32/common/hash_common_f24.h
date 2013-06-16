@@ -1,6 +1,7 @@
 /** @addtogroup hash_defines
 
-@author @htmlonly &copy; @endhtmlonly 2013 Mikhail Avkhimenia <mikhail@avkhimenia.net>
+@author @htmlonly &copy; @endhtmlonly 2013
+Mikhail Avkhimenia <mikhail@avkhimenia.net>
 
 */
 
@@ -38,32 +39,32 @@
 @ingroup STM32F_hash_defines
 
 @{*/
-#define HASH_BASE 	(PERIPH_BASE_AHB2 + 0x60400)
+#define HASH_BASE	(PERIPH_BASE_AHB2 + 0x60400)
 #define HASH		HASH_BASE
 /**@}*/
 
 /* --- HASH registers ------------------------------------------------------ */
 
 /* HASH control register (HASH_CR) */
-#define HASH_CR 	MMIO32(HASH + 0x00)
+#define HASH_CR		MMIO32(HASH + 0x00)
 
 /* HASH data input register (HASH_DIR) */
-#define HASH_DIN 	MMIO32(HASH + 0x04)
+#define HASH_DIN	MMIO32(HASH + 0x04)
 
 /* HASH start register (HASH_STR) */
-#define HASH_STR 	MMIO32(HASH + 0x08)
+#define HASH_STR	MMIO32(HASH + 0x08)
 
 /* HASH digest registers (HASH_HR[5]) */
-#define HASH_HR 	((volatile uint32_t*)(HASH + 0x0C)) //x5
+#define HASH_HR		(&MMIO32(HASH + 0x0C)) /* x5 */
 
 /* HASH interrupt enable register (HASH_IMR) */
-#define HASH_IMR 	MMIO32(HASH + 0x20)
+#define HASH_IMR	MMIO32(HASH + 0x20)
 
 /* HASH status register (HASH_SR) */
-#define HASH_SR 	MMIO32(HASH + 0x28)
+#define HASH_SR		MMIO32(HASH + 0x28)
 
 /* HASH context swap registers (HASH_CSR[51]) */
-#define HASH_CSR 	((volatile uint32_t*)(HASH + 0xF8)) //x51
+#define HASH_CSR	(&MMIO32(HASH + 0xF8)) /* x51 */
 
 /* --- HASH_CR values ------------------------------------------------------ */
 
@@ -127,7 +128,8 @@
 
 /* --- HASH_STR values ----------------------------------------------------- */
 
-/* NBLW: Number of valid bits in the last word of the message in the bit string */
+/* NBLW: Number of valid bits in the last word of the message in the bit string
+ */
 #define HASH_STR_NBW		(31 << 0)
 
 /* DCAL: Digest calculation */
@@ -155,19 +157,19 @@
 /* BUSY: Busy bit */
 #define HASH_SR_BUSY		(1 << 3)
 
-/* --- HASH function prototypes ------------------------------------------------------- */
+/* --- HASH function prototypes -------------------------------------------- */
 
 BEGIN_DECLS
 
-void hash_set_mode(u8 mode);
-void hash_set_algorithm(u8 algorithm);
-void hash_set_data_type(u8 datatype);
-void hash_set_key_length(u8 keylength);
-void hash_set_last_word_valid_bits(u8 validbits);
+void hash_set_mode(uint8_t mode);
+void hash_set_algorithm(uint8_t algorithm);
+void hash_set_data_type(uint8_t datatype);
+void hash_set_key_length(uint8_t keylength);
+void hash_set_last_word_valid_bits(uint8_t validbits);
 void hash_init(void);
-void hash_add_data(u32 data);
+void hash_add_data(uint32_t data);
 void hash_digest(void);
-void hash_get_result(u32 *data);
+void hash_get_result(uint32_t *data);
 
 END_DECLS
 /**@}*/

@@ -22,7 +22,7 @@
  * along with this library.  If not, see <http://www.gnu.org/licenses/>.
  */
 
-/* THIS FILE SHOULD NOT BE INCLUDED DIRECTLY, BUT ONLY VIA IWDG.H 
+/* THIS FILE SHOULD NOT BE INCLUDED DIRECTLY, BUT ONLY VIA IWDG.H
 The order of header inclusion is important. iwdg.h includes the device
 specific memorymap.h header before including this header file.*/
 
@@ -70,7 +70,7 @@ specific memorymap.h header before including this header file.*/
 
 /* PR[2:0]: Prescaler divider */
 #define IWDG_PR_LSB			0
-/** @defgroup iwdg_prediv IWDG Prescaler divider
+/** @defgroup iwdg_prediv IWDG prescaler divider
 @ingroup STM32F_iwdg_defines
 
 @{*/
@@ -106,7 +106,7 @@ specific memorymap.h header before including this header file.*/
 BEGIN_DECLS
 
 void iwdg_start(void);
-void iwdg_set_period_ms(u32 period);
+void iwdg_set_period_ms(uint32_t period);
 bool iwdg_reload_busy(void);
 bool iwdg_prescaler_busy(void);
 void iwdg_reset(void);

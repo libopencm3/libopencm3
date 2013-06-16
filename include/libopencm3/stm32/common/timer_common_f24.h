@@ -23,7 +23,7 @@
  * along with this library.  If not, see <http://www.gnu.org/licenses/>.
  */
 
-/* THIS FILE SHOULD NOT BE INCLUDED DIRECTLY, BUT ONLY VIA TIMER.H 
+/* THIS FILE SHOULD NOT BE INCLUDED DIRECTLY, BUT ONLY VIA TIMER.H
 The order of header inclusion is important. timer.h includes the device
 specific memorymap.h header before including this header file.*/
 
@@ -49,7 +49,8 @@ specific memorymap.h header before including this header file.*/
 
 /* ITR1_RMP */
 /****************************************************************************/
-/** @defgroup tim2_opt_trigger_remap TIM2_OR Timer 2 Option Register Internal Trigger 1 Remap
+/** @defgroup tim2_opt_trigger_remap TIM2_OR Timer 2 Option Register Internal
+Trigger 1 Remap
 
 Only available in F2 and F4 series.
 @ingroup timer_defines
@@ -98,15 +99,16 @@ enum tim_ic_pol {
 
 BEGIN_DECLS
 
-void timer_set_option(u32 timer_peripheral, u32 option);
-void timer_ic_set_polarity(u32 timer, enum tim_ic_id ic, enum tim_ic_pol pol);
+void timer_set_option(uint32_t timer_peripheral, uint32_t option);
+void timer_ic_set_polarity(uint32_t timer, enum tim_ic_id ic,
+			   enum tim_ic_pol pol);
 
 END_DECLS
 
 #endif
 /** @cond */
 #else
-#warning "timer_common_f24.h should not be included explicitly, only via timer.h"
+#warning "timer_common_f24.h should not be included directly, only via timer.h"
 #endif
 /** @endcond */
 

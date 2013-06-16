@@ -125,7 +125,7 @@
 #define PMC_SR_LOCKA			(0x01 << 1)
 #define PMC_SR_MOSCXTS			(0x01 << 0)
 
-extern u32 pmc_mck_frequency;
+extern uint32_t pmc_mck_frequency;
 
 enum mck_src {
 	MCK_SRC_SLOW = 0,
@@ -135,10 +135,10 @@ enum mck_src {
 };
 
 void pmc_mck_set_source(enum mck_src src);
-void pmc_xtal_enable(bool en, u8 startup_time);
-void pmc_plla_config(u8 mul, u8 div);
-void pmc_peripheral_clock_enable(u8 pid);
-void pmc_peripheral_clock_disable(u8 pid);
+void pmc_xtal_enable(bool en, uint8_t startup_time);
+void pmc_plla_config(uint8_t mul, uint8_t div);
+void pmc_peripheral_clock_enable(uint8_t pid);
+void pmc_peripheral_clock_disable(uint8_t pid);
 void pmc_clock_setup_in_xtal_12mhz_out_84mhz(void);
 void pmc_clock_setup_in_rc_4mhz_out_84mhz(void);
 

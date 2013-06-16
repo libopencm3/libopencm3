@@ -22,7 +22,7 @@
 
 #include <libopencm3/cm3/memorymap.h>
 
-/* --- STM32F20x specific peripheral definitions ------------------------------- */
+/* --- STM32F20x specific peripheral definitions --------------------------- */
 
 /* Memory map for all busses */
 #define PERIPH_BASE			0x40000000

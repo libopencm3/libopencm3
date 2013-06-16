@@ -59,13 +59,11 @@ void ssp_wait_until_not_busy(ssp_num_t ssp_num);
 /* Disable SSP */
 void ssp_disable(ssp_num_t ssp_num)
 {
-	u32 ssp_port;
+	uint32_t ssp_port;
 
-	if(ssp_num == SSP0_NUM)
-	{
+	if (ssp_num == SSP0_NUM) {
 		ssp_port = SSP0;
-	}else
-	{
+	} else {
 		ssp_port = SSP1;
 	}
 	/* Disable SSP */
@@ -79,25 +77,24 @@ void ssp_init(ssp_num_t ssp_num,
 			ssp_datasize_t data_size,
 			ssp_frame_format_t frame_format,
 			ssp_cpol_cpha_t cpol_cpha_format,
-			u8 serial_clock_rate,
-			u8 clk_prescale,
+			uint8_t serial_clock_rate,
+			uint8_t clk_prescale,
 			ssp_mode_t mode,
 			ssp_master_slave_t master_slave,
 			ssp_slave_option_t slave_option)
 {
-	u32 ssp_port;
-	u32 clock;
+	uint32_t ssp_port;
+	uint32_t clock;
 
-	if(ssp_num == SSP0_NUM)
-	{
+	if (ssp_num == SSP0_NUM) {
 		ssp_port = SSP0;
-	}else
-	{
+	} else {
 		ssp_port = SSP1;
 	}
 
 	/* use PLL1 as clock source for SSP1 */
-	CGU_BASE_SSP1_CLK = (CGU_SRC_PLL1<<CGU_BASE_CLK_SEL_SHIFT) | (1<<CGU_AUTOBLOCK_CLOCK_BIT);
+	CGU_BASE_SSP1_CLK = (CGU_SRC_PLL1<<CGU_BASE_CLK_SEL_SHIFT) |
+			    (1<<CGU_AUTOBLOCK_CLOCK_BIT);
 
 	/* Disable SSP before to configure it */
 	SSP_CR1(ssp_port) = 0x0;
@@ -105,7 +102,8 @@ void ssp_init(ssp_num_t ssp_num,
 	/* Configure SSP */
 	clock = serial_clock_rate;
 	SSP_CPSR(ssp_port) = clk_prescale;
-	SSP_CR0(ssp_port) = (data_size | frame_format | cpol_cpha_format | (clock<<8) );
+	SSP_CR0(ssp_port) =
+		(data_size | frame_format | cpol_cpha_format | (clock<<8));
 
 	/* Enable SSP */
 	SSP_CR1(ssp_port) = (SSP_ENABLE | mode | master_slave | slave_option);
@@ -114,56 +112,51 @@ void ssp_init(ssp_num_t ssp_num,
 /*
 * This Function Wait until Data RX Ready, and return Data Read from SSP.
 */
-u16 ssp_read(ssp_num_t ssp_num)
+uint16_t ssp_read(ssp_num_t ssp_num)
 {
-	u32 ssp_port;
+	uint32_t ssp_port;
 
-	if(ssp_num == SSP0_NUM)
-	{
+	if (ssp_num == SSP0_NUM) {
 		ssp_port = SSP0;
-	}else
-	{
+	} else {
 		ssp_port = SSP1;
 	}
+
 	/* Wait Until Data Received (Rx FIFO not Empty) */
-	while( (SSP_SR(ssp_port) & SSP_SR_RNE) == 0);
+	while ((SSP_SR(ssp_port) & SSP_SR_RNE) == 0);
 
 	return SSP_DR(ssp_port);
 }
 
 void ssp_wait_until_not_busy(ssp_num_t ssp_num)
 {
-	u32 ssp_port;
-	
-	if(ssp_num == SSP0_NUM)
-	{
+	uint32_t ssp_port;
+
+	if (ssp_num == SSP0_NUM) {
 		ssp_port = SSP0;
-	}else
-	{
+	} else {
 		ssp_port = SSP1;
 	}
 
-	while( (SSP_SR(ssp_port) & SSP_SR_BSY) );
+	while ((SSP_SR(ssp_port) & SSP_SR_BSY));
 }
 
 /* This Function Wait Data TX Ready, and Write Data to SSP */
-void ssp_write(ssp_num_t ssp_num, u16 data)
+void ssp_write(ssp_num_t ssp_num, uint16_t data)
 {
-	u32 ssp_port;
+	uint32_t ssp_port;
 
-	if(ssp_num == SSP0_NUM)
-	{
+	if (ssp_num == SSP0_NUM) {
 		ssp_port = SSP0;
-	}else
-	{
+	} else {
 		ssp_port = SSP1;
 	}
 
 	/* Wait Until FIFO not full  */
-	while( (SSP_SR(ssp_port) & SSP_SR_TNF) == 0);
+	while ((SSP_SR(ssp_port) & SSP_SR_TNF) == 0);
 
 	SSP_DR(ssp_port) = data;
-	
+
 	/* Wait for not busy, since we're controlling CS# of
 	 * devices manually and need to wait for the data to
 	 * be sent. It may also be important to wait here

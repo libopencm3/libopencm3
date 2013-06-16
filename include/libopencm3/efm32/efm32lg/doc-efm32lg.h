@@ -21,7 +21,8 @@ LGPL License Terms @ref lgpl_license
 
 /** @defgroup EFM32LG_defines EFM32 Leopard Gecko Defines
 
-@brief Defined Constants and Types for the Energy Micro EFM32 Leopard Gecko series
+@brief Defined Constants and Types for the Energy Micro EFM32 Leopard Gecko
+series
 
 @version 1.0.0
 

@@ -25,12 +25,12 @@
 
 /**@{*/
 
-/* THIS FILE SHOULD NOT BE INCLUDED DIRECTLY, BUT ONLY VIA TIMER.H 
+/* THIS FILE SHOULD NOT BE INCLUDED DIRECTLY, BUT ONLY VIA TIMER.H
 The order of header inclusion is important. timer.h includes the device
 specific memorymap.h header before including this header file.*/
 
 /** @cond */
-#if defined (LIBOPENCM3_TIMER_H) || defined (LIBOPENCM3_TIMER_COMMON_F24_H)
+#if defined(LIBOPENCM3_TIMER_H) || defined(LIBOPENCM3_TIMER_COMMON_F24_H)
 /** @endcond */
 #ifndef LIBOPENCM3_TIMER_COMMON_H
 #define LIBOPENCM3_TIMER_COMMON_H
@@ -40,7 +40,7 @@ specific memorymap.h header before including this header file.*/
 
 /* --- Convenience macros -------------------------------------------------- */
 
-/* Timer register base adresses (for convenience) */
+/* Timer register base addresses (for convenience) */
 /****************************************************************************/
 /** @defgroup tim_reg_base Timer register base addresses
 @ingroup timer_defines
@@ -434,14 +434,19 @@ level. */
 /** Encoder mode 3 - Counter counts up/down on both TI1FP1 and TI2FP2 edges
 depending on the level of the complementary input. */
 #define TIM_SMCR_SMS_EM3		(0x3 << 0)
-/** Reset Mode - Rising edge of the selected trigger input (TRGI) reinitializes the counter
-and generates an update of the registers. */
+/** Reset Mode - Rising edge of the selected trigger input (TRGI) reinitializes
+ * the counter and generates an update of the registers.
+ */
 #define TIM_SMCR_SMS_RM			(0x4 << 0)
-/** Gated Mode - The counter clock is enabled when the trigger input (TRGI) is high. */
+/** Gated Mode - The counter clock is enabled when the trigger input (TRGI) is
+ * high.
+ */
 #define TIM_SMCR_SMS_GM			(0x5 << 0)
 /**  Trigger Mode - The counter starts at a rising edge of the trigger TRGI. */
 #define TIM_SMCR_SMS_TM			(0x6 << 0)
-/** External Clock Mode 1 - Rising edges of the selected trigger (TRGI) clock the counter. */
+/** External Clock Mode 1 - Rising edges of the selected trigger (TRGI) clock
+ * the counter.
+ */
 #define TIM_SMCR_SMS_ECM1		(0x7 << 0)
 #define TIM_SMCR_SMS_MASK		(0x7 << 0)
 /**@}*/
@@ -936,7 +941,7 @@ and generates an update of the registers. */
 
 /** Output Compare channel designators */
 enum tim_oc_id {
-	TIM_OC1=0,
+	TIM_OC1 = 0,
 	TIM_OC1N,
 	TIM_OC2,
 	TIM_OC2N,
@@ -968,8 +973,8 @@ enum tim_ic_id {
 /** Input Capture input filter. The frequency used to sample the
 input and the number of events needed to validate an output transition.
 
-TIM_IC_CK_INT_N_x No division from the Deadtime and Sampling Clock frequency (DTF),
-filter length x
+TIM_IC_CK_INT_N_x No division from the Deadtime and Sampling Clock frequency
+(DTF), filter length x
 TIM_IC_DTF_DIV_y_N_x Division by y from the DTF, filter length x
  */
 enum tim_ic_filter {
@@ -1020,96 +1025,104 @@ enum tim_et_pol {
 	TIM_ET_FALLING,
 };
 
-/* --- TIM function prototypes ------------------------------------------------------- */
+/* --- TIM function prototypes --------------------------------------------- */
 
 BEGIN_DECLS
 
-void timer_reset(u32 timer_peripheral);
-void timer_enable_irq(u32 timer_peripheral, u32 irq);
-void timer_disable_irq(u32 timer_peripheral, u32 irq);
-bool timer_interrupt_source(u32 timer_peripheral, u32 flag);
-bool timer_get_flag(u32 timer_peripheral, u32 flag);
-void timer_clear_flag(u32 timer_peripheral, u32 flag);
-void timer_set_mode(u32 timer_peripheral, u32 clock_div,
-		    u32 alignment, u32 direction);
-void timer_set_clock_division(u32 timer_peripheral, u32 clock_div);
-void timer_enable_preload(u32 timer_peripheral);
-void timer_disable_preload(u32 timer_peripheral);
-void timer_set_alignment(u32 timer_peripheral, u32 alignment);
-void timer_direction_up(u32 timer_peripheral);
-void timer_direction_down(u32 timer_peripheral);
-void timer_one_shot_mode(u32 timer_peripheral);
-void timer_continuous_mode(u32 timer_peripheral);
-void timer_update_on_any(u32 timer_peripheral);
-void timer_update_on_overflow(u32 timer_peripheral);
-void timer_enable_update_event(u32 timer_peripheral);
-void timer_disable_update_event(u32 timer_peripheral);
-void timer_enable_counter(u32 timer_peripheral);
-void timer_disable_counter(u32 timer_peripheral);
-void timer_set_output_idle_state(u32 timer_peripheral, u32 outputs);
-void timer_reset_output_idle_state(u32 timer_peripheral, u32 outputs);
-void timer_set_ti1_ch123_xor(u32 timer_peripheral);
-void timer_set_ti1_ch1(u32 timer_peripheral);
-void timer_set_master_mode(u32 timer_peripheral, u32 mode);
-void timer_set_dma_on_compare_event(u32 timer_peripheral);
-void timer_set_dma_on_update_event(u32 timer_peripheral);
-void timer_enable_compare_control_update_on_trigger(u32 timer_peripheral);
-void timer_disable_compare_control_update_on_trigger(u32 timer_peripheral);
-void timer_enable_preload_complementry_enable_bits(u32 timer_peripheral);
-void timer_disable_preload_complementry_enable_bits(u32 timer_peripheral);
-void timer_set_prescaler(u32 timer_peripheral, u32 value);
-void timer_set_repetition_counter(u32 timer_peripheral, u32 value);
-void timer_set_period(u32 timer_peripheral, u32 period);
-void timer_enable_oc_clear(u32 timer_peripheral, enum tim_oc_id oc_id);
-void timer_disable_oc_clear(u32 timer_peripheral, enum tim_oc_id oc_id);
-void timer_set_oc_fast_mode(u32 timer_peripheral, enum tim_oc_id oc_id);
-void timer_set_oc_slow_mode(u32 timer_peripheral, enum tim_oc_id oc_id);
-void timer_set_oc_mode(u32 timer_peripheral, enum tim_oc_id oc_id, enum tim_oc_mode oc_mode);
-void timer_enable_oc_preload(u32 timer_peripheral, enum tim_oc_id oc_id);
-void timer_disable_oc_preload(u32 timer_peripheral, enum tim_oc_id oc_id);
-void timer_set_oc_polarity_high(u32 timer_peripheral, enum tim_oc_id oc_id);
-void timer_set_oc_polarity_low(u32 timer_peripheral, enum tim_oc_id oc_id);
-void timer_enable_oc_output(u32 timer_peripheral, enum tim_oc_id oc_id);
-void timer_disable_oc_output(u32 timer_peripheral, enum tim_oc_id oc_id);
-void timer_set_oc_idle_state_set(u32 timer_peripheral, enum tim_oc_id oc_id);
-void timer_set_oc_idle_state_unset(u32 timer_peripheral, enum tim_oc_id oc_id);
-void timer_set_oc_value(u32 timer_peripheral, enum tim_oc_id oc_id, u32 value);
-void timer_enable_break_main_output(u32 timer_peripheral);
-void timer_disable_break_main_output(u32 timer_peripheral);
-void timer_enable_break_automatic_output(u32 timer_peripheral);
-void timer_disable_break_automatic_output(u32 timer_peripheral);
-void timer_set_break_polarity_high(u32 timer_peripheral);
-void timer_set_break_polarity_low(u32 timer_peripheral);
-void timer_enable_break(u32 timer_peripheral);
-void timer_disable_break(u32 timer_peripheral);
-void timer_set_enabled_off_state_in_run_mode(u32 timer_peripheral);
-void timer_set_disabled_off_state_in_run_mode(u32 timer_peripheral);
-void timer_set_enabled_off_state_in_idle_mode(u32 timer_peripheral);
-void timer_set_disabled_off_state_in_idle_mode(u32 timer_peripheral);
-void timer_set_break_lock(u32 timer_peripheral, u32 lock);
-void timer_set_deadtime(u32 timer_peripheral, u32 deadtime);
-void timer_generate_event(u32 timer_peripheral, u32 event);
-u32 timer_get_counter(u32 timer_peripheral);
-void timer_set_counter(u32 timer_peripheral, u32 count);
+void timer_reset(uint32_t timer_peripheral);
+void timer_enable_irq(uint32_t timer_peripheral, uint32_t irq);
+void timer_disable_irq(uint32_t timer_peripheral, uint32_t irq);
+bool timer_interrupt_source(uint32_t timer_peripheral, uint32_t flag);
+bool timer_get_flag(uint32_t timer_peripheral, uint32_t flag);
+void timer_clear_flag(uint32_t timer_peripheral, uint32_t flag);
+void timer_set_mode(uint32_t timer_peripheral, uint32_t clock_div,
+		    uint32_t alignment, uint32_t direction);
+void timer_set_clock_division(uint32_t timer_peripheral, uint32_t clock_div);
+void timer_enable_preload(uint32_t timer_peripheral);
+void timer_disable_preload(uint32_t timer_peripheral);
+void timer_set_alignment(uint32_t timer_peripheral, uint32_t alignment);
+void timer_direction_up(uint32_t timer_peripheral);
+void timer_direction_down(uint32_t timer_peripheral);
+void timer_one_shot_mode(uint32_t timer_peripheral);
+void timer_continuous_mode(uint32_t timer_peripheral);
+void timer_update_on_any(uint32_t timer_peripheral);
+void timer_update_on_overflow(uint32_t timer_peripheral);
+void timer_enable_update_event(uint32_t timer_peripheral);
+void timer_disable_update_event(uint32_t timer_peripheral);
+void timer_enable_counter(uint32_t timer_peripheral);
+void timer_disable_counter(uint32_t timer_peripheral);
+void timer_set_output_idle_state(uint32_t timer_peripheral, uint32_t outputs);
+void timer_reset_output_idle_state(uint32_t timer_peripheral, uint32_t outputs);
+void timer_set_ti1_ch123_xor(uint32_t timer_peripheral);
+void timer_set_ti1_ch1(uint32_t timer_peripheral);
+void timer_set_master_mode(uint32_t timer_peripheral, uint32_t mode);
+void timer_set_dma_on_compare_event(uint32_t timer_peripheral);
+void timer_set_dma_on_update_event(uint32_t timer_peripheral);
+void timer_enable_compare_control_update_on_trigger(uint32_t timer_peripheral);
+void timer_disable_compare_control_update_on_trigger(uint32_t timer_peripheral);
+void timer_enable_preload_complementry_enable_bits(uint32_t timer_peripheral);
+void timer_disable_preload_complementry_enable_bits(uint32_t timer_peripheral);
+void timer_set_prescaler(uint32_t timer_peripheral, uint32_t value);
+void timer_set_repetition_counter(uint32_t timer_peripheral, uint32_t value);
+void timer_set_period(uint32_t timer_peripheral, uint32_t period);
+void timer_enable_oc_clear(uint32_t timer_peripheral, enum tim_oc_id oc_id);
+void timer_disable_oc_clear(uint32_t timer_peripheral, enum tim_oc_id oc_id);
+void timer_set_oc_fast_mode(uint32_t timer_peripheral, enum tim_oc_id oc_id);
+void timer_set_oc_slow_mode(uint32_t timer_peripheral, enum tim_oc_id oc_id);
+void timer_set_oc_mode(uint32_t timer_peripheral, enum tim_oc_id oc_id,
+		       enum tim_oc_mode oc_mode);
+void timer_enable_oc_preload(uint32_t timer_peripheral, enum tim_oc_id oc_id);
+void timer_disable_oc_preload(uint32_t timer_peripheral, enum tim_oc_id oc_id);
+void timer_set_oc_polarity_high(uint32_t timer_peripheral,
+				enum tim_oc_id oc_id);
+void timer_set_oc_polarity_low(uint32_t timer_peripheral, enum tim_oc_id oc_id);
+void timer_enable_oc_output(uint32_t timer_peripheral, enum tim_oc_id oc_id);
+void timer_disable_oc_output(uint32_t timer_peripheral, enum tim_oc_id oc_id);
+void timer_set_oc_idle_state_set(uint32_t timer_peripheral,
+				 enum tim_oc_id oc_id);
+void timer_set_oc_idle_state_unset(uint32_t timer_peripheral,
+				   enum tim_oc_id oc_id);
+void timer_set_oc_value(uint32_t timer_peripheral, enum tim_oc_id oc_id,
+			uint32_t value);
+void timer_enable_break_main_output(uint32_t timer_peripheral);
+void timer_disable_break_main_output(uint32_t timer_peripheral);
+void timer_enable_break_automatic_output(uint32_t timer_peripheral);
+void timer_disable_break_automatic_output(uint32_t timer_peripheral);
+void timer_set_break_polarity_high(uint32_t timer_peripheral);
+void timer_set_break_polarity_low(uint32_t timer_peripheral);
+void timer_enable_break(uint32_t timer_peripheral);
+void timer_disable_break(uint32_t timer_peripheral);
+void timer_set_enabled_off_state_in_run_mode(uint32_t timer_peripheral);
+void timer_set_disabled_off_state_in_run_mode(uint32_t timer_peripheral);
+void timer_set_enabled_off_state_in_idle_mode(uint32_t timer_peripheral);
+void timer_set_disabled_off_state_in_idle_mode(uint32_t timer_peripheral);
+void timer_set_break_lock(uint32_t timer_peripheral, uint32_t lock);
+void timer_set_deadtime(uint32_t timer_peripheral, uint32_t deadtime);
+void timer_generate_event(uint32_t timer_peripheral, uint32_t event);
+uint32_t timer_get_counter(uint32_t timer_peripheral);
+void timer_set_counter(uint32_t timer_peripheral, uint32_t count);
 
-void timer_ic_set_filter(u32 timer, enum tim_ic_id ic, enum tim_ic_filter flt);
-void timer_ic_set_prescaler(u32 timer, enum tim_ic_id ic, enum tim_ic_psc psc);
-void timer_ic_set_input(u32 timer, enum tim_ic_id ic, enum tim_ic_input in);
-void timer_ic_enable(u32 timer, enum tim_ic_id ic);
-void timer_ic_disable(u32 timer, enum tim_ic_id ic);
+void timer_ic_set_filter(uint32_t timer, enum tim_ic_id ic,
+			 enum tim_ic_filter flt);
+void timer_ic_set_prescaler(uint32_t timer, enum tim_ic_id ic,
+			    enum tim_ic_psc psc);
+void timer_ic_set_input(uint32_t timer, enum tim_ic_id ic,
+			enum tim_ic_input in);
+void timer_ic_enable(uint32_t timer, enum tim_ic_id ic);
+void timer_ic_disable(uint32_t timer, enum tim_ic_id ic);
 
-void timer_slave_set_filter(u32 timer, enum tim_ic_filter flt);
-void timer_slave_set_prescaler(u32 timer, enum tim_ic_psc psc);
-void timer_slave_set_polarity(u32 timer, enum tim_et_pol pol);
-void timer_slave_set_mode(u32 timer, u8 mode);
-void timer_slave_set_trigger(u32 timer, u8 trigger);
+void timer_slave_set_filter(uint32_t timer, enum tim_ic_filter flt);
+void timer_slave_set_prescaler(uint32_t timer, enum tim_ic_psc psc);
+void timer_slave_set_polarity(uint32_t timer, enum tim_et_pol pol);
+void timer_slave_set_mode(uint32_t timer, uint8_t mode);
+void timer_slave_set_trigger(uint32_t timer, uint8_t trigger);
 
 END_DECLS
 
 #endif
 /** @cond */
 #else
-#warning "timer_common_all.h should not be included explicitly, only via timer.h"
+#warning "timer_common_all.h should not be included directly, only via timer.h"
 #endif
 /** @endcond */
 /**@}*/

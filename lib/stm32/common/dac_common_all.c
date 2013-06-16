@@ -82,7 +82,7 @@ Both DAC channels are enabled, and both triggers are set to the same timer
 	dma_set_memory_size(DMA2,DMA_CHANNEL3,DMA_CCR_MSIZE_16BIT);
 	dma_set_peripheral_size(DMA2,DMA_CHANNEL3,DMA_CCR_PSIZE_16BIT);
 	dma_set_read_from_memory(DMA2,DMA_CHANNEL3);
-	dma_set_peripheral_address(DMA2,DMA_CHANNEL3,(u32) &DAC_DHR8RD);
+	dma_set_peripheral_address(DMA2,DMA_CHANNEL3,(uint32_t) &DAC_DHR8RD);
 	dma_enable_channel(DMA2,DMA_CHANNEL3);
 	...
 	dac_trigger_enable(CHANNEL_D);
@@ -120,12 +120,12 @@ LGPL License Terms @ref lgpl_license
 #define MASK8 0xFF
 #define MASK12 0xFFF
 
-/*-----------------------------------------------------------------------------*/
+/*---------------------------------------------------------------------------*/
 /** @brief DAC Channel Enable.
 
-Enable a digital to analog converter channel. After setting this enable, the DAC
-requires a t<sub>wakeup</sub> time typically around 10 microseconds before it
-actually wakes up.
+Enable a digital to analog converter channel. After setting this enable, the
+DAC requires a t<sub>wakeup</sub> time typically around 10 microseconds before
+it actually wakes up.
 
 @param[in] dac_channel enum ::data_channel.
 */
@@ -145,7 +145,7 @@ void dac_enable(data_channel dac_channel)
 	}
 }
 
-/*-----------------------------------------------------------------------------*/
+/*---------------------------------------------------------------------------*/
 /** @brief DAC Channel Disable.
 
 Disable a digital to analog converter channel.
@@ -168,13 +168,13 @@ void dac_disable(data_channel dac_channel)
 	}
 }
 
-/*-----------------------------------------------------------------------------*/
+/*---------------------------------------------------------------------------*/
 /** @brief DAC Channel Output Buffer Enable.
 
-Enable a digital to analog converter channel output drive buffer. This is an optional
-amplifying buffer that provides additional drive for the output signal. The
-buffer is enabled by default after a reset and needs to be explicitly disabled
-if required.
+Enable a digital to analog converter channel output drive buffer. This is an
+optional amplifying buffer that provides additional drive for the output
+signal. The buffer is enabled by default after a reset and needs to be
+explicitly disabled if required.
 
 @param[in] dac_channel enum ::data_channel.
 */
@@ -193,12 +193,12 @@ void dac_buffer_enable(data_channel dac_channel)
 		break;
 	}
 }
-/*-----------------------------------------------------------------------------*/
+/*---------------------------------------------------------------------------*/
 /** @brief DAC Channel Output Buffer Disable.
 
-Disable a digital to analog converter channel output drive buffer. Disabling this will
-reduce power consumption slightly and will increase the output impedance of the DAC.
-The buffers are enabled by default after a reset.
+Disable a digital to analog converter channel output drive buffer. Disabling
+this will reduce power consumption slightly and will increase the output
+impedance of the DAC.  The buffers are enabled by default after a reset.
 
 @param[in] dac_channel enum ::data_channel.
 */
@@ -217,7 +217,7 @@ void dac_buffer_disable(data_channel dac_channel)
 		break;
 	}
 }
-/*-----------------------------------------------------------------------------*/
+/*---------------------------------------------------------------------------*/
 /** @brief DAC Channel DMA Enable.
 
 Enable a digital to analog converter channel DMA mode (connected to DMA2 channel
@@ -242,7 +242,7 @@ void dac_dma_enable(data_channel dac_channel)
 	}
 }
 
-/*-----------------------------------------------------------------------------*/
+/*---------------------------------------------------------------------------*/
 /** @brief DAC Channel DMA Disable.
 
 Disable a digital to analog converter channel DMA mode.
@@ -265,13 +265,13 @@ void dac_dma_disable(data_channel dac_channel)
 	}
 }
 
-/*-----------------------------------------------------------------------------*/
+/*---------------------------------------------------------------------------*/
 /** @brief DAC Channel Trigger Enable.
 
-Enable a digital to analog converter channel external trigger mode. This allows an
-external trigger to initiate register transfers from the buffer register to the DAC
-output register, followed by a DMA transfer to the buffer register if DMA is enabled.
-The trigger source must also be selected.
+Enable a digital to analog converter channel external trigger mode. This allows
+an external trigger to initiate register transfers from the buffer register to
+the DAC output register, followed by a DMA transfer to the buffer register if
+DMA is enabled.  The trigger source must also be selected.
 
 @param[in] dac_channel enum ::data_channel.
 */
@@ -291,7 +291,7 @@ void dac_trigger_enable(data_channel dac_channel)
 	}
 }
 
-/*-----------------------------------------------------------------------------*/
+/*---------------------------------------------------------------------------*/
 /** @brief DAC Channel Trigger Disable.
 
 Disable a digital to analog converter channel external trigger.
@@ -314,40 +314,42 @@ void dac_trigger_disable(data_channel dac_channel)
 	}
 }
 
-/*-----------------------------------------------------------------------------*/
+/*---------------------------------------------------------------------------*/
 /** @brief Set DAC Channel Trigger Source.
 
-Sets the digital to analog converter trigger source, which can be taken from various
-timers, an external trigger or a software trigger.
+Sets the digital to analog converter trigger source, which can be taken from
+various timers, an external trigger or a software trigger.
 
-@param[in] dac_trig_src u32. Taken from @ref dac_trig2_sel or @ref dac_trig1_sel or
-a logical OR of one of each of these to set both channels simultaneously.
+@param[in] dac_trig_src uint32_t. Taken from @ref dac_trig2_sel or @ref
+dac_trig1_sel or a logical OR of one of each of these to set both channels
+simultaneously.
 */
 
-void dac_set_trigger_source(u32 dac_trig_src)
+void dac_set_trigger_source(uint32_t dac_trig_src)
 {
 	DAC_CR |= dac_trig_src;
 }
 
-/*-----------------------------------------------------------------------------*/
+/*---------------------------------------------------------------------------*/
 /** @brief Enable and Set DAC Channel Waveform Generation.
 
-Enable the digital to analog converter waveform generation as either pseudo-random
-noise or triangular wave. These signals are superimposed on existing output values
-in the DAC output registers.
+Enable the digital to analog converter waveform generation as either
+pseudo-random noise or triangular wave. These signals are superimposed on
+existing output values in the DAC output registers.
 
 @note The DAC trigger must be enabled for this to work.
 
-@param[in] dac_wave_ens u32. Taken from @ref dac_wave1_en or @ref dac_wave2_en or
-a logical OR of one of each of these to set both channels simultaneously.
+@param[in] dac_wave_ens uint32_t. Taken from @ref dac_wave1_en or @ref
+dac_wave2_en or a logical OR of one of each of these to set both channels
+simultaneously.
 */
 
-void dac_set_waveform_generation(u32 dac_wave_ens)
+void dac_set_waveform_generation(uint32_t dac_wave_ens)
 {
 	DAC_CR |= dac_wave_ens;
 }
 
-/*-----------------------------------------------------------------------------*/
+/*---------------------------------------------------------------------------*/
 /** @brief Disable DAC Channel Waveform Generation.
 
 Disable a digital to analog converter channel superimposed waveform generation.
@@ -370,30 +372,32 @@ void dac_disable_waveform_generation(data_channel dac_channel)
 	}
 }
 
-/*-----------------------------------------------------------------------------*/
+/*---------------------------------------------------------------------------*/
 /** @brief Set DAC Channel LFSR Mask or Triangle Wave Amplitude.
 
-Sets the digital to analog converter superimposed waveform generation characteristics.
-@li If the noise generation mode is set, this sets the length of the PRBS sequence and
-hence the amplitude of the output noise signal. Default setting is length 1.
-@li If the triangle wave generation mode is set, this sets the amplitude of the
-output signal as 2^(n)-1 where n is the parameter value. Default setting is 1.
+Sets the digital to analog converter superimposed waveform generation
+characteristics.  @li If the noise generation mode is set, this sets the length
+of the PRBS sequence and hence the amplitude of the output noise signal.
+Default setting is length 1.  @li If the triangle wave generation mode is set,
+this sets the amplitude of the output signal as 2^(n)-1 where n is the
+parameter value. Default setting is 1.
 
-@note High amplitude levels of these waveforms can overload the DAC and distort the
-signal output.
-@note This must be called before enabling the DAC as the settings will then become read-only.
+@note High amplitude levels of these waveforms can overload the DAC and distort
+the signal output.
+@note This must be called before enabling the DAC as the settings will then
+become read-only.
 @note The DAC trigger must be enabled for this to work.
 
-@param[in] dac_mamp u32. Taken from @ref dac_mamp2 or @ref dac_mamp1 or a logical OR
-of one of each of these to set both channels simultaneously.
+@param[in] dac_mamp uint32_t. Taken from @ref dac_mamp2 or @ref dac_mamp1 or a
+logical OR of one of each of these to set both channels simultaneously.
 */
 
-void dac_set_waveform_characteristics(u32 dac_mamp)
+void dac_set_waveform_characteristics(uint32_t dac_mamp)
 {
 	DAC_CR |= dac_mamp;
 }
 
-/*-----------------------------------------------------------------------------*/
+/*---------------------------------------------------------------------------*/
 /** @brief Load DAC Data Register.
 
 Loads the appropriate digital to analog converter data register with 12 or 8 bit
@@ -402,15 +406,15 @@ data to be converted on a channel. The data can be aligned as follows:
 @li right-aligned 12 bit data in bits 0-11
 @li left aligned 12 bit data in bits 4-15
 
-@param[in] dac_data u16 with appropriate alignment.
+@param[in] dac_data uint16_t with appropriate alignment.
 @param[in] dac_data_format enum ::data_align. Alignment and size.
 @param[in] dac_channel enum ::data_channel.
 */
 
-void dac_load_data_buffer_single(u16 dac_data, data_align dac_data_format, data_channel dac_channel)
+void dac_load_data_buffer_single(uint16_t dac_data, data_align dac_data_format,
+		data_channel dac_channel)
 {
-	if (dac_channel == CHANNEL_1)
-	{
+	if (dac_channel == CHANNEL_1) {
 		switch (dac_data_format) {
 		case RIGHT8:
 			DAC_DHR8R1 = dac_data;
@@ -422,9 +426,7 @@ void dac_load_data_buffer_single(u16 dac_data, data_align dac_data_format, data_
 			DAC_DHR12L1 = dac_data;
 			break;
 		}
-	}
-	else if (dac_channel == CHANNEL_2)
-	{
+	} else if (dac_channel == CHANNEL_2) {
 		switch (dac_data_format) {
 		case RIGHT8:
 			DAC_DHR8R2 = dac_data;
@@ -439,7 +441,7 @@ void dac_load_data_buffer_single(u16 dac_data, data_align dac_data_format, data_
 	}
 }
 
-/*-----------------------------------------------------------------------------*/
+/*---------------------------------------------------------------------------*/
 /** @brief Load DAC Dual Data Register.
 
 Loads the appropriate digital to analog converter dual data register with 12 or
@@ -447,27 +449,31 @@ Loads the appropriate digital to analog converter dual data register with 12 or
 simultaneous or independent analog output. The data in both channels are aligned
 identically.
 
-@param[in] dac_data1 u16 for channel 1 with appropriate alignment.
-@param[in] dac_data2 u16 for channel 2 with appropriate alignment.
-@param[in] dac_data_format enum ::data_align. Right or left aligned, and 8 or 12 bit.
+@param[in] dac_data1 uint16_t for channel 1 with appropriate alignment.
+@param[in] dac_data2 uint16_t for channel 2 with appropriate alignment.
+@param[in] dac_data_format enum ::data_align. Right or left aligned, and 8 or
+12 bit.
 */
 
-void dac_load_data_buffer_dual(u16 dac_data1, u16 dac_data2, data_align dac_data_format)
+void dac_load_data_buffer_dual(uint16_t dac_data1, uint16_t dac_data2,
+		data_align dac_data_format)
 {
 	switch (dac_data_format) {
 	case RIGHT8:
 		DAC_DHR8RD = ((dac_data1 & MASK8) | ((dac_data2 & MASK8) << 8));
 		break;
 	case RIGHT12:
-		DAC_DHR12RD = ((dac_data1 & MASK12) | ((dac_data2 & MASK12) << 16));
+		DAC_DHR12RD = ((dac_data1 & MASK12) |
+				((dac_data2 & MASK12) << 16));
 		break;
 	case LEFT12:
-		DAC_DHR12LD = ((dac_data1 & MASK12) | ((dac_data2 & MASK12) << 16));
+		DAC_DHR12LD = ((dac_data1 & MASK12) |
+				((dac_data2 & MASK12) << 16));
 		break;
 	}
 }
 
-/*-----------------------------------------------------------------------------*/
+/*---------------------------------------------------------------------------*/
 /** @brief Trigger the DAC by a Software Trigger.
 
 If the trigger source is set to be a software trigger, cause a trigger to occur.

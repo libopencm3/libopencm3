@@ -53,8 +53,6 @@ template_nvic_h = '''\
 
 /**@}}*/
 
-#define WEAK __attribute__ ((weak))
-
 /** @defgroup CM3_nvic_isrprototypes_{partname_doxygen} User interrupt service routines (ISR) prototypes for {partname_humanreadable}
     @ingroup CM3_nvic_isrprototypes
 

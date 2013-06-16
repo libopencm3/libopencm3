@@ -25,8 +25,10 @@
  *
  * @version 1.0.0
  *
- * @author @htmlonly &copy; @endhtmlonly 2011 Gareth McMullin <gareth@blacksphere.co.nz>
- * @author @htmlonly &copy; @endhtmlonly 2013 Alexandru Gagniuc <mr.nuke.me@gmail.com>
+ * @author @htmlonly &copy; @endhtmlonly 2011
+ * Gareth McMullin <gareth@blacksphere.co.nz>
+ * @author @htmlonly &copy; @endhtmlonly 2013
+ * Alexandru Gagniuc <mr.nuke.me@gmail.com>
  *
  * @date 16 March 2013
  *
@@ -204,8 +206,8 @@ void gpio_enable_ahb_aperture(void)
  * @param[in] gpios @ref gpio_pin_id. Any combination of pins may be specified
  *		    by OR'ing then together
  */
-void gpio_mode_setup(u32 gpioport, enum gpio_mode mode, enum gpio_pullup pullup,
-		     u8 gpios)
+void gpio_mode_setup(uint32_t gpioport, enum gpio_mode mode,
+		     enum gpio_pullup pullup, uint8_t gpios)
 {
 	switch (mode) {
 	case GPIO_MODE_OUTPUT:
@@ -265,20 +267,20 @@ void gpio_mode_setup(u32 gpioport, enum gpio_mode mode, enum gpio_pullup pullup,
  * @param[in] gpios @ref gpio_pin_id. Any combination of pins may be specified
  *		    by OR'ing then together
  */
-void gpio_set_output_config(u32 gpioport, enum gpio_output_type otype,
-			     enum gpio_drive_strength drive, u8 gpios)
+void gpio_set_output_config(uint32_t gpioport, enum gpio_output_type otype,
+			     enum gpio_drive_strength drive, uint8_t gpios)
 {
-	if (otype == GPIO_OTYPE_OD)
+	if (otype == GPIO_OTYPE_OD) {
 		GPIO_ODR(gpioport) |= gpios;
-	else
+	} else {
 		GPIO_ODR(gpioport) &= ~gpios;
+	}
 
 	/*
 	 * Setting a bit in the GPIO_DRxR register clears the corresponding bit
 	 * in the other GPIO_DRyR registers, and vice-versa.
 	 */
-	switch (drive)
-	{
+	switch (drive) {
 	case GPIO_DRIVE_8MA_SLEW_CTL:
 		GPIO_DR8R(gpioport) |= gpios;
 		GPIO_SLR(gpioport) |= gpios;
@@ -312,14 +314,14 @@ void gpio_set_output_config(u32 gpioport, enum gpio_output_type otype,
  *
  * @param[in] gpioport GPIO block register address base @ref gpio_reg_base
  * @param[in] alt_func_num Pin alternate function number or 0 to disable the
- * 			   alternate function multiplexing.
+ *			   alternate function multiplexing.
  * @param[in] gpios @ref gpio_pin_id. Any combination of pins may be specified
  *		    by OR'ing then together
  */
-void gpio_set_af(u32 gpioport, u8 alt_func_num, u8 gpios)
+void gpio_set_af(uint32_t gpioport, uint8_t alt_func_num, uint8_t gpios)
 {
-	u32 pctl32;
-	u8 pin_mask;
+	uint32_t pctl32;
+	uint8_t pin_mask;
 	int i;
 
 	/* Did we mean to disable the alternate function? */
@@ -327,7 +329,7 @@ void gpio_set_af(u32 gpioport, u8 alt_func_num, u8 gpios)
 		GPIO_AFSEL(gpioport) &= ~gpios;
 		return;
 	}
-	
+
 	/* Enable the alternate function */
 	GPIO_AFSEL(gpioport) |= gpios;
 	/* Alternate functions are digital */
@@ -338,11 +340,12 @@ void gpio_set_af(u32 gpioport, u8 alt_func_num, u8 gpios)
 	for (i = 0; i < 8; i++) {
 		pin_mask = (1 << i);
 
-		if (!(gpios & pin_mask))
+		if (!(gpios & pin_mask)) {
 			continue;
+		}
 
 		pctl32 &= ~PCTL_MASK(i);
-		pctl32 |= PCTL_AF( i, (alt_func_num & 0xf) );
+		pctl32 |= PCTL_AF(i, (alt_func_num & 0xf));
 	}
 
 	GPIO_PCTL(gpioport) = pctl32;
@@ -359,7 +362,7 @@ void gpio_set_af(u32 gpioport, u8 alt_func_num, u8 gpios)
  * @param[in] gpios @ref gpio_pin_id. Any combination of pins may be specified
  *		    by OR'ing then together.
  */
-void gpio_unlock_commit(u32 gpioport, u8 gpios)
+void gpio_unlock_commit(uint32_t gpioport, uint8_t gpios)
 {
 	/* Unlock the GPIO_CR register */
 	GPIO_LOCK(gpioport) = GPIO_LOCK_UNLOCK_CODE;
@@ -435,7 +438,7 @@ void gpio_unlock_commit(u32 gpioport, u8 gpios)
  * @param[in] gpioport GPIO block register address base @ref gpio_reg_base
  * @param[in] gpios Pin identifiers. @ref gpio_pin_id
  */
-void gpio_toggle(u32 gpioport, u8 gpios)
+void gpio_toggle(uint32_t gpioport, uint8_t gpios)
 {
 	/* The mask makes sure we only toggle the GPIOs we want to */
 	GPIO_DATA(gpioport)[gpios] ^= GPIO_ALL;
@@ -487,7 +490,7 @@ void gpio_toggle(u32 gpioport, u8 gpios)
  * @code{.c}
  * void gpiof_isr(void)
  * {
- *	u8 serviced_irqs = 0;
+ *	uint8_t serviced_irqs = 0;
  *
  *	// Process individual IRQs
  *	if (gpio_is_interrupt_source(GPIOF, GPIO0)) {
@@ -521,7 +524,8 @@ void gpio_toggle(u32 gpioport, u8 gpios)
  * @param[in] gpios @ref gpio_pin_id. Any combination of pins may be specified
  *		    by OR'ing then together
  */
-void gpio_configure_trigger(u32 gpioport, enum gpio_trigger trigger, u8 gpios)
+void gpio_configure_trigger(uint32_t gpioport, enum gpio_trigger trigger,
+			    uint8_t gpios)
 {
 	switch (trigger) {
 	case GPIO_TRIG_LVL_LOW:
@@ -565,7 +569,7 @@ void gpio_configure_trigger(u32 gpioport, enum gpio_trigger trigger, u8 gpios)
  *		    combination of pins may be specified by OR'ing them
  *		    together.
  */
-void gpio_enable_interrupts(u32 gpioport, u8 gpios)
+void gpio_enable_interrupts(uint32_t gpioport, uint8_t gpios)
 {
 	GPIO_IM(gpioport) |= gpios;
 }
@@ -583,7 +587,7 @@ void gpio_enable_interrupts(u32 gpioport, u8 gpios)
  *		    combination of pins may be specified by OR'ing them
  *		    together.
  */
-void gpio_disable_interrupts(u32 gpioport, u8 gpios)
+void gpio_disable_interrupts(uint32_t gpioport, uint8_t gpios)
 {
 	GPIO_IM(gpioport) |= gpios;
 }

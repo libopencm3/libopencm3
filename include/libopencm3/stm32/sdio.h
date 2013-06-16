@@ -182,7 +182,7 @@
 
 /* DBLOCKSIZE: Data block size */
 /* SDIO_DCTRL_DBLOCKSIZE_n
- * blocksize is 2**n bytes with 0<=n<=14
+ * block size is 2**n bytes with 0<=n<=14
  */
 #define SDIO_DCTRL_DBLOCKSIZE_SHIFT	4
 #define SDIO_DCTRL_DBLOCKSIZE_0		(0x0 << SDIO_DCTRL_DBLOCKSIZE_SHIFT)
@@ -204,7 +204,7 @@
 /* DMAEN: DMA enable bit */
 #define SDIO_DCTRL_DMAEN		(1 << 3)
 
-/* DTMODE: Data transfer mode selection 1: Stream or SDIO multibyte transfer */
+/* DTMODE: Data transfer mode selection 1: Stream or SDIO multi byte transfer */
 #define SDIO_DCTRL_DTMODE		(1 << 2)
 
 /* DTDIR: Data transfer direction selection */

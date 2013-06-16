@@ -1,12 +1,14 @@
 /** @defgroup usb_type_defines USB Standard Structure Definitions
 
-@brief <b>Defined Constants and Types for the USB Standard Structure  Definitions</b>
+@brief <b>Defined Constants and Types for the USB Standard Structure
+Definitions</b>
 
 @ingroup USB_defines
 
 @version 1.0.0
 
-@author @htmlonly &copy; @endhtmlonly 2010 Gareth McMullin <gareth@blacksphere.co.nz>
+@author @htmlonly &copy; @endhtmlonly 2010
+Gareth McMullin <gareth@blacksphere.co.nz>
 
 @date 10 March 2013
 
@@ -52,15 +54,15 @@ LGPL License Terms @ref lgpl_license
 
 /* USB Setup Data structure - Table 9-2 */
 struct usb_setup_data {
-	u8 bmRequestType;
-	u8 bRequest;
-	u16 wValue;
-	u16 wIndex;
-	u16 wLength;
+	uint8_t bmRequestType;
+	uint8_t bRequest;
+	uint16_t wValue;
+	uint16_t wIndex;
+	uint16_t wLength;
 } __attribute__((packed));
 
 /* Class Definition */
-#define USB_CLASS_VENDOR            		0xFF
+#define USB_CLASS_VENDOR			0xFF
 
 /* bmRequestType bit definitions */
 #define USB_REQ_TYPE_IN				0x80
@@ -115,20 +117,20 @@ struct usb_setup_data {
 
 /* USB Standard Device Descriptor - Table 9-8 */
 struct usb_device_descriptor {
-	u8 bLength;
-	u8 bDescriptorType;
-	u16 bcdUSB;
-	u8 bDeviceClass;
-	u8 bDeviceSubClass;
-	u8 bDeviceProtocol;
-	u8 bMaxPacketSize0;
-	u16 idVendor;
-	u16 idProduct;
-	u16 bcdDevice;
-	u8 iManufacturer;
-	u8 iProduct;
-	u8 iSerialNumber;
-	u8 bNumConfigurations;
+	uint8_t bLength;
+	uint8_t bDescriptorType;
+	uint16_t bcdUSB;
+	uint8_t bDeviceClass;
+	uint8_t bDeviceSubClass;
+	uint8_t bDeviceProtocol;
+	uint8_t bMaxPacketSize0;
+	uint16_t idVendor;
+	uint16_t idProduct;
+	uint16_t bcdDevice;
+	uint8_t iManufacturer;
+	uint8_t iProduct;
+	uint8_t iSerialNumber;
+	uint8_t bNumConfigurations;
 } __attribute__((packed));
 
 #define USB_DT_DEVICE_SIZE sizeof(struct usb_device_descriptor)
@@ -137,27 +139,27 @@ struct usb_device_descriptor {
  * Not used in this implementation.
  */
 struct usb_device_qualifier_descriptor {
-	u8 bLength;
-	u8 bDescriptorType;
-	u16 bcdUSB;
-	u8 bDeviceClass;
-	u8 bDeviceSubClass;
-	u8 bDeviceProtocol;
-	u8 bMaxPacketSize0;
-	u8 bNumConfigurations;
-	u8 bReserved;
+	uint8_t bLength;
+	uint8_t bDescriptorType;
+	uint16_t bcdUSB;
+	uint8_t bDeviceClass;
+	uint8_t bDeviceSubClass;
+	uint8_t bDeviceProtocol;
+	uint8_t bMaxPacketSize0;
+	uint8_t bNumConfigurations;
+	uint8_t bReserved;
 } __attribute__((packed));
 
 /* USB Standard Configuration Descriptor - Table 9-10 */
 struct usb_config_descriptor {
-	u8 bLength;
-	u8 bDescriptorType;
-	u16 wTotalLength;
-	u8 bNumInterfaces;
-	u8 bConfigurationValue;
-	u8 iConfiguration;
-	u8 bmAttributes;
-	u8 bMaxPower;
+	uint8_t bLength;
+	uint8_t bDescriptorType;
+	uint16_t wTotalLength;
+	uint8_t bNumInterfaces;
+	uint8_t bConfigurationValue;
+	uint8_t iConfiguration;
+	uint8_t bmAttributes;
+	uint8_t bMaxPower;
 
 	/* Descriptor ends here.  The following are used internally: */
 	const struct usb_interface {
@@ -178,15 +180,15 @@ struct usb_config_descriptor {
 
 /* USB Standard Interface Descriptor - Table 9-12 */
 struct usb_interface_descriptor {
-	u8 bLength;
-	u8 bDescriptorType;
-	u8 bInterfaceNumber;
-	u8 bAlternateSetting;
-	u8 bNumEndpoints;
-	u8 bInterfaceClass;
-	u8 bInterfaceSubClass;
-	u8 bInterfaceProtocol;
-	u8 iInterface;
+	uint8_t bLength;
+	uint8_t bDescriptorType;
+	uint8_t bInterfaceNumber;
+	uint8_t bAlternateSetting;
+	uint8_t bNumEndpoints;
+	uint8_t bInterfaceClass;
+	uint8_t bInterfaceSubClass;
+	uint8_t bInterfaceProtocol;
+	uint8_t iInterface;
 
 	/* Descriptor ends here.  The following are used internally: */
 	const struct usb_endpoint_descriptor *endpoint;
@@ -197,12 +199,12 @@ struct usb_interface_descriptor {
 
 /* USB Standard Endpoint Descriptor - Table 9-13 */
 struct usb_endpoint_descriptor {
-	u8 bLength;
-	u8 bDescriptorType;
-	u8 bEndpointAddress;
-	u8 bmAttributes;
-	u16 wMaxPacketSize;
-	u8 bInterval;
+	uint8_t bLength;
+	uint8_t bDescriptorType;
+	uint8_t bEndpointAddress;
+	uint8_t bmAttributes;
+	uint16_t wMaxPacketSize;
+	uint8_t bInterval;
 } __attribute__((packed));
 #define USB_DT_ENDPOINT_SIZE		sizeof(struct usb_endpoint_descriptor)
 
@@ -225,21 +227,21 @@ struct usb_endpoint_descriptor {
  * Table 9-16 specified UNICODE String Descriptor.
  */
 struct usb_string_descriptor {
-	u8 bLength;
-	u8 bDescriptorType;
-	u16 wData[];
+	uint8_t bLength;
+	uint8_t bDescriptorType;
+	uint16_t wData[];
 } __attribute__((packed));
 
 /* From ECN: Interface Association Descriptors, Table 9-Z */
 struct usb_iface_assoc_descriptor {
-	u8 bLength;
-	u8 bDescriptorType;
-	u8 bFirstInterface;
-	u8 bInterfaceCount;
-	u8 bFunctionClass;
-	u8 bFunctionSubClass;
-	u8 bFunctionProtocol;
-	u8 iFunction;
+	uint8_t bLength;
+	uint8_t bDescriptorType;
+	uint8_t bFirstInterface;
+	uint8_t bInterfaceCount;
+	uint8_t bFunctionClass;
+	uint8_t bFunctionSubClass;
+	uint8_t bFunctionProtocol;
+	uint8_t iFunction;
 } __attribute__((packed));
 #define USB_DT_INTERFACE_ASSOCIATION_SIZE \
 				sizeof(struct usb_iface_assoc_descriptor)

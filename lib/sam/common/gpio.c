@@ -1,4 +1,4 @@
-/*
+/* 
  * This file is part of the libopencm3 project.
  *
  * Copyright (C) 2012 Gareth McMullin <gareth@blacksphere.co.nz>
@@ -19,7 +19,7 @@
 
 #include <libopencm3/sam/gpio.h>
 
-void gpio_init(u32 port, u32 pins, enum gpio_flags flags)
+void gpio_init(uint32_t port, uint32_t pins, enum gpio_flags flags)
 {
 	switch (flags & 3) {
 	case GPIO_FLAG_GPINPUT:
@@ -42,20 +42,22 @@ void gpio_init(u32 port, u32 pins, enum gpio_flags flags)
 		PIO_PDR(port) = pins;
 	}
 
-	if (flags & GPIO_FLAG_OPEN_DRAIN)
+	if (flags & GPIO_FLAG_OPEN_DRAIN) {
 		PIO_MDER(port) = pins;
-	else
+	} else {
 		PIO_MDDR(port) = pins;
+	}
 
-	if (flags & GPIO_FLAG_PULL_UP)
+	if (flags & GPIO_FLAG_PULL_UP) {
 		PIO_PUER(port) = pins;
-	else
+	} else {
 		PIO_PUDR(port) = pins;
+	}
 }
 
-void gpio_toggle(u32 gpioport, u32 gpios)
+void gpio_toggle(uint32_t gpioport, uint32_t gpios)
 {
-	u32 odsr = PIO_ODSR(gpioport);
+	uint32_t odsr = PIO_ODSR(gpioport);
 	PIO_CODR(gpioport) = odsr & gpios;
 	PIO_SODR(gpioport) = ~odsr & gpios;
 }

@@ -1,6 +1,7 @@
 /** @defgroup ssp_defines Synchronous Serial Port
 
-@brief <b>Defined Constants and Types for the LPC43xx Synchronous Serial Port</b>
+@brief <b>Defined Constants and Types for the LPC43xx Synchronous Serial
+Port</b>
 
 @ingroup LPC43xx_defines
 
@@ -109,9 +110,9 @@ typedef enum {
 	SSP1_NUM = 0x1
 } ssp_num_t;
 
-/* 
-* SSP Control Register 0
-*/
+/*
+ * SSP Control Register 0
+ */
 /* SSP Data Size Bits 0 to 3 */
 typedef enum {
 	SSP_DATA_4BITS  = 0x3,
@@ -126,7 +127,7 @@ typedef enum {
 	SSP_DATA_13BITS = 0xC,
 	SSP_DATA_14BITS = 0xD,
 	SSP_DATA_15BITS = 0xE,
-	SSP_DATA_16BITS = 0xF 
+	SSP_DATA_16BITS = 0xF
 } ssp_datasize_t;
 
 /* SSP Frame Format/Type Bits 4 & 5 */
@@ -144,9 +145,9 @@ typedef enum {
 	SSP_CPOL_1_CPHA_1 = (BIT6|BIT7)
 } ssp_cpol_cpha_t;
 
-/* 
-* SSP Control Register 1
-*/
+/*
+ * SSP Control Register 1
+ */
 /* SSP Mode Bit0  */
 typedef enum {
 	SSP_MODE_NORMAL   = 0x0,
@@ -177,24 +178,25 @@ BEGIN_DECLS
 
 void ssp_disable(ssp_num_t ssp_num);
 
-/* 
+/*
  * SSP Init
  * clk_prescale shall be in range 2 to 254 (even number only).
- * Clock computation: PCLK / (CPSDVSR * [SCR+1]) => CPSDVSR=clk_prescale, SCR=serial_clock_rate
+ * Clock computation: PCLK / (CPSDVSR * [SCR+1]) => CPSDVSR=clk_prescale,
+ * SCR=serial_clock_rate
  */
 void ssp_init(ssp_num_t ssp_num,
 				ssp_datasize_t data_size,
 				ssp_frame_format_t frame_format,
 				ssp_cpol_cpha_t cpol_cpha_format,
-				u8 serial_clock_rate,
-				u8 clk_prescale,
+				uint8_t serial_clock_rate,
+				uint8_t clk_prescale,
 				ssp_mode_t mode,
 				ssp_master_slave_t master_slave,
 				ssp_slave_option_t slave_option);
 
-u16 ssp_read(ssp_num_t ssp_num);
+uint16_t ssp_read(ssp_num_t ssp_num);
 
-void ssp_write(ssp_num_t ssp_num, u16 data);
+void ssp_write(ssp_num_t ssp_num, uint16_t data);
 
 END_DECLS
 
