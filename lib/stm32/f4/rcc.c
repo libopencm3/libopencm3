@@ -1,3 +1,21 @@
+/** @defgroup rcc_file RCC
+ *
+ * @ingroup STM32F4xx
+ *
+ * @section rcc_f4_api_ex Reset and Clock Control API.
+ *
+ * @brief <b>libopencm3 STM32F4xx Reset and Clock Control</b>
+ *
+ * @author @htmlonly &copy; @endhtmlonly 2013 Frantisek Burian <BuFran at seznam.cz>
+ *
+ * @date 18 Jun 2013
+ *
+ * This library supports the Reset and Clock Control System in the STM32 series
+ * of ARM Cortex Microcontrollers by ST Microelectronics.
+ *
+ * LGPL License Terms @ref lgpl_license
+ */
+
 /*
  * This file is part of the libopencm3 project.
  *
@@ -23,6 +41,8 @@
 #include <libopencm3/stm32/f4/rcc.h>
 #include <libopencm3/stm32/f4/pwr.h>
 #include <libopencm3/stm32/f4/flash.h>
+
+/**@{*/
 
 /* Set the default ppre1 and ppre2 peripheral clock frequencies after reset. */
 uint32_t rcc_ppre1_frequency = 16000000;
@@ -540,3 +560,5 @@ void rcc_backupdomain_reset(void)
 	/* Clear the backup domain software reset. */
 	RCC_BDCR &= ~RCC_BDCR_BDRST;
 }
+
+/**@}*/

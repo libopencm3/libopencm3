@@ -485,6 +485,103 @@ typedef enum {
 	PLL, HSE, HSI, LSE, LSI
 } osc_t;
 
+/* =============================================================================
+ * Convenience definitions for a readable API
+ * ---------------------------------------------------------------------------*/
+/**
+ * @brief Clock enable definitions
+ *
+ * The definitions are specified in the form
+ * 31:5 register offset from RCC_AHB1RSTR for the clock register
+ * 4:0  bit offset for the given peripheral
+ *
+ * The names have the form RCC_[periph_type][periph_number]
+ */
+typedef enum {
+	/* RCC_AHB1RSTR, RCC_AHB1ENR, RCC_AHB1LPENR  */
+	RCC_GPIOA = (0x00 << 5) + 0,
+	RCC_GPIOB,
+	RCC_GPIOC,
+	RCC_GPIOD,
+	RCC_GPIOE,
+	RCC_GPIOF,
+	RCC_GPIOG,
+	RCC_GPIOH,
+	RCC_GPIOI,
+	RCC_CRC = (0x00 << 5) + 12,
+	RCC_FLITF = (0x00 << 5) + 15,
+	RCC_SRAM1,
+	RCC_SRAM2,
+	RCC_BKPSRAM,
+	RCC_SRAM3,
+	RCC_CCMDATARAM,
+	RCC_DMA1,
+	RCC_DMA2,
+	RCC_ETHMAC = (0x00 << 5) + 25,
+	RCC_ETHMACTX,
+	RCC_ETHMACRX,
+	RCC_ETHMACPTP,
+	RCC_OTGHS,
+	RCC_OTGHSULPI,
+
+	/* RCC_AHB2RSTR, RCC_AHB2ENR, RCC_AHB2LPENR */
+	RCC_DCMI = (0x04 << 5) + 0,
+	RCC_CRYP = (0x04 << 5) + 4,
+	RCC_HASH,
+	RCC_RNG,
+	RCC_OTGFS,
+
+	/* RCC_AHB3RSTR RCC_AHB3ENR RCC_AHB3LPENR*/
+	RCC_FSMC = (0x08 << 5) + 0,
+
+	/* RCC_APB1RSTR RCC_APB1ENR RCC_APB1LPENR*/
+	RCC_TIM2 = (0x10 << 5) + 0,
+	RCC_TIM3,
+	RCC_TIM4,
+	RCC_TIM5,
+	RCC_TIM6,
+	RCC_TIM7,
+	RCC_TIM12,
+	RCC_TIM13,
+	RCC_TIM14,
+	RCC_WWDG = (0x10 << 5) + 11,
+	RCC_SPI2 = (0x10 << 5) + 14,
+	RCC_SPI3,
+	RCC_USART2 = (0x10 << 5) + 17,
+	RCC_USART3,
+	RCC_UART4,
+	RCC_UART5,
+	RCC_I2C1,
+	RCC_I2C2,
+	RCC_I2C3,
+	RCC_CAN1 = (0x10 << 5) + 25,
+	RCC_CAN2,
+	RCC_PWR = (0x10 << 5) + 28,
+	RCC_DAC,
+	RCC_UART7,
+	RCC_UART8,
+
+	/* RCC_APB2RSTR RCC_APB2ENR RCC_APB2LPENR*/
+	RCC_TIM1 = (0x14 << 5) + 0,
+	RCC_TIM8,
+	RCC_USART1 = (0x14 << 5) + 4,
+	RCC_USART6,
+	RCC_ADC = (0x14 << 5) + 8,
+	RCC_ADC1 = (0x14 << 5) + 8,
+	RCC_ADC2,
+	RCC_ADC3,
+	RCC_SDIO,
+	RCC_SPI1,
+	RCC_SPI4,
+	RCC_SYSCFG,
+	RCC_TIM9 = (0x14 << 5) + 16,
+	RCC_TIM10,
+	RCC_TIM11,
+	RCC_SPI5 = (0x14 << 5) + 20,
+	RCC_SPI6
+
+} periph_t;
+
 BEGIN_DECLS
 
 void rcc_osc_ready_int_clear(osc_t osc);
@@ -505,6 +602,13 @@ void rcc_peripheral_enable_clock(volatile uint32_t *reg, uint32_t en);
 void rcc_peripheral_disable_clock(volatile uint32_t *reg, uint32_t en);
 void rcc_peripheral_reset(volatile uint32_t *reg, uint32_t reset);
 void rcc_peripheral_clear_reset(volatile uint32_t *reg, uint32_t clear_reset);
+void rcc_periph_clock_enable(periph_t periph);
+void rcc_periph_clock_disable(periph_t periph);
+void rcc_periph_clock_lp_enable(periph_t periph);
+void rcc_periph_clock_lp_disable(periph_t periph);
+void rcc_periph_reset_pulse(periph_t periph);
+void rcc_periph_reset_hold(periph_t periph);
+void rcc_periph_reset_release(periph_t periph);
 void rcc_set_sysclk_source(uint32_t clk);
 void rcc_set_pll_source(uint32_t pllsrc);
 void rcc_set_ppre2(uint32_t ppre2);
