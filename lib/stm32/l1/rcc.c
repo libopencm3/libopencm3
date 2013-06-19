@@ -552,3 +552,87 @@ void rcc_clock_setup_pll(const clock_scale_t *clock)
 	rcc_ppre1_frequency = clock->apb1_frequency;
 	rcc_ppre2_frequency = clock->apb2_frequency;
 }
+
+/**@{*/
+
+/**
+ * @name Common Peripheral API
+ */
+/**@{*/
+/*---------------------------------------------------------------------------*/
+/** @brief Enable Peripheral Clock in running mode.
+ *
+ * Enable the clock on particular peripheral.
+ *
+ * @param[in] periph periph_t Peripheral Name
+ *
+ * For available constants, see #periph_t (RCC_UART1 for example)
+ */
+
+void rcc_periph_clock_enable(periph_t periph)
+{
+	MMIO32(RCC_BASE + 0x1C + (periph >> 5)) |= 1 << (periph & 0x1f);
+}
+
+/*---------------------------------------------------------------------------*/
+/** @brief Disable Peripheral Clock in running mode.
+ * Disable the clock on particular peripheral.
+ *
+ * @param[in] periph periph_t Peripheral Name
+ *
+ * For available constants, see #periph_t (RCC_UART1 for example)
+ */
+
+void rcc_periph_clock_disable(periph_t periph)
+{
+	MMIO32(RCC_BASE + 0x1C + (periph >> 5)) &= ~(1 << (periph & 0x1f));
+}
+
+/*---------------------------------------------------------------------------*/
+/** @brief Reset Peripheral, pulsed
+ *
+ * Reset particular peripheral, and restore to working state.
+ *
+ * @param[in] periph periph_t Peripheral name
+ *
+ * For available constants, see #periph_t (RCC_UART1 for example)
+ */
+
+void rcc_periph_reset_pulse(periph_t periph)
+{
+	MMIO32(RCC_BASE + 0x10 + (periph >> 5)) |= (1 << (periph & 0x1f));
+	MMIO32(RCC_BASE + 0x10 + (periph >> 5)) &= ~(1 << (periph & 0x1f));
+}
+
+/*---------------------------------------------------------------------------*/
+/** @brief Reset Peripheral, hold
+ *
+ * Reset particular peripheral, and hold in reset state.
+ *
+ * @param[in] periph periph_t Peripheral name
+ *
+ * For available constants, see #periph_t  (RCC_UART1 for example)
+ */
+
+void rcc_periph_reset_hold(periph_t periph)
+{
+	MMIO32(RCC_BASE + 0x10 + (periph >> 5)) |= (1 << (periph & 0x1f));
+}
+
+/*---------------------------------------------------------------------------*/
+/** @brief Reset Peripheral, release
+ *
+ * Restore peripheral from reset state to working state.
+ *
+ * @param[in] periph periph_t Peripheral name
+ *
+ * For available constants, see #periph_t (RCC_UART1 for example)
+ */
+
+void rcc_periph_reset_release(periph_t periph)
+{
+	MMIO32(RCC_BASE + 0x10 + (periph >> 5)) &= ~(1 << (periph & 0x1f));
+}
+
+/**@}*/
+

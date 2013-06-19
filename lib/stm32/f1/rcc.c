@@ -1218,5 +1218,97 @@ void rcc_backupdomain_reset(void)
 	/* Clear the backup domain software reset. */
 	RCC_BDCR &= ~RCC_BDCR_BDRST;
 }
+
+/**@{*/
+
+/**
+ * @name Common Peripheral API
+ */
+/**@{*/
+/*---------------------------------------------------------------------------*/
+/** @brief Enable Peripheral Clock in running mode.
+ *
+ * Enable the clock on particular peripheral.
+ *
+ * @param[in] periph periph_t Peripheral Name
+ *
+ * For available constants, see #periph_t (RCC_UART1 for example)
+ */
+
+void rcc_periph_clock_enable(periph_t periph)
+{
+	MMIO32(RCC_BASE + 0x14 + (periph >> 5)) |= 1 << (periph & 0x1f);
+}
+
+/*---------------------------------------------------------------------------*/
+/** @brief Disable Peripheral Clock in running mode.
+ * Disable the clock on particular peripheral.
+ *
+ * @param[in] periph periph_t Peripheral Name
+ *
+ * For available constants, see #periph_t (RCC_UART1 for example)
+ */
+
+void rcc_periph_clock_disable(periph_t periph)
+{
+	MMIO32(RCC_BASE + 0x14 + (periph >> 5)) &= ~(1 << (periph & 0x1f));
+}
+
+/*---------------------------------------------------------------------------*/
+/** @brief Reset Peripheral, pulsed
+ *
+ * Reset particular peripheral, and restore to working state.
+ *
+ * @param[in] periph periph_t Peripheral name
+ *
+ * For available constants, see #periph_t (RCC_UART1 for example)
+ */
+
+void rcc_periph_reset_pulse(periph_t periph)
+{
+	/* AHB bus has no reset */
+	if ((periph >> 5) > 0)
+	{
+		MMIO32(RCC_BASE + 0x08 + (periph >> 5)) |= (1 << (periph & 0x1f));
+		MMIO32(RCC_BASE + 0x08 + (periph >> 5)) &= ~(1 << (periph & 0x1f));
+	}
+}
+
+/*---------------------------------------------------------------------------*/
+/** @brief Reset Peripheral, hold
+ *
+ * Reset particular peripheral, and hold in reset state.
+ *
+ * @param[in] periph periph_t Peripheral name
+ *
+ * For available constants, see #periph_t  (RCC_UART1 for example)
+ */
+
+void rcc_periph_reset_hold(periph_t periph)
+{
+	/* AHB bus has no reset */
+	if ((periph >> 5) > 0)
+		MMIO32(RCC_BASE + 0x08 + (periph >> 5)) |= (1 << (periph & 0x1f));
+}
+
+/*---------------------------------------------------------------------------*/
+/** @brief Reset Peripheral, release
+ *
+ * Restore peripheral from reset state to working state.
+ *
+ * @param[in] periph periph_t Peripheral name
+ *
+ * For available constants, see #periph_t (RCC_UART1 for example)
+ */
+
+void rcc_periph_reset_release(periph_t periph)
+{
+	/* AHB bus has no reset */
+	if ((periph >> 5) > 0)
+		MMIO32(RCC_BASE + 0x08 + (periph >> 5)) &= ~(1 << (periph & 0x1f));
+}
+
+/**@}*/
+
 /**@}*/
 
