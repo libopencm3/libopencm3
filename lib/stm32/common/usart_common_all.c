@@ -204,8 +204,17 @@ void usart_disable(u32 usart)
 
 void usart_send(u32 usart, u16 data)
 {
+#if defined STM32F3
+
+	/* Send data. */
+	USART_TDR(usart) = (data & USART_TDR_MASK);
+
+#else
+
 	/* Send data. */
 	USART_DR(usart) = (data & USART_DR_MASK);
+
+#endif
 }
 
 /*-----------------------------------------------------------------------------*/
@@ -219,8 +228,15 @@ If parity is enabled the MSB (bit 7 or 8 depending on the word length) is the pa
 
 u16 usart_recv(u32 usart)
 {
+#if defined STM32F3
+
+	/* Receive data. */
+	return USART_RDR(usart) & USART_RDR_MASK;
+#else
+
 	/* Receive data. */
 	return USART_DR(usart) & USART_DR_MASK;
+#endif
 }
 
 /*-----------------------------------------------------------------------------*/
@@ -234,8 +250,13 @@ next data word.
 
 void usart_wait_send_ready(u32 usart)
 {
+#if defined STM32F3
+	/* Wait until the data has been transferred into the shift register. */
+	while ((USART_ISR(usart) & USART_ISR_TXE) == 0);
+#else 
 	/* Wait until the data has been transferred into the shift register. */
 	while ((USART_SR(usart) & USART_SR_TXE) == 0);
+#endif
 }
 
 /*-----------------------------------------------------------------------------*/
@@ -248,8 +269,13 @@ Blocks until the receive data buffer holds a valid received data word.
 
 void usart_wait_recv_ready(u32 usart)
 {
+#if defined STM32F3
+	/* Wait until the data is ready to be received. */
+	while ((USART_ISR(usart) & USART_ISR_RXNE) == 0);
+#else
 	/* Wait until the data is ready to be received. */
 	while ((USART_SR(usart) & USART_SR_RXNE) == 0);
+#endif 
 }
 
 /*-----------------------------------------------------------------------------*/
@@ -417,7 +443,11 @@ void usart_disable_error_interrupt(u32 usart)
 
 bool usart_get_flag(u32 usart, u32 flag)
 {
+#if defined STM32F3
+	return ((USART_ISR(usart) & flag) != 0);
+#else 
 	return ((USART_SR(usart) & flag) != 0);
+#endif 
 }
 
 /*---------------------------------------------------------------------------*/
@@ -438,6 +468,19 @@ to be added for completeness.
 
 bool usart_get_interrupt_source(u32 usart, u32 flag)
 {
+#if defined STM32F3
+
+u32 flag_set = (USART_ISR(usart) & flag);
+/* IDLE, RXNE, TC, TXE interrupts */
+	if ((flag >= USART_ISR_IDLE) && (flag <= USART_ISR_TXE))
+		return ((flag_set & USART_CR1(usart)) != 0);
+/* Overrun error */
+	else if (flag == USART_ISR_ORE)
+		return (flag_set && (USART_CR3(usart) & USART_CR3_CTSIE));
+	return (false);
+
+#else 
+
 u32 flag_set = (USART_SR(usart) & flag);
 /* IDLE, RXNE, TC, TXE interrupts */
 	if ((flag >= USART_SR_IDLE) && (flag <= USART_SR_TXE))
@@ -446,6 +489,8 @@ u32 flag_set = (USART_SR(usart) & flag);
 	else if (flag == USART_SR_ORE)
 		return (flag_set && (USART_CR3(usart) & USART_CR3_CTSIE));
 	return (false);
+
+#endif
 }
 
 /**@}*/

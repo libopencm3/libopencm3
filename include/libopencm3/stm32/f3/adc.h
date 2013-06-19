@@ -237,6 +237,12 @@
 #define ADC3_CALFACT		ADC_CALFACT(ADC3_BASE)
 #define ADC4_CALFACT		ADC_CALFACT(ADC4_BASE)
 
+/* ADC common (shared) registers */
+#define	ADC_COMMON_REGISTERS_BASE	(ADC1_BASE+0x300)
+#define ADC_CSR				MMIO32(ADC_COMMON_REGISTERS_BASE + 0x0)
+#define ADC_CCR				MMIO32(ADC_COMMON_REGISTERS_BASE + 0x8)
+#define ADC_CDR				MMIO32(ADC_COMMON_REGISTERS_BASE + 0xA)
+
 
 /*------- ADC_ISR values ---------*/
 
@@ -333,8 +339,8 @@
 /* JADSTART: ADC start of injected conversion */
 #define ADC_CR_JADSTART		(1 << 3)
 
-/* ADDSTART: ADC start of regular conversion */
-#define ADC_CR_ADDSTART		(1 << 2)
+/* ADSTART: ADC start of regular conversion */
+#define ADC_CR_ADSTART		(1 << 2)
 
 /* ADDIS: ADC disable command */
 #define ADC_CR_ADDIS		(1 << 1)
@@ -364,6 +370,9 @@
 #define ADC_CFGR_AWD1CH_ADC_IN_CH_15	(0x0F << 26)
 #define ADC_CFGR_AWD1CH_ADC_IN_CH_16	(0x10 << 26)
 #define ADC_CFGR_AWD1CH_ADC_IN_CH_17	(0x11 << 26)
+
+#define ADC_CFGR_AWD1CH_MASK		(0x1F << 26)
+
 /* Ohters bits reserved, must not be used */
 
 /* JAUTO: Autoamtic injected group conversion */
@@ -385,14 +394,15 @@
 #define ADC_CFGR_JDISCEN	(1 << 20)
 
 /* DISCNUM[2:0]: Discontinuous mode channel count */
-#define ADC_CFGR_DISNUM_1_CH	(0x0 << 17)
-#define ADC_CFGR_DISNUM_2_CH	(0x1 << 17)
-#define ADC_CFGR_DISNUM_3_CH	(0x2 << 17)
-#define ADC_CFGR_DISNUM_4_CH	(0x3 << 17)
-#define ADC_CFGR_DISNUM_5_CH	(0x4 << 17)
-#define ADC_CFGR_DISNUM_6_CH	(0x5 << 17)
-#define ADC_CFGR_DISNUM_7_CH	(0x6 << 17)
-#define ADC_CFGR_DISNUM_8_CH	(0x7 << 17)
+#define ADC_CFGR_DISCNUM_1_CH	(0x0 << 17)
+#define ADC_CFGR_DISCNUM_2_CH	(0x1 << 17)
+#define ADC_CFGR_DISCNUM_3_CH	(0x2 << 17)
+#define ADC_CFGR_DISCNUM_4_CH	(0x3 << 17)
+#define ADC_CFGR_DISCNUM_5_CH	(0x4 << 17)
+#define ADC_CFGR_DISCNUM_6_CH	(0x5 << 17)
+#define ADC_CFGR_DISCNUM_7_CH	(0x6 << 17)
+#define ADC_CFGR_DISCNUM_8_CH	(0x7 << 17)
+#define ADC_CFGR_DISCNUM_SHIFT	17
 
 /* DISCEN: Discontinuous mode for regular channels */
 #define ADC_CFGR_DISCEN		(1 << 16)
@@ -412,23 +422,27 @@
 #define ADC_CFGR_EXTEN_FALLING_EDGE	(0x2 << 10)
 #define ADC_CFGR_EXTEN_BOTH_EDGES	(0x3 << 10)
 
+#define ADC_CFGR_EXTEN_MASK		(0x3 << 10)
+
 /* EXTSEL[3:0]: External trigger selection for regular group */
-#define ADC_CFGR_EXSTEL_EVENT_0		(0x0 << 6)
-#define ADC_CFGR_EXSTEL_EVENT_1		(0x1 << 6)
-#define ADC_CFGR_EXSTEL_EVENT_2		(0x2 << 6)
-#define ADC_CFGR_EXSTEL_EVENT_3		(0x3 << 6)
-#define ADC_CFGR_EXSTEL_EVENT_4		(0x4 << 6)
-#define ADC_CFGR_EXSTEL_EVENT_5		(0x5 << 6)
-#define ADC_CFGR_EXSTEL_EVENT_6		(0x6 << 6)
-#define ADC_CFGR_EXSTEL_EVENT_7		(0x7 << 6)
-#define ADC_CFGR_EXSTEL_EVENT_8		(0x8 << 6)
-#define ADC_CFGR_EXSTEL_EVENT_9		(0x9 << 6)
-#define ADC_CFGR_EXSTEL_EVENT_10	(0xA << 6)
-#define ADC_CFGR_EXSTEL_EVENT_11	(0xB << 6)
-#define ADC_CFGR_EXSTEL_EVENT_12	(0xC << 6)
-#define ADC_CFGR_EXSTEL_EVENT_13	(0xD << 6)
-#define ADC_CFGR_EXSTEL_EVENT_14	(0xE << 6)
-#define ADC_CFGR_EXSTEL_EVENT_15	(0xF << 6)
+#define ADC_CFGR_EXTSEL_EVENT_0		(0x0 << 6)
+#define ADC_CFGR_EXTSEL_EVENT_1		(0x1 << 6)
+#define ADC_CFGR_EXTSEL_EVENT_2		(0x2 << 6)
+#define ADC_CFGR_EXTSEL_EVENT_3		(0x3 << 6)
+#define ADC_CFGR_EXTSEL_EVENT_4		(0x4 << 6)
+#define ADC_CFGR_EXTSEL_EVENT_5		(0x5 << 6)
+#define ADC_CFGR_EXTSEL_EVENT_6		(0x6 << 6)
+#define ADC_CFGR_EXTSEL_EVENT_7		(0x7 << 6)
+#define ADC_CFGR_EXTSEL_EVENT_8		(0x8 << 6)
+#define ADC_CFGR_EXTSEL_EVENT_9		(0x9 << 6)
+#define ADC_CFGR_EXTSEL_EVENT_10	(0xA << 6)
+#define ADC_CFGR_EXTSEL_EVENT_11	(0xB << 6)
+#define ADC_CFGR_EXTSEL_EVENT_12	(0xC << 6)
+#define ADC_CFGR_EXTSEL_EVENT_13	(0xD << 6)
+#define ADC_CFGR_EXTSEL_EVENT_14	(0xE << 6)
+#define ADC_CFGR_EXTSEL_EVENT_15	(0xF << 6)
+
+#define ADC_CFGR_EXTSEL_MASK		(0xF << 6)
 
 /* ALIGN: Data alignment */
 #define ADC_CFGR_ALIGN		(1 << 5)
@@ -439,6 +453,8 @@
 #define ADC_CFGR_RES_8_BIT	(0x2 << 3)
 #define ADC_CFGR_RES_6_BIT	(0x3 << 3)
 
+#define ADC_CFGR_RES_MASK	(0x3 << 3)
+
 /* DMACFG: Direct memory access configuration */
 #define ADC_CFGR_DMACFG		(1 << 1)
 
@@ -447,6 +463,37 @@
 
 
 /*------- ADC_SMPR1 values ---------*/
+#define ADC_SMPR1_SMP8_LSB		24
+#define ADC_SMPR1_SMP7_LSB		21
+#define ADC_SMPR1_SMP6_LSB		18
+#define ADC_SMPR1_SMP5_LSB		15
+#define ADC_SMPR1_SMP4_LSB		12
+#define ADC_SMPR1_SMP3_LSB		9
+#define ADC_SMPR1_SMP2_LSB		6
+#define ADC_SMPR1_SMP1_LSB		3
+#define ADC_SMPR1_SMP8_MSK		(0x7 << ADC_SMP8_LSB)
+#define ADC_SMPR1_SMP7_MSK		(0x7 << ADC_SMP7_LSB)
+#define ADC_SMPR1_SMP6_MSK		(0x7 << ADC_SMP6_LSB)
+#define ADC_SMPR1_SMP5_MSK		(0x7 << ADC_SMP5_LSB)
+#define ADC_SMPR1_SMP4_MSK		(0x7 << ADC_SMP4_LSB)
+#define ADC_SMPR1_SMP3_MSK		(0x7 << ADC_SMP3_LSB)
+#define ADC_SMPR1_SMP2_MSK		(0x7 << ADC_SMP2_LSB)
+#define ADC_SMPR1_SMP1_MSK		(0x7 << ADC_SMP1_LSB)
+/****************************************************************************/
+/* ADC_SMPR1 ADC Sample Time Selection for Channels */
+/** @defgroup adc_sample_r1 ADC Sample Time Selection for ADC1
+@ingroup STM32F4xx_adc_defines
+
+@{*/
+#define ADC_SMPR1_SMP_1DOT5CYC		0x0
+#define ADC_SMPR1_SMP_2DOT5CYC		0x1
+#define ADC_SMPR1_SMP_4DOT5CYC		0x2
+#define ADC_SMPR1_SMP_7DOT5CYC		0x3
+#define ADC_SMPR1_SMP_19DOT5CYC		0x4
+#define ADC_SMPR1_SMP_61DOT5CYC		0x5
+#define ADC_SMPR1_SMP_181DOT5CYC	0x6
+#define ADC_SMPR1_SMP_601DOT5CYC	0x7
+/**@}*/
 
 /* SMPx[2:0]: Channel x sampling time selection */
 
@@ -479,6 +526,17 @@
 
 
 /*------- ADC_SQR1 values ---------*/
+
+#define ADC_SQR1_L_LSB			0
+#define ADC_SQR1_SQ1_LSB		6
+#define ADC_SQR1_SQ2_LSB		12
+#define ADC_SQR1_SQ3_LSB		18
+#define ADC_SQR1_SQ4_LSB		24
+#define ADC_SQR1_L_MSK			(0xf << ADC_SQR1_L_LSB)
+#define ADC_SQR1_SQ1_MSK		(0x1f << ADC_SQR1_SQ1_LSB)
+#define ADC_SQR1_SQ2_MSK		(0x1f << ADC_SQR1_SQ2_LSB)
+#define ADC_SQR1_SQ3_MSK		(0x1f << ADC_SQR1_SQ3_LSB)
+#define ADC_SQR1_SQ4_MSK		(0x1f << ADC_SQR1_SQ4_LSB)
 
 /* Bits 28:24 SQ4[4:0]: 4th conversion in regular sequence */
 
@@ -547,6 +605,12 @@
 
 /*------- ADC_JSQR values ---------*/
 
+#define ADC_JSQR_JL_LSB			0
+#define ADC_JSQR_JSQ4_LSB		26
+#define ADC_JSQR_JSQ3_LSB		20
+#define ADC_JSQR_JSQ2_LSB		14
+#define ADC_JSQR_JSQ1_LSB		8
+
 /* Bits 30:26 JSQ4[4:0]: 4th conversion in the injected sequence */
 
 /* Bits 24:20 JSQ3[4:0]: 3rd conversion in the injected sequence */
@@ -560,6 +624,8 @@
 #define ADC_JSQR_JEXTEN_RISING_EDGE	(0x1 << 6)
 #define ADC_JSQR_JEXTEN_FALLING_EDGE	(0x2 << 6)
 #define ADC_JSQR_JEXTEN_BOTH_EDGES	(0x3 << 6)
+
+#define ADC_JSQR_JEXTEN_MASK		(0x3 << 6)
 
 /* JEXTSEL[3:0]: External Trigger Selection for injected group */
 #define ADC_JSQR_JEXTSEL_EVENT_0	(0x0 << 2)
@@ -578,6 +644,8 @@
 #define ADC_JSQR_JEXTSEL_EVENT_13	(0xD << 2)
 #define ADC_JSQR_JEXTSEL_EVENT_14	(0xE << 2)
 #define ADC_JSQR_JEXTSEL_EVENT_15	(0xF << 2)
+
+#define ADC_JSQR_JEXTSEL_MASK		(0xF << 2)
 
 /* JL[1:0]: Injected channel sequence length */
 #define ADC_JSQR_JL_1_CONVERSION	(0x0 << 0)
@@ -655,6 +723,185 @@
 /* Bits 6:0 CALFACT_S[6:0]: Calibration Factors In Single-Ended mode */
 
 
+/*--------------- ADC_CSR values  ------------------------*/
+
+/* Bit 26 JQOVF_SLV: Injected Context Queue Overflow flag of the slave ADC */
+#define ADC_CSR_JQOVF_SLV		(1 << 26)
+
+/* Bit 25 AWD3_SLV: Analog watchdog 3 flag of the slave ADC */
+#define ADC_CSR_AWD3_SLV		(1 << 25)
+
+/* Bit 24 AWD2_SLV: Analog watchdog 2 flag of the slave ADC */
+#define ADC_CSR_AWD2_SLV		(1 << 24)
+
+/* Bit 23 AWD1_SLV: Analog watchdog 1 flag of the slave ADC */
+#define ADC_CSR_AWD1_SLV		(1 << 23)
+
+/* Bit 22 JEOS_SLV: End of injected sequence flag of the slave ADC */
+#define ADC_CSR_JEOS_SLV		(1 << 22)
+
+/* Bit 21 JEOC_SLV: End of injected conversion flag of the slave ADC */
+#define ADC_CSR_JEOC_SLV		(1 << 21)
+
+/* Bit 20 OVR_SLV: Overrun flag of the slave ADC */
+#define ADC_CSR_OVR_SLV			(1 << 20)
+
+/* Bit 19 EOS_SLV: End of regular sequence flag of the slave ADC */
+#define ADC_CSR_EOS_SLV			(1 << 19)
+
+/* Bit 18 EOC_SLV: End of regular conversion of the slave ADC */
+#define ADC_CSR_EOC_SLV			(1 << 18)
+
+/* Bit 17 EOSMP_SLV: End of Sampling phase flag of the slave ADC */
+#define ADC_CSR_EOSMP_SLV		(1 << 17)
+
+/* Bit 16 ADRDY_SLV: Slave ADC ready */
+#define ADC_CSR_ADRDY_SLV		(1 << 16)
+
+/* Bit 10 JQOVF_MST: Injected Context Queue Overflow flag of the master ADC */
+#define ADC_CSR_JQOVF_MST		(1 << 10)
+
+/* Bit 9 AWD3_MST: Analog watchdog 3 flag of the master ADC */
+#define ADC_CSR_AWD3_MST		(1 << 9)
+
+/* Bit 8 AWD2_MST: Analog watchdog 2 flag of the master ADC */
+#define ADC_CSR_AWD2_MST		(1 << 8)
+
+/* Bit 7 AWD1_MST: Analog watchdog 1 flag of the master ADC */
+#define ADC_CSR_AWD1_MST		(1 << 7)
+
+/* Bit 6 JEOS_MST: End of injected sequence flag of the master ADC */
+#define ADC_CSR_JEOS_MST		(1 << 6)
+
+/* Bit 5 JEOC_MST: End of injected conversion flag of the master ADC */
+#define ADC_CSR_JEOC_MST		(1 << 5)
+
+/* Bit 4 OVR_MST: Overrun flag of the master ADC */
+#define ADC_CSR_OVR_MST			(1 << 4)
+
+/* Bit 3 EOS_MST: End of regular sequence flag of the master ADC */
+#define ADC_CSR_EOS_MST			(1 << 3)
+
+/* Bit 2 EOC_MST: End of regular conversion of the master ADC */
+#define ADC_CSR_EOC_MST			(1 << 2)
+
+/* Bit 1 EOSMP_MST: End of Sampling phase flag of the master ADC */
+#define ADC_CSR_EOSMP_MST		(1 << 1)
+
+/* Bit 0 ADRDY_MST: Master ADC ready */
+#define ADC_CSR_ADRDY_MST		(1 << 0)
+
+
+/*-------- ADC_CCR values ------------*/
+
+/* VBATEN: VBAT enable */
+#define ADC_CCR_VBATEN  		(1 << 24)
+
+/* TSEN: Temperature sensor enable */
+#define ADC_CCR_TSEN  			(1 << 23)
+
+/* VREFEN: VREFINT enable */
+#define ADC_CCR_VREFEN 			(1 << 22)
+
+/* CKMODE[1:0]: ADC clock mode */
+#define ADC_CCR_CKMODE_CKX		(0x0 << 16)
+#define ADC_CCR_CKMODE_DIV1		(0x1 << 16)
+#define ADC_CCR_CKMODE_DIV2		(0x2 << 16)
+#define ADC_CCR_CKMODE_DIV4		(0x3 << 16)
+
+#define ADC_CCR_CKMODE_MASK		(0x3 << 16)
+
+/* MDMA[1:0]: Direct memory access mode for dual ADC mode */
+#define ADC_CCR_MDMA_DISABLE		(0x0 << 14)
+//#define ADC_CCR_MDMA_RESERVED		(0x1 << 14)
+#define ADC_CCR_MDMA_12_10_BIT		(0x2 << 14)
+#define ADC_CCR_MDMA_8_6_BIT		(0x3 << 14)
+
+/* DMACFG: DMA configuration (for dual ADC mode) */
+#define ADC_CCR_DMACFG			(1 << 13)
+
+/* DELAY: Delay between 2 sampling phases */
+#define ADC_CCR_DELAY_SHIFT		8
+
+/* DUAL[4:0]: Dual ADC mode selection */
+#define ADC_CCR_DUAL_SHIFT		0
+
+
+/*---------------- ADC_CDR values -----------------*/
+
+/* Bits 31:16 RDATA_SLV[15:0]: Regular data of the slave ADC */
+
+/* Bits 15:0 RDATA_MST[15:0]: Regular data of the master ADC. */
+
+
+
+BEGIN_DECLS
+
+void adc_power_on(u32 adc);
+void adc_off(u32 adc);
+void adc_enable_analog_watchdog_regular(u32 adc);
+void adc_disable_analog_watchdog_regular(u32 adc);
+void adc_enable_analog_watchdog_injected(u32 adc);
+void adc_disable_analog_watchdog_injected(u32 adc);
+void adc_enable_discontinuous_mode_regular(u32 adc, u8 length);
+void adc_disable_discontinuous_mode_regular(u32 adc);
+void adc_enable_discontinuous_mode_injected(u32 adc);
+void adc_disable_discontinuous_mode_injected(u32 adc);
+void adc_enable_automatic_injected_group_conversion(u32 adc);
+void adc_disable_automatic_injected_group_conversion(u32 adc);
+void adc_enable_analog_watchdog_on_all_channels(u32 adc);
+void adc_enable_analog_watchdog_on_selected_channel(u32 adc, u8 channel);
+//void adc_enable_scan_mode(u32 adc);
+//void adc_disable_scan_mode(u32 adc);
+void adc_enable_eoc_interrupt_injected(u32 adc);
+void adc_disable_eoc_interrupt_injected(u32 adc);
+void adc_enable_all_awd_interrupt(u32 adc);
+void adc_disable_all_awd_interrupt(u32 adc);
+void adc_enable_eoc_interrupt(u32 adc);
+void adc_disable_eoc_interrupt(u32 adc);
+void adc_start_conversion_regular(u32 adc);
+void adc_start_conversion_injected(u32 adc);
+void adc_disable_external_trigger_regular(u32 adc);
+void adc_disable_external_trigger_injected(u32 adc);
+void adc_set_left_aligned(u32 adc);
+void adc_set_right_aligned(u32 adc);
+void adc_enable_dma(u32 adc);
+void adc_disable_dma(u32 adc);
+void adc_set_continuous_conversion_mode(u32 adc);
+void adc_set_single_conversion_mode(u32 adc);
+void adc_set_sample_time(u32 adc, u8 channel, u8 time);
+void adc_set_sample_time_on_all_channels(u32 adc, u8 time);
+void adc_set_watchdog_high_threshold(u32 adc, u8 threshold);
+void adc_set_watchdog_low_threshold(u32 adc, u8 threshold);
+void adc_set_regular_sequence(u32 adc, u8 length, u8 channel[]);
+void adc_set_injected_sequence(u32 adc, u8 length, u8 channel[]);
+bool adc_eoc(u32 adc);
+bool adc_eoc_injected(u32 adc);
+u32 adc_read_regular(u32 adc);
+u32 adc_read_injected(u32 adc, u8 reg);
+void adc_set_injected_offset(u32 adc, u8 reg, u32 offset);
+
+void adc_set_clk_prescale(u32 prescaler);
+void adc_set_multi_mode(u32 mode);
+void adc_enable_external_trigger_regular(u32 adc, u32 trigger, u32 polarity);
+void adc_enable_external_trigger_injected(u32 adc, u32 trigger, u32 polarity);
+void adc_set_resolution(u32 adc, u16 resolution);
+void adc_enable_overrun_interrupt(u32 adc);
+void adc_disable_overrun_interrupt(u32 adc);
+bool adc_get_overrun_flag(u32 adc);
+void adc_clear_overrun_flag(u32 adc);
+bool adc_awd(u32 adc);
+void adc_eoc_after_each(u32 adc);
+void adc_eoc_after_group(u32 adc);
+//void adc_set_dma_continue(u32 adc);
+//void adc_set_dma_terminate(u32 adc);
+void adc_enable_temperature_sensor(void);
+void adc_disable_temperature_sensor(void);
+
+END_DECLS
+
+
+#endif 
 
 
 
