@@ -421,6 +421,68 @@ typedef enum {
 	PLL, HSE, HSI, MSI, LSE, LSI
 } osc_t;
 
+/* =============================================================================
+ * Convenience definitions for a readable API
+ * ---------------------------------------------------------------------------*/
+/**
+ * @brief Clock enable definitions
+ *
+ * The definitions are specified in the form
+ * 31:5 register offset from RCC_AHB1RSTR for the clock register
+ * 4:0  bit offset for the given peripheral
+ *
+ * The names have the form RCC_[periph_type][periph_number]
+ */
+typedef enum {
+	/* RCC_AHBRSTR, RCC_AHBENR  */
+	RCC_GPIOA = (0x00 << 5) + 0,
+	RCC_GPIOB,
+	RCC_GPIOC,
+	RCC_GPIOD,
+	RCC_GPIOE,
+	RCC_GPIOF,
+	RCC_GPIOG,
+	RCC_CRC = (0x00 << 5) + 12,
+	RCC_FLITF = (0x00 << 5) + 15,
+	RCC_DMA1 = (0x00 << 5) + 24,
+	RCC_DMA2,
+	RCC_AES = (0x00 << 5) + 27,
+	RCC_FSMC = (0x00 << 5) + 30,
+	
+	/* RCC_APB2RSTR, RCC_APB2ENR */
+	RCC_SYSCFG = (0x04 << 5) + 0,
+	RCC_TIM9 = (0x04 << 5) + 2,
+	RCC_TIM10,
+	RCC_TIM11,
+	RCC_ADC1 = (0x04 << 5) + 9,
+	RCC_SDIO = (0x04 << 5) + 11,
+	RCC_SPI1 = (0x04 << 5) + 12,
+	RCC_USART1 = (0x04 << 5) + 14,
+
+	/* RCC_APB1RSTR RCC_APB1ENR RCC_APB1LPENR*/
+	RCC_TIM2 = (0x08 << 5) + 0,
+	RCC_TIM3,
+	RCC_TIM4,
+	RCC_TIM5,
+	RCC_TIM6,
+	RCC_TIM7,
+	RCC_LCD = (0x08 << 5) + 9,
+	RCC_WWDG = (0x08 << 5) + 11,
+	RCC_SPI2 = (0x08 << 5) + 14,
+	RCC_SPI3,
+	RCC_USART2 = (0x08 << 5) + 17,
+	RCC_USART3,
+	RCC_UART4,
+	RCC_UART5,
+	RCC_I2C1,
+	RCC_I2C2,
+	RCC_USB,
+	RCC_PWR = (0x08 << 5) + 28,
+	RCC_DAC,
+	RCC_COMP = (0x08 << 5) + 31,
+
+} periph_t;
+
 BEGIN_DECLS
 
 void rcc_osc_ready_int_clear(osc_t osc);
@@ -457,6 +519,11 @@ void rcc_clock_setup_msi(const clock_scale_t *clock);
 void rcc_clock_setup_hsi(const clock_scale_t *clock);
 void rcc_clock_setup_pll(const clock_scale_t *clock);
 void rcc_backupdomain_reset(void);
+void rcc_periph_clock_enable(periph_t periph);
+void rcc_periph_clock_disable(periph_t periph);
+void rcc_periph_reset_pulse(periph_t periph);
+void rcc_periph_reset_hold(periph_t periph);
+void rcc_periph_reset_release(periph_t periph);
 
 END_DECLS
 
