@@ -424,6 +424,7 @@ void rcc_set_hpre(u32 hpre);
 void rcc_set_main_pll_hsi(u32 pll);
 u32 rcc_get_system_clock_source(int i);
 void rcc_backupdomain_reset(void);
+void rcc_clock_setup_hsi(const clock_scale_t *clock);
 
 END_DECLS
 

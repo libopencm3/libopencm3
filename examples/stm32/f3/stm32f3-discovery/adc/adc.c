@@ -22,6 +22,7 @@
 
 #include <libopencm3/stm32/f3/rcc.h>
 #include <libopencm3/stm32/f3/adc.h>
+#include <libopencm3/stm32/f3/usart.h>
 #include <libopencm3/stm32/gpio.h>
 
 #define LBLUE GPIOE, GPIO8
@@ -72,6 +73,27 @@ void adc_setup(void) {
 
 }
 
+void usart_setup(void) {
+  /* Enable clocks for GPIO port A (for GPIO_USART2_TX) and USART2. */
+  rcc_peripheral_enable_clock(&RCC_APB2ENR, RCC_APB2ENR_USART1EN);
+  rcc_peripheral_enable_clock(&RCC_AHBENR, RCC_AHBENR_IOPAEN);
+
+  /* Setup GPIO pin GPIO_USART2_TX/GPIO9 on GPIO port A for transmit. */
+  gpio_mode_setup(GPIOA, GPIO_MODE_AF, GPIO_PUPD_NONE, GPIO2 | GPIO3);
+  gpio_set_af(GPIOA, GPIO_AF7, GPIO2| GPIO3);
+
+  /* Setup UART parameters. */
+  usart_set_baudrate(USART2, 9600);
+  usart_set_databits(USART2, 8);
+  usart_set_stopbits(USART2, USART_STOPBITS_1);
+  usart_set_mode(USART2, USART_MODE_TX_RX);
+  usart_set_parity(USART2, USART_PARITY_NONE);
+  usart_set_flow_control(USART2, USART_FLOWCONTROL_NONE);
+  
+  /* Finally enable the USART. */
+  usart_enable(USART2);
+}
+
 void gpio_setup(void)
 {
 	/* Enable GPIOE clock. */
@@ -89,13 +111,44 @@ void gpio_setup(void)
 	gpio_mode_setup(GPIOE, GPIO_MODE_OUTPUT, GPIO_PUPD_NONE, GPIO8| GPIO9| GPIO10| GPIO11| GPIO12| GPIO13| GPIO14| GPIO15);
 }
 
+void my_usart_print_int(u32 usart, int value)
+{
+        s8 i;
+        u8 nr_digits = 0;
+        char buffer[25];
+
+        if (value < 0) {
+                usart_send_blocking(usart, '-');
+                value = value * -1;
+        }
+
+        while (value > 0) {
+                buffer[nr_digits++] = "0123456789"[value % 10];
+                value /= 10;
+        }
+
+        for (i = nr_digits; i >= 0; i--) {
+                usart_send_blocking(usart, buffer[i]);
+        }
+
+        usart_send_blocking(usart, '\r');
+}
+
+void clock_setup(void) {
+  //rcc_osc_off(PLL);
+  //rcc_set_pll_source(0);
+  rcc_clock_setup_hsi(&hsi_8mhz[CLOCK_64MHZ]);
+}
+
 int main(void)
 {
 	int i, j;
        	u16 temp, inc=0;
 
+	clock_setup();
 	gpio_setup();
 	adc_setup();
+	usart_setup();
 
 	/* Blink the LED (PC8) on the board. */
 	while (1) {
@@ -116,13 +169,20 @@ int main(void)
 	  // 	__asm__("nop");
 
 	  /* Using API function gpio_toggle(): */
-	  //gpio_set(LRED);
-	  for (i = 0; i < 20000; i++) /* Wait a bit. */
+	  gpio_toggle(LRED);
+	  for (i = 0; i < 200000; i++) /* Wait a bit. */
+	    __asm__("nop");
+	  gpio_toggle(LRED);
+	  for (i = 0; i < 200000; i++) /* Wait a bit. */
 	    __asm__("nop");
 	  adc_start_conversion_regular(ADC1);
 	  while (!(adc_eoc(ADC1)));
 	  temp=adc_read_regular(ADC1);
 	  gpio_port_write(GPIOE, temp << 4);
+	  //my_usart_print_int(USART2, temp);
+	  usart_send_blocking(USART2, 'a');
+	  usart_send_blocking(USART2, '\r');
+
 	  inc++;
 	}
 

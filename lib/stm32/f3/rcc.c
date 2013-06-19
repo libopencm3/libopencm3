@@ -349,6 +349,7 @@ void rcc_clock_setup_hsi(const clock_scale_t *clock)
 	/* Enable internal high-speed oscillator. */
 	rcc_osc_on(HSI);
 	rcc_wait_for_osc_ready(HSI);
+	rcc_osc_off(PLL);
 
 	/* Select HSI as SYSCLK source. */
 	rcc_set_sysclk_source(RCC_CFGR_SW_HSI);
@@ -362,6 +363,7 @@ void rcc_clock_setup_hsi(const clock_scale_t *clock)
 	rcc_set_ppre2(clock->ppre2);
 
 	rcc_set_main_pll_hsi(clock->pll);
+	rcc_set_pll_source(0);
 	
 	
 
