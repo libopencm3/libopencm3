@@ -61,7 +61,7 @@ void adc_setup(void) {
         adc_set_sample_time_on_all_channels(ADC1, ADC_SMPR1_SMP_61DOT5CYC);
 	u8 channel_array[16];
 	channel_array[0]=16; // Vts (Internal temperature sensor
-	//channel_array[0]=1; //ADC1_IN1 (PA0)
+	channel_array[0]=1; //ADC1_IN1 (PA0)
 	adc_set_regular_sequence(ADC1, 1, channel_array);
 	adc_set_resolution(ADC1, ADC_CFGR_RES_12_BIT);
         adc_power_on(ADC1);
@@ -75,7 +75,7 @@ void adc_setup(void) {
 
 void usart_setup(void) {
   /* Enable clocks for GPIO port A (for GPIO_USART2_TX) and USART2. */
-  rcc_peripheral_enable_clock(&RCC_APB2ENR, RCC_APB2ENR_USART1EN);
+  rcc_peripheral_enable_clock(&RCC_APB1ENR, RCC_APB1ENR_USART2EN);
   rcc_peripheral_enable_clock(&RCC_AHBENR, RCC_AHBENR_IOPAEN);
 
   /* Setup GPIO pin GPIO_USART2_TX/GPIO9 on GPIO port A for transmit. */
@@ -83,7 +83,7 @@ void usart_setup(void) {
   gpio_set_af(GPIOA, GPIO_AF7, GPIO2| GPIO3);
 
   /* Setup UART parameters. */
-  usart_set_baudrate(USART2, 9600);
+  usart_set_baudrate(USART2, 115200);
   usart_set_databits(USART2, 8);
   usart_set_stopbits(USART2, USART_STOPBITS_1);
   usart_set_mode(USART2, USART_MODE_TX_RX);
