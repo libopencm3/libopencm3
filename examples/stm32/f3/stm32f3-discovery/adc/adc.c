@@ -132,11 +132,26 @@ void my_usart_print_int(u32 usart, int value)
         }
 
         usart_send_blocking(usart, '\r');
+        usart_send_blocking(usart, '\n');
 }
 
 void clock_setup(void) {
-  //rcc_osc_off(PLL);
-  //rcc_set_pll_source(0);
+  /*
+  rcc_set_sysclk_source(RCC_CFGR_SW_HSI); //se cayo
+  rcc_wait_for_sysclk_status(HSI);
+  rcc_osc_off(PLL);
+  rcc_wait_for_osc_not_ready(PLL);
+  rcc_set_pll_source(RCC_CFGR_PLLSRC_HSI_DIV2);
+  rcc_set_main_pll_hsi(RCC_CFGR_PLLMUL_PLL_IN_CLK_X11);
+  rcc_osc_on(PLL);
+  rcc_wait_for_osc_ready(PLL);
+  rcc_set_hpre(RCC_CFGR_HPRE_DIV_NONE);
+  rcc_set_ppre2(RCC_CFGR_PPRE2_DIV_NONE);
+  rcc_set_ppre1(RCC_CFGR_PPRE1_DIV_2);
+  rcc_set_sysclk_source(RCC_CFGR_SW_PLL); //se cayo
+  rcc_wait_for_sysclk_status(PLL);
+  */
+  //rcc_clock_setup_hsi(&hsi_8mhz[CLOCK_44MHZ]);
   rcc_clock_setup_hsi(&hsi_8mhz[CLOCK_64MHZ]);
 }
 
@@ -179,9 +194,10 @@ int main(void)
 	  while (!(adc_eoc(ADC1)));
 	  temp=adc_read_regular(ADC1);
 	  gpio_port_write(GPIOE, temp << 4);
-	  //my_usart_print_int(USART2, temp);
-	  usart_send_blocking(USART2, 'a');
-	  usart_send_blocking(USART2, '\r');
+	  my_usart_print_int(USART2, temp);
+	  //usart_send_blocking(USART2, 'a');
+	  //usart_send_blocking(USART2, '\r');
+	  //usart_send_blocking(USART2, '\n');
 
 	  inc++;
 	}

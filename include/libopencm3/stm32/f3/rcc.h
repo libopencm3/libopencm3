@@ -75,6 +75,10 @@
 #define RCC_CFGR_MCO_HSE			0x6
 #define RCC_CFGR_MCO_PLL			0x7
 
+/* PLLSRC: PLL source values */
+#define RCC_CFGR_PLLSRC_HSI_DIV2 0
+#define RCC_CFGR_PLLSRC_HSE_PREDIV 1
+
 /* PLLMUL: PLL multiplication factor */
 #define RCC_CFGR_PLLMUL_SHIFT			18
 #define RCC_CFGR_PLLMUL_PLL_IN_CLK_X2		0x0
@@ -375,19 +379,21 @@ extern u32 rcc_ppre2_frequency;
 /* --- Function prototypes ------------------------------------------------- */
 
 typedef enum {
-	CLOCK_64MHZ,
-	CLOCK_END
+  CLOCK_44MHZ,
+  CLOCK_64MHZ,
+  CLOCK_END
 } clock_t;
 
 typedef struct {
-	uint8_t pll;
-	uint32_t flash_config;
-	uint8_t hpre;
-	uint8_t ppre1;
-	uint8_t ppre2;
-	uint8_t power_save;
-	uint32_t apb1_frequency;
-	uint32_t apb2_frequency;
+  uint8_t pll;
+  uint8_t pllsrc;
+  uint32_t flash_config;
+  uint8_t hpre;
+  uint8_t ppre1;
+  uint8_t ppre2;
+  uint8_t power_save;
+  uint32_t apb1_frequency;
+  uint32_t apb2_frequency;
 } clock_scale_t;
 
 extern const clock_scale_t hsi_8mhz[CLOCK_END];
@@ -405,6 +411,7 @@ int rcc_osc_ready_int_flag(osc_t osc);
 void rcc_css_int_clear(void);
 int rcc_css_int_flag(void);
 void rcc_wait_for_osc_ready(osc_t osc);
+void rcc_wait_for_osc_not_ready(osc_t osc);
 void rcc_wait_for_sysclk_status(osc_t osc);
 void rcc_osc_on(osc_t osc);
 void rcc_osc_off(osc_t osc);

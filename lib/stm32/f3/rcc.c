@@ -32,15 +32,27 @@ u32 rcc_ppre2_frequency = 8000000;
 
 const clock_scale_t hsi_8mhz[CLOCK_END] =
 {
-	{ /* 64MHz */
+	{ /* 44MHz */
 	  .pll= RCC_CFGR_PLLMUL_PLL_IN_CLK_X11,
+	  .pllsrc = RCC_CFGR_PLLSRC_HSI_DIV2,
 	  .hpre = RCC_CFGR_HPRE_DIV_NONE,
 	  .ppre1 = RCC_CFGR_PPRE1_DIV_2,
 	  .ppre2 = RCC_CFGR_PPRE2_DIV_NONE,
 	  .power_save = 1,
-	  //.flash_config = FLASH_ICE | FLASH_DCE | FLASH_LATENCY_3WS,
-	  .apb1_frequency = 36000000,
-	  .apb2_frequency = 72000000,
+	  .flash_config = FLASH_PRFTBE | FLASH_LATENCY_2WS,
+	  .apb1_frequency = 22000000,
+	  .apb2_frequency = 44000000,
+	},
+	{ /* 64MHz */
+	  .pll= RCC_CFGR_PLLMUL_PLL_IN_CLK_X16,
+	  .pllsrc = RCC_CFGR_PLLSRC_HSI_DIV2,
+	  .hpre = RCC_CFGR_HPRE_DIV_NONE,
+	  .ppre1 = RCC_CFGR_PPRE1_DIV_2,
+	  .ppre2 = RCC_CFGR_PPRE2_DIV_NONE,
+	  .power_save = 1,
+	  .flash_config = FLASH_PRFTBE| FLASH_LATENCY_3WS,
+	  .apb1_frequency = 32000000,
+	  .apb2_frequency = 64000000,
 	}
 };
 
@@ -157,6 +169,28 @@ void rcc_wait_for_osc_ready(osc_t osc)
 		break;
 	case LSI:
 		while ((RCC_CSR & RCC_CSR_LSIRDY) == 0);
+		break;
+	}
+}
+
+
+void rcc_wait_for_osc_not_ready(osc_t osc)
+{
+	switch (osc) {
+	case PLL:
+		while ((RCC_CR & RCC_CR_PLLRDY) != 0);
+		break;
+	case HSE:
+		while ((RCC_CR & RCC_CR_HSERDY) != 0);
+		break;
+	case HSI:
+		while ((RCC_CR & RCC_CR_HSIRDY) != 0);
+		break;
+	case LSE:
+		while ((RCC_BDCR & RCC_BDCR_LSERDY) != 0);
+		break;
+	case LSI:
+		while ((RCC_CSR & RCC_CSR_LSIRDY) != 0);
 		break;
 	}
 }
@@ -299,7 +333,7 @@ void rcc_set_pll_source(u32 pllsrc)
  	u32 reg32; 
 
  	reg32 = RCC_CFGR; 
- 	reg32 &= ~(1 << 22);
+ 	reg32 &= ~RCC_CFGR_PLLSRC;
  	RCC_CFGR = (reg32 | (pllsrc << 16)); 
 }
 
@@ -346,43 +380,37 @@ u32 rcc_system_clock_source(void)
 
 void rcc_clock_setup_hsi(const clock_scale_t *clock)
 {
-	/* Enable internal high-speed oscillator. */
-	rcc_osc_on(HSI);
-	rcc_wait_for_osc_ready(HSI);
-	rcc_osc_off(PLL);
+  /* Enable internal high-speed oscillator. */
+  rcc_osc_on(HSI);
+  rcc_wait_for_osc_ready(HSI);
+  /* Select HSI as SYSCLK source. */
+  rcc_set_sysclk_source(RCC_CFGR_SW_HSI); //se cayo
+  rcc_wait_for_sysclk_status(HSI);
 
-	/* Select HSI as SYSCLK source. */
-	rcc_set_sysclk_source(RCC_CFGR_SW_HSI);
+  rcc_osc_off(PLL);
+  rcc_wait_for_osc_not_ready(PLL);
+  rcc_set_pll_source(clock->pllsrc);
+  rcc_set_main_pll_hsi(clock->pll);
+  /* Enable PLL oscillator and wait for it to stabilize. */
+  rcc_osc_on(PLL);
+  rcc_wait_for_osc_ready(PLL);
+  /*
+   * Set prescalers for AHB, ADC, ABP1, ABP2.
+   * Do this before touching the PLL (TODO: why?).
+   */
+  rcc_set_hpre(clock->hpre);
+  rcc_set_ppre2(clock->ppre2);
+  rcc_set_ppre1(clock->ppre1);
+  /* Configure flash settings. */
+  flash_set_ws(clock->flash_config);
+  /* Select PLL as SYSCLK source. */
+  rcc_set_sysclk_source(RCC_CFGR_SW_PLL); //se cayo
+  /* Wait for PLL clock to be selected. */
+  rcc_wait_for_sysclk_status(PLL);
 
-	/*
-	 * Set prescalers for AHB, ADC, ABP1, ABP2.
-	 * Do this before touching the PLL (TODO: why?).
-	 */
-	rcc_set_hpre(clock->hpre);
-	rcc_set_ppre1(clock->ppre1);
-	rcc_set_ppre2(clock->ppre2);
-
-	rcc_set_main_pll_hsi(clock->pll);
-	rcc_set_pll_source(0);
-	
-	
-
-	/* Enable PLL oscillator and wait for it to stabilize. */
-	rcc_osc_on(PLL);
-	rcc_wait_for_osc_ready(PLL);
-
-	/* Configure flash settings. */
-	flash_set_ws(clock->flash_config);
-
-	/* Select PLL as SYSCLK source. */
-	rcc_set_sysclk_source(RCC_CFGR_SW_PLL); //se cayo
-
-	/* Wait for PLL clock to be selected. */
-	rcc_wait_for_sysclk_status(PLL);
-
-	/* Set the peripheral clock frequencies used. */
-	rcc_ppre1_frequency = clock->apb1_frequency;
-	rcc_ppre2_frequency = clock->apb2_frequency;
+  /* Set the peripheral clock frequencies used. */
+  rcc_ppre1_frequency = clock->apb1_frequency;
+  rcc_ppre2_frequency = clock->apb2_frequency;
 }
 
 
