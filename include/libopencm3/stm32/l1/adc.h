@@ -136,7 +136,7 @@ LGPL License Terms @ref lgpl_license
 #define ADC_SMPR0(block)		MMIO32(block + 0x5c)
 #define ADC1_SMPR0			ADC_SMPR0(ADC1)
 
-#define ADC_COMMON_REGISTERS_BASE	(PERIPH_BASE_APB2 + 0x2400)
+#define ADC_COMMON_REGISTERS_BASE	(ADC_BASE + 0x300)
 
 /* ADC common status register (ADC_CSR) */
 #define ADC_CSR			        MMIO32(ADC_COMMON_REGISTERS_BASE + 0x0)
