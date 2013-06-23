@@ -189,7 +189,7 @@ LGPL License Terms @ref lgpl_license
 
 /* --- ADC_SR values ------------------------------------------------------- */
 
-#define ADC_SR_JNCR			(1 << 9)
+#define ADC_SR_JCNR			(1 << 9)
 #define ADC_SR_RCNR			(1 << 8)
 #define ADC_SR_ADONS			(1 << 6)
 #define ADC_SR_OVR			(1 << 5)
