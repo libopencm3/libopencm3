@@ -640,8 +640,8 @@ void adc_enable_external_trigger_regular(u32 adc, u32 mode, u32 trigger)
 {
 	u32 reg32;
 
-	reg32 = (ADC_CR2(adc) & ~(ADC_CR2_EXTEN_MASK));
-	reg32 |= (trigger);
+	reg32 = ADC_CR2(adc) & ~(ADC_CR2_EXTEN_MASK | ADC_CR2_EXTSEL_MASK);
+	reg32 |= trigger;
 	ADC_CR2(adc) = reg32;
 	ADC_CR2(adc) |= mode;
 }
@@ -690,8 +690,8 @@ void adc_enable_external_trigger_injected(u32 adc, u32 mode, u32 trigger)
 {
 	u32 reg32;
 
-	reg32 = (ADC_CR2(adc) & ~(ADC_CR2_JEXTSEL_MASK)); /* Clear bits [12:14]. */
-	reg32 |= (trigger);
+	reg32 = ADC_CR2(adc) & ~(ADC_CR2_JEXTEN_MASK | ADC_CR2_JEXTSEL_MASK);
+	reg32 |= trigger;
 	ADC_CR2(adc) = reg32;
 	ADC_CR2(adc) |= mode;
 }
