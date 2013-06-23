@@ -320,34 +320,34 @@ LGPL License Terms @ref lgpl_license
 /** Timer 9 Compare Output 2 */
 #define ADC_CR2_EXTSEL_TIM9_CC2		(0x0 << 16)
 /** Timer 9 Trigger Output */
-#define ADC_CR2_EXTSEL_TIM9_TRGO	(0x1 << 16)
+#define ADC_CR2_EXTSEL_TIM9_TRGO	(0x1 << 24)
 /** Timer 2 Compare Output 3 */
-#define ADC_CR2_EXTSEL_TIM2_CC3		(0x2 << 16)
+#define ADC_CR2_EXTSEL_TIM2_CC3		(0x2 << 24)
 /** Timer 2 Compare Output 2 */
-#define ADC_CR2_EXTSEL_TIM2_CC2		(0x3 << 16)
+#define ADC_CR2_EXTSEL_TIM2_CC2		(0x3 << 24)
 /** Timer 3 Trigger Output */
-#define ADC_CR2_EXTSEL_TIM3_TRGO	(0x4 << 16)
+#define ADC_CR2_EXTSEL_TIM3_TRGO	(0x4 << 24)
 /** Timer 4 Compare Output 4 */
-#define ADC_CR2_EXTSEL_TIM4_CC4		(0x5 << 16)
+#define ADC_CR2_EXTSEL_TIM4_CC4		(0x5 << 24)
 /** Timer 2 Trigger Output */
-#define ADC_CR2_EXTSEL_TIM2_TRGO	(0x6 << 16)
+#define ADC_CR2_EXTSEL_TIM2_TRGO	(0x6 << 24)
 /** Timer 3 Compare Output 1 */
-#define ADC_CR2_EXTSEL_TIM3_CC1		(0x7 << 16)
+#define ADC_CR2_EXTSEL_TIM3_CC1		(0x7 << 24)
 /** Timer 3 Compare Output 3 */
-#define ADC_CR2_EXTSEL_TIM3_CC3		(0x8 << 16)
+#define ADC_CR2_EXTSEL_TIM3_CC3		(0x8 << 24)
 /** Timer 4 Trigger Output */
-#define ADC_CR2_EXTSEL_TIM4_TRGO	(0x9 << 16)
+#define ADC_CR2_EXTSEL_TIM4_TRGO	(0x9 << 24)
 /** Timer 6 Trigger Output */
-#define ADC_CR2_EXTSEL_TIM6_TRGO	(0xa << 16)
+#define ADC_CR2_EXTSEL_TIM6_TRGO	(0xa << 24)
 /** External Interrupt 11 */
-#define ADC_CR2_EXTSEL_EXTI11		(0xf << 16)
+#define ADC_CR2_EXTSEL_EXTI11		(0xf << 24)
 /**@}*/
 
-#define ADC_CR2_EXTSEL_MASK		(0x7 << 17)
-#define ADC_CR2_EXTSEL_SHIFT		17
+#define ADC_CR2_EXTSEL_MASK		(0x7 << 24)
+#define ADC_CR2_EXTSEL_SHIFT		24
 
 /* JSWSTART: */ /** Start conversion of injected channels. */
-#define ADC_CR2_JSWSTART		(1 << 21)
+#define ADC_CR2_JSWSTART		(1 << 22)
 
 /* Note: Bits [12:15] are reserved and must be kept at reset value. */
 
@@ -407,9 +407,17 @@ LGPL License Terms @ref lgpl_license
 #define ADC_CR2_ALIGN_LEFT              (1 << 11)
 #define ADC_CR2_ALIGN			(1 << 11)
 
-/* Note: Bits [10:9] are reserved and must be kept at reset value. */
+/* ALIGN: Left or right alignment of samples */
+#define ADC_CR2_ALIGN			(1 << 11)
 
-/* DMA: Direct memory access mode. (ADC1 and ADC3 only!) */
+/* EOCS: Select whether EOC is set at end of each conversion or group
+   of conversions */
+#define ADC_CR2_EOCS			(1 << 10)
+
+/* DDS: DMA disable selection */
+#define ADC_CR2_DDS			(1 << 9)
+
+/* DMA: Direct memory access mode. */
 #define ADC_CR2_DMA			(1 << 8)
 
 /* Note: Bit 7 is reserved and must be kept at reset value. */
