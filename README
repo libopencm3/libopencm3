@@ -9,6 +9,7 @@ Currently (at least partly) supported microcontrollers:
 
  - ST STM32F1 series
  - ST STM32F2 series
+ - ST STM32F3 series
  - ST STM32F4 series
  - NXP LPC1311/13/42/43
 
