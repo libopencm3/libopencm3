@@ -49,7 +49,7 @@ OBJS            += crc_common_all.o dac_common_all.o dma_common_f24.o \
 		   rcc_common_all.o
 
 OBJS            += usb.o usb_standard.o usb_control.o usb_fx07_common.o \
-		   usb_f107.o usb_f207.o
+		   usb_f107.o usb_f207.o usb_msc.o
 
 OBJS		+= mac.o phy.o mac_stm32fxx7.o phy_ksz8051mll.o fmc.o
 
