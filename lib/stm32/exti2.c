@@ -25,6 +25,8 @@
 #include <libopencm3/stm32/syscfg.h>
 #if defined(STM32F2)
 #include <libopencm3/stm32/f2/gpio.h>
+#elif defined(STM32F3)
+#include <libopencm3/stm32/f3/gpio.h>
 #elif defined(STM32F4)
 #include <libopencm3/stm32/f4/gpio.h>
 #elif defined(STM32L1)
@@ -141,23 +143,25 @@ void exti_select_source(uint32_t exti, uint32_t gpioport)
 	case GPIOE:
 		bits = 0xb;
 		break;
-#if defined(STM32L1)
-#else
+#if !defined(STM32L1)
 	case GPIOF:
 		bits = 0xa;
 		break;
+#if !defined(STM32F3)
 	case GPIOG:
 		bits = 0x9;
 		break;
 #endif
+#endif
+#if !defined(STM32F3)
 	case GPIOH:
 		bits = 0x8;
 		break;
-#if defined(STM32L1)
-#else
+#if !defined(STM32L1)
 	case GPIOI:
 		bits = 0x7;
 		break;
+#endif
 #endif
 	}
 

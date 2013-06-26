@@ -32,6 +32,17 @@
 #define EXTI_SWIER			MMIO32(EXTI_BASE + 0x10)
 #define EXTI_PR				MMIO32(EXTI_BASE + 0x14)
 
+#if defined (STM32F3)
+
+#define EXTI_IMR2			MMIO32(EXTI_BASE + 0x18)
+#define EXTI_EMR2			MMIO32(EXTI_BASE + 0x1C)
+#define EXTI_RTSR2			MMIO32(EXTI_BASE + 0x20)
+#define EXTI_FTSR2			MMIO32(EXTI_BASE + 0x24)
+#define EXTI_SWIER2			MMIO32(EXTI_BASE + 0x28)
+#define EXTI_PR2			MMIO32(EXTI_BASE + 0x2C)
+
+#endif
+
 /* EXTI number definitions */
 #define EXTI0				(1 << 0)
 #define EXTI1				(1 << 1)
@@ -53,9 +64,14 @@
 #define EXTI17				(1 << 17)
 #define EXTI18				(1 << 18)
 #define EXTI19				(1 << 19)
+
+#if !defined(STM32F3)
+
 #define EXTI20				(1 << 20)
 #define EXTI21				(1 << 21)
 #define EXTI22				(1 << 22)
+
+#endif
 
 /* Trigger types */
 typedef enum trigger_e {
