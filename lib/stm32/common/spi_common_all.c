@@ -394,6 +394,8 @@ void spi_set_next_tx_from_crc(uint32_t spi)
 	SPI_CR1(spi) |= SPI_CR1_CRCNEXT;
 }
 
+#if !defined(STM32F3)
+
 /*---------------------------------------------------------------------------*/
 /** @brief SPI Set Data Frame Format to 8 bits
 
@@ -415,6 +417,8 @@ void spi_set_dff_16bit(uint32_t spi)
 {
 	SPI_CR1(spi) |= SPI_CR1_DFF;
 }
+
+#endif
 
 /*---------------------------------------------------------------------------*/
 /** @brief SPI Set Full Duplex (3-wire) Mode
