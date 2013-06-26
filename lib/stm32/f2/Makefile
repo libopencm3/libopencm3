@@ -41,6 +41,9 @@ OBJS            += crc_common_all.o dac_common_all.o dma_common_f24.o \
                    timer_common_all.o timer_common_f24.o usart_common_all.o \
 									 flash_common_f24.o hash_common_f24.o
 
+OBJS            += usb.o usb_standard.o usb_control.o usb_fx07_common.o \
+                   usb_f107.o usb_f207.o
+
 VPATH += ../../usb:../:../../cm3:../common
 
 include ../../Makefile.include
