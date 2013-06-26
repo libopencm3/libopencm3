@@ -50,10 +50,10 @@ specific memorymap.h header before including this header file.*/
 #define GPIOC				GPIO_PORT_C_BASE
 #define GPIOD				GPIO_PORT_D_BASE
 #define GPIOE				GPIO_PORT_E_BASE
+#define GPIOF				GPIO_PORT_F_BASE
 
 #if !defined (STM32F3)
 
-#define GPIOF				GPIO_PORT_F_BASE
 #define GPIOG				GPIO_PORT_G_BASE
 #define GPIOH				GPIO_PORT_H_BASE
 #define GPIOI				GPIO_PORT_I_BASE
