@@ -371,7 +371,7 @@ void rcc_set_main_pll_hsi(uint32_t pll)
 }
 
 
-uint32_t rcc_system_clock_source(void)
+uint32_t rcc_get_system_clock_source(void)
 {
 	/* Return the clock source which is used as system clock. */
 	return ((RCC_CFGR & 0x000c) >> 2);
