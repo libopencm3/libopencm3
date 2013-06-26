@@ -61,6 +61,18 @@ void usart_set_baudrate(uint32_t usart, uint32_t baud)
 	}
 #endif
 
+#if defined STM32F3
+	if (usart == USART1) {
+	  /* usart1 can be clocked from appart from pclk1 also from sysclk,
+	     hsi and lse. Please improve! */
+	  clock = rcc_ppre1_frequency;
+	}
+	else {
+	  /*There are from usart1 to usart5 interfaces in the stm32f3*/
+	  clock = rcc_ppre2_frequency;
+	}
+#endif
+
 	/*
 	 * Yes it is as simple as that. The reference manual is
 	 * talking about fractional calculation but it seems to be only
@@ -207,7 +219,11 @@ usart_reg_base
 void usart_send(uint32_t usart, uint16_t data)
 {
 	/* Send data. */
+#if !defined(STM32F3)
 	USART_DR(usart) = (data & USART_DR_MASK);
+#else
+	USART_TDR(usart) = (data & USART_TDR_MASK);
+#endif
 }
 
 /*---------------------------------------------------------------------------*/
@@ -224,7 +240,11 @@ usart_reg_base
 uint16_t usart_recv(uint32_t usart)
 {
 	/* Receive data. */
+#if !defined(STM32F3)
 	return USART_DR(usart) & USART_DR_MASK;
+#else
+	return USART_RDR(usart) & USART_RDR_MASK;
+#endif
 }
 
 /*---------------------------------------------------------------------------*/
@@ -240,7 +260,11 @@ usart_reg_base
 void usart_wait_send_ready(uint32_t usart)
 {
 	/* Wait until the data has been transferred into the shift register. */
+#if !defined(STM32F3)
 	while ((USART_SR(usart) & USART_SR_TXE) == 0);
+#else
+	while ((USART_ISR(usart) & USART_ISR_TXE) == 0);
+#endif
 }
 
 /*---------------------------------------------------------------------------*/
@@ -255,7 +279,11 @@ usart_reg_base
 void usart_wait_recv_ready(uint32_t usart)
 {
 	/* Wait until the data is ready to be received. */
+#if !defined(STM32F3)
 	while ((USART_SR(usart) & USART_SR_RXNE) == 0);
+#else
+	while ((USART_ISR(usart) & USART_ISR_RXNE) == 0);
+#endif
 }
 
 /*---------------------------------------------------------------------------*/
@@ -436,7 +464,11 @@ usart_reg_base
 
 bool usart_get_flag(uint32_t usart, uint32_t flag)
 {
+#if !defined(STM32F3)
 	return ((USART_SR(usart) & flag) != 0);
+#else
+	return ((USART_ISR(usart) & flag) != 0);
+#endif
 }
 
 /*---------------------------------------------------------------------------*/
@@ -458,12 +490,22 @@ usart_reg_base
 
 bool usart_get_interrupt_source(uint32_t usart, uint32_t flag)
 {
-uint32_t flag_set = (USART_SR(usart) & flag);
+#if !defined(STM32F3)
+        uint32_t flag_set = (USART_SR(usart) & flag);
 	/* IDLE, RXNE, TC, TXE interrupts */
 	if ((flag >= USART_SR_IDLE) && (flag <= USART_SR_TXE)) {
+#else
+        uint32_t flag_set = (USART_ISR(usart) & flag);
+	/* IDLE, RXNE, TC, TXE interrupts */
+	if ((flag >= USART_ISR_IDLE) && (flag <= USART_ISR_TXE)) {
+#endif
 		return ((flag_set & USART_CR1(usart)) != 0);
 	/* Overrun error */
+#if !defined(STM32F3)
 	} else if (flag == USART_SR_ORE) {
+#else
+	} else if (flag == USART_ISR_ORE) {
+#endif
 		return flag_set && (USART_CR3(usart) & USART_CR3_CTSIE);
 	}
 
