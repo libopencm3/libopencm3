@@ -65,11 +65,11 @@ void usart_set_baudrate(uint32_t usart, uint32_t baud)
 	if (usart == USART1) {
 	  /* usart1 can be clocked from appart from pclk1 also from sysclk,
 	     hsi and lse. Please improve! */
-	  clock = rcc_ppre1_frequency;
+	  clock = rcc_ppre2_frequency;
 	}
 	else {
 	  /*There are from usart1 to usart5 interfaces in the stm32f3*/
-	  clock = rcc_ppre2_frequency;
+	  clock = rcc_ppre1_frequency;
 	}
 #endif
 
