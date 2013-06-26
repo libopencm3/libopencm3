@@ -52,33 +52,33 @@ typedef struct _usbd_mass_storage usbd_mass_storage;
  */
 
 /* (A) Table 4.5: Mass Storage Device Class Code */
-#define USB_CLASS_MASS			0x08
+#define USB_CLASS_MSC			0x08
 
 /* (B) Table 2.1: Class Subclass Code */
-#define USB_MASS_SUBCLASS_RBC		0x01
-#define USB_MASS_SUBCLASS_ATAPI		0x02
-#define USB_MASS_SUBCLASS_UFI		0x04
-#define USB_MASS_SUBCLASS_SCSI		0x06
-#define USB_MASS_SUBCLASS_LOCKABLE	0x07
-#define USB_MASS_SUBCLASS_IEEE1667	0x08
+#define USB_MSC_SUBCLASS_RBC		0x01
+#define USB_MSC_SUBCLASS_ATAPI		0x02
+#define USB_MSC_SUBCLASS_UFI		0x04
+#define USB_MSC_SUBCLASS_SCSI		0x06
+#define USB_MSC_SUBCLASS_LOCKABLE	0x07
+#define USB_MSC_SUBCLASS_IEEE1667	0x08
 
 /* (B) Table 3.1 Mass Storage Interface Class Control Protocol Codes */
-#define USB_MASS_PROTOCOL_CBI		0x00
-#define USB_MASS_PROTOCOL_CBI_ALT	0x01
-#define USB_MASS_PROTOCOL_BBB		0x50
+#define USB_MSC_PROTOCOL_CBI		0x00
+#define USB_MSC_PROTOCOL_CBI_ALT	0x01
+#define USB_MSC_PROTOCOL_BBB		0x50
 
 /* (B) Table 4.1 Mass Storage Request Codes */
-#define USB_MASS_REQ_CODES_ADSC		0x00
-#define USB_MASS_REQ_CODES_GET		0xFC
-#define USB_MASS_REQ_CODES_PUT		0xFD
-#define USB_MASS_REQ_CODES_GML		0xFE
-#define USB_MASS_REQ_CODES_BOMSR	0xFF
+#define USB_MSC_REQ_CODES_ADSC		0x00
+#define USB_MSC_REQ_CODES_GET		0xFC
+#define USB_MSC_REQ_CODES_PUT		0xFD
+#define USB_MSC_REQ_CODES_GML		0xFE
+#define USB_MSC_REQ_CODES_BOMSR	0xFF
 
 /* (A) Table 3.1/3.2 Class-Specific Request Codes */
-#define USB_MASS_REQ_BULK_ONLY_RESET	0xFF
-#define USB_MASS_REQ_GET_MAX_LUN	0xFE
+#define USB_MSC_REQ_BULK_ONLY_RESET	0xFF
+#define USB_MSC_REQ_GET_MAX_LUN	0xFE
 
-usbd_mass_storage *usb_mass_init(usbd_device *usbd_dev,
+usbd_mass_storage *usb_msc_init(usbd_device *usbd_dev,
 				 uint8_t ep_in, uint8_t ep_in_size,
 				 uint8_t ep_out, uint8_t ep_out_size,
 				 const char *vendor_id,

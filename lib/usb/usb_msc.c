@@ -36,8 +36,8 @@
  */
 
 /* (A) Table 3.1/3.2 Class-Specific Request Codes */
-#define USB_MASS_REQ_BULK_ONLY_RESET	0xFF
-#define USB_MASS_REQ_GET_MAX_LUN	0xFE
+#define USB_MSC_REQ_BULK_ONLY_RESET	0xFF
+#define USB_MSC_REQ_GET_MAX_LUN	0xFE
 
 #define CBW_SIGNATURE			0x43425355
 #define CBW_STATUS_SUCCESS		0
@@ -118,7 +118,7 @@ enum trans_event {
 	EVENT_NEED_STATUS
 };
 
-struct usb_mass_cbw {
+struct usb_msc_cbw {
 	uint32_t dCBWSignature;
 	uint32_t dCBWTag;
 	uint32_t dCBWDataTransferLength;
@@ -128,7 +128,7 @@ struct usb_mass_cbw {
 	uint8_t  CBWCB[16];
 } __attribute__((packed));
 
-struct usb_mass_csw {
+struct usb_msc_csw {
 	uint32_t dCSWSignature;
 	uint32_t dCSWTag;
 	uint32_t dCSWDataResidue;
@@ -141,10 +141,10 @@ struct sbc_sense_info {
 	uint8_t ascq;
 };
 
-struct usb_mass_trans {
+struct usb_msc_trans {
 	uint8_t cbw_cnt;	/* Read until 31 bytes */
 	union {
-		struct usb_mass_cbw cbw;
+		struct usb_msc_cbw cbw;
 		uint8_t buf[1];
 	} cbw;
 
@@ -161,7 +161,7 @@ struct usb_mass_trans {
 	bool csw_valid;
 	uint8_t csw_sent;		/* Write until 13 bytes */
 	union {
-		struct usb_mass_csw csw;
+		struct usb_msc_csw csw;
 		uint8_t buf[1];
 	} csw;
 };
@@ -184,7 +184,7 @@ struct _usbd_mass_storage {
 	void (*lock)(void);
 	void (*unlock)(void);
 
-	struct usb_mass_trans trans;
+	struct usb_msc_trans trans;
 	struct sbc_sense_info sense;
 };
 
@@ -247,13 +247,13 @@ static void set_sbc_status_good(usbd_mass_storage *ms)
 		       SBC_ASCQ_NA);
 }
 
-static uint8_t *get_cbw_buf(struct usb_mass_trans *trans)
+static uint8_t *get_cbw_buf(struct usb_msc_trans *trans)
 {
 	return &trans->cbw.cbw.CBWCB[0];
 }
 
 static void scsi_read_6(usbd_mass_storage *ms,
-			struct usb_mass_trans *trans,
+			struct usb_msc_trans *trans,
 			enum trans_event event)
 {
 	if (EVENT_CBW_VALID == event) {
@@ -275,7 +275,7 @@ static void scsi_read_6(usbd_mass_storage *ms,
 }
 
 static void scsi_write_6(usbd_mass_storage *ms,
-			 struct usb_mass_trans *trans,
+			 struct usb_msc_trans *trans,
 			 enum trans_event event)
 {
 	(void) ms;
@@ -294,7 +294,7 @@ static void scsi_write_6(usbd_mass_storage *ms,
 }
 
 static void scsi_write_10(usbd_mass_storage *ms,
-			  struct usb_mass_trans *trans,
+			  struct usb_msc_trans *trans,
 			  enum trans_event event)
 {
 	(void) ms;
@@ -314,7 +314,7 @@ static void scsi_write_10(usbd_mass_storage *ms,
 }
 
 static void scsi_read_10(usbd_mass_storage *ms,
-			 struct usb_mass_trans *trans,
+			 struct usb_msc_trans *trans,
 			 enum trans_event event)
 {
 	if (EVENT_CBW_VALID == event) {
@@ -335,7 +335,7 @@ static void scsi_read_10(usbd_mass_storage *ms,
 }
 
 static void scsi_read_capacity(usbd_mass_storage *ms,
-			       struct usb_mass_trans *trans,
+			       struct usb_msc_trans *trans,
 			       enum trans_event event)
 {
 	if (EVENT_CBW_VALID == event) {
@@ -355,7 +355,7 @@ static void scsi_read_capacity(usbd_mass_storage *ms,
 }
 
 static void scsi_format_unit(usbd_mass_storage *ms,
-			     struct usb_mass_trans *trans,
+			     struct usb_msc_trans *trans,
 			     enum trans_event event)
 {
 	if (EVENT_CBW_VALID == event) {
@@ -372,7 +372,7 @@ static void scsi_format_unit(usbd_mass_storage *ms,
 }
 
 static void scsi_request_sense(usbd_mass_storage *ms,
-			       struct usb_mass_trans *trans,
+			       struct usb_msc_trans *trans,
 			       enum trans_event event)
 {
 	if (EVENT_CBW_VALID == event) {
@@ -390,7 +390,7 @@ static void scsi_request_sense(usbd_mass_storage *ms,
 }
 
 static void scsi_mode_sense_6(usbd_mass_storage *ms,
-			      struct usb_mass_trans *trans,
+			      struct usb_msc_trans *trans,
 			      enum trans_event event)
 {
 	(void) ms;
@@ -429,7 +429,7 @@ static void scsi_mode_sense_6(usbd_mass_storage *ms,
 }
 
 static void scsi_inquiry(usbd_mass_storage *ms,
-			 struct usb_mass_trans *trans,
+			 struct usb_msc_trans *trans,
 			 enum trans_event event)
 {
 	if (EVENT_CBW_VALID == event) {
@@ -467,7 +467,7 @@ static void scsi_inquiry(usbd_mass_storage *ms,
 }
 
 static void scsi_command(usbd_mass_storage *ms,
-			 struct usb_mass_trans *trans,
+			 struct usb_msc_trans *trans,
 			 enum trans_event event)
 	
 {
@@ -532,10 +532,10 @@ static void scsi_command(usbd_mass_storage *ms,
 /*-- USB Mass Storage Layer --------------------------------------------------*/
 
 /** @brief Handle the USB 'OUT' requests. */
-static void mass_data_rx_cb(usbd_device *usbd_dev, uint8_t ep)
+static void msc_data_rx_cb(usbd_device *usbd_dev, uint8_t ep)
 {
 	usbd_mass_storage *ms;
-	struct usb_mass_trans *trans;
+	struct usb_msc_trans *trans;
 	int len, max_len, left;
 	void *p;
 
@@ -543,14 +543,14 @@ static void mass_data_rx_cb(usbd_device *usbd_dev, uint8_t ep)
 	trans = &ms->trans;
 
 	/* RX only */
-	left = sizeof(struct usb_mass_cbw) - trans->cbw_cnt;
+	left = sizeof(struct usb_msc_cbw) - trans->cbw_cnt;
 	if (0 < left) {
 		max_len = MIN(ms->ep_out_size, left);
 		p = &trans->cbw.buf[0x1ff & trans->cbw_cnt];
 		len = usbd_ep_read_packet(usbd_dev, ep, p, max_len);
 		trans->cbw_cnt += len;
 
-		if (sizeof(struct usb_mass_cbw) == trans->cbw_cnt) {
+		if (sizeof(struct usb_msc_cbw) == trans->cbw_cnt) {
 			scsi_command(ms, trans, EVENT_CBW_VALID);
 			if (trans->byte_count < trans->bytes_to_read) {
 				/* We must wait until there is something to
@@ -635,7 +635,7 @@ static void mass_data_rx_cb(usbd_device *usbd_dev, uint8_t ep)
 			trans->csw_valid = true;
 		}
 
-		left = sizeof(struct usb_mass_csw) - trans->csw_sent;
+		left = sizeof(struct usb_msc_csw) - trans->csw_sent;
 		if (0 < left) {
 			max_len = MIN(ms->ep_out_size, left);
 			p = &trans->csw.buf[trans->csw_sent];
@@ -646,10 +646,10 @@ static void mass_data_rx_cb(usbd_device *usbd_dev, uint8_t ep)
 }
 
 /** @brief Handle the USB 'IN' requests. */
-static void mass_data_tx_cb(usbd_device *usbd_dev, uint8_t ep)
+static void msc_data_tx_cb(usbd_device *usbd_dev, uint8_t ep)
 {
 	usbd_mass_storage *ms;
-	struct usb_mass_trans *trans;
+	struct usb_msc_trans *trans;
 	int len, max_len, left;
 	void *p;
 
@@ -688,13 +688,13 @@ static void mass_data_tx_cb(usbd_device *usbd_dev, uint8_t ep)
 			trans->csw_valid = true;
 		}
 
-		left = sizeof(struct usb_mass_csw) - trans->csw_sent;
+		left = sizeof(struct usb_msc_csw) - trans->csw_sent;
 		if (0 < left) {
 			max_len = MIN(ms->ep_out_size, left);
 			p = &trans->csw.buf[trans->csw_sent];
 			len = usbd_ep_write_packet(usbd_dev, ep, p, max_len);
 			trans->csw_sent += len;
-		} else if (sizeof(struct usb_mass_csw) == trans->csw_sent) {
+		} else if (sizeof(struct usb_msc_csw) == trans->csw_sent) {
 			/* End of transaction */
 			trans->lba_start = 0xffffffff;
 			trans->block_count = 0;
@@ -709,10 +709,10 @@ static void mass_data_tx_cb(usbd_device *usbd_dev, uint8_t ep)
 	}
 }
 
-/** @brief Handle various control requests related to the mass storage
+/** @brief Handle various control requests related to the msc storage
  *	   interface.
  */
-static int mass_control_request(usbd_device *usbd_dev,
+static int msc_control_request(usbd_device *usbd_dev,
 				struct usb_setup_data *req, uint8_t **buf, uint16_t *len,
 				void (**complete)(usbd_device *usbd_dev, struct usb_setup_data *req))
 {
@@ -720,10 +720,10 @@ static int mass_control_request(usbd_device *usbd_dev,
 	(void)usbd_dev;
 
 	switch (req->bRequest) {
-	case USB_MASS_REQ_BULK_ONLY_RESET:
+	case USB_MSC_REQ_BULK_ONLY_RESET:
 		/* Do any special reset code here. */
 		return USBD_REQ_HANDLED;
-	case USB_MASS_REQ_GET_MAX_LUN:
+	case USB_MSC_REQ_GET_MAX_LUN:
 		/* Return the number of LUNs.  We use 0. */
 		*buf[0] = 0;
 		*len = 1;
@@ -734,25 +734,25 @@ static int mass_control_request(usbd_device *usbd_dev,
 }
 
 /** @brief Setup the endpoints to be bulk & register the callbacks. */
-static void mass_set_config(usbd_device *usbd_dev, uint16_t wValue)
+static void msc_set_config(usbd_device *usbd_dev, uint16_t wValue)
 {
 	usbd_mass_storage *ms = &_mass_storage;
 
 	(void)wValue;
 
 	usbd_ep_setup(usbd_dev, ms->ep_in, USB_ENDPOINT_ATTR_BULK,
-		      ms->ep_in_size, mass_data_tx_cb);
+		      ms->ep_in_size, msc_data_tx_cb);
 	usbd_ep_setup(usbd_dev, ms->ep_out, USB_ENDPOINT_ATTR_BULK,
-		      ms->ep_out_size, mass_data_rx_cb);
+		      ms->ep_out_size, msc_data_rx_cb);
 
 	usbd_register_control_callback(
 				usbd_dev,
 				USB_REQ_TYPE_CLASS | USB_REQ_TYPE_INTERFACE,
 				USB_REQ_TYPE_TYPE | USB_REQ_TYPE_RECIPIENT,
-				mass_control_request);
+				msc_control_request);
 }
 
-/** @addtogroup usb_mass */
+/** @addtogroup usb_msc */
 /** @{ */
 
 /** @brief Initializes the USB Mass Storage subsystem.
@@ -776,7 +776,7 @@ static void mass_set_config(usbd_device *usbd_dev, uint16_t wValue)
 
 @return Pointer to the usbd_mass_storage struct.
 */
-usbd_mass_storage *usb_mass_init(usbd_device *usbd_dev,
+usbd_mass_storage *usb_msc_init(usbd_device *usbd_dev,
 				 uint8_t ep_in, uint8_t ep_in_size,
 				 uint8_t ep_out, uint8_t ep_out_size,
 				 const char *vendor_id,
@@ -812,7 +812,7 @@ usbd_mass_storage *usb_mass_init(usbd_device *usbd_dev,
 
 	set_sbc_status_good(&_mass_storage);
 
-	usbd_register_set_config_callback(usbd_dev, mass_set_config);
+	usbd_register_set_config_callback(usbd_dev, msc_set_config);
 
 	return &_mass_storage;
 }
