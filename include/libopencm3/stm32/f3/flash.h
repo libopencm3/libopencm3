@@ -107,12 +107,15 @@ void flash_clear_pgperr_flag(void);
 void flash_clear_eop_flag(void);
 void flash_clear_bsy_flag(void);
 void flash_clear_status_flags(void);
-void flash_erase_all_pages(uint32_t program_size);
-void flash_erase_page(uint32_t page, uint32_t program_size);
-void flash_program_double_word(uint32_t address, uint64_t data, uint32_t program_size);
-void flash_program_word(uint32_t address, uint32_t data, uint32_t program_size);
-void flash_program_half_word(uint32_t address, uint16_t data, uint32_t program_size);
-void flash_program_byte(uint32_t address, uint8_t data, uint32_t program_size);
+
+/* Functions deactivated, please read flash.c for the reasons */
+/* void flash_erase_all_pages(uint32_t program_size); */
+/* void flash_erase_page(uint32_t page, uint32_t program_size); */
+/* void flash_program_double_word(uint32_t address, uint64_t data, uint32_t program_size); */
+/* void flash_program_word(uint32_t address, uint32_t data, uint32_t program_size); */
+/* void flash_program_half_word(uint32_t address, uint16_t data, uint32_t program_size); */
+/* void flash_program_byte(uint32_t address, uint8_t data, uint32_t program_size); */
+
 void flash_wait_for_last_operation(void);
 void flash_program_option_bytes(uint32_t data);
 
