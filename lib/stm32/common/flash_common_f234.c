@@ -20,6 +20,7 @@
 
 #include <libopencm3/stm32/flash.h>
 
+#if !defined(STM32F3)
 static inline void flash_set_program_size(uint32_t psize)
 {
 	FLASH_CR &= ~(((1 << 0) | (1 << 1)) << 8);
@@ -66,6 +67,24 @@ void flash_icache_reset(void)
 	FLASH_ACR |= FLASH_ACR_ICRST;
 }
 
+void flash_clear_pgserr_flag(void)
+{
+	FLASH_SR |= FLASH_SR_PGSERR;
+}
+
+void flash_clear_pgaerr_flag(void)
+{
+	FLASH_SR |= FLASH_SR_PGAERR;
+}
+
+void flash_clear_wrperr_flag(void)
+{
+	FLASH_SR |= FLASH_SR_WRPERR;
+}
+
+
+#endif
+
 void flash_set_ws(uint32_t ws)
 {
 	uint32_t reg32;
@@ -91,29 +110,14 @@ void flash_lock(void)
 	FLASH_CR |= FLASH_CR_LOCK;
 }
 
-void flash_clear_pgserr_flag(void)
-{
-	FLASH_SR |= FLASH_SR_PGSERR;
-}
-
 void flash_clear_pgperr_flag(void)
 {
 	FLASH_SR |= FLASH_SR_PGPERR;
 }
 
-void flash_clear_pgaerr_flag(void)
-{
-	FLASH_SR |= FLASH_SR_PGAERR;
-}
-
 void flash_clear_eop_flag(void)
 {
 	FLASH_SR |= FLASH_SR_EOP;
-}
-
-void flash_clear_wrperr_flag(void)
-{
-	FLASH_SR |= FLASH_SR_WRPERR;
 }
 
 void flash_clear_bsy_flag(void)
@@ -123,13 +127,22 @@ void flash_clear_bsy_flag(void)
 
 void flash_clear_status_flags(void)
 {
+#if !defined(STM32F3)
 	flash_clear_pgserr_flag();
-	flash_clear_pgperr_flag();
 	flash_clear_pgaerr_flag();
-	flash_clear_eop_flag();
 	flash_clear_wrperr_flag();
+#endif
+	flash_clear_pgperr_flag();
+	flash_clear_eop_flag();
 	flash_clear_bsy_flag();
 }
+
+void flash_wait_for_last_operation(void)
+{
+	while ((FLASH_SR & FLASH_SR_BSY) == FLASH_SR_BSY);
+}
+
+#if !defined(STM32F3)
 
 void flash_unlock_option_bytes(void)
 {
@@ -144,11 +157,6 @@ void flash_unlock_option_bytes(void)
 void flash_lock_option_bytes(void)
 {
 	FLASH_OPTCR |= FLASH_OPTCR_OPTLOCK;
-}
-
-void flash_wait_for_last_operation(void)
-{
-	while ((FLASH_SR & FLASH_SR_BSY) == FLASH_SR_BSY);
 }
 
 void flash_program_double_word(uint32_t address, uint64_t data)
@@ -267,3 +275,5 @@ void flash_program_option_bytes(uint32_t data)
 	FLASH_OPTCR |= FLASH_OPTCR_OPTSTRT;  /* Enable option byte prog. */
 	flash_wait_for_last_operation();
 }
+
+#endif

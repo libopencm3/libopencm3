@@ -38,7 +38,7 @@ const clock_scale_t hsi_8mhz[CLOCK_END] =
 	  .ppre1 = RCC_CFGR_PPRE1_DIV_2,
 	  .ppre2 = RCC_CFGR_PPRE2_DIV_NONE,
 	  .power_save = 1,
-	  .flash_config = FLASH_PRFTBE | FLASH_LATENCY_2WS,
+	  .flash_config = FLASH_ACR_PRFTBE | FLASH_ACR_LATENCY_2WS,
 	  .apb1_frequency = 22000000,
 	  .apb2_frequency = 44000000,
 	},
@@ -49,7 +49,7 @@ const clock_scale_t hsi_8mhz[CLOCK_END] =
 	  .ppre1 = RCC_CFGR_PPRE1_DIV_2,
 	  .ppre2 = RCC_CFGR_PPRE2_DIV_NONE,
 	  .power_save = 1,
-	  .flash_config = FLASH_PRFTBE| FLASH_LATENCY_3WS,
+	  .flash_config = FLASH_ACR_PRFTBE| FLASH_ACR_LATENCY_3WS,
 	  .apb1_frequency = 32000000,
 	  .apb2_frequency = 64000000,
 	}
