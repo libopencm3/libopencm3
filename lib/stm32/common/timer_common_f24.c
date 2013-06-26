@@ -37,6 +37,7 @@ and similarly for TIM5 for oscillator calibration purposes.
 @ref tim5_opt_trigger_remap.
 */
 
+#if !defined(STM32F3)
 void timer_set_option(uint32_t timer_peripheral, uint32_t option)
 {
 	if (timer_peripheral == TIM2) {
@@ -47,6 +48,7 @@ void timer_set_option(uint32_t timer_peripheral, uint32_t option)
 		TIM_OR(timer_peripheral) |= option;
 	}
 }
+#endif
 
 /*---------------------------------------------------------------------------*/
 /** @brief Set Input Polarity
