@@ -23,7 +23,6 @@
 
 #include <libopencm3/cm3/assert.h>
 #include <libopencm3/stm32/f3/rcc.h>
-#include <libopencm3/stm32/f3/pwr.h>
 #include <libopencm3/stm32/f3/flash.h>
 
 /* Set the default ppre1 and ppre2 peripheral clock frequencies after reset. */
