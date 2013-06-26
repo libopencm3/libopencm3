@@ -100,7 +100,11 @@ when the current bus activity is completed.
 
 void i2c_send_start(uint32_t i2c)
 {
+#ifdef STM32F3
+	I2C_CR2(i2c) |= I2C_CR2_START;
+#else
 	I2C_CR1(i2c) |= I2C_CR1_START;
+#endif
 }
 
 /*---------------------------------------------------------------------------*/
@@ -114,7 +118,11 @@ mode, or simply release the bus if in Slave mode.
 
 void i2c_send_stop(uint32_t i2c)
 {
+#ifdef STM32F3
+        I2C_CR2(i2c) |= I2C_CR2_STOP;
+#else
 	I2C_CR1(i2c) |= I2C_CR1_STOP;
+#endif
 }
 
 /*---------------------------------------------------------------------------*/
@@ -126,7 +134,11 @@ Clear the "Send Stop" flag in the I2C config register
 */
 void i2c_clear_stop(uint32_t i2c)
 {
+#ifdef STM32F3
+	I2C_CR2(i2c) &= ~I2C_CR2_STOP;
+#else
 	I2C_CR1(i2c) &= ~I2C_CR1_STOP;
+#endif
 }
 
 /*---------------------------------------------------------------------------*/
@@ -141,7 +153,11 @@ This sets an address for Slave mode operation, in 7 bit form.
 void i2c_set_own_7bit_slave_address(uint32_t i2c, uint8_t slave)
 {
 	I2C_OAR1(i2c) = (uint16_t)(slave << 1);
+#ifdef STM32F3
+	I2C_OAR1(i2c) &= ~I2C_OAR1_OA1MODE;
+#else
 	I2C_OAR1(i2c) &= ~I2C_OAR1_ADDMODE;
+#endif
 	I2C_OAR1(i2c) |= (1 << 14); /* Datasheet: always keep 1 by software. */
 }
 
@@ -158,8 +174,51 @@ This sets an address for Slave mode operation, in 10 bit form.
 
 void i2c_set_own_10bit_slave_address(uint32_t i2c, uint16_t slave)
 {
+#ifdef STM32F3
+	I2C_OAR1(i2c) = (uint16_t)(I2C_OAR1_OA1MODE | slave);
+#else
 	I2C_OAR1(i2c) = (uint16_t)(I2C_OAR1_ADDMODE | slave);
+#endif
 }
+
+
+/*---------------------------------------------------------------------------*/
+/** @brief I2C Set Peripheral Clock Frequency.
+
+Set the peripheral clock frequency: 2MHz to 36MHz (the APB frequency). Note
+that this is <b> not </b> the I2C bus clock. This is set in conjunction with
+the Clock Control register to generate the Master bus clock, see @ref
+i2c_set_ccr
+
+@param[in] i2c Unsigned int32. I2C register base address @ref i2c_reg_base.
+@param[in] freq Unsigned int8. Clock Frequency Setting @ref i2c_clock.
+*/
+
+void i2c_set_clock_frequency(uint32_t i2c, uint8_t freq)
+{
+	uint16_t reg16;
+	reg16 = I2C_CR2(i2c) & 0xffc0; /* Clear bits [5:0]. */
+	reg16 |= freq;
+	I2C_CR2(i2c) = reg16;
+}
+
+/*---------------------------------------------------------------------------*/
+/** @brief I2C Send Data.
+
+@param[in] i2c Unsigned int32. I2C register base address @ref i2c_reg_base.
+@param[in] data Unsigned int8. Byte to send.
+*/
+
+void i2c_send_data(uint32_t i2c, uint8_t data)
+{
+#if defined(STM32F3)
+	I2C_TXDR(i2c) = data;
+#else
+	I2C_DR(i2c) = data;
+#endif
+}
+
+#ifndef STM32F3
 
 /*---------------------------------------------------------------------------*/
 /** @brief I2C Set Fast Mode.
@@ -187,26 +246,6 @@ actual clock frequency must be set with @ref i2c_set_clock_frequency
 void i2c_set_standard_mode(uint32_t i2c)
 {
 	I2C_CCR(i2c) &= ~I2C_CCR_FS;
-}
-
-/*---------------------------------------------------------------------------*/
-/** @brief I2C Set Peripheral Clock Frequency.
-
-Set the peripheral clock frequency: 2MHz to 36MHz (the APB frequency). Note
-that this is <b> not </b> the I2C bus clock. This is set in conjunction with
-the Clock Control register to generate the Master bus clock, see @ref
-i2c_set_ccr
-
-@param[in] i2c Unsigned int32. I2C register base address @ref i2c_reg_base.
-@param[in] freq Unsigned int8. Clock Frequency Setting @ref i2c_clock.
-*/
-
-void i2c_set_clock_frequency(uint32_t i2c, uint8_t freq)
-{
-	uint16_t reg16;
-	reg16 = I2C_CR2(i2c) & 0xffc0; /* Clear bits [5:0]. */
-	reg16 |= freq;
-	I2C_CR2(i2c) = reg16;
 }
 
 /*---------------------------------------------------------------------------*/
@@ -262,18 +301,6 @@ send @ref i2c_rw.
 void i2c_send_7bit_address(uint32_t i2c, uint8_t slave, uint8_t readwrite)
 {
 	I2C_DR(i2c) = (uint8_t)((slave << 1) | readwrite);
-}
-
-/*---------------------------------------------------------------------------*/
-/** @brief I2C Send Data.
-
-@param[in] i2c Unsigned int32. I2C register base address @ref i2c_reg_base.
-@param[in] data Unsigned int8. Byte to send.
-*/
-
-void i2c_send_data(uint32_t i2c, uint8_t data)
-{
-	I2C_DR(i2c) = data;
 }
 
 /*---------------------------------------------------------------------------*/
@@ -409,3 +436,5 @@ void i2c_clear_dma_last_transfer(uint32_t i2c)
 }
 
 /**@}*/
+
+#endif
