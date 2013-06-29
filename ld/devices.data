@@ -1,0 +1,353 @@
+################################################################################
+#
+# Device chip tree definition file.
+# 
+# Copyright (c) 2013 Frantisek Burian <Bufran@seznam.cz>
+# Copyright (C) 2013 Werner Almesberger <wpwrak>
+#
+# Line description:
+#   <pattern> <parent> (<data> ...)
+#
+#   <pattern>: is the pattern for the chip description to be searched for. 
+#       The case of the pattern string is ignored.
+#       Pattern match symbols:
+#            ?  - matches exactly one character
+#            *  - matches none or more characters
+#            +  - matches single or more characters
+#
+#   <parent>: is the parent group name, where the search will continue. 
+#       There are special parents names that controls traversing:
+#             "END" - Exit traversal.
+#             "+"   - Don't change the parent. Use for split long line to two.
+#
+#   <data>: space-separated list of preprocessor symbols supplied to the linker.
+#       -D option name is automatically prepended to each symbol definition
+# 
+# All lines starting with # symbol are treated as Comments
+#
+# Recommended tree hierarchy:
+#
+#   <device name> <family group> <device specific params>
+#       +- <family group> <family> <family group specific params>
+#           +- <family> <architecture> <device family specific params>
+#               +- <architecture> END <architecture specific params>
+#
+# You can split the long line into two or more by using "+" in the parent field,
+# and defining same regex with appropriate parent on the next line. Example: 
+#
+#    device + PARAM1=aaa PARAM2=bbbb PARAM3=ccc PARAM4=dddd PARAM5=eeee
+#    device parent PARAM6=ffff PARAM7=gggg PARAM8=hhhh
+#    parent END
+#
+# The order of the lines is important. After the regex match, its parent will 
+# be used for match on the next line. If two regexp lines matches input, only 
+# the first will be evaluated, except special group definition "+"
+#
+# The regex matches entire sym
+
+
+################################################################################
+# the STM32 chips
+
+stm32f05[01]?4* stm32f0 ROM=16K RAM=4K
+stm32f05[01]?6* stm32f0 ROM=32K RAM=4K
+stm32f051?8* stm32f0 ROM=64K RAM=8K
+
+stm32f10[012]?4* stm32f1 ROM=16K RAM=4K
+stm32f103?4* stm32f1 ROM=16K RAM=6K
+stm32f100?6* stm32f1 ROM=32K RAM=4K
+stm32f103?6* stm32f1 ROM=32K RAM=10K
+stm32f10[12]?6* stm32f1 ROM=32K RAM=6K
+stm32f100?8* stm32f1 ROM=64K RAM=8K
+stm32f10[12]?8* stm32f1 ROM=64K RAM=10K
+stm32f103?8* stm32f1 ROM=64K RAM=20K
+stm32f100?b* stm32f1 ROM=128K RAM=8K
+stm32f10[12]?b* stm32f1 ROM=128K RAM=16K
+stm32f103?b* stm32f1 ROM=128K RAM=20K
+stm32f10[57]?b* stm32f1 ROM=128K RAM=64K
+stm32f100?c* stm32f1 ROM=256K RAM=24K
+stm32f101?c* stm32f1 ROM=256K RAM=32K
+stm32f103?c* stm32f1 ROM=256K RAM=48K
+stm32f10[57]?c* stm32f1 ROM=256K RAM=64K
+stm32f100?d* stm32f1 ROM=384K RAM=32K
+stm32f101?d* stm32f1 ROM=384K RAM=48K
+stm32f103?d* stm32f1 ROM=384K RAM=64K
+stm32f100?e* stm32f1 ROM=512K RAM=32K
+stm32f101?e* stm32f1 ROM=512K RAM=48K
+stm32f103?e* stm32f1 ROM=512K RAM=64K
+stm32f100?f* stm32f1 ROM=768K RAM=80K
+stm32f103?f* stm32f1 ROM=768K RAM=96K
+stm32f100?g* stm32f1 ROM=1024K RAM=80K
+stm32f103?g* stm32f1 ROM=1024K RAM=96K
+
+stm32f205?b* stm32f2 ROM=128K RAM=64K
+stm32f205?c* stm32f2 ROM=256K RAM=96K
+stm32f207?c* stm32f2 ROM=256K RAM=128K
+stm32f2[01][57]?e* stm32f2 ROM=512K RAM=128K
+stm32f20[57]?f* stm32f2 ROM=768K RAM=128K
+stm32f2[01][57]?g* stm32f2 ROM=1024K RAM=128K
+
+stm32f302?b* stm32f3ccm ROM=128K RAM=24K CCM=8K
+stm32f302?c* stm32f3ccm ROM=256K RAM=32K CCM=8K
+stm32f303?b* stm32f3ccm ROM=128K RAM=40K CCM=8K
+stm32f3[01]3?c* stm32f3ccm ROM=256K RAM=48K CCM=8K
+stm32f373?8* stm32f3 ROM=64K RAM=16K
+stm32f373?b* stm32f3 ROM=128K RAM=24K
+stm32f3[78]3?8* stm32f3 ROM=256K RAM=32K
+
+stm32f401?b* stm32f4 ROM=128K RAM=64K
+stm32f401?c* stm32f4 ROM=256K RAM=64K
+stm32f4[01][57]?e* stm32f4ccm ROM=512K RAM=128K CCM=64K
+stm32f4[01][57]?g* stm32f4ccm ROM=1024K RAM=128K CCM=64K
+stm32f4[23][79]?g* stm32f4ccm ROM=1024K RAM=192K CCM=64K
+stm32f4[23][79]?i* stm32f4ccm ROM=2048K RAM=192K CCM=64K
+
+stm32l100?6* stm32l1 ROM=32K RAM=4K
+stm32l100?8* stm32l1 ROM=64K RAM=8K
+stm32l100?b* stm32l1 ROM=128K RAM=10K
+stm32l15[12]?6* stm32l1eep ROM=32K RAM=10K EEP=4K
+stm32l15[12]?8* stm32l1eep ROM=64K RAM=10K EEP=4K
+stm32l15[12]?b* stm32l1eep ROM=128K RAM=16K EEP=4K
+stm32l15[12]?c* stm32l1eep ROM=256K RAM=32K EEP=8K
+stm32l15[12]?d* stm32l1eep ROM=384K RAM=48K EEP=12K
+
+stm32ts60 stm32t ROM=32K RAM=10K
+
+stm32w108c8 stm32w ROM=64K RAM=8K
+stm32w108?b stm32w ROM=128K RAM=8K
+stm32w108cz stm32w ROM=192K RAM=12K
+stm32w108cc stm32w ROM=256K RAM=16K
+
+################################################################################
+# the SAM3 chips
+
+sam3a4* sam3a ROM=256K RAM=64K
+sam3a8* sam3a ROM=512K RAM=96K
+
+sam3n00* sam3n ROM=16K RAM=4K
+sam3n0* sam3n ROM=32K RAM=8K
+sam3n1* sam3n ROM=64K RAM=8K
+sam3n2* sam3n ROM=128K RAM=16K
+sam3n4* sam3n ROM=256K RAM=24K
+
+sam3s1* sam3s ROM=64K RAM=16K
+sam3s2* sam3s ROM=128K RAM=32K
+sam3s4* sam3s ROM=256K RAM=48K
+
+sam3u1* sam3u ROM=64K RAM=20K
+sam3u2* sam3u ROM=128K RAM=36K
+sam3u4* sam3u ROM=256K RAM=52K
+
+sam3x4* sam3x ROM=256K RAM=64K
+sam3x8* sam3x ROM=512K RAM=96K
+
+################################################################################
+# the lpc chips
+
+lpc1311* lpc13 ROM=8K RAM=4K
+lpc1313* lpc13 ROM=32K RAM=8K
+lpc1342* lpc13 ROM=16K RAM=4K
+lpc1343* lpc13 ROM=32K RAM=8K
+lpc1315* lpc13u ROM=32K RAM=8K
+lpc1316* lpc13u ROM=48K RAM=8K
+lpc1317* lpc13u ROM=64K RAM=8K RAM1=2K
+lpc1345* lpc13u ROM=32K RAM=8K USBRAM=2K
+lpc1346* lpc13u ROM=48K RAM=8K USBRAM=2K
+lpc1346* lpc13u ROM=64K RAM=8K USBRAM=2K RAM1=2K
+
+lpc1751* lpc175x ROM=32K RAM=8K
+lpc1752* lpc175x ROM=64K RAM=16K
+lpc1754* lpc175x ROM=128K RAM=16K RAM1=16K
+lpc1756* lpc175x ROM=256K RAM=16K RAM1=16K
+lpc1758* lpc175x ROM=512K RAM=32K RAM1=16K RAM2=16K
+lpc1759* lpc175x ROM=512K RAM=32K RAM1=16K RAM2=16K
+lpc1763* lpc176x ROM=256K RAM=32K RAM1=16K RAM2=16K
+lpc1764* lpc176x ROM=128K RAM=16K RAM1=16K
+lpc1765* lpc176x ROM=256K RAM=32K RAM1=16K RAM2=16K
+lpc1766* lpc176x ROM=256K RAM=32K RAM1=16K RAM2=16K
+lpc1767* lpc176x ROM=512K RAM=32K RAM1=16K RAM2=16K
+lpc1768* lpc176x ROM=512K RAM=32K RAM1=16K RAM2=16K
+lpc1769* lpc176x ROM=512K RAM=32K RAM1=16K RAM2=16K
+lpc1774* lpc177x ROM=128K RAM=32K RAM1=8K
+lpc1776* lpc177x ROM=256K RAM=64K RAM1=16K
+lpc1777* lpc177x ROM=512K RAM=64K RAM1=16K RAM2=16K
+lpc1778* lpc177x ROM=512K RAM=64K RAM1=16K RAM2=16K
+lpc1785* lpc178x ROM=256K RAM=64K RAM1=16K
+lpc1786* lpc178x ROM=256K RAM=64K RAM1=16K
+lpc1787* lpc178x ROM=512K RAM=64K RAM1=16K RAM2=16K
+lpc1788* lpc178x ROM=512K RAM=64K RAM1=16K RAM2=16K
+
+################################################################################
+# the efm32 chips
+
+# Zero Gecko
+efm32zg???f4 efm32zg ROM=4K RAM=2K
+efm32zg???f8 efm32zg ROM=8K RAM=2K
+efm32zg???f16 efm32zg ROM=16K RAM=4K
+efm32zg???f32 efm32zg ROM=32K RAM=4K
+
+# Tiny Gecko
+efm32tg108f4 efm32tg ROM=4K RAM=1K
+efm32tg110f4 efm32tg ROM=4K RAM=2K
+efm32tg???f8 efm32tg ROM=8K RAM=2K
+efm32tg???f16 efm32tg ROM=16K RAM=4K
+efm32tg???f32 efm32tg ROM=32K RAM=4K
+
+# Gecko
+efm32g200f16 efm32g ROM=16K RAM=8K
+efm32g???f32 efm32g ROM=32K RAM=8K
+efm32g???f64 efm32g ROM=64K RAM=16K
+efm32g???f128 efm32g ROM=128K RAM=16K
+
+# Large Gecko
+efm32lg???f64 efm32lg ROM=64K RAM=32K
+efm32lg???f128 efm32lg ROM=128K RAM=32K
+efm32lg???f256 efm32lg ROM=256K RAM=32K
+
+# Giant Gecko
+efm32gg???f512 efm32gg ROM=512K RAM=128K
+efm32gg???f1024 efm32gg ROM=1024K RAM=128K
+
+# Wonder Gecko
+efm32wg???f64 efm32gg ROM=64K RAM=32K
+efm32wg???f128 efm32gg ROM=128K RAM=32K
+efm32wg???f256 efm32gg ROM=256K RAM=32K
+
+################################################################################
+# the TI cortex M3 chips
+
+lm3s101 lm3sandstorm ROM=8K RAM=2K
+lm3s102 lm3sandstorm ROM=8K RAM=2K
+
+lm3s300 lm3sandstorm ROM=16K RAM=4K
+lm3s301 lm3sandstorm ROM=16K RAM=2K
+lm3s308 lm3sandstorm ROM=16K RAM=4K
+lm3s310 lm3sandstorm ROM=16K RAM=4K
+lm3s315 lm3sandstorm ROM=16K RAM=4K
+lm3s316 lm3sandstorm ROM=16K RAM=4K
+lm3s317 lm3sandstorm ROM=16K RAM=4K
+lm3s328 lm3sandstorm ROM=16K RAM=4K
+lm3s600 lm3sandstorm ROM=32K RAM=8K
+lm3s601 lm3sandstorm ROM=32K RAM=8K
+lm3s608 lm3sandstorm ROM=32K RAM=8K
+lm3s610 lm3sandstorm ROM=32K RAM=8K
+lm3s611 lm3sandstorm ROM=32K RAM=8K
+lm3s612 lm3sandstorm ROM=32K RAM=8K
+lm3s613 lm3sandstorm ROM=32K RAM=8K
+lm3s615 lm3sandstorm ROM=32K RAM=8K
+lm3s617 lm3sandstorm ROM=32K RAM=8K
+lm3s618 lm3sandstorm ROM=32K RAM=8K
+lm3s628 lm3sandstorm ROM=32K RAM=8K
+lm3s800 lm3sandstorm ROM=64K RAM=8K
+lm3s801 lm3sandstorm ROM=64K RAM=8K
+lm3s808 lm3sandstorm ROM=64K RAM=8K
+lm3s811 lm3sandstorm ROM=64K RAM=8K
+lm3s812 lm3sandstorm ROM=64K RAM=8K
+lm3s815 lm3sandstorm ROM=64K RAM=8K
+lm3s817 lm3sandstorm ROM=64K RAM=8K
+lm3s818 lm3sandstorm ROM=64K RAM=8K
+lm3s828 lm3sandstorm ROM=64K RAM=8K
+
+lm3s1110 lm3fury ROM=64K RAM=16K
+lm3s1133 lm3fury ROM=64K RAM=16K
+lm3s1138 lm3fury ROM=64K RAM=16K
+lm3s1150 lm3fury ROM=64K RAM=16K
+lm3s1162 lm3fury ROM=64K RAM=16K
+lm3s1165 lm3fury ROM=64K RAM=16K
+lm3s1332 lm3fury ROM=96K RAM=16K
+lm3s1435 lm3fury ROM=96K RAM=32K
+lm3s1439 lm3fury ROM=96K RAM=32K
+lm3s1512 lm3fury ROM=96K RAM=64K
+lm3s1538 lm3fury ROM=96K RAM=64K
+lm3s1601 lm3fury ROM=128K RAM=32K
+lm3s1607 lm3fury ROM=128K RAM=32K
+lm3s1608 lm3fury ROM=128K RAM=32K
+lm3s1620 lm3fury ROM=128K RAM=32K
+lm3s8962 lm3fury ROM=256K RAM=64K
+
+################################################################################
+# the TI cortex R4F chips
+
+rm46l852* rm46l ROM=1280K RAM=192K 
+
+################################################################################
+################################################################################
+################################################################################
+# the STM32 family groups
+
+stm32f3ccm stm32f3 CCM_OFF=0x10000000
+stm32f4ccm stm32f4 CCM_OFF=0x10000000
+stm32l1eep stm32l1 EEP_OFF=0x08080000
+
+################################################################################
+# the lpc family groups
+
+
+lpc13u lpc13 USBRAM_OFF=0x20004000
+
+lpc17[56]x lpc17 RAM1_OFF=0x2007C000 RAM2_OFF=0x20080000
+lpc17[78]x lpc17 RAM1_OFF=0x20000000 RAM2_OFF=0x20040000
+
+################################################################################
+################################################################################
+################################################################################
+# the STM32 families
+
+stm32f0 stm32 ROM_OFF=0x08000000 RAM_OFF=0x20000000
+stm32f1 stm32 ROM_OFF=0x08000000 RAM_OFF=0x20000000
+stm32f2 stm32 ROM_OFF=0x08000000 RAM_OFF=0x20000000
+stm32f3 stm32 ROM_OFF=0x08000000 RAM_OFF=0x20000000
+stm32f4 stm32 ROM_OFF=0x08000000 RAM_OFF=0x20000000
+stm32l1 stm32 ROM_OFF=0x08000000 RAM_OFF=0x20000000
+stm32w stm32 ROM_OFF=0x08000000 RAM_OFF=0x20000000
+stm32t stm32 ROM_OFF=0x08000000 RAM_OFF=0x20000000
+
+################################################################################
+# the SAM3 families
+
+sam3a sam3 ROM_OFF=0x00800000 RAM_OFF=0x20000000
+sam3n sam3 ROM_OFF=0x00400000 RAM_OFF=0x20000000
+sam3s sam3 ROM_OFF=0x00400000 RAM_OFF=0x20000000
+sam3u sam3 ROM_OFF=0x00080000 RAM_OFF=0x20000000
+sam3x sam3 ROM_OFF=0x00800000 RAM_OFF=0x20000000
+
+################################################################################
+# the lpc families
+
+lpc13 lpc ROM_OFF=0x00000000 RAM_OFF=0x10000000 RAM1_OFF=0x20000000 
+lpc17 lpc ROM_OFF=0x00000000 RAM_OFF=0x10000000
+
+################################################################################
+# the efm32 Gecko families
+
+efm32zg efm32 ROM_OFF=0x00000000 RAM_OFF=0x20000000 RAM1_OFF=0x10000000 
+efm32tg efm32 ROM_OFF=0x00000000 RAM_OFF=0x20000000 RAM1_OFF=0x10000000
+efm32g efm32 ROM_OFF=0x00000000 RAM_OFF=0x20000000 RAM1_OFF=0x10000000
+efm32lg efm32 ROM_OFF=0x00000000 RAM_OFF=0x20000000 RAM1_OFF=0x10000000
+efm32gg efm32 ROM_OFF=0x00000000 RAM_OFF=0x20000000 RAM1_OFF=0x10000000
+efm32wg efm32 ROM_OFF=0x00000000 RAM_OFF=0x20000000 RAM1_OFF=0x10000000
+
+################################################################################
+# Cortex LM3 families
+
+lm3fury lm3 ROM_OFF=0x00000000 RAM_OFF=0x20000000
+lm3sandstorm lm3 ROM_OFF=0x00000000 RAM_OFF=0x20000000
+
+
+################################################################################
+# Cortex R4F families
+
+rm46l rm4 ROM_OFF=0x00000000 RAM_OFF=0x08000000 RAM1_OFF=0x08400000
+ 
+################################################################################
+################################################################################
+################################################################################
+# the architectures
+
+stm32 END
+sam3 END
+lpc END
+efm32 END
+lm3 END
+rm4 END
+ 
