@@ -24,6 +24,7 @@
 #include <libopencm3/cm3/assert.h>
 #include <libopencm3/stm32/f3/rcc.h>
 #include <libopencm3/stm32/f3/flash.h>
+#include <libopencm3/stm32/f3/i2c.h>
 
 /* Set the default ppre1 and ppre2 peripheral clock frequencies after reset. */
 uint32_t rcc_ppre1_frequency = 8000000;
@@ -422,3 +423,25 @@ void rcc_backupdomain_reset(void)
 	RCC_BDCR &= ~RCC_BDCR_BDRST;
 }
 
+void rcc_set_i2c_clock_hsi(uint32_t i2c) {
+  if (i2c==I2C1) {
+    RCC_CFGR3 &= ~RCC_CFGR3_I2C1SW;
+  }
+  if (i2c==I2C2) {
+    RCC_CFGR3 &= ~RCC_CFGR3_I2C2SW;
+  }
+}
+
+void rcc_set_i2c_clock_sysclk(uint32_t i2c) {
+  if (i2c==I2C1) {
+    RCC_CFGR3 |= RCC_CFGR3_I2C1SW;
+  }
+  if (i2c==I2C2) {
+    RCC_CFGR3 |= RCC_CFGR3_I2C2SW;
+  }
+}
+
+uint32_t rcc_get_i2c_clocks(void)
+{
+  return(RCC_CFGR3 & (RCC_CFGR3_I2C1SW | RCC_CFGR3_I2C2SW));
+}
