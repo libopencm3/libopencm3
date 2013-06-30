@@ -137,6 +137,11 @@ specific memorymap.h header before including this header file.*/
 @{*/
 #if defined(STM32F3)
 
+#define SPI_DR8(spi_base)		MMIO8(spi_base + 0x0c)
+#define SPI1_DR8			SPI_DR8(SPI1_BASE)
+#define SPI2_DR8			SPI_DR8(SPI2_I2S_BASE)
+#define SPI3_DR8			SPI_DR8(SPI3_I2S_BASE)
+
 #define SPI_CR1_CRCL_8BIT		(0 << 11)
 #define SPI_CR1_CRCL_16BIT		(1 << 11)
 /**@}*/
@@ -258,6 +263,7 @@ specific memorymap.h header before including this header file.*/
 #define SPI_CR2_DS_14BIT		(0xD << 8)
 #define SPI_CR2_DS_15BIT		(0xE << 8)
 #define SPI_CR2_DS_16BIT		(0xF << 8)
+#define SPI_CR2_DS_MASK                 (0xF << 8)
 
 
 /* NSSP: NSS pulse management */
@@ -462,6 +468,16 @@ void spi_enable_tx_dma(uint32_t spi);
 void spi_disable_tx_dma(uint32_t spi);
 void spi_enable_rx_dma(uint32_t spi);
 void spi_disable_rx_dma(uint32_t spi);
+
+#ifdef STM32F3
+void spi_set_data_size(uint32_t spi, uint16_t data_s);
+void spi_fifo_reception_threshold_8bit(uint32_t spi);
+void spi_fifo_reception_threshold_16bit(uint32_t spi);
+void spi_i2s_mode_spi_mode(uint32_t spi);
+void spi_send8(uint32_t spi, uint8_t data);
+uint8_t spi_read8(uint32_t spi);
+
+#endif
 
 END_DECLS
 
