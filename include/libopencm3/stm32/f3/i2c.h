@@ -387,17 +387,6 @@ LGPL License Terms @ref lgpl_license
 
 /* PEC[7:0] Packet error checking register  */
 
-/* --- I2C constant definitions -------------------------------------------- */
-
-/****************************************************************************/
-/** @defgroup i2c_rw I2C Read/Write bit
-@ingroup i2c_defines
-
-@{*/
-#define I2C_WRITE			0
-#define I2C_READ			1
-/**@}*/
-
 /* --- I2C function prototypes---------------------------------------------- */
 
 BEGIN_DECLS
