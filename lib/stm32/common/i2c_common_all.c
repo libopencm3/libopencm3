@@ -100,11 +100,7 @@ when the current bus activity is completed.
 
 void i2c_send_start(uint32_t i2c)
 {
-#ifdef STM32F3
-	I2C_CR2(i2c) |= I2C_CR2_START;
-#else
 	I2C_CR1(i2c) |= I2C_CR1_START;
-#endif
 }
 
 /*---------------------------------------------------------------------------*/
@@ -118,11 +114,7 @@ mode, or simply release the bus if in Slave mode.
 
 void i2c_send_stop(uint32_t i2c)
 {
-#ifdef STM32F3
-        I2C_CR2(i2c) |= I2C_CR2_STOP;
-#else
 	I2C_CR1(i2c) |= I2C_CR1_STOP;
-#endif
 }
 
 /*---------------------------------------------------------------------------*/
@@ -134,11 +126,7 @@ Clear the "Send Stop" flag in the I2C config register
 */
 void i2c_clear_stop(uint32_t i2c)
 {
-#ifdef STM32F3
-	I2C_CR2(i2c) &= ~I2C_CR2_STOP;
-#else
 	I2C_CR1(i2c) &= ~I2C_CR1_STOP;
-#endif
 }
 
 /*---------------------------------------------------------------------------*/
@@ -153,11 +141,7 @@ This sets an address for Slave mode operation, in 7 bit form.
 void i2c_set_own_7bit_slave_address(uint32_t i2c, uint8_t slave)
 {
 	I2C_OAR1(i2c) = (uint16_t)(slave << 1);
-#ifdef STM32F3
-	I2C_OAR1(i2c) &= ~I2C_OAR1_OA1MODE;
-#else
 	I2C_OAR1(i2c) &= ~I2C_OAR1_ADDMODE;
-#endif
 	I2C_OAR1(i2c) |= (1 << 14); /* Datasheet: always keep 1 by software. */
 }
 
@@ -174,11 +158,7 @@ This sets an address for Slave mode operation, in 10 bit form.
 
 void i2c_set_own_10bit_slave_address(uint32_t i2c, uint16_t slave)
 {
-#ifdef STM32F3
-	I2C_OAR1(i2c) = (uint16_t)(I2C_OAR1_OA1MODE | slave);
-#else
 	I2C_OAR1(i2c) = (uint16_t)(I2C_OAR1_ADDMODE | slave);
-#endif
 }
 
 
@@ -211,14 +191,8 @@ void i2c_set_clock_frequency(uint32_t i2c, uint8_t freq)
 
 void i2c_send_data(uint32_t i2c, uint8_t data)
 {
-#if defined(STM32F3)
-	I2C_TXDR(i2c) = data;
-#else
 	I2C_DR(i2c) = data;
-#endif
 }
-
-#ifndef STM32F3
 
 /*---------------------------------------------------------------------------*/
 /** @brief I2C Set Fast Mode.
@@ -436,5 +410,3 @@ void i2c_clear_dma_last_transfer(uint32_t i2c)
 }
 
 /**@}*/
-
-#endif
