@@ -103,7 +103,7 @@ void ssp_wait_until_not_busy(ssp_num_t ssp_num)
 }
 
 /* This Function Wait Data TX Ready, and Write Data to SSP */
-u16 ssp_transfer(ssp_num_t ssp_num, u16 data)
+uint16_t ssp_transfer(ssp_num_t ssp_num, uint16_t data)
 {
 	uint32_t ssp_port;
 

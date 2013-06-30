@@ -25,6 +25,6 @@
 
 void ipc_halt_m0(void);
 
-void ipc_start_m0(u32 cm0_baseaddr);
+void ipc_start_m0(uint32_t cm0_baseaddr);
 
 #endif

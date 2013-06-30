@@ -38,7 +38,7 @@
 #define UART_CGU_AUTOBLOCK_CLOCK_BIT     11
 #define UART_CGU_BASE_CLK_SEL_SHIFT      24   /* clock source selection (5 bits) */
 
-u32 dummy_read;
+uint32_t dummy_read;
 
 /*
 * UART Init function
@@ -47,12 +47,12 @@ void uart_init(uart_num_t uart_num,
 				uart_databit_t data_nb_bits,
 				uart_stopbit_t data_nb_stop,
 				uart_parity_t data_parity,
-				u16 uart_divisor,
-				u8 uart_divaddval,
-				u8 uart_mulval)
+				uint16_t uart_divisor,
+				uint8_t uart_divaddval,
+				uint8_t uart_mulval)
 {
-	u32 lcr_config;
-	u32 uart_port;
+	uint32_t lcr_config;
+	uint32_t uart_port;
 
 	uart_port = uart_num;
 
@@ -167,8 +167,8 @@ void uart_init(uart_num_t uart_num,
 */
 uart_rx_data_ready_t uart_rx_data_ready(uart_num_t uart_num)
 {
-	u32 uart_port;
-	u8 uart_status;
+	uint32_t uart_port;
+	uint8_t uart_status;
 	uart_rx_data_ready_t data_ready;
 
 	uart_port = uart_num;
@@ -198,10 +198,10 @@ uart_rx_data_ready_t uart_rx_data_ready(uart_num_t uart_num)
 /*
 * This Function Wait until Data RX Ready, and return Data Read from UART.
 */
-u8 uart_read(uart_num_t uart_num)
+uint8_t uart_read(uart_num_t uart_num)
 {
-	u32 uart_port;
-	u8 uart_val;
+	uint32_t uart_port;
+	uint8_t uart_val;
 
 	uart_port = uart_num;
 
@@ -216,11 +216,11 @@ u8 uart_read(uart_num_t uart_num)
 /*
 * This Function Wait until Data RX Ready, and return Data Read from UART.
 */
-u8 uart_read_timeout(uart_num_t uart_num, u32 rx_timeout_nb_cycles, uart_error_t* error)
+uint8_t uart_read_timeout(uart_num_t uart_num, uint32_t rx_timeout_nb_cycles, uart_error_t* error)
 {
-	u32 uart_port;
-	u8 uart_val;
-	u32 counter;
+	uint32_t uart_port;
+	uint8_t uart_val;
+	uint32_t counter;
 
 	uart_port = uart_num;
 
@@ -250,9 +250,9 @@ u8 uart_read_timeout(uart_num_t uart_num, u32 rx_timeout_nb_cycles, uart_error_t
 /* This Function Wait Data TX Ready, and Write Data to UART 
 	if rx_timeout_nb_cycles = 0 Infinite wait
 */
-void uart_write(uart_num_t uart_num, u8 data)
+void uart_write(uart_num_t uart_num, uint8_t data)
 {
-	u32 uart_port;
+	uint32_t uart_port;
 
 	uart_port = uart_num;
 
