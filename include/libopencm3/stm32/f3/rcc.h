@@ -433,6 +433,9 @@ void rcc_set_main_pll_hsi(uint32_t pll);
 uint32_t rcc_get_system_clock_source(void);
 void rcc_backupdomain_reset(void);
 void rcc_clock_setup_hsi(const clock_scale_t *clock);
+void rcc_set_i2c_clock_hsi(uint32_t i2c);
+void rcc_set_i2c_clock_sysclk(uint32_t i2c);
+uint32_t rcc_get_i2c_clocks(void);
 
 END_DECLS
 
