@@ -435,6 +435,8 @@ void i2c_enable_rxdma(uint32_t i2c);
 void i2c_disable_rxdma(uint32_t i2c);
 void i2c_enable_txdma(uint32_t i2c);
 void i2c_disable_txdma(uint32_t i2c);
+void write_i2c(uint32_t i2c, uint8_t i2c_addr, uint8_t reg, uint8_t size, uint8_t *data);
+void read_i2c(uint32_t i2c, uint8_t i2c_addr, uint8_t reg, uint8_t size, uint8_t *data);
 
 END_DECLS
 
