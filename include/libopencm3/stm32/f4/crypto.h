@@ -1,14 +1,14 @@
 /** @defgroup crypto_defines CRYPTO Defines
  *
  * @brief <b>Defined constants and Types for the STM32F4xx Crypto Coprocessor
- *  
+ *
  * @ingroup STM32F4xx_defines
- * 
+ *
  * @version 1.0.0
- * 
+ *
  * @date 22 Jun 2013
  *
- * LGPL License Terms @ref lgpl_license 
+ * LGPL License Terms @ref lgpl_license
  */
 
 /*
@@ -46,10 +46,10 @@
 /**@{*/
 
 /* CRYP_CSGCMCCMxR: Crypto context registers CCM mode, i=0-7*/
-#define CRYP_CSGCMCCMR(i) 	MMIO32(CRYP_BASE + 0x50 + (i) * 4)
+#define CRYP_CSGCMCCMR(i)	MMIO32(CRYP_BASE + 0x50 + (i) * 4)
 
 /* CRYP_CSGCMxR: Crypto context registers all modes, i=0-7*/
-#define CRYP_CSGCMR(i) 		MMIO32(CRYP_BASE + 0x70 + (i) * 4)
+#define CRYP_CSGCMR(i)		MMIO32(CRYP_BASE + 0x70 + (i) * 4)
 
 /* --- CRYP_CR values ------------------------------------------------------ */
 
@@ -70,9 +70,9 @@
 
 /** @defgroup crypto_api API (for F42xx or F43xx only)
  *
- * @brief API for the CRYP controller. 
- * 
- * @warning Only for F42xx and 43xx 
+ * @brief API for the CRYP controller.
+ *
+ * @warning Only for F42xx and 43xx
  *
  * @ingroup crypto_defines
  */
@@ -82,14 +82,14 @@ typedef enum {
 	ENCRYPT_GCM = CRYP_CR_ALGOMODE_TDES_ECB | CRYP_CR_ALGOMODE3,
 	ENCRYPT_CCM = CRYP_CR_ALGOMODE_TDES_CBC | CRYP_CR_ALGOMODE3,
 	DECRYPT_GCM = CRYP_CR_ALGOMODE_TDES_ECB | CRYP_CR_ALGOMODE3 |
-	    CRYP_CR_ALGODIR,
+		      CRYP_CR_ALGODIR,
 	DECRYPT_CCM = CRYP_CR_ALGOMODE_TDES_CBC | CRYP_CR_ALGOMODE3 |
-	    CRYP_CR_ALGODIR,
+		      CRYP_CR_ALGODIR,
 } crypto_mode_mac_t;
 
-BEGIN_DECLS 
+BEGIN_DECLS
 
-void crypto_context_swap(uint32_t * buf);
+void crypto_context_swap(uint32_t *buf);
 void crypto_set_mac_algorithm(crypto_mode_mac_t mode);
 
 END_DECLS

@@ -1,7 +1,7 @@
 /** @defgroup crypto_defines CRYPTO Defines
  *
  * @brief <b>Defined Constants and Types for the STM32F2xx CRYP Controller</b>
- *  
+ *
  * @ingroup STM32F2xx_defines
  *
  * @version 1.0.0

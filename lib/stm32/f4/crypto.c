@@ -1,11 +1,11 @@
 /** @defgroup crypto_file CRYPTO
  *
  * @ingroup STM32F4xx
- * 
+ *
  * @brief <b>libopencm3 STM32F4xx CRYPTO</b>
- * 
+ *
  * @version 1.0.0
- * 
+ *
  * @date 18 Jun 2013
  *
  */
@@ -43,10 +43,10 @@ void crypto_set_mac_algorithm(crypto_mode_mac_t mode)
 
 /**
  * @brief Swap context
- * 
- *@param[in] buf uint32_t Memory space for swap (16 items length)  
+ *
+ *@param[in] buf uint32_t Memory space for swap (16 items length)
  */
-void crypto_context_swap(uint32_t * buf)
+void crypto_context_swap(uint32_t *buf)
 {
 	int i;
 	/* Apply exact order of ? */

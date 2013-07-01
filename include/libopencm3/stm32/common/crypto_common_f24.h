@@ -1,8 +1,8 @@
-/** @addtogroup crypto_defines 
+/** @addtogroup crypto_defines
  *
- * @warning The CRYP subsystem is present only in a limited set of devices, 
- * see next section for list of supported devices. 
- *  
+ * @warning The CRYP subsystem is present only in a limited set of devices,
+ * see next section for list of supported devices.
+ *
  * @section crypto_api_supported Supported devices
  *
  * - STM32F205
@@ -15,16 +15,16 @@
  * - STM32F417 <i>(tested)</i>
  * - STM32F427
  * - STM32F437
- *  
- * @section crypto_api_theory Theory of operation  
  *
- * 
- *  
- * @section crypto_api_basic Basic handling API  
- * 
+ * @section crypto_api_theory Theory of operation
+ *
+ *
+ *
+ * @section crypto_api_basic Basic handling API
+ *
  *
  * @b Example @b 1: Blocking mode
- * 
+ *
  * @code
  * //[enable-clocks]
  * crypto_set_key(CRYPTO_KEY_128BIT,key);
@@ -33,33 +33,16 @@
  * crypto_set_algorithm(ENCRYPT_AES_ECB);
  * crypto_start();
  * foreach(block in blocks)
- * 	crypto_process_block(plaintext,ciphertext,blocksize);
+ *	crypto_process_block(plaintext,ciphertext,blocksize);
  * crypto_stop();
  * @endcode
  *
- * @section crypto_api_interrupt Interrupt supported handling API     
+ * @section crypto_api_interrupt Interrupt supported handling API
  *
  * @warning This operation mode is currently not supported.
- *  
+ *
  * @b Example @b 2: Interrupt mode
- * 
- * @code
- * //[enable-clocks]
- * crypto_set_key(CRYPTO_KEY_128BIT,key);
- * crypto_set_iv(iv);                          // only in CBC or CTR mode
-  * crypto_set_datatype(CRYPTO_DATA_16BIT);
- * crypto_set_algorithm(ENCRYPT_AES_ECB);
- * crypto_start();
- *  	[... API to be described later ...]
- * crypto_stop();
-  * @endcode    
  *
- * @section crypto_api_dma DMA handling API
- *
- * @warning This operation mode is currently not supported.
- * 
- * @b Example @b 3: DMA mode
- * 
  * @code
  * //[enable-clocks]
  * crypto_set_key(CRYPTO_KEY_128BIT,key);
@@ -67,7 +50,24 @@
  * crypto_set_datatype(CRYPTO_DATA_16BIT);
  * crypto_set_algorithm(ENCRYPT_AES_ECB);
  * crypto_start();
- *  	[... API to be described later ...]
+ *	[... API to be described later ...]
+ * crypto_stop();
+ * @endcode
+ *
+ * @section crypto_api_dma DMA handling API
+ *
+ * @warning This operation mode is currently not supported.
+ *
+ * @b Example @b 3: DMA mode
+ *
+ * @code
+ * //[enable-clocks]
+ * crypto_set_key(CRYPTO_KEY_128BIT,key);
+ * crypto_set_iv(iv);                          // only in CBC or CTR mode
+ * crypto_set_datatype(CRYPTO_DATA_16BIT);
+ * crypto_set_algorithm(ENCRYPT_AES_ECB);
+ * crypto_start();
+ *	[... API to be described later ...]
  * crypto_stop();
  * @endcode
  */
@@ -107,7 +107,7 @@ specific memorymap.h header before including this header file.*/
 /* --- CRYP registers ------------------------------------------------------ */
 /** @defgroup crypto_registers_gen Registers (Generic)
  *
- * @brief Register access to the CRYP controller. (All chips)  
+ * @brief Register access to the CRYP controller. (All chips)
  *
  * @ingroup crypto_defines
  */
@@ -237,7 +237,7 @@ specific memorymap.h header before including this header file.*/
 /** @defgroup crypto_api_gen API (Generic)
  *
  * @brief API for the CRYP controller
- *   
+ *
  * @ingroup crypto_defines
  */
 /**@{*/
@@ -256,7 +256,7 @@ typedef enum {
 	DECRYPT_DES_CBC = CRYP_CR_ALGOMODE_DES_CBC | CRYP_CR_ALGODIR,
 	DECRYPT_AES_ECB = CRYP_CR_ALGOMODE_AES_ECB | CRYP_CR_ALGODIR,
 	DECRYPT_AES_CBC = CRYP_CR_ALGOMODE_AES_CBC | CRYP_CR_ALGODIR,
-	DECRYPT_AES_CTR = CRYP_CR_ALGOMODE_AES_CTR,	/* XOR is same ENC as DEC */
+	DECRYPT_AES_CTR = CRYP_CR_ALGOMODE_AES_CTR,/* XOR is same ENC as DEC */
 } crypto_mode_t;
 typedef enum {
 	CRYPTO_KEY_128BIT = 0,
@@ -271,7 +271,7 @@ typedef enum {
 	CRYPTO_DATA_BIT,
 } crypto_datatype_t;
 
-BEGIN_DECLS 
+BEGIN_DECLS
 void crypto_wait_busy(void);
 void crypto_set_key(crypto_keysize_t keysize, uint64_t key[]);
 void crypto_set_iv(uint64_t iv[]);
@@ -279,13 +279,14 @@ void crypto_set_datatype(crypto_datatype_t datatype);
 void crypto_set_algorithm(crypto_mode_t mode);
 void crypto_start(void);
 void crypto_stop(void);
-uint32_t crypto_process_block(uint32_t * inp, uint32_t * outp, uint32_t length);
+uint32_t crypto_process_block(uint32_t *inp, uint32_t *outp, uint32_t length);
 END_DECLS
 /**@}*/
 /**@}*/
 #endif
 /** @cond */
 #else
-#warning "crypto_common_f24.h should not be included explicitly, only via crypto.h"
+#warning "crypto_common_f24.h should not be included explicitly, "
+	 "only via crypto.h"
 #endif
 /** @endcond */

@@ -9,7 +9,7 @@
  * This library supports the cryptographic coprocessor system for the
  * STM32 series of ARM Cortex Microcontrollers
  *
- * LGPL License Terms @ref lgpl_license  
+ * LGPL License Terms @ref lgpl_license
  */
 /*
  * This file is part of the libopencm3 project.
@@ -41,13 +41,13 @@
  */
 void crypto_wait_busy(void)
 {
-	while (CRYP_SR & CRYP_SR_BUSY) ;
+	while (CRYP_SR & CRYP_SR_BUSY);
 }
 
 /**
  * @brief Set key value to the controller
  * @param[in] keysize crypto_keysize_t Specified size of the key.
- * @param[in] key uint64_t[] Key value (array of 4 items)  
+ * @param[in] key uint64_t[] Key value (array of 4 items)
  */
 void crypto_set_key(crypto_keysize_t keysize, uint64_t key[])
 {
@@ -56,7 +56,7 @@ void crypto_set_key(crypto_keysize_t keysize, uint64_t key[])
 	crypto_wait_busy();
 
 	CRYP_CR = (CRYP_CR & ~CRYP_CR_KEYSIZE) |
-	    (keysize << CRYP_CR_KEYSIZE_SHIFT);
+		  (keysize << CRYP_CR_KEYSIZE_SHIFT);
 
 	for (i = 0; i < 4; i++) {
 		CRYP_KR(i) = key[i];
@@ -66,9 +66,9 @@ void crypto_set_key(crypto_keysize_t keysize, uint64_t key[])
 /**
  * @brief Set Initialization Vector
  *
- * @param[in] iv uint64_t[] Initialization vector (array of 4 items)  
-  
- * @note Cryptographic controller must be in disabled state  
+ * @param[in] iv uint64_t[] Initialization vector (array of 4 items)
+
+ * @note Cryptographic controller must be in disabled state
  */
 void crypto_set_iv(uint64_t iv[])
 {
@@ -83,18 +83,18 @@ void crypto_set_iv(uint64_t iv[])
 
 /**
  * @brief Set the order of the data to be crypted
- * 
- * @param[in] datatype crypto_datatype_t Specified datatype of the key.  
+ *
+ * @param[in] datatype crypto_datatype_t Specified datatype of the key.
  */
 void crypto_set_datatype(crypto_datatype_t datatype)
 {
 	CRYP_CR = (CRYP_CR & ~CRYP_CR_DATATYPE) |
-	    (datatype << CRYP_CR_DATATYPE_SHIFT);
+		  (datatype << CRYP_CR_DATATYPE_SHIFT);
 }
 
 /**
  * @brief Set the algoritm for Encryption/decryption
- * 
+ *
  *@param[in] mode crypto_mode_t Mode of execution
  */
 void crypto_set_algorithm(crypto_mode_t mode)
@@ -137,19 +137,19 @@ void crypto_stop(void)
 
 /**
  * @brief Start of encryption or decryption on data buffers
- * 
- * This blocking method transfers input buffer of specified length to the 
- * cryptographic coprocessor, and instructs him to begin of ciphering or 
+ *
+ * This blocking method transfers input buffer of specified length to the
+ * cryptographic coprocessor, and instructs him to begin of ciphering or
  * deciphering. It waits for data to be ready, and then fills the processed
- * data to output buffer.  
- * 
+ * data to output buffer.
+ *
  * @param[in] inp uint32_t* Input array to crypt/decrypt.
  * @param[in] outp uint32_t* Output array with crypted/encrypted data.
  * @param[in] length uint32_t Length of the arrays
- *  
- * @returns uint32_t Number of written words    
+ *
+ * @returns uint32_t Number of written words
  */
-uint32_t crypto_process_block(uint32_t * inp, uint32_t * outp, uint32_t length)
+uint32_t crypto_process_block(uint32_t *inp, uint32_t *outp, uint32_t length)
 {
 	uint32_t rd = 0, wr = 0;
 
