@@ -20,7 +20,7 @@
 #include <libopencm3/stm32/f1/rcc.h>
 #include <libopencm3/cm3/common.h>
 #include <libopencm3/stm32/tools.h>
-#include <libopencm3/stm32/f1/usb.h>
+#include <libopencm3/stm32/usb.h>
 #include <libopencm3/usb/usbd.h>
 #include "usb_private.h"
 
