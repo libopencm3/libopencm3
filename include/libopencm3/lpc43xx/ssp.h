@@ -196,6 +196,8 @@ void ssp_init(ssp_num_t ssp_num,
 
 u16 ssp_transfer(ssp_num_t ssp_num, u16 data);
 
+uint16_t ssp_transfer(ssp_num_t ssp_num, uint16_t data);
+
 END_DECLS
 
 /**@}*/
