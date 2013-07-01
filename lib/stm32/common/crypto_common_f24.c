@@ -46,10 +46,10 @@ void crypto_wait_busy(void)
 
 /**
  * @brief Set key value to the controller
- * @param[in] keysize crypto_keysize_t Specified size of the key.
+ * @param[in] keysize enum crypto_keysize Specified size of the key.
  * @param[in] key uint64_t[] Key value (array of 4 items)
  */
-void crypto_set_key(crypto_keysize_t keysize, uint64_t key[])
+void crypto_set_key(enum crypto_keysize keysize, uint64_t key[])
 {
 	int i;
 
@@ -84,9 +84,9 @@ void crypto_set_iv(uint64_t iv[])
 /**
  * @brief Set the order of the data to be crypted
  *
- * @param[in] datatype crypto_datatype_t Specified datatype of the key.
+ * @param[in] datatype enum crypto_datatype Specified datatype of the key.
  */
-void crypto_set_datatype(crypto_datatype_t datatype)
+void crypto_set_datatype(enum crypto_datatype datatype)
 {
 	CRYP_CR = (CRYP_CR & ~CRYP_CR_DATATYPE) |
 		  (datatype << CRYP_CR_DATATYPE_SHIFT);
@@ -95,9 +95,9 @@ void crypto_set_datatype(crypto_datatype_t datatype)
 /**
  * @brief Set the algoritm for Encryption/decryption
  *
- *@param[in] mode crypto_mode_t Mode of execution
+ *@param[in] mode enum crypto_mode Mode of execution
  */
-void crypto_set_algorithm(crypto_mode_t mode)
+void crypto_set_algorithm(enum crypto_mode mode)
 {
 	mode &= ~CRYP_CR_ALGOMODE_MASK;
 

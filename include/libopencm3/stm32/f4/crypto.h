@@ -78,19 +78,19 @@
  */
 /**@{*/
 
-typedef enum {
+enum crypto_mode_mac {
 	ENCRYPT_GCM = CRYP_CR_ALGOMODE_TDES_ECB | CRYP_CR_ALGOMODE3,
 	ENCRYPT_CCM = CRYP_CR_ALGOMODE_TDES_CBC | CRYP_CR_ALGOMODE3,
 	DECRYPT_GCM = CRYP_CR_ALGOMODE_TDES_ECB | CRYP_CR_ALGOMODE3 |
 		      CRYP_CR_ALGODIR,
 	DECRYPT_CCM = CRYP_CR_ALGOMODE_TDES_CBC | CRYP_CR_ALGOMODE3 |
 		      CRYP_CR_ALGODIR,
-} crypto_mode_mac_t;
+};
 
 BEGIN_DECLS
 
 void crypto_context_swap(uint32_t *buf);
-void crypto_set_mac_algorithm(crypto_mode_mac_t mode);
+void crypto_set_mac_algorithm(enum crypto_mode_mac mode);
 
 END_DECLS
 /**@}*/

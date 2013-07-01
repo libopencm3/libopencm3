@@ -242,7 +242,7 @@ specific memorymap.h header before including this header file.*/
  */
 /**@{*/
 
-typedef enum {
+enum crypto_mode {
 	ENCRYPT_TDES_ECB = CRYP_CR_ALGOMODE_TDES_ECB,
 	ENCRYPT_TDES_CBC = CRYP_CR_ALGOMODE_TDES_CBC,
 	ENCRYPT_DES_ECB = CRYP_CR_ALGOMODE_DES_ECB,
@@ -257,26 +257,26 @@ typedef enum {
 	DECRYPT_AES_ECB = CRYP_CR_ALGOMODE_AES_ECB | CRYP_CR_ALGODIR,
 	DECRYPT_AES_CBC = CRYP_CR_ALGOMODE_AES_CBC | CRYP_CR_ALGODIR,
 	DECRYPT_AES_CTR = CRYP_CR_ALGOMODE_AES_CTR,/* XOR is same ENC as DEC */
-} crypto_mode_t;
-typedef enum {
+};
+enum crypto_keysize {
 	CRYPTO_KEY_128BIT = 0,
 	CRYPTO_KEY_192BIT,
 	CRYPTO_KEY_256BIT,
-} crypto_keysize_t;
-typedef enum {
+};
+enum crypto_datatype {
 
 	CRYPTO_DATA_32BIT = 0,
 	CRYPTO_DATA_16BIT,
 	CRYPTO_DATA_8BIT,
 	CRYPTO_DATA_BIT,
-} crypto_datatype_t;
+};
 
 BEGIN_DECLS
 void crypto_wait_busy(void);
-void crypto_set_key(crypto_keysize_t keysize, uint64_t key[]);
+void crypto_set_key(enum crypto_keysize keysize, uint64_t key[]);
 void crypto_set_iv(uint64_t iv[]);
-void crypto_set_datatype(crypto_datatype_t datatype);
-void crypto_set_algorithm(crypto_mode_t mode);
+void crypto_set_datatype(enum crypto_datatype datatype);
+void crypto_set_algorithm(enum crypto_mode mode);
 void crypto_start(void);
 void crypto_stop(void);
 uint32_t crypto_process_block(uint32_t *inp, uint32_t *outp, uint32_t length);

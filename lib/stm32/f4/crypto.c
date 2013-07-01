@@ -36,9 +36,9 @@
 
 /** @brief Set the MAC algorithm
  */
-void crypto_set_mac_algorithm(crypto_mode_mac_t mode)
+void crypto_set_mac_algorithm(enum crypto_mode_mac mode)
 {
-	crypto_set_algorithm((crypto_mode_t) mode);
+	crypto_set_algorithm((enum crypto_mode) mode);
 }
 
 /**
