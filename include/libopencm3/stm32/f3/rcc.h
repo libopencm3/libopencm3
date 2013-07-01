@@ -1,5 +1,3 @@
-
-
 /*
  * This file is part of the libopencm3 project.
  *
@@ -384,7 +382,7 @@ typedef enum {
   CLOCK_48MHZ,
   CLOCK_64MHZ,
   CLOCK_END
-} clock_t;
+} rcc_clock_t;
 
 typedef struct {
   uint8_t pll;
