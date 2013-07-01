@@ -381,6 +381,7 @@ extern uint32_t rcc_ppre2_frequency;
 
 typedef enum {
   CLOCK_44MHZ,
+  CLOCK_48MHZ,
   CLOCK_64MHZ,
   CLOCK_END
 } clock_t;
@@ -436,6 +437,8 @@ void rcc_clock_setup_hsi(const clock_scale_t *clock);
 void rcc_set_i2c_clock_hsi(uint32_t i2c);
 void rcc_set_i2c_clock_sysclk(uint32_t i2c);
 uint32_t rcc_get_i2c_clocks(void);
+void rcc_usb_prescale_1_5(void);
+void rcc_usb_prescale_1(void);
 
 END_DECLS
 
