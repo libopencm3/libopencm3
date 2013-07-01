@@ -119,6 +119,8 @@ spi_lsbfirst.
 @returns int. Error code.
 */
 
+#ifndef STM32F3
+
 int spi_init_master(uint32_t spi, uint32_t br, uint32_t cpol, uint32_t cpha,
 		    uint32_t dff, uint32_t lsbfirst)
 {
@@ -141,6 +143,8 @@ int spi_init_master(uint32_t spi, uint32_t br, uint32_t cpol, uint32_t cpha,
 
 	return 0; /* TODO */
 }
+
+#endif
 
 /* TODO: Error handling? */
 /*---------------------------------------------------------------------------*/
@@ -394,6 +398,48 @@ void spi_set_next_tx_from_crc(uint32_t spi)
 	SPI_CR1(spi) |= SPI_CR1_CRCNEXT;
 }
 
+#ifdef STM32F3
+
+void spi_send8(uint32_t spi, uint8_t data)
+{
+	/* Wait for transfer finished. */
+	while (!(SPI_SR(spi) & SPI_SR_TXE));
+
+	/* Write data (8 or 16 bits, depending on DFF) into DR. */
+	SPI_DR8(spi) = data;
+}
+
+uint8_t spi_read8(uint32_t spi)
+{
+	/* Wait for transfer finished. */
+	while (!(SPI_SR(spi) & SPI_SR_RXNE));
+
+	/* Read the data (8 or 16 bits, depending on DFF bit) from DR. */
+	return SPI_DR8(spi);
+}
+
+void spi_set_data_size(uint32_t spi, uint16_t data_s)
+{
+  SPI_CR2(spi) = (SPI_CR2(spi) & ~SPI_CR2_DS_MASK) | (data_s & SPI_CR2_DS_MASK);
+}
+
+void spi_fifo_reception_threshold_8bit(uint32_t spi)
+{
+  SPI_CR2(spi) |= SPI_CR2_FRXTH;
+}
+
+void spi_fifo_reception_threshold_16bit(uint32_t spi)
+{
+  SPI_CR2(spi) &= ~SPI_CR2_FRXTH;
+}
+
+void spi_i2s_mode_spi_mode(uint32_t spi)
+{
+  SPI_I2SCFGR(spi) &= ~SPI_I2SCFGR_I2SMOD;
+}
+
+#else /*STM32F3*/
+
 /*---------------------------------------------------------------------------*/
 /** @brief SPI Set Data Frame Format to 8 bits
 
@@ -415,6 +461,8 @@ void spi_set_dff_16bit(uint32_t spi)
 {
 	SPI_CR1(spi) |= SPI_CR1_DFF;
 }
+
+#endif
 
 /*---------------------------------------------------------------------------*/
 /** @brief SPI Set Full Duplex (3-wire) Mode

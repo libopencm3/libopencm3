@@ -21,6 +21,8 @@
 #       include <libopencm3/stm32/f1/dma.h>
 #elif defined(STM32F2)
 #       include <libopencm3/stm32/f2/dma.h>
+#elif defined(STM32F3)
+#       include <libopencm3/stm32/f3/dma.h>
 #elif defined(STM32F4)
 #       include <libopencm3/stm32/f4/dma.h>
 #elif defined(STM32L1)

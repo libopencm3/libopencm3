@@ -40,15 +40,27 @@
 #define FLASH_OPTKEYR			MMIO32(FLASH_MEM_INTERFACE_BASE + 0x08)
 #define FLASH_SR			MMIO32(FLASH_MEM_INTERFACE_BASE + 0x0C)
 #define FLASH_CR			MMIO32(FLASH_MEM_INTERFACE_BASE + 0x10)
+#if !defined(STM32F3)
 #define FLASH_OPTCR			MMIO32(FLASH_MEM_INTERFACE_BASE + 0x14)
+#else
+#define FLASH_AR			MMIO32(FLASH_MEM_INTERFACE_BASE + 0x14)
+#define FLASH_OBR			MMIO32(FLASH_MEM_INTERFACE_BASE + 0x1C)
+#define FLASH_WRPR			MMIO32(FLASH_MEM_INTERFACE_BASE + 0x20)
+#endif
 
 /* --- FLASH_ACR values ---------------------------------------------------- */
 
+#if !defined(STM32F3)
 #define FLASH_ACR_DCRST			(1 << 12)
 #define FLASH_ACR_ICRST			(1 << 11)
 #define FLASH_ACR_DCE			(1 << 10)
 #define FLASH_ACR_ICE			(1 << 9)
-#define FLASH_ACR_PRFTEN			(1 << 8)
+#define FLASH_ACR_PRFTEN		(1 << 8)
+#else
+#define FLASH_ACR_PRFTBS			(1 << 5)
+#define FLASH_ACR_PRFTBE			(1 << 4)
+#define FLASH_ACR_HLFCYA			(1 << 3)
+#endif
 #define FLASH_ACR_LATENCY_0WS		0x00
 #define FLASH_ACR_LATENCY_1WS		0x01
 #define FLASH_ACR_LATENCY_2WS		0x02
@@ -60,6 +72,7 @@
 
 /* --- FLASH_SR values ----------------------------------------------------- */
 
+#if !defined(STM32F3)
 #define FLASH_SR_BSY			(1 << 16)
 #define FLASH_SR_PGSERR			(1 << 7)
 #define FLASH_SR_PGPERR			(1 << 6)
@@ -67,9 +80,17 @@
 #define FLASH_SR_WRPERR			(1 << 4)
 #define FLASH_SR_OPERR			(1 << 1)
 #define FLASH_SR_EOP			(1 << 0)
+#else
+#define FLASH_SR_BSY			(1 << 0)
+#define FLASH_SR_ERLYBSY		(1 << 1)
+#define FLASH_SR_PGPERR			(1 << 2)
+#define FLASH_SR_WRPRTERR		(1 << 4)
+#define FLASH_SR_EOP			(1 << 5)
+#endif
 
 /* --- FLASH_CR values ----------------------------------------------------- */
 
+#if !defined(STM32F3)
 #define FLASH_CR_LOCK			(1 << 31)
 #define FLASH_CR_ERRIE			(1 << 25)
 #define FLASH_CR_EOPIE			(1 << 24)
@@ -93,7 +114,21 @@
 #define FLASH_CR_PROGRAM_X16		(0x01 << 8)
 #define FLASH_CR_PROGRAM_X32		(0x02 << 8)
 #define FLASH_CR_PROGRAM_X64		(0x03 << 8)
+#else
+#define FLASH_CR_OBL_LAUNCH		(1 << 13)
+#define FLASH_CR_EOPIE			(1 << 12)
+#define FLASH_CR_ERRIE			(1 << 10)
+#define FLASH_CR_OPTWRE			(1 << 9)
+#define FLASH_CR_LOCK			(1 << 7)
+#define FLASH_CR_STRT			(1 << 6)
+#define FLASH_CR_OPTER			(1 << 5)
+#define FLASH_CR_OPTPG			(1 << 4)
+#define FLASH_CR_MER			(1 << 2)
+#define FLASH_CR_PER			(1 << 1)
+#define FLASH_CR_PG			(1 << 0)
+#endif
 
+#if !defined(STM32F3)
 /* --- FLASH_OPTCR values -------------------------------------------------- */
 
 /* FLASH_OPTCR[27:16]: nWRP */
@@ -107,18 +142,35 @@
 #define FLASH_OPTCR_BOR_LEVEL_2		(0x01 << 2)
 #define FLASH_OPTCR_BOR_LEVEL_1		(0x02 << 2)
 #define FLASH_OPTCR_BOR_OFF			(0x03 << 2)
+#endif
 
 /* --- FLASH Keys -----------------------------------------------------------*/
 
 #define FLASH_KEYR_KEY1			((uint32_t)0x45670123)
 #define FLASH_KEYR_KEY2			((uint32_t)0xcdef89ab)
+#if !defined(STM32F3)
 #define FLASH_OPTKEYR_KEY1		((uint32_t)0x08192a3b)
 #define FLASH_OPTKEYR_KEY2		((uint32_t)0x4c5d6e7f)
+#endif
 
 /* --- Function prototypes ------------------------------------------------- */
 
 BEGIN_DECLS
 
+void flash_set_ws(uint32_t ws);
+void flash_unlock(void);
+void flash_lock(void);
+void flash_clear_pgperr_flag(void);
+void flash_clear_eop_flag(void);
+void flash_clear_bsy_flag(void);
+void flash_clear_status_flags(void);
+void flash_wait_for_last_operation(void);
+#if !defined(STM32F3)
+void flash_unlock_option_bytes(void);
+void flash_lock_option_bytes(void);
+void flash_clear_pgserr_flag(void);
+void flash_clear_wrperr_flag(void);
+void flash_clear_pgaerr_flag(void);
 void flash_dcache_enable(void);
 void flash_dcache_disable(void);
 void flash_icache_enable(void);
@@ -127,18 +179,6 @@ void flash_prefetch_enable(void);
 void flash_prefetch_disable(void);
 void flash_dcache_reset(void);
 void flash_icache_reset(void);
-void flash_set_ws(uint32_t ws);
-void flash_unlock(void);
-void flash_lock(void);
-void flash_clear_pgserr_flag(void);
-void flash_clear_pgperr_flag(void);
-void flash_clear_pgaerr_flag(void);
-void flash_clear_eop_flag(void);
-void flash_clear_wrperr_flag(void);
-void flash_clear_bsy_flag(void);
-void flash_clear_status_flags(void);
-void flash_unlock_option_bytes(void);
-void flash_lock_option_bytes(void);
 void flash_erase_all_sectors(uint32_t program_size);
 void flash_erase_sector(uint8_t sector, uint32_t program_size);
 void flash_program_double_word(uint32_t address, uint64_t data);
@@ -146,8 +186,8 @@ void flash_program_word(uint32_t address, uint32_t data);
 void flash_program_half_word(uint32_t address, uint16_t data);
 void flash_program_byte(uint32_t address, uint8_t data);
 void flash_program(uint32_t address, uint8_t *data, uint32_t len);
-void flash_wait_for_last_operation(void);
 void flash_program_option_bytes(uint32_t data);
+#endif
 
 END_DECLS
 
