@@ -39,9 +39,20 @@ const clock_scale_t hsi_8mhz[CLOCK_END] =
 	  .ppre1 = RCC_CFGR_PPRE1_DIV_2,
 	  .ppre2 = RCC_CFGR_PPRE2_DIV_NONE,
 	  .power_save = 1,
-	  .flash_config = FLASH_ACR_PRFTBE | FLASH_ACR_LATENCY_2WS,
+	  .flash_config = FLASH_ACR_PRFTBE | FLASH_ACR_LATENCY_1WS,
 	  .apb1_frequency = 22000000,
 	  .apb2_frequency = 44000000,
+	},
+	{ /* 48MHz */
+	  .pll= RCC_CFGR_PLLMUL_PLL_IN_CLK_X12,
+	  .pllsrc = RCC_CFGR_PLLSRC_HSI_DIV2,
+	  .hpre = RCC_CFGR_HPRE_DIV_NONE,
+	  .ppre1 = RCC_CFGR_PPRE1_DIV_2,
+	  .ppre2 = RCC_CFGR_PPRE2_DIV_NONE,
+	  .power_save = 1,
+	  .flash_config = FLASH_ACR_PRFTBE | FLASH_ACR_LATENCY_1WS,
+	  .apb1_frequency = 24000000,
+	  .apb2_frequency = 48000000,
 	},
 	{ /* 64MHz */
 	  .pll= RCC_CFGR_PLLMUL_PLL_IN_CLK_X16,
@@ -50,7 +61,7 @@ const clock_scale_t hsi_8mhz[CLOCK_END] =
 	  .ppre1 = RCC_CFGR_PPRE1_DIV_2,
 	  .ppre2 = RCC_CFGR_PPRE2_DIV_NONE,
 	  .power_save = 1,
-	  .flash_config = FLASH_ACR_PRFTBE| FLASH_ACR_LATENCY_3WS,
+	  .flash_config = FLASH_ACR_PRFTBE| FLASH_ACR_LATENCY_2WS,
 	  .apb1_frequency = 32000000,
 	  .apb2_frequency = 64000000,
 	}
@@ -444,4 +455,14 @@ void rcc_set_i2c_clock_sysclk(uint32_t i2c) {
 uint32_t rcc_get_i2c_clocks(void)
 {
   return(RCC_CFGR3 & (RCC_CFGR3_I2C1SW | RCC_CFGR3_I2C2SW));
+}
+
+void rcc_usb_prescale_1_5(void)
+{
+  RCC_CFGR &= ~RCC_CFGR_USBPRES;
+}
+
+void rcc_usb_prescale_1(void)
+{
+  RCC_CFGR |= RCC_CFGR_USBPRES;
 }
