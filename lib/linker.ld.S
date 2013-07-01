@@ -2,7 +2,7 @@
  * This file is part of the libopencm3 project.
  *
  * Copyright (C) 2009 Uwe Hermann <uwe@hermann-uwe.de>
- * Copyright (C) 2013 Frantisek Burian <BuFran@seznam.cz> 
+ * Copyright (C) 2013 Frantisek Burian <BuFran@seznam.cz>
  *
  * This library is free software: you can redistribute it and/or modify
  * it under the terms of the GNU Lesser General Public License as published by
@@ -69,8 +69,9 @@ SECTIONS
 		. = ALIGN(4);
 	} >rom
 
-	/* C++ Static constructors/destructors, also used for 
-	 * __attribute__((constructor)) and the likes */
+	/* C++ Static constructors/destructors, also used for
+	 * __attribute__((constructor)) and the likes.
+	 */
 	.preinit_array : {
 		. = ALIGN(4);
 		__preinit_array_start = .;

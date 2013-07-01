@@ -1,28 +1,28 @@
 ################################################################################
 #
 # Device chip tree definition file.
-# 
+#
 # Copyright (c) 2013 Frantisek Burian <Bufran@seznam.cz>
 # Copyright (C) 2013 Werner Almesberger <wpwrak>
 #
 # Line description:
 #   <pattern> <parent> (<data> ...)
 #
-#   <pattern>: is the pattern for the chip description to be searched for. 
+#   <pattern>: is the pattern for the chip description to be searched for.
 #       The case of the pattern string is ignored.
 #       Pattern match symbols:
 #            ?  - matches exactly one character
 #            *  - matches none or more characters
 #            +  - matches single or more characters
 #
-#   <parent>: is the parent group name, where the search will continue. 
+#   <parent>: is the parent group name, where the search will continue.
 #       There are special parents names that controls traversing:
 #             "END" - Exit traversal.
 #             "+"   - Don't change the parent. Use for split long line to two.
 #
 #   <data>: space-separated list of preprocessor symbols supplied to the linker.
 #       -D option name is automatically prepended to each symbol definition
-# 
+#
 # All lines starting with # symbol are treated as Comments
 #
 # Recommended tree hierarchy:
@@ -33,14 +33,14 @@
 #               +- <architecture> END <architecture specific params>
 #
 # You can split the long line into two or more by using "+" in the parent field,
-# and defining same regex with appropriate parent on the next line. Example: 
+# and defining same regex with appropriate parent on the next line. Example:
 #
 #    device + PARAM1=aaa PARAM2=bbbb PARAM3=ccc PARAM4=dddd PARAM5=eeee
 #    device parent PARAM6=ffff PARAM7=gggg PARAM8=hhhh
 #    parent END
 #
-# The order of the lines is important. After the regex match, its parent will 
-# be used for match on the next line. If two regexp lines matches input, only 
+# The order of the lines is important. After the regex match, its parent will
+# be used for match on the next line. If two regexp lines matches input, only
 # the first will be evaluated, except special group definition "+"
 #
 # The regex matches entire sym
@@ -268,7 +268,7 @@ lm3s8962 lm3fury ROM=256K RAM=64K
 ################################################################################
 # the TI cortex R4F chips
 
-rm46l852* rm46l ROM=1280K RAM=192K 
+rm46l852* rm46l ROM=1280K RAM=192K
 
 ################################################################################
 ################################################################################
@@ -314,13 +314,13 @@ sam3x sam3 ROM_OFF=0x00800000 RAM_OFF=0x20000000
 ################################################################################
 # the lpc families
 
-lpc13 lpc ROM_OFF=0x00000000 RAM_OFF=0x10000000 RAM1_OFF=0x20000000 
+lpc13 lpc ROM_OFF=0x00000000 RAM_OFF=0x10000000 RAM1_OFF=0x20000000
 lpc17 lpc ROM_OFF=0x00000000 RAM_OFF=0x10000000
 
 ################################################################################
 # the efm32 Gecko families
 
-efm32zg efm32 ROM_OFF=0x00000000 RAM_OFF=0x20000000 RAM1_OFF=0x10000000 
+efm32zg efm32 ROM_OFF=0x00000000 RAM_OFF=0x20000000 RAM1_OFF=0x10000000
 efm32tg efm32 ROM_OFF=0x00000000 RAM_OFF=0x20000000 RAM1_OFF=0x10000000
 efm32g efm32 ROM_OFF=0x00000000 RAM_OFF=0x20000000 RAM1_OFF=0x10000000
 efm32lg efm32 ROM_OFF=0x00000000 RAM_OFF=0x20000000 RAM1_OFF=0x10000000
@@ -338,7 +338,7 @@ lm3sandstorm lm3 ROM_OFF=0x00000000 RAM_OFF=0x20000000
 # Cortex R4F families
 
 rm46l rm4 ROM_OFF=0x00000000 RAM_OFF=0x08000000 RAM1_OFF=0x08400000
- 
+
 ################################################################################
 ################################################################################
 ################################################################################
@@ -350,4 +350,4 @@ lpc END
 efm32 END
 lm3 END
 rm4 END
- 
+
