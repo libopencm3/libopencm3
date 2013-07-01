@@ -41,6 +41,7 @@ OBJS            += gpio_common_all.o gpio_common_f234.o \
 		   iwdg_common_all.o spi_common_all.o dma_common_f13.o\
 		   timer_common_all.o timer_common_f24.o flash_common_f234.o
 
+OBJS		+= usb.o usb_control.o usb_standard.o usb_f103.o
 
 VPATH += ../../usb:../:../../cm3:../common
 
