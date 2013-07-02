@@ -88,8 +88,7 @@ void uart_init(uart_num_t uart_num,
 	UART_FCR(uart_port) = 0;
 
 	// Dummy read (to clear existing data)
-	while( UART_LSR(uart_port) & UART_LSR_RDR )
-	{
+	while (UART_LSR(uart_port) & UART_LSR_RDR ) {
 		dummy_read = UART_RBR(uart_port);
 	}
 
@@ -158,18 +157,14 @@ uart_rx_data_ready_t uart_rx_data_ready(uart_num_t uart_num)
 	uart_status = UART_LSR(uart_port) & 0xFF;
 
 	/* Check Error */
-	if( (uart_status & UART_LSR_ERROR_MASK) == 0)
-	{
+	if ((uart_status & UART_LSR_ERROR_MASK) == 0) {
 		/* No errors check if data is ready */
-		if((uart_status & UART_LSR_RDR) == 0)
-		{
+		if ((uart_status & UART_LSR_RDR) == 0) {
 			data_ready = UART_RX_NO_DATA;
-		}else
-		{
+		} else {
 			data_ready = UART_RX_DATA_READY;
 		}
-	}else
-	{
+	} else {
 		/* UART Error */
 		data_ready = UART_RX_DATA_ERROR;
 	}
@@ -188,7 +183,7 @@ uint8_t uart_read(uart_num_t uart_num)
 	uart_port = uart_num;
 
 	/* Wait Until Data Received (Rx Data Not Ready) */
-	while( (UART_LSR(uart_port) & UART_LSR_RDR) == 0);
+	while ((UART_LSR(uart_port) & UART_LSR_RDR) == 0);
 
 	uart_val = (UART_RBR(uart_port) & UART_RBR_MASKBIT);
 
@@ -208,13 +203,11 @@ uint8_t uart_read_timeout(uart_num_t uart_num, uint32_t rx_timeout_nb_cycles, ua
 
 	/* Wait Until Data Received (Rx Data Not Ready) */
 	counter = 0;
-	while( (UART_LSR(uart_port) & UART_LSR_RDR) == 0)
+	while ((UART_LSR(uart_port) & UART_LSR_RDR) == 0)
 	{
-		if(rx_timeout_nb_cycles>0)
-		{
+		if (rx_timeout_nb_cycles>0) {
 			counter++;
-			if(counter>=rx_timeout_nb_cycles)
-			{
+			if (counter>=rx_timeout_nb_cycles) {
 				*error = UART_TIMEOUT_ERROR;
 				return 0;
 			}
@@ -239,7 +232,7 @@ void uart_write(uart_num_t uart_num, uint8_t data)
 	uart_port = uart_num;
 
 	/* Wait Until FIFO not full  */
-	while( (UART_LSR(uart_port) & UART_LSR_THRE) == 0);
+	while ((UART_LSR(uart_port) & UART_LSR_THRE) == 0);
 
 	UART_THR(uart_port) = data;
 }
