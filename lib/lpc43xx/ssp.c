@@ -135,11 +135,6 @@ uint16_t ssp_transfer(ssp_num_t ssp_num, uint16_t data)
 	return SSP_DR(ssp_port);
 }
 
-uint16_t ssp_transfer(ssp_num_t ssp_num, uint16_t data)
-{
-  ssp_write(ssp_num, data);
-  return ssp_read(ssp_num);
-}
 
 /**@}*/
 
