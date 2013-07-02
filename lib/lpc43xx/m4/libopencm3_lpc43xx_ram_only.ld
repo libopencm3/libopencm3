@@ -74,7 +74,7 @@ SECTIONS
 	 */
 	.ARM.extab : {
 		*(.ARM.extab*)
-	} >.ram_local1
+	} >ram_local1
     
 	/* exception index - required due to libgcc.a issuing /0 exceptions */
 	__exidx_start = .;
