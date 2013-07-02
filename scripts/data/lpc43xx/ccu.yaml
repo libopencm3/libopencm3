@@ -1,0 +1,2391 @@
+!!omap
+- CCU1_PM:
+    fields: !!omap
+    - PD:
+        access: rw
+        description: Initiate power-down mode
+        lsb: 0
+        reset_value: '0'
+        width: 1
+- CCU1_BASE_STAT:
+    fields: !!omap
+    - BASE_APB3_CLK_IND:
+        access: r
+        description: Base clock indicator for BASE_APB3_CLK
+        lsb: 0
+        reset_value: '1'
+        width: 1
+    - BASE_APB1_CLK_IND:
+        access: r
+        description: Base clock indicator for BASE_APB1_CLK
+        lsb: 1
+        reset_value: '1'
+        width: 1
+    - BASE_SPIFI_CLK_IND:
+        access: r
+        description: Base clock indicator for BASE_SPIFI_CLK
+        lsb: 2
+        reset_value: '1'
+        width: 1
+    - BASE_M4_CLK_IND:
+        access: r
+        description: Base clock indicator for BASE_M4_CLK
+        lsb: 3
+        reset_value: '1'
+        width: 1
+    - BASE_PERIPH_CLK_IND:
+        access: r
+        description: Base clock indicator for BASE_PERIPH_CLK
+        lsb: 6
+        reset_value: '1'
+        width: 1
+    - BASE_USB0_CLK_IND:
+        access: r
+        description: Base clock indicator for BASE_USB0_CLK
+        lsb: 7
+        reset_value: '1'
+        width: 1
+    - BASE_USB1_CLK_IND:
+        access: r
+        description: Base clock indicator for BASE_USB1_CLK
+        lsb: 8
+        reset_value: '1'
+        width: 1
+    - BASE_SPI_CLK_IND:
+        access: r
+        description: Base clock indicator for BASE_SPI_CLK
+        lsb: 9
+        reset_value: '1'
+        width: 1
+- CCU1_CLK_APB3_BUS_CFG:
+    fields: !!omap
+    - RUN:
+        access: rw
+        description: Run enable
+        lsb: 0
+        reset_value: '1'
+        width: 1
+    - AUTO:
+        access: rw
+        description: Auto (AHB disable mechanism) enable
+        lsb: 1
+        reset_value: '0'
+        width: 1
+    - WAKEUP:
+        access: rw
+        description: Wake-up mechanism enable
+        lsb: 2
+        reset_value: '0'
+        width: 1
+- CCU1_CLK_APB3_BUS_STAT:
+    fields: !!omap
+    - RUN:
+        access: r
+        description: Run enable status
+        lsb: 0
+        reset_value: '1'
+        width: 1
+    - AUTO:
+        access: r
+        description: Auto (AHB disable mechanism) enable status
+        lsb: 1
+        reset_value: '0'
+        width: 1
+    - WAKEUP:
+        access: r
+        description: Wake-up mechanism enable status
+        lsb: 2
+        reset_value: '0'
+        width: 1
+- CCU1_CLK_APB3_I2C1_CFG:
+    fields: !!omap
+    - RUN:
+        access: rw
+        description: Run enable
+        lsb: 0
+        reset_value: '1'
+        width: 1
+    - AUTO:
+        access: rw
+        description: Auto (AHB disable mechanism) enable
+        lsb: 1
+        reset_value: '0'
+        width: 1
+    - WAKEUP:
+        access: rw
+        description: Wake-up mechanism enable
+        lsb: 2
+        reset_value: '0'
+        width: 1
+- CCU1_CLK_APB3_I2C1_STAT:
+    fields: !!omap
+    - RUN:
+        access: r
+        description: Run enable status
+        lsb: 0
+        reset_value: '1'
+        width: 1
+    - AUTO:
+        access: r
+        description: Auto (AHB disable mechanism) enable status
+        lsb: 1
+        reset_value: '0'
+        width: 1
+    - WAKEUP:
+        access: r
+        description: Wake-up mechanism enable status
+        lsb: 2
+        reset_value: '0'
+        width: 1
+- CCU1_CLK_APB3_DAC_CFG:
+    fields: !!omap
+    - RUN:
+        access: rw
+        description: Run enable
+        lsb: 0
+        reset_value: '1'
+        width: 1
+    - AUTO:
+        access: rw
+        description: Auto (AHB disable mechanism) enable
+        lsb: 1
+        reset_value: '0'
+        width: 1
+    - WAKEUP:
+        access: rw
+        description: Wake-up mechanism enable
+        lsb: 2
+        reset_value: '0'
+        width: 1
+- CCU1_CLK_APB3_DAC_STAT:
+    fields: !!omap
+    - RUN:
+        access: r
+        description: Run enable status
+        lsb: 0
+        reset_value: '1'
+        width: 1
+    - AUTO:
+        access: r
+        description: Auto (AHB disable mechanism) enable status
+        lsb: 1
+        reset_value: '0'
+        width: 1
+    - WAKEUP:
+        access: r
+        description: Wake-up mechanism enable status
+        lsb: 2
+        reset_value: '0'
+        width: 1
+- CCU1_CLK_APB3_ADC0_CFG:
+    fields: !!omap
+    - RUN:
+        access: rw
+        description: Run enable
+        lsb: 0
+        reset_value: '1'
+        width: 1
+    - AUTO:
+        access: rw
+        description: Auto (AHB disable mechanism) enable
+        lsb: 1
+        reset_value: '0'
+        width: 1
+    - WAKEUP:
+        access: rw
+        description: Wake-up mechanism enable
+        lsb: 2
+        reset_value: '0'
+        width: 1
+- CCU1_CLK_APB3_ADC0_STAT:
+    fields: !!omap
+    - RUN:
+        access: r
+        description: Run enable status
+        lsb: 0
+        reset_value: '1'
+        width: 1
+    - AUTO:
+        access: r
+        description: Auto (AHB disable mechanism) enable status
+        lsb: 1
+        reset_value: '0'
+        width: 1
+    - WAKEUP:
+        access: r
+        description: Wake-up mechanism enable status
+        lsb: 2
+        reset_value: '0'
+        width: 1
+- CCU1_CLK_APB3_ADC1_CFG:
+    fields: !!omap
+    - RUN:
+        access: rw
+        description: Run enable
+        lsb: 0
+        reset_value: '1'
+        width: 1
+    - AUTO:
+        access: rw
+        description: Auto (AHB disable mechanism) enable
+        lsb: 1
+        reset_value: '0'
+        width: 1
+    - WAKEUP:
+        access: rw
+        description: Wake-up mechanism enable
+        lsb: 2
+        reset_value: '0'
+        width: 1
+- CCU1_CLK_APB3_ADC1_STAT:
+    fields: !!omap
+    - RUN:
+        access: r
+        description: Run enable status
+        lsb: 0
+        reset_value: '1'
+        width: 1
+    - AUTO:
+        access: r
+        description: Auto (AHB disable mechanism) enable status
+        lsb: 1
+        reset_value: '0'
+        width: 1
+    - WAKEUP:
+        access: r
+        description: Wake-up mechanism enable status
+        lsb: 2
+        reset_value: '0'
+        width: 1
+- CCU1_CLK_APB3_CAN0_CFG:
+    fields: !!omap
+    - RUN:
+        access: rw
+        description: Run enable
+        lsb: 0
+        reset_value: '1'
+        width: 1
+    - AUTO:
+        access: rw
+        description: Auto (AHB disable mechanism) enable
+        lsb: 1
+        reset_value: '0'
+        width: 1
+    - WAKEUP:
+        access: rw
+        description: Wake-up mechanism enable
+        lsb: 2
+        reset_value: '0'
+        width: 1
+- CCU1_CLK_APB3_CAN0_STAT:
+    fields: !!omap
+    - RUN:
+        access: r
+        description: Run enable status
+        lsb: 0
+        reset_value: '1'
+        width: 1
+    - AUTO:
+        access: r
+        description: Auto (AHB disable mechanism) enable status
+        lsb: 1
+        reset_value: '0'
+        width: 1
+    - WAKEUP:
+        access: r
+        description: Wake-up mechanism enable status
+        lsb: 2
+        reset_value: '0'
+        width: 1
+- CCU1_CLK_APB1_BUS_CFG:
+    fields: !!omap
+    - RUN:
+        access: rw
+        description: Run enable
+        lsb: 0
+        reset_value: '1'
+        width: 1
+    - AUTO:
+        access: rw
+        description: Auto (AHB disable mechanism) enable
+        lsb: 1
+        reset_value: '0'
+        width: 1
+    - WAKEUP:
+        access: rw
+        description: Wake-up mechanism enable
+        lsb: 2
+        reset_value: '0'
+        width: 1
+- CCU1_CLK_APB1_BUS_STAT:
+    fields: !!omap
+    - RUN:
+        access: r
+        description: Run enable status
+        lsb: 0
+        reset_value: '1'
+        width: 1
+    - AUTO:
+        access: r
+        description: Auto (AHB disable mechanism) enable status
+        lsb: 1
+        reset_value: '0'
+        width: 1
+    - WAKEUP:
+        access: r
+        description: Wake-up mechanism enable status
+        lsb: 2
+        reset_value: '0'
+        width: 1
+- CCU1_CLK_APB1_MOTOCONPWM_CFG:
+    fields: !!omap
+    - RUN:
+        access: rw
+        description: Run enable
+        lsb: 0
+        reset_value: '1'
+        width: 1
+    - AUTO:
+        access: rw
+        description: Auto (AHB disable mechanism) enable
+        lsb: 1
+        reset_value: '0'
+        width: 1
+    - WAKEUP:
+        access: rw
+        description: Wake-up mechanism enable
+        lsb: 2
+        reset_value: '0'
+        width: 1
+- CCU1_CLK_APB1_MOTOCONPWM_STAT:
+    fields: !!omap
+    - RUN:
+        access: r
+        description: Run enable status
+        lsb: 0
+        reset_value: '1'
+        width: 1
+    - AUTO:
+        access: r
+        description: Auto (AHB disable mechanism) enable status
+        lsb: 1
+        reset_value: '0'
+        width: 1
+    - WAKEUP:
+        access: r
+        description: Wake-up mechanism enable status
+        lsb: 2
+        reset_value: '0'
+        width: 1
+- CCU1_CLK_APB1_I2C0_CFG:
+    fields: !!omap
+    - RUN:
+        access: rw
+        description: Run enable
+        lsb: 0
+        reset_value: '1'
+        width: 1
+    - AUTO:
+        access: rw
+        description: Auto (AHB disable mechanism) enable
+        lsb: 1
+        reset_value: '0'
+        width: 1
+    - WAKEUP:
+        access: rw
+        description: Wake-up mechanism enable
+        lsb: 2
+        reset_value: '0'
+        width: 1
+- CCU1_CLK_APB1_I2C0_STAT:
+    fields: !!omap
+    - RUN:
+        access: r
+        description: Run enable status
+        lsb: 0
+        reset_value: '1'
+        width: 1
+    - AUTO:
+        access: r
+        description: Auto (AHB disable mechanism) enable status
+        lsb: 1
+        reset_value: '0'
+        width: 1
+    - WAKEUP:
+        access: r
+        description: Wake-up mechanism enable status
+        lsb: 2
+        reset_value: '0'
+        width: 1
+- CCU1_CLK_APB1_I2S_CFG:
+    fields: !!omap
+    - RUN:
+        access: rw
+        description: Run enable
+        lsb: 0
+        reset_value: '1'
+        width: 1
+    - AUTO:
+        access: rw
+        description: Auto (AHB disable mechanism) enable
+        lsb: 1
+        reset_value: '0'
+        width: 1
+    - WAKEUP:
+        access: rw
+        description: Wake-up mechanism enable
+        lsb: 2
+        reset_value: '0'
+        width: 1
+- CCU1_CLK_APB1_I2S_STAT:
+    fields: !!omap
+    - RUN:
+        access: r
+        description: Run enable status
+        lsb: 0
+        reset_value: '1'
+        width: 1
+    - AUTO:
+        access: r
+        description: Auto (AHB disable mechanism) enable status
+        lsb: 1
+        reset_value: '0'
+        width: 1
+    - WAKEUP:
+        access: r
+        description: Wake-up mechanism enable status
+        lsb: 2
+        reset_value: '0'
+        width: 1
+- CCU1_CLK_APB1_CAN1_CFG:
+    fields: !!omap
+    - RUN:
+        access: rw
+        description: Run enable
+        lsb: 0
+        reset_value: '1'
+        width: 1
+    - AUTO:
+        access: rw
+        description: Auto (AHB disable mechanism) enable
+        lsb: 1
+        reset_value: '0'
+        width: 1
+    - WAKEUP:
+        access: rw
+        description: Wake-up mechanism enable
+        lsb: 2
+        reset_value: '0'
+        width: 1
+- CCU1_CLK_APB1_CAN1_STAT:
+    fields: !!omap
+    - RUN:
+        access: r
+        description: Run enable status
+        lsb: 0
+        reset_value: '1'
+        width: 1
+    - AUTO:
+        access: r
+        description: Auto (AHB disable mechanism) enable status
+        lsb: 1
+        reset_value: '0'
+        width: 1
+    - WAKEUP:
+        access: r
+        description: Wake-up mechanism enable status
+        lsb: 2
+        reset_value: '0'
+        width: 1
+- CCU1_CLK_SPIFI_CFG:
+    fields: !!omap
+    - RUN:
+        access: rw
+        description: Run enable
+        lsb: 0
+        reset_value: '1'
+        width: 1
+    - AUTO:
+        access: rw
+        description: Auto (AHB disable mechanism) enable
+        lsb: 1
+        reset_value: '0'
+        width: 1
+    - WAKEUP:
+        access: rw
+        description: Wake-up mechanism enable
+        lsb: 2
+        reset_value: '0'
+        width: 1
+- CCU1_CLK_SPIFI_STAT:
+    fields: !!omap
+    - RUN:
+        access: r
+        description: Run enable status
+        lsb: 0
+        reset_value: '1'
+        width: 1
+    - AUTO:
+        access: r
+        description: Auto (AHB disable mechanism) enable status
+        lsb: 1
+        reset_value: '0'
+        width: 1
+    - WAKEUP:
+        access: r
+        description: Wake-up mechanism enable status
+        lsb: 2
+        reset_value: '0'
+        width: 1
+- CCU1_CLK_M4_BUS_CFG:
+    fields: !!omap
+    - RUN:
+        access: rw
+        description: Run enable
+        lsb: 0
+        reset_value: '1'
+        width: 1
+    - AUTO:
+        access: rw
+        description: Auto (AHB disable mechanism) enable
+        lsb: 1
+        reset_value: '0'
+        width: 1
+    - WAKEUP:
+        access: rw
+        description: Wake-up mechanism enable
+        lsb: 2
+        reset_value: '0'
+        width: 1
+- CCU1_CLK_M4_BUS_STAT:
+    fields: !!omap
+    - RUN:
+        access: r
+        description: Run enable status
+        lsb: 0
+        reset_value: '1'
+        width: 1
+    - AUTO:
+        access: r
+        description: Auto (AHB disable mechanism) enable status
+        lsb: 1
+        reset_value: '0'
+        width: 1
+    - WAKEUP:
+        access: r
+        description: Wake-up mechanism enable status
+        lsb: 2
+        reset_value: '0'
+        width: 1
+- CCU1_CLK_M4_SPIFI_CFG:
+    fields: !!omap
+    - RUN:
+        access: rw
+        description: Run enable
+        lsb: 0
+        reset_value: '1'
+        width: 1
+    - AUTO:
+        access: rw
+        description: Auto (AHB disable mechanism) enable
+        lsb: 1
+        reset_value: '0'
+        width: 1
+    - WAKEUP:
+        access: rw
+        description: Wake-up mechanism enable
+        lsb: 2
+        reset_value: '0'
+        width: 1
+- CCU1_CLK_M4_SPIFI_STAT:
+    fields: !!omap
+    - RUN:
+        access: r
+        description: Run enable status
+        lsb: 0
+        reset_value: '1'
+        width: 1
+    - AUTO:
+        access: r
+        description: Auto (AHB disable mechanism) enable status
+        lsb: 1
+        reset_value: '0'
+        width: 1
+    - WAKEUP:
+        access: r
+        description: Wake-up mechanism enable status
+        lsb: 2
+        reset_value: '0'
+        width: 1
+- CCU1_CLK_M4_GPIO_CFG:
+    fields: !!omap
+    - RUN:
+        access: rw
+        description: Run enable
+        lsb: 0
+        reset_value: '1'
+        width: 1
+    - AUTO:
+        access: rw
+        description: Auto (AHB disable mechanism) enable
+        lsb: 1
+        reset_value: '0'
+        width: 1
+    - WAKEUP:
+        access: rw
+        description: Wake-up mechanism enable
+        lsb: 2
+        reset_value: '0'
+        width: 1
+- CCU1_CLK_M4_GPIO_STAT:
+    fields: !!omap
+    - RUN:
+        access: r
+        description: Run enable status
+        lsb: 0
+        reset_value: '1'
+        width: 1
+    - AUTO:
+        access: r
+        description: Auto (AHB disable mechanism) enable status
+        lsb: 1
+        reset_value: '0'
+        width: 1
+    - WAKEUP:
+        access: r
+        description: Wake-up mechanism enable status
+        lsb: 2
+        reset_value: '0'
+        width: 1
+- CCU1_CLK_M4_LCD_CFG:
+    fields: !!omap
+    - RUN:
+        access: rw
+        description: Run enable
+        lsb: 0
+        reset_value: '1'
+        width: 1
+    - AUTO:
+        access: rw
+        description: Auto (AHB disable mechanism) enable
+        lsb: 1
+        reset_value: '0'
+        width: 1
+    - WAKEUP:
+        access: rw
+        description: Wake-up mechanism enable
+        lsb: 2
+        reset_value: '0'
+        width: 1
+- CCU1_CLK_M4_LCD_STAT:
+    fields: !!omap
+    - RUN:
+        access: r
+        description: Run enable status
+        lsb: 0
+        reset_value: '1'
+        width: 1
+    - AUTO:
+        access: r
+        description: Auto (AHB disable mechanism) enable status
+        lsb: 1
+        reset_value: '0'
+        width: 1
+    - WAKEUP:
+        access: r
+        description: Wake-up mechanism enable status
+        lsb: 2
+        reset_value: '0'
+        width: 1
+- CCU1_CLK_M4_ETHERNET_CFG:
+    fields: !!omap
+    - RUN:
+        access: rw
+        description: Run enable
+        lsb: 0
+        reset_value: '1'
+        width: 1
+    - AUTO:
+        access: rw
+        description: Auto (AHB disable mechanism) enable
+        lsb: 1
+        reset_value: '0'
+        width: 1
+    - WAKEUP:
+        access: rw
+        description: Wake-up mechanism enable
+        lsb: 2
+        reset_value: '0'
+        width: 1
+- CCU1_CLK_M4_ETHERNET_STAT:
+    fields: !!omap
+    - RUN:
+        access: r
+        description: Run enable status
+        lsb: 0
+        reset_value: '1'
+        width: 1
+    - AUTO:
+        access: r
+        description: Auto (AHB disable mechanism) enable status
+        lsb: 1
+        reset_value: '0'
+        width: 1
+    - WAKEUP:
+        access: r
+        description: Wake-up mechanism enable status
+        lsb: 2
+        reset_value: '0'
+        width: 1
+- CCU1_CLK_M4_USB0_CFG:
+    fields: !!omap
+    - RUN:
+        access: rw
+        description: Run enable
+        lsb: 0
+        reset_value: '1'
+        width: 1
+    - AUTO:
+        access: rw
+        description: Auto (AHB disable mechanism) enable
+        lsb: 1
+        reset_value: '0'
+        width: 1
+    - WAKEUP:
+        access: rw
+        description: Wake-up mechanism enable
+        lsb: 2
+        reset_value: '0'
+        width: 1
+- CCU1_CLK_M4_USB0_STAT:
+    fields: !!omap
+    - RUN:
+        access: r
+        description: Run enable status
+        lsb: 0
+        reset_value: '1'
+        width: 1
+    - AUTO:
+        access: r
+        description: Auto (AHB disable mechanism) enable status
+        lsb: 1
+        reset_value: '0'
+        width: 1
+    - WAKEUP:
+        access: r
+        description: Wake-up mechanism enable status
+        lsb: 2
+        reset_value: '0'
+        width: 1
+- CCU1_CLK_M4_EMC_CFG:
+    fields: !!omap
+    - RUN:
+        access: rw
+        description: Run enable
+        lsb: 0
+        reset_value: '1'
+        width: 1
+    - AUTO:
+        access: rw
+        description: Auto (AHB disable mechanism) enable
+        lsb: 1
+        reset_value: '0'
+        width: 1
+    - WAKEUP:
+        access: rw
+        description: Wake-up mechanism enable
+        lsb: 2
+        reset_value: '0'
+        width: 1
+- CCU1_CLK_M4_EMC_STAT:
+    fields: !!omap
+    - RUN:
+        access: r
+        description: Run enable status
+        lsb: 0
+        reset_value: '1'
+        width: 1
+    - AUTO:
+        access: r
+        description: Auto (AHB disable mechanism) enable status
+        lsb: 1
+        reset_value: '0'
+        width: 1
+    - WAKEUP:
+        access: r
+        description: Wake-up mechanism enable status
+        lsb: 2
+        reset_value: '0'
+        width: 1
+- CCU1_CLK_M4_SDIO_CFG:
+    fields: !!omap
+    - RUN:
+        access: rw
+        description: Run enable
+        lsb: 0
+        reset_value: '1'
+        width: 1
+    - AUTO:
+        access: rw
+        description: Auto (AHB disable mechanism) enable
+        lsb: 1
+        reset_value: '0'
+        width: 1
+    - WAKEUP:
+        access: rw
+        description: Wake-up mechanism enable
+        lsb: 2
+        reset_value: '0'
+        width: 1
+- CCU1_CLK_M4_SDIO_STAT:
+    fields: !!omap
+    - RUN:
+        access: r
+        description: Run enable status
+        lsb: 0
+        reset_value: '1'
+        width: 1
+    - AUTO:
+        access: r
+        description: Auto (AHB disable mechanism) enable status
+        lsb: 1
+        reset_value: '0'
+        width: 1
+    - WAKEUP:
+        access: r
+        description: Wake-up mechanism enable status
+        lsb: 2
+        reset_value: '0'
+        width: 1
+- CCU1_CLK_M4_DMA_CFG:
+    fields: !!omap
+    - RUN:
+        access: rw
+        description: Run enable
+        lsb: 0
+        reset_value: '1'
+        width: 1
+    - AUTO:
+        access: rw
+        description: Auto (AHB disable mechanism) enable
+        lsb: 1
+        reset_value: '0'
+        width: 1
+    - WAKEUP:
+        access: rw
+        description: Wake-up mechanism enable
+        lsb: 2
+        reset_value: '0'
+        width: 1
+- CCU1_CLK_M4_DMA_STAT:
+    fields: !!omap
+    - RUN:
+        access: r
+        description: Run enable status
+        lsb: 0
+        reset_value: '1'
+        width: 1
+    - AUTO:
+        access: r
+        description: Auto (AHB disable mechanism) enable status
+        lsb: 1
+        reset_value: '0'
+        width: 1
+    - WAKEUP:
+        access: r
+        description: Wake-up mechanism enable status
+        lsb: 2
+        reset_value: '0'
+        width: 1
+- CCU1_CLK_M4_M4CORE_CFG:
+    fields: !!omap
+    - RUN:
+        access: rw
+        description: Run enable
+        lsb: 0
+        reset_value: '1'
+        width: 1
+    - AUTO:
+        access: rw
+        description: Auto (AHB disable mechanism) enable
+        lsb: 1
+        reset_value: '0'
+        width: 1
+    - WAKEUP:
+        access: rw
+        description: Wake-up mechanism enable
+        lsb: 2
+        reset_value: '0'
+        width: 1
+- CCU1_CLK_M4_M4CORE_STAT:
+    fields: !!omap
+    - RUN:
+        access: r
+        description: Run enable status
+        lsb: 0
+        reset_value: '1'
+        width: 1
+    - AUTO:
+        access: r
+        description: Auto (AHB disable mechanism) enable status
+        lsb: 1
+        reset_value: '0'
+        width: 1
+    - WAKEUP:
+        access: r
+        description: Wake-up mechanism enable status
+        lsb: 2
+        reset_value: '0'
+        width: 1
+- CCU1_CLK_M4_SCT_CFG:
+    fields: !!omap
+    - RUN:
+        access: rw
+        description: Run enable
+        lsb: 0
+        reset_value: '1'
+        width: 1
+    - AUTO:
+        access: rw
+        description: Auto (AHB disable mechanism) enable
+        lsb: 1
+        reset_value: '0'
+        width: 1
+    - WAKEUP:
+        access: rw
+        description: Wake-up mechanism enable
+        lsb: 2
+        reset_value: '0'
+        width: 1
+- CCU1_CLK_M4_SCT_STAT:
+    fields: !!omap
+    - RUN:
+        access: r
+        description: Run enable status
+        lsb: 0
+        reset_value: '1'
+        width: 1
+    - AUTO:
+        access: r
+        description: Auto (AHB disable mechanism) enable status
+        lsb: 1
+        reset_value: '0'
+        width: 1
+    - WAKEUP:
+        access: r
+        description: Wake-up mechanism enable status
+        lsb: 2
+        reset_value: '0'
+        width: 1
+- CCU1_CLK_M4_USB1_CFG:
+    fields: !!omap
+    - RUN:
+        access: rw
+        description: Run enable
+        lsb: 0
+        reset_value: '1'
+        width: 1
+    - AUTO:
+        access: rw
+        description: Auto (AHB disable mechanism) enable
+        lsb: 1
+        reset_value: '0'
+        width: 1
+    - WAKEUP:
+        access: rw
+        description: Wake-up mechanism enable
+        lsb: 2
+        reset_value: '0'
+        width: 1
+- CCU1_CLK_M4_USB1_STAT:
+    fields: !!omap
+    - RUN:
+        access: r
+        description: Run enable status
+        lsb: 0
+        reset_value: '1'
+        width: 1
+    - AUTO:
+        access: r
+        description: Auto (AHB disable mechanism) enable status
+        lsb: 1
+        reset_value: '0'
+        width: 1
+    - WAKEUP:
+        access: r
+        description: Wake-up mechanism enable status
+        lsb: 2
+        reset_value: '0'
+        width: 1
+- CCU1_CLK_M4_EMCDIV_CFG:
+    fields: !!omap
+    - RUN:
+        access: rw
+        description: Run enable
+        lsb: 0
+        reset_value: '1'
+        width: 1
+    - AUTO:
+        access: rw
+        description: Auto (AHB disable mechanism) enable
+        lsb: 1
+        reset_value: '0'
+        width: 1
+    - WAKEUP:
+        access: rw
+        description: Wake-up mechanism enable
+        lsb: 2
+        reset_value: '0'
+        width: 1
+    - DIV:
+        access: rw
+        description: Clock divider value
+        lsb: 5
+        reset_value: '0'
+        width: 3
+- CCU1_CLK_M4_EMCDIV_STAT:
+    fields: !!omap
+    - RUN:
+        access: r
+        description: Run enable status
+        lsb: 0
+        reset_value: '1'
+        width: 1
+    - AUTO:
+        access: r
+        description: Auto (AHB disable mechanism) enable status
+        lsb: 1
+        reset_value: '0'
+        width: 1
+    - WAKEUP:
+        access: r
+        description: Wake-up mechanism enable status
+        lsb: 2
+        reset_value: '0'
+        width: 1
+- CCU1_CLK_M4_M0APP_CFG:
+    fields: !!omap
+    - RUN:
+        access: rw
+        description: Run enable
+        lsb: 0
+        reset_value: '1'
+        width: 1
+    - AUTO:
+        access: rw
+        description: Auto (AHB disable mechanism) enable
+        lsb: 1
+        reset_value: '0'
+        width: 1
+    - WAKEUP:
+        access: rw
+        description: Wake-up mechanism enable
+        lsb: 2
+        reset_value: '0'
+        width: 1
+- CCU1_CLK_M4_M0APP_STAT:
+    fields: !!omap
+    - RUN:
+        access: r
+        description: Run enable status
+        lsb: 0
+        reset_value: '1'
+        width: 1
+    - AUTO:
+        access: r
+        description: Auto (AHB disable mechanism) enable status
+        lsb: 1
+        reset_value: '0'
+        width: 1
+    - WAKEUP:
+        access: r
+        description: Wake-up mechanism enable status
+        lsb: 2
+        reset_value: '0'
+        width: 1
+- CCU1_CLK_M4_VADC_CFG:
+    fields: !!omap
+    - RUN:
+        access: rw
+        description: Run enable
+        lsb: 0
+        reset_value: '1'
+        width: 1
+    - AUTO:
+        access: rw
+        description: Auto (AHB disable mechanism) enable
+        lsb: 1
+        reset_value: '0'
+        width: 1
+    - WAKEUP:
+        access: rw
+        description: Wake-up mechanism enable
+        lsb: 2
+        reset_value: '0'
+        width: 1
+- CCU1_CLK_M4_VADC_STAT:
+    fields: !!omap
+    - RUN:
+        access: r
+        description: Run enable status
+        lsb: 0
+        reset_value: '1'
+        width: 1
+    - AUTO:
+        access: r
+        description: Auto (AHB disable mechanism) enable status
+        lsb: 1
+        reset_value: '0'
+        width: 1
+    - WAKEUP:
+        access: r
+        description: Wake-up mechanism enable status
+        lsb: 2
+        reset_value: '0'
+        width: 1
+- CCU1_CLK_M4_WWDT_CFG:
+    fields: !!omap
+    - RUN:
+        access: rw
+        description: Run enable
+        lsb: 0
+        reset_value: '1'
+        width: 1
+    - AUTO:
+        access: rw
+        description: Auto (AHB disable mechanism) enable
+        lsb: 1
+        reset_value: '0'
+        width: 1
+    - WAKEUP:
+        access: rw
+        description: Wake-up mechanism enable
+        lsb: 2
+        reset_value: '0'
+        width: 1
+- CCU1_CLK_M4_WWDT_STAT:
+    fields: !!omap
+    - RUN:
+        access: r
+        description: Run enable status
+        lsb: 0
+        reset_value: '1'
+        width: 1
+    - AUTO:
+        access: r
+        description: Auto (AHB disable mechanism) enable status
+        lsb: 1
+        reset_value: '0'
+        width: 1
+    - WAKEUP:
+        access: r
+        description: Wake-up mechanism enable status
+        lsb: 2
+        reset_value: '0'
+        width: 1
+- CCU1_CLK_M4_USART0_CFG:
+    fields: !!omap
+    - RUN:
+        access: rw
+        description: Run enable
+        lsb: 0
+        reset_value: '1'
+        width: 1
+    - AUTO:
+        access: rw
+        description: Auto (AHB disable mechanism) enable
+        lsb: 1
+        reset_value: '0'
+        width: 1
+    - WAKEUP:
+        access: rw
+        description: Wake-up mechanism enable
+        lsb: 2
+        reset_value: '0'
+        width: 1
+- CCU1_CLK_M4_USART0_STAT:
+    fields: !!omap
+    - RUN:
+        access: r
+        description: Run enable status
+        lsb: 0
+        reset_value: '1'
+        width: 1
+    - AUTO:
+        access: r
+        description: Auto (AHB disable mechanism) enable status
+        lsb: 1
+        reset_value: '0'
+        width: 1
+    - WAKEUP:
+        access: r
+        description: Wake-up mechanism enable status
+        lsb: 2
+        reset_value: '0'
+        width: 1
+- CCU1_CLK_M4_UART1_CFG:
+    fields: !!omap
+    - RUN:
+        access: rw
+        description: Run enable
+        lsb: 0
+        reset_value: '1'
+        width: 1
+    - AUTO:
+        access: rw
+        description: Auto (AHB disable mechanism) enable
+        lsb: 1
+        reset_value: '0'
+        width: 1
+    - WAKEUP:
+        access: rw
+        description: Wake-up mechanism enable
+        lsb: 2
+        reset_value: '0'
+        width: 1
+- CCU1_CLK_M4_UART1_STAT:
+    fields: !!omap
+    - RUN:
+        access: r
+        description: Run enable status
+        lsb: 0
+        reset_value: '1'
+        width: 1
+    - AUTO:
+        access: r
+        description: Auto (AHB disable mechanism) enable status
+        lsb: 1
+        reset_value: '0'
+        width: 1
+    - WAKEUP:
+        access: r
+        description: Wake-up mechanism enable status
+        lsb: 2
+        reset_value: '0'
+        width: 1
+- CCU1_CLK_M4_SSP0_CFG:
+    fields: !!omap
+    - RUN:
+        access: rw
+        description: Run enable
+        lsb: 0
+        reset_value: '1'
+        width: 1
+    - AUTO:
+        access: rw
+        description: Auto (AHB disable mechanism) enable
+        lsb: 1
+        reset_value: '0'
+        width: 1
+    - WAKEUP:
+        access: rw
+        description: Wake-up mechanism enable
+        lsb: 2
+        reset_value: '0'
+        width: 1
+- CCU1_CLK_M4_SSP0_STAT:
+    fields: !!omap
+    - RUN:
+        access: r
+        description: Run enable status
+        lsb: 0
+        reset_value: '1'
+        width: 1
+    - AUTO:
+        access: r
+        description: Auto (AHB disable mechanism) enable status
+        lsb: 1
+        reset_value: '0'
+        width: 1
+    - WAKEUP:
+        access: r
+        description: Wake-up mechanism enable status
+        lsb: 2
+        reset_value: '0'
+        width: 1
+- CCU1_CLK_M4_TIMER0_CFG:
+    fields: !!omap
+    - RUN:
+        access: rw
+        description: Run enable
+        lsb: 0
+        reset_value: '1'
+        width: 1
+    - AUTO:
+        access: rw
+        description: Auto (AHB disable mechanism) enable
+        lsb: 1
+        reset_value: '0'
+        width: 1
+    - WAKEUP:
+        access: rw
+        description: Wake-up mechanism enable
+        lsb: 2
+        reset_value: '0'
+        width: 1
+- CCU1_CLK_M4_TIMER0_STAT:
+    fields: !!omap
+    - RUN:
+        access: r
+        description: Run enable status
+        lsb: 0
+        reset_value: '1'
+        width: 1
+    - AUTO:
+        access: r
+        description: Auto (AHB disable mechanism) enable status
+        lsb: 1
+        reset_value: '0'
+        width: 1
+    - WAKEUP:
+        access: r
+        description: Wake-up mechanism enable status
+        lsb: 2
+        reset_value: '0'
+        width: 1
+- CCU1_CLK_M4_TIMER1_CFG:
+    fields: !!omap
+    - RUN:
+        access: rw
+        description: Run enable
+        lsb: 0
+        reset_value: '1'
+        width: 1
+    - AUTO:
+        access: rw
+        description: Auto (AHB disable mechanism) enable
+        lsb: 1
+        reset_value: '0'
+        width: 1
+    - WAKEUP:
+        access: rw
+        description: Wake-up mechanism enable
+        lsb: 2
+        reset_value: '0'
+        width: 1
+- CCU1_CLK_M4_TIMER1_STAT:
+    fields: !!omap
+    - RUN:
+        access: r
+        description: Run enable status
+        lsb: 0
+        reset_value: '1'
+        width: 1
+    - AUTO:
+        access: r
+        description: Auto (AHB disable mechanism) enable status
+        lsb: 1
+        reset_value: '0'
+        width: 1
+    - WAKEUP:
+        access: r
+        description: Wake-up mechanism enable status
+        lsb: 2
+        reset_value: '0'
+        width: 1
+- CCU1_CLK_M4_SCU_CFG:
+    fields: !!omap
+    - RUN:
+        access: rw
+        description: Run enable
+        lsb: 0
+        reset_value: '1'
+        width: 1
+    - AUTO:
+        access: rw
+        description: Auto (AHB disable mechanism) enable
+        lsb: 1
+        reset_value: '0'
+        width: 1
+    - WAKEUP:
+        access: rw
+        description: Wake-up mechanism enable
+        lsb: 2
+        reset_value: '0'
+        width: 1
+- CCU1_CLK_M4_SCU_STAT:
+    fields: !!omap
+    - RUN:
+        access: r
+        description: Run enable status
+        lsb: 0
+        reset_value: '1'
+        width: 1
+    - AUTO:
+        access: r
+        description: Auto (AHB disable mechanism) enable status
+        lsb: 1
+        reset_value: '0'
+        width: 1
+    - WAKEUP:
+        access: r
+        description: Wake-up mechanism enable status
+        lsb: 2
+        reset_value: '0'
+        width: 1
+- CCU1_CLK_M4_CREG_CFG:
+    fields: !!omap
+    - RUN:
+        access: rw
+        description: Run enable
+        lsb: 0
+        reset_value: '1'
+        width: 1
+    - AUTO:
+        access: rw
+        description: Auto (AHB disable mechanism) enable
+        lsb: 1
+        reset_value: '0'
+        width: 1
+    - WAKEUP:
+        access: rw
+        description: Wake-up mechanism enable
+        lsb: 2
+        reset_value: '0'
+        width: 1
+- CCU1_CLK_M4_CREG_STAT:
+    fields: !!omap
+    - RUN:
+        access: r
+        description: Run enable status
+        lsb: 0
+        reset_value: '1'
+        width: 1
+    - AUTO:
+        access: r
+        description: Auto (AHB disable mechanism) enable status
+        lsb: 1
+        reset_value: '0'
+        width: 1
+    - WAKEUP:
+        access: r
+        description: Wake-up mechanism enable status
+        lsb: 2
+        reset_value: '0'
+        width: 1
+- CCU1_CLK_M4_RITIMER_CFG:
+    fields: !!omap
+    - RUN:
+        access: rw
+        description: Run enable
+        lsb: 0
+        reset_value: '1'
+        width: 1
+    - AUTO:
+        access: rw
+        description: Auto (AHB disable mechanism) enable
+        lsb: 1
+        reset_value: '0'
+        width: 1
+    - WAKEUP:
+        access: rw
+        description: Wake-up mechanism enable
+        lsb: 2
+        reset_value: '0'
+        width: 1
+- CCU1_CLK_M4_RITIMER_STAT:
+    fields: !!omap
+    - RUN:
+        access: r
+        description: Run enable status
+        lsb: 0
+        reset_value: '1'
+        width: 1
+    - AUTO:
+        access: r
+        description: Auto (AHB disable mechanism) enable status
+        lsb: 1
+        reset_value: '0'
+        width: 1
+    - WAKEUP:
+        access: r
+        description: Wake-up mechanism enable status
+        lsb: 2
+        reset_value: '0'
+        width: 1
+- CCU1_CLK_M4_USART2_CFG:
+    fields: !!omap
+    - RUN:
+        access: rw
+        description: Run enable
+        lsb: 0
+        reset_value: '1'
+        width: 1
+    - AUTO:
+        access: rw
+        description: Auto (AHB disable mechanism) enable
+        lsb: 1
+        reset_value: '0'
+        width: 1
+    - WAKEUP:
+        access: rw
+        description: Wake-up mechanism enable
+        lsb: 2
+        reset_value: '0'
+        width: 1
+- CCU1_CLK_M4_USART2_STAT:
+    fields: !!omap
+    - RUN:
+        access: r
+        description: Run enable status
+        lsb: 0
+        reset_value: '1'
+        width: 1
+    - AUTO:
+        access: r
+        description: Auto (AHB disable mechanism) enable status
+        lsb: 1
+        reset_value: '0'
+        width: 1
+    - WAKEUP:
+        access: r
+        description: Wake-up mechanism enable status
+        lsb: 2
+        reset_value: '0'
+        width: 1
+- CCU1_CLK_M4_USART3_CFG:
+    fields: !!omap
+    - RUN:
+        access: rw
+        description: Run enable
+        lsb: 0
+        reset_value: '1'
+        width: 1
+    - AUTO:
+        access: rw
+        description: Auto (AHB disable mechanism) enable
+        lsb: 1
+        reset_value: '0'
+        width: 1
+    - WAKEUP:
+        access: rw
+        description: Wake-up mechanism enable
+        lsb: 2
+        reset_value: '0'
+        width: 1
+- CCU1_CLK_M4_USART3_STAT:
+    fields: !!omap
+    - RUN:
+        access: r
+        description: Run enable status
+        lsb: 0
+        reset_value: '1'
+        width: 1
+    - AUTO:
+        access: r
+        description: Auto (AHB disable mechanism) enable status
+        lsb: 1
+        reset_value: '0'
+        width: 1
+    - WAKEUP:
+        access: r
+        description: Wake-up mechanism enable status
+        lsb: 2
+        reset_value: '0'
+        width: 1
+- CCU1_CLK_M4_TIMER2_CFG:
+    fields: !!omap
+    - RUN:
+        access: rw
+        description: Run enable
+        lsb: 0
+        reset_value: '1'
+        width: 1
+    - AUTO:
+        access: rw
+        description: Auto (AHB disable mechanism) enable
+        lsb: 1
+        reset_value: '0'
+        width: 1
+    - WAKEUP:
+        access: rw
+        description: Wake-up mechanism enable
+        lsb: 2
+        reset_value: '0'
+        width: 1
+- CCU1_CLK_M4_TIMER2_STAT:
+    fields: !!omap
+    - RUN:
+        access: r
+        description: Run enable status
+        lsb: 0
+        reset_value: '1'
+        width: 1
+    - AUTO:
+        access: r
+        description: Auto (AHB disable mechanism) enable status
+        lsb: 1
+        reset_value: '0'
+        width: 1
+    - WAKEUP:
+        access: r
+        description: Wake-up mechanism enable status
+        lsb: 2
+        reset_value: '0'
+        width: 1
+- CCU1_CLK_M4_TIMER3_CFG:
+    fields: !!omap
+    - RUN:
+        access: rw
+        description: Run enable
+        lsb: 0
+        reset_value: '1'
+        width: 1
+    - AUTO:
+        access: rw
+        description: Auto (AHB disable mechanism) enable
+        lsb: 1
+        reset_value: '0'
+        width: 1
+    - WAKEUP:
+        access: rw
+        description: Wake-up mechanism enable
+        lsb: 2
+        reset_value: '0'
+        width: 1
+- CCU1_CLK_M4_TIMER3_STAT:
+    fields: !!omap
+    - RUN:
+        access: r
+        description: Run enable status
+        lsb: 0
+        reset_value: '1'
+        width: 1
+    - AUTO:
+        access: r
+        description: Auto (AHB disable mechanism) enable status
+        lsb: 1
+        reset_value: '0'
+        width: 1
+    - WAKEUP:
+        access: r
+        description: Wake-up mechanism enable status
+        lsb: 2
+        reset_value: '0'
+        width: 1
+- CCU1_CLK_M4_SSP1_CFG:
+    fields: !!omap
+    - RUN:
+        access: rw
+        description: Run enable
+        lsb: 0
+        reset_value: '1'
+        width: 1
+    - AUTO:
+        access: rw
+        description: Auto (AHB disable mechanism) enable
+        lsb: 1
+        reset_value: '0'
+        width: 1
+    - WAKEUP:
+        access: rw
+        description: Wake-up mechanism enable
+        lsb: 2
+        reset_value: '0'
+        width: 1
+- CCU1_CLK_M4_SSP1_STAT:
+    fields: !!omap
+    - RUN:
+        access: r
+        description: Run enable status
+        lsb: 0
+        reset_value: '1'
+        width: 1
+    - AUTO:
+        access: r
+        description: Auto (AHB disable mechanism) enable status
+        lsb: 1
+        reset_value: '0'
+        width: 1
+    - WAKEUP:
+        access: r
+        description: Wake-up mechanism enable status
+        lsb: 2
+        reset_value: '0'
+        width: 1
+- CCU1_CLK_M4_QEI_CFG:
+    fields: !!omap
+    - RUN:
+        access: rw
+        description: Run enable
+        lsb: 0
+        reset_value: '1'
+        width: 1
+    - AUTO:
+        access: rw
+        description: Auto (AHB disable mechanism) enable
+        lsb: 1
+        reset_value: '0'
+        width: 1
+    - WAKEUP:
+        access: rw
+        description: Wake-up mechanism enable
+        lsb: 2
+        reset_value: '0'
+        width: 1
+- CCU1_CLK_M4_QEI_STAT:
+    fields: !!omap
+    - RUN:
+        access: r
+        description: Run enable status
+        lsb: 0
+        reset_value: '1'
+        width: 1
+    - AUTO:
+        access: r
+        description: Auto (AHB disable mechanism) enable status
+        lsb: 1
+        reset_value: '0'
+        width: 1
+    - WAKEUP:
+        access: r
+        description: Wake-up mechanism enable status
+        lsb: 2
+        reset_value: '0'
+        width: 1
+- CCU1_CLK_PERIPH_BUS_CFG:
+    fields: !!omap
+    - RUN:
+        access: rw
+        description: Run enable
+        lsb: 0
+        reset_value: '1'
+        width: 1
+    - AUTO:
+        access: rw
+        description: Auto (AHB disable mechanism) enable
+        lsb: 1
+        reset_value: '0'
+        width: 1
+    - WAKEUP:
+        access: rw
+        description: Wake-up mechanism enable
+        lsb: 2
+        reset_value: '0'
+        width: 1
+- CCU1_CLK_PERIPH_BUS_STAT:
+    fields: !!omap
+    - RUN:
+        access: r
+        description: Run enable status
+        lsb: 0
+        reset_value: '1'
+        width: 1
+    - AUTO:
+        access: r
+        description: Auto (AHB disable mechanism) enable status
+        lsb: 1
+        reset_value: '0'
+        width: 1
+    - WAKEUP:
+        access: r
+        description: Wake-up mechanism enable status
+        lsb: 2
+        reset_value: '0'
+        width: 1
+- CCU1_CLK_PERIPH_CORE_CFG:
+    fields: !!omap
+    - RUN:
+        access: rw
+        description: Run enable
+        lsb: 0
+        reset_value: '1'
+        width: 1
+    - AUTO:
+        access: rw
+        description: Auto (AHB disable mechanism) enable
+        lsb: 1
+        reset_value: '0'
+        width: 1
+    - WAKEUP:
+        access: rw
+        description: Wake-up mechanism enable
+        lsb: 2
+        reset_value: '0'
+        width: 1
+- CCU1_CLK_PERIPH_CORE_STAT:
+    fields: !!omap
+    - RUN:
+        access: r
+        description: Run enable status
+        lsb: 0
+        reset_value: '1'
+        width: 1
+    - AUTO:
+        access: r
+        description: Auto (AHB disable mechanism) enable status
+        lsb: 1
+        reset_value: '0'
+        width: 1
+    - WAKEUP:
+        access: r
+        description: Wake-up mechanism enable status
+        lsb: 2
+        reset_value: '0'
+        width: 1
+- CCU1_CLK_PERIPH_SGPIO_CFG:
+    fields: !!omap
+    - RUN:
+        access: rw
+        description: Run enable
+        lsb: 0
+        reset_value: '1'
+        width: 1
+    - AUTO:
+        access: rw
+        description: Auto (AHB disable mechanism) enable
+        lsb: 1
+        reset_value: '0'
+        width: 1
+    - WAKEUP:
+        access: rw
+        description: Wake-up mechanism enable
+        lsb: 2
+        reset_value: '0'
+        width: 1
+- CCU1_CLK_PERIPH_SGPIO_STAT:
+    fields: !!omap
+    - RUN:
+        access: r
+        description: Run enable status
+        lsb: 0
+        reset_value: '1'
+        width: 1
+    - AUTO:
+        access: r
+        description: Auto (AHB disable mechanism) enable status
+        lsb: 1
+        reset_value: '0'
+        width: 1
+    - WAKEUP:
+        access: r
+        description: Wake-up mechanism enable status
+        lsb: 2
+        reset_value: '0'
+        width: 1
+- CCU1_CLK_USB0_CFG:
+    fields: !!omap
+    - RUN:
+        access: rw
+        description: Run enable
+        lsb: 0
+        reset_value: '1'
+        width: 1
+    - AUTO:
+        access: rw
+        description: Auto (AHB disable mechanism) enable
+        lsb: 1
+        reset_value: '0'
+        width: 1
+    - WAKEUP:
+        access: rw
+        description: Wake-up mechanism enable
+        lsb: 2
+        reset_value: '0'
+        width: 1
+- CCU1_CLK_USB0_STAT:
+    fields: !!omap
+    - RUN:
+        access: r
+        description: Run enable status
+        lsb: 0
+        reset_value: '1'
+        width: 1
+    - AUTO:
+        access: r
+        description: Auto (AHB disable mechanism) enable status
+        lsb: 1
+        reset_value: '0'
+        width: 1
+    - WAKEUP:
+        access: r
+        description: Wake-up mechanism enable status
+        lsb: 2
+        reset_value: '0'
+        width: 1
+- CCU1_CLK_USB1_CFG:
+    fields: !!omap
+    - RUN:
+        access: rw
+        description: Run enable
+        lsb: 0
+        reset_value: '1'
+        width: 1
+    - AUTO:
+        access: rw
+        description: Auto (AHB disable mechanism) enable
+        lsb: 1
+        reset_value: '0'
+        width: 1
+    - WAKEUP:
+        access: rw
+        description: Wake-up mechanism enable
+        lsb: 2
+        reset_value: '0'
+        width: 1
+- CCU1_CLK_USB1_STAT:
+    fields: !!omap
+    - RUN:
+        access: r
+        description: Run enable status
+        lsb: 0
+        reset_value: '1'
+        width: 1
+    - AUTO:
+        access: r
+        description: Auto (AHB disable mechanism) enable status
+        lsb: 1
+        reset_value: '0'
+        width: 1
+    - WAKEUP:
+        access: r
+        description: Wake-up mechanism enable status
+        lsb: 2
+        reset_value: '0'
+        width: 1
+- CCU1_CLK_SPI_CFG:
+    fields: !!omap
+    - RUN:
+        access: rw
+        description: Run enable
+        lsb: 0
+        reset_value: '1'
+        width: 1
+    - AUTO:
+        access: rw
+        description: Auto (AHB disable mechanism) enable
+        lsb: 1
+        reset_value: '0'
+        width: 1
+    - WAKEUP:
+        access: rw
+        description: Wake-up mechanism enable
+        lsb: 2
+        reset_value: '0'
+        width: 1
+- CCU1_CLK_SPI_STAT:
+    fields: !!omap
+    - RUN:
+        access: r
+        description: Run enable status
+        lsb: 0
+        reset_value: '1'
+        width: 1
+    - AUTO:
+        access: r
+        description: Auto (AHB disable mechanism) enable status
+        lsb: 1
+        reset_value: '0'
+        width: 1
+    - WAKEUP:
+        access: r
+        description: Wake-up mechanism enable status
+        lsb: 2
+        reset_value: '0'
+        width: 1
+- CCU1_CLK_VADC_CFG:
+    fields: !!omap
+    - RUN:
+        access: rw
+        description: Run enable
+        lsb: 0
+        reset_value: '1'
+        width: 1
+    - AUTO:
+        access: rw
+        description: Auto (AHB disable mechanism) enable
+        lsb: 1
+        reset_value: '0'
+        width: 1
+    - WAKEUP:
+        access: rw
+        description: Wake-up mechanism enable
+        lsb: 2
+        reset_value: '0'
+        width: 1
+- CCU1_CLK_VADC_STAT:
+    fields: !!omap
+    - RUN:
+        access: r
+        description: Run enable status
+        lsb: 0
+        reset_value: '1'
+        width: 1
+    - AUTO:
+        access: r
+        description: Auto (AHB disable mechanism) enable status
+        lsb: 1
+        reset_value: '0'
+        width: 1
+    - WAKEUP:
+        access: r
+        description: Wake-up mechanism enable status
+        lsb: 2
+        reset_value: '0'
+        width: 1
+- CCU2_PM:
+    fields: !!omap
+    - PD:
+        access: rw
+        description: Initiate power-down mode
+        lsb: 0
+        reset_value: '0'
+        width: 1
+- CCU2_BASE_STAT:
+    fields: !!omap
+    - BASE_UART3_CLK_IND:
+        access: r
+        description: Base clock indicator for BASE_UART3_CLK
+        lsb: 1
+        reset_value: '1'
+        width: 1
+    - BASE_UART2_CLK_IND:
+        access: r
+        description: Base clock indicator for BASE_UART2_CLK
+        lsb: 2
+        reset_value: '1'
+        width: 1
+    - BASE_UART1_CLK_IND:
+        access: r
+        description: Base clock indicator for BASE_UART1_CLK
+        lsb: 3
+        reset_value: '1'
+        width: 1
+    - BASE_UART0_CLK_IND:
+        access: r
+        description: Base clock indicator for BASE_UART0_CLK
+        lsb: 4
+        reset_value: '1'
+        width: 1
+    - BASE_SSP1_CLK_IND:
+        access: r
+        description: Base clock indicator for BASE_SSP1_CLK
+        lsb: 5
+        reset_value: '1'
+        width: 1
+    - BASE_SSP0_CLK_IND:
+        access: r
+        description: Base clock indicator for BASE_SSP0_CLK
+        lsb: 6
+        reset_value: '1'
+        width: 1
+- CCU2_CLK_APLL_CFG:
+    fields: !!omap
+    - RUN:
+        access: rw
+        description: Run enable
+        lsb: 0
+        reset_value: '1'
+        width: 1
+    - AUTO:
+        access: rw
+        description: Auto (AHB disable mechanism) enable
+        lsb: 1
+        reset_value: '0'
+        width: 1
+    - WAKEUP:
+        access: rw
+        description: Wake-up mechanism enable
+        lsb: 2
+        reset_value: '0'
+        width: 1
+- CCU2_CLK_APLL_STAT:
+    fields: !!omap
+    - RUN:
+        access: r
+        description: Run enable status
+        lsb: 0
+        reset_value: '1'
+        width: 1
+    - AUTO:
+        access: r
+        description: Auto (AHB disable mechanism) enable status
+        lsb: 1
+        reset_value: '0'
+        width: 1
+    - WAKEUP:
+        access: r
+        description: Wake-up mechanism enable status
+        lsb: 2
+        reset_value: '0'
+        width: 1
+- CCU2_CLK_APB2_USART3_CFG:
+    fields: !!omap
+    - RUN:
+        access: rw
+        description: Run enable
+        lsb: 0
+        reset_value: '1'
+        width: 1
+    - AUTO:
+        access: rw
+        description: Auto (AHB disable mechanism) enable
+        lsb: 1
+        reset_value: '0'
+        width: 1
+    - WAKEUP:
+        access: rw
+        description: Wake-up mechanism enable
+        lsb: 2
+        reset_value: '0'
+        width: 1
+- CCU2_CLK_APB2_USART3_STAT:
+    fields: !!omap
+    - RUN:
+        access: r
+        description: Run enable status
+        lsb: 0
+        reset_value: '1'
+        width: 1
+    - AUTO:
+        access: r
+        description: Auto (AHB disable mechanism) enable status
+        lsb: 1
+        reset_value: '0'
+        width: 1
+    - WAKEUP:
+        access: r
+        description: Wake-up mechanism enable status
+        lsb: 2
+        reset_value: '0'
+        width: 1
+- CCU2_CLK_APB2_USART2_CFG:
+    fields: !!omap
+    - RUN:
+        access: rw
+        description: Run enable
+        lsb: 0
+        reset_value: '1'
+        width: 1
+    - AUTO:
+        access: rw
+        description: Auto (AHB disable mechanism) enable
+        lsb: 1
+        reset_value: '0'
+        width: 1
+    - WAKEUP:
+        access: rw
+        description: Wake-up mechanism enable
+        lsb: 2
+        reset_value: '0'
+        width: 1
+- CCU2_CLK_APB2_USART2_STAT:
+    fields: !!omap
+    - RUN:
+        access: r
+        description: Run enable status
+        lsb: 0
+        reset_value: '1'
+        width: 1
+    - AUTO:
+        access: r
+        description: Auto (AHB disable mechanism) enable status
+        lsb: 1
+        reset_value: '0'
+        width: 1
+    - WAKEUP:
+        access: r
+        description: Wake-up mechanism enable status
+        lsb: 2
+        reset_value: '0'
+        width: 1
+- CCU2_CLK_APB0_UART1_CFG:
+    fields: !!omap
+    - RUN:
+        access: rw
+        description: Run enable
+        lsb: 0
+        reset_value: '1'
+        width: 1
+    - AUTO:
+        access: rw
+        description: Auto (AHB disable mechanism) enable
+        lsb: 1
+        reset_value: '0'
+        width: 1
+    - WAKEUP:
+        access: rw
+        description: Wake-up mechanism enable
+        lsb: 2
+        reset_value: '0'
+        width: 1
+- CCU2_CLK_APB0_UART1_STAT:
+    fields: !!omap
+    - RUN:
+        access: r
+        description: Run enable status
+        lsb: 0
+        reset_value: '1'
+        width: 1
+    - AUTO:
+        access: r
+        description: Auto (AHB disable mechanism) enable status
+        lsb: 1
+        reset_value: '0'
+        width: 1
+    - WAKEUP:
+        access: r
+        description: Wake-up mechanism enable status
+        lsb: 2
+        reset_value: '0'
+        width: 1
+- CCU2_CLK_APB0_USART0_CFG:
+    fields: !!omap
+    - RUN:
+        access: rw
+        description: Run enable
+        lsb: 0
+        reset_value: '1'
+        width: 1
+    - AUTO:
+        access: rw
+        description: Auto (AHB disable mechanism) enable
+        lsb: 1
+        reset_value: '0'
+        width: 1
+    - WAKEUP:
+        access: rw
+        description: Wake-up mechanism enable
+        lsb: 2
+        reset_value: '0'
+        width: 1
+- CCU2_CLK_APB0_USART0_STAT:
+    fields: !!omap
+    - RUN:
+        access: r
+        description: Run enable status
+        lsb: 0
+        reset_value: '1'
+        width: 1
+    - AUTO:
+        access: r
+        description: Auto (AHB disable mechanism) enable status
+        lsb: 1
+        reset_value: '0'
+        width: 1
+    - WAKEUP:
+        access: r
+        description: Wake-up mechanism enable status
+        lsb: 2
+        reset_value: '0'
+        width: 1
+- CCU2_CLK_APB2_SSP1_CFG:
+    fields: !!omap
+    - RUN:
+        access: rw
+        description: Run enable
+        lsb: 0
+        reset_value: '1'
+        width: 1
+    - AUTO:
+        access: rw
+        description: Auto (AHB disable mechanism) enable
+        lsb: 1
+        reset_value: '0'
+        width: 1
+    - WAKEUP:
+        access: rw
+        description: Wake-up mechanism enable
+        lsb: 2
+        reset_value: '0'
+        width: 1
+- CCU2_CLK_APB2_SSP1_STAT:
+    fields: !!omap
+    - RUN:
+        access: r
+        description: Run enable status
+        lsb: 0
+        reset_value: '1'
+        width: 1
+    - AUTO:
+        access: r
+        description: Auto (AHB disable mechanism) enable status
+        lsb: 1
+        reset_value: '0'
+        width: 1
+    - WAKEUP:
+        access: r
+        description: Wake-up mechanism enable status
+        lsb: 2
+        reset_value: '0'
+        width: 1
+- CCU2_CLK_APB0_SSP0_CFG:
+    fields: !!omap
+    - RUN:
+        access: rw
+        description: Run enable
+        lsb: 0
+        reset_value: '1'
+        width: 1
+    - AUTO:
+        access: rw
+        description: Auto (AHB disable mechanism) enable
+        lsb: 1
+        reset_value: '0'
+        width: 1
+    - WAKEUP:
+        access: rw
+        description: Wake-up mechanism enable
+        lsb: 2
+        reset_value: '0'
+        width: 1
+- CCU2_CLK_APB0_SSP0_STAT:
+    fields: !!omap
+    - RUN:
+        access: r
+        description: Run enable status
+        lsb: 0
+        reset_value: '1'
+        width: 1
+    - AUTO:
+        access: r
+        description: Auto (AHB disable mechanism) enable status
+        lsb: 1
+        reset_value: '0'
+        width: 1
+    - WAKEUP:
+        access: r
+        description: Wake-up mechanism enable status
+        lsb: 2
+        reset_value: '0'
+        width: 1
+- CCU2_CLK_SDIO_CFG:
+    fields: !!omap
+    - RUN:
+        access: rw
+        description: Run enable
+        lsb: 0
+        reset_value: '1'
+        width: 1
+    - AUTO:
+        access: rw
+        description: Auto (AHB disable mechanism) enable
+        lsb: 1
+        reset_value: '0'
+        width: 1
+    - WAKEUP:
+        access: rw
+        description: Wake-up mechanism enable
+        lsb: 2
+        reset_value: '0'
+        width: 1
+- CCU2_CLK_SDIO_STAT:
+    fields: !!omap
+    - RUN:
+        access: r
+        description: Run enable status
+        lsb: 0
+        reset_value: '1'
+        width: 1
+    - AUTO:
+        access: r
+        description: Auto (AHB disable mechanism) enable status
+        lsb: 1
+        reset_value: '0'
+        width: 1
+    - WAKEUP:
+        access: r
+        description: Wake-up mechanism enable status
+        lsb: 2
+        reset_value: '0'
+        width: 1

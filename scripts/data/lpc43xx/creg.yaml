@@ -1,0 +1,312 @@
+!!omap
+- CREG_CREG0:
+    fields: !!omap
+    - EN1KHZ:
+        access: rw
+        description: Enable 1 kHz output
+        lsb: 0
+        reset_value: '0'
+        width: 1
+    - EN32KHZ:
+        access: rw
+        description: Enable 32 kHz output
+        lsb: 1
+        reset_value: '0'
+        width: 1
+    - RESET32KHZ:
+        access: rw
+        description: 32 kHz oscillator reset
+        lsb: 2
+        reset_value: '1'
+        width: 1
+    - PD32KHZ:
+        access: rw
+        description: 32 kHz power control
+        lsb: 3
+        reset_value: '1'
+        width: 1
+    - USB0PHY:
+        access: rw
+        description: USB0 PHY power control
+        lsb: 5
+        reset_value: '1'
+        width: 1
+    - ALARMCTRL:
+        access: rw
+        description: RTC_ALARM pin output control
+        lsb: 6
+        reset_value: '0'
+        width: 2
+    - BODLVL1:
+        access: rw
+        description: BOD trip level to generate an interrupt
+        lsb: 8
+        reset_value: '0x3'
+        width: 2
+    - BODLVL2:
+        access: rw
+        description: BOD trip level to generate a reset
+        lsb: 10
+        reset_value: '0x3'
+        width: 2
+    - SAMPLECTRL:
+        access: rw
+        description: SAMPLE pin input/output control
+        lsb: 12
+        reset_value: '0'
+        width: 2
+    - WAKEUP0CTRL:
+        access: rw
+        description: WAKEUP0 pin input/output control
+        lsb: 14
+        reset_value: '0'
+        width: 2
+    - WAKEUP1CTRL:
+        access: rw
+        description: WAKEUP1 pin input/output control
+        lsb: 16
+        reset_value: '0'
+        width: 2
+- CREG_M4MEMMAP:
+    fields: !!omap
+    - M4MAP:
+        access: rw
+        description: Shadow address when accessing memory at address 0x00000000
+        lsb: 12
+        reset_value: '0x10400000'
+        width: 20
+- CREG_CREG5:
+    fields: !!omap
+    - M4TAPSEL:
+        access: rw
+        description: JTAG debug select for M4 core
+        lsb: 6
+        reset_value: '1'
+        width: 1
+    - M0APPTAPSEL:
+        access: rw
+        description: JTAG debug select for M0 co-processor
+        lsb: 9
+        reset_value: '1'
+        width: 1
+- CREG_DMAMUX:
+    fields: !!omap
+    - DMAMUXPER0:
+        access: rw
+        description: Select DMA to peripheral connection for DMA peripheral 0
+        lsb: 0
+        reset_value: '0'
+        width: 2
+    - DMAMUXPER1:
+        access: rw
+        description: Select DMA to peripheral connection for DMA peripheral 1
+        lsb: 2
+        reset_value: '0'
+        width: 2
+    - DMAMUXPER2:
+        access: rw
+        description: Select DMA to peripheral connection for DMA peripheral 2
+        lsb: 4
+        reset_value: '0'
+        width: 2
+    - DMAMUXPER3:
+        access: rw
+        description: Select DMA to peripheral connection for DMA peripheral 3
+        lsb: 6
+        reset_value: '0'
+        width: 2
+    - DMAMUXPER4:
+        access: rw
+        description: Select DMA to peripheral connection for DMA peripheral 4
+        lsb: 8
+        reset_value: '0'
+        width: 2
+    - DMAMUXPER5:
+        access: rw
+        description: Select DMA to peripheral connection for DMA peripheral 5
+        lsb: 10
+        reset_value: '0'
+        width: 2
+    - DMAMUXPER6:
+        access: rw
+        description: Select DMA to peripheral connection for DMA peripheral 6
+        lsb: 12
+        reset_value: '0'
+        width: 2
+    - DMAMUXPER7:
+        access: rw
+        description: Select DMA to peripheral connection for DMA peripheral 7
+        lsb: 14
+        reset_value: '0'
+        width: 2
+    - DMAMUXPER8:
+        access: rw
+        description: Select DMA to peripheral connection for DMA peripheral 8
+        lsb: 16
+        reset_value: '0'
+        width: 2
+    - DMAMUXPER9:
+        access: rw
+        description: Select DMA to peripheral connection for DMA peripheral 9
+        lsb: 18
+        reset_value: '0'
+        width: 2
+    - DMAMUXPER10:
+        access: rw
+        description: Select DMA to peripheral connection for DMA peripheral 10
+        lsb: 20
+        reset_value: '0'
+        width: 2
+    - DMAMUXPER11:
+        access: rw
+        description: Select DMA to peripheral connection for DMA peripheral 11
+        lsb: 22
+        reset_value: '0'
+        width: 2
+    - DMAMUXPER12:
+        access: rw
+        description: Select DMA to peripheral connection for DMA peripheral 12
+        lsb: 24
+        reset_value: '0'
+        width: 2
+    - DMAMUXPER13:
+        access: rw
+        description: Select DMA to peripheral connection for DMA peripheral 13
+        lsb: 26
+        reset_value: '0'
+        width: 2
+    - DMAMUXPER14:
+        access: rw
+        description: Select DMA to peripheral connection for DMA peripheral 14
+        lsb: 28
+        reset_value: '0'
+        width: 2
+    - DMAMUXPER15:
+        access: rw
+        description: Select DMA to peripheral connection for DMA peripheral 15
+        lsb: 30
+        reset_value: '0'
+        width: 2
+- CREG_FLASHCFGA:
+    fields: !!omap
+    - FLASHTIM:
+        access: rw
+        description: Flash access time. The value of this field plus 1 gives the number
+          of BASE_M4_CLK clocks used for a flash access
+        lsb: 12
+        reset_value: ''
+        width: 4
+    - POW:
+        access: rw
+        description: Flash bank A power control
+        lsb: 31
+        reset_value: '1'
+        width: 1
+- CREG_FLASHCFGB:
+    fields: !!omap
+    - FLASHTIM:
+        access: rw
+        description: Flash access time. The value of this field plus 1 gives the number
+          of BASE_M4_CLK clocks used for a flash access
+        lsb: 12
+        reset_value: ''
+        width: 4
+    - POW:
+        access: rw
+        description: Flash bank B power control
+        lsb: 31
+        reset_value: '1'
+        width: 1
+- CREG_ETBCFG:
+    fields: !!omap
+    - ETB:
+        access: rw
+        description: Select SRAM interface
+        lsb: 0
+        reset_value: '1'
+        width: 1
+- CREG_CREG6:
+    fields: !!omap
+    - ETHMODE:
+        access: rw
+        description: Selects the Ethernet mode. Reset the ethernet after changing
+          the PHY interface
+        lsb: 0
+        reset_value: ''
+        width: 3
+    - CTOUTCTRL:
+        access: rw
+        description: Selects the functionality of the SCT outputs
+        lsb: 4
+        reset_value: '0'
+        width: 1
+    - I2S0_TX_SCK_IN_SEL:
+        access: rw
+        description: I2S0_TX_SCK input select
+        lsb: 12
+        reset_value: '0'
+        width: 1
+    - I2S0_RX_SCK_IN_SEL:
+        access: rw
+        description: I2S0_RX_SCK input select
+        lsb: 13
+        reset_value: '0'
+        width: 1
+    - I2S1_TX_SCK_IN_SEL:
+        access: rw
+        description: I2S1_TX_SCK input select
+        lsb: 14
+        reset_value: '0'
+        width: 1
+    - I2S1_RX_SCK_IN_SEL:
+        access: rw
+        description: I2S1_RX_SCK input select
+        lsb: 15
+        reset_value: '0'
+        width: 1
+    - EMC_CLK_SEL:
+        access: rw
+        description: EMC_CLK divided clock select
+        lsb: 16
+        reset_value: '0'
+        width: 1
+- CREG_M4TXEVENT:
+    fields: !!omap
+    - TXEVCLR:
+        access: rw
+        description: Cortex-M4 TXEV event
+        lsb: 0
+        reset_value: '0'
+        width: 1
+- CREG_M0TXEVENT:
+    fields: !!omap
+    - TXEVCLR:
+        access: rw
+        description: Cortex-M0 TXEV event
+        lsb: 0
+        reset_value: '0'
+        width: 1
+- CREG_M0APPMEMMAP:
+    fields: !!omap
+    - M0APPMAP:
+        access: rw
+        description: Shadow address when accessing memory at address 0x00000000
+        lsb: 12
+        reset_value: '0x20000000'
+        width: 20
+- CREG_USB0FLADJ:
+    fields: !!omap
+    - FLTV:
+        access: rw
+        description: Frame length timing value
+        lsb: 0
+        reset_value: '0x20'
+        width: 6
+- CREG_USB1FLADJ:
+    fields: !!omap
+    - FLTV:
+        access: rw
+        description: Frame length timing value
+        lsb: 0
+        reset_value: '0x20'
+        width: 6

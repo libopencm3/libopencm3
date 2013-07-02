@@ -1,0 +1,607 @@
+!!omap
+- ADC0_CR:
+    fields: !!omap
+    - SEL:
+        access: rw
+        description: Selects which of the ADCn_[7:0] inputs are to be sampled and
+          converted
+        lsb: 0
+        reset_value: '0'
+        width: 8
+    - CLKDIV:
+        access: rw
+        description: The ADC clock is divided by the CLKDIV value plus one to produce
+          the clock for the A/D converter
+        lsb: 8
+        reset_value: '0'
+        width: 8
+    - BURST:
+        access: rw
+        description: Controls Burst mode
+        lsb: 16
+        reset_value: '0'
+        width: 1
+    - CLKS:
+        access: rw
+        description: This field selects the number of clocks used for each conversion
+          in Burst mode and the number of bits of accuracy of the result in the LS
+          bits of ADDR, between 11 clocks (10 bits) and 4 clocks (3 bits).
+        lsb: 17
+        reset_value: '0'
+        width: 3
+    - PDN:
+        access: rw
+        description: Power mode
+        lsb: 21
+        reset_value: '0'
+        width: 1
+    - START:
+        access: rw
+        description: Controls the start of an A/D conversion when the BURST bit is
+          0
+        lsb: 24
+        reset_value: '0'
+        width: 3
+    - EDGE:
+        access: rw
+        description: Controls rising or falling edge on the selected signal for the
+          start of a conversion
+        lsb: 27
+        reset_value: '0'
+        width: 1
+- ADC1_CR:
+    fields: !!omap
+    - SEL:
+        access: rw
+        description: Selects which of the ADCn_[7:0] inputs are to be sampled and
+          converted
+        lsb: 0
+        reset_value: '0'
+        width: 8
+    - CLKDIV:
+        access: rw
+        description: The ADC clock is divided by the CLKDIV value plus one to produce
+          the clock for the A/D converter
+        lsb: 8
+        reset_value: '0'
+        width: 8
+    - BURST:
+        access: rw
+        description: Controls Burst mode
+        lsb: 16
+        reset_value: '0'
+        width: 1
+    - CLKS:
+        access: rw
+        description: This field selects the number of clocks used for each conversion
+          in Burst mode and the number of bits of accuracy of the result in the LS
+          bits of ADDR, between 11 clocks (10 bits) and 4 clocks (3 bits).
+        lsb: 17
+        reset_value: '0'
+        width: 3
+    - PDN:
+        access: rw
+        description: Power mode
+        lsb: 21
+        reset_value: '0'
+        width: 1
+    - START:
+        access: rw
+        description: Controls the start of an A/D conversion when the BURST bit is
+          0
+        lsb: 24
+        reset_value: '0'
+        width: 3
+    - EDGE:
+        access: rw
+        description: Controls rising or falling edge on the selected signal for the
+          start of a conversion
+        lsb: 27
+        reset_value: '0'
+        width: 1
+- ADC0_GDR:
+    fields: !!omap
+    - V_VREF:
+        access: r
+        description: When DONE is 1, this field contains a binary fraction representing
+          the voltage on the ADCn pin selected by the SEL field, divided by the reference
+          voltage on the VDDA pin
+        lsb: 6
+        reset_value: '0'
+        width: 10
+    - CHN:
+        access: r
+        description: These bits contain the channel from which the LS bits were converted
+        lsb: 24
+        reset_value: '0'
+        width: 3
+    - OVERRUN:
+        access: r
+        description: This bit is 1 in burst mode if the results of one or more conversions
+          was (were) lost and overwritten before the conversion that produced the
+          result in the V_VREF bits
+        lsb: 30
+        reset_value: '0'
+        width: 1
+    - DONE:
+        access: r
+        description: This bit is set to 1 when an analog-to-digital conversion completes.
+          It is cleared when this register is read and when the AD0/1CR register is
+          written
+        lsb: 31
+        reset_value: '0'
+        width: 1
+- ADC1_GDR:
+    fields: !!omap
+    - V_VREF:
+        access: r
+        description: When DONE is 1, this field contains a binary fraction representing
+          the voltage on the ADCn pin selected by the SEL field, divided by the reference
+          voltage on the VDDA pin
+        lsb: 6
+        reset_value: '0'
+        width: 10
+    - CHN:
+        access: r
+        description: These bits contain the channel from which the LS bits were converted
+        lsb: 24
+        reset_value: '0'
+        width: 3
+    - OVERRUN:
+        access: r
+        description: This bit is 1 in burst mode if the results of one or more conversions
+          was (were) lost and overwritten before the conversion that produced the
+          result in the V_VREF bits
+        lsb: 30
+        reset_value: '0'
+        width: 1
+    - DONE:
+        access: r
+        description: This bit is set to 1 when an analog-to-digital conversion completes.
+          It is cleared when this register is read and when the AD0/1CR register is
+          written
+        lsb: 31
+        reset_value: '0'
+        width: 1
+- ADC0_INTEN:
+    fields: !!omap
+    - ADINTEN:
+        access: rw
+        description: These bits allow control over which A/D channels generate interrupts
+          for conversion completion
+        lsb: 0
+        reset_value: '0'
+        width: 8
+    - ADGINTEN:
+        access: rw
+        description: When 1, enables the global DONE flag in ADDR to generate an interrupt.
+          When 0, only the individual A/D channels enabled by ADINTEN 7:0 will generate
+          interrupts.
+        lsb: 8
+        reset_value: '1'
+        width: 1
+- ADC1_INTEN:
+    fields: !!omap
+    - ADINTEN:
+        access: rw
+        description: These bits allow control over which A/D channels generate interrupts
+          for conversion completion
+        lsb: 0
+        reset_value: '0'
+        width: 8
+    - ADGINTEN:
+        access: rw
+        description: When 1, enables the global DONE flag in ADDR to generate an interrupt.
+          When 0, only the individual A/D channels enabled by ADINTEN 7:0 will generate
+          interrupts.
+        lsb: 8
+        reset_value: '1'
+        width: 1
+- ADC0_DR0:
+    fields: !!omap
+    - V_VREF:
+        access: r
+        description: When DONE is 1, this field contains a binary fraction representing
+          the voltage on the ADC0 pin divided by the reference voltage on the VDDA
+          pin
+        lsb: 6
+        reset_value: '0'
+        width: 10
+    - OVERRUN:
+        access: r
+        description: This bit is 1 in burst mode if the results of one or more conversions
+          was (were) lost and overwritten before the conversion that produced the
+          result in the V_VREF bits in this register.
+        lsb: 30
+        reset_value: '0'
+        width: 1
+    - DONE:
+        access: r
+        description: This bit is set to 1 when an A/D conversion completes.
+        lsb: 31
+        reset_value: '0'
+        width: 1
+- ADC1_DR0:
+    fields: !!omap
+    - V_VREF:
+        access: r
+        description: When DONE is 1, this field contains a binary fraction representing
+          the voltage on the ADC0 pin divided by the reference voltage on the VDDA
+          pin
+        lsb: 6
+        reset_value: '0'
+        width: 10
+    - OVERRUN:
+        access: r
+        description: This bit is 1 in burst mode if the results of one or more conversions
+          was (were) lost and overwritten before the conversion that produced the
+          result in the V_VREF bits in this register.
+        lsb: 30
+        reset_value: '0'
+        width: 1
+    - DONE:
+        access: r
+        description: This bit is set to 1 when an A/D conversion completes.
+        lsb: 31
+        reset_value: '0'
+        width: 1
+- ADC0_DR1:
+    fields: !!omap
+    - V_VREF:
+        access: r
+        description: When DONE is 1, this field contains a binary fraction representing
+          the voltage on the ADC1 pin divided by the reference voltage on the VDDA
+          pin
+        lsb: 6
+        reset_value: '0'
+        width: 10
+    - OVERRUN:
+        access: r
+        description: This bit is 1 in burst mode if the results of one or more conversions
+          was (were) lost and overwritten before the conversion that produced the
+          result in the V_VREF bits in this register.
+        lsb: 30
+        reset_value: '0'
+        width: 1
+    - DONE:
+        access: r
+        description: This bit is set to 1 when an A/D conversion completes.
+        lsb: 31
+        reset_value: '0'
+        width: 1
+- ADC1_DR1:
+    fields: !!omap
+    - V_VREF:
+        access: r
+        description: When DONE is 1, this field contains a binary fraction representing
+          the voltage on the ADC1 pin divided by the reference voltage on the VDDA
+          pin
+        lsb: 6
+        reset_value: '0'
+        width: 10
+    - OVERRUN:
+        access: r
+        description: This bit is 1 in burst mode if the results of one or more conversions
+          was (were) lost and overwritten before the conversion that produced the
+          result in the V_VREF bits in this register.
+        lsb: 30
+        reset_value: '0'
+        width: 1
+    - DONE:
+        access: r
+        description: This bit is set to 1 when an A/D conversion completes.
+        lsb: 31
+        reset_value: '0'
+        width: 1
+- ADC0_DR2:
+    fields: !!omap
+    - V_VREF:
+        access: r
+        description: When DONE is 1, this field contains a binary fraction representing
+          the voltage on the ADC2 pin divided by the reference voltage on the VDDA
+          pin
+        lsb: 6
+        reset_value: '0'
+        width: 10
+    - OVERRUN:
+        access: r
+        description: This bit is 1 in burst mode if the results of one or more conversions
+          was (were) lost and overwritten before the conversion that produced the
+          result in the V_VREF bits in this register.
+        lsb: 30
+        reset_value: '0'
+        width: 1
+    - DONE:
+        access: r
+        description: This bit is set to 1 when an A/D conversion completes.
+        lsb: 31
+        reset_value: '0'
+        width: 1
+- ADC1_DR2:
+    fields: !!omap
+    - V_VREF:
+        access: r
+        description: When DONE is 1, this field contains a binary fraction representing
+          the voltage on the ADC2 pin divided by the reference voltage on the VDDA
+          pin
+        lsb: 6
+        reset_value: '0'
+        width: 10
+    - OVERRUN:
+        access: r
+        description: This bit is 1 in burst mode if the results of one or more conversions
+          was (were) lost and overwritten before the conversion that produced the
+          result in the V_VREF bits in this register.
+        lsb: 30
+        reset_value: '0'
+        width: 1
+    - DONE:
+        access: r
+        description: This bit is set to 1 when an A/D conversion completes.
+        lsb: 31
+        reset_value: '0'
+        width: 1
+- ADC0_DR3:
+    fields: !!omap
+    - V_VREF:
+        access: r
+        description: When DONE is 1, this field contains a binary fraction representing
+          the voltage on the ADC3 pin divided by the reference voltage on the VDDA
+          pin
+        lsb: 6
+        reset_value: '0'
+        width: 10
+    - OVERRUN:
+        access: r
+        description: This bit is 1 in burst mode if the results of one or more conversions
+          was (were) lost and overwritten before the conversion that produced the
+          result in the V_VREF bits in this register.
+        lsb: 30
+        reset_value: '0'
+        width: 1
+    - DONE:
+        access: r
+        description: This bit is set to 1 when an A/D conversion completes.
+        lsb: 31
+        reset_value: '0'
+        width: 1
+- ADC1_DR3:
+    fields: !!omap
+    - V_VREF:
+        access: r
+        description: When DONE is 1, this field contains a binary fraction representing
+          the voltage on the ADC3 pin divided by the reference voltage on the VDDA
+          pin
+        lsb: 6
+        reset_value: '0'
+        width: 10
+    - OVERRUN:
+        access: r
+        description: This bit is 1 in burst mode if the results of one or more conversions
+          was (were) lost and overwritten before the conversion that produced the
+          result in the V_VREF bits in this register.
+        lsb: 30
+        reset_value: '0'
+        width: 1
+    - DONE:
+        access: r
+        description: This bit is set to 1 when an A/D conversion completes.
+        lsb: 31
+        reset_value: '0'
+        width: 1
+- ADC0_DR4:
+    fields: !!omap
+    - V_VREF:
+        access: r
+        description: When DONE is 1, this field contains a binary fraction representing
+          the voltage on the ADC4 pin divided by the reference voltage on the VDDA
+          pin
+        lsb: 6
+        reset_value: '0'
+        width: 10
+    - OVERRUN:
+        access: r
+        description: This bit is 1 in burst mode if the results of one or more conversions
+          was (were) lost and overwritten before the conversion that produced the
+          result in the V_VREF bits in this register.
+        lsb: 30
+        reset_value: '0'
+        width: 1
+    - DONE:
+        access: r
+        description: This bit is set to 1 when an A/D conversion completes.
+        lsb: 31
+        reset_value: '0'
+        width: 1
+- ADC1_DR4:
+    fields: !!omap
+    - V_VREF:
+        access: r
+        description: When DONE is 1, this field contains a binary fraction representing
+          the voltage on the ADC4 pin divided by the reference voltage on the VDDA
+          pin
+        lsb: 6
+        reset_value: '0'
+        width: 10
+    - OVERRUN:
+        access: r
+        description: This bit is 1 in burst mode if the results of one or more conversions
+          was (were) lost and overwritten before the conversion that produced the
+          result in the V_VREF bits in this register.
+        lsb: 30
+        reset_value: '0'
+        width: 1
+    - DONE:
+        access: r
+        description: This bit is set to 1 when an A/D conversion completes.
+        lsb: 31
+        reset_value: '0'
+        width: 1
+- ADC0_DR5:
+    fields: !!omap
+    - V_VREF:
+        access: r
+        description: When DONE is 1, this field contains a binary fraction representing
+          the voltage on the ADC5 pin divided by the reference voltage on the VDDA
+          pin
+        lsb: 6
+        reset_value: '0'
+        width: 10
+    - OVERRUN:
+        access: r
+        description: This bit is 1 in burst mode if the results of one or more conversions
+          was (were) lost and overwritten before the conversion that produced the
+          result in the V_VREF bits in this register.
+        lsb: 30
+        reset_value: '0'
+        width: 1
+    - DONE:
+        access: r
+        description: This bit is set to 1 when an A/D conversion completes.
+        lsb: 31
+        reset_value: '0'
+        width: 1
+- ADC1_DR5:
+    fields: !!omap
+    - V_VREF:
+        access: r
+        description: When DONE is 1, this field contains a binary fraction representing
+          the voltage on the ADC5 pin divided by the reference voltage on the VDDA
+          pin
+        lsb: 6
+        reset_value: '0'
+        width: 10
+    - OVERRUN:
+        access: r
+        description: This bit is 1 in burst mode if the results of one or more conversions
+          was (were) lost and overwritten before the conversion that produced the
+          result in the V_VREF bits in this register.
+        lsb: 30
+        reset_value: '0'
+        width: 1
+    - DONE:
+        access: r
+        description: This bit is set to 1 when an A/D conversion completes.
+        lsb: 31
+        reset_value: '0'
+        width: 1
+- ADC0_DR6:
+    fields: !!omap
+    - V_VREF:
+        access: r
+        description: When DONE is 1, this field contains a binary fraction representing
+          the voltage on the ADC6 pin divided by the reference voltage on the VDDA
+          pin
+        lsb: 6
+        reset_value: '0'
+        width: 10
+    - OVERRUN:
+        access: r
+        description: This bit is 1 in burst mode if the results of one or more conversions
+          was (were) lost and overwritten before the conversion that produced the
+          result in the V_VREF bits in this register.
+        lsb: 30
+        reset_value: '0'
+        width: 1
+    - DONE:
+        access: r
+        description: This bit is set to 1 when an A/D conversion completes.
+        lsb: 31
+        reset_value: '0'
+        width: 1
+- ADC1_DR6:
+    fields: !!omap
+    - V_VREF:
+        access: r
+        description: When DONE is 1, this field contains a binary fraction representing
+          the voltage on the ADC6 pin divided by the reference voltage on the VDDA
+          pin
+        lsb: 6
+        reset_value: '0'
+        width: 10
+    - OVERRUN:
+        access: r
+        description: This bit is 1 in burst mode if the results of one or more conversions
+          was (were) lost and overwritten before the conversion that produced the
+          result in the V_VREF bits in this register.
+        lsb: 30
+        reset_value: '0'
+        width: 1
+    - DONE:
+        access: r
+        description: This bit is set to 1 when an A/D conversion completes.
+        lsb: 31
+        reset_value: '0'
+        width: 1
+- ADC0_DR7:
+    fields: !!omap
+    - V_VREF:
+        access: r
+        description: When DONE is 1, this field contains a binary fraction representing
+          the voltage on the ADC7 pin divided by the reference voltage on the VDDA
+          pin
+        lsb: 6
+        reset_value: '0'
+        width: 10
+    - OVERRUN:
+        access: r
+        description: This bit is 1 in burst mode if the results of one or more conversions
+          was (were) lost and overwritten before the conversion that produced the
+          result in the V_VREF bits in this register.
+        lsb: 30
+        reset_value: '0'
+        width: 1
+    - DONE:
+        access: r
+        description: This bit is set to 1 when an A/D conversion completes.
+        lsb: 31
+        reset_value: '0'
+        width: 1
+- ADC1_DR7:
+    fields: !!omap
+    - V_VREF:
+        access: r
+        description: When DONE is 1, this field contains a binary fraction representing
+          the voltage on the ADC7 pin divided by the reference voltage on the VDDA
+          pin
+        lsb: 6
+        reset_value: '0'
+        width: 10
+    - OVERRUN:
+        access: r
+        description: This bit is 1 in burst mode if the results of one or more conversions
+          was (were) lost and overwritten before the conversion that produced the
+          result in the V_VREF bits in this register.
+        lsb: 30
+        reset_value: '0'
+        width: 1
+    - DONE:
+        access: r
+        description: This bit is set to 1 when an A/D conversion completes.
+        lsb: 31
+        reset_value: '0'
+        width: 1
+- ADC0_STAT:
+    fields: !!omap
+    - DONE:
+        access: r
+        description: These bits mirror the DONE status flags that appear in the result
+          register for each A/D channel.
+        lsb: 0
+        reset_value: '0'
+        width: 8
+    - OVERRUN:
+        access: r
+        description: These bits mirror the OVERRRUN status flags that appear in the
+          result register for each A/D channel.
+        lsb: 8
+        reset_value: '0'
+        width: 8
+    - ADINT:
+        access: r
+        description: This bit is the A/D interrupt flag. It is one when any of the
+          individual A/D channel Done flags is asserted and enabled to contribute
+          to the A/D interrupt via the ADINTEN register.
+        lsb: 16
+        reset_value: '0'
+        width: 1

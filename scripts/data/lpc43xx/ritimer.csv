@@ -1,7 +1,0 @@
-RITIMER_COMPVAL,0,32,RICOMP,Compare register,0xFFFFFFFF,rw
-RITIMER_MASK,0,32,RIMASK,Mask register,0,rw
-RITIMER_CTRL,0,1,RITINT,Interrupt flag,0,rw
-RITIMER_CTRL,1,1,RITENCLR,Timer enable clear,0,rw
-RITIMER_CTRL,2,1,RITENBR,Timer enable for debug,1,rw
-RITIMER_CTRL,3,1,RITEN,Timer enable,1,rw
-RITIMER_COUNTER,0,32,RICOUNTER,32-bit up counter,0,rw

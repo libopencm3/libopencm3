@@ -1,0 +1,1953 @@
+!!omap
+- SGPIO_OUT_MUX_CFG0:
+    fields: !!omap
+    - P_OUT_CFG:
+        access: rw
+        description: Output control of output SGPIOn
+        lsb: 0
+        reset_value: '0'
+        width: 4
+    - P_OE_CFG:
+        access: rw
+        description: Output enable source
+        lsb: 4
+        reset_value: '0'
+        width: 3
+- SGPIO_OUT_MUX_CFG1:
+    fields: !!omap
+    - P_OUT_CFG:
+        access: rw
+        description: Output control of output SGPIOn
+        lsb: 0
+        reset_value: '0'
+        width: 4
+    - P_OE_CFG:
+        access: rw
+        description: Output enable source
+        lsb: 4
+        reset_value: '0'
+        width: 3
+- SGPIO_OUT_MUX_CFG2:
+    fields: !!omap
+    - P_OUT_CFG:
+        access: rw
+        description: Output control of output SGPIOn
+        lsb: 0
+        reset_value: '0'
+        width: 4
+    - P_OE_CFG:
+        access: rw
+        description: Output enable source
+        lsb: 4
+        reset_value: '0'
+        width: 3
+- SGPIO_OUT_MUX_CFG3:
+    fields: !!omap
+    - P_OUT_CFG:
+        access: rw
+        description: Output control of output SGPIOn
+        lsb: 0
+        reset_value: '0'
+        width: 4
+    - P_OE_CFG:
+        access: rw
+        description: Output enable source
+        lsb: 4
+        reset_value: '0'
+        width: 3
+- SGPIO_OUT_MUX_CFG4:
+    fields: !!omap
+    - P_OUT_CFG:
+        access: rw
+        description: Output control of output SGPIOn
+        lsb: 0
+        reset_value: '0'
+        width: 4
+    - P_OE_CFG:
+        access: rw
+        description: Output enable source
+        lsb: 4
+        reset_value: '0'
+        width: 3
+- SGPIO_OUT_MUX_CFG5:
+    fields: !!omap
+    - P_OUT_CFG:
+        access: rw
+        description: Output control of output SGPIOn
+        lsb: 0
+        reset_value: '0'
+        width: 4
+    - P_OE_CFG:
+        access: rw
+        description: Output enable source
+        lsb: 4
+        reset_value: '0'
+        width: 3
+- SGPIO_OUT_MUX_CFG6:
+    fields: !!omap
+    - P_OUT_CFG:
+        access: rw
+        description: Output control of output SGPIOn
+        lsb: 0
+        reset_value: '0'
+        width: 4
+    - P_OE_CFG:
+        access: rw
+        description: Output enable source
+        lsb: 4
+        reset_value: '0'
+        width: 3
+- SGPIO_OUT_MUX_CFG7:
+    fields: !!omap
+    - P_OUT_CFG:
+        access: rw
+        description: Output control of output SGPIOn
+        lsb: 0
+        reset_value: '0'
+        width: 4
+    - P_OE_CFG:
+        access: rw
+        description: Output enable source
+        lsb: 4
+        reset_value: '0'
+        width: 3
+- SGPIO_OUT_MUX_CFG8:
+    fields: !!omap
+    - P_OUT_CFG:
+        access: rw
+        description: Output control of output SGPIOn
+        lsb: 0
+        reset_value: '0'
+        width: 4
+    - P_OE_CFG:
+        access: rw
+        description: Output enable source
+        lsb: 4
+        reset_value: '0'
+        width: 3
+- SGPIO_OUT_MUX_CFG9:
+    fields: !!omap
+    - P_OUT_CFG:
+        access: rw
+        description: Output control of output SGPIOn
+        lsb: 0
+        reset_value: '0'
+        width: 4
+    - P_OE_CFG:
+        access: rw
+        description: Output enable source
+        lsb: 4
+        reset_value: '0'
+        width: 3
+- SGPIO_OUT_MUX_CFG10:
+    fields: !!omap
+    - P_OUT_CFG:
+        access: rw
+        description: Output control of output SGPIOn
+        lsb: 0
+        reset_value: '0'
+        width: 4
+    - P_OE_CFG:
+        access: rw
+        description: Output enable source
+        lsb: 4
+        reset_value: '0'
+        width: 3
+- SGPIO_OUT_MUX_CFG11:
+    fields: !!omap
+    - P_OUT_CFG:
+        access: rw
+        description: Output control of output SGPIOn
+        lsb: 0
+        reset_value: '0'
+        width: 4
+    - P_OE_CFG:
+        access: rw
+        description: Output enable source
+        lsb: 4
+        reset_value: '0'
+        width: 3
+- SGPIO_OUT_MUX_CFG12:
+    fields: !!omap
+    - P_OUT_CFG:
+        access: rw
+        description: Output control of output SGPIOn
+        lsb: 0
+        reset_value: '0'
+        width: 4
+    - P_OE_CFG:
+        access: rw
+        description: Output enable source
+        lsb: 4
+        reset_value: '0'
+        width: 3
+- SGPIO_OUT_MUX_CFG13:
+    fields: !!omap
+    - P_OUT_CFG:
+        access: rw
+        description: Output control of output SGPIOn
+        lsb: 0
+        reset_value: '0'
+        width: 4
+    - P_OE_CFG:
+        access: rw
+        description: Output enable source
+        lsb: 4
+        reset_value: '0'
+        width: 3
+- SGPIO_OUT_MUX_CFG14:
+    fields: !!omap
+    - P_OUT_CFG:
+        access: rw
+        description: Output control of output SGPIOn
+        lsb: 0
+        reset_value: '0'
+        width: 4
+    - P_OE_CFG:
+        access: rw
+        description: Output enable source
+        lsb: 4
+        reset_value: '0'
+        width: 3
+- SGPIO_OUT_MUX_CFG15:
+    fields: !!omap
+    - P_OUT_CFG:
+        access: rw
+        description: Output control of output SGPIOn
+        lsb: 0
+        reset_value: '0'
+        width: 4
+    - P_OE_CFG:
+        access: rw
+        description: Output enable source
+        lsb: 4
+        reset_value: '0'
+        width: 3
+- SGPIO_MUX_CFG0:
+    fields: !!omap
+    - EXT_CLK_ENABLE:
+        access: rw
+        description: Select clock signal
+        lsb: 0
+        reset_value: '0'
+        width: 1
+    - CLK_SOURCE_PIN_MODE:
+        access: rw
+        description: Select source clock pin
+        lsb: 1
+        reset_value: '0'
+        width: 2
+    - CLK_SOURCE_SLICE_MODE:
+        access: rw
+        description: Select clock source slice
+        lsb: 3
+        reset_value: '0'
+        width: 2
+    - QUALIFIER_MODE:
+        access: rw
+        description: Select qualifier mode
+        lsb: 5
+        reset_value: '0'
+        width: 2
+    - QUALIFIER_PIN_MODE:
+        access: rw
+        description: Select qualifier pin
+        lsb: 7
+        reset_value: '0'
+        width: 2
+    - QUALIFIER_SLICE_MODE:
+        access: rw
+        description: Select qualifier slice
+        lsb: 9
+        reset_value: '0'
+        width: 2
+    - CONCAT_ENABLE:
+        access: rw
+        description: Enable concatenation
+        lsb: 11
+        reset_value: '0'
+        width: 1
+    - CONCAT_ORDER:
+        access: rw
+        description: Select concatenation order
+        lsb: 12
+        reset_value: '0'
+        width: 2
+- SGPIO_MUX_CFG1:
+    fields: !!omap
+    - EXT_CLK_ENABLE:
+        access: rw
+        description: Select clock signal
+        lsb: 0
+        reset_value: '0'
+        width: 1
+    - CLK_SOURCE_PIN_MODE:
+        access: rw
+        description: Select source clock pin
+        lsb: 1
+        reset_value: '0'
+        width: 2
+    - CLK_SOURCE_SLICE_MODE:
+        access: rw
+        description: Select clock source slice
+        lsb: 3
+        reset_value: '0'
+        width: 2
+    - QUALIFIER_MODE:
+        access: rw
+        description: Select qualifier mode
+        lsb: 5
+        reset_value: '0'
+        width: 2
+    - QUALIFIER_PIN_MODE:
+        access: rw
+        description: Select qualifier pin
+        lsb: 7
+        reset_value: '0'
+        width: 2
+    - QUALIFIER_SLICE_MODE:
+        access: rw
+        description: Select qualifier slice
+        lsb: 9
+        reset_value: '0'
+        width: 2
+    - CONCAT_ENABLE:
+        access: rw
+        description: Enable concatenation
+        lsb: 11
+        reset_value: '0'
+        width: 1
+    - CONCAT_ORDER:
+        access: rw
+        description: Select concatenation order
+        lsb: 12
+        reset_value: '0'
+        width: 2
+- SGPIO_MUX_CFG2:
+    fields: !!omap
+    - EXT_CLK_ENABLE:
+        access: rw
+        description: Select clock signal
+        lsb: 0
+        reset_value: '0'
+        width: 1
+    - CLK_SOURCE_PIN_MODE:
+        access: rw
+        description: Select source clock pin
+        lsb: 1
+        reset_value: '0'
+        width: 2
+    - CLK_SOURCE_SLICE_MODE:
+        access: rw
+        description: Select clock source slice
+        lsb: 3
+        reset_value: '0'
+        width: 2
+    - QUALIFIER_MODE:
+        access: rw
+        description: Select qualifier mode
+        lsb: 5
+        reset_value: '0'
+        width: 2
+    - QUALIFIER_PIN_MODE:
+        access: rw
+        description: Select qualifier pin
+        lsb: 7
+        reset_value: '0'
+        width: 2
+    - QUALIFIER_SLICE_MODE:
+        access: rw
+        description: Select qualifier slice
+        lsb: 9
+        reset_value: '0'
+        width: 2
+    - CONCAT_ENABLE:
+        access: rw
+        description: Enable concatenation
+        lsb: 11
+        reset_value: '0'
+        width: 1
+    - CONCAT_ORDER:
+        access: rw
+        description: Select concatenation order
+        lsb: 12
+        reset_value: '0'
+        width: 2
+- SGPIO_MUX_CFG3:
+    fields: !!omap
+    - EXT_CLK_ENABLE:
+        access: rw
+        description: Select clock signal
+        lsb: 0
+        reset_value: '0'
+        width: 1
+    - CLK_SOURCE_PIN_MODE:
+        access: rw
+        description: Select source clock pin
+        lsb: 1
+        reset_value: '0'
+        width: 2
+    - CLK_SOURCE_SLICE_MODE:
+        access: rw
+        description: Select clock source slice
+        lsb: 3
+        reset_value: '0'
+        width: 2
+    - QUALIFIER_MODE:
+        access: rw
+        description: Select qualifier mode
+        lsb: 5
+        reset_value: '0'
+        width: 2
+    - QUALIFIER_PIN_MODE:
+        access: rw
+        description: Select qualifier pin
+        lsb: 7
+        reset_value: '0'
+        width: 2
+    - QUALIFIER_SLICE_MODE:
+        access: rw
+        description: Select qualifier slice
+        lsb: 9
+        reset_value: '0'
+        width: 2
+    - CONCAT_ENABLE:
+        access: rw
+        description: Enable concatenation
+        lsb: 11
+        reset_value: '0'
+        width: 1
+    - CONCAT_ORDER:
+        access: rw
+        description: Select concatenation order
+        lsb: 12
+        reset_value: '0'
+        width: 2
+- SGPIO_MUX_CFG4:
+    fields: !!omap
+    - EXT_CLK_ENABLE:
+        access: rw
+        description: Select clock signal
+        lsb: 0
+        reset_value: '0'
+        width: 1
+    - CLK_SOURCE_PIN_MODE:
+        access: rw
+        description: Select source clock pin
+        lsb: 1
+        reset_value: '0'
+        width: 2
+    - CLK_SOURCE_SLICE_MODE:
+        access: rw
+        description: Select clock source slice
+        lsb: 3
+        reset_value: '0'
+        width: 2
+    - QUALIFIER_MODE:
+        access: rw
+        description: Select qualifier mode
+        lsb: 5
+        reset_value: '0'
+        width: 2
+    - QUALIFIER_PIN_MODE:
+        access: rw
+        description: Select qualifier pin
+        lsb: 7
+        reset_value: '0'
+        width: 2
+    - QUALIFIER_SLICE_MODE:
+        access: rw
+        description: Select qualifier slice
+        lsb: 9
+        reset_value: '0'
+        width: 2
+    - CONCAT_ENABLE:
+        access: rw
+        description: Enable concatenation
+        lsb: 11
+        reset_value: '0'
+        width: 1
+    - CONCAT_ORDER:
+        access: rw
+        description: Select concatenation order
+        lsb: 12
+        reset_value: '0'
+        width: 2
+- SGPIO_MUX_CFG5:
+    fields: !!omap
+    - EXT_CLK_ENABLE:
+        access: rw
+        description: Select clock signal
+        lsb: 0
+        reset_value: '0'
+        width: 1
+    - CLK_SOURCE_PIN_MODE:
+        access: rw
+        description: Select source clock pin
+        lsb: 1
+        reset_value: '0'
+        width: 2
+    - CLK_SOURCE_SLICE_MODE:
+        access: rw
+        description: Select clock source slice
+        lsb: 3
+        reset_value: '0'
+        width: 2
+    - QUALIFIER_MODE:
+        access: rw
+        description: Select qualifier mode
+        lsb: 5
+        reset_value: '0'
+        width: 2
+    - QUALIFIER_PIN_MODE:
+        access: rw
+        description: Select qualifier pin
+        lsb: 7
+        reset_value: '0'
+        width: 2
+    - QUALIFIER_SLICE_MODE:
+        access: rw
+        description: Select qualifier slice
+        lsb: 9
+        reset_value: '0'
+        width: 2
+    - CONCAT_ENABLE:
+        access: rw
+        description: Enable concatenation
+        lsb: 11
+        reset_value: '0'
+        width: 1
+    - CONCAT_ORDER:
+        access: rw
+        description: Select concatenation order
+        lsb: 12
+        reset_value: '0'
+        width: 2
+- SGPIO_MUX_CFG6:
+    fields: !!omap
+    - EXT_CLK_ENABLE:
+        access: rw
+        description: Select clock signal
+        lsb: 0
+        reset_value: '0'
+        width: 1
+    - CLK_SOURCE_PIN_MODE:
+        access: rw
+        description: Select source clock pin
+        lsb: 1
+        reset_value: '0'
+        width: 2
+    - CLK_SOURCE_SLICE_MODE:
+        access: rw
+        description: Select clock source slice
+        lsb: 3
+        reset_value: '0'
+        width: 2
+    - QUALIFIER_MODE:
+        access: rw
+        description: Select qualifier mode
+        lsb: 5
+        reset_value: '0'
+        width: 2
+    - QUALIFIER_PIN_MODE:
+        access: rw
+        description: Select qualifier pin
+        lsb: 7
+        reset_value: '0'
+        width: 2
+    - QUALIFIER_SLICE_MODE:
+        access: rw
+        description: Select qualifier slice
+        lsb: 9
+        reset_value: '0'
+        width: 2
+    - CONCAT_ENABLE:
+        access: rw
+        description: Enable concatenation
+        lsb: 11
+        reset_value: '0'
+        width: 1
+    - CONCAT_ORDER:
+        access: rw
+        description: Select concatenation order
+        lsb: 12
+        reset_value: '0'
+        width: 2
+- SGPIO_MUX_CFG7:
+    fields: !!omap
+    - EXT_CLK_ENABLE:
+        access: rw
+        description: Select clock signal
+        lsb: 0
+        reset_value: '0'
+        width: 1
+    - CLK_SOURCE_PIN_MODE:
+        access: rw
+        description: Select source clock pin
+        lsb: 1
+        reset_value: '0'
+        width: 2
+    - CLK_SOURCE_SLICE_MODE:
+        access: rw
+        description: Select clock source slice
+        lsb: 3
+        reset_value: '0'
+        width: 2
+    - QUALIFIER_MODE:
+        access: rw
+        description: Select qualifier mode
+        lsb: 5
+        reset_value: '0'
+        width: 2
+    - QUALIFIER_PIN_MODE:
+        access: rw
+        description: Select qualifier pin
+        lsb: 7
+        reset_value: '0'
+        width: 2
+    - QUALIFIER_SLICE_MODE:
+        access: rw
+        description: Select qualifier slice
+        lsb: 9
+        reset_value: '0'
+        width: 2
+    - CONCAT_ENABLE:
+        access: rw
+        description: Enable concatenation
+        lsb: 11
+        reset_value: '0'
+        width: 1
+    - CONCAT_ORDER:
+        access: rw
+        description: Select concatenation order
+        lsb: 12
+        reset_value: '0'
+        width: 2
+- SGPIO_MUX_CFG8:
+    fields: !!omap
+    - EXT_CLK_ENABLE:
+        access: rw
+        description: Select clock signal
+        lsb: 0
+        reset_value: '0'
+        width: 1
+    - CLK_SOURCE_PIN_MODE:
+        access: rw
+        description: Select source clock pin
+        lsb: 1
+        reset_value: '0'
+        width: 2
+    - CLK_SOURCE_SLICE_MODE:
+        access: rw
+        description: Select clock source slice
+        lsb: 3
+        reset_value: '0'
+        width: 2
+    - QUALIFIER_MODE:
+        access: rw
+        description: Select qualifier mode
+        lsb: 5
+        reset_value: '0'
+        width: 2
+    - QUALIFIER_PIN_MODE:
+        access: rw
+        description: Select qualifier pin
+        lsb: 7
+        reset_value: '0'
+        width: 2
+    - QUALIFIER_SLICE_MODE:
+        access: rw
+        description: Select qualifier slice
+        lsb: 9
+        reset_value: '0'
+        width: 2
+    - CONCAT_ENABLE:
+        access: rw
+        description: Enable concatenation
+        lsb: 11
+        reset_value: '0'
+        width: 1
+    - CONCAT_ORDER:
+        access: rw
+        description: Select concatenation order
+        lsb: 12
+        reset_value: '0'
+        width: 2
+- SGPIO_MUX_CFG9:
+    fields: !!omap
+    - EXT_CLK_ENABLE:
+        access: rw
+        description: Select clock signal
+        lsb: 0
+        reset_value: '0'
+        width: 1
+    - CLK_SOURCE_PIN_MODE:
+        access: rw
+        description: Select source clock pin
+        lsb: 1
+        reset_value: '0'
+        width: 2
+    - CLK_SOURCE_SLICE_MODE:
+        access: rw
+        description: Select clock source slice
+        lsb: 3
+        reset_value: '0'
+        width: 2
+    - QUALIFIER_MODE:
+        access: rw
+        description: Select qualifier mode
+        lsb: 5
+        reset_value: '0'
+        width: 2
+    - QUALIFIER_PIN_MODE:
+        access: rw
+        description: Select qualifier pin
+        lsb: 7
+        reset_value: '0'
+        width: 2
+    - QUALIFIER_SLICE_MODE:
+        access: rw
+        description: Select qualifier slice
+        lsb: 9
+        reset_value: '0'
+        width: 2
+    - CONCAT_ENABLE:
+        access: rw
+        description: Enable concatenation
+        lsb: 11
+        reset_value: '0'
+        width: 1
+    - CONCAT_ORDER:
+        access: rw
+        description: Select concatenation order
+        lsb: 12
+        reset_value: '0'
+        width: 2
+- SGPIO_MUX_CFG10:
+    fields: !!omap
+    - EXT_CLK_ENABLE:
+        access: rw
+        description: Select clock signal
+        lsb: 0
+        reset_value: '0'
+        width: 1
+    - CLK_SOURCE_PIN_MODE:
+        access: rw
+        description: Select source clock pin
+        lsb: 1
+        reset_value: '0'
+        width: 2
+    - CLK_SOURCE_SLICE_MODE:
+        access: rw
+        description: Select clock source slice
+        lsb: 3
+        reset_value: '0'
+        width: 2
+    - QUALIFIER_MODE:
+        access: rw
+        description: Select qualifier mode
+        lsb: 5
+        reset_value: '0'
+        width: 2
+    - QUALIFIER_PIN_MODE:
+        access: rw
+        description: Select qualifier pin
+        lsb: 7
+        reset_value: '0'
+        width: 2
+    - QUALIFIER_SLICE_MODE:
+        access: rw
+        description: Select qualifier slice
+        lsb: 9
+        reset_value: '0'
+        width: 2
+    - CONCAT_ENABLE:
+        access: rw
+        description: Enable concatenation
+        lsb: 11
+        reset_value: '0'
+        width: 1
+    - CONCAT_ORDER:
+        access: rw
+        description: Select concatenation order
+        lsb: 12
+        reset_value: '0'
+        width: 2
+- SGPIO_MUX_CFG11:
+    fields: !!omap
+    - EXT_CLK_ENABLE:
+        access: rw
+        description: Select clock signal
+        lsb: 0
+        reset_value: '0'
+        width: 1
+    - CLK_SOURCE_PIN_MODE:
+        access: rw
+        description: Select source clock pin
+        lsb: 1
+        reset_value: '0'
+        width: 2
+    - CLK_SOURCE_SLICE_MODE:
+        access: rw
+        description: Select clock source slice
+        lsb: 3
+        reset_value: '0'
+        width: 2
+    - QUALIFIER_MODE:
+        access: rw
+        description: Select qualifier mode
+        lsb: 5
+        reset_value: '0'
+        width: 2
+    - QUALIFIER_PIN_MODE:
+        access: rw
+        description: Select qualifier pin
+        lsb: 7
+        reset_value: '0'
+        width: 2
+    - QUALIFIER_SLICE_MODE:
+        access: rw
+        description: Select qualifier slice
+        lsb: 9
+        reset_value: '0'
+        width: 2
+    - CONCAT_ENABLE:
+        access: rw
+        description: Enable concatenation
+        lsb: 11
+        reset_value: '0'
+        width: 1
+    - CONCAT_ORDER:
+        access: rw
+        description: Select concatenation order
+        lsb: 12
+        reset_value: '0'
+        width: 2
+- SGPIO_MUX_CFG12:
+    fields: !!omap
+    - EXT_CLK_ENABLE:
+        access: rw
+        description: Select clock signal
+        lsb: 0
+        reset_value: '0'
+        width: 1
+    - CLK_SOURCE_PIN_MODE:
+        access: rw
+        description: Select source clock pin
+        lsb: 1
+        reset_value: '0'
+        width: 2
+    - CLK_SOURCE_SLICE_MODE:
+        access: rw
+        description: Select clock source slice
+        lsb: 3
+        reset_value: '0'
+        width: 2
+    - QUALIFIER_MODE:
+        access: rw
+        description: Select qualifier mode
+        lsb: 5
+        reset_value: '0'
+        width: 2
+    - QUALIFIER_PIN_MODE:
+        access: rw
+        description: Select qualifier pin
+        lsb: 7
+        reset_value: '0'
+        width: 2
+    - QUALIFIER_SLICE_MODE:
+        access: rw
+        description: Select qualifier slice
+        lsb: 9
+        reset_value: '0'
+        width: 2
+    - CONCAT_ENABLE:
+        access: rw
+        description: Enable concatenation
+        lsb: 11
+        reset_value: '0'
+        width: 1
+    - CONCAT_ORDER:
+        access: rw
+        description: Select concatenation order
+        lsb: 12
+        reset_value: '0'
+        width: 2
+- SGPIO_MUX_CFG13:
+    fields: !!omap
+    - EXT_CLK_ENABLE:
+        access: rw
+        description: Select clock signal
+        lsb: 0
+        reset_value: '0'
+        width: 1
+    - CLK_SOURCE_PIN_MODE:
+        access: rw
+        description: Select source clock pin
+        lsb: 1
+        reset_value: '0'
+        width: 2
+    - CLK_SOURCE_SLICE_MODE:
+        access: rw
+        description: Select clock source slice
+        lsb: 3
+        reset_value: '0'
+        width: 2
+    - QUALIFIER_MODE:
+        access: rw
+        description: Select qualifier mode
+        lsb: 5
+        reset_value: '0'
+        width: 2
+    - QUALIFIER_PIN_MODE:
+        access: rw
+        description: Select qualifier pin
+        lsb: 7
+        reset_value: '0'
+        width: 2
+    - QUALIFIER_SLICE_MODE:
+        access: rw
+        description: Select qualifier slice
+        lsb: 9
+        reset_value: '0'
+        width: 2
+    - CONCAT_ENABLE:
+        access: rw
+        description: Enable concatenation
+        lsb: 11
+        reset_value: '0'
+        width: 1
+    - CONCAT_ORDER:
+        access: rw
+        description: Select concatenation order
+        lsb: 12
+        reset_value: '0'
+        width: 2
+- SGPIO_MUX_CFG14:
+    fields: !!omap
+    - EXT_CLK_ENABLE:
+        access: rw
+        description: Select clock signal
+        lsb: 0
+        reset_value: '0'
+        width: 1
+    - CLK_SOURCE_PIN_MODE:
+        access: rw
+        description: Select source clock pin
+        lsb: 1
+        reset_value: '0'
+        width: 2
+    - CLK_SOURCE_SLICE_MODE:
+        access: rw
+        description: Select clock source slice
+        lsb: 3
+        reset_value: '0'
+        width: 2
+    - QUALIFIER_MODE:
+        access: rw
+        description: Select qualifier mode
+        lsb: 5
+        reset_value: '0'
+        width: 2
+    - QUALIFIER_PIN_MODE:
+        access: rw
+        description: Select qualifier pin
+        lsb: 7
+        reset_value: '0'
+        width: 2
+    - QUALIFIER_SLICE_MODE:
+        access: rw
+        description: Select qualifier slice
+        lsb: 9
+        reset_value: '0'
+        width: 2
+    - CONCAT_ENABLE:
+        access: rw
+        description: Enable concatenation
+        lsb: 11
+        reset_value: '0'
+        width: 1
+    - CONCAT_ORDER:
+        access: rw
+        description: Select concatenation order
+        lsb: 12
+        reset_value: '0'
+        width: 2
+- SGPIO_MUX_CFG15:
+    fields: !!omap
+    - EXT_CLK_ENABLE:
+        access: rw
+        description: Select clock signal
+        lsb: 0
+        reset_value: '0'
+        width: 1
+    - CLK_SOURCE_PIN_MODE:
+        access: rw
+        description: Select source clock pin
+        lsb: 1
+        reset_value: '0'
+        width: 2
+    - CLK_SOURCE_SLICE_MODE:
+        access: rw
+        description: Select clock source slice
+        lsb: 3
+        reset_value: '0'
+        width: 2
+    - QUALIFIER_MODE:
+        access: rw
+        description: Select qualifier mode
+        lsb: 5
+        reset_value: '0'
+        width: 2
+    - QUALIFIER_PIN_MODE:
+        access: rw
+        description: Select qualifier pin
+        lsb: 7
+        reset_value: '0'
+        width: 2
+    - QUALIFIER_SLICE_MODE:
+        access: rw
+        description: Select qualifier slice
+        lsb: 9
+        reset_value: '0'
+        width: 2
+    - CONCAT_ENABLE:
+        access: rw
+        description: Enable concatenation
+        lsb: 11
+        reset_value: '0'
+        width: 1
+    - CONCAT_ORDER:
+        access: rw
+        description: Select concatenation order
+        lsb: 12
+        reset_value: '0'
+        width: 2
+- SGPIO_SLICE_MUX_CFG0:
+    fields: !!omap
+    - MATCH_MODE:
+        access: rw
+        description: Match mode
+        lsb: 0
+        reset_value: '0'
+        width: 1
+    - CLK_CAPTURE_MODE:
+        access: rw
+        description: Capture clock mode
+        lsb: 1
+        reset_value: '0'
+        width: 1
+    - CLKGEN_MODE:
+        access: rw
+        description: Clock generation mode
+        lsb: 2
+        reset_value: '0'
+        width: 1
+    - INV_OUT_CLK:
+        access: rw
+        description: Invert output clock
+        lsb: 3
+        reset_value: '0'
+        width: 1
+    - DATA_CAPTURE_MODE:
+        access: rw
+        description: Condition for input bit match interrupt
+        lsb: 4
+        reset_value: '0'
+        width: 2
+    - PARALLEL_MODE:
+        access: rw
+        description: Parallel mode
+        lsb: 6
+        reset_value: '0'
+        width: 2
+    - INV_QUALIFIER:
+        access: rw
+        description: Inversion qualifier
+        lsb: 8
+        reset_value: '0'
+        width: 1
+- SGPIO_SLICE_MUX_CFG1:
+    fields: !!omap
+    - MATCH_MODE:
+        access: rw
+        description: Match mode
+        lsb: 0
+        reset_value: '0'
+        width: 1
+    - CLK_CAPTURE_MODE:
+        access: rw
+        description: Capture clock mode
+        lsb: 1
+        reset_value: '0'
+        width: 1
+    - CLKGEN_MODE:
+        access: rw
+        description: Clock generation mode
+        lsb: 2
+        reset_value: '0'
+        width: 1
+    - INV_OUT_CLK:
+        access: rw
+        description: Invert output clock
+        lsb: 3
+        reset_value: '0'
+        width: 1
+    - DATA_CAPTURE_MODE:
+        access: rw
+        description: Condition for input bit match interrupt
+        lsb: 4
+        reset_value: '0'
+        width: 2
+    - PARALLEL_MODE:
+        access: rw
+        description: Parallel mode
+        lsb: 6
+        reset_value: '0'
+        width: 2
+    - INV_QUALIFIER:
+        access: rw
+        description: Inversion qualifier
+        lsb: 8
+        reset_value: '0'
+        width: 1
+- SGPIO_SLICE_MUX_CFG2:
+    fields: !!omap
+    - MATCH_MODE:
+        access: rw
+        description: Match mode
+        lsb: 0
+        reset_value: '0'
+        width: 1
+    - CLK_CAPTURE_MODE:
+        access: rw
+        description: Capture clock mode
+        lsb: 1
+        reset_value: '0'
+        width: 1
+    - CLKGEN_MODE:
+        access: rw
+        description: Clock generation mode
+        lsb: 2
+        reset_value: '0'
+        width: 1
+    - INV_OUT_CLK:
+        access: rw
+        description: Invert output clock
+        lsb: 3
+        reset_value: '0'
+        width: 1
+    - DATA_CAPTURE_MODE:
+        access: rw
+        description: Condition for input bit match interrupt
+        lsb: 4
+        reset_value: '0'
+        width: 2
+    - PARALLEL_MODE:
+        access: rw
+        description: Parallel mode
+        lsb: 6
+        reset_value: '0'
+        width: 2
+    - INV_QUALIFIER:
+        access: rw
+        description: Inversion qualifier
+        lsb: 8
+        reset_value: '0'
+        width: 1
+- SGPIO_SLICE_MUX_CFG3:
+    fields: !!omap
+    - MATCH_MODE:
+        access: rw
+        description: Match mode
+        lsb: 0
+        reset_value: '0'
+        width: 1
+    - CLK_CAPTURE_MODE:
+        access: rw
+        description: Capture clock mode
+        lsb: 1
+        reset_value: '0'
+        width: 1
+    - CLKGEN_MODE:
+        access: rw
+        description: Clock generation mode
+        lsb: 2
+        reset_value: '0'
+        width: 1
+    - INV_OUT_CLK:
+        access: rw
+        description: Invert output clock
+        lsb: 3
+        reset_value: '0'
+        width: 1
+    - DATA_CAPTURE_MODE:
+        access: rw
+        description: Condition for input bit match interrupt
+        lsb: 4
+        reset_value: '0'
+        width: 2
+    - PARALLEL_MODE:
+        access: rw
+        description: Parallel mode
+        lsb: 6
+        reset_value: '0'
+        width: 2
+    - INV_QUALIFIER:
+        access: rw
+        description: Inversion qualifier
+        lsb: 8
+        reset_value: '0'
+        width: 1
+- SGPIO_SLICE_MUX_CFG4:
+    fields: !!omap
+    - MATCH_MODE:
+        access: rw
+        description: Match mode
+        lsb: 0
+        reset_value: '0'
+        width: 1
+    - CLK_CAPTURE_MODE:
+        access: rw
+        description: Capture clock mode
+        lsb: 1
+        reset_value: '0'
+        width: 1
+    - CLKGEN_MODE:
+        access: rw
+        description: Clock generation mode
+        lsb: 2
+        reset_value: '0'
+        width: 1
+    - INV_OUT_CLK:
+        access: rw
+        description: Invert output clock
+        lsb: 3
+        reset_value: '0'
+        width: 1
+    - DATA_CAPTURE_MODE:
+        access: rw
+        description: Condition for input bit match interrupt
+        lsb: 4
+        reset_value: '0'
+        width: 2
+    - PARALLEL_MODE:
+        access: rw
+        description: Parallel mode
+        lsb: 6
+        reset_value: '0'
+        width: 2
+    - INV_QUALIFIER:
+        access: rw
+        description: Inversion qualifier
+        lsb: 8
+        reset_value: '0'
+        width: 1
+- SGPIO_SLICE_MUX_CFG5:
+    fields: !!omap
+    - MATCH_MODE:
+        access: rw
+        description: Match mode
+        lsb: 0
+        reset_value: '0'
+        width: 1
+    - CLK_CAPTURE_MODE:
+        access: rw
+        description: Capture clock mode
+        lsb: 1
+        reset_value: '0'
+        width: 1
+    - CLKGEN_MODE:
+        access: rw
+        description: Clock generation mode
+        lsb: 2
+        reset_value: '0'
+        width: 1
+    - INV_OUT_CLK:
+        access: rw
+        description: Invert output clock
+        lsb: 3
+        reset_value: '0'
+        width: 1
+    - DATA_CAPTURE_MODE:
+        access: rw
+        description: Condition for input bit match interrupt
+        lsb: 4
+        reset_value: '0'
+        width: 2
+    - PARALLEL_MODE:
+        access: rw
+        description: Parallel mode
+        lsb: 6
+        reset_value: '0'
+        width: 2
+    - INV_QUALIFIER:
+        access: rw
+        description: Inversion qualifier
+        lsb: 8
+        reset_value: '0'
+        width: 1
+- SGPIO_SLICE_MUX_CFG6:
+    fields: !!omap
+    - MATCH_MODE:
+        access: rw
+        description: Match mode
+        lsb: 0
+        reset_value: '0'
+        width: 1
+    - CLK_CAPTURE_MODE:
+        access: rw
+        description: Capture clock mode
+        lsb: 1
+        reset_value: '0'
+        width: 1
+    - CLKGEN_MODE:
+        access: rw
+        description: Clock generation mode
+        lsb: 2
+        reset_value: '0'
+        width: 1
+    - INV_OUT_CLK:
+        access: rw
+        description: Invert output clock
+        lsb: 3
+        reset_value: '0'
+        width: 1
+    - DATA_CAPTURE_MODE:
+        access: rw
+        description: Condition for input bit match interrupt
+        lsb: 4
+        reset_value: '0'
+        width: 2
+    - PARALLEL_MODE:
+        access: rw
+        description: Parallel mode
+        lsb: 6
+        reset_value: '0'
+        width: 2
+    - INV_QUALIFIER:
+        access: rw
+        description: Inversion qualifier
+        lsb: 8
+        reset_value: '0'
+        width: 1
+- SGPIO_SLICE_MUX_CFG7:
+    fields: !!omap
+    - MATCH_MODE:
+        access: rw
+        description: Match mode
+        lsb: 0
+        reset_value: '0'
+        width: 1
+    - CLK_CAPTURE_MODE:
+        access: rw
+        description: Capture clock mode
+        lsb: 1
+        reset_value: '0'
+        width: 1
+    - CLKGEN_MODE:
+        access: rw
+        description: Clock generation mode
+        lsb: 2
+        reset_value: '0'
+        width: 1
+    - INV_OUT_CLK:
+        access: rw
+        description: Invert output clock
+        lsb: 3
+        reset_value: '0'
+        width: 1
+    - DATA_CAPTURE_MODE:
+        access: rw
+        description: Condition for input bit match interrupt
+        lsb: 4
+        reset_value: '0'
+        width: 2
+    - PARALLEL_MODE:
+        access: rw
+        description: Parallel mode
+        lsb: 6
+        reset_value: '0'
+        width: 2
+    - INV_QUALIFIER:
+        access: rw
+        description: Inversion qualifier
+        lsb: 8
+        reset_value: '0'
+        width: 1
+- SGPIO_SLICE_MUX_CFG8:
+    fields: !!omap
+    - MATCH_MODE:
+        access: rw
+        description: Match mode
+        lsb: 0
+        reset_value: '0'
+        width: 1
+    - CLK_CAPTURE_MODE:
+        access: rw
+        description: Capture clock mode
+        lsb: 1
+        reset_value: '0'
+        width: 1
+    - CLKGEN_MODE:
+        access: rw
+        description: Clock generation mode
+        lsb: 2
+        reset_value: '0'
+        width: 1
+    - INV_OUT_CLK:
+        access: rw
+        description: Invert output clock
+        lsb: 3
+        reset_value: '0'
+        width: 1
+    - DATA_CAPTURE_MODE:
+        access: rw
+        description: Condition for input bit match interrupt
+        lsb: 4
+        reset_value: '0'
+        width: 2
+    - PARALLEL_MODE:
+        access: rw
+        description: Parallel mode
+        lsb: 6
+        reset_value: '0'
+        width: 2
+    - INV_QUALIFIER:
+        access: rw
+        description: Inversion qualifier
+        lsb: 8
+        reset_value: '0'
+        width: 1
+- SGPIO_SLICE_MUX_CFG9:
+    fields: !!omap
+    - MATCH_MODE:
+        access: rw
+        description: Match mode
+        lsb: 0
+        reset_value: '0'
+        width: 1
+    - CLK_CAPTURE_MODE:
+        access: rw
+        description: Capture clock mode
+        lsb: 1
+        reset_value: '0'
+        width: 1
+    - CLKGEN_MODE:
+        access: rw
+        description: Clock generation mode
+        lsb: 2
+        reset_value: '0'
+        width: 1
+    - INV_OUT_CLK:
+        access: rw
+        description: Invert output clock
+        lsb: 3
+        reset_value: '0'
+        width: 1
+    - DATA_CAPTURE_MODE:
+        access: rw
+        description: Condition for input bit match interrupt
+        lsb: 4
+        reset_value: '0'
+        width: 2
+    - PARALLEL_MODE:
+        access: rw
+        description: Parallel mode
+        lsb: 6
+        reset_value: '0'
+        width: 2
+    - INV_QUALIFIER:
+        access: rw
+        description: Inversion qualifier
+        lsb: 8
+        reset_value: '0'
+        width: 1
+- SGPIO_SLICE_MUX_CFG10:
+    fields: !!omap
+    - MATCH_MODE:
+        access: rw
+        description: Match mode
+        lsb: 0
+        reset_value: '0'
+        width: 1
+    - CLK_CAPTURE_MODE:
+        access: rw
+        description: Capture clock mode
+        lsb: 1
+        reset_value: '0'
+        width: 1
+    - CLKGEN_MODE:
+        access: rw
+        description: Clock generation mode
+        lsb: 2
+        reset_value: '0'
+        width: 1
+    - INV_OUT_CLK:
+        access: rw
+        description: Invert output clock
+        lsb: 3
+        reset_value: '0'
+        width: 1
+    - DATA_CAPTURE_MODE:
+        access: rw
+        description: Condition for input bit match interrupt
+        lsb: 4
+        reset_value: '0'
+        width: 2
+    - PARALLEL_MODE:
+        access: rw
+        description: Parallel mode
+        lsb: 6
+        reset_value: '0'
+        width: 2
+    - INV_QUALIFIER:
+        access: rw
+        description: Inversion qualifier
+        lsb: 8
+        reset_value: '0'
+        width: 1
+- SGPIO_SLICE_MUX_CFG11:
+    fields: !!omap
+    - MATCH_MODE:
+        access: rw
+        description: Match mode
+        lsb: 0
+        reset_value: '0'
+        width: 1
+    - CLK_CAPTURE_MODE:
+        access: rw
+        description: Capture clock mode
+        lsb: 1
+        reset_value: '0'
+        width: 1
+    - CLKGEN_MODE:
+        access: rw
+        description: Clock generation mode
+        lsb: 2
+        reset_value: '0'
+        width: 1
+    - INV_OUT_CLK:
+        access: rw
+        description: Invert output clock
+        lsb: 3
+        reset_value: '0'
+        width: 1
+    - DATA_CAPTURE_MODE:
+        access: rw
+        description: Condition for input bit match interrupt
+        lsb: 4
+        reset_value: '0'
+        width: 2
+    - PARALLEL_MODE:
+        access: rw
+        description: Parallel mode
+        lsb: 6
+        reset_value: '0'
+        width: 2
+    - INV_QUALIFIER:
+        access: rw
+        description: Inversion qualifier
+        lsb: 8
+        reset_value: '0'
+        width: 1
+- SGPIO_SLICE_MUX_CFG12:
+    fields: !!omap
+    - MATCH_MODE:
+        access: rw
+        description: Match mode
+        lsb: 0
+        reset_value: '0'
+        width: 1
+    - CLK_CAPTURE_MODE:
+        access: rw
+        description: Capture clock mode
+        lsb: 1
+        reset_value: '0'
+        width: 1
+    - CLKGEN_MODE:
+        access: rw
+        description: Clock generation mode
+        lsb: 2
+        reset_value: '0'
+        width: 1
+    - INV_OUT_CLK:
+        access: rw
+        description: Invert output clock
+        lsb: 3
+        reset_value: '0'
+        width: 1
+    - DATA_CAPTURE_MODE:
+        access: rw
+        description: Condition for input bit match interrupt
+        lsb: 4
+        reset_value: '0'
+        width: 2
+    - PARALLEL_MODE:
+        access: rw
+        description: Parallel mode
+        lsb: 6
+        reset_value: '0'
+        width: 2
+    - INV_QUALIFIER:
+        access: rw
+        description: Inversion qualifier
+        lsb: 8
+        reset_value: '0'
+        width: 1
+- SGPIO_SLICE_MUX_CFG13:
+    fields: !!omap
+    - MATCH_MODE:
+        access: rw
+        description: Match mode
+        lsb: 0
+        reset_value: '0'
+        width: 1
+    - CLK_CAPTURE_MODE:
+        access: rw
+        description: Capture clock mode
+        lsb: 1
+        reset_value: '0'
+        width: 1
+    - CLKGEN_MODE:
+        access: rw
+        description: Clock generation mode
+        lsb: 2
+        reset_value: '0'
+        width: 1
+    - INV_OUT_CLK:
+        access: rw
+        description: Invert output clock
+        lsb: 3
+        reset_value: '0'
+        width: 1
+    - DATA_CAPTURE_MODE:
+        access: rw
+        description: Condition for input bit match interrupt
+        lsb: 4
+        reset_value: '0'
+        width: 2
+    - PARALLEL_MODE:
+        access: rw
+        description: Parallel mode
+        lsb: 6
+        reset_value: '0'
+        width: 2
+    - INV_QUALIFIER:
+        access: rw
+        description: Inversion qualifier
+        lsb: 8
+        reset_value: '0'
+        width: 1
+- SGPIO_SLICE_MUX_CFG14:
+    fields: !!omap
+    - MATCH_MODE:
+        access: rw
+        description: Match mode
+        lsb: 0
+        reset_value: '0'
+        width: 1
+    - CLK_CAPTURE_MODE:
+        access: rw
+        description: Capture clock mode
+        lsb: 1
+        reset_value: '0'
+        width: 1
+    - CLKGEN_MODE:
+        access: rw
+        description: Clock generation mode
+        lsb: 2
+        reset_value: '0'
+        width: 1
+    - INV_OUT_CLK:
+        access: rw
+        description: Invert output clock
+        lsb: 3
+        reset_value: '0'
+        width: 1
+    - DATA_CAPTURE_MODE:
+        access: rw
+        description: Condition for input bit match interrupt
+        lsb: 4
+        reset_value: '0'
+        width: 2
+    - PARALLEL_MODE:
+        access: rw
+        description: Parallel mode
+        lsb: 6
+        reset_value: '0'
+        width: 2
+    - INV_QUALIFIER:
+        access: rw
+        description: Inversion qualifier
+        lsb: 8
+        reset_value: '0'
+        width: 1
+- SGPIO_SLICE_MUX_CFG15:
+    fields: !!omap
+    - MATCH_MODE:
+        access: rw
+        description: Match mode
+        lsb: 0
+        reset_value: '0'
+        width: 1
+    - CLK_CAPTURE_MODE:
+        access: rw
+        description: Capture clock mode
+        lsb: 1
+        reset_value: '0'
+        width: 1
+    - CLKGEN_MODE:
+        access: rw
+        description: Clock generation mode
+        lsb: 2
+        reset_value: '0'
+        width: 1
+    - INV_OUT_CLK:
+        access: rw
+        description: Invert output clock
+        lsb: 3
+        reset_value: '0'
+        width: 1
+    - DATA_CAPTURE_MODE:
+        access: rw
+        description: Condition for input bit match interrupt
+        lsb: 4
+        reset_value: '0'
+        width: 2
+    - PARALLEL_MODE:
+        access: rw
+        description: Parallel mode
+        lsb: 6
+        reset_value: '0'
+        width: 2
+    - INV_QUALIFIER:
+        access: rw
+        description: Inversion qualifier
+        lsb: 8
+        reset_value: '0'
+        width: 1
+- SGPIO_POS0:
+    fields: !!omap
+    - POS:
+        access: rw
+        description: Each time COUNT reaches 0x0 POS counts down
+        lsb: 0
+        reset_value: '0'
+        width: 8
+    - POS_RESET:
+        access: rw
+        description: Reload value for POS after POS reaches 0x0
+        lsb: 8
+        reset_value: '0'
+        width: 8
+- SGPIO_POS1:
+    fields: !!omap
+    - POS:
+        access: rw
+        description: Each time COUNT reaches 0x0 POS counts down
+        lsb: 0
+        reset_value: '0'
+        width: 8
+    - POS_RESET:
+        access: rw
+        description: Reload value for POS after POS reaches 0x0
+        lsb: 8
+        reset_value: '0'
+        width: 8
+- SGPIO_POS2:
+    fields: !!omap
+    - POS:
+        access: rw
+        description: Each time COUNT reaches 0x0 POS counts down
+        lsb: 0
+        reset_value: '0'
+        width: 8
+    - POS_RESET:
+        access: rw
+        description: Reload value for POS after POS reaches 0x0
+        lsb: 8
+        reset_value: '0'
+        width: 8
+- SGPIO_POS3:
+    fields: !!omap
+    - POS:
+        access: rw
+        description: Each time COUNT reaches 0x0 POS counts down
+        lsb: 0
+        reset_value: '0'
+        width: 8
+    - POS_RESET:
+        access: rw
+        description: Reload value for POS after POS reaches 0x0
+        lsb: 8
+        reset_value: '0'
+        width: 8
+- SGPIO_POS4:
+    fields: !!omap
+    - POS:
+        access: rw
+        description: Each time COUNT reaches 0x0 POS counts down
+        lsb: 0
+        reset_value: '0'
+        width: 8
+    - POS_RESET:
+        access: rw
+        description: Reload value for POS after POS reaches 0x0
+        lsb: 8
+        reset_value: '0'
+        width: 8
+- SGPIO_POS5:
+    fields: !!omap
+    - POS:
+        access: rw
+        description: Each time COUNT reaches 0x0 POS counts down
+        lsb: 0
+        reset_value: '0'
+        width: 8
+    - POS_RESET:
+        access: rw
+        description: Reload value for POS after POS reaches 0x0
+        lsb: 8
+        reset_value: '0'
+        width: 8
+- SGPIO_POS6:
+    fields: !!omap
+    - POS:
+        access: rw
+        description: Each time COUNT reaches 0x0 POS counts down
+        lsb: 0
+        reset_value: '0'
+        width: 8
+    - POS_RESET:
+        access: rw
+        description: Reload value for POS after POS reaches 0x0
+        lsb: 8
+        reset_value: '0'
+        width: 8
+- SGPIO_POS7:
+    fields: !!omap
+    - POS:
+        access: rw
+        description: Each time COUNT reaches 0x0 POS counts down
+        lsb: 0
+        reset_value: '0'
+        width: 8
+    - POS_RESET:
+        access: rw
+        description: Reload value for POS after POS reaches 0x0
+        lsb: 8
+        reset_value: '0'
+        width: 8
+- SGPIO_POS8:
+    fields: !!omap
+    - POS:
+        access: rw
+        description: Each time COUNT reaches 0x0 POS counts down
+        lsb: 0
+        reset_value: '0'
+        width: 8
+    - POS_RESET:
+        access: rw
+        description: Reload value for POS after POS reaches 0x0
+        lsb: 8
+        reset_value: '0'
+        width: 8
+- SGPIO_POS9:
+    fields: !!omap
+    - POS:
+        access: rw
+        description: Each time COUNT reaches 0x0 POS counts down
+        lsb: 0
+        reset_value: '0'
+        width: 8
+    - POS_RESET:
+        access: rw
+        description: Reload value for POS after POS reaches 0x0
+        lsb: 8
+        reset_value: '0'
+        width: 8
+- SGPIO_POS10:
+    fields: !!omap
+    - POS:
+        access: rw
+        description: Each time COUNT reaches 0x0 POS counts down
+        lsb: 0
+        reset_value: '0'
+        width: 8
+    - POS_RESET:
+        access: rw
+        description: Reload value for POS after POS reaches 0x0
+        lsb: 8
+        reset_value: '0'
+        width: 8
+- SGPIO_POS11:
+    fields: !!omap
+    - POS:
+        access: rw
+        description: Each time COUNT reaches 0x0 POS counts down
+        lsb: 0
+        reset_value: '0'
+        width: 8
+    - POS_RESET:
+        access: rw
+        description: Reload value for POS after POS reaches 0x0
+        lsb: 8
+        reset_value: '0'
+        width: 8
+- SGPIO_POS12:
+    fields: !!omap
+    - POS:
+        access: rw
+        description: Each time COUNT reaches 0x0 POS counts down
+        lsb: 0
+        reset_value: '0'
+        width: 8
+    - POS_RESET:
+        access: rw
+        description: Reload value for POS after POS reaches 0x0
+        lsb: 8
+        reset_value: '0'
+        width: 8
+- SGPIO_POS13:
+    fields: !!omap
+    - POS:
+        access: rw
+        description: Each time COUNT reaches 0x0 POS counts down
+        lsb: 0
+        reset_value: '0'
+        width: 8
+    - POS_RESET:
+        access: rw
+        description: Reload value for POS after POS reaches 0x0
+        lsb: 8
+        reset_value: '0'
+        width: 8
+- SGPIO_POS14:
+    fields: !!omap
+    - POS:
+        access: rw
+        description: Each time COUNT reaches 0x0 POS counts down
+        lsb: 0
+        reset_value: '0'
+        width: 8
+    - POS_RESET:
+        access: rw
+        description: Reload value for POS after POS reaches 0x0
+        lsb: 8
+        reset_value: '0'
+        width: 8
+- SGPIO_POS15:
+    fields: !!omap
+    - POS:
+        access: rw
+        description: Each time COUNT reaches 0x0 POS counts down
+        lsb: 0
+        reset_value: '0'
+        width: 8
+    - POS_RESET:
+        access: rw
+        description: Reload value for POS after POS reaches 0x0
+        lsb: 8
+        reset_value: '0'
+        width: 8

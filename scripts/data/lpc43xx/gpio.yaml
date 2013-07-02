@@ -1,0 +1,4926 @@
+!!omap
+- GPIO_PIN_INTERRUPT_ISEL:
+    fields: !!omap
+    - PMODE:
+        access: rw
+        description: Selects the interrupt mode for each pin interrupt
+        lsb: 0
+        reset_value: '0'
+        width: 8
+- GPIO_PIN_INTERRUPT_IENR:
+    fields: !!omap
+    - ENRL:
+        access: rw
+        description: Enables the rising edge or level interrupt for each pin interrupt
+        lsb: 0
+        reset_value: '0'
+        width: 8
+- GPIO_PIN_INTERRUPT_SIENR:
+    fields: !!omap
+    - SETENRL:
+        access: w
+        description: Ones written to this address set bits in the IENR, thus enabling
+          interrupts
+        lsb: 0
+        reset_value: ''
+        width: 8
+- GPIO_PIN_INTERRUPT_CIENR:
+    fields: !!omap
+    - CENRL:
+        access: w
+        description: Ones written to this address clear bits in the IENR, thus disabling
+          the interrupts
+        lsb: 0
+        reset_value: ''
+        width: 8
+- GPIO_PIN_INTERRUPT_IENF:
+    fields: !!omap
+    - ENAF:
+        access: rw
+        description: Enables the falling edge or configures the active level interrupt
+          for each pin interrupt
+        lsb: 0
+        reset_value: '0'
+        width: 8
+- GPIO_PIN_INTERRUPT_SIENF:
+    fields: !!omap
+    - SETENAF:
+        access: w
+        description: Ones written to this address set bits in the IENF, thus enabling
+          interrupts
+        lsb: 0
+        reset_value: ''
+        width: 8
+- GPIO_PIN_INTERRUPT_CIENF:
+    fields: !!omap
+    - CENAF:
+        access: w
+        description: Ones written to this address clears bits in the IENF, thus disabling
+          interrupts
+        lsb: 0
+        reset_value: ''
+        width: 8
+- GPIO_PIN_INTERRUPT_RISE:
+    fields: !!omap
+    - RDET:
+        access: rw
+        description: Rising edge detect
+        lsb: 0
+        reset_value: '0'
+        width: 8
+- GPIO_PIN_INTERRUPT_FALL:
+    fields: !!omap
+    - FDET:
+        access: rw
+        description: Falling edge detect
+        lsb: 0
+        reset_value: '0'
+        width: 8
+- GPIO_PIN_INTERRUPT_IST:
+    fields: !!omap
+    - PSTAT:
+        access: rw
+        description: Pin interrupt status
+        lsb: 0
+        reset_value: '0'
+        width: 8
+- GPIO_GROUP0_INTERRUPT_CTRL:
+    fields: !!omap
+    - INT:
+        access: rw
+        description: Group interrupt status
+        lsb: 0
+        reset_value: '0'
+        width: 1
+    - COMB:
+        access: rw
+        description: Combine enabled inputs for group interrupt
+        lsb: 1
+        reset_value: '0'
+        width: 1
+    - TRIG:
+        access: rw
+        description: Group interrupt trigger
+        lsb: 2
+        reset_value: '0'
+        width: 1
+- GPIO_GROUP0_INTERRUPT_PORT_POL0:
+    fields: !!omap
+    - POL:
+        access: rw
+        description: Configure pin polarity of port 0 pins for group interrupt
+        lsb: 0
+        reset_value: '1'
+        width: 32
+- GPIO_GROUP0_INTERRUPT_PORT_POL1:
+    fields: !!omap
+    - POL:
+        access: rw
+        description: Configure pin polarity of port 1 pins for group interrupt
+        lsb: 0
+        reset_value: '1'
+        width: 32
+- GPIO_GROUP0_INTERRUPT_PORT_POL2:
+    fields: !!omap
+    - POL:
+        access: rw
+        description: Configure pin polarity of port 2 pins for group interrupt
+        lsb: 0
+        reset_value: '1'
+        width: 32
+- GPIO_GROUP0_INTERRUPT_PORT_POL3:
+    fields: !!omap
+    - POL:
+        access: rw
+        description: Configure pin polarity of port 3 pins for group interrupt
+        lsb: 0
+        reset_value: '1'
+        width: 32
+- GPIO_GROUP0_INTERRUPT_PORT_POL4:
+    fields: !!omap
+    - POL:
+        access: rw
+        description: Configure pin polarity of port 4 pins for group interrupt
+        lsb: 0
+        reset_value: '1'
+        width: 32
+- GPIO_GROUP0_INTERRUPT_PORT_POL5:
+    fields: !!omap
+    - POL:
+        access: rw
+        description: Configure pin polarity of port 5 pins for group interrupt
+        lsb: 0
+        reset_value: '1'
+        width: 32
+- GPIO_GROUP0_INTERRUPT_PORT_POL6:
+    fields: !!omap
+    - POL:
+        access: rw
+        description: Configure pin polarity of port 6 pins for group interrupt
+        lsb: 0
+        reset_value: '1'
+        width: 32
+- GPIO_GROUP0_INTERRUPT_PORT_POL7:
+    fields: !!omap
+    - POL:
+        access: rw
+        description: Configure pin polarity of port 7 pins for group interrupt
+        lsb: 0
+        reset_value: '1'
+        width: 32
+- GPIO_GROUP0_INTERRUPT_PORT_ENA0:
+    fields: !!omap
+    - ENA:
+        access: rw
+        description: Enable port 0 pin for group interrupt
+        lsb: 0
+        reset_value: '0'
+        width: 32
+- GPIO_GROUP0_INTERRUPT_PORT_ENA1:
+    fields: !!omap
+    - ENA:
+        access: rw
+        description: Enable port 1 pin for group interrupt
+        lsb: 0
+        reset_value: '0'
+        width: 32
+- GPIO_GROUP0_INTERRUPT_PORT_ENA2:
+    fields: !!omap
+    - ENA:
+        access: rw
+        description: Enable port 2 pin for group interrupt
+        lsb: 0
+        reset_value: '0'
+        width: 32
+- GPIO_GROUP0_INTERRUPT_PORT_ENA3:
+    fields: !!omap
+    - ENA:
+        access: rw
+        description: Enable port 3 pin for group interrupt
+        lsb: 0
+        reset_value: '0'
+        width: 32
+- GPIO_GROUP0_INTERRUPT_PORT_ENA4:
+    fields: !!omap
+    - ENA:
+        access: rw
+        description: Enable port 4 pin for group interrupt
+        lsb: 0
+        reset_value: '0'
+        width: 32
+- GPIO_GROUP0_INTERRUPT_PORT_ENA5:
+    fields: !!omap
+    - ENA:
+        access: rw
+        description: Enable port 5 pin for group interrupt
+        lsb: 0
+        reset_value: '0'
+        width: 32
+- GPIO_GROUP0_INTERRUPT_PORT_ENA6:
+    fields: !!omap
+    - ENA:
+        access: rw
+        description: Enable port 6 pin for group interrupt
+        lsb: 0
+        reset_value: '0'
+        width: 32
+- GPIO_GROUP0_INTERRUPT_PORT_ENA7:
+    fields: !!omap
+    - ENA:
+        access: rw
+        description: Enable port 7 pin for group interrupt
+        lsb: 0
+        reset_value: '0'
+        width: 32
+- GPIO_GROUP1_INTERRUPT_CTRL:
+    fields: !!omap
+    - INT:
+        access: rw
+        description: Group interrupt status
+        lsb: 0
+        reset_value: '0'
+        width: 1
+    - COMB:
+        access: rw
+        description: Combine enabled inputs for group interrupt
+        lsb: 1
+        reset_value: '0'
+        width: 1
+    - TRIG:
+        access: rw
+        description: Group interrupt trigger
+        lsb: 2
+        reset_value: '0'
+        width: 1
+- GPIO_GROUP1_INTERRUPT_PORT_POL0:
+    fields: !!omap
+    - POL:
+        access: rw
+        description: Configure pin polarity of port 0 pins for group interrupt
+        lsb: 0
+        reset_value: '1'
+        width: 32
+- GPIO_GROUP1_INTERRUPT_PORT_POL1:
+    fields: !!omap
+    - POL:
+        access: rw
+        description: Configure pin polarity of port 1 pins for group interrupt
+        lsb: 0
+        reset_value: '1'
+        width: 32
+- GPIO_GROUP1_INTERRUPT_PORT_POL2:
+    fields: !!omap
+    - POL:
+        access: rw
+        description: Configure pin polarity of port 2 pins for group interrupt
+        lsb: 0
+        reset_value: '1'
+        width: 32
+- GPIO_GROUP1_INTERRUPT_PORT_POL3:
+    fields: !!omap
+    - POL:
+        access: rw
+        description: Configure pin polarity of port 3 pins for group interrupt
+        lsb: 0
+        reset_value: '1'
+        width: 32
+- GPIO_GROUP1_INTERRUPT_PORT_POL4:
+    fields: !!omap
+    - POL:
+        access: rw
+        description: Configure pin polarity of port 4 pins for group interrupt
+        lsb: 0
+        reset_value: '1'
+        width: 32
+- GPIO_GROUP1_INTERRUPT_PORT_POL5:
+    fields: !!omap
+    - POL:
+        access: rw
+        description: Configure pin polarity of port 5 pins for group interrupt
+        lsb: 0
+        reset_value: '1'
+        width: 32
+- GPIO_GROUP1_INTERRUPT_PORT_POL6:
+    fields: !!omap
+    - POL:
+        access: rw
+        description: Configure pin polarity of port 6 pins for group interrupt
+        lsb: 0
+        reset_value: '1'
+        width: 32
+- GPIO_GROUP1_INTERRUPT_PORT_POL7:
+    fields: !!omap
+    - POL:
+        access: rw
+        description: Configure pin polarity of port 7 pins for group interrupt
+        lsb: 0
+        reset_value: '1'
+        width: 32
+- GPIO_GROUP1_INTERRUPT_PORT_ENA0:
+    fields: !!omap
+    - ENA:
+        access: rw
+        description: Enable port 0 pin for group interrupt
+        lsb: 0
+        reset_value: '0'
+        width: 32
+- GPIO_GROUP1_INTERRUPT_PORT_ENA1:
+    fields: !!omap
+    - ENA:
+        access: rw
+        description: Enable port 1 pin for group interrupt
+        lsb: 0
+        reset_value: '0'
+        width: 32
+- GPIO_GROUP1_INTERRUPT_PORT_ENA2:
+    fields: !!omap
+    - ENA:
+        access: rw
+        description: Enable port 2 pin for group interrupt
+        lsb: 0
+        reset_value: '0'
+        width: 32
+- GPIO_GROUP1_INTERRUPT_PORT_ENA3:
+    fields: !!omap
+    - ENA:
+        access: rw
+        description: Enable port 3 pin for group interrupt
+        lsb: 0
+        reset_value: '0'
+        width: 32
+- GPIO_GROUP1_INTERRUPT_PORT_ENA4:
+    fields: !!omap
+    - ENA:
+        access: rw
+        description: Enable port 4 pin for group interrupt
+        lsb: 0
+        reset_value: '0'
+        width: 32
+- GPIO_GROUP1_INTERRUPT_PORT_ENA5:
+    fields: !!omap
+    - ENA:
+        access: rw
+        description: Enable port 5 pin for group interrupt
+        lsb: 0
+        reset_value: '0'
+        width: 32
+- GPIO_GROUP1_INTERRUPT_PORT_ENA6:
+    fields: !!omap
+    - ENA:
+        access: rw
+        description: Enable port 6 pin for group interrupt
+        lsb: 0
+        reset_value: '0'
+        width: 32
+- GPIO_GROUP1_INTERRUPT_PORT_ENA7:
+    fields: !!omap
+    - ENA:
+        access: rw
+        description: Enable port 7 pin for group interrupt
+        lsb: 0
+        reset_value: '0'
+        width: 32
+- GPIO_B0:
+    fields: !!omap
+    - PBYTE:
+        access: rw
+        description: GPIO port byte pin register
+        lsb: 0
+        reset_value: ''
+        width: 1
+- GPIO_B1:
+    fields: !!omap
+    - PBYTE:
+        access: rw
+        description: GPIO port byte pin register
+        lsb: 0
+        reset_value: ''
+        width: 1
+- GPIO_B2:
+    fields: !!omap
+    - PBYTE:
+        access: rw
+        description: GPIO port byte pin register
+        lsb: 0
+        reset_value: ''
+        width: 1
+- GPIO_B3:
+    fields: !!omap
+    - PBYTE:
+        access: rw
+        description: GPIO port byte pin register
+        lsb: 0
+        reset_value: ''
+        width: 1
+- GPIO_B4:
+    fields: !!omap
+    - PBYTE:
+        access: rw
+        description: GPIO port byte pin register
+        lsb: 0
+        reset_value: ''
+        width: 1
+- GPIO_B5:
+    fields: !!omap
+    - PBYTE:
+        access: rw
+        description: GPIO port byte pin register
+        lsb: 0
+        reset_value: ''
+        width: 1
+- GPIO_B6:
+    fields: !!omap
+    - PBYTE:
+        access: rw
+        description: GPIO port byte pin register
+        lsb: 0
+        reset_value: ''
+        width: 1
+- GPIO_B7:
+    fields: !!omap
+    - PBYTE:
+        access: rw
+        description: GPIO port byte pin register
+        lsb: 0
+        reset_value: ''
+        width: 1
+- GPIO_B8:
+    fields: !!omap
+    - PBYTE:
+        access: rw
+        description: GPIO port byte pin register
+        lsb: 0
+        reset_value: ''
+        width: 1
+- GPIO_B9:
+    fields: !!omap
+    - PBYTE:
+        access: rw
+        description: GPIO port byte pin register
+        lsb: 0
+        reset_value: ''
+        width: 1
+- GPIO_B10:
+    fields: !!omap
+    - PBYTE:
+        access: rw
+        description: GPIO port byte pin register
+        lsb: 0
+        reset_value: ''
+        width: 1
+- GPIO_B11:
+    fields: !!omap
+    - PBYTE:
+        access: rw
+        description: GPIO port byte pin register
+        lsb: 0
+        reset_value: ''
+        width: 1
+- GPIO_B12:
+    fields: !!omap
+    - PBYTE:
+        access: rw
+        description: GPIO port byte pin register
+        lsb: 0
+        reset_value: ''
+        width: 1
+- GPIO_B13:
+    fields: !!omap
+    - PBYTE:
+        access: rw
+        description: GPIO port byte pin register
+        lsb: 0
+        reset_value: ''
+        width: 1
+- GPIO_B14:
+    fields: !!omap
+    - PBYTE:
+        access: rw
+        description: GPIO port byte pin register
+        lsb: 0
+        reset_value: ''
+        width: 1
+- GPIO_B15:
+    fields: !!omap
+    - PBYTE:
+        access: rw
+        description: GPIO port byte pin register
+        lsb: 0
+        reset_value: ''
+        width: 1
+- GPIO_B16:
+    fields: !!omap
+    - PBYTE:
+        access: rw
+        description: GPIO port byte pin register
+        lsb: 0
+        reset_value: ''
+        width: 1
+- GPIO_B17:
+    fields: !!omap
+    - PBYTE:
+        access: rw
+        description: GPIO port byte pin register
+        lsb: 0
+        reset_value: ''
+        width: 1
+- GPIO_B18:
+    fields: !!omap
+    - PBYTE:
+        access: rw
+        description: GPIO port byte pin register
+        lsb: 0
+        reset_value: ''
+        width: 1
+- GPIO_B19:
+    fields: !!omap
+    - PBYTE:
+        access: rw
+        description: GPIO port byte pin register
+        lsb: 0
+        reset_value: ''
+        width: 1
+- GPIO_B20:
+    fields: !!omap
+    - PBYTE:
+        access: rw
+        description: GPIO port byte pin register
+        lsb: 0
+        reset_value: ''
+        width: 1
+- GPIO_B21:
+    fields: !!omap
+    - PBYTE:
+        access: rw
+        description: GPIO port byte pin register
+        lsb: 0
+        reset_value: ''
+        width: 1
+- GPIO_B22:
+    fields: !!omap
+    - PBYTE:
+        access: rw
+        description: GPIO port byte pin register
+        lsb: 0
+        reset_value: ''
+        width: 1
+- GPIO_B23:
+    fields: !!omap
+    - PBYTE:
+        access: rw
+        description: GPIO port byte pin register
+        lsb: 0
+        reset_value: ''
+        width: 1
+- GPIO_B24:
+    fields: !!omap
+    - PBYTE:
+        access: rw
+        description: GPIO port byte pin register
+        lsb: 0
+        reset_value: ''
+        width: 1
+- GPIO_B25:
+    fields: !!omap
+    - PBYTE:
+        access: rw
+        description: GPIO port byte pin register
+        lsb: 0
+        reset_value: ''
+        width: 1
+- GPIO_B26:
+    fields: !!omap
+    - PBYTE:
+        access: rw
+        description: GPIO port byte pin register
+        lsb: 0
+        reset_value: ''
+        width: 1
+- GPIO_B27:
+    fields: !!omap
+    - PBYTE:
+        access: rw
+        description: GPIO port byte pin register
+        lsb: 0
+        reset_value: ''
+        width: 1
+- GPIO_B28:
+    fields: !!omap
+    - PBYTE:
+        access: rw
+        description: GPIO port byte pin register
+        lsb: 0
+        reset_value: ''
+        width: 1
+- GPIO_B29:
+    fields: !!omap
+    - PBYTE:
+        access: rw
+        description: GPIO port byte pin register
+        lsb: 0
+        reset_value: ''
+        width: 1
+- GPIO_B30:
+    fields: !!omap
+    - PBYTE:
+        access: rw
+        description: GPIO port byte pin register
+        lsb: 0
+        reset_value: ''
+        width: 1
+- GPIO_B31:
+    fields: !!omap
+    - PBYTE:
+        access: rw
+        description: GPIO port byte pin register
+        lsb: 0
+        reset_value: ''
+        width: 1
+- GPIO_B32:
+    fields: !!omap
+    - PBYTE:
+        access: rw
+        description: GPIO port byte pin register
+        lsb: 0
+        reset_value: ''
+        width: 1
+- GPIO_B33:
+    fields: !!omap
+    - PBYTE:
+        access: rw
+        description: GPIO port byte pin register
+        lsb: 0
+        reset_value: ''
+        width: 1
+- GPIO_B34:
+    fields: !!omap
+    - PBYTE:
+        access: rw
+        description: GPIO port byte pin register
+        lsb: 0
+        reset_value: ''
+        width: 1
+- GPIO_B35:
+    fields: !!omap
+    - PBYTE:
+        access: rw
+        description: GPIO port byte pin register
+        lsb: 0
+        reset_value: ''
+        width: 1
+- GPIO_B36:
+    fields: !!omap
+    - PBYTE:
+        access: rw
+        description: GPIO port byte pin register
+        lsb: 0
+        reset_value: ''
+        width: 1
+- GPIO_B37:
+    fields: !!omap
+    - PBYTE:
+        access: rw
+        description: GPIO port byte pin register
+        lsb: 0
+        reset_value: ''
+        width: 1
+- GPIO_B38:
+    fields: !!omap
+    - PBYTE:
+        access: rw
+        description: GPIO port byte pin register
+        lsb: 0
+        reset_value: ''
+        width: 1
+- GPIO_B39:
+    fields: !!omap
+    - PBYTE:
+        access: rw
+        description: GPIO port byte pin register
+        lsb: 0
+        reset_value: ''
+        width: 1
+- GPIO_B40:
+    fields: !!omap
+    - PBYTE:
+        access: rw
+        description: GPIO port byte pin register
+        lsb: 0
+        reset_value: ''
+        width: 1
+- GPIO_B41:
+    fields: !!omap
+    - PBYTE:
+        access: rw
+        description: GPIO port byte pin register
+        lsb: 0
+        reset_value: ''
+        width: 1
+- GPIO_B42:
+    fields: !!omap
+    - PBYTE:
+        access: rw
+        description: GPIO port byte pin register
+        lsb: 0
+        reset_value: ''
+        width: 1
+- GPIO_B43:
+    fields: !!omap
+    - PBYTE:
+        access: rw
+        description: GPIO port byte pin register
+        lsb: 0
+        reset_value: ''
+        width: 1
+- GPIO_B44:
+    fields: !!omap
+    - PBYTE:
+        access: rw
+        description: GPIO port byte pin register
+        lsb: 0
+        reset_value: ''
+        width: 1
+- GPIO_B45:
+    fields: !!omap
+    - PBYTE:
+        access: rw
+        description: GPIO port byte pin register
+        lsb: 0
+        reset_value: ''
+        width: 1
+- GPIO_B46:
+    fields: !!omap
+    - PBYTE:
+        access: rw
+        description: GPIO port byte pin register
+        lsb: 0
+        reset_value: ''
+        width: 1
+- GPIO_B47:
+    fields: !!omap
+    - PBYTE:
+        access: rw
+        description: GPIO port byte pin register
+        lsb: 0
+        reset_value: ''
+        width: 1
+- GPIO_B48:
+    fields: !!omap
+    - PBYTE:
+        access: rw
+        description: GPIO port byte pin register
+        lsb: 0
+        reset_value: ''
+        width: 1
+- GPIO_B49:
+    fields: !!omap
+    - PBYTE:
+        access: rw
+        description: GPIO port byte pin register
+        lsb: 0
+        reset_value: ''
+        width: 1
+- GPIO_B50:
+    fields: !!omap
+    - PBYTE:
+        access: rw
+        description: GPIO port byte pin register
+        lsb: 0
+        reset_value: ''
+        width: 1
+- GPIO_B51:
+    fields: !!omap
+    - PBYTE:
+        access: rw
+        description: GPIO port byte pin register
+        lsb: 0
+        reset_value: ''
+        width: 1
+- GPIO_B52:
+    fields: !!omap
+    - PBYTE:
+        access: rw
+        description: GPIO port byte pin register
+        lsb: 0
+        reset_value: ''
+        width: 1
+- GPIO_B53:
+    fields: !!omap
+    - PBYTE:
+        access: rw
+        description: GPIO port byte pin register
+        lsb: 0
+        reset_value: ''
+        width: 1
+- GPIO_B54:
+    fields: !!omap
+    - PBYTE:
+        access: rw
+        description: GPIO port byte pin register
+        lsb: 0
+        reset_value: ''
+        width: 1
+- GPIO_B55:
+    fields: !!omap
+    - PBYTE:
+        access: rw
+        description: GPIO port byte pin register
+        lsb: 0
+        reset_value: ''
+        width: 1
+- GPIO_B56:
+    fields: !!omap
+    - PBYTE:
+        access: rw
+        description: GPIO port byte pin register
+        lsb: 0
+        reset_value: ''
+        width: 1
+- GPIO_B57:
+    fields: !!omap
+    - PBYTE:
+        access: rw
+        description: GPIO port byte pin register
+        lsb: 0
+        reset_value: ''
+        width: 1
+- GPIO_B58:
+    fields: !!omap
+    - PBYTE:
+        access: rw
+        description: GPIO port byte pin register
+        lsb: 0
+        reset_value: ''
+        width: 1
+- GPIO_B59:
+    fields: !!omap
+    - PBYTE:
+        access: rw
+        description: GPIO port byte pin register
+        lsb: 0
+        reset_value: ''
+        width: 1
+- GPIO_B60:
+    fields: !!omap
+    - PBYTE:
+        access: rw
+        description: GPIO port byte pin register
+        lsb: 0
+        reset_value: ''
+        width: 1
+- GPIO_B61:
+    fields: !!omap
+    - PBYTE:
+        access: rw
+        description: GPIO port byte pin register
+        lsb: 0
+        reset_value: ''
+        width: 1
+- GPIO_B62:
+    fields: !!omap
+    - PBYTE:
+        access: rw
+        description: GPIO port byte pin register
+        lsb: 0
+        reset_value: ''
+        width: 1
+- GPIO_B63:
+    fields: !!omap
+    - PBYTE:
+        access: rw
+        description: GPIO port byte pin register
+        lsb: 0
+        reset_value: ''
+        width: 1
+- GPIO_B64:
+    fields: !!omap
+    - PBYTE:
+        access: rw
+        description: GPIO port byte pin register
+        lsb: 0
+        reset_value: ''
+        width: 1
+- GPIO_B65:
+    fields: !!omap
+    - PBYTE:
+        access: rw
+        description: GPIO port byte pin register
+        lsb: 0
+        reset_value: ''
+        width: 1
+- GPIO_B66:
+    fields: !!omap
+    - PBYTE:
+        access: rw
+        description: GPIO port byte pin register
+        lsb: 0
+        reset_value: ''
+        width: 1
+- GPIO_B67:
+    fields: !!omap
+    - PBYTE:
+        access: rw
+        description: GPIO port byte pin register
+        lsb: 0
+        reset_value: ''
+        width: 1
+- GPIO_B68:
+    fields: !!omap
+    - PBYTE:
+        access: rw
+        description: GPIO port byte pin register
+        lsb: 0
+        reset_value: ''
+        width: 1
+- GPIO_B69:
+    fields: !!omap
+    - PBYTE:
+        access: rw
+        description: GPIO port byte pin register
+        lsb: 0
+        reset_value: ''
+        width: 1
+- GPIO_B70:
+    fields: !!omap
+    - PBYTE:
+        access: rw
+        description: GPIO port byte pin register
+        lsb: 0
+        reset_value: ''
+        width: 1
+- GPIO_B71:
+    fields: !!omap
+    - PBYTE:
+        access: rw
+        description: GPIO port byte pin register
+        lsb: 0
+        reset_value: ''
+        width: 1
+- GPIO_B72:
+    fields: !!omap
+    - PBYTE:
+        access: rw
+        description: GPIO port byte pin register
+        lsb: 0
+        reset_value: ''
+        width: 1
+- GPIO_B73:
+    fields: !!omap
+    - PBYTE:
+        access: rw
+        description: GPIO port byte pin register
+        lsb: 0
+        reset_value: ''
+        width: 1
+- GPIO_B74:
+    fields: !!omap
+    - PBYTE:
+        access: rw
+        description: GPIO port byte pin register
+        lsb: 0
+        reset_value: ''
+        width: 1
+- GPIO_B75:
+    fields: !!omap
+    - PBYTE:
+        access: rw
+        description: GPIO port byte pin register
+        lsb: 0
+        reset_value: ''
+        width: 1
+- GPIO_B76:
+    fields: !!omap
+    - PBYTE:
+        access: rw
+        description: GPIO port byte pin register
+        lsb: 0
+        reset_value: ''
+        width: 1
+- GPIO_B77:
+    fields: !!omap
+    - PBYTE:
+        access: rw
+        description: GPIO port byte pin register
+        lsb: 0
+        reset_value: ''
+        width: 1
+- GPIO_B78:
+    fields: !!omap
+    - PBYTE:
+        access: rw
+        description: GPIO port byte pin register
+        lsb: 0
+        reset_value: ''
+        width: 1
+- GPIO_B79:
+    fields: !!omap
+    - PBYTE:
+        access: rw
+        description: GPIO port byte pin register
+        lsb: 0
+        reset_value: ''
+        width: 1
+- GPIO_B80:
+    fields: !!omap
+    - PBYTE:
+        access: rw
+        description: GPIO port byte pin register
+        lsb: 0
+        reset_value: ''
+        width: 1
+- GPIO_B81:
+    fields: !!omap
+    - PBYTE:
+        access: rw
+        description: GPIO port byte pin register
+        lsb: 0
+        reset_value: ''
+        width: 1
+- GPIO_B82:
+    fields: !!omap
+    - PBYTE:
+        access: rw
+        description: GPIO port byte pin register
+        lsb: 0
+        reset_value: ''
+        width: 1
+- GPIO_B83:
+    fields: !!omap
+    - PBYTE:
+        access: rw
+        description: GPIO port byte pin register
+        lsb: 0
+        reset_value: ''
+        width: 1
+- GPIO_B84:
+    fields: !!omap
+    - PBYTE:
+        access: rw
+        description: GPIO port byte pin register
+        lsb: 0
+        reset_value: ''
+        width: 1
+- GPIO_B85:
+    fields: !!omap
+    - PBYTE:
+        access: rw
+        description: GPIO port byte pin register
+        lsb: 0
+        reset_value: ''
+        width: 1
+- GPIO_B86:
+    fields: !!omap
+    - PBYTE:
+        access: rw
+        description: GPIO port byte pin register
+        lsb: 0
+        reset_value: ''
+        width: 1
+- GPIO_B87:
+    fields: !!omap
+    - PBYTE:
+        access: rw
+        description: GPIO port byte pin register
+        lsb: 0
+        reset_value: ''
+        width: 1
+- GPIO_B88:
+    fields: !!omap
+    - PBYTE:
+        access: rw
+        description: GPIO port byte pin register
+        lsb: 0
+        reset_value: ''
+        width: 1
+- GPIO_B89:
+    fields: !!omap
+    - PBYTE:
+        access: rw
+        description: GPIO port byte pin register
+        lsb: 0
+        reset_value: ''
+        width: 1
+- GPIO_B90:
+    fields: !!omap
+    - PBYTE:
+        access: rw
+        description: GPIO port byte pin register
+        lsb: 0
+        reset_value: ''
+        width: 1
+- GPIO_B91:
+    fields: !!omap
+    - PBYTE:
+        access: rw
+        description: GPIO port byte pin register
+        lsb: 0
+        reset_value: ''
+        width: 1
+- GPIO_B92:
+    fields: !!omap
+    - PBYTE:
+        access: rw
+        description: GPIO port byte pin register
+        lsb: 0
+        reset_value: ''
+        width: 1
+- GPIO_B93:
+    fields: !!omap
+    - PBYTE:
+        access: rw
+        description: GPIO port byte pin register
+        lsb: 0
+        reset_value: ''
+        width: 1
+- GPIO_B94:
+    fields: !!omap
+    - PBYTE:
+        access: rw
+        description: GPIO port byte pin register
+        lsb: 0
+        reset_value: ''
+        width: 1
+- GPIO_B95:
+    fields: !!omap
+    - PBYTE:
+        access: rw
+        description: GPIO port byte pin register
+        lsb: 0
+        reset_value: ''
+        width: 1
+- GPIO_B96:
+    fields: !!omap
+    - PBYTE:
+        access: rw
+        description: GPIO port byte pin register
+        lsb: 0
+        reset_value: ''
+        width: 1
+- GPIO_B97:
+    fields: !!omap
+    - PBYTE:
+        access: rw
+        description: GPIO port byte pin register
+        lsb: 0
+        reset_value: ''
+        width: 1
+- GPIO_B98:
+    fields: !!omap
+    - PBYTE:
+        access: rw
+        description: GPIO port byte pin register
+        lsb: 0
+        reset_value: ''
+        width: 1
+- GPIO_B99:
+    fields: !!omap
+    - PBYTE:
+        access: rw
+        description: GPIO port byte pin register
+        lsb: 0
+        reset_value: ''
+        width: 1
+- GPIO_B100:
+    fields: !!omap
+    - PBYTE:
+        access: rw
+        description: GPIO port byte pin register
+        lsb: 0
+        reset_value: ''
+        width: 1
+- GPIO_B101:
+    fields: !!omap
+    - PBYTE:
+        access: rw
+        description: GPIO port byte pin register
+        lsb: 0
+        reset_value: ''
+        width: 1
+- GPIO_B102:
+    fields: !!omap
+    - PBYTE:
+        access: rw
+        description: GPIO port byte pin register
+        lsb: 0
+        reset_value: ''
+        width: 1
+- GPIO_B103:
+    fields: !!omap
+    - PBYTE:
+        access: rw
+        description: GPIO port byte pin register
+        lsb: 0
+        reset_value: ''
+        width: 1
+- GPIO_B104:
+    fields: !!omap
+    - PBYTE:
+        access: rw
+        description: GPIO port byte pin register
+        lsb: 0
+        reset_value: ''
+        width: 1
+- GPIO_B105:
+    fields: !!omap
+    - PBYTE:
+        access: rw
+        description: GPIO port byte pin register
+        lsb: 0
+        reset_value: ''
+        width: 1
+- GPIO_B106:
+    fields: !!omap
+    - PBYTE:
+        access: rw
+        description: GPIO port byte pin register
+        lsb: 0
+        reset_value: ''
+        width: 1
+- GPIO_B107:
+    fields: !!omap
+    - PBYTE:
+        access: rw
+        description: GPIO port byte pin register
+        lsb: 0
+        reset_value: ''
+        width: 1
+- GPIO_B108:
+    fields: !!omap
+    - PBYTE:
+        access: rw
+        description: GPIO port byte pin register
+        lsb: 0
+        reset_value: ''
+        width: 1
+- GPIO_B109:
+    fields: !!omap
+    - PBYTE:
+        access: rw
+        description: GPIO port byte pin register
+        lsb: 0
+        reset_value: ''
+        width: 1
+- GPIO_B110:
+    fields: !!omap
+    - PBYTE:
+        access: rw
+        description: GPIO port byte pin register
+        lsb: 0
+        reset_value: ''
+        width: 1
+- GPIO_B111:
+    fields: !!omap
+    - PBYTE:
+        access: rw
+        description: GPIO port byte pin register
+        lsb: 0
+        reset_value: ''
+        width: 1
+- GPIO_B112:
+    fields: !!omap
+    - PBYTE:
+        access: rw
+        description: GPIO port byte pin register
+        lsb: 0
+        reset_value: ''
+        width: 1
+- GPIO_B113:
+    fields: !!omap
+    - PBYTE:
+        access: rw
+        description: GPIO port byte pin register
+        lsb: 0
+        reset_value: ''
+        width: 1
+- GPIO_B114:
+    fields: !!omap
+    - PBYTE:
+        access: rw
+        description: GPIO port byte pin register
+        lsb: 0
+        reset_value: ''
+        width: 1
+- GPIO_B115:
+    fields: !!omap
+    - PBYTE:
+        access: rw
+        description: GPIO port byte pin register
+        lsb: 0
+        reset_value: ''
+        width: 1
+- GPIO_B116:
+    fields: !!omap
+    - PBYTE:
+        access: rw
+        description: GPIO port byte pin register
+        lsb: 0
+        reset_value: ''
+        width: 1
+- GPIO_B117:
+    fields: !!omap
+    - PBYTE:
+        access: rw
+        description: GPIO port byte pin register
+        lsb: 0
+        reset_value: ''
+        width: 1
+- GPIO_B118:
+    fields: !!omap
+    - PBYTE:
+        access: rw
+        description: GPIO port byte pin register
+        lsb: 0
+        reset_value: ''
+        width: 1
+- GPIO_B119:
+    fields: !!omap
+    - PBYTE:
+        access: rw
+        description: GPIO port byte pin register
+        lsb: 0
+        reset_value: ''
+        width: 1
+- GPIO_B120:
+    fields: !!omap
+    - PBYTE:
+        access: rw
+        description: GPIO port byte pin register
+        lsb: 0
+        reset_value: ''
+        width: 1
+- GPIO_B121:
+    fields: !!omap
+    - PBYTE:
+        access: rw
+        description: GPIO port byte pin register
+        lsb: 0
+        reset_value: ''
+        width: 1
+- GPIO_B122:
+    fields: !!omap
+    - PBYTE:
+        access: rw
+        description: GPIO port byte pin register
+        lsb: 0
+        reset_value: ''
+        width: 1
+- GPIO_B123:
+    fields: !!omap
+    - PBYTE:
+        access: rw
+        description: GPIO port byte pin register
+        lsb: 0
+        reset_value: ''
+        width: 1
+- GPIO_B124:
+    fields: !!omap
+    - PBYTE:
+        access: rw
+        description: GPIO port byte pin register
+        lsb: 0
+        reset_value: ''
+        width: 1
+- GPIO_B125:
+    fields: !!omap
+    - PBYTE:
+        access: rw
+        description: GPIO port byte pin register
+        lsb: 0
+        reset_value: ''
+        width: 1
+- GPIO_B126:
+    fields: !!omap
+    - PBYTE:
+        access: rw
+        description: GPIO port byte pin register
+        lsb: 0
+        reset_value: ''
+        width: 1
+- GPIO_B127:
+    fields: !!omap
+    - PBYTE:
+        access: rw
+        description: GPIO port byte pin register
+        lsb: 0
+        reset_value: ''
+        width: 1
+- GPIO_B128:
+    fields: !!omap
+    - PBYTE:
+        access: rw
+        description: GPIO port byte pin register
+        lsb: 0
+        reset_value: ''
+        width: 1
+- GPIO_B129:
+    fields: !!omap
+    - PBYTE:
+        access: rw
+        description: GPIO port byte pin register
+        lsb: 0
+        reset_value: ''
+        width: 1
+- GPIO_B130:
+    fields: !!omap
+    - PBYTE:
+        access: rw
+        description: GPIO port byte pin register
+        lsb: 0
+        reset_value: ''
+        width: 1
+- GPIO_B131:
+    fields: !!omap
+    - PBYTE:
+        access: rw
+        description: GPIO port byte pin register
+        lsb: 0
+        reset_value: ''
+        width: 1
+- GPIO_B132:
+    fields: !!omap
+    - PBYTE:
+        access: rw
+        description: GPIO port byte pin register
+        lsb: 0
+        reset_value: ''
+        width: 1
+- GPIO_B133:
+    fields: !!omap
+    - PBYTE:
+        access: rw
+        description: GPIO port byte pin register
+        lsb: 0
+        reset_value: ''
+        width: 1
+- GPIO_B134:
+    fields: !!omap
+    - PBYTE:
+        access: rw
+        description: GPIO port byte pin register
+        lsb: 0
+        reset_value: ''
+        width: 1
+- GPIO_B135:
+    fields: !!omap
+    - PBYTE:
+        access: rw
+        description: GPIO port byte pin register
+        lsb: 0
+        reset_value: ''
+        width: 1
+- GPIO_B136:
+    fields: !!omap
+    - PBYTE:
+        access: rw
+        description: GPIO port byte pin register
+        lsb: 0
+        reset_value: ''
+        width: 1
+- GPIO_B137:
+    fields: !!omap
+    - PBYTE:
+        access: rw
+        description: GPIO port byte pin register
+        lsb: 0
+        reset_value: ''
+        width: 1
+- GPIO_B138:
+    fields: !!omap
+    - PBYTE:
+        access: rw
+        description: GPIO port byte pin register
+        lsb: 0
+        reset_value: ''
+        width: 1
+- GPIO_B139:
+    fields: !!omap
+    - PBYTE:
+        access: rw
+        description: GPIO port byte pin register
+        lsb: 0
+        reset_value: ''
+        width: 1
+- GPIO_B140:
+    fields: !!omap
+    - PBYTE:
+        access: rw
+        description: GPIO port byte pin register
+        lsb: 0
+        reset_value: ''
+        width: 1
+- GPIO_B141:
+    fields: !!omap
+    - PBYTE:
+        access: rw
+        description: GPIO port byte pin register
+        lsb: 0
+        reset_value: ''
+        width: 1
+- GPIO_B142:
+    fields: !!omap
+    - PBYTE:
+        access: rw
+        description: GPIO port byte pin register
+        lsb: 0
+        reset_value: ''
+        width: 1
+- GPIO_B143:
+    fields: !!omap
+    - PBYTE:
+        access: rw
+        description: GPIO port byte pin register
+        lsb: 0
+        reset_value: ''
+        width: 1
+- GPIO_B144:
+    fields: !!omap
+    - PBYTE:
+        access: rw
+        description: GPIO port byte pin register
+        lsb: 0
+        reset_value: ''
+        width: 1
+- GPIO_B145:
+    fields: !!omap
+    - PBYTE:
+        access: rw
+        description: GPIO port byte pin register
+        lsb: 0
+        reset_value: ''
+        width: 1
+- GPIO_B146:
+    fields: !!omap
+    - PBYTE:
+        access: rw
+        description: GPIO port byte pin register
+        lsb: 0
+        reset_value: ''
+        width: 1
+- GPIO_B147:
+    fields: !!omap
+    - PBYTE:
+        access: rw
+        description: GPIO port byte pin register
+        lsb: 0
+        reset_value: ''
+        width: 1
+- GPIO_B148:
+    fields: !!omap
+    - PBYTE:
+        access: rw
+        description: GPIO port byte pin register
+        lsb: 0
+        reset_value: ''
+        width: 1
+- GPIO_B149:
+    fields: !!omap
+    - PBYTE:
+        access: rw
+        description: GPIO port byte pin register
+        lsb: 0
+        reset_value: ''
+        width: 1
+- GPIO_B150:
+    fields: !!omap
+    - PBYTE:
+        access: rw
+        description: GPIO port byte pin register
+        lsb: 0
+        reset_value: ''
+        width: 1
+- GPIO_B151:
+    fields: !!omap
+    - PBYTE:
+        access: rw
+        description: GPIO port byte pin register
+        lsb: 0
+        reset_value: ''
+        width: 1
+- GPIO_B152:
+    fields: !!omap
+    - PBYTE:
+        access: rw
+        description: GPIO port byte pin register
+        lsb: 0
+        reset_value: ''
+        width: 1
+- GPIO_B153:
+    fields: !!omap
+    - PBYTE:
+        access: rw
+        description: GPIO port byte pin register
+        lsb: 0
+        reset_value: ''
+        width: 1
+- GPIO_B154:
+    fields: !!omap
+    - PBYTE:
+        access: rw
+        description: GPIO port byte pin register
+        lsb: 0
+        reset_value: ''
+        width: 1
+- GPIO_B155:
+    fields: !!omap
+    - PBYTE:
+        access: rw
+        description: GPIO port byte pin register
+        lsb: 0
+        reset_value: ''
+        width: 1
+- GPIO_B156:
+    fields: !!omap
+    - PBYTE:
+        access: rw
+        description: GPIO port byte pin register
+        lsb: 0
+        reset_value: ''
+        width: 1
+- GPIO_B157:
+    fields: !!omap
+    - PBYTE:
+        access: rw
+        description: GPIO port byte pin register
+        lsb: 0
+        reset_value: ''
+        width: 1
+- GPIO_B158:
+    fields: !!omap
+    - PBYTE:
+        access: rw
+        description: GPIO port byte pin register
+        lsb: 0
+        reset_value: ''
+        width: 1
+- GPIO_B159:
+    fields: !!omap
+    - PBYTE:
+        access: rw
+        description: GPIO port byte pin register
+        lsb: 0
+        reset_value: ''
+        width: 1
+- GPIO_B160:
+    fields: !!omap
+    - PBYTE:
+        access: rw
+        description: GPIO port byte pin register
+        lsb: 0
+        reset_value: ''
+        width: 1
+- GPIO_B161:
+    fields: !!omap
+    - PBYTE:
+        access: rw
+        description: GPIO port byte pin register
+        lsb: 0
+        reset_value: ''
+        width: 1
+- GPIO_B162:
+    fields: !!omap
+    - PBYTE:
+        access: rw
+        description: GPIO port byte pin register
+        lsb: 0
+        reset_value: ''
+        width: 1
+- GPIO_B163:
+    fields: !!omap
+    - PBYTE:
+        access: rw
+        description: GPIO port byte pin register
+        lsb: 0
+        reset_value: ''
+        width: 1
+- GPIO_B164:
+    fields: !!omap
+    - PBYTE:
+        access: rw
+        description: GPIO port byte pin register
+        lsb: 0
+        reset_value: ''
+        width: 1
+- GPIO_B165:
+    fields: !!omap
+    - PBYTE:
+        access: rw
+        description: GPIO port byte pin register
+        lsb: 0
+        reset_value: ''
+        width: 1
+- GPIO_B166:
+    fields: !!omap
+    - PBYTE:
+        access: rw
+        description: GPIO port byte pin register
+        lsb: 0
+        reset_value: ''
+        width: 1
+- GPIO_B167:
+    fields: !!omap
+    - PBYTE:
+        access: rw
+        description: GPIO port byte pin register
+        lsb: 0
+        reset_value: ''
+        width: 1
+- GPIO_B168:
+    fields: !!omap
+    - PBYTE:
+        access: rw
+        description: GPIO port byte pin register
+        lsb: 0
+        reset_value: ''
+        width: 1
+- GPIO_B169:
+    fields: !!omap
+    - PBYTE:
+        access: rw
+        description: GPIO port byte pin register
+        lsb: 0
+        reset_value: ''
+        width: 1
+- GPIO_B170:
+    fields: !!omap
+    - PBYTE:
+        access: rw
+        description: GPIO port byte pin register
+        lsb: 0
+        reset_value: ''
+        width: 1
+- GPIO_B171:
+    fields: !!omap
+    - PBYTE:
+        access: rw
+        description: GPIO port byte pin register
+        lsb: 0
+        reset_value: ''
+        width: 1
+- GPIO_B172:
+    fields: !!omap
+    - PBYTE:
+        access: rw
+        description: GPIO port byte pin register
+        lsb: 0
+        reset_value: ''
+        width: 1
+- GPIO_B173:
+    fields: !!omap
+    - PBYTE:
+        access: rw
+        description: GPIO port byte pin register
+        lsb: 0
+        reset_value: ''
+        width: 1
+- GPIO_B174:
+    fields: !!omap
+    - PBYTE:
+        access: rw
+        description: GPIO port byte pin register
+        lsb: 0
+        reset_value: ''
+        width: 1
+- GPIO_B175:
+    fields: !!omap
+    - PBYTE:
+        access: rw
+        description: GPIO port byte pin register
+        lsb: 0
+        reset_value: ''
+        width: 1
+- GPIO_B176:
+    fields: !!omap
+    - PBYTE:
+        access: rw
+        description: GPIO port byte pin register
+        lsb: 0
+        reset_value: ''
+        width: 1
+- GPIO_B177:
+    fields: !!omap
+    - PBYTE:
+        access: rw
+        description: GPIO port byte pin register
+        lsb: 0
+        reset_value: ''
+        width: 1
+- GPIO_B178:
+    fields: !!omap
+    - PBYTE:
+        access: rw
+        description: GPIO port byte pin register
+        lsb: 0
+        reset_value: ''
+        width: 1
+- GPIO_B179:
+    fields: !!omap
+    - PBYTE:
+        access: rw
+        description: GPIO port byte pin register
+        lsb: 0
+        reset_value: ''
+        width: 1
+- GPIO_B180:
+    fields: !!omap
+    - PBYTE:
+        access: rw
+        description: GPIO port byte pin register
+        lsb: 0
+        reset_value: ''
+        width: 1
+- GPIO_B181:
+    fields: !!omap
+    - PBYTE:
+        access: rw
+        description: GPIO port byte pin register
+        lsb: 0
+        reset_value: ''
+        width: 1
+- GPIO_B182:
+    fields: !!omap
+    - PBYTE:
+        access: rw
+        description: GPIO port byte pin register
+        lsb: 0
+        reset_value: ''
+        width: 1
+- GPIO_B183:
+    fields: !!omap
+    - PBYTE:
+        access: rw
+        description: GPIO port byte pin register
+        lsb: 0
+        reset_value: ''
+        width: 1
+- GPIO_B184:
+    fields: !!omap
+    - PBYTE:
+        access: rw
+        description: GPIO port byte pin register
+        lsb: 0
+        reset_value: ''
+        width: 1
+- GPIO_B185:
+    fields: !!omap
+    - PBYTE:
+        access: rw
+        description: GPIO port byte pin register
+        lsb: 0
+        reset_value: ''
+        width: 1
+- GPIO_B186:
+    fields: !!omap
+    - PBYTE:
+        access: rw
+        description: GPIO port byte pin register
+        lsb: 0
+        reset_value: ''
+        width: 1
+- GPIO_B187:
+    fields: !!omap
+    - PBYTE:
+        access: rw
+        description: GPIO port byte pin register
+        lsb: 0
+        reset_value: ''
+        width: 1
+- GPIO_B188:
+    fields: !!omap
+    - PBYTE:
+        access: rw
+        description: GPIO port byte pin register
+        lsb: 0
+        reset_value: ''
+        width: 1
+- GPIO_B189:
+    fields: !!omap
+    - PBYTE:
+        access: rw
+        description: GPIO port byte pin register
+        lsb: 0
+        reset_value: ''
+        width: 1
+- GPIO_B190:
+    fields: !!omap
+    - PBYTE:
+        access: rw
+        description: GPIO port byte pin register
+        lsb: 0
+        reset_value: ''
+        width: 1
+- GPIO_B191:
+    fields: !!omap
+    - PBYTE:
+        access: rw
+        description: GPIO port byte pin register
+        lsb: 0
+        reset_value: ''
+        width: 1
+- GPIO_B192:
+    fields: !!omap
+    - PBYTE:
+        access: rw
+        description: GPIO port byte pin register
+        lsb: 0
+        reset_value: ''
+        width: 1
+- GPIO_B193:
+    fields: !!omap
+    - PBYTE:
+        access: rw
+        description: GPIO port byte pin register
+        lsb: 0
+        reset_value: ''
+        width: 1
+- GPIO_B194:
+    fields: !!omap
+    - PBYTE:
+        access: rw
+        description: GPIO port byte pin register
+        lsb: 0
+        reset_value: ''
+        width: 1
+- GPIO_B195:
+    fields: !!omap
+    - PBYTE:
+        access: rw
+        description: GPIO port byte pin register
+        lsb: 0
+        reset_value: ''
+        width: 1
+- GPIO_B196:
+    fields: !!omap
+    - PBYTE:
+        access: rw
+        description: GPIO port byte pin register
+        lsb: 0
+        reset_value: ''
+        width: 1
+- GPIO_B197:
+    fields: !!omap
+    - PBYTE:
+        access: rw
+        description: GPIO port byte pin register
+        lsb: 0
+        reset_value: ''
+        width: 1
+- GPIO_B198:
+    fields: !!omap
+    - PBYTE:
+        access: rw
+        description: GPIO port byte pin register
+        lsb: 0
+        reset_value: ''
+        width: 1
+- GPIO_B199:
+    fields: !!omap
+    - PBYTE:
+        access: rw
+        description: GPIO port byte pin register
+        lsb: 0
+        reset_value: ''
+        width: 1
+- GPIO_B200:
+    fields: !!omap
+    - PBYTE:
+        access: rw
+        description: GPIO port byte pin register
+        lsb: 0
+        reset_value: ''
+        width: 1
+- GPIO_B201:
+    fields: !!omap
+    - PBYTE:
+        access: rw
+        description: GPIO port byte pin register
+        lsb: 0
+        reset_value: ''
+        width: 1
+- GPIO_B202:
+    fields: !!omap
+    - PBYTE:
+        access: rw
+        description: GPIO port byte pin register
+        lsb: 0
+        reset_value: ''
+        width: 1
+- GPIO_B203:
+    fields: !!omap
+    - PBYTE:
+        access: rw
+        description: GPIO port byte pin register
+        lsb: 0
+        reset_value: ''
+        width: 1
+- GPIO_B204:
+    fields: !!omap
+    - PBYTE:
+        access: rw
+        description: GPIO port byte pin register
+        lsb: 0
+        reset_value: ''
+        width: 1
+- GPIO_B205:
+    fields: !!omap
+    - PBYTE:
+        access: rw
+        description: GPIO port byte pin register
+        lsb: 0
+        reset_value: ''
+        width: 1
+- GPIO_B206:
+    fields: !!omap
+    - PBYTE:
+        access: rw
+        description: GPIO port byte pin register
+        lsb: 0
+        reset_value: ''
+        width: 1
+- GPIO_B207:
+    fields: !!omap
+    - PBYTE:
+        access: rw
+        description: GPIO port byte pin register
+        lsb: 0
+        reset_value: ''
+        width: 1
+- GPIO_B208:
+    fields: !!omap
+    - PBYTE:
+        access: rw
+        description: GPIO port byte pin register
+        lsb: 0
+        reset_value: ''
+        width: 1
+- GPIO_B209:
+    fields: !!omap
+    - PBYTE:
+        access: rw
+        description: GPIO port byte pin register
+        lsb: 0
+        reset_value: ''
+        width: 1
+- GPIO_B210:
+    fields: !!omap
+    - PBYTE:
+        access: rw
+        description: GPIO port byte pin register
+        lsb: 0
+        reset_value: ''
+        width: 1
+- GPIO_B211:
+    fields: !!omap
+    - PBYTE:
+        access: rw
+        description: GPIO port byte pin register
+        lsb: 0
+        reset_value: ''
+        width: 1
+- GPIO_B212:
+    fields: !!omap
+    - PBYTE:
+        access: rw
+        description: GPIO port byte pin register
+        lsb: 0
+        reset_value: ''
+        width: 1
+- GPIO_B213:
+    fields: !!omap
+    - PBYTE:
+        access: rw
+        description: GPIO port byte pin register
+        lsb: 0
+        reset_value: ''
+        width: 1
+- GPIO_B214:
+    fields: !!omap
+    - PBYTE:
+        access: rw
+        description: GPIO port byte pin register
+        lsb: 0
+        reset_value: ''
+        width: 1
+- GPIO_B215:
+    fields: !!omap
+    - PBYTE:
+        access: rw
+        description: GPIO port byte pin register
+        lsb: 0
+        reset_value: ''
+        width: 1
+- GPIO_B216:
+    fields: !!omap
+    - PBYTE:
+        access: rw
+        description: GPIO port byte pin register
+        lsb: 0
+        reset_value: ''
+        width: 1
+- GPIO_B217:
+    fields: !!omap
+    - PBYTE:
+        access: rw
+        description: GPIO port byte pin register
+        lsb: 0
+        reset_value: ''
+        width: 1
+- GPIO_B218:
+    fields: !!omap
+    - PBYTE:
+        access: rw
+        description: GPIO port byte pin register
+        lsb: 0
+        reset_value: ''
+        width: 1
+- GPIO_B219:
+    fields: !!omap
+    - PBYTE:
+        access: rw
+        description: GPIO port byte pin register
+        lsb: 0
+        reset_value: ''
+        width: 1
+- GPIO_B220:
+    fields: !!omap
+    - PBYTE:
+        access: rw
+        description: GPIO port byte pin register
+        lsb: 0
+        reset_value: ''
+        width: 1
+- GPIO_B221:
+    fields: !!omap
+    - PBYTE:
+        access: rw
+        description: GPIO port byte pin register
+        lsb: 0
+        reset_value: ''
+        width: 1
+- GPIO_B222:
+    fields: !!omap
+    - PBYTE:
+        access: rw
+        description: GPIO port byte pin register
+        lsb: 0
+        reset_value: ''
+        width: 1
+- GPIO_B223:
+    fields: !!omap
+    - PBYTE:
+        access: rw
+        description: GPIO port byte pin register
+        lsb: 0
+        reset_value: ''
+        width: 1
+- GPIO_B224:
+    fields: !!omap
+    - PBYTE:
+        access: rw
+        description: GPIO port byte pin register
+        lsb: 0
+        reset_value: ''
+        width: 1
+- GPIO_B225:
+    fields: !!omap
+    - PBYTE:
+        access: rw
+        description: GPIO port byte pin register
+        lsb: 0
+        reset_value: ''
+        width: 1
+- GPIO_B226:
+    fields: !!omap
+    - PBYTE:
+        access: rw
+        description: GPIO port byte pin register
+        lsb: 0
+        reset_value: ''
+        width: 1
+- GPIO_B227:
+    fields: !!omap
+    - PBYTE:
+        access: rw
+        description: GPIO port byte pin register
+        lsb: 0
+        reset_value: ''
+        width: 1
+- GPIO_B228:
+    fields: !!omap
+    - PBYTE:
+        access: rw
+        description: GPIO port byte pin register
+        lsb: 0
+        reset_value: ''
+        width: 1
+- GPIO_B229:
+    fields: !!omap
+    - PBYTE:
+        access: rw
+        description: GPIO port byte pin register
+        lsb: 0
+        reset_value: ''
+        width: 1
+- GPIO_B230:
+    fields: !!omap
+    - PBYTE:
+        access: rw
+        description: GPIO port byte pin register
+        lsb: 0
+        reset_value: ''
+        width: 1
+- GPIO_B231:
+    fields: !!omap
+    - PBYTE:
+        access: rw
+        description: GPIO port byte pin register
+        lsb: 0
+        reset_value: ''
+        width: 1
+- GPIO_B232:
+    fields: !!omap
+    - PBYTE:
+        access: rw
+        description: GPIO port byte pin register
+        lsb: 0
+        reset_value: ''
+        width: 1
+- GPIO_B233:
+    fields: !!omap
+    - PBYTE:
+        access: rw
+        description: GPIO port byte pin register
+        lsb: 0
+        reset_value: ''
+        width: 1
+- GPIO_B234:
+    fields: !!omap
+    - PBYTE:
+        access: rw
+        description: GPIO port byte pin register
+        lsb: 0
+        reset_value: ''
+        width: 1
+- GPIO_B235:
+    fields: !!omap
+    - PBYTE:
+        access: rw
+        description: GPIO port byte pin register
+        lsb: 0
+        reset_value: ''
+        width: 1
+- GPIO_B236:
+    fields: !!omap
+    - PBYTE:
+        access: rw
+        description: GPIO port byte pin register
+        lsb: 0
+        reset_value: ''
+        width: 1
+- GPIO_B237:
+    fields: !!omap
+    - PBYTE:
+        access: rw
+        description: GPIO port byte pin register
+        lsb: 0
+        reset_value: ''
+        width: 1
+- GPIO_B238:
+    fields: !!omap
+    - PBYTE:
+        access: rw
+        description: GPIO port byte pin register
+        lsb: 0
+        reset_value: ''
+        width: 1
+- GPIO_B239:
+    fields: !!omap
+    - PBYTE:
+        access: rw
+        description: GPIO port byte pin register
+        lsb: 0
+        reset_value: ''
+        width: 1
+- GPIO_B240:
+    fields: !!omap
+    - PBYTE:
+        access: rw
+        description: GPIO port byte pin register
+        lsb: 0
+        reset_value: ''
+        width: 1
+- GPIO_B241:
+    fields: !!omap
+    - PBYTE:
+        access: rw
+        description: GPIO port byte pin register
+        lsb: 0
+        reset_value: ''
+        width: 1
+- GPIO_B242:
+    fields: !!omap
+    - PBYTE:
+        access: rw
+        description: GPIO port byte pin register
+        lsb: 0
+        reset_value: ''
+        width: 1
+- GPIO_B243:
+    fields: !!omap
+    - PBYTE:
+        access: rw
+        description: GPIO port byte pin register
+        lsb: 0
+        reset_value: ''
+        width: 1
+- GPIO_B244:
+    fields: !!omap
+    - PBYTE:
+        access: rw
+        description: GPIO port byte pin register
+        lsb: 0
+        reset_value: ''
+        width: 1
+- GPIO_B245:
+    fields: !!omap
+    - PBYTE:
+        access: rw
+        description: GPIO port byte pin register
+        lsb: 0
+        reset_value: ''
+        width: 1
+- GPIO_B246:
+    fields: !!omap
+    - PBYTE:
+        access: rw
+        description: GPIO port byte pin register
+        lsb: 0
+        reset_value: ''
+        width: 1
+- GPIO_B247:
+    fields: !!omap
+    - PBYTE:
+        access: rw
+        description: GPIO port byte pin register
+        lsb: 0
+        reset_value: ''
+        width: 1
+- GPIO_B248:
+    fields: !!omap
+    - PBYTE:
+        access: rw
+        description: GPIO port byte pin register
+        lsb: 0
+        reset_value: ''
+        width: 1
+- GPIO_B249:
+    fields: !!omap
+    - PBYTE:
+        access: rw
+        description: GPIO port byte pin register
+        lsb: 0
+        reset_value: ''
+        width: 1
+- GPIO_B250:
+    fields: !!omap
+    - PBYTE:
+        access: rw
+        description: GPIO port byte pin register
+        lsb: 0
+        reset_value: ''
+        width: 1
+- GPIO_B251:
+    fields: !!omap
+    - PBYTE:
+        access: rw
+        description: GPIO port byte pin register
+        lsb: 0
+        reset_value: ''
+        width: 1
+- GPIO_B252:
+    fields: !!omap
+    - PBYTE:
+        access: rw
+        description: GPIO port byte pin register
+        lsb: 0
+        reset_value: ''
+        width: 1
+- GPIO_B253:
+    fields: !!omap
+    - PBYTE:
+        access: rw
+        description: GPIO port byte pin register
+        lsb: 0
+        reset_value: ''
+        width: 1
+- GPIO_B254:
+    fields: !!omap
+    - PBYTE:
+        access: rw
+        description: GPIO port byte pin register
+        lsb: 0
+        reset_value: ''
+        width: 1
+- GPIO_B255:
+    fields: !!omap
+    - PBYTE:
+        access: rw
+        description: GPIO port byte pin register
+        lsb: 0
+        reset_value: ''
+        width: 1
+- GPIO_W0:
+    fields: !!omap
+    - PWORD:
+        access: rw
+        description: GPIO port word pin register
+        lsb: 0
+        reset_value: ''
+        width: 32
+- GPIO_W1:
+    fields: !!omap
+    - PWORD:
+        access: rw
+        description: GPIO port word pin register
+        lsb: 0
+        reset_value: ''
+        width: 32
+- GPIO_W2:
+    fields: !!omap
+    - PWORD:
+        access: rw
+        description: GPIO port word pin register
+        lsb: 0
+        reset_value: ''
+        width: 32
+- GPIO_W3:
+    fields: !!omap
+    - PWORD:
+        access: rw
+        description: GPIO port word pin register
+        lsb: 0
+        reset_value: ''
+        width: 32
+- GPIO_W4:
+    fields: !!omap
+    - PWORD:
+        access: rw
+        description: GPIO port word pin register
+        lsb: 0
+        reset_value: ''
+        width: 32
+- GPIO_W5:
+    fields: !!omap
+    - PWORD:
+        access: rw
+        description: GPIO port word pin register
+        lsb: 0
+        reset_value: ''
+        width: 32
+- GPIO_W6:
+    fields: !!omap
+    - PWORD:
+        access: rw
+        description: GPIO port word pin register
+        lsb: 0
+        reset_value: ''
+        width: 32
+- GPIO_W7:
+    fields: !!omap
+    - PWORD:
+        access: rw
+        description: GPIO port word pin register
+        lsb: 0
+        reset_value: ''
+        width: 32
+- GPIO_W8:
+    fields: !!omap
+    - PWORD:
+        access: rw
+        description: GPIO port word pin register
+        lsb: 0
+        reset_value: ''
+        width: 32
+- GPIO_W9:
+    fields: !!omap
+    - PWORD:
+        access: rw
+        description: GPIO port word pin register
+        lsb: 0
+        reset_value: ''
+        width: 32
+- GPIO_W10:
+    fields: !!omap
+    - PWORD:
+        access: rw
+        description: GPIO port word pin register
+        lsb: 0
+        reset_value: ''
+        width: 32
+- GPIO_W11:
+    fields: !!omap
+    - PWORD:
+        access: rw
+        description: GPIO port word pin register
+        lsb: 0
+        reset_value: ''
+        width: 32
+- GPIO_W12:
+    fields: !!omap
+    - PWORD:
+        access: rw
+        description: GPIO port word pin register
+        lsb: 0
+        reset_value: ''
+        width: 32
+- GPIO_W13:
+    fields: !!omap
+    - PWORD:
+        access: rw
+        description: GPIO port word pin register
+        lsb: 0
+        reset_value: ''
+        width: 32
+- GPIO_W14:
+    fields: !!omap
+    - PWORD:
+        access: rw
+        description: GPIO port word pin register
+        lsb: 0
+        reset_value: ''
+        width: 32
+- GPIO_W15:
+    fields: !!omap
+    - PWORD:
+        access: rw
+        description: GPIO port word pin register
+        lsb: 0
+        reset_value: ''
+        width: 32
+- GPIO_W16:
+    fields: !!omap
+    - PWORD:
+        access: rw
+        description: GPIO port word pin register
+        lsb: 0
+        reset_value: ''
+        width: 32
+- GPIO_W17:
+    fields: !!omap
+    - PWORD:
+        access: rw
+        description: GPIO port word pin register
+        lsb: 0
+        reset_value: ''
+        width: 32
+- GPIO_W18:
+    fields: !!omap
+    - PWORD:
+        access: rw
+        description: GPIO port word pin register
+        lsb: 0
+        reset_value: ''
+        width: 32
+- GPIO_W19:
+    fields: !!omap
+    - PWORD:
+        access: rw
+        description: GPIO port word pin register
+        lsb: 0
+        reset_value: ''
+        width: 32
+- GPIO_W20:
+    fields: !!omap
+    - PWORD:
+        access: rw
+        description: GPIO port word pin register
+        lsb: 0
+        reset_value: ''
+        width: 32
+- GPIO_W21:
+    fields: !!omap
+    - PWORD:
+        access: rw
+        description: GPIO port word pin register
+        lsb: 0
+        reset_value: ''
+        width: 32
+- GPIO_W22:
+    fields: !!omap
+    - PWORD:
+        access: rw
+        description: GPIO port word pin register
+        lsb: 0
+        reset_value: ''
+        width: 32
+- GPIO_W23:
+    fields: !!omap
+    - PWORD:
+        access: rw
+        description: GPIO port word pin register
+        lsb: 0
+        reset_value: ''
+        width: 32
+- GPIO_W24:
+    fields: !!omap
+    - PWORD:
+        access: rw
+        description: GPIO port word pin register
+        lsb: 0
+        reset_value: ''
+        width: 32
+- GPIO_W25:
+    fields: !!omap
+    - PWORD:
+        access: rw
+        description: GPIO port word pin register
+        lsb: 0
+        reset_value: ''
+        width: 32
+- GPIO_W26:
+    fields: !!omap
+    - PWORD:
+        access: rw
+        description: GPIO port word pin register
+        lsb: 0
+        reset_value: ''
+        width: 32
+- GPIO_W27:
+    fields: !!omap
+    - PWORD:
+        access: rw
+        description: GPIO port word pin register
+        lsb: 0
+        reset_value: ''
+        width: 32
+- GPIO_W28:
+    fields: !!omap
+    - PWORD:
+        access: rw
+        description: GPIO port word pin register
+        lsb: 0
+        reset_value: ''
+        width: 32
+- GPIO_W29:
+    fields: !!omap
+    - PWORD:
+        access: rw
+        description: GPIO port word pin register
+        lsb: 0
+        reset_value: ''
+        width: 32
+- GPIO_W30:
+    fields: !!omap
+    - PWORD:
+        access: rw
+        description: GPIO port word pin register
+        lsb: 0
+        reset_value: ''
+        width: 32
+- GPIO_W31:
+    fields: !!omap
+    - PWORD:
+        access: rw
+        description: GPIO port word pin register
+        lsb: 0
+        reset_value: ''
+        width: 32
+- GPIO_W32:
+    fields: !!omap
+    - PWORD:
+        access: rw
+        description: GPIO port word pin register
+        lsb: 0
+        reset_value: ''
+        width: 32
+- GPIO_W33:
+    fields: !!omap
+    - PWORD:
+        access: rw
+        description: GPIO port word pin register
+        lsb: 0
+        reset_value: ''
+        width: 32
+- GPIO_W34:
+    fields: !!omap
+    - PWORD:
+        access: rw
+        description: GPIO port word pin register
+        lsb: 0
+        reset_value: ''
+        width: 32
+- GPIO_W35:
+    fields: !!omap
+    - PWORD:
+        access: rw
+        description: GPIO port word pin register
+        lsb: 0
+        reset_value: ''
+        width: 32
+- GPIO_W36:
+    fields: !!omap
+    - PWORD:
+        access: rw
+        description: GPIO port word pin register
+        lsb: 0
+        reset_value: ''
+        width: 32
+- GPIO_W37:
+    fields: !!omap
+    - PWORD:
+        access: rw
+        description: GPIO port word pin register
+        lsb: 0
+        reset_value: ''
+        width: 32
+- GPIO_W38:
+    fields: !!omap
+    - PWORD:
+        access: rw
+        description: GPIO port word pin register
+        lsb: 0
+        reset_value: ''
+        width: 32
+- GPIO_W39:
+    fields: !!omap
+    - PWORD:
+        access: rw
+        description: GPIO port word pin register
+        lsb: 0
+        reset_value: ''
+        width: 32
+- GPIO_W40:
+    fields: !!omap
+    - PWORD:
+        access: rw
+        description: GPIO port word pin register
+        lsb: 0
+        reset_value: ''
+        width: 32
+- GPIO_W41:
+    fields: !!omap
+    - PWORD:
+        access: rw
+        description: GPIO port word pin register
+        lsb: 0
+        reset_value: ''
+        width: 32
+- GPIO_W42:
+    fields: !!omap
+    - PWORD:
+        access: rw
+        description: GPIO port word pin register
+        lsb: 0
+        reset_value: ''
+        width: 32
+- GPIO_W43:
+    fields: !!omap
+    - PWORD:
+        access: rw
+        description: GPIO port word pin register
+        lsb: 0
+        reset_value: ''
+        width: 32
+- GPIO_W44:
+    fields: !!omap
+    - PWORD:
+        access: rw
+        description: GPIO port word pin register
+        lsb: 0
+        reset_value: ''
+        width: 32
+- GPIO_W45:
+    fields: !!omap
+    - PWORD:
+        access: rw
+        description: GPIO port word pin register
+        lsb: 0
+        reset_value: ''
+        width: 32
+- GPIO_W46:
+    fields: !!omap
+    - PWORD:
+        access: rw
+        description: GPIO port word pin register
+        lsb: 0
+        reset_value: ''
+        width: 32
+- GPIO_W47:
+    fields: !!omap
+    - PWORD:
+        access: rw
+        description: GPIO port word pin register
+        lsb: 0
+        reset_value: ''
+        width: 32
+- GPIO_W48:
+    fields: !!omap
+    - PWORD:
+        access: rw
+        description: GPIO port word pin register
+        lsb: 0
+        reset_value: ''
+        width: 32
+- GPIO_W49:
+    fields: !!omap
+    - PWORD:
+        access: rw
+        description: GPIO port word pin register
+        lsb: 0
+        reset_value: ''
+        width: 32
+- GPIO_W50:
+    fields: !!omap
+    - PWORD:
+        access: rw
+        description: GPIO port word pin register
+        lsb: 0
+        reset_value: ''
+        width: 32
+- GPIO_W51:
+    fields: !!omap
+    - PWORD:
+        access: rw
+        description: GPIO port word pin register
+        lsb: 0
+        reset_value: ''
+        width: 32
+- GPIO_W52:
+    fields: !!omap
+    - PWORD:
+        access: rw
+        description: GPIO port word pin register
+        lsb: 0
+        reset_value: ''
+        width: 32
+- GPIO_W53:
+    fields: !!omap
+    - PWORD:
+        access: rw
+        description: GPIO port word pin register
+        lsb: 0
+        reset_value: ''
+        width: 32
+- GPIO_W54:
+    fields: !!omap
+    - PWORD:
+        access: rw
+        description: GPIO port word pin register
+        lsb: 0
+        reset_value: ''
+        width: 32
+- GPIO_W55:
+    fields: !!omap
+    - PWORD:
+        access: rw
+        description: GPIO port word pin register
+        lsb: 0
+        reset_value: ''
+        width: 32
+- GPIO_W56:
+    fields: !!omap
+    - PWORD:
+        access: rw
+        description: GPIO port word pin register
+        lsb: 0
+        reset_value: ''
+        width: 32
+- GPIO_W57:
+    fields: !!omap
+    - PWORD:
+        access: rw
+        description: GPIO port word pin register
+        lsb: 0
+        reset_value: ''
+        width: 32
+- GPIO_W58:
+    fields: !!omap
+    - PWORD:
+        access: rw
+        description: GPIO port word pin register
+        lsb: 0
+        reset_value: ''
+        width: 32
+- GPIO_W59:
+    fields: !!omap
+    - PWORD:
+        access: rw
+        description: GPIO port word pin register
+        lsb: 0
+        reset_value: ''
+        width: 32
+- GPIO_W60:
+    fields: !!omap
+    - PWORD:
+        access: rw
+        description: GPIO port word pin register
+        lsb: 0
+        reset_value: ''
+        width: 32
+- GPIO_W61:
+    fields: !!omap
+    - PWORD:
+        access: rw
+        description: GPIO port word pin register
+        lsb: 0
+        reset_value: ''
+        width: 32
+- GPIO_W62:
+    fields: !!omap
+    - PWORD:
+        access: rw
+        description: GPIO port word pin register
+        lsb: 0
+        reset_value: ''
+        width: 32
+- GPIO_W63:
+    fields: !!omap
+    - PWORD:
+        access: rw
+        description: GPIO port word pin register
+        lsb: 0
+        reset_value: ''
+        width: 32
+- GPIO_W64:
+    fields: !!omap
+    - PWORD:
+        access: rw
+        description: GPIO port word pin register
+        lsb: 0
+        reset_value: ''
+        width: 32
+- GPIO_W65:
+    fields: !!omap
+    - PWORD:
+        access: rw
+        description: GPIO port word pin register
+        lsb: 0
+        reset_value: ''
+        width: 32
+- GPIO_W66:
+    fields: !!omap
+    - PWORD:
+        access: rw
+        description: GPIO port word pin register
+        lsb: 0
+        reset_value: ''
+        width: 32
+- GPIO_W67:
+    fields: !!omap
+    - PWORD:
+        access: rw
+        description: GPIO port word pin register
+        lsb: 0
+        reset_value: ''
+        width: 32
+- GPIO_W68:
+    fields: !!omap
+    - PWORD:
+        access: rw
+        description: GPIO port word pin register
+        lsb: 0
+        reset_value: ''
+        width: 32
+- GPIO_W69:
+    fields: !!omap
+    - PWORD:
+        access: rw
+        description: GPIO port word pin register
+        lsb: 0
+        reset_value: ''
+        width: 32
+- GPIO_W70:
+    fields: !!omap
+    - PWORD:
+        access: rw
+        description: GPIO port word pin register
+        lsb: 0
+        reset_value: ''
+        width: 32
+- GPIO_W71:
+    fields: !!omap
+    - PWORD:
+        access: rw
+        description: GPIO port word pin register
+        lsb: 0
+        reset_value: ''
+        width: 32
+- GPIO_W72:
+    fields: !!omap
+    - PWORD:
+        access: rw
+        description: GPIO port word pin register
+        lsb: 0
+        reset_value: ''
+        width: 32
+- GPIO_W73:
+    fields: !!omap
+    - PWORD:
+        access: rw
+        description: GPIO port word pin register
+        lsb: 0
+        reset_value: ''
+        width: 32
+- GPIO_W74:
+    fields: !!omap
+    - PWORD:
+        access: rw
+        description: GPIO port word pin register
+        lsb: 0
+        reset_value: ''
+        width: 32
+- GPIO_W75:
+    fields: !!omap
+    - PWORD:
+        access: rw
+        description: GPIO port word pin register
+        lsb: 0
+        reset_value: ''
+        width: 32
+- GPIO_W76:
+    fields: !!omap
+    - PWORD:
+        access: rw
+        description: GPIO port word pin register
+        lsb: 0
+        reset_value: ''
+        width: 32
+- GPIO_W77:
+    fields: !!omap
+    - PWORD:
+        access: rw
+        description: GPIO port word pin register
+        lsb: 0
+        reset_value: ''
+        width: 32
+- GPIO_W78:
+    fields: !!omap
+    - PWORD:
+        access: rw
+        description: GPIO port word pin register
+        lsb: 0
+        reset_value: ''
+        width: 32
+- GPIO_W79:
+    fields: !!omap
+    - PWORD:
+        access: rw
+        description: GPIO port word pin register
+        lsb: 0
+        reset_value: ''
+        width: 32
+- GPIO_W80:
+    fields: !!omap
+    - PWORD:
+        access: rw
+        description: GPIO port word pin register
+        lsb: 0
+        reset_value: ''
+        width: 32
+- GPIO_W81:
+    fields: !!omap
+    - PWORD:
+        access: rw
+        description: GPIO port word pin register
+        lsb: 0
+        reset_value: ''
+        width: 32
+- GPIO_W82:
+    fields: !!omap
+    - PWORD:
+        access: rw
+        description: GPIO port word pin register
+        lsb: 0
+        reset_value: ''
+        width: 32
+- GPIO_W83:
+    fields: !!omap
+    - PWORD:
+        access: rw
+        description: GPIO port word pin register
+        lsb: 0
+        reset_value: ''
+        width: 32
+- GPIO_W84:
+    fields: !!omap
+    - PWORD:
+        access: rw
+        description: GPIO port word pin register
+        lsb: 0
+        reset_value: ''
+        width: 32
+- GPIO_W85:
+    fields: !!omap
+    - PWORD:
+        access: rw
+        description: GPIO port word pin register
+        lsb: 0
+        reset_value: ''
+        width: 32
+- GPIO_W86:
+    fields: !!omap
+    - PWORD:
+        access: rw
+        description: GPIO port word pin register
+        lsb: 0
+        reset_value: ''
+        width: 32
+- GPIO_W87:
+    fields: !!omap
+    - PWORD:
+        access: rw
+        description: GPIO port word pin register
+        lsb: 0
+        reset_value: ''
+        width: 32
+- GPIO_W88:
+    fields: !!omap
+    - PWORD:
+        access: rw
+        description: GPIO port word pin register
+        lsb: 0
+        reset_value: ''
+        width: 32
+- GPIO_W89:
+    fields: !!omap
+    - PWORD:
+        access: rw
+        description: GPIO port word pin register
+        lsb: 0
+        reset_value: ''
+        width: 32
+- GPIO_W90:
+    fields: !!omap
+    - PWORD:
+        access: rw
+        description: GPIO port word pin register
+        lsb: 0
+        reset_value: ''
+        width: 32
+- GPIO_W91:
+    fields: !!omap
+    - PWORD:
+        access: rw
+        description: GPIO port word pin register
+        lsb: 0
+        reset_value: ''
+        width: 32
+- GPIO_W92:
+    fields: !!omap
+    - PWORD:
+        access: rw
+        description: GPIO port word pin register
+        lsb: 0
+        reset_value: ''
+        width: 32
+- GPIO_W93:
+    fields: !!omap
+    - PWORD:
+        access: rw
+        description: GPIO port word pin register
+        lsb: 0
+        reset_value: ''
+        width: 32
+- GPIO_W94:
+    fields: !!omap
+    - PWORD:
+        access: rw
+        description: GPIO port word pin register
+        lsb: 0
+        reset_value: ''
+        width: 32
+- GPIO_W95:
+    fields: !!omap
+    - PWORD:
+        access: rw
+        description: GPIO port word pin register
+        lsb: 0
+        reset_value: ''
+        width: 32
+- GPIO_W96:
+    fields: !!omap
+    - PWORD:
+        access: rw
+        description: GPIO port word pin register
+        lsb: 0
+        reset_value: ''
+        width: 32
+- GPIO_W97:
+    fields: !!omap
+    - PWORD:
+        access: rw
+        description: GPIO port word pin register
+        lsb: 0
+        reset_value: ''
+        width: 32
+- GPIO_W98:
+    fields: !!omap
+    - PWORD:
+        access: rw
+        description: GPIO port word pin register
+        lsb: 0
+        reset_value: ''
+        width: 32
+- GPIO_W99:
+    fields: !!omap
+    - PWORD:
+        access: rw
+        description: GPIO port word pin register
+        lsb: 0
+        reset_value: ''
+        width: 32
+- GPIO_W100:
+    fields: !!omap
+    - PWORD:
+        access: rw
+        description: GPIO port word pin register
+        lsb: 0
+        reset_value: ''
+        width: 32
+- GPIO_W101:
+    fields: !!omap
+    - PWORD:
+        access: rw
+        description: GPIO port word pin register
+        lsb: 0
+        reset_value: ''
+        width: 32
+- GPIO_W102:
+    fields: !!omap
+    - PWORD:
+        access: rw
+        description: GPIO port word pin register
+        lsb: 0
+        reset_value: ''
+        width: 32
+- GPIO_W103:
+    fields: !!omap
+    - PWORD:
+        access: rw
+        description: GPIO port word pin register
+        lsb: 0
+        reset_value: ''
+        width: 32
+- GPIO_W104:
+    fields: !!omap
+    - PWORD:
+        access: rw
+        description: GPIO port word pin register
+        lsb: 0
+        reset_value: ''
+        width: 32
+- GPIO_W105:
+    fields: !!omap
+    - PWORD:
+        access: rw
+        description: GPIO port word pin register
+        lsb: 0
+        reset_value: ''
+        width: 32
+- GPIO_W106:
+    fields: !!omap
+    - PWORD:
+        access: rw
+        description: GPIO port word pin register
+        lsb: 0
+        reset_value: ''
+        width: 32
+- GPIO_W107:
+    fields: !!omap
+    - PWORD:
+        access: rw
+        description: GPIO port word pin register
+        lsb: 0
+        reset_value: ''
+        width: 32
+- GPIO_W108:
+    fields: !!omap
+    - PWORD:
+        access: rw
+        description: GPIO port word pin register
+        lsb: 0
+        reset_value: ''
+        width: 32
+- GPIO_W109:
+    fields: !!omap
+    - PWORD:
+        access: rw
+        description: GPIO port word pin register
+        lsb: 0
+        reset_value: ''
+        width: 32
+- GPIO_W110:
+    fields: !!omap
+    - PWORD:
+        access: rw
+        description: GPIO port word pin register
+        lsb: 0
+        reset_value: ''
+        width: 32
+- GPIO_W111:
+    fields: !!omap
+    - PWORD:
+        access: rw
+        description: GPIO port word pin register
+        lsb: 0
+        reset_value: ''
+        width: 32
+- GPIO_W112:
+    fields: !!omap
+    - PWORD:
+        access: rw
+        description: GPIO port word pin register
+        lsb: 0
+        reset_value: ''
+        width: 32
+- GPIO_W113:
+    fields: !!omap
+    - PWORD:
+        access: rw
+        description: GPIO port word pin register
+        lsb: 0
+        reset_value: ''
+        width: 32
+- GPIO_W114:
+    fields: !!omap
+    - PWORD:
+        access: rw
+        description: GPIO port word pin register
+        lsb: 0
+        reset_value: ''
+        width: 32
+- GPIO_W115:
+    fields: !!omap
+    - PWORD:
+        access: rw
+        description: GPIO port word pin register
+        lsb: 0
+        reset_value: ''
+        width: 32
+- GPIO_W116:
+    fields: !!omap
+    - PWORD:
+        access: rw
+        description: GPIO port word pin register
+        lsb: 0
+        reset_value: ''
+        width: 32
+- GPIO_W117:
+    fields: !!omap
+    - PWORD:
+        access: rw
+        description: GPIO port word pin register
+        lsb: 0
+        reset_value: ''
+        width: 32
+- GPIO_W118:
+    fields: !!omap
+    - PWORD:
+        access: rw
+        description: GPIO port word pin register
+        lsb: 0
+        reset_value: ''
+        width: 32
+- GPIO_W119:
+    fields: !!omap
+    - PWORD:
+        access: rw
+        description: GPIO port word pin register
+        lsb: 0
+        reset_value: ''
+        width: 32
+- GPIO_W120:
+    fields: !!omap
+    - PWORD:
+        access: rw
+        description: GPIO port word pin register
+        lsb: 0
+        reset_value: ''
+        width: 32
+- GPIO_W121:
+    fields: !!omap
+    - PWORD:
+        access: rw
+        description: GPIO port word pin register
+        lsb: 0
+        reset_value: ''
+        width: 32
+- GPIO_W122:
+    fields: !!omap
+    - PWORD:
+        access: rw
+        description: GPIO port word pin register
+        lsb: 0
+        reset_value: ''
+        width: 32
+- GPIO_W123:
+    fields: !!omap
+    - PWORD:
+        access: rw
+        description: GPIO port word pin register
+        lsb: 0
+        reset_value: ''
+        width: 32
+- GPIO_W124:
+    fields: !!omap
+    - PWORD:
+        access: rw
+        description: GPIO port word pin register
+        lsb: 0
+        reset_value: ''
+        width: 32
+- GPIO_W125:
+    fields: !!omap
+    - PWORD:
+        access: rw
+        description: GPIO port word pin register
+        lsb: 0
+        reset_value: ''
+        width: 32
+- GPIO_W126:
+    fields: !!omap
+    - PWORD:
+        access: rw
+        description: GPIO port word pin register
+        lsb: 0
+        reset_value: ''
+        width: 32
+- GPIO_W127:
+    fields: !!omap
+    - PWORD:
+        access: rw
+        description: GPIO port word pin register
+        lsb: 0
+        reset_value: ''
+        width: 32
+- GPIO_W128:
+    fields: !!omap
+    - PWORD:
+        access: rw
+        description: GPIO port word pin register
+        lsb: 0
+        reset_value: ''
+        width: 32
+- GPIO_W129:
+    fields: !!omap
+    - PWORD:
+        access: rw
+        description: GPIO port word pin register
+        lsb: 0
+        reset_value: ''
+        width: 32
+- GPIO_W130:
+    fields: !!omap
+    - PWORD:
+        access: rw
+        description: GPIO port word pin register
+        lsb: 0
+        reset_value: ''
+        width: 32
+- GPIO_W131:
+    fields: !!omap
+    - PWORD:
+        access: rw
+        description: GPIO port word pin register
+        lsb: 0
+        reset_value: ''
+        width: 32
+- GPIO_W132:
+    fields: !!omap
+    - PWORD:
+        access: rw
+        description: GPIO port word pin register
+        lsb: 0
+        reset_value: ''
+        width: 32
+- GPIO_W133:
+    fields: !!omap
+    - PWORD:
+        access: rw
+        description: GPIO port word pin register
+        lsb: 0
+        reset_value: ''
+        width: 32
+- GPIO_W134:
+    fields: !!omap
+    - PWORD:
+        access: rw
+        description: GPIO port word pin register
+        lsb: 0
+        reset_value: ''
+        width: 32
+- GPIO_W135:
+    fields: !!omap
+    - PWORD:
+        access: rw
+        description: GPIO port word pin register
+        lsb: 0
+        reset_value: ''
+        width: 32
+- GPIO_W136:
+    fields: !!omap
+    - PWORD:
+        access: rw
+        description: GPIO port word pin register
+        lsb: 0
+        reset_value: ''
+        width: 32
+- GPIO_W137:
+    fields: !!omap
+    - PWORD:
+        access: rw
+        description: GPIO port word pin register
+        lsb: 0
+        reset_value: ''
+        width: 32
+- GPIO_W138:
+    fields: !!omap
+    - PWORD:
+        access: rw
+        description: GPIO port word pin register
+        lsb: 0
+        reset_value: ''
+        width: 32
+- GPIO_W139:
+    fields: !!omap
+    - PWORD:
+        access: rw
+        description: GPIO port word pin register
+        lsb: 0
+        reset_value: ''
+        width: 32
+- GPIO_W140:
+    fields: !!omap
+    - PWORD:
+        access: rw
+        description: GPIO port word pin register
+        lsb: 0
+        reset_value: ''
+        width: 32
+- GPIO_W141:
+    fields: !!omap
+    - PWORD:
+        access: rw
+        description: GPIO port word pin register
+        lsb: 0
+        reset_value: ''
+        width: 32
+- GPIO_W142:
+    fields: !!omap
+    - PWORD:
+        access: rw
+        description: GPIO port word pin register
+        lsb: 0
+        reset_value: ''
+        width: 32
+- GPIO_W143:
+    fields: !!omap
+    - PWORD:
+        access: rw
+        description: GPIO port word pin register
+        lsb: 0
+        reset_value: ''
+        width: 32
+- GPIO_W144:
+    fields: !!omap
+    - PWORD:
+        access: rw
+        description: GPIO port word pin register
+        lsb: 0
+        reset_value: ''
+        width: 32
+- GPIO_W145:
+    fields: !!omap
+    - PWORD:
+        access: rw
+        description: GPIO port word pin register
+        lsb: 0
+        reset_value: ''
+        width: 32
+- GPIO_W146:
+    fields: !!omap
+    - PWORD:
+        access: rw
+        description: GPIO port word pin register
+        lsb: 0
+        reset_value: ''
+        width: 32
+- GPIO_W147:
+    fields: !!omap
+    - PWORD:
+        access: rw
+        description: GPIO port word pin register
+        lsb: 0
+        reset_value: ''
+        width: 32
+- GPIO_W148:
+    fields: !!omap
+    - PWORD:
+        access: rw
+        description: GPIO port word pin register
+        lsb: 0
+        reset_value: ''
+        width: 32
+- GPIO_W149:
+    fields: !!omap
+    - PWORD:
+        access: rw
+        description: GPIO port word pin register
+        lsb: 0
+        reset_value: ''
+        width: 32
+- GPIO_W150:
+    fields: !!omap
+    - PWORD:
+        access: rw
+        description: GPIO port word pin register
+        lsb: 0
+        reset_value: ''
+        width: 32
+- GPIO_W151:
+    fields: !!omap
+    - PWORD:
+        access: rw
+        description: GPIO port word pin register
+        lsb: 0
+        reset_value: ''
+        width: 32
+- GPIO_W152:
+    fields: !!omap
+    - PWORD:
+        access: rw
+        description: GPIO port word pin register
+        lsb: 0
+        reset_value: ''
+        width: 32
+- GPIO_W153:
+    fields: !!omap
+    - PWORD:
+        access: rw
+        description: GPIO port word pin register
+        lsb: 0
+        reset_value: ''
+        width: 32
+- GPIO_W154:
+    fields: !!omap
+    - PWORD:
+        access: rw
+        description: GPIO port word pin register
+        lsb: 0
+        reset_value: ''
+        width: 32
+- GPIO_W155:
+    fields: !!omap
+    - PWORD:
+        access: rw
+        description: GPIO port word pin register
+        lsb: 0
+        reset_value: ''
+        width: 32
+- GPIO_W156:
+    fields: !!omap
+    - PWORD:
+        access: rw
+        description: GPIO port word pin register
+        lsb: 0
+        reset_value: ''
+        width: 32
+- GPIO_W157:
+    fields: !!omap
+    - PWORD:
+        access: rw
+        description: GPIO port word pin register
+        lsb: 0
+        reset_value: ''
+        width: 32
+- GPIO_W158:
+    fields: !!omap
+    - PWORD:
+        access: rw
+        description: GPIO port word pin register
+        lsb: 0
+        reset_value: ''
+        width: 32
+- GPIO_W159:
+    fields: !!omap
+    - PWORD:
+        access: rw
+        description: GPIO port word pin register
+        lsb: 0
+        reset_value: ''
+        width: 32
+- GPIO_W160:
+    fields: !!omap
+    - PWORD:
+        access: rw
+        description: GPIO port word pin register
+        lsb: 0
+        reset_value: ''
+        width: 32
+- GPIO_W161:
+    fields: !!omap
+    - PWORD:
+        access: rw
+        description: GPIO port word pin register
+        lsb: 0
+        reset_value: ''
+        width: 32
+- GPIO_W162:
+    fields: !!omap
+    - PWORD:
+        access: rw
+        description: GPIO port word pin register
+        lsb: 0
+        reset_value: ''
+        width: 32
+- GPIO_W163:
+    fields: !!omap
+    - PWORD:
+        access: rw
+        description: GPIO port word pin register
+        lsb: 0
+        reset_value: ''
+        width: 32
+- GPIO_W164:
+    fields: !!omap
+    - PWORD:
+        access: rw
+        description: GPIO port word pin register
+        lsb: 0
+        reset_value: ''
+        width: 32
+- GPIO_W165:
+    fields: !!omap
+    - PWORD:
+        access: rw
+        description: GPIO port word pin register
+        lsb: 0
+        reset_value: ''
+        width: 32
+- GPIO_W166:
+    fields: !!omap
+    - PWORD:
+        access: rw
+        description: GPIO port word pin register
+        lsb: 0
+        reset_value: ''
+        width: 32
+- GPIO_W167:
+    fields: !!omap
+    - PWORD:
+        access: rw
+        description: GPIO port word pin register
+        lsb: 0
+        reset_value: ''
+        width: 32
+- GPIO_W168:
+    fields: !!omap
+    - PWORD:
+        access: rw
+        description: GPIO port word pin register
+        lsb: 0
+        reset_value: ''
+        width: 32
+- GPIO_W169:
+    fields: !!omap
+    - PWORD:
+        access: rw
+        description: GPIO port word pin register
+        lsb: 0
+        reset_value: ''
+        width: 32
+- GPIO_W170:
+    fields: !!omap
+    - PWORD:
+        access: rw
+        description: GPIO port word pin register
+        lsb: 0
+        reset_value: ''
+        width: 32
+- GPIO_W171:
+    fields: !!omap
+    - PWORD:
+        access: rw
+        description: GPIO port word pin register
+        lsb: 0
+        reset_value: ''
+        width: 32
+- GPIO_W172:
+    fields: !!omap
+    - PWORD:
+        access: rw
+        description: GPIO port word pin register
+        lsb: 0
+        reset_value: ''
+        width: 32
+- GPIO_W173:
+    fields: !!omap
+    - PWORD:
+        access: rw
+        description: GPIO port word pin register
+        lsb: 0
+        reset_value: ''
+        width: 32
+- GPIO_W174:
+    fields: !!omap
+    - PWORD:
+        access: rw
+        description: GPIO port word pin register
+        lsb: 0
+        reset_value: ''
+        width: 32
+- GPIO_W175:
+    fields: !!omap
+    - PWORD:
+        access: rw
+        description: GPIO port word pin register
+        lsb: 0
+        reset_value: ''
+        width: 32
+- GPIO_W176:
+    fields: !!omap
+    - PWORD:
+        access: rw
+        description: GPIO port word pin register
+        lsb: 0
+        reset_value: ''
+        width: 32
+- GPIO_W177:
+    fields: !!omap
+    - PWORD:
+        access: rw
+        description: GPIO port word pin register
+        lsb: 0
+        reset_value: ''
+        width: 32
+- GPIO_W178:
+    fields: !!omap
+    - PWORD:
+        access: rw
+        description: GPIO port word pin register
+        lsb: 0
+        reset_value: ''
+        width: 32
+- GPIO_W179:
+    fields: !!omap
+    - PWORD:
+        access: rw
+        description: GPIO port word pin register
+        lsb: 0
+        reset_value: ''
+        width: 32
+- GPIO_W180:
+    fields: !!omap
+    - PWORD:
+        access: rw
+        description: GPIO port word pin register
+        lsb: 0
+        reset_value: ''
+        width: 32
+- GPIO_W181:
+    fields: !!omap
+    - PWORD:
+        access: rw
+        description: GPIO port word pin register
+        lsb: 0
+        reset_value: ''
+        width: 32
+- GPIO_W182:
+    fields: !!omap
+    - PWORD:
+        access: rw
+        description: GPIO port word pin register
+        lsb: 0
+        reset_value: ''
+        width: 32
+- GPIO_W183:
+    fields: !!omap
+    - PWORD:
+        access: rw
+        description: GPIO port word pin register
+        lsb: 0
+        reset_value: ''
+        width: 32
+- GPIO_W184:
+    fields: !!omap
+    - PWORD:
+        access: rw
+        description: GPIO port word pin register
+        lsb: 0
+        reset_value: ''
+        width: 32
+- GPIO_W185:
+    fields: !!omap
+    - PWORD:
+        access: rw
+        description: GPIO port word pin register
+        lsb: 0
+        reset_value: ''
+        width: 32
+- GPIO_W186:
+    fields: !!omap
+    - PWORD:
+        access: rw
+        description: GPIO port word pin register
+        lsb: 0
+        reset_value: ''
+        width: 32
+- GPIO_W187:
+    fields: !!omap
+    - PWORD:
+        access: rw
+        description: GPIO port word pin register
+        lsb: 0
+        reset_value: ''
+        width: 32
+- GPIO_W188:
+    fields: !!omap
+    - PWORD:
+        access: rw
+        description: GPIO port word pin register
+        lsb: 0
+        reset_value: ''
+        width: 32
+- GPIO_W189:
+    fields: !!omap
+    - PWORD:
+        access: rw
+        description: GPIO port word pin register
+        lsb: 0
+        reset_value: ''
+        width: 32
+- GPIO_W190:
+    fields: !!omap
+    - PWORD:
+        access: rw
+        description: GPIO port word pin register
+        lsb: 0
+        reset_value: ''
+        width: 32
+- GPIO_W191:
+    fields: !!omap
+    - PWORD:
+        access: rw
+        description: GPIO port word pin register
+        lsb: 0
+        reset_value: ''
+        width: 32
+- GPIO_W192:
+    fields: !!omap
+    - PWORD:
+        access: rw
+        description: GPIO port word pin register
+        lsb: 0
+        reset_value: ''
+        width: 32
+- GPIO_W193:
+    fields: !!omap
+    - PWORD:
+        access: rw
+        description: GPIO port word pin register
+        lsb: 0
+        reset_value: ''
+        width: 32
+- GPIO_W194:
+    fields: !!omap
+    - PWORD:
+        access: rw
+        description: GPIO port word pin register
+        lsb: 0
+        reset_value: ''
+        width: 32
+- GPIO_W195:
+    fields: !!omap
+    - PWORD:
+        access: rw
+        description: GPIO port word pin register
+        lsb: 0
+        reset_value: ''
+        width: 32
+- GPIO_W196:
+    fields: !!omap
+    - PWORD:
+        access: rw
+        description: GPIO port word pin register
+        lsb: 0
+        reset_value: ''
+        width: 32
+- GPIO_W197:
+    fields: !!omap
+    - PWORD:
+        access: rw
+        description: GPIO port word pin register
+        lsb: 0
+        reset_value: ''
+        width: 32
+- GPIO_W198:
+    fields: !!omap
+    - PWORD:
+        access: rw
+        description: GPIO port word pin register
+        lsb: 0
+        reset_value: ''
+        width: 32
+- GPIO_W199:
+    fields: !!omap
+    - PWORD:
+        access: rw
+        description: GPIO port word pin register
+        lsb: 0
+        reset_value: ''
+        width: 32
+- GPIO_W200:
+    fields: !!omap
+    - PWORD:
+        access: rw
+        description: GPIO port word pin register
+        lsb: 0
+        reset_value: ''
+        width: 32
+- GPIO_W201:
+    fields: !!omap
+    - PWORD:
+        access: rw
+        description: GPIO port word pin register
+        lsb: 0
+        reset_value: ''
+        width: 32
+- GPIO_W202:
+    fields: !!omap
+    - PWORD:
+        access: rw
+        description: GPIO port word pin register
+        lsb: 0
+        reset_value: ''
+        width: 32
+- GPIO_W203:
+    fields: !!omap
+    - PWORD:
+        access: rw
+        description: GPIO port word pin register
+        lsb: 0
+        reset_value: ''
+        width: 32
+- GPIO_W204:
+    fields: !!omap
+    - PWORD:
+        access: rw
+        description: GPIO port word pin register
+        lsb: 0
+        reset_value: ''
+        width: 32
+- GPIO_W205:
+    fields: !!omap
+    - PWORD:
+        access: rw
+        description: GPIO port word pin register
+        lsb: 0
+        reset_value: ''
+        width: 32
+- GPIO_W206:
+    fields: !!omap
+    - PWORD:
+        access: rw
+        description: GPIO port word pin register
+        lsb: 0
+        reset_value: ''
+        width: 32
+- GPIO_W207:
+    fields: !!omap
+    - PWORD:
+        access: rw
+        description: GPIO port word pin register
+        lsb: 0
+        reset_value: ''
+        width: 32
+- GPIO_W208:
+    fields: !!omap
+    - PWORD:
+        access: rw
+        description: GPIO port word pin register
+        lsb: 0
+        reset_value: ''
+        width: 32
+- GPIO_W209:
+    fields: !!omap
+    - PWORD:
+        access: rw
+        description: GPIO port word pin register
+        lsb: 0
+        reset_value: ''
+        width: 32
+- GPIO_W210:
+    fields: !!omap
+    - PWORD:
+        access: rw
+        description: GPIO port word pin register
+        lsb: 0
+        reset_value: ''
+        width: 32
+- GPIO_W211:
+    fields: !!omap
+    - PWORD:
+        access: rw
+        description: GPIO port word pin register
+        lsb: 0
+        reset_value: ''
+        width: 32
+- GPIO_W212:
+    fields: !!omap
+    - PWORD:
+        access: rw
+        description: GPIO port word pin register
+        lsb: 0
+        reset_value: ''
+        width: 32
+- GPIO_W213:
+    fields: !!omap
+    - PWORD:
+        access: rw
+        description: GPIO port word pin register
+        lsb: 0
+        reset_value: ''
+        width: 32
+- GPIO_W214:
+    fields: !!omap
+    - PWORD:
+        access: rw
+        description: GPIO port word pin register
+        lsb: 0
+        reset_value: ''
+        width: 32
+- GPIO_W215:
+    fields: !!omap
+    - PWORD:
+        access: rw
+        description: GPIO port word pin register
+        lsb: 0
+        reset_value: ''
+        width: 32
+- GPIO_W216:
+    fields: !!omap
+    - PWORD:
+        access: rw
+        description: GPIO port word pin register
+        lsb: 0
+        reset_value: ''
+        width: 32
+- GPIO_W217:
+    fields: !!omap
+    - PWORD:
+        access: rw
+        description: GPIO port word pin register
+        lsb: 0
+        reset_value: ''
+        width: 32
+- GPIO_W218:
+    fields: !!omap
+    - PWORD:
+        access: rw
+        description: GPIO port word pin register
+        lsb: 0
+        reset_value: ''
+        width: 32
+- GPIO_W219:
+    fields: !!omap
+    - PWORD:
+        access: rw
+        description: GPIO port word pin register
+        lsb: 0
+        reset_value: ''
+        width: 32
+- GPIO_W220:
+    fields: !!omap
+    - PWORD:
+        access: rw
+        description: GPIO port word pin register
+        lsb: 0
+        reset_value: ''
+        width: 32
+- GPIO_W221:
+    fields: !!omap
+    - PWORD:
+        access: rw
+        description: GPIO port word pin register
+        lsb: 0
+        reset_value: ''
+        width: 32
+- GPIO_W222:
+    fields: !!omap
+    - PWORD:
+        access: rw
+        description: GPIO port word pin register
+        lsb: 0
+        reset_value: ''
+        width: 32
+- GPIO_W223:
+    fields: !!omap
+    - PWORD:
+        access: rw
+        description: GPIO port word pin register
+        lsb: 0
+        reset_value: ''
+        width: 32
+- GPIO_W224:
+    fields: !!omap
+    - PWORD:
+        access: rw
+        description: GPIO port word pin register
+        lsb: 0
+        reset_value: ''
+        width: 32
+- GPIO_W225:
+    fields: !!omap
+    - PWORD:
+        access: rw
+        description: GPIO port word pin register
+        lsb: 0
+        reset_value: ''
+        width: 32
+- GPIO_W226:
+    fields: !!omap
+    - PWORD:
+        access: rw
+        description: GPIO port word pin register
+        lsb: 0
+        reset_value: ''
+        width: 32
+- GPIO_W227:
+    fields: !!omap
+    - PWORD:
+        access: rw
+        description: GPIO port word pin register
+        lsb: 0
+        reset_value: ''
+        width: 32
+- GPIO_W228:
+    fields: !!omap
+    - PWORD:
+        access: rw
+        description: GPIO port word pin register
+        lsb: 0
+        reset_value: ''
+        width: 32
+- GPIO_W229:
+    fields: !!omap
+    - PWORD:
+        access: rw
+        description: GPIO port word pin register
+        lsb: 0
+        reset_value: ''
+        width: 32
+- GPIO_W230:
+    fields: !!omap
+    - PWORD:
+        access: rw
+        description: GPIO port word pin register
+        lsb: 0
+        reset_value: ''
+        width: 32
+- GPIO_W231:
+    fields: !!omap
+    - PWORD:
+        access: rw
+        description: GPIO port word pin register
+        lsb: 0
+        reset_value: ''
+        width: 32
+- GPIO_W232:
+    fields: !!omap
+    - PWORD:
+        access: rw
+        description: GPIO port word pin register
+        lsb: 0
+        reset_value: ''
+        width: 32
+- GPIO_W233:
+    fields: !!omap
+    - PWORD:
+        access: rw
+        description: GPIO port word pin register
+        lsb: 0
+        reset_value: ''
+        width: 32
+- GPIO_W234:
+    fields: !!omap
+    - PWORD:
+        access: rw
+        description: GPIO port word pin register
+        lsb: 0
+        reset_value: ''
+        width: 32
+- GPIO_W235:
+    fields: !!omap
+    - PWORD:
+        access: rw
+        description: GPIO port word pin register
+        lsb: 0
+        reset_value: ''
+        width: 32
+- GPIO_W236:
+    fields: !!omap
+    - PWORD:
+        access: rw
+        description: GPIO port word pin register
+        lsb: 0
+        reset_value: ''
+        width: 32
+- GPIO_W237:
+    fields: !!omap
+    - PWORD:
+        access: rw
+        description: GPIO port word pin register
+        lsb: 0
+        reset_value: ''
+        width: 32
+- GPIO_W238:
+    fields: !!omap
+    - PWORD:
+        access: rw
+        description: GPIO port word pin register
+        lsb: 0
+        reset_value: ''
+        width: 32
+- GPIO_W239:
+    fields: !!omap
+    - PWORD:
+        access: rw
+        description: GPIO port word pin register
+        lsb: 0
+        reset_value: ''
+        width: 32
+- GPIO_W240:
+    fields: !!omap
+    - PWORD:
+        access: rw
+        description: GPIO port word pin register
+        lsb: 0
+        reset_value: ''
+        width: 32
+- GPIO_W241:
+    fields: !!omap
+    - PWORD:
+        access: rw
+        description: GPIO port word pin register
+        lsb: 0
+        reset_value: ''
+        width: 32
+- GPIO_W242:
+    fields: !!omap
+    - PWORD:
+        access: rw
+        description: GPIO port word pin register
+        lsb: 0
+        reset_value: ''
+        width: 32
+- GPIO_W243:
+    fields: !!omap
+    - PWORD:
+        access: rw
+        description: GPIO port word pin register
+        lsb: 0
+        reset_value: ''
+        width: 32
+- GPIO_W244:
+    fields: !!omap
+    - PWORD:
+        access: rw
+        description: GPIO port word pin register
+        lsb: 0
+        reset_value: ''
+        width: 32
+- GPIO_W245:
+    fields: !!omap
+    - PWORD:
+        access: rw
+        description: GPIO port word pin register
+        lsb: 0
+        reset_value: ''
+        width: 32
+- GPIO_W246:
+    fields: !!omap
+    - PWORD:
+        access: rw
+        description: GPIO port word pin register
+        lsb: 0
+        reset_value: ''
+        width: 32
+- GPIO_W247:
+    fields: !!omap
+    - PWORD:
+        access: rw
+        description: GPIO port word pin register
+        lsb: 0
+        reset_value: ''
+        width: 32
+- GPIO_W248:
+    fields: !!omap
+    - PWORD:
+        access: rw
+        description: GPIO port word pin register
+        lsb: 0
+        reset_value: ''
+        width: 32
+- GPIO_W249:
+    fields: !!omap
+    - PWORD:
+        access: rw
+        description: GPIO port word pin register
+        lsb: 0
+        reset_value: ''
+        width: 32
+- GPIO_W250:
+    fields: !!omap
+    - PWORD:
+        access: rw
+        description: GPIO port word pin register
+        lsb: 0
+        reset_value: ''
+        width: 32
+- GPIO_W251:
+    fields: !!omap
+    - PWORD:
+        access: rw
+        description: GPIO port word pin register
+        lsb: 0
+        reset_value: ''
+        width: 32
+- GPIO_W252:
+    fields: !!omap
+    - PWORD:
+        access: rw
+        description: GPIO port word pin register
+        lsb: 0
+        reset_value: ''
+        width: 32
+- GPIO_W253:
+    fields: !!omap
+    - PWORD:
+        access: rw
+        description: GPIO port word pin register
+        lsb: 0
+        reset_value: ''
+        width: 32
+- GPIO_W254:
+    fields: !!omap
+    - PWORD:
+        access: rw
+        description: GPIO port word pin register
+        lsb: 0
+        reset_value: ''
+        width: 32
+- GPIO_W255:
+    fields: !!omap
+    - PWORD:
+        access: rw
+        description: GPIO port word pin register
+        lsb: 0
+        reset_value: ''
+        width: 32
+- GPIO0_DIR:
+    fields: !!omap
+    - DIR:
+        access: rw
+        description: Selects pin direction for GPIO0
+        lsb: 0
+        reset_value: '0'
+        width: 32
+- GPIO1_DIR:
+    fields: !!omap
+    - DIR:
+        access: rw
+        description: Selects pin direction for GPIO1
+        lsb: 0
+        reset_value: '0'
+        width: 32
+- GPIO2_DIR:
+    fields: !!omap
+    - DIR:
+        access: rw
+        description: Selects pin direction for GPIO2
+        lsb: 0
+        reset_value: '0'
+        width: 32
+- GPIO3_DIR:
+    fields: !!omap
+    - DIR:
+        access: rw
+        description: Selects pin direction for GPIO3
+        lsb: 0
+        reset_value: '0'
+        width: 32
+- GPIO4_DIR:
+    fields: !!omap
+    - DIR:
+        access: rw
+        description: Selects pin direction for GPIO4
+        lsb: 0
+        reset_value: '0'
+        width: 32
+- GPIO5_DIR:
+    fields: !!omap
+    - DIR:
+        access: rw
+        description: Selects pin direction for GPIO5
+        lsb: 0
+        reset_value: '0'
+        width: 32
+- GPIO6_DIR:
+    fields: !!omap
+    - DIR:
+        access: rw
+        description: Selects pin direction for GPIO6
+        lsb: 0
+        reset_value: '0'
+        width: 32
+- GPIO7_DIR:
+    fields: !!omap
+    - DIR:
+        access: rw
+        description: Selects pin direction for GPIO7
+        lsb: 0
+        reset_value: '0'
+        width: 32
+- GPIO0_MASK:
+    fields: !!omap
+    - MASK:
+        access: rw
+        description: Controls which pins are active in the MPORT register
+        lsb: 0
+        reset_value: '0'
+        width: 32
+- GPIO1_MASK:
+    fields: !!omap
+    - MASK:
+        access: rw
+        description: Controls which pins are active in the MPORT register
+        lsb: 0
+        reset_value: '0'
+        width: 32
+- GPIO2_MASK:
+    fields: !!omap
+    - MASK:
+        access: rw
+        description: Controls which pins are active in the MPORT register
+        lsb: 0
+        reset_value: '0'
+        width: 32
+- GPIO3_MASK:
+    fields: !!omap
+    - MASK:
+        access: rw
+        description: Controls which pins are active in the MPORT register
+        lsb: 0
+        reset_value: '0'
+        width: 32
+- GPIO4_MASK:
+    fields: !!omap
+    - MASK:
+        access: rw
+        description: Controls which pins are active in the MPORT register
+        lsb: 0
+        reset_value: '0'
+        width: 32
+- GPIO5_MASK:
+    fields: !!omap
+    - MASK:
+        access: rw
+        description: Controls which pins are active in the MPORT register
+        lsb: 0
+        reset_value: '0'
+        width: 32
+- GPIO6_MASK:
+    fields: !!omap
+    - MASK:
+        access: rw
+        description: Controls which pins are active in the MPORT register
+        lsb: 0
+        reset_value: '0'
+        width: 32
+- GPIO7_MASK:
+    fields: !!omap
+    - MASK:
+        access: rw
+        description: Controls which pins are active in the MPORT register
+        lsb: 0
+        reset_value: '0'
+        width: 32
+- GPIO0_PIN:
+    fields: !!omap
+    - PORT:
+        access: rw
+        description: Reads pin states or loads output bits
+        lsb: 0
+        reset_value: ''
+        width: 32
+- GPIO1_PIN:
+    fields: !!omap
+    - PORT:
+        access: rw
+        description: Reads pin states or loads output bits
+        lsb: 0
+        reset_value: ''
+        width: 32
+- GPIO2_PIN:
+    fields: !!omap
+    - PORT:
+        access: rw
+        description: Reads pin states or loads output bits
+        lsb: 0
+        reset_value: ''
+        width: 32
+- GPIO3_PIN:
+    fields: !!omap
+    - PORT:
+        access: rw
+        description: Reads pin states or loads output bits
+        lsb: 0
+        reset_value: ''
+        width: 32
+- GPIO4_PIN:
+    fields: !!omap
+    - PORT:
+        access: rw
+        description: Reads pin states or loads output bits
+        lsb: 0
+        reset_value: ''
+        width: 32
+- GPIO5_PIN:
+    fields: !!omap
+    - PORT:
+        access: rw
+        description: Reads pin states or loads output bits
+        lsb: 0
+        reset_value: ''
+        width: 32
+- GPIO6_PIN:
+    fields: !!omap
+    - PORT:
+        access: rw
+        description: Reads pin states or loads output bits
+        lsb: 0
+        reset_value: ''
+        width: 32
+- GPIO7_PIN:
+    fields: !!omap
+    - PORT:
+        access: rw
+        description: Reads pin states or loads output bits
+        lsb: 0
+        reset_value: ''
+        width: 32
+- GPIO0_MPIN:
+    fields: !!omap
+    - MPORT:
+        access: rw
+        description: Masked port register
+        lsb: 0
+        reset_value: ''
+        width: 32
+- GPIO1_MPIN:
+    fields: !!omap
+    - MPORT:
+        access: rw
+        description: Masked port register
+        lsb: 0
+        reset_value: ''
+        width: 32
+- GPIO2_MPIN:
+    fields: !!omap
+    - MPORT:
+        access: rw
+        description: Masked port register
+        lsb: 0
+        reset_value: ''
+        width: 32
+- GPIO3_MPIN:
+    fields: !!omap
+    - MPORT:
+        access: rw
+        description: Masked port register
+        lsb: 0
+        reset_value: ''
+        width: 32
+- GPIO4_MPIN:
+    fields: !!omap
+    - MPORT:
+        access: rw
+        description: Masked port register
+        lsb: 0
+        reset_value: ''
+        width: 32
+- GPIO5_MPIN:
+    fields: !!omap
+    - MPORT:
+        access: rw
+        description: Masked port register
+        lsb: 0
+        reset_value: ''
+        width: 32
+- GPIO6_MPIN:
+    fields: !!omap
+    - MPORT:
+        access: rw
+        description: Masked port register
+        lsb: 0
+        reset_value: ''
+        width: 32
+- GPIO7_MPIN:
+    fields: !!omap
+    - MPORT:
+        access: rw
+        description: Masked port register
+        lsb: 0
+        reset_value: ''
+        width: 32
+- GPIO0_SET:
+    fields: !!omap
+    - SET:
+        access: rw
+        description: Read or set output bits
+        lsb: 0
+        reset_value: '0'
+        width: 32
+- GPIO1_SET:
+    fields: !!omap
+    - SET:
+        access: rw
+        description: Read or set output bits
+        lsb: 0
+        reset_value: '0'
+        width: 32
+- GPIO2_SET:
+    fields: !!omap
+    - SET:
+        access: rw
+        description: Read or set output bits
+        lsb: 0
+        reset_value: '0'
+        width: 32
+- GPIO3_SET:
+    fields: !!omap
+    - SET:
+        access: rw
+        description: Read or set output bits
+        lsb: 0
+        reset_value: '0'
+        width: 32
+- GPIO4_SET:
+    fields: !!omap
+    - SET:
+        access: rw
+        description: Read or set output bits
+        lsb: 0
+        reset_value: '0'
+        width: 32
+- GPIO5_SET:
+    fields: !!omap
+    - SET:
+        access: rw
+        description: Read or set output bits
+        lsb: 0
+        reset_value: '0'
+        width: 32
+- GPIO6_SET:
+    fields: !!omap
+    - SET:
+        access: rw
+        description: Read or set output bits
+        lsb: 0
+        reset_value: '0'
+        width: 32
+- GPIO7_SET:
+    fields: !!omap
+    - SET:
+        access: rw
+        description: Read or set output bits
+        lsb: 0
+        reset_value: '0'
+        width: 32
+- GPIO0_CLR:
+    fields: !!omap
+    - CLR:
+        access: w
+        description: Clear output bits
+        lsb: 0
+        reset_value: ''
+        width: 32
+- GPIO1_CLR:
+    fields: !!omap
+    - CLR:
+        access: w
+        description: Clear output bits
+        lsb: 0
+        reset_value: ''
+        width: 32
+- GPIO2_CLR:
+    fields: !!omap
+    - CLR:
+        access: w
+        description: Clear output bits
+        lsb: 0
+        reset_value: ''
+        width: 32
+- GPIO3_CLR:
+    fields: !!omap
+    - CLR:
+        access: w
+        description: Clear output bits
+        lsb: 0
+        reset_value: ''
+        width: 32
+- GPIO4_CLR:
+    fields: !!omap
+    - CLR:
+        access: w
+        description: Clear output bits
+        lsb: 0
+        reset_value: ''
+        width: 32
+- GPIO5_CLR:
+    fields: !!omap
+    - CLR:
+        access: w
+        description: Clear output bits
+        lsb: 0
+        reset_value: ''
+        width: 32
+- GPIO6_CLR:
+    fields: !!omap
+    - CLR:
+        access: w
+        description: Clear output bits
+        lsb: 0
+        reset_value: ''
+        width: 32
+- GPIO7_CLR:
+    fields: !!omap
+    - CLR:
+        access: w
+        description: Clear output bits
+        lsb: 0
+        reset_value: ''
+        width: 32
+- GPIO0_NOT:
+    fields: !!omap
+    - NOT:
+        access: w
+        description: Toggle output bits
+        lsb: 0
+        reset_value: ''
+        width: 32
+- GPIO1_NOT:
+    fields: !!omap
+    - NOT:
+        access: w
+        description: Toggle output bits
+        lsb: 0
+        reset_value: ''
+        width: 32
+- GPIO2_NOT:
+    fields: !!omap
+    - NOT:
+        access: w
+        description: Toggle output bits
+        lsb: 0
+        reset_value: ''
+        width: 32
+- GPIO3_NOT:
+    fields: !!omap
+    - NOT:
+        access: w
+        description: Toggle output bits
+        lsb: 0
+        reset_value: ''
+        width: 32
+- GPIO4_NOT:
+    fields: !!omap
+    - NOT:
+        access: w
+        description: Toggle output bits
+        lsb: 0
+        reset_value: ''
+        width: 32
+- GPIO5_NOT:
+    fields: !!omap
+    - NOT:
+        access: w
+        description: Toggle output bits
+        lsb: 0
+        reset_value: ''
+        width: 32
+- GPIO6_NOT:
+    fields: !!omap
+    - NOT:
+        access: w
+        description: Toggle output bits
+        lsb: 0
+        reset_value: ''
+        width: 32
+- GPIO7_NOT:
+    fields: !!omap
+    - NOT:
+        access: w
+        description: Toggle output bits
+        lsb: 0
+        reset_value: ''
+        width: 32

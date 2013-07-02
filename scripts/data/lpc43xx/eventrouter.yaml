@@ -1,0 +1,959 @@
+!!omap
+- EVENTROUTER_HILO:
+    fields: !!omap
+    - WAKEUP0_L:
+        access: rw
+        description: Level detect mode for WAKEUP0 event
+        lsb: 0
+        reset_value: '0'
+        width: 1
+    - WAKEUP1_L:
+        access: rw
+        description: Level detect mode for WAKEUP1 event
+        lsb: 1
+        reset_value: '0'
+        width: 1
+    - WAKEUP2_L:
+        access: rw
+        description: Level detect mode for WAKEUP2 event
+        lsb: 2
+        reset_value: '0'
+        width: 1
+    - WAKEUP3_L:
+        access: rw
+        description: Level detect mode for WAKEUP3 event
+        lsb: 3
+        reset_value: '0'
+        width: 1
+    - ATIMER_L:
+        access: rw
+        description: Level detect mode for alarm timer event
+        lsb: 4
+        reset_value: '0'
+        width: 1
+    - RTC_L:
+        access: rw
+        description: Level detect mode for RTC event
+        lsb: 5
+        reset_value: '0'
+        width: 1
+    - BOD_L:
+        access: rw
+        description: Level detect mode for BOD event
+        lsb: 6
+        reset_value: '0'
+        width: 1
+    - WWDT_L:
+        access: rw
+        description: Level detect mode for WWDT event
+        lsb: 7
+        reset_value: '0'
+        width: 1
+    - ETH_L:
+        access: rw
+        description: Level detect mode for Ethernet event
+        lsb: 8
+        reset_value: '0'
+        width: 1
+    - USB0_L:
+        access: rw
+        description: Level detect mode for USB0 event
+        lsb: 9
+        reset_value: '0'
+        width: 1
+    - USB1_L:
+        access: rw
+        description: Level detect mode for USB1 event
+        lsb: 10
+        reset_value: '0'
+        width: 1
+    - SDMMC_L:
+        access: rw
+        description: Level detect mode for SD/MMC event
+        lsb: 11
+        reset_value: '0'
+        width: 1
+    - CAN_L:
+        access: rw
+        description: Level detect mode for C_CAN event
+        lsb: 12
+        reset_value: '0'
+        width: 1
+    - TIM2_L:
+        access: rw
+        description: Level detect mode for combined timer output 2 event
+        lsb: 13
+        reset_value: '0'
+        width: 1
+    - TIM6_L:
+        access: rw
+        description: Level detect mode for combined timer output 6 event
+        lsb: 14
+        reset_value: '0'
+        width: 1
+    - QEI_L:
+        access: rw
+        description: Level detect mode for QEI event
+        lsb: 15
+        reset_value: '0'
+        width: 1
+    - TIM14_L:
+        access: rw
+        description: Level detect mode for combined timer output 14 event
+        lsb: 16
+        reset_value: '0'
+        width: 1
+    - RESET_L:
+        access: rw
+        description: Level detect mode for Reset
+        lsb: 19
+        reset_value: '0'
+        width: 1
+- EVENTROUTER_EDGE:
+    fields: !!omap
+    - WAKEUP0_E:
+        access: rw
+        description: Edge/Level detect mode for WAKEUP0 event
+        lsb: 0
+        reset_value: '0'
+        width: 1
+    - WAKEUP1_E:
+        access: rw
+        description: Edge/Level detect mode for WAKEUP1 event
+        lsb: 1
+        reset_value: '0'
+        width: 1
+    - WAKEUP2_E:
+        access: rw
+        description: Edge/Level detect mode for WAKEUP2 event
+        lsb: 2
+        reset_value: '0'
+        width: 1
+    - WAKEUP3_E:
+        access: rw
+        description: Edge/Level detect mode for WAKEUP3 event
+        lsb: 3
+        reset_value: '0'
+        width: 1
+    - ATIMER_E:
+        access: rw
+        description: Edge/Level detect mode for alarm timer event
+        lsb: 4
+        reset_value: '0'
+        width: 1
+    - RTC_E:
+        access: rw
+        description: Edge/Level detect mode for RTC event
+        lsb: 5
+        reset_value: '0'
+        width: 1
+    - BOD_E:
+        access: rw
+        description: Edge/Level detect mode for BOD event
+        lsb: 6
+        reset_value: '0'
+        width: 1
+    - WWDT_E:
+        access: rw
+        description: Edge/Level detect mode for WWDT event
+        lsb: 7
+        reset_value: '0'
+        width: 1
+    - ETH_E:
+        access: rw
+        description: Edge/Level detect mode for Ethernet event
+        lsb: 8
+        reset_value: '0'
+        width: 1
+    - USB0_E:
+        access: rw
+        description: Edge/Level detect mode for USB0 event
+        lsb: 9
+        reset_value: '0'
+        width: 1
+    - USB1_E:
+        access: rw
+        description: Edge/Level detect mode for USB1 event
+        lsb: 10
+        reset_value: '0'
+        width: 1
+    - SDMMC_E:
+        access: rw
+        description: Edge/Level detect mode for SD/MMC event
+        lsb: 11
+        reset_value: '0'
+        width: 1
+    - CAN_E:
+        access: rw
+        description: Edge/Level detect mode for C_CAN event
+        lsb: 12
+        reset_value: '0'
+        width: 1
+    - TIM2_E:
+        access: rw
+        description: Edge/Level detect mode for combined timer output 2 event
+        lsb: 13
+        reset_value: '0'
+        width: 1
+    - TIM6_E:
+        access: rw
+        description: Edge/Level detect mode for combined timer output 6 event
+        lsb: 14
+        reset_value: '0'
+        width: 1
+    - QEI_E:
+        access: rw
+        description: Edge/Level detect mode for QEI event
+        lsb: 15
+        reset_value: '0'
+        width: 1
+    - TIM14_E:
+        access: rw
+        description: Edge/Level detect mode for combined timer output 14 event
+        lsb: 16
+        reset_value: '0'
+        width: 1
+    - RESET_E:
+        access: rw
+        description: Edge/Level detect mode for Reset
+        lsb: 19
+        reset_value: '0'
+        width: 1
+- EVENTROUTER_CLR_EN:
+    fields: !!omap
+    - WAKEUP0_CLREN:
+        access: w
+        description: Writing a 1 to this bit clears the event enable bit 0 in the
+          ENABLE register
+        lsb: 0
+        reset_value: '0'
+        width: 1
+    - WAKEUP1_CLREN:
+        access: w
+        description: Writing a 1 to this bit clears the event enable bit 1 in the
+          ENABLE register
+        lsb: 1
+        reset_value: '0'
+        width: 1
+    - WAKEUP2_CLREN:
+        access: w
+        description: Writing a 1 to this bit clears the event enable bit 2 in the
+          ENABLE register
+        lsb: 2
+        reset_value: '0'
+        width: 1
+    - WAKEUP3_CLREN:
+        access: w
+        description: Writing a 1 to this bit clears the event enable bit 3 in the
+          ENABLE register
+        lsb: 3
+        reset_value: '0'
+        width: 1
+    - ATIMER_CLREN:
+        access: w
+        description: Writing a 1 to this bit clears the event enable bit 4 in the
+          ENABLE register
+        lsb: 4
+        reset_value: '0'
+        width: 1
+    - RTC_CLREN:
+        access: w
+        description: Writing a 1 to this bit clears the event enable bit 5 in the
+          ENABLE register
+        lsb: 5
+        reset_value: '0'
+        width: 1
+    - BOD_CLREN:
+        access: w
+        description: Writing a 1 to this bit clears the event enable bit 6 in the
+          ENABLE register
+        lsb: 6
+        reset_value: '0'
+        width: 1
+    - WWDT_CLREN:
+        access: w
+        description: Writing a 1 to this bit clears the event enable bit 7 in the
+          ENABLE register
+        lsb: 7
+        reset_value: '0'
+        width: 1
+    - ETH_CLREN:
+        access: w
+        description: Writing a 1 to this bit clears the event enable bit 8 in the
+          ENABLE register
+        lsb: 8
+        reset_value: '0'
+        width: 1
+    - USB0_CLREN:
+        access: w
+        description: Writing a 1 to this bit clears the event enable bit 9 in the
+          ENABLE register
+        lsb: 9
+        reset_value: '0'
+        width: 1
+    - USB1_CLREN:
+        access: w
+        description: Writing a 1 to this bit clears the event enable bit 10 in the
+          ENABLE register
+        lsb: 10
+        reset_value: '0'
+        width: 1
+    - SDMCC_CLREN:
+        access: w
+        description: Writing a 1 to this bit clears the event enable bit 11 in the
+          ENABLE register
+        lsb: 11
+        reset_value: '0'
+        width: 1
+    - CAN_CLREN:
+        access: w
+        description: Writing a 1 to this bit clears the event enable bit 12 in the
+          ENABLE register
+        lsb: 12
+        reset_value: '0'
+        width: 1
+    - TIM2_CLREN:
+        access: w
+        description: Writing a 1 to this bit clears the event enable bit 13 in the
+          ENABLE register
+        lsb: 13
+        reset_value: '0'
+        width: 1
+    - TIM6_CLREN:
+        access: w
+        description: Writing a 1 to this bit clears the event enable bit 14 in the
+          ENABLE register
+        lsb: 14
+        reset_value: '0'
+        width: 1
+    - QEI_CLREN:
+        access: w
+        description: Writing a 1 to this bit clears the event enable bit 15 in the
+          ENABLE register
+        lsb: 15
+        reset_value: '0'
+        width: 1
+    - TIM14_CLREN:
+        access: w
+        description: Writing a 1 to this bit clears the event enable bit 16 in the
+          ENABLE register
+        lsb: 16
+        reset_value: '0'
+        width: 1
+    - RESET_CLREN:
+        access: w
+        description: Writing a 1 to this bit clears the event enable bit 19 in the
+          ENABLE register
+        lsb: 19
+        reset_value: '0'
+        width: 1
+- EVENTROUTER_SET_EN:
+    fields: !!omap
+    - WAKEUP0_SETEN:
+        access: w
+        description: Writing a 1 to this bit sets the event enable bit 0 in the ENABLE
+          register
+        lsb: 0
+        reset_value: '0'
+        width: 1
+    - WAKEUP1_SETEN:
+        access: w
+        description: Writing a 1 to this bit sets the event enable bit 1 in the ENABLE
+          register
+        lsb: 1
+        reset_value: '0'
+        width: 1
+    - WAKEUP2_SETEN:
+        access: w
+        description: Writing a 1 to this bit sets the event enable bit 2 in the ENABLE
+          register
+        lsb: 2
+        reset_value: '0'
+        width: 1
+    - WAKEUP3_SETEN:
+        access: w
+        description: Writing a 1 to this bit sets the event enable bit 3 in the ENABLE
+          register
+        lsb: 3
+        reset_value: '0'
+        width: 1
+    - ATIMER_SETEN:
+        access: w
+        description: Writing a 1 to this bit sets the event enable bit 4 in the ENABLE
+          register
+        lsb: 4
+        reset_value: '0'
+        width: 1
+    - RTC_SETEN:
+        access: w
+        description: Writing a 1 to this bit sets the event enable bit 5 in the ENABLE
+          register
+        lsb: 5
+        reset_value: '0'
+        width: 1
+    - BOD_SETEN:
+        access: w
+        description: Writing a 1 to this bit sets the event enable bit 6 in the ENABLE
+          register
+        lsb: 6
+        reset_value: '0'
+        width: 1
+    - WWDT_SETEN:
+        access: w
+        description: Writing a 1 to this bit sets the event enable bit 7 in the ENABLE
+          register
+        lsb: 7
+        reset_value: '0'
+        width: 1
+    - ETH_SETEN:
+        access: w
+        description: Writing a 1 to this bit sets the event enable bit 8 in the ENABLE
+          register
+        lsb: 8
+        reset_value: '0'
+        width: 1
+    - USB0_SETEN:
+        access: w
+        description: Writing a 1 to this bit sets the event enable bit 9 in the ENABLE
+          register
+        lsb: 9
+        reset_value: '0'
+        width: 1
+    - USB1_SETEN:
+        access: w
+        description: Writing a 1 to this bit sets the event enable bit 10 in the ENABLE
+          register
+        lsb: 10
+        reset_value: '0'
+        width: 1
+    - SDMCC_SETEN:
+        access: w
+        description: Writing a 1 to this bit sets the event enable bit 11 in the ENABLE
+          register
+        lsb: 11
+        reset_value: '0'
+        width: 1
+    - CAN_SETEN:
+        access: w
+        description: Writing a 1 to this bit sets the event enable bit 12 in the ENABLE
+          register
+        lsb: 12
+        reset_value: '0'
+        width: 1
+    - TIM2_SETEN:
+        access: w
+        description: Writing a 1 to this bit sets the event enable bit 13 in the ENABLE
+          register
+        lsb: 13
+        reset_value: '0'
+        width: 1
+    - TIM6_SETEN:
+        access: w
+        description: Writing a 1 to this bit sets the event enable bit 14 in the ENABLE
+          register
+        lsb: 14
+        reset_value: '0'
+        width: 1
+    - QEI_SETEN:
+        access: w
+        description: Writing a 1 to this bit sets the event enable bit 15 in the ENABLE
+          register
+        lsb: 15
+        reset_value: '0'
+        width: 1
+    - TIM14_SETEN:
+        access: w
+        description: Writing a 1 to this bit sets the event enable bit 16 in the ENABLE
+          register
+        lsb: 16
+        reset_value: '0'
+        width: 1
+    - RESET_SETEN:
+        access: w
+        description: Writing a 1 to this bit sets the event enable bit 19 in the ENABLE
+          register
+        lsb: 19
+        reset_value: '0'
+        width: 1
+- EVENTROUTER_STATUS:
+    fields: !!omap
+    - WAKEUP0_ST:
+        access: r
+        description: A 1 in this bit shows that the WAKEUP0 event has been raised
+        lsb: 0
+        reset_value: '1'
+        width: 1
+    - WAKEUP1_ST:
+        access: r
+        description: A 1 in this bit shows that the WAKEUP1 event has been raised
+        lsb: 1
+        reset_value: '1'
+        width: 1
+    - WAKEUP2_ST:
+        access: r
+        description: A 1 in this bit shows that the WAKEUP2 event has been raised
+        lsb: 2
+        reset_value: '1'
+        width: 1
+    - WAKEUP3_ST:
+        access: r
+        description: A 1 in this bit shows that the WAKEUP3 event has been raised
+        lsb: 3
+        reset_value: '1'
+        width: 1
+    - ATIMER_ST:
+        access: r
+        description: A 1 in this bit shows that the ATIMER event has been raised
+        lsb: 4
+        reset_value: '1'
+        width: 1
+    - RTC_ST:
+        access: r
+        description: A 1 in this bit shows that the RTC event has been raised
+        lsb: 5
+        reset_value: '1'
+        width: 1
+    - BOD_ST:
+        access: r
+        description: A 1 in this bit shows that the BOD event has been raised
+        lsb: 6
+        reset_value: '1'
+        width: 1
+    - WWDT_ST:
+        access: r
+        description: A 1 in this bit shows that the WWDT event has been raised
+        lsb: 7
+        reset_value: '1'
+        width: 1
+    - ETH_ST:
+        access: r
+        description: A 1 in this bit shows that the ETH event has been raised
+        lsb: 8
+        reset_value: '1'
+        width: 1
+    - USB0_ST:
+        access: r
+        description: A 1 in this bit shows that the USB0 event has been raised
+        lsb: 9
+        reset_value: '1'
+        width: 1
+    - USB1_ST:
+        access: r
+        description: A 1 in this bit shows that the USB1 event has been raised
+        lsb: 10
+        reset_value: '1'
+        width: 1
+    - SDMMC_ST:
+        access: r
+        description: A 1 in this bit shows that the SDMMC event has been raised
+        lsb: 11
+        reset_value: '1'
+        width: 1
+    - CAN_ST:
+        access: r
+        description: A 1 in this bit shows that the CAN event has been raised
+        lsb: 12
+        reset_value: '1'
+        width: 1
+    - TIM2_ST:
+        access: r
+        description: A 1 in this bit shows that the combined timer 2 output event
+          has been raised
+        lsb: 13
+        reset_value: '1'
+        width: 1
+    - TIM6_ST:
+        access: r
+        description: A 1 in this bit shows that the combined timer 6 output event
+          has been raised
+        lsb: 14
+        reset_value: '1'
+        width: 1
+    - QEI_ST:
+        access: r
+        description: A 1 in this bit shows that the QEI event has been raised
+        lsb: 15
+        reset_value: '1'
+        width: 1
+    - TIM14_ST:
+        access: r
+        description: A 1 in this bit shows that the combined timer 14 output event
+          has been raised
+        lsb: 16
+        reset_value: '1'
+        width: 1
+    - RESET_ST:
+        access: r
+        description: A 1 in this bit shows that the reset event has been raised
+        lsb: 19
+        reset_value: '1'
+        width: 1
+- EVENTROUTER_ENABLE:
+    fields: !!omap
+    - WAKEUP0_EN:
+        access: r
+        description: A 1 in this bit shows that the WAKEUP0 event has been enabled
+        lsb: 0
+        reset_value: '0'
+        width: 1
+    - WAKEUP1_EN:
+        access: r
+        description: A 1 in this bit shows that the WAKEUP1 event has been enabled
+        lsb: 1
+        reset_value: '0'
+        width: 1
+    - WAKEUP2_EN:
+        access: r
+        description: A 1 in this bit shows that the WAKEUP2 event has been enabled
+        lsb: 2
+        reset_value: '0'
+        width: 1
+    - WAKEUP3_EN:
+        access: r
+        description: A 1 in this bit shows that the WAKEUP3 event has been enabled
+        lsb: 3
+        reset_value: '0'
+        width: 1
+    - ATIMER_EN:
+        access: r
+        description: A 1 in this bit shows that the ATIMER event has been enabled
+        lsb: 4
+        reset_value: '0'
+        width: 1
+    - RTC_EN:
+        access: r
+        description: A 1 in this bit shows that the RTC event has been enabled
+        lsb: 5
+        reset_value: '0'
+        width: 1
+    - BOD_EN:
+        access: r
+        description: A 1 in this bit shows that the BOD event has been enabled
+        lsb: 6
+        reset_value: '0'
+        width: 1
+    - WWDT_EN:
+        access: r
+        description: A 1 in this bit shows that the WWDT event has been enabled
+        lsb: 7
+        reset_value: '0'
+        width: 1
+    - ETH_EN:
+        access: r
+        description: A 1 in this bit shows that the ETH event has been enabled
+        lsb: 8
+        reset_value: '0'
+        width: 1
+    - USB0_EN:
+        access: r
+        description: A 1 in this bit shows that the USB0 event has been enabled
+        lsb: 9
+        reset_value: '0'
+        width: 1
+    - USB1_EN:
+        access: r
+        description: A 1 in this bit shows that the USB1 event has been enabled
+        lsb: 10
+        reset_value: '0'
+        width: 1
+    - SDMMC_EN:
+        access: r
+        description: A 1 in this bit shows that the SDMMC event has been enabled
+        lsb: 11
+        reset_value: '0'
+        width: 1
+    - CAN_EN:
+        access: r
+        description: A 1 in this bit shows that the CAN event has been enabled
+        lsb: 12
+        reset_value: '0'
+        width: 1
+    - TIM2_EN:
+        access: r
+        description: A 1 in this bit shows that the combined timer 2 output event
+          has been enabled
+        lsb: 13
+        reset_value: '0'
+        width: 1
+    - TIM6_EN:
+        access: r
+        description: A 1 in this bit shows that the combined timer 6 output event
+          has been enabled
+        lsb: 14
+        reset_value: '0'
+        width: 1
+    - QEI_EN:
+        access: r
+        description: A 1 in this bit shows that the QEI event has been enabled
+        lsb: 15
+        reset_value: '0'
+        width: 1
+    - TIM14_EN:
+        access: r
+        description: A 1 in this bit shows that the combined timer 14 output event
+          has been enabled
+        lsb: 16
+        reset_value: '0'
+        width: 1
+    - RESET_EN:
+        access: r
+        description: A 1 in this bit shows that the reset event has been enabled
+        lsb: 19
+        reset_value: '0'
+        width: 1
+- EVENTROUTER_CLR_STAT:
+    fields: !!omap
+    - WAKEUP0_CLRST:
+        access: w
+        description: Writing a 1 to this bit clears the STATUS event bit 0 in the
+          STATUS register
+        lsb: 0
+        reset_value: '0'
+        width: 1
+    - WAKEUP1_CLRST:
+        access: w
+        description: Writing a 1 to this bit clears the STATUS event bit 1 in the
+          STATUS register
+        lsb: 1
+        reset_value: '0'
+        width: 1
+    - WAKEUP2_CLRST:
+        access: w
+        description: Writing a 1 to this bit clears the STATUS event bit 2 in the
+          STATUS register
+        lsb: 2
+        reset_value: '0'
+        width: 1
+    - WAKEUP3_CLRST:
+        access: w
+        description: Writing a 1 to this bit clears the STATUS event bit 3 in the
+          STATUS register
+        lsb: 3
+        reset_value: '0'
+        width: 1
+    - ATIMER_CLRST:
+        access: w
+        description: Writing a 1 to this bit clears the STATUS event bit 4 in the
+          STATUS register
+        lsb: 4
+        reset_value: '0'
+        width: 1
+    - RTC_CLRST:
+        access: w
+        description: Writing a 1 to this bit clears the STATUS event bit 5 in the
+          STATUS register
+        lsb: 5
+        reset_value: '0'
+        width: 1
+    - BOD_CLRST:
+        access: w
+        description: Writing a 1 to this bit clears the STATUS event bit 6 in the
+          STATUS register
+        lsb: 6
+        reset_value: '0'
+        width: 1
+    - WWDT_CLRST:
+        access: w
+        description: Writing a 1 to this bit clears the STATUS event bit 7 in the
+          STATUS register
+        lsb: 7
+        reset_value: '0'
+        width: 1
+    - ETH_CLRST:
+        access: w
+        description: Writing a 1 to this bit clears the STATUS event bit 8 in the
+          STATUS register
+        lsb: 8
+        reset_value: '0'
+        width: 1
+    - USB0_CLRST:
+        access: w
+        description: Writing a 1 to this bit clears the STATUS event bit 9 in the
+          STATUS register
+        lsb: 9
+        reset_value: '0'
+        width: 1
+    - USB1_CLRST:
+        access: w
+        description: Writing a 1 to this bit clears the STATUS event bit 10 in the
+          STATUS register
+        lsb: 10
+        reset_value: '0'
+        width: 1
+    - SDMCC_CLRST:
+        access: w
+        description: Writing a 1 to this bit clears the STATUS event bit 11 in the
+          STATUS register
+        lsb: 11
+        reset_value: '0'
+        width: 1
+    - CAN_CLRST:
+        access: w
+        description: Writing a 1 to this bit clears the STATUS event bit 12 in the
+          STATUS register
+        lsb: 12
+        reset_value: '0'
+        width: 1
+    - TIM2_CLRST:
+        access: w
+        description: Writing a 1 to this bit clears the STATUS event bit 13 in the
+          STATUS register
+        lsb: 13
+        reset_value: '0'
+        width: 1
+    - TIM6_CLRST:
+        access: w
+        description: Writing a 1 to this bit clears the STATUS event bit 14 in the
+          STATUS register
+        lsb: 14
+        reset_value: '0'
+        width: 1
+    - QEI_CLRST:
+        access: w
+        description: Writing a 1 to this bit clears the STATUS event bit 15 in the
+          STATUS register
+        lsb: 15
+        reset_value: '0'
+        width: 1
+    - TIM14_CLRST:
+        access: w
+        description: Writing a 1 to this bit clears the STATUS event bit 16 in the
+          STATUS register
+        lsb: 16
+        reset_value: '0'
+        width: 1
+    - RESET_CLRST:
+        access: w
+        description: Writing a 1 to this bit clears the STATUS event bit 19 in the
+          STATUS register
+        lsb: 19
+        reset_value: '0'
+        width: 1
+- EVENTROUTER_SET_STAT:
+    fields: !!omap
+    - WAKEUP0_SETST:
+        access: w
+        description: Writing a 1 to this bit sets the STATUS event bit 0 in the STATUS
+          register
+        lsb: 0
+        reset_value: '0'
+        width: 1
+    - WAKEUP1_SETST:
+        access: w
+        description: Writing a 1 to this bit sets the STATUS event bit 1 in the STATUS
+          register
+        lsb: 1
+        reset_value: '0'
+        width: 1
+    - WAKEUP2_SETST:
+        access: w
+        description: Writing a 1 to this bit sets the STATUS event bit 2 in the STATUS
+          register
+        lsb: 2
+        reset_value: '0'
+        width: 1
+    - WAKEUP3_SETST:
+        access: w
+        description: Writing a 1 to this bit sets the STATUS event bit 3 in the STATUS
+          register
+        lsb: 3
+        reset_value: '0'
+        width: 1
+    - ATIMER_SETST:
+        access: w
+        description: Writing a 1 to this bit sets the STATUS event bit 4 in the STATUS
+          register
+        lsb: 4
+        reset_value: '0'
+        width: 1
+    - RTC_SETST:
+        access: w
+        description: Writing a 1 to this bit sets the STATUS event bit 5 in the STATUS
+          register
+        lsb: 5
+        reset_value: '0'
+        width: 1
+    - BOD_SETST:
+        access: w
+        description: Writing a 1 to this bit sets the STATUS event bit 6 in the STATUS
+          register
+        lsb: 6
+        reset_value: '0'
+        width: 1
+    - WWDT_SETST:
+        access: w
+        description: Writing a 1 to this bit sets the STATUS event bit 7 in the STATUS
+          register
+        lsb: 7
+        reset_value: '0'
+        width: 1
+    - ETH_SETST:
+        access: w
+        description: Writing a 1 to this bit sets the STATUS event bit 8 in the STATUS
+          register
+        lsb: 8
+        reset_value: '0'
+        width: 1
+    - USB0_SETST:
+        access: w
+        description: Writing a 1 to this bit sets the STATUS event bit 9 in the STATUS
+          register
+        lsb: 9
+        reset_value: '0'
+        width: 1
+    - USB1_SETST:
+        access: w
+        description: Writing a 1 to this bit sets the STATUS event bit 10 in the STATUS
+          register
+        lsb: 10
+        reset_value: '0'
+        width: 1
+    - SDMCC_SETST:
+        access: w
+        description: Writing a 1 to this bit sets the STATUS event bit 11 in the STATUS
+          register
+        lsb: 11
+        reset_value: '0'
+        width: 1
+    - CAN_SETST:
+        access: w
+        description: Writing a 1 to this bit sets the STATUS event bit 12 in the STATUS
+          register
+        lsb: 12
+        reset_value: '0'
+        width: 1
+    - TIM2_SETST:
+        access: w
+        description: Writing a 1 to this bit sets the STATUS event bit 13 in the STATUS
+          register
+        lsb: 13
+        reset_value: '0'
+        width: 1
+    - TIM6_SETST:
+        access: w
+        description: Writing a 1 to this bit sets the STATUS event bit 14 in the STATUS
+          register
+        lsb: 14
+        reset_value: '0'
+        width: 1
+    - QEI_SETST:
+        access: w
+        description: Writing a 1 to this bit sets the STATUS event bit 15 in the STATUS
+          register
+        lsb: 15
+        reset_value: '0'
+        width: 1
+    - TIM14_SETST:
+        access: w
+        description: Writing a 1 to this bit sets the STATUS event bit 16 in the STATUS
+          register
+        lsb: 16
+        reset_value: '0'
+        width: 1
+    - RESET_SETST:
+        access: w
+        description: Writing a 1 to this bit sets the STATUS event bit 19 in the STATUS
+          register
+        lsb: 19
+        reset_value: '0'
+        width: 1
