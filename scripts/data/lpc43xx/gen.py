@@ -1,33 +1,13 @@
 #!/usr/bin/env python
 
 import sys
-import csv
+import yaml
+import yaml_odict
 from collections import OrderedDict
 
 from pprint import pprint
 
-reader = csv.reader(open(sys.argv[1], 'r'))
-
-registers = OrderedDict()
-for register_name, lsb, width, field_name, description, reset_value, access in reader:
-    if register_name not in registers:
-        registers[register_name] = {
-            'fields': OrderedDict(),
-        }
-        
-    register = registers[register_name]
-    fields = register['fields']
-    if field_name in fields:
-        raise RuntimeError('Duplicate field name "%s" in register "%s"' %
-                field_name, register_name)
-    else:
-        fields[field_name] = {
-            'lsb': int(lsb),
-            'width': int(width),
-            'description': description,
-            'reset_value': reset_value,
-            'access': access,
-        }
+registers = yaml.load(open(sys.argv[1], 'r'))
 
 for register_name, register in registers.iteritems():
     print('/* --- %s values %s */' % (register_name, '-' * (50 - len(register_name))))
