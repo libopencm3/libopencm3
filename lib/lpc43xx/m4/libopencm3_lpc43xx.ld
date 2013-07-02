@@ -73,6 +73,8 @@ SECTIONS
 	.ARM.extab : {
 		*(.ARM.extab*)
 	} >rom
+    
+	/* exception index - required due to libgcc.a issuing /0 exceptions */
 	.ARM.exidx : {
 		__exidx_start = .;
 		*(.ARM.exidx*)
@@ -105,14 +107,11 @@ SECTIONS
 		_ebss = .;
 	} >ram_local2
 
-<<<<<<< HEAD
-=======
 	/* exception unwind data - required due to libgcc.a issuing /0 exceptions */
 	.ARM.extab : {
 		*(.ARM.extab*)
 	} >ram_local2
 
->>>>>>> bba3412... Changed ldscripts to use new RAM region names, placed .data/.bss/stack into separate local RAM region.
 	/*
 	 * The .eh_frame section appears to be used for C++ exception handling.
 	 * You may need to fix this if you're using C++.

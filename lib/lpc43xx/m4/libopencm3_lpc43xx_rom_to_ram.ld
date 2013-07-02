@@ -74,6 +74,8 @@ SECTIONS
 	.ARM.extab : {
 		*(.ARM.extab*)
 	} >rom
+
+	/* exception index - required due to libgcc.a issuing /0 exceptions */
 	.ARM.exidx : {
 		__exidx_start = .;
 		*(.ARM.exidx*)
