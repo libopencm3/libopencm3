@@ -256,10 +256,7 @@
 * Macro defines for Macro defines for UART Tx Enable register
 **********************************************************************/
 #define UART1_TER_TXEN                  ((uint8_t)(BIT7))    /* Transmit enable bit */
-#define UART1_TER_BITMASK               ((uint8_t)(0x80))    /* UART Transmit Enable Register bit mask */
-
 #define UART0_2_3_TER_TXEN              ((uint8_t)(BIT0))    /* Transmit enable bit */
-#define UART0_2_3_TER_BITMASK           ((uint8_t)(0x01))    /* UART Transmit Enable Register bit mask */
 
 /**********************************************************************
 * Macro defines for Macro defines for UART FIFO Level register
