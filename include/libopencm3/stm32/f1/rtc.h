@@ -147,7 +147,7 @@ typedef enum {
 
 BEGIN_DECLS
 
-void rtc_awake_from_off(osc_t clock_source);
+void rtc_awake_from_off(enum rcc_osc clock_source);
 void rtc_enter_config_mode(void);
 void rtc_exit_config_mode(void);
 void rtc_set_alarm_time(uint32_t alarm_time);
@@ -163,7 +163,7 @@ void rtc_interrupt_disable(rtcflag_t flag_val);
 void rtc_clear_flag(rtcflag_t flag_val);
 uint32_t rtc_check_flag(rtcflag_t flag_val);
 void rtc_awake_from_standby(void);
-void rtc_auto_awake(osc_t clock_source, uint32_t prescale_val);
+void rtc_auto_awake(enum rcc_osc clock_source, uint32_t prescale_val);
 
 END_DECLS
 
