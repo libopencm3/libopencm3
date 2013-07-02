@@ -38,7 +38,7 @@ LGPL License Terms @ref lgpl_license
 #include <libopencm3/stm32/rtc.h>
 #include <libopencm3/stm32/pwr.h>
 
-void rtc_awake_from_off(osc_t clock_source)
+void rtc_awake_from_off(enum rcc_osc clock_source)
 {
 	uint32_t reg32;
 
@@ -279,7 +279,7 @@ void rtc_awake_from_standby(void)
 	while ((reg32 = (RTC_CRL & RTC_CRL_RTOFF)) == 0);
 }
 
-void rtc_auto_awake(osc_t clock_source, uint32_t prescale_val)
+void rtc_auto_awake(enum rcc_osc clock_source, uint32_t prescale_val)
 {
 	uint32_t reg32;
 

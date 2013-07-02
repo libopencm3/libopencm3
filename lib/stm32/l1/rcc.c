@@ -346,26 +346,6 @@ void rcc_osc_bypass_disable(osc_t osc)
 	}
 }
 
-void rcc_peripheral_enable_clock(volatile uint32_t *reg, uint32_t en)
-{
-	*reg |= en;
-}
-
-void rcc_peripheral_disable_clock(volatile uint32_t *reg, uint32_t en)
-{
-	*reg &= ~en;
-}
-
-void rcc_peripheral_reset(volatile uint32_t *reg, uint32_t reset)
-{
-	*reg |= reset;
-}
-
-void rcc_peripheral_clear_reset(volatile uint32_t *reg, uint32_t clear_reset)
-{
-	*reg &= ~clear_reset;
-}
-
 void rcc_set_sysclk_source(uint32_t clk)
 {
 	uint32_t reg32;

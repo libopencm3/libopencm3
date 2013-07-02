@@ -67,7 +67,7 @@ use.
 @param[in] osc enum ::osc_t. Oscillator ID
 */
 
-void rcc_osc_ready_int_clear(osc_t osc)
+void rcc_osc_ready_int_clear(enum rcc_osc osc)
 {
 	switch (osc) {
 	case PLL:
@@ -100,7 +100,7 @@ void rcc_osc_ready_int_clear(osc_t osc)
 @param[in] osc enum ::osc_t. Oscillator ID
 */
 
-void rcc_osc_ready_int_enable(osc_t osc)
+void rcc_osc_ready_int_enable(enum rcc_osc osc)
 {
 	switch (osc) {
 	case PLL:
@@ -133,7 +133,7 @@ void rcc_osc_ready_int_enable(osc_t osc)
 @param[in] osc enum ::osc_t. Oscillator ID
 */
 
-void rcc_osc_ready_int_disable(osc_t osc)
+void rcc_osc_ready_int_disable(enum rcc_osc osc)
 {
 	switch (osc) {
 	case PLL:
@@ -167,7 +167,7 @@ void rcc_osc_ready_int_disable(osc_t osc)
 @returns int. Boolean value for flag set.
 */
 
-int rcc_osc_ready_int_flag(osc_t osc)
+int rcc_osc_ready_int_flag(enum rcc_osc osc)
 {
 	switch (osc) {
 	case PLL:
@@ -223,7 +223,7 @@ int rcc_css_int_flag(void)
 @param[in] osc enum ::osc_t. Oscillator ID
 */
 
-void rcc_wait_for_osc_ready(osc_t osc)
+void rcc_wait_for_osc_ready(enum rcc_osc osc)
 {
 	switch (osc) {
 	case PLL:
@@ -265,7 +265,7 @@ pwr_disable_backup_domain_write_protect).
 @param[in] osc enum ::osc_t. Oscillator ID
 */
 
-void rcc_osc_on(osc_t osc)
+void rcc_osc_on(enum rcc_osc osc)
 {
 	switch (osc) {
 	case PLL:
@@ -306,7 +306,7 @@ backup domain write protection has been removed (see
 @param[in] osc enum ::osc_t. Oscillator ID
 */
 
-void rcc_osc_off(osc_t osc)
+void rcc_osc_off(enum rcc_osc osc)
 {
 	switch (osc) {
 	case PLL:
@@ -367,7 +367,7 @@ pwr_disable_backup_domain_write_protect).
 @param[in] osc enum ::osc_t. Oscillator ID. Only HSE and LSE have effect.
 */
 
-void rcc_osc_bypass_enable(osc_t osc)
+void rcc_osc_bypass_enable(enum rcc_osc osc)
 {
 	switch (osc) {
 	case HSE:
@@ -400,7 +400,7 @@ pwr_disable_backup_domain_write_protect) or the backup domain has been reset
 @param[in] osc enum ::osc_t. Oscillator ID. Only HSE and LSE have effect.
 */
 
-void rcc_osc_bypass_disable(osc_t osc)
+void rcc_osc_bypass_disable(enum rcc_osc osc)
 {
 	switch (osc) {
 	case HSE:
@@ -417,91 +417,6 @@ void rcc_osc_bypass_disable(osc_t osc)
 		/* Do nothing, only HSE/LSE allowed here. */
 		break;
 	}
-}
-
-/*---------------------------------------------------------------------------*/
-/** @brief RCC Enable Peripheral Clocks.
-
-Enable the clock on particular peripherals. There are three registers involved,
-each one controlling the enabling of clocks associated with the AHB, APB1 and
-APB2 respectively. Several peripherals could be enabled simultaneously <em>only
-if they are controlled by the same register</em>.
-
-@param[in] *reg Unsigned int32. Pointer to a Clock Enable Register
-			 (either RCC_AHBENR, RCC_APB1ENR or RCC_APB2ENR)
-@param[in] en Unsigned int32. Logical OR of all enables to be set
-@li If register is RCC_AHBER, from @ref rcc_ahbenr_en
-@li If register is RCC_APB1ENR, from @ref rcc_apb1enr_en
-@li If register is RCC_APB2ENR, from @ref rcc_apb2enr_en
-*/
-
-void rcc_peripheral_enable_clock(volatile uint32_t *reg, uint32_t en)
-{
-	*reg |= en;
-}
-
-/*---------------------------------------------------------------------------*/
-/** @brief RCC Disable Peripheral Clocks.
-
-Enable the clock on particular peripherals. There are three registers involved,
-each one controlling the enabling of clocks associated with the AHB, APB1 and
-APB2 respectively. Several peripherals could be disabled simultaneously
-<em>only if they are controlled by the same register</em>.
-
-@param[in] *reg Unsigned int32. Pointer to a Clock Enable Register
-			 (either RCC_AHBENR, RCC_APB1ENR or RCC_APB2ENR)
-@param[in] en Unsigned int32. Logical OR of all enables to be used for
-disabling.
-@li If register is RCC_AHBER, from @ref rcc_ahbenr_en
-@li If register is RCC_APB1ENR, from @ref rcc_apb1enr_en
-@li If register is RCC_APB2ENR, from @ref rcc_apb2enr_en
-*/
-
-void rcc_peripheral_disable_clock(volatile uint32_t *reg, uint32_t en)
-{
-	*reg &= ~en;
-}
-
-/*---------------------------------------------------------------------------*/
-/** @brief RCC Reset Peripherals.
-
-Reset particular peripherals. There are three registers involved, each one
-controlling reset of peripherals associated with the AHB, APB1 and APB2
-respectively. Several peripherals could be reset simultaneously <em>only if
-they are controlled by the same register</em>.
-
-@param[in] *reg Unsigned int32. Pointer to a Reset Register
-			 (either RCC_AHBENR, RCC_APB1ENR or RCC_APB2ENR)
-@param[in] reset Unsigned int32. Logical OR of all resets.
-@li If register is RCC_AHBRSTR, from @ref rcc_ahbrstr_rst
-@li If register is RCC_APB1RSTR, from @ref rcc_apb1rstr_rst
-@li If register is RCC_APB2RSTR, from @ref rcc_apb2rstr_rst
-*/
-
-void rcc_peripheral_reset(volatile uint32_t *reg, uint32_t reset)
-{
-	*reg |= reset;
-}
-
-/*---------------------------------------------------------------------------*/
-/** @brief RCC Remove Reset on Peripherals.
-
-Remove the reset on particular peripherals. There are three registers
-involved, each one controlling reset of peripherals associated with the AHB,
-APB1 and APB2 respectively. Several peripherals could have the reset removed
-simultaneously <em>only if they are controlled by the same register</em>.
-
-@param[in] *reg Unsigned int32. Pointer to a Reset Register
-			 (either RCC_AHBENR, RCC_APB1ENR or RCC_APB2ENR)
-@param[in] clear_reset Unsigned int32. Logical OR of all resets to be removed:
-@li If register is RCC_AHBRSTR, from @ref rcc_ahbrstr_rst
-@li If register is RCC_APB1RSTR, from @ref rcc_apb1rstr_rst
-@li If register is RCC_APB2RSTR, from @ref rcc_apb2rstr_rst
-*/
-
-void rcc_peripheral_clear_reset(volatile uint32_t *reg, uint32_t clear_reset)
-{
-	*reg &= ~clear_reset;
 }
 
 /*---------------------------------------------------------------------------*/
@@ -1218,5 +1133,6 @@ void rcc_backupdomain_reset(void)
 	/* Clear the backup domain software reset. */
 	RCC_BDCR &= ~RCC_BDCR_BDRST;
 }
+
 /**@}*/
 

@@ -415,6 +415,139 @@ enum osc {
 	PLL, HSE, HSI, LSE, LSI
 };
 
+#define _REG_BIT(base, bit)		(((base) << 5) + (bit))
+
+/* Availability in comment:
+ * 0: F30x
+ * 1: F31x
+ * 7: F37x
+ * 8: F38x
+ */
+enum rcc_periph_clken {
+	/* AHB peripherals*/
+	RCC_DMA1	= _REG_BIT(0x14, 0),/*0178*/
+	RCC_DMA2	= _REG_BIT(0x14, 1),/*0178*/
+	RCC_SRAM	= _REG_BIT(0x14, 2),/*0178*/
+	RCC_FLTIF	= _REG_BIT(0x14, 4),/*0178*/
+	RCC_CRC		= _REG_BIT(0x14, 6),/*0178*/
+	RCC_GPIOA	= _REG_BIT(0x14, 17),/*0178*/
+	RCC_GPIOB	= _REG_BIT(0x14, 18),/*0178*/
+	RCC_GPIOC	= _REG_BIT(0x14, 19),/*0178*/
+	RCC_GPIOD	= _REG_BIT(0x14, 20),/*0178*/
+	RCC_GPIOE	= _REG_BIT(0x14, 21),/*0178*/
+	RCC_GPIOF	= _REG_BIT(0x14, 22),/*0178*/
+	RCC_TSC		= _REG_BIT(0x14, 24),/*0178*/
+	RCC_ADC12	= _REG_BIT(0x14, 28),/*01--*/
+	RCC_ADC34	= _REG_BIT(0x14, 29),/*01--*/
+
+	/* APB2 peripherals */
+	RCC_SYSCFG	= _REG_BIT(0x18, 0),/*0178*/
+	RCC_ADC		= _REG_BIT(0x18, 9),/*--78*/
+	RCC_TIM1	= _REG_BIT(0x18, 11),/*01--*/
+	RCC_SPI1	= _REG_BIT(0x18, 12),/*0178*/
+	RCC_TIM8	= _REG_BIT(0x18, 13),/*01--*/
+	RCC_USART1	= _REG_BIT(0x18, 14),/*0178*/
+	RCC_TIM15	= _REG_BIT(0x18, 16),/*0178*/
+	RCC_TIM16	= _REG_BIT(0x18, 17),/*0178*/
+	RCC_TIM17	= _REG_BIT(0x18, 18),/*0178*/
+	RCC_TIM19	= _REG_BIT(0x18, 19),/*--78*/
+	RCC_DBGMCU	= _REG_BIT(0x18, 22),/*--78*/
+	RCC_SDADC1	= _REG_BIT(0x18, 24),/*--78*/
+	RCC_SDADC2	= _REG_BIT(0x18, 25),/*--78*/
+	RCC_SDADC3	= _REG_BIT(0x18, 26),/*--78*/
+
+	/* APB1 peripherals */
+	RCC_TIM2	= _REG_BIT(0x1C, 0),/*0178*/
+	RCC_TIM3	= _REG_BIT(0x1C, 1),/*0178*/
+	RCC_TIM4	= _REG_BIT(0x1C, 2),/*0178*/
+	RCC_TIM5	= _REG_BIT(0x1C, 3),/*--78*/
+	RCC_TIM6	= _REG_BIT(0x1C, 4),/*0178*/
+	RCC_TIM7	= _REG_BIT(0x1C, 5),/*0178*/
+	RCC_TIM12	= _REG_BIT(0x1C, 6),/*--78*/
+	RCC_TIM13	= _REG_BIT(0x1C, 7),/*--78*/
+	RCC_TIM14	= _REG_BIT(0x1C, 8),/*--78*/
+	RCC_TIM18	= _REG_BIT(0x1C, 9),/*--78*/
+	RCC_WWDG	= _REG_BIT(0x1C, 11),/*0178*/
+	RCC_SPI2	= _REG_BIT(0x1C, 14),/*0178*/
+	RCC_SPI3	= _REG_BIT(0x1C, 15),/*0178*/
+	RCC_USART2	= _REG_BIT(0x1C, 17),/*0178*/
+	RCC_USART3	= _REG_BIT(0x1C, 18),/*0178*/
+	RCC_UART4	= _REG_BIT(0x1C, 19),/*01--*/
+	RCC_UART5	= _REG_BIT(0x1C, 20),/*01--*/
+	RCC_I2C1	= _REG_BIT(0x1C, 21),/*0178*/
+	RCC_I2C2	= _REG_BIT(0x1C, 22),/*0178*/
+	RCC_USB		= _REG_BIT(0x1C, 23),/*0178*/
+	RCC_CAN		= _REG_BIT(0x1C, 25),/*0178*/
+	RCC_DAC2	= _REG_BIT(0x1C, 26),/*--78*/
+	RCC_PWR		= _REG_BIT(0x1C, 28),/*0178*/
+	RCC_DAC		= _REG_BIT(0x1C, 29),/*12--*/
+	RCC_DAC1	= _REG_BIT(0x1C, 29),/*--78*/
+	RCC_CEC		= _REG_BIT(0x1C, 29),/*--78*/
+};
+
+enum rcc_periph_rst {
+	/* APB2 peripherals*/
+	RST_SYSCFG	= _REG_BIT(0x0C, 0),/*0178*/
+	RST_ADC		= _REG_BIT(0x0C, 9),/*--78*/
+	RST_TIM1	= _REG_BIT(0x0C, 11),/*01--*/
+	RST_SPI1	= _REG_BIT(0x0C, 12),/*0178*/
+	RST_TIM8	= _REG_BIT(0x0C, 13),/*01--*/
+	RST_USART1	= _REG_BIT(0x0C, 14),/*0178*/
+	RST_TIM15	= _REG_BIT(0x0C, 16),/*0178*/
+	RST_TIM16	= _REG_BIT(0x0C, 17),/*0178*/
+	RST_TIM17	= _REG_BIT(0x0C, 18),/*0178*/
+	RST_TIM19	= _REG_BIT(0x0C, 19),/*--78*/
+	RST_SDADC1	= _REG_BIT(0x0C, 24),/*--78*/
+	RST_SDADC2	= _REG_BIT(0x0C, 25),/*--78*/
+	RST_SDADC3	= _REG_BIT(0x0C, 26),/*--78*/
+
+	/* APB1 peripherals */
+	RST_TIM2	= _REG_BIT(0x10, 0),/*0178*/
+	RST_TIM3	= _REG_BIT(0x10, 1),/*0178*/
+	RST_TIM4	= _REG_BIT(0x10, 2),/*0178*/
+	RST_TIM5	= _REG_BIT(0x10, 3),/*--78*/
+	RST_TIM6	= _REG_BIT(0x10, 4),/*0178*/
+	RST_TIM7	= _REG_BIT(0x10, 5),/*0178*/
+	RST_TIM12	= _REG_BIT(0x10, 6),/*--78*/
+	RST_TIM13	= _REG_BIT(0x10, 7),/*--78*/
+	RST_TIM14	= _REG_BIT(0x10, 8),/*--78*/
+	RST_TIM18	= _REG_BIT(0x10, 9),/*--78*/
+	RST_WWDG	= _REG_BIT(0x10, 11),/*0178*/
+	RST_SPI2	= _REG_BIT(0x10, 14),/*0178*/
+	RST_SPI3	= _REG_BIT(0x10, 15),/*0178*/
+	RST_USART2	= _REG_BIT(0x10, 17),/*0178*/
+	RST_USART3	= _REG_BIT(0x10, 18),/*0178*/
+	RST_UART4	= _REG_BIT(0x10, 19),/*01--*/
+	RST_UART5	= _REG_BIT(0x10, 20),/*01--*/
+	RST_I2C1	= _REG_BIT(0x10, 21),/*0178*/
+	RST_I2C2	= _REG_BIT(0x10, 22),/*0178*/
+	RST_USB		= _REG_BIT(0x10, 23),/*0178*/
+	RST_CAN		= _REG_BIT(0x10, 25),/*0178*/
+	RST_DAC2	= _REG_BIT(0x10, 26),/*--78*/
+	RST_PWR		= _REG_BIT(0x10, 28),/*0178*/
+	RST_DAC		= _REG_BIT(0x10, 29),/*01--*/
+	RST_DAC1	= _REG_BIT(0x10, 29),/*--78*/
+	RST_CEC		= _REG_BIT(0x10, 30),/*--78*/
+
+	/* AHB peripherals */
+	RST_GPIOA	= _REG_BIT(0x28, 17),/*0178*/
+	RST_GPIOB	= _REG_BIT(0x28, 18),/*0178*/
+	RST_GPIOC	= _REG_BIT(0x28, 19),/*0178*/
+	RST_GPIOD	= _REG_BIT(0x28, 20),/*0178*/
+	RST_GPIOE	= _REG_BIT(0x28, 21),/*0178*/
+	RST_GPIOF	= _REG_BIT(0x28, 22),/*0178*/
+	RST_TSC		= _REG_BIT(0x28, 24),/*0178*/
+	RST_ADC12	= _REG_BIT(0x28, 28),/*01--*/
+	RST_ADC34	= _REG_BIT(0x28, 29),/*01--*/
+
+	/* BDCR[16] */
+	RST_BD		= _REG_BIT(0x20, 16),
+};
+
+#undef _REG_BIT
+
+#include <libopencm3/stm32/common/rcc_common_all.h>
+
 BEGIN_DECLS
 
 void rcc_osc_ready_int_clear(enum osc osc);
@@ -432,10 +565,6 @@ void rcc_css_enable(void);
 void rcc_css_disable(void);
 void rcc_osc_bypass_enable(enum osc osc);
 void rcc_osc_bypass_disable(enum osc osc);
-void rcc_peripheral_enable_clock(volatile uint32_t *reg, uint32_t en);
-void rcc_peripheral_disable_clock(volatile uint32_t *reg, uint32_t en);
-void rcc_peripheral_reset(volatile uint32_t *reg, uint32_t reset);
-void rcc_peripheral_clear_reset(volatile uint32_t *reg, uint32_t clear_reset);
 void rcc_set_sysclk_source(uint32_t clk);
 void rcc_set_pll_source(uint32_t pllsrc);
 void rcc_set_ppre2(uint32_t ppre2);
