@@ -1,4 +1,4 @@
-GPDMA_NTSTAT,0,8,INTSTAT,Status of DMA channel interrupts after masking,0x00,r
+GPDMA_INTSTAT,0,8,INTSTAT,Status of DMA channel interrupts after masking,0x00,r
 GPDMA_INTTCSTAT,0,8,INTTCSTAT,Terminal count interrupt request status for DMA channels,0x00,r
 GPDMA_INTTCCLEAR,0,8,INTTCCLEAR,Allows clearing the Terminal count interrupt request (IntTCStat) for DMA channels,0x00,w
 GPDMA_INTERRSTAT,0,8,INTERRSTAT,Interrupt error status for DMA channels,0x00,r
