@@ -74,9 +74,6 @@
 /* Oversampling Register only for UART0/2/3 */
 #define UART_OSR(port)                  MMIO32(port + 0x02C)
 
-/* Transmit Enable Register Only for UART1 */
-#define UART_TER_UART1(port)            MMIO32(port + 0x030)
-
 /* Half-Duplex enable Register only for UART0/2/3 */
 #define UART_HDEN(port)                 MMIO32(port + 0x040)
 
@@ -95,7 +92,7 @@
 /* Synchronous Mode Control Register only for UART0/2/3 */
 #define UART_SYNCCTRL(port)             MMIO32(port + 0x058)
 
-/* Transmit Enable Register Only for UART0/2/3 */
+/* Transmit Enable Register */
 #define UART_TER(port)                  MMIO32(port + 0x05C)
 
 /* --------------------- BIT DEFINITIONS -------------------------------------- */
@@ -255,8 +252,7 @@
 /*********************************************************************
 * Macro defines for Macro defines for UART Tx Enable register
 **********************************************************************/
-#define UART1_TER_TXEN                  ((uint8_t)(BIT7))    /* Transmit enable bit */
-#define UART0_2_3_TER_TXEN              ((uint8_t)(BIT0))    /* Transmit enable bit */
+#define UART_TER_TXEN                   ((uint8_t)(BIT0))    /* Transmit enable bit */
 
 /**********************************************************************
 * Macro defines for Macro defines for UART FIFO Level register

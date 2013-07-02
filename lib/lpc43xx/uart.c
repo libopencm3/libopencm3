@@ -94,25 +94,13 @@ void uart_init(uart_num_t uart_num,
 	}
 
 	/* Wait end of TX & disable TX */
-	if(uart_num == UART1_NUM)
-	{
-		UART_TER_UART1(uart_port) = UART1_TER_TXEN;
+        UART_TER(uart_port) = UART_TER_TXEN;
 
-		/* Wait for current transmit complete */
-		while (!(UART_LSR(uart_port) & UART_LSR_THRE));
+        /* Wait for current transmit complete */
+        while (!(UART_LSR(uart_port) & UART_LSR_THRE));
 
-		/* Disable Tx */
-		UART_TER_UART1(uart_port) = 0;
-	}else
-	{
-		UART_TER(uart_port) = UART0_2_3_TER_TXEN;
-
-		/* Wait for current transmit complete */
-		while (!(UART_LSR(uart_port) & UART_LSR_THRE));
-
-		/* Disable Tx */
-		UART_TER(uart_port) = 0;
-	}
+        /* Disable Tx */
+        UART_TER(uart_port) = 0;
 
 	/* Disable interrupt */
 	UART_IER(uart_port) = 0;
@@ -153,13 +141,7 @@ void uart_init(uart_num_t uart_num,
 	UART_LCR(uart_port) = (lcr_config & UART_LCR_BITMASK);
 
 	/* Enable TX */
-	if(uart_num == UART1_NUM)
-	{
-		UART_TER_UART1(uart_port) = UART1_TER_TXEN;
-	}else
-	{
-		UART_TER(uart_port) = UART0_2_3_TER_TXEN;
-	}
+        UART_TER(uart_port) = UART_TER_TXEN;
 }
 
 /*
