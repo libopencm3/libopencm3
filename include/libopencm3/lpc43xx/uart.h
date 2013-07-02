@@ -66,22 +66,22 @@
 #define UART_ACR(port)                  MMIO32(port + 0x020)
 
 /* IrDA Control Register only for UART0/2/3 */
-//#define UART_ICR(port)                  MMIO32(port + 0x024)
+#define UART_ICR(port)                  MMIO32(port + 0x024)
 
 /* Fractional Divider Register */
 #define UART_FDR(port)                  MMIO32(port + 0x028)
 
 /* Oversampling Register only for UART0/2/3 */
-// #define UART_OSR(port)               MMIO32(port + 0x02C)
+#define UART_OSR(port)                  MMIO32(port + 0x02C)
 
 /* Transmit Enable Register Only for UART1 */
 #define UART_TER_UART1(port)            MMIO32(port + 0x030)
 
 /* Half-Duplex enable Register only for UART0/2/3 */
-// #define UART_HDEN(port)                 MMIO32(port + 0x040)
+#define UART_HDEN(port)                 MMIO32(port + 0x040)
 
 /* Smart card Interface Register Only for UART0/2/3 */
-//#define UART_SCICTRL(port)            MMIO32(port + 0x048)
+#define UART_SCICTRL(port)              MMIO32(port + 0x048)
 
 /* RS-485/EIA-485 Control Register */
 #define UART_RS485CTRL(port)            MMIO32(port + 0x04C)
@@ -93,7 +93,7 @@
 #define UART_RS485DLY(port)             MMIO32(port + 0x054)
 
 /* Synchronous Mode Control Register only for UART0/2/3 */
-//#define UART_SYNCCTRL(port)             MMIO32(port + 0x058)
+#define UART_SYNCCTRL(port)             MMIO32(port + 0x058)
 
 /* Transmit Enable Register Only for UART0/2/3 */
 #define UART_TER(port)                  MMIO32(port + 0x05C)
