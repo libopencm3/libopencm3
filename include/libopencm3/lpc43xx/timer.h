@@ -249,6 +249,22 @@ LGPL License Terms @ref lgpl_license
 #define TIMER_CTCR_CINSEL_CAPN_3        (0x3 << 2)
 #define TIMER_CTCR_CINSEL_MASK          (0x3 << 2)
 
+/* --- TIMER function prototypes --------------------------------------------- */
+
+BEGIN_DECLS
+
+void timer_reset(uint32_t timer_peripheral);
+void timer_enable_counter(uint32_t timer_peripheral);
+void timer_disable_counter(uint32_t timer_peripheral);
+uint32_t timer_get_counter(uint32_t timer_peripheral);
+void timer_set_counter(uint32_t timer_peripheral, uint32_t count);
+uint32_t timer_get_prescaler(uint32_t timer_peripheral);
+void timer_set_prescaler(uint32_t timer_peripheral, uint32_t prescaler);
+void timer_set_mode(uint32_t timer_peripheral, uint32_t mode);
+void timer_set_count_input(uint32_t timer_peripheral, uint32_t input);
+
+END_DECLS
+
 /**@}*/
 
 #endif
