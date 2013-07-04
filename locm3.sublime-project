@@ -1,0 +1,34 @@
+{
+	"folders":
+	[
+		{
+			"path": ".",
+			"file_exclude_patterns":
+			[
+				"*.o",
+				"*.a",
+				"*.d",
+				"*.sublime-project",
+				"*.sublime-workspace",
+				"*.swp"
+			],
+			"folder_exclude_patterns":
+			[
+			]
+		}
+	],
+	"settings":
+	{
+		"tab_size": 8,
+		"translate_tabs_to_spaces": false
+	},
+	"build_systems":
+	[
+		{
+			"name": "libopencm3",
+			"working_dir": "${project_path}",
+			"file_regex": "^(..[^:]*):([0-9]+):?([0-9]+)?:? (.*)$",
+			"cmd": ["make"]
+		}
+	]
+}
