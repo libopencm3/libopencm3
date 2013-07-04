@@ -19,7 +19,7 @@
 #define LIBOPENCM3_FLASH_H
 
 #include <libopencm3/stm32/memorymap.h>
-#include <libopencm3/stm32/common/flash_common_f234.h>
+#include <libopencm3/stm32/common/flash_common_f24.h>
 
 #endif
 

@@ -1,6 +1,9 @@
 /*
  * This file is part of the libopencm3 project.
  *
+ * Copyright (C) 2010 Thomas Otto <tommi@viadmin.org>
+ * Copyright (C) 2010 Mark Butler <mbutler@physics.otago.ac.nz>
+ *
  * This library is free software: you can redistribute it and/or modify
  * it under the terms of the GNU Lesser General Public License as published by
  * the Free Software Foundation, either version 3 of the License, or
@@ -15,11 +18,11 @@
  * along with this library.  If not, see <http://www.gnu.org/licenses/>.
  */
 
-#ifndef LIBOPENCM3_FLASH_H
-#define LIBOPENCM3_FLASH_H
+#include <libopencm3/stm32/flash.h>
 
-#include <libopencm3/stm32/memorymap.h>
-#include <libopencm3/stm32/common/flash_common_f24.h>
-
-#endif
-
+void flash_clear_status_flags(void)
+{
+	flash_clear_pgperr_flag();
+	flash_clear_eop_flag();
+	flash_clear_bsy_flag();
+}
