@@ -52,13 +52,6 @@ specific memorymap.h header before including this header file.*/
 #define GPIOE				GPIO_PORT_E_BASE
 #define GPIOF				GPIO_PORT_F_BASE
 
-#if !defined (STM32F3)
-
-#define GPIOG				GPIO_PORT_G_BASE
-#define GPIOH				GPIO_PORT_H_BASE
-#define GPIOI				GPIO_PORT_I_BASE
-
-#endif
 /**@}*/
 
 /* --- GPIO registers for STM32F2, STM32F3 and STM32F4 --------------------------- */
@@ -72,14 +65,6 @@ specific memorymap.h header before including this header file.*/
 #define GPIOE_MODER			GPIO_MODER(GPIOE)
 #define GPIOF_MODER			GPIO_MODER(GPIOF)
 
-#if !defined (STM32F3)
-
-#define GPIOG_MODER			GPIO_MODER(GPIOG)
-#define GPIOH_MODER			GPIO_MODER(GPIOH)
-#define GPIOI_MODER			GPIO_MODER(GPIOI)
-
-#endif
-
 /* Port output type register (GPIOx_OTYPER) */
 #define GPIO_OTYPER(port)		MMIO32(port + 0x04)
 #define GPIOA_OTYPER			GPIO_OTYPER(GPIOA)
@@ -88,14 +73,6 @@ specific memorymap.h header before including this header file.*/
 #define GPIOD_OTYPER			GPIO_OTYPER(GPIOD)
 #define GPIOE_OTYPER			GPIO_OTYPER(GPIOE)
 #define GPIOF_OTYPER			GPIO_OTYPER(GPIOF)
-
-#if !defined (STM32F3)
-
-#define GPIOG_OTYPER			GPIO_OTYPER(GPIOG)
-#define GPIOH_OTYPER			GPIO_OTYPER(GPIOH)
-#define GPIOI_OTYPER			GPIO_OTYPER(GPIOI)
-
-#endif
 
 /* Port output speed register (GPIOx_OSPEEDR) */
 #define GPIO_OSPEEDR(port)		MMIO32(port + 0x08)
@@ -106,14 +83,6 @@ specific memorymap.h header before including this header file.*/
 #define GPIOE_OSPEEDR			GPIO_OSPEEDR(GPIOE)
 #define GPIOF_OSPEEDR			GPIO_OSPEEDR(GPIOF)
 
-#if !defined (STM32F3)
-
-#define GPIOG_OSPEEDR			GPIO_OSPEEDR(GPIOG)
-#define GPIOH_OSPEEDR			GPIO_OSPEEDR(GPIOH)
-#define GPIOI_OSPEEDR			GPIO_OSPEEDR(GPIOI)
-
-#endif
-
 /* Port pull-up/pull-down register (GPIOx_PUPDR) */
 #define GPIO_PUPDR(port)		MMIO32(port + 0x0c)
 #define GPIOA_PUPDR			GPIO_PUPDR(GPIOA)
@@ -122,14 +91,6 @@ specific memorymap.h header before including this header file.*/
 #define GPIOD_PUPDR			GPIO_PUPDR(GPIOD)
 #define GPIOE_PUPDR			GPIO_PUPDR(GPIOE)
 #define GPIOF_PUPDR			GPIO_PUPDR(GPIOF)
-
-#if !defined (STM32F3)
-
-#define GPIOG_PUPDR			GPIO_PUPDR(GPIOG)
-#define GPIOH_PUPDR			GPIO_PUPDR(GPIOH)
-#define GPIOI_PUPDR			GPIO_PUPDR(GPIOI)
-
-#endif
 
 /* Port input data register (GPIOx_IDR) */
 #define GPIO_IDR(port)			MMIO32(port + 0x10)
@@ -140,14 +101,6 @@ specific memorymap.h header before including this header file.*/
 #define GPIOE_IDR			GPIO_IDR(GPIOE)
 #define GPIOF_IDR			GPIO_IDR(GPIOF)
 
-#if !defined (STM32F3)
-
-#define GPIOG_IDR			GPIO_IDR(GPIOG)
-#define GPIOH_IDR			GPIO_IDR(GPIOH)
-#define GPIOI_IDR			GPIO_IDR(GPIOI)
-
-#endif
-
 /* Port output data register (GPIOx_ODR) */
 #define GPIO_ODR(port)			MMIO32(port + 0x14)
 #define GPIOA_ODR			GPIO_ODR(GPIOA)
@@ -156,14 +109,6 @@ specific memorymap.h header before including this header file.*/
 #define GPIOD_ODR			GPIO_ODR(GPIOD)
 #define GPIOE_ODR			GPIO_ODR(GPIOE)
 #define GPIOF_ODR			GPIO_ODR(GPIOF)
-
-#if !defined (STM32F3)
-
-#define GPIOG_ODR			GPIO_ODR(GPIOG)
-#define GPIOH_ODR			GPIO_ODR(GPIOH)
-#define GPIOI_ODR			GPIO_ODR(GPIOI)
-
-#endif
 
 /* Port bit set/reset register (GPIOx_BSRR) */
 #define GPIO_BSRR(port)			MMIO32(port + 0x18)
@@ -174,14 +119,6 @@ specific memorymap.h header before including this header file.*/
 #define GPIOE_BSRR			GPIO_BSRR(GPIOE)
 #define GPIOF_BSRR			GPIO_BSRR(GPIOF)
 
-#if !defined (STM32F3)
-
-#define GPIOG_BSRR			GPIO_BSRR(GPIOG)
-#define GPIOH_BSRR			GPIO_BSRR(GPIOH)
-#define GPIOI_BSRR			GPIO_BSRR(GPIOI)
-
-#endif
-
 /* Port configuration lock register (GPIOx_LCKR) */
 #define GPIO_LCKR(port)			MMIO32(port + 0x1c)
 #define GPIOA_LCKR			GPIO_LCKR(GPIOA)
@@ -190,14 +127,6 @@ specific memorymap.h header before including this header file.*/
 #define GPIOD_LCKR			GPIO_LCKR(GPIOD)
 #define GPIOE_LCKR			GPIO_LCKR(GPIOE)
 #define GPIOF_LCKR			GPIO_LCKR(GPIOF)
-
-#if !defined (STM32F3)
-
-#define GPIOG_LCKR			GPIO_LCKR(GPIOG)
-#define GPIOH_LCKR			GPIO_LCKR(GPIOH)
-#define GPIOI_LCKR			GPIO_LCKR(GPIOI)
-
-#endif
 
 /* Alternate function low register (GPIOx_AFRL) */
 #define GPIO_AFRL(port)			MMIO32(port + 0x20)
@@ -208,14 +137,6 @@ specific memorymap.h header before including this header file.*/
 #define GPIOE_AFRL			GPIO_AFRL(GPIOE)
 #define GPIOF_AFRL			GPIO_AFRL(GPIOF)
 
-#if !defined (STM32F3)
-
-#define GPIOG_AFRL			GPIO_AFRL(GPIOG)
-#define GPIOH_AFRL			GPIO_AFRL(GPIOH)
-#define GPIOI_AFRL			GPIO_AFRL(GPIOI)
-
-#endif
-
 /* Alternate function high register (GPIOx_AFRH) */
 #define GPIO_AFRH(port)			MMIO32(port + 0x24)
 #define GPIOA_AFRH			GPIO_AFRH(GPIOA)
@@ -224,14 +145,6 @@ specific memorymap.h header before including this header file.*/
 #define GPIOD_AFRH			GPIO_AFRH(GPIOD)
 #define GPIOE_AFRH			GPIO_AFRH(GPIOE)
 #define GPIOF_AFRH			GPIO_AFRH(GPIOF)
-
-#if !defined (STM32F3)
-
-#define GPIOG_AFRH			GPIO_AFRH(GPIOG)
-#define GPIOH_AFRH			GPIO_AFRH(GPIOH)
-#define GPIOI_AFRH			GPIO_AFRH(GPIOI)
-
-#endif
 
 /* --- GPIOx_MODER values -------------------------------------------------- */
 
