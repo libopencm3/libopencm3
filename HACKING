@@ -76,3 +76,17 @@ Development guidelines
     - One subdirectory in there for each example, e.g.
       miniblink, button, usart, usb_dfu, etc.
 
+Tips and tricks
+---------------
+
+SublimeText users:
+
+ - The project contains a sublime project description file with some basic
+   settings provided to make hacking on libopencm3 easier.
+
+ - Recommended SublimeText plugins when hacking on libopencm3:
+
+   - TrailingSpaces: Show and trim trailing line spaces.
+
+   - SublimeLinter: Run checkpatch.pl in the background while you write your
+     code and indicate possible coding style issues on the fly.
