@@ -29,30 +29,31 @@ specific memorymap.h header before including this header file.*/
 /** @cond */
 #ifdef LIBOPENCM3_SPI_H
 /** @endcond */
-#ifndef LIBOPENCM3_SPI_COMMON_F24_H
-#define LIBOPENCM3_SPI_COMMON_F24_H
+#ifndef LIBOPENCM3_SPI_COMMON_F0124_H
+#define LIBOPENCM3_SPI_COMMON_F0124_H
 
 /**@{*/
 
-#include <libopencm3/stm32/common/spi_common_f0124.h>
+#include <libopencm3/stm32/common/spi_common_all.h>
 
 /*
  * This file extends the common STM32 version with definitions only
- * applicable to the STM32F2/4 series of devices.
+ * applicable to the STM32F0/1/2/4 series of devices.
  */
 
-/* --- SPI_CR2 values ------------------------------------------------------ */
+/* DFF: Data frame format */
+/****************************************************************************/
+/** @defgroup spi_dff SPI data frame format
+@ingroup spi_defines
 
-/* FRF: Frame format */
-/* Note: Not used in I2S mode. */
-#define SPI_CR2_FRF			(1 << 4)
-#define SPI_CR2_FRF_MOTOROLA_MODE	(0 << 4)
-#define SPI_CR2_FRF_TI_MODE		(1 << 4)
+@{*/
 
-/* --- SPI_SR values ------------------------------------------------------- */
+#define SPI_CR1_DFF_8BIT        (0 << 11)
+#define SPI_CR1_DFF_16BIT       (1 << 11)
 
-/* TIFRFE: TI frame format error */
-#define SPI_SR_TIFRFE			(1 << 8)
+/**@}*/
+
+#define SPI_CR1_DFF         (1 << 11)
 
 #endif
 /** @cond */

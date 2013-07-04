@@ -38,9 +38,9 @@ OBJS		= gpio.o exti2.o rcc.o
 OBJS            += crc_common_all.o dac_common_all.o dma_common_f24.o \
                    gpio_common_all.o gpio_common_f234.o i2c_common_all.o \
                    iwdg_common_all.o rtc_common_bcd.o spi_common_all.o \
-                   timer_common_all.o timer_common_f24.o usart_common_all.o \
-                   flash_common_f234.o flash_common_f24.o hash_common_f24.o \
-                   crypto_common_f24.o
+                   spi_common_f0124.o timer_common_all.o timer_common_f24.o \
+                   usart_common_all.o flash_common_f234.o flash_common_f24.o \
+                   hash_common_f24.o crypto_common_f24.o
 
 VPATH += ../../usb:../:../../cm3:../common
 
