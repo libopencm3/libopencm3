@@ -1,15 +1,15 @@
 /** @defgroup usart_file USART
-
-@ingroup STM32F3xx
-
-@brief <b>libopencm3 STM32F3xx USART</b>
-
-@version 1.0.0
-
-@date 30 August 2012
-
-LGPL License Terms @ref lgpl_license
-*/
+ *
+ * @ingroup STM32F3xx
+ *
+ * @brief <b>libopencm3 STM32F3xx USART</b>
+ *
+ * @version 1.0.0
+ *
+ * @date 30 August 2012
+ *
+ * LGPL License Terms @ref lgpl_license
+ */
 
 /*
  * This file is part of the libopencm3 project.
@@ -33,11 +33,11 @@ LGPL License Terms @ref lgpl_license
 
 /*---------------------------------------------------------------------------*/
 /** @brief USART Send a Data Word.
-
-@param[in] usart unsigned 32 bit. USART block register address base @ref
-usart_reg_base
-@param[in] data unsigned 16 bit.
-*/
+ *
+ * @param[in] usart unsigned 32 bit. USART block register address base @ref
+ * usart_reg_base
+ * @param[in] data unsigned 16 bit.
+ */
 
 void usart_send(uint32_t usart, uint16_t data)
 {
@@ -47,14 +47,14 @@ void usart_send(uint32_t usart, uint16_t data)
 
 /*---------------------------------------------------------------------------*/
 /** @brief USART Read a Received Data Word.
-
-If parity is enabled the MSB (bit 7 or 8 depending on the word length) is the
-parity bit.
-
-@param[in] usart unsigned 32 bit. USART block register address base @ref
-usart_reg_base
-@returns unsigned 16 bit data word.
-*/
+ *
+ * If parity is enabled the MSB (bit 7 or 8 depending on the word length) is
+ * the parity bit.
+ *
+ * @param[in] usart unsigned 32 bit. USART block register address base @ref
+ * usart_reg_base
+ * @returns unsigned 16 bit data word.
+ */
 
 uint16_t usart_recv(uint32_t usart)
 {
@@ -64,13 +64,13 @@ uint16_t usart_recv(uint32_t usart)
 
 /*---------------------------------------------------------------------------*/
 /** @brief USART Wait for Transmit Data Buffer Empty
-
-Blocks until the transmit data buffer becomes empty and is ready to accept the
-next data word.
-
-@param[in] usart unsigned 32 bit. USART block register address base @ref
-usart_reg_base
-*/
+ *
+ * Blocks until the transmit data buffer becomes empty and is ready to accept
+ * the next data word.
+ *
+ * @param[in] usart unsigned 32 bit. USART block register address base @ref
+ * usart_reg_base
+ */
 
 void usart_wait_send_ready(uint32_t usart)
 {
@@ -80,12 +80,12 @@ void usart_wait_send_ready(uint32_t usart)
 
 /*---------------------------------------------------------------------------*/
 /** @brief USART Wait for Received Data Available
-
-Blocks until the receive data buffer holds a valid received data word.
-
-@param[in] usart unsigned 32 bit. USART block register address base @ref
-usart_reg_base
-*/
+ *
+ * Blocks until the receive data buffer holds a valid received data word.
+ * 
+ * @param[in] usart unsigned 32 bit. USART block register address base @ref
+ * usart_reg_base
+ */
 
 void usart_wait_recv_ready(uint32_t usart)
 {
@@ -95,12 +95,12 @@ void usart_wait_recv_ready(uint32_t usart)
 
 /*---------------------------------------------------------------------------*/
 /** @brief USART Read a Status Flag.
-
-@param[in] usart unsigned 32 bit. USART block register address base @ref
-usart_reg_base
-@param[in] flag Unsigned int32. Status register flag  @ref usart_sr_flags.
-@returns boolean: flag set.
-*/
+ *
+ * @param[in] usart unsigned 32 bit. USART block register address base @ref
+ * usart_reg_base
+ * @param[in] flag Unsigned int32. Status register flag  @ref usart_sr_flags.
+ * @returns boolean: flag set.
+ */
 
 bool usart_get_flag(uint32_t usart, uint32_t flag)
 {
@@ -109,20 +109,20 @@ bool usart_get_flag(uint32_t usart, uint32_t flag)
 
 /*---------------------------------------------------------------------------*/
 /** @brief USART Return Interrupt Source.
-
-Returns true if the specified interrupt flag (IDLE, RXNE, TC, TXE or OE) was
-set and the interrupt was enabled. If the specified flag is not an interrupt
-flag, the function returns false.
-
-@todo  These are the most important interrupts likely to be used. Others
-relating to LIN break, and error conditions in multibuffer communication, need
-to be added for completeness.
-
-@param[in] usart unsigned 32 bit. USART block register address base @ref
-usart_reg_base
-@param[in] flag Unsigned int32. Status register flag  @ref usart_sr_flags.
-@returns boolean: flag and interrupt enable both set.
-*/
+ *
+ * Returns true if the specified interrupt flag (IDLE, RXNE, TC, TXE or OE) was
+ * set and the interrupt was enabled. If the specified flag is not an interrupt
+ * flag, the function returns false.
+ *
+ * @todo  These are the most important interrupts likely to be used. Others
+ * relating to LIN break, and error conditions in multibuffer communication,
+ * need to be added for completeness.
+ *
+ * @param[in] usart unsigned 32 bit. USART block register address base @ref
+ * usart_reg_base
+ * @param[in] flag Unsigned int32. Status register flag  @ref usart_sr_flags.
+ * @returns boolean: flag and interrupt enable both set.
+ */
 
 bool usart_get_interrupt_source(uint32_t usart, uint32_t flag)
 {

@@ -1,15 +1,15 @@
 /** @defgroup iwdg_file IWDG
-
-@ingroup STM32F3xx
-
-@brief <b>libopencm3 STM32F3xx Independent Watchdog Timer</b>
-
-@version 1.0.0
-
-@date 18 August 2012
-
-LGPL License Terms @ref lgpl_license
-*/
+ *
+ * @ingroup STM32F3xx
+ *
+ * @brief <b>libopencm3 STM32F3xx Independent Watchdog Timer</b>
+ *
+ * @version 1.0.0
+ *
+ * @date 18 August 2012
+ *
+ * LGPL License Terms @ref lgpl_license
+ */
 
 /*
  * This file is part of the libopencm3 project.

@@ -1,15 +1,15 @@
 /** @defgroup crc_defines CRC Defines
-
-@brief <b>libopencm3 Defined Constants and Types for the STM32F3xx CRC
-Generator </b>
-
-@ingroup STM32F3xx_defines
-
-@version 1.0.0
-
-@date 18 August 2012
-
-LGPL License Terms @ref lgpl_license
+ *
+ * @brief <b>libopencm3 Defined Constants and Types for the STM32F3xx CRC
+ * Generator </b>
+ *
+ * @ingroup STM32F3xx_defines
+ *
+ * @version 1.0.0
+ *
+ * @date 18 August 2012
+ *
+ * LGPL License Terms @ref lgpl_license
  */
 /*
  * This file is part of the libopencm3 project.

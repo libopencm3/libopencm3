@@ -1,15 +1,15 @@
 /** @defgroup iwdg_defines IWDG Defines
-
-@brief <b>Defined Constants and Types for the STM32F3xx Independent Watchdog
-Timer</b>
-
-@ingroup STM32F3xx_defines
-
-@version 1.0.0
-
-@date 18 August 2012
-
-LGPL License Terms @ref lgpl_license
+ *
+ * @brief <b>Defined Constants and Types for the STM32F3xx Independent Watchdog
+ * Timer</b>
+ *
+ * @ingroup STM32F3xx_defines
+ *
+ * @version 1.0.0
+ *
+ * @date 18 August 2012
+ *
+ * LGPL License Terms @ref lgpl_license
  */
 /*
  * This file is part of the libopencm3 project.

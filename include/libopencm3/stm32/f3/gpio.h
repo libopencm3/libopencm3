@@ -1,14 +1,15 @@
 /** @defgroup gpio_defines GPIO Defines
-
-@brief <b>Defined Constants and Types for the STM32F3xx General Purpose I/O</b>
-
-@ingroup STM32F3xx_defines
-
-@version 1.0.0
-
-@date 1 July 2012
-
-LGPL License Terms @ref lgpl_license
+ *
+ * @brief <b>Defined Constants and Types for the STM32F3xx General Purpose
+ * I/O</b>
+ *
+ * @ingroup STM32F3xx_defines
+ *
+ * @version 1.0.0
+ *
+ * @date 1 July 2012
+ *
+ * LGPL License Terms @ref lgpl_license
  */
 
 /*

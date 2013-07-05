@@ -1,15 +1,15 @@
 /** @defgroup i2c_file I2C
-
-@ingroup STM32F3xx
-
-@brief <b>libopencm3 STM32F3xx I2C</b>
-
-@version 1.0.0
-
-@date 15 October 2012
-
-LGPL License Terms @ref lgpl_license
-*/
+ *
+ * @ingroup STM32F3xx
+ *
+ * @brief <b>libopencm3 STM32F3xx I2C</b>
+ *
+ * @version 1.0.0
+ *
+ * @date 15 October 2012
+ *
+ * LGPL License Terms @ref lgpl_license
+ */
 
 /*
  * This file is part of the libopencm3 project.
@@ -35,12 +35,13 @@ LGPL License Terms @ref lgpl_license
 
 /*---------------------------------------------------------------------------*/
 /** @brief I2C Reset.
-
-The I2C peripheral and all its associated configuration registers are placed in
-the reset condition. The reset is effected via the RCC peripheral reset system.
-
-@param[in] i2c Unsigned int32. I2C peripheral identifier @ref i2c_reg_base.
-*/
+ *
+ * The I2C peripheral and all its associated configuration registers are placed
+ * in the reset condition. The reset is effected via the RCC peripheral reset
+ * system.
+ *
+ * @param[in] i2c Unsigned int32. I2C peripheral identifier @ref i2c_reg_base.
+ */
 
 void i2c_reset(uint32_t i2c)
 {
@@ -58,9 +59,9 @@ void i2c_reset(uint32_t i2c)
 
 /*---------------------------------------------------------------------------*/
 /** @brief I2C Peripheral Enable.
-
-@param[in] i2c Unsigned int32. I2C register base address @ref i2c_reg_base.
-*/
+ *
+ * @param[in] i2c Unsigned int32. I2C register base address @ref i2c_reg_base.
+ */
 
 void i2c_peripheral_enable(uint32_t i2c)
 {
@@ -69,12 +70,13 @@ void i2c_peripheral_enable(uint32_t i2c)
 
 /*---------------------------------------------------------------------------*/
 /** @brief I2C Peripheral Disable.
-
-This must not be reset while in Master mode until a communication has finished.
-In Slave mode, the peripheral is disabled only after communication has ended.
-
-@param[in] i2c Unsigned int32. I2C register base address @ref i2c_reg_base.
-*/
+ *
+ * This must not be reset while in Master mode until a communication has
+ * finished. In Slave mode, the peripheral is disabled only after communication
+ * has ended.
+ *
+ * @param[in] i2c Unsigned int32. I2C register base address @ref i2c_reg_base.
+ */
 
 void i2c_peripheral_disable(uint32_t i2c)
 {
@@ -83,13 +85,13 @@ void i2c_peripheral_disable(uint32_t i2c)
 
 /*---------------------------------------------------------------------------*/
 /** @brief I2C Send Start Condition.
-
-If in Master mode this will cause a restart condition to occur at the end of the
-current transmission. If in Slave mode, this will initiate a start condition
-when the current bus activity is completed.
-
-@param[in] i2c Unsigned int32. I2C register base address @ref i2c_reg_base.
-*/
+ *
+ * If in Master mode this will cause a restart condition to occur at the end of
+ * the current transmission. If in Slave mode, this will initiate a start
+ * condition when the current bus activity is completed.
+ *
+ * @param[in] i2c Unsigned int32. I2C register base address @ref i2c_reg_base.
+ */
 
 void i2c_send_start(uint32_t i2c)
 {
@@ -98,12 +100,12 @@ void i2c_send_start(uint32_t i2c)
 
 /*---------------------------------------------------------------------------*/
 /** @brief I2C Send Stop Condition.
-
-After the current byte transfer this will initiate a stop condition if in Master
-mode, or simply release the bus if in Slave mode.
-
-@param[in] i2c Unsigned int32. I2C register base address @ref i2c_reg_base.
-*/
+ *
+ * After the current byte transfer this will initiate a stop condition if in
+ * Master mode, or simply release the bus if in Slave mode.
+ *
+ * @param[in] i2c Unsigned int32. I2C register base address @ref i2c_reg_base.
+ */
 
 void i2c_send_stop(uint32_t i2c)
 {
@@ -112,11 +114,11 @@ void i2c_send_stop(uint32_t i2c)
 
 /*---------------------------------------------------------------------------*/
 /** @brief I2C Clear Stop Flag.
-
-Clear the "Send Stop" flag in the I2C config register
-
-@param[in] i2c Unsigned int32. I2C register base address @ref i2c_reg_base.
-*/
+ *
+ * Clear the "Send Stop" flag in the I2C config register
+ *
+ * @param[in] i2c Unsigned int32. I2C register base address @ref i2c_reg_base.
+ */
 void i2c_clear_stop(uint32_t i2c)
 {
 	I2C_ICR(i2c) |= I2C_ICR_STOPCF;
@@ -124,12 +126,12 @@ void i2c_clear_stop(uint32_t i2c)
 
 /*---------------------------------------------------------------------------*/
 /** @brief I2C Set the 7 bit Slave Address for the Peripheral.
-
-This sets an address for Slave mode operation, in 7 bit form.
-
-@param[in] i2c Unsigned int32. I2C register base address @ref i2c_reg_base.
-@param[in] slave Unsigned int8. Slave address 0...127.
-*/
+ *
+ * This sets an address for Slave mode operation, in 7 bit form.
+ *
+ * @param[in] i2c Unsigned int32. I2C register base address @ref i2c_reg_base.
+ * @param[in] slave Unsigned int8. Slave address 0...127.
+ */
 
 void i2c_set_own_7bit_slave_address(uint32_t i2c, uint8_t slave)
 {
@@ -140,14 +142,14 @@ void i2c_set_own_7bit_slave_address(uint32_t i2c, uint8_t slave)
 
 /*---------------------------------------------------------------------------*/
 /** @brief I2C Set the 10 bit Slave Address for the Peripheral.
-
-This sets an address for Slave mode operation, in 10 bit form.
-
-@todo add "I2C_OAR1(i2c) |= (1 << 14);" as above
-
-@param[in] i2c Unsigned int32. I2C register base address @ref i2c_reg_base.
-@param[in] slave Unsigned int16. Slave address 0...1023.
-*/
+ *
+ * This sets an address for Slave mode operation, in 10 bit form.
+ *
+ * @todo add "I2C_OAR1(i2c) |= (1 << 14);" as above
+ *
+ * @param[in] i2c Unsigned int32. I2C register base address @ref i2c_reg_base.
+ * @param[in] slave Unsigned int16. Slave address 0...1023.
+ */
 
 void i2c_set_own_10bit_slave_address(uint32_t i2c, uint16_t slave)
 {
@@ -156,10 +158,10 @@ void i2c_set_own_10bit_slave_address(uint32_t i2c, uint16_t slave)
 
 /*---------------------------------------------------------------------------*/
 /** @brief I2C Send Data.
-
-@param[in] i2c Unsigned int32. I2C register base address @ref i2c_reg_base.
-@param[in] data Unsigned int8. Byte to send.
-*/
+ *
+ * @param[in] i2c Unsigned int32. I2C register base address @ref i2c_reg_base.
+ * @param[in] data Unsigned int8. Byte to send.
+ */
 
 void i2c_send_data(uint32_t i2c, uint8_t data)
 {
@@ -168,9 +170,9 @@ void i2c_send_data(uint32_t i2c, uint8_t data)
 
 /*---------------------------------------------------------------------------*/
 /** @brief I2C Get Data.
-
-@param[in] i2c Unsigned int32. I2C register base address @ref i2c_reg_base.
-*/
+ *
+ * @param[in] i2c Unsigned int32. I2C register base address @ref i2c_reg_base.
+ */
 uint8_t i2c_get_data(uint32_t i2c)
 {
 	return I2C_RXDR(i2c) & 0xff;
@@ -346,10 +348,10 @@ uint8_t i2c_received_data(uint32_t i2c)
 
 /*---------------------------------------------------------------------------*/
 /** @brief I2C Enable Interrupt
-
-@param[in] i2c Unsigned int32. I2C register base address @ref i2c_reg_base.
-@param[in] interrupt Unsigned int32. Interrupt to enable.
-*/
+ *
+ * @param[in] i2c Unsigned int32. I2C register base address @ref i2c_reg_base.
+ * @param[in] interrupt Unsigned int32. Interrupt to enable.
+ */
 void i2c_enable_interrupt(uint32_t i2c, uint32_t interrupt)
 {
 	I2C_CR1(i2c) |= interrupt;
@@ -357,10 +359,10 @@ void i2c_enable_interrupt(uint32_t i2c, uint32_t interrupt)
 
 /*---------------------------------------------------------------------------*/
 /** @brief I2C Disable Interrupt
-
-@param[in] i2c Unsigned int32. I2C register base address @ref i2c_reg_base.
-@param[in] interrupt Unsigned int32. Interrupt to disable.
-*/
+ *
+ * @param[in] i2c Unsigned int32. I2C register base address @ref i2c_reg_base.
+ * @param[in] interrupt Unsigned int32. Interrupt to disable.
+ */
 void i2c_disable_interrupt(uint32_t i2c, uint32_t interrupt)
 {
 	I2C_CR1(i2c) &= ~interrupt;
@@ -368,9 +370,9 @@ void i2c_disable_interrupt(uint32_t i2c, uint32_t interrupt)
 
 /*---------------------------------------------------------------------------*/
 /** @brief I2C Enable reception DMA
-
-@param[in] i2c Unsigned int32. I2C register base address @ref i2c_reg_base.
-*/
+ *
+ * @param[in] i2c Unsigned int32. I2C register base address @ref i2c_reg_base.
+ */
 void i2c_enable_rxdma(uint32_t i2c)
 {
 	I2C_CR1(i2c) |= I2C_CR1_RXDMAEN;
@@ -378,9 +380,9 @@ void i2c_enable_rxdma(uint32_t i2c)
 
 /*---------------------------------------------------------------------------*/
 /** @brief I2C Disable reception DMA
-
-@param[in] i2c Unsigned int32. I2C register base address @ref i2c_reg_base.
-*/
+ *
+ * @param[in] i2c Unsigned int32. I2C register base address @ref i2c_reg_base.
+ */
 void i2c_disable_rxdma(uint32_t i2c)
 {
 	I2C_CR1(i2c) &= ~I2C_CR1_RXDMAEN;
@@ -388,9 +390,9 @@ void i2c_disable_rxdma(uint32_t i2c)
 
 /*---------------------------------------------------------------------------*/
 /** @brief I2C Enable transmission DMA
-
-@param[in] i2c Unsigned int32. I2C register base address @ref i2c_reg_base.
-*/
+ *
+ * @param[in] i2c Unsigned int32. I2C register base address @ref i2c_reg_base.
+ */
 void i2c_enable_txdma(uint32_t i2c)
 {
 	I2C_CR1(i2c) |= I2C_CR1_TXDMAEN;
@@ -398,9 +400,9 @@ void i2c_enable_txdma(uint32_t i2c)
 
 /*---------------------------------------------------------------------------*/
 /** @brief I2C Disable transmission DMA
-
-@param[in] i2c Unsigned int32. I2C register base address @ref i2c_reg_base.
-*/
+ *
+ * @param[in] i2c Unsigned int32. I2C register base address @ref i2c_reg_base.
+ */
 void i2c_disable_txdma(uint32_t i2c)
 {
 	I2C_CR1(i2c) &= ~I2C_CR1_TXDMAEN;

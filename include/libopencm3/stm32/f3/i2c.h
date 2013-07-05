@@ -1,14 +1,14 @@
 /** @defgroup i2c_defines I2C Defines
-
-@brief <b>Defined Constants and Types for the STM32F4xx I2C </b>
-
-@ingroup STM32F4xx_defines
-
-@version 1.0.0
-
-@date 12 October 2012
-
-LGPL License Terms @ref lgpl_license
+ *
+ * @brief <b>Defined Constants and Types for the STM32F4xx I2C </b>
+ *
+ * @ingroup STM32F4xx_defines
+ *
+ * @version 1.0.0
+ *
+ * @date 12 October 2012
+ *
+ * LGPL License Terms @ref lgpl_license
  */
 
 /*
@@ -41,9 +41,8 @@ LGPL License Terms @ref lgpl_license
 /* I2C register base addresses (for convenience) */
 /*****************************************************************************/
 /** @defgroup i2c_reg_base I2C register base address
-@ingroup i2c_defines
-
-@{*/
+ * @ingroup i2c_defines
+ * @{*/
 #define I2C1				I2C1_BASE
 #define I2C2				I2C2_BASE
 /**@}*/

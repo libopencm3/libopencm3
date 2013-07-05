@@ -1,14 +1,14 @@
 /** @defgroup spi_defines SPI Defines
-
-@brief <b>Defined Constants and Types for the STM32F3xx SPI</b>
-
-@ingroup STM32F3xx_defines
-
-@version 1.0.0
-
-@date 5 December 2012
-
-LGPL License Terms @ref lgpl_license
+ *
+ * @brief <b>Defined Constants and Types for the STM32F3xx SPI</b>
+ *
+ * @ingroup STM32F3xx_defines
+ *
+ * @version 1.0.0
+ *
+ * @date 5 December 2012
+ *
+ * LGPL License Terms @ref lgpl_license
  */
 
 /*
@@ -37,9 +37,9 @@ LGPL License Terms @ref lgpl_license
 /* DFF: Data frame format */
 /****************************************************************************/
 /** @defgroup spi_dff SPI data frame format
-@ingroup spi_defines
-
-@{*/
+ * @ingroup spi_defines
+ *
+ * @{*/
 
 #define SPI_DR8(spi_base)	MMIO8(spi_base + 0x0c)
 #define SPI1_DR8		SPI_DR8(SPI1_BASE)

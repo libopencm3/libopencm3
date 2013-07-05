@@ -1,14 +1,14 @@
 /** @defgroup dac_defines DAC Defines
-
-@brief <b>Defined Constants and Types for the STM32F3xx DAC</b>
-
-@ingroup STM32F3xx_defines
-
-@version 1.0.0
-
-@date 5 December 2012
-
-LGPL License Terms @ref lgpl_license
+ *
+ * @brief <b>Defined Constants and Types for the STM32F3xx DAC</b>
+ *
+ * @ingroup STM32F3xx_defines
+ *
+ * @version 1.0.0
+ *
+ * @date 5 December 2012
+ *
+ * LGPL License Terms @ref lgpl_license
  */
 
 /*
