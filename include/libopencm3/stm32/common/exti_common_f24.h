@@ -1,9 +1,7 @@
-/* This provides unification of code over STM32F subfamilies */
-
 /*
  * This file is part of the libopencm3 project.
  *
- * Copyright (C) 2013 Piotr Esden-Tempski <piotr@esden.net>
+ * Copyright (C) 2010 Mark Butler <mbutler@physics.otago.ac.nz>
  *
  * This library is free software: you can redistribute it and/or modify
  * it under the terms of the GNU Lesser General Public License as published by
@@ -19,17 +17,24 @@
  * along with this library.  If not, see <http://www.gnu.org/licenses/>.
  */
 
-#if defined(STM32F1)
-#       include <libopencm3/stm32/f1/exti.h>
-#elif defined(STM32F2)
-#       include <libopencm3/stm32/f2/exti.h>
-#elif defined(STM32F3)
-#       include <libopencm3/stm32/f3/exti.h>
-#elif defined(STM32F4)
-#       include <libopencm3/stm32/f4/exti.h>
-#elif defined(STM32L1)
-#       include <libopencm3/stm32/l1/exti.h>
-#else
-#       error "stm32 family not defined."
-#endif
+/** @cond */
+#if defined(LIBOPENCM3_EXTI_H)
+/** @endcond */
+#ifndef LIBOPENCM3_EXTI_COMMON_F24_H
+#define LIBOPENCM3_EXTI_COMMON_F24_H
 
+#include <libopencm3/stm32/memorymap.h>
+#include <libopencm3/cm3/common.h>
+#include <libopencm3/stm32/common/exti_common_all.h>
+
+/* EXTI number definitions */
+#define EXTI20				(1 << 20)
+#define EXTI21				(1 << 21)
+#define EXTI22				(1 << 22)
+
+#endif
+/** @cond */
+#else
+#warning "exti_common_f24.h should not be included directly, only via exti.h"
+#endif
+/** @endcond */
