@@ -21,7 +21,8 @@
 
 #include <libopencm3/stm32/f3/gpio.h>
 
-void gpio_mode_setup(uint32_t gpioport, uint8_t mode, uint8_t pull_up_down, uint16_t gpios)
+void gpio_mode_setup(uint32_t gpioport, uint8_t mode, uint8_t pull_up_down,
+		     uint16_t gpios)
 {
 	uint16_t i;
 	uint32_t moder, pupd;
@@ -34,8 +35,9 @@ void gpio_mode_setup(uint32_t gpioport, uint8_t mode, uint8_t pull_up_down, uint
 	pupd = GPIO_PUPDR(gpioport);
 
 	for (i = 0; i < 16; i++) {
-		if (!((1 << i) & gpios))
+		if (!((1 << i) & gpios)) {
 			continue;
+		}
 
 		moder &= ~GPIO_MODE_MASK(i);
 		moder |= GPIO_MODE(i, mode);
@@ -48,21 +50,24 @@ void gpio_mode_setup(uint32_t gpioport, uint8_t mode, uint8_t pull_up_down, uint
 	GPIO_PUPDR(gpioport) = pupd;
 }
 
-void gpio_set_output_options(uint32_t gpioport, uint8_t otype, uint8_t speed, uint16_t gpios)
+void gpio_set_output_options(uint32_t gpioport, uint8_t otype, uint8_t speed,
+			     uint16_t gpios)
 {
 	uint16_t i;
 	uint32_t ospeedr;
 
-	if (otype == 0x1)
+	if (otype == 0x1) {
 		GPIO_OTYPER(gpioport) |= gpios;
-	else
+	} else {
 		GPIO_OTYPER(gpioport) &= ~gpios;
+	}
 
 	ospeedr = GPIO_OSPEEDR(gpioport);
 
 	for (i = 0; i < 16; i++) {
-		if (!((1 << i) & gpios))
+		if (!((1 << i) & gpios)) {
 			continue;
+		}
 		ospeedr &= ~GPIO_OSPEED_MASK(i);
 		ospeedr |= GPIO_OSPEED(i, speed);
 	}
@@ -79,15 +84,17 @@ void gpio_set_af(uint32_t gpioport, uint8_t alt_func_num, uint16_t gpios)
 	afrh = GPIO_AFRH(gpioport);
 
 	for (i = 0; i < 8; i++) {
-		if (!((1 << i) & gpios))
+		if (!((1 << i) & gpios)) {
 			continue;
+		}
 		afrl &= ~GPIO_AFR_MASK(i);
 		afrl |= GPIO_AFR(i, alt_func_num);
 	}
 
 	for (i = 8; i < 16; i++) {
-		if (!((1 << i) & gpios))
+		if (!((1 << i) & gpios)) {
 			continue;
+		}
 		afrl &= ~GPIO_AFR_MASK(i - 8);
 		afrh |= GPIO_AFR(i - 8, alt_func_num);
 	}
@@ -137,8 +144,11 @@ void gpio_port_config_lock(uint32_t gpioport, uint16_t gpios)
 	reg32 = GPIO_LCKR(gpioport);			/* Read LCKK. */
 	reg32 = GPIO_LCKR(gpioport);			/* Read LCKK again. */
 
-	/* Tell the compiler the variable is actually used. It will get optimized out anyways. */
-	reg32 = reg32; 
+	/*
+	 * Tell the compiler the variable is actually used.
+	 * It will get optimized out anyways.
+	 */
+	reg32 = reg32;
 
 	/* If (reg32 & GPIO_LCKK) is true, the lock is now active. */
 }

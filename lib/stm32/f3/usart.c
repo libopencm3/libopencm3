@@ -126,7 +126,7 @@ usart_reg_base
 
 bool usart_get_interrupt_source(uint32_t usart, uint32_t flag)
 {
-        uint32_t flag_set = (USART_ISR(usart) & flag);
+	uint32_t flag_set = (USART_ISR(usart) & flag);
 	/* IDLE, RXNE, TC, TXE interrupts */
 	if ((flag >= USART_ISR_IDLE) && (flag <= USART_ISR_TXE)) {
 		return ((flag_set & USART_CR1(usart)) != 0);

@@ -54,7 +54,7 @@ specific memorymap.h header before including this header file.*/
 
 /**@}*/
 
-/* --- GPIO registers for STM32F2, STM32F3 and STM32F4 --------------------------- */
+/* --- GPIO registers for STM32F2, STM32F3 and STM32F4 --------------------- */
 
 /* Port mode register (GPIOx_MODER) */
 #define GPIO_MODER(port)		MMIO32(port + 0x00)

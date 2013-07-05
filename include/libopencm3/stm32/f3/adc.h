@@ -416,7 +416,10 @@
 /* OVRMOD: Overrun Mode */
 #define ADC_CFGR_OVRMOD		(1 << 12)
 
-/* EXTEN[1:0]: External trigger enable and polarity selection for regular channels */
+/*
+ * EXTEN[1:0]: External trigger enable and polarity selection for regular
+ * channels
+ */
 #define ADC_CFGR_EXTEN_DISABLED		(0x0 << 10)
 #define ADC_CFGR_EXTEN_RISING_EDGE	(0x1 << 10)
 #define ADC_CFGR_EXTEN_FALLING_EDGE	(0x2 << 10)
@@ -619,7 +622,10 @@
 
 /* Bits 12:8 JSQ1[4:0]: 1st conversion in the injected sequence */
 
-/* JEXTEN[1:0]: External Trigger Enable and Polarity Selection for injected channels */
+/*
+ * JEXTEN[1:0]: External Trigger Enable and Polarity Selection for injected
+ * channels
+ */
 #define ADC_JSQR_JEXTEN_DISABLED	(0x0 << 6)
 #define ADC_JSQR_JEXTEN_RISING_EDGE	(0x1 << 6)
 #define ADC_JSQR_JEXTEN_FALLING_EDGE	(0x2 << 6)
@@ -661,7 +667,10 @@
 
 /* Bits 30:26 OFFSET1_CH[4:0]: Channel selection for the Data offset 1 */
 
-/* Bits 11:0 OFFSET1[11:0]: Data offset y for the channel programmed into bits OFFSET1_CH[4:0] */
+/*
+ * Bits 11:0 OFFSET1[11:0]: Data offset y for the channel programmed into bits
+ * OFFSET1_CH[4:0]
+ */
 
 
 /*------- ADC_OFR2 values ---------*/
@@ -671,7 +680,10 @@
 
 /* Bits 30:26 OFFSET2_CH[4:0]: Channel selection for the Data offset 2 */
 
-/* Bits 11:0 OFFSET2[11:0]: Data offset y for the channel programmed into bits OFFSET2_CH[4:0] */
+/*
+ * Bits 11:0 OFFSET2[11:0]: Data offset y for the channel programmed into bits
+ * OFFSET2_CH[4:0]
+ */
 
 
 /*------- ADC_OFR3 values ---------*/
@@ -681,7 +693,10 @@
 
 /* Bits 30:26 OFFSET3_CH[4:0]: Channel selection for the Data offset 3 */
 
-/* Bits 11:0 OFFSET3[11:0]: Data offset y for the channel programmed into bits OFFSET3_CH[4:0] */
+/*
+ * Bits 11:0 OFFSET3[11:0]: Data offset y for the channel programmed into bits
+ * OFFSET3_CH[4:0]
+ */
 
 
 /*------- ADC_OFR4 values ---------*/
@@ -691,7 +706,10 @@
 
 /* Bits 30:26 OFFSET4_CH[4:0]: Channel selection for the Data offset 4 */
 
-/* Bits 11:0 OFFSET4[11:0]: Data offset y for the channel programmed into bits OFFSET4_CH[4:0] */
+/*
+ * Bits 11:0 OFFSET4[11:0]: Data offset y for the channel programmed into bits
+ * OFFSET4_CH[4:0]
+ */
 
 
 /*------- ADC_JDRy, y= 1..4 values -------*/
@@ -795,13 +813,13 @@
 /*-------- ADC_CCR values ------------*/
 
 /* VBATEN: VBAT enable */
-#define ADC_CCR_VBATEN  		(1 << 24)
+#define ADC_CCR_VBATEN			(1 << 24)
 
 /* TSEN: Temperature sensor enable */
-#define ADC_CCR_TSEN  			(1 << 23)
+#define ADC_CCR_TSEN			(1 << 23)
 
 /* VREFEN: VREFINT enable */
-#define ADC_CCR_VREFEN 			(1 << 22)
+#define ADC_CCR_VREFEN			(1 << 22)
 
 /* CKMODE[1:0]: ADC clock mode */
 #define ADC_CCR_CKMODE_CKX		(0x0 << 16)
@@ -813,7 +831,7 @@
 
 /* MDMA[1:0]: Direct memory access mode for dual ADC mode */
 #define ADC_CCR_MDMA_DISABLE		(0x0 << 14)
-//#define ADC_CCR_MDMA_RESERVED		(0x1 << 14)
+/*#define ADC_CCR_MDMA_RESERVED		(0x1 << 14)*/
 #define ADC_CCR_MDMA_12_10_BIT		(0x2 << 14)
 #define ADC_CCR_MDMA_8_6_BIT		(0x3 << 14)
 
@@ -850,9 +868,10 @@ void adc_disable_discontinuous_mode_injected(uint32_t adc);
 void adc_enable_automatic_injected_group_conversion(uint32_t adc);
 void adc_disable_automatic_injected_group_conversion(uint32_t adc);
 void adc_enable_analog_watchdog_on_all_channels(uint32_t adc);
-void adc_enable_analog_watchdog_on_selected_channel(uint32_t adc, uint8_t channel);
-//void adc_enable_scan_mode(uint32_t adc);
-//void adc_disable_scan_mode(uint32_t adc);
+void adc_enable_analog_watchdog_on_selected_channel(uint32_t adc,
+						    uint8_t channel);
+/*void adc_enable_scan_mode(uint32_t adc);*/
+/*void adc_disable_scan_mode(uint32_t adc);*/
 void adc_enable_eoc_interrupt_injected(uint32_t adc);
 void adc_disable_eoc_interrupt_injected(uint32_t adc);
 void adc_enable_all_awd_interrupt(uint32_t adc);
@@ -883,8 +902,10 @@ void adc_set_injected_offset(uint32_t adc, uint8_t reg, uint32_t offset);
 
 void adc_set_clk_prescale(uint32_t prescaler);
 void adc_set_multi_mode(uint32_t mode);
-void adc_enable_external_trigger_regular(uint32_t adc, uint32_t trigger, uint32_t polarity);
-void adc_enable_external_trigger_injected(uint32_t adc, uint32_t trigger, uint32_t polarity);
+void adc_enable_external_trigger_regular(uint32_t adc, uint32_t trigger,
+					 uint32_t polarity);
+void adc_enable_external_trigger_injected(uint32_t adc, uint32_t trigger,
+					  uint32_t polarity);
 void adc_set_resolution(uint32_t adc, uint16_t resolution);
 void adc_enable_overrun_interrupt(uint32_t adc);
 void adc_disable_overrun_interrupt(uint32_t adc);
@@ -893,15 +914,12 @@ void adc_clear_overrun_flag(uint32_t adc);
 bool adc_awd(uint32_t adc);
 void adc_eoc_after_each(uint32_t adc);
 void adc_eoc_after_group(uint32_t adc);
-//void adc_set_dma_continue(uint32_t adc);
-//void adc_set_dma_terminate(uint32_t adc);
+/*void adc_set_dma_continue(uint32_t adc);*/
+/*void adc_set_dma_terminate(uint32_t adc);*/
 void adc_enable_temperature_sensor(void);
 void adc_disable_temperature_sensor(void);
 
 END_DECLS
 
 
-#endif 
-
-
-
+#endif

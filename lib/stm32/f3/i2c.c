@@ -107,7 +107,7 @@ mode, or simply release the bus if in Slave mode.
 
 void i2c_send_stop(uint32_t i2c)
 {
-        I2C_CR2(i2c) |= I2C_CR2_STOP;
+	I2C_CR2(i2c) |= I2C_CR2_STOP;
 }
 
 /*---------------------------------------------------------------------------*/
@@ -173,166 +173,174 @@ void i2c_send_data(uint32_t i2c, uint8_t data)
 */
 uint8_t i2c_get_data(uint32_t i2c)
 {
-  return(I2C_RXDR(i2c) & 0xff);
+	return I2C_RXDR(i2c) & 0xff;
 }
 
 void i2c_enable_analog_filter(uint32_t i2c)
 {
-  I2C_CR1(i2c) &= ~I2C_CR1_ANFOFF;
+	I2C_CR1(i2c) &= ~I2C_CR1_ANFOFF;
 }
 
 void i2c_disable_analog_filter(uint32_t i2c)
 {
-  I2C_CR1(i2c) |= I2C_CR1_ANFOFF;
+	I2C_CR1(i2c) |= I2C_CR1_ANFOFF;
 }
 
 void i2c_set_digital_filter(uint32_t i2c, uint8_t dnf_setting)
 {
-  I2C_CR1(i2c) = (I2C_CR1(i2c) & ~I2C_CR1_DNF_MASK) | dnf_setting;
+	I2C_CR1(i2c) = (I2C_CR1(i2c) & ~I2C_CR1_DNF_MASK) | dnf_setting;
 }
 
 /* t_presc= (presc+1)*t_i2cclk */
 void i2c_set_prescaler(uint32_t i2c, uint8_t presc)
 {
-  I2C_TIMINGR(i2c) = (I2C_TIMINGR(i2c) & ~I2C_TIMINGR_PRESC_MASK) | (presc << I2C_TIMINGR_PRESC_SHIFT);
+	I2C_TIMINGR(i2c) = (I2C_TIMINGR(i2c) & ~I2C_TIMINGR_PRESC_MASK) |
+			   (presc << I2C_TIMINGR_PRESC_SHIFT);
 }
 
 void i2c_set_data_setup_time(uint32_t i2c, uint8_t s_time)
 {
-  I2C_TIMINGR(i2c) = (I2C_TIMINGR(i2c) & ~I2C_TIMINGR_SCLDEL_MASK) | (s_time << I2C_TIMINGR_SCLDEL_SHIFT);
+	I2C_TIMINGR(i2c) = (I2C_TIMINGR(i2c) & ~I2C_TIMINGR_SCLDEL_MASK) |
+			   (s_time << I2C_TIMINGR_SCLDEL_SHIFT);
 }
 
 void i2c_set_data_hold_time(uint32_t i2c, uint8_t h_time)
 {
-  I2C_TIMINGR(i2c) = (I2C_TIMINGR(i2c) & ~I2C_TIMINGR_SDADEL_MASK) | (h_time << I2C_TIMINGR_SDADEL_SHIFT);
+	I2C_TIMINGR(i2c) = (I2C_TIMINGR(i2c) & ~I2C_TIMINGR_SDADEL_MASK) |
+			   (h_time << I2C_TIMINGR_SDADEL_SHIFT);
 }
 
 void i2c_set_scl_high_period(uint32_t i2c, uint8_t period)
 {
-  I2C_TIMINGR(i2c) = (I2C_TIMINGR(i2c) & ~I2C_TIMINGR_SCLH_MASK) | (period << I2C_TIMINGR_SCLH_SHIFT);
+	I2C_TIMINGR(i2c) = (I2C_TIMINGR(i2c) & ~I2C_TIMINGR_SCLH_MASK) |
+			   (period << I2C_TIMINGR_SCLH_SHIFT);
 }
 
 void i2c_set_scl_low_period(uint32_t i2c, uint8_t period)
 {
-  I2C_TIMINGR(i2c) = (I2C_TIMINGR(i2c) & ~I2C_TIMINGR_SCLL_MASK) | (period << I2C_TIMINGR_SCLL_SHIFT);
+	I2C_TIMINGR(i2c) = (I2C_TIMINGR(i2c) & ~I2C_TIMINGR_SCLL_MASK) |
+			   (period << I2C_TIMINGR_SCLL_SHIFT);
 }
 
 void i2c_enable_stretching(uint32_t i2c)
 {
-  I2C_CR1(i2c) &= ~I2C_CR1_NOSTRETCH;
+	I2C_CR1(i2c) &= ~I2C_CR1_NOSTRETCH;
 }
 
 void i2c_disable_stretching(uint32_t i2c)
 {
-  I2C_CR1(i2c) |= I2C_CR1_NOSTRETCH;
+	I2C_CR1(i2c) |= I2C_CR1_NOSTRETCH;
 }
 
 void i2c_100khz_i2cclk8mhz(uint32_t i2c)
 {
-  i2c_set_prescaler(i2c, 1);
-  i2c_set_scl_low_period(i2c, 0x13);
-  i2c_set_scl_high_period(i2c, 0xF);
-  i2c_set_data_hold_time(i2c, 0x2);
-  i2c_set_data_setup_time(i2c, 0x4);
+	i2c_set_prescaler(i2c, 1);
+	i2c_set_scl_low_period(i2c, 0x13);
+	i2c_set_scl_high_period(i2c, 0xF);
+	i2c_set_data_hold_time(i2c, 0x2);
+	i2c_set_data_setup_time(i2c, 0x4);
 }
 
 void i2c_set_7bit_addr_mode(uint32_t i2c)
 {
-  I2C_CR2(i2c) &= ~I2C_CR2_ADD10;
+	I2C_CR2(i2c) &= ~I2C_CR2_ADD10;
 }
 
 void i2c_set_10bit_addr_mode(uint32_t i2c)
 {
-  I2C_CR2(i2c) |= I2C_CR2_ADD10;
+	I2C_CR2(i2c) |= I2C_CR2_ADD10;
 }
 
 void i2c_set_7bit_address(uint32_t i2c, uint8_t addr)
 {
-  I2C_CR2(i2c) = (I2C_CR2(i2c) & ~I2C_CR2_SADD_7BIT_MASK) | ((addr & 0x7F) << I2C_CR2_SADD_7BIT_SHIFT);
+	I2C_CR2(i2c) = (I2C_CR2(i2c) & ~I2C_CR2_SADD_7BIT_MASK) |
+		       ((addr & 0x7F) << I2C_CR2_SADD_7BIT_SHIFT);
 }
 
 void i2c_set_10bit_address(uint32_t i2c, uint16_t addr)
 {
-  I2C_CR2(i2c) = (I2C_CR2(i2c) & ~I2C_CR2_SADD_10BIT_MASK) | ((addr & 0x3FF) << I2C_CR2_SADD_10BIT_SHIFT);
+	I2C_CR2(i2c) = (I2C_CR2(i2c) & ~I2C_CR2_SADD_10BIT_MASK) |
+		       ((addr & 0x3FF) << I2C_CR2_SADD_10BIT_SHIFT);
 }
 
 void i2c_set_write_transfer_dir(uint32_t i2c)
 {
-  I2C_CR2(i2c) &= ~I2C_CR2_RD_WRN;
+	I2C_CR2(i2c) &= ~I2C_CR2_RD_WRN;
 }
 
 void i2c_set_read_transfer_dir(uint32_t i2c)
 {
-  I2C_CR2(i2c) |= I2C_CR2_RD_WRN;
+	I2C_CR2(i2c) |= I2C_CR2_RD_WRN;
 }
 
 void i2c_set_bytes_to_transfer(uint32_t i2c, uint32_t n_bytes)
 {
-  I2C_CR2(i2c) = (I2C_CR2(i2c) & ~I2C_CR2_NBYTES_MASK) | (n_bytes << I2C_CR2_NBYTES_SHIFT);
+	I2C_CR2(i2c) = (I2C_CR2(i2c) & ~I2C_CR2_NBYTES_MASK) |
+		       (n_bytes << I2C_CR2_NBYTES_SHIFT);
 }
 
 uint8_t i2c_is_start(uint32_t i2c)
 {
-  if ((I2C_CR2(i2c) & I2C_CR2_START) != 0) {
-    return(1);
-  } else {
-    return(0);
-  }
+	if ((I2C_CR2(i2c) & I2C_CR2_START) != 0) {
+		return 1;
+	}
+
+	return 0;
 }
 
 void i2c_enable_autoend(uint32_t i2c)
 {
-  I2C_CR2(i2c) |= I2C_CR2_AUTOEND;
+	I2C_CR2(i2c) |= I2C_CR2_AUTOEND;
 }
 
 void i2c_disable_autoend(uint32_t i2c)
 {
-  I2C_CR2(i2c) &= ~I2C_CR2_AUTOEND;
+	I2C_CR2(i2c) &= ~I2C_CR2_AUTOEND;
 }
 
 uint8_t i2c_nack(uint32_t i2c)
 {
-  if ((I2C_ISR(i2c) & I2C_ISR_NACKF) != 0) {
-    return(1);
-  } else {
-    return(0);
-  }
+	if ((I2C_ISR(i2c) & I2C_ISR_NACKF) != 0) {
+		return 1;
+	}
+
+	return 0;
 }
 
 uint8_t i2c_busy(uint32_t i2c)
 {
-  if ((I2C_ISR(i2c) & I2C_ISR_BUSY) != 0) {
-    return(1);
-  } else {
-    return(0);
-  }
+	if ((I2C_ISR(i2c) & I2C_ISR_BUSY) != 0) {
+		return 1;
+	}
+
+	return 0;
 }
 
 uint8_t i2c_transmit_int_status(uint32_t i2c)
 {
-  if ((I2C_ISR(i2c) & I2C_ISR_TXIS) != 0) {
-    return(1);
-  } else {
-    return(0);
-  }
+	if ((I2C_ISR(i2c) & I2C_ISR_TXIS) != 0) {
+		return 1;
+	}
+
+	return 0;
 }
 
 uint8_t i2c_transfer_complete(uint32_t i2c)
 {
-  if ((I2C_ISR(i2c) & I2C_ISR_TC) != 0) {
-    return(1);
-  } else {
-    return(0);
-  }
+	if ((I2C_ISR(i2c) & I2C_ISR_TC) != 0) {
+		return 1;
+	}
+
+	return 0;
 }
 
 uint8_t i2c_received_data(uint32_t i2c)
 {
-  if ((I2C_ISR(i2c) & I2C_ISR_RXNE) != 0) {
-    return(1);
-  } else {
-    return(0);
-  }
+	if ((I2C_ISR(i2c) & I2C_ISR_RXNE) != 0) {
+		return 1;
+	}
+
+	return 0;
 }
 
 
@@ -398,78 +406,79 @@ void i2c_disable_txdma(uint32_t i2c)
 	I2C_CR1(i2c) &= ~I2C_CR1_TXDMAEN;
 }
 
-void write_i2c(uint32_t i2c, uint8_t i2c_addr, uint8_t reg, uint8_t size, uint8_t *data) {
-  int wait;
-  int i;
-  while (i2c_busy(i2c) == 1) {}
-  while (i2c_is_start(i2c) == 1) {}
-  /*Setting transfer properties*/
-  i2c_set_bytes_to_transfer(i2c, size+1);
-  i2c_set_7bit_address(i2c, (i2c_addr & 0x7F));
-  i2c_set_write_transfer_dir(i2c);
-  i2c_enable_autoend(i2c);
-  /*start transfer*/
-  i2c_send_start(i2c);
-
-  wait=true;
-  while (wait) {
-      if (i2c_transmit_int_status(i2c)) {
-	wait=false;
-      }
-      while (i2c_nack(i2c)){}
-  }
-  i2c_send_data(i2c, reg);
-  for (i=0; i<size; i++) {
-    wait=true;
-    while (wait) {
-	if (i2c_transmit_int_status(i2c)) {
-	  wait=false;
-	}
-	while (i2c_nack(i2c)){}
-    }
-    i2c_send_data(i2c, data[i]);
-  }
-}
-
-void read_i2c(uint32_t i2c, uint8_t i2c_addr, uint8_t reg, uint8_t size, uint8_t *data)
+void write_i2c(uint32_t i2c, uint8_t i2c_addr, uint8_t reg, uint8_t size,
+	       uint8_t *data)
 {
-  int wait;
-  int i;
-  while (i2c_busy(i2c) == 1) {}
-  while (i2c_is_start(i2c) == 1) {}
-  /*Setting transfer properties*/
-  i2c_set_bytes_to_transfer(i2c, 1);
-  i2c_set_7bit_address(i2c, i2c_addr);
-  i2c_set_write_transfer_dir(i2c);
-  i2c_disable_autoend(i2c);
-  /*start transfer*/
-  i2c_send_start(i2c);
+	int wait;
+	int i;
+	while (i2c_busy(i2c) == 1);
+	while (i2c_is_start(i2c) == 1);
+	/*Setting transfer properties*/
+	i2c_set_bytes_to_transfer(i2c, size + 1);
+	i2c_set_7bit_address(i2c, (i2c_addr & 0x7F));
+	i2c_set_write_transfer_dir(i2c);
+	i2c_enable_autoend(i2c);
+	/*start transfer*/
+	i2c_send_start(i2c);
 
-  wait=true;
-  while (wait)
-    {
-      if (i2c_transmit_int_status(i2c)) {
-	wait=false;
-      }
-      while (i2c_nack(i2c)){} /* Some error */
-    }
-  i2c_send_data(i2c, reg);
+	wait = true;
+	while (wait) {
+		if (i2c_transmit_int_status(i2c)) {
+			wait = false;
+		}
+		while (i2c_nack(i2c));
+	}
 
-  while (i2c_is_start(i2c) == 1) {}
-  /*Setting transfer properties*/
-  i2c_set_bytes_to_transfer(i2c, size);
-  i2c_set_7bit_address(i2c, i2c_addr);
-  i2c_set_read_transfer_dir(i2c);
-  i2c_enable_autoend(i2c);
-  /*start transfer*/
-  i2c_send_start(i2c);
-
-  for (i=0; i<size; i++) {
-    while (i2c_received_data(i2c) == 0) {}
-    data[i]=i2c_get_data(i2c);
-  }
+	i2c_send_data(i2c, reg);
+	for (i = 0; i < size; i++) {
+		wait = true;
+		while (wait) {
+			if (i2c_transmit_int_status(i2c)) {
+				wait = false;
+			}
+			while (i2c_nack(i2c));
+		}
+		i2c_send_data(i2c, data[i]);
+	}
 }
 
+void read_i2c(uint32_t i2c, uint8_t i2c_addr, uint8_t reg, uint8_t size,
+	      uint8_t *data)
+{
+	int wait;
+	int i;
+	while (i2c_busy(i2c) == 1);
+	while (i2c_is_start(i2c) == 1);
+	/*Setting transfer properties*/
+	i2c_set_bytes_to_transfer(i2c, 1);
+	i2c_set_7bit_address(i2c, i2c_addr);
+	i2c_set_write_transfer_dir(i2c);
+	i2c_disable_autoend(i2c);
+	/*start transfer*/
+	i2c_send_start(i2c);
+
+	wait = true;
+	while (wait) {
+		if (i2c_transmit_int_status(i2c)) {
+			wait = false;
+		}
+		while (i2c_nack(i2c)); /* Some error */
+	}
+	i2c_send_data(i2c, reg);
+
+	while (i2c_is_start(i2c) == 1);
+	/*Setting transfer properties*/
+	i2c_set_bytes_to_transfer(i2c, size);
+	i2c_set_7bit_address(i2c, i2c_addr);
+	i2c_set_read_transfer_dir(i2c);
+	i2c_enable_autoend(i2c);
+	/*start transfer*/
+	i2c_send_start(i2c);
+
+	for (i = 0; i < size; i++) {
+		while (i2c_received_data(i2c) == 0);
+		data[i] = i2c_get_data(i2c);
+	}
+}
 
 /**@}*/
-

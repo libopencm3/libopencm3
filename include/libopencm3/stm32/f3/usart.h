@@ -253,7 +253,7 @@ LGPL License Terms @ref lgpl_license
 /* ADDM7:7-bit Address Detection/4-bit Address Detection */
 #define USART_CR2_ADDM7			(1 << 4)
 
-/* ADD[3:0]: Addres of the usart node 
+/* ADD[3:0]: Addres of the usart node
 #define USART_CR2_ADD_MASK              0xF */
 
 /* --- USART_CR3 values ---------------------------------------------------- */
@@ -263,13 +263,13 @@ LGPL License Terms @ref lgpl_license
 
 /* WUS[1:0]: Wakeup from Stop mode interrupt flag selectio */
 #define USART_CR3_WUS_ON		(0x0 << 20)
-// RESERVE #define USART_CR3_WUS	(0x1 << 20)
+/* RESERVE #define USART_CR3_WUS	(0x1 << 20) */
 #define USART_CR3_WUS_START_BIT		(0x2 << 20)
 #define USART_CR3_WUS_RXNE		(0x3 << 20)
 
 /* SCARCNT[2:0]: Smartcard auto-retry count */
 #define USART_CR3_SCARCNT_OFF		(0x0 << 17)
-// 0x1 to 0x7: number of automatic retransmission attempts
+/* 0x1 to 0x7: number of automatic retransmission attempts */
 
 /* DEP: Driver enable polarity selection */
 #define USART_CR3_DEP			(1 << 15)
@@ -345,7 +345,7 @@ LGPL License Terms @ref lgpl_license
 
 /* --- USART_RTOR values --------------------------------------------------- */
 
-//Preguntar
+/* XXX: Preguntar */
 /* BLEN[7:0]: Block Length */
 #define USART_RTOR_BLEN1_MASK             (0xFF << 24)
 

@@ -39,7 +39,7 @@ LGPL License Terms @ref lgpl_license
 /* --- Convenience macros -------------------------------------------------- */
 
 /* I2C register base addresses (for convenience) */
-/****************************************************************************/
+/*****************************************************************************/
 /** @defgroup i2c_reg_base I2C register base address
 @ingroup i2c_defines
 
@@ -225,7 +225,7 @@ LGPL License Terms @ref lgpl_license
 
 /* OA1EN: Own Address 1 enable */
 #define I2C_OAR1_OA1EN_DISABLE		(0x0 << 15)
-#define I2C_OAR1_OA1EN_ENABLE		(0x1 <<15)
+#define I2C_OAR1_OA1EN_ENABLE		(0x1 << 15)
 
 /* OA1MODE Own Address 1 10-bit mode */
 #define I2C_OAR1_OA1MODE		(1 << 10)
@@ -258,7 +258,7 @@ LGPL License Terms @ref lgpl_license
 
 /* OA2[7:1]: Interface address */
 
-/* --- I2Cx_TIMINGR values ---------------------------------------------------- */
+/* --- I2Cx_TIMINGR values ------------------------------------------------- */
 
 /* PRESC[3:0]: Timing prescaler (31,28) */
 #define I2C_TIMINGR_PRESC_SHIFT 28
@@ -280,12 +280,12 @@ LGPL License Terms @ref lgpl_license
 #define I2C_TIMINGR_SCLL_SHIFT 0
 #define I2C_TIMINGR_SCLL_MASK (0xFF << I2C_TIMINGR_SCLL_SHIFT)
 
-/* --- I2Cx_TIEMOUTR values ---------------------------------------------------- */
+/* --- I2Cx_TIEMOUTR values ------------------------------------------------ */
 
 /* TEXTEN: Extended clock timeout enable */
 #define I2C_TIEMOUTR_TEXTEN		(1 << 31)
 
-//Not clear yet.
+/* XXX: Not clear yet. */
 /* TIMEOUTB[11:0]: Bus timeout B */
 
 /* TIMOUTEN: Clock timeout enable */
@@ -295,14 +295,14 @@ LGPL License Terms @ref lgpl_license
 #define I2C_TIEMOUTR_TIDLE_SCL_LOW	(0x0 << 12)
 #define I2C_TIEMOUTR_TIDLE_SCL_SDA_HIGH	(0x1 << 12)
 
-//Not clear yet.
+/* XXX: Not clear yet. */
 /* TIMEOUTA[11:0]: Bus Timeout A */
 
-/* --- I2Cx_ISR values ---------------------------------------------------- */
+/* --- I2Cx_ISR values ----------------------------------------------------- */
 
 /* Bits 31:24 Reserved, must be kept at reset value */
 
-//Not clear yet.
+/* XXX: Not clear yet. */
 /* ADDCODE[6:0]: Address match code (Slave mode) */
 
 /* DIR: Transfer direction (Slave mode) */
@@ -354,7 +354,7 @@ LGPL License Terms @ref lgpl_license
 /* TXE: Transmit data register empty (transmitters) */
 #define I2C_ISR_TXE			(1 << 0)
 
-/* --- I2Cx_ICR values ---------------------------------------------------- */
+/* --- I2Cx_ICR values ----------------------------------------------------- */
 
 /* ALERTCF: Alert flag clear */
 #define I2C_ICR_ALERTCF			(1 << 13)
@@ -435,12 +435,13 @@ void i2c_enable_rxdma(uint32_t i2c);
 void i2c_disable_rxdma(uint32_t i2c);
 void i2c_enable_txdma(uint32_t i2c);
 void i2c_disable_txdma(uint32_t i2c);
-void write_i2c(uint32_t i2c, uint8_t i2c_addr, uint8_t reg, uint8_t size, uint8_t *data);
-void read_i2c(uint32_t i2c, uint8_t i2c_addr, uint8_t reg, uint8_t size, uint8_t *data);
+void write_i2c(uint32_t i2c, uint8_t i2c_addr, uint8_t reg,
+	       uint8_t size, uint8_t *data);
+void read_i2c(uint32_t i2c, uint8_t i2c_addr, uint8_t reg,
+	      uint8_t size, uint8_t *data);
 
 END_DECLS
 
 /**@}*/
 
 #endif
-

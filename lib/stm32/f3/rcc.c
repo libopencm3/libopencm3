@@ -30,44 +30,43 @@
 uint32_t rcc_ppre1_frequency = 8000000;
 uint32_t rcc_ppre2_frequency = 8000000;
 
-const clock_scale_t hsi_8mhz[CLOCK_END] =
-{
+const clock_scale_t hsi_8mhz[CLOCK_END] = {
 	{ /* 44MHz */
-	  .pll= RCC_CFGR_PLLMUL_PLL_IN_CLK_X11,
-	  .pllsrc = RCC_CFGR_PLLSRC_HSI_DIV2,
-	  .hpre = RCC_CFGR_HPRE_DIV_NONE,
-	  .ppre1 = RCC_CFGR_PPRE1_DIV_2,
-	  .ppre2 = RCC_CFGR_PPRE2_DIV_NONE,
-	  .power_save = 1,
-	  .flash_config = FLASH_ACR_PRFTBE | FLASH_ACR_LATENCY_1WS,
-	  .apb1_frequency = 22000000,
-	  .apb2_frequency = 44000000,
+		.pll = RCC_CFGR_PLLMUL_PLL_IN_CLK_X11,
+		.pllsrc = RCC_CFGR_PLLSRC_HSI_DIV2,
+		.hpre = RCC_CFGR_HPRE_DIV_NONE,
+		.ppre1 = RCC_CFGR_PPRE1_DIV_2,
+		.ppre2 = RCC_CFGR_PPRE2_DIV_NONE,
+		.power_save = 1,
+		.flash_config = FLASH_ACR_PRFTBE | FLASH_ACR_LATENCY_1WS,
+		.apb1_frequency = 22000000,
+		.apb2_frequency = 44000000,
 	},
 	{ /* 48MHz */
-	  .pll= RCC_CFGR_PLLMUL_PLL_IN_CLK_X12,
-	  .pllsrc = RCC_CFGR_PLLSRC_HSI_DIV2,
-	  .hpre = RCC_CFGR_HPRE_DIV_NONE,
-	  .ppre1 = RCC_CFGR_PPRE1_DIV_2,
-	  .ppre2 = RCC_CFGR_PPRE2_DIV_NONE,
-	  .power_save = 1,
-	  .flash_config = FLASH_ACR_PRFTBE | FLASH_ACR_LATENCY_1WS,
-	  .apb1_frequency = 24000000,
-	  .apb2_frequency = 48000000,
+		.pll = RCC_CFGR_PLLMUL_PLL_IN_CLK_X12,
+		.pllsrc = RCC_CFGR_PLLSRC_HSI_DIV2,
+		.hpre = RCC_CFGR_HPRE_DIV_NONE,
+		.ppre1 = RCC_CFGR_PPRE1_DIV_2,
+		.ppre2 = RCC_CFGR_PPRE2_DIV_NONE,
+		.power_save = 1,
+		.flash_config = FLASH_ACR_PRFTBE | FLASH_ACR_LATENCY_1WS,
+		.apb1_frequency = 24000000,
+		.apb2_frequency = 48000000,
 	},
 	{ /* 64MHz */
-	  .pll= RCC_CFGR_PLLMUL_PLL_IN_CLK_X16,
-	  .pllsrc = RCC_CFGR_PLLSRC_HSI_DIV2,
-	  .hpre = RCC_CFGR_HPRE_DIV_NONE,
-	  .ppre1 = RCC_CFGR_PPRE1_DIV_2,
-	  .ppre2 = RCC_CFGR_PPRE2_DIV_NONE,
-	  .power_save = 1,
-	  .flash_config = FLASH_ACR_PRFTBE| FLASH_ACR_LATENCY_2WS,
-	  .apb1_frequency = 32000000,
-	  .apb2_frequency = 64000000,
+		.pll = RCC_CFGR_PLLMUL_PLL_IN_CLK_X16,
+		.pllsrc = RCC_CFGR_PLLSRC_HSI_DIV2,
+		.hpre = RCC_CFGR_HPRE_DIV_NONE,
+		.ppre1 = RCC_CFGR_PPRE1_DIV_2,
+		.ppre2 = RCC_CFGR_PPRE2_DIV_NONE,
+		.power_save = 1,
+		.flash_config = FLASH_ACR_PRFTBE | FLASH_ACR_LATENCY_2WS,
+		.apb1_frequency = 32000000,
+		.apb2_frequency = 64000000,
 	}
 };
 
-void rcc_osc_ready_int_clear(osc_t osc)
+void rcc_osc_ready_int_clear(enum osc osc)
 {
 	switch (osc) {
 	case PLL:
@@ -88,7 +87,7 @@ void rcc_osc_ready_int_clear(osc_t osc)
 	}
 }
 
-void rcc_osc_ready_int_enable(osc_t osc)
+void rcc_osc_ready_int_enable(enum osc osc)
 {
 	switch (osc) {
 	case PLL:
@@ -109,7 +108,7 @@ void rcc_osc_ready_int_enable(osc_t osc)
 	}
 }
 
-void rcc_osc_ready_int_disable(osc_t osc)
+void rcc_osc_ready_int_disable(enum osc osc)
 {
 	switch (osc) {
 	case PLL:
@@ -130,7 +129,7 @@ void rcc_osc_ready_int_disable(osc_t osc)
 	}
 }
 
-int rcc_osc_ready_int_flag(osc_t osc)
+int rcc_osc_ready_int_flag(enum osc osc)
 {
 	switch (osc) {
 	case PLL:
@@ -163,7 +162,7 @@ int rcc_css_int_flag(void)
 	return ((RCC_CIR & RCC_CIR_CSSF) != 0);
 }
 
-void rcc_wait_for_osc_ready(osc_t osc)
+void rcc_wait_for_osc_ready(enum osc osc)
 {
 	switch (osc) {
 	case PLL:
@@ -185,7 +184,7 @@ void rcc_wait_for_osc_ready(osc_t osc)
 }
 
 
-void rcc_wait_for_osc_not_ready(osc_t osc)
+void rcc_wait_for_osc_not_ready(enum osc osc)
 {
 	switch (osc) {
 	case PLL:
@@ -206,7 +205,7 @@ void rcc_wait_for_osc_not_ready(osc_t osc)
 	}
 }
 
-void rcc_wait_for_sysclk_status(osc_t osc)
+void rcc_wait_for_sysclk_status(enum osc osc)
 {
 	switch (osc) {
 	case PLL:
@@ -224,7 +223,7 @@ void rcc_wait_for_sysclk_status(osc_t osc)
 	}
 }
 
-void rcc_osc_on(osc_t osc)
+void rcc_osc_on(enum osc osc)
 {
 	switch (osc) {
 	case PLL:
@@ -245,7 +244,7 @@ void rcc_osc_on(osc_t osc)
 	}
 }
 
-void rcc_osc_off(osc_t osc)
+void rcc_osc_off(enum osc osc)
 {
 	switch (osc) {
 	case PLL:
@@ -276,7 +275,7 @@ void rcc_css_disable(void)
 	RCC_CR &= ~RCC_CR_CSSON;
 }
 
-void rcc_osc_bypass_enable(osc_t osc)
+void rcc_osc_bypass_enable(enum osc osc)
 {
 	switch (osc) {
 	case HSE:
@@ -293,7 +292,7 @@ void rcc_osc_bypass_enable(osc_t osc)
 	}
 }
 
-void rcc_osc_bypass_disable(osc_t osc)
+void rcc_osc_bypass_disable(enum osc osc)
 {
 	switch (osc) {
 	case HSE:
@@ -341,11 +340,11 @@ void rcc_set_sysclk_source(uint32_t clk)
 
 void rcc_set_pll_source(uint32_t pllsrc)
 {
- 	uint32_t reg32; 
+	uint32_t reg32;
 
- 	reg32 = RCC_CFGR; 
- 	reg32 &= ~RCC_CFGR_PLLSRC;
- 	RCC_CFGR = (reg32 | (pllsrc << 16)); 
+	reg32 = RCC_CFGR;
+	reg32 &= ~RCC_CFGR_PLLSRC;
+	RCC_CFGR = (reg32 | (pllsrc << 16));
 }
 
 void rcc_set_ppre2(uint32_t ppre2)
@@ -378,50 +377,51 @@ void rcc_set_hpre(uint32_t hpre)
 
 void rcc_set_main_pll_hsi(uint32_t pll)
 {
-  RCC_CFGR = (~RCC_CFGR_PLLMUL_MASK & RCC_CFGR) | (pll << RCC_CFGR_PLLMUL_SHIFT);
+	RCC_CFGR = (~RCC_CFGR_PLLMUL_MASK & RCC_CFGR) |
+		   (pll << RCC_CFGR_PLLMUL_SHIFT);
 }
 
 
 uint32_t rcc_get_system_clock_source(void)
 {
 	/* Return the clock source which is used as system clock. */
-	return ((RCC_CFGR & 0x000c) >> 2);
+	return (RCC_CFGR & 0x000c) >> 2;
 }
 
 
 void rcc_clock_setup_hsi(const clock_scale_t *clock)
 {
-  /* Enable internal high-speed oscillator. */
-  rcc_osc_on(HSI);
-  rcc_wait_for_osc_ready(HSI);
-  /* Select HSI as SYSCLK source. */
-  rcc_set_sysclk_source(RCC_CFGR_SW_HSI); //se cayo
-  rcc_wait_for_sysclk_status(HSI);
+	/* Enable internal high-speed oscillator. */
+	rcc_osc_on(HSI);
+	rcc_wait_for_osc_ready(HSI);
+	/* Select HSI as SYSCLK source. */
+	rcc_set_sysclk_source(RCC_CFGR_SW_HSI); /* XXX: se cayo */
+	rcc_wait_for_sysclk_status(HSI);
 
-  rcc_osc_off(PLL);
-  rcc_wait_for_osc_not_ready(PLL);
-  rcc_set_pll_source(clock->pllsrc);
-  rcc_set_main_pll_hsi(clock->pll);
-  /* Enable PLL oscillator and wait for it to stabilize. */
-  rcc_osc_on(PLL);
-  rcc_wait_for_osc_ready(PLL);
-  /*
-   * Set prescalers for AHB, ADC, ABP1, ABP2.
-   * Do this before touching the PLL (TODO: why?).
-   */
-  rcc_set_hpre(clock->hpre);
-  rcc_set_ppre2(clock->ppre2);
-  rcc_set_ppre1(clock->ppre1);
-  /* Configure flash settings. */
-  flash_set_ws(clock->flash_config);
-  /* Select PLL as SYSCLK source. */
-  rcc_set_sysclk_source(RCC_CFGR_SW_PLL); //se cayo
-  /* Wait for PLL clock to be selected. */
-  rcc_wait_for_sysclk_status(PLL);
+	rcc_osc_off(PLL);
+	rcc_wait_for_osc_not_ready(PLL);
+	rcc_set_pll_source(clock->pllsrc);
+	rcc_set_main_pll_hsi(clock->pll);
+	/* Enable PLL oscillator and wait for it to stabilize. */
+	rcc_osc_on(PLL);
+	rcc_wait_for_osc_ready(PLL);
+	/*
+	 * Set prescalers for AHB, ADC, ABP1, ABP2.
+	 * Do this before touching the PLL (TODO: why?).
+	 */
+	rcc_set_hpre(clock->hpre);
+	rcc_set_ppre2(clock->ppre2);
+	rcc_set_ppre1(clock->ppre1);
+	/* Configure flash settings. */
+	flash_set_ws(clock->flash_config);
+	/* Select PLL as SYSCLK source. */
+	rcc_set_sysclk_source(RCC_CFGR_SW_PLL); /* XXX: se cayo */
+	/* Wait for PLL clock to be selected. */
+	rcc_wait_for_sysclk_status(PLL);
 
-  /* Set the peripheral clock frequencies used. */
-  rcc_ppre1_frequency = clock->apb1_frequency;
-  rcc_ppre2_frequency = clock->apb2_frequency;
+	/* Set the peripheral clock frequencies used. */
+	rcc_ppre1_frequency = clock->apb1_frequency;
+	rcc_ppre2_frequency = clock->apb2_frequency;
 }
 
 
@@ -434,35 +434,37 @@ void rcc_backupdomain_reset(void)
 	RCC_BDCR &= ~RCC_BDCR_BDRST;
 }
 
-void rcc_set_i2c_clock_hsi(uint32_t i2c) {
-  if (i2c==I2C1) {
-    RCC_CFGR3 &= ~RCC_CFGR3_I2C1SW;
-  }
-  if (i2c==I2C2) {
-    RCC_CFGR3 &= ~RCC_CFGR3_I2C2SW;
-  }
+void rcc_set_i2c_clock_hsi(uint32_t i2c)
+{
+	if (i2c == I2C1) {
+		RCC_CFGR3 &= ~RCC_CFGR3_I2C1SW;
+	}
+	if (i2c == I2C2) {
+		RCC_CFGR3 &= ~RCC_CFGR3_I2C2SW;
+	}
 }
 
-void rcc_set_i2c_clock_sysclk(uint32_t i2c) {
-  if (i2c==I2C1) {
-    RCC_CFGR3 |= RCC_CFGR3_I2C1SW;
-  }
-  if (i2c==I2C2) {
-    RCC_CFGR3 |= RCC_CFGR3_I2C2SW;
-  }
+void rcc_set_i2c_clock_sysclk(uint32_t i2c)
+{
+	if (i2c == I2C1) {
+		RCC_CFGR3 |= RCC_CFGR3_I2C1SW;
+	}
+	if (i2c == I2C2) {
+		RCC_CFGR3 |= RCC_CFGR3_I2C2SW;
+	}
 }
 
 uint32_t rcc_get_i2c_clocks(void)
 {
-  return(RCC_CFGR3 & (RCC_CFGR3_I2C1SW | RCC_CFGR3_I2C2SW));
+	return RCC_CFGR3 & (RCC_CFGR3_I2C1SW | RCC_CFGR3_I2C2SW);
 }
 
 void rcc_usb_prescale_1_5(void)
 {
-  RCC_CFGR &= ~RCC_CFGR_USBPRES;
+	RCC_CFGR &= ~RCC_CFGR_USBPRES;
 }
 
 void rcc_usb_prescale_1(void)
 {
-  RCC_CFGR |= RCC_CFGR_USBPRES;
+	RCC_CFGR |= RCC_CFGR_USBPRES;
 }

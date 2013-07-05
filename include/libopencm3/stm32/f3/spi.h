@@ -63,7 +63,7 @@ LGPL License Terms @ref lgpl_license
 #define SPI_CR2_FRXTH			(1 << 12)
 
 /* DS [3:0]: Data size */
-// 0x0 - 0x2 NOT USED
+/* 0x0 - 0x2 NOT USED */
 #define SPI_CR2_DS_4BIT			(0x3 << 8)
 #define SPI_CR2_DS_5BIT			(0x4 << 8)
 #define SPI_CR2_DS_6BIT			(0x5 << 8)

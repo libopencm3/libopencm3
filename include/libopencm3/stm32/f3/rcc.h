@@ -67,7 +67,7 @@
 /* MCO: Microcontroller clock output */
 #define RCC_CFGR_MCO_SHIFT			24
 #define RCC_CFGR_MCO_DISABLED			0x0
-//Reserve RCC_CFGR_MCO				0x1
+/*Reserve RCC_CFGR_MCO				0x1*/
 #define RCC_CFGR_MCO_LSI			0x2
 #define RCC_CFGR_MCO_LSE			0x3
 #define RCC_CFGR_MCO_SYSCLK			0x4
@@ -100,47 +100,47 @@
 
 /* PPRE2: APB high-speed prescaler (APB2) */
 #define RCC_CFGR_PPRE2_SHIFT			11
-// 0XX: HCLK not divided
-#define RCC_CFGR_PPRE2_DIV_NONE            0x0
+/* 0XX: HCLK not divided */
+#define RCC_CFGR_PPRE2_DIV_NONE			0x0
 
-#define RCC_CFGR_PPRE2_DIV_2               0x4
-#define RCC_CFGR_PPRE2_DIV_4               0x5
-#define RCC_CFGR_PPRE2_DIV_8               0x6
-#define RCC_CFGR_PPRE2_DIV_16              0x7
+#define RCC_CFGR_PPRE2_DIV_2			0x4
+#define RCC_CFGR_PPRE2_DIV_4			0x5
+#define RCC_CFGR_PPRE2_DIV_8			0x6
+#define RCC_CFGR_PPRE2_DIV_16			0x7
 
 /* PPRE1:APB Low-speed prescaler (APB1) */
 #define RCC_CFGR_PPRE1_SHIFT			8
-// 0XX: HCLK not divided
-#define RCC_CFGR_PPRE1_DIV_NONE            0x0
-#define RCC_CFGR_PPRE1_DIV_2               0x4
-#define RCC_CFGR_PPRE1_DIV_4               0x5
-#define RCC_CFGR_PPRE1_DIV_8               0x6
-#define RCC_CFGR_PPRE1_DIV_16              0x7
+/* 0XX: HCLK not divided */
+#define RCC_CFGR_PPRE1_DIV_NONE			0x0
+#define RCC_CFGR_PPRE1_DIV_2			0x4
+#define RCC_CFGR_PPRE1_DIV_4			0x5
+#define RCC_CFGR_PPRE1_DIV_8			0x6
+#define RCC_CFGR_PPRE1_DIV_16			0x7
 
 /* HPRE: HLCK prescaler */
-#define RCC_CFGR_HPRE_SHIFT                     4
-// 0XXX: SYSCLK not divided
-#define RCC_CFGR_HPRE_DIV_NONE  	         0x0
-#define RCC_CFGR_HPRE_DIV_2     	         0x8
-#define RCC_CFGR_HPRE_DIV_4     	         0x9
-#define RCC_CFGR_HPRE_DIV_8     	         0xA
-#define RCC_CFGR_HPRE_DIV_16    	         0xB
-#define RCC_CFGR_HPRE_DIV_64    	         0xC
-#define RCC_CFGR_HPRE_DIV_128   	         0xD
-#define RCC_CFGR_HPRE_DIV_256   	         0xE
-#define RCC_CFGR_HPRE_DIV_512	                 0xF
+#define RCC_CFGR_HPRE_SHIFT			4
+/* 0XXX: SYSCLK not divided */
+#define RCC_CFGR_HPRE_DIV_NONE			0x0
+#define RCC_CFGR_HPRE_DIV_2			0x8
+#define RCC_CFGR_HPRE_DIV_4			0x9
+#define RCC_CFGR_HPRE_DIV_8			0xA
+#define RCC_CFGR_HPRE_DIV_16			0xB
+#define RCC_CFGR_HPRE_DIV_64			0xC
+#define RCC_CFGR_HPRE_DIV_128			0xD
+#define RCC_CFGR_HPRE_DIV_256			0xE
+#define RCC_CFGR_HPRE_DIV_512			0xF
 
 /* SWS: System clock switch status */
-#define RCC_CFGR_SWS_SHIFT                      2
-#define RCC_CFGR_SWS_HSI                        0x0
-#define RCC_CFGR_SWS_HSE                        0x1
-#define RCC_CFGR_SWS_PLL                        0x2
+#define RCC_CFGR_SWS_SHIFT			2
+#define RCC_CFGR_SWS_HSI			0x0
+#define RCC_CFGR_SWS_HSE			0x1
+#define RCC_CFGR_SWS_PLL			0x2
 
 /* SW: System clock switch */
-#define RCC_CFGR_SW_SHIFT                       0
-#define RCC_CFGR_SW_HSI                         0x0
-#define RCC_CFGR_SW_HSE                         0x1
-#define RCC_CFGR_SW_PLL                         0x2
+#define RCC_CFGR_SW_SHIFT			0
+#define RCC_CFGR_SW_HSI				0x0
+#define RCC_CFGR_SW_HSE				0x1
+#define RCC_CFGR_SW_PLL				0x2
 
 /* --- RCC_CIR values ------------------------------------------------------ */
 
@@ -203,7 +203,7 @@
 #define RCC_APB1RSTR_TIM3RST			(1 << 1)
 #define RCC_APB1RSTR_TIM2RST			(1 << 0)
 
-/* --- RCC_AHBENR values ------------------------------------------------- */
+/* --- RCC_AHBENR values --------------------------------------------------- */
 #define RCC_AHBENR_ADC34EN			(1 << 29)
 #define RCC_AHBENR_ADC12EN			(1 << 28)
 #define RCC_AHBENR_TSCEN			(1 << 24)
@@ -215,7 +215,7 @@
 #define RCC_AHBENR_IOPAEN			(1 << 17)
 #define RCC_AHBENR_CRCEN			(1 << 1)
 
-/* --- RCC_APB2ENR values ------------------------------------------------- */
+/* --- RCC_APB2ENR values -------------------------------------------------- */
 
 #define RCC_APB2ENR_TIM17EN			(1 << 18)
 #define RCC_APB2ENR_TIM16EN			(1 << 17)
@@ -226,7 +226,7 @@
 #define RCC_APB2ENR_TIM1EN			(1 << 11)
 #define RCC_APB2ENR_SYSCFGEN			(1 << 0)
 
-/* --- RCC_APB1ENR values ------------------------------------------------- */
+/* --- RCC_APB1ENR values -------------------------------------------------- */
 
 #define RCC_APB1ENR_DACEN			(1 << 29)
 #define RCC_APB1ENR_PWREN			(1 << 28)
@@ -267,7 +267,7 @@
 #define RCC_CSR_LSIRDY				(1 << 1)
 #define RCC_CSR_LSION				(1 << 0)
 
-/* --- RCC_AHBRSTR values ------------------------------------------------------ */
+/* --- RCC_AHBRSTR values -------------------------------------------------- */
 #define RCC_AHBRSTR_ADC34RST			(1 << 29)
 #define RCC_AHBRSTR_ADC12RST			(1 << 28)
 #define RCC_AHBRSTR_TSCRST			(1 << 24)
@@ -278,7 +278,7 @@
 #define RCC_AHBRSTR_IOPBRST			(1 << 18)
 #define RCC_AHBRSTR_IOPARST			(1 << 17)
 
-/* --- RCC_CFGR2 values ------------------------------------------------------ */
+/* --- RCC_CFGR2 values ---------------------------------------------------- */
 /* ADC34PRES: ADC34 prescaler */
 #define RCC_CFGR2_ADC34PRES_SHIFT		9
 #define RCC_CFGR2_ADC34PRES_PLL_CLK_DIV_1	0x10
@@ -293,11 +293,11 @@
 #define RCC_CFGR2_ADC34PRES_PLL_CLK_DIV_64	0x19
 #define RCC_CFGR2_ADC34PRES_PLL_CLK_DIV_128	0x1A
 #define RCC_CFGR2_ADC34PRES_PLL_CLK_DIV_256	0x1B
-//OTHERS
-//#define RCC_CFGR2_ADC34PRES_PLL_CLK_DIV256	0x
+/* OTHERS */
+/* #define RCC_CFGR2_ADC34PRES_PLL_CLK_DIV256	0x */
 
 /* ADC12PRES ADC prescaler */
-//REVISAR DIRECCIONES
+/* REVISAR DIRECCIONES */
 #define RCC_CFGR2_ADC12PRES_SHIFT		4
 #define RCC_CFGR2_ADC12PRES_PLL_CLK_DIV_1	0x10
 #define RCC_CFGR2_ADC12PRES_PLL_CLK_DIV_2	0x11
@@ -311,11 +311,11 @@
 #define RCC_CFGR2_ADC12PRES_PLL_CLK_DIV_64	0x19
 #define RCC_CFGR2_ADC12PRES_PLL_CLK_DIV_128	0x1A
 #define RCC_CFGR2_ADC12PRES_PLL_CLK_DIV_256	0x1B
-//OTHERS
-//#define RCC_CFGR2_ADC12PRES_PLL_CLK_DIV256	0x
+/* OTHERS */
+/* #define RCC_CFGR2_ADC12PRES_PLL_CLK_DIV256	0x */
 
 /* PREDIV[3:0] PREDIV division factor */
-//REVISAR DIRECCIONES
+/* REVISAR DIRECCIONES */
 #define RCC_CFGR2_PREDIV_SHIFT			0
 #define RCC_CFGR2_PREDIV_HSE_IN_PLL_DIV_NONE	0x0
 #define RCC_CFGR2_PREDIV_HSE_IN_PLL_DIV_2	0x1
@@ -334,7 +334,7 @@
 #define RCC_CFGR2_PREDIV_HSE_IN_PLL_DIV_15	0xE
 #define RCC_CFGR2_PREDIV_HSE_IN_PLL_DIV_16	0xF
 
-/* --- RCC_CFGR3 values ------------------------------------------------------ */
+/* --- RCC_CFGR3 values ---------------------------------------------------- */
 #define RCC_CFGR3_TIM8SW			(1 << 9)
 #define RCC_CFGR3_TIM1SW			(1 << 8)
 #define RCC_CFGR3_I2C2SW			(1 << 5)
@@ -377,48 +377,48 @@ extern uint32_t rcc_ppre2_frequency;
 
 /* --- Function prototypes ------------------------------------------------- */
 
-typedef enum {
-  CLOCK_44MHZ,
-  CLOCK_48MHZ,
-  CLOCK_64MHZ,
-  CLOCK_END
-} rcc_clock_t;
+enum rcc_clock {
+	CLOCK_44MHZ,
+	CLOCK_48MHZ,
+	CLOCK_64MHZ,
+	CLOCK_END
+};
 
 typedef struct {
-  uint8_t pll;
-  uint8_t pllsrc;
-  uint32_t flash_config;
-  uint8_t hpre;
-  uint8_t ppre1;
-  uint8_t ppre2;
-  uint8_t power_save;
-  uint32_t apb1_frequency;
-  uint32_t apb2_frequency;
+	uint8_t pll;
+	uint8_t pllsrc;
+	uint32_t flash_config;
+	uint8_t hpre;
+	uint8_t ppre1;
+	uint8_t ppre2;
+	uint8_t power_save;
+	uint32_t apb1_frequency;
+	uint32_t apb2_frequency;
 } clock_scale_t;
 
 extern const clock_scale_t hsi_8mhz[CLOCK_END];
 
-typedef enum {
+enum osc {
 	PLL, HSE, HSI, LSE, LSI
 } osc_t;
 
 BEGIN_DECLS
 
-void rcc_osc_ready_int_clear(osc_t osc);
-void rcc_osc_ready_int_enable(osc_t osc);
-void rcc_osc_ready_int_disable(osc_t osc);
-int rcc_osc_ready_int_flag(osc_t osc);
+void rcc_osc_ready_int_clear(enum osc osc);
+void rcc_osc_ready_int_enable(enum osc osc);
+void rcc_osc_ready_int_disable(enum osc osc);
+int rcc_osc_ready_int_flag(enum osc osc);
 void rcc_css_int_clear(void);
 int rcc_css_int_flag(void);
-void rcc_wait_for_osc_ready(osc_t osc);
-void rcc_wait_for_osc_not_ready(osc_t osc);
-void rcc_wait_for_sysclk_status(osc_t osc);
-void rcc_osc_on(osc_t osc);
-void rcc_osc_off(osc_t osc);
+void rcc_wait_for_osc_ready(enum osc osc);
+void rcc_wait_for_osc_not_ready(enum osc osc);
+void rcc_wait_for_sysclk_status(enum osc osc);
+void rcc_osc_on(enum osc osc);
+void rcc_osc_off(enum osc osc);
 void rcc_css_enable(void);
 void rcc_css_disable(void);
-void rcc_osc_bypass_enable(osc_t osc);
-void rcc_osc_bypass_disable(osc_t osc);
+void rcc_osc_bypass_enable(enum osc osc);
+void rcc_osc_bypass_disable(enum osc osc);
 void rcc_peripheral_enable_clock(volatile uint32_t *reg, uint32_t en);
 void rcc_peripheral_disable_clock(volatile uint32_t *reg, uint32_t en);
 void rcc_peripheral_reset(volatile uint32_t *reg, uint32_t reset);

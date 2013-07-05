@@ -36,7 +36,7 @@ LGPL License Terms @ref lgpl_license
 #include <libopencm3/stm32/memorymap.h>
 #include <libopencm3/stm32/common/crc_common_all.h>
 
-/* --- CRC registers ------------------------------------------------------- */ 
+/* --- CRC registers ------------------------------------------------------- */
 
 /* Initial CRC value (CRC_INIT) */
 #define CRC_INIT			MMIO32(CRC_BASE + 0x10)
@@ -61,11 +61,11 @@ LGPL License Terms @ref lgpl_license
 #define CRC_CR_POLYSIZE_8		(0x2 << 3)
 #define CRC_CR_POLYSIZE_7		(0x3 << 3)
 
-/* --- CRC_INIT values ------------------------------------------------------- */
+/* --- CRC_INIT values ----------------------------------------------------- */
 
 /* Bits 31:0 CRC_INIT: Programmable initial CRC value */
 
-/* --- CRC_POL values ------------------------------------------------------- */
+/* --- CRC_POL values ------------------------------------------------------ */
 
 /* Bits 31:0 POL[31:0]: Programmable polynomial */
 
