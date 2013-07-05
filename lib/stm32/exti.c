@@ -2,6 +2,7 @@
  * This file is part of the libopencm3 project.
  *
  * Copyright (C) 2010 Mark Butler <mbutler@physics.otago.ac.nz>
+ * Copyright (C) 2012 Karl Palsson <karlp@tweak.net.au>
  *
  * This library is free software: you can redistribute it and/or modify
  * it under the terms of the GNU Lesser General Public License as published by
@@ -15,10 +16,16 @@
  *
  * You should have received a copy of the GNU Lesser General Public License
  * along with this library.  If not, see <http://www.gnu.org/licenses/>.
+ *
+ * This provides the code for the "next gen" EXTI block provided in F2/F4/L1
+ * devices.  (differences only in the source selection)
  */
 
 #include <libopencm3/stm32/exti.h>
-#include <libopencm3/stm32/f1/gpio.h>
+#if defined(STM32L1) || defined(STM32F2) || defined(STM32F3) || defined(STM32F4)
+#include <libopencm3/stm32/syscfg.h>
+#endif
+#include <libopencm3/stm32/gpio.h>
 
 void exti_set_trigger(uint32_t extis, exti_trigger_type trig)
 {
@@ -62,7 +69,7 @@ void exti_disable_request(uint32_t extis)
  */
 void exti_reset_request(uint32_t extis)
 {
-	EXTI_PR |= extis;
+	EXTI_PR = extis;
 }
 
 /*
@@ -128,14 +135,29 @@ void exti_select_source(uint32_t exti, uint32_t gpioport)
 	case GPIOE:
 		bits = 0xb;
 		break;
+#if defined(STM32F1) || defined(STM32F2) || defined(STM32F3) || defined(STM32F4)
 	case GPIOF:
 		bits = 0xa;
 		break;
+#endif
+#if defined(STM32F1) || defined(STM32F2) || defined(STM32F4)
 	case GPIOG:
 		bits = 0x9;
 		break;
+#endif
+#if defined(STM32L1) || defined(STM32F2) || defined(STM32F4)
+	case GPIOH:
+		bits = 0x8;
+		break;
+#endif
+#if defined(STM32F2) || defined(STM32F4)
+	case GPIOI:
+		bits = 0x7;
+		break;
+#endif
 	}
 
+#if defined(STM32F1)
 	/* Ensure that only valid EXTI lines are used. */
 	if (exti < EXTI4) {
 		AFIO_EXTICR1 &= ~(0x000F << shift);
@@ -150,4 +172,20 @@ void exti_select_source(uint32_t exti, uint32_t gpioport)
 		AFIO_EXTICR4 &= ~(0x000F << shift);
 		AFIO_EXTICR4 |= (~bits << shift);
 	}
+#else
+	/* Ensure that only valid EXTI lines are used. */
+	if (exti < EXTI4) {
+		SYSCFG_EXTICR1 &= ~(0x000F << shift);
+		SYSCFG_EXTICR1 |= (~bits << shift);
+	} else if (exti < EXTI8) {
+		SYSCFG_EXTICR2 &= ~(0x000F << shift);
+		SYSCFG_EXTICR2 |= (~bits << shift);
+	} else if (exti < EXTI12) {
+		SYSCFG_EXTICR3 &= ~(0x000F << shift);
+		SYSCFG_EXTICR3 |= (~bits << shift);
+	} else if (exti < EXTI16) {
+		SYSCFG_EXTICR4 &= ~(0x000F << shift);
+		SYSCFG_EXTICR4 |= (~bits << shift);
+	}
+#endif
 }

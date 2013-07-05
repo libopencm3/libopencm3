@@ -32,7 +32,7 @@ CFLAGS		= -Os -g \
 		  -ffunction-sections -fdata-sections -MD -DSTM32L1
 # ARFLAGS	= rcsv
 ARFLAGS		= rcs
-OBJS		= crc.o desig.o exti2.o flash.o rcc.o usart.o
+OBJS		= crc.o desig.o exti.o flash.o rcc.o usart.o
 OBJS		+= crc_common_all.o dac_common_all.o
 OBJS		+= dma_common_f13.o
 OBJS		+= gpio_common_all.o gpio_common_f234.o
