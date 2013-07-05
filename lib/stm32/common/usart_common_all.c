@@ -61,18 +61,6 @@ void usart_set_baudrate(uint32_t usart, uint32_t baud)
 	}
 #endif
 
-#if defined STM32F3
-	if (usart == USART1) {
-	  /* usart1 can be clocked from appart from pclk1 also from sysclk,
-	     hsi and lse. Please improve! */
-	  clock = rcc_ppre2_frequency;
-	}
-	else {
-	  /*There are from usart1 to usart5 interfaces in the stm32f3*/
-	  clock = rcc_ppre1_frequency;
-	}
-#endif
-
 	/*
 	 * Yes it is as simple as that. The reference manual is
 	 * talking about fractional calculation but it seems to be only
@@ -206,84 +194,6 @@ usart_reg_base
 void usart_disable(uint32_t usart)
 {
 	USART_CR1(usart) &= ~USART_CR1_UE;
-}
-
-/*---------------------------------------------------------------------------*/
-/** @brief USART Send a Data Word.
-
-@param[in] usart unsigned 32 bit. USART block register address base @ref
-usart_reg_base
-@param[in] data unsigned 16 bit.
-*/
-
-void usart_send(uint32_t usart, uint16_t data)
-{
-	/* Send data. */
-#if !defined(STM32F3)
-	USART_DR(usart) = (data & USART_DR_MASK);
-#else
-	USART_TDR(usart) = (data & USART_TDR_MASK);
-#endif
-}
-
-/*---------------------------------------------------------------------------*/
-/** @brief USART Read a Received Data Word.
-
-If parity is enabled the MSB (bit 7 or 8 depending on the word length) is the
-parity bit.
-
-@param[in] usart unsigned 32 bit. USART block register address base @ref
-usart_reg_base
-@returns unsigned 16 bit data word.
-*/
-
-uint16_t usart_recv(uint32_t usart)
-{
-	/* Receive data. */
-#if !defined(STM32F3)
-	return USART_DR(usart) & USART_DR_MASK;
-#else
-	return USART_RDR(usart) & USART_RDR_MASK;
-#endif
-}
-
-/*---------------------------------------------------------------------------*/
-/** @brief USART Wait for Transmit Data Buffer Empty
-
-Blocks until the transmit data buffer becomes empty and is ready to accept the
-next data word.
-
-@param[in] usart unsigned 32 bit. USART block register address base @ref
-usart_reg_base
-*/
-
-void usart_wait_send_ready(uint32_t usart)
-{
-	/* Wait until the data has been transferred into the shift register. */
-#if !defined(STM32F3)
-	while ((USART_SR(usart) & USART_SR_TXE) == 0);
-#else
-	while ((USART_ISR(usart) & USART_ISR_TXE) == 0);
-#endif
-}
-
-/*---------------------------------------------------------------------------*/
-/** @brief USART Wait for Received Data Available
-
-Blocks until the receive data buffer holds a valid received data word.
-
-@param[in] usart unsigned 32 bit. USART block register address base @ref
-usart_reg_base
-*/
-
-void usart_wait_recv_ready(uint32_t usart)
-{
-	/* Wait until the data is ready to be received. */
-#if !defined(STM32F3)
-	while ((USART_SR(usart) & USART_SR_RXNE) == 0);
-#else
-	while ((USART_ISR(usart) & USART_ISR_RXNE) == 0);
-#endif
 }
 
 /*---------------------------------------------------------------------------*/
@@ -451,65 +361,6 @@ usart_reg_base
 void usart_disable_error_interrupt(uint32_t usart)
 {
 	USART_CR3(usart) &= ~USART_CR3_EIE;
-}
-
-/*---------------------------------------------------------------------------*/
-/** @brief USART Read a Status Flag.
-
-@param[in] usart unsigned 32 bit. USART block register address base @ref
-usart_reg_base
-@param[in] flag Unsigned int32. Status register flag  @ref usart_sr_flags.
-@returns boolean: flag set.
-*/
-
-bool usart_get_flag(uint32_t usart, uint32_t flag)
-{
-#if !defined(STM32F3)
-	return ((USART_SR(usart) & flag) != 0);
-#else
-	return ((USART_ISR(usart) & flag) != 0);
-#endif
-}
-
-/*---------------------------------------------------------------------------*/
-/** @brief USART Return Interrupt Source.
-
-Returns true if the specified interrupt flag (IDLE, RXNE, TC, TXE or OE) was
-set and the interrupt was enabled. If the specified flag is not an interrupt
-flag, the function returns false.
-
-@todo  These are the most important interrupts likely to be used. Others
-relating to LIN break, and error conditions in multibuffer communication, need
-to be added for completeness.
-
-@param[in] usart unsigned 32 bit. USART block register address base @ref
-usart_reg_base
-@param[in] flag Unsigned int32. Status register flag  @ref usart_sr_flags.
-@returns boolean: flag and interrupt enable both set.
-*/
-
-bool usart_get_interrupt_source(uint32_t usart, uint32_t flag)
-{
-#if !defined(STM32F3)
-        uint32_t flag_set = (USART_SR(usart) & flag);
-	/* IDLE, RXNE, TC, TXE interrupts */
-	if ((flag >= USART_SR_IDLE) && (flag <= USART_SR_TXE)) {
-#else
-        uint32_t flag_set = (USART_ISR(usart) & flag);
-	/* IDLE, RXNE, TC, TXE interrupts */
-	if ((flag >= USART_ISR_IDLE) && (flag <= USART_ISR_TXE)) {
-#endif
-		return ((flag_set & USART_CR1(usart)) != 0);
-	/* Overrun error */
-#if !defined(STM32F3)
-	} else if (flag == USART_SR_ORE) {
-#else
-	} else if (flag == USART_ISR_ORE) {
-#endif
-		return flag_set && (USART_CR3(usart) & USART_CR3_CTSIE);
-	}
-
-	return false;
 }
 
 /**@}*/

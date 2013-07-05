@@ -1,18 +1,18 @@
-/** @defgroup usart_file USART
+/** @addtogroup usart_file
 
-@ingroup STM32F3xx
+@author @htmlonly &copy; @endhtmlonly 2009 Uwe Hermann <uwe@hermann-uwe.de>
 
-@brief <b>libopencm3 STM32F3xx USART</b>
+This library supports the USART/UART in the STM32F series
+of ARM Cortex Microcontrollers by ST Microelectronics.
 
-@version 1.0.0
+Devices can have up to 3 USARTs and 2 UARTs.
 
-@date 30 August 2012
-
-LGPL License Terms @ref lgpl_license
 */
 
 /*
  * This file is part of the libopencm3 project.
+ *
+ * Copyright (C) 2009 Uwe Hermann <uwe@hermann-uwe.de>
  *
  * This library is free software: you can redistribute it and/or modify
  * it under the terms of the GNU Lesser General Public License as published by
@@ -28,8 +28,10 @@ LGPL License Terms @ref lgpl_license
  * along with this library.  If not, see <http://www.gnu.org/licenses/>.
  */
 
+/**@{*/
+
 #include <libopencm3/stm32/usart.h>
-#include <libopencm3/stm32/common/usart_common_all.h>
+#include <libopencm3/stm32/rcc.h>
 
 /*---------------------------------------------------------------------------*/
 /** @brief USART Send a Data Word.
@@ -42,7 +44,7 @@ usart_reg_base
 void usart_send(uint32_t usart, uint16_t data)
 {
 	/* Send data. */
-	USART_TDR(usart) = (data & USART_TDR_MASK);
+	USART_DR(usart) = (data & USART_DR_MASK);
 }
 
 /*---------------------------------------------------------------------------*/
@@ -59,7 +61,7 @@ usart_reg_base
 uint16_t usart_recv(uint32_t usart)
 {
 	/* Receive data. */
-	return USART_RDR(usart) & USART_RDR_MASK;
+	return USART_DR(usart) & USART_DR_MASK;
 }
 
 /*---------------------------------------------------------------------------*/
@@ -75,7 +77,7 @@ usart_reg_base
 void usart_wait_send_ready(uint32_t usart)
 {
 	/* Wait until the data has been transferred into the shift register. */
-	while ((USART_ISR(usart) & USART_ISR_TXE) == 0);
+	while ((USART_SR(usart) & USART_SR_TXE) == 0);
 }
 
 /*---------------------------------------------------------------------------*/
@@ -90,7 +92,7 @@ usart_reg_base
 void usart_wait_recv_ready(uint32_t usart)
 {
 	/* Wait until the data is ready to be received. */
-	while ((USART_ISR(usart) & USART_ISR_RXNE) == 0);
+	while ((USART_SR(usart) & USART_SR_RXNE) == 0);
 }
 
 /*---------------------------------------------------------------------------*/
@@ -104,7 +106,7 @@ usart_reg_base
 
 bool usart_get_flag(uint32_t usart, uint32_t flag)
 {
-	return ((USART_ISR(usart) & flag) != 0);
+	return ((USART_SR(usart) & flag) != 0);
 }
 
 /*---------------------------------------------------------------------------*/
@@ -126,12 +128,12 @@ usart_reg_base
 
 bool usart_get_interrupt_source(uint32_t usart, uint32_t flag)
 {
-        uint32_t flag_set = (USART_ISR(usart) & flag);
+	uint32_t flag_set = (USART_SR(usart) & flag);
 	/* IDLE, RXNE, TC, TXE interrupts */
-	if ((flag >= USART_ISR_IDLE) && (flag <= USART_ISR_TXE)) {
+	if ((flag >= USART_SR_IDLE) && (flag <= USART_SR_TXE)) {
 		return ((flag_set & USART_CR1(usart)) != 0);
 	/* Overrun error */
-	} else if (flag == USART_ISR_ORE) {
+	} else if (flag == USART_SR_ORE) {
 		return flag_set && (USART_CR3(usart) & USART_CR3_CTSIE);
 	}
 
