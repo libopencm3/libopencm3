@@ -1,0 +1,20 @@
+libopencm3 Linker script generator
+5 July 2013 (C) Franisek Burian
+-------------------------------
+
+This folder contains files needed for the automatic linker script generation 
+mechanism developed for libopencm3 library.
+
+FILE CONTENTS
+-------------
+
+* devices.data - device database file, containing 
+* Makefile.linker - Common makefile part, ready to be included in user files
+
+HACKING
+-------
+
+EXAMPLE OF USE
+--------------
+
+* See Makefile.example file
