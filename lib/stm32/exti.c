@@ -27,7 +27,7 @@
 #endif
 #include <libopencm3/stm32/gpio.h>
 
-void exti_set_trigger(uint32_t extis, exti_trigger_type trig)
+void exti_set_trigger(uint32_t extis, enum exti_trigger_type trig)
 {
 	switch (trig) {
 	case EXTI_TRIGGER_RISING:

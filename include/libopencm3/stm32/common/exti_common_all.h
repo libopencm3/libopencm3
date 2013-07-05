@@ -58,15 +58,15 @@
 #define EXTI19				(1 << 19)
 
 /* Trigger types */
-typedef enum trigger_e {
+enum exti_trigger_type {
 	EXTI_TRIGGER_RISING,
 	EXTI_TRIGGER_FALLING,
 	EXTI_TRIGGER_BOTH,
-} exti_trigger_type;
+};
 
 BEGIN_DECLS
 
-void exti_set_trigger(uint32_t extis, exti_trigger_type trig);
+void exti_set_trigger(uint32_t extis, enum exti_trigger_type trig);
 void exti_enable_request(uint32_t extis);
 void exti_disable_request(uint32_t extis);
 void exti_reset_request(uint32_t extis);
