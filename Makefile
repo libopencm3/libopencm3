@@ -115,5 +115,13 @@ styleclean: $(STYLECHECKFILES:=.styleclean)
 %.styleclean:
 	$(Q)rm -f $*.stylecheck;
 
-.PHONY: build lib $(LIB_DIRS) install doc clean stylecheck styleclean
 
+LDTESTS		:=$(wildcard ld/tests/*.data)
+LDTESTS		:=$(LDTESTS:.data=)
+genlinktests:
+	@for i in $(LDTESTS); do			\
+		printf "  TEST\t$$i\t: ";		\
+		./scripts/genlinktest.sh $$i || exit 1;	\
+	done
+
+.PHONY: build lib $(LIB_DIRS) install doc clean generatedheaders cleanheaders stylecheck genlinktests
