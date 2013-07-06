@@ -82,7 +82,7 @@ void usart_wait_send_ready(uint32_t usart)
 /** @brief USART Wait for Received Data Available
  *
  * Blocks until the receive data buffer holds a valid received data word.
- * 
+ *
  * @param[in] usart unsigned 32 bit. USART block register address base @ref
  * usart_reg_base
  */

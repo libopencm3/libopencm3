@@ -34,7 +34,7 @@
  * end*
  * of conversion, which occurs after all channels have been scanned.
  *
- * A discontinuous mode allows a subgroup of group of a channels to be 
+ * A discontinuous mode allows a subgroup of group of a channels to be
  * converted in bursts of a given length.
  *
  * Injected conversions allow a second group of channels to be converted
@@ -106,9 +106,9 @@ void adc_off(uint32_t adc)
 /** @brief ADC Enable Analog Watchdog for Regular Conversions
  *
  * The analog watchdog allows the monitoring of an analog signal between two
- * threshold levels. The thresholds must be preset. Comparison is done before 
+ * threshold levels. The thresholds must be preset. Comparison is done before
  * data alignment takes place, so the thresholds are left-aligned.
- * 
+ *
  * @param[in] adc Unsigned int32. ADC block register address base @ref
  * adc_reg_base
  */
@@ -258,7 +258,7 @@ void adc_disable_automatic_injected_group_conversion(uint32_t adc)
 /** @brief ADC Enable Analog Watchdog for All Regular and/or Injected Channels
  *
  * The analog watchdog allows the monitoring of an analog signal between two
- * threshold levels. The thresholds must be preset. Comparison is done before 
+ * threshold levels. The thresholds must be preset. Comparison is done before
  * data alignment takes place, so the thresholds are left-aligned.
  *
  * @note The analog watchdog must be enabled for either or both of the regular
@@ -289,10 +289,10 @@ void adc_enable_analog_watchdog_on_all_channels(uint32_t adc)
  * will be disabled. If both are enabled, the same channel number is monitored
  * @ref adc_enable_analog_watchdog_injected, @ref
  * adc_enable_analog_watchdog_regular.
- * 
+ *
  * @param[in] adc Unsigned int32. ADC block register address base @ref
  * adc_reg_base
- * @param[in] channel Unsigned int8. ADC channel numbe 
+ * @param[in] channel Unsigned int8. ADC channel numbe
  * @ref adc_watchdog_channel
  */
 
@@ -302,8 +302,9 @@ void adc_enable_analog_watchdog_on_selected_channel(uint32_t adc,
 	uint32_t reg32;
 
 	reg32 = (ADC_CFGR(adc) & ~ADC_CFGR_AWD1CH_MASK); /* Clear bit [4:0]. */
-	if (channel < 18)
+	if (channel < 18) {
 		reg32 |= channel;
+	}
 	ADC_CFGR(adc) = reg32;
 	ADC_CFGR(adc) |= ADC_CFGR_AWD1SGL;
 }
@@ -420,7 +421,7 @@ void adc_disable_eoc_interrupt(uint32_t adc)
 /*---------------------------------------------------------------------------*/
 /** @brief ADC Software Triggered Conversion on Regular Channels
  *
- * This starts conversion on a set of defined regular channels. It is cleared 
+ * This starts conversion on a set of defined regular channels. It is cleared
  * by hardware once conversion starts.
  *
  * @param[in] adc Unsigned int32. ADC block register address base @ref
@@ -524,7 +525,7 @@ void adc_set_continuous_conversion_mode(uint32_t adc)
  *
  * In this mode the ADC performs a conversion of one channel or a channel group
  * and stops.
- * 
+ *
  * @param[in] adc Unsigned int32. ADC block register address base
  * @ref adc_reg_base
  */
@@ -581,12 +582,14 @@ void adc_set_sample_time_on_all_channels(uint32_t adc, uint8_t time)
 	uint8_t i;
 	uint32_t reg32 = 0;
 
-	for (i = 0; i <= 9; i++)
+	for (i = 0; i <= 9; i++) {
 		reg32 |= (time << (i * 3));
+	}
 	ADC_SMPR2(adc) = reg32;
 
-	for (i = 10; i <= 17; i++)
+	for (i = 10; i <= 17; i++) {
 		reg32 |= (time << ((i - 10) * 3));
+	}
 	ADC_SMPR1(adc) = reg32;
 }
 
@@ -764,7 +767,7 @@ uint32_t adc_read_regular(uint32_t adc)
  * is 12 bits, right or left aligned within the first 16 bits. The result can
  * have a negative value if the injected channel offset has been set @see
  * adc_set_injected_offset.
- * 
+ *
  * @param[in] adc Unsigned int32. ADC block register address base @ref
  * adc_reg_base
  * @param[in] reg Unsigned int8. Register number (1 ... 4).
@@ -993,11 +996,11 @@ void adc_disable_overrun_interrupt(uint32_t adc)
 
 /*---------------------------------------------------------------------------*/
 /** @brief ADC Read the Overrun Flag
- * 
+ *
  * The overrun flag is set when data is not read from a result register before
  * the next conversion is written. If DMA is enabled, all transfers are
  * terminated and any conversion sequence is aborted.
- * 
+ *
  * @param[in] adc Unsigned int32. ADC block register address base @ref
  * adc_reg_base
  * @returns Unsigned int32 conversion result.
@@ -1081,7 +1084,7 @@ void adc_set_dma_continue(uint32_t adc)
  * This must be set to allow DMA to terminate after the last conversion in the
  * DMA sequence. This can avoid overrun errors.
  *
- * @param[in] adc Unsigned int32. ADC block register address base 
+ * @param[in] adc Unsigned int32. ADC block register address base
  * @ref adc_reg_base
  */
 
