@@ -2941,9 +2941,9 @@ sub process {
 			    $var =~ /[A-Z]\w*[a-z]|[a-z]\w*[A-Z]/ &&
 			    $var !~ /"^(?:Clear|Set|TestClear|TestSet|)Page[A-Z]/ &&
 			    !defined $camelcase{$var} &&
-			    !($line =~ /^[ +-]*#\s*define/ && $var =~ /[A-Z][A-Z0-9_]*x[A-Z0-9_]*\b/)) {
+			    $var !~ /[A-Z][A-Z0-9_]*x[A-Z0-9_]*\b/) {
 				$camelcase{$var} = 1;
-				#print "Camelcase line <<$line>>\n";
+				#print "Camelcase line <<$line>> <<$var>>\n";
 				WARN("CAMELCASE",
 				     "Avoid CamelCase: <$var>\n" . $herecurr);
 			}
