@@ -39,6 +39,17 @@ LGPL License Terms @ref lgpl_license
 #include <libopencm3/usb/usbd.h>
 #include "usb_private.h"
 
+/*
+ * According to the USB 2.0 specification, section 8.5.3, when a control
+ * transfer is stalled, the pipe becomes idle. We provide one utility to stall
+ * a transaction to reduce boilerplate code.
+ */
+static void stall_transaction(usbd_device *usbd_dev)
+{
+	usbd_ep_stall_set(usbd_dev, 0, 1);
+	usbd_dev->control_state.state = IDLE;
+}
+
 /* Register application callback function for handling USB control requests. */
 int usbd_register_control_callback(usbd_device *usbd_dev, uint8_t type,
 				   uint8_t type_mask,
@@ -95,7 +106,7 @@ static int usb_control_recv_chunk(usbd_device *usbd_dev)
 				       packetsize);
 
 	if (size != packetsize) {
-		usbd_ep_stall_set(usbd_dev, 0, 1);
+		stall_transaction(usbd_dev);
 		return -1;
 	}
 
@@ -152,7 +163,7 @@ static void usb_control_setup_read(usbd_device *usbd_dev,
 		}
 	} else {
 		/* Stall endpoint on failure. */
-		usbd_ep_stall_set(usbd_dev, 0, 1);
+		stall_transaction(usbd_dev);
 	}
 }
 
@@ -160,7 +171,7 @@ static void usb_control_setup_write(usbd_device *usbd_dev,
 				    struct usb_setup_data *req)
 {
 	if (req->wLength > usbd_dev->ctrl_buf_len) {
-		usbd_ep_stall_set(usbd_dev, 0, 1);
+		stall_transaction(usbd_dev);
 		return;
 	}
 
@@ -186,7 +197,7 @@ void _usbd_control_setup(usbd_device *usbd_dev, uint8_t ea)
 	usbd_dev->control_state.complete = NULL;
 
 	if (usbd_ep_read_packet(usbd_dev, 0, req, 8) != 8) {
-		usbd_ep_stall_set(usbd_dev, 0, 1);
+		stall_transaction(usbd_dev);
 		return;
 	}
 
@@ -228,7 +239,7 @@ void _usbd_control_out(usbd_device *usbd_dev, uint8_t ea)
 			usbd_ep_write_packet(usbd_dev, 0, NULL, 0);
 			usbd_dev->control_state.state = STATUS_IN;
 		} else {
-			usbd_ep_stall_set(usbd_dev, 0, 1);
+			stall_transaction(usbd_dev);
 		}
 		break;
 	case STATUS_OUT:
@@ -241,7 +252,7 @@ void _usbd_control_out(usbd_device *usbd_dev, uint8_t ea)
 		usbd_dev->control_state.complete = NULL;
 		break;
 	default:
-		usbd_ep_stall_set(usbd_dev, 0, 1);
+		stall_transaction(usbd_dev);
 	}
 }
 
@@ -271,7 +282,7 @@ void _usbd_control_in(usbd_device *usbd_dev, uint8_t ea)
 		usbd_dev->control_state.state = IDLE;
 		break;
 	default:
-		usbd_ep_stall_set(usbd_dev, 0, 1);
+		stall_transaction(usbd_dev);
 	}
 }
 
