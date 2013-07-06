@@ -2940,8 +2940,10 @@ sub process {
 			if ($var !~ /$Constant/ &&
 			    $var =~ /[A-Z]\w*[a-z]|[a-z]\w*[A-Z]/ &&
 			    $var !~ /"^(?:Clear|Set|TestClear|TestSet|)Page[A-Z]/ &&
-			    !defined $camelcase{$var}) {
+			    !defined $camelcase{$var} &&
+			    !($line =~ /^[ +-]*#\s*define/ && $var =~ /[A-Z][A-Z0-9_]*x[A-Z0-9_]*\b/)) {
 				$camelcase{$var} = 1;
+				#print "Camelcase line <<$line>>\n";
 				WARN("CAMELCASE",
 				     "Avoid CamelCase: <$var>\n" . $herecurr);
 			}
