@@ -1,0 +1,5 @@
+tree5 tree4 A
+tree4 tree3 B
+tree3 tree2 C
+tree2 tree1 D
+tree1 END E F
