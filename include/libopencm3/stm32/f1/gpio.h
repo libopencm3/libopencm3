@@ -778,7 +778,7 @@ Line Devices only
 
 @{*/
 /* ADC2_ETRGREG_REMAP: */
-/** 
+/**
  * ADC2 external trigger regulator conversion remapping
  * (only low-, medium-, high- and XL-density devices)
  */

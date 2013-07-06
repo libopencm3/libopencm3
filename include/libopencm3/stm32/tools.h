@@ -55,8 +55,9 @@ do {									\
 	register uint16_t toggle_mask = GET_REG(REG) & (MSK);		\
 	register uint16_t bit_selector;					\
 	for (bit_selector = 1; bit_selector; bit_selector <<= 1) {	\
-		if ((bit_selector & (BIT)) != 0)			\
+		if ((bit_selector & (BIT)) != 0) {			\
 			toggle_mask ^= bit_selector;			\
+		}							\
 	}								\
 	SET_REG(REG, toggle_mask);					\
 } while (0)

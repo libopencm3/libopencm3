@@ -172,7 +172,7 @@ threshold.
 
 bool pwr_voltage_high(void)
 {
-	return (PWR_CSR & PWR_CSR_PVDO);
+	return PWR_CSR & PWR_CSR_PVDO;
 }
 
 /*---------------------------------------------------------------------------*/
@@ -186,7 +186,7 @@ cleared by software (see @ref pwr_clear_standby_flag).
 
 bool pwr_get_standby_flag(void)
 {
-	return (PWR_CSR & PWR_CSR_SBF);
+	return PWR_CSR & PWR_CSR_SBF;
 }
 
 /*---------------------------------------------------------------------------*/
@@ -203,4 +203,3 @@ bool pwr_get_wakeup_flag(void)
 	return PWR_CSR & PWR_CSR_WUF;
 }
 /**@}*/
-

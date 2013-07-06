@@ -39,7 +39,7 @@ Example 1: Push-pull digital output actions on ports C2 and C9
 
 @code
 	gpio_set_mode(GPIOC, GPIO_MODE_OUTPUT_2_MHZ,
-		            GPIO_CNF_OUTPUT_PUSHPULL,  GPIO2 | GPIO9);
+		      GPIO_CNF_OUTPUT_PUSHPULL,  GPIO2 | GPIO9);
 	gpio_set(GPIOC, GPIO2 | GPIO9);
 	gpio_clear(GPIOC, GPIO2);
 	gpio_toggle(GPIOC, GPIO2 | GPIO9);

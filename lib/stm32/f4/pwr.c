@@ -40,7 +40,7 @@ void pwr_set_vos_scale(vos_scale_t scale)
 {
 	if (scale == SCALE1) {
 		PWR_CR |= PWR_CR_VOS;
- 	} else if (scale == SCALE2) {
+	} else if (scale == SCALE2) {
 		PWR_CR &= PWR_CR_VOS;
 	}
 }

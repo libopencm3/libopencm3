@@ -738,7 +738,7 @@ injected channels.
 #define ADC_CCR_MULTI_INDEPENDENT	(0x00 << 0)
 
 /* Dual modes (ADC1 + ADC2) */
-/** 
+/**
  * Dual modes (ADC1 + ADC2) Combined regular simultaneous +
  * injected simultaneous mode.
  */

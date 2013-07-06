@@ -137,9 +137,9 @@ void gpio_set_output_options(uint32_t gpioport, uint8_t otype, uint8_t speed,
 
 	if (otype == 0x1) {
 		GPIO_OTYPER(gpioport) |= gpios;
-	}
-	else
+	} else {
 		GPIO_OTYPER(gpioport) &= ~gpios;
+	}
 
 	ospeedr = GPIO_OSPEEDR(gpioport);
 

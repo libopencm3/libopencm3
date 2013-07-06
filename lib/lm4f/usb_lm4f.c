@@ -321,8 +321,7 @@ static void lm4f_ep_stall_set(usbd_device *usbd_dev, uint8_t addr,
 		} else {
 			(USB_TXCSRL(ep)) &= ~USB_TXCSRL_STALL;
 		}
-	}
-	else {
+	} else {
 		if (stall) {
 			(USB_RXCSRL(ep)) |= USB_RXCSRL_STALL;
 		} else {

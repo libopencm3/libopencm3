@@ -244,7 +244,7 @@ void gpio_unlock_commit(uint32_t gpioport, uint8_t gpios);
  *		    by OR'ing then together.
  *
  * @return The level of the GPIO port. The pins not specified in gpios are
- * 	   masked to zero.
+ *	   masked to zero.
  */
 static inline uint8_t gpio_read(uint32_t gpioport, uint8_t gpios)
 {

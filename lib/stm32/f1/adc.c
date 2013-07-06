@@ -1066,7 +1066,7 @@ void adc_set_regular_sequence(uint32_t adc, uint8_t length, uint8_t channel[])
 			reg32_1 |= (channel[i - 1] << ((i - 12 - 1) * 5));
 		}
 	}
-	reg32_1 |= ((length -1) << ADC_SQR1_L_LSB);
+	reg32_1 |= ((length - 1) << ADC_SQR1_L_LSB);
 
 	ADC_SQR1(adc) = reg32_1;
 	ADC_SQR2(adc) = reg32_2;

@@ -1,4 +1,4 @@
-/** @addtogroup rtc_file 
+/** @addtogroup rtc_file
 
 @author @htmlonly &copy; @endhtmlonly 2012 Karl Palsson <karlp@tweak.net.au>
 
