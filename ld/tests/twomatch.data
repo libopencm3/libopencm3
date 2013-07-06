@@ -1,0 +1,4 @@
+twomatch treeparent A B C D
+# the next line will be ignored because previous matches before and no + there
+twomatch treeparent P Q R S
+treeparent END E F
