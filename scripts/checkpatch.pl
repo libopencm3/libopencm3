@@ -2851,7 +2851,7 @@ sub process {
 			$s =~ s/\n.*//g;
 			$s =~ s/$;//g; 	# Remove any comments
 			if (length($c) && $s !~ /^\s*{?\s*\\*\s*$/ &&
-			    $c !~ /}\s*while\s*/)
+			    $c !~ /}\s*while\s*/ && !($c =~ /while/ && $s eq ";"))
 			{
 				# Find out how long the conditional actually is.
 				my @newlines = ($c =~ /\n/gs);
@@ -2919,20 +2919,20 @@ sub process {
 			      "else should follow close brace '}'\n" . $hereprev);
 		}
 
-		if ($prevline=~/}\s*$/ and $line=~/^.\s*while\s*/ and
-						$previndent == $indent) {
-			my ($s, $c) = ctx_statement_block($linenr, $realcnt, 0);
+		#if ($prevline=~/}\s*$/ and $line=~/^.\s*while\s*/ and
+		#				$previndent == $indent) {
+		#	my ($s, $c) = ctx_statement_block($linenr, $realcnt, 0);
 
-			# Find out what is on the end of the line after the
-			# conditional.
-			substr($s, 0, length($c), '');
-			$s =~ s/\n.*//g;
+		#	# Find out what is on the end of the line after the
+		#	# conditional.
+		#	substr($s, 0, length($c), '');
+		#	$s =~ s/\n.*//g;
 
-			if ($s =~ /^\s*;/) {
-				ERROR("WHILE_AFTER_BRACE",
-				      "while should follow close brace '}'\n" . $hereprev);
-			}
-		}
+		#	if ($s =~ /^\s*;/) {
+		#		ERROR("WHILE_AFTER_BRACE",
+		#		      "while should follow close brace '}'\n" . $hereprev);
+		#	}
+		#}
 
 #CamelCase
 		while ($line =~ m{($Constant|$Lval)}g) {
@@ -3115,8 +3115,15 @@ sub process {
 		if ($line =~ /(^.*)\bif\b/ && $1 !~ /else\s*$/) {
 			my ($level, $endln, @chunks) =
 				ctx_statement_full($linenr, $realcnt, 1);
-			#print "chunks<$#chunks> linenr<$linenr> endln<$endln> level<$level>\n";
-			#print "APW: <<$chunks[1][0]>><<$chunks[1][1]>>\n";
+			#if ($#chunks > 0) {
+			#	print "chunks<$#chunks> linenr<$linenr> endln<$endln> level<$level>\n";
+			#	my $count = 0;
+			#	for my $chunk (@chunks) {
+			#		my ($cond, $block) = @{$chunk};
+			#		print "APW: count<$count> <<$cond>><<$block>>\n";
+			#		$count++;
+			#	}
+			#}
 			if ($#chunks > 0 && $level == 0) {
 				my @allowed = ();
 				my $allow = 0;
@@ -3144,34 +3151,38 @@ sub process {
 					$seen++ if ($block =~ /^\s*{/);
 
 					#print "cond<$cond> block<$block> allowed<$allowed[$allow]>\n";
-					if (statement_lines($cond) > 1) {
-						#print "APW: ALLOWED: cond<$cond>\n";
-						$allowed[$allow] = 1;
-					}
-					if ($block =~/\b(?:if|for|while)\b/) {
-						#print "APW: ALLOWED: block<$block>\n";
-						$allowed[$allow] = 1;
-					}
-					if (statement_block_size($block) > 1) {
-						#print "APW: ALLOWED: lines block<$block>\n";
-						$allowed[$allow] = 1;
-					}
-					$allow++;
+					#if (statement_lines($cond) > 1) {
+					#	#print "APW: ALLOWED: cond<$cond>\n";
+					#	$allowed[$allow] = 1;
+					#}
+					#if ($block =~/\b(?:if|for|while)\b/) {
+					#	#print "APW: ALLOWED: block<$block>\n";
+					#	$allowed[$allow] = 1;
+					#}
+					#if (statement_block_size($block) > 1) {
+					#	#print "APW: ALLOWED: lines block<$block>\n";
+					#	$allowed[$allow] = 1;
+					#}
+					#$allow++;
 				}
-				if ($seen) {
-					my $sum_allowed = 0;
-					foreach (@allowed) {
-						$sum_allowed += $_;
-					}
-					if ($sum_allowed == 0) {
-						WARN("BRACES",
-						     "braces {} are not necessary for any arm of this statement\n" . $herectx);
-					} elsif ($sum_allowed != $allow &&
-						 $seen != $allow) {
-						CHK("BRACES",
-						    "braces {} should be used on all arms of this statement\n" . $herectx);
-					}
+				if (!$seen) {
+					ERROR("BRACES",
+					      "braces {} are necessary for all arms of this statement\n" . $herectx);
 				}
+				#if ($seen) {
+				#	my $sum_allowed = 0;
+				#	foreach (@allowed) {
+				#		$sum_allowed += $_;
+				#	}
+				#	if ($sum_allowed == 0) {
+				#		WARN("BRACES",
+				#		     "braces {} are not necessary for any arm of this statement\n" . $herectx);
+				#	} elsif ($sum_allowed != $allow &&
+				#		 $seen != $allow) {
+				#		CHK("BRACES",
+				#		    "braces {} should be used on all arms of this statement\n" . $herectx);
+				#	}
+				#}
 			}
 		}
 		if (!defined $suppress_ifbraces{$linenr - 1} &&
@@ -3179,7 +3190,7 @@ sub process {
 			my $allowed = 0;
 
 			# Check the pre-context.
-			if (substr($line, 0, $-[0]) =~ /(\}\s*)$/) {
+			if (substr($line, 0, $-[0]) =~ /(#\s*)$/) {
 				#print "APW: ALLOWED: pre<$1>\n";
 				$allowed = 1;
 			}
@@ -3193,18 +3204,15 @@ sub process {
 			if (defined $cond) {
 				substr($block, 0, length($cond), '');
 			}
-			if (statement_lines($cond) > 1) {
-				#print "APW: ALLOWED: cond<$cond>\n";
+			if ($cond =~ /\bwhile/ && $block =~ /^;/) {
+				#print "APW: ALLOWED: block<$block>";
 				$allowed = 1;
 			}
-			if ($block =~/\b(?:if|for|while)\b/) {
-				#print "APW: ALLOWED: block<$block>\n";
-				$allowed = 1;
-			}
-			if (statement_block_size($block) > 1) {
-				#print "APW: ALLOWED: lines block<$block>\n";
-				$allowed = 1;
-			}
+			#if ($block =~/\b(?:if|for|while)\b/) {
+			#	print "APW: ALLOWED: block<$block>\n";
+			#	$allowed = 1;
+			#}
+			
 			# Check the post-context.
 			if (defined $chunks[1]) {
 				my ($cond, $block) = @{$chunks[1]};
@@ -3213,10 +3221,10 @@ sub process {
 				}
 				if ($block =~ /^\s*\{/) {
 					#print "APW: ALLOWED: chunk-1 block<$block>\n";
-					$allowed = 1;
+					#$allowed = 1;
 				}
 			}
-			if ($level == 0 && $block =~ /^\s*\{/ && !$allowed) {
+			if ($level == 0 && !($block =~ /^\s*\{/) && !$allowed) {
 				my $herectx = $here . "\n";
 				my $cnt = statement_rawlines($block);
 
@@ -3225,7 +3233,7 @@ sub process {
 				}
 
 				WARN("BRACES",
-				     "braces {} are not necessary for single statement blocks\n" . $herectx);
+				     "braces {} are needed for every statement block\n" . $herectx);
 			}
 		}
 
