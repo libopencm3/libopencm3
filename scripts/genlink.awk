@@ -7,8 +7,12 @@
 
 BEGIN {
 	PAT = tolower(PAT);
+	ORS = " ";
 }
 !/^#/{
+	#remove cr on windows
+	gsub(/\r$/,"");
+
 	tmp = "^"$1"$";
 	gsub(/?/, ".", tmp);
 	gsub(/*/, ".*", tmp);
@@ -21,8 +25,7 @@ BEGIN {
 		$1="";
 		$2="";
 		for (i = 3; i <= NF; i = i + 1)
-			$i = "-D"$i;
-		print;
+			printf "-D%s ",$i;
 		if (PAT=="END") exit;
 	}
 }
