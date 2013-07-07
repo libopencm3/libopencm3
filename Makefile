@@ -117,11 +117,15 @@ styleclean: $(STYLECHECKFILES:=.styleclean)
 
 
 LDTESTS		:=$(wildcard ld/tests/*.data)
-LDTESTS		:=$(LDTESTS:.data=)
-genlinktests:
-	@for i in $(LDTESTS); do			\
-		printf "  TEST\t$$i\t: ";		\
-		./scripts/genlinktest.sh $$i || exit 1;	\
-	done
+
+genlinktests: $(LDTESTS:.data=.ldtest)
+
+%.ldtest:
+	@if ./scripts/genlinktest.sh $* >/dev/null; then\
+		printf "  TEST  OK  : $*\n";		\
+	else						\
+		printf "  TEST FAIL : $*\n";		\
+	fi;
+
 
 .PHONY: build lib $(LIB_DIRS) install doc clean generatedheaders cleanheaders stylecheck genlinktests
