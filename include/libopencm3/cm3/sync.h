@@ -22,7 +22,7 @@
 
 #include "common.h"
 
-/* Implements synchronisation primatives as discussed in the ARM document
+/* Implements synchronisation primitives as discussed in the ARM document
  * DHT0008A (ID081709) "ARM Synchronization Primitives" and the ARM v7-M
  * Architecture Reference Manual.
 */
@@ -35,7 +35,7 @@ void __dmb(void);
 
 /* --- Convenience functions ----------------------------------------------- */
 
-/* Here we implement some simple synchronisation primatives. */
+/* Here we implement some simple synchronisation primitives. */
 
 typedef uint32_t mutex_t;
 
