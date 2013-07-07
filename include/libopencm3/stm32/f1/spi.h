@@ -32,7 +32,7 @@ LGPL License Terms @ref lgpl_license
 #define LIBOPENCM3_SPI_H
 
 #include <libopencm3/stm32/memorymap.h>
-#include <libopencm3/stm32/common/spi_common_all.h>
+#include <libopencm3/stm32/common/spi_common_f124.h>
 
 #endif
 

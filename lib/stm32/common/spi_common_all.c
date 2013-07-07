@@ -99,49 +99,6 @@ void spi_reset(uint32_t spi_peripheral)
 	}
 }
 
-/*---------------------------------------------------------------------------*/
-/** @brief Configure the SPI as Master.
-
-The SPI peripheral is configured as a master with communication parameters
-baudrate, data format 8/16 bits, frame format lsb/msb first, clock polarity
-and phase. The SPI enable, CRC enable and CRC next controls are not affected.
-These must be controlled separately.
-
-@todo NSS pin handling.
-
-@param[in] spi Unsigned int32. SPI peripheral identifier @ref spi_reg_base.
-@param[in] br Unsigned int32. Baudrate @ref spi_baudrate.
-@param[in] cpol Unsigned int32. Clock polarity @ref spi_cpol.
-@param[in] cpha Unsigned int32. Clock Phase @ref spi_cpha.
-@param[in] dff Unsigned int32. Data frame format 8/16 bits @ref spi_dff.
-@param[in] lsbfirst Unsigned int32. Frame format lsb/msb first @ref
-spi_lsbfirst.
-@returns int. Error code.
-*/
-
-int spi_init_master(uint32_t spi, uint32_t br, uint32_t cpol, uint32_t cpha,
-		    uint32_t dff, uint32_t lsbfirst)
-{
-	uint32_t reg32 = SPI_CR1(spi);
-
-	/* Reset all bits omitting SPE, CRCEN and CRCNEXT bits. */
-	reg32 &= SPI_CR1_SPE | SPI_CR1_CRCEN | SPI_CR1_CRCNEXT;
-
-	reg32 |= SPI_CR1_MSTR;	/* Configure SPI as master. */
-
-	reg32 |= br;		/* Set baud rate bits. */
-	reg32 |= cpol;		/* Set CPOL value. */
-	reg32 |= cpha;		/* Set CPHA value. */
-	reg32 |= dff;		/* Set data format (8 or 16 bits). */
-	reg32 |= lsbfirst;	/* Set frame format (LSB- or MSB-first). */
-
-	/* TODO: NSS pin handling. */
-
-	SPI_CR1(spi) = reg32;
-
-	return 0; /* TODO */
-}
-
 /* TODO: Error handling? */
 /*---------------------------------------------------------------------------*/
 /** @brief SPI Enable.
@@ -392,28 +349,6 @@ of a data or CRC word.
 void spi_set_next_tx_from_crc(uint32_t spi)
 {
 	SPI_CR1(spi) |= SPI_CR1_CRCNEXT;
-}
-
-/*---------------------------------------------------------------------------*/
-/** @brief SPI Set Data Frame Format to 8 bits
-
-@param[in] spi Unsigned int32. SPI peripheral identifier @ref spi_reg_base.
-*/
-
-void spi_set_dff_8bit(uint32_t spi)
-{
-	SPI_CR1(spi) &= ~SPI_CR1_DFF;
-}
-
-/*---------------------------------------------------------------------------*/
-/** @brief SPI Set Data Frame Format to 16 bits
-
-@param[in] spi Unsigned int32. SPI peripheral identifier @ref spi_reg_base.
-*/
-
-void spi_set_dff_16bit(uint32_t spi)
-{
-	SPI_CR1(spi) |= SPI_CR1_DFF;
 }
 
 /*---------------------------------------------------------------------------*/

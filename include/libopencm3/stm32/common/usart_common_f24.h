@@ -34,7 +34,7 @@ specific memorymap.h header before including this header file.*/
 #ifndef LIBOPENCM3_USART_COMMON_F24_H
 #define LIBOPENCM3_USART_COMMON_F24_H
 
-#include <libopencm3/stm32/common/usart_common_all.h>
+#include <libopencm3/stm32/common/usart_common_f124.h>
 
 /* --- Convenience macros -------------------------------------------------- */
 

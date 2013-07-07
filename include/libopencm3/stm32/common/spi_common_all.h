@@ -129,17 +129,6 @@ specific memorymap.h header before including this header file.*/
 /* CRCNEXT: Transmit CRC next */
 #define SPI_CR1_CRCNEXT			(1 << 12)
 
-/* DFF: Data frame format */
-/****************************************************************************/
-/** @defgroup spi_dff SPI data frame format
-@ingroup spi_defines
-
-@{*/
-#define SPI_CR1_DFF_8BIT		(0 << 11)
-#define SPI_CR1_DFF_16BIT		(1 << 11)
-/**@}*/
-#define SPI_CR1_DFF			(1 << 11)
-
 /* RXONLY: Receive only */
 #define SPI_CR1_RXONLY			(1 << 10)
 
@@ -219,7 +208,7 @@ specific memorymap.h header before including this header file.*/
 
 /* --- SPI_CR2 values ------------------------------------------------------ */
 
-/* Bits [15:8]: Reserved. Forced to 0 by hardware. */
+/* Bits [15:8]: Reserved. Forced to 0 by hardware. Used on F3. */
 
 /* TXEIE: Tx buffer empty interrupt enable */
 #define SPI_CR2_TXEIE			(1 << 7)
@@ -244,7 +233,7 @@ specific memorymap.h header before including this header file.*/
 
 /* --- SPI_SR values ------------------------------------------------------- */
 
-/* Bits [15:8]: Reserved. Forced to 0 by hardware. */
+/* Bits [15:8]: Reserved. Forced to 0 by hardware. Used on F3. */
 
 /* BSY: Busy flag */
 #define SPI_SR_BSY			(1 << 7)

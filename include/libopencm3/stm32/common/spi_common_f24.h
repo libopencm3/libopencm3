@@ -34,7 +34,7 @@ specific memorymap.h header before including this header file.*/
 
 /**@{*/
 
-#include <libopencm3/stm32/common/spi_common_all.h>
+#include <libopencm3/stm32/common/spi_common_f124.h>
 
 /*
  * This file extends the common STM32 version with definitions only

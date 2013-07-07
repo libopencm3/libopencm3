@@ -106,4 +106,3 @@ void usart_disable_rx_interrupt(uint32_t usart)
 {
 	USART_IDR(usart) = USART_CSR_RXRDY;
 }
-

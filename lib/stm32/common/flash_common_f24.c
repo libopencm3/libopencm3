@@ -66,39 +66,9 @@ void flash_icache_reset(void)
 	FLASH_ACR |= FLASH_ACR_ICRST;
 }
 
-void flash_set_ws(uint32_t ws)
-{
-	uint32_t reg32;
-
-	reg32 = FLASH_ACR;
-	reg32 &= ~((1 << 0) | (1 << 1) | (1 << 2));
-	reg32 |= ws;
-	FLASH_ACR = reg32;
-}
-
-void flash_unlock(void)
-{
-	/* Clear the unlock sequence state. */
-	FLASH_CR |= FLASH_CR_LOCK;
-
-	/* Authorize the FPEC access. */
-	FLASH_KEYR = FLASH_KEYR_KEY1;
-	FLASH_KEYR = FLASH_KEYR_KEY2;
-}
-
-void flash_lock(void)
-{
-	FLASH_CR |= FLASH_CR_LOCK;
-}
-
 void flash_clear_pgserr_flag(void)
 {
 	FLASH_SR |= FLASH_SR_PGSERR;
-}
-
-void flash_clear_pgperr_flag(void)
-{
-	FLASH_SR |= FLASH_SR_PGPERR;
 }
 
 void flash_clear_pgaerr_flag(void)
@@ -106,28 +76,18 @@ void flash_clear_pgaerr_flag(void)
 	FLASH_SR |= FLASH_SR_PGAERR;
 }
 
-void flash_clear_eop_flag(void)
-{
-	FLASH_SR |= FLASH_SR_EOP;
-}
-
 void flash_clear_wrperr_flag(void)
 {
 	FLASH_SR |= FLASH_SR_WRPERR;
 }
 
-void flash_clear_bsy_flag(void)
-{
-	FLASH_SR &= ~FLASH_SR_BSY;
-}
-
 void flash_clear_status_flags(void)
 {
 	flash_clear_pgserr_flag();
-	flash_clear_pgperr_flag();
 	flash_clear_pgaerr_flag();
-	flash_clear_eop_flag();
 	flash_clear_wrperr_flag();
+	flash_clear_pgperr_flag();
+	flash_clear_eop_flag();
 	flash_clear_bsy_flag();
 }
 
@@ -144,11 +104,6 @@ void flash_unlock_option_bytes(void)
 void flash_lock_option_bytes(void)
 {
 	FLASH_OPTCR |= FLASH_OPTCR_OPTLOCK;
-}
-
-void flash_wait_for_last_operation(void)
-{
-	while ((FLASH_SR & FLASH_SR_BSY) == FLASH_SR_BSY);
 }
 
 void flash_program_double_word(uint32_t address, uint64_t data)
