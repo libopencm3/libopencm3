@@ -74,7 +74,7 @@ SECTIONS
 	.ARM.extab : {
 		*(.ARM.extab*)
 	} >rom
-
+    
 	/* exception index - required due to libgcc.a issuing /0 exceptions */
 	.ARM.exidx : {
 		__exidx_start = .;
@@ -87,12 +87,15 @@ SECTIONS
 	_etext_ram = (. - ORIGIN(rom)) + ORIGIN(ram_local1);
 	_etext_rom = (. - ORIGIN(rom)) + ORIGIN(rom_flash);
 
+	. = ORIGIN(ram_local2);
+
 	.data : {
 		_data = .;
 		*(.data*)	/* Read-write initialized data */
 		. = ALIGN(4);
 		_edata = .;
 	} >ram_local2 AT >rom
+	_data_loadaddr = LOADADDR(.data);
 
 	_data_rom = LOADADDR (.data) + ORIGIN(rom_flash);
 	_edata_rom = _data_rom + SIZEOF (.data);
