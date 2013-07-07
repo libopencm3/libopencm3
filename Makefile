@@ -44,11 +44,11 @@ Q := @
 MAKEFLAGS += --no-print-directory
 endif
 
+YAMLFILES	:= $(shell find . -name 'irq.yaml')
+
 all: build
 
 build: lib
-
-YAMLFILES	:= $(shell find . -name 'irq.yaml')
 
 %.genhdr:
 	@printf "  GENHDR  $*\n";
