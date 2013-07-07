@@ -32,7 +32,7 @@ CFLAGS		= -O2 -g3 \
 		  -I../../../include -fno-common \
 		  -mcpu=cortex-m4 -mthumb -Wstrict-prototypes \
 		  -ffunction-sections -fdata-sections -MD \
-		  -mfloat-abi=hard -mfpu=fpv4-sp-d16 -DLPC43XX
+		  -mfloat-abi=hard -mfpu=fpv4-sp-d16 -DLPC43XX -DLPC43XX_M4
 # ARFLAGS	= rcsv
 ARFLAGS		= rcs
 

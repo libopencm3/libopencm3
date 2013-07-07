@@ -20,8 +20,8 @@
 #	include <libopencm3/lpc13xx/nvic.h>
 #elif defined(LPC17XX)
 #	include <libopencm3/lpc17xx/nvic.h>
-#elif defined(LPC43XX)
-#	include <libopencm3/lpc43xx/nvic.h>
+#elif defined(LPC43XX_M4)
+#	include <libopencm3/lpc43xx/m4/nvic.h>
 
 #elif defined(SAM3X)
 #	include <libopencm3/sam/3x/nvic.h>

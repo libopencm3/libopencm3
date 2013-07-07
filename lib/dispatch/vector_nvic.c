@@ -20,8 +20,8 @@
 #	include "../lpc13xx/vector_nvic.c"
 #elif defined(LPC17XX)
 #	include "../lpc17xx/vector_nvic.c"
-#elif defined(LPC43XX)
-#	include "../lpc43xx/vector_nvic.c"
+#elif defined(LPC43XX_M4)
+#	include "../lpc43xx/m4/vector_nvic.c"
 
 #elif defined(SAM3X)
 #	include "../sam/3x/vector_nvic.c"
