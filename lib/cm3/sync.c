@@ -59,6 +59,7 @@ void mutex_lock(mutex_t *m)
 
 void mutex_unlock(mutex_t *m)
 {
+        /* Ensure accesses to protected resource are finished */
 	__dmb();
 
 	/* Free the lock. */
