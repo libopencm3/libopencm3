@@ -386,6 +386,7 @@ static uint16_t lm4f_ep_write_packet(usbd_device *usbd_dev, uint8_t addr,
 	}
 	if (len & 0x1) {
 		USB_FIFO8(ep)  = *((uint8_t *)(buf + i));
+		i += 1;
 	}
 
 	if (ep == 0) {
