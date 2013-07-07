@@ -486,7 +486,7 @@ LGPL License Terms @ref lgpl_license
  *     SCC for sleep clock
  *     DCC for deep-sleep clock
  */
-typedef enum {
+enum lm4f_clken {
 	/*
 	 * Run clock control
 	 */
@@ -725,15 +725,15 @@ typedef enum {
 	DCC_WTIMER4,
 	DCC_WTIMER5,
 
-} clken_t;
+};
 
 /* ============================================================================
  * Function prototypes
  * --------------------------------------------------------------------------*/
 BEGIN_DECLS
 
-void periph_clock_enable(clken_t periph);
-void periph_clock_disable(clken_t periph);
+void periph_clock_enable(enum lm4f_clken periph);
+void periph_clock_disable(enum lm4f_clken periph);
 
 END_DECLS
 
