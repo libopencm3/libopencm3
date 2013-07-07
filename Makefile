@@ -53,18 +53,16 @@ build: lib
 
 YAMLFILES	:= $(shell find . -name 'irq.yaml')
 
-generatedheaders:
-	@printf "  UPDATING HEADERS\n"
-	$(Q)for yamlfile in $(YAMLFILES); do \
-		./scripts/irq2nvic_h $$yamlfile ; \
-	done
+%.genhdr:
+	@printf "  GENHDR  $*\n";
+	@./scripts/irq2nvic_h ./$*;
 
 %.cleanhdr:
 	@printf "  CLNHDR  $*\n";
 	@./scripts/irq2nvic_h --remove ./$*
 
 LIB_DIRS:=$(wildcard $(addprefix lib/,$(TARGETS)))
-$(LIB_DIRS): generatedheaders
+$(LIB_DIRS): $(YAMLFILES:=.genhdr)
 	@printf "  BUILD   $@\n";
 	$(Q)$(MAKE) --directory=$@ SRCLIBDIR=$(SRCLIBDIR)
 
@@ -105,5 +103,5 @@ stylecheck:
 		fi ; \
 	done
 
-.PHONY: build lib $(LIB_DIRS) install doc clean generatedheaders stylecheck
+.PHONY: build lib $(LIB_DIRS) install doc clean stylecheck
 
