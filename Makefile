@@ -51,15 +51,17 @@ all: build
 
 build: lib
 
+YAMLFILES	:= $(shell find . -name 'irq.yaml')
+
 generatedheaders:
 	@printf "  UPDATING HEADERS\n"
-	$(Q)for yamlfile in `find . -name 'irq.yaml'`; do \
+	$(Q)for yamlfile in $(YAMLFILES); do \
 		./scripts/irq2nvic_h $$yamlfile ; \
 	done
 
 cleanheaders:
 	@printf "  CLEANING HEADERS\n"
-	$(Q)for yamlfile in `find . -name 'irq.yaml'`; do \
+	$(Q)for yamlfile in $(YAMLFILES); do \
 		./scripts/irq2nvic_h --remove $$yamlfile ; \
 	done
 
@@ -90,17 +92,13 @@ install: lib
 doc:
 	$(Q)$(MAKE) -C doc html
 
-# Bleh http://www.makelinux.net/make3/make3-CHP-6-SECT-1#make3-CHP-6-SECT-1
-clean: cleanheaders
-	$(Q)for i in $(LIB_DIRS) \
-		     $(EXAMPLE_DIRS); do \
-		if [ -d $$i ]; then \
-			printf "  CLEAN   $$i\n"; \
-			$(MAKE) -C $$i clean SRCLIBDIR=$(SRCLIBDIR) || exit $?; \
-		fi; \
-	done
-	@printf "  CLEAN   doxygen\n"
-	$(Q)$(MAKE) -C doc clean
+clean: cleanheaders $(LIB_DIRS:=.clean) $(EXAMPLE_DIRS:=.clean) doc.clean
+
+%.clean:
+	$(Q)if [ -d $* ]; then \
+		printf "  CLEAN   $*\n"; \
+		$(MAKE) -C $* clean SRCLIBDIR=$(SRCLIBDIR) || exit $?; \
+	fi;
 
 stylecheck:
 	$(Q)for i in `find . -name '*.[ch]'` ; do \
