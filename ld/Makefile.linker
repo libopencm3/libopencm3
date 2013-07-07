@@ -57,7 +57,7 @@ ifneq ($(DEVICE),)
 LDSCRIPT=$(DEVICE).ld
 LD_PARAMS=$(shell awk -v PAT="$(DEVICE)" -f $(TOOLCHAIN_DIR)/scripts/genlink.awk $(TOOLCHAIN_DIR)/ld/devices.data 2>/dev/null)
 
-$(LDSCRIPT):$(TOOLCHAIN_DIR)/lib/linker.ld.S
+$(LDSCRIPT):$(TOOLCHAIN_DIR)/ld/linker.ld.S
 ifeq ($(LD_PARAMS),)
 	$(error unknown device $(DEVICE) for the linker. Cannot generate ldscript)
 endif
