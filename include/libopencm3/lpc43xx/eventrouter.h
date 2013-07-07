@@ -51,7 +51,7 @@ LGPL License Terms @ref lgpl_license
 #define EVENTROUTER_CLR_EN              MMIO32(EVENTROUTER_BASE + 0xFD8)
 
 /* Set event enable register */
-#define EVENTROUTER_ET_EN               MMIO32(EVENTROUTER_BASE + 0xFDC)
+#define EVENTROUTER_SET_EN              MMIO32(EVENTROUTER_BASE + 0xFDC)
 
 /* Event Status register */
 #define EVENTROUTER_STATUS              MMIO32(EVENTROUTER_BASE + 0xFE0)

@@ -1,0 +1,51 @@
+!!omap
+- RITIMER_COMPVAL:
+    fields: !!omap
+    - RICOMP:
+        access: rw
+        description: Compare register
+        lsb: 0
+        reset_value: '0xFFFFFFFF'
+        width: 32
+- RITIMER_MASK:
+    fields: !!omap
+    - RIMASK:
+        access: rw
+        description: Mask register
+        lsb: 0
+        reset_value: '0'
+        width: 32
+- RITIMER_CTRL:
+    fields: !!omap
+    - RITINT:
+        access: rw
+        description: Interrupt flag
+        lsb: 0
+        reset_value: '0'
+        width: 1
+    - RITENCLR:
+        access: rw
+        description: Timer enable clear
+        lsb: 1
+        reset_value: '0'
+        width: 1
+    - RITENBR:
+        access: rw
+        description: Timer enable for debug
+        lsb: 2
+        reset_value: '1'
+        width: 1
+    - RITEN:
+        access: rw
+        description: Timer enable
+        lsb: 3
+        reset_value: '1'
+        width: 1
+- RITIMER_COUNTER:
+    fields: !!omap
+    - RICOUNTER:
+        access: rw
+        description: 32-bit up counter
+        lsb: 0
+        reset_value: '0'
+        width: 32

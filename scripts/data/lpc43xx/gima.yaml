@@ -1,0 +1,961 @@
+!!omap
+- GIMA_CAP0_0_IN:
+    fields: !!omap
+    - INV:
+        access: rw
+        description: Invert input
+        lsb: 0
+        reset_value: '0'
+        width: 1
+    - EDGE:
+        access: rw
+        description: Enable rising edge detection
+        lsb: 1
+        reset_value: '0'
+        width: 1
+    - SYNCH:
+        access: rw
+        description: Enable synchronization
+        lsb: 2
+        reset_value: '0'
+        width: 1
+    - PULSE:
+        access: rw
+        description: Enable single pulse generation
+        lsb: 3
+        reset_value: '0'
+        width: 1
+    - SELECT:
+        access: rw
+        description: Select input
+        lsb: 4
+        reset_value: '0'
+        width: 4
+- GIMA_CAP0_1_IN:
+    fields: !!omap
+    - INV:
+        access: rw
+        description: Invert input
+        lsb: 0
+        reset_value: '0'
+        width: 1
+    - EDGE:
+        access: rw
+        description: Enable rising edge detection
+        lsb: 1
+        reset_value: '0'
+        width: 1
+    - SYNCH:
+        access: rw
+        description: Enable synchronization
+        lsb: 2
+        reset_value: '0'
+        width: 1
+    - PULSE:
+        access: rw
+        description: Enable single pulse generation
+        lsb: 3
+        reset_value: '0'
+        width: 1
+    - SELECT:
+        access: rw
+        description: Select input
+        lsb: 4
+        reset_value: '0'
+        width: 4
+- GIMA_CAP0_2_IN:
+    fields: !!omap
+    - INV:
+        access: rw
+        description: Invert input
+        lsb: 0
+        reset_value: '0'
+        width: 1
+    - EDGE:
+        access: rw
+        description: Enable rising edge detection
+        lsb: 1
+        reset_value: '0'
+        width: 1
+    - SYNCH:
+        access: rw
+        description: Enable synchronization
+        lsb: 2
+        reset_value: '0'
+        width: 1
+    - PULSE:
+        access: rw
+        description: Enable single pulse generation
+        lsb: 3
+        reset_value: '0'
+        width: 1
+    - SELECT:
+        access: rw
+        description: Select input
+        lsb: 4
+        reset_value: '0'
+        width: 4
+- GIMA_CAP0_3_IN:
+    fields: !!omap
+    - INV:
+        access: rw
+        description: Invert input
+        lsb: 0
+        reset_value: '0'
+        width: 1
+    - EDGE:
+        access: rw
+        description: Enable rising edge detection
+        lsb: 1
+        reset_value: '0'
+        width: 1
+    - SYNCH:
+        access: rw
+        description: Enable synchronization
+        lsb: 2
+        reset_value: '0'
+        width: 1
+    - PULSE:
+        access: rw
+        description: Enable single pulse generation
+        lsb: 3
+        reset_value: '0'
+        width: 1
+    - SELECT:
+        access: rw
+        description: Select input
+        lsb: 4
+        reset_value: '0'
+        width: 4
+- GIMA_CAP1_0_IN:
+    fields: !!omap
+    - INV:
+        access: rw
+        description: Invert input
+        lsb: 0
+        reset_value: '0'
+        width: 1
+    - EDGE:
+        access: rw
+        description: Enable rising edge detection
+        lsb: 1
+        reset_value: '0'
+        width: 1
+    - SYNCH:
+        access: rw
+        description: Enable synchronization
+        lsb: 2
+        reset_value: '0'
+        width: 1
+    - PULSE:
+        access: rw
+        description: Enable single pulse generation
+        lsb: 3
+        reset_value: '0'
+        width: 1
+    - SELECT:
+        access: rw
+        description: Select input
+        lsb: 4
+        reset_value: '0'
+        width: 4
+- GIMA_CAP1_1_IN:
+    fields: !!omap
+    - INV:
+        access: rw
+        description: Invert input
+        lsb: 0
+        reset_value: '0'
+        width: 1
+    - EDGE:
+        access: rw
+        description: Enable rising edge detection
+        lsb: 1
+        reset_value: '0'
+        width: 1
+    - SYNCH:
+        access: rw
+        description: Enable synchronization
+        lsb: 2
+        reset_value: '0'
+        width: 1
+    - PULSE:
+        access: rw
+        description: Enable single pulse generation
+        lsb: 3
+        reset_value: '0'
+        width: 1
+    - SELECT:
+        access: rw
+        description: Select input
+        lsb: 4
+        reset_value: '0'
+        width: 4
+- GIMA_CAP1_2_IN:
+    fields: !!omap
+    - INV:
+        access: rw
+        description: Invert input
+        lsb: 0
+        reset_value: '0'
+        width: 1
+    - EDGE:
+        access: rw
+        description: Enable rising edge detection
+        lsb: 1
+        reset_value: '0'
+        width: 1
+    - SYNCH:
+        access: rw
+        description: Enable synchronization
+        lsb: 2
+        reset_value: '0'
+        width: 1
+    - PULSE:
+        access: rw
+        description: Enable single pulse generation
+        lsb: 3
+        reset_value: '0'
+        width: 1
+    - SELECT:
+        access: rw
+        description: Select input
+        lsb: 4
+        reset_value: '0'
+        width: 4
+- GIMA_CAP1_3_IN:
+    fields: !!omap
+    - INV:
+        access: rw
+        description: Invert input
+        lsb: 0
+        reset_value: '0'
+        width: 1
+    - EDGE:
+        access: rw
+        description: Enable rising edge detection
+        lsb: 1
+        reset_value: '0'
+        width: 1
+    - SYNCH:
+        access: rw
+        description: Enable synchronization
+        lsb: 2
+        reset_value: '0'
+        width: 1
+    - PULSE:
+        access: rw
+        description: Enable single pulse generation
+        lsb: 3
+        reset_value: '0'
+        width: 1
+    - SELECT:
+        access: rw
+        description: Select input
+        lsb: 4
+        reset_value: '0'
+        width: 4
+- GIMA_CAP2_0_IN:
+    fields: !!omap
+    - INV:
+        access: rw
+        description: Invert input
+        lsb: 0
+        reset_value: '0'
+        width: 1
+    - EDGE:
+        access: rw
+        description: Enable rising edge detection
+        lsb: 1
+        reset_value: '0'
+        width: 1
+    - SYNCH:
+        access: rw
+        description: Enable synchronization
+        lsb: 2
+        reset_value: '0'
+        width: 1
+    - PULSE:
+        access: rw
+        description: Enable single pulse generation
+        lsb: 3
+        reset_value: '0'
+        width: 1
+    - SELECT:
+        access: rw
+        description: Select input
+        lsb: 4
+        reset_value: '0'
+        width: 4
+- GIMA_CAP2_1_IN:
+    fields: !!omap
+    - INV:
+        access: rw
+        description: Invert input
+        lsb: 0
+        reset_value: '0'
+        width: 1
+    - EDGE:
+        access: rw
+        description: Enable rising edge detection
+        lsb: 1
+        reset_value: '0'
+        width: 1
+    - SYNCH:
+        access: rw
+        description: Enable synchronization
+        lsb: 2
+        reset_value: '0'
+        width: 1
+    - PULSE:
+        access: rw
+        description: Enable single pulse generation
+        lsb: 3
+        reset_value: '0'
+        width: 1
+    - SELECT:
+        access: rw
+        description: Select input
+        lsb: 4
+        reset_value: '0'
+        width: 4
+- GIMA_CAP2_2_IN:
+    fields: !!omap
+    - INV:
+        access: rw
+        description: Invert input
+        lsb: 0
+        reset_value: '0'
+        width: 1
+    - EDGE:
+        access: rw
+        description: Enable rising edge detection
+        lsb: 1
+        reset_value: '0'
+        width: 1
+    - SYNCH:
+        access: rw
+        description: Enable synchronization
+        lsb: 2
+        reset_value: '0'
+        width: 1
+    - PULSE:
+        access: rw
+        description: Enable single pulse generation
+        lsb: 3
+        reset_value: '0'
+        width: 1
+    - SELECT:
+        access: rw
+        description: Select input
+        lsb: 4
+        reset_value: '0'
+        width: 4
+- GIMA_CAP2_3_IN:
+    fields: !!omap
+    - INV:
+        access: rw
+        description: Invert input
+        lsb: 0
+        reset_value: '0'
+        width: 1
+    - EDGE:
+        access: rw
+        description: Enable rising edge detection
+        lsb: 1
+        reset_value: '0'
+        width: 1
+    - SYNCH:
+        access: rw
+        description: Enable synchronization
+        lsb: 2
+        reset_value: '0'
+        width: 1
+    - PULSE:
+        access: rw
+        description: Enable single pulse generation
+        lsb: 3
+        reset_value: '0'
+        width: 1
+    - SELECT:
+        access: rw
+        description: Select input
+        lsb: 4
+        reset_value: '0'
+        width: 4
+- GIMA_CAP3_0_IN:
+    fields: !!omap
+    - INV:
+        access: rw
+        description: Invert input
+        lsb: 0
+        reset_value: '0'
+        width: 1
+    - EDGE:
+        access: rw
+        description: Enable rising edge detection
+        lsb: 1
+        reset_value: '0'
+        width: 1
+    - SYNCH:
+        access: rw
+        description: Enable synchronization
+        lsb: 2
+        reset_value: '0'
+        width: 1
+    - PULSE:
+        access: rw
+        description: Enable single pulse generation
+        lsb: 3
+        reset_value: '0'
+        width: 1
+    - SELECT:
+        access: rw
+        description: Select input
+        lsb: 4
+        reset_value: '0'
+        width: 4
+- GIMA_CAP3_1_IN:
+    fields: !!omap
+    - INV:
+        access: rw
+        description: Invert input
+        lsb: 0
+        reset_value: '0'
+        width: 1
+    - EDGE:
+        access: rw
+        description: Enable rising edge detection
+        lsb: 1
+        reset_value: '0'
+        width: 1
+    - SYNCH:
+        access: rw
+        description: Enable synchronization
+        lsb: 2
+        reset_value: '0'
+        width: 1
+    - PULSE:
+        access: rw
+        description: Enable single pulse generation
+        lsb: 3
+        reset_value: '0'
+        width: 1
+    - SELECT:
+        access: rw
+        description: Select input
+        lsb: 4
+        reset_value: '0'
+        width: 4
+- GIMA_CAP3_2_IN:
+    fields: !!omap
+    - INV:
+        access: rw
+        description: Invert input
+        lsb: 0
+        reset_value: '0'
+        width: 1
+    - EDGE:
+        access: rw
+        description: Enable rising edge detection
+        lsb: 1
+        reset_value: '0'
+        width: 1
+    - SYNCH:
+        access: rw
+        description: Enable synchronization
+        lsb: 2
+        reset_value: '0'
+        width: 1
+    - PULSE:
+        access: rw
+        description: Enable single pulse generation
+        lsb: 3
+        reset_value: '0'
+        width: 1
+    - SELECT:
+        access: rw
+        description: Select input
+        lsb: 4
+        reset_value: '0'
+        width: 4
+- GIMA_CAP3_3_IN:
+    fields: !!omap
+    - INV:
+        access: rw
+        description: Invert input
+        lsb: 0
+        reset_value: '0'
+        width: 1
+    - EDGE:
+        access: rw
+        description: Enable rising edge detection
+        lsb: 1
+        reset_value: '0'
+        width: 1
+    - SYNCH:
+        access: rw
+        description: Enable synchronization
+        lsb: 2
+        reset_value: '0'
+        width: 1
+    - PULSE:
+        access: rw
+        description: Enable single pulse generation
+        lsb: 3
+        reset_value: '0'
+        width: 1
+    - SELECT:
+        access: rw
+        description: Select input
+        lsb: 4
+        reset_value: '0'
+        width: 4
+- GIMA_CTIN_0_IN:
+    fields: !!omap
+    - INV:
+        access: rw
+        description: Invert input
+        lsb: 0
+        reset_value: '0'
+        width: 1
+    - EDGE:
+        access: rw
+        description: Enable rising edge detection
+        lsb: 1
+        reset_value: '0'
+        width: 1
+    - SYNCH:
+        access: rw
+        description: Enable synchronization
+        lsb: 2
+        reset_value: '0'
+        width: 1
+    - PULSE:
+        access: rw
+        description: Enable single pulse generation
+        lsb: 3
+        reset_value: '0'
+        width: 1
+    - SELECT:
+        access: rw
+        description: Select input
+        lsb: 4
+        reset_value: '0'
+        width: 4
+- GIMA_CTIN_1_IN:
+    fields: !!omap
+    - INV:
+        access: rw
+        description: Invert input
+        lsb: 0
+        reset_value: '0'
+        width: 1
+    - EDGE:
+        access: rw
+        description: Enable rising edge detection
+        lsb: 1
+        reset_value: '0'
+        width: 1
+    - SYNCH:
+        access: rw
+        description: Enable synchronization
+        lsb: 2
+        reset_value: '0'
+        width: 1
+    - PULSE:
+        access: rw
+        description: Enable single pulse generation
+        lsb: 3
+        reset_value: '0'
+        width: 1
+    - SELECT:
+        access: rw
+        description: Select input
+        lsb: 4
+        reset_value: '0'
+        width: 4
+- GIMA_CTIN_2_IN:
+    fields: !!omap
+    - INV:
+        access: rw
+        description: Invert input
+        lsb: 0
+        reset_value: '0'
+        width: 1
+    - EDGE:
+        access: rw
+        description: Enable rising edge detection
+        lsb: 1
+        reset_value: '0'
+        width: 1
+    - SYNCH:
+        access: rw
+        description: Enable synchronization
+        lsb: 2
+        reset_value: '0'
+        width: 1
+    - PULSE:
+        access: rw
+        description: Enable single pulse generation
+        lsb: 3
+        reset_value: '0'
+        width: 1
+    - SELECT:
+        access: rw
+        description: Select input
+        lsb: 4
+        reset_value: '0'
+        width: 4
+- GIMA_CTIN_3_IN:
+    fields: !!omap
+    - INV:
+        access: rw
+        description: Invert input
+        lsb: 0
+        reset_value: '0'
+        width: 1
+    - EDGE:
+        access: rw
+        description: Enable rising edge detection
+        lsb: 1
+        reset_value: '0'
+        width: 1
+    - SYNCH:
+        access: rw
+        description: Enable synchronization
+        lsb: 2
+        reset_value: '0'
+        width: 1
+    - PULSE:
+        access: rw
+        description: Enable single pulse generation
+        lsb: 3
+        reset_value: '0'
+        width: 1
+    - SELECT:
+        access: rw
+        description: Select input
+        lsb: 4
+        reset_value: '0'
+        width: 4
+- GIMA_CTIN_4_IN:
+    fields: !!omap
+    - INV:
+        access: rw
+        description: Invert input
+        lsb: 0
+        reset_value: '0'
+        width: 1
+    - EDGE:
+        access: rw
+        description: Enable rising edge detection
+        lsb: 1
+        reset_value: '0'
+        width: 1
+    - SYNCH:
+        access: rw
+        description: Enable synchronization
+        lsb: 2
+        reset_value: '0'
+        width: 1
+    - PULSE:
+        access: rw
+        description: Enable single pulse generation
+        lsb: 3
+        reset_value: '0'
+        width: 1
+    - SELECT:
+        access: rw
+        description: Select input
+        lsb: 4
+        reset_value: '0'
+        width: 4
+- GIMA_CTIN_5_IN:
+    fields: !!omap
+    - INV:
+        access: rw
+        description: Invert input
+        lsb: 0
+        reset_value: '0'
+        width: 1
+    - EDGE:
+        access: rw
+        description: Enable rising edge detection
+        lsb: 1
+        reset_value: '0'
+        width: 1
+    - SYNCH:
+        access: rw
+        description: Enable synchronization
+        lsb: 2
+        reset_value: '0'
+        width: 1
+    - PULSE:
+        access: rw
+        description: Enable single pulse generation
+        lsb: 3
+        reset_value: '0'
+        width: 1
+    - SELECT:
+        access: rw
+        description: Select input
+        lsb: 4
+        reset_value: '0'
+        width: 4
+- GIMA_CTIN_6_IN:
+    fields: !!omap
+    - INV:
+        access: rw
+        description: Invert input
+        lsb: 0
+        reset_value: '0'
+        width: 1
+    - EDGE:
+        access: rw
+        description: Enable rising edge detection
+        lsb: 1
+        reset_value: '0'
+        width: 1
+    - SYNCH:
+        access: rw
+        description: Enable synchronization
+        lsb: 2
+        reset_value: '0'
+        width: 1
+    - PULSE:
+        access: rw
+        description: Enable single pulse generation
+        lsb: 3
+        reset_value: '0'
+        width: 1
+    - SELECT:
+        access: rw
+        description: Select input
+        lsb: 4
+        reset_value: '0'
+        width: 4
+- GIMA_CTIN_7_IN:
+    fields: !!omap
+    - INV:
+        access: rw
+        description: Invert input
+        lsb: 0
+        reset_value: '0'
+        width: 1
+    - EDGE:
+        access: rw
+        description: Enable rising edge detection
+        lsb: 1
+        reset_value: '0'
+        width: 1
+    - SYNCH:
+        access: rw
+        description: Enable synchronization
+        lsb: 2
+        reset_value: '0'
+        width: 1
+    - PULSE:
+        access: rw
+        description: Enable single pulse generation
+        lsb: 3
+        reset_value: '0'
+        width: 1
+    - SELECT:
+        access: rw
+        description: Select input
+        lsb: 4
+        reset_value: '0'
+        width: 4
+- GIMA_VADC_TRIGGER_IN:
+    fields: !!omap
+    - INV:
+        access: rw
+        description: Invert input
+        lsb: 0
+        reset_value: '0'
+        width: 1
+    - EDGE:
+        access: rw
+        description: Enable rising edge detection
+        lsb: 1
+        reset_value: '0'
+        width: 1
+    - SYNCH:
+        access: rw
+        description: Enable synchronization
+        lsb: 2
+        reset_value: '0'
+        width: 1
+    - PULSE:
+        access: rw
+        description: Enable single pulse generation
+        lsb: 3
+        reset_value: '0'
+        width: 1
+    - SELECT:
+        access: rw
+        description: Select input
+        lsb: 4
+        reset_value: '0'
+        width: 4
+- GIMA_EVENTROUTER_13_IN:
+    fields: !!omap
+    - INV:
+        access: rw
+        description: Invert input
+        lsb: 0
+        reset_value: '0'
+        width: 1
+    - EDGE:
+        access: rw
+        description: Enable rising edge detection
+        lsb: 1
+        reset_value: '0'
+        width: 1
+    - SYNCH:
+        access: rw
+        description: Enable synchronization
+        lsb: 2
+        reset_value: '0'
+        width: 1
+    - PULSE:
+        access: rw
+        description: Enable single pulse generation
+        lsb: 3
+        reset_value: '0'
+        width: 1
+    - SELECT:
+        access: rw
+        description: Select input
+        lsb: 4
+        reset_value: '0'
+        width: 4
+- GIMA_EVENTROUTER_14_IN:
+    fields: !!omap
+    - INV:
+        access: rw
+        description: Invert input
+        lsb: 0
+        reset_value: '0'
+        width: 1
+    - EDGE:
+        access: rw
+        description: Enable rising edge detection
+        lsb: 1
+        reset_value: '0'
+        width: 1
+    - SYNCH:
+        access: rw
+        description: Enable synchronization
+        lsb: 2
+        reset_value: '0'
+        width: 1
+    - PULSE:
+        access: rw
+        description: Enable single pulse generation
+        lsb: 3
+        reset_value: '0'
+        width: 1
+    - SELECT:
+        access: rw
+        description: Select input
+        lsb: 4
+        reset_value: '0'
+        width: 4
+- GIMA_EVENTROUTER_16_IN:
+    fields: !!omap
+    - INV:
+        access: rw
+        description: Invert input
+        lsb: 0
+        reset_value: '0'
+        width: 1
+    - EDGE:
+        access: rw
+        description: Enable rising edge detection
+        lsb: 1
+        reset_value: '0'
+        width: 1
+    - SYNCH:
+        access: rw
+        description: Enable synchronization
+        lsb: 2
+        reset_value: '0'
+        width: 1
+    - PULSE:
+        access: rw
+        description: Enable single pulse generation
+        lsb: 3
+        reset_value: '0'
+        width: 1
+    - SELECT:
+        access: rw
+        description: Select input
+        lsb: 4
+        reset_value: '0'
+        width: 4
+- GIMA_ADCSTART0_IN:
+    fields: !!omap
+    - INV:
+        access: rw
+        description: Invert input
+        lsb: 0
+        reset_value: '0'
+        width: 1
+    - EDGE:
+        access: rw
+        description: Enable rising edge detection
+        lsb: 1
+        reset_value: '0'
+        width: 1
+    - SYNCH:
+        access: rw
+        description: Enable synchronization
+        lsb: 2
+        reset_value: '0'
+        width: 1
+    - PULSE:
+        access: rw
+        description: Enable single pulse generation
+        lsb: 3
+        reset_value: '0'
+        width: 1
+    - SELECT:
+        access: rw
+        description: Select input
+        lsb: 4
+        reset_value: '0'
+        width: 4
+- GIMA_ADCSTART1_IN:
+    fields: !!omap
+    - INV:
+        access: rw
+        description: Invert input
+        lsb: 0
+        reset_value: '0'
+        width: 1
+    - EDGE:
+        access: rw
+        description: Enable rising edge detection
+        lsb: 1
+        reset_value: '0'
+        width: 1
+    - SYNCH:
+        access: rw
+        description: Enable synchronization
+        lsb: 2
+        reset_value: '0'
+        width: 1
+    - PULSE:
+        access: rw
+        description: Enable single pulse generation
+        lsb: 3
+        reset_value: '0'
+        width: 1
+    - SELECT:
+        access: rw
+        description: Select input
+        lsb: 4
+        reset_value: '0'
+        width: 4

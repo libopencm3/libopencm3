@@ -1,6 +1,6 @@
-includeguard: LIBOPENCM3_LPC43xx_NVIC_H
-partname_humanreadable: LPC 43xx series
-partname_doxygen: LPC43xx
+includeguard: LIBOPENCM3_LPC43xx_M4_NVIC_H
+partname_humanreadable: LPC 43xx series M4 core
+partname_doxygen: LPC43xx (M4)
 irqs:
   0: dac           
   1: m0core        

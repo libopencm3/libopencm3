@@ -19,6 +19,10 @@
 
 #include <libopencm3/cm3/sync.h>
 
+#if defined(LPC43XX_M0)
+#warning "Currently sync is not supported on Cortex-M0"
+#else
+
 uint32_t __ldrex(volatile uint32_t *addr)
 {
 	uint32_t res;
@@ -59,9 +63,11 @@ void mutex_lock(mutex_t *m)
 
 void mutex_unlock(mutex_t *m)
 {
+        /* Ensure accesses to protected resource are finished */
 	__dmb();
 
 	/* Free the lock. */
 	*m = MUTEX_UNLOCKED;
 }
 
+#endif

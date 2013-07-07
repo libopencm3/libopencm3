@@ -1,0 +1,619 @@
+!!omap
+- I2S0_DAO:
+    fields: !!omap
+    - WORDWIDTH:
+        access: rw
+        description: Selects the number of bytes in data
+        lsb: 0
+        reset_value: '1'
+        width: 2
+    - MONO:
+        access: rw
+        description: When 1, data is of monaural format. When 0, the data is in stereo
+          format
+        lsb: 2
+        reset_value: '0'
+        width: 1
+    - STOP:
+        access: rw
+        description: When 1, disables accesses on FIFOs, places the transmit channel
+          in mute mode
+        lsb: 3
+        reset_value: '0'
+        width: 1
+    - RESET:
+        access: rw
+        description: When 1, asynchronously resets the transmit channel and FIFO
+        lsb: 4
+        reset_value: '0'
+        width: 1
+    - WS_SEL:
+        access: rw
+        description: When 0, the interface is in master mode. When 1, the interface
+          is in slave mode
+        lsb: 5
+        reset_value: '1'
+        width: 1
+    - WS_HALFPERIOD:
+        access: rw
+        description: Word select half period minus 1, i.e. WS 64clk period -> ws_halfperiod
+          = 31.
+        lsb: 6
+        reset_value: '0x1f'
+        width: 9
+    - MUTE:
+        access: rw
+        description: When 1, the transmit channel sends only zeroes
+        lsb: 15
+        reset_value: '1'
+        width: 1
+- I2S1_DAO:
+    fields: !!omap
+    - WORDWIDTH:
+        access: rw
+        description: Selects the number of bytes in data
+        lsb: 0
+        reset_value: '1'
+        width: 2
+    - MONO:
+        access: rw
+        description: When 1, data is of monaural format. When 0, the data is in stereo
+          format
+        lsb: 2
+        reset_value: '0'
+        width: 1
+    - STOP:
+        access: rw
+        description: When 1, disables accesses on FIFOs, places the transmit channel
+          in mute mode
+        lsb: 3
+        reset_value: '0'
+        width: 1
+    - RESET:
+        access: rw
+        description: When 1, asynchronously resets the transmit channel and FIFO
+        lsb: 4
+        reset_value: '0'
+        width: 1
+    - WS_SEL:
+        access: rw
+        description: When 0, the interface is in master mode. When 1, the interface
+          is in slave mode
+        lsb: 5
+        reset_value: '1'
+        width: 1
+    - WS_HALFPERIOD:
+        access: rw
+        description: Word select half period minus 1, i.e. WS 64clk period -> ws_halfperiod
+          = 31.
+        lsb: 6
+        reset_value: '0x1f'
+        width: 9
+    - MUTE:
+        access: rw
+        description: When 1, the transmit channel sends only zeroes
+        lsb: 15
+        reset_value: '1'
+        width: 1
+- I2S0_DAI:
+    fields: !!omap
+    - WORDWIDTH:
+        access: rw
+        description: Selects the number of bytes in data
+        lsb: 0
+        reset_value: '1'
+        width: 2
+    - MONO:
+        access: rw
+        description: When 1, data is of monaural format. When 0, the data is in stereo
+          format
+        lsb: 2
+        reset_value: '0'
+        width: 1
+    - STOP:
+        access: rw
+        description: When 1, disables accesses on FIFOs, places the transmit channel
+          in mute mode
+        lsb: 3
+        reset_value: '0'
+        width: 1
+    - RESET:
+        access: rw
+        description: When 1, asynchronously resets the transmit channel and FIFO
+        lsb: 4
+        reset_value: '0'
+        width: 1
+    - WS_SEL:
+        access: rw
+        description: When 0, the interface is in master mode. When 1, the interface
+          is in slave mode
+        lsb: 5
+        reset_value: '1'
+        width: 1
+    - WS_HALFPERIOD:
+        access: rw
+        description: Word select half period minus 1, i.e. WS 64clk period -> ws_halfperiod
+          = 31.
+        lsb: 6
+        reset_value: '0x1f'
+        width: 9
+    - MUTE:
+        access: rw
+        description: When 1, the transmit channel sends only zeroes
+        lsb: 15
+        reset_value: '1'
+        width: 1
+- I2S1_DAI:
+    fields: !!omap
+    - WORDWIDTH:
+        access: rw
+        description: Selects the number of bytes in data
+        lsb: 0
+        reset_value: '1'
+        width: 2
+    - MONO:
+        access: rw
+        description: When 1, data is of monaural format. When 0, the data is in stereo
+          format
+        lsb: 2
+        reset_value: '0'
+        width: 1
+    - STOP:
+        access: rw
+        description: When 1, disables accesses on FIFOs, places the transmit channel
+          in mute mode
+        lsb: 3
+        reset_value: '0'
+        width: 1
+    - RESET:
+        access: rw
+        description: When 1, asynchronously resets the transmit channel and FIFO
+        lsb: 4
+        reset_value: '0'
+        width: 1
+    - WS_SEL:
+        access: rw
+        description: When 0, the interface is in master mode. When 1, the interface
+          is in slave mode
+        lsb: 5
+        reset_value: '1'
+        width: 1
+    - WS_HALFPERIOD:
+        access: rw
+        description: Word select half period minus 1, i.e. WS 64clk period -> ws_halfperiod
+          = 31.
+        lsb: 6
+        reset_value: '0x1f'
+        width: 9
+    - MUTE:
+        access: rw
+        description: When 1, the transmit channel sends only zeroes
+        lsb: 15
+        reset_value: '1'
+        width: 1
+- I2S0_TXFIFO:
+    fields: !!omap
+    - I2STXFIFO:
+        access: w
+        description: 8 x 32-bit transmit FIFO
+        lsb: 0
+        reset_value: '0'
+        width: 32
+- I2S1_TXFIFO:
+    fields: !!omap
+    - I2STXFIFO:
+        access: w
+        description: 8 x 32-bit transmit FIFO
+        lsb: 0
+        reset_value: '0'
+        width: 32
+- I2S0_RXFIFO:
+    fields: !!omap
+    - I2SRXFIFO:
+        access: r
+        description: 8 x 32-bit receive FIFO
+        lsb: 0
+        reset_value: '0'
+        width: 32
+- I2S1_RXFIFO:
+    fields: !!omap
+    - I2SRXFIFO:
+        access: r
+        description: 8 x 32-bit receive FIFO
+        lsb: 0
+        reset_value: '0'
+        width: 32
+- I2S0_STATE:
+    fields: !!omap
+    - IRQ:
+        access: r
+        description: This bit reflects the presence of Receive Interrupt or Transmit
+          Interrupt
+        lsb: 0
+        reset_value: '1'
+        width: 1
+    - DMAREQ1:
+        access: r
+        description: This bit reflects the presence of Receive or Transmit DMA Request
+          1
+        lsb: 1
+        reset_value: '1'
+        width: 1
+    - DMAREQ2:
+        access: r
+        description: This bit reflects the presence of Receive or Transmit DMA Request
+          2
+        lsb: 2
+        reset_value: '1'
+        width: 1
+    - RX_LEVEL:
+        access: r
+        description: Reflects the current level of the Receive FIFO
+        lsb: 8
+        reset_value: '0'
+        width: 4
+    - TX_LEVEL:
+        access: r
+        description: Reflects the current level of the Transmit FIFO
+        lsb: 16
+        reset_value: '0'
+        width: 4
+- I2S1_STATE:
+    fields: !!omap
+    - IRQ:
+        access: r
+        description: This bit reflects the presence of Receive Interrupt or Transmit
+          Interrupt
+        lsb: 0
+        reset_value: '1'
+        width: 1
+    - DMAREQ1:
+        access: r
+        description: This bit reflects the presence of Receive or Transmit DMA Request
+          1
+        lsb: 1
+        reset_value: '1'
+        width: 1
+    - DMAREQ2:
+        access: r
+        description: This bit reflects the presence of Receive or Transmit DMA Request
+          2
+        lsb: 2
+        reset_value: '1'
+        width: 1
+    - RX_LEVEL:
+        access: r
+        description: Reflects the current level of the Receive FIFO
+        lsb: 8
+        reset_value: '0'
+        width: 4
+    - TX_LEVEL:
+        access: r
+        description: Reflects the current level of the Transmit FIFO
+        lsb: 16
+        reset_value: '0'
+        width: 4
+- I2S0_DMA1:
+    fields: !!omap
+    - RX_DMA1_ENABLE:
+        access: rw
+        description: When 1, enables DMA1 for I2S receive
+        lsb: 0
+        reset_value: '0'
+        width: 1
+    - TX_DMA1_ENABLE:
+        access: rw
+        description: When 1, enables DMA1 for I2S transmit
+        lsb: 1
+        reset_value: '0'
+        width: 1
+    - RX_DEPTH_DMA1:
+        access: rw
+        description: Set the FIFO level that triggers a receive DMA request on DMA1
+        lsb: 8
+        reset_value: '0'
+        width: 4
+    - TX_DEPTH_DMA1:
+        access: rw
+        description: Set the FIFO level that triggers a transmit DMA request on DMA1
+        lsb: 16
+        reset_value: '0'
+        width: 4
+- I2S1_DMA1:
+    fields: !!omap
+    - RX_DMA1_ENABLE:
+        access: rw
+        description: When 1, enables DMA1 for I2S receive
+        lsb: 0
+        reset_value: '0'
+        width: 1
+    - TX_DMA1_ENABLE:
+        access: rw
+        description: When 1, enables DMA1 for I2S transmit
+        lsb: 1
+        reset_value: '0'
+        width: 1
+    - RX_DEPTH_DMA1:
+        access: rw
+        description: Set the FIFO level that triggers a receive DMA request on DMA1
+        lsb: 8
+        reset_value: '0'
+        width: 4
+    - TX_DEPTH_DMA1:
+        access: rw
+        description: Set the FIFO level that triggers a transmit DMA request on DMA1
+        lsb: 16
+        reset_value: '0'
+        width: 4
+- I2S0_DMA2:
+    fields: !!omap
+    - RX_DMA2_ENABLE:
+        access: rw
+        description: When 1, enables DMA2 for I2S receive
+        lsb: 0
+        reset_value: '0'
+        width: 1
+    - TX_DMA2_ENABLE:
+        access: rw
+        description: When 1, enables DMA2 for I2S transmit
+        lsb: 1
+        reset_value: '0'
+        width: 1
+    - RX_DEPTH_DMA2:
+        access: rw
+        description: Set the FIFO level that triggers a receive DMA request on DMA2
+        lsb: 8
+        reset_value: '0'
+        width: 4
+    - TX_DEPTH_DMA2:
+        access: rw
+        description: Set the FIFO level that triggers a transmit DMA request on DMA2
+        lsb: 16
+        reset_value: '0'
+        width: 4
+- I2S1_DMA2:
+    fields: !!omap
+    - RX_DMA2_ENABLE:
+        access: rw
+        description: When 1, enables DMA2 for I2S receive
+        lsb: 0
+        reset_value: '0'
+        width: 1
+    - TX_DMA2_ENABLE:
+        access: rw
+        description: When 1, enables DMA2 for I2S transmit
+        lsb: 1
+        reset_value: '0'
+        width: 1
+    - RX_DEPTH_DMA2:
+        access: rw
+        description: Set the FIFO level that triggers a receive DMA request on DMA2
+        lsb: 8
+        reset_value: '0'
+        width: 4
+    - TX_DEPTH_DMA2:
+        access: rw
+        description: Set the FIFO level that triggers a transmit DMA request on DMA2
+        lsb: 16
+        reset_value: '0'
+        width: 4
+- I2S0_IRQ:
+    fields: !!omap
+    - RX_IRQ_ENABLE:
+        access: rw
+        description: When 1, enables I2S receive interrupt
+        lsb: 0
+        reset_value: '0'
+        width: 1
+    - TX_IRQ_ENABLE:
+        access: rw
+        description: When 1, enables I2S transmit interrupt
+        lsb: 1
+        reset_value: '0'
+        width: 1
+    - RX_DEPTH_IRQ:
+        access: rw
+        description: Set the FIFO level on which to create an irq request.
+        lsb: 8
+        reset_value: '0'
+        width: 4
+    - TX_DEPTH_IRQ:
+        access: rw
+        description: Set the FIFO level on which to create an irq request.
+        lsb: 16
+        reset_value: '0'
+        width: 4
+- I2S1_IRQ:
+    fields: !!omap
+    - RX_IRQ_ENABLE:
+        access: rw
+        description: When 1, enables I2S receive interrupt
+        lsb: 0
+        reset_value: '0'
+        width: 1
+    - TX_IRQ_ENABLE:
+        access: rw
+        description: When 1, enables I2S transmit interrupt
+        lsb: 1
+        reset_value: '0'
+        width: 1
+    - RX_DEPTH_IRQ:
+        access: rw
+        description: Set the FIFO level on which to create an irq request.
+        lsb: 8
+        reset_value: '0'
+        width: 4
+    - TX_DEPTH_IRQ:
+        access: rw
+        description: Set the FIFO level on which to create an irq request.
+        lsb: 16
+        reset_value: '0'
+        width: 4
+- I2S0_TXRATE:
+    fields: !!omap
+    - Y_DIVIDER:
+        access: rw
+        description: I2S transmit MCLK rate denominator
+        lsb: 0
+        reset_value: '0'
+        width: 8
+    - X_DIVIDER:
+        access: rw
+        description: I2S transmit MCLK rate numerator
+        lsb: 8
+        reset_value: '0'
+        width: 8
+- I2S1_TXRATE:
+    fields: !!omap
+    - Y_DIVIDER:
+        access: rw
+        description: I2S transmit MCLK rate denominator
+        lsb: 0
+        reset_value: '0'
+        width: 8
+    - X_DIVIDER:
+        access: rw
+        description: I2S transmit MCLK rate numerator
+        lsb: 8
+        reset_value: '0'
+        width: 8
+- I2S0_RXRATE:
+    fields: !!omap
+    - Y_DIVIDER:
+        access: rw
+        description: I2S receive MCLK rate denominator
+        lsb: 0
+        reset_value: '0'
+        width: 8
+    - X_DIVIDER:
+        access: rw
+        description: I2S receive MCLK rate numerator
+        lsb: 8
+        reset_value: '0'
+        width: 8
+- I2S1_RXRATE:
+    fields: !!omap
+    - Y_DIVIDER:
+        access: rw
+        description: I2S receive MCLK rate denominator
+        lsb: 0
+        reset_value: '0'
+        width: 8
+    - X_DIVIDER:
+        access: rw
+        description: I2S receive MCLK rate numerator
+        lsb: 8
+        reset_value: '0'
+        width: 8
+- I2S0_TXBITRATE:
+    fields: !!omap
+    - TX_BITRATE:
+        access: rw
+        description: I2S transmit bit rate
+        lsb: 0
+        reset_value: '0'
+        width: 6
+- I2S1_TXBITRATE:
+    fields: !!omap
+    - TX_BITRATE:
+        access: rw
+        description: I2S transmit bit rate
+        lsb: 0
+        reset_value: '0'
+        width: 6
+- I2S0_RXBITRATE:
+    fields: !!omap
+    - RX_BITRATE:
+        access: rw
+        description: I2S receive bit rate
+        lsb: 0
+        reset_value: '0'
+        width: 6
+- I2S1_RXBITRATE:
+    fields: !!omap
+    - RX_BITRATE:
+        access: rw
+        description: I2S receive bit rate
+        lsb: 0
+        reset_value: '0'
+        width: 6
+- I2S0_TXMODE:
+    fields: !!omap
+    - TXCLKSEL:
+        access: rw
+        description: Clock source selection for the transmit bit clock divider
+        lsb: 0
+        reset_value: '0'
+        width: 2
+    - TX4PIN:
+        access: rw
+        description: Transmit 4-pin mode selection
+        lsb: 2
+        reset_value: '0'
+        width: 1
+    - TXMCENA:
+        access: rw
+        description: Enable for the TX_MCLK output
+        lsb: 3
+        reset_value: '0'
+        width: 1
+- I2S1_TXMODE:
+    fields: !!omap
+    - TXCLKSEL:
+        access: rw
+        description: Clock source selection for the transmit bit clock divider
+        lsb: 0
+        reset_value: '0'
+        width: 2
+    - TX4PIN:
+        access: rw
+        description: Transmit 4-pin mode selection
+        lsb: 2
+        reset_value: '0'
+        width: 1
+    - TXMCENA:
+        access: rw
+        description: Enable for the TX_MCLK output
+        lsb: 3
+        reset_value: '0'
+        width: 1
+- I2S0_RXMODE:
+    fields: !!omap
+    - RXCLKSEL:
+        access: rw
+        description: Clock source selection for the receive bit clock divider
+        lsb: 0
+        reset_value: '0'
+        width: 2
+    - RX4PIN:
+        access: rw
+        description: Receive 4-pin mode selection
+        lsb: 2
+        reset_value: '0'
+        width: 1
+    - RXMCENA:
+        access: rw
+        description: Enable for the RX_MCLK output
+        lsb: 3
+        reset_value: '0'
+        width: 1
+- I2S1_RXMODE:
+    fields: !!omap
+    - RXCLKSEL:
+        access: rw
+        description: Clock source selection for the receive bit clock divider
+        lsb: 0
+        reset_value: '0'
+        width: 2
+    - RX4PIN:
+        access: rw
+        description: Receive 4-pin mode selection
+        lsb: 2
+        reset_value: '0'
+        width: 1
+    - RXMCENA:
+        access: rw
+        description: Enable for the RX_MCLK output
+        lsb: 3
+        reset_value: '0'
+        width: 1

@@ -1,8 +1,8 @@
 #if defined(STM32F4)
 #	include "../stm32/f4/vector_chipset.c"
 
-#elif defined(LPC43XX)
-#	include "../lpc43xx/vector_chipset.c"
+#elif defined(LPC43XX_M4)
+#	include "../lpc43xx/m4/vector_chipset.c"
 
 #else
 

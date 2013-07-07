@@ -1,0 +1,71 @@
+!!omap
+- ATIMER_DOWNCOUNTER:
+    fields: !!omap
+    - CVAL:
+        access: rw
+        description: When equal to zero an interrupt is raised
+        lsb: 0
+        reset_value: '0'
+        width: 16
+- ATIMER_PRESET:
+    fields: !!omap
+    - PRESETVAL:
+        access: rw
+        description: Value loaded in DOWNCOUNTER when DOWNCOUNTER equals zero
+        lsb: 0
+        reset_value: '0'
+        width: 16
+- ATIMER_CLR_EN:
+    fields: !!omap
+    - CLR_EN:
+        access: w
+        description: Writing a 1 to this bit clears the interrupt enable bit in the
+          ENABLE register
+        lsb: 0
+        reset_value: '0'
+        width: 1
+- ATIMER_SET_EN:
+    fields: !!omap
+    - SET_EN:
+        access: w
+        description: Writing a 1 to this bit sets the interrupt enable bit in the
+          ENABLE register
+        lsb: 0
+        reset_value: '0'
+        width: 1
+- ATIMER_STATUS:
+    fields: !!omap
+    - STAT:
+        access: r
+        description: A 1 in this bit shows that the STATUS interrupt has been raised
+        lsb: 0
+        reset_value: '0'
+        width: 1
+- ATIMER_ENABLE:
+    fields: !!omap
+    - ENA:
+        access: r
+        description: A 1 in this bit shows that the STATUS interrupt has been enabled
+          and that the STATUS interrupt request signal is asserted when STAT = 1 in
+          the STATUS register
+        lsb: 0
+        reset_value: '0'
+        width: 1
+- ATIMER_CLR_STAT:
+    fields: !!omap
+    - CSTAT:
+        access: w
+        description: Writing a 1 to this bit clears the STATUS interrupt bit in the
+          STATUS register
+        lsb: 0
+        reset_value: '0'
+        width: 1
+- ATIMER_SET_STAT:
+    fields: !!omap
+    - SSTAT:
+        access: w
+        description: Writing a 1 to this bit sets the STATUS interrupt bit in the
+          STATUS register
+        lsb: 0
+        reset_value: '0'
+        width: 1

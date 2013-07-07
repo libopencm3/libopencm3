@@ -37,7 +37,7 @@
 /* AHB (0x4000 0000 - 0x4001 2000) */
 #define SCT_BASE                        (PERIPH_BASE_AHB + 0x00000)
 /* PERIPH_BASE_AHB + 0x01000 (0x4000 1000 - 0x4000 1FFF): Reserved */
-#define DMA_BASE                        (PERIPH_BASE_AHB + 0x02000)
+#define GPDMA_BASE                      (PERIPH_BASE_AHB + 0x02000)
 #define SPIFI_BASE                      (PERIPH_BASE_AHB + 0x03000)
 #define SDIO_BASE                       (PERIPH_BASE_AHB + 0x04000)
 #define EMC_BASE                        (PERIPH_BASE_AHB + 0x05000)
@@ -77,8 +77,8 @@
 #define TIMER1_BASE                     (PERIPH_BASE_APB0 + 0x05000)
 #define SCU_BASE                        (PERIPH_BASE_APB0 + 0x06000)
 #define GPIO_PIN_INTERRUPT_BASE         (PERIPH_BASE_APB0 + 0x07000)
-#define GPIO_GROUP0_INTRRUPT_BASE       (PERIPH_BASE_APB0 + 0x08000)
-#define GPIO_GROUP1_INTRRUPT_BASE       (PERIPH_BASE_APB0 + 0x09000)
+#define GPIO_GROUP0_INTERRUPT_BASE      (PERIPH_BASE_APB0 + 0x08000)
+#define GPIO_GROUP1_INTERRUPT_BASE      (PERIPH_BASE_APB0 + 0x09000)
 /* 0x4008 A000 - 0x4008 FFFF Reserved */
 
 /* 0x4009 0000 - 0x4009 FFFF Reserved */

@@ -151,7 +151,7 @@ LGPL License Terms @ref lgpl_license
 
 BEGIN_DECLS
 
-void i2c0_init(void);
+void i2c0_init(const uint16_t duty_cycle_count);
 void i2c0_tx_start(void);
 void i2c0_tx_byte(uint8_t byte);
 uint8_t i2c0_rx_byte(void);

@@ -1,0 +1,7063 @@
+!!omap
+- SCU_SFSP0_0:
+    fields: !!omap
+    - MODE:
+        access: rw
+        description: Select pin function
+        lsb: 0
+        reset_value: '0'
+        width: 3
+    - EPD:
+        access: rw
+        description: Enable pull-down resistor at pad
+        lsb: 3
+        reset_value: '0'
+        width: 1
+    - EPUN:
+        access: rw
+        description: Disable pull-up resistor at pad
+        lsb: 4
+        reset_value: '0'
+        width: 1
+    - EHS:
+        access: rw
+        description: Select Slew rate
+        lsb: 5
+        reset_value: '0'
+        width: 1
+    - EZI:
+        access: rw
+        description: Input buffer enable
+        lsb: 6
+        reset_value: '0'
+        width: 1
+    - ZIF:
+        access: rw
+        description: Input glitch filter
+        lsb: 7
+        reset_value: '0'
+        width: 1
+- SCU_SFSP0_1:
+    fields: !!omap
+    - MODE:
+        access: rw
+        description: Select pin function
+        lsb: 0
+        reset_value: '0'
+        width: 3
+    - EPD:
+        access: rw
+        description: Enable pull-down resistor at pad
+        lsb: 3
+        reset_value: '0'
+        width: 1
+    - EPUN:
+        access: rw
+        description: Disable pull-up resistor at pad
+        lsb: 4
+        reset_value: '0'
+        width: 1
+    - EHS:
+        access: rw
+        description: Select Slew rate
+        lsb: 5
+        reset_value: '0'
+        width: 1
+    - EZI:
+        access: rw
+        description: Input buffer enable
+        lsb: 6
+        reset_value: '0'
+        width: 1
+    - ZIF:
+        access: rw
+        description: Input glitch filter
+        lsb: 7
+        reset_value: '0'
+        width: 1
+- SCU_SFSP1_0:
+    fields: !!omap
+    - MODE:
+        access: rw
+        description: Select pin function
+        lsb: 0
+        reset_value: '0'
+        width: 3
+    - EPD:
+        access: rw
+        description: Enable pull-down resistor at pad
+        lsb: 3
+        reset_value: '0'
+        width: 1
+    - EPUN:
+        access: rw
+        description: Disable pull-up resistor at pad
+        lsb: 4
+        reset_value: '0'
+        width: 1
+    - EHS:
+        access: rw
+        description: Select Slew rate
+        lsb: 5
+        reset_value: '0'
+        width: 1
+    - EZI:
+        access: rw
+        description: Input buffer enable
+        lsb: 6
+        reset_value: '0'
+        width: 1
+    - ZIF:
+        access: rw
+        description: Input glitch filter
+        lsb: 7
+        reset_value: '0'
+        width: 1
+- SCU_SFSP1_1:
+    fields: !!omap
+    - MODE:
+        access: rw
+        description: Select pin function
+        lsb: 0
+        reset_value: '0'
+        width: 3
+    - EPD:
+        access: rw
+        description: Enable pull-down resistor at pad
+        lsb: 3
+        reset_value: '0'
+        width: 1
+    - EPUN:
+        access: rw
+        description: Disable pull-up resistor at pad
+        lsb: 4
+        reset_value: '0'
+        width: 1
+    - EHS:
+        access: rw
+        description: Select Slew rate
+        lsb: 5
+        reset_value: '0'
+        width: 1
+    - EZI:
+        access: rw
+        description: Input buffer enable
+        lsb: 6
+        reset_value: '0'
+        width: 1
+    - ZIF:
+        access: rw
+        description: Input glitch filter
+        lsb: 7
+        reset_value: '0'
+        width: 1
+- SCU_SFSP1_2:
+    fields: !!omap
+    - MODE:
+        access: rw
+        description: Select pin function
+        lsb: 0
+        reset_value: '0'
+        width: 3
+    - EPD:
+        access: rw
+        description: Enable pull-down resistor at pad
+        lsb: 3
+        reset_value: '0'
+        width: 1
+    - EPUN:
+        access: rw
+        description: Disable pull-up resistor at pad
+        lsb: 4
+        reset_value: '0'
+        width: 1
+    - EHS:
+        access: rw
+        description: Select Slew rate
+        lsb: 5
+        reset_value: '0'
+        width: 1
+    - EZI:
+        access: rw
+        description: Input buffer enable
+        lsb: 6
+        reset_value: '0'
+        width: 1
+    - ZIF:
+        access: rw
+        description: Input glitch filter
+        lsb: 7
+        reset_value: '0'
+        width: 1
+- SCU_SFSP1_3:
+    fields: !!omap
+    - MODE:
+        access: rw
+        description: Select pin function
+        lsb: 0
+        reset_value: '0'
+        width: 3
+    - EPD:
+        access: rw
+        description: Enable pull-down resistor at pad
+        lsb: 3
+        reset_value: '0'
+        width: 1
+    - EPUN:
+        access: rw
+        description: Disable pull-up resistor at pad
+        lsb: 4
+        reset_value: '0'
+        width: 1
+    - EHS:
+        access: rw
+        description: Select Slew rate
+        lsb: 5
+        reset_value: '0'
+        width: 1
+    - EZI:
+        access: rw
+        description: Input buffer enable
+        lsb: 6
+        reset_value: '0'
+        width: 1
+    - ZIF:
+        access: rw
+        description: Input glitch filter
+        lsb: 7
+        reset_value: '0'
+        width: 1
+- SCU_SFSP1_4:
+    fields: !!omap
+    - MODE:
+        access: rw
+        description: Select pin function
+        lsb: 0
+        reset_value: '0'
+        width: 3
+    - EPD:
+        access: rw
+        description: Enable pull-down resistor at pad
+        lsb: 3
+        reset_value: '0'
+        width: 1
+    - EPUN:
+        access: rw
+        description: Disable pull-up resistor at pad
+        lsb: 4
+        reset_value: '0'
+        width: 1
+    - EHS:
+        access: rw
+        description: Select Slew rate
+        lsb: 5
+        reset_value: '0'
+        width: 1
+    - EZI:
+        access: rw
+        description: Input buffer enable
+        lsb: 6
+        reset_value: '0'
+        width: 1
+    - ZIF:
+        access: rw
+        description: Input glitch filter
+        lsb: 7
+        reset_value: '0'
+        width: 1
+- SCU_SFSP1_5:
+    fields: !!omap
+    - MODE:
+        access: rw
+        description: Select pin function
+        lsb: 0
+        reset_value: '0'
+        width: 3
+    - EPD:
+        access: rw
+        description: Enable pull-down resistor at pad
+        lsb: 3
+        reset_value: '0'
+        width: 1
+    - EPUN:
+        access: rw
+        description: Disable pull-up resistor at pad
+        lsb: 4
+        reset_value: '0'
+        width: 1
+    - EHS:
+        access: rw
+        description: Select Slew rate
+        lsb: 5
+        reset_value: '0'
+        width: 1
+    - EZI:
+        access: rw
+        description: Input buffer enable
+        lsb: 6
+        reset_value: '0'
+        width: 1
+    - ZIF:
+        access: rw
+        description: Input glitch filter
+        lsb: 7
+        reset_value: '0'
+        width: 1
+- SCU_SFSP1_6:
+    fields: !!omap
+    - MODE:
+        access: rw
+        description: Select pin function
+        lsb: 0
+        reset_value: '0'
+        width: 3
+    - EPD:
+        access: rw
+        description: Enable pull-down resistor at pad
+        lsb: 3
+        reset_value: '0'
+        width: 1
+    - EPUN:
+        access: rw
+        description: Disable pull-up resistor at pad
+        lsb: 4
+        reset_value: '0'
+        width: 1
+    - EHS:
+        access: rw
+        description: Select Slew rate
+        lsb: 5
+        reset_value: '0'
+        width: 1
+    - EZI:
+        access: rw
+        description: Input buffer enable
+        lsb: 6
+        reset_value: '0'
+        width: 1
+    - ZIF:
+        access: rw
+        description: Input glitch filter
+        lsb: 7
+        reset_value: '0'
+        width: 1
+- SCU_SFSP1_7:
+    fields: !!omap
+    - MODE:
+        access: rw
+        description: Select pin function
+        lsb: 0
+        reset_value: '0'
+        width: 3
+    - EPD:
+        access: rw
+        description: Enable pull-down resistor at pad
+        lsb: 3
+        reset_value: '0'
+        width: 1
+    - EPUN:
+        access: rw
+        description: Disable pull-up resistor at pad
+        lsb: 4
+        reset_value: '0'
+        width: 1
+    - EHS:
+        access: rw
+        description: Select Slew rate
+        lsb: 5
+        reset_value: '0'
+        width: 1
+    - EZI:
+        access: rw
+        description: Input buffer enable
+        lsb: 6
+        reset_value: '0'
+        width: 1
+    - ZIF:
+        access: rw
+        description: Input glitch filter
+        lsb: 7
+        reset_value: '0'
+        width: 1
+- SCU_SFSP1_8:
+    fields: !!omap
+    - MODE:
+        access: rw
+        description: Select pin function
+        lsb: 0
+        reset_value: '0'
+        width: 3
+    - EPD:
+        access: rw
+        description: Enable pull-down resistor at pad
+        lsb: 3
+        reset_value: '0'
+        width: 1
+    - EPUN:
+        access: rw
+        description: Disable pull-up resistor at pad
+        lsb: 4
+        reset_value: '0'
+        width: 1
+    - EHS:
+        access: rw
+        description: Select Slew rate
+        lsb: 5
+        reset_value: '0'
+        width: 1
+    - EZI:
+        access: rw
+        description: Input buffer enable
+        lsb: 6
+        reset_value: '0'
+        width: 1
+    - ZIF:
+        access: rw
+        description: Input glitch filter
+        lsb: 7
+        reset_value: '0'
+        width: 1
+- SCU_SFSP1_9:
+    fields: !!omap
+    - MODE:
+        access: rw
+        description: Select pin function
+        lsb: 0
+        reset_value: '0'
+        width: 3
+    - EPD:
+        access: rw
+        description: Enable pull-down resistor at pad
+        lsb: 3
+        reset_value: '0'
+        width: 1
+    - EPUN:
+        access: rw
+        description: Disable pull-up resistor at pad
+        lsb: 4
+        reset_value: '0'
+        width: 1
+    - EHS:
+        access: rw
+        description: Select Slew rate
+        lsb: 5
+        reset_value: '0'
+        width: 1
+    - EZI:
+        access: rw
+        description: Input buffer enable
+        lsb: 6
+        reset_value: '0'
+        width: 1
+    - ZIF:
+        access: rw
+        description: Input glitch filter
+        lsb: 7
+        reset_value: '0'
+        width: 1
+- SCU_SFSP1_10:
+    fields: !!omap
+    - MODE:
+        access: rw
+        description: Select pin function
+        lsb: 0
+        reset_value: '0'
+        width: 3
+    - EPD:
+        access: rw
+        description: Enable pull-down resistor at pad
+        lsb: 3
+        reset_value: '0'
+        width: 1
+    - EPUN:
+        access: rw
+        description: Disable pull-up resistor at pad
+        lsb: 4
+        reset_value: '0'
+        width: 1
+    - EHS:
+        access: rw
+        description: Select Slew rate
+        lsb: 5
+        reset_value: '0'
+        width: 1
+    - EZI:
+        access: rw
+        description: Input buffer enable
+        lsb: 6
+        reset_value: '0'
+        width: 1
+    - ZIF:
+        access: rw
+        description: Input glitch filter
+        lsb: 7
+        reset_value: '0'
+        width: 1
+- SCU_SFSP1_11:
+    fields: !!omap
+    - MODE:
+        access: rw
+        description: Select pin function
+        lsb: 0
+        reset_value: '0'
+        width: 3
+    - EPD:
+        access: rw
+        description: Enable pull-down resistor at pad
+        lsb: 3
+        reset_value: '0'
+        width: 1
+    - EPUN:
+        access: rw
+        description: Disable pull-up resistor at pad
+        lsb: 4
+        reset_value: '0'
+        width: 1
+    - EHS:
+        access: rw
+        description: Select Slew rate
+        lsb: 5
+        reset_value: '0'
+        width: 1
+    - EZI:
+        access: rw
+        description: Input buffer enable
+        lsb: 6
+        reset_value: '0'
+        width: 1
+    - ZIF:
+        access: rw
+        description: Input glitch filter
+        lsb: 7
+        reset_value: '0'
+        width: 1
+- SCU_SFSP1_12:
+    fields: !!omap
+    - MODE:
+        access: rw
+        description: Select pin function
+        lsb: 0
+        reset_value: '0'
+        width: 3
+    - EPD:
+        access: rw
+        description: Enable pull-down resistor at pad
+        lsb: 3
+        reset_value: '0'
+        width: 1
+    - EPUN:
+        access: rw
+        description: Disable pull-up resistor at pad
+        lsb: 4
+        reset_value: '0'
+        width: 1
+    - EHS:
+        access: rw
+        description: Select Slew rate
+        lsb: 5
+        reset_value: '0'
+        width: 1
+    - EZI:
+        access: rw
+        description: Input buffer enable
+        lsb: 6
+        reset_value: '0'
+        width: 1
+    - ZIF:
+        access: rw
+        description: Input glitch filter
+        lsb: 7
+        reset_value: '0'
+        width: 1
+- SCU_SFSP1_13:
+    fields: !!omap
+    - MODE:
+        access: rw
+        description: Select pin function
+        lsb: 0
+        reset_value: '0'
+        width: 3
+    - EPD:
+        access: rw
+        description: Enable pull-down resistor at pad
+        lsb: 3
+        reset_value: '0'
+        width: 1
+    - EPUN:
+        access: rw
+        description: Disable pull-up resistor at pad
+        lsb: 4
+        reset_value: '0'
+        width: 1
+    - EHS:
+        access: rw
+        description: Select Slew rate
+        lsb: 5
+        reset_value: '0'
+        width: 1
+    - EZI:
+        access: rw
+        description: Input buffer enable
+        lsb: 6
+        reset_value: '0'
+        width: 1
+    - ZIF:
+        access: rw
+        description: Input glitch filter
+        lsb: 7
+        reset_value: '0'
+        width: 1
+- SCU_SFSP1_14:
+    fields: !!omap
+    - MODE:
+        access: rw
+        description: Select pin function
+        lsb: 0
+        reset_value: '0'
+        width: 3
+    - EPD:
+        access: rw
+        description: Enable pull-down resistor at pad
+        lsb: 3
+        reset_value: '0'
+        width: 1
+    - EPUN:
+        access: rw
+        description: Disable pull-up resistor at pad
+        lsb: 4
+        reset_value: '0'
+        width: 1
+    - EHS:
+        access: rw
+        description: Select Slew rate
+        lsb: 5
+        reset_value: '0'
+        width: 1
+    - EZI:
+        access: rw
+        description: Input buffer enable
+        lsb: 6
+        reset_value: '0'
+        width: 1
+    - ZIF:
+        access: rw
+        description: Input glitch filter
+        lsb: 7
+        reset_value: '0'
+        width: 1
+- SCU_SFSP1_15:
+    fields: !!omap
+    - MODE:
+        access: rw
+        description: Select pin function
+        lsb: 0
+        reset_value: '0'
+        width: 3
+    - EPD:
+        access: rw
+        description: Enable pull-down resistor at pad
+        lsb: 3
+        reset_value: '0'
+        width: 1
+    - EPUN:
+        access: rw
+        description: Disable pull-up resistor at pad
+        lsb: 4
+        reset_value: '0'
+        width: 1
+    - EHS:
+        access: rw
+        description: Select Slew rate
+        lsb: 5
+        reset_value: '0'
+        width: 1
+    - EZI:
+        access: rw
+        description: Input buffer enable
+        lsb: 6
+        reset_value: '0'
+        width: 1
+    - ZIF:
+        access: rw
+        description: Input glitch filter
+        lsb: 7
+        reset_value: '0'
+        width: 1
+- SCU_SFSP1_16:
+    fields: !!omap
+    - MODE:
+        access: rw
+        description: Select pin function
+        lsb: 0
+        reset_value: '0'
+        width: 3
+    - EPD:
+        access: rw
+        description: Enable pull-down resistor at pad
+        lsb: 3
+        reset_value: '0'
+        width: 1
+    - EPUN:
+        access: rw
+        description: Disable pull-up resistor at pad
+        lsb: 4
+        reset_value: '0'
+        width: 1
+    - EHS:
+        access: rw
+        description: Select Slew rate
+        lsb: 5
+        reset_value: '0'
+        width: 1
+    - EZI:
+        access: rw
+        description: Input buffer enable
+        lsb: 6
+        reset_value: '0'
+        width: 1
+    - ZIF:
+        access: rw
+        description: Input glitch filter
+        lsb: 7
+        reset_value: '0'
+        width: 1
+- SCU_SFSP1_18:
+    fields: !!omap
+    - MODE:
+        access: rw
+        description: Select pin function
+        lsb: 0
+        reset_value: '0'
+        width: 3
+    - EPD:
+        access: rw
+        description: Enable pull-down resistor at pad
+        lsb: 3
+        reset_value: '0'
+        width: 1
+    - EPUN:
+        access: rw
+        description: Disable pull-up resistor at pad
+        lsb: 4
+        reset_value: '0'
+        width: 1
+    - EHS:
+        access: rw
+        description: Select Slew rate
+        lsb: 5
+        reset_value: '0'
+        width: 1
+    - EZI:
+        access: rw
+        description: Input buffer enable
+        lsb: 6
+        reset_value: '0'
+        width: 1
+    - ZIF:
+        access: rw
+        description: Input glitch filter
+        lsb: 7
+        reset_value: '0'
+        width: 1
+- SCU_SFSP1_19:
+    fields: !!omap
+    - MODE:
+        access: rw
+        description: Select pin function
+        lsb: 0
+        reset_value: '0'
+        width: 3
+    - EPD:
+        access: rw
+        description: Enable pull-down resistor at pad
+        lsb: 3
+        reset_value: '0'
+        width: 1
+    - EPUN:
+        access: rw
+        description: Disable pull-up resistor at pad
+        lsb: 4
+        reset_value: '0'
+        width: 1
+    - EHS:
+        access: rw
+        description: Select Slew rate
+        lsb: 5
+        reset_value: '0'
+        width: 1
+    - EZI:
+        access: rw
+        description: Input buffer enable
+        lsb: 6
+        reset_value: '0'
+        width: 1
+    - ZIF:
+        access: rw
+        description: Input glitch filter
+        lsb: 7
+        reset_value: '0'
+        width: 1
+- SCU_SFSP1_20:
+    fields: !!omap
+    - MODE:
+        access: rw
+        description: Select pin function
+        lsb: 0
+        reset_value: '0'
+        width: 3
+    - EPD:
+        access: rw
+        description: Enable pull-down resistor at pad
+        lsb: 3
+        reset_value: '0'
+        width: 1
+    - EPUN:
+        access: rw
+        description: Disable pull-up resistor at pad
+        lsb: 4
+        reset_value: '0'
+        width: 1
+    - EHS:
+        access: rw
+        description: Select Slew rate
+        lsb: 5
+        reset_value: '0'
+        width: 1
+    - EZI:
+        access: rw
+        description: Input buffer enable
+        lsb: 6
+        reset_value: '0'
+        width: 1
+    - ZIF:
+        access: rw
+        description: Input glitch filter
+        lsb: 7
+        reset_value: '0'
+        width: 1
+- SCU_SFSP2_0:
+    fields: !!omap
+    - MODE:
+        access: rw
+        description: Select pin function
+        lsb: 0
+        reset_value: '0'
+        width: 3
+    - EPD:
+        access: rw
+        description: Enable pull-down resistor at pad
+        lsb: 3
+        reset_value: '0'
+        width: 1
+    - EPUN:
+        access: rw
+        description: Disable pull-up resistor at pad
+        lsb: 4
+        reset_value: '0'
+        width: 1
+    - EHS:
+        access: rw
+        description: Select Slew rate
+        lsb: 5
+        reset_value: '0'
+        width: 1
+    - EZI:
+        access: rw
+        description: Input buffer enable
+        lsb: 6
+        reset_value: '0'
+        width: 1
+    - ZIF:
+        access: rw
+        description: Input glitch filter
+        lsb: 7
+        reset_value: '0'
+        width: 1
+- SCU_SFSP2_1:
+    fields: !!omap
+    - MODE:
+        access: rw
+        description: Select pin function
+        lsb: 0
+        reset_value: '0'
+        width: 3
+    - EPD:
+        access: rw
+        description: Enable pull-down resistor at pad
+        lsb: 3
+        reset_value: '0'
+        width: 1
+    - EPUN:
+        access: rw
+        description: Disable pull-up resistor at pad
+        lsb: 4
+        reset_value: '0'
+        width: 1
+    - EHS:
+        access: rw
+        description: Select Slew rate
+        lsb: 5
+        reset_value: '0'
+        width: 1
+    - EZI:
+        access: rw
+        description: Input buffer enable
+        lsb: 6
+        reset_value: '0'
+        width: 1
+    - ZIF:
+        access: rw
+        description: Input glitch filter
+        lsb: 7
+        reset_value: '0'
+        width: 1
+- SCU_SFSP2_2:
+    fields: !!omap
+    - MODE:
+        access: rw
+        description: Select pin function
+        lsb: 0
+        reset_value: '0'
+        width: 3
+    - EPD:
+        access: rw
+        description: Enable pull-down resistor at pad
+        lsb: 3
+        reset_value: '0'
+        width: 1
+    - EPUN:
+        access: rw
+        description: Disable pull-up resistor at pad
+        lsb: 4
+        reset_value: '0'
+        width: 1
+    - EHS:
+        access: rw
+        description: Select Slew rate
+        lsb: 5
+        reset_value: '0'
+        width: 1
+    - EZI:
+        access: rw
+        description: Input buffer enable
+        lsb: 6
+        reset_value: '0'
+        width: 1
+    - ZIF:
+        access: rw
+        description: Input glitch filter
+        lsb: 7
+        reset_value: '0'
+        width: 1
+- SCU_SFSP2_6:
+    fields: !!omap
+    - MODE:
+        access: rw
+        description: Select pin function
+        lsb: 0
+        reset_value: '0'
+        width: 3
+    - EPD:
+        access: rw
+        description: Enable pull-down resistor at pad
+        lsb: 3
+        reset_value: '0'
+        width: 1
+    - EPUN:
+        access: rw
+        description: Disable pull-up resistor at pad
+        lsb: 4
+        reset_value: '0'
+        width: 1
+    - EHS:
+        access: rw
+        description: Select Slew rate
+        lsb: 5
+        reset_value: '0'
+        width: 1
+    - EZI:
+        access: rw
+        description: Input buffer enable
+        lsb: 6
+        reset_value: '0'
+        width: 1
+    - ZIF:
+        access: rw
+        description: Input glitch filter
+        lsb: 7
+        reset_value: '0'
+        width: 1
+- SCU_SFSP2_7:
+    fields: !!omap
+    - MODE:
+        access: rw
+        description: Select pin function
+        lsb: 0
+        reset_value: '0'
+        width: 3
+    - EPD:
+        access: rw
+        description: Enable pull-down resistor at pad
+        lsb: 3
+        reset_value: '0'
+        width: 1
+    - EPUN:
+        access: rw
+        description: Disable pull-up resistor at pad
+        lsb: 4
+        reset_value: '0'
+        width: 1
+    - EHS:
+        access: rw
+        description: Select Slew rate
+        lsb: 5
+        reset_value: '0'
+        width: 1
+    - EZI:
+        access: rw
+        description: Input buffer enable
+        lsb: 6
+        reset_value: '0'
+        width: 1
+    - ZIF:
+        access: rw
+        description: Input glitch filter
+        lsb: 7
+        reset_value: '0'
+        width: 1
+- SCU_SFSP2_8:
+    fields: !!omap
+    - MODE:
+        access: rw
+        description: Select pin function
+        lsb: 0
+        reset_value: '0'
+        width: 3
+    - EPD:
+        access: rw
+        description: Enable pull-down resistor at pad
+        lsb: 3
+        reset_value: '0'
+        width: 1
+    - EPUN:
+        access: rw
+        description: Disable pull-up resistor at pad
+        lsb: 4
+        reset_value: '0'
+        width: 1
+    - EHS:
+        access: rw
+        description: Select Slew rate
+        lsb: 5
+        reset_value: '0'
+        width: 1
+    - EZI:
+        access: rw
+        description: Input buffer enable
+        lsb: 6
+        reset_value: '0'
+        width: 1
+    - ZIF:
+        access: rw
+        description: Input glitch filter
+        lsb: 7
+        reset_value: '0'
+        width: 1
+- SCU_SFSP2_9:
+    fields: !!omap
+    - MODE:
+        access: rw
+        description: Select pin function
+        lsb: 0
+        reset_value: '0'
+        width: 3
+    - EPD:
+        access: rw
+        description: Enable pull-down resistor at pad
+        lsb: 3
+        reset_value: '0'
+        width: 1
+    - EPUN:
+        access: rw
+        description: Disable pull-up resistor at pad
+        lsb: 4
+        reset_value: '0'
+        width: 1
+    - EHS:
+        access: rw
+        description: Select Slew rate
+        lsb: 5
+        reset_value: '0'
+        width: 1
+    - EZI:
+        access: rw
+        description: Input buffer enable
+        lsb: 6
+        reset_value: '0'
+        width: 1
+    - ZIF:
+        access: rw
+        description: Input glitch filter
+        lsb: 7
+        reset_value: '0'
+        width: 1
+- SCU_SFSP2_10:
+    fields: !!omap
+    - MODE:
+        access: rw
+        description: Select pin function
+        lsb: 0
+        reset_value: '0'
+        width: 3
+    - EPD:
+        access: rw
+        description: Enable pull-down resistor at pad
+        lsb: 3
+        reset_value: '0'
+        width: 1
+    - EPUN:
+        access: rw
+        description: Disable pull-up resistor at pad
+        lsb: 4
+        reset_value: '0'
+        width: 1
+    - EHS:
+        access: rw
+        description: Select Slew rate
+        lsb: 5
+        reset_value: '0'
+        width: 1
+    - EZI:
+        access: rw
+        description: Input buffer enable
+        lsb: 6
+        reset_value: '0'
+        width: 1
+    - ZIF:
+        access: rw
+        description: Input glitch filter
+        lsb: 7
+        reset_value: '0'
+        width: 1
+- SCU_SFSP2_11:
+    fields: !!omap
+    - MODE:
+        access: rw
+        description: Select pin function
+        lsb: 0
+        reset_value: '0'
+        width: 3
+    - EPD:
+        access: rw
+        description: Enable pull-down resistor at pad
+        lsb: 3
+        reset_value: '0'
+        width: 1
+    - EPUN:
+        access: rw
+        description: Disable pull-up resistor at pad
+        lsb: 4
+        reset_value: '0'
+        width: 1
+    - EHS:
+        access: rw
+        description: Select Slew rate
+        lsb: 5
+        reset_value: '0'
+        width: 1
+    - EZI:
+        access: rw
+        description: Input buffer enable
+        lsb: 6
+        reset_value: '0'
+        width: 1
+    - ZIF:
+        access: rw
+        description: Input glitch filter
+        lsb: 7
+        reset_value: '0'
+        width: 1
+- SCU_SFSP2_12:
+    fields: !!omap
+    - MODE:
+        access: rw
+        description: Select pin function
+        lsb: 0
+        reset_value: '0'
+        width: 3
+    - EPD:
+        access: rw
+        description: Enable pull-down resistor at pad
+        lsb: 3
+        reset_value: '0'
+        width: 1
+    - EPUN:
+        access: rw
+        description: Disable pull-up resistor at pad
+        lsb: 4
+        reset_value: '0'
+        width: 1
+    - EHS:
+        access: rw
+        description: Select Slew rate
+        lsb: 5
+        reset_value: '0'
+        width: 1
+    - EZI:
+        access: rw
+        description: Input buffer enable
+        lsb: 6
+        reset_value: '0'
+        width: 1
+    - ZIF:
+        access: rw
+        description: Input glitch filter
+        lsb: 7
+        reset_value: '0'
+        width: 1
+- SCU_SFSP2_13:
+    fields: !!omap
+    - MODE:
+        access: rw
+        description: Select pin function
+        lsb: 0
+        reset_value: '0'
+        width: 3
+    - EPD:
+        access: rw
+        description: Enable pull-down resistor at pad
+        lsb: 3
+        reset_value: '0'
+        width: 1
+    - EPUN:
+        access: rw
+        description: Disable pull-up resistor at pad
+        lsb: 4
+        reset_value: '0'
+        width: 1
+    - EHS:
+        access: rw
+        description: Select Slew rate
+        lsb: 5
+        reset_value: '0'
+        width: 1
+    - EZI:
+        access: rw
+        description: Input buffer enable
+        lsb: 6
+        reset_value: '0'
+        width: 1
+    - ZIF:
+        access: rw
+        description: Input glitch filter
+        lsb: 7
+        reset_value: '0'
+        width: 1
+- SCU_SFSP3_0:
+    fields: !!omap
+    - MODE:
+        access: rw
+        description: Select pin function
+        lsb: 0
+        reset_value: '0'
+        width: 3
+    - EPD:
+        access: rw
+        description: Enable pull-down resistor at pad
+        lsb: 3
+        reset_value: '0'
+        width: 1
+    - EPUN:
+        access: rw
+        description: Disable pull-up resistor at pad
+        lsb: 4
+        reset_value: '0'
+        width: 1
+    - EHS:
+        access: rw
+        description: Select Slew rate
+        lsb: 5
+        reset_value: '0'
+        width: 1
+    - EZI:
+        access: rw
+        description: Input buffer enable
+        lsb: 6
+        reset_value: '0'
+        width: 1
+    - ZIF:
+        access: rw
+        description: Input glitch filter
+        lsb: 7
+        reset_value: '0'
+        width: 1
+- SCU_SFSP3_1:
+    fields: !!omap
+    - MODE:
+        access: rw
+        description: Select pin function
+        lsb: 0
+        reset_value: '0'
+        width: 3
+    - EPD:
+        access: rw
+        description: Enable pull-down resistor at pad
+        lsb: 3
+        reset_value: '0'
+        width: 1
+    - EPUN:
+        access: rw
+        description: Disable pull-up resistor at pad
+        lsb: 4
+        reset_value: '0'
+        width: 1
+    - EHS:
+        access: rw
+        description: Select Slew rate
+        lsb: 5
+        reset_value: '0'
+        width: 1
+    - EZI:
+        access: rw
+        description: Input buffer enable
+        lsb: 6
+        reset_value: '0'
+        width: 1
+    - ZIF:
+        access: rw
+        description: Input glitch filter
+        lsb: 7
+        reset_value: '0'
+        width: 1
+- SCU_SFSP3_2:
+    fields: !!omap
+    - MODE:
+        access: rw
+        description: Select pin function
+        lsb: 0
+        reset_value: '0'
+        width: 3
+    - EPD:
+        access: rw
+        description: Enable pull-down resistor at pad
+        lsb: 3
+        reset_value: '0'
+        width: 1
+    - EPUN:
+        access: rw
+        description: Disable pull-up resistor at pad
+        lsb: 4
+        reset_value: '0'
+        width: 1
+    - EHS:
+        access: rw
+        description: Select Slew rate
+        lsb: 5
+        reset_value: '0'
+        width: 1
+    - EZI:
+        access: rw
+        description: Input buffer enable
+        lsb: 6
+        reset_value: '0'
+        width: 1
+    - ZIF:
+        access: rw
+        description: Input glitch filter
+        lsb: 7
+        reset_value: '0'
+        width: 1
+- SCU_SFSP3_4:
+    fields: !!omap
+    - MODE:
+        access: rw
+        description: Select pin function
+        lsb: 0
+        reset_value: '0'
+        width: 3
+    - EPD:
+        access: rw
+        description: Enable pull-down resistor at pad
+        lsb: 3
+        reset_value: '0'
+        width: 1
+    - EPUN:
+        access: rw
+        description: Disable pull-up resistor at pad
+        lsb: 4
+        reset_value: '0'
+        width: 1
+    - EHS:
+        access: rw
+        description: Select Slew rate
+        lsb: 5
+        reset_value: '0'
+        width: 1
+    - EZI:
+        access: rw
+        description: Input buffer enable
+        lsb: 6
+        reset_value: '0'
+        width: 1
+    - ZIF:
+        access: rw
+        description: Input glitch filter
+        lsb: 7
+        reset_value: '0'
+        width: 1
+- SCU_SFSP3_5:
+    fields: !!omap
+    - MODE:
+        access: rw
+        description: Select pin function
+        lsb: 0
+        reset_value: '0'
+        width: 3
+    - EPD:
+        access: rw
+        description: Enable pull-down resistor at pad
+        lsb: 3
+        reset_value: '0'
+        width: 1
+    - EPUN:
+        access: rw
+        description: Disable pull-up resistor at pad
+        lsb: 4
+        reset_value: '0'
+        width: 1
+    - EHS:
+        access: rw
+        description: Select Slew rate
+        lsb: 5
+        reset_value: '0'
+        width: 1
+    - EZI:
+        access: rw
+        description: Input buffer enable
+        lsb: 6
+        reset_value: '0'
+        width: 1
+    - ZIF:
+        access: rw
+        description: Input glitch filter
+        lsb: 7
+        reset_value: '0'
+        width: 1
+- SCU_SFSP3_6:
+    fields: !!omap
+    - MODE:
+        access: rw
+        description: Select pin function
+        lsb: 0
+        reset_value: '0'
+        width: 3
+    - EPD:
+        access: rw
+        description: Enable pull-down resistor at pad
+        lsb: 3
+        reset_value: '0'
+        width: 1
+    - EPUN:
+        access: rw
+        description: Disable pull-up resistor at pad
+        lsb: 4
+        reset_value: '0'
+        width: 1
+    - EHS:
+        access: rw
+        description: Select Slew rate
+        lsb: 5
+        reset_value: '0'
+        width: 1
+    - EZI:
+        access: rw
+        description: Input buffer enable
+        lsb: 6
+        reset_value: '0'
+        width: 1
+    - ZIF:
+        access: rw
+        description: Input glitch filter
+        lsb: 7
+        reset_value: '0'
+        width: 1
+- SCU_SFSP3_7:
+    fields: !!omap
+    - MODE:
+        access: rw
+        description: Select pin function
+        lsb: 0
+        reset_value: '0'
+        width: 3
+    - EPD:
+        access: rw
+        description: Enable pull-down resistor at pad
+        lsb: 3
+        reset_value: '0'
+        width: 1
+    - EPUN:
+        access: rw
+        description: Disable pull-up resistor at pad
+        lsb: 4
+        reset_value: '0'
+        width: 1
+    - EHS:
+        access: rw
+        description: Select Slew rate
+        lsb: 5
+        reset_value: '0'
+        width: 1
+    - EZI:
+        access: rw
+        description: Input buffer enable
+        lsb: 6
+        reset_value: '0'
+        width: 1
+    - ZIF:
+        access: rw
+        description: Input glitch filter
+        lsb: 7
+        reset_value: '0'
+        width: 1
+- SCU_SFSP3_8:
+    fields: !!omap
+    - MODE:
+        access: rw
+        description: Select pin function
+        lsb: 0
+        reset_value: '0'
+        width: 3
+    - EPD:
+        access: rw
+        description: Enable pull-down resistor at pad
+        lsb: 3
+        reset_value: '0'
+        width: 1
+    - EPUN:
+        access: rw
+        description: Disable pull-up resistor at pad
+        lsb: 4
+        reset_value: '0'
+        width: 1
+    - EHS:
+        access: rw
+        description: Select Slew rate
+        lsb: 5
+        reset_value: '0'
+        width: 1
+    - EZI:
+        access: rw
+        description: Input buffer enable
+        lsb: 6
+        reset_value: '0'
+        width: 1
+    - ZIF:
+        access: rw
+        description: Input glitch filter
+        lsb: 7
+        reset_value: '0'
+        width: 1
+- SCU_SFSP4_0:
+    fields: !!omap
+    - MODE:
+        access: rw
+        description: Select pin function
+        lsb: 0
+        reset_value: '0'
+        width: 3
+    - EPD:
+        access: rw
+        description: Enable pull-down resistor at pad
+        lsb: 3
+        reset_value: '0'
+        width: 1
+    - EPUN:
+        access: rw
+        description: Disable pull-up resistor at pad
+        lsb: 4
+        reset_value: '0'
+        width: 1
+    - EHS:
+        access: rw
+        description: Select Slew rate
+        lsb: 5
+        reset_value: '0'
+        width: 1
+    - EZI:
+        access: rw
+        description: Input buffer enable
+        lsb: 6
+        reset_value: '0'
+        width: 1
+    - ZIF:
+        access: rw
+        description: Input glitch filter
+        lsb: 7
+        reset_value: '0'
+        width: 1
+- SCU_SFSP4_1:
+    fields: !!omap
+    - MODE:
+        access: rw
+        description: Select pin function
+        lsb: 0
+        reset_value: '0'
+        width: 3
+    - EPD:
+        access: rw
+        description: Enable pull-down resistor at pad
+        lsb: 3
+        reset_value: '0'
+        width: 1
+    - EPUN:
+        access: rw
+        description: Disable pull-up resistor at pad
+        lsb: 4
+        reset_value: '0'
+        width: 1
+    - EHS:
+        access: rw
+        description: Select Slew rate
+        lsb: 5
+        reset_value: '0'
+        width: 1
+    - EZI:
+        access: rw
+        description: Input buffer enable
+        lsb: 6
+        reset_value: '0'
+        width: 1
+    - ZIF:
+        access: rw
+        description: Input glitch filter
+        lsb: 7
+        reset_value: '0'
+        width: 1
+- SCU_SFSP4_2:
+    fields: !!omap
+    - MODE:
+        access: rw
+        description: Select pin function
+        lsb: 0
+        reset_value: '0'
+        width: 3
+    - EPD:
+        access: rw
+        description: Enable pull-down resistor at pad
+        lsb: 3
+        reset_value: '0'
+        width: 1
+    - EPUN:
+        access: rw
+        description: Disable pull-up resistor at pad
+        lsb: 4
+        reset_value: '0'
+        width: 1
+    - EHS:
+        access: rw
+        description: Select Slew rate
+        lsb: 5
+        reset_value: '0'
+        width: 1
+    - EZI:
+        access: rw
+        description: Input buffer enable
+        lsb: 6
+        reset_value: '0'
+        width: 1
+    - ZIF:
+        access: rw
+        description: Input glitch filter
+        lsb: 7
+        reset_value: '0'
+        width: 1
+- SCU_SFSP4_3:
+    fields: !!omap
+    - MODE:
+        access: rw
+        description: Select pin function
+        lsb: 0
+        reset_value: '0'
+        width: 3
+    - EPD:
+        access: rw
+        description: Enable pull-down resistor at pad
+        lsb: 3
+        reset_value: '0'
+        width: 1
+    - EPUN:
+        access: rw
+        description: Disable pull-up resistor at pad
+        lsb: 4
+        reset_value: '0'
+        width: 1
+    - EHS:
+        access: rw
+        description: Select Slew rate
+        lsb: 5
+        reset_value: '0'
+        width: 1
+    - EZI:
+        access: rw
+        description: Input buffer enable
+        lsb: 6
+        reset_value: '0'
+        width: 1
+    - ZIF:
+        access: rw
+        description: Input glitch filter
+        lsb: 7
+        reset_value: '0'
+        width: 1
+- SCU_SFSP4_4:
+    fields: !!omap
+    - MODE:
+        access: rw
+        description: Select pin function
+        lsb: 0
+        reset_value: '0'
+        width: 3
+    - EPD:
+        access: rw
+        description: Enable pull-down resistor at pad
+        lsb: 3
+        reset_value: '0'
+        width: 1
+    - EPUN:
+        access: rw
+        description: Disable pull-up resistor at pad
+        lsb: 4
+        reset_value: '0'
+        width: 1
+    - EHS:
+        access: rw
+        description: Select Slew rate
+        lsb: 5
+        reset_value: '0'
+        width: 1
+    - EZI:
+        access: rw
+        description: Input buffer enable
+        lsb: 6
+        reset_value: '0'
+        width: 1
+    - ZIF:
+        access: rw
+        description: Input glitch filter
+        lsb: 7
+        reset_value: '0'
+        width: 1
+- SCU_SFSP4_5:
+    fields: !!omap
+    - MODE:
+        access: rw
+        description: Select pin function
+        lsb: 0
+        reset_value: '0'
+        width: 3
+    - EPD:
+        access: rw
+        description: Enable pull-down resistor at pad
+        lsb: 3
+        reset_value: '0'
+        width: 1
+    - EPUN:
+        access: rw
+        description: Disable pull-up resistor at pad
+        lsb: 4
+        reset_value: '0'
+        width: 1
+    - EHS:
+        access: rw
+        description: Select Slew rate
+        lsb: 5
+        reset_value: '0'
+        width: 1
+    - EZI:
+        access: rw
+        description: Input buffer enable
+        lsb: 6
+        reset_value: '0'
+        width: 1
+    - ZIF:
+        access: rw
+        description: Input glitch filter
+        lsb: 7
+        reset_value: '0'
+        width: 1
+- SCU_SFSP4_6:
+    fields: !!omap
+    - MODE:
+        access: rw
+        description: Select pin function
+        lsb: 0
+        reset_value: '0'
+        width: 3
+    - EPD:
+        access: rw
+        description: Enable pull-down resistor at pad
+        lsb: 3
+        reset_value: '0'
+        width: 1
+    - EPUN:
+        access: rw
+        description: Disable pull-up resistor at pad
+        lsb: 4
+        reset_value: '0'
+        width: 1
+    - EHS:
+        access: rw
+        description: Select Slew rate
+        lsb: 5
+        reset_value: '0'
+        width: 1
+    - EZI:
+        access: rw
+        description: Input buffer enable
+        lsb: 6
+        reset_value: '0'
+        width: 1
+    - ZIF:
+        access: rw
+        description: Input glitch filter
+        lsb: 7
+        reset_value: '0'
+        width: 1
+- SCU_SFSP4_7:
+    fields: !!omap
+    - MODE:
+        access: rw
+        description: Select pin function
+        lsb: 0
+        reset_value: '0'
+        width: 3
+    - EPD:
+        access: rw
+        description: Enable pull-down resistor at pad
+        lsb: 3
+        reset_value: '0'
+        width: 1
+    - EPUN:
+        access: rw
+        description: Disable pull-up resistor at pad
+        lsb: 4
+        reset_value: '0'
+        width: 1
+    - EHS:
+        access: rw
+        description: Select Slew rate
+        lsb: 5
+        reset_value: '0'
+        width: 1
+    - EZI:
+        access: rw
+        description: Input buffer enable
+        lsb: 6
+        reset_value: '0'
+        width: 1
+    - ZIF:
+        access: rw
+        description: Input glitch filter
+        lsb: 7
+        reset_value: '0'
+        width: 1
+- SCU_SFSP4_8:
+    fields: !!omap
+    - MODE:
+        access: rw
+        description: Select pin function
+        lsb: 0
+        reset_value: '0'
+        width: 3
+    - EPD:
+        access: rw
+        description: Enable pull-down resistor at pad
+        lsb: 3
+        reset_value: '0'
+        width: 1
+    - EPUN:
+        access: rw
+        description: Disable pull-up resistor at pad
+        lsb: 4
+        reset_value: '0'
+        width: 1
+    - EHS:
+        access: rw
+        description: Select Slew rate
+        lsb: 5
+        reset_value: '0'
+        width: 1
+    - EZI:
+        access: rw
+        description: Input buffer enable
+        lsb: 6
+        reset_value: '0'
+        width: 1
+    - ZIF:
+        access: rw
+        description: Input glitch filter
+        lsb: 7
+        reset_value: '0'
+        width: 1
+- SCU_SFSP4_9:
+    fields: !!omap
+    - MODE:
+        access: rw
+        description: Select pin function
+        lsb: 0
+        reset_value: '0'
+        width: 3
+    - EPD:
+        access: rw
+        description: Enable pull-down resistor at pad
+        lsb: 3
+        reset_value: '0'
+        width: 1
+    - EPUN:
+        access: rw
+        description: Disable pull-up resistor at pad
+        lsb: 4
+        reset_value: '0'
+        width: 1
+    - EHS:
+        access: rw
+        description: Select Slew rate
+        lsb: 5
+        reset_value: '0'
+        width: 1
+    - EZI:
+        access: rw
+        description: Input buffer enable
+        lsb: 6
+        reset_value: '0'
+        width: 1
+    - ZIF:
+        access: rw
+        description: Input glitch filter
+        lsb: 7
+        reset_value: '0'
+        width: 1
+- SCU_SFSP4_10:
+    fields: !!omap
+    - MODE:
+        access: rw
+        description: Select pin function
+        lsb: 0
+        reset_value: '0'
+        width: 3
+    - EPD:
+        access: rw
+        description: Enable pull-down resistor at pad
+        lsb: 3
+        reset_value: '0'
+        width: 1
+    - EPUN:
+        access: rw
+        description: Disable pull-up resistor at pad
+        lsb: 4
+        reset_value: '0'
+        width: 1
+    - EHS:
+        access: rw
+        description: Select Slew rate
+        lsb: 5
+        reset_value: '0'
+        width: 1
+    - EZI:
+        access: rw
+        description: Input buffer enable
+        lsb: 6
+        reset_value: '0'
+        width: 1
+    - ZIF:
+        access: rw
+        description: Input glitch filter
+        lsb: 7
+        reset_value: '0'
+        width: 1
+- SCU_SFSP5_0:
+    fields: !!omap
+    - MODE:
+        access: rw
+        description: Select pin function
+        lsb: 0
+        reset_value: '0'
+        width: 3
+    - EPD:
+        access: rw
+        description: Enable pull-down resistor at pad
+        lsb: 3
+        reset_value: '0'
+        width: 1
+    - EPUN:
+        access: rw
+        description: Disable pull-up resistor at pad
+        lsb: 4
+        reset_value: '0'
+        width: 1
+    - EHS:
+        access: rw
+        description: Select Slew rate
+        lsb: 5
+        reset_value: '0'
+        width: 1
+    - EZI:
+        access: rw
+        description: Input buffer enable
+        lsb: 6
+        reset_value: '0'
+        width: 1
+    - ZIF:
+        access: rw
+        description: Input glitch filter
+        lsb: 7
+        reset_value: '0'
+        width: 1
+- SCU_SFSP5_1:
+    fields: !!omap
+    - MODE:
+        access: rw
+        description: Select pin function
+        lsb: 0
+        reset_value: '0'
+        width: 3
+    - EPD:
+        access: rw
+        description: Enable pull-down resistor at pad
+        lsb: 3
+        reset_value: '0'
+        width: 1
+    - EPUN:
+        access: rw
+        description: Disable pull-up resistor at pad
+        lsb: 4
+        reset_value: '0'
+        width: 1
+    - EHS:
+        access: rw
+        description: Select Slew rate
+        lsb: 5
+        reset_value: '0'
+        width: 1
+    - EZI:
+        access: rw
+        description: Input buffer enable
+        lsb: 6
+        reset_value: '0'
+        width: 1
+    - ZIF:
+        access: rw
+        description: Input glitch filter
+        lsb: 7
+        reset_value: '0'
+        width: 1
+- SCU_SFSP5_2:
+    fields: !!omap
+    - MODE:
+        access: rw
+        description: Select pin function
+        lsb: 0
+        reset_value: '0'
+        width: 3
+    - EPD:
+        access: rw
+        description: Enable pull-down resistor at pad
+        lsb: 3
+        reset_value: '0'
+        width: 1
+    - EPUN:
+        access: rw
+        description: Disable pull-up resistor at pad
+        lsb: 4
+        reset_value: '0'
+        width: 1
+    - EHS:
+        access: rw
+        description: Select Slew rate
+        lsb: 5
+        reset_value: '0'
+        width: 1
+    - EZI:
+        access: rw
+        description: Input buffer enable
+        lsb: 6
+        reset_value: '0'
+        width: 1
+    - ZIF:
+        access: rw
+        description: Input glitch filter
+        lsb: 7
+        reset_value: '0'
+        width: 1
+- SCU_SFSP5_3:
+    fields: !!omap
+    - MODE:
+        access: rw
+        description: Select pin function
+        lsb: 0
+        reset_value: '0'
+        width: 3
+    - EPD:
+        access: rw
+        description: Enable pull-down resistor at pad
+        lsb: 3
+        reset_value: '0'
+        width: 1
+    - EPUN:
+        access: rw
+        description: Disable pull-up resistor at pad
+        lsb: 4
+        reset_value: '0'
+        width: 1
+    - EHS:
+        access: rw
+        description: Select Slew rate
+        lsb: 5
+        reset_value: '0'
+        width: 1
+    - EZI:
+        access: rw
+        description: Input buffer enable
+        lsb: 6
+        reset_value: '0'
+        width: 1
+    - ZIF:
+        access: rw
+        description: Input glitch filter
+        lsb: 7
+        reset_value: '0'
+        width: 1
+- SCU_SFSP5_4:
+    fields: !!omap
+    - MODE:
+        access: rw
+        description: Select pin function
+        lsb: 0
+        reset_value: '0'
+        width: 3
+    - EPD:
+        access: rw
+        description: Enable pull-down resistor at pad
+        lsb: 3
+        reset_value: '0'
+        width: 1
+    - EPUN:
+        access: rw
+        description: Disable pull-up resistor at pad
+        lsb: 4
+        reset_value: '0'
+        width: 1
+    - EHS:
+        access: rw
+        description: Select Slew rate
+        lsb: 5
+        reset_value: '0'
+        width: 1
+    - EZI:
+        access: rw
+        description: Input buffer enable
+        lsb: 6
+        reset_value: '0'
+        width: 1
+    - ZIF:
+        access: rw
+        description: Input glitch filter
+        lsb: 7
+        reset_value: '0'
+        width: 1
+- SCU_SFSP5_5:
+    fields: !!omap
+    - MODE:
+        access: rw
+        description: Select pin function
+        lsb: 0
+        reset_value: '0'
+        width: 3
+    - EPD:
+        access: rw
+        description: Enable pull-down resistor at pad
+        lsb: 3
+        reset_value: '0'
+        width: 1
+    - EPUN:
+        access: rw
+        description: Disable pull-up resistor at pad
+        lsb: 4
+        reset_value: '0'
+        width: 1
+    - EHS:
+        access: rw
+        description: Select Slew rate
+        lsb: 5
+        reset_value: '0'
+        width: 1
+    - EZI:
+        access: rw
+        description: Input buffer enable
+        lsb: 6
+        reset_value: '0'
+        width: 1
+    - ZIF:
+        access: rw
+        description: Input glitch filter
+        lsb: 7
+        reset_value: '0'
+        width: 1
+- SCU_SFSP5_6:
+    fields: !!omap
+    - MODE:
+        access: rw
+        description: Select pin function
+        lsb: 0
+        reset_value: '0'
+        width: 3
+    - EPD:
+        access: rw
+        description: Enable pull-down resistor at pad
+        lsb: 3
+        reset_value: '0'
+        width: 1
+    - EPUN:
+        access: rw
+        description: Disable pull-up resistor at pad
+        lsb: 4
+        reset_value: '0'
+        width: 1
+    - EHS:
+        access: rw
+        description: Select Slew rate
+        lsb: 5
+        reset_value: '0'
+        width: 1
+    - EZI:
+        access: rw
+        description: Input buffer enable
+        lsb: 6
+        reset_value: '0'
+        width: 1
+    - ZIF:
+        access: rw
+        description: Input glitch filter
+        lsb: 7
+        reset_value: '0'
+        width: 1
+- SCU_SFSP5_7:
+    fields: !!omap
+    - MODE:
+        access: rw
+        description: Select pin function
+        lsb: 0
+        reset_value: '0'
+        width: 3
+    - EPD:
+        access: rw
+        description: Enable pull-down resistor at pad
+        lsb: 3
+        reset_value: '0'
+        width: 1
+    - EPUN:
+        access: rw
+        description: Disable pull-up resistor at pad
+        lsb: 4
+        reset_value: '0'
+        width: 1
+    - EHS:
+        access: rw
+        description: Select Slew rate
+        lsb: 5
+        reset_value: '0'
+        width: 1
+    - EZI:
+        access: rw
+        description: Input buffer enable
+        lsb: 6
+        reset_value: '0'
+        width: 1
+    - ZIF:
+        access: rw
+        description: Input glitch filter
+        lsb: 7
+        reset_value: '0'
+        width: 1
+- SCU_SFSP6_0:
+    fields: !!omap
+    - MODE:
+        access: rw
+        description: Select pin function
+        lsb: 0
+        reset_value: '0'
+        width: 3
+    - EPD:
+        access: rw
+        description: Enable pull-down resistor at pad
+        lsb: 3
+        reset_value: '0'
+        width: 1
+    - EPUN:
+        access: rw
+        description: Disable pull-up resistor at pad
+        lsb: 4
+        reset_value: '0'
+        width: 1
+    - EHS:
+        access: rw
+        description: Select Slew rate
+        lsb: 5
+        reset_value: '0'
+        width: 1
+    - EZI:
+        access: rw
+        description: Input buffer enable
+        lsb: 6
+        reset_value: '0'
+        width: 1
+    - ZIF:
+        access: rw
+        description: Input glitch filter
+        lsb: 7
+        reset_value: '0'
+        width: 1
+- SCU_SFSP6_1:
+    fields: !!omap
+    - MODE:
+        access: rw
+        description: Select pin function
+        lsb: 0
+        reset_value: '0'
+        width: 3
+    - EPD:
+        access: rw
+        description: Enable pull-down resistor at pad
+        lsb: 3
+        reset_value: '0'
+        width: 1
+    - EPUN:
+        access: rw
+        description: Disable pull-up resistor at pad
+        lsb: 4
+        reset_value: '0'
+        width: 1
+    - EHS:
+        access: rw
+        description: Select Slew rate
+        lsb: 5
+        reset_value: '0'
+        width: 1
+    - EZI:
+        access: rw
+        description: Input buffer enable
+        lsb: 6
+        reset_value: '0'
+        width: 1
+    - ZIF:
+        access: rw
+        description: Input glitch filter
+        lsb: 7
+        reset_value: '0'
+        width: 1
+- SCU_SFSP6_2:
+    fields: !!omap
+    - MODE:
+        access: rw
+        description: Select pin function
+        lsb: 0
+        reset_value: '0'
+        width: 3
+    - EPD:
+        access: rw
+        description: Enable pull-down resistor at pad
+        lsb: 3
+        reset_value: '0'
+        width: 1
+    - EPUN:
+        access: rw
+        description: Disable pull-up resistor at pad
+        lsb: 4
+        reset_value: '0'
+        width: 1
+    - EHS:
+        access: rw
+        description: Select Slew rate
+        lsb: 5
+        reset_value: '0'
+        width: 1
+    - EZI:
+        access: rw
+        description: Input buffer enable
+        lsb: 6
+        reset_value: '0'
+        width: 1
+    - ZIF:
+        access: rw
+        description: Input glitch filter
+        lsb: 7
+        reset_value: '0'
+        width: 1
+- SCU_SFSP6_3:
+    fields: !!omap
+    - MODE:
+        access: rw
+        description: Select pin function
+        lsb: 0
+        reset_value: '0'
+        width: 3
+    - EPD:
+        access: rw
+        description: Enable pull-down resistor at pad
+        lsb: 3
+        reset_value: '0'
+        width: 1
+    - EPUN:
+        access: rw
+        description: Disable pull-up resistor at pad
+        lsb: 4
+        reset_value: '0'
+        width: 1
+    - EHS:
+        access: rw
+        description: Select Slew rate
+        lsb: 5
+        reset_value: '0'
+        width: 1
+    - EZI:
+        access: rw
+        description: Input buffer enable
+        lsb: 6
+        reset_value: '0'
+        width: 1
+    - ZIF:
+        access: rw
+        description: Input glitch filter
+        lsb: 7
+        reset_value: '0'
+        width: 1
+- SCU_SFSP6_4:
+    fields: !!omap
+    - MODE:
+        access: rw
+        description: Select pin function
+        lsb: 0
+        reset_value: '0'
+        width: 3
+    - EPD:
+        access: rw
+        description: Enable pull-down resistor at pad
+        lsb: 3
+        reset_value: '0'
+        width: 1
+    - EPUN:
+        access: rw
+        description: Disable pull-up resistor at pad
+        lsb: 4
+        reset_value: '0'
+        width: 1
+    - EHS:
+        access: rw
+        description: Select Slew rate
+        lsb: 5
+        reset_value: '0'
+        width: 1
+    - EZI:
+        access: rw
+        description: Input buffer enable
+        lsb: 6
+        reset_value: '0'
+        width: 1
+    - ZIF:
+        access: rw
+        description: Input glitch filter
+        lsb: 7
+        reset_value: '0'
+        width: 1
+- SCU_SFSP6_5:
+    fields: !!omap
+    - MODE:
+        access: rw
+        description: Select pin function
+        lsb: 0
+        reset_value: '0'
+        width: 3
+    - EPD:
+        access: rw
+        description: Enable pull-down resistor at pad
+        lsb: 3
+        reset_value: '0'
+        width: 1
+    - EPUN:
+        access: rw
+        description: Disable pull-up resistor at pad
+        lsb: 4
+        reset_value: '0'
+        width: 1
+    - EHS:
+        access: rw
+        description: Select Slew rate
+        lsb: 5
+        reset_value: '0'
+        width: 1
+    - EZI:
+        access: rw
+        description: Input buffer enable
+        lsb: 6
+        reset_value: '0'
+        width: 1
+    - ZIF:
+        access: rw
+        description: Input glitch filter
+        lsb: 7
+        reset_value: '0'
+        width: 1
+- SCU_SFSP6_6:
+    fields: !!omap
+    - MODE:
+        access: rw
+        description: Select pin function
+        lsb: 0
+        reset_value: '0'
+        width: 3
+    - EPD:
+        access: rw
+        description: Enable pull-down resistor at pad
+        lsb: 3
+        reset_value: '0'
+        width: 1
+    - EPUN:
+        access: rw
+        description: Disable pull-up resistor at pad
+        lsb: 4
+        reset_value: '0'
+        width: 1
+    - EHS:
+        access: rw
+        description: Select Slew rate
+        lsb: 5
+        reset_value: '0'
+        width: 1
+    - EZI:
+        access: rw
+        description: Input buffer enable
+        lsb: 6
+        reset_value: '0'
+        width: 1
+    - ZIF:
+        access: rw
+        description: Input glitch filter
+        lsb: 7
+        reset_value: '0'
+        width: 1
+- SCU_SFSP6_7:
+    fields: !!omap
+    - MODE:
+        access: rw
+        description: Select pin function
+        lsb: 0
+        reset_value: '0'
+        width: 3
+    - EPD:
+        access: rw
+        description: Enable pull-down resistor at pad
+        lsb: 3
+        reset_value: '0'
+        width: 1
+    - EPUN:
+        access: rw
+        description: Disable pull-up resistor at pad
+        lsb: 4
+        reset_value: '0'
+        width: 1
+    - EHS:
+        access: rw
+        description: Select Slew rate
+        lsb: 5
+        reset_value: '0'
+        width: 1
+    - EZI:
+        access: rw
+        description: Input buffer enable
+        lsb: 6
+        reset_value: '0'
+        width: 1
+    - ZIF:
+        access: rw
+        description: Input glitch filter
+        lsb: 7
+        reset_value: '0'
+        width: 1
+- SCU_SFSP6_8:
+    fields: !!omap
+    - MODE:
+        access: rw
+        description: Select pin function
+        lsb: 0
+        reset_value: '0'
+        width: 3
+    - EPD:
+        access: rw
+        description: Enable pull-down resistor at pad
+        lsb: 3
+        reset_value: '0'
+        width: 1
+    - EPUN:
+        access: rw
+        description: Disable pull-up resistor at pad
+        lsb: 4
+        reset_value: '0'
+        width: 1
+    - EHS:
+        access: rw
+        description: Select Slew rate
+        lsb: 5
+        reset_value: '0'
+        width: 1
+    - EZI:
+        access: rw
+        description: Input buffer enable
+        lsb: 6
+        reset_value: '0'
+        width: 1
+    - ZIF:
+        access: rw
+        description: Input glitch filter
+        lsb: 7
+        reset_value: '0'
+        width: 1
+- SCU_SFSP6_9:
+    fields: !!omap
+    - MODE:
+        access: rw
+        description: Select pin function
+        lsb: 0
+        reset_value: '0'
+        width: 3
+    - EPD:
+        access: rw
+        description: Enable pull-down resistor at pad
+        lsb: 3
+        reset_value: '0'
+        width: 1
+    - EPUN:
+        access: rw
+        description: Disable pull-up resistor at pad
+        lsb: 4
+        reset_value: '0'
+        width: 1
+    - EHS:
+        access: rw
+        description: Select Slew rate
+        lsb: 5
+        reset_value: '0'
+        width: 1
+    - EZI:
+        access: rw
+        description: Input buffer enable
+        lsb: 6
+        reset_value: '0'
+        width: 1
+    - ZIF:
+        access: rw
+        description: Input glitch filter
+        lsb: 7
+        reset_value: '0'
+        width: 1
+- SCU_SFSP6_10:
+    fields: !!omap
+    - MODE:
+        access: rw
+        description: Select pin function
+        lsb: 0
+        reset_value: '0'
+        width: 3
+    - EPD:
+        access: rw
+        description: Enable pull-down resistor at pad
+        lsb: 3
+        reset_value: '0'
+        width: 1
+    - EPUN:
+        access: rw
+        description: Disable pull-up resistor at pad
+        lsb: 4
+        reset_value: '0'
+        width: 1
+    - EHS:
+        access: rw
+        description: Select Slew rate
+        lsb: 5
+        reset_value: '0'
+        width: 1
+    - EZI:
+        access: rw
+        description: Input buffer enable
+        lsb: 6
+        reset_value: '0'
+        width: 1
+    - ZIF:
+        access: rw
+        description: Input glitch filter
+        lsb: 7
+        reset_value: '0'
+        width: 1
+- SCU_SFSP6_11:
+    fields: !!omap
+    - MODE:
+        access: rw
+        description: Select pin function
+        lsb: 0
+        reset_value: '0'
+        width: 3
+    - EPD:
+        access: rw
+        description: Enable pull-down resistor at pad
+        lsb: 3
+        reset_value: '0'
+        width: 1
+    - EPUN:
+        access: rw
+        description: Disable pull-up resistor at pad
+        lsb: 4
+        reset_value: '0'
+        width: 1
+    - EHS:
+        access: rw
+        description: Select Slew rate
+        lsb: 5
+        reset_value: '0'
+        width: 1
+    - EZI:
+        access: rw
+        description: Input buffer enable
+        lsb: 6
+        reset_value: '0'
+        width: 1
+    - ZIF:
+        access: rw
+        description: Input glitch filter
+        lsb: 7
+        reset_value: '0'
+        width: 1
+- SCU_SFSP6_12:
+    fields: !!omap
+    - MODE:
+        access: rw
+        description: Select pin function
+        lsb: 0
+        reset_value: '0'
+        width: 3
+    - EPD:
+        access: rw
+        description: Enable pull-down resistor at pad
+        lsb: 3
+        reset_value: '0'
+        width: 1
+    - EPUN:
+        access: rw
+        description: Disable pull-up resistor at pad
+        lsb: 4
+        reset_value: '0'
+        width: 1
+    - EHS:
+        access: rw
+        description: Select Slew rate
+        lsb: 5
+        reset_value: '0'
+        width: 1
+    - EZI:
+        access: rw
+        description: Input buffer enable
+        lsb: 6
+        reset_value: '0'
+        width: 1
+    - ZIF:
+        access: rw
+        description: Input glitch filter
+        lsb: 7
+        reset_value: '0'
+        width: 1
+- SCU_SFSP7_0:
+    fields: !!omap
+    - MODE:
+        access: rw
+        description: Select pin function
+        lsb: 0
+        reset_value: '0'
+        width: 3
+    - EPD:
+        access: rw
+        description: Enable pull-down resistor at pad
+        lsb: 3
+        reset_value: '0'
+        width: 1
+    - EPUN:
+        access: rw
+        description: Disable pull-up resistor at pad
+        lsb: 4
+        reset_value: '0'
+        width: 1
+    - EHS:
+        access: rw
+        description: Select Slew rate
+        lsb: 5
+        reset_value: '0'
+        width: 1
+    - EZI:
+        access: rw
+        description: Input buffer enable
+        lsb: 6
+        reset_value: '0'
+        width: 1
+    - ZIF:
+        access: rw
+        description: Input glitch filter
+        lsb: 7
+        reset_value: '0'
+        width: 1
+- SCU_SFSP7_1:
+    fields: !!omap
+    - MODE:
+        access: rw
+        description: Select pin function
+        lsb: 0
+        reset_value: '0'
+        width: 3
+    - EPD:
+        access: rw
+        description: Enable pull-down resistor at pad
+        lsb: 3
+        reset_value: '0'
+        width: 1
+    - EPUN:
+        access: rw
+        description: Disable pull-up resistor at pad
+        lsb: 4
+        reset_value: '0'
+        width: 1
+    - EHS:
+        access: rw
+        description: Select Slew rate
+        lsb: 5
+        reset_value: '0'
+        width: 1
+    - EZI:
+        access: rw
+        description: Input buffer enable
+        lsb: 6
+        reset_value: '0'
+        width: 1
+    - ZIF:
+        access: rw
+        description: Input glitch filter
+        lsb: 7
+        reset_value: '0'
+        width: 1
+- SCU_SFSP7_2:
+    fields: !!omap
+    - MODE:
+        access: rw
+        description: Select pin function
+        lsb: 0
+        reset_value: '0'
+        width: 3
+    - EPD:
+        access: rw
+        description: Enable pull-down resistor at pad
+        lsb: 3
+        reset_value: '0'
+        width: 1
+    - EPUN:
+        access: rw
+        description: Disable pull-up resistor at pad
+        lsb: 4
+        reset_value: '0'
+        width: 1
+    - EHS:
+        access: rw
+        description: Select Slew rate
+        lsb: 5
+        reset_value: '0'
+        width: 1
+    - EZI:
+        access: rw
+        description: Input buffer enable
+        lsb: 6
+        reset_value: '0'
+        width: 1
+    - ZIF:
+        access: rw
+        description: Input glitch filter
+        lsb: 7
+        reset_value: '0'
+        width: 1
+- SCU_SFSP7_3:
+    fields: !!omap
+    - MODE:
+        access: rw
+        description: Select pin function
+        lsb: 0
+        reset_value: '0'
+        width: 3
+    - EPD:
+        access: rw
+        description: Enable pull-down resistor at pad
+        lsb: 3
+        reset_value: '0'
+        width: 1
+    - EPUN:
+        access: rw
+        description: Disable pull-up resistor at pad
+        lsb: 4
+        reset_value: '0'
+        width: 1
+    - EHS:
+        access: rw
+        description: Select Slew rate
+        lsb: 5
+        reset_value: '0'
+        width: 1
+    - EZI:
+        access: rw
+        description: Input buffer enable
+        lsb: 6
+        reset_value: '0'
+        width: 1
+    - ZIF:
+        access: rw
+        description: Input glitch filter
+        lsb: 7
+        reset_value: '0'
+        width: 1
+- SCU_SFSP7_4:
+    fields: !!omap
+    - MODE:
+        access: rw
+        description: Select pin function
+        lsb: 0
+        reset_value: '0'
+        width: 3
+    - EPD:
+        access: rw
+        description: Enable pull-down resistor at pad
+        lsb: 3
+        reset_value: '0'
+        width: 1
+    - EPUN:
+        access: rw
+        description: Disable pull-up resistor at pad
+        lsb: 4
+        reset_value: '0'
+        width: 1
+    - EHS:
+        access: rw
+        description: Select Slew rate
+        lsb: 5
+        reset_value: '0'
+        width: 1
+    - EZI:
+        access: rw
+        description: Input buffer enable
+        lsb: 6
+        reset_value: '0'
+        width: 1
+    - ZIF:
+        access: rw
+        description: Input glitch filter
+        lsb: 7
+        reset_value: '0'
+        width: 1
+- SCU_SFSP7_5:
+    fields: !!omap
+    - MODE:
+        access: rw
+        description: Select pin function
+        lsb: 0
+        reset_value: '0'
+        width: 3
+    - EPD:
+        access: rw
+        description: Enable pull-down resistor at pad
+        lsb: 3
+        reset_value: '0'
+        width: 1
+    - EPUN:
+        access: rw
+        description: Disable pull-up resistor at pad
+        lsb: 4
+        reset_value: '0'
+        width: 1
+    - EHS:
+        access: rw
+        description: Select Slew rate
+        lsb: 5
+        reset_value: '0'
+        width: 1
+    - EZI:
+        access: rw
+        description: Input buffer enable
+        lsb: 6
+        reset_value: '0'
+        width: 1
+    - ZIF:
+        access: rw
+        description: Input glitch filter
+        lsb: 7
+        reset_value: '0'
+        width: 1
+- SCU_SFSP7_6:
+    fields: !!omap
+    - MODE:
+        access: rw
+        description: Select pin function
+        lsb: 0
+        reset_value: '0'
+        width: 3
+    - EPD:
+        access: rw
+        description: Enable pull-down resistor at pad
+        lsb: 3
+        reset_value: '0'
+        width: 1
+    - EPUN:
+        access: rw
+        description: Disable pull-up resistor at pad
+        lsb: 4
+        reset_value: '0'
+        width: 1
+    - EHS:
+        access: rw
+        description: Select Slew rate
+        lsb: 5
+        reset_value: '0'
+        width: 1
+    - EZI:
+        access: rw
+        description: Input buffer enable
+        lsb: 6
+        reset_value: '0'
+        width: 1
+    - ZIF:
+        access: rw
+        description: Input glitch filter
+        lsb: 7
+        reset_value: '0'
+        width: 1
+- SCU_SFSP7_7:
+    fields: !!omap
+    - MODE:
+        access: rw
+        description: Select pin function
+        lsb: 0
+        reset_value: '0'
+        width: 3
+    - EPD:
+        access: rw
+        description: Enable pull-down resistor at pad
+        lsb: 3
+        reset_value: '0'
+        width: 1
+    - EPUN:
+        access: rw
+        description: Disable pull-up resistor at pad
+        lsb: 4
+        reset_value: '0'
+        width: 1
+    - EHS:
+        access: rw
+        description: Select Slew rate
+        lsb: 5
+        reset_value: '0'
+        width: 1
+    - EZI:
+        access: rw
+        description: Input buffer enable
+        lsb: 6
+        reset_value: '0'
+        width: 1
+    - ZIF:
+        access: rw
+        description: Input glitch filter
+        lsb: 7
+        reset_value: '0'
+        width: 1
+- SCU_SFSP8_3:
+    fields: !!omap
+    - MODE:
+        access: rw
+        description: Select pin function
+        lsb: 0
+        reset_value: '0'
+        width: 3
+    - EPD:
+        access: rw
+        description: Enable pull-down resistor at pad
+        lsb: 3
+        reset_value: '0'
+        width: 1
+    - EPUN:
+        access: rw
+        description: Disable pull-up resistor at pad
+        lsb: 4
+        reset_value: '0'
+        width: 1
+    - EHS:
+        access: rw
+        description: Select Slew rate
+        lsb: 5
+        reset_value: '0'
+        width: 1
+    - EZI:
+        access: rw
+        description: Input buffer enable
+        lsb: 6
+        reset_value: '0'
+        width: 1
+    - ZIF:
+        access: rw
+        description: Input glitch filter
+        lsb: 7
+        reset_value: '0'
+        width: 1
+- SCU_SFSP8_4:
+    fields: !!omap
+    - MODE:
+        access: rw
+        description: Select pin function
+        lsb: 0
+        reset_value: '0'
+        width: 3
+    - EPD:
+        access: rw
+        description: Enable pull-down resistor at pad
+        lsb: 3
+        reset_value: '0'
+        width: 1
+    - EPUN:
+        access: rw
+        description: Disable pull-up resistor at pad
+        lsb: 4
+        reset_value: '0'
+        width: 1
+    - EHS:
+        access: rw
+        description: Select Slew rate
+        lsb: 5
+        reset_value: '0'
+        width: 1
+    - EZI:
+        access: rw
+        description: Input buffer enable
+        lsb: 6
+        reset_value: '0'
+        width: 1
+    - ZIF:
+        access: rw
+        description: Input glitch filter
+        lsb: 7
+        reset_value: '0'
+        width: 1
+- SCU_SFSP8_5:
+    fields: !!omap
+    - MODE:
+        access: rw
+        description: Select pin function
+        lsb: 0
+        reset_value: '0'
+        width: 3
+    - EPD:
+        access: rw
+        description: Enable pull-down resistor at pad
+        lsb: 3
+        reset_value: '0'
+        width: 1
+    - EPUN:
+        access: rw
+        description: Disable pull-up resistor at pad
+        lsb: 4
+        reset_value: '0'
+        width: 1
+    - EHS:
+        access: rw
+        description: Select Slew rate
+        lsb: 5
+        reset_value: '0'
+        width: 1
+    - EZI:
+        access: rw
+        description: Input buffer enable
+        lsb: 6
+        reset_value: '0'
+        width: 1
+    - ZIF:
+        access: rw
+        description: Input glitch filter
+        lsb: 7
+        reset_value: '0'
+        width: 1
+- SCU_SFSP8_6:
+    fields: !!omap
+    - MODE:
+        access: rw
+        description: Select pin function
+        lsb: 0
+        reset_value: '0'
+        width: 3
+    - EPD:
+        access: rw
+        description: Enable pull-down resistor at pad
+        lsb: 3
+        reset_value: '0'
+        width: 1
+    - EPUN:
+        access: rw
+        description: Disable pull-up resistor at pad
+        lsb: 4
+        reset_value: '0'
+        width: 1
+    - EHS:
+        access: rw
+        description: Select Slew rate
+        lsb: 5
+        reset_value: '0'
+        width: 1
+    - EZI:
+        access: rw
+        description: Input buffer enable
+        lsb: 6
+        reset_value: '0'
+        width: 1
+    - ZIF:
+        access: rw
+        description: Input glitch filter
+        lsb: 7
+        reset_value: '0'
+        width: 1
+- SCU_SFSP8_7:
+    fields: !!omap
+    - MODE:
+        access: rw
+        description: Select pin function
+        lsb: 0
+        reset_value: '0'
+        width: 3
+    - EPD:
+        access: rw
+        description: Enable pull-down resistor at pad
+        lsb: 3
+        reset_value: '0'
+        width: 1
+    - EPUN:
+        access: rw
+        description: Disable pull-up resistor at pad
+        lsb: 4
+        reset_value: '0'
+        width: 1
+    - EHS:
+        access: rw
+        description: Select Slew rate
+        lsb: 5
+        reset_value: '0'
+        width: 1
+    - EZI:
+        access: rw
+        description: Input buffer enable
+        lsb: 6
+        reset_value: '0'
+        width: 1
+    - ZIF:
+        access: rw
+        description: Input glitch filter
+        lsb: 7
+        reset_value: '0'
+        width: 1
+- SCU_SFSP8_8:
+    fields: !!omap
+    - MODE:
+        access: rw
+        description: Select pin function
+        lsb: 0
+        reset_value: '0'
+        width: 3
+    - EPD:
+        access: rw
+        description: Enable pull-down resistor at pad
+        lsb: 3
+        reset_value: '0'
+        width: 1
+    - EPUN:
+        access: rw
+        description: Disable pull-up resistor at pad
+        lsb: 4
+        reset_value: '0'
+        width: 1
+    - EHS:
+        access: rw
+        description: Select Slew rate
+        lsb: 5
+        reset_value: '0'
+        width: 1
+    - EZI:
+        access: rw
+        description: Input buffer enable
+        lsb: 6
+        reset_value: '0'
+        width: 1
+    - ZIF:
+        access: rw
+        description: Input glitch filter
+        lsb: 7
+        reset_value: '0'
+        width: 1
+- SCU_SFSP9_0:
+    fields: !!omap
+    - MODE:
+        access: rw
+        description: Select pin function
+        lsb: 0
+        reset_value: '0'
+        width: 3
+    - EPD:
+        access: rw
+        description: Enable pull-down resistor at pad
+        lsb: 3
+        reset_value: '0'
+        width: 1
+    - EPUN:
+        access: rw
+        description: Disable pull-up resistor at pad
+        lsb: 4
+        reset_value: '0'
+        width: 1
+    - EHS:
+        access: rw
+        description: Select Slew rate
+        lsb: 5
+        reset_value: '0'
+        width: 1
+    - EZI:
+        access: rw
+        description: Input buffer enable
+        lsb: 6
+        reset_value: '0'
+        width: 1
+    - ZIF:
+        access: rw
+        description: Input glitch filter
+        lsb: 7
+        reset_value: '0'
+        width: 1
+- SCU_SFSP9_1:
+    fields: !!omap
+    - MODE:
+        access: rw
+        description: Select pin function
+        lsb: 0
+        reset_value: '0'
+        width: 3
+    - EPD:
+        access: rw
+        description: Enable pull-down resistor at pad
+        lsb: 3
+        reset_value: '0'
+        width: 1
+    - EPUN:
+        access: rw
+        description: Disable pull-up resistor at pad
+        lsb: 4
+        reset_value: '0'
+        width: 1
+    - EHS:
+        access: rw
+        description: Select Slew rate
+        lsb: 5
+        reset_value: '0'
+        width: 1
+    - EZI:
+        access: rw
+        description: Input buffer enable
+        lsb: 6
+        reset_value: '0'
+        width: 1
+    - ZIF:
+        access: rw
+        description: Input glitch filter
+        lsb: 7
+        reset_value: '0'
+        width: 1
+- SCU_SFSP9_2:
+    fields: !!omap
+    - MODE:
+        access: rw
+        description: Select pin function
+        lsb: 0
+        reset_value: '0'
+        width: 3
+    - EPD:
+        access: rw
+        description: Enable pull-down resistor at pad
+        lsb: 3
+        reset_value: '0'
+        width: 1
+    - EPUN:
+        access: rw
+        description: Disable pull-up resistor at pad
+        lsb: 4
+        reset_value: '0'
+        width: 1
+    - EHS:
+        access: rw
+        description: Select Slew rate
+        lsb: 5
+        reset_value: '0'
+        width: 1
+    - EZI:
+        access: rw
+        description: Input buffer enable
+        lsb: 6
+        reset_value: '0'
+        width: 1
+    - ZIF:
+        access: rw
+        description: Input glitch filter
+        lsb: 7
+        reset_value: '0'
+        width: 1
+- SCU_SFSP9_3:
+    fields: !!omap
+    - MODE:
+        access: rw
+        description: Select pin function
+        lsb: 0
+        reset_value: '0'
+        width: 3
+    - EPD:
+        access: rw
+        description: Enable pull-down resistor at pad
+        lsb: 3
+        reset_value: '0'
+        width: 1
+    - EPUN:
+        access: rw
+        description: Disable pull-up resistor at pad
+        lsb: 4
+        reset_value: '0'
+        width: 1
+    - EHS:
+        access: rw
+        description: Select Slew rate
+        lsb: 5
+        reset_value: '0'
+        width: 1
+    - EZI:
+        access: rw
+        description: Input buffer enable
+        lsb: 6
+        reset_value: '0'
+        width: 1
+    - ZIF:
+        access: rw
+        description: Input glitch filter
+        lsb: 7
+        reset_value: '0'
+        width: 1
+- SCU_SFSP9_4:
+    fields: !!omap
+    - MODE:
+        access: rw
+        description: Select pin function
+        lsb: 0
+        reset_value: '0'
+        width: 3
+    - EPD:
+        access: rw
+        description: Enable pull-down resistor at pad
+        lsb: 3
+        reset_value: '0'
+        width: 1
+    - EPUN:
+        access: rw
+        description: Disable pull-up resistor at pad
+        lsb: 4
+        reset_value: '0'
+        width: 1
+    - EHS:
+        access: rw
+        description: Select Slew rate
+        lsb: 5
+        reset_value: '0'
+        width: 1
+    - EZI:
+        access: rw
+        description: Input buffer enable
+        lsb: 6
+        reset_value: '0'
+        width: 1
+    - ZIF:
+        access: rw
+        description: Input glitch filter
+        lsb: 7
+        reset_value: '0'
+        width: 1
+- SCU_SFSP9_5:
+    fields: !!omap
+    - MODE:
+        access: rw
+        description: Select pin function
+        lsb: 0
+        reset_value: '0'
+        width: 3
+    - EPD:
+        access: rw
+        description: Enable pull-down resistor at pad
+        lsb: 3
+        reset_value: '0'
+        width: 1
+    - EPUN:
+        access: rw
+        description: Disable pull-up resistor at pad
+        lsb: 4
+        reset_value: '0'
+        width: 1
+    - EHS:
+        access: rw
+        description: Select Slew rate
+        lsb: 5
+        reset_value: '0'
+        width: 1
+    - EZI:
+        access: rw
+        description: Input buffer enable
+        lsb: 6
+        reset_value: '0'
+        width: 1
+    - ZIF:
+        access: rw
+        description: Input glitch filter
+        lsb: 7
+        reset_value: '0'
+        width: 1
+- SCU_SFSP9_6:
+    fields: !!omap
+    - MODE:
+        access: rw
+        description: Select pin function
+        lsb: 0
+        reset_value: '0'
+        width: 3
+    - EPD:
+        access: rw
+        description: Enable pull-down resistor at pad
+        lsb: 3
+        reset_value: '0'
+        width: 1
+    - EPUN:
+        access: rw
+        description: Disable pull-up resistor at pad
+        lsb: 4
+        reset_value: '0'
+        width: 1
+    - EHS:
+        access: rw
+        description: Select Slew rate
+        lsb: 5
+        reset_value: '0'
+        width: 1
+    - EZI:
+        access: rw
+        description: Input buffer enable
+        lsb: 6
+        reset_value: '0'
+        width: 1
+    - ZIF:
+        access: rw
+        description: Input glitch filter
+        lsb: 7
+        reset_value: '0'
+        width: 1
+- SCU_SFSPA_0:
+    fields: !!omap
+    - MODE:
+        access: rw
+        description: Select pin function
+        lsb: 0
+        reset_value: '0'
+        width: 3
+    - EPD:
+        access: rw
+        description: Enable pull-down resistor at pad
+        lsb: 3
+        reset_value: '0'
+        width: 1
+    - EPUN:
+        access: rw
+        description: Disable pull-up resistor at pad
+        lsb: 4
+        reset_value: '0'
+        width: 1
+    - EHS:
+        access: rw
+        description: Select Slew rate
+        lsb: 5
+        reset_value: '0'
+        width: 1
+    - EZI:
+        access: rw
+        description: Input buffer enable
+        lsb: 6
+        reset_value: '0'
+        width: 1
+    - ZIF:
+        access: rw
+        description: Input glitch filter
+        lsb: 7
+        reset_value: '0'
+        width: 1
+- SCU_SFSPA_4:
+    fields: !!omap
+    - MODE:
+        access: rw
+        description: Select pin function
+        lsb: 0
+        reset_value: '0'
+        width: 3
+    - EPD:
+        access: rw
+        description: Enable pull-down resistor at pad
+        lsb: 3
+        reset_value: '0'
+        width: 1
+    - EPUN:
+        access: rw
+        description: Disable pull-up resistor at pad
+        lsb: 4
+        reset_value: '0'
+        width: 1
+    - EHS:
+        access: rw
+        description: Select Slew rate
+        lsb: 5
+        reset_value: '0'
+        width: 1
+    - EZI:
+        access: rw
+        description: Input buffer enable
+        lsb: 6
+        reset_value: '0'
+        width: 1
+    - ZIF:
+        access: rw
+        description: Input glitch filter
+        lsb: 7
+        reset_value: '0'
+        width: 1
+- SCU_SFSPB_0:
+    fields: !!omap
+    - MODE:
+        access: rw
+        description: Select pin function
+        lsb: 0
+        reset_value: '0'
+        width: 3
+    - EPD:
+        access: rw
+        description: Enable pull-down resistor at pad
+        lsb: 3
+        reset_value: '0'
+        width: 1
+    - EPUN:
+        access: rw
+        description: Disable pull-up resistor at pad
+        lsb: 4
+        reset_value: '0'
+        width: 1
+    - EHS:
+        access: rw
+        description: Select Slew rate
+        lsb: 5
+        reset_value: '0'
+        width: 1
+    - EZI:
+        access: rw
+        description: Input buffer enable
+        lsb: 6
+        reset_value: '0'
+        width: 1
+    - ZIF:
+        access: rw
+        description: Input glitch filter
+        lsb: 7
+        reset_value: '0'
+        width: 1
+- SCU_SFSPB_1:
+    fields: !!omap
+    - MODE:
+        access: rw
+        description: Select pin function
+        lsb: 0
+        reset_value: '0'
+        width: 3
+    - EPD:
+        access: rw
+        description: Enable pull-down resistor at pad
+        lsb: 3
+        reset_value: '0'
+        width: 1
+    - EPUN:
+        access: rw
+        description: Disable pull-up resistor at pad
+        lsb: 4
+        reset_value: '0'
+        width: 1
+    - EHS:
+        access: rw
+        description: Select Slew rate
+        lsb: 5
+        reset_value: '0'
+        width: 1
+    - EZI:
+        access: rw
+        description: Input buffer enable
+        lsb: 6
+        reset_value: '0'
+        width: 1
+    - ZIF:
+        access: rw
+        description: Input glitch filter
+        lsb: 7
+        reset_value: '0'
+        width: 1
+- SCU_SFSPB_2:
+    fields: !!omap
+    - MODE:
+        access: rw
+        description: Select pin function
+        lsb: 0
+        reset_value: '0'
+        width: 3
+    - EPD:
+        access: rw
+        description: Enable pull-down resistor at pad
+        lsb: 3
+        reset_value: '0'
+        width: 1
+    - EPUN:
+        access: rw
+        description: Disable pull-up resistor at pad
+        lsb: 4
+        reset_value: '0'
+        width: 1
+    - EHS:
+        access: rw
+        description: Select Slew rate
+        lsb: 5
+        reset_value: '0'
+        width: 1
+    - EZI:
+        access: rw
+        description: Input buffer enable
+        lsb: 6
+        reset_value: '0'
+        width: 1
+    - ZIF:
+        access: rw
+        description: Input glitch filter
+        lsb: 7
+        reset_value: '0'
+        width: 1
+- SCU_SFSPB_3:
+    fields: !!omap
+    - MODE:
+        access: rw
+        description: Select pin function
+        lsb: 0
+        reset_value: '0'
+        width: 3
+    - EPD:
+        access: rw
+        description: Enable pull-down resistor at pad
+        lsb: 3
+        reset_value: '0'
+        width: 1
+    - EPUN:
+        access: rw
+        description: Disable pull-up resistor at pad
+        lsb: 4
+        reset_value: '0'
+        width: 1
+    - EHS:
+        access: rw
+        description: Select Slew rate
+        lsb: 5
+        reset_value: '0'
+        width: 1
+    - EZI:
+        access: rw
+        description: Input buffer enable
+        lsb: 6
+        reset_value: '0'
+        width: 1
+    - ZIF:
+        access: rw
+        description: Input glitch filter
+        lsb: 7
+        reset_value: '0'
+        width: 1
+- SCU_SFSPB_4:
+    fields: !!omap
+    - MODE:
+        access: rw
+        description: Select pin function
+        lsb: 0
+        reset_value: '0'
+        width: 3
+    - EPD:
+        access: rw
+        description: Enable pull-down resistor at pad
+        lsb: 3
+        reset_value: '0'
+        width: 1
+    - EPUN:
+        access: rw
+        description: Disable pull-up resistor at pad
+        lsb: 4
+        reset_value: '0'
+        width: 1
+    - EHS:
+        access: rw
+        description: Select Slew rate
+        lsb: 5
+        reset_value: '0'
+        width: 1
+    - EZI:
+        access: rw
+        description: Input buffer enable
+        lsb: 6
+        reset_value: '0'
+        width: 1
+    - ZIF:
+        access: rw
+        description: Input glitch filter
+        lsb: 7
+        reset_value: '0'
+        width: 1
+- SCU_SFSPB_5:
+    fields: !!omap
+    - MODE:
+        access: rw
+        description: Select pin function
+        lsb: 0
+        reset_value: '0'
+        width: 3
+    - EPD:
+        access: rw
+        description: Enable pull-down resistor at pad
+        lsb: 3
+        reset_value: '0'
+        width: 1
+    - EPUN:
+        access: rw
+        description: Disable pull-up resistor at pad
+        lsb: 4
+        reset_value: '0'
+        width: 1
+    - EHS:
+        access: rw
+        description: Select Slew rate
+        lsb: 5
+        reset_value: '0'
+        width: 1
+    - EZI:
+        access: rw
+        description: Input buffer enable
+        lsb: 6
+        reset_value: '0'
+        width: 1
+    - ZIF:
+        access: rw
+        description: Input glitch filter
+        lsb: 7
+        reset_value: '0'
+        width: 1
+- SCU_SFSPB_6:
+    fields: !!omap
+    - MODE:
+        access: rw
+        description: Select pin function
+        lsb: 0
+        reset_value: '0'
+        width: 3
+    - EPD:
+        access: rw
+        description: Enable pull-down resistor at pad
+        lsb: 3
+        reset_value: '0'
+        width: 1
+    - EPUN:
+        access: rw
+        description: Disable pull-up resistor at pad
+        lsb: 4
+        reset_value: '0'
+        width: 1
+    - EHS:
+        access: rw
+        description: Select Slew rate
+        lsb: 5
+        reset_value: '0'
+        width: 1
+    - EZI:
+        access: rw
+        description: Input buffer enable
+        lsb: 6
+        reset_value: '0'
+        width: 1
+    - ZIF:
+        access: rw
+        description: Input glitch filter
+        lsb: 7
+        reset_value: '0'
+        width: 1
+- SCU_SFSPC_0:
+    fields: !!omap
+    - MODE:
+        access: rw
+        description: Select pin function
+        lsb: 0
+        reset_value: '0'
+        width: 3
+    - EPD:
+        access: rw
+        description: Enable pull-down resistor at pad
+        lsb: 3
+        reset_value: '0'
+        width: 1
+    - EPUN:
+        access: rw
+        description: Disable pull-up resistor at pad
+        lsb: 4
+        reset_value: '0'
+        width: 1
+    - EHS:
+        access: rw
+        description: Select Slew rate
+        lsb: 5
+        reset_value: '0'
+        width: 1
+    - EZI:
+        access: rw
+        description: Input buffer enable
+        lsb: 6
+        reset_value: '0'
+        width: 1
+    - ZIF:
+        access: rw
+        description: Input glitch filter
+        lsb: 7
+        reset_value: '0'
+        width: 1
+- SCU_SFSPC_1:
+    fields: !!omap
+    - MODE:
+        access: rw
+        description: Select pin function
+        lsb: 0
+        reset_value: '0'
+        width: 3
+    - EPD:
+        access: rw
+        description: Enable pull-down resistor at pad
+        lsb: 3
+        reset_value: '0'
+        width: 1
+    - EPUN:
+        access: rw
+        description: Disable pull-up resistor at pad
+        lsb: 4
+        reset_value: '0'
+        width: 1
+    - EHS:
+        access: rw
+        description: Select Slew rate
+        lsb: 5
+        reset_value: '0'
+        width: 1
+    - EZI:
+        access: rw
+        description: Input buffer enable
+        lsb: 6
+        reset_value: '0'
+        width: 1
+    - ZIF:
+        access: rw
+        description: Input glitch filter
+        lsb: 7
+        reset_value: '0'
+        width: 1
+- SCU_SFSPC_2:
+    fields: !!omap
+    - MODE:
+        access: rw
+        description: Select pin function
+        lsb: 0
+        reset_value: '0'
+        width: 3
+    - EPD:
+        access: rw
+        description: Enable pull-down resistor at pad
+        lsb: 3
+        reset_value: '0'
+        width: 1
+    - EPUN:
+        access: rw
+        description: Disable pull-up resistor at pad
+        lsb: 4
+        reset_value: '0'
+        width: 1
+    - EHS:
+        access: rw
+        description: Select Slew rate
+        lsb: 5
+        reset_value: '0'
+        width: 1
+    - EZI:
+        access: rw
+        description: Input buffer enable
+        lsb: 6
+        reset_value: '0'
+        width: 1
+    - ZIF:
+        access: rw
+        description: Input glitch filter
+        lsb: 7
+        reset_value: '0'
+        width: 1
+- SCU_SFSPC_3:
+    fields: !!omap
+    - MODE:
+        access: rw
+        description: Select pin function
+        lsb: 0
+        reset_value: '0'
+        width: 3
+    - EPD:
+        access: rw
+        description: Enable pull-down resistor at pad
+        lsb: 3
+        reset_value: '0'
+        width: 1
+    - EPUN:
+        access: rw
+        description: Disable pull-up resistor at pad
+        lsb: 4
+        reset_value: '0'
+        width: 1
+    - EHS:
+        access: rw
+        description: Select Slew rate
+        lsb: 5
+        reset_value: '0'
+        width: 1
+    - EZI:
+        access: rw
+        description: Input buffer enable
+        lsb: 6
+        reset_value: '0'
+        width: 1
+    - ZIF:
+        access: rw
+        description: Input glitch filter
+        lsb: 7
+        reset_value: '0'
+        width: 1
+- SCU_SFSPC_4:
+    fields: !!omap
+    - MODE:
+        access: rw
+        description: Select pin function
+        lsb: 0
+        reset_value: '0'
+        width: 3
+    - EPD:
+        access: rw
+        description: Enable pull-down resistor at pad
+        lsb: 3
+        reset_value: '0'
+        width: 1
+    - EPUN:
+        access: rw
+        description: Disable pull-up resistor at pad
+        lsb: 4
+        reset_value: '0'
+        width: 1
+    - EHS:
+        access: rw
+        description: Select Slew rate
+        lsb: 5
+        reset_value: '0'
+        width: 1
+    - EZI:
+        access: rw
+        description: Input buffer enable
+        lsb: 6
+        reset_value: '0'
+        width: 1
+    - ZIF:
+        access: rw
+        description: Input glitch filter
+        lsb: 7
+        reset_value: '0'
+        width: 1
+- SCU_SFSPC_5:
+    fields: !!omap
+    - MODE:
+        access: rw
+        description: Select pin function
+        lsb: 0
+        reset_value: '0'
+        width: 3
+    - EPD:
+        access: rw
+        description: Enable pull-down resistor at pad
+        lsb: 3
+        reset_value: '0'
+        width: 1
+    - EPUN:
+        access: rw
+        description: Disable pull-up resistor at pad
+        lsb: 4
+        reset_value: '0'
+        width: 1
+    - EHS:
+        access: rw
+        description: Select Slew rate
+        lsb: 5
+        reset_value: '0'
+        width: 1
+    - EZI:
+        access: rw
+        description: Input buffer enable
+        lsb: 6
+        reset_value: '0'
+        width: 1
+    - ZIF:
+        access: rw
+        description: Input glitch filter
+        lsb: 7
+        reset_value: '0'
+        width: 1
+- SCU_SFSPC_6:
+    fields: !!omap
+    - MODE:
+        access: rw
+        description: Select pin function
+        lsb: 0
+        reset_value: '0'
+        width: 3
+    - EPD:
+        access: rw
+        description: Enable pull-down resistor at pad
+        lsb: 3
+        reset_value: '0'
+        width: 1
+    - EPUN:
+        access: rw
+        description: Disable pull-up resistor at pad
+        lsb: 4
+        reset_value: '0'
+        width: 1
+    - EHS:
+        access: rw
+        description: Select Slew rate
+        lsb: 5
+        reset_value: '0'
+        width: 1
+    - EZI:
+        access: rw
+        description: Input buffer enable
+        lsb: 6
+        reset_value: '0'
+        width: 1
+    - ZIF:
+        access: rw
+        description: Input glitch filter
+        lsb: 7
+        reset_value: '0'
+        width: 1
+- SCU_SFSPC_7:
+    fields: !!omap
+    - MODE:
+        access: rw
+        description: Select pin function
+        lsb: 0
+        reset_value: '0'
+        width: 3
+    - EPD:
+        access: rw
+        description: Enable pull-down resistor at pad
+        lsb: 3
+        reset_value: '0'
+        width: 1
+    - EPUN:
+        access: rw
+        description: Disable pull-up resistor at pad
+        lsb: 4
+        reset_value: '0'
+        width: 1
+    - EHS:
+        access: rw
+        description: Select Slew rate
+        lsb: 5
+        reset_value: '0'
+        width: 1
+    - EZI:
+        access: rw
+        description: Input buffer enable
+        lsb: 6
+        reset_value: '0'
+        width: 1
+    - ZIF:
+        access: rw
+        description: Input glitch filter
+        lsb: 7
+        reset_value: '0'
+        width: 1
+- SCU_SFSPC_8:
+    fields: !!omap
+    - MODE:
+        access: rw
+        description: Select pin function
+        lsb: 0
+        reset_value: '0'
+        width: 3
+    - EPD:
+        access: rw
+        description: Enable pull-down resistor at pad
+        lsb: 3
+        reset_value: '0'
+        width: 1
+    - EPUN:
+        access: rw
+        description: Disable pull-up resistor at pad
+        lsb: 4
+        reset_value: '0'
+        width: 1
+    - EHS:
+        access: rw
+        description: Select Slew rate
+        lsb: 5
+        reset_value: '0'
+        width: 1
+    - EZI:
+        access: rw
+        description: Input buffer enable
+        lsb: 6
+        reset_value: '0'
+        width: 1
+    - ZIF:
+        access: rw
+        description: Input glitch filter
+        lsb: 7
+        reset_value: '0'
+        width: 1
+- SCU_SFSPC_9:
+    fields: !!omap
+    - MODE:
+        access: rw
+        description: Select pin function
+        lsb: 0
+        reset_value: '0'
+        width: 3
+    - EPD:
+        access: rw
+        description: Enable pull-down resistor at pad
+        lsb: 3
+        reset_value: '0'
+        width: 1
+    - EPUN:
+        access: rw
+        description: Disable pull-up resistor at pad
+        lsb: 4
+        reset_value: '0'
+        width: 1
+    - EHS:
+        access: rw
+        description: Select Slew rate
+        lsb: 5
+        reset_value: '0'
+        width: 1
+    - EZI:
+        access: rw
+        description: Input buffer enable
+        lsb: 6
+        reset_value: '0'
+        width: 1
+    - ZIF:
+        access: rw
+        description: Input glitch filter
+        lsb: 7
+        reset_value: '0'
+        width: 1
+- SCU_SFSPC_10:
+    fields: !!omap
+    - MODE:
+        access: rw
+        description: Select pin function
+        lsb: 0
+        reset_value: '0'
+        width: 3
+    - EPD:
+        access: rw
+        description: Enable pull-down resistor at pad
+        lsb: 3
+        reset_value: '0'
+        width: 1
+    - EPUN:
+        access: rw
+        description: Disable pull-up resistor at pad
+        lsb: 4
+        reset_value: '0'
+        width: 1
+    - EHS:
+        access: rw
+        description: Select Slew rate
+        lsb: 5
+        reset_value: '0'
+        width: 1
+    - EZI:
+        access: rw
+        description: Input buffer enable
+        lsb: 6
+        reset_value: '0'
+        width: 1
+    - ZIF:
+        access: rw
+        description: Input glitch filter
+        lsb: 7
+        reset_value: '0'
+        width: 1
+- SCU_SFSPC_11:
+    fields: !!omap
+    - MODE:
+        access: rw
+        description: Select pin function
+        lsb: 0
+        reset_value: '0'
+        width: 3
+    - EPD:
+        access: rw
+        description: Enable pull-down resistor at pad
+        lsb: 3
+        reset_value: '0'
+        width: 1
+    - EPUN:
+        access: rw
+        description: Disable pull-up resistor at pad
+        lsb: 4
+        reset_value: '0'
+        width: 1
+    - EHS:
+        access: rw
+        description: Select Slew rate
+        lsb: 5
+        reset_value: '0'
+        width: 1
+    - EZI:
+        access: rw
+        description: Input buffer enable
+        lsb: 6
+        reset_value: '0'
+        width: 1
+    - ZIF:
+        access: rw
+        description: Input glitch filter
+        lsb: 7
+        reset_value: '0'
+        width: 1
+- SCU_SFSPC_12:
+    fields: !!omap
+    - MODE:
+        access: rw
+        description: Select pin function
+        lsb: 0
+        reset_value: '0'
+        width: 3
+    - EPD:
+        access: rw
+        description: Enable pull-down resistor at pad
+        lsb: 3
+        reset_value: '0'
+        width: 1
+    - EPUN:
+        access: rw
+        description: Disable pull-up resistor at pad
+        lsb: 4
+        reset_value: '0'
+        width: 1
+    - EHS:
+        access: rw
+        description: Select Slew rate
+        lsb: 5
+        reset_value: '0'
+        width: 1
+    - EZI:
+        access: rw
+        description: Input buffer enable
+        lsb: 6
+        reset_value: '0'
+        width: 1
+    - ZIF:
+        access: rw
+        description: Input glitch filter
+        lsb: 7
+        reset_value: '0'
+        width: 1
+- SCU_SFSPC_13:
+    fields: !!omap
+    - MODE:
+        access: rw
+        description: Select pin function
+        lsb: 0
+        reset_value: '0'
+        width: 3
+    - EPD:
+        access: rw
+        description: Enable pull-down resistor at pad
+        lsb: 3
+        reset_value: '0'
+        width: 1
+    - EPUN:
+        access: rw
+        description: Disable pull-up resistor at pad
+        lsb: 4
+        reset_value: '0'
+        width: 1
+    - EHS:
+        access: rw
+        description: Select Slew rate
+        lsb: 5
+        reset_value: '0'
+        width: 1
+    - EZI:
+        access: rw
+        description: Input buffer enable
+        lsb: 6
+        reset_value: '0'
+        width: 1
+    - ZIF:
+        access: rw
+        description: Input glitch filter
+        lsb: 7
+        reset_value: '0'
+        width: 1
+- SCU_SFSPC_14:
+    fields: !!omap
+    - MODE:
+        access: rw
+        description: Select pin function
+        lsb: 0
+        reset_value: '0'
+        width: 3
+    - EPD:
+        access: rw
+        description: Enable pull-down resistor at pad
+        lsb: 3
+        reset_value: '0'
+        width: 1
+    - EPUN:
+        access: rw
+        description: Disable pull-up resistor at pad
+        lsb: 4
+        reset_value: '0'
+        width: 1
+    - EHS:
+        access: rw
+        description: Select Slew rate
+        lsb: 5
+        reset_value: '0'
+        width: 1
+    - EZI:
+        access: rw
+        description: Input buffer enable
+        lsb: 6
+        reset_value: '0'
+        width: 1
+    - ZIF:
+        access: rw
+        description: Input glitch filter
+        lsb: 7
+        reset_value: '0'
+        width: 1
+- SCU_SFSPD_0:
+    fields: !!omap
+    - MODE:
+        access: rw
+        description: Select pin function
+        lsb: 0
+        reset_value: '0'
+        width: 3
+    - EPD:
+        access: rw
+        description: Enable pull-down resistor at pad
+        lsb: 3
+        reset_value: '0'
+        width: 1
+    - EPUN:
+        access: rw
+        description: Disable pull-up resistor at pad
+        lsb: 4
+        reset_value: '0'
+        width: 1
+    - EHS:
+        access: rw
+        description: Select Slew rate
+        lsb: 5
+        reset_value: '0'
+        width: 1
+    - EZI:
+        access: rw
+        description: Input buffer enable
+        lsb: 6
+        reset_value: '0'
+        width: 1
+    - ZIF:
+        access: rw
+        description: Input glitch filter
+        lsb: 7
+        reset_value: '0'
+        width: 1
+- SCU_SFSPD_1:
+    fields: !!omap
+    - MODE:
+        access: rw
+        description: Select pin function
+        lsb: 0
+        reset_value: '0'
+        width: 3
+    - EPD:
+        access: rw
+        description: Enable pull-down resistor at pad
+        lsb: 3
+        reset_value: '0'
+        width: 1
+    - EPUN:
+        access: rw
+        description: Disable pull-up resistor at pad
+        lsb: 4
+        reset_value: '0'
+        width: 1
+    - EHS:
+        access: rw
+        description: Select Slew rate
+        lsb: 5
+        reset_value: '0'
+        width: 1
+    - EZI:
+        access: rw
+        description: Input buffer enable
+        lsb: 6
+        reset_value: '0'
+        width: 1
+    - ZIF:
+        access: rw
+        description: Input glitch filter
+        lsb: 7
+        reset_value: '0'
+        width: 1
+- SCU_SFSPD_2:
+    fields: !!omap
+    - MODE:
+        access: rw
+        description: Select pin function
+        lsb: 0
+        reset_value: '0'
+        width: 3
+    - EPD:
+        access: rw
+        description: Enable pull-down resistor at pad
+        lsb: 3
+        reset_value: '0'
+        width: 1
+    - EPUN:
+        access: rw
+        description: Disable pull-up resistor at pad
+        lsb: 4
+        reset_value: '0'
+        width: 1
+    - EHS:
+        access: rw
+        description: Select Slew rate
+        lsb: 5
+        reset_value: '0'
+        width: 1
+    - EZI:
+        access: rw
+        description: Input buffer enable
+        lsb: 6
+        reset_value: '0'
+        width: 1
+    - ZIF:
+        access: rw
+        description: Input glitch filter
+        lsb: 7
+        reset_value: '0'
+        width: 1
+- SCU_SFSPD_3:
+    fields: !!omap
+    - MODE:
+        access: rw
+        description: Select pin function
+        lsb: 0
+        reset_value: '0'
+        width: 3
+    - EPD:
+        access: rw
+        description: Enable pull-down resistor at pad
+        lsb: 3
+        reset_value: '0'
+        width: 1
+    - EPUN:
+        access: rw
+        description: Disable pull-up resistor at pad
+        lsb: 4
+        reset_value: '0'
+        width: 1
+    - EHS:
+        access: rw
+        description: Select Slew rate
+        lsb: 5
+        reset_value: '0'
+        width: 1
+    - EZI:
+        access: rw
+        description: Input buffer enable
+        lsb: 6
+        reset_value: '0'
+        width: 1
+    - ZIF:
+        access: rw
+        description: Input glitch filter
+        lsb: 7
+        reset_value: '0'
+        width: 1
+- SCU_SFSPD_4:
+    fields: !!omap
+    - MODE:
+        access: rw
+        description: Select pin function
+        lsb: 0
+        reset_value: '0'
+        width: 3
+    - EPD:
+        access: rw
+        description: Enable pull-down resistor at pad
+        lsb: 3
+        reset_value: '0'
+        width: 1
+    - EPUN:
+        access: rw
+        description: Disable pull-up resistor at pad
+        lsb: 4
+        reset_value: '0'
+        width: 1
+    - EHS:
+        access: rw
+        description: Select Slew rate
+        lsb: 5
+        reset_value: '0'
+        width: 1
+    - EZI:
+        access: rw
+        description: Input buffer enable
+        lsb: 6
+        reset_value: '0'
+        width: 1
+    - ZIF:
+        access: rw
+        description: Input glitch filter
+        lsb: 7
+        reset_value: '0'
+        width: 1
+- SCU_SFSPD_5:
+    fields: !!omap
+    - MODE:
+        access: rw
+        description: Select pin function
+        lsb: 0
+        reset_value: '0'
+        width: 3
+    - EPD:
+        access: rw
+        description: Enable pull-down resistor at pad
+        lsb: 3
+        reset_value: '0'
+        width: 1
+    - EPUN:
+        access: rw
+        description: Disable pull-up resistor at pad
+        lsb: 4
+        reset_value: '0'
+        width: 1
+    - EHS:
+        access: rw
+        description: Select Slew rate
+        lsb: 5
+        reset_value: '0'
+        width: 1
+    - EZI:
+        access: rw
+        description: Input buffer enable
+        lsb: 6
+        reset_value: '0'
+        width: 1
+    - ZIF:
+        access: rw
+        description: Input glitch filter
+        lsb: 7
+        reset_value: '0'
+        width: 1
+- SCU_SFSPD_6:
+    fields: !!omap
+    - MODE:
+        access: rw
+        description: Select pin function
+        lsb: 0
+        reset_value: '0'
+        width: 3
+    - EPD:
+        access: rw
+        description: Enable pull-down resistor at pad
+        lsb: 3
+        reset_value: '0'
+        width: 1
+    - EPUN:
+        access: rw
+        description: Disable pull-up resistor at pad
+        lsb: 4
+        reset_value: '0'
+        width: 1
+    - EHS:
+        access: rw
+        description: Select Slew rate
+        lsb: 5
+        reset_value: '0'
+        width: 1
+    - EZI:
+        access: rw
+        description: Input buffer enable
+        lsb: 6
+        reset_value: '0'
+        width: 1
+    - ZIF:
+        access: rw
+        description: Input glitch filter
+        lsb: 7
+        reset_value: '0'
+        width: 1
+- SCU_SFSPD_7:
+    fields: !!omap
+    - MODE:
+        access: rw
+        description: Select pin function
+        lsb: 0
+        reset_value: '0'
+        width: 3
+    - EPD:
+        access: rw
+        description: Enable pull-down resistor at pad
+        lsb: 3
+        reset_value: '0'
+        width: 1
+    - EPUN:
+        access: rw
+        description: Disable pull-up resistor at pad
+        lsb: 4
+        reset_value: '0'
+        width: 1
+    - EHS:
+        access: rw
+        description: Select Slew rate
+        lsb: 5
+        reset_value: '0'
+        width: 1
+    - EZI:
+        access: rw
+        description: Input buffer enable
+        lsb: 6
+        reset_value: '0'
+        width: 1
+    - ZIF:
+        access: rw
+        description: Input glitch filter
+        lsb: 7
+        reset_value: '0'
+        width: 1
+- SCU_SFSPD_8:
+    fields: !!omap
+    - MODE:
+        access: rw
+        description: Select pin function
+        lsb: 0
+        reset_value: '0'
+        width: 3
+    - EPD:
+        access: rw
+        description: Enable pull-down resistor at pad
+        lsb: 3
+        reset_value: '0'
+        width: 1
+    - EPUN:
+        access: rw
+        description: Disable pull-up resistor at pad
+        lsb: 4
+        reset_value: '0'
+        width: 1
+    - EHS:
+        access: rw
+        description: Select Slew rate
+        lsb: 5
+        reset_value: '0'
+        width: 1
+    - EZI:
+        access: rw
+        description: Input buffer enable
+        lsb: 6
+        reset_value: '0'
+        width: 1
+    - ZIF:
+        access: rw
+        description: Input glitch filter
+        lsb: 7
+        reset_value: '0'
+        width: 1
+- SCU_SFSPD_9:
+    fields: !!omap
+    - MODE:
+        access: rw
+        description: Select pin function
+        lsb: 0
+        reset_value: '0'
+        width: 3
+    - EPD:
+        access: rw
+        description: Enable pull-down resistor at pad
+        lsb: 3
+        reset_value: '0'
+        width: 1
+    - EPUN:
+        access: rw
+        description: Disable pull-up resistor at pad
+        lsb: 4
+        reset_value: '0'
+        width: 1
+    - EHS:
+        access: rw
+        description: Select Slew rate
+        lsb: 5
+        reset_value: '0'
+        width: 1
+    - EZI:
+        access: rw
+        description: Input buffer enable
+        lsb: 6
+        reset_value: '0'
+        width: 1
+    - ZIF:
+        access: rw
+        description: Input glitch filter
+        lsb: 7
+        reset_value: '0'
+        width: 1
+- SCU_SFSPD_10:
+    fields: !!omap
+    - MODE:
+        access: rw
+        description: Select pin function
+        lsb: 0
+        reset_value: '0'
+        width: 3
+    - EPD:
+        access: rw
+        description: Enable pull-down resistor at pad
+        lsb: 3
+        reset_value: '0'
+        width: 1
+    - EPUN:
+        access: rw
+        description: Disable pull-up resistor at pad
+        lsb: 4
+        reset_value: '0'
+        width: 1
+    - EHS:
+        access: rw
+        description: Select Slew rate
+        lsb: 5
+        reset_value: '0'
+        width: 1
+    - EZI:
+        access: rw
+        description: Input buffer enable
+        lsb: 6
+        reset_value: '0'
+        width: 1
+    - ZIF:
+        access: rw
+        description: Input glitch filter
+        lsb: 7
+        reset_value: '0'
+        width: 1
+- SCU_SFSPD_11:
+    fields: !!omap
+    - MODE:
+        access: rw
+        description: Select pin function
+        lsb: 0
+        reset_value: '0'
+        width: 3
+    - EPD:
+        access: rw
+        description: Enable pull-down resistor at pad
+        lsb: 3
+        reset_value: '0'
+        width: 1
+    - EPUN:
+        access: rw
+        description: Disable pull-up resistor at pad
+        lsb: 4
+        reset_value: '0'
+        width: 1
+    - EHS:
+        access: rw
+        description: Select Slew rate
+        lsb: 5
+        reset_value: '0'
+        width: 1
+    - EZI:
+        access: rw
+        description: Input buffer enable
+        lsb: 6
+        reset_value: '0'
+        width: 1
+    - ZIF:
+        access: rw
+        description: Input glitch filter
+        lsb: 7
+        reset_value: '0'
+        width: 1
+- SCU_SFSPD_12:
+    fields: !!omap
+    - MODE:
+        access: rw
+        description: Select pin function
+        lsb: 0
+        reset_value: '0'
+        width: 3
+    - EPD:
+        access: rw
+        description: Enable pull-down resistor at pad
+        lsb: 3
+        reset_value: '0'
+        width: 1
+    - EPUN:
+        access: rw
+        description: Disable pull-up resistor at pad
+        lsb: 4
+        reset_value: '0'
+        width: 1
+    - EHS:
+        access: rw
+        description: Select Slew rate
+        lsb: 5
+        reset_value: '0'
+        width: 1
+    - EZI:
+        access: rw
+        description: Input buffer enable
+        lsb: 6
+        reset_value: '0'
+        width: 1
+    - ZIF:
+        access: rw
+        description: Input glitch filter
+        lsb: 7
+        reset_value: '0'
+        width: 1
+- SCU_SFSPD_13:
+    fields: !!omap
+    - MODE:
+        access: rw
+        description: Select pin function
+        lsb: 0
+        reset_value: '0'
+        width: 3
+    - EPD:
+        access: rw
+        description: Enable pull-down resistor at pad
+        lsb: 3
+        reset_value: '0'
+        width: 1
+    - EPUN:
+        access: rw
+        description: Disable pull-up resistor at pad
+        lsb: 4
+        reset_value: '0'
+        width: 1
+    - EHS:
+        access: rw
+        description: Select Slew rate
+        lsb: 5
+        reset_value: '0'
+        width: 1
+    - EZI:
+        access: rw
+        description: Input buffer enable
+        lsb: 6
+        reset_value: '0'
+        width: 1
+    - ZIF:
+        access: rw
+        description: Input glitch filter
+        lsb: 7
+        reset_value: '0'
+        width: 1
+- SCU_SFSPD_14:
+    fields: !!omap
+    - MODE:
+        access: rw
+        description: Select pin function
+        lsb: 0
+        reset_value: '0'
+        width: 3
+    - EPD:
+        access: rw
+        description: Enable pull-down resistor at pad
+        lsb: 3
+        reset_value: '0'
+        width: 1
+    - EPUN:
+        access: rw
+        description: Disable pull-up resistor at pad
+        lsb: 4
+        reset_value: '0'
+        width: 1
+    - EHS:
+        access: rw
+        description: Select Slew rate
+        lsb: 5
+        reset_value: '0'
+        width: 1
+    - EZI:
+        access: rw
+        description: Input buffer enable
+        lsb: 6
+        reset_value: '0'
+        width: 1
+    - ZIF:
+        access: rw
+        description: Input glitch filter
+        lsb: 7
+        reset_value: '0'
+        width: 1
+- SCU_SFSPD_15:
+    fields: !!omap
+    - MODE:
+        access: rw
+        description: Select pin function
+        lsb: 0
+        reset_value: '0'
+        width: 3
+    - EPD:
+        access: rw
+        description: Enable pull-down resistor at pad
+        lsb: 3
+        reset_value: '0'
+        width: 1
+    - EPUN:
+        access: rw
+        description: Disable pull-up resistor at pad
+        lsb: 4
+        reset_value: '0'
+        width: 1
+    - EHS:
+        access: rw
+        description: Select Slew rate
+        lsb: 5
+        reset_value: '0'
+        width: 1
+    - EZI:
+        access: rw
+        description: Input buffer enable
+        lsb: 6
+        reset_value: '0'
+        width: 1
+    - ZIF:
+        access: rw
+        description: Input glitch filter
+        lsb: 7
+        reset_value: '0'
+        width: 1
+- SCU_SFSPD_16:
+    fields: !!omap
+    - MODE:
+        access: rw
+        description: Select pin function
+        lsb: 0
+        reset_value: '0'
+        width: 3
+    - EPD:
+        access: rw
+        description: Enable pull-down resistor at pad
+        lsb: 3
+        reset_value: '0'
+        width: 1
+    - EPUN:
+        access: rw
+        description: Disable pull-up resistor at pad
+        lsb: 4
+        reset_value: '0'
+        width: 1
+    - EHS:
+        access: rw
+        description: Select Slew rate
+        lsb: 5
+        reset_value: '0'
+        width: 1
+    - EZI:
+        access: rw
+        description: Input buffer enable
+        lsb: 6
+        reset_value: '0'
+        width: 1
+    - ZIF:
+        access: rw
+        description: Input glitch filter
+        lsb: 7
+        reset_value: '0'
+        width: 1
+- SCU_SFSPE_0:
+    fields: !!omap
+    - MODE:
+        access: rw
+        description: Select pin function
+        lsb: 0
+        reset_value: '0'
+        width: 3
+    - EPD:
+        access: rw
+        description: Enable pull-down resistor at pad
+        lsb: 3
+        reset_value: '0'
+        width: 1
+    - EPUN:
+        access: rw
+        description: Disable pull-up resistor at pad
+        lsb: 4
+        reset_value: '0'
+        width: 1
+    - EHS:
+        access: rw
+        description: Select Slew rate
+        lsb: 5
+        reset_value: '0'
+        width: 1
+    - EZI:
+        access: rw
+        description: Input buffer enable
+        lsb: 6
+        reset_value: '0'
+        width: 1
+    - ZIF:
+        access: rw
+        description: Input glitch filter
+        lsb: 7
+        reset_value: '0'
+        width: 1
+- SCU_SFSPE_1:
+    fields: !!omap
+    - MODE:
+        access: rw
+        description: Select pin function
+        lsb: 0
+        reset_value: '0'
+        width: 3
+    - EPD:
+        access: rw
+        description: Enable pull-down resistor at pad
+        lsb: 3
+        reset_value: '0'
+        width: 1
+    - EPUN:
+        access: rw
+        description: Disable pull-up resistor at pad
+        lsb: 4
+        reset_value: '0'
+        width: 1
+    - EHS:
+        access: rw
+        description: Select Slew rate
+        lsb: 5
+        reset_value: '0'
+        width: 1
+    - EZI:
+        access: rw
+        description: Input buffer enable
+        lsb: 6
+        reset_value: '0'
+        width: 1
+    - ZIF:
+        access: rw
+        description: Input glitch filter
+        lsb: 7
+        reset_value: '0'
+        width: 1
+- SCU_SFSPE_2:
+    fields: !!omap
+    - MODE:
+        access: rw
+        description: Select pin function
+        lsb: 0
+        reset_value: '0'
+        width: 3
+    - EPD:
+        access: rw
+        description: Enable pull-down resistor at pad
+        lsb: 3
+        reset_value: '0'
+        width: 1
+    - EPUN:
+        access: rw
+        description: Disable pull-up resistor at pad
+        lsb: 4
+        reset_value: '0'
+        width: 1
+    - EHS:
+        access: rw
+        description: Select Slew rate
+        lsb: 5
+        reset_value: '0'
+        width: 1
+    - EZI:
+        access: rw
+        description: Input buffer enable
+        lsb: 6
+        reset_value: '0'
+        width: 1
+    - ZIF:
+        access: rw
+        description: Input glitch filter
+        lsb: 7
+        reset_value: '0'
+        width: 1
+- SCU_SFSPE_3:
+    fields: !!omap
+    - MODE:
+        access: rw
+        description: Select pin function
+        lsb: 0
+        reset_value: '0'
+        width: 3
+    - EPD:
+        access: rw
+        description: Enable pull-down resistor at pad
+        lsb: 3
+        reset_value: '0'
+        width: 1
+    - EPUN:
+        access: rw
+        description: Disable pull-up resistor at pad
+        lsb: 4
+        reset_value: '0'
+        width: 1
+    - EHS:
+        access: rw
+        description: Select Slew rate
+        lsb: 5
+        reset_value: '0'
+        width: 1
+    - EZI:
+        access: rw
+        description: Input buffer enable
+        lsb: 6
+        reset_value: '0'
+        width: 1
+    - ZIF:
+        access: rw
+        description: Input glitch filter
+        lsb: 7
+        reset_value: '0'
+        width: 1
+- SCU_SFSPE_4:
+    fields: !!omap
+    - MODE:
+        access: rw
+        description: Select pin function
+        lsb: 0
+        reset_value: '0'
+        width: 3
+    - EPD:
+        access: rw
+        description: Enable pull-down resistor at pad
+        lsb: 3
+        reset_value: '0'
+        width: 1
+    - EPUN:
+        access: rw
+        description: Disable pull-up resistor at pad
+        lsb: 4
+        reset_value: '0'
+        width: 1
+    - EHS:
+        access: rw
+        description: Select Slew rate
+        lsb: 5
+        reset_value: '0'
+        width: 1
+    - EZI:
+        access: rw
+        description: Input buffer enable
+        lsb: 6
+        reset_value: '0'
+        width: 1
+    - ZIF:
+        access: rw
+        description: Input glitch filter
+        lsb: 7
+        reset_value: '0'
+        width: 1
+- SCU_SFSPE_5:
+    fields: !!omap
+    - MODE:
+        access: rw
+        description: Select pin function
+        lsb: 0
+        reset_value: '0'
+        width: 3
+    - EPD:
+        access: rw
+        description: Enable pull-down resistor at pad
+        lsb: 3
+        reset_value: '0'
+        width: 1
+    - EPUN:
+        access: rw
+        description: Disable pull-up resistor at pad
+        lsb: 4
+        reset_value: '0'
+        width: 1
+    - EHS:
+        access: rw
+        description: Select Slew rate
+        lsb: 5
+        reset_value: '0'
+        width: 1
+    - EZI:
+        access: rw
+        description: Input buffer enable
+        lsb: 6
+        reset_value: '0'
+        width: 1
+    - ZIF:
+        access: rw
+        description: Input glitch filter
+        lsb: 7
+        reset_value: '0'
+        width: 1
+- SCU_SFSPE_6:
+    fields: !!omap
+    - MODE:
+        access: rw
+        description: Select pin function
+        lsb: 0
+        reset_value: '0'
+        width: 3
+    - EPD:
+        access: rw
+        description: Enable pull-down resistor at pad
+        lsb: 3
+        reset_value: '0'
+        width: 1
+    - EPUN:
+        access: rw
+        description: Disable pull-up resistor at pad
+        lsb: 4
+        reset_value: '0'
+        width: 1
+    - EHS:
+        access: rw
+        description: Select Slew rate
+        lsb: 5
+        reset_value: '0'
+        width: 1
+    - EZI:
+        access: rw
+        description: Input buffer enable
+        lsb: 6
+        reset_value: '0'
+        width: 1
+    - ZIF:
+        access: rw
+        description: Input glitch filter
+        lsb: 7
+        reset_value: '0'
+        width: 1
+- SCU_SFSPE_7:
+    fields: !!omap
+    - MODE:
+        access: rw
+        description: Select pin function
+        lsb: 0
+        reset_value: '0'
+        width: 3
+    - EPD:
+        access: rw
+        description: Enable pull-down resistor at pad
+        lsb: 3
+        reset_value: '0'
+        width: 1
+    - EPUN:
+        access: rw
+        description: Disable pull-up resistor at pad
+        lsb: 4
+        reset_value: '0'
+        width: 1
+    - EHS:
+        access: rw
+        description: Select Slew rate
+        lsb: 5
+        reset_value: '0'
+        width: 1
+    - EZI:
+        access: rw
+        description: Input buffer enable
+        lsb: 6
+        reset_value: '0'
+        width: 1
+    - ZIF:
+        access: rw
+        description: Input glitch filter
+        lsb: 7
+        reset_value: '0'
+        width: 1
+- SCU_SFSPE_8:
+    fields: !!omap
+    - MODE:
+        access: rw
+        description: Select pin function
+        lsb: 0
+        reset_value: '0'
+        width: 3
+    - EPD:
+        access: rw
+        description: Enable pull-down resistor at pad
+        lsb: 3
+        reset_value: '0'
+        width: 1
+    - EPUN:
+        access: rw
+        description: Disable pull-up resistor at pad
+        lsb: 4
+        reset_value: '0'
+        width: 1
+    - EHS:
+        access: rw
+        description: Select Slew rate
+        lsb: 5
+        reset_value: '0'
+        width: 1
+    - EZI:
+        access: rw
+        description: Input buffer enable
+        lsb: 6
+        reset_value: '0'
+        width: 1
+    - ZIF:
+        access: rw
+        description: Input glitch filter
+        lsb: 7
+        reset_value: '0'
+        width: 1
+- SCU_SFSPE_9:
+    fields: !!omap
+    - MODE:
+        access: rw
+        description: Select pin function
+        lsb: 0
+        reset_value: '0'
+        width: 3
+    - EPD:
+        access: rw
+        description: Enable pull-down resistor at pad
+        lsb: 3
+        reset_value: '0'
+        width: 1
+    - EPUN:
+        access: rw
+        description: Disable pull-up resistor at pad
+        lsb: 4
+        reset_value: '0'
+        width: 1
+    - EHS:
+        access: rw
+        description: Select Slew rate
+        lsb: 5
+        reset_value: '0'
+        width: 1
+    - EZI:
+        access: rw
+        description: Input buffer enable
+        lsb: 6
+        reset_value: '0'
+        width: 1
+    - ZIF:
+        access: rw
+        description: Input glitch filter
+        lsb: 7
+        reset_value: '0'
+        width: 1
+- SCU_SFSPE_10:
+    fields: !!omap
+    - MODE:
+        access: rw
+        description: Select pin function
+        lsb: 0
+        reset_value: '0'
+        width: 3
+    - EPD:
+        access: rw
+        description: Enable pull-down resistor at pad
+        lsb: 3
+        reset_value: '0'
+        width: 1
+    - EPUN:
+        access: rw
+        description: Disable pull-up resistor at pad
+        lsb: 4
+        reset_value: '0'
+        width: 1
+    - EHS:
+        access: rw
+        description: Select Slew rate
+        lsb: 5
+        reset_value: '0'
+        width: 1
+    - EZI:
+        access: rw
+        description: Input buffer enable
+        lsb: 6
+        reset_value: '0'
+        width: 1
+    - ZIF:
+        access: rw
+        description: Input glitch filter
+        lsb: 7
+        reset_value: '0'
+        width: 1
+- SCU_SFSPE_11:
+    fields: !!omap
+    - MODE:
+        access: rw
+        description: Select pin function
+        lsb: 0
+        reset_value: '0'
+        width: 3
+    - EPD:
+        access: rw
+        description: Enable pull-down resistor at pad
+        lsb: 3
+        reset_value: '0'
+        width: 1
+    - EPUN:
+        access: rw
+        description: Disable pull-up resistor at pad
+        lsb: 4
+        reset_value: '0'
+        width: 1
+    - EHS:
+        access: rw
+        description: Select Slew rate
+        lsb: 5
+        reset_value: '0'
+        width: 1
+    - EZI:
+        access: rw
+        description: Input buffer enable
+        lsb: 6
+        reset_value: '0'
+        width: 1
+    - ZIF:
+        access: rw
+        description: Input glitch filter
+        lsb: 7
+        reset_value: '0'
+        width: 1
+- SCU_SFSPE_12:
+    fields: !!omap
+    - MODE:
+        access: rw
+        description: Select pin function
+        lsb: 0
+        reset_value: '0'
+        width: 3
+    - EPD:
+        access: rw
+        description: Enable pull-down resistor at pad
+        lsb: 3
+        reset_value: '0'
+        width: 1
+    - EPUN:
+        access: rw
+        description: Disable pull-up resistor at pad
+        lsb: 4
+        reset_value: '0'
+        width: 1
+    - EHS:
+        access: rw
+        description: Select Slew rate
+        lsb: 5
+        reset_value: '0'
+        width: 1
+    - EZI:
+        access: rw
+        description: Input buffer enable
+        lsb: 6
+        reset_value: '0'
+        width: 1
+    - ZIF:
+        access: rw
+        description: Input glitch filter
+        lsb: 7
+        reset_value: '0'
+        width: 1
+- SCU_SFSPE_13:
+    fields: !!omap
+    - MODE:
+        access: rw
+        description: Select pin function
+        lsb: 0
+        reset_value: '0'
+        width: 3
+    - EPD:
+        access: rw
+        description: Enable pull-down resistor at pad
+        lsb: 3
+        reset_value: '0'
+        width: 1
+    - EPUN:
+        access: rw
+        description: Disable pull-up resistor at pad
+        lsb: 4
+        reset_value: '0'
+        width: 1
+    - EHS:
+        access: rw
+        description: Select Slew rate
+        lsb: 5
+        reset_value: '0'
+        width: 1
+    - EZI:
+        access: rw
+        description: Input buffer enable
+        lsb: 6
+        reset_value: '0'
+        width: 1
+    - ZIF:
+        access: rw
+        description: Input glitch filter
+        lsb: 7
+        reset_value: '0'
+        width: 1
+- SCU_SFSPE_14:
+    fields: !!omap
+    - MODE:
+        access: rw
+        description: Select pin function
+        lsb: 0
+        reset_value: '0'
+        width: 3
+    - EPD:
+        access: rw
+        description: Enable pull-down resistor at pad
+        lsb: 3
+        reset_value: '0'
+        width: 1
+    - EPUN:
+        access: rw
+        description: Disable pull-up resistor at pad
+        lsb: 4
+        reset_value: '0'
+        width: 1
+    - EHS:
+        access: rw
+        description: Select Slew rate
+        lsb: 5
+        reset_value: '0'
+        width: 1
+    - EZI:
+        access: rw
+        description: Input buffer enable
+        lsb: 6
+        reset_value: '0'
+        width: 1
+    - ZIF:
+        access: rw
+        description: Input glitch filter
+        lsb: 7
+        reset_value: '0'
+        width: 1
+- SCU_SFSPE_15:
+    fields: !!omap
+    - MODE:
+        access: rw
+        description: Select pin function
+        lsb: 0
+        reset_value: '0'
+        width: 3
+    - EPD:
+        access: rw
+        description: Enable pull-down resistor at pad
+        lsb: 3
+        reset_value: '0'
+        width: 1
+    - EPUN:
+        access: rw
+        description: Disable pull-up resistor at pad
+        lsb: 4
+        reset_value: '0'
+        width: 1
+    - EHS:
+        access: rw
+        description: Select Slew rate
+        lsb: 5
+        reset_value: '0'
+        width: 1
+    - EZI:
+        access: rw
+        description: Input buffer enable
+        lsb: 6
+        reset_value: '0'
+        width: 1
+    - ZIF:
+        access: rw
+        description: Input glitch filter
+        lsb: 7
+        reset_value: '0'
+        width: 1
+- SCU_SFSPF_0:
+    fields: !!omap
+    - MODE:
+        access: rw
+        description: Select pin function
+        lsb: 0
+        reset_value: '0'
+        width: 3
+    - EPD:
+        access: rw
+        description: Enable pull-down resistor at pad
+        lsb: 3
+        reset_value: '0'
+        width: 1
+    - EPUN:
+        access: rw
+        description: Disable pull-up resistor at pad
+        lsb: 4
+        reset_value: '0'
+        width: 1
+    - EHS:
+        access: rw
+        description: Select Slew rate
+        lsb: 5
+        reset_value: '0'
+        width: 1
+    - EZI:
+        access: rw
+        description: Input buffer enable
+        lsb: 6
+        reset_value: '0'
+        width: 1
+    - ZIF:
+        access: rw
+        description: Input glitch filter
+        lsb: 7
+        reset_value: '0'
+        width: 1
+- SCU_SFSPF_1:
+    fields: !!omap
+    - MODE:
+        access: rw
+        description: Select pin function
+        lsb: 0
+        reset_value: '0'
+        width: 3
+    - EPD:
+        access: rw
+        description: Enable pull-down resistor at pad
+        lsb: 3
+        reset_value: '0'
+        width: 1
+    - EPUN:
+        access: rw
+        description: Disable pull-up resistor at pad
+        lsb: 4
+        reset_value: '0'
+        width: 1
+    - EHS:
+        access: rw
+        description: Select Slew rate
+        lsb: 5
+        reset_value: '0'
+        width: 1
+    - EZI:
+        access: rw
+        description: Input buffer enable
+        lsb: 6
+        reset_value: '0'
+        width: 1
+    - ZIF:
+        access: rw
+        description: Input glitch filter
+        lsb: 7
+        reset_value: '0'
+        width: 1
+- SCU_SFSPF_2:
+    fields: !!omap
+    - MODE:
+        access: rw
+        description: Select pin function
+        lsb: 0
+        reset_value: '0'
+        width: 3
+    - EPD:
+        access: rw
+        description: Enable pull-down resistor at pad
+        lsb: 3
+        reset_value: '0'
+        width: 1
+    - EPUN:
+        access: rw
+        description: Disable pull-up resistor at pad
+        lsb: 4
+        reset_value: '0'
+        width: 1
+    - EHS:
+        access: rw
+        description: Select Slew rate
+        lsb: 5
+        reset_value: '0'
+        width: 1
+    - EZI:
+        access: rw
+        description: Input buffer enable
+        lsb: 6
+        reset_value: '0'
+        width: 1
+    - ZIF:
+        access: rw
+        description: Input glitch filter
+        lsb: 7
+        reset_value: '0'
+        width: 1
+- SCU_SFSPF_3:
+    fields: !!omap
+    - MODE:
+        access: rw
+        description: Select pin function
+        lsb: 0
+        reset_value: '0'
+        width: 3
+    - EPD:
+        access: rw
+        description: Enable pull-down resistor at pad
+        lsb: 3
+        reset_value: '0'
+        width: 1
+    - EPUN:
+        access: rw
+        description: Disable pull-up resistor at pad
+        lsb: 4
+        reset_value: '0'
+        width: 1
+    - EHS:
+        access: rw
+        description: Select Slew rate
+        lsb: 5
+        reset_value: '0'
+        width: 1
+    - EZI:
+        access: rw
+        description: Input buffer enable
+        lsb: 6
+        reset_value: '0'
+        width: 1
+    - ZIF:
+        access: rw
+        description: Input glitch filter
+        lsb: 7
+        reset_value: '0'
+        width: 1
+- SCU_SFSPF_4:
+    fields: !!omap
+    - MODE:
+        access: rw
+        description: Select pin function
+        lsb: 0
+        reset_value: '0'
+        width: 3
+    - EPD:
+        access: rw
+        description: Enable pull-down resistor at pad
+        lsb: 3
+        reset_value: '0'
+        width: 1
+    - EPUN:
+        access: rw
+        description: Disable pull-up resistor at pad
+        lsb: 4
+        reset_value: '0'
+        width: 1
+    - EHS:
+        access: rw
+        description: Select Slew rate
+        lsb: 5
+        reset_value: '0'
+        width: 1
+    - EZI:
+        access: rw
+        description: Input buffer enable
+        lsb: 6
+        reset_value: '0'
+        width: 1
+    - ZIF:
+        access: rw
+        description: Input glitch filter
+        lsb: 7
+        reset_value: '0'
+        width: 1
+- SCU_SFSPF_5:
+    fields: !!omap
+    - MODE:
+        access: rw
+        description: Select pin function
+        lsb: 0
+        reset_value: '0'
+        width: 3
+    - EPD:
+        access: rw
+        description: Enable pull-down resistor at pad
+        lsb: 3
+        reset_value: '0'
+        width: 1
+    - EPUN:
+        access: rw
+        description: Disable pull-up resistor at pad
+        lsb: 4
+        reset_value: '0'
+        width: 1
+    - EHS:
+        access: rw
+        description: Select Slew rate
+        lsb: 5
+        reset_value: '0'
+        width: 1
+    - EZI:
+        access: rw
+        description: Input buffer enable
+        lsb: 6
+        reset_value: '0'
+        width: 1
+    - ZIF:
+        access: rw
+        description: Input glitch filter
+        lsb: 7
+        reset_value: '0'
+        width: 1
+- SCU_SFSPF_6:
+    fields: !!omap
+    - MODE:
+        access: rw
+        description: Select pin function
+        lsb: 0
+        reset_value: '0'
+        width: 3
+    - EPD:
+        access: rw
+        description: Enable pull-down resistor at pad
+        lsb: 3
+        reset_value: '0'
+        width: 1
+    - EPUN:
+        access: rw
+        description: Disable pull-up resistor at pad
+        lsb: 4
+        reset_value: '0'
+        width: 1
+    - EHS:
+        access: rw
+        description: Select Slew rate
+        lsb: 5
+        reset_value: '0'
+        width: 1
+    - EZI:
+        access: rw
+        description: Input buffer enable
+        lsb: 6
+        reset_value: '0'
+        width: 1
+    - ZIF:
+        access: rw
+        description: Input glitch filter
+        lsb: 7
+        reset_value: '0'
+        width: 1
+- SCU_SFSPF_7:
+    fields: !!omap
+    - MODE:
+        access: rw
+        description: Select pin function
+        lsb: 0
+        reset_value: '0'
+        width: 3
+    - EPD:
+        access: rw
+        description: Enable pull-down resistor at pad
+        lsb: 3
+        reset_value: '0'
+        width: 1
+    - EPUN:
+        access: rw
+        description: Disable pull-up resistor at pad
+        lsb: 4
+        reset_value: '0'
+        width: 1
+    - EHS:
+        access: rw
+        description: Select Slew rate
+        lsb: 5
+        reset_value: '0'
+        width: 1
+    - EZI:
+        access: rw
+        description: Input buffer enable
+        lsb: 6
+        reset_value: '0'
+        width: 1
+    - ZIF:
+        access: rw
+        description: Input glitch filter
+        lsb: 7
+        reset_value: '0'
+        width: 1
+- SCU_SFSPF_8:
+    fields: !!omap
+    - MODE:
+        access: rw
+        description: Select pin function
+        lsb: 0
+        reset_value: '0'
+        width: 3
+    - EPD:
+        access: rw
+        description: Enable pull-down resistor at pad
+        lsb: 3
+        reset_value: '0'
+        width: 1
+    - EPUN:
+        access: rw
+        description: Disable pull-up resistor at pad
+        lsb: 4
+        reset_value: '0'
+        width: 1
+    - EHS:
+        access: rw
+        description: Select Slew rate
+        lsb: 5
+        reset_value: '0'
+        width: 1
+    - EZI:
+        access: rw
+        description: Input buffer enable
+        lsb: 6
+        reset_value: '0'
+        width: 1
+    - ZIF:
+        access: rw
+        description: Input glitch filter
+        lsb: 7
+        reset_value: '0'
+        width: 1
+- SCU_SFSPF_9:
+    fields: !!omap
+    - MODE:
+        access: rw
+        description: Select pin function
+        lsb: 0
+        reset_value: '0'
+        width: 3
+    - EPD:
+        access: rw
+        description: Enable pull-down resistor at pad
+        lsb: 3
+        reset_value: '0'
+        width: 1
+    - EPUN:
+        access: rw
+        description: Disable pull-up resistor at pad
+        lsb: 4
+        reset_value: '0'
+        width: 1
+    - EHS:
+        access: rw
+        description: Select Slew rate
+        lsb: 5
+        reset_value: '0'
+        width: 1
+    - EZI:
+        access: rw
+        description: Input buffer enable
+        lsb: 6
+        reset_value: '0'
+        width: 1
+    - ZIF:
+        access: rw
+        description: Input glitch filter
+        lsb: 7
+        reset_value: '0'
+        width: 1
+- SCU_SFSPF_10:
+    fields: !!omap
+    - MODE:
+        access: rw
+        description: Select pin function
+        lsb: 0
+        reset_value: '0'
+        width: 3
+    - EPD:
+        access: rw
+        description: Enable pull-down resistor at pad
+        lsb: 3
+        reset_value: '0'
+        width: 1
+    - EPUN:
+        access: rw
+        description: Disable pull-up resistor at pad
+        lsb: 4
+        reset_value: '0'
+        width: 1
+    - EHS:
+        access: rw
+        description: Select Slew rate
+        lsb: 5
+        reset_value: '0'
+        width: 1
+    - EZI:
+        access: rw
+        description: Input buffer enable
+        lsb: 6
+        reset_value: '0'
+        width: 1
+    - ZIF:
+        access: rw
+        description: Input glitch filter
+        lsb: 7
+        reset_value: '0'
+        width: 1
+- SCU_SFSPF_11:
+    fields: !!omap
+    - MODE:
+        access: rw
+        description: Select pin function
+        lsb: 0
+        reset_value: '0'
+        width: 3
+    - EPD:
+        access: rw
+        description: Enable pull-down resistor at pad
+        lsb: 3
+        reset_value: '0'
+        width: 1
+    - EPUN:
+        access: rw
+        description: Disable pull-up resistor at pad
+        lsb: 4
+        reset_value: '0'
+        width: 1
+    - EHS:
+        access: rw
+        description: Select Slew rate
+        lsb: 5
+        reset_value: '0'
+        width: 1
+    - EZI:
+        access: rw
+        description: Input buffer enable
+        lsb: 6
+        reset_value: '0'
+        width: 1
+    - ZIF:
+        access: rw
+        description: Input glitch filter
+        lsb: 7
+        reset_value: '0'
+        width: 1
+- SCU_SFSP1_17:
+    fields: !!omap
+    - MODE:
+        access: rw
+        description: Select pin function
+        lsb: 0
+        reset_value: '0'
+        width: 3
+    - EPD:
+        access: rw
+        description: Enable pull-down resistor at pad
+        lsb: 3
+        reset_value: '0'
+        width: 1
+    - EPUN:
+        access: rw
+        description: Disable pull-up resistor at pad
+        lsb: 4
+        reset_value: '0'
+        width: 1
+    - EZI:
+        access: rw
+        description: Input buffer enable
+        lsb: 6
+        reset_value: '0'
+        width: 1
+    - ZIF:
+        access: rw
+        description: Input glitch filter
+        lsb: 7
+        reset_value: '0'
+        width: 1
+    - EHD:
+        access: rw
+        description: Select drive strength
+        lsb: 8
+        reset_value: '0'
+        width: 2
+- SCU_SFSP2_3:
+    fields: !!omap
+    - MODE:
+        access: rw
+        description: Select pin function
+        lsb: 0
+        reset_value: '0'
+        width: 3
+    - EPD:
+        access: rw
+        description: Enable pull-down resistor at pad
+        lsb: 3
+        reset_value: '0'
+        width: 1
+    - EPUN:
+        access: rw
+        description: Disable pull-up resistor at pad
+        lsb: 4
+        reset_value: '0'
+        width: 1
+    - EZI:
+        access: rw
+        description: Input buffer enable
+        lsb: 6
+        reset_value: '0'
+        width: 1
+    - ZIF:
+        access: rw
+        description: Input glitch filter
+        lsb: 7
+        reset_value: '0'
+        width: 1
+    - EHD:
+        access: rw
+        description: Select drive strength
+        lsb: 8
+        reset_value: '0'
+        width: 2
+- SCU_SFSP2_4:
+    fields: !!omap
+    - MODE:
+        access: rw
+        description: Select pin function
+        lsb: 0
+        reset_value: '0'
+        width: 3
+    - EPD:
+        access: rw
+        description: Enable pull-down resistor at pad
+        lsb: 3
+        reset_value: '0'
+        width: 1
+    - EPUN:
+        access: rw
+        description: Disable pull-up resistor at pad
+        lsb: 4
+        reset_value: '0'
+        width: 1
+    - EZI:
+        access: rw
+        description: Input buffer enable
+        lsb: 6
+        reset_value: '0'
+        width: 1
+    - ZIF:
+        access: rw
+        description: Input glitch filter
+        lsb: 7
+        reset_value: '0'
+        width: 1
+    - EHD:
+        access: rw
+        description: Select drive strength
+        lsb: 8
+        reset_value: '0'
+        width: 2
+- SCU_SFSP2_5:
+    fields: !!omap
+    - MODE:
+        access: rw
+        description: Select pin function
+        lsb: 0
+        reset_value: '0'
+        width: 3
+    - EPD:
+        access: rw
+        description: Enable pull-down resistor at pad
+        lsb: 3
+        reset_value: '0'
+        width: 1
+    - EPUN:
+        access: rw
+        description: Disable pull-up resistor at pad
+        lsb: 4
+        reset_value: '0'
+        width: 1
+    - EZI:
+        access: rw
+        description: Input buffer enable
+        lsb: 6
+        reset_value: '0'
+        width: 1
+    - ZIF:
+        access: rw
+        description: Input glitch filter
+        lsb: 7
+        reset_value: '0'
+        width: 1
+    - EHD:
+        access: rw
+        description: Select drive strength
+        lsb: 8
+        reset_value: '0'
+        width: 2
+- SCU_SFSP8_0:
+    fields: !!omap
+    - MODE:
+        access: rw
+        description: Select pin function
+        lsb: 0
+        reset_value: '0'
+        width: 3
+    - EPD:
+        access: rw
+        description: Enable pull-down resistor at pad
+        lsb: 3
+        reset_value: '0'
+        width: 1
+    - EPUN:
+        access: rw
+        description: Disable pull-up resistor at pad
+        lsb: 4
+        reset_value: '0'
+        width: 1
+    - EZI:
+        access: rw
+        description: Input buffer enable
+        lsb: 6
+        reset_value: '0'
+        width: 1
+    - ZIF:
+        access: rw
+        description: Input glitch filter
+        lsb: 7
+        reset_value: '0'
+        width: 1
+    - EHD:
+        access: rw
+        description: Select drive strength
+        lsb: 8
+        reset_value: '0'
+        width: 2
+- SCU_SFSP8_1:
+    fields: !!omap
+    - MODE:
+        access: rw
+        description: Select pin function
+        lsb: 0
+        reset_value: '0'
+        width: 3
+    - EPD:
+        access: rw
+        description: Enable pull-down resistor at pad
+        lsb: 3
+        reset_value: '0'
+        width: 1
+    - EPUN:
+        access: rw
+        description: Disable pull-up resistor at pad
+        lsb: 4
+        reset_value: '0'
+        width: 1
+    - EZI:
+        access: rw
+        description: Input buffer enable
+        lsb: 6
+        reset_value: '0'
+        width: 1
+    - ZIF:
+        access: rw
+        description: Input glitch filter
+        lsb: 7
+        reset_value: '0'
+        width: 1
+    - EHD:
+        access: rw
+        description: Select drive strength
+        lsb: 8
+        reset_value: '0'
+        width: 2
+- SCU_SFSP8_2:
+    fields: !!omap
+    - MODE:
+        access: rw
+        description: Select pin function
+        lsb: 0
+        reset_value: '0'
+        width: 3
+    - EPD:
+        access: rw
+        description: Enable pull-down resistor at pad
+        lsb: 3
+        reset_value: '0'
+        width: 1
+    - EPUN:
+        access: rw
+        description: Disable pull-up resistor at pad
+        lsb: 4
+        reset_value: '0'
+        width: 1
+    - EZI:
+        access: rw
+        description: Input buffer enable
+        lsb: 6
+        reset_value: '0'
+        width: 1
+    - ZIF:
+        access: rw
+        description: Input glitch filter
+        lsb: 7
+        reset_value: '0'
+        width: 1
+    - EHD:
+        access: rw
+        description: Select drive strength
+        lsb: 8
+        reset_value: '0'
+        width: 2
+- SCU_SFSPA_1:
+    fields: !!omap
+    - MODE:
+        access: rw
+        description: Select pin function
+        lsb: 0
+        reset_value: '0'
+        width: 3
+    - EPD:
+        access: rw
+        description: Enable pull-down resistor at pad
+        lsb: 3
+        reset_value: '0'
+        width: 1
+    - EPUN:
+        access: rw
+        description: Disable pull-up resistor at pad
+        lsb: 4
+        reset_value: '0'
+        width: 1
+    - EZI:
+        access: rw
+        description: Input buffer enable
+        lsb: 6
+        reset_value: '0'
+        width: 1
+    - ZIF:
+        access: rw
+        description: Input glitch filter
+        lsb: 7
+        reset_value: '0'
+        width: 1
+    - EHD:
+        access: rw
+        description: Select drive strength
+        lsb: 8
+        reset_value: '0'
+        width: 2
+- SCU_SFSPA_2:
+    fields: !!omap
+    - MODE:
+        access: rw
+        description: Select pin function
+        lsb: 0
+        reset_value: '0'
+        width: 3
+    - EPD:
+        access: rw
+        description: Enable pull-down resistor at pad
+        lsb: 3
+        reset_value: '0'
+        width: 1
+    - EPUN:
+        access: rw
+        description: Disable pull-up resistor at pad
+        lsb: 4
+        reset_value: '0'
+        width: 1
+    - EZI:
+        access: rw
+        description: Input buffer enable
+        lsb: 6
+        reset_value: '0'
+        width: 1
+    - ZIF:
+        access: rw
+        description: Input glitch filter
+        lsb: 7
+        reset_value: '0'
+        width: 1
+    - EHD:
+        access: rw
+        description: Select drive strength
+        lsb: 8
+        reset_value: '0'
+        width: 2
+- SCU_SFSPA_3:
+    fields: !!omap
+    - MODE:
+        access: rw
+        description: Select pin function
+        lsb: 0
+        reset_value: '0'
+        width: 3
+    - EPD:
+        access: rw
+        description: Enable pull-down resistor at pad
+        lsb: 3
+        reset_value: '0'
+        width: 1
+    - EPUN:
+        access: rw
+        description: Disable pull-up resistor at pad
+        lsb: 4
+        reset_value: '0'
+        width: 1
+    - EZI:
+        access: rw
+        description: Input buffer enable
+        lsb: 6
+        reset_value: '0'
+        width: 1
+    - ZIF:
+        access: rw
+        description: Input glitch filter
+        lsb: 7
+        reset_value: '0'
+        width: 1
+    - EHD:
+        access: rw
+        description: Select drive strength
+        lsb: 8
+        reset_value: '0'
+        width: 2
+- SCU_SFSP3_3:
+    fields: !!omap
+    - MODE:
+        access: rw
+        description: Select pin function
+        lsb: 0
+        reset_value: '0'
+        width: 3
+    - EPD:
+        access: rw
+        description: Enable pull-down resistor at pad
+        lsb: 3
+        reset_value: '0'
+        width: 1
+    - EPUN:
+        access: rw
+        description: Disable pull-up resistor at pad
+        lsb: 4
+        reset_value: '0'
+        width: 1
+    - EHS:
+        access: rw
+        description: Select Slew rate
+        lsb: 5
+        reset_value: '0'
+        width: 1
+    - EZI:
+        access: rw
+        description: Input buffer enable
+        lsb: 6
+        reset_value: '0'
+        width: 1
+    - ZIF:
+        access: rw
+        description: Input glitch filter
+        lsb: 7
+        reset_value: '0'
+        width: 1
+- SCU_SFSCLK0:
+    fields: !!omap
+    - MODE:
+        access: rw
+        description: Select pin function
+        lsb: 0
+        reset_value: '0'
+        width: 3
+    - EPD:
+        access: rw
+        description: Enable pull-down resistor at pad
+        lsb: 3
+        reset_value: '0'
+        width: 1
+    - EPUN:
+        access: rw
+        description: Disable pull-up resistor at pad
+        lsb: 4
+        reset_value: '0'
+        width: 1
+    - EHS:
+        access: rw
+        description: Select Slew rate
+        lsb: 5
+        reset_value: '0'
+        width: 1
+    - EZI:
+        access: rw
+        description: Input buffer enable
+        lsb: 6
+        reset_value: '0'
+        width: 1
+    - ZIF:
+        access: rw
+        description: Input glitch filter
+        lsb: 7
+        reset_value: '0'
+        width: 1
+- SCU_SFSCLK1:
+    fields: !!omap
+    - MODE:
+        access: rw
+        description: Select pin function
+        lsb: 0
+        reset_value: '0'
+        width: 3
+    - EPD:
+        access: rw
+        description: Enable pull-down resistor at pad
+        lsb: 3
+        reset_value: '0'
+        width: 1
+    - EPUN:
+        access: rw
+        description: Disable pull-up resistor at pad
+        lsb: 4
+        reset_value: '0'
+        width: 1
+    - EHS:
+        access: rw
+        description: Select Slew rate
+        lsb: 5
+        reset_value: '0'
+        width: 1
+    - EZI:
+        access: rw
+        description: Input buffer enable
+        lsb: 6
+        reset_value: '0'
+        width: 1
+    - ZIF:
+        access: rw
+        description: Input glitch filter
+        lsb: 7
+        reset_value: '0'
+        width: 1
+- SCU_SFSCLK2:
+    fields: !!omap
+    - MODE:
+        access: rw
+        description: Select pin function
+        lsb: 0
+        reset_value: '0'
+        width: 3
+    - EPD:
+        access: rw
+        description: Enable pull-down resistor at pad
+        lsb: 3
+        reset_value: '0'
+        width: 1
+    - EPUN:
+        access: rw
+        description: Disable pull-up resistor at pad
+        lsb: 4
+        reset_value: '0'
+        width: 1
+    - EHS:
+        access: rw
+        description: Select Slew rate
+        lsb: 5
+        reset_value: '0'
+        width: 1
+    - EZI:
+        access: rw
+        description: Input buffer enable
+        lsb: 6
+        reset_value: '0'
+        width: 1
+    - ZIF:
+        access: rw
+        description: Input glitch filter
+        lsb: 7
+        reset_value: '0'
+        width: 1
+- SCU_SFSCLK3:
+    fields: !!omap
+    - MODE:
+        access: rw
+        description: Select pin function
+        lsb: 0
+        reset_value: '0'
+        width: 3
+    - EPD:
+        access: rw
+        description: Enable pull-down resistor at pad
+        lsb: 3
+        reset_value: '0'
+        width: 1
+    - EPUN:
+        access: rw
+        description: Disable pull-up resistor at pad
+        lsb: 4
+        reset_value: '0'
+        width: 1
+    - EHS:
+        access: rw
+        description: Select Slew rate
+        lsb: 5
+        reset_value: '0'
+        width: 1
+    - EZI:
+        access: rw
+        description: Input buffer enable
+        lsb: 6
+        reset_value: '0'
+        width: 1
+    - ZIF:
+        access: rw
+        description: Input glitch filter
+        lsb: 7
+        reset_value: '0'
+        width: 1
+- SCU_SFSUSB:
+    fields: !!omap
+    - USB_AIM:
+        access: rw
+        description: Differential data input AIP/AIM
+        lsb: 0
+        reset_value: '0'
+        width: 1
+    - USB_ESEA:
+        access: rw
+        description: Control signal for differential input or single input
+        lsb: 1
+        reset_value: '1'
+        width: 1
+    - USB_EPD:
+        access: rw
+        description: Enable pull-down connect
+        lsb: 2
+        reset_value: '0'
+        width: 1
+    - USB_EPWR:
+        access: rw
+        description: Power mode
+        lsb: 4
+        reset_value: '0'
+        width: 1
+    - USB_VBUS:
+        access: rw
+        description: Enable the vbus_valid signal
+        lsb: 5
+        reset_value: '0'
+        width: 1
+- SCU_SFSI2C0:
+    fields: !!omap
+    - SCL_EFP:
+        access: rw
+        description: Select input glitch filter time constant for the SCL pin
+        lsb: 0
+        reset_value: '0'
+        width: 1
+    - SCL_EHD:
+        access: rw
+        description: Select I2C mode for the SCL pin
+        lsb: 2
+        reset_value: '0'
+        width: 1
+    - SCL_EZI:
+        access: rw
+        description: Enable the input receiver for the SCL pin
+        lsb: 3
+        reset_value: '0'
+        width: 1
+    - SCL_ZIF:
+        access: rw
+        description: Enable or disable input glitch filter for the SCL pin
+        lsb: 7
+        reset_value: '0'
+        width: 1
+    - SDA_EFP:
+        access: rw
+        description: Select input glitch filter time constant for the SDA pin
+        lsb: 8
+        reset_value: '0'
+        width: 1
+    - SDA_EHD:
+        access: rw
+        description: Select I2C mode for the SDA pin
+        lsb: 10
+        reset_value: '0'
+        width: 1
+    - SDA_EZI:
+        access: rw
+        description: Enable the input receiver for the SDA pin
+        lsb: 11
+        reset_value: '0'
+        width: 1
+    - SDA_ZIF:
+        access: rw
+        description: Enable or disable input glitch filter for the SDA pin
+        lsb: 15
+        reset_value: '0'
+        width: 1
+- SCU_ENAIO0:
+    fields: !!omap
+    - ADC0_0:
+        access: rw
+        description: Select ADC0_0
+        lsb: 0
+        reset_value: '0'
+        width: 1
+    - ADC0_1:
+        access: rw
+        description: Select ADC0_1
+        lsb: 1
+        reset_value: '0'
+        width: 1
+    - ADC0_2:
+        access: rw
+        description: Select ADC0_2
+        lsb: 2
+        reset_value: '0'
+        width: 1
+    - ADC0_3:
+        access: rw
+        description: Select ADC0_3
+        lsb: 3
+        reset_value: '0'
+        width: 1
+    - ADC0_4:
+        access: rw
+        description: Select ADC0_4
+        lsb: 4
+        reset_value: '0'
+        width: 1
+    - ADC0_5:
+        access: rw
+        description: Select ADC0_5
+        lsb: 5
+        reset_value: '0'
+        width: 1
+    - ADC0_6:
+        access: rw
+        description: Select ADC0_6
+        lsb: 6
+        reset_value: '0'
+        width: 1
+- SCU_ENAIO1:
+    fields: !!omap
+    - ADC1_0:
+        access: rw
+        description: Select ADC1_0
+        lsb: 0
+        reset_value: '0'
+        width: 1
+    - ADC1_1:
+        access: rw
+        description: Select ADC1_1
+        lsb: 1
+        reset_value: '0'
+        width: 1
+    - ADC1_2:
+        access: rw
+        description: Select ADC1_2
+        lsb: 2
+        reset_value: '0'
+        width: 1
+    - ADC1_3:
+        access: rw
+        description: Select ADC1_3
+        lsb: 3
+        reset_value: '0'
+        width: 1
+    - ADC1_4:
+        access: rw
+        description: Select ADC1_4
+        lsb: 4
+        reset_value: '0'
+        width: 1
+    - ADC1_5:
+        access: rw
+        description: Select ADC1_5
+        lsb: 5
+        reset_value: '0'
+        width: 1
+    - ADC1_6:
+        access: rw
+        description: Select ADC1_6
+        lsb: 6
+        reset_value: '0'
+        width: 1
+    - ADC1_7:
+        access: rw
+        description: Select ADC1_7
+        lsb: 7
+        reset_value: '0'
+        width: 1
+- SCU_ENAIO2:
+    fields: !!omap
+    - DAC:
+        access: rw
+        description: Select DAC
+        lsb: 0
+        reset_value: '0'
+        width: 1
+    - BG:
+        access: rw
+        description: Select band gap output
+        lsb: 4
+        reset_value: '0'
+        width: 1
+- SCU_EMCDELAYCLK:
+    fields: !!omap
+    - CLK_DELAY:
+        access: rw
+        description: EMC_CLKn SDRAM clock output delay
+        lsb: 0
+        reset_value: '0'
+        width: 16
+- SCU_PINTSEL0:
+    fields: !!omap
+    - INTPIN0:
+        access: ''
+        description: pin number for interrupt 0 source
+        lsb: 0
+        reset_value: '0'
+        width: 5
+    - PORTSEL0:
+        access: ''
+        description: port for interrupt 0 source
+        lsb: 5
+        reset_value: '0'
+        width: 3
+    - INTPIN1:
+        access: ''
+        description: pin number for interrupt 1 source
+        lsb: 8
+        reset_value: '0'
+        width: 5
+    - PORTSEL1:
+        access: ''
+        description: port for interrupt 1 source
+        lsb: 13
+        reset_value: '0'
+        width: 3
+    - INTPIN2:
+        access: ''
+        description: pin number for interrupt 2 source
+        lsb: 16
+        reset_value: '0'
+        width: 5
+    - PORTSEL2:
+        access: ''
+        description: port for interrupt 2 source
+        lsb: 21
+        reset_value: '0'
+        width: 3
+    - INTPIN3:
+        access: ''
+        description: pin number for interrupt 3 source
+        lsb: 24
+        reset_value: '0'
+        width: 5
+    - PORTSEL3:
+        access: ''
+        description: port for interrupt 3 source
+        lsb: 29
+        reset_value: '0'
+        width: 3
+- SCU_PINTSEL1:
+    fields: !!omap
+    - INTPIN4:
+        access: ''
+        description: pin number for interrupt 4 source
+        lsb: 0
+        reset_value: '0'
+        width: 5
+    - PORTSEL4:
+        access: ''
+        description: port for interrupt 4 source
+        lsb: 5
+        reset_value: '0'
+        width: 3
+    - INTPIN5:
+        access: ''
+        description: pin number for interrupt 5 source
+        lsb: 8
+        reset_value: '0'
+        width: 5
+    - PORTSEL5:
+        access: ''
+        description: port for interrupt 5 source
+        lsb: 13
+        reset_value: '0'
+        width: 3
+    - INTPIN6:
+        access: ''
+        description: pin number for interrupt 6 source
+        lsb: 16
+        reset_value: '0'
+        width: 5
+    - PORTSEL6:
+        access: ''
+        description: port for interrupt 6 source
+        lsb: 21
+        reset_value: '0'
+        width: 3
+    - INTPIN7:
+        access: ''
+        description: pin number for interrupt 7 source
+        lsb: 24
+        reset_value: '0'
+        width: 5
+    - PORTSEL7:
+        access: ''
+        description: port for interrupt 7 source
+        lsb: 29
+        reset_value: '0'
+        width: 3

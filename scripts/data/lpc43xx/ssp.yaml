@@ -1,0 +1,445 @@
+!!omap
+- SSP0_CR0:
+    fields: !!omap
+    - DSS:
+        access: rw
+        description: Data Size Select
+        lsb: 0
+        reset_value: '0'
+        width: 4
+    - FRF:
+        access: rw
+        description: Frame Format
+        lsb: 4
+        reset_value: '0'
+        width: 2
+    - CPOL:
+        access: rw
+        description: Clock Out Polarity
+        lsb: 6
+        reset_value: '0'
+        width: 1
+    - CPHA:
+        access: rw
+        description: Clock Out Phase
+        lsb: 7
+        reset_value: '0'
+        width: 1
+    - SCR:
+        access: rw
+        description: Serial Clock Rate
+        lsb: 8
+        reset_value: '0'
+        width: 8
+- SSP1_CR0:
+    fields: !!omap
+    - DSS:
+        access: rw
+        description: Data Size Select
+        lsb: 0
+        reset_value: '0'
+        width: 4
+    - FRF:
+        access: rw
+        description: Frame Format
+        lsb: 4
+        reset_value: '0'
+        width: 2
+    - CPOL:
+        access: rw
+        description: Clock Out Polarity
+        lsb: 6
+        reset_value: '0'
+        width: 1
+    - CPHA:
+        access: rw
+        description: Clock Out Phase
+        lsb: 7
+        reset_value: '0'
+        width: 1
+    - SCR:
+        access: rw
+        description: Serial Clock Rate
+        lsb: 8
+        reset_value: '0'
+        width: 8
+- SSP0_CR1:
+    fields: !!omap
+    - LBM:
+        access: rw
+        description: Loop Back Mode
+        lsb: 0
+        reset_value: '0'
+        width: 1
+    - SSE:
+        access: rw
+        description: SSP Enable
+        lsb: 1
+        reset_value: '0'
+        width: 1
+    - MS:
+        access: rw
+        description: Master/Slave Mode
+        lsb: 2
+        reset_value: '0'
+        width: 1
+    - SOD:
+        access: rw
+        description: Slave Output Disable
+        lsb: 3
+        reset_value: '0'
+        width: 1
+- SSP1_CR1:
+    fields: !!omap
+    - SSE:
+        access: rw
+        description: SSP Enable
+        lsb: 1
+        reset_value: '0'
+        width: 1
+    - MS:
+        access: rw
+        description: Master/Slave Mode
+        lsb: 2
+        reset_value: '0'
+        width: 1
+    - SOD:
+        access: rw
+        description: Slave Output Disable
+        lsb: 3
+        reset_value: '0'
+        width: 1
+- SSP0_DR:
+    fields: !!omap
+    - DATA:
+        access: rw
+        description: Software can write data to be transmitted to this register, and
+          read data that has been
+        lsb: 0
+        reset_value: '0'
+        width: 16
+- SSP1_DR:
+    fields: !!omap
+    - DATA:
+        access: rw
+        description: Software can write data to be transmitted to this register, and
+          read data that has been
+        lsb: 0
+        reset_value: '0'
+        width: 16
+- SSP0_SR:
+    fields: !!omap
+    - TFE:
+        access: r
+        description: Transmit FIFO Empty
+        lsb: 0
+        reset_value: '1'
+        width: 1
+    - TNF:
+        access: r
+        description: Transmit FIFO Not Full
+        lsb: 1
+        reset_value: '1'
+        width: 1
+    - RNE:
+        access: r
+        description: Receive FIFO Not Empty
+        lsb: 2
+        reset_value: '0'
+        width: 1
+    - RFF:
+        access: r
+        description: Receive FIFO Full
+        lsb: 3
+        reset_value: '0'
+        width: 1
+    - BSY:
+        access: r
+        description: Busy.
+        lsb: 4
+        reset_value: '0'
+        width: 1
+- SSP1_SR:
+    fields: !!omap
+    - TFE:
+        access: r
+        description: Transmit FIFO Empty
+        lsb: 0
+        reset_value: '1'
+        width: 1
+    - TNF:
+        access: r
+        description: Transmit FIFO Not Full
+        lsb: 1
+        reset_value: '1'
+        width: 1
+    - RNE:
+        access: r
+        description: Receive FIFO Not Empty
+        lsb: 2
+        reset_value: '0'
+        width: 1
+    - RFF:
+        access: r
+        description: Receive FIFO Full
+        lsb: 3
+        reset_value: '0'
+        width: 1
+    - BSY:
+        access: r
+        description: Busy.
+        lsb: 4
+        reset_value: '0'
+        width: 1
+- SSP0_CPSR:
+    fields: !!omap
+    - CPSDVSR:
+        access: rw
+        description: SSP Clock Prescale Register
+        lsb: 0
+        reset_value: '0'
+        width: 8
+- SSP1_CPSR:
+    fields: !!omap
+    - CPSDVSR:
+        access: rw
+        description: SSP Clock Prescale Register
+        lsb: 0
+        reset_value: '0'
+        width: 8
+- SSP0_IMSC:
+    fields: !!omap
+    - RORIM:
+        access: rw
+        description: Software should set this bit to enable interrupt when a Receive
+          Overrun occurs
+        lsb: 0
+        reset_value: '0'
+        width: 1
+    - RTIM:
+        access: rw
+        description: Software should set this bit to enable interrupt when a Receive
+          Time-out condition occurs
+        lsb: 1
+        reset_value: '0'
+        width: 1
+    - RXIM:
+        access: rw
+        description: Software should set this bit to enable interrupt when the Rx
+          FIFO is at least half full
+        lsb: 2
+        reset_value: '0'
+        width: 1
+    - TXIM:
+        access: rw
+        description: Software should set this bit to enable interrupt when the Tx
+          FIFO is at least half empty
+        lsb: 3
+        reset_value: '0'
+        width: 1
+- SSP1_IMSC:
+    fields: !!omap
+    - RORIM:
+        access: rw
+        description: Software should set this bit to enable interrupt when a Receive
+          Overrun occurs
+        lsb: 0
+        reset_value: '0'
+        width: 1
+    - RTIM:
+        access: rw
+        description: Software should set this bit to enable interrupt when a Receive
+          Time-out condition occurs
+        lsb: 1
+        reset_value: '0'
+        width: 1
+    - RXIM:
+        access: rw
+        description: Software should set this bit to enable interrupt when the Rx
+          FIFO is at least half full
+        lsb: 2
+        reset_value: '0'
+        width: 1
+    - TXIM:
+        access: rw
+        description: Software should set this bit to enable interrupt when the Tx
+          FIFO is at least half empty
+        lsb: 3
+        reset_value: '0'
+        width: 1
+- SSP0_RIS:
+    fields: !!omap
+    - RORRIS:
+        access: r
+        description: This bit is 1 if another frame was completely received while
+          the RxFIFO was full
+        lsb: 0
+        reset_value: '0'
+        width: 1
+    - RTRIS:
+        access: r
+        description: This bit is 1 if the Rx FIFO is not empty, and has not been read
+          for a time-out period
+        lsb: 1
+        reset_value: '0'
+        width: 1
+    - RXRIS:
+        access: r
+        description: This bit is 1 if the Rx FIFO is at least half full
+        lsb: 2
+        reset_value: '0'
+        width: 1
+    - TXRIS:
+        access: r
+        description: This bit is 1 if the Tx FIFO is at least half empty
+        lsb: 3
+        reset_value: '1'
+        width: 1
+- SSP1_RIS:
+    fields: !!omap
+    - RORRIS:
+        access: r
+        description: This bit is 1 if another frame was completely received while
+          the RxFIFO was full
+        lsb: 0
+        reset_value: '0'
+        width: 1
+    - RTRIS:
+        access: r
+        description: This bit is 1 if the Rx FIFO is not empty, and has not been read
+          for a time-out period
+        lsb: 1
+        reset_value: '0'
+        width: 1
+    - RXRIS:
+        access: r
+        description: This bit is 1 if the Rx FIFO is at least half full
+        lsb: 2
+        reset_value: '0'
+        width: 1
+    - TXRIS:
+        access: r
+        description: This bit is 1 if the Tx FIFO is at least half empty
+        lsb: 3
+        reset_value: '1'
+        width: 1
+- SSP0_MIS:
+    fields: !!omap
+    - RORMIS:
+        access: r
+        description: This bit is 1 if another frame was completely received while
+          the RxFIFO was full, and this interrupt is enabled
+        lsb: 0
+        reset_value: '0'
+        width: 1
+    - RTMIS:
+        access: r
+        description: This bit is 1 if the Rx FIFO is not empty, has not been read
+          for a time-out period, and this interrupt is enabled
+        lsb: 1
+        reset_value: '0'
+        width: 1
+    - RXMIS:
+        access: r
+        description: This bit is 1 if the Rx FIFO is at least half full, and this
+          interrupt is enabled
+        lsb: 2
+        reset_value: '0'
+        width: 1
+    - TXMIS:
+        access: r
+        description: This bit is 1 if the Tx FIFO is at least half empty, and this
+          interrupt is enabled
+        lsb: 3
+        reset_value: '0'
+        width: 1
+- SSP1_MIS:
+    fields: !!omap
+    - RORMIS:
+        access: r
+        description: This bit is 1 if another frame was completely received while
+          the RxFIFO was full, and this interrupt is enabled
+        lsb: 0
+        reset_value: '0'
+        width: 1
+    - RTMIS:
+        access: r
+        description: This bit is 1 if the Rx FIFO is not empty, has not been read
+          for a time-out period, and this interrupt is enabled
+        lsb: 1
+        reset_value: '0'
+        width: 1
+    - RXMIS:
+        access: r
+        description: This bit is 1 if the Rx FIFO is at least half full, and this
+          interrupt is enabled
+        lsb: 2
+        reset_value: '0'
+        width: 1
+    - TXMIS:
+        access: r
+        description: This bit is 1 if the Tx FIFO is at least half empty, and this
+          interrupt is enabled
+        lsb: 3
+        reset_value: '0'
+        width: 1
+- SSP0_ICR:
+    fields: !!omap
+    - RORIC:
+        access: w
+        description: Writing a 1 to this bit clears the 'frame was received when RxFIFO
+          was full' interrupt
+        lsb: 0
+        reset_value: ''
+        width: 1
+    - RTIC:
+        access: w
+        description: Writing a 1 to this bit clears the Rx FIFO was not empty and
+          has not been read for a time-out period interrupt
+        lsb: 1
+        reset_value: ''
+        width: 1
+- SSP1_ICR:
+    fields: !!omap
+    - RORIC:
+        access: w
+        description: Writing a 1 to this bit clears the 'frame was received when RxFIFO
+          was full' interrupt
+        lsb: 0
+        reset_value: ''
+        width: 1
+    - RTIC:
+        access: w
+        description: Writing a 1 to this bit clears the Rx FIFO was not empty and
+          has not been read for a time-out period interrupt
+        lsb: 1
+        reset_value: ''
+        width: 1
+- SSP0_DMACR:
+    fields: !!omap
+    - RXDMAE:
+        access: rw
+        description: Receive DMA Enable
+        lsb: 0
+        reset_value: '0'
+        width: 1
+    - TXDMAE:
+        access: rw
+        description: Transmit DMA Enable
+        lsb: 1
+        reset_value: '0'
+        width: 1
+- SSP1_DMACR:
+    fields: !!omap
+    - RXDMAE:
+        access: rw
+        description: Receive DMA Enable
+        lsb: 0
+        reset_value: '0'
+        width: 1
+    - TXDMAE:
+        access: rw
+        description: Transmit DMA Enable
+        lsb: 1
+        reset_value: '0'
+        width: 1

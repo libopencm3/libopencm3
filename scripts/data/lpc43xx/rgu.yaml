@@ -1,0 +1,1199 @@
+!!omap
+- RESET_CTRL0:
+    fields: !!omap
+    - CORE_RST:
+        access: w
+        description: Writing a one activates the reset
+        lsb: 0
+        reset_value: '0'
+        width: 1
+    - PERIPH_RST:
+        access: w
+        description: Writing a one activates the reset
+        lsb: 1
+        reset_value: '0'
+        width: 1
+    - MASTER_RST:
+        access: w
+        description: Writing a one activates the reset
+        lsb: 2
+        reset_value: '0'
+        width: 1
+    - WWDT_RST:
+        access: ''
+        description: Writing a one to this bit has no effect
+        lsb: 4
+        reset_value: '0'
+        width: 1
+    - CREG_RST:
+        access: ''
+        description: Writing a one to this bit has no effect
+        lsb: 5
+        reset_value: '0'
+        width: 1
+    - BUS_RST:
+        access: w
+        description: Writing a one activates the reset
+        lsb: 8
+        reset_value: '0'
+        width: 1
+    - SCU_RST:
+        access: w
+        description: Writing a one activates the reset
+        lsb: 9
+        reset_value: '0'
+        width: 1
+    - M4_RST:
+        access: w
+        description: Writing a one activates the reset
+        lsb: 13
+        reset_value: '0'
+        width: 1
+    - LCD_RST:
+        access: w
+        description: Writing a one activates the reset
+        lsb: 16
+        reset_value: '0'
+        width: 1
+    - USB0_RST:
+        access: w
+        description: Writing a one activates the reset
+        lsb: 17
+        reset_value: '0'
+        width: 1
+    - USB1_RST:
+        access: w
+        description: Writing a one activates the reset
+        lsb: 18
+        reset_value: '0'
+        width: 1
+    - DMA_RST:
+        access: w
+        description: Writing a one activates the reset
+        lsb: 19
+        reset_value: '0'
+        width: 1
+    - SDIO_RST:
+        access: w
+        description: Writing a one activates the reset
+        lsb: 20
+        reset_value: '0'
+        width: 1
+    - EMC_RST:
+        access: w
+        description: Writing a one activates the reset
+        lsb: 21
+        reset_value: '0'
+        width: 1
+    - ETHERNET_RST:
+        access: w
+        description: Writing a one activates the reset
+        lsb: 22
+        reset_value: '0'
+        width: 1
+    - FLASHA_RST:
+        access: w
+        description: Writing a one activates the reset
+        lsb: 25
+        reset_value: '0'
+        width: 1
+    - EEPROM_RST:
+        access: w
+        description: Writing a one activates the reset
+        lsb: 27
+        reset_value: '0'
+        width: 1
+    - GPIO_RST:
+        access: w
+        description: Writing a one activates the reset
+        lsb: 28
+        reset_value: '0'
+        width: 1
+    - FLASHB_RST:
+        access: w
+        description: Writing a one activates the reset
+        lsb: 29
+        reset_value: '0'
+        width: 1
+- RESET_CTRL1:
+    fields: !!omap
+    - TIMER0_RST:
+        access: w
+        description: Writing a one activates the reset
+        lsb: 0
+        reset_value: '0'
+        width: 1
+    - TIMER1_RST:
+        access: w
+        description: Writing a one activates the reset
+        lsb: 1
+        reset_value: '0'
+        width: 1
+    - TIMER2_RST:
+        access: w
+        description: Writing a one activates the reset
+        lsb: 2
+        reset_value: '0'
+        width: 1
+    - TIMER3_RST:
+        access: w
+        description: Writing a one activates the reset
+        lsb: 3
+        reset_value: '0'
+        width: 1
+    - RTIMER_RST:
+        access: w
+        description: Writing a one activates the reset
+        lsb: 4
+        reset_value: '0'
+        width: 1
+    - SCT_RST:
+        access: w
+        description: Writing a one activates the reset
+        lsb: 5
+        reset_value: '0'
+        width: 1
+    - MOTOCONPWM_RST:
+        access: w
+        description: Writing a one activates the reset
+        lsb: 6
+        reset_value: '0'
+        width: 1
+    - QEI_RST:
+        access: w
+        description: Writing a one activates the reset
+        lsb: 7
+        reset_value: '0'
+        width: 1
+    - ADC0_RST:
+        access: w
+        description: Writing a one activates the reset
+        lsb: 8
+        reset_value: '0'
+        width: 1
+    - ADC1_RST:
+        access: w
+        description: Writing a one activates the reset
+        lsb: 9
+        reset_value: '0'
+        width: 1
+    - DAC_RST:
+        access: w
+        description: Writing a one activates the reset
+        lsb: 10
+        reset_value: '0'
+        width: 1
+    - UART0_RST:
+        access: w
+        description: Writing a one activates the reset
+        lsb: 12
+        reset_value: '0'
+        width: 1
+    - UART1_RST:
+        access: w
+        description: Writing a one activates the reset
+        lsb: 13
+        reset_value: '0'
+        width: 1
+    - UART2_RST:
+        access: w
+        description: Writing a one activates the reset
+        lsb: 14
+        reset_value: '0'
+        width: 1
+    - UART3_RST:
+        access: w
+        description: Writing a one activates the reset
+        lsb: 15
+        reset_value: '0'
+        width: 1
+    - I2C0_RST:
+        access: w
+        description: Writing a one activates the reset
+        lsb: 16
+        reset_value: '0'
+        width: 1
+    - I2C1_RST:
+        access: w
+        description: Writing a one activates the reset
+        lsb: 17
+        reset_value: '0'
+        width: 1
+    - SSP0_RST:
+        access: w
+        description: Writing a one activates the reset
+        lsb: 18
+        reset_value: '0'
+        width: 1
+    - SSP1_RST:
+        access: w
+        description: Writing a one activates the reset
+        lsb: 19
+        reset_value: '0'
+        width: 1
+    - I2S_RST:
+        access: w
+        description: Writing a one activates the reset
+        lsb: 20
+        reset_value: '0'
+        width: 1
+    - SPIFI_RST:
+        access: w
+        description: Writing a one activates the reset
+        lsb: 21
+        reset_value: '0'
+        width: 1
+    - CAN1_RST:
+        access: w
+        description: Writing a one activates the reset
+        lsb: 22
+        reset_value: '0'
+        width: 1
+    - CAN0_RST:
+        access: w
+        description: Writing a one activates the reset
+        lsb: 23
+        reset_value: '0'
+        width: 1
+    - M0APP_RST:
+        access: w
+        description: Writing a one activates the reset
+        lsb: 24
+        reset_value: '1'
+        width: 1
+    - SGPIO_RST:
+        access: w
+        description: Writing a one activates the reset
+        lsb: 25
+        reset_value: '0'
+        width: 1
+    - SPI_RST:
+        access: w
+        description: Writing a one activates the reset
+        lsb: 26
+        reset_value: '0'
+        width: 1
+- RESET_STATUS0:
+    fields: !!omap
+    - CORE_RST:
+        access: rw
+        description: Status of the CORE_RST reset generator output
+        lsb: 0
+        reset_value: '0x0'
+        width: 2
+    - PERIPH_RST:
+        access: rw
+        description: Status of the PERIPH_RST reset generator output
+        lsb: 2
+        reset_value: '0x0'
+        width: 2
+    - MASTER_RST:
+        access: rw
+        description: Status of the MASTER_RST reset generator output
+        lsb: 4
+        reset_value: '0x1'
+        width: 2
+    - WWDT_RST:
+        access: rw
+        description: Status of the WWDT_RST reset generator output
+        lsb: 8
+        reset_value: '0x0'
+        width: 2
+    - CREG_RST:
+        access: rw
+        description: Status of the CREG_RST reset generator output
+        lsb: 10
+        reset_value: '0x0'
+        width: 2
+    - BUS_RST:
+        access: rw
+        description: Status of the BUS_RST reset generator output
+        lsb: 16
+        reset_value: '0x1'
+        width: 2
+    - SCU_RST:
+        access: rw
+        description: Status of the SCU_RST reset generator output
+        lsb: 18
+        reset_value: '0x1'
+        width: 2
+    - M4_RST:
+        access: rw
+        description: Status of the M4_RST reset generator output
+        lsb: 26
+        reset_value: '0x1'
+        width: 2
+- RESET_STATUS1:
+    fields: !!omap
+    - LCD_RST:
+        access: rw
+        description: Status of the LCD_RST reset generator output
+        lsb: 0
+        reset_value: '0x1'
+        width: 2
+    - USB0_RST:
+        access: rw
+        description: Status of the USB0_RST reset generator output
+        lsb: 2
+        reset_value: '0x1'
+        width: 2
+    - USB1_RST:
+        access: rw
+        description: Status of the USB1_RST reset generator output
+        lsb: 4
+        reset_value: '0x1'
+        width: 2
+    - DMA_RST:
+        access: rw
+        description: Status of the DMA_RST reset generator output
+        lsb: 6
+        reset_value: '0x1'
+        width: 2
+    - SDIO_RST:
+        access: rw
+        description: Status of the SDIO_RST reset generator output
+        lsb: 8
+        reset_value: '0x1'
+        width: 2
+    - EMC_RST:
+        access: rw
+        description: Status of the EMC_RST reset generator output
+        lsb: 10
+        reset_value: '0x1'
+        width: 2
+    - ETHERNET_RST:
+        access: rw
+        description: Status of the ETHERNET_RST reset generator output
+        lsb: 12
+        reset_value: '0x1'
+        width: 2
+    - FLASHA_RST:
+        access: ''
+        description: Status of the FLASHA_RST reset generator output
+        lsb: 18
+        reset_value: '0x1'
+        width: 2
+    - EEPROM_RST:
+        access: ''
+        description: Status of the EEPROM_RST reset generator output
+        lsb: 22
+        reset_value: '0x1'
+        width: 2
+    - GPIO_RST:
+        access: rw
+        description: Status of the GPIO_RST reset generator output
+        lsb: 24
+        reset_value: '0x1'
+        width: 2
+    - FLASHB_RST:
+        access: rw
+        description: Status of the FLASHB_RST reset generator output
+        lsb: 26
+        reset_value: '0x1'
+        width: 2
+- RESET_STATUS2:
+    fields: !!omap
+    - TIMER0_RST:
+        access: rw
+        description: Status of the TIMER0_RST reset generator output
+        lsb: 0
+        reset_value: '0x1'
+        width: 2
+    - TIMER1_RST:
+        access: rw
+        description: Status of the TIMER1_RST reset generator output
+        lsb: 2
+        reset_value: '0x1'
+        width: 2
+    - TIMER2_RST:
+        access: rw
+        description: Status of the TIMER2_RST reset generator output
+        lsb: 4
+        reset_value: '0x1'
+        width: 2
+    - TIMER3_RST:
+        access: rw
+        description: Status of the TIMER3_RST reset generator output
+        lsb: 6
+        reset_value: '0x1'
+        width: 2
+    - RITIMER_RST:
+        access: rw
+        description: Status of the RITIMER_RST reset generator output
+        lsb: 8
+        reset_value: '0x1'
+        width: 2
+    - SCT_RST:
+        access: rw
+        description: Status of the SCT_RST reset generator output
+        lsb: 10
+        reset_value: '0x1'
+        width: 2
+    - MOTOCONPWM_RST:
+        access: rw
+        description: Status of the MOTOCONPWM_RST reset generator output
+        lsb: 12
+        reset_value: '0x1'
+        width: 2
+    - QEI_RST:
+        access: rw
+        description: Status of the QEI_RST reset generator output
+        lsb: 14
+        reset_value: '0x1'
+        width: 2
+    - ADC0_RST:
+        access: rw
+        description: Status of the ADC0_RST reset generator output
+        lsb: 16
+        reset_value: '0x1'
+        width: 2
+    - ADC1_RST:
+        access: rw
+        description: Status of the ADC1_RST reset generator output
+        lsb: 18
+        reset_value: '0x1'
+        width: 2
+    - DAC_RST:
+        access: rw
+        description: Status of the DAC_RST reset generator output
+        lsb: 20
+        reset_value: '0x1'
+        width: 2
+    - UART0_RST:
+        access: rw
+        description: Status of the UART0_RST reset generator output
+        lsb: 24
+        reset_value: '0x1'
+        width: 2
+    - UART1_RST:
+        access: rw
+        description: Status of the UART1_RST reset generator output
+        lsb: 26
+        reset_value: '0x1'
+        width: 2
+    - UART2_RST:
+        access: rw
+        description: Status of the UART2_RST reset generator output
+        lsb: 28
+        reset_value: '0x1'
+        width: 2
+    - UART3_RST:
+        access: rw
+        description: Status of the UART3_RST reset generator output
+        lsb: 30
+        reset_value: '0x1'
+        width: 2
+- RESET_STATUS3:
+    fields: !!omap
+    - I2C0_RST:
+        access: rw
+        description: Status of the I2C0_RST reset generator output
+        lsb: 0
+        reset_value: '0x1'
+        width: 2
+    - I2C1_RST:
+        access: rw
+        description: Status of the I2C1_RST reset generator output
+        lsb: 2
+        reset_value: '0x1'
+        width: 2
+    - SSP0_RST:
+        access: rw
+        description: Status of the SSP0_RST reset generator output
+        lsb: 4
+        reset_value: '0x1'
+        width: 2
+    - SSP1_RST:
+        access: rw
+        description: Status of the SSP1_RST reset generator output
+        lsb: 6
+        reset_value: '0x1'
+        width: 2
+    - I2S_RST:
+        access: rw
+        description: Status of the I2S_RST reset generator output
+        lsb: 8
+        reset_value: '0x1'
+        width: 2
+    - SPIFI_RST:
+        access: rw
+        description: Status of the SPIFI_RST reset generator output
+        lsb: 10
+        reset_value: '0x1'
+        width: 2
+    - CAN1_RST:
+        access: rw
+        description: Status of the CAN1_RST reset generator output
+        lsb: 12
+        reset_value: '0x1'
+        width: 2
+    - CAN0_RST:
+        access: rw
+        description: Status of the CAN0_RST reset generator output
+        lsb: 14
+        reset_value: '0x1'
+        width: 2
+    - M0APP_RST:
+        access: rw
+        description: Status of the M0APP_RST reset generator output
+        lsb: 16
+        reset_value: '0x3'
+        width: 2
+    - SGPIO_RST:
+        access: rw
+        description: Status of the SGPIO_RST reset generator output
+        lsb: 18
+        reset_value: '0x1'
+        width: 2
+    - SPI_RST:
+        access: rw
+        description: Status of the SPI_RST reset generator output
+        lsb: 20
+        reset_value: '0x1'
+        width: 2
+- RESET_ACTIVE_STATUS0:
+    fields: !!omap
+    - CORE_RST:
+        access: r
+        description: Current status of the CORE_RST
+        lsb: 0
+        reset_value: '0'
+        width: 1
+    - PERIPH_RST:
+        access: r
+        description: Current status of the PERIPH_RST
+        lsb: 1
+        reset_value: '0'
+        width: 1
+    - MASTER_RST:
+        access: r
+        description: Current status of the MASTER_RST
+        lsb: 2
+        reset_value: '0'
+        width: 1
+    - WWDT_RST:
+        access: r
+        description: Current status of the WWDT_RST
+        lsb: 4
+        reset_value: '0'
+        width: 1
+    - CREG_RST:
+        access: r
+        description: Current status of the CREG_RST
+        lsb: 5
+        reset_value: '0'
+        width: 1
+    - BUS_RST:
+        access: r
+        description: Current status of the BUS_RST
+        lsb: 8
+        reset_value: '0'
+        width: 1
+    - SCU_RST:
+        access: r
+        description: Current status of the SCU_RST
+        lsb: 9
+        reset_value: '0'
+        width: 1
+    - M4_RST:
+        access: r
+        description: Current status of the M4_RST
+        lsb: 13
+        reset_value: '0'
+        width: 1
+    - LCD_RST:
+        access: r
+        description: Current status of the LCD_RST
+        lsb: 16
+        reset_value: '0'
+        width: 1
+    - USB0_RST:
+        access: r
+        description: Current status of the USB0_RST
+        lsb: 17
+        reset_value: '0'
+        width: 1
+    - USB1_RST:
+        access: r
+        description: Current status of the USB1_RST
+        lsb: 18
+        reset_value: '0'
+        width: 1
+    - DMA_RST:
+        access: r
+        description: Current status of the DMA_RST
+        lsb: 19
+        reset_value: '0'
+        width: 1
+    - SDIO_RST:
+        access: r
+        description: Current status of the SDIO_RST
+        lsb: 20
+        reset_value: '0'
+        width: 1
+    - EMC_RST:
+        access: r
+        description: Current status of the EMC_RST
+        lsb: 21
+        reset_value: '0'
+        width: 1
+    - ETHERNET_RST:
+        access: r
+        description: Current status of the ETHERNET_RST
+        lsb: 22
+        reset_value: '0'
+        width: 1
+    - FLASHA_RST:
+        access: r
+        description: Current status of the FLASHA_RST
+        lsb: 25
+        reset_value: '0'
+        width: 1
+    - EEPROM_RST:
+        access: r
+        description: Current status of the EEPROM_RST
+        lsb: 27
+        reset_value: '0'
+        width: 1
+    - GPIO_RST:
+        access: r
+        description: Current status of the GPIO_RST
+        lsb: 28
+        reset_value: '0'
+        width: 1
+    - FLASHB_RST:
+        access: r
+        description: Current status of the FLASHB_RST
+        lsb: 29
+        reset_value: '0'
+        width: 1
+- RESET_ACTIVE_STATUS1:
+    fields: !!omap
+    - TIMER0_RST:
+        access: r
+        description: Current status of the TIMER0_RST
+        lsb: 0
+        reset_value: '0'
+        width: 1
+    - TIMER1_RST:
+        access: r
+        description: Current status of the TIMER1_RST
+        lsb: 1
+        reset_value: '0'
+        width: 1
+    - TIMER2_RST:
+        access: r
+        description: Current status of the TIMER2_RST
+        lsb: 2
+        reset_value: '0'
+        width: 1
+    - TIMER3_RST:
+        access: r
+        description: Current status of the TIMER3_RST
+        lsb: 3
+        reset_value: '0'
+        width: 1
+    - RITIMER_RST:
+        access: r
+        description: Current status of the RITIMER_RST
+        lsb: 4
+        reset_value: '0'
+        width: 1
+    - SCT_RST:
+        access: r
+        description: Current status of the SCT_RST
+        lsb: 5
+        reset_value: '0'
+        width: 1
+    - MOTOCONPWM_RST:
+        access: r
+        description: Current status of the MOTOCONPWM_RST
+        lsb: 6
+        reset_value: '0'
+        width: 1
+    - QEI_RST:
+        access: r
+        description: Current status of the QEI_RST
+        lsb: 7
+        reset_value: '0'
+        width: 1
+    - ADC0_RST:
+        access: r
+        description: Current status of the ADC0_RST
+        lsb: 8
+        reset_value: '0'
+        width: 1
+    - ADC1_RST:
+        access: r
+        description: Current status of the ADC1_RST
+        lsb: 9
+        reset_value: '0'
+        width: 1
+    - DAC_RST:
+        access: r
+        description: Current status of the DAC_RST
+        lsb: 10
+        reset_value: '0'
+        width: 1
+    - UART0_RST:
+        access: r
+        description: Current status of the UART0_RST
+        lsb: 12
+        reset_value: '0'
+        width: 1
+    - UART1_RST:
+        access: r
+        description: Current status of the UART1_RST
+        lsb: 13
+        reset_value: '0'
+        width: 1
+    - UART2_RST:
+        access: r
+        description: Current status of the UART2_RST
+        lsb: 14
+        reset_value: '0'
+        width: 1
+    - UART3_RST:
+        access: r
+        description: Current status of the UART3_RST
+        lsb: 15
+        reset_value: '0'
+        width: 1
+    - I2C0_RST:
+        access: r
+        description: Current status of the I2C0_RST
+        lsb: 16
+        reset_value: '0'
+        width: 1
+    - I2C1_RST:
+        access: r
+        description: Current status of the I2C1_RST
+        lsb: 17
+        reset_value: '0'
+        width: 1
+    - SSP0_RST:
+        access: r
+        description: Current status of the SSP0_RST
+        lsb: 18
+        reset_value: '0'
+        width: 1
+    - SSP1_RST:
+        access: r
+        description: Current status of the SSP1_RST
+        lsb: 19
+        reset_value: '0'
+        width: 1
+    - I2S_RST:
+        access: r
+        description: Current status of the I2S_RST
+        lsb: 20
+        reset_value: '0'
+        width: 1
+    - SPIFI_RST:
+        access: r
+        description: Current status of the SPIFI_RST
+        lsb: 21
+        reset_value: '0'
+        width: 1
+    - CAN1_RST:
+        access: r
+        description: Current status of the CAN1_RST
+        lsb: 22
+        reset_value: '0'
+        width: 1
+    - CAN0_RST:
+        access: r
+        description: Current status of the CAN0_RST
+        lsb: 23
+        reset_value: '0'
+        width: 1
+    - M0APP_RST:
+        access: r
+        description: Current status of the M0APP_RST
+        lsb: 24
+        reset_value: '0'
+        width: 1
+    - SGPIO_RST:
+        access: r
+        description: Current status of the SGPIO_RST
+        lsb: 25
+        reset_value: '0'
+        width: 1
+    - SPI_RST:
+        access: r
+        description: Current status of the SPI_RST
+        lsb: 26
+        reset_value: '0'
+        width: 1
+- RESET_EXT_STAT0:
+    fields: !!omap
+    - EXT_RESET:
+        access: rw
+        description: Reset activated by external reset from reset pin
+        lsb: 0
+        reset_value: '0'
+        width: 1
+    - BOD_RESET:
+        access: rw
+        description: Reset activated by BOD reset
+        lsb: 4
+        reset_value: '0'
+        width: 1
+    - WWDT_RESET:
+        access: rw
+        description: Reset activated by WWDT time-out
+        lsb: 5
+        reset_value: '0'
+        width: 1
+- RESET_EXT_STAT1:
+    fields: !!omap
+    - CORE_RESET:
+        access: rw
+        description: Reset activated by CORE_RST output
+        lsb: 1
+        reset_value: '0'
+        width: 1
+- RESET_EXT_STAT2:
+    fields: !!omap
+    - PERIPHERAL_RESET:
+        access: rw
+        description: Reset activated by PERIPHERAL_RST output
+        lsb: 2
+        reset_value: '0'
+        width: 1
+- RESET_EXT_STAT4:
+    fields: !!omap
+    - CORE_RESET:
+        access: rw
+        description: Reset activated by CORE_RST output
+        lsb: 1
+        reset_value: '0'
+        width: 1
+- RESET_EXT_STAT5:
+    fields: !!omap
+    - CORE_RESET:
+        access: rw
+        description: Reset activated by CORE_RST output
+        lsb: 1
+        reset_value: '0'
+        width: 1
+- RESET_EXT_STAT8:
+    fields: !!omap
+    - PERIPHERAL_RESET:
+        access: rw
+        description: Reset activated by PERIPHERAL_RST output
+        lsb: 2
+        reset_value: '0'
+        width: 1
+- RESET_EXT_STAT9:
+    fields: !!omap
+    - PERIPHERAL_RESET:
+        access: rw
+        description: Reset activated by PERIPHERAL_RST output
+        lsb: 2
+        reset_value: '0'
+        width: 1
+- RESET_EXT_STAT13:
+    fields: !!omap
+    - MASTER_RESET:
+        access: rw
+        description: Reset activated by MASTER_RST output
+        lsb: 3
+        reset_value: '0'
+        width: 1
+- RESET_EXT_STAT16:
+    fields: !!omap
+    - MASTER_RESET:
+        access: rw
+        description: Reset activated by MASTER_RST output
+        lsb: 3
+        reset_value: '0'
+        width: 1
+- RESET_EXT_STAT17:
+    fields: !!omap
+    - MASTER_RESET:
+        access: rw
+        description: Reset activated by MASTER_RST output
+        lsb: 3
+        reset_value: '0'
+        width: 1
+- RESET_EXT_STAT18:
+    fields: !!omap
+    - MASTER_RESET:
+        access: rw
+        description: Reset activated by MASTER_RST output
+        lsb: 3
+        reset_value: '0'
+        width: 1
+- RESET_EXT_STAT19:
+    fields: !!omap
+    - MASTER_RESET:
+        access: rw
+        description: Reset activated by MASTER_RST output
+        lsb: 3
+        reset_value: '0'
+        width: 1
+- RESET_EXT_STAT20:
+    fields: !!omap
+    - MASTER_RESET:
+        access: rw
+        description: Reset activated by MASTER_RST output
+        lsb: 3
+        reset_value: '0'
+        width: 1
+- RESET_EXT_STAT21:
+    fields: !!omap
+    - MASTER_RESET:
+        access: rw
+        description: Reset activated by MASTER_RST output
+        lsb: 3
+        reset_value: '0'
+        width: 1
+- RESET_EXT_STAT22:
+    fields: !!omap
+    - MASTER_RESET:
+        access: rw
+        description: Reset activated by MASTER_RST output
+        lsb: 3
+        reset_value: '0'
+        width: 1
+- RESET_EXT_STAT25:
+    fields: !!omap
+    - PERIPHERAL_RESET:
+        access: rw
+        description: Reset activated by PERIPHERAL_RST output
+        lsb: 2
+        reset_value: '0'
+        width: 1
+- RESET_EXT_STAT27:
+    fields: !!omap
+    - PERIPHERAL_RESET:
+        access: rw
+        description: Reset activated by PERIPHERAL_RST output
+        lsb: 2
+        reset_value: '0'
+        width: 1
+- RESET_EXT_STAT28:
+    fields: !!omap
+    - PERIPHERAL_RESET:
+        access: rw
+        description: Reset activated by PERIPHERAL_RST output
+        lsb: 2
+        reset_value: '0'
+        width: 1
+- RESET_EXT_STAT29:
+    fields: !!omap
+    - PERIPHERAL_RESET:
+        access: rw
+        description: Reset activated by PERIPHERAL_RST output
+        lsb: 2
+        reset_value: '0'
+        width: 1
+- RESET_EXT_STAT32:
+    fields: !!omap
+    - PERIPHERAL_RESET:
+        access: rw
+        description: Reset activated by PERIPHERAL_RST output
+        lsb: 2
+        reset_value: '0'
+        width: 1
+- RESET_EXT_STAT33:
+    fields: !!omap
+    - PERIPHERAL_RESET:
+        access: rw
+        description: Reset activated by PERIPHERAL_RST output
+        lsb: 2
+        reset_value: '0'
+        width: 1
+- RESET_EXT_STAT34:
+    fields: !!omap
+    - PERIPHERAL_RESET:
+        access: rw
+        description: Reset activated by PERIPHERAL_RST output
+        lsb: 2
+        reset_value: '0'
+        width: 1
+- RESET_EXT_STAT35:
+    fields: !!omap
+    - PERIPHERAL_RESET:
+        access: rw
+        description: Reset activated by PERIPHERAL_RST output
+        lsb: 2
+        reset_value: '0'
+        width: 1
+- RESET_EXT_STAT36:
+    fields: !!omap
+    - PERIPHERAL_RESET:
+        access: rw
+        description: Reset activated by PERIPHERAL_RST output
+        lsb: 2
+        reset_value: '0'
+        width: 1
+- RESET_EXT_STAT37:
+    fields: !!omap
+    - PERIPHERAL_RESET:
+        access: rw
+        description: Reset activated by PERIPHERAL_RST output
+        lsb: 2
+        reset_value: '0'
+        width: 1
+- RESET_EXT_STAT38:
+    fields: !!omap
+    - PERIPHERAL_RESET:
+        access: rw
+        description: Reset activated by PERIPHERAL_RST output
+        lsb: 2
+        reset_value: '0'
+        width: 1
+- RESET_EXT_STAT39:
+    fields: !!omap
+    - PERIPHERAL_RESET:
+        access: rw
+        description: Reset activated by PERIPHERAL_RST output
+        lsb: 2
+        reset_value: '0'
+        width: 1
+- RESET_EXT_STAT40:
+    fields: !!omap
+    - PERIPHERAL_RESET:
+        access: rw
+        description: Reset activated by PERIPHERAL_RST output
+        lsb: 2
+        reset_value: '0'
+        width: 1
+- RESET_EXT_STAT41:
+    fields: !!omap
+    - PERIPHERAL_RESET:
+        access: rw
+        description: Reset activated by PERIPHERAL_RST output
+        lsb: 2
+        reset_value: '0'
+        width: 1
+- RESET_EXT_STAT42:
+    fields: !!omap
+    - PERIPHERAL_RESET:
+        access: rw
+        description: Reset activated by PERIPHERAL_RST output
+        lsb: 2
+        reset_value: '0'
+        width: 1
+- RESET_EXT_STAT44:
+    fields: !!omap
+    - PERIPHERAL_RESET:
+        access: rw
+        description: Reset activated by PERIPHERAL_RST output
+        lsb: 2
+        reset_value: '0'
+        width: 1
+- RESET_EXT_STAT45:
+    fields: !!omap
+    - PERIPHERAL_RESET:
+        access: rw
+        description: Reset activated by PERIPHERAL_RST output
+        lsb: 2
+        reset_value: '0'
+        width: 1
+- RESET_EXT_STAT46:
+    fields: !!omap
+    - PERIPHERAL_RESET:
+        access: rw
+        description: Reset activated by PERIPHERAL_RST output
+        lsb: 2
+        reset_value: '0'
+        width: 1
+- RESET_EXT_STAT47:
+    fields: !!omap
+    - PERIPHERAL_RESET:
+        access: rw
+        description: Reset activated by PERIPHERAL_RST output
+        lsb: 2
+        reset_value: '0'
+        width: 1
+- RESET_EXT_STAT48:
+    fields: !!omap
+    - PERIPHERAL_RESET:
+        access: rw
+        description: Reset activated by PERIPHERAL_RST output
+        lsb: 2
+        reset_value: '0'
+        width: 1
+- RESET_EXT_STAT49:
+    fields: !!omap
+    - PERIPHERAL_RESET:
+        access: rw
+        description: Reset activated by PERIPHERAL_RST output
+        lsb: 2
+        reset_value: '0'
+        width: 1
+- RESET_EXT_STAT50:
+    fields: !!omap
+    - PERIPHERAL_RESET:
+        access: rw
+        description: Reset activated by PERIPHERAL_RST output
+        lsb: 2
+        reset_value: '0'
+        width: 1
+- RESET_EXT_STAT51:
+    fields: !!omap
+    - PERIPHERAL_RESET:
+        access: rw
+        description: Reset activated by PERIPHERAL_RST output
+        lsb: 2
+        reset_value: '0'
+        width: 1
+- RESET_EXT_STAT52:
+    fields: !!omap
+    - PERIPHERAL_RESET:
+        access: rw
+        description: Reset activated by PERIPHERAL_RST output
+        lsb: 2
+        reset_value: '0'
+        width: 1
+- RESET_EXT_STAT53:
+    fields: !!omap
+    - PERIPHERAL_RESET:
+        access: rw
+        description: Reset activated by PERIPHERAL_RST output
+        lsb: 2
+        reset_value: '0'
+        width: 1
+- RESET_EXT_STAT54:
+    fields: !!omap
+    - PERIPHERAL_RESET:
+        access: rw
+        description: Reset activated by PERIPHERAL_RST output
+        lsb: 2
+        reset_value: '0'
+        width: 1
+- RESET_EXT_STAT55:
+    fields: !!omap
+    - PERIPHERAL_RESET:
+        access: rw
+        description: Reset activated by PERIPHERAL_RST output
+        lsb: 2
+        reset_value: '0'
+        width: 1
+- RESET_EXT_STAT56:
+    fields: !!omap
+    - PERIPHERAL_RESET:
+        access: rw
+        description: Reset activated by PERIPHERAL_RST output
+        lsb: 2
+        reset_value: ''
+        width: 1
+- RESET_EXT_STAT57:
+    fields: !!omap
+    - PERIPHERAL_RESET:
+        access: rw
+        description: Reset activated by PERIPHERAL_RST output
+        lsb: 2
+        reset_value: '0'
+        width: 1
+- RESET_EXT_STAT58:
+    fields: !!omap
+    - PERIPHERAL_RESET:
+        access: rw
+        description: Reset activated by PERIPHERAL_RST output
+        lsb: 2
+        reset_value: '0'
+        width: 1

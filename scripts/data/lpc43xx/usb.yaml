@@ -1,0 +1,1416 @@
+!!omap
+- USB0_CAPLENGTH:
+    fields: !!omap
+    - CAPLENGTH:
+        access: r
+        description: Indicates offset to add to the register base address at the beginning
+          of the Operational Register
+        lsb: 0
+        reset_value: '0x40'
+        width: 8
+    - HCIVERSION:
+        access: r
+        description: BCD encoding of the EHCI revision number supported by this host
+          controller
+        lsb: 8
+        reset_value: '0x100'
+        width: 16
+- USB0_HCSPARAMS:
+    fields: !!omap
+    - N_PORTS:
+        access: r
+        description: Number of downstream ports
+        lsb: 0
+        reset_value: '0x1'
+        width: 4
+    - PPC:
+        access: r
+        description: Port Power Control
+        lsb: 4
+        reset_value: '0x1'
+        width: 1
+    - N_PCC:
+        access: r
+        description: Number of Ports per Companion Controller
+        lsb: 8
+        reset_value: '0x0'
+        width: 4
+    - N_CC:
+        access: r
+        description: Number of Companion Controller
+        lsb: 12
+        reset_value: '0x0'
+        width: 4
+    - PI:
+        access: r
+        description: Port indicators
+        lsb: 16
+        reset_value: '0x1'
+        width: 1
+    - N_PTT:
+        access: r
+        description: Number of Ports per Transaction Translator
+        lsb: 20
+        reset_value: '0x0'
+        width: 4
+    - N_TT:
+        access: r
+        description: Number of Transaction Translators
+        lsb: 24
+        reset_value: '0x0'
+        width: 4
+- USB0_HCCPARAMS:
+    fields: !!omap
+    - ADC:
+        access: r
+        description: 64-bit Addressing Capability
+        lsb: 0
+        reset_value: '0'
+        width: 1
+    - PFL:
+        access: r
+        description: Programmable Frame List Flag
+        lsb: 1
+        reset_value: '1'
+        width: 1
+    - ASP:
+        access: r
+        description: Asynchronous Schedule Park Capability
+        lsb: 2
+        reset_value: '1'
+        width: 1
+    - IST:
+        access: r
+        description: Isochronous Scheduling Threshold
+        lsb: 4
+        reset_value: '0'
+        width: 4
+    - EECP:
+        access: r
+        description: EHCI Extended Capabilities Pointer
+        lsb: 8
+        reset_value: '0'
+        width: 4
+- USB0_DCCPARAMS:
+    fields: !!omap
+    - DEN:
+        access: r
+        description: Device Endpoint Number
+        lsb: 0
+        reset_value: '0x4'
+        width: 5
+    - DC:
+        access: r
+        description: Device Capable
+        lsb: 7
+        reset_value: '0x1'
+        width: 1
+    - HC:
+        access: r
+        description: Host Capable
+        lsb: 8
+        reset_value: '0x1'
+        width: 1
+- USB0_USBCMD_D:
+    fields: !!omap
+    - RS:
+        access: rw
+        description: Run/Stop
+        lsb: 0
+        reset_value: '0'
+        width: 1
+    - RST:
+        access: rw
+        description: Controller reset
+        lsb: 1
+        reset_value: '0'
+        width: 1
+    - SUTW:
+        access: rw
+        description: Setup trip wire
+        lsb: 13
+        reset_value: '0'
+        width: 1
+    - ATDTW:
+        access: rw
+        description: Add dTD trip wire
+        lsb: 14
+        reset_value: '0'
+        width: 1
+    - ITC:
+        access: rw
+        description: Interrupt threshold control
+        lsb: 16
+        reset_value: '0x8'
+        width: 8
+- USB0_USBCMD_H:
+    fields: !!omap
+    - RS:
+        access: rw
+        description: Run/Stop
+        lsb: 0
+        reset_value: '0'
+        width: 1
+    - RST:
+        access: rw
+        description: Controller reset
+        lsb: 1
+        reset_value: '0'
+        width: 1
+    - FS0:
+        access: ''
+        description: Bit 0 of the Frame List Size bits
+        lsb: 2
+        reset_value: '0'
+        width: 1
+    - FS1:
+        access: ''
+        description: Bit 1 of the Frame List Size bits
+        lsb: 3
+        reset_value: '0'
+        width: 1
+    - PSE:
+        access: rw
+        description: This bit controls whether the host controller skips processing
+          the periodic schedule
+        lsb: 4
+        reset_value: '0'
+        width: 1
+    - ASE:
+        access: rw
+        description: This bit controls whether the host controller skips processing
+          the asynchronous schedule
+        lsb: 5
+        reset_value: '0'
+        width: 1
+    - IAA:
+        access: rw
+        description: This bit is used as a doorbell by software to tell the host controller
+          to issue an interrupt the next time it advances asynchronous schedule
+        lsb: 6
+        reset_value: '0'
+        width: 1
+    - ASP1_0:
+        access: rw
+        description: Asynchronous schedule park mode
+        lsb: 8
+        reset_value: '0x3'
+        width: 2
+    - ASPE:
+        access: rw
+        description: Asynchronous Schedule Park Mode Enable
+        lsb: 11
+        reset_value: '1'
+        width: 1
+    - FS2:
+        access: ''
+        description: Bit 2 of the Frame List Size bits
+        lsb: 15
+        reset_value: '0'
+        width: 1
+    - ITC:
+        access: rw
+        description: Interrupt threshold control
+        lsb: 16
+        reset_value: '0x8'
+        width: 8
+- USB0_USBSTS_D:
+    fields: !!omap
+    - UI:
+        access: rwc
+        description: USB interrupt
+        lsb: 0
+        reset_value: '0'
+        width: 1
+    - UEI:
+        access: rwc
+        description: USB error interrupt
+        lsb: 1
+        reset_value: '0'
+        width: 1
+    - PCI:
+        access: rwc
+        description: Port change detect
+        lsb: 2
+        reset_value: '0'
+        width: 1
+    - URI:
+        access: rwc
+        description: USB reset received
+        lsb: 6
+        reset_value: '0'
+        width: 1
+    - SRI:
+        access: rwc
+        description: SOF received
+        lsb: 7
+        reset_value: '0'
+        width: 1
+    - SLI:
+        access: rwc
+        description: DCSuspend
+        lsb: 8
+        reset_value: '0'
+        width: 1
+    - NAKI:
+        access: r
+        description: NAK interrupt bit
+        lsb: 16
+        reset_value: '0'
+        width: 1
+- USB0_USBSTS_H:
+    fields: !!omap
+    - UI:
+        access: rwc
+        description: USB interrupt
+        lsb: 0
+        reset_value: '0'
+        width: 1
+    - UEI:
+        access: rwc
+        description: USB error interrupt
+        lsb: 1
+        reset_value: '0'
+        width: 1
+    - PCI:
+        access: rwc
+        description: Port change detect
+        lsb: 2
+        reset_value: '0'
+        width: 1
+    - FRI:
+        access: rwc
+        description: Frame list roll-over
+        lsb: 3
+        reset_value: '0'
+        width: 1
+    - AAI:
+        access: rwc
+        description: Interrupt on async advance
+        lsb: 5
+        reset_value: '0'
+        width: 1
+    - SRI:
+        access: rwc
+        description: SOF received
+        lsb: 7
+        reset_value: '0'
+        width: 1
+    - HCH:
+        access: r
+        description: HCHalted
+        lsb: 12
+        reset_value: '1'
+        width: 1
+    - RCL:
+        access: r
+        description: Reclamation
+        lsb: 13
+        reset_value: '0'
+        width: 1
+    - PS:
+        access: r
+        description: Periodic schedule status
+        lsb: 14
+        reset_value: '0'
+        width: 1
+    - AS:
+        access: ''
+        description: Asynchronous schedule status
+        lsb: 15
+        reset_value: '0'
+        width: 1
+    - UAI:
+        access: rwc
+        description: USB host asynchronous interrupt (USBHSTASYNCINT)
+        lsb: 18
+        reset_value: '0'
+        width: 1
+    - UPI:
+        access: rwc
+        description: USB host periodic interrupt (USBHSTPERINT)
+        lsb: 19
+        reset_value: '0'
+        width: 1
+- USB0_USBINTR_D:
+    fields: !!omap
+    - UE:
+        access: rw
+        description: USB interrupt enable
+        lsb: 0
+        reset_value: '0'
+        width: 1
+    - UEE:
+        access: rw
+        description: USB error interrupt enable
+        lsb: 1
+        reset_value: '0'
+        width: 1
+    - PCE:
+        access: rw
+        description: Port change detect enable
+        lsb: 2
+        reset_value: '0'
+        width: 1
+    - URE:
+        access: rw
+        description: USB reset enable
+        lsb: 6
+        reset_value: '0'
+        width: 1
+    - SRE:
+        access: rw
+        description: SOF received enable
+        lsb: 7
+        reset_value: '0'
+        width: 1
+    - SLE:
+        access: rw
+        description: Sleep enable
+        lsb: 8
+        reset_value: '0'
+        width: 1
+    - NAKE:
+        access: rw
+        description: NAK interrupt enable
+        lsb: 16
+        reset_value: '0'
+        width: 1
+- USB0_USBINTR_H:
+    fields: !!omap
+    - UE:
+        access: rw
+        description: USB interrupt enable
+        lsb: 0
+        reset_value: '0'
+        width: 1
+    - UEE:
+        access: rw
+        description: USB error interrupt enable
+        lsb: 1
+        reset_value: '0'
+        width: 1
+    - PCE:
+        access: rw
+        description: Port change detect enable
+        lsb: 2
+        reset_value: '0'
+        width: 1
+    - FRE:
+        access: rw
+        description: Frame list rollover enable
+        lsb: 3
+        reset_value: '0'
+        width: 1
+    - AAE:
+        access: rw
+        description: Interrupt on asynchronous advance enable
+        lsb: 5
+        reset_value: '0'
+        width: 1
+    - SRE:
+        access: ''
+        description: SOF received enable
+        lsb: 7
+        reset_value: '0'
+        width: 1
+    - UAIE:
+        access: rw
+        description: USB host asynchronous interrupt enable
+        lsb: 18
+        reset_value: '0'
+        width: 1
+    - UPIA:
+        access: rw
+        description: USB host periodic interrupt enable
+        lsb: 19
+        reset_value: '0'
+        width: 1
+- USB0_FRINDEX_D:
+    fields: !!omap
+    - FRINDEX2_0:
+        access: r
+        description: Current micro frame number
+        lsb: 0
+        reset_value: ''
+        width: 3
+    - FRINDEX13_3:
+        access: r
+        description: Current frame number of the last frame transmitted
+        lsb: 3
+        reset_value: ''
+        width: 11
+- USB0_FRINDEX_H:
+    fields: !!omap
+    - FRINDEX2_0:
+        access: rw
+        description: Current micro frame number
+        lsb: 0
+        reset_value: ''
+        width: 3
+    - FRINDEX12_3:
+        access: rw
+        description: Frame list current index
+        lsb: 3
+        reset_value: ''
+        width: 10
+- USB0_DEVICEADDR:
+    fields: !!omap
+    - USBADRA:
+        access: ''
+        description: Device address advance
+        lsb: 24
+        reset_value: '0'
+        width: 1
+    - USBADR:
+        access: rw
+        description: USB device address
+        lsb: 25
+        reset_value: '0'
+        width: 7
+- USB0_PERIODICLISTBASE:
+    fields: !!omap
+    - PERBASE31_12:
+        access: rw
+        description: Base Address (Low)
+        lsb: 12
+        reset_value: ''
+        width: 20
+- USB0_ENDPOINTLISTADDR:
+    fields: !!omap
+    - EPBASE31_11:
+        access: rw
+        description: Endpoint list pointer (low)
+        lsb: 11
+        reset_value: ''
+        width: 21
+- USB0_ASYNCLISTADDR:
+    fields: !!omap
+    - ASYBASE31_5:
+        access: rw
+        description: Link pointer (Low) LPL
+        lsb: 5
+        reset_value: ''
+        width: 27
+- USB0_TTCTRL:
+    fields: !!omap
+    - TTHA:
+        access: rw
+        description: Hub address when FS or LS device are connected directly
+        lsb: 24
+        reset_value: ''
+        width: 7
+- USB0_BURSTSIZE:
+    fields: !!omap
+    - RXPBURST:
+        access: rw
+        description: Programmable RX burst length
+        lsb: 0
+        reset_value: '0x10'
+        width: 8
+    - TXPBURST:
+        access: rw
+        description: Programmable TX burst length
+        lsb: 8
+        reset_value: '0x10'
+        width: 8
+- USB0_TXFILLTUNING:
+    fields: !!omap
+    - TXSCHOH:
+        access: rw
+        description: FIFO burst threshold
+        lsb: 0
+        reset_value: '0x2'
+        width: 8
+    - TXSCHEATLTH:
+        access: rw
+        description: Scheduler health counter
+        lsb: 8
+        reset_value: '0x0'
+        width: 5
+    - TXFIFOTHRES:
+        access: rw
+        description: Scheduler overhead
+        lsb: 16
+        reset_value: '0x0'
+        width: 6
+- USB0_BINTERVAL:
+    fields: !!omap
+    - BINT:
+        access: rw
+        description: bInterval value
+        lsb: 0
+        reset_value: '0x00'
+        width: 4
+- USB0_ENDPTNAK:
+    fields: !!omap
+    - EPRN:
+        access: rwc
+        description: Rx endpoint NAK
+        lsb: 0
+        reset_value: '0x00'
+        width: 6
+    - EPTN:
+        access: rwc
+        description: Tx endpoint NAK
+        lsb: 16
+        reset_value: '0x00'
+        width: 6
+- USB0_ENDPTNAKEN:
+    fields: !!omap
+    - EPRNE:
+        access: rw
+        description: Rx endpoint NAK enable
+        lsb: 0
+        reset_value: '0x00'
+        width: 6
+    - EPTNE:
+        access: rw
+        description: Tx endpoint NAK
+        lsb: 16
+        reset_value: '0x00'
+        width: 6
+- USB0_PORTSC1_D:
+    fields: !!omap
+    - CCS:
+        access: r
+        description: Current connect status
+        lsb: 0
+        reset_value: '0'
+        width: 1
+    - PE:
+        access: r
+        description: Port enable
+        lsb: 2
+        reset_value: '1'
+        width: 1
+    - PEC:
+        access: r
+        description: Port enable/disable change
+        lsb: 3
+        reset_value: '0'
+        width: 1
+    - FPR:
+        access: rw
+        description: Force port resume
+        lsb: 6
+        reset_value: '0'
+        width: 1
+    - SUSP:
+        access: r
+        description: Suspend
+        lsb: 7
+        reset_value: '0'
+        width: 1
+    - PR:
+        access: r
+        description: Port reset
+        lsb: 8
+        reset_value: '0'
+        width: 1
+    - HSP:
+        access: r
+        description: High-speed status
+        lsb: 9
+        reset_value: '0'
+        width: 1
+    - PIC1_0:
+        access: rw
+        description: Port indicator control
+        lsb: 14
+        reset_value: '0'
+        width: 2
+    - PTC3_0:
+        access: rw
+        description: Port test control
+        lsb: 16
+        reset_value: '0'
+        width: 4
+    - PHCD:
+        access: rw
+        description: PHY low power suspend - clock disable (PLPSCD)
+        lsb: 23
+        reset_value: '0'
+        width: 1
+    - PFSC:
+        access: rw
+        description: Port force full speed connect
+        lsb: 24
+        reset_value: '0'
+        width: 1
+    - PSPD:
+        access: r
+        description: Port speed
+        lsb: 26
+        reset_value: '0'
+        width: 2
+- USB0_PORTSC1_H:
+    fields: !!omap
+    - CCS:
+        access: rwc
+        description: Current connect status
+        lsb: 0
+        reset_value: '0'
+        width: 1
+    - CSC:
+        access: rwc
+        description: Connect status change
+        lsb: 1
+        reset_value: '0'
+        width: 1
+    - PE:
+        access: rw
+        description: Port enable
+        lsb: 2
+        reset_value: '0'
+        width: 1
+    - PEC:
+        access: rwc
+        description: Port disable/enable change
+        lsb: 3
+        reset_value: '0'
+        width: 1
+    - OCA:
+        access: r
+        description: Over-current active
+        lsb: 4
+        reset_value: '0'
+        width: 1
+    - OCC:
+        access: rwc
+        description: Over-current change
+        lsb: 5
+        reset_value: '0'
+        width: 1
+    - FPR:
+        access: rw
+        description: Force port resume
+        lsb: 6
+        reset_value: '0'
+        width: 1
+    - SUSP:
+        access: rw
+        description: Suspend
+        lsb: 7
+        reset_value: '0'
+        width: 1
+    - PR:
+        access: rw
+        description: Port reset
+        lsb: 8
+        reset_value: '0'
+        width: 1
+    - HSP:
+        access: r
+        description: High-speed status
+        lsb: 9
+        reset_value: '0'
+        width: 1
+    - LS:
+        access: r
+        description: Line status
+        lsb: 10
+        reset_value: '0x3'
+        width: 2
+    - PP:
+        access: rw
+        description: Port power control
+        lsb: 12
+        reset_value: '0'
+        width: 1
+    - PIC1_0:
+        access: rw
+        description: Port indicator control
+        lsb: 14
+        reset_value: '0'
+        width: 2
+    - PTC3_0:
+        access: rw
+        description: Port test control
+        lsb: 16
+        reset_value: '0'
+        width: 4
+    - WKCN:
+        access: rw
+        description: Wake on connect enable (WKCNNT_E)
+        lsb: 20
+        reset_value: '0'
+        width: 1
+    - WKDC:
+        access: rw
+        description: Wake on disconnect enable (WKDSCNNT_E)
+        lsb: 21
+        reset_value: '0'
+        width: 1
+    - WKOC:
+        access: rw
+        description: Wake on over-current enable (WKOC_E)
+        lsb: 22
+        reset_value: '0'
+        width: 1
+    - PHCD:
+        access: rw
+        description: PHY low power suspend - clock disable (PLPSCD)
+        lsb: 23
+        reset_value: '0'
+        width: 1
+    - PFSC:
+        access: rw
+        description: Port force full speed connect
+        lsb: 24
+        reset_value: '0'
+        width: 1
+    - PSPD:
+        access: r
+        description: Port speed
+        lsb: 26
+        reset_value: '0'
+        width: 2
+- USB0_OTGSC:
+    fields: !!omap
+    - VD:
+        access: rw
+        description: VBUS_Discharge
+        lsb: 0
+        reset_value: '0'
+        width: 1
+    - VC:
+        access: rw
+        description: VBUS_Charge
+        lsb: 1
+        reset_value: '0'
+        width: 1
+    - HAAR:
+        access: rw
+        description: Hardware assist auto_reset
+        lsb: 2
+        reset_value: '0'
+        width: 1
+    - OT:
+        access: rw
+        description: OTG termination
+        lsb: 3
+        reset_value: '0'
+        width: 1
+    - DP:
+        access: rw
+        description: Data pulsing
+        lsb: 4
+        reset_value: '0'
+        width: 1
+    - IDPU:
+        access: rw
+        description: ID pull-up
+        lsb: 5
+        reset_value: '1'
+        width: 1
+    - HADP:
+        access: rw
+        description: Hardware assist data pulse
+        lsb: 6
+        reset_value: '0'
+        width: 1
+    - HABA:
+        access: rw
+        description: Hardware assist B-disconnect to A-connect
+        lsb: 7
+        reset_value: '0'
+        width: 1
+    - ID:
+        access: r
+        description: USB ID
+        lsb: 8
+        reset_value: '0'
+        width: 1
+    - AVV:
+        access: r
+        description: A-VBUS valid
+        lsb: 9
+        reset_value: '0'
+        width: 1
+    - ASV:
+        access: r
+        description: A-session valid
+        lsb: 10
+        reset_value: '0'
+        width: 1
+    - BSV:
+        access: r
+        description: B-session valid
+        lsb: 11
+        reset_value: '0'
+        width: 1
+    - BSE:
+        access: r
+        description: B-session end
+        lsb: 12
+        reset_value: '0'
+        width: 1
+    - MS1T:
+        access: r
+        description: 1 millisecond timer toggle
+        lsb: 13
+        reset_value: '0'
+        width: 1
+    - DPS:
+        access: r
+        description: Data bus pulsing status
+        lsb: 14
+        reset_value: '0'
+        width: 1
+    - IDIS:
+        access: rwc
+        description: USB ID interrupt status
+        lsb: 16
+        reset_value: '0'
+        width: 1
+    - AVVIS:
+        access: rwc
+        description: A-VBUS valid interrupt status
+        lsb: 17
+        reset_value: '0'
+        width: 1
+    - ASVIS:
+        access: rwc
+        description: A-Session valid interrupt status
+        lsb: 18
+        reset_value: '0'
+        width: 1
+    - BSVIS:
+        access: rwc
+        description: B-Session valid interrupt status
+        lsb: 19
+        reset_value: '0'
+        width: 1
+    - BSEIS:
+        access: rwc
+        description: B-Session end interrupt status
+        lsb: 20
+        reset_value: '0'
+        width: 1
+    - MS1S:
+        access: rwc
+        description: 1 millisecond timer interrupt status
+        lsb: 21
+        reset_value: '0'
+        width: 1
+    - DPIS:
+        access: rwc
+        description: Data pulse interrupt status
+        lsb: 22
+        reset_value: '0'
+        width: 1
+    - IDIE:
+        access: rw
+        description: USB ID interrupt enable
+        lsb: 24
+        reset_value: '0'
+        width: 1
+    - AVVIE:
+        access: rw
+        description: A-VBUS valid interrupt enable
+        lsb: 25
+        reset_value: '0'
+        width: 1
+    - ASVIE:
+        access: rw
+        description: A-session valid interrupt enable
+        lsb: 26
+        reset_value: '0'
+        width: 1
+    - BSVIE:
+        access: rw
+        description: B-session valid interrupt enable
+        lsb: 27
+        reset_value: '0'
+        width: 1
+    - BSEIE:
+        access: rw
+        description: B-session end interrupt enable
+        lsb: 28
+        reset_value: '0'
+        width: 1
+    - MS1E:
+        access: rw
+        description: 1 millisecond timer interrupt enable
+        lsb: 29
+        reset_value: '0'
+        width: 1
+    - DPIE:
+        access: rw
+        description: Data pulse interrupt enable
+        lsb: 30
+        reset_value: '0'
+        width: 1
+- USB0_USBMODE_D:
+    fields: !!omap
+    - CM1_0:
+        access: rwo
+        description: Controller mode
+        lsb: 0
+        reset_value: '0'
+        width: 2
+    - ES:
+        access: rw
+        description: Endian select
+        lsb: 2
+        reset_value: '0'
+        width: 1
+    - SLOM:
+        access: rw
+        description: Setup Lockout mode
+        lsb: 3
+        reset_value: '0'
+        width: 1
+    - SDIS:
+        access: rw
+        description: Setup Lockout mode
+        lsb: 4
+        reset_value: '0'
+        width: 1
+- USB0_USBMODE_H:
+    fields: !!omap
+    - CM:
+        access: rwo
+        description: Controller mode
+        lsb: 0
+        reset_value: '0'
+        width: 2
+    - ES:
+        access: rw
+        description: Endian select
+        lsb: 2
+        reset_value: '0'
+        width: 1
+    - SDIS:
+        access: rw
+        description: Stream disable mode
+        lsb: 4
+        reset_value: '0'
+        width: 1
+    - VBPS:
+        access: rwo
+        description: VBUS power select
+        lsb: 5
+        reset_value: '0'
+        width: 1
+- USB0_ENDPTSETUPSTAT:
+    fields: !!omap
+    - ENDPTSETUPSTAT:
+        access: rwc
+        description: Setup endpoint status for logical endpoints 0 to 5
+        lsb: 0
+        reset_value: '0'
+        width: 6
+- USB0_ENDPTPRIME:
+    fields: !!omap
+    - PERB:
+        access: rws
+        description: Prime endpoint receive buffer for physical OUT endpoints 5 to
+          0
+        lsb: 0
+        reset_value: '0'
+        width: 6
+    - PETB:
+        access: rws
+        description: Prime endpoint transmit buffer for physical IN endpoints 5 to
+          0
+        lsb: 16
+        reset_value: '0'
+        width: 6
+- USB0_ENDPTFLUSH:
+    fields: !!omap
+    - FERB:
+        access: rwc
+        description: Flush endpoint receive buffer for physical OUT endpoints 5 to
+          0
+        lsb: 0
+        reset_value: '0'
+        width: 6
+    - FETB:
+        access: rwc
+        description: Flush endpoint transmit buffer for physical IN endpoints 5 to
+          0
+        lsb: 16
+        reset_value: '0'
+        width: 6
+- USB0_ENDPTSTAT:
+    fields: !!omap
+    - ERBR:
+        access: r
+        description: Endpoint receive buffer ready for physical OUT endpoints 5 to
+          0
+        lsb: 0
+        reset_value: '0'
+        width: 6
+    - ETBR:
+        access: r
+        description: Endpoint transmit buffer ready for physical IN endpoints 3 to
+          0
+        lsb: 16
+        reset_value: '0'
+        width: 6
+- USB0_ENDPTCOMPLETE:
+    fields: !!omap
+    - ERCE:
+        access: rwc
+        description: Endpoint receive complete event for physical OUT endpoints 5
+          to 0
+        lsb: 0
+        reset_value: '0'
+        width: 6
+    - ETCE:
+        access: rwc
+        description: Endpoint transmit complete event for physical IN endpoints 5
+          to 0
+        lsb: 16
+        reset_value: '0'
+        width: 6
+- USB0_ENDPTCTRL0:
+    fields: !!omap
+    - RXS:
+        access: rw
+        description: Rx endpoint stall
+        lsb: 0
+        reset_value: '0'
+        width: 1
+    - RXT1_0:
+        access: rw
+        description: Endpoint type
+        lsb: 2
+        reset_value: '0'
+        width: 2
+    - RXE:
+        access: r
+        description: Rx endpoint enable
+        lsb: 7
+        reset_value: '1'
+        width: 1
+    - TXS:
+        access: rw
+        description: Tx endpoint stall
+        lsb: 16
+        reset_value: ''
+        width: 1
+    - TXT1_0:
+        access: r
+        description: Endpoint type
+        lsb: 18
+        reset_value: '0'
+        width: 2
+    - TXE:
+        access: r
+        description: Tx endpoint enable
+        lsb: 23
+        reset_value: '1'
+        width: 1
+- USB0_ENDPTCTRL1:
+    fields: !!omap
+    - RXS:
+        access: rw
+        description: Rx endpoint stall
+        lsb: 0
+        reset_value: '0'
+        width: 1
+    - RXT:
+        access: rw
+        description: Endpoint type
+        lsb: 2
+        reset_value: '0'
+        width: 2
+    - RXI:
+        access: rw
+        description: Rx data toggle inhibit
+        lsb: 5
+        reset_value: '0'
+        width: 1
+    - RXR:
+        access: ws
+        description: Rx data toggle reset
+        lsb: 6
+        reset_value: '0'
+        width: 1
+    - RXE:
+        access: rw
+        description: Rx endpoint enable
+        lsb: 7
+        reset_value: '0'
+        width: 1
+    - TXS:
+        access: rw
+        description: Tx endpoint stall
+        lsb: 16
+        reset_value: '0'
+        width: 1
+    - TXT1_0:
+        access: r
+        description: Tx Endpoint type
+        lsb: 18
+        reset_value: '0'
+        width: 2
+    - TXI:
+        access: rw
+        description: Tx data toggle inhibit
+        lsb: 21
+        reset_value: '0'
+        width: 1
+    - TXR:
+        access: ws
+        description: Tx data toggle reset
+        lsb: 22
+        reset_value: '1'
+        width: 1
+    - TXE:
+        access: r
+        description: Tx endpoint enable
+        lsb: 23
+        reset_value: '0'
+        width: 1
+- USB0_ENDPTCTRL2:
+    fields: !!omap
+    - RXS:
+        access: rw
+        description: Rx endpoint stall
+        lsb: 0
+        reset_value: '0'
+        width: 1
+    - RXT:
+        access: rw
+        description: Endpoint type
+        lsb: 2
+        reset_value: '0'
+        width: 2
+    - RXI:
+        access: rw
+        description: Rx data toggle inhibit
+        lsb: 5
+        reset_value: '0'
+        width: 1
+    - RXR:
+        access: ws
+        description: Rx data toggle reset
+        lsb: 6
+        reset_value: '0'
+        width: 1
+    - RXE:
+        access: rw
+        description: Rx endpoint enable
+        lsb: 7
+        reset_value: '0'
+        width: 1
+    - TXS:
+        access: rw
+        description: Tx endpoint stall
+        lsb: 16
+        reset_value: '0'
+        width: 1
+    - TXT1_0:
+        access: r
+        description: Tx Endpoint type
+        lsb: 18
+        reset_value: '0'
+        width: 2
+    - TXI:
+        access: rw
+        description: Tx data toggle inhibit
+        lsb: 21
+        reset_value: '0'
+        width: 1
+    - TXR:
+        access: ws
+        description: Tx data toggle reset
+        lsb: 22
+        reset_value: '1'
+        width: 1
+    - TXE:
+        access: r
+        description: Tx endpoint enable
+        lsb: 23
+        reset_value: '0'
+        width: 1
+- USB0_ENDPTCTRL3:
+    fields: !!omap
+    - RXS:
+        access: rw
+        description: Rx endpoint stall
+        lsb: 0
+        reset_value: '0'
+        width: 1
+    - RXT:
+        access: rw
+        description: Endpoint type
+        lsb: 2
+        reset_value: '0'
+        width: 2
+    - RXI:
+        access: rw
+        description: Rx data toggle inhibit
+        lsb: 5
+        reset_value: '0'
+        width: 1
+    - RXR:
+        access: ws
+        description: Rx data toggle reset
+        lsb: 6
+        reset_value: '0'
+        width: 1
+    - RXE:
+        access: rw
+        description: Rx endpoint enable
+        lsb: 7
+        reset_value: '0'
+        width: 1
+    - TXS:
+        access: rw
+        description: Tx endpoint stall
+        lsb: 16
+        reset_value: '0'
+        width: 1
+    - TXT1_0:
+        access: r
+        description: Tx Endpoint type
+        lsb: 18
+        reset_value: '0'
+        width: 2
+    - TXI:
+        access: rw
+        description: Tx data toggle inhibit
+        lsb: 21
+        reset_value: '0'
+        width: 1
+    - TXR:
+        access: ws
+        description: Tx data toggle reset
+        lsb: 22
+        reset_value: '1'
+        width: 1
+    - TXE:
+        access: r
+        description: Tx endpoint enable
+        lsb: 23
+        reset_value: '0'
+        width: 1
+- USB0_ENDPTCTRL4:
+    fields: !!omap
+    - RXS:
+        access: rw
+        description: Rx endpoint stall
+        lsb: 0
+        reset_value: '0'
+        width: 1
+    - RXT:
+        access: rw
+        description: Endpoint type
+        lsb: 2
+        reset_value: '0'
+        width: 2
+    - RXI:
+        access: rw
+        description: Rx data toggle inhibit
+        lsb: 5
+        reset_value: '0'
+        width: 1
+    - RXR:
+        access: ws
+        description: Rx data toggle reset
+        lsb: 6
+        reset_value: '0'
+        width: 1
+    - RXE:
+        access: rw
+        description: Rx endpoint enable
+        lsb: 7
+        reset_value: '0'
+        width: 1
+    - TXS:
+        access: rw
+        description: Tx endpoint stall
+        lsb: 16
+        reset_value: '0'
+        width: 1
+    - TXT1_0:
+        access: r
+        description: Tx Endpoint type
+        lsb: 18
+        reset_value: '0'
+        width: 2
+    - TXI:
+        access: rw
+        description: Tx data toggle inhibit
+        lsb: 21
+        reset_value: '0'
+        width: 1
+    - TXR:
+        access: ws
+        description: Tx data toggle reset
+        lsb: 22
+        reset_value: '1'
+        width: 1
+    - TXE:
+        access: r
+        description: Tx endpoint enable
+        lsb: 23
+        reset_value: '0'
+        width: 1
+- USB0_ENDPTCTRL5:
+    fields: !!omap
+    - RXS:
+        access: rw
+        description: Rx endpoint stall
+        lsb: 0
+        reset_value: '0'
+        width: 1
+    - RXT:
+        access: rw
+        description: Endpoint type
+        lsb: 2
+        reset_value: '0'
+        width: 2
+    - RXI:
+        access: rw
+        description: Rx data toggle inhibit
+        lsb: 5
+        reset_value: '0'
+        width: 1
+    - RXR:
+        access: ws
+        description: Rx data toggle reset
+        lsb: 6
+        reset_value: '0'
+        width: 1
+    - RXE:
+        access: rw
+        description: Rx endpoint enable
+        lsb: 7
+        reset_value: '0'
+        width: 1
+    - TXS:
+        access: rw
+        description: Tx endpoint stall
+        lsb: 16
+        reset_value: '0'
+        width: 1
+    - TXT1_0:
+        access: r
+        description: Tx Endpoint type
+        lsb: 18
+        reset_value: '0'
+        width: 2
+    - TXI:
+        access: rw
+        description: Tx data toggle inhibit
+        lsb: 21
+        reset_value: '0'
+        width: 1
+    - TXR:
+        access: ws
+        description: Tx data toggle reset
+        lsb: 22
+        reset_value: '1'
+        width: 1
+    - TXE:
+        access: r
+        description: Tx endpoint enable
+        lsb: 23
+        reset_value: '0'
+        width: 1

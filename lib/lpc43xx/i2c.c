@@ -41,25 +41,13 @@ LGPL License Terms @ref lgpl_license
 #include <libopencm3/lpc43xx/scu.h>
 #include <libopencm3/lpc43xx/cgu.h>
 
-void i2c0_init(void)
+void i2c0_init(const uint16_t duty_cycle_count)
 {
 	/* enable input on SCL and SDA pins */
 	SCU_SFSI2C0 = SCU_I2C0_NOMINAL;
 
-	/* use IRC as clock source for APB1 (including I2C0) */
-	CGU_BASE_APB1_CLK = (CGU_SRC_IRC << CGU_BASE_CLK_SEL_SHIFT);
-
-	/* FIXME assuming we're on IRC at 12 MHz */
-
-	/* 400 kHz I2C */
-	I2C0_SCLH = 15;
-	I2C0_SCLL = 15;
-
-	/* 100 kHz I2C */
-	/*
-	I2C0_SCLH = 60;
-	I2C0_SCLL = 60;
-	*/
+	I2C0_SCLH = duty_cycle_count;
+	I2C0_SCLL = duty_cycle_count;
 
 	/* clear the control bits */
 	I2C0_CONCLR = (I2C_CONCLR_AAC | I2C_CONCLR_SIC

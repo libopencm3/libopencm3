@@ -1,0 +1,23 @@
+These files contain information derived from the LPC43xx user manual (UM10503).
+They are intended to be used by scripts for the generation of header files and
+functions.
+
+Each line describes a field within a register.  The comma separated values are:
+	register name (as found in include/lpc43xx/*.h),
+	bit position,
+	length in bits,
+	field name,
+	description/comment (may be empty if not specified in data sheet),
+	reset value (may be empty if not specified in data sheet),
+	access (may be empty if not specified in data sheet)
+
+The access field may consist of any of the following codes:
+	r:   read only
+	rw:  read/write
+	rwc: read/write one to clear
+	rwo: read/write once
+	rws: read/write one to set
+	w:   write only
+	ws:  write one to set
+
+Descriptions containing commas are quoted.

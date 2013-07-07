@@ -35,27 +35,6 @@ LGPL License Terms @ref lgpl_license
 #include <libopencm3/lpc43xx/ssp.h>
 #include <libopencm3/lpc43xx/cgu.h>
 
-#define CGU_SRC_32K			0x00
-#define CGU_SRC_IRC			0x01
-#define CGU_SRC_ENET_RX		0x02
-#define CGU_SRC_ENET_TX		0x03
-#define CGU_SRC_GP_CLKIN	0x04
-#define CGU_SRC_XTAL		0x06
-#define CGU_SRC_PLL0USB		0x07
-#define CGU_SRC_PLL0AUDIO	0x08
-#define CGU_SRC_PLL1		0x09
-#define CGU_SRC_IDIVA		0x0C
-#define CGU_SRC_IDIVB		0x0D
-#define CGU_SRC_IDIVC		0x0E
-#define CGU_SRC_IDIVD		0x0F
-#define CGU_SRC_IDIVE		0x10
-
-#define CGU_AUTOBLOCK_CLOCK_BIT	11
-#define CGU_BASE_CLK_SEL_SHIFT	24   /* clock source selection (5 bits) */
-
-/* Local declarations. */
-void ssp_wait_until_not_busy(ssp_num_t ssp_num);
-
 /* Disable SSP */
 void ssp_disable(ssp_num_t ssp_num)
 {
@@ -93,8 +72,9 @@ void ssp_init(ssp_num_t ssp_num,
 	}
 
 	/* use PLL1 as clock source for SSP1 */
-	CGU_BASE_SSP1_CLK = (CGU_SRC_PLL1<<CGU_BASE_CLK_SEL_SHIFT) |
-			    (1<<CGU_AUTOBLOCK_CLOCK_BIT);
+	CGU_BASE_SSP1_CLK =
+		  CGU_BASE_SSP1_CLK_CLK_SEL(CGU_SRC_PLL1)
+		| CGU_BASE_SSP1_CLK_AUTOBLOCK;
 
 	/* Disable SSP before to configure it */
 	SSP_CR1(ssp_port) = 0x0;
@@ -107,25 +87,6 @@ void ssp_init(ssp_num_t ssp_num,
 
 	/* Enable SSP */
 	SSP_CR1(ssp_port) = (SSP_ENABLE | mode | master_slave | slave_option);
-}
-
-/*
-* This Function Wait until Data RX Ready, and return Data Read from SSP.
-*/
-uint16_t ssp_read(ssp_num_t ssp_num)
-{
-	uint32_t ssp_port;
-
-	if (ssp_num == SSP0_NUM) {
-		ssp_port = SSP0;
-	} else {
-		ssp_port = SSP1;
-	}
-
-	/* Wait Until Data Received (Rx FIFO not Empty) */
-	while ((SSP_SR(ssp_port) & SSP_SR_RNE) == 0);
-
-	return SSP_DR(ssp_port);
 }
 
 void ssp_wait_until_not_busy(ssp_num_t ssp_num)
@@ -142,7 +103,7 @@ void ssp_wait_until_not_busy(ssp_num_t ssp_num)
 }
 
 /* This Function Wait Data TX Ready, and Write Data to SSP */
-void ssp_write(ssp_num_t ssp_num, uint16_t data)
+uint16_t ssp_transfer(ssp_num_t ssp_num, uint16_t data)
 {
 	uint32_t ssp_port;
 
@@ -167,6 +128,13 @@ void ssp_write(ssp_num_t ssp_num, uint16_t data)
 	 * example...
 	 */
 	ssp_wait_until_not_busy(ssp_num);
+	
+	/* Wait Until Data Received (Rx FIFO not Empty) */
+	while( (SSP_SR(ssp_port) & SSP_SR_RNE) == 0);
+
+	return SSP_DR(ssp_port);
 }
+
+
 /**@}*/
 

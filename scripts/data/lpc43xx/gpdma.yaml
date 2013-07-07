@@ -1,0 +1,1498 @@
+!!omap
+- GPDMA_INTSTAT:
+    fields: !!omap
+    - INTSTAT:
+        access: r
+        description: Status of DMA channel interrupts after masking
+        lsb: 0
+        reset_value: '0x00'
+        width: 8
+- GPDMA_INTTCSTAT:
+    fields: !!omap
+    - INTTCSTAT:
+        access: r
+        description: Terminal count interrupt request status for DMA channels
+        lsb: 0
+        reset_value: '0x00'
+        width: 8
+- GPDMA_INTTCCLEAR:
+    fields: !!omap
+    - INTTCCLEAR:
+        access: w
+        description: Allows clearing the Terminal count interrupt request (IntTCStat)
+          for DMA channels
+        lsb: 0
+        reset_value: '0x00'
+        width: 8
+- GPDMA_INTERRSTAT:
+    fields: !!omap
+    - INTERRSTAT:
+        access: r
+        description: Interrupt error status for DMA channels
+        lsb: 0
+        reset_value: '0x00'
+        width: 8
+- GPDMA_INTERRCLR:
+    fields: !!omap
+    - INTERRCLR:
+        access: w
+        description: Writing a 1 clears the error interrupt request (IntErrStat) for
+          DMA channels
+        lsb: 0
+        reset_value: '0x00'
+        width: 8
+- GPDMA_RAWINTTCSTAT:
+    fields: !!omap
+    - RAWINTTCSTAT:
+        access: r
+        description: Status of the terminal count interrupt for DMA channels prior
+          to masking
+        lsb: 0
+        reset_value: '0x00'
+        width: 8
+- GPDMA_RAWINTERRSTAT:
+    fields: !!omap
+    - RAWINTERRSTAT:
+        access: r
+        description: Status of the error interrupt for DMA channels prior to masking
+        lsb: 0
+        reset_value: '0x00'
+        width: 8
+- GPDMA_ENBLDCHNS:
+    fields: !!omap
+    - ENABLEDCHANNELS:
+        access: r
+        description: Enable status for DMA channels
+        lsb: 0
+        reset_value: '0x00'
+        width: 8
+- GPDMA_SOFTBREQ:
+    fields: !!omap
+    - SOFTBREQ:
+        access: rw
+        description: Software burst request flags for each of 16 possible sources
+        lsb: 0
+        reset_value: '0x00'
+        width: 16
+- GPDMA_SOFTSREQ:
+    fields: !!omap
+    - SOFTSREQ:
+        access: rw
+        description: Software single transfer request flags for each of 16 possible
+          sources
+        lsb: 0
+        reset_value: '0x00'
+        width: 16
+- GPDMA_SOFTLBREQ:
+    fields: !!omap
+    - SOFTLBREQ:
+        access: rw
+        description: Software last burst request flags for each of 16 possible sources
+        lsb: 0
+        reset_value: '0x00'
+        width: 16
+- GPDMA_SOFTLSREQ:
+    fields: !!omap
+    - SOFTLSREQ:
+        access: rw
+        description: Software last single transfer request flags for each of 16 possible
+          sources
+        lsb: 0
+        reset_value: '0x00'
+        width: 16
+- GPDMA_CONFIG:
+    fields: !!omap
+    - E:
+        access: rw
+        description: DMA Controller enable
+        lsb: 0
+        reset_value: '0'
+        width: 1
+    - M0:
+        access: rw
+        description: AHB Master 0 endianness configuration
+        lsb: 1
+        reset_value: '0'
+        width: 1
+    - M1:
+        access: rw
+        description: AHB Master 1 endianness configuration
+        lsb: 2
+        reset_value: '0'
+        width: 1
+- GPDMA_SYNC:
+    fields: !!omap
+    - DMACSYNC:
+        access: rw
+        description: Controls the synchronization logic for DMA request signals
+        lsb: 0
+        reset_value: '0x00'
+        width: 16
+- GPDMA_C0SRCADDR:
+    fields: !!omap
+    - SRCADDR:
+        access: rw
+        description: DMA source address
+        lsb: 0
+        reset_value: '0x00000000'
+        width: 32
+- GPDMA_C1SRCADDR:
+    fields: !!omap
+    - SRCADDR:
+        access: rw
+        description: DMA source address
+        lsb: 0
+        reset_value: '0x00000000'
+        width: 32
+- GPDMA_C2SRCADDR:
+    fields: !!omap
+    - SRCADDR:
+        access: rw
+        description: DMA source address
+        lsb: 0
+        reset_value: '0x00000000'
+        width: 32
+- GPDMA_C3SRCADDR:
+    fields: !!omap
+    - SRCADDR:
+        access: rw
+        description: DMA source address
+        lsb: 0
+        reset_value: '0x00000000'
+        width: 32
+- GPDMA_C4SRCADDR:
+    fields: !!omap
+    - SRCADDR:
+        access: rw
+        description: DMA source address
+        lsb: 0
+        reset_value: '0x00000000'
+        width: 32
+- GPDMA_C5SRCADDR:
+    fields: !!omap
+    - SRCADDR:
+        access: rw
+        description: DMA source address
+        lsb: 0
+        reset_value: '0x00000000'
+        width: 32
+- GPDMA_C6SRCADDR:
+    fields: !!omap
+    - SRCADDR:
+        access: rw
+        description: DMA source address
+        lsb: 0
+        reset_value: '0x00000000'
+        width: 32
+- GPDMA_C7SRCADDR:
+    fields: !!omap
+    - SRCADDR:
+        access: rw
+        description: DMA source address
+        lsb: 0
+        reset_value: '0x00000000'
+        width: 32
+- GPDMA_C0DESTADDR:
+    fields: !!omap
+    - DESTADDR:
+        access: rw
+        description: DMA source address
+        lsb: 0
+        reset_value: '0x00000000'
+        width: 32
+- GPDMA_C1DESTADDR:
+    fields: !!omap
+    - DESTADDR:
+        access: rw
+        description: DMA source address
+        lsb: 0
+        reset_value: '0x00000000'
+        width: 32
+- GPDMA_C2DESTADDR:
+    fields: !!omap
+    - DESTADDR:
+        access: rw
+        description: DMA source address
+        lsb: 0
+        reset_value: '0x00000000'
+        width: 32
+- GPDMA_C3DESTADDR:
+    fields: !!omap
+    - DESTADDR:
+        access: rw
+        description: DMA source address
+        lsb: 0
+        reset_value: '0x00000000'
+        width: 32
+- GPDMA_C4DESTADDR:
+    fields: !!omap
+    - DESTADDR:
+        access: rw
+        description: DMA source address
+        lsb: 0
+        reset_value: '0x00000000'
+        width: 32
+- GPDMA_C5DESTADDR:
+    fields: !!omap
+    - DESTADDR:
+        access: rw
+        description: DMA source address
+        lsb: 0
+        reset_value: '0x00000000'
+        width: 32
+- GPDMA_C6DESTADDR:
+    fields: !!omap
+    - DESTADDR:
+        access: rw
+        description: DMA source address
+        lsb: 0
+        reset_value: '0x00000000'
+        width: 32
+- GPDMA_C7DESTADDR:
+    fields: !!omap
+    - DESTADDR:
+        access: rw
+        description: DMA source address
+        lsb: 0
+        reset_value: '0x00000000'
+        width: 32
+- GPDMA_C0LLI:
+    fields: !!omap
+    - LM:
+        access: rw
+        description: AHB master select for loading the next LLI
+        lsb: 0
+        reset_value: '0'
+        width: 1
+    - LLI:
+        access: rw
+        description: Linked list item
+        lsb: 2
+        reset_value: '0x00000000'
+        width: 30
+- GPDMA_C1LLI:
+    fields: !!omap
+    - LM:
+        access: rw
+        description: AHB master select for loading the next LLI
+        lsb: 0
+        reset_value: '0'
+        width: 1
+    - LLI:
+        access: rw
+        description: Linked list item
+        lsb: 2
+        reset_value: '0x00000000'
+        width: 30
+- GPDMA_C2LLI:
+    fields: !!omap
+    - LM:
+        access: rw
+        description: AHB master select for loading the next LLI
+        lsb: 0
+        reset_value: '0'
+        width: 1
+    - LLI:
+        access: rw
+        description: Linked list item
+        lsb: 2
+        reset_value: '0x00000000'
+        width: 30
+- GPDMA_C3LLI:
+    fields: !!omap
+    - LM:
+        access: rw
+        description: AHB master select for loading the next LLI
+        lsb: 0
+        reset_value: '0'
+        width: 1
+    - LLI:
+        access: rw
+        description: Linked list item
+        lsb: 2
+        reset_value: '0x00000000'
+        width: 30
+- GPDMA_C4LLI:
+    fields: !!omap
+    - LM:
+        access: rw
+        description: AHB master select for loading the next LLI
+        lsb: 0
+        reset_value: '0'
+        width: 1
+    - LLI:
+        access: rw
+        description: Linked list item
+        lsb: 2
+        reset_value: '0x00000000'
+        width: 30
+- GPDMA_C5LLI:
+    fields: !!omap
+    - LM:
+        access: rw
+        description: AHB master select for loading the next LLI
+        lsb: 0
+        reset_value: '0'
+        width: 1
+    - LLI:
+        access: rw
+        description: Linked list item
+        lsb: 2
+        reset_value: '0x00000000'
+        width: 30
+- GPDMA_C6LLI:
+    fields: !!omap
+    - LM:
+        access: rw
+        description: AHB master select for loading the next LLI
+        lsb: 0
+        reset_value: '0'
+        width: 1
+    - LLI:
+        access: rw
+        description: Linked list item
+        lsb: 2
+        reset_value: '0x00000000'
+        width: 30
+- GPDMA_C7LLI:
+    fields: !!omap
+    - LM:
+        access: rw
+        description: AHB master select for loading the next LLI
+        lsb: 0
+        reset_value: '0'
+        width: 1
+    - LLI:
+        access: rw
+        description: Linked list item
+        lsb: 2
+        reset_value: '0x00000000'
+        width: 30
+- GPDMA_C0CONTROL:
+    fields: !!omap
+    - TRANSFERSIZE:
+        access: rw
+        description: Transfer size in number of transfers
+        lsb: 0
+        reset_value: '0x00'
+        width: 12
+    - SBSIZE:
+        access: rw
+        description: Source burst size
+        lsb: 12
+        reset_value: '0x0'
+        width: 3
+    - DBSIZE:
+        access: rw
+        description: Destination burst size
+        lsb: 15
+        reset_value: '0x0'
+        width: 3
+    - SWIDTH:
+        access: rw
+        description: Source transfer width
+        lsb: 18
+        reset_value: '0x0'
+        width: 3
+    - DWIDTH:
+        access: rw
+        description: Destination transfer width
+        lsb: 21
+        reset_value: '0x0'
+        width: 3
+    - S:
+        access: rw
+        description: Source AHB master select
+        lsb: 24
+        reset_value: '0'
+        width: 1
+    - D:
+        access: rw
+        description: Destination AHB master select
+        lsb: 25
+        reset_value: '0'
+        width: 1
+    - SI:
+        access: rw
+        description: Source increment
+        lsb: 26
+        reset_value: '0'
+        width: 1
+    - DI:
+        access: rw
+        description: Destination increment
+        lsb: 27
+        reset_value: '0'
+        width: 1
+    - PROT1:
+        access: rw
+        description: This information is provided to the peripheral during a DMA bus
+          access and indicates that the access is in user mode or privileged mode
+        lsb: 28
+        reset_value: '0'
+        width: 1
+    - PROT2:
+        access: rw
+        description: This information is provided to the peripheral during a DMA bus
+          access and indicates to the peripheral that the access is bufferable or
+          not bufferable
+        lsb: 29
+        reset_value: '0'
+        width: 1
+    - PROT3:
+        access: rw
+        description: This information is provided to the peripheral during a DMA bus
+          access and indicates to the peripheral that the access is cacheable or not
+          cacheable
+        lsb: 30
+        reset_value: '0'
+        width: 1
+    - I:
+        access: rw
+        description: Terminal count interrupt enable bit
+        lsb: 31
+        reset_value: '0'
+        width: 1
+- GPDMA_C1CONTROL:
+    fields: !!omap
+    - TRANSFERSIZE:
+        access: rw
+        description: Transfer size in number of transfers
+        lsb: 0
+        reset_value: '0x00'
+        width: 12
+    - SBSIZE:
+        access: rw
+        description: Source burst size
+        lsb: 12
+        reset_value: '0x0'
+        width: 3
+    - DBSIZE:
+        access: rw
+        description: Destination burst size
+        lsb: 15
+        reset_value: '0x0'
+        width: 3
+    - SWIDTH:
+        access: rw
+        description: Source transfer width
+        lsb: 18
+        reset_value: '0x0'
+        width: 3
+    - DWIDTH:
+        access: rw
+        description: Destination transfer width
+        lsb: 21
+        reset_value: '0x0'
+        width: 3
+    - S:
+        access: rw
+        description: Source AHB master select
+        lsb: 24
+        reset_value: '0'
+        width: 1
+    - D:
+        access: rw
+        description: Destination AHB master select
+        lsb: 25
+        reset_value: '0'
+        width: 1
+    - SI:
+        access: rw
+        description: Source increment
+        lsb: 26
+        reset_value: '0'
+        width: 1
+    - DI:
+        access: rw
+        description: Destination increment
+        lsb: 27
+        reset_value: '0'
+        width: 1
+    - PROT1:
+        access: rw
+        description: This information is provided to the peripheral during a DMA bus
+          access and indicates that the access is in user mode or privileged mode
+        lsb: 28
+        reset_value: '0'
+        width: 1
+    - PROT2:
+        access: rw
+        description: This information is provided to the peripheral during a DMA bus
+          access and indicates to the peripheral that the access is bufferable or
+          not bufferable
+        lsb: 29
+        reset_value: '0'
+        width: 1
+    - PROT3:
+        access: rw
+        description: This information is provided to the peripheral during a DMA bus
+          access and indicates to the peripheral that the access is cacheable or not
+          cacheable
+        lsb: 30
+        reset_value: '0'
+        width: 1
+    - I:
+        access: rw
+        description: Terminal count interrupt enable bit
+        lsb: 31
+        reset_value: '0'
+        width: 1
+- GPDMA_C2CONTROL:
+    fields: !!omap
+    - TRANSFERSIZE:
+        access: rw
+        description: Transfer size in number of transfers
+        lsb: 0
+        reset_value: '0x00'
+        width: 12
+    - SBSIZE:
+        access: rw
+        description: Source burst size
+        lsb: 12
+        reset_value: '0x0'
+        width: 3
+    - DBSIZE:
+        access: rw
+        description: Destination burst size
+        lsb: 15
+        reset_value: '0x0'
+        width: 3
+    - SWIDTH:
+        access: rw
+        description: Source transfer width
+        lsb: 18
+        reset_value: '0x0'
+        width: 3
+    - DWIDTH:
+        access: rw
+        description: Destination transfer width
+        lsb: 21
+        reset_value: '0x0'
+        width: 3
+    - S:
+        access: rw
+        description: Source AHB master select
+        lsb: 24
+        reset_value: '0'
+        width: 1
+    - D:
+        access: rw
+        description: Destination AHB master select
+        lsb: 25
+        reset_value: '0'
+        width: 1
+    - SI:
+        access: rw
+        description: Source increment
+        lsb: 26
+        reset_value: '0'
+        width: 1
+    - DI:
+        access: rw
+        description: Destination increment
+        lsb: 27
+        reset_value: '0'
+        width: 1
+    - PROT1:
+        access: rw
+        description: This information is provided to the peripheral during a DMA bus
+          access and indicates that the access is in user mode or privileged mode
+        lsb: 28
+        reset_value: '0'
+        width: 1
+    - PROT2:
+        access: rw
+        description: This information is provided to the peripheral during a DMA bus
+          access and indicates to the peripheral that the access is bufferable or
+          not bufferable
+        lsb: 29
+        reset_value: '0'
+        width: 1
+    - PROT3:
+        access: rw
+        description: This information is provided to the peripheral during a DMA bus
+          access and indicates to the peripheral that the access is cacheable or not
+          cacheable
+        lsb: 30
+        reset_value: '0'
+        width: 1
+    - I:
+        access: rw
+        description: Terminal count interrupt enable bit
+        lsb: 31
+        reset_value: '0'
+        width: 1
+- GPDMA_C3CONTROL:
+    fields: !!omap
+    - TRANSFERSIZE:
+        access: rw
+        description: Transfer size in number of transfers
+        lsb: 0
+        reset_value: '0x00'
+        width: 12
+    - SBSIZE:
+        access: rw
+        description: Source burst size
+        lsb: 12
+        reset_value: '0x0'
+        width: 3
+    - DBSIZE:
+        access: rw
+        description: Destination burst size
+        lsb: 15
+        reset_value: '0x0'
+        width: 3
+    - SWIDTH:
+        access: rw
+        description: Source transfer width
+        lsb: 18
+        reset_value: '0x0'
+        width: 3
+    - DWIDTH:
+        access: rw
+        description: Destination transfer width
+        lsb: 21
+        reset_value: '0x0'
+        width: 3
+    - S:
+        access: rw
+        description: Source AHB master select
+        lsb: 24
+        reset_value: '0'
+        width: 1
+    - D:
+        access: rw
+        description: Destination AHB master select
+        lsb: 25
+        reset_value: '0'
+        width: 1
+    - SI:
+        access: rw
+        description: Source increment
+        lsb: 26
+        reset_value: '0'
+        width: 1
+    - DI:
+        access: rw
+        description: Destination increment
+        lsb: 27
+        reset_value: '0'
+        width: 1
+    - PROT1:
+        access: rw
+        description: This information is provided to the peripheral during a DMA bus
+          access and indicates that the access is in user mode or privileged mode
+        lsb: 28
+        reset_value: '0'
+        width: 1
+    - PROT2:
+        access: rw
+        description: This information is provided to the peripheral during a DMA bus
+          access and indicates to the peripheral that the access is bufferable or
+          not bufferable
+        lsb: 29
+        reset_value: '0'
+        width: 1
+    - PROT3:
+        access: rw
+        description: This information is provided to the peripheral during a DMA bus
+          access and indicates to the peripheral that the access is cacheable or not
+          cacheable
+        lsb: 30
+        reset_value: '0'
+        width: 1
+    - I:
+        access: rw
+        description: Terminal count interrupt enable bit
+        lsb: 31
+        reset_value: '0'
+        width: 1
+- GPDMA_C4CONTROL:
+    fields: !!omap
+    - TRANSFERSIZE:
+        access: rw
+        description: Transfer size in number of transfers
+        lsb: 0
+        reset_value: '0x00'
+        width: 12
+    - SBSIZE:
+        access: rw
+        description: Source burst size
+        lsb: 12
+        reset_value: '0x0'
+        width: 3
+    - DBSIZE:
+        access: rw
+        description: Destination burst size
+        lsb: 15
+        reset_value: '0x0'
+        width: 3
+    - SWIDTH:
+        access: rw
+        description: Source transfer width
+        lsb: 18
+        reset_value: '0x0'
+        width: 3
+    - DWIDTH:
+        access: rw
+        description: Destination transfer width
+        lsb: 21
+        reset_value: '0x0'
+        width: 3
+    - S:
+        access: rw
+        description: Source AHB master select
+        lsb: 24
+        reset_value: '0'
+        width: 1
+    - D:
+        access: rw
+        description: Destination AHB master select
+        lsb: 25
+        reset_value: '0'
+        width: 1
+    - SI:
+        access: rw
+        description: Source increment
+        lsb: 26
+        reset_value: '0'
+        width: 1
+    - DI:
+        access: rw
+        description: Destination increment
+        lsb: 27
+        reset_value: '0'
+        width: 1
+    - PROT1:
+        access: rw
+        description: This information is provided to the peripheral during a DMA bus
+          access and indicates that the access is in user mode or privileged mode
+        lsb: 28
+        reset_value: '0'
+        width: 1
+    - PROT2:
+        access: rw
+        description: This information is provided to the peripheral during a DMA bus
+          access and indicates to the peripheral that the access is bufferable or
+          not bufferable
+        lsb: 29
+        reset_value: '0'
+        width: 1
+    - PROT3:
+        access: rw
+        description: This information is provided to the peripheral during a DMA bus
+          access and indicates to the peripheral that the access is cacheable or not
+          cacheable
+        lsb: 30
+        reset_value: '0'
+        width: 1
+    - I:
+        access: rw
+        description: Terminal count interrupt enable bit
+        lsb: 31
+        reset_value: '0'
+        width: 1
+- GPDMA_C5CONTROL:
+    fields: !!omap
+    - TRANSFERSIZE:
+        access: rw
+        description: Transfer size in number of transfers
+        lsb: 0
+        reset_value: '0x00'
+        width: 12
+    - SBSIZE:
+        access: rw
+        description: Source burst size
+        lsb: 12
+        reset_value: '0x0'
+        width: 3
+    - DBSIZE:
+        access: rw
+        description: Destination burst size
+        lsb: 15
+        reset_value: '0x0'
+        width: 3
+    - SWIDTH:
+        access: rw
+        description: Source transfer width
+        lsb: 18
+        reset_value: '0x0'
+        width: 3
+    - DWIDTH:
+        access: rw
+        description: Destination transfer width
+        lsb: 21
+        reset_value: '0x0'
+        width: 3
+    - S:
+        access: rw
+        description: Source AHB master select
+        lsb: 24
+        reset_value: '0'
+        width: 1
+    - D:
+        access: rw
+        description: Destination AHB master select
+        lsb: 25
+        reset_value: '0'
+        width: 1
+    - SI:
+        access: rw
+        description: Source increment
+        lsb: 26
+        reset_value: '0'
+        width: 1
+    - DI:
+        access: rw
+        description: Destination increment
+        lsb: 27
+        reset_value: '0'
+        width: 1
+    - PROT1:
+        access: rw
+        description: This information is provided to the peripheral during a DMA bus
+          access and indicates that the access is in user mode or privileged mode
+        lsb: 28
+        reset_value: '0'
+        width: 1
+    - PROT2:
+        access: rw
+        description: This information is provided to the peripheral during a DMA bus
+          access and indicates to the peripheral that the access is bufferable or
+          not bufferable
+        lsb: 29
+        reset_value: '0'
+        width: 1
+    - PROT3:
+        access: rw
+        description: This information is provided to the peripheral during a DMA bus
+          access and indicates to the peripheral that the access is cacheable or not
+          cacheable
+        lsb: 30
+        reset_value: '0'
+        width: 1
+    - I:
+        access: rw
+        description: Terminal count interrupt enable bit
+        lsb: 31
+        reset_value: '0'
+        width: 1
+- GPDMA_C6CONTROL:
+    fields: !!omap
+    - TRANSFERSIZE:
+        access: rw
+        description: Transfer size in number of transfers
+        lsb: 0
+        reset_value: '0x00'
+        width: 12
+    - SBSIZE:
+        access: rw
+        description: Source burst size
+        lsb: 12
+        reset_value: '0x0'
+        width: 3
+    - DBSIZE:
+        access: rw
+        description: Destination burst size
+        lsb: 15
+        reset_value: '0x0'
+        width: 3
+    - SWIDTH:
+        access: rw
+        description: Source transfer width
+        lsb: 18
+        reset_value: '0x0'
+        width: 3
+    - DWIDTH:
+        access: rw
+        description: Destination transfer width
+        lsb: 21
+        reset_value: '0x0'
+        width: 3
+    - S:
+        access: rw
+        description: Source AHB master select
+        lsb: 24
+        reset_value: '0'
+        width: 1
+    - D:
+        access: rw
+        description: Destination AHB master select
+        lsb: 25
+        reset_value: '0'
+        width: 1
+    - SI:
+        access: rw
+        description: Source increment
+        lsb: 26
+        reset_value: '0'
+        width: 1
+    - DI:
+        access: rw
+        description: Destination increment
+        lsb: 27
+        reset_value: '0'
+        width: 1
+    - PROT1:
+        access: rw
+        description: This information is provided to the peripheral during a DMA bus
+          access and indicates that the access is in user mode or privileged mode
+        lsb: 28
+        reset_value: '0'
+        width: 1
+    - PROT2:
+        access: rw
+        description: This information is provided to the peripheral during a DMA bus
+          access and indicates to the peripheral that the access is bufferable or
+          not bufferable
+        lsb: 29
+        reset_value: '0'
+        width: 1
+    - PROT3:
+        access: rw
+        description: This information is provided to the peripheral during a DMA bus
+          access and indicates to the peripheral that the access is cacheable or not
+          cacheable
+        lsb: 30
+        reset_value: '0'
+        width: 1
+    - I:
+        access: rw
+        description: Terminal count interrupt enable bit
+        lsb: 31
+        reset_value: '0'
+        width: 1
+- GPDMA_C7CONTROL:
+    fields: !!omap
+    - TRANSFERSIZE:
+        access: rw
+        description: Transfer size in number of transfers
+        lsb: 0
+        reset_value: '0x00'
+        width: 12
+    - SBSIZE:
+        access: rw
+        description: Source burst size
+        lsb: 12
+        reset_value: '0x0'
+        width: 3
+    - DBSIZE:
+        access: rw
+        description: Destination burst size
+        lsb: 15
+        reset_value: '0x0'
+        width: 3
+    - SWIDTH:
+        access: rw
+        description: Source transfer width
+        lsb: 18
+        reset_value: '0x0'
+        width: 3
+    - DWIDTH:
+        access: rw
+        description: Destination transfer width
+        lsb: 21
+        reset_value: '0x0'
+        width: 3
+    - S:
+        access: rw
+        description: Source AHB master select
+        lsb: 24
+        reset_value: '0'
+        width: 1
+    - D:
+        access: rw
+        description: Destination AHB master select
+        lsb: 25
+        reset_value: '0'
+        width: 1
+    - SI:
+        access: rw
+        description: Source increment
+        lsb: 26
+        reset_value: '0'
+        width: 1
+    - DI:
+        access: rw
+        description: Destination increment
+        lsb: 27
+        reset_value: '0'
+        width: 1
+    - PROT1:
+        access: rw
+        description: This information is provided to the peripheral during a DMA bus
+          access and indicates that the access is in user mode or privileged mode
+        lsb: 28
+        reset_value: '0'
+        width: 1
+    - PROT2:
+        access: rw
+        description: This information is provided to the peripheral during a DMA bus
+          access and indicates to the peripheral that the access is bufferable or
+          not bufferable
+        lsb: 29
+        reset_value: '0'
+        width: 1
+    - PROT3:
+        access: rw
+        description: This information is provided to the peripheral during a DMA bus
+          access and indicates to the peripheral that the access is cacheable or not
+          cacheable
+        lsb: 30
+        reset_value: '0'
+        width: 1
+    - I:
+        access: rw
+        description: Terminal count interrupt enable bit
+        lsb: 31
+        reset_value: '0'
+        width: 1
+- GPDMA_C0CONFIG:
+    fields: !!omap
+    - E:
+        access: rw
+        description: Channel enable
+        lsb: 0
+        reset_value: '0'
+        width: 1
+    - SRCPERIPHERAL:
+        access: rw
+        description: Source peripheral
+        lsb: 1
+        reset_value: ''
+        width: 5
+    - DESTPERIPHERAL:
+        access: rw
+        description: Destination peripheral
+        lsb: 6
+        reset_value: ''
+        width: 5
+    - FLOWCNTRL:
+        access: rw
+        description: Flow control and transfer type
+        lsb: 11
+        reset_value: ''
+        width: 3
+    - IE:
+        access: rw
+        description: Interrupt error mask
+        lsb: 14
+        reset_value: ''
+        width: 1
+    - ITC:
+        access: rw
+        description: Terminal count interrupt mask
+        lsb: 15
+        reset_value: ''
+        width: 1
+    - L:
+        access: rw
+        description: Lock
+        lsb: 16
+        reset_value: ''
+        width: 1
+    - A:
+        access: r
+        description: Active
+        lsb: 17
+        reset_value: ''
+        width: 1
+    - H:
+        access: rw
+        description: Halt
+        lsb: 18
+        reset_value: ''
+        width: 1
+- GPDMA_C1CONFIG:
+    fields: !!omap
+    - E:
+        access: rw
+        description: Channel enable
+        lsb: 0
+        reset_value: '0'
+        width: 1
+    - SRCPERIPHERAL:
+        access: rw
+        description: Source peripheral
+        lsb: 1
+        reset_value: ''
+        width: 5
+    - DESTPERIPHERAL:
+        access: rw
+        description: Destination peripheral
+        lsb: 6
+        reset_value: ''
+        width: 5
+    - FLOWCNTRL:
+        access: rw
+        description: Flow control and transfer type
+        lsb: 11
+        reset_value: ''
+        width: 3
+    - IE:
+        access: rw
+        description: Interrupt error mask
+        lsb: 14
+        reset_value: ''
+        width: 1
+    - ITC:
+        access: rw
+        description: Terminal count interrupt mask
+        lsb: 15
+        reset_value: ''
+        width: 1
+    - L:
+        access: rw
+        description: Lock
+        lsb: 16
+        reset_value: ''
+        width: 1
+    - A:
+        access: r
+        description: Active
+        lsb: 17
+        reset_value: ''
+        width: 1
+    - H:
+        access: rw
+        description: Halt
+        lsb: 18
+        reset_value: ''
+        width: 1
+- GPDMA_C2CONFIG:
+    fields: !!omap
+    - E:
+        access: rw
+        description: Channel enable
+        lsb: 0
+        reset_value: '0'
+        width: 1
+    - SRCPERIPHERAL:
+        access: rw
+        description: Source peripheral
+        lsb: 1
+        reset_value: ''
+        width: 5
+    - DESTPERIPHERAL:
+        access: rw
+        description: Destination peripheral
+        lsb: 6
+        reset_value: ''
+        width: 5
+    - FLOWCNTRL:
+        access: rw
+        description: Flow control and transfer type
+        lsb: 11
+        reset_value: ''
+        width: 3
+    - IE:
+        access: rw
+        description: Interrupt error mask
+        lsb: 14
+        reset_value: ''
+        width: 1
+    - ITC:
+        access: rw
+        description: Terminal count interrupt mask
+        lsb: 15
+        reset_value: ''
+        width: 1
+    - L:
+        access: rw
+        description: Lock
+        lsb: 16
+        reset_value: ''
+        width: 1
+    - A:
+        access: r
+        description: Active
+        lsb: 17
+        reset_value: ''
+        width: 1
+    - H:
+        access: rw
+        description: Halt
+        lsb: 18
+        reset_value: ''
+        width: 1
+- GPDMA_C3CONFIG:
+    fields: !!omap
+    - E:
+        access: rw
+        description: Channel enable
+        lsb: 0
+        reset_value: '0'
+        width: 1
+    - SRCPERIPHERAL:
+        access: rw
+        description: Source peripheral
+        lsb: 1
+        reset_value: ''
+        width: 5
+    - DESTPERIPHERAL:
+        access: rw
+        description: Destination peripheral
+        lsb: 6
+        reset_value: ''
+        width: 5
+    - FLOWCNTRL:
+        access: rw
+        description: Flow control and transfer type
+        lsb: 11
+        reset_value: ''
+        width: 3
+    - IE:
+        access: rw
+        description: Interrupt error mask
+        lsb: 14
+        reset_value: ''
+        width: 1
+    - ITC:
+        access: rw
+        description: Terminal count interrupt mask
+        lsb: 15
+        reset_value: ''
+        width: 1
+    - L:
+        access: rw
+        description: Lock
+        lsb: 16
+        reset_value: ''
+        width: 1
+    - A:
+        access: r
+        description: Active
+        lsb: 17
+        reset_value: ''
+        width: 1
+    - H:
+        access: rw
+        description: Halt
+        lsb: 18
+        reset_value: ''
+        width: 1
+- GPDMA_C4CONFIG:
+    fields: !!omap
+    - E:
+        access: rw
+        description: Channel enable
+        lsb: 0
+        reset_value: '0'
+        width: 1
+    - SRCPERIPHERAL:
+        access: rw
+        description: Source peripheral
+        lsb: 1
+        reset_value: ''
+        width: 5
+    - DESTPERIPHERAL:
+        access: rw
+        description: Destination peripheral
+        lsb: 6
+        reset_value: ''
+        width: 5
+    - FLOWCNTRL:
+        access: rw
+        description: Flow control and transfer type
+        lsb: 11
+        reset_value: ''
+        width: 3
+    - IE:
+        access: rw
+        description: Interrupt error mask
+        lsb: 14
+        reset_value: ''
+        width: 1
+    - ITC:
+        access: rw
+        description: Terminal count interrupt mask
+        lsb: 15
+        reset_value: ''
+        width: 1
+    - L:
+        access: rw
+        description: Lock
+        lsb: 16
+        reset_value: ''
+        width: 1
+    - A:
+        access: r
+        description: Active
+        lsb: 17
+        reset_value: ''
+        width: 1
+    - H:
+        access: rw
+        description: Halt
+        lsb: 18
+        reset_value: ''
+        width: 1
+- GPDMA_C5CONFIG:
+    fields: !!omap
+    - E:
+        access: rw
+        description: Channel enable
+        lsb: 0
+        reset_value: '0'
+        width: 1
+    - SRCPERIPHERAL:
+        access: rw
+        description: Source peripheral
+        lsb: 1
+        reset_value: ''
+        width: 5
+    - DESTPERIPHERAL:
+        access: rw
+        description: Destination peripheral
+        lsb: 6
+        reset_value: ''
+        width: 5
+    - FLOWCNTRL:
+        access: rw
+        description: Flow control and transfer type
+        lsb: 11
+        reset_value: ''
+        width: 3
+    - IE:
+        access: rw
+        description: Interrupt error mask
+        lsb: 14
+        reset_value: ''
+        width: 1
+    - ITC:
+        access: rw
+        description: Terminal count interrupt mask
+        lsb: 15
+        reset_value: ''
+        width: 1
+    - L:
+        access: rw
+        description: Lock
+        lsb: 16
+        reset_value: ''
+        width: 1
+    - A:
+        access: r
+        description: Active
+        lsb: 17
+        reset_value: ''
+        width: 1
+    - H:
+        access: rw
+        description: Halt
+        lsb: 18
+        reset_value: ''
+        width: 1
+- GPDMA_C6CONFIG:
+    fields: !!omap
+    - E:
+        access: rw
+        description: Channel enable
+        lsb: 0
+        reset_value: '0'
+        width: 1
+    - SRCPERIPHERAL:
+        access: rw
+        description: Source peripheral
+        lsb: 1
+        reset_value: ''
+        width: 5
+    - DESTPERIPHERAL:
+        access: rw
+        description: Destination peripheral
+        lsb: 6
+        reset_value: ''
+        width: 5
+    - FLOWCNTRL:
+        access: rw
+        description: Flow control and transfer type
+        lsb: 11
+        reset_value: ''
+        width: 3
+    - IE:
+        access: rw
+        description: Interrupt error mask
+        lsb: 14
+        reset_value: ''
+        width: 1
+    - ITC:
+        access: rw
+        description: Terminal count interrupt mask
+        lsb: 15
+        reset_value: ''
+        width: 1
+    - L:
+        access: rw
+        description: Lock
+        lsb: 16
+        reset_value: ''
+        width: 1
+    - A:
+        access: r
+        description: Active
+        lsb: 17
+        reset_value: ''
+        width: 1
+    - H:
+        access: rw
+        description: Halt
+        lsb: 18
+        reset_value: ''
+        width: 1
+- GPDMA_C7CONFIG:
+    fields: !!omap
+    - E:
+        access: rw
+        description: Channel enable
+        lsb: 0
+        reset_value: '0'
+        width: 1
+    - SRCPERIPHERAL:
+        access: rw
+        description: Source peripheral
+        lsb: 1
+        reset_value: ''
+        width: 5
+    - DESTPERIPHERAL:
+        access: rw
+        description: Destination peripheral
+        lsb: 6
+        reset_value: ''
+        width: 5
+    - FLOWCNTRL:
+        access: rw
+        description: Flow control and transfer type
+        lsb: 11
+        reset_value: ''
+        width: 3
+    - IE:
+        access: rw
+        description: Interrupt error mask
+        lsb: 14
+        reset_value: ''
+        width: 1
+    - ITC:
+        access: rw
+        description: Terminal count interrupt mask
+        lsb: 15
+        reset_value: ''
+        width: 1
+    - L:
+        access: rw
+        description: Lock
+        lsb: 16
+        reset_value: ''
+        width: 1
+    - A:
+        access: r
+        description: Active
+        lsb: 17
+        reset_value: ''
+        width: 1
+    - H:
+        access: rw
+        description: Halt
+        lsb: 18
+        reset_value: ''
+        width: 1

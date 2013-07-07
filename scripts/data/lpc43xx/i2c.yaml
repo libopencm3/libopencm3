@@ -1,0 +1,415 @@
+!!omap
+- I2C0_CONSET:
+    fields: !!omap
+    - AA:
+        access: rw
+        description: Assert acknowledge flag
+        lsb: 2
+        reset_value: '0'
+        width: 1
+    - SI:
+        access: rw
+        description: I2C interrupt flag
+        lsb: 3
+        reset_value: '0'
+        width: 1
+    - STO:
+        access: rw
+        description: STOP flag
+        lsb: 4
+        reset_value: '0'
+        width: 1
+    - STA:
+        access: rw
+        description: START flag
+        lsb: 5
+        reset_value: '0'
+        width: 1
+    - I2EN:
+        access: rw
+        description: I2C interface enable
+        lsb: 6
+        reset_value: '0'
+        width: 1
+- I2C1_CONSET:
+    fields: !!omap
+    - AA:
+        access: rw
+        description: Assert acknowledge flag
+        lsb: 2
+        reset_value: '0'
+        width: 1
+    - SI:
+        access: rw
+        description: I2C interrupt flag
+        lsb: 3
+        reset_value: '0'
+        width: 1
+    - STO:
+        access: rw
+        description: STOP flag
+        lsb: 4
+        reset_value: '0'
+        width: 1
+    - STA:
+        access: rw
+        description: START flag
+        lsb: 5
+        reset_value: '0'
+        width: 1
+    - I2EN:
+        access: rw
+        description: I2C interface enable
+        lsb: 6
+        reset_value: '0'
+        width: 1
+- I2C0_STAT:
+    fields: !!omap
+    - STATUS:
+        access: r
+        description: These bits give the actual status information about the I2C interface
+        lsb: 3
+        reset_value: '0x1f'
+        width: 5
+- I2C1_STAT:
+    fields: !!omap
+    - STATUS:
+        access: r
+        description: These bits give the actual status information about the I2C interface
+        lsb: 3
+        reset_value: '0x1f'
+        width: 5
+- I2C0_DAT:
+    fields: !!omap
+    - DATA:
+        access: rw
+        description: This register holds data values that have been received or are
+          to be transmitted
+        lsb: 0
+        reset_value: '0'
+        width: 8
+- I2C1_DAT:
+    fields: !!omap
+    - DATA:
+        access: rw
+        description: This register holds data values that have been received or are
+          to be transmitted
+        lsb: 0
+        reset_value: '0'
+        width: 8
+- I2C0_ADR0:
+    fields: !!omap
+    - GC:
+        access: rw
+        description: General Call enable bit
+        lsb: 0
+        reset_value: '0'
+        width: 1
+    - ADDRESS:
+        access: rw
+        description: The I2C device address for slave mode
+        lsb: 1
+        reset_value: '0'
+        width: 7
+- I2C1_ADR0:
+    fields: !!omap
+    - GC:
+        access: rw
+        description: General Call enable bit
+        lsb: 0
+        reset_value: '0'
+        width: 1
+    - ADDRESS:
+        access: rw
+        description: The I2C device address for slave mode
+        lsb: 1
+        reset_value: '0'
+        width: 7
+- I2C0_SCLH:
+    fields: !!omap
+    - SCLH:
+        access: rw
+        description: Count for SCL HIGH time period selection
+        lsb: 0
+        reset_value: '0x0004'
+        width: 16
+- I2C1_SCLH:
+    fields: !!omap
+    - SCLH:
+        access: rw
+        description: Count for SCL HIGH time period selection
+        lsb: 0
+        reset_value: '0x0004'
+        width: 16
+- I2C0_SCLL:
+    fields: !!omap
+    - SCLL:
+        access: rw
+        description: Count for SCL LOW time period selection
+        lsb: 0
+        reset_value: '0x0004'
+        width: 16
+- I2C1_SCLL:
+    fields: !!omap
+    - SCLL:
+        access: rw
+        description: Count for SCL LOW time period selection
+        lsb: 0
+        reset_value: '0x0004'
+        width: 16
+- I2C0_CONCLR:
+    fields: !!omap
+    - AAC:
+        access: w
+        description: Assert acknowledge Clear bit
+        lsb: 2
+        reset_value: '0'
+        width: 1
+    - SIC:
+        access: w
+        description: I2C interrupt Clear bit
+        lsb: 3
+        reset_value: '0'
+        width: 1
+    - STAC:
+        access: w
+        description: START flag Clear bit
+        lsb: 5
+        reset_value: '0'
+        width: 1
+    - I2ENC:
+        access: w
+        description: I2C interface Disable bit
+        lsb: 6
+        reset_value: '0'
+        width: 1
+- I2C1_CONCLR:
+    fields: !!omap
+    - AAC:
+        access: w
+        description: Assert acknowledge Clear bit
+        lsb: 2
+        reset_value: '0'
+        width: 1
+    - SIC:
+        access: w
+        description: I2C interrupt Clear bit
+        lsb: 3
+        reset_value: '0'
+        width: 1
+    - STAC:
+        access: w
+        description: START flag Clear bit
+        lsb: 5
+        reset_value: '0'
+        width: 1
+    - I2ENC:
+        access: w
+        description: I2C interface Disable bit
+        lsb: 6
+        reset_value: '0'
+        width: 1
+- I2C0_MMCTRL:
+    fields: !!omap
+    - MM_ENA:
+        access: rw
+        description: Monitor mode enable
+        lsb: 0
+        reset_value: '0'
+        width: 1
+    - ENA_SCL:
+        access: rw
+        description: SCL output enable
+        lsb: 1
+        reset_value: '0'
+        width: 1
+    - MATCH_ALL:
+        access: rw
+        description: Select interrupt register match
+        lsb: 2
+        reset_value: '0'
+        width: 1
+- I2C1_MMCTRL:
+    fields: !!omap
+    - MM_ENA:
+        access: rw
+        description: Monitor mode enable
+        lsb: 0
+        reset_value: '0'
+        width: 1
+    - ENA_SCL:
+        access: rw
+        description: SCL output enable
+        lsb: 1
+        reset_value: '0'
+        width: 1
+    - MATCH_ALL:
+        access: rw
+        description: Select interrupt register match
+        lsb: 2
+        reset_value: '0'
+        width: 1
+- I2C0_ADR1:
+    fields: !!omap
+    - GC:
+        access: rw
+        description: General Call enable bit
+        lsb: 0
+        reset_value: '0'
+        width: 1
+    - ADDRESS:
+        access: rw
+        description: The I2C device address for slave mode
+        lsb: 1
+        reset_value: '0'
+        width: 7
+- I2C1_ADR1:
+    fields: !!omap
+    - GC:
+        access: rw
+        description: General Call enable bit
+        lsb: 0
+        reset_value: '0'
+        width: 1
+    - ADDRESS:
+        access: rw
+        description: The I2C device address for slave mode
+        lsb: 1
+        reset_value: '0'
+        width: 7
+- I2C0_ADR2:
+    fields: !!omap
+    - GC:
+        access: rw
+        description: General Call enable bit
+        lsb: 0
+        reset_value: '0'
+        width: 1
+    - ADDRESS:
+        access: rw
+        description: The I2C device address for slave mode
+        lsb: 1
+        reset_value: '0'
+        width: 7
+- I2C1_ADR2:
+    fields: !!omap
+    - GC:
+        access: rw
+        description: General Call enable bit
+        lsb: 0
+        reset_value: '0'
+        width: 1
+    - ADDRESS:
+        access: rw
+        description: The I2C device address for slave mode
+        lsb: 1
+        reset_value: '0'
+        width: 7
+- I2C0_ADR3:
+    fields: !!omap
+    - GC:
+        access: rw
+        description: General Call enable bit
+        lsb: 0
+        reset_value: '0'
+        width: 1
+    - ADDRESS:
+        access: rw
+        description: The I2C device address for slave mode
+        lsb: 1
+        reset_value: '0'
+        width: 7
+- I2C1_ADR3:
+    fields: !!omap
+    - GC:
+        access: rw
+        description: General Call enable bit
+        lsb: 0
+        reset_value: '0'
+        width: 1
+    - ADDRESS:
+        access: rw
+        description: The I2C device address for slave mode
+        lsb: 1
+        reset_value: '0'
+        width: 7
+- I2C0_DATA_BUFFER:
+    fields: !!omap
+    - DATA:
+        access: r
+        description: This register holds contents of the 8 MSBs of the DAT shift register
+        lsb: 0
+        reset_value: '0'
+        width: 8
+- I2C1_DATA_BUFFER:
+    fields: !!omap
+    - DATA:
+        access: r
+        description: This register holds contents of the 8 MSBs of the DAT shift register
+        lsb: 0
+        reset_value: '0'
+        width: 8
+- I2C0_MASK0:
+    fields: !!omap
+    - MASK:
+        access: rw
+        description: Mask bits
+        lsb: 1
+        reset_value: '0'
+        width: 7
+- I2C1_MASK0:
+    fields: !!omap
+    - MASK:
+        access: rw
+        description: Mask bits
+        lsb: 1
+        reset_value: '0'
+        width: 7
+- I2C0_MASK1:
+    fields: !!omap
+    - MASK:
+        access: rw
+        description: Mask bits
+        lsb: 1
+        reset_value: '0'
+        width: 7
+- I2C1_MASK1:
+    fields: !!omap
+    - MASK:
+        access: rw
+        description: Mask bits
+        lsb: 1
+        reset_value: '0'
+        width: 7
+- I2C0_MASK2:
+    fields: !!omap
+    - MASK:
+        access: rw
+        description: Mask bits
+        lsb: 1
+        reset_value: '0'
+        width: 7
+- I2C1_MASK2:
+    fields: !!omap
+    - MASK:
+        access: rw
+        description: Mask bits
+        lsb: 1
+        reset_value: '0'
+        width: 7
+- I2C0_MASK3:
+    fields: !!omap
+    - MASK:
+        access: rw
+        description: Mask bits
+        lsb: 1
+        reset_value: '0'
+        width: 7
+- I2C1_MASK3:
+    fields: !!omap
+    - MASK:
+        access: rw
+        description: Mask bits
+        lsb: 1
+        reset_value: '0'
+        width: 7

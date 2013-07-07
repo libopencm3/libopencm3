@@ -1,0 +1,937 @@
+!!omap
+- CGU_FREQ_MON:
+    fields: !!omap
+    - RCNT:
+        access: rw
+        description: 9-bit reference clock-counter value
+        lsb: 0
+        reset_value: '0'
+        width: 9
+    - FCNT:
+        access: r
+        description: 14-bit selected clock-counter value
+        lsb: 9
+        reset_value: '0'
+        width: 14
+    - MEAS:
+        access: rw
+        description: Measure frequency
+        lsb: 23
+        reset_value: '0'
+        width: 1
+    - CLK_SEL:
+        access: rw
+        description: Clock-source selection for the clock to be measured
+        lsb: 24
+        reset_value: '0'
+        width: 5
+- CGU_XTAL_OSC_CTRL:
+    fields: !!omap
+    - ENABLE:
+        access: rw
+        description: Oscillator-pad enable
+        lsb: 0
+        reset_value: '1'
+        width: 1
+    - BYPASS:
+        access: rw
+        description: Configure crystal operation or external-clock input pin XTAL1
+        lsb: 1
+        reset_value: '0'
+        width: 1
+    - HF:
+        access: rw
+        description: Select frequency range
+        lsb: 2
+        reset_value: '1'
+        width: 1
+- CGU_PLL0USB_STAT:
+    fields: !!omap
+    - LOCK:
+        access: r
+        description: PLL0 lock indicator
+        lsb: 0
+        reset_value: '0'
+        width: 1
+    - FR:
+        access: r
+        description: PLL0 free running indicator
+        lsb: 1
+        reset_value: '0'
+        width: 1
+- CGU_PLL0USB_CTRL:
+    fields: !!omap
+    - PD:
+        access: rw
+        description: PLL0 power down
+        lsb: 0
+        reset_value: '1'
+        width: 1
+    - BYPASS:
+        access: rw
+        description: Input clock bypass control
+        lsb: 1
+        reset_value: '1'
+        width: 1
+    - DIRECTI:
+        access: rw
+        description: PLL0 direct input
+        lsb: 2
+        reset_value: '0'
+        width: 1
+    - DIRECTO:
+        access: rw
+        description: PLL0 direct output
+        lsb: 3
+        reset_value: '0'
+        width: 1
+    - CLKEN:
+        access: rw
+        description: PLL0 clock enable
+        lsb: 4
+        reset_value: '0'
+        width: 1
+    - FRM:
+        access: rw
+        description: Free running mode
+        lsb: 6
+        reset_value: '0'
+        width: 1
+    - AUTOBLOCK:
+        access: rw
+        description: Block clock automatically during frequency change
+        lsb: 11
+        reset_value: '0'
+        width: 1
+    - CLK_SEL:
+        access: rw
+        description: Clock source selection
+        lsb: 24
+        reset_value: '0x01'
+        width: 5
+- CGU_PLL0USB_MDIV:
+    fields: !!omap
+    - MDEC:
+        access: rw
+        description: Decoded M-divider coefficient value
+        lsb: 0
+        reset_value: '0x5B6A'
+        width: 17
+    - SELP:
+        access: rw
+        description: Bandwidth select P value
+        lsb: 17
+        reset_value: '0x1C'
+        width: 5
+    - SELI:
+        access: rw
+        description: Bandwidth select I value
+        lsb: 22
+        reset_value: '0x17'
+        width: 6
+    - SELR:
+        access: rw
+        description: Bandwidth select R value
+        lsb: 28
+        reset_value: '0x0'
+        width: 4
+- CGU_PLL0USB_NP_DIV:
+    fields: !!omap
+    - PDEC:
+        access: rw
+        description: Decoded P-divider coefficient value
+        lsb: 0
+        reset_value: '0x02'
+        width: 7
+    - NDEC:
+        access: rw
+        description: Decoded N-divider coefficient value
+        lsb: 12
+        reset_value: '0xB1'
+        width: 10
+- CGU_PLL0AUDIO_STAT:
+    fields: !!omap
+    - LOCK:
+        access: r
+        description: PLL0 lock indicator
+        lsb: 0
+        reset_value: '0'
+        width: 1
+    - FR:
+        access: r
+        description: PLL0 free running indicator
+        lsb: 1
+        reset_value: '0'
+        width: 1
+- CGU_PLL0AUDIO_CTRL:
+    fields: !!omap
+    - PD:
+        access: rw
+        description: PLL0 power down
+        lsb: 0
+        reset_value: '1'
+        width: 1
+    - BYPASS:
+        access: rw
+        description: Input clock bypass control
+        lsb: 1
+        reset_value: '1'
+        width: 1
+    - DIRECTI:
+        access: rw
+        description: PLL0 direct input
+        lsb: 2
+        reset_value: '0'
+        width: 1
+    - DIRECTO:
+        access: rw
+        description: PLL0 direct output
+        lsb: 3
+        reset_value: '0'
+        width: 1
+    - CLKEN:
+        access: rw
+        description: PLL0 clock enable
+        lsb: 4
+        reset_value: '0'
+        width: 1
+    - FRM:
+        access: rw
+        description: Free running mode
+        lsb: 6
+        reset_value: '0'
+        width: 1
+    - AUTOBLOCK:
+        access: rw
+        description: Block clock automatically during frequency change
+        lsb: 11
+        reset_value: '0'
+        width: 1
+    - PLLFRACT_REQ:
+        access: rw
+        description: Fractional PLL word write request
+        lsb: 12
+        reset_value: '0'
+        width: 1
+    - SEL_EXT:
+        access: rw
+        description: Select fractional divider
+        lsb: 13
+        reset_value: '0'
+        width: 1
+    - MOD_PD:
+        access: rw
+        description: Sigma-Delta modulator power-down
+        lsb: 14
+        reset_value: '1'
+        width: 1
+    - CLK_SEL:
+        access: rw
+        description: Clock source selection
+        lsb: 24
+        reset_value: '0x01'
+        width: 5
+- CGU_PLL0AUDIO_MDIV:
+    fields: !!omap
+    - MDEC:
+        access: rw
+        description: Decoded M-divider coefficient value
+        lsb: 0
+        reset_value: '0x5B6A'
+        width: 17
+- CGU_PLL0AUDIO_NP_DIV:
+    fields: !!omap
+    - PDEC:
+        access: rw
+        description: Decoded P-divider coefficient value
+        lsb: 0
+        reset_value: '0x02'
+        width: 7
+    - NDEC:
+        access: rw
+        description: Decoded N-divider coefficient value
+        lsb: 12
+        reset_value: '0xB1'
+        width: 10
+- CGU_PLLAUDIO_FRAC:
+    fields: !!omap
+    - PLLFRACT_CTRL:
+        access: rw
+        description: PLL fractional divider control word
+        lsb: 0
+        reset_value: '0x00'
+        width: 22
+- CGU_PLL1_STAT:
+    fields: !!omap
+    - LOCK:
+        access: r
+        description: PLL1 lock indicator
+        lsb: 0
+        reset_value: '0'
+        width: 1
+- CGU_PLL1_CTRL:
+    fields: !!omap
+    - PD:
+        access: rw
+        description: PLL1 power down
+        lsb: 0
+        reset_value: '1'
+        width: 1
+    - BYPASS:
+        access: rw
+        description: Input clock bypass control
+        lsb: 1
+        reset_value: '1'
+        width: 1
+    - FBSEL:
+        access: rw
+        description: PLL feedback select
+        lsb: 6
+        reset_value: '0'
+        width: 1
+    - DIRECT:
+        access: rw
+        description: PLL direct CCO output
+        lsb: 7
+        reset_value: '0'
+        width: 1
+    - PSEL:
+        access: rw
+        description: Post-divider division ratio P
+        lsb: 8
+        reset_value: '0x1'
+        width: 2
+    - AUTOBLOCK:
+        access: rw
+        description: Block clock automatically during frequency change
+        lsb: 11
+        reset_value: '0'
+        width: 1
+    - NSEL:
+        access: rw
+        description: Pre-divider division ratio N
+        lsb: 12
+        reset_value: '0x2'
+        width: 2
+    - MSEL:
+        access: rw
+        description: Feedback-divider division ratio (M)
+        lsb: 16
+        reset_value: '0x18'
+        width: 8
+    - CLK_SEL:
+        access: rw
+        description: Clock-source selection
+        lsb: 24
+        reset_value: '0x01'
+        width: 5
+- CGU_IDIVA_CTRL:
+    fields: !!omap
+    - PD:
+        access: rw
+        description: Integer divider power down
+        lsb: 0
+        reset_value: '0'
+        width: 1
+    - IDIV:
+        access: rw
+        description: Integer divider A divider value (1/(IDIV + 1))
+        lsb: 2
+        reset_value: '0x0'
+        width: 2
+    - AUTOBLOCK:
+        access: rw
+        description: Block clock automatically during frequency change
+        lsb: 11
+        reset_value: '0'
+        width: 1
+    - CLK_SEL:
+        access: rw
+        description: Clock source selection
+        lsb: 24
+        reset_value: '0x01'
+        width: 5
+- CGU_IDIVB_CTRL:
+    fields: !!omap
+    - PD:
+        access: rw
+        description: Integer divider power down
+        lsb: 0
+        reset_value: '0'
+        width: 1
+    - IDIV:
+        access: rw
+        description: Integer divider B divider value (1/(IDIV + 1))
+        lsb: 2
+        reset_value: '0x0'
+        width: 4
+    - AUTOBLOCK:
+        access: rw
+        description: Block clock automatically during frequency change
+        lsb: 11
+        reset_value: '0'
+        width: 1
+    - CLK_SEL:
+        access: rw
+        description: Clock source selection
+        lsb: 24
+        reset_value: '0x01'
+        width: 5
+- CGU_IDIVC_CTRL:
+    fields: !!omap
+    - PD:
+        access: rw
+        description: Integer divider power down
+        lsb: 0
+        reset_value: '0'
+        width: 1
+    - IDIV:
+        access: rw
+        description: Integer divider C divider value (1/(IDIV + 1))
+        lsb: 2
+        reset_value: '0x0'
+        width: 4
+    - AUTOBLOCK:
+        access: rw
+        description: Block clock automatically during frequency change
+        lsb: 11
+        reset_value: '0'
+        width: 1
+    - CLK_SEL:
+        access: rw
+        description: Clock source selection
+        lsb: 24
+        reset_value: '0x01'
+        width: 5
+- CGU_IDIVD_CTRL:
+    fields: !!omap
+    - PD:
+        access: rw
+        description: Integer divider power down
+        lsb: 0
+        reset_value: '0'
+        width: 1
+    - IDIV:
+        access: rw
+        description: Integer divider D divider value (1/(IDIV + 1))
+        lsb: 2
+        reset_value: '0x0'
+        width: 4
+    - AUTOBLOCK:
+        access: rw
+        description: Block clock automatically during frequency change
+        lsb: 11
+        reset_value: '0'
+        width: 1
+    - CLK_SEL:
+        access: rw
+        description: Clock source selection
+        lsb: 24
+        reset_value: '0x01'
+        width: 5
+- CGU_IDIVE_CTRL:
+    fields: !!omap
+    - PD:
+        access: rw
+        description: Integer divider power down
+        lsb: 0
+        reset_value: '0'
+        width: 1
+    - IDIV:
+        access: rw
+        description: Integer divider E divider value (1/(IDIV + 1))
+        lsb: 2
+        reset_value: '0x00'
+        width: 8
+    - AUTOBLOCK:
+        access: rw
+        description: Block clock automatically during frequency change
+        lsb: 11
+        reset_value: '0'
+        width: 1
+    - CLK_SEL:
+        access: rw
+        description: Clock source selection
+        lsb: 24
+        reset_value: '0x01'
+        width: 5
+- CGU_BASE_SAFE_CLK:
+    fields: !!omap
+    - PD:
+        access: r
+        description: Output stage power down
+        lsb: 0
+        reset_value: '0'
+        width: 1
+    - AUTOBLOCK:
+        access: r
+        description: Block clock automatically during frequency change
+        lsb: 11
+        reset_value: '0'
+        width: 1
+    - CLK_SEL:
+        access: r
+        description: Clock source selection
+        lsb: 24
+        reset_value: '0x01'
+        width: 5
+- CGU_BASE_USB0_CLK:
+    fields: !!omap
+    - PD:
+        access: rw
+        description: Output stage power down
+        lsb: 0
+        reset_value: '0'
+        width: 1
+    - AUTOBLOCK:
+        access: rw
+        description: Block clock automatically during frequency change
+        lsb: 11
+        reset_value: '0'
+        width: 1
+    - CLK_SEL:
+        access: rw
+        description: Clock source selection
+        lsb: 24
+        reset_value: '0x07'
+        width: 5
+- CGU_BASE_PERIPH_CLK:
+    fields: !!omap
+    - PD:
+        access: rw
+        description: Output stage power down
+        lsb: 0
+        reset_value: '0'
+        width: 1
+    - AUTOBLOCK:
+        access: rw
+        description: Block clock automatically during frequency change
+        lsb: 11
+        reset_value: '0'
+        width: 1
+    - CLK_SEL:
+        access: rw
+        description: Clock source selection
+        lsb: 24
+        reset_value: '0x01'
+        width: 5
+- CGU_BASE_USB1_CLK:
+    fields: !!omap
+    - PD:
+        access: rw
+        description: Output stage power down
+        lsb: 0
+        reset_value: '0'
+        width: 1
+    - AUTOBLOCK:
+        access: rw
+        description: Block clock automatically during frequency change
+        lsb: 11
+        reset_value: '0'
+        width: 1
+    - CLK_SEL:
+        access: rw
+        description: Clock source selection
+        lsb: 24
+        reset_value: '0x01'
+        width: 5
+- CGU_BASE_M4_CLK:
+    fields: !!omap
+    - PD:
+        access: rw
+        description: Output stage power down
+        lsb: 0
+        reset_value: '0'
+        width: 1
+    - AUTOBLOCK:
+        access: rw
+        description: Block clock automatically during frequency change
+        lsb: 11
+        reset_value: '0'
+        width: 1
+    - CLK_SEL:
+        access: rw
+        description: Clock source selection
+        lsb: 24
+        reset_value: '0x01'
+        width: 5
+- CGU_BASE_SPIFI_CLK:
+    fields: !!omap
+    - PD:
+        access: rw
+        description: Output stage power down
+        lsb: 0
+        reset_value: '0'
+        width: 1
+    - AUTOBLOCK:
+        access: rw
+        description: Block clock automatically during frequency change
+        lsb: 11
+        reset_value: '0'
+        width: 1
+    - CLK_SEL:
+        access: rw
+        description: Clock source selection
+        lsb: 24
+        reset_value: '0x01'
+        width: 5
+- CGU_BASE_SPI_CLK:
+    fields: !!omap
+    - PD:
+        access: rw
+        description: Output stage power down
+        lsb: 0
+        reset_value: '0'
+        width: 1
+    - AUTOBLOCK:
+        access: rw
+        description: Block clock automatically during frequency change
+        lsb: 11
+        reset_value: '0'
+        width: 1
+    - CLK_SEL:
+        access: rw
+        description: Clock source selection
+        lsb: 24
+        reset_value: '0x01'
+        width: 5
+- CGU_BASE_PHY_RX_CLK:
+    fields: !!omap
+    - PD:
+        access: rw
+        description: Output stage power down
+        lsb: 0
+        reset_value: '0'
+        width: 1
+    - AUTOBLOCK:
+        access: rw
+        description: Block clock automatically during frequency change
+        lsb: 11
+        reset_value: '0'
+        width: 1
+    - CLK_SEL:
+        access: rw
+        description: Clock source selection
+        lsb: 24
+        reset_value: '0x01'
+        width: 5
+- CGU_BASE_PHY_TX_CLK:
+    fields: !!omap
+    - PD:
+        access: rw
+        description: Output stage power down
+        lsb: 0
+        reset_value: '0'
+        width: 1
+    - AUTOBLOCK:
+        access: rw
+        description: Block clock automatically during frequency change
+        lsb: 11
+        reset_value: '0'
+        width: 1
+    - CLK_SEL:
+        access: rw
+        description: Clock source selection
+        lsb: 24
+        reset_value: '0x01'
+        width: 5
+- CGU_BASE_APB1_CLK:
+    fields: !!omap
+    - PD:
+        access: rw
+        description: Output stage power down
+        lsb: 0
+        reset_value: '0'
+        width: 1
+    - AUTOBLOCK:
+        access: rw
+        description: Block clock automatically during frequency change
+        lsb: 11
+        reset_value: '0'
+        width: 1
+    - CLK_SEL:
+        access: rw
+        description: Clock source selection
+        lsb: 24
+        reset_value: '0x01'
+        width: 5
+- CGU_BASE_APB3_CLK:
+    fields: !!omap
+    - PD:
+        access: rw
+        description: Output stage power down
+        lsb: 0
+        reset_value: '0'
+        width: 1
+    - AUTOBLOCK:
+        access: rw
+        description: Block clock automatically during frequency change
+        lsb: 11
+        reset_value: '0'
+        width: 1
+    - CLK_SEL:
+        access: rw
+        description: Clock source selection
+        lsb: 24
+        reset_value: '0x01'
+        width: 5
+- CGU_BASE_LCD_CLK:
+    fields: !!omap
+    - PD:
+        access: rw
+        description: Output stage power down
+        lsb: 0
+        reset_value: '0'
+        width: 1
+    - AUTOBLOCK:
+        access: rw
+        description: Block clock automatically during frequency change
+        lsb: 11
+        reset_value: '0'
+        width: 1
+    - CLK_SEL:
+        access: rw
+        description: Clock source selection
+        lsb: 24
+        reset_value: '0x01'
+        width: 5
+- CGU_BASE_VADC_CLK:
+    fields: !!omap
+    - PD:
+        access: rw
+        description: Output stage power down
+        lsb: 0
+        reset_value: '0'
+        width: 1
+    - AUTOBLOCK:
+        access: rw
+        description: Block clock automatically during frequency change
+        lsb: 11
+        reset_value: '0'
+        width: 1
+    - CLK_SEL:
+        access: rw
+        description: Clock source selection
+        lsb: 24
+        reset_value: '0x01'
+        width: 5
+- CGU_BASE_SDIO_CLK:
+    fields: !!omap
+    - PD:
+        access: rw
+        description: Output stage power down
+        lsb: 0
+        reset_value: '0'
+        width: 1
+    - AUTOBLOCK:
+        access: rw
+        description: Block clock automatically during frequency change
+        lsb: 11
+        reset_value: '0'
+        width: 1
+    - CLK_SEL:
+        access: rw
+        description: Clock source selection
+        lsb: 24
+        reset_value: '0x01'
+        width: 5
+- CGU_BASE_SSP0_CLK:
+    fields: !!omap
+    - PD:
+        access: rw
+        description: Output stage power down
+        lsb: 0
+        reset_value: '0'
+        width: 1
+    - AUTOBLOCK:
+        access: rw
+        description: Block clock automatically during frequency change
+        lsb: 11
+        reset_value: '0'
+        width: 1
+    - CLK_SEL:
+        access: rw
+        description: Clock source selection
+        lsb: 24
+        reset_value: '0x01'
+        width: 5
+- CGU_BASE_SSP1_CLK:
+    fields: !!omap
+    - PD:
+        access: rw
+        description: Output stage power down
+        lsb: 0
+        reset_value: '0'
+        width: 1
+    - AUTOBLOCK:
+        access: rw
+        description: Block clock automatically during frequency change
+        lsb: 11
+        reset_value: '0'
+        width: 1
+    - CLK_SEL:
+        access: rw
+        description: Clock source selection
+        lsb: 24
+        reset_value: '0x01'
+        width: 5
+- CGU_BASE_UART0_CLK:
+    fields: !!omap
+    - PD:
+        access: rw
+        description: Output stage power down
+        lsb: 0
+        reset_value: '0'
+        width: 1
+    - AUTOBLOCK:
+        access: rw
+        description: Block clock automatically during frequency change
+        lsb: 11
+        reset_value: '0'
+        width: 1
+    - CLK_SEL:
+        access: rw
+        description: Clock source selection
+        lsb: 24
+        reset_value: '0x01'
+        width: 5
+- CGU_BASE_UART1_CLK:
+    fields: !!omap
+    - PD:
+        access: rw
+        description: Output stage power down
+        lsb: 0
+        reset_value: '0'
+        width: 1
+    - AUTOBLOCK:
+        access: rw
+        description: Block clock automatically during frequency change
+        lsb: 11
+        reset_value: '0'
+        width: 1
+    - CLK_SEL:
+        access: rw
+        description: Clock source selection
+        lsb: 24
+        reset_value: '0x01'
+        width: 5
+- CGU_BASE_UART2_CLK:
+    fields: !!omap
+    - PD:
+        access: rw
+        description: Output stage power down
+        lsb: 0
+        reset_value: '0'
+        width: 1
+    - AUTOBLOCK:
+        access: rw
+        description: Block clock automatically during frequency change
+        lsb: 11
+        reset_value: '0'
+        width: 1
+    - CLK_SEL:
+        access: rw
+        description: Clock source selection
+        lsb: 24
+        reset_value: '0x01'
+        width: 5
+- CGU_BASE_UART3_CLK:
+    fields: !!omap
+    - PD:
+        access: rw
+        description: Output stage power down
+        lsb: 0
+        reset_value: '0'
+        width: 1
+    - AUTOBLOCK:
+        access: rw
+        description: Block clock automatically during frequency change
+        lsb: 11
+        reset_value: '0'
+        width: 1
+    - CLK_SEL:
+        access: rw
+        description: Clock source selection
+        lsb: 24
+        reset_value: '0x01'
+        width: 5
+- CGU_BASE_OUT_CLK:
+    fields: !!omap
+    - PD:
+        access: rw
+        description: Output stage power down
+        lsb: 0
+        reset_value: '0'
+        width: 1
+    - AUTOBLOCK:
+        access: rw
+        description: Block clock automatically during frequency change
+        lsb: 11
+        reset_value: '0'
+        width: 1
+    - CLK_SEL:
+        access: rw
+        description: Clock source selection
+        lsb: 24
+        reset_value: '0x01'
+        width: 5
+- CGU_BASE_APLL_CLK:
+    fields: !!omap
+    - PD:
+        access: rw
+        description: Output stage power down
+        lsb: 0
+        reset_value: '0'
+        width: 1
+    - AUTOBLOCK:
+        access: rw
+        description: Block clock automatically during frequency change
+        lsb: 11
+        reset_value: '0'
+        width: 1
+    - CLK_SEL:
+        access: rw
+        description: Clock source selection
+        lsb: 24
+        reset_value: '0x01'
+        width: 5
+- CGU_BASE_CGU_OUT0_CLK:
+    fields: !!omap
+    - PD:
+        access: rw
+        description: Output stage power down
+        lsb: 0
+        reset_value: '0'
+        width: 1
+    - AUTOBLOCK:
+        access: rw
+        description: Block clock automatically during frequency change
+        lsb: 11
+        reset_value: '0'
+        width: 1
+    - CLK_SEL:
+        access: rw
+        description: Clock source selection
+        lsb: 24
+        reset_value: '0x01'
+        width: 5
+- CGU_BASE_CGU_OUT1_CLK:
+    fields: !!omap
+    - PD:
+        access: rw
+        description: Output stage power down
+        lsb: 0
+        reset_value: '0'
+        width: 1
+    - AUTOBLOCK:
+        access: rw
+        description: Block clock automatically during frequency change
+        lsb: 11
+        reset_value: '0'
+        width: 1
+    - CLK_SEL:
+        access: rw
+        description: Clock source selection
+        lsb: 24
+        reset_value: '0x01'
+        width: 5
