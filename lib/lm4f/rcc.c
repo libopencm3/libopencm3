@@ -116,7 +116,7 @@ uint32_t lm4f_rcc_sysclk_freq = 16000000;
  *
  * @param[in] xtal predefined crystal type @see xtal_t
  */
-void rcc_configure_xtal(xtal_t xtal)
+void rcc_configure_xtal(enum xtal_t xtal)
 {
 	uint32_t reg32;
 
@@ -213,7 +213,7 @@ void rcc_pll_on(void)
  * USERCC2 must have been set by a call to rcc_enable_rcc2() before calling this
  * function.
  */
-void rcc_set_osc_source(osc_src_t src)
+void rcc_set_osc_source(enum osc_src src)
 {
 	uint32_t reg32;
 
@@ -291,7 +291,7 @@ void rcc_set_pll_divisor(uint8_t div400)
  *
  * @param[in] div clock divisor to use @see pwm_clkdiv_t
  */
-void rcc_set_pwm_divisor(pwm_clkdiv_t div)
+void rcc_set_pwm_divisor(enum pwm_clkdiv div)
 {
 	uint32_t reg32;
 
@@ -385,8 +385,8 @@ uint32_t rcc_get_system_clock_frequency(void)
 	return lm4f_rcc_sysclk_freq;
 }
 
-/* Get the clock frequency corresponging to a given XTAL value */
-static uint32_t xtal_to_freq(xtal_t xtal)
+/* Get the clock frequency corresponding to a given XTAL value */
+static uint32_t xtal_to_freq(enum xtal_t xtal)
 {
 	const uint32_t freqs[] = {
 		 4000000,	/* XTAL_4M */
@@ -440,7 +440,7 @@ static uint32_t xtal_to_freq(xtal_t xtal)
  *
  * @return System clock frequency in Hz
  */
-void rcc_sysclk_config(osc_src_t osc_src, xtal_t xtal, uint8_t pll_div400)
+void rcc_sysclk_config(enum osc_src src, enum xtal_t xtal, uint8_t pll_div400)
 {
 	/*
 	 * We could be using the PLL at this point, or we could be running of a
@@ -449,7 +449,7 @@ void rcc_sysclk_config(osc_src_t osc_src, xtal_t xtal, uint8_t pll_div400)
 	rcc_pll_bypass_enable();
 
 	/* Enable the main oscillator, if needed */
-	if (osc_src == OSCSRC_MOSC) {
+	if (src == OSCSRC_MOSC) {
 		rcc_enable_main_osc();
 	}
 
@@ -459,7 +459,7 @@ void rcc_sysclk_config(osc_src_t osc_src, xtal_t xtal, uint8_t pll_div400)
 	/* Set XTAL value to 16MHz */
 	rcc_configure_xtal(xtal);
 	/* Set the oscillator source */
-	rcc_set_osc_source(osc_src);
+	rcc_set_osc_source(src);
 	if (pll_div400) {
 		/* Enable the PLL */
 		rcc_pll_on();
@@ -467,7 +467,7 @@ void rcc_sysclk_config(osc_src_t osc_src, xtal_t xtal, uint8_t pll_div400)
 		rcc_change_pll_divisor(pll_div400);
 	} else {
 		/* We are running off a raw clock */
-		switch (osc_src) {
+		switch (src) {
 		case OSCSRC_PIOSC:
 			lm4f_rcc_sysclk_freq = 16000000;
 			break;

@@ -45,13 +45,13 @@ LGPL License Terms @ref lgpl_license
  *
  * Possible values of the oscillator source.
  */
-typedef enum {
+enum osc_src {
 	OSCSRC_MOSC		= SYSCTL_RCC2_OSCSRC2_MOSC,
 	OSCSRC_PIOSC		= SYSCTL_RCC2_OSCSRC2_PIOSC,
 	OSCSRC_PIOSC_D4		= SYSCTL_RCC2_OSCSRC2_PIOSC_D4,
 	OSCSRC_30K_INT		= SYSCTL_RCC2_OSCSRC2_30K,
 	OSCSRC_32K_EXT		= SYSCTL_RCC2_OSCSRC2_32K768,
-} osc_src_t;
+};
 
 /**
  * \brief PWM clock divisor values
@@ -59,14 +59,14 @@ typedef enum {
  * Possible values of the binary divisor used to predivide the system clock down
  * for use as the timing reference for the PWM module.
  */
-typedef enum {
+enum pwm_clkdiv {
 	PWMDIV_2		= SYSCTL_RCC_PWMDIV_2,
 	PWMDIV_4		= SYSCTL_RCC_PWMDIV_4,
 	PWMDIV_8		= SYSCTL_RCC_PWMDIV_8,
 	PWMDIV_16		= SYSCTL_RCC_PWMDIV_16,
 	PWMDIV_32		= SYSCTL_RCC_PWMDIV_32,
 	PWMDIV_64		= SYSCTL_RCC_PWMDIV_64,
-} pwm_clkdiv_t;
+};
 
 /**
  * \brief Predefined crystal values
@@ -76,7 +76,7 @@ typedef enum {
  * SYSCTL_PLLFREQ1 are automatically adjusted in hardware to provide a PLL clock
  * of 400MHz.
  */
-typedef enum {
+enum xtal_t {
 	XTAL_4M			= SYSCTL_RCC_XTAL_4M,
 	XTAL_4M_096		= SYSCTL_RCC_XTAL_4M_096,
 	XTAL_4M_9152		= SYSCTL_RCC_XTAL_4M_9152,
@@ -98,14 +98,14 @@ typedef enum {
 	XTAL_20M		= SYSCTL_RCC_XTAL_20M,
 	XTAL_24M		= SYSCTL_RCC_XTAL_24M,
 	XTAL_25M		= SYSCTL_RCC_XTAL_25M,
-} xtal_t;
+};
 
 /* =============================================================================
  * Function prototypes
  * ---------------------------------------------------------------------------*/
 BEGIN_DECLS
 /* Low-level clock API */
-void rcc_configure_xtal(xtal_t xtal);
+void rcc_configure_xtal(enum xtal_t xtal);
 void rcc_disable_main_osc(void);
 void rcc_disable_interal_osc(void);
 void rcc_enable_main_osc(void);
@@ -113,18 +113,18 @@ void rcc_enable_interal_osc(void);
 void rcc_enable_rcc2(void);
 void rcc_pll_off(void);
 void rcc_pll_on(void);
-void rcc_set_osc_source(osc_src_t src);
+void rcc_set_osc_source(enum osc_src src);
 void rcc_pll_bypass_disable(void);
 void rcc_pll_bypass_enable(void);
 void rcc_set_pll_divisor(uint8_t div400);
-void rcc_set_pwm_divisor(pwm_clkdiv_t div);
+void rcc_set_pwm_divisor(enum pwm_clkdiv div);
 void rcc_usb_pll_off(void);
 void rcc_usb_pll_on(void);
 void rcc_wait_for_pll_ready(void);
 /* High-level clock API */
 void rcc_change_pll_divisor(uint8_t plldiv400);
 uint32_t rcc_get_system_clock_frequency(void);
-void rcc_sysclk_config(osc_src_t src, xtal_t xtal, uint8_t pll_div400);
+void rcc_sysclk_config(enum osc_src src, enum xtal_t xtal, uint8_t pll_div400);
 
 END_DECLS
 

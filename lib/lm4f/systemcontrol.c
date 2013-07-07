@@ -22,9 +22,9 @@
 /**
  * \brief Enable the clock source for the peripheral
  *
- * @param[in] periph peripheral and clock type to enable @see clken_t
+ * @param[in] periph peripheral and clock type to enable @see lm4f_clken
  */
-void periph_clock_enable(clken_t periph)
+void periph_clock_enable(enum lm4f_clken periph)
 {
 	MMIO32(SYSCTL_BASE + (periph >> 5)) |= 1 << (periph & 0x1f);
 }
@@ -32,9 +32,9 @@ void periph_clock_enable(clken_t periph)
 /**
  * \brief Disable the clock source for the peripheral
  *
- * @param[in] periph peripheral and clock type to enable @see clken_t
+ * @param[in] periph peripheral and clock type to enable @see lm4f_clken
  */
-void periph_clock_disable(clken_t periph)
+void periph_clock_disable(enum lm4f_clken periph)
 {
 	MMIO32(SYSCTL_BASE + (periph >> 5)) &= ~(1 << (periph & 0x1f));
 }
