@@ -56,11 +56,9 @@ generatedheaders:
 		./scripts/irq2nvic_h $$yamlfile ; \
 	done
 
-cleanheaders:
-	@printf "  CLEANING HEADERS\n"
-	$(Q)for yamlfile in $(YAMLFILES); do \
-		./scripts/irq2nvic_h --remove $$yamlfile ; \
-	done
+%.cleanhdr:
+	@printf "  CLNHDR  $*\n";
+	@./scripts/irq2nvic_h --remove ./$*
 
 LIB_DIRS:=$(wildcard $(addprefix lib/,$(TARGETS)))
 $(LIB_DIRS): generatedheaders
@@ -89,7 +87,7 @@ install: lib
 doc:
 	$(Q)$(MAKE) -C doc html
 
-clean: cleanheaders $(LIB_DIRS:=.clean) $(EXAMPLE_DIRS:=.clean) doc.clean
+clean: $(YAMLFILES:=.cleanhdr) $(LIB_DIRS:=.clean) $(EXAMPLE_DIRS:=.clean) doc.clean
 
 %.clean:
 	$(Q)if [ -d $* ]; then \
@@ -104,5 +102,5 @@ stylecheck:
 		fi ; \
 	done
 
-.PHONY: build lib $(LIB_DIRS) install doc clean generatedheaders cleanheaders stylecheck
+.PHONY: build lib $(LIB_DIRS) install doc clean generatedheaders stylecheck
 
