@@ -14,7 +14,7 @@ File contents
 * {ROOT}/ld/tests/* 		- Prepared tests for the testing of the script
 * {ROOT}/ld/devices.data	- Device database file
 * {ROOT}/ld/Makefile.linker	- Common makefile part
-* {ROOT}/src/linker.ld.S	- Linker script template
+* {ROOT}/ld/linker.ld.S		- Linker script template
 * {ROOT}/scripts/genlink.awk	- Device database file search script 
 * {ROOT}/scripts/genlinktest.sh	- Device database file search test script
 
