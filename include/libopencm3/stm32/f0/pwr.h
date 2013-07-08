@@ -1,4 +1,15 @@
-/* This provides unification of code over STM32F subfamilies */
+/** @defgroup pwr_defines PWR Defines
+ *
+ * @brief <b>Defined Constants and Types for the STM32F1xx PWR Control</b>
+ *
+ * @ingroup STM32F1xx_defines
+ *
+ * @version 1.0.0
+ *
+ * @date 5 December 2012
+ *
+ * LGPL License Terms @ref lgpl_license
+ */
 
 /*
  * This file is part of the libopencm3 project.
@@ -16,19 +27,18 @@
  * You should have received a copy of the GNU Lesser General Public License
  * along with this library.  If not, see <http://www.gnu.org/licenses/>.
  */
-#if defined(STM32F0)
-#       include <libopencm3/stm32/f0/flash.h>
-#elif defined(STM32F1)
-#       include <libopencm3/stm32/f1/flash.h>
-#elif defined(STM32F2)
-#       include <libopencm3/stm32/f2/flash.h>
-#elif defined(STM32F3)
-#       include <libopencm3/stm32/f3/flash.h>
-#elif defined(STM32F4)
-#       include <libopencm3/stm32/f4/flash.h>
-#elif defined(STM32L1)
-#       include <libopencm3/stm32/l1/flash.h>
-#else
-#       error "stm32 family not defined."
+
+#ifndef LIBOPENCM3_PWR_H
+#define LIBOPENCM3_PWR_H
+
+#include <libopencm3/stm32/memorymap.h>
+#include <libopencm3/stm32/common/pwr_common_all.h>
+
+/* EWUP: Enable WKUP2 pin */
+#define PWR_CSR_EWUP2			(1 << 9)
+
+/* EWUP: Enable WKUP1 pin */
+#define PWR_CSR_EWUP1			(1 << 8)
+
 #endif
 
