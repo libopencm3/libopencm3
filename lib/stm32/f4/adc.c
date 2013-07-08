@@ -871,10 +871,10 @@ ADC Resolution can be reduced from 12 bits to 10, 8 or 6 bits for a
 corresponding reduction in conversion time (resolution + 3 ADC clock cycles).
 
 @param[in] adc Unsigned int32. ADC block register address base @ref adc_reg_base
-@param[in] resolution Unsigned int8. Resolution value @ref adc_cr1_res
+@param[in] resolution Unsigned int32. Resolution value @ref adc_cr1_res
 */
 
-void adc_set_resolution(uint32_t adc, uint16_t resolution)
+void adc_set_resolution(uint32_t adc, uint32_t resolution)
 {
 	uint32_t reg32 = ADC_CR1(adc);
 
