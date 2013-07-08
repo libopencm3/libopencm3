@@ -1,16 +1,16 @@
 /** @defgroup gpdma_defines General Purpose DMA Defines
-
-@brief <b>Defined Constants and Types for the LPC43xx General Purpose DMA</b>
-
-@ingroup LPC43xx_defines
-
-@version 1.0.0
-
-@author @htmlonly &copy; @endhtmlonly 2012 Michael Ossmann <mike@ossmann.com>
-
-@date 10 March 2013
-
-LGPL License Terms @ref lgpl_license
+ *
+ * @brief <b>Defined Constants and Types for the LPC43xx General Purpose DMA</b>
+ *
+ * @ingroup LPC43xx_defines
+ *
+ * @version 1.0.0
+ *
+ * @author @htmlonly &copy; @endhtmlonly 2012 Michael Ossmann <mike@ossmann.com>
+ *
+ * @date 10 March 2013
+ *
+ * LGPL License Terms @ref lgpl_license
  */
 /*
  * This file is part of the libopencm3 project.
@@ -89,7 +89,8 @@ LGPL License Terms @ref lgpl_license
 /* Channel registers */
 
 /* Source Address Register */
-#define GPDMA_CSRCADDR(channel)         MMIO32(GPDMA_BASE + (channel * 0x20) + 0x100)
+#define GPDMA_CSRCADDR(channel)         MMIO32(GPDMA_BASE + 0x100 + \
+							(channel * 0x20))
 #define GPDMA_C0SRCADDR                 GPDMA_CSRCADDR(0)
 #define GPDMA_C1SRCADDR                 GPDMA_CSRCADDR(1)
 #define GPDMA_C2SRCADDR                 GPDMA_CSRCADDR(2)
@@ -100,7 +101,8 @@ LGPL License Terms @ref lgpl_license
 #define GPDMA_C7SRCADDR                 GPDMA_CSRCADDR(7)
 
 /* Destination Address Register */
-#define GPDMA_CDESTADDR(channel)        MMIO32(GPDMA_BASE + (channel * 0x20) + 0x104)
+#define GPDMA_CDESTADDR(channel)        MMIO32(GPDMA_BASE + 0x104 + \
+							(channel * 0x20))
 #define GPDMA_C0DESTADDR                GPDMA_CDESTADDR(0)
 #define GPDMA_C1DESTADDR                GPDMA_CDESTADDR(1)
 #define GPDMA_C2DESTADDR                GPDMA_CDESTADDR(2)
@@ -111,7 +113,8 @@ LGPL License Terms @ref lgpl_license
 #define GPDMA_C7DESTADDR                GPDMA_CDESTADDR(7)
 
 /* Linked List Item Register */
-#define GPDMA_CLLI(channel)             MMIO32(GPDMA_BASE + (channel * 0x20) + 0x108)
+#define GPDMA_CLLI(channel)             MMIO32(GPDMA_BASE + 0x108 + \
+							(channel * 0x20))
 #define GPDMA_C0LLI                     GPDMA_CLLI(0)
 #define GPDMA_C1LLI                     GPDMA_CLLI(1)
 #define GPDMA_C2LLI                     GPDMA_CLLI(2)
@@ -122,7 +125,8 @@ LGPL License Terms @ref lgpl_license
 #define GPDMA_C7LLI                     GPDMA_CLLI(7)
 
 /* Control Register */
-#define GPDMA_CCONTROL(channel)         MMIO32(GPDMA_BASE + (channel * 0x20) + 0x10C)
+#define GPDMA_CCONTROL(channel)         MMIO32(GPDMA_BASE + 0x10C + \
+							(channel * 0x20))
 #define GPDMA_C0CONTROL                 GPDMA_CCONTROL(0)
 #define GPDMA_C1CONTROL                 GPDMA_CCONTROL(1)
 #define GPDMA_C2CONTROL                 GPDMA_CCONTROL(2)
@@ -133,7 +137,8 @@ LGPL License Terms @ref lgpl_license
 #define GPDMA_C7CONTROL                 GPDMA_CCONTROL(7)
 
 /* Configuration Register */
-#define GPDMA_CCONFIG(channel)          MMIO32(GPDMA_BASE + (channel * 0x20) + 0x110)
+#define GPDMA_CCONFIG(channel)          MMIO32(GPDMA_BASE + 0x110 + \
+							(channel * 0x20))
 #define GPDMA_C0CONFIG                  GPDMA_CCONFIG(0)
 #define GPDMA_C1CONFIG                  GPDMA_CCONFIG(1)
 #define GPDMA_C2CONFIG                  GPDMA_CCONFIG(2)
@@ -150,7 +155,8 @@ LGPL License Terms @ref lgpl_license
 #define GPDMA_CSRCADDR_SRCADDR(x) ((x) << GPDMA_CSRCADDR_SRCADDR_SHIFT)
 
 #define GPDMA_CDESTADDR_DESTADDR_SHIFT (0)
-#define GPDMA_CDESTADDR_DESTADDR_MASK (0xffffffff << GPDMA_CDESTADDR_DESTADDR_SHIFT)
+#define GPDMA_CDESTADDR_DESTADDR_MASK \
+			(0xffffffff << GPDMA_CDESTADDR_DESTADDR_SHIFT)
 #define GPDMA_CDESTADDR_DESTADDR(x) ((x) << GPDMA_CDESTADDR_DESTADDR_SHIFT)
 
 #define GPDMA_CLLI_LM_SHIFT (0)
@@ -162,8 +168,10 @@ LGPL License Terms @ref lgpl_license
 #define GPDMA_CLLI_LLI(x) ((x) << GPDMA_CLLI_LLI_SHIFT)
 
 #define GPDMA_CCONTROL_TRANSFERSIZE_SHIFT (0)
-#define GPDMA_CCONTROL_TRANSFERSIZE_MASK (0xfff << GPDMA_CCONTROL_TRANSFERSIZE_SHIFT)
-#define GPDMA_CCONTROL_TRANSFERSIZE(x) ((x) << GPDMA_CCONTROL_TRANSFERSIZE_SHIFT)
+#define GPDMA_CCONTROL_TRANSFERSIZE_MASK \
+			(0xfff << GPDMA_CCONTROL_TRANSFERSIZE_SHIFT)
+#define GPDMA_CCONTROL_TRANSFERSIZE(x) \
+			((x) << GPDMA_CCONTROL_TRANSFERSIZE_SHIFT)
 
 #define GPDMA_CCONTROL_SBSIZE_SHIFT (12)
 #define GPDMA_CCONTROL_SBSIZE_MASK (0x7 << GPDMA_CCONTROL_SBSIZE_SHIFT)
@@ -218,12 +226,16 @@ LGPL License Terms @ref lgpl_license
 #define GPDMA_CCONFIG_E(x) ((x) << GPDMA_CCONFIG_E_SHIFT)
 
 #define GPDMA_CCONFIG_SRCPERIPHERAL_SHIFT (1)
-#define GPDMA_CCONFIG_SRCPERIPHERAL_MASK (0x1f << GPDMA_CCONFIG_SRCPERIPHERAL_SHIFT)
-#define GPDMA_CCONFIG_SRCPERIPHERAL(x) ((x) << GPDMA_CCONFIG_SRCPERIPHERAL_SHIFT)
+#define GPDMA_CCONFIG_SRCPERIPHERAL_MASK \
+			(0x1f << GPDMA_CCONFIG_SRCPERIPHERAL_SHIFT)
+#define GPDMA_CCONFIG_SRCPERIPHERAL(x) \
+			((x) << GPDMA_CCONFIG_SRCPERIPHERAL_SHIFT)
 
 #define GPDMA_CCONFIG_DESTPERIPHERAL_SHIFT (6)
-#define GPDMA_CCONFIG_DESTPERIPHERAL_MASK (0x1f << GPDMA_CCONFIG_DESTPERIPHERAL_SHIFT)
-#define GPDMA_CCONFIG_DESTPERIPHERAL(x) ((x) << GPDMA_CCONFIG_DESTPERIPHERAL_SHIFT)
+#define GPDMA_CCONFIG_DESTPERIPHERAL_MASK \
+			(0x1f << GPDMA_CCONFIG_DESTPERIPHERAL_SHIFT)
+#define GPDMA_CCONFIG_DESTPERIPHERAL(x) \
+			((x) << GPDMA_CCONFIG_DESTPERIPHERAL_SHIFT)
 
 #define GPDMA_CCONFIG_FLOWCNTRL_SHIFT (11)
 #define GPDMA_CCONFIG_FLOWCNTRL_MASK (0x7 << GPDMA_CCONFIG_FLOWCNTRL_SHIFT)
@@ -267,45 +279,61 @@ LGPL License Terms @ref lgpl_license
 
 /* --- GPDMA_INTTCCLEAR values ---------------------------------- */
 
-/* INTTCCLEAR: Allows clearing the Terminal count interrupt request (IntTCStat) for DMA channels */
+/* INTTCCLEAR: Allows clearing the Terminal count interrupt request (IntTCStat)
+   for DMA channels */
 #define GPDMA_INTTCCLEAR_INTTCCLEAR_SHIFT (0)
-#define GPDMA_INTTCCLEAR_INTTCCLEAR_MASK (0xff << GPDMA_INTTCCLEAR_INTTCCLEAR_SHIFT)
-#define GPDMA_INTTCCLEAR_INTTCCLEAR(x) ((x) << GPDMA_INTTCCLEAR_INTTCCLEAR_SHIFT)
+#define GPDMA_INTTCCLEAR_INTTCCLEAR_MASK \
+			(0xff << GPDMA_INTTCCLEAR_INTTCCLEAR_SHIFT)
+#define GPDMA_INTTCCLEAR_INTTCCLEAR(x) \
+			((x) << GPDMA_INTTCCLEAR_INTTCCLEAR_SHIFT)
 
 /* --- GPDMA_INTERRSTAT values ---------------------------------- */
 
 /* INTERRSTAT: Interrupt error status for DMA channels */
 #define GPDMA_INTERRSTAT_INTERRSTAT_SHIFT (0)
-#define GPDMA_INTERRSTAT_INTERRSTAT_MASK (0xff << GPDMA_INTERRSTAT_INTERRSTAT_SHIFT)
-#define GPDMA_INTERRSTAT_INTERRSTAT(x) ((x) << GPDMA_INTERRSTAT_INTERRSTAT_SHIFT)
+#define GPDMA_INTERRSTAT_INTERRSTAT_MASK \
+			(0xff << GPDMA_INTERRSTAT_INTERRSTAT_SHIFT)
+#define GPDMA_INTERRSTAT_INTERRSTAT(x) \
+			((x) << GPDMA_INTERRSTAT_INTERRSTAT_SHIFT)
 
 /* --- GPDMA_INTERRCLR values ----------------------------------- */
 
-/* INTERRCLR: Writing a 1 clears the error interrupt request (IntErrStat) for DMA channels */
+/* INTERRCLR: Writing a 1 clears the error interrupt request (IntErrStat)
+   for DMA channels */
 #define GPDMA_INTERRCLR_INTERRCLR_SHIFT (0)
-#define GPDMA_INTERRCLR_INTERRCLR_MASK (0xff << GPDMA_INTERRCLR_INTERRCLR_SHIFT)
-#define GPDMA_INTERRCLR_INTERRCLR(x) ((x) << GPDMA_INTERRCLR_INTERRCLR_SHIFT)
+#define GPDMA_INTERRCLR_INTERRCLR_MASK \
+			(0xff << GPDMA_INTERRCLR_INTERRCLR_SHIFT)
+#define GPDMA_INTERRCLR_INTERRCLR(x) \
+			((x) << GPDMA_INTERRCLR_INTERRCLR_SHIFT)
 
 /* --- GPDMA_RAWINTTCSTAT values -------------------------------- */
 
-/* RAWINTTCSTAT: Status of the terminal count interrupt for DMA channels prior to masking */
+/* RAWINTTCSTAT: Status of the terminal count interrupt for DMA channels
+   prior to masking */
 #define GPDMA_RAWINTTCSTAT_RAWINTTCSTAT_SHIFT (0)
-#define GPDMA_RAWINTTCSTAT_RAWINTTCSTAT_MASK (0xff << GPDMA_RAWINTTCSTAT_RAWINTTCSTAT_SHIFT)
-#define GPDMA_RAWINTTCSTAT_RAWINTTCSTAT(x) ((x) << GPDMA_RAWINTTCSTAT_RAWINTTCSTAT_SHIFT)
+#define GPDMA_RAWINTTCSTAT_RAWINTTCSTAT_MASK \
+			(0xff << GPDMA_RAWINTTCSTAT_RAWINTTCSTAT_SHIFT)
+#define GPDMA_RAWINTTCSTAT_RAWINTTCSTAT(x) \
+			((x) << GPDMA_RAWINTTCSTAT_RAWINTTCSTAT_SHIFT)
 
 /* --- GPDMA_RAWINTERRSTAT values ------------------------------- */
 
-/* RAWINTERRSTAT: Status of the error interrupt for DMA channels prior to masking */
+/* RAWINTERRSTAT: Status of the error interrupt for DMA channels prior to
+   masking */
 #define GPDMA_RAWINTERRSTAT_RAWINTERRSTAT_SHIFT (0)
-#define GPDMA_RAWINTERRSTAT_RAWINTERRSTAT_MASK (0xff << GPDMA_RAWINTERRSTAT_RAWINTERRSTAT_SHIFT)
-#define GPDMA_RAWINTERRSTAT_RAWINTERRSTAT(x) ((x) << GPDMA_RAWINTERRSTAT_RAWINTERRSTAT_SHIFT)
+#define GPDMA_RAWINTERRSTAT_RAWINTERRSTAT_MASK \
+			(0xff << GPDMA_RAWINTERRSTAT_RAWINTERRSTAT_SHIFT)
+#define GPDMA_RAWINTERRSTAT_RAWINTERRSTAT(x) \
+			((x) << GPDMA_RAWINTERRSTAT_RAWINTERRSTAT_SHIFT)
 
 /* --- GPDMA_ENBLDCHNS values ----------------------------------- */
 
 /* ENABLEDCHANNELS: Enable status for DMA channels */
 #define GPDMA_ENBLDCHNS_ENABLEDCHANNELS_SHIFT (0)
-#define GPDMA_ENBLDCHNS_ENABLEDCHANNELS_MASK (0xff << GPDMA_ENBLDCHNS_ENABLEDCHANNELS_SHIFT)
-#define GPDMA_ENBLDCHNS_ENABLEDCHANNELS(x) ((x) << GPDMA_ENBLDCHNS_ENABLEDCHANNELS_SHIFT)
+#define GPDMA_ENBLDCHNS_ENABLEDCHANNELS_MASK \
+			(0xff << GPDMA_ENBLDCHNS_ENABLEDCHANNELS_SHIFT)
+#define GPDMA_ENBLDCHNS_ENABLEDCHANNELS(x) \
+			((x) << GPDMA_ENBLDCHNS_ENABLEDCHANNELS_SHIFT)
 
 /* --- GPDMA_SOFTBREQ values ------------------------------------ */
 
@@ -316,24 +344,31 @@ LGPL License Terms @ref lgpl_license
 
 /* --- GPDMA_SOFTSREQ values ------------------------------------ */
 
-/* SOFTSREQ: Software single transfer request flags for each of 16 possible sources */
+/* SOFTSREQ: Software single transfer request flags for each of 16 possible
+  sources */
 #define GPDMA_SOFTSREQ_SOFTSREQ_SHIFT (0)
 #define GPDMA_SOFTSREQ_SOFTSREQ_MASK (0xffff << GPDMA_SOFTSREQ_SOFTSREQ_SHIFT)
 #define GPDMA_SOFTSREQ_SOFTSREQ(x) ((x) << GPDMA_SOFTSREQ_SOFTSREQ_SHIFT)
 
 /* --- GPDMA_SOFTLBREQ values ----------------------------------- */
 
-/* SOFTLBREQ: Software last burst request flags for each of 16 possible sources */
+/* SOFTLBREQ: Software last burst request flags for each of 16 possible
+ sources */
 #define GPDMA_SOFTLBREQ_SOFTLBREQ_SHIFT (0)
-#define GPDMA_SOFTLBREQ_SOFTLBREQ_MASK (0xffff << GPDMA_SOFTLBREQ_SOFTLBREQ_SHIFT)
-#define GPDMA_SOFTLBREQ_SOFTLBREQ(x) ((x) << GPDMA_SOFTLBREQ_SOFTLBREQ_SHIFT)
+#define GPDMA_SOFTLBREQ_SOFTLBREQ_MASK \
+			(0xffff << GPDMA_SOFTLBREQ_SOFTLBREQ_SHIFT)
+#define GPDMA_SOFTLBREQ_SOFTLBREQ(x) \
+			((x) << GPDMA_SOFTLBREQ_SOFTLBREQ_SHIFT)
 
 /* --- GPDMA_SOFTLSREQ values ----------------------------------- */
 
-/* SOFTLSREQ: Software last single transfer request flags for each of 16 possible sources */
+/* SOFTLSREQ: Software last single transfer request flags for each of 16
+ possible sources */
 #define GPDMA_SOFTLSREQ_SOFTLSREQ_SHIFT (0)
-#define GPDMA_SOFTLSREQ_SOFTLSREQ_MASK (0xffff << GPDMA_SOFTLSREQ_SOFTLSREQ_SHIFT)
-#define GPDMA_SOFTLSREQ_SOFTLSREQ(x) ((x) << GPDMA_SOFTLSREQ_SOFTLSREQ_SHIFT)
+#define GPDMA_SOFTLSREQ_SOFTLSREQ_MASK \
+			(0xffff << GPDMA_SOFTLSREQ_SOFTLSREQ_SHIFT)
+#define GPDMA_SOFTLSREQ_SOFTLSREQ(x) \
+			((x) << GPDMA_SOFTLSREQ_SOFTLSREQ_SHIFT)
 
 /* --- GPDMA_CONFIG values -------------------------------------- */
 
@@ -363,112 +398,128 @@ LGPL License Terms @ref lgpl_license
 
 /* SRCADDR: DMA source address */
 #define GPDMA_C0SRCADDR_SRCADDR_SHIFT (0)
-#define GPDMA_C0SRCADDR_SRCADDR_MASK (0xffffffff << GPDMA_C0SRCADDR_SRCADDR_SHIFT)
+#define GPDMA_C0SRCADDR_SRCADDR_MASK \
+			(0xffffffff << GPDMA_C0SRCADDR_SRCADDR_SHIFT)
 #define GPDMA_C0SRCADDR_SRCADDR(x) ((x) << GPDMA_C0SRCADDR_SRCADDR_SHIFT)
 
 /* --- GPDMA_C1SRCADDR values ----------------------------------- */
 
 /* SRCADDR: DMA source address */
 #define GPDMA_C1SRCADDR_SRCADDR_SHIFT (0)
-#define GPDMA_C1SRCADDR_SRCADDR_MASK (0xffffffff << GPDMA_C1SRCADDR_SRCADDR_SHIFT)
+#define GPDMA_C1SRCADDR_SRCADDR_MASK \
+			(0xffffffff << GPDMA_C1SRCADDR_SRCADDR_SHIFT)
 #define GPDMA_C1SRCADDR_SRCADDR(x) ((x) << GPDMA_C1SRCADDR_SRCADDR_SHIFT)
 
 /* --- GPDMA_C2SRCADDR values ----------------------------------- */
 
 /* SRCADDR: DMA source address */
 #define GPDMA_C2SRCADDR_SRCADDR_SHIFT (0)
-#define GPDMA_C2SRCADDR_SRCADDR_MASK (0xffffffff << GPDMA_C2SRCADDR_SRCADDR_SHIFT)
+#define GPDMA_C2SRCADDR_SRCADDR_MASK \
+			(0xffffffff << GPDMA_C2SRCADDR_SRCADDR_SHIFT)
 #define GPDMA_C2SRCADDR_SRCADDR(x) ((x) << GPDMA_C2SRCADDR_SRCADDR_SHIFT)
 
 /* --- GPDMA_C3SRCADDR values ----------------------------------- */
 
 /* SRCADDR: DMA source address */
 #define GPDMA_C3SRCADDR_SRCADDR_SHIFT (0)
-#define GPDMA_C3SRCADDR_SRCADDR_MASK (0xffffffff << GPDMA_C3SRCADDR_SRCADDR_SHIFT)
+#define GPDMA_C3SRCADDR_SRCADDR_MASK \
+			(0xffffffff << GPDMA_C3SRCADDR_SRCADDR_SHIFT)
 #define GPDMA_C3SRCADDR_SRCADDR(x) ((x) << GPDMA_C3SRCADDR_SRCADDR_SHIFT)
 
 /* --- GPDMA_C4SRCADDR values ----------------------------------- */
 
 /* SRCADDR: DMA source address */
 #define GPDMA_C4SRCADDR_SRCADDR_SHIFT (0)
-#define GPDMA_C4SRCADDR_SRCADDR_MASK (0xffffffff << GPDMA_C4SRCADDR_SRCADDR_SHIFT)
+#define GPDMA_C4SRCADDR_SRCADDR_MASK \
+			(0xffffffff << GPDMA_C4SRCADDR_SRCADDR_SHIFT)
 #define GPDMA_C4SRCADDR_SRCADDR(x) ((x) << GPDMA_C4SRCADDR_SRCADDR_SHIFT)
 
 /* --- GPDMA_C5SRCADDR values ----------------------------------- */
 
 /* SRCADDR: DMA source address */
 #define GPDMA_C5SRCADDR_SRCADDR_SHIFT (0)
-#define GPDMA_C5SRCADDR_SRCADDR_MASK (0xffffffff << GPDMA_C5SRCADDR_SRCADDR_SHIFT)
+#define GPDMA_C5SRCADDR_SRCADDR_MASK \
+			(0xffffffff << GPDMA_C5SRCADDR_SRCADDR_SHIFT)
 #define GPDMA_C5SRCADDR_SRCADDR(x) ((x) << GPDMA_C5SRCADDR_SRCADDR_SHIFT)
 
 /* --- GPDMA_C6SRCADDR values ----------------------------------- */
 
 /* SRCADDR: DMA source address */
 #define GPDMA_C6SRCADDR_SRCADDR_SHIFT (0)
-#define GPDMA_C6SRCADDR_SRCADDR_MASK (0xffffffff << GPDMA_C6SRCADDR_SRCADDR_SHIFT)
+#define GPDMA_C6SRCADDR_SRCADDR_MASK \
+			(0xffffffff << GPDMA_C6SRCADDR_SRCADDR_SHIFT)
 #define GPDMA_C6SRCADDR_SRCADDR(x) ((x) << GPDMA_C6SRCADDR_SRCADDR_SHIFT)
 
 /* --- GPDMA_C7SRCADDR values ----------------------------------- */
 
 /* SRCADDR: DMA source address */
 #define GPDMA_C7SRCADDR_SRCADDR_SHIFT (0)
-#define GPDMA_C7SRCADDR_SRCADDR_MASK (0xffffffff << GPDMA_C7SRCADDR_SRCADDR_SHIFT)
+#define GPDMA_C7SRCADDR_SRCADDR_MASK \
+			(0xffffffff << GPDMA_C7SRCADDR_SRCADDR_SHIFT)
 #define GPDMA_C7SRCADDR_SRCADDR(x) ((x) << GPDMA_C7SRCADDR_SRCADDR_SHIFT)
 
 /* --- GPDMA_C0DESTADDR values ---------------------------------- */
 
 /* DESTADDR: DMA source address */
 #define GPDMA_C0DESTADDR_DESTADDR_SHIFT (0)
-#define GPDMA_C0DESTADDR_DESTADDR_MASK (0xffffffff << GPDMA_C0DESTADDR_DESTADDR_SHIFT)
+#define GPDMA_C0DESTADDR_DESTADDR_MASK \
+			(0xffffffff << GPDMA_C0DESTADDR_DESTADDR_SHIFT)
 #define GPDMA_C0DESTADDR_DESTADDR(x) ((x) << GPDMA_C0DESTADDR_DESTADDR_SHIFT)
 
 /* --- GPDMA_C1DESTADDR values ---------------------------------- */
 
 /* DESTADDR: DMA source address */
 #define GPDMA_C1DESTADDR_DESTADDR_SHIFT (0)
-#define GPDMA_C1DESTADDR_DESTADDR_MASK (0xffffffff << GPDMA_C1DESTADDR_DESTADDR_SHIFT)
+#define GPDMA_C1DESTADDR_DESTADDR_MASK \
+			(0xffffffff << GPDMA_C1DESTADDR_DESTADDR_SHIFT)
 #define GPDMA_C1DESTADDR_DESTADDR(x) ((x) << GPDMA_C1DESTADDR_DESTADDR_SHIFT)
 
 /* --- GPDMA_C2DESTADDR values ---------------------------------- */
 
 /* DESTADDR: DMA source address */
 #define GPDMA_C2DESTADDR_DESTADDR_SHIFT (0)
-#define GPDMA_C2DESTADDR_DESTADDR_MASK (0xffffffff << GPDMA_C2DESTADDR_DESTADDR_SHIFT)
+#define GPDMA_C2DESTADDR_DESTADDR_MASK \
+			(0xffffffff << GPDMA_C2DESTADDR_DESTADDR_SHIFT)
 #define GPDMA_C2DESTADDR_DESTADDR(x) ((x) << GPDMA_C2DESTADDR_DESTADDR_SHIFT)
 
 /* --- GPDMA_C3DESTADDR values ---------------------------------- */
 
 /* DESTADDR: DMA source address */
 #define GPDMA_C3DESTADDR_DESTADDR_SHIFT (0)
-#define GPDMA_C3DESTADDR_DESTADDR_MASK (0xffffffff << GPDMA_C3DESTADDR_DESTADDR_SHIFT)
+#define GPDMA_C3DESTADDR_DESTADDR_MASK \
+			(0xffffffff << GPDMA_C3DESTADDR_DESTADDR_SHIFT)
 #define GPDMA_C3DESTADDR_DESTADDR(x) ((x) << GPDMA_C3DESTADDR_DESTADDR_SHIFT)
 
 /* --- GPDMA_C4DESTADDR values ---------------------------------- */
 
 /* DESTADDR: DMA source address */
 #define GPDMA_C4DESTADDR_DESTADDR_SHIFT (0)
-#define GPDMA_C4DESTADDR_DESTADDR_MASK (0xffffffff << GPDMA_C4DESTADDR_DESTADDR_SHIFT)
+#define GPDMA_C4DESTADDR_DESTADDR_MASK \
+			(0xffffffff << GPDMA_C4DESTADDR_DESTADDR_SHIFT)
 #define GPDMA_C4DESTADDR_DESTADDR(x) ((x) << GPDMA_C4DESTADDR_DESTADDR_SHIFT)
 
 /* --- GPDMA_C5DESTADDR values ---------------------------------- */
 
 /* DESTADDR: DMA source address */
 #define GPDMA_C5DESTADDR_DESTADDR_SHIFT (0)
-#define GPDMA_C5DESTADDR_DESTADDR_MASK (0xffffffff << GPDMA_C5DESTADDR_DESTADDR_SHIFT)
+#define GPDMA_C5DESTADDR_DESTADDR_MASK \
+			(0xffffffff << GPDMA_C5DESTADDR_DESTADDR_SHIFT)
 #define GPDMA_C5DESTADDR_DESTADDR(x) ((x) << GPDMA_C5DESTADDR_DESTADDR_SHIFT)
 
 /* --- GPDMA_C6DESTADDR values ---------------------------------- */
 
 /* DESTADDR: DMA source address */
 #define GPDMA_C6DESTADDR_DESTADDR_SHIFT (0)
-#define GPDMA_C6DESTADDR_DESTADDR_MASK (0xffffffff << GPDMA_C6DESTADDR_DESTADDR_SHIFT)
+#define GPDMA_C6DESTADDR_DESTADDR_MASK \
+			(0xffffffff << GPDMA_C6DESTADDR_DESTADDR_SHIFT)
 #define GPDMA_C6DESTADDR_DESTADDR(x) ((x) << GPDMA_C6DESTADDR_DESTADDR_SHIFT)
 
 /* --- GPDMA_C7DESTADDR values ---------------------------------- */
 
 /* DESTADDR: DMA source address */
 #define GPDMA_C7DESTADDR_DESTADDR_SHIFT (0)
-#define GPDMA_C7DESTADDR_DESTADDR_MASK (0xffffffff << GPDMA_C7DESTADDR_DESTADDR_SHIFT)
+#define GPDMA_C7DESTADDR_DESTADDR_MASK \
+			(0xffffffff << GPDMA_C7DESTADDR_DESTADDR_SHIFT)
 #define GPDMA_C7DESTADDR_DESTADDR(x) ((x) << GPDMA_C7DESTADDR_DESTADDR_SHIFT)
 
 /* --- GPDMA_C0LLI values --------------------------------------- */
@@ -571,8 +622,10 @@ LGPL License Terms @ref lgpl_license
 
 /* TRANSFERSIZE: Transfer size in number of transfers */
 #define GPDMA_C0CONTROL_TRANSFERSIZE_SHIFT (0)
-#define GPDMA_C0CONTROL_TRANSFERSIZE_MASK (0xfff << GPDMA_C0CONTROL_TRANSFERSIZE_SHIFT)
-#define GPDMA_C0CONTROL_TRANSFERSIZE(x) ((x) << GPDMA_C0CONTROL_TRANSFERSIZE_SHIFT)
+#define GPDMA_C0CONTROL_TRANSFERSIZE_MASK \
+			(0xfff << GPDMA_C0CONTROL_TRANSFERSIZE_SHIFT)
+#define GPDMA_C0CONTROL_TRANSFERSIZE(x) \
+			((x) << GPDMA_C0CONTROL_TRANSFERSIZE_SHIFT)
 
 /* SBSIZE: Source burst size */
 #define GPDMA_C0CONTROL_SBSIZE_SHIFT (12)
@@ -614,17 +667,22 @@ LGPL License Terms @ref lgpl_license
 #define GPDMA_C0CONTROL_DI_MASK (0x1 << GPDMA_C0CONTROL_DI_SHIFT)
 #define GPDMA_C0CONTROL_DI(x) ((x) << GPDMA_C0CONTROL_DI_SHIFT)
 
-/* PROT1: This information is provided to the peripheral during a DMA bus access and indicates that the access is in user mode or privileged mode */
+/* PROT1: This information is provided to the peripheral during a DMA bus
+  access and indicates that the access is in user mode or privileged mode */
 #define GPDMA_C0CONTROL_PROT1_SHIFT (28)
 #define GPDMA_C0CONTROL_PROT1_MASK (0x1 << GPDMA_C0CONTROL_PROT1_SHIFT)
 #define GPDMA_C0CONTROL_PROT1(x) ((x) << GPDMA_C0CONTROL_PROT1_SHIFT)
 
-/* PROT2: This information is provided to the peripheral during a DMA bus access and indicates to the peripheral that the access is bufferable or not bufferable */
+/* PROT2: This information is provided to the peripheral during a DMA bus
+  access and indicates to the peripheral that the access is bufferable or not
+  bufferable */
 #define GPDMA_C0CONTROL_PROT2_SHIFT (29)
 #define GPDMA_C0CONTROL_PROT2_MASK (0x1 << GPDMA_C0CONTROL_PROT2_SHIFT)
 #define GPDMA_C0CONTROL_PROT2(x) ((x) << GPDMA_C0CONTROL_PROT2_SHIFT)
 
-/* PROT3: This information is provided to the peripheral during a DMA bus access and indicates to the peripheral that the access is cacheable or not cacheable */
+/* PROT3: This information is provided to the peripheral during a DMA bus
+ access and indicates to the peripheral that the access is cacheable or not
+ cacheable */
 #define GPDMA_C0CONTROL_PROT3_SHIFT (30)
 #define GPDMA_C0CONTROL_PROT3_MASK (0x1 << GPDMA_C0CONTROL_PROT3_SHIFT)
 #define GPDMA_C0CONTROL_PROT3(x) ((x) << GPDMA_C0CONTROL_PROT3_SHIFT)
@@ -638,8 +696,10 @@ LGPL License Terms @ref lgpl_license
 
 /* TRANSFERSIZE: Transfer size in number of transfers */
 #define GPDMA_C1CONTROL_TRANSFERSIZE_SHIFT (0)
-#define GPDMA_C1CONTROL_TRANSFERSIZE_MASK (0xfff << GPDMA_C1CONTROL_TRANSFERSIZE_SHIFT)
-#define GPDMA_C1CONTROL_TRANSFERSIZE(x) ((x) << GPDMA_C1CONTROL_TRANSFERSIZE_SHIFT)
+#define GPDMA_C1CONTROL_TRANSFERSIZE_MASK \
+			(0xfff << GPDMA_C1CONTROL_TRANSFERSIZE_SHIFT)
+#define GPDMA_C1CONTROL_TRANSFERSIZE(x) \
+			((x) << GPDMA_C1CONTROL_TRANSFERSIZE_SHIFT)
 
 /* SBSIZE: Source burst size */
 #define GPDMA_C1CONTROL_SBSIZE_SHIFT (12)
@@ -681,17 +741,22 @@ LGPL License Terms @ref lgpl_license
 #define GPDMA_C1CONTROL_DI_MASK (0x1 << GPDMA_C1CONTROL_DI_SHIFT)
 #define GPDMA_C1CONTROL_DI(x) ((x) << GPDMA_C1CONTROL_DI_SHIFT)
 
-/* PROT1: This information is provided to the peripheral during a DMA bus access and indicates that the access is in user mode or privileged mode */
+/* PROT1: This information is provided to the peripheral during a DMA bus
+ access and indicates that the access is in user mode or privileged mode */
 #define GPDMA_C1CONTROL_PROT1_SHIFT (28)
 #define GPDMA_C1CONTROL_PROT1_MASK (0x1 << GPDMA_C1CONTROL_PROT1_SHIFT)
 #define GPDMA_C1CONTROL_PROT1(x) ((x) << GPDMA_C1CONTROL_PROT1_SHIFT)
 
-/* PROT2: This information is provided to the peripheral during a DMA bus access and indicates to the peripheral that the access is bufferable or not bufferable */
+/* PROT2: This information is provided to the peripheral during a DMA bus
+  access and indicates to the peripheral that the access is bufferable or not
+  bufferable */
 #define GPDMA_C1CONTROL_PROT2_SHIFT (29)
 #define GPDMA_C1CONTROL_PROT2_MASK (0x1 << GPDMA_C1CONTROL_PROT2_SHIFT)
 #define GPDMA_C1CONTROL_PROT2(x) ((x) << GPDMA_C1CONTROL_PROT2_SHIFT)
 
-/* PROT3: This information is provided to the peripheral during a DMA bus access and indicates to the peripheral that the access is cacheable or not cacheable */
+/* PROT3: This information is provided to the peripheral during a DMA bus
+  access and indicates to the peripheral that the access is cacheable or not
+  cacheable */
 #define GPDMA_C1CONTROL_PROT3_SHIFT (30)
 #define GPDMA_C1CONTROL_PROT3_MASK (0x1 << GPDMA_C1CONTROL_PROT3_SHIFT)
 #define GPDMA_C1CONTROL_PROT3(x) ((x) << GPDMA_C1CONTROL_PROT3_SHIFT)
@@ -705,8 +770,10 @@ LGPL License Terms @ref lgpl_license
 
 /* TRANSFERSIZE: Transfer size in number of transfers */
 #define GPDMA_C2CONTROL_TRANSFERSIZE_SHIFT (0)
-#define GPDMA_C2CONTROL_TRANSFERSIZE_MASK (0xfff << GPDMA_C2CONTROL_TRANSFERSIZE_SHIFT)
-#define GPDMA_C2CONTROL_TRANSFERSIZE(x) ((x) << GPDMA_C2CONTROL_TRANSFERSIZE_SHIFT)
+#define GPDMA_C2CONTROL_TRANSFERSIZE_MASK \
+		(0xfff << GPDMA_C2CONTROL_TRANSFERSIZE_SHIFT)
+#define GPDMA_C2CONTROL_TRANSFERSIZE(x) \
+		((x) << GPDMA_C2CONTROL_TRANSFERSIZE_SHIFT)
 
 /* SBSIZE: Source burst size */
 #define GPDMA_C2CONTROL_SBSIZE_SHIFT (12)
@@ -748,17 +815,22 @@ LGPL License Terms @ref lgpl_license
 #define GPDMA_C2CONTROL_DI_MASK (0x1 << GPDMA_C2CONTROL_DI_SHIFT)
 #define GPDMA_C2CONTROL_DI(x) ((x) << GPDMA_C2CONTROL_DI_SHIFT)
 
-/* PROT1: This information is provided to the peripheral during a DMA bus access and indicates that the access is in user mode or privileged mode */
+/* PROT1: This information is provided to the peripheral during a DMA bus
+  access and indicates that the access is in user mode or privileged mode */
 #define GPDMA_C2CONTROL_PROT1_SHIFT (28)
 #define GPDMA_C2CONTROL_PROT1_MASK (0x1 << GPDMA_C2CONTROL_PROT1_SHIFT)
 #define GPDMA_C2CONTROL_PROT1(x) ((x) << GPDMA_C2CONTROL_PROT1_SHIFT)
 
-/* PROT2: This information is provided to the peripheral during a DMA bus access and indicates to the peripheral that the access is bufferable or not bufferable */
+/* PROT2: This information is provided to the peripheral during a DMA bus
+  access and indicates to the peripheral that the access is bufferable or not
+  bufferable */
 #define GPDMA_C2CONTROL_PROT2_SHIFT (29)
 #define GPDMA_C2CONTROL_PROT2_MASK (0x1 << GPDMA_C2CONTROL_PROT2_SHIFT)
 #define GPDMA_C2CONTROL_PROT2(x) ((x) << GPDMA_C2CONTROL_PROT2_SHIFT)
 
-/* PROT3: This information is provided to the peripheral during a DMA bus access and indicates to the peripheral that the access is cacheable or not cacheable */
+/* PROT3: This information is provided to the peripheral during a DMA bus
+ access and indicates to the peripheral that the access is cacheable or not
+ cacheable */
 #define GPDMA_C2CONTROL_PROT3_SHIFT (30)
 #define GPDMA_C2CONTROL_PROT3_MASK (0x1 << GPDMA_C2CONTROL_PROT3_SHIFT)
 #define GPDMA_C2CONTROL_PROT3(x) ((x) << GPDMA_C2CONTROL_PROT3_SHIFT)
@@ -772,8 +844,10 @@ LGPL License Terms @ref lgpl_license
 
 /* TRANSFERSIZE: Transfer size in number of transfers */
 #define GPDMA_C3CONTROL_TRANSFERSIZE_SHIFT (0)
-#define GPDMA_C3CONTROL_TRANSFERSIZE_MASK (0xfff << GPDMA_C3CONTROL_TRANSFERSIZE_SHIFT)
-#define GPDMA_C3CONTROL_TRANSFERSIZE(x) ((x) << GPDMA_C3CONTROL_TRANSFERSIZE_SHIFT)
+#define GPDMA_C3CONTROL_TRANSFERSIZE_MASK \
+	(0xfff << GPDMA_C3CONTROL_TRANSFERSIZE_SHIFT)
+#define GPDMA_C3CONTROL_TRANSFERSIZE(x) \
+	((x) << GPDMA_C3CONTROL_TRANSFERSIZE_SHIFT)
 
 /* SBSIZE: Source burst size */
 #define GPDMA_C3CONTROL_SBSIZE_SHIFT (12)
@@ -815,17 +889,22 @@ LGPL License Terms @ref lgpl_license
 #define GPDMA_C3CONTROL_DI_MASK (0x1 << GPDMA_C3CONTROL_DI_SHIFT)
 #define GPDMA_C3CONTROL_DI(x) ((x) << GPDMA_C3CONTROL_DI_SHIFT)
 
-/* PROT1: This information is provided to the peripheral during a DMA bus access and indicates that the access is in user mode or privileged mode */
+/* PROT1: This information is provided to the peripheral during a DMA bus
+  access and indicates that the access is in user mode or privileged mode */
 #define GPDMA_C3CONTROL_PROT1_SHIFT (28)
 #define GPDMA_C3CONTROL_PROT1_MASK (0x1 << GPDMA_C3CONTROL_PROT1_SHIFT)
 #define GPDMA_C3CONTROL_PROT1(x) ((x) << GPDMA_C3CONTROL_PROT1_SHIFT)
 
-/* PROT2: This information is provided to the peripheral during a DMA bus access and indicates to the peripheral that the access is bufferable or not bufferable */
+/* PROT2: This information is provided to the peripheral during a DMA bus
+  access and indicates to the peripheral that the access is bufferable or
+  not bufferable */
 #define GPDMA_C3CONTROL_PROT2_SHIFT (29)
 #define GPDMA_C3CONTROL_PROT2_MASK (0x1 << GPDMA_C3CONTROL_PROT2_SHIFT)
 #define GPDMA_C3CONTROL_PROT2(x) ((x) << GPDMA_C3CONTROL_PROT2_SHIFT)
 
-/* PROT3: This information is provided to the peripheral during a DMA bus access and indicates to the peripheral that the access is cacheable or not cacheable */
+/* PROT3: This information is provided to the peripheral during a DMA bus
+  access and indicates to the peripheral that the access is cacheable or not
+  cacheable */
 #define GPDMA_C3CONTROL_PROT3_SHIFT (30)
 #define GPDMA_C3CONTROL_PROT3_MASK (0x1 << GPDMA_C3CONTROL_PROT3_SHIFT)
 #define GPDMA_C3CONTROL_PROT3(x) ((x) << GPDMA_C3CONTROL_PROT3_SHIFT)
@@ -839,8 +918,10 @@ LGPL License Terms @ref lgpl_license
 
 /* TRANSFERSIZE: Transfer size in number of transfers */
 #define GPDMA_C4CONTROL_TRANSFERSIZE_SHIFT (0)
-#define GPDMA_C4CONTROL_TRANSFERSIZE_MASK (0xfff << GPDMA_C4CONTROL_TRANSFERSIZE_SHIFT)
-#define GPDMA_C4CONTROL_TRANSFERSIZE(x) ((x) << GPDMA_C4CONTROL_TRANSFERSIZE_SHIFT)
+#define GPDMA_C4CONTROL_TRANSFERSIZE_MASK \
+		(0xfff << GPDMA_C4CONTROL_TRANSFERSIZE_SHIFT)
+#define GPDMA_C4CONTROL_TRANSFERSIZE(x) \
+		((x) << GPDMA_C4CONTROL_TRANSFERSIZE_SHIFT)
 
 /* SBSIZE: Source burst size */
 #define GPDMA_C4CONTROL_SBSIZE_SHIFT (12)
@@ -882,17 +963,22 @@ LGPL License Terms @ref lgpl_license
 #define GPDMA_C4CONTROL_DI_MASK (0x1 << GPDMA_C4CONTROL_DI_SHIFT)
 #define GPDMA_C4CONTROL_DI(x) ((x) << GPDMA_C4CONTROL_DI_SHIFT)
 
-/* PROT1: This information is provided to the peripheral during a DMA bus access and indicates that the access is in user mode or privileged mode */
+/* PROT1: This information is provided to the peripheral during a DMA bus
+  access and indicates that the access is in user mode or privileged mode */
 #define GPDMA_C4CONTROL_PROT1_SHIFT (28)
 #define GPDMA_C4CONTROL_PROT1_MASK (0x1 << GPDMA_C4CONTROL_PROT1_SHIFT)
 #define GPDMA_C4CONTROL_PROT1(x) ((x) << GPDMA_C4CONTROL_PROT1_SHIFT)
 
-/* PROT2: This information is provided to the peripheral during a DMA bus access and indicates to the peripheral that the access is bufferable or not bufferable */
+/* PROT2: This information is provided to the peripheral during a DMA bus
+  access and indicates to the peripheral that the access is bufferable or
+  not bufferable */
 #define GPDMA_C4CONTROL_PROT2_SHIFT (29)
 #define GPDMA_C4CONTROL_PROT2_MASK (0x1 << GPDMA_C4CONTROL_PROT2_SHIFT)
 #define GPDMA_C4CONTROL_PROT2(x) ((x) << GPDMA_C4CONTROL_PROT2_SHIFT)
 
-/* PROT3: This information is provided to the peripheral during a DMA bus access and indicates to the peripheral that the access is cacheable or not cacheable */
+/* PROT3: This information is provided to the peripheral during a DMA bus
+  access and indicates to the peripheral that the access is cacheable or not
+  cacheable */
 #define GPDMA_C4CONTROL_PROT3_SHIFT (30)
 #define GPDMA_C4CONTROL_PROT3_MASK (0x1 << GPDMA_C4CONTROL_PROT3_SHIFT)
 #define GPDMA_C4CONTROL_PROT3(x) ((x) << GPDMA_C4CONTROL_PROT3_SHIFT)
@@ -906,8 +992,10 @@ LGPL License Terms @ref lgpl_license
 
 /* TRANSFERSIZE: Transfer size in number of transfers */
 #define GPDMA_C5CONTROL_TRANSFERSIZE_SHIFT (0)
-#define GPDMA_C5CONTROL_TRANSFERSIZE_MASK (0xfff << GPDMA_C5CONTROL_TRANSFERSIZE_SHIFT)
-#define GPDMA_C5CONTROL_TRANSFERSIZE(x) ((x) << GPDMA_C5CONTROL_TRANSFERSIZE_SHIFT)
+#define GPDMA_C5CONTROL_TRANSFERSIZE_MASK \
+			(0xfff << GPDMA_C5CONTROL_TRANSFERSIZE_SHIFT)
+#define GPDMA_C5CONTROL_TRANSFERSIZE(x) \
+			((x) << GPDMA_C5CONTROL_TRANSFERSIZE_SHIFT)
 
 /* SBSIZE: Source burst size */
 #define GPDMA_C5CONTROL_SBSIZE_SHIFT (12)
@@ -949,17 +1037,22 @@ LGPL License Terms @ref lgpl_license
 #define GPDMA_C5CONTROL_DI_MASK (0x1 << GPDMA_C5CONTROL_DI_SHIFT)
 #define GPDMA_C5CONTROL_DI(x) ((x) << GPDMA_C5CONTROL_DI_SHIFT)
 
-/* PROT1: This information is provided to the peripheral during a DMA bus access and indicates that the access is in user mode or privileged mode */
+/* PROT1: This information is provided to the peripheral during a DMA bus
+  access and indicates that the access is in user mode or privileged mode */
 #define GPDMA_C5CONTROL_PROT1_SHIFT (28)
 #define GPDMA_C5CONTROL_PROT1_MASK (0x1 << GPDMA_C5CONTROL_PROT1_SHIFT)
 #define GPDMA_C5CONTROL_PROT1(x) ((x) << GPDMA_C5CONTROL_PROT1_SHIFT)
 
-/* PROT2: This information is provided to the peripheral during a DMA bus access and indicates to the peripheral that the access is bufferable or not bufferable */
+/* PROT2: This information is provided to the peripheral during a DMA bus
+  access and indicates to the peripheral that the access is bufferable or
+  not bufferable */
 #define GPDMA_C5CONTROL_PROT2_SHIFT (29)
 #define GPDMA_C5CONTROL_PROT2_MASK (0x1 << GPDMA_C5CONTROL_PROT2_SHIFT)
 #define GPDMA_C5CONTROL_PROT2(x) ((x) << GPDMA_C5CONTROL_PROT2_SHIFT)
 
-/* PROT3: This information is provided to the peripheral during a DMA bus access and indicates to the peripheral that the access is cacheable or not cacheable */
+/* PROT3: This information is provided to the peripheral during a DMA bus
+  access and indicates to the peripheral that the access is cacheable or not
+  cacheable */
 #define GPDMA_C5CONTROL_PROT3_SHIFT (30)
 #define GPDMA_C5CONTROL_PROT3_MASK (0x1 << GPDMA_C5CONTROL_PROT3_SHIFT)
 #define GPDMA_C5CONTROL_PROT3(x) ((x) << GPDMA_C5CONTROL_PROT3_SHIFT)
@@ -973,8 +1066,10 @@ LGPL License Terms @ref lgpl_license
 
 /* TRANSFERSIZE: Transfer size in number of transfers */
 #define GPDMA_C6CONTROL_TRANSFERSIZE_SHIFT (0)
-#define GPDMA_C6CONTROL_TRANSFERSIZE_MASK (0xfff << GPDMA_C6CONTROL_TRANSFERSIZE_SHIFT)
-#define GPDMA_C6CONTROL_TRANSFERSIZE(x) ((x) << GPDMA_C6CONTROL_TRANSFERSIZE_SHIFT)
+#define GPDMA_C6CONTROL_TRANSFERSIZE_MASK \
+			(0xfff << GPDMA_C6CONTROL_TRANSFERSIZE_SHIFT)
+#define GPDMA_C6CONTROL_TRANSFERSIZE(x) \
+			((x) << GPDMA_C6CONTROL_TRANSFERSIZE_SHIFT)
 
 /* SBSIZE: Source burst size */
 #define GPDMA_C6CONTROL_SBSIZE_SHIFT (12)
@@ -1016,17 +1111,22 @@ LGPL License Terms @ref lgpl_license
 #define GPDMA_C6CONTROL_DI_MASK (0x1 << GPDMA_C6CONTROL_DI_SHIFT)
 #define GPDMA_C6CONTROL_DI(x) ((x) << GPDMA_C6CONTROL_DI_SHIFT)
 
-/* PROT1: This information is provided to the peripheral during a DMA bus access and indicates that the access is in user mode or privileged mode */
+/* PROT1: This information is provided to the peripheral during a DMA bus
+  access and indicates that the access is in user mode or privileged mode */
 #define GPDMA_C6CONTROL_PROT1_SHIFT (28)
 #define GPDMA_C6CONTROL_PROT1_MASK (0x1 << GPDMA_C6CONTROL_PROT1_SHIFT)
 #define GPDMA_C6CONTROL_PROT1(x) ((x) << GPDMA_C6CONTROL_PROT1_SHIFT)
 
-/* PROT2: This information is provided to the peripheral during a DMA bus access and indicates to the peripheral that the access is bufferable or not bufferable */
+/* PROT2: This information is provided to the peripheral during a DMA bus
+ access and indicates to the peripheral that the access is bufferable or not
+ bufferable */
 #define GPDMA_C6CONTROL_PROT2_SHIFT (29)
 #define GPDMA_C6CONTROL_PROT2_MASK (0x1 << GPDMA_C6CONTROL_PROT2_SHIFT)
 #define GPDMA_C6CONTROL_PROT2(x) ((x) << GPDMA_C6CONTROL_PROT2_SHIFT)
 
-/* PROT3: This information is provided to the peripheral during a DMA bus access and indicates to the peripheral that the access is cacheable or not cacheable */
+/* PROT3: This information is provided to the peripheral during a DMA bus
+  access and indicates to the peripheral that the access is cacheable or
+  not cacheable */
 #define GPDMA_C6CONTROL_PROT3_SHIFT (30)
 #define GPDMA_C6CONTROL_PROT3_MASK (0x1 << GPDMA_C6CONTROL_PROT3_SHIFT)
 #define GPDMA_C6CONTROL_PROT3(x) ((x) << GPDMA_C6CONTROL_PROT3_SHIFT)
@@ -1040,8 +1140,10 @@ LGPL License Terms @ref lgpl_license
 
 /* TRANSFERSIZE: Transfer size in number of transfers */
 #define GPDMA_C7CONTROL_TRANSFERSIZE_SHIFT (0)
-#define GPDMA_C7CONTROL_TRANSFERSIZE_MASK (0xfff << GPDMA_C7CONTROL_TRANSFERSIZE_SHIFT)
-#define GPDMA_C7CONTROL_TRANSFERSIZE(x) ((x) << GPDMA_C7CONTROL_TRANSFERSIZE_SHIFT)
+#define GPDMA_C7CONTROL_TRANSFERSIZE_MASK \
+			(0xfff << GPDMA_C7CONTROL_TRANSFERSIZE_SHIFT)
+#define GPDMA_C7CONTROL_TRANSFERSIZE(x) \
+			((x) << GPDMA_C7CONTROL_TRANSFERSIZE_SHIFT)
 
 /* SBSIZE: Source burst size */
 #define GPDMA_C7CONTROL_SBSIZE_SHIFT (12)
@@ -1083,17 +1185,22 @@ LGPL License Terms @ref lgpl_license
 #define GPDMA_C7CONTROL_DI_MASK (0x1 << GPDMA_C7CONTROL_DI_SHIFT)
 #define GPDMA_C7CONTROL_DI(x) ((x) << GPDMA_C7CONTROL_DI_SHIFT)
 
-/* PROT1: This information is provided to the peripheral during a DMA bus access and indicates that the access is in user mode or privileged mode */
+/* PROT1: This information is provided to the peripheral during a DMA bus
+  access and indicates that the access is in user mode or privileged mode */
 #define GPDMA_C7CONTROL_PROT1_SHIFT (28)
 #define GPDMA_C7CONTROL_PROT1_MASK (0x1 << GPDMA_C7CONTROL_PROT1_SHIFT)
 #define GPDMA_C7CONTROL_PROT1(x) ((x) << GPDMA_C7CONTROL_PROT1_SHIFT)
 
-/* PROT2: This information is provided to the peripheral during a DMA bus access and indicates to the peripheral that the access is bufferable or not bufferable */
+/* PROT2: This information is provided to the peripheral during a DMA bus
+  access and indicates to the peripheral that the access is bufferable or
+  not bufferable */
 #define GPDMA_C7CONTROL_PROT2_SHIFT (29)
 #define GPDMA_C7CONTROL_PROT2_MASK (0x1 << GPDMA_C7CONTROL_PROT2_SHIFT)
 #define GPDMA_C7CONTROL_PROT2(x) ((x) << GPDMA_C7CONTROL_PROT2_SHIFT)
 
-/* PROT3: This information is provided to the peripheral during a DMA bus access and indicates to the peripheral that the access is cacheable or not cacheable */
+/* PROT3: This information is provided to the peripheral during a DMA bus
+  access and indicates to the peripheral that the access is cacheable or not
+  cacheable */
 #define GPDMA_C7CONTROL_PROT3_SHIFT (30)
 #define GPDMA_C7CONTROL_PROT3_MASK (0x1 << GPDMA_C7CONTROL_PROT3_SHIFT)
 #define GPDMA_C7CONTROL_PROT3(x) ((x) << GPDMA_C7CONTROL_PROT3_SHIFT)
@@ -1112,13 +1219,17 @@ LGPL License Terms @ref lgpl_license
 
 /* SRCPERIPHERAL: Source peripheral */
 #define GPDMA_C0CONFIG_SRCPERIPHERAL_SHIFT (1)
-#define GPDMA_C0CONFIG_SRCPERIPHERAL_MASK (0x1f << GPDMA_C0CONFIG_SRCPERIPHERAL_SHIFT)
-#define GPDMA_C0CONFIG_SRCPERIPHERAL(x) ((x) << GPDMA_C0CONFIG_SRCPERIPHERAL_SHIFT)
+#define GPDMA_C0CONFIG_SRCPERIPHERAL_MASK \
+			(0x1f << GPDMA_C0CONFIG_SRCPERIPHERAL_SHIFT)
+#define GPDMA_C0CONFIG_SRCPERIPHERAL(x)
+			((x) << GPDMA_C0CONFIG_SRCPERIPHERAL_SHIFT)
 
 /* DESTPERIPHERAL: Destination peripheral */
 #define GPDMA_C0CONFIG_DESTPERIPHERAL_SHIFT (6)
-#define GPDMA_C0CONFIG_DESTPERIPHERAL_MASK (0x1f << GPDMA_C0CONFIG_DESTPERIPHERAL_SHIFT)
-#define GPDMA_C0CONFIG_DESTPERIPHERAL(x) ((x) << GPDMA_C0CONFIG_DESTPERIPHERAL_SHIFT)
+#define GPDMA_C0CONFIG_DESTPERIPHERAL_MASK
+			(0x1f << GPDMA_C0CONFIG_DESTPERIPHERAL_SHIFT)
+#define GPDMA_C0CONFIG_DESTPERIPHERAL(x) \
+			((x) << GPDMA_C0CONFIG_DESTPERIPHERAL_SHIFT)
 
 /* FLOWCNTRL: Flow control and transfer type */
 #define GPDMA_C0CONFIG_FLOWCNTRL_SHIFT (11)
@@ -1159,13 +1270,17 @@ LGPL License Terms @ref lgpl_license
 
 /* SRCPERIPHERAL: Source peripheral */
 #define GPDMA_C1CONFIG_SRCPERIPHERAL_SHIFT (1)
-#define GPDMA_C1CONFIG_SRCPERIPHERAL_MASK (0x1f << GPDMA_C1CONFIG_SRCPERIPHERAL_SHIFT)
-#define GPDMA_C1CONFIG_SRCPERIPHERAL(x) ((x) << GPDMA_C1CONFIG_SRCPERIPHERAL_SHIFT)
+#define GPDMA_C1CONFIG_SRCPERIPHERAL_MASK \
+			(0x1f << GPDMA_C1CONFIG_SRCPERIPHERAL_SHIFT)
+#define GPDMA_C1CONFIG_SRCPERIPHERAL(x) \
+			((x) << GPDMA_C1CONFIG_SRCPERIPHERAL_SHIFT)
 
 /* DESTPERIPHERAL: Destination peripheral */
 #define GPDMA_C1CONFIG_DESTPERIPHERAL_SHIFT (6)
-#define GPDMA_C1CONFIG_DESTPERIPHERAL_MASK (0x1f << GPDMA_C1CONFIG_DESTPERIPHERAL_SHIFT)
-#define GPDMA_C1CONFIG_DESTPERIPHERAL(x) ((x) << GPDMA_C1CONFIG_DESTPERIPHERAL_SHIFT)
+#define GPDMA_C1CONFIG_DESTPERIPHERAL_MASK \
+			(0x1f << GPDMA_C1CONFIG_DESTPERIPHERAL_SHIFT)
+#define GPDMA_C1CONFIG_DESTPERIPHERAL(x) \
+			((x) << GPDMA_C1CONFIG_DESTPERIPHERAL_SHIFT)
 
 /* FLOWCNTRL: Flow control and transfer type */
 #define GPDMA_C1CONFIG_FLOWCNTRL_SHIFT (11)
@@ -1206,13 +1321,17 @@ LGPL License Terms @ref lgpl_license
 
 /* SRCPERIPHERAL: Source peripheral */
 #define GPDMA_C2CONFIG_SRCPERIPHERAL_SHIFT (1)
-#define GPDMA_C2CONFIG_SRCPERIPHERAL_MASK (0x1f << GPDMA_C2CONFIG_SRCPERIPHERAL_SHIFT)
-#define GPDMA_C2CONFIG_SRCPERIPHERAL(x) ((x) << GPDMA_C2CONFIG_SRCPERIPHERAL_SHIFT)
+#define GPDMA_C2CONFIG_SRCPERIPHERAL_MASK \
+			(0x1f << GPDMA_C2CONFIG_SRCPERIPHERAL_SHIFT)
+#define GPDMA_C2CONFIG_SRCPERIPHERAL(x) \
+			((x) << GPDMA_C2CONFIG_SRCPERIPHERAL_SHIFT)
 
 /* DESTPERIPHERAL: Destination peripheral */
 #define GPDMA_C2CONFIG_DESTPERIPHERAL_SHIFT (6)
-#define GPDMA_C2CONFIG_DESTPERIPHERAL_MASK (0x1f << GPDMA_C2CONFIG_DESTPERIPHERAL_SHIFT)
-#define GPDMA_C2CONFIG_DESTPERIPHERAL(x) ((x) << GPDMA_C2CONFIG_DESTPERIPHERAL_SHIFT)
+#define GPDMA_C2CONFIG_DESTPERIPHERAL_MASK \
+			(0x1f << GPDMA_C2CONFIG_DESTPERIPHERAL_SHIFT)
+#define GPDMA_C2CONFIG_DESTPERIPHERAL(x) \
+			((x) << GPDMA_C2CONFIG_DESTPERIPHERAL_SHIFT)
 
 /* FLOWCNTRL: Flow control and transfer type */
 #define GPDMA_C2CONFIG_FLOWCNTRL_SHIFT (11)
@@ -1253,13 +1372,17 @@ LGPL License Terms @ref lgpl_license
 
 /* SRCPERIPHERAL: Source peripheral */
 #define GPDMA_C3CONFIG_SRCPERIPHERAL_SHIFT (1)
-#define GPDMA_C3CONFIG_SRCPERIPHERAL_MASK (0x1f << GPDMA_C3CONFIG_SRCPERIPHERAL_SHIFT)
-#define GPDMA_C3CONFIG_SRCPERIPHERAL(x) ((x) << GPDMA_C3CONFIG_SRCPERIPHERAL_SHIFT)
+#define GPDMA_C3CONFIG_SRCPERIPHERAL_MASK \
+			(0x1f << GPDMA_C3CONFIG_SRCPERIPHERAL_SHIFT)
+#define GPDMA_C3CONFIG_SRCPERIPHERAL(x) \
+			((x) << GPDMA_C3CONFIG_SRCPERIPHERAL_SHIFT)
 
 /* DESTPERIPHERAL: Destination peripheral */
 #define GPDMA_C3CONFIG_DESTPERIPHERAL_SHIFT (6)
-#define GPDMA_C3CONFIG_DESTPERIPHERAL_MASK (0x1f << GPDMA_C3CONFIG_DESTPERIPHERAL_SHIFT)
-#define GPDMA_C3CONFIG_DESTPERIPHERAL(x) ((x) << GPDMA_C3CONFIG_DESTPERIPHERAL_SHIFT)
+#define GPDMA_C3CONFIG_DESTPERIPHERAL_MASK \
+			(0x1f << GPDMA_C3CONFIG_DESTPERIPHERAL_SHIFT)
+#define GPDMA_C3CONFIG_DESTPERIPHERAL(x) \
+			((x) << GPDMA_C3CONFIG_DESTPERIPHERAL_SHIFT)
 
 /* FLOWCNTRL: Flow control and transfer type */
 #define GPDMA_C3CONFIG_FLOWCNTRL_SHIFT (11)
@@ -1300,13 +1423,17 @@ LGPL License Terms @ref lgpl_license
 
 /* SRCPERIPHERAL: Source peripheral */
 #define GPDMA_C4CONFIG_SRCPERIPHERAL_SHIFT (1)
-#define GPDMA_C4CONFIG_SRCPERIPHERAL_MASK (0x1f << GPDMA_C4CONFIG_SRCPERIPHERAL_SHIFT)
-#define GPDMA_C4CONFIG_SRCPERIPHERAL(x) ((x) << GPDMA_C4CONFIG_SRCPERIPHERAL_SHIFT)
+#define GPDMA_C4CONFIG_SRCPERIPHERAL_MASK \
+			(0x1f << GPDMA_C4CONFIG_SRCPERIPHERAL_SHIFT)
+#define GPDMA_C4CONFIG_SRCPERIPHERAL(x) \
+			((x) << GPDMA_C4CONFIG_SRCPERIPHERAL_SHIFT)
 
 /* DESTPERIPHERAL: Destination peripheral */
 #define GPDMA_C4CONFIG_DESTPERIPHERAL_SHIFT (6)
-#define GPDMA_C4CONFIG_DESTPERIPHERAL_MASK (0x1f << GPDMA_C4CONFIG_DESTPERIPHERAL_SHIFT)
-#define GPDMA_C4CONFIG_DESTPERIPHERAL(x) ((x) << GPDMA_C4CONFIG_DESTPERIPHERAL_SHIFT)
+#define GPDMA_C4CONFIG_DESTPERIPHERAL_MASK \
+			(0x1f << GPDMA_C4CONFIG_DESTPERIPHERAL_SHIFT)
+#define GPDMA_C4CONFIG_DESTPERIPHERAL(x) \
+			((x) << GPDMA_C4CONFIG_DESTPERIPHERAL_SHIFT)
 
 /* FLOWCNTRL: Flow control and transfer type */
 #define GPDMA_C4CONFIG_FLOWCNTRL_SHIFT (11)
@@ -1347,13 +1474,17 @@ LGPL License Terms @ref lgpl_license
 
 /* SRCPERIPHERAL: Source peripheral */
 #define GPDMA_C5CONFIG_SRCPERIPHERAL_SHIFT (1)
-#define GPDMA_C5CONFIG_SRCPERIPHERAL_MASK (0x1f << GPDMA_C5CONFIG_SRCPERIPHERAL_SHIFT)
-#define GPDMA_C5CONFIG_SRCPERIPHERAL(x) ((x) << GPDMA_C5CONFIG_SRCPERIPHERAL_SHIFT)
+#define GPDMA_C5CONFIG_SRCPERIPHERAL_MASK \
+			(0x1f << GPDMA_C5CONFIG_SRCPERIPHERAL_SHIFT)
+#define GPDMA_C5CONFIG_SRCPERIPHERAL(x) \
+			((x) << GPDMA_C5CONFIG_SRCPERIPHERAL_SHIFT)
 
 /* DESTPERIPHERAL: Destination peripheral */
 #define GPDMA_C5CONFIG_DESTPERIPHERAL_SHIFT (6)
-#define GPDMA_C5CONFIG_DESTPERIPHERAL_MASK (0x1f << GPDMA_C5CONFIG_DESTPERIPHERAL_SHIFT)
-#define GPDMA_C5CONFIG_DESTPERIPHERAL(x) ((x) << GPDMA_C5CONFIG_DESTPERIPHERAL_SHIFT)
+#define GPDMA_C5CONFIG_DESTPERIPHERAL_MASK \
+			(0x1f << GPDMA_C5CONFIG_DESTPERIPHERAL_SHIFT)
+#define GPDMA_C5CONFIG_DESTPERIPHERAL(x) \
+			((x) << GPDMA_C5CONFIG_DESTPERIPHERAL_SHIFT)
 
 /* FLOWCNTRL: Flow control and transfer type */
 #define GPDMA_C5CONFIG_FLOWCNTRL_SHIFT (11)
@@ -1394,13 +1525,17 @@ LGPL License Terms @ref lgpl_license
 
 /* SRCPERIPHERAL: Source peripheral */
 #define GPDMA_C6CONFIG_SRCPERIPHERAL_SHIFT (1)
-#define GPDMA_C6CONFIG_SRCPERIPHERAL_MASK (0x1f << GPDMA_C6CONFIG_SRCPERIPHERAL_SHIFT)
-#define GPDMA_C6CONFIG_SRCPERIPHERAL(x) ((x) << GPDMA_C6CONFIG_SRCPERIPHERAL_SHIFT)
+#define GPDMA_C6CONFIG_SRCPERIPHERAL_MASK \
+			(0x1f << GPDMA_C6CONFIG_SRCPERIPHERAL_SHIFT)
+#define GPDMA_C6CONFIG_SRCPERIPHERAL(x) \
+			((x) << GPDMA_C6CONFIG_SRCPERIPHERAL_SHIFT)
 
 /* DESTPERIPHERAL: Destination peripheral */
 #define GPDMA_C6CONFIG_DESTPERIPHERAL_SHIFT (6)
-#define GPDMA_C6CONFIG_DESTPERIPHERAL_MASK (0x1f << GPDMA_C6CONFIG_DESTPERIPHERAL_SHIFT)
-#define GPDMA_C6CONFIG_DESTPERIPHERAL(x) ((x) << GPDMA_C6CONFIG_DESTPERIPHERAL_SHIFT)
+#define GPDMA_C6CONFIG_DESTPERIPHERAL_MASK \
+			(0x1f << GPDMA_C6CONFIG_DESTPERIPHERAL_SHIFT)
+#define GPDMA_C6CONFIG_DESTPERIPHERAL(x) \
+			((x) << GPDMA_C6CONFIG_DESTPERIPHERAL_SHIFT)
 
 /* FLOWCNTRL: Flow control and transfer type */
 #define GPDMA_C6CONFIG_FLOWCNTRL_SHIFT (11)
@@ -1441,13 +1576,17 @@ LGPL License Terms @ref lgpl_license
 
 /* SRCPERIPHERAL: Source peripheral */
 #define GPDMA_C7CONFIG_SRCPERIPHERAL_SHIFT (1)
-#define GPDMA_C7CONFIG_SRCPERIPHERAL_MASK (0x1f << GPDMA_C7CONFIG_SRCPERIPHERAL_SHIFT)
-#define GPDMA_C7CONFIG_SRCPERIPHERAL(x) ((x) << GPDMA_C7CONFIG_SRCPERIPHERAL_SHIFT)
+#define GPDMA_C7CONFIG_SRCPERIPHERAL_MASK \
+			(0x1f << GPDMA_C7CONFIG_SRCPERIPHERAL_SHIFT)
+#define GPDMA_C7CONFIG_SRCPERIPHERAL(x) \
+			((x) << GPDMA_C7CONFIG_SRCPERIPHERAL_SHIFT)
 
 /* DESTPERIPHERAL: Destination peripheral */
 #define GPDMA_C7CONFIG_DESTPERIPHERAL_SHIFT (6)
-#define GPDMA_C7CONFIG_DESTPERIPHERAL_MASK (0x1f << GPDMA_C7CONFIG_DESTPERIPHERAL_SHIFT)
-#define GPDMA_C7CONFIG_DESTPERIPHERAL(x) ((x) << GPDMA_C7CONFIG_DESTPERIPHERAL_SHIFT)
+#define GPDMA_C7CONFIG_DESTPERIPHERAL_MASK \
+			(0x1f << GPDMA_C7CONFIG_DESTPERIPHERAL_SHIFT)
+#define GPDMA_C7CONFIG_DESTPERIPHERAL(x) \
+			((x) << GPDMA_C7CONFIG_DESTPERIPHERAL_SHIFT)
 
 /* FLOWCNTRL: Flow control and transfer type */
 #define GPDMA_C7CONFIG_FLOWCNTRL_SHIFT (11)
