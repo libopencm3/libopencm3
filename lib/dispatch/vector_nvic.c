@@ -1,4 +1,6 @@
-#if defined(STM32F1)
+#if defined(STM32F0)
+#	include "../stm32/f0/vector_nvic.c"
+#elif defined(STM32F1)
 #	include "../stm32/f1/vector_nvic.c"
 #elif defined(STM32F2)
 #	include "../stm32/f2/vector_nvic.c"
