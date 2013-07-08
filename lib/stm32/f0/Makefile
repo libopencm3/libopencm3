@@ -28,7 +28,7 @@ CFLAGS		= -Os -g \
 		  -Wredundant-decls -Wmissing-prototypes -Wstrict-prototypes \
 		  -Wundef -Wshadow \
 		  -I../../../include -fno-common \
-		  -mcpu=cortex-m0 -msoft-float -mthumb -Wstrict-prototypes \
+		  -mcpu=cortex-m0 $(FP_FLAGS) -mthumb -Wstrict-prototypes \
 		  -ffunction-sections -fdata-sections -MD -DSTM32F0
 
 ARFLAGS		= rcs
