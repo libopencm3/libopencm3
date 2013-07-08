@@ -429,7 +429,7 @@ void uart_init(uart_num_t uart_num, uart_databit_t data_nb_bits,
 
 uart_rx_data_ready_t uart_rx_data_ready(uart_num_t uart_num);
 uint8_t uart_read(uart_num_t uart_num);
-uint8_t uart_read_timeout(uart_num_t uart_num, uint32_t rx_timeout_nb_cycles, 
+uint8_t uart_read_timeout(uart_num_t uart_num, uint32_t rx_timeout_nb_cycles,
 	    uart_error_t *error);
 void uart_write(uart_num_t uart_num, uint8_t data);
 
