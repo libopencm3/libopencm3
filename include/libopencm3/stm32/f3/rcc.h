@@ -400,7 +400,7 @@ extern const clock_scale_t hsi_8mhz[CLOCK_END];
 
 enum osc {
 	PLL, HSE, HSI, LSE, LSI
-} osc_t;
+};
 
 BEGIN_DECLS
 
