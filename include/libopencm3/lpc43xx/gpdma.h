@@ -489,7 +489,7 @@
  cacheable */
 #define GPDMA_CxCONTROL_PROT3_SHIFT	(30)
 #define GPDMA_CxCONTROL_PROT3_MASK	(0x1 << GPDMA_CxCONTROL_PROT3_SHIFT)
-#define GPDMA_CxCONTROL_PROT3(x) 	((x) << GPDMA_CxCONTROL_PROT3_SHIFT)
+#define GPDMA_CxCONTROL_PROT3(x)	((x) << GPDMA_CxCONTROL_PROT3_SHIFT)
 
 /* I: Terminal count interrupt enable bit */
 #define GPDMA_CxCONTROL_I_SHIFT		(31)
