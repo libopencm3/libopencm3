@@ -89,7 +89,7 @@ void ssp_init(ssp_num_t ssp_num,
 	SSP_CR1(ssp_port) = (SSP_ENABLE | mode | master_slave | slave_option);
 }
 
-void ssp_wait_until_not_busy(ssp_num_t ssp_num)
+static void ssp_wait_until_not_busy(ssp_num_t ssp_num)
 {
 	uint32_t ssp_port;
 
