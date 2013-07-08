@@ -394,1230 +394,158 @@
 #define GPDMA_SYNC_DMACSYNC_MASK (0xffff << GPDMA_SYNC_DMACSYNC_SHIFT)
 #define GPDMA_SYNC_DMACSYNC(x) ((x) << GPDMA_SYNC_DMACSYNC_SHIFT)
 
-/* --- GPDMA_C0SRCADDR values ----------------------------------- */
+/* --- GPDMA_C[0..7]SRCADDR values ----------------------------------- */
 
 /* SRCADDR: DMA source address */
-#define GPDMA_C0SRCADDR_SRCADDR_SHIFT (0)
-#define GPDMA_C0SRCADDR_SRCADDR_MASK \
-			(0xffffffff << GPDMA_C0SRCADDR_SRCADDR_SHIFT)
-#define GPDMA_C0SRCADDR_SRCADDR(x) ((x) << GPDMA_C0SRCADDR_SRCADDR_SHIFT)
+#define GPDMA_CxSRCADDR_SRCADDR_SHIFT (0)
+#define GPDMA_CxSRCADDR_SRCADDR_MASK \
+			(0xffffffff << GPDMA_CxSRCADDR_SRCADDR_SHIFT)
+#define GPDMA_CxSRCADDR_SRCADDR(x) ((x) << GPDMA_CxSRCADDR_SRCADDR_SHIFT)
 
-/* --- GPDMA_C1SRCADDR values ----------------------------------- */
-
-/* SRCADDR: DMA source address */
-#define GPDMA_C1SRCADDR_SRCADDR_SHIFT (0)
-#define GPDMA_C1SRCADDR_SRCADDR_MASK \
-			(0xffffffff << GPDMA_C1SRCADDR_SRCADDR_SHIFT)
-#define GPDMA_C1SRCADDR_SRCADDR(x) ((x) << GPDMA_C1SRCADDR_SRCADDR_SHIFT)
-
-/* --- GPDMA_C2SRCADDR values ----------------------------------- */
-
-/* SRCADDR: DMA source address */
-#define GPDMA_C2SRCADDR_SRCADDR_SHIFT (0)
-#define GPDMA_C2SRCADDR_SRCADDR_MASK \
-			(0xffffffff << GPDMA_C2SRCADDR_SRCADDR_SHIFT)
-#define GPDMA_C2SRCADDR_SRCADDR(x) ((x) << GPDMA_C2SRCADDR_SRCADDR_SHIFT)
-
-/* --- GPDMA_C3SRCADDR values ----------------------------------- */
-
-/* SRCADDR: DMA source address */
-#define GPDMA_C3SRCADDR_SRCADDR_SHIFT (0)
-#define GPDMA_C3SRCADDR_SRCADDR_MASK \
-			(0xffffffff << GPDMA_C3SRCADDR_SRCADDR_SHIFT)
-#define GPDMA_C3SRCADDR_SRCADDR(x) ((x) << GPDMA_C3SRCADDR_SRCADDR_SHIFT)
-
-/* --- GPDMA_C4SRCADDR values ----------------------------------- */
-
-/* SRCADDR: DMA source address */
-#define GPDMA_C4SRCADDR_SRCADDR_SHIFT (0)
-#define GPDMA_C4SRCADDR_SRCADDR_MASK \
-			(0xffffffff << GPDMA_C4SRCADDR_SRCADDR_SHIFT)
-#define GPDMA_C4SRCADDR_SRCADDR(x) ((x) << GPDMA_C4SRCADDR_SRCADDR_SHIFT)
-
-/* --- GPDMA_C5SRCADDR values ----------------------------------- */
-
-/* SRCADDR: DMA source address */
-#define GPDMA_C5SRCADDR_SRCADDR_SHIFT (0)
-#define GPDMA_C5SRCADDR_SRCADDR_MASK \
-			(0xffffffff << GPDMA_C5SRCADDR_SRCADDR_SHIFT)
-#define GPDMA_C5SRCADDR_SRCADDR(x) ((x) << GPDMA_C5SRCADDR_SRCADDR_SHIFT)
-
-/* --- GPDMA_C6SRCADDR values ----------------------------------- */
-
-/* SRCADDR: DMA source address */
-#define GPDMA_C6SRCADDR_SRCADDR_SHIFT (0)
-#define GPDMA_C6SRCADDR_SRCADDR_MASK \
-			(0xffffffff << GPDMA_C6SRCADDR_SRCADDR_SHIFT)
-#define GPDMA_C6SRCADDR_SRCADDR(x) ((x) << GPDMA_C6SRCADDR_SRCADDR_SHIFT)
-
-/* --- GPDMA_C7SRCADDR values ----------------------------------- */
-
-/* SRCADDR: DMA source address */
-#define GPDMA_C7SRCADDR_SRCADDR_SHIFT (0)
-#define GPDMA_C7SRCADDR_SRCADDR_MASK \
-			(0xffffffff << GPDMA_C7SRCADDR_SRCADDR_SHIFT)
-#define GPDMA_C7SRCADDR_SRCADDR(x) ((x) << GPDMA_C7SRCADDR_SRCADDR_SHIFT)
-
-/* --- GPDMA_C0DESTADDR values ---------------------------------- */
+/* --- GPDMA_C[0..7]DESTADDR values ---------------------------------- */
 
 /* DESTADDR: DMA source address */
-#define GPDMA_C0DESTADDR_DESTADDR_SHIFT (0)
-#define GPDMA_C0DESTADDR_DESTADDR_MASK \
-			(0xffffffff << GPDMA_C0DESTADDR_DESTADDR_SHIFT)
-#define GPDMA_C0DESTADDR_DESTADDR(x) ((x) << GPDMA_C0DESTADDR_DESTADDR_SHIFT)
+#define GPDMA_CxDESTADDR_DESTADDR_SHIFT (0)
+#define GPDMA_CxDESTADDR_DESTADDR_MASK \
+			(0xffffffff << GPDMA_CxDESTADDR_DESTADDR_SHIFT)
+#define GPDMA_CxDESTADDR_DESTADDR(x) ((x) << GPDMA_CxDESTADDR_DESTADDR_SHIFT)
 
-/* --- GPDMA_C1DESTADDR values ---------------------------------- */
-
-/* DESTADDR: DMA source address */
-#define GPDMA_C1DESTADDR_DESTADDR_SHIFT (0)
-#define GPDMA_C1DESTADDR_DESTADDR_MASK \
-			(0xffffffff << GPDMA_C1DESTADDR_DESTADDR_SHIFT)
-#define GPDMA_C1DESTADDR_DESTADDR(x) ((x) << GPDMA_C1DESTADDR_DESTADDR_SHIFT)
-
-/* --- GPDMA_C2DESTADDR values ---------------------------------- */
-
-/* DESTADDR: DMA source address */
-#define GPDMA_C2DESTADDR_DESTADDR_SHIFT (0)
-#define GPDMA_C2DESTADDR_DESTADDR_MASK \
-			(0xffffffff << GPDMA_C2DESTADDR_DESTADDR_SHIFT)
-#define GPDMA_C2DESTADDR_DESTADDR(x) ((x) << GPDMA_C2DESTADDR_DESTADDR_SHIFT)
-
-/* --- GPDMA_C3DESTADDR values ---------------------------------- */
-
-/* DESTADDR: DMA source address */
-#define GPDMA_C3DESTADDR_DESTADDR_SHIFT (0)
-#define GPDMA_C3DESTADDR_DESTADDR_MASK \
-			(0xffffffff << GPDMA_C3DESTADDR_DESTADDR_SHIFT)
-#define GPDMA_C3DESTADDR_DESTADDR(x) ((x) << GPDMA_C3DESTADDR_DESTADDR_SHIFT)
-
-/* --- GPDMA_C4DESTADDR values ---------------------------------- */
-
-/* DESTADDR: DMA source address */
-#define GPDMA_C4DESTADDR_DESTADDR_SHIFT (0)
-#define GPDMA_C4DESTADDR_DESTADDR_MASK \
-			(0xffffffff << GPDMA_C4DESTADDR_DESTADDR_SHIFT)
-#define GPDMA_C4DESTADDR_DESTADDR(x) ((x) << GPDMA_C4DESTADDR_DESTADDR_SHIFT)
-
-/* --- GPDMA_C5DESTADDR values ---------------------------------- */
-
-/* DESTADDR: DMA source address */
-#define GPDMA_C5DESTADDR_DESTADDR_SHIFT (0)
-#define GPDMA_C5DESTADDR_DESTADDR_MASK \
-			(0xffffffff << GPDMA_C5DESTADDR_DESTADDR_SHIFT)
-#define GPDMA_C5DESTADDR_DESTADDR(x) ((x) << GPDMA_C5DESTADDR_DESTADDR_SHIFT)
-
-/* --- GPDMA_C6DESTADDR values ---------------------------------- */
-
-/* DESTADDR: DMA source address */
-#define GPDMA_C6DESTADDR_DESTADDR_SHIFT (0)
-#define GPDMA_C6DESTADDR_DESTADDR_MASK \
-			(0xffffffff << GPDMA_C6DESTADDR_DESTADDR_SHIFT)
-#define GPDMA_C6DESTADDR_DESTADDR(x) ((x) << GPDMA_C6DESTADDR_DESTADDR_SHIFT)
-
-/* --- GPDMA_C7DESTADDR values ---------------------------------- */
-
-/* DESTADDR: DMA source address */
-#define GPDMA_C7DESTADDR_DESTADDR_SHIFT (0)
-#define GPDMA_C7DESTADDR_DESTADDR_MASK \
-			(0xffffffff << GPDMA_C7DESTADDR_DESTADDR_SHIFT)
-#define GPDMA_C7DESTADDR_DESTADDR(x) ((x) << GPDMA_C7DESTADDR_DESTADDR_SHIFT)
-
-/* --- GPDMA_C0LLI values --------------------------------------- */
+/* --- GPDMA_C[0..7]LLI values --------------------------------------- */
 
 /* LM: AHB master select for loading the next LLI */
-#define GPDMA_C0LLI_LM_SHIFT (0)
-#define GPDMA_C0LLI_LM_MASK (0x1 << GPDMA_C0LLI_LM_SHIFT)
-#define GPDMA_C0LLI_LM(x) ((x) << GPDMA_C0LLI_LM_SHIFT)
+#define GPDMA_CxLLI_LM_SHIFT (0)
+#define GPDMA_CxLLI_LM_MASK (0x1 << GPDMA_CxLLI_LM_SHIFT)
+#define GPDMA_CxLLI_LM(x) ((x) << GPDMA_CxLLI_LM_SHIFT)
 
 /* LLI: Linked list item */
-#define GPDMA_C0LLI_LLI_SHIFT (2)
-#define GPDMA_C0LLI_LLI_MASK (0x3fffffff << GPDMA_C0LLI_LLI_SHIFT)
-#define GPDMA_C0LLI_LLI(x) ((x) << GPDMA_C0LLI_LLI_SHIFT)
+#define GPDMA_CxLLI_LLI_SHIFT (2)
+#define GPDMA_CxLLI_LLI_MASK (0x3fffffff << GPDMA_CxLLI_LLI_SHIFT)
+#define GPDMA_CxLLI_LLI(x) ((x) << GPDMA_CxLLI_LLI_SHIFT)
 
-/* --- GPDMA_C1LLI values --------------------------------------- */
-
-/* LM: AHB master select for loading the next LLI */
-#define GPDMA_C1LLI_LM_SHIFT (0)
-#define GPDMA_C1LLI_LM_MASK (0x1 << GPDMA_C1LLI_LM_SHIFT)
-#define GPDMA_C1LLI_LM(x) ((x) << GPDMA_C1LLI_LM_SHIFT)
-
-/* LLI: Linked list item */
-#define GPDMA_C1LLI_LLI_SHIFT (2)
-#define GPDMA_C1LLI_LLI_MASK (0x3fffffff << GPDMA_C1LLI_LLI_SHIFT)
-#define GPDMA_C1LLI_LLI(x) ((x) << GPDMA_C1LLI_LLI_SHIFT)
-
-/* --- GPDMA_C2LLI values --------------------------------------- */
-
-/* LM: AHB master select for loading the next LLI */
-#define GPDMA_C2LLI_LM_SHIFT (0)
-#define GPDMA_C2LLI_LM_MASK (0x1 << GPDMA_C2LLI_LM_SHIFT)
-#define GPDMA_C2LLI_LM(x) ((x) << GPDMA_C2LLI_LM_SHIFT)
-
-/* LLI: Linked list item */
-#define GPDMA_C2LLI_LLI_SHIFT (2)
-#define GPDMA_C2LLI_LLI_MASK (0x3fffffff << GPDMA_C2LLI_LLI_SHIFT)
-#define GPDMA_C2LLI_LLI(x) ((x) << GPDMA_C2LLI_LLI_SHIFT)
-
-/* --- GPDMA_C3LLI values --------------------------------------- */
-
-/* LM: AHB master select for loading the next LLI */
-#define GPDMA_C3LLI_LM_SHIFT (0)
-#define GPDMA_C3LLI_LM_MASK (0x1 << GPDMA_C3LLI_LM_SHIFT)
-#define GPDMA_C3LLI_LM(x) ((x) << GPDMA_C3LLI_LM_SHIFT)
-
-/* LLI: Linked list item */
-#define GPDMA_C3LLI_LLI_SHIFT (2)
-#define GPDMA_C3LLI_LLI_MASK (0x3fffffff << GPDMA_C3LLI_LLI_SHIFT)
-#define GPDMA_C3LLI_LLI(x) ((x) << GPDMA_C3LLI_LLI_SHIFT)
-
-/* --- GPDMA_C4LLI values --------------------------------------- */
-
-/* LM: AHB master select for loading the next LLI */
-#define GPDMA_C4LLI_LM_SHIFT (0)
-#define GPDMA_C4LLI_LM_MASK (0x1 << GPDMA_C4LLI_LM_SHIFT)
-#define GPDMA_C4LLI_LM(x) ((x) << GPDMA_C4LLI_LM_SHIFT)
-
-/* LLI: Linked list item */
-#define GPDMA_C4LLI_LLI_SHIFT (2)
-#define GPDMA_C4LLI_LLI_MASK (0x3fffffff << GPDMA_C4LLI_LLI_SHIFT)
-#define GPDMA_C4LLI_LLI(x) ((x) << GPDMA_C4LLI_LLI_SHIFT)
-
-/* --- GPDMA_C5LLI values --------------------------------------- */
-
-/* LM: AHB master select for loading the next LLI */
-#define GPDMA_C5LLI_LM_SHIFT (0)
-#define GPDMA_C5LLI_LM_MASK (0x1 << GPDMA_C5LLI_LM_SHIFT)
-#define GPDMA_C5LLI_LM(x) ((x) << GPDMA_C5LLI_LM_SHIFT)
-
-/* LLI: Linked list item */
-#define GPDMA_C5LLI_LLI_SHIFT (2)
-#define GPDMA_C5LLI_LLI_MASK (0x3fffffff << GPDMA_C5LLI_LLI_SHIFT)
-#define GPDMA_C5LLI_LLI(x) ((x) << GPDMA_C5LLI_LLI_SHIFT)
-
-/* --- GPDMA_C6LLI values --------------------------------------- */
-
-/* LM: AHB master select for loading the next LLI */
-#define GPDMA_C6LLI_LM_SHIFT (0)
-#define GPDMA_C6LLI_LM_MASK (0x1 << GPDMA_C6LLI_LM_SHIFT)
-#define GPDMA_C6LLI_LM(x) ((x) << GPDMA_C6LLI_LM_SHIFT)
-
-/* LLI: Linked list item */
-#define GPDMA_C6LLI_LLI_SHIFT (2)
-#define GPDMA_C6LLI_LLI_MASK (0x3fffffff << GPDMA_C6LLI_LLI_SHIFT)
-#define GPDMA_C6LLI_LLI(x) ((x) << GPDMA_C6LLI_LLI_SHIFT)
-
-/* --- GPDMA_C7LLI values --------------------------------------- */
-
-/* LM: AHB master select for loading the next LLI */
-#define GPDMA_C7LLI_LM_SHIFT (0)
-#define GPDMA_C7LLI_LM_MASK (0x1 << GPDMA_C7LLI_LM_SHIFT)
-#define GPDMA_C7LLI_LM(x) ((x) << GPDMA_C7LLI_LM_SHIFT)
-
-/* LLI: Linked list item */
-#define GPDMA_C7LLI_LLI_SHIFT (2)
-#define GPDMA_C7LLI_LLI_MASK (0x3fffffff << GPDMA_C7LLI_LLI_SHIFT)
-#define GPDMA_C7LLI_LLI(x) ((x) << GPDMA_C7LLI_LLI_SHIFT)
-
-/* --- GPDMA_C0CONTROL values ----------------------------------- */
+/* --- GPDMA_C[0..7]CONTROL values ----------------------------------- */
 
 /* TRANSFERSIZE: Transfer size in number of transfers */
-#define GPDMA_C0CONTROL_TRANSFERSIZE_SHIFT (0)
-#define GPDMA_C0CONTROL_TRANSFERSIZE_MASK \
-			(0xfff << GPDMA_C0CONTROL_TRANSFERSIZE_SHIFT)
-#define GPDMA_C0CONTROL_TRANSFERSIZE(x) \
-			((x) << GPDMA_C0CONTROL_TRANSFERSIZE_SHIFT)
+#define GPDMA_CxCONTROL_TRANSFERSIZE_SHIFT (0)
+#define GPDMA_CxCONTROL_TRANSFERSIZE_MASK \
+			(0xfff << GPDMA_CxCONTROL_TRANSFERSIZE_SHIFT)
+#define GPDMA_CxCONTROL_TRANSFERSIZE(x) \
+			((x) << GPDMA_CxCONTROL_TRANSFERSIZE_SHIFT)
 
 /* SBSIZE: Source burst size */
-#define GPDMA_C0CONTROL_SBSIZE_SHIFT (12)
-#define GPDMA_C0CONTROL_SBSIZE_MASK (0x7 << GPDMA_C0CONTROL_SBSIZE_SHIFT)
-#define GPDMA_C0CONTROL_SBSIZE(x) ((x) << GPDMA_C0CONTROL_SBSIZE_SHIFT)
+#define GPDMA_CxCONTROL_SBSIZE_SHIFT	(12)
+#define GPDMA_CxCONTROL_SBSIZE_MASK	(0x7 << GPDMA_CxCONTROL_SBSIZE_SHIFT)
+#define GPDMA_CxCONTROL_SBSIZE(x)	((x) << GPDMA_CxCONTROL_SBSIZE_SHIFT)
 
 /* DBSIZE: Destination burst size */
-#define GPDMA_C0CONTROL_DBSIZE_SHIFT (15)
-#define GPDMA_C0CONTROL_DBSIZE_MASK (0x7 << GPDMA_C0CONTROL_DBSIZE_SHIFT)
-#define GPDMA_C0CONTROL_DBSIZE(x) ((x) << GPDMA_C0CONTROL_DBSIZE_SHIFT)
+#define GPDMA_CxCONTROL_DBSIZE_SHIFT	(15)
+#define GPDMA_CxCONTROL_DBSIZE_MASK	(0x7 << GPDMA_CxCONTROL_DBSIZE_SHIFT)
+#define GPDMA_CxCONTROL_DBSIZE(x)	((x) << GPDMA_CxCONTROL_DBSIZE_SHIFT)
 
 /* SWIDTH: Source transfer width */
-#define GPDMA_C0CONTROL_SWIDTH_SHIFT (18)
-#define GPDMA_C0CONTROL_SWIDTH_MASK (0x7 << GPDMA_C0CONTROL_SWIDTH_SHIFT)
-#define GPDMA_C0CONTROL_SWIDTH(x) ((x) << GPDMA_C0CONTROL_SWIDTH_SHIFT)
+#define GPDMA_CxCONTROL_SWIDTH_SHIFT	(18)
+#define GPDMA_CxCONTROL_SWIDTH_MASK	(0x7 << GPDMA_CxCONTROL_SWIDTH_SHIFT)
+#define GPDMA_CxCONTROL_SWIDTH(x)	((x) << GPDMA_CxCONTROL_SWIDTH_SHIFT)
 
 /* DWIDTH: Destination transfer width */
-#define GPDMA_C0CONTROL_DWIDTH_SHIFT (21)
-#define GPDMA_C0CONTROL_DWIDTH_MASK (0x7 << GPDMA_C0CONTROL_DWIDTH_SHIFT)
-#define GPDMA_C0CONTROL_DWIDTH(x) ((x) << GPDMA_C0CONTROL_DWIDTH_SHIFT)
+#define GPDMA_CxCONTROL_DWIDTH_SHIFT	(21)
+#define GPDMA_CxCONTROL_DWIDTH_MASK	(0x7 << GPDMA_CxCONTROL_DWIDTH_SHIFT)
+#define GPDMA_CxCONTROL_DWIDTH(x)	((x) << GPDMA_CxCONTROL_DWIDTH_SHIFT)
 
 /* S: Source AHB master select */
-#define GPDMA_C0CONTROL_S_SHIFT (24)
-#define GPDMA_C0CONTROL_S_MASK (0x1 << GPDMA_C0CONTROL_S_SHIFT)
-#define GPDMA_C0CONTROL_S(x) ((x) << GPDMA_C0CONTROL_S_SHIFT)
+#define GPDMA_CxCONTROL_S_SHIFT		(24)
+#define GPDMA_CxCONTROL_S_MASK		(0x1 << GPDMA_CxCONTROL_S_SHIFT)
+#define GPDMA_CxCONTROL_S(x)		((x) << GPDMA_CxCONTROL_S_SHIFT)
 
 /* D: Destination AHB master select */
-#define GPDMA_C0CONTROL_D_SHIFT (25)
-#define GPDMA_C0CONTROL_D_MASK (0x1 << GPDMA_C0CONTROL_D_SHIFT)
-#define GPDMA_C0CONTROL_D(x) ((x) << GPDMA_C0CONTROL_D_SHIFT)
+#define GPDMA_CxCONTROL_D_SHIFT		(25)
+#define GPDMA_CxCONTROL_D_MASK		(0x1 << GPDMA_CxCONTROL_D_SHIFT)
+#define GPDMA_CxCONTROL_D(x)		((x) << GPDMA_CxCONTROL_D_SHIFT)
 
 /* SI: Source increment */
-#define GPDMA_C0CONTROL_SI_SHIFT (26)
-#define GPDMA_C0CONTROL_SI_MASK (0x1 << GPDMA_C0CONTROL_SI_SHIFT)
-#define GPDMA_C0CONTROL_SI(x) ((x) << GPDMA_C0CONTROL_SI_SHIFT)
+#define GPDMA_CxCONTROL_SI_SHIFT	(26)
+#define GPDMA_CxCONTROL_SI_MASK		(0x1 << GPDMA_CxCONTROL_SI_SHIFT)
+#define GPDMA_Cx0CONTROL_SI(x)		((x) << GPDMA_CxCONTROL_SI_SHIFT)
 
 /* DI: Destination increment */
-#define GPDMA_C0CONTROL_DI_SHIFT (27)
-#define GPDMA_C0CONTROL_DI_MASK (0x1 << GPDMA_C0CONTROL_DI_SHIFT)
-#define GPDMA_C0CONTROL_DI(x) ((x) << GPDMA_C0CONTROL_DI_SHIFT)
+#define GPDMA_CxCONTROL_DI_SHIFT	(27)
+#define GPDMA_CxCONTROL_DI_MASK		(0x1 << GPDMA_CxCONTROL_DI_SHIFT)
+#define GPDMA_CxCONTROL_DI(x)		((x) << GPDMA_CxCONTROL_DI_SHIFT)
 
 /* PROT1: This information is provided to the peripheral during a DMA bus
   access and indicates that the access is in user mode or privileged mode */
-#define GPDMA_C0CONTROL_PROT1_SHIFT (28)
-#define GPDMA_C0CONTROL_PROT1_MASK (0x1 << GPDMA_C0CONTROL_PROT1_SHIFT)
-#define GPDMA_C0CONTROL_PROT1(x) ((x) << GPDMA_C0CONTROL_PROT1_SHIFT)
+#define GPDMA_CxCONTROL_PROT1_SHIFT	(28)
+#define GPDMA_CxCONTROL_PROT1_MASK	(0x1 << GPDMA_CxCONTROL_PROT1_SHIFT)
+#define GPDMA_CxCONTROL_PROT1(x)	((x) << GPDMA_CxCONTROL_PROT1_SHIFT)
 
 /* PROT2: This information is provided to the peripheral during a DMA bus
   access and indicates to the peripheral that the access is bufferable or not
   bufferable */
-#define GPDMA_C0CONTROL_PROT2_SHIFT (29)
-#define GPDMA_C0CONTROL_PROT2_MASK (0x1 << GPDMA_C0CONTROL_PROT2_SHIFT)
-#define GPDMA_C0CONTROL_PROT2(x) ((x) << GPDMA_C0CONTROL_PROT2_SHIFT)
+#define GPDMA_CxCONTROL_PROT2_SHIFT	(29)
+#define GPDMA_CxCONTROL_PROT2_MASK	(0x1 << GPDMA_CxCONTROL_PROT2_SHIFT)
+#define GPDMA_CxCONTROL_PROT2(x)	((x) << GPDMA_CxCONTROL_PROT2_SHIFT)
 
 /* PROT3: This information is provided to the peripheral during a DMA bus
  access and indicates to the peripheral that the access is cacheable or not
  cacheable */
-#define GPDMA_C0CONTROL_PROT3_SHIFT (30)
-#define GPDMA_C0CONTROL_PROT3_MASK (0x1 << GPDMA_C0CONTROL_PROT3_SHIFT)
-#define GPDMA_C0CONTROL_PROT3(x) ((x) << GPDMA_C0CONTROL_PROT3_SHIFT)
+#define GPDMA_CxCONTROL_PROT3_SHIFT	(30)
+#define GPDMA_CxCONTROL_PROT3_MASK	(0x1 << GPDMA_CxCONTROL_PROT3_SHIFT)
+#define GPDMA_CxCONTROL_PROT3(x) 	((x) << GPDMA_CxCONTROL_PROT3_SHIFT)
 
 /* I: Terminal count interrupt enable bit */
-#define GPDMA_C0CONTROL_I_SHIFT (31)
-#define GPDMA_C0CONTROL_I_MASK (0x1 << GPDMA_C0CONTROL_I_SHIFT)
-#define GPDMA_C0CONTROL_I(x) ((x) << GPDMA_C0CONTROL_I_SHIFT)
-
-/* --- GPDMA_C1CONTROL values ----------------------------------- */
-
-/* TRANSFERSIZE: Transfer size in number of transfers */
-#define GPDMA_C1CONTROL_TRANSFERSIZE_SHIFT (0)
-#define GPDMA_C1CONTROL_TRANSFERSIZE_MASK \
-			(0xfff << GPDMA_C1CONTROL_TRANSFERSIZE_SHIFT)
-#define GPDMA_C1CONTROL_TRANSFERSIZE(x) \
-			((x) << GPDMA_C1CONTROL_TRANSFERSIZE_SHIFT)
-
-/* SBSIZE: Source burst size */
-#define GPDMA_C1CONTROL_SBSIZE_SHIFT (12)
-#define GPDMA_C1CONTROL_SBSIZE_MASK (0x7 << GPDMA_C1CONTROL_SBSIZE_SHIFT)
-#define GPDMA_C1CONTROL_SBSIZE(x) ((x) << GPDMA_C1CONTROL_SBSIZE_SHIFT)
-
-/* DBSIZE: Destination burst size */
-#define GPDMA_C1CONTROL_DBSIZE_SHIFT (15)
-#define GPDMA_C1CONTROL_DBSIZE_MASK (0x7 << GPDMA_C1CONTROL_DBSIZE_SHIFT)
-#define GPDMA_C1CONTROL_DBSIZE(x) ((x) << GPDMA_C1CONTROL_DBSIZE_SHIFT)
-
-/* SWIDTH: Source transfer width */
-#define GPDMA_C1CONTROL_SWIDTH_SHIFT (18)
-#define GPDMA_C1CONTROL_SWIDTH_MASK (0x7 << GPDMA_C1CONTROL_SWIDTH_SHIFT)
-#define GPDMA_C1CONTROL_SWIDTH(x) ((x) << GPDMA_C1CONTROL_SWIDTH_SHIFT)
-
-/* DWIDTH: Destination transfer width */
-#define GPDMA_C1CONTROL_DWIDTH_SHIFT (21)
-#define GPDMA_C1CONTROL_DWIDTH_MASK (0x7 << GPDMA_C1CONTROL_DWIDTH_SHIFT)
-#define GPDMA_C1CONTROL_DWIDTH(x) ((x) << GPDMA_C1CONTROL_DWIDTH_SHIFT)
-
-/* S: Source AHB master select */
-#define GPDMA_C1CONTROL_S_SHIFT (24)
-#define GPDMA_C1CONTROL_S_MASK (0x1 << GPDMA_C1CONTROL_S_SHIFT)
-#define GPDMA_C1CONTROL_S(x) ((x) << GPDMA_C1CONTROL_S_SHIFT)
-
-/* D: Destination AHB master select */
-#define GPDMA_C1CONTROL_D_SHIFT (25)
-#define GPDMA_C1CONTROL_D_MASK (0x1 << GPDMA_C1CONTROL_D_SHIFT)
-#define GPDMA_C1CONTROL_D(x) ((x) << GPDMA_C1CONTROL_D_SHIFT)
-
-/* SI: Source increment */
-#define GPDMA_C1CONTROL_SI_SHIFT (26)
-#define GPDMA_C1CONTROL_SI_MASK (0x1 << GPDMA_C1CONTROL_SI_SHIFT)
-#define GPDMA_C1CONTROL_SI(x) ((x) << GPDMA_C1CONTROL_SI_SHIFT)
-
-/* DI: Destination increment */
-#define GPDMA_C1CONTROL_DI_SHIFT (27)
-#define GPDMA_C1CONTROL_DI_MASK (0x1 << GPDMA_C1CONTROL_DI_SHIFT)
-#define GPDMA_C1CONTROL_DI(x) ((x) << GPDMA_C1CONTROL_DI_SHIFT)
-
-/* PROT1: This information is provided to the peripheral during a DMA bus
- access and indicates that the access is in user mode or privileged mode */
-#define GPDMA_C1CONTROL_PROT1_SHIFT (28)
-#define GPDMA_C1CONTROL_PROT1_MASK (0x1 << GPDMA_C1CONTROL_PROT1_SHIFT)
-#define GPDMA_C1CONTROL_PROT1(x) ((x) << GPDMA_C1CONTROL_PROT1_SHIFT)
-
-/* PROT2: This information is provided to the peripheral during a DMA bus
-  access and indicates to the peripheral that the access is bufferable or not
-  bufferable */
-#define GPDMA_C1CONTROL_PROT2_SHIFT (29)
-#define GPDMA_C1CONTROL_PROT2_MASK (0x1 << GPDMA_C1CONTROL_PROT2_SHIFT)
-#define GPDMA_C1CONTROL_PROT2(x) ((x) << GPDMA_C1CONTROL_PROT2_SHIFT)
-
-/* PROT3: This information is provided to the peripheral during a DMA bus
-  access and indicates to the peripheral that the access is cacheable or not
-  cacheable */
-#define GPDMA_C1CONTROL_PROT3_SHIFT (30)
-#define GPDMA_C1CONTROL_PROT3_MASK (0x1 << GPDMA_C1CONTROL_PROT3_SHIFT)
-#define GPDMA_C1CONTROL_PROT3(x) ((x) << GPDMA_C1CONTROL_PROT3_SHIFT)
-
-/* I: Terminal count interrupt enable bit */
-#define GPDMA_C1CONTROL_I_SHIFT (31)
-#define GPDMA_C1CONTROL_I_MASK (0x1 << GPDMA_C1CONTROL_I_SHIFT)
-#define GPDMA_C1CONTROL_I(x) ((x) << GPDMA_C1CONTROL_I_SHIFT)
-
-/* --- GPDMA_C2CONTROL values ----------------------------------- */
-
-/* TRANSFERSIZE: Transfer size in number of transfers */
-#define GPDMA_C2CONTROL_TRANSFERSIZE_SHIFT (0)
-#define GPDMA_C2CONTROL_TRANSFERSIZE_MASK \
-		(0xfff << GPDMA_C2CONTROL_TRANSFERSIZE_SHIFT)
-#define GPDMA_C2CONTROL_TRANSFERSIZE(x) \
-		((x) << GPDMA_C2CONTROL_TRANSFERSIZE_SHIFT)
-
-/* SBSIZE: Source burst size */
-#define GPDMA_C2CONTROL_SBSIZE_SHIFT (12)
-#define GPDMA_C2CONTROL_SBSIZE_MASK (0x7 << GPDMA_C2CONTROL_SBSIZE_SHIFT)
-#define GPDMA_C2CONTROL_SBSIZE(x) ((x) << GPDMA_C2CONTROL_SBSIZE_SHIFT)
-
-/* DBSIZE: Destination burst size */
-#define GPDMA_C2CONTROL_DBSIZE_SHIFT (15)
-#define GPDMA_C2CONTROL_DBSIZE_MASK (0x7 << GPDMA_C2CONTROL_DBSIZE_SHIFT)
-#define GPDMA_C2CONTROL_DBSIZE(x) ((x) << GPDMA_C2CONTROL_DBSIZE_SHIFT)
-
-/* SWIDTH: Source transfer width */
-#define GPDMA_C2CONTROL_SWIDTH_SHIFT (18)
-#define GPDMA_C2CONTROL_SWIDTH_MASK (0x7 << GPDMA_C2CONTROL_SWIDTH_SHIFT)
-#define GPDMA_C2CONTROL_SWIDTH(x) ((x) << GPDMA_C2CONTROL_SWIDTH_SHIFT)
-
-/* DWIDTH: Destination transfer width */
-#define GPDMA_C2CONTROL_DWIDTH_SHIFT (21)
-#define GPDMA_C2CONTROL_DWIDTH_MASK (0x7 << GPDMA_C2CONTROL_DWIDTH_SHIFT)
-#define GPDMA_C2CONTROL_DWIDTH(x) ((x) << GPDMA_C2CONTROL_DWIDTH_SHIFT)
-
-/* S: Source AHB master select */
-#define GPDMA_C2CONTROL_S_SHIFT (24)
-#define GPDMA_C2CONTROL_S_MASK (0x1 << GPDMA_C2CONTROL_S_SHIFT)
-#define GPDMA_C2CONTROL_S(x) ((x) << GPDMA_C2CONTROL_S_SHIFT)
-
-/* D: Destination AHB master select */
-#define GPDMA_C2CONTROL_D_SHIFT (25)
-#define GPDMA_C2CONTROL_D_MASK (0x1 << GPDMA_C2CONTROL_D_SHIFT)
-#define GPDMA_C2CONTROL_D(x) ((x) << GPDMA_C2CONTROL_D_SHIFT)
-
-/* SI: Source increment */
-#define GPDMA_C2CONTROL_SI_SHIFT (26)
-#define GPDMA_C2CONTROL_SI_MASK (0x1 << GPDMA_C2CONTROL_SI_SHIFT)
-#define GPDMA_C2CONTROL_SI(x) ((x) << GPDMA_C2CONTROL_SI_SHIFT)
-
-/* DI: Destination increment */
-#define GPDMA_C2CONTROL_DI_SHIFT (27)
-#define GPDMA_C2CONTROL_DI_MASK (0x1 << GPDMA_C2CONTROL_DI_SHIFT)
-#define GPDMA_C2CONTROL_DI(x) ((x) << GPDMA_C2CONTROL_DI_SHIFT)
-
-/* PROT1: This information is provided to the peripheral during a DMA bus
-  access and indicates that the access is in user mode or privileged mode */
-#define GPDMA_C2CONTROL_PROT1_SHIFT (28)
-#define GPDMA_C2CONTROL_PROT1_MASK (0x1 << GPDMA_C2CONTROL_PROT1_SHIFT)
-#define GPDMA_C2CONTROL_PROT1(x) ((x) << GPDMA_C2CONTROL_PROT1_SHIFT)
-
-/* PROT2: This information is provided to the peripheral during a DMA bus
-  access and indicates to the peripheral that the access is bufferable or not
-  bufferable */
-#define GPDMA_C2CONTROL_PROT2_SHIFT (29)
-#define GPDMA_C2CONTROL_PROT2_MASK (0x1 << GPDMA_C2CONTROL_PROT2_SHIFT)
-#define GPDMA_C2CONTROL_PROT2(x) ((x) << GPDMA_C2CONTROL_PROT2_SHIFT)
-
-/* PROT3: This information is provided to the peripheral during a DMA bus
- access and indicates to the peripheral that the access is cacheable or not
- cacheable */
-#define GPDMA_C2CONTROL_PROT3_SHIFT (30)
-#define GPDMA_C2CONTROL_PROT3_MASK (0x1 << GPDMA_C2CONTROL_PROT3_SHIFT)
-#define GPDMA_C2CONTROL_PROT3(x) ((x) << GPDMA_C2CONTROL_PROT3_SHIFT)
-
-/* I: Terminal count interrupt enable bit */
-#define GPDMA_C2CONTROL_I_SHIFT (31)
-#define GPDMA_C2CONTROL_I_MASK (0x1 << GPDMA_C2CONTROL_I_SHIFT)
-#define GPDMA_C2CONTROL_I(x) ((x) << GPDMA_C2CONTROL_I_SHIFT)
-
-/* --- GPDMA_C3CONTROL values ----------------------------------- */
-
-/* TRANSFERSIZE: Transfer size in number of transfers */
-#define GPDMA_C3CONTROL_TRANSFERSIZE_SHIFT (0)
-#define GPDMA_C3CONTROL_TRANSFERSIZE_MASK \
-	(0xfff << GPDMA_C3CONTROL_TRANSFERSIZE_SHIFT)
-#define GPDMA_C3CONTROL_TRANSFERSIZE(x) \
-	((x) << GPDMA_C3CONTROL_TRANSFERSIZE_SHIFT)
-
-/* SBSIZE: Source burst size */
-#define GPDMA_C3CONTROL_SBSIZE_SHIFT (12)
-#define GPDMA_C3CONTROL_SBSIZE_MASK (0x7 << GPDMA_C3CONTROL_SBSIZE_SHIFT)
-#define GPDMA_C3CONTROL_SBSIZE(x) ((x) << GPDMA_C3CONTROL_SBSIZE_SHIFT)
-
-/* DBSIZE: Destination burst size */
-#define GPDMA_C3CONTROL_DBSIZE_SHIFT (15)
-#define GPDMA_C3CONTROL_DBSIZE_MASK (0x7 << GPDMA_C3CONTROL_DBSIZE_SHIFT)
-#define GPDMA_C3CONTROL_DBSIZE(x) ((x) << GPDMA_C3CONTROL_DBSIZE_SHIFT)
-
-/* SWIDTH: Source transfer width */
-#define GPDMA_C3CONTROL_SWIDTH_SHIFT (18)
-#define GPDMA_C3CONTROL_SWIDTH_MASK (0x7 << GPDMA_C3CONTROL_SWIDTH_SHIFT)
-#define GPDMA_C3CONTROL_SWIDTH(x) ((x) << GPDMA_C3CONTROL_SWIDTH_SHIFT)
-
-/* DWIDTH: Destination transfer width */
-#define GPDMA_C3CONTROL_DWIDTH_SHIFT (21)
-#define GPDMA_C3CONTROL_DWIDTH_MASK (0x7 << GPDMA_C3CONTROL_DWIDTH_SHIFT)
-#define GPDMA_C3CONTROL_DWIDTH(x) ((x) << GPDMA_C3CONTROL_DWIDTH_SHIFT)
-
-/* S: Source AHB master select */
-#define GPDMA_C3CONTROL_S_SHIFT (24)
-#define GPDMA_C3CONTROL_S_MASK (0x1 << GPDMA_C3CONTROL_S_SHIFT)
-#define GPDMA_C3CONTROL_S(x) ((x) << GPDMA_C3CONTROL_S_SHIFT)
-
-/* D: Destination AHB master select */
-#define GPDMA_C3CONTROL_D_SHIFT (25)
-#define GPDMA_C3CONTROL_D_MASK (0x1 << GPDMA_C3CONTROL_D_SHIFT)
-#define GPDMA_C3CONTROL_D(x) ((x) << GPDMA_C3CONTROL_D_SHIFT)
-
-/* SI: Source increment */
-#define GPDMA_C3CONTROL_SI_SHIFT (26)
-#define GPDMA_C3CONTROL_SI_MASK (0x1 << GPDMA_C3CONTROL_SI_SHIFT)
-#define GPDMA_C3CONTROL_SI(x) ((x) << GPDMA_C3CONTROL_SI_SHIFT)
-
-/* DI: Destination increment */
-#define GPDMA_C3CONTROL_DI_SHIFT (27)
-#define GPDMA_C3CONTROL_DI_MASK (0x1 << GPDMA_C3CONTROL_DI_SHIFT)
-#define GPDMA_C3CONTROL_DI(x) ((x) << GPDMA_C3CONTROL_DI_SHIFT)
-
-/* PROT1: This information is provided to the peripheral during a DMA bus
-  access and indicates that the access is in user mode or privileged mode */
-#define GPDMA_C3CONTROL_PROT1_SHIFT (28)
-#define GPDMA_C3CONTROL_PROT1_MASK (0x1 << GPDMA_C3CONTROL_PROT1_SHIFT)
-#define GPDMA_C3CONTROL_PROT1(x) ((x) << GPDMA_C3CONTROL_PROT1_SHIFT)
-
-/* PROT2: This information is provided to the peripheral during a DMA bus
-  access and indicates to the peripheral that the access is bufferable or
-  not bufferable */
-#define GPDMA_C3CONTROL_PROT2_SHIFT (29)
-#define GPDMA_C3CONTROL_PROT2_MASK (0x1 << GPDMA_C3CONTROL_PROT2_SHIFT)
-#define GPDMA_C3CONTROL_PROT2(x) ((x) << GPDMA_C3CONTROL_PROT2_SHIFT)
-
-/* PROT3: This information is provided to the peripheral during a DMA bus
-  access and indicates to the peripheral that the access is cacheable or not
-  cacheable */
-#define GPDMA_C3CONTROL_PROT3_SHIFT (30)
-#define GPDMA_C3CONTROL_PROT3_MASK (0x1 << GPDMA_C3CONTROL_PROT3_SHIFT)
-#define GPDMA_C3CONTROL_PROT3(x) ((x) << GPDMA_C3CONTROL_PROT3_SHIFT)
-
-/* I: Terminal count interrupt enable bit */
-#define GPDMA_C3CONTROL_I_SHIFT (31)
-#define GPDMA_C3CONTROL_I_MASK (0x1 << GPDMA_C3CONTROL_I_SHIFT)
-#define GPDMA_C3CONTROL_I(x) ((x) << GPDMA_C3CONTROL_I_SHIFT)
-
-/* --- GPDMA_C4CONTROL values ----------------------------------- */
-
-/* TRANSFERSIZE: Transfer size in number of transfers */
-#define GPDMA_C4CONTROL_TRANSFERSIZE_SHIFT (0)
-#define GPDMA_C4CONTROL_TRANSFERSIZE_MASK \
-		(0xfff << GPDMA_C4CONTROL_TRANSFERSIZE_SHIFT)
-#define GPDMA_C4CONTROL_TRANSFERSIZE(x) \
-		((x) << GPDMA_C4CONTROL_TRANSFERSIZE_SHIFT)
-
-/* SBSIZE: Source burst size */
-#define GPDMA_C4CONTROL_SBSIZE_SHIFT (12)
-#define GPDMA_C4CONTROL_SBSIZE_MASK (0x7 << GPDMA_C4CONTROL_SBSIZE_SHIFT)
-#define GPDMA_C4CONTROL_SBSIZE(x) ((x) << GPDMA_C4CONTROL_SBSIZE_SHIFT)
-
-/* DBSIZE: Destination burst size */
-#define GPDMA_C4CONTROL_DBSIZE_SHIFT (15)
-#define GPDMA_C4CONTROL_DBSIZE_MASK (0x7 << GPDMA_C4CONTROL_DBSIZE_SHIFT)
-#define GPDMA_C4CONTROL_DBSIZE(x) ((x) << GPDMA_C4CONTROL_DBSIZE_SHIFT)
-
-/* SWIDTH: Source transfer width */
-#define GPDMA_C4CONTROL_SWIDTH_SHIFT (18)
-#define GPDMA_C4CONTROL_SWIDTH_MASK (0x7 << GPDMA_C4CONTROL_SWIDTH_SHIFT)
-#define GPDMA_C4CONTROL_SWIDTH(x) ((x) << GPDMA_C4CONTROL_SWIDTH_SHIFT)
-
-/* DWIDTH: Destination transfer width */
-#define GPDMA_C4CONTROL_DWIDTH_SHIFT (21)
-#define GPDMA_C4CONTROL_DWIDTH_MASK (0x7 << GPDMA_C4CONTROL_DWIDTH_SHIFT)
-#define GPDMA_C4CONTROL_DWIDTH(x) ((x) << GPDMA_C4CONTROL_DWIDTH_SHIFT)
-
-/* S: Source AHB master select */
-#define GPDMA_C4CONTROL_S_SHIFT (24)
-#define GPDMA_C4CONTROL_S_MASK (0x1 << GPDMA_C4CONTROL_S_SHIFT)
-#define GPDMA_C4CONTROL_S(x) ((x) << GPDMA_C4CONTROL_S_SHIFT)
-
-/* D: Destination AHB master select */
-#define GPDMA_C4CONTROL_D_SHIFT (25)
-#define GPDMA_C4CONTROL_D_MASK (0x1 << GPDMA_C4CONTROL_D_SHIFT)
-#define GPDMA_C4CONTROL_D(x) ((x) << GPDMA_C4CONTROL_D_SHIFT)
-
-/* SI: Source increment */
-#define GPDMA_C4CONTROL_SI_SHIFT (26)
-#define GPDMA_C4CONTROL_SI_MASK (0x1 << GPDMA_C4CONTROL_SI_SHIFT)
-#define GPDMA_C4CONTROL_SI(x) ((x) << GPDMA_C4CONTROL_SI_SHIFT)
-
-/* DI: Destination increment */
-#define GPDMA_C4CONTROL_DI_SHIFT (27)
-#define GPDMA_C4CONTROL_DI_MASK (0x1 << GPDMA_C4CONTROL_DI_SHIFT)
-#define GPDMA_C4CONTROL_DI(x) ((x) << GPDMA_C4CONTROL_DI_SHIFT)
-
-/* PROT1: This information is provided to the peripheral during a DMA bus
-  access and indicates that the access is in user mode or privileged mode */
-#define GPDMA_C4CONTROL_PROT1_SHIFT (28)
-#define GPDMA_C4CONTROL_PROT1_MASK (0x1 << GPDMA_C4CONTROL_PROT1_SHIFT)
-#define GPDMA_C4CONTROL_PROT1(x) ((x) << GPDMA_C4CONTROL_PROT1_SHIFT)
-
-/* PROT2: This information is provided to the peripheral during a DMA bus
-  access and indicates to the peripheral that the access is bufferable or
-  not bufferable */
-#define GPDMA_C4CONTROL_PROT2_SHIFT (29)
-#define GPDMA_C4CONTROL_PROT2_MASK (0x1 << GPDMA_C4CONTROL_PROT2_SHIFT)
-#define GPDMA_C4CONTROL_PROT2(x) ((x) << GPDMA_C4CONTROL_PROT2_SHIFT)
-
-/* PROT3: This information is provided to the peripheral during a DMA bus
-  access and indicates to the peripheral that the access is cacheable or not
-  cacheable */
-#define GPDMA_C4CONTROL_PROT3_SHIFT (30)
-#define GPDMA_C4CONTROL_PROT3_MASK (0x1 << GPDMA_C4CONTROL_PROT3_SHIFT)
-#define GPDMA_C4CONTROL_PROT3(x) ((x) << GPDMA_C4CONTROL_PROT3_SHIFT)
-
-/* I: Terminal count interrupt enable bit */
-#define GPDMA_C4CONTROL_I_SHIFT (31)
-#define GPDMA_C4CONTROL_I_MASK (0x1 << GPDMA_C4CONTROL_I_SHIFT)
-#define GPDMA_C4CONTROL_I(x) ((x) << GPDMA_C4CONTROL_I_SHIFT)
-
-/* --- GPDMA_C5CONTROL values ----------------------------------- */
-
-/* TRANSFERSIZE: Transfer size in number of transfers */
-#define GPDMA_C5CONTROL_TRANSFERSIZE_SHIFT (0)
-#define GPDMA_C5CONTROL_TRANSFERSIZE_MASK \
-			(0xfff << GPDMA_C5CONTROL_TRANSFERSIZE_SHIFT)
-#define GPDMA_C5CONTROL_TRANSFERSIZE(x) \
-			((x) << GPDMA_C5CONTROL_TRANSFERSIZE_SHIFT)
-
-/* SBSIZE: Source burst size */
-#define GPDMA_C5CONTROL_SBSIZE_SHIFT (12)
-#define GPDMA_C5CONTROL_SBSIZE_MASK (0x7 << GPDMA_C5CONTROL_SBSIZE_SHIFT)
-#define GPDMA_C5CONTROL_SBSIZE(x) ((x) << GPDMA_C5CONTROL_SBSIZE_SHIFT)
-
-/* DBSIZE: Destination burst size */
-#define GPDMA_C5CONTROL_DBSIZE_SHIFT (15)
-#define GPDMA_C5CONTROL_DBSIZE_MASK (0x7 << GPDMA_C5CONTROL_DBSIZE_SHIFT)
-#define GPDMA_C5CONTROL_DBSIZE(x) ((x) << GPDMA_C5CONTROL_DBSIZE_SHIFT)
-
-/* SWIDTH: Source transfer width */
-#define GPDMA_C5CONTROL_SWIDTH_SHIFT (18)
-#define GPDMA_C5CONTROL_SWIDTH_MASK (0x7 << GPDMA_C5CONTROL_SWIDTH_SHIFT)
-#define GPDMA_C5CONTROL_SWIDTH(x) ((x) << GPDMA_C5CONTROL_SWIDTH_SHIFT)
-
-/* DWIDTH: Destination transfer width */
-#define GPDMA_C5CONTROL_DWIDTH_SHIFT (21)
-#define GPDMA_C5CONTROL_DWIDTH_MASK (0x7 << GPDMA_C5CONTROL_DWIDTH_SHIFT)
-#define GPDMA_C5CONTROL_DWIDTH(x) ((x) << GPDMA_C5CONTROL_DWIDTH_SHIFT)
-
-/* S: Source AHB master select */
-#define GPDMA_C5CONTROL_S_SHIFT (24)
-#define GPDMA_C5CONTROL_S_MASK (0x1 << GPDMA_C5CONTROL_S_SHIFT)
-#define GPDMA_C5CONTROL_S(x) ((x) << GPDMA_C5CONTROL_S_SHIFT)
-
-/* D: Destination AHB master select */
-#define GPDMA_C5CONTROL_D_SHIFT (25)
-#define GPDMA_C5CONTROL_D_MASK (0x1 << GPDMA_C5CONTROL_D_SHIFT)
-#define GPDMA_C5CONTROL_D(x) ((x) << GPDMA_C5CONTROL_D_SHIFT)
-
-/* SI: Source increment */
-#define GPDMA_C5CONTROL_SI_SHIFT (26)
-#define GPDMA_C5CONTROL_SI_MASK (0x1 << GPDMA_C5CONTROL_SI_SHIFT)
-#define GPDMA_C5CONTROL_SI(x) ((x) << GPDMA_C5CONTROL_SI_SHIFT)
-
-/* DI: Destination increment */
-#define GPDMA_C5CONTROL_DI_SHIFT (27)
-#define GPDMA_C5CONTROL_DI_MASK (0x1 << GPDMA_C5CONTROL_DI_SHIFT)
-#define GPDMA_C5CONTROL_DI(x) ((x) << GPDMA_C5CONTROL_DI_SHIFT)
-
-/* PROT1: This information is provided to the peripheral during a DMA bus
-  access and indicates that the access is in user mode or privileged mode */
-#define GPDMA_C5CONTROL_PROT1_SHIFT (28)
-#define GPDMA_C5CONTROL_PROT1_MASK (0x1 << GPDMA_C5CONTROL_PROT1_SHIFT)
-#define GPDMA_C5CONTROL_PROT1(x) ((x) << GPDMA_C5CONTROL_PROT1_SHIFT)
-
-/* PROT2: This information is provided to the peripheral during a DMA bus
-  access and indicates to the peripheral that the access is bufferable or
-  not bufferable */
-#define GPDMA_C5CONTROL_PROT2_SHIFT (29)
-#define GPDMA_C5CONTROL_PROT2_MASK (0x1 << GPDMA_C5CONTROL_PROT2_SHIFT)
-#define GPDMA_C5CONTROL_PROT2(x) ((x) << GPDMA_C5CONTROL_PROT2_SHIFT)
-
-/* PROT3: This information is provided to the peripheral during a DMA bus
-  access and indicates to the peripheral that the access is cacheable or not
-  cacheable */
-#define GPDMA_C5CONTROL_PROT3_SHIFT (30)
-#define GPDMA_C5CONTROL_PROT3_MASK (0x1 << GPDMA_C5CONTROL_PROT3_SHIFT)
-#define GPDMA_C5CONTROL_PROT3(x) ((x) << GPDMA_C5CONTROL_PROT3_SHIFT)
-
-/* I: Terminal count interrupt enable bit */
-#define GPDMA_C5CONTROL_I_SHIFT (31)
-#define GPDMA_C5CONTROL_I_MASK (0x1 << GPDMA_C5CONTROL_I_SHIFT)
-#define GPDMA_C5CONTROL_I(x) ((x) << GPDMA_C5CONTROL_I_SHIFT)
-
-/* --- GPDMA_C6CONTROL values ----------------------------------- */
-
-/* TRANSFERSIZE: Transfer size in number of transfers */
-#define GPDMA_C6CONTROL_TRANSFERSIZE_SHIFT (0)
-#define GPDMA_C6CONTROL_TRANSFERSIZE_MASK \
-			(0xfff << GPDMA_C6CONTROL_TRANSFERSIZE_SHIFT)
-#define GPDMA_C6CONTROL_TRANSFERSIZE(x) \
-			((x) << GPDMA_C6CONTROL_TRANSFERSIZE_SHIFT)
-
-/* SBSIZE: Source burst size */
-#define GPDMA_C6CONTROL_SBSIZE_SHIFT (12)
-#define GPDMA_C6CONTROL_SBSIZE_MASK (0x7 << GPDMA_C6CONTROL_SBSIZE_SHIFT)
-#define GPDMA_C6CONTROL_SBSIZE(x) ((x) << GPDMA_C6CONTROL_SBSIZE_SHIFT)
-
-/* DBSIZE: Destination burst size */
-#define GPDMA_C6CONTROL_DBSIZE_SHIFT (15)
-#define GPDMA_C6CONTROL_DBSIZE_MASK (0x7 << GPDMA_C6CONTROL_DBSIZE_SHIFT)
-#define GPDMA_C6CONTROL_DBSIZE(x) ((x) << GPDMA_C6CONTROL_DBSIZE_SHIFT)
-
-/* SWIDTH: Source transfer width */
-#define GPDMA_C6CONTROL_SWIDTH_SHIFT (18)
-#define GPDMA_C6CONTROL_SWIDTH_MASK (0x7 << GPDMA_C6CONTROL_SWIDTH_SHIFT)
-#define GPDMA_C6CONTROL_SWIDTH(x) ((x) << GPDMA_C6CONTROL_SWIDTH_SHIFT)
-
-/* DWIDTH: Destination transfer width */
-#define GPDMA_C6CONTROL_DWIDTH_SHIFT (21)
-#define GPDMA_C6CONTROL_DWIDTH_MASK (0x7 << GPDMA_C6CONTROL_DWIDTH_SHIFT)
-#define GPDMA_C6CONTROL_DWIDTH(x) ((x) << GPDMA_C6CONTROL_DWIDTH_SHIFT)
-
-/* S: Source AHB master select */
-#define GPDMA_C6CONTROL_S_SHIFT (24)
-#define GPDMA_C6CONTROL_S_MASK (0x1 << GPDMA_C6CONTROL_S_SHIFT)
-#define GPDMA_C6CONTROL_S(x) ((x) << GPDMA_C6CONTROL_S_SHIFT)
-
-/* D: Destination AHB master select */
-#define GPDMA_C6CONTROL_D_SHIFT (25)
-#define GPDMA_C6CONTROL_D_MASK (0x1 << GPDMA_C6CONTROL_D_SHIFT)
-#define GPDMA_C6CONTROL_D(x) ((x) << GPDMA_C6CONTROL_D_SHIFT)
-
-/* SI: Source increment */
-#define GPDMA_C6CONTROL_SI_SHIFT (26)
-#define GPDMA_C6CONTROL_SI_MASK (0x1 << GPDMA_C6CONTROL_SI_SHIFT)
-#define GPDMA_C6CONTROL_SI(x) ((x) << GPDMA_C6CONTROL_SI_SHIFT)
-
-/* DI: Destination increment */
-#define GPDMA_C6CONTROL_DI_SHIFT (27)
-#define GPDMA_C6CONTROL_DI_MASK (0x1 << GPDMA_C6CONTROL_DI_SHIFT)
-#define GPDMA_C6CONTROL_DI(x) ((x) << GPDMA_C6CONTROL_DI_SHIFT)
-
-/* PROT1: This information is provided to the peripheral during a DMA bus
-  access and indicates that the access is in user mode or privileged mode */
-#define GPDMA_C6CONTROL_PROT1_SHIFT (28)
-#define GPDMA_C6CONTROL_PROT1_MASK (0x1 << GPDMA_C6CONTROL_PROT1_SHIFT)
-#define GPDMA_C6CONTROL_PROT1(x) ((x) << GPDMA_C6CONTROL_PROT1_SHIFT)
-
-/* PROT2: This information is provided to the peripheral during a DMA bus
- access and indicates to the peripheral that the access is bufferable or not
- bufferable */
-#define GPDMA_C6CONTROL_PROT2_SHIFT (29)
-#define GPDMA_C6CONTROL_PROT2_MASK (0x1 << GPDMA_C6CONTROL_PROT2_SHIFT)
-#define GPDMA_C6CONTROL_PROT2(x) ((x) << GPDMA_C6CONTROL_PROT2_SHIFT)
-
-/* PROT3: This information is provided to the peripheral during a DMA bus
-  access and indicates to the peripheral that the access is cacheable or
-  not cacheable */
-#define GPDMA_C6CONTROL_PROT3_SHIFT (30)
-#define GPDMA_C6CONTROL_PROT3_MASK (0x1 << GPDMA_C6CONTROL_PROT3_SHIFT)
-#define GPDMA_C6CONTROL_PROT3(x) ((x) << GPDMA_C6CONTROL_PROT3_SHIFT)
-
-/* I: Terminal count interrupt enable bit */
-#define GPDMA_C6CONTROL_I_SHIFT (31)
-#define GPDMA_C6CONTROL_I_MASK (0x1 << GPDMA_C6CONTROL_I_SHIFT)
-#define GPDMA_C6CONTROL_I(x) ((x) << GPDMA_C6CONTROL_I_SHIFT)
-
-/* --- GPDMA_C7CONTROL values ----------------------------------- */
-
-/* TRANSFERSIZE: Transfer size in number of transfers */
-#define GPDMA_C7CONTROL_TRANSFERSIZE_SHIFT (0)
-#define GPDMA_C7CONTROL_TRANSFERSIZE_MASK \
-			(0xfff << GPDMA_C7CONTROL_TRANSFERSIZE_SHIFT)
-#define GPDMA_C7CONTROL_TRANSFERSIZE(x) \
-			((x) << GPDMA_C7CONTROL_TRANSFERSIZE_SHIFT)
-
-/* SBSIZE: Source burst size */
-#define GPDMA_C7CONTROL_SBSIZE_SHIFT (12)
-#define GPDMA_C7CONTROL_SBSIZE_MASK (0x7 << GPDMA_C7CONTROL_SBSIZE_SHIFT)
-#define GPDMA_C7CONTROL_SBSIZE(x) ((x) << GPDMA_C7CONTROL_SBSIZE_SHIFT)
-
-/* DBSIZE: Destination burst size */
-#define GPDMA_C7CONTROL_DBSIZE_SHIFT (15)
-#define GPDMA_C7CONTROL_DBSIZE_MASK (0x7 << GPDMA_C7CONTROL_DBSIZE_SHIFT)
-#define GPDMA_C7CONTROL_DBSIZE(x) ((x) << GPDMA_C7CONTROL_DBSIZE_SHIFT)
-
-/* SWIDTH: Source transfer width */
-#define GPDMA_C7CONTROL_SWIDTH_SHIFT (18)
-#define GPDMA_C7CONTROL_SWIDTH_MASK (0x7 << GPDMA_C7CONTROL_SWIDTH_SHIFT)
-#define GPDMA_C7CONTROL_SWIDTH(x) ((x) << GPDMA_C7CONTROL_SWIDTH_SHIFT)
-
-/* DWIDTH: Destination transfer width */
-#define GPDMA_C7CONTROL_DWIDTH_SHIFT (21)
-#define GPDMA_C7CONTROL_DWIDTH_MASK (0x7 << GPDMA_C7CONTROL_DWIDTH_SHIFT)
-#define GPDMA_C7CONTROL_DWIDTH(x) ((x) << GPDMA_C7CONTROL_DWIDTH_SHIFT)
-
-/* S: Source AHB master select */
-#define GPDMA_C7CONTROL_S_SHIFT (24)
-#define GPDMA_C7CONTROL_S_MASK (0x1 << GPDMA_C7CONTROL_S_SHIFT)
-#define GPDMA_C7CONTROL_S(x) ((x) << GPDMA_C7CONTROL_S_SHIFT)
-
-/* D: Destination AHB master select */
-#define GPDMA_C7CONTROL_D_SHIFT (25)
-#define GPDMA_C7CONTROL_D_MASK (0x1 << GPDMA_C7CONTROL_D_SHIFT)
-#define GPDMA_C7CONTROL_D(x) ((x) << GPDMA_C7CONTROL_D_SHIFT)
-
-/* SI: Source increment */
-#define GPDMA_C7CONTROL_SI_SHIFT (26)
-#define GPDMA_C7CONTROL_SI_MASK (0x1 << GPDMA_C7CONTROL_SI_SHIFT)
-#define GPDMA_C7CONTROL_SI(x) ((x) << GPDMA_C7CONTROL_SI_SHIFT)
-
-/* DI: Destination increment */
-#define GPDMA_C7CONTROL_DI_SHIFT (27)
-#define GPDMA_C7CONTROL_DI_MASK (0x1 << GPDMA_C7CONTROL_DI_SHIFT)
-#define GPDMA_C7CONTROL_DI(x) ((x) << GPDMA_C7CONTROL_DI_SHIFT)
-
-/* PROT1: This information is provided to the peripheral during a DMA bus
-  access and indicates that the access is in user mode or privileged mode */
-#define GPDMA_C7CONTROL_PROT1_SHIFT (28)
-#define GPDMA_C7CONTROL_PROT1_MASK (0x1 << GPDMA_C7CONTROL_PROT1_SHIFT)
-#define GPDMA_C7CONTROL_PROT1(x) ((x) << GPDMA_C7CONTROL_PROT1_SHIFT)
-
-/* PROT2: This information is provided to the peripheral during a DMA bus
-  access and indicates to the peripheral that the access is bufferable or
-  not bufferable */
-#define GPDMA_C7CONTROL_PROT2_SHIFT (29)
-#define GPDMA_C7CONTROL_PROT2_MASK (0x1 << GPDMA_C7CONTROL_PROT2_SHIFT)
-#define GPDMA_C7CONTROL_PROT2(x) ((x) << GPDMA_C7CONTROL_PROT2_SHIFT)
-
-/* PROT3: This information is provided to the peripheral during a DMA bus
-  access and indicates to the peripheral that the access is cacheable or not
-  cacheable */
-#define GPDMA_C7CONTROL_PROT3_SHIFT (30)
-#define GPDMA_C7CONTROL_PROT3_MASK (0x1 << GPDMA_C7CONTROL_PROT3_SHIFT)
-#define GPDMA_C7CONTROL_PROT3(x) ((x) << GPDMA_C7CONTROL_PROT3_SHIFT)
-
-/* I: Terminal count interrupt enable bit */
-#define GPDMA_C7CONTROL_I_SHIFT (31)
-#define GPDMA_C7CONTROL_I_MASK (0x1 << GPDMA_C7CONTROL_I_SHIFT)
-#define GPDMA_C7CONTROL_I(x) ((x) << GPDMA_C7CONTROL_I_SHIFT)
-
-/* --- GPDMA_C0CONFIG values ------------------------------------ */
+#define GPDMA_CxCONTROL_I_SHIFT		(31)
+#define GPDMA_CxCONTROL_I_MASK		(0x1 << GPDMA_CxCONTROL_I_SHIFT)
+#define GPDMA_CxCONTROL_I(x)		((x) << GPDMA_CxCONTROL_I_SHIFT)
+
+/* --- GPDMA_C[0..7]CONFIG values ------------------------------------ */
 
 /* E: Channel enable */
-#define GPDMA_C0CONFIG_E_SHIFT (0)
-#define GPDMA_C0CONFIG_E_MASK (0x1 << GPDMA_C0CONFIG_E_SHIFT)
-#define GPDMA_C0CONFIG_E(x) ((x) << GPDMA_C0CONFIG_E_SHIFT)
+#define GPDMA_CxCONFIG_E_SHIFT		(0)
+#define GPDMA_CxCONFIG_E_MASK		(0x1 << GPDMA_CxCONFIG_E_SHIFT)
+#define GPDMA_CxCONFIG_E(x)		((x) << GPDMA_CxCONFIG_E_SHIFT)
 
 /* SRCPERIPHERAL: Source peripheral */
-#define GPDMA_C0CONFIG_SRCPERIPHERAL_SHIFT (1)
-#define GPDMA_C0CONFIG_SRCPERIPHERAL_MASK \
-			(0x1f << GPDMA_C0CONFIG_SRCPERIPHERAL_SHIFT)
-#define GPDMA_C0CONFIG_SRCPERIPHERAL(x)
-			((x) << GPDMA_C0CONFIG_SRCPERIPHERAL_SHIFT)
+#define GPDMA_CxCONFIG_SRCPERIPHERAL_SHIFT (1)
+#define GPDMA_CxCONFIG_SRCPERIPHERAL_MASK \
+			(0x1f << GPDMA_CxCONFIG_SRCPERIPHERAL_SHIFT)
+#define GPDMA_CxCONFIG_SRCPERIPHERAL(x)
+			((x) << GPDMA_CxCONFIG_SRCPERIPHERAL_SHIFT)
 
 /* DESTPERIPHERAL: Destination peripheral */
-#define GPDMA_C0CONFIG_DESTPERIPHERAL_SHIFT (6)
-#define GPDMA_C0CONFIG_DESTPERIPHERAL_MASK
-			(0x1f << GPDMA_C0CONFIG_DESTPERIPHERAL_SHIFT)
-#define GPDMA_C0CONFIG_DESTPERIPHERAL(x) \
-			((x) << GPDMA_C0CONFIG_DESTPERIPHERAL_SHIFT)
+#define GPDMA_CxCONFIG_DESTPERIPHERAL_SHIFT (6)
+#define GPDMA_CxCONFIG_DESTPERIPHERAL_MASK
+			(0x1f << GPDMA_CxCONFIG_DESTPERIPHERAL_SHIFT)
+#define GPDMA_CxCONFIG_DESTPERIPHERAL(x) \
+			((x) << GPDMA_CxCONFIG_DESTPERIPHERAL_SHIFT)
 
 /* FLOWCNTRL: Flow control and transfer type */
-#define GPDMA_C0CONFIG_FLOWCNTRL_SHIFT (11)
-#define GPDMA_C0CONFIG_FLOWCNTRL_MASK (0x7 << GPDMA_C0CONFIG_FLOWCNTRL_SHIFT)
-#define GPDMA_C0CONFIG_FLOWCNTRL(x) ((x) << GPDMA_C0CONFIG_FLOWCNTRL_SHIFT)
+#define GPDMA_CxCONFIG_FLOWCNTRL_SHIFT	(11)
+#define GPDMA_CxCONFIG_FLOWCNTRL_MASK	(0x7 << GPDMA_CxCONFIG_FLOWCNTRL_SHIFT)
+#define GPDMA_CxCONFIG_FLOWCNTRL(x)	((x) << GPDMA_CxCONFIG_FLOWCNTRL_SHIFT)
 
 /* IE: Interrupt error mask */
-#define GPDMA_C0CONFIG_IE_SHIFT (14)
-#define GPDMA_C0CONFIG_IE_MASK (0x1 << GPDMA_C0CONFIG_IE_SHIFT)
-#define GPDMA_C0CONFIG_IE(x) ((x) << GPDMA_C0CONFIG_IE_SHIFT)
+#define GPDMA_CxCONFIG_IE_SHIFT		(14)
+#define GPDMA_CxCONFIG_IE_MASK		(0x1 << GPDMA_CxCONFIG_IE_SHIFT)
+#define GPDMA_CxCONFIG_IE(x)		((x) << GPDMA_CxCONFIG_IE_SHIFT)
 
 /* ITC: Terminal count interrupt mask */
-#define GPDMA_C0CONFIG_ITC_SHIFT (15)
-#define GPDMA_C0CONFIG_ITC_MASK (0x1 << GPDMA_C0CONFIG_ITC_SHIFT)
-#define GPDMA_C0CONFIG_ITC(x) ((x) << GPDMA_C0CONFIG_ITC_SHIFT)
+#define GPDMA_CxCONFIG_ITC_SHIFT	(15)
+#define GPDMA_CxCONFIG_ITC_MASK		(0x1 << GPDMA_CxCONFIG_ITC_SHIFT)
+#define GPDMA_CxCONFIG_ITC(x)		((x) << GPDMA_CxCONFIG_ITC_SHIFT)
 
 /* L: Lock */
-#define GPDMA_C0CONFIG_L_SHIFT (16)
-#define GPDMA_C0CONFIG_L_MASK (0x1 << GPDMA_C0CONFIG_L_SHIFT)
-#define GPDMA_C0CONFIG_L(x) ((x) << GPDMA_C0CONFIG_L_SHIFT)
+#define GPDMA_CxCONFIG_L_SHIFT		(16)
+#define GPDMA_CxCONFIG_L_MASK		(0x1 << GPDMA_CxCONFIG_L_SHIFT)
+#define GPDMA_CxCONFIG_L(x)		((x) << GPDMA_CxCONFIG_L_SHIFT)
 
 /* A: Active */
-#define GPDMA_C0CONFIG_A_SHIFT (17)
-#define GPDMA_C0CONFIG_A_MASK (0x1 << GPDMA_C0CONFIG_A_SHIFT)
-#define GPDMA_C0CONFIG_A(x) ((x) << GPDMA_C0CONFIG_A_SHIFT)
+#define GPDMA_CxCONFIG_A_SHIFT		(17)
+#define GPDMA_CxCONFIG_A_MASK		(0x1 << GPDMA_CxCONFIG_A_SHIFT)
+#define GPDMA_CxCONFIG_A(x)		((x) << GPDMA_CxCONFIG_A_SHIFT)
 
 /* H: Halt */
-#define GPDMA_C0CONFIG_H_SHIFT (18)
-#define GPDMA_C0CONFIG_H_MASK (0x1 << GPDMA_C0CONFIG_H_SHIFT)
-#define GPDMA_C0CONFIG_H(x) ((x) << GPDMA_C0CONFIG_H_SHIFT)
-
-/* --- GPDMA_C1CONFIG values ------------------------------------ */
-
-/* E: Channel enable */
-#define GPDMA_C1CONFIG_E_SHIFT (0)
-#define GPDMA_C1CONFIG_E_MASK (0x1 << GPDMA_C1CONFIG_E_SHIFT)
-#define GPDMA_C1CONFIG_E(x) ((x) << GPDMA_C1CONFIG_E_SHIFT)
-
-/* SRCPERIPHERAL: Source peripheral */
-#define GPDMA_C1CONFIG_SRCPERIPHERAL_SHIFT (1)
-#define GPDMA_C1CONFIG_SRCPERIPHERAL_MASK \
-			(0x1f << GPDMA_C1CONFIG_SRCPERIPHERAL_SHIFT)
-#define GPDMA_C1CONFIG_SRCPERIPHERAL(x) \
-			((x) << GPDMA_C1CONFIG_SRCPERIPHERAL_SHIFT)
-
-/* DESTPERIPHERAL: Destination peripheral */
-#define GPDMA_C1CONFIG_DESTPERIPHERAL_SHIFT (6)
-#define GPDMA_C1CONFIG_DESTPERIPHERAL_MASK \
-			(0x1f << GPDMA_C1CONFIG_DESTPERIPHERAL_SHIFT)
-#define GPDMA_C1CONFIG_DESTPERIPHERAL(x) \
-			((x) << GPDMA_C1CONFIG_DESTPERIPHERAL_SHIFT)
-
-/* FLOWCNTRL: Flow control and transfer type */
-#define GPDMA_C1CONFIG_FLOWCNTRL_SHIFT (11)
-#define GPDMA_C1CONFIG_FLOWCNTRL_MASK (0x7 << GPDMA_C1CONFIG_FLOWCNTRL_SHIFT)
-#define GPDMA_C1CONFIG_FLOWCNTRL(x) ((x) << GPDMA_C1CONFIG_FLOWCNTRL_SHIFT)
-
-/* IE: Interrupt error mask */
-#define GPDMA_C1CONFIG_IE_SHIFT (14)
-#define GPDMA_C1CONFIG_IE_MASK (0x1 << GPDMA_C1CONFIG_IE_SHIFT)
-#define GPDMA_C1CONFIG_IE(x) ((x) << GPDMA_C1CONFIG_IE_SHIFT)
-
-/* ITC: Terminal count interrupt mask */
-#define GPDMA_C1CONFIG_ITC_SHIFT (15)
-#define GPDMA_C1CONFIG_ITC_MASK (0x1 << GPDMA_C1CONFIG_ITC_SHIFT)
-#define GPDMA_C1CONFIG_ITC(x) ((x) << GPDMA_C1CONFIG_ITC_SHIFT)
-
-/* L: Lock */
-#define GPDMA_C1CONFIG_L_SHIFT (16)
-#define GPDMA_C1CONFIG_L_MASK (0x1 << GPDMA_C1CONFIG_L_SHIFT)
-#define GPDMA_C1CONFIG_L(x) ((x) << GPDMA_C1CONFIG_L_SHIFT)
-
-/* A: Active */
-#define GPDMA_C1CONFIG_A_SHIFT (17)
-#define GPDMA_C1CONFIG_A_MASK (0x1 << GPDMA_C1CONFIG_A_SHIFT)
-#define GPDMA_C1CONFIG_A(x) ((x) << GPDMA_C1CONFIG_A_SHIFT)
-
-/* H: Halt */
-#define GPDMA_C1CONFIG_H_SHIFT (18)
-#define GPDMA_C1CONFIG_H_MASK (0x1 << GPDMA_C1CONFIG_H_SHIFT)
-#define GPDMA_C1CONFIG_H(x) ((x) << GPDMA_C1CONFIG_H_SHIFT)
-
-/* --- GPDMA_C2CONFIG values ------------------------------------ */
-
-/* E: Channel enable */
-#define GPDMA_C2CONFIG_E_SHIFT (0)
-#define GPDMA_C2CONFIG_E_MASK (0x1 << GPDMA_C2CONFIG_E_SHIFT)
-#define GPDMA_C2CONFIG_E(x) ((x) << GPDMA_C2CONFIG_E_SHIFT)
-
-/* SRCPERIPHERAL: Source peripheral */
-#define GPDMA_C2CONFIG_SRCPERIPHERAL_SHIFT (1)
-#define GPDMA_C2CONFIG_SRCPERIPHERAL_MASK \
-			(0x1f << GPDMA_C2CONFIG_SRCPERIPHERAL_SHIFT)
-#define GPDMA_C2CONFIG_SRCPERIPHERAL(x) \
-			((x) << GPDMA_C2CONFIG_SRCPERIPHERAL_SHIFT)
-
-/* DESTPERIPHERAL: Destination peripheral */
-#define GPDMA_C2CONFIG_DESTPERIPHERAL_SHIFT (6)
-#define GPDMA_C2CONFIG_DESTPERIPHERAL_MASK \
-			(0x1f << GPDMA_C2CONFIG_DESTPERIPHERAL_SHIFT)
-#define GPDMA_C2CONFIG_DESTPERIPHERAL(x) \
-			((x) << GPDMA_C2CONFIG_DESTPERIPHERAL_SHIFT)
-
-/* FLOWCNTRL: Flow control and transfer type */
-#define GPDMA_C2CONFIG_FLOWCNTRL_SHIFT (11)
-#define GPDMA_C2CONFIG_FLOWCNTRL_MASK (0x7 << GPDMA_C2CONFIG_FLOWCNTRL_SHIFT)
-#define GPDMA_C2CONFIG_FLOWCNTRL(x) ((x) << GPDMA_C2CONFIG_FLOWCNTRL_SHIFT)
-
-/* IE: Interrupt error mask */
-#define GPDMA_C2CONFIG_IE_SHIFT (14)
-#define GPDMA_C2CONFIG_IE_MASK (0x1 << GPDMA_C2CONFIG_IE_SHIFT)
-#define GPDMA_C2CONFIG_IE(x) ((x) << GPDMA_C2CONFIG_IE_SHIFT)
-
-/* ITC: Terminal count interrupt mask */
-#define GPDMA_C2CONFIG_ITC_SHIFT (15)
-#define GPDMA_C2CONFIG_ITC_MASK (0x1 << GPDMA_C2CONFIG_ITC_SHIFT)
-#define GPDMA_C2CONFIG_ITC(x) ((x) << GPDMA_C2CONFIG_ITC_SHIFT)
-
-/* L: Lock */
-#define GPDMA_C2CONFIG_L_SHIFT (16)
-#define GPDMA_C2CONFIG_L_MASK (0x1 << GPDMA_C2CONFIG_L_SHIFT)
-#define GPDMA_C2CONFIG_L(x) ((x) << GPDMA_C2CONFIG_L_SHIFT)
-
-/* A: Active */
-#define GPDMA_C2CONFIG_A_SHIFT (17)
-#define GPDMA_C2CONFIG_A_MASK (0x1 << GPDMA_C2CONFIG_A_SHIFT)
-#define GPDMA_C2CONFIG_A(x) ((x) << GPDMA_C2CONFIG_A_SHIFT)
-
-/* H: Halt */
-#define GPDMA_C2CONFIG_H_SHIFT (18)
-#define GPDMA_C2CONFIG_H_MASK (0x1 << GPDMA_C2CONFIG_H_SHIFT)
-#define GPDMA_C2CONFIG_H(x) ((x) << GPDMA_C2CONFIG_H_SHIFT)
-
-/* --- GPDMA_C3CONFIG values ------------------------------------ */
-
-/* E: Channel enable */
-#define GPDMA_C3CONFIG_E_SHIFT (0)
-#define GPDMA_C3CONFIG_E_MASK (0x1 << GPDMA_C3CONFIG_E_SHIFT)
-#define GPDMA_C3CONFIG_E(x) ((x) << GPDMA_C3CONFIG_E_SHIFT)
-
-/* SRCPERIPHERAL: Source peripheral */
-#define GPDMA_C3CONFIG_SRCPERIPHERAL_SHIFT (1)
-#define GPDMA_C3CONFIG_SRCPERIPHERAL_MASK \
-			(0x1f << GPDMA_C3CONFIG_SRCPERIPHERAL_SHIFT)
-#define GPDMA_C3CONFIG_SRCPERIPHERAL(x) \
-			((x) << GPDMA_C3CONFIG_SRCPERIPHERAL_SHIFT)
-
-/* DESTPERIPHERAL: Destination peripheral */
-#define GPDMA_C3CONFIG_DESTPERIPHERAL_SHIFT (6)
-#define GPDMA_C3CONFIG_DESTPERIPHERAL_MASK \
-			(0x1f << GPDMA_C3CONFIG_DESTPERIPHERAL_SHIFT)
-#define GPDMA_C3CONFIG_DESTPERIPHERAL(x) \
-			((x) << GPDMA_C3CONFIG_DESTPERIPHERAL_SHIFT)
-
-/* FLOWCNTRL: Flow control and transfer type */
-#define GPDMA_C3CONFIG_FLOWCNTRL_SHIFT (11)
-#define GPDMA_C3CONFIG_FLOWCNTRL_MASK (0x7 << GPDMA_C3CONFIG_FLOWCNTRL_SHIFT)
-#define GPDMA_C3CONFIG_FLOWCNTRL(x) ((x) << GPDMA_C3CONFIG_FLOWCNTRL_SHIFT)
-
-/* IE: Interrupt error mask */
-#define GPDMA_C3CONFIG_IE_SHIFT (14)
-#define GPDMA_C3CONFIG_IE_MASK (0x1 << GPDMA_C3CONFIG_IE_SHIFT)
-#define GPDMA_C3CONFIG_IE(x) ((x) << GPDMA_C3CONFIG_IE_SHIFT)
-
-/* ITC: Terminal count interrupt mask */
-#define GPDMA_C3CONFIG_ITC_SHIFT (15)
-#define GPDMA_C3CONFIG_ITC_MASK (0x1 << GPDMA_C3CONFIG_ITC_SHIFT)
-#define GPDMA_C3CONFIG_ITC(x) ((x) << GPDMA_C3CONFIG_ITC_SHIFT)
-
-/* L: Lock */
-#define GPDMA_C3CONFIG_L_SHIFT (16)
-#define GPDMA_C3CONFIG_L_MASK (0x1 << GPDMA_C3CONFIG_L_SHIFT)
-#define GPDMA_C3CONFIG_L(x) ((x) << GPDMA_C3CONFIG_L_SHIFT)
-
-/* A: Active */
-#define GPDMA_C3CONFIG_A_SHIFT (17)
-#define GPDMA_C3CONFIG_A_MASK (0x1 << GPDMA_C3CONFIG_A_SHIFT)
-#define GPDMA_C3CONFIG_A(x) ((x) << GPDMA_C3CONFIG_A_SHIFT)
-
-/* H: Halt */
-#define GPDMA_C3CONFIG_H_SHIFT (18)
-#define GPDMA_C3CONFIG_H_MASK (0x1 << GPDMA_C3CONFIG_H_SHIFT)
-#define GPDMA_C3CONFIG_H(x) ((x) << GPDMA_C3CONFIG_H_SHIFT)
-
-/* --- GPDMA_C4CONFIG values ------------------------------------ */
-
-/* E: Channel enable */
-#define GPDMA_C4CONFIG_E_SHIFT (0)
-#define GPDMA_C4CONFIG_E_MASK (0x1 << GPDMA_C4CONFIG_E_SHIFT)
-#define GPDMA_C4CONFIG_E(x) ((x) << GPDMA_C4CONFIG_E_SHIFT)
-
-/* SRCPERIPHERAL: Source peripheral */
-#define GPDMA_C4CONFIG_SRCPERIPHERAL_SHIFT (1)
-#define GPDMA_C4CONFIG_SRCPERIPHERAL_MASK \
-			(0x1f << GPDMA_C4CONFIG_SRCPERIPHERAL_SHIFT)
-#define GPDMA_C4CONFIG_SRCPERIPHERAL(x) \
-			((x) << GPDMA_C4CONFIG_SRCPERIPHERAL_SHIFT)
-
-/* DESTPERIPHERAL: Destination peripheral */
-#define GPDMA_C4CONFIG_DESTPERIPHERAL_SHIFT (6)
-#define GPDMA_C4CONFIG_DESTPERIPHERAL_MASK \
-			(0x1f << GPDMA_C4CONFIG_DESTPERIPHERAL_SHIFT)
-#define GPDMA_C4CONFIG_DESTPERIPHERAL(x) \
-			((x) << GPDMA_C4CONFIG_DESTPERIPHERAL_SHIFT)
-
-/* FLOWCNTRL: Flow control and transfer type */
-#define GPDMA_C4CONFIG_FLOWCNTRL_SHIFT (11)
-#define GPDMA_C4CONFIG_FLOWCNTRL_MASK (0x7 << GPDMA_C4CONFIG_FLOWCNTRL_SHIFT)
-#define GPDMA_C4CONFIG_FLOWCNTRL(x) ((x) << GPDMA_C4CONFIG_FLOWCNTRL_SHIFT)
-
-/* IE: Interrupt error mask */
-#define GPDMA_C4CONFIG_IE_SHIFT (14)
-#define GPDMA_C4CONFIG_IE_MASK (0x1 << GPDMA_C4CONFIG_IE_SHIFT)
-#define GPDMA_C4CONFIG_IE(x) ((x) << GPDMA_C4CONFIG_IE_SHIFT)
-
-/* ITC: Terminal count interrupt mask */
-#define GPDMA_C4CONFIG_ITC_SHIFT (15)
-#define GPDMA_C4CONFIG_ITC_MASK (0x1 << GPDMA_C4CONFIG_ITC_SHIFT)
-#define GPDMA_C4CONFIG_ITC(x) ((x) << GPDMA_C4CONFIG_ITC_SHIFT)
-
-/* L: Lock */
-#define GPDMA_C4CONFIG_L_SHIFT (16)
-#define GPDMA_C4CONFIG_L_MASK (0x1 << GPDMA_C4CONFIG_L_SHIFT)
-#define GPDMA_C4CONFIG_L(x) ((x) << GPDMA_C4CONFIG_L_SHIFT)
-
-/* A: Active */
-#define GPDMA_C4CONFIG_A_SHIFT (17)
-#define GPDMA_C4CONFIG_A_MASK (0x1 << GPDMA_C4CONFIG_A_SHIFT)
-#define GPDMA_C4CONFIG_A(x) ((x) << GPDMA_C4CONFIG_A_SHIFT)
-
-/* H: Halt */
-#define GPDMA_C4CONFIG_H_SHIFT (18)
-#define GPDMA_C4CONFIG_H_MASK (0x1 << GPDMA_C4CONFIG_H_SHIFT)
-#define GPDMA_C4CONFIG_H(x) ((x) << GPDMA_C4CONFIG_H_SHIFT)
-
-/* --- GPDMA_C5CONFIG values ------------------------------------ */
-
-/* E: Channel enable */
-#define GPDMA_C5CONFIG_E_SHIFT (0)
-#define GPDMA_C5CONFIG_E_MASK (0x1 << GPDMA_C5CONFIG_E_SHIFT)
-#define GPDMA_C5CONFIG_E(x) ((x) << GPDMA_C5CONFIG_E_SHIFT)
-
-/* SRCPERIPHERAL: Source peripheral */
-#define GPDMA_C5CONFIG_SRCPERIPHERAL_SHIFT (1)
-#define GPDMA_C5CONFIG_SRCPERIPHERAL_MASK \
-			(0x1f << GPDMA_C5CONFIG_SRCPERIPHERAL_SHIFT)
-#define GPDMA_C5CONFIG_SRCPERIPHERAL(x) \
-			((x) << GPDMA_C5CONFIG_SRCPERIPHERAL_SHIFT)
-
-/* DESTPERIPHERAL: Destination peripheral */
-#define GPDMA_C5CONFIG_DESTPERIPHERAL_SHIFT (6)
-#define GPDMA_C5CONFIG_DESTPERIPHERAL_MASK \
-			(0x1f << GPDMA_C5CONFIG_DESTPERIPHERAL_SHIFT)
-#define GPDMA_C5CONFIG_DESTPERIPHERAL(x) \
-			((x) << GPDMA_C5CONFIG_DESTPERIPHERAL_SHIFT)
-
-/* FLOWCNTRL: Flow control and transfer type */
-#define GPDMA_C5CONFIG_FLOWCNTRL_SHIFT (11)
-#define GPDMA_C5CONFIG_FLOWCNTRL_MASK (0x7 << GPDMA_C5CONFIG_FLOWCNTRL_SHIFT)
-#define GPDMA_C5CONFIG_FLOWCNTRL(x) ((x) << GPDMA_C5CONFIG_FLOWCNTRL_SHIFT)
-
-/* IE: Interrupt error mask */
-#define GPDMA_C5CONFIG_IE_SHIFT (14)
-#define GPDMA_C5CONFIG_IE_MASK (0x1 << GPDMA_C5CONFIG_IE_SHIFT)
-#define GPDMA_C5CONFIG_IE(x) ((x) << GPDMA_C5CONFIG_IE_SHIFT)
-
-/* ITC: Terminal count interrupt mask */
-#define GPDMA_C5CONFIG_ITC_SHIFT (15)
-#define GPDMA_C5CONFIG_ITC_MASK (0x1 << GPDMA_C5CONFIG_ITC_SHIFT)
-#define GPDMA_C5CONFIG_ITC(x) ((x) << GPDMA_C5CONFIG_ITC_SHIFT)
-
-/* L: Lock */
-#define GPDMA_C5CONFIG_L_SHIFT (16)
-#define GPDMA_C5CONFIG_L_MASK (0x1 << GPDMA_C5CONFIG_L_SHIFT)
-#define GPDMA_C5CONFIG_L(x) ((x) << GPDMA_C5CONFIG_L_SHIFT)
-
-/* A: Active */
-#define GPDMA_C5CONFIG_A_SHIFT (17)
-#define GPDMA_C5CONFIG_A_MASK (0x1 << GPDMA_C5CONFIG_A_SHIFT)
-#define GPDMA_C5CONFIG_A(x) ((x) << GPDMA_C5CONFIG_A_SHIFT)
-
-/* H: Halt */
-#define GPDMA_C5CONFIG_H_SHIFT (18)
-#define GPDMA_C5CONFIG_H_MASK (0x1 << GPDMA_C5CONFIG_H_SHIFT)
-#define GPDMA_C5CONFIG_H(x) ((x) << GPDMA_C5CONFIG_H_SHIFT)
-
-/* --- GPDMA_C6CONFIG values ------------------------------------ */
-
-/* E: Channel enable */
-#define GPDMA_C6CONFIG_E_SHIFT (0)
-#define GPDMA_C6CONFIG_E_MASK (0x1 << GPDMA_C6CONFIG_E_SHIFT)
-#define GPDMA_C6CONFIG_E(x) ((x) << GPDMA_C6CONFIG_E_SHIFT)
-
-/* SRCPERIPHERAL: Source peripheral */
-#define GPDMA_C6CONFIG_SRCPERIPHERAL_SHIFT (1)
-#define GPDMA_C6CONFIG_SRCPERIPHERAL_MASK \
-			(0x1f << GPDMA_C6CONFIG_SRCPERIPHERAL_SHIFT)
-#define GPDMA_C6CONFIG_SRCPERIPHERAL(x) \
-			((x) << GPDMA_C6CONFIG_SRCPERIPHERAL_SHIFT)
-
-/* DESTPERIPHERAL: Destination peripheral */
-#define GPDMA_C6CONFIG_DESTPERIPHERAL_SHIFT (6)
-#define GPDMA_C6CONFIG_DESTPERIPHERAL_MASK \
-			(0x1f << GPDMA_C6CONFIG_DESTPERIPHERAL_SHIFT)
-#define GPDMA_C6CONFIG_DESTPERIPHERAL(x) \
-			((x) << GPDMA_C6CONFIG_DESTPERIPHERAL_SHIFT)
-
-/* FLOWCNTRL: Flow control and transfer type */
-#define GPDMA_C6CONFIG_FLOWCNTRL_SHIFT (11)
-#define GPDMA_C6CONFIG_FLOWCNTRL_MASK (0x7 << GPDMA_C6CONFIG_FLOWCNTRL_SHIFT)
-#define GPDMA_C6CONFIG_FLOWCNTRL(x) ((x) << GPDMA_C6CONFIG_FLOWCNTRL_SHIFT)
-
-/* IE: Interrupt error mask */
-#define GPDMA_C6CONFIG_IE_SHIFT (14)
-#define GPDMA_C6CONFIG_IE_MASK (0x1 << GPDMA_C6CONFIG_IE_SHIFT)
-#define GPDMA_C6CONFIG_IE(x) ((x) << GPDMA_C6CONFIG_IE_SHIFT)
-
-/* ITC: Terminal count interrupt mask */
-#define GPDMA_C6CONFIG_ITC_SHIFT (15)
-#define GPDMA_C6CONFIG_ITC_MASK (0x1 << GPDMA_C6CONFIG_ITC_SHIFT)
-#define GPDMA_C6CONFIG_ITC(x) ((x) << GPDMA_C6CONFIG_ITC_SHIFT)
-
-/* L: Lock */
-#define GPDMA_C6CONFIG_L_SHIFT (16)
-#define GPDMA_C6CONFIG_L_MASK (0x1 << GPDMA_C6CONFIG_L_SHIFT)
-#define GPDMA_C6CONFIG_L(x) ((x) << GPDMA_C6CONFIG_L_SHIFT)
-
-/* A: Active */
-#define GPDMA_C6CONFIG_A_SHIFT (17)
-#define GPDMA_C6CONFIG_A_MASK (0x1 << GPDMA_C6CONFIG_A_SHIFT)
-#define GPDMA_C6CONFIG_A(x) ((x) << GPDMA_C6CONFIG_A_SHIFT)
-
-/* H: Halt */
-#define GPDMA_C6CONFIG_H_SHIFT (18)
-#define GPDMA_C6CONFIG_H_MASK (0x1 << GPDMA_C6CONFIG_H_SHIFT)
-#define GPDMA_C6CONFIG_H(x) ((x) << GPDMA_C6CONFIG_H_SHIFT)
-
-/* --- GPDMA_C7CONFIG values ------------------------------------ */
-
-/* E: Channel enable */
-#define GPDMA_C7CONFIG_E_SHIFT (0)
-#define GPDMA_C7CONFIG_E_MASK (0x1 << GPDMA_C7CONFIG_E_SHIFT)
-#define GPDMA_C7CONFIG_E(x) ((x) << GPDMA_C7CONFIG_E_SHIFT)
-
-/* SRCPERIPHERAL: Source peripheral */
-#define GPDMA_C7CONFIG_SRCPERIPHERAL_SHIFT (1)
-#define GPDMA_C7CONFIG_SRCPERIPHERAL_MASK \
-			(0x1f << GPDMA_C7CONFIG_SRCPERIPHERAL_SHIFT)
-#define GPDMA_C7CONFIG_SRCPERIPHERAL(x) \
-			((x) << GPDMA_C7CONFIG_SRCPERIPHERAL_SHIFT)
-
-/* DESTPERIPHERAL: Destination peripheral */
-#define GPDMA_C7CONFIG_DESTPERIPHERAL_SHIFT (6)
-#define GPDMA_C7CONFIG_DESTPERIPHERAL_MASK \
-			(0x1f << GPDMA_C7CONFIG_DESTPERIPHERAL_SHIFT)
-#define GPDMA_C7CONFIG_DESTPERIPHERAL(x) \
-			((x) << GPDMA_C7CONFIG_DESTPERIPHERAL_SHIFT)
-
-/* FLOWCNTRL: Flow control and transfer type */
-#define GPDMA_C7CONFIG_FLOWCNTRL_SHIFT (11)
-#define GPDMA_C7CONFIG_FLOWCNTRL_MASK (0x7 << GPDMA_C7CONFIG_FLOWCNTRL_SHIFT)
-#define GPDMA_C7CONFIG_FLOWCNTRL(x) ((x) << GPDMA_C7CONFIG_FLOWCNTRL_SHIFT)
-
-/* IE: Interrupt error mask */
-#define GPDMA_C7CONFIG_IE_SHIFT (14)
-#define GPDMA_C7CONFIG_IE_MASK (0x1 << GPDMA_C7CONFIG_IE_SHIFT)
-#define GPDMA_C7CONFIG_IE(x) ((x) << GPDMA_C7CONFIG_IE_SHIFT)
-
-/* ITC: Terminal count interrupt mask */
-#define GPDMA_C7CONFIG_ITC_SHIFT (15)
-#define GPDMA_C7CONFIG_ITC_MASK (0x1 << GPDMA_C7CONFIG_ITC_SHIFT)
-#define GPDMA_C7CONFIG_ITC(x) ((x) << GPDMA_C7CONFIG_ITC_SHIFT)
-
-/* L: Lock */
-#define GPDMA_C7CONFIG_L_SHIFT (16)
-#define GPDMA_C7CONFIG_L_MASK (0x1 << GPDMA_C7CONFIG_L_SHIFT)
-#define GPDMA_C7CONFIG_L(x) ((x) << GPDMA_C7CONFIG_L_SHIFT)
-
-/* A: Active */
-#define GPDMA_C7CONFIG_A_SHIFT (17)
-#define GPDMA_C7CONFIG_A_MASK (0x1 << GPDMA_C7CONFIG_A_SHIFT)
-#define GPDMA_C7CONFIG_A(x) ((x) << GPDMA_C7CONFIG_A_SHIFT)
-
-/* H: Halt */
-#define GPDMA_C7CONFIG_H_SHIFT (18)
-#define GPDMA_C7CONFIG_H_MASK (0x1 << GPDMA_C7CONFIG_H_SHIFT)
-#define GPDMA_C7CONFIG_H(x) ((x) << GPDMA_C7CONFIG_H_SHIFT)
-
+#define GPDMA_CxCONFIG_H_SHIFT		(18)
+#define GPDMA_CxCONFIG_H_MASK		(0x1 << GPDMA_CxCONFIG_H_SHIFT)
+#define GPDMA_CxCONFIG_H(x)		((x) << GPDMA_CxCONFIG_H_SHIFT)
 
 /**@}*/
 
