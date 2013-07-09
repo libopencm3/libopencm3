@@ -1,4 +1,15 @@
-/* This provides unification of code over STM32F subfamilies */
+/** @defgroup dma_file DMA
+ *
+ * @ingroup STM32F0xx
+ *
+ * @brief <b>libopencm3 STM32F0xx DMA</b>
+ *
+ * @version 1.0.0
+ *
+ * @date 10 July 2013
+ *
+ * LGPL License Terms @ref lgpl_license
+ */
 
 /*
  * This file is part of the libopencm3 project.
@@ -17,19 +28,6 @@
  * along with this library.  If not, see <http://www.gnu.org/licenses/>.
  */
 
-#if defined(STM32F0)
-#       include <libopencm3/stm32/f0/dma.h>
-#elif defined(STM32F1)
-#       include <libopencm3/stm32/f1/dma.h>
-#elif defined(STM32F2)
-#       include <libopencm3/stm32/f2/dma.h>
-#elif defined(STM32F3)
-#       include <libopencm3/stm32/f3/dma.h>
-#elif defined(STM32F4)
-#       include <libopencm3/stm32/f4/dma.h>
-#elif defined(STM32L1)
-#       include <libopencm3/stm32/l1/dma.h>
-#else
-#       error "stm32 family not defined."
-#endif
+#include <libopencm3/stm32/dma.h>
+#include <libopencm3/stm32/common/dma_common_f13.h>
 
