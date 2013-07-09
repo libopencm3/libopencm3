@@ -1,8 +1,8 @@
-/** @defgroup dma_defines DMA Defines
+/** @defgroup dma_file DMA
  *
- * @ingroup STM32F1xx_defines
+ * @ingroup STM32L1xx
  *
- * @brief Defined Constants and Types for the STM32F1xx DMA Controller
+ * @brief <b>libopencm3 STM32L1xx DMA</b>
  *
  * @version 1.0.0
  *
@@ -28,11 +28,6 @@
  * along with this library.  If not, see <http://www.gnu.org/licenses/>.
  */
 
-#ifndef LIBOPENCM3_DMA_H
-#define LIBOPENCM3_DMA_H
-
-#include <libopencm3/stm32/memorymap.h>
+#include <libopencm3/stm32/dma.h>
 #include <libopencm3/stm32/common/dma_common_l1f013.h>
-
-#endif
 
