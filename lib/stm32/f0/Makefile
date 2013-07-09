@@ -36,7 +36,7 @@ ARFLAGS		= rcs
 OBJS		= flash.o rcc.o usart.o
 
 OBJS            += gpio_common_all.o gpio_common_f0234.o crc_common_all.o \
-                   pwr_common_all.o 
+                   pwr_common_all.o iwdg_common_all.o
 
 VPATH += ../../usb:../:../../cm3:../common
 
