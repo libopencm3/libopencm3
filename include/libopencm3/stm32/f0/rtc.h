@@ -1,4 +1,15 @@
-/* This provides unification of code over STM32 subfamilies */
+/** @defgroup rtc_defines RTC Defines
+ *
+ * @brief <b>Defined Constants and Types for the STM32F0xx RTC</b>
+ *
+ * @ingroup STM32F0xx_defines
+ *
+ * @version 1.0.0
+ *
+ * @date 5 December 2012
+ *
+ * LGPL License Terms @ref lgpl_license
+ */
 
 /*
  * This file is part of the libopencm3 project.
@@ -17,17 +28,10 @@
  * along with this library.  If not, see <http://www.gnu.org/licenses/>.
  */
 
-#if defined(STM32F0)
-#       include <libopencm3/stm32/f0/rtc.h>
-#elif defined(STM32F1)
-#       include <libopencm3/stm32/f1/rtc.h>
-#elif defined(STM32F2)
-#       include <libopencm3/stm32/f2/rtc.h>
-#elif defined(STM32F4)
-#       include <libopencm3/stm32/f4/rtc.h>
-#elif defined(STM32L1)
-#       include <libopencm3/stm32/l1/rtc.h>
-#else
-#       error "stm32 family not defined."
-#endif
+#ifndef LIBOPENCM3_RTC_H
+#define LIBOPENCM3_RTC_H
 
+#include <libopencm3/stm32/memorymap.h>
+#include <libopencm3/stm32/common/rtc_common_bcd.h>
+
+#endif
