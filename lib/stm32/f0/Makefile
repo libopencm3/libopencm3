@@ -33,10 +33,11 @@ CFLAGS		= -Os -g \
 
 ARFLAGS		= rcs
 
-OBJS		= flash.o rcc.o usart.o
+OBJS		= flash.o rcc.o usart.o dma.o
 
 OBJS            += gpio_common_all.o gpio_common_f0234.o crc_common_all.o \
-                   pwr_common_all.o iwdg_common_all.o rtc_common_bcd.o
+                   pwr_common_all.o iwdg_common_all.o rtc_common_bcd.o \
+                   dma_common_f13.o
 
 VPATH += ../../usb:../:../../cm3:../common
 
