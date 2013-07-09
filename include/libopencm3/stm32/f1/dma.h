@@ -32,7 +32,7 @@ LGPL License Terms @ref lgpl_license
 #define LIBOPENCM3_DMA_H
 
 #include <libopencm3/stm32/memorymap.h>
-#include <libopencm3/stm32/common/dma_common_f13.h>
+#include <libopencm3/stm32/common/dma_common_l1f013.h>
 
 #endif
 

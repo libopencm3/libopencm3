@@ -29,5 +29,5 @@
  */
 
 #include <libopencm3/stm32/dma.h>
-#include <libopencm3/stm32/common/dma_common_f13.h>
+#include <libopencm3/stm32/common/dma_common_l1f013.h>
 
