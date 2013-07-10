@@ -1,7 +1,7 @@
-/* This provides unification of code over STM32F subfamilies */
-
 /*
  * This file is part of the libopencm3 project.
+ *
+ * Copyright (C) 2013 Frantisek Burian <BuFran@seznam.cz>
  *
  * This library is free software: you can redistribute it and/or modify
  * it under the terms of the GNU Lesser General Public License as published by
@@ -17,17 +17,10 @@
  * along with this library.  If not, see <http://www.gnu.org/licenses/>.
  */
 
-#if defined(STM32F0)
-#       include <libopencm3/stm32/f0/syscfg.h>
-#elif defined(STM32F2)
-#       include <libopencm3/stm32/f2/syscfg.h>
-#elif defined(STM32F3)
-#       include <libopencm3/stm32/f3/syscfg.h>
-#elif defined(STM32F4)
-#       include <libopencm3/stm32/f4/syscfg.h>
-#elif defined(STM32L1)
-#       include <libopencm3/stm32/l1/syscfg.h>
-#else
-#       error "stm32 family not defined."
-#endif
+#ifndef LIBOPENCM3_SYSCFG_H
+#define LIBOPENCM3_SYSCFG_H
 
+#include <libopencm3/stm32/memorymap.h>
+#include <libopencm3/stm32/common/syscfg_common_l1f234.h>
+
+#endif
