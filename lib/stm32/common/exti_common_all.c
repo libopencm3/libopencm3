@@ -21,11 +21,12 @@
  * devices.  (differences only in the source selection)
  */
 
+#include <libopencm3/stm32/memorymap.h>
 #include <libopencm3/stm32/exti.h>
-#if defined(STM32L1) || defined(STM32F2) || defined(STM32F3) || defined(STM32F4)
-#include <libopencm3/stm32/syscfg.h>
-#endif
 #include <libopencm3/stm32/gpio.h>
+#if !defined(AFIO_BASE)
+#       include <libopencm3/stm32/syscfg.h>
+#endif
 
 void exti_set_trigger(uint32_t extis, enum exti_trigger_type trig)
 {
@@ -88,104 +89,63 @@ uint32_t exti_get_flag_status(uint32_t exti)
  */
 void exti_select_source(uint32_t exti, uint32_t gpioport)
 {
-	uint8_t shift, bits;
+	uint32_t line;
+	for (line=0; line<16; line++)
+	{
+		if (!(exti & (1 << line)))
+			continue;
 
-	shift = bits = 0;
+		uint32_t bits = 0, mask=0x0F;
 
-	switch (exti) {
-	case EXTI0:
-	case EXTI4:
-	case EXTI8:
-	case EXTI12:
-		shift = 0;
-		break;
-	case EXTI1:
-	case EXTI5:
-	case EXTI9:
-	case EXTI13:
-		shift = 4;
-		break;
-	case EXTI2:
-	case EXTI6:
-	case EXTI10:
-	case EXTI14:
-		shift = 8;
-		break;
-	case EXTI3:
-	case EXTI7:
-	case EXTI11:
-	case EXTI15:
-		shift = 12;
-		break;
-	}
+		switch (gpioport) {
+		case GPIOA:
+			bits = 0;
+			break;
+		case GPIOB:
+			bits = 1;
+			break;
+		case GPIOC:
+			bits = 2;
+			break;
+		case GPIOD:
+			bits = 3;
+			break;
+#if defined(GPIOE) && defined(GPIO_PORT_E_BASE) 
+		case GPIOE:
+			bits = 4;
+			break;
+#endif
+#if defined(GPIOF) && defined(GPIO_PORT_F_BASE)
+		case GPIOF:
+			bits = 5;
+			break;
+#endif
+#if defined(GPIOG) && defined(GPIO_PORT_G_BASE)
+		case GPIOG:
+			bits = 6;
+			break;
+#endif
+#if defined(GPIOH) && defined(GPIO_PORT_H_BASE)
+		case GPIOH:
+			bits = 7;
+			break;
+#endif
+#if defined(GPIOI) && defined(GPIO_PORT_I_BASE)
+		case GPIOI:
+			bits = 8;
+			break;
+#endif
+		}
 
-	switch (gpioport) {
-	case GPIOA:
-		bits = 0xf;
-		break;
-	case GPIOB:
-		bits = 0xe;
-		break;
-	case GPIOC:
-		bits = 0xd;
-		break;
-	case GPIOD:
-		bits = 0xc;
-		break;
-	case GPIOE:
-		bits = 0xb;
-		break;
-#if defined(STM32F1) || defined(STM32F2) || defined(STM32F3) || defined(STM32F4)
-	case GPIOF:
-		bits = 0xa;
-		break;
-#endif
-#if defined(STM32F1) || defined(STM32F2) || defined(STM32F4)
-	case GPIOG:
-		bits = 0x9;
-		break;
-#endif
-#if defined(STM32L1) || defined(STM32F2) || defined(STM32F4)
-	case GPIOH:
-		bits = 0x8;
-		break;
-#endif
-#if defined(STM32F2) || defined(STM32F4)
-	case GPIOI:
-		bits = 0x7;
-		break;
-#endif
-	}
+		uint8_t shift = (uint8_t)(4 * (line % 4));
+		uint32_t reg = line / 4;
+		bits <<= shift;
+		mask <<= shift;
 
-#if defined(STM32F1)
-	/* Ensure that only valid EXTI lines are used. */
-	if (exti < EXTI4) {
-		AFIO_EXTICR1 &= ~(0x000F << shift);
-		AFIO_EXTICR1 |= (~bits << shift);
-	} else if (exti < EXTI8) {
-		AFIO_EXTICR2 &= ~(0x000F << shift);
-		AFIO_EXTICR2 |= (~bits << shift);
-	} else if (exti < EXTI12) {
-		AFIO_EXTICR3 &= ~(0x000F << shift);
-		AFIO_EXTICR3 |= (~bits << shift);
-	} else if (exti < EXTI16) {
-		AFIO_EXTICR4 &= ~(0x000F << shift);
-		AFIO_EXTICR4 |= (~bits << shift);
-	}
+#if defined(AFIO_BASE)
+		AFIO_EXTICR(reg) = (AFIO_EXTICR(reg) & ~mask) | bits;
 #else
-	/* Ensure that only valid EXTI lines are used. */
-	if (exti < EXTI4) {
-		SYSCFG_EXTICR1 &= ~(0x000F << shift);
-		SYSCFG_EXTICR1 |= (~bits << shift);
-	} else if (exti < EXTI8) {
-		SYSCFG_EXTICR2 &= ~(0x000F << shift);
-		SYSCFG_EXTICR2 |= (~bits << shift);
-	} else if (exti < EXTI12) {
-		SYSCFG_EXTICR3 &= ~(0x000F << shift);
-		SYSCFG_EXTICR3 |= (~bits << shift);
-	} else if (exti < EXTI16) {
-		SYSCFG_EXTICR4 &= ~(0x000F << shift);
-		SYSCFG_EXTICR4 |= (~bits << shift);
-	}
+		SYSCFG_EXTICR(reg) = (SYSCFG_EXTICR(reg) & ~mask) | bits;
 #endif
+	};
 }

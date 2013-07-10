@@ -665,17 +665,12 @@ If mode specifies output, configuration can be
 /* AF remap and debug I/O configuration register (AFIO_MAPR) */
 #define AFIO_MAPR			MMIO32(AFIO_BASE + 0x04)
 
-/* External interrupt configuration register 1 (AFIO_EXTICR1) */
-#define AFIO_EXTICR1			MMIO32(AFIO_BASE + 0x08)
-
-/* External interrupt configuration register 2 (AFIO_EXTICR2) */
-#define AFIO_EXTICR2			MMIO32(AFIO_BASE + 0x0c)
-
-/* External interrupt configuration register 3 (AFIO_EXTICR3) */
-#define AFIO_EXTICR3			MMIO32(AFIO_BASE + 0x10)
-
-/* External interrupt configuration register 4 (AFIO_EXTICR4) */
-#define AFIO_EXTICR4			MMIO32(AFIO_BASE + 0x14)
+/* External interrupt configuration register [0..3] (AFIO_EXTICR[1..4])*/
+#define AFIO_EXTICR(i)			MMIO32(AFIO_BASE + 0x08 + (i)*4)
+#define AFIO_EXTICR1			AFIO_EXTICR(0)
+#define AFIO_EXTICR2			AFIO_EXTICR(1)
+#define AFIO_EXTICR3			AFIO_EXTICR(2)
+#define AFIO_EXTICR4			AFIO_EXTICR(3)
 
 /* AF remap and debug I/O configuration register (AFIO_MAPR) */
 #define AFIO_MAPR2			MMIO32(AFIO_BASE + 0x1C)
