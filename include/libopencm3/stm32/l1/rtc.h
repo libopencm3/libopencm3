@@ -32,6 +32,6 @@ LGPL License Terms @ref lgpl_license
 #define LIBOPENCM3_RTC_H
 
 #include <libopencm3/stm32/memorymap.h>
-#include <libopencm3/stm32/common/rtc_common_bcd.h>
+#include <libopencm3/stm32/common/rtc_common_l1f024.h>
 
 #endif
