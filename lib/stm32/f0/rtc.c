@@ -1,12 +1,12 @@
 /** @defgroup rtc_file RTC
  *
- * @ingroup STM32F2xx
+ * @ingroup STM32F0xx
  *
- * @brief <b>libopencm3 STM32F2xx RTC</b>
+ * @brief <b>libopencm3 STM32F0xx RTC</b>
  *
  * @version 1.0.0
  *
- * @date 4 March 2013
+ * @date 10 July 2013
  *
  * LGPL License Terms @ref lgpl_license
  */
