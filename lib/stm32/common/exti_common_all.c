@@ -90,12 +90,12 @@ uint32_t exti_get_flag_status(uint32_t exti)
 void exti_select_source(uint32_t exti, uint32_t gpioport)
 {
 	uint32_t line;
-	for (line=0; line<16; line++)
-	{
-		if (!(exti & (1 << line)))
+	for (line = 0; line < 16; line++) {
+		if (!(exti & (1 << line))) {
 			continue;
+		}
 
-		uint32_t bits = 0, mask=0x0F;
+		uint32_t bits = 0, mask = 0x0F;
 
 		switch (gpioport) {
 		case GPIOA:

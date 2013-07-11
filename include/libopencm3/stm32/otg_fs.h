@@ -89,7 +89,7 @@
 #define OTG_FS_PCGCCTL			MMIO32(USB_OTG_FS_BASE + 0xE00)
 
 /* Data FIFO */
-#define OTG_FS_FIFO(x) 			(&MMIO32(USB_OTG_FS_BASE \
+#define OTG_FS_FIFO(x)			(&MMIO32(USB_OTG_FS_BASE \
 							      + (((x) + 1) \
 								 << 12)))
 

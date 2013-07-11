@@ -38,7 +38,7 @@ specific memorymap.h header before including this header file.*/
 #define SYSCFG_PMC			MMIO32(SYSCFG_BASE + 0x04)
 
 /* External interrupt configuration registers [0..3] (SYSCFG_EXTICR[1..4]) */
-#define SYSCFG_EXTICR(i)                MMIO32(SYSCFG_BASE + 0x08 + (i)*4)
+#define SYSCFG_EXTICR(i)		MMIO32(SYSCFG_BASE + 0x08 + (i)*4)
 #define SYSCFG_EXTICR1			SYSCFG_EXTICR(0)
 #define SYSCFG_EXTICR2			SYSCFG_EXTICR(1)
 #define SYSCFG_EXTICR3			SYSCFG_EXTICR(2)
@@ -50,6 +50,7 @@ specific memorymap.h header before including this header file.*/
 
 /** @cond */
 #else
-#warning "syscfg_common_l1f234.h should not be included explicitly, only via syscfg.h"
+#warning "syscfg_common_l1f234.h should not be included explicitly,"
+#warning "only via syscfg.h"
 #endif
-/** @endcond */ 
+/** @endcond */

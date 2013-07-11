@@ -250,7 +250,8 @@
 /*
  * System Control Space (SCS) =>  Data Watchpoint and Trace (DWT).
  * See "ARMv7-M Architecture Reference Manual"
- * (https://github.com/libopencm3/libopencm3-archive/blob/master/arm/ARMv7-M_ARM.pdf)
+ * (https://github.com/libopencm3/libopencm3-archive/blob/master/arm/
+ * ARMv7-M_ARM.pdf)
  * The DWT is an optional debug unit that provides watchpoints, data tracing,
  * and system profiling for the processor.
  */

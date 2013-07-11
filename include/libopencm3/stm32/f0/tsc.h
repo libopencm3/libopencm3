@@ -84,41 +84,41 @@
 /* TSC_IOHCR Values --------------------------------------------------------*/
 
 /* Bit helper g = [1..6] io = [1..4] */
-#define TSC_IOBIT_VAL(g,io)		((1 << ((io)-1)) << (((g)-1)*4))
+#define TSC_IOBIT_VAL(g, io)		((1 << ((io)-1)) << (((g)-1)*4))
 
-#define TSC_IOHCR_G1(io)		TSC_IOBIT_VAL(1,io)
-#define TSC_IOHCR_G2(io)		TSC_IOBIT_VAL(2,io)
-#define TSC_IOHCR_G3(io)		TSC_IOBIT_VAL(3,io)
-#define TSC_IOHCR_G4(io)		TSC_IOBIT_VAL(4,io)
-#define TSC_IOHCR_G5(io)		TSC_IOBIT_VAL(5,io)
-#define TSC_IOHCR_G6(io)		TSC_IOBIT_VAL(6,io)
+#define TSC_IOHCR_G1(io)		TSC_IOBIT_VAL(1, io)
+#define TSC_IOHCR_G2(io)		TSC_IOBIT_VAL(2, io)
+#define TSC_IOHCR_G3(io)		TSC_IOBIT_VAL(3, io)
+#define TSC_IOHCR_G4(io)		TSC_IOBIT_VAL(4, io)
+#define TSC_IOHCR_G5(io)		TSC_IOBIT_VAL(5, io)
+#define TSC_IOHCR_G6(io)		TSC_IOBIT_VAL(6, io)
 
 /* TSC_IOASCR Values -------------------------------------------------------*/
 
-#define TSC_IOASCR_G1(io)		TSC_IOBIT_VAL(1,io)
-#define TSC_IOASCR_G2(io)		TSC_IOBIT_VAL(2,io)
-#define TSC_IOASCR_G3(io)		TSC_IOBIT_VAL(3,io)
-#define TSC_IOASCR_G4(io)		TSC_IOBIT_VAL(4,io)
-#define TSC_IOASCR_G5(io)		TSC_IOBIT_VAL(5,io)
-#define TSC_IOASCR_G6(io)		TSC_IOBIT_VAL(6,io)
+#define TSC_IOASCR_G1(io)		TSC_IOBIT_VAL(1, io)
+#define TSC_IOASCR_G2(io)		TSC_IOBIT_VAL(2, io)
+#define TSC_IOASCR_G3(io)		TSC_IOBIT_VAL(3, io)
+#define TSC_IOASCR_G4(io)		TSC_IOBIT_VAL(4, io)
+#define TSC_IOASCR_G5(io)		TSC_IOBIT_VAL(5, io)
+#define TSC_IOASCR_G6(io)		TSC_IOBIT_VAL(6, io)
 
 /* TSC_IOSCR Values --------------------------------------------------------*/
 
-#define TSC_IOSCR_G1(io)		TSC_IOBIT_VAL(1,io)
-#define TSC_IOSCR_G2(io)		TSC_IOBIT_VAL(2,io)
-#define TSC_IOSCR_G3(io)		TSC_IOBIT_VAL(3,io)
-#define TSC_IOSCR_G4(io)		TSC_IOBIT_VAL(4,io)
-#define TSC_IOSCR_G5(io)		TSC_IOBIT_VAL(5,io)
-#define TSC_IOSCR_G6(io)		TSC_IOBIT_VAL(6,io)
+#define TSC_IOSCR_G1(io)		TSC_IOBIT_VAL(1, io)
+#define TSC_IOSCR_G2(io)		TSC_IOBIT_VAL(2, io)
+#define TSC_IOSCR_G3(io)		TSC_IOBIT_VAL(3, io)
+#define TSC_IOSCR_G4(io)		TSC_IOBIT_VAL(4, io)
+#define TSC_IOSCR_G5(io)		TSC_IOBIT_VAL(5, io)
+#define TSC_IOSCR_G6(io)		TSC_IOBIT_VAL(6, io)
 
 /* TSC_IOCCR Values -------------------------------------------------------*/
 
-#define TSC_IOCCR_G1(io)		TSC_IOBIT_VAL(1,io)
-#define TSC_IOCCR_G2(io)		TSC_IOBIT_VAL(2,io)
-#define TSC_IOCCR_G3(io)		TSC_IOBIT_VAL(3,io)
-#define TSC_IOCCR_G4(io)		TSC_IOBIT_VAL(4,io)
-#define TSC_IOCCR_G5(io)		TSC_IOBIT_VAL(5,io)
-#define TSC_IOCCR_G6(io)		TSC_IOBIT_VAL(6,io)
+#define TSC_IOCCR_G1(io)		TSC_IOBIT_VAL(1, io)
+#define TSC_IOCCR_G2(io)		TSC_IOBIT_VAL(2, io)
+#define TSC_IOCCR_G3(io)		TSC_IOBIT_VAL(3, io)
+#define TSC_IOCCR_G4(io)		TSC_IOBIT_VAL(4, io)
+#define TSC_IOCCR_G5(io)		TSC_IOBIT_VAL(5, io)
+#define TSC_IOCCR_G6(io)		TSC_IOBIT_VAL(6, io)
 
 /* TSC_IOGCSR Values -------------------------------------------------------*/
 
