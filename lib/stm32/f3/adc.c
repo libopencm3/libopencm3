@@ -1,8 +1,8 @@
-/** @defgroup STM32F4xx_adc_file ADC
+/** @defgroup adc_file ADC
  *
- * @ingroup STM32F4xx
+ * @ingroup STM32F3xx
  *
- * @brief <b>libopencm3 STM32F4xx Analog to Digital Converters</b>
+ * @brief <b>libopencm3 STM32F3xx Analog to Digital Converters</b>
  *
  * @author @htmlonly &copy; @endhtmlonly 2012
  * Ken Sarkies <ksarkies@internode.on.net>
@@ -41,7 +41,7 @@
  * separately from the regular group. An interrupt can be set to occur at the
  * end of conversion, which occurs after all channels have been scanned.
  *
- * @section adc_f4_api_ex Basic ADC Handling API.
+ * @section adc_f3_api_ex Basic ADC Handling API.
  *
  * Example 1: Simple single channel conversion polled. Enable the peripheral
  * clock and ADC, reset ADC and set the prescaler divider. Set multiple mode to

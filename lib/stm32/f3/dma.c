@@ -1,12 +1,12 @@
-/** @defgroup dma_defines DMA Defines
+/** @defgroup dma_file DMA
  *
- * @ingroup STM32F3xx_defines
+ * @ingroup STM32F3xx
  *
- * @brief <b>Defined Constants and Types for the STM32F3xx DMA Controller</b>
+ * @brief <b>libopencm3 STM32F3xx Direct Memory Access</b>
  *
  * @version 1.0.0
  *
- * @date 30 November 2012
+ * @date 11 July 2013
  *
  * LGPL License Terms @ref lgpl_license
  */
@@ -28,11 +28,6 @@
  * along with this library.  If not, see <http://www.gnu.org/licenses/>.
  */
 
-#ifndef LIBOPENCM3_DMA_H
-#define LIBOPENCM3_DMA_H
+#include <libopencm3/stm32/dma.h>
 
-#include <libopencm3/stm32/memorymap.h>
-#include <libopencm3/stm32/common/dma_common_f13.h>
-
-#endif
 

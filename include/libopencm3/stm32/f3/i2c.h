@@ -1,8 +1,8 @@
 /** @defgroup i2c_defines I2C Defines
  *
- * @brief <b>Defined Constants and Types for the STM32F4xx I2C </b>
+ * @brief <b>Defined Constants and Types for the STM32F3xx I2C </b>
  *
- * @ingroup STM32F4xx_defines
+ * @ingroup STM32F3xx_defines
  *
  * @version 1.0.0
  *

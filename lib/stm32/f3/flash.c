@@ -1,3 +1,15 @@
+/** @defgroup flash_file FLASH
+ *
+ * @ingroup STM32F3xx
+ *
+ * @brief <b>libopencm3 STM32F3xx FLASH</b>
+ *
+ * @version 1.0.0
+ *
+ * @date 11 July 2013
+ *
+ * LGPL License Terms @ref lgpl_license
+ */
 /*
  * This file is part of the libopencm3 project.
  *
