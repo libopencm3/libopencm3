@@ -1,7 +1,7 @@
-/* This provides unification of code over STM32F subfamilies */
-
 /*
  * This file is part of the libopencm3 project.
+ *
+ * Copyright (C) 2009 Uwe Hermann <uwe@hermann-uwe.de>
  *
  * This library is free software: you can redistribute it and/or modify
  * it under the terms of the GNU Lesser General Public License as published by
@@ -17,19 +17,26 @@
  * along with this library.  If not, see <http://www.gnu.org/licenses/>.
  */
 
-#if defined(STM32F0)
-#       include <libopencm3/stm32/f0/spi.h>
-#elif defined(STM32F1)
-#       include <libopencm3/stm32/f1/spi.h>
-#elif defined(STM32F2)
-#       include <libopencm3/stm32/f2/spi.h>
-#elif defined(STM32F3)
-#       include <libopencm3/stm32/f3/spi.h>
-#elif defined(STM32F4)
-#       include <libopencm3/stm32/f4/spi.h>
-#elif defined(STM32L1)
-#       include <libopencm3/stm32/l1/spi.h>
-#else
-#       error "stm32 family not defined."
-#endif
+#include <libopencm3/stm32/spi.h>
+#include <libopencm3/stm32/rcc.h>
 
+void spi_set_data_size(uint32_t spi, uint16_t data_s)
+{
+	SPI_CR2(spi) = (SPI_CR2(spi) & ~SPI_CR2_DS_MASK) |
+		       (data_s & SPI_CR2_DS_MASK);
+}
+
+void spi_fifo_reception_threshold_8bit(uint32_t spi)
+{
+	SPI_CR2(spi) |= SPI_CR2_FRXTH;
+}
+
+void spi_fifo_reception_threshold_16bit(uint32_t spi)
+{
+	SPI_CR2(spi) &= ~SPI_CR2_FRXTH;
+}
+
+void spi_i2s_mode_spi_mode(uint32_t spi)
+{
+	SPI_I2SCFGR(spi) &= ~SPI_I2SCFGR_I2SMOD;
+}
