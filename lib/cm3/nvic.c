@@ -138,9 +138,9 @@ uint8_t nvic_get_irq_enabled(uint8_t irqn)
  * interpreted according to the pre-emptive priority grouping set in the
  * SCB Application Interrupt and Reset Control Register (SCB_AIRCR), as done
  * in @ref scb_set_priority_grouping.
- * 
+ *
  * CM0:
- *  
+ *
  * There are 4 priority levels only, given by the upper two bits of the
  * priority byte, as required by ARM standards. No grouping available.
  *
