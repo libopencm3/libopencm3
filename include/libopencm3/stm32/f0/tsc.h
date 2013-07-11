@@ -23,9 +23,15 @@
 #include <libopencm3/cm3/common.h>
 #include <libopencm3/stm32/memorymap.h>
 
+/*****************************************************************************/
+/* Module definitions                                                        */
+/*****************************************************************************/
+
 #define TSC				TSC_BASE
 
-/* TSC Registers -----------------------------------------------------------*/
+/*****************************************************************************/
+/* Register definitions                                                      */
+/*****************************************************************************/
 
 #define TSC_CR				MMIO32(TSC_BASE + 0x00)
 #define TSC_IER				MMIO32(TSC_BASE + 0x04)
@@ -38,9 +44,11 @@
 #define TSC_IOGCSR			MMIO32(TSC_BASE + 0x30)
 #define TSC_IOGxCR(x)			MMIO8(TSC_BASE + 0x34 + (x)*4)
 
-/* Register values ---------------------------------------------------------*/
+/*****************************************************************************/
+/* Register values                                                           */
+/*****************************************************************************/
 
-/* TSC_CR Values -----------------------------------------------------------*/
+/* TSC_CR Values ------------------------------------------------------------*/
 
 #define TSC_CR_CTPH_SHIFT		28
 #define TSC_CR_CTPH			(0xF << TSC_CR_CTPH_SHIFT)
@@ -66,22 +74,22 @@
 #define TSC_CR_START			(1 << 1)
 #define TSC_CR_TSCE			(1 << 0)
 
-/* TSC_IER Values ----------------------------------------------------------*/
+/* TSC_IER Values -----------------------------------------------------------*/
 
 #define TSC_IER_MCEIE			(1 << 1)
 #define TSC_IER_EOAIE			(1 << 0)
 
-/* TSC_ICR Values ----------------------------------------------------------*/
+/* TSC_ICR Values -----------------------------------------------------------*/
 
 #define TSC_ICR_MCEIC			(1 << 1)
 #define TSC_ICR_EOAIC			(1 << 0)
 
-/* TSC_ISR Values ----------------------------------------------------------*/
+/* TSC_ISR Values -----------------------------------------------------------*/
 
 #define TSC_ISR_MCEF			(1 << 1)
 #define TSC_ISR_EOAF			(1 << 0)
 
-/* TSC_IOHCR Values --------------------------------------------------------*/
+/* TSC_IOHCR Values ---------------------------------------------------------*/
 
 /* Bit helper g = [1..6] io = [1..4] */
 #define TSC_IOBIT_VAL(g, io)		((1 << ((io)-1)) << (((g)-1)*4))
@@ -93,7 +101,7 @@
 #define TSC_IOHCR_G5(io)		TSC_IOBIT_VAL(5, io)
 #define TSC_IOHCR_G6(io)		TSC_IOBIT_VAL(6, io)
 
-/* TSC_IOASCR Values -------------------------------------------------------*/
+/* TSC_IOASCR Values --------------------------------------------------------*/
 
 #define TSC_IOASCR_G1(io)		TSC_IOBIT_VAL(1, io)
 #define TSC_IOASCR_G2(io)		TSC_IOBIT_VAL(2, io)
@@ -102,7 +110,7 @@
 #define TSC_IOASCR_G5(io)		TSC_IOBIT_VAL(5, io)
 #define TSC_IOASCR_G6(io)		TSC_IOBIT_VAL(6, io)
 
-/* TSC_IOSCR Values --------------------------------------------------------*/
+/* TSC_IOSCR Values ---------------------------------------------------------*/
 
 #define TSC_IOSCR_G1(io)		TSC_IOBIT_VAL(1, io)
 #define TSC_IOSCR_G2(io)		TSC_IOBIT_VAL(2, io)
@@ -111,7 +119,7 @@
 #define TSC_IOSCR_G5(io)		TSC_IOBIT_VAL(5, io)
 #define TSC_IOSCR_G6(io)		TSC_IOBIT_VAL(6, io)
 
-/* TSC_IOCCR Values -------------------------------------------------------*/
+/* TSC_IOCCR Values ---------------------------------------------------------*/
 
 #define TSC_IOCCR_G1(io)		TSC_IOBIT_VAL(1, io)
 #define TSC_IOCCR_G2(io)		TSC_IOBIT_VAL(2, io)
@@ -120,10 +128,18 @@
 #define TSC_IOCCR_G5(io)		TSC_IOBIT_VAL(5, io)
 #define TSC_IOCCR_G6(io)		TSC_IOBIT_VAL(6, io)
 
-/* TSC_IOGCSR Values -------------------------------------------------------*/
+/* TSC_IOGCSR Values --------------------------------------------------------*/
 
 #define TSC_IOGCSR_GxE(x)		(1 << ((x)-1))
 #define TSC_IOGCSR_GxS(x)		(1 << ((x)+15))
+
+/*****************************************************************************/
+/* API definitions                                                           */
+/*****************************************************************************/
+
+/*****************************************************************************/
+/* API Functions                                                             */
+/*****************************************************************************/
 
 BEGIN_DECLS
 

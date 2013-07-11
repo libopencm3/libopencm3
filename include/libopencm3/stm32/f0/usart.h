@@ -34,10 +34,16 @@
 #include <libopencm3/stm32/memorymap.h>
 #include <libopencm3/cm3/common.h>
 
+/*****************************************************************************/
+/* Module definitions                                                        */
+/*****************************************************************************/
+
 #define USART1				USART1_BASE
 #define USART2				USART2_BASE
 
-/* USART Registers ----------------------------------------------------------*/
+/*****************************************************************************/
+/* Register definitions                                                      */
+/*****************************************************************************/
 
 #define USART_CR1(usart_base)		MMIO32(usart_base + 0x00)
 #define USART1_CR1			USART_CR1(USART1_BASE)
@@ -83,7 +89,9 @@
 #define USART1_TDR			USART_TDR(USART1_BASE)
 #define USART2_TDR			USART_TDR(USART2_BASE)
 
-/* Register values ----------------------------------------------------------*/
+/*****************************************************************************/
+/* Register values                                                           */
+/*****************************************************************************/
 
 /* USART_CR1 Values ---------------------------------------------------------*/
 
@@ -251,6 +259,9 @@
 #define USART_ICR_FECF			(1 << 1)
 #define USART_ICR_PECF			(1 << 0)
 
+/*****************************************************************************/
+/* API definitions                                                           */
+/*****************************************************************************/
 
 #define USART_PARITY			(USART_CR1_PCE | USART_CR1_PS)
 #define USART_PARITY_NONE		(0)
@@ -264,10 +275,14 @@
 #define USART_MODE_TX_RX		(USART_CR1_TE | USART_CR1_RE)
 
 #define USART_FLOWCONTROL		(USART_CR3_RTSE | USART_CR3_CTSE)
-#define USART_FLOWCONTROL_NONE	        (0)
-#define USART_FLOWCONTROL_RTS	        (USART_CR3_RTSE)
-#define USART_FLOWCONTROL_CTS	        (USART_CR3_CTSE)
+#define USART_FLOWCONTROL_NONE		(0)
+#define USART_FLOWCONTROL_RTS		(USART_CR3_RTSE)
+#define USART_FLOWCONTROL_CTS		(USART_CR3_CTSE)
 #define USART_FLOWCONTROL_RTS_CTS	(USART_CR3_RTSE | USART_CR3_CTSE)
+
+/*****************************************************************************/
+/* API Functions                                                             */
+/*****************************************************************************/
 
 BEGIN_DECLS
 
