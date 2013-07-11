@@ -105,6 +105,12 @@ LGPL License Terms @ref lgpl_license
 #define SSP0_DMACR                      SSP_DMACR(SSP0)
 #define SSP1_DMACR                      SSP_DMACR(SSP1)
 
+/* RXDMAE: Receive DMA enable */
+#define SSP_DMACR_RXDMAE                0x1
+
+/* RXDMAE: Transmit DMA enable */
+#define SSP_DMACR_TXDMAE                0x2
+
 typedef enum {
 	SSP0_NUM = 0x0,
 	SSP1_NUM = 0x1
