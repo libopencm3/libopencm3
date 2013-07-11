@@ -1,3 +1,16 @@
+/** @defgroup flash_defines FLASH Defines
+ *
+ * @brief <b>Defined Constants and Types for the STM32F3xx Flash
+ * controller </b>
+ *
+ * @ingroup STM32F3xx_defines
+ *
+ * @version 1.0.0
+ *
+ * @date 11 July 2013
+ *
+ * LGPL License Terms @ref lgpl_license
+ */
 /*
  * This file is part of the libopencm3 project.
  *
