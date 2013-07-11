@@ -81,6 +81,10 @@ spi_reg_base.
 
 void spi_reset(uint32_t spi_peripheral)
 {
+/* there is another way of resetting mechanism on F0. It will be extended to all
+  families of stm32 and this function will be deprecated and deleted in the
+  future.*/
+#if !defined(STM32F0)
 	switch (spi_peripheral) {
 	case SPI1:
 		rcc_peripheral_reset(&RCC_APB2RSTR, RCC_APB2RSTR_SPI1RST);
@@ -97,6 +101,7 @@ void spi_reset(uint32_t spi_peripheral)
 		break;
 #endif
 	}
+#endif
 }
 
 /* TODO: Error handling? */
