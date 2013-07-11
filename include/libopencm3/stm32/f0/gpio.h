@@ -34,12 +34,24 @@
 #include <libopencm3/stm32/memorymap.h>
 #include <libopencm3/stm32/common/gpio_common_f24.h>
 
+/*****************************************************************************/
+/* Module definitions                                                        */
+/*****************************************************************************/
+
+/*****************************************************************************/
+/* Register definitions                                                      */
+/*****************************************************************************/
+
 #define GPIO_BRR(port)			MMIO32(port + 0x24)
 #define GPIOA_BRR			GPIO_BRR(GPIOA)
 #define GPIOB_BRR			GPIO_BRR(GPIOB)
 #define GPIOC_BRR			GPIO_BRR(GPIOC)
 #define GPIOD_BRR			GPIO_BRR(GPIOD)
 #define GPIOF_BRR			GPIO_BRR(GPIOF)
+
+/*****************************************************************************/
+/* Register values                                                           */
+/*****************************************************************************/
 
 /** @defgroup gpio_speed GPIO Output Pin Speed
 @ingroup gpio_defines
@@ -48,5 +60,17 @@
 #define GPIO_OSPEED_MED		0x1
 #define GPIO_OSPEED_HIGH	0x3
 /**@}*/
+
+/*****************************************************************************/
+/* API definitions                                                           */
+/*****************************************************************************/
+
+/*****************************************************************************/
+/* API Functions                                                             */
+/*****************************************************************************/
+
+BEGIN_DECLS
+
+END_DECLS
 
 #endif

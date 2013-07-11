@@ -23,7 +23,13 @@
 #include <libopencm3/cm3/common.h>
 #include <libopencm3/stm32/memorymap.h>
 
-/* --- SYSCFG registers ---------------------------------------------------- */
+/*****************************************************************************/
+/* Module definitions                                                        */
+/*****************************************************************************/
+
+/*****************************************************************************/
+/* Register definitions                                                      */
+/*****************************************************************************/
 
 #define SYSCFG_CFGR1			MMIO32(SYSCFG_COMP_BASE + 0x00)
 #define SYSCFG_EXTICR(i)		MMIO32(SYSCFG_COMP_BASE + 0x08 + (i)*4)
@@ -33,7 +39,9 @@
 #define SYSCFG_EXTICR4			SYSCFG_EXTICR(3)
 #define SYSCFG_CFGR2			MMIO32(SYSCFG_COMP_BASE + 0x18)
 
-/* Register values ----------------------------------------------------------*/
+/*****************************************************************************/
+/* Register values                                                           */
+/*****************************************************************************/
 
 /* SYSCFG_CFGR1 Values -- ---------------------------------------------------*/
 
@@ -57,6 +65,8 @@
 #define SYSCFG_CFGR1_I2C_PA9_FMPLUS	(1 << 22)
 #define SYSCFG_CFGR1_I2C_PA10_FMPLUS	(1 << 23)
 
+/* SYSCFG_EXTICR Values -- --------------------------------------------------*/
+
 #define SYSCFG_EXTICR_SKIP		4
 #define SYSCFG_EXTICR_GPIOA		0
 #define SYSCFG_EXTICR_GPIOB		1
@@ -64,12 +74,20 @@
 #define SYSCFG_EXTICR_GPIOD		3
 #define SYSCFG_EXTICR_GPIOF		5
 
+/* SYSCFG_CFGR2 Values -- ---------------------------------------------------*/
+
 #define SYSCFG_CFGR2_LOCKUP_LOCK	(1 << 0)
 #define SYSCFG_CFGR2_SRAM_PARITY_LOCK	(1 << 1)
 #define SYSCFG_CFGR2_PVD_LOCK		(1 << 2)
 #define SYSCFG_CFGR2_SRAM_PEF		(1 << 8)
 
-/* API values ---------------------------------------------------------------*/
+/*****************************************************************************/
+/* API definitions                                                           */
+/*****************************************************************************/
+
+/*****************************************************************************/
+/* API Functions                                                             */
+/*****************************************************************************/
 
 BEGIN_DECLS
 
