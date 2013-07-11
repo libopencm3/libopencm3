@@ -1,6 +1,6 @@
 /** @defgroup timer_defines Timer Defines
  *
- * @brief <b>libopencm3 Defined Constants and Types for the STM32F3xx Timers</b>
+ * @brief <b>Defined Constants and Types for the STM32F3xx Timers</b>
  *
  * @ingroup STM32F3xx_defines
  *

@@ -2,7 +2,7 @@
  *
  * @ingroup STM32F3xx_defines
  *
- * @brief Defined Constants and Types for the STM32F3xx DMA Controller
+ * @brief <b>Defined Constants and Types for the STM32F3xx DMA Controller</b>
  *
  * @version 1.0.0
  *
