@@ -38,8 +38,12 @@ BEGIN {
 		if ($2 != "+")
 			PAT=$2;
 
-		for (i = 3; i <= NF; i = i + 1)
-			printf "-D%s ",$i;
+		for (i = 3; i <= NF; i = i + 1) {
+			if ($i ~ /^-/)
+				printf "%s ",$i;
+			else
+				printf "-D_%s ",$i;
+		}
 
 		if (PAT=="END")
 			exit;

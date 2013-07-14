@@ -1,0 +1,1 @@
+dash END A B C D -mcpu=cortex-m0
