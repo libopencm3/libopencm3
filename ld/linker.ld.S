@@ -30,31 +30,34 @@ ENTRY(reset_handler)
 MEMORY
 {
 	/* RAM is always used */
-	ram (rwx) : ORIGIN = RAM_OFF, LENGTH = RAM
+	ram (rwx) : ORIGIN = _RAM_OFF, LENGTH = _RAM
 
-#if defined(ROM)
-	rom (rx) : ORIGIN = ROM_OFF, LENGTH = ROM
+#if defined(_ROM)
+	rom (rx) : ORIGIN = _ROM_OFF, LENGTH = _ROM
 #endif
-#if defined(ROM2)
-	rom2 (rx) : ORIGIN = ROM2_OFF, LENGTH = ROM2
+#if defined(_ROM1)
+	rom1 (rx) : ORIGIN = _ROM1_OFF, LENGTH = _ROM1
 #endif
-#if defined(RAM1)
-	ram1 (rwx) : ORIGIN = RAM1_OFF, LENGTH = RAM1
+#if defined(_ROM2)
+	rom2 (rx) : ORIGIN = _ROM2_OFF, LENGTH = _ROM2
 #endif
-#if defined(RAM2)
-	ram2 (rwx) : ORIGIN = RAM2_OFF, LENGTH = RAM2
+#if defined(_RAM1)
+	ram1 (rwx) : ORIGIN = _RAM1_OFF, LENGTH = _RAM1
 #endif
-#if defined(CCM)
-	ccm (rwx) : ORIGIN = CCM_OFF, LENGTH = CCM
+#if defined(_RAM2)
+	ram2 (rwx) : ORIGIN = _RAM2_OFF, LENGTH = _RAM2
 #endif
-#if defined(EEP)
-	eep (r) : ORIGIN = EEP_OFF, LENGTH = EEP
+#if defined(_CCM)
+	ccm (rwx) : ORIGIN = _CCM_OFF, LENGTH = _CCM
 #endif
-#if defined(XSRAM)
-	xsram (rw) : ORIGIN = XSRAM_OFF, LENGTH = XSRAM
+#if defined(_EEP)
+	eep (r) : ORIGIN = _EEP_OFF, LENGTH = _EEP
 #endif
-#if defined(XDRAM)
-	xdram (rw) : ORIGIN = XDRAM_OFF, LENGTH = XDRAM
+#if defined(_XSRAM)
+	xsram (rw) : ORIGIN = _XSRAM_OFF, LENGTH = _XSRAM
+#endif
+#if defined(_XDRAM)
+	xdram (rw) : ORIGIN = _XDRAM_OFF, LENGTH = _XDRAM
 #endif
 }
 
@@ -124,42 +127,42 @@ SECTIONS
 		_ebss = .;
 	} >ram
 
-#if defined(EEP)
+#if defined(_EEP)
 	.eep : {
 		*(.eeprom*)
 		. = ALIGN(4);
 	} >eep
 #endif
 
-#if defined(CCM)
+#if defined(_CCM)
 	.ccm : {
 		*(.ccmram*)
 		. = ALIGN(4);
 	} >ccm
 #endif
 
-#if defined(RAM1)
+#if defined(_RAM1)
 	.ram1 : {
 		*(.ram1*)
 		. = ALIGN(4);
 	} >ram1
 #endif
 
-#if defined(RAM2)
+#if defined(_RAM2)
 	.ram2 : {
 		*(.ram2*)
 		. = ALIGN(4);
 	} >ram2
 #endif
 
-#if defined(XSRAM)
+#if defined(_XSRAM)
 	.xsram : {
 		*(.xsram*)
 		. = ALIGN(4);
 	} >xsram
 #endif
 
-#if defined(XDRAM)
+#if defined(_XDRAM)
 	.xdram : {
 		*(.xdram*)
 		. = ALIGN(4);
