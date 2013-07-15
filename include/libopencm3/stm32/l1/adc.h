@@ -92,7 +92,7 @@ LGPL License Terms @ref lgpl_license
 
 /* ADC watchdog low threshold register (ADC_LTR) */
 #define ADC_LTR(block)			MMIO32(block + 0x2c)
-#define ADC1_LTR			ADC_LTR(ADC1_BASE)
+#define ADC1_LTR			ADC_LTR(ADC1)
 
 /* ADC regular sequence register 1 (ADC_SQR1) */
 #define ADC_SQR1(block)			MMIO32(block + 0x30)
@@ -116,7 +116,7 @@ LGPL License Terms @ref lgpl_license
 
 /* ADC injected sequence register (ADC_JSQR) */
 #define ADC_JSQR(block)			MMIO32(block + 0x44)
-#define ADC1_JSQR			ADC_JSQR(ADC1_BASE)
+#define ADC1_JSQR			ADC_JSQR(ADC1)
 
 /* ADC injected data register x (ADC_JDRx) (x=1..4) */
 #define ADC_JDR1(block)			MMIO32(block + 0x48)
