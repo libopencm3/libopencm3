@@ -47,9 +47,9 @@
 /* SHP: System Handler Priority Registers */
 /* Note: 12 8bit registers */
 #define SCB_SHPR(shpr_id)			MMIO8(SCB_BASE + 0x18 + shpr_id)
-#define SCB_SHPR1				MMIO8(SCB_BASE + 0x18 + 1)
-#define SCB_SHPR2				MMIO8(SCB_BASE + 0x18 + 2)
-#define SCB_SHPR3				MMIO8(SCB_BASE + 0x18 + 3)
+#define SCB_SHPR1				MMIO32(SCB_BASE + 0x18)
+#define SCB_SHPR2				MMIO32(SCB_BASE + 0x1C)
+#define SCB_SHPR3				MMIO32(SCB_BASE + 0x20)
 
 /* SHCSR: System Handler Control and State Register */
 #define SCB_SHCSR				MMIO32(SCB_BASE + 0x24)
@@ -230,29 +230,22 @@
 /* NONBASETHRDENA */
 #define SCB_CCR_NONBASETHRDENA			(1 << 0)
 
-/* --- SCB_SHPR1 values ---------------------------------------------------- */
-
-/* Bits [31:24]: reserved - must be kept cleared */
-/* PRI_6[23:16]: Priority of system handler 6, usage fault */
-#define SCB_SHPR1_PRI_6_LSB			16
-/* PRI_5[15:8]: Priority of system handler 5, bus fault */
-#define SCB_SHPR1_PRI_5_LSB			8
-/* PRI_4[7:0]: Priority of system handler 4, memory management fault */
-#define SCB_SHPR1_PRI_4_LSB			0
-
-/* --- SCB_SHPR2 values ---------------------------------------------------- */
-
-/* PRI_11[31:24]: Priority of system handler 11, SVCall */
-#define SCB_SHPR2_PRI_11_LSB			24
-/* Bits [23:0]: reserved - must be kept cleared */
-
-/* --- SCB_SHPR3 values ---------------------------------------------------- */
-
-/* PRI_15[31:24]: Priority of system handler 15, SysTick exception */
-#define SCB_SHPR3_PRI_15_LSB			24
-/* PRI_14[23:16]: Priority of system handler 14, PendSV */
-#define SCB_SHPR3_PRI_14_LSB			16
-/* Bits [15:0]: reserved - must be kept cleared */
+/* These numbers are designed to be used with the SCB_SHPR() macro */
+/* SCB_SHPR1 */
+#define SCB_SHPR_PRI_4_MEMMANAGE	0
+#define SCB_SHPR_PRI_5_BUSFAULT		1
+#define SCB_SHPR_PRI_6_USAGEFAULT	2
+#define SCB_SHPR_PRI_7_RESERVED		3
+/* SCB_SHPR2  */
+#define SCB_SHPR_PRI_8_RESERVED		4
+#define SCB_SHPR_PRI_9_RESERVED		5
+#define SCB_SHPR_PRI_10_RESERVED	6
+#define SCB_SHPR_PRI_11_SVCALL		7
+/* SCB_SHPR3 */
+#define SCB_SHPR_PRI_12_RESERVED	8
+#define SCB_SHPR_PRI_13_RESERVED	9
+#define SCB_SHPR_PRI_14_PENDSV		10
+#define SCB_SHPR_PRI_15_SYSTICK		11
 
 /* --- SCB_SHCSR values ---------------------------------------------------- */
 
