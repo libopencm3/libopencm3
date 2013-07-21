@@ -40,7 +40,13 @@
 /* Module definitions                                                        */
 /*****************************************************************************/
 
+/** @defgroup adc_reg_base ADC register base addresses
+ * @ingroup adc_defines
+ *
+ *@{*/
 #define ADC				ADC_BASE
+#define ADC1				ADC_BASE/* for API compatibility */
+/**@}*/
 
 /*****************************************************************************/
 /* Register definitions                                                      */
@@ -209,12 +215,140 @@
 /* API definitions                                                           */
 /*****************************************************************************/
 
+/** @defgroup adc_api_res ADC resolutions
+ * @ingroup adc_defines
+ *
+ *@{*/
+#define ADC_RESOLUTION_12BIT		ADC_CFGR1_RES_12_BIT
+#define ADC_RESOLUTION_10BIT		ADC_CFGR1_RES_10_BIT
+#define ADC_RESOLUTION_8BIT		ADC_CFGR1_RES_8_BIT
+#define ADC_RESOLUTION_6BIT		ADC_CFGR1_RES_6_BIT
+/**@}*/
+
+/** @defgroup adc_api_smptime ADC sampling time
+ * @ingroup adc_defines
+ *
+ *@{*/
+#define ADC_SMPTIME_001DOT5		ADC_SMPR_SMP_001DOT5
+#define ADC_SMPTIME_007DOT5		ADC_SMPR_SMP_007DOT5
+#define ADC_SMPTIME_013DOT5		ADC_SMPR_SMP_013DOT5
+#define ADC_SMPTIME_028DOT5		ADC_SMPR_SMP_028DOT5
+#define ADC_SMPTIME_041DOT5		ADC_SMPR_SMP_041DOT5
+#define ADC_SMPTIME_055DOT5		ADC_SMPR_SMP_055DOT5
+#define ADC_SMPTIME_071DOT5		ADC_SMPR_SMP_071DOT5
+#define ADC_SMPTIME_239DOT5		ADC_SMPR_SMP_239DOT5
+/**@}*/
+
+/** @defgroup adc_api_clksource ADC clock source
+ * @ingroup adc_defines
+ *
+ *@{*/
+#define ADC_CLKSOURCE_ADC		ADC_CFGR2_CKMODE_CK_ADC
+#define ADC_CLKSOURCE_PCLK_DIV2		ADC_CFGR2_CKMODE_PCLK_DIV2
+#define ADC_CLKSOURCE_PCLK_DIV4		ADC_CFGR2_CKMODE_PCLK_DIV4
+/**@}*/
+
+/** @defgroup adc_channel ADC Channel Numbers
+ * @ingroup adc_defines
+ *
+ *@{*/
+#define ADC_CHANNEL0		0x00
+#define ADC_CHANNEL1		0x01
+#define ADC_CHANNEL2		0x02
+#define ADC_CHANNEL3		0x03
+#define ADC_CHANNEL4		0x04
+#define ADC_CHANNEL5		0x05
+#define ADC_CHANNEL6		0x06
+#define ADC_CHANNEL7		0x07
+#define ADC_CHANNEL8		0x08
+#define ADC_CHANNEL9		0x09
+#define ADC_CHANNEL10		0x0A
+#define ADC_CHANNEL11		0x0B
+#define ADC_CHANNEL12		0x0C
+#define ADC_CHANNEL13		0x0D
+#define ADC_CHANNEL14		0x0E
+#define ADC_CHANNEL15		0x0F
+#define ADC_CHANNEL_TEMP	0x10
+#define ADC_CHANNEL_VREF	0x11
+#define ADC_CHANNEL_VBAT	0x12
+/**@}*/
+
+/** @defgroup adc_api_opmode ADC Operation Modes
+ * @ingroup adc_defines
+ *
+ *@{*/
+enum adc_opmode {
+	ADC_MODE_SEQUENTIAL,
+	ADC_MODE_SCAN,
+	ADC_MODE_SCAN_INFINITE,
+};
+/**@}*/
+
 /*****************************************************************************/
 /* API Functions                                                             */
 /*****************************************************************************/
 
 
 BEGIN_DECLS
+
+/* Operation mode API */
+void adc_set_continuous_conversion_mode(uint32_t adc);
+void adc_set_single_conversion_mode(uint32_t adc);
+void adc_enable_discontinuous_mode(uint32_t adc);
+void adc_disable_discontinuous_mode(uint32_t adc);
+void adc_set_operation_mode(uint32_t adc, enum adc_opmode opmode);
+
+/* Trigger API */
+void adc_enable_external_trigger_regular(uint32_t adc, uint32_t trigger,
+				uint32_t polarity);
+void adc_disable_external_trigger_regular(uint32_t adc);
+
+/* Conversion API */
+void adc_start_conversion_regular(uint32_t adc);
+bool adc_eoc(uint32_t adc);
+uint32_t adc_read_regular(uint32_t adc);
+
+/* Interrupt configuration */
+void adc_enable_watchdog_interrupt(uint32_t adc);
+void adc_disable_watchdog_interrupt(uint32_t adc);
+bool adc_get_watchdog_flag(uint32_t adc);
+void adc_clear_watchdog_flag(uint32_t adc);
+void adc_enable_overrun_interrupt(uint32_t adc);
+void adc_disable_overrun_interrupt(uint32_t adc);
+bool adc_get_overrun_flag(uint32_t adc);
+void adc_clear_overrun_flag(uint32_t adc);
+void adc_enable_eoc_sequence_interrupt(uint32_t adc);
+void adc_disable_eoc_sequence_interrupt(uint32_t adc);
+bool adc_get_eoc_sequence_flag(uint32_t adc);
+void adc_enable_eoc_interrupt(uint32_t adc);
+void adc_disable_eoc_interrupt(uint32_t adc);
+
+/* Basic configuration */
+void adc_power_off(uint32_t adc);
+void adc_power_on(uint32_t adc);
+void adc_set_clk_source(uint32_t adc, uint32_t source);
+void adc_set_regular_sequence(uint32_t adc, uint8_t length, uint8_t channel[]);
+void adc_set_sample_time_on_all_channels(uint32_t adc, uint8_t time);
+void adc_set_resolution(uint32_t adc, uint16_t resolution);
+void adc_set_left_aligned(uint32_t adc);
+void adc_set_right_aligned(uint32_t adc);
+void adc_enable_dma(uint32_t adc);
+void adc_disable_dma(uint32_t adc);
+void adc_enable_temperature_sensor(void);
+void adc_disable_temperature_sensor(void);
+void adc_enable_vref_sensor(void);
+void adc_disable_vref_sensor(void);
+void adc_enable_vbat_sensor(void);
+void adc_disable_vbat_sensor(void);
+void adc_calibrate_start(uint32_t adc);
+void adc_calibrate_wait_finish(uint32_t adc);
+
+/* Analog Watchdog */
+void adc_enable_analog_watchdog_on_all_channels(uint32_t adc);
+void adc_enable_analog_watchdog_on_selected_channel(uint32_t adc, uint8_t chan);
+void adc_disable_analog_watchdog(uint32_t adc);
+void adc_set_watchdog_high_threshold(uint32_t adc, uint8_t threshold);
+void adc_set_watchdog_low_threshold(uint32_t adc, uint8_t threshold);
 
 END_DECLS
 
