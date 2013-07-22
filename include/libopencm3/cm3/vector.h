@@ -49,12 +49,12 @@ typedef struct {
 	vector_table_entry_t reset;
 	vector_table_entry_t nmi;
 	vector_table_entry_t hard_fault;
-	vector_table_entry_t memory_manage_fault;
-	vector_table_entry_t bus_fault;
-	vector_table_entry_t usage_fault;
+	vector_table_entry_t memory_manage_fault; /* not in CM0 */
+	vector_table_entry_t bus_fault;           /* not in CM0 */
+	vector_table_entry_t usage_fault;         /* not in CM0 */
 	vector_table_entry_t reserved_x001c[4];
 	vector_table_entry_t sv_call;
-	vector_table_entry_t debug_monitor;
+	vector_table_entry_t debug_monitor;       /* not in CM0 */
 	vector_table_entry_t reserved_x0034;
 	vector_table_entry_t pend_sv;
 	vector_table_entry_t systick;
