@@ -1,8 +1,8 @@
-/** @defgroup spi_file SPI
+/** @defgroup timer_defines Timers Defines
  *
- * @ingroup STM32F0xx
+ * @brief <b>Defined Constants and Types for the STM32F0xx Timers</b>
  *
- * @brief <b>libopencm3 STM32F0xx Serial Peripheral Interface</b>
+ * @ingroup STM32F0xx_defines
  *
  * @version 1.0.0
  *
@@ -13,7 +13,7 @@
 /*
  * This file is part of the libopencm3 project.
  *
- * Copyright (C) 2009 Uwe Hermann <uwe@hermann-uwe.de>
+ * Copyright (C) 2013 Frantisek Burian <BuFran@seznam.cz>
  *
  * This library is free software: you can redistribute it and/or modify
  * it under the terms of the GNU Lesser General Public License as published by
@@ -29,26 +29,4 @@
  * along with this library.  If not, see <http://www.gnu.org/licenses/>.
  */
 
-#include <libopencm3/stm32/spi.h>
-#include <libopencm3/stm32/rcc.h>
 
-void spi_set_data_size(uint32_t spi, uint16_t data_s)
-{
-	SPI_CR2(spi) = (SPI_CR2(spi) & ~SPI_CR2_DS_MASK) |
-		       (data_s & SPI_CR2_DS_MASK);
-}
-
-void spi_fifo_reception_threshold_8bit(uint32_t spi)
-{
-	SPI_CR2(spi) |= SPI_CR2_FRXTH;
-}
-
-void spi_fifo_reception_threshold_16bit(uint32_t spi)
-{
-	SPI_CR2(spi) &= ~SPI_CR2_FRXTH;
-}
-
-void spi_i2s_mode_spi_mode(uint32_t spi)
-{
-	SPI_I2SCFGR(spi) &= ~SPI_I2SCFGR_I2SMOD;
-}

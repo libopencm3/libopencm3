@@ -1,4 +1,4 @@
-/** @defgroup STM32F0xx_rcc_defines RCC Defines
+/** @defgroup rcc_defines RCC Defines
  *
  * @brief <b>libopencm3 STM32F0xx Reset and Clock Control</b>
  *
