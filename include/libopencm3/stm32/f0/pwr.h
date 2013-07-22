@@ -1,8 +1,8 @@
 /** @defgroup pwr_defines PWR Defines
  *
- * @brief <b>Defined Constants and Types for the STM32F1xx PWR Control</b>
+ * @brief <b>Defined Constants and Types for the STM32F0xx PWR Control</b>
  *
- * @ingroup STM32F1xx_defines
+ * @ingroup STM32F0xx_defines
  *
  * @version 1.0.0
  *

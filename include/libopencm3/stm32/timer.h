@@ -18,8 +18,9 @@
  * You should have received a copy of the GNU Lesser General Public License
  * along with this library.  If not, see <http://www.gnu.org/licenses/>.
  */
-
-#if defined(STM32F1)
+#if defined(STM32F0)
+#       include <libopencm3/stm32/f0/timer.h>
+#elif defined(STM32F1)
 #       include <libopencm3/stm32/f1/timer.h>
 #elif defined(STM32F2)
 #       include <libopencm3/stm32/f2/timer.h>
