@@ -33,7 +33,7 @@ CFLAGS		= -Os -g \
 
 ARFLAGS		= rcs
 
-OBJS		= flash.o rcc.o
+OBJS		= flash.o rcc.o usart.o
 
 OBJS            += gpio_common_all.o gpio_common_f234.o crc_common_all.o \
                    pwr_common_all.o 
