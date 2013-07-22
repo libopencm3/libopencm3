@@ -22,6 +22,11 @@
 
 /* Cortex-M3 Flash Patch and Breakpoint (FPB) unit */
 
+/* Those defined only on ARMv7 and above */
+#if !defined(__ARM_ARCH_7M__) || !defined(__ARM_ARCH_7EM__)
+#error "Flash Patch and Breakpoint not available in CM0"
+#endif
+
 /* Note: We always use "FPB" as abbreviation, docs sometimes use only "FP". */
 
 /* --- FPB registers ------------------------------------------------------- */

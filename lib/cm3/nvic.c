@@ -19,26 +19,27 @@
  * along with this library.  If not, see <http://www.gnu.org/licenses/>.
  */
 /** @defgroup CM3_nvic_file NVIC
-
-@ingroup CM3_files
-
-@brief <b>libopencm3 Cortex Nested Vectored Interrupt Controller</b>
-
-@version 1.0.0
-
-@author @htmlonly &copy; @endhtmlonly 2010 Thomas Otto <tommi@viadmin.org>
-@author @htmlonly &copy; @endhtmlonly 2012 Fergus Noble <fergusnoble@gmail.com>
-
-@date 18 August 2012
-
-Cortex processors provide 14 cortex-defined interrupts (NMI, usage faults,
-systicks etc.) and varying numbers of implementation defined interrupts
-(typically peripherial interrupts and DMA).
-
-@see Cortex-M3 Devices Generic User Guide
-@see STM32F10xxx Cortex-M3 programming manual
-
-LGPL License Terms @ref lgpl_license
+ *
+ * @ingroup CM3_files
+ *
+ * @brief <b>libopencm3 Cortex Nested Vectored Interrupt Controller</b>
+ *
+ * @version 1.0.0
+ *
+ * @author @htmlonly &copy; @endhtmlonly 2010 Thomas Otto <tommi@viadmin.org>
+ * @author @htmlonly &copy; @endhtmlonly 2012 Fergus Noble
+ * <fergusnoble@gmail.com>
+ *
+ * @date 18 August 2012
+ *
+ * Cortex processors provide 14 cortex-defined interrupts (NMI, usage faults,
+ * systicks etc.) and varying numbers of implementation defined interrupts
+ * (typically peripherial interrupts and DMA).
+ *
+ * @see Cortex-M3 Devices Generic User Guide
+ * @see STM32F10xxx Cortex-M3 programming manual
+ *
+ * LGPL License Terms @ref lgpl_license
 */
 /**@{*/
 
@@ -47,11 +48,11 @@ LGPL License Terms @ref lgpl_license
 
 /*---------------------------------------------------------------------------*/
 /** @brief NVIC Enable Interrupt
-
-Enables a user interrupt.
-
-@param[in] irqn Unsigned int8. Interrupt number @ref nvic_stm32f1_userint
-*/
+ *
+ * Enables a user interrupt.
+ *
+ * @param[in] irqn Unsigned int8. Interrupt number @ref nvic_stm32f1_userint
+ */
 
 void nvic_enable_irq(uint8_t irqn)
 {
@@ -60,11 +61,11 @@ void nvic_enable_irq(uint8_t irqn)
 
 /*---------------------------------------------------------------------------*/
 /** @brief NVIC Disable Interrupt
-
-Disables a user interrupt.
-
-@param[in] irqn Unsigned int8. Interrupt number @ref nvic_stm32f1_userint
-*/
+ *
+ * Disables a user interrupt.
+ *
+ * @param[in] irqn Unsigned int8. Interrupt number @ref nvic_stm32f1_userint
+ */
 
 void nvic_disable_irq(uint8_t irqn)
 {
@@ -73,12 +74,12 @@ void nvic_disable_irq(uint8_t irqn)
 
 /*---------------------------------------------------------------------------*/
 /** @brief NVIC Return Pending Interrupt
-
-True if the interrupt has occurred and is waiting for service.
-
-@param[in] irqn Unsigned int8. Interrupt number @ref nvic_stm32f1_userint
-@return Boolean. Interrupt pending.
-*/
+ *
+ * True if the interrupt has occurred and is waiting for service.
+ *
+ * @param[in] irqn Unsigned int8. Interrupt number @ref nvic_stm32f1_userint
+ * @return Boolean. Interrupt pending.
+ */
 
 uint8_t nvic_get_pending_irq(uint8_t irqn)
 {
@@ -87,12 +88,12 @@ uint8_t nvic_get_pending_irq(uint8_t irqn)
 
 /*---------------------------------------------------------------------------*/
 /** @brief NVIC Set Pending Interrupt
-
-Force a user interrupt to a pending state. This has no effect if the interrupt
-is already pending.
-
-@param[in] irqn Unsigned int8. Interrupt number @ref nvic_stm32f1_userint
-*/
+ *
+ * Force a user interrupt to a pending state. This has no effect if the
+ * interrupt is already pending.
+ *
+ * @param[in] irqn Unsigned int8. Interrupt number @ref nvic_stm32f1_userint
+ */
 
 void nvic_set_pending_irq(uint8_t irqn)
 {
@@ -101,38 +102,26 @@ void nvic_set_pending_irq(uint8_t irqn)
 
 /*---------------------------------------------------------------------------*/
 /** @brief NVIC Clear Pending Interrupt
-
-Force remove a user interrupt from a pending state. This has no effect if the
-interrupt is actively being serviced.
-
-@param[in] irqn Unsigned int8. Interrupt number @ref nvic_stm32f1_userint
-*/
+ *
+ * Force remove a user interrupt from a pending state. This has no effect if
+ * the interrupt is actively being serviced.
+ *
+ * @param[in] irqn Unsigned int8. Interrupt number @ref nvic_stm32f1_userint
+ */
 
 void nvic_clear_pending_irq(uint8_t irqn)
 {
 	NVIC_ICPR(irqn / 32) = (1 << (irqn % 32));
 }
 
-/*---------------------------------------------------------------------------*/
-/** @brief NVIC Return Active Interrupt
 
-Interrupt has occurred and is currently being serviced.
-
-@param[in] irqn Unsigned int8. Interrupt number @ref nvic_stm32f1_userint
-@return Boolean. Interrupt active.
-*/
-
-uint8_t nvic_get_active_irq(uint8_t irqn)
-{
-	return NVIC_IABR(irqn / 32) & (1 << (irqn % 32)) ? 1 : 0;
-}
 
 /*---------------------------------------------------------------------------*/
 /** @brief NVIC Return Enabled Interrupt
-
-@param[in] irqn Unsigned int8. Interrupt number @ref nvic_stm32f1_userint
-@return Boolean. Interrupt enabled.
-*/
+ *
+ * @param[in] irqn Unsigned int8. Interrupt number @ref nvic_stm32f1_userint
+ * @return Boolean. Interrupt enabled.
+ */
 
 uint8_t nvic_get_irq_enabled(uint8_t irqn)
 {
@@ -141,16 +130,24 @@ uint8_t nvic_get_irq_enabled(uint8_t irqn)
 
 /*---------------------------------------------------------------------------*/
 /** @brief NVIC Set Interrupt Priority
-
-There are 16 priority levels only, given by the upper four bits of the priority
-byte, as required by ARM standards. The priority levels are interpreted
-according to the pre-emptive priority grouping set in the SCB Application
-Interrupt and Reset Control Register (SCB_AIRCR), as done in @ref
-scb_set_priority_grouping.
-
-@param[in] irqn Unsigned int8. Interrupt number @ref nvic_stm32f1_userint
-@param[in] priority Unsigned int8. Interrupt priority (0 ... 255 in steps of 16)
-*/
+ *
+ * CM3, CM4:
+ *
+ * There are 16 priority levels only, given by the upper four bits of the
+ * priority byte, as required by ARM standards. The priority levels are
+ * interpreted according to the pre-emptive priority grouping set in the
+ * SCB Application Interrupt and Reset Control Register (SCB_AIRCR), as done
+ * in @ref scb_set_priority_grouping.
+ * 
+ * CM0:
+ *  
+ * There are 4 priority levels only, given by the upper two bits of the
+ * priority byte, as required by ARM standards. No grouping available.
+ *
+ * @param[in] irqn Unsigned int8. Interrupt number @ref nvic_stm32f1_userint
+ * @param[in] priority Unsigned int8. Interrupt priority (0 ... 255 in steps of
+ * 16)
+ */
 
 void nvic_set_priority(uint8_t irqn, uint8_t priority)
 {
@@ -166,15 +163,31 @@ void nvic_set_priority(uint8_t irqn, uint8_t priority)
 	}
 }
 
+/* Those are defined only on CM3 or CM4 */
+#if defined(__ARM_ARCH_7M__) || defined (__ARM_ARCH_7EM__)
+/*---------------------------------------------------------------------------*/
+/** @brief NVIC Return Active Interrupt
+ *
+ * Interrupt has occurred and is currently being serviced.
+ *
+ * @param[in] irqn Unsigned int8. Interrupt number @ref nvic_stm32f1_userint
+ * @return Boolean. Interrupt active.
+ */
+
+uint8_t nvic_get_active_irq(uint8_t irqn)
+{
+	return NVIC_IABR(irqn / 32) & (1 << (irqn % 32)) ? 1 : 0;
+}
+
 /*---------------------------------------------------------------------------*/
 /** @brief NVIC Software Trigger Interrupt
-
-Generate an interrupt from software. This has no effect for unprivileged access
-unless the privilege level has been elevated through the System Control
-Registers.
-
-@param[in] irqn Unsigned int16. Interrupt number (0 ... 239)
-*/
+ *
+ * Generate an interrupt from software. This has no effect for unprivileged
+ * access unless the privilege level has been elevated through the System
+ * Control Registers.
+ *
+ * @param[in] irqn Unsigned int16. Interrupt number (0 ... 239)
+ */
 
 void nvic_generate_software_interrupt(uint16_t irqn)
 {
@@ -182,4 +195,5 @@ void nvic_generate_software_interrupt(uint16_t irqn)
 		NVIC_STIR |= irqn;
 	}
 }
+#endif
 /**@}*/

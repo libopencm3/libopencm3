@@ -18,18 +18,24 @@
  * along with this library.  If not, see <http://www.gnu.org/licenses/>.
  */
 /** @defgroup CM3_systick_defines SysTick Defines
+ *
+ * @brief <b>libopencm3 Defined Constants and Types for the Cortex SysTick </b>
+ *
+ * @ingroup CM3_defines
+ *
+ * @version 1.0.0
+ *
+ * @author @htmlonly &copy; @endhtmlonly 2010 Thomas Otto <tommi@viadmin.org>
+ *
+ * @date 19 August 2012
+ *
+ * LGPL License Terms @ref lgpl_license
+ */
 
-@brief <b>libopencm3 Defined Constants and Types for the Cortex SysTick </b>
-
-@ingroup CM3_defines
-
-@version 1.0.0
-
-@author @htmlonly &copy; @endhtmlonly 2010 Thomas Otto <tommi@viadmin.org>
-
-@date 19 August 2012
-
-LGPL License Terms @ref lgpl_license
+/**
+ * @note this file has been not following the register naming scheme, the
+ * correct names defined, and the old ones stay there for compatibility with
+ * old software (will be deprecated in the future)
  */
 
 /**@{*/
@@ -44,44 +50,64 @@ LGPL License Terms @ref lgpl_license
 
 /* Control and status register (STK_CTRL) */
 #define STK_CTRL			MMIO32(SYS_TICK_BASE + 0x00)
+#define STK_CSR				MMIO32(SYS_TICK_BASE + 0x00)
 
 /* reload value register (STK_LOAD) */
 #define STK_LOAD			MMIO32(SYS_TICK_BASE + 0x04)
+#define STK_RVR				MMIO32(SYS_TICK_BASE + 0x04)
 
 /* current value register (STK_VAL) */
 #define STK_VAL				MMIO32(SYS_TICK_BASE + 0x08)
+#define STK_CVR				MMIO32(SYS_TICK_BASE + 0x08)
 
 /* calibration value register (STK_CALIB) */
 #define STK_CALIB			MMIO32(SYS_TICK_BASE + 0x0C)
 
-/* --- STK_CTRL values ----------------------------------------------------- */
+/* --- STK_CSR values ------------------------------------------------------ */
 /* Bits [31:17] Reserved, must be kept cleared. */
 /* COUNTFLAG: */
 #define STK_CTRL_COUNTFLAG		(1 << 16)
+#define STK_CSR_COUNTFLAG		(1 << 16)
+
 /* Bits [15:3] Reserved, must be kept cleared. */
 /* CLKSOURCE: Clock source selection */
-#define STK_CTRL_CLKSOURCE		(1 << 2)
 #define STK_CTRL_CLKSOURCE_LSB		2
+#define STK_CTRL_CLKSOURCE		(1 << STK_CTRL_CLKSOURCE_LSB)
+
+#define STK_CSR_CLKSOURCE_LSB		2
+#define STK_CSR_CLKSOURCE		(1 << STK_CSR_CLKSOURCE_LSB)
+
 /** @defgroup systick_clksource Clock source selection
 @ingroup CM3_systick_defines
 
 @{*/
-#define STK_CTRL_CLKSOURCE_AHB_DIV8	0
-#define STK_CTRL_CLKSOURCE_AHB		1
+#if defined(__ARM_ARCH_6M__)
+#define STK_CSR_CLKSOURCE_EXT		(0 << STK_CSR_CLKSOURCE_LSB)
+#define STK_CSR_CLKSOURCE_AHB		(1 << STK_CSR_CLKSOURCE_LSB)
+#else
+#define STK_CTRL_CLKSOURCE_AHB_DIV8	(0 << STK_CTRL_CLKSOURCE_LSB)
+#define STK_CTRL_CLKSOURCE_AHB		(1 << STK_CTRL_CLKSOURCE_LSB)
+#endif
 /**@}*/
 
 /* TICKINT: SysTick exception request enable */
 #define STK_CTRL_TICKINT		(1 << 1)
+#define STK_CSR_TICKINT			(1 << 1)
 /* ENABLE: Counter enable */
 #define STK_CTRL_ENABLE			(1 << 0)
+#define STK_CSR_ENABLE			(1 << 0)
 
-/* --- STK_LOAD values ----------------------------------------------------- */
+/* --- STK_RVR values ------------------------------------------------------ */
 /* Bits [31:24] Reserved, must be kept cleared. */
 /* RELOAD[23:0]: RELOAD value */
+#define STK_RVR_RELOAD			0x00FFFFFF
 
-/* --- STK_VAL values ------------------------------------------------------ */
+
+/* --- STK_CVR values ------------------------------------------------------ */
 /* Bits [31:24] Reserved, must be kept cleared. */
 /* CURRENT[23:0]: Current counter value */
+#define STK_CVR_CURRENT			0x00FFFFFF
+
 
 /* --- STK_CALIB values ---------------------------------------------------- */
 /* NOREF: NOREF flag */
@@ -90,6 +116,7 @@ LGPL License Terms @ref lgpl_license
 #define STK_CALIB_SKEW			(1 << 30)
 /* Bits [29:24] Reserved, must be kept cleared. */
 /* TENMS[23:0]: Calibration value */
+#define STK_CALIB_TENMS			0x00FFFFFF
 
 /* --- Function Prototypes ------------------------------------------------- */
 

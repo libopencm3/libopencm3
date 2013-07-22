@@ -22,6 +22,11 @@
 
 /* Cortex-M3 Trace Port Interface Unit (TPIU) */
 
+/* Those defined only on ARMv7 and above */
+#if !defined(__ARM_ARCH_7M__) && !defined(__ARM_ARCH_7EM__)
+#error "Trace Port Interface Unit not available in CM0"
+#endif
+
 /* --- TPIU registers ------------------------------------------------------ */
 
 /* Supported Synchronous Port Size (TPIU_SSPSR) */

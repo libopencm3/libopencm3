@@ -22,6 +22,11 @@
 
 /* Cortex-M3 Instrumentation Trace Macrocell (ITM) */
 
+/* Those defined only on ARMv7 and above */
+#if !defined(__ARM_ARCH_7M__) && !defined(__ARM_ARCH_7EM__)
+#error "Instrumentation Trace Macrocell not available in CM0"
+#endif
+
 /* --- ITM registers ------------------------------------------------------- */
 
 /* Stimulus Port x (ITM_STIM[x]) */
