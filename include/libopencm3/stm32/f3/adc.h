@@ -622,10 +622,14 @@
 /*------- ADC_JSQR values ---------*/
 
 #define ADC_JSQR_JL_LSB			0
+#define ADC_JSQR_JL_SHIFT		0
 #define ADC_JSQR_JSQ4_LSB		26
 #define ADC_JSQR_JSQ3_LSB		20
 #define ADC_JSQR_JSQ2_LSB		14
 #define ADC_JSQR_JSQ1_LSB		8
+
+#define ADC_JSQR_JSQ_VAL(n,val)		((val) << (((n) - 1) * 6 + 8))
+#define ADC_JSQR_JL_VAL(val)		(((val) - 1) << ADC_JSQR_JL_SHIFT)
 
 /* Bits 30:26 JSQ4[4:0]: 4th conversion in the injected sequence */
 

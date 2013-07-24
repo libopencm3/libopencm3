@@ -580,12 +580,15 @@ injected channels.
 #define ADC_JSQR_JL_3CHANNELS       (0x2 << ADC_JSQR_JL_LSB)
 #define ADC_JSQR_JL_4CHANNELS       (0x3 << ADC_JSQR_JL_LSB)
 /**@}*/
-#define ADC_JSQR_JL_SHIFT		13
+#define ADC_JSQR_JL_SHIFT		20
 #define ADC_JSQR_JL_MSK			(0x2 << ADC_JSQR_JL_LSB)
 #define ADC_JSQR_JSQ4_MSK		(0x1f << ADC_JSQR_JSQ4_LSB)
 #define ADC_JSQR_JSQ3_MSK		(0x1f << ADC_JSQR_JSQ3_LSB)
 #define ADC_JSQR_JSQ2_MSK		(0x1f << ADC_JSQR_JSQ2_LSB)
 #define ADC_JSQR_JSQ1_MSK		(0x1f << ADC_JSQR_JSQ1_LSB)
+
+#define ADC_JSQR_JSQ_VAL(n,val)		((val) << (((n) - 1) * 5))
+#define ADC_JSQR_JL_VAL(val)		(((val) - 1) << ADC_JSQR_JL_SHIFT)
 
 /* --- ADC_JDRx, ADC_DR values --------------------------------------------- */
 
