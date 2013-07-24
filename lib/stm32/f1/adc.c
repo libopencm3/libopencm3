@@ -1091,16 +1091,16 @@ void adc_set_injected_sequence(uint32_t adc, uint8_t length, uint8_t channel[])
 	uint32_t reg32 = 0;
 	uint8_t i = 0;
 
-	/* Maximum sequence length is 4 channels. */
-	if (length > 4) {
+	/* Maximum sequence length is 4 channels. Minimum sequence is 1.*/
+	if ((length - 1) > 3) {
 		return;
 	}
 
 	for (i = 1; i <= length; i++) {
-		reg32 |= (channel[4 - i] << ((4 - i) * 5));
+		reg32 |= ADC_JSQR_JSQ_VAL(4 - i, channel[length - i - 1]);
 	}
 
-	reg32 |= ((length - 1) << ADC_JSQR_JL_LSB);
+	reg32 |= ADC_JSQR_JL_VAL(length);
 
 	ADC_JSQR(adc) = reg32;
 }
