@@ -89,7 +89,28 @@
 
 /* --- Function prototypes ------------------------------------------------- */
 
+#define FLASH_WRP_PAGE(i) (1 << (i))
+
 BEGIN_DECLS
+
+struct option_bytes {
+	u8 rdp;
+	u8 nrdp;
+	u8 user;
+	u8 nuser;
+	u8 data0;
+	u8 ndata0;
+	u8 data1;
+	u8 ndata1;
+	u8 wrp0;
+	u8 nwrp0;
+	u8 wrp1;
+	u8 nwrp1;
+	u8 wrp2;
+	u8 nwrp2;
+	u8 wrp3;
+	u8 nwrp3;
+} __attribute__ ((packed));
 
 void flash_prefetch_buffer_enable(void);
 void flash_prefetch_buffer_disable(void);
