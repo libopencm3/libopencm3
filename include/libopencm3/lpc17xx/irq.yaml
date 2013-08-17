@@ -18,7 +18,7 @@ irqs:
   13: spi
   14: ssp0
   15: ssp1
-  16: pll0
+  16: plock0
   17: rtc
   18: eint0
   19: eint1
@@ -32,8 +32,8 @@ irqs:
   27: i2s
   28: ethernet
   29: rit
-  30: motor_pwm
+  30: mcpwm
   31: qei
-  32: pll1
+  32: plock1
   33: usb_act
   34: can_act

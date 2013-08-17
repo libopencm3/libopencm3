@@ -17,7 +17,7 @@
  * along with this library.  If not, see <http://www.gnu.org/licenses/>.
  */
 
-/* Generic linker script for LPC13XX targets using libopencm3. */
+/* Generic linker script for LPC17XX targets using libopencm3. */
 
 /* Memory regions must be defined in the ld script which includes this one. */
 
