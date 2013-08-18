@@ -73,7 +73,7 @@ int usbd_register_control_callback(usbd_device *usbd_dev, uint8_t type,
 
 static void usb_control_send_chunk(usbd_device *usbd_dev)
 {
-	if (usbd_dev->desc->bMaxPacketSize0 <
+	if (usbd_dev->desc->bMaxPacketSize0 <=
 			usbd_dev->control_state.ctrl_len) {
 		/* Data stage, normal transmission */
 		usbd_ep_write_packet(usbd_dev, 0,
