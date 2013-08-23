@@ -23,7 +23,8 @@
 #include <libopencm3/cm3/common.h>
 #include <libopencm3/lpc43xx/memorymap.h>
 
-#define BIT_MASK(base_name) (((1 << base_name##_WIDTH) - 1) << base_name##_SHIFT)
+#define BIT_MASK(base_name) \
+	(((1 << base_name##_WIDTH) - 1) << base_name##_SHIFT)
 #define BIT_ARG(base_name, x) ((x) << base_name##_SHIFT)
 
 /* USB device data structures */
@@ -36,14 +37,16 @@
 
 typedef struct usb_transfer_descriptor_t usb_transfer_descriptor_t;
 struct usb_transfer_descriptor_t {
-	volatile usb_transfer_descriptor_t* next_dtd_pointer;
+	volatile usb_transfer_descriptor_t *next_dtd_pointer;
 	volatile uint32_t total_bytes;
 	volatile uint32_t buffer_pointer_page[5];
 	volatile uint32_t _reserved;
 };
 
 #define USB_TD_NEXT_DTD_POINTER_TERMINATE_SHIFT (0)
-#define USB_TD_NEXT_DTD_POINTER_TERMINATE ((volatile usb_transfer_descriptor_t*)(1 << USB_TD_NEXT_DTD_POINTER_TERMINATE_SHIFT))
+#define USB_TD_NEXT_DTD_POINTER_TERMINATE \
+	((volatile usb_transfer_descriptor_t *) \
+	(1 << USB_TD_NEXT_DTD_POINTER_TERMINATE_SHIFT))
 
 #define USB_TD_DTD_TOKEN_TOTAL_BYTES_SHIFT (16)
 #define USB_TD_DTD_TOKEN_TOTAL_BYTES_WIDTH (15)
@@ -59,24 +62,28 @@ struct usb_transfer_descriptor_t {
 #define USB_TD_DTD_TOKEN_MULTO(x) BIT_ARG(USB_TD_DTD_TOKEN_MULTO, x)
 
 #define USB_TD_DTD_TOKEN_STATUS_ACTIVE_SHIFT (7)
-#define USB_TD_DTD_TOKEN_STATUS_ACTIVE (1 << USB_TD_DTD_TOKEN_STATUS_ACTIVE_SHIFT)
+#define USB_TD_DTD_TOKEN_STATUS_ACTIVE \
+			(1 << USB_TD_DTD_TOKEN_STATUS_ACTIVE_SHIFT)
 
 #define USB_TD_DTD_TOKEN_STATUS_HALTED_SHIFT (6)
-#define USB_TD_DTD_TOKEN_STATUS_HALTED (1 << USB_TD_DTD_TOKEN_STATUS_HALTED_SHIFT)
+#define USB_TD_DTD_TOKEN_STATUS_HALTED \
+			(1 << USB_TD_DTD_TOKEN_STATUS_HALTED_SHIFT)
 
 #define USB_TD_DTD_TOKEN_STATUS_BUFFER_ERROR_SHIFT (5)
-#define USB_TD_DTD_TOKEN_STATUS_BUFFER_ERROR (1 << USB_TD_DTD_TOKEN_STATUS_BUFFER_ERROR_SHIFT)
+#define USB_TD_DTD_TOKEN_STATUS_BUFFER_ERROR \
+			(1 << USB_TD_DTD_TOKEN_STATUS_BUFFER_ERROR_SHIFT)
 
 #define USB_TD_DTD_TOKEN_STATUS_TRANSACTION_ERROR_SHIFT (3)
-#define USB_TD_DTD_TOKEN_STATUS_TRANSACTION_ERROR (1 << USB_TD_DTD_TOKEN_STATUS_TRANSACTION_ERROR_SHIFT)
+#define USB_TD_DTD_TOKEN_STATUS_TRANSACTION_ERROR \
+			(1 << USB_TD_DTD_TOKEN_STATUS_TRANSACTION_ERROR_SHIFT)
 
 /* --- Endpoint Queue Head (dQH) ------------------------------------------- */
 
 /* - must be aligned on 64-byte boundaries. */
 typedef struct {
 	volatile uint32_t capabilities;
-	volatile usb_transfer_descriptor_t* current_dtd_pointer;
-	volatile usb_transfer_descriptor_t* next_dtd_pointer;
+	volatile usb_transfer_descriptor_t *current_dtd_pointer;
+	volatile usb_transfer_descriptor_t *next_dtd_pointer;
 	volatile uint32_t total_bytes;
 	volatile uint32_t buffer_pointer_page[5];
 	volatile uint32_t _reserved_0;
@@ -86,7 +93,7 @@ typedef struct {
 
 #define USB_QH_CAPABILITIES_IOS_SHIFT (15)
 #define USB_QH_CAPABILITIES_IOS (1 << USB_QH_CAPABILITIES_IOS_SHIFT)
-	
+
 #define USB_QH_CAPABILITIES_MPL_SHIFT (16)
 #define USB_QH_CAPABILITIES_MPL_WIDTH (11)
 #define USB_QH_CAPABILITIES_MPL_MASK BIT_MASK(USB_QH_CAPABILITIES_MPL)
@@ -210,7 +217,8 @@ typedef struct {
 #define USB0_ENDPTCOMPLETE              MMIO32(USB0_BASE + 0x1BC)
 
 /* Endpoint control */
-#define USB0_ENDPTCTRL(logical_ep)      MMIO32(USB0_BASE + 0x1C0 + (logical_ep * 4))
+#define USB0_ENDPTCTRL(logical_ep)      MMIO32(USB0_BASE + 0x1C0 + \
+							(logical_ep * 4))
 
 /* Endpoint control 0 */
 #define USB0_ENDPTCTRL0                 USB0_ENDPTCTRL(0)
@@ -232,14 +240,17 @@ typedef struct {
 
 /* --- USB0_CAPLENGTH values ------------------------------------ */
 
-/* CAPLENGTH: Indicates offset to add to the register base address at the beginning of the Operational Register */
+/* CAPLENGTH: Indicates offset to add to the register base address at the
+ beginning of the Operational Register */
 #define USB0_CAPLENGTH_CAPLENGTH_SHIFT (0)
 #define USB0_CAPLENGTH_CAPLENGTH_MASK (0xff << USB0_CAPLENGTH_CAPLENGTH_SHIFT)
 #define USB0_CAPLENGTH_CAPLENGTH(x) ((x) << USB0_CAPLENGTH_CAPLENGTH_SHIFT)
 
-/* HCIVERSION: BCD encoding of the EHCI revision number supported by this host controller */
+/* HCIVERSION: BCD encoding of the EHCI revision number supported by this host
+ controller */
 #define USB0_CAPLENGTH_HCIVERSION_SHIFT (8)
-#define USB0_CAPLENGTH_HCIVERSION_MASK (0xffff << USB0_CAPLENGTH_HCIVERSION_SHIFT)
+#define USB0_CAPLENGTH_HCIVERSION_MASK \
+			(0xffff << USB0_CAPLENGTH_HCIVERSION_SHIFT)
 #define USB0_CAPLENGTH_HCIVERSION(x) ((x) << USB0_CAPLENGTH_HCIVERSION_SHIFT)
 
 /* --- USB0_HCSPARAMS values ------------------------------------ */
@@ -357,15 +368,18 @@ typedef struct {
 #define USB0_USBCMD_H_FS1_SHIFT (3)
 #define USB0_USBCMD_H_FS1 (1 << USB0_USBCMD_H_FS1_SHIFT)
 
-/* PSE: This bit controls whether the host controller skips processing the periodic schedule */
+/* PSE: This bit controls whether the host controller skips processing the
+periodic schedule */
 #define USB0_USBCMD_H_PSE_SHIFT (4)
 #define USB0_USBCMD_H_PSE (1 << USB0_USBCMD_H_PSE_SHIFT)
 
-/* ASE: This bit controls whether the host controller skips processing the asynchronous schedule */
+/* ASE: This bit controls whether the host controller skips processing the
+asynchronous schedule */
 #define USB0_USBCMD_H_ASE_SHIFT (5)
 #define USB0_USBCMD_H_ASE (1 << USB0_USBCMD_H_ASE_SHIFT)
 
-/* IAA: This bit is used as a doorbell by software to tell the host controller to issue an interrupt the next time it advances asynchronous schedule */
+/* IAA: This bit is used as a doorbell by software to tell the host controller
+to issue an interrupt the next time it advances asynchronous schedule */
 #define USB0_USBCMD_H_IAA_SHIFT (6)
 #define USB0_USBCMD_H_IAA (1 << USB0_USBCMD_H_IAA_SHIFT)
 
@@ -540,7 +554,8 @@ typedef struct {
 
 /* FRINDEX13_3: Current frame number of the last frame transmitted */
 #define USB0_FRINDEX_D_FRINDEX13_3_SHIFT (3)
-#define USB0_FRINDEX_D_FRINDEX13_3_MASK (0x7ff << USB0_FRINDEX_D_FRINDEX13_3_SHIFT)
+#define USB0_FRINDEX_D_FRINDEX13_3_MASK \
+			(0x7ff << USB0_FRINDEX_D_FRINDEX13_3_SHIFT)
 #define USB0_FRINDEX_D_FRINDEX13_3(x) ((x) << USB0_FRINDEX_D_FRINDEX13_3_SHIFT)
 
 /* --- USB0_FRINDEX_H values ------------------------------------ */
@@ -552,7 +567,8 @@ typedef struct {
 
 /* FRINDEX12_3: Frame list current index */
 #define USB0_FRINDEX_H_FRINDEX12_3_SHIFT (3)
-#define USB0_FRINDEX_H_FRINDEX12_3_MASK (0x3ff << USB0_FRINDEX_H_FRINDEX12_3_SHIFT)
+#define USB0_FRINDEX_H_FRINDEX12_3_MASK \
+			(0x3ff << USB0_FRINDEX_H_FRINDEX12_3_SHIFT)
 #define USB0_FRINDEX_H_FRINDEX12_3(x) ((x) << USB0_FRINDEX_H_FRINDEX12_3_SHIFT)
 
 /* --- USB0_DEVICEADDR values ----------------------------------- */
@@ -570,22 +586,28 @@ typedef struct {
 
 /* PERBASE31_12: Base Address (Low) */
 #define USB0_PERIODICLISTBASE_PERBASE31_12_SHIFT (12)
-#define USB0_PERIODICLISTBASE_PERBASE31_12_MASK (0xfffff << USB0_PERIODICLISTBASE_PERBASE31_12_SHIFT)
-#define USB0_PERIODICLISTBASE_PERBASE31_12(x) ((x) << USB0_PERIODICLISTBASE_PERBASE31_12_SHIFT)
+#define USB0_PERIODICLISTBASE_PERBASE31_12_MASK \
+			(0xfffff << USB0_PERIODICLISTBASE_PERBASE31_12_SHIFT)
+#define USB0_PERIODICLISTBASE_PERBASE31_12(x) \
+			((x) << USB0_PERIODICLISTBASE_PERBASE31_12_SHIFT)
 
 /* --- USB0_ENDPOINTLISTADDR values ----------------------------- */
 
 /* EPBASE31_11: Endpoint list pointer (low) */
 #define USB0_ENDPOINTLISTADDR_EPBASE31_11_SHIFT (11)
-#define USB0_ENDPOINTLISTADDR_EPBASE31_11_MASK (0x1fffff << USB0_ENDPOINTLISTADDR_EPBASE31_11_SHIFT)
-#define USB0_ENDPOINTLISTADDR_EPBASE31_11(x) ((x) << USB0_ENDPOINTLISTADDR_EPBASE31_11_SHIFT)
+#define USB0_ENDPOINTLISTADDR_EPBASE31_11_MASK \
+			(0x1fffff << USB0_ENDPOINTLISTADDR_EPBASE31_11_SHIFT)
+#define USB0_ENDPOINTLISTADDR_EPBASE31_11(x) \
+			((x) << USB0_ENDPOINTLISTADDR_EPBASE31_11_SHIFT)
 
 /* --- USB0_ASYNCLISTADDR values -------------------------------- */
 
 /* ASYBASE31_5: Link pointer (Low) LPL */
 #define USB0_ASYNCLISTADDR_ASYBASE31_5_SHIFT (5)
-#define USB0_ASYNCLISTADDR_ASYBASE31_5_MASK (0x7ffffff << USB0_ASYNCLISTADDR_ASYBASE31_5_SHIFT)
-#define USB0_ASYNCLISTADDR_ASYBASE31_5(x) ((x) << USB0_ASYNCLISTADDR_ASYBASE31_5_SHIFT)
+#define USB0_ASYNCLISTADDR_ASYBASE31_5_MASK \
+			(0x7ffffff << USB0_ASYNCLISTADDR_ASYBASE31_5_SHIFT)
+#define USB0_ASYNCLISTADDR_ASYBASE31_5(x) \
+			((x) << USB0_ASYNCLISTADDR_ASYBASE31_5_SHIFT)
 
 /* --- USB0_TTCTRL values --------------------------------------- */
 
@@ -615,13 +637,17 @@ typedef struct {
 
 /* TXSCHEATLTH: Scheduler health counter */
 #define USB0_TXFILLTUNING_TXSCHEATLTH_SHIFT (8)
-#define USB0_TXFILLTUNING_TXSCHEATLTH_MASK (0x1f << USB0_TXFILLTUNING_TXSCHEATLTH_SHIFT)
-#define USB0_TXFILLTUNING_TXSCHEATLTH(x) ((x) << USB0_TXFILLTUNING_TXSCHEATLTH_SHIFT)
+#define USB0_TXFILLTUNING_TXSCHEATLTH_MASK \
+			(0x1f << USB0_TXFILLTUNING_TXSCHEATLTH_SHIFT)
+#define USB0_TXFILLTUNING_TXSCHEATLTH(x) \
+			((x) << USB0_TXFILLTUNING_TXSCHEATLTH_SHIFT)
 
 /* TXFIFOTHRES: Scheduler overhead */
 #define USB0_TXFILLTUNING_TXFIFOTHRES_SHIFT (16)
-#define USB0_TXFILLTUNING_TXFIFOTHRES_MASK (0x3f << USB0_TXFILLTUNING_TXFIFOTHRES_SHIFT)
-#define USB0_TXFILLTUNING_TXFIFOTHRES(x) ((x) << USB0_TXFILLTUNING_TXFIFOTHRES_SHIFT)
+#define USB0_TXFILLTUNING_TXFIFOTHRES_MASK \
+			(0x3f << USB0_TXFILLTUNING_TXFIFOTHRES_SHIFT)
+#define USB0_TXFILLTUNING_TXFIFOTHRES(x) \
+			((x) << USB0_TXFILLTUNING_TXFIFOTHRES_SHIFT)
 
 /* --- USB0_BINTERVAL values ------------------------------------ */
 
@@ -953,8 +979,10 @@ typedef struct {
 
 /* ENDPSETUPSTAT: Setup endpoint status for logical endpoints 0 to 5 */
 #define USB0_ENDPTSETUPSTAT_ENDPTSETUPSTAT_SHIFT (0)
-#define USB0_ENDPTSETUPSTAT_ENDPTSETUPSTAT_MASK (0x3f << USB0_ENDPTSETUPSTAT_ENDPTSETUPSTAT_SHIFT)
-#define USB0_ENDPTSETUPSTAT_ENDPTSETUPSTAT(x) ((x) << USB0_ENDPTSETUPSTAT_ENDPTSETUPSTAT_SHIFT)
+#define USB0_ENDPTSETUPSTAT_ENDPTSETUPSTAT_MASK \
+			(0x3f << USB0_ENDPTSETUPSTAT_ENDPTSETUPSTAT_SHIFT)
+#define USB0_ENDPTSETUPSTAT_ENDPTSETUPSTAT(x) \
+			((x) << USB0_ENDPTSETUPSTAT_ENDPTSETUPSTAT_SHIFT)
 
 /* --- USB0_ENDPTPRIME values ----------------------------------- */
 

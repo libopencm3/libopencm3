@@ -24,47 +24,49 @@
 
 void timer_reset(uint32_t timer_peripheral)
 {
-        TIMER_TCR(timer_peripheral) |= TIMER_TCR_CRST;
-        TIMER_TCR(timer_peripheral) &= ~TIMER_TCR_CRST;
+	TIMER_TCR(timer_peripheral) |= TIMER_TCR_CRST;
+	TIMER_TCR(timer_peripheral) &= ~TIMER_TCR_CRST;
 }
 
 void timer_enable_counter(uint32_t timer_peripheral)
 {
-        TIMER_TCR(timer_peripheral) |= TIMER_TCR_CEN;
+	TIMER_TCR(timer_peripheral) |= TIMER_TCR_CEN;
 }
 
 void timer_disable_counter(uint32_t timer_peripheral)
 {
-        TIMER_TCR(timer_peripheral) &= ~TIMER_TCR_CEN;
+	TIMER_TCR(timer_peripheral) &= ~TIMER_TCR_CEN;
 }
 
 void timer_set_counter(uint32_t timer_peripheral, uint32_t count)
 {
-        TIMER_TC(timer_peripheral) = count;
+	TIMER_TC(timer_peripheral) = count;
 }
 
 uint32_t timer_get_counter(uint32_t timer_peripheral)
 {
-        return TIMER_TC(timer_peripheral);
+	return TIMER_TC(timer_peripheral);
 }
 
 uint32_t timer_get_prescaler(uint32_t timer_peripheral)
 {
-        return TIMER_PR(timer_peripheral);
+	return TIMER_PR(timer_peripheral);
 }
 
 void timer_set_prescaler(uint32_t timer_peripheral, uint32_t prescaler)
 {
-        TIMER_PR(timer_peripheral) = prescaler;
+	TIMER_PR(timer_peripheral) = prescaler;
 }
 
 void timer_set_mode(uint32_t timer_peripheral, uint32_t mode)
 {
-        TIMER_CTCR(timer_peripheral) = (TIMER_CTCR(timer_peripheral) & TIMER_CTCR_MODE_MASK) | mode;
+	TIMER_CTCR(timer_peripheral) = mode |
+		(TIMER_CTCR(timer_peripheral) & TIMER_CTCR_MODE_MASK);
 }
 
 void timer_set_count_input(uint32_t timer_peripheral, uint32_t input)
 {
-        TIMER_CTCR(timer_peripheral) = (TIMER_CTCR(timer_peripheral) & TIMER_CTCR_CINSEL_MASK) | input;
+	TIMER_CTCR(timer_peripheral) = input |
+		(TIMER_CTCR(timer_peripheral) & TIMER_CTCR_CINSEL_MASK);
 }
 

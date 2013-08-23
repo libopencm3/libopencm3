@@ -30,8 +30,7 @@ void ipc_halt_m0(void)
 	rst_active_status1 = RESET_ACTIVE_STATUS1;
 
 	/* If the M0 has reset not asserted, halt it... */
-	while( (rst_active_status1 & RESET_CTRL1_M0APP_RST) )
-	{
+	while (rst_active_status1 & RESET_CTRL1_M0APP_RST) {
 		RESET_CTRL1 = ((~rst_active_status1) | RESET_CTRL1_M0APP_RST);
 		rst_active_status1 = RESET_ACTIVE_STATUS1;
 	}
@@ -51,9 +50,8 @@ void ipc_start_m0(uint32_t cm0_baseaddr)
 
 	/* If the M0 is being held in reset, release it */
 	/* 1 = no reset, 0 = reset */
-	while( !(rst_active_status1 & RESET_CTRL1_M0APP_RST) )
-	{
-		RESET_CTRL1 = ((~rst_active_status1) & (~RESET_CTRL1_M0APP_RST));
+	while (!(rst_active_status1 & RESET_CTRL1_M0APP_RST)) {
+		RESET_CTRL1 = ((~rst_active_status1) & ~RESET_CTRL1_M0APP_RST);
 		rst_active_status1 = RESET_ACTIVE_STATUS1;
 	}
 }

@@ -123,108 +123,30 @@ LGPL License Terms @ref lgpl_license
 /* GPIO GROUP0 interrupt */
 
 /* GPIO grouped interrupt control register */
-#define GPIO_GROUP0_INTERRUPT_CTRL      MMIO32(GPIO_GROUP0_INTERRUPT_BASE + 0x000)
+#define GPIO_GROUP0_INTERRUPT_CTRL \
+			MMIO32(GPIO_GROUP0_INTERRUPT_BASE + 0x000)
 
-/* GPIO grouped interrupt port 0 polarity register */
-#define GPIO_GROUP0_INTERRUPT_PORT_POL0 MMIO32(GPIO_GROUP0_INTERRUPT_BASE + 0x020)
+/* GPIO grouped interrupt port [0..7] polarity register */
+#define GPIO_GROUP0_INTERRUPT_PORT_POL(x) \
+			MMIO32(GPIO_GROUP0_INTERRUPT_BASE + 0x020 + ((x)*4))
 
-/* GPIO grouped interrupt port 1 polarity register */
-#define GPIO_GROUP0_INTERRUPT_PORT_POL1 MMIO32(GPIO_GROUP0_INTERRUPT_BASE + 0x024)
-
-/* GPIO grouped interrupt port 2 polarity register */
-#define GPIO_GROUP0_INTERRUPT_PORT_POL2 MMIO32(GPIO_GROUP0_INTERRUPT_BASE + 0x028)
-
-/* GPIO grouped interrupt port 3 polarity register */
-#define GPIO_GROUP0_INTERRUPT_PORT_POL3 MMIO32(GPIO_GROUP0_INTERRUPT_BASE + 0x02C)
-
-/* GPIO grouped interrupt port 4 polarity register */
-#define GPIO_GROUP0_INTERRUPT_PORT_POL4 MMIO32(GPIO_GROUP0_INTERRUPT_BASE + 0x030)
-
-/* GPIO grouped interrupt port 5 polarity register */
-#define GPIO_GROUP0_INTERRUPT_PORT_POL5 MMIO32(GPIO_GROUP0_INTERRUPT_BASE + 0x034)
-
-/* GPIO grouped interrupt port 6 polarity register */
-#define GPIO_GROUP0_INTERRUPT_PORT_POL6 MMIO32(GPIO_GROUP0_INTERRUPT_BASE + 0x038)
-
-/* GPIO grouped interrupt port 7 polarity register */
-#define GPIO_GROUP0_INTERRUPT_PORT_POL7 MMIO32(GPIO_GROUP0_INTERRUPT_BASE + 0x03C)
-
-/* GPIO grouped interrupt port 0 enable register */
-#define GPIO_GROUP0_INTERRUPT_PORT_ENA0 MMIO32(GPIO_GROUP0_INTERRUPT_BASE + 0x040)
-
-/* GPIO grouped interrupt port 1 enable register */
-#define GPIO_GROUP0_INTERRUPT_PORT_ENA1 MMIO32(GPIO_GROUP0_INTERRUPT_BASE + 0x044)
-
-/* GPIO grouped interrupt port 2 enable register */
-#define GPIO_GROUP0_INTERRUPT_PORT_ENA2 MMIO32(GPIO_GROUP0_INTERRUPT_BASE + 0x048)
-
-/* GPIO grouped interrupt port 3 enable register */
-#define GPIO_GROUP0_INTERRUPT_PORT_ENA3 MMIO32(GPIO_GROUP0_INTERRUPT_BASE + 0x04C)
-
-/* GPIO grouped interrupt port 4 enable register */
-#define GPIO_GROUP0_INTERRUPT_PORT_ENA4 MMIO32(GPIO_GROUP0_INTERRUPT_BASE + 0x050)
-
-/* GPIO grouped interrupt port 5 enable register */
-#define GPIO_GROUP0_INTERRUPT_PORT_ENA5 MMIO32(GPIO_GROUP0_INTERRUPT_BASE + 0x054)
-
-/* GPIO grouped interrupt port 6 enable register */
-#define GPIO_GROUP0_INTERRUPT_PORT_ENA6 MMIO32(GPIO_GROUP0_INTERRUPT_BASE + 0x058)
-
-/* GPIO grouped interrupt port 7 enable register */
-#define GPIO_GROUP0_INTERRUPT_PORT_ENA7 MMIO32(GPIO_GROUP0_INTERRUPT_BASE + 0x05C)
+/* GPIO grouped interrupt port [0..7] enable register */
+#define GPIO_GROUP0_INTERRUPT_PORT_ENA(x) \
+			MMIO32(GPIO_GROUP0_INTERRUPT_BASE + 0x040 + ((x)*4))
 
 /* GPIO GROUP1 interrupt */
 
 /* GPIO grouped interrupt control register */
-#define GPIO_GROUP1_INTERRUPT_CTRL      MMIO32(GPIO_GROUP1_INTERRUPT_BASE + 0x000)
+#define GPIO_GROUP1_INTERRUPT_CTRL \
+			MMIO32(GPIO_GROUP1_INTERRUPT_BASE + 0x000)
 
-/* GPIO grouped interrupt port 0 polarity register */
-#define GPIO_GROUP1_INTERRUPT_PORT_POL0 MMIO32(GPIO_GROUP1_INTERRUPT_BASE + 0x020)
+/* GPIO grouped interrupt port [0..7] polarity register */
+#define GPIO_GROUP1_INTERRUPT_PORT_POL(x) \
+			MMIO32(GPIO_GROUP1_INTERRUPT_BASE + 0x020 + ((x)*4))
 
-/* GPIO grouped interrupt port 1 polarity register */
-#define GPIO_GROUP1_INTERRUPT_PORT_POL1 MMIO32(GPIO_GROUP1_INTERRUPT_BASE + 0x024)
-
-/* GPIO grouped interrupt port 2 polarity register */
-#define GPIO_GROUP1_INTERRUPT_PORT_POL2 MMIO32(GPIO_GROUP1_INTERRUPT_BASE + 0x028)
-
-/* GPIO grouped interrupt port 3 polarity register */
-#define GPIO_GROUP1_INTERRUPT_PORT_POL3 MMIO32(GPIO_GROUP1_INTERRUPT_BASE + 0x02C)
-
-/* GPIO grouped interrupt port 4 polarity register */
-#define GPIO_GROUP1_INTERRUPT_PORT_POL4 MMIO32(GPIO_GROUP1_INTERRUPT_BASE + 0x030)
-
-/* GPIO grouped interrupt port 5 polarity register */
-#define GPIO_GROUP1_INTERRUPT_PORT_POL5 MMIO32(GPIO_GROUP1_INTERRUPT_BASE + 0x034)
-
-/* GPIO grouped interrupt port 6 polarity register */
-#define GPIO_GROUP1_INTERRUPT_PORT_POL6 MMIO32(GPIO_GROUP1_INTERRUPT_BASE + 0x038)
-
-/* GPIO grouped interrupt port 7 polarity register */
-#define GPIO_GROUP1_INTERRUPT_PORT_POL7 MMIO32(GPIO_GROUP1_INTERRUPT_BASE + 0x03C)
-
-/* GPIO grouped interrupt port 0 enable register */
-#define GPIO_GROUP1_INTERRUPT_PORT_ENA0 MMIO32(GPIO_GROUP1_INTERRUPT_BASE + 0x040)
-
-/* GPIO grouped interrupt port 1 enable register */
-#define GPIO_GROUP1_INTERRUPT_PORT_ENA1 MMIO32(GPIO_GROUP1_INTERRUPT_BASE + 0x044)
-
-/* GPIO grouped interrupt port 2 enable register */
-#define GPIO_GROUP1_INTERRUPT_PORT_ENA2 MMIO32(GPIO_GROUP1_INTERRUPT_BASE + 0x048)
-
-/* GPIO grouped interrupt port 3 enable register */
-#define GPIO_GROUP1_INTERRUPT_PORT_ENA3 MMIO32(GPIO_GROUP1_INTERRUPT_BASE + 0x04C)
-
-/* GPIO grouped interrupt port 4 enable register */
-#define GPIO_GROUP1_INTERRUPT_PORT_ENA4 MMIO32(GPIO_GROUP1_INTERRUPT_BASE + 0x050)
-
-/* GPIO grouped interrupt port 5 enable register */
-#define GPIO_GROUP1_INTERRUPT_PORT_ENA5 MMIO32(GPIO_GROUP1_INTERRUPT_BASE + 0x054)
-
-/* GPIO grouped interrupt port 6 enable register */
-#define GPIO_GROUP1_INTERRUPT_PORT_ENA6 MMIO32(GPIO_GROUP1_INTERRUPT_BASE + 0x058)
-
-/* GPIO grouped interrupt port 7 enable register */
-#define GPIO_GROUP1_INTERRUPT_PORT_ENA7 MMIO32(GPIO_GROUP1_INTERRUPT_BASE + 0x05C)
+/* GPIO grouped interrupt port [0..7] enable register */
+#define GPIO_GROUP1_INTERRUPT_PORT_ENA(x) \
+			MMIO32(GPIO_GROUP1_INTERRUPT_BASE + 0x040 + ((x)*4))
 
 /* Byte pin registers port 0; pins PIO0_0 to PIO0_31 (R/W) */
 #define GPIO_B0                         (GPIO_PORT_BASE + 0x0000)
