@@ -16,10 +16,10 @@
     <tab type="user" visible="yes" url="../../lpc13xx/html/modules.html" title="LPC13" intro=""/>
     <tab type="user" visible="yes" url="../../lpc17xx/html/modules.html" title="LPC17" intro=""/>
     <tab type="modules" visible="yes" title="LPC43" intro=""/>
-    <tab type="user" visible="yes" url="../../emf32g/html/modules.html" title="EMF32 Gecko" intro=""/>
-    <tab type="user" visible="yes" url="../../emf32gg/html/modules.html" title="EMF32 Giant Gecko" intro=""/>
-    <tab type="user" visible="yes" url="../../emf32lg/html/modules.html" title="EMF32 Leopard Gecko" intro=""/>
-    <tab type="user" visible="yes" url="../../emf32tg/html/modules.html" title="EMF32 Tiny Gecko" intro=""/>
+    <tab type="user" visible="yes" url="../../efm32g/html/modules.html" title="EFM32 Gecko" intro=""/>
+    <tab type="user" visible="yes" url="../../efm32gg/html/modules.html" title="EFM32 Giant Gecko" intro=""/>
+    <tab type="user" visible="yes" url="../../efm32lg/html/modules.html" title="EFM32 Leopard Gecko" intro=""/>
+    <tab type="user" visible="yes" url="../../efm32tg/html/modules.html" title="EFM32 Tiny Gecko" intro=""/>
     <tab type="namespaces" visible="yes" title="">
       <tab type="namespaces" visible="yes" title="" intro=""/>
       <tab type="namespacemembers" visible="yes" title="" intro=""/>

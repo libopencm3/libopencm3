@@ -2,19 +2,11 @@
  *
  * @ingroup STM32F3xx
  *
-<<<<<<< HEAD
- * @brief <b>libopencm3 STM32F3xx DMA</b>
- *
- * @version 1.0.0
- *
- * @date 10 July 2013
-=======
  * @brief <b>libopencm3 STM32F3xx Direct Memory Access</b>
  *
  * @version 1.0.0
  *
  * @date 11 July 2013
->>>>>>> feadf1f... [STM32F3:doc] Add doxygen documentation page to output
  *
  * LGPL License Terms @ref lgpl_license
  */
