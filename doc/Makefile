@@ -5,7 +5,7 @@
 
 doc: html latex
 
-html: cm3 usb stm32l1 stm32f0 stm32f1 stm32f2 stm32f4 efm32g efm32gg efm32lg efm32tg lm3s lm4f lpc13 lpc17 lpc43 top
+html: cm3 usb stm32l1 stm32f0 stm32f1 stm32f2 stm32f3 stm32f4 efm32g efm32gg efm32lg efm32tg lm3s lm4f lpc13 lpc17 lpc43 top
 
 cm3:
 	cd cm3/; doxygen
@@ -49,6 +49,9 @@ stm32f1:
 stm32f2:
 	cd stm32f2/; doxygen
 
+stm32f3:
+	cd stm32f3/; doxygen
+
 stm32f4:
 	cd stm32f4/; doxygen
 
@@ -58,7 +61,7 @@ stm32l1:
 top:
 	doxygen
 
-latex: stm32l1.pdf stm32f0.pdf stm32f1.pdf stm32f2.pdf stm32f4.pdf lm3s.pdf lm4f.pdf lpc13.pdf lpc17.pdf lpc43.pdf efm32g.pdf efm32gg.pdf efm32lg.pdf efm32tg.pdf
+latex: stm32l1.pdf stm32f0.pdf stm32f1.pdf stm32f2.pdf stm32f3.pdf stm32f4.pdf lm3s.pdf lm4f.pdf lpc13.pdf lpc17.pdf lpc43.pdf efm32g.pdf efm32gg.pdf efm32lg.pdf efm32tg.pdf
 
 stm32l1.pdf:
 	cd stm32l1/; doxygen Doxyfile_latex; cd latex/; $(MAKE); cp refman.pdf ../../stm32l1.pdf
@@ -71,6 +74,9 @@ stm32f1.pdf:
 
 stm32f2.pdf:
 	cd stm32f2/; doxygen Doxyfile_latex; cd latex/; $(MAKE); cp refman.pdf ../../stm32f2.pdf
+
+stm32f3.pdf:
+	cd stm32f3/; doxygen Doxyfile_latex; cd latex/; $(MAKE); cp refman.pdf ../../stm32f3.pdf
 
 stm32f4.pdf:
 	cd stm32f4/; doxygen Doxyfile_latex; cd latex/; $(MAKE); cp refman.pdf ../../stm32f4.pdf
@@ -105,5 +111,5 @@ efm32tg.pdf:
 clean:
 	@rm -rf html/ */html/ */latex/ *.pdf */*.tag
 
-.PHONY: doc html cm3 usb lm3s lm4f lpc13 lpc17 lpc43 stm32l1 stm32f1 stm32f2 stm32f4 efm32g efm32gg efm32lg efm32tg top latex
+.PHONY: doc html cm3 usb lm3s lm4f lpc13 lpc17 lpc43 stm32l1 stm32f0 stm32f1 stm32f2 stm32f3 stm32f4 efm32g efm32gg efm32lg efm32tg top latex
 
