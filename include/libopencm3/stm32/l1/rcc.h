@@ -455,6 +455,7 @@ uint32_t rcc_system_clock_source(void);
 void rcc_rtc_select_clock(uint32_t clock);
 void rcc_clock_setup_msi(const clock_scale_t *clock);
 void rcc_clock_setup_hsi(const clock_scale_t *clock);
+void rcc_clock_setup_pll_osc(const osc_t osc, const clock_scale_t *clock);
 void rcc_clock_setup_pll(const clock_scale_t *clock);
 void rcc_backupdomain_reset(void);
 
