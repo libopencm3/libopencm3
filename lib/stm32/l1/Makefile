@@ -41,6 +41,7 @@ OBJS		+= pwr_common_all.o pwr.o rtc_common_l1f024.o
 OBJS		+= spi_common_all.o timer_common_all.o
 OBJS		+= usart_common_all.o usart_common_f124.o
 OBJS		+= exti_common_all.o
+OBJS		+= usb.o usb_control.o usb_standard.o usb_f103.o
 
 VPATH += ../../usb:../:../../cm3:../common
 
