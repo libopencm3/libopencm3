@@ -47,7 +47,7 @@ Q := @
 MAKEFLAGS += --no-print-directory
 endif
 
-YAMLFILES	:= $(shell find . -name 'irq.yaml')
+IRQ_DEFN_FILES	:= $(shell find . -name 'irq.json')
 STYLECHECKFILES := $(shell find . -name '*.[ch]')
 
 all: build
@@ -63,7 +63,7 @@ build: lib
 	@./scripts/irq2nvic_h --remove ./$*
 
 LIB_DIRS:=$(wildcard $(addprefix lib/,$(TARGETS)))
-$(LIB_DIRS): $(YAMLFILES:=.genhdr)
+$(LIB_DIRS): $(IRQ_DEFN_FILES:=.genhdr)
 	@printf "  BUILD   $@\n";
 	$(Q)$(MAKE) --directory=$@ SRCLIBDIR=$(SRCLIBDIR)
 
@@ -89,7 +89,7 @@ install: lib
 doc:
 	$(Q)$(MAKE) -C doc html
 
-clean: $(YAMLFILES:=.cleanhdr) $(LIB_DIRS:=.clean) $(EXAMPLE_DIRS:=.clean) doc.clean styleclean
+clean: $(IRQ_DEFN_FILES:=.cleanhdr) $(LIB_DIRS:=.clean) $(EXAMPLE_DIRS:=.clean) doc.clean styleclean
 
 %.clean:
 	$(Q)if [ -d $* ]; then \
