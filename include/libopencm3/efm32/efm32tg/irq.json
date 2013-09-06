@@ -1,0 +1,31 @@
+{
+    "_source": "The names and sequence are taken from d0034_efm32tg_reference_manual.pdf table 4.1.",
+    "irqs": [
+        "dma", 
+        "gpio_even", 
+        "timer0", 
+        "usart0_rx", 
+        "usart0_tx", 
+        "acmp01", 
+        "adc0", 
+        "dac0", 
+        "i2c0", 
+        "gpio_odd", 
+        "timer1", 
+        "usart1_rx", 
+        "usart1_tx", 
+        "lesense", 
+        "leuart0", 
+        "letimer0", 
+        "pcnt0", 
+        "rtc", 
+        "cmu", 
+        "vcmp", 
+        "lcd", 
+        "msc", 
+        "aes"
+    ], 
+    "partname_humanreadable": "EFM32 Tiny Gecko series", 
+    "partname_doxygen": "EFM32TG", 
+    "includeguard": "LIBOPENCM3_EFM32TG_NVIC_H"
+}
