@@ -22,12 +22,59 @@
 
 static inline void cm_enable_interrupts(void)
 {
-        __asm__("CPSIE I\n");
+	__asm__("CPSIE I\n");
 }
 
 static inline void cm_disable_interrupts(void)
 {
-        __asm__("CPSID I\n");
+	__asm__("CPSID I\n");
 }
+
+static inline void cm_enable_faults(void)
+{
+	__asm__("CPSIE F\n");
+}
+
+static inline void cm_disable_faults(void)
+{
+	__asm__("CPSID F\n");
+}
+
+/* __attribute__(( always_inline )) */
+static inline bool cm_is_masked_interrupts(void)
+{
+	register uint32_t result;
+	__asm__ ("MRS %0, PRIMASK"  : "=r" (result) );
+	return (result);
+}
+
+/* __attribute__(( always_inline )) */
+static inline bool cm_is_masked_faults(void)
+{
+	register uint32_t result;
+	__asm__ ("MRS %0, FAULTMASK"  : "=r" (result) );
+	return (result);
+}
+
+/* __attribute__(( always_inline )) */
+static inline bool cm_mask_interrupts(bool mask)
+{
+	register bool old;
+	__asm__ __volatile__("MRS %0, PRIMASK"  : "=r" (old));
+	__asm__ __volatile__(""  ::: "memory");
+	__asm__ __volatile__("MSR PRIMASK, %0" : : "r" (mask));
+	return old;
+}
+
+/* __attribute__(( always_inline )) */
+static inline bool cm_mask_faults(bool mask)
+{
+	register bool old;
+	__asm__ __volatile__ ("MRS %0, FAULTMASK"  : "=r" (old));
+	__asm__ __volatile__(""  ::: "memory");
+	__asm__ __volatile__ ("MSR FAULTMASK, %0" : : "r" (mask));
+	return old;
+}
+
 
 #endif
