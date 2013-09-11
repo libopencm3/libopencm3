@@ -34,12 +34,14 @@ specific memorymap.h header before including this header file.*/
 
 /**@{*/
 
-#include <libopencm3/stm32/common/spi_common_f124.h>
+#include <libopencm3/stm32/common/spi_common_l1f124.h>
 
 /*
  * This file extends the common STM32 version with definitions only
  * applicable to the STM32F2/4 series of devices.
  */
+
+/* Note, these values are also on the F0, but other parts are _not_ */
 
 /* --- SPI_CR2 values ------------------------------------------------------ */
 
