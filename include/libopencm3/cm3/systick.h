@@ -85,8 +85,11 @@
 #define STK_CSR_CLKSOURCE_EXT		(0 << STK_CSR_CLKSOURCE_LSB)
 #define STK_CSR_CLKSOURCE_AHB		(1 << STK_CSR_CLKSOURCE_LSB)
 #else
-#define STK_CTRL_CLKSOURCE_AHB_DIV8	(0 << STK_CTRL_CLKSOURCE_LSB)
-#define STK_CTRL_CLKSOURCE_AHB		(1 << STK_CTRL_CLKSOURCE_LSB)
+#define STK_CTRL_CLKSOURCE_AHB_DIV8	(0 << STK_CSR_CLKSOURCE_LSB)
+#define STK_CTRL_CLKSOURCE_AHB		(1 << STK_CSR_CLKSOURCE_LSB)
+
+#define STK_CSR_CLKSOURCE_AHB_DIV8	(0 << STK_CSR_CLKSOURCE_LSB)
+#define STK_CSR_CLKSOURCE_AHB		(1 << STK_CSR_CLKSOURCE_LSB)
 #endif
 /**@}*/
 
@@ -123,6 +126,7 @@
 BEGIN_DECLS
 
 void systick_set_reload(uint32_t value);
+bool systick_set_frequency(uint32_t freq, uint32_t ahb);
 uint32_t systick_get_reload(void);
 uint32_t systick_get_value(void);
 void systick_set_clocksource(uint8_t clocksource);

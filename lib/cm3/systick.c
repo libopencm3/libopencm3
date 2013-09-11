@@ -65,6 +65,37 @@ uint32_t systick_get_reload(void)
 	return STK_RVR & STK_RVR_RELOAD;
 }
 
+/** @brief SysTick Set clock and frequency of overflow
+ *
+ * This function sets the systick to AHB clock source, and the prescaler to
+ * generate interrupts with the desired frequency. The function fails, if
+ * the frequency is too low.
+ *
+ * @param[in] freq uint32_t The desired frequency in Hz
+ * @param[in] ahb uint32_t The current AHB frequency in Hz
+ * @returns true, if success, false if the desired frequency cannot be set.
+ */
+bool systick_set_frequency(uint32_t freq, uint32_t ahb)
+{
+	uint32_t ratio = ahb / freq;
+
+#if defined(__ARM_ARCH_6M__)
+	systick_set_clocksource(STK_CSR_CLKSOURCE_AHB);
+#else
+	if (ratio >= (STK_RVR_RELOAD * 8)) {
+		/* This frequency is too slow */
+		return false;
+	} else if (ratio >= STK_RVR_RELOAD) {
+		ratio /= 8;
+		systick_set_clocksource(STK_CSR_CLKSOURCE_AHB_DIV8);
+	} else {
+		systick_set_clocksource(STK_CSR_CLKSOURCE_AHB);
+	}
+#endif
+	systick_set_reload(ratio - 1);
+	return true;
+}
+
 /*---------------------------------------------------------------------------*/
 /** @brief Get the current SysTick counter value.
  *
