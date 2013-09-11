@@ -29,8 +29,8 @@ specific memorymap.h header before including this header file.*/
 /** @cond */
 #ifdef LIBOPENCM3_SPI_H
 /** @endcond */
-#ifndef LIBOPENCM3_SPI_COMMON_F0124_H
-#define LIBOPENCM3_SPI_COMMON_F0124_H
+#ifndef LIBOPENCM3_SPI_COMMON_L1F124_H
+#define LIBOPENCM3_SPI_COMMON_L1F124_H
 
 /**@{*/
 
@@ -38,7 +38,7 @@ specific memorymap.h header before including this header file.*/
 
 /*
  * This file extends the common STM32 version with definitions only
- * applicable to the STM32F0/1/2/4 series of devices.
+ * applicable to the STM32L1/F1/2/4 series of devices.
  */
 
 /* DFF: Data frame format */
