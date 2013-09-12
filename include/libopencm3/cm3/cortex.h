@@ -138,11 +138,140 @@ static inline bool cm_mask_faults(bool mask)
 {
 	register bool old;
 	__asm__ __volatile__ ("MRS %0, FAULTMASK"  : "=r" (old));
-	__asm__ __volatile__(""  ::: "memory");
+	__asm__ __volatile__ (""  ::: "memory");
 	__asm__ __volatile__ ("MSR FAULTMASK, %0" : : "r" (mask));
 	return old;
 }
 
 /**@}*/
+
+/*===========================================================================*/
+/** @defgroup CM3_cortex_atomic_defines Cortex Core Atomic support Defines
+ *
+ * @brief Atomic operation support
+ *
+ * @ingroup CM3_cortex_defines
+ */
+/**@{*/
+
+#if !defined(__DOXYGEN__)
+/* Do not populate this definition outside */
+static inline bool __cm_atomic_set(bool* val)
+{
+	return cm_mask_interrupts(*val);
+}
+
+#define __CM_SAVER(state) 		__val = state,		\
+	__save __attribute__((__cleanup__(__cm_atomic_set))) =	\
+	__cm_atomic_set(&__val)
+
+#endif /* !defined(__DOXYGEN) */
+
+
+/*---------------------------------------------------------------------------*/
+/** @brief Cortex M Atomic Declare block
+ *
+ * This macro disables interrupts for the next command or block of code. The
+ * interrupt mask is automatically restored after exit of the boundary of the
+ * code block. Therefore restore of interrupt is done automatically after call
+ * of return or goto control sentence jumping outside of the block.
+ *
+ * @warning The usage of sentences break or continue is prohibited in the block
+ * due to implementation of this macro!
+ *
+ * @note It is safe to use this block inside normal code and in interrupt
+ * routine.
+ *
+ * @example 1: Basic usage of atomic block
+ *
+ * @code
+ * uint64_t value;		// This value is used somewhere in interrupt
+ *
+ * ...
+ *
+ * CM_ATOMIC_BLOCK() {			// interrupts are masked in this block
+ *     value = value * 1024 + 651;	// access value as atomic
+ * }					// interrupts is restored automatically
+ * @endcode
+ *
+ * @example 2: Use of return inside block:
+ *
+ * @code
+ * uint64_t value;		// This value is used somewhere in interrupt
+ *
+ * ...
+ *
+ * uint64_t allocval(void)
+ * {
+ *     CM_ATOMIC_BLOCK() {		// interrupts are masked in this block
+ *         value = value * 1024 + 651;	// do long atomic operation
+ *         return value;		// interrupts is restored automatically
+ *     }
+ * }
+ * @endcode
+ */
+#if defined(__DOXYGEN__)
+#define CM_ATOMIC_BLOCK()
+#else /* defined(__DOXYGEN__) */
+#define CM_ATOMIC_BLOCK() \
+	for (bool ___CM_SAVER(true), __My = true; __My; __My = false)
+#endif /* defined(__DOXYGEN__) */
+
+/*---------------------------------------------------------------------------*/
+/** @brief Cortex M Atomic Declare context
+ *
+ * This macro disables interrupts in the current block of code from the place
+ * where it is defined to the end of the block. The interrupt mask is
+ * automatically restored after exit of the boundary of the code block.
+ * Therefore restore of interrupt is done automatically after call of return,
+ * continue, break, or goto control sentence jumping outside of the block.
+ *
+ * @note This function is intended for use in for- cycles to enable the use of
+ * break and contine sentences inside the block, and for securing the atomic
+ * reader-like functions.
+ *
+ * @note It is safe to use this block inside normal code and in interrupt
+ * routine.
+ *
+ * @example 1: Basic usage of atomic context
+ *
+ * @code
+ * uint64_t value;		// This value is used somewhere in interrupt
+ *
+ * ...
+ *
+ * for (int i=0;i < 100; i++) {
+ *     CM_ATOMIC_CONTEXT(); 		// interrupts are masked in this block
+ *     value += 100;			// access value as atomic
+ *     if ((value % 16) == 0) {
+ *         break;			// restore interrupts and break cycle
+ *     }
+ * }					// interrupts is restored automatically
+ * @endcode
+ *
+ * @example 2: Usage of atomic context inside atomic reader fcn.
+ *
+ * @code
+ * uint64_t value;		// This value is used somewhere in interrupt
+ *
+ * ...
+ *
+ * uint64_t getnextval(void)
+ * {
+ *     CM_ATOMIC_CONTEXT(); 	// interrupts are masked in this block
+ *     value = value + 3;	// do long atomic operation
+ *     return value;		// interrupts is restored automatically
+ * }
+ * @endcode
+ */
+#if defined(__DOXYGEN__)
+#define CM_ATOMIC_CONTEXT()
+#else /* defined(__DOXYGEN__) */
+#define CM_ATOMIC_CONTEXT()	bool __CM_SAVER(true)
+#endif /* defined(__DOXYGEN__) */
+
+/**@}*/
+
+
 
 #endif
