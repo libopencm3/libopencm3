@@ -80,12 +80,12 @@ static inline void cm_disable_faults(void)
  *
  * @returns true, if interrupts are disabled.
  */
-__attribute__(( always_inline ))
+__attribute__((always_inline))
 static inline bool cm_is_masked_interrupts(void)
 {
 	register uint32_t result;
-	__asm__ ("MRS %0, PRIMASK"  : "=r" (result) );
-	return (result);
+	__asm__ ("MRS %0, PRIMASK"  : "=r" (result));
+	return result;
 }
 
 /*---------------------------------------------------------------------------*/
@@ -95,12 +95,12 @@ static inline bool cm_is_masked_interrupts(void)
  *
  * @returns bool true, if HardFault interrupt is disabled.
  */
-__attribute__(( always_inline ))
+__attribute__((always_inline))
 static inline bool cm_is_masked_faults(void)
 {
 	register uint32_t result;
-	__asm__ ("MRS %0, FAULTMASK"  : "=r" (result) );
-	return (result);
+	__asm__ ("MRS %0, FAULTMASK"  : "=r" (result));
+	return result;
 }
 
 /*---------------------------------------------------------------------------*/
@@ -113,12 +113,12 @@ static inline bool cm_is_masked_faults(void)
  * @param[in] mask bool New state of the interrupt mask
  * @returns bool old state of the interrupt mask
  */
-__attribute__(( always_inline ))
+__attribute__((always_inline))
 static inline bool cm_mask_interrupts(bool mask)
 {
 	register bool old;
 	__asm__ __volatile__("MRS %0, PRIMASK"  : "=r" (old));
-	__asm__ __volatile__(""  ::: "memory");
+	__asm__ __volatile__(""  : : : "memory");
 	__asm__ __volatile__("MSR PRIMASK, %0" : : "r" (mask));
 	return old;
 }
@@ -133,12 +133,12 @@ static inline bool cm_mask_interrupts(bool mask)
  * @param[in] mask bool New state of the HardFault interrupt mask
  * @returns bool old state of the HardFault interrupt mask
  */
-__attribute__(( always_inline ))
+__attribute__((always_inline))
 static inline bool cm_mask_faults(bool mask)
 {
 	register bool old;
 	__asm__ __volatile__ ("MRS %0, FAULTMASK"  : "=r" (old));
-	__asm__ __volatile__ (""  ::: "memory");
+	__asm__ __volatile__ (""  : : : "memory");
 	__asm__ __volatile__ ("MSR FAULTMASK, %0" : : "r" (mask));
 	return old;
 }
@@ -214,7 +214,7 @@ static inline bool __cm_atomic_set(bool* val)
 #define CM_ATOMIC_BLOCK()
 #else /* defined(__DOXYGEN__) */
 #define CM_ATOMIC_BLOCK() \
-	for (bool ___CM_SAVER(true), __My = true; __My; __My = false)
+	for (bool ___CM_SAVER(true), __my = true; __my; __my = false)
 #endif /* defined(__DOXYGEN__) */
 
 /*---------------------------------------------------------------------------*/
@@ -241,7 +241,7 @@ static inline bool __cm_atomic_set(bool* val)
  * ...
  *
  * for (int i=0;i < 100; i++) {
- *     CM_ATOMIC_CONTEXT(); 		// interrupts are masked in this block
+ *     CM_ATOMIC_CONTEXT();		// interrupts are masked in this block
  *     value += 100;			// access value as atomic
  *     if ((value % 16) == 0) {
  *         break;			// restore interrupts and break cycle
@@ -258,7 +258,7 @@ static inline bool __cm_atomic_set(bool* val)
  *
  * uint64_t getnextval(void)
  * {
- *     CM_ATOMIC_CONTEXT(); 	// interrupts are masked in this block
+ *     CM_ATOMIC_CONTEXT();	// interrupts are masked in this block
  *     value = value + 3;	// do long atomic operation
  *     return value;		// interrupts is restored automatically
  * }
