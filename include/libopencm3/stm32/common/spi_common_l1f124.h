@@ -58,7 +58,7 @@ specific memorymap.h header before including this header file.*/
 #endif
 /** @cond */
 #else
-#warning "spi_common_f24.h should not be included explicitly, only via spi.h"
+#warning "spi_common_l1f124.h should not be included explicitly, only via spi.h"
 #endif
 /** @endcond */
 /**@}*/
