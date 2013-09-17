@@ -84,68 +84,22 @@ uint32_t exti_get_flag_status(uint32_t exti)
 /*
  * Remap an external interrupt line to the corresponding pin on the
  * specified GPIO port.
- *
- * TODO: This could be rewritten in fewer lines of code.
  */
 void exti_select_source(uint32_t exti, uint32_t gpioport)
 {
-	uint32_t line;
-	for (line = 0; line < 16; line++) {
-		if (!(exti & (1 << line))) {
-			continue;
-		}
-
-		uint32_t bits = 0, mask = 0x0F;
-
-		switch (gpioport) {
-		case GPIOA:
-			bits = 0;
+	uint8_t reg = 3, shift = 0, bits =0;
+	while(reg--)
+	{
+		if((shift = exti >> (4*reg)))
 			break;
-		case GPIOB:
-			bits = 1;
-			break;
-		case GPIOC:
-			bits = 2;
-			break;
-		case GPIOD:
-			bits = 3;
-			break;
-#if defined(GPIOE) && defined(GPIO_PORT_E_BASE) 
-		case GPIOE:
-			bits = 4;
-			break;
-#endif
-#if defined(GPIOF) && defined(GPIO_PORT_F_BASE)
-		case GPIOF:
-			bits = 5;
-			break;
-#endif
-#if defined(GPIOG) && defined(GPIO_PORT_G_BASE)
-		case GPIOG:
-			bits = 6;
-			break;
-#endif
-#if defined(GPIOH) && defined(GPIO_PORT_H_BASE)
-		case GPIOH:
-			bits = 7;
-			break;
-#endif
-#if defined(GPIOI) && defined(GPIO_PORT_I_BASE)
-		case GPIOI:
-			bits = 8;
-			break;
-#endif
-		}
-
-		uint8_t shift = (uint8_t)(4 * (line % 4));
-		uint32_t reg = line / 4;
-		bits <<= shift;
-		mask <<= shift;
+	}
+	shift = (shift>>1)*4;
+	bits = ((GPIOA ^ gpioport)>>10);
+	uint32_t  mask = 0x0F << shift;
 
 #if defined(AFIO_BASE)
-		AFIO_EXTICR(reg) = (AFIO_EXTICR(reg) & ~mask) | bits;
+		AFIO_EXTICR(reg) = (AFIO_EXTICR(reg) & ~mask) | bits<<shift;
 #else
-		SYSCFG_EXTICR(reg) = (SYSCFG_EXTICR(reg) & ~mask) | bits;
+		SYSCFG_EXTICR(reg) = (SYSCFG_EXTICR(reg) & ~mask) | bits<<shift;
 #endif
-	};
 }
