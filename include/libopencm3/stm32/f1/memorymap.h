@@ -113,7 +113,12 @@
 #define FSMC_BASE			(PERIPH_BASE +  0x60000000)
 
 /* Device Electronic Signature */
-#define DESIG_FLASH_SIZE_BASE           (INFO_BASE + 0x7e0)
-#define DESIG_UNIQUE_ID_BASE            (INFO_BASE + 0x7e8)
+#define DESIG_FLASH_SIZE_BASE		(INFO_BASE + 0x7e0)
+#define DESIG_UNIQUE_ID_BASE		(INFO_BASE + 0x7e8)
+/* Ignore the "reserved for future use" half of the first word */
+#define DESIG_UNIQUE_ID0		MMIO32(DESIG_UNIQUE_ID_BASE)
+#define DESIG_UNIQUE_ID1		MMIO32(DESIG_UNIQUE_ID_BASE + 4)
+#define DESIG_UNIQUE_ID2		MMIO32(DESIG_UNIQUE_ID_BASE + 8)
+
 
 #endif
