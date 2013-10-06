@@ -59,8 +59,7 @@ Development guidelines
  - All subsystem-specific function names should be prefixed with the
    subsystem name. For example, gpio_set_mode() or rcc_osc_on().
 
- - Please consistently use the short form types from <cm3/common.h>,
-   e.g. u8, u16, u32, and so on.
+ - Please consistently use the stdint types.
 
  - Variables that are used to store register values read from registers or
    to be stored in a register should be named reg8, reg16, reg32 etc.
