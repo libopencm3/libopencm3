@@ -59,22 +59,12 @@ Development guidelines
  - All subsystem-specific function names should be prefixed with the
    subsystem name. For example, gpio_set_mode() or rcc_osc_on().
 
- - Please consistently use the short form types from <cm3/common.h>,
-   e.g. u8, u16, u32, and so on.
+ - Please consistently use the stdint types.
 
  - Variables that are used to store register values read from registers or
    to be stored in a register should be named reg8, reg16, reg32 etc.
 
- - In the examples directory, the following structure should be used:
-
-    - One (or more) subdirectories for the type of microcontroller, e.g.
-      lm3s, lpc13xx, stm32/f1, stm32/f2, stm32/f4.
-
-    - One subdirectory in there for each eval board or piece of hardware, e.g.
-      stm32-h103, lisa-m, stm32vl-discovery, stm32f4-discovery, etc.
-
-    - One subdirectory in there for each example, e.g.
-      miniblink, button, usart, usb_dfu, etc.
+ - For examples on using libopencm3 see the libopencm3-examples repository.
 
 Tips and tricks
 ---------------
