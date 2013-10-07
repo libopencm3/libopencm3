@@ -99,7 +99,7 @@ Specifies the number of valid bits in the last word.
 void hash_set_last_word_valid_bits(uint8_t validbits)
 {
 	HASH_STR &= ~(HASH_STR_NBW);
-	HASH_STR |= 32 - validbits;
+	HASH_STR |= validbits;
 }
 
 /*---------------------------------------------------------------------------*/
