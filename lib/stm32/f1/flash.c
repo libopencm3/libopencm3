@@ -127,14 +127,14 @@ void flash_program_word(uint32_t address, uint32_t data)
 	/* Wait for the write to complete. */
 	flash_wait_for_last_operation();
 
+	/* Enable writes to flash. */
+	FLASH_CR |= FLASH_CR_PG;
+
 	/* Program the second half of the word. */
 	MMIO16(address + 2) = data >> 16;
 
 	/* Wait for the write to complete. */
 	flash_wait_for_last_operation();
-
-	/* Disable writes to flash. */
-	FLASH_CR &= ~FLASH_CR_PG;
 }
 
 void flash_program_half_word(uint32_t address, uint16_t data)
@@ -146,8 +146,6 @@ void flash_program_half_word(uint32_t address, uint16_t data)
 	MMIO16(address) = data;
 
 	flash_wait_for_last_operation();
-
-	FLASH_CR &= ~FLASH_CR_PG;		/* Disable the PG bit. */
 }
 
 void flash_erase_page(uint32_t page_address)
