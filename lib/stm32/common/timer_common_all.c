@@ -2021,7 +2021,7 @@ void timer_ic_set_prescaler(uint32_t timer_peripheral, enum tim_ic_id ic,
 		break;
 	case TIM_IC3:
 		TIM_CCMR2(timer_peripheral) &= ~TIM_CCMR2_IC3PSC_MASK;
-		TIM_CCMR2(timer_peripheral) |= psc << 4;
+		TIM_CCMR2(timer_peripheral) |= psc << 2;
 		break;
 	case TIM_IC4:
 		TIM_CCMR2(timer_peripheral) &= ~TIM_CCMR2_IC4PSC_MASK;
