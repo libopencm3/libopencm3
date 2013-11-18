@@ -308,6 +308,11 @@
 /* DWT_PCSR register */
 #define SCS_DWT_PCSR		MMIO32(DWT_BASE + 0x18)
 
+/* CoreSight Lock Status Register for this peripheral */
+#define SCS_DWT_LSR		MMIO32(SCS_DWT_BASE + 0xFB4)
+/* CoreSight Lock Access Register for this peripheral */
+#define SCS_DWT_LAR		MMIO32(SCS_DWT_BASE + 0xFB0)
+
 /* --- SCS_DWT_CTRL values ------------------------------------------------- */
 /*
  * Enables CYCCNT:
@@ -315,6 +320,13 @@
  * This bit is UNK/SBZP if the NOCYCCNT bit is RAO.
  */
 #define SCS_DWT_CTRL_CYCCNTENA	(BIT0)
+
+/* CoreSight Lock Status Register lock status bit */
+#define SCS_LSR_SLK		(1<<1)
+/* CoreSight Lock Status Register lock availability bit */
+#define SCS_LSR_SLI		(1<<0)
+/* CoreSight Lock Access key, common for all */
+#define SCS_LAR_KEY		0xC5ACCE55
 
 /* TODO bit definition values for other DWT_XXX register */
 

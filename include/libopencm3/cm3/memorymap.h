@@ -48,15 +48,6 @@
 #define TPIU_BASE                       (PPBI_BASE + 0x40000)
 #endif
 
-/* --- ITM: Instrumentation Trace Macrocell --- */
-/* TODO */
-
-/* --- DWT: Data Watchpoint and Trace unit --- */
-/* TODO */
-
-/* --- FPB: Flash Patch and Breakpoint unit --- */
-/* TODO */
-
 /* --- SCS: System Control Space --- */
 
 /* Those defined only on ARMv7 and above */
