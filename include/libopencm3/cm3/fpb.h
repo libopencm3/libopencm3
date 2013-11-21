@@ -40,6 +40,12 @@
 /* Flash Patch Comparator (FPB_COMPx) */
 #define FPB_COMP			(&MMIO32(FPB_BASE + 8))
 
+/* CoreSight Lock Status Register for this peripheral */
+#define FPB_LSR				MMIO32(FPB_BASE + 0xFB4)
+/* CoreSight Lock Access Register for this peripheral */
+#define FPB_LAR				MMIO32(FPB_BASE + 0xFB0)
+
+
 /* TODO: PID, CID */
 
 /* --- FPB_CTRL values ----------------------------------------------------- */
