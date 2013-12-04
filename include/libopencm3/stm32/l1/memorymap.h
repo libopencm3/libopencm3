@@ -116,6 +116,11 @@
 #define ST_TSENSE_CAL1_30C		MMIO16(0x1FF8007A)
 #define ST_TSENSE_CAL2_110C		MMIO16(0x1FF8007E)
 
+/* ST provided factory calibration values @ 3.0V */
+#define ST_VREFINT_CAL			MMIO16(0x1FF80078)
+#define ST_TSENSE_CAL1_30C		MMIO16(0x1FF8007A)
+#define ST_TSENSE_CAL2_110C		MMIO16(0x1FF8007E)
+
 /* Make the map names match those for other families to allow commonality */
 #define SPI1_I2S_BASE       SPI1_BASE
 #define SPI2_I2S_BASE       SPI2_BASE
