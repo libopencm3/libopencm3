@@ -587,8 +587,8 @@ void rcc_clock_setup_in_hsi_out_48mhz(void)
 
 	flash_set_ws(FLASH_ACR_LATENCY_024_048MHZ);
 
-	/* 8MHz * 12 / 2 = 24MHz	 */
-	rcc_set_pll_multiplication_factor(RCC_CFGR_PLLMUL_MUL16);
+	/* 8MHz * 12 / 2 = 48MHz	 */
+	rcc_set_pll_multiplication_factor(RCC_CFGR_PLLMUL_MUL12);
 
 	RCC_CFGR &= RCC_CFGR_PLLSRC;
 
