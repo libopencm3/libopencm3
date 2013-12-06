@@ -49,15 +49,12 @@
 /* --- SYSTICK registers --------------------------------------------------- */
 
 /* Control and status register (STK_CTRL) */
-#define STK_CTRL			MMIO32(SYS_TICK_BASE + 0x00)
 #define STK_CSR				MMIO32(SYS_TICK_BASE + 0x00)
 
 /* reload value register (STK_LOAD) */
-#define STK_LOAD			MMIO32(SYS_TICK_BASE + 0x04)
 #define STK_RVR				MMIO32(SYS_TICK_BASE + 0x04)
 
 /* current value register (STK_VAL) */
-#define STK_VAL				MMIO32(SYS_TICK_BASE + 0x08)
 #define STK_CVR				MMIO32(SYS_TICK_BASE + 0x08)
 
 /* calibration value register (STK_CALIB) */
@@ -66,14 +63,10 @@
 /* --- STK_CSR values ------------------------------------------------------ */
 /* Bits [31:17] Reserved, must be kept cleared. */
 /* COUNTFLAG: */
-#define STK_CTRL_COUNTFLAG		(1 << 16)
 #define STK_CSR_COUNTFLAG		(1 << 16)
 
 /* Bits [15:3] Reserved, must be kept cleared. */
 /* CLKSOURCE: Clock source selection */
-#define STK_CTRL_CLKSOURCE_LSB		2
-#define STK_CTRL_CLKSOURCE		(1 << STK_CTRL_CLKSOURCE_LSB)
-
 #define STK_CSR_CLKSOURCE_LSB		2
 #define STK_CSR_CLKSOURCE		(1 << STK_CSR_CLKSOURCE_LSB)
 
@@ -85,19 +78,14 @@
 #define STK_CSR_CLKSOURCE_EXT		(0 << STK_CSR_CLKSOURCE_LSB)
 #define STK_CSR_CLKSOURCE_AHB		(1 << STK_CSR_CLKSOURCE_LSB)
 #else
-#define STK_CTRL_CLKSOURCE_AHB_DIV8	(0 << STK_CSR_CLKSOURCE_LSB)
-#define STK_CTRL_CLKSOURCE_AHB		(1 << STK_CSR_CLKSOURCE_LSB)
-
 #define STK_CSR_CLKSOURCE_AHB_DIV8	(0 << STK_CSR_CLKSOURCE_LSB)
 #define STK_CSR_CLKSOURCE_AHB		(1 << STK_CSR_CLKSOURCE_LSB)
 #endif
 /**@}*/
 
 /* TICKINT: SysTick exception request enable */
-#define STK_CTRL_TICKINT		(1 << 1)
 #define STK_CSR_TICKINT			(1 << 1)
 /* ENABLE: Counter enable */
-#define STK_CTRL_ENABLE			(1 << 0)
 #define STK_CSR_ENABLE			(1 << 0)
 
 /* --- STK_RVR values ------------------------------------------------------ */
