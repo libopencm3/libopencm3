@@ -250,7 +250,7 @@ void rcc_osc_on(enum rcc_osc osc)
 		RCC_CSR |= RCC_CSR_LSION;
 		break;
 	case PLL:
-		/* don't do anything */
+		RCC_CR|=RCC_CR_PLLON; 
 		break;
 	}
 }
@@ -490,10 +490,10 @@ void rcc_clock_setup_in_hsi_out_16mhz(void)
 
 	flash_set_ws(FLASH_ACR_LATENCY_000_024MHZ);
 
+	RCC_CFGR &= ~RCC_CFGR_PLLSRC;
+    
 	/* 8MHz * 4 / 2 = 16MHz	 */
 	rcc_set_pll_multiplication_factor(RCC_CFGR_PLLMUL_MUL4);
-
-	RCC_CFGR &= RCC_CFGR_PLLSRC;
 
 	rcc_osc_on(PLL);
 	rcc_wait_for_osc_ready(PLL);
@@ -515,10 +515,10 @@ void rcc_clock_setup_in_hsi_out_24mhz(void)
 
 	flash_set_ws(FLASH_ACR_LATENCY_000_024MHZ);
 
+	RCC_CFGR &= ~RCC_CFGR_PLLSRC;
+    
 	/* 8MHz * 6 / 2 = 24MHz	 */
 	rcc_set_pll_multiplication_factor(RCC_CFGR_PLLMUL_MUL6);
-
-	RCC_CFGR &= RCC_CFGR_PLLSRC;
 
 	rcc_osc_on(PLL);
 	rcc_wait_for_osc_ready(PLL);
@@ -539,10 +539,11 @@ void rcc_clock_setup_in_hsi_out_32mhz(void)
 
 	flash_set_ws(FLASH_ACR_LATENCY_024_048MHZ);
 
-	/* 8MHz * 8 / 2 = 32MHz	 */
+	RCC_CFGR &= ~RCC_CFGR_PLLSRC;
+
+    /* 8MHz * 8 / 2 = 32MHz	 */
 	rcc_set_pll_multiplication_factor(RCC_CFGR_PLLMUL_MUL8);
 
-	RCC_CFGR &= RCC_CFGR_PLLSRC;
 
 	rcc_osc_on(PLL);
 	rcc_wait_for_osc_ready(PLL);
@@ -563,10 +564,11 @@ void rcc_clock_setup_in_hsi_out_40mhz(void)
 
 	flash_set_ws(FLASH_ACR_LATENCY_024_048MHZ);
 
-	/* 8MHz * 10 / 2 = 40MHz	 */
+	RCC_CFGR &= ~RCC_CFGR_PLLSRC;
+
+    /* 8MHz * 10 / 2 = 40MHz	 */
 	rcc_set_pll_multiplication_factor(RCC_CFGR_PLLMUL_MUL10);
 
-	RCC_CFGR &= RCC_CFGR_PLLSRC;
 
 	rcc_osc_on(PLL);
 	rcc_wait_for_osc_ready(PLL);
@@ -587,10 +589,10 @@ void rcc_clock_setup_in_hsi_out_48mhz(void)
 
 	flash_set_ws(FLASH_ACR_LATENCY_024_048MHZ);
 
-	/* 8MHz * 12 / 2 = 24MHz	 */
-	rcc_set_pll_multiplication_factor(RCC_CFGR_PLLMUL_MUL16);
-
-	RCC_CFGR &= RCC_CFGR_PLLSRC;
+	RCC_CFGR &= ~RCC_CFGR_PLLSRC;
+    
+	/* 8MHz * 12 / 2 = 48MHz	 */
+	rcc_set_pll_multiplication_factor(RCC_CFGR_PLLMUL_MUL12);
 
 	rcc_osc_on(PLL);
 	rcc_wait_for_osc_ready(PLL);
