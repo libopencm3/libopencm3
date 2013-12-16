@@ -788,32 +788,25 @@ void adc_start_conversion_injected(uint32_t adc)
 /*-----------------------------------------------------------------------------*/
 /** @brief ADC Enable an External Trigger for Regular Channels
 
-This enables an external trigger for set of defined regular channels.
+  This enables an external trigger for set of defined regular channels.
 
-For ADC1 and ADC2
-@li Timer 1 CC1 event
-@li Timer 1 CC2 event
-@li Timer 1 CC3 event
-@li Timer 2 CC2 event
-@li Timer 3 TRGO event
-@li Timer 4 CC4 event
-@li EXTI (TIM8_TRGO is also possible on some devices, see datasheet)
-@li Software Start
+  @li Timer 9 CC2 event
+  @li Timer 9 TRGO event
+  @li Timer 2 CC3 event
+  @li Timer 2 CC2 event
+  @li Timer 3 TRGO event
+  @li Timer 4 CC4 event
+  @li Timer 2 TRGO event
+  @li Timer 3 CC1 event
+  @li Timer 3 CC3 event
+  @li Timer 4 TRGO event
+  @li Timer 6 TRGO event
+  @li EXTI line 11
 
-For ADC3
-@li Timer 3 CC1 event
-@li Timer 2 CC3 event
-@li Timer 1 CC3 event
-@li Timer 8 CC1 event
-@li Timer 8 TRGO event
-@li Timer 5 CC1 event
-@li Timer 5 CC3 event
-@li Software Start
-
-@param[in] adc Unsigned int32. ADC block register address base @ref adc_reg_base.
-@param[in] mode Unsigned int32. External trigger mode @ref adc_trigger_mode_regular
-@param[in] trigger Unsigned int8. Trigger identifier @ref adc_trigger_regular
-*/
+  @param[in] adc Unsigned int32. ADC block register address base @ref adc_reg_base.
+  @param[in] mode Unsigned int32. External trigger mode @ref adc_trigger_mode_regular
+  @param[in] trigger Unsigned int8. Trigger identifier @ref adc_trigger_regular
+ */
 
 void adc_enable_external_trigger_regular(uint32_t adc, uint32_t mode, uint32_t trigger)
 {
@@ -839,27 +832,20 @@ void adc_disable_external_trigger_regular(uint32_t adc)
 /*-----------------------------------------------------------------------------*/
 /** @brief ADC Enable an External Trigger for Injected Channels
 
-This enables an external trigger for set of defined injected channels.
+  This enables an external trigger for set of defined injected channels.
 
-For ADC1 and ADC2
-@li Timer 1 TRGO event
-@li Timer 1 CC4 event
-@li Timer 2 TRGO event
-@li Timer 2 CC1 event
-@li Timer 3 CC4 event
-@li Timer 4 TRGO event
-@li EXTI (TIM8 CC4 is also possible on some devices, see datasheet)
-@li Software Start
-
-For ADC3
-@li Timer 1 TRGO event
-@li Timer 1 CC4 event
-@li Timer 4 CC3 event
-@li Timer 8 CC2 event
-@li Timer 8 CC4 event
-@li Timer 5 TRGO event
-@li Timer 5 CC4 event
-@li Software Start
+  @li Timer 9 CC1 event
+  @li Timer 9 TRGO event
+  @li Timer 2 TRGO event
+  @li Timer 2 CC1 event
+  @li Timer 3 CC4 event
+  @li Timer 4 TRGO event
+  @li Timer 4 CC1 event
+  @li Timer 4 CC2 event
+  @li Timer 4 CC3 event
+  @li Timer 10 CC1 event
+  @li Timer 7 TRGO event
+  @li EXTI line 15
 
 @param[in] adc Unsigned int32. ADC block register address base @ref adc_reg_base.
 @param[in] mode Unsigned int32. External trigger mode @ref adc_trigger_mode_injected
