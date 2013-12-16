@@ -267,52 +267,61 @@ void adc_set_clk_prescale(uint32_t prescale)
 	ADC_CCR = reg32;
 }
 
-
-/*-----------------------------------------------------------------------------*/
-/** @brief ADC Start a Conversion Without Trigger
-
-This initiates a conversion by software without a trigger. The ADC needs to be
-powered on before this is called, otherwise this function has no effect. 
-
-Note that this is not available in other STM32F families. To ensure code compatibility,
-enable triggering and use a software trigger source @see adc_start_conversion_regular.
-
-@param[in] adc Unsigned int32. ADC block register address base @ref adc_reg_base
-*/
-
-void adc_start_conversion_direct(uint32_t adc)
-{
-	if (ADC_CR2(adc) & ADC_CR2_ADON)
-	    ADC_CR2(adc) |= ADC_CR2_ADON;
-}
-
 /*-----------------------------------------------------------------------------*/
 /** @brief ADC Read the End-of-Conversion Flag
 
-This flag is set after all channels of a regular or injected group have been
-converted.
+  This flag is set after all channels of a regular or injected group have been
+  converted.
 
-@param[in] adc Unsigned int32. ADC block register address base @ref adc_reg_base.
-@returns bool. End of conversion flag.
-*/
+  @param[in] adc Unsigned int32. ADC block register address base @ref adc_reg_base.
+  @returns bool. End of conversion flag.
+ */
 
 bool adc_eoc(uint32_t adc)
 {
-    return ((ADC_SR(adc) & ADC_SR_EOC) != 0);
+	return ((ADC_SR(adc) & ADC_SR_EOC) != 0);
+}
+
+/*-----------------------------------------------------------------------------*/
+/** @brief ADC clear the End-of-Conversion Flag
+
+  This flag should be cleared after all channel data of an regular group have
+  been read.
+
+  @param[in] adc Unsigned int32. ADC block register address base @ref adc_reg_base.
+ */
+
+void adc_clear_eoc(uint32_t adc)
+{
+    ADC_SR(adc) &= ~ADC_SR_EOC;
 }
 
 /*-----------------------------------------------------------------------------*/
 /** @brief ADC Read the End-of-Conversion Flag for Injected Conversion
 
-This flag is set after all channels of an injected group have been converted.
+  This flag is set after all channels of an injected group have been converted.
 
-@param[in] adc Unsigned int32. ADC block register address base @ref adc_reg_base.
-@returns bool. End of conversion flag.
-*/
+  @param[in] adc Unsigned int32. ADC block register address base @ref adc_reg_base.
+  @returns bool. End of conversion flag.
+ */
 
 bool adc_eoc_injected(uint32_t adc)
 {
-    return ((ADC_SR(adc) & ADC_SR_JEOC) != 0);
+	return ((ADC_SR(adc) & ADC_SR_JEOC) != 0);
+}
+
+/*-----------------------------------------------------------------------------*/
+/** @brief ADC clear the End-of-Conversion Flag for Injected Conversion
+
+  This flag should be cleared after all channel data of an injected group have
+  been read.
+
+  @param[in] adc Unsigned int32. ADC block register address base @ref adc_reg_base.
+ */
+
+void adc_clear_eoc_injected(uint32_t adc)
+{
+    ADC_SR(adc) &= ~ADC_SR_JEOC;
 }
 
 /*-----------------------------------------------------------------------------*/
