@@ -1076,6 +1076,33 @@ void adc_clear_overrun_flag(uint32_t adc)
     ADC_SR(adc) &= ~ADC_SR_OVR;
 }
 
+/*-----------------------------------------------------------------------------*/
+/** @brief ADC Read the Watch-Dog Flag
+
+  This flag is set when the converted voltage crosses the values programmed by function
+  @ref adc_set_watchdog_high_threshold and @ref adc_set_watchdog_low_threshold.
+
+  @param[in] adc Unsigned int32. ADC block register address base @ref adc_reg_base.
+  @returns bool. Watchdog flag.
+ */
+
+bool adc_get_watchdog_flag(uint32_t adc)
+{
+    return ((ADC_SR(adc) & ADC_SR_AWD) != 0);
+}
+
+/*-----------------------------------------------------------------------------*/
+/** @brief ADC Clear the Watch-Dog Flag
+
+  @param[in] adc Unsigned int32. ADC block register address base @ref adc_reg_base.
+ */
+
+void adc_clear_watchdog_flag(uint32_t adc)
+{
+    ADC_SR(adc) &= ~ADC_SR_AWD;
+}
+
+/*-----------------------------------------------------------------------------*/
 /** @brief ADC Set End of Conversion of each Conversion
 
   Make hardware to generate End of conversion event for each regular convertion.
