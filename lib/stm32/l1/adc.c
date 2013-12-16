@@ -944,34 +944,47 @@ void adc_set_continuous_dma(uint32_t adc)
 
 
 /*-----------------------------------------------------------------------------*/
-/** @brief ADC Enable Single Conversion Mode
+/** @brief ADC Enable Power Down during Idle
 
-In this mode the ADC performs a conversion of one channel or a channel group
-and stops.
+  @param[in] adc Unsigned int32. ADC block register address base @ref adc_reg_base.
+ */
 
-@param[in] adc Unsigned int32. ADC block register address base @ref adc_reg_base.
-*/
-
-void adc_set_single_conversion_mode(uint32_t adc)
+void adc_enable_power_down_idle(uint32_t adc)
 {
-	ADC_CR2(adc) &= ~ADC_CR2_CONT;
+	ADC_CR1(adc) |= ADC_CR1_PDI;
 }
 
 /*-----------------------------------------------------------------------------*/
-/** @brief ADC Power On
+/** @brief ADC Disable Power Down during Idle
 
-If the ADC is in power-down mode then it is powered up. The application needs
-to wait a time of about 3 microseconds for stabilization before using the ADC.
-If the ADC is already on this function call will initiate a conversion.
+  @param[in] adc Unsigned int32. ADC block register address base @ref adc_reg_base.
+ */
 
-@deprecated to be removed in a later release
-
-@param[in] adc Unsigned int32. ADC block register address base @ref adc_reg_base.
-*/
-
-void adc_on(uint32_t adc)
+void adc_disable_power_down_idle(uint32_t adc)
 {
-	ADC_CR2(adc) |= ADC_CR2_ADON;
+	ADC_CR1(adc) &= ~ADC_CR1_PDI;
+}
+
+/*-----------------------------------------------------------------------------*/
+/** @brief ADC Enable Power Down during Delay
+
+  @param[in] adc Unsigned int32. ADC block register address base @ref adc_reg_base.
+ */
+
+void adc_enable_power_down_delay(uint32_t adc)
+{
+	ADC_CR1(adc) |= ADC_CR1_PDD;
+}
+
+/*-----------------------------------------------------------------------------*/
+/** @brief ADC Disable Power Down during Delay
+
+  @param[in] adc Unsigned int32. ADC block register address base @ref adc_reg_base.
+ */
+
+void adc_disable_power_down_delay(uint32_t adc)
+{
+	ADC_CR1(adc) &= ~ADC_CR1_PDD;
 }
 
 /*-----------------------------------------------------------------------------*/
