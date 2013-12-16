@@ -1073,26 +1073,23 @@ is reset and conversion begins again with the newly defined group.
 
 void adc_set_regular_sequence(uint32_t adc, uint8_t length, uint8_t channel[])
 {
-	uint32_t reg32_1 = 0, reg32_2 = 0, reg32_3 = 0;
-	uint8_t i = 0;
+    uint32_t reg32[5] = {0,0,0,0,0};
+    uint8_t i = 0;
 
-	/* Maximum sequence length is 16 channels. */
-	if (length > 16)
-		return;
+    /* Maximum sequence length is 28 channels. */
+    if (length > 28)
+        return;
 
-	for (i = 1; i <= length; i++) {
-		if (i <= 6)
-			reg32_3 |= (channel[i - 1] << ((i - 1) * 5));
-		if ((i > 6) & (i <= 12))
-			reg32_2 |= (channel[i - 1] << ((i - 6 - 1) * 5));
-		if ((i > 12) & (i <= 16))
-			reg32_1 |= (channel[i - 1] << ((i - 12 - 1) * 5));
-	}
-	reg32_1 |= ((length -1) << ADC_SQR1_L_LSB);
+    for (i = 0; i < length; i++)
+        reg32[4 - i/6] |= (channel[i] << ((i%6)*5));
 
-	ADC_SQR1(adc) = reg32_1;
-	ADC_SQR2(adc) = reg32_2;
-	ADC_SQR3(adc) = reg32_3;
+    reg32[0] |= ((length -1) << ADC_SQR1_L_LSB);
+
+    ADC_SQR1(adc) = reg32[0]u;
+    ADC_SQR2(adc) = reg32[1];
+    ADC_SQR3(adc) = reg32[2];
+    ADC_SQR4(adc) = reg32[3];
+    ADC_SQR5(adc) = reg32[4];
 }
 
 /*-----------------------------------------------------------------------------*/
@@ -1116,8 +1113,8 @@ void adc_set_injected_sequence(uint32_t adc, uint8_t length, uint8_t channel[])
 	if (length > 4)
 		return;
 
-	for (i = 1; i <= length; i++)
-		reg32 |= (channel[4 - i] << ((4 - i) * 5));
+	for (i = 0; i < length; i++)
+		reg32 |= (channel[i] << (i * 5));
 
 	reg32 |= ((length - 1) << ADC_JSQR_JL_LSB);
 
