@@ -1052,6 +1052,30 @@ void adc_set_watchdog_low_threshold(uint32_t adc, uint16_t threshold)
 }
 
 /*-----------------------------------------------------------------------------*/
+/** @brief ADC Read the Over-Run Flag
+
+  This flag is set when regular conversion data are lost.
+
+  @param[in] adc Unsigned int32. ADC block register address base @ref adc_reg_base.
+  @returns bool. Overrun flag.
+ */
+
+bool adc_get_overrun_flag(uint32_t adc)
+{
+    return ((ADC_SR(adc) & ADC_SR_OVR) != 0);
+}
+
+/*-----------------------------------------------------------------------------*/
+/** @brief ADC Clear the Over-Run Flag
+
+  @param[in] adc Unsigned int32. ADC block register address base @ref adc_reg_base.
+ */
+
+void adc_clear_overrun_flag(uint32_t adc)
+{
+    ADC_SR(adc) &= ~ADC_SR_OVR;
+}
+
 /** @brief ADC Set End of Conversion of each Conversion
 
   Make hardware to generate End of conversion event for each regular convertion.
