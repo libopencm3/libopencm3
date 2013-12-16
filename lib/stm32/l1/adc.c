@@ -1037,22 +1037,15 @@ all channels.
 
 void adc_set_sample_time_on_all_channels(uint32_t adc, uint8_t time)
 {
-	uint8_t i;
+	uint8_t channel;
 	uint32_t reg32 = 0;
 
-	for (i = 0; i <= 9; i++)
-		reg32 |= (time << (i * 3));
+	for (channel = 0; channel <= 9; channel++)
+		reg32 |= ((time & 0xf) << (channel * 3));
 	ADC_SMPR3(adc) = reg32;
-
-	reg32 = 0;
-	for (i = 10; i <= 19; i++)
-	  reg32 |= (time << ((i - 10) * 3));
 	ADC_SMPR2(adc) = reg32;
-
-	reg32 = 0;
-	for (i = 20; i <= 29; i++)
-		reg32 |= (time << ((i - 20) * 3));
 	ADC_SMPR1(adc) = reg32;
+	ADC_SMPR0(adc) = ((time & 0xf) << 3) | (time & 0xf);
 }
 
 /*-----------------------------------------------------------------------------*/
