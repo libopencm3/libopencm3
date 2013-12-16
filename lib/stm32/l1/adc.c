@@ -624,6 +624,28 @@ void adc_disable_scan_mode(uint32_t adc)
 }
 
 /*-----------------------------------------------------------------------------*/
+/** @brief ADC Enable Regular End-Of-Conversion Interrupt
+
+  @param[in] adc Unsigned int32. ADC block register address base @ref adc_reg_base.
+ */
+
+void adc_enable_eoc_interrupt(uint32_t adc)
+{
+    ADC_CR1(adc) |= ADC_CR1_EOCIE;
+}
+
+/*-----------------------------------------------------------------------------*/
+/** @brief ADC Disable Regular End-Of-Conversion Interrupt
+
+  @param[in] adc Unsigned int32. ADC block register address base @ref adc_reg_base.
+ */
+
+void adc_disable_eoc_interrupt(uint32_t adc)
+{
+    ADC_CR1(adc) &= ~ADC_CR1_EOCIE;
+}
+
+/*-----------------------------------------------------------------------------*/
 /** @brief ADC Enable Injected End-Of-Conversion Interrupt
 
 @param[in] adc Unsigned int32. ADC block register address base @ref adc_reg_base.
