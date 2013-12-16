@@ -555,6 +555,21 @@ void adc_enable_analog_watchdog_on_all_channels(uint32_t adc)
 	ADC_CR1(adc) &= ~ADC_CR1_AWDSGL;
 }
 
+/*---------------------------------------------------------------------------*/
+/** @brief ADC Set Resolution
+ *
+ * ADC Resolution can be reduced from 12 bits to 10, 8 or 6 bits for a
+ * corresponding reduction in conversion time.
+ *
+ * @param[in] adc Unsigned int32. ADC base address (@ref adc_reg_base)
+ * @param[in] resolution Unsigned int16. Resolution value (@ref adc_api_res)
+ */
+
+void adc_set_resolution(uint32_t adc, uint16_t resolution)
+{
+	ADC_CR1(adc) = (ADC_CR1(adc) & ~ADC_CR1_RES_MASK) | resolution;
+}
+
 /*-----------------------------------------------------------------------------*/
 /** @brief ADC Enable Analog Watchdog for a Selected Channel
 
