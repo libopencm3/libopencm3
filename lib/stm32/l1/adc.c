@@ -8,10 +8,10 @@
 
 @author @htmlonly &copy; @endhtmlonly 2009 Edward Cheeseman <evbuilder@users.sourceforge.net>
 @author @htmlonly &copy; @endhtmlonly 2012 Ken Sarkies <ksarkies@internode.on.net>
-
 @author @htmlonly &copy; @endhtmlonly 2013 Ben Gamari <bgamari.foss@gmail.com>
+@author @htmlonly &copy; @endhtmlonly 2013 Chung-Yu Huang <ck911279@gmail.com>
 
-@date 31 May 2013
+@date 13 Dec 2013
 
 This library supports the A/D Converter Control System in the STM32L1xx series
 of ARM Cortex Microcontrollers by ST Microelectronics.
