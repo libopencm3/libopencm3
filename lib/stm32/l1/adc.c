@@ -1051,6 +1051,31 @@ void adc_set_watchdog_low_threshold(uint32_t adc, uint16_t threshold)
 	ADC_LTR(adc) = (uint32_t)threshold & ADC_LT_MSK;
 }
 
+/*-----------------------------------------------------------------------------*/
+/** @brief ADC Set End of Conversion of each Conversion
+
+  Make hardware to generate End of conversion event for each regular convertion.
+
+  @param[in] adc Unsigned int32. ADC block register address base @ref adc_reg_base.
+ */
+
+void adc_set_eoc_of_each_conversion(uint32_t adc)
+{
+    ADC_CR2(adc) |= ADC_CR2_EOCS;
+}
+
+/*-----------------------------------------------------------------------------*/
+/** @brief ADC Set End of Conversion of each Sequence of Conversion
+
+  Make hardware to generate End of conversion event for each sequence of
+  regular convertion.
+
+  @param[in] adc Unsigned int32. ADC block register address base @ref adc_reg_base.
+ */
+
+void adc_set_eoc_of_each_sequence(uint32_t adc)
+{
+    ADC_CR2(adc) &= ~ADC_CR2_EOCS;
 }
 
 /*-----------------------------------------------------------------------------*/
