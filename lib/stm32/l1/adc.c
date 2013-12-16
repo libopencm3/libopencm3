@@ -41,28 +41,175 @@ conversion, which occurs after all channels have been scanned.
 
 @section adc_api_ex Basic ADC Handling API.
 
-Example 1: Simple single channel conversion polled. Enable the peripheral clock
-and ADC, reset ADC and set the prescaler divider. Set dual mode to independent
-(default). Enable triggering for a software trigger.
+Example 1: Simple single channel conversion polled.
 
 @code
-    rcc_peripheral_enable_clock(&RCC_APB2ENR, RCC_APB2ENR_ADC1EN);
-    adc_off(ADC1);
-    rcc_peripheral_reset(&RCC_APB2RSTR, RCC_APB2RSTR_ADC1RST);
-    rcc_peripheral_clear_reset(&RCC_APB2RSTR, RCC_APB2RSTR_ADC1RST);
-    rcc_set_adcpre(RCC_CFGR_ADCPRE_PCLK2_DIV2);
-    adc_set_dual_mode(ADC_CR1_DUALMOD_IND);
-    adc_disable_scan_mode(ADC1);
-    adc_set_single_conversion_mode(ADC1);
-    adc_set_sample_time(ADC1, ADC_CHANNEL0, ADC_SMPR1_SMP_1DOT5CYC);
-    adc_set_single_channel(ADC1, ADC_CHANNEL0);
-    adc_enable_trigger(ADC1, ADC_CR2_EXTSEL_SWSTART);
-    adc_power_on(ADC1);
-    adc_reset_calibration(ADC1);
-    adc_calibration(ADC1);
-    adc_start_conversion_regular(ADC1);
-    while (! adc_eoc(ADC1));
-    reg16 = adc_read_regular(ADC1);
+  uint8_t channels[28];
+  uint16_t data;
+
+  // Enable clock for ADC1 and ADC_IN10 (PC0)
+  rcc_peripheral_enable_clock(&RCC_APB2ENR, RCC_APB2ENR_ADC1EN);
+  rcc_peripheral_enable_clock(&RCC_AHBENR, RCC_AHBENR_GPIOCEN);
+
+  // Set analog mode to PC0
+  gpio_mode_setup(GPIOC, GPIO_MODE_ANALOG, GPIO_PUPD_NONE, GPIO0);
+
+  // Turn off ADC before configuration
+  adc_power_off(ADC1);
+
+  // Basic configuration
+  adc_set_clk_prescale(ADC_CCR_ADCPRE_DIV1);
+  adc_set_resolution(ADC1, ADC_CR1_RES_12BIT);
+  adc_set_right_aligned(ADC1);
+  adc_set_sample_time_on_all_channels(ADC1, ADC_SMPR_SMP_4CYC);
+  adc_disable_external_trigger_regular(ADC1);
+  adc_enable_power_down_idle(ADC1);
+  adc_enable_power_down_delay(ADC1);
+
+  // Set one shot conversion
+  adc_set_single_conversion_mode(ADC1);
+
+  // Set channel 10 (ADC_IN10 / PC0) to be convert
+  channels[0]=10;  
+  adc_set_regular_sequence(ADC1, 1, channels);
+
+  // Turn on ADC module
+  adc_power_on(ADC1);
+
+  // Software trigger one regular conversion
+  adc_start_conversion_regular(ADC1);
+
+  // Polling for conversion completion
+  while (! adc_eoc(ADC1));
+
+  // Read regular conversion data
+  data = adc_read_regular(ADC1);
+@endcode
+
+Example 2: Sample multiple channel conversions with DMA interrupted. Use internel
+temperature sensor and reference voltage channels as ADC inputs.
+
+@code
+  // Declare memory buffer for DMA
+  uint16_t adb_buff[28];
+
+  void dma_setup(void) {
+      // Enable clock for DMA1
+      rcc_peripheral_enable_clock(&RCC_AHBENR, RCC_AHBENR_DMA1EN);
+
+      // Enable DMA1 CHANNEL1 interrupt event
+      nvic_enable_irq(NVIC_DMA1_CHANNEL1_IRQ);
+
+      // Set DMA channel read data from ADC_DR (ADC data register)
+      dma_set_peripheral_address(DMA1, DMA_CHANNEL1, (uint32_t)&ADC1_DR);
+
+      // Set DMA channel write data to memory buffer
+      dma_set_memory_address(DMA1, DMA_CHANNEL1, (uint32_t)adc_buff);
+
+      // Indicate DMA move data from peripheral to memory
+      dma_set_read_from_peripheral(DMA1, DMA_CHANNEL1);
+
+      // Indicate DMA move 3 data as a cycle
+      dma_set_number_of_data(DMA1, DMA_CHANNEL1, 3);
+
+      // Increase memory pointer after every transfer
+      dma_enable_memory_increment_mode(DMA1, DMA_CHANNEL1);
+
+      // Set 16-bit data size for both peripheral and memory
+      dma_set_peripheral_size(DMA1, DMA_CHANNEL1, DMA_CCR_PSIZE_16BIT);
+      dma_set_memory_size(DMA1, DMA_CHANNEL1, DMA_CCR_MSIZE_16BIT);
+
+      // Set HIGH priority
+      dma_set_priority(DMA1, DMA_CHANNEL1, DMA_CCR_PL_HIGH);
+
+      // Enable interrupt to handel converted data
+      dma_enable_transfer_complete_interrupt(DMA1, DMA_CHANNEL1);
+
+      // Rewind memory pointer back to the head of memory buffer after 3 data transfered
+      dma_enable_circular_mode(DMA1, DMA_CHANNEL1);
+
+      // Enable DMA1 CHANNEL1
+      dma_enable_channel(DMA1, DMA_CHANNEL1);
+  }
+
+  // DMA1 CHANNLE1 interrupt handler routine
+  void dma1_channel1_isr(void)
+  {
+      uint16_t vts, vref, adc_10;
+      // Check for data transfer complete event
+      if (dma_get_interrupt_flag(DMA1, DMA_CHANNEL1, DMA_TCIF)) {
+          // Clear event flag
+          dma_clear_interrupt_flags(DMA1, DMA_CHANNEL1, DMA_TCIF);
+
+          vts  = adc_buff[0];
+          vref = adc_buff[1];
+          adc_10 = adc_buff[2];
+      }
+  }
+
+  void adc_setup(void) {
+      uint8_t channels[28];
+
+      // Enable clock for ADC1 and ADC_IN10 (PC0)
+      rcc_peripheral_enable_clock(&RCC_APB2ENR, RCC_APB2ENR_ADC1EN);
+      rcc_peripheral_enable_clock(&RCC_AHBENR, RCC_AHBENR_GPIOCEN);
+
+      // Set analog mode to PC0
+      gpio_mode_setup(GPIOC, GPIO_MODE_ANALOG, GPIO_PUPD_NONE, GPIO0);
+
+      // Turn off ADC before configuration
+      adc_power_off(ADC1);
+
+      // Basic configuration
+      adc_set_clk_prescale(ADC_CCR_ADCPRE_DIV1);
+      adc_set_resolution(ADC1, ADC_CR1_RES_12BIT);
+      adc_set_right_aligned(ADC1);
+      adc_set_sample_time_on_all_channels(ADC1, ADC_SMPR_SMP_4CYC);
+      adc_disable_external_trigger_regular(ADC1);
+      adc_enable_power_down_idle(ADC1);
+      adc_enable_power_down_delay(ADC1);
+
+      // Enable SCAN mode to make multiple regular channel conversions
+      adc_enable_scan_mode(ADC1);
+
+      // Set EOC (End-Of-Conversion) event for each conversion sequence
+      // Note: This is optional in this example
+      adc_set_eoc_of_each_sequence(ADC1);
+
+      // Set one shot conversion
+      adc_set_single_conversion_mode(ADC1);
+
+      // Enable DMA request of each channel conversion completion
+      adc_enable_dma(ADC1);
+
+      // Generate DMA request for every scan
+      adc_set_continuous_dma(ADC1);
+
+      channels[0]=16; // Vts (Internal temperature sensor)
+      channels[1]=17; // Vref (Internal reference voltage)
+      channels[2]=10; // ADC_IN10 (PC0)
+      adc_set_regular_sequence(ADC1, 1, channels);
+
+      // Turn on ADC module
+      adc_power_on(ADC1);
+
+  }
+
+  void main(void)
+  {
+      dma_setup();
+      adc_setup();
+
+      while (1) {
+          // Software trigger one regular conversion
+          adc_start_conversion_regular(ADC1);
+
+          // sleep a while
+          sleep(5);
+      }
+
+      return 0;
+  }
 @endcode
 
 LGPL License Terms @ref lgpl_license
@@ -84,20 +231,6 @@ LGPL License Terms @ref lgpl_license
  *
  * You should have received a copy of the GNU Lesser General Public License
  * along with this library.  If not, see <http://www.gnu.org/licenses/>.
- */
-
-/*
- * Basic ADC handling API.
- *
- * Examples:
- *  rcc_peripheral_enable_clock(&RCC_APB2ENR, ADC1EN);
- *  rcc_peripheral_disable_clock(&RCC_APB2ENR, ADC1EN);
- *  rcc_peripheral_reset(&RCC_APB2RSTR, ADC1RST);
- *  rcc_peripheral_clear_reset(&RCC_APB2RSTR, ADC1RST);
- *
- *  rcc_set_adc_clk(ADC_PRE_PLCK2_DIV2);
- *  adc_set_dual_mode(ADC1, TODO);
- *  reg16 = adc_read(ADC1, ADC_CH_0);
  */
 
 /**@{*/
