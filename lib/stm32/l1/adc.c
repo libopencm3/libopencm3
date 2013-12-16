@@ -935,18 +935,27 @@ void adc_disable_dma(uint32_t adc)
 }
 
 /*-----------------------------------------------------------------------------*/
-/** @brief ADC Enable Continuous Conversion Mode
+/** @brief ADC No DMA Request After Last Transfers
 
-In this mode the ADC starts a new conversion of a single channel or a channel
-group immediately following completion of the previous channel group conversion.
+  @param[in] adc Unsigned int32. ADC block register address base @ref adc_reg_base.
+ */
 
-@param[in] adc Unsigned int32. ADC block register address base @ref adc_reg_base.
-*/
-
-void adc_set_continuous_conversion_mode(uint32_t adc)
+void adc_set_single_dma(uint32_t adc)
 {
-	ADC_CR2(adc) |= ADC_CR2_CONT;
+    ADC_CR2(adc) &= ~ADC_CR2_DDS;
 }
+
+/*-----------------------------------------------------------------------------*/
+/** @brief ADC Enable DMA Request As Long As Data Converted
+
+  @param[in] adc Unsigned int32. ADC block register address base @ref adc_reg_base.
+ */
+
+void adc_set_continuous_dma(uint32_t adc)
+{
+    ADC_CR2(adc) |= ADC_CR2_DDS;
+}
+
 
 /*-----------------------------------------------------------------------------*/
 /** @brief ADC Enable Single Conversion Mode
