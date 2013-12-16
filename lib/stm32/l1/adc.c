@@ -590,9 +590,9 @@ void adc_enable_analog_watchdog_on_selected_channel(uint32_t adc, uint8_t channe
 {
 	uint32_t reg32;
 
-	reg32 = (ADC_CR1(adc) & 0xffffffe0); /* Clear bits [4:0]. */
-	if (channel < 18)
-		reg32 |= channel;
+	reg32 = (ADC_CR1(adc) & ~ADC_CR1_AWDCH_MASK); /* Clear channel select bits. */
+	if (channel < 27)
+		reg32 |= channel << ADC_CR1_AWDCH_SHIFT;
 	ADC_CR1(adc) = reg32;
 	ADC_CR1(adc) |= ADC_CR1_AWDSGL;
 }
