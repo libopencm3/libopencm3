@@ -372,20 +372,20 @@ for each injected data register.
 
 void adc_set_injected_offset(uint32_t adc, uint8_t reg, uint32_t offset)
 {
-    switch (reg) {
-    case 1:
-        ADC_JOFR1(adc) = offset;
-        break;
-    case 2:
-        ADC_JOFR2(adc) = offset;
-        break;
-    case 3:
-        ADC_JOFR3(adc) = offset;
-        break;
-    case 4:
-        ADC_JOFR4(adc) = offset;
-        break;
-    }
+	switch (reg) {
+		case 1:
+			ADC_JOFR1(adc) = offset & ADC_JOFFSET_MSK;
+			break;
+		case 2:
+			ADC_JOFR2(adc) = offset & ADC_JOFFSET_MSK;
+			break;
+		case 3:
+			ADC_JOFR3(adc) = offset & ADC_JOFFSET_MSK;
+			break;
+		case 4:
+			ADC_JOFR4(adc) = offset & ADC_JOFFSET_MSK;
+			break;
+	}
 }
 
 /*-----------------------------------------------------------------------------*/
