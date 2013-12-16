@@ -47,10 +47,10 @@ void usbd_register_set_config_callback(usbd_device *usbd_dev,
 }
 
 static uint16_t build_config_descriptor(usbd_device *usbd_dev,
-				   uint8_t index, uint8_t *buf, uint16_t len)
+				   uint8_t cindex, uint8_t *buf, uint16_t len)
 {
 	uint8_t *tmpbuf = buf;
-	const struct usb_config_descriptor *cfg = &usbd_dev->config[index];
+	const struct usb_config_descriptor *cfg = &usbd_dev->config[cindex];
 	uint16_t count, total = 0, totallen = 0;
 	uint16_t i, j, k;
 
