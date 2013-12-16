@@ -1036,11 +1036,7 @@ void adc_set_sample_time_on_all_channels(uint32_t adc, uint8_t time)
 
 void adc_set_watchdog_high_threshold(uint32_t adc, uint16_t threshold)
 {
-	uint32_t reg32 = 0;
-
-	reg32 = (uint32_t)threshold;
-	reg32 &= ~0xfffff000; /* Clear all bits above 11. */
-	ADC_HTR(adc) = reg32;
+	ADC_HTR(adc) = (uint32_t)threshold & ADC_HT_MSK;
 }
 
 /*-----------------------------------------------------------------------------*/
@@ -1052,11 +1048,9 @@ void adc_set_watchdog_high_threshold(uint32_t adc, uint16_t threshold)
 
 void adc_set_watchdog_low_threshold(uint32_t adc, uint16_t threshold)
 {
-	uint32_t reg32 = 0;
+	ADC_LTR(adc) = (uint32_t)threshold & ADC_LT_MSK;
+}
 
-	reg32 = (uint32_t)threshold;
-	reg32 &= ~0xfffff000; /* Clear all bits above 11. */
-	ADC_LTR(adc) = reg32;
 }
 
 /*-----------------------------------------------------------------------------*/
