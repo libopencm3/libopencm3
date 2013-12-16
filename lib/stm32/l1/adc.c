@@ -995,28 +995,34 @@ void adc_off(uint32_t adc)
 /*-----------------------------------------------------------------------------*/
 /** @brief ADC Set the Sample Time for a Single Channel
 
-The sampling time can be selected in ADC clock cycles from 1.5 to 239.5.
+  The sampling time can be selected in ADC clock cycles from 1.5 to 239.5.
 
-@param[in] adc Unsigned int32. ADC block register address base @ref adc_reg_base.
-@param[in] channel Unsigned int8. ADC Channel integer 0..18 or from @ref adc_channel.
-@param[in] time Unsigned int8. Sampling time selection from @ref adc_sample_rg.
-*/
+  @param[in] adc Unsigned int32. ADC block register address base @ref adc_reg_base.
+  @param[in] channel Unsigned int8. ADC Channel integer 0..31 or from @ref adc_channel.
+  @param[in] time Unsigned int8. Sampling time selection from @ref adc_sample_rg.
+ */
 
 void adc_set_sample_time(uint32_t adc, uint8_t channel, uint8_t time)
 {
 	uint32_t reg32;
 
-	if (channel < 10) {
-		reg32 = ADC_SMPR2(adc);
-		reg32 &= ~(0x7 << (channel * 3));
-		reg32 |= (time << (channel * 3));
-		ADC_SMPR2(adc) = reg32;
-	} else {
-		reg32 = ADC_SMPR1(adc);
-		reg32 &= ~(0x7 << ((channel - 10) * 3));
-		reg32 |= (time << ((channel - 10) * 3));
-		ADC_SMPR1(adc) = reg32;
-	}
+#define SET_SAMPLE_TIME(_SMPR_, _CH_) \
+do {\
+	reg32 = _SMPR_(adc) & ~(0x7 << ((_CH_) * 3)); \
+	reg32 |= ((time & 0x7) << ((_CH_) * 3)); \
+	_SMPR_(adc) = reg32; \
+} while (0)
+
+	if (channel < 10)
+		SET_SAMPLE_TIME(ADC_SMPR3, channel);
+	else if (channel < 20)
+		SET_SAMPLE_TIME(ADC_SMPR2, channel - 10);
+	else if (channel < 30)
+		SET_SAMPLE_TIME(ADC_SMPR1, channel - 20);
+	else if (channel < 32)
+		SET_SAMPLE_TIME(ADC_SMPR0, channel - 30);
+
+#undef SET_SMAPLE_TIME
 }
 
 /*-----------------------------------------------------------------------------*/
