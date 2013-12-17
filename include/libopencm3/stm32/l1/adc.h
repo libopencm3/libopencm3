@@ -216,7 +216,7 @@ LGPL License Terms @ref lgpl_license
 /* DISCNUM[2:0]: Discontinuous mode channel count. */
 /****************************************************************************/
 /** @defgroup adc_cr1_discnum ADC Number of channels in discontinuous mode.
-@ingroup STM32F1xx_adc_defines
+@ingroup STM32L1xx_adc_defines
 
 @{*/
 #define ADC_CR1_DISCNUM_1CHANNELS       (0x0 << 13)
@@ -284,6 +284,15 @@ LGPL License Terms @ref lgpl_license
 #define ADC_CR1_AWDCH_CHANNEL15		(0x0F << 0)
 #define ADC_CR1_AWDCH_CHANNEL16		(0x10 << 0)
 #define ADC_CR1_AWDCH_CHANNEL17		(0x11 << 0)
+#define ADC_CR1_AWDCH_CHANNEL18		(0x12 << 0)
+#define ADC_CR1_AWDCH_CHANNEL19		(0x13 << 0)
+#define ADC_CR1_AWDCH_CHANNEL20		(0x14 << 0)
+#define ADC_CR1_AWDCH_CHANNEL21		(0x15 << 0)
+#define ADC_CR1_AWDCH_CHANNEL22		(0x16 << 0)
+#define ADC_CR1_AWDCH_CHANNEL23		(0x17 << 0)
+#define ADC_CR1_AWDCH_CHANNEL24		(0x18 << 0)
+#define ADC_CR1_AWDCH_CHANNEL25		(0x19 << 0)
+#define ADC_CR1_AWDCH_CHANNEL26		(0x1a << 0)
 /**@}*/
 #define ADC_CR1_AWDCH_MASK		(0x1F << 0)
 #define ADC_CR1_AWDCH_SHIFT		0
