@@ -132,7 +132,7 @@ LGPL License Terms @ref lgpl_license
 #define ADC_DR(block)			MMIO32(block + 0x58)
 #define ADC1_DR				ADC_DR(ADC1)
 
-/* ADC sample time register 3 (ADC_SMPR3) */
+/* ADC sample time register 0 (ADC_SMPR0) */
 #define ADC_SMPR0(block)		MMIO32(block + 0x5c)
 #define ADC1_SMPR0			ADC_SMPR0(ADC1)
 
@@ -141,7 +141,7 @@ LGPL License Terms @ref lgpl_license
 /* ADC common status register (ADC_CSR) */
 #define ADC_CSR			        MMIO32(ADC_COMMON_REGISTERS_BASE + 0x0)
 
-/* ADC common control register (ADC_CSR) */
+/* ADC common control register (ADC_CCR) */
 #define ADC_CCR	          		MMIO32(ADC_COMMON_REGISTERS_BASE + 0x4)
 
 /* --- ADC Channels ------------------------------------------------------- */
@@ -255,12 +255,10 @@ LGPL License Terms @ref lgpl_license
 /* EOCIE: */ /** Interrupt enable EOC. */
 #define ADC_CR1_EOCIE			(1 << 5)
 
-/* AWDCH[4:0]: Analog watchdog channel bits. (Up to 17 other values reserved) */
+/* AWDCH[4:0]: Analog watchdog channel bits. (Up to 27 other values reserved) */
 /* Notes:
- * ADC1: Analog channel 16 and 17 are internally connected to the temperature
- * sensor and V_REFINT, respectively.
- * ADC2: Analog channel 16 and 17 are internally connected to V_SS.
- * ADC3: Analog channel 9, 14, 15, 16 and 17 are internally connected to V_SS.
+ * ADC1: Analog inputs Channel 16, Channel 17 and Channel 26 are internally
+ * connected to the temperature sensor, to VREFINT and to VCOMP, respectively.
  */
 /****************************************************************************/
 /* ADC_CR1 AWDCH[4:0] ADC watchdog channel */
@@ -346,12 +344,12 @@ LGPL License Terms @ref lgpl_license
 #define ADC_CR2_EXTSEL_MASK		(0x7 << 24)
 #define ADC_CR2_EXTSEL_SHIFT		24
 
+/* Note: Bit 23 is reserved and must be kept at reset value. */
+
 /* JSWSTART: */ /** Start conversion of injected channels. */
 #define ADC_CR2_JSWSTART		(1 << 22)
 
-/* Note: Bits [12:15] are reserved and must be kept at reset value. */
-
-/* JEXTEN: */ /** External trigger conversion mode for injected channels. */
+/* JEXTEN: */ /** External trigger enable for injected channels. */
 /****************************************************************************/
 /* ADC_CR2 JEXTEN[1:0] ADC Trigger Identifier */
 /** @defgroup adc_trigger_mode_injected ADC Trigger Mode
@@ -402,16 +400,14 @@ LGPL License Terms @ref lgpl_license
 #define ADC_CR2_JEXTSEL_MASK		(0xf << 16)
 #define ADC_CR2_JEXTSEL_SHIFT		16
 
+/* Note: Bits [12:15] are reserved and must be kept at reset value. */
+
 /* ALIGN: Data alignement. */
 #define ADC_CR2_ALIGN_RIGHT             (0 << 11)
 #define ADC_CR2_ALIGN_LEFT              (1 << 11)
 #define ADC_CR2_ALIGN			(1 << 11)
 
-/* ALIGN: Left or right alignment of samples */
-#define ADC_CR2_ALIGN			(1 << 11)
-
-/* EOCS: Select whether EOC is set at end of each conversion or group
-   of conversions */
+/* EOCS: End of conversion selection */
 #define ADC_CR2_EOCS			(1 << 10)
 
 /* DDS: DMA disable selection */
@@ -452,8 +448,8 @@ LGPL License Terms @ref lgpl_license
 
 /* Note: Bit 3 is reserved and must be kept at reset value. */
 
-/* ADC_CFG: ADC bank selection */
 #define ADC_CR2_ADCCFG			(1 << 2)
+/* ADC_CFG: ADC configuration */
 
 /* CONT: Continous conversion. */
 #define ADC_CR2_CONT			(1 << 1)
@@ -652,7 +648,7 @@ LGPL License Terms @ref lgpl_license
 #define ADC_JSQR_JSQ2_LSB		5
 #define ADC_JSQR_JSQ1_LSB		0
 
-/* JL[2:0]: Discontinous mode channel count injected channels. */
+/* JL[2:0]: Injected sequence length. */
 /****************************************************************************/
 /** @defgroup adc_jsqr_jl ADC Number of channels in discontinuous mode fro injected channels.
 @ingroup STM32L1xx_adc_defines
