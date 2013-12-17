@@ -995,9 +995,23 @@ Turn off the ADC to reduce power consumption to a few microamps.
 @param[in] adc Unsigned int32. ADC block register address base @ref adc_reg_base.
 */
 
-void adc_off(uint32_t adc)
+void adc_set_continuous_conversion_mode(uint32_t adc)
 {
-	ADC_CR2(adc) &= ~ADC_CR2_ADON;
+	ADC_CR2(adc) |= ADC_CR2_CONT;
+}
+
+/*-----------------------------------------------------------------------------*/
+/** @brief ADC Enable Single Conversion Mode
+
+  In this mode the ADC performs a conversion of one channel or a channel group
+  and stops.
+
+  @param[in] adc Unsigned int32. ADC block register address base @ref adc_reg_base.
+ */
+
+void adc_set_single_conversion_mode(uint32_t adc)
+{
+	ADC_CR2(adc) &= ~ADC_CR2_CONT;
 }
 
 /*-----------------------------------------------------------------------------*/
