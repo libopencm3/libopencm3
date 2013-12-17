@@ -685,13 +685,11 @@ LGPL License Terms @ref lgpl_license
 #define ADC_CSR_ADONS			(1 << 5)
 
 /* --- ADC_CCR values ------------------------------------------------------ */
-#define ADC_CCR_TSVREFE		(1 << 0)
-#define ADC_CCR_ADCPRE_DIV1		(0x0 << 1)
-#define ADC_CCR_ADCPRE_DIV2		(0x1 << 1)
-#define ADC_CCR_ADCPRE_DIV4		(0x2 << 1)
-
-#define ADC_CCR_ADCPRE_SHIFT		1
-#define ADC_CCR_ADCPRE_MASK		(0x3 << 1)
+#define ADC_CCR_TSVREFE			(1 << 23)
+#define ADC_CCR_ADCPRE_DIV1		(0x0 << 16)
+#define ADC_CCR_ADCPRE_DIV2		(0x1 << 16)
+#define ADC_CCR_ADCPRE_DIV4		(0x2 << 16)
+#define ADC_CCR_ADCPRE_MASK		(0x3 << 16)
 
 /* --- Function prototypes ------------------------------------------------- */
 
