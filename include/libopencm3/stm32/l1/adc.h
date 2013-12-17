@@ -681,8 +681,9 @@ LGPL License Terms @ref lgpl_license
 #define ADC_CSR_EOC			(1 << 1)
 #define ADC_CSR_JEOC			(1 << 2)
 #define ADC_CSR_JSTRT			(1 << 3)
-#define ADC_CSR_OVR			(1 << 4)
-#define ADC_CSR_ADONS			(1 << 5)
+#define ADC_CSR_STRT			(1 << 4)
+#define ADC_CSR_OVR			(1 << 5)
+#define ADC_CSR_ADONS			(1 << 6)
 
 /* --- ADC_CCR values ------------------------------------------------------ */
 #define ADC_CCR_TSVREFE			(1 << 23)
