@@ -755,6 +755,10 @@ This is not the same as the ADC start conversion operation.
 
 void adc_start_conversion_regular(uint32_t adc)
 {
+	/* Wait until the regular channel ready and ADC ON */
+    while (ADC_SR(adc) & ADC_SR_RCNR);
+    while (!(ADC_SR(adc) & ADC_SR_ADONS));
+
 	/* Start conversion on regular channels. */
 	ADC_CR2(adc) |= ADC_CR2_SWSTART;
 
@@ -778,6 +782,10 @@ This is not the same as the ADC start conversion operation.
 
 void adc_start_conversion_injected(uint32_t adc)
 {
+	/* Wait until the injected channel ready and ADC ON */
+	while (ADC_SR(adc) & ADC_SR_JCNR);
+    while (!(ADC_SR(adc) & ADC_SR_ADONS));
+
 	/* Start conversion on injected channels. */
 	ADC_CR2(adc) |= ADC_CR2_JSWSTART;
 
