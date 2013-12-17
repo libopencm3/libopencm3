@@ -463,75 +463,49 @@ LGPL License Terms @ref lgpl_license
 #define ADC_CR2_ADON			(1 << 0)
 
 /* --- ADC_SMPR1 values ---------------------------------------------------- */
-#define ADC_SMPR1_SMP17_LSB		21
-#define ADC_SMPR1_SMP16_LSB		18
-#define ADC_SMPR1_SMP15_LSB		15
-#define ADC_SMPR1_SMP14_LSB		12
-#define ADC_SMPR1_SMP13_LSB		9
-#define ADC_SMPR1_SMP12_LSB		6
-#define ADC_SMPR1_SMP11_LSB		3
-#define ADC_SMPR1_SMP10_LSB		0
-#define ADC_SMPR1_SMP17_MSK		(0x7 << ADC_SMP17_LSB)
-#define ADC_SMPR1_SMP16_MSK		(0x7 << ADC_SMP16_LSB)
-#define ADC_SMPR1_SMP15_MSK		(0x7 << ADC_SMP15_LSB)
-#define ADC_SMPR1_SMP14_MSK		(0x7 << ADC_SMP14_LSB)
-#define ADC_SMPR1_SMP13_MSK		(0x7 << ADC_SMP13_LSB)
-#define ADC_SMPR1_SMP12_MSK		(0x7 << ADC_SMP12_LSB)
-#define ADC_SMPR1_SMP11_MSK		(0x7 << ADC_SMP11_LSB)
-#define ADC_SMPR1_SMP10_MSK		(0x7 << ADC_SMP10_LSB)
-/****************************************************************************/
-/* ADC_SMPR1 ADC Sample Time Selection for Channels */
-/** @defgroup adc_sample_r1 ADC Sample Time Selection for ADC1
-@ingroup STM32F1xx_adc_defines
-
-@{*/
-#define ADC_SMPR1_SMP_4CYC		0x0
-#define ADC_SMPR1_SMP_9CYC		0x1
-#define ADC_SMPR1_SMP_16CYC	        0x2
-#define ADC_SMPR1_SMP_24CYC		0x3
-#define ADC_SMPR1_SMP_48CYC		0x4
-#define ADC_SMPR1_SMP_96CYC		0x5
-#define ADC_SMPR1_SMP_192CYC	        0x6
-#define ADC_SMPR1_SMP_384CYC	        0x7
-/**@}*/
+#define ADC_SMPR1_SMP29_LSB		27
+#define ADC_SMPR1_SMP28_LSB		24
+#define ADC_SMPR1_SMP27_LSB		21
+#define ADC_SMPR1_SMP26_LSB		18
+#define ADC_SMPR1_SMP25_LSB		15
+#define ADC_SMPR1_SMP24_LSB		12
+#define ADC_SMPR1_SMP23_LSB		9
+#define ADC_SMPR1_SMP22_LSB		6
+#define ADC_SMPR1_SMP21_LSB		3
+#define ADC_SMPR1_SMP20_LSB		0
+#define ADC_SMPR1_SMP29_MSK		(0x7 << ADC_SMPR1_SMP29_LSB)
+#define ADC_SMPR1_SMP28_MSK		(0x7 << ADC_SMPR1_SMP28_LSB)
+#define ADC_SMPR1_SMP27_MSK		(0x7 << ADC_SMPR1_SMP27_LSB)
+#define ADC_SMPR1_SMP26_MSK		(0x7 << ADC_SMPR1_SMP26_LSB)
+#define ADC_SMPR1_SMP25_MSK		(0x7 << ADC_SMPR1_SMP25_LSB)
+#define ADC_SMPR1_SMP24_MSK		(0x7 << ADC_SMPR1_SMP24_LSB)
+#define ADC_SMPR1_SMP23_MSK		(0x7 << ADC_SMPR1_SMP23_LSB)
+#define ADC_SMPR1_SMP22_MSK		(0x7 << ADC_SMPR1_SMP22_LSB)
+#define ADC_SMPR1_SMP21_MSK		(0x7 << ADC_SMPR1_SMP21_LSB)
+#define ADC_SMPR1_SMP20_MSK		(0x7 << ADC_SMPR1_SMP20_LSB)
 
 /* --- ADC_SMPR2 values ---------------------------------------------------- */
 
-#define ADC_SMPR2_SMP9_LSB		27
-#define ADC_SMPR2_SMP8_LSB		24
-#define ADC_SMPR2_SMP7_LSB		21
-#define ADC_SMPR2_SMP6_LSB		18
-#define ADC_SMPR2_SMP5_LSB		15
-#define ADC_SMPR2_SMP4_LSB		12
-#define ADC_SMPR2_SMP3_LSB		9
-#define ADC_SMPR2_SMP2_LSB		6
-#define ADC_SMPR2_SMP1_LSB		3
-#define ADC_SMPR2_SMP0_LSB		0
-#define ADC_SMPR2_SMP9_MSK		(0x7 << ADC_SMP9_LSB)
-#define ADC_SMPR2_SMP8_MSK		(0x7 << ADC_SMP8_LSB)
-#define ADC_SMPR2_SMP7_MSK		(0x7 << ADC_SMP7_LSB)
-#define ADC_SMPR2_SMP6_MSK		(0x7 << ADC_SMP6_LSB)
-#define ADC_SMPR2_SMP5_MSK		(0x7 << ADC_SMP5_LSB)
-#define ADC_SMPR2_SMP4_MSK		(0x7 << ADC_SMP4_LSB)
-#define ADC_SMPR2_SMP3_MSK		(0x7 << ADC_SMP3_LSB)
-#define ADC_SMPR2_SMP2_MSK		(0x7 << ADC_SMP2_LSB)
-#define ADC_SMPR2_SMP1_MSK		(0x7 << ADC_SMP1_LSB)
-#define ADC_SMPR2_SMP0_MSK		(0x7 << ADC_SMP0_LSB)
-/****************************************************************************/
-/* ADC_SMPR2 ADC Sample Time Selection for Channels */
-/** @defgroup adc_sample_r2 ADC Sample Time Selection for ADC2
-@ingroup STM32F1xx_adc_defines
-
-@{*/
-#define ADC_SMPR2_SMP_4CYC		0x0
-#define ADC_SMPR2_SMP_9CYC		0x1
-#define ADC_SMPR2_SMP_16CYC	        0x2
-#define ADC_SMPR2_SMP_24CYC		0x3
-#define ADC_SMPR2_SMP_48CYC		0x4
-#define ADC_SMPR2_SMP_96CYC		0x5
-#define ADC_SMPR2_SMP_192CYC	        0x6
-#define ADC_SMPR2_SMP_384CYC	        0x7
-/**@}*/
+#define ADC_SMPR2_SMP19_LSB		27
+#define ADC_SMPR2_SMP18_LSB		24
+#define ADC_SMPR2_SMP17_LSB		21
+#define ADC_SMPR2_SMP16_LSB		18
+#define ADC_SMPR2_SMP15_LSB		15
+#define ADC_SMPR2_SMP14_LSB		12
+#define ADC_SMPR2_SMP13_LSB		9
+#define ADC_SMPR2_SMP12_LSB		6
+#define ADC_SMPR2_SMP11_LSB		3
+#define ADC_SMPR2_SMP10_LSB		0
+#define ADC_SMPR2_SMP19_MSK		(0x7 << ADC_SMPR2_SMP19_LSB)
+#define ADC_SMPR2_SMP18_MSK		(0x7 << ADC_SMPR2_SMP18_LSB)
+#define ADC_SMPR2_SMP17_MSK		(0x7 << ADC_SMPR2_SMP17_LSB)
+#define ADC_SMPR2_SMP16_MSK		(0x7 << ADC_SMPR2_SMP16_LSB)
+#define ADC_SMPR2_SMP15_MSK		(0x7 << ADC_SMPR2_SMP15_LSB)
+#define ADC_SMPR2_SMP14_MSK		(0x7 << ADC_SMPR2_SMP14_LSB)
+#define ADC_SMPR2_SMP13_MSK		(0x7 << ADC_SMPR2_SMP13_LSB)
+#define ADC_SMPR2_SMP12_MSK		(0x7 << ADC_SMPR2_SMP12_LSB)
+#define ADC_SMPR2_SMP11_MSK		(0x7 << ADC_SMPR2_SMP11_LSB)
+#define ADC_SMPR2_SMP10_MSK		(0x7 << ADC_SMPR2_SMP10_LSB)
 
 /* --- ADC_SMPR3 values ---------------------------------------------------- */
 
@@ -545,31 +519,16 @@ LGPL License Terms @ref lgpl_license
 #define ADC_SMPR3_SMP2_LSB		6
 #define ADC_SMPR3_SMP1_LSB		3
 #define ADC_SMPR3_SMP0_LSB		0
-#define ADC_SMPR3_SMP9_MSK		(0x7 << ADC_SMP9_LSB)
-#define ADC_SMPR3_SMP8_MSK		(0x7 << ADC_SMP8_LSB)
-#define ADC_SMPR3_SMP7_MSK		(0x7 << ADC_SMP7_LSB)
-#define ADC_SMPR3_SMP6_MSK		(0x7 << ADC_SMP6_LSB)
-#define ADC_SMPR3_SMP5_MSK		(0x7 << ADC_SMP5_LSB)
-#define ADC_SMPR3_SMP4_MSK		(0x7 << ADC_SMP4_LSB)
-#define ADC_SMPR3_SMP3_MSK		(0x7 << ADC_SMP3_LSB)
-#define ADC_SMPR3_SMP2_MSK		(0x7 << ADC_SMP2_LSB)
-#define ADC_SMPR3_SMP1_MSK		(0x7 << ADC_SMP1_LSB)
-#define ADC_SMPR3_SMP0_MSK		(0x7 << ADC_SMP0_LSB)
-/****************************************************************************/
-/* ADC_SMPR3 ADC Sample Time Selection for Channels */
-/** @defgroup adc_sample_r2 ADC Sample Time Selection for ADC2
-@ingroup STM32F1xx_adc_defines
-
-@{*/
-#define ADC_SMPR3_SMP_4CYC		0x0
-#define ADC_SMPR3_SMP_9CYC		0x1
-#define ADC_SMPR3_SMP_16CYC	        0x2
-#define ADC_SMPR3_SMP_24CYC		0x3
-#define ADC_SMPR3_SMP_48CYC		0x4
-#define ADC_SMPR3_SMP_96CYC		0x5
-#define ADC_SMPR3_SMP_192CYC	        0x6
-#define ADC_SMPR3_SMP_384CYC	        0x7
-/**@}*/
+#define ADC_SMPR3_SMP9_MSK		(0x7 << ADC_SMPR3_SMP9_LSB)
+#define ADC_SMPR3_SMP8_MSK		(0x7 << ADC_SMPR3_SMP8_LSB)
+#define ADC_SMPR3_SMP7_MSK		(0x7 << ADC_SMPR3_SMP7_LSB)
+#define ADC_SMPR3_SMP6_MSK		(0x7 << ADC_SMPR3_SMP6_LSB)
+#define ADC_SMPR3_SMP5_MSK		(0x7 << ADC_SMPR3_SMP5_LSB)
+#define ADC_SMPR3_SMP4_MSK		(0x7 << ADC_SMPR3_SMP4_LSB)
+#define ADC_SMPR3_SMP3_MSK		(0x7 << ADC_SMPR3_SMP3_LSB)
+#define ADC_SMPR3_SMP2_MSK		(0x7 << ADC_SMPR3_SMP2_LSB)
+#define ADC_SMPR3_SMP1_MSK		(0x7 << ADC_SMPR3_SMP1_LSB)
+#define ADC_SMPR3_SMP0_MSK		(0x7 << ADC_SMPR3_SMP0_LSB)
 
 /* --- ADC_SMPRx generic values -------------------------------------------- */
 /****************************************************************************/
@@ -672,6 +631,12 @@ LGPL License Terms @ref lgpl_license
 #define ADC_JDATA_MSK			(0xffff << ADC_JDATA_LSB)
 #define ADC_DATA_LSB			0
 #define ADC_DATA_MSK			(0xffff << ADC_DATA_LSB)
+
+/* --- ADC_SMPR0 values ---------------------------------------------------- */
+#define ADC_SMPR0_SMP31_LSB		3
+#define ADC_SMPR0_SMP30_LSB		0
+#define ADC_SMPR0_SMP31_MSK		(0x7 << ADC_SMPR0_SMP31_LSB)
+#define ADC_SMPR0_SMP30_MSK		(0x7 << ADC_SMPR0_SMP30_LSB)
 
 /* --- ADC_CSR values ------------------------------------------------------ */
 #define ADC_CSR_AWD			(1 << 0)
