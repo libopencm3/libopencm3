@@ -695,9 +695,9 @@ void adc_disable_awd_interrupt(uint32_t adc)
 @param[in] adc Unsigned int32. ADC block register address base @ref adc_reg_base.
 */
 
-void adc_enable_eoc_interrupt(uint32_t adc)
+void adc_enable_ovr_interrupt(uint32_t adc)
 {
-	ADC_CR1(adc) |= ADC_CR1_EOCIE;
+    ADC_CR1(adc) |= ADC_CR1_OVRIE;
 }
 
 /*-----------------------------------------------------------------------------*/
@@ -706,9 +706,9 @@ void adc_enable_eoc_interrupt(uint32_t adc)
 @param[in] adc Unsigned int32. ADC block register address base @ref adc_reg_base.
 */
 
-void adc_disable_eoc_interrupt(uint32_t adc)
+void adc_disable_ovr_interrupt(uint32_t adc)
 {
-	ADC_CR1(adc) &= ~ADC_CR1_EOCIE;
+    ADC_CR1(adc) &= ~ADC_CR1_OVRIE;
 }
 
 /*-----------------------------------------------------------------------------*/
