@@ -720,7 +720,7 @@ This enables both the sensor and the reference voltage measurements on channels
 @param[in] adc Unsigned int32. ADC block register address base @ref adc_reg_base.
 */
 
-void adc_enable_temperature_sensor()
+void adc_enable_temperature_sensor(void)
 {
 	ADC_CCR |= ADC_CCR_TSVREFE;
 }
@@ -734,7 +734,7 @@ voltage measurements.
 @param[in] adc Unsigned int32. ADC block register address base @ref adc_reg_base.
 */
 
-void adc_disable_temperature_sensor()
+void adc_disable_temperature_sensor(void)
 {
 	ADC_CCR &= ~ADC_CCR_TSVREFE;
 }
