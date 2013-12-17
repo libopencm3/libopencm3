@@ -327,57 +327,57 @@ void adc_clear_eoc_injected(uint32_t adc)
 /*-----------------------------------------------------------------------------*/
 /** @brief ADC Read from the Regular Conversion Result Register
 
-The result read back is 12 bits, right or left aligned within the first 16 bits.
-For ADC1 only, the higher 16 bits will hold the result from ADC2 if
-an appropriate dual mode has been set @see adc_set_dual_mode.
+  The result read back is 12 bits, right or left aligned within the first 16 bits.
+  For ADC1 only, the higher 16 bits will hold the result from ADC2 if
+  an appropriate dual mode has been set @see adc_set_dual_mode.
 
-@param[in] adc Unsigned int32. ADC block register address base @ref adc_reg_base.
-@returns Unsigned int32 conversion result.
-*/
+  @param[in] adc Unsigned int32. ADC block register address base @ref adc_reg_base.
+  @returns Unsigned int32 conversion result.
+ */
 
 uint32_t adc_read_regular(uint32_t adc)
 {
-    return ADC_DR(adc);
+	return ADC_DR(adc);
 }
 
 /*-----------------------------------------------------------------------------*/
 /** @brief ADC Read from an Injected Conversion Result Register
 
-The result read back from the selected injected result register (one of four) is
-12 bits, right or left aligned within the first 16 bits. The result can have a
-negative value if the injected channel offset has been set @see adc_set_injected_offset.
+  The result read back from the selected injected result register (one of four) is
+  12 bits, right or left aligned within the first 16 bits. The result can have a
+  negative value if the injected channel offset has been set @see adc_set_injected_offset.
 
-@param[in] adc Unsigned int32. ADC block register address base @ref adc_reg_base.
-@param[in] reg Unsigned int8. Register number (1 ... 4).
-@returns Unsigned int32 conversion result.
-*/
+  @param[in] adc Unsigned int32. ADC block register address base @ref adc_reg_base.
+  @param[in] reg Unsigned int8. Register number (1 ... 4).
+  @returns Unsigned int32 conversion result.
+ */
 
 uint32_t adc_read_injected(uint32_t adc, uint8_t reg)
 {
-    switch (reg) {
-    case 1:
-        return ADC_JDR1(adc);
-    case 2:
-        return ADC_JDR2(adc);
-    case 3:
-        return ADC_JDR3(adc);
-    case 4:
-        return ADC_JDR4(adc);
-    }
+	switch (reg) {
+		case 1:
+			return ADC_JDR1(adc);
+		case 2:
+			return ADC_JDR2(adc);
+		case 3:
+			return ADC_JDR3(adc);
+		case 4:
+			return ADC_JDR4(adc);
+	}
 	return 0;
 }
 
 /*-----------------------------------------------------------------------------*/
 /** @brief ADC Set the Injected Channel Data Offset
 
-This value is subtracted from the injected channel results after conversion
-is complete, and can result in negative results. A separate value can be specified
-for each injected data register.
+  This value is subtracted from the injected channel results after conversion
+  is complete, and can result in negative results. A separate value can be specified
+  for each injected data register.
 
-@param[in] adc Unsigned int32. ADC block register address base @ref adc_reg_base.
-@param[in] reg Unsigned int8. Register number (1 ... 4).
-@param[in] offset Unsigned int32.
-*/
+  @param[in] adc Unsigned int32. ADC block register address base @ref adc_reg_base.
+  @param[in] reg Unsigned int8. Register number (1 ... 4).
+  @param[in] offset Unsigned int32.
+ */
 
 void adc_set_injected_offset(uint32_t adc, uint8_t reg, uint32_t offset)
 {
@@ -1203,7 +1203,7 @@ void adc_set_regular_sequence(uint32_t adc, uint8_t length, uint8_t channel[])
 
     reg32[0] |= ((length -1) << ADC_SQR1_L_LSB);
 
-    ADC_SQR1(adc) = reg32[0]u;
+    ADC_SQR1(adc) = reg32[0];
     ADC_SQR2(adc) = reg32[1];
     ADC_SQR3(adc) = reg32[2];
     ADC_SQR4(adc) = reg32[3];
