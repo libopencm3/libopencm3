@@ -669,12 +669,9 @@ LGPL License Terms @ref lgpl_license
 /* --- ADC_JDRx, ADC_DR values --------------------------------------------- */
 
 #define ADC_JDATA_LSB			0
-#define ADC_DATA_LSB			0
-#define ADC_ADC2DATA_LSB		16 /* ADC1 only (dual mode) */
 #define ADC_JDATA_MSK			(0xffff << ADC_JDATA_LSB)
-#define ADC_DATA_MSK			(0xffff << ADC_DA)
-#define ADC_ADC2DATA_MSK		(0xffff << ADC_ADC2DATA_LSB)
-					/* ADC1 only (dual mode) */
+#define ADC_DATA_LSB			0
+#define ADC_DATA_MSK			(0xffff << ADC_DATA_LSB)
 
 /* --- ADC_CSR values ------------------------------------------------------ */
 #define ADC_CSR_AWD			(1 << 0)
