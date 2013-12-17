@@ -568,45 +568,75 @@ LGPL License Terms @ref lgpl_license
 /* --- ADC_SQR1 values ----------------------------------------------------- */
 
 #define ADC_SQR1_L_LSB			20
-#define ADC_SQR1_SQ16_LSB		15
-#define ADC_SQR1_SQ15_LSB		10
-#define ADC_SQR1_SQ14_LSB		5
-#define ADC_SQR1_SQ13_LSB		0
-#define ADC_SQR1_L_MSK			(0xf << ADC_SQR1_L_LSB)
-#define ADC_SQR1_SQ16_MSK		(0x1f << ADC_SQR1_SQ16_LSB)
-#define ADC_SQR1_SQ15_MSK		(0x1f << ADC_SQR1_SQ15_LSB)
-#define ADC_SQR1_SQ14_MSK		(0x1f << ADC_SQR1_SQ14_LSB)
-#define ADC_SQR1_SQ13_MSK		(0x1f << ADC_SQR1_SQ13_LSB)
+#define ADC_SQR1_SQ28_LSB		15
+#define ADC_SQR1_SQ27_LSB		10
+#define ADC_SQR1_SQ26_LSB		5
+#define ADC_SQR1_SQ25_LSB		0
+#define ADC_SQR1_L_MSK			(0x1f << ADC_SQR1_L_LSB)
+#define ADC_SQR1_SQ28_MSK		(0x1f << ADC_SQR1_SQ28_LSB)
+#define ADC_SQR1_SQ27_MSK		(0x1f << ADC_SQR1_SQ27_LSB)
+#define ADC_SQR1_SQ26_MSK		(0x1f << ADC_SQR1_SQ26_LSB)
+#define ADC_SQR1_SQ25_MSK		(0x1f << ADC_SQR1_SQ25_LSB)
 
 /* --- ADC_SQR2 values ----------------------------------------------------- */
 
-#define ADC_SQR2_SQ12_LSB		25
-#define ADC_SQR2_SQ11_LSB		20
-#define ADC_SQR2_SQ10_LSB		15
-#define ADC_SQR2_SQ9_LSB		10
-#define ADC_SQR2_SQ8_LSB		5
-#define ADC_SQR2_SQ7_LSB		0
-#define ADC_SQR2_SQ12_MSK		(0x1f << ADC_SQR2_SQ12_LSB)
-#define ADC_SQR2_SQ11_MSK		(0x1f << ADC_SQR2_SQ11_LSB)
-#define ADC_SQR2_SQ10_MSK		(0x1f << ADC_SQR2_SQ10_LSB)
-#define ADC_SQR2_SQ9_MSK		(0x1f << ADC_SQR2_SQ9_LSB)
-#define ADC_SQR2_SQ8_MSK		(0x1f << ADC_SQR2_SQ8_LSB)
-#define ADC_SQR2_SQ7_MSK		(0x1f << ADC_SQR2_SQ7_LSB)
+#define ADC_SQR2_SQ24_LSB		25
+#define ADC_SQR2_SQ23_LSB		20
+#define ADC_SQR2_SQ22_LSB		15
+#define ADC_SQR2_SQ21_LSB		10
+#define ADC_SQR2_SQ20_LSB		5
+#define ADC_SQR2_SQ19_LSB		0
+#define ADC_SQR2_SQ24_MSK		(0x1f << ADC_SQR2_SQ24_LSB)
+#define ADC_SQR2_SQ23_MSK		(0x1f << ADC_SQR2_SQ23_LSB)
+#define ADC_SQR2_SQ22_MSK		(0x1f << ADC_SQR2_SQ22_LSB)
+#define ADC_SQR2_SQ21_MSK		(0x1f << ADC_SQR2_SQ21_LSB)
+#define ADC_SQR2_SQ20_MSK		(0x1f << ADC_SQR2_SQ20_LSB)
+#define ADC_SQR2_SQ19_MSK		(0x1f << ADC_SQR2_SQ19_LSB)
 
 /* --- ADC_SQR3 values ----------------------------------------------------- */
 
-#define ADC_SQR3_SQ6_LSB		25
-#define ADC_SQR3_SQ5_LSB		20
-#define ADC_SQR3_SQ4_LSB		15
-#define ADC_SQR3_SQ3_LSB		10
-#define ADC_SQR3_SQ2_LSB		5
-#define ADC_SQR3_SQ1_LSB		0
-#define ADC_SQR3_SQ6_MSK		(0x1f << ADC_SQR3_SQ6_LSB)
-#define ADC_SQR3_SQ5_MSK		(0x1f << ADC_SQR3_SQ5_LSB)
-#define ADC_SQR3_SQ4_MSK		(0x1f << ADC_SQR3_SQ4_LSB)
-#define ADC_SQR3_SQ3_MSK		(0x1f << ADC_SQR3_SQ3_LSB)
-#define ADC_SQR3_SQ2_MSK		(0x1f << ADC_SQR3_SQ2_LSB)
-#define ADC_SQR3_SQ1_MSK		(0x1f << ADC_SQR3_SQ1_LSB)
+#define ADC_SQR3_SQ18_LSB		25
+#define ADC_SQR3_SQ17_LSB		20
+#define ADC_SQR3_SQ16_LSB		15
+#define ADC_SQR3_SQ15_LSB		10
+#define ADC_SQR3_SQ14_LSB		5
+#define ADC_SQR3_SQ13_LSB		0
+#define ADC_SQR3_SQ18_MSK		(0x1f << ADC_SQR3_SQ18_LSB)
+#define ADC_SQR3_SQ17_MSK		(0x1f << ADC_SQR3_SQ17_LSB)
+#define ADC_SQR3_SQ16_MSK		(0x1f << ADC_SQR3_SQ16_LSB)
+#define ADC_SQR3_SQ15_MSK		(0x1f << ADC_SQR3_SQ15_LSB)
+#define ADC_SQR3_SQ14_MSK		(0x1f << ADC_SQR3_SQ14_LSB)
+#define ADC_SQR3_SQ13_MSK		(0x1f << ADC_SQR3_SQ13_LSB)
+
+/* --- ADC_SQR4 values ----------------------------------------------------- */
+
+#define ADC_SQR4_SQ12_LSB		25
+#define ADC_SQR4_SQ11_LSB		20
+#define ADC_SQR4_SQ10_LSB		15
+#define ADC_SQR4_SQ9_LSB		10
+#define ADC_SQR4_SQ8_LSB		5
+#define ADC_SQR4_SQ7_LSB		0
+#define ADC_SQR4_SQ12_MSK		(0x1f << ADC_SQR4_SQ12_LSB)
+#define ADC_SQR4_SQ11_MSK		(0x1f << ADC_SQR4_SQ11_LSB)
+#define ADC_SQR4_SQ10_MSK		(0x1f << ADC_SQR4_SQ10_LSB)
+#define ADC_SQR4_SQ9_MSK		(0x1f << ADC_SQR4_SQ9_LSB)
+#define ADC_SQR4_SQ8_MSK		(0x1f << ADC_SQR4_SQ8_LSB)
+#define ADC_SQR4_SQ7_MSK		(0x1f << ADC_SQR4_SQ7_LSB)
+
+/* --- ADC_SQR5 values ----------------------------------------------------- */
+
+#define ADC_SQR5_SQ6_LSB		25
+#define ADC_SQR5_SQ5_LSB		20
+#define ADC_SQR5_SQ4_LSB		15
+#define ADC_SQR5_SQ3_LSB		10
+#define ADC_SQR5_SQ2_LSB		5
+#define ADC_SQR5_SQ1_LSB		0
+#define ADC_SQR5_SQ6_MSK		(0x1f << ADC_SQR5_SQ6_LSB)
+#define ADC_SQR5_SQ5_MSK		(0x1f << ADC_SQR5_SQ5_LSB)
+#define ADC_SQR5_SQ4_MSK		(0x1f << ADC_SQR5_SQ4_LSB)
+#define ADC_SQR5_SQ3_MSK		(0x1f << ADC_SQR5_SQ3_LSB)
+#define ADC_SQR5_SQ2_MSK		(0x1f << ADC_SQR5_SQ2_LSB)
+#define ADC_SQR5_SQ1_MSK		(0x1f << ADC_SQR5_SQ1_LSB)
 
 /* --- ADC_JSQR values ----------------------------------------------------- */
 
