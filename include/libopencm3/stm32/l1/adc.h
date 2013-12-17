@@ -316,7 +316,7 @@ LGPL License Terms @ref lgpl_license
 
 @{*/
 /** Timer 9 Compare Output 2 */
-#define ADC_CR2_EXTSEL_TIM9_CC2		(0x0 << 16)
+#define ADC_CR2_EXTSEL_TIM9_CC2		(0x0 << 24)
 /** Timer 9 Trigger Output */
 #define ADC_CR2_EXTSEL_TIM9_TRGO	(0x1 << 24)
 /** Timer 2 Compare Output 3 */
@@ -341,7 +341,7 @@ LGPL License Terms @ref lgpl_license
 #define ADC_CR2_EXTSEL_EXTI11		(0xf << 24)
 /**@}*/
 
-#define ADC_CR2_EXTSEL_MASK		(0x7 << 24)
+#define ADC_CR2_EXTSEL_MASK		(0xf << 24)
 #define ADC_CR2_EXTSEL_SHIFT		24
 
 /* Note: Bit 23 is reserved and must be kept at reset value. */
@@ -388,7 +388,7 @@ LGPL License Terms @ref lgpl_license
 /** Timer 4 Compare Output 2 */
 #define ADC_CR2_JEXTSEL_TIM4_CC2	(0x7 << 16)
 /** Timer 4 Compare Output 3 */
-#define ADC_CR2_JEXTSEL_TIM2_CC3	(0x8 << 16)
+#define ADC_CR2_JEXTSEL_TIM4_CC3	(0x8 << 16)
 /** Timer 10 Compare Output 1 */
 #define ADC_CR2_JEXTSEL_TIM10_CC1	(0x9 << 16)
 /** Timer 7 Trigger Output */
