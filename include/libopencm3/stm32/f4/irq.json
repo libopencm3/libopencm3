@@ -80,7 +80,17 @@
         "otg_hs", 
         "dcmi", 
         "cryp", 
-        "hash_rng"
+        "hash_rng",
+        "fpu",
+        "uart7",
+        "uart8",
+        "spi4",
+        "spi5",
+        "spi6",
+        "sai1",
+        "lcd_tft",
+        "lcd_tft_err",
+        "dma2d"
     ], 
     "partname_humanreadable": "STM32 F4 series", 
     "partname_doxygen": "STM32F4", 
