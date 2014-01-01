@@ -23,6 +23,10 @@
 #include <libopencm3/stm32/memorymap.h>
 #include <libopencm3/cm3/common.h>
 
+#if defined(STM32F4)
+#       include <libopencm3/stm32/f4/fmc.h>
+#endif
+
 /* --- Convenience macros -------------------------------------------------- */
 
 #define FSMC_BANK1_BASE			0x60000000 /* NOR / PSRAM */
