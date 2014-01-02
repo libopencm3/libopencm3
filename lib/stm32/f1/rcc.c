@@ -49,6 +49,7 @@ LGPL License Terms @ref lgpl_license
 
 /**@{*/
 
+#include <errno.h>
 #include <libopencm3/cm3/assert.h>
 #include <libopencm3/stm32/f1/rcc.h>
 #include <libopencm3/stm32/f1/flash.h>
@@ -1218,5 +1219,308 @@ void rcc_backupdomain_reset(void)
 	/* Clear the backup domain software reset. */
 	RCC_BDCR &= ~RCC_BDCR_BDRST;
 }
-/**@}*/
 
+
+
+
+static void rcc_set_ahb_prescaler(u16 div)
+{
+	u32 hpre;
+
+	switch (div) {
+	case 1:
+		hpre = RCC_CFGR_HPRE_SYSCLK_NODIV;
+	case 2:
+		hpre = RCC_CFGR_HPRE_SYSCLK_DIV2;
+		break;
+	case 4:
+		hpre = RCC_CFGR_HPRE_SYSCLK_DIV4;
+		break;
+	case 8:
+		hpre = RCC_CFGR_HPRE_SYSCLK_DIV8;
+		break;
+	case 16:
+		hpre = RCC_CFGR_HPRE_SYSCLK_DIV16;
+		break;
+	case 64:
+		hpre = RCC_CFGR_HPRE_SYSCLK_DIV64;
+		break;
+	case 128:
+		hpre = RCC_CFGR_HPRE_SYSCLK_DIV128;
+		break;
+	case 256:
+		hpre = RCC_CFGR_HPRE_SYSCLK_DIV256;
+		break;
+	case 512:
+		hpre = RCC_CFGR_HPRE_SYSCLK_DIV512;
+		break;
+	default:
+		return;
+	}
+
+	rcc_set_hpre(hpre);
+}
+
+static void rcc_set_apb_prescaler(abp_t apb, u8 div)
+{
+	u32 ppre;
+
+	switch (div) {
+	case 1:
+		ppre = RCC_CFGR_PPRE1_HCLK_NODIV;
+		break;
+	case 2:
+		ppre = RCC_CFGR_PPRE1_HCLK_DIV2;
+		break;
+	case 4:
+		ppre = RCC_CFGR_PPRE1_HCLK_DIV4;
+		break;
+	case 8:
+		ppre = RCC_CFGR_PPRE1_HCLK_DIV8;
+		break;
+	case 16:
+		ppre = RCC_CFGR_PPRE1_HCLK_DIV16;
+		break;
+	default:
+		return;
+	}
+
+	switch (apb) {
+	case APB1:
+		rcc_set_ppre1(ppre);
+		break;
+	case APB2:
+		rcc_set_ppre2(ppre);
+		break;
+	}
+}
+
+static void rcc_set_adc_prescaler(u8 div)
+{
+	u8 adcpre;
+	switch (div) {
+	case 2:
+		adcpre = RCC_CFGR_ADCPRE_PCLK2_DIV2;
+		break;
+	case 4:
+		adcpre = RCC_CFGR_ADCPRE_PCLK2_DIV4;
+		break;
+	case 6:
+		adcpre = RCC_CFGR_ADCPRE_PCLK2_DIV6;
+		break;
+	case 8:
+		adcpre = RCC_CFGR_ADCPRE_PCLK2_DIV8;
+		break;
+	default:
+		return;
+	}
+
+	rcc_set_adcpre(adcpre);
+}
+
+static void rcc_non_cl_set_pll_multiplier(u8 mul)
+{
+	u32 pllmul;
+
+	switch (mul) {
+	case 2:
+		pllmul = RCC_CFGR_PLLMUL_PLL_CLK_MUL2;
+		break;
+	case 3:
+		pllmul = RCC_CFGR_PLLMUL_PLL_CLK_MUL3;
+		break;
+	case 4:
+		pllmul = RCC_CFGR_PLLMUL_PLL_CLK_MUL4;
+		break;
+	case 5:
+		pllmul = RCC_CFGR_PLLMUL_PLL_CLK_MUL5;
+		break;
+	case 6:
+		pllmul = RCC_CFGR_PLLMUL_PLL_CLK_MUL6;
+		break;
+	case 7:
+		pllmul = RCC_CFGR_PLLMUL_PLL_CLK_MUL7;
+		break;
+	case 8:
+		pllmul = RCC_CFGR_PLLMUL_PLL_CLK_MUL8;
+		break;
+	case 9:
+		pllmul = RCC_CFGR_PLLMUL_PLL_CLK_MUL9;
+		break;
+	case 10:
+		pllmul = RCC_CFGR_PLLMUL_PLL_CLK_MUL10;
+		break;
+	case 11:
+		pllmul = RCC_CFGR_PLLMUL_PLL_CLK_MUL11;
+		break;
+	case 12:
+		pllmul = RCC_CFGR_PLLMUL_PLL_CLK_MUL12;
+		break;
+	case 13:
+		pllmul = RCC_CFGR_PLLMUL_PLL_CLK_MUL13;
+		break;
+	case 14:
+		pllmul = RCC_CFGR_PLLMUL_PLL_CLK_MUL14;
+		break;
+	case 15:
+		pllmul = RCC_CFGR_PLLMUL_PLL_CLK_MUL15;
+		break;
+	case 16:
+		pllmul = RCC_CFGR_PLLMUL_PLL_CLK_MUL16;
+		break;
+	default:
+		return;
+	}
+
+	rcc_set_pll_multiplication_factor(pllmul);
+}
+
+/*-----------------------------------------------------------------------------*/
+/** @brief Setup clock tree for non connectivity line devices
+
+@param[in] clk struct ::rcc_non_cl_clock_tree. Clock tree setup
+*/
+void rcc_non_cl_init_clock_tree(const struct rcc_non_cl_clock_tree *clk)
+{
+	int sysclk = -EINVAL;
+	int pllclk = -EINVAL;
+	bool hsi_is_used = false;
+
+	/*
+	   HSE oscillator must have input within the 4-16Mhz range
+	 */
+	if ((clk->crystal > 0) &&
+	    (clk->crystal < 4000000 || sysclk > 16000000))
+		return;
+
+	switch (clk->tree.pllclk.parent) {
+	case HSE:
+		switch (clk->div.pllxtpre) {
+		case 1:
+			pllclk = clk->crystal * clk->mul.pll;
+			break;
+		case 2:
+			pllclk = clk->crystal * clk->mul.pll / 2;
+			break;
+		}
+		break;
+	case HSI:
+		pllclk = 4000000 * clk->mul.pll;
+		/* When running from HSI frequency cannot
+		 * exceed 64Mhz */
+		if (pllclk > 64000000)
+			return;
+
+		hsi_is_used = true;
+		break;
+	}
+
+	switch (clk->tree.sysclk.parent) {
+	case HSE:
+		sysclk = clk->crystal;
+		break;
+	case HSI:
+		sysclk = 8000000;
+		hsi_is_used = true;
+		break;
+	case PLL:
+		sysclk = pllclk;
+		break;
+	}
+
+	if (sysclk < 0)
+		return;
+
+	if (clk->tree.pllclk.parent == HSE ||
+	    clk->tree.sysclk.parent == HSE) {
+		rcc_osc_on(HSE);
+		rcc_wait_for_osc_ready(HSE);
+		rcc_set_sysclk_source(RCC_CFGR_SW_SYSCLKSEL_HSECLK);
+	} else {
+		rcc_osc_on(HSI);
+		rcc_wait_for_osc_ready(HSI);
+		rcc_set_sysclk_source(RCC_CFGR_SW_SYSCLKSEL_HSICLK);
+	}
+
+	/*
+	 * Set prescalers for AHB, ADC, ABP1, ABP2.
+	 * Do this before touching the PLL (TODO: why?).
+	 */
+	rcc_set_ahb_prescaler(clk->div.ahb);
+	rcc_set_adc_prescaler(clk->div.adc);
+	rcc_set_apb_prescaler(APB1, clk->div.apb1);
+	rcc_set_apb_prescaler(APB2, clk->div.apb2);
+
+	/*
+	 * 0WS from 0-24MHz
+	 * 1WS from 24-48MHz
+	 * 2WS from 48-72MHz
+	 */
+	if (sysclk <= 24000000)
+		flash_set_ws(FLASH_ACR_LATENCY_0WS);
+	else if (sysclk <= 48000000)
+		flash_set_ws(FLASH_ACR_LATENCY_1WS);
+	else if (sysclk <= 72000000)
+		flash_set_ws(FLASH_ACR_LATENCY_2WS);
+
+	if (clk->tree.pllclk.parent != -EINVAL) {
+		rcc_non_cl_set_pll_multiplier(clk->mul.pll);
+
+		switch (clk->tree.pllclk.parent) {
+		case HSE:
+			rcc_set_pll_source(RCC_CFGR_PLLSRC_HSE_CLK);
+
+			switch (clk->div.pllxtpre) {
+			case 1:
+				rcc_set_pllxtpre(RCC_CFGR_PLLXTPRE_HSE_CLK);
+				break;
+			case 2:
+				rcc_set_pllxtpre(RCC_CFGR_PLLXTPRE_HSE_CLK_DIV2);
+				break;
+			}
+			break;
+		case HSI:
+			rcc_set_pll_source(RCC_CFGR_PLLSRC_HSI_CLK_DIV2);
+			break;
+		}
+
+		rcc_osc_on(PLL);
+		rcc_wait_for_osc_ready(PLL);
+	}
+
+	switch (clk->tree.sysclk.parent) {
+	case HSE:
+		rcc_set_sysclk_source(RCC_CFGR_SW_SYSCLKSEL_HSECLK);
+		break;
+	case PLL:
+		rcc_set_sysclk_source(RCC_CFGR_SW_SYSCLKSEL_PLLCLK);
+		break;
+	}
+
+	switch (clk->tree.mcoclk.parent) {
+	case PLL:
+		rcc_set_mco(RCC_CFGR_MCO_PLLCLK_DIV2);
+		break;
+	case HSI:
+		rcc_set_mco(RCC_CFGR_MCO_HSICLK);
+		break;
+	case HSE:
+		rcc_set_mco(RCC_CFGR_MCO_HSECLK);
+		break;
+	case SYSCLK:
+		rcc_set_mco(RCC_CFGR_MCO_SYSCLK);
+		break;
+	default:
+		rcc_set_mco(RCC_CFGR_MCO_NOCLK);
+		break;
+	}
+
+	/* Set the peripheral clock frequencies used */
+	rcc_ppre1_frequency = sysclk / (clk->div.apb1 * clk->div.ahb);
+	rcc_ppre2_frequency = sysclk / (clk->div.apb2 * clk->div.ahb);
+
+	if (!hsi_is_used && !clk->leave_hsi_running)
+		rcc_osc_off(HSI);
+}
+
+/**@}*/

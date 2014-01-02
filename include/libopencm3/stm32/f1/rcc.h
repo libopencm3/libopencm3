@@ -499,6 +499,38 @@ typedef enum {
 	PLL, PLL2, PLL3, HSE, HSI, LSE, LSI
 } osc_t;
 
+typedef enum {
+	APB1, APB2
+} abp_t;
+
+#define SYSCLK (LSI + 1)
+
+struct rcc_clock {
+	int parent;
+};
+
+struct rcc_non_cl_clock_tree {
+	int crystal;
+	struct {
+		struct rcc_clock sysclk;
+		struct rcc_clock pllclk;
+		struct rcc_clock mcoclk;
+	} tree;
+	struct {
+		u8 pllxtpre;
+		u16 ahb;
+		u8 apb1;
+		u8 apb2;
+		u8 adc;
+		u8 usb;
+	} div;
+	struct {
+		u8 pll;
+	} mul;
+
+	bool leave_hsi_running;
+};
+
 BEGIN_DECLS
 
 void rcc_osc_ready_int_clear(osc_t osc);
@@ -543,6 +575,7 @@ void rcc_clock_setup_in_hse_12mhz_out_72mhz(void);
 void rcc_clock_setup_in_hse_16mhz_out_72mhz(void);
 void rcc_clock_setup_in_hse_25mhz_out_72mhz(void);
 void rcc_backupdomain_reset(void);
+void rcc_non_cl_init_clock_tree(const struct rcc_non_cl_clock_tree *clk);
 
 END_DECLS
 
