@@ -1,9 +1,9 @@
 /** @defgroup adc_defines ADC Defines
  *
- * @brief <b>Defined Constants and Types for the STM32F3xx Analog to Digital
+ * @brief <b>Defined Constants and Types for the STM32F37x Analog to Digital
  * converter</b>
  *
- * @ingroup STM32F3xx_defines
+ * @ingroup STM32F37x_defines
  *
  * @version 1.0.0
  *
