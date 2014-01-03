@@ -37,7 +37,7 @@ bool dwt_enable_cycle_counter(void)
 
 #if defined(__ARM_ARCH_7M__) || defined(__ARM_ARCH_7EM__)
 	/* Note TRCENA is for 7M and above*/
-	SCS_DEMCR |= SCS_DEMCR_TRCENA; 
+	SCS_DEMCR |= SCS_DEMCR_TRCENA;
 	if (DWT_CTRL & DWT_CTRL_NOCYCCNT) {
 		return false;		/* Not supported in implementation */
 	}

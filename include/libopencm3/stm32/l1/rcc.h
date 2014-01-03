@@ -439,7 +439,7 @@ enum rcc_periph_clken {
 	RCC_DMA2	= _REG_BIT(0x1c, 25),
 	RCC_AES		= _REG_BIT(0x1c, 27),
 	RCC_FSMC	= _REG_BIT(0x1c, 30),
-	
+
 	/* APB2 peripherals */
 	RCC_SYSCFG	= _REG_BIT(0x20, 0),
 	RCC_TIM9	= _REG_BIT(0x20, 2),
@@ -488,7 +488,7 @@ enum rcc_periph_clken {
 	SCC_DMA2	= _REG_BIT(0x28, 25),
 	SCC_AES		= _REG_BIT(0x28, 27),
 	SCC_FSMC	= _REG_BIT(0x28, 30),
-	
+
 	/* APB2 peripherals */
 	SCC_SYSCFG	= _REG_BIT(0x2c, 0),
 	SCC_TIM9	= _REG_BIT(0x2c, 2),
@@ -538,7 +538,7 @@ enum rcc_periph_rst {
 	RST_DMA2	= _REG_BIT(0x10, 25),
 	RST_AES		= _REG_BIT(0x10, 27),
 	RST_FSMC	= _REG_BIT(0x10, 30),
-	
+
 	/* APB2 peripherals */
 	RST_SYSCFG	= _REG_BIT(0x14, 0),
 	RST_TIM9	= _REG_BIT(0x14, 2),

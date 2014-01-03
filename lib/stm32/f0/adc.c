@@ -788,7 +788,7 @@ void adc_enable_analog_watchdog_on_all_channels(uint32_t adc)
 
 void adc_enable_analog_watchdog_on_selected_channel(uint32_t adc, uint8_t chan)
 {
-	ADC_CFGR1(adc) = (ADC_CFGR1(adc) & ~ADC_CFGR1_AWDCH) | \
+	ADC_CFGR1(adc) = (ADC_CFGR1(adc) & ~ADC_CFGR1_AWDCH) |
 			  ADC_CFGR1_AWDCH_VAL(chan);
 
 	ADC_CFGR1(adc) |= ADC_CFGR1_AWDEN | ADC_CFGR1_AWDSGL;

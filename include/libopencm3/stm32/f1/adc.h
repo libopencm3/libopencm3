@@ -622,7 +622,7 @@ injected channels.
 #define ADC_JSQR_JSQ2_MSK		(0x1f << ADC_JSQR_JSQ2_LSB)
 #define ADC_JSQR_JSQ1_MSK		(0x1f << ADC_JSQR_JSQ1_LSB)
 
-#define ADC_JSQR_JSQ_VAL(n,val)		((val) << (((n) - 1) * 5))
+#define ADC_JSQR_JSQ_VAL(n, val)	((val) << (((n) - 1) * 5))
 #define ADC_JSQR_JL_VAL(val)		(((val) - 1) << ADC_JSQR_JL_SHIFT)
 
 /* --- ADC_JDRx, ADC_DR values --------------------------------------------- */

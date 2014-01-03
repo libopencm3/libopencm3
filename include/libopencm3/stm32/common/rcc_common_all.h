@@ -29,7 +29,7 @@
 
 #ifndef LIBOPENCM3_RCC_COMMON_ALL_H
 #define LIBOPENCM3_RCC_COMMON_ALL_H
- 
+
 BEGIN_DECLS
 
 void rcc_peripheral_enable_clock(volatile uint32_t *reg, uint32_t en);

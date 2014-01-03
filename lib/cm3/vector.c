@@ -44,7 +44,7 @@ vector_table_t vector_table = {
 	.hard_fault = hard_fault_handler,
 
 /* Those are defined only on CM3 or CM4 */
-#if defined(__ARM_ARCH_7M__) || defined (__ARM_ARCH_7EM__)
+#if defined(__ARM_ARCH_7M__) || defined(__ARM_ARCH_7EM__)
 	.memory_manage_fault = mem_manage_handler,
 	.bus_fault = bus_fault_handler,
 	.usage_fault = usage_fault_handler,
@@ -112,7 +112,7 @@ void null_handler(void)
 #pragma weak sys_tick_handler = null_handler
 
 /* Those are defined only on CM3 or CM4 */
-#if defined(__ARM_ARCH_7M__) || defined (__ARM_ARCH_7EM__)
+#if defined(__ARM_ARCH_7M__) || defined(__ARM_ARCH_7EM__)
 #pragma weak mem_manage_handler = blocking_handler
 #pragma weak bus_fault_handler = blocking_handler
 #pragma weak usage_fault_handler = blocking_handler

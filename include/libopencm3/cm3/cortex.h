@@ -156,14 +156,17 @@ static inline bool cm_mask_faults(bool mask)
 
 #if !defined(__DOXYGEN__)
 /* Do not populate this definition outside */
-static inline bool __cm_atomic_set(bool* val)
+static inline bool __cm_atomic_set(bool *val)
 {
 	return cm_mask_interrupts(*val);
 }
 
-#define __CM_SAVER(state) 		__val = state,		\
+#define __CM_SAVER(state)					\
+do {								\
+	__val = state,						\
 	__save __attribute__((__cleanup__(__cm_atomic_set))) =	\
-	__cm_atomic_set(&__val)
+	__cm_atomic_set(&__val);				\
+} while (0)
 
 #endif /* !defined(__DOXYGEN) */
 
@@ -213,8 +216,10 @@ static inline bool __cm_atomic_set(bool* val)
 #if defined(__DOXYGEN__)
 #define CM_ATOMIC_BLOCK()
 #else /* defined(__DOXYGEN__) */
-#define CM_ATOMIC_BLOCK() \
-	for (bool ___CM_SAVER(true), __my = true; __my; __my = false)
+#define CM_ATOMIC_BLOCK()						\
+do {									\
+	for (bool ___CM_SAVER(true), __my = true; __my; __my = false);	\
+} while (0)
 #endif /* defined(__DOXYGEN__) */
 
 /*---------------------------------------------------------------------------*/

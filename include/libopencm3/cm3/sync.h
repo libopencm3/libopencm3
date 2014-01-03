@@ -32,7 +32,7 @@ void __dmb(void);
 /* --- Exclusive load and store instructions ------------------------------- */
 
 /* Those are defined only on CM3 or CM4 */
-#if defined(__ARM_ARCH_7M__) || defined (__ARM_ARCH_7EM__)
+#if defined(__ARM_ARCH_7M__) || defined(__ARM_ARCH_7EM__)
 
 uint32_t __ldrex(volatile uint32_t *addr);
 uint32_t __strex(uint32_t val, volatile uint32_t *addr);

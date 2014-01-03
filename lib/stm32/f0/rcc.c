@@ -250,7 +250,7 @@ void rcc_osc_on(enum rcc_osc osc)
 		RCC_CSR |= RCC_CSR_LSION;
 		break;
 	case PLL:
-		RCC_CR|=RCC_CR_PLLON; 
+		RCC_CR |= RCC_CR_PLLON;
 		break;
 	}
 }

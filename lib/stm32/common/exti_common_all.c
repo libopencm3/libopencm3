@@ -110,7 +110,7 @@ void exti_select_source(uint32_t exti, uint32_t gpioport)
 		case GPIOD:
 			bits = 3;
 			break;
-#if defined(GPIOE) && defined(GPIO_PORT_E_BASE) 
+#if defined(GPIOE) && defined(GPIO_PORT_E_BASE)
 		case GPIOE:
 			bits = 4;
 			break;

@@ -483,7 +483,7 @@ LGPL License Terms @ref lgpl_license
 #define SGPIO_MUX_CFGx_CLK_SOURCE_SLICE_MODE_SHIFT	(3)
 #define SGPIO_MUX_CFGx_CLK_SOURCE_SLICE_MODE_MASK \
 			(0x3 << SGPIO_MUX_CFGx_CLK_SOURCE_SLICE_MODE_SHIFT)
-#define SGPIO_MUX_CFGx_CLK_SOURCE_SLICE_MODE(x) 
+#define SGPIO_MUX_CFGx_CLK_SOURCE_SLICE_MODE(x)
 			((x) << SGPIO_MUX_CFGx_CLK_SOURCE_SLICE_MODE_SHIFT)
 
 /* QUALIFIER_MODE: Select qualifier mode */
@@ -684,7 +684,7 @@ typedef struct {
 } sgpio_t;
 
 /* Global access to SGPIO structure */
-#define SGPIO   ((sgpio_t*)SGPIO_PORT_BASE)
+#define SGPIO   ((sgpio_t *)SGPIO_PORT_BASE)
 
 /**@}*/
 

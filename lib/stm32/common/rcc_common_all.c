@@ -17,15 +17,15 @@
  * You should have received a copy of the GNU Lesser General Public License
  * along with this library.  If not, see <http://www.gnu.org/licenses/>.
  */
- 
+
 #include <libopencm3/stm32/rcc.h>
 
 /*---------------------------------------------------------------------------*/
 /** @brief RCC Enable Peripheral Clocks.
  *
- * Enable the clock on particular peripherals. There are three registers 
- * involved, each one controlling the enabling of clocks associated with the 
- * AHB, APB1 and APB2 respectively. Several peripherals could be enabled 
+ * Enable the clock on particular peripherals. There are three registers
+ * involved, each one controlling the enabling of clocks associated with the
+ * AHB, APB1 and APB2 respectively. Several peripherals could be enabled
  * simultaneously <em>only if they are controlled by the same register</em>.
  *
  * @param[in] *reg Unsigned int32. Pointer to a Clock Enable Register
@@ -45,9 +45,9 @@ void rcc_peripheral_enable_clock(volatile uint32_t *reg, uint32_t en)
 /*---------------------------------------------------------------------------*/
 /** @brief RCC Disable Peripheral Clocks.
  *
- * Enable the clock on particular peripherals. There are three registers 
- * involved, each one controlling the enabling of clocks associated with 
- * the AHB, APB1 and APB2 respectively. Several peripherals could be disabled 
+ * Enable the clock on particular peripherals. There are three registers
+ * involved, each one controlling the enabling of clocks associated with
+ * the AHB, APB1 and APB2 respectively. Several peripherals could be disabled
  * simultaneously <em>only if they are controlled by the same register</em>.
  *
  * @param[in] *reg Unsigned int32. Pointer to a Clock Enable Register
@@ -70,7 +70,7 @@ void rcc_peripheral_disable_clock(volatile uint32_t *reg, uint32_t en)
  * controlling reset of peripherals associated with the AHB, APB1 and APB2
  * respectively. Several peripherals could be reset simultaneously <em>only if
  * they are controlled by the same register</em>.
- * 
+ *
  * @param[in] *reg Unsigned int32. Pointer to a Reset Register
  *			 (either RCC_AHBENR, RCC_APB1ENR or RCC_APB2ENR)
  * @param[in] reset Unsigned int32. Logical OR of all resets.
@@ -93,7 +93,8 @@ void rcc_peripheral_reset(volatile uint32_t *reg, uint32_t reset)
  *
  * @param[in] *reg Unsigned int32. Pointer to a Reset Register
  *			 (either RCC_AHBENR, RCC_APB1ENR or RCC_APB2ENR)
- * @param[in] clear_reset Unsigned int32. Logical OR of all resets to be removed:
+ * @param[in] clear_reset Unsigned int32. Logical OR of all resets to be
+ * removed:
  * @li If register is RCC_AHBRSTR, from @ref rcc_ahbrstr_rst
  * @li If register is RCC_APB1RSTR, from @ref rcc_apb1rstr_rst
  * @li If register is RCC_APB2RSTR, from @ref rcc_apb2rstr_rst
@@ -115,7 +116,7 @@ void rcc_peripheral_clear_reset(volatile uint32_t *reg, uint32_t clear_reset)
  *
  * For available constants, see #periph_t (RCC_UART1 for example)
  */
- 
+
 void rcc_periph_clock_enable(enum rcc_periph_clken clken)
 {
 	_RCC_REG(clken) |= _RCC_BIT(clken);

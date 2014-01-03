@@ -749,5 +749,4 @@ END_DECLS
 
 /**@}*/
 
-
 #endif

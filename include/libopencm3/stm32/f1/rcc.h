@@ -519,7 +519,7 @@ enum rcc_periph_clken {
 	RCC_ETHMAC	= _REG_BIT(0x14, 14),/*--C*/
 	RCC_ETHMACTX	= _REG_BIT(0x14, 15),/*--C*/
 	RCC_ETHMACRX	= _REG_BIT(0x14, 16),/*--C*/
-	
+
 	/* APB2 peripherals */
 	RCC_AFIO	= _REG_BIT(0x18, 0),/*VNC*/
 	RCC_GPIOA	= _REG_BIT(0x18, 2),/*VNC*/
@@ -542,7 +542,7 @@ enum rcc_periph_clken {
 	RCC_TIM9	= _REG_BIT(0x18, 19),/*-N-*/
 	RCC_TIM10	= _REG_BIT(0x18, 20),/*-N-*/
 	RCC_TIM11	= _REG_BIT(0x18, 21),/*-N-*/
-	
+
 	/* APB1 peripherals */
 	RCC_TIM2	= _REG_BIT(0x1C, 0),/*VNC*/
 	RCC_TIM3	= _REG_BIT(0x1C, 1),/*VNC*/
@@ -600,7 +600,7 @@ enum rcc_periph_rst {
 	RST_TIM9	= _REG_BIT(0x0c, 19),/*-N-*/
 	RST_TIM10	= _REG_BIT(0x0c, 20),/*-N-*/
 	RST_TIM11	= _REG_BIT(0x0c, 21),/*-N-*/
-	
+
 	/* APB1 peripherals */
 	RST_TIM2	= _REG_BIT(0x10, 0),/*VNC*/
 	RST_TIM3	= _REG_BIT(0x10, 1),/*VNC*/

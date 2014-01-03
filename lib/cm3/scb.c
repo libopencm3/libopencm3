@@ -22,7 +22,7 @@
 #include <libopencm3/cm3/scb.h>
 
 /* Those are defined only on CM3 or CM4 */
-#if defined(__ARM_ARCH_7M__) || defined (__ARM_ARCH_7EM__)
+#if defined(__ARM_ARCH_7M__) || defined(__ARM_ARCH_7EM__)
 void scb_reset_core(void)
 {
 	SCB_AIRCR = SCB_AIRCR_VECTKEY | SCB_AIRCR_VECTRESET;
@@ -39,7 +39,7 @@ void scb_reset_system(void)
 }
 
 /* Those are defined only on CM3 or CM4 */
-#if defined(__ARM_ARCH_7M__) || defined (__ARM_ARCH_7EM__)
+#if defined(__ARM_ARCH_7M__) || defined(__ARM_ARCH_7EM__)
 void scb_set_priority_grouping(uint32_t prigroup)
 {
 	SCB_AIRCR = SCB_AIRCR_VECTKEY | prigroup;
