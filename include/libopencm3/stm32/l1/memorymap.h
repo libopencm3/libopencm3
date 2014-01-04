@@ -72,6 +72,8 @@
 #define TIM11_BASE			(PERIPH_BASE_APB2 + 0x1000)
 /* gap */
 #define ADC_BASE			(PERIPH_BASE_APB2 + 0x2400)
+/* ADC is the name in the L1 refman, but all other stm32's use ADC1 */
+#define ADC1_BASE			ADC_BASE
 /* gap */
 #define SDIO_BASE			(PERIPH_BASE_APB2 + 0x2c00)
 #define SPI1_BASE			(PERIPH_BASE_APB2 + 0x3000)
