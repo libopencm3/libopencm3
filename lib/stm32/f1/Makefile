@@ -33,7 +33,7 @@ CFLAGS		= -Os -g \
 # ARFLAGS	= rcsv
 ARFLAGS		= rcs
 
-OBJS		= adc.o can.o desig.o ethernet.o flash.o gpio.o \
+OBJS		= adc.o adc_common_v1.o can.o desig.o ethernet.o flash.o gpio.o \
                   rcc.o rtc.o timer.o
 
 OBJS            += crc_common_all.o dac_common_all.o dma_common_l1f013.o \
