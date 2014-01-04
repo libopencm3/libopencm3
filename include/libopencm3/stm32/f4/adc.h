@@ -118,6 +118,7 @@ LGPL License Terms @ref lgpl_license
 /* Note: Bits [21:16] are reserved, and must be kept at reset value. */
 
 /* --- ADC_CR1 values (note some of these are defined elsewhere) ----------- */
+#define ADC_CR1_AWDCH_MAX		18
 
 
 /* --- ADC_CR2 values ------------------------------------------------------ */
@@ -312,18 +313,10 @@ LGPL License Terms @ref lgpl_license
 #define ADC_SMPR_SMP_480CYC		0x7
 /**@}*/
 
-/* --- ADC_JOFRx, ADC_HTR, ADC_LTR values ---------------------------------- */
-
-#define ADC_JOFFSET_LSB			0
-#define ADC_JOFFSET_MSK			(0x7ff << 0)
-#define ADC_HT_LSB			0
-#define ADC_HT_MSK			(0x7ff << 0)
-#define ADC_LT_LSB			0
-#define ADC_LT_MSK			(0x7ff << 0)
-
 /* --- ADC_SQR1 values ----------------------------------------------------- */
 
-#define ADC_SQR1_L_LSB			20
+#define ADC_SQR_MAX_CHANNELS_REGULAR	16
+
 #define ADC_SQR1_SQ16_LSB		15
 #define ADC_SQR1_SQ15_LSB		10
 #define ADC_SQR1_SQ14_LSB		5
@@ -568,51 +561,6 @@ LGPL License Terms @ref lgpl_license
 
 BEGIN_DECLS
 
-void adc_power_on(uint32_t adc);
-void adc_off(uint32_t adc);
-void adc_enable_analog_watchdog_regular(uint32_t adc);
-void adc_disable_analog_watchdog_regular(uint32_t adc);
-void adc_enable_analog_watchdog_injected(uint32_t adc);
-void adc_disable_analog_watchdog_injected(uint32_t adc);
-void adc_enable_discontinuous_mode_regular(uint32_t adc, uint8_t length);
-void adc_disable_discontinuous_mode_regular(uint32_t adc);
-void adc_enable_discontinuous_mode_injected(uint32_t adc);
-void adc_disable_discontinuous_mode_injected(uint32_t adc);
-void adc_enable_automatic_injected_group_conversion(uint32_t adc);
-void adc_disable_automatic_injected_group_conversion(uint32_t adc);
-void adc_enable_analog_watchdog_on_all_channels(uint32_t adc);
-void adc_enable_analog_watchdog_on_selected_channel(uint32_t adc,
-						    uint8_t channel);
-void adc_enable_scan_mode(uint32_t adc);
-void adc_disable_scan_mode(uint32_t adc);
-void adc_enable_eoc_interrupt_injected(uint32_t adc);
-void adc_disable_eoc_interrupt_injected(uint32_t adc);
-void adc_enable_awd_interrupt(uint32_t adc);
-void adc_disable_awd_interrupt(uint32_t adc);
-void adc_enable_eoc_interrupt(uint32_t adc);
-void adc_disable_eoc_interrupt(uint32_t adc);
-void adc_start_conversion_regular(uint32_t adc);
-void adc_start_conversion_injected(uint32_t adc);
-void adc_disable_external_trigger_regular(uint32_t adc);
-void adc_disable_external_trigger_injected(uint32_t adc);
-void adc_set_left_aligned(uint32_t adc);
-void adc_set_right_aligned(uint32_t adc);
-void adc_enable_dma(uint32_t adc);
-void adc_disable_dma(uint32_t adc);
-void adc_set_continuous_conversion_mode(uint32_t adc);
-void adc_set_single_conversion_mode(uint32_t adc);
-void adc_set_sample_time(uint32_t adc, uint8_t channel, uint8_t time);
-void adc_set_sample_time_on_all_channels(uint32_t adc, uint8_t time);
-void adc_set_watchdog_high_threshold(uint32_t adc, uint16_t threshold);
-void adc_set_watchdog_low_threshold(uint32_t adc, uint16_t threshold);
-void adc_set_regular_sequence(uint32_t adc, uint8_t length, uint8_t channel[]);
-void adc_set_injected_sequence(uint32_t adc, uint8_t length, uint8_t channel[]);
-bool adc_eoc(uint32_t adc);
-bool adc_eoc_injected(uint32_t adc);
-uint32_t adc_read_regular(uint32_t adc);
-uint32_t adc_read_injected(uint32_t adc, uint8_t reg);
-void adc_set_injected_offset(uint32_t adc, uint8_t reg, uint32_t offset);
-
 void adc_set_clk_prescale(uint32_t prescaler);
 void adc_set_multi_mode(uint32_t mode);
 void adc_enable_external_trigger_regular(uint32_t adc, uint32_t trigger,
@@ -629,6 +577,7 @@ void adc_eoc_after_each(uint32_t adc);
 void adc_eoc_after_group(uint32_t adc);
 void adc_set_dma_continue(uint32_t adc);
 void adc_set_dma_terminate(uint32_t adc);
+
 void adc_enable_temperature_sensor(void);
 void adc_disable_temperature_sensor(void);
 

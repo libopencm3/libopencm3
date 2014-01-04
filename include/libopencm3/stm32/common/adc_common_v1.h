@@ -289,14 +289,14 @@ specific memorymap.h header before including this header file.*/
 /* --- ADC_JOFRx, ADC_HTR, ADC_LTR values ---------------------------------- */
 
 #define ADC_JOFFSET_LSB                 0
-#define ADC_JOFFSET_MSK                 (0x7ff << 0)
+#define ADC_JOFFSET_MSK                 0xfff
 #define ADC_HT_LSB                      0
-#define ADC_HT_MSK                      (0x7ff << 0)
+#define ADC_HT_MSK                      0xfff
 #define ADC_LT_LSB                      0
-#define ADC_LT_MSK                      (0x7ff << 0)
+#define ADC_LT_MSK                      0xfff
 
 /* --- ADC_SQR1 values ----------------------------------------------------- */
-/* The sequence length field is always in the same place, but sized 
+/* The sequence length field is always in the same place, but sized
  * differently on various parts */
 #define ADC_SQR1_L_LSB                  20
 
@@ -343,6 +343,53 @@ specific memorymap.h header before including this header file.*/
 /* --- Function prototypes ------------------------------------------------- */
 
 BEGIN_DECLS
+
+void adc_power_on(uint32_t adc);
+void adc_off(uint32_t adc);
+void adc_enable_analog_watchdog_regular(uint32_t adc);
+void adc_disable_analog_watchdog_regular(uint32_t adc);
+void adc_enable_analog_watchdog_injected(uint32_t adc);
+void adc_disable_analog_watchdog_injected(uint32_t adc);
+void adc_enable_discontinuous_mode_regular(uint32_t adc, uint8_t length);
+void adc_disable_discontinuous_mode_regular(uint32_t adc);
+void adc_enable_discontinuous_mode_injected(uint32_t adc);
+void adc_disable_discontinuous_mode_injected(uint32_t adc);
+void adc_enable_automatic_injected_group_conversion(uint32_t adc);
+void adc_disable_automatic_injected_group_conversion(uint32_t adc);
+void adc_enable_analog_watchdog_on_all_channels(uint32_t adc);
+void adc_enable_analog_watchdog_on_selected_channel(uint32_t adc,
+						    uint8_t channel);
+void adc_enable_scan_mode(uint32_t adc);
+void adc_disable_scan_mode(uint32_t adc);
+void adc_enable_eoc_interrupt_injected(uint32_t adc);
+void adc_disable_eoc_interrupt_injected(uint32_t adc);
+void adc_enable_awd_interrupt(uint32_t adc);
+void adc_disable_awd_interrupt(uint32_t adc);
+void adc_enable_eoc_interrupt(uint32_t adc);
+void adc_disable_eoc_interrupt(uint32_t adc);
+void adc_set_left_aligned(uint32_t adc);
+void adc_set_right_aligned(uint32_t adc);
+bool adc_eoc(uint32_t adc);
+bool adc_eoc_injected(uint32_t adc);
+uint32_t adc_read_regular(uint32_t adc);
+uint32_t adc_read_injected(uint32_t adc, uint8_t reg);
+void adc_set_continuous_conversion_mode(uint32_t adc);
+void adc_set_single_conversion_mode(uint32_t adc);
+void adc_set_regular_sequence(uint32_t adc, uint8_t length, uint8_t channel[]);
+void adc_set_injected_sequence(uint32_t adc, uint8_t length, uint8_t channel[]);
+void adc_set_injected_offset(uint32_t adc, uint8_t reg, uint32_t offset);
+void adc_set_watchdog_high_threshold(uint32_t adc, uint16_t threshold);
+void adc_set_watchdog_low_threshold(uint32_t adc, uint16_t threshold);
+void adc_start_conversion_regular(uint32_t adc);
+void adc_start_conversion_injected(uint32_t adc);
+void adc_enable_dma(uint32_t adc);
+void adc_disable_dma(uint32_t adc);
+
+/* common methods that have slight differences */
+void adc_set_sample_time(uint32_t adc, uint8_t channel, uint8_t time);
+void adc_set_sample_time_on_all_channels(uint32_t adc, uint8_t time);
+void adc_disable_external_trigger_regular(uint32_t adc);
+void adc_disable_external_trigger_injected(uint32_t adc);
 
 END_DECLS
 

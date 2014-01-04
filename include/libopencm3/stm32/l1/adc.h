@@ -1,6 +1,7 @@
 /** @defgroup STM32L1xx_adc_defines ADC Defines
 
-@brief <b>Defined Constants and Types for the STM32L1xx Analog to Digital Converters</b>
+@brief <b>Defined Constants and Types for the STM32L1xx Analog to
+Digital Converters</b>
 
 @ingroup STM32L1xx_defines
 
@@ -119,6 +120,7 @@ LGPL License Terms @ref lgpl_license
 #define ADC_CR1_PDI			(1 << 17)
 #define ADC_CR1_PDD			(1 << 16)
 
+#define ADC_CR1_AWDCH_MAX		26
 
 /* --- ADC_CR2 values ------------------------------------------------------- */
 /* SWSTART: */ /** Start conversion of regular channels. */
@@ -156,7 +158,7 @@ LGPL License Terms @ref lgpl_license
 #define ADC_CR2_EXTSEL_TIM3_CC3		(8 << ADC_CR2_EXTSEL_SHIFT)
 #define ADC_CR2_EXTSEL_TIM4_TRGO	(9 << ADC_CR2_EXTSEL_SHIFT)
 #define ADC_CR2_EXTSEL_TIM6_TRGO	(10 << ADC_CR2_EXTSEL_SHIFT)
-// reserved....
+/* reserved.... */
 #define ADC_CR2_EXTSEL_EXTI11		(15 << ADC_CR2_EXTSEL_SHIFT)
 /**@}*/
 
@@ -175,13 +177,13 @@ LGPL License Terms @ref lgpl_license
 #define ADC_CR2_JEXTEN_BOTH_EDGES	(0x3 << ADC_CR2_JEXTEN_SHIFT)
 /**@}*/
 
-// FIXME - add the values here
+/* FIXME - add the values here */
 #define ADC_CR2_JEXTSEL_SHIFT		16
 #define ADC_CR2_JEXTSEL_MASK		(0xf << ADC_CR2_JEXTSEL_SHIFT)
 
 #define ADC_CR2_EOCS			(1 << 10)
 #define ADC_CR2_DDS			(1 << 9)
-// FIXME- add the values here
+/* FIXME- add the values here */
 #define ADC_CR2_DELS_SHIFT		4
 #define ADC_CR2_DELS_MASK		0x7
 
@@ -208,11 +210,18 @@ LGPL License Terms @ref lgpl_license
 /**@}*/
 
 #define ADC_SQR_MASK			0x1f
+#define ADC_SQR_MAX_CHANNELS_REGULAR	28 /* m+/h only, otherwise 27 */
 
 #define ADC_CCR_TSVREFE			(1 << 23)
 
 BEGIN_DECLS
-        // We will add these when we are ready...
+	/* L1 specific, or not fully unified adc routines */
+void adc_enable_temperature_sensor(void);
+void adc_disable_temperature_sensor(void);
+void adc_enable_external_trigger_regular(uint32_t adc, uint32_t trigger,
+					 uint32_t polarity);
+void adc_enable_external_trigger_injected(uint32_t adc, uint32_t trigger,
+					  uint32_t polarity);
 
 END_DECLS
 
