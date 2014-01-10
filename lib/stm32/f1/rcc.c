@@ -427,11 +427,8 @@ void rcc_osc_bypass_disable(enum rcc_osc osc)
 
 void rcc_set_sysclk_source(uint32_t clk)
 {
-	uint32_t reg32;
-
-	reg32 = RCC_CFGR;
-	reg32 &= ~((1 << 1) | (1 << 0));
-	RCC_CFGR = (reg32 | clk);
+	RCC_CFGR = (RCC_CFGR & ~RCC_CFGR_SW) |
+			(clk << RCC_CFGR_SW_SHIFT);
 }
 
 /*---------------------------------------------------------------------------*/
@@ -444,11 +441,8 @@ void rcc_set_sysclk_source(uint32_t clk)
 
 void rcc_set_pll_multiplication_factor(uint32_t mul)
 {
-	uint32_t reg32;
-
-	reg32 = RCC_CFGR;
-	reg32 &= ~((1 << 21) | (1 << 20) | (1 << 19) | (1 << 18));
-	RCC_CFGR = (reg32 | (mul << 18));
+	RCC_CFGR = (RCC_CFGR & ~RCC_CFGR_PLLMUL) |
+			(mul << RCC_CFGR_PLLMUL_SHIFT);
 }
 
 /*---------------------------------------------------------------------------*/
@@ -461,11 +455,8 @@ void rcc_set_pll_multiplication_factor(uint32_t mul)
 
 void rcc_set_pll2_multiplication_factor(uint32_t mul)
 {
-	uint32_t reg32;
-
-	reg32 = RCC_CFGR2;
-	reg32 &= ~((1 << 11) | (1 << 10) | (1 << 9) | (1 << 8));
-	RCC_CFGR2 = (reg32 | (mul << 8));
+	RCC_CFGR2 = (RCC_CFGR2 & ~RCC_CFGR2_PLL2MUL) |
+			(mul << RCC_CFGR2_PLL2MUL_SHIFT);
 }
 
 /*---------------------------------------------------------------------------*/
@@ -478,11 +469,8 @@ void rcc_set_pll2_multiplication_factor(uint32_t mul)
 
 void rcc_set_pll3_multiplication_factor(uint32_t mul)
 {
-	uint32_t reg32;
-
-	reg32 = RCC_CFGR2;
-	reg32 &= ~((1 << 15) | (1 << 14) | (1 << 13) | (1 << 12));
-	RCC_CFGR2 = (reg32 | (mul << 12));
+	RCC_CFGR2 = (RCC_CFGR2 & ~RCC_CFGR2_PLL3MUL) |
+			(mul << RCC_CFGR2_PLL3MUL_SHIFT);
 }
 
 /*---------------------------------------------------------------------------*/
@@ -495,11 +483,8 @@ void rcc_set_pll3_multiplication_factor(uint32_t mul)
 
 void rcc_set_pll_source(uint32_t pllsrc)
 {
-	uint32_t reg32;
-
-	reg32 = RCC_CFGR;
-	reg32 &= ~(1 << 16);
-	RCC_CFGR = (reg32 | (pllsrc << 16));
+	RCC_CFGR = (RCC_CFGR & ~RCC_CFGR_PLLSRC) |
+			(pllsrc << 16);
 }
 
 /*---------------------------------------------------------------------------*/
@@ -512,11 +497,8 @@ void rcc_set_pll_source(uint32_t pllsrc)
 
 void rcc_set_pllxtpre(uint32_t pllxtpre)
 {
-	uint32_t reg32;
-
-	reg32 = RCC_CFGR;
-	reg32 &= ~(1 << 17);
-	RCC_CFGR = (reg32 | (pllxtpre << 17));
+	RCC_CFGR = (RCC_CFGR & ~RCC_CFGR_PLLXTPRE) |
+			(pllxtpre << 17);
 }
 
 /*---------------------------------------------------------------------------*/
@@ -529,11 +511,8 @@ The ADC's have a common clock prescale setting.
 
 void rcc_set_adcpre(uint32_t adcpre)
 {
-	uint32_t reg32;
-
-	reg32 = RCC_CFGR;
-	reg32 &= ~((1 << 14) | (1 << 15));
-	RCC_CFGR = (reg32 | (adcpre << 14));
+	RCC_CFGR = (RCC_CFGR & ~RCC_CFGR_ADCPRE) |
+			(adcpre << RCC_CFGR_ADCPRE_SHIFT);
 }
 
 /*---------------------------------------------------------------------------*/
@@ -544,11 +523,8 @@ void rcc_set_adcpre(uint32_t adcpre)
 
 void rcc_set_ppre2(uint32_t ppre2)
 {
-	uint32_t reg32;
-
-	reg32 = RCC_CFGR;
-	reg32 &= ~((1 << 11) | (1 << 12) | (1 << 13));
-	RCC_CFGR = (reg32 | (ppre2 << 11));
+	RCC_CFGR = (RCC_CFGR & ~RCC_CFGR_PPRE2) |
+			(ppre2 << RCC_CFGR_PPRE2_SHIFT);
 }
 
 /*---------------------------------------------------------------------------*/
@@ -561,11 +537,9 @@ void rcc_set_ppre2(uint32_t ppre2)
 
 void rcc_set_ppre1(uint32_t ppre1)
 {
-	uint32_t reg32;
+	RCC_CFGR = (RCC_CFGR & ~RCC_CFGR_PPRE1) |
+			(ppre1 << RCC_CFGR_PPRE1_SHIFT);
 
-	reg32 = RCC_CFGR;
-	reg32 &= ~((1 << 8) | (1 << 9) | (1 << 10));
-	RCC_CFGR = (reg32 | (ppre1 << 8));
 }
 
 /*---------------------------------------------------------------------------*/
@@ -576,11 +550,9 @@ void rcc_set_ppre1(uint32_t ppre1)
 
 void rcc_set_hpre(uint32_t hpre)
 {
-	uint32_t reg32;
+	RCC_CFGR = (RCC_CFGR & ~RCC_CFGR_HPRE) |
+			(hpre << RCC_CFGR_HPRE_SHIFT);
 
-	reg32 = RCC_CFGR;
-	reg32 &= ~((1 << 4) | (1 << 5) | (1 << 6) | (1 << 7));
-	RCC_CFGR = (reg32 | (hpre << 4));
 }
 
 /*---------------------------------------------------------------------------*/
@@ -596,41 +568,37 @@ The prescale factor can be set to 1 (no prescale) for use when the PLL clock is
 
 void rcc_set_usbpre(uint32_t usbpre)
 {
-	uint32_t reg32;
-
-	reg32 = RCC_CFGR;
-	reg32 &= ~(1 << 22);
-	RCC_CFGR = (reg32 | (usbpre << 22));
+	if (usbpre)
+		RCC_CFGR |= RCC_CFGR_USBPRE;
+	else
+		RCC_CFGR &= ~RCC_CFGR_USBPRE;
 }
 
 void rcc_set_prediv1(uint32_t prediv)
 {
-	uint32_t reg32;
-	reg32 = RCC_CFGR2;
-	reg32 &= ~(1 << 3) | (1 << 2) | (1 << 1) | (1 << 0);
-	RCC_CFGR2 |= (reg32 | prediv);
+	RCC_CFGR2 = (RCC_CFGR2 & ~RCC_CFGR2_PREDIV1) |
+			(prediv << RCC_CFGR2_PREDIV1_SHIFT);
 }
 
 void rcc_set_prediv2(uint32_t prediv)
 {
-	uint32_t reg32;
-	reg32 = RCC_CFGR2;
-	reg32 &= ~(1 << 7) | (1 << 6) | (1 << 5) | (1 << 4);
-	RCC_CFGR2 |= (reg32 | (prediv << 4));
+	RCC_CFGR2 = (RCC_CFGR2 & ~RCC_CFGR2_PREDIV2) |
+			(prediv << RCC_CFGR2_PREDIV2_SHIFT);
 }
 
 void rcc_set_prediv1_source(uint32_t rccsrc)
 {
-	RCC_CFGR2 &= ~(1 << 16);
-	RCC_CFGR2 |= (rccsrc << 16);
+	if (rccsrc)
+		RCC_CFGR2 |= RCC_CFGR2_PREDIV1SRC;
+	else
+		RCC_CFGR2 &= ~RCC_CFGR2_PREDIV1SRC;
 }
 
 void rcc_set_mco(uint32_t mcosrc)
 {
-	uint32_t reg32;
-	reg32 = RCC_CFGR;
-	reg32 &= ~((1 << 27) | (1 << 26) | (1 << 25) | (1 << 24));
-	RCC_CFGR |= (reg32 | (mcosrc << 24));
+	RCC_CFGR = (RCC_CFGR & ~RCC_CFGR_MCO) |
+			(mcosrc << RCC_CFGR_MCO_SHIFT);
+
 }
 
 /*---------------------------------------------------------------------------*/
@@ -645,7 +613,7 @@ void rcc_set_mco(uint32_t mcosrc)
 uint32_t rcc_system_clock_source(void)
 {
 	/* Return the clock source which is used as system clock. */
-	return (RCC_CFGR & 0x000c) >> 2;
+	return (RCC_CFGR & RCC_CFGR_SWS) >> RCC_CFGR_SWS_SHIFT;
 }
 
 /*---------------------------------------------------------------------------*/
