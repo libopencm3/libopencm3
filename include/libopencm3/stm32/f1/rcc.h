@@ -80,6 +80,36 @@
 
 /* --- RCC_CFGR values ----------------------------------------------------- */
 
+#define RCC_CFGR_MCO_SHIFT			24
+#define RCC_CFGR_MCO				(0xF << RCC_CFGR_MCO_SHIFT)
+
+#define RCC_CFGR_OTGFSPRE			(1 << 22) /* Connectivity line */
+#define RCC_CFGR_USBPRE				(1 << 22) /* LD,MD, HD, XL */
+
+#define RCC_CFGR_PLLMUL_SHIFT			18
+#define RCC_CFGR_PLLMUL				(0xF << RCC_CFGR_PLLMUL_SHIFT)
+
+#define RCC_CFGR_PLLXTPRE			(1 << 17)
+#define RCC_CFGR_PLLSRC				(1 << 16)
+
+#define RCC_CFGR_ADCPRE_SHIFT			14
+#define RCC_CFGR_ADCPRE				(3 << RCC_CFGR_ADCPRE_SHIFT)
+
+#define RCC_CFGR_PPRE2_SHIFT			11
+#define RCC_CFGR_PPRE2				(7 << RCC_CFGR_PPRE2_SHIFT)
+
+#define RCC_CFGR_PPRE1_SHIFT			8
+#define RCC_CFGR_PPRE1				(7 << RCC_CFGR_PPRE1_SHIFT)
+
+#define RCC_CFGR_HPRE_SHIFT			4
+#define RCC_CFGR_HPRE				(0xF << RCC_CFGR_HPRE_SHIFT)
+
+#define RCC_CFGR_SWS_SHIFT			2
+#define RCC_CFGR_SWS				(3 << RCC_CFGR_SWS_SHIFT)
+
+#define RCC_CFGR_SW_SHIFT			0
+#define RCC_CFGR_SW				(3 << RCC_CFGR_SW_SHIFT)
+
 /* MCO: Microcontroller clock output */
 /** @defgroup rcc_cfgr_co RCC_CFGR Microcontroller Clock Output Source
 @ingroup STM32F1xx_rcc_defines
@@ -423,14 +453,24 @@
 /* I2S2SRC: I2S2 clock source */
 #define RCC_CFGR2_I2S2SRC_SYSCLK		0x0
 #define RCC_CFGR2_I2S2SRC_PLL3_VCO_CLK		0x1
+#define RCC_CFGR2_I2S2SRC			(1 << 17)
 
 /* PREDIV1SRC: PREDIV1 entry clock source */
 #define RCC_CFGR2_PREDIV1SRC_HSE_CLK		0x0
 #define RCC_CFGR2_PREDIV1SRC_PLL2_CLK		0x1
+#define RCC_CFGR2_PREDIV1SRC			(1 << 16)
 
-#define RCC_CFGR2_PLL2MUL			(1 << 0)
-#define RCC_CFGR2_PREDIV2			(1 << 0)
-#define RCC_CFGR2_PREDIV1			(1 << 0)
+#define RCC_CFGR2_PLL3MUL_SHIFT			12
+#define RCC_CFGR2_PLL3MUL			(0xF << RCC_CFGR2_PLL3MUL_SHIFT)
+
+#define RCC_CFGR2_PLL2MUL_SHIFT			8
+#define RCC_CFGR2_PLL2MUL			(0xF << RCC_CFGR2_PLL2MUL_SHIFT)
+
+#define RCC_CFGR2_PREDIV2_SHIFT			4
+#define RCC_CFGR2_PREDIV2			(0xF << RCC_CFGR2_PREDIV2_SHIFT)
+
+#define RCC_CFGR2_PREDIV1_SHIFT			0
+#define RCC_CFGR2_PREDIV1			(0xF << RCC_CFGR2_PREDIV1_SHIFT)
 
 /* PLL3MUL: PLL3 multiplication factor */
 #define RCC_CFGR2_PLL3MUL_PLL3_CLK_MUL8		0x6
