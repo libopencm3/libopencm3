@@ -23,6 +23,8 @@
 
 BEGIN {
 	PAT = tolower(PAT);
+	if (length(MODE) == 0)
+		MODE = ".*";
 }
 !/^#/{
 	#remove cr on windows
@@ -39,10 +41,22 @@ BEGIN {
 			PAT=$2;
 
 		for (i = 3; i <= NF; i = i + 1) {
-			if ($i ~ /^-/)
-				printf "%s ",$i;
-			else
-				printf "-D_%s ",$i;
+			if ($i ~ /^-l/) {
+				if ("LIB" ~ MODE)
+					printf "%s ",$i;
+			}
+			else if ($i ~ /^-m/) {
+				if ("ARCH" ~ MODE)
+					printf "%s ",$i;
+			}
+			else if ($i ~ /^-D/) {
+				if ("DEFS" ~ MODE)
+					printf "%s ",$i;
+			}
+			else {
+				if ("DEFS" ~ MODE)
+					printf "-D_%s ",$i;
+			}
 		}
 
 		if (PAT=="END")
