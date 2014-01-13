@@ -254,6 +254,21 @@ void adc_power_on(uint32_t adc)
 }
 
 /*-----------------------------------------------------------------------------*/
+/** @brief ADC Power Off
+
+If the ADC is in power-up mode then it is powered down.
+If the ADC is already off this function call has no effect.
+
+@param[in] adc Unsigned int32. ADC block register address base @ref adc_reg_base
+*/
+
+void adc_power_off(uint32_t adc)
+{
+    if (ADC_CR2(adc) & ADC_CR2_ADON)
+    ADC_CR2(adc) &= ~ADC_CR2_ADON;
+}
+
+/*-----------------------------------------------------------------------------*/
 /** @brief ADC Set Clock Prescale
 
 The ADC clock taken from the APB2 clock can be scaled down by 2, 4, 6 or 8.
