@@ -49,7 +49,7 @@ LGPL License Terms @ref lgpl_license
 /* Bits [31:15]: Reserved */
 
 /* LPRUN: Low power run mode */
-#define PWR_CR_LPRUN        (1 << 14)
+#define PWR_CR_LPRUN	    (1 << 14)
 
 /* VOS[12:11]: Regulator voltage scaling output selection */
 #define PWR_CR_VOS_LSB			11
@@ -64,10 +64,22 @@ LGPL License Terms @ref lgpl_license
 #define PWR_CR_VOS_MASK			(0x3 << PWR_CR_VOS_LSB)
 
 /* FWU: Fast wakeup */
-#define PWR_CR_FWU          (1 << 10)
+#define PWR_CR_FWU	    (1 << 10)
 
 /* ULP: Ultralow power mode */
-#define PWR_CR_ULP          (1 << 9)
+#define PWR_CR_ULP	    (1 << 9)
+
+/* PVDE: Programmable voltage detector enable */
+#define PWR_CR_PVDE	    (1 << 4)
+
+/* CSBF: Clear standby flag */
+#define PWR_CR_CSBF	    (1 << 3)
+
+/* CWUF: Clear wakeup flag */
+#define PWR_CR_CWUF	    (1 << 2)
+
+/* PDDS: Power down deepsleep */
+#define PWR_CR_PDDS	    (1 << 1)
 
 /* LPSDSR: Low-power deepsleep/sleep/low power run */
 #define PWR_CR_LPSDSR		(1 << 0)  /* masks common PWR_CR_LPDS */
@@ -85,14 +97,22 @@ LGPL License Terms @ref lgpl_license
 #define PWR_CSR_EWUP1			PWR_CSR_EWUP
 
 /* REGLPF : Regulator LP flag */
-#define PWR_CSR_REGLPF          (1 << 5)
+#define PWR_CSR_REGLPF		(1 << 5)
 
 /* VOSF: Voltage Scaling select flag */
-#define PWR_CSR_VOSF            (1 << 4)
+#define PWR_CSR_VOSF		(1 << 4)
 
 /* VREFINTRDYF: Internal voltage reference (VREFINT) ready flag */
 #define PWR_CSR_VREFINTRDYF	(1 << 3)
 
+/* PVDO: Programmable voltage detector status flag */
+#define PWR_CSR_PVDO		(1 << 2)
+
+/* SBF: Standby flag */
+#define PWR_CSR_SBF		(1 << 1)
+
+/* WUF: Wakeup flag */
+#define PWR_CSR_WUP		(1 << 0)
 
 
 /* --- Function prototypes ------------------------------------------------- */
