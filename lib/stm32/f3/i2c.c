@@ -243,6 +243,15 @@ void i2c_100khz_i2cclk8mhz(uint32_t i2c)
 	i2c_set_data_setup_time(i2c, 0x4);
 }
 
+void i2c_400khz_i2cclk8mhz(uint32_t i2c)
+{
+        i2c_set_prescaler(i2c, 0);
+        i2c_set_scl_low_period(i2c, 0x09);
+        i2c_set_scl_high_period(i2c, 0x03);
+        i2c_set_data_hold_time(i2c, 0x01);
+        i2c_set_data_setup_time(i2c, 0x03);
+}
+
 void i2c_set_7bit_addr_mode(uint32_t i2c)
 {
 	I2C_CR2(i2c) &= ~I2C_CR2_ADD10;
