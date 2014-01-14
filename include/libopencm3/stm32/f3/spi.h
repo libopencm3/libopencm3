@@ -34,9 +34,4 @@
 #include <libopencm3/stm32/memorymap.h>
 #include <libopencm3/stm32/common/spi_common_f03.h>
 
-#define SPI_DR8(spi_base)	MMIO8(spi_base + 0x0c)
-#define SPI1_DR8		SPI_DR8(SPI1_BASE)
-#define SPI2_DR8		SPI_DR8(SPI2_I2S_BASE)
-#define SPI3_DR8		SPI_DR8(SPI3_I2S_BASE)
-
 #endif
