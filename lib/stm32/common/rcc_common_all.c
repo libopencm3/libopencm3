@@ -17,6 +17,7 @@
  * You should have received a copy of the GNU Lesser General Public License
  * along with this library.  If not, see <http://www.gnu.org/licenses/>.
  */
+/**@{*/
 
 #include <libopencm3/stm32/rcc.h>
 
@@ -181,6 +182,7 @@ void rcc_periph_reset_release(enum rcc_periph_rst rst)
 {
 	_RCC_REG(rst) &= ~_RCC_BIT(rst);
 }
+/**@}*/
 
 #undef _RCC_REG
 #undef _RCC_BIT

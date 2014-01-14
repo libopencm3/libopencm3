@@ -1,17 +1,17 @@
 /** @defgroup rtc_defines RTC Defines
-
-@brief <b>Defined Constants and Types for the STM32F1xx Real Time Clock</b>
-
-@ingroup STM32F1xx_defines
-
-@author @htmlonly &copy; @endhtmlonly 2010 Uwe Hermann <uwe@hermann-uwe.de>
-
-@version 1.0.0
-
-@date 4 March 2013
-
-LGPL License Terms @ref lgpl_license
- */
+ *
+ * @brief <b>Defined Constants and Types for the STM32F1xx Real Time Clock</b>
+ *
+ * @ingroup STM32F1xx_defines
+ *
+ * @author @htmlonly &copy; @endhtmlonly 2010 Uwe Hermann <uwe@hermann-uwe.de>
+ *
+ * @version 1.0.0
+ *
+ * @date 4 March 2013
+ *
+ * LGPL License Terms @ref lgpl_license
+ *  */
 /*
  * This file is part of the libopencm3 project.
  *
@@ -38,6 +38,7 @@ LGPL License Terms @ref lgpl_license
 
 #ifndef LIBOPENCM3_RTC_H
 #define LIBOPENCM3_RTC_H
+/**@{*/
 
 #include <libopencm3/stm32/memorymap.h>
 #include <libopencm3/cm3/common.h>
@@ -166,5 +167,6 @@ void rtc_awake_from_standby(void);
 void rtc_auto_awake(enum rcc_osc clock_source, uint32_t prescale_val);
 
 END_DECLS
+/**@}*/
 
 #endif

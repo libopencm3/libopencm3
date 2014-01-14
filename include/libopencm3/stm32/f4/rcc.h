@@ -1,3 +1,25 @@
+/** @defgroup rcc_defines RCC Defines
+ *
+ * @brief <b>Defined Constants and Types for the STM32F4xx Reset and Clock
+ * Control</b>
+ *
+ * @ingroup STM32F4xx_defines
+ *
+ * @version 1.0.0
+ *
+ * @author @htmlonly &copy; @endhtmlonly 2009
+ * Federico Ruiz-Ugalde \<memeruiz at gmail dot com\>
+ * @author @htmlonly &copy; @endhtmlonly 2009
+ * Uwe Hermann <uwe@hermann-uwe.de>
+ * @author @htmlonly &copy; @endhtmlonly 2011
+ * Fergus Noble <fergusnoble@gmail.com>
+ * @author @htmlonly &copy; @endhtmlonly 2011
+ * Stephen Caudle <scaudle@doceme.com>
+ *
+ * @date 18 August 2012
+ *
+ * LGPL License Terms @ref lgpl_license
+ *  */
 /*
  * This file is part of the libopencm3 project.
  *

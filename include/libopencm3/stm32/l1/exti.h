@@ -1,3 +1,19 @@
+/** @defgroup exti_defines EXTI Defines
+ *
+ * @brief <b>Defined Constants and Types for the STM32L1xx External Interrupts
+ * </b>
+ *
+ * @ingroup STM32L1xx_defines
+ *
+ * @author @htmlonly &copy; @endhtmlonly 2013
+ * Piotr Esden-Tempski <piotr@esden.net>
+ *
+ * @version 1.0.0
+ *
+ * @date 14 January 2014
+ *
+ * LGPL License Terms @ref lgpl_license
+ */
 /*
  * This file is part of the libopencm3 project.
  *

@@ -1,3 +1,8 @@
+/** @addtogroup exti_defines
+ *
+ * @author @htmlonly &copy; @endhtmlonly 2010
+ * Mark Butler <mbutler@physics.otago.ac.nz>
+ */
 /*
  * This file is part of the libopencm3 project.
  *
@@ -22,6 +27,7 @@
 /** @endcond */
 #ifndef LIBOPENCM3_EXTI_COMMON_F24_H
 #define LIBOPENCM3_EXTI_COMMON_F24_H
+/**@{*/
 
 #include <libopencm3/stm32/memorymap.h>
 #include <libopencm3/cm3/common.h>
@@ -31,6 +37,7 @@
 #define EXTI20				(1 << 20)
 #define EXTI21				(1 << 21)
 #define EXTI22				(1 << 22)
+/**@}*/
 
 #endif
 /** @cond */

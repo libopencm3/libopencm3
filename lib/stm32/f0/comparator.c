@@ -27,6 +27,7 @@
  * You should have received a copy of the GNU Lesser General Public License
  * along with this library.  If not, see <http://www.gnu.org/licenses/>.
  */
+/**@{*/
 
 #include <libopencm3/stm32/comparator.h>
 
@@ -59,3 +60,5 @@ void comp_select_speed(uint8_t id, uint32_t speed)
 {
 	COMP_CSR(id) = (COMP_CSR(id) & ~COMP_CSR_SPEED) | speed;
 }
+/**@}*/
+

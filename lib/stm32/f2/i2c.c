@@ -1,15 +1,15 @@
 /** @defgroup i2c_file I2C
-
-@ingroup STM32F2xx
-
-@brief <b>libopencm3 STM32F2xx I2C</b>
-
-@version 1.0.0
-
-@date 15 October 2012
-
-LGPL License Terms @ref lgpl_license
-*/
+ *
+ * @ingroup STM32F2xx
+ *
+ * @brief <b>libopencm3 STM32F2xx I2C</b>
+ *
+ * @version 1.0.0
+ *
+ * @date 15 October 2012
+ *
+ * LGPL License Terms @ref lgpl_license
+ */
 
 /*
  * This file is part of the libopencm3 project.
@@ -29,5 +29,5 @@ LGPL License Terms @ref lgpl_license
  */
 
 #include <libopencm3/stm32/i2c.h>
-#include <libopencm3/stm32/common/spi_common_all.h>
+#include <libopencm3/stm32/common/i2c_common_all.h>
 

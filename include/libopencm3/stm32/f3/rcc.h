@@ -1,9 +1,22 @@
 /** @defgroup rcc_defines RCC Defines
  *
  * @brief <b>Defined Constants and Types for the STM32F3xx Reset and Clock
- * control</b>
+ * Control</b>
  *
  * @ingroup STM32F3xx_defines
+ *
+ * @author @htmlonly &copy; @endhtmlonly 2009
+ * Federico Ruiz-Ugalde \<memeruiz at gmail dot com\>
+ * @author @htmlonly &copy; @endhtmlonly 2009
+ * Uwe Hermann <uwe@hermann-uwe.de>
+ * @author @htmlonly &copy; @endhtmlonly 2011
+ * Fergus Noble <fergusnoble@gmail.com>
+ * @author @htmlonly &copy; @endhtmlonly 2011
+ * Stephen Caudle <scaudle@doceme.com>
+ * @author @htmlonly &copy; @endhtmlonly 2013
+ * Fernando Cortes <fernando.corcam@gmail.com>
+ * @author @htmlonly &copy; @endhtmlonly 2013
+ * Guillermo Rivera <memogrg@gmail.com>
  *
  * @version 1.0.0
  *

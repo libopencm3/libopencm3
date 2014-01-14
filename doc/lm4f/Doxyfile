@@ -21,10 +21,8 @@ INPUT                  = ../../include/libopencm3/license.dox \
 
 LAYOUT_FILE 		   = DoxygenLayout_lm4f.xml
 
-TAGFILES               = ../cm3/cm3.tag=../../cm3/html
-
 GENERATE_TAGFILE       = lm4f.tag
 
-ENABLE_PREPROCESSING    = NO
+ENABLE_PREPROCESSING    = YES
 
 

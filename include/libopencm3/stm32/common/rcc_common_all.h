@@ -1,4 +1,8 @@
-
+/** @addtogroup rcc_defines
+ *
+ * @author @htmlonly &copy; @endhtmlonly 2013
+ * Frantisek Burian <BuFran@seznam.cz>
+ */
 /*
  * This file is part of the libopencm3 project.
  *
@@ -29,6 +33,7 @@
 
 #ifndef LIBOPENCM3_RCC_COMMON_ALL_H
 #define LIBOPENCM3_RCC_COMMON_ALL_H
+/**@{*/
 
 BEGIN_DECLS
 
@@ -44,6 +49,12 @@ void rcc_periph_reset_hold(enum rcc_periph_rst rst);
 void rcc_periph_reset_release(enum rcc_periph_rst rst);
 
 END_DECLS
+/**@}*/
 
 #endif
+/** @cond */
+#else
+#warning "rcc_common_all.h should not be included explicitly, only via rcc.h"
 #endif
+/** @endcond */
+

@@ -1,3 +1,8 @@
+/** @addtogroup exti_defines
+ *
+ * @author @htmlonly &copy; @endhtmlonly 2010
+ * Mark Butler <mbutler@physics.otago.ac.nz>
+ */
 /*
  * This file is part of the libopencm3 project.
  *
@@ -22,6 +27,7 @@
 /** @endcond */
 #ifndef LIBOPENCM3_EXTI_COMMON_ALL_H
 #define LIBOPENCM3_EXTI_COMMON_ALL_H
+/**@{*/
 
 #include <libopencm3/stm32/memorymap.h>
 #include <libopencm3/cm3/common.h>
@@ -74,6 +80,7 @@ void exti_select_source(uint32_t exti, uint32_t gpioport);
 uint32_t exti_get_flag_status(uint32_t exti);
 
 END_DECLS
+/**@}*/
 
 #endif
 /** @cond */

@@ -23,10 +23,8 @@ EXCLUDE                =
 
 LAYOUT_FILE 		   = DoxygenLayout_efm32lg.xml
 
-TAGFILES               = ../cm3/cm3.tag=../../cm3/html \
-
 GENERATE_TAGFILE       = efm32lg.tag
 
-ENABLE_PREPROCESSING    = NO
+ENABLE_PREPROCESSING    = YES
 
 

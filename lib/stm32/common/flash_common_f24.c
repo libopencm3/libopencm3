@@ -17,6 +17,7 @@
  * You should have received a copy of the GNU Lesser General Public License
  * along with this library.  If not, see <http://www.gnu.org/licenses/>.
  */
+/**@{*/
 
 #include <libopencm3/stm32/flash.h>
 
@@ -222,3 +223,5 @@ void flash_program_option_bytes(uint32_t data)
 	FLASH_OPTCR |= FLASH_OPTCR_OPTSTRT;  /* Enable option byte prog. */
 	flash_wait_for_last_operation();
 }
+/**@}*/
+

@@ -1,25 +1,23 @@
-/** @defgroup pwr_file PWR
+/** @defgroup rtc_file RTC
  *
- * @ingroup STM32F1xx
+ * @ingroup STM32F3xx
  *
- * @brief <b>libopencm3 STM32F1xx Power Control</b>
+ * @brief <b>libopencm3 STM32F3xx Real Time Clock</b>
  *
  * @version 1.0.0
  *
- * @author @htmlonly &copy; @endhtmlonly 2012
+ * @author @htmlonly &copy; @endhtmlonly 2014
  * Ken Sarkies <ksarkies@internode.on.net>
  *
- * @date 18 August 2012
- *
- * This library supports the power control system for the
- * STM32F1 series of ARM Cortex Microcontrollers by ST Microelectronics.
+ * @date 13 January 2014
  *
  * LGPL License Terms @ref lgpl_license
  */
+
 /*
  * This file is part of the libopencm3 project.
  *
- * Copyright (C) 2012 Ken Sarkies <ksarkies@internode.on.net>
+ * Copyright (C) 2014 Ken Sarkies <ksarkies@internode.on.net>
  *
  * This library is free software: you can redistribute it and/or modify
  * it under the terms of the GNU Lesser General Public License as published by
@@ -35,9 +33,6 @@
  * along with this library.  If not, see <http://www.gnu.org/licenses/>.
  */
 
-/**@{*/
+#include <libopencm3/stm32/rtc.h>
 
-#include <libopencm3/stm32/pwr.h>
-
-/**@}*/
 

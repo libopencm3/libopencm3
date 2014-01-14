@@ -29,6 +29,7 @@
  * You should have received a copy of the GNU Lesser General Public License
  * along with this library.  If not, see <http://www.gnu.org/licenses/>.
  */
+/**@{*/
 
 #include <libopencm3/stm32/flash.h>
 
@@ -38,3 +39,5 @@ void flash_clear_status_flags(void)
 	flash_clear_eop_flag();
 	flash_clear_bsy_flag();
 }
+/**@}*/
+

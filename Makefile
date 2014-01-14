@@ -86,7 +86,8 @@ install: lib
 	@printf "  INSTALL scripts\n"
 	$(Q)$(INSTALL) -m 0644 scripts/*.scr $(SHAREDIR)
 
-doc:
+
+html doc:
 	$(Q)$(MAKE) -C doc html
 
 clean: $(IRQ_DEFN_FILES:=.cleanhdr) $(LIB_DIRS:=.clean) $(EXAMPLE_DIRS:=.clean) doc.clean styleclean

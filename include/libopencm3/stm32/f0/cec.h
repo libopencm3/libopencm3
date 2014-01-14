@@ -31,6 +31,7 @@
 
 #ifndef LIBOPENCM3_CEC_H
 #define LIBOPENCM3_CEC_H
+/**@{*/
 
 #include <libopencm3/cm3/common.h>
 #include <libopencm3/stm32/memorymap.h>
@@ -122,5 +123,6 @@
 BEGIN_DECLS
 
 END_DECLS
+/**@}*/
 
 #endif
