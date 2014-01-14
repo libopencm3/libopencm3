@@ -239,7 +239,11 @@
 #define RCC_AHBENR_IOPCEN			(1 << 19)
 #define RCC_AHBENR_IOPBEN			(1 << 18)
 #define RCC_AHBENR_IOPAEN			(1 << 17)
-#define RCC_AHBENR_CRCEN			(1 << 1)
+#define RCC_AHBENR_CRCEN			(1 << 6)
+#define RCC_AHBENR_FLITFEN			(1 << 4)
+#define RCC_AHBENR_SRAMEN			(1 << 2)
+#define RCC_AHBENR_DMA2EN			(1 << 1)
+#define RCC_AHBENR_DMA1EN			(1 << 0)
 
 /* --- RCC_APB2ENR values -------------------------------------------------- */
 
@@ -260,6 +264,9 @@
 #define RCC_APB1ENR_USBEN			(1 << 23)
 #define RCC_APB1ENR_I2C2EN			(1 << 22)
 #define RCC_APB1ENR_I2C1EN			(1 << 21)
+#define RCC_APB1ENR_USART5EN			(1 << 20)
+#define RCC_APB1ENR_USART4EN			(1 << 19)
+#define RCC_APB1ENR_USART3EN			(1 << 18)
 #define RCC_APB1ENR_USART2EN			(1 << 17)
 #define RCC_APB1ENR_SPI3EN			(1 << 15)
 #define RCC_APB1ENR_SPI2EN			(1 << 14)
