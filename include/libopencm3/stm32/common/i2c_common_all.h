@@ -1,9 +1,8 @@
 /** @addtogroup i2c_defines
-
-@author @htmlonly &copy; @endhtmlonly 2010 Thomas Otto <tommi@viadmin.org>
-
-*/
-
+ *
+ * @author @htmlonly &copy; @endhtmlonly 2010 Thomas Otto <tommi@viadmin.org>
+ *
+ */
 /*
  * This file is part of the libopencm3 project.
  *
@@ -28,7 +27,7 @@ The order of header inclusion is important. i2c.h includes the device
 specific memorymap.h header before including this header file.*/
 
 /** @cond */
-#if defined(LIBOPENCM3_I2C_H) || defined(LIBOPENCM3_I2C_COMMON_F24_H)
+#if defined(LIBOPENCM3_I2C_H)
 /** @endcond */
 #ifndef LIBOPENCM3_I2C_COMMON_ALL_H
 #define LIBOPENCM3_I2C_COMMON_ALL_H

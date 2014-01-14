@@ -1,10 +1,9 @@
 /** @addtogroup hash_defines
-
-@author @htmlonly &copy; @endhtmlonly 2013
-Mikhail Avkhimenia <mikhail@avkhimenia.net>
-
-*/
-
+ *
+ * @author @htmlonly &copy; @endhtmlonly 2013
+ * Mikhail Avkhimenia <mikhail@avkhimenia.net>
+ *
+ */
 /*
  * This file is part of the libopencm3 project.
  *
@@ -26,7 +25,9 @@ Mikhail Avkhimenia <mikhail@avkhimenia.net>
 
 /**@{*/
 
+/** @cond */
 #ifdef LIBOPENCM3_HASH_H
+/** @endcond */
 #ifndef LIBOPENCM3_HASH_COMMON_F24_H
 #define LIBOPENCM3_HASH_COMMON_F24_H
 
@@ -174,6 +175,9 @@ void hash_get_result(uint32_t *data);
 END_DECLS
 /**@}*/
 #endif
+/** @cond */
 #else
 #warning "hash_common_f24.h should not be included explicitly, only via hash.h"
 #endif
+/** @endcond */
+

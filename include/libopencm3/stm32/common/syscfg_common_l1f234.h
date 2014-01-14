@@ -1,3 +1,9 @@
+/** @addtogroup syscfg_defines
+ *
+ * @author @htmlonly &copy; @endhtmlonly 2011
+ * Fergus Noble <fergusnoble@gmail.com>
+ *
+ */
 /*
  * This file is part of the libopencm3 project.
  *
@@ -27,7 +33,7 @@ specific memorymap.h header before including this header file.*/
 #ifndef LIBOPENCM3_SYSCFG_COMMON_L1F234_H
 #define LIBOPENCM3_SYSCFG_COMMON_L1F234_H
 
-
+/**@{*/
 #include <libopencm3/stm32/memorymap.h>
 
 
@@ -47,6 +53,7 @@ specific memorymap.h header before including this header file.*/
 #define SYSCFG_CMPCR			MMIO32(SYSCFG_BASE + 0x20)
 
 #endif
+/**@}*/
 
 /** @cond */
 #else

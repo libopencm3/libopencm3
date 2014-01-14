@@ -1,20 +1,20 @@
-/** @defgroup pwr-file PWR
-
-@ingroup STM32F4xx
-
-@brief <b>libopencm3 STM32F4xx Power Control</b>
-
-@version 1.0.0
-
-@author @htmlonly &copy; @endhtmlonly 2011 Stephen Caudle <scaudle@doceme.com>
-
-@date 4 March 2013
-
-This library supports the power control system for the
-STM32F4 series of ARM Cortex Microcontrollers by ST Microelectronics.
-
-LGPL License Terms @ref lgpl_license
-*/
+/** @defgroup pwr_file PWR
+ *
+ * @ingroup STM32F4xx
+ *
+ * @brief <b>libopencm3 STM32F4xx Power Control</b>
+ *
+ * @version 1.0.0
+ *
+ * @author @htmlonly &copy; @endhtmlonly 2011 Stephen Caudle <scaudle@doceme.com>
+ *
+ * @date 4 March 2013
+ *
+ * This library supports the power control system for the
+ * STM32F4 series of ARM Cortex Microcontrollers by ST Microelectronics.
+ *
+ * LGPL License Terms @ref lgpl_license
+ */
 /*
  * This file is part of the libopencm3 project.
  *

@@ -4,7 +4,7 @@
  *
  * @section rcc_f2_api_ex Reset and Clock Control API.
  *
- * @brief <b>libopencm3 STM32F4xx Reset and Clock Control</b>
+ * @brief <b>libopencm3 STM32F2xx Reset and Clock Control</b>
  *
  * @author @htmlonly &copy; @endhtmlonly 2013 Frantisek Burian <BuFran at seznam.cz>
  *

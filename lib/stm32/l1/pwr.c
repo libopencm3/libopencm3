@@ -1,20 +1,20 @@
-/** @defgroup pwr-file PWR
-
-@ingroup STM32L1xx
-
-@brief <b>libopencm3 STM32L1xx Power Control</b>
-
-@version 1.0.0
-
-@author @htmlonly &copy; @endhtmlonly 2012 Karl Palsson <karlp@tweak.net.au>
-
-@date 4 March 2013
-
-This library supports the power control system for the
-STM32L1 series of ARM Cortex Microcontrollers by ST Microelectronics.
-
-LGPL License Terms @ref lgpl_license
-*/
+/** @defgroup pwr_file PWR
+ *
+ * @ingroup STM32L1xx
+ *
+ * @brief <b>libopencm3 STM32L1xx Power Control</b>
+ *
+ * @version 1.0.0
+ *
+ * @author @htmlonly &copy; @endhtmlonly 2012 Karl Palsson <karlp@tweak.net.au>
+ *
+ * @date 4 March 2013
+ *
+ * This library supports the power control system for the
+ * STM32L1 series of ARM Cortex Microcontrollers by ST Microelectronics.
+ *
+ * LGPL License Terms @ref lgpl_license
+ */
 /*
  * This file is part of the libopencm3 project.
  *

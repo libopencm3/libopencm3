@@ -5,9 +5,12 @@
  *
  * @ingroup STM32F3xx_defines
  *
+ * @author @htmlonly &copy; @endhtmlonly 2013
+ * Piotr Esden-Tempski <piotr@esden.net>
+ *
  * @version 1.0.0
  *
- * @date 11 July 2013
+ * @date 14 January 2014
  *
  * LGPL License Terms @ref lgpl_license
  */
@@ -32,6 +35,7 @@
 
 #ifndef LIBOPENCM3_EXTI_H
 #define LIBOPENCM3_EXTI_H
+/**@{*/
 
 #include <libopencm3/stm32/memorymap.h>
 #include <libopencm3/stm32/common/exti_common_all.h>
@@ -43,5 +47,6 @@
 #define EXTI_FTSR2			MMIO32(EXTI_BASE + 0x24)
 #define EXTI_SWIER2			MMIO32(EXTI_BASE + 0x28)
 #define EXTI_PR2			MMIO32(EXTI_BASE + 0x2C)
+/**@}*/
 
 #endif

@@ -1,9 +1,8 @@
 /** @addtogroup timer_defines
-
-@author @htmlonly &copy; @endhtmlonly 2009 Piotr Esden-Tempski <piotr@esden.net>
-
-*/
-
+ *
+ * @author @htmlonly &copy; @endhtmlonly 2009 Piotr Esden-Tempski <piotr@esden.net>
+ *
+ */
 /*
  * This file is part of the libopencm3 project.
  *
@@ -30,7 +29,7 @@ The order of header inclusion is important. timer.h includes the device
 specific memorymap.h header before including this header file.*/
 
 /** @cond */
-#if defined(LIBOPENCM3_TIMER_H) || defined(LIBOPENCM3_TIMER_COMMON_F24_H)
+#if defined(LIBOPENCM3_TIMER_H)
 /** @endcond */
 #ifndef LIBOPENCM3_TIMER_COMMON_H
 #define LIBOPENCM3_TIMER_COMMON_H
