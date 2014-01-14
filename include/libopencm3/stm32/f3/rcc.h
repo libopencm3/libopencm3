@@ -226,7 +226,9 @@
 #define RCC_AHBENR_IOPCEN			(1 << 19)
 #define RCC_AHBENR_IOPBEN			(1 << 18)
 #define RCC_AHBENR_IOPAEN			(1 << 17)
-#define RCC_AHBENR_CRCEN			(1 << 1)
+#define RCC_AHBENR_CRCEN                        (1 << 6)
+#define RCC_AHBENR_DMA2EN                       (1 << 1)
+#define RCC_AHBENR_DMA1EN                       (1 << 0)
 
 /* --- RCC_APB2ENR values -------------------------------------------------- */
 
