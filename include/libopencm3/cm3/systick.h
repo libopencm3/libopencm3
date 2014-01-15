@@ -123,6 +123,7 @@ void systick_interrupt_disable(void);
 void systick_counter_enable(void);
 void systick_counter_disable(void);
 uint8_t systick_get_countflag(void);
+void systick_clear(void);
 
 uint32_t systick_get_calib(void);
 

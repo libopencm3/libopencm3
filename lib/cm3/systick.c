@@ -46,6 +46,10 @@
  * The counter is set to the reload value when the counter starts and after it
  * reaches zero.
  *
+ * @note The systick counter value might be undefined upon startup. To get
+ * predictable behavior, it is a good idea to set or clear the counter after
+ * set reload. @seealso systick_clear
+ *
  * @param[in] value uint32_t. 24 bit reload value.
  */
 
@@ -173,6 +177,17 @@ void systick_counter_disable(void)
 uint8_t systick_get_countflag(void)
 {
 	return (STK_CSR & STK_CSR_COUNTFLAG) ? 1 : 0;
+}
+
+/*---------------------------------------------------------------------------*/
+/** @brief SysTick Clear counter Value.
+ *
+ * The counter value is cleared. Useful for well defined startup.
+ */
+
+void systick_clear(void)
+{
+	STK_CVR = 0;
 }
 
 /*---------------------------------------------------------------------------*/
