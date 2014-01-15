@@ -1,3 +1,16 @@
+/** @defgroup flash_defines FLASH Defines
+ *
+ * @ingroup STM32F1xx_defines
+ *
+ * @brief Defined Constants and Types for the STM32F1xx FLASH Memory
+ *
+ * @version 1.0.0
+ *
+ * @date 14 January 2014
+ *
+ * LGPL License Terms @ref lgpl_license
+ */
+
 /*
  * This file is part of the libopencm3 project.
  *
@@ -27,6 +40,8 @@
 
 #ifndef LIBOPENCM3_FLASH_H
 #define LIBOPENCM3_FLASH_H
+
+/**@{*/
 
 #include <libopencm3/stm32/memorymap.h>
 #include <libopencm3/cm3/common.h>
@@ -76,14 +91,14 @@
 /* FLASH_OBR[25:18]: Data1 */
 /* FLASH_OBR[17:10]: Data0 */
 #define FLASH_OBR_NRST_STDBY		(1 << 4)
-#define FLASH_OBR_NRST_STOP			(1 << 3)
-#define FLASH_OBR_WDG_SW			(1 << 2)
+#define FLASH_OBR_NRST_STOP		(1 << 3)
+#define FLASH_OBR_WDG_SW		(1 << 2)
 #define FLASH_OBR_RDPRT			(1 << 1)
-#define FLASH_OBR_OPTERR			(1 << 0)
+#define FLASH_OBR_OPTERR		(1 << 0)
 
 /* --- FLASH Keys -----------------------------------------------------------*/
 
-#define FLASH_RDP_KEY				((uint16_t)0x00a5)
+#define FLASH_RDP_KEY			((uint16_t)0x00a5)
 #define FLASH_KEYR_KEY1			((uint32_t)0x45670123)
 #define FLASH_KEYR_KEY2			((uint32_t)0xcdef89ab)
 
@@ -114,5 +129,7 @@ void flash_erase_option_bytes(void);
 void flash_program_option_bytes(uint32_t address, uint16_t data);
 
 END_DECLS
+
+/**@}*/
 
 #endif
