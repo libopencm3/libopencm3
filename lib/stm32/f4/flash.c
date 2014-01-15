@@ -1,8 +1,8 @@
 /** @defgroup flash_file FLASH
  *
- * @ingroup STM32F3xx
+ * @ingroup STM32F4xx
  *
- * @brief <b>libopencm3 STM32F3xx FLASH</b>
+ * @brief <b>libopencm3 STM32F4xx FLASH</b>
  *
  * @version 1.0.0
  *
@@ -13,11 +13,14 @@
  *
  * @date 14 January 2014
  *
- * This library supports the FLASH memory controller in the STM32F3
+ * This library supports the FLASH memory controller in the STM32F4
  * series of ARM Cortex Microcontrollers by ST Microelectronics.
  *
- * For the STM32F3xx, accessing FLASH memory is described in
- * section 3 of the STM32F3xx Reference Manual.
+ * For the STM32F4xx, accessing FLASH memory is described briefly in
+ * section 2.3.3 of the STM32F4xx Reference Manual.
+ * For detailed programming information see:
+ * PM0081 programming manual: STM32F10xxx Flash programming
+ * September 2011, Doc ID 018520 Rev 1
  *
  * LGPL License Terms @ref lgpl_license
  */
@@ -46,17 +49,5 @@
 
 #include <libopencm3/stm32/flash.h>
 
-/*---------------------------------------------------------------------------*/
-/** @brief Clear All Status Flags
-
-Clears program error, end of operation, busy flags.
-*/
-
-void flash_clear_status_flags(void)
-{
-	flash_clear_pgperr_flag();
-	flash_clear_eop_flag();
-	flash_clear_bsy_flag();
-}
 /**@}*/
 

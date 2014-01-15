@@ -6,7 +6,10 @@
  *
  * @version 1.0.0
  *
- * @date 11 July 2013
+ * @author @htmlonly &copy; @endhtmlonly 2013
+ * Frantisek Burian <BuFran@seznam.cz>
+ *
+ * @date 14 January 2014
  *
  * LGPL License Terms @ref lgpl_license
  */
@@ -31,6 +34,7 @@
 
 #ifndef LIBOPENCM3_FLASH_H
 #define LIBOPENCM3_FLASH_H
+/**@{*/
 
 #include <libopencm3/stm32/memorymap.h>
 #include <libopencm3/cm3/common.h>
@@ -137,5 +141,6 @@ void flash_erase_page(uint32_t page_address);
 void flash_erase_all_pages(void);
 
 END_DECLS
+/**@}*/
 
 #endif

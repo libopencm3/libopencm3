@@ -1,3 +1,19 @@
+/** @defgroup flash_defines FLASH Defines
+ *
+ * @ingroup STM32L1xx_defines
+ *
+ * @brief Defined Constants and Types for the STM32L1xx FLASH Memory
+ *
+ * @version 1.0.0
+ *
+ * @author @htmlonly &copy; @endhtmlonly 2012
+ * Karl Palsson <karlp@tweak.net.au>
+ *
+ * @date 14 January 2014
+ *
+ * LGPL License Terms @ref lgpl_license
+ */
+
 /*
  * This file is part of the libopencm3 project.
  *
@@ -26,6 +42,7 @@
 
 #ifndef LIBOPENCM3_FLASH_H
 #define LIBOPENCM3_FLASH_H
+/**@{*/
 
 #include <libopencm3/stm32/memorymap.h>
 #include <libopencm3/cm3/common.h>
@@ -122,5 +139,6 @@ void flash_prefetch_disable(void);
 void flash_set_ws(uint32_t ws);
 
 END_DECLS
+/**@}*/
 
 #endif
