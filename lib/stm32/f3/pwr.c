@@ -2,7 +2,12 @@
  *
  * @ingroup STM32F3xx
  *
- * @brief <b>libopencm3 STM32F3xx Power control</b>
+ * @brief <b>libopencm3 STM32F3xx Power Control</b>
+ *
+ * @author @htmlonly &copy; @endhtmlonly 2014
+ * Ken Sarkies <ksarkies@internode.on.net>
+ *
+ * @date 13 January 2014
  *
  * @version 1.0.0
  *
@@ -13,6 +18,8 @@
 
 /*
  * This file is part of the libopencm3 project.
+ *
+ * Copyright (C) 2014 Ken Sarkies <ksarkies@internode.on.net>
  *
  * This library is free software: you can redistribute it and/or modify
  * it under the terms of the GNU Lesser General Public License as published by

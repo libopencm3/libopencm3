@@ -1,4 +1,4 @@
-/** @defgroup pwr-file PWR
+/** @defgroup pwr_file PWR
  *
  * @ingroup STM32F0xx
  *

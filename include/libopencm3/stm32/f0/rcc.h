@@ -1,8 +1,12 @@
 /** @defgroup rcc_defines RCC Defines
  *
- * @brief <b>libopencm3 STM32F0xx Reset and Clock Control</b>
+ * @brief <b>Defined Constants and Types for the STM32F0xx Reset and Clock
+Control</b>
  *
  * @ingroup STM32F0xx_defines
+ *
+ * @author @htmlonly &copy; @endhtmlonly 2013
+ * Frantisek Burian <BuFran@seznam.cz>
  *
  * @version 1.0.0
  *

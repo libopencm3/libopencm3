@@ -1,3 +1,19 @@
+/** @defgroup syscfg_defines SYSCFG Defines
+ *
+ * @ingroup STM32F4xx_defines
+ *
+ * @brief Defined Constants and Types for the STM32F4xx Sysconfig
+ *
+ * @version 1.0.0
+ *
+ * @author @htmlonly &copy; @endhtmlonly 2013
+ * Frantisek Burian <BuFran@seznam.cz>
+ *
+ * @date 13 January 2014
+ *
+ * LGPL License Terms @ref lgpl_license
+ *  */
+
 /*
  * This file is part of the libopencm3 project.
  *

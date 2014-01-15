@@ -32,6 +32,7 @@
  * You should have received a copy of the GNU Lesser General Public License
  * along with this library.  If not, see <http://www.gnu.org/licenses/>.
  */
+/**@{*/
 
 #include <libopencm3/cm3/assert.h>
 #include <libopencm3/stm32/f3/rcc.h>
@@ -460,3 +461,5 @@ void rcc_usb_prescale_1(void)
 {
 	RCC_CFGR |= RCC_CFGR_USBPRES;
 }
+/**@}*/
+

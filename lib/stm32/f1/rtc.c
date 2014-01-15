@@ -1,18 +1,18 @@
 /** @defgroup rtc_file RTC
-
-@ingroup STM32F1xx
-
-@brief <b>libopencm3 STM32F1xx RTC</b>
-
-@author @htmlonly &copy; @endhtmlonly 2010 Uwe Hermann <uwe@hermann-uwe.de>
-@author @htmlonly &copy; @endhtmlonly 2010 Lord James <lordjames@y7mail.com>
-
-@version 1.0.0
-
-@date 4 March 2013
-
-LGPL License Terms @ref lgpl_license
-*/
+ *
+ * @ingroup STM32F1xx
+ *
+ * @brief <b>libopencm3 STM32F1xx RTC</b>
+ *
+ * @author @htmlonly &copy; @endhtmlonly 2010 Uwe Hermann <uwe@hermann-uwe.de>
+ * @author @htmlonly &copy; @endhtmlonly 2010 Lord James <lordjames@y7mail.com>
+ *
+ * @version 1.0.0
+ *
+ * @date 4 March 2013
+ *
+ * LGPL License Terms @ref lgpl_license
+ */
 
 /*
  * This file is part of the libopencm3 project.
@@ -33,6 +33,8 @@ LGPL License Terms @ref lgpl_license
  * You should have received a copy of the GNU Lesser General Public License
  * along with this library.  If not, see <http://www.gnu.org/licenses/>.
  */
+/**@{*/
+
 
 #include <libopencm3/stm32/rcc.h>
 #include <libopencm3/stm32/rtc.h>
@@ -299,3 +301,5 @@ void rtc_auto_awake(enum rcc_osc clock_source, uint32_t prescale_val)
 		rtc_set_prescale_val(prescale_val);
 	}
 }
+/**@}*/
+

@@ -1,22 +1,23 @@
-/** @defgroup STM32L1xx_rcc_defines RCC Defines
-
-@ingroup STM32L1xx_defines
-
-@brief <b>libopencm3 STM32L1xx Reset and Clock Control</b>
-
-@version 1.0.0
-
-@author @htmlonly &copy; @endhtmlonly 2009
-Federico Ruiz-Ugalde \<memeruiz at gmail dot com\>
-@author @htmlonly &copy; @endhtmlonly 2009
-Uwe Hermann <uwe@hermann-uwe.de>
-@author @htmlonly &copy; @endhtmlonly 2012
-Karl Palsson <karlp@tweak.net.au>
-
-@date 11 November 2012
-
-LGPL License Terms @ref lgpl_license
- */
+/** @defgroup rcc_defines RCC Defines
+ *
+ * @ingroup STM32L1xx_defines
+ *
+ * @brief <b>Defined Constants and Types for the STM32L1xx Reset and Clock
+ * Control</b>
+ *
+ * @version 1.0.0
+ *
+ * @author @htmlonly &copy; @endhtmlonly 2009
+ * Federico Ruiz-Ugalde \<memeruiz at gmail dot com\>
+ * @author @htmlonly &copy; @endhtmlonly 2009
+ * Uwe Hermann <uwe@hermann-uwe.de>
+ * @author @htmlonly &copy; @endhtmlonly 2012
+ * Karl Palsson <karlp@tweak.net.au>
+ *
+ * @date 11 November 2012
+ *
+ * LGPL License Terms @ref lgpl_license
+ *  */
 
 /*
  * This file is part of the libopencm3 project.

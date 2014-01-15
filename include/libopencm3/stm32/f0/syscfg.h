@@ -6,7 +6,10 @@
  *
  * @version 1.0.0
  *
- * @date 11 July 2013
+ * @author @htmlonly &copy; @endhtmlonly 2013
+ * Frantisek Burian <BuFran@seznam.cz>
+ *
+ * @date 13 January 2014
  *
  * LGPL License Terms @ref lgpl_license
  */
@@ -31,6 +34,7 @@
 
 #ifndef LIBOPENCM3_SYSCFG_H
 #define LIBOPENCM3_SYSCFG_H
+/**@{*/
 
 #include <libopencm3/cm3/common.h>
 #include <libopencm3/stm32/memorymap.h>
@@ -104,5 +108,6 @@
 BEGIN_DECLS
 
 END_DECLS
+/**@}*/
 
 #endif
