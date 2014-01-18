@@ -128,6 +128,20 @@ struct usb_cdc_line_coding {
 	uint8_t bDataBits;
 } __attribute__((packed));
 
+enum usb_cdc_line_coding_bCharFormat {
+	USB_CDC_1_STOP_BITS			= 0,
+	USB_CDC_1_5_STOP_BITS			= 1,
+	USB_CDC_2_STOP_BITS			= 2,
+};
+
+enum usb_cdc_line_coding_bParityType {
+	USB_CDC_NO_PARITY			= 0,
+	USB_CDC_ODD_PARITY			= 1,
+	USB_CDC_EVEN_PARITY			= 2,
+	USB_CDC_MARK_PARITY			= 3,
+	USB_CDC_SPACE_PARITY			= 4,
+};
+
 /* Table 30: Class-Specific Notification Codes for PSTN subclasses */
 /* ... */
 #define USB_CDC_NOTIFY_SERIAL_STATE		0x20
