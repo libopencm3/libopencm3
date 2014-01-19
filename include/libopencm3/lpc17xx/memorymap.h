@@ -25,9 +25,9 @@
 /* --- LPC17XX specific peripheral definitions ----------------------------- */
 
 /* Memory map for all busses */
-#define PERIPH_BASE_APB0		0x40000000
-#define PERIPH_BASE_APB1		0x40080000
-#define PERIPH_BASE_AHB			0x20000000
+#define PERIPH_BASE_APB0		(0x40000000U)
+#define PERIPH_BASE_APB1		(0x40080000U)
+#define PERIPH_BASE_AHB			(0x20000000U)
 
 /* Register boundary addresses */
 

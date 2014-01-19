@@ -25,12 +25,12 @@
 /* --- STM32F20x specific peripheral definitions --------------------------- */
 
 /* Memory map for all busses */
-#define PERIPH_BASE			0x40000000
+#define PERIPH_BASE			(0x40000000U)
 #define PERIPH_BASE_APB1		(PERIPH_BASE + 0x00000)
 #define PERIPH_BASE_APB2		(PERIPH_BASE + 0x10000)
 #define PERIPH_BASE_AHB1		(PERIPH_BASE + 0x20000)
-#define PERIPH_BASE_AHB2		0x50000000
-#define PERIPH_BASE_AHB3		0x60000000
+#define PERIPH_BASE_AHB2		(0x50000000U)
+#define PERIPH_BASE_AHB3		(0x60000000U)
 
 /* Register boundary addresses */
 
@@ -131,8 +131,8 @@
 #define DBGMCU_BASE			(PPBI_BASE + 0x00042000)
 
 /* Device Electronic Signature */
-#define DESIG_FLASH_SIZE_BASE		(0x1FFF7A22)
-#define DESIG_UNIQUE_ID_BASE		(0x1FFF7A10)
+#define DESIG_FLASH_SIZE_BASE		(0x1FFF7A22U)
+#define DESIG_UNIQUE_ID_BASE		(0x1FFF7A10U)
 #define DESIG_UNIQUE_ID0		MMIO32(DESIG_UNIQUE_ID_BASE)
 #define DESIG_UNIQUE_ID1		MMIO32(DESIG_UNIQUE_ID_BASE + 4)
 #define DESIG_UNIQUE_ID2		MMIO32(DESIG_UNIQUE_ID_BASE + 8)

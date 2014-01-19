@@ -23,7 +23,7 @@
 /* --- ARM Cortex-M0, M3 and M4 specific definitions ----------------------- */
 
 /* Private peripheral bus - Internal */
-#define PPBI_BASE                       0xE0000000
+#define PPBI_BASE                       (0xE0000000U)
 
 /* Those defined only on ARMv7 and above */
 #if defined(__ARM_ARCH_7M__) || defined(__ARM_ARCH_7EM__)

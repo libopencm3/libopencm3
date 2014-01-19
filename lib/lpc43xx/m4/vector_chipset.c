@@ -22,7 +22,7 @@
 
 extern unsigned _etext_ram, _text_ram, _etext_rom;
 
-#define CREG_M4MEMMAP   MMIO32((0x40043000 + 0x100))
+#define CREG_M4MEMMAP   MMIO32((0x40043000U + 0x100))
 
 static void pre_main(void)
 {
