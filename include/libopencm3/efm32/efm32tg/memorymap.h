@@ -31,13 +31,13 @@
  * there are discrepancies. */
 #include <libopencm3/cm3/memorymap.h>
 
-#define CODE_BASE		0x00000000
+#define CODE_BASE		(0x00000000U)
 
-#define SRAM_BASE		0x20000000
-#define SRAM_BASE_BITBAND	0x22000000
+#define SRAM_BASE		(0x20000000U)
+#define SRAM_BASE_BITBAND	(0x22000000U)
 
-#define PERIPH_BASE		0x40000000
-#define PERIPH_BASE_BITBAND	0x42000000
+#define PERIPH_BASE		(0x40000000U)
+#define PERIPH_BASE_BITBAND	(0x42000000U)
 
 /* Details of the "Code" section */
 

@@ -27,9 +27,9 @@
 /* --- STM32 specific peripheral definitions ------------------------------- */
 
 /* Memory map for all buses */
-#define FLASH_BASE			((uint32_t)0x08000000)
-#define PERIPH_BASE			((uint32_t)0x40000000)
-#define INFO_BASE			((uint32_t)0x1ffff000)
+#define FLASH_BASE			(0x08000000U)
+#define PERIPH_BASE			(0x40000000U)
+#define INFO_BASE			(0x1ffff000U)
 #define PERIPH_BASE_APB			(PERIPH_BASE + 0x00000000)
 #define PERIPH_BASE_AHB1		(PERIPH_BASE + 0x00020000)
 #define PERIPH_BASE_AHB2		(PERIPH_BASE + 0x08000000)
@@ -93,8 +93,8 @@
 #define GPIO_PORT_F_BASE		(PERIPH_BASE_AHB2 + 0x1400)
 
 /* Device Electronic Signature */
-#define DESIG_FLASH_SIZE_BASE		(0x1FFFF7CC)
-#define DESIG_UNIQUE_ID_BASE		(0x1FFFF7AC)
+#define DESIG_FLASH_SIZE_BASE		(0x1FFFF7CCU)
+#define DESIG_UNIQUE_ID_BASE		(0x1FFFF7ACU)
 #define DESIG_UNIQUE_ID0		MMIO32(DESIG_UNIQUE_ID_BASE)
 #define DESIG_UNIQUE_ID1		MMIO32(DESIG_UNIQUE_ID_BASE + 4)
 #define DESIG_UNIQUE_ID2		MMIO32(DESIG_UNIQUE_ID_BASE + 8)
