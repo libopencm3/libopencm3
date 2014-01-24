@@ -37,25 +37,20 @@
 /**@{*/
 
 #include <libopencm3/stm32/memorymap.h>
-#include <libopencm3/cm3/common.h>
+#include <libopencm3/stm32/common/flash_common_f01.h>
 
-/*****************************************************************************/
-/* Module definitions                                                        */
-/*****************************************************************************/
+/* --- FLASH_OPTION values ------------------------------------------------- */
 
-
-/*****************************************************************************/
-/* Register definitions                                                      */
-/*****************************************************************************/
-
-#define FLASH_ACR			MMIO32(FLASH_MEM_INTERFACE_BASE + 0x00)
-#define FLASH_KEYR			MMIO32(FLASH_MEM_INTERFACE_BASE + 0x04)
-#define FLASH_OPTKEYR			MMIO32(FLASH_MEM_INTERFACE_BASE + 0x08)
-#define FLASH_SR			MMIO32(FLASH_MEM_INTERFACE_BASE + 0x0C)
-#define FLASH_CR			MMIO32(FLASH_MEM_INTERFACE_BASE + 0x10)
-#define FLASH_AR			MMIO32(FLASH_MEM_INTERFACE_BASE + 0x14)
-#define FLASH_OBR			MMIO32(FLASH_MEM_INTERFACE_BASE + 0x1C)
-#define FLASH_WRPR			MMIO32(FLASH_MEM_INTERFACE_BASE + 0x20)
+/** @defgroup flash_options Option Byte Addresses
+@ingroup flash_defines
+@{*/
+#define FLASH_OPTION_BYTE_0             FLASH_OPTION_BYTE(0)
+#define FLASH_OPTION_BYTE_1             FLASH_OPTION_BYTE(1)
+#define FLASH_OPTION_BYTE_2             FLASH_OPTION_BYTE(2)
+#define FLASH_OPTION_BYTE_3             FLASH_OPTION_BYTE(3)
+#define FLASH_OPTION_BYTE_4             FLASH_OPTION_BYTE(4)
+#define FLASH_OPTION_BYTE_5             FLASH_OPTION_BYTE(5)
+/**@}*/
 
 /*****************************************************************************/
 /* Register values                                                           */
@@ -63,15 +58,14 @@
 
 /* --- FLASH_ACR values ---------------------------------------------------- */
 
-#define FLASH_ACR_PRFTBS		(1 << 5)
-#define FLASH_ACR_PRFTBE		(1 << 4)
-#define FLASH_ACR_LATENCY_SHIFT		0
-#define FLASH_ACR_LATENCY		7
+/** @defgroup flash_latency FLASH Wait States
+@ingroup flash_defines
+@{*/
 #define FLASH_ACR_LATENCY_000_024MHZ	0
 #define FLASH_ACR_LATENCY_024_048MHZ	1
 #define FLASH_ACR_LATENCY_0WS		0
 #define FLASH_ACR_LATENCY_1WS		1
-
+/**@}*/
 
 /* --- FLASH_SR values ----------------------------------------------------- */
 
@@ -83,16 +77,6 @@
 /* --- FLASH_CR values ----------------------------------------------------- */
 
 #define FLASH_CR_OBL_LAUNCH		(1 << 13)
-#define FLASH_CR_EOPIE			(1 << 12)
-#define FLASH_CR_ERRIE			(1 << 10)
-#define FLASH_CR_OPTWRE			(1 << 9)
-#define FLASH_CR_LOCK			(1 << 7)
-#define FLASH_CR_STRT			(1 << 6)
-#define FLASH_CR_OPTER			(1 << 5)
-#define FLASH_CR_OPTPG			(1 << 4)
-#define FLASH_CR_MER			(1 << 2)
-#define FLASH_CR_PER			(1 << 1)
-#define FLASH_CR_PG			(1 << 0)
 
 /* --- FLASH_OBR values ---------------------------------------------------- */
 
@@ -107,38 +91,25 @@
 #define FLASH_OBR_NRST_STDBY		(1 << 10)
 #define FLASH_OBR_NRST_STOP		(1 << 9)
 #define FLASH_OBR_WDG_SW		(1 << 8)
-#define FLASH_OBR_RDPRT_SHIFT		1
 #define FLASH_OBR_RDPRT			(3 << FLASH_OBR_RDPRT_SHIFT)
 #define FLASH_OBR_RDPRT_L0		(0 << FLASH_OBR_RDPRT_SHIFT)
 #define FLASH_OBR_RDPRT_L1		(1 << FLASH_OBR_RDPRT_SHIFT)
-#define FLASH_OBR_RDPRT_L2		(2 << FLASH_OBR_RDPRT_SHIFT)
-
-#define FLASH_OBR_OPTERR		(1 << 0)
+#define FLASH_OBR_RDPRT_L2		(3 << FLASH_OBR_RDPRT_SHIFT)
 
 /*****************************************************************************/
 /* API definitions                                                           */
 /*****************************************************************************/
 
+/* Read protection option byte protection level setting */
 #define FLASH_RDP_L0			((uint8_t)0xaa)
 #define FLASH_RDP_L1			((uint8_t)0xf0) /* any value */
 #define FLASH_RDP_L2			((uint8_t)0xcc)
-#define FLASH_KEYR_KEY1			((uint32_t)0x45670123)
-#define FLASH_KEYR_KEY2			((uint32_t)0xcdef89ab)
 
 /*****************************************************************************/
 /* API Functions                                                             */
 /*****************************************************************************/
 
 BEGIN_DECLS
-
-void flash_prefetch_buffer_enable(void);
-void flash_prefetch_buffer_disable(void);
-void flash_set_ws(uint32_t ws);
-void flash_wait_busy(void);
-void flash_program_u32(uint32_t address, uint32_t data);
-void flash_program_u16(uint32_t address, uint16_t data);
-void flash_erase_page(uint32_t page_address);
-void flash_erase_all_pages(void);
 
 END_DECLS
 /**@}*/

@@ -14,6 +14,16 @@
  * For the STM32F05x, accessing FLASH memory is described in
  * section 3 of the STM32F05x Reference Manual.
  *
+ * FLASH memory may be used for data storage as well as code, and may be
+ * programmatically modified. Note that for firmware upload the STM32F1xx
+ * provides a built-in bootloader in system memory that can be entered from a
+ * running program.
+ *
+ * FLASH must first be unlocked before programming. In this module a write to
+ * FLASH is a blocking operation until the end-of-operation flag is asserted.
+ *
+ * @note: don't forget to lock it again when all operations are complete.
+ *
  * LGPL License Terms @ref lgpl_license
  */
 
@@ -41,87 +51,35 @@
 #include <libopencm3/stm32/flash.h>
 
 /*---------------------------------------------------------------------------*/
-/** @brief Enable the FLASH Prefetch Buffer
+/** @brief Clear All Status Flags
 
-This buffer is used for instruction fetches and is enabled by default after
-reset.
-
-Note carefully the clock restrictions under which the prefetch buffer may be
-enabled or disabled. Changes are normally made while the clock is running in
-the power-on low frequency mode before being set to a higher speed mode.
-See the reference manual for details.
+Program error, end of operation, write protect error, busy.
 */
 
-void flash_prefetch_buffer_enable(void)
+void flash_clear_status_flags(void)
 {
-	FLASH_ACR |= FLASH_ACR_PRFTBE;
+	flash_clear_pgerr_flag();
+	flash_clear_eop_flag();
+	flash_clear_wrprterr_flag();
+	flash_clear_bsy_flag();
 }
 
 /*---------------------------------------------------------------------------*/
-/** @brief Disable the FLASH Prefetch Buffer
+/** @brief Read All Status Flags
 
-Note carefully the clock restrictions under which the prefetch buffer may be
-set to disabled. See the reference manual for details.
+The programming error, end of operation, write protect error and busy flags
+are returned in the order of appearance in the status register.
+
+@returns uint32_t. bit 0: busy, bit 2: programming error, bit 4: write protect
+error, bit 5: end of operation.
 */
 
-void flash_prefetch_buffer_disable(void)
+uint32_t flash_get_status_flags(void)
 {
-	FLASH_ACR &= ~FLASH_ACR_PRFTBE;
-}
-
-/*---------------------------------------------------------------------------*/
-/** @brief Set the Number of Wait States
-
-Used to match the system clock to the FLASH memory access time. See the
-reference manual for more information on clock speed ranges for each wait state.
-The latency must be changed to the appropriate value <b>before</b> any increase
-in clock speed, or <b>after</b> any decrease in clock speed.
-
-@param[in] uint32_t ws: values 0 or 1 only.
-*/
-
-void flash_set_ws(uint32_t ws)
-{
-	FLASH_ACR = (FLASH_ACR & ~FLASH_ACR_LATENCY) | ws;
-}
-
-/*---------------------------------------------------------------------------*/
-/** @brief Wait for Busy Flag
-
-This loops indefinitely until the busy flag is clear.
-*/
-
-void flash_wait_busy(void)
-{
-	while ((FLASH_SR & FLASH_SR_BSY) != 0);
-}
-
-/*---------------------------------------------------------------------------*/
-/** @brief Program a 32 bit Word to FLASH
-
-This performs all operations necessary to program a 32 bit word to FLASH memory.
-The program error flag should be checked separately for the event that memory
-was not properly erased.
-
-@param[in] uint32_t address. Full address of flash word to be programmed.
-@param[in] uint32_t data.
-*/
-
-void flash_program_u32(uint32_t address, uint32_t data)
-{
-	flash_wait_busy();
-
-	FLASH_CR |= FLASH_CR_PG;
-
-	MMIO16(address) = (uint16_t)data;
-
-	flash_wait_busy();
-
-	MMIO16(address + 2) = data >> 16;
-
-	flash_wait_busy();
-
-	FLASH_CR &= ~FLASH_CR_PG;
+	return (FLASH_SR & (FLASH_SR_PGERR |
+			FLASH_SR_EOP |
+			FLASH_SR_WRPRTERR |
+			FLASH_SR_BSY));
 }
 
 /*---------------------------------------------------------------------------*/
@@ -131,19 +89,21 @@ This performs all operations necessary to program a 16 bit word to FLASH memory.
 The program error flag should be checked separately for the event that memory
 was not properly erased.
 
-@param[in] uint32_t address Full address of flash half word to be programmed.
+Status bit polling is used to detect end of operation.
+
+@param[in] uint32_t address. Full address of flash half word to be programmed.
 @param[in] uint16_t data.
 */
 
-void flash_program_u16(uint32_t address, uint16_t data)
+void flash_program_half_word(uint32_t address, uint16_t data)
 {
-	flash_wait_busy();
+	flash_wait_for_last_operation();
 
 	FLASH_CR |= FLASH_CR_PG;
 
 	MMIO16(address) = data;
 
-	flash_wait_busy();
+	flash_wait_for_last_operation();
 
 	FLASH_CR &= ~FLASH_CR_PG;
 }
@@ -163,13 +123,14 @@ the FLASH programming manual for details.
 
 void flash_erase_page(uint32_t page_address)
 {
-	flash_wait_busy();
+	flash_wait_for_last_operation();
 
 	FLASH_CR |= FLASH_CR_PER;
 	FLASH_AR = page_address;
 	FLASH_CR |= FLASH_CR_STRT;
 
-	flash_wait_busy();
+	flash_wait_for_last_operation();
+
 	FLASH_CR &= ~FLASH_CR_PER;
 }
 
@@ -182,13 +143,15 @@ memory. The information block is unaffected.
 
 void flash_erase_all_pages(void)
 {
-	flash_wait_busy();
+	flash_wait_for_last_operation();
 
 	FLASH_CR |= FLASH_CR_MER;		/* Enable mass erase. */
 	FLASH_CR |= FLASH_CR_STRT;		/* Trigger the erase. */
 
-	flash_wait_busy();
+	flash_wait_for_last_operation();
 	FLASH_CR &= ~FLASH_CR_MER;		/* Disable mass erase. */
+
 }
+
 /**@}*/
 

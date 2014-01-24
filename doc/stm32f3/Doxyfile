@@ -23,6 +23,7 @@ EXCLUDE                = ../../include/libopencm3/stm32/f3/usb.h \
                          ../../include/libopencm3/stm32/f3/usb_desc.h
 
 EXCLUDE_PATTERNS	= *_common_*f*24.h *_common_*f*24.c \
+                          *_common_*f01.h *_common_*f01.c \
                           *_common_bcd.h *_common_bcd.c
 
 LAYOUT_FILE		= DoxygenLayout_stm32f3.xml
