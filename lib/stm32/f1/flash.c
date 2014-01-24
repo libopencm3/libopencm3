@@ -25,6 +25,16 @@
  * provides a built-in bootloader in system memory that can be entered from a
  * running program.
  *
+ * FLASH must first be unlocked before programming. In this module a write to
+ * FLASH is a blocking operation until the end-of-operation flag is asserted.
+ *
+ * @note: don't forget to lock it again when all operations are complete.
+ *
+ * For the large memory XL series, with two banks of FLASH, the upper bank is
+ * accessed with a second set of registers. In principle both banks can be
+ * written simultaneously, or one read while the other is written. This module
+ * does not support the simultaneous write feature.
+ *
  * LGPL License Terms @ref lgpl_license
  */
 /*
@@ -50,35 +60,10 @@
 /**@{*/
 
 #include <libopencm3/stm32/flash.h>
+#include <libopencm3/stm32/memorymap.h>
 
-/*---------------------------------------------------------------------------*/
-/** @brief Enable the FLASH Prefetch Buffer
-
-This buffer is used for instruction fetches and is enabled by default after
-reset.
-
-Note carefully the clock restrictions under which the prefetch buffer may be
-enabled or disabled. Changes are normally made while the clock is running in
-the power-on low frequency mode before being set to a higher speed mode.
-See the reference manual for details.
-*/
-
-void flash_prefetch_buffer_enable(void)
-{
-	FLASH_ACR |= FLASH_ACR_PRFTBE;
-}
-
-/*---------------------------------------------------------------------------*/
-/** @brief Disable the FLASH Prefetch Buffer
-
-Note carefully the clock restrictions under which the prefetch buffer may be
-set to disabled. See the reference manual for details.
-*/
-
-void flash_prefetch_buffer_disable(void)
-{
-	FLASH_ACR &= ~FLASH_ACR_PRFTBE;
-}
+/* Memory Size Register */
+#define MEMORY_SIZE_REG			MMIO32(DESIG_FLASH_SIZE_BASE)
 
 /*---------------------------------------------------------------------------*/
 /** @brief Enable the FLASH Half Cycle Mode
@@ -107,99 +92,84 @@ void flash_halfcycle_disable(void)
 }
 
 /*---------------------------------------------------------------------------*/
-/** @brief Set the Number of Wait States
+/** @brief Unlock the Flash Program and Erase Controller, upper Bank
 
-Used to match the system clock to the FLASH memory access time. See the
-reference manual for more information on clock speed ranges for each wait state.
-The latency must be changed to the appropriate value <b>before</b> any increase
-in clock speed, or <b>after</b> any decrease in clock speed.
-
-
-@param[in] uint32_t ws: values 0, 1 or 2 only.
+This enables write access to the upper bank of the Flash memory in XL devices.
+It is locked by default on reset.
 */
 
-void flash_set_ws(uint32_t ws)
+void flash_unlock_upper(void)
 {
-	uint32_t reg32;
+	if (MEMORY_SIZE_REG > 512) {
 
-	reg32 = FLASH_ACR;
-	reg32 &= ~((1 << 0) | (1 << 1) | (1 << 2));
-	reg32 |= ws;
-	FLASH_ACR = reg32;
+		/* Clear the unlock state. */
+		FLASH_CR2 |= FLASH_CR_LOCK;
+
+		/* Authorize the FPEC access. */
+		FLASH_KEYR2 = FLASH_KEYR_KEY1;
+		FLASH_KEYR2 = FLASH_KEYR_KEY2;
+	}
 }
 
 /*---------------------------------------------------------------------------*/
-/** @brief Unlock the Flash Program and Erase Controller
-
-This enables write access to the Flash memory. It is locked by default on
-reset.
-*/
-
-void flash_unlock(void)
-{
-	/* Clear the unlock state. */
-	FLASH_CR |= FLASH_CR_LOCK;
-
-	/* Authorize the FPEC access. */
-	FLASH_KEYR = FLASH_KEYR_KEY1;
-	FLASH_KEYR = FLASH_KEYR_KEY2;
-}
-
-/*---------------------------------------------------------------------------*/
-/** @brief Lock the Flash Program and Erase Controller
+/** @brief Lock the Flash Program and Erase Controller, upper Bank
 
 Used to prevent spurious writes to FLASH.
 */
 
-void flash_lock(void)
+void flash_lock_upper(void)
 {
-	FLASH_CR |= FLASH_CR_LOCK;
+	FLASH_CR2 |= FLASH_CR_LOCK;
 }
 
 /*---------------------------------------------------------------------------*/
-/** @brief Clear the Programming Error Status Flag
+/** @brief Clear the Programming Error Status Flag, upper Bank
 
 */
 
-void flash_clear_pgerr_flag(void)
+void flash_clear_pgerr_flag_upper(void)
 {
-	FLASH_SR |= FLASH_SR_PGERR;
+	if (MEMORY_SIZE_REG > 512)
+		FLASH_SR2 |= FLASH_SR_PGERR;
 }
 
 /*---------------------------------------------------------------------------*/
-/** @brief Clear the End of Operation Status Flag
+/** @brief Clear the End of Operation Status Flag, upper Bank
 
 */
 
-void flash_clear_eop_flag(void)
+void flash_clear_eop_flag_upper(void)
 {
-	FLASH_SR |= FLASH_SR_EOP;
+	if (MEMORY_SIZE_REG > 512)
+		FLASH_SR2 |= FLASH_SR_EOP;
 }
 
 /*---------------------------------------------------------------------------*/
-/** @brief Clear the Write Protect Error Status Flag
+/** @brief Clear the Write Protect Error Status Flag, upper Bank
 
 */
 
-void flash_clear_wrprterr_flag(void)
+void flash_clear_wrprterr_flag_upper(void)
 {
-	FLASH_SR |= FLASH_SR_WRPRTERR;
+	if (MEMORY_SIZE_REG > 512)
+		FLASH_SR2 |= FLASH_SR_WRPRTERR;
 }
 
 /*---------------------------------------------------------------------------*/
-/** @brief Clear the Busy Status Flag
+/** @brief Clear the Busy Status Flag, upper Bank
 
 */
 
-void flash_clear_bsy_flag(void)
+void flash_clear_bsy_flag_upper(void)
 {
-	FLASH_SR &= ~FLASH_SR_BSY;
+	if (MEMORY_SIZE_REG > 512)
+		FLASH_SR2 &= ~FLASH_SR_BSY;
 }
 
 /*---------------------------------------------------------------------------*/
 /** @brief Clear All Status Flags
 
-Program error, end of operation, write protect error, busy.
+Program error, end of operation, write protect error, busy. Both banks cleared.
 */
 
 void flash_clear_status_flags(void)
@@ -208,6 +178,12 @@ void flash_clear_status_flags(void)
 	flash_clear_eop_flag();
 	flash_clear_wrprterr_flag();
 	flash_clear_bsy_flag();
+	if (MEMORY_SIZE_REG > 512) {
+		flash_clear_pgerr_flag_upper();
+		flash_clear_eop_flag_upper();
+		flash_clear_wrprterr_flag_upper();
+		flash_clear_bsy_flag_upper();
+	}
 }
 
 /*---------------------------------------------------------------------------*/
@@ -216,77 +192,25 @@ void flash_clear_status_flags(void)
 The programming error, end of operation, write protect error and busy flags
 are returned in the order of appearance in the status register.
 
+Flags for the upper bank, where appropriate, are combined with those for
+the lower bank using bitwise OR, without distinction.
+
 @returns uint32_t. bit 0: busy, bit 2: programming error, bit 4: write protect
 error, bit 5: end of operation.
 */
 
 uint32_t flash_get_status_flags(void)
 {
-	return FLASH_SR &= (FLASH_SR_PGERR |
+	uint32_t flags = (FLASH_SR & (FLASH_SR_PGERR |
 			FLASH_SR_EOP |
 			FLASH_SR_WRPRTERR |
-			FLASH_SR_BSY);
-}
-
-/*---------------------------------------------------------------------------*/
-/** @brief Unlock the Option Byte Access
-
-This enables write access to the option bytes. It is locked by default on
-reset.
-*/
-
-void flash_unlock_option_bytes(void)
-{
-	/* F1 uses same keys for flash and option */
-	FLASH_OPTKEYR = FLASH_KEYR_KEY1;
-	FLASH_OPTKEYR = FLASH_KEYR_KEY2;
-}
-
-/*---------------------------------------------------------------------------*/
-/** @brief Wait until Last Operation has Ended
-
-This loops indefinitely until an operation (write or erase) has completed by
-testing the busy flag.
-*/
-
-void flash_wait_for_last_operation(void)
-{
-	while ((FLASH_SR & FLASH_SR_BSY) == FLASH_SR_BSY);
-}
-
-/*---------------------------------------------------------------------------*/
-/** @brief Program a 32 bit Word to FLASH
-
-This performs all operations necessary to program a 32 bit word to FLASH memory.
-The program error flag should be checked separately for the event that memory
-was not properly erased.
-
-@param[in] uint32_t address. Full address of flash word to be programmed.
-@param[in] uint32_t data.
-*/
-
-void flash_program_word(uint32_t address, uint32_t data)
-{
-	/* Ensure that all flash operations are complete. */
-	flash_wait_for_last_operation();
-
-	/* Enable writes to flash. */
-	FLASH_CR |= FLASH_CR_PG;
-
-	/* Program the first half of the word. */
-	MMIO16(address) = (uint16_t)data;
-
-	/* Wait for the write to complete. */
-	flash_wait_for_last_operation();
-
-	/* Enable writes to flash. */
-	FLASH_CR |= FLASH_CR_PG;
-
-	/* Program the second half of the word. */
-	MMIO16(address + 2) = data >> 16;
-
-	/* Wait for the write to complete. */
-	flash_wait_for_last_operation();
+			FLASH_SR_BSY));
+	if (MEMORY_SIZE_REG > 512)
+		flags |= (FLASH_SR2 & (FLASH_SR_PGERR |
+			FLASH_SR_EOP |
+			FLASH_SR_WRPRTERR |
+			FLASH_SR_BSY));
+    return flags;
 }
 
 /*---------------------------------------------------------------------------*/
@@ -296,6 +220,8 @@ This performs all operations necessary to program a 16 bit word to FLASH memory.
 The program error flag should be checked separately for the event that memory
 was not properly erased.
 
+Status bit polling is used to detect end of operation.
+
 @param[in] uint32_t address. Full address of flash half word to be programmed.
 @param[in] uint16_t data.
 */
@@ -304,11 +230,17 @@ void flash_program_half_word(uint32_t address, uint16_t data)
 {
 	flash_wait_for_last_operation();
 
-	FLASH_CR |= FLASH_CR_PG;
+	if ((MEMORY_SIZE_REG > 512) && (address >= FLASH_BASE+0x00080000))
+		FLASH_CR2 |= FLASH_CR_PG;
+	else FLASH_CR |= FLASH_CR_PG;
 
 	MMIO16(address) = data;
 
 	flash_wait_for_last_operation();
+
+	if ((MEMORY_SIZE_REG > 512) && (address >= FLASH_BASE+0x00080000))
+		FLASH_CR2 &= ~FLASH_CR_PG;
+	else FLASH_CR &= ~FLASH_CR_PG;
 }
 
 /*---------------------------------------------------------------------------*/
@@ -321,19 +253,29 @@ first be fully erased before attempting to program it.
 Note that the page sizes differ between devices. See the reference manual or
 the FLASH programming manual for details.
 
-@param[in] uint32_t page_address. Full address of flash psge to be erased.
+@param[in] uint32_t page_address. Full address of flash page to be erased.
 */
 
 void flash_erase_page(uint32_t page_address)
 {
 	flash_wait_for_last_operation();
 
-	FLASH_CR |= FLASH_CR_PER;
-	FLASH_AR = page_address;
-	FLASH_CR |= FLASH_CR_STRT;
+	if ((MEMORY_SIZE_REG > 512) && (page_address >= FLASH_BASE+0x00080000)) {
+		FLASH_CR2 |= FLASH_CR_PER;
+		FLASH_AR2 = page_address;
+		FLASH_CR2 |= FLASH_CR_STRT;
+	} else  {
+		FLASH_CR |= FLASH_CR_PER;
+		FLASH_AR = page_address;
+		FLASH_CR |= FLASH_CR_STRT;
+	}
 
 	flash_wait_for_last_operation();
-	FLASH_CR &= ~FLASH_CR_PER;
+
+	if ((MEMORY_SIZE_REG > 512) && (page_address >= FLASH_BASE+0x00080000))
+		FLASH_CR2 &= ~FLASH_CR_PER;
+	else
+		FLASH_CR &= ~FLASH_CR_PER;
 }
 
 /*---------------------------------------------------------------------------*/
@@ -352,52 +294,14 @@ void flash_erase_all_pages(void)
 
 	flash_wait_for_last_operation();
 	FLASH_CR &= ~FLASH_CR_MER;		/* Disable mass erase. */
+
+/* Repeat for bank 2 */
+	FLASH_CR2 |= FLASH_CR_MER;
+	FLASH_CR2 |= FLASH_CR_STRT;
+
+	flash_wait_for_last_operation();
+	FLASH_CR2 &= ~FLASH_CR_MER;
 }
 
-/*---------------------------------------------------------------------------*/
-/** @brief Erase All Option Bytes
-
-This performs all operations necessary to erase the option bytes. These must
-first be fully erased before attempting to program them.
-*/
-
-void flash_erase_option_bytes(void)
-{
-	flash_wait_for_last_operation();
-
-	if ((FLASH_CR & FLASH_CR_OPTWRE) == 0) {
-		flash_unlock_option_bytes();
-	}
-
-	FLASH_CR |= FLASH_CR_OPTER;	/* Enable option byte erase. */
-	FLASH_CR |= FLASH_CR_STRT;
-	flash_wait_for_last_operation();
-	FLASH_CR &= ~FLASH_CR_OPTER;	/* Disable option byte erase. */
-}
-
-/*---------------------------------------------------------------------------*/
-/** @brief Program the Option Bytes
-
-This performs all operations necessary to program the option bytes.
-The write protect error flag should be checked separately for the event that
-an option byte was not properly erased.
-
-@param[in] uint32_t address. Full address of option byte to program.
-@param[in] uint16_t data.
-*/
-
-void flash_program_option_bytes(uint32_t address, uint16_t data)
-{
-	flash_wait_for_last_operation();
-
-	if ((FLASH_CR & FLASH_CR_OPTWRE) == 0) {
-		flash_unlock_option_bytes();
-	}
-
-	FLASH_CR |= FLASH_CR_OPTPG;	/* Enable option byte programming. */
-	MMIO16(address) = data;
-	flash_wait_for_last_operation();
-	FLASH_CR &= ~FLASH_CR_OPTPG;	/* Disable option byte programming. */
-}
 /**@}*/
 

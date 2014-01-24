@@ -21,7 +21,6 @@
  * You should have received a copy of the GNU Lesser General Public License
  * along with this library.  If not, see <http://www.gnu.org/licenses/>.
  */
-/**@{*/
 
 /**@{*/
 
@@ -35,7 +34,7 @@ programming manual for more information on clock speed ranges. The latency must
 be changed to the appropriate value <b>before</b> any increase in clock
 speed, or <b>after</b> any decrease in clock speed.
 
-@param[in] uint32_t ws: values 0-7 only.
+@param[in] uint32_t ws: values from @ref flash_latency.
 */
 
 void flash_set_ws(uint32_t ws)

@@ -67,8 +67,12 @@
 #define FLASH_ACR_SLEEPPD		(1 << 3)
 #define FLASH_ACR_ACC64			(1 << 2)
 #define FLASH_ACR_PRFTEN		(1 << 1)
+/** @defgroup flash_latency FLASH Wait States
+@ingroup flash_defines
+@{*/
 #define FLASH_ACR_LATENCY_0WS		0x00
 #define FLASH_ACR_LATENCY_1WS		0x01
+/**@}*/
 
 /* --- FLASH_PECR values. Program/erase control register */
 #define FLASH_PECR_OBL_LAUNCH		(1 << 18)

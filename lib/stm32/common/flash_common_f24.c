@@ -21,7 +21,6 @@
  * You should have received a copy of the GNU Lesser General Public License
  * along with this library.  If not, see <http://www.gnu.org/licenses/>.
  */
-/**@{*/
 
 /**@{*/
 
@@ -396,8 +395,7 @@ void flash_erase_all_sectors(uint32_t program_size)
 /** @brief Program the Option Bytes
 
 This performs all operations necessary to program the option bytes.
-The write protect error flag should be checked separately for the event that
-an option byte was not properly erased.
+The option bytes do not need to be erased first.
 
 @param[in] uint32_t data to be programmed.
 */
