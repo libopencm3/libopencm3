@@ -108,7 +108,7 @@ latency must be changed to the appropriate value <b>before</b> any increase in
 clock speed, or <b>after</b> any decrease in clock speed. A latency setting of
 zero only applies if 64-bit mode is not used.
 
-@param[in] uint32_t ws: values 0 or 1 only.
+@param[in] uint32_t ws: values from @ref flash_latency.
 */
 
 void flash_set_ws(uint32_t ws)
