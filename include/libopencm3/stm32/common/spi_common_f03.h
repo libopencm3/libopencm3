@@ -37,6 +37,11 @@
  * applicable to the STM32F0/F3 series of devices
  */
 
+#define SPI_DR8(spi_base)	MMIO8(spi_base + 0x0c)
+#define SPI1_DR8		SPI_DR8(SPI1_BASE)
+#define SPI2_DR8		SPI_DR8(SPI2_I2S_BASE)
+#define SPI3_DR8		SPI_DR8(SPI3_I2S_BASE)
+
 /* DFF: Data frame format */
 /****************************************************************************/
 /** @defgroup spi_dff SPI data frame format
@@ -98,6 +103,8 @@
 
 BEGIN_DECLS
 
+void spi_set_crcl_8bit(uint32_t spi);
+void spi_set_crcl_16bit(uint32_t spi);
 void spi_set_data_size(uint32_t spi, uint16_t data_s);
 void spi_fifo_reception_threshold_8bit(uint32_t spi);
 void spi_fifo_reception_threshold_16bit(uint32_t spi);
