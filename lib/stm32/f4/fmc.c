@@ -1,4 +1,4 @@
-/* vim: set noexpandtab ts=8:
+/*
  *
  * This file is part of the libopencm3 project.
  *
