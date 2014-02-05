@@ -55,6 +55,9 @@ uint32_t rcc_ppre_frequency = 8000000; /* 8MHz after reset */
 void rcc_osc_ready_int_clear(enum rcc_osc osc)
 {
 	switch (osc) {
+	case HSI48:
+		RCC_CIR |= RCC_CIR_HSI48RDYC;
+		break;
 	case HSI14:
 		RCC_CIR |= RCC_CIR_HSI14RDYC;
 		break;
@@ -85,6 +88,9 @@ void rcc_osc_ready_int_clear(enum rcc_osc osc)
 void rcc_osc_ready_int_enable(enum rcc_osc osc)
 {
 	switch (osc) {
+	case HSI48:
+		RCC_CIR |= RCC_CIR_HSI48RDYIE;
+		break;
 	case HSI14:
 		RCC_CIR |= RCC_CIR_HSI14RDYIE;
 		break;
@@ -115,6 +121,9 @@ void rcc_osc_ready_int_enable(enum rcc_osc osc)
 void rcc_osc_ready_int_disable(enum rcc_osc osc)
 {
 	switch (osc) {
+	case HSI48:
+		RCC_CIR &= ~RCC_CIR_HSI48RDYC;
+		break;
 	case HSI14:
 		RCC_CIR &= ~RCC_CIR_HSI14RDYC;
 		break;
@@ -146,6 +155,9 @@ void rcc_osc_ready_int_disable(enum rcc_osc osc)
 int rcc_osc_ready_int_flag(enum rcc_osc osc)
 {
 	switch (osc) {
+	case HSI48:
+		return (RCC_CIR & RCC_CIR_HSI48RDYF) != 0;
+		break;
 	case HSI14:
 		return (RCC_CIR & RCC_CIR_HSI14RDYF) != 0;
 		break;
@@ -198,6 +210,9 @@ int rcc_css_int_flag(void)
 void rcc_wait_for_osc_ready(enum rcc_osc osc)
 {
 	switch (osc) {
+	case HSI48:
+		while ((RCC_CIR & RCC_CIR_HSI48RDYF) != 0);
+		break;
 	case HSI14:
 		while ((RCC_CIR & RCC_CIR_HSI14RDYF) != 0);
 		break;
@@ -234,6 +249,9 @@ void rcc_wait_for_osc_ready(enum rcc_osc osc)
 void rcc_osc_on(enum rcc_osc osc)
 {
 	switch (osc) {
+	case HSI48:
+		RCC_CR2 |= RCC_CR2_HSI48ON;
+		break;
 	case HSI14:
 		RCC_CR2 |= RCC_CR2_HSI14ON;
 		break;
@@ -269,6 +287,9 @@ void rcc_osc_on(enum rcc_osc osc)
 void rcc_osc_off(enum rcc_osc osc)
 {
 	switch (osc) {
+	case HSI48:
+		RCC_CR2 &= ~RCC_CR2_HSI48ON;
+		break;
 	case HSI14:
 		RCC_CR2 &= ~RCC_CR2_HSI14ON;
 		break;
@@ -328,6 +349,7 @@ void rcc_osc_bypass_enable(enum rcc_osc osc)
 	case LSE:
 		RCC_BDCR |= RCC_BDCR_LSEBYP;
 		break;
+	case HSI48:
 	case HSI14:
 	case HSI:
 	case LSI:
@@ -357,6 +379,7 @@ void rcc_osc_bypass_disable(enum rcc_osc osc)
 	case LSE:
 		RCC_BDCR &= ~RCC_BDCR_LSEBYP;
 		break;
+	case HSI48:
 	case HSI14:
 	case PLL:
 	case HSI:
@@ -384,6 +407,9 @@ void rcc_set_sysclk_source(enum rcc_osc clk)
 		break;
 	case PLL:
 		RCC_CFGR = (RCC_CFGR & ~RCC_CFGR_SW) | RCC_CFGR_SW_PLL;
+		break;
+	case HSI48:
+		RCC_CFGR = (RCC_CFGR & ~RCC_CFGR_SW) | RCC_CFGR_SW_HSI48;
 		break;
 	case LSI:
 	case LSE:
@@ -459,6 +485,8 @@ enum rcc_osc rcc_system_clock_source(void)
 		return HSE;
 	case RCC_CFGR_SWS_PLL:
 		return PLL;
+	case RCC_CFGR_SWS_HSI48:
+		return HSI48;
 	}
 
 	cm3_assert_not_reached();
