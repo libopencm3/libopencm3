@@ -25,8 +25,8 @@
 /* --- LPC13XX specific peripheral definitions ----------------------------- */
 
 /* Memory map for all busses */
-#define PERIPH_BASE_APB			0x40000000
-#define PERIPH_BASE_AHB			0x50000000
+#define PERIPH_BASE_APB			(0x40000000U)
+#define PERIPH_BASE_AHB			(0x50000000U)
 
 /* Register boundary addresses */
 
