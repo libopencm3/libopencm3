@@ -310,9 +310,13 @@
 /* --- RCC_AHB3ENR values ------------------------------------------------- */
 
 #define RCC_AHB3ENR_FSMCEN			(1 << 0)
+/* Alternate now that F429 has DRAM controller as well */
+#define RCC_AHB3ENR_FMCEN			(1 << 0)
 
 /* --- RCC_APB1ENR values ------------------------------------------------- */
 
+#define RCC_APB1ENR_UART8EN			(1 << 31)
+#define RCC_APB1ENR_UART7EN			(1 << 30)
 #define RCC_APB1ENR_DACEN			(1 << 29)
 #define RCC_APB1ENR_PWREN			(1 << 28)
 #define RCC_APB1ENR_CAN2EN			(1 << 26)
@@ -339,10 +343,13 @@
 
 /* --- RCC_APB2ENR values ------------------------------------------------- */
 
+#define RCC_APB2ENR_SPI6EN			(1 << 21)
+#define RCC_APB2ENR_SPI5EN			(1 << 20)
 #define RCC_APB2ENR_TIM11EN			(1 << 18)
 #define RCC_APB2ENR_TIM10EN			(1 << 17)
 #define RCC_APB2ENR_TIM9EN			(1 << 16)
 #define RCC_APB2ENR_SYSCFGEN			(1 << 14)
+#define RCC_APB2ENR_SPI4EN			(1 << 13)
 #define RCC_APB2ENR_SPI1EN			(1 << 12)
 #define RCC_APB2ENR_SDIOEN			(1 << 11)
 #define RCC_APB2ENR_ADC3EN			(1 << 10)
