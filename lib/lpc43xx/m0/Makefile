@@ -20,6 +20,7 @@
 ##
 
 LIBNAME		= libopencm3_lpc43xx_m0
+SRCLIBDIR	?= ../..
 
 PREFIX		?= arm-none-eabi
 #PREFIX		?= arm-elf

@@ -19,6 +19,7 @@
 ##
 
 LIBNAME		= libopencm3_efm32gg
+SRCLIBDIR	?= ../..
 FAMILY		= EFM32GG
 
 PREFIX		?= arm-none-eabi
