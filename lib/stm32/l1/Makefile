@@ -18,6 +18,7 @@
 ##
 
 LIBNAME		= libopencm3_stm32l1
+SRCLIBDIR	?= ../..
 
 PREFIX		?= arm-none-eabi
 

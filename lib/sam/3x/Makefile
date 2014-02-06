@@ -18,6 +18,7 @@
 ##
 
 LIBNAME		= libopencm3_sam3x
+SRCLIBDIR	?= ../..
 
 PREFIX		?= arm-none-eabi
 
