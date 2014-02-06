@@ -55,7 +55,7 @@ OBJS		+= rng_common_v1.o
 OBJS            += usb.o usb_standard.o usb_control.o usb_dwc_common.o \
 		   usb_f107.o usb_f207.o usb_msc.o
 
-OBJS		+= mac.o phy.o mac_stm32fxx7.o phy_ksz8051mll.o fmc.o
+OBJS		+= mac.o phy.o mac_stm32fxx7.o phy_ksz80x1.o fmc.o
 
 OBJS		+= ltdc.o 
 
