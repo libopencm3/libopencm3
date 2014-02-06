@@ -24,6 +24,10 @@
 #	include <libopencm3/sam/3x/memorymap.h>
 #elif defined(SAM3N)
 #	include <libopencm3/sam/3n/memorymap.h>
+#elif defined(SAM3S)
+#	include <libopencm3/sam/3s/memorymap.h>
+#elif defined(SAM3U)
+#	include <libopencm3/sam/3u/memorymap.h>
 #else
 #	error "Processor family not defined."
 #endif
