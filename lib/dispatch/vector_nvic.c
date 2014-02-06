@@ -33,6 +33,10 @@
 #	include "../sam/3x/vector_nvic.c"
 #elif defined(SAM3N)
 #	include "../sam/3n/vector_nvic.c"
+#elif defined(SAM3S)
+#	include "../sam/3s/vector_nvic.c"
+#elif defined(SAM3U)
+#	include "../sam/3u/vector_nvic.c"
 
 #elif defined(LM3S) || defined(LM4F)
 /* Yes, we use the same interrupt table for both LM3S and LM4F */
