@@ -572,8 +572,8 @@ void rcc_clock_setup_in_hsi_out_40mhz(void)
 	rcc_wait_for_osc_ready(PLL);
 	rcc_set_sysclk_source(PLL);
 
-	rcc_ppre_frequency = 32000000;
-	rcc_core_frequency = 32000000;
+	rcc_ppre_frequency = 40000000;
+	rcc_core_frequency = 40000000;
 }
 
 void rcc_clock_setup_in_hsi_out_48mhz(void)
