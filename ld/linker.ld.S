@@ -59,6 +59,9 @@ MEMORY
 #if defined(_XDRAM)
 	xdram (rw) : ORIGIN = _XDRAM_OFF, LENGTH = _XDRAM
 #endif
+#if defined(_NFCRAM)
+	nfcram (rw) : ORIGIN _NFCRAM_OFF, LENGTH = _NFCRAM
+#endif
 }
 
 /* Define sections. */
@@ -167,6 +170,13 @@ SECTIONS
 		*(.xdram*)
 		. = ALIGN(4);
 	} >xdram
+#endif
+
+#if defined(_NFCRAM)
+	.nfcram : {
+		*(.nfcram*)
+		. = ALIGN(4);
+	} >nfcram
 #endif
 
 	/*
