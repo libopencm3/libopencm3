@@ -55,7 +55,7 @@ OBJS += vector.o systick.o scb.o nvic.o assert.o sync.o dwt.o
 
 all: $(SRCLIBDIR)/$(LIBNAME).a $(SRCLIBDIR)/$(LIBNAME).ld
 
-$(SRCLIBDIR)/$(LIBNAME).a: $(OBJS)
+%.a: $(OBJS)
 	@printf "  AR      $(@F)\n"
 	$(Q)$(AR) $(ARFLAGS) $@ $(OBJS)
 
