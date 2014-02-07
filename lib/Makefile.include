@@ -53,11 +53,11 @@ ARFLAGS		= rcs
 # common objects
 OBJS += vector.o systick.o scb.o nvic.o assert.o sync.o dwt.o
 
-all: $(SRCLIBDIR)/$(LIBNAME).a $(SRCLIBDIR)/$(LIBNAME).ld
+# do not delete intermediate files
+.SECONDEXPANSION:
+.SECONDARY:
 
-%.a: $(OBJS)
-	@printf "  AR      $(@F)\n"
-	$(Q)$(AR) $(ARFLAGS) $@ $(OBJS)
+all: $(SRCLIBDIR)/$(LIBNAME).a $(SRCLIBDIR)/$(LIBNAME).ld
 
 $(SRCLIBDIR)/$(LIBNAME).ld: $(LIBNAME).ld
 	@printf "  CP      $(@F)\n"

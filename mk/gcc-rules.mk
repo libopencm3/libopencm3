@@ -54,3 +54,7 @@
 %.o: %.cpp
 	@printf "  CXX     $(*).cpp\n"
 	$(Q)$(CXX) $(CXXFLAGS) $(CPPFLAGS) $(ARCH_FLAGS) -o $@ -c $<
+
+%.a: $(OBJS)
+	@printf "  AR      $(@F)\n"
+	$(Q)$(AR) $(ARFLAGS) $@ $(OBJS)
