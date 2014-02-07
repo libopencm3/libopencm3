@@ -71,7 +71,7 @@
 
 static inline void eefc_set_latency(uint8_t wait)
 {
-#if defined(SAM3X) || defined(SAM3U)
+#if defined(SAM3A) || defined(SAM3U) || defined(SAM3X)
 	EEFC_FMR(EEFC0) = (EEFC_FMR(EEFC0) & ~EEFC_FMR_FWS_MASK) | (wait << 8);
 	EEFC_FMR(EEFC1) = (EEFC_FMR(EEFC1) & ~EEFC_FMR_FWS_MASK) | (wait << 8);
 #elif defined(SAM3N) || defined(SAM3S)
