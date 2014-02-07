@@ -23,7 +23,7 @@ SRCLIBDIR	?= ../..
 
 CFLAGS		= -Os -g -Wextra -I../../../include -fno-common \
 		  -mcpu=cortex-m3 -mthumb $(FP_FLAGS) -Wstrict-prototypes \
-		  -ffunction-sections -fdata-sections -MD -DSAM3U
+		  -ffunction-sections -fdata-sections -DSAM3U
 
 OBJS		= gpio.o pmc.o usart.o
 

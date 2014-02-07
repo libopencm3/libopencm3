@@ -28,7 +28,7 @@ CFLAGS		= -Os -g \
 		  -Wshadow \
 		  -I../../../include -fno-common \
 		  -mcpu=cortex-m3 $(FP_FLAGS) -mthumb -Wstrict-prototypes \
-		  -ffunction-sections -fdata-sections -MD -D$(FAMILY)
+		  -ffunction-sections -fdata-sections -D$(FAMILY)
 
 OBJS		=
 

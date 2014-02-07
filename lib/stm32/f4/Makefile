@@ -30,7 +30,7 @@ CFLAGS		= -Os -g \
 		  -I../../../include -fno-common \
 		  -mcpu=cortex-m4 -mthumb $(FP_FLAGS) \
 		  -Wstrict-prototypes \
-		  -ffunction-sections -fdata-sections -MD -DSTM32F4
+		  -ffunction-sections -fdata-sections -DSTM32F4
 
 OBJS		= adc.o adc_common_v1.o can.o gpio.o pwr.o rcc.o rtc.o crypto.o
 

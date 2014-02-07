@@ -31,7 +31,7 @@ CFLAGS		= -O2 -g3 \
 		  -Wshadow \
 		  -I../../../include -fno-common \
 		  -mcpu=cortex-m4 -mthumb -Wstrict-prototypes \
-		  -ffunction-sections -fdata-sections -MD \
+		  -ffunction-sections -fdata-sections \
 		  $(FP_FLAGS) -DLPC43XX -DLPC43XX_M4
 
 

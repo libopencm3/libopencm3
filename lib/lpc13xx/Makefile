@@ -26,7 +26,7 @@ CFLAGS		= -Os -g \
 		  -Wshadow \
 		  -I../../include -fno-common \
 		  -mcpu=cortex-m3 -mthumb $(FP_FLAGS) -Wstrict-prototypes \
-		  -ffunction-sections -fdata-sections -MD -DLPC13XX
+		  -ffunction-sections -fdata-sections -DLPC13XX
 
 OBJS		= gpio.o
 

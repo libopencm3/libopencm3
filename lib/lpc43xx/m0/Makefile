@@ -24,7 +24,7 @@ SRCLIBDIR	?= ../..
 
 CFLAGS		= -O2 -g3 -Wextra -I../../../include -fno-common \
 		  -mcpu=cortex-m0 -mthumb -Wstrict-prototypes \
-		  -ffunction-sections -fdata-sections -MD -DLPC43XX -DLPC43XX_M0
+		  -ffunction-sections -fdata-sections -DLPC43XX -DLPC43XX_M0
 
 
 # LPC43xx common files for M4 / M0
