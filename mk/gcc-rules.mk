@@ -24,35 +24,35 @@
 #
 
 %.bin: %.elf
-	@printf "  OBJCOPY $@\n"
+	@printf "  OBJCOPY $(@F)\n"
 	$(Q)$(OBJCOPY) -Obinary $< $@
 
 %.hex: %.elf
-	@printf "  OBJCOPY $@\n"
+	@printf "  OBJCOPY $(@F)\n"
 	$(Q)$(OBJCOPY) -Oihex $< $@
 
 %.srec: %.elf
-	@printf "  OBJCOPY $@\n"
+	@printf "  OBJCOPY $(@F)\n"
 	$(Q)$(OBJCOPY) -Osrec $< $@
 
 %.list: %.elf
-	@printf "  OBJDUMP $@\n"
+	@printf "  OBJDUMP $(@F)\n"
 	$(Q)$(OBJDUMP) -S $< > $@
 
 %.elf: $(OBJS) $(LDSCRIPT) $(LIBDEPS)
-	@printf "  LD      $(*).elf\n"
+	@printf "  LD      $(@F)\n"
 	$(Q)$(LD) $(OBJS) $(LDLIBS) $(LDFLAGS) -T$(LDSCRIPT) $(ARCH_FLAGS)  -o $@
 
 %.o: %.c
-	@printf "  CC      $<\n"
+	@printf "  CC      $(<F)\n"
 	$(Q)$(CC) $(CFLAGS) $(CPPFLAGS) $(ARCH_FLAGS) -o $@ -c $<
 
 %.o: %.cxx
-	@printf "  CXX     $<\n"
+	@printf "  CXX     $(<F)\n"
 	$(Q)$(CXX) $(CXXFLAGS) $(CPPFLAGS) $(ARCH_FLAGS) -o $@ -c $<
 
 %.o: %.cpp
-	@printf "  CXX     $(*).cpp\n"
+	@printf "  CXX     $(<F)\n"
 	$(Q)$(CXX) $(CXXFLAGS) $(CPPFLAGS) $(ARCH_FLAGS) -o $@ -c $<
 
 %.a: $(OBJS)
