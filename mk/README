@@ -73,3 +73,47 @@ LDSCRIPT	Linker script file name (can be generated or fixed)
 LIBDEPS		Array of library filenames that shoud be rebuilt if needed
 LDLIBS		Array of libraries to be linked with (array of -l<libname>)
 OBJS		Array of object files to be built
+
+
+-------------------------------------------------------------------------------
+genlink
+-------------------------------------------------------------------------------
+
+  This module adds an support for the user to the linker script generator. The
+linker script will be generated as the file $(DEVICE).ld in the project folder,
+and automatically used for the linking process.
+
+Variables to control the build process (should be set in your makefile):
+------------------------------------------------------------------------
+
+DEVICE		The full device part name used for the compilation process.
+OPENCM3_DIR	The root path of libopencm3 library.
+
+Output variables from this module:
+----------------------------------
+
+DEFS		(appended)
+ - Appended definitions specified in chip database file.
+ ! Ensure that you have line 'CPPFLAGS += $(DEFS)' in your makefile.
+
+ARCH_FLAGS	(replaced)
+ - Architecture build flags for specified chip.
+ * No needed to handle this variable if you use module <gcc> too.
+
+LDSCRIPT	(replaced)
+ - Linker script generated file.
+ * No needed to handle this variable if you use module <gcc> too.
+
+OPENCM3_LIBNAME	(replaced)
+ - The right libopencm3 library base name to be linked with.
+ ! Ensure that you have line 'LDLIBS += -l$(OPENCM3_LIBNAME)' in your makefile.
+ ! Ensure that you have line 'LDFLAGS += -L$(OPENCM3_DIR)/lib' in your makefile.
+ ! Ensure that you have rule '$(OPENCM3_DIR)/lib/lib$(OPENCM3_LIBNAME).a:'
+   to be the library archive succesfully built when needed.
+
+Temporary variables that you should not use in your makefile:
+-------------------------------------------------------------
+
+GENLINK_DEFS
+GENLINK_ARCH
+GENLINK_LIB
