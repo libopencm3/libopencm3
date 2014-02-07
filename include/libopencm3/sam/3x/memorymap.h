@@ -51,6 +51,7 @@
 #define TRNG_BASE			(0x400BC000U)
 #define ADC_BASE			(0x400C0000U)
 #define DMAC_BASE			(0x400C4000U)
+#define DACC_BASE			(0x400C8000U)
 
 /* --- SAM3X system controller space ------------------------------------- */
 #define SMC_BASE			(0x400E0000U)
@@ -73,6 +74,5 @@
 #define WDT_BASE			(0x400E1A50U)
 #define RTC_BASE			(0x400E1A60U)
 #define GPBR_BASE			(0x400E1A90U)
-#define RTC_BASE			(0x400E1A60U)
 
 #endif
