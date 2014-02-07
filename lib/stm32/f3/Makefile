@@ -30,8 +30,6 @@ CFLAGS		= -Os -g \
 		  -mcpu=cortex-m4 -mthumb $(FP_FLAGS) -Wstrict-prototypes \
 		  -ffunction-sections -fdata-sections -MD -DSTM32F3
 
-ARFLAGS		= rcs
-
 OBJS		= rcc.o gpio.o adc.o i2c.o usart.o dma.o flash.o
 
 OBJS            += gpio_common_all.o gpio_common_f0234.o \

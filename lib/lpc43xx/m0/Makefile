@@ -25,8 +25,7 @@ SRCLIBDIR	?= ../..
 CFLAGS		= -O2 -g3 -Wall -Wextra -I../../../include -fno-common \
 		  -mcpu=cortex-m0 -mthumb -Wstrict-prototypes \
 		  -ffunction-sections -fdata-sections -MD -DLPC43XX -DLPC43XX_M0
-# ARFLAGS	= rcsv
-ARFLAGS		= rcs
+
 
 # LPC43xx common files for M4 / M0
 OBJ_LPC43XX     = gpio.o scu.o i2c.o ssp.o uart.o timer.o

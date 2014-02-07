@@ -27,8 +27,7 @@ CFLAGS		= -Os -g \
 		  -I../../../include -fno-common \
 		  -mcpu=cortex-m3 $(FP_FLAGS) -mthumb -Wstrict-prototypes \
 		  -ffunction-sections -fdata-sections -MD -DSTM32L1
-# ARFLAGS	= rcsv
-ARFLAGS		= rcs
+
 OBJS		= crc.o desig.o flash.o rcc.o usart.o dma.o lcd.o
 OBJS		+= crc_common_all.o dac_common_all.o
 OBJS		+= dma_common_l1f013.o

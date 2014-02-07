@@ -30,8 +30,7 @@ CFLAGS		= -Os -g \
 		  -I../../include -fno-common \
 		  -mcpu=cortex-m4 -mthumb $(FP_FLAGS) -Wstrict-prototypes \
 		  -ffunction-sections -fdata-sections -MD -DLM4F
-# ARFLAGS	= rcsv
-ARFLAGS		= rcs
+
 OBJS		= gpio.o vector.o assert.o systemcontrol.o rcc.o uart.o \
 		  usb_lm4f.o usb.o usb_control.o usb_standard.o
 

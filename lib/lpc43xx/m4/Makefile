@@ -34,7 +34,6 @@ CFLAGS		= -O2 -g3 \
 		  -ffunction-sections -fdata-sections -MD \
 		  $(FP_FLAGS) -DLPC43XX -DLPC43XX_M4
 
-ARFLAGS		= rcs
 
 # LPC43xx common files for M4 / M0
 OBJ_LPC43XX     = gpio.o scu.o i2c.o ssp.o uart.o timer.o
