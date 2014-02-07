@@ -13,7 +13,6 @@ File contents
 
 * {ROOT}/ld/tests/* 		- Prepared tests for the testing of the script
 * {ROOT}/ld/devices.data	- Device database file
-* {ROOT}/ld/Makefile.linker	- Common makefile part
 * {ROOT}/ld/linker.ld.S		- Linker script template
 * {ROOT}/scripts/genlink.awk	- Device database file search script 
 * {ROOT}/scripts/genlinktest.sh	- Device database file search test script
@@ -29,8 +28,9 @@ is case insensitive.
 
 DEVICE=stm32f407vgt6
 
-Then, the user includes the file /ld/Makefile.linker exactly after the first
-target (usually all) has been defined.
+Then, the user includes the file /mk/genlink-config.mk somewhere in the variables
+definitions stage, and /mk/genlink-rules.mk somewhere inside the rule definitions
+stage.
 
 The script automatically modifies the $(LDSCRIPT) variable to meet the new
 generated script with <device part name>.ld in the project directory, and adds
@@ -69,7 +69,7 @@ The testing stops after all test cases are valid, or at first error found.
 Example of use
 --------------
 
-* See Makefile.example file
+* See the libopencm3 examples repository
 
 Device database file structure
 ------------------------------
