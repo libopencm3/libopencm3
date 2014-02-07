@@ -161,6 +161,8 @@ sam3n4* sam3n ROM=256K RAM=24K
 sam3s1* sam3s ROM=64K RAM=16K
 sam3s2* sam3s ROM=128K RAM=32K
 sam3s4* sam3s ROM=256K RAM=48K
+sam3s8* sam3s ROM=512K RAM=64K
+sam3sd8* sam3s ROM=512K RAM=64K
 
 sam3u1* sam3u ROM=64K RAM=8K RAM1=8K
 sam3u2* sam3u ROM=128K RAM=16K RAM1=16K
