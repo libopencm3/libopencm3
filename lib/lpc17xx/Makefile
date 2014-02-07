@@ -21,9 +21,9 @@ LIBNAME		= libopencm3_lpc17xx
 SRCLIBDIR	?= ..
 
 CFLAGS		= -O0 -g \
-		  -I../../include -fno-common \
+		  -I../../include \
 		  -mcpu=cortex-m3 -mthumb $(FP_FLAGS) \
-		  -ffunction-sections -fdata-sections -DLPC17XX
+		  -DLPC17XX
 
 OBJS		= gpio.o
 

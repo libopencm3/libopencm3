@@ -33,6 +33,7 @@ include $(SRCLIBDIR)/../mk/gcc-config.mk
 # C flags
 CFLAGS		+= -Wextra -Wshadow -Wimplicit-function-declaration
 CFLAGS		+= -Wredundant-decls -Wmissing-prototypes -Wstrict-prototypes
+CFLAGS		+= -fno-common -ffunction-sections -fdata-sections
 
 ###############################################################################
 # C & C++ preprocessor common flags

@@ -21,9 +21,9 @@ LIBNAME		= libopencm3_lm3s
 SRCLIBDIR	?= ..
 
 CFLAGS		= -Os -g \
-		  -I../../include -fno-common \
+		  -I../../include \
 		  -mcpu=cortex-m3 -mthumb $(FP_FLAGS) \
-		  -ffunction-sections -fdata-sections -DLM3S
+		  -DLM3S
 
 OBJS		= gpio.o vector.o assert.o
 
