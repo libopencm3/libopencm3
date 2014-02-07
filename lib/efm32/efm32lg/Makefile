@@ -20,13 +20,12 @@
 
 LIBNAME		= libopencm3_efm32lg
 SRCLIBDIR	?= ../..
-FAMILY		= EFM32LG
 
 ARCH_FLAGS	= -mcpu=cortex-m3 -mthumb $(FP_FLAGS)
+DEFS		+= -DEFM32LG
 
 CFLAGS		= -Os -g \
-		  -I../../../include \
-		  -D$(FAMILY)
+		  -I../../../include
 
 OBJS		=
 

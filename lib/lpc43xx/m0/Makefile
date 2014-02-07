@@ -23,9 +23,9 @@ LIBNAME		= libopencm3_lpc43xx_m0
 SRCLIBDIR	?= ../..
 
 ARCH_FLAGS	= -mcpu=cortex-m0 -mthumb $(FP_FLAGS)
+DEFS		+= -DLPC43XX -DLPC43XX_M0
 
-CFLAGS		= -O2 -g3 -I../../../include \
-		  -DLPC43XX -DLPC43XX_M0
+CFLAGS		= -O2 -g3 -I../../../include
 
 
 # LPC43xx common files for M4 / M0

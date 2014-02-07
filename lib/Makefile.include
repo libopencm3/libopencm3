@@ -39,6 +39,7 @@ CFLAGS		+= -fno-common -ffunction-sections -fdata-sections
 # C & C++ preprocessor common flags
 CPPFLAGS	+= -MD
 CPPFLAGS	+= -Wall -Wundef
+CPPFLAGS	+= $(DEFS)
 
 ###############################################################################
 # Archiver flags

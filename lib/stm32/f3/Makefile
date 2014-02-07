@@ -22,10 +22,10 @@ SRCLIBDIR	?= ../..
 
 FP_FLAGS	?= -mfloat-abi=hard -mfpu=fpv4-sp-d16
 ARCH_FLAGS	= -mcpu=cortex-m4 -mthumb $(FP_FLAGS)
+DEFS		+= -DSTM32F3
 
 CFLAGS		= -Os -g \
-		  -I../../../include \
-		  -DSTM32F3
+		  -I../../../include
 
 OBJS		= rcc.o gpio.o adc.o i2c.o usart.o dma.o flash.o
 

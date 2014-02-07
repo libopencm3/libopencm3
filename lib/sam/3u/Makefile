@@ -22,9 +22,9 @@ LIBNAME		= libopencm3_sam3u
 SRCLIBDIR	?= ../..
 
 ARCH_FLAGS	= -mcpu=cortex-m3 -mthumb $(FP_FLAGS)
+DEFS		+= -DSAM3U
 
-CFLAGS		= -Os -g -I../../../include \
-		  -DSAM3U
+CFLAGS		= -Os -g -I../../../include
 
 OBJS		= gpio.o pmc.o usart.o
 
