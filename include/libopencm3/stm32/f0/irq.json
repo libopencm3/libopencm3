@@ -18,7 +18,7 @@
         "tim2", 
         "tim3", 
         "tim6_dac", 
-        "reserved0", 
+        "tim7", 
         "tim14", 
         "tim15", 
         "tim16", 
@@ -29,9 +29,9 @@
         "spi2", 
         "usart1", 
         "usart2", 
-        "reserved1", 
-        "cec", 
-        "reserved2"
+        "usart3_4", 
+        "cec_can", 
+        "usb"
     ], 
     "partname_humanreadable": "STM32 F0 series", 
     "partname_doxygen": "STM32F0", 

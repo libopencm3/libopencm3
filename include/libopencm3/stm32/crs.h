@@ -1,7 +1,7 @@
+/* This provides unification of code over STM32F subfamilies */
+
 /*
  * This file is part of the libopencm3 project.
- *
- * Copyright (C) 2013 Gareth McMullin <gareth@blacksphere.co.nz>
  *
  * This library is free software: you can redistribute it and/or modify
  * it under the terms of the GNU Lesser General Public License as published by
@@ -17,20 +17,9 @@
  * along with this library.  If not, see <http://www.gnu.org/licenses/>.
  */
 
-#ifndef SAM_MEMORYMAP_H
-#define SAM_MEMORYMAP_H
-
-#if defined(SAM3X)
-#	include <libopencm3/sam/3x/memorymap.h>
-#elif defined(SAM3N)
-#	include <libopencm3/sam/3n/memorymap.h>
-#elif defined(SAM3S)
-#	include <libopencm3/sam/3s/memorymap.h>
-#elif defined(SAM3U)
-#	include <libopencm3/sam/3u/memorymap.h>
+#if defined(STM32F0)
+#       include <libopencm3/stm32/f0/crs.h>
 #else
-#	error "Processor family not defined."
-#endif
-
+#       error "stm32 family not defined."
 #endif
 

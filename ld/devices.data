@@ -65,9 +65,16 @@
 ################################################################################
 # the STM32 chips
 
-stm32f05[01]?4* stm32f0 ROM=16K RAM=4K
-stm32f05[01]?6* stm32f0 ROM=32K RAM=4K
+stm32f03[01]?4* stm32f0 ROM=16K RAM=4K
+stm32f03[01]?6* stm32f0 ROM=32K RAM=4K
+stm32f030?8* stm32f0 ROM=64K RAM=8K
+stm32f050?4* stm32f0 ROM=16K RAM=4K
+stm32f050?6* stm32f0 ROM=32K RAM=4K
+stm32f051?4* stm32f0 ROM=16K RAM=8K
+stm32f051?6* stm32f0 ROM=32K RAM=8K
 stm32f051?8* stm32f0 ROM=64K RAM=8K
+stm32f072?8* stm32f0 ROM=64K RAM=16K
+stm32f07[12]?B* stm32f0 ROM=128K RAM=16K
 
 stm32f10[012]?4* stm32f1 ROM=16K RAM=4K
 stm32f103?4* stm32f1 ROM=16K RAM=6K
@@ -113,6 +120,8 @@ stm32f3[78]3?8* stm32f3 ROM=256K RAM=32K
 
 stm32f401?b* stm32f4 ROM=128K RAM=64K
 stm32f401?c* stm32f4 ROM=256K RAM=64K
+stm32f401?d* stm32f4 ROM=512K RAM=96K
+stm32f401?e* stm32f4 ROM=384K RAM=96K
 stm32f4[01][57]?e* stm32f4ccm ROM=512K RAM=128K CCM=64K
 stm32f4[01][57]?g* stm32f4ccm ROM=1024K RAM=128K CCM=64K
 stm32f4[23][79]?g* stm32f4ccm ROM=1024K RAM=192K CCM=64K
@@ -121,11 +130,14 @@ stm32f4[23][79]?i* stm32f4ccm ROM=2048K RAM=192K CCM=64K
 stm32l100?6* stm32l1 ROM=32K RAM=4K
 stm32l100?8* stm32l1 ROM=64K RAM=8K
 stm32l100?b* stm32l1 ROM=128K RAM=10K
+stm32l100?c* stm32l1 ROM=256K RAM=16K
 stm32l15[12]?6* stm32l1eep ROM=32K RAM=10K EEP=4K
 stm32l15[12]?8* stm32l1eep ROM=64K RAM=10K EEP=4K
 stm32l15[12]?b* stm32l1eep ROM=128K RAM=16K EEP=4K
 stm32l15[12]?c* stm32l1eep ROM=256K RAM=32K EEP=8K
 stm32l15[12]?d* stm32l1eep ROM=384K RAM=48K EEP=12K
+stm32l162?c* stm32l1eep ROM=256K RAM=32K EEP=8K
+stm32l162?d* stm32l1eep ROM=384K RAM=48K EEP=12K
 
 stm32ts60 stm32t ROM=32K RAM=10K
 
@@ -137,8 +149,8 @@ stm32w108cc stm32w ROM=256K RAM=16K
 ################################################################################
 # the SAM3 chips
 
-sam3a4* sam3a ROM=256K RAM=64K
-sam3a8* sam3a ROM=512K RAM=96K
+sam3a4* sam3a ROM=256K RAM=32K RAM1=32K
+sam3a8* sam3a ROM=512K RAM=64K RAM1=32K
 
 sam3n00* sam3n ROM=16K RAM=4K
 sam3n0* sam3n ROM=32K RAM=8K
@@ -150,12 +162,14 @@ sam3s1* sam3s ROM=64K RAM=16K
 sam3s2* sam3s ROM=128K RAM=32K
 sam3s4* sam3s ROM=256K RAM=48K
 
-sam3u1* sam3u ROM=64K RAM=20K
-sam3u2* sam3u ROM=128K RAM=36K
-sam3u4* sam3u ROM=256K RAM=52K
+sam3u1* sam3u ROM=64K RAM=8K RAM1=8K
+sam3u2* sam3u ROM=128K RAM=16K RAM1=16K
+sam3u4* sam3u ROM=265K RAM=32K RAM1=16K
 
-sam3x4* sam3x ROM=256K RAM=64K
-sam3x8* sam3x ROM=512K RAM=96K
+sam3x4c* sam3x ROM=256K RAM=32K RAM1=32K
+sam3x4e* sam3xnfc ROM=256K RAM=32K RAM1=32K
+sam3x8c* sam3x ROM=512K RAM=64K RAM1=32K
+sam3x8e* sam3xnfc ROM=512K RAM=64K RAM1=32K
 
 ################################################################################
 # the lpc chips
@@ -296,6 +310,10 @@ stm32f4ccm stm32f4 CCM_OFF=0x10000000
 stm32l1eep stm32l1 EEP_OFF=0x08080000
 
 ################################################################################
+# the SAM3 family groups
+sam3xnfc sam3x NFCRAM=4K NFCRAM_OFF=0x20100000
+
+################################################################################
 # the lpc family groups
 
 
@@ -321,11 +339,11 @@ stm32t stm32 ROM_OFF=0x08000000 RAM_OFF=0x20000000 -mcpu=cortex-m3 -mthumb
 ################################################################################
 # the SAM3 families
 
-sam3a sam3 ROM_OFF=0x00800000 RAM_OFF=0x20000000
+sam3a sam3 ROM_OFF=0x00080000 RAM_OFF=0x20000000 RAM1_OFF=0x20080000
 sam3n sam3 ROM_OFF=0x00400000 RAM_OFF=0x20000000
 sam3s sam3 ROM_OFF=0x00400000 RAM_OFF=0x20000000
-sam3u sam3 ROM_OFF=0x00080000 RAM_OFF=0x20000000
-sam3x sam3 ROM_OFF=0x00800000 RAM_OFF=0x20000000
+sam3u sam3 ROM_OFF=0x00080000 RAM_OFF=0x20000000 RAM1_OFF=0x20080000 NFCRAM=4K NFCRAM_OFF=0x20100000
+sam3x sam3 ROM_OFF=0x00080000 RAM_OFF=0x20000000 RAM1_OFF=0x20080000
 
 ################################################################################
 # the lpc families

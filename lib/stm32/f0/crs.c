@@ -1,7 +1,18 @@
+/** @defgroup crs_file CRS
+ *
+ * @ingroup STM32F0xx
+ *
+ * @brief <b>libopencm3 STM32F0xx Clock Recovery Subsystem</b>
+ *
+ * @version 1.0.0
+ *
+ * @date 5 Feb 2014
+ *
+ * LGPL License Terms @ref lgpl_license
+ */
+
 /*
  * This file is part of the libopencm3 project.
- *
- * Copyright (C) 2013 Gareth McMullin <gareth@blacksphere.co.nz>
  *
  * This library is free software: you can redistribute it and/or modify
  * it under the terms of the GNU Lesser General Public License as published by
@@ -17,20 +28,5 @@
  * along with this library.  If not, see <http://www.gnu.org/licenses/>.
  */
 
-#ifndef SAM_MEMORYMAP_H
-#define SAM_MEMORYMAP_H
-
-#if defined(SAM3X)
-#	include <libopencm3/sam/3x/memorymap.h>
-#elif defined(SAM3N)
-#	include <libopencm3/sam/3n/memorymap.h>
-#elif defined(SAM3S)
-#	include <libopencm3/sam/3s/memorymap.h>
-#elif defined(SAM3U)
-#	include <libopencm3/sam/3u/memorymap.h>
-#else
-#	error "Processor family not defined."
-#endif
-
-#endif
+#include <libopencm3/stm32/crs.h>
 
