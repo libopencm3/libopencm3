@@ -25,8 +25,6 @@ FP_FLAGS	?= -mfloat-abi=hard -mfpu=fpv4-sp-d16
 ARCH_FLAGS	= -mcpu=cortex-m4 -mthumb $(FP_FLAGS)
 DEFS		+= -DLM4F
 
-CFLAGS		= -Os -g
-
 OBJS		= gpio.o vector.o assert.o systemcontrol.o rcc.o uart.o \
 		  usb_lm4f.o usb.o usb_control.o usb_standard.o
 

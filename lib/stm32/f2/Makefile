@@ -23,8 +23,6 @@ SRCLIBDIR	?= ../..
 ARCH_FLAGS	= -mcpu=cortex-m3 -mthumb $(FP_FLAGS)
 DEFS		+= -DSTM32F2
 
-CFLAGS		= -Os -g
-
 OBJS		= gpio.o rcc.o
 
 OBJS            += crc_common_all.o dac_common_all.o dma_common_f24.o \

@@ -27,7 +27,8 @@ FP_FLAGS	?= -mfloat-abi=hard -mfpu=fpv4-sp-d16
 ARCH_FLAGS	= -mcpu=cortex-m4 -mthumb $(FP_FLAGS)
 DEFS		+= -DLPC43XX -DLPC43XX_M4
 
-CFLAGS		= -O2 -g3
+# TODO check if the library will be built with -Os -g
+OPTIMIZATIONS	= -O2 -g3
 
 # LPC43xx common files for M4 / M0
 OBJ_LPC43XX     = gpio.o scu.o i2c.o ssp.o uart.o timer.o

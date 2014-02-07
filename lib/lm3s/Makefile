@@ -23,8 +23,6 @@ SRCLIBDIR	?= ..
 ARCH_FLAGS	= -mcpu=cortex-m3 -mthumb $(FP_FLAGS)
 DEFS		= -DLM3S
 
-CFLAGS		= -Os -g
-
 OBJS		= gpio.o vector.o assert.o
 
 VPATH += ../cm3

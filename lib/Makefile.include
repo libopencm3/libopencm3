@@ -29,8 +29,11 @@ include $(SRCLIBDIR)/../mk/gcc-config.mk
 ###############################################################################
 # Common variables for all architectures
 
+OPTIMIZATIONS	?= -Os -g
+
 ###############################################################################
 # C flags
+CFLAGS		+= $(OPTIMIZATIONS)
 CFLAGS		+= -Wextra -Wshadow -Wimplicit-function-declaration
 CFLAGS		+= -Wredundant-decls -Wmissing-prototypes -Wstrict-prototypes
 CFLAGS		+= -fno-common -ffunction-sections -fdata-sections

@@ -24,8 +24,6 @@ SRCLIBDIR	?= ../..
 ARCH_FLAGS	= -mcpu=cortex-m3 -mthumb $(FP_FLAGS)
 DEFS		+= -DEFM32TG
 
-CFLAGS		= -Os -g
-
 OBJS		=
 
 VPATH += ../:../../cm3
