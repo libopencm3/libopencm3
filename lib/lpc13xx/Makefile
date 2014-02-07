@@ -23,8 +23,7 @@ SRCLIBDIR	?= ..
 ARCH_FLAGS	= -mcpu=cortex-m3 -mthumb $(FP_FLAGS)
 DEFS		+= -DLPC13XX
 
-CFLAGS		= -Os -g \
-		  -I../../include
+CFLAGS		= -Os -g
 
 OBJS		= gpio.o
 

@@ -40,6 +40,7 @@ CFLAGS		+= -fno-common -ffunction-sections -fdata-sections
 CPPFLAGS	+= -MD
 CPPFLAGS	+= -Wall -Wundef
 CPPFLAGS	+= $(DEFS)
+CPPFLAGS	+= -I$(SRCLIBDIR)/../include
 
 ###############################################################################
 # Archiver flags

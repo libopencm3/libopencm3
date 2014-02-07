@@ -24,8 +24,7 @@ SRCLIBDIR	?= ../..
 ARCH_FLAGS	= -mcpu=cortex-m3 -mthumb $(FP_FLAGS)
 DEFS		+= -DEFM32GG
 
-CFLAGS		= -Os -g \
-		  -I../../../include
+CFLAGS		= -Os -g
 
 OBJS		=
 
