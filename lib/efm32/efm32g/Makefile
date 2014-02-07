@@ -23,9 +23,9 @@ SRCLIBDIR	?= ../..
 FAMILY		= EFM32G
 
 CFLAGS		= -Os -g \
-		  -Wall -Wextra -Wimplicit-function-declaration \
+		  -Wextra -Wimplicit-function-declaration \
 		  -Wredundant-decls -Wmissing-prototypes -Wstrict-prototypes \
-		  -Wundef -Wshadow \
+		  -Wshadow \
 		  -I../../../include -fno-common \
 		  -mcpu=cortex-m3 $(FP_FLAGS) -mthumb -Wstrict-prototypes \
 		  -ffunction-sections -fdata-sections -MD -D$(FAMILY)

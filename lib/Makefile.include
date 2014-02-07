@@ -30,6 +30,10 @@ include $(SRCLIBDIR)/../mk/gcc-config.mk
 # Common variables for all architectures
 
 ###############################################################################
+# C & C++ preprocessor common flags
+CPPFLAGS	+= -Wall -Wundef
+
+###############################################################################
 # Archiver flags
 ARFLAGS		= rcs
 #ARFLAGS	= rcsv
@@ -50,7 +54,7 @@ $(SRCLIBDIR)/$(LIBNAME).ld: $(LIBNAME).ld
 
 %.o: %.c
 	@printf "  CC      $(<F)\n"
-	$(Q)$(CC) $(CFLAGS) -o $@ -c $<
+	$(Q)$(CC) $(CFLAGS) $(CPPFLAGS) -o $@ -c $<
 
 clean:
 	$(Q)rm -f *.o *.d ../*.o ../*.d

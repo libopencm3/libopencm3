@@ -26,9 +26,9 @@ SRCLIBDIR	?= ../..
 FP_FLAGS	?= -mfloat-abi=hard -mfpu=fpv4-sp-d16
 
 CFLAGS		= -O2 -g3 \
-		  -Wall -Wextra -Wimplicit-function-declaration \
+		  -Wextra -Wimplicit-function-declaration \
 		  -Wredundant-decls -Wmissing-prototypes -Wstrict-prototypes \
-		  -Wundef -Wshadow \
+		  -Wshadow \
 		  -I../../../include -fno-common \
 		  -mcpu=cortex-m4 -mthumb -Wstrict-prototypes \
 		  -ffunction-sections -fdata-sections -MD \

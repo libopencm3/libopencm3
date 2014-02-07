@@ -20,7 +20,7 @@
 LIBNAME		= libopencm3_sam3x
 SRCLIBDIR	?= ../..
 
-CFLAGS		= -Os -g -Wall -Wextra -I../../../include -fno-common \
+CFLAGS		= -Os -g -Wextra -I../../../include -fno-common \
 		  -mcpu=cortex-m3 -mthumb $(FP_FLAGS) -Wstrict-prototypes \
 		  -ffunction-sections -fdata-sections -MD -DSAM3X
 
