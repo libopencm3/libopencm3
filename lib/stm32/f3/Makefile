@@ -23,9 +23,8 @@ SRCLIBDIR	?= ../..
 FP_FLAGS	?= -mfloat-abi=hard -mfpu=fpv4-sp-d16
 
 CFLAGS		= -Os -g \
-		  -Wredundant-decls -Wmissing-prototypes -Wstrict-prototypes \
 		  -I../../../include -fno-common \
-		  -mcpu=cortex-m4 -mthumb $(FP_FLAGS) -Wstrict-prototypes \
+		  -mcpu=cortex-m4 -mthumb $(FP_FLAGS) \
 		  -ffunction-sections -fdata-sections -DSTM32F3
 
 OBJS		= rcc.o gpio.o adc.o i2c.o usart.o dma.o flash.o

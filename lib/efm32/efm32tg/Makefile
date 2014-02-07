@@ -23,9 +23,9 @@ SRCLIBDIR	?= ../..
 FAMILY		= EFM32TG
 
 CFLAGS		= -Os -g \
-		  -Wredundant-decls -Wmissing-prototypes -Wstrict-prototypes \
+		   \
 		  -I../../../include -fno-common \
-		  -mcpu=cortex-m3 $(FP_FLAGS) -mthumb -Wstrict-prototypes \
+		  -mcpu=cortex-m3 $(FP_FLAGS) -mthumb \
 		  -ffunction-sections -fdata-sections -D$(FAMILY)
 
 OBJS		=

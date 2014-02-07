@@ -21,9 +21,8 @@ LIBNAME		= libopencm3_stm32f2
 SRCLIBDIR	?= ../..
 
 CFLAGS		= -Os -g \
-		  -Wredundant-decls -Wmissing-prototypes -Wstrict-prototypes \
 		  -I../../../include -fno-common \
-		  -mcpu=cortex-m3 -mthumb $(FP_FLAGS) -Wstrict-prototypes \
+		  -mcpu=cortex-m3 -mthumb $(FP_FLAGS) \
 		  -ffunction-sections -fdata-sections -DSTM32F2
 
 OBJS		= gpio.o rcc.o
