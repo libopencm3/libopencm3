@@ -30,6 +30,10 @@ include $(SRCLIBDIR)/../mk/gcc-config.mk
 # Common variables for all architectures
 
 ###############################################################################
+# C flags
+CFLAGS		+= -Wextra -Wshadow -Wimplicit-function-declaration
+
+###############################################################################
 # C & C++ preprocessor common flags
 CPPFLAGS	+= -MD
 CPPFLAGS	+= -Wall -Wundef
