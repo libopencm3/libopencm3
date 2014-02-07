@@ -22,10 +22,6 @@ LIBNAME		= libopencm3_efm32g
 SRCLIBDIR	?= ../..
 FAMILY		= EFM32G
 
-PREFIX		?= arm-none-eabi
-#PREFIX		?= arm-elf
-CC		= $(PREFIX)-gcc
-AR		= $(PREFIX)-ar
 CFLAGS		= -Os -g \
 		  -Wall -Wextra -Wimplicit-function-declaration \
 		  -Wredundant-decls -Wmissing-prototypes -Wstrict-prototypes \

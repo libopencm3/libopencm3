@@ -20,10 +20,6 @@
 LIBNAME		= libopencm3_stm32f0
 SRCLIBDIR	?= ../..
 
-PREFIX		?= arm-none-eabi
-#PREFIX		?= arm-elf
-CC		= $(PREFIX)-gcc
-AR		= $(PREFIX)-ar
 CFLAGS		= -Os -g \
 		  -Wall -Wextra -Wimplicit-function-declaration \
 		  -Wredundant-decls -Wmissing-prototypes -Wstrict-prototypes \

@@ -20,10 +20,6 @@
 LIBNAME		= libopencm3_lm3s
 SRCLIBDIR	?= ..
 
-PREFIX		?= arm-none-eabi
-
-CC		= $(PREFIX)-gcc
-AR		= $(PREFIX)-ar
 CFLAGS		= -Os -g \
 		  -Wall -Wextra -Wimplicit-function-declaration \
 		  -Wredundant-decls -Wmissing-prototypes -Wstrict-prototypes \

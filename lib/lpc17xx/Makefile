@@ -20,10 +20,6 @@
 LIBNAME		= libopencm3_lpc17xx
 SRCLIBDIR	?= ..
 
-PREFIX		?= arm-none-eabi
-
-CC		= $(PREFIX)-gcc
-AR		= $(PREFIX)-ar
 CFLAGS		= -O0 -g \
 		  -Wall -Wextra -Wimplicit-function-declaration \
 		  -Wredundant-decls -Wmissing-prototypes -Wstrict-prototypes \
