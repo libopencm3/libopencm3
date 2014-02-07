@@ -61,7 +61,7 @@ $(SRCLIBDIR)/$(LIBNAME).ld: $(LIBNAME).ld
 
 %.o: %.c
 	@printf "  CC      $(<F)\n"
-	$(Q)$(CC) $(CFLAGS) $(CPPFLAGS) -o $@ -c $<
+	$(Q)$(CC) $(CFLAGS) $(CPPFLAGS) $(ARCH_FLAGS) -o $@ -c $<
 
 clean:
 	$(Q)rm -f *.o *.d ../*.o ../*.d

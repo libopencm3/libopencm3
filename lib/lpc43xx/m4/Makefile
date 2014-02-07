@@ -24,11 +24,11 @@ LIBNAME		= libopencm3_lpc43xx
 SRCLIBDIR	?= ../..
 
 FP_FLAGS	?= -mfloat-abi=hard -mfpu=fpv4-sp-d16
+ARCH_FLAGS	= -mcpu=cortex-m4 -mthumb $(FP_FLAGS)
 
 CFLAGS		= -O2 -g3 \
 		  -I../../../include \
-		  -mcpu=cortex-m4 -mthumb \
-		  $(FP_FLAGS) -DLPC43XX -DLPC43XX_M4
+		  -DLPC43XX -DLPC43XX_M4
 
 
 # LPC43xx common files for M4 / M0

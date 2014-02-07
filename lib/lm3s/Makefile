@@ -20,9 +20,10 @@
 LIBNAME		= libopencm3_lm3s
 SRCLIBDIR	?= ..
 
+ARCH_FLAGS	= -mcpu=cortex-m3 -mthumb $(FP_FLAGS)
+
 CFLAGS		= -Os -g \
 		  -I../../include \
-		  -mcpu=cortex-m3 -mthumb $(FP_FLAGS) \
 		  -DLM3S
 
 OBJS		= gpio.o vector.o assert.o

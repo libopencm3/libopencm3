@@ -20,9 +20,10 @@
 LIBNAME		= libopencm3_stm32f1
 SRCLIBDIR	?= ../..
 
+ARCH_FLAGS	= -mcpu=cortex-m3 -mthumb $(FP_FLAGS)
+
 CFLAGS		= -Os -g \
 		  -I../../../include  \
-		  -mcpu=cortex-m3 $(FP_FLAGS) -mthumb \
 		  -DSTM32F1
 
 OBJS		= adc.o adc_common_v1.o can.o desig.o ethernet.o flash.o gpio.o \

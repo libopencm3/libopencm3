@@ -22,10 +22,10 @@ LIBNAME		= libopencm3_lm4f
 SRCLIBDIR	?= ..
 
 FP_FLAGS	?= -mfloat-abi=hard -mfpu=fpv4-sp-d16
+ARCH_FLAGS	= -mcpu=cortex-m4 -mthumb $(FP_FLAGS)
 
 CFLAGS		= -Os -g \
 		  -I../../include \
-		  -mcpu=cortex-m4 -mthumb $(FP_FLAGS) \
 		  -DLM4F
 
 OBJS		= gpio.o vector.o assert.o systemcontrol.o rcc.o uart.o \

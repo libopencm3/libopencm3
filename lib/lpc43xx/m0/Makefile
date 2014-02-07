@@ -22,8 +22,9 @@
 LIBNAME		= libopencm3_lpc43xx_m0
 SRCLIBDIR	?= ../..
 
+ARCH_FLAGS	= -mcpu=cortex-m0 -mthumb $(FP_FLAGS)
+
 CFLAGS		= -O2 -g3 -I../../../include \
-		  -mcpu=cortex-m0 -mthumb \
 		  -DLPC43XX -DLPC43XX_M0
 
 

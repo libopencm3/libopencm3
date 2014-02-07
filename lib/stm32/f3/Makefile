@@ -21,10 +21,10 @@ LIBNAME		= libopencm3_stm32f3
 SRCLIBDIR	?= ../..
 
 FP_FLAGS	?= -mfloat-abi=hard -mfpu=fpv4-sp-d16
+ARCH_FLAGS	= -mcpu=cortex-m4 -mthumb $(FP_FLAGS)
 
 CFLAGS		= -Os -g \
 		  -I../../../include \
-		  -mcpu=cortex-m4 -mthumb $(FP_FLAGS) \
 		  -DSTM32F3
 
 OBJS		= rcc.o gpio.o adc.o i2c.o usart.o dma.o flash.o

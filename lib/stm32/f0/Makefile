@@ -20,9 +20,10 @@
 LIBNAME		= libopencm3_stm32f0
 SRCLIBDIR	?= ../..
 
+ARCH_FLAGS	= -mcpu=cortex-m0 -mthumb $(FP_FLAGS)
+
 CFLAGS		= -Os -g \
 		  -I../../../include \
-		  -mcpu=cortex-m0 $(FP_FLAGS) -mthumb \
 		  -DSTM32F0
 
 OBJS		= flash.o rcc.o usart.o dma.o rtc.o comparator.o crc.o \

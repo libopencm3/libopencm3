@@ -20,9 +20,10 @@
 LIBNAME		= libopencm3_lpc13xx
 SRCLIBDIR	?= ..
 
+ARCH_FLAGS	= -mcpu=cortex-m3 -mthumb $(FP_FLAGS)
+
 CFLAGS		= -Os -g \
 		  -I../../include \
-		  -mcpu=cortex-m3 -mthumb $(FP_FLAGS) \
 		  -DLPC13XX
 
 OBJS		= gpio.o
