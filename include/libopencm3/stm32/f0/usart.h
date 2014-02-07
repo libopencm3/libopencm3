@@ -40,6 +40,8 @@
 
 #define USART1				USART1_BASE
 #define USART2				USART2_BASE
+#define USART3				USART3_BASE
+#define USART4				USART4_BASE
 
 /*****************************************************************************/
 /* Register definitions                                                      */
@@ -48,46 +50,68 @@
 #define USART_CR1(usart_base)		MMIO32(usart_base + 0x00)
 #define USART1_CR1			USART_CR1(USART1_BASE)
 #define USART2_CR1			USART_CR1(USART2_BASE)
+#define USART3_CR1			USART_CR1(USART3_BASE)
+#define USART4_CR1			USART_CR1(USART4_BASE)
 
 #define USART_CR2(usart_base)		MMIO32(usart_base + 0x04)
 #define USART1_CR2			USART_CR2(USART1_BASE)
 #define USART2_CR2			USART_CR2(USART2_BASE)
+#define USART3_CR2			USART_CR2(USART3_BASE)
+#define USART4_CR2			USART_CR2(USART4_BASE)
 
 #define USART_CR3(usart_base)		MMIO32(usart_base + 0x08)
 #define USART1_CR3			USART_CR3(USART1_BASE)
 #define USART2_CR3			USART_CR3(USART2_BASE)
+#define USART3_CR3			USART_CR3(USART3_BASE)
+#define USART4_CR3			USART_CR3(USART4_BASE)
 
 #define USART_BRR(usart_base)		MMIO32(usart_base + 0x0c)
 #define USART1_BRR			USART_BRR(USART1_BASE)
 #define USART2_BRR			USART_BRR(USART2_BASE)
+#define USART3_BRR			USART_BRR(USART3_BASE)
+#define USART4_BRR			USART_BRR(USART4_BASE)
 
 #define USART_GTPR(usart_base)		MMIO32(usart_base + 0x10)
 #define USART1_GTPR			USART_GTPR(USART1_BASE)
 #define USART2_GTPR			USART_GTPR(USART2_BASE)
+#define USART3_GTPR			USART_GTPR(USART3_BASE)
+#define USART4_GTPR			USART_GTPR(USART4_BASE)
 
 #define USART_RTOR(usart_base)		MMIO32(usart_base + 0x14)
 #define USART1_RTOR			USART_RTOR(USART1_BASE)
 #define USART2_RTOR			USART_RTOR(USART2_BASE)
+#define USART3_RTOR			USART_RTOR(USART3_BASE)
+#define USART4_RTOR			USART_RTOR(USART4_BASE)
 
 #define USART_RQR(usart_base)		MMIO32(usart_base + 0x18)
 #define USART1_RQR			USART_RQR(USART1_BASE)
 #define USART2_RQR			USART_RQR(USART2_BASE)
+#define USART3_RQR			USART_RQR(USART3_BASE)
+#define USART4_RQR			USART_RQR(USART4_BASE)
 
 #define USART_ISR(usart_base)		MMIO32(usart_base + 0x1c)
 #define USART1_ISR			USART_ISR(USART1_BASE)
 #define USART2_ISR			USART_ISR(USART2_BASE)
+#define USART3_ISR			USART_ISR(USART3_BASE)
+#define USART4_ISR			USART_ISR(USART4_BASE)
 
 #define USART_ICR(usart_base)		MMIO32(usart_base + 0x20)
 #define USART1_ICR			USART_ICR(USART1_BASE)
 #define USART2_ICR			USART_ICR(USART2_BASE)
+#define USART3_ICR			USART_ICR(USART3_BASE)
+#define USART4_ICR			USART_ICR(USART4_BASE)
 
 #define USART_RDR(usart_base)		MMIO8(usart_base + 0x24)
 #define USART1_RDR			USART_RDR(USART1_BASE)
 #define USART2_RDR			USART_RDR(USART2_BASE)
+#define USART3_RDR			USART_RDR(USART3_BASE)
+#define USART4_RDR			USART_RDR(USART4_BASE)
 
 #define USART_TDR(usart_base)		MMIO8(usart_base + 0x28)
 #define USART1_TDR			USART_TDR(USART1_BASE)
 #define USART2_TDR			USART_TDR(USART2_BASE)
+#define USART3_TDR			USART_TDR(USART3_BASE)
+#define USART4_TDR			USART_TDR(USART4_BASE)
 
 /*****************************************************************************/
 /* Register values                                                           */
@@ -95,6 +119,7 @@
 
 /* USART_CR1 Values ---------------------------------------------------------*/
 
+#define USART_CR1_M1			(1 << 28) /* F07x */
 #define USART_CR1_EOBIE			(1 << 27)
 #define USART_CR1_RTOIE			(1 << 26)
 
@@ -109,7 +134,8 @@
 #define USART_CR1_OVER8			(1 << 15)
 #define USART_CR1_CMIE			(1 << 14)
 #define USART_CR1_MME			(1 << 13)
-#define USART_CR1_M			(1 << 12)
+#define USART_CR1_M			(1 << 12) /* Obsolete, please use M0 */
+#define USART_CR1_M0			(1 << 12)
 #define USART_CR1_WAKE			(1 << 11)
 #define USART_CR1_PCE			(1 << 10)
 #define USART_CR1_PS			(1 << 9)
@@ -156,7 +182,8 @@
 #define USART_CR2_LBCL			(1 << 8)
 #define USART_CR2_LBIDE			(1 << 6)
 #define USART_CR2_LBDL			(1 << 5)
-#define USART_CR2_ADDM			(1 << 4)
+#define USART_CR2_ADDM			(1 << 4) /* Obsolete, use ADDM7 */
+#define USART_CR2_ADDM7			(1 << 4)
 
 /* USART_CR3 Values ---------------------------------------------------------*/
 

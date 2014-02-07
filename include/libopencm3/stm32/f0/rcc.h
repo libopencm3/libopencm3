@@ -98,7 +98,7 @@ Control</b>
 #define RCC_CFGR_MCOPRE_DIV128			(7 << RCC_CFGR_MCOPRE_SHIFT)
 
 #define RCC_CFGR_MCO_SHIFT			24
-#define RCC_CFGR_MCO				(7 << RCC_CFGR_MCO_SHIFT)
+#define RCC_CFGR_MCO				(15 << RCC_CFGR_MCO_SHIFT)
 #define RCC_CFGR_MCO_NOCLK			(0 << RCC_CFGR_MCO_SHIFT)
 #define RCC_CFGR_MCO_HSI14			(1 << RCC_CFGR_MCO_SHIFT)
 #define RCC_CFGR_MCO_LSI			(2 << RCC_CFGR_MCO_SHIFT)
@@ -107,6 +107,7 @@ Control</b>
 #define RCC_CFGR_MCO_HSI			(5 << RCC_CFGR_MCO_SHIFT)
 #define RCC_CFGR_MCO_HSE			(6 << RCC_CFGR_MCO_SHIFT)
 #define RCC_CFGR_MCO_PLL			(7 << RCC_CFGR_MCO_SHIFT)
+#define RCC_CFGR_MCO_HSI48			(8 << RCC_CFGR_MCO_SHIFT)/*f07*/
 
 #define RCC_CFGR_PLLMUL_SHIFT			18
 #define RCC_CFGR_PLLMUL				(0x0F << RCC_CFGR_PLLMUL_SHIFT)
@@ -347,6 +348,7 @@ Control</b>
 #define RCC_CFGR3_USART2SW_HSI			(3 << RCC_CFGR3_USART2SW_SHIFT)
 
 #define RCC_CFGR3_ADCSW				(1 << 8)
+#define RCC_CFGR3_USBSW				(1 << 7)
 #define RCC_CFGR3_CECSW				(1 << 6)
 #define RCC_CFGR3_I2C1SW			(1 << 4)
 
