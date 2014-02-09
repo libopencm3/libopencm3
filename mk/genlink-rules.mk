@@ -24,6 +24,10 @@ endif
 	@$(PRINTF) "  GENLNK  $@\n"
 	$(Q)$(CPP) $(GENLINK_DEFS) -P -E $< > $@
 
+%.size: %.elf
+	@$(PRINTF) "  SIZE    $<\n"
+	$(Q)readelf $< -l | awk $(GENLINK_SIZE) -f $(OPENCM3_DIR)/scripts/arm-size.awk
+
 .PHONY: clean
 clean: clean-genlink
 
@@ -31,3 +35,4 @@ clean: clean-genlink
 clean-genlink:
 	@$(PRINTF) "  CLNLNK  $@\n"
 	$(Q)$(RM) -f $(DEVICE).ls
+
