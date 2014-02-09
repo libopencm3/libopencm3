@@ -43,6 +43,10 @@
 	@$(PRINTF) "  LD      $(*).elf\n"
 	$(Q)$(LD) $(OBJS) $(LDLIBS) $(LDFLAGS) -T$(LDSCRIPT) $(ARCH_FLAGS)  -o $@
 
+%.a: $(OBJS)
+	@$(PRINTF) "  AR      $(@F)\n"
+	$(Q)$(AR) $(ARFLAGS) $@ $(OBJS)
+
 %.o: %.c
 	@$(PRINTF) "  CC      $<\n"
 	$(Q)$(CC) $(CFLAGS) $(CPPFLAGS) $(ARCH_FLAGS) -o $@ -c $<
