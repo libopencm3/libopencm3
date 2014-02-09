@@ -23,3 +23,11 @@ ifeq ($(GENLINK_DEFS),)
 endif
 	@$(PRINTF) "  GENLNK  $@\n"
 	$(Q)$(CPP) $(GENLINK_DEFS) -P -E $< > $@
+
+.PHONY: clean
+clean: clean-genlink
+
+.PHONY: clean-genlink
+clean-genlink:
+	@$(PRINTF) "  CLNLNK  $@\n"
+	$(Q)$(RM) -f $(DEVICE).ls
