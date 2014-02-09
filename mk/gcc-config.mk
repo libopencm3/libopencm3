@@ -35,3 +35,5 @@ OBJCOPY		:= $(PREFIX)-objcopy
 OBJDUMP		:= $(PREFIX)-objdump
 GDB		:= $(PREFIX)-gdb
 SIZE		:= $(PREFIX)-size
+
+PRINTF		?= printf

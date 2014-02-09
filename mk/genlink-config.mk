@@ -32,3 +32,5 @@ ARCH_FLAGS	:= $(GENLINK_ARCH)
 OPENCM3_LIBNAME	:= $(strip $(subst -l,,$(GENLINK_LIB)))
 
 GENFILES	+= $(LDSCRIPT)
+
+PRINTF		?= printf

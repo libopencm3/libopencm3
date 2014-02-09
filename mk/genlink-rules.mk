@@ -21,5 +21,5 @@ $(LDSCRIPT):$(OPENCM3_DIR)/ld/linker.ld.S
 ifeq ($(GENLINK_DEFS),)
 	$(error unknown device $(DEVICE) for the linker. Cannot generate ldscript)
 endif
-	@printf "  GENLNK  $@\n"
+	@$(PRINTF) "  GENLNK  $@\n"
 	$(Q)$(CPP) $(GENLINK_DEFS) -P -E $< > $@
