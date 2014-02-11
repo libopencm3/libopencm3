@@ -17,7 +17,7 @@
 ## along with this library.  If not, see <http://www.gnu.org/licenses/>.
 ##
 
-$(LDSCRIPT):$(OPENCM3_DIR)ld/linker.ld.S
+$(LDSCRIPT):$(OPENCM3_DIR)ld/linker.ld.S $(INTERMEDIATE_DEP)
 ifeq ($(GENLINK_DEFS),)
 	$(error unknown device $(DEVICE) for the linker. Cannot generate ldscript)
 endif
@@ -33,6 +33,6 @@ clean: clean-genlink
 
 .PHONY: clean-genlink
 clean-genlink:
-	@$(PRINTF) "  CLNLNK  $@\n"
+	@$(PRINTF) "  CLEAN   $@\n"
 	$(Q)$(RM) -f $(LDSCRIPT)
 

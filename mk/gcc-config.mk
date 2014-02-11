@@ -37,3 +37,6 @@ GDB		:= $(PREFIX)-gdb
 SIZE		:= $(PREFIX)-size
 
 PRINTF		?= printf
+
+#dependency is the intermediate dir without last /
+INTERMEDIATE_DEP = $(patsubst %/,%,$(INTERMEDIATE_DIR))
