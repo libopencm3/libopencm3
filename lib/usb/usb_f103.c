@@ -2,6 +2,7 @@
  * This file is part of the libopencm3 project.
  *
  * Copyright (C) 2010 Gareth McMullin <gareth@blacksphere.co.nz>
+ * Copyright (C) 2014 Kuldeep Singh Dhaka <kuldeepdhaka9@gmail.com>
  *
  * This library is free software: you can redistribute it and/or modify
  * it under the terms of the GNU Lesser General Public License as published by
@@ -61,7 +62,8 @@ const struct _usbd_driver stm32f103_usb_driver = {
 /** Initialize the USB device controller hardware of the STM32. */
 static usbd_device *stm32f103_usbd_init(void)
 {
-	rcc_peripheral_enable_clock(&RCC_APB1ENR, RCC_APB1ENR_USBEN);
+	rcc_periph_clock_enable(RCC_USB);
+
 	SET_REG(USB_CNTR_REG, 0);
 	SET_REG(USB_BTABLE_REG, 0);
 	SET_REG(USB_ISTR_REG, 0);
@@ -69,6 +71,11 @@ static usbd_device *stm32f103_usbd_init(void)
 	/* Enable RESET, SUSPEND, RESUME and CTR interrupts. */
 	SET_REG(USB_CNTR_REG, USB_CNTR_RESETM | USB_CNTR_CTRM |
 		USB_CNTR_SUSPM | USB_CNTR_WKUPM);
+
+#if defined(STM32F0)
+	SET_REG(USB_BDCR_REG, USB_BDCR_DPPU);
+#endif
+
 	return &usbd_dev;
 }
 
@@ -220,6 +227,12 @@ static void stm32f103_ep_nak_set(usbd_device *dev, uint8_t addr, uint8_t nak)
 	}
 }
 
+#if defined(STM32F0)
+#define _MEM_INC_BY_NUM 1
+#else
+#define _MEM_INC_BY_NUM 2
+#endif
+
 /**
  * Copy a data buffer to packet memory.
  *
@@ -232,7 +245,7 @@ static void usb_copy_to_pm(volatile void *vPM, const void *buf, uint16_t len)
 	const uint16_t *lbuf = buf;
 	volatile uint16_t *PM = vPM;
 
-	for (len = (len + 1) >> 1; len; PM += 2, lbuf++, len--) {
+	for (len = (len + 1) >> 1; len; PM += _MEM_INC_BY_NUM, lbuf++, len--) {
 		*PM = *lbuf;
 	}
 }
@@ -266,8 +279,8 @@ static void usb_copy_from_pm(void *buf, const volatile void *vPM, uint16_t len)
 	uint16_t *lbuf = buf;
 	const volatile uint16_t *PM = vPM;
 	uint8_t odd = len & 1;
-
-	for (len >>= 1; len; PM += 2, lbuf++, len--) {
+	
+	for (len >>= 1; len; PM += _MEM_INC_BY_NUM, lbuf++, len--) {
 		*lbuf = *PM;
 	}
 

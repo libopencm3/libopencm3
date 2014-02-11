@@ -41,6 +41,8 @@ OBJS            += gpio_common_all.o gpio_common_f0234.o crc_common_all.o \
                    dma_common_l1f013.o exti_common_all.o spi_common_all.o \
 		   spi_common_f03.o flash_common_f01.o
 
+OBJS		+= usb.o usb_control.o usb_standard.o usb_f103.o
+
 VPATH += ../../usb:../:../../cm3:../common
 
 include ../../Makefile.include
