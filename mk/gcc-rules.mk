@@ -47,14 +47,14 @@
 	@$(PRINTF) "  AR      $(@F)\n"
 	$(Q)$(AR) $(ARFLAGS) $@ $(OBJS)
 
-%.o: %.c
+$(INTERMEDIATE_DIR)%.o: %.c
 	@$(PRINTF) "  CC      $<\n"
 	$(Q)$(CC) $(CFLAGS) $(CPPFLAGS) $(ARCH_FLAGS) -o $@ -c $<
 
-%.o: %.cxx
+$(INTERMEDIATE_DIR)%.o: %.cxx
 	@$(PRINTF) "  CXX     $<\n"
 	$(Q)$(CXX) $(CXXFLAGS) $(CPPFLAGS) $(ARCH_FLAGS) -o $@ -c $<
 
-%.o: %.cpp
+$(INTERMEDIATE_DIR)%.o: %.cpp
 	@$(PRINTF) "  CXX     $(*).cpp\n"
 	$(Q)$(CXX) $(CXXFLAGS) $(CPPFLAGS) $(ARCH_FLAGS) -o $@ -c $<

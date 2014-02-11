@@ -17,7 +17,7 @@
 ## along with this library.  If not, see <http://www.gnu.org/licenses/>.
 ##
 
-$(LDSCRIPT):$(OPENCM3_DIR)/ld/linker.ld.S
+$(LDSCRIPT):$(OPENCM3_DIR)ld/linker.ld.S
 ifeq ($(GENLINK_DEFS),)
 	$(error unknown device $(DEVICE) for the linker. Cannot generate ldscript)
 endif
@@ -26,7 +26,7 @@ endif
 
 %.size: %.elf
 	@$(PRINTF) "  SIZE    $<\n"
-	$(Q)readelf $< -l | awk $(GENLINK_SIZE) -f $(OPENCM3_DIR)/scripts/arm-size.awk
+	$(Q)readelf $< -l | awk $(GENLINK_SIZE) -f $(OPENCM3_DIR)scripts/arm-size.awk
 
 .PHONY: clean
 clean: clean-genlink
@@ -34,5 +34,5 @@ clean: clean-genlink
 .PHONY: clean-genlink
 clean-genlink:
 	@$(PRINTF) "  CLNLNK  $@\n"
-	$(Q)$(RM) -f $(DEVICE).ls
+	$(Q)$(RM) -f $(LDSCRIPT)
 
