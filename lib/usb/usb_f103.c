@@ -338,9 +338,9 @@ static void stm32f103_poll(usbd_device *dev)
 	}
 
 	if (istr & USB_ISTR_SOF) {
+		USB_CLR_ISTR_SOF();
 		if (dev->user_callback_sof) {
 			dev->user_callback_sof();
 		}
-		USB_CLR_ISTR_SOF();
 	}
 }
