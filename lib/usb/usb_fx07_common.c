@@ -326,6 +326,9 @@ void stm32fx07_poll(usbd_device *usbd_dev)
 		}
 		REBASE(OTG_GINTSTS) = OTG_FS_GINTSTS_SOF;
 	}
+
+	BBIO_PERIPH(OTG_FS_GINTMSK, OTG_FS_GINTMSK_SOFM) =
+		(usbd_dev->user_callback_sof)?1:0;
 }
 
 void stm32fx07_disconnect(usbd_device *usbd_dev, bool disconnected)

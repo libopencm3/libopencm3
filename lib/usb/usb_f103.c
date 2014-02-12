@@ -343,4 +343,5 @@ static void stm32f103_poll(usbd_device *dev)
 			dev->user_callback_sof();
 		}
 	}
+	BBIO_PERIPH(USB_CNTR_REG, USB_CNTR_SOFM) = (dev->user_callback_sof)?1:0;
 }
