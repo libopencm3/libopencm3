@@ -61,7 +61,10 @@ stm32l1:
 top:
 	doxygen
 
-latex: stm32l1.pdf stm32f0.pdf stm32f1.pdf stm32f2.pdf stm32f3.pdf stm32f4.pdf lm3s.pdf lm4f.pdf lpc13.pdf lpc17.pdf lpc43.pdf efm32g.pdf efm32gg.pdf efm32lg.pdf efm32tg.pdf
+latex: usb.pdf stm32l1.pdf stm32f0.pdf stm32f1.pdf stm32f2.pdf stm32f3.pdf stm32f4.pdf lm3s.pdf lm4f.pdf lpc13.pdf lpc17.pdf lpc43.pdf efm32g.pdf efm32gg.pdf efm32lg.pdf efm32tg.pdf
+
+usb.pdf:
+	cd usb/; doxygen Doxyfile_latex; cd latex/; $(MAKE); cp refman.pdf ../../usb.pdf
 
 stm32l1.pdf:
 	cd stm32l1/; doxygen Doxyfile_latex; cd latex/; $(MAKE); cp refman.pdf ../../stm32l1.pdf
