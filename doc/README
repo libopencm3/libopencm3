@@ -25,3 +25,10 @@ The pdf is generated via LaTeX. The pdf files are placed in the
 doc directory. Each file contains all documentation for the core and common
 features. The resulting files are huge.
 
+
+Requirements
+------------
+On Fedora 19, the following packages (at least!) are needed to build the pdf
+output
+
+    texlive texlive-sectsty texlive-tocloft texlive-xtab texlive-multirow
