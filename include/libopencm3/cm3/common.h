@@ -54,10 +54,10 @@
 
 /* Generic bit-band I/O accessor functions */
 #define BBIO_SRAM(addr, bit) \
-	MMIO8(((addr) & 0x0FFFFF) * 32 + 0x22000000 + (bit) * 4)
+	MMIO32((((uint32_t)addr) & 0x0FFFFF) * 32 + 0x22000000 + (bit) * 4)
 
 #define BBIO_PERIPH(addr, bit) \
-	MMIO8(((addr) & 0x0FFFFF) * 32 + 0x42000000 + (bit) * 4)
+	MMIO32((((uint32_t)addr) & 0x0FFFFF) * 32 + 0x42000000 + (bit) * 4)
 
 /* Generic bit definition */
 #define BIT0  (1<<0)
