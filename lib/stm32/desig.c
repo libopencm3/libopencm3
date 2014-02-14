@@ -19,26 +19,26 @@
 
 #include <libopencm3/stm32/desig.h>
 
-uint16_t desig_get_flash_size(void)
+uint16_t desig_get_flash_size(uint32_t base)
 {
-	return DESIG_FLASH_SIZE;
+	return DESIG_FLASH_SIZE(base);
 }
 
-void desig_get_unique_id(uint32_t result[])
+void desig_get_unique_id(uint32_t base, uint32_t result[])
 {
-	result[0] = DESIG_UNIQUE_ID2;
-	result[1] = DESIG_UNIQUE_ID1;
-	result[2] = DESIG_UNIQUE_ID0;
+	result[0] = DESIG_UNIQUE_ID2(base);
+	result[1] = DESIG_UNIQUE_ID1(base);
+	result[2] = DESIG_UNIQUE_ID0(base);
 }
 
-void desig_get_unique_id_as_string(char *string,
+void desig_get_unique_id_as_string(uint32_t base, char *string,
 				   unsigned int string_len)
 {
 	int i, len;
 	uint8_t device_id[12];
 	static const char chars[] = "0123456789ABCDEF";
 
-	desig_get_unique_id((uint32_t *)device_id);
+	desig_get_unique_id(base, (uint32_t *)device_id);
 
 	/* Each byte produces two characters */
 	len = (2 * sizeof(device_id) < string_len) ?

@@ -107,11 +107,13 @@
 #define AES_BASE			(PERIPH_BASE +  0x10000000)
 
 /* Device Electronic Signature */
-#define DESIG_FLASH_SIZE_BASE		(INFO_BASE + 0x8004C)
-#define DESIG_UNIQUE_ID_BASE		(INFO_BASE + 0x80050)
-#define DESIG_UNIQUE_ID0		MMIO32(DESIG_UNIQUE_ID_BASE)
-#define DESIG_UNIQUE_ID1		MMIO32(DESIG_UNIQUE_ID_BASE + 4)
-#define DESIG_UNIQUE_ID2		MMIO32(DESIG_UNIQUE_ID_BASE + 0x14)
+
+#if defined(STM32L1HD)
+#define DESIG_BASE			(INFO_BASE + 0x800C0)
+#else
+#define DESIG_BASE			(INFO_BASE + 0x80040)
+#endif
+
 
 /* ST provided factory calibration values @ 3.0V */
 #define ST_VREFINT_CAL			MMIO16(0x1FF80078)
