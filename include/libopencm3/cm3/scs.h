@@ -247,79 +247,6 @@
  */
 #define SCS_SYST_SYST_CALIB_REF_NOT_IMPLEMENTED	(BIT31)
 
-/*
- * System Control Space (SCS) =>  Data Watchpoint and Trace (DWT).
- * See "ARMv7-M Architecture Reference Manual"
- * (https://github.com/libopencm3/libopencm3-archive/blob/master/arm/
- * ARMv7-M_ARM.pdf)
- * The DWT is an optional debug unit that provides watchpoints, data tracing,
- * and system profiling for the processor.
- */
-/*
- * DWT Control register
- * Purpose Provides configuration and status information for the DWT block, and
- * used to control features of the block
- * Usage constraints: There are no usage constraints.
- * Configurations Always implemented.
- */
-#define SCS_DWT_CTRL		MMIO32(DWT_BASE + 0x00)
-/*
- * DWT_CYCCNT register
- * Cycle Count Register (Shows or sets the value of the processor cycle
- * counter, CYCCNT)
- * When enabled, CYCCNT increments on each processor clock cycle. On overflow,
- * CYCCNT wraps to zero.
- *
- * Purpose Shows or sets the value of the processor cycle counter, CYCCNT.
- * Usage constraints: The DWT unit suspends CYCCNT counting when the processor
- * is in Debug state.
- * Configurations Implemented: only when DWT_CTRL.NOCYCCNT is RAZ, see Control
- * register, DWT_CTRL.
- * When DWT_CTRL.NOCYCCNT is RAO no cycle counter is implemented and this
- * register is UNK/SBZP.
-*/
-#define SCS_DWT_CYCCNT		MMIO32(DWT_BASE + 0x04)
-
-/* DWT_CPICNT register
- * Purpose Counts additional cycles required to execute multi-cycle
- * instructions and instruction fetch stalls.
- * Usage constraints: The counter initializes to 0 when software enables its
- * counter overflow event by
- * setting the DWT_CTRL.CPIEVTENA bit to 1.
- * Configurations Implemented: only when DWT_CTRL.NOPRFCNT is RAZ, see Control
- * register, DWT_CTRL.
- * If DWT_CTRL.NOPRFCNT is RAO, indicating that the implementation does not
- * include the profiling counters, this register is UNK/SBZP.
- */
-#define SCS_DWT_CPICNT		MMIO32(DWT_BASE + 0x08)
-
-/* DWT_EXCCNT register */
-#define SCS_DWT_EXCCNT		MMIO32(DWT_BASE + 0x0C)
-
-/* DWT_EXCCNT register */
-#define SCS_DWT_SLEEPCNT	MMIO32(DWT_BASE + 0x10)
-
-/* DWT_EXCCNT register */
-#define SCS_DWT_LSUCNT		MMIO32(DWT_BASE + 0x14)
-
-/* DWT_EXCCNT register */
-#define SCS_DWT_FOLDCNT		MMIO32(DWT_BASE + 0x18)
-
-/* DWT_PCSR register */
-#define SCS_DWT_PCSR		MMIO32(DWT_BASE + 0x18)
-
-/* CoreSight Lock Status Register for this peripheral */
-#define SCS_DWT_LSR		MMIO32(SCS_DWT_BASE + 0xFB4)
-/* CoreSight Lock Access Register for this peripheral */
-#define SCS_DWT_LAR		MMIO32(SCS_DWT_BASE + 0xFB0)
-
-/* --- SCS_DWT_CTRL values ------------------------------------------------- */
-/*
- * Enables CYCCNT:
- * 0 = Disabled, 1 = Enabled
- * This bit is UNK/SBZP if the NOCYCCNT bit is RAO.
- */
-#define SCS_DWT_CTRL_CYCCNTENA	(BIT0)
 
 /* CoreSight Lock Status Register lock status bit */
 #define SCS_LSR_SLK		(1<<1)
@@ -328,11 +255,6 @@
 /* CoreSight Lock Access key, common for all */
 #define SCS_LAR_KEY		0xC5ACCE55
 
-/* TODO bit definition values for other DWT_XXX register */
-
-/* Macro to be called at startup to enable SCS & Cycle Counter */
-#define SCS_DWT_CYCLE_COUNTER_ENABLED()	((SCS_DEMCR |= SCS_DEMCR_TRCENA)\
-				(SCS_DWT_CTRL |= SCS_DWT_CTRL_CYCCNTENA))
 
 #define SCS_SYSTICK_DISABLED()	(SCS_SYST_CSR = 0)
 
