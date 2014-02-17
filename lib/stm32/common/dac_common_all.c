@@ -183,13 +183,13 @@ void dac_buffer_enable(data_channel dac_channel)
 {
 	switch (dac_channel) {
 	case CHANNEL_1:
-		DAC_CR |= DAC_CR_BOFF1;
+		DAC_CR &= ~DAC_CR_BOFF1;
 		break;
 	case CHANNEL_2:
-		DAC_CR |= DAC_CR_BOFF2;
+		DAC_CR &= ~DAC_CR_BOFF2;
 		break;
 	case CHANNEL_D:
-		DAC_CR |= (DAC_CR_BOFF1 | DAC_CR_BOFF2);
+		DAC_CR &= ~(DAC_CR_BOFF1 | DAC_CR_BOFF2);
 		break;
 	}
 }
@@ -207,13 +207,13 @@ void dac_buffer_disable(data_channel dac_channel)
 {
 	switch (dac_channel) {
 	case CHANNEL_1:
-		DAC_CR &= ~DAC_CR_BOFF1;
+		DAC_CR |= DAC_CR_BOFF1;
 		break;
 	case CHANNEL_2:
-		DAC_CR &= ~DAC_CR_BOFF2;
+		DAC_CR |= DAC_CR_BOFF2;
 		break;
 	case CHANNEL_D:
-		DAC_CR &= ~(DAC_CR_BOFF1 | DAC_CR_BOFF2);
+		DAC_CR |= (DAC_CR_BOFF1 | DAC_CR_BOFF2);
 		break;
 	}
 }
