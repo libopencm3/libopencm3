@@ -162,11 +162,9 @@ static inline bool __cm_atomic_set(bool *val)
 }
 
 #define __CM_SAVER(state)					\
-do {								\
 	__val = state,						\
 	__save __attribute__((__cleanup__(__cm_atomic_set))) =	\
-	__cm_atomic_set(&__val);				\
-} while (0)
+	__cm_atomic_set(&__val)
 
 #endif /* !defined(__DOXYGEN) */
 
@@ -217,9 +215,7 @@ do {								\
 #define CM_ATOMIC_BLOCK()
 #else /* defined(__DOXYGEN__) */
 #define CM_ATOMIC_BLOCK()						\
-do {									\
-	for (bool ___CM_SAVER(true), __my = true; __my; __my = false);	\
-} while (0)
+	for (bool ___CM_SAVER(true), __my = true; __my; __my = false)
 #endif /* defined(__DOXYGEN__) */
 
 /*---------------------------------------------------------------------------*/
