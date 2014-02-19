@@ -520,6 +520,76 @@ void rcc_set_pllxtpre(uint32_t pllxtpre)
 }
 
 /*---------------------------------------------------------------------------*/
+/** @brief RCC RTC Clock Enabled Flag
+
+@returns uint32_t. Nonzero if the RTC Clock is enabled.
+*/
+
+uint32_t rcc_rtc_clock_enabled_flag(void)
+{
+        return RCC_BDCR & RCC_BDCR_RTCEN;
+}
+
+/*---------------------------------------------------------------------------*/
+/** @brief RCC Enable the RTC clock
+
+*/
+
+void rcc_enable_rtc_clock(void)
+{
+	RCC_BDCR |= RCC_BDCR_RTCEN;
+}
+
+/*---------------------------------------------------------------------------*/
+/** @brief RCC Set the Source for the RTC clock
+
+@param[in] clock_source ::rcc_osc. RTC clock source. Only HSE/128, LSE and LSI.
+*/
+
+void rcc_set_rtc_clock_source(enum rcc_osc clock_source)
+{
+	uint32_t reg32;
+
+	switch (clock_source) {
+	case LSE:
+		/* Turn the LSE on and wait while it stabilises. */
+		RCC_BDCR |= RCC_BDCR_LSEON;
+		while ((reg32 = (RCC_BDCR & RCC_BDCR_LSERDY)) == 0);
+
+		/* Choose LSE as the RTC clock source. */
+		RCC_BDCR &= ~((1 << 8) | (1 << 9));
+		RCC_BDCR |= (1 << 8);
+		break;
+	case LSI:
+		/* Turn the LSI on and wait while it stabilises. */
+		RCC_CSR |= RCC_CSR_LSION;
+		while ((reg32 = (RCC_CSR & RCC_CSR_LSIRDY)) == 0);
+
+		/* Choose LSI as the RTC clock source. */
+		RCC_BDCR &= ~((1 << 8) | (1 << 9));
+		RCC_BDCR |= (1 << 9);
+		break;
+	case HSE:
+		/* Turn the HSE on and wait while it stabilises. */
+		RCC_CR |= RCC_CR_HSEON;
+		while ((reg32 = (RCC_CR & RCC_CR_HSERDY)) == 0);
+
+		/* Choose HSE as the RTC clock source. */
+		RCC_BDCR &= ~((1 << 8) | (1 << 9));
+		RCC_BDCR |= (1 << 9) | (1 << 8);
+		break;
+	case PLL:
+	case PLL2:
+	case PLL3:
+	case HSI:
+		/* Unusable clock source, here to prevent warnings. */
+		/* Turn off clock sources to RTC. */
+		RCC_BDCR &= ~((1 << 8) | (1 << 9));
+		break;
+	}
+}
+
+/*---------------------------------------------------------------------------*/
 /** @brief ADC Setup the A/D Clock
 
 The ADC's have a common clock prescale setting.
@@ -1120,9 +1190,10 @@ void rcc_clock_setup_in_hse_25mhz_out_72mhz(void)
 }
 
 /*---------------------------------------------------------------------------*/
-/** @brief RCC Reset the backup domain
+/** @brief RCC Reset the Backup Domain
 
-The backup domain register is reset to disable all controls.
+The backup domain registers are reset to disable RTC controls and clear user
+data.
 */
 
 void rcc_backupdomain_reset(void)
