@@ -84,7 +84,8 @@ established.
 @note The Backup Domain is reset by this function and will therefore result in
 the loss of any unrelated user data stored there.
 
-@param[in] clock_source ::rcc_osc. RTC clock source. Only HSE/128, LSE and LSI.
+@param[in] clock_source ::rcc_osc. RTC clock source. Only the values HSE, LSE
+    and LSI are permitted.
 */
 
 void rtc_awake_from_off(enum rcc_osc clock_source)
@@ -92,10 +93,11 @@ void rtc_awake_from_off(enum rcc_osc clock_source)
 	uint32_t reg32;
 
 	/* Enable power and backup interface clocks. */
-	RCC_APB1ENR |= (RCC_APB1ENR_PWREN | RCC_APB1ENR_BKPEN);
+        rcc_periph_clock_enable(RCC_PWR);
+        rcc_periph_clock_enable(RCC_BKP);
 
 	/* Enable access to the backup registers and the RTC. */
-	PWR_CR |= PWR_CR_DBP;
+        pwr_disable_backup_domain_write_protect();
 
 	/*
 	 * Reset the backup domain, clears everything RTC related.
@@ -103,46 +105,11 @@ void rtc_awake_from_off(enum rcc_osc clock_source)
 	 */
 	rcc_backupdomain_reset();
 
-	switch (clock_source) {
-	case LSE:
-		/* Turn the LSE on and wait while it stabilises. */
-		RCC_BDCR |= RCC_BDCR_LSEON;
-		while ((reg32 = (RCC_BDCR & RCC_BDCR_LSERDY)) == 0);
-
-		/* Choose LSE as the RTC clock source. */
-		RCC_BDCR &= ~((1 << 8) | (1 << 9));
-		RCC_BDCR |= (1 << 8);
-		break;
-	case LSI:
-		/* Turn the LSI on and wait while it stabilises. */
-		RCC_CSR |= RCC_CSR_LSION;
-		while ((reg32 = (RCC_CSR & RCC_CSR_LSIRDY)) == 0);
-
-		/* Choose LSI as the RTC clock source. */
-		RCC_BDCR &= ~((1 << 8) | (1 << 9));
-		RCC_BDCR |= (1 << 9);
-		break;
-	case HSE:
-		/* Turn the HSE on and wait while it stabilises. */
-		RCC_CR |= RCC_CR_HSEON;
-		while ((reg32 = (RCC_CR & RCC_CR_HSERDY)) == 0);
-
-		/* Choose HSE as the RTC clock source. */
-		RCC_BDCR &= ~((1 << 8) | (1 << 9));
-		RCC_BDCR |= (1 << 9) | (1 << 8);
-		break;
-	case PLL:
-	case PLL2:
-	case PLL3:
-	case HSI:
-		/* Unusable clock source, here to prevent warnings. */
-		/* Turn off clock sources to RTC. */
-		RCC_BDCR &= ~((1 << 8) | (1 << 9));
-		break;
-	}
+    /* Set the clock source */
+        rcc_set_rtc_clock_source(clock_source);
 
 	/* Enable the RTC. */
-	RCC_BDCR |= RCC_BDCR_RTCEN;
+        rcc_enable_rtc_clock();
 
 	/* Wait for the RSF bit in RTC_CRL to be set by hardware. */
 	RTC_CRL &= ~RTC_CRL_RSF;
@@ -405,10 +372,11 @@ void rtc_awake_from_standby(void)
 	uint32_t reg32;
 
 	/* Enable power and backup interface clocks. */
-	RCC_APB1ENR |= (RCC_APB1ENR_PWREN | RCC_APB1ENR_BKPEN);
+        rcc_periph_clock_enable(RCC_PWR);
+        rcc_periph_clock_enable(RCC_BKP);
 
 	/* Enable access to the backup registers and the RTC. */
-	PWR_CR |= PWR_CR_DBP;
+        pwr_disable_backup_domain_write_protect();
 
 	/* Wait for the RSF bit in RTC_CRL to be set by hardware. */
 	RTC_CRL &= ~RTC_CRL_RSF;
@@ -426,7 +394,8 @@ Enable the backup domain clocks and write access to the backup domain.
 If the RTC has not been enabled, set the clock source and prescaler value.
 The parameters are not used if the RTC has already been enabled.
 
-@param[in] clock_source ::rcc_osc. RTC clock source. Only HSE/128, LSE and LSI.
+@param[in] clock_source ::rcc_osc. RTC clock source. Only HSE, LSE
+    and LSI are permitted.
 @param[in] prescale_val uint32_t. 20 bit prescale divider.
 */
 
@@ -435,13 +404,10 @@ void rtc_auto_awake(enum rcc_osc clock_source, uint32_t prescale_val)
 	uint32_t reg32;
 
 	/* Enable power and backup interface clocks. */
-	RCC_APB1ENR |= (RCC_APB1ENR_PWREN | RCC_APB1ENR_BKPEN);
+        rcc_periph_clock_enable(RCC_PWR);
+        rcc_periph_clock_enable(RCC_BKP);
 
-	/* Enable access to the backup registers and the RTC. */
-	/* TODO: Not sure if this is necessary to just read the flag. */
-	PWR_CR |= PWR_CR_DBP;
-
-	reg32 = RCC_BDCR & RCC_BDCR_RTCEN;
+	reg32 = rcc_rtc_clock_enabled_flag();
 
 	if (reg32 != 0) {
 		rtc_awake_from_standby();
