@@ -35,7 +35,6 @@ specific memorymap.h header before including this header file.*/
 #ifndef LIBOPENCM3_USART_COMMON_F124_H
 #define LIBOPENCM3_USART_COMMON_F124_H
 
-#include <libopencm3/cm3/common.h>
 #include <libopencm3/stm32/common/usart_common_all.h>
 
 /* --- USART registers ----------------------------------------------------- */

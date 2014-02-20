@@ -36,5 +36,3 @@ in which case this file must be added to the compile list. */
  */
 
 #include <libopencm3/stm32/timer.h>
-#include <libopencm3/stm32/common/timer_common_f24.h>
-

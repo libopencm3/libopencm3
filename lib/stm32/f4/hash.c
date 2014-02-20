@@ -29,5 +29,3 @@
  */
 
 #include <libopencm3/stm32/hash.h>
-#include <libopencm3/stm32/common/hash_common_f24.h>
-

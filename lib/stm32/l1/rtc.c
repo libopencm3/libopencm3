@@ -29,4 +29,3 @@
  */
 
 #include <libopencm3/stm32/rtc.h>
-#include <libopencm3/stm32/common/rtc_common_l1f024.h>

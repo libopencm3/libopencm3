@@ -60,7 +60,6 @@
 /**@{*/
 
 #include <libopencm3/stm32/flash.h>
-#include <libopencm3/stm32/memorymap.h>
 
 /* Memory Size Register */
 #define MEMORY_SIZE_REG			MMIO32(DESIG_FLASH_SIZE_BASE)

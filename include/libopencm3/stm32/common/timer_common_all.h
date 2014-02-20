@@ -34,9 +34,6 @@ specific memorymap.h header before including this header file.*/
 #ifndef LIBOPENCM3_TIMER_COMMON_H
 #define LIBOPENCM3_TIMER_COMMON_H
 
-#include <libopencm3/stm32/memorymap.h>
-#include <libopencm3/cm3/common.h>
-
 /* --- Convenience macros -------------------------------------------------- */
 
 /* Timer register base addresses (for convenience) */

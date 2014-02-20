@@ -1,4 +1,4 @@
-/** @defgroup STM32L1xx_adc_defines ADC Defines
+/** @defgroup adc_defines ADC Defines
 
 @brief <b>Defined Constants and Types for the STM32L1xx Analog to
 Digital Converters</b>
@@ -33,7 +33,6 @@ LGPL License Terms @ref lgpl_license
 #ifndef LIBOPENCM3_ADC_H
 #define LIBOPENCM3_ADC_H
 
-#include <libopencm3/stm32/memorymap.h>
 #include <libopencm3/stm32/common/adc_common_v1.h>
 
 #define ADC_MAX_REGULAR_SEQUENCE	28
@@ -108,7 +107,7 @@ LGPL License Terms @ref lgpl_license
 #define ADC_CR1_OVRIE			(1 << 28)
 /****************************************************************************/
 /** @defgroup adc_cr1_res ADC Resolution.
-@ingroup STM32L1xx_adc_defines
+@ingroup adc_defines
 @{*/
 #define ADC_CR1_RES_12_BIT		0
 #define ADC_CR1_RES_10_BIT		1
@@ -131,7 +130,7 @@ LGPL License Terms @ref lgpl_license
 #define ADC_CR2_EXTEN_SHIFT		28
 #define ADC_CR2_EXTEN_MASK		(0x3 << ADC_CR2_EXTEN_SHIFT)
 /** @defgroup adc_trigger_polarity_regular ADC Trigger Polarity
-@ingroup STM32L1xx_adc_defines
+@ingroup adc_defines
 @{*/
 #define ADC_CR2_EXTEN_DISABLED		(0x0 << ADC_CR2_EXTEN_SHIFT)
 #define ADC_CR2_EXTEN_RISING_EDGE	(0x1 << ADC_CR2_EXTEN_SHIFT)
@@ -144,7 +143,7 @@ LGPL License Terms @ref lgpl_license
 #define ADC_CR2_EXTSEL_SHIFT		24
 #define ADC_CR2_EXTSEL_MASK		(0xf << ADC_CR2_EXTSEL_SHIFT)
 /** @defgroup adc_trigger_regular ADC Trigger Identifier for Regular group
-@ingroup STM32L1xx_adc_defines
+@ingroup adc_defines
 
 @{*/
 #define ADC_CR2_EXTSEL_TIM9_CC2		(0 << ADC_CR2_EXTSEL_SHIFT)
@@ -169,7 +168,7 @@ LGPL License Terms @ref lgpl_license
 #define ADC_CR2_JEXTEN_SHIFT		20
 #define ADC_CR2_JEXTEN_MASK		(0x3 << ADC_CR2_JEXTEN_SHIFT)
 /** @defgroup adc_trigger_polarity_injected ADC Injected Trigger Polarity
-@ingroup STM32L1xx_adc_defines
+@ingroup adc_defines
 @{*/
 #define ADC_CR2_JEXTEN_DISABLED		(0x0 << ADC_CR2_JEXTEN_SHIFT)
 #define ADC_CR2_JEXTEN_RISING_EDGE	(0x1 << ADC_CR2_JEXTEN_SHIFT)
@@ -196,7 +195,7 @@ LGPL License Terms @ref lgpl_license
 /****************************************************************************/
 /* ADC_SMPRG ADC Sample Time Selection for Channels */
 /** @defgroup adc_sample_rg ADC Sample Time Selection for All Channels
-@ingroup STM32L1xx_adc_defines
+@ingroup adc_defines
 
 @{*/
 #define ADC_SMPR_SMP_4CYC		0x0

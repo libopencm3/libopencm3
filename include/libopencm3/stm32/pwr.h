@@ -16,6 +16,10 @@
  * You should have received a copy of the GNU Lesser General Public License
  * along with this library.  If not, see <http://www.gnu.org/licenses/>.
  */
+
+#include <libopencm3/cm3/common.h>
+#include <libopencm3/stm32/memorymap.h>
+
 #if defined(STM32F0)
 #       include <libopencm3/stm32/f0/pwr.h>
 #elif defined(STM32F1)

@@ -29,9 +29,8 @@
  */
 
 #include <libopencm3/stm32/exti.h>
-#include <libopencm3/stm32/f4/nvic.h>
+#include <libopencm3/cm3/nvic.h>
 #include <libopencm3/stm32/rtc.h>
-#include <libopencm3/stm32/common/rtc_common_l1f024.h>
 
 
 /*---------------------------------------------------------------------------*/

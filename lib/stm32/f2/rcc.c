@@ -38,8 +38,8 @@
  */
 
 #include <libopencm3/cm3/assert.h>
-#include <libopencm3/stm32/f2/rcc.h>
-#include <libopencm3/stm32/f2/flash.h>
+#include <libopencm3/stm32/rcc.h>
+#include <libopencm3/stm32/flash.h>
 
 /**@{*/
 

@@ -35,8 +35,6 @@ specific memorymap.h header before including this header file.*/
 #ifndef LIBOPENCM3_ADC_COMMON_V1_H
 #define LIBOPENCM3_ADC_COMMON_V1_H
 
-#include <libopencm3/cm3/common.h>
-
 /* --- Convenience macros -------------------------------------------------- */
 
 /* ADC port base addresses (for convenience) */

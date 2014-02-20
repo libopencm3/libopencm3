@@ -33,7 +33,6 @@
 #ifndef LIBOPENCM3_IWDG_H
 #define LIBOPENCM3_IWDG_H
 
-#include <libopencm3/stm32/memorymap.h>
 #include <libopencm3/stm32/common/iwdg_common_all.h>
 
 /* --- IWDG registers ------------------------------------------------------ */

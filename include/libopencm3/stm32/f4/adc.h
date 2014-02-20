@@ -1,4 +1,4 @@
-/** @defgroup STM32F4xx_adc_defines ADC Defines
+/** @defgroup adc_defines ADC Defines
 
 @brief <b>Defined Constants and Types for the STM32F4xx Analog to Digital
 Converters</b>
@@ -39,8 +39,6 @@ LGPL License Terms @ref lgpl_license
 #ifndef LIBOPENCM3_ADC_H
 #define LIBOPENCM3_ADC_H
 
-#include <libopencm3/cm3/common.h>
-#include <libopencm3/stm32/memorymap.h>
 #include <libopencm3/stm32/common/adc_common_v1.h>
 
 /* --- Convenience macros -------------------------------------------------- */
@@ -104,7 +102,7 @@ LGPL License Terms @ref lgpl_license
 /* RES[1:0]: Resolution */
 /****************************************************************************/
 /** @defgroup adc_cr1_res ADC Resolution.
-@ingroup STM32F4xx_adc_defines
+@ingroup adc_defines
 
 @{*/
 #define ADC_CR1_RES_12BIT		(0x0 << 24)
@@ -129,7 +127,7 @@ LGPL License Terms @ref lgpl_license
 /* EXTEN[1:0]: External trigger enable for regular channels. */
 /****************************************************************************/
 /** @defgroup adc_trigger_polarity_regular ADC Trigger Polarity
-@ingroup STM32F4xx_adc_defines
+@ingroup adc_defines
 
 @{*/
 #define ADC_CR2_EXTEN_DISABLED		(0x0 << 28)
@@ -143,7 +141,7 @@ LGPL License Terms @ref lgpl_license
 /* EXTSEL[3:0]: External event selection for regular group. */
 /****************************************************************************/
 /** @defgroup adc_trigger_regular ADC Trigger Identifier for Regular group
-@ingroup STM32F4xx_adc_defines
+@ingroup adc_defines
 
 @{*/
 /** Timer 1 Compare Output 1 */
@@ -190,7 +188,7 @@ LGPL License Terms @ref lgpl_license
 /* JEXTEN[1:0]: External trigger enable for injected channels. */
 /****************************************************************************/
 /** @defgroup adc_trigger_polarity_injected ADC Injected Trigger Polarity
-@ingroup STM32F4xx_adc_defines
+@ingroup adc_defines
 
 @{*/
 #define ADC_CR2_JEXTEN_DISABLED		(0x0 << 20)
@@ -204,7 +202,7 @@ LGPL License Terms @ref lgpl_license
 /* JEXTSEL[3:0]: External event selection for injected group. */
 /****************************************************************************/
 /** @defgroup adc_trigger_injected ADC Trigger Identifier for Injected group
-@ingroup STM32F4xx_adc_defines
+@ingroup adc_defines
 
 @{*/
 #define ADC_CR2_JEXTSEL_TIM1_CC4	(0x0 << 16)
@@ -300,7 +298,7 @@ LGPL License Terms @ref lgpl_license
 /****************************************************************************/
 /* ADC_SMPRG ADC Sample Time Selection for Channels */
 /** @defgroup adc_sample_rg ADC Sample Time Selection for All Channels
-@ingroup STM32F4xx_adc_defines
+@ingroup adc_defines
 
 @{*/
 #define ADC_SMPR_SMP_3CYC		0x0
@@ -439,7 +437,7 @@ LGPL License Terms @ref lgpl_license
 /* ADCPRE: ADC prescaler. */
 /****************************************************************************/
 /** @defgroup adc_ccr_adcpre ADC Prescale
-@ingroup STM32F4xx_adc_defines
+@ingroup adc_defines
 
 @{*/
 #define ADC_CCR_ADCPRE_BY2		(0x0 << 16)
@@ -453,7 +451,7 @@ LGPL License Terms @ref lgpl_license
 /* DMA: Direct memory access mode for multi ADC mode. */
 /****************************************************************************/
 /** @defgroup adc_dma_mode ADC DMA mode for multi ADC mode
-@ingroup STM32F4xx_adc_defines
+@ingroup adc_defines
 
 @{*/
 #define ADC_CCR_DMA_DISABLE		(0x0 << 14)
@@ -472,7 +470,7 @@ LGPL License Terms @ref lgpl_license
 /* DELAY: Delay between 2 sampling phases. */
 /****************************************************************************/
 /** @defgroup adc_delay ADC Delay between 2 sampling phases
-@ingroup STM32F4xx_adc_defines
+@ingroup adc_defines
 
 @{*/
 #define ADC_CCR_DELAY_5ADCCLK		(0x0 << 8)
@@ -500,7 +498,7 @@ LGPL License Terms @ref lgpl_license
 /* MULTI: Multi ADC mode selection. */
 /****************************************************************************/
 /** @defgroup adc_multi_mode ADC Multi mode selection
-@ingroup STM32F4xx_adc_defines
+@ingroup adc_defines
 
 @{*/
 

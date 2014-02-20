@@ -37,7 +37,6 @@
 #ifndef LIBOPENCM3_SYSCFG_H
 #define LIBOPENCM3_SYSCFG_H
 
-#include <libopencm3/stm32/memorymap.h>
 #include <libopencm3/stm32/common/syscfg_common_l1f234.h>
 
 #endif

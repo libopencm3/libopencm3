@@ -1,12 +1,12 @@
-/** @defgroup crc_file CRC
+/** @defgroup spi_file SPI
 
-@ingroup STM32F1xx
+@ingroup STM32F0xx
 
-@brief <b>libopencm3 STM32F1xx CRC</b>
+@brief <b>libopencm3 STM32F0xx SPI</b>
 
 @version 1.0.0
 
-@date 15 October 2012
+@date 20 February 2014
 
 LGPL License Terms @ref lgpl_license
 */
@@ -28,4 +28,4 @@ LGPL License Terms @ref lgpl_license
  * along with this library.  If not, see <http://www.gnu.org/licenses/>.
  */
 
-#include <libopencm3/stm32/crc.h>
+#include <libopencm3/stm32/spi.h>

@@ -31,7 +31,7 @@
  * along with this library.  If not, see <http://www.gnu.org/licenses/>.
  */
 
-#include <libopencm3/stm32/f3/gpio.h>
+#include <libopencm3/stm32/gpio.h>
 
 void gpio_mode_setup(uint32_t gpioport, uint8_t mode, uint8_t pull_up_down,
 		     uint16_t gpios)

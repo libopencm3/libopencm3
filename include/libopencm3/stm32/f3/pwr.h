@@ -41,7 +41,7 @@
 #ifndef LIBOPENCM3_PWR_F3_H
 #define LIBOPENCM3_PWR_F3_H
 
-#include <libopencm3/stm32/pwr.h>
+#include <libopencm3/stm32/common/pwr_common_all.h>
 
 /* --- PWR_CR values ------------------------------------------------------- */
 

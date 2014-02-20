@@ -1,4 +1,4 @@
-/** @defgroup STM32L1xx_adc_file ADC
+/** @defgroup adc_file ADC
 
 @ingroup STM32L1xx
 
@@ -28,7 +28,7 @@ LGPL License Terms @ref lgpl_license
  * along with this library.  If not, see <http://www.gnu.org/licenses/>.
  */
 
-#include <libopencm3/stm32/l1/adc.h>
+#include <libopencm3/stm32/adc.h>
 
 /**@{*/
 

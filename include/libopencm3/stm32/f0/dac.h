@@ -33,8 +33,7 @@
 #ifndef LIBOPENCM3_DAC_H
 #define LIBOPENCM3_DAC_H
 
-#include <libopencm3/cm3/common.h>
-#include <libopencm3/stm32/memorymap.h>
+#include <libopencm3/stm32/common/dac_common_all.h>
 
 /*****************************************************************************/
 /* Module definitions                                                        */

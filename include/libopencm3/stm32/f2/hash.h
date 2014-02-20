@@ -31,7 +31,6 @@ LGPL License Terms @ref lgpl_license
 #ifndef LIBOPENCM3_HASH_H
 #define LIBOPENCM3_HASH_H
 
-#include <libopencm3/stm32/memorymap.h>
 #include <libopencm3/stm32/common/hash_common_f24.h>
 
 #endif

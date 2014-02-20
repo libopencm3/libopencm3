@@ -36,7 +36,6 @@
 #define LIBOPENCM3_RTC_F3_H
 /**@{*/
 
-#include <libopencm3/stm32/rtc.h>
 #include <libopencm3/stm32/common/rtc_common_all.h>
 /**@}*/
 
