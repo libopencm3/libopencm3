@@ -29,5 +29,3 @@
  */
 
 #include <libopencm3/stm32/dac.h>
-#include <libopencm3/stm32/common/dac_common_all.h>
-

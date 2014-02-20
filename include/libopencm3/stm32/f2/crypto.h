@@ -31,8 +31,6 @@
 #ifndef LIBOPENCM3_CRYPTO_H
 #define LIBOPENCM3_CRYPTO_H
 
-#include <libopencm3/stm32/memorymap.h>
-#include <libopencm3/cm3/common.h>
 #include <libopencm3/stm32/common/crypto_common_f24.h>
 
 #endif

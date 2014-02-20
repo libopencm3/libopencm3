@@ -29,5 +29,3 @@
  */
 
 #include <libopencm3/stm32/crypto.h>
-#include <libopencm3/stm32/common/crypto_common_all.h>
-

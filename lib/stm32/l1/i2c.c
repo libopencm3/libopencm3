@@ -29,5 +29,3 @@ LGPL License Terms @ref lgpl_license
  */
 
 #include <libopencm3/stm32/i2c.h>
-#include <libopencm3/stm32/common/spi_common_all.h>
-

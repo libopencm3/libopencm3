@@ -21,8 +21,8 @@
  * Based on the F4 code...
  */
 
-#include <libopencm3/stm32/l1/rcc.h>
-#include <libopencm3/stm32/l1/flash.h>
+#include <libopencm3/stm32/rcc.h>
+#include <libopencm3/stm32/flash.h>
 #include <libopencm3/stm32/pwr.h>
 
 /* Set the default ppre1 and ppre2 peripheral clock frequencies after reset. */

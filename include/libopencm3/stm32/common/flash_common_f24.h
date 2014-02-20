@@ -40,7 +40,6 @@
 #define LIBOPENCM3_FLASH_COMMON_F24_H
 /**@{*/
 
-#include <libopencm3/cm3/common.h>
 #include <libopencm3/stm32/common/flash_common_f234.h>
 
 /* --- FLASH registers ----------------------------------------------------- */

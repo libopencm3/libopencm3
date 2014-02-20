@@ -35,8 +35,6 @@ specific memorymap.h header before including this header file.*/
 
 /**@{*/
 
-#include <libopencm3/cm3/common.h>
-
 /* --- PWR registers ------------------------------------------------------- */
 
 /* Power control register (PWR_CR) */

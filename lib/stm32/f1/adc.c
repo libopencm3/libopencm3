@@ -1,4 +1,4 @@
-/** @defgroup STM32F1xx_adc_file ADC
+/** @defgroup adc_file ADC
 
 @ingroup STM32F1xx
 
@@ -110,7 +110,7 @@ LGPL License Terms @ref lgpl_license
 
 /**@{*/
 
-#include <libopencm3/stm32/f1/adc.h>
+#include <libopencm3/stm32/adc.h>
 
 /*---------------------------------------------------------------------------*/
 /** @brief ADC Power On

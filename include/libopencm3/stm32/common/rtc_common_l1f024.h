@@ -42,9 +42,6 @@ specific memorymap.h header before including this header file.*/
 
 /**@{*/
 
-#include <libopencm3/cm3/common.h>
-#include <libopencm3/stm32/memorymap.h>
-
 /* RTC time register (RTC_TR) */
 #define RTC_TR          MMIO32(RTC_BASE + 0x00)
 

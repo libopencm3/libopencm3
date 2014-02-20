@@ -40,9 +40,6 @@
 #ifndef LIBOPENCM3_RCC_H
 #define LIBOPENCM3_RCC_H
 
-#include <libopencm3/stm32/memorymap.h>
-#include <libopencm3/cm3/common.h>
-
 /* Note: Regs/bits marked (**) only exist in "connectivity line" STM32s. */
 /* Note: Regs/bits marked (XX) do NOT exist in "connectivity line" STM32s. */
 

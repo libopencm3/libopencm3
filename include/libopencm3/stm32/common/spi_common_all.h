@@ -32,8 +32,6 @@ specific memorymap.h header before including this header file.*/
 #ifndef LIBOPENCM3_SPI_COMMON_ALL_H
 #define LIBOPENCM3_SPI_COMMON_ALL_H
 
-#include <libopencm3/cm3/common.h>
-
 /**@{*/
 
 /* Registers can be accessed as 16bit or 32bit values. */

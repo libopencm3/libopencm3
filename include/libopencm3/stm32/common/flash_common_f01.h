@@ -35,7 +35,6 @@
 #define LIBOPENCM3_FLASH_COMMON_F01_H
 /**@{*/
 
-#include <libopencm3/cm3/common.h>
 /* --- FLASH registers ----------------------------------------------------- */
 
 #define FLASH_ACR			MMIO32(FLASH_MEM_INTERFACE_BASE + 0x00)

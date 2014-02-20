@@ -31,8 +31,6 @@
 #ifndef LIBOPENCM3_HASH_COMMON_F24_H
 #define LIBOPENCM3_HASH_COMMON_F24_H
 
-#include <libopencm3/cm3/common.h>
-
 /* --- Convenience macros -------------------------------------------------- */
 
 /****************************************************************************/

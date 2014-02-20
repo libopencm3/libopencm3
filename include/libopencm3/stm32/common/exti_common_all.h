@@ -29,9 +29,6 @@
 #define LIBOPENCM3_EXTI_COMMON_ALL_H
 /**@{*/
 
-#include <libopencm3/stm32/memorymap.h>
-#include <libopencm3/cm3/common.h>
-
 /* --- EXTI registers ------------------------------------------------------ */
 
 #define EXTI_IMR			MMIO32(EXTI_BASE + 0x00)
