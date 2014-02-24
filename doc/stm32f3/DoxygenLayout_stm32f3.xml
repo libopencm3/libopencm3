@@ -21,6 +21,11 @@
     <tab type="user" visible="yes" url="../../efm32gg/html/modules.html" title="EFM32 Giant Gecko" intro=""/>
     <tab type="user" visible="yes" url="../../efm32lg/html/modules.html" title="EFM32 Leopard Gecko" intro=""/>
     <tab type="user" visible="yes" url="../../efm32tg/html/modules.html" title="EFM32 Tiny Gecko" intro=""/>
+    <tab type="user" visible="yes" url="../../sam3a/html/modules.html" title="SAM3A" intro=""/>
+    <tab type="user" visible="yes" url="../../sam3n/html/modules.html" title="SAM3N" intro=""/>
+    <tab type="user" visible="yes" url="../../sam3s/html/modules.html" title="SAM3S" intro=""/>
+    <tab type="user" visible="yes" url="../../sam3u/html/modules.html" title="SAM3U" intro=""/>
+    <tab type="user" visible="yes" url="../../sam3x/html/modules.html" title="SAM3X" intro=""/>
     <tab type="namespaces" visible="yes" title="">
       <tab type="namespaces" visible="yes" title="" intro=""/>
       <tab type="namespacemembers" visible="yes" title="" intro=""/>
