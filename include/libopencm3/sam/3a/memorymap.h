@@ -2,6 +2,7 @@
  * This file is part of the libopencm3 project.
  *
  * Copyright (C) 2012 Gareth McMullin <gareth@blacksphere.co.nz>
+ * Copyright (C) 2014 Felix Held <felix-libopencm3@felixheld.de>
  *
  * This library is free software: you can redistribute it and/or modify
  * it under the terms of the GNU Lesser General Public License as published by
@@ -17,13 +18,12 @@
  * along with this library.  If not, see <http://www.gnu.org/licenses/>.
  */
 
-#ifndef SAM3X_MEMORYMAP_H
-#define SAM3X_MEMORYMAP_H
+#ifndef SAM3A_MEMORYMAP_H
+#define SAM3A_MEMORYMAP_H
 
 #include <libopencm3/cm3/common.h>
 
-/* --- SAM3X peripheral space -------------------------------------------- */
-
+/* --- SAM3A peripheral space -------------------------------------------- */
 #define HSMCI_BASE			(0x40000000U)
 #define SSC_BASE			(0x40004000U)
 #define SPI0_BASE			(0x40008000U)
@@ -45,7 +45,6 @@
 #define USART2_BASE			(0x400A0000U)
 #define USART3_BASE			(0x400A4000U)
 #define UOTGHS_BASE			(0x400AC000U)
-#define EMAC_BASE			(0x400B0000U)
 #define CAN0_BASE			(0x400B4000U)
 #define CAN1_BASE			(0x400B8000U)
 #define TRNG_BASE			(0x400BC000U)
@@ -53,7 +52,7 @@
 #define DMAC_BASE			(0x400C4000U)
 #define DACC_BASE			(0x400C8000U)
 
-/* --- SAM3X system controller space ------------------------------------- */
+/* --- SAM3A system controller space ------------------------------------- */
 #define SMC_BASE			(0x400E0000U)
 #define SDRAM_BASE			(0x400E0200U)
 #define MATRIX_BASE			(0x400E0400U)
