@@ -1,0 +1,39 @@
+# LaTeX Documentation for SAM3A code level
+
+# 14 September 2012
+# (C) Ken Sarkies <ksarkies@internode.on.net>
+# 09 February 2014
+# (C) Felix Held <felix-libopencm3@felixheld.de>
+
+#---------------------------------------------------------------------------
+# Common Include File
+#---------------------------------------------------------------------------
+
+@INCLUDE 			   = ../Doxyfile_common
+
+#---------------------------------------------------------------------------
+# Local settings
+#---------------------------------------------------------------------------
+
+WARN_LOGFILE           = doxygen_sam3a_latex.log
+
+INPUT                  = ../../include/libopencm3/docmain.dox \
+						 ../../include/libopencm3/license.dox \
+					     ../../include/libopencm3/sam/3a \
+			             ../../include/libopencm3/sam/common
+
+INPUT                 += ../../lib/sam/3a \
+			             ../../lib/sam/common
+
+EXCLUDE                =
+
+EXCLUDE_PATTERNS	= *_common_3n3s.h
+
+LAYOUT_FILE 		   = DoxygenLayout_sam3a.xml
+
+GENERATE_HTML		   = NO
+
+GENERATE_LATEX		   = YES
+
+LATEX_HEADER           = header_sam3a.tex
+
