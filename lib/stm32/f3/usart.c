@@ -29,7 +29,6 @@
  */
 
 #include <libopencm3/stm32/usart.h>
-#include <libopencm3/stm32/common/usart_common_all.h>
 
 /*---------------------------------------------------------------------------*/
 /** @brief USART Send a Data Word.

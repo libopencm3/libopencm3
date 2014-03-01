@@ -26,9 +26,6 @@ specific memorymap.h header before including this header file.*/
 #ifndef LIBOPENCM3_RNG_COMMON_F24_H
 #define LIBOPENCM3_RNG_COMMON_F24_H
 
-#include <libopencm3/stm32/memorymap.h>
-#include <libopencm3/cm3/common.h>
-
 /* --- Random number generator registers ----------------------------------- */
 
 /* Control register */

@@ -31,9 +31,6 @@
 #ifndef LIBOPENCM3_USART_H
 #define LIBOPENCM3_USART_H
 
-#include <libopencm3/stm32/memorymap.h>
-#include <libopencm3/cm3/common.h>
-
 /*****************************************************************************/
 /* Module definitions                                                        */
 /*****************************************************************************/

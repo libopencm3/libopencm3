@@ -1,4 +1,4 @@
-/** @defgroup STM32F4xx_adc_file ADC
+/** @defgroup adc_file ADC
 
 @ingroup STM32F4xx
 
@@ -82,7 +82,7 @@ LGPL License Terms @ref lgpl_license
  * along with this library.  If not, see <http://www.gnu.org/licenses/>.
  */
 
-#include <libopencm3/stm32/f4/adc.h>
+#include <libopencm3/stm32/adc.h>
 
 /**@{*/
 

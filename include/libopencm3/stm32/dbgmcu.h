@@ -20,8 +20,8 @@
 #ifndef LIBOPENCM3_STM32_DBGMCU_H
 #define LIBOPENCM3_STM32_DBGMCU_H
 
-#include <libopencm3/stm32/memorymap.h>
 #include <libopencm3/cm3/common.h>
+#include <libopencm3/stm32/memorymap.h>
 
 /* --- DBGMCU registers ---------------------------------------------------- */
 

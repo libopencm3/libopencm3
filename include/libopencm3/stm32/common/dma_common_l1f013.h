@@ -39,8 +39,6 @@ specific memorymap.h header before including this header file.*/
 #ifndef LIBOPENCM3_DMA_COMMON_F13_H
 #define LIBOPENCM3_DMA_COMMON_F13_H
 
-#include <libopencm3/cm3/common.h>
-
 /* --- Convenience macros -------------------------------------------------- */
 
 /* DMA register base adresses (for convenience) */

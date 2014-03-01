@@ -48,8 +48,6 @@
 #ifndef LIBOPENCM3_RCC_H
 #define LIBOPENCM3_RCC_H
 
-#include <libopencm3/stm32/memorymap.h>
-#include <libopencm3/cm3/common.h>
 #include <libopencm3/stm32/pwr.h>
 
 /* --- RCC registers ------------------------------------------------------- */

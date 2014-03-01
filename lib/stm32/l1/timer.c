@@ -33,7 +33,6 @@
 /**@{*/
 
 #include <libopencm3/stm32/timer.h>
-#include <libopencm3/stm32/common/timer_common_all.h>
 
 /*---------------------------------------------------------------------------*/
 /** @brief Set Timer Option

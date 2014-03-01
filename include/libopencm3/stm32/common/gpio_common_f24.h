@@ -38,7 +38,6 @@ specific memorymap.h header before including this header file.*/
 
 /**@{*/
 
-#include <libopencm3/stm32/common/gpio_common_all.h>
 #include <libopencm3/stm32/common/gpio_common_f234.h>
 
 /* GPIO port base addresses (for convenience) */

@@ -50,8 +50,8 @@ LGPL License Terms @ref lgpl_license
 /**@{*/
 
 #include <libopencm3/cm3/assert.h>
-#include <libopencm3/stm32/f1/rcc.h>
-#include <libopencm3/stm32/f1/flash.h>
+#include <libopencm3/stm32/rcc.h>
+#include <libopencm3/stm32/flash.h>
 
 /** Default ppre1 peripheral clock frequency after reset. */
 uint32_t rcc_ppre1_frequency = 8000000;

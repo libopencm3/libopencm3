@@ -32,8 +32,6 @@ specific memorymap.h header before including this header file.*/
 #ifndef LIBOPENCM3_IWDG_COMMON_ALL_H
 #define LIBOPENCM3_IWDG_COMMON_ALL_H
 
-#include <libopencm3/cm3/common.h>
-
 /**@{*/
 
 /* --- IWDG registers ------------------------------------------------------ */

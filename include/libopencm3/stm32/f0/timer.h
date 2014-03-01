@@ -29,4 +29,7 @@
  * along with this library.  If not, see <http://www.gnu.org/licenses/>.
  */
 
+#ifndef LIBOPENCM3_TIMER_H
+#define LIBOPENCM3_TIMER_H
 
+#endif

@@ -29,8 +29,6 @@
 #define LIBOPENCM3_EXTI_COMMON_F24_H
 /**@{*/
 
-#include <libopencm3/stm32/memorymap.h>
-#include <libopencm3/cm3/common.h>
 #include <libopencm3/stm32/common/exti_common_all.h>
 
 /* EXTI number definitions */

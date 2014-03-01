@@ -31,7 +31,6 @@
 #ifndef LIBOPENCM3_PWR_H
 #define LIBOPENCM3_PWR_H
 
-#include <libopencm3/stm32/memorymap.h>
 #include <libopencm3/stm32/common/pwr_common_all.h>
 
 /*****************************************************************************/

@@ -23,7 +23,6 @@
 /**@{*/
 
 
-#include <libopencm3/stm32/memorymap.h>
 #include <libopencm3/stm32/exti.h>
 #include <libopencm3/stm32/gpio.h>
 #if !defined(AFIO_BASE)

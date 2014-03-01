@@ -31,7 +31,6 @@
 #ifndef LIBOPENCM3_SPI_H
 #define LIBOPENCM3_SPI_H
 
-#include <libopencm3/stm32/memorymap.h>
 #include <libopencm3/stm32/common/spi_common_f03.h>
 
 #endif
