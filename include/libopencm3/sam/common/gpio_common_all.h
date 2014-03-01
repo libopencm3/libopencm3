@@ -1,8 +1,7 @@
-/* This provides unification of code over SAM subfamilies */
-
 /*
  * This file is part of the libopencm3 project.
  *
+ * Copyright (C) 2013 Gareth McMullin <gareth@blacksphere.co.nz>
  * Copyright (C) 2014 Felix Held <felix-libopencm3@felixheld.de>
  *
  * This library is free software: you can redistribute it and/or modify
@@ -19,16 +18,24 @@
  * along with this library.  If not, see <http://www.gnu.org/licenses/>.
  */
 
-#if defined(SAM3A)
-#       include <libopencm3/sam/3a/gpio.h>
-#elif defined(SAM3N)
-#       include <libopencm3/sam/3n/gpio.h>
-#elif defined(SAM3S)
-#       include <libopencm3/sam/3s/gpio.h>
-#elif defined(SAM3U)
-#       include <libopencm3/sam/3u/gpio.h>
-#elif defined(SAM3X)
-#       include <libopencm3/sam/3x/gpio.h>
+/* THIS FILE SHOULD NOT BE INCLUDED DIRECTLY, BUT ONLY VIA GPIO.H
+The order of header inclusion is important. gpio.h includes the device
+specific memorymap.h header before including this header file.*/
+
+#if defined(LIBOPENCM3_GPIO_H)
+
+#ifndef LIBOPENCM3_GPIO_COMMON_ALL_H
+#define LIBOPENCM3_GPIO_COMMON_ALL_H
+
+#include <libopencm3/cm3/common.h>
+
+void gpio_set(uint32_t gpioport, uint32_t gpios);
+void gpio_clear(uint32_t gpioport, uint32_t gpios);
+void gpio_toggle(uint32_t gpioport, uint32_t gpios);
+
+
+#endif
+
 #else
-#       error "sam family not defined."
+#warning "gpio_common_all.h should not be included explicitly, only via gpio.h"
 #endif
