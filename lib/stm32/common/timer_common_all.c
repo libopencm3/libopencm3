@@ -103,6 +103,12 @@ to alternate function push-pull outputs where the PWM output will appear.
 
 #define ADVANCED_TIMERS (defined(TIM1_BASE) || defined(TIM8_BASE))
 
+#if defined(TIM8)
+#define TIMER_IS_ADVANCED(periph) ((periph == TIM1) || (periph == TIM8))
+#else
+#define TIMER_IS_ADVANCED(periph) (periph == TIM1)
+#endif
+
 /*---------------------------------------------------------------------------*/
 /** @brief Reset a Timer.
 
@@ -118,72 +124,55 @@ void timer_reset(uint32_t timer_peripheral)
 	switch (timer_peripheral) {
 #if defined(TIM1_BASE)
 	case TIM1:
-		rcc_peripheral_reset(&RCC_APB2RSTR, RCC_APB2RSTR_TIM1RST);
-		rcc_peripheral_clear_reset(&RCC_APB2RSTR, RCC_APB2RSTR_TIM1RST);
+		rcc_periph_reset_pulse(RST_TIM1);
 		break;
 #endif
 	case TIM2:
-		rcc_peripheral_reset(&RCC_APB1RSTR, RCC_APB1RSTR_TIM2RST);
-		rcc_peripheral_clear_reset(&RCC_APB1RSTR, RCC_APB1RSTR_TIM2RST);
+		rcc_periph_reset_pulse(RST_TIM2);
 		break;
 	case TIM3:
-		rcc_peripheral_reset(&RCC_APB1RSTR, RCC_APB1RSTR_TIM3RST);
-		rcc_peripheral_clear_reset(&RCC_APB1RSTR, RCC_APB1RSTR_TIM3RST);
+		rcc_periph_reset_pulse(RST_TIM3);
 		break;
+#if defined(TIM4_BASE)
 	case TIM4:
-		rcc_peripheral_reset(&RCC_APB1RSTR, RCC_APB1RSTR_TIM4RST);
-		rcc_peripheral_clear_reset(&RCC_APB1RSTR, RCC_APB1RSTR_TIM4RST);
+		rcc_periph_reset_pulse(RST_TIM4);
 		break;
+#endif
 #if defined(TIM5_BASE)
 	case TIM5:
-		rcc_peripheral_reset(&RCC_APB1RSTR, RCC_APB1RSTR_TIM5RST);
-		rcc_peripheral_clear_reset(&RCC_APB1RSTR, RCC_APB1RSTR_TIM5RST);
+		rcc_periph_reset_pulse(RST_TIM5);
 		break;
 #endif
 	case TIM6:
-		rcc_peripheral_reset(&RCC_APB1RSTR, RCC_APB1RSTR_TIM6RST);
-		rcc_peripheral_clear_reset(&RCC_APB1RSTR, RCC_APB1RSTR_TIM6RST);
+		rcc_periph_reset_pulse(RST_TIM6);
 		break;
 	case TIM7:
-		rcc_peripheral_reset(&RCC_APB1RSTR, RCC_APB1RSTR_TIM7RST);
-		rcc_peripheral_clear_reset(&RCC_APB1RSTR, RCC_APB1RSTR_TIM7RST);
+		rcc_periph_reset_pulse(RST_TIM7);
 		break;
 #if defined(TIM8_BASE)
 	case TIM8:
-		rcc_peripheral_reset(&RCC_APB2RSTR, RCC_APB2RSTR_TIM8RST);
-		rcc_peripheral_clear_reset(&RCC_APB2RSTR, RCC_APB2RSTR_TIM8RST);
+		rcc_periph_reset_pulse(RST_TIM8);
 		break;
 #endif
 /* These timers are not supported in libopencm3 yet */
 /*
 	case TIM9:
-		rcc_peripheral_reset(&RCC_APB2RSTR, RCC_APB2RSTR_TIM9RST);
-		rcc_peripheral_clear_reset(&RCC_APB2RSTR, RCC_APB2RSTR_TIM9RST);
+		rcc_periph_reset_pulse(RST_TIM9);
 		break;
 	case TIM10:
-		rcc_peripheral_reset(&RCC_APB2RSTR, RCC_APB2RSTR_TIM10RST);
-		rcc_peripheral_clear_reset(&RCC_APB2RSTR,
-					   RCC_APB2RSTR_TIM10RST);
+		rcc_periph_reset_pulse(RST_TIM10);
 		break;
 	case TIM11:
-		rcc_peripheral_reset(&RCC_APB2RSTR, RCC_APB2RSTR_TIM11RST);
-		rcc_peripheral_clear_reset(&RCC_APB2RSTR,
-					   RCC_APB2RSTR_TIM11RST);
+		rcc_periph_reset_pulse(RST_TIM11);
 		break;
 	case TIM12:
-		rcc_peripheral_reset(&RCC_APB1RSTR, RCC_APB1RSTR_TIM12RST);
-		rcc_peripheral_clear_reset(&RCC_APB1RSTR,
-					   RCC_APB1RSTR_TIM12RST);
+		rcc_periph_reset_pulse(RST_TIM12);
 		break;
 	case TIM13:
-		rcc_peripheral_reset(&RCC_APB1RSTR, RCC_APB1RSTR_TIM13RST);
-		rcc_peripheral_clear_reset(&RCC_APB1RSTR,
-					   RCC_APB1RSTR_TIM13RST);
+		rcc_periph_reset_pulse(RST_TIM13);
 		break;
 	case TIM14:
-		rcc_peripheral_reset(&RCC_APB1RSTR, RCC_APB1RSTR_TIM14RST);
-		rcc_peripheral_clear_reset(&RCC_APB1RSTR,
-					   RCC_APB1RSTR_TIM14RST);
+		rcc_periph_reset_pulse(RST_TIM14);
 		break;
 */
 	}
@@ -242,9 +231,9 @@ bool timer_interrupt_source(uint32_t timer_peripheral, uint32_t flag)
 		return false;
 	}
 /* Only an interrupt source for advanced timers */
-#if (defined(TIM1_BASE) || defined(TIM8_BASE))
+#if ADVANCED_TIMERS
 	if ((flag == TIM_SR_BIF) || (flag == TIM_SR_COMIF)) {
-		return (timer_peripheral == TIM1) || (timer_peripheral == TIM8);
+		return TIMER_IS_ADVANCED(timer_peripheral);
 	}
 #endif
 	return true;
@@ -542,8 +531,8 @@ output control values.
 
 void timer_set_output_idle_state(uint32_t timer_peripheral, uint32_t outputs)
 {
-#if (defined(TIM1_BASE) || defined(TIM8_BASE))
-	if ((timer_peripheral == TIM1) || (timer_peripheral == TIM8)) {
+#if ADVANCED_TIMERS
+	if (TIMER_IS_ADVANCED(timer_peripheral)) {
 		TIM_CR2(timer_peripheral) |= outputs & TIM_CR2_OIS_MASK;
 	}
 #else
@@ -569,8 +558,8 @@ tim_x_cr2_ois
 
 void timer_reset_output_idle_state(uint32_t timer_peripheral, uint32_t outputs)
 {
-#if (defined(TIM1_BASE) || defined(TIM8_BASE))
-	if ((timer_peripheral == TIM1) || (timer_peripheral == TIM8)) {
+#if ADVANCED_TIMERS
+	if (TIMER_IS_ADVANCED(timer_peripheral)) {
 		TIM_CR2(timer_peripheral) &= ~(outputs & TIM_CR2_OIS_MASK);
 	}
 #else
@@ -669,8 +658,8 @@ tim_reg_base
 
 void timer_enable_compare_control_update_on_trigger(uint32_t timer_peripheral)
 {
-#if (defined(TIM1_BASE) || defined(TIM8_BASE))
-	if ((timer_peripheral == TIM1) || (timer_peripheral == TIM8)) {
+#if ADVANCED_TIMERS
+	if (TIMER_IS_ADVANCED(timer_peripheral)) {
 		TIM_CR2(timer_peripheral) |= TIM_CR2_CCUS;
 	}
 #else
@@ -694,8 +683,8 @@ tim_reg_base
 
 void timer_disable_compare_control_update_on_trigger(uint32_t timer_peripheral)
 {
-#if (defined(TIM1_BASE) || defined(TIM8_BASE))
-	if ((timer_peripheral == TIM1) || (timer_peripheral == TIM8)) {
+#if ADVANCED_TIMERS
+	if (TIMER_IS_ADVANCED(timer_peripheral)) {
 		TIM_CR2(timer_peripheral) &= ~TIM_CR2_CCUS;
 	}
 #else
@@ -718,8 +707,8 @@ tim_reg_base
 
 void timer_enable_preload_complementry_enable_bits(uint32_t timer_peripheral)
 {
-#if (defined(TIM1_BASE) || defined(TIM8_BASE))
-	if ((timer_peripheral == TIM1) || (timer_peripheral == TIM8)) {
+#if ADVANCED_TIMERS
+	if (TIMER_IS_ADVANCED(timer_peripheral)) {
 		TIM_CR2(timer_peripheral) |= TIM_CR2_CCPC;
 	}
 #else
@@ -741,8 +730,8 @@ tim_reg_base
 
 void timer_disable_preload_complementry_enable_bits(uint32_t timer_peripheral)
 {
-#if (defined(TIM1_BASE) || defined(TIM8_BASE))
-	if ((timer_peripheral == TIM1) || (timer_peripheral == TIM8)) {
+#if ADVANCED_TIMERS
+	if (TIMER_IS_ADVANCED(timer_peripheral)) {
 		TIM_CR2(timer_peripheral) &= ~TIM_CR2_CCPC;
 	}
 #else
@@ -780,8 +769,8 @@ tim_reg_base
 
 void timer_set_repetition_counter(uint32_t timer_peripheral, uint32_t value)
 {
-#if (defined(TIM1_BASE) || defined(TIM8_BASE))
-	if ((timer_peripheral == TIM1) || (timer_peripheral == TIM8)) {
+#if ADVANCED_TIMERS
+	if (TIMER_IS_ADVANCED(timer_peripheral)) {
 		TIM_RCR(timer_peripheral) = value;
 	}
 #else
@@ -1216,8 +1205,8 @@ void timer_set_oc_polarity_high(uint32_t timer_peripheral, enum tim_oc_id oc_id)
 	}
 
 	/* Acting for TIM1 and TIM8 only from here onwards. */
-#if (defined(TIM1_BASE) || defined(TIM8_BASE))
-	if ((timer_peripheral != TIM1) && (timer_peripheral != TIM8)) {
+#if ADVANCED_TIMERS
+	if (!TIMER_IS_ADVANCED(timer_peripheral)) {
 		return;
 	}
 #else
@@ -1278,8 +1267,8 @@ void timer_set_oc_polarity_low(uint32_t timer_peripheral, enum tim_oc_id oc_id)
 	}
 
 	/* Acting for TIM1 and TIM8 only from here onwards. */
-#if (defined(TIM1_BASE) || defined(TIM8_BASE))
-	if ((timer_peripheral != TIM1) && (timer_peripheral != TIM8)) {
+#if ADVANCED_TIMERS
+	if (!TIMER_IS_ADVANCED(timer_peripheral)) {
 		return;
 	}
 #else
@@ -1340,8 +1329,8 @@ void timer_enable_oc_output(uint32_t timer_peripheral, enum tim_oc_id oc_id)
 	}
 
 	/* Acting for TIM1 and TIM8 only from here onwards. */
-#if (defined(TIM1_BASE) || defined(TIM8_BASE))
-	if ((timer_peripheral != TIM1) && (timer_peripheral != TIM8)) {
+#if ADVANCED_TIMERS
+	if (!TIMER_IS_ADVANCED(timer_peripheral)) {
 		return;
 	}
 #else
@@ -1402,8 +1391,8 @@ void timer_disable_oc_output(uint32_t timer_peripheral, enum tim_oc_id oc_id)
 	}
 
 	/* Acting for TIM1 and TIM8 only from here onwards. */
-#if (defined(TIM1_BASE) || defined(TIM8_BASE))
-	if ((timer_peripheral != TIM1) && (timer_peripheral != TIM8)) {
+#if ADVANCED_TIMERS
+	if (!TIMER_IS_ADVANCED(timer_peripheral)) {
 		return;
 	}
 #else
@@ -1447,9 +1436,9 @@ tim_reg_base
 void timer_set_oc_idle_state_set(uint32_t timer_peripheral,
 				 enum tim_oc_id oc_id)
 {
-#if (defined(TIM1_BASE) || defined(TIM8_BASE))
+#if ADVANCED_TIMERS
 	/* Acting for TIM1 and TIM8 only. */
-	if ((timer_peripheral != TIM1) && (timer_peripheral != TIM8)) {
+	if (!TIMER_IS_ADVANCED(timer_peripheral)) {
 		return;
 	}
 
@@ -1500,9 +1489,9 @@ tim_reg_base
 void timer_set_oc_idle_state_unset(uint32_t timer_peripheral,
 				   enum tim_oc_id oc_id)
 {
-#if (defined(TIM1_BASE) || defined(TIM8_BASE))
+#if ADVANCED_TIMERS
 	/* Acting for TIM1 and TIM8 only. */
-	if ((timer_peripheral != TIM1) && (timer_peripheral != TIM8)) {
+	if (!TIMER_IS_ADVANCED(timer_peripheral)) {
 		return;
 	}
 
@@ -1590,8 +1579,8 @@ TIM8
 
 void timer_enable_break_main_output(uint32_t timer_peripheral)
 {
-#if (defined(TIM1_BASE) || defined(TIM8_BASE))
-	if ((timer_peripheral == TIM1) || (timer_peripheral == TIM8)) {
+#if ADVANCED_TIMERS
+	if (TIMER_IS_ADVANCED(timer_peripheral)) {
 		TIM_BDTR(timer_peripheral) |= TIM_BDTR_MOE;
 	}
 #else
@@ -1613,8 +1602,8 @@ TIM8
 
 void timer_disable_break_main_output(uint32_t timer_peripheral)
 {
-#if (defined(TIM1_BASE) || defined(TIM8_BASE))
-	if ((timer_peripheral == TIM1) || (timer_peripheral == TIM8)) {
+#if ADVANCED_TIMERS
+	if (TIMER_IS_ADVANCED(timer_peripheral)) {
 		TIM_BDTR(timer_peripheral) &= ~TIM_BDTR_MOE;
 	}
 #else
@@ -1637,8 +1626,8 @@ TIM8
 
 void timer_enable_break_automatic_output(uint32_t timer_peripheral)
 {
-#if (defined(TIM1_BASE) || defined(TIM8_BASE))
-	if ((timer_peripheral == TIM1) || (timer_peripheral == TIM8)) {
+#if ADVANCED_TIMERS
+	if (TIMER_IS_ADVANCED(timer_peripheral)) {
 		TIM_BDTR(timer_peripheral) |= TIM_BDTR_AOE;
 	}
 #else
@@ -1661,8 +1650,8 @@ TIM8
 
 void timer_disable_break_automatic_output(uint32_t timer_peripheral)
 {
-#if (defined(TIM1_BASE) || defined(TIM8_BASE))
-	if ((timer_peripheral == TIM1) || (timer_peripheral == TIM8)) {
+#if ADVANCED_TIMERS
+	if (TIMER_IS_ADVANCED(timer_peripheral)) {
 		TIM_BDTR(timer_peripheral) &= ~TIM_BDTR_AOE;
 	}
 #else
@@ -1683,8 +1672,8 @@ TIM8
 
 void timer_set_break_polarity_high(uint32_t timer_peripheral)
 {
-#if (defined(TIM1_BASE) || defined(TIM8_BASE))
-	if ((timer_peripheral == TIM1) || (timer_peripheral == TIM8)) {
+#if ADVANCED_TIMERS
+	if (TIMER_IS_ADVANCED(timer_peripheral)) {
 		TIM_BDTR(timer_peripheral) |= TIM_BDTR_BKP;
 	}
 #else
@@ -1705,8 +1694,8 @@ TIM8
 
 void timer_set_break_polarity_low(uint32_t timer_peripheral)
 {
-#if (defined(TIM1_BASE) || defined(TIM8_BASE))
-	if ((timer_peripheral == TIM1) || (timer_peripheral == TIM8)) {
+#if ADVANCED_TIMERS
+	if (TIMER_IS_ADVANCED(timer_peripheral)) {
 		TIM_BDTR(timer_peripheral) &= ~TIM_BDTR_BKP;
 	}
 #else
@@ -1727,8 +1716,8 @@ TIM8
 
 void timer_enable_break(uint32_t timer_peripheral)
 {
-#if (defined(TIM1_BASE) || defined(TIM8_BASE))
-	if ((timer_peripheral == TIM1) || (timer_peripheral == TIM8)) {
+#if ADVANCED_TIMERS
+	if (TIMER_IS_ADVANCED(timer_peripheral)) {
 		TIM_BDTR(timer_peripheral) |= TIM_BDTR_BKE;
 	}
 #else
@@ -1749,8 +1738,8 @@ TIM8
 
 void timer_disable_break(uint32_t timer_peripheral)
 {
-#if (defined(TIM1_BASE) || defined(TIM8_BASE))
-	if ((timer_peripheral == TIM1) || (timer_peripheral == TIM8)) {
+#if ADVANCED_TIMERS
+	if (TIMER_IS_ADVANCED(timer_peripheral)) {
 		TIM_BDTR(timer_peripheral) &= ~TIM_BDTR_BKE;
 	}
 #else
@@ -1775,8 +1764,8 @@ TIM8
 
 void timer_set_enabled_off_state_in_run_mode(uint32_t timer_peripheral)
 {
-#if (defined(TIM1_BASE) || defined(TIM8_BASE))
-	if ((timer_peripheral == TIM1) || (timer_peripheral == TIM8)) {
+#if ADVANCED_TIMERS
+	if (TIMER_IS_ADVANCED(timer_peripheral)) {
 		TIM_BDTR(timer_peripheral) |= TIM_BDTR_OSSR;
 	}
 #else
@@ -1800,8 +1789,8 @@ TIM8
 
 void timer_set_disabled_off_state_in_run_mode(uint32_t timer_peripheral)
 {
-#if (defined(TIM1_BASE) || defined(TIM8_BASE))
-	if ((timer_peripheral == TIM1) || (timer_peripheral == TIM8)) {
+#if ADVANCED_TIMERS
+	if (TIMER_IS_ADVANCED(timer_peripheral)) {
 		TIM_BDTR(timer_peripheral) &= ~TIM_BDTR_OSSR;
 	}
 #else
@@ -1824,8 +1813,8 @@ TIM8
 
 void timer_set_enabled_off_state_in_idle_mode(uint32_t timer_peripheral)
 {
-#if (defined(TIM1_BASE) || defined(TIM8_BASE))
-	if ((timer_peripheral == TIM1) || (timer_peripheral == TIM8)) {
+#if ADVANCED_TIMERS
+	if (TIMER_IS_ADVANCED(timer_peripheral)) {
 		TIM_BDTR(timer_peripheral) |= TIM_BDTR_OSSI;
 	}
 #else
@@ -1847,8 +1836,8 @@ TIM8
 
 void timer_set_disabled_off_state_in_idle_mode(uint32_t timer_peripheral)
 {
-#if (defined(TIM1_BASE) || defined(TIM8_BASE))
-	if ((timer_peripheral == TIM1) || (timer_peripheral == TIM8)) {
+#if ADVANCED_TIMERS
+	if (TIMER_IS_ADVANCED(timer_peripheral)) {
 		TIM_BDTR(timer_peripheral) &= ~TIM_BDTR_OSSI;
 	}
 #else
@@ -1872,8 +1861,8 @@ TIM8
 
 void timer_set_break_lock(uint32_t timer_peripheral, uint32_t lock)
 {
-#if (defined(TIM1_BASE) || defined(TIM8_BASE))
-	if ((timer_peripheral == TIM1) || (timer_peripheral == TIM8)) {
+#if ADVANCED_TIMERS
+	if (TIMER_IS_ADVANCED(timer_peripheral)) {
 		TIM_BDTR(timer_peripheral) |= lock;
 	}
 #else
@@ -1904,8 +1893,8 @@ above.
 
 void timer_set_deadtime(uint32_t timer_peripheral, uint32_t deadtime)
 {
-#if (defined(TIM1_BASE) || defined(TIM8_BASE))
-	if ((timer_peripheral == TIM1) || (timer_peripheral == TIM8)) {
+#if ADVANCED_TIMERS
+	if (TIMER_IS_ADVANCED(timer_peripheral)) {
 		TIM_BDTR(timer_peripheral) |= deadtime;
 	}
 #else
