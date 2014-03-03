@@ -18,6 +18,6 @@
 #ifndef LIBOPENCM3_USB_H
 #define LIBOPENCM3_USB_H
 
-#include <libopencm3/stm32/common/usb_common_v1.h>
+#include <libopencm3/stm32/common/usb_common_v2.h>
 
 #endif
