@@ -206,9 +206,24 @@
 BEGIN_DECLS
 
 void lcd_enable(void);
-void lcd_wait_step_up_ready(void);
-void lcd_wait_for_update_ready(void);
 void lcd_update(void);
+
+void lcd_wait_for_lcd_enabled(void);
+void lcd_wait_for_step_up_ready(void);
+void lcd_wait_for_update_ready(void);
+
+int lcd_is_enabled(void);
+int lcd_is_step_up_ready(void);
+int lcd_is_for_update_ready(void);
+
+void lcd_set_contrast(uint8_t contrast);
+void lcd_set_bias(uint8_t bias);
+void lcd_set_duty(uint8_t duty);
+void lcd_set_prescaler(uint8_t ps);
+void lcd_set_divider(uint8_t div);
+void lcd_enable_segment_multiplexing(void);
+void lcd_disable_segment_multiplexing(void);
+void lcd_set_refresh_frequency(uint32_t frequency);
 
 END_DECLS
 
