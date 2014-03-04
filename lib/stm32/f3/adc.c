@@ -771,10 +771,10 @@ uint32_t adc_read_regular(uint32_t adc)
  * @param[in] adc Unsigned int32. ADC block register address base @ref
  * adc_reg_base
  * @param[in] reg Unsigned int8. Register number (1 ... 4).
- * @returns Unsigned int32 conversion result.
+ * @returns Signed int32 conversion result.
  */
 
-uint32_t adc_read_injected(uint32_t adc, uint8_t reg)
+int32_t adc_read_injected(uint32_t adc, uint8_t reg)
 {
 	switch (reg) {
 	case 1:

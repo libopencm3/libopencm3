@@ -914,7 +914,7 @@ void adc_set_injected_sequence(uint32_t adc, uint8_t length, uint8_t channel[]);
 bool adc_eoc(uint32_t adc);
 bool adc_eoc_injected(uint32_t adc);
 uint32_t adc_read_regular(uint32_t adc);
-uint32_t adc_read_injected(uint32_t adc, uint8_t reg);
+int32_t adc_read_injected(uint32_t adc, uint8_t reg);
 void adc_set_injected_offset(uint32_t adc, uint8_t reg, uint32_t offset);
 
 void adc_set_clk_prescale(uint32_t prescaler);
