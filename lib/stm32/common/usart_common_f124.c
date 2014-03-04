@@ -140,4 +140,134 @@ bool usart_get_interrupt_source(uint32_t usart, uint32_t flag)
 	return false;
 }
 
+/*---------------------------------------------------------------------------*/
+/** @brief USART Check if ClearToSend.
+
+	@param[in] usart unsigned 32 bit. USART block register address base @ref
+	usart_reg_base
+	@returns boolean: flag set.
+*/
+
+bool usart_clear_to_send(uint32_t usart)
+{
+	return ((USART_SR(usart) & USART_SR_CTS) != 0);
+}
+
+/*---------------------------------------------------------------------------*/
+/** @brief USART Check if LineBreakDetected.
+
+	@param[in] usart unsigned 32 bit. USART block register address base @ref
+	usart_reg_base
+	@returns boolean: flag set.
+*/
+
+bool usart_line_break(uint32_t usart)
+{
+	return ((USART_SR(usart) & USART_SR_LBD) != 0);
+}
+
+/*---------------------------------------------------------------------------*/
+/** @brief USART Check if transmit data buffer empty.
+
+	@param[in] usart unsigned 32 bit. USART block register address base @ref
+	usart_reg_base
+	@returns boolean: flag set.
+*/
+
+bool usart_tx_empty(uint32_t usart)
+{
+	return ((USART_SR(usart) & USART_SR_TXE) != 0);
+}
+
+/*---------------------------------------------------------------------------*/
+/** @brief USART Check if read data register not empty.
+
+	@param[in] usart unsigned 32 bit. USART block register address base @ref
+	usart_reg_base
+	@returns boolean: flag set.
+*/
+
+bool usart_rx_not_empty(uint32_t usart)
+{
+	return ((USART_SR(usart) & USART_SR_RXNE) != 0);
+}
+
+/*---------------------------------------------------------------------------*/
+/** @brief USART Check if transmission complete.
+
+	@param[in] usart unsigned 32 bit. USART block register address base @ref
+	usart_reg_base
+	@returns boolean: flag set.
+*/
+
+bool usart_transmission_complete(uint32_t usart)
+{
+	return ((USART_SR(usart) & USART_SR_TC) != 0);
+}
+
+/*---------------------------------------------------------------------------*/
+/** @brief USART Check if line is idle.
+
+	@param[in] usart unsigned 32 bit. USART block register address base @ref
+	usart_reg_base
+	@returns boolean: flag set.
+*/
+
+bool usart_idle(uint32_t usart)
+{
+	return ((USART_SR(usart) & USART_SR_IDLE) != 0);
+}
+
+/*---------------------------------------------------------------------------*/
+/** @brief USART Check if an overrun error occured.
+
+	@param[in] usart unsigned 32 bit. USART block register address base @ref
+	usart_reg_base
+	@returns boolean: flag set.
+*/
+
+bool usart_overrun_error(uint32_t usart)
+{
+	return ((USART_SR(usart) & USART_SR_ORE) != 0);
+}
+
+/*---------------------------------------------------------------------------*/
+/** @brief USART Check if a noise error occured.
+
+	@param[in] usart unsigned 32 bit. USART block register address base @ref
+	usart_reg_base
+	@returns boolean: flag set.
+*/
+
+bool usart_noise_error(uint32_t usart)
+{
+	return ((USART_SR(usart) & USART_SR_NE) != 0);
+}
+
+/*---------------------------------------------------------------------------*/
+/** @brief USART Check if a framing error occured.
+
+	@param[in] usart unsigned 32 bit. USART block register address base @ref
+	usart_reg_base
+	@returns boolean: flag set.
+*/
+
+bool usart_framing_error(uint32_t usart)
+{
+	return ((USART_SR(usart) & USART_SR_FE) != 0);
+}
+
+/*---------------------------------------------------------------------------*/
+/** @brief USART Check if a parity error occured.
+
+	@param[in] usart unsigned 32 bit. USART block register address base @ref
+	usart_reg_base
+	@returns boolean: flag set.
+*/
+
+bool usart_parity_error(uint32_t usart)
+{
+	return ((USART_SR(usart) & USART_SR_PE) != 0);
+}
+
 /**@}*/
