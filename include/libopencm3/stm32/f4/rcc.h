@@ -772,7 +772,9 @@ void rcc_osc_bypass_disable(enum rcc_osc osc);
 void rcc_set_sysclk_source(uint32_t clk);
 void rcc_set_pll_source(uint32_t pllsrc);
 void rcc_set_ppre2(uint32_t ppre2);
+uint32_t rcc_get_ppre2(void);
 void rcc_set_ppre1(uint32_t ppre1);
+uint32_t rcc_get_ppre1(void);
 void rcc_set_hpre(uint32_t hpre);
 void rcc_set_rtcpre(uint32_t rtcpre);
 void rcc_set_main_pll_hsi(uint32_t pllm, uint32_t plln, uint32_t pllp,

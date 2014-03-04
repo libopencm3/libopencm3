@@ -2182,6 +2182,43 @@ void timer_slave_set_trigger(uint32_t timer_peripheral, uint8_t trigger)
 	TIM_SMCR(timer_peripheral) |= trigger;
 }
 
+*---------------------------------------------------------------------------*/
+/** @brief Get Timer clock frequency (before prescaling)
+Only valid if using the internal clock for the timer.
+@param[in] timer_peripheral Unsigned int32. Timer register address base
+@return Unsigned int32. Timer base frequency
+*/
+
+uint32_t timer_get_frequency(uint32_t timer_peripheral)
+{
+	switch (timer_peripheral) {
+#if ADVANCED_TIMERS
+		case TIM1:
+		case TIM8:
+			if (!rcc_get_ppre2())
+				// no APB2 prescaler
+				return rcc_ppre2_frequency;
+			else
+				return rcc_ppre2_frequency * 2;
+#endif
+		case TIM2:
+		case TIM3:
+		case TIM4:
+		case TIM5:
+		case TIM6:
+		case TIM7:
+			if (!rcc_get_ppre1())
+				// no APB2 prescaler
+				return rcc_ppre1_frequency;
+			else
+				return rcc_ppre1_frequency * 2;
+		default:
+			// other timers currently not supported
+			break;
+	}
+	return 0;
+}
+
 /* TODO Timer DMA burst */
 
 /**@}*/

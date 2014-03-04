@@ -1115,6 +1115,7 @@ void timer_slave_set_prescaler(uint32_t timer, enum tim_ic_psc psc);
 void timer_slave_set_polarity(uint32_t timer, enum tim_et_pol pol);
 void timer_slave_set_mode(uint32_t timer, uint8_t mode);
 void timer_slave_set_trigger(uint32_t timer, uint8_t trigger);
+uint32_t timer_get_frequency(uint32_t timer);
 
 END_DECLS
 

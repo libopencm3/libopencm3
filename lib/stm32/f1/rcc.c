@@ -527,6 +527,11 @@ void rcc_set_ppre2(uint32_t ppre2)
 			(ppre2 << RCC_CFGR_PPRE2_SHIFT);
 }
 
+uint32_t rcc_get_ppre2(void)
+{
+	return RCC_CFGR & RCC_CFGR_PPRE2;
+}
+
 /*---------------------------------------------------------------------------*/
 /** @brief RCC Set the APB1 Prescale Factor.
 
@@ -540,6 +545,11 @@ void rcc_set_ppre1(uint32_t ppre1)
 	RCC_CFGR = (RCC_CFGR & ~RCC_CFGR_PPRE1) |
 			(ppre1 << RCC_CFGR_PPRE1_SHIFT);
 
+}
+
+uint32_t rcc_get_ppre1(void)
+{
+	return RCC_CFGR & RCC_CFGR_PPRE1;
 }
 
 /*---------------------------------------------------------------------------*/
