@@ -40,7 +40,7 @@ OBJS		= flash.o rcc.o usart.o dma.o rtc.o comparator.o crc.o \
 OBJS            += gpio_common_all.o gpio_common_f0234.o crc_common_all.o \
                    pwr_common_all.o iwdg_common_all.o rtc_common_l1f024.o \
                    dma_common_l1f013.o exti_common_all.o spi_common_all.o \
-		   spi_common_f03.o flash_common_f01.o
+		   spi_common_f03.o flash_common_f01.o dac_common_all.o
 
 VPATH += ../../usb:../:../../cm3:../common
 
