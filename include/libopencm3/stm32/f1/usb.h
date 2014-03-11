@@ -1,5 +1,3 @@
-/* This provides unification of code over STM32F subfamilies */
-
 /*
  * This file is part of the libopencm3 project.
  *
@@ -17,18 +15,9 @@
  * along with this library.  If not, see <http://www.gnu.org/licenses/>.
  */
 
-#include <libopencm3/cm3/common.h>
-#include <libopencm3/stm32/memorymap.h>
+#ifndef LIBOPENCM3_USB_H
+#define LIBOPENCM3_USB_H
 
-#if defined(STM32F0)
-#       include <libopencm3/stm32/f0/usb.h>
-#elif defined(STM32F1)
-#       include <libopencm3/stm32/f1/usb.h>
-#elif defined(STM32F3)
-#       include <libopencm3/stm32/f3/usb.h>
-#elif defined(STM32L1)
-#       include <libopencm3/stm32/l1/usb.h>
-#else
-#       error "stm32 family not defined."
+#include <libopencm3/stm32/common/usb_common_all.h>
+
 #endif
-
