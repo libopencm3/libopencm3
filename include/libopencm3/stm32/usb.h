@@ -268,17 +268,25 @@ LGPL License Terms @ref lgpl_license
 
 #define USB_GET_BTABLE		GET_REG(USB_BTABLE_REG)
 
+#if defined(STM32F0)
+#define _USB_EP_MUL_TO_GET_ADDR_ 1
+#define _USB_EP_TYP_ALLOWED_READ_ uint16_t
+#else
+#define _USB_EP_TYP_ALLOWED_READ_ uint32_t
+#define _USB_EP_MUL_TO_GET_ADDR_ 2
+#endif
+
 #define USB_EP_TX_ADDR(EP) \
-	((uint32_t *)(USB_PMA_BASE + (USB_GET_BTABLE + EP * 8 + 0) * 2))
+	((_USB_EP_TYP_ALLOWED_READ_ *)(USB_PMA_BASE + (USB_GET_BTABLE + EP * 8 + 0) * _USB_EP_MUL_TO_GET_ADDR_))
 
 #define USB_EP_TX_COUNT(EP) \
-	((uint32_t *)(USB_PMA_BASE + (USB_GET_BTABLE + EP * 8 + 2) * 2))
+	((_USB_EP_TYP_ALLOWED_READ_ *)(USB_PMA_BASE + (USB_GET_BTABLE + EP * 8 + 2) * _USB_EP_MUL_TO_GET_ADDR_))
 
 #define USB_EP_RX_ADDR(EP) \
-	((uint32_t *)(USB_PMA_BASE + (USB_GET_BTABLE + EP * 8 + 4) * 2))
+	((_USB_EP_TYP_ALLOWED_READ_ *)(USB_PMA_BASE + (USB_GET_BTABLE + EP * 8 + 4) * _USB_EP_MUL_TO_GET_ADDR_))
 
 #define USB_EP_RX_COUNT(EP) \
-	((uint32_t *)(USB_PMA_BASE + (USB_GET_BTABLE + EP * 8 + 6) * 2))
+	((_USB_EP_TYP_ALLOWED_READ_ *)(USB_PMA_BASE + (USB_GET_BTABLE + EP * 8 + 6) * _USB_EP_MUL_TO_GET_ADDR_))
 
 /* --- USB BTABLE manipulators --------------------------------------------- */
 
@@ -292,10 +300,10 @@ LGPL License Terms @ref lgpl_license
 #define USB_SET_EP_RX_COUNT(EP, COUNT)	SET_REG(USB_EP_RX_COUNT(EP), COUNT)
 
 #define USB_GET_EP_TX_BUFF(EP) \
-	(USB_PMA_BASE + (uint8_t *)(USB_GET_EP_TX_ADDR(EP) * 2))
+	(USB_PMA_BASE + (uint8_t *)(USB_GET_EP_TX_ADDR(EP) * _USB_EP_MUL_TO_GET_ADDR_))
 
 #define USB_GET_EP_RX_BUFF(EP) \
-	(USB_PMA_BASE + (uint8_t *)(USB_GET_EP_RX_ADDR(EP) * 2))
+	(USB_PMA_BASE + (uint8_t *)(USB_GET_EP_RX_ADDR(EP) * _USB_EP_MUL_TO_GET_ADDR_))
 
 #endif
 
