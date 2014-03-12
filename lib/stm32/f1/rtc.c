@@ -23,11 +23,11 @@
  *
  * The clock to be used is selected by calling @ref rcc_set_rtc_clock_source().
  *
- * The HSE clock runs at 32.768kHz from an external crystal. This clock is
+ * The LSE clock normally comes from a 32.768kHz external crystal. This clock is
  * in the backup domain and so continues to run when only the V_BAT supply
  * is present. A prescaler value of 7FFF will give a 1 second count quantum.
  *
- * The HSI clock is a low accuracy internal clock of about 40kHz frequency,
+ * The LSI clock is a low accuracy internal clock of about 40kHz frequency,
  * and the HSE clock is the external high speed clock divided by 128.
  * 
  * Initial configuration of the RTC consists of:
@@ -73,13 +73,7 @@
 /** @brief RTC Set Operational from the Off state.
 
 Power up the backup domain clocks, enable write access to the backup domain,
-select the clock source and enable the RTC.
-
-After calling this function all counter and control settings must be
-established.
-
-@note The Backup Domain is reset by this function and will therefore result in
-the loss of any unrelated user data stored there.
+select the clock source, clear the RTC registers and enable the RTC.
 
 @param[in] clock_source ::rcc_osc. RTC clock source. Only the values HSE, LSE
     and LSI are permitted.
@@ -96,14 +90,20 @@ void rtc_awake_from_off(enum rcc_osc clock_source)
 	/* Enable access to the backup registers and the RTC. */
         pwr_disable_backup_domain_write_protect();
 
-	/*
-	 * Reset the backup domain, clears everything RTC related.
-	 * If not wanted use the rtc_awake_from_standby() function.
-	 */
-	rcc_backupdomain_reset();
-
-    /* Set the clock source */
+        /* Set the clock source */
         rcc_set_rtc_clock_source(clock_source);
+
+        /* Clear the RTC Registers */
+        rtc_enter_config_mode();
+        RTC_CRH = 0;
+        RTC_CRL = 0x20;
+        RTC_PRLH = 0;
+        RTC_PRLL = 0;
+        RTC_CNTH = 0;
+        RTC_CNTL = 0;
+        RTC_ALRH = 0xFFFF;
+        RTC_ALRL = 0xFFFF;
+        rtc_exit_config_mode();
 
 	/* Enable the RTC. */
         rcc_enable_rtc_clock();
