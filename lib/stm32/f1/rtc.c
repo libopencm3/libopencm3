@@ -76,13 +76,7 @@
 /** @brief RTC Set Operational from the Off state.
 
 Power up the backup domain clocks, enable write access to the backup domain,
-select the clock source and enable the RTC.
-
-After calling this function all counter and control settings must be
-established.
-
-@note The Backup Domain is reset by this function and will therefore result in
-the loss of any unrelated user data stored there.
+select the clock source, clear the RTC registers and enable the RTC.
 
 @param[in] clock_source ::rcc_osc. RTC clock source. Only the values HSE, LSE
     and LSI are permitted.
@@ -93,23 +87,29 @@ void rtc_awake_from_off(enum rcc_osc clock_source)
 	uint32_t reg32;
 
 	/* Enable power and backup interface clocks. */
-        rcc_periph_clock_enable(RCC_PWR);
-        rcc_periph_clock_enable(RCC_BKP);
+	rcc_periph_clock_enable(RCC_PWR);
+	rcc_periph_clock_enable(RCC_BKP);
 
 	/* Enable access to the backup registers and the RTC. */
-        pwr_disable_backup_domain_write_protect();
+	pwr_disable_backup_domain_write_protect();
 
-	/*
-	 * Reset the backup domain, clears everything RTC related.
-	 * If not wanted use the rtc_awake_from_standby() function.
-	 */
-	rcc_backupdomain_reset();
+        /* Set the clock source */
+	rcc_set_rtc_clock_source(clock_source);
 
-    /* Set the clock source */
-        rcc_set_rtc_clock_source(clock_source);
+	/* Clear the RTC Registers */
+	rtc_enter_config_mode();
+	RTC_CRH = 0;
+	RTC_CRL = 0x20;
+	RTC_PRLH = 0;
+	RTC_PRLL = 0;
+	RTC_CNTH = 0;
+	RTC_CNTL = 0;
+	RTC_ALRH = 0xFFFF;
+	RTC_ALRL = 0xFFFF;
+	rtc_exit_config_mode();
 
 	/* Enable the RTC. */
-        rcc_enable_rtc_clock();
+	rcc_enable_rtc_clock();
 
 	/* Wait for the RSF bit in RTC_CRL to be set by hardware. */
 	RTC_CRL &= ~RTC_CRL_RSF;
