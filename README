@@ -39,25 +39,39 @@ Prerequisites
 
 Building requires python. (Some code is generated)
 
-For Ubuntu/Fedora, you already have everything you need.
+For Ubuntu/Fedora
+  An arm-none-eabi/arm-elf toolchain.
 
 For Windows
  Download and install:
  msys - sourceforge.net/projects/mingw/files/MSYS/Base/msys-core/msys-1.0.11/MSYS-1.0.11.exe
- Python - http://www.python.org/ftp/python/2.7/python-2.7.msi (use installer to get the right registry keys for PyYAML)
- arm-none-eabi toolchain - for example this one https://launchpad.net/gcc-arm-embedded
+ Python - http://www.python.org/ftp/python/2.7/python-2.7.msi (any 2.7 release)
+ arm-none-eabi/arm-elf toolchain
+
+ - for example this one https://launchpad.net/gcc-arm-embedded
  Run msys shell and set the path without standard Windows paths, so Windows programs such as 'find' won't interfere:
  export PATH="/c//Python27:/c/ARMToolchain/bin:/usr/local/bin:/usr/bin:/bin"
  After that you can navigate to the folder where you've extracted libopencm3 and build it.
+
+Toolchain
+---------
+
+The most heavily tested toolchain is gcc-arm-embedded
+https://launchpad.net/gcc-arm-embedded
+
+Other toolchains _should_ work, but have not been nearly as well tested.
+Toolchains targetting linux, such as "gcc-arm-linux-gnu" or the like are
+_not_ appropriate.
 
 Building
 --------
 
  $ make
 
-You may want to override the toolchain (e.g., arm-elf or arm-none-eabi):
+If your have an arm-elf toolchain (uncommon) you may want to override the
+toolchain prefix (arm-none-eabi is the default)
 
- $ PREFIX=arm-none-eabi make
+ $ PREFIX=arm-elf make
 
 For a more verbose build you can use
 
@@ -100,17 +114,12 @@ If you want to install it elsewhere, use the following syntax:
 
  $ make DESTDIR=/opt/libopencm3 install
 
-If you want to attempt to install into your toolchain, use this:
-
- $ make DETECT_TOOLCHAIN=1 install
-
-Note: If you install this into your toolchain, you don't need to pass
-any extra -L or -I flags into your projects.  However, this also means
-you must NOT pass any -L or -I flags that point into the toolchain. This
-_will_ confuse the linker.  (ie, for summon-arm-toolchain, do NOT pass
--L/home/user/sat/lib) Common symptoms of confusing
-the linker are hard faults caused by branches into arm code.
-You can use objdump to check for this in your final elf.
+It is strongly advised that you do not attempt to install this library to any
+path inside your toolchain itself.  While this means you don't have to include
+any -I or -L flags in your projects, it is _very_ easy to confuse a multilib
+linker from picking the right versions of libraries.  Common symptoms are
+hardfaults caused by branches into arm code.  You can use arm-none-eabi-objdump
+to check for this in your final elf.  You have been warned.
 
 
 Coding style and development guidelines
