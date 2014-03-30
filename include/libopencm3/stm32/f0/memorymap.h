@@ -82,6 +82,7 @@
 
 /* AHB1 */
 #define DMA_BASE			(PERIPH_BASE_AHB1 + 0x0000)
+#define DMA1_BASE			(PERIPH_BASE_AHB1 + 0x0000)
 
 #define RCC_BASE			(PERIPH_BASE_AHB1 + 0x1000)
 
