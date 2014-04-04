@@ -84,22 +84,21 @@ static void stm32f0x2_set_address(usbd_device *dev, uint8_t addr)
 /**
  * Set the receive buffer size for a given USB endpoint.
  *
- * @param ep Index of endpoint to configure.
  * @param size Size in bytes of the RX buffer.
  */
-static void usb_set_ep_rx_bufsize(usbd_device *dev, uint8_t ep, uint32_t size)
+
+static uint32_t usb_calculate_rx_bufsize(uint32_t size)
 {
-	(void)dev;
 	if (size > 62) {
 		if (size & 0x1f) {
 			size -= 32;
 		}
-		USB_SET_EP_RX_COUNT(ep, (size << 5) | 0x8000);
+		return (size << 5) | 0x8000;
 	} else {
 		if (size & 1) {
 			size++;
 		}
-		USB_SET_EP_RX_COUNT(ep, size << 10);
+		return (size << 10);
 	}
 }
 
@@ -123,26 +122,61 @@ static void stm32f0x2_ep_setup(usbd_device *dev, uint8_t addr, uint8_t type,
 	USB_SET_EP_TYPE(addr, typelookup[type]);
 
 	if (dir || (addr == 0)) {
-		USB_SET_EP_TX_ADDR(addr, dev->pm_top);
+		if (type == USB_ENDPOINT_ATTR_ISOCHRONOUS) {
+			//USB_ADDRn_TX_0 = USB_ADDRn_TX
+			USB_SET_EP_TX_ADDR(addr, dev->pm_top);
+			dev->pm_top += max_size;
+			USB_SET_EP_TX_STAT(addr, USB_EP_TX_STAT_DISABLED);
+			USB_CLR_EP_TX_DTOG(addr);
+			USB_SET_EP_TX_COUNT(addr, max_size);
+			
+			//USB_ADDRn_TX_1 = USB_ADDRn_RX
+			USB_SET_EP_RX_ADDR(addr, dev->pm_top);
+			dev->pm_top += max_size;
+			USB_SET_EP_RX_STAT(addr, USB_EP_RX_STAT_DISABLED);
+			USB_CLR_EP_RX_DTOG(addr);
+			USB_SET_EP_RX_COUNT(addr, max_size);
+		} else {
+			USB_SET_EP_TX_ADDR(addr, dev->pm_top);
+			USB_CLR_EP_TX_DTOG(addr);
+			USB_SET_EP_TX_STAT(addr, USB_EP_TX_STAT_NAK);
+			dev->pm_top += max_size;
+		}
+		
 		if (callback) {
 			dev->user_callback_ctr[addr][USB_TRANSACTION_IN] =
 			    (void *)callback;
 		}
-		USB_CLR_EP_TX_DTOG(addr);
-		USB_SET_EP_TX_STAT(addr, USB_EP_TX_STAT_NAK);
-		dev->pm_top += max_size;
 	}
 
 	if (!dir) {
-		USB_SET_EP_RX_ADDR(addr, dev->pm_top);
-		usb_set_ep_rx_bufsize(dev, addr, max_size);
+		uint16_t count_reg = usb_calculate_rx_bufsize(max_size);
+		if (type == USB_ENDPOINT_ATTR_ISOCHRONOUS) {
+			//USB_ADDRn_RX_0 = USB_ADDRn_TX
+			USB_SET_EP_TX_ADDR(addr, dev->pm_top);
+			dev->pm_top += max_size;
+			USB_SET_EP_TX_STAT(addr, USB_EP_TX_STAT_DISABLED);
+			USB_CLR_EP_TX_DTOG(addr);
+			USB_SET_EP_TX_COUNT(addr, count_reg);
+			
+			//USB_ADDRn_RX_1 = USB_ADDRn_RX
+			USB_SET_EP_RX_ADDR(addr, dev->pm_top);
+			dev->pm_top += max_size;
+			USB_SET_EP_RX_STAT(addr, USB_EP_RX_STAT_VALID);
+			USB_CLR_EP_RX_DTOG(addr);
+			USB_SET_EP_RX_COUNT(addr, count_reg);
+		} else {
+			USB_SET_EP_RX_ADDR(addr, dev->pm_top);
+			USB_SET_EP_RX_COUNT(addr, count_reg);
+			USB_CLR_EP_RX_DTOG(addr);
+			USB_SET_EP_RX_STAT(addr, USB_EP_RX_STAT_VALID);
+			dev->pm_top += max_size;
+		}
+		
 		if (callback) {
 			dev->user_callback_ctr[addr][USB_TRANSACTION_OUT] =
 			    (void *)callback;
 		}
-		USB_CLR_EP_RX_DTOG(addr);
-		USB_SET_EP_RX_STAT(addr, USB_EP_RX_STAT_VALID);
-		dev->pm_top += max_size;
 	}
 }
 
