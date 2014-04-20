@@ -248,17 +248,28 @@ static int usb_standard_set_configuration(usbd_device *usbd_dev,
 					  uint8_t **buf, uint16_t *len)
 {
 	int i;
+	const struct usb_config_descriptor *cfg;
 
 	(void)req;
 	(void)buf;
 	(void)len;
 
-	/* Is this correct, or should we reset alternate settings. */
-	if (req->wValue == usbd_dev->current_config) {
-		return 1;
+	if (req->wValue > usbd_dev->desc->bNumConfigurations) {
+		return USBD_REQ_NOTSUPP;
 	}
 
 	usbd_dev->current_config = req->wValue;
+
+	if (usbd_dev->current_config) {
+		cfg = &usbd_dev->config[usbd_dev->current_config - 1];
+
+		/* reset all alternate settings configuration */
+		for(i=0; i < cfg->bNumInterfaces; i++) {
+			if (cfg->interface[i].cur_altsetting) {
+				*cfg->interface[i].cur_altsetting = 0;
+			}
+		}
+	}
 
 	/* Reset all endpoints. */
 	usbd_dev->driver->ep_reset(usbd_dev);
@@ -301,10 +312,16 @@ static int usb_standard_set_interface(usbd_device *usbd_dev,
 				      struct usb_setup_data *req,
 				      uint8_t **buf, uint16_t *len)
 {
-	const struct usb_config_descriptor *cfx = &usbd_dev->config[usbd_dev->current_config - 1];
+	const struct usb_config_descriptor *cfx;
 	const struct usb_interface *iface;
 
 	(void)buf;
+
+	if (! usbd_dev->current_config) {
+		return USBD_REQ_NOTSUPP;
+	}
+
+	cfx = &usbd_dev->config[usbd_dev->current_config - 1];
 
 	if (req->wIndex >= cfx->bNumInterfaces) {
 		return USBD_REQ_NOTSUPP;
@@ -337,8 +354,14 @@ static int usb_standard_get_interface(usbd_device *usbd_dev,
 				      uint8_t **buf, uint16_t *len)
 {
 	uint8_t *cur_altsetting;
-	const struct usb_config_descriptor *cfx = &usbd_dev->config[usbd_dev->current_config - 1];
+	const struct usb_config_descriptor *cfx;
 
+	if (! usbd_dev->current_config) {
+		return USBD_REQ_NOTSUPP;
+	}
+
+	cfx = &usbd_dev->config[usbd_dev->current_config - 1];
+	
 	if (req->wIndex >= cfx->bNumInterfaces) {
 		return USBD_REQ_NOTSUPP;
 	}
