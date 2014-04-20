@@ -310,7 +310,8 @@ static int usb_standard_get_configuration(usbd_device *usbd_dev,
 	if (*len > 1) {
 		*len = 1;
 	}
-	(*buf)[0] = usbd_dev->current_config;
+	const struct usb_config_descriptor *cfg = &usbd_dev->config[usbd_dev->current_config - 1];
+	(*buf)[0] = cfg->bConfigurationValue;
 
 	return 1;
 }
