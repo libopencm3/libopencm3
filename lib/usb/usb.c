@@ -120,7 +120,7 @@ void _usbd_reset(usbd_device *usbd_dev)
 {
 	usbd_dev->current_address = 0;
 	usbd_dev->current_config = 0;
-	usbd_ep_setup(usbd_dev, 0, USB_ENDPOINT_ATTR_CONTROL, 64, NULL);
+	usbd_ep_setup(usbd_dev, 0, USB_ENDPOINT_ATTR_CONTROL, usbd_dev->desc->bMaxPacketSize0, NULL);
 	usbd_dev->driver->set_address(usbd_dev, 0);
 
 	if (usbd_dev->user_callback_reset) {
