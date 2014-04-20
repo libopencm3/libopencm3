@@ -245,18 +245,38 @@ static int usb_standard_set_configuration(usbd_device *usbd_dev,
 					  struct usb_setup_data *req,
 					  uint8_t **buf, uint16_t *len)
 {
-	int i;
+	unsigned i;
+	int found_index = -1;
+	const struct usb_config_descriptor *cfg;
 
 	(void)req;
 	(void)buf;
 	(void)len;
 
-	/* Is this correct, or should we reset alternate settings. */
-	if (req->wValue == usbd_dev->current_config) {
-		return 1;
+	if(req->wValue > 0) {
+		for (i = 0; i < usbd_dev->desc->bNumConfigurations; i++) {
+			if (req->wValue == usbd_dev->config[i].bConfigurationValue) {
+				found_index = i;
+				break;
+			}
+		}
+		if (found_index < 0) {
+			return USBD_REQ_NOTSUPP;
+		}
 	}
 
-	usbd_dev->current_config = req->wValue;
+	usbd_dev->current_config = found_index + 1;
+
+	if (usbd_dev->current_config > 0) {
+		cfg = &usbd_dev->config[usbd_dev->current_config - 1];
+
+		/* reset all alternate settings configuration */
+		for (i = 0; i < cfg->bNumInterfaces; i++) {
+			if (cfg->interface[i].cur_altsetting) {
+				*cfg->interface[i].cur_altsetting = 0;
+			}
+		}
+	}
 
 	/* Reset all endpoints. */
 	usbd_dev->driver->ep_reset(usbd_dev);
