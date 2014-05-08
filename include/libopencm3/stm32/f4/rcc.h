@@ -506,6 +506,7 @@ typedef struct {
 extern const clock_scale_t hse_8mhz_3v3[CLOCK_3V3_END];
 extern const clock_scale_t hse_12mhz_3v3[CLOCK_3V3_END];
 extern const clock_scale_t hse_16mhz_3v3[CLOCK_3V3_END];
+extern const clock_scale_t hse_25mhz_3v3[CLOCK_3V3_END];
 
 enum rcc_osc {
 	PLL, HSE, HSI, LSE, LSI
