@@ -327,6 +327,45 @@ specific memorymap.h header before including this header file.*/
 /* CHLEN: Channel length */
 #define SPI_I2SCFGR_CHLEN			(1 << 0)
 
+/* --- Defines for spi_init_master, the calling code should not need to know
+   --- implementation details about what CR certain bits go into ----------- */
+
+/* Possible baudrate values */
+#define SPI_BAUDRATE_CLK_DIV_2   SPI_CR1_BAUDRATE_FPCLK_DIV_2 
+#define SPI_BAUDRATE_CLK_DIV_4   SPI_CR1_BAUDRATE_FPCLK_DIV_4
+#define SPI_BAUDRATE_CLK_DIV_8   SPI_CR1_BAUDRATE_FPCLK_DIV_8
+#define SPI_BAUDRATE_CLK_DIV_16  SPI_CR1_BAUDRATE_FPCLK_DIV_16
+#define SPI_BAUDRATE_CLK_DIV_32  SPI_CR1_BAUDRATE_FPCLK_DIV_32
+#define SPI_BAUDRATE_CLK_DIV_64  SPI_CR1_BAUDRATE_FPCLK_DIV_64
+#define SPI_BAUDRATE_CLK_DIV_128 SPI_CR1_BAUDRATE_FPCLK_DIV_128
+#define SPI_BAUDRATE_CLK_DIV_256 SPI_CR1_BAUDRATE_FPCLK_DIV_256
+
+/* The SPI mode bits */
+#define SPI_CLK_TO_1_WHEN_IDLE SPI_CR1_CPOL_CLK_TO_1_WHEN_IDLE
+#define SPI_CLK_TO_0_WHEN_IDLE SPI_CR1_CPOL_CLK_TO_0_WHEN_IDLE
+
+/* XXX check if these are the rigth way around. */
+#define SPI_LATCH_FALLING SPI_CR1_CPHA_CLK_TRANSITION_1
+#define SPI_LATCH_RISING  SPI_CR1_CPHA_CLK_TRANSITION_2
+
+/* XXX these should be or-ed together and the calling convention 
+   for spi_init_master should be changed. */
+/* XXX check if these are the right way around. */
+#define SPI_MODE0 SPI_CLK_TO_0_WHEN_IDLE,SPI_CR1_CPHA_CLK_TRANSITION_1
+#define SPI_MODE1 SPI_CLK_TO_0_WHEN_IDLE,SPI_CR1_CPHA_CLK_TRANSITION_2
+#define SPI_MODE2 SPI_CLK_TO_1_WHEN_IDLE,SPI_CR1_CPHA_CLK_TRANSITION_1
+#define SPI_MODE3 SPI_CLK_TO_1_WHEN_IDLE,SPI_CR1_CPHA_CLK_TRANSITION_2
+
+/* The data format */ 
+#define SPI_FORMAT_16BIT SPI_CR1_DFF_16BIT
+#define SPI_FORMAT_8BIT SPI_CR1_DFF_8BIT
+
+/* bit order */
+#define SPI_MSBFIRST SPI_CR1_MSBFIRST
+#define SPI_LSBFIRST SPI_CR1_LSBFIRST
+
+
+
 /* --- SPI_I2SPR values ---------------------------------------------------- */
 
 /* Note: None of these bits are used in SPI mode. */
