@@ -48,7 +48,7 @@ by specifying the appropriate register to the DMA controller.
 
 @section dac_api_basic_ex Basic DAC handling API.
 
-Set the DAC's GPIO port to any alternate function output mode. Enable the
+Set the DAC's GPIO port to analog in (RM0090 page 311).  Enable the
 DAC clock. Enable the DAC, set a trigger source and load the buffer
 with the first value. After the DAC is triggered, load the buffer with
 the next value. This example uses software triggering and added noise.

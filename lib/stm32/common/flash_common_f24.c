@@ -229,7 +229,7 @@ void flash_program_double_word(uint32_t address, uint64_t data)
 	/* Enable writes to flash. */
 	FLASH_CR |= FLASH_CR_PG;
 
-	/* Program the first half of the word. */
+	/* Program the double_word. */
 	MMIO64(address) = data;
 
 	/* Wait for the write to complete. */
@@ -259,7 +259,7 @@ void flash_program_word(uint32_t address, uint32_t data)
 	/* Enable writes to flash. */
 	FLASH_CR |= FLASH_CR_PG;
 
-	/* Program the first half of the word. */
+	/* Program the word. */
 	MMIO32(address) = data;
 
 	/* Wait for the write to complete. */
