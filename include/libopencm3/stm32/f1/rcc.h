@@ -601,9 +601,9 @@ enum rcc_periph_clken {
 	RCC_I2C1	= _REG_BIT(0x1C, 21),/*VNC*/
 	RCC_I2C2	= _REG_BIT(0x1C, 22),/*VNC*/
 	RCC_USB		= _REG_BIT(0x1C, 23),/*-N-*/
-	RCC_CAN		= _REG_BIT(0x1C, 24),/*-N-*/
-	RCC_CAN1	= _REG_BIT(0x1C, 24),/*--C*/
-	RCC_CAN2	= _REG_BIT(0x1C, 25),/*--C*/
+	RCC_CAN		= _REG_BIT(0x1C, 25),/*-N-*/
+	RCC_CAN1	= _REG_BIT(0x1C, 25),/*--C*/
+	RCC_CAN2	= _REG_BIT(0x1C, 26),/*--C*/
 	RCC_BKP		= _REG_BIT(0x1C, 27),/*VNC*/
 	RCC_PWR		= _REG_BIT(0x1C, 28),/*VNC*/
 	RCC_DAC		= _REG_BIT(0x1C, 29),/*VNC*/

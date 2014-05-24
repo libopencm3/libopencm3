@@ -26,9 +26,7 @@ void __dmb()
 }
 
 /* Those are defined only on CM3 or CM4 */
-#if defined(__ARM_ARCH_6M__)
-/* no work around for cm0 */
-#else
+#if defined(__ARM_ARCH_7M__) || defined(__ARM_ARCH_7EM__)
 
 uint32_t __ldrex(volatile uint32_t *addr)
 {

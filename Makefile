@@ -23,11 +23,7 @@ PREFIX		?= arm-none-eabi
 STYLECHECK      := scripts/checkpatch.pl
 STYLECHECKFLAGS := --no-tree -f --terse --mailback
 
-ifeq ($(DETECT_TOOLCHAIN),)
 DESTDIR		?= /usr/local
-else
-DESTDIR		?= $(shell dirname $(shell readlink -f $(shell which $(PREFIX)-gcc)))/..
-endif
 
 INCDIR		:= $(DESTDIR)/$(PREFIX)/include
 LIBDIR		:= $(DESTDIR)/$(PREFIX)/lib
