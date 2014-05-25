@@ -213,7 +213,10 @@
 #define OTG_FS_GRXSTSP_EPNUM_MASK		(0xf << 0)
 
 /* OTG_FS general core configuration register (OTG_FS_GCCFG) */
+/* This register exists on F4 and F1, not on F3. 
+   F1 lacks the NOVBUSSENS bit */
 /* Bits 31:21 - Reserved */
+#define OTG_FS_GCCFG_NOVBUSSENS		(1 << 21)
 #define OTG_FS_GCCFG_SOFOUTEN		(1 << 20)
 #define OTG_FS_GCCFG_VBUSBSEN		(1 << 19)
 #define OTG_FS_GCCFG_VBUSASEN		(1 << 18)
