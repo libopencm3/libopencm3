@@ -82,6 +82,8 @@
 
 /* AHB1 */
 #define DMA_BASE			(PERIPH_BASE_AHB1 + 0x0000)
+/* DMA is the name in the F0 refman, but all other stm32's use DMA1 */
+#define DMA1_BASE			DMA_BASE
 
 #define RCC_BASE			(PERIPH_BASE_AHB1 + 0x1000)
 
