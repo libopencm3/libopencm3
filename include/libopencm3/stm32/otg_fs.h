@@ -17,6 +17,11 @@
  * along with this library.  If not, see <http://www.gnu.org/licenses/>.
  */
 
+/*
+ * This file covers definitions for the USB OTG FS peripheral.
+ * This is the USB core included in the F105, F107, F2, F4 devices
+ */
+
 #ifndef LIBOPENCM3_OTG_FS_H
 #define LIBOPENCM3_OTG_FS_H
 
@@ -213,9 +218,7 @@
 #define OTG_FS_GRXSTSP_EPNUM_MASK		(0xf << 0)
 
 /* OTG_FS general core configuration register (OTG_FS_GCCFG) */
-/* This register exists on F4 and F1, not on F3. 
-   F1 lacks the NOVBUSSENS bit */
-/* Bits 31:21 - Reserved */
+/* Bits 31:22 - Reserved */
 #define OTG_FS_GCCFG_NOVBUSSENS		(1 << 21)
 #define OTG_FS_GCCFG_SOFOUTEN		(1 << 20)
 #define OTG_FS_GCCFG_VBUSBSEN		(1 << 19)
