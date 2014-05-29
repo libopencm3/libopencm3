@@ -206,10 +206,12 @@ LGPL License Terms @ref lgpl_license
  * is why we use some helper macros for that.
  */
 #define USB_SET_EP_RX_STAT(EP, STAT) \
-	TOG_SET_REG_BIT_MSK(USB_EP_REG(EP), USB_EP_RX_STAT_TOG_MSK, STAT)
+	TOG_SET_REG_BIT_MSK_AND_SET(USB_EP_REG(EP), \
+		USB_EP_RX_STAT_TOG_MSK, STAT, USB_EP_RX_CTR | USB_EP_TX_CTR)
 
 #define USB_SET_EP_TX_STAT(EP, STAT) \
-	TOG_SET_REG_BIT_MSK(USB_EP_REG(EP), USB_EP_TX_STAT_TOG_MSK, STAT)
+	TOG_SET_REG_BIT_MSK_AND_SET(USB_EP_REG(EP), \
+		USB_EP_TX_STAT_TOG_MSK, STAT, USB_EP_RX_CTR | USB_EP_TX_CTR)
 
 /*
  * Macros for clearing and setting USB endpoint register bits that do
@@ -218,14 +220,15 @@ LGPL License Terms @ref lgpl_license
  * Because the register contains some bits that use the toggle
  * mechanism we need a helper macro here. Otherwise the code gets really messy.
  */
-#define USB_CLR_EP_NTOGGLE_BIT(EP, BIT) \
-	CLR_REG_BIT_MSK(USB_EP_REG(EP), USB_EP_NTOGGLE_MSK, BIT)
+#define USB_CLR_EP_NTOGGLE_BIT_AND_SET(EP, BIT, EXTRA_BITS) \
+	CLR_REG_BIT_MSK_AND_SET(USB_EP_REG(EP), \
+		USB_EP_NTOGGLE_MSK, BIT, EXTRA_BITS)
 
 #define USB_CLR_EP_RX_CTR(EP) \
-	USB_CLR_EP_NTOGGLE_BIT(EP, USB_EP_RX_CTR)
+	USB_CLR_EP_NTOGGLE_BIT_AND_SET(EP, USB_EP_RX_CTR, USB_EP_TX_CTR)
 
 #define USB_CLR_EP_TX_CTR(EP) \
-	USB_CLR_EP_NTOGGLE_BIT(EP, USB_EP_TX_CTR)
+	USB_CLR_EP_NTOGGLE_BIT_AND_SET(EP, USB_EP_TX_CTR, USB_EP_RX_CTR)
 
 #define USB_SET_EP_TYPE(EP, TYPE) \
 	SET_REG(USB_EP_REG(EP), \
