@@ -60,6 +60,12 @@ void i2c_reset(uint32_t i2c)
 		rcc_peripheral_reset(&RCC_APB1RSTR, RCC_APB1RSTR_I2C2RST);
 		rcc_peripheral_clear_reset(&RCC_APB1RSTR, RCC_APB1RSTR_I2C2RST);
 		break;
+#ifdef I2C3
+	case I2C3:
+		rcc_peripheral_reset(&RCC_APB1RSTR, RCC_APB1RSTR_I2C3RST);
+		rcc_peripheral_clear_reset(&RCC_APB1RSTR, RCC_APB1RSTR_I2C3RST);
+		break;
+#endif
 	}
 }
 
