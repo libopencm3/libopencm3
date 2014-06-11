@@ -100,10 +100,10 @@
 #define SSI_PERIPH_ID3(port)	MMIO32(port + 0xFEC)
 
 /* SSI PrimeCell Identification */
-#define SSI_PCELL_ID0(port)	MMIO32(port + 0xFF0)
-#define SSI_PCELL_ID1(port)	MMIO32(port + 0xFF4)
-#define SSI_PCELL_ID2(port)	MMIO32(port + 0xFF8)
-#define SSI_PCELL_ID3(port)	MMIO32(port + 0xFFC)
+#define SSI_PCELL_ID0(port)		MMIO32(port + 0xFF0)
+#define SSI_PCELL_ID1(port)		MMIO32(port + 0xFF4)
+#define SSI_PCELL_ID2(port)		MMIO32(port + 0xFF8)
+#define SSI_PCELL_ID3(port)		MMIO32(port + 0xFFC)
 
 /* =============================================================================
  * Function prototypes
