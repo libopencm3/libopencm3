@@ -59,6 +59,11 @@
 #define UART6_BASE			(0x40012000U)
 #define UART7_BASE			(0x40013000U)
 
+#define SSI0_BASE			(0x40008000U)
+#define SSI1_BASE			(0x40009000U)
+#define SSI2_BASE			(0x4000A000U)
+#define SSI3_BASE			(0x4000B000U)
+
 #define USB_BASE			(0x40050000U)
 
 #define SYSCTL_BASE			(0x400FE000U)
