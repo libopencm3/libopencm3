@@ -52,14 +52,23 @@ the reset condition. The reset is effected via the RCC peripheral reset system.
 void i2c_reset(uint32_t i2c)
 {
 	switch (i2c) {
-	case I2C1:
-		rcc_peripheral_reset(&RCC_APB1RSTR, RCC_APB1RSTR_I2C1RST);
-		rcc_peripheral_clear_reset(&RCC_APB1RSTR, RCC_APB1RSTR_I2C1RST);
-		break;
-	case I2C2:
-		rcc_peripheral_reset(&RCC_APB1RSTR, RCC_APB1RSTR_I2C2RST);
-		rcc_peripheral_clear_reset(&RCC_APB1RSTR, RCC_APB1RSTR_I2C2RST);
-		break;
+#if defined(I2C1_BASE)
+		case I2C1_BASE:
+			rcc_periph_reset_pulse(RCC_I2C1);
+			break;
+#endif
+#if defined(I2C2_BASE)
+		case I2C2_BASE:
+			rcc_periph_reset_pulse(RCC_I2C2);
+			break;
+#endif
+#if defined(I2C3_BASE)
+		case I2C3_BASE:
+			rcc_periph_reset_pulse(RCC_I2C3);
+			break;
+#endif
+		default:
+			break;
 	}
 }
 
