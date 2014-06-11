@@ -38,7 +38,72 @@
 
 /**@{*/
 
+#include <libopencm3/cm3/common.h>	// Contains MMIO32() macros
 #include <libopencm3/lm4f/memorymap.h>
+
+/* =============================================================================
+ * Convenience macros
+ * ---------------------------------------------------------------------------*/
+/** @defgroup ssi_base SSI register base addresses
+ * @{*/
+#define SSI0				SSI0_BASE
+#define SSI1				SSI1_BASE
+#define SSI2				SSI2_BASE
+#define SSI3				SSI3_BASE
+/** @} */
+
+/* =============================================================================
+ * SSI registers
+ * ---------------------------------------------------------------------------*/
+
+/* SSI Control 0 */
+#define SSI_CR0(port)		MMIO32(port + 0x000)
+
+/* SSI Control 1 */
+#define SSI_CR1(port)		MMIO32(port + 0x004)
+
+/* SSI Data */
+#define SSI_DR(port)		MMIO32(port + 0x008)
+
+/* SSI Satus */
+#define SSI_SR(port)		MMIO32(port + 0x00C)
+ 
+/* SSI Clock Prescale */
+#define SSI_CPSR(port)		MMIO32(port + 0x010)
+
+/* SSI Interrupt Mask */
+#define SSI_IM(port)		MMIO32(port + 0x014)
+
+/* SSI Raw Interrupt Status */
+#define SSI_RIS(port)		MMIO32(port + 0x018)
+
+/* SSI Masked Interrupt Status */
+#define SSI_MIS(port)		MMIO32(port + 0x01C)
+
+/* SSI Interrupt Clear */
+#define SSI_ICR(port)		MMIO32(port + 0x020)
+
+/* SSI DMA Control */
+#define SSI_DMACTL(port) 	MMIO32(port + 0x024)
+
+/* SSI Clock Configuration */
+#define SSI_CC(port)		MMIO32(port + 0xFC8)
+
+/* SSI Peripheral Identification */
+#define SSI_PERIPH_ID4(port)	MMIO32(port + 0xFD0)
+#define SSI_PERIPH_ID5(port)	MMIO32(port + 0xFD4)
+#define SSI_PERIPH_ID6(port)	MMIO32(port + 0xFD8)
+#define SSI_PERIPH_ID7(port)	MMIO32(port + 0xFDC)
+#define SSI_PERIPH_ID0(port)	MMIO32(port + 0xFE0)
+#define SSI_PERIPH_ID1(port)	MMIO32(port + 0xFE4)
+#define SSI_PERIPH_ID2(port)	MMIO32(port + 0xFE8)
+#define SSI_PERIPH_ID3(port)	MMIO32(port + 0xFEC)
+
+/* SSI PrimeCell Identification */
+#define SSI_PCELL_ID0(port)	MMIO32(port + 0xFF0)
+#define SSI_PCELL_ID1(port)	MMIO32(port + 0xFF4)
+#define SSI_PCELL_ID2(port)	MMIO32(port + 0xFF8)
+#define SSI_PCELL_ID3(port)	MMIO32(port + 0xFFC)
 
 /* =============================================================================
  * Function prototypes
