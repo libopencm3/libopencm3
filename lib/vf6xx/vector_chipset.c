@@ -19,6 +19,8 @@
 
 #include <libopencm3/cm3/scb.h>
 
+extern vector_table_t vector_table;
+
 static inline void pre_main(void)
 {
 	/*
@@ -28,4 +30,7 @@ static inline void pre_main(void)
 	asm (	\
 		"ldr sp,=_stack;" \
 	    );
+
+	/* Set Vector Table Offset to our memory based vector table */
+	SCB_VTOR = (uint32_t)&vector_table;
 }
