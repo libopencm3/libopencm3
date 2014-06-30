@@ -34,6 +34,7 @@ CFLAGS		= -Os -g \
 		  -mcpu=cortex-m4 -mthumb $(FP_FLAGS) -Wstrict-prototypes \
 		  -ffunction-sections -fdata-sections -MD -DVF6XX
 ARFLAGS		= rcs
+OBJS		= ccm.o
 
 VPATH += ../cm3
 
