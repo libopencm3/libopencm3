@@ -33,4 +33,7 @@ static inline void pre_main(void)
 
 	/* Set Vector Table Offset to our memory based vector table */
 	SCB_VTOR = (uint32_t)&vector_table;
+
+	/* Enable access to Floating-Point coprocessor. */
+	SCB_CPACR |= SCB_CPACR_FULL * (SCB_CPACR_CP10 | SCB_CPACR_CP11);
 }
