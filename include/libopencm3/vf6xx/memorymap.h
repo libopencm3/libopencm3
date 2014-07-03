@@ -52,4 +52,7 @@
 #define UART4_BASE			(PERIPH_BASE_AIPS1 + 0x29000)
 #define UART5_BASE			(PERIPH_BASE_AIPS1 + 0x2A000)
 
+/* GPIO module */
+#define GPIO_BASE			(PERIPH_BASE + 0xff000)
+
 #endif
