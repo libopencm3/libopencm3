@@ -81,19 +81,17 @@
 
 #define CCM_CCSR_DAP_EN				(1 << 24)
 
+/* PLL1/PLL2 PFD SEL definition */
 #define CCM_CCSR_PLL2_PFD_CLK_SEL_SHIFT		19
-#define CCM_CCSR_PLL2_PFD_CLK_SEL_MAIN		0x0
-#define CCM_CCSR_PLL2_PFD_CLK_SEL_PFD1		0x1
-#define CCM_CCSR_PLL2_PFD_CLK_SEL_PFD2		0x2
-#define CCM_CCSR_PLL2_PFD_CLK_SEL_PFD3		0x3
-#define CCM_CCSR_PLL2_PFD_CLK_SEL_PFD4		0x4
-
+#define CCM_CCSR_PLL2_PFD_CLK_SEL_MASK		(0x7 << 19)
 #define CCM_CCSR_PLL1_PFD_CLK_SEL_SHIFT		16
-#define CCM_CCSR_PLL1_PFD_CLK_SEL_MAIN		0x0
-#define CCM_CCSR_PLL1_PFD_CLK_SEL_PFD1		0x1
-#define CCM_CCSR_PLL1_PFD_CLK_SEL_PFD2		0x2
-#define CCM_CCSR_PLL1_PFD_CLK_SEL_PFD3		0x3
-#define CCM_CCSR_PLL1_PFD_CLK_SEL_PFD4		0x4
+#define CCM_CCSR_PLL1_PFD_CLK_SEL_MASK		(0x7 << 16)
+
+#define CCM_CCSR_PLL_PFD_CLK_SEL_MAIN		0x0
+#define CCM_CCSR_PLL_PFD_CLK_SEL_PFD1		0x1
+#define CCM_CCSR_PLL_PFD_CLK_SEL_PFD2		0x2
+#define CCM_CCSR_PLL_PFD_CLK_SEL_PFD3		0x3
+#define CCM_CCSR_PLL_PFD_CLK_SEL_PFD4		0x4
 
 #define CCM_CCSR_PLL2_PFDN4_EN			(1 << 15)
 #define CCM_CCSR_PLL2_PFDN3_EN			(1 << 14)
@@ -110,6 +108,7 @@
 #define CCM_CCSR_SLOW_CLK_SEL			(1 << 5)
 
 #define CCM_CCSR_SYS_CLK_SEL_SHIFT		0
+#define CCM_CCSR_SYS_CLK_SEL_MASK		0x7
 #define CCM_CCSR_SYS_CLK_SEL_FAST		0x0
 #define CCM_CCSR_SYS_CLK_SEL_SLOW		0x1
 #define CCM_CCSR_SYS_CLK_SEL_PLL2_PFD		0x2
@@ -117,7 +116,28 @@
 #define CCM_CCSR_SYS_CLK_SEL_PLL1_PFD		0x4
 #define CCM_CCSR_SYS_CLK_SEL_PLL3		0x5
 
+/* CACRR: ARM Clock Root Register */
+#define CCM_CACRR_FLEX_CLK_DIV_SHIFT		22
+#define CCM_CACRR_FLEX_CLK_DIV_MASK		(0x7 << 22)
+#define CCM_CACRR_PLL6_CLK_DIV			(1 << 21)
+#define CCM_CACRR_PLL3_CLK_DIV			(1 << 20)
+#define CCM_CACRR_PLL1_PFD_CLK_DIV_SHIFT	16
+#define CCM_CACRR_PLL1_PFD_CLK_DIV_MASK		(0x3 << 16)
+#define CCM_CACRR_IPG_CLK_DIV_SHIFT		11
+#define CCM_CACRR_IPG_CLK_DIV_MASK		(0x3 << 11)
+#define CCM_CACRR_PLL4_CLK_DIV_SHIFT		6
+#define CCM_CACRR_PLL4_CLK_DIV_MASK		(0x7 << 6)
+#define CCM_CACRR_BUS_CLK_DIV_SHIFT		3
+#define CCM_CACRR_BUS_CLK_DIV_MASK		(0x7 << 3)
+#define CCM_CACRR_ARM_CLK_DIV_SHIFT		0
+#define CCM_CACRR_ARM_CLK_DIV_MASK		(0x7 << 0)
+
 /* --- Variable definitions ------------------------------------------------ */
+
+extern uint32_t ccm_core_clk;
+extern uint32_t ccm_platform_bus_clk;
+extern uint32_t ccm_ipg_bus_clk;
+
 enum ccm_clock_gate {
 	/* AIPS0 */
 	CG0_FLEXCAN0 = 0,
@@ -323,6 +343,8 @@ enum ccm_clock_gate {
 BEGIN_DECLS
 
 void ccm_clock_gate_enable(enum ccm_clock_gate gr);
+void ccm_clock_gate_disable(enum ccm_clock_gate gr);
+void ccm_calculate_clocks(void);
 
 END_DECLS
 
