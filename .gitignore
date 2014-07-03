@@ -31,6 +31,7 @@ include/libopencmsis/lpc17xx/
 include/libopencmsis/lpc43xx/
 include/libopencmsis/sam/
 include/libopencmsis/stm32/
+include/libopencmsis/vf6xx/
 
 # netbeans, intellij, eclipse project files
 netbeans
