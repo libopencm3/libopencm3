@@ -501,7 +501,6 @@ void rcc_clock_setup_pll(const clock_scale_t *clock)
 	if(clock->pll_source == RCC_CFGR_PLLSRC_HSE_CLK){
 		rcc_osc_on(HSE);
 		rcc_wait_for_osc_ready(HSE);
-		rcc_set_sysclk_source(RCC_CFGR_SW_SYSCLKSEL_HSECLK);
 	}else{
 		/* Enable internal high-speed oscillator. */
 		rcc_osc_on(HSI);
