@@ -39,11 +39,21 @@ LGPL License Terms @ref lgpl_license
 #include <libopencm3/usb/usbd.h>
 #include "usb_private.h"
 
-void usbd_register_set_config_callback(usbd_device *usbd_dev,
+int usbd_register_set_config_callback(usbd_device *usbd_dev,
 				       void (*callback)(usbd_device *usbd_dev,
 				       uint16_t wValue))
 {
-	usbd_dev->user_callback_set_config = callback;
+	int i;
+
+	for (i = 0; i < MAX_USER_SET_CONFIG_CALLBACK; i++) {
+		if (usbd_dev->user_callback_set_config[i])
+			continue;
+
+		usbd_dev->user_callback_set_config[i] = callback;
+		return 0;
+	}
+
+	return -1;
 }
 
 static uint16_t build_config_descriptor(usbd_device *usbd_dev,
@@ -244,7 +254,12 @@ static int usb_standard_set_configuration(usbd_device *usbd_dev,
 			usbd_dev->user_control_callback[i].cb = NULL;
 		}
 
-		usbd_dev->user_callback_set_config(usbd_dev, req->wValue);
+		for (i = 0; i < MAX_USER_SET_CONFIG_CALLBACK; i++) {
+			if (usbd_dev->user_callback_set_config[i]) {
+				usbd_dev->user_callback_set_config[i](usbd_dev,
+								req->wValue);
+			}
+		}
 	}
 
 	return 1;
