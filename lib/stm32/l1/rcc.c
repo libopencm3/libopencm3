@@ -495,12 +495,15 @@ void rcc_clock_setup_hsi(const clock_scale_t *clock)
 	rcc_ppre2_frequency = clock->apb2_frequency;
 }
 
+void rcc_clock_setup_pll_osc(const osc_t osc, const clock_scale_t *clock)
+{
+	rcc_osc_on(osc);
+	rcc_wait_for_osc_ready(osc);
+	rcc_clock_setup_pll(clock);
+}
+
 void rcc_clock_setup_pll(const clock_scale_t *clock)
 {
-	/* Enable internal high-speed oscillator. */
-	rcc_osc_on(HSI);
-	rcc_wait_for_osc_ready(HSI);
-
 	/*
 	 * Set prescalers for AHB, ADC, ABP1, ABP2.
 	 * Do this before touching the PLL (TODO: why?).
