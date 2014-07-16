@@ -132,7 +132,8 @@ uint16_t gpio_get(uint32_t gpioport, uint16_t gpios)
 
 void gpio_toggle(uint32_t gpioport, uint16_t gpios)
 {
-	GPIO_ODR(gpioport) ^= gpios;
+	uint32_t port = GPIO_ODR(gpioport);
+	GPIO_BSRR(gpioport) = ((port & gpios) << 16) | (~port & gpios);
 }
 
 uint16_t gpio_port_read(uint32_t gpioport)
