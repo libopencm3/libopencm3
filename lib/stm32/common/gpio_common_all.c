@@ -77,7 +77,8 @@ uint16_t gpio_get(uint32_t gpioport, uint16_t gpios)
 /*---------------------------------------------------------------------------*/
 /** @brief Toggle a Group of Pins
 
-Toggle one or more pins of the given GPIO port. This is not an atomic operation.
+Toggle one or more pins of the given GPIO port. The toggling is not atomic, but
+the non-toggled pins are not affected.
 
 @param[in] gpioport Unsigned int32. Port identifier @ref gpio_port_id
 @param[in] gpios Unsigned int16. Pin identifiers @ref gpio_pin_id
@@ -86,7 +87,8 @@ Toggle one or more pins of the given GPIO port. This is not an atomic operation.
 */
 void gpio_toggle(uint32_t gpioport, uint16_t gpios)
 {
-	GPIO_ODR(gpioport) ^= gpios;
+	uint32_t port = GPIO_ODR(gpioport);
+	GPIO_BSRR(gpioport) = ((port & gpios) << 16) | (~port & gpios);
 }
 
 /*---------------------------------------------------------------------------*/
