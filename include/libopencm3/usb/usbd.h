@@ -120,6 +120,9 @@ extern uint8_t usbd_ep_stall_get(usbd_device *usbd_dev, uint8_t addr);
 
 extern void usbd_ep_nak_set(usbd_device *usbd_dev, uint8_t addr, uint8_t nak);
 
+extern void usbd_ep_callback_set(usbd_device *usbd_dev, uint8_t addr,
+			usbd_endpoint_callback callback);
+
 /* Optional */
 extern void usbd_cable_connect(usbd_device *usbd_dev, uint8_t on);
 

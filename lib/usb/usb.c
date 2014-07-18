@@ -175,5 +175,17 @@ void usbd_ep_nak_set(usbd_device *usbd_dev, uint8_t addr, uint8_t nak)
 	usbd_dev->driver->ep_nak_set(usbd_dev, addr, nak);
 }
 
+void usbd_ep_callback_set(usbd_device *usbd_dev, uint8_t addr,
+			usbd_endpoint_callback callback)
+{
+	enum _usbd_transaction dir = (addr & 0x80) ?
+		USB_TRANSACTION_IN : USB_TRANSACTION_OUT;
+	addr &= 0x7F;
+
+	if(addr) {
+		usbd_dev->user_endpoint_callback[addr][dir] = callback;
+	}
+}
+
 /**@}*/
 
