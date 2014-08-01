@@ -53,16 +53,16 @@ void i2c_reset(uint32_t i2c)
 {
 	switch (i2c) {
 		case I2C1:
-			rcc_periph_reset_pulse(RCC_I2C1);
+			rcc_periph_reset_pulse(RST_I2C1);
 			break;
 #if defined(I2C2_BASE)
 		case I2C2:
-			rcc_periph_reset_pulse(RCC_I2C2);
+			rcc_periph_reset_pulse(RST_I2C2);
 			break;
 #endif
 #if defined(I2C3_BASE)
 		case I2C3:
-			rcc_periph_reset_pulse(RCC_I2C3);
+			rcc_periph_reset_pulse(RST_I2C3);
 			break;
 #endif
 		default:

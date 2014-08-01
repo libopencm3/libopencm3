@@ -45,7 +45,7 @@ OBJS            += crc_common_all.o dac_common_all.o dma_common_l1f013.o \
                    flash_common_f01.o
 
 OBJS            += usb.o usb_control.o usb_standard.o usb_f103.o usb_f107.o \
-                   usb_fx07_common.o
+                   usb_fx07_common.o usb_msc.o
 
 VPATH += ../../usb:../:../../cm3:../common
 

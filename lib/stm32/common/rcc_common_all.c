@@ -113,9 +113,9 @@ void rcc_peripheral_clear_reset(volatile uint32_t *reg, uint32_t clear_reset)
  *
  * Enable the clock on particular peripheral.
  *
- * @param[in] periph periph_t Peripheral Name
+ * @param[in] clken rcc_periph_clken Peripheral RCC
  *
- * For available constants, see #periph_t (RCC_UART1 for example)
+ * For available constants, see #rcc_periph_clken (RCC_UART1 for example)
  */
 
 void rcc_periph_clock_enable(enum rcc_periph_clken clken)
@@ -127,9 +127,9 @@ void rcc_periph_clock_enable(enum rcc_periph_clken clken)
 /** @brief Disable Peripheral Clock in running mode.
  * Disable the clock on particular peripheral.
  *
- * @param[in] periph periph_t Peripheral Name
+ * @param[in] clken rcc_periph_clken Peripheral RCC
  *
- * For available constants, see #periph_t (RCC_UART1 for example)
+ * For available constants, see #rcc_periph_clken (RCC_UART1 for example)
  */
 
 void rcc_periph_clock_disable(enum rcc_periph_clken clken)
@@ -142,9 +142,9 @@ void rcc_periph_clock_disable(enum rcc_periph_clken clken)
  *
  * Reset particular peripheral, and restore to working state.
  *
- * @param[in] periph periph_t Peripheral name
+ * @param[in] rst rcc_periph_rst Peripheral reset
  *
- * For available constants, see #periph_t (RCC_UART1 for example)
+ * For available constants, see #rcc_periph_rst (RST_UART1 for example)
  */
 
 void rcc_periph_reset_pulse(enum rcc_periph_rst rst)
@@ -158,9 +158,9 @@ void rcc_periph_reset_pulse(enum rcc_periph_rst rst)
  *
  * Reset particular peripheral, and hold in reset state.
  *
- * @param[in] periph periph_t Peripheral name
+ * @param[in] rst rcc_periph_rst Peripheral reset
  *
- * For available constants, see #periph_t  (RCC_UART1 for example)
+ * For available constants, see #rcc_periph_rst (RST_UART1 for example)
  */
 
 void rcc_periph_reset_hold(enum rcc_periph_rst rst)
@@ -173,9 +173,9 @@ void rcc_periph_reset_hold(enum rcc_periph_rst rst)
  *
  * Restore peripheral from reset state to working state.
  *
- * @param[in] periph periph_t Peripheral name
+ * @param[in] rst rcc_periph_rst Peripheral reset
  *
- * For available constants, see #periph_t (RCC_UART1 for example)
+ * For available constants, see #rcc_periph_rst (RST_UART1 for example)
  */
 
 void rcc_periph_reset_release(enum rcc_periph_rst rst)
