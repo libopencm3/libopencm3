@@ -20,19 +20,9 @@
 LIBNAME		= libopencm3_lpc13xx
 SRCLIBDIR	?= ..
 
-PREFIX		?= arm-none-eabi
+ARCH_FLAGS	= -mcpu=cortex-m3 -mthumb $(FP_FLAGS)
+DEFS		+= -DLPC13XX
 
-CC		= $(PREFIX)-gcc
-AR		= $(PREFIX)-ar
-CFLAGS		= -Os -g \
-		  -Wall -Wextra -Wimplicit-function-declaration \
-		  -Wredundant-decls -Wmissing-prototypes -Wstrict-prototypes \
-		  -Wundef -Wshadow \
-		  -I../../include -fno-common \
-		  -mcpu=cortex-m3 -mthumb $(FP_FLAGS) -Wstrict-prototypes \
-		  -ffunction-sections -fdata-sections -MD -DLPC13XX
-# ARFLAGS	= rcsv
-ARFLAGS		= rcs
 OBJS		= gpio.o
 
 VPATH += ../cm3

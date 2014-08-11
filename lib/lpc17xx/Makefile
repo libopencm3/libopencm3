@@ -20,19 +20,12 @@
 LIBNAME		= libopencm3_lpc17xx
 SRCLIBDIR	?= ..
 
-PREFIX		?= arm-none-eabi
+ARCH_FLAGS	= -mcpu=cortex-m3 -mthumb $(FP_FLAGS)
+DEFS		+= -DLPC17XX
 
-CC		= $(PREFIX)-gcc
-AR		= $(PREFIX)-ar
-CFLAGS		= -O0 -g \
-		  -Wall -Wextra -Wimplicit-function-declaration \
-		  -Wredundant-decls -Wmissing-prototypes -Wstrict-prototypes \
-		  -Wundef -Wshadow \
-		  -I../../include -fno-common \
-		  -mcpu=cortex-m3 -mthumb $(FP_FLAGS) -Wstrict-prototypes \
-		  -ffunction-sections -fdata-sections -MD -DLPC17XX
-# ARFLAGS	= rcsv
-ARFLAGS		= rcs
+# TODO check if the library will be built with -Os -g
+OPTIMIZATIONS	= -O0 -g
+
 OBJS		= gpio.o
 
 VPATH += ../cm3

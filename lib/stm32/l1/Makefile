@@ -20,19 +20,9 @@
 LIBNAME		= libopencm3_stm32l1
 SRCLIBDIR	?= ../..
 
-PREFIX		?= arm-none-eabi
+ARCH_FLAGS	= -mcpu=cortex-m3 -mthumb $(FP_FLAGS)
+DEFS		+= -DSTM32L1
 
-CC		= $(PREFIX)-gcc
-AR		= $(PREFIX)-ar
-CFLAGS		= -Os -g \
-		  -Wall -Wextra -Wimplicit-function-declaration \
-		  -Wredundant-decls -Wmissing-prototypes -Wstrict-prototypes \
-		  -Wundef -Wshadow \
-		  -I../../../include -fno-common \
-		  -mcpu=cortex-m3 $(FP_FLAGS) -mthumb -Wstrict-prototypes \
-		  -ffunction-sections -fdata-sections -MD -DSTM32L1
-# ARFLAGS	= rcsv
-ARFLAGS		= rcs
 OBJS		= crc.o desig.o flash.o rcc.o usart.o dma.o lcd.o
 OBJS		+= crc_common_all.o dac_common_all.o
 OBJS		+= dma_common_l1f013.o

@@ -21,15 +21,9 @@
 LIBNAME		= libopencm3_sam3s
 SRCLIBDIR	?= ../..
 
-PREFIX		?= arm-none-eabi
+ARCH_FLAGS	= -mcpu=cortex-m3 -mthumb $(FP_FLAGS)
+DEFS		+= -DSAM3S
 
-CC		= $(PREFIX)-gcc
-AR		= $(PREFIX)-ar
-CFLAGS		= -Os -g -Wall -Wextra -I../../../include -fno-common \
-		  -mcpu=cortex-m3 -mthumb $(FP_FLAGS) -Wstrict-prototypes \
-		  -ffunction-sections -fdata-sections -MD -DSAM3S
-# ARFLAGS	= rcsv
-ARFLAGS		= rcs
 OBJS		= gpio.o pmc.o usart.o
 
 VPATH += ../../usb:../../cm3:../common

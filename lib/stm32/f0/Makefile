@@ -20,19 +20,8 @@
 LIBNAME		= libopencm3_stm32f0
 SRCLIBDIR	?= ../..
 
-PREFIX		?= arm-none-eabi
-#PREFIX		?= arm-elf
-CC		= $(PREFIX)-gcc
-AR		= $(PREFIX)-ar
-CFLAGS		= -Os -g \
-		  -Wall -Wextra -Wimplicit-function-declaration \
-		  -Wredundant-decls -Wmissing-prototypes -Wstrict-prototypes \
-		  -Wundef -Wshadow \
-		  -I../../../include -fno-common \
-		  -mcpu=cortex-m0 $(FP_FLAGS) -mthumb -Wstrict-prototypes \
-		  -ffunction-sections -fdata-sections -MD -DSTM32F0
-
-ARFLAGS		= rcs
+ARCH_FLAGS	= -mcpu=cortex-m0 -mthumb $(FP_FLAGS)
+DEFS		+= -DSTM32F0
 
 OBJS		= flash.o rcc.o usart.o dma.o rtc.o comparator.o crc.o \
                   dac.o i2c.o iwdg.o pwr.o gpio.o timer.o adc.o

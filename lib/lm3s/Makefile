@@ -20,19 +20,9 @@
 LIBNAME		= libopencm3_lm3s
 SRCLIBDIR	?= ..
 
-PREFIX		?= arm-none-eabi
+ARCH_FLAGS	= -mcpu=cortex-m3 -mthumb $(FP_FLAGS)
+DEFS		= -DLM3S
 
-CC		= $(PREFIX)-gcc
-AR		= $(PREFIX)-ar
-CFLAGS		= -Os -g \
-		  -Wall -Wextra -Wimplicit-function-declaration \
-		  -Wredundant-decls -Wmissing-prototypes -Wstrict-prototypes \
-		  -Wundef -Wshadow \
-		  -I../../include -fno-common \
-		  -mcpu=cortex-m3 -mthumb $(FP_FLAGS) -Wstrict-prototypes \
-		  -ffunction-sections -fdata-sections -MD -DLM3S
-# ARFLAGS	= rcsv
-ARFLAGS		= rcs
 OBJS		= gpio.o vector.o assert.o
 
 VPATH += ../cm3

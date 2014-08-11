@@ -22,20 +22,8 @@ LIBNAME		= libopencm3_stm32f4
 SRCLIBDIR	?= ../..
 
 FP_FLAGS	?= -mfloat-abi=hard -mfpu=fpv4-sp-d16
-PREFIX	        ?= arm-none-eabi
-
-CC		= $(PREFIX)-gcc
-AR		= $(PREFIX)-ar
-CFLAGS		= -Os -g \
-		  -Wall -Wextra -Wimplicit-function-declaration \
-		  -Wredundant-decls -Wmissing-prototypes -Wstrict-prototypes \
-		  -Wundef -Wshadow \
-		  -I../../../include -fno-common \
-		  -mcpu=cortex-m4 -mthumb $(FP_FLAGS) \
-		  -Wstrict-prototypes \
-		  -ffunction-sections -fdata-sections -MD -DSTM32F4
-# ARFLAGS	= rcsv
-ARFLAGS		= rcs
+ARCH_FLAGS	= -mcpu=cortex-m4 -mthumb $(FP_FLAGS)
+DEFS		+= -DSTM32F4
 
 OBJS		= adc.o adc_common_v1.o can.o gpio.o pwr.o rcc.o rtc.o crypto.o
 

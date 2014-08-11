@@ -22,15 +22,12 @@
 LIBNAME		= libopencm3_lpc43xx_m0
 SRCLIBDIR	?= ../..
 
-PREFIX		?= arm-none-eabi
-#PREFIX		?= arm-elf
-CC		= $(PREFIX)-gcc
-AR		= $(PREFIX)-ar
-CFLAGS		= -O2 -g3 -Wall -Wextra -I../../../include -fno-common \
-		  -mcpu=cortex-m0 -mthumb -Wstrict-prototypes \
-		  -ffunction-sections -fdata-sections -MD -DLPC43XX -DLPC43XX_M0
-# ARFLAGS	= rcsv
-ARFLAGS		= rcs
+ARCH_FLAGS	= -mcpu=cortex-m0 -mthumb $(FP_FLAGS)
+DEFS		+= -DLPC43XX -DLPC43XX_M0
+
+# TODO check if the library will be built with -Os -g
+OPTIMIZATIONS	= -O2 -g3
+
 
 # LPC43xx common files for M4 / M0
 OBJ_LPC43XX     = gpio.o scu.o i2c.o ssp.o uart.o timer.o
