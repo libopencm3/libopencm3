@@ -6,7 +6,7 @@
     <tab type="user" visible="yes" url="../../html/index.html" title="Back to Top" intro=""/>
     <tab type="user" visible="yes" url="../../cm3/html/modules.html" title="CM3 Core" intro=""/>
     <tab type="user" visible="yes" url="../../usb/html/modules.html" title="Generic USB" intro=""/>
-    <tab type="user" visible="yes" url="../../stm32f1/html/modules.html" title="STM32F0" intro=""/>
+    <tab type="user" visible="yes" url="../../stm32f0/html/modules.html" title="STM32F0" intro=""/>
     <tab type="user" visible="yes" url="../../stm32f1/html/modules.html" title="STM32F1" intro=""/>
     <tab type="user" visible="yes" url="../../stm32f2/html/modules.html" title="STM32F2" intro=""/>
     <tab type="modules" visible="yes" title="STM32F3" intro=""/>
