@@ -147,9 +147,10 @@ This sets an address for Slave mode operation, in 7 bit form.
 
 void i2c_set_own_7bit_slave_address(uint32_t i2c, uint8_t slave)
 {
-	I2C_OAR1(i2c) = (uint16_t)(slave << 1);
-	I2C_OAR1(i2c) &= ~I2C_OAR1_ADDMODE;
-	I2C_OAR1(i2c) |= (1 << 14); /* Datasheet: always keep 1 by software. */
+	uint16_t val = (uint16_t)(slave << 1);
+	/* Datasheet: always keep 1 by software. */
+	val |= (1 << 14);
+	I2C_OAR1(i2c) = val;
 }
 
 /*---------------------------------------------------------------------------*/
