@@ -74,6 +74,9 @@ void WEAK __attribute__ ((naked)) reset_handler(void)
 		*dest++ = 0;
 	}
 
+	/* might be provided by platform specific vector.c */
+	pre_main();
+
 	/* Constructors. */
 	for (fp = &__preinit_array_start; fp < &__preinit_array_end; fp++) {
 		(*fp)();
@@ -81,9 +84,6 @@ void WEAK __attribute__ ((naked)) reset_handler(void)
 	for (fp = &__init_array_start; fp < &__init_array_end; fp++) {
 		(*fp)();
 	}
-
-	/* might be provided by platform specific vector.c */
-	pre_main();
 
 	/* Call the application's entry point. */
 	main();
