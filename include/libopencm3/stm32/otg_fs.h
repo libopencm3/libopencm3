@@ -29,69 +29,124 @@
 #include <libopencm3/stm32/memorymap.h>
 
 /* Core Global Control and Status Registers */
-#define OTG_FS_GOTGCTL			MMIO32(USB_OTG_FS_BASE + 0x000)
-#define OTG_FS_GOTGINT			MMIO32(USB_OTG_FS_BASE + 0x004)
-#define OTG_FS_GAHBCFG			MMIO32(USB_OTG_FS_BASE + 0x008)
-#define OTG_FS_GUSBCFG			MMIO32(USB_OTG_FS_BASE + 0x00C)
-#define OTG_FS_GRSTCTL			MMIO32(USB_OTG_FS_BASE + 0x010)
-#define OTG_FS_GINTSTS			MMIO32(USB_OTG_FS_BASE + 0x014)
-#define OTG_FS_GINTMSK			MMIO32(USB_OTG_FS_BASE + 0x018)
-#define OTG_FS_GRXSTSR			MMIO32(USB_OTG_FS_BASE + 0x01C)
-#define OTG_FS_GRXSTSP			MMIO32(USB_OTG_FS_BASE + 0x020)
-#define OTG_FS_GRXFSIZ			MMIO32(USB_OTG_FS_BASE + 0x024)
-#define OTG_FS_GNPTXFSIZ		MMIO32(USB_OTG_FS_BASE + 0x028)
-#define OTG_FS_GNPTXSTS			MMIO32(USB_OTG_FS_BASE + 0x02C)
-#define OTG_FS_GCCFG			MMIO32(USB_OTG_FS_BASE + 0x038)
-#define OTG_FS_CID			MMIO32(USB_OTG_FS_BASE + 0x03C)
-#define OTG_FS_HPTXFSIZ			MMIO32(USB_OTG_FS_BASE + 0x100)
-#define OTG_FS_DIEPTXF(x)		MMIO32(USB_OTG_FS_BASE + 0x104 \
-					       + 4*(x-1))
+#define OTG_GOTGCTL			0x000
+#define OTG_GOTGIN			0x004
+#define OTG_GAHBCFG			0x008
+#define OTG_GUSBCFG			0x00C
+#define OTG_GRSTCTL			0x010
+#define OTG_GINTSTS			0x014
+#define OTG_GINTMSK			0x018
+#define OTG_GRXSTSR			0x01C
+#define OTG_GRXSTSP			0x020
+#define OTG_GRXFSIZ			0x024
+#define OTG_GNPTXFSIZ			0x028
+#define OTG_GNPTXSTS			0x02C
+#define OTG_GCCFG			0x038
+#define OTG_CID				0x03C
+#define OTG_HPTXFSIZ			0x100
+#define OTG_DIEPTXF(x)			(0x104 + 4*(x-1))
 
 /* Host-mode Control and Status Registers */
-#define OTG_FS_HCFG			MMIO32(USB_OTG_FS_BASE + 0x400)
-#define OTG_FS_HFIR			MMIO32(USB_OTG_FS_BASE + 0x404)
-#define OTG_FS_HFNUM			MMIO32(USB_OTG_FS_BASE + 0x408)
-#define OTG_FS_HPTXSTS			MMIO32(USB_OTG_FS_BASE + 0x410)
-#define OTG_FS_HAINT			MMIO32(USB_OTG_FS_BASE + 0x414)
-#define OTG_FS_HAINTMSK			MMIO32(USB_OTG_FS_BASE + 0x418)
-#define OTG_FS_HPRT			MMIO32(USB_OTG_FS_BASE + 0x440)
-#define OTG_FS_HCCHARx			MMIO32(USB_OTG_FS_BASE + 0x500)
-#define OTG_FS_HCINTx			MMIO32(USB_OTG_FS_BASE + 0x508)
-#define OTG_FS_HCINTMSKx		MMIO32(USB_OTG_FS_BASE + 0x50C)
-#define OTG_FS_HCTSIZx			MMIO32(USB_OTG_FS_BASE + 0x510)
+#define OTG_HCFG			0x400
+#define OTG_HFIR			0x404
+#define OTG_HFNUM			0x408
+#define OTG_HPTXSTS			0x410
+#define OTG_HAINT			0x414
+#define OTG_HAINTMSK			0x418
+#define OTG_HPRT			0x440
+#define OTG_HCCHAR(x)			(0x500 + 0x20*(x))
+#define OTG_HCINT(x)			(0x508 + 0x20*(x))
+#define OTG_HCINTMSK(x)			(0x50C + 0x20*(x))
+#define OTG_HCTSIZ(x)			(0x510 + 0x20*(x))
 
 /* Device-mode Control and Status Registers */
-#define OTG_FS_DCFG			MMIO32(USB_OTG_FS_BASE + 0x800)
-#define OTG_FS_DCTL			MMIO32(USB_OTG_FS_BASE + 0x804)
-#define OTG_FS_DSTS			MMIO32(USB_OTG_FS_BASE + 0x808)
-#define OTG_FS_DIEPMSK			MMIO32(USB_OTG_FS_BASE + 0x810)
-#define OTG_FS_DOEPMSK			MMIO32(USB_OTG_FS_BASE + 0x814)
-#define OTG_FS_DAINT			MMIO32(USB_OTG_FS_BASE + 0x818)
-#define OTG_FS_DAINTMSK			MMIO32(USB_OTG_FS_BASE + 0x81C)
-#define OTG_FS_DVBUSDIS			MMIO32(USB_OTG_FS_BASE + 0x828)
-#define OTG_FS_DVBUSPULSE		MMIO32(USB_OTG_FS_BASE + 0x82C)
-#define OTG_FS_DIEPEMPMSK		MMIO32(USB_OTG_FS_BASE + 0x834)
-#define OTG_FS_DIEPCTL0			MMIO32(USB_OTG_FS_BASE + 0x900)
-#define OTG_FS_DIEPCTL(x)		MMIO32(USB_OTG_FS_BASE + 0x900 + \
-						0x20*(x))
-#define OTG_FS_DOEPCTL0			MMIO32(USB_OTG_FS_BASE + 0xB00)
-#define OTG_FS_DOEPCTL(x)		MMIO32(USB_OTG_FS_BASE + 0xB00 + \
-						0x20*(x))
-#define OTG_FS_DIEPINT(x)		MMIO32(USB_OTG_FS_BASE + 0x908 + \
-						0x20*(x))
-#define OTG_FS_DOEPINT(x)		MMIO32(USB_OTG_FS_BASE + 0xB08 + \
-						0x20*(x))
-#define OTG_FS_DIEPTSIZ0		MMIO32(USB_OTG_FS_BASE + 0x910)
-#define OTG_FS_DOEPTSIZ0		MMIO32(USB_OTG_FS_BASE + 0xB10)
-#define OTG_FS_DIEPTSIZ(x)		MMIO32(USB_OTG_FS_BASE + 0x910 + \
-						0x20*(x))
-#define OTG_FS_DTXFSTS(x)		MMIO32(USB_OTG_FS_BASE + 0x918 + \
-						0x20*(x))
-#define OTG_FS_DOEPTSIZ(x)		MMIO32(USB_OTG_FS_BASE + 0xB10 + \
-						0x20*(x))
+#define OTG_DCFG			0x800
+#define OTG_DCTL			0x804
+#define OTG_DSTS			0x808
+#define OTG_DIEPMSK			0x810
+#define OTG_DOEPMSK			0x814
+#define OTG_DAINT			0x818
+#define OTG_DAINTMSK			0x81C
+#define OTG_DVBUSDIS			0x828
+#define OTG_DVBUSPULSE			0x82C
+#define OTG_DIEPEMPMSK			0x834
+#define OTG_DIEPCTL0			0x900
+#define OTG_DIEPCTL(x)			(0x900 + 0x20*(x))
+#define OTG_DOEPCTL0			0xB00
+#define OTG_DOEPCTL(x)			(0xB00 + 0x20*(x))
+#define OTG_DIEPINT(x)			(0x908 + 0x20*(x))
+#define OTG_DOEPINT(x)			(0xB08 + 0x20*(x))
+#define OTG_DIEPTSIZ0			0x910
+#define OTG_DOEPTSIZ0			0xB10
+#define OTG_DIEPTSIZ(x)			(0x910 + 0x20*(x))
+#define OTG_DTXFSTS(x)			(0x918 + 0x20*(x))
+#define OTG_DOEPTSIZ(x)			(0xB10 + 0x20*(x))
 
 /* Power and clock gating control and status register */
-#define OTG_FS_PCGCCTL			MMIO32(USB_OTG_FS_BASE + 0xE00)
+#define OTG_PCGCCTL			0xE00
+
+/* Data FIFO */
+#define OTG_FIFO(x)			(((x) + 1) << 12)
+
+/***********************************************************************/
+
+/* Core Global Control and Status Registers */
+#define OTG_FS_GOTGCTL			MMIO32(USB_OTG_FS_BASE + OTG_GOTGCTL)
+#define OTG_FS_GOTGINT			MMIO32(USB_OTG_FS_BASE + OTG_GOTGINT)
+#define OTG_FS_GAHBCFG			MMIO32(USB_OTG_FS_BASE + OTG_GAHBCFG)
+#define OTG_FS_GUSBCFG			MMIO32(USB_OTG_FS_BASE + OTG_GUSBCFG)
+#define OTG_FS_GRSTCTL			MMIO32(USB_OTG_FS_BASE + OTG_GRSTCTL)
+#define OTG_FS_GINTSTS			MMIO32(USB_OTG_FS_BASE + OTG_GINTSTS)
+#define OTG_FS_GINTMSK			MMIO32(USB_OTG_FS_BASE + OTG_GINTMSK)
+#define OTG_FS_GRXSTSR			MMIO32(USB_OTG_FS_BASE + OTG_GRXSTSR)
+#define OTG_FS_GRXSTSP			MMIO32(USB_OTG_FS_BASE + OTG_GRXSTSP)
+#define OTG_FS_GRXFSIZ			MMIO32(USB_OTG_FS_BASE + OTG_GRXFSIZ)
+#define OTG_FS_GNPTXFSIZ		MMIO32(USB_OTG_FS_BASE + OTG_GNPTXFSIZ)
+#define OTG_FS_GNPTXSTS			MMIO32(USB_OTG_FS_BASE + OTG_GNPTXSTS)
+#define OTG_FS_GCCFG			MMIO32(USB_OTG_FS_BASE + OTG_GCCFG)
+#define OTG_FS_CID			MMIO32(USB_OTG_FS_BASE + OTG_CID)
+#define OTG_FS_HPTXFSIZ			MMIO32(USB_OTG_FS_BASE + OTG_HPTXFSIZ)
+#define OTG_FS_DIEPTXF(x)		MMIO32(USB_OTG_FS_BASE + OTG_DIEPTXF(x))
+
+
+/* Host-mode Control and Status Registers */
+#define OTG_FS_HCFG			MMIO32(USB_OTG_FS_BASE + OTG_HCFG)
+#define OTG_FS_HFIR			MMIO32(USB_OTG_FS_BASE + OTG_HFIR)
+#define OTG_FS_HFNUM			MMIO32(USB_OTG_FS_BASE + OTG_HFNUM)
+#define OTG_FS_HPTXSTS			MMIO32(USB_OTG_FS_BASE + OTG_HPTXSTS)
+#define OTG_FS_HAINT			MMIO32(USB_OTG_FS_BASE + OTG_HAINT)
+#define OTG_FS_HAINTMSK			MMIO32(USB_OTG_FS_BASE + OTG_HAINTMSK)
+#define OTG_FS_HPRT			MMIO32(USB_OTG_FS_BASE + OTG_HPRT)
+#define OTG_FS_HCCHAR(x)		MMIO32(USB_OTG_FS_BASE + OTG_HCCHAR(x))
+#define OTG_FS_HCINT(x)			MMIO32(USB_OTG_FS_BASE + OTG_HCINT(x))
+#define OTG_FS_HCINTMSK(x)		MMIO32(USB_OTG_FS_BASE + OTG_HCINTMSK(x))
+#define OTG_FS_HCTSIZ(x)		MMIO32(USB_OTG_FS_BASE + OTG_HCTSIZ(x))
+
+/* Device-mode Control and Status Registers */
+#define OTG_FS_DCFG			MMIO32(USB_OTG_FS_BASE + OTG_DCFG)
+#define OTG_FS_DCTL			MMIO32(USB_OTG_FS_BASE + OTG_DCTL)
+#define OTG_FS_DSTS			MMIO32(USB_OTG_FS_BASE + OTG_DSTS)
+#define OTG_FS_DIEPMSK			MMIO32(USB_OTG_FS_BASE + OTG_DIEPMSK)
+#define OTG_FS_DOEPMSK			MMIO32(USB_OTG_FS_BASE + OTG_DOEPMSK)
+#define OTG_FS_DAINT			MMIO32(USB_OTG_FS_BASE + OTG_DAINT)
+#define OTG_FS_DAINTMSK			MMIO32(USB_OTG_FS_BASE + OTG_DAINTMSK)
+#define OTG_FS_DVBUSDIS			MMIO32(USB_OTG_FS_BASE + OTG_DVBUSDIS)
+#define OTG_FS_DVBUSPULSE		MMIO32(USB_OTG_FS_BASE + OTG_DVBUSPULSE)
+#define OTG_FS_DIEPEMPMSK		MMIO32(USB_OTG_FS_BASE + OTG_DIEPEMPMSK)
+#define OTG_FS_DIEPCTL0			MMIO32(USB_OTG_FS_BASE + OTG_DIEPCTL0)
+#define OTG_FS_DIEPCTL(x)		MMIO32(USB_OTG_FS_BASE + OTG_DIEPCTL(x))
+#define OTG_FS_DOEPCTL0			MMIO32(USB_OTG_FS_BASE + OTG_DOEPCTL0)
+#define OTG_FS_DOEPCTL(x)		MMIO32(USB_OTG_FS_BASE + OTG_DOEPCTL(x))
+#define OTG_FS_DIEPINT(x)		MMIO32(USB_OTG_FS_BASE + OTG_DIEPINT(x))
+#define OTG_FS_DOEPINT(x)		MMIO32(USB_OTG_FS_BASE + OTG_DOEPINT(x))
+#define OTG_FS_DIEPTSIZ0		MMIO32(USB_OTG_FS_BASE + OTG_DIEPTSIZ0)
+#define OTG_FS_DOEPTSIZ0		MMIO32(USB_OTG_FS_BASE + OTG_DOEPTSIZ0)
+#define OTG_FS_DIEPTSIZ(x)		MMIO32(USB_OTG_FS_BASE + OTG_DIEPTSIZ(x))
+#define OTG_FS_DTXFSTS(x)		MMIO32(USB_OTG_FS_BASE + OTG_DTXFSTS(x))
+#define OTG_FS_DOEPTSIZ(x)		MMIO32(USB_OTG_FS_BASE + OTG_DOEPTSIZ(x))
+
+/* Power and clock gating control and status register */
+#define OTG_FS_PCGCCTL			MMIO32(USB_OTG_FS_BASE + OTG_PCGCCTL)
 
 /* Data FIFO */
 #define OTG_FS_FIFO(x)			(&MMIO32(USB_OTG_FS_BASE \
@@ -99,7 +154,7 @@
 								 << 12)))
 
 /* Global CSRs */
-/* OTG_FS USB control registers (OTG_HS_GOTGCTL) */
+/* OTG_FS USB control registers (OTG_FS_GOTGCTL) */
 #define OTG_FS_GOTGCTL_BSVLD		(1 << 19)
 #define OTG_FS_GOTGCTL_ASVLD		(1 << 18)
 #define OTG_FS_GOTGCTL_DBCT		(1 << 17)
@@ -206,9 +261,13 @@
 #define OTG_FS_GRXSTSP_PKTSTS_MASK		(0xf << 17)
 #define OTG_FS_GRXSTSP_PKTSTS_GOUTNAK		(0x1 << 17)
 #define OTG_FS_GRXSTSP_PKTSTS_OUT		(0x2 << 17)
+#define OTG_FS_GRXSTSP_PKTSTS_IN		(0x2 << 17)
 #define OTG_FS_GRXSTSP_PKTSTS_OUT_COMP		(0x3 << 17)
+#define OTG_FS_GRXSTSP_PKTSTS_IN_COMP		(0x3 << 17)
 #define OTG_FS_GRXSTSP_PKTSTS_SETUP_COMP	(0x4 << 17)
+#define OTG_FS_GRXSTSP_PKTSTS_DTERR		(0x5 << 17)
 #define OTG_FS_GRXSTSP_PKTSTS_SETUP		(0x6 << 17)
+#define OTG_FS_GRXSTSP_PKTSTS_CHH		(0x7 << 17)
 #define OTG_FS_GRXSTSP_DPID_MASK		(0x3 << 15)
 #define OTG_FS_GRXSTSP_DPID_DATA0		(0x0 << 15)
 #define OTG_FS_GRXSTSP_DPID_DATA1		(0x2 << 15)
@@ -346,5 +405,138 @@
 #define OTG_FS_DIEPSIZ0_PKTCNT		(1 << 19)
 /* Bits 18:7 - Reserved */
 #define OTG_FS_DIEPSIZ0_XFRSIZ_MASK	(0x7f << 0)
+
+
+
+/* Host-mode CSRs */
+/* OTG_FS Host non-periodic transmit FIFO size register
+(OTG_FS_HNPTXFSIZ)/Endpoint 0 Transmit FIFO size (OTG_FS_DIEPTXF0) */
+#define OTG_FS_HNPTXFSIZ_PTXFD_MASK	(0xffff0000)
+#define OTG_FS_HNPTXFSIZ_PTXSA_MASK	(0x0000ffff)
+
+/* OTG_FS Host periodic transmit FIFO size register (OTG_FS_HPTXFSIZ) */
+#define OTG_FS_HPTXFSIZ_PTXFD_MASK	(0xffff0000)
+#define OTG_FS_HPTXFSIZ_PTXSA_MASK	(0x0000ffff)
+
+/* OTG_FS Host Configuration Register (OTG_FS_HCFG) */
+/* Bits 31:3 - Reserved */
+#define OTG_FS_HCFG_FSLSS		(1 << 2)
+#define OTG_FS_HCFG_FSLSPCS_48MHz	(0x1 << 0)
+#define OTG_FS_HCFG_FSLSPCS_6MHz	(0x2 << 0)
+#define OTG_FS_HCFG_FSLSPCS_MASK	(0x3 << 0)
+
+/* OTG_FS Host Frame Interval Register (OTG_FS_HFIR) */
+/* Bits 31:16 - Reserved */
+#define OTG_FS_HFIR_FRIVL_MASK		(0x0000ffff)
+
+/* OTG_FS Host frame number/frame time remaining register (OTG_FS_HFNUM) */
+#define OTG_FS_HFNUM_FTREM_MASK		(0xffff0000)
+#define OTG_FS_HFNUM_FRNUM_MASK		(0x0000ffff)
+
+/* OTG_FS Host periodic transmit FIFO/queue status register (OTG_FS_HPTXSTS) */
+#define OTG_FS_HPTXSTS_PTXQTOP_MASK			(0xff000000)
+#define OTG_FS_HPTXSTS_PTXQTOP_ODDFRM			(1<<31)
+#define OTG_FS_HPTXSTS_PTXQTOP_EVENFRM			(0<<31)
+#define OTG_FS_HPTXSTS_PTXQTOP_CHANNEL_NUMBER_MASK	(0xf<<27)
+#define OTG_FS_HPTXSTS_PTXQTOP_ENDPOINT_NUMBER_MASK	(0xf<<27)
+#define OTG_FS_HPTXSTS_PTXQTOP_TYPE_INOUT		(0x00<<25)
+#define OTG_FS_HPTXSTS_PTXQTOP_TYPE_ZEROLENGTH		(0x01<<25)
+#define OTG_FS_HPTXSTS_PTXQTOP_TYPE_DISABLECMD		(0x11<<25)
+#define OTG_FS_HPTXSTS_PTXQTOP_TERMINATE		(1<<24)
+#define OTG_FS_HPTXSTS_PTXQSAV_MASK			(0x00ff0000)
+#define OTG_FS_HPTXSTS_PTXFSAVL_MASK			(0x0000ffff)
+
+/* OTG_FS Host all channels interrupt mask register (OTG_FS_HAINT) */
+/* Bits 31:16 - Reserved */
+#define OTG_FS_HAINTMSK_HAINT_MASK	(0x0000ffff)
+
+/* OTG_FS Host all channels interrupt mask register (OTG_FS_HAINTMSK) */
+/* Bits 31:16 - Reserved */
+#define OTG_FS_HAINTMSK_HAINTM_MASK	(0x0000ffff)
+
+/* OTG_FS Host port control and status register (OTG_FS_HPRT) */
+/* Bits 31:19 - Reserved */
+#define OTG_FS_HPRT_PSPD_FULL		(0x1 << 17)
+#define OTG_FS_HPRT_PSPD_LOW		(0x2 << 17)
+#define OTG_FS_HPRT_PSPD_MASK		(0x3 << 17)
+#define OTG_FS_HPRT_PTCTL_DISABLED	(0x0 << 13)
+#define OTG_FS_HPRT_PTCTL_J		(0x1 << 13)
+#define OTG_FS_HPRT_PTCTL_K		(0x2 << 13)
+#define OTG_FS_HPRT_PTCTL_SE0_NAK	(0x3 << 13)
+#define OTG_FS_HPRT_PTCTL_PACKET	(0x4 << 13)
+#define OTG_FS_HPRT_PTCTL_FORCE_ENABLE	(0x5 << 13)
+#define OTG_FS_HPRT_PPWR		(1 << 12)
+#define OTG_FS_HPRT_PLSTS_DM		(1 << 11)
+#define OTG_FS_HPRT_PLSTS_DP		(1 << 10)
+/* Bit 9 - Reserved */
+#define OTG_FS_HPRT_PRST		(1 << 8)
+#define OTG_FS_HPRT_PSUSP		(1 << 7)
+#define OTG_FS_HPRT_PRES		(1 << 6)
+#define OTG_FS_HPRT_POCCHNG		(1 << 5)
+#define OTG_FS_HPRT_POCA		(1 << 4)
+#define OTG_FS_HPRT_PENCHNG		(1 << 3)
+#define OTG_FS_HPRT_PENA		(1 << 2)
+#define OTG_FS_HPRT_PCDET		(1 << 1)
+#define OTG_FS_HPRT_PCSTS		(1 << 0)
+
+/* OTG_FS Host channel-x characteristics register (OTG_FS_HCCHARx) */
+#define OTG_FS_HCCHAR_CHENA		(1 << 31)
+#define OTG_FS_HCCHAR_CHDIS		(1 << 30)
+#define OTG_FS_HCCHAR_ODDFRM		(1 << 29)
+#define OTG_FS_HCCHAR_DAD_MASK		(0x7f << 22)
+#define OTG_FS_HCCHAR_MCNT_1		(0x1 << 20)
+#define OTG_FS_HCCHAR_MCNT_2		(0x2 << 20)
+#define OTG_FS_HCCHAR_MCNT_3		(0x3 << 20)
+#define OTG_FS_HCCHAR_MCNT_MASK		(0x3 << 20)
+#define OTG_FS_HCCHAR_EPTYP_CONTROL	(0 << 18)
+#define OTG_FS_HCCHAR_EPTYP_ISOCHRONOUS	(1 << 18)
+#define OTG_FS_HCCHAR_EPTYP_BULK	(2 << 18)
+#define OTG_FS_HCCHAR_EPTYP_INTERRUPT	(3 << 18)
+#define OTG_FS_HCCHAR_EPTYP_MASK	(3 << 18)
+#define OTG_FS_HCCHAR_LSDEV		(1 << 17)
+/* Bit 16 - Reserved */
+#define OTG_FS_HCCHAR_EPDIR_OUT		(0 << 15)
+#define OTG_FS_HCCHAR_EPDIR_IN		(1 << 15)
+#define OTG_FS_HCCHAR_EPDIR_MASK	(1 << 15)
+#define OTG_FS_HCCHAR_EPNUM_MASK	(0xf << 11)
+#define OTG_FS_HCCHAR_MPSIZ_MASK	(0x7ff << 0)
+
+/* OTG_FS Host channel-x interrupt register (OTG_FS_HCINTx) */
+/* Bits 31:11 - Reserved */
+#define OTG_FS_HCINT_DTERR		(1 << 10)
+#define OTG_FS_HCINT_FRMOR		(1 << 9)
+#define OTG_FS_HCINT_BBERR		(1 << 8)
+#define OTG_FS_HCINT_TXERR		(1 << 7)
+/* Bit 6 - Reserved */
+#define OTG_FS_HCINT_ACK		(1 << 5)
+#define OTG_FS_HCINT_NAK		(1 << 4)
+#define OTG_FS_HCINT_STALL		(1 << 3)
+/* Bit 2 - Reserved */
+#define OTG_FS_HCINT_CHH		(1 << 1)
+#define OTG_FS_HCINT_XFRC		(1 << 0)
+
+/* OTG_FS Host channel-x interrupt mask register (OTG_FS_HCINTMSKx) */
+/* Bits 31:11 - Reserved */
+#define OTG_FS_HCINTMSK_DTERRM		(1 << 10)
+#define OTG_FS_HCINTMSK_FRMORM		(1 << 9)
+#define OTG_FS_HCINTMSK_BBERRM		(1 << 8)
+#define OTG_FS_HCINTMSK_TXERRM		(1 << 7)
+/* Bit 6 - Reserved */
+#define OTG_FS_HCINTMSK_ACKM		(1 << 5)
+#define OTG_FS_HCINTMSK_NAKM		(1 << 4)
+#define OTG_FS_HCINTMSK_STALLM		(1 << 3)
+/* Bit 2 - Reserved */
+#define OTG_FS_HCINTMSK_CHHM		(1 << 1)
+#define OTG_FS_HCINTMSK_XFRCM		(1 << 0)
+
+/* OTG_FS Host channel-x transfer size register (OTG_FS_HCTSIZx) */
+/* Bit 31 - Reserved */
+#define OTG_FS_HCTSIZ_DPID_DATA0	(0x0 << 29)
+#define OTG_FS_HCTSIZ_DPID_DATA1	(0x2 << 29)
+#define OTG_FS_HCTSIZ_DPID_DATA2	(0x1 << 29)
+#define OTG_FS_HCTSIZ_DPID_MDATA	(0x3 << 29)
+#define OTG_FS_HCTSIZ_DPID_MASK		(0x3 << 29)
+#define OTG_FS_HCTSIZ_PKTCNT_MASK	(0x3ff << 19)
+#define OTG_FS_HCTSIZ_XFRSIZ_MASK	(0x7ffff << 0)
 
 #endif
