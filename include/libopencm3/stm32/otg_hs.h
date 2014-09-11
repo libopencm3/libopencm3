@@ -22,66 +22,23 @@
 
 #include <libopencm3/cm3/common.h>
 #include <libopencm3/stm32/memorymap.h>
+#include <libopencm3/stm32/otg_common.h>
 
-/* Core Global Control and Status Registers */
-#define OTG_GOTGCTL			0x000
-#define OTG_GOTGINT			0x004
-#define OTG_GAHBCFG			0x008
-#define OTG_GUSBCFG			0x00C
-#define OTG_GRSTCTL			0x010
-#define OTG_GINTSTS			0x014
-#define OTG_GINTMSK			0x018
-#define OTG_GRXSTSR			0x01C
-#define OTG_GRXSTSP			0x020
-#define OTG_GRXFSIZ			0x024
-#define OTG_GNPTXFSIZ			0x028
-#define OTG_GNPTXSTS			0x02C
-#define OTG_GCCFG			0x038
-#define OTG_CID				0x03C
-#define OTG_HPTXFSIZ			0x100
-#define OTG_DIEPTXF(x)			(0x104 + 4*(x-1))
+/* OTG_HS specific registers */
 
 /* Host-mode Control and Status Registers */
-#define OTG_HCFG			0x400
-#define OTG_HFIR			0x404
-#define OTG_HFNUM			0x408
-#define OTG_HPTXSTS			0x410
-#define OTG_HAINT			0x414
-#define OTG_HAINTMSK			0x418
-#define OTG_HPRT			0x440
-#define OTG_HCCHAR(x)			(0x500 + 0x20*(x))
-#define OTG_HCINT(x)			(0x508 + 0x20*(x))
-#define OTG_HCINTMSK(x)			(0x50C + 0x20*(x))
-#define OTG_HCTSIZ(x)			(0x510 + 0x20*(x))
+#define OTG_HCSPLT(x)			(0x504 + 0x20*(x))
+#define OTG_HCDMA(x)			(0x514 + 0x20*(x))
 
 /* Device-mode Control and Status Registers */
-#define OTG_DCFG			0x800
-#define OTG_DCTL			0x804
-#define OTG_DSTS			0x808
-#define OTG_DIEPMSK			0x810
-#define OTG_DOEPMSK			0x814
-#define OTG_DAINT			0x818
-#define OTG_DAINTMSK			0x81C
-#define OTG_DVBUSDIS			0x828
-#define OTG_DVBUSPULSE			0x82C
-#define OTG_DIEPEMPMSK			0x834
-#define OTG_DIEPCTL0			0x900
-#define OTG_DIEPCTL(x)			(0x900 + 0x20*(x))
-#define OTG_DOEPCTL0			0xB00
-#define OTG_DOEPCTL(x)			(0xB00 + 0x20*(x))
-#define OTG_DIEPINT(x)			(0x908 + 0x20*(x))
-#define OTG_DOEPINT(x)			(0xB08 + 0x20*(x))
-#define OTG_DIEPTSIZ0			0x910
-#define OTG_DOEPTSIZ0			0xB10
-#define OTG_DIEPTSIZ(x)			(0x910 + 0x20*(x))
-#define OTG_DTXFSTS(x)			(0x918 + 0x20*(x))
-#define OTG_DOEPTSIZ(x)			(0xB10 + 0x20*(x))
+#define OTG_DEACHHINT			0x838
+#define OTG_DEACHHINTMSK			0x83C
+#define OTG_DIEPEACHMSK1		0x844
+#define OTG_DOEPEACHMSK1		0x884
+#define OTG_DIEPDMA(x)			(0x914 + 0x20*(x))
+#define OTG_DOEPDMA(x)			(0xB14 + 0x20*(x))
 
-/* Power and clock gating control and status register */
-#define OTG_PCGCCTL			0xE00
 
-/* Data FIFO */
-#define OTG_FIFO(x)			(((x) + 1) << 12)
 
 /***********************************************************************/
 
@@ -116,6 +73,7 @@
 #define OTG_HS_HCINT(x)			MMIO32(USB_OTG_HS_BASE + OTG_HCINT(x))
 #define OTG_HS_HCINTMSK(x)		MMIO32(USB_OTG_HS_BASE + OTG_HCINTMSK(x))
 #define OTG_HS_HCTSIZ(x)		MMIO32(USB_OTG_HS_BASE + OTG_HCTSIZ(x))
+#define OTG_HS_HCDMA(x)			MMIO32(USB_OTG_HS_BASE + OTG_HCDMA(x))
 
 /* Device-mode Control and Status Registers */
 #define OTG_HS_DCFG			MMIO32(USB_OTG_HS_BASE + OTG_DCFG)
@@ -141,6 +99,12 @@
 #define OTG_HS_DTXFSTS(x)		MMIO32(USB_OTG_HS_BASE + OTG_DTXFSTS(x))
 #define OTG_HS_DOEPTSIZ(x)		MMIO32(USB_OTG_HS_BASE + \
 						OTG_DOEPTSIZ(x))
+#define OTG_HS_DEACHHINT			MMIO32(USB_OTG_HS_BASE + OTG_DEACHHINT)
+#define OTG_HS_DEACHHINTMSK		MMIO32(USB_OTG_HS_BASE + OTG_DEACHHINTMSK)
+#define OTG_HS_DIEPEACHMSK		MMIO32(USB_OTG_HS_BASE + OTG_DIEPEACHMSK1)
+#define OTG_HS_DOEPEACHMSK		MMIO32(USB_OTG_HS_BASE + OTG_DOEPEACHMSK1)
+#define OTG_HS_DIEPDMA(x)		MMIO32(USB_OTG_HS_BASE + OTG_DIEPDMA(x))
+#define OTG_HS_DOEPDMA(x)		MMIO32(USB_OTG_HS_BASE + OTG_DOEPDMA(x))
 
 /* Power and clock gating control and status register */
 #define OTG_HS_PCGCCTL			MMIO32(USB_OTG_HS_BASE + OTG_PCGCCTL)
@@ -400,6 +364,41 @@
 #define OTG_HS_DIEPSIZ0_PKTCNT		(1 << 19)
 /* Bits 18:7 - Reserved */
 #define OTG_HS_DIEPSIZ0_XFRSIZ_MASK	(0x7f << 0)
+
+/* OTG_HS device each endpoint interrupt register (OTG_HS_DEACHINT) */
+/* Bits 31:18 - Reserved */
+#define OTG_HS_DEACHHINT_OEP1INT	(1 << 17)
+/* Bits 16:2 - Reserved */
+#define OTG_HS_DEACHHINT_IEP1INT	(1 << 1)
+/* Bit 0 - Reserved */
+
+/* OTG_HS device each in endpoint-1 interrupt register (OTG_HS_DIEPEACHMSK1) */
+/* Bits 31:14 - Reserved */
+#define OTG_HS_DIEPEACHMSK1_NAKM 		(1 << 13)
+/* Bits 12:10 - Reserved */
+#define OTG_HS_DIEPEACHMSK1_BIM			(1 << 9)
+#define OTG_HS_DIEPEACHMSK1_TXFURM		(1 << 8)
+/* Bit 7 - Reserved */
+#define OTG_HS_DIEPEACHMSK1_INEPNEM		(1 << 6)
+#define OTG_HS_DIEPEACHMSK1_INEPNMM		(1 << 5)
+#define OTG_HS_DIEPEACHMSK1_ITTXFEMSK	(1 << 4)
+#define OTG_HS_DIEPEACHMSK1_TOM			(1 << 3)
+/* Bit 2 - Reserved */
+#define OTG_HS_DIEPEACHMSK1_EPDM		(1 << 1)
+#define OTG_HS_DIEPEACHMSK1_XFRCM		(1 << 0)
+
+/* OTG_HS device each OUT endpoint-1 interrupt register (OTG_HS_DOEPEACHMSK1) */
+/* Bits 31:15 - Reserved */
+#define OTG_HS_DOEPEACHMSK1_NYETM		(1 << 14)
+#define OTG_HS_DOEPEACHMSK1_NAKM		(1 << 13)
+#define OTG_HS_DOEPEACHMSK1_BERRM		(1 << 12)
+/* Bits 11:10 - Reserved */
+#define OTG_HS_DOEPEACHMSK1_BIM			(1 << 9)
+#define OTG_HS_DOEPEACHMSK1_OPEM		(1 << 8)
+/* Bits 7:3 - Reserved */
+#define OTG_HS_DOEPEACHMSK1_AHBERRM		(1 << 2)
+#define OTG_HS_DOEPEACHMSK1_EPDM		(1 << 1)
+#define OTG_HS_DOEPEACHMSK1_XFRCM		(1 << 0)
 
 
 /* Host-mode CSRs */
