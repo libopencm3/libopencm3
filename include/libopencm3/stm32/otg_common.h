@@ -24,7 +24,7 @@
  
 /* Core Global Control and Status Registers */
 #define OTG_GOTGCTL			0x000
-#define OTG_GOTGIN			0x004
+#define OTG_GOTGINT			0x004
 #define OTG_GAHBCFG			0x008
 #define OTG_GUSBCFG			0x00C
 #define OTG_GRSTCTL			0x010
