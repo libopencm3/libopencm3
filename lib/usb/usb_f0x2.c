@@ -46,6 +46,8 @@ static void stm32f0x2_poll(usbd_device *usbd_dev);
 static uint8_t force_nak[8];
 static struct _usbd_device usbd_dev;
 
+#define USBD_PM_TOP 0x40
+
 const struct _usbd_driver stm32f0x2_usb_driver = {
 	.init = stm32f0x2_usbd_init,
 	.set_address = stm32f0x2_set_address,
@@ -155,7 +157,7 @@ static void stm32f0x2_endpoints_reset(usbd_device *dev)
 		USB_SET_EP_TX_STAT(i, USB_EP_TX_STAT_DISABLED);
 		USB_SET_EP_RX_STAT(i, USB_EP_RX_STAT_DISABLED);
 	}
-	dev->pm_top = 0x40 + (2 * dev->desc->bMaxPacketSize0);
+	dev->pm_top = USBD_PM_TOP + (2 * dev->desc->bMaxPacketSize0);
 }
 
 static void stm32f0x2_ep_stall_set(usbd_device *dev, uint8_t addr,
@@ -302,7 +304,7 @@ static void stm32f0x2_poll(usbd_device *dev)
 	uint16_t istr = *USB_ISTR_REG;
 
 	if (istr & USB_ISTR_RESET) {
-		dev->pm_top = 0x40;
+		dev->pm_top = USBD_PM_TOP;
 		_usbd_reset(dev);
 		USB_CLR_ISTR_RESET();
 		return;
