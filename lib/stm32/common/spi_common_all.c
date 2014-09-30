@@ -86,12 +86,12 @@ void spi_reset(uint32_t spi_peripheral)
 		rcc_periph_reset_pulse(RST_SPI1);
 		break;
 #endif
-#if defined(SPI2_I2S_BASE)
-	case SPI2_I2S_BASE:
+#if defined(SPI2_BASE)
+	case SPI2_BASE:
 		rcc_periph_reset_pulse(RST_SPI2);
 		break;
 #endif
-#if defined(SPI3_I2S_BASE)
+#if defined(SPI3_BASE)
 	case SPI3_I2S_BASE:
 		rcc_periph_reset_pulse(RST_SPI3);
 		break;
