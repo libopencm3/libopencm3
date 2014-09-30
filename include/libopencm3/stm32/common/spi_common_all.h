@@ -44,8 +44,8 @@ specific memorymap.h header before including this header file.*/
 
 @{*/
 #define SPI1				SPI1_BASE
-#define SPI2				SPI2_I2S_BASE
-#define SPI3				SPI3_I2S_BASE
+#define SPI2				SPI2_BASE
+#define SPI3				SPI3_BASE
 #define SPI4				SPI4_BASE
 #define SPI5				SPI5_BASE
 #define SPI6				SPI6_BASE
@@ -57,59 +57,59 @@ specific memorymap.h header before including this header file.*/
 /* Note: Not used in I2S mode. */
 #define SPI_CR1(spi_base)		MMIO32(spi_base + 0x00)
 #define SPI1_CR1			SPI_CR1(SPI1_BASE)
-#define SPI2_CR1			SPI_CR1(SPI2_I2S_BASE)
-#define SPI3_CR1			SPI_CR1(SPI3_I2S_BASE)
+#define SPI2_CR1			SPI_CR1(SPI2_BASE)
+#define SPI3_CR1			SPI_CR1(SPI3_BASE)
 
 /* Control register 2 (SPIx_CR2) */
 #define SPI_CR2(spi_base)		MMIO32(spi_base + 0x04)
 #define SPI1_CR2			SPI_CR2(SPI1_BASE)
-#define SPI2_CR2			SPI_CR2(SPI2_I2S_BASE)
-#define SPI3_CR2			SPI_CR2(SPI3_I2S_BASE)
+#define SPI2_CR2			SPI_CR2(SPI2_BASE)
+#define SPI3_CR2			SPI_CR2(SPI3_BASE)
 
 /* Status register (SPIx_SR) */
 #define SPI_SR(spi_base)		MMIO32(spi_base + 0x08)
 #define SPI1_SR				SPI_SR(SPI1_BASE)
-#define SPI2_SR				SPI_SR(SPI2_I2S_BASE)
-#define SPI3_SR				SPI_SR(SPI3_I2S_BASE)
+#define SPI2_SR				SPI_SR(SPI2_BASE)
+#define SPI3_SR				SPI_SR(SPI3_BASE)
 
 /* Data register (SPIx_DR) */
 #define SPI_DR(spi_base)		MMIO32(spi_base + 0x0c)
 #define SPI1_DR				SPI_DR(SPI1_BASE)
-#define SPI2_DR				SPI_DR(SPI2_I2S_BASE)
-#define SPI3_DR				SPI_DR(SPI3_I2S_BASE)
+#define SPI2_DR				SPI_DR(SPI2_BASE)
+#define SPI3_DR				SPI_DR(SPI3_BASE)
 
 /* CRC polynomial register (SPIx_CRCPR) */
 /* Note: Not used in I2S mode. */
 #define SPI_CRCPR(spi_base)		MMIO32(spi_base + 0x10)
 #define SPI1_CRCPR			SPI_CRCPR(SPI1_BASE)
-#define SPI2_CRCPR			SPI_CRCPR(SPI2_I2S_BASE)
-#define SPI3_CRCPR			SPI_CRCPR(SPI3_I2S_BASE)
+#define SPI2_CRCPR			SPI_CRCPR(SPI2_BASE)
+#define SPI3_CRCPR			SPI_CRCPR(SPI3_BASE)
 
 /* RX CRC register (SPIx_RXCRCR) */
 /* Note: Not used in I2S mode. */
 #define SPI_RXCRCR(spi_base)		MMIO32(spi_base + 0x14)
 #define SPI1_RXCRCR			SPI_RXCRCR(SPI1_BASE)
-#define SPI2_RXCRCR			SPI_RXCRCR(SPI2_I2S_BASE)
-#define SPI3_RXCRCR			SPI_RXCRCR(SPI3_I2S_BASE)
+#define SPI2_RXCRCR			SPI_RXCRCR(SPI2_BASE)
+#define SPI3_RXCRCR			SPI_RXCRCR(SPI3_BASE)
 
 /* TX CRC register (SPIx_RXCRCR) */
 /* Note: Not used in I2S mode. */
 #define SPI_TXCRCR(spi_base)		MMIO32(spi_base + 0x18)
 #define SPI1_TXCRCR			SPI_TXCRCR(SPI1_BASE)
-#define SPI2_TXCRCR			SPI_TXCRCR(SPI2_I2S_BASE)
-#define SPI3_TXCRCR			SPI_TXCRCR(SPI3_I2S_BASE)
+#define SPI2_TXCRCR			SPI_TXCRCR(SPI2_BASE)
+#define SPI3_TXCRCR			SPI_TXCRCR(SPI3_BASE)
 
 /* I2S configuration register (SPIx_I2SCFGR) */
 #define SPI_I2SCFGR(spi_base)		MMIO32(spi_base + 0x1c)
 #define SPI1_I2SCFGR			SPI_I2SCFGR(SPI1_BASE)
-#define SPI2_I2SCFGR			SPI_I2SCFGR(SPI2_I2S_BASE)
-#define SPI3_I2SCFGR			SPI_I2SCFGR(SPI3_I2S_BASE)
+#define SPI2_I2SCFGR			SPI_I2SCFGR(SPI2_BASE)
+#define SPI3_I2SCFGR			SPI_I2SCFGR(SPI3_BASE)
 
 /* I2S prescaler register (SPIx_I2SPR) */
 #define SPI_I2SPR(spi_base)		MMIO32(spi_base + 0x20)
 #define SPI1_I2SPR			SPI_I2SPR(SPI1_BASE)
-#define SPI2_I2SPR			SPI_I2SPR(SPI2_I2S_BASE)
-#define SPI3_I2SPR			SPI_I2SPR(SPI3_I2S_BASE)
+#define SPI2_I2SPR			SPI_I2SPR(SPI2_BASE)
+#define SPI3_I2SPR			SPI_I2SPR(SPI3_BASE)
 
 /* --- SPI_CR1 values ------------------------------------------------------ */
 
