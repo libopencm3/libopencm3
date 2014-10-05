@@ -295,11 +295,10 @@ specific memorymap.h header before including this header file.*/
 #define SPI_I2SCFGR_I2SE			(1 << 10)
 
 /* I2SCFG[9:8]: I2S configuration mode */
-#define SPI_I2SCFGR_I2SCFG_LSB			8
-#define SPI_I2SCFGR_I2SCFG_SLAVE_TRANSMIT	0x0
-#define SPI_I2SCFGR_I2SCFG_SLAVE_RECEIVE	0x1
-#define SPI_I2SCFGR_I2SCFG_MASTER_TRANSMIT	0x2
-#define SPI_I2SCFGR_I2SCFG_MASTER_RECEIVE	0x3
+#define SPI_I2SCFGR_I2SCFG_SLAVE_TRANSMIT	(0x0 << 8)
+#define SPI_I2SCFGR_I2SCFG_SLAVE_RECEIVE	(0x1 << 8)
+#define SPI_I2SCFGR_I2SCFG_MASTER_TRANSMIT	(0x2 << 8)
+#define SPI_I2SCFGR_I2SCFG_MASTER_RECEIVE	(0x3 << 8)
 
 /* PCMSYNC: PCM frame synchronization */
 #define SPI_I2SCFGR_PCMSYNC			(1 << 7)
@@ -307,20 +306,18 @@ specific memorymap.h header before including this header file.*/
 /* Bit 6: Reserved. Forced to 0 by hardware. */
 
 /* I2SSTD[5:4]: I2S standard selection */
-#define SPI_I2SCFGR_I2SSTD_LSB			4
-#define SPI_I2SCFGR_I2SSTD_I2S_PHILLIPS		0x0
-#define SPI_I2SCFGR_I2SSTD_MSB_JUSTIFIED	0x1
-#define SPI_I2SCFGR_I2SSTD_LSB_JUSTIFIED	0x2
-#define SPI_I2SCFGR_I2SSTD_PCM			0x3
+#define SPI_I2SCFGR_I2SSTD_I2S_PHILLIPS		(0x0 << 4)
+#define SPI_I2SCFGR_I2SSTD_MSB_JUSTIFIED	(0x1 << 4)
+#define SPI_I2SCFGR_I2SSTD_LSB_JUSTIFIED	(0x2 << 4)
+#define SPI_I2SCFGR_I2SSTD_PCM			(0x3 << 4)
 
 /* CKPOL: Steady state clock polarity */
 #define SPI_I2SCFGR_CKPOL			(1 << 3)
 
 /* DATLEN[2:1]: Data length to be transferred */
-#define SPI_I2SCFGR_DATLEN_LSB			1
-#define SPI_I2SCFGR_DATLEN_16BIT		0x0
-#define SPI_I2SCFGR_DATLEN_24BIT		0x1
-#define SPI_I2SCFGR_DATLEN_32BIT		0x2
+#define SPI_I2SCFGR_DATLEN_16BIT		(0x0 << 1)
+#define SPI_I2SCFGR_DATLEN_24BIT		(0x1 << 1)
+#define SPI_I2SCFGR_DATLEN_32BIT		(0x2 << 1)
 
 /* CHLEN: Channel length */
 #define SPI_I2SCFGR_CHLEN			(1 << 0)
