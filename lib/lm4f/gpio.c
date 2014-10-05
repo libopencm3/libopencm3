@@ -285,7 +285,7 @@ void gpio_set_output_config(uint32_t gpioport, enum gpio_output_type otype,
 		GPIO_DR8R(gpioport) |= gpios;
 		GPIO_SLR(gpioport) |= gpios;
 		break;
-	case GPIO_DRIVE_8MA:
+	case GPIO_DRIVE_8MA: // ток нагрузки порта
 		GPIO_DR8R(gpioport) |= gpios;
 		GPIO_SLR(gpioport) &= ~gpios;
 		break;
