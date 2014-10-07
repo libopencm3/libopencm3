@@ -12,6 +12,8 @@
 #	include <libopencm3/stm32/f3/nvic.h>
 #elif defined(STM32F4)
 #	include <libopencm3/stm32/f4/nvic.h>
+#elif defined(STM32F7)
+#	include <libopencm3/stm32/f7/nvic.h>
 #elif defined(STM32L0)
 #	include <libopencm3/stm32/l0/nvic.h>
 #elif defined(STM32L1)

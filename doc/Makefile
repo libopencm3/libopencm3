@@ -3,7 +3,7 @@
 # 14 September 2012
 # (C) Ken Sarkies <ksarkies@internode.on.net>
 
-ARCHS := stm32f0 stm32f1 stm32f2 stm32f3 stm32f4
+ARCHS := stm32f0 stm32f1 stm32f2 stm32f3 stm32f4 stm32f7
 ARCHS += stm32l0 stm32l1
 ARCHS += efm32g efm32gg efm32lg efm32tg
 ARCHS += lm3s lm4f

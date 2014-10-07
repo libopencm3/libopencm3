@@ -1,0 +1,37 @@
+# LaTeX Documentation for STM32F7 code level
+
+# 14 September 2012
+# (C) Ken Sarkies <ksarkies@internode.on.net>
+
+#---------------------------------------------------------------------------
+# Common Include File
+#---------------------------------------------------------------------------
+
+@INCLUDE 			   = ../Doxyfile_common
+
+#---------------------------------------------------------------------------
+# Local settings
+#---------------------------------------------------------------------------
+
+WARN_LOGFILE           = doxygen_stm32f7_latex.log
+
+INPUT                  = ../../include/libopencm3/docmain.dox \
+                         ../../include/libopencm3/license.dox \
+					     ../../include/libopencm3/stm32/f7 \
+					     ../../include/libopencm3/stm32/common
+
+INPUT                 += ../../lib/stm32/f4 \
+						 ../../lib/stm32/common
+
+EXCLUDE                = ../../include/libopencm3/stm32/f4/doc-stm32f7.h
+
+EXCLUDE_PATTERNS       =
+
+LAYOUT_FILE 		   = DoxygenLayout_stm32f7.xml
+
+GENERATE_HTML		   = NO
+
+GENERATE_LATEX		   = YES
+
+LATEX_HEADER           = header_stm32f7.tex
+

@@ -67,6 +67,9 @@ Other toolchains _should_ work, but have not been nearly as well tested.
 Toolchains targetting linux, such as "gcc-arm-linux-gnu" or the like are
 _not_ appropriate.
 
+_NOTE_ We recommend, that you use g-a-c version 2.8 2014q3 or newer
+to build all platforms covered by libopencm3 succesfully.
+
 Building
 --------
 
@@ -92,9 +95,15 @@ them as environment variables, for example:
 * `FP_FLAGS` - Control the floating-point ABI
 
    If the Cortex-M core supports a hard float ABI, it will be compiled with
-   floating-point support by default. In cases where this is not desired, the
-   behavior can be specified by setting `FP_FLAGS` Currently, M4F cores default
-   to `-mfloat-abi=hard -mfpu=fpv4-sp-d16` and others to no FP flags
+   best floating-point support by default. In cases where this is not desired, the
+   behavior can be specified by setting `FP_FLAGS`.
+   
+   Currently, M4F cores default to `-mfloat-abi=hard -mfpu=fpv4-sp-d16`,
+   M7 core defaults to double precision `-mfloat-abi=hard -mfpu=fpv5-d16`
+   and other architectures to no FP flags forcing to use software computation.
+   
+   You may find which FP_FLAGS you can use in particular architecture in readme.txt
+   shipped with gcc-arm-embedded package.
 
    Examples:
 

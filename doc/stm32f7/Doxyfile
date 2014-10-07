@@ -1,0 +1,38 @@
+# HTML Documentation for STM32F7 code level
+
+# 14 September 2012
+# (C) Ken Sarkies <ksarkies@internode.on.net>
+
+#---------------------------------------------------------------------------
+# Common Include File
+#---------------------------------------------------------------------------
+
+@INCLUDE 	       = ../Doxyfile_common
+
+#---------------------------------------------------------------------------
+# Local settings
+#---------------------------------------------------------------------------
+
+WARN_LOGFILE           = doxygen_stm32f7.log
+
+INPUT                  = ../../include/libopencm3/license.dox \
+			 ../../include/libopencm3/stm32/f7 \
+			 ../../include/libopencm3/stm32/common
+
+INPUT                 += ../../lib/stm32/f7 \
+			 ../../lib/stm32/common
+
+EXCLUDE                = 
+
+EXCLUDE_PATTERNS       = *_common_f*3.h *_common_f*3.c \
+                         *_common_*f013.h *_common_*f013.c \
+                         *_common_*f01.h *_common_*f01.c \ \
+                         *_common_*f03.h *_common_*f03.c
+
+LAYOUT_FILE 	       = DoxygenLayout_stm32f7.xml
+
+GENERATE_TAGFILE       = stm32f7.tag
+
+ENABLE_PREPROCESSING    = YES
+
+
