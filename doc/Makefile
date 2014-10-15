@@ -5,7 +5,7 @@
 
 doc: html latex
 
-html: cm3 usb stm32l1 stm32f0 stm32f1 stm32f2 stm32f3 stm32f4 efm32g efm32gg efm32lg efm32tg lm3s lm4f lpc13 lpc17 lpc43 sam3a sam3n sam3s sam3u sam3x vf6xx top
+html: cm3 usb stm32l0 stm32l1 stm32f0 stm32f1 stm32f2 stm32f3 stm32f4 efm32g efm32gg efm32lg efm32tg lm3s lm4f lpc13 lpc17 lpc43 sam3a sam3n sam3s sam3u sam3x vf6xx top
 
 cm3:
 	cd cm3/; doxygen
@@ -55,6 +55,9 @@ stm32f3:
 stm32f4:
 	cd stm32f4/; doxygen
 
+stm32l0:
+	cd stm32l0/; doxygen
+
 stm32l1:
 	cd stm32l1/; doxygen
 
@@ -79,7 +82,10 @@ vf6xx:
 top:
 	doxygen
 
-latex: stm32l1.pdf stm32f0.pdf stm32f1.pdf stm32f2.pdf stm32f3.pdf stm32f4.pdf lm3s.pdf lm4f.pdf lpc13.pdf lpc17.pdf lpc43.pdf efm32g.pdf efm32gg.pdf efm32lg.pdf efm32tg.pdf sam3a.pdf sam3n.pdf sam3s.pdf sam3u.pdf sam3x.pdf vf6xx.pdf
+latex: stm32l0.pdf stm32l1.pdf stm32f0.pdf stm32f1.pdf stm32f2.pdf stm32f3.pdf stm32f4.pdf lm3s.pdf lm4f.pdf lpc13.pdf lpc17.pdf lpc43.pdf efm32g.pdf efm32gg.pdf efm32lg.pdf efm32tg.pdf sam3a.pdf sam3n.pdf sam3s.pdf sam3u.pdf sam3x.pdf vf6xx.pdf
+
+stm32l0.pdf:
+	cd stm32l0/; doxygen Doxyfile_latex; cd latex/; $(MAKE); cp refman.pdf ../../stm32l0.pdf
 
 stm32l1.pdf:
 	cd stm32l1/; doxygen Doxyfile_latex; cd latex/; $(MAKE); cp refman.pdf ../../stm32l1.pdf
@@ -147,5 +153,5 @@ vf6xx.pdf:
 clean:
 	@rm -rf html/ */html/ */latex/ *.pdf */*.tag
 
-.PHONY: doc html cm3 usb lm3s lm4f lpc13 lpc17 lpc43 stm32l1 stm32f0 stm32f1 stm32f2 stm32f3 stm32f4 efm32g efm32gg efm32lg efm32tg sam3a sam3n sam3s sam3u sam3x vf6xx top latex
+.PHONY: doc html cm3 usb lm3s lm4f lpc13 lpc17 lpc43 stm32l0 stm32l1 stm32f0 stm32f1 stm32f2 stm32f3 stm32f4 efm32g efm32gg efm32lg efm32tg sam3a sam3n sam3s sam3u sam3x vf6xx top latex
 
