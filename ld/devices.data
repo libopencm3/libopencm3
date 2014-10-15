@@ -127,6 +127,9 @@ stm32f4[01][57]?g* stm32f4ccm ROM=1024K RAM=128K CCM=64K
 stm32f4[23][79]?g* stm32f4ccm ROM=1024K RAM=192K CCM=64K
 stm32f4[23][79]?i* stm32f4ccm ROM=2048K RAM=192K CCM=64K
 
+stm32l0???6* stm32l0 ROM=32K RAM=8K
+stm32l0???8* stm32l0 ROM=64K RAM=8K
+
 stm32l100?6* stm32l1 ROM=32K RAM=4K
 stm32l100?8* stm32l1 ROM=64K RAM=8K
 stm32l100?b* stm32l1 ROM=128K RAM=10K
@@ -334,6 +337,7 @@ stm32f1 stm32 ROM_OFF=0x08000000 RAM_OFF=0x20000000 -mcpu=cortex-m3 -mthumb -DST
 stm32f2 stm32 ROM_OFF=0x08000000 RAM_OFF=0x20000000 -mcpu=cortex-m3 -mthumb -DSTM32F2 -lopencm3_stm32f2 -msoft-float
 stm32f3 stm32 ROM_OFF=0x08000000 RAM_OFF=0x20000000 -mcpu=cortex-m4 -mthumb -DSTM32F3 -lopencm3_stm32f3 -mfloat-abi=hard -mfpu=fpv4-sp-d16
 stm32f4 stm32 ROM_OFF=0x08000000 RAM_OFF=0x20000000 -mcpu=cortex-m4 -mthumb -DSTM32F4 -lopencm3_stm32f4 -mfloat-abi=hard -mfpu=fpv4-sp-d16
+stm32l0 stm32 ROM_OFF=0x08000000 RAM_OFF=0x20000000 -mcpu=cortex-m0 -mthumb -DSTM32L0 -lopencm3_stm32l0 -msoft-float
 stm32l1 stm32 ROM_OFF=0x08000000 RAM_OFF=0x20000000 -mcpu=cortex-m3 -mthumb -DSTM32L1 -lopencm3_stm32l1 -msoft-float
 stm32w stm32 ROM_OFF=0x08000000 RAM_OFF=0x20000000 -mcpu=cortex-m3 -mthumb
 stm32t stm32 ROM_OFF=0x08000000 RAM_OFF=0x20000000 -mcpu=cortex-m3 -mthumb
