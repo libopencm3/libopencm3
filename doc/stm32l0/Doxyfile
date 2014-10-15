@@ -1,0 +1,43 @@
+# HTML Documentation for STM32L0 code level
+
+# 15 December 2012
+# (C) Ken Sarkies <ksarkies@internode.on.net>
+
+#---------------------------------------------------------------------------
+# Common Include File
+#---------------------------------------------------------------------------
+
+@INCLUDE 	       = ../Doxyfile_common
+
+#---------------------------------------------------------------------------
+# Local settings
+#---------------------------------------------------------------------------
+
+WARN_LOGFILE           = doxygen_stm32l0.log
+
+INPUT		= ../../include/libopencm3/license.dox
+INPUT		+=../../include/libopencm3/stm32/l0
+INPUT		+=../../include/libopencm3/stm32/common
+
+INPUT		+=../../lib/stm32/l0
+INPUT		+=../../lib/stm32/common
+
+EXCLUDE		= ../../include/libopencm3/stm32/common/gpio_common_f24.h
+EXCLUDE		+=../../include/libopencm3/stm32/common/timer_common_f24.h \
+EXCLUDE		+=../../include/libopencm3/stm32/common/crypto_common_f24.h \
+EXCLUDE		+=../../include/libopencm3/stm32/common/hash_common_f24.h
+
+EXCLUDE		 =../../lib/stm32/common/gpio_common_f24.c
+EXCLUDE		 =../../lib/stm32/common/timer_common_f24.c
+EXCLUDE		 =../../lib/stm32/common/crypto_common_f24.c
+EXCLUDE		 =../../lib/stm32/common/hash_common_f24.c
+
+EXCLUDE_PATTERNS       =
+
+LAYOUT_FILE 	       = DoxygenLayout_stm32l0.xml
+
+GENERATE_TAGFILE       = stm32l0.tag
+
+ENABLE_PREPROCESSING   = YES
+
+
