@@ -6,12 +6,13 @@ various ARM Cortex-M3 microcontrollers.
 
 Currently (at least partly) supported microcontrollers:
 
- - ST STM32F0xx/F1xx/F2xx/F30x/F37x/F4xx/L1xx series
+ - ST STM32F0xx/F1xx/F2xx/F30x/F37x/F4xx/L0xx/L1xx series
  - Atmel SAM3A/3N/3S/3U/3X series
- - NXP LPC1311/13/42/43
+ - NXP LPC1311/13/17/42/43
  - Stellaris LM3S series (discontinued, without replacement)
  - TI (Tiva) LM4F series (continuing as TM4F, pin and peripheral compatible)
  - EFM32 Gecko series (only core support)
+ - Freescale Vybrid VF6xx
 
 The library is written completely from scratch based on the vendor datasheets,
 programming manuals, and application notes. The code is meant to be used
