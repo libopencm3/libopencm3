@@ -47,49 +47,49 @@ LGPL License Terms @ref lgpl_license
 #define PWR_PCON_MODE_POWER_DOWN	0x01
 /* PWR_PCON_MODE_RESERVED		0x02*/
 #define PWR_PCON_MODE_DEEPSLEEP		0x03
-#define PWR_PCON_BODRPM			BIT2
-#define PWR_PCON_BOGD			BIT3
-#define PWR_PCON_BORD			BIT4
+#define PWR_PCON_BODRPM			(1 << 2)
+#define PWR_PCON_BOGD			(1 << 3)
+#define PWR_PCON_BORD			(1 << 4)
 /* Reserved: [7:5] */
-#define PWR_PCON_SMFLAG			BIT8
-#define PWR_PCON_DSFLAG			BIT9
-#define PWR_PCON_PDFLAG			BIT10
-#define PWR_PCON_DPDFLAG		BIT11
+#define PWR_PCON_SMFLAG			(1 << 8)
+#define PWR_PCON_DSFLAG			(1 << 9)
+#define PWR_PCON_PDFLAG			(1 << 10)
+#define PWR_PCON_DPDFLAG		(1 << 11)
 /* Reserved: [31:12] */
 
 /* PWR_PCONP Values */
 /* Reserved: [0] */
-#define PWR_PCONP_TIMER0		BIT1
-#define PWR_PCONP_TIMER1		BIT2
-#define PWR_PCONP_UART0			BIT3
-#define PWR_PCONP_UART1			BIT4
+#define PWR_PCONP_TIMER0		(1 << 1)
+#define PWR_PCONP_TIMER1		(1 << 2)
+#define PWR_PCONP_UART0			(1 << 3)
+#define PWR_PCONP_UART1			(1 << 4)
 /* Reserved: [5] */
-#define PWR_PCONP_PWM1			BIT6
-#define PWR_PCONP_I2C0			BIT7
-#define PWR_PCONP_SPI			BIT8
-#define PWR_PCONP_RTC			BIT9
-#define PWR_PCONP_SSP1			BIT10
+#define PWR_PCONP_PWM1			(1 << 6)
+#define PWR_PCONP_I2C0			(1 << 7)
+#define PWR_PCONP_SPI			(1 << 8)
+#define PWR_PCONP_RTC			(1 << 9)
+#define PWR_PCONP_SSP1			(1 << 10)
 /* Reserved: [11] */
-#define PWR_PCONP_ADC			BIT12
-#define PWR_PCONP_CAN1			BIT13
-#define PWR_PCONP_CAN2			BIT14
-#define PWR_PCONP_GPIO			BIT15
-#define PWR_PCONP_RIT			BIT16
-#define PWR_PCONP_MCPWM			BIT17
-#define PWR_PCONP_QEI			BIT18
-#define PWR_PCONP_I2C1			BIT19
+#define PWR_PCONP_ADC			(1 << 12)
+#define PWR_PCONP_CAN1			(1 << 13)
+#define PWR_PCONP_CAN2			(1 << 14)
+#define PWR_PCONP_GPIO			(1 << 15)
+#define PWR_PCONP_RIT			(1 << 16)
+#define PWR_PCONP_MCPWM			(1 << 17)
+#define PWR_PCONP_QEI			(1 << 18)
+#define PWR_PCONP_I2C1			(1 << 19)
 /* Reserved: [20] */
-#define PWR_PCONP_SSP0			BIT21
-#define PWR_PCONP_TIMER2		BIT22
-#define PWR_PCONP_TIMER3		BIT23
-#define PWR_PCONP_UART2			BIT24
-#define PWR_PCONP_UART3			BIT25
-#define PWR_PCONP_I2C2			BIT26
-#define PWR_PCONP_I2S			BIT27
+#define PWR_PCONP_SSP0			(1 << 21)
+#define PWR_PCONP_TIMER2		(1 << 22)
+#define PWR_PCONP_TIMER3		(1 << 23)
+#define PWR_PCONP_UART2			(1 << 24)
+#define PWR_PCONP_UART3			(1 << 25)
+#define PWR_PCONP_I2C2			(1 << 26)
+#define PWR_PCONP_I2S			(1 << 27)
 /* Reserved: [28] */
-#define PWR_PCONP_GPDMA			BIT29
-#define PWR_PCONP_ETHERNET		BIT30
-#define PWR_PCONP_USB			BIT31
+#define PWR_PCONP_GPDMA			(1 << 29)
+#define PWR_PCONP_ETHERNET		(1 << 30)
+#define PWR_PCONP_USB			(1 << 31)
 
 BEGIN_DECLS
 

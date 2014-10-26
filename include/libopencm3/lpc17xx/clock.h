@@ -62,22 +62,22 @@ LGPL License Terms @ref lgpl_license
 
 /* CLK_SCS Values*/
 /* Reserved: [3:0] */
-#define CLK_SCS_OSCRANGE_01_TO_20MHZ	0
-#define CLK_SCS_OSCRANGE_15_TO_25MHZ	BIT4
-#define CLK_SCS_OSCEN			BIT5
-#define CLK_SCS_OSCSTAT			BIT6
+#define CLK_SCS_OSCRANGE_01_TO_20MHZ	(0)
+#define CLK_SCS_OSCRANGE_15_TO_25MHZ	(1 << 4)
+#define CLK_SCS_OSCEN			(1 << 5)
+#define CLK_SCS_OSCSTAT			(1 << 6)
 /* Reserved: [31:7] */
 
 /* CLK_CLKSRCSEL Values*/
-#define CLK_CLKSRCSEL_IRC		0
-#define CLK_CLKSRCSEL_MAIN		BIT0
-#define CLK_CLKSRCSEL_RTC		BIT1
+#define CLK_CLKSRCSEL_IRC		(0)
+#define CLK_CLKSRCSEL_MAIN		(1 << 0)
+#define CLK_CLKSRCSEL_RTC		(1 << 1)
 /* Reserved: value 11b */
 /* Reserved: [31:2] */
 
 /* CLK_PLL0CON and CLK_PLL1CON Values */
-#define CLK_PLLCON_ENABLE		BIT0
-#define CLK_PLLCON_CONNECT		BIT1
+#define CLK_PLLCON_ENABLE		(1 << 0)
+#define CLK_PLLCON_CONNECT		(1 << 1)
 /* Reserved: [31:2] */
 
 /* CLK_PLL0CFG and CLK_PLL0STAT Values */
@@ -87,9 +87,9 @@ LGPL License Terms @ref lgpl_license
 #define CLK_PLL0_NSEL_SHIFT		16
 #define CLK_PLL0_NSEL_MASK		0xff
 /* CFG Reserved: [31:24] */
-#define CLK_PLL0STAT_ENABLE		BIT24
-#define CLK_PLL0STAT_CONNECT		BIT25
-#define CLK_PLL0STAT_PLOCK		BIT26
+#define CLK_PLL0STAT_ENABLE		(1 << 24)
+#define CLK_PLL0STAT_CONNECT		(1 << 25)
+#define CLK_PLL0STAT_PLOCK		(1 << 26)
 /* STAT Reserved: [31:27] */
 
 /* CLK_PLL1CFG and CLK_PLL1STAT Values */
@@ -98,9 +98,9 @@ LGPL License Terms @ref lgpl_license
 #define CLK_PLL1_PSEL_SHIFT		5
 #define CLK_PLL1_PSEL_MASK		0x3
 /* CFG Reserved: [31:7] */
-#define CLK_PLL1STAT_ENABLE		BIT8
-#define CLK_PLL1STAT_CONNECT		BIT9
-#define CLK_PLL1STAT_PLOCK		BIT10
+#define CLK_PLL1STAT_ENABLE		(1 << 8)
+#define CLK_PLL1STAT_CONNECT		(1 << 9)
+#define CLK_PLL1STAT_PLOCK		(1 << 10)
 /* STAT Reserved: [31:11] */
 
 /* CLK_USBCLKCFG Values */
@@ -153,8 +153,8 @@ LGPL License Terms @ref lgpl_license
 #define CLK_CLKOUTCFG_SEL_USB		0x03
 #define CLK_CLKOUTCFG_SEL_RTC		0x04
 #define CLK_CLKOUTCFG_DIV_SHIFT	4
-#define CLK_CLKOUTCFG_ENABLE		BIT8
-#define CLK_CLKOUTCFG_ENABLE		BIT9
+#define CLK_CLKOUTCFG_ENABLE		(1 << 8)
+#define CLK_CLKOUTCFG_ENABLE		(1 << 9)
 /* Reserved: [31:10]*/
 
 #endif // LPC17XX_CLOCK_H
