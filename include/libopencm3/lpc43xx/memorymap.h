@@ -26,11 +26,11 @@
 /* --- LPC43XX specific peripheral definitions ----------------------------- */
 
 /* Memory map for all busses */
-#define PERIPH_BASE_AHB                 0x40000000
-#define PERIPH_BASE_APB0                0x40080000
-#define PERIPH_BASE_APB1                0x400A0000
-#define PERIPH_BASE_APB2                0x400C0000
-#define PERIPH_BASE_APB3                0x400E0000
+#define PERIPH_BASE_AHB                 (0x40000000U)
+#define PERIPH_BASE_APB0                (0x40080000U)
+#define PERIPH_BASE_APB1                (0x400A0000U)
+#define PERIPH_BASE_APB2                (0x400C0000U)
+#define PERIPH_BASE_APB3                (0x400E0000U)
 
 /* Register boundary addresses */
 
@@ -50,20 +50,20 @@
 /* 0x4001 2000 - 0x4003 FFFF Reserved */
 
 /* RTC domain peripherals */
-#define ATIMER_BASE                     0x40040000
-#define BACKUP_REG_BASE                 0x40041000
-#define PMC_BASE                        0x40042000
-#define CREG_BASE                       0x40043000
-#define EVENTROUTER_BASE                0x40044000
-#define OTP_BASE                        0x40045000
-#define RTC_BASE                        0x40046000
+#define ATIMER_BASE                     (0x40040000U)
+#define BACKUP_REG_BASE                 (0x40041000U)
+#define PMC_BASE                        (0x40042000U)
+#define CREG_BASE                       (0x40043000U)
+#define EVENTROUTER_BASE                (0x40044000U)
+#define OTP_BASE                        (0x40045000U)
+#define RTC_BASE                        (0x40046000U)
 /* 0x4004 7000 - 0x4004 FFFF Reserved */
 
 /* clocking/reset control peripherals */
-#define CGU_BASE                        0x40050000
-#define CCU1_BASE                       0x40051000
-#define CCU2_BASE                       0x40052000
-#define RGU_BASE                        0x40053000
+#define CGU_BASE                        (0x40050000U)
+#define CCU1_BASE                       (0x40051000U)
+#define CCU2_BASE                       (0x40052000U)
+#define RGU_BASE                        (0x40053000U)
 /* 0x4005 4000 - 0x4005 FFFF Reserved */
 
 /* 0x4006 0000 - 0x4007 FFFF Reserved */
@@ -116,16 +116,16 @@
 
 /* 0x400F 0000 - 0x400F 0FFF Reserved */
 
-#define AES_BASE                        0x400F1000
+#define AES_BASE                        (0x400F1000U)
 
 /* 0x400F 2000 - 0x400F 3FFF Reserved */
 
-#define GPIO_PORT_BASE                  0x400F4000
+#define GPIO_PORT_BASE                  (0x400F4000U)
 
 /* 0x400F 8000 - 0x400F FFFF Reserved */
 
-#define SPI_PORT_BASE                   0x40100000
-#define SGPIO_PORT_BASE                 0x40101000
+#define SPI_PORT_BASE                   (0x40100000U)
+#define SGPIO_PORT_BASE                 (0x40101000U)
 
 /* 0x4010 2000 - 0x41FF FFFF Reserved */
 

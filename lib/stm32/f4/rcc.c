@@ -1,3 +1,21 @@
+/** @defgroup rcc_file RCC
+ *
+ * @ingroup STM32F4xx
+ *
+ * @section rcc_f4_api_ex Reset and Clock Control API.
+ *
+ * @brief <b>libopencm3 STM32F4xx Reset and Clock Control</b>
+ *
+ * @author @htmlonly &copy; @endhtmlonly 2013 Frantisek Burian <BuFran at seznam.cz>
+ *
+ * @date 18 Jun 2013
+ *
+ * This library supports the Reset and Clock Control System in the STM32 series
+ * of ARM Cortex Microcontrollers by ST Microelectronics.
+ *
+ * LGPL License Terms @ref lgpl_license
+ */
+
 /*
  * This file is part of the libopencm3 project.
  *
@@ -20,9 +38,11 @@
  */
 
 #include <libopencm3/cm3/assert.h>
-#include <libopencm3/stm32/f4/rcc.h>
-#include <libopencm3/stm32/f4/pwr.h>
-#include <libopencm3/stm32/f4/flash.h>
+#include <libopencm3/stm32/rcc.h>
+#include <libopencm3/stm32/pwr.h>
+#include <libopencm3/stm32/flash.h>
+
+/**@{*/
 
 /* Set the default ppre1 and ppre2 peripheral clock frequencies after reset. */
 uint32_t rcc_ppre1_frequency = 16000000;
@@ -160,7 +180,51 @@ const clock_scale_t hse_16mhz_3v3[CLOCK_3V3_END] = {
 	},
 };
 
-void rcc_osc_ready_int_clear(osc_t osc)
+const clock_scale_t hse_25mhz_3v3[CLOCK_3V3_END] = {
+	{ /* 48MHz */
+		.pllm = 25,
+		.plln = 96,
+		.pllp = 2,
+		.pllq = 2,
+		.hpre = RCC_CFGR_HPRE_DIV_NONE,
+		.ppre1 = RCC_CFGR_PPRE_DIV_4,
+		.ppre2 = RCC_CFGR_PPRE_DIV_2,
+		.power_save = 1,
+		.flash_config = FLASH_ACR_ICE | FLASH_ACR_DCE |
+				FLASH_ACR_LATENCY_3WS,
+		.apb1_frequency = 12000000,
+		.apb2_frequency = 24000000,
+	},
+	{ /* 120MHz */
+		.pllm = 25,
+		.plln = 240,
+		.pllp = 2,
+		.pllq = 5,
+		.hpre = RCC_CFGR_HPRE_DIV_NONE,
+		.ppre1 = RCC_CFGR_PPRE_DIV_4,
+		.ppre2 = RCC_CFGR_PPRE_DIV_2,
+		.power_save = 1,
+		.flash_config = FLASH_ACR_ICE | FLASH_ACR_DCE |
+				FLASH_ACR_LATENCY_3WS,
+		.apb1_frequency = 30000000,
+		.apb2_frequency = 60000000,
+	},
+	{ /* 168MHz */
+		.pllm = 25,
+		.plln = 336,
+		.pllp = 2,
+		.pllq = 7,
+		.hpre = RCC_CFGR_HPRE_DIV_NONE,
+		.ppre1 = RCC_CFGR_PPRE_DIV_4,
+		.ppre2 = RCC_CFGR_PPRE_DIV_2,
+		.flash_config = FLASH_ACR_ICE | FLASH_ACR_DCE |
+				FLASH_ACR_LATENCY_5WS,
+		.apb1_frequency = 42000000,
+		.apb2_frequency = 84000000,
+	},
+};
+
+void rcc_osc_ready_int_clear(enum rcc_osc osc)
 {
 	switch (osc) {
 	case PLL:
@@ -181,7 +245,7 @@ void rcc_osc_ready_int_clear(osc_t osc)
 	}
 }
 
-void rcc_osc_ready_int_enable(osc_t osc)
+void rcc_osc_ready_int_enable(enum rcc_osc osc)
 {
 	switch (osc) {
 	case PLL:
@@ -202,7 +266,7 @@ void rcc_osc_ready_int_enable(osc_t osc)
 	}
 }
 
-void rcc_osc_ready_int_disable(osc_t osc)
+void rcc_osc_ready_int_disable(enum rcc_osc osc)
 {
 	switch (osc) {
 	case PLL:
@@ -223,7 +287,7 @@ void rcc_osc_ready_int_disable(osc_t osc)
 	}
 }
 
-int rcc_osc_ready_int_flag(osc_t osc)
+int rcc_osc_ready_int_flag(enum rcc_osc osc)
 {
 	switch (osc) {
 	case PLL:
@@ -256,7 +320,7 @@ int rcc_css_int_flag(void)
 	return ((RCC_CIR & RCC_CIR_CSSF) != 0);
 }
 
-void rcc_wait_for_osc_ready(osc_t osc)
+void rcc_wait_for_osc_ready(enum rcc_osc osc)
 {
 	switch (osc) {
 	case PLL:
@@ -277,7 +341,7 @@ void rcc_wait_for_osc_ready(osc_t osc)
 	}
 }
 
-void rcc_wait_for_sysclk_status(osc_t osc)
+void rcc_wait_for_sysclk_status(enum rcc_osc osc)
 {
 	switch (osc) {
 	case PLL:
@@ -295,7 +359,7 @@ void rcc_wait_for_sysclk_status(osc_t osc)
 	}
 }
 
-void rcc_osc_on(osc_t osc)
+void rcc_osc_on(enum rcc_osc osc)
 {
 	switch (osc) {
 	case PLL:
@@ -316,7 +380,7 @@ void rcc_osc_on(osc_t osc)
 	}
 }
 
-void rcc_osc_off(osc_t osc)
+void rcc_osc_off(enum rcc_osc osc)
 {
 	switch (osc) {
 	case PLL:
@@ -347,7 +411,7 @@ void rcc_css_disable(void)
 	RCC_CR &= ~RCC_CR_CSSON;
 }
 
-void rcc_osc_bypass_enable(osc_t osc)
+void rcc_osc_bypass_enable(enum rcc_osc osc)
 {
 	switch (osc) {
 	case HSE:
@@ -364,7 +428,7 @@ void rcc_osc_bypass_enable(osc_t osc)
 	}
 }
 
-void rcc_osc_bypass_disable(osc_t osc)
+void rcc_osc_bypass_disable(enum rcc_osc osc)
 {
 	switch (osc) {
 	case HSE:
@@ -381,25 +445,7 @@ void rcc_osc_bypass_disable(osc_t osc)
 	}
 }
 
-void rcc_peripheral_enable_clock(volatile uint32_t *reg, uint32_t en)
-{
-	*reg |= en;
-}
 
-void rcc_peripheral_disable_clock(volatile uint32_t *reg, uint32_t en)
-{
-	*reg &= ~en;
-}
-
-void rcc_peripheral_reset(volatile uint32_t *reg, uint32_t reset)
-{
-	*reg |= reset;
-}
-
-void rcc_peripheral_clear_reset(volatile uint32_t *reg, uint32_t clear_reset)
-{
-	*reg &= ~clear_reset;
-}
 
 void rcc_set_sysclk_source(uint32_t clk)
 {
@@ -532,11 +578,6 @@ void rcc_clock_setup_hse_3v3(const clock_scale_t *clock)
 	rcc_osc_off(HSI);
 }
 
-void rcc_backupdomain_reset(void)
-{
-	/* Set the backup domain software reset. */
-	RCC_BDCR |= RCC_BDCR_BDRST;
 
-	/* Clear the backup domain software reset. */
-	RCC_BDCR &= ~RCC_BDCR_BDRST;
-}
+
+/**@}*/

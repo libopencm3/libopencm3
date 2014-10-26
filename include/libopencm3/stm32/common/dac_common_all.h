@@ -36,9 +36,6 @@ specific memorymap.h header before including this header file.*/
 #ifndef LIBOPENCM3_DAC_COMMON_ALL_H
 #define LIBOPENCM3_DAC_COMMON_ALL_H
 
-#include <libopencm3/cm3/common.h>
-
-
 /* --- DAC registers ------------------------------------------------------- */
 
 /* DAC control register (DAC_CR) */

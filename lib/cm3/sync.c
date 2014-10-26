@@ -19,9 +19,14 @@
 
 #include <libopencm3/cm3/sync.h>
 
-#if defined(LPC43XX_M0)
-#warning "Currently sync is not supported on Cortex-M0"
-#else
+/* DMB is supported on CM0 */
+void __dmb()
+{
+	__asm__ volatile ("dmb");
+}
+
+/* Those are defined only on CM3 or CM4 */
+#if defined(__ARM_ARCH_7M__) || defined(__ARM_ARCH_7EM__)
 
 uint32_t __ldrex(volatile uint32_t *addr)
 {
@@ -36,11 +41,6 @@ uint32_t __strex(uint32_t val, volatile uint32_t *addr)
 	__asm__ volatile ("strex %0, %2, [%1]"
 			  : "=&r" (res) : "r" (addr), "r" (val));
 	return res;
-}
-
-void __dmb()
-{
-	__asm__ volatile ("dmb");
 }
 
 void mutex_lock(mutex_t *m)
@@ -63,7 +63,7 @@ void mutex_lock(mutex_t *m)
 
 void mutex_unlock(mutex_t *m)
 {
-        /* Ensure accesses to protected resource are finished */
+	/* Ensure accesses to protected resource are finished */
 	__dmb();
 
 	/* Free the lock. */

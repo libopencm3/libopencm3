@@ -1,3 +1,11 @@
+/** @addtogroup flash_defines
+ *
+ * @author @htmlonly &copy; @endhtmlonly 2010
+ * Thomas Otto <tommi@viadmin.org>
+ * @author @htmlonly &copy; @endhtmlonly 2010
+ * Mark Butler <mbutler@physics.otago.ac.nz>
+ *
+ */
 /*
  * This file is part of the libopencm3 project.
  *
@@ -30,8 +38,8 @@
 /** @endcond */
 #ifndef LIBOPENCM3_FLASH_COMMON_F24_H
 #define LIBOPENCM3_FLASH_COMMON_F24_H
+/**@{*/
 
-#include <libopencm3/cm3/common.h>
 #include <libopencm3/stm32/common/flash_common_f234.h>
 
 /* --- FLASH registers ----------------------------------------------------- */
@@ -128,6 +136,7 @@ void flash_program(uint32_t address, uint8_t *data, uint32_t len);
 void flash_program_option_bytes(uint32_t data);
 
 END_DECLS
+/**@}*/
 
 #endif
 /** @cond */

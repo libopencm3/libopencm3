@@ -100,8 +100,6 @@ specific memorymap.h header before including this header file.*/
 #ifndef LIBOPENCM3_CRYPTO_COMMON_F24_H
 #define LIBOPENCM3_CRYPTO_COMMON_F24_H
 
-#include <libopencm3/cm3/common.h>
-
 /**@{*/
 
 /* --- CRYP registers ------------------------------------------------------ */

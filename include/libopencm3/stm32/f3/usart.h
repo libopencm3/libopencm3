@@ -31,7 +31,6 @@
 #ifndef LIBOPENCM3_USART_H
 #define LIBOPENCM3_USART_H
 
-#include <libopencm3/stm32/memorymap.h>
 #include <libopencm3/stm32/common/usart_common_all.h>
 
 /* --- USART registers ----------------------------------------------------- */
@@ -437,6 +436,44 @@
 /* PE: Parity error */
 #define USART_ISR_PE		            (1 << 0)
 
+/* --- USART_SR values ----------------------------------------------------- */
+/****************************************************************************/
+/** @defgroup usart_sr_flags USART Status register Flags
+@ingroup STM32F_usart_defines
+
+@{*/
+
+/** CTS: CTS flag */
+/** @note: undefined on UART4 and UART5 */
+#define USART_SR_CTS            USART_ISR_CTS
+
+/** LBD: LIN break detection flag */
+#define USART_SR_LBD            USART_ISR_LBDF
+
+/** TXE: Transmit data buffer empty */
+#define USART_SR_TXE            USART_ISR_TXE
+
+/** TC: Transmission complete */
+#define USART_SR_TC             USART_ISR_TC
+
+/** RXNE: Read data register not empty */
+#define USART_SR_RXNE           USART_ISR_RXNE
+
+/** IDLE: Idle line detected */
+#define USART_SR_IDLE           USART_ISR_IDLE
+
+/** ORE: Overrun error */
+#define USART_SR_ORE            USART_ISR_ORE
+
+/** NE: Noise error flag */
+#define USART_SR_NE             USART_ISR_NF
+
+/** FE: Framing error */
+#define USART_SR_FE             USART_ISR_FE
+
+/** PE: Parity error */
+#define USART_SR_PE             USART_ISR_PE
+/**@}*/
 
 /* --- USART_ICR values --------------------------------------------------- */
 

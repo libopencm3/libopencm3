@@ -24,8 +24,6 @@ EXCLUDE_PATTERNS       =
 
 LAYOUT_FILE 		   = DoxygenLayout_usb.xml
 
-TAGFILES               = 
-
 GENERATE_TAGFILE       = usb.tag
 
 ENABLE_PREPROCESSING    = NO

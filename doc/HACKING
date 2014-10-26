@@ -11,18 +11,7 @@ structure is important and should be maintained.
 Each of the subdirectories has a configuration file, a layout file and
 subdirectories for the documentation. Doxygen is intended to be run inside
 these subdirectories. The Makefile will handle this in the appropriate
-order. Tag files are generated and used by other doxygen runs to resolve links.
-
-Tagfiles
---------
-
-Tagfiles contain all information about the document, and are used to resolve
-references in other documents. The groups defined in these external documents
-are not shown when EXTERNAL_GROUPS = NO. The high level tagfiles must be
-generated before any others so order is important.
-
-As well as the processor families, a "cm3" subdirectory is used to generate
-a tagfile to integrate the CM3 common core defines.
+order.
 
 Markup
 ------
@@ -49,6 +38,32 @@ group. These headings may include authors and any specific descriptions but the
 date and version number must be omitted as it will be included from the family
 files. There must not be any reference to family groupings as these common files
 will be incorporated into multiple family groups.
+
+The common files should not be included in an application explicitly. Also the
+doxygen preprocessor must be enabled to ensure that all macros and defines are
+included. This means that common header files need to have a section at the top 
+of the file of the type (eg for gpio_common_f24.h):
+
+/** @cond */
+#ifdef LIBOPENCM3_GPIO_H
+/** @endcond */
+
+and at the end of the file:
+
+/** @cond */
+#else
+#warning "gpio_common_f24.h should not be included explicitly, only via gpio.h"
+#endif
+/** @endcond */
+
+This will stop the compiler preprocessor from including the common header file
+unless the device family header file has also been included. The doxygen
+conditional clauses are needed to stop the doxygen preprocessor seeing this
+statement and so excluding processing of the common file contents.
+
+/** @cond */
+#if defined(LIBOPENCM3_GPIO_H) || defined(LIBOPENCM3_GPIO_COMMON_F24_H)
+/** @endcond */
 
 Each helper function must have a header with an @brief, and where appropriate
 additional description, @parameter and @return elements. These latter must

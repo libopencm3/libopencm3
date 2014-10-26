@@ -26,15 +26,9 @@ uint16_t desig_get_flash_size(void)
 
 void desig_get_unique_id(uint32_t result[])
 {
-	/* Could also just return a pointer to the start? read it as they wish?
-	 */
-	uint16_t bits15_0 = DESIG_UID_15_0;
-	uint32_t bits31_16 = DESIG_UID_31_16;
-	uint32_t bits63_32 = DESIG_UID_63_32;
-	uint32_t bits95_64 = DESIG_UID_95_64;
-	result[0] = bits95_64;
-	result[1] = bits63_32;
-	result[2] = bits31_16 << 16 | bits15_0;
+	result[0] = DESIG_UNIQUE_ID2;
+	result[1] = DESIG_UNIQUE_ID1;
+	result[2] = DESIG_UNIQUE_ID0;
 }
 
 void desig_get_unique_id_as_string(char *string,

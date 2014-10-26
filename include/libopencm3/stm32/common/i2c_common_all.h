@@ -1,9 +1,8 @@
 /** @addtogroup i2c_defines
-
-@author @htmlonly &copy; @endhtmlonly 2010 Thomas Otto <tommi@viadmin.org>
-
-*/
-
+ *
+ * @author @htmlonly &copy; @endhtmlonly 2010 Thomas Otto <tommi@viadmin.org>
+ *
+ */
 /*
  * This file is part of the libopencm3 project.
  *
@@ -28,12 +27,10 @@ The order of header inclusion is important. i2c.h includes the device
 specific memorymap.h header before including this header file.*/
 
 /** @cond */
-#if defined(LIBOPENCM3_I2C_H) || defined(LIBOPENCM3_I2C_COMMON_F24_H)
+#if defined(LIBOPENCM3_I2C_H)
 /** @endcond */
 #ifndef LIBOPENCM3_I2C_COMMON_ALL_H
 #define LIBOPENCM3_I2C_COMMON_ALL_H
-
-#include <libopencm3/cm3/common.h>
 
 /**@{*/
 
@@ -165,7 +162,8 @@ specific memorymap.h header before including this header file.*/
 
 /* Note: Bits [7:6] are reserved, and forced to 0 by hardware. */
 
-/* FREQ[5:0]: Peripheral clock frequency (valid values: 2-36 MHz) */
+/* FREQ[5:0]: Peripheral clock frequency (valid values: 2-36 MHz, 2-42 MHz for
+ * STM32F4 respectivly) */
 /****************************************************************************/
 /** @defgroup i2c_clock I2C clock frequency settings
 @ingroup i2c_defines
@@ -206,6 +204,12 @@ specific memorymap.h header before including this header file.*/
 #define I2C_CR2_FREQ_34MHZ		0x22
 #define I2C_CR2_FREQ_35MHZ		0x23
 #define I2C_CR2_FREQ_36MHZ		0x24
+#define I2C_CR2_FREQ_37MHZ		0x25
+#define I2C_CR2_FREQ_38MHZ		0x26
+#define I2C_CR2_FREQ_39MHZ		0x27
+#define I2C_CR2_FREQ_40MHZ		0x28
+#define I2C_CR2_FREQ_41MHZ		0x29
+#define I2C_CR2_FREQ_42MHZ		0x2a
 /**@}*/
 
 /* --- I2Cx_OAR1 values ---------------------------------------------------- */

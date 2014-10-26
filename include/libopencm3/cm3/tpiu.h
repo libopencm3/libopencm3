@@ -22,6 +22,11 @@
 
 /* Cortex-M3 Trace Port Interface Unit (TPIU) */
 
+/* Those defined only on ARMv7 and above */
+#if !defined(__ARM_ARCH_7M__) && !defined(__ARM_ARCH_7EM__)
+#error "Trace Port Interface Unit not available in CM0"
+#endif
+
 /* --- TPIU registers ------------------------------------------------------ */
 
 /* Supported Synchronous Port Size (TPIU_SSPSR) */
@@ -45,24 +50,12 @@
 /* (TPIU_DEVID) */
 #define TPIU_DEVID			MMIO32(TPIU_BASE + 0xFC8)
 
+/* CoreSight Lock Status Register for this peripheral */
+#define TPIU_LSR			MMIO32(TPIU_BASE + 0xFB4)
+/* CoreSight Lock Access Register for this peripheral */
+#define TPIU_LAR			MMIO32(TPIU_BASE + 0xFB0)
+
 /* TODO: PID, CID */
-
-/* --- TPIU_SSPSR values --------------------------------------------------- */
-
-/*
- * bit[N] == 0, trace port width of (N+1) not supported
- * bit[N] == 1, trace port width of (N+1) supported
- */
-#define TPIU_SSPSR_BYTE			(1 << 0)
-#define TPIU_SSPSR_HALFWORD		(1 << 1)
-#define TPIU_SSPSR_WORD			(1 << 3)
-
-/* --- TPIU_SSPSR values --------------------------------------------------- */
-
-/* Same format as TPIU_SSPSR, except only one is set */
-#define TPIU_CSPSR_BYTE			(1 << 0)
-#define TPIU_CSPSR_HALFWORD		(1 << 1)
-#define TPIU_CSPSR_WORD			(1 << 3)
 
 /* --- TPIU_ACPR values ---------------------------------------------------- */
 

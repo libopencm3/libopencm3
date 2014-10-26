@@ -1,3 +1,15 @@
+/** @defgroup rcc_file RCC
+ *
+ * @ingroup STM32F3xx
+ *
+ * @brief <b>libopencm3 STM32F3xx Reset and Clock Control</b>
+ *
+ * @version 1.0.0
+ *
+ * @date 11 July 2013
+ *
+ * LGPL License Terms @ref lgpl_license
+ */
 /*
  * This file is part of the libopencm3 project.
  *
@@ -20,11 +32,12 @@
  * You should have received a copy of the GNU Lesser General Public License
  * along with this library.  If not, see <http://www.gnu.org/licenses/>.
  */
+/**@{*/
 
 #include <libopencm3/cm3/assert.h>
-#include <libopencm3/stm32/f3/rcc.h>
-#include <libopencm3/stm32/f3/flash.h>
-#include <libopencm3/stm32/f3/i2c.h>
+#include <libopencm3/stm32/rcc.h>
+#include <libopencm3/stm32/flash.h>
+#include <libopencm3/stm32/i2c.h>
 
 /* Set the default ppre1 and ppre2 peripheral clock frequencies after reset. */
 uint32_t rcc_ppre1_frequency = 8000000;
@@ -309,26 +322,6 @@ void rcc_osc_bypass_disable(enum osc osc)
 	}
 }
 
-void rcc_peripheral_enable_clock(volatile uint32_t *reg, uint32_t en)
-{
-	*reg |= en;
-}
-
-void rcc_peripheral_disable_clock(volatile uint32_t *reg, uint32_t en)
-{
-	*reg &= ~en;
-}
-
-void rcc_peripheral_reset(volatile uint32_t *reg, uint32_t reset)
-{
-	*reg |= reset;
-}
-
-void rcc_peripheral_clear_reset(volatile uint32_t *reg, uint32_t clear_reset)
-{
-	*reg &= ~clear_reset;
-}
-
 void rcc_set_sysclk_source(uint32_t clk)
 {
 	uint32_t reg32;
@@ -468,3 +461,5 @@ void rcc_usb_prescale_1(void)
 {
 	RCC_CFGR |= RCC_CFGR_USBPRES;
 }
+/**@}*/
+

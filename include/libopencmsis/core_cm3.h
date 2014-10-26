@@ -11,6 +11,7 @@
 #define OPENCMSIS_CORECM3_H
 
 #include <libopencm3/cm3/common.h>
+#include <libopencm3/cm3/cortex.h>
 #include <libopencm3/cm3/memorymap.h>
 #include <libopencm3/cm3/systick.h>
 #include <libopencm3/cm3/nvic.h>
@@ -85,11 +86,16 @@ static inline void NVIC_DisableIRQ(uint8_t irqn)
 	nvic_disable_irq(irqn);
 }
 
-/* stubs for efm32_int. FIXME: how do they do that? nvic documentation in the
- * efm32 core manual doesn't tell anything of a global on/off switch */
+/* stubs for efm32_int */
 
-#define __enable_irq() 1
-#define __disable_irq() 1
+static inline void __enable_irq(void)
+{
+	cm_enable_interrupts();
+}
+static inline void __disable_irq(void)
+{
+	cm_disable_interrupts();
+}
 
 /* stubs for efm32_mpu FIXME */
 

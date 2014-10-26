@@ -1,13 +1,13 @@
 /** @addtogroup hash_file
-
-@author @htmlonly &copy; @endhtmlonly 2013
-Mikhail Avkhimenia <mikhail@avkhimenia.net>
-
-This library supports the HASH processor in the STM32F2 and STM32F4
-series of ARM Cortex Microcontrollers by ST Microelectronics.
-
-LGPL License Terms @ref lgpl_license
- */
+ *
+ * @author @htmlonly &copy; @endhtmlonly 2013
+ * Mikhail Avkhimenia <mikhail@avkhimenia.net>
+ *
+ * This library supports the HASH processor in the STM32F2 and STM32F4
+ * series of ARM Cortex Microcontrollers by ST Microelectronics.
+ *
+ * LGPL License Terms @ref lgpl_license
+ *  */
 
 /*
  * This file is part of the libopencm3 project.
@@ -99,7 +99,7 @@ Specifies the number of valid bits in the last word.
 void hash_set_last_word_valid_bits(uint8_t validbits)
 {
 	HASH_STR &= ~(HASH_STR_NBW);
-	HASH_STR |= 32 - validbits;
+	HASH_STR |= validbits;
 }
 
 /*---------------------------------------------------------------------------*/
@@ -159,3 +159,5 @@ void hash_get_result(uint32_t *data)
 		data[4] = HASH_HR[4];
 	}
 }
+/**@}*/
+

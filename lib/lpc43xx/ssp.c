@@ -128,9 +128,9 @@ uint16_t ssp_transfer(ssp_num_t ssp_num, uint16_t data)
 	 * example...
 	 */
 	ssp_wait_until_not_busy(ssp_num);
-	
+
 	/* Wait Until Data Received (Rx FIFO not Empty) */
-	while( (SSP_SR(ssp_port) & SSP_SR_RNE) == 0);
+	while ((SSP_SR(ssp_port) & SSP_SR_RNE) == 0);
 
 	return SSP_DR(ssp_port);
 }

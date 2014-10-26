@@ -1,3 +1,16 @@
+/** @defgroup flash_defines FLASH Defines
+ *
+ * @ingroup STM32F2xx_defines
+ *
+ * @brief Defined Constants and Types for the STM32F2xx FLASH Memory
+ *
+ * @version 1.0.0
+ *
+ * @date 14 January 2014
+ *
+ * LGPL License Terms @ref lgpl_license
+ */
+
 /*
  * This file is part of the libopencm3 project.
  *
@@ -18,7 +31,6 @@
 #ifndef LIBOPENCM3_FLASH_H
 #define LIBOPENCM3_FLASH_H
 
-#include <libopencm3/stm32/memorymap.h>
 #include <libopencm3/stm32/common/flash_common_f24.h>
 
 #endif

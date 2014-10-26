@@ -1,3 +1,21 @@
+/** @defgroup rcc_file RCC
+ *
+ * @ingroup STM32F2xx
+ *
+ * @section rcc_f2_api_ex Reset and Clock Control API.
+ *
+ * @brief <b>libopencm3 STM32F2xx Reset and Clock Control</b>
+ *
+ * @author @htmlonly &copy; @endhtmlonly 2013 Frantisek Burian <BuFran at seznam.cz>
+ *
+ * @date 18 Jun 2013
+ *
+ * This library supports the Reset and Clock Control System in the STM32 series
+ * of ARM Cortex Microcontrollers by ST Microelectronics.
+ *
+ * LGPL License Terms @ref lgpl_license
+ */
+
 /*
  * This file is part of the libopencm3 project.
  *
@@ -20,8 +38,10 @@
  */
 
 #include <libopencm3/cm3/assert.h>
-#include <libopencm3/stm32/f2/rcc.h>
-#include <libopencm3/stm32/f2/flash.h>
+#include <libopencm3/stm32/rcc.h>
+#include <libopencm3/stm32/flash.h>
+
+/**@{*/
 
 /* Set the default ppre1 and ppre2 peripheral clock frequencies after reset. */
 uint32_t rcc_ppre1_frequency = 16000000;
@@ -264,26 +284,6 @@ void rcc_osc_bypass_disable(osc_t osc)
 	}
 }
 
-void rcc_peripheral_enable_clock(volatile uint32_t *reg, uint32_t en)
-{
-	*reg |= en;
-}
-
-void rcc_peripheral_disable_clock(volatile uint32_t *reg, uint32_t en)
-{
-	*reg &= ~en;
-}
-
-void rcc_peripheral_reset(volatile uint32_t *reg, uint32_t reset)
-{
-	*reg |= reset;
-}
-
-void rcc_peripheral_clear_reset(volatile uint32_t *reg, uint32_t clear_reset)
-{
-	*reg &= ~clear_reset;
-}
-
 void rcc_set_sysclk_source(uint32_t clk)
 {
 	uint32_t reg32;
@@ -413,3 +413,5 @@ void rcc_backupdomain_reset(void)
 	/* Clear the backup domain software reset. */
 	RCC_BDCR &= ~RCC_BDCR_BDRST;
 }
+
+/**@}*/

@@ -1,8 +1,8 @@
-/** @defgroup STM32F4xx_adc_file ADC
+/** @defgroup adc_file ADC
  *
- * @ingroup STM32F4xx
+ * @ingroup STM32F3xx
  *
- * @brief <b>libopencm3 STM32F4xx Analog to Digital Converters</b>
+ * @brief <b>libopencm3 STM32F3xx Analog to Digital Converters</b>
  *
  * @author @htmlonly &copy; @endhtmlonly 2012
  * Ken Sarkies <ksarkies@internode.on.net>
@@ -41,7 +41,7 @@
  * separately from the regular group. An interrupt can be set to occur at the
  * end of conversion, which occurs after all channels have been scanned.
  *
- * @section adc_f4_api_ex Basic ADC Handling API.
+ * @section adc_f3_api_ex Basic ADC Handling API.
  *
  * Example 1: Simple single channel conversion polled. Enable the peripheral
  * clock and ADC, reset ADC and set the prescaler divider. Set multiple mode to
@@ -84,7 +84,7 @@
  * along with this library.  If not, see <http://www.gnu.org/licenses/>.
  */
 
-#include <libopencm3/stm32/f3/adc.h>
+#include <libopencm3/stm32/adc.h>
 
 /**@{*/
 
@@ -697,16 +697,16 @@ void adc_set_injected_sequence(uint32_t adc, uint8_t length, uint8_t channel[])
 	uint32_t reg32 = 0;
 	uint8_t i = 0;
 
-	/* Maximum sequence length is 4 channels. */
-	if ((length-1) > 3) {
+	/* Maximum sequence length is 4 channels. Minimum sequence is 1.*/
+	if ((length - 1) > 3) {
 		return;
 	}
 
-	for (i = 1; i <= length; i++) {
-		reg32 |= (channel[4 - i] << ((4 - i) * 5));
+	for (i = 0; i < length; i++) {
+		reg32 |= ADC_JSQR_JSQ_VAL(4 - i, channel[length - i - 1]);
 	}
 
-	reg32 |= ((length - 1) << ADC_JSQR_JL_LSB);
+	reg32 |= ADC_JSQR_JL_VAL(length);
 
 	ADC_JSQR(adc) = reg32;
 }

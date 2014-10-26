@@ -47,10 +47,12 @@
 /* SHP: System Handler Priority Registers */
 /* Note: 12 8bit registers */
 #define SCB_SHPR(shpr_id)			MMIO8(SCB_BASE + 0x18 + shpr_id)
-#define SCB_SHPR1				MMIO8(SCB_BASE + 0x18 + 1)
-#define SCB_SHPR2				MMIO8(SCB_BASE + 0x18 + 2)
-#define SCB_SHPR3				MMIO8(SCB_BASE + 0x18 + 3)
+#define SCB_SHPR1				MMIO32(SCB_BASE + 0x18)
+#define SCB_SHPR2				MMIO32(SCB_BASE + 0x1C)
+#define SCB_SHPR3				MMIO32(SCB_BASE + 0x20)
 
+/* Those defined only on ARMv7 and above */
+#if defined(__ARM_ARCH_7M__) || defined(__ARM_ARCH_7EM__)
 /* SHCSR: System Handler Control and State Register */
 #define SCB_SHCSR				MMIO32(SCB_BASE + 0x24)
 
@@ -128,61 +130,96 @@
 
 /* MVFR1: Media and Floating-Point Feature Register 1 */
 #define SCB_MVFR1				MMIO32(SCB_BASE + 0x244)
+#endif
 
 /* --- SCB values ---------------------------------------------------------- */
 
 /* --- SCB_CPUID values ---------------------------------------------------- */
 
 /* Implementer[31:24]: Implementer code */
-#define SCP_CPUID_IMPLEMENTER_LSB		24
+#define SCB_CPUID_IMPLEMENTER_LSB	24
+#define SCB_CPUID_IMPLEMENTER		(0xFF << SCB_CPUID_IMPLEMENTER_LSB)
 /* Variant[23:20]: Variant number */
-#define SCP_CPUID_VARIANT_LSB			20
-/* Constant[19:16]: Reads as 0xF */
-#define SCP_CPUID_CONSTANT_LSB			16
+#define SCB_CPUID_VARIANT_LSB		20
+#define SCB_CPUID_VARIANT		(0xF << SCB_CPUID_VARIANT_LSB)
+/* Constant[19:16]: Reads as 0xF (ARMv7-M) M3, M4  */
+/* Constant[19:16]: Reads as 0xC (ARMv6-M) M0, M0+ */
+#define SCB_CPUID_CONSTANT_LSB		16
+#define SCB_CPUID_CONSTANT		(0xF << SCB_CPUID_CONSTANT_LSB)
+#define SCB_CPUID_CONSTANT_ARMV6	(0xC << SCB_CPUID_CONSTANT_LSB)
+#define SCB_CPUID_CONSTANT_ARMV7	(0xF << SCB_CPUID_CONSTANT_LSB)
+
 /* PartNo[15:4]: Part number of the processor */
-#define SCP_CPUID_PARTNO_LSB			4
+#define SCB_CPUID_PARTNO_LSB		4
+#define SCB_CPUID_PARTNO		(0xFFF << SCB_CPUID_PARTNO_LSB)
 /* Revision[3:0]: Revision number */
-#define SCP_CPUID_REVISION_LSB			0
+#define SCB_CPUID_REVISION_LSB			0
+#define SCB_CPUID_REVISION		(0xF << SCB_CPUID_REVISION_LSB)
 
 /* --- SCB_ICSR values ----------------------------------------------------- */
 
 /* NMIPENDSET: NMI set-pending bit */
-#define SCB_ICSR_NMIPENDSET			(1 << 31)
+#define SCB_ICSR_NMIPENDSET		(1 << 31)
 /* Bits [30:29]: reserved - must be kept cleared */
 /* PENDSVSET: PendSV set-pending bit */
-#define SCB_ICSR_PENDSVSET			(1 << 28)
+#define SCB_ICSR_PENDSVSET		(1 << 28)
 /* PENDSVCLR: PendSV clear-pending bit */
-#define SCB_ICSR_PENDSVCLR			(1 << 27)
+#define SCB_ICSR_PENDSVCLR		(1 << 27)
 /* PENDSTSET: SysTick exception set-pending bit */
-#define SCB_ICSR_PENDSTSET			(1 << 26)
+#define SCB_ICSR_PENDSTSET		(1 << 26)
 /* PENDSTCLR: SysTick exception clear-pending bit */
-#define SCB_ICSR_PENDSTCLR			(1 << 25)
+#define SCB_ICSR_PENDSTCLR		(1 << 25)
 /* Bit 24: reserved - must be kept cleared */
 /* Bit 23: reserved for debug - reads as 0 when not in debug mode */
+#define SCB_ICSR_ISRPREEMPT		(1 << 23)
 /* ISRPENDING: Interrupt pending flag, excluding NMI and Faults */
-#define SCB_ICSR_ISRPENDING			(1 << 22)
+#define SCB_ICSR_ISRPENDING		(1 << 22)
 /* VECTPENDING[21:12] Pending vector */
-#define SCB_ICSR_VECTPENDING_LSB		12
+#define SCB_ICSR_VECTPENDING_LSB	12
+#define SCB_ICSR_VECTPENDING		(0x1FF << SCB_ICSR_VECTPENDING_LSB)
 /* RETOBASE: Return to base level */
-#define SCB_ICSR_RETOBASE			(1 << 11)
+#define SCB_ICSR_RETOBASE		(1 << 11)
 /* Bits [10:9]: reserved - must be kept cleared */
 /* VECTACTIVE[8:0] Active vector */
-#define SCB_ICSR_VECTACTIVE_LSB			0
+#define SCB_ICSR_VECTACTIVE_LSB		0
+#define SCB_ICSR_VECTACTIVE		(0x1FF << SCB_ICSR_VECTACTIVE_LSB)
+
 
 /* --- SCB_VTOR values ----------------------------------------------------- */
+
+/* IMPLEMENTATION DEFINED */
+
+#if defined(__ARM_ARCH_6M__)
+
+#define SCB_VTOR_TBLOFF_LSB		7
+#define SCB_VTOR_TBLOFF			(0x1FFFFFF << SCB_VTOR_TBLOFF_LSB)
+
+#elif defined(CM1)
+/* VTOR not defined there */
+
+#elif defined(__ARM_ARCH_7M__) || defined(__ARM_ARCH_7EM__)
 
 /* Bits [31:30]: reserved - must be kept cleared */
 /* TBLOFF[29:9]: Vector table base offset field */
 /* inconsistent datasheet - LSB could be 11 */
-#define SCB_VTOR_TBLOFF_LSB			9
+/* BUG: TBLOFF is in the ARMv6 Architecture reference manual defined from b7 */
+#define SCB_VTOR_TBLOFF_LSB		9
+#define SCB_VTOR_TBLOFF			(0x7FFFFF << SCB_VTOR_TBLOFF_LSB)
+
+#endif
 
 /* --- SCB_AIRCR values ---------------------------------------------------- */
 
 /* VECTKEYSTAT[31:16]/ VECTKEY[31:16] Register key */
-#define SCB_AIRCR_VECTKEYSTAT_LSB		16
-#define SCB_AIRCR_VECTKEY			0x05FA0000
+#define SCB_AIRCR_VECTKEYSTAT_LSB	16
+#define SCB_AIRCR_VECTKEYSTAT		(0xFFFF << SCB_AIRCR_VECTKEYSTAT_LSB)
+#define SCB_AIRCR_VECTKEY		(0x05FA << SCB_AIRCR_VECTKEYSTAT_LSB)
+
 /* ENDIANESS Data endianness bit */
 #define SCB_AIRCR_ENDIANESS			(1 << 15)
+
+/* Those defined only on ARMv7 and above */
+#if defined(__ARM_ARCH_7M__) || defined(__ARM_ARCH_7EM__)
 /* Bits [14:11]: reserved - must be kept cleared */
 /* PRIGROUP[10:8]: Interrupt priority grouping field */
 #define SCB_AIRCR_PRIGROUP_GROUP16_NOSUB	(0x3 << 8)
@@ -193,12 +230,18 @@
 #define SCB_AIRCR_PRIGROUP_MASK			(0x7 << 8)
 #define SCB_AIRCR_PRIGROUP_SHIFT		8
 /* Bits [7:3]: reserved - must be kept cleared */
+#endif
+
 /* SYSRESETREQ System reset request */
 #define SCB_AIRCR_SYSRESETREQ			(1 << 2)
 /* VECTCLRACTIVE */
 #define SCB_AIRCR_VECTCLRACTIVE			(1 << 1)
+
+/* Those defined only on ARMv7 and above */
+#if defined(__ARM_ARCH_7M__) || defined(__ARM_ARCH_7EM__)
 /* VECTRESET */
 #define SCB_AIRCR_VECTRESET			(1 << 0)
+#endif
 
 /* --- SCB_SCR values ------------------------------------------------------ */
 
@@ -217,43 +260,47 @@
 /* Bits [31:10]: reserved - must be kept cleared */
 /* STKALIGN */
 #define SCB_CCR_STKALIGN			(1 << 9)
+
+/* Those defined only on ARMv7 and above */
+#if defined(__ARM_ARCH_7M__) || defined(__ARM_ARCH_7EM__)
 /* BFHFNMIGN */
 #define SCB_CCR_BFHFNMIGN			(1 << 8)
 /* Bits [7:5]: reserved - must be kept cleared */
 /* DIV_0_TRP */
 #define SCB_CCR_DIV_0_TRP			(1 << 4)
+#endif
+
 /* UNALIGN_TRP */
 #define SCB_CCR_UNALIGN_TRP			(1 << 3)
+
+/* Those defined only on ARMv7 and above */
+#if defined(__ARM_ARCH_7M__) || defined(__ARM_ARCH_7EM__)
 /* Bit 2: reserved - must be kept cleared */
 /* USERSETMPEND */
 #define SCB_CCR_USERSETMPEND			(1 << 1)
 /* NONBASETHRDENA */
 #define SCB_CCR_NONBASETHRDENA			(1 << 0)
+#endif
 
-/* --- SCB_SHPR1 values ---------------------------------------------------- */
+/* These numbers are designed to be used with the SCB_SHPR() macro */
+/* SCB_SHPR1 */
+#define SCB_SHPR_PRI_4_MEMMANAGE	0
+#define SCB_SHPR_PRI_5_BUSFAULT		1
+#define SCB_SHPR_PRI_6_USAGEFAULT	2
+#define SCB_SHPR_PRI_7_RESERVED		3
+/* SCB_SHPR2  */
+#define SCB_SHPR_PRI_8_RESERVED		4
+#define SCB_SHPR_PRI_9_RESERVED		5
+#define SCB_SHPR_PRI_10_RESERVED	6
+#define SCB_SHPR_PRI_11_SVCALL		7
+/* SCB_SHPR3 */
+#define SCB_SHPR_PRI_12_RESERVED	8
+#define SCB_SHPR_PRI_13_RESERVED	9
+#define SCB_SHPR_PRI_14_PENDSV		10
+#define SCB_SHPR_PRI_15_SYSTICK		11
 
-/* Bits [31:24]: reserved - must be kept cleared */
-/* PRI_6[23:16]: Priority of system handler 6, usage fault */
-#define SCB_SHPR1_PRI_6_LSB			16
-/* PRI_5[15:8]: Priority of system handler 5, bus fault */
-#define SCB_SHPR1_PRI_5_LSB			8
-/* PRI_4[7:0]: Priority of system handler 4, memory management fault */
-#define SCB_SHPR1_PRI_4_LSB			0
-
-/* --- SCB_SHPR2 values ---------------------------------------------------- */
-
-/* PRI_11[31:24]: Priority of system handler 11, SVCall */
-#define SCB_SHPR2_PRI_11_LSB			24
-/* Bits [23:0]: reserved - must be kept cleared */
-
-/* --- SCB_SHPR3 values ---------------------------------------------------- */
-
-/* PRI_15[31:24]: Priority of system handler 15, SysTick exception */
-#define SCB_SHPR3_PRI_15_LSB			24
-/* PRI_14[23:16]: Priority of system handler 14, PendSV */
-#define SCB_SHPR3_PRI_14_LSB			16
-/* Bits [15:0]: reserved - must be kept cleared */
-
+/* Those defined only on ARMv7 and above */
+#if defined(__ARM_ARCH_7M__) || defined(__ARM_ARCH_7EM__)
 /* --- SCB_SHCSR values ---------------------------------------------------- */
 
 /* Bits [31:19]: reserved - must be kept cleared */
@@ -361,6 +408,7 @@
 #define SCB_CPACR_CP10			(1 << 20)
 /* CPACR [22:23]: Access privileges for coprocessor 11 */
 #define SCB_CPACR_CP11			(1 << 22)
+#endif
 
 /* --- SCB functions ------------------------------------------------------- */
 
@@ -383,11 +431,13 @@ struct scb_exception_stack_frame {
 			      : [frameptr]"=r" (f));			\
 	} while (0)
 
-void scb_reset_core(void) __attribute__((noreturn, naked));
 void scb_reset_system(void) __attribute__((noreturn, naked));
-void scb_set_priority_grouping(uint32_t prigroup);
 
-/* TODO: */
+/* Those defined only on ARMv7 and above */
+#if defined(__ARM_ARCH_7M__) || defined(__ARM_ARCH_7EM__)
+void scb_reset_core(void) __attribute__((noreturn, naked));
+void scb_set_priority_grouping(uint32_t prigroup);
+#endif
 
 END_DECLS
 

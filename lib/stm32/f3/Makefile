@@ -18,6 +18,7 @@
 ##
 
 LIBNAME		= libopencm3_stm32f3
+SRCLIBDIR	?= ../..
 
 FP_FLAGS	?= -mfloat-abi=hard -mfpu=fpv4-sp-d16
 PREFIX	        ?= arm-none-eabi
@@ -34,13 +35,13 @@ CFLAGS		= -Os -g \
 
 ARFLAGS		= rcs
 
-OBJS		= rcc.o gpio.o adc.o exti.o i2c.o spi.o usart.o
+OBJS		= rcc.o adc.o i2c.o usart.o dma.o flash.o
 
-OBJS            += gpio_common_all.o gpio_common_f234.o \
+OBJS            += gpio_common_all.o gpio_common_f0234.o \
 		   dac_common_all.o usart_common_all.o crc_common_all.o\
-		   iwdg_common_all.o spi_common_all.o dma_common_f13.o\
+		   iwdg_common_all.o spi_common_all.o dma_common_l1f013.o\
 		   timer_common_all.o timer_common_f234.o flash_common_f234.o \
-		   flash.o
+		   flash.o exti_common_all.o rcc_common_all.o spi_common_f03.o
 
 OBJS		+= usb.o usb_control.o usb_standard.o usb_f103.o
 

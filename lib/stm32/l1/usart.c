@@ -29,5 +29,3 @@ LGPL License Terms @ref lgpl_license
  */
 
 #include <libopencm3/stm32/usart.h>
-#include <libopencm3/stm32/common/usart_common_all.h>
-

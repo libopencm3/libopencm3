@@ -20,8 +20,8 @@
 #ifndef LIBOPENCM3_OTG_HS_H
 #define LIBOPENCM3_OTG_HS_H
 
-#include <libopencm3/stm32/memorymap.h>
 #include <libopencm3/cm3/common.h>
+#include <libopencm3/stm32/memorymap.h>
 
 /* Core Global Control and Status Registers */
 #define OTG_GOTGCTL			0x000

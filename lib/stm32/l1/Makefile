@@ -18,6 +18,7 @@
 ##
 
 LIBNAME		= libopencm3_stm32l1
+SRCLIBDIR	?= ../..
 
 PREFIX		?= arm-none-eabi
 
@@ -32,14 +33,18 @@ CFLAGS		= -Os -g \
 		  -ffunction-sections -fdata-sections -MD -DSTM32L1
 # ARFLAGS	= rcsv
 ARFLAGS		= rcs
-OBJS		= crc.o desig.o exti.o flash.o rcc.o usart.o
+OBJS		= crc.o desig.o flash.o rcc.o usart.o dma.o lcd.o
 OBJS		+= crc_common_all.o dac_common_all.o
-OBJS		+= dma_common_f13.o
-OBJS		+= gpio_common_all.o gpio_common_f234.o
+OBJS		+= dma_common_l1f013.o
+OBJS		+= gpio_common_all.o gpio_common_f0234.o
 OBJS		+= i2c_common_all.o iwdg_common_all.o
-OBJS		+= pwr_common_all.o pwr.o rtc_common_bcd.o
-OBJS		+= spi_common_all.o timer_common_all.o
+OBJS		+= pwr_common_all.o pwr.o rtc_common_l1f024.o
+OBJS		+= spi_common_all.o spi_common_l1f124.o timer_common_all.o
 OBJS		+= usart_common_all.o usart_common_f124.o
+OBJS		+= exti_common_all.o
+OBJS		+= rcc_common_all.o
+OBJS		+= usb.o usb_control.o usb_standard.o usb_f103.o
+OBJS		+= adc.o adc_common_v1.o
 
 VPATH += ../../usb:../:../../cm3:../common
 

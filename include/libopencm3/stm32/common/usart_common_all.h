@@ -1,9 +1,8 @@
 /** @addtogroup usart_defines
-
-@author @htmlonly &copy; @endhtmlonly 2009 Uwe Hermann <uwe@hermann-uwe.de>
-
-*/
-
+ *
+ * @author @htmlonly &copy; @endhtmlonly 2009 Uwe Hermann <uwe@hermann-uwe.de>
+ *
+ */
 /*
  * This file is part of the libopencm3 project.
  *
@@ -34,8 +33,6 @@ specific memorymap.h header before including this header file.*/
 /** @endcond */
 #ifndef LIBOPENCM3_USART_COMMON_ALL_H
 #define LIBOPENCM3_USART_COMMON_ALL_H
-
-#include <libopencm3/cm3/common.h>
 
 /* --- Convenience macros -------------------------------------------------- */
 

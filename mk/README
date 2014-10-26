@@ -1,0 +1,119 @@
+-------------------------------------------------------------------------------
+README
+-------------------------------------------------------------------------------
+
+  This directory contains makefile modular support files, that can be used in
+your project.
+
+  Each module is packaged with two inclusion makefiles, <module>-config.mk and
+<module>-rules.mk. The first one defines some new variables for the make, or
+appends values to the existing variables for the make. The second defines rules
+for support building.
+
+  So in your project, the <module>-config.mk should be included at some place,
+where you are defining variables (near the beginning of the file), and file
+<module>-rules.mk should be included in the rules part of makefile (somewhere
+near to the end of file).
+
+Example makefile using gcc compiler module:
+
+>>>>>>
+OBJS		+= foo.o bar.o
+
+CFLAGS		+= -O0 -g
+CPPFLAGS	+= -MD -MP $(@F).d
+CPPFLAGS	+= $(DEFS)
+CPPFLAGS	+= $(INCS)
+LDFLAGS		+= --static --nostartfiles
+LDLIBS		+= -Wl,--start-group -lc -lgcc -lnosys -Wl,--end-group
+# parameters for gcc module
+PREFIX		= arm-elf
+
+include $(OPENCM3_DIR)/mk/gcc-config.mk
+
+.PHONY: clean all
+
+all: binary.images
+
+%.images: %.elf %.hex
+
+include $(OPENCM3_DIR)/mk/gcc-rules.mk
+
+clean:
+	$(Q)$(RM) -rf binary.* *.o *.d
+
+-include $(OBJS:.o=.d)
+<<<<<<
+
+
+MODULES
+=======
+
+-------------------------------------------------------------------------------
+gcc
+-------------------------------------------------------------------------------
+
+  This module adds an extended support for GCC toolchain. This adds rules,
+neccessary for compiling C and C++ files into elf binary, and rules for
+generation of bin, hex, or srec output files for flashing.
+
+Variables to control the build process (should be set in your makefile):
+------------------------------------------------------------------------
+
+CFLAGS		C compiler flags
+CXXFLAGS	C++ compiler flags
+CPPFLAGS	C preprocessor flags (used for C and for C++ compiler)
+LDFLAGS		Linker flags
+ARCH_FLAGS	Architecture specification flags (-mcpu, -march etc )
+
+Variables to tell gcc about project dependencies and input files
+----------------------------------------------------------------
+
+LDSCRIPT	Linker script file name (can be generated or fixed)
+LIBDEPS		Array of library filenames that shoud be rebuilt if needed
+LDLIBS		Array of libraries to be linked with (array of -l<libname>)
+OBJS		Array of object files to be built
+
+
+-------------------------------------------------------------------------------
+genlink
+-------------------------------------------------------------------------------
+
+  This module adds an support for the user to the linker script generator. The
+linker script will be generated as the file $(DEVICE).ld in the project folder,
+and automatically used for the linking process.
+
+Variables to control the build process (should be set in your makefile):
+------------------------------------------------------------------------
+
+DEVICE		The full device part name used for the compilation process.
+OPENCM3_DIR	The root path of libopencm3 library.
+
+Output variables from this module:
+----------------------------------
+
+DEFS		(appended)
+ - Appended definitions specified in chip database file.
+ ! Ensure that you have line 'CPPFLAGS += $(DEFS)' in your makefile.
+
+ARCH_FLAGS	(replaced)
+ - Architecture build flags for specified chip.
+ * No needed to handle this variable if you use module <gcc> too.
+
+LDSCRIPT	(replaced)
+ - Linker script generated file.
+ * No needed to handle this variable if you use module <gcc> too.
+
+OPENCM3_LIBNAME	(replaced)
+ - The right libopencm3 library base name to be linked with.
+ ! Ensure that you have line 'LDLIBS += -l$(OPENCM3_LIBNAME)' in your makefile.
+ ! Ensure that you have line 'LDFLAGS += -L$(OPENCM3_DIR)/lib' in your makefile.
+ ! Ensure that you have rule '$(OPENCM3_DIR)/lib/lib$(OPENCM3_LIBNAME).a:'
+   to be the library archive succesfully built when needed.
+
+Temporary variables that you should not use in your makefile:
+-------------------------------------------------------------
+
+GENLINK_DEFS
+GENLINK_ARCH
+GENLINK_LIB

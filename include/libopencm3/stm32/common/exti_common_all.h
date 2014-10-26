@@ -1,3 +1,8 @@
+/** @addtogroup exti_defines
+ *
+ * @author @htmlonly &copy; @endhtmlonly 2010
+ * Mark Butler <mbutler@physics.otago.ac.nz>
+ */
 /*
  * This file is part of the libopencm3 project.
  *
@@ -22,9 +27,7 @@
 /** @endcond */
 #ifndef LIBOPENCM3_EXTI_COMMON_ALL_H
 #define LIBOPENCM3_EXTI_COMMON_ALL_H
-
-#include <libopencm3/stm32/memorymap.h>
-#include <libopencm3/cm3/common.h>
+/**@{*/
 
 /* --- EXTI registers ------------------------------------------------------ */
 
@@ -56,6 +59,25 @@
 #define EXTI17				(1 << 17)
 #define EXTI18				(1 << 18)
 #define EXTI19				(1 << 19)
+#define EXTI20				(1 << 20)
+#define EXTI21				(1 << 21)
+#define EXTI22				(1 << 22)
+#define EXTI23				(1 << 23)
+#define EXTI24				(1 << 24)
+#define EXTI25				(1 << 25)
+#define EXTI26				(1 << 26)
+#define EXTI27				(1 << 27)
+#define EXTI28				(1 << 28)
+#define EXTI29				(1 << 29)
+#define EXTI30				(1 << 30)
+#define EXTI31				(1 << 31)
+
+#define EXTI32				(1 << 0)
+#define EXTI33				(1 << 1)
+#define EXTI34				(1 << 2)
+#define EXTI35				(1 << 3)
+#define EXTI36				(1 << 4)
+#define EXTI37				(1 << 5)
 
 /* Trigger types */
 enum exti_trigger_type {
@@ -74,6 +96,7 @@ void exti_select_source(uint32_t exti, uint32_t gpioport);
 uint32_t exti_get_flag_status(uint32_t exti);
 
 END_DECLS
+/**@}*/
 
 #endif
 /** @cond */

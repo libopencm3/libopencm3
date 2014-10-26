@@ -1,15 +1,15 @@
 /** @defgroup rtc_file RTC
-
-@ingroup STM32F2xx
-
-@brief <b>libopencm3 STM32F2xx RTC</b>
-
-@version 1.0.0
-
-@date 4 March 2013
-
-LGPL License Terms @ref lgpl_license
-*/
+ *
+ * @ingroup STM32F2xx
+ *
+ * @brief <b>libopencm3 STM32F2xx RTC</b>
+ *
+ * @version 1.0.0
+ *
+ * @date 4 March 2013
+ *
+ * LGPL License Terms @ref lgpl_license
+ */
 
 /*
  * This file is part of the libopencm3 project.
@@ -29,4 +29,3 @@ LGPL License Terms @ref lgpl_license
  */
 
 #include <libopencm3/stm32/rtc.h>
-#include <libopencm3/stm32/common/rtc_common_bcd.h>

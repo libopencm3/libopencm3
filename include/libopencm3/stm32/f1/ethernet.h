@@ -17,11 +17,11 @@
  * along with this library.  If not, see <http://www.gnu.org/licenses/>.
  */
 
+#include <libopencm3/cm3/common.h>
+#include <libopencm3/stm32/memorymap.h>
+
 #ifndef LIBOPENCM3_ETHERNET_H
 #define LIBOPENCM3_ETHERNET_H
-
-#include <libopencm3/stm32/memorymap.h>
-#include <libopencm3/cm3/common.h>
 
 /* Ethernet MAC registers */
 #define ETH_MACCR			MMIO32(ETHERNET_BASE + 0x00)

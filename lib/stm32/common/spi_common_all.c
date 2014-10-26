@@ -80,22 +80,39 @@ spi_reg_base.
 */
 
 void spi_reset(uint32_t spi_peripheral)
-{
-	switch (spi_peripheral) {
-	case SPI1:
-		rcc_peripheral_reset(&RCC_APB2RSTR, RCC_APB2RSTR_SPI1RST);
-		rcc_peripheral_clear_reset(&RCC_APB2RSTR, RCC_APB2RSTR_SPI1RST);
-		break;
-	case SPI2:
-		rcc_peripheral_reset(&RCC_APB1RSTR, RCC_APB1RSTR_SPI2RST);
-		rcc_peripheral_clear_reset(&RCC_APB1RSTR, RCC_APB1RSTR_SPI2RST);
-		break;
-#if defined(STM32F1) || defined(STM32F2) || defined(STM32F3) || defined(STM32F4)
-	case SPI3:
-		rcc_peripheral_reset(&RCC_APB1RSTR, RCC_APB1RSTR_SPI3RST);
-		rcc_peripheral_clear_reset(&RCC_APB1RSTR, RCC_APB1RSTR_SPI3RST);
+{	switch (spi_peripheral) {
+#if defined(SPI1_BASE)
+	case SPI1_BASE:
+		rcc_periph_reset_pulse(RST_SPI1);
 		break;
 #endif
+#if defined(SPI2_BASE)
+	case SPI2_BASE:
+		rcc_periph_reset_pulse(RST_SPI2);
+		break;
+#endif
+#if defined(SPI3_BASE)
+	case SPI3_BASE:
+		rcc_periph_reset_pulse(RST_SPI3);
+		break;
+#endif
+#if defined(SPI4_BASE)
+	case SPI4_BASE:
+		rcc_periph_reset_pulse(RST_SPI4);
+		break;
+#endif
+#if defined(SPI5_BASE)
+	case SPI5_BASE:
+		rcc_periph_reset_pulse(RST_SPI5);
+		break;
+#endif
+#if defined(SPI6_BASE)
+	case SPI6_BASE:
+		rcc_periph_reset_pulse(RST_SPI6);
+		break;
+#endif
+	default:
+		break;
 	}
 }
 

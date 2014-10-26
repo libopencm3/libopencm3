@@ -29,5 +29,3 @@ LGPL License Terms @ref lgpl_license
  */
 
 #include <libopencm3/stm32/dma.h>
-#include <libopencm3/stm32/common/dma_common_f24.h>
-

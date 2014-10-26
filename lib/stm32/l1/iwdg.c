@@ -29,5 +29,3 @@ LGPL License Terms @ref lgpl_license
  */
 
 #include <libopencm3/stm32/iwdg.h>
-#include <libopencm3/stm32/common/iwdg_common_all.h>
-

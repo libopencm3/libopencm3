@@ -39,29 +39,45 @@ specific memorymap.h header before including this header file.*/
 /* --- Convenience macros -------------------------------------------------- */
 
 #define USART6				USART6_BASE
+#define UART7				UART7_BASE
+#define UART8				UART8_BASE
 
 /* --- USART registers ----------------------------------------------------- */
 
 /* Status register (USARTx_SR) */
 #define USART6_SR			USART_SR(USART6_BASE)
+#define UART7_SR			USART_SR(UART7)
+#define UART8_SR			USART_SR(UART8)
 
 /* Data register (USARTx_DR) */
 #define USART6_DR			USART_DR(USART6_BASE)
+#define UART7_DR			USART_DR(UART7)
+#define UART8_DR			USART_DR(UART8)
 
 /* Baud rate register (USARTx_BRR) */
 #define USART6_BRR			USART_BRR(USART6_BASE)
+#define UART7_BRR			USART_BRR(UART7)
+#define UART8_BRR			USART_BRR(UART8)
 
 /* Control register 1 (USARTx_CR1) */
 #define USART6_CR1			USART_CR1(USART6_BASE)
+#define UART7_CR1			USART_CR1(UART7)
+#define UART8_CR1			USART_CR1(UART8)
 
 /* Control register 2 (USARTx_CR2) */
 #define USART6_CR2			USART_CR2(USART6_BASE)
+#define UART7_CR2			USART_CR2(UART7)
+#define UART8_CR2			USART_CR2(UART8)
 
 /* Control register 3 (USARTx_CR3) */
 #define USART6_CR3			USART_CR3(USART6_BASE)
+#define UART7_CR3			USART_CR3(UART7)
+#define UART8_CR3			USART_CR3(UART8)
 
 /* Guard time and prescaler register (USARTx_GTPR) */
 #define USART6_GTPR			USART_GTPR(USART6_BASE)
+#define UART7_GTPR			USART_GTPR(UART7)
+#define UART8_GTPR			USART_GTPR(UART8)
 
 /* --- USART_CR1 values ---------------------------------------------------- */
 

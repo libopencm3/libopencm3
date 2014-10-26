@@ -58,10 +58,12 @@ void usart_set_flow_control(uint32_t usart, enum usart_flowcontrol fc)
 
 void usart_enable(uint32_t usart)
 {
+	(void)usart;
 }
 
 void usart_disable(uint32_t usart)
 {
+	(void)usart;
 }
 
 void usart_send(uint32_t usart, uint16_t data)

@@ -42,10 +42,15 @@ vector_table_t vector_table = {
 	.reset = reset_handler,
 	.nmi = nmi_handler,
 	.hard_fault = hard_fault_handler,
+
+/* Those are defined only on CM3 or CM4 */
+#if defined(__ARM_ARCH_7M__) || defined(__ARM_ARCH_7EM__)
 	.memory_manage_fault = mem_manage_handler,
 	.bus_fault = bus_fault_handler,
 	.usage_fault = usage_fault_handler,
 	.debug_monitor = debug_monitor_handler,
+#endif
+
 	.sv_call = sv_call_handler,
 	.pend_sv = pend_sv_handler,
 	.systick = sys_tick_handler,
@@ -69,6 +74,9 @@ void WEAK __attribute__ ((naked)) reset_handler(void)
 		*dest++ = 0;
 	}
 
+	/* might be provided by platform specific vector.c */
+	pre_main();
+
 	/* Constructors. */
 	for (fp = &__preinit_array_start; fp < &__preinit_array_end; fp++) {
 		(*fp)();
@@ -76,9 +84,6 @@ void WEAK __attribute__ ((naked)) reset_handler(void)
 	for (fp = &__init_array_start; fp < &__init_array_end; fp++) {
 		(*fp)();
 	}
-
-	/* might be provided by platform specific vector.c */
-	pre_main();
 
 	/* Call the application's entry point. */
 	main();
@@ -102,10 +107,15 @@ void null_handler(void)
 
 #pragma weak nmi_handler = null_handler
 #pragma weak hard_fault_handler = blocking_handler
+#pragma weak sv_call_handler = null_handler
+#pragma weak pend_sv_handler = null_handler
+#pragma weak sys_tick_handler = null_handler
+
+/* Those are defined only on CM3 or CM4 */
+#if defined(__ARM_ARCH_7M__) || defined(__ARM_ARCH_7EM__)
 #pragma weak mem_manage_handler = blocking_handler
 #pragma weak bus_fault_handler = blocking_handler
 #pragma weak usage_fault_handler = blocking_handler
-#pragma weak sv_call_handler = null_handler
 #pragma weak debug_monitor_handler = null_handler
-#pragma weak pend_sv_handler = null_handler
-#pragma weak sys_tick_handler = null_handler
+#endif
+

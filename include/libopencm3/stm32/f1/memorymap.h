@@ -25,9 +25,9 @@
 /* --- STM32 specific peripheral definitions ------------------------------- */
 
 /* Memory map for all buses */
-#define FLASH_BASE			((uint32_t)0x08000000)
-#define PERIPH_BASE			((uint32_t)0x40000000)
-#define INFO_BASE			((uint32_t)0x1ffff000)
+#define FLASH_BASE			(0x08000000U)
+#define PERIPH_BASE			(0x40000000U)
+#define INFO_BASE			(0x1ffff000U)
 #define PERIPH_BASE_APB1		(PERIPH_BASE + 0x00000)
 #define PERIPH_BASE_APB2		(PERIPH_BASE + 0x10000)
 #define PERIPH_BASE_AHB			(PERIPH_BASE + 0x18000)
@@ -49,8 +49,8 @@
 #define WWDG_BASE			(PERIPH_BASE_APB1 + 0x2c00)
 #define IWDG_BASE			(PERIPH_BASE_APB1 + 0x3000)
 /* PERIPH_BASE_APB1 + 0x3400 (0x4000 3400 - 0x4000 37FF): Reserved */
-#define SPI2_I2S_BASE			(PERIPH_BASE_APB1 + 0x3800)
-#define SPI3_I2S_BASE			(PERIPH_BASE_APB1 + 0x3c00)
+#define SPI2_BASE			(PERIPH_BASE_APB1 + 0x3800)
+#define SPI3_BASE			(PERIPH_BASE_APB1 + 0x3c00)
 /* PERIPH_BASE_APB1 + 0x4000 (0x4000 4000 - 0x4000 3FFF): Reserved */
 #define USART2_BASE			(PERIPH_BASE_APB1 + 0x4400)
 #define USART3_BASE			(PERIPH_BASE_APB1 + 0x4800)
@@ -66,7 +66,8 @@
 #define BACKUP_REGS_BASE		(PERIPH_BASE_APB1 + 0x6c00)
 #define POWER_CONTROL_BASE		(PERIPH_BASE_APB1 + 0x7000)
 #define DAC_BASE			(PERIPH_BASE_APB1 + 0x7400)
-/* PERIPH_BASE_APB1 + 0x7800 (0x4000 7800 - 0x4000 FFFF): Reserved */
+#define CEC_BASE			(PERIPH_BASE_APB1 + 0x7800)
+/* PERIPH_BASE_APB1 + 0x7c00 (0x4000 7c00 - 0x4000 FFFF): Reserved */
 
 /* APB2 */
 #define AFIO_BASE			(PERIPH_BASE_APB2 + 0x0000)
@@ -85,7 +86,9 @@
 #define TIM8_BASE			(PERIPH_BASE_APB2 + 0x3400)
 #define USART1_BASE			(PERIPH_BASE_APB2 + 0x3800)
 #define ADC3_BASE			(PERIPH_BASE_APB2 + 0x3c00)
-/* PERIPH_BASE_APB2 + 0x4000 (0x4001 4000 - 0x4001 4FFF): Reserved */
+#define TIM15_BASE			(PERIPH_BASE_APB2 + 0x4000)
+#define TIM16_BASE			(PERIPH_BASE_APB2 + 0x4400)
+#define TIM17_BASE			(PERIPH_BASE_APB2 + 0x4800)
 #define TIM9_BASE			(PERIPH_BASE_APB2 + 0x4c00)
 #define TIM10_BASE			(PERIPH_BASE_APB2 + 0x5000)
 #define TIM11_BASE			(PERIPH_BASE_APB2 + 0x5400)
@@ -113,7 +116,12 @@
 #define FSMC_BASE			(PERIPH_BASE +  0x60000000)
 
 /* Device Electronic Signature */
-#define DESIG_FLASH_SIZE_BASE           (INFO_BASE + 0x7e0)
-#define DESIG_UNIQUE_ID_BASE            (INFO_BASE + 0x7e8)
+#define DESIG_FLASH_SIZE_BASE		(INFO_BASE + 0x7e0)
+#define DESIG_UNIQUE_ID_BASE		(INFO_BASE + 0x7e8)
+/* Ignore the "reserved for future use" half of the first word */
+#define DESIG_UNIQUE_ID0		MMIO32(DESIG_UNIQUE_ID_BASE)
+#define DESIG_UNIQUE_ID1		MMIO32(DESIG_UNIQUE_ID_BASE + 4)
+#define DESIG_UNIQUE_ID2		MMIO32(DESIG_UNIQUE_ID_BASE + 8)
+
 
 #endif

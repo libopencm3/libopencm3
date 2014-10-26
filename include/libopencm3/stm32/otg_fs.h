@@ -17,11 +17,16 @@
  * along with this library.  If not, see <http://www.gnu.org/licenses/>.
  */
 
+/*
+ * This file covers definitions for the USB OTG FS peripheral.
+ * This is the USB core included in the F105, F107, F2, F4 devices
+ */
+
 #ifndef LIBOPENCM3_OTG_FS_H
 #define LIBOPENCM3_OTG_FS_H
 
-#include <libopencm3/stm32/memorymap.h>
 #include <libopencm3/cm3/common.h>
+#include <libopencm3/stm32/memorymap.h>
 
 /* Core Global Control and Status Registers */
 #define OTG_FS_GOTGCTL			MMIO32(USB_OTG_FS_BASE + 0x000)
@@ -89,7 +94,7 @@
 #define OTG_FS_PCGCCTL			MMIO32(USB_OTG_FS_BASE + 0xE00)
 
 /* Data FIFO */
-#define OTG_FS_FIFO(x) 			(&MMIO32(USB_OTG_FS_BASE \
+#define OTG_FS_FIFO(x)			(&MMIO32(USB_OTG_FS_BASE \
 							      + (((x) + 1) \
 								 << 12)))
 
@@ -213,7 +218,8 @@
 #define OTG_FS_GRXSTSP_EPNUM_MASK		(0xf << 0)
 
 /* OTG_FS general core configuration register (OTG_FS_GCCFG) */
-/* Bits 31:21 - Reserved */
+/* Bits 31:22 - Reserved */
+#define OTG_FS_GCCFG_NOVBUSSENS		(1 << 21)
 #define OTG_FS_GCCFG_SOFOUTEN		(1 << 20)
 #define OTG_FS_GCCFG_VBUSBSEN		(1 << 19)
 #define OTG_FS_GCCFG_VBUSASEN		(1 << 18)

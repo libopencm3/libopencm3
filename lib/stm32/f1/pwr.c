@@ -1,21 +1,21 @@
-/** @defgroup pwr-file PWR
-
-@ingroup STM32F1xx
-
-@brief <b>libopencm3 STM32F1xx Power Control</b>
-
-@version 1.0.0
-
-@author @htmlonly &copy; @endhtmlonly 2012
-Ken Sarkies <ksarkies@internode.on.net>
-
-@date 18 August 2012
-
-This library supports the power control system for the
-STM32F1 series of ARM Cortex Microcontrollers by ST Microelectronics.
-
-LGPL License Terms @ref lgpl_license
-*/
+/** @defgroup pwr_file PWR
+ *
+ * @ingroup STM32F1xx
+ *
+ * @brief <b>libopencm3 STM32F1xx Power Control</b>
+ *
+ * @version 1.0.0
+ *
+ * @author @htmlonly &copy; @endhtmlonly 2012
+ * Ken Sarkies <ksarkies@internode.on.net>
+ *
+ * @date 18 August 2012
+ *
+ * This library supports the power control system for the
+ * STM32F1 series of ARM Cortex Microcontrollers by ST Microelectronics.
+ *
+ * LGPL License Terms @ref lgpl_license
+ */
 /*
  * This file is part of the libopencm3 project.
  *

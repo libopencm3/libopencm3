@@ -1,3 +1,16 @@
+/** @defgroup flash_defines FLASH Defines
+ *
+ * @brief <b>Defined Constants and Types for the STM32F3xx Flash
+ * controller </b>
+ *
+ * @ingroup STM32F3xx_defines
+ *
+ * @version 1.0.0
+ *
+ * @date 11 July 2013
+ *
+ * LGPL License Terms @ref lgpl_license
+ */
 /*
  * This file is part of the libopencm3 project.
  *
@@ -17,8 +30,8 @@
 
 #ifndef LIBOPENCM3_FLASH_H
 #define LIBOPENCM3_FLASH_H
+/**@{*/
 
-#include <libopencm3/stm32/memorymap.h>
 #include <libopencm3/stm32/common/flash_common_f234.h>
 
 /* --- FLASH registers ----------------------------------------------------- */
@@ -54,6 +67,7 @@
 #define FLASH_CR_MER			(1 << 2)
 #define FLASH_CR_PER			(1 << 1)
 #define FLASH_CR_PG			(1 << 0)
+/**@}*/
 
 #endif
 

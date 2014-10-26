@@ -26,8 +26,8 @@
 /* --- STM32 specific peripheral definitions ------------------------------- */
 
 /* Memory map for all busses */
-#define PERIPH_BASE			((uint32_t)0x40000000)
-#define INFO_BASE			((uint32_t)0x1ff00000)
+#define PERIPH_BASE			(0x40000000U)
+#define INFO_BASE			(0x1ff00000U)
 #define PERIPH_BASE_APB1		(PERIPH_BASE + 0x00000)
 #define PERIPH_BASE_APB2		(PERIPH_BASE + 0x10000)
 #define PERIPH_BASE_AHB			(PERIPH_BASE + 0x20000)
@@ -72,6 +72,8 @@
 #define TIM11_BASE			(PERIPH_BASE_APB2 + 0x1000)
 /* gap */
 #define ADC_BASE			(PERIPH_BASE_APB2 + 0x2400)
+/* ADC is the name in the L1 refman, but all other stm32's use ADC1 */
+#define ADC1_BASE			ADC_BASE
 /* gap */
 #define SDIO_BASE			(PERIPH_BASE_APB2 + 0x2c00)
 #define SPI1_BASE			(PERIPH_BASE_APB2 + 0x3000)
@@ -105,12 +107,15 @@
 #define AES_BASE			(PERIPH_BASE +  0x10000000)
 
 /* Device Electronic Signature */
-#define DESIG_FLASH_SIZE_BASE           (INFO_BASE + 0x8004C)
-#define DESIG_UNIQUE_ID_BASE            (INFO_BASE + 0x80050)
+#define DESIG_FLASH_SIZE_BASE		(INFO_BASE + 0x8004C)
+#define DESIG_UNIQUE_ID_BASE		(INFO_BASE + 0x80050)
+#define DESIG_UNIQUE_ID0		MMIO32(DESIG_UNIQUE_ID_BASE)
+#define DESIG_UNIQUE_ID1		MMIO32(DESIG_UNIQUE_ID_BASE + 4)
+#define DESIG_UNIQUE_ID2		MMIO32(DESIG_UNIQUE_ID_BASE + 0x14)
 
-/* Make the map names match those for other families to allow commonality */
-#define SPI1_I2S_BASE       SPI1_BASE
-#define SPI2_I2S_BASE       SPI2_BASE
-#define SPI3_I2S_BASE       SPI3_BASE
+/* ST provided factory calibration values @ 3.0V */
+#define ST_VREFINT_CAL			MMIO16(0x1FF80078)
+#define ST_TSENSE_CAL1_30C		MMIO16(0x1FF8007A)
+#define ST_TSENSE_CAL2_110C		MMIO16(0x1FF8007E)
 
 #endif

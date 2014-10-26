@@ -1,8 +1,8 @@
 /** @defgroup i2c_defines I2C Defines
  *
- * @brief <b>Defined Constants and Types for the STM32F4xx I2C </b>
+ * @brief <b>Defined Constants and Types for the STM32F3xx I2C </b>
  *
- * @ingroup STM32F4xx_defines
+ * @ingroup STM32F3xx_defines
  *
  * @version 1.0.0
  *
@@ -30,9 +30,6 @@
 
 #ifndef LIBOPENCM3_I2C_H
 #define LIBOPENCM3_I2C_H
-
-#include <libopencm3/stm32/memorymap.h>
-#include <libopencm3/cm3/common.h>
 
 /**@{*/
 

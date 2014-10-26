@@ -180,12 +180,12 @@ LGPL License Terms @ref lgpl_license
 #define TIMER_IR_CR2INT                 (1 << 6)
 #define TIMER_IR_CR3INT                 (1 << 7)
 
-/* --- TIMERx_TCR values ----------------------------------------------------- */
+/* --- TIMERx_TCR values --------------------------------------------------- */
 
 #define TIMER_TCR_CEN                   (1 << 0)
 #define TIMER_TCR_CRST                  (1 << 1)
 
-/* --- TIMERx_MCR values ----------------------------------------------------- */
+/* --- TIMERx_MCR values --------------------------------------------------- */
 
 #define TIMER_MCR_MR0I                  (1 << 0)
 #define TIMER_MCR_MR0R                  (1 << 1)
@@ -200,7 +200,7 @@ LGPL License Terms @ref lgpl_license
 #define TIMER_MCR_MR3R                  (1 << 10)
 #define TIMER_MCR_MR3S                  (1 << 11)
 
-/* --- TIMERx_MCR values ----------------------------------------------------- */
+/* --- TIMERx_MCR values --------------------------------------------------- */
 
 #define TIMER_CCR_CAP0RE                (1 << 0)
 #define TIMER_CCR_CAP0FE                (1 << 1)
@@ -215,7 +215,7 @@ LGPL License Terms @ref lgpl_license
 #define TIMER_CCR_CAP3FE                (1 << 10)
 #define TIMER_CCR_CAP3I                 (1 << 11)
 
-/* --- TIMERx_EMR values ----------------------------------------------------- */
+/* --- TIMERx_EMR values --------------------------------------------------- */
 
 #define TIMER_EMR_EM0                   (1 << 0)
 #define TIMER_EMR_EM1                   (1 << 1)
@@ -235,7 +235,7 @@ LGPL License Terms @ref lgpl_license
 #define TIMER_EMR_EMC_SET               0x2
 #define TIMER_EMR_EMC_TOGGLE            0x3
 
-/* --- TIMERx_CTCR values ---------------------------------------------------- */
+/* --- TIMERx_CTCR values -------------------------------------------------- */
 
 #define TIMER_CTCR_MODE_TIMER           (0x0 << 0)
 #define TIMER_CTCR_MODE_COUNTER_RISING  (0x1 << 0)
@@ -249,7 +249,7 @@ LGPL License Terms @ref lgpl_license
 #define TIMER_CTCR_CINSEL_CAPN_3        (0x3 << 2)
 #define TIMER_CTCR_CINSEL_MASK          (0x3 << 2)
 
-/* --- TIMER function prototypes --------------------------------------------- */
+/* --- TIMER function prototypes ------------------------------------------- */
 
 BEGIN_DECLS
 

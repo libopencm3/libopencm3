@@ -1,7 +1,6 @@
 /** @defgroup crc_defines CRC Defines
  *
- * @brief <b>libopencm3 Defined Constants and Types for the STM32F3xx CRC
- * Generator </b>
+ * @brief <b>Defined Constants and Types for the STM32F3xx CRC Generator </b>
  *
  * @ingroup STM32F3xx_defines
  *
@@ -33,7 +32,6 @@
 #ifndef LIBOPENCM3_CRC_H
 #define LIBOPENCM3_CRC_H
 
-#include <libopencm3/stm32/memorymap.h>
 #include <libopencm3/stm32/common/crc_common_all.h>
 
 /* --- CRC registers ------------------------------------------------------- */

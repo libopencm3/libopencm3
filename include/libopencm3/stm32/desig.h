@@ -20,21 +20,13 @@
 #ifndef LIBOPENCM3_DESIG_H
 #define LIBOPENCM3_DESIG_H
 
-#include <libopencm3/stm32/memorymap.h>
 #include <libopencm3/cm3/common.h>
+#include <libopencm3/stm32/memorymap.h>
 
 /* --- Device Electronic Signature -------------------------------- */
 
 /* Flash size register */
 #define DESIG_FLASH_SIZE		MMIO16(DESIG_FLASH_SIZE_BASE + 0x00)
-
-/* Unique ID register (96 bits) */
-/* Note: ST says these may be accessed in any width if you choose */
-#define DESIG_UID_15_0			MMIO16(DESIG_UNIQUE_ID_BASE + 0x00)
-/* Listed as "This field value is also reserved for a future feature" WTH?! */
-#define DESIG_UID_31_16			MMIO16(DESIG_UNIQUE_ID_BASE + 0x02)
-#define DESIG_UID_63_32			MMIO32(DESIG_UNIQUE_ID_BASE + 0x04)
-#define DESIG_UID_95_64			MMIO32(DESIG_UNIQUE_ID_BASE + 0x08)
 
 BEGIN_DECLS
 

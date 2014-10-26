@@ -32,7 +32,6 @@
 #ifndef LIBOPENCM3_GPIO_H
 #define LIBOPENCM3_GPIO_H
 
-#include <libopencm3/stm32/memorymap.h>
 #include <libopencm3/stm32/common/gpio_common_f234.h>
 
 #endif

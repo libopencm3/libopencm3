@@ -20,9 +20,6 @@
 #ifndef LIBOPENCM3_BKP_H
 #define LIBOPENCM3_BKP_H
 
-#include <libopencm3/stm32/memorymap.h>
-#include <libopencm3/cm3/common.h>
-
 /* --- BKP registers ------------------------------------------------------- */
 
 /* Backup data register 1 (BKP_DR1) */

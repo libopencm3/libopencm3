@@ -1,3 +1,23 @@
+/** @defgroup rcc_defines RCC Defines
+ *
+ * @brief <b>Defined Constants and Types for the STM32F2xx Reset and Clock
+ * Control</b>
+ *
+ * @ingroup STM32F2xx_defines
+ *
+ * @version 1.0.0
+ *
+ * @author @htmlonly &copy; @endhtmlonly 2009
+ * Federico Ruiz-Ugalde \<memeruiz at gmail dot com\>
+ * @author @htmlonly &copy; @endhtmlonly 2009
+ * Uwe Hermann <uwe@hermann-uwe.de>
+ * @author @htmlonly &copy; @endhtmlonly 2011
+ * Fergus Noble <fergusnoble@gmail.com>
+ *
+ * @date 18 August 2012
+ *
+ * LGPL License Terms @ref lgpl_license
+ *  */
 /*
  * This file is part of the libopencm3 project.
  *
@@ -18,12 +38,10 @@
  * You should have received a copy of the GNU Lesser General Public License
  * along with this library.  If not, see <http://www.gnu.org/licenses/>.
  */
+/**@{*/
 
 #ifndef LIBOPENCM3_RCC_H
 #define LIBOPENCM3_RCC_H
-
-#include <libopencm3/stm32/memorymap.h>
-#include <libopencm3/cm3/common.h>
 
 /* --- RCC registers ------------------------------------------------------- */
 
@@ -479,6 +497,228 @@ typedef enum {
 	PLL, HSE, HSI, LSE, LSI
 } osc_t;
 
+#define _REG_BIT(base, bit)		(((base) << 5) + (bit))
+
+enum rcc_periph_clken {
+	/* AHB1 peripherals  */
+	RCC_GPIOA	= _REG_BIT(0x30, 0),
+	RCC_GPIOB	= _REG_BIT(0x30, 1),
+	RCC_GPIOC	= _REG_BIT(0x30, 2),
+	RCC_GPIOD	= _REG_BIT(0x30, 3),
+	RCC_GPIOE	= _REG_BIT(0x30, 4),
+	RCC_GPIOF	= _REG_BIT(0x30, 5),
+	RCC_GPIOG	= _REG_BIT(0x30, 6),
+	RCC_GPIOH	= _REG_BIT(0x30, 7),
+	RCC_GPIOI	= _REG_BIT(0x30, 8),
+	RCC_CRC		= _REG_BIT(0x30, 12),
+	RCC_BKPSRAM	= _REG_BIT(0x30, 18),
+	RCC_DMA1	= _REG_BIT(0x30, 21),
+	RCC_DMA2	= _REG_BIT(0x30, 22),
+	RCC_ETHMAC	= _REG_BIT(0x30, 25),
+	RCC_ETHMACTX	= _REG_BIT(0x30, 26),
+	RCC_ETHMACRX	= _REG_BIT(0x30, 27),
+	RCC_ETHMACPTP	= _REG_BIT(0x30, 28),
+	RCC_OTGHS	= _REG_BIT(0x30, 29),
+	RCC_OTGHSULPI	= _REG_BIT(0x30, 30),
+
+	/* AHB2 peripherals */
+	RCC_DCMI	= _REG_BIT(0x34, 0),
+	RCC_CRYP	= _REG_BIT(0x34, 4),
+	RCC_HASH	= _REG_BIT(0x34, 5),
+	RCC_RNG		= _REG_BIT(0x34, 6),
+	RCC_OTGFS	= _REG_BIT(0x34, 7),
+
+	/* AHB3 peripherals */
+	RCC_FSMC	= _REG_BIT(0x38, 0),
+
+	/* APB1 peripherals */
+	RCC_TIM2	= _REG_BIT(0x40, 0),
+	RCC_TIM3	= _REG_BIT(0x40, 1),
+	RCC_TIM4	= _REG_BIT(0x40, 2),
+	RCC_TIM5	= _REG_BIT(0x40, 3),
+	RCC_TIM6	= _REG_BIT(0x40, 4),
+	RCC_TIM7	= _REG_BIT(0x40, 5),
+	RCC_TIM12	= _REG_BIT(0x40, 6),
+	RCC_TIM13	= _REG_BIT(0x40, 7),
+	RCC_TIM14	= _REG_BIT(0x40, 8),
+	RCC_WWDG	= _REG_BIT(0x40, 11),
+	RCC_SPI2	= _REG_BIT(0x40, 14),
+	RCC_SPI3	= _REG_BIT(0x40, 15),
+	RCC_USART2	= _REG_BIT(0x40, 17),
+	RCC_USART3	= _REG_BIT(0x40, 18),
+	RCC_UART4	= _REG_BIT(0x40, 19),
+	RCC_UART5	= _REG_BIT(0x40, 20),
+	RCC_I2C1	= _REG_BIT(0x40, 21),
+	RCC_I2C2	= _REG_BIT(0x40, 22),
+	RCC_I2C3	= _REG_BIT(0x40, 23),
+	RCC_CAN1	= _REG_BIT(0x40, 25),
+	RCC_CAN2	= _REG_BIT(0x40, 26),
+	RCC_PWR		= _REG_BIT(0x40, 28),
+	RCC_DAC		= _REG_BIT(0x40, 29),
+
+	/* APB2 peripherals */
+	RCC_TIM1	= _REG_BIT(0x44, 0),
+	RCC_TIM8	= _REG_BIT(0x44, 1),
+	RCC_USART1	= _REG_BIT(0x44, 4),
+	RCC_USART6	= _REG_BIT(0x44, 5),
+	RCC_ADC1	= _REG_BIT(0x44, 8),
+	RCC_ADC2	= _REG_BIT(0x44, 9),
+	RCC_ADC3	= _REG_BIT(0x44, 10),
+	RCC_SDIO	= _REG_BIT(0x44, 11),
+	RCC_SPI1	= _REG_BIT(0x44, 12),
+	RCC_SYSCFG	= _REG_BIT(0x44, 14),
+	RCC_TIM9	= _REG_BIT(0x44, 16),
+	RCC_TIM10	= _REG_BIT(0x44, 17),
+	RCC_TIM11	= _REG_BIT(0x44, 18),
+
+	/* Extended peripherals */
+	RCC_RTC		= _REG_BIT(0x70, 15),/* BDCR[15] */
+
+	/* AHB1 peripherals  */
+	SCC_GPIOA	= _REG_BIT(0x50, 0),
+	SCC_GPIOB	= _REG_BIT(0x50, 1),
+	SCC_GPIOC	= _REG_BIT(0x50, 2),
+	SCC_GPIOD	= _REG_BIT(0x50, 3),
+	SCC_GPIOE	= _REG_BIT(0x50, 4),
+	SCC_GPIOF	= _REG_BIT(0x50, 5),
+	SCC_GPIOG	= _REG_BIT(0x50, 6),
+	SCC_GPIOH	= _REG_BIT(0x50, 7),
+	SCC_GPIOI	= _REG_BIT(0x50, 8),
+	SCC_CRC		= _REG_BIT(0x50, 12),
+	SCC_FLTIF	= _REG_BIT(0x50, 15),
+	SCC_SRAM1	= _REG_BIT(0x50, 16),
+	SCC_SRAM2	= _REG_BIT(0x50, 17),
+	SCC_BKPSRAM	= _REG_BIT(0x50, 18),
+	SCC_DMA1	= _REG_BIT(0x50, 21),
+	SCC_DMA2	= _REG_BIT(0x50, 22),
+	SCC_ETHMAC	= _REG_BIT(0x50, 25),
+	SCC_ETHMACTX	= _REG_BIT(0x50, 26),
+	SCC_ETHMACRX	= _REG_BIT(0x50, 27),
+	SCC_ETHMACPTP	= _REG_BIT(0x50, 28),
+	SCC_OTGHS	= _REG_BIT(0x50, 29),
+	SCC_OTGHSULPI	= _REG_BIT(0x50, 30),
+
+	/* AHB2 peripherals */
+	SCC_DCMI	= _REG_BIT(0x54, 0),
+	SCC_CRYP	= _REG_BIT(0x54, 4),
+	SCC_HASH	= _REG_BIT(0x54, 5),
+	SCC_RNG		= _REG_BIT(0x54, 6),
+	SCC_OTGFS	= _REG_BIT(0x54, 7),
+
+	/* AHB3 peripherals */
+	SCC_FSMC	= _REG_BIT(0x58, 0),
+
+	/* APB1 peripherals */
+	SCC_TIM2	= _REG_BIT(0x60, 0),
+	SCC_TIM3	= _REG_BIT(0x60, 1),
+	SCC_TIM4	= _REG_BIT(0x60, 2),
+	SCC_TIM5	= _REG_BIT(0x60, 3),
+	SCC_TIM6	= _REG_BIT(0x60, 4),
+	SCC_TIM7	= _REG_BIT(0x60, 5),
+	SCC_TIM12	= _REG_BIT(0x60, 6),
+	SCC_TIM13	= _REG_BIT(0x60, 7),
+	SCC_TIM14	= _REG_BIT(0x60, 8),
+	SCC_WWDG	= _REG_BIT(0x60, 11),
+	SCC_SPI2	= _REG_BIT(0x60, 14),
+	SCC_SPI3	= _REG_BIT(0x60, 15),
+	SCC_USART2	= _REG_BIT(0x60, 17),
+	SCC_USART3	= _REG_BIT(0x60, 18),
+	SCC_UART4	= _REG_BIT(0x60, 19),
+	SCC_UART5	= _REG_BIT(0x60, 20),
+	SCC_I2C1	= _REG_BIT(0x60, 21),
+	SCC_I2C2	= _REG_BIT(0x60, 22),
+	SCC_I2C3	= _REG_BIT(0x60, 23),
+	SCC_CAN1	= _REG_BIT(0x60, 25),
+	SCC_CAN2	= _REG_BIT(0x60, 26),
+	SCC_PWR		= _REG_BIT(0x60, 28),
+	SCC_DAC		= _REG_BIT(0x60, 29),
+
+	/* APB2 peripherals */
+	SCC_TIM1	= _REG_BIT(0x64, 0),
+	SCC_TIM8	= _REG_BIT(0x64, 1),
+	SCC_USART1	= _REG_BIT(0x64, 4),
+	SCC_USART6	= _REG_BIT(0x64, 5),
+	SCC_ADC1	= _REG_BIT(0x64, 8),
+	SCC_ADC2	= _REG_BIT(0x64, 9),
+	SCC_ADC3	= _REG_BIT(0x64, 10),
+	SCC_SDIO	= _REG_BIT(0x64, 11),
+	SCC_SPI1	= _REG_BIT(0x64, 12),
+	SCC_SYSCFG	= _REG_BIT(0x64, 14),
+	SCC_TIM9	= _REG_BIT(0x64, 16),
+	SCC_TIM10	= _REG_BIT(0x64, 17),
+	SCC_TIM11	= _REG_BIT(0x64, 18),
+};
+
+enum rcc_periph_rst {
+	/* AHB1 peripherals  */
+	RST_GPIOA	= _REG_BIT(0x10, 0),
+	RST_GPIOB	= _REG_BIT(0x10, 1),
+	RST_GPIOC	= _REG_BIT(0x10, 2),
+	RST_GPIOD	= _REG_BIT(0x10, 3),
+	RST_GPIOE	= _REG_BIT(0x10, 4),
+	RST_GPIOF	= _REG_BIT(0x10, 5),
+	RST_GPIOG	= _REG_BIT(0x10, 6),
+	RST_GPIOH	= _REG_BIT(0x10, 7),
+	RST_GPIOI	= _REG_BIT(0x10, 8),
+	RST_CRC		= _REG_BIT(0x10, 12),
+	RST_DMA1	= _REG_BIT(0x10, 21),
+	RST_DMA2	= _REG_BIT(0x10, 22),
+	RST_ETHMAC	= _REG_BIT(0x10, 25),
+	RST_OTGHS	= _REG_BIT(0x10, 29),
+
+	/* AHB2 peripherals */
+	RST_DCMI	= _REG_BIT(0x14, 0),
+	RST_CRYP	= _REG_BIT(0x14, 4),
+	RST_HASH	= _REG_BIT(0x14, 5),
+	RST_RNG		= _REG_BIT(0x14, 6),
+	RST_OTGFS	= _REG_BIT(0x14, 7),
+
+	/* AHB3 peripherals */
+	RST_FSMC	= _REG_BIT(0x18, 0),
+
+	/* APB1 peripherals */
+	RST_TIM2	= _REG_BIT(0x20, 0),
+	RST_TIM3	= _REG_BIT(0x20, 1),
+	RST_TIM4	= _REG_BIT(0x20, 2),
+	RST_TIM5	= _REG_BIT(0x20, 3),
+	RST_TIM6	= _REG_BIT(0x20, 4),
+	RST_TIM7	= _REG_BIT(0x20, 5),
+	RST_TIM12	= _REG_BIT(0x20, 6),
+	RST_TIM13	= _REG_BIT(0x20, 7),
+	RST_TIM14	= _REG_BIT(0x20, 8),
+	RST_WWDG	= _REG_BIT(0x20, 11),
+	RST_SPI2	= _REG_BIT(0x20, 14),
+	RST_SPI3	= _REG_BIT(0x20, 15),
+	RST_USART2	= _REG_BIT(0x20, 17),
+	RST_USART3	= _REG_BIT(0x20, 18),
+	RST_UART4	= _REG_BIT(0x20, 19),
+	RST_UART5	= _REG_BIT(0x20, 20),
+	RST_I2C1	= _REG_BIT(0x20, 21),
+	RST_I2C2	= _REG_BIT(0x20, 22),
+	RST_I2C3	= _REG_BIT(0x20, 23),
+	RST_CAN1	= _REG_BIT(0x20, 25),
+	RST_CAN2	= _REG_BIT(0x20, 26),
+	RST_PWR		= _REG_BIT(0x20, 28),
+	RST_DAC		= _REG_BIT(0x20, 29),
+
+	/* APB2 peripherals */
+	RST_TIM1	= _REG_BIT(0x24, 0),
+	RST_TIM8	= _REG_BIT(0x24, 1),
+	RST_USART1	= _REG_BIT(0x24, 4),
+	RST_USART6	= _REG_BIT(0x24, 5),
+	RST_ADC		= _REG_BIT(0x24, 8),
+	RST_SDIO	= _REG_BIT(0x24, 11),
+	RST_SPI1	= _REG_BIT(0x24, 12),
+	RST_SYSCFG	= _REG_BIT(0x24, 14),
+	RST_TIM9	= _REG_BIT(0x24, 16),
+	RST_TIM10	= _REG_BIT(0x24, 17),
+	RST_TIM11	= _REG_BIT(0x24, 18),
+};
+
+#undef _REG_BIT
+
+#include <libopencm3/stm32/common/rcc_common_all.h>
+
 BEGIN_DECLS
 
 void rcc_osc_ready_int_clear(osc_t osc);
@@ -495,10 +735,6 @@ void rcc_css_enable(void);
 void rcc_css_disable(void);
 void rcc_osc_bypass_enable(osc_t osc);
 void rcc_osc_bypass_disable(osc_t osc);
-void rcc_peripheral_enable_clock(volatile uint32_t *reg, uint32_t en);
-void rcc_peripheral_disable_clock(volatile uint32_t *reg, uint32_t en);
-void rcc_peripheral_reset(volatile uint32_t *reg, uint32_t reset);
-void rcc_peripheral_clear_reset(volatile uint32_t *reg, uint32_t clear_reset);
 void rcc_set_sysclk_source(uint32_t clk);
 void rcc_set_pll_source(uint32_t pllsrc);
 void rcc_set_ppre2(uint32_t ppre2);
@@ -516,3 +752,5 @@ void rcc_backupdomain_reset(void);
 END_DECLS
 
 #endif
+/**@}*/
+

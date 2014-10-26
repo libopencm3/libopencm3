@@ -37,8 +37,8 @@ LGPL License Terms @ref lgpl_license
 #ifndef LIBOPENCM3_USB_H
 #define LIBOPENCM3_USB_H
 
-#include <libopencm3/stm32/memorymap.h>
 #include <libopencm3/cm3/common.h>
+#include <libopencm3/stm32/memorymap.h>
 #include <libopencm3/stm32/tools.h>
 
 /* --- USB base addresses -------------------------------------------------- */
@@ -58,6 +58,10 @@ LGPL License Terms @ref lgpl_license
 #define USB_DADDR_REG		(&MMIO32(USB_DEV_FS_BASE + 0x4C))
 /* USB Buffer table address register */
 #define USB_BTABLE_REG		(&MMIO32(USB_DEV_FS_BASE + 0x50))
+
+#define USB_LPMCSR_REG		(&MMIO32(USB_DEV_FS_BASE + 0x54))
+#define USB_BDCR_REG		(&MMIO32(USB_DEV_FS_BASE + 0x58))
+
 /* USB EP register */
 #define USB_EP_REG(EP)		(&MMIO32(USB_DEV_FS_BASE) + (EP))
 
@@ -74,6 +78,8 @@ LGPL License Terms @ref lgpl_license
 #define USB_CNTR_ESOFM		0x0100
 
 /* Request/Force bits */
+#define USB_CNTR_L1REQM		0x0080 /* F0 port */
+#define USB_CNTR_L1RESUME	0x0020 /* F0 port */
 #define USB_CNTR_RESUME		0x0010 /* Resume request */
 #define USB_CNTR_FSUSP		0x0008 /* Force suspend */
 #define USB_CNTR_LP_MODE	0x0004 /* Low-power mode */
@@ -90,6 +96,7 @@ LGPL License Terms @ref lgpl_license
 #define USB_ISTR_RESET		0x0400 /* USB RESET request */
 #define USB_ISTR_SOF		0x0200 /* Start Of Frame */
 #define USB_ISTR_ESOF		0x0100 /* Expected Start Of Frame */
+#define USB_ISTR_L1REQ		0x0080
 #define USB_ISTR_DIR		0x0010 /* Direction of transaction */
 #define USB_ISTR_EP_ID		0x000F /* Endpoint Identifier */
 
@@ -108,6 +115,23 @@ LGPL License Terms @ref lgpl_license
 
 #define USB_DADDR_ENABLE	0x0080
 #define USB_DADDR_ADDR		0x007F
+
+#define USB_LPMCSR_BESL_SHIFT	4
+#define USB_LPMCSR_BESL		(15 << USB_LPMCSR_BESL_SHIFT)
+
+#define USB_LPMCSR_REMWAKE	(1 << 3)
+#define USB_LPMCSR_LPMACK	(1 << 1)
+#define USB_LPMCSR_LPMEN	(1 << 0)
+
+#define USB_BDCR_DPPU		(1 << 15)
+#define USB_BDCR_PS2DET		(1 << 7)
+#define USB_BDCR_SDET		(1 << 6)
+#define USB_BDCR_PDET		(1 << 5)
+#define USB_BDCR_DCDET		(1 << 4)
+#define USB_BDCR_SDEN		(1 << 3)
+#define USB_BDCR_PDEN		(1 << 2)
+#define USB_BDCR_DCDEN		(1 << 1)
+#define USB_BDCR_BCDEN		(1 << 0)
 
 /* --- USB device address register manipulators ---------------------------- */
 

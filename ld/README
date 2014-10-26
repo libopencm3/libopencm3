@@ -1,0 +1,157 @@
+------------------------------------------------------------------------------
+README
+------------------------------------------------------------------------------
+
+LIBOPENCM3 LINKER SCRIPT GENERATOR
+----------------------------------
+
+This folder contains files needed for the automatic linker script generation
+mechanism developed for libopencm3 library.
+
+File contents
+-------------
+
+* {ROOT}/ld/tests/* 		- Prepared tests for the testing of the script
+* {ROOT}/ld/devices.data	- Device database file
+* {ROOT}/ld/Makefile.linker	- Common makefile part
+* {ROOT}/ld/linker.ld.S		- Linker script template
+* {ROOT}/scripts/genlink.awk	- Device database file search script 
+* {ROOT}/scripts/genlinktest.sh	- Device database file search test script
+
+Principle of operation
+----------------------
+
+The user specifies in the project Makefile the device part name the project is
+using, in the variable DEVICE. Note that full device part name must be
+specified, because the device specific features is usually dependent on the
+last characters of device name string. Note that the device name string search
+is case insensitive.
+
+DEVICE=stm32f407vgt6
+
+Then, the user includes the file /ld/Makefile.linker exactly after the first
+target (usually all) has been defined.
+
+The script automatically modifies the $(LDSCRIPT) variable to meet the new
+generated script with <device part name>.ld in the project directory, and adds
+a rule to make it from the scratch.
+
+Making the script is done by looking to device database file for the needed
+definitions, and applying those definitions to the C preprocessor source
+linker.ld.S outputting the preprocessed ld file.
+
+Device database contains definitions of common sections and its origins for
+the linker preprocessor. Every definition is interpreted in the linker script
+template as a macro, and it can be used for conditional insertion of the device
+dependent stuff.
+
+The search in the device database is pattern-based, and using awk script
+genlink.awk. The awk script traverses the file as a tree, joining the options
+for the preprocessor together by single space. The awk script adds -D to each
+parameter for you.
+
+Testing
+-------
+
+The testing of feature is done by executing in the root of libopencm3 library.
+
+make genlinktests
+
+The test cases are defined in subdirectory {ROOT}/ld/tests/. Each test contains
+two files, the database file *.data and the expected result *.result file. If
+the particular test fails, the file *.out containing output of the script is
+not deleted to help resolving problem with the script.
+
+The search pattern for the test is the base filename of particular test.
+
+The testing stops after all test cases are valid, or at first error found.
+
+Example of use
+--------------
+
+* See Makefile.example file
+
+Device database file structure
+------------------------------
+
+Line description:
+  <pattern> <parent> (<data> ...)
+
+  <pattern>: is the pattern for the chip description to be searched for.
+      The case of the pattern string is ignored.
+      Pattern match symbols:
+          ?  - matches exactly one character
+          *  - matches none or more characters
+          +  - matches single or more characters
+
+  <parent>: is the parent group name, where the search will continue.
+      There are special parents names that controls traversing:
+          "END" - Exit traversal.
+          "+"   - Don't change the parent. Use for split long line to two.
+
+  <data>: space-separated list of preprocessor symbols supplied to the linker.
+      -D option name with single underscore is automatically prepended to each
+         symbol definition
+      if the symbol starts with dash "-", it is interpreted as parameter to
+      linker, and no -D or underscore is generated.
+
+All lines starting with # symbol are treated as Comments
+
+Recommended tree hierarchy:
+
+  <device name> <family group> <device specific params>
+      +- <family group> <family> <family group specific params>
+          +- <family> <architecture> <device family specific params>
+              +- <architecture> END <architecture specific params>
+
+You can split the long line into two or more by using "+" in the parent field,
+and defining same regex with appropriate parent on the next line. Example:
+
+   device + PARAM1=aaa PARAM2=bbbb PARAM3=ccc PARAM4=dddd PARAM5=eeee
+   device parent PARAM6=ffff PARAM7=gggg PARAM8=hhhh
+   parent END
+
+The order of the lines is important. After the regex match, its parent will
+be used for match on the next line. If two regexp lines matches input, only
+the first will be evaluated, except special group definition "+"
+
+The regex matches entire sym
+
+Example:
+
+--- devices.data file ---
+stm32f05[01]?4* stm32f0 ROM=16K RAM=4K
+stm32f0 stm32 ROM_OFF=0x08000000 RAM_OFF=0x20000000 -mcpu=cortex-m0 -mthumb
+stm32 END
+
+--- queried chip name ---
+stm32f051c4t6
+
+--- output of the awk script ---
+-D_ROM=16K -D_RAM=4K -D_ROM_OFF=0x08000000 -D_RAM_OFF=0x20000000 \
+-mcpu=cortex-m0 -mthumb
+
+The generated linker script file will contain sections rom and ram with 
+appropriate initialization code, specified in linker file source linker.ld.S
+
+
+Copyright
+---------
+
+This file is part of the libopencm3 project.
+
+Copyright (C) 2013 Frantisek Burian <Bufran@seznam.cz>
+Copyright (C) 2013 Werner Almesberger <wpwrak>
+
+This library is free software: you can redistribute it and/or modify
+it under the terms of the GNU Lesser General Public License as published by
+the Free Software Foundation, either version 3 of the License, or
+(at your option) any later version.
+
+This library is distributed in the hope that it will be useful,
+but WITHOUT ANY WARRANTY; without even the implied warranty of
+MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
+GNU Lesser General Public License for more details.
+
+You should have received a copy of the GNU Lesser General Public License
+along with this library. If not, see <http://www.gnu.org/licenses/>.

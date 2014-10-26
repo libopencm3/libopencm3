@@ -11,8 +11,11 @@ of the connection line, high density and XL devices.
 Two DAC channels are available, however unlike the ADC channels these
 are separate DAC devices controlled by the same register block.
 
-The DAC is on APB1. Its clock must be enabled in RCC and the GPIO
+The DAC is on APB1. Its clock must be enabled in RCC and depending on
+specific family, the GPIO
 ports set to alternate function output before it can be used.
+On most families, the GPIO pins should be configured to Analog IN to
+avoid parasitic consumption.
 The digital output driver is disabled so the output driver mode
 (push-pull/open drain) is arbitrary.
 
@@ -48,7 +51,7 @@ by specifying the appropriate register to the DMA controller.
 
 @section dac_api_basic_ex Basic DAC handling API.
 
-Set the DAC's GPIO port to any alternate function output mode. Enable the
+Set the DAC's GPIO port to Analog IN. Enable the
 DAC clock. Enable the DAC, set a trigger source and load the buffer
 with the first value. After the DAC is triggered, load the buffer with
 the next value. This example uses software triggering and added noise.
@@ -183,13 +186,13 @@ void dac_buffer_enable(data_channel dac_channel)
 {
 	switch (dac_channel) {
 	case CHANNEL_1:
-		DAC_CR |= DAC_CR_BOFF1;
+		DAC_CR &= ~DAC_CR_BOFF1;
 		break;
 	case CHANNEL_2:
-		DAC_CR |= DAC_CR_BOFF2;
+		DAC_CR &= ~DAC_CR_BOFF2;
 		break;
 	case CHANNEL_D:
-		DAC_CR |= (DAC_CR_BOFF1 | DAC_CR_BOFF2);
+		DAC_CR &= ~(DAC_CR_BOFF1 | DAC_CR_BOFF2);
 		break;
 	}
 }
@@ -207,13 +210,13 @@ void dac_buffer_disable(data_channel dac_channel)
 {
 	switch (dac_channel) {
 	case CHANNEL_1:
-		DAC_CR &= ~DAC_CR_BOFF1;
+		DAC_CR |= DAC_CR_BOFF1;
 		break;
 	case CHANNEL_2:
-		DAC_CR &= ~DAC_CR_BOFF2;
+		DAC_CR |= DAC_CR_BOFF2;
 		break;
 	case CHANNEL_D:
-		DAC_CR &= ~(DAC_CR_BOFF1 | DAC_CR_BOFF2);
+		DAC_CR |= (DAC_CR_BOFF1 | DAC_CR_BOFF2);
 		break;
 	}
 }

@@ -21,8 +21,8 @@
  * Based on the F4 code...
  */
 
-#include <libopencm3/stm32/l1/rcc.h>
-#include <libopencm3/stm32/l1/flash.h>
+#include <libopencm3/stm32/rcc.h>
+#include <libopencm3/stm32/flash.h>
 #include <libopencm3/stm32/pwr.h>
 
 /* Set the default ppre1 and ppre2 peripheral clock frequencies after reset. */
@@ -344,26 +344,6 @@ void rcc_osc_bypass_disable(osc_t osc)
 		/* Do nothing, only HSE/LSE allowed here. */
 		break;
 	}
-}
-
-void rcc_peripheral_enable_clock(volatile uint32_t *reg, uint32_t en)
-{
-	*reg |= en;
-}
-
-void rcc_peripheral_disable_clock(volatile uint32_t *reg, uint32_t en)
-{
-	*reg &= ~en;
-}
-
-void rcc_peripheral_reset(volatile uint32_t *reg, uint32_t reset)
-{
-	*reg |= reset;
-}
-
-void rcc_peripheral_clear_reset(volatile uint32_t *reg, uint32_t clear_reset)
-{
-	*reg &= ~clear_reset;
 }
 
 void rcc_set_sysclk_source(uint32_t clk)

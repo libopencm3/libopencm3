@@ -1,11 +1,11 @@
 /** @addtogroup gpio_defines
-
-@author @htmlonly &copy; @endhtmlonly 2011
-Fergus Noble <fergusnoble@gmail.com>
-@author @htmlonly &copy; @endhtmlonly 2012
-Ken Sarkies <ksarkies@internode.on.net>
-
-*/
+ *
+ * @author @htmlonly &copy; @endhtmlonly 2011
+ * Fergus Noble <fergusnoble@gmail.com>
+ * @author @htmlonly &copy; @endhtmlonly 2012
+ * Ken Sarkies <ksarkies@internode.on.net>
+ *
+ */
 /*
  * This file is part of the libopencm3 project.
  *
@@ -38,7 +38,6 @@ specific memorymap.h header before including this header file.*/
 
 /**@{*/
 
-#include <libopencm3/stm32/common/gpio_common_all.h>
 #include <libopencm3/stm32/common/gpio_common_f234.h>
 
 /* GPIO port base addresses (for convenience) */
@@ -103,6 +102,7 @@ specific memorymap.h header before including this header file.*/
 #define GPIOH_AFRH			GPIO_AFRH(GPIOH)
 #define GPIOI_AFRH			GPIO_AFRH(GPIOI)
 
+/**@}*/
 #endif
 /** @cond */
 #else

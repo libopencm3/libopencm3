@@ -18,6 +18,7 @@
 ##
 
 LIBNAME		= libopencm3_lm3s
+SRCLIBDIR	?= ..
 
 PREFIX		?= arm-none-eabi
 

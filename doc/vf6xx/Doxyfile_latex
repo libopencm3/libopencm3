@@ -1,0 +1,35 @@
+# LaTeX Documentation for VF6XX code level
+
+# 14 September 2012
+# (C) Ken Sarkies <ksarkies@internode.on.net>
+
+#---------------------------------------------------------------------------
+# Common Include File
+#---------------------------------------------------------------------------
+
+@INCLUDE 			   = ../Doxyfile_common
+
+#---------------------------------------------------------------------------
+# Local settings
+#---------------------------------------------------------------------------
+
+WARN_LOGFILE           = doxygen_vf6xx_latex.log
+
+INPUT                  = ../../include/libopencm3/docmain.dox \
+                         ../../include/libopencm3/license.dox \
+                         ../../include/libopencm3/vf6xx
+
+INPUT                 += ../../lib/vf6xx
+
+EXCLUDE_PATTERNS       =
+
+EXCLUDE                = ../../include/libopencm3/vf6xx/doc-vf6xx.h
+
+LAYOUT_FILE 		   = DoxygenLayout_vf6xx.xml
+
+GENERATE_HTML		   = NO
+
+GENERATE_LATEX		   = YES
+
+LATEX_HEADER           = header_vf6xx.tex
+

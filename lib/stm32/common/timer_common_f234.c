@@ -42,12 +42,12 @@ void timer_ic_set_polarity(uint32_t timer_peripheral, enum tim_ic_id ic,
 	/* Clear CCxP and CCxNP to zero. For both edge trigger both fields are
 	 * set. Case 10 is invalid.
 	 */
-	TIM_CCER(timer_peripheral) &= ~(0x6 << (ic * 4));
+	TIM_CCER(timer_peripheral) &= ~(0xa << (ic * 4));
 	switch (pol) {
 	case TIM_IC_RISING:  /* 00 */
 		break;
 	case TIM_IC_BOTH:    /* 11 */
-		TIM_CCER(timer_peripheral) |= (0x6 << (ic * 4));
+		TIM_CCER(timer_peripheral) |= (0xa << (ic * 4));
 		break;
 	case TIM_IC_FALLING: /* 01 */
 		TIM_CCER(timer_peripheral) |= (0x2 << (ic * 4));
