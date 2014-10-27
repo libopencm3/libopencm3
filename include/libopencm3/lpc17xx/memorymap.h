@@ -26,11 +26,19 @@
 /* --- LPC17XX specific peripheral definitions ----------------------------- */
 
 /* Memory map for all busses */
+#define PERIPH_BASE_GPIO		(0x2009C000U)
 #define PERIPH_BASE_APB0		(0x40000000U)
 #define PERIPH_BASE_APB1		(0x40080000U)
 #define PERIPH_BASE_AHB			(0x50000000U)
 
 /* Register boundary addresses */
+
+/* GPIO */
+#define GPIO_PIO0_BASE			(PERIPH_BASE_GPIO + 0x00)
+#define GPIO_PIO1_BASE			(PERIPH_BASE_GPIO + 0x20)
+#define GPIO_PIO2_BASE			(PERIPH_BASE_GPIO + 0x40)
+#define GPIO_PIO3_BASE			(PERIPH_BASE_GPIO + 0x60)
+#define GPIO_PIO4_BASE			(PERIPH_BASE_GPIO + 0x80)
 
 /* APB0 */
 #define WDT_BASE			(PERIPH_BASE_APB0 + 0x00000)
