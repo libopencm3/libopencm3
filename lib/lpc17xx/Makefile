@@ -33,7 +33,7 @@ CFLAGS		= -O0 -g \
 		  -ffunction-sections -fdata-sections -MD -DLPC17XX
 # ARFLAGS	= rcsv
 ARFLAGS		= rcs
-OBJS		= gpio.o
+OBJS		= gpio.o pwr.o
 
 VPATH += ../cm3
 
