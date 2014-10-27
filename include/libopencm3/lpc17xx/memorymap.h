@@ -2,6 +2,7 @@
  * This file is part of the libopencm3 project.
  *
  * Copyright (C) 2010 Uwe Hermann <uwe@hermann-uwe.de>
+ * Copyright (C) 2012 Silvio Gissi <silvio.gissi@outlook.com>
  *
  * This library is free software: you can redistribute it and/or modify
  * it under the terms of the GNU Lesser General Public License as published by
@@ -20,14 +21,14 @@
 #ifndef LPC17XX_MEMORYMAP_H
 #define LPC17XX_MEMORYMAP_H
 
-#include <libopencm3/cm3/common.h>
+#include <libopencm3/cm3/memorymap.h>
 
 /* --- LPC17XX specific peripheral definitions ----------------------------- */
 
 /* Memory map for all busses */
 #define PERIPH_BASE_APB0		(0x40000000U)
 #define PERIPH_BASE_APB1		(0x40080000U)
-#define PERIPH_BASE_AHB			(0x20000000U)
+#define PERIPH_BASE_AHB			(0x50000000U)
 
 /* Register boundary addresses */
 
@@ -56,10 +57,10 @@
 /* PERIPH_BASE_APB0 + 0X60000 (0x6000 0000 - 0x4007 BFFF): Reserved */
 
 /* AHB */
-#define GPIO_PIO0_BASE			(PERIPH_BASE_AHB + 0x9c000)
-#define GPIO_PIO1_BASE			(PERIPH_BASE_AHB + 0x9c020)
-#define GPIO_PIO2_BASE			(PERIPH_BASE_AHB + 0x9c040)
-#define GPIO_PIO3_BASE			(PERIPH_BASE_AHB + 0x9c060)
-#define GPIO_PIO4_BASE			(PERIPH_BASE_AHB + 0x9c080)
+#define ETHERNET_BASE			(PERIPH_BASE_AHB + 0x00000)
+#define GPDMA_BASE			(PERIPH_BASE_AHB + 0x04000)
+/* PERIPH_BASE_AHB + 0X08000 (0x5000 8000 - 0x5000 BFFF): Reserved */
+#define USB_BASE			(PERIPH_BASE_AHB + 0x0c000)
+/* PERIPH_BASE_AHB + 0X10000 (0x5001 0000 - 0x501F FFFF): Reserved */
 
 #endif
