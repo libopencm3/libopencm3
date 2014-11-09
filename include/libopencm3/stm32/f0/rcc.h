@@ -518,6 +518,8 @@ void rcc_clock_setup_in_hsi_out_48mhz(void);
 void rcc_clock_setup_in_hse_8mhz_out_48mhz(void);
 void rcc_periph_clock_enable(enum rcc_periph_clken periph);
 void rcc_periph_clock_disable(enum rcc_periph_clken periph);
+void rcc_peripheral_reset(volatile uint32_t *reg, uint32_t reset);
+void rcc_peripheral_clear_reset(volatile uint32_t *reg, uint32_t clear_reset);
 void rcc_periph_reset_pulse(enum rcc_periph_rst periph);
 void rcc_periph_reset_hold(enum rcc_periph_rst periph);
 void rcc_periph_reset_release(enum rcc_periph_rst periph);

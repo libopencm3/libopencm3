@@ -723,6 +723,47 @@ void rcc_periph_clock_disable(enum rcc_periph_clken periph)
 	_RCC_REG(periph) &= ~_RCC_BIT(periph);
 }
 
+/*---------------------------------------------------------------------------*/
+/** @brief RCC Reset Peripherals.
+ *
+ * Reset particular peripherals. There are three registers involved, each one
+ * controlling reset of peripherals associated with the AHB, APB1 and APB2
+ * respectively. Several peripherals could be reset simultaneously <em>only if
+ * they are controlled by the same register</em>.
+ *
+ * @param[in] *reg Unsigned int32. Pointer to a Reset Register
+ *			 (either RCC_AHBENR, RCC_APB1ENR or RCC_APB2ENR)
+ * @param[in] reset Unsigned int32. Logical OR of all resets.
+ * @li If register is RCC_AHBRSTR, from @ref rcc_ahbrstr_rst
+ * @li If register is RCC_APB1RSTR, from @ref rcc_apb1rstr_rst
+ * @li If register is RCC_APB2RSTR, from @ref rcc_apb2rstr_rst
+ */
+void rcc_peripheral_reset(volatile uint32_t *reg, uint32_t reset)
+{
+	*reg |= reset;
+}
+
+/*---------------------------------------------------------------------------*/
+/** @brief RCC Remove Reset on Peripherals.
+ *
+ * Remove the reset on particular peripherals. There are three registers
+ * involved, each one controlling reset of peripherals associated with the AHB,
+ * APB1 and APB2 respectively. Several peripherals could have the reset removed
+ * simultaneously <em>only if they are controlled by the same register</em>.
+ *
+ * @param[in] *reg Unsigned int32. Pointer to a Reset Register
+ *			 (either RCC_AHBENR, RCC_APB1ENR or RCC_APB2ENR)
+ * @param[in] clear_reset Unsigned int32. Logical OR of all resets to be
+ * removed:
+ * @li If register is RCC_AHBRSTR, from @ref rcc_ahbrstr_rst
+ * @li If register is RCC_APB1RSTR, from @ref rcc_apb1rstr_rst
+ * @li If register is RCC_APB2RSTR, from @ref rcc_apb2rstr_rst
+ */
+void rcc_peripheral_clear_reset(volatile uint32_t *reg, uint32_t clear_reset)
+{
+	*reg &= ~clear_reset;
+}
+
 void rcc_periph_reset_pulse(enum rcc_periph_rst periph)
 {
 	_RCC_REG(periph) |= _RCC_BIT(periph);
