@@ -686,7 +686,7 @@ void rcc_clock_setup_in_hse_8mhz_out_48mhz(void)
 
 	/*
 	 * Set the PLL multiplication factor to 3.
-	 * 8MHz (external) * 6 (multiplier) = 24MHz
+	 * 8MHz (external) * 6 (multiplier) = 48MHz
 	 */
 	rcc_set_pll_multiplication_factor(RCC_CFGR_PLLMUL_MUL6);
 
