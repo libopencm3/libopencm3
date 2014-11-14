@@ -32,6 +32,6 @@
 #ifndef LIBOPENCM3_TIMER_H
 #define LIBOPENCM3_TIMER_H
 
-#include <libopencm3/stm32/common/timer_common_all.h>
+#include <libopencm3/stm32/common/timer_common_f24.h>
 
 #endif
