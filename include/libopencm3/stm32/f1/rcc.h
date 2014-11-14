@@ -289,6 +289,9 @@
 @ingroup STM32F1xx_rcc_defines
 
 @{*/
+#define RCC_APB2RSTR_TIM17RST			(1 << 18)
+#define RCC_APB2RSTR_TIM16RST			(1 << 17)
+#define RCC_APB2RSTR_TIM15RST			(1 << 16)
 #define RCC_APB2RSTR_ADC3RST			(1 << 15) /* (XX) */
 #define RCC_APB2RSTR_USART1RST			(1 << 14)
 #define RCC_APB2RSTR_TIM8RST			(1 << 13) /* (XX) */
@@ -362,6 +365,9 @@
 @ingroup STM32F1xx_rcc_defines
 
 @{*/
+#define RCC_APB2ENR_TIM17EN			(1 << 17)
+#define RCC_APB2ENR_TIM16EN			(1 << 16)
+#define RCC_APB2ENR_TIM15EN			(1 << 16)
 #define RCC_APB2ENR_ADC3EN			(1 << 15) /* (XX) */
 #define RCC_APB2ENR_USART1EN			(1 << 14)
 #define RCC_APB2ENR_TIM8EN			(1 << 13) /* (XX) */
