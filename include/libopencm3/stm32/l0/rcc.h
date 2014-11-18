@@ -465,6 +465,11 @@ extern uint32_t rcc_ppre2_frequency;
 
 /* --- Function prototypes ------------------------------------------------- */
 
+enum rcc_osc {
+	PLL, HSE, HSI48, HSI16, MSI, LSE, LSI
+};
+
+
 #define _REG_BIT(base, bit)		(((base) << 5) + (bit))
 
 enum rcc_periph_clken {
@@ -595,6 +600,16 @@ enum rcc_periph_rst {
 #include <libopencm3/stm32/common/rcc_common_all.h>
 
 BEGIN_DECLS
+
+void rcc_osc_on(enum rcc_osc osc);
+void rcc_osc_off(enum rcc_osc osc);
+void rcc_osc_bypass_enable(enum rcc_osc osc);
+void rcc_osc_bypass_disable(enum rcc_osc osc);
+void rcc_osc_ready_int_clear(enum rcc_osc osc);
+void rcc_osc_ready_int_enable(enum rcc_osc osc);
+void rcc_osc_ready_int_disable(enum rcc_osc osc);
+int rcc_osc_ready_int_flag(enum rcc_osc osc);
+void rcc_wait_for_osc_ready(enum rcc_osc osc);
 
 /* TODO */
 
