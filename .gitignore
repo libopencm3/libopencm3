@@ -37,3 +37,6 @@ include/libopencmsis/vf6xx/
 netbeans
 .idea/
 .project
+
+# cscope databases
+cscope.out
