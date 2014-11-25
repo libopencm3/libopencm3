@@ -34,4 +34,18 @@
 
 #include <libopencm3/stm32/common/timer_common_all.h>
 
+/** Input Capture input polarity */
+enum tim_ic_pol {
+	TIM_IC_RISING,
+	TIM_IC_FALLING,
+};
+
+BEGIN_DECLS
+
+void timer_ic_set_polarity(uint32_t timer,
+			   enum tim_ic_id ic,
+			   enum tim_ic_pol pol);
+
+END_DECLS
+
 #endif

@@ -129,6 +129,8 @@ Control</b>
 #define RCC_CFGR_PLLSRC0			(1<<15)
 #define RCC_CFGR_ADCPRE				(1<<14)
 
+#define RCC_CFGR_PLLXTPRE_HSE_CLK		0x0
+#define RCC_CFGR_PLLSRC_HSE_CLK			0x1
 
 #define RCC_CFGR_PPRE_SHIFT			8
 #define RCC_CFGR_PPRE				(7 << RCC_CFGR_PPRE_SHIFT)
@@ -500,6 +502,8 @@ void rcc_css_int_clear(void);
 int rcc_css_int_flag(void);
 void rcc_set_sysclk_source(enum rcc_osc clk);
 void rcc_set_pll_multiplication_factor(uint32_t mul);
+void rcc_set_pll_source(uint32_t pllsrc);
+void rcc_set_pllxtpre(uint32_t pllxtpre);
 void rcc_set_ppre(uint32_t ppre);
 void rcc_set_hpre(uint32_t hpre);
 void rcc_set_prediv(uint32_t prediv);
@@ -511,8 +515,11 @@ void rcc_clock_setup_in_hsi_out_24mhz(void);
 void rcc_clock_setup_in_hsi_out_32mhz(void);
 void rcc_clock_setup_in_hsi_out_40mhz(void);
 void rcc_clock_setup_in_hsi_out_48mhz(void);
+void rcc_clock_setup_in_hse_8mhz_out_48mhz(void);
 void rcc_periph_clock_enable(enum rcc_periph_clken periph);
 void rcc_periph_clock_disable(enum rcc_periph_clken periph);
+void rcc_peripheral_reset(volatile uint32_t *reg, uint32_t reset);
+void rcc_peripheral_clear_reset(volatile uint32_t *reg, uint32_t clear_reset);
 void rcc_periph_reset_pulse(enum rcc_periph_rst periph);
 void rcc_periph_reset_hold(enum rcc_periph_rst periph);
 void rcc_periph_reset_release(enum rcc_periph_rst periph);

@@ -432,6 +432,33 @@ void rcc_set_pll_multiplication_factor(uint32_t mul)
 	RCC_CFGR = (RCC_CFGR & RCC_CFGR_PLLMUL) | mul;
 }
 
+/*---------------------------------------------------------------------------*/
+/** @brief RCC Set the PLL Clock Source.
+
+@note This only has effect when the PLL is disabled.
+
+@param[in] pllsrc Unsigned int32. PLL clock source @ref rcc_cfgr_pcs
+*/
+
+void rcc_set_pll_source(uint32_t pllsrc)
+{
+	RCC_CFGR = (RCC_CFGR & ~RCC_CFGR_PLLSRC) |
+			(pllsrc << 16);
+}
+
+/*---------------------------------------------------------------------------*/
+/** @brief RCC Set the HSE Frequency Divider used as PLL Clock Source.
+
+@note This only has effect when the PLL is disabled.
+
+@param[in] pllxtpre Unsigned int32. HSE division factor @ref rcc_cfgr_hsepre
+*/
+
+void rcc_set_pllxtpre(uint32_t pllxtpre)
+{
+	RCC_CFGR = (RCC_CFGR & ~RCC_CFGR_PLLXTPRE) |
+			(pllxtpre << 17);
+}
 
 /*---------------------------------------------------------------------------*/
 /** @brief RCC Set the APB Prescale Factor.
@@ -628,6 +655,60 @@ void rcc_clock_setup_in_hsi_out_48mhz(void)
 	rcc_core_frequency = 48000000;
 }
 
+void rcc_clock_setup_in_hse_8mhz_out_48mhz(void)
+{
+	/* Enable internal high-speed oscillator. */
+	rcc_osc_on(HSI);
+	rcc_wait_for_osc_ready(HSI);
+
+	/* Select HSI as SYSCLK source. */
+	rcc_set_sysclk_source(HSI);
+
+	/* Enable external high-speed oscillator 8MHz. */
+	rcc_osc_on(HSE);
+	rcc_wait_for_osc_ready(HSE);
+	rcc_set_sysclk_source(HSE);
+
+	/*
+	 * Set prescalers for AHB, ABP
+	 * Do this before touching the PLL (TODO: why?).
+	 */
+	rcc_set_hpre(RCC_CFGR_HPRE_NODIV);
+	rcc_set_ppre(RCC_CFGR_PPRE_NODIV);
+
+	/*
+	 * Sysclk runs with 24MHz -> 0 waitstates.
+	 * 0WS from 0-24MHz
+	 * 1WS from 24-48MHz
+	 * 2WS from 48-72MHz
+	 */
+	flash_set_ws(FLASH_ACR_LATENCY_024_048MHZ);
+
+	/*
+	 * Set the PLL multiplication factor to 3.
+	 * 8MHz (external) * 6 (multiplier) = 48MHz
+	 */
+	rcc_set_pll_multiplication_factor(RCC_CFGR_PLLMUL_MUL6);
+
+	/* Select HSE as PLL source. */
+	rcc_set_pll_source(RCC_CFGR_PLLSRC_HSE_CLK);
+
+	/*
+	 * External frequency undivided before entering PLL
+	 * (only valid/needed for HSE).
+	 */
+	rcc_set_pllxtpre(RCC_CFGR_PLLXTPRE_HSE_CLK);
+
+	/* Enable PLL oscillator and wait for it to stabilize. */
+	rcc_osc_on(PLL);
+	rcc_wait_for_osc_ready(PLL);
+
+	/* Select PLL as SYSCLK source. */
+	rcc_set_sysclk_source(PLL);
+
+	rcc_ppre_frequency = 48000000;
+	rcc_core_frequency = 48000000;
+}
 
 #define _RCC_REG(i)		MMIO32(RCC_BASE + ((i) >> 5))
 #define _RCC_BIT(i)		(1 << ((i) & 0x1f))
@@ -640,6 +721,47 @@ void rcc_periph_clock_enable(enum rcc_periph_clken periph)
 void rcc_periph_clock_disable(enum rcc_periph_clken periph)
 {
 	_RCC_REG(periph) &= ~_RCC_BIT(periph);
+}
+
+/*---------------------------------------------------------------------------*/
+/** @brief RCC Reset Peripherals.
+ *
+ * Reset particular peripherals. There are three registers involved, each one
+ * controlling reset of peripherals associated with the AHB, APB1 and APB2
+ * respectively. Several peripherals could be reset simultaneously <em>only if
+ * they are controlled by the same register</em>.
+ *
+ * @param[in] *reg Unsigned int32. Pointer to a Reset Register
+ *			 (either RCC_AHBENR, RCC_APB1ENR or RCC_APB2ENR)
+ * @param[in] reset Unsigned int32. Logical OR of all resets.
+ * @li If register is RCC_AHBRSTR, from @ref rcc_ahbrstr_rst
+ * @li If register is RCC_APB1RSTR, from @ref rcc_apb1rstr_rst
+ * @li If register is RCC_APB2RSTR, from @ref rcc_apb2rstr_rst
+ */
+void rcc_peripheral_reset(volatile uint32_t *reg, uint32_t reset)
+{
+	*reg |= reset;
+}
+
+/*---------------------------------------------------------------------------*/
+/** @brief RCC Remove Reset on Peripherals.
+ *
+ * Remove the reset on particular peripherals. There are three registers
+ * involved, each one controlling reset of peripherals associated with the AHB,
+ * APB1 and APB2 respectively. Several peripherals could have the reset removed
+ * simultaneously <em>only if they are controlled by the same register</em>.
+ *
+ * @param[in] *reg Unsigned int32. Pointer to a Reset Register
+ *			 (either RCC_AHBENR, RCC_APB1ENR or RCC_APB2ENR)
+ * @param[in] clear_reset Unsigned int32. Logical OR of all resets to be
+ * removed:
+ * @li If register is RCC_AHBRSTR, from @ref rcc_ahbrstr_rst
+ * @li If register is RCC_APB1RSTR, from @ref rcc_apb1rstr_rst
+ * @li If register is RCC_APB2RSTR, from @ref rcc_apb2rstr_rst
+ */
+void rcc_peripheral_clear_reset(volatile uint32_t *reg, uint32_t clear_reset)
+{
+	*reg &= ~clear_reset;
 }
 
 void rcc_periph_reset_pulse(enum rcc_periph_rst periph)

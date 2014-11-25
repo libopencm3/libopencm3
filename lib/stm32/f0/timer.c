@@ -32,3 +32,21 @@
 
 #include <libopencm3/stm32/timer.h>
 
+/*---------------------------------------------------------------------------*/
+/** @brief Set Input Polarity
+
+@param[in] timer_peripheral Unsigned int32. Timer register address base
+@param[in] ic ::tim_ic_id. Input Capture channel designator.
+@param[in] pol ::tim_ic_pol. Input Capture polarity.
+*/
+
+void timer_ic_set_polarity(uint32_t timer_peripheral, enum tim_ic_id ic,
+			   enum tim_ic_pol pol)
+{
+	if (pol) {
+		TIM_CCER(timer_peripheral) |= (0x2 << (ic * 4));
+	} else {
+		TIM_CCER(timer_peripheral) &= ~(0x2 << (ic * 4));
+	}
+}
+
