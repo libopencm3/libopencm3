@@ -628,38 +628,5 @@ void rcc_clock_setup_in_hsi_out_48mhz(void)
 	rcc_core_frequency = 48000000;
 }
 
-
-#define _RCC_REG(i)		MMIO32(RCC_BASE + ((i) >> 5))
-#define _RCC_BIT(i)		(1 << ((i) & 0x1f))
-
-void rcc_periph_clock_enable(enum rcc_periph_clken periph)
-{
-	_RCC_REG(periph) |= _RCC_BIT(periph);
-}
-
-void rcc_periph_clock_disable(enum rcc_periph_clken periph)
-{
-	_RCC_REG(periph) &= ~_RCC_BIT(periph);
-}
-
-void rcc_periph_reset_pulse(enum rcc_periph_rst periph)
-{
-	_RCC_REG(periph) |= _RCC_BIT(periph);
-	_RCC_REG(periph) &= ~_RCC_BIT(periph);
-}
-
-void rcc_periph_reset_hold(enum rcc_periph_rst periph)
-{
-	_RCC_REG(periph) |= _RCC_BIT(periph);
-}
-
-void rcc_periph_reset_release(enum rcc_periph_rst periph)
-{
-	_RCC_REG(periph) &= ~_RCC_BIT(periph);
-}
-
-#undef _RCC_REG
-#undef _RCC_BIT
-
 /**@}*/
 
