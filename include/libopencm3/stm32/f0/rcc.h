@@ -483,6 +483,8 @@ enum rcc_periph_rst {
 /* API Functions                                                             */
 /*****************************************************************************/
 
+#include <libopencm3/stm32/common/rcc_common_all.h>
+
 BEGIN_DECLS
 
 void rcc_osc_ready_int_clear(enum rcc_osc osc);
@@ -511,11 +513,6 @@ void rcc_clock_setup_in_hsi_out_24mhz(void);
 void rcc_clock_setup_in_hsi_out_32mhz(void);
 void rcc_clock_setup_in_hsi_out_40mhz(void);
 void rcc_clock_setup_in_hsi_out_48mhz(void);
-void rcc_periph_clock_enable(enum rcc_periph_clken periph);
-void rcc_periph_clock_disable(enum rcc_periph_clken periph);
-void rcc_periph_reset_pulse(enum rcc_periph_rst periph);
-void rcc_periph_reset_hold(enum rcc_periph_rst periph);
-void rcc_periph_reset_release(enum rcc_periph_rst periph);
 
 END_DECLS
 
