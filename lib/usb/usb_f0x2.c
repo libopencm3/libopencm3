@@ -2,6 +2,7 @@
  * This file is part of the libopencm3 project.
  *
  * Copyright (C) 2010 Gareth McMullin <gareth@blacksphere.co.nz>
+ * Copyright (C) 2014 Kuldeep Singh Dhaka <kuldeepdhaka9@gmail.com>
  *
  * This library is free software: you can redistribute it and/or modify
  * it under the terms of the GNU Lesser General Public License as published by
@@ -24,44 +25,44 @@
 #include <libopencm3/usb/usbd.h>
 #include "usb_private.h"
 
-static usbd_device *stm32f103_usbd_init(void);
-static void stm32f103_set_address(usbd_device *usbd_dev, uint8_t addr);
-static void stm32f103_ep_setup(usbd_device *usbd_dev, uint8_t addr,
+static usbd_device *stm32f0x2_usbd_init(void);
+static void stm32f0x2_set_address(usbd_device *usbd_dev, uint8_t addr);
+static void stm32f0x2_ep_setup(usbd_device *usbd_dev, uint8_t addr,
 			       uint8_t type, uint16_t max_size,
 			       void (*callback) (usbd_device *usbd_dev,
 						 uint8_t ep));
-static void stm32f103_endpoints_reset(usbd_device *usbd_dev);
-static void stm32f103_ep_stall_set(usbd_device *usbd_dev, uint8_t addr,
+static void stm32f0x2_endpoints_reset(usbd_device *usbd_dev);
+static void stm32f0x2_ep_stall_set(usbd_device *usbd_dev, uint8_t addr,
 				   uint8_t stall);
-static uint8_t stm32f103_ep_stall_get(usbd_device *usbd_dev, uint8_t addr);
-static void stm32f103_ep_nak_set(usbd_device *usbd_dev, uint8_t addr,
+static uint8_t stm32f0x2_ep_stall_get(usbd_device *usbd_dev, uint8_t addr);
+static void stm32f0x2_ep_nak_set(usbd_device *usbd_dev, uint8_t addr,
 				 uint8_t nak);
-static uint16_t stm32f103_ep_write_packet(usbd_device *usbd_dev, uint8_t addr,
+static uint16_t stm32f0x2_ep_write_packet(usbd_device *usbd_dev, uint8_t addr,
 					  const void *buf, uint16_t len);
-static uint16_t stm32f103_ep_read_packet(usbd_device *usbd_dev, uint8_t addr,
+static uint16_t stm32f0x2_ep_read_packet(usbd_device *usbd_dev, uint8_t addr,
 					 void *buf, uint16_t len);
-static void stm32f103_poll(usbd_device *usbd_dev);
+static void stm32f0x2_poll(usbd_device *usbd_dev);
 
 static uint8_t force_nak[8];
 static struct _usbd_device usbd_dev;
 
-const struct _usbd_driver stm32f103_usb_driver = {
-	.init = stm32f103_usbd_init,
-	.set_address = stm32f103_set_address,
-	.ep_setup = stm32f103_ep_setup,
-	.ep_reset = stm32f103_endpoints_reset,
-	.ep_stall_set = stm32f103_ep_stall_set,
-	.ep_stall_get = stm32f103_ep_stall_get,
-	.ep_nak_set = stm32f103_ep_nak_set,
-	.ep_write_packet = stm32f103_ep_write_packet,
-	.ep_read_packet = stm32f103_ep_read_packet,
-	.poll = stm32f103_poll,
+const struct _usbd_driver stm32f0x2_usb_driver = {
+	.init = stm32f0x2_usbd_init,
+	.set_address = stm32f0x2_set_address,
+	.ep_setup = stm32f0x2_ep_setup,
+	.ep_reset = stm32f0x2_endpoints_reset,
+	.ep_stall_set = stm32f0x2_ep_stall_set,
+	.ep_stall_get = stm32f0x2_ep_stall_get,
+	.ep_nak_set = stm32f0x2_ep_nak_set,
+	.ep_write_packet = stm32f0x2_ep_write_packet,
+	.ep_read_packet = stm32f0x2_ep_read_packet,
+	.poll = stm32f0x2_poll,
 };
 
 /** Initialize the USB device controller hardware of the STM32. */
-static usbd_device *stm32f103_usbd_init(void)
+static usbd_device *stm32f0x2_usbd_init(void)
 {
-	rcc_peripheral_enable_clock(&RCC_APB1ENR, RCC_APB1ENR_USBEN);
+	rcc_periph_clock_enable(RCC_USB);
 	SET_REG(USB_CNTR_REG, 0);
 	SET_REG(USB_BTABLE_REG, 0);
 	SET_REG(USB_ISTR_REG, 0);
@@ -69,39 +70,39 @@ static usbd_device *stm32f103_usbd_init(void)
 	/* Enable RESET, SUSPEND, RESUME and CTR interrupts. */
 	SET_REG(USB_CNTR_REG, USB_CNTR_RESETM | USB_CNTR_CTRM |
 		USB_CNTR_SUSPM | USB_CNTR_WKUPM);
+	USB_BDCR = USB_BDCR_DPPU;
 	return &usbd_dev;
 }
 
-static void stm32f103_set_address(usbd_device *dev, uint8_t addr)
+static void stm32f0x2_set_address(usbd_device *dev, uint8_t addr)
 {
 	(void)dev;
 	/* Set device address and enable. */
-	SET_REG(USB_DADDR_REG, (addr & USB_DADDR_ADDR) | USB_DADDR_EF);
+	USB_DADDR = (addr & USB_DADDR_ADDR) | USB_DADDR_EF;
 }
 
 /**
  * Set the receive buffer size for a given USB endpoint.
  *
- * @param ep Index of endpoint to configure.
  * @param size Size in bytes of the RX buffer.
  */
-static void usb_set_ep_rx_bufsize(usbd_device *dev, uint8_t ep, uint32_t size)
+
+static uint32_t usb_calculate_rx_bufsize(uint32_t size)
 {
-	(void)dev;
 	if (size > 62) {
 		if (size & 0x1f) {
 			size -= 32;
 		}
-		USB_SET_EP_RX_COUNT(ep, (size << 5) | 0x8000);
+		return (size << 5) | 0x8000;
 	} else {
 		if (size & 1) {
 			size++;
 		}
-		USB_SET_EP_RX_COUNT(ep, size << 10);
+		return (size << 10);
 	}
 }
 
-static void stm32f103_ep_setup(usbd_device *dev, uint8_t addr, uint8_t type,
+static void stm32f0x2_ep_setup(usbd_device *dev, uint8_t addr, uint8_t type,
 			       uint16_t max_size,
 			       void (*callback) (usbd_device *usbd_dev,
 						 uint8_t ep))
@@ -121,30 +122,72 @@ static void stm32f103_ep_setup(usbd_device *dev, uint8_t addr, uint8_t type,
 	USB_SET_EP_TYPE(addr, typelookup[type]);
 
 	if (dir || (addr == 0)) {
-		USB_SET_EP_TX_ADDR(addr, dev->pm_top);
+		if(type == USB_ENDPOINT_ATTR_ISOCHRONOUS)
+		{
+			//USB_ADDRn_TX_0 = USB_ADDRn_TX
+			USB_SET_EP_TX_ADDR(addr, dev->pm_top);
+			dev->pm_top += max_size;
+			USB_SET_EP_TX_STAT(addr, USB_EP_TX_STAT_DISABLED);
+			USB_CLR_EP_TX_DTOG(addr);
+			USB_SET_EP_TX_COUNT(addr, max_size);
+			
+			//USB_ADDRn_TX_1 = USB_ADDRn_RX
+			USB_SET_EP_RX_ADDR(addr, dev->pm_top);
+			dev->pm_top += max_size;
+			USB_SET_EP_RX_STAT(addr, USB_EP_RX_STAT_DISABLED);
+			USB_CLR_EP_RX_DTOG(addr);
+			USB_SET_EP_RX_COUNT(addr, max_size);
+		}
+		else
+		{
+			USB_SET_EP_TX_ADDR(addr, dev->pm_top);
+			USB_CLR_EP_TX_DTOG(addr);
+			USB_SET_EP_TX_STAT(addr, USB_EP_TX_STAT_NAK);
+			dev->pm_top += max_size;
+		}
+		
 		if (callback) {
 			dev->user_callback_ctr[addr][USB_TRANSACTION_IN] =
 			    (void *)callback;
 		}
-		USB_CLR_EP_TX_DTOG(addr);
-		USB_SET_EP_TX_STAT(addr, USB_EP_TX_STAT_NAK);
-		dev->pm_top += max_size;
 	}
 
 	if (!dir) {
-		USB_SET_EP_RX_ADDR(addr, dev->pm_top);
-		usb_set_ep_rx_bufsize(dev, addr, max_size);
+		
+		uint16_t count_reg = usb_calculate_rx_bufsize(max_size);
+		if(type == USB_ENDPOINT_ATTR_ISOCHRONOUS)
+		{
+			//USB_ADDRn_RX_0 = USB_ADDRn_TX
+			USB_SET_EP_TX_ADDR(addr, dev->pm_top);
+			dev->pm_top += max_size;
+			USB_SET_EP_TX_STAT(addr, USB_EP_TX_STAT_DISABLED);
+			USB_CLR_EP_TX_DTOG(addr);
+			USB_SET_EP_TX_COUNT(addr, count_reg);
+			
+			//USB_ADDRn_RX_1 = USB_ADDRn_RX
+			USB_SET_EP_RX_ADDR(addr, dev->pm_top);
+			dev->pm_top += max_size;
+			USB_SET_EP_RX_STAT(addr, USB_EP_RX_STAT_VALID);
+			USB_CLR_EP_RX_DTOG(addr);
+			USB_SET_EP_RX_COUNT(addr, count_reg);
+		}
+		else
+		{
+			USB_SET_EP_RX_ADDR(addr, dev->pm_top);
+			USB_SET_EP_RX_COUNT(addr, count_reg);
+			USB_CLR_EP_RX_DTOG(addr);
+			USB_SET_EP_RX_STAT(addr, USB_EP_RX_STAT_VALID);
+			dev->pm_top += max_size;
+		}
+		
 		if (callback) {
 			dev->user_callback_ctr[addr][USB_TRANSACTION_OUT] =
 			    (void *)callback;
 		}
-		USB_CLR_EP_RX_DTOG(addr);
-		USB_SET_EP_RX_STAT(addr, USB_EP_RX_STAT_VALID);
-		dev->pm_top += max_size;
 	}
 }
 
-static void stm32f103_endpoints_reset(usbd_device *dev)
+static void stm32f0x2_endpoints_reset(usbd_device *dev)
 {
 	int i;
 
@@ -156,7 +199,7 @@ static void stm32f103_endpoints_reset(usbd_device *dev)
 	dev->pm_top = 0x40 + (2 * dev->desc->bMaxPacketSize0);
 }
 
-static void stm32f103_ep_stall_set(usbd_device *dev, uint8_t addr,
+static void stm32f0x2_ep_stall_set(usbd_device *dev, uint8_t addr,
 				   uint8_t stall)
 {
 	(void)dev;
@@ -186,7 +229,7 @@ static void stm32f103_ep_stall_set(usbd_device *dev, uint8_t addr,
 	}
 }
 
-static uint8_t stm32f103_ep_stall_get(usbd_device *dev, uint8_t addr)
+static uint8_t stm32f0x2_ep_stall_get(usbd_device *dev, uint8_t addr)
 {
 	(void)dev;
 	if (addr & 0x80) {
@@ -203,7 +246,7 @@ static uint8_t stm32f103_ep_stall_get(usbd_device *dev, uint8_t addr)
 	return 0;
 }
 
-static void stm32f103_ep_nak_set(usbd_device *dev, uint8_t addr, uint8_t nak)
+static void stm32f0x2_ep_nak_set(usbd_device *dev, uint8_t addr, uint8_t nak)
 {
 	(void)dev;
 	/* It does not make sence to force NAK on IN endpoints. */
@@ -232,12 +275,12 @@ static void usb_copy_to_pm(volatile void *vPM, const void *buf, uint16_t len)
 	const uint16_t *lbuf = buf;
 	volatile uint16_t *PM = vPM;
 
-	for (len = (len + 1) >> 1; len; PM += 2, lbuf++, len--) {
+	for (len = (len + 1) >> 1; len; PM++, lbuf++, len--) {
 		*PM = *lbuf;
 	}
 }
 
-static uint16_t stm32f103_ep_write_packet(usbd_device *dev, uint8_t addr,
+static uint16_t stm32f0x2_ep_write_packet(usbd_device *dev, uint8_t addr,
 				     const void *buf, uint16_t len)
 {
 	(void)dev;
@@ -267,7 +310,7 @@ static void usb_copy_from_pm(void *buf, const volatile void *vPM, uint16_t len)
 	const volatile uint16_t *PM = vPM;
 	uint8_t odd = len & 1;
 
-	for (len >>= 1; len; PM += 2, lbuf++, len--) {
+	for (len >>= 1; len; PM++, lbuf++, len--) {
 		*lbuf = *PM;
 	}
 
@@ -276,7 +319,7 @@ static void usb_copy_from_pm(void *buf, const volatile void *vPM, uint16_t len)
 	}
 }
 
-static uint16_t stm32f103_ep_read_packet(usbd_device *dev, uint8_t addr,
+static uint16_t stm32f0x2_ep_read_packet(usbd_device *dev, uint8_t addr,
 					 void *buf, uint16_t len)
 {
 	(void)dev;
@@ -295,7 +338,7 @@ static uint16_t stm32f103_ep_read_packet(usbd_device *dev, uint8_t addr,
 	return len;
 }
 
-static void stm32f103_poll(usbd_device *dev)
+static void stm32f0x2_poll(usbd_device *dev)
 {
 	uint16_t istr = *USB_ISTR_REG;
 
