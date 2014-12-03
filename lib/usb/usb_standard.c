@@ -108,6 +108,13 @@ static uint16_t build_config_descriptor(usbd_device *usbd_dev,
 				len -= count;
 				total += count;
 				totallen += ep->bLength;
+				/* Copy extra endpoint descriptors. */
+				memcpy(buf, ep->extra,
+				       count = MIN(len, ep->extralen));
+				buf += count;
+				len -= count;
+				total += count;
+				totallen += ep->extralen;
 			}
 		}
 	}
