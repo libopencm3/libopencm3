@@ -205,8 +205,12 @@ struct usb_endpoint_descriptor {
 	uint8_t bmAttributes;
 	uint16_t wMaxPacketSize;
 	uint8_t bInterval;
+
+	/* Descriptor ends here.  The following are used internally: */
+	const void *extra;
+	int extralen;
 } __attribute__((packed));
-#define USB_DT_ENDPOINT_SIZE		sizeof(struct usb_endpoint_descriptor)
+#define USB_DT_ENDPOINT_SIZE		7
 
 /* USB Endpoint Descriptor bmAttributes bit definitions */
 #define USB_ENDPOINT_ATTR_CONTROL		0x00
