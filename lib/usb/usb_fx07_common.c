@@ -39,6 +39,7 @@ void stm32fx07_set_address(usbd_device *usbd_dev, uint8_t addr)
 }
 
 // TODO replace all occurrences of 64 with EP->wMaxPacketSize
+#define OTG_FS_DIEPSIZ_PKTMSK (0x3FFF<<19)
 void stm32fx07_ep_setup(usbd_device *usbd_dev, uint8_t addr, uint8_t type,
 			uint16_t max_size,
 			void (*callback) (usbd_device *usbd_dev, uint8_t ep))
@@ -49,6 +50,11 @@ void stm32fx07_ep_setup(usbd_device *usbd_dev, uint8_t addr, uint8_t type,
 	 */
 	uint8_t dir = addr & 0x80;
 	addr &= 0x7f;
+
+	//HS_OTG  Minimum value is 16  (32-bit words)
+	//HS_OTG  Maximum value is 512 (32-bit words)
+	uint16_t fifo_word_len = (max_size >>2);
+	if (fifo_word_len<16) fifo_word_len=16;
 
 	if (addr == 0) { /* For the default control endpoint */
 		/* Configure IN part. */
@@ -75,23 +81,24 @@ void stm32fx07_ep_setup(usbd_device *usbd_dev, uint8_t addr, uint8_t type,
 		REBASE(OTG_DOEPCTL(0)) |=
 		    OTG_FS_DOEPCTL0_EPENA | OTG_FS_DIEPCTL0_SNAK;
 
-		REBASE(OTG_GNPTXFSIZ) = ((max_size / 4) << 16) |
+		REBASE(OTG_GNPTXFSIZ) = (fifo_word_len << 16) |
 					 usbd_dev->driver->rx_fifo_size;
-		usbd_dev->fifo_mem_top += max_size / 4;
+		usbd_dev->fifo_mem_top += fifo_word_len;
+		//REBASE(OTG_GNPTXFSIZ) = ((max_size / 4) << 16) |
+		//			 usbd_dev->driver->rx_fifo_size;
+		//usbd_dev->fifo_mem_top += max_size / 4;
 		usbd_dev->fifo_mem_top_ep0 = usbd_dev->fifo_mem_top;
 
 		return;
 	}
 
 	if (dir) {
-		//HS_OTG  Minimum value is 16  (32-bit words)
-		//HS_OTG  Maximum value is 512 (32-bit words)
-		uint16_t fifo_word_len = (max_size >>2);
-		//assert(fifo_word_len<=512);
-		if (fifo_word_len<16) fifo_word_len=16;
 		REBASE(OTG_DIEPTXF(addr)) = (fifo_word_len << 16) |
 					     usbd_dev->fifo_mem_top;
-		usbd_dev->fifo_mem_top += fifo_word_len<<1;
+		usbd_dev->fifo_mem_top += fifo_word_len;//<<2;
+		//REBASE(OTG_DIEPTXF(addr)) = ((max_size / 4) << 16) |
+		//				 usbd_dev->fifo_mem_top;
+		//usbd_dev->fifo_mem_top += max_size / 4;
 
 		//REBASE(OTG_DIEPTSIZ(addr)) =
 		//    (max_size & OTG_FS_DIEPSIZ0_XFRSIZ_MASK);
@@ -184,9 +191,6 @@ void stm32fx07_ep_nak_set(usbd_device *usbd_dev, uint8_t addr, uint8_t nak)
 	}
 }
 
-#include <assert.h>
-#define OTG_FS_DIEPSIZ_PKTMSK (0x3FFF<<19)
-//volatile uint32_t pkt_cnt;
 uint16_t stm32fx07_ep_write_packet(usbd_device *usbd_dev, uint8_t addr,
 			      const void *buf, uint16_t len)
 {
@@ -204,12 +208,8 @@ uint16_t stm32fx07_ep_write_packet(usbd_device *usbd_dev, uint8_t addr,
 	if (!len) {
 		REBASE(OTG_DIEPTSIZ(addr)) = OTG_FS_DIEPSIZ0_PKTCNT;
 	} else {
-		//pkt_cnt = ((len+64-1)/64);
-		//assert (pkt_cnt==1);
-
 		/* Enable endpoint for transmission. */
 		// TODO this assumes a packet size of 64!
-		//REBASE(OTG_DIEPTSIZ(addr)) = (pkt_cnt<<19) | len;
 		REBASE(OTG_DIEPTSIZ(addr)) = (((uint32_t)((len+64-1)/64))<<19) | len; // | num_pkgs_per_frame<<30
 		//REBASE(OTG_DIEPTSIZ(addr)) = OTG_FS_DIEPSIZ0_PKTCNT | len;
 	}
