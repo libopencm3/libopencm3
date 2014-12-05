@@ -93,12 +93,14 @@ static uint16_t build_config_descriptor(usbd_device *usbd_dev,
 			total += count;
 			totallen += iface->bLength;
 			/* Copy extra bytes (function descriptors). */
-			memcpy(buf, iface->extra,
-			       count = MIN(len, iface->extralen));
-			buf += count;
-			len -= count;
-			total += count;
-			totallen += iface->extralen;
+			if (iface->extra) {
+				memcpy(buf, iface->extra,
+				       count = MIN(len, iface->extralen));
+				buf += count;
+				len -= count;
+				total += count;
+				totallen += iface->extralen;
+			}
 			/* For each endpoint... */
 			for (k = 0; k < iface->bNumEndpoints; k++) {
 				const struct usb_endpoint_descriptor *ep =
