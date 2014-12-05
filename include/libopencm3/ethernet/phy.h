@@ -64,6 +64,8 @@
 #define PHY_REG_BSR_FAULT       (1<<4)
 #define PHY_REG_BSR_ANDONE      (1<<5)
 
+#define PHY0 0
+#define PHY1 1
 
 enum phy_status {
 	LINK_DOWN,
@@ -77,13 +79,13 @@ enum phy_status {
 	LINK_FD_10000M,
 };
 
-void phy_reset(void);
-bool phy_link_isup(void);
+void phy_reset(uint8_t phy);
+bool phy_link_isup(uint8_t phy);
 
-enum phy_status phy_link_status(void);
+enum phy_status phy_link_status(uint8_t phy);
 
-void phy_autoneg_force(enum phy_status mode);
-void phy_autoneg_enable(void);
+void phy_autoneg_force(uint8_t phy, enum phy_status mode);
+void phy_autoneg_enable(uint8_t phy);
 
 /**@}*/
 
