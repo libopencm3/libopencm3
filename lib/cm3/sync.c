@@ -45,20 +45,7 @@ uint32_t __strex(uint32_t val, volatile uint32_t *addr)
 
 void mutex_lock(mutex_t *m)
 {
-	uint32_t status = 0;
-
-	do {
-		/* Wait until the mutex is unlocked. */
-		while (__ldrex(m) != MUTEX_UNLOCKED);
-
-		/* Try to acquire it. */
-		status = __strex(MUTEX_LOCKED, m);
-
-	/* Did we get it? If not then try again. */
-	} while (status != 0);
-
-	/* Execute the mysterious Data Memory Barrier instruction! */
-	__dmb();
+	while (!mutex_trylock(m));
 }
 
 /* returns 1 if the lock was acquired */
