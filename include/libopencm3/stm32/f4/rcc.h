@@ -81,9 +81,13 @@
 /* RCC_BASE + 0x7c Reserved */
 #define RCC_SSCGR				MMIO32(RCC_BASE + 0x80)
 #define RCC_PLLI2SCFGR				MMIO32(RCC_BASE + 0x84)
+#define RCC_PLLSAICFGR				MMIO32(RCC_BASE + 0x88)
+#define RCC_DCKCFGR				MMIO32(RCC_BASE + 0x8C)
 
 /* --- RCC_CR values ------------------------------------------------------- */
 
+#define RCC_CR_PLLSAIRDY			(1 << 29)
+#define RCC_CR_PLLSAION				(1 << 28)
 #define RCC_CR_PLLI2SRDY			(1 << 27)
 #define RCC_CR_PLLI2SON				(1 << 26)
 #define RCC_CR_PLLRDY				(1 << 25)
@@ -481,6 +485,22 @@
 /* RCC_PLLI2SCFGR[14:6]: PLLI2SN */
 #define RCC_PLLI2SCFGR_PLLI2SN_SHIFT		6
 
+/* --- RCC_DCKCFGR values -------------------------------------------------- */
+#define RCC_DCKCFGR_PLLSAIDIVR_MSK                 (0x3<<16)
+#define RCC_DCKCFGR_PLLSAIDIVR_DIVR_2              (0x0)
+#define RCC_DCKCFGR_PLLSAIDIVR_DIVR_4              (0x1)
+#define RCC_DCKCFGR_PLLSAIDIVR_DIVR_8              (0x2)
+#define RCC_DCKCFGR_PLLSAIDIVR_DIVR_16             (0x3)
+
+/* PLLSAI1 helper macros */
+#define rcc_pllsai_enable()   RCC_CR |= RCC_CR_PLLSAION
+#define rcc_pllsai_ready()   (RCC_CR & RCC_CR_PLLSAIRDY)
+/* pllsain=49..432, pllsaiq=2..15, pllsair=2..7 */
+#define rcc_pllsai_config(pllsain,pllsaiq,pllsair) \
+	RCC_PLLSAICFGR = (((pllsain&0x1ff)<<6) | ((pllsaiq&0xF)<<24) | ((pllsair&0x7)<<28))
+#define rcc_ltdc_set_clock_divr(pllsaidivr) \
+	RCC_DCKCFGR    = (((RCC_DCKCFGR & ~RCC_DCKCFGR_PLLSAIDIVR_MSK)|((pllsaidivr&0x3)<<16)))
+
 /* --- Variable definitions ------------------------------------------------ */
 extern uint32_t rcc_ahb_frequency;
 extern uint32_t rcc_apb1_frequency;
@@ -597,6 +617,9 @@ enum rcc_periph_clken {
 	RCC_TIM11	= _REG_BIT(0x44, 18),
 	RCC_SPI5	= _REG_BIT(0x44, 20),/* F2xx, F3xx */
 	RCC_SPI6	= _REG_BIT(0x44, 21),/* F2xx, F3xx */
+	RCC_SAI1EN	= _REG_BIT(0x44, 22),/* F42x, F43x */
+	RCC_LTDC	= _REG_BIT(0x44, 26),/* F42x, F43x */
+
 
 	/* BDCR */
 	RCC_RTC		= _REG_BIT(0x70, 15),
@@ -751,6 +774,8 @@ enum rcc_periph_rst {
 	RST_TIM11	= _REG_BIT(0x24, 18),
 	RST_SPI5	= _REG_BIT(0x24, 20),/* F2xx, F3xx */
 	RST_SPI6	= _REG_BIT(0x24, 21),/* F2xx, F3xx */
+	RST_SAI1RST	= _REG_BIT(0x24, 22),/* F42x, F43x */
+	RST_LTDC	= _REG_BIT(0x24, 26),/* F42x, F43x */
 };
 
 #undef _REG_BIT
