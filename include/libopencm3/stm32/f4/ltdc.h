@@ -23,7 +23,7 @@
 
 
 #include <stdint.h>
-#include "memorymap.h"
+#include <libopencm3/stm32/rcc.h>
 
 /**
  *  LTDC
