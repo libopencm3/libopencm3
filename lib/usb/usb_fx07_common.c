@@ -38,16 +38,25 @@ void stm32fx07_set_address(usbd_device *usbd_dev, uint8_t addr)
 	REBASE(OTG_DCFG) = (REBASE(OTG_DCFG) & ~OTG_FS_DCFG_DAD) | (addr << 4);
 }
 
+// TODO replace EPx_MAX_SIZE with EP(x)->wMaxPacketSize or so..
+#define EPx_MAX_SIZE 64
+// move this definition to otg_fs.h
+#define OTG_FS_DIEPSIZ_PKTMSK (0x3FFF<<19)
 void stm32fx07_ep_setup(usbd_device *usbd_dev, uint8_t addr, uint8_t type,
 			uint16_t max_size,
 			void (*callback) (usbd_device *usbd_dev, uint8_t ep))
 {
 	/*
 	 * Configure endpoint address and type. Allocate FIFO memory for
-	 * endpoint. Install callback funciton.
+	 * endpoint. Install callback function.
 	 */
 	uint8_t dir = addr & 0x80;
 	addr &= 0x7f;
+
+	//HS_OTG  Minimum value is 16  (32-bit words)
+	//(HS_OTG  Maximum value is 512 (32-bit words))
+	uint16_t fifo_word_len = (max_size >>2);
+	if (fifo_word_len<16) fifo_word_len=16;
 
 	if (addr == 0) { /* For the default control endpoint */
 		/* Configure IN part. */
@@ -74,25 +83,36 @@ void stm32fx07_ep_setup(usbd_device *usbd_dev, uint8_t addr, uint8_t type,
 		REBASE(OTG_DOEPCTL(0)) |=
 		    OTG_FS_DOEPCTL0_EPENA | OTG_FS_DIEPCTL0_SNAK;
 
-		REBASE(OTG_GNPTXFSIZ) = ((max_size / 4) << 16) |
+		REBASE(OTG_GNPTXFSIZ) = (fifo_word_len << 16) |
 					 usbd_dev->driver->rx_fifo_size;
-		usbd_dev->fifo_mem_top += max_size / 4;
+		usbd_dev->fifo_mem_top += fifo_word_len;
+
+		/// old version
+		//REBASE(OTG_GNPTXFSIZ) = ((max_size / 4) << 16) |
+		//			 usbd_dev->driver->rx_fifo_size;
+		//usbd_dev->fifo_mem_top += max_size / 4;
 		usbd_dev->fifo_mem_top_ep0 = usbd_dev->fifo_mem_top;
 
 		return;
 	}
 
 	if (dir) {
-		REBASE(OTG_DIEPTXF(addr)) = ((max_size / 4) << 16) |
+		REBASE(OTG_DIEPTXF(addr)) = (fifo_word_len << 16) |
 					     usbd_dev->fifo_mem_top;
-		usbd_dev->fifo_mem_top += max_size / 4;
+		usbd_dev->fifo_mem_top += fifo_word_len;
 
-		REBASE(OTG_DIEPTSIZ(addr)) =
-		    (max_size & OTG_FS_DIEPSIZ0_XFRSIZ_MASK);
+		// TODO are the commented out flags on the next 4 line needed for OTG_FS?
+		//REBASE(OTG_DIEPTSIZ(addr)) =
+		//    (max_size & OTG_FS_DIEPSIZ0_XFRSIZ_MASK);
 		REBASE(OTG_DIEPCTL(addr)) |=
-		    OTG_FS_DIEPCTL0_EPENA | OTG_FS_DIEPCTL0_SNAK | (type << 18)
+		    (type << 18) //OTG_FS_DIEPCTL0_EPENA | OTG_FS_DIEPCTL0_SNAK |
 		    | OTG_FS_DIEPCTL0_USBAEP | OTG_FS_DIEPCTLX_SD0PID
-		    | (addr << 22) | max_size;
+		    | (addr << 22) | ((max_size>EPx_MAX_SIZE)?EPx_MAX_SIZE:max_size);
+
+		/// old version
+		//REBASE(OTG_DIEPTXF(addr)) = ((max_size / 4) << 16) |
+		//				 usbd_dev->fifo_mem_top;
+		//usbd_dev->fifo_mem_top += max_size / 4;
 
 		if (callback) {
 			usbd_dev->user_callback_ctr[addr][USB_TRANSACTION_IN] =
@@ -106,7 +126,7 @@ void stm32fx07_ep_setup(usbd_device *usbd_dev, uint8_t addr, uint8_t type,
 		REBASE(OTG_DOEPTSIZ(addr)) = usbd_dev->doeptsiz[addr];
 		REBASE(OTG_DOEPCTL(addr)) |= OTG_FS_DOEPCTL0_EPENA |
 		    OTG_FS_DOEPCTL0_USBAEP | OTG_FS_DIEPCTL0_CNAK |
-		    OTG_FS_DOEPCTLX_SD0PID | (type << 18) | max_size;
+		    OTG_FS_DOEPCTLX_SD0PID | (type << 18) | ((max_size>EPx_MAX_SIZE)?EPx_MAX_SIZE:max_size);
 
 		if (callback) {
 			usbd_dev->user_callback_ctr[addr][USB_TRANSACTION_OUT] =
@@ -186,13 +206,21 @@ uint16_t stm32fx07_ep_write_packet(usbd_device *usbd_dev, uint8_t addr,
 
 	addr &= 0x7F;
 
+
 	/* Return if endpoint is already enabled. */
-	if (REBASE(OTG_DIEPTSIZ(addr)) & OTG_FS_DIEPSIZ0_PKTCNT) {
+	if (REBASE(OTG_DIEPTSIZ(addr)) & OTG_FS_DIEPSIZ_PKTMSK) {
 		return 0;
 	}
 
-	/* Enable endpoint for transmission. */
-	REBASE(OTG_DIEPTSIZ(addr)) = OTG_FS_DIEPSIZ0_PKTCNT | len;
+	if (!len) {
+		REBASE(OTG_DIEPTSIZ(addr)) = OTG_FS_DIEPSIZ0_PKTCNT;
+	} else {
+		/* Enable endpoint for transmission. */
+		// TODO this assumes a packet size of EPx_MAX_SIZE (64)! (if len>64)
+		REBASE(OTG_DIEPTSIZ(addr)) = (((uint32_t)((len+EPx_MAX_SIZE-1)/EPx_MAX_SIZE))<<19) | len; // | num_pkgs_per_frame<<30
+		/// old version
+		//REBASE(OTG_DIEPTSIZ(addr)) = OTG_FS_DIEPSIZ0_PKTCNT | len;
+	}
 	REBASE(OTG_DIEPCTL(addr)) |= OTG_FS_DIEPCTL0_EPENA |
 				     OTG_FS_DIEPCTL0_CNAK;
 	volatile uint32_t *fifo = REBASE_FIFO(addr);
@@ -293,7 +321,7 @@ void stm32fx07_poll(usbd_device *usbd_dev)
 	 * There is no global interrupt flag for transmit complete.
 	 * The XFRC bit must be checked in each OTG_FS_DIEPINT(x).
 	 */
-	for (i = 0; i < 4; i++) { /* Iterate over endpoints. */
+	for (i = 0; i < 8; i++) { /* Iterate over endpoints. */
 		if (REBASE(OTG_DIEPINT(i)) & OTG_FS_DIEPINTX_XFRC) {
 			/* Transfer complete. */
 			if (usbd_dev->user_callback_ctr[i]
