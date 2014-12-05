@@ -52,7 +52,7 @@ void stm32fx07_ep_setup(usbd_device *usbd_dev, uint8_t addr, uint8_t type,
 	dir = addr & 0x80;
 	addr &= 0x7f;
 
-	fifo_word_len = max_size>>2;
+	fifo_word_len = (max_size+4-1)>>2;
 	/* minimum fifo size is 16 words */
 	if (fifo_word_len < 16) {
 		fifo_word_len = 16;
