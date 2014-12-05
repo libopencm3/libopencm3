@@ -61,6 +61,25 @@ void mutex_lock(mutex_t *m)
 	__dmb();
 }
 
+/* returns 1 if the lock was acquired */
+uint32_t mutex_trylock(mutex_t *m)
+{
+	uint32_t status = 0;
+
+	/* If the mutex is unlocked. */
+	if (__ldrex(m) == MUTEX_UNLOCKED) {
+		/* Try to lock it. */
+		status = __strex(MUTEX_LOCKED, m);
+	}
+
+	/* Execute the mysterious Data Memory Barrier instruction! */
+	__dmb();
+
+	/* Did we get the lock? If not then try again
+	 * by calling this function once more. */
+	return status == 0;
+}
+
 void mutex_unlock(mutex_t *m)
 {
 	/* Ensure accesses to protected resource are finished */
