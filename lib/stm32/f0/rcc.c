@@ -661,49 +661,57 @@ void rcc_clock_setup_in_hse_8mhz_out_48mhz(void)
 	rcc_osc_on(HSI);
 	rcc_wait_for_osc_ready(HSI);
 
-	/* Select HSI as SYSCLK source. */
+	// Select HSI as SYSCLK source. */
 	rcc_set_sysclk_source(HSI);
-
-	/* Enable external high-speed oscillator 8MHz. */
+/*
 	rcc_osc_on(HSE);
 	rcc_wait_for_osc_ready(HSE);
 	rcc_set_sysclk_source(HSE);
 
-	/*
-	 * Set prescalers for AHB, ABP
-	 * Do this before touching the PLL (TODO: why?).
-	 */
 	rcc_set_hpre(RCC_CFGR_HPRE_NODIV);
 	rcc_set_ppre(RCC_CFGR_PPRE_NODIV);
 
-	/*
-	 * Sysclk runs with 24MHz -> 0 waitstates.
-	 * 0WS from 0-24MHz
-	 * 1WS from 24-48MHz
-	 * 2WS from 48-72MHz
-	 */
 	flash_set_ws(FLASH_ACR_LATENCY_024_048MHZ);
 
-	/*
-	 * Set the PLL multiplication factor to 3.
-	 * 8MHz (external) * 6 (multiplier) = 48MHz
-	 */
-	rcc_set_pll_multiplication_factor(RCC_CFGR_PLLMUL_MUL6);
+	rcc_set_pll_multiplication_factor(RCC_CFGR_PLLMUL_MUL1);
 
-	/* Select HSE as PLL source. */
 	rcc_set_pll_source(RCC_CFGR_PLLSRC_HSE_CLK);
 
-	/*
-	 * External frequency undivided before entering PLL
-	 * (only valid/needed for HSE).
-	 */
 	rcc_set_pllxtpre(RCC_CFGR_PLLXTPRE_HSE_CLK);
 
-	/* Enable PLL oscillator and wait for it to stabilize. */
 	rcc_osc_on(PLL);
 	rcc_wait_for_osc_ready(PLL);
 
-	/* Select PLL as SYSCLK source. */
+	rcc_set_sysclk_source(PLL);
+*/
+    RCC_CFGR &= (uint32_t)0xF8FFB80C;
+    RCC_CR &= (uint32_t)0xFEF6FFFF;
+    RCC_CR &= (uint32_t)0xFFFBFFFF;
+    RCC_CFGR &= (uint32_t)0xFFC0FFFF;
+    RCC_CFGR2 &= (uint32_t)0xFFFFFFF0;
+    RCC_CFGR3 &= (uint32_t)0xFFFFFEAC;
+    RCC_CR2 &= (uint32_t)0xFFFFFFFE;
+    RCC_CIR &= (uint32_t)0x00000000;
+
+	rcc_osc_on(HSE);
+	rcc_wait_for_osc_ready(HSE);
+	flash_set_ws(FLASH_ACR_LATENCY_024_048MHZ);
+
+	rcc_set_hpre(RCC_CFGR_HPRE_NODIV);
+	rcc_set_ppre(RCC_CFGR_PPRE_NODIV);
+
+#define RCC_CFGR_PLLSRC_X        ((uint32_t)0x00018000)
+#define RCC_CFGR_PLLXTPRE_X      ((uint32_t)0x00020000)
+#define RCC_CFGR_PLLMULL         ((uint32_t)0x003C0000)
+#define RCC_CFGR_PLLSRC_PREDIV1  ((uint32_t)0x00010000)
+#define RCC_CFG_PLLXTPRE_PREDIV1 ((uint32_t)0x00000000)
+#define RCC_CFGR_PLLMUL6         ((uint32_t)0x00100000)
+
+    RCC_CFGR &= (uint32_t)~(RCC_CFGR_PLLSRC_X|RCC_CFGR_PLLXTPRE_X|RCC_CFGR_PLLMULL);
+    RCC_CFGR |= (uint32_t)(RCC_CFGR_PLLSRC_PREDIV1|RCC_CFG_PLLXTPRE_PREDIV1|RCC_CFGR_PLLMUL6);
+
+	rcc_osc_on(PLL);
+	rcc_wait_for_osc_ready(PLL);
 	rcc_set_sysclk_source(PLL);
 
 	rcc_ppre_frequency = 48000000;
