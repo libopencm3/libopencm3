@@ -47,6 +47,7 @@ typedef uint32_t mutex_t;
 #define MUTEX_LOCKED	 1
 
 void mutex_lock(mutex_t *m);
+uint32_t mutex_trylock(mutex_t *m);
 void mutex_unlock(mutex_t *m);
 
 #endif

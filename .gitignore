@@ -34,7 +34,7 @@ include/libopencmsis/stm32/
 include/libopencmsis/vf6xx/
 
 # netbeans, intellij, eclipse project files
-netbeans
+nbproject/
 .idea/
 .project
 
