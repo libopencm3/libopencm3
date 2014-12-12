@@ -173,7 +173,7 @@ void ltdc_setup_windowing(
  * (simulate the ltdc color conversion)
  */
 
-#define ltdc_get_rgb888_from_rgb565(rgb888) ( \
+#define ltdc_get_rgb888_from_rgb565(rgb888) (   \
 	((((rgb888) & 0xF800) >> (11-8))/31)<<16    \
   | ((((rgb888) & 0x07E0) << ( 8-5))/63)<<8     \
   | ((((rgb888) & 0x001F) << ( 8-0))/31)<<0     \
