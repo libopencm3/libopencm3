@@ -66,7 +66,7 @@ void phy_autoneg_force(enum phy_status mode)
 		bst |= PHY_REG_BCR_FD;
 	}
 
-	if ((mode == LINK_FD_100M) || (mode == LINK_FD_100M)) {
+	if ((mode == LINK_FD_100M) || (mode == LINK_HD_100M)) {
 		bst |= PHY_REG_BCR_100M;
 	}
 
