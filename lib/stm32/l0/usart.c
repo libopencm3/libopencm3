@@ -1,14 +1,19 @@
 /** @defgroup usart_file USART
  *
- * @ingroup STM32F0xx
+ * @ingroup STM32L0xx
  *
- * @brief <b>libopencm3 STM32F0xx USART</b>
+ * @brief <b>libopencm3 STM32L0xx USART</b>
  *
  * @version 1.0.0
  *
  * @date 7 Jul 2013
  *
  * LGPL License Terms @ref lgpl_license
+ * TODO: 
+ *  This, and the F0 USART code (from which it is currently
+ * derived. Need to be merged into a common bit of code that
+ * handles this "flavor" of ST Micro USART (the one that has
+ * separate send and receive registers)
  */
 
 /*

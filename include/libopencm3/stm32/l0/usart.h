@@ -1,8 +1,8 @@
 /** @defgroup usart_defines USART Defines
  *
- * @brief <b>Defined Constants and Types for the STM32F0xx USART</b>
+ * @brief <b>Defined Constants and Types for the STM32L0xx USART</b>
  *
- * @ingroup STM32F0xx_defines
+ * @ingroup STM32L0xx_defines
  *
  * @version 1.0.0
  *
@@ -32,13 +32,11 @@
 #define LIBOPENCM3_USART_H
 
 /*****************************************************************************/
-/* USARTS available on the F0                                                */
+/* USARTS available on the L0                                                */
 /*****************************************************************************/
 
 #define USART1				USART1_BASE
 #define USART2				USART2_BASE
-#define USART3				USART3_BASE
-#define USART4				USART4_BASE
 
 #include <libopencm3/stm32/common/usart_common_fl_0.h>
 #endif
