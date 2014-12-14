@@ -43,9 +43,10 @@
 
 /**@{*/
 
-/* Set the default ppre1 and ppre2 peripheral clock frequencies after reset. */
-uint32_t rcc_ppre1_frequency = 16000000;
-uint32_t rcc_ppre2_frequency = 16000000;
+/* Set the default clock frequencies after reset. */
+uint32_t rcc_ahb_frequency = 16000000;
+uint32_t rcc_apb1_frequency = 16000000;
+uint32_t rcc_apb2_frequency = 16000000;
 
 const clock_scale_t hse_8mhz_3v3[CLOCK_3V3_END] = {
 	{ /* 120MHz */
@@ -401,8 +402,8 @@ void rcc_clock_setup_hse_3v3(const clock_scale_t *clock)
 	rcc_wait_for_sysclk_status(PLL);
 
 	/* Set the peripheral clock frequencies used. */
-	rcc_ppre1_frequency = clock->apb1_frequency;
-	rcc_ppre2_frequency = clock->apb2_frequency;
+	rcc_apb1_frequency = clock->apb1_frequency;
+	rcc_apb2_frequency = clock->apb2_frequency;
 }
 
 void rcc_backupdomain_reset(void)

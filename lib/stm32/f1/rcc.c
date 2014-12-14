@@ -53,10 +53,10 @@ LGPL License Terms @ref lgpl_license
 #include <libopencm3/stm32/rcc.h>
 #include <libopencm3/stm32/flash.h>
 
-/** Default ppre1 peripheral clock frequency after reset. */
-uint32_t rcc_ppre1_frequency = 8000000;
-/** Default ppre2 peripheral clock frequency after reset. */
-uint32_t rcc_ppre2_frequency = 8000000;
+/** Set the default clock frequencies */
+uint32_t rcc_apb1_frequency = 8000000;
+uint32_t rcc_apb2_frequency = 8000000;
+uint32_t rcc_ahb_frequency = 8000000;
 
 /*---------------------------------------------------------------------------*/
 /** @brief RCC Clear the Oscillator Ready Interrupt Flag
@@ -669,8 +669,8 @@ void rcc_clock_setup_in_hsi_out_64mhz(void)
 	rcc_set_sysclk_source(RCC_CFGR_SW_SYSCLKSEL_PLLCLK);
 
 	/* Set the peripheral clock frequencies used */
-	rcc_ppre1_frequency = 32000000;
-	rcc_ppre2_frequency = 64000000;
+	rcc_apb1_frequency = 32000000;
+	rcc_apb2_frequency = 64000000;
 }
 
 /*---------------------------------------------------------------------------*/
@@ -722,8 +722,8 @@ void rcc_clock_setup_in_hsi_out_48mhz(void)
 	rcc_set_sysclk_source(RCC_CFGR_SW_SYSCLKSEL_PLLCLK);
 
 	/* Set the peripheral clock frequencies used */
-	rcc_ppre1_frequency = 24000000;
-	rcc_ppre2_frequency = 48000000;
+	rcc_apb1_frequency = 24000000;
+	rcc_apb2_frequency = 48000000;
 }
 
 /*---------------------------------------------------------------------------*/
@@ -774,8 +774,9 @@ void rcc_clock_setup_in_hsi_out_24mhz(void)
 	rcc_set_sysclk_source(RCC_CFGR_SW_SYSCLKSEL_PLLCLK);
 
 	/* Set the peripheral clock frequencies used */
-	rcc_ppre1_frequency = 24000000;
-	rcc_ppre2_frequency = 24000000;
+	rcc_ahb_frequency = 24000000;
+	rcc_apb1_frequency = 24000000;
+	rcc_apb2_frequency = 24000000;
 }
 
 /*---------------------------------------------------------------------------*/
@@ -837,8 +838,9 @@ void rcc_clock_setup_in_hse_8mhz_out_24mhz(void)
 	rcc_set_sysclk_source(RCC_CFGR_SW_SYSCLKSEL_PLLCLK);
 
 	/* Set the peripheral clock frequencies used */
-	rcc_ppre1_frequency = 24000000;
-	rcc_ppre2_frequency = 24000000;
+	rcc_ahb_frequency = 24000000;
+	rcc_apb1_frequency = 24000000;
+	rcc_apb2_frequency = 24000000;
 }
 
 /*---------------------------------------------------------------------------*/
@@ -900,8 +902,9 @@ void rcc_clock_setup_in_hse_8mhz_out_72mhz(void)
 	rcc_set_sysclk_source(RCC_CFGR_SW_SYSCLKSEL_PLLCLK);
 
 	/* Set the peripheral clock frequencies used */
-	rcc_ppre1_frequency = 36000000;
-	rcc_ppre2_frequency = 72000000;
+	rcc_ahb_frequency = 72000000;
+	rcc_apb1_frequency = 36000000;
+	rcc_apb2_frequency = 72000000;
 }
 
 /*---------------------------------------------------------------------------*/
@@ -963,8 +966,9 @@ void rcc_clock_setup_in_hse_12mhz_out_72mhz(void)
 	rcc_set_sysclk_source(RCC_CFGR_SW_SYSCLKSEL_PLLCLK);
 
 	/* Set the peripheral clock frequencies used */
-	rcc_ppre1_frequency = 36000000;
-	rcc_ppre2_frequency = 72000000;
+	rcc_ahb_frequency = 72000000;
+	rcc_apb1_frequency = 36000000;
+	rcc_apb2_frequency = 72000000;
 }
 
 /*---------------------------------------------------------------------------*/
@@ -1026,8 +1030,9 @@ void rcc_clock_setup_in_hse_16mhz_out_72mhz(void)
 	rcc_set_sysclk_source(RCC_CFGR_SW_SYSCLKSEL_PLLCLK);
 
 	/* Set the peripheral clock frequencies used */
-	rcc_ppre1_frequency = 36000000;
-	rcc_ppre2_frequency = 72000000;
+	rcc_ahb_frequency = 72000000;
+	rcc_apb1_frequency = 36000000;
+	rcc_apb2_frequency = 72000000;
 }
 
 /*---------------------------------------------------------------------------*/
@@ -1083,8 +1088,9 @@ void rcc_clock_setup_in_hse_25mhz_out_72mhz(void)
 	rcc_set_sysclk_source(RCC_CFGR_SW_SYSCLKSEL_PLLCLK);
 
 	/* Set the peripheral clock frequencies used */
-	rcc_ppre1_frequency = 36000000;
-	rcc_ppre2_frequency = 72000000;
+	rcc_ahb_frequency = 72000000;
+	rcc_apb1_frequency = 36000000;
+	rcc_apb2_frequency = 72000000;
 }
 
 /*---------------------------------------------------------------------------*/

@@ -477,8 +477,9 @@
 #define RCC_PLLI2SCFGR_PLLI2SN_SHIFT		6
 
 /* --- Variable definitions ------------------------------------------------ */
-extern uint32_t rcc_ppre1_frequency;
-extern uint32_t rcc_ppre2_frequency;
+extern uint32_t rcc_ahb_frequency;
+extern uint32_t rcc_apb1_frequency;
+extern uint32_t rcc_apb2_frequency;
 
 /* --- Function prototypes ------------------------------------------------- */
 

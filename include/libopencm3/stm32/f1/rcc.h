@@ -534,8 +534,9 @@
 #define RCC_CFGR2_PREDIV2_DIV16			0xf
 
 /* --- Variable definitions ------------------------------------------------ */
-extern uint32_t rcc_ppre1_frequency;
-extern uint32_t rcc_ppre2_frequency;
+extern uint32_t rcc_ahb_frequency;
+extern uint32_t rcc_apb1_frequency;
+extern uint32_t rcc_apb2_frequency;
 
 /* --- Function prototypes ------------------------------------------------- */
 

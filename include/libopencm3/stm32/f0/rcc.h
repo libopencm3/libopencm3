@@ -375,8 +375,8 @@ Control</b>
 /*****************************************************************************/
 
 /* --- Variable definitions ------------------------------------------------ */
-extern uint32_t rcc_core_frequency;
-extern uint32_t rcc_ppre_frequency;
+extern uint32_t rcc_ahb_frequency;
+extern uint32_t rcc_apb1_frequency;
 
 enum rcc_osc {
 	HSI14, HSI, HSE, PLL, LSI, LSE, HSI48

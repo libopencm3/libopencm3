@@ -40,8 +40,9 @@
 #include <libopencm3/stm32/rcc.h>
 #include <libopencm3/stm32/flash.h>
 
-uint32_t rcc_core_frequency = 8000000; /* 8MHz after reset */
-uint32_t rcc_ppre_frequency = 8000000; /* 8MHz after reset */
+/* Set the default clock frequencies */
+uint32_t rcc_ahb_frequency = 8000000; /* 8MHz after reset */
+uint32_t rcc_apb1_frequency = 8000000; /* 8MHz after reset */
 
 /*---------------------------------------------------------------------------*/
 /** @brief RCC Clear the Oscillator Ready Interrupt Flag
@@ -503,8 +504,8 @@ void rcc_clock_setup_in_hsi_out_8mhz(void)
 
 	flash_set_ws(FLASH_ACR_LATENCY_000_024MHZ);
 
-	rcc_ppre_frequency = 8000000;
-	rcc_core_frequency = 8000000;
+	rcc_apb1_frequency = 8000000;
+	rcc_ahb_frequency = 8000000;
 }
 
 void rcc_clock_setup_in_hsi_out_16mhz(void)
@@ -527,8 +528,8 @@ void rcc_clock_setup_in_hsi_out_16mhz(void)
 	rcc_wait_for_osc_ready(PLL);
 	rcc_set_sysclk_source(PLL);
 
-	rcc_ppre_frequency = 16000000;
-	rcc_core_frequency = 16000000;
+	rcc_apb1_frequency = 16000000;
+	rcc_ahb_frequency = 16000000;
 }
 
 
@@ -552,8 +553,8 @@ void rcc_clock_setup_in_hsi_out_24mhz(void)
 	rcc_wait_for_osc_ready(PLL);
 	rcc_set_sysclk_source(PLL);
 
-	rcc_ppre_frequency = 24000000;
-	rcc_core_frequency = 24000000;
+	rcc_apb1_frequency = 24000000;
+	rcc_ahb_frequency = 24000000;
 }
 
 void rcc_clock_setup_in_hsi_out_32mhz(void)
@@ -576,8 +577,8 @@ void rcc_clock_setup_in_hsi_out_32mhz(void)
 	rcc_wait_for_osc_ready(PLL);
 	rcc_set_sysclk_source(PLL);
 
-	rcc_ppre_frequency = 32000000;
-	rcc_core_frequency = 32000000;
+	rcc_apb1_frequency = 32000000;
+	rcc_ahb_frequency = 32000000;
 }
 
 void rcc_clock_setup_in_hsi_out_40mhz(void)
@@ -600,8 +601,8 @@ void rcc_clock_setup_in_hsi_out_40mhz(void)
 	rcc_wait_for_osc_ready(PLL);
 	rcc_set_sysclk_source(PLL);
 
-	rcc_ppre_frequency = 40000000;
-	rcc_core_frequency = 40000000;
+	rcc_apb1_frequency = 40000000;
+	rcc_ahb_frequency = 40000000;
 }
 
 void rcc_clock_setup_in_hsi_out_48mhz(void)
@@ -624,8 +625,8 @@ void rcc_clock_setup_in_hsi_out_48mhz(void)
 	rcc_wait_for_osc_ready(PLL);
 	rcc_set_sysclk_source(PLL);
 
-	rcc_ppre_frequency = 48000000;
-	rcc_core_frequency = 48000000;
+	rcc_apb1_frequency = 48000000;
+	rcc_ahb_frequency = 48000000;
 }
 
 /**@}*/

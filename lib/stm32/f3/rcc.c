@@ -39,9 +39,10 @@
 #include <libopencm3/stm32/flash.h>
 #include <libopencm3/stm32/i2c.h>
 
-/* Set the default ppre1 and ppre2 peripheral clock frequencies after reset. */
-uint32_t rcc_ppre1_frequency = 8000000;
-uint32_t rcc_ppre2_frequency = 8000000;
+/* Set the default clock frequencies after reset. */
+uint32_t rcc_ahb_frequency = 8000000;
+uint32_t rcc_apb1_frequency = 8000000;
+uint32_t rcc_apb2_frequency = 8000000;
 
 const clock_scale_t hsi_8mhz[CLOCK_END] = {
 	{ /* 44MHz */
@@ -413,8 +414,8 @@ void rcc_clock_setup_hsi(const clock_scale_t *clock)
 	rcc_wait_for_sysclk_status(PLL);
 
 	/* Set the peripheral clock frequencies used. */
-	rcc_ppre1_frequency = clock->apb1_frequency;
-	rcc_ppre2_frequency = clock->apb2_frequency;
+	rcc_apb1_frequency = clock->apb1_frequency;
+	rcc_apb2_frequency = clock->apb2_frequency;
 }
 
 

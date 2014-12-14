@@ -25,9 +25,10 @@
 #include <libopencm3/stm32/flash.h>
 #include <libopencm3/stm32/pwr.h>
 
-/* Set the default ppre1 and ppre2 peripheral clock frequencies after reset. */
-uint32_t rcc_ppre1_frequency = 2097000;
-uint32_t rcc_ppre2_frequency = 2097000;
+/* Set the default clock frequencies after reset. */
+uint32_t rcc_ahb_frequency = 2097000;
+uint32_t rcc_apb1_frequency = 2097000;
+uint32_t rcc_apb2_frequency = 2097000;
 
 const clock_scale_t clock_config[CLOCK_CONFIG_END] = {
 	{ /* 24MHz PLL from HSI */
@@ -460,8 +461,8 @@ void rcc_clock_setup_msi(const clock_scale_t *clock)
 	flash_set_ws(clock->flash_config);
 
 	/* Set the peripheral clock frequencies used. */
-	rcc_ppre1_frequency = clock->apb1_frequency;
-	rcc_ppre2_frequency = clock->apb2_frequency;
+	rcc_apb1_frequency = clock->apb1_frequency;
+	rcc_apb2_frequency = clock->apb2_frequency;
 }
 
 void rcc_clock_setup_hsi(const clock_scale_t *clock)
@@ -491,8 +492,8 @@ void rcc_clock_setup_hsi(const clock_scale_t *clock)
 	flash_set_ws(clock->flash_config);
 
 	/* Set the peripheral clock frequencies used. */
-	rcc_ppre1_frequency = clock->apb1_frequency;
-	rcc_ppre2_frequency = clock->apb2_frequency;
+	rcc_apb1_frequency = clock->apb1_frequency;
+	rcc_apb2_frequency = clock->apb2_frequency;
 }
 
 void rcc_clock_setup_pll(const clock_scale_t *clock)
@@ -529,6 +530,6 @@ void rcc_clock_setup_pll(const clock_scale_t *clock)
 	rcc_set_sysclk_source(RCC_CFGR_SW_SYSCLKSEL_PLLCLK);
 
 	/* Set the peripheral clock frequencies used. */
-	rcc_ppre1_frequency = clock->apb1_frequency;
-	rcc_ppre2_frequency = clock->apb2_frequency;
+	rcc_apb1_frequency = clock->apb1_frequency;
+	rcc_apb2_frequency = clock->apb2_frequency;
 }
