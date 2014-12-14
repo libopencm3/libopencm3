@@ -108,10 +108,13 @@
 #define RCC_PLLCFGR_PLLSRC			(1 << 22)
 /* PLLP: [17:16] */
 #define RCC_PLLCFGR_PLLP_SHIFT			16
+#define RCC_PLLCFGR_PLLP_MASK			0x3
 /* PLLN: [14:6] */
 #define RCC_PLLCFGR_PLLN_SHIFT			6
+#define RCC_PLLCFGR_PLLN_MASK			0x1ff
 /* PLLM: [5:0] */
 #define RCC_PLLCFGR_PLLM_SHIFT			0
+#define RCC_PLLCFGR_PLLM_MASK			0x3f
 /* Mask all PLL Values */
 #define RCC_PLLCFGR_PLL_MASK			0x0f037fff
 
@@ -149,6 +152,7 @@
 #define RCC_CFGR_RTCPRE_MASK			0x1f
 
 /* PPRE1/2: APB high-speed prescalers */
+#define RCC_CFGR_PPRE_MASK			0x7
 #define RCC_CFGR_PPRE2_SHIFT			13
 #define RCC_CFGR_PPRE2_MASK			0x7
 #define RCC_CFGR_PPRE1_SHIFT			10
@@ -180,6 +184,7 @@
 
 /* SW: System clock switch */
 #define RCC_CFGR_SW_SHIFT			0
+#define RCC_CFGR_SW_MASK			0x3
 #define RCC_CFGR_SW_HSI				0x0
 #define RCC_CFGR_SW_HSE				0x1
 #define RCC_CFGR_SW_PLL				0x2

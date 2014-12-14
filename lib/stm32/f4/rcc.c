@@ -460,54 +460,61 @@ void rcc_osc_bypass_disable(enum rcc_osc osc)
 
 /* cmcmanis: proposed new "nice" helper function to set system clock */
 void rcc_set_sysclk(enum rcc_osc clk) {
-	uint32_t clk_bits = 0;
+	uint32_t clk_bits = RCC_CFGR_SW_HSI;
 	switch (clk) {
 		case HSI:
-			clk_bits = 0;
+			clk_bits = RCC_CFGR_SW_HSI;
 			break;
 		case HSE:
-			clk_bits = 1;
+			clk_bits = RCC_CFGR_SW_HSE;
 			break;
 		case PLL:
-			clk_bits = 2;
+			clk_bits = RCC_CFGR_SW_PLL;
 			break;
 		default:
-			clk_bits = 0;
+			clk_bits = RCC_CFGR_SW_HSI;
 			break;
 	}
-	RCC_CFGR = (RCC_CFGR & (~0x3)) | (clk_bits & 0x3);
+	RCC_CFGR = (RCC_CFGR & (~RCC_CFGR_SW_MASK)) |
+			   (clk_bits & RCC_CFGR_SW_MASK);
 	/* wait for the switch */
-	while (((RCC_CFGR >> 2) & 0x3) != clk_bits) ;
+	while (((RCC_CFGR >> RCC_CFGR_SWS_SHIFT) & RCC_CFGR_SW_MASK) != clk_bits) ;
 }
 
 void rcc_set_sysclk_source(uint32_t clk)
 {
-	RCC_CFGR = (RCC_CFGR & (~0x3)) | (clk & 0x3);
+	RCC_CFGR = (RCC_CFGR & (~RCC_CFGR_SW_MASK)) |
+		   (clk & RCC_CFGR_SW_MASK);
 }
 
 void rcc_set_pll_source(uint32_t pllsrc)
 {
-	RCC_PLLCFGR = (RCC_PLLCFGR & (~(1<<22))) | ((pllsrc & 1) << 22);
+	RCC_PLLCFGR = (RCC_PLLCFGR & (~RCC_PLLCFGR_PLLSRC)) |
+			  ((pllsrc & 1) * RCC_PLLCFGR_PLLSRC);
 }
 
 void rcc_set_ppre2(uint32_t ppre2)
 {
-	RCC_CFGR = (RCC_CFGR & (~(0x7 << 13))) | ((ppre2 & 0xf) << 13);
+	RCC_CFGR = (RCC_CFGR & (~(RCC_CFGR_PPRE_MASK << RCC_CFGR_PPRE2_SHIFT))) |
+		   ((ppre2 & RCC_CFGR_PPRE_MASK) << RCC_CFGR_PPRE2_SHIFT);
 }
 
 void rcc_set_ppre1(uint32_t ppre1)
 {
-	RCC_CFGR = (RCC_CFGR & (~(0x7 << 10))) | ((ppre1 & 0xf) << 10);
+	RCC_CFGR = (RCC_CFGR & (~(RCC_CFGR_PPRE_MASK << RCC_CFGR_PPRE1_SHIFT))) |
+		   ((ppre1 & RCC_CFGR_PPRE_MASK) << RCC_CFGR_PPRE1_SHIFT);
 }
 
 void rcc_set_hpre(uint32_t hpre)
 {
-	RCC_CFGR = (RCC_CFGR & (~(0xf << 4))) | ((hpre & 0xf) << 4);
+	RCC_CFGR = (RCC_CFGR & (~(RCC_CFGR_HPRE_MASK << RCC_CFGR_HPRE_SHIFT))) |
+		   ((hpre & RCC_CFGR_HPRE_MASK) << RCC_CFGR_HPRE_SHIFT);
 }
 
 void rcc_set_rtcpre(uint32_t rtcpre)
 {
-	RCC_CFGR = (RCC_CFGR & (~(0x1f << 16))) | ((rtcpre & 0x1f) << 16);
+	RCC_CFGR = (RCC_CFGR & (~(RCC_CFGR_RTCPRE_MASK << RCC_CFGR_RTCPRE_SHIFT))) |
+		   ((rtcpre & RCC_CFGR_RTCPRE_MASK) << RCC_CFGR_RTCPRE_SHIFT);
 }
 
 void rcc_set_main_pll_hsi(uint32_t pllm, uint32_t plln, uint32_t pllp,
@@ -532,7 +539,7 @@ void rcc_set_main_pll_hse(uint32_t pllm, uint32_t plln, uint32_t pllp,
 uint32_t rcc_system_clock_source(void)
 {
 	/* Return the clock source which is used as system clock. */
-	return (RCC_CFGR >> 2) & 0x3;
+	return (RCC_CFGR >> RCC_CFGR_SWS_SHIFT) & RCC_CFGR_SW_MASK;
 }
 
 void rcc_clock_setup_hse_3v3(const clock_scale_t *clock)
@@ -596,9 +603,9 @@ uint32_t rcc_get_pll_frequency(uint32_t hse_frequency) {
 	uint32_t pllreg = RCC_PLLCFGR;
 
 	pll_freq = (pllreg & RCC_PLLCFGR_PLLSRC) ? hse_frequency : RCC_HSI_FREQUENCY;
-	pll_freq = (pll_freq / ((pllreg >> RCC_PLLCFGR_PLLM_SHIFT) & 0x3f)) *
-				((pllreg >> RCC_PLLCFGR_PLLN_SHIFT) & 0x1ff);
-	switch ((pllreg >> RCC_PLLCFGR_PLLP_SHIFT)  & 0x3) {
+	pll_freq = (pll_freq / ((pllreg >> RCC_PLLCFGR_PLLM_SHIFT) & RCC_PLLCFGR_PLLM_MASK)) *
+				((pllreg >> RCC_PLLCFGR_PLLN_SHIFT) & RCC_PLLCFGR_PLLN_MASK);
+	switch ((pllreg >> RCC_PLLCFGR_PLLP_SHIFT)  & RCC_PLLCFGR_PLLP_MASK) {
 		default:
 		case 0: pll_freq = pll_freq >> 1; 	/* (/2) */
 			break;
@@ -621,7 +628,7 @@ uint32_t rcc_get_ahb_frequency(uint32_t hse_frequency) {
 	uint32_t pre;
 
 	/* fetch hpre value */
-	pre = (RCC_CFGR >> RCC_CFGR_HPRE_SHIFT) & 0xf;
+	pre = (RCC_CFGR >> RCC_CFGR_HPRE_SHIFT) & RCC_CFGR_HPRE_MASK;
 	if (pre == 0) {
 		pre = 1;
 	} else {
@@ -630,7 +637,7 @@ uint32_t rcc_get_ahb_frequency(uint32_t hse_frequency) {
 	switch (rcc_system_clock_source()) {
 		case 0: return (RCC_HSI_FREQUENCY / pre);
 		case 1: return (hse_frequency / pre);
-		case 2: return rcc_get_pll_frequency(hse_frequency) / pre; 
+		case 2: return rcc_get_pll_frequency(hse_frequency) / pre;
 		default: break; /* error condition */
 	}
 	return 0; /* error? */
