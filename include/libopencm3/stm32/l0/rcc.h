@@ -165,6 +165,15 @@
 #define RCC_CFGR_STOPWUCK_MSI		(0<<15)
 #define RCC_CFGR_STOPWUCK_HSI16		(1<<15)
 
+/* Generic PPRE divisors */
+#define RCC_PPRE_DIV_NONE			0x0
+#define RCC_PPRE_DIV_2				0x4
+#define RCC_PPRE_DIV_4				0x5
+#define RCC_PPRE_DIV_8				0x6
+#define RCC_PPRE_DIV_16				0x7
+#define RCC_CFGR_PPRE1_SHIFT			8
+#define RCC_CFGR_PPRE2_SHIFT			11
+
 /* PPRE2: APB high-speed prescaler (APB2) */
 #define RCC_CFGR_PPRE2_HCLK_NODIV		0x0
 #define RCC_CFGR_PPRE2_HCLK_DIV2		0x4
@@ -189,6 +198,17 @@
 #define RCC_CFGR_HPRE_SYSCLK_DIV128		0xd
 #define RCC_CFGR_HPRE_SYSCLK_DIV256		0xe
 #define RCC_CFGR_HPRE_SYSCLK_DIV512		0xf
+
+/* More "standard" versions */
+#define RCC_CFGR_SW_MSI				0x0
+#define RCC_CFGR_SW_HSI16			0x1
+#define RCC_CFGR_SW_HSE				0x2
+#define RCC_CFGR_SW_PLL				0x3
+
+#define RCC_CFGR_SWS_MSI			0x0
+#define RCC_CFGR_SWS_HSI16			0x1
+#define RCC_CFGR_SWS_HSE			0x2
+#define RCC_CFGR_SWS_PLL			0x3
 
 /* SWS: System clock switch status */
 #define RCC_CFGR_SWS_SYSCLKSEL_MSICLK		0x0
@@ -457,6 +477,15 @@
 #define RCC_CSR_LSIRDY				(1 << 1)
 #define RCC_CSR_LSION				(1 << 0)
 
+/* --- Helper Defines ----------------------------------------------------- */
+/* MSI Base frequency is 4194304 Hz can be divided by 2, 4, 8, 16, 32, 64 */
+#define RCC_MSI_4MHZ				((0x6 << 24) | 4194304)
+#define RCC_MSI_2MHZ				((0x5 << 24) | 2097152)
+#define RCC_MSI_1MHZ				((0x4 << 24) | 1048576)
+#define RCC_MSI_524KHZ				((0x3 << 24) | 524288)
+#define RCC_MSI_262KHZ				((0x2 << 24) | 262144)
+#define RCC_MSI_131KHZ				((0x1 << 24) | 131072)
+#define RCC_MSI_65KHZ				((0x0 << 24) | 65536)
 
 /* --- Variable definitions ------------------------------------------------ */
 extern uint32_t rcc_ahb_frequency;
@@ -466,7 +495,7 @@ extern uint32_t rcc_apb2_frequency;
 /* --- Function prototypes ------------------------------------------------- */
 
 enum rcc_osc {
-	PLL, HSE, HSI48, HSI16, MSI, LSE, LSI
+	PLL, HSE, HSI48, HSI16, HSI4, MSI, LSE, LSI
 };
 
 
@@ -610,6 +639,17 @@ void rcc_osc_ready_int_enable(enum rcc_osc osc);
 void rcc_osc_ready_int_disable(enum rcc_osc osc);
 int rcc_osc_ready_int_flag(enum rcc_osc osc);
 void rcc_wait_for_osc_ready(enum rcc_osc osc);
+enum rcc_osc rcc_get_sysclk(void);
+void rcc_set_sysclk(enum rcc_osc clk);
+void rcc_set_ppre1(uint32_t div);
+void rcc_set_ppre2(uint32_t div);
+void rcc_set_hpre(uint32_t div);
+void rcc_hsi4_clock_setup(void);
+void rcc_hsi16_clock_setup(void);
+void rcc_msi_clock_setup(uint32_t msi_freq);
+void rcc_hse_clock_setup(uint32_t hse_freq);
+void rcc_pll_clock_setup(uint32_t pll_freq, uint32_t src_freq);
+
 
 /* TODO */
 
