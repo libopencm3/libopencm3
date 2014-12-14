@@ -69,7 +69,8 @@
 
 /* --- RCC_CR values ------------------------------------------------------- */
 
-/* RTCPRE[1:0] at 30:29 */
+#define RCC_CR_RTCPRE_SHIFT			29
+#define RCC_CR_RTCPRE_MASK			0x3
 #define RCC_CR_CSSON				(1 << 28)
 #define RCC_CR_PLLRDY				(1 << 25)
 #define RCC_CR_PLLON				(1 << 24)

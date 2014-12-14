@@ -136,7 +136,8 @@
 #define RCC_CFGR_MCO1_PLL			0x3
 
 /* RTCPRE: HSE division factor for RTC clock */
-#define RCC_CFGR_RTCPRE_SHIFT			21
+#define RCC_CFGR_RTCPRE_SHIFT			16
+#define RCC_CFGR_RTCPRE_MASK			0x1f
 
 /* PPRE1/2: APB high-speed prescalers */
 #define RCC_CFGR_PPRE2_SHIFT			13

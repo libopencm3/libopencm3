@@ -69,7 +69,12 @@
 
 #define RCC_CR_PLLRDY				(1 << 25)
 #define RCC_CR_PLLON				(1 << 24)
-/* RTCPRE at 12:20 */
+#define RCC_CR_RTCPRE_SHIFT			20
+#define RCC_CR_RTCPRE_MASK			0x3
+#define RCC_CR_RTCPRE_DIV2			0
+#define RCC_CR_RTCPRE_DIV4			1
+#define RCC_CR_RTCPRE_DIV8			2
+#define RCC_CR_RTCPRE_DIV16			3
 #define RCC_CR_CSSHSEON                         (1 << 19)
 #define RCC_CR_HSEBYP				(1 << 18)
 #define RCC_CR_HSERDY				(1 << 17)
@@ -82,12 +87,6 @@
 #define RCC_CR_HSI16KERON			(1 << 1)
 #define RCC_CR_HSI16ON				(1 << 0)
 
-#define RCC_CR_RTCPRE_DIV2	0
-#define RCC_CR_RTCPRE_DIV4	1
-#define RCC_CR_RTCPRE_DIV8	2
-#define RCC_CR_RTCPRE_DIV16	3
-#define RCC_CR_RTCPRE_SHIFT	20
-#define RCC_CR_RTCPRE_MASK	0x3
 
 /* --- RCC_ICSCR values ---------------------------------------------------- */
 
