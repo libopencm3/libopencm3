@@ -39,7 +39,7 @@ OBJS		= adc.o adc_common_v1.o desig.o ethernet.o flash.o gpio.o \
                   rcc.o rtc.o timer.o
 OBJS		+= mac.o mac_stm32fxx7.o phy.o phy_ksz8051mll.o
 
-OBJS            += can_common_bxcan.o can_common_f124.o crc_common_all.o \
+OBJS            += can_common_bxcan.o crc_common_all.o \
                    dac_common_all.o dma_common_l1f013.o \
                    gpio_common_all.o i2c_common_all.o iwdg_common_all.o \
                    pwr_common_all.o spi_common_all.o spi_common_l1f124.o \

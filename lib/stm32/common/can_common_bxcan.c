@@ -35,6 +35,7 @@ LGPL License Terms @ref lgpl_license
  * along with this library.  If not, see <http://www.gnu.org/licenses/>.
  */
 
+#include <libopencm3/stm32/rcc.h>
 #include <libopencm3/stm32/can.h>
 
 /* Timeout for CAN INIT acknowledge
@@ -48,6 +49,30 @@ LGPL License Terms @ref lgpl_license
  * 11 bits(110 us on 100 kbps).
  */
 #define CAN_MSR_INAK_TIMEOUT 0x0000FFFF
+
+/*---------------------------------------------------------------------------*/
+/** @brief CAN Reset
+
+The CAN peripheral and all its associated configuration registers are placed in
+the reset condition. The reset is effective via the RCC peripheral reset
+system.
+
+@param[in] canport Unsigned int32. CAN block register address base @ref
+can_reg_base.
+ */
+void can_reset(uint32_t canport)
+{
+#if defined(BX_CAN1_BASE)
+	if (canport == CAN1) {
+		rcc_periph_reset_pulse(RST_CAN1);
+	} else {
+		rcc_periph_reset_pulse(RST_CAN2);
+	}
+#else /* only one CAN interface CAN_BASE */
+	(void) canport;
+	rcc_periph_reset_pulse(RST_CAN);
+#endif
+}
 
 /*---------------------------------------------------------------------------*/
 /** @brief CAN Init

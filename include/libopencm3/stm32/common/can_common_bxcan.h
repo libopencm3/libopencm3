@@ -622,6 +622,7 @@ LGPL License Terms @ref lgpl_license
 
 BEGIN_DECLS
 
+void can_reset(uint32_t canport);
 int can_init(uint32_t canport, bool ttcm, bool abom, bool awum, bool nart,
 	     bool rflm, bool txfp, uint32_t sjw, uint32_t ts1, uint32_t ts2,
 	     uint32_t brp, bool loopback, bool silent);
