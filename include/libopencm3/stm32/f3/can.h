@@ -33,7 +33,7 @@ specific memorymap.h header before including this header file.*/
 #ifndef LIBOPENCM3_CAN_H
 #define LIBOPENCM3_CAN_H
 
-#include <libopencm3/stm32/common/can_common_all.h>
+#include <libopencm3/stm32/common/can_common_bxcan.h>
 
 /* --- Convenience macros -------------------------------------------------- */
 
