@@ -1,6 +1,6 @@
 /** @defgroup can_defines CAN defines
 
-@ingroup STM32F1xx_defines
+@ingroup STM32F3xx_defines
 
 @version 1.0.0
 
