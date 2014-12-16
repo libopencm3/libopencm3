@@ -56,6 +56,5 @@ can_reg_base.
 void can_reset(uint32_t canport)
 {
     (void)canport;
-    rcc_peripheral_reset(&RCC_APB1RSTR, RCC_APB1RSTR_CANRST);
-    rcc_peripheral_clear_reset(&RCC_APB1RSTR, RCC_APB1RSTR_CANRST);
+    rcc_periph_reset_pulse(RST_CAN);
 }
