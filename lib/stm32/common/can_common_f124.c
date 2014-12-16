@@ -36,16 +36,7 @@ LGPL License Terms @ref lgpl_license
  */
 
 #include <libopencm3/stm32/can.h>
-
-#if defined(STM32F1)
-#   include <libopencm3/stm32/f1/rcc.h>
-#elif defined(STM32F2)
-#   include <libopencm3/stm32/f2/rcc.h>
-#elif defined(STM32F4)
-#   include <libopencm3/stm32/f4/rcc.h>
-#else
-#   error "stm32 family not defined."
-#endif
+#include <libopencm3/stm32/rcc.h>
 
 /*---------------------------------------------------------------------------*/
 /** @brief CAN Reset
