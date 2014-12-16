@@ -37,16 +37,6 @@ LGPL License Terms @ref lgpl_license
 
 #include <libopencm3/stm32/can.h>
 
-#if defined(STM32F1)
-#	include <libopencm3/stm32/f1/rcc.h>
-#elif defined(STM32F2)
-#	include <libopencm3/stm32/f2/rcc.h>
-#elif defined(STM32F4)
-#	include <libopencm3/stm32/f4/rcc.h>
-#else
-#	error "stm32 family not defined."
-#endif
-
 /* Timeout for CAN INIT acknowledge
  * this value is difficult to define.
  * INIT is set latest after finishing the current transfer.
@@ -58,27 +48,6 @@ LGPL License Terms @ref lgpl_license
  * 11 bits(110 us on 100 kbps).
  */
 #define CAN_MSR_INAK_TIMEOUT 0x0000FFFF
-
-/*---------------------------------------------------------------------------*/
-/** @brief CAN Reset
-
-The CAN peripheral and all its associated configuration registers are placed in
-the reset condition. The reset is effective via the RCC peripheral reset
-system.
-
-@param[in] canport Unsigned int32. CAN block register address base @ref
-can_reg_base.
- */
-void can_reset(uint32_t canport)
-{
-	if (canport == CAN1) {
-		rcc_peripheral_reset(&RCC_APB1RSTR, RCC_APB1RSTR_CAN1RST);
-		rcc_peripheral_clear_reset(&RCC_APB1RSTR, RCC_APB1RSTR_CAN1RST);
-	} else {
-		rcc_peripheral_reset(&RCC_APB1RSTR, RCC_APB1RSTR_CAN2RST);
-		rcc_peripheral_clear_reset(&RCC_APB1RSTR, RCC_APB1RSTR_CAN2RST);
-	}
-}
 
 /*---------------------------------------------------------------------------*/
 /** @brief CAN Init
