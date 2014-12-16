@@ -46,12 +46,4 @@ specific memorymap.h header before including this header file.*/
 #define CAN				BX_CAN_BASE
 /**@}*/
 
-/* --- CAN functions -------------------------------------------------------- */
-
-BEGIN_DECLS
-
-void can_reset(uint32_t canport);
-
-END_DECLS
-
 #endif

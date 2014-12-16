@@ -60,12 +60,4 @@ specific memorymap.h header before including this header file.*/
 #define CAN_FMR_CAN2SB_MASK		(0x3F << 8)
 #define CAN_FMR_CAN2SB_SHIFT		15
 
-/* --- CAN functions -------------------------------------------------------- */
-
-BEGIN_DECLS
-
-void can_reset(uint32_t canport);
-
-END_DECLS
-
 #endif
