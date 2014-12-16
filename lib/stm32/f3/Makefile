@@ -42,7 +42,7 @@ OBJS            += gpio_common_all.o gpio_common_f0234.o \
 		   iwdg_common_all.o spi_common_all.o dma_common_l1f013.o\
 		   timer_common_all.o timer_common_f234.o flash_common_f234.o \
 		   flash.o exti_common_all.o rcc_common_all.o spi_common_f03.o \
-		   can_common_all.o
+		   can_common_bxcan.o
 
 OBJS		+= usb.o usb_control.o usb_standard.o usb_f103.o
 
