@@ -46,8 +46,17 @@ void stm32fx07_ep_setup(usbd_device *usbd_dev, uint8_t addr, uint8_t type,
 	 * Configure endpoint address and type. Allocate FIFO memory for
 	 * endpoint. Install callback funciton.
 	 */
-	uint8_t dir = addr & 0x80;
+	uint16_t fifo_word_len;
+	uint8_t dir;
+
+	dir = addr & 0x80;
 	addr &= 0x7f;
+
+	fifo_word_len = max_size>>2;
+	/* minimum fifo size is 16 words */
+	if (fifo_word_len < 16) {
+		fifo_word_len = 16;
+	}
 
 	if (addr == 0) { /* For the default control endpoint */
 		/* Configure IN part. */
@@ -74,18 +83,18 @@ void stm32fx07_ep_setup(usbd_device *usbd_dev, uint8_t addr, uint8_t type,
 		REBASE(OTG_DOEPCTL(0)) |=
 		    OTG_FS_DOEPCTL0_EPENA | OTG_FS_DIEPCTL0_SNAK;
 
-		REBASE(OTG_GNPTXFSIZ) = ((max_size / 4) << 16) |
+		REBASE(OTG_GNPTXFSIZ) = (fifo_word_len << 16) |
 					 usbd_dev->driver->rx_fifo_size;
-		usbd_dev->fifo_mem_top += max_size / 4;
+		usbd_dev->fifo_mem_top += fifo_word_len;
 		usbd_dev->fifo_mem_top_ep0 = usbd_dev->fifo_mem_top;
 
 		return;
 	}
 
 	if (dir) {
-		REBASE(OTG_DIEPTXF(addr)) = ((max_size / 4) << 16) |
+		REBASE(OTG_DIEPTXF(addr)) = (fifo_word_len << 16) |
 					     usbd_dev->fifo_mem_top;
-		usbd_dev->fifo_mem_top += max_size / 4;
+		usbd_dev->fifo_mem_top += fifo_word_len;
 
 		REBASE(OTG_DIEPTSIZ(addr)) =
 		    (max_size & OTG_FS_DIEPSIZ0_XFRSIZ_MASK);
