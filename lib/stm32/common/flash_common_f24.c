@@ -361,7 +361,7 @@ void flash_erase_sector(uint8_t sector, uint32_t program_size)
 	flash_set_program_size(program_size);
 
 	FLASH_CR &= ~(0xF << 3);
-	FLASH_CR |= (sector << 3) & 0x78;
+	FLASH_CR |= (sector << 3) & 0xF8;
 	FLASH_CR |= FLASH_CR_SER;
 	FLASH_CR |= FLASH_CR_STRT;
 
