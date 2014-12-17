@@ -204,19 +204,15 @@ void eth_start(void)
  *
  * This function will initialize ethernet, set up clocks, and initialize DMA.
  *
- * @param[in] phy uint8_t phy ID of the PHY
  * @param[in] clock enum eth_clk Core clock speed
  */
-void eth_init(uint8_t phy, enum eth_clk clock)
+void eth_init(enum eth_clk clock)
 {
 	ETH_DMABMR |= ETH_DMABMR_SR;
 	while((ETH_DMABMR & ETH_DMABMR_SR) != 0);
 
 	ETH_MACMIIAR = clock;
-
-	phy_reset(phy);
-
-	while(!phy_link_isup(phy));
+	phy_reset();
 
 	ETH_MACCR |= ETH_MACCR_DM;
 	ETH_MACCR |= ETH_MACCR_RD;
