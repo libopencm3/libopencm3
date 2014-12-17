@@ -351,7 +351,7 @@ first be fully erased before attempting to program it.
 
 See the reference manual or the FLASH programming manual for details.
 
-@param[in] uint32_t sector (0 - 11).
+@param[in] uint32_t sector (0 - 11 for some parts, 0-23 on others)
 @param program_size: 0 (8-bit), 1 (16-bit), 2 (32-bit), 3 (64-bit)
 */
 
@@ -360,14 +360,14 @@ void flash_erase_sector(uint8_t sector, uint32_t program_size)
 	flash_wait_for_last_operation();
 	flash_set_program_size(program_size);
 
-	FLASH_CR &= ~(0xF << 3);
-	FLASH_CR |= (sector << 3) & 0x78;
+	FLASH_CR &= ~(FLASH_CR_SNB_MASK << FLASH_CR_SNB_SHIFT);
+	FLASH_CR |= (sector & FLASH_CR_SNB_MASK) << FLASH_CR_SNB_SHIFT;
 	FLASH_CR |= FLASH_CR_SER;
 	FLASH_CR |= FLASH_CR_STRT;
 
 	flash_wait_for_last_operation();
 	FLASH_CR &= ~FLASH_CR_SER;
-	FLASH_CR &= ~(0xF << 3);
+	FLASH_CR &= ~(FLASH_CR_SNB_MASK << FLASH_CR_SNB_SHIFT);
 }
 
 /*---------------------------------------------------------------------------*/
