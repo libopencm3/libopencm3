@@ -33,13 +33,14 @@ Set the programming word width. Note carefully the power supply voltage
 restrictions under which the different word sizes may be used. See the
 programming manual for more information.
 
-@param psize: 0 (8-bit), 1 (16-bit), 2 (32-bit), 3 (64-bit)
+@param psize: FLASH_CR_PROGRAM_X8 / _X16 / _X32 / _X64
 */
 
 static inline void flash_set_program_size(uint32_t psize)
 {
-	FLASH_CR &= ~(((1 << 0) | (1 << 1)) << 8);
-	FLASH_CR |= psize;
+	FLASH_CR &= ~(FLASH_CR_PROGRAM_MASK);
+	FLASH_CR |= psize; /* optionallly */
+	//FLASH_CR |= (psize & FLASH_CR_PROGRAM_MASK);
 }
 
 /*---------------------------------------------------------------------------*/

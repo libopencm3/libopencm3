@@ -76,10 +76,12 @@
 #define FLASH_CR_PG			(1 << 0)
 #define FLASH_CR_SNB_SHIFT		3
 #define FLASH_CR_SNB_MASK		0x1f
-#define FLASH_CR_PROGRAM_X8		(0x00 << 8)
-#define FLASH_CR_PROGRAM_X16		(0x01 << 8)
-#define FLASH_CR_PROGRAM_X32		(0x02 << 8)
-#define FLASH_CR_PROGRAM_X64		(0x03 << 8)
+#define FLASH_CR_PROGRAM_SHIFT		8
+#define FLASH_CR_PROGRAM_MASK		(0x3 << FLASH_CR_PROGRAM_SHIFT)
+#define FLASH_CR_PROGRAM_X8		(0 << FLASH_CR_PROGRAM_SHIFT)
+#define FLASH_CR_PROGRAM_X16		(1 << FLASH_CR_PROGRAM_SHIFT)
+#define FLASH_CR_PROGRAM_X32		(2 << FLASH_CR_PROGRAM_SHIFT)
+#define FLASH_CR_PROGRAM_X64		(3 << FLASH_CR_PROGRAM_SHIFT)
 
 /* --- FLASH_OPTCR values -------------------------------------------------- */
 
