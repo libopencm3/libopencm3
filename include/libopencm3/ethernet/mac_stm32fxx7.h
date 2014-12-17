@@ -729,6 +729,31 @@ void eth_irq_disable(uint32_t reason);
 bool eth_irq_is_pending(uint32_t reason);
 bool eth_irq_ack_pending(uint32_t reason);
 
+void eth_mac_enable_dm(void);
+void eth_mac_disable_dm(void);
+void eth_mac_enable_rd(void);
+void eth_mac_disable_rd(void);
+void eth_mac_enable_apcs(void);
+void eth_mac_disable_apcs(void);
+void eth_mac_enable_fes(void);
+void eth_mac_disable_fes(void);
+void eth_mac_enable_ra(void);
+void eth_mac_disable_ra(void);
+void eth_mac_enable_pm(void);
+void eth_mac_disable_pm(void);
+void eth_mac_enable_hpf(void);
+void eth_mac_disable_hpf(void);
+void eth_mac_enable_hu(void);
+void eth_mac_disable_hu(void);
+void eth_mac_enable_bfd(void);
+void eth_mac_disable_bfd(void);
+void eth_mac_enable_daif(void);
+void eth_mac_disable_daif(void);
+
+void eth_dma_enable_fb(void);
+void eth_dma_disable_fb(void);
+void eth_dma_enable_usp(void);
+void eth_dma_disable_usp(void);
 
 END_DECLS
 

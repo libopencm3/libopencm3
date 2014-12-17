@@ -209,7 +209,6 @@ void eth_start(void)
 void eth_init(enum eth_clk clock)
 {
 	ETH_MACMIIAR = clock;
-	phy_reset();
 
 	ETH_MACCR = ETH_MACCR_CSTF | ETH_MACCR_FES | ETH_MACCR_DM |
 		ETH_MACCR_APCS | ETH_MACCR_RD;
@@ -223,6 +222,280 @@ void eth_init(enum eth_clk clock)
 	ETH_DMABMR = ETH_DMABMR_AAB | ETH_DMABMR_FB |
 		(32 << ETH_DMABMR_RDP_SHIFT) | (32 << ETH_DMABMR_PBL_SHIFT) |
 		ETH_DMABMR_PM_2_1 | ETH_DMABMR_USP;
+}
+
+/*---------------------------------------------------------------------------*/
+/** @brief Enable Duplex Mode
+ *
+ * This function will enable Duplex Mode
+ * In this mode the MAC operates in full duplex mode
+ */
+void eth_mac_enable_dm(void)
+{
+	ETH_MACCR |= ETH_MACCR_DM;
+}
+
+/*---------------------------------------------------------------------------*/
+/** @brief Disable Duplex Mode
+ *
+ * This function will disable Duplex Mode
+ * In this mode the MAC operates in half duplex mode
+ */
+void eth_mac_disable_dm(void)
+{
+	ETH_MACCR &= ~ETH_MACCR_DM;
+}
+
+/*---------------------------------------------------------------------------*/
+/** @brief Enable Retry Disable
+ *
+ * This function will enable Retry Disable
+ * This will result in the MAC attempting only one transmission
+ *
+ * Note that this bit is only applicable in Half Duplex mode!
+ */
+void eth_mac_enable_rd(void)
+{
+	ETH_MACCR |= ETH_MACCR_RD;
+}
+
+/*---------------------------------------------------------------------------*/
+/** @brief Disable Retry Disable
+ *
+ * This function will disable Retry Disable
+ * This will result in the MAC attempting retransmissions based on
+ * the settings of BL (Back-off Limit)
+ *
+ * Note that this bit is only applicable in Half Duplex mode!
+ */
+void eth_mac_disable_rd(void)
+{
+	ETH_MACCR &= ~ETH_MACCR_RD;
+}
+
+/*---------------------------------------------------------------------------*/
+/** @brief Enable Automatic Pad/CRC Stripping
+ *
+ * This function will enable Automatic Pad/CRC Stripping
+ * When this is set the MAC strips the Pad/FCS field on incoming frames
+ * if the length's field value is <= 1500
+ */
+void eth_mac_enable_apcs(void)
+{
+	ETH_MACCR |= ETH_MACCR_APCS;
+}
+
+/*---------------------------------------------------------------------------*/
+/** @brief Disable Automatic Pad/CRC Stripping
+ *
+ * This function will disable Automatic Pad/CRC Stripping
+ * When this is disabled the MAC passes all frames unmodified
+ */
+void eth_mac_disable_apcs(void)
+{
+	ETH_MACCR &= ~ETH_MACCR_APCS;
+}
+
+/*---------------------------------------------------------------------------*/
+/** @brief Enable Fast Ethernet feature
+ *
+ * This function will indicate the speed in Fast Ethernet (MII) mode
+ * This will result in Fast Ethernet (MII) mode @ 100Mbit/s
+ */
+void eth_mac_enable_fes(void)
+{
+	ETH_MACCR |= ETH_MACCR_FES;
+}
+
+/*---------------------------------------------------------------------------*/
+/** @brief Disable Fast Ethernet feature
+ *
+ * This function will indicate the speed in Fast Ethernet (MII) mode
+ * This will result in Fast Ethernet (MII) mode @ 10Mbit/s
+ */
+void eth_mac_disable_fes(void)
+{
+	ETH_MACCR &= ~ETH_MACCR_FES;
+}
+
+/*---------------------------------------------------------------------------*/
+/** @brief Enable Receive All packets feature
+ *
+ * This function will enable the Receive All packets feature
+ * This will result in the MAC receiver passing all received frames on to the
+ * application, whether they passed the SA/DA address filter or not.
+ */
+void eth_mac_enable_ra(void)
+{
+	ETH_MACFFR |= ETH_MACFFR_RA;
+}
+
+/*---------------------------------------------------------------------------*/
+/** @brief Disable Receive All packets feature
+ *
+ * This function will disable the Receive All packets feature
+ * This will result in the MAC receiver only passing those received frames
+ * on to the application that passed the SA/DA address filter.
+ */
+void eth_mac_disable_ra(void)
+{
+	ETH_MACFFR &= ~ETH_MACFFR_RA;
+}
+
+/*---------------------------------------------------------------------------*/
+/** @brief Enable Promiscuous Mode feature
+ *
+ * This function will enable the Promiscuous Mode feature
+ * All packets are forwarded to the application
+ */
+void eth_mac_enable_pm(void)
+{
+	ETH_MACFFR |= ETH_MACFFR_PM;
+}
+
+/*---------------------------------------------------------------------------*/
+/** @brief Disable Promiscuous Mode feature
+ *
+ * This function will disable the Promiscuous Mode
+ */
+void eth_mac_disable_pm(void)
+{
+	ETH_MACFFR &= ~ETH_MACFFR_PM;
+}
+
+/*---------------------------------------------------------------------------*/
+/** @brief Enable Hash or Perfect Filter feature
+ *
+ * This function will enable the Hash or Perfect Filter feature
+ * This will result in the MAC receiver only passing those received frames
+ * that match either the Hash or the Perfect MAC filter
+ */
+void eth_mac_enable_hpf(void)
+{
+	ETH_MACFFR |= ETH_MACFFR_HPF;
+}
+
+/*---------------------------------------------------------------------------*/
+/** @brief Disable Hash or Perfect Filter feature
+ *
+ * This function will disable the Hash or Perfect Filter feature
+ */
+void eth_mac_disable_hpf(void)
+{
+	ETH_MACFFR &= ~ETH_MACFFR_HPF;
+}
+
+/*---------------------------------------------------------------------------*/
+/** @brief Enable Hash Unicast filtering
+ *
+ * This function will enable the Hash Unicast filtering
+ * This will result in the MAC receiver only passing those received frames
+ * that match the Hash Unicast MAC filter
+ */
+void eth_mac_enable_hu(void)
+{
+	ETH_MACFFR |= ETH_MACFFR_HU;
+}
+
+/*---------------------------------------------------------------------------*/
+/** @brief Disable Hash Unicast filtering
+ *
+ * This function will disable the Hash Unicast filtering
+ */
+void eth_mac_disable_hu(void)
+{
+	ETH_MACFFR &= ~ETH_MACFFR_HU;
+}
+
+/*---------------------------------------------------------------------------*/
+/** @brief Enable Broadcast Frames Disable feature
+ *
+ * This function will enable the Broadcast Frames Disable feature
+ * This will result in the MAC receiver filtering out the broadcast frames
+ */
+void eth_mac_enable_bfd(void)
+{
+	ETH_MACFFR |= ETH_MACFFR_BFD;
+}
+
+/*---------------------------------------------------------------------------*/
+/** @brief Disable Broadcast Frames Disable feature
+ *
+ * This function will disable the Broadcast Frames Disable feature
+ * This will result in the MAC receiver passing all broadcast frames
+ * to the application
+ */
+void eth_mac_disable_bfd(void)
+{
+	ETH_MACFFR &= ~ETH_MACFFR_BFD;
+}
+
+/*---------------------------------------------------------------------------*/
+/** @brief Enable Destination Address(DA) Inverse Filtering
+ *
+ * This function will enable the Destination Address(DA) Inverse Filtering
+ * This will result in an inverse filtering of the DA for both unicast and multicast
+ */
+void eth_mac_enable_daif(void)
+{
+	ETH_MACFFR |= ETH_MACFFR_DAIF;
+}
+
+/*---------------------------------------------------------------------------*/
+/** @brief Disable Destination Address(DA) Inverse Filtering
+ *
+ * This function will disable the Destination Address(DA) Inverse Filtering
+ * This will result in no inverse filtering of the DA for both unicast and multicast
+ */
+void eth_mac_disable_daif(void)
+{
+	ETH_MACFFR &= ~ETH_MACFFR_DAIF;
+}
+
+/*---------------------------------------------------------------------------*/
+/** @brief Enable DMA Fixed Burst feature
+ *
+ * This function will enable the DMA Fixed Burst feature
+ * This will result in the AHB Master interface using only:
+ * SINGLE, INCR4, INCR8 and INCR16
+ */
+void eth_dma_enable_fb(void)
+{
+	ETH_DMABMR |= ETH_DMABMR_FB;
+}
+
+/*---------------------------------------------------------------------------*/
+/** @brief Disable DMA Fixed Burst feature
+ *
+ * This function will disable the DMA Fixed Burst feature
+ * This will result in the AHB Master interface using:
+ * SINGLE, INCR
+ */
+void eth_dma_disable_fb(void)
+{
+	ETH_DMABMR &= ~ETH_DMABMR_FB;
+}
+
+/*---------------------------------------------------------------------------*/
+/** @brief Enable DMA Use Seperate PBL feature
+ *
+ * This function will enable the DMA Use Seperate PBL feature
+ * PBL = Programmable burst length
+ */
+void eth_dma_enable_usp(void)
+{
+	ETH_DMABMR |= ETH_DMABMR_USP;
+}
+
+/*---------------------------------------------------------------------------*/
+/** @brief Enable DMA Use Seperate PBL feature
+ *
+ * This function will enable the DMA Use Seperate PBL feature
+ * PBL = Programmable burst length
+ */
+void eth_dma_disable_usp(void)
+{
+	ETH_DMABMR &= ~ETH_DMABMR_USP;
 }
 
 /*---------------------------------------------------------------------------*/
