@@ -38,8 +38,8 @@ programming manual for more information.
 
 static inline void flash_set_program_size(uint32_t psize)
 {
-	FLASH_CR &= ~(((1 << 0) | (1 << 1)) << 8);
-	FLASH_CR |= psize;
+	FLASH_CR &= ~(FLASH_CR_PROGRAM_MASK << FLASH_CR_PROGRAM_SHIFT);
+	FLASH_CR |= psize << FLASH_CR_PROGRAM_SHIFT;
 }
 
 /*---------------------------------------------------------------------------*/
