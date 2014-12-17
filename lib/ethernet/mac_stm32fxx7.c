@@ -209,24 +209,27 @@ void eth_start(void)
  */
 void eth_init(uint8_t phy, enum eth_clk clock)
 {
+	ETH_DMABMR |= ETH_DMABMR_SR;
+	while((ETH_DMABMR & ETH_DMABMR_SR) != 0);
 	ETH_MACMIIAR = clock;
 
 	phy_reset(phy);
 
 	while(!phy_link_isup(phy));
 
-	ETH_MACCR = ETH_MACCR_CSTF | ETH_MACCR_FES | ETH_MACCR_DM |
-		ETH_MACCR_APCS | ETH_MACCR_RD;
-	ETH_MACFFR = ETH_MACFFR_RA | ETH_MACFFR_PM;
-	ETH_MACHTHR = 0; /* pass all frames */
+	ETH_MACCR |= ETH_MACCR_DM;
+	ETH_MACCR |= ETH_MACCR_RD;
+	ETH_MACFFR |= ETH_MACFFR_RA;
+	ETH_MACFFR |= ETH_MACFFR_PM;
+	ETH_MACHTHR = 0;
 	ETH_MACHTLR = 0;
 	ETH_MACFCR = (0x100 << ETH_MACFCR_PT_SHIFT);
 	ETH_MACVLANTR = 0;
 	ETH_DMAOMR = ETH_DMAOMR_DTCEFD | ETH_DMAOMR_RSF | ETH_DMAOMR_DFRF |
 		ETH_DMAOMR_TSF | ETH_DMAOMR_FEF | ETH_DMAOMR_OSF;
-	ETH_DMABMR = ETH_DMABMR_AAB | ETH_DMABMR_FB |
-		(32 << ETH_DMABMR_RDP_SHIFT) | (32 << ETH_DMABMR_PBL_SHIFT) |
-		ETH_DMABMR_PM_2_1 | ETH_DMABMR_USP;
+	ETH_DMABMR = ETH_DMABMR_AAB |
+		(1 << ETH_DMABMR_RDP_SHIFT) | (1 << ETH_DMABMR_PBL_SHIFT) |
+		ETH_DMABMR_PM_1_1;
 }
 
 /*---------------------------------------------------------------------------*/
