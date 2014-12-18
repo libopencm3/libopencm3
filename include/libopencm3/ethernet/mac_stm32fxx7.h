@@ -719,7 +719,7 @@ void eth_desc_init(uint8_t *buf, uint32_t nTx, uint32_t nRx, uint32_t cTx,
 bool eth_tx(uint8_t *ppkt, uint32_t n);
 bool eth_rx(uint8_t *ppkt, uint32_t *len, uint32_t maxlen);
 
-void eth_init(uint8_t phy,enum eth_clk clock);
+void eth_init(uint8_t phy, enum eth_clk clock);
 void eth_start(void);
 
 void eth_enable_checksum_offload(void);

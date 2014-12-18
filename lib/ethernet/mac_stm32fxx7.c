@@ -198,6 +198,7 @@ void eth_start(void)
  *
  * This function will initialize ethernet, set up clocks, and initialize DMA.
  *
+ * @param[in] phy phy id
  * @param[in] clock enum eth_clk Core clock speed
  */
 void eth_init(uint8_t phy, enum eth_clk clock)
