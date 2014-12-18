@@ -231,6 +231,28 @@ void eth_init(enum eth_clk clock)
 }
 
 /*---------------------------------------------------------------------------*/
+/** @brief Set MAC speed to 100Mbits
+ *
+ * This function will enable Fast Ethernet (MII) mode, setting the MAC
+ * speed to 100Mbits per second
+ */
+void eth_mac_set_100Mbits(void)
+{
+	ETH_MACCR |= ETH_MACCR_FES;
+}
+
+/*---------------------------------------------------------------------------*/
+/** @brief Set MAC speed to 10Mbits
+ *
+ * This function will disable Fast Ethernet (MII) mode, setting the MAC
+ * speed to 10Mbits per second
+ */
+void eth_mac_set_10Mbits(void)
+{
+	ETH_MACCR &= ~ETH_MACCR_FES;
+}
+
+/*---------------------------------------------------------------------------*/
 /** @brief Enable Duplex Mode
  *
  * This function will enable Duplex Mode
@@ -300,28 +322,6 @@ void eth_mac_enable_apcs(void)
 void eth_mac_disable_apcs(void)
 {
 	ETH_MACCR &= ~ETH_MACCR_APCS;
-}
-
-/*---------------------------------------------------------------------------*/
-/** @brief Enable Fast Ethernet feature
- *
- * This function will indicate the speed in Fast Ethernet (MII) mode
- * This will result in Fast Ethernet (MII) mode @ 100Mbit/s
- */
-void eth_mac_enable_fes(void)
-{
-	ETH_MACCR |= ETH_MACCR_FES;
-}
-
-/*---------------------------------------------------------------------------*/
-/** @brief Disable Fast Ethernet feature
- *
- * This function will indicate the speed in Fast Ethernet (MII) mode
- * This will result in Fast Ethernet (MII) mode @ 10Mbit/s
- */
-void eth_mac_disable_fes(void)
-{
-	ETH_MACCR &= ~ETH_MACCR_FES;
 }
 
 /*---------------------------------------------------------------------------*/

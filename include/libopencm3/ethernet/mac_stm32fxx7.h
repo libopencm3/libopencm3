@@ -729,14 +729,14 @@ void eth_irq_disable(uint32_t reason);
 bool eth_irq_is_pending(uint32_t reason);
 bool eth_irq_ack_pending(uint32_t reason);
 
+void eth_mac_set_100Mbits(void);
+void eth_mac_set_10Mbits(void);
 void eth_mac_enable_dm(void);
 void eth_mac_disable_dm(void);
 void eth_mac_enable_rd(void);
 void eth_mac_disable_rd(void);
 void eth_mac_enable_apcs(void);
 void eth_mac_disable_apcs(void);
-void eth_mac_enable_fes(void);
-void eth_mac_disable_fes(void);
 void eth_mac_enable_ra(void);
 void eth_mac_disable_ra(void);
 void eth_mac_enable_pm(void);
