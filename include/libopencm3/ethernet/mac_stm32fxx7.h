@@ -714,6 +714,7 @@ void eth_smi_bit_clear(uint8_t phy, uint8_t reg, uint16_t clearbits);
 void eth_smi_bit_set(uint8_t phy, uint8_t reg, uint16_t setbits);
 
 void eth_set_mac(uint8_t *mac);
+void eth_set_mac_filter(int mac_index, uint8_t *mac);
 void eth_desc_init(uint8_t *buf, uint32_t nTx, uint32_t nRx, uint32_t cTx,
 		    uint32_t cRx, bool isext);
 bool eth_tx(uint8_t *ppkt, uint32_t n);
@@ -729,6 +730,31 @@ void eth_irq_disable(uint32_t reason);
 bool eth_irq_is_pending(uint32_t reason);
 bool eth_irq_ack_pending(uint32_t reason);
 
+void eth_mac_set_100Mbits(void);
+void eth_mac_set_10Mbits(void);
+void eth_mac_enable_dm(void);
+void eth_mac_disable_dm(void);
+void eth_mac_enable_rd(void);
+void eth_mac_disable_rd(void);
+void eth_mac_enable_apcs(void);
+void eth_mac_disable_apcs(void);
+void eth_mac_enable_ra(void);
+void eth_mac_disable_ra(void);
+void eth_mac_enable_pm(void);
+void eth_mac_disable_pm(void);
+void eth_mac_enable_hpf(void);
+void eth_mac_disable_hpf(void);
+void eth_mac_enable_hu(void);
+void eth_mac_disable_hu(void);
+void eth_mac_enable_bfd(void);
+void eth_mac_disable_bfd(void);
+void eth_mac_enable_daif(void);
+void eth_mac_disable_daif(void);
+
+void eth_dma_enable_fb(void);
+void eth_dma_disable_fb(void);
+void eth_dma_enable_usp(void);
+void eth_dma_disable_usp(void);
 
 END_DECLS
 
@@ -738,7 +764,7 @@ END_DECLS
  *  [ init gpio pins ]
  *  rcc_periph_reset_pulse(RCC_ETHMAC);
  *  phy_init();
- *  eth_init();
+ *  eth_init(phy);
  *  eth_set_mac(mac);
  *  eth_desc_init(buffer, &eth_buffer[0], ETH_TXBUFNB, ETH_RXBUFNB,
  *                  ETH_TX_BUF_SIZE, ETH_RX_BUF_SIZE, false);
