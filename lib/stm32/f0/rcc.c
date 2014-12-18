@@ -435,12 +435,41 @@ void rcc_set_usbclk_source(enum rcc_osc clk)
 		RCC_CFGR3 &= ~RCC_CFGR3_USBSW;
 	case HSI:
 	case HSE:
+		break;
+	}
+}
+
+/** @brief RCC Set the System Clock Source.
+ *
+ * @param[in] osc enum ::osc_t. Oscillator ID. Only HSE, LSE and PLL have
+ * effect.
+ */
+
+void rcc_set_sysclk(enum rcc_osc clk_src)
+{
+	uint32_t	clk = RCC_CFGR_SW_HSI;
+	switch (clk_src) {
+	case HSI:
+		clk = RCC_CFGR_SW_HSI;
+		break;
+	case HSE:
+		clk = RCC_CFGR_SW_HSE;
+		break;
+	case PLL:
+		clk = RCC_CFGR_SW_PLL;
+		break;
+	case HSI48:
+		clk = RCC_CFGR_SW_HSI48;
+		break;
 	case LSI:
 	case LSE:
 	case HSI14:
 		/* do nothing */
-		break;
+		return;
 	}
+	/* select the clock, and then wait for it to take effect */
+	RCC_CFGR = (RCC_CFGR & ~RCC_CFGR_SW) | clk;
+	while (((RCC_CFGR >> 2) & 3) != clk) ;
 }
 
 /*---------------------------------------------------------------------------*/
@@ -583,33 +612,73 @@ uint32_t rcc_get_ahb_frequency(uint32_t hse_frequency) {
 	return ahb_freq >> ((hpre & 0x7) + 2);
 }
 
+/*
+ * Set (or restore) the generic HSI
+ * clock configuration.
+ */
+void rcc_hsi_clock_setup(void) {
+	if ((RCC_CFGR & 0x3) == RCC_CFGR_SW_HSI) {
+		return; /* already running on HSI */
+	}
+	rcc_osc_on(HSI);
+	rcc_wait_for_osc_ready(HSI);
+	rcc_set_sysclk(HSI);
+	rcc_set_hpre(RCC_CFGR_HPRE_DIV_NONE);
+	rcc_set_ppre(RCC_CFGR_PPRE_DIV_NONE);
+	rcc_core_frequency = RCC_HSI_FREQUENCY;
+	rcc_ppre_frequency = RCC_HSI_FREQUENCY;
+	rcc_ahb_frequency = RCC_HSI_FREQUENCY;
+}
+
+/*
+ * Set the system clock to an HSE source
+ */
+void rcc_hse_clock_setup(uint32_t frequency) {
+	/* Switch to HSI if not there */
+	rcc_hsi_clock_setup();
+	rcc_osc_on(HSE);
+	rcc_wait_for_osc_ready(HSE);
+	rcc_set_sysclk(HSE);
+	rcc_set_hpre(RCC_CFGR_HPRE_DIV_NONE);
+	rcc_set_ppre(RCC_CFGR_PPRE_DIV_NONE);
+	rcc_core_frequency = frequency;
+	rcc_ppre_frequency = frequency;
+	rcc_ahb_frequency = frequency;
+}
+
 /** @brief RCC Set up HSI Clock
+ *
+ * Set the system clock to the PLL source
  *
  * @returns void
  */
 
-void rcc_set_hsi_clock(uint32_t pllbits) {
+void rcc_pll_clock_setup(uint32_t pllbits, uint32_t base_freq) {
 
 	/* Switch to HSI only for now */
-	rcc_osc_on(HSI);
-	rcc_wait_for_osc_ready(HSI);
-	rcc_set_sysclk_source(HSI);
-	/* Can't imagine why these would not already be set to DIV_NONE but ... */
-	rcc_set_hpre(RCC_CFGR_HPRE_DIV_NONE);
-	rcc_set_ppre(RCC_CFGR_PPRE_DIV_NONE);
+	rcc_hsi_clock_setup();
+
 	/* Turn off the PLL */
 	rcc_osc_off(PLL);
 
-	/* Configure source is HSI, multiplier is as passed */
+	/* Configure source as HSE/HSI, multiplier is as passed */
 	RCC_CFGR &= ~(RCC_CFGR_PLLSRC | RCC_CFGR_PLLMUL);
-	RCC_CFGR |= pllbits & RCC_CFGR_PLLMUL;
+	RCC_CFGR |= (pllbits & (RCC_CFGR_PLLMUL | RCC_CFGR_PLLSRC));
 
 	/* Multiplier has bit for either 1 or 0 WS on flash) */
 	flash_set_ws(pllbits & 1);
+
+	/* If PLL input is HSE, then turn it on first */
+	if ((pllbits & RCC_CFGR_PLLSRC) != 0) {
+		rcc_osc_on(HSE);
+		rcc_wait_for_osc_ready(HSE);
+	}
+
+	/* Now turn on the PLL and wait for it to spin up */
 	rcc_osc_on(PLL);
 	rcc_wait_for_osc_ready(PLL);
-	rcc_set_sysclk_source(PLL);
-	rcc_ahb_frequency = rcc_get_pll_frequency(8000000);
+	rcc_set_sysclk(PLL);
+	rcc_ahb_frequency = rcc_get_pll_frequency(base_freq);
 	rcc_apb1_frequency = rcc_ahb_frequency;
 }
 

@@ -540,6 +540,8 @@ void rcc_set_ppre(uint32_t ppre);
 void rcc_set_hpre(uint32_t hpre);
 void rcc_set_prediv(uint32_t prediv);
 void rcc_set_mco(uint32_t mcosrc);
+/* deprecate */
+void rcc_set_sysclk_source(enum rcc_osc clk);
 enum rcc_osc rcc_system_clock_source(void);
 enum rcc_osc rcc_usb_clock_source(void);
 void rcc_clock_setup_in_hsi_out_8mhz(void);
@@ -548,9 +550,14 @@ void rcc_clock_setup_in_hsi_out_24mhz(void);
 void rcc_clock_setup_in_hsi_out_32mhz(void);
 void rcc_clock_setup_in_hsi_out_40mhz(void);
 void rcc_clock_setup_in_hsi_out_48mhz(void);
+/* new api */
 uint32_t rcc_get_pll_frequency(uint32_t hse_frequency);
 uint32_t rcc_get_ahb_frequency(uint32_t hse_frequency);
 void rcc_set_hsi_clock(uint32_t freq);
+void rcc_set_sysclk(enum rcc_osc osc);
+void rcc_hsi_clock_setup(void);
+void rcc_hse_clock_setup(uint32_t freq);
+void rcc_pll_clock_setup(uint32_t pllmull, uint32_t src_freq);
 
 END_DECLS
 
