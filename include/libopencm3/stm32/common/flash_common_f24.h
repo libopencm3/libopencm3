@@ -74,22 +74,14 @@
 #define FLASH_CR_MER			(1 << 2)
 #define FLASH_CR_SER			(1 << 1)
 #define FLASH_CR_PG			(1 << 0)
-#define FLASH_CR_SECTOR_0		(0x00 << 3)
-#define FLASH_CR_SECTOR_1		(0x01 << 3)
-#define FLASH_CR_SECTOR_2		(0x02 << 3)
-#define FLASH_CR_SECTOR_3		(0x03 << 3)
-#define FLASH_CR_SECTOR_4		(0x04 << 3)
-#define FLASH_CR_SECTOR_5		(0x05 << 3)
-#define FLASH_CR_SECTOR_6		(0x06 << 3)
-#define FLASH_CR_SECTOR_7		(0x07 << 3)
-#define FLASH_CR_SECTOR_8		(0x08 << 3)
-#define FLASH_CR_SECTOR_9		(0x09 << 3)
-#define FLASH_CR_SECTOR_10		(0x0a << 3)
-#define FLASH_CR_SECTOR_11		(0x0b << 3)
-#define FLASH_CR_PROGRAM_X8		(0x00 << 8)
-#define FLASH_CR_PROGRAM_X16		(0x01 << 8)
-#define FLASH_CR_PROGRAM_X32		(0x02 << 8)
-#define FLASH_CR_PROGRAM_X64		(0x03 << 8)
+#define FLASH_CR_SNB_SHIFT		3
+#define FLASH_CR_SNB_MASK		0x1f
+#define FLASH_CR_PROGRAM_SHIFT		8
+#define FLASH_CR_PROGRAM_MASK		(0x3 << FLASH_CR_PROGRAM_SHIFT)
+#define FLASH_CR_PROGRAM_X8		(0 << FLASH_CR_PROGRAM_SHIFT)
+#define FLASH_CR_PROGRAM_X16		(1 << FLASH_CR_PROGRAM_SHIFT)
+#define FLASH_CR_PROGRAM_X32		(2 << FLASH_CR_PROGRAM_SHIFT)
+#define FLASH_CR_PROGRAM_X64		(3 << FLASH_CR_PROGRAM_SHIFT)
 
 /* --- FLASH_OPTCR values -------------------------------------------------- */
 
