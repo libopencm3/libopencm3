@@ -45,20 +45,27 @@ uint32_t RxBD;
 /*---------------------------------------------------------------------------*/
 /** @brief Set MAC to the PHY
  *
- * @param[in] mac_index int MAC Address index to use
  * @param[in] mac uint8_t* Desired MAC
  */
-void eth_set_mac(int mac_index, uint8_t *mac)
+void eth_set_mac(uint8_t *mac)
 {
-	uint32_t reg32 = 0;
+	ETH_MACAHR(0) = ((uint32_t)mac[5] << 8) | (uint32_t)mac[4] |
+			ETH_MACA0HR_MACA0H;
+	ETH_MACALR(0) = ((uint32_t)mac[3] << 24) | ((uint32_t)mac[2] << 16) |
+			((uint32_t)mac[1] << 8) | mac[0];
+}
+
+/*---------------------------------------------------------------------------*/
+/** @brief Set MAC Address for filtering
+ *
+ * @param[in] mac_index int MAC Address index to use
+ * @param[in] mac uint8_t* Desired MAC Address
+ */
+void eth_set_mac_filter(int mac_index, uint8_t *mac)
+{
 	ETH_MACALR(mac_index) = ((uint32_t)mac[3] << 24) | ((uint32_t)mac[2] << 16) |
 			((uint32_t)mac[1] << 8) | mac[0];
-	if(mac_index) {
-		ETH_MACAHR(mac_index) = ((uint32_t)mac[5] << 8) | (uint32_t)mac[4] | ETH_MACAHR_AE;
-	} else {
-		reg32 = ETH_MACAHR(mac_index) >> 16;
-		ETH_MACAHR(mac_index) = reg32 << 16 | ((uint32_t)mac[5] << 8) | (uint32_t)mac[4];
-	}
+	ETH_MACAHR(mac_index) = ((uint32_t)mac[5] << 8) | (uint32_t)mac[4] | ETH_MACAHR_AE;
 }
 
 /*---------------------------------------------------------------------------*/

@@ -713,7 +713,8 @@ void eth_smi_bit_op(uint8_t phy, uint8_t reg, uint16_t bits, uint16_t mask);
 void eth_smi_bit_clear(uint8_t phy, uint8_t reg, uint16_t clearbits);
 void eth_smi_bit_set(uint8_t phy, uint8_t reg, uint16_t setbits);
 
-void eth_set_mac(int mac_index, uint8_t *mac);
+void eth_set_mac(uint8_t *mac);
+void eth_set_mac_filter(int mac_index, uint8_t *mac);
 void eth_desc_init(uint8_t *buf, uint32_t nTx, uint32_t nRx, uint32_t cTx,
 		    uint32_t cRx, bool isext);
 bool eth_tx(uint8_t *ppkt, uint32_t n);
@@ -764,7 +765,7 @@ END_DECLS
  *  rcc_periph_reset_pulse(RCC_ETHMAC);
  *  phy_init();
  *  eth_init(phy);
- *  eth_set_mac(mac_reg, mac);
+ *  eth_set_mac(mac);
  *  eth_desc_init(buffer, &eth_buffer[0], ETH_TXBUFNB, ETH_RXBUFNB,
  *                  ETH_TX_BUF_SIZE, ETH_RX_BUF_SIZE, false);
  *  eth_start();
