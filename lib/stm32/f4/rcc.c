@@ -13,6 +13,18 @@
  * This library supports the Reset and Clock Control System in the STM32 series
  * of ARM Cortex Microcontrollers by ST Microelectronics.
  *
+ * @date 10 Dec 2014
+ *
+ * Added additional helper routine rcc_set_pll_clock and some constants to make
+ * it easy to pick different clock speeds. Its also a bit more space efficient
+ * as clock parameters are #defines rather than static structures.
+ *
+ * Added new function rcc_set_sysclk(enum rcc_osc). This sets the oscillator
+ * and waits for it to switch in one call.
+ *
+ * Adds new extern uint32_t rcc_ahb_frequency which an be enquired for the
+ * current set system clock frequency.
+ *
  * LGPL License Terms @ref lgpl_license
  */
 
@@ -346,13 +358,13 @@ void rcc_wait_for_sysclk_status(enum rcc_osc osc)
 {
 	switch (osc) {
 	case PLL:
-		while ((RCC_CFGR & ((1 << 1) | (1 << 0))) != RCC_CFGR_SWS_PLL);
+		while (((RCC_CFGR >> 2) & 0x3) != RCC_CFGR_SW_PLL);
 		break;
 	case HSE:
-		while ((RCC_CFGR & ((1 << 1) | (1 << 0))) != RCC_CFGR_SWS_HSE);
+		while (((RCC_CFGR >> 2) & 0x3) != RCC_CFGR_SW_HSE);
 		break;
 	case HSI:
-		while ((RCC_CFGR & ((1 << 1) | (1 << 0))) != RCC_CFGR_SWS_HSI);
+		while (((RCC_CFGR >> 2) & 0x3) != RCC_CFGR_SW_HSI);
 		break;
 	default:
 		/* Shouldn't be reached. */
@@ -446,60 +458,56 @@ void rcc_osc_bypass_disable(enum rcc_osc osc)
 	}
 }
 
-
+/* cmcmanis: proposed new "nice" helper function to set system clock */
+void rcc_set_sysclk(enum rcc_osc clk) {
+	uint32_t clk_bits = 0;
+	switch (clk) {
+		case HSI:
+			clk_bits = 0;
+			break;
+		case HSE:
+			clk_bits = 1;
+			break;
+		case PLL:
+			clk_bits = 2;
+			break;
+		default:
+			clk_bits = 0;
+			break;
+	}
+	RCC_CFGR = (RCC_CFGR & (~0x3)) | (clk_bits & 0x3);
+	/* wait for the switch */
+	while (((RCC_CFGR >> 2) & 0x3) != clk_bits) ;
+}
 
 void rcc_set_sysclk_source(uint32_t clk)
 {
-	uint32_t reg32;
-
-	reg32 = RCC_CFGR;
-	reg32 &= ~((1 << 1) | (1 << 0));
-	RCC_CFGR = (reg32 | clk);
+	RCC_CFGR = (RCC_CFGR & (~0x3)) | (clk & 0x3);
 }
 
 void rcc_set_pll_source(uint32_t pllsrc)
 {
-	uint32_t reg32;
-
-	reg32 = RCC_PLLCFGR;
-	reg32 &= ~(1 << 22);
-	RCC_PLLCFGR = (reg32 | (pllsrc << 22));
+	RCC_PLLCFGR = (RCC_PLLCFGR & (~(1<<22))) | ((pllsrc & 1) << 22);
 }
 
 void rcc_set_ppre2(uint32_t ppre2)
 {
-	uint32_t reg32;
-
-	reg32 = RCC_CFGR;
-	reg32 &= ~((1 << 13) | (1 << 14) | (1 << 15));
-	RCC_CFGR = (reg32 | (ppre2 << 13));
+	RCC_CFGR = (RCC_CFGR & (~(0x7 << 13))) | ((ppre2 & 0xf) << 13);
 }
 
 void rcc_set_ppre1(uint32_t ppre1)
 {
-	uint32_t reg32;
-
-	reg32 = RCC_CFGR;
-	reg32 &= ~((1 << 10) | (1 << 11) | (1 << 12));
-	RCC_CFGR = (reg32 | (ppre1 << 10));
+	RCC_CFGR = (RCC_CFGR & (~(0x7 << 10))) | ((ppre1 & 0xf) << 10);
 }
 
 void rcc_set_hpre(uint32_t hpre)
 {
-	uint32_t reg32;
-
-	reg32 = RCC_CFGR;
-	reg32 &= ~((1 << 4) | (1 << 5) | (1 << 6) | (1 << 7));
-	RCC_CFGR = (reg32 | (hpre << 4));
+	RCC_CFGR = (RCC_CFGR & (~(0xf << 4))) | ((hpre & 0xf) << 4);
 }
 
 void rcc_set_rtcpre(uint32_t rtcpre)
 {
-	uint32_t reg32;
-
-	reg32 = RCC_CFGR;
-	reg32 &= ~((1 << 16) | (1 << 17) | (1 << 18) | (1 << 19) | (1 << 20));
-	RCC_CFGR = (reg32 | (rtcpre << 16));
+	RCC_CFGR = (RCC_CFGR & (~(0x1f << 16))) | ((rtcpre & 0x1f) << 16);
 }
 
 void rcc_set_main_pll_hsi(uint32_t pllm, uint32_t plln, uint32_t pllp,
@@ -524,7 +532,7 @@ void rcc_set_main_pll_hse(uint32_t pllm, uint32_t plln, uint32_t pllp,
 uint32_t rcc_system_clock_source(void)
 {
 	/* Return the clock source which is used as system clock. */
-	return (RCC_CFGR & 0x000c) >> 2;
+	return (RCC_CFGR >> 2) & 0x3;
 }
 
 void rcc_clock_setup_hse_3v3(const clock_scale_t *clock)
@@ -579,6 +587,145 @@ void rcc_clock_setup_hse_3v3(const clock_scale_t *clock)
 	rcc_osc_off(HSI);
 }
 
+/*
+ * Simple helper to compute backwards from the PLL setting to the value
+ * it will generate if turned on as PLL Clock.
+ */
+uint32_t rcc_get_pll_frequency(uint32_t hse_frequency) {
+	uint32_t pll_freq;
+	uint32_t pllreg = RCC_PLLCFGR;
 
+	pll_freq = (pllreg & RCC_PLLCFGR_PLLSRC) ? hse_frequency : RCC_HSI_FREQUENCY;
+	pll_freq = (pll_freq / ((pllreg >> RCC_PLLCFGR_PLLM_SHIFT) & 0x3f)) *
+				((pllreg >> RCC_PLLCFGR_PLLN_SHIFT) & 0x1ff);
+	switch ((pllreg >> RCC_PLLCFGR_PLLP_SHIFT)  & 0x3) {
+		default:
+		case 0: pll_freq = pll_freq >> 1; 	/* (/2) */
+			break;
+		case 1: pll_freq = pll_freq >> 2;	/* (/4) */
+			break;
+		case 2: pll_freq = pll_freq / 6;	/* (/6) */
+			break;
+		case 3: pll_freq = pll_freq >> 3;	/* (/8) */
+			break;
+	}
+	return pll_freq;
+}
+
+/*
+ * Compute the ahb (SYSCLK) frequency based on the current register
+ * settings. If it is based on HSE then the external crystal frequency
+ * should be included.
+ */
+uint32_t rcc_get_ahb_frequency(uint32_t hse_frequency) {
+	uint32_t pre;
+
+	/* fetch hpre value */
+	pre = (RCC_CFGR >> RCC_CFGR_HPRE_SHIFT) & 0xf;
+	if (pre == 0) {
+		pre = 1;
+	} else {
+		pre = 1 << ((pre & 0x7) + 1);
+	}
+	switch (rcc_system_clock_source()) {
+		case 0: return (RCC_HSI_FREQUENCY / pre);
+		case 1: return (hse_frequency / pre);
+		case 2: return rcc_get_pll_frequency(hse_frequency) / pre; 
+		default: break; /* error condition */
+	}
+	return 0; /* error? */
+}
+
+/* These for the STM32F411RE, others nominally 84Mhz/42Mhz but they seem to work */
+#define RCC_APB2_MAX_CLOCK		100000000
+#define RCC_APB1_MAX_CLOCK		50000000
+
+/* These are the constants used in the table in V8 of the F4 reference manual */
+#define FLASH_WS_2V7			30000000
+#define FLASH_WS_2V4			24000000
+#define FLASH_WS_2V1			22000000
+#define FLASH_WS_1V8			20000000
+
+/*
+ * Clock setting code, assume >2.6V operation, assumes you are in
+ * "normal" power mode (not power saving) and 3.3V (for flash wait states)
+ * Sets APB1 and APB2 to the fastest clock it can given their max speeds.
+ */
+void rcc_pll_clock_setup(uint32_t clock_speed, uint32_t input_freq) {
+	uint32_t flash_ws;
+	uint32_t apb1_div;
+
+	/* First make sure we won't halt, switch to generic HSI mode */
+	rcc_osc_on(HSI);
+	rcc_wait_for_osc_ready(HSI);
+
+	/* Select HSI as SYSCLK source. Reset APB prescalers */
+	rcc_set_sysclk_source(RCC_CFGR_SW_HSI);
+
+	/* Wait for HSI clock to be selected. */
+	rcc_wait_for_sysclk_status(HSI);
+
+	rcc_set_hpre(RCC_CFGR_HPRE_DIV_NONE);
+	rcc_set_ppre1(RCC_CFGR_PPRE_DIV_NONE);
+	rcc_set_ppre2(RCC_CFGR_PPRE_DIV_NONE);
+
+	/* At this point we're running on HSI at RCC_HSI_FREQUENCY clocks */
+	
+	/* Clear old bits, reset source to HSI, then OR in new bits */
+	RCC_PLLCFGR = (RCC_PLLCFGR & ~(RCC_PLLCFGR_PLL_MASK | RCC_PLLCFGR_PLLSRC))
+								 | clock_speed;
+
+	/* Check to see if we're using the HSE 8Mhz defines */
+	if (clock_speed & RCC_PLLCFGR_PLLSRC) {
+		rcc_osc_on(HSE);
+		rcc_wait_for_osc_ready(HSE);
+	}
+
+	/* Enable PLL oscillator and wait for it to stabilize. */
+	rcc_osc_on(PLL);
+	rcc_wait_for_osc_ready(PLL);
+
+	/* figure out what frequency we are going to be set too */
+	rcc_ahb_frequency = rcc_get_pll_frequency(
+		(clock_speed & RCC_PLLCFGR_PLLSRC) ? input_freq : RCC_HSI_FREQUENCY);
+
+	/* Set APB2 and APB1 to maximum frequency possible given this HCLK */
+	/* NB: Assumes internal clock < 200Mhz, APB2 max 100Mhz */
+	if (rcc_ahb_frequency > RCC_APB2_MAX_CLOCK) {
+		rcc_set_ppre2(RCC_CFGR_PPRE_DIV_NONE);
+		/* rcc_apb2_frequency = freq; */
+		rcc_apb2_frequency = rcc_ahb_frequency;
+	} else {
+		rcc_set_ppre2(RCC_CFGR_PPRE_DIV_2);
+		rcc_apb2_frequency = rcc_ahb_frequency >> 1;
+	}
+
+	/* This rounds up to the smallest safe divisor */
+	apb1_div = (rcc_ahb_frequency + (RCC_APB1_MAX_CLOCK - 1)) / RCC_APB1_MAX_CLOCK;
+	switch (apb1_div) {
+		case 1:	rcc_set_ppre1(RCC_CFGR_PPRE_DIV_NONE);
+			rcc_apb1_frequency = rcc_ahb_frequency;
+			break;
+		case 2:	rcc_set_ppre1(RCC_CFGR_PPRE_DIV_2);
+			rcc_apb1_frequency = rcc_ahb_frequency >> 1;
+			break;
+		case 3:	
+		case 4:	rcc_set_ppre1(RCC_CFGR_PPRE_DIV_4);
+			rcc_apb1_frequency = rcc_ahb_frequency >> 2;
+			break;
+		default:
+			rcc_set_ppre1(RCC_CFGR_PPRE_DIV_8);
+			rcc_apb1_frequency = rcc_ahb_frequency >> 3;
+			break;
+	}
+
+	/* Compute flash wait states (at > 2.6V) */
+	flash_ws = ((rcc_ahb_frequency + (FLASH_WS_2V7 - 1)) / FLASH_WS_2V7) & 0x7;
+	/* Configure flash settings. */
+	flash_set_ws(FLASH_ACR_ICE | FLASH_ACR_DCE | flash_ws);
+
+	/* Select PLL as SYSCLK source. */
+	rcc_set_sysclk(PLL);
+}
 
 /**@}*/

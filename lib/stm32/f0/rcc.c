@@ -527,156 +527,122 @@ enum rcc_osc rcc_usb_clock_source(void)
 	return (RCC_CFGR3 & RCC_CFGR3_USBSW) ? PLL : HSI48;
 }
 
-void rcc_clock_setup_in_hsi_out_8mhz(void)
-{
+/** @brief RCC PLL Setting
+ *
+ * @returns uint32_t
+ *
+ * Returns the frequency the PLL is generating.
+ */
+uint32_t rcc_get_pll_frequency(uint32_t hse_frequency) {
+	uint32_t pll_freq;
+	
+	switch ((RCC_CFGR >> 15) & 0x3) {
+		case 0: pll_freq = (RCC_HSI_FREQUENCY >> 1); // HSI/2
+			break;
+		case 1: pll_freq = (RCC_HSI_FREQUENCY / ((RCC_CFGR2 & 0xf)+1));
+			break;
+		case 2: pll_freq = (hse_frequency / ((RCC_CFGR2 & 0xf)+1));
+			break;
+		case 3: pll_freq = (RCC_HSI48_FREQUENCY / ((RCC_CFGR2 & 0xf)+1));
+			break;
+	}
+
+	pll_freq = pll_freq * (((RCC_CFGR >> RCC_CFGR_PLLMUL_SHIFT) & 0xf) + 2);
+	return pll_freq;
+}
+
+/** @brief RCC PLL Setting
+ *
+ * @returns uint32_t
+ *
+ * Returns the frequency the AHB (aka SYSCLOCK) frequency is generating.
+ */
+uint32_t rcc_get_ahb_frequency(uint32_t hse_frequency) {
+	uint32_t ahb_freq;
+	uint32_t hpre = (RCC_CFGR >> 4) & 0xf;
+	
+	switch ((RCC_CFGR >> 2) & 0x3) {
+		case 0: ahb_freq = RCC_HSI_FREQUENCY;
+			break;
+		case 1: ahb_freq = hse_frequency;
+			break;
+		case 2: ahb_freq = rcc_get_pll_frequency(hse_frequency);
+			break;
+		case 3: ahb_freq = RCC_HSI48_FREQUENCY;
+			break;
+	}
+
+	/* Pull out the HPRE divisor */
+	if ((hpre & 8) == 0) {
+		return ahb_freq;
+	} else if (hpre < 12) {
+		/* /2, /4, /8, /16 */
+		return ahb_freq >> ((hpre & 0x7) + 1);
+	}
+	/* /64, /128 /256, /512 */
+	return ahb_freq >> ((hpre & 0x7) + 2);
+}
+
+/** @brief RCC Set up HSI Clock
+ *
+ * @returns void
+ */
+
+void rcc_set_hsi_clock(uint32_t pllbits) {
+
+	/* Switch to HSI only for now */
 	rcc_osc_on(HSI);
 	rcc_wait_for_osc_ready(HSI);
 	rcc_set_sysclk_source(HSI);
+	/* Can't imagine why these would not already be set to DIV_NONE but ... */
+	rcc_set_hpre(RCC_CFGR_HPRE_DIV_NONE);
+	rcc_set_ppre(RCC_CFGR_PPRE_DIV_NONE);
+	/* Turn off the PLL */
+	rcc_osc_off(PLL);
 
-	rcc_set_hpre(RCC_CFGR_HPRE_NODIV);
-	rcc_set_ppre(RCC_CFGR_PPRE_NODIV);
+	/* Configure source is HSI, multiplier is as passed */
+	RCC_CFGR &= ~(RCC_CFGR_PLLSRC | RCC_CFGR_PLLMUL);
+	RCC_CFGR |= pllbits & RCC_CFGR_PLLMUL;
 
-	flash_set_ws(FLASH_ACR_LATENCY_000_024MHZ);
+	/* Multiplier has bit for either 1 or 0 WS on flash) */
+	flash_set_ws(pllbits & 1);
+	rcc_osc_on(PLL);
+	rcc_wait_for_osc_ready(PLL);
+	rcc_set_sysclk_source(PLL);
+	rcc_ahb_frequency = rcc_get_pll_frequency(8000000);
+	rcc_apb1_frequency = rcc_ahb_frequency;
+}
 
-	rcc_apb1_frequency = 8000000;
-	rcc_ahb_frequency = 8000000;
+/* Deprecated */
+void rcc_clock_setup_in_hsi_out_8mhz(void)
+{
+	rcc_set_hsi_clock(RCC_HSI_8_MHZ);
 }
 
 void rcc_clock_setup_in_hsi_out_16mhz(void)
 {
-	rcc_osc_on(HSI);
-	rcc_wait_for_osc_ready(HSI);
-	rcc_set_sysclk_source(HSI);
-
-	rcc_set_hpre(RCC_CFGR_HPRE_NODIV);
-	rcc_set_ppre(RCC_CFGR_PPRE_NODIV);
-
-	flash_set_ws(FLASH_ACR_LATENCY_000_024MHZ);
-
-	/* 8MHz * 4 / 2 = 16MHz	 */
-	rcc_set_pll_multiplication_factor(RCC_CFGR_PLLMUL_MUL4);
-
-	RCC_CFGR &= ~RCC_CFGR_PLLSRC;
-
-	rcc_osc_on(PLL);
-	rcc_wait_for_osc_ready(PLL);
-	rcc_set_sysclk_source(PLL);
-
-	rcc_apb1_frequency = 16000000;
-	rcc_ahb_frequency = 16000000;
+	rcc_set_hsi_clock(RCC_HSI_16_MHZ);
 }
-
 
 void rcc_clock_setup_in_hsi_out_24mhz(void)
 {
-	rcc_osc_on(HSI);
-	rcc_wait_for_osc_ready(HSI);
-	rcc_set_sysclk_source(HSI);
-
-	rcc_set_hpre(RCC_CFGR_HPRE_NODIV);
-	rcc_set_ppre(RCC_CFGR_PPRE_NODIV);
-
-	flash_set_ws(FLASH_ACR_LATENCY_000_024MHZ);
-
-	/* 8MHz * 6 / 2 = 24MHz	 */
-	rcc_set_pll_multiplication_factor(RCC_CFGR_PLLMUL_MUL6);
-
-	RCC_CFGR &= ~RCC_CFGR_PLLSRC;
-
-	rcc_osc_on(PLL);
-	rcc_wait_for_osc_ready(PLL);
-	rcc_set_sysclk_source(PLL);
-
-	rcc_apb1_frequency = 24000000;
-	rcc_ahb_frequency = 24000000;
+	rcc_set_hsi_clock(RCC_HSI_24_MHZ);
 }
 
 void rcc_clock_setup_in_hsi_out_32mhz(void)
 {
-	rcc_osc_on(HSI);
-	rcc_wait_for_osc_ready(HSI);
-	rcc_set_sysclk_source(HSI);
-
-	rcc_set_hpre(RCC_CFGR_HPRE_NODIV);
-	rcc_set_ppre(RCC_CFGR_PPRE_NODIV);
-
-	flash_set_ws(FLASH_ACR_LATENCY_024_048MHZ);
-
-	/* 8MHz * 8 / 2 = 32MHz	*/
-	rcc_set_pll_multiplication_factor(RCC_CFGR_PLLMUL_MUL8);
-
-	RCC_CFGR &= ~RCC_CFGR_PLLSRC;
-
-	rcc_osc_on(PLL);
-	rcc_wait_for_osc_ready(PLL);
-	rcc_set_sysclk_source(PLL);
-
-	rcc_apb1_frequency = 32000000;
-	rcc_ahb_frequency = 32000000;
+	rcc_set_hsi_clock(RCC_HSI_32_MHZ);
 }
 
 void rcc_clock_setup_in_hsi_out_40mhz(void)
 {
-	rcc_osc_on(HSI);
-	rcc_wait_for_osc_ready(HSI);
-	rcc_set_sysclk_source(HSI);
-
-	rcc_set_hpre(RCC_CFGR_HPRE_NODIV);
-	rcc_set_ppre(RCC_CFGR_PPRE_NODIV);
-
-	flash_set_ws(FLASH_ACR_LATENCY_024_048MHZ);
-
-	/* 8MHz * 10 / 2 = 40MHz */
-	rcc_set_pll_multiplication_factor(RCC_CFGR_PLLMUL_MUL10);
-
-	RCC_CFGR &= ~RCC_CFGR_PLLSRC;
-
-	rcc_osc_on(PLL);
-	rcc_wait_for_osc_ready(PLL);
-	rcc_set_sysclk_source(PLL);
-
-	rcc_apb1_frequency = 40000000;
-	rcc_ahb_frequency = 40000000;
+	rcc_set_hsi_clock(RCC_HSI_40_MHZ);
 }
 
 void rcc_clock_setup_in_hsi_out_48mhz(void)
 {
-	rcc_osc_on(HSI);
-	rcc_wait_for_osc_ready(HSI);
-	rcc_set_sysclk_source(HSI);
-
-	rcc_set_hpre(RCC_CFGR_HPRE_NODIV);
-	rcc_set_ppre(RCC_CFGR_PPRE_NODIV);
-
-	flash_set_ws(FLASH_ACR_LATENCY_024_048MHZ);
-
-	/* 8MHz * 12 / 2 = 48MHz */
-	rcc_set_pll_multiplication_factor(RCC_CFGR_PLLMUL_MUL12);
-
-	RCC_CFGR &= ~RCC_CFGR_PLLSRC;
-
-	rcc_osc_on(PLL);
-	rcc_wait_for_osc_ready(PLL);
-	rcc_set_sysclk_source(PLL);
-
-	rcc_apb1_frequency = 48000000;
-	rcc_ahb_frequency = 48000000;
+	rcc_set_hsi_clock(RCC_HSI_48_MHZ);
 }
 
-void rcc_clock_setup_in_hsi48_out_48mhz(void)
-{
-	rcc_osc_on(HSI48);
-	rcc_wait_for_osc_ready(HSI48);
-	
-	rcc_set_hpre(RCC_CFGR_HPRE_NODIV);
-	rcc_set_ppre(RCC_CFGR_PPRE_NODIV);
-	
-	flash_set_ws(FLASH_ACR_LATENCY_024_048MHZ);
-
-	rcc_set_sysclk_source(HSI48);
-
-	rcc_apb1_frequency = 48000000;
-	rcc_ahb_frequency = 48000000;
-}
 /**@}*/
 
