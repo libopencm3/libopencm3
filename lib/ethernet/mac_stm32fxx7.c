@@ -282,30 +282,30 @@ void eth_mac_disable_dm(void)
 }
 
 /*---------------------------------------------------------------------------*/
-/** @brief Enable Retry Disable
+/** @brief Enable Retries
  *
- * This function will enable Retry Disable
- * This will result in the MAC attempting only one transmission
- *
- * Note that this bit is only applicable in Half Duplex mode!
- */
-void eth_mac_enable_rd(void)
-{
-	ETH_MACCR |= ETH_MACCR_RD;
-}
-
-/*---------------------------------------------------------------------------*/
-/** @brief Disable Retry Disable
- *
- * This function will disable Retry Disable
+ * This function will clear the Retry Disable bit
  * This will result in the MAC attempting retransmissions based on
  * the settings of BL (Back-off Limit)
  *
  * Note that this bit is only applicable in Half Duplex mode!
  */
-void eth_mac_disable_rd(void)
+void eth_mac_enable_retries(void)
 {
 	ETH_MACCR &= ~ETH_MACCR_RD;
+}
+
+/*---------------------------------------------------------------------------*/
+/** @brief Disable Retries
+ *
+ * This function will set the Retry Disable bit
+ * This will result in the MAC attempting only one transmission
+ *
+ * Note that this bit is only applicable in Half Duplex mode!
+ */
+void eth_mac_disable_retries(void)
+{
+	ETH_MACCR |= ETH_MACCR_RD;
 }
 
 /*---------------------------------------------------------------------------*/
