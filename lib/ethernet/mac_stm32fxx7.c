@@ -361,7 +361,7 @@ void eth_mac_disable_ra(void)
  * This function will enable the Promiscuous Mode feature
  * All packets are forwarded to the application
  */
-void eth_mac_enable_pm(void)
+void eth_mac_enable_promiscuous_mode(void)
 {
 	ETH_MACFFR |= ETH_MACFFR_PM;
 }
@@ -371,7 +371,7 @@ void eth_mac_enable_pm(void)
  *
  * This function will disable the Promiscuous Mode
  */
-void eth_mac_disable_pm(void)
+void eth_mac_disable_promiscuous_mode(void)
 {
 	ETH_MACFFR &= ~ETH_MACFFR_PM;
 }
