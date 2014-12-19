@@ -669,6 +669,7 @@ void rcc_clock_setup_in_hsi_out_64mhz(void)
 	rcc_set_sysclk_source(RCC_CFGR_SW_SYSCLKSEL_PLLCLK);
 
 	/* Set the peripheral clock frequencies used */
+	rcc_ahb_frequency = 64000000;
 	rcc_apb1_frequency = 32000000;
 	rcc_apb2_frequency = 64000000;
 }
@@ -722,6 +723,7 @@ void rcc_clock_setup_in_hsi_out_48mhz(void)
 	rcc_set_sysclk_source(RCC_CFGR_SW_SYSCLKSEL_PLLCLK);
 
 	/* Set the peripheral clock frequencies used */
+	rcc_ahb_frequency = 48000000;
 	rcc_apb1_frequency = 24000000;
 	rcc_apb2_frequency = 48000000;
 }
