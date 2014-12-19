@@ -533,7 +533,6 @@ void rcc_css_enable(void);
 void rcc_css_disable(void);
 void rcc_css_int_clear(void);
 int rcc_css_int_flag(void);
-void rcc_set_sysclk_source(enum rcc_osc clk);
 void rcc_set_usbclk_source(enum rcc_osc clk);
 void rcc_set_pll_multiplication_factor(uint32_t mul);
 void rcc_set_ppre(uint32_t ppre);

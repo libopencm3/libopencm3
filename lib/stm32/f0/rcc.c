@@ -431,10 +431,11 @@ void rcc_set_usbclk_source(enum rcc_osc clk)
 	switch (clk) {
 	case PLL:
 		RCC_CFGR3 |= RCC_CFGR3_USBSW;
+		break;
 	case HSI48:
 		RCC_CFGR3 &= ~RCC_CFGR3_USBSW;
-	case HSI:
-	case HSE:
+		break;
+	default:
 		break;
 	}
 }
@@ -625,9 +626,8 @@ void rcc_hsi_clock_setup(void) {
 	rcc_set_sysclk(HSI);
 	rcc_set_hpre(RCC_CFGR_HPRE_DIV_NONE);
 	rcc_set_ppre(RCC_CFGR_PPRE_DIV_NONE);
-	rcc_core_frequency = RCC_HSI_FREQUENCY;
-	rcc_ppre_frequency = RCC_HSI_FREQUENCY;
 	rcc_ahb_frequency = RCC_HSI_FREQUENCY;
+	rcc_apb1_frequency = RCC_HSI_FREQUENCY;
 }
 
 /*
@@ -641,9 +641,8 @@ void rcc_hse_clock_setup(uint32_t frequency) {
 	rcc_set_sysclk(HSE);
 	rcc_set_hpre(RCC_CFGR_HPRE_DIV_NONE);
 	rcc_set_ppre(RCC_CFGR_PPRE_DIV_NONE);
-	rcc_core_frequency = frequency;
-	rcc_ppre_frequency = frequency;
 	rcc_ahb_frequency = frequency;
+	rcc_apb1_frequency = frequency;
 }
 
 /** @brief RCC Set up HSI Clock
