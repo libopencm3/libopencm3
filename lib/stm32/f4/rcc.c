@@ -458,7 +458,8 @@ void rcc_osc_bypass_disable(enum rcc_osc osc)
 	}
 }
 
-/* cmcmanis: proposed new "nice" helper function to set system clock */
+/*
+ */
 void rcc_set_sysclk(enum rcc_osc clk) {
 	uint32_t clk_bits = RCC_CFGR_SW_HSI;
 	switch (clk) {
@@ -479,6 +480,20 @@ void rcc_set_sysclk(enum rcc_osc clk) {
 			   (clk_bits & RCC_CFGR_SW_MASK);
 	/* wait for the switch */
 	while (((RCC_CFGR >> RCC_CFGR_SWS_SHIFT) & RCC_CFGR_SW_MASK) != clk_bits) ;
+}
+
+enum rcc_osc rcc_get_sysclk(void) {
+	uint32_t clk_bits = (RCC_CFGR >> RCC_CFGR_SWS_SHIFT) & RCC_CFGR_SW_MASK;
+	switch (clk_bits) {
+		default:
+			return HSI;
+		case 1:
+			return HSE;
+		case 2:
+			return PLL;
+		case 3:
+			return HSI; // Error not sure what to do here
+	}
 }
 
 void rcc_set_sysclk_source(uint32_t clk)
@@ -545,11 +560,7 @@ uint32_t rcc_system_clock_source(void)
 void rcc_clock_setup_hse_3v3(const clock_scale_t *clock)
 {
 	/* Enable internal high-speed oscillator. */
-	rcc_osc_on(HSI);
-	rcc_wait_for_osc_ready(HSI);
-
-	/* Select HSI as SYSCLK source. */
-	rcc_set_sysclk_source(RCC_CFGR_SW_HSI);
+	rcc_hsi_clock_setup();
 
 	/* Enable external high-speed oscillator 8MHz. */
 	rcc_osc_on(HSE);
@@ -581,10 +592,7 @@ void rcc_clock_setup_hse_3v3(const clock_scale_t *clock)
 	flash_set_ws(clock->flash_config);
 
 	/* Select PLL as SYSCLK source. */
-	rcc_set_sysclk_source(RCC_CFGR_SW_PLL);
-
-	/* Wait for PLL clock to be selected. */
-	rcc_wait_for_sysclk_status(PLL);
+	rcc_set_sysclk(PLL);
 
 	/* Set the peripheral clock frequencies used. */
 	rcc_apb1_frequency = clock->apb1_frequency;
@@ -620,30 +628,9 @@ uint32_t rcc_get_pll_frequency(uint32_t hse_frequency) {
 }
 
 /*
- * Compute the ahb (SYSCLK) frequency based on the current register
- * settings. If it is based on HSE then the external crystal frequency
- * should be included.
+ * These for the STM32F411RE, others nominally 84Mhz/42Mhz but they seem 
+ * to work.
  */
-uint32_t rcc_get_ahb_frequency(uint32_t hse_frequency) {
-	uint32_t pre;
-
-	/* fetch hpre value */
-	pre = (RCC_CFGR >> RCC_CFGR_HPRE_SHIFT) & RCC_CFGR_HPRE_MASK;
-	if (pre == 0) {
-		pre = 1;
-	} else {
-		pre = 1 << ((pre & 0x7) + 1);
-	}
-	switch (rcc_system_clock_source()) {
-		case 0: return (RCC_HSI_FREQUENCY / pre);
-		case 1: return (hse_frequency / pre);
-		case 2: return rcc_get_pll_frequency(hse_frequency) / pre;
-		default: break; /* error condition */
-	}
-	return 0; /* error? */
-}
-
-/* These for the STM32F411RE, others nominally 84Mhz/42Mhz but they seem to work */
 #define RCC_APB2_MAX_CLOCK		100000000
 #define RCC_APB1_MAX_CLOCK		50000000
 
@@ -653,28 +640,84 @@ uint32_t rcc_get_ahb_frequency(uint32_t hse_frequency) {
 #define FLASH_WS_2V1			22000000
 #define FLASH_WS_1V8			20000000
 
-/*
- * Clock setting code, assume >2.6V operation, assumes you are in
- * "normal" power mode (not power saving) and 3.3V (for flash wait states)
- * Sets APB1 and APB2 to the fastest clock it can given their max speeds.
+/*--------------------------------------------------------------------*/
+/** @brief Configure the F4 HSI Clock
+ *
+ *	This function will set the chip to using the internal HSI clock
+ * as its system clock source. This source is fixed at 16Mhz. It will
+ * also set the APB1 and APB2 prescalers to 'none'. 
  */
-void rcc_pll_clock_setup(uint32_t clock_speed, uint32_t input_freq) {
-	uint32_t flash_ws;
-	uint32_t apb1_div;
+void rcc_hsi_clock_setup(void) {
+	if (rcc_get_sysclk() == HSI) {
+		return; // nothing to do
+	}
 
 	/* First make sure we won't halt, switch to generic HSI mode */
 	rcc_osc_on(HSI);
 	rcc_wait_for_osc_ready(HSI);
 
 	/* Select HSI as SYSCLK source. Reset APB prescalers */
-	rcc_set_sysclk_source(RCC_CFGR_SW_HSI);
-
-	/* Wait for HSI clock to be selected. */
-	rcc_wait_for_sysclk_status(HSI);
+	rcc_set_sysclk(HSI);
 
 	rcc_set_hpre(RCC_CFGR_HPRE_DIV_NONE);
 	rcc_set_ppre1(RCC_CFGR_PPRE_DIV_NONE);
 	rcc_set_ppre2(RCC_CFGR_PPRE_DIV_NONE);
+	rcc_ahb_frequency = RCC_HSI_FREQUENCY;
+	rcc_apb1_frequency = RCC_HSI_FREQUENCY;
+	rcc_apb2_frequency = RCC_HSI_FREQUENCY;
+}
+
+/**
+ * @brief Configure the F4 HSE Clock
+ *
+ * @param[in] clock_speed Frequency of the external clock in Hz
+ *
+ * This function configures the chip to run with the external
+ * crystal as its system clock. It uses the frequency information
+ * provided to set up the APB1 and APB2 clocks. 
+ */
+void rcc_hse_clock_setup(uint32_t clock_speed) {
+	/* insure we're running on internal clock */
+	rcc_hsi_clock_setup();
+	rcc_osc_on(HSE);
+	rcc_wait_for_osc_ready(HSE);
+	
+	rcc_set_sysclk(HSE);
+	/* Select the crystal as our clock source */
+	rcc_set_hpre(RCC_CFGR_HPRE_DIV_NONE);
+	rcc_set_ppre1(RCC_CFGR_PPRE_DIV_NONE);
+	rcc_set_ppre2(RCC_CFGR_PPRE_DIV_NONE);
+	rcc_ahb_frequency = clock_speed;
+	rcc_apb1_frequency = clock_speed;
+	rcc_apb2_frequency = clock_speed;
+}
+	
+
+/**
+ * @brief Configure the F4 PLL Clock
+ *
+ * @param[in] clock_speed A combination of bits put together by the `RCC_PLLCFGR_BITS` macro
+ * @param[in] input_freq The frequency of an external clock (if used)
+ *
+ * This function will configure the PLL to generate a specific output frequency (generally
+ * higher than the input frequency) based on a formula in the data sheet. A typical configuration
+ * might be `RCC_16MHZ_HSI_168MHZ_PLL` which would configure the PLL to use the internal
+ * 16Mhz high speed clock and configure the PLL to clock the CPU at 168Mhz.
+ *
+ * In addtion to the core clock speed the function also sets the APB1 and APB2 peripheral clocks
+ * to their maximum values. This involves changing prescalers to divide down the system clock
+ * if it is running faster than the peripheral maximums (50Mhz and 100Mhz respectively).
+ *
+ * The clock setting code assumes >2.6V operation and assumes you are in
+ * "normal" power mode (not power saving). If you are running in low power mode you 
+ * will need to increase FLASH wait states. 
+ */
+void rcc_pll_clock_setup(uint32_t clock_speed, uint32_t input_freq) {
+	uint32_t flash_ws;
+	uint32_t apb1_div;
+
+	/* First make sure we won't halt, switch to generic HSI mode */
+	rcc_hsi_clock_setup();
 
 	/* At this point we're running on HSI at RCC_HSI_FREQUENCY clocks */
 	
