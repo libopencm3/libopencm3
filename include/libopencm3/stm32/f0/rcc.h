@@ -107,6 +107,7 @@ Control</b>
 #define RCC_CFGR_MCO_HSI48			(8 << RCC_CFGR_MCO_SHIFT)/*f07*/
 
 #define RCC_CFGR_PLLMUL_SHIFT			18
+#define RCC_CFGR_PLLMUL_MASK			0xf
 #define RCC_CFGR_PLLMUL				(0x0F << RCC_CFGR_PLLMUL_SHIFT)
 #define RCC_CFGR_PLLMUL_MUL2			(0x00 << RCC_CFGR_PLLMUL_SHIFT)
 #define RCC_CFGR_PLLMUL_MUL3			(0x01 << RCC_CFGR_PLLMUL_SHIFT)
@@ -125,48 +126,41 @@ Control</b>
 #define RCC_CFGR_PLLMUL_MUL16			(0x0E << RCC_CFGR_PLLMUL_SHIFT)
 
 #define RCC_CFGR_PLLXTPRE			(1<<17)
+#define RCC_CFGR_PLLSRC_SHIFT			15
+#define RCC_CFGR_PLLSRC_MASK			0x3
+#define RCC_CFGR_PLLSRC_HSI_DIV2		0
+#define RCC_CFGR_PLLSRC_HSI_DIV			1
+#define RCC_CFGR_PLLSRC_HSE_DIV			2
+#define RCC_CFGR_PLLSRC_HSE48_DIV		3
+
 #define RCC_CFGR_PLLSRC				(1<<16)
 #define RCC_CFGR_PLLSRC0			(1<<15)
 #define RCC_CFGR_ADCPRE				(1<<14)
 
-
-/* aligned to the f2/f4 style of DIV_<amount> */
 #define RCC_CFGR_PPRE_SHIFT			8
+#define RCC_CFGR_PPRE_MASK			0x7	
 #define RCC_CFGR_PPRE				(7 << RCC_CFGR_PPRE_SHIFT)
-#define RCC_CFGR_PPRE_NODIV			(0 << RCC_CFGR_PPRE_SHIFT)
 #define RCC_CFGR_PPRE_DIV_NONE			(0 << RCC_CFGR_PPRE_SHIFT)
-#define RCC_CFGR_PPRE_DIV2			(4 << RCC_CFGR_PPRE_SHIFT)
 #define RCC_CFGR_PPRE_DIV_2			(4 << RCC_CFGR_PPRE_SHIFT)
-#define RCC_CFGR_PPRE_DIV4			(5 << RCC_CFGR_PPRE_SHIFT)
 #define RCC_CFGR_PPRE_DIV_4			(5 << RCC_CFGR_PPRE_SHIFT)
-#define RCC_CFGR_PPRE_DIV8			(6 << RCC_CFGR_PPRE_SHIFT)
 #define RCC_CFGR_PPRE_DIV_8			(6 << RCC_CFGR_PPRE_SHIFT)
-#define RCC_CFGR_PPRE_DIV16			(7 << RCC_CFGR_PPRE_SHIFT)
 #define RCC_CFGR_PPRE_DIV_16			(7 << RCC_CFGR_PPRE_SHIFT)
 
-/* aligned to the f2/f4 style of DIV_<amount> */
 #define RCC_CFGR_HPRE_SHIFT			4
+#define RCC_CFGR_HPRE_MASK			0xf
 #define RCC_CFGR_HPRE				(0xf << RCC_CFGR_HPRE_SHIFT)
-#define RCC_CFGR_HPRE_NODIV			(0x0 << RCC_CFGR_HPRE_SHIFT)
 #define RCC_CFGR_HPRE_DIV_NONE			(0x0 << RCC_CFGR_HPRE_SHIFT)
-#define RCC_CFGR_HPRE_DIV2			(0x8 << RCC_CFGR_HPRE_SHIFT)
 #define RCC_CFGR_HPRE_DIV_2			(0x8 << RCC_CFGR_HPRE_SHIFT)
-#define RCC_CFGR_HPRE_DIV4			(0x9 << RCC_CFGR_HPRE_SHIFT)
 #define RCC_CFGR_HPRE_DIV_4			(0x9 << RCC_CFGR_HPRE_SHIFT)
-#define RCC_CFGR_HPRE_DIV8			(0xa << RCC_CFGR_HPRE_SHIFT)
 #define RCC_CFGR_HPRE_DIV_8			(0xa << RCC_CFGR_HPRE_SHIFT)
-#define RCC_CFGR_HPRE_DIV16			(0xb << RCC_CFGR_HPRE_SHIFT)
 #define RCC_CFGR_HPRE_DIV_16			(0xb << RCC_CFGR_HPRE_SHIFT)
-#define RCC_CFGR_HPRE_DIV64			(0xc << RCC_CFGR_HPRE_SHIFT)
 #define RCC_CFGR_HPRE_DIV_64			(0xc << RCC_CFGR_HPRE_SHIFT)
-#define RCC_CFGR_HPRE_DIV128			(0xd << RCC_CFGR_HPRE_SHIFT)
 #define RCC_CFGR_HPRE_DIV_128			(0xd << RCC_CFGR_HPRE_SHIFT)
-#define RCC_CFGR_HPRE_DIV256			(0xe << RCC_CFGR_HPRE_SHIFT)
 #define RCC_CFGR_HPRE_DIV_256			(0xe << RCC_CFGR_HPRE_SHIFT)
-#define RCC_CFGR_HPRE_DIV512			(0xf << RCC_CFGR_HPRE_SHIFT)
 #define RCC_CFGR_HPRE_DIV_512			(0xf << RCC_CFGR_HPRE_SHIFT)
 
 #define RCC_CFGR_SWS_SHIFT			2
+#define RCC_CFGR_SWS_MASK			0x3
 #define RCC_CFGR_SWS				(3 << RCC_CFGR_SWS_SHIFT)
 #define RCC_CFGR_SWS_HSI			(0 << RCC_CFGR_SWS_SHIFT)
 #define RCC_CFGR_SWS_HSE			(1 << RCC_CFGR_SWS_SHIFT)
@@ -174,6 +168,7 @@ Control</b>
 #define RCC_CFGR_SWS_HSI48			(3 << RCC_CFGR_SWS_SHIFT)
 
 #define RCC_CFGR_SW_SHIFT			0
+#define RCC_CFGR_SW_MASK			0x3
 #define RCC_CFGR_SW				(3 << RCC_CFGR_SW_SHIFT)
 #define RCC_CFGR_SW_HSI				(0 << RCC_CFGR_SW_SHIFT)
 #define RCC_CFGR_SW_HSE				(1 << RCC_CFGR_SW_SHIFT)
@@ -333,7 +328,8 @@ Control</b>
 
 /* --- RCC_CFGR2 values ---------------------------------------------------- */
 
-#define RCC_CFGR2_PREDIV			0xf
+#define RCC_CFGR2_PREDIV_SHIFT			0
+#define RCC_CFGR2_PREDIV_MASK			0xf
 #define RCC_CFGR2_PREDIV_NODIV			0x0
 #define RCC_CFGR2_PREDIV_DIV2			0x1
 #define RCC_CFGR2_PREDIV_DIV3			0x2
@@ -393,19 +389,32 @@ Control</b>
 #define RCC_HSI_FREQUENCY			8000000
 #define RCC_HSI48_FREQUENCY			48000000
 
-/* FLASH WS [0:0], PMUL [21:18] */
-#define RCC_HSI_8_MHZ				(0x00000000 | (0 << RCC_CFGR_PLLMUL_SHIFT))
-#define RCC_HSI_12_MHZ				(0x00000000 | (1 << RCC_CFGR_PLLMUL_SHIFT))
-#define RCC_HSI_16_MHZ				(0x00000000 | (2 << RCC_CFGR_PLLMUL_SHIFT))
-#define RCC_HSI_20_MHZ				(0x00000000 | (3 << RCC_CFGR_PLLMUL_SHIFT))
-#define RCC_HSI_24_MHZ				(0x00000000 | (4 << RCC_CFGR_PLLMUL_SHIFT))
-#define RCC_HSI_28_MHZ				(0x00000001 | (5 << RCC_CFGR_PLLMUL_SHIFT))
-#define RCC_HSI_32_MHZ				(0x00000001 | (6 << RCC_CFGR_PLLMUL_SHIFT))
-#define RCC_HSI_36_MHZ				(0x00000001 | (7 << RCC_CFGR_PLLMUL_SHIFT))
-#define RCC_HSI_40_MHZ				(0x00000001 | (8 << RCC_CFGR_PLLMUL_SHIFT))
-#define RCC_HSI_44_MHZ				(0x00000001 | (9 << RCC_CFGR_PLLMUL_SHIFT))
-#define RCC_HSI_48_MHZ				(0x00000001 | (10 << RCC_CFGR_PLLMUL_SHIFT))
+/*
+ * @define RCC_PLLCFGR_BITS
+ *
+ * This macro packs away bits that are used when configuring the PLL. The
+ * "gotcha" is that PREDIV[3:0] are in CFGR2 rather than CFGR so we pack
+ * those in the bottom 4 bits, knowing we will strip them off and use them
+ * in CFGR2.
+ */
+#define RCC_PLLCFGR_BITS(mul, src, prediv) (\
+		((mul & RCC_CFGR_PLLMUL_MASK) << RCC_CFGR_PLLMUL_SHIFT) |\
+		((src & RCC_CFGR_PLLSRC_MASK) << RCC_CFGR_PLLSRC_SHIFT) |\
+		((src & RCC_CFGR2_PREDIV_MASK) << RCC_CFGR2_PREDIV_SHIFT))
 
+#define RCC_CFGR_PLLBITS_MASK			RCC_PLLCFGR_BITS(RCC_CFGR_PLLMUL_MASK, RCC_CFGR_PLLSRC_MASK, 0)
+
+#define RCC_8MHZ_HSI_8MHZ_PLL			RCC_PLLCFGR_BITS(0, RCC_CFGR_PLLSRC_HSI_DIV2, 0)
+#define RCC_8MHZ_HSI_12MHZ_PLL			RCC_PLLCFGR_BITS(1, RCC_CFGR_PLLSRC_HSI_DIV2, 0)
+#define RCC_8MHZ_HSI_16MHZ_PLL			RCC_PLLCFGR_BITS(2, RCC_CFGR_PLLSRC_HSI_DIV2, 0)
+#define RCC_8MHZ_HSI_20MHZ_PLL			RCC_PLLCFGR_BITS(3, RCC_CFGR_PLLSRC_HSI_DIV2, 0)
+#define RCC_8MHZ_HSI_24MHZ_PLL			RCC_PLLCFGR_BITS(4, RCC_CFGR_PLLSRC_HSI_DIV2, 0)
+#define RCC_8MHZ_HSI_28MHZ_PLL			RCC_PLLCFGR_BITS(5, RCC_CFGR_PLLSRC_HSI_DIV2, 0)
+#define RCC_8MHZ_HSI_32MHZ_PLL			RCC_PLLCFGR_BITS(6, RCC_CFGR_PLLSRC_HSI_DIV2, 0)
+#define RCC_8MHZ_HSI_36MHZ_PLL			RCC_PLLCFGR_BITS(7, RCC_CFGR_PLLSRC_HSI_DIV2, 0)
+#define RCC_8MHZ_HSI_40MHZ_PLL			RCC_PLLCFGR_BITS(8, RCC_CFGR_PLLSRC_HSI_DIV2, 0)
+#define RCC_8MHZ_HSI_44MHZ_PLL			RCC_PLLCFGR_BITS(9, RCC_CFGR_PLLSRC_HSI_DIV2, 0)
+#define RCC_8MHZ_HSI_48MHZ_PLL			RCC_PLLCFGR_BITS(10, RCC_CFGR_PLLSRC_HSI_DIV2, 0)
 
 /* --- Variable definitions ------------------------------------------------ */
 extern uint32_t rcc_ahb_frequency;
@@ -535,11 +544,9 @@ void rcc_css_int_clear(void);
 int rcc_css_int_flag(void);
 void rcc_set_usbclk_source(enum rcc_osc clk);
 void rcc_set_pll_multiplication_factor(uint32_t mul);
-void rcc_set_ppre(uint32_t ppre);
-void rcc_set_hpre(uint32_t hpre);
 void rcc_set_prediv(uint32_t prediv);
 void rcc_set_mco(uint32_t mcosrc);
-/* deprecate */
+/* candidates for removal */
 void rcc_set_sysclk_source(enum rcc_osc clk);
 enum rcc_osc rcc_system_clock_source(void);
 enum rcc_osc rcc_usb_clock_source(void);
@@ -549,12 +556,15 @@ void rcc_clock_setup_in_hsi_out_24mhz(void);
 void rcc_clock_setup_in_hsi_out_32mhz(void);
 void rcc_clock_setup_in_hsi_out_40mhz(void);
 void rcc_clock_setup_in_hsi_out_48mhz(void);
-/* new api */
+
+/* top level api */
+void rcc_set_ppre(uint32_t ppre);
+void rcc_set_hpre(uint32_t hpre);
 uint32_t rcc_get_pll_frequency(uint32_t hse_frequency);
 uint32_t rcc_get_ahb_frequency(uint32_t hse_frequency);
-void rcc_set_hsi_clock(uint32_t freq);
 void rcc_set_sysclk(enum rcc_osc osc);
-void rcc_hsi_clock_setup(void);
+enum rcc_osc rcc_get_sysclk(void);
+void rcc_hsi_clock_setup(uint32_t freq);
 void rcc_hse_clock_setup(uint32_t freq);
 void rcc_pll_clock_setup(uint32_t pllmull, uint32_t src_freq);
 

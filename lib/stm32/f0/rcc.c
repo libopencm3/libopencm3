@@ -4,9 +4,9 @@
  *
  * @brief <b>libopencm3 STM32F0xx Reset and Clock Control</b>
  *
- * @version 1.0.0
+ * @version 1.1.0
  *
- * @date 29 Jun 2013
+ * @date 22 Dec 2014
  *
  * This library supports the Reset and Clock Control System in the STM32F0xx
  * series of ARM Cortex Microcontrollers by ST Microelectronics.
@@ -43,6 +43,7 @@
 /* Set the default clock frequencies */
 uint32_t rcc_ahb_frequency = 8000000; /* 8MHz after reset */
 uint32_t rcc_apb1_frequency = 8000000; /* 8MHz after reset */
+uint32_t rcc_lse_frequency = 32768; /* LSE frequency */
 
 /*---------------------------------------------------------------------------*/
 /** @brief RCC Clear the Oscillator Ready Interrupt Flag
@@ -391,36 +392,6 @@ void rcc_osc_bypass_disable(enum rcc_osc osc)
 }
 
 /*---------------------------------------------------------------------------*/
-/** @brief RCC Set the Source for the System Clock.
- *
- * @param[in] osc enum ::osc_t. Oscillator ID. Only HSE, LSE and PLL have
- * effect.
- */
-
-void rcc_set_sysclk_source(enum rcc_osc clk)
-{
-	switch (clk) {
-	case HSI:
-		RCC_CFGR = (RCC_CFGR & ~RCC_CFGR_SW) | RCC_CFGR_SW_HSI;
-		break;
-	case HSE:
-		RCC_CFGR = (RCC_CFGR & ~RCC_CFGR_SW) | RCC_CFGR_SW_HSE;
-		break;
-	case PLL:
-		RCC_CFGR = (RCC_CFGR & ~RCC_CFGR_SW) | RCC_CFGR_SW_PLL;
-		break;
-	case HSI48:
-		RCC_CFGR = (RCC_CFGR & ~RCC_CFGR_SW) | RCC_CFGR_SW_HSI48;
-		break;
-	case LSI:
-	case LSE:
-	case HSI14:
-		/* do nothing */
-		break;
-	}
-}
-
-/*---------------------------------------------------------------------------*/
 /** @brief RCC Set the Source for the USB Clock.
  *
  * @param[in] osc enum ::osc_t. Oscillator ID. Only HSI48 or PLL have
@@ -486,64 +457,77 @@ void rcc_set_pll_multiplication_factor(uint32_t mul)
 	RCC_CFGR = (RCC_CFGR & ~RCC_CFGR_PLLMUL) | mul;
 }
 
-
 /*---------------------------------------------------------------------------*/
 /** @brief RCC Set the APB Prescale Factor.
  *
  * @note The APB1 clock frequency must not exceed 36MHz.
  *
- * @param[in] ppre1 Unsigned int32. APB prescale factor @ref rcc_cfgr_apb1pre
+ * @param[in] ppre1 APB prescale factor
+ *
+ * Note this will set `rcc_apb1_frequency` correctly
+ * the first time you use it, but if you use it multiple times you will confuse 
+ * the library about the frequency of the clocks.
+ *
+ * If you must call it multiple times, after initially setting up the clocks
+ * save the values of the AHB and APB frequencies, and then restore them each
+ * time before you call this function.
  */
-
 void rcc_set_ppre(uint32_t ppre)
 {
-	RCC_CFGR = (RCC_CFGR & ~RCC_CFGR_PPRE) | ppre;
+	int div;
+
+	RCC_CFGR = (RCC_CFGR & ~RCC_CFGR_PPRE) |
+		   ((ppre & RCC_CFGR_PPRE_MASK) << RCC_CFGR_PPRE_SHIFT);
+	div = ((ppre & RCC_CFGR_PPRE_MASK) < 4) ? 1 : 1 << ((ppre & 0x3) + 1);
+	rcc_apb1_frequency = rcc_ahb_frequency / div;
 }
 
 /*---------------------------------------------------------------------------*/
 /** @brief RCC Set the AHB Prescale Factor.
  *
  * @param[in] hpre Unsigned int32. AHB prescale factor @ref rcc_cfgr_ahbpre
+ *
+ * Note this will set `rcc_ahb_frequency` and `rcc_apb1_frequency` correctly
+ * the first time you use it, but if you use it multiple times you will confuse 
+ * the library about the frequency of the clocks.
+ *
+ * If you must call it multiple times, after initially setting up the clocks
+ * save the values of the AHB and APB frequencies, and then restore them each
+ * time before you call this function.
  */
 
 void rcc_set_hpre(uint32_t hpre)
 {
-	RCC_CFGR = (RCC_CFGR & ~RCC_CFGR_HPRE) | hpre;
+	int div;
+
+	RCC_CFGR = (RCC_CFGR & ~RCC_CFGR_HPRE) | 
+		   ((hpre & RCC_CFGR_HPRE_MASK) << RCC_CFGR_HPRE_SHIFT);
+	div = hpre & RCC_CFGR_HPRE_MASK;
+	if (div > 7) {
+		div = div & 0x7; // Lower 3 bits
+		if (div < 4) {
+			rcc_ahb_frequency = rcc_ahb_frequency / (1 << (div + 1));
+		} else {
+			rcc_ahb_frequency = rcc_ahb_frequency / (1 << (div + 6));
+		}
+		div = (RCC_CFGR >> RCC_CFGR_PPRE_SHIFT) & RCC_CFGR_PPRE_MASK;
+		div = (div < 4) ? 1 : 1 << ((div & 0x3) + 1);
+		rcc_apb1_frequency = rcc_ahb_frequency / div;
+	}
 }
 
-
+/*
+ * Note calling this will confuse the library about the values of the clocks.
+ */
 void rcc_set_prediv(uint32_t prediv)
 {
-	RCC_CFGR2 = (RCC_CFGR2 & ~RCC_CFGR2_PREDIV) | prediv;
+	RCC_CFGR2 = (RCC_CFGR2 & ~RCC_CFGR2_PREDIV_MASK) | prediv;
 }
 
 
 void rcc_set_mco(uint32_t mcosrc)
 {
 	RCC_CFGR = (RCC_CFGR & ~RCC_CFGR_MCO) | mcosrc;
-}
-
-/*---------------------------------------------------------------------------*/
-/** @brief RCC Get the System Clock Source.
- *
- * @returns ::osc_t System clock source:
- */
-
-enum rcc_osc rcc_system_clock_source(void)
-{
-	/* Return the clock source which is used as system clock. */
-	switch (RCC_CFGR & RCC_CFGR_SWS) {
-	case RCC_CFGR_SWS_HSI:
-		return HSI;
-	case RCC_CFGR_SWS_HSE:
-		return HSE;
-	case RCC_CFGR_SWS_PLL:
-		return PLL;
-	case RCC_CFGR_SWS_HSI48:
-		return HSI48;
-	}
-
-	cm3_assert_not_reached();
 }
 
 /*---------------------------------------------------------------------------*/
@@ -557,87 +541,152 @@ enum rcc_osc rcc_usb_clock_source(void)
 	return (RCC_CFGR3 & RCC_CFGR3_USBSW) ? PLL : HSI48;
 }
 
-/** @brief RCC PLL Setting
+/*---------------------------------------------------------------------------*/
+/** @brief Compute frequency the PLL will generate. 
  *
- * @returns uint32_t
+ * @param[in] hse_frequency
  *
- * Returns the frequency the PLL is generating.
+ * @returns frequency
+ *
+ * This function looks at the PREDIV value, the PLL flags and multiplier
+ * and then computes the frequency the PLL will generate. If the source is
+ * HSE it requires the crystal frequency in order to make an accurate calculation.
+ *
  */
 uint32_t rcc_get_pll_frequency(uint32_t hse_frequency) {
 	uint32_t pll_freq;
+	uint32_t	prediv;
+
+	prediv = ((RCC_CFGR2 >> RCC_CFGR2_PREDIV_SHIFT) & RCC_CFGR2_PREDIV_MASK) + 1;
 	
-	switch ((RCC_CFGR >> 15) & 0x3) {
+	switch ((RCC_CFGR >> RCC_CFGR_PLLSRC_SHIFT) & RCC_CFGR_PLLSRC_MASK) {
 		case 0: pll_freq = (RCC_HSI_FREQUENCY >> 1); // HSI/2
 			break;
-		case 1: pll_freq = (RCC_HSI_FREQUENCY / ((RCC_CFGR2 & 0xf)+1));
+		case 1: pll_freq = RCC_HSI_FREQUENCY / prediv;
 			break;
-		case 2: pll_freq = (hse_frequency / ((RCC_CFGR2 & 0xf)+1));
+		case 2: pll_freq = hse_frequency / prediv;
 			break;
-		case 3: pll_freq = (RCC_HSI48_FREQUENCY / ((RCC_CFGR2 & 0xf)+1));
+		case 3: pll_freq = RCC_HSI48_FREQUENCY / prediv;
 			break;
 	}
 
-	pll_freq = pll_freq * (((RCC_CFGR >> RCC_CFGR_PLLMUL_SHIFT) & 0xf) + 2);
+	pll_freq = pll_freq * (((RCC_CFGR >> RCC_CFGR_PLLMUL_SHIFT) & RCC_CFGR_PLLMUL_MASK) + 2);
 	return pll_freq;
 }
 
-/** @brief RCC PLL Setting
+/*---------------------------------------------------------------------------*/
+/** 
+ * @brief RCC Set the System Clock Source.
  *
- * @returns uint32_t
+ * @param[in] clk_src A `rcc_osc` value for the desired clock source
  *
- * Returns the frequency the AHB (aka SYSCLOCK) frequency is generating.
+ * This function will set the system clock to the desired clock source
+ * and wait for that setting to take effect. Valid values for the clock
+ * source are `HSI`, `HSE`, `PLL`, and `HSI48`. 
  */
-uint32_t rcc_get_ahb_frequency(uint32_t hse_frequency) {
-	uint32_t ahb_freq;
-	uint32_t hpre = (RCC_CFGR >> 4) & 0xf;
-	
-	switch ((RCC_CFGR >> 2) & 0x3) {
-		case 0: ahb_freq = RCC_HSI_FREQUENCY;
-			break;
-		case 1: ahb_freq = hse_frequency;
-			break;
-		case 2: ahb_freq = rcc_get_pll_frequency(hse_frequency);
-			break;
-		case 3: ahb_freq = RCC_HSI48_FREQUENCY;
-			break;
-	}
 
-	/* Pull out the HPRE divisor */
-	if ((hpre & 8) == 0) {
-		return ahb_freq;
-	} else if (hpre < 12) {
-		/* /2, /4, /8, /16 */
-		return ahb_freq >> ((hpre & 0x7) + 1);
+void rcc_set_sysclk(enum rcc_osc clk_src)
+{
+	uint32_t	clk = RCC_CFGR_SW_HSI;
+
+	switch (clk_src) {
+	case HSI:
+		clk = RCC_CFGR_SW_HSI;
+		break;
+	case HSE:
+		clk = RCC_CFGR_SW_HSE;
+		break;
+	case PLL:
+		clk = RCC_CFGR_SW_PLL;
+		break;
+	case HSI48:
+		clk = RCC_CFGR_SW_HSI48;
+		break;
+	default:
+		/* do nothing */
+		return;
 	}
-	/* /64, /128 /256, /512 */
-	return ahb_freq >> ((hpre & 0x7) + 2);
+	/* select the clock, and then wait for it to take effect */
+	RCC_CFGR = (RCC_CFGR & ~RCC_CFGR_SW_MASK) | clk;
+	while (((RCC_CFGR >> RCC_CFGR_SWS_SHIFT) & RCC_CFGR_SWS_MASK) != clk) ;
 }
 
-/*
- * Set (or restore) the generic HSI
- * clock configuration.
+/*---------------------------------------------------------------------------*/
+/**
+ * @brief Return the current system clock
+ *
+ * This function queries the configuration register for the current system
+ * clock and then returns the `rcc_osc` equivalent value.
+ *
+ * @returns system clock
  */
-void rcc_hsi_clock_setup(void) {
-	if ((RCC_CFGR & 0x3) == RCC_CFGR_SW_HSI) {
+enum rcc_osc rcc_get_sysclk(void) {
+	uint32_t clk_bits = (RCC_CFGR >> RCC_CFGR_SWS_SHIFT) & RCC_CFGR_SWS_MASK;
+
+	switch (clk_bits) {
+		case 1:
+			return HSE;
+		case 2:
+			return PLL;
+		case 3:
+			return HSI48;
+		default:
+			return HSI;
+	}
+}
+
+
+/*---------------------------------------------------------------------------*/
+/**
+ * @brief Configure the F0 HSI Clock
+ *
+ * @param[in] freq frequency, (either 8000000 or 48000000)
+ *
+ * This function sets the chip to use the HSI (internal) clock for
+ * the system clock. It checks to see if its already set so you can
+ * call it "just in case" if you want to be sure you will have a clock
+ * running when you fiddle with the osciallators.
+ * 
+ * You have the choice of the 8Mhz HSI clock or the 48Mhz HSI48 clock.
+ */
+void rcc_hsi_clock_setup(uint32_t freq) {
+	enum rcc_osc target = HSI;
+	if (freq == RCC_HSI48_FREQUENCY) {
+		target = HSI48;
+	}
+	if (rcc_get_sysclk() == target) {
 		return; /* already running on HSI */
 	}
-	rcc_osc_on(HSI);
-	rcc_wait_for_osc_ready(HSI);
-	rcc_set_sysclk(HSI);
+	rcc_osc_on(target);
+	rcc_wait_for_osc_ready(target);
+	/* need a 1WS for flash if running at 48Mhz */
+	flash_set_ws((target == HSI48) ? 1 : 0);
+
+	rcc_set_sysclk(target);
 	rcc_set_hpre(RCC_CFGR_HPRE_DIV_NONE);
 	rcc_set_ppre(RCC_CFGR_PPRE_DIV_NONE);
-	rcc_ahb_frequency = RCC_HSI_FREQUENCY;
-	rcc_apb1_frequency = RCC_HSI_FREQUENCY;
+	rcc_ahb_frequency = (target == HSI) ? RCC_HSI_FREQUENCY : RCC_HSI48_FREQUENCY;
+	rcc_apb1_frequency = rcc_ahb_frequency;
 }
 
-/*
- * Set the system clock to an HSE source
+/*---------------------------------------------------------------------------*/
+/**
+ * @brief Configure the F0 HSE Clock
+ *
+ * @param[in] frequency This is the frequency of the external clock
+ *
+ * Set the system clock to an HSE source. Also sets the APB clock for
+ * the peripheral routines.
  */
 void rcc_hse_clock_setup(uint32_t frequency) {
 	/* Switch to HSI if not there */
-	rcc_hsi_clock_setup();
+	rcc_hsi_clock_setup(RCC_HSI_FREQUENCY);
 	rcc_osc_on(HSE);
 	rcc_wait_for_osc_ready(HSE);
+
+	/* need a 1WS for flash if running > 24Mhz */
+	flash_set_ws((frequency > 24000000) ? 1 : 0);
+
 	rcc_set_sysclk(HSE);
 	rcc_set_hpre(RCC_CFGR_HPRE_DIV_NONE);
 	rcc_set_ppre(RCC_CFGR_PPRE_DIV_NONE);
@@ -645,32 +694,53 @@ void rcc_hse_clock_setup(uint32_t frequency) {
 	rcc_apb1_frequency = frequency;
 }
 
-/** @brief RCC Set up HSI Clock
+/*---------------------------------------------------------------------------*/
+/**
+ * @brief Configure the F0 PLL Clock
  *
- * Set the system clock to the PLL source
+ * @param[in] pllbits These bits provide information about how the clock should be set up
+ * @param[in] base_freq This is the frequency of the source clock to the PLL
  *
- * @returns void
+ * This function will set the PLL register to generate a clock and set the system clock to
+ * the PLL. This is typically used when you want to run the chip at a faster internal clock
+ * rate than either the 8Mhz HSI or an external crystal provides. Note that `pllbits` is
+ * an encoded value using the `RCC_CFGR_PLLBITS` macro.
  */
 
 void rcc_pll_clock_setup(uint32_t pllbits, uint32_t base_freq) {
 
+	uint32_t	freq;
+
 	/* Switch to HSI only for now */
-	rcc_hsi_clock_setup();
+	rcc_hsi_clock_setup(RCC_HSI_FREQUENCY);
 
 	/* Turn off the PLL */
 	rcc_osc_off(PLL);
 
-	/* Configure source as HSE/HSI, multiplier is as passed */
-	RCC_CFGR &= ~(RCC_CFGR_PLLSRC | RCC_CFGR_PLLMUL);
-	RCC_CFGR |= (pllbits & (RCC_CFGR_PLLMUL | RCC_CFGR_PLLSRC));
+	/* Configure source as HSE/HSI/HSI48, multiplier is as passed */
+	RCC_CFGR &= ~(RCC_CFGR_PLLBITS_MASK);
+	RCC_CFGR |= (pllbits & RCC_CFGR_PLLBITS_MASK);
 
-	/* Multiplier has bit for either 1 or 0 WS on flash) */
-	flash_set_ws(pllbits & 1);
+	RCC_CFGR2 &= ~RCC_CFGR2_PREDIV_MASK;
+	RCC_CFGR2 |= pllbits & RCC_CFGR2_PREDIV_MASK;
+
+	/* Figure out what the frequency will be */
+	freq = rcc_get_pll_frequency(base_freq);
+	/* Add a flash wait state if clock is > 24Mhz */
+	flash_set_ws((freq > 24000000) ? 1 : 0);
 
 	/* If PLL input is HSE, then turn it on first */
-	if ((pllbits & RCC_CFGR_PLLSRC) != 0) {
-		rcc_osc_on(HSE);
-		rcc_wait_for_osc_ready(HSE);
+	switch ((pllbits >> RCC_CFGR_PLLSRC_SHIFT) & RCC_CFGR_PLLSRC_MASK) {
+		case 1:
+			rcc_osc_on(HSE);
+			rcc_wait_for_osc_ready(HSE);
+			break;
+		case 3:
+			rcc_osc_on(HSI48);
+			rcc_wait_for_osc_ready(HSI48);
+			break;
+		default:
+			break;
 	}
 
 	/* Now turn on the PLL and wait for it to spin up */
@@ -684,32 +754,32 @@ void rcc_pll_clock_setup(uint32_t pllbits, uint32_t base_freq) {
 /* Deprecated */
 void rcc_clock_setup_in_hsi_out_8mhz(void)
 {
-	rcc_set_hsi_clock(RCC_HSI_8_MHZ);
+	rcc_pll_clock_setup(RCC_8MHZ_HSI_8MHZ_PLL, RCC_HSI_FREQUENCY);
 }
 
 void rcc_clock_setup_in_hsi_out_16mhz(void)
 {
-	rcc_set_hsi_clock(RCC_HSI_16_MHZ);
+	rcc_pll_clock_setup(RCC_8MHZ_HSI_16MHZ_PLL, RCC_HSI_FREQUENCY);
 }
 
 void rcc_clock_setup_in_hsi_out_24mhz(void)
 {
-	rcc_set_hsi_clock(RCC_HSI_24_MHZ);
+	rcc_pll_clock_setup(RCC_8MHZ_HSI_24MHZ_PLL, RCC_HSI_FREQUENCY);
 }
 
 void rcc_clock_setup_in_hsi_out_32mhz(void)
 {
-	rcc_set_hsi_clock(RCC_HSI_32_MHZ);
+	rcc_pll_clock_setup(RCC_8MHZ_HSI_32MHZ_PLL, RCC_HSI_FREQUENCY);
 }
 
 void rcc_clock_setup_in_hsi_out_40mhz(void)
 {
-	rcc_set_hsi_clock(RCC_HSI_40_MHZ);
+	rcc_pll_clock_setup(RCC_8MHZ_HSI_40MHZ_PLL, RCC_HSI_FREQUENCY);
 }
 
 void rcc_clock_setup_in_hsi_out_48mhz(void)
 {
-	rcc_set_hsi_clock(RCC_HSI_48_MHZ);
+	rcc_pll_clock_setup(RCC_8MHZ_HSI_48MHZ_PLL, RCC_HSI_FREQUENCY);
 }
 
 /**@}*/
