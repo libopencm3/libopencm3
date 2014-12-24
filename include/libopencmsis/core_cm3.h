@@ -45,7 +45,13 @@ typedef struct {
 	__IO uint32_t SCR;
 	__IO uint32_t CCR;
 	__IO uint8_t SHPR[12]; /* FIXME: how is this properly indexed? */
-	__IO uint32_t SHCSR;
+	__IO uint32_t SHCRS;
+	__IO uint32_t CFSR;
+	__IO uint32_t MMSR;
+	__IO uint32_t BFSR;
+	__IO uint32_t HFSR;
+	__IO uint32_t MMAR;
+	__IO uint32_t BFAR;
 } SCB_TypeDef;
 #define SCB ((SCB_TypeDef *) SCB_BASE)
 

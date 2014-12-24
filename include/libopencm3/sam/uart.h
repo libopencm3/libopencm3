@@ -23,16 +23,24 @@
 #include <libopencm3/cm3/common.h>
 #include <libopencm3/sam/memorymap.h>
 
+/* --- The UART base addresses aren't named consistently between chips ---- */
+#ifdef UART1_BASE
+#define UART0	UART0_BASE
+#define UART1	UART1_BASE
+#else
+#define UART0	UART_BASE
+#endif
+
 /* --- Universal Asynchronous Receiver Transmitter (UART) registers ------- */
-#define UART_CR				MMIO32(UART_BASE + 0x0000)
-#define UART_MR				MMIO32(UART_BASE + 0x0004)
-#define UART_IER			MMIO32(UART_BASE + 0x0008)
-#define UART_IDR			MMIO32(UART_BASE + 0x000C)
-#define UART_IMR			MMIO32(UART_BASE + 0x0010)
-#define UART_SR				MMIO32(UART_BASE + 0x0014)
-#define UART_RHR			MMIO32(UART_BASE + 0x0018)
-#define UART_THR			MMIO32(UART_BASE + 0x001C)
-#define UART_BRGR			MMIO32(UART_BASE + 0x0020)
+#define UART_CR(x)			MMIO32((x) + 0x0000)
+#define UART_MR(x)			MMIO32((x) + 0x0004)
+#define UART_IER(x)				MMIO32((x) + 0x0008)
+#define UART_IDR(x)				MMIO32((x) + 0x000C)
+#define UART_IMR(x)				MMIO32((x) + 0x0010)
+#define UART_SR(x)			MMIO32((x) + 0x0014)
+#define UART_RHR(x)				MMIO32((x) + 0x0018)
+#define UART_THR(x)				MMIO32((x) + 0x001C)
+#define UART_BRGR(x)			MMIO32((x) + 0x0020)
 /* 0x0024:0x003C - Reserved */
 /* 0x004C:0x00FC - Reserved */
 /* 0x0100:0x0124 - PDC Area */
@@ -80,6 +88,52 @@
 /* Bit [2] - Reserved */
 #define UART_SR_TXRDY			(0x01 << 1)
 #define UART_SR_RXRDY			(0x01 << 0)
+
+/*********************************************************************
+* UART enum
+**********************************************************************/
+
+/*
+* UART Parity type definitions
+*/
+enum uart_parity {
+	/* No parity */
+	UART_PARITY_NONE = UART_MR_PAR_NO,
+	/* Odd parity */
+	UART_PARITY_ODD = UART_MR_PAR_ODD,
+	/* Even parity */
+	UART_PARITY_EVEN = UART_MR_PAR_EVEN,
+	/* Forced 1 stick parity */
+	UART_PARITY_SP_1 = UART_MR_PAR_MARK,
+	/* Forced 0 stick parity */
+	UART_PARITY_SP_0  = UART_MR_PAR_SPACE
+};
+
+/* UART mode definitions */
+enum uart_mode {
+	UART_MODE_DISABLED,
+	UART_MODE_RX,
+	UART_MODE_TX,
+	UART_MODE_TX_RX,
+};
+
+BEGIN_DECLS
+
+
+void uart_set_baudrate(uint32_t uart, uint32_t baud);
+void uart_set_parity(uint32_t uart, enum uart_parity par);
+void uart_set_mode(uint32_t uart, enum uart_mode mode);
+void uart_enable(uint32_t uart);
+void uart_disable(uint32_t uart);
+void uart_send(uint32_t uart, uint8_t data);
+void uart_send_blocking(uint32_t uart, uint8_t data);
+uint8_t uart_recv(uint32_t uart);
+uint8_t uart_recv_blocking(uint32_t uart);
+void uart_enable_rx_interrupt(uint32_t uart);
+void uart_disable_rx_interrupt(uint32_t uart);
+
+END_DECLS
+
 
 #endif
 
