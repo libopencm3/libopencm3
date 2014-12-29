@@ -256,7 +256,7 @@ static int usb_standard_set_configuration(usbd_device *usbd_dev,
 	/* Reset all endpoints. */
 	usbd_dev->driver->ep_reset(usbd_dev);
 
-	if (usbd_dev->user_callback_set_config) {
+	if (usbd_dev->user_callback_set_config[0]) {
 		/*
 		 * Flush control callbacks. These will be reregistered
 		 * by the user handler.
