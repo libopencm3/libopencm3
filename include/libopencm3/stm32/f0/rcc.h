@@ -564,8 +564,8 @@ uint32_t rcc_get_pll_frequency(uint32_t hse_frequency);
 uint32_t rcc_get_ahb_frequency(uint32_t hse_frequency);
 void rcc_set_sysclk(enum rcc_osc osc);
 enum rcc_osc rcc_get_sysclk(void);
-void rcc_hsi_clock_setup(uint32_t freq);
-void rcc_hse_clock_setup(uint32_t freq);
+void rcc_hsi_clock_setup(uint32_t hsi_freq);
+void rcc_hse_clock_setup(uint32_t hse_freq);
 void rcc_pll_clock_setup(uint32_t pllmull, uint32_t src_freq);
 
 END_DECLS

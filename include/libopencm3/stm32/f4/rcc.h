@@ -915,7 +915,7 @@ void rcc_set_sysclk(enum rcc_osc osc);
 enum rcc_osc rcc_get_sysclk(void);
 void rcc_pll_clock_setup(uint32_t clock_speed, uint32_t input_speed);
 void rcc_hsi_clock_setup(void);
-void rcc_hse_clock_setup(uint32_t freq);
+void rcc_hse_clock_setup(uint32_t hse_freq);
 
 END_DECLS
 

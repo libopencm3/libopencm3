@@ -200,11 +200,15 @@
 #define RCC_CFGR_HPRE_SYSCLK_DIV512		0xf
 
 /* More "standard" versions */
+#define RCC_CFGR_SW_MASK			0x3
+#define RCC_CFGR_SW_SHIFT			0
 #define RCC_CFGR_SW_MSI				0x0
 #define RCC_CFGR_SW_HSI16			0x1
 #define RCC_CFGR_SW_HSE				0x2
 #define RCC_CFGR_SW_PLL				0x3
 
+#define RCC_CFGR_SWS_MASK			0x3
+#define RCC_CFGR_SWS_SHIFT			0x2
 #define RCC_CFGR_SWS_MSI			0x0
 #define RCC_CFGR_SWS_HSI16			0x1
 #define RCC_CFGR_SWS_HSE			0x2
