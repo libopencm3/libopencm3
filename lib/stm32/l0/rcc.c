@@ -335,7 +335,7 @@ enum rcc_osc rcc_get_sysclk(void) {
  */
 static void rcc_set_ppre(uint32_t *freq, uint32_t shift, uint32_t div_factor) {
 	uint32_t	reg;
-	reg = RCC_CFGR = (RCC_CFGR & ~(0x7 << shift));
+	reg = (RCC_CFGR & ~(0x7 << shift));
 	switch (div_factor) {
 	case RCC_PPRE_DIV_2:
 		*freq = rcc_ahb_frequency >> 1;
@@ -402,9 +402,11 @@ void rcc_set_sysclk(enum rcc_osc osc) {
 		break;
 	}
 	/* set clock selection*/
-	RCC_CFGR = (RCC_CFGR & (~0x3)) | clk_bits;
+	RCC_CFGR = (RCC_CFGR & ~(RCC_CFGR_SW_MASK << RCC_CFGR_SW_SHIFT)) |
+				((clk_bits & RCC_CFGR_SW_MASK) << RCC_CFGR_SW_SHIFT);
 	/* wait for it to be realized */
-	while (((RCC_CFGR >> 2) & 0x3) != clk_bits) ;
+	while (((RCC_CFGR >> RCC_CFGR_SWS_SHIFT) & RCC_CFGR_SWS_MASK) != clk_bits) ;
+
 	/* for 'fake' HSI4 clock, turn on divider */
 	if (osc == HSI4) {
 		RCC_CR = RCC_CR | RCC_CR_HSI16DIVEN;
