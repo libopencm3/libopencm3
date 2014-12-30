@@ -491,6 +491,7 @@
 extern uint32_t rcc_ahb_frequency;
 extern uint32_t rcc_apb1_frequency;
 extern uint32_t rcc_apb2_frequency;
+extern uint32_t rcc_lse_frequency; // for usarts that need it
 
 /* --- Function prototypes ------------------------------------------------- */
 

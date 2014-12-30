@@ -337,6 +337,19 @@ Control</b>
 
 /* --- RCC_CFGR3 values ---------------------------------------------------- */
 
+#define RCC_CFGR3_USART_CLK_APB			0
+#define RCC_CFGR3_USART_CLK_SYS			1
+#define RCC_CFGR3_USART_CLK_LSE			2
+#define RCC_CFGR3_USART_CLK_HSI			3
+#define RCC_CFGR3_USART_CLK_MASK		0x3
+
+#define RCC_CFGR3_USART3SW_SHIFT		18
+#define RCC_CFGR3_USART3SW			(3 << RCC_CFGR3_USART3SW_SHIFT)
+#define RCC_CFGR3_USART3SW_PCLK			(0 << RCC_CFGR3_USART3SW_SHIFT)
+#define RCC_CFGR3_USART3SW_SYSCLK		(1 << RCC_CFGR3_USART3SW_SHIFT)
+#define RCC_CFGR3_USART3SW_LSE			(2 << RCC_CFGR3_USART3SW_SHIFT)
+#define RCC_CFGR3_USART3SW_HSI			(3 << RCC_CFGR3_USART3SW_SHIFT)
+
 #define RCC_CFGR3_USART2SW_SHIFT		16
 #define RCC_CFGR3_USART2SW			(3 << RCC_CFGR3_USART2SW_SHIFT)
 #define RCC_CFGR3_USART2SW_PCLK			(0 << RCC_CFGR3_USART2SW_SHIFT)
@@ -377,6 +390,7 @@ Control</b>
 /* --- Variable definitions ------------------------------------------------ */
 extern uint32_t rcc_ahb_frequency;
 extern uint32_t rcc_apb1_frequency;
+extern uint32_t rcc_lse_frequency;
 
 enum rcc_osc {
 	HSI14, HSI, HSE, PLL, LSI, LSE, HSI48

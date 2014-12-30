@@ -44,6 +44,7 @@
 uint32_t rcc_apb1_frequency = (RCC_MSI_2MHZ & 0xffffff);
 uint32_t rcc_apb2_frequency = (RCC_MSI_2MHZ & 0xffffff);
 uint32_t rcc_ahb_frequency = (RCC_MSI_2MHZ & 0xffffff);
+uint32_t rcc_lse_frequency = 327678; // most likely default
 
 void rcc_osc_on(enum rcc_osc osc)
 {

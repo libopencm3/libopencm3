@@ -108,7 +108,7 @@
 #define USART_CR2_RTOEN			(1 << 23)
 
 #define USART_CR2_ABRMOD_SHIFT		21
-#define USART_CR2_ABRMOD		(3 << USART_CR2_ABRMOD_SHIFT)
+#define USART_CR2_ABRMOD_MASK		0x3
 #define USART_CR2_ABRMOD_STARTBIT	(0 << USART_CR2_ABRMOD_SHIFT)
 #define USART_CR2_ABRMOD_FALLTOFALL	(1 << USART_CR2_ABRMOD_SHIFT)
 
@@ -289,6 +289,8 @@ void usart_enable_error_interrupt(uint32_t usart);
 void usart_disable_error_interrupt(uint32_t usart);
 bool usart_get_flag(uint32_t usart, uint32_t flag);
 bool usart_get_interrupt_source(uint32_t usart, uint32_t flag);
+uint32_t usart_get_clock(uint32_t usart);
+void usart_set_autobaudrate(uint32_t usart, int mode);
 
 END_DECLS
 

@@ -37,6 +37,7 @@
 
 #define USART1				USART1_BASE
 #define USART2				USART2_BASE
+#define LPUART1				LPUART1_BASE
 
 #include <libopencm3/stm32/common/usart_common_fl_0.h>
 #endif
