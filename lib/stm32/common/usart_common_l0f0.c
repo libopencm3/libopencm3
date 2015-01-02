@@ -5,16 +5,11 @@
  *
  * @brief <b>libopencm3 STM32L0xx USART</b>
  *
- * @version 1.0.0
+ * @version 1.1.0
  *
- * @date 7 Jul 2013
+ * @date 1 Jan 2015
  *
  * LGPL License Terms @ref lgpl_license
- * TODO: 
- *  This, and the F0 USART code (from which it is currently
- * derived. Need to be merged into a common bit of code that
- * handles this "flavor" of ST Micro USART (the one that has
- * separate send and receive registers)
  */
 
 /*
@@ -92,15 +87,23 @@ void usart_set_autobaudrate(uint32_t usart, int mode) {
  *
  * @param[in] usart unsigned 32 bit. USART block register address base @ref
  * usart_reg_base
- * @param[in] bits unsigned 32 bit. Word length in bits 8 or 9.
+ * @param[in] bits unsigned 32 bit. Word length in bits 7, 8, or 9.
  */
 
 void usart_set_databits(uint32_t usart, uint32_t bits)
 {
-	if (bits == 8) {
-		USART_CR1(usart) &= ~USART_CR1_M; /* 8 data bits */
-	} else {
-		USART_CR1(usart) |= USART_CR1_M;  /* 9 data bits */
+	switch (bits) {
+		case 7:
+			USART_CR1(usart) |= USART_CR1_M1;
+			USART_CR1(usart) &= ~USART_CR1_M0;
+			break;
+		case 9:
+			USART_CR1(usart) &= ~USART_CR1_M1;
+			USART_CR1(usart) |= USART_CR1_M0;
+		default:
+		case 8:
+			USART_CR1(usart) &= ~USART_CR1_M1;
+			USART_CR1(usart) &= ~USART_CR1_M0;
 	}
 }
 

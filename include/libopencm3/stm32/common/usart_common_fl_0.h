@@ -5,9 +5,9 @@
  * @ingroup STM32F0xx_defines
  * @ingroup STM32L0xx_defines
  *
- * @version 1.0.0
+ * @version 1.1.0
  *
- * @date 2 July 2013
+ * @date 1 Jan 2015
  *
  * LGPL License Terms @ref lgpl_license
  */
@@ -74,12 +74,10 @@
 #define USART_CR1_RTOIE			(1 << 26)
 
 #define USART_CR1_DEAT_SHIFT		21
-#define USART_CR1_DEAT			(0x1F << USART_CR1_DEAT_SHIFT)
-#define USART_CR1_DEAT_VAL(x)		((x) << USART_CR1_DEAT_SHIFT)
+#define USART_CR1_DEAT_MASK		0x1f
 
 #define USART_CR1_DEDT_SHIFT		16
-#define USART_CR1_DEDT			(0x1F << USART_CR1_DEDT_SHIFT)
-#define USART_CR1_DEDT_VAL(x)		((x) << USART_CR1_DEDT_SHIFT)
+#define USART_CR1_DEDT_MASK		0x1f
 
 #define USART_CR1_OVER8			(1 << 15)
 #define USART_CR1_CMIE			(1 << 14)
@@ -170,23 +168,19 @@
 /* USART_GTPR Values --------------------------------------------------------*/
 
 #define USART_GTPR_GT_SHIFT		8
-#define USART_GTPR_GT			(0xFF << USART_GTPR_GT_SHIFT)
-#define USART_GTPR_GT_VAL(x)		((x) << USART_GTPR_GT_SHIFT)
+#define USART_GTPR_GT_MASK		0xff
 
 #define USART_GTPR_PSC_SHIFT		0
-#define USART_GTPR_PSC			(0xFF << USART_GTPR_PSC_SHIFT)
-#define USART_GTPR_PSC_VAL(x)		((x) << USART_GTPR_PSC_SHIFT)
+#define USART_GTPR_PSC_MASK		0xff
 
 
 /* USART_RTOR Values --------------------------------------------------------*/
 
 #define USART_RTOR_BLEN_SHIFT		24
-#define USART_RTOR_BLEN			(0xFF << USART_RTOR_BLEN_SHIFT)
-#define USART_RTOR_BLEN_VAL(x)		((x) << USART_RTOR_BLEN_SHIFT)
+#define USART_RTOR_BLEN_MASK		0xff
 
 #define USART_RTOR_RTO_SHIFT		0
-#define USART_RTOR_RTO			(0xFF << USART_RTOR_RTO_SHIFT)
-#define USART_RTOR_RTO_VAL(x)		((x) << USART_RTOR_RTO_SHIFT)
+#define USART_RTOR_RTO_MASK		0xff
 
 /* USART_RQR Values ---------------------------------------------------------*/
 

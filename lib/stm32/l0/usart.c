@@ -6,14 +6,9 @@
  *
  * @version 1.0.0
  *
- * @date 7 Jul 2013
+ * @date 1 Jan 2015
  *
  * LGPL License Terms @ref lgpl_license
- * TODO: 
- *  This, and the F0 USART code (from which it is currently
- * derived. Need to be merged into a common bit of code that
- * handles this "flavor" of ST Micro USART (the one that has
- * separate send and receive registers)
  */
 
 /*
