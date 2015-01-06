@@ -77,7 +77,9 @@ baudrate, data format 8/16 bits, frame format lsb/msb first, clock polarity
 and phase. The SPI enable, CRC enable and CRC next controls are not affected.
 These must be controlled separately.
 
-@todo NSS pin handling.
+To support multiple masters (dynamic switching between master and slave)
+you must set SSOE to 0 and select either software or hardware control of
+the NSS pin.
 
 @param[in] spi Unsigned int32. SPI peripheral identifier @ref spi_reg_base.
 @param[in] br Unsigned int32. Baudrate @ref spi_baudrate.
@@ -105,8 +107,7 @@ int spi_init_master(uint32_t spi, uint32_t br, uint32_t cpol, uint32_t cpha,
 	reg32 |= dff;		/* Set data format (8 or 16 bits). */
 	reg32 |= lsbfirst;	/* Set frame format (LSB- or MSB-first). */
 
-	/* TODO: NSS pin handling. */
-
+	SPI_CR2(spi) |= SPI_CR2_SSOE; /* common case */
 	SPI_CR1(spi) = reg32;
 
 	return 0; /* TODO */
