@@ -159,7 +159,7 @@ available in place of some of the SWJ signals. Full SWJ capability is obtained
 by setting this to zero. The value of this must be specified for every call to
 this function as its current value cannot be ascertained from the hardware.
 
-@param[in] swjdisable Unsigned int8. Disable parts of the SWJ capability @ref
+@param[in] swjdisable Unsigned int32. Disable parts of the SWJ capability @ref
 afio_swj_disable.
 @param[in] maps Unsigned int32. Logical OR of map enable controls from @ref
 afio_remap, @ref afio_remap_can1, @ref afio_remap_tim3, @ref afio_remap_tim2,
@@ -168,7 +168,13 @@ only @ref afio_remap_cld are also available.
 */
 void gpio_primary_remap(uint32_t swjdisable, uint32_t maps)
 {
-	AFIO_MAPR |= (swjdisable & AFIO_MAPR_SWJ_MASK) | (maps & 0x1FFFFF);
+#if VERY_SAFE
+	maps &= ~AFIO_MAPR_SWJ_MASK;
+	AFIO_MAPR |= (swjdisable & AFIO_MAPR_SWJ_MASK) | maps;
+#else
+	/* if you only use defines for the swjdisable param, this is safe (enough?) */ 
+	AFIO_MAPR |= swjdisable | maps;
+#endif
 }
 
 /*---------------------------------------------------------------------------*/
