@@ -168,6 +168,16 @@ void ltdc_setup_windowing(
 		uint16_t active_width,  uint16_t active_height
 );
 
+
+
+/**
+ * Helper function to wait for SRCR reload to complete or so
+ */
+
+#define LTDC_SRCR_IS_RELOADING (LTDC_SRCR&(LTDC_SRCR_RELOAD_VBR|LTDC_SRCR_RELOAD_IMR))
+
+
+
 /**
  * color conversion helper function
  * (simulate the ltdc color conversion)
