@@ -119,6 +119,8 @@
 #define RCC_CFGR_MCOPRE_DIV4	    2
 #define RCC_CFGR_MCOPRE_DIV8	    3
 #define RCC_CFGR_MCOPRE_DIV16	    4
+#define RCC_CFGR_MCOPRE_SHIFT       28
+#define RCC_CFGR_MCOPRE             (0x7 << RCC_CFGR_MCOPRE_SHIFT)
 
 /* MCO: Microcontroller clock output */
 #define RCC_CFGR_MCO_NOCLK			0x0
@@ -129,6 +131,8 @@
 #define RCC_CFGR_MCO_PLLCLK			0x5
 #define RCC_CFGR_MCO_LSICLK			0x6
 #define RCC_CFGR_MCO_LSECLK			0x7
+#define RCC_CFGR_MCO_SHIFT			24
+#define RCC_CFGR_MCO				(0x7 << RCC_CFGR_MCO_SHIFT)
 
 /* PLL Output division selection */
 #define RCC_CFGR_PLLDIV_DIV2	0x1
@@ -606,6 +610,8 @@ void rcc_clock_setup_msi(const clock_scale_t *clock);
 void rcc_clock_setup_hsi(const clock_scale_t *clock);
 void rcc_clock_setup_pll(const clock_scale_t *clock);
 void rcc_backupdomain_reset(void);
+void rcc_set_mco(uint32_t mcosrc);
+void rcc_set_mcopre(uint32_t mcopre);
 
 END_DECLS
 
