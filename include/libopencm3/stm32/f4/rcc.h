@@ -141,6 +141,8 @@
 #define RCC_CFGR_MCO1_LSE			0x1
 #define RCC_CFGR_MCO1_HSE			0x2
 #define RCC_CFGR_MCO1_PLL			0x3
+#define RCC_CFGR_MCO_SHIFT			RCC_CFGR_MCO1_SHIFT
+#define RCC_CFGR_MCO_MASK			RCC_CFGR_MCO1_MASK
 
 /* RTCPRE: HSE division factor for RTC clock */
 #define RCC_CFGR_RTCPRE_SHIFT			16

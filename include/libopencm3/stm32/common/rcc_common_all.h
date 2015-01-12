@@ -49,6 +49,8 @@ void rcc_periph_reset_pulse(enum rcc_periph_rst rst);
 void rcc_periph_reset_hold(enum rcc_periph_rst rst);
 void rcc_periph_reset_release(enum rcc_periph_rst rst);
 
+void rcc_set_mco(uint32_t mcosrc);
+
 END_DECLS
 /**@}*/
 

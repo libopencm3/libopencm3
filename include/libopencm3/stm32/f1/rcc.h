@@ -77,9 +77,6 @@
 
 /* --- RCC_CFGR values ----------------------------------------------------- */
 
-#define RCC_CFGR_MCO_SHIFT			24
-#define RCC_CFGR_MCO				(0xF << RCC_CFGR_MCO_SHIFT)
-
 #define RCC_CFGR_OTGFSPRE			(1 << 22) /* Connectivity line */
 #define RCC_CFGR_USBPRE				(1 << 22) /* LD,MD, HD, XL */
 
@@ -112,6 +109,8 @@
 @ingroup STM32F1xx_rcc_defines
 
 @{*/
+#define RCC_CFGR_MCO_SHIFT			24
+#define RCC_CFGR_MCO_MASK			0xf
 #define RCC_CFGR_MCO_NOCLK			0x0
 #define RCC_CFGR_MCO_SYSCLK			0x4
 #define RCC_CFGR_MCO_HSICLK			0x5
@@ -690,7 +689,6 @@ void rcc_osc_on(enum rcc_osc osc);
 void rcc_osc_off(enum rcc_osc osc);
 void rcc_css_enable(void);
 void rcc_css_disable(void);
-void rcc_set_mco(uint32_t mcosrc);
 void rcc_osc_bypass_enable(enum rcc_osc osc);
 void rcc_osc_bypass_disable(enum rcc_osc osc);
 void rcc_set_sysclk_source(uint32_t clk);

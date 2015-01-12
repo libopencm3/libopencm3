@@ -182,6 +182,21 @@ void rcc_periph_reset_release(enum rcc_periph_rst rst)
 {
 	_RCC_REG(rst) &= ~_RCC_BIT(rst);
 }
+
+/** @brief Select the source of Microcontroller Clock Output
+ *
+ * Exact sources available depend on your target.  On devices with multiple
+ * MCO pins, this function controls MCO1
+ *
+ * @parame[in] mcosrc the unshifted source bits
+ */
+
+void rcc_set_mco(uint32_t mcosrc)
+{
+	RCC_CFGR = (RCC_CFGR & ~(RCC_CFGR_MCO_MASK << RCC_CFGR_MCO_SHIFT)) |
+			(mcosrc << RCC_CFGR_MCO_SHIFT);
+}
+
 /**@}*/
 
 #undef _RCC_REG
