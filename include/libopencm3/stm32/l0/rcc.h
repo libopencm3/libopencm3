@@ -136,6 +136,8 @@
 #define RCC_CFGR_MCO_LSICLK			0x6
 #define RCC_CFGR_MCO_LSECLK			0x7
 #define RCC_CFGR_MCO_HSI48CLK			0x8
+#define RCC_CFGR_MCO_SHIFT			24
+#define RCC_CFGR_MCO_MASK			0xf
 
 /* PLL Output division selection */
 #define RCC_CFGR_PLLDIV_DIV2	0x1

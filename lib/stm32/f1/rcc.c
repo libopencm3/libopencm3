@@ -594,13 +594,6 @@ void rcc_set_prediv1_source(uint32_t rccsrc)
 		RCC_CFGR2 &= ~RCC_CFGR2_PREDIV1SRC;
 }
 
-void rcc_set_mco(uint32_t mcosrc)
-{
-	RCC_CFGR = (RCC_CFGR & ~RCC_CFGR_MCO) |
-			(mcosrc << RCC_CFGR_MCO_SHIFT);
-
-}
-
 /*---------------------------------------------------------------------------*/
 /** @brief RCC Get the System Clock Source.
 

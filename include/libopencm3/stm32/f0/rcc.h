@@ -95,16 +95,16 @@ Control</b>
 #define RCC_CFGR_MCOPRE_DIV128			(7 << RCC_CFGR_MCOPRE_SHIFT)
 
 #define RCC_CFGR_MCO_SHIFT			24
-#define RCC_CFGR_MCO				(15 << RCC_CFGR_MCO_SHIFT)
-#define RCC_CFGR_MCO_NOCLK			(0 << RCC_CFGR_MCO_SHIFT)
-#define RCC_CFGR_MCO_HSI14			(1 << RCC_CFGR_MCO_SHIFT)
-#define RCC_CFGR_MCO_LSI			(2 << RCC_CFGR_MCO_SHIFT)
-#define RCC_CFGR_MCO_LSE			(3 << RCC_CFGR_MCO_SHIFT)
-#define RCC_CFGR_MCO_SYSCLK			(4 << RCC_CFGR_MCO_SHIFT)
-#define RCC_CFGR_MCO_HSI			(5 << RCC_CFGR_MCO_SHIFT)
-#define RCC_CFGR_MCO_HSE			(6 << RCC_CFGR_MCO_SHIFT)
-#define RCC_CFGR_MCO_PLL			(7 << RCC_CFGR_MCO_SHIFT)
-#define RCC_CFGR_MCO_HSI48			(8 << RCC_CFGR_MCO_SHIFT)/*f07*/
+#define RCC_CFGR_MCO_MASK			0xf
+#define RCC_CFGR_MCO_NOCLK			0
+#define RCC_CFGR_MCO_HSI14			1
+#define RCC_CFGR_MCO_LSI			2
+#define RCC_CFGR_MCO_LSE			3
+#define RCC_CFGR_MCO_SYSCLK			4
+#define RCC_CFGR_MCO_HSI			5
+#define RCC_CFGR_MCO_HSE			6
+#define RCC_CFGR_MCO_PLL			7
+#define RCC_CFGR_MCO_HSI48			8
 
 #define RCC_CFGR_PLLMUL_SHIFT			18
 #define RCC_CFGR_PLLMUL				(0x0F << RCC_CFGR_PLLMUL_SHIFT)
@@ -506,7 +506,6 @@ void rcc_set_pll_multiplication_factor(uint32_t mul);
 void rcc_set_ppre(uint32_t ppre);
 void rcc_set_hpre(uint32_t hpre);
 void rcc_set_prediv(uint32_t prediv);
-void rcc_set_mco(uint32_t mcosrc);
 enum rcc_osc rcc_system_clock_source(void);
 enum rcc_osc rcc_usb_clock_source(void);
 void rcc_clock_setup_in_hsi_out_8mhz(void);
