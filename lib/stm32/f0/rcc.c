@@ -453,7 +453,7 @@ void rcc_set_usbclk_source(enum rcc_osc clk)
 
 void rcc_set_pll_multiplication_factor(uint32_t mul)
 {
-	RCC_CFGR = (RCC_CFGR & RCC_CFGR_PLLMUL) | mul;
+	RCC_CFGR = (RCC_CFGR & ~RCC_CFGR_PLLMUL) | mul;
 }
 
 
