@@ -568,10 +568,11 @@ The prescale factor can be set to 1 (no prescale) for use when the PLL clock is
 
 void rcc_set_usbpre(uint32_t usbpre)
 {
-	if (usbpre)
+	if (usbpre) {
 		RCC_CFGR |= RCC_CFGR_USBPRE;
-	else
+	} else {
 		RCC_CFGR &= ~RCC_CFGR_USBPRE;
+	}
 }
 
 void rcc_set_prediv1(uint32_t prediv)
@@ -588,10 +589,11 @@ void rcc_set_prediv2(uint32_t prediv)
 
 void rcc_set_prediv1_source(uint32_t rccsrc)
 {
-	if (rccsrc)
+	if (rccsrc) {
 		RCC_CFGR2 |= RCC_CFGR2_PREDIV1SRC;
-	else
+	} else {
 		RCC_CFGR2 &= ~RCC_CFGR2_PREDIV1SRC;
+	}
 }
 
 void rcc_set_mco(uint32_t mcosrc)
@@ -1108,6 +1110,26 @@ void rcc_backupdomain_reset(void)
 
 	/* Clear the backup domain software reset. */
 	RCC_BDCR &= ~RCC_BDCR_BDRST;
+}
+
+/*---------------------------------------------------------------------------*/
+/** @brief RCC Get reset flags
+
+*/
+
+uint32_t rcc_reset_flags(void)
+{
+	return RCC_CSR & RCC_CSR_RSTF_MASK;
+}
+
+/*---------------------------------------------------------------------------*/
+/** @brief RCC Clear reset flags
+
+*/
+
+void rcc_clear_reset_flags(void)
+{
+	RCC_CSR |= RCC_CSR_RMVF;
 }
 
 /**@}*/
