@@ -40,8 +40,9 @@
 #include <libopencm3/stm32/rcc.h>
 #include <libopencm3/stm32/flash.h>
 
-uint32_t rcc_core_frequency = 8000000; /* 8MHz after reset */
-uint32_t rcc_ppre_frequency = 8000000; /* 8MHz after reset */
+/* Set the default clock frequencies */
+uint32_t rcc_ahb_frequency = 8000000; /* 8MHz after reset */
+uint32_t rcc_apb1_frequency = 8000000; /* 8MHz after reset */
 
 /*---------------------------------------------------------------------------*/
 /** @brief RCC Clear the Oscillator Ready Interrupt Flag
@@ -420,6 +421,29 @@ void rcc_set_sysclk_source(enum rcc_osc clk)
 }
 
 /*---------------------------------------------------------------------------*/
+/** @brief RCC Set the Source for the USB Clock.
+ *
+ * @param[in] osc enum ::osc_t. Oscillator ID. Only HSI48 or PLL have
+ * effect.
+ */
+void rcc_set_usbclk_source(enum rcc_osc clk)
+{
+	switch (clk) {
+	case PLL:
+		RCC_CFGR3 |= RCC_CFGR3_USBSW;
+	case HSI48:
+		RCC_CFGR3 &= ~RCC_CFGR3_USBSW;
+	case HSI:
+	case HSE:
+	case LSI:
+	case LSE:
+	case HSI14:
+		/* do nothing */
+		break;
+	}
+}
+
+/*---------------------------------------------------------------------------*/
 /** @brief RCC Set the PLL Multiplication Factor.
  *
  * @note This only has effect when the PLL is disabled.
@@ -429,7 +453,7 @@ void rcc_set_sysclk_source(enum rcc_osc clk)
 
 void rcc_set_pll_multiplication_factor(uint32_t mul)
 {
-	RCC_CFGR = (RCC_CFGR & RCC_CFGR_PLLMUL) | mul;
+	RCC_CFGR = (RCC_CFGR & ~RCC_CFGR_PLLMUL) | mul;
 }
 
 
@@ -492,6 +516,17 @@ enum rcc_osc rcc_system_clock_source(void)
 	cm3_assert_not_reached();
 }
 
+/*---------------------------------------------------------------------------*/
+/** @brief RCC Get the USB Clock Source.
+ *
+ * @returns ::osc_t USB clock source:
+ */
+ 
+enum rcc_osc rcc_usb_clock_source(void)
+{
+	return (RCC_CFGR3 & RCC_CFGR3_USBSW) ? PLL : HSI48;
+}
+
 void rcc_clock_setup_in_hsi_out_8mhz(void)
 {
 	rcc_osc_on(HSI);
@@ -503,8 +538,8 @@ void rcc_clock_setup_in_hsi_out_8mhz(void)
 
 	flash_set_ws(FLASH_ACR_LATENCY_000_024MHZ);
 
-	rcc_ppre_frequency = 8000000;
-	rcc_core_frequency = 8000000;
+	rcc_apb1_frequency = 8000000;
+	rcc_ahb_frequency = 8000000;
 }
 
 void rcc_clock_setup_in_hsi_out_16mhz(void)
@@ -527,8 +562,8 @@ void rcc_clock_setup_in_hsi_out_16mhz(void)
 	rcc_wait_for_osc_ready(PLL);
 	rcc_set_sysclk_source(PLL);
 
-	rcc_ppre_frequency = 16000000;
-	rcc_core_frequency = 16000000;
+	rcc_apb1_frequency = 16000000;
+	rcc_ahb_frequency = 16000000;
 }
 
 
@@ -552,8 +587,8 @@ void rcc_clock_setup_in_hsi_out_24mhz(void)
 	rcc_wait_for_osc_ready(PLL);
 	rcc_set_sysclk_source(PLL);
 
-	rcc_ppre_frequency = 24000000;
-	rcc_core_frequency = 24000000;
+	rcc_apb1_frequency = 24000000;
+	rcc_ahb_frequency = 24000000;
 }
 
 void rcc_clock_setup_in_hsi_out_32mhz(void)
@@ -576,8 +611,8 @@ void rcc_clock_setup_in_hsi_out_32mhz(void)
 	rcc_wait_for_osc_ready(PLL);
 	rcc_set_sysclk_source(PLL);
 
-	rcc_ppre_frequency = 32000000;
-	rcc_core_frequency = 32000000;
+	rcc_apb1_frequency = 32000000;
+	rcc_ahb_frequency = 32000000;
 }
 
 void rcc_clock_setup_in_hsi_out_40mhz(void)
@@ -600,8 +635,8 @@ void rcc_clock_setup_in_hsi_out_40mhz(void)
 	rcc_wait_for_osc_ready(PLL);
 	rcc_set_sysclk_source(PLL);
 
-	rcc_ppre_frequency = 40000000;
-	rcc_core_frequency = 40000000;
+	rcc_apb1_frequency = 40000000;
+	rcc_ahb_frequency = 40000000;
 }
 
 void rcc_clock_setup_in_hsi_out_48mhz(void)
@@ -624,42 +659,24 @@ void rcc_clock_setup_in_hsi_out_48mhz(void)
 	rcc_wait_for_osc_ready(PLL);
 	rcc_set_sysclk_source(PLL);
 
-	rcc_ppre_frequency = 48000000;
-	rcc_core_frequency = 48000000;
+	rcc_apb1_frequency = 48000000;
+	rcc_ahb_frequency = 48000000;
 }
 
-
-#define _RCC_REG(i)		MMIO32(RCC_BASE + ((i) >> 5))
-#define _RCC_BIT(i)		(1 << ((i) & 0x1f))
-
-void rcc_periph_clock_enable(enum rcc_periph_clken periph)
+void rcc_clock_setup_in_hsi48_out_48mhz(void)
 {
-	_RCC_REG(periph) |= _RCC_BIT(periph);
+	rcc_osc_on(HSI48);
+	rcc_wait_for_osc_ready(HSI48);
+	
+	rcc_set_hpre(RCC_CFGR_HPRE_NODIV);
+	rcc_set_ppre(RCC_CFGR_PPRE_NODIV);
+	
+	flash_set_ws(FLASH_ACR_LATENCY_024_048MHZ);
+
+	rcc_set_sysclk_source(HSI48);
+
+	rcc_apb1_frequency = 48000000;
+	rcc_ahb_frequency = 48000000;
 }
-
-void rcc_periph_clock_disable(enum rcc_periph_clken periph)
-{
-	_RCC_REG(periph) &= ~_RCC_BIT(periph);
-}
-
-void rcc_periph_reset_pulse(enum rcc_periph_rst periph)
-{
-	_RCC_REG(periph) |= _RCC_BIT(periph);
-	_RCC_REG(periph) &= ~_RCC_BIT(periph);
-}
-
-void rcc_periph_reset_hold(enum rcc_periph_rst periph)
-{
-	_RCC_REG(periph) |= _RCC_BIT(periph);
-}
-
-void rcc_periph_reset_release(enum rcc_periph_rst periph)
-{
-	_RCC_REG(periph) &= ~_RCC_BIT(periph);
-}
-
-#undef _RCC_REG
-#undef _RCC_BIT
-
 /**@}*/
 

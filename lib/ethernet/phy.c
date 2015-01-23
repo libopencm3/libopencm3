@@ -40,23 +40,24 @@
 /*---------------------------------------------------------------------------*/
 /** @brief Is the link up ?
  *
+ * @param[in] phy uint8_t phy ID of the PHY
  * @returns bool true, if link is up
  */
-bool phy_link_isup(void)
+bool phy_link_isup(uint8_t phy)
 {
-	return eth_smi_read(1, PHY_REG_BSR) & PHY_REG_BSR_UP;
+	return eth_smi_read(phy, PHY_REG_BSR) & PHY_REG_BSR_UP;
 }
 
 /*---------------------------------------------------------------------------*/
 /** @brief Reset the PHY
  *
  * Reset the PHY chip and wait for done
+ * @param[in] phy uint8_t phy ID of the PHY
  */
-void phy_reset(void)
+void phy_reset(uint8_t phy)
 {
-	eth_smi_write(1, PHY_REG_BCR, PHY_REG_BCR_RESET);
-
-	while (eth_smi_read(1, PHY_REG_BCR) & PHY_REG_BCR_RESET);
+	eth_smi_write(phy, PHY_REG_BCR, PHY_REG_BCR_RESET);
+	while (eth_smi_read(phy, PHY_REG_BCR) & PHY_REG_BCR_RESET);
 }
 
 /*---------------------------------------------------------------------------*/

@@ -883,6 +883,15 @@ Line Devices only
 @ingroup gpio_defines
 
 @{*/
+/** various remaps, dma/dac/timer triggers (HD only) */
+#define AFIO_MAPR2_MISC_REMAP			(1 << 13)
+
+/** TIM12_CH1 and TIM12_CH2 remapping (HD only) */
+#define AFIO_MAPR2_TIM12_REMAP			(1 << 12)
+
+/** TIM76_DAC_DMA remap to DMA1/DMA2 */
+#define AFIO_MAPR2_TIM76_DAC_DMA_REMAPE		(1 << 11)
+
 /* FSMC_NADV_DISCONNECT: */
 /** The NADV is disconnected from its allocated pin */
 #define AFIO_MAPR2_FSMC_NADV_DISCONNECT			(1 << 10)
@@ -906,6 +915,21 @@ Line Devices only
 /* TIM9_REMAP: */
 /**  TIM9 remapping */
 #define AFIO_MAPR2_TIM9_REMAP			(1 << 5)
+
+/** TIM1_DMA channel 1/2 remapping */
+#define AFIO_MAPR2_TIM1_DMA_REMAP		(1 << 4)
+
+/** CEC remapping (PB8 vs PB10) */
+#define AFIO_MAPR2_CEC_REMAP			(1 << 3)
+
+/** TIM17 remapping (PB9 vs PB7) */
+#define AFIO_MAPR2_TIM17_REMAP			(1 << 2)
+
+/** TIM16 remapping (PB8 vs PB6) */
+#define AFIO_MAPR2_TIM16_REMAP			(1 << 1)
+
+/** TIM15 remapping channels 1/2 */
+#define AFIO_MAPR1_TIM16_REMAP			(1 << 0)
 
 /**@}*/
 

@@ -125,6 +125,8 @@
 
 BEGIN_DECLS
 
+void crs_autotrim_usb_enable(void);
+
 END_DECLS
 /**@}*/
 

@@ -1,0 +1,207 @@
+<doxygenlayout version="1.0">
+  <!-- Navigation index tabs for HTML output -->
+  <navindex>
+    <tab type="mainpage" visible="yes" title="libopencm3"/>
+    <tab type="pages" visible="yes" title="General Information" intro=""/>
+    <tab type="user" visible="yes" url="../../html/index.html" title="Back to Top" intro=""/>
+    <tab type="user" visible="yes" url="../../cm3/html/modules.html" title="CM3 Core" intro=""/>
+    <tab type="user" visible="yes" url="../../usb/html/modules.html" title="Generic USB" intro=""/>
+    <tab type="user" visible="yes" url="../../stm32f0/html/modules.html" title="STM32F0" intro=""/>
+    <tab type="user" visible="yes" url="../../stm32f1/html/modules.html" title="STM32F1" intro=""/>
+    <tab type="user" visible="yes" url="../../stm32f2/html/modules.html" title="STM32F2" intro=""/>
+    <tab type="user" visible="yes" url="../../stm32f3/html/modules.html" title="STM32F3" intro=""/>
+    <tab type="user" visible="yes" url="../../stm32f4/html/modules.html" title="STM32F4" intro=""/>
+    <tab type="modules" visible="yes" title="STM32L0" intro=""/>
+    <tab type="user" visible="yes" url="../../stm32l1/html/modules.html" title="STM32L1" intro=""/>
+    <tab type="user" visible="yes" url="../../lm3s/html/modules.html" title="LM3S" intro=""/>
+    <tab type="user" visible="yes" url="../../lm4f/html/modules.html" title="LM4F" intro=""/>
+    <tab type="user" visible="yes" url="../../lpc13xx/html/modules.html" title="LPC13" intro=""/>
+    <tab type="user" visible="yes" url="../../lpc17xx/html/modules.html" title="LPC17" intro=""/>
+    <tab type="user" visible="yes" url="../../lpc43xx/html/modules.html" title="LPC43" intro=""/>
+    <tab type="user" visible="yes" url="../../efm32g/html/modules.html" title="EFM32 Gecko" intro=""/>
+    <tab type="user" visible="yes" url="../../efm32gg/html/modules.html" title="EFM32 Giant Gecko" intro=""/>
+    <tab type="user" visible="yes" url="../../efm32lg/html/modules.html" title="EFM32 Leopard Gecko" intro=""/>
+    <tab type="user" visible="yes" url="../../efm32tg/html/modules.html" title="EFM32 Tiny Gecko" intro=""/>
+    <tab type="user" visible="yes" url="../../sam3a/html/modules.html" title="SAM3A" intro=""/>
+    <tab type="user" visible="yes" url="../../sam3n/html/modules.html" title="SAM3N" intro=""/>
+    <tab type="user" visible="yes" url="../../sam3s/html/modules.html" title="SAM3S" intro=""/>
+    <tab type="user" visible="yes" url="../../sam3u/html/modules.html" title="SAM3U" intro=""/>
+    <tab type="user" visible="yes" url="../../sam3x/html/modules.html" title="SAM3X" intro=""/>
+    <tab type="namespaces" visible="yes" title="">
+      <tab type="namespaces" visible="yes" title="" intro=""/>
+      <tab type="namespacemembers" visible="yes" title="" intro=""/>
+    </tab>
+    <tab type="classes" visible="yes" title="">
+      <tab type="classes" visible="yes" title="" intro=""/>
+      <tab type="classindex" visible="$ALPHABETICAL_INDEX" title=""/> 
+      <tab type="hierarchy" visible="yes" title="" intro=""/>
+      <tab type="classmembers" visible="yes" title="" intro=""/>
+    </tab>
+    <tab type="files" visible="yes" title="">
+      <tab type="files" visible="yes" title="" intro=""/>
+      <tab type="globals" visible="yes" title="" intro=""/>
+    </tab>
+    <tab type="examples" visible="yes" title="" intro=""/>  
+  </navindex>
+
+  <!-- Layout definition for a class page -->
+  <class>
+    <briefdescription visible="yes"/>
+    <includes visible="$SHOW_INCLUDE_FILES"/>
+    <inheritancegraph visible="$CLASS_GRAPH"/>
+    <collaborationgraph visible="$COLLABORATION_GRAPH"/>
+    <allmemberslink visible="yes"/>
+    <memberdecl>
+      <nestedclasses visible="yes" title=""/>
+      <publictypes title=""/>
+      <publicslots title=""/>
+      <signals title=""/>
+      <publicmethods title=""/>
+      <publicstaticmethods title=""/>
+      <publicattributes title=""/>
+      <publicstaticattributes title=""/>
+      <protectedtypes title=""/>
+      <protectedslots title=""/>
+      <protectedmethods title=""/>
+      <protectedstaticmethods title=""/>
+      <protectedattributes title=""/>
+      <protectedstaticattributes title=""/>
+      <packagetypes title=""/>
+      <packagemethods title=""/>
+      <packagestaticmethods title=""/>
+      <packageattributes title=""/>
+      <packagestaticattributes title=""/>
+      <properties title=""/>
+      <events title=""/>
+      <privatetypes title=""/>
+      <privateslots title=""/>
+      <privatemethods title=""/>
+      <privatestaticmethods title=""/>
+      <privateattributes title=""/>
+      <privatestaticattributes title=""/>
+      <friends title=""/>
+      <related title="" subtitle=""/>
+      <membergroups visible="yes"/>
+    </memberdecl>
+    <detaileddescription title=""/>
+    <memberdef>
+      <typedefs title=""/>
+      <enums title=""/>
+      <constructors title=""/>
+      <functions title=""/>
+      <related title=""/>
+      <variables title=""/>
+      <properties title=""/>
+      <events title=""/>
+    </memberdef>
+    <usedfiles visible="$SHOW_USED_FILES"/>
+    <authorsection visible="yes"/>
+  </class>
+
+  <!-- Layout definition for a namespace page -->
+  <namespace>
+    <briefdescription visible="yes"/>
+    <memberdecl>
+      <nestednamespaces visible="yes" title=""/>
+      <classes visible="yes" title=""/>
+      <typedefs title=""/>
+      <enums title=""/>
+      <functions title=""/>
+      <variables title=""/>
+      <membergroups visible="yes"/>
+    </memberdecl>
+    <detaileddescription title=""/>
+    <memberdef>
+      <typedefs title=""/>
+      <enums title=""/>
+      <functions title=""/>
+      <variables title=""/>
+    </memberdef>
+    <authorsection visible="yes"/>
+  </namespace>
+
+  <!-- Layout definition for a file page -->
+  <file>
+    <briefdescription visible="yes"/>
+    <includes visible="$SHOW_INCLUDE_FILES"/>
+    <includegraph visible="$INCLUDE_GRAPH"/>
+    <includedbygraph visible="$INCLUDED_BY_GRAPH"/>
+    <sourcelink visible="yes"/>
+    <memberdecl>
+      <classes visible="yes" title=""/>
+      <namespaces visible="yes" title=""/>
+      <defines title=""/>
+      <typedefs title=""/>
+      <enums title=""/>
+      <functions title=""/>
+      <variables title=""/>
+      <membergroups visible="yes"/>
+    </memberdecl>
+    <detaileddescription title=""/>
+    <memberdef>
+      <defines title=""/>
+      <typedefs title=""/>
+      <enums title=""/>
+      <functions title=""/>
+      <variables title=""/>
+    </memberdef>
+    <authorsection/>
+  </file>
+
+  <!-- Layout definition for a group page -->
+  <group>
+    <briefdescription visible="yes"/>
+    <groupgraph visible="$GROUP_GRAPHS"/>
+    <memberdecl>
+      <classes visible="yes" title=""/>
+      <namespaces visible="yes" title=""/>
+      <dirs visible="yes" title=""/>
+      <nestedgroups visible="yes" title=""/>
+      <files visible="yes" title=""/>
+      <defines title=""/>
+      <typedefs title=""/>
+      <enums title=""/>
+      <enumvalues title=""/>
+      <functions title=""/>
+      <variables title=""/>
+      <signals title=""/>
+      <publicslots title=""/>
+      <protectedslots title=""/>
+      <privateslots title=""/>
+      <events title=""/>
+      <properties title=""/>
+      <friends title=""/>
+      <membergroups visible="yes"/>
+    </memberdecl>
+    <detaileddescription title=""/>
+    <memberdef>
+      <pagedocs/>
+      <inlineclasses title=""/>
+      <defines title=""/>
+      <typedefs title=""/>
+      <enums title=""/>
+      <enumvalues title=""/>
+      <functions title=""/>
+      <variables title=""/>
+      <signals title=""/>
+      <publicslots title=""/>
+      <protectedslots title=""/>
+      <privateslots title=""/>
+      <events title=""/>
+      <properties title=""/>
+      <friends title=""/>
+    </memberdef>
+    <authorsection visible="yes"/>
+  </group>
+
+  <!-- Layout definition for a directory page -->
+  <directory>
+    <briefdescription visible="yes"/>
+    <directorygraph visible="yes"/>
+    <memberdecl>
+      <dirs visible="yes"/>
+      <files visible="yes"/>
+    </memberdecl>
+    <detaileddescription title=""/>
+  </directory>
+</doxygenlayout>

@@ -29,6 +29,14 @@ include/libopencmsis/lm3s/
 include/libopencmsis/lpc13xx/
 include/libopencmsis/lpc17xx/
 include/libopencmsis/lpc43xx/
-include/libopencmsis/stm32/
-include/libopencmsis/sam3x/
 include/libopencmsis/sam/
+include/libopencmsis/stm32/
+include/libopencmsis/vf6xx/
+
+# netbeans, intellij, eclipse project files
+nbproject/
+.idea/
+.project
+
+# cscope databases
+cscope.out

@@ -69,7 +69,8 @@
 
 /* --- RCC_CR values ------------------------------------------------------- */
 
-/* RTCPRE[1:0] at 30:29 */
+#define RCC_CR_RTCPRE_SHIFT			29
+#define RCC_CR_RTCPRE_MASK			0x3
 #define RCC_CR_CSSON				(1 << 28)
 #define RCC_CR_PLLRDY				(1 << 25)
 #define RCC_CR_PLLON				(1 << 24)
@@ -411,8 +412,9 @@ extern const clock_scale_t clock_config[CLOCK_CONFIG_END];
 
 
 /* --- Variable definitions ------------------------------------------------ */
-extern uint32_t rcc_ppre1_frequency;
-extern uint32_t rcc_ppre2_frequency;
+extern uint32_t rcc_ahb_frequency;
+extern uint32_t rcc_apb1_frequency;
+extern uint32_t rcc_apb2_frequency;
 
 /* --- Function prototypes ------------------------------------------------- */
 

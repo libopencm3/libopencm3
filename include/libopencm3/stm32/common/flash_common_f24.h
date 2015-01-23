@@ -45,6 +45,7 @@
 /* --- FLASH registers ----------------------------------------------------- */
 
 #define FLASH_OPTCR			MMIO32(FLASH_MEM_INTERFACE_BASE + 0x14)
+#define FLASH_OPTCR1			MMIO32(FLASH_MEM_INTERFACE_BASE + 0x18)
 
 /* --- FLASH_ACR values ---------------------------------------------------- */
 
@@ -73,18 +74,8 @@
 #define FLASH_CR_MER			(1 << 2)
 #define FLASH_CR_SER			(1 << 1)
 #define FLASH_CR_PG			(1 << 0)
-#define FLASH_CR_SECTOR_0		(0x00 << 3)
-#define FLASH_CR_SECTOR_1		(0x01 << 3)
-#define FLASH_CR_SECTOR_2		(0x02 << 3)
-#define FLASH_CR_SECTOR_3		(0x03 << 3)
-#define FLASH_CR_SECTOR_4		(0x04 << 3)
-#define FLASH_CR_SECTOR_5		(0x05 << 3)
-#define FLASH_CR_SECTOR_6		(0x06 << 3)
-#define FLASH_CR_SECTOR_7		(0x07 << 3)
-#define FLASH_CR_SECTOR_8		(0x08 << 3)
-#define FLASH_CR_SECTOR_9		(0x09 << 3)
-#define FLASH_CR_SECTOR_10		(0x0a << 3)
-#define FLASH_CR_SECTOR_11		(0x0b << 3)
+#define FLASH_CR_SNB_SHIFT		3
+#define FLASH_CR_SNB_MASK		0x1f
 #define FLASH_CR_PROGRAM_X8		(0x00 << 8)
 #define FLASH_CR_PROGRAM_X16		(0x01 << 8)
 #define FLASH_CR_PROGRAM_X32		(0x02 << 8)
@@ -103,6 +94,10 @@
 #define FLASH_OPTCR_BOR_LEVEL_2		(0x01 << 2)
 #define FLASH_OPTCR_BOR_LEVEL_1		(0x02 << 2)
 #define FLASH_OPTCR_BOR_OFF		(0x03 << 2)
+
+/* --- FLASH_OPTCR1 values ------------------------------------------------- */
+/* Only on some devices */
+/* FLASH_OPTCR1[27:16]: nWRP bank 2 */
 
 /* --- FLASH Keys -----------------------------------------------------------*/
 

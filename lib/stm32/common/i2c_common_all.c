@@ -5,7 +5,7 @@ Thomas Otto <tommi@viadmin.org>
 @author @htmlonly &copy; @endhtmlonly 2012
 Ken Sarkies <ksarkies@internode.on.net>
 
-Devices can have up to two I2C peripherals. The peripherals support SMBus and
+Devices can have up to three I2C peripherals. The peripherals support SMBus and
 PMBus variants.
 
 A peripheral begins after reset in Slave mode. To become a Master a start
@@ -52,14 +52,21 @@ the reset condition. The reset is effected via the RCC peripheral reset system.
 void i2c_reset(uint32_t i2c)
 {
 	switch (i2c) {
-	case I2C1:
-		rcc_peripheral_reset(&RCC_APB1RSTR, RCC_APB1RSTR_I2C1RST);
-		rcc_peripheral_clear_reset(&RCC_APB1RSTR, RCC_APB1RSTR_I2C1RST);
-		break;
-	case I2C2:
-		rcc_peripheral_reset(&RCC_APB1RSTR, RCC_APB1RSTR_I2C2RST);
-		rcc_peripheral_clear_reset(&RCC_APB1RSTR, RCC_APB1RSTR_I2C2RST);
-		break;
+		case I2C1:
+			rcc_periph_reset_pulse(RST_I2C1);
+			break;
+#if defined(I2C2_BASE)
+		case I2C2:
+			rcc_periph_reset_pulse(RST_I2C2);
+			break;
+#endif
+#if defined(I2C3_BASE)
+		case I2C3:
+			rcc_periph_reset_pulse(RST_I2C3);
+			break;
+#endif
+		default:
+			break;
 	}
 }
 
@@ -140,9 +147,10 @@ This sets an address for Slave mode operation, in 7 bit form.
 
 void i2c_set_own_7bit_slave_address(uint32_t i2c, uint8_t slave)
 {
-	I2C_OAR1(i2c) = (uint16_t)(slave << 1);
-	I2C_OAR1(i2c) &= ~I2C_OAR1_ADDMODE;
-	I2C_OAR1(i2c) |= (1 << 14); /* Datasheet: always keep 1 by software. */
+	uint16_t val = (uint16_t)(slave << 1);
+	/* Datasheet: always keep 1 by software. */
+	val |= (1 << 14);
+	I2C_OAR1(i2c) = val;
 }
 
 /*---------------------------------------------------------------------------*/

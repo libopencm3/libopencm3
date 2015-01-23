@@ -132,17 +132,21 @@
 
 /* MCO1: Microcontroller clock output 1 */
 #define RCC_CFGR_MCO1_SHIFT			21
+#define RCC_CFGR_MCO1_MASK			0x3
 #define RCC_CFGR_MCO1_HSI			0x0
 #define RCC_CFGR_MCO1_LSE			0x1
 #define RCC_CFGR_MCO1_HSE			0x2
 #define RCC_CFGR_MCO1_PLL			0x3
 
 /* RTCPRE: HSE division factor for RTC clock */
-#define RCC_CFGR_RTCPRE_SHIFT			21
+#define RCC_CFGR_RTCPRE_SHIFT			16
+#define RCC_CFGR_RTCPRE_MASK			0x1f
 
 /* PPRE1/2: APB high-speed prescalers */
 #define RCC_CFGR_PPRE2_SHIFT			13
+#define RCC_CFGR_PPRE2_MASK			0x7
 #define RCC_CFGR_PPRE1_SHIFT			10
+#define RCC_CFGR_PPRE1_MASK			0x7
 #define RCC_CFGR_PPRE_DIV_NONE			0x0
 #define RCC_CFGR_PPRE_DIV_2			0x4
 #define RCC_CFGR_PPRE_DIV_4			0x5
@@ -151,6 +155,7 @@
 
 /* HPRE: AHB high-speed prescaler */
 #define RCC_CFGR_HPRE_SHIFT			4
+#define RCC_CFGR_HPRE_MASK			0xf
 #define RCC_CFGR_HPRE_DIV_NONE			0x0
 #define RCC_CFGR_HPRE_DIV_2			(0x8 + 0)
 #define RCC_CFGR_HPRE_DIV_4			(0x8 + 1)
@@ -477,8 +482,9 @@
 #define RCC_PLLI2SCFGR_PLLI2SN_SHIFT		6
 
 /* --- Variable definitions ------------------------------------------------ */
-extern uint32_t rcc_ppre1_frequency;
-extern uint32_t rcc_ppre2_frequency;
+extern uint32_t rcc_ahb_frequency;
+extern uint32_t rcc_apb1_frequency;
+extern uint32_t rcc_apb2_frequency;
 
 /* --- Function prototypes ------------------------------------------------- */
 
@@ -506,6 +512,7 @@ typedef struct {
 extern const clock_scale_t hse_8mhz_3v3[CLOCK_3V3_END];
 extern const clock_scale_t hse_12mhz_3v3[CLOCK_3V3_END];
 extern const clock_scale_t hse_16mhz_3v3[CLOCK_3V3_END];
+extern const clock_scale_t hse_25mhz_3v3[CLOCK_3V3_END];
 
 enum rcc_osc {
 	PLL, HSE, HSI, LSE, LSI

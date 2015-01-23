@@ -41,10 +41,10 @@
 
 void usart_set_baudrate(uint32_t usart, uint32_t baud)
 {
-	uint32_t clock = rcc_ppre_frequency;
+	uint32_t clock = rcc_apb1_frequency;
 
 	if (usart == USART1) {
-		clock = rcc_ppre_frequency;
+		clock = rcc_apb1_frequency;
 		/* TODO selective PCLK, SYSCLK, HSI or LSE */
 	}
 

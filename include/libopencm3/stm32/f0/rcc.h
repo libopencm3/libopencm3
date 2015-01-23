@@ -375,8 +375,8 @@ Control</b>
 /*****************************************************************************/
 
 /* --- Variable definitions ------------------------------------------------ */
-extern uint32_t rcc_core_frequency;
-extern uint32_t rcc_ppre_frequency;
+extern uint32_t rcc_ahb_frequency;
+extern uint32_t rcc_apb1_frequency;
 
 enum rcc_osc {
 	HSI14, HSI, HSE, PLL, LSI, LSE, HSI48
@@ -483,6 +483,8 @@ enum rcc_periph_rst {
 /* API Functions                                                             */
 /*****************************************************************************/
 
+#include <libopencm3/stm32/common/rcc_common_all.h>
+
 BEGIN_DECLS
 
 void rcc_osc_ready_int_clear(enum rcc_osc osc);
@@ -499,23 +501,21 @@ void rcc_css_disable(void);
 void rcc_css_int_clear(void);
 int rcc_css_int_flag(void);
 void rcc_set_sysclk_source(enum rcc_osc clk);
+void rcc_set_usbclk_source(enum rcc_osc clk);
 void rcc_set_pll_multiplication_factor(uint32_t mul);
 void rcc_set_ppre(uint32_t ppre);
 void rcc_set_hpre(uint32_t hpre);
 void rcc_set_prediv(uint32_t prediv);
 void rcc_set_mco(uint32_t mcosrc);
 enum rcc_osc rcc_system_clock_source(void);
+enum rcc_osc rcc_usb_clock_source(void);
 void rcc_clock_setup_in_hsi_out_8mhz(void);
 void rcc_clock_setup_in_hsi_out_16mhz(void);
 void rcc_clock_setup_in_hsi_out_24mhz(void);
 void rcc_clock_setup_in_hsi_out_32mhz(void);
 void rcc_clock_setup_in_hsi_out_40mhz(void);
 void rcc_clock_setup_in_hsi_out_48mhz(void);
-void rcc_periph_clock_enable(enum rcc_periph_clken periph);
-void rcc_periph_clock_disable(enum rcc_periph_clken periph);
-void rcc_periph_reset_pulse(enum rcc_periph_rst periph);
-void rcc_periph_reset_hold(enum rcc_periph_rst periph);
-void rcc_periph_reset_release(enum rcc_periph_rst periph);
+void rcc_clock_setup_in_hsi48_out_48mhz(void);
 
 END_DECLS
 

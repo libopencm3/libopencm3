@@ -39,6 +39,7 @@ LGPL License Terms @ref lgpl_license
 #define __USB_PRIVATE_H
 
 #define MAX_USER_CONTROL_CALLBACK	4
+#define MAX_USER_SET_CONFIG_CALLBACK	4
 
 #define MIN(a, b) ((a) < (b) ? (a) : (b))
 
@@ -85,8 +86,8 @@ struct _usbd_device {
 	void (*user_callback_ctr[8][3])(usbd_device *usbd_dev, uint8_t ea);
 
 	/* User callback function for some standard USB function hooks */
-	void (*user_callback_set_config)(usbd_device *usbd_dev,
-					 uint16_t wValue);
+	void (*user_callback_set_config[MAX_USER_SET_CONFIG_CALLBACK])
+				(usbd_device *usbd_dev, uint16_t wValue);
 
 	const struct _usbd_driver *driver;
 

@@ -29,12 +29,12 @@ OBJS += vector.o systick.o scb.o nvic.o assert.o sync.o dwt.o
 all: $(SRCLIBDIR)/$(LIBNAME).a
 
 $(SRCLIBDIR)/$(LIBNAME).a: $(SRCLIBDIR)/$(LIBNAME).ld $(OBJS)
-	@printf "  AR      $(@F)\n"
-	$(Q)$(AR) $(ARFLAGS) $@ $(OBJS)
+	@printf "  AR      $(LIBNAME).a\n"
+	$(Q)$(AR) $(ARFLAGS) "$@" $(OBJS)
 
 $(SRCLIBDIR)/$(LIBNAME).ld: $(LIBNAME).ld
-	@printf "  CP      $(@F)\n"
-	$(Q)cp $^ $@
+	@printf "  CP      $(LIBNAME).ld\n"
+	$(Q)cp $^ "$@"
 	$(Q)if [ -f $(LIBNAME)_rom_to_ram.ld ]; then cp $(LIBNAME)_rom_to_ram.ld $(SRCLIBDIR); fi
 
 %.o: %.c

@@ -719,7 +719,7 @@ void eth_desc_init(uint8_t *buf, uint32_t nTx, uint32_t nRx, uint32_t cTx,
 bool eth_tx(uint8_t *ppkt, uint32_t n);
 bool eth_rx(uint8_t *ppkt, uint32_t *len, uint32_t maxlen);
 
-void eth_init(enum eth_clk clock);
+void eth_init(uint8_t phy, enum eth_clk clock);
 void eth_start(void);
 
 void eth_enable_checksum_offload(void);
@@ -737,8 +737,8 @@ END_DECLS
  *  rcc_periph_reset_pulse(RCC_ETHMAC);
  *  [ init gpio pins ]
  *  rcc_periph_reset_pulse(RCC_ETHMAC);
- *  phy_init();
- *  eth_init();
+ *  phy_init(0);
+ *  eth_init(0, ETH_CLK_025_035MHZ);
  *  eth_set_mac(mac);
  *  eth_desc_init(buffer, &eth_buffer[0], ETH_TXBUFNB, ETH_RXBUFNB,
  *                  ETH_TX_BUF_SIZE, ETH_RX_BUF_SIZE, false);

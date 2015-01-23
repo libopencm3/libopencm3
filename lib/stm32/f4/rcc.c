@@ -44,9 +44,10 @@
 
 /**@{*/
 
-/* Set the default ppre1 and ppre2 peripheral clock frequencies after reset. */
-uint32_t rcc_ppre1_frequency = 16000000;
-uint32_t rcc_ppre2_frequency = 16000000;
+/* Set the default clock frequencies after reset. */
+uint32_t rcc_ahb_frequency = 16000000;
+uint32_t rcc_apb1_frequency = 16000000;
+uint32_t rcc_apb2_frequency = 16000000;
 
 const clock_scale_t hse_8mhz_3v3[CLOCK_3V3_END] = {
 	{ /* 48MHz */
@@ -167,6 +168,50 @@ const clock_scale_t hse_16mhz_3v3[CLOCK_3V3_END] = {
 	},
 	{ /* 168MHz */
 		.pllm = 16,
+		.plln = 336,
+		.pllp = 2,
+		.pllq = 7,
+		.hpre = RCC_CFGR_HPRE_DIV_NONE,
+		.ppre1 = RCC_CFGR_PPRE_DIV_4,
+		.ppre2 = RCC_CFGR_PPRE_DIV_2,
+		.flash_config = FLASH_ACR_ICE | FLASH_ACR_DCE |
+				FLASH_ACR_LATENCY_5WS,
+		.apb1_frequency = 42000000,
+		.apb2_frequency = 84000000,
+	},
+};
+
+const clock_scale_t hse_25mhz_3v3[CLOCK_3V3_END] = {
+	{ /* 48MHz */
+		.pllm = 25,
+		.plln = 96,
+		.pllp = 2,
+		.pllq = 2,
+		.hpre = RCC_CFGR_HPRE_DIV_NONE,
+		.ppre1 = RCC_CFGR_PPRE_DIV_4,
+		.ppre2 = RCC_CFGR_PPRE_DIV_2,
+		.power_save = 1,
+		.flash_config = FLASH_ACR_ICE | FLASH_ACR_DCE |
+				FLASH_ACR_LATENCY_3WS,
+		.apb1_frequency = 12000000,
+		.apb2_frequency = 24000000,
+	},
+	{ /* 120MHz */
+		.pllm = 25,
+		.plln = 240,
+		.pllp = 2,
+		.pllq = 5,
+		.hpre = RCC_CFGR_HPRE_DIV_NONE,
+		.ppre1 = RCC_CFGR_PPRE_DIV_4,
+		.ppre2 = RCC_CFGR_PPRE_DIV_2,
+		.power_save = 1,
+		.flash_config = FLASH_ACR_ICE | FLASH_ACR_DCE |
+				FLASH_ACR_LATENCY_3WS,
+		.apb1_frequency = 30000000,
+		.apb2_frequency = 60000000,
+	},
+	{ /* 168MHz */
+		.pllm = 25,
 		.plln = 336,
 		.pllp = 2,
 		.pllq = 7,
@@ -527,8 +572,8 @@ void rcc_clock_setup_hse_3v3(const clock_scale_t *clock)
 	rcc_wait_for_sysclk_status(PLL);
 
 	/* Set the peripheral clock frequencies used. */
-	rcc_ppre1_frequency = clock->apb1_frequency;
-	rcc_ppre2_frequency = clock->apb2_frequency;
+	rcc_apb1_frequency = clock->apb1_frequency;
+	rcc_apb2_frequency = clock->apb2_frequency;
 
 	/* Disable internal high-speed oscillator. */
 	rcc_osc_off(HSI);

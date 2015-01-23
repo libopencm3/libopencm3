@@ -136,7 +136,8 @@
 #define RCC_CFGR_MCO1_PLL			0x3
 
 /* RTCPRE: HSE division factor for RTC clock */
-#define RCC_CFGR_RTCPRE_SHIFT			21
+#define RCC_CFGR_RTCPRE_SHIFT			16
+#define RCC_CFGR_RTCPRE_MASK			0x1f
 
 /* PPRE1/2: APB high-speed prescalers */
 #define RCC_CFGR_PPRE2_SHIFT			13
@@ -468,8 +469,9 @@
 #define RCC_PLLI2SCFGR_PLLI2SN_SHIFT		6
 
 /* --- Variable definitions ------------------------------------------------ */
-extern uint32_t rcc_ppre1_frequency;
-extern uint32_t rcc_ppre2_frequency;
+extern uint32_t rcc_ahb_frequency;
+extern uint32_t rcc_apb1_frequency;
+extern uint32_t rcc_apb2_frequency;
 
 /* --- Function prototypes ------------------------------------------------- */
 

@@ -1,12 +1,7 @@
-/** @addtogroup exti_defines
- *
- * @author @htmlonly &copy; @endhtmlonly 2010
- * Mark Butler <mbutler@physics.otago.ac.nz>
- */
 /*
  * This file is part of the libopencm3 project.
  *
- * Copyright (C) 2010 Mark Butler <mbutler@physics.otago.ac.nz>
+ * Copyright (C) 2014 Stefan Agner <stefan@agner.ch>
  *
  * This library is free software: you can redistribute it and/or modify
  * it under the terms of the GNU Lesser General Public License as published by
@@ -22,24 +17,23 @@
  * along with this library.  If not, see <http://www.gnu.org/licenses/>.
  */
 
-/** @cond */
-#if defined(LIBOPENCM3_EXTI_H)
-/** @endcond */
-#ifndef LIBOPENCM3_EXTI_COMMON_F24_H
-#define LIBOPENCM3_EXTI_COMMON_F24_H
-/**@{*/
+#include <libopencm3/cm3/scb.h>
 
-#include <libopencm3/stm32/common/exti_common_all.h>
+extern vector_table_t vector_table;
 
-/* EXTI number definitions */
-#define EXTI20				(1 << 20)
-#define EXTI21				(1 << 21)
-#define EXTI22				(1 << 22)
-/**@}*/
+static inline void pre_main(void)
+{
+	/*
+	 * For Vybrid we need to set the stack pointer manually
+	 * since the boot ROM has its own stack
+	 */
+	asm (	\
+		"ldr sp,=_stack;" \
+	    );
 
-#endif
-/** @cond */
-#else
-#warning "exti_common_f24.h should not be included directly, only via exti.h"
-#endif
-/** @endcond */
+	/* Set Vector Table Offset to our memory based vector table */
+	SCB_VTOR = (uint32_t)&vector_table;
+
+	/* Enable access to Floating-Point coprocessor. */
+	SCB_CPACR |= SCB_CPACR_FULL * (SCB_CPACR_CP10 | SCB_CPACR_CP11);
+}

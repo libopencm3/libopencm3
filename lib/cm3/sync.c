@@ -26,9 +26,7 @@ void __dmb()
 }
 
 /* Those are defined only on CM3 or CM4 */
-#if defined(__ARM_ARCH_6M__)
-#warning "sync not supported on ARMv6-M arch"
-#else
+#if defined(__ARM_ARCH_7M__) || defined(__ARM_ARCH_7EM__)
 
 uint32_t __ldrex(volatile uint32_t *addr)
 {
@@ -47,20 +45,26 @@ uint32_t __strex(uint32_t val, volatile uint32_t *addr)
 
 void mutex_lock(mutex_t *m)
 {
+	while (!mutex_trylock(m));
+}
+
+/* returns 1 if the lock was acquired */
+uint32_t mutex_trylock(mutex_t *m)
+{
 	uint32_t status = 0;
 
-	do {
-		/* Wait until the mutex is unlocked. */
-		while (__ldrex(m) != MUTEX_UNLOCKED);
-
-		/* Try to acquire it. */
+	/* If the mutex is unlocked. */
+	if (__ldrex(m) == MUTEX_UNLOCKED) {
+		/* Try to lock it. */
 		status = __strex(MUTEX_LOCKED, m);
-
-	/* Did we get it? If not then try again. */
-	} while (status != 0);
+	}
 
 	/* Execute the mysterious Data Memory Barrier instruction! */
 	__dmb();
+
+	/* Did we get the lock? If not then try again
+	 * by calling this function once more. */
+	return status == 0;
 }
 
 void mutex_unlock(mutex_t *m)

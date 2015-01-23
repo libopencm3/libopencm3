@@ -36,6 +36,7 @@ ARFLAGS		= rcs
 
 OBJS		= adc.o adc_common_v1.o can.o desig.o ethernet.o flash.o gpio.o \
                   rcc.o rtc.o timer.o
+OBJS		+= mac.o mac_stm32fxx7.o phy.o phy_ksz8051mll.o
 
 OBJS            += crc_common_all.o dac_common_all.o dma_common_l1f013.o \
                    gpio_common_all.o i2c_common_all.o iwdg_common_all.o \
@@ -45,9 +46,9 @@ OBJS            += crc_common_all.o dac_common_all.o dma_common_l1f013.o \
                    flash_common_f01.o
 
 OBJS            += usb.o usb_control.o usb_standard.o usb_f103.o usb_f107.o \
-                   usb_fx07_common.o
+                   usb_fx07_common.o usb_msc.o
 
-VPATH += ../../usb:../:../../cm3:../common
+VPATH += ../../usb:../:../../cm3:../common:../../ethernet
 
 include ../../Makefile.include
 

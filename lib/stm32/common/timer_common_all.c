@@ -1035,15 +1035,15 @@ void timer_set_oc_mode(uint32_t timer_peripheral, enum tim_oc_id oc_id,
 		}
 		break;
 	case TIM_OC3:
-		TIM_CCMR1(timer_peripheral) &= ~TIM_CCMR2_CC3S_MASK;
-		TIM_CCMR1(timer_peripheral) |= TIM_CCMR2_CC3S_OUT;
+		TIM_CCMR2(timer_peripheral) &= ~TIM_CCMR2_CC3S_MASK;
+		TIM_CCMR2(timer_peripheral) |= TIM_CCMR2_CC3S_OUT;
 		TIM_CCMR2(timer_peripheral) &= ~TIM_CCMR2_OC3M_MASK;
 		switch (oc_mode) {
 		case TIM_OCM_FROZEN:
 			TIM_CCMR2(timer_peripheral) |= TIM_CCMR2_OC3M_FROZEN;
 			break;
 		case TIM_OCM_ACTIVE:
-			TIM_CCMR1(timer_peripheral) |= TIM_CCMR2_OC3M_ACTIVE;
+			TIM_CCMR2(timer_peripheral) |= TIM_CCMR2_OC3M_ACTIVE;
 			break;
 		case TIM_OCM_INACTIVE:
 			TIM_CCMR2(timer_peripheral) |= TIM_CCMR2_OC3M_INACTIVE;
@@ -1067,15 +1067,15 @@ void timer_set_oc_mode(uint32_t timer_peripheral, enum tim_oc_id oc_id,
 		}
 		break;
 	case TIM_OC4:
-		TIM_CCMR1(timer_peripheral) &= ~TIM_CCMR2_CC4S_MASK;
-		TIM_CCMR1(timer_peripheral) |= TIM_CCMR2_CC4S_OUT;
+		TIM_CCMR2(timer_peripheral) &= ~TIM_CCMR2_CC4S_MASK;
+		TIM_CCMR2(timer_peripheral) |= TIM_CCMR2_CC4S_OUT;
 		TIM_CCMR2(timer_peripheral) &= ~TIM_CCMR2_OC4M_MASK;
 		switch (oc_mode) {
 		case TIM_OCM_FROZEN:
 			TIM_CCMR2(timer_peripheral) |= TIM_CCMR2_OC4M_FROZEN;
 			break;
 		case TIM_OCM_ACTIVE:
-			TIM_CCMR1(timer_peripheral) |= TIM_CCMR2_OC4M_ACTIVE;
+			TIM_CCMR2(timer_peripheral) |= TIM_CCMR2_OC4M_ACTIVE;
 			break;
 		case TIM_OCM_INACTIVE:
 			TIM_CCMR2(timer_peripheral) |= TIM_CCMR2_OC4M_INACTIVE;

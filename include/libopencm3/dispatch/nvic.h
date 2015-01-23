@@ -8,6 +8,8 @@
 #	include <libopencm3/stm32/f3/nvic.h>
 #elif defined(STM32F4)
 #	include <libopencm3/stm32/f4/nvic.h>
+#elif defined(STM32L0)
+#	include <libopencm3/stm32/l0/nvic.h>
 #elif defined(STM32L1)
 #	include <libopencm3/stm32/l1/nvic.h>
 
@@ -43,6 +45,9 @@
 #elif defined(LM3S) || defined(LM4F)
 /* Yes, we use the same interrupt table for both LM3S and LM4F */
 #	include <libopencm3/lm3s/nvic.h>
+
+#elif defined(VF6XX)
+#	include <libopencm3/vf6xx/nvic.h>
 
 #else
 #	warning"no interrupts defined for chipset; NVIC_IRQ_COUNT = 0"

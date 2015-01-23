@@ -289,6 +289,9 @@
 @ingroup STM32F1xx_rcc_defines
 
 @{*/
+#define RCC_APB2RSTR_TIM17RST			(1 << 18)
+#define RCC_APB2RSTR_TIM16RST			(1 << 17)
+#define RCC_APB2RSTR_TIM15RST			(1 << 16)
 #define RCC_APB2RSTR_ADC3RST			(1 << 15) /* (XX) */
 #define RCC_APB2RSTR_USART1RST			(1 << 14)
 #define RCC_APB2RSTR_TIM8RST			(1 << 13) /* (XX) */
@@ -362,6 +365,9 @@
 @ingroup STM32F1xx_rcc_defines
 
 @{*/
+#define RCC_APB2ENR_TIM17EN			(1 << 17)
+#define RCC_APB2ENR_TIM16EN			(1 << 16)
+#define RCC_APB2ENR_TIM15EN			(1 << 16)
 #define RCC_APB2ENR_ADC3EN			(1 << 15) /* (XX) */
 #define RCC_APB2ENR_USART1EN			(1 << 14)
 #define RCC_APB2ENR_TIM8EN			(1 << 13) /* (XX) */
@@ -528,8 +534,9 @@
 #define RCC_CFGR2_PREDIV2_DIV16			0xf
 
 /* --- Variable definitions ------------------------------------------------ */
-extern uint32_t rcc_ppre1_frequency;
-extern uint32_t rcc_ppre2_frequency;
+extern uint32_t rcc_ahb_frequency;
+extern uint32_t rcc_apb1_frequency;
+extern uint32_t rcc_apb2_frequency;
 
 /* --- Function prototypes ------------------------------------------------- */
 
@@ -601,9 +608,9 @@ enum rcc_periph_clken {
 	RCC_I2C1	= _REG_BIT(0x1C, 21),/*VNC*/
 	RCC_I2C2	= _REG_BIT(0x1C, 22),/*VNC*/
 	RCC_USB		= _REG_BIT(0x1C, 23),/*-N-*/
-	RCC_CAN		= _REG_BIT(0x1C, 24),/*-N-*/
-	RCC_CAN1	= _REG_BIT(0x1C, 24),/*--C*/
-	RCC_CAN2	= _REG_BIT(0x1C, 25),/*--C*/
+	RCC_CAN		= _REG_BIT(0x1C, 25),/*-N-*/
+	RCC_CAN1	= _REG_BIT(0x1C, 25),/*--C*/
+	RCC_CAN2	= _REG_BIT(0x1C, 26),/*--C*/
 	RCC_BKP		= _REG_BIT(0x1C, 27),/*VNC*/
 	RCC_PWR		= _REG_BIT(0x1C, 28),/*VNC*/
 	RCC_DAC		= _REG_BIT(0x1C, 29),/*VNC*/

@@ -71,7 +71,7 @@
 
 #define ADC_BASE			(PERIPH_BASE_APB + 0x12400)
 #define TIM1_BASE			(PERIPH_BASE_APB + 0x12C00)
-#define SPI1_I2S1_BASE			(PERIPH_BASE_APB + 0x13000)
+#define SPI1_BASE			(PERIPH_BASE_APB + 0x13000)
 
 #define USART1_BASE			(PERIPH_BASE_APB + 0x13800)
 #define TIM15_BASE			(PERIPH_BASE_APB + 0x14000)
@@ -82,6 +82,8 @@
 
 /* AHB1 */
 #define DMA_BASE			(PERIPH_BASE_AHB1 + 0x0000)
+/* DMA is the name in the F0 refman, but all other stm32's use DMA1 */
+#define DMA1_BASE			DMA_BASE
 
 #define RCC_BASE			(PERIPH_BASE_AHB1 + 0x1000)
 
