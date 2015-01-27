@@ -155,11 +155,8 @@ void i2c_set_own_7bit_slave_address(uint32_t i2c, uint8_t slave)
 
 /*---------------------------------------------------------------------------*/
 /** @brief I2C Set the 10 bit Slave Address for the Peripheral.
-
 This sets an address for Slave mode operation, in 10 bit form.
-
 @todo add "I2C_OAR1(i2c) |= (1 << 14);" as above
-
 @param[in] i2c Unsigned int32. I2C register base address @ref i2c_reg_base.
 @param[in] slave Unsigned int16. Slave address 0...1023.
 */
@@ -169,6 +166,47 @@ void i2c_set_own_10bit_slave_address(uint32_t i2c, uint16_t slave)
 	I2C_OAR1(i2c) = (uint16_t)(I2C_OAR1_ADDMODE | slave);
 }
 
+/*---------------------------------------------------------------------------*/
+/** @brief I2C Set the secondary 7 bit Slave Address for the Peripheral.
+
+This sets a secondary address for Slave mode operation, in 7 bit form.
+
+
+@param[in] i2c Unsigned int32. I2C register base address @ref i2c_reg_base.
+@param[in] slave Unsigned int8. Slave address 0...127.
+*/
+
+void i2c_set_own_7bit_slave_address_two(uint32_t i2c, uint8_t slave)
+{
+	uint16_t val = (uint16_t)(slave << 1);
+	I2C_OAR2(i2c) = val;
+}
+
+/*---------------------------------------------------------------------------*/
+/** @brief I2C Enable dual addressing mode for the Peripheral.
+
+Both OAR1 and OAR2 are recognised in 7-bit addressing mode.
+
+@param[in] i2c Unsigned int32. I2C register base address @ref i2c_reg_base.
+*/
+
+void i2c_enable_dual_addressing_mode(uint32_t i2c)
+{
+	I2C_OAR2(i2c) |= I2C_OAR2_ENDUAL;
+}
+
+/*---------------------------------------------------------------------------*/
+/** @brief I2C Disable dual addressing mode for the Peripheral.
+
+Only OAR1 is recognised in 7-bit addressing mode.
+
+@param[in] i2c Unsigned int32. I2C register base address @ref i2c_reg_base.
+*/
+
+void i2c_disable_dual_addressing_mode(uint32_t i2c)
+{
+	I2C_OAR2(i2c) &= ~(I2C_OAR2_ENDUAL);
+}
 
 /*---------------------------------------------------------------------------*/
 /** @brief I2C Set Peripheral Clock Frequency.
