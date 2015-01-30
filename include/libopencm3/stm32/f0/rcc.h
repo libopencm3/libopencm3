@@ -516,6 +516,7 @@ void rcc_clock_setup_in_hsi_out_32mhz(void);
 void rcc_clock_setup_in_hsi_out_40mhz(void);
 void rcc_clock_setup_in_hsi_out_48mhz(void);
 void rcc_clock_setup_in_hsi48_out_48mhz(void);
+void rcc_clock_setup_in_hse16_out_48mhz(void);
 
 END_DECLS
 
