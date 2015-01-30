@@ -215,7 +215,7 @@ static inline bool __cm_atomic_set(bool *val)
 #define CM_ATOMIC_BLOCK()
 #else /* defined(__DOXYGEN__) */
 #define CM_ATOMIC_BLOCK()						\
-	for (bool ___CM_SAVER(true), __my = true; __my; __my = false)
+	for (bool __CM_SAVER(true), __my = true; __my; __my = false)
 #endif /* defined(__DOXYGEN__) */
 
 /*---------------------------------------------------------------------------*/
