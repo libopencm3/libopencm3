@@ -1,3 +1,7 @@
+#ifndef LIBOPENCM3_NVIC_H
+#error You should not be including this file directly, but <libopencm3/cm3/nvic.h>
+#endif
+
 #if defined(STM32F0)
 #	include <libopencm3/stm32/f0/nvic.h>
 #elif defined(STM32F1)
