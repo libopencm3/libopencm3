@@ -50,8 +50,8 @@ to alternate function push-pull outputs where the PWM output will appear.
 @code
 	rcc_periph_clock_enable(RCC_GPIOA);
 	rcc_periph_clock_enable(RCC_TIM1);
-	gpio_set_output_options(GPIOA, GPIO_OTYPE_PP, 
-                                   GPIO_OSPEED_50MHZ, GPIO8 | GPIO9);
+	gpio_set_output_options(GPIOA, GPIO_OTYPE_PP,
+				GPIO_OSPEED_50MHZ, GPIO8 | GPIO9);
 	rcc_periph_clock_enable(RCC_TIM1);
 	timer_reset(TIM1);
 	timer_set_mode(TIM1, TIM_CR1_CKD_CK_INT, TIM_CR1_CMS_CENTER_1,
@@ -69,12 +69,12 @@ knob.
 @code
 	rcc_periph_clock_enable(RCC_TIM3);
 	timer_set_period(TIM3, 1024);
-    timer_slave_set_mode(TIM3, 0x3); // encoder
-    timer_ic_set_input(TIM3, TIM_IC1, TIM_IC_IN_TI1);
-    timer_ic_set_input(TIM3, TIM_IC2, TIM_IC_IN_TI2);
-    timer_enable_counter(TIM3);
-    ...
-    int motor_pos = timer_get_count(TIM3);
+	timer_slave_set_mode(TIM3, 0x3); // encoder
+	timer_ic_set_input(TIM3, TIM_IC1, TIM_IC_IN_TI1);
+	timer_ic_set_input(TIM3, TIM_IC2, TIM_IC_IN_TI2);
+	timer_enable_counter(TIM3);
+	...
+	int motor_pos = timer_get_count(TIM3);
 @endcode
 
 @todo input capture example
