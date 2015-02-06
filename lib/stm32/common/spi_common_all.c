@@ -392,7 +392,7 @@ void spi_set_receive_only_mode(uint32_t spi)
 }
 
 /*---------------------------------------------------------------------------*/
-/** @brief SPI Enable Slave Management by Hardware
+/** @brief SPI Disable Slave Management by Hardware
 
 In slave mode the NSS hardware input is used as a select enable for the slave.
 
@@ -416,6 +416,8 @@ enable/disable of the slave (@ref spi_set_nss_high).
 void spi_enable_software_slave_management(uint32_t spi)
 {
 	SPI_CR1(spi) |= SPI_CR1_SSM;
+	/* allow slave select to be an input */
+	SPI_CR2(spi) &= ~SPI_CR2_SSOE;
 }
 
 /*---------------------------------------------------------------------------*/
