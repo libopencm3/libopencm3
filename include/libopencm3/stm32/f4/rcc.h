@@ -486,20 +486,39 @@
 #define RCC_PLLI2SCFGR_PLLI2SN_SHIFT		6
 
 /* --- RCC_DCKCFGR values -------------------------------------------------- */
-#define RCC_DCKCFGR_PLLSAIDIVR_MSK                 (0x3<<16)
+#define RCC_DCKCFGR_PLLSAIDIVR_MSK                 (0x3 << 16)
 #define RCC_DCKCFGR_PLLSAIDIVR_DIVR_2              (0x0)
 #define RCC_DCKCFGR_PLLSAIDIVR_DIVR_4              (0x1)
 #define RCC_DCKCFGR_PLLSAIDIVR_DIVR_8              (0x2)
 #define RCC_DCKCFGR_PLLSAIDIVR_DIVR_16             (0x3)
 
 /* PLLSAI1 helper macros */
-#define rcc_pllsai_enable()   RCC_CR |= RCC_CR_PLLSAION
-#define rcc_pllsai_ready()   (RCC_CR & RCC_CR_PLLSAIRDY)
+static inline void rcc_pllsai_enable(void)
+{
+	RCC_CR |= RCC_CR_PLLSAION;
+}
+
+static inline bool rcc_pllsai_ready(void)
+{
+	return (RCC_CR & RCC_CR_PLLSAIRDY) != 0;
+}
+
 /* pllsain=49..432, pllsaiq=2..15, pllsair=2..7 */
-#define rcc_pllsai_config(pllsain,pllsaiq,pllsair) \
-	RCC_PLLSAICFGR = (((pllsain&0x1ff)<<6) | ((pllsaiq&0xF)<<24) | ((pllsair&0x7)<<28))
-#define rcc_ltdc_set_clock_divr(pllsaidivr) \
-	RCC_DCKCFGR    = (((RCC_DCKCFGR & ~RCC_DCKCFGR_PLLSAIDIVR_MSK)|((pllsaidivr&0x3)<<16)))
+static inline void rcc_pllsai_config(uint16_t pllsain,
+				     uint16_t pllsaiq,
+				     uint16_t pllsair)
+{
+	RCC_PLLSAICFGR = (((pllsain & 0x1ff) << 6) |
+			  ((pllsaiq & 0xF) << 24) |
+			  ((pllsair & 0x7) << 28));
+}
+
+static inline void rcc_ltdc_set_clock_divr(uint8_t pllsaidivr)
+{
+	RCC_DCKCFGR    = (((RCC_DCKCFGR &
+			    ~RCC_DCKCFGR_PLLSAIDIVR_MSK) |
+				((pllsaidivr & 0x3) << 16)));
+}
 
 /* --- Variable definitions ------------------------------------------------ */
 extern uint32_t rcc_ahb_frequency;

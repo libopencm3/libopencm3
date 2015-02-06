@@ -44,18 +44,18 @@
 #define LTDC_CPSR                  (MMIO32(LTDC_BASE + 0x44))
 #define LTDC_CDSR                  (MMIO32(LTDC_BASE + 0x48))
 /* x == LTDC_LAYER_x */
-#define LTDC_LxCR(x)               (MMIO32(LTDC_BASE + 0x84+0x80*(x-1)))
-#define LTDC_LxWHPCR(x)            (MMIO32(LTDC_BASE + 0x88+0x80*(x-1)))
-#define LTDC_LxWVPCR(x)            (MMIO32(LTDC_BASE + 0x8C+0x80*(x-1)))
-#define LTDC_LxCKCR(x)             (MMIO32(LTDC_BASE + 0x90+0x80*(x-1)))
-#define LTDC_LxPFCR(x)             (MMIO32(LTDC_BASE + 0x94+0x80*(x-1)))
-#define LTDC_LxCACR(x)             (MMIO32(LTDC_BASE + 0x98+0x80*(x-1)))
-#define LTDC_LxDCCR(x)             (MMIO32(LTDC_BASE + 0x9C+0x80*(x-1)))
-#define LTDC_LxBFCR(x)             (MMIO32(LTDC_BASE + 0xA0+0x80*(x-1)))
-#define LTDC_LxCFBAR(x)            (MMIO32(LTDC_BASE + 0xAC+0x80*(x-1)))
-#define LTDC_LxCFBLR(x)            (MMIO32(LTDC_BASE + 0xB0+0x80*(x-1)))
-#define LTDC_LxCFBLNR(x)           (MMIO32(LTDC_BASE + 0xB4+0x80*(x-1)))
-#define LTDC_LxCLUTWR(x)           (MMIO32(LTDC_BASE + 0xC4+0x80*(x-1)))
+#define LTDC_LxCR(x)               (MMIO32(LTDC_BASE + 0x84 + 0x80 * (x - 1)))
+#define LTDC_LxWHPCR(x)            (MMIO32(LTDC_BASE + 0x88 + 0x80 * (x - 1)))
+#define LTDC_LxWVPCR(x)            (MMIO32(LTDC_BASE + 0x8C + 0x80 * (x - 1)))
+#define LTDC_LxCKCR(x)             (MMIO32(LTDC_BASE + 0x90 + 0x80 * (x - 1)))
+#define LTDC_LxPFCR(x)             (MMIO32(LTDC_BASE + 0x94 + 0x80 * (x - 1)))
+#define LTDC_LxCACR(x)             (MMIO32(LTDC_BASE + 0x98 + 0x80 * (x - 1)))
+#define LTDC_LxDCCR(x)             (MMIO32(LTDC_BASE + 0x9C + 0x80 * (x - 1)))
+#define LTDC_LxBFCR(x)             (MMIO32(LTDC_BASE + 0xA0 + 0x80 * (x - 1)))
+#define LTDC_LxCFBAR(x)            (MMIO32(LTDC_BASE + 0xAC + 0x80 * (x - 1)))
+#define LTDC_LxCFBLR(x)            (MMIO32(LTDC_BASE + 0xB0 + 0x80 * (x - 1)))
+#define LTDC_LxCFBLNR(x)           (MMIO32(LTDC_BASE + 0xB4 + 0x80 * (x - 1)))
+#define LTDC_LxCLUTWR(x)           (MMIO32(LTDC_BASE + 0xC4 + 0x80 * (x - 1)))
 
 #define LTDC_LAYER_1 1
 #define LTDC_LAYER_2 2
@@ -114,44 +114,110 @@
  */
 
 /* global */
-#define ltdc_ctrl_enable(ctrl_flags)              \
-	LTDC_GCR            |= ctrl_flags
-#define ltdc_ctrl_disable(ctrl_flags)             \
-	LTDC_GCR            &= ~(ctrl_flags)
-#define ltdc_reload(reload_flags)                 \
-	LTDC_SRCR            = reload_flags
-#define ltdc_set_background_color(r,g,b)          \
-	LTDC_BCCR            = (((r)&255)<<16) | (((g)&255)<<8) | (((b)&255)<<0);
-#define ltdc_get_current_position(x,y)            \
-	{ y=LTDC_CPSR; x=y>>16; y&=0xffff; }
-#define ltdc_get_current_position_x()             \
-	(LTDC_CPSR>>16)
-#define ltdc_get_current_position_y()             \
-	(LTDC_CPSR&0xffff)
-#define ltdc_get_display_status(status_flags)     \
-	(LTDC_CDSR&(status_flags))
+static inline void ltdc_ctrl_enable(uint32_t ctrl_flags)
+{
+	LTDC_GCR            |= ctrl_flags;
+}
+
+static inline void ltdc_ctrl_disable(uint32_t ctrl_flags)
+{
+	LTDC_GCR            &= ~(ctrl_flags);
+}
+
+static inline void ltdc_reload(uint32_t reload_flags)
+{
+	LTDC_SRCR            = reload_flags;
+}
+
+static inline void ltdc_set_background_color(uint8_t r, uint8_t g, uint8_t b)
+{
+	LTDC_BCCR            = (((r)&255)<<16) |
+			       (((g)&255)<<8) |
+			       (((b)&255)<<0);
+}
+
+static inline void ltdc_get_current_position(uint16_t *x, uint16_t *y)
+{
+	uint32_t tmp = LTDC_CPSR;
+	*x = tmp >> 16;
+	*y = tmp &= 0xFFFF;
+}
+
+static inline uint16_t ltdc_get_current_position_x(void)
+{
+	return LTDC_CPSR >> 16;
+}
+
+static inline uint16_t ltdc_get_current_position_y(void)
+{
+	return LTDC_CPSR & 0xffff;
+}
+
+static inline uint32_t ltdc_get_display_status(uint32_t status_flags)
+{
+	return LTDC_CDSR & status_flags;
+}
+
 /* layers */
-#define ltdc_layer_ctrl_enable(layer,ctrl_flags)  \
-	LTDC_LxCR(layer)    |= ctrl_flags
-#define ltdc_layer_ctrl_disable(layer,ctrl_flags) \
-	LTDC_LxCR(layer)    &= ~(ctrl_flags)
-#define ltdc_set_color_key(layer,r,g,b)           \
-	LTDC_LxCKCR(layer)   = ((((r)&255)<<16) | (((g)&255)<<8) | (((b)&255)<<0))
-#define ltdc_set_pixel_format(layer,format)       \
-	LTDC_LxPFCR(layer)   = format
-#define ltdc_set_constant_alpha(layer,alpha)      \
-	LTDC_LxCACR(layer)   = ((alpha)&255)
-#define ltdc_set_default_colors(layer,a,r,g,b)    \
-	LTDC_LxDCCR(layer)   = \
-		((((a)&255)<<24) | (((r)&255)<<16) | (((g)&255)<<8) | (((b)&255)<<0))
-#define ltdc_set_blending_factors(layer,bf1,bf2)  \
-	LTDC_LxBFCR(layer)   = ((bf1)<<8) | ((bf2)<<0)
-#define ltdc_set_fbuffer_address(layer,address)   \
-	LTDC_LxCFBAR(layer)  = (uint32_t)address
-#define ltdc_set_fb_line_length(layer,len,pitch)  \
-	LTDC_LxCFBLR(layer)  = ((((pitch)&0x1FFF)<<16) | (((len)&0x1FFF)<<0))
-#define ltdc_set_fb_line_count(layer, linecount)  \
-	LTDC_LxCFBLNR(layer) = (((linecount)&0x3FF)<<0)
+static inline void ltdc_layer_ctrl_enable(uint32_t layer, uint32_t ctrl_flags)
+{
+	LTDC_LxCR(layer)    |= ctrl_flags;
+}
+
+static inline void ltdc_layer_ctrl_disable(uint32_t layer, uint32_t ctrl_flags)
+{
+	LTDC_LxCR(layer)    &= ~(ctrl_flags);
+}
+
+static inline void ltdc_set_color_key(uint32_t layer,
+				      uint8_t r, uint8_t g, uint8_t b)
+{
+	LTDC_LxCKCR(layer)   = ((((r)&255)<<16) |
+				(((g)&255)<<8) |
+				(((b)&255)<<0));
+}
+
+static inline void ltdc_set_pixel_format(uint32_t layer, uint32_t format)
+{
+	LTDC_LxPFCR(layer)   = format;
+}
+
+static inline void ltdc_set_constant_alpha(uint32_t layer, uint8_t alpha)
+{
+	LTDC_LxCACR(layer)   = ((alpha)&255);
+}
+
+static inline void ltdc_set_default_colors(uint32_t layer,
+					   uint8_t a,
+					   uint8_t r, uint8_t g, uint8_t b)
+{
+	LTDC_LxDCCR(layer)   = ((((a)&255)<<24) |
+				(((r)&255)<<16) |
+				(((g)&255)<<8) |
+				(((b)&255)<<0));
+}
+
+static inline void ltdc_set_blending_factors(uint32_t layer,
+					     uint8_t bf1, uint8_t bf2)
+{
+	LTDC_LxBFCR(layer)   = ((bf1)<<8) | ((bf2)<<0);
+}
+
+static inline void ltdc_set_fbuffer_address(uint32_t layer, uint32_t address)
+{
+	LTDC_LxCFBAR(layer)  = (uint32_t)address;
+}
+
+static inline void ltdc_set_fb_line_length(uint32_t layer,
+					   uint16_t len, uint16_t pitch)
+{
+	LTDC_LxCFBLR(layer)  = ((((pitch)&0x1FFF)<<16) | (((len)&0x1FFF)<<0));
+}
+
+static inline void ltdc_set_fb_line_count(uint32_t layer, uint16_t linecount)
+{
+	LTDC_LxCFBLNR(layer) = (((linecount)&0x3FF)<<0);
+}
 
 /**
  * more complicated helper functions
@@ -174,20 +240,23 @@ void ltdc_setup_windowing(
  * Helper function to wait for SRCR reload to complete or so
  */
 
-#define LTDC_SRCR_IS_RELOADING (LTDC_SRCR&(LTDC_SRCR_RELOAD_VBR|LTDC_SRCR_RELOAD_IMR))
-
-
+static inline bool LTDC_SRCR_IS_RELOADING(void)
+{
+	return (LTDC_SRCR & (LTDC_SRCR_RELOAD_VBR |
+			     LTDC_SRCR_RELOAD_IMR)) != 0;
+}
 
 /**
  * color conversion helper function
  * (simulate the ltdc color conversion)
  */
 
-#define ltdc_get_rgb888_from_rgb565(rgb888) (   \
-	((((rgb888) & 0xF800) >> (11-8))/31)<<16    \
-  | ((((rgb888) & 0x07E0) << ( 8-5))/63)<<8     \
-  | ((((rgb888) & 0x001F) << ( 8-0))/31)<<0     \
-)
+static inline uint16_t ltdc_get_rgb888_from_rgb565(uint16_t rgb888)
+{
+	return ((((rgb888) & 0xF800)   >> (11-8))/31)<<16
+	       | ((((rgb888) & 0x07E0) <<  (8-5))/63)<<8
+	       | ((((rgb888) & 0x001F) <<  (8-0))/31)<<0;
+}
 
 
 #endif /* LIBOPENCM3_STM32_F4_LTDC_H_ */
