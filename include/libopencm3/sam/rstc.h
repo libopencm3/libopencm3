@@ -27,8 +27,8 @@
 /* --- RSTC registers ---------------------------------------------------- */
 
 #define RSTC_CR				MMIO32(RSTC_BASE + 0x00)
-#define RSTC_MR				MMIO32(RSTC_BASE + 0x04)
-#define RSTC_SR				MMIO32(RTSC_BASE + 0x08)
+#define RSTC_SR				MMIO32(RSTC_BASE + 0x04)
+#define RSTC_MR				MMIO32(RSTC_BASE + 0x08)
 
 /* --- RSTC_CR values ----------------------------------------------------- */
 
