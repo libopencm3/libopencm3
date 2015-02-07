@@ -33,6 +33,14 @@ enum gpio_flags {
 	GPIO_FLAG_PULL_UP = 8,
 };
 
+enum gpio_interrupts {
+    GPIO_INT_EDGE,
+    GPIO_INT_RISING,
+    GPIO_INT_FALLING,
+    GPIO_INT_HIGH,
+    GPIO_INT_LOW
+};
+
 void gpio_init(uint32_t gpioport, uint32_t pins, enum gpio_flags flags);
 
 static inline void gpio_set(uint32_t gpioport, uint32_t gpios)
@@ -47,5 +55,7 @@ static inline void gpio_clear(uint32_t gpioport, uint32_t gpios)
 
 void gpio_toggle(uint32_t gpioport, uint32_t gpios);
 
+
+void gpio_init_interrupt(uint32_t gpioport, uint32_t gpios, enum gpio_interrupts mode, void (*isr)(void *arg), void *arg);
 #endif
 
