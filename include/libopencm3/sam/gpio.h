@@ -53,6 +53,11 @@ static inline void gpio_clear(uint32_t gpioport, uint32_t gpios)
 	PIO_CODR(gpioport) = gpios;
 }
 
+static inline uint32_t gpio_value(uint32_t gpioport, uint32_t gpios)
+{
+	return PIO_PDSR(gpioport) ^ gpios;
+}
+
 void gpio_toggle(uint32_t gpioport, uint32_t gpios);
 
 
