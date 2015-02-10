@@ -45,8 +45,8 @@ void desig_get_unique_id_as_string(char *string,
 		2 * sizeof(device_id) : string_len - 1;
 
 	for (i = 0; i < len; i += 2) {
-		string[i]     = chars[(device_id[i / 2] >> 0) & 0x0F];
-		string[i + 1] = chars[(device_id[i / 2] >> 4) & 0x0F];
+		string[i]     = chars[(device_id[i / 2] >> 4) & 0x0F];
+		string[i + 1] = chars[(device_id[i / 2] >> 0) & 0x0F];
 	}
 
 	string[len] = '\0';

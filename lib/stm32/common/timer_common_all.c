@@ -31,7 +31,7 @@ mode.
 
 Example: Timer 2 with 2x clock divide, edge aligned and up counting.
 @code
-	rcc_peripheral_enable_clock(&RCC_APB2ENR, RCC_APB2ENR_TIM2EN);
+	rcc_periph_clock_enable(RCC_TIM2);
 	timer_reset(TIM2);
 	timer_set_mode(TIM2, TIM_CR1_CKD_CK_INT_MUL_2,
 		       TIM_CR1_CMS_EDGE, TIM_CR1_DIR_UP);
@@ -48,11 +48,11 @@ only) and port A clock. Set ports A8 and A9 (timer 1 channel 1 compare outputs)
 to alternate function push-pull outputs where the PWM output will appear.
 
 @code
-	rcc_peripheral_enable_clock(&RCC_APB2ENR, RCC_APB2ENR_IOPAEN |
-				    RCC_APB2ENR_AFIOEN);
-	gpio_set_mode(GPIOA, GPIO_MODE_OUTPUT_50_MHZ,
-		      GPIO_CNF_OUTPUT_ALTFN_PUSHPULL, GPIO8 | GPIO9);
-	rcc_peripheral_enable_clock(&RCC_APB2ENR, RCC_APB2ENR_TIM1EN);
+	rcc_periph_clock_enable(RCC_GPIOA);
+	rcc_periph_clock_enable(RCC_TIM1);
+	gpio_set_output_options(GPIOA, GPIO_OTYPE_PP,
+				GPIO_OSPEED_50MHZ, GPIO8 | GPIO9);
+	rcc_periph_clock_enable(RCC_TIM1);
 	timer_reset(TIM1);
 	timer_set_mode(TIM1, TIM_CR1_CKD_CK_INT, TIM_CR1_CMS_CENTER_1,
 		       TIM_CR1_DIR_UP);
@@ -62,6 +62,19 @@ to alternate function push-pull outputs where the PWM output will appear.
 	timer_set_oc_value(TIM1, TIM_OC1, 200);
 	timer_set_period(TIM1, 1000);
 	timer_enable_counter(TIM1);
+@endcode
+Example: Timer 3 as a Quadrature encoder counting input from a motor or control
+knob.
+
+@code
+	rcc_periph_clock_enable(RCC_TIM3);
+	timer_set_period(TIM3, 1024);
+	timer_slave_set_mode(TIM3, 0x3); // encoder
+	timer_ic_set_input(TIM3, TIM_IC1, TIM_IC_IN_TI1);
+	timer_ic_set_input(TIM3, TIM_IC2, TIM_IC_IN_TI2);
+	timer_enable_counter(TIM3);
+	...
+	int motor_pos = timer_get_count(TIM3);
 @endcode
 
 @todo input capture example
