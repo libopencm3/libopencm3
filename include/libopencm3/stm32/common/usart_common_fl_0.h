@@ -42,26 +42,16 @@
 /*****************************************************************************/
 
 #define USART_CR1(usart_base)		MMIO32(usart_base + 0x00)
-
 #define USART_CR2(usart_base)		MMIO32(usart_base + 0x04)
-
 #define USART_CR3(usart_base)		MMIO32(usart_base + 0x08)
-
 #define USART_BRR(usart_base)		MMIO32(usart_base + 0x0c)
-
 #define USART_GTPR(usart_base)		MMIO32(usart_base + 0x10)
-
 #define USART_RTOR(usart_base)		MMIO32(usart_base + 0x14)
-
 #define USART_RQR(usart_base)		MMIO32(usart_base + 0x18)
-
 #define USART_ISR(usart_base)		MMIO32(usart_base + 0x1c)
-
 #define USART_ICR(usart_base)		MMIO32(usart_base + 0x20)
-
-#define USART_RDR(usart_base)		MMIO8(usart_base + 0x24)
-
-#define USART_TDR(usart_base)		MMIO8(usart_base + 0x28)
+#define USART_RDR(usart_base)		MMIO16(usart_base + 0x24)
+#define USART_TDR(usart_base)		MMIO16(usart_base + 0x28)
 
 /*****************************************************************************/
 /* Register values                                                           */
