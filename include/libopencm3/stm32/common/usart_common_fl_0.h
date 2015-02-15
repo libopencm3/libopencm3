@@ -281,6 +281,6 @@ END_DECLS
 #endif
 /** @cond */
 #else
-#warning "usart_common_fl_0.h should not be included directly, only via usart.h"
+#error "usart_common_fl_0.h should not be included directly, only via usart.h"
 #endif
 /** @endcond */
