@@ -271,10 +271,15 @@
 
 /* --- RCC_APB2RSTR values ------------------------------------------------- */
 
+#define RCC_APB2RSTR_LTDCRST			(1 << 26)
+#define RCC_APB2RSTR_SAI1RST			(1 << 22)
+#define RCC_APB2RSTR_SPI6RST			(1 << 21)
+#define RCC_APB2RSTR_SPI5RST			(1 << 20)
 #define RCC_APB2RSTR_TIM11RST			(1 << 18)
 #define RCC_APB2RSTR_TIM10RST			(1 << 17)
 #define RCC_APB2RSTR_TIM9RST			(1 << 16)
 #define RCC_APB2RSTR_SYSCFGRST			(1 << 14)
+#define RCC_APB2RSTR_SPI4RST			(1 << 13)
 #define RCC_APB2RSTR_SPI1RST			(1 << 12)
 #define RCC_APB2RSTR_SDIORST			(1 << 11)
 #define RCC_APB2RSTR_ADCRST			(1 << 8)
@@ -349,6 +354,8 @@
 
 /* --- RCC_APB2ENR values ------------------------------------------------- */
 
+#define RCC_APB2ENR_LTDCEN			(1 << 26)
+#define RCC_APB2ENR_SAI1EN			(1 << 22)
 #define RCC_APB2ENR_SPI6EN			(1 << 21)
 #define RCC_APB2ENR_SPI5EN			(1 << 20)
 #define RCC_APB2ENR_TIM11EN			(1 << 18)
@@ -485,40 +492,36 @@
 /* RCC_PLLI2SCFGR[14:6]: PLLI2SN */
 #define RCC_PLLI2SCFGR_PLLI2SN_SHIFT		6
 
+/* --- RCC_PLLSAICFGR values ----------------------------------------------- */
+
+/* RCC_PLLSAICFGR[30:28]: PLLSAIR */
+#define RCC_PLLSAICFGR_PLLSAIR_SHIFT		28
+/* RCC_PLLSAICFGR[27:24]: PLLSAIQ */
+#define RCC_PLLSAICFGR_PLLSAIQ_SHIFT		24
+#define RCC_PLLSAICFGR_PLLSAIQ_MASK             0xf
+/* RCC_PLLSAICFGR[14:6]:  PLLSAIN */
+#define RCC_PLLSAICFGR_PLLSAIN_SHIFT		6
+
+
 /* --- RCC_DCKCFGR values -------------------------------------------------- */
-#define RCC_DCKCFGR_PLLSAIDIVR_MSK                 (0x3 << 16)
-#define RCC_DCKCFGR_PLLSAIDIVR_DIVR_2              (0x0)
-#define RCC_DCKCFGR_PLLSAIDIVR_DIVR_4              (0x1)
-#define RCC_DCKCFGR_PLLSAIDIVR_DIVR_8              (0x2)
-#define RCC_DCKCFGR_PLLSAIDIVR_DIVR_16             (0x3)
 
-/* PLLSAI1 helper macros */
-static inline void rcc_pllsai_enable(void)
-{
-	RCC_CR |= RCC_CR_PLLSAION;
-}
+/* RCC_DCKCFGR[24]: TIMPRE */
+#define RCC_DCKCFGR_TIMPRE			(1 << 24)
+/* RCC_DCKCFGR[23:22]: SAI1BSRC */
+#define RCC_DCKCFGR_SAI1ASRC_SHIFT		22
+#define RCC_DCKCFGR_SAI1ASRC_MASK		0x3
+/* RCC_DCKCFGR[21:20]: SAI1ASRC */
+/* RCC_DCKCFGR[17:16]: PLLSAIDIVR */
+#define RCC_DCKCFGR_PLLSAIDIVR_SHIFT            16
+#define RCC_DCKCFGR_PLLSAIDIVR_MASK             0x3
 
-static inline bool rcc_pllsai_ready(void)
-{
-	return (RCC_CR & RCC_CR_PLLSAIRDY) != 0;
-}
+#define RCC_DCKCFGR_PLLSAIDIVR_DIV2       (0b00 << RCC_DCKCFGR_PLLSAIDIVR_SHIFT)
+#define RCC_DCKCFGR_PLLSAIDIVR_DIV4       (0b01 << RCC_DCKCFGR_PLLSAIDIVR_SHIFT)
+#define RCC_DCKCFGR_PLLSAIDIVR_DIV8       (0b10 << RCC_DCKCFGR_PLLSAIDIVR_SHIFT)
+#define RCC_DCKCFGR_PLLSAIDIVR_DIV16      (0b11 << RCC_DCKCFGR_PLLSAIDIVR_SHIFT)
 
-/* pllsain=49..432, pllsaiq=2..15, pllsair=2..7 */
-static inline void rcc_pllsai_config(uint16_t pllsain,
-				     uint16_t pllsaiq,
-				     uint16_t pllsair)
-{
-	RCC_PLLSAICFGR = (((pllsain & 0x1ff) << 6) |
-			  ((pllsaiq & 0xF) << 24) |
-			  ((pllsair & 0x7) << 28));
-}
-
-static inline void rcc_ltdc_set_clock_divr(uint8_t pllsaidivr)
-{
-	RCC_DCKCFGR    = (((RCC_DCKCFGR &
-			    ~RCC_DCKCFGR_PLLSAIDIVR_MSK) |
-				((pllsaidivr & 0x3) << 16)));
-}
+/* RCC_DCKCFGR[12:8]: PLLSAIDIVQ */
+/* RCC_DCKCFGR[4:0]: PLLI2SDIVQ */
 
 /* --- Variable definitions ------------------------------------------------ */
 extern uint32_t rcc_ahb_frequency;
