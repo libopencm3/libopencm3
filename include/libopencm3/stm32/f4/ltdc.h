@@ -1,18 +1,7 @@
-/** @defgroup ltdc_defines LTDC Defines
-
-@brief <b>Defined Constants and Types for the STM32F4xx LCD-TFT</b>
-
-@ingroup STM32F4xx_defines
-
-@version 1.0.0
-
-@date 4 Feb 2015
-
-LGPL License Terms @ref lgpl_license
- */
-
 /*
  * This file is part of the libopencm3 project.
+ *
+ * Copyright (C) 2014 Oliver Meier <h2obrain@gmail.com>
  *
  * This library is free software: you can redistribute it and/or modify
  * it under the terms of the GNU Lesser General Public License as published by
@@ -28,10 +17,9 @@ LGPL License Terms @ref lgpl_license
  * along with this library.  If not, see <http://www.gnu.org/licenses/>.
  */
 
-#ifndef LIBOPENCM3_LTDC_H
-#define LIBOPENCM3_LTDC_H
 
-#include <libopencm3/stm32/f4/memorymap.h>
+#ifndef LIBOPENCM3_STM32_F4_LTDC_H_
+#define LIBOPENCM3_STM32_F4_LTDC_H_
 
 
 #include <stdint.h>
@@ -56,53 +44,58 @@ LGPL License Terms @ref lgpl_license
 #define LTDC_CPSR                  (MMIO32(LTDC_BASE + 0x44))
 #define LTDC_CDSR                  (MMIO32(LTDC_BASE + 0x48))
 
-#define LTDC_LxCR(x)               (MMIO32(LTDC_BASE + 0x84 + 0x80 * ((x) - 1)))
-#define LTDC_L1CR                  (LTDC_LxCR(1))
-#define LTDC_L2CR                  (LTDC_LxCR(2))
+/* x == LTDC_LAYER_x */
+#define LTDC_LxCR(x)               (MMIO32(LTDC_BASE + 0x84 + 0x80 * (x - 1)))
+#define LTDC_L1CR                  LTDC_LxCR(LTDC_LAYER_1)
+#define LTDC_L2CR                  LTDC_LxCR(LTDC_LAYER_2)
 
-#define LTDC_LxWHPCR(x)            (MMIO32(LTDC_BASE + 0x88 + 0x80 * ((x) - 1)))
-#define LTDC_L1WHPCR               (LTDC_LxWHPCR(1))
-#define LTDC_L2WHPCR               (LTDC_LxWHPCR(2))
+#define LTDC_LxWHPCR(x)            (MMIO32(LTDC_BASE + 0x88 + 0x80 * (x - 1)))
+#define LTDC_L1WHPCR               LTDC_LxWHPCR(LTDC_LAYER_1)
+#define LTDC_L2WHPCR               LTDC_LxWHPCR(LTDC_LAYER_2)
 
-#define LTDC_LxWVPCR(x)            (MMIO32(LTDC_BASE + 0x8C + 0x80 * ((x) - 1)))
-#define LTDC_L1WVPCR               (LTDC_LxWVPCR(1))
-#define LTDC_L2WVPCR               (LTDC_LxWVPCR(2))
+#define LTDC_LxWVPCR(x)            (MMIO32(LTDC_BASE + 0x8C + 0x80 * (x - 1)))
+#define LTDC_L1WVPCR               LTDC_LxWVPCR(LTDC_LAYER_1)
+#define LTDC_L2WVPCR               LTDC_LxWVPCR(LTDC_LAYER_2)
 
-#define LTDC_LxCKCR(x)             (MMIO32(LTDC_BASE + 0x90 + 0x80 * ((x) - 1)))
-#define LTDC_L1CKCR                (LTDC_LxCKCR(1))
-#define LTDC_L2CKCR                (LTDC_LxCKCR(2))
+#define LTDC_LxCKCR(x)             (MMIO32(LTDC_BASE + 0x90 + 0x80 * (x - 1)))
+#define LTDC_L1CKCR                LTDC_LxCKCR(LTDC_LAYER_1)
+#define LTDC_L2CKCR                LTDC_LxCKCR(LTDC_LAYER_2)
 
-#define LTDC_LxPFCR(x)             (MMIO32(LTDC_BASE + 0x94 + 0x80 * ((x) - 1)))
-#define LTDC_L1PFCR                (LTDC_LxPFCR(1))
-#define LTDC_L2PFCR                (LTDC_LxPFCR(2))
+#define LTDC_LxPFCR(x)             (MMIO32(LTDC_BASE + 0x94 + 0x80 * (x - 1)))
+#define LTDC_L1PFCR                LTDC_LxPFCR(LTDC_LAYER_1)
+#define LTDC_L2PFCR                LTDC_LxPFCR(LTDC_LAYER_2)
 
-#define LTDC_LxCACR(x)             (MMIO32(LTDC_BASE + 0x98 + 0x80 * ((x) - 1)))
-#define LTDC_L1CACR                (LTDC_LxCACR(1))
-#define LTDC_L2CACR                (LTDC_LxCACR(2))
+#define LTDC_LxCACR(x)             (MMIO32(LTDC_BASE + 0x98 + 0x80 * (x - 1)))
+#define LTDC_L1CACR                LTDC_LxCACR(LTDC_LAYER_1)
+#define LTDC_L2CACR                LTDC_LxCACR(LTDC_LAYER_2)
 
-#define LTDC_LxDCCR(x)             (MMIO32(LTDC_BASE + 0x9C + 0x80 * ((x) - 1)))
-#define LTDC_L1DCCR                (LTDC_LxDCCR(1))
-#define LTDC_L2DCCR                (LTDC_LxDCCR(2))
+#define LTDC_LxDCCR(x)             (MMIO32(LTDC_BASE + 0x9C + 0x80 * (x - 1)))
+#define LTDC_L1DCCR                LTDC_LxDCCR(LTDC_LAYER_1)
+#define LTDC_L2DCCR                LTDC_LxDCCR(LTDC_LAYER_2)
 
-#define LTDC_LxBFCR(x)             (MMIO32(LTDC_BASE + 0xA0 + 0x80 * ((x) - 1)))
-#define LTDC_L1BFCR                (LTDC_LxBFCR(1))
-#define LTDC_L2BFCR                (LTDC_LxBFCR(2))
+#define LTDC_LxBFCR(x)             (MMIO32(LTDC_BASE + 0xA0 + 0x80 * (x - 1)))
+#define LTDC_L1BFCR                LTDC_LxBFCR(LTDC_LAYER_1)
+#define LTDC_L2BFCR                LTDC_LxBFCR(LTDC_LAYER_2)
 
-#define LTDC_LxCFBAR(x)            (MMIO32(LTDC_BASE + 0xAC + 0x80 * ((x) - 1)))
-#define LTDC_L1CFBAR               (LTDC_LxCFBAR(1))
-#define LTDC_L2CFBAR               (LTDC_LxCFBAR(2))
+#define LTDC_LxCFBAR(x)            (MMIO32(LTDC_BASE + 0xAC + 0x80 * (x - 1)))
+#define LTDC_L1CFBAR               LTDC_LxCFBAR(LTDC_LAYER_1)
+#define LTDC_L2CFBAR               LTDC_LxCFBAR(LTDC_LAYER_2)
 
-#define LTDC_LxCFBLR(x)            (MMIO32(LTDC_BASE + 0xB0 + 0x80 * ((x) - 1)))
-#define LTDC_L1CFBLR               (LTDC_LxCFBLR(1))
-#define LTDC_L2CFBLR               (LTDC_LxCFBLR(2))
+#define LTDC_LxCFBLR(x)            (MMIO32(LTDC_BASE + 0xB0 + 0x80 * (x - 1)))
+#define LTDC_L1CFBLR               LTDC_LxCFBLR(LTDC_LAYER_1)
+#define LTDC_L2CFBLR               LTDC_LxCFBLR(LTDC_LAYER_2)
 
-#define LTDC_LxCFBLNR(x)           (MMIO32(LTDC_BASE + 0xB4 + 0x80 * ((x) - 1)))
-#define LTDC_L1CFBLNR              (LTDC_LxCFBLNR(1))
-#define LTDC_L2CFBLNR              (LTDC_LxCFBLNR(2))
+#define LTDC_LxCFBLNR(x)           (MMIO32(LTDC_BASE + 0xB4 + 0x80 * (x - 1)))
+#define LTDC_L1CFBLNR              LTDC_LxCFBLNR(LTDC_LAYER_1)
+#define LTDC_L2CFBLNR              LTDC_LxCFBLNR(LTDC_LAYER_2)
 
-#define LTDC_LxCLUTWR(x)           (MMIO32(LTDC_BASE + 0xC4 + 0x80 * ((x) - 1)))
-#define LTDC_L1CLUTWR              (LTDC_LxCLUTWR(1))
-#define LTDC_L2CLUTWR              (LTDC_LxCLUTWR(2))
+#define LTDC_LxCLUTWR(x)           (MMIO32(LTDC_BASE + 0xC4 + 0x80 * (x - 1)))
+#define LTDC_L1CLUTWR              LTDC_LxCLUTWR(LTDC_LAYER_1)
+#define LTDC_L2CLUTWR              LTDC_LxCLUTWR(LTDC_LAYER_2)
+
+
+#define LTDC_LAYER_1 1
+#define LTDC_LAYER_2 2
 
 /* --- LTDC_SSCR values ---------------------------------------------------- */
 
@@ -144,37 +137,21 @@ LGPL License Terms @ref lgpl_license
 #define LTDC_TWCR_TOTALH_SHIFT          0
 #define LTDC_TWCR_TOTALH_MASK           0x7ff
 
-/* --- LTDC_GCR values ----------------------------------------------------- */
+/* GCR - control register */
+#define LTDC_GCR_LTDC_ENABLE       (1<<0)
+#define LTDC_GCR_DITHER_ENABLE     (1<<16)
 
-/* Horizontal Synchronization Polarity */
-#define LTDC_GCR_HSPOL                  (1 << 31)
+#define LTDC_GCR_PCPOL_ACTIVE_LOW  (0<<28)
+#define LTDC_GCR_PCPOL_ACTIVE_HIGH (1<<28)
 
-/* Vertical Synchronization Polarity */
-#define LTDC_GCR_VSPOL                  (1 << 30)
+#define LTDC_GCR_DEPOL_ACTIVE_LOW  (0<<29)
+#define LTDC_GCR_DEPOL_ACTIVE_HIGH (1<<29)
 
-/* Data Enable Polarity */
-#define LTDC_GCR_DEPOL                  (1 << 29)
+#define LTDC_GCR_VSPOL_ACTIVE_LOW  (0<<30)
+#define LTDC_GCR_VSPOL_ACTIVE_HIGH (1<<30)
 
-/* Pixel Clock Polarity */
-#define LTDC_GCR_PCPOL                  (1 << 28)
-
-/* Dither Enable */
-#define LTDC_GCR_DEN                    (1 << 16)
-
-/* Dither Red Width */
-#define LTDC_GCR_DRW_SHIFT              12
-#define LTDC_GCR_DRW_MASK               0x7
-
-/* Dither Green Width */
-#define LTDC_GCR_DGW_SHIFT              8
-#define LTDC_GCR_DGW_MASK               0x7
-
-/* Dither Blue Width */
-#define LTDC_GCR_DBW_SHIFT              4
-#define LTDC_GCR_DBW_MASK               0x7
-
-/* LCD-TFT Controller Enable */
-#define LTDC_GCR_LTDCEN                 (1 << 0)
+#define LTDC_GCR_HSPOL_ACTIVE_LOW  (0<<31)
+#define LTDC_GCR_HSPOL_ACTIVE_HIGH (1<<31)
 
 /* --- LTDC_SRCR values ---------------------------------------------------- */
 
@@ -184,19 +161,9 @@ LGPL License Terms @ref lgpl_license
 /* Immediate Reload */
 #define LTDC_SRCR_IMR                   (1 << 0)
 
-/* --- LTDC_BCCR values ---------------------------------------------------- */
-
-/* Background Color Red */
-#define LTDC_BCCR_BCRED_SHIFT           16
-#define LTDC_BCCR_BCRED_MASK            0xff
-
-/* Background Color Green */
-#define LTDC_BCCR_BCGREEN_SHIFT         8
-#define LTDC_BCCR_BCGREEN_MASK          0xff
-
-/* Background Color Blue */
-#define LTDC_BCCR_BCBLUE_SHIFT          0
-#define LTDC_BCCR_BCBLUE_MASK           0xff
+/* LTDC_BCCR - reload control */
+#define LTDC_SRCR_RELOAD_IMR       (1<<0)
+#define LTDC_SRCR_RELOAD_VBR       (1<<1)
 
 /* --- LTDC_IER values ----------------------------------------------------- */
 
@@ -256,30 +223,16 @@ LGPL License Terms @ref lgpl_license
 #define LTDC_CPSR_CYPOS_SHIFT           0
 #define LTDC_CPSR_CYPOS_MASK            0xffff
 
-/* --- LTDC_CDSR values ---------------------------------------------------- */
+/* LTDC_CDSR - display status register */
+#define LTDC_CDSR_VDES             (1<<0)
+#define LTDC_CDSR_HDES             (1<<1)
+#define LTDC_CDSR_VSYNCS           (1<<2)
+#define LTDC_CDSR_HSYNCS           (1<<3)
 
-/* Horizontal Synchronization Display Status */
-#define LTDC_CDSR_HSYNCS                (1 << 3)
-
-/* Vertical Synchronization Display Status */
-#define LTDC_CDSR_VSYNCS                (1 << 2)
-
-/* Horizontal Data Enable Display Status */
-#define LTDC_CDSR_HDES                  (1 << 1)
-
-/* Vertical Data Enable Display Status */
-#define LTDC_CDSR_VDES                  (1 << 0)
-
-/* --- LTDC_LxCR values ---------------------------------------------------- */
-
-/* Color Look-Up Table Enable */
-#define LTDC_LxCR_CLUTEN                (1 << 4)
-
-/* Color Keying Enable */
-#define LTDC_LxCR_COLKEN                (1 << 1)
-
-/* Layer Enable */
-#define LTDC_LxCR_LEN                   (1 << 0)
+/* LTDC_LxCR - layer control */
+#define LTDC_LxCR_LAYER_ENABLE     (1<<0)
+#define LTDC_LxCR_COLKEY_ENABLE    (1<<1)
+#define LTDC_LxCR_COLTAB_ENABLE    (1<<4)
 
 /* --- LTDC_LxWHPCR values ------------------------------------------------- */
 
@@ -315,20 +268,15 @@ LGPL License Terms @ref lgpl_license
 #define LTDC_LxCKCR_CKBLUE_SHIFT        16
 #define LTDC_LxCKCR_CKBLUE_MASK         0xff
 
-/* --- LTDC_LxPFCR values -------------------------------------------------- */
-
-/* Pixel Format */
-#define LTDC_LxPFCR_PF_SHIFT            0
-#define LTDC_LxPFCR_PF_MASK             0x7
-
-#define LTDC_LxPFCR_PF_ARGB8888         (0b000 << LTDC_LxPFCR_PF_SHIFT)
-#define LTDC_LxPFCR_PF_RGB888           (0b001 << LTDC_LxPFCR_PF_SHIFT)
-#define LTDC_LxPFCR_PF_RGB565           (0b010 << LTDC_LxPFCR_PF_SHIFT)
-#define LTDC_LxPFCR_PF_ARGB1555         (0b011 << LTDC_LxPFCR_PF_SHIFT)
-#define LTDC_LxPFCR_PF_ARGB4444         (0b100 << LTDC_LxPFCR_PF_SHIFT)
-#define LTDC_LxPFCR_PF_L8               (0b101 << LTDC_LxPFCR_PF_SHIFT)
-#define LTDC_LxPFCR_PF_AL44             (0b110 << LTDC_LxPFCR_PF_SHIFT)
-#define LTDC_LxPFCR_PF_AL88             (0b111 << LTDC_LxPFCR_PF_SHIFT)
+/* LTDC_LxPFCR - Pixel formats */
+#define LTDC_LxPFCR_ARGB8888       (0b000)
+#define LTDC_LxPFCR_RGB888         (0b001)
+#define LTDC_LxPFCR_RGB565         (0b010)
+#define LTDC_LxPFCR_ARGB1555       (0b011)
+#define LTDC_LxPFCR_ARGB4444       (0b100)
+#define LTDC_LxPFCR_L8             (0b101)
+#define LTDC_LxPFCR_AL44           (0b110)
+#define LTDC_LxPFCR_AL88           (0b111)
 
 /* --- LTDC_LxCACR values -------------------------------------------------- */
 
@@ -354,23 +302,12 @@ LGPL License Terms @ref lgpl_license
 #define LTDC_LxDCCR_DCBLUE_SHIFT        0
 #define LTDC_LxDCCR_DCBLUE_MASK         1
 
-/* --- LTDC_LxBFCR values -------------------------------------------------- */
-
-/* Blending Factor 1 */
-#define LTDC_LxBFCR_BF1_SHIFT           8
-#define LTDC_LxBFCR_BF1_MASK            0x7
-
-#define LTDC_LxBFCR_BF1_CONSTANT_ALPHA  (0b100 << LTDC_LxBFCR_BF1_SHIFT)
-#define LTDC_LxBFCR_BF1_PIXEL_ALPHA_x_CONSTANT_ALPHA \
-                                        (0b110 << LTDC_LxBFCR_BF1_SHIFT)
-
-/* Blending Factor 2 */
-#define LTDC_LxBFCR_BF2_SHIFT           0
-#define LTDC_LxBFCR_BF2_MASK            0x7
-
-#define LTDC_LxBFCR_BF2_CONSTANT_ALPHA  (0b101 << LTDC_LxBFCR_BF2_SHIFT)
-#define LTDC_LxBFCR_BF2_PIXEL_ALPHA_x_CONSTANT_ALPHA \
-                                        (0b111 << LTDC_LxBFCR_BF2_SHIFT)
+/* LTDC_LxBFCR - Blending factors - BF1 */
+#define LTDC_LxBFCR_BF1_CONST_ALPHA               (0b100)
+#define LTDC_LxBFCR_BF1_PIXEL_ALPHA_x_CONST_ALPHA (0b110)
+/* LTDC_LxBFCR - Blending factors - BF2 */
+#define LTDC_LxBFCR_BF2_CONST_ALPHA               (0b101)
+#define LTDC_LxBFCR_BF2_PIXEL_ALPHA_x_CONST_ALPHA (0b111)
 
 /* --- LTDC_LxCFBAR values ------------------------------------------------- */
 
@@ -412,4 +349,154 @@ LGPL License Terms @ref lgpl_license
 #define LTDC_LxCLUTWR_BLUE_SHIFT        0
 #define LTDC_LxCLUTWR_BLUE_MASK         0xff
 
-#endif /* !LIBOPENCM3_LTDC_H */
+/**
+ * simple helper macros
+ */
+
+/* global */
+static inline void ltdc_ctrl_enable(uint32_t ctrl_flags)
+{
+	LTDC_GCR            |= ctrl_flags;
+}
+
+static inline void ltdc_ctrl_disable(uint32_t ctrl_flags)
+{
+	LTDC_GCR            &= ~(ctrl_flags);
+}
+
+static inline void ltdc_reload(uint32_t reload_flags)
+{
+	LTDC_SRCR            = reload_flags;
+}
+
+static inline void ltdc_set_background_color(uint8_t r, uint8_t g, uint8_t b)
+{
+	LTDC_BCCR            = (((r)&255)<<16) |
+			       (((g)&255)<<8) |
+			       (((b)&255)<<0);
+}
+
+static inline void ltdc_get_current_position(uint16_t *x, uint16_t *y)
+{
+	uint32_t tmp = LTDC_CPSR;
+	*x = tmp >> 16;
+	*y = tmp &= 0xFFFF;
+}
+
+static inline uint16_t ltdc_get_current_position_x(void)
+{
+	return LTDC_CPSR >> 16;
+}
+
+static inline uint16_t ltdc_get_current_position_y(void)
+{
+	return LTDC_CPSR & 0xffff;
+}
+
+static inline uint32_t ltdc_get_display_status(uint32_t status_flags)
+{
+	return LTDC_CDSR & status_flags;
+}
+
+/* layers */
+static inline void ltdc_layer_ctrl_enable(uint32_t layer, uint32_t ctrl_flags)
+{
+	LTDC_LxCR(layer)    |= ctrl_flags;
+}
+
+static inline void ltdc_layer_ctrl_disable(uint32_t layer, uint32_t ctrl_flags)
+{
+	LTDC_LxCR(layer)    &= ~(ctrl_flags);
+}
+
+static inline void ltdc_set_color_key(uint32_t layer,
+				      uint8_t r, uint8_t g, uint8_t b)
+{
+	LTDC_LxCKCR(layer)   = ((((r)&255)<<16) |
+				(((g)&255)<<8) |
+				(((b)&255)<<0));
+}
+
+static inline void ltdc_set_pixel_format(uint32_t layer, uint32_t format)
+{
+	LTDC_LxPFCR(layer)   = format;
+}
+
+static inline void ltdc_set_constant_alpha(uint32_t layer, uint8_t alpha)
+{
+	LTDC_LxCACR(layer)   = ((alpha)&255);
+}
+
+static inline void ltdc_set_default_colors(uint32_t layer,
+					   uint8_t a,
+					   uint8_t r, uint8_t g, uint8_t b)
+{
+	LTDC_LxDCCR(layer)   = ((((a)&255)<<24) |
+				(((r)&255)<<16) |
+				(((g)&255)<<8) |
+				(((b)&255)<<0));
+}
+
+static inline void ltdc_set_blending_factors(uint32_t layer,
+					     uint8_t bf1, uint8_t bf2)
+{
+	LTDC_LxBFCR(layer)   = ((bf1)<<8) | ((bf2)<<0);
+}
+
+static inline void ltdc_set_fbuffer_address(uint32_t layer, uint32_t address)
+{
+	LTDC_LxCFBAR(layer)  = (uint32_t)address;
+}
+
+static inline void ltdc_set_fb_line_length(uint32_t layer,
+					   uint16_t len, uint16_t pitch)
+{
+	LTDC_LxCFBLR(layer)  = ((((pitch)&0x1FFF)<<16) | (((len)&0x1FFF)<<0));
+}
+
+static inline void ltdc_set_fb_line_count(uint32_t layer, uint16_t linecount)
+{
+	LTDC_LxCFBLNR(layer) = (((linecount)&0x3FF)<<0);
+}
+
+/**
+ * more complicated helper functions
+ */
+void ltdc_set_tft_sync_timings(
+		uint16_t sync_width,    uint16_t sync_height,
+		uint16_t h_back_porch,  uint16_t v_back_porch,
+		uint16_t active_width,  uint16_t active_height,
+		uint16_t h_front_porch, uint16_t v_front_porch
+);
+void ltdc_setup_windowing(
+		uint8_t  layer_number,
+		uint16_t h_back_porch,  uint16_t v_back_porch,
+		uint16_t active_width,  uint16_t active_height
+);
+
+
+
+/**
+ * Helper function to wait for SRCR reload to complete or so
+ */
+
+static inline bool LTDC_SRCR_IS_RELOADING(void)
+{
+	return (LTDC_SRCR & (LTDC_SRCR_RELOAD_VBR |
+			     LTDC_SRCR_RELOAD_IMR)) != 0;
+}
+
+/**
+ * color conversion helper function
+ * (simulate the ltdc color conversion)
+ */
+
+static inline uint16_t ltdc_get_rgb888_from_rgb565(uint16_t rgb888)
+{
+	return ((((rgb888) & 0xF800)   >> (11-8))/31)<<16
+	       | ((((rgb888) & 0x07E0) <<  (8-5))/63)<<8
+	       | ((((rgb888) & 0x001F) <<  (8-0))/31)<<0;
+}
+
+
+#endif /* LIBOPENCM3_STM32_F4_LTDC_H_ */
