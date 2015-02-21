@@ -20,27 +20,8 @@
 #include <libopencm3/cm3/common.h>
 #include <libopencm3/stm32/memorymap.h>
 
-#if defined(STM32F0)
-#       error "No LCD-TFT for STM32F0"
-#       include <libopencm3/stm32/f0/ltdc.h>
-#elif defined(STM32F1)
-#       error "No LCD-TFT for STM32F1"
-#       include <libopencm3/stm32/f1/ltdc.h>
-#elif defined(STM32F2)
-#       error "No LCD-TFT for STM32F2"
-#       include <libopencm3/stm32/f2/ltdc.h>
-#elif defined(STM32F3)
-#       error "No LCD-TFT for STM32F3"
-#       include <libopencm3/stm32/f3/ltdc.h>
-#elif defined(STM32F4)
+#if defined(STM32F4)
 #       include <libopencm3/stm32/f4/ltdc.h>
-#elif defined(STM32L0)
-#       error "No LCD-TFT for STM32L0"
-#       include <libopencm3/stm32/l0/ltdc.h>
-#elif defined(STM32L1)
-#       error "No LCD-TFT for STM32L1"
-#       include <libopencm3/stm32/l1/ltdc.h>
 #else
-#       error "stm32 family not defined."
+#       error "LCD-TFT only defined for STM32F4"
 #endif
-
