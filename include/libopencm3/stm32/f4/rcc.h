@@ -349,6 +349,8 @@
 
 /* --- RCC_APB2ENR values ------------------------------------------------- */
 
+#define RCC_APB2ENR_LTDCEN			(1 << 26)
+#define RCC_APB2ENR_SAI1EN			(1 << 22)
 #define RCC_APB2ENR_SPI6EN			(1 << 21)
 #define RCC_APB2ENR_SPI5EN			(1 << 20)
 #define RCC_APB2ENR_TIM11EN			(1 << 18)
@@ -484,6 +486,21 @@
 #define RCC_PLLI2SCFGR_PLLI2SR_SHIFT		28
 /* RCC_PLLI2SCFGR[14:6]: PLLI2SN */
 #define RCC_PLLI2SCFGR_PLLI2SN_SHIFT		6
+
+/* --- RCC_PLLSAICFGR values ----------------------------------------------- */
+
+/* RCC_PLLSAICFGR[30:28]: PLLSAIR */
+#define RCC_PLLSAICFGR_PLLSAIR_SHIFT		28
+#define RCC_PLLSAICFGR_PLLSAIR_MASK		0x7
+
+/* RCC_PLLSAICFGR[27:24]: PLLSAIQ */
+#define RCC_PLLSAICFGR_PLLSAIQ_SHIFT		24
+#define RCC_PLLSAICFGR_PLLSAIQ_MASK		0xF
+
+/* RCC_PLLSAICFGR[14:6]: PLLSAIN */
+#define RCC_PLLSAICFGR_PLLSAIN_SHIFT		14
+#define RCC_PLLSAICFGR_PLLSAIN_MASK		0x1FF
+
 
 /* --- RCC_DCKCFGR values -------------------------------------------------- */
 #define RCC_DCKCFGR_PLLSAIDIVR_MSK                 (0x3 << 16)
