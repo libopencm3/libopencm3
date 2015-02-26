@@ -61,6 +61,8 @@ const struct rcc_clock_scale rcc_hse_8mhz_3v3[RCC_CLOCK_3V3_END] = {
 				FLASH_ACR_LATENCY_3WS,
 		.apb1_frequency = 12000000,
 		.apb2_frequency = 24000000,
+		.tim_apb1_frequency = 24000000,
+		.tim_apb2_frequency = 48000000,
 	},
 	{ /* 120MHz */
 		.pllm = 8,
@@ -75,6 +77,8 @@ const struct rcc_clock_scale rcc_hse_8mhz_3v3[RCC_CLOCK_3V3_END] = {
 				FLASH_ACR_LATENCY_3WS,
 		.apb1_frequency = 30000000,
 		.apb2_frequency = 60000000,
+		.tim_apb1_frequency = 30000000,
+		.tim_apb2_frequency = 60000000,
 	},
 	{ /* 168MHz */
 		.pllm = 8,
@@ -88,6 +92,8 @@ const struct rcc_clock_scale rcc_hse_8mhz_3v3[RCC_CLOCK_3V3_END] = {
 				FLASH_ACR_LATENCY_5WS,
 		.apb1_frequency = 42000000,
 		.apb2_frequency = 84000000,
+		.tim_apb1_frequency = 84000000,
+		.tim_apb2_frequency = 168000000,
 	},
 };
 
@@ -105,6 +111,8 @@ const struct rcc_clock_scale rcc_hse_12mhz_3v3[RCC_CLOCK_3V3_END] = {
 				FLASH_ACR_LATENCY_3WS,
 		.apb1_frequency = 12000000,
 		.apb2_frequency = 24000000,
+		.tim_apb1_frequency = 24000000,
+		.tim_apb2_frequency = 48000000,
 	},
 	{ /* 120MHz */
 		.pllm = 12,
@@ -119,6 +127,8 @@ const struct rcc_clock_scale rcc_hse_12mhz_3v3[RCC_CLOCK_3V3_END] = {
 				FLASH_ACR_LATENCY_3WS,
 		.apb1_frequency = 30000000,
 		.apb2_frequency = 60000000,
+		.tim_apb1_frequency = 60000000,
+		.tim_apb2_frequency = 120000000,
 	},
 	{ /* 168MHz */
 		.pllm = 12,
@@ -132,6 +142,8 @@ const struct rcc_clock_scale rcc_hse_12mhz_3v3[RCC_CLOCK_3V3_END] = {
 				FLASH_ACR_LATENCY_5WS,
 		.apb1_frequency = 42000000,
 		.apb2_frequency = 84000000,
+		.tim_apb1_frequency = 84000000,
+		.tim_apb2_frequency = 168000000,
 	},
 };
 
@@ -149,6 +161,8 @@ const struct rcc_clock_scale rcc_hse_16mhz_3v3[RCC_CLOCK_3V3_END] = {
 				FLASH_ACR_LATENCY_3WS,
 		.apb1_frequency = 12000000,
 		.apb2_frequency = 24000000,
+		.tim_apb1_frequency = 24000000,
+		.tim_apb2_frequency = 48000000,
 	},
 	{ /* 120MHz */
 		.pllm = 16,
@@ -163,6 +177,8 @@ const struct rcc_clock_scale rcc_hse_16mhz_3v3[RCC_CLOCK_3V3_END] = {
 				FLASH_ACR_LATENCY_3WS,
 		.apb1_frequency = 30000000,
 		.apb2_frequency = 60000000,
+		.tim_apb1_frequency = 60000000,
+		.tim_apb2_frequency = 120000000,
 	},
 	{ /* 168MHz */
 		.pllm = 16,
@@ -176,6 +192,8 @@ const struct rcc_clock_scale rcc_hse_16mhz_3v3[RCC_CLOCK_3V3_END] = {
 				FLASH_ACR_LATENCY_5WS,
 		.apb1_frequency = 42000000,
 		.apb2_frequency = 84000000,
+		.tim_apb1_frequency = 84000000,
+		.tim_apb2_frequency = 168000000,
 	},
 };
 
@@ -193,6 +211,8 @@ const struct rcc_clock_scale rcc_hse_25mhz_3v3[RCC_CLOCK_3V3_END] = {
 				FLASH_ACR_LATENCY_3WS,
 		.apb1_frequency = 12000000,
 		.apb2_frequency = 24000000,
+		.tim_apb1_frequency = 24000000,
+		.tim_apb2_frequency = 48000000,
 	},
 	{ /* 120MHz */
 		.pllm = 25,
@@ -207,6 +227,8 @@ const struct rcc_clock_scale rcc_hse_25mhz_3v3[RCC_CLOCK_3V3_END] = {
 				FLASH_ACR_LATENCY_3WS,
 		.apb1_frequency = 30000000,
 		.apb2_frequency = 60000000,
+		.tim_apb1_frequency = 60000000,
+		.tim_apb2_frequency = 120000000,
 	},
 	{ /* 168MHz */
 		.pllm = 25,
@@ -220,6 +242,8 @@ const struct rcc_clock_scale rcc_hse_25mhz_3v3[RCC_CLOCK_3V3_END] = {
 				FLASH_ACR_LATENCY_5WS,
 		.apb1_frequency = 42000000,
 		.apb2_frequency = 84000000,
+		.tim_apb1_frequency = 84000000,
+		.tim_apb2_frequency = 168000000,
 	},
 };
 

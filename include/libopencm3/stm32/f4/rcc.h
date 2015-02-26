@@ -558,6 +558,8 @@ struct rcc_clock_scale {
 	uint8_t power_save;
 	uint32_t apb1_frequency;
 	uint32_t apb2_frequency;
+	uint32_t tim_apb1_frequency;
+	uint32_t tim_apb2_frequency;
 };
 
 extern const struct rcc_clock_scale rcc_hse_8mhz_3v3[RCC_CLOCK_3V3_END];
