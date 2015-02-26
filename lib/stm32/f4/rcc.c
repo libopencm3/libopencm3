@@ -44,10 +44,8 @@
 
 /**@{*/
 
-/* Set the default clock frequencies after reset. */
-uint32_t rcc_ahb_frequency = 16000000;
-uint32_t rcc_apb1_frequency = 16000000;
-uint32_t rcc_apb2_frequency = 16000000;
+/* Variable keeping the pointer to the rcc setup struct we used. */
+const struct rcc_clock_scale *rcc_clock_scale_used = 0;
 
 const struct rcc_clock_scale rcc_hse_8mhz_3v3[RCC_CLOCK_3V3_END] = {
 	{ /* 48MHz */
@@ -569,9 +567,8 @@ void rcc_clock_setup_hse_3v3(const struct rcc_clock_scale *clock)
 	/* Wait for PLL clock to be selected. */
 	rcc_wait_for_sysclk_status(RCC_PLL);
 
-	/* Set the peripheral clock frequencies used. */
-	rcc_apb1_frequency = clock->apb1_frequency;
-	rcc_apb2_frequency = clock->apb2_frequency;
+	/* Keep memory of the config struct used for future reference. */
+	rcc_clock_scale_used = clock;
 
 	/* Disable internal high-speed oscillator. */
 	rcc_osc_off(RCC_HSI);

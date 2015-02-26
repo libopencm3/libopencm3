@@ -538,11 +538,6 @@ static inline void rcc_ltdc_set_clock_divr(uint8_t pllsaidivr)
 }
 
 /* --- Variable definitions ------------------------------------------------ */
-extern uint32_t rcc_ahb_frequency;
-extern uint32_t rcc_apb1_frequency;
-extern uint32_t rcc_apb2_frequency;
-
-/* --- Function prototypes ------------------------------------------------- */
 
 enum rcc_clock_3v3 {
 	RCC_CLOCK_3V3_48MHZ,
@@ -569,6 +564,7 @@ extern const struct rcc_clock_scale rcc_hse_8mhz_3v3[RCC_CLOCK_3V3_END];
 extern const struct rcc_clock_scale rcc_hse_12mhz_3v3[RCC_CLOCK_3V3_END];
 extern const struct rcc_clock_scale rcc_hse_16mhz_3v3[RCC_CLOCK_3V3_END];
 extern const struct rcc_clock_scale rcc_hse_25mhz_3v3[RCC_CLOCK_3V3_END];
+extern const struct rcc_clock_scale *rcc_clock_scale_used;
 
 enum rcc_osc {
 	RCC_PLL,
@@ -821,6 +817,8 @@ enum rcc_periph_rst {
 #undef _REG_BIT
 
 #include <libopencm3/stm32/common/rcc_common_all.h>
+
+/* --- Function prototypes ------------------------------------------------- */
 
 BEGIN_DECLS
 
