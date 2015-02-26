@@ -72,14 +72,14 @@ LGPL License Terms @ref lgpl_license
 
 /* --- Function prototypes ------------------------------------------------- */
 
-typedef enum {
-	SCALE1,
-	SCALE2,
-} vos_scale_t;
+enum pwr_vos_scale {
+	PWR_SCALE1,
+	PWR_SCALE2,
+};
 
 BEGIN_DECLS
 
-void pwr_set_vos_scale(vos_scale_t scale);
+void pwr_set_vos_scale(enum pwr_vos_scale scale);
 
 END_DECLS
 
