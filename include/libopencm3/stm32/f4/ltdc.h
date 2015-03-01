@@ -43,23 +43,99 @@
 #define LTDC_LIPCR                 (MMIO32(LTDC_BASE + 0x40))
 #define LTDC_CPSR                  (MMIO32(LTDC_BASE + 0x44))
 #define LTDC_CDSR                  (MMIO32(LTDC_BASE + 0x48))
+
 /* x == LTDC_LAYER_x */
 #define LTDC_LxCR(x)               (MMIO32(LTDC_BASE + 0x84 + 0x80 * (x - 1)))
+#define LTDC_L1CR                  LTDC_LxCR(LTDC_LAYER_1)
+#define LTDC_L2CR                  LTDC_LxCR(LTDC_LAYER_2)
+
 #define LTDC_LxWHPCR(x)            (MMIO32(LTDC_BASE + 0x88 + 0x80 * (x - 1)))
+#define LTDC_L1WHPCR               LTDC_LxWHPCR(LTDC_LAYER_1)
+#define LTDC_L2WHPCR               LTDC_LxWHPCR(LTDC_LAYER_2)
+
 #define LTDC_LxWVPCR(x)            (MMIO32(LTDC_BASE + 0x8C + 0x80 * (x - 1)))
+#define LTDC_L1WVPCR               LTDC_LxWVPCR(LTDC_LAYER_1)
+#define LTDC_L2WVPCR               LTDC_LxWVPCR(LTDC_LAYER_2)
+
 #define LTDC_LxCKCR(x)             (MMIO32(LTDC_BASE + 0x90 + 0x80 * (x - 1)))
+#define LTDC_L1CKCR                LTDC_LxCKCR(LTDC_LAYER_1)
+#define LTDC_L2CKCR                LTDC_LxCKCR(LTDC_LAYER_2)
+
 #define LTDC_LxPFCR(x)             (MMIO32(LTDC_BASE + 0x94 + 0x80 * (x - 1)))
+#define LTDC_L1PFCR                LTDC_LxPFCR(LTDC_LAYER_1)
+#define LTDC_L2PFCR                LTDC_LxPFCR(LTDC_LAYER_2)
+
 #define LTDC_LxCACR(x)             (MMIO32(LTDC_BASE + 0x98 + 0x80 * (x - 1)))
+#define LTDC_L1CACR                LTDC_LxCACR(LTDC_LAYER_1)
+#define LTDC_L2CACR                LTDC_LxCACR(LTDC_LAYER_2)
+
 #define LTDC_LxDCCR(x)             (MMIO32(LTDC_BASE + 0x9C + 0x80 * (x - 1)))
+#define LTDC_L1DCCR                LTDC_LxDCCR(LTDC_LAYER_1)
+#define LTDC_L2DCCR                LTDC_LxDCCR(LTDC_LAYER_2)
+
 #define LTDC_LxBFCR(x)             (MMIO32(LTDC_BASE + 0xA0 + 0x80 * (x - 1)))
+#define LTDC_L1BFCR                LTDC_LxBFCR(LTDC_LAYER_1)
+#define LTDC_L2BFCR                LTDC_LxBFCR(LTDC_LAYER_2)
+
 #define LTDC_LxCFBAR(x)            (MMIO32(LTDC_BASE + 0xAC + 0x80 * (x - 1)))
+#define LTDC_L1CFBAR               LTDC_LxCFBAR(LTDC_LAYER_1)
+#define LTDC_L2CFBAR               LTDC_LxCFBAR(LTDC_LAYER_2)
+
 #define LTDC_LxCFBLR(x)            (MMIO32(LTDC_BASE + 0xB0 + 0x80 * (x - 1)))
+#define LTDC_L1CFBLR               LTDC_LxCFBLR(LTDC_LAYER_1)
+#define LTDC_L2CFBLR               LTDC_LxCFBLR(LTDC_LAYER_2)
+
 #define LTDC_LxCFBLNR(x)           (MMIO32(LTDC_BASE + 0xB4 + 0x80 * (x - 1)))
+#define LTDC_L1CFBLNR              LTDC_LxCFBLNR(LTDC_LAYER_1)
+#define LTDC_L2CFBLNR              LTDC_LxCFBLNR(LTDC_LAYER_2)
+
 #define LTDC_LxCLUTWR(x)           (MMIO32(LTDC_BASE + 0xC4 + 0x80 * (x - 1)))
+#define LTDC_L1CLUTWR              LTDC_LxCLUTWR(LTDC_LAYER_1)
+#define LTDC_L2CLUTWR              LTDC_LxCLUTWR(LTDC_LAYER_2)
+
 
 #define LTDC_LAYER_1 1
 #define LTDC_LAYER_2 2
 
+/* --- LTDC_SSCR values ---------------------------------------------------- */
+
+/* Horizontal Synchronization Width */
+#define LTDC_SSCR_HSW_SHIFT             16
+#define LTDC_SSCR_HSW_MASK              0xfff
+
+/* Vertical Synchronization Height */
+#define LTDC_SSCR_VSH_SHIFT             0
+#define LTDC_SSCR_VSH_MASK              0x7ff
+
+/* --- LTDC_BPCR values ---------------------------------------------------- */
+
+/* Accumulated Horizontal Back Porch */
+#define LTDC_BPCR_AHBP_SHIFT            16
+#define LTDC_BPCR_AHBP_MASK             0xfff
+
+/* Accumulated Vertical Back Porch */
+#define LTDC_BPCR_AVBP_SHIFT            0
+#define LTDC_BPCR_AVBP_MASK             0x7FF
+
+/* --- LTDC_AWCR values ---------------------------------------------------- */
+
+/* Accumulated Active Width */
+#define LTDC_AWCR_AAW_SHIFT             16
+#define LTDC_AWCR_AAW_MASK              0xfff
+
+/* Accumulated Active Height */
+#define LTDC_AWCR_AAH_SHIFT             0
+#define LTDC_AWCR_AAH_MASK              0x7ff
+
+/* --- LTDC_TWCR values ---------------------------------------------------- */
+
+/* Total Width */
+#define LTDC_TWCR_TOTALW_SHIFT          16
+#define LTDC_TWCR_TOTALW_MASK           0xfff
+
+/* Total Height */
+#define LTDC_TWCR_TOTALH_SHIFT          0
+#define LTDC_TWCR_TOTALH_MASK           0x7ff
 
 /* GCR - control register */
 #define LTDC_GCR_LTDC_ENABLE       (1<<0)
@@ -77,9 +153,75 @@
 #define LTDC_GCR_HSPOL_ACTIVE_LOW  (0<<31)
 #define LTDC_GCR_HSPOL_ACTIVE_HIGH (1<<31)
 
+/* --- LTDC_SRCR values ---------------------------------------------------- */
+
+/* Vertical Blanking Reload */
+#define LTDC_SRCR_VBR                   (1 << 1)
+
+/* Immediate Reload */
+#define LTDC_SRCR_IMR                   (1 << 0)
+
 /* LTDC_BCCR - reload control */
 #define LTDC_SRCR_RELOAD_IMR       (1<<0)
 #define LTDC_SRCR_RELOAD_VBR       (1<<1)
+
+/* --- LTDC_IER values ----------------------------------------------------- */
+
+/* Register Reload Interrupt Enable */
+#define LTDC_IER_RRIE                   (1 << 3)
+
+/* Transfer Error Interrupt Enable */
+#define LTDC_IER_TERRIE                 (1 << 2)
+
+/* FIFO Underrun Interrupt Enable */
+#define LTDC_IER_FUIE                   (1 << 1)
+
+/* Line Interrupt Enable */
+#define LTDC_IER_LIE                    (1 << 0)
+
+/* --- LTDC_ISR values ----------------------------------------------------- */
+
+/* Register Reload Interrupt Flag */
+#define LTDC_ISR_RRIF                   (1 << 3)
+
+/* Transfer Error Interrupt Flag */
+#define LTDC_ISR_TERRIF                 (1 << 2)
+
+/* FIFO Underrun Interrupt Flag */
+#define LTDC_ISR_FUIF                   (1 << 1)
+
+/* Line Interrupt Flag */
+#define LTDC_ISR_LIF                    (1 << 0)
+
+/* --- LTDC_ICR values ----------------------------------------------------- */
+
+/* Clears Register Reload Interrupt Flag */
+#define LTDC_ICR_CRRIF                  (1 << 3)
+
+/* Clears Transfer Error Interrupt Flag */
+#define LTDC_ICR_CTERRIF                (1 << 2)
+
+/* Clears FIFO Underrun Interrupt Flag */
+#define LTDC_ICR_CFUIF                  (1 << 1)
+
+/* Clears Line Interrupt Flag */
+#define LTDC_ICR_CLIF                   (1 << 0)
+
+/* --- LTDC_LIPCR values --------------------------------------------------- */
+
+/* Line Interrupt Position */
+#define LTDC_LIPCR_LIPOS_SHIFT          0
+#define LTDC_LIPCR_LIPOS_MASK           0x7ff
+
+/* --- LTDC_CPSR values ---------------------------------------------------- */
+
+/* Current X Position */
+#define LTDC_CPSR_CXPOS_SHIFT           16
+#define LTDC_CPSR_CXPOS_MASK            0xffff
+
+/* Current Y Position */
+#define LTDC_CPSR_CYPOS_SHIFT           0
+#define LTDC_CPSR_CYPOS_MASK            0xffff
 
 /* LTDC_CDSR - display status register */
 #define LTDC_CDSR_VDES             (1<<0)
@@ -92,6 +234,40 @@
 #define LTDC_LxCR_COLKEY_ENABLE    (1<<1)
 #define LTDC_LxCR_COLTAB_ENABLE    (1<<4)
 
+/* --- LTDC_LxWHPCR values ------------------------------------------------- */
+
+/* Window Horizontal Stop Position */
+#define LTDC_LxWHPCR_WHSPPOS_SHIFT      16
+#define LTDC_LxWHPCR_WHSPPOS_MASK       0xfff
+
+/* Window Horizontal Start Position */
+#define LTDC_LxWHPCR_WHSTPOS_SHIFT      0
+#define LTDC_LxWHPCR_WHSTPOS_MASK       0xfff
+
+/* --- LTDC_LxWVPCR values ------------------------------------------------- */
+
+/* Window Vertical Stop Position */
+#define LTDC_LxWVPCR_WVSPPOS_SHIFT      16
+#define LTDC_LxWVPCR_WVSPPOS_MASK       0x7ff
+
+/* Window Vertical Start Position */
+#define LTDC_LxWVPCR_WVSTPOS_SHIFT      0
+#define LTDC_LxWVPCR_WVSTPOS_MASK       0x7ff
+
+/* --- LTDC_LxCKCR values -------------------------------------------------- */
+
+/* Color Key Red */
+#define LTDC_LxCKCR_CKRED_SHIFT         16
+#define LTDC_LxCKCR_CKRED_MASK          0xff
+
+/* Color Key Green */
+#define LTDC_LxCKCR_CKGREEN_SHIFT       16
+#define LTDC_LxCKCR_CKGREEN_MASK        0xff
+
+/* Color Key Blue */
+#define LTDC_LxCKCR_CKBLUE_SHIFT        16
+#define LTDC_LxCKCR_CKBLUE_MASK         0xff
+
 /* LTDC_LxPFCR - Pixel formats */
 #define LTDC_LxPFCR_ARGB8888       (0b000)
 #define LTDC_LxPFCR_RGB888         (0b001)
@@ -102,12 +278,76 @@
 #define LTDC_LxPFCR_AL44           (0b110)
 #define LTDC_LxPFCR_AL88           (0b111)
 
+/* --- LTDC_LxCACR values -------------------------------------------------- */
+
+/* Constant Alpha */
+#define LTDC_LxCACR_CONSTA_SHIFT        0
+#define LTDC_LxCACR_CONSTA_MASK         0xff
+
+/* --- LTDC_LxDCCR values -------------------------------------------------- */
+
+/* Default Color Alpha */
+#define LTDC_LxDCCR_DCALPHA_SHIFT       24
+#define LTDC_LxDCCR_DCALPHA_MASK        1
+
+/* Default Color Red */
+#define LTDC_LxDCCR_DCRED_SHIFT         16
+#define LTDC_LxDCCR_DCRED_MASK          1
+
+/* Default Color Green */
+#define LTDC_LxDCCR_DCGREEN_SHIFT       8
+#define LTDC_LxDCCR_DCGREEN_MASK        1
+
+/* Default Color Blue */
+#define LTDC_LxDCCR_DCBLUE_SHIFT        0
+#define LTDC_LxDCCR_DCBLUE_MASK         1
+
 /* LTDC_LxBFCR - Blending factors - BF1 */
 #define LTDC_LxBFCR_BF1_CONST_ALPHA               (0b100)
 #define LTDC_LxBFCR_BF1_PIXEL_ALPHA_x_CONST_ALPHA (0b110)
 /* LTDC_LxBFCR - Blending factors - BF2 */
 #define LTDC_LxBFCR_BF2_CONST_ALPHA               (0b101)
 #define LTDC_LxBFCR_BF2_PIXEL_ALPHA_x_CONST_ALPHA (0b111)
+
+/* --- LTDC_LxCFBAR values ------------------------------------------------- */
+
+/* Color Frame Buffer Start Address */
+#define LTDC_LxCFBAR_CFBAR_SHIFT        0
+#define LTDC_LxCFBAR_CFBAR_MASK         0xffffffff
+
+/* --- LTDC_LxCFBLR values ------------------------------------------------- */
+
+/* Color Frame Buffer Pitch */
+#define LTDC_LxCFBLR_CFBP_SHIFT         16
+#define LTDC_LxCFBLR_CFBP_MASK          0x1fff
+
+/* Color Frame Buffer Line Length */
+#define LTDC_LxCFBLR_CFBLL_SHIFT        0
+#define LTDC_LxCFBLR_CFBLL_MASK         0x1fff
+
+/* --- LTDC_LxCFBLNR values ------------------------------------------------ */
+
+/* Frame Buffer Line Number */
+#define LTDC_LxCFBLNR_CFBLNBR_SHIFT     0
+#define LTDC_LxCFBLNR_CFBLNBR_MASK      0x3ff
+
+/* --- LTDC_LxCLUTWR values ------------------------------------------------ */
+
+/* CLUT Address */
+#define LTDC_LxCLUTWR_CLUTADD_SHIFT     24
+#define LTDC_LxCLUTWR_CLUTADD_MASK      0xff
+
+/* Red */
+#define LTDC_LxCLUTWR_RED_SHIFT         16
+#define LTDC_LxCLUTWR_RED_MASK          0xff
+
+/* Green */
+#define LTDC_LxCLUTWR_GREEN_SHIFT       8
+#define LTDC_LxCLUTWR_GREEN_MASK        0xff
+
+/* Blue */
+#define LTDC_LxCLUTWR_BLUE_SHIFT        0
+#define LTDC_LxCLUTWR_BLUE_MASK         0xff
 
 /**
  * simple helper macros
