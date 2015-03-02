@@ -64,6 +64,19 @@ const clock_scale_t hse_8mhz_3v3[CLOCK_3V3_END] = {
 		.apb1_frequency = 12000000,
 		.apb2_frequency = 24000000,
 	},
+	{ /* 84MHz */
+		.pllm = 8,
+		.plln = 336,
+		.pllp = 4,
+		.pllq = 7,
+		.hpre = RCC_CFGR_HPRE_DIV_NONE,
+		.ppre1 = RCC_CFGR_PPRE_DIV_2,
+		.ppre2 = RCC_CFGR_PPRE_DIV_NONE,
+		.flash_config = FLASH_ACR_ICE | FLASH_ACR_DCE |
+				FLASH_ACR_LATENCY_5WS,
+		.apb1_frequency = 42000000,
+		.apb2_frequency = 84000000,
+	},
 	{ /* 120MHz */
 		.pllm = 8,
 		.plln = 240,
@@ -107,6 +120,19 @@ const clock_scale_t hse_12mhz_3v3[CLOCK_3V3_END] = {
 				FLASH_ACR_LATENCY_3WS,
 		.apb1_frequency = 12000000,
 		.apb2_frequency = 24000000,
+	},
+	{ /* 84MHz */
+		.pllm = 12,
+		.plln = 336,
+		.pllp = 4,
+		.pllq = 7,
+		.hpre = RCC_CFGR_HPRE_DIV_NONE,
+		.ppre1 = RCC_CFGR_PPRE_DIV_2,
+		.ppre2 = RCC_CFGR_PPRE_DIV_NONE,
+		.flash_config = FLASH_ACR_ICE | FLASH_ACR_DCE |
+				FLASH_ACR_LATENCY_5WS,
+		.apb1_frequency = 42000000,
+		.apb2_frequency = 84000000,
 	},
 	{ /* 120MHz */
 		.pllm = 12,
@@ -152,6 +178,19 @@ const clock_scale_t hse_16mhz_3v3[CLOCK_3V3_END] = {
 		.apb1_frequency = 12000000,
 		.apb2_frequency = 24000000,
 	},
+	{ /* 84MHz */
+		.pllm = 16,
+		.plln = 336,
+		.pllp = 4,
+		.pllq = 7,
+		.hpre = RCC_CFGR_HPRE_DIV_NONE,
+		.ppre1 = RCC_CFGR_PPRE_DIV_2,
+		.ppre2 = RCC_CFGR_PPRE_DIV_NONE,
+		.flash_config = FLASH_ACR_ICE | FLASH_ACR_DCE |
+				FLASH_ACR_LATENCY_5WS,
+		.apb1_frequency = 42000000,
+		.apb2_frequency = 84000000,
+	},
 	{ /* 120MHz */
 		.pllm = 16,
 		.plln = 240,
@@ -195,6 +234,19 @@ const clock_scale_t hse_25mhz_3v3[CLOCK_3V3_END] = {
 				FLASH_ACR_LATENCY_3WS,
 		.apb1_frequency = 12000000,
 		.apb2_frequency = 24000000,
+	},
+	{ /* 84MHz */
+		.pllm = 25,
+		.plln = 336,
+		.pllp = 4,
+		.pllq = 7,
+		.hpre = RCC_CFGR_HPRE_DIV_NONE,
+		.ppre1 = RCC_CFGR_PPRE_DIV_2,
+		.ppre2 = RCC_CFGR_PPRE_DIV_NONE,
+		.flash_config = FLASH_ACR_ICE | FLASH_ACR_DCE |
+				FLASH_ACR_LATENCY_5WS,
+		.apb1_frequency = 42000000,
+		.apb2_frequency = 84000000,
 	},
 	{ /* 120MHz */
 		.pllm = 25,
