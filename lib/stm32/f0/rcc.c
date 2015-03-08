@@ -411,38 +411,6 @@ void rcc_set_usbclk_source(enum rcc_osc clk)
 	}
 }
 
-/** @brief RCC Set the System Clock Source.
- *
- * @param[in] osc enum ::osc_t. Oscillator ID. Only HSE, LSE and PLL have
- * effect.
- */
-
-void rcc_set_sysclk(enum rcc_osc clk_src)
-{
-	uint32_t	clk = RCC_CFGR_SW_HSI;
-	switch (clk_src) {
-	case HSI:
-		clk = RCC_CFGR_SW_HSI;
-		break;
-	case HSE:
-		clk = RCC_CFGR_SW_HSE;
-		break;
-	case PLL:
-		clk = RCC_CFGR_SW_PLL;
-		break;
-	case HSI48:
-		clk = RCC_CFGR_SW_HSI48;
-		break;
-	case LSI:
-	case LSE:
-	case HSI14:
-		/* do nothing */
-		return;
-	}
-	/* select the clock, and then wait for it to take effect */
-	RCC_CFGR = (RCC_CFGR & ~RCC_CFGR_SW) | clk;
-	while (((RCC_CFGR >> 2) & 3) != clk) ;
-}
 
 /*---------------------------------------------------------------------------*/
 /** @brief RCC Set the PLL Multiplication Factor.
