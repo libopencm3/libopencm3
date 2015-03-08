@@ -499,7 +499,7 @@ extern uint32_t rcc_apb2_frequency;
 /* --- Function prototypes ------------------------------------------------- */
 
 enum rcc_osc {
-	PLL, HSE, HSI48, HSI16, HSI4, MSI, LSE, LSI
+	PLL, HSE, HSI48, HSI, MSI, LSE, LSI
 };
 
 
@@ -648,8 +648,7 @@ void rcc_set_sysclk(enum rcc_osc clk);
 void rcc_set_ppre1(uint32_t div);
 void rcc_set_ppre2(uint32_t div);
 void rcc_set_hpre(uint32_t div);
-void rcc_hsi4_clock_setup(void);
-void rcc_hsi16_clock_setup(void);
+void rcc_hsi_clock_setup(uint32_t base_frequency);
 void rcc_msi_clock_setup(uint32_t msi_freq);
 void rcc_hse_clock_setup(uint32_t hse_freq);
 void rcc_pll_clock_setup(uint32_t pll_freq, uint32_t src_freq);

@@ -60,8 +60,7 @@ void rcc_osc_on(enum rcc_osc osc)
 	case HSI48:
 		RCC_CRRCR |= RCC_CRRCR_HSI48ON;
 		break;
-	case HSI4:
-	case HSI16:
+	case HSI:
 		RCC_CR |= RCC_CR_HSI16ON;
 		break;
 	case LSE:
@@ -88,8 +87,7 @@ void rcc_osc_off(enum rcc_osc osc)
 	case HSI48:
 		RCC_CRRCR &= ~RCC_CRRCR_HSI48ON;
 		break;
-	case HSI4:
-	case HSI16:
+	case HSI:
 		RCC_CR &= ~RCC_CR_HSI16ON;
 		break;
 	case LSE:
@@ -153,8 +151,7 @@ void rcc_osc_ready_int_clear(enum rcc_osc osc)
 	case HSI48:
 		RCC_CICR |= RCC_CICR_HSI48RDYC;
 		break;
-	case HSI4:
-	case HSI16:
+	case HSI:
 		RCC_CICR |= RCC_CICR_HSI16RDYC;
 		break;
 	case MSI:
@@ -186,8 +183,7 @@ void rcc_osc_ready_int_enable(enum rcc_osc osc)
 	case HSI48:
 		RCC_CIER |= RCC_CIER_HSI48RDYIE;
 		break;
-	case HSI4:
-	case HSI16:
+	case HSI:
 		RCC_CIER |= RCC_CIER_HSI16RDYIE;
 		break;
 	case MSI:
@@ -219,8 +215,7 @@ void rcc_osc_ready_int_disable(enum rcc_osc osc)
 	case HSI48:
 		RCC_CIER &= ~RCC_CIER_HSI48RDYIE;
 		break;
-	case HSI4:
-	case HSI16:
+	case HSI:
 		RCC_CIER &= ~RCC_CIER_HSI16RDYIE;
 		break;
 	case MSI:
@@ -253,8 +248,7 @@ int rcc_osc_ready_int_flag(enum rcc_osc osc)
 	case HSI48:
 		return ((RCC_CIFR & RCC_CIFR_HSI48RDYF) != 0);
 		break;
-	case HSI4:
-	case HSI16:
+	case HSI:
 		return ((RCC_CIFR & RCC_CIFR_HSI16RDYF) != 0);
 		break;
 	case MSI:
@@ -286,12 +280,7 @@ void rcc_wait_for_osc_ready(enum rcc_osc osc)
 	case HSE:
 		while ((RCC_CR & RCC_CR_HSERDY) == 0);
 		break;
-	case HSI4:
-		while ((RCC_CR & RCC_CR_HSI16DIVF) == 0);
-		while ((RCC_CR & RCC_CR_HSI16RDY) == 0);
-		break;
-		
-	case HSI16:
+	case HSI:
 		while ((RCC_CR & RCC_CR_HSI16RDY) == 0);
 		break;
 	case HSI48:
@@ -320,7 +309,7 @@ enum rcc_osc rcc_get_sysclk(void) {
 	case 0:
 		return MSI;
 	case 1:
-		return (RCC_CR & RCC_CR_HSI16DIVF) ? HSI4 : HSI16;
+		return HSI;
 	case 2:
 		return HSE;
 	case 3:
@@ -390,10 +379,7 @@ void rcc_set_sysclk(enum rcc_osc osc) {
 	case HSE:
 		clk_bits = RCC_CFGR_SW_HSE;
 		break;
-	case HSI16:
-		clk_bits = RCC_CFGR_SW_HSI16;
-		break;
-	case HSI4:
+	case HSI:
 		clk_bits = RCC_CFGR_SW_HSI16;
 		break;
 	default:
@@ -407,43 +393,29 @@ void rcc_set_sysclk(enum rcc_osc osc) {
 	/* wait for it to be realized */
 	while (((RCC_CFGR >> RCC_CFGR_SWS_SHIFT) & RCC_CFGR_SWS_MASK) != clk_bits) ;
 
-	/* for 'fake' HSI4 clock, turn on divider */
-	if (osc == HSI4) {
-		RCC_CR = RCC_CR | RCC_CR_HSI16DIVEN;
-		while (! (RCC_CR & RCC_CR_HSI16DIVF)) ;
-	}
 }
 
 /*---------------------------------------------------------------------------*/
-/** @brief Set up and select the HSI16 System Clock source.
+/** @brief Set up and select the HSI System Clock source.
  *
  */
-void rcc_hsi16_clock_setup(void) {
-	rcc_osc_on(HSI16);
+void rcc_hsi_clock_setup(uint32_t base_frequency) {
+	rcc_osc_on(HSI);
 	while (! (RCC_CR & RCC_CR_HSI16RDY)) ;
-	rcc_set_sysclk(HSI16);
+	rcc_set_sysclk(HSI);
 	rcc_set_ppre1(RCC_PPRE_DIV_NONE);
 	rcc_set_ppre2(RCC_PPRE_DIV_NONE);
 	rcc_ahb_frequency = 16000000;
 	rcc_apb1_frequency = 16000000;
 	rcc_apb2_frequency = 16000000;
-}
-
-/*---------------------------------------------------------------------------*/
-/** @brief Set up and select the HSI4 System Clock source.
- *
- * This is a "fake" clock in that it is simply the HSI16 clock divided by
- * 4, but other than the divider it looks to the chip like an HSI4 clock.
- */
-void rcc_hsi4_clock_setup(void) {
-	rcc_osc_on(HSI16);
-	while (! (RCC_CR & RCC_CR_HSI16RDY)) ;
-	rcc_set_sysclk(HSI4);
-	rcc_set_ppre1(RCC_PPRE_DIV_NONE);
-	rcc_set_ppre2(RCC_PPRE_DIV_NONE);
-	rcc_ahb_frequency = 4000000;
-	rcc_apb1_frequency = 4000000;
-	rcc_apb2_frequency = 4000000;
+	/* If they asked for the 4MHZ clock turn on divider */
+	if (base_frequency == 4000000) {
+		RCC_CR = RCC_CR | RCC_CR_HSI16DIVEN;
+		while (! (RCC_CR & RCC_CR_HSI16DIVF)) ;
+		rcc_ahb_frequency = 4000000;
+		rcc_apb1_frequency = 4000000;
+		rcc_apb2_frequency = 4000000;
+	}
 }
 
 void rcc_msi_clock_setup(uint32_t msi_frequency) {
@@ -481,13 +453,13 @@ void rcc_hse_clock_setup(uint32_t hse_frequency) {
 	rcc_apb2_frequency = hse_frequency;
 }
 
+/* TODO(cmcmanis) - this is needs to be implemented for the L0 family */
 void rcc_pll_clock_setup(uint32_t pll_frequency, uint32_t base_frequency) {
 	if (rcc_get_sysclk() == PLL) {
 		/* switch to a known good clock (also the reset clock) */
 		rcc_msi_clock_setup(RCC_MSI_2MHZ);
 	}
 	rcc_osc_off(PLL);
-	
 }
 
 /**@}*/
