@@ -599,32 +599,6 @@ extern uint32_t rcc_apb2_frequency;
 
 /* --- Function prototypes ------------------------------------------------- */
 
-typedef enum {
-	CLOCK_3V3_48MHZ,
-	CLOCK_3V3_120MHZ,
-	CLOCK_3V3_168MHZ,
-	CLOCK_3V3_END
-} clock_3v3_t;
-
-typedef struct {
-	uint8_t pllm;
-	uint16_t plln;
-	uint8_t pllp;
-	uint8_t pllq;
-	uint32_t flash_config;
-	uint8_t hpre;
-	uint8_t ppre1;
-	uint8_t ppre2;
-	uint8_t power_save;
-	uint32_t apb1_frequency;
-	uint32_t apb2_frequency;
-} clock_scale_t;
-
-extern const clock_scale_t hse_8mhz_3v3[CLOCK_3V3_END];
-extern const clock_scale_t hse_12mhz_3v3[CLOCK_3V3_END];
-extern const clock_scale_t hse_16mhz_3v3[CLOCK_3V3_END];
-extern const clock_scale_t hse_25mhz_3v3[CLOCK_3V3_END];
-
 enum rcc_osc {
 	PLL, HSE, HSI, LSE, LSI
 };
@@ -890,7 +864,6 @@ void rcc_css_disable(void);
 void rcc_osc_bypass_enable(enum rcc_osc osc);
 void rcc_osc_bypass_disable(enum rcc_osc osc);
 uint32_t rcc_system_clock_source(void);
-void rcc_clock_setup_hse_3v3(const clock_scale_t *clock);
 void rcc_set_sysclk_source(uint32_t clk);
 void rcc_set_pll_source(uint32_t pllsrc);
 void rcc_set_main_pll_hsi(uint32_t pllm, uint32_t plln, uint32_t pllp,
