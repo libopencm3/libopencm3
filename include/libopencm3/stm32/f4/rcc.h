@@ -562,35 +562,41 @@ static inline void rcc_ltdc_set_clock_divr(uint8_t pllsaidivr)
 /* The internal clock frequency on the F4 chip */
 #define RCC_HSI_FREQUENCY		16000000
 
-#define RCC_16MHZ_HSI_48MHZ_PLL		RCC_PLLCFGR_BITS(4, 96, 4, 8, 0)	/* VCO = 192 Mhz */
-#define RCC_16MHZ_HSI_84MHZ_PLL		RCC_PLLCFGR_BITS(4, 168, 7, 8, 0)	/* VCO = 336 Mhz */
-#define RCC_16MHZ_HSI_96MHZ_PLL		RCC_PLLCFGR_BITS(2, 96, 4, 8, 0)	/* VCO = 192 Mhz */
-#define RCC_16MHZ_HSI_120MHZ_PLL	RCC_PLLCFGR_BITS(2, 120, 5, 8, 0)	/* VCO = 240 Mhz */
-#define RCC_16MHZ_HSI_168MHZ_PLL	RCC_PLLCFGR_BITS(2, 168, 7, 8, 0)	/* VCO = 336 Mhz */
+#define RCC_16MHZ_HSI_48MHZ_PLL		RCC_PLLCFGR_BITS(1, 96, 4, 8, 0)	/* VCO = 192 Mhz */
+#define RCC_16MHZ_HSI_84MHZ_PLL		RCC_PLLCFGR_BITS(1, 168, 7, 8, 0)	/* VCO = 336 Mhz */
+#define RCC_16MHZ_HSI_96MHZ_PLL		RCC_PLLCFGR_BITS(0, 96, 4, 8, 0)	/* VCO = 192 Mhz */
+#define RCC_16MHZ_HSI_120MHZ_PLL	RCC_PLLCFGR_BITS(0, 120, 5, 8, 0)	/* VCO = 240 Mhz */
+#define RCC_16MHZ_HSI_168MHZ_PLL	RCC_PLLCFGR_BITS(0, 168, 7, 8, 0)	/* VCO = 336 Mhz */
 
-#define RCC_5MHZ_HSE_48MHZ_PLL		RCC_PLLCFGR_BITS(4, 192, 4, 5, 1)	/* VCO = 192 Mhz */
-#define RCC_5MHZ_HSE_84MHZ_PLL		RCC_PLLCFGR_BITS(4, 336, 7, 5, 1)	/* VCO = 336 Mhz */
-#define RCC_5MHZ_HSE_96MHZ_PLL		RCC_PLLCFGR_BITS(2, 192, 4, 5, 1)	/* VCO = 192 Mhz */
-#define RCC_5MHZ_HSE_120MHZ_PLL		RCC_PLLCFGR_BITS(2, 144, 5, 3, 1)	/* VCO = 240 Mhz */
-#define RCC_5MHZ_HSE_168MHZ_PLL		RCC_PLLCFGR_BITS(2, 336, 7, 5, 1)	/* VCO = 336 Mhz */
+#define RCC_5MHZ_HSE_48MHZ_PLL		RCC_PLLCFGR_BITS(1, 192, 4, 5, 1)	/* VCO = 192 Mhz */
+#define RCC_5MHZ_HSE_84MHZ_PLL		RCC_PLLCFGR_BITS(1, 336, 7, 5, 1)	/* VCO = 336 Mhz */
+#define RCC_5MHZ_HSE_96MHZ_PLL		RCC_PLLCFGR_BITS(0, 192, 4, 5, 1)	/* VCO = 192 Mhz */
+#define RCC_5MHZ_HSE_120MHZ_PLL		RCC_PLLCFGR_BITS(0, 144, 5, 3, 1)	/* VCO = 240 Mhz */
+#define RCC_5MHZ_HSE_168MHZ_PLL		RCC_PLLCFGR_BITS(0, 336, 7, 5, 1)	/* VCO = 336 Mhz */
 
-#define RCC_12MHZ_HSE_48MHZ_PLL		RCC_PLLCFGR_BITS(4, 96, 4, 6, 1)	/* VCO = 192 Mhz */
-#define RCC_12MHZ_HSE_84MHZ_PLL		RCC_PLLCFGR_BITS(4, 168, 7, 6, 1)	/* VCO = 336 Mhz */
-#define RCC_12MHZ_HSE_96MHZ_PLL		RCC_PLLCFGR_BITS(2, 96, 4, 6, 1)	/* VCO = 192 Mhz */
-#define RCC_12MHZ_HSE_120MHZ_PLL	RCC_PLLCFGR_BITS(2, 120, 5, 6, 1)	/* VCO = 240 Mhz */
-#define RCC_12MHZ_HSE_168MHZ_PLL	RCC_PLLCFGR_BITS(2, 168, 7, 6, 1)	/* VCO = 336 Mhz */
+#define RCC_8MHZ_HSE_48MHZ_PLL		RCC_PLLCFGR_BITS(1, 96, 4, 4, 1)	/* VCO = 192 Mhz */
+#define RCC_8MHZ_HSE_84MHZ_PLL		RCC_PLLCFGR_BITS(1, 168, 7, 4, 1)	/* VCO = 336 Mhz */
+#define RCC_8MHZ_HSE_96MHZ_PLL		RCC_PLLCFGR_BITS(0, 96, 4, 4, 1)	/* VCO = 192 Mhz */
+#define RCC_8MHZ_HSE_120MHZ_PLL		RCC_PLLCFGR_BITS(0, 120, 5, 4, 1)	/* VCO = 240 Mhz */
+#define RCC_8MHZ_HSE_168MHZ_PLL		RCC_PLLCFGR_BITS(0, 168, 7, 4, 1)	/* VCO = 336 Mhz */
 
-#define RCC_16MHZ_HSE_48MHZ_PLL		RCC_PLLCFGR_BITS(4, 96, 4, 8, 1)	/* VCO = 192 Mhz */
-#define RCC_16MHZ_HSE_84MHZ_PLL		RCC_PLLCFGR_BITS(4, 168, 7, 8, 1)	/* VCO = 336 Mhz */
-#define RCC_16MHZ_HSE_96MHZ_PLL		RCC_PLLCFGR_BITS(2, 96, 4, 8, 1)	/* VCO = 192 Mhz */
-#define RCC_16MHZ_HSE_120MHZ_PLL	RCC_PLLCFGR_BITS(2, 120, 5, 8, 1)	/* VCO = 240 Mhz */
-#define RCC_16MHZ_HSE_168MHZ_PLL	RCC_PLLCFGR_BITS(2, 168, 7, 8, 1)	/* VCO = 336 Mhz */
+#define RCC_12MHZ_HSE_48MHZ_PLL		RCC_PLLCFGR_BITS(1, 96, 4, 6, 1)	/* VCO = 192 Mhz */
+#define RCC_12MHZ_HSE_84MHZ_PLL		RCC_PLLCFGR_BITS(1, 168, 7, 6, 1)	/* VCO = 336 Mhz */
+#define RCC_12MHZ_HSE_96MHZ_PLL		RCC_PLLCFGR_BITS(0, 96, 4, 6, 1)	/* VCO = 192 Mhz */
+#define RCC_12MHZ_HSE_120MHZ_PLL	RCC_PLLCFGR_BITS(0, 120, 5, 6, 1)	/* VCO = 240 Mhz */
+#define RCC_12MHZ_HSE_168MHZ_PLL	RCC_PLLCFGR_BITS(0, 168, 7, 6, 1)	/* VCO = 336 Mhz */
 
-#define RCC_25MHZ_HSE_48MHZ_PLL		RCC_PLLCFGR_BITS(4, 192, 4, 25, 1)	/* VCO = 192 Mhz */
-#define RCC_25MHZ_HSE_84MHZ_PLL		RCC_PLLCFGR_BITS(4, 336, 7, 25, 1)	/* VCO = 336 Mhz */
-#define RCC_25MHZ_HSE_96MHZ_PLL		RCC_PLLCFGR_BITS(2, 192, 4, 25, 1)	/* VCO = 192 Mhz */
-#define RCC_25MHZ_HSE_120MHZ_PLL	RCC_PLLCFGR_BITS(2, 144, 5, 15, 1)	/* VCO = 240 Mhz */
-#define RCC_25MHZ_HSE_168MHZ_PLL	RCC_PLLCFGR_BITS(2, 336, 7, 25, 1)	/* VCO = 336 Mhz */
+#define RCC_16MHZ_HSE_48MHZ_PLL		RCC_PLLCFGR_BITS(1, 96, 4, 8, 1)	/* VCO = 192 Mhz */
+#define RCC_16MHZ_HSE_84MHZ_PLL		RCC_PLLCFGR_BITS(1, 168, 7, 8, 1)	/* VCO = 336 Mhz */
+#define RCC_16MHZ_HSE_96MHZ_PLL		RCC_PLLCFGR_BITS(0, 96, 4, 8, 1)	/* VCO = 192 Mhz */
+#define RCC_16MHZ_HSE_120MHZ_PLL	RCC_PLLCFGR_BITS(0, 120, 5, 8, 1)	/* VCO = 240 Mhz */
+#define RCC_16MHZ_HSE_168MHZ_PLL	RCC_PLLCFGR_BITS(0, 168, 7, 8, 1)	/* VCO = 336 Mhz */
+
+#define RCC_25MHZ_HSE_48MHZ_PLL		RCC_PLLCFGR_BITS(1, 192, 4, 25, 1)	/* VCO = 192 Mhz */
+#define RCC_25MHZ_HSE_84MHZ_PLL		RCC_PLLCFGR_BITS(1, 336, 7, 25, 1)	/* VCO = 336 Mhz */
+#define RCC_25MHZ_HSE_96MHZ_PLL		RCC_PLLCFGR_BITS(0, 192, 4, 25, 1)	/* VCO = 192 Mhz */
+#define RCC_25MHZ_HSE_120MHZ_PLL	RCC_PLLCFGR_BITS(0, 144, 5, 15, 1)	/* VCO = 240 Mhz */
+#define RCC_25MHZ_HSE_168MHZ_PLL	RCC_PLLCFGR_BITS(0, 336, 7, 25, 1)	/* VCO = 336 Mhz */
 
 /* --- Variable definitions ------------------------------------------------ */
 extern uint32_t rcc_ahb_frequency;
@@ -880,8 +886,9 @@ void rcc_set_rtcpre(uint32_t rtcpre);
 void rcc_set_sysclk(enum rcc_osc osc);
 enum rcc_osc rcc_get_sysclk(void);
 void rcc_pll_clock_setup(uint32_t clock_speed, uint32_t input_speed);
-void rcc_hsi_clock_setup(void);
+void rcc_hsi_clock_setup(uint32_t frequency);
 void rcc_hse_clock_setup(uint32_t hse_freq);
+void rcc_set_clock(uint32_t desired_frequency, uint32_t hse_frequency);
 
 END_DECLS
 

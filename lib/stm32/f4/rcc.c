@@ -426,7 +426,8 @@ uint32_t rcc_get_pll_frequency(uint32_t hse_frequency) {
  * as its system clock source. This source is fixed at 16Mhz. It will
  * also set the APB1 and APB2 prescalers to 'none'. 
  */
-void rcc_hsi_clock_setup(void) {
+void rcc_hsi_clock_setup(uint32_t frequency __attribute__((unused)))
+{
 	if (rcc_get_sysclk() == HSI) {
 		return; // nothing to do
 	}
@@ -455,9 +456,10 @@ void rcc_hsi_clock_setup(void) {
  * crystal as its system clock. It uses the frequency information
  * provided to set up the APB1 and APB2 clocks. 
  */
-void rcc_hse_clock_setup(uint32_t clock_speed) {
+void rcc_hse_clock_setup(uint32_t clock_speed)
+{
 	/* insure we're running on internal clock */
-	rcc_hsi_clock_setup();
+	rcc_hsi_clock_setup(RCC_HSI_FREQUENCY);
 	rcc_osc_on(HSE);
 	rcc_wait_for_osc_ready(HSE);
 	
@@ -491,12 +493,13 @@ void rcc_hse_clock_setup(uint32_t clock_speed) {
  * "normal" power mode (not power saving). If you are running in low power mode you 
  * will need to increase FLASH wait states. 
  */
-void rcc_pll_clock_setup(uint32_t clock_speed, uint32_t input_freq) {
+void rcc_pll_clock_setup(uint32_t clock_speed, uint32_t input_freq)
+{
 	uint32_t flash_ws;
 	uint32_t apb1_div;
 
 	/* First make sure we won't halt, switch to generic HSI mode */
-	rcc_hsi_clock_setup();
+	rcc_hsi_clock_setup(RCC_HSI_FREQUENCY);
 
 	/* At this point we're running on HSI at RCC_HSI_FREQUENCY clocks */
 	
@@ -555,6 +558,97 @@ void rcc_pll_clock_setup(uint32_t clock_speed, uint32_t input_freq) {
 
 	/* Select PLL as SYSCLK source. */
 	rcc_set_sysclk(PLL);
+}
+
+#define warn(n)
+
+static const int pllp_candidates[4] = {2, 4, 6, 8};
+
+uint32_t rcc_compute_pll_bits(int desired_frequency, int input_frequency);
+
+/*
+ * This function takes a 'desired' frequency in Hz, and an 'input'
+ * frequency in Hz, and computes values for the PLL multipliers on
+ * the STM32F4. If 'input' is left at 0, the code assumes you are
+ * using the HSI oscillator, if it is provided it assumes you are
+ * using an external (HSE) oscillator.
+ * 
+ * The output is a set of bits suitable for feeding into the rcc_pll_clock_setup().
+ */ 
+uint32_t
+rcc_compute_pll_bits(int desired_frequency, int input_frequency)
+{
+	uint32_t pllm, plln, pllq, pllp, vco;
+	int i, src;
+
+	src = 1;
+	if (input_frequency == 0) {
+		src = 0;
+		input_frequency = RCC_HSI_FREQUENCY;
+	}
+	pllp = 0;
+	for (i = 0; (i < 4) && (pllp == 0); i++) {
+		vco = desired_frequency * pllp_candidates[i];
+		/* if VCO lands in the "good" range its a winner */
+		if ((vco >= 192000000) && (vco <= 433000000)) {
+			pllp = pllp_candidates[i];
+		}
+	}
+	if (pllp == 0) {
+		return 0; /* can't make that frequency */
+	}
+	vco = desired_frequency * pllp;
+	/*
+	 * Compute divisor for closest to 2,000,000 Mhz without going over
+	 * later, if this version of pllm doesn't work, we can increment it
+	 * by 1 until the division would cause the input frequency to the
+	 * PLL to drop below 1MHz.
+	 */
+	pllm = (input_frequency + 1999999) / 2000000;
+	plln = (vco * pllm) / input_frequency;
+
+	/* now check to see if plln is an integral multiplier */
+	if (((input_frequency * plln)/pllm) != vco) {
+		plln = 0;
+		/* if not, try other versions of pllm that might get us there */
+		while (((input_frequency / pllm) >= 1000000)  && (plln == 0)) {
+			uint32_t tplln;
+			tplln = (vco * pllm) / input_frequency;
+			if ((input_frequency * tplln) / pllm == vco) {
+				/* found one! */
+				plln = tplln;
+				break;
+			}
+			pllm++;
+		}
+		/* no value of PLLM works either, so we're stuck */
+		if (plln == 0) {
+			return 0; /* Can't get there from here */
+		}
+        }
+	pllq = vco / 48000000;
+	if ((pllq * 48000000) != vco) {
+		/* not sure what the right answer here is, the chip will work but USB won't */
+		warn("won't work for USB\n");
+	}
+	return (RCC_PLLCFGR_BITS(pllp, plln, pllq, pllm, src));
+}
+
+/*
+ * And now the "do what I want, dammit" function.
+ *
+ */
+void
+rcc_set_clock(uint32_t desired_frequency, uint32_t hse_frequency) {
+	if (desired_frequency == hse_frequency) {
+		return rcc_hse_clock_setup(desired_frequency);
+	} else if ((hse_frequency == 0) && (desired_frequency == RCC_HSI_FREQUENCY)) {
+		return rcc_hsi_clock_setup(RCC_HSI_FREQUENCY);
+	} else {
+		uint32_t cfgr_bits;
+		cfgr_bits = rcc_compute_pll_bits(desired_frequency, hse_frequency);
+		return rcc_pll_clock_setup(cfgr_bits, hse_frequency);
+	}
 }
 
 /**@}*/
