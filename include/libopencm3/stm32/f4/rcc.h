@@ -105,13 +105,21 @@
 
 /* PLLQ: [27:24] */
 #define RCC_PLLCFGR_PLLQ_SHIFT			24
+#define RCC_PLLCFGR_PLLQ_MASK			0xf
 #define RCC_PLLCFGR_PLLSRC			(1 << 22)
+#define RCC_PLLCFGR_PLLSRC_MASK			1
+#define RCC_PLLCFGR_PLLSRC_SHIFT		22
 /* PLLP: [17:16] */
 #define RCC_PLLCFGR_PLLP_SHIFT			16
+#define RCC_PLLCFGR_PLLP_MASK			0x3
 /* PLLN: [14:6] */
 #define RCC_PLLCFGR_PLLN_SHIFT			6
+#define RCC_PLLCFGR_PLLN_MASK			0x1ff
 /* PLLM: [5:0] */
 #define RCC_PLLCFGR_PLLM_SHIFT			0
+#define RCC_PLLCFGR_PLLM_MASK			0x3f
+/* Mask all PLL Values */
+#define RCC_PLLCFGR_PLL_MASK			0x0f037fff
 
 /* --- RCC_CFGR values ----------------------------------------------------- */
 
@@ -147,6 +155,7 @@
 #define RCC_CFGR_RTCPRE_MASK			0x1f
 
 /* PPRE1/2: APB high-speed prescalers */
+#define RCC_CFGR_PPRE_MASK			0x7
 #define RCC_CFGR_PPRE2_SHIFT			13
 #define RCC_CFGR_PPRE2_MASK			0x7
 #define RCC_CFGR_PPRE1_SHIFT			10
@@ -178,6 +187,7 @@
 
 /* SW: System clock switch */
 #define RCC_CFGR_SW_SHIFT			0
+#define RCC_CFGR_SW_MASK			0x3
 #define RCC_CFGR_SW_HSI				0x0
 #define RCC_CFGR_SW_HSE				0x1
 #define RCC_CFGR_SW_PLL				0x2
@@ -537,38 +547,63 @@ static inline void rcc_ltdc_set_clock_divr(uint8_t pllsaidivr)
 				((pllsaidivr & 0x3) << 16)));
 }
 
+/* --- Some useful HSI and HSE Clock speed definitions ----------------------------- */
+
+#define RCC_PLLCFGR_BITS(pllp, plln, pllq, pllm, src)  (\
+		((pllp & RCC_PLLCFGR_PLLP_MASK) << RCC_PLLCFGR_PLLP_SHIFT) |\
+		((plln & RCC_PLLCFGR_PLLN_MASK) << RCC_PLLCFGR_PLLN_SHIFT) |\
+		((pllq & RCC_PLLCFGR_PLLQ_MASK) << RCC_PLLCFGR_PLLQ_SHIFT) |\
+		((pllm & RCC_PLLCFGR_PLLM_MASK) << RCC_PLLCFGR_PLLM_SHIFT) |\
+		((src & RCC_PLLCFGR_PLLSRC_MASK) << RCC_PLLCFGR_PLLSRC_SHIFT) )
+
+/* Mask to reset all bits changed by the #define */
+#define HSI_PLLCFGR_PLL_MASK	0x0f037fff
+
+/* The internal clock frequency on the F4 chip */
+#define RCC_HSI_FREQUENCY		16000000
+
+#define RCC_16MHZ_HSI_48MHZ_PLL		RCC_PLLCFGR_BITS(1, 96, 4, 8, 0)	/* VCO = 192 Mhz */
+#define RCC_16MHZ_HSI_84MHZ_PLL		RCC_PLLCFGR_BITS(1, 168, 7, 8, 0)	/* VCO = 336 Mhz */
+#define RCC_16MHZ_HSI_96MHZ_PLL		RCC_PLLCFGR_BITS(0, 96, 4, 8, 0)	/* VCO = 192 Mhz */
+#define RCC_16MHZ_HSI_120MHZ_PLL	RCC_PLLCFGR_BITS(0, 120, 5, 8, 0)	/* VCO = 240 Mhz */
+#define RCC_16MHZ_HSI_168MHZ_PLL	RCC_PLLCFGR_BITS(0, 168, 7, 8, 0)	/* VCO = 336 Mhz */
+
+#define RCC_5MHZ_HSE_48MHZ_PLL		RCC_PLLCFGR_BITS(1, 192, 4, 5, 1)	/* VCO = 192 Mhz */
+#define RCC_5MHZ_HSE_84MHZ_PLL		RCC_PLLCFGR_BITS(1, 336, 7, 5, 1)	/* VCO = 336 Mhz */
+#define RCC_5MHZ_HSE_96MHZ_PLL		RCC_PLLCFGR_BITS(0, 192, 4, 5, 1)	/* VCO = 192 Mhz */
+#define RCC_5MHZ_HSE_120MHZ_PLL		RCC_PLLCFGR_BITS(0, 144, 5, 3, 1)	/* VCO = 240 Mhz */
+#define RCC_5MHZ_HSE_168MHZ_PLL		RCC_PLLCFGR_BITS(0, 336, 7, 5, 1)	/* VCO = 336 Mhz */
+
+#define RCC_8MHZ_HSE_48MHZ_PLL		RCC_PLLCFGR_BITS(1, 96, 4, 4, 1)	/* VCO = 192 Mhz */
+#define RCC_8MHZ_HSE_84MHZ_PLL		RCC_PLLCFGR_BITS(1, 168, 7, 4, 1)	/* VCO = 336 Mhz */
+#define RCC_8MHZ_HSE_96MHZ_PLL		RCC_PLLCFGR_BITS(0, 96, 4, 4, 1)	/* VCO = 192 Mhz */
+#define RCC_8MHZ_HSE_120MHZ_PLL		RCC_PLLCFGR_BITS(0, 120, 5, 4, 1)	/* VCO = 240 Mhz */
+#define RCC_8MHZ_HSE_168MHZ_PLL		RCC_PLLCFGR_BITS(0, 168, 7, 4, 1)	/* VCO = 336 Mhz */
+
+#define RCC_12MHZ_HSE_48MHZ_PLL		RCC_PLLCFGR_BITS(1, 96, 4, 6, 1)	/* VCO = 192 Mhz */
+#define RCC_12MHZ_HSE_84MHZ_PLL		RCC_PLLCFGR_BITS(1, 168, 7, 6, 1)	/* VCO = 336 Mhz */
+#define RCC_12MHZ_HSE_96MHZ_PLL		RCC_PLLCFGR_BITS(0, 96, 4, 6, 1)	/* VCO = 192 Mhz */
+#define RCC_12MHZ_HSE_120MHZ_PLL	RCC_PLLCFGR_BITS(0, 120, 5, 6, 1)	/* VCO = 240 Mhz */
+#define RCC_12MHZ_HSE_168MHZ_PLL	RCC_PLLCFGR_BITS(0, 168, 7, 6, 1)	/* VCO = 336 Mhz */
+
+#define RCC_16MHZ_HSE_48MHZ_PLL		RCC_PLLCFGR_BITS(1, 96, 4, 8, 1)	/* VCO = 192 Mhz */
+#define RCC_16MHZ_HSE_84MHZ_PLL		RCC_PLLCFGR_BITS(1, 168, 7, 8, 1)	/* VCO = 336 Mhz */
+#define RCC_16MHZ_HSE_96MHZ_PLL		RCC_PLLCFGR_BITS(0, 96, 4, 8, 1)	/* VCO = 192 Mhz */
+#define RCC_16MHZ_HSE_120MHZ_PLL	RCC_PLLCFGR_BITS(0, 120, 5, 8, 1)	/* VCO = 240 Mhz */
+#define RCC_16MHZ_HSE_168MHZ_PLL	RCC_PLLCFGR_BITS(0, 168, 7, 8, 1)	/* VCO = 336 Mhz */
+
+#define RCC_25MHZ_HSE_48MHZ_PLL		RCC_PLLCFGR_BITS(1, 192, 4, 25, 1)	/* VCO = 192 Mhz */
+#define RCC_25MHZ_HSE_84MHZ_PLL		RCC_PLLCFGR_BITS(1, 336, 7, 25, 1)	/* VCO = 336 Mhz */
+#define RCC_25MHZ_HSE_96MHZ_PLL		RCC_PLLCFGR_BITS(0, 192, 4, 25, 1)	/* VCO = 192 Mhz */
+#define RCC_25MHZ_HSE_120MHZ_PLL	RCC_PLLCFGR_BITS(0, 144, 5, 15, 1)	/* VCO = 240 Mhz */
+#define RCC_25MHZ_HSE_168MHZ_PLL	RCC_PLLCFGR_BITS(0, 336, 7, 25, 1)	/* VCO = 336 Mhz */
+
 /* --- Variable definitions ------------------------------------------------ */
 extern uint32_t rcc_ahb_frequency;
 extern uint32_t rcc_apb1_frequency;
 extern uint32_t rcc_apb2_frequency;
 
 /* --- Function prototypes ------------------------------------------------- */
-
-typedef enum {
-	CLOCK_3V3_48MHZ,
-	CLOCK_3V3_120MHZ,
-	CLOCK_3V3_168MHZ,
-	CLOCK_3V3_END
-} clock_3v3_t;
-
-typedef struct {
-	uint8_t pllm;
-	uint16_t plln;
-	uint8_t pllp;
-	uint8_t pllq;
-	uint32_t flash_config;
-	uint8_t hpre;
-	uint8_t ppre1;
-	uint8_t ppre2;
-	uint8_t power_save;
-	uint32_t apb1_frequency;
-	uint32_t apb2_frequency;
-} clock_scale_t;
-
-extern const clock_scale_t hse_8mhz_3v3[CLOCK_3V3_END];
-extern const clock_scale_t hse_12mhz_3v3[CLOCK_3V3_END];
-extern const clock_scale_t hse_16mhz_3v3[CLOCK_3V3_END];
-extern const clock_scale_t hse_25mhz_3v3[CLOCK_3V3_END];
 
 enum rcc_osc {
 	PLL, HSE, HSI, LSE, LSI
@@ -834,18 +869,26 @@ void rcc_css_enable(void);
 void rcc_css_disable(void);
 void rcc_osc_bypass_enable(enum rcc_osc osc);
 void rcc_osc_bypass_disable(enum rcc_osc osc);
+uint32_t rcc_system_clock_source(void);
 void rcc_set_sysclk_source(uint32_t clk);
 void rcc_set_pll_source(uint32_t pllsrc);
-void rcc_set_ppre2(uint32_t ppre2);
-void rcc_set_ppre1(uint32_t ppre1);
-void rcc_set_hpre(uint32_t hpre);
-void rcc_set_rtcpre(uint32_t rtcpre);
 void rcc_set_main_pll_hsi(uint32_t pllm, uint32_t plln, uint32_t pllp,
 			  uint32_t pllq);
 void rcc_set_main_pll_hse(uint32_t pllm, uint32_t plln, uint32_t pllp,
 			  uint32_t pllq);
-uint32_t rcc_system_clock_source(void);
-void rcc_clock_setup_hse_3v3(const clock_scale_t *clock);
+uint32_t rcc_get_pll_frequency(uint32_t hse_freq);
+
+/* top layer APIs */
+void rcc_set_ppre2(uint32_t ppre2);
+void rcc_set_ppre1(uint32_t ppre1);
+void rcc_set_hpre(uint32_t hpre);
+void rcc_set_rtcpre(uint32_t rtcpre);
+void rcc_set_sysclk(enum rcc_osc osc);
+enum rcc_osc rcc_get_sysclk(void);
+void rcc_pll_clock_setup(uint32_t clock_speed, uint32_t input_speed);
+void rcc_hsi_clock_setup(uint32_t frequency);
+void rcc_hse_clock_setup(uint32_t hse_freq);
+void rcc_clock_setup(uint32_t desired_frequency, uint32_t hse_frequency);
 
 END_DECLS
 
