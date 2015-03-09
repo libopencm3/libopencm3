@@ -13,18 +13,6 @@
  * This library supports the Reset and Clock Control System in the STM32 series
  * of ARM Cortex Microcontrollers by ST Microelectronics.
  *
- * @date 10 Dec 2014
- *
- * Added additional helper routine rcc_set_pll_clock and some constants to make
- * it easy to pick different clock speeds. Its also a bit more space efficient
- * as clock parameters are #defines rather than static structures.
- *
- * Added new function rcc_set_sysclk(enum rcc_osc). This sets the oscillator
- * and waits for it to switch in one call.
- *
- * Adds new extern uint32_t rcc_ahb_frequency which an be enquired for the
- * current set system clock frequency.
- *
  * LGPL License Terms @ref lgpl_license
  */
 
@@ -309,14 +297,14 @@ void rcc_set_sysclk(enum rcc_osc clk) {
 enum rcc_osc rcc_get_sysclk(void) {
 	uint32_t clk_bits = (RCC_CFGR >> RCC_CFGR_SWS_SHIFT) & RCC_CFGR_SW_MASK;
 	switch (clk_bits) {
-		default:
-			return HSI;
 		case 1:
 			return HSE;
 		case 2:
 			return PLL;
 		case 3:
 			return HSI; // Error not sure what to do here
+		default:
+			return HSI;
 	}
 }
 
@@ -329,7 +317,7 @@ void rcc_set_sysclk_source(uint32_t clk)
 void rcc_set_pll_source(uint32_t pllsrc)
 {
 	RCC_PLLCFGR = (RCC_PLLCFGR & (~RCC_PLLCFGR_PLLSRC)) |
-			  ((pllsrc & 1) * RCC_PLLCFGR_PLLSRC);
+			  ((pllsrc & RCC_PLLCFGR_PLLSRC_MASK) << RCC_PLLCFGR_PLLSRC_SHIFT);
 }
 
 void rcc_set_ppre2(uint32_t ppre2)
@@ -631,7 +619,7 @@ rcc_compute_pll_bits(int desired_frequency, int input_frequency)
 		/* not sure what the right answer here is, the chip will work but USB won't */
 		warn("won't work for USB\n");
 	}
-	return (RCC_PLLCFGR_BITS(pllp, plln, pllq, pllm, src));
+	return (RCC_PLLCFGR_BITS(((pllp / 2) - 1), plln, pllq, pllm, src));
 }
 
 /*
@@ -639,7 +627,7 @@ rcc_compute_pll_bits(int desired_frequency, int input_frequency)
  *
  */
 void
-rcc_set_clock(uint32_t desired_frequency, uint32_t hse_frequency) {
+rcc_clock_setup(uint32_t desired_frequency, uint32_t hse_frequency) {
 	if (desired_frequency == hse_frequency) {
 		return rcc_hse_clock_setup(desired_frequency);
 	} else if ((hse_frequency == 0) && (desired_frequency == RCC_HSI_FREQUENCY)) {

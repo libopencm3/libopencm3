@@ -306,16 +306,15 @@ enum rcc_osc rcc_get_sysclk(void) {
 	uint32_t	clk;
 	clk = (RCC_CFGR >> 2) & 0x3;
 	switch (clk) {
-	case 0:
-		return MSI;
 	case 1:
 		return HSI;
 	case 2:
 		return HSE;
 	case 3:
 		return PLL;
+	default:
+		return MSI;
 	}
-	return MSI;	/* not reached */
 }
 
 /*
@@ -454,7 +453,7 @@ void rcc_hse_clock_setup(uint32_t hse_frequency) {
 }
 
 /* TODO(cmcmanis) - this is needs to be implemented for the L0 family */
-void rcc_pll_clock_setup(uint32_t pll_frequency, uint32_t base_frequency) {
+void rcc_pll_clock_setup(uint32_t pll_frequency __attribute__((unused)), uint32_t base_frequency __attribute__((unused))) {
 	if (rcc_get_sysclk() == PLL) {
 		/* switch to a known good clock (also the reset clock) */
 		rcc_msi_clock_setup(RCC_MSI_2MHZ);

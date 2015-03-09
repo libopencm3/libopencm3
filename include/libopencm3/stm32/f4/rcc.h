@@ -888,7 +888,7 @@ enum rcc_osc rcc_get_sysclk(void);
 void rcc_pll_clock_setup(uint32_t clock_speed, uint32_t input_speed);
 void rcc_hsi_clock_setup(uint32_t frequency);
 void rcc_hse_clock_setup(uint32_t hse_freq);
-void rcc_set_clock(uint32_t desired_frequency, uint32_t hse_frequency);
+void rcc_clock_setup(uint32_t desired_frequency, uint32_t hse_frequency);
 
 END_DECLS
 
