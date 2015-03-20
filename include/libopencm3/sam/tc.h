@@ -71,16 +71,16 @@
 /* Bits [7:6]: Reserved. */
 #define TC_BMR_TC2XC2S_MASK		(0x3<<4)
 #define TC_BMR_TC2XC2S_TCKL2	(0x0<<4)
-#define TC_BMR_TC2XC2S_TIOA		(0x2<<4)
-#define TC_BMR_TC2XC2S_TIOB		(0x2<<4)
+#define TC_BMR_TC2XC2S_TIOA1	(0x2<<4)
+#define TC_BMR_TC2XC2S_TIOA2	(0x3<<4)
 #define TC_BMR_TC1XC1S_MASK		(0x3<<2)
 #define TC_BMR_TC1XC1S_TCKL1	(0x0<<2)
-#define TC_BMR_TC1XC1S_TIOA		(0x2<<2)
-#define TC_BMR_TC1XC1S_TIOB		(0x2<<2)
+#define TC_BMR_TC1XC1S_TIOA0	(0x2<<2)
+#define TC_BMR_TC1XC1S_TIOA2	(0x3<<2)
 #define TC_BMR_TC0XC0S_MASK		(0x3<<0)
 #define TC_BMR_TC0XC0S_TCKL0	(0x0<<0)
-#define TC_BMR_TC0XC0S_TIOA		(0x2<<0)
-#define TC_BMR_TC0XC0S_TIOB		(0x2<<0)
+#define TC_BMR_TC0XC0S_TIOA1	(0x2<<0)
+#define TC_BMR_TC0XC0S_TIOA2	(0x2<<0)
 
 /* TC Channel Control Register (TC_CCR(x)) */
 /* Bits [31:3]: Reserved. */
