@@ -3,6 +3,7 @@
 ##
 ## Copyright (C) 2009 Uwe Hermann <uwe@hermann-uwe.de>
 ## Copyright (C) 2012 chrysn <chrysn@fsfe.org>
+## Copyright (C) 2015 Kuldeep Singh Dhaka <kuldeepdhaka9@gmail.com>
 ##
 ## This library is free software: you can redistribute it and/or modify
 ## it under the terms of the GNU Lesser General Public License as published by
@@ -38,7 +39,10 @@ TGT_CFLAGS      += $(DEBUG_FLAGS)
 ARFLAGS		= rcs
 OBJS		=
 
-VPATH += ../:../../cm3
+OBJS		= gpio.o cmu.o prs.o adc.o dma.o timer.o dac.o
+OBJS		+= usb.o usb_control.o usb_standard.o usb_efm32lg.o
+
+VPATH += ../../usb:../:../../cm3
 
 include ../../Makefile.include
 
