@@ -72,7 +72,7 @@ BEGIN_DECLS
 
 void rng_enable(void);
 void rng_disable(void);
-uint32_t rng_get_random(void);
+uint8_t rng_get_random(uint32_t *rand_nr);
 
 END_DECLS
 

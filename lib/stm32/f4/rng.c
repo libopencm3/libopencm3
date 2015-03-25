@@ -36,16 +36,37 @@
 /**@{*/
 
 /*---------------------------------------------------------------------------*/
-/** @brief Returns a random number.
-When a number is randomly generated, and there was no errors, the function will return it.
-@returns data Unsigned int32.
+/** @brief Randomizes a number.
+@param[in] pointer to a uint32_t that will be randomized.
+@returns uint8_t, 0 on error, 1 on success.
 */
-uint32_t rng_get_random(void)
+uint8_t rng_get_random(uint32_t *rand_nr)
 {
-    //Waits while the number is not ready, and/or there was an error.
-    while(((RNG_SR & RNG_SR_DRDY) != 1 || (RNG_SR & (RNG_SR_CEIS & RNG_SR_SEIS)) != 0));
+    //wait for data to get ready
+    while ((RNG_SR & RNG_SR_DRDY) != 1);
 
-    return RNG_DR;
+    //check for clock error
+    if (RNG_SR & RNG_SR_CECS)
+    {
+	//return error
+	return 0;
+    }
+
+    //check for seed error
+    if (RNG_SR & RNG_SR_SECS)
+    {
+	//disable and enable the RNG to reinitialize and restart the RNG
+	rng_disable();
+	rng_enable();
+	//return with no errors
+	return 0;
+    }
+
+    //set the random value
+    *rand_nr = RNG_DR;
+
+    //return with no errors
+    return 1;
 }
 
 /*---------------------------------------------------------------------------*/
