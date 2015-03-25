@@ -18,13 +18,13 @@
 #	include "../stm32/l4/vector_nvic.c"
 
 #elif defined(EFM32TG)
-#	include "../efm32/efm32tg/vector_nvic.c"
+#	include "../efm32/tg/vector_nvic.c"
 #elif defined(EFM32G)
-#	include "../efm32/efm32g/vector_nvic.c"
+#	include "../efm32/g/vector_nvic.c"
 #elif defined(EFM32LG)
-#	include "../efm32/efm32lg/vector_nvic.c"
+#	include "../efm32/lg/vector_nvic.c"
 #elif defined(EFM32GG)
-#	include "../efm32/efm32gg/vector_nvic.c"
+#	include "../efm32/gg/vector_nvic.c"
 
 #elif defined(LPC13XX)
 #	include "../lpc13xx/vector_nvic.c"
