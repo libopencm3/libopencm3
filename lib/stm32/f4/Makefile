@@ -39,7 +39,7 @@ TGT_CFLAGS      += $(DEBUG_FLAGS)
 ARFLAGS		= rcs
 
 OBJS		= adc.o adc_common_v1.o can.o desig.o gpio.o pwr.o rcc.o \
-		  rtc.o crypto.o
+		  rtc.o crypto.o rng.o
 
 OBJS            += crc_common_all.o dac_common_all.o dma_common_f24.o \
                    gpio_common_all.o gpio_common_f0234.o i2c_common_all.o \
