@@ -213,6 +213,10 @@ struct usb_endpoint_descriptor {
 } __attribute__((packed));
 #define USB_DT_ENDPOINT_SIZE		7
 
+/* USB bEndpointAddress helper macros */
+#define USB_ENDPOINT_ADDR_OUT(x) (x)
+#define USB_ENDPOINT_ADDR_IN(x) (0x80 | (x))
+
 /* USB Endpoint Descriptor bmAttributes bit definitions */
 #define USB_ENDPOINT_ATTR_CONTROL		0x00
 #define USB_ENDPOINT_ATTR_ISOCHRONOUS		0x01
