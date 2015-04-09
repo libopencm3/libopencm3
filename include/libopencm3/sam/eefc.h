@@ -79,5 +79,10 @@ static inline void eefc_set_latency(uint8_t wait)
 #endif
 }
 
+#define EEFC_UNIQUEID_SIZE      16
+
+/* Reads the 128-bit flash unique ID. */
+void eefc_read_uniqueid(uint32_t port, void *uid);
+
 #endif
 
