@@ -1,7 +1,7 @@
-/* This provides unification of code over SAM subfamilies */
-
 /*
  * This file is part of the libopencm3 project.
+ *
+ * Copyright (C) 2015 Felix Held <felix-libopencm3@felixheld.de>
  *
  * This library is free software: you can redistribute it and/or modify
  * it under the terms of the GNU Lesser General Public License as published by
@@ -17,16 +17,23 @@
  * along with this library.  If not, see <http://www.gnu.org/licenses/>.
  */
 
-#if defined(SAM3A)
-#       include <libopencm3/sam/3a/pmc.h>
-#elif defined(SAM3N)
-#       include <libopencm3/sam/3n/pmc.h>
-#elif defined(SAM3S)
-#       include <libopencm3/sam/3s/pmc.h>
-#elif defined(SAM3U)
-#       include <libopencm3/sam/3u/pmc.h>
-#elif defined(SAM3X)
-#       include <libopencm3/sam/3x/pmc.h>
+#if defined(LIBOPENCM3_PMC_H)
+
+#ifndef LIBOPENCM3_PMC_COMMON_3N3U_H
+#define LIBOPENCM3_PMC_COMMON_3N3U_H
+
+/* Peripheral Clock Enable Register */
+#define PMC_PCER			MMIO32(PMC_BASE + 0x0010)
+
+/* Peripheral Clock Disable Register */
+#define PMC_PCDR			MMIO32(PMC_BASE + 0x0014)
+
+/* Peripheral Clock Status Register */
+#define PMC_PCSR			MMIO32(PMC_BASE + 0x0018)
+
+
+#endif
+
 #else
-#       error "sam family not defined."
+#warning "pmc_common_3n3u.h should not be included explicitly, only via pmc.h"
 #endif
