@@ -212,25 +212,25 @@ void rcc_wait_for_osc_ready(enum rcc_osc osc)
 {
 	switch (osc) {
 	case HSI48:
-		while ((RCC_CIR & RCC_CIR_HSI48RDYF) != 0);
+		while ((RCC_CR2 & RCC_CR2_HSI48RDY) == 0);
 		break;
 	case HSI14:
-		while ((RCC_CIR & RCC_CIR_HSI14RDYF) != 0);
+		while ((RCC_CR2 & RCC_CR2_HSI14RDY) == 0);
 		break;
 	case HSI:
-		while ((RCC_CIR & RCC_CIR_HSIRDYF) != 0);
+		while ((RCC_CR & RCC_CR_HSIRDY) == 0);
 		break;
 	case HSE:
-		while ((RCC_CIR & RCC_CIR_HSERDYF) != 0);
+		while ((RCC_CR & RCC_CR_HSERDY) == 0);
 		break;
 	case PLL:
-		while ((RCC_CIR & RCC_CIR_PLLRDYF) != 0);
+		while ((RCC_CR & RCC_CR_PLLRDY) == 0);
 		break;
 	case LSE:
-		while ((RCC_CIR & RCC_CIR_LSERDYF) != 0);
+		while ((RCC_BDCR & RCC_BDCR_LSERDY) == 0);
 		break;
 	case LSI:
-		while ((RCC_CIR & RCC_CIR_LSIRDYF) != 0);
+		while ((RCC_CSR & RCC_CSR_LSIRDY) == 0);
 		break;
 	}
 }
