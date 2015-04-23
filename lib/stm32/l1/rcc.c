@@ -533,3 +533,15 @@ void rcc_clock_setup_pll(const clock_scale_t *clock)
 	rcc_apb1_frequency = clock->apb1_frequency;
 	rcc_apb2_frequency = clock->apb2_frequency;
 }
+
+void rcc_set_mco(uint32_t mcosrc)
+{
+	RCC_CFGR = (RCC_CFGR & ~RCC_CFGR_MCO) |
+	           (mcosrc << RCC_CFGR_MCO_SHIFT);
+}
+
+void rcc_set_mcopre(uint32_t mcopre)
+{
+	RCC_CFGR = (RCC_CFGR & ~RCC_CFGR_MCOPRE) |
+	           (mcopre << RCC_CFGR_MCOPRE_SHIFT);
+}
