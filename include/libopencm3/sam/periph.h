@@ -18,15 +18,15 @@
  */
 
 #if defined(SAM3A)
-#       include <libopencm3/sam/3a/pmc.h>
+#       include <libopencm3/sam/common/periph_common_3a3x.h>
 #elif defined(SAM3N)
-#       include <libopencm3/sam/3n/pmc.h>
+#       include <libopencm3/sam/3n/periph.h>
 #elif defined(SAM3S)
-#       include <libopencm3/sam/3s/pmc.h>
+#       include <libopencm3/sam/3s/periph.h>
 #elif defined(SAM3U)
-#       include <libopencm3/sam/3u/pmc.h>
+#       include <libopencm3/sam/3u/periph.h>
 #elif defined(SAM3X)
-#       include <libopencm3/sam/3x/pmc.h>
+#       include <libopencm3/sam/common/periph_common_3a3x.h>
 #else
 #       error "sam family not defined."
 #endif

@@ -29,7 +29,7 @@ CFLAGS		= -Os -g -Wall -Wextra -I../../../include -fno-common \
 		  -ffunction-sections -fdata-sections -MD -DSAM3A
 # ARFLAGS	= rcsv
 ARFLAGS		= rcs
-OBJS		= gpio.o pmc.o usart.o
+OBJS		= gpio_common_all.o gpio_common_3a3u3x.o pmc.o usart.o
 
 VPATH += ../../usb:../../cm3:../common
 

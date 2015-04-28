@@ -44,20 +44,29 @@ void pmc_plla_config(uint8_t mul, uint8_t div)
 
 void pmc_peripheral_clock_enable(uint8_t pid)
 {
+#if defined(PMC_PCER1)
 	if (pid < 32) {
 		PMC_PCER0 = 1 << pid;
 	} else {
 		PMC_PCER1 = 1 << (pid & 31);
 	}
+#else
+	//SAM3N and SAM3U only have one Peripheral Clock Enable Register
+	PMC_PCER = 1 << pid;
+#endif
 }
 
 void pmc_peripheral_clock_disable(uint8_t pid)
 {
+#if defined(PMC_PCER1)
 	if (pid < 32) {
 		PMC_PCDR0 = 1 << pid;
 	} else {
 		PMC_PCDR1 = 1 << (pid & 31);
 	}
+#else
+	PMC_PCDR = 1 << pid;
+#endif
 }
 
 void pmc_mck_set_source(enum mck_src src)

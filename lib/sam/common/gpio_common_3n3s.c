@@ -1,7 +1,20 @@
+/** @addtogroup gpio_defines
+ *
+ * @brief <b>Access functions for the SAM3N/S I/O Controller</b>
+ * @ingroup SAM3_defines
+ * LGPL License Terms @ref lgpl_license
+ * @author @htmlonly &copy; @endhtmlonly 2012
+ * Gareth McMullin <gareth@blacksphere.co.nz>
+ * @author @htmlonly &copy; @endhtmlonly 2014
+ * Felix Held <felix-libopencm3@felixheld.de>
+ *
+ */
+
 /*
  * This file is part of the libopencm3 project.
  *
  * Copyright (C) 2012 Gareth McMullin <gareth@blacksphere.co.nz>
+ * Copyright (C) 2014 Felix Held <felix-libopencm3@felixheld.de>
  *
  * This library is free software: you can redistribute it and/or modify
  * it under the terms of the GNU Lesser General Public License as published by
@@ -19,27 +32,44 @@
 
 #include <libopencm3/sam/gpio.h>
 
+
+/** @brief Initialize GPIO pins
+ *
+ * @param[in] port uint32_t: GPIO Port base address
+ * @param[in] pin uint32_t
+ * @param[in] flags enum gpio_flags
+ */
 void gpio_init(uint32_t port, uint32_t pins, enum gpio_flags flags)
 {
-	switch (flags & 3) {
+	switch (flags & 0x7) {
 	case GPIO_FLAG_GPINPUT:
-		/* input mode doesn't really exist, so we make a high
-		 * output in open-drain mode
-		 */
-		PIO_SODR(port) = pins;
-		flags |= GPIO_FLAG_OPEN_DRAIN;
-		/* fall through */
+		PIO_ODR(port) = pins;
+		PIO_PER(port) = pins;
+		break;
 	case GPIO_FLAG_GPOUTPUT:
 		PIO_OER(port) = pins;
 		PIO_PER(port) = pins;
 		break;
 	case GPIO_FLAG_PERIPHA:
-		PIO_ABSR(port) &= ~pins;
+		PIO_ABCDSR1(port) &= ~pins;
+		PIO_ABCDSR2(port) &= ~pins;
 		PIO_PDR(port) = pins;
 		break;
 	case GPIO_FLAG_PERIPHB:
-		PIO_ABSR(port) |= pins;
+		PIO_ABCDSR1(port) |= pins;
+		PIO_ABCDSR2(port) &= ~pins;
 		PIO_PDR(port) = pins;
+		break;
+	case GPIO_FLAG_PERIPHC:
+		PIO_ABCDSR1(port) &= ~pins;
+		PIO_ABCDSR2(port) |= pins;
+		PIO_PDR(port) = pins;
+		break;
+	case GPIO_FLAG_PERIPHD:
+		PIO_ABCDSR1(port) |= pins;
+		PIO_ABCDSR2(port) |= pins;
+		PIO_PDR(port) = pins;
+		break;
 	}
 
 	if (flags & GPIO_FLAG_OPEN_DRAIN) {
@@ -54,11 +84,3 @@ void gpio_init(uint32_t port, uint32_t pins, enum gpio_flags flags)
 		PIO_PUDR(port) = pins;
 	}
 }
-
-void gpio_toggle(uint32_t gpioport, uint32_t gpios)
-{
-	uint32_t odsr = PIO_ODSR(gpioport);
-	PIO_CODR(gpioport) = odsr & gpios;
-	PIO_SODR(gpioport) = ~odsr & gpios;
-}
-

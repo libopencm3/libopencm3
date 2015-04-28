@@ -1,7 +1,9 @@
+/* This provides unification of code over SAM subfamilies */
+
 /*
  * This file is part of the libopencm3 project.
  *
- * Copyright (C) 2013 Gareth McMullin <gareth@blacksphere.co.nz>
+ * Copyright (C) 2014 Felix Held <felix-libopencm3@felixheld.de>
  *
  * This library is free software: you can redistribute it and/or modify
  * it under the terms of the GNU Lesser General Public License as published by
@@ -17,35 +19,16 @@
  * along with this library.  If not, see <http://www.gnu.org/licenses/>.
  */
 
-#ifndef SAM3X_GPIO_H
-#define SAM3X_GPIO_H
-
-#include <libopencm3/sam/pio.h>
-
-/* flags may be or'd together, but only contain one of
- * GPOUTPUT, PERIPHA and PERIPHB */
-enum gpio_flags {
-	GPIO_FLAG_GPINPUT = 0,
-	GPIO_FLAG_GPOUTPUT = 1,
-	GPIO_FLAG_PERIPHA = 2,
-	GPIO_FLAG_PERIPHB = 3,
-	GPIO_FLAG_OPEN_DRAIN = 4,
-	GPIO_FLAG_PULL_UP = 8,
-};
-
-void gpio_init(uint32_t gpioport, uint32_t pins, enum gpio_flags flags);
-
-static inline void gpio_set(uint32_t gpioport, uint32_t gpios)
-{
-	PIO_SODR(gpioport) = gpios;
-}
-
-static inline void gpio_clear(uint32_t gpioport, uint32_t gpios)
-{
-	PIO_CODR(gpioport) = gpios;
-}
-
-void gpio_toggle(uint32_t gpioport, uint32_t gpios);
-
+#if defined(SAM3A)
+#       include <libopencm3/sam/3a/gpio.h>
+#elif defined(SAM3N)
+#       include <libopencm3/sam/3n/gpio.h>
+#elif defined(SAM3S)
+#       include <libopencm3/sam/3s/gpio.h>
+#elif defined(SAM3U)
+#       include <libopencm3/sam/3u/gpio.h>
+#elif defined(SAM3X)
+#       include <libopencm3/sam/3x/gpio.h>
+#else
+#       error "sam family not defined."
 #endif
-
