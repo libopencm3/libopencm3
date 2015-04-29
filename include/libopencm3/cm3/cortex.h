@@ -33,6 +33,9 @@
 
 /**@{*/
 
+#include <stdbool.h>
+#include <stdint.h>
+
 /*---------------------------------------------------------------------------*/
 /** @brief Cortex M Enable interrupts
  *
