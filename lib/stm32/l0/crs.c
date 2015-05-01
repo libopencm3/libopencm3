@@ -1,8 +1,8 @@
 /** @defgroup crs_file CRS
  *
- * @ingroup STM32F0xx
+ * @ingroup STM32L0xx
  *
- * @brief <b>libopencm3 STM32F0xx Clock Recovery Subsystem</b>
+ * @brief <b>libopencm3 STM32L0xx Clock Recovery Subsystem</b>
  */
 
 /*

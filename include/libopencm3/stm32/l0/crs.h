@@ -1,10 +1,15 @@
-/** @defgroup crs_file CRS
+/** @defgroup crs_defines CRS Defines
  *
- * @ingroup STM32F0xx
+ * @brief <b>Defined Constants and Types for the STM32L0xx Clock Recovery</b>
  *
- * @brief <b>libopencm3 STM32F0xx Clock Recovery Subsystem</b>
+ * @ingroup STM32L0xx_defines
+ *
+ * @version 1.0.0
+ *
+ * @date 5 Feb 2014
+ *
+ * LGPL License Terms @ref lgpl_license
  */
-
 /*
  * This file is part of the libopencm3 project.
  *
@@ -22,4 +27,9 @@
  * along with this library.  If not, see <http://www.gnu.org/licenses/>.
  */
 
-#include <libopencm3/stm32/crs.h>
+#ifndef LIBOPENCM3_CRS_H
+#define LIBOPENCM3_CRS_H
+
+#include <libopencm3/stm32/common/crs_common_all.h>
+
+#endif
