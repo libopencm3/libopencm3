@@ -39,6 +39,8 @@ OBJS		= gpio.o rcc.o
 
 OBJS            += gpio_common_all.o gpio_common_f0234.o rcc_common_all.o
 
+OBJS		+= usb.o usb_control.o usb_standard.o usb_f0x2.o
+
 VPATH += ../../usb:../:../../cm3:../common
 
 include ../../Makefile.include
