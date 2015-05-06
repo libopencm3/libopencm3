@@ -140,6 +140,10 @@ static void udp_endpoints_reset(usbd_device *dev)
 	UDP_RST = UDP_RST_ALL;
 	UDP_RST = 0;
 	dev->pm_top = 0x40 + (2 * dev->desc->bMaxPacketSize0);
+	
+	/* If the current config is non-zero, we are entering the configured state,
+	 * otherwise, fall back to the address state. */
+	UDP_GLB_STAT = (dev->current_config) ? UDP_GLB_STAT_CONFG : UDP_GLB_STAT_FADDEN;
 } /* udp_endpoints_reset */ 
 
 static void udp_ep_stall_set(usbd_device *dev, uint8_t addr,
@@ -238,10 +242,10 @@ static void udp_poll_ep(usbd_device *dev, uint8_t ep)
 		}
 	}
 	if (csr & UDP_CSR_TXCOMP) {
-		udp_csr_clear(ep, UDP_CSR_TXCOMP);
 		if (dev->user_callback_ctr[ep][USB_TRANSACTION_IN]) {
 			dev->user_callback_ctr[ep][USB_TRANSACTION_IN](dev, ep);
 		}
+		udp_csr_clear(ep, UDP_CSR_TXCOMP);
 	}
 	if (csr & UDP_CSR_STALLSENT) {
 		UDP_CSR(ep) = (csr | UDP_CSR_WRITE_NOP) & ~UDP_CSR_STALLSENT;
