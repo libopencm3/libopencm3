@@ -36,7 +36,7 @@
 #define CKGR_MOR			MMIO32(PMC_BASE + 0x0020)
 #define CKGR_MCFR			MMIO32(PMC_BASE + 0x0024)
 #define CKGR_PLLAR			MMIO32(PMC_BASE + 0x0028)
-/* 0x002C - Reserved */
+#define CKGR_PLLBR			MMIO32(PMC_BASE + 0x002C)
 #define PMC_MCKR			MMIO32(PMC_BASE + 0x0030)
 /* 0x0034 - Reserved */
 #define PMC_USB				MMIO32(PMC_BASE + 0x0038)
@@ -60,6 +60,12 @@
 #define PMC_PCDR1			MMIO32(PMC_BASE + 0x0104)
 #define PMC_PCSR1			MMIO32(PMC_BASE + 0x0108)
 #define PMC_PCR				MMIO32(PMC_BASE + 0x010C)
+
+/* PMC System Clock Enable/Disable/Status Register */
+#define PMC_SCER_UDP		(0x1 << 7)
+#define PMC_SCER_PCK0		(0x1 << 8)
+#define PMC_SCER_PCK1		(0x1 << 9)
+#define PMC_SCER_PCK2		(0x1 << 10)
 
 /* PMC UTMI Clock Configuration Register (CKGR_UCKR) */
 /* Bit [31:22] - Reserved */
@@ -86,6 +92,11 @@
 #define CKGR_PLLAR_MULA_MASK		(0x7FF << 16)
 #define CKGR_PLLAR_PLLACOUNT_MASK	(0x3F << 8)
 #define CKGR_PLLAR_DIVA_MASK		(0xFF << 0)
+
+/* PMC Clock Generator PLLB Register (CKGR_PLLBR) */
+#define CKGR_PLLBR_MULB_MASK		(0x7FF << 16)
+#define CKGR_PLLBR_PLLBCOUNT_MASK	(0x3F << 8)
+#define CKGR_PLLBR_DIVB_MASK		(0xFF << 0)
 
 /* PMC Master Clock Register (PMC_MCKR) */
 /* Bit [31:14] - Reserved */
@@ -121,7 +132,7 @@
 #define PMC_SR_LOCKU			(0x01 << 6)
 /* Bits [5:4] - Reserved */
 #define PMC_SR_MCKRDY			(0x01 << 3)
-/* Bit [2] - Reserved */
+#define PMC_SR_LOCKB			(0x01 << 2)
 #define PMC_SR_LOCKA			(0x01 << 1)
 #define PMC_SR_MOSCXTS			(0x01 << 0)
 
@@ -134,9 +145,16 @@ enum mck_src {
 	MCK_SRC_UPLL = 3,
 };
 
+enum usbck_src {
+    USBCK_SRC_PLLA = 0,
+    USBCK_SRC_PLLB = 1,
+};
+
 void pmc_mck_set_source(enum mck_src src);
+void pmc_usb_set_source(enum usbck_src src);
 void pmc_xtal_enable(bool en, uint8_t startup_time);
 void pmc_plla_config(uint8_t mul, uint8_t div);
+void pmc_pllb_config(uint8_t mul, uint8_t div);
 void pmc_peripheral_clock_enable(uint8_t pid);
 void pmc_peripheral_clock_disable(uint8_t pid);
 void pmc_clock_setup_in_xtal_12mhz_out_84mhz(void);

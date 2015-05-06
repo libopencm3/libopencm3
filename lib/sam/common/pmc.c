@@ -42,6 +42,12 @@ void pmc_plla_config(uint8_t mul, uint8_t div)
 	while (!(PMC_SR & PMC_SR_LOCKA));
 }
 
+void pmc_pllb_config(uint8_t mul, uint8_t div)
+{
+	CKGR_PLLBR = ((mul - 1) << 16) | CKGR_PLLBR_PLLBCOUNT_MASK | div;
+	while (!(PMC_SR & PMC_SR_LOCKB));
+}
+
 void pmc_peripheral_clock_enable(uint8_t pid)
 {
 	if (pid < 32) {
@@ -64,6 +70,12 @@ void pmc_mck_set_source(enum mck_src src)
 {
 	PMC_MCKR = (PMC_MCKR & ~PMC_MCKR_CSS_MASK) | src;
 	while (!(PMC_SR & PMC_SR_MCKRDY));
+}
+
+void pmc_usb_set_source(enum usbck_src src)
+{
+    PMC_USB = (PMC_USB & ~PMC_USB_USBDIV_MASK) | src;
+	PMC_SCER = PMC_SCER_UDP;
 }
 
 void pmc_clock_setup_in_xtal_12mhz_out_84mhz(void)
