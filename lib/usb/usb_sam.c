@@ -27,8 +27,8 @@
 static usbd_device *udp_init(void);
 static void udp_set_address(usbd_device *usbd_dev, uint8_t addr);
 static void udp_ep_setup(usbd_device *usbd_dev, uint8_t addr,
-				   uint8_t type, uint16_t max_size,
-				   void (*callback) (usbd_device *usbd_dev, uint8_t ep));
+					uint8_t type, uint16_t max_size,
+					void (*callback) (usbd_device *usbd_dev, uint8_t ep));
 static void udp_endpoints_reset(usbd_device *usbd_dev);
 static void udp_ep_stall_set(usbd_device *usbd_dev, uint8_t addr, uint8_t stall);
 static uint8_t udp_ep_stall_get(usbd_device *usbd_dev, uint8_t addr);
@@ -98,6 +98,9 @@ static void udp_ep_setup(usbd_device *dev, uint8_t addr, uint8_t type,
 	uint8_t dir = (addr & 0x80) ? USB_TRANSACTION_IN : USB_TRANSACTION_OUT;
 	uint32_t csr = UDP_CSR_WRITE_NOP | UDP_CSR_EPEDS;
 	addr &= 0x7f;
+	if (addr >= UDP_EP_COUNT) {
+		return;
+	}
 	
 	/* Set the endpoint configuration. */
 	if (dir == USB_TRANSACTION_IN) csr |= UDP_CSR_EPTYPE_IN;
@@ -151,8 +154,10 @@ static void udp_ep_stall_set(usbd_device *dev, uint8_t addr,
 {
 	(void)dev;
 	addr &= 0x7F;
+	if (addr >= UDP_EP_COUNT) {
+		return;
+	}
 	if (stall) {
-//		UDP_CSR(addr) = csr | UDP_CSR_FORCESTALL;
 		udp_csr_set(addr, UDP_CSR_FORCESTALL);
 	} else {
 		udp_csr_clear(addr, UDP_CSR_FORCESTALL | UDP_CSR_STALLSENT);
@@ -163,15 +168,28 @@ static uint8_t udp_ep_stall_get(usbd_device *dev, uint8_t addr)
 {
 	(void)dev;
 	addr &= 0x7F;
+	if (addr >= UDP_EP_COUNT) {
+		return 0;
+	}
 	return ((UDP_CSR(addr) & UDP_CSR_FORCESTALL) == UDP_CSR_FORCESTALL);
 }
 
 static void udp_ep_nak_set(usbd_device *dev, uint8_t addr, uint8_t nak)
 {
 	(void)dev;
-	(void)addr;
-	(void)nak;
-	/* TODO: Implement Me! */
+	/* It does not make sence to force NAK on IN endpoints. */
+	if (addr & 0x80) {
+		return;
+	}
+	if (addr >= UDP_EP_COUNT) {
+		return;
+	}
+	/* Disable the endpoint to force a NAK. */
+	if (nak) {
+		udp_csr_clear(addr, UDP_CSR_EPEDS);
+	} else {
+		udp_csr_set(addr, UDP_CSR_EPEDS);
+	}
 }
 
 static uint16_t udp_ep_write_packet(usbd_device *dev, uint8_t addr,
@@ -181,6 +199,9 @@ static uint16_t udp_ep_write_packet(usbd_device *dev, uint8_t addr,
 	const uint8_t *p = buf;
 	const uint8_t *end = p + len;
 	addr &= 0x7F;
+	if (addr >= UDP_EP_COUNT) {
+		return 0;
+	}
 	
 	/* TODO: This assumes a non ping-pong endpoint, we could improve throughput
 	 * on ping-pong endpoints by skipping this check to fill the 2nd FIFO. */
@@ -197,25 +218,24 @@ static uint16_t udp_ep_read_packet(usbd_device *dev, uint8_t addr,
 					 void *buf, uint16_t len)
 {
 	(void)dev;
-	uint32_t csr = UDP_CSR(addr);
-	uint32_t rxbit = csr & (UDP_CSR_RX_DATA_BK0 | UDP_CSR_RX_DATA_BK1 | UDP_CSR_RXSETUP);
+	uint32_t csr, rxbit;
 	uint8_t *p = buf;
 	uint8_t *end;
-	
-	if (!rxbit) {
+	if (addr >= UDP_EP_COUNT) {
 		return 0;
 	}
-	/* TODO: If we were really slow in turning around, is it possible for both
-	 * buffers to be filled? If so, which one are we going to receive when
-	 * reading the FIFO? I would hope that the peripheral would just start
-	 * NAK'ing in this case, and set just one of the BK0/BK1 bits.
-	 */
-	//assert(rxbit != (UDP_CSR_RX_DATA_BK0 | UDP_CSR_RX_DATA_BK1));
+	
+	/* TODO: What happens when both FIFOs of a ping-pong endpoint are filled? */
+	csr = UDP_CSR(addr);
+	rxbit = csr & (UDP_CSR_RX_DATA_BK0 | UDP_CSR_RX_DATA_BK1 | UDP_CSR_RXSETUP);
+	if (rxbit == 0) {
+		return 0;
+	}
 
 	len = MIN(UDP_CSR_GET_RXBYTECNT(csr), len);
 	end = p + len;
 	while (p < end) *p++ = UDP_FDR(addr);
-	if ((rxbit & UDP_CSR_RXSETUP) && (*(uint8_t*)buf & 0x80)) {
+	if ((csr & UDP_CSR_RXSETUP) && (*(uint8_t*)buf & 0x80)) {
 		udp_csr_set(addr, UDP_CSR_DIR);
 	}
 	udp_csr_clear(addr, rxbit);
@@ -226,7 +246,6 @@ static void udp_poll_ep(usbd_device *dev, uint8_t ep)
 {
 	uint32_t csr = UDP_CSR(ep);
 	
-	/* USB transactions */
 	if (csr & UDP_CSR_RXSETUP) {
 		if (dev->user_callback_ctr[ep][USB_TRANSACTION_SETUP]) {
 			dev->user_callback_ctr[ep][USB_TRANSACTION_SETUP](dev, ep);
@@ -264,7 +283,7 @@ static void udp_poll(usbd_device *dev)
 	}
 
 	/* Endpoint interrupts. */
-	for (i = 0; i < 8; i++) {
+	for (i = 0; i < UDP_EP_COUNT; i++) {
 		if (UDP_ISR & UDP_INT_EP(i)) udp_poll_ep(dev, i);
 	}
 
@@ -275,8 +294,8 @@ static void udp_poll(usbd_device *dev)
 		}
 	}
 
-	if (UDP_ISR & UDP_INT_WAKEUP) {
-		UDP_ICR = UDP_INT_WAKEUP;
+	if (UDP_ISR & (UDP_INT_WAKEUP | UDP_INT_RXRSM)) {
+		UDP_ICR = UDP_INT_WAKEUP | UDP_INT_RXRSM;
 		if (dev->user_callback_resume) {
 			dev->user_callback_resume();
 		}

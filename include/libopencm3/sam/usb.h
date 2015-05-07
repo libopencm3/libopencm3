@@ -108,9 +108,9 @@
 #define UDP_CSR_RX_DATA_BK0			(0x01 << 1)
 #define UDP_CSR_TXCOMP				(0x01 << 0)
 /* UDP_CSRx bits that must be set high for a no-op. */
-#define UDP_CSR_WRITE_NOP       	(UDP_CSR_TXCOMP | UDP_CSR_RX_DATA_BK0 | \
-                                	UDP_CSR_RXSETUP | UDP_CSR_STALLSENT | \
-                                	UDP_CSR_ISOERROR | UDP_CSR_RX_DATA_BK1)
+#define UDP_CSR_WRITE_NOP		 	(UDP_CSR_TXCOMP | UDP_CSR_RX_DATA_BK0 | \
+									UDP_CSR_RXSETUP | UDP_CSR_STALLSENT | \
+									UDP_CSR_ISOERROR | UDP_CSR_RX_DATA_BK1)
 
 /* UDP FIFO Data Register (UDP_FDR(x)) */
 /* Bits [31:8] - Reserved */
@@ -123,6 +123,7 @@
 /* Bits [7:0] - Reserved */
 
 /* USB Endpoint description */
+#define UDP_EP_COUNT			8
 #define UDP_EP_DUAL_BANK(x)		((x != 0) && (x != 3))
 #define UDP_EP_MAX_SIZE(x)		( ((x == 4) || (x == 5)) ? 512 : 64)
 #define UDP_EP_SUPPORT_CTRL(x)	(!UDP_EP_DUAL_BANK(x))
