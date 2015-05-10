@@ -312,17 +312,25 @@ static void stm32f0x2_poll(usbd_device *dev)
 
 	if (istr & USB_ISTR_CTR) {
 		uint8_t ep = istr & USB_ISTR_EP_ID;
-		uint8_t type = (istr & USB_ISTR_DIR) ? 1 : 0;
+		uint8_t type;
 
-		if (type) { /* OUT or SETUP transaction */
-			type += (*USB_EP_REG(ep) & USB_EP_SETUP) ? 1 : 0;
-		} else { /* IN transaction */
+		if (istr & USB_ISTR_DIR) {
+			/* OUT or SETUP? */
+			if (*USB_EP_REG(ep) & USB_EP_SETUP) {
+				type = USB_TRANSACTION_SETUP;
+			} else {
+				type = USB_TRANSACTION_OUT;
+			}
+		} else {
+			type = USB_TRANSACTION_IN;
 			USB_CLR_EP_TX_CTR(ep);
 		}
 
 		if (dev->user_callback_ctr[ep][type]) {
 			dev->user_callback_ctr[ep][type] (dev, ep);
-		} else {
+		}
+
+		if(istr & USB_ISTR_DIR) {
 			USB_CLR_EP_RX_CTR(ep);
 		}
 	}
