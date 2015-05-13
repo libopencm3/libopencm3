@@ -56,6 +56,10 @@
 #define CKGR_PLLBR_DIVB_SHIFT		0
 #define CKGR_PLLBR_DIVB_MASK		(0xFF << CKGR_PLLBR_DIVB_SHIFT)
 
+/* --- PMC System Clock Enable Register (PMC_SCER) ------------------------- */
+
+/* USB Device Port Clock Enable */
+#define PMC_SCER_UDP			(0x01 << 7)
 
 /* --- PMC Master Clock Register (PMC_MCKR) -------------------------------- */
 
@@ -134,5 +138,12 @@
 #define PMC_OCR_CAL4_SHIFT		0
 #define PMC_OCR_CAL4_MASK		(0x7F << PMC_OCR_CAL12_SHIFT)
 
+enum usbck_src {
+	USBCK_SRC_PLLA = 0,
+	USBCK_SRC_PLLB = 1,
+};
+
+void pmc_usb_set_source(enum usbck_src src);
+void pmc_pllb_config(uint8_t mul, uint8_t div);
 
 #endif

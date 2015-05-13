@@ -31,7 +31,9 @@ CFLAGS		= -Os -Wall -Wextra -I../../../include -fno-common \
 CFLAGS          += $(DEBUG_FLAGS)
 # ARFLAGS	= rcsv
 ARFLAGS		= rcs
-OBJS		= gpio_common_all.o gpio_common_3n3s.o pmc.o usart.o
+OBJS		= gpio_common_all.o gpio_common_3n3s.o pmc.o pmc_common_3s.o usart.o
+
+OBJS		+= usb.o usb_control.o usb_standard.o usb_sam_udp.o usb_msc.o
 
 VPATH += ../../usb:../../cm3:../common
 
