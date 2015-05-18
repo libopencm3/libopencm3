@@ -27,6 +27,7 @@
 #include "stm32_usbfs_common.h"
 
 static usbd_device *stm32f0x2_usbd_init(void);
+static void stm32f0x2_usbd_disconnect(usbd_device *usbd_dev, bool disconnected);
 
 const struct _usbd_driver stm32f0x2_usb_driver = {
 	.init = stm32f0x2_usbd_init,
@@ -39,6 +40,7 @@ const struct _usbd_driver stm32f0x2_usb_driver = {
 	.ep_write_packet = stm32_usbfs_ep_write_packet,
 	.ep_read_packet = stm32_usbfs_ep_read_packet,
 	.poll = stm32_usbfs_poll,
+	.disconnect = stm32f0x2_usbd_disconnect
 };
 
 /** Initialize the USB device controller hardware of the STM32. */
@@ -92,5 +94,18 @@ void stm32_usbfs_copy_from_pm(void *buf, const volatile void *vPM, uint16_t len)
 
 	if (odd) {
 		*(uint8_t *) lbuf = *(uint8_t *) PM;
+	}
+}
+
+static void stm32f0x2_usbd_disconnect(usbd_device *usbd_dev, bool disconnected)
+{
+	(void) usbd_dev;
+	
+	if(disconnected) {
+		USB_CNTR |= USB_CNTR_PWDN;
+		USB_BDCR &= ~USB_BDCR_DPPU;
+	} else {
+		USB_CNTR &= ~USB_CNTR_PWDN;
+		USB_BDCR |= USB_BDCR_DPPU;
 	}
 }
