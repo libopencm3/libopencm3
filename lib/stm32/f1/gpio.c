@@ -131,6 +131,33 @@ void gpio_set_mode(uint32_t gpioport, uint8_t mode, uint8_t cnf, uint16_t gpios)
 }
 
 /*---------------------------------------------------------------------------*/
+/** @brief Get GPIO Pin Mode
+
+Gets the mode (input/output) and configuration (analog/digitial and
+open drain/push pull), for a given GPIO pin on a given GPIO port.
+
+@param[in] gpioport Unsigned int32. Port identifier @ref gpio_port_id
+@param[out] mode Unsigned *int8. Pin mode @ref gpio_mode
+@param[out] cnf Unsigned *int8. Pin configuration @ref gpio_cnf
+@param[in] gpio Unsigned int16. Pin identifier @ref gpio_pin_id
+*/
+void gpio_get_mode(uint32_t gpioport, uint8_t *mode, uint8_t *cnf, uint16_t gpio)
+{
+	uint16_t offset = 0;
+	uint32_t tmp32 = 0;
+	int pin = __builtin_ctz(gpio);
+
+	/* Calculate bit offset. */
+	offset = (pin < 8) ? (pin * 4) : ((pin - 8) * 4);
+
+	/* Use tmp32 to either read crl or crh. */
+	tmp32 = (pin < 8) ? GPIO_CRL(gpioport) : GPIO_CRH(gpioport);
+
+	*mode = (tmp32 >> offset) & 3;
+	*cnf = (tmp32 >> (offset + 2)) & 3;
+}
+
+/*---------------------------------------------------------------------------*/
 /** @brief Map the EVENTOUT signal
 
 Enable the EVENTOUT signal and select the port and pin to be used.
