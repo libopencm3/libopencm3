@@ -309,9 +309,18 @@ static void stm32f103_poll(usbd_device *dev)
 	if (istr & USB_ISTR_CTR) {
 		uint8_t ep = istr & USB_ISTR_EP_ID;
 		uint8_t type = (istr & USB_ISTR_DIR) ? 1 : 0;
+		uint16_t epreg = *USB_EP_REG(ep);
+
+		/* If DIR is set in USB_ISTR, we must check if CTR_TX is set in
+		 * the EP reg and if control_state.state is LAST_DATA_IN we
+		 * must deal with the IN transaction first. */
+		if (!ep && type && epreg & USB_EP_TX_CTR &&
+		    dev->control_state.state == LAST_DATA_IN) {
+			type = 0;
+		}
 
 		if (type) { /* OUT or SETUP transaction */
-			type += (*USB_EP_REG(ep) & USB_EP_SETUP) ? 1 : 0;
+			type += (epreg & USB_EP_SETUP) ? 1 : 0;
 		} else { /* IN transaction */
 			USB_CLR_EP_TX_CTR(ep);
 		}
