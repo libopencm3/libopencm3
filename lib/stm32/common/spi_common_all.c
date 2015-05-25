@@ -709,4 +709,29 @@ void spi_disable_rx_dma(uint32_t spi)
 	SPI_CR2(spi) &= ~SPI_CR2_RXDMAEN;
 }
 
+/*---------------------------------------------------------------------------*/
+/** @brief SPI Standard Mode selection
+@details Set SPI standard Modes
+	Mode	CPOL	CPHA
+	 0		 0		 0
+	 1		 0		 1
+	 2		 1		 0
+	 3		 1		 1
+@param[in] spi Unsigned int32. SPI peripheral identifier @ref spi_reg_base.
+@param[in] mode Unsigned int8. Standard SPI mode (0, 1, 2, 3) 
+*/
+
+void spi_set_standard_mode(uint32_t spi, uint8_t mode)
+{
+	uint32_t reg32;
+	
+	if(mode > 3) {
+		return;
+	}
+
+	reg32 = SPI_CR1(spi) & ~(SPI_CR1_CPOL | SPI_CR1_CPHA);
+	reg32 |= mode;
+	SPI_CR1(spi) = reg32;
+}
+
 /**@}*/

@@ -391,6 +391,7 @@ void spi_enable_tx_dma(uint32_t spi);
 void spi_disable_tx_dma(uint32_t spi);
 void spi_enable_rx_dma(uint32_t spi);
 void spi_disable_rx_dma(uint32_t spi);
+void spi_set_standard_mode(uint32_t spi, uint8_t mode);
 
 END_DECLS
 
