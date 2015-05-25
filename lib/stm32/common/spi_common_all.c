@@ -522,6 +522,7 @@ void spi_set_slave_mode(uint32_t spi)
 /** @brief SPI Set the Clock Polarity to High when Idle
 
 @param[in] spi Unsigned int32. SPI peripheral identifier @ref spi_reg_base.
+@sa spi_set_clock_polarity_0
 */
 
 void spi_set_clock_polarity_1(uint32_t spi)
@@ -533,6 +534,7 @@ void spi_set_clock_polarity_1(uint32_t spi)
 /** @brief SPI Set the Clock Polarity to Low when Idle
 
 @param[in] spi Unsigned int32. SPI peripheral identifier @ref spi_reg_base.
+@sa spi_set_clock_polarity_1
 */
 
 void spi_set_clock_polarity_0(uint32_t spi)
@@ -544,6 +546,7 @@ void spi_set_clock_polarity_0(uint32_t spi)
 /** @brief SPI Set the Clock Phase to Capture on Trailing Edge
 
 @param[in] spi Unsigned int32. SPI peripheral identifier @ref spi_reg_base.
+@sa spi_set_clock_phase_0
 */
 
 void spi_set_clock_phase_1(uint32_t spi)
@@ -555,6 +558,7 @@ void spi_set_clock_phase_1(uint32_t spi)
 /** @brief SPI Set the Clock Phase to Capture on Leading Edge
 
 @param[in] spi Unsigned int32. SPI peripheral identifier @ref spi_reg_base.
+@sa spi_set_clock_phase_1
 */
 
 void spi_set_clock_phase_0(uint32_t spi)
