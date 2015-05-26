@@ -733,10 +733,10 @@ static void msc_data_tx_cb(usbd_device *usbd_dev, uint8_t ep)
 /** @brief Handle various control requests related to the msc storage
  *	   interface.
  */
-static int msc_control_request(usbd_device *usbd_dev,
-			       struct usb_setup_data *req, uint8_t **buf,
-			       uint16_t *len,
-			       usbd_control_complete_callback *complete)
+static enum usbd_request_return_codes
+msc_control_request(usbd_device *usbd_dev,
+		    struct usb_setup_data *req, uint8_t **buf, uint16_t *len,
+		    usbd_control_complete_callback *complete)
 {
 	(void)complete;
 	(void)usbd_dev;
