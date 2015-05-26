@@ -263,7 +263,7 @@ static void lm4f_ep_setup(usbd_device *usbd_dev, uint8_t addr, uint8_t type,
 		USB_TXFIFOSZ = reg8;
 		USB_TXFIFOADD = ((usbd_dev->fifo_mem_top) >> 3);
 		if (callback) {
-			usbd_dev->user_callback_ctr[ep][USB_TRANSACTION_IN] =
+			usbd_dev->user_endpoint_callback[ep][USB_TRANSACTION_IN] =
 			(void *)callback;
 		}
 		if (type == USB_ENDPOINT_ATTR_ISOCHRONOUS) {
@@ -276,7 +276,7 @@ static void lm4f_ep_setup(usbd_device *usbd_dev, uint8_t addr, uint8_t type,
 		USB_RXFIFOSZ = reg8;
 		USB_RXFIFOADD = ((usbd_dev->fifo_mem_top) >> 3);
 		if (callback) {
-			usbd_dev->user_callback_ctr[ep][USB_TRANSACTION_OUT] =
+			usbd_dev->user_endpoint_callback[ep][USB_TRANSACTION_OUT] =
 			(void *)callback;
 		}
 		if (type == USB_ENDPOINT_ATTR_ISOCHRONOUS) {
@@ -504,14 +504,14 @@ static void lm4f_poll(usbd_device *usbd_dev)
 				? USB_TRANSACTION_SETUP :
 				  USB_TRANSACTION_OUT;
 
-			if (usbd_dev->user_callback_ctr[0][type]) {
+			if (usbd_dev->user_endpoint_callback[0][type]) {
 				usbd_dev->
-					user_callback_ctr[0][type](usbd_dev, 0);
+					user_endpoint_callback[0][type](usbd_dev, 0);
 			}
 
 
 		} else {
-			tx_cb = usbd_dev->user_callback_ctr[0]
+			tx_cb = usbd_dev->user_endpoint_callback[0]
 							   [USB_TRANSACTION_IN];
 
 			/*
@@ -542,8 +542,8 @@ static void lm4f_poll(usbd_device *usbd_dev)
 
 	/* See which interrupt occurred */
 	for (i = 1; i < 8; i++) {
-		tx_cb = usbd_dev->user_callback_ctr[i][USB_TRANSACTION_IN];
-		rx_cb = usbd_dev->user_callback_ctr[i][USB_TRANSACTION_OUT];
+		tx_cb = usbd_dev->user_endpoint_callback[i][USB_TRANSACTION_IN];
+		rx_cb = usbd_dev->user_endpoint_callback[i][USB_TRANSACTION_OUT];
 
 		if ((usb_txis & (1 << i)) && tx_cb) {
 			tx_cb(usbd_dev, i);
