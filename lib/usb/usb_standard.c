@@ -40,8 +40,7 @@ LGPL License Terms @ref lgpl_license
 #include "usb_private.h"
 
 int usbd_register_set_config_callback(usbd_device *usbd_dev,
-				       void (*callback)(usbd_device *usbd_dev,
-				       uint16_t wValue))
+				       usbd_set_config_callback callback)
 {
 	int i;
 
@@ -57,8 +56,7 @@ int usbd_register_set_config_callback(usbd_device *usbd_dev,
 }
 
 void usbd_register_set_altsetting_callback(usbd_device *usbd_dev,
-					   void (*callback)(usbd_device *usbd_dev,
-							    uint16_t wIndex, uint16_t wValue))
+					   usbd_set_altsetting_callback callback)
 {
 	usbd_dev->user_callback_set_altsetting = callback;
 }
