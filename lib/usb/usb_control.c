@@ -115,8 +115,9 @@ static int usb_control_recv_chunk(usbd_device *usbd_dev)
 	return packetsize;
 }
 
-static int usb_control_request_dispatch(usbd_device *usbd_dev,
-					struct usb_setup_data *req)
+static enum usbd_request_return_codes
+usb_control_request_dispatch(usbd_device *usbd_dev,
+			     struct usb_setup_data *req)
 {
 	int i, result = 0;
 	struct user_control_callback *cb = usbd_dev->user_control_callback;
