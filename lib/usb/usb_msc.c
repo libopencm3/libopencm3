@@ -708,7 +708,7 @@ static void msc_data_tx_cb(usbd_device *usbd_dev, uint8_t ep)
  */
 static int msc_control_request(usbd_device *usbd_dev,
 				struct usb_setup_data *req, uint8_t **buf, uint16_t *len,
-				void (**complete)(usbd_device *usbd_dev, struct usb_setup_data *req))
+				usbd_control_complete_callback *complete)
 {
 	(void)complete;
 	(void)usbd_dev;
