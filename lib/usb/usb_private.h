@@ -82,7 +82,7 @@ struct _usbd_device {
 		uint8_t type_mask;
 	} user_control_callback[MAX_USER_CONTROL_CALLBACK];
 
-	usbd_endpoint_callback user_callback_ctr[8][3];
+	usbd_endpoint_callback user_endpoint_callback[8][3];
 
 	/* User callback function for some standard USB function hooks */
 	usbd_set_config_callback user_callback_set_config[MAX_USER_SET_CONFIG_CALLBACK];

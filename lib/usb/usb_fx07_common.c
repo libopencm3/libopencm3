@@ -95,7 +95,7 @@ void stm32fx07_ep_setup(usbd_device *usbd_dev, uint8_t addr, uint8_t type,
 		    | (addr << 22) | max_size;
 
 		if (callback) {
-			usbd_dev->user_callback_ctr[addr][USB_TRANSACTION_IN] =
+			usbd_dev->user_endpoint_callback[addr][USB_TRANSACTION_IN] =
 			    (void *)callback;
 		}
 	}
@@ -109,7 +109,7 @@ void stm32fx07_ep_setup(usbd_device *usbd_dev, uint8_t addr, uint8_t type,
 		    OTG_FS_DOEPCTLX_SD0PID | (type << 18) | max_size;
 
 		if (callback) {
-			usbd_dev->user_callback_ctr[addr][USB_TRANSACTION_OUT] =
+			usbd_dev->user_endpoint_callback[addr][USB_TRANSACTION_OUT] =
 			    (void *)callback;
 		}
 	}
@@ -277,8 +277,8 @@ void stm32fx07_poll(usbd_device *usbd_dev)
 			__asm__("nop");
 		}
 
-		if (usbd_dev->user_callback_ctr[ep][type]) {
-			usbd_dev->user_callback_ctr[ep][type] (usbd_dev, ep);
+		if (usbd_dev->user_endpoint_callback[ep][type]) {
+			usbd_dev->user_endpoint_callback[ep][type] (usbd_dev, ep);
 		}
 
 		/* Discard unread packet data. */
@@ -296,9 +296,9 @@ void stm32fx07_poll(usbd_device *usbd_dev)
 	for (i = 0; i < 4; i++) { /* Iterate over endpoints. */
 		if (REBASE(OTG_DIEPINT(i)) & OTG_FS_DIEPINTX_XFRC) {
 			/* Transfer complete. */
-			if (usbd_dev->user_callback_ctr[i]
+			if (usbd_dev->user_endpoint_callback[i]
 						       [USB_TRANSACTION_IN]) {
-				usbd_dev->user_callback_ctr[i]
+				usbd_dev->user_endpoint_callback[i]
 					[USB_TRANSACTION_IN](usbd_dev, i);
 			}
 
