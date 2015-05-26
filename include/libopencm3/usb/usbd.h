@@ -107,7 +107,8 @@ extern void usbd_register_sof_callback(usbd_device *usbd_dev,
 typedef void (*usbd_control_complete_callback)(usbd_device *usbd_dev,
 		struct usb_setup_data *req);
 
-typedef int (*usbd_control_callback)(usbd_device *usbd_dev,
+typedef enum usbd_request_return_codes (*usbd_control_callback)(
+		usbd_device *usbd_dev,
 		struct usb_setup_data *req, uint8_t **buf, uint16_t *len,
 		usbd_control_complete_callback *complete);
 
