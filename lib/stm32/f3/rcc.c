@@ -53,6 +53,7 @@ const clock_scale_t hsi_8mhz[CLOCK_END] = {
 		.ppre2 = RCC_CFGR_PPRE2_DIV_NONE,
 		.power_save = 1,
 		.flash_config = FLASH_ACR_PRFTBE | FLASH_ACR_LATENCY_1WS,
+		.ahb_frequency  = 44000000;
 		.apb1_frequency = 22000000,
 		.apb2_frequency = 44000000,
 	},
@@ -64,6 +65,7 @@ const clock_scale_t hsi_8mhz[CLOCK_END] = {
 		.ppre2 = RCC_CFGR_PPRE2_DIV_NONE,
 		.power_save = 1,
 		.flash_config = FLASH_ACR_PRFTBE | FLASH_ACR_LATENCY_1WS,
+		.ahb_frequency  = 48000000;
 		.apb1_frequency = 24000000,
 		.apb2_frequency = 48000000,
 	},
@@ -75,6 +77,7 @@ const clock_scale_t hsi_8mhz[CLOCK_END] = {
 		.ppre2 = RCC_CFGR_PPRE2_DIV_NONE,
 		.power_save = 1,
 		.flash_config = FLASH_ACR_PRFTBE | FLASH_ACR_LATENCY_2WS,
+		.ahb_frequency  = 64000000;
 		.apb1_frequency = 32000000,
 		.apb2_frequency = 64000000,
 	}
@@ -414,6 +417,7 @@ void rcc_clock_setup_hsi(const clock_scale_t *clock)
 	rcc_wait_for_sysclk_status(PLL);
 
 	/* Set the peripheral clock frequencies used. */
+	rcc_ahb_frequency = clock->ahb_frequency;
 	rcc_apb1_frequency = clock->apb1_frequency;
 	rcc_apb2_frequency = clock->apb2_frequency;
 }
