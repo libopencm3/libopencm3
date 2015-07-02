@@ -59,8 +59,7 @@ const clock_scale_t hse_8mhz_3v3[CLOCK_3V3_END] = {
 		.ppre1 = RCC_CFGR_PPRE_DIV_4,
 		.ppre2 = RCC_CFGR_PPRE_DIV_2,
 		.power_save = 1,
-		.flash_config = FLASH_ACR_ICE | FLASH_ACR_DCE |
-				FLASH_ACR_LATENCY_3WS,
+		.flash_config = FLASH_ACR_ICE | FLASH_ACR_DCE | FLASH_ACR_LATENCY_3WS,
 		.ahb_frequency = 48000000,
 		.apb1_frequency = 12000000,
 		.apb2_frequency = 24000000,
@@ -74,8 +73,7 @@ const clock_scale_t hse_8mhz_3v3[CLOCK_3V3_END] = {
 		.ppre1 = RCC_CFGR_PPRE_DIV_4,
 		.ppre2 = RCC_CFGR_PPRE_DIV_2,
 		.power_save = 1,
-		.flash_config = FLASH_ACR_ICE | FLASH_ACR_DCE |
-				FLASH_ACR_LATENCY_3WS,
+		.flash_config = FLASH_ACR_ICE | FLASH_ACR_DCE | FLASH_ACR_LATENCY_3WS,
 		.ahb_frequency = 120000000,
 		.apb1_frequency = 30000000,
 		.apb2_frequency = 60000000,
@@ -88,11 +86,23 @@ const clock_scale_t hse_8mhz_3v3[CLOCK_3V3_END] = {
 		.hpre = RCC_CFGR_HPRE_DIV_NONE,
 		.ppre1 = RCC_CFGR_PPRE_DIV_4,
 		.ppre2 = RCC_CFGR_PPRE_DIV_2,
-		.flash_config = FLASH_ACR_ICE | FLASH_ACR_DCE |
-				FLASH_ACR_LATENCY_5WS,
+		.flash_config = FLASH_ACR_ICE | FLASH_ACR_DCE | FLASH_ACR_LATENCY_5WS,
 		.ahb_frequency = 168000000,
 		.apb1_frequency = 42000000,
 		.apb2_frequency = 84000000,
+	},
+	{ /* 180MHz   Note: This speed CANNOT be used with the internal USB FS ip */
+		.pllm = 8,   /* because pllq would have to be 7.5 to exactly achieve  */
+		.plln = 360, /* 48MHz for PLL48CLK. With pllq = 8 PLL48CLK is 45MHz!  */
+		.pllp = 2,   /* The other peripherals using PLL48CLK (SDIO and RNG)   */
+		.pllq = 8,   /* should be fine, however.                              */
+		.hpre = RCC_CFGR_HPRE_DIV_NONE,
+		.ppre1 = RCC_CFGR_PPRE_DIV_4,
+		.ppre2 = RCC_CFGR_PPRE_DIV_2,
+		.flash_config = FLASH_ACR_ICE | FLASH_ACR_DCE | FLASH_ACR_LATENCY_5WS,
+		.ahb_frequency = 180000000,
+		.apb1_frequency = 45000000,
+		.apb2_frequency = 90000000,
 	},
 };
 
@@ -106,8 +116,7 @@ const clock_scale_t hse_12mhz_3v3[CLOCK_3V3_END] = {
 		.ppre1 = RCC_CFGR_PPRE_DIV_4,
 		.ppre2 = RCC_CFGR_PPRE_DIV_2,
 		.power_save = 1,
-		.flash_config = FLASH_ACR_ICE | FLASH_ACR_DCE |
-				FLASH_ACR_LATENCY_3WS,
+		.flash_config = FLASH_ACR_ICE | FLASH_ACR_DCE | FLASH_ACR_LATENCY_3WS,
 		.ahb_frequency = 48000000,
 		.apb1_frequency = 12000000,
 		.apb2_frequency = 24000000,
@@ -121,8 +130,7 @@ const clock_scale_t hse_12mhz_3v3[CLOCK_3V3_END] = {
 		.ppre1 = RCC_CFGR_PPRE_DIV_4,
 		.ppre2 = RCC_CFGR_PPRE_DIV_2,
 		.power_save = 1,
-		.flash_config = FLASH_ACR_ICE | FLASH_ACR_DCE |
-				FLASH_ACR_LATENCY_3WS,
+		.flash_config = FLASH_ACR_ICE | FLASH_ACR_DCE | FLASH_ACR_LATENCY_3WS,
 		.ahb_frequency = 120000000,
 		.apb1_frequency = 30000000,
 		.apb2_frequency = 60000000,
@@ -135,11 +143,23 @@ const clock_scale_t hse_12mhz_3v3[CLOCK_3V3_END] = {
 		.hpre = RCC_CFGR_HPRE_DIV_NONE,
 		.ppre1 = RCC_CFGR_PPRE_DIV_4,
 		.ppre2 = RCC_CFGR_PPRE_DIV_2,
-		.flash_config = FLASH_ACR_ICE | FLASH_ACR_DCE |
-				FLASH_ACR_LATENCY_5WS,
+		.flash_config = FLASH_ACR_ICE | FLASH_ACR_DCE | FLASH_ACR_LATENCY_5WS,
 		.ahb_frequency = 168000000,
 		.apb1_frequency = 42000000,
 		.apb2_frequency = 84000000,
+	},
+	{ /* 180MHz   Note: This speed CANNOT be used with the internal USB FS ip */
+		.pllm = 12,  /* because pllq would have to be 7.5 to exactly achieve  */
+		.plln = 360, /* 48MHz for PLL48CLK. With pllq = 8 PLL48CLK is 45MHz!  */
+		.pllp = 2,   /* The other peripherals using PLL48CLK (SDIO and RNG)   */
+		.pllq = 8,   /* should be fine, however.                              */
+		.hpre = RCC_CFGR_HPRE_DIV_NONE,
+		.ppre1 = RCC_CFGR_PPRE_DIV_4,
+		.ppre2 = RCC_CFGR_PPRE_DIV_2,
+		.flash_config = FLASH_ACR_ICE | FLASH_ACR_DCE | FLASH_ACR_LATENCY_5WS,
+		.ahb_frequency = 180000000,
+		.apb1_frequency = 45000000,
+		.apb2_frequency = 90000000,
 	},
 };
 
@@ -153,8 +173,7 @@ const clock_scale_t hse_16mhz_3v3[CLOCK_3V3_END] = {
 		.ppre1 = RCC_CFGR_PPRE_DIV_4,
 		.ppre2 = RCC_CFGR_PPRE_DIV_2,
 		.power_save = 1,
-		.flash_config = FLASH_ACR_ICE | FLASH_ACR_DCE |
-				FLASH_ACR_LATENCY_3WS,
+		.flash_config = FLASH_ACR_ICE | FLASH_ACR_DCE | FLASH_ACR_LATENCY_3WS,
 		.ahb_frequency = 48000000,
 		.apb1_frequency = 12000000,
 		.apb2_frequency = 24000000,
@@ -168,8 +187,7 @@ const clock_scale_t hse_16mhz_3v3[CLOCK_3V3_END] = {
 		.ppre1 = RCC_CFGR_PPRE_DIV_4,
 		.ppre2 = RCC_CFGR_PPRE_DIV_2,
 		.power_save = 1,
-		.flash_config = FLASH_ACR_ICE | FLASH_ACR_DCE |
-				FLASH_ACR_LATENCY_3WS,
+		.flash_config = FLASH_ACR_ICE | FLASH_ACR_DCE | FLASH_ACR_LATENCY_3WS,
 		.ahb_frequency = 120000000,
 		.apb1_frequency = 30000000,
 		.apb2_frequency = 60000000,
@@ -182,11 +200,23 @@ const clock_scale_t hse_16mhz_3v3[CLOCK_3V3_END] = {
 		.hpre = RCC_CFGR_HPRE_DIV_NONE,
 		.ppre1 = RCC_CFGR_PPRE_DIV_4,
 		.ppre2 = RCC_CFGR_PPRE_DIV_2,
-		.flash_config = FLASH_ACR_ICE | FLASH_ACR_DCE |
-				FLASH_ACR_LATENCY_5WS,
+		.flash_config = FLASH_ACR_ICE | FLASH_ACR_DCE | FLASH_ACR_LATENCY_5WS,
 		.ahb_frequency = 168000000,
 		.apb1_frequency = 42000000,
 		.apb2_frequency = 84000000,
+	},
+	{ /* 180MHz   Note: This speed CANNOT be used with the internal USB FS ip */
+		.pllm = 16,  /* because pllq would have to be 7.5 to exactly achieve  */
+		.plln = 360, /* 48MHz for PLL48CLK. With pllq = 8 PLL48CLK is 45MHz!  */
+		.pllp = 2,   /* The other peripherals using PLL48CLK (SDIO and RNG)   */
+		.pllq = 8,   /* should be fine, however.                              */
+		.hpre = RCC_CFGR_HPRE_DIV_NONE,
+		.ppre1 = RCC_CFGR_PPRE_DIV_4,
+		.ppre2 = RCC_CFGR_PPRE_DIV_2,
+		.flash_config = FLASH_ACR_ICE | FLASH_ACR_DCE | FLASH_ACR_LATENCY_5WS,
+		.ahb_frequency = 180000000,
+		.apb1_frequency = 45000000,
+		.apb2_frequency = 90000000,
 	},
 };
 
@@ -200,8 +230,7 @@ const clock_scale_t hse_25mhz_3v3[CLOCK_3V3_END] = {
 		.ppre1 = RCC_CFGR_PPRE_DIV_4,
 		.ppre2 = RCC_CFGR_PPRE_DIV_2,
 		.power_save = 1,
-		.flash_config = FLASH_ACR_ICE | FLASH_ACR_DCE |
-				FLASH_ACR_LATENCY_3WS,
+		.flash_config = FLASH_ACR_ICE | FLASH_ACR_DCE | FLASH_ACR_LATENCY_3WS,
 		.ahb_frequency = 48000000,
 		.apb1_frequency = 12000000,
 		.apb2_frequency = 24000000,
@@ -215,8 +244,7 @@ const clock_scale_t hse_25mhz_3v3[CLOCK_3V3_END] = {
 		.ppre1 = RCC_CFGR_PPRE_DIV_4,
 		.ppre2 = RCC_CFGR_PPRE_DIV_2,
 		.power_save = 1,
-		.flash_config = FLASH_ACR_ICE | FLASH_ACR_DCE |
-				FLASH_ACR_LATENCY_3WS,
+		.flash_config = FLASH_ACR_ICE | FLASH_ACR_DCE | FLASH_ACR_LATENCY_3WS,
 		.ahb_frequency = 120000000,
 		.apb1_frequency = 30000000,
 		.apb2_frequency = 60000000,
@@ -229,11 +257,23 @@ const clock_scale_t hse_25mhz_3v3[CLOCK_3V3_END] = {
 		.hpre = RCC_CFGR_HPRE_DIV_NONE,
 		.ppre1 = RCC_CFGR_PPRE_DIV_4,
 		.ppre2 = RCC_CFGR_PPRE_DIV_2,
-		.flash_config = FLASH_ACR_ICE | FLASH_ACR_DCE |
-				FLASH_ACR_LATENCY_5WS,
+		.flash_config = FLASH_ACR_ICE | FLASH_ACR_DCE | FLASH_ACR_LATENCY_5WS,
 		.ahb_frequency = 168000000,
 		.apb1_frequency = 42000000,
 		.apb2_frequency = 84000000,
+	},
+	{ /* 180MHz   Note: This speed CANNOT be used with the internal USB FS ip */
+		.pllm = 25,  /* because pllq would have to be 7.5 to exactly achieve  */
+		.plln = 360, /* 48MHz for PLL48CLK. With pllq = 8 PLL48CLK is 45MHz!  */
+		.pllp = 2,   /* The other peripherals using PLL48CLK (SDIO and RNG)   */
+		.pllq = 8,   /* should be fine, however.                              */
+		.hpre = RCC_CFGR_HPRE_DIV_NONE,
+		.ppre1 = RCC_CFGR_PPRE_DIV_4,
+		.ppre2 = RCC_CFGR_PPRE_DIV_2,
+		.flash_config = FLASH_ACR_ICE | FLASH_ACR_DCE | FLASH_ACR_LATENCY_5WS,
+		.ahb_frequency = 180000000,
+		.apb1_frequency = 45000000,
+		.apb2_frequency = 90000000,
 	},
 };
 
