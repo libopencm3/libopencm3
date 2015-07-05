@@ -269,11 +269,9 @@ specific memorymap.h header before including this header file.*/
 
 /* TxE: Data register empty (transmitters) */
 #define I2C_SR1_TxE			(1 << 7)
-#define I2C_SR1_TXE			(1 << 7)
 
 /* RxNE: Data register not empty (receivers) */
 #define I2C_SR1_RxNE			(1 << 6)
-#define I2C_SR1_RXNE			(1 << 6)
 
 /* Note: Bit 5 is reserved, and forced to 0 by hardware. */
 
