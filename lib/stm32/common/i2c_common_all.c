@@ -458,4 +458,42 @@ void i2c_clear_dma_last_transfer(uint32_t i2c)
 	I2C_CR2(i2c) &= ~I2C_CR2_LAST;
 }
 
+/*---------------------------------------------------------------------------*/
+/** @brief I2C Set Bus Speed
+
+@param[in] i2c uint32_t I2C register base address @ref i2c_reg_base.
+@param[in] fast uint8_t Fast (400Khz) or Slow (100Khz) speed
+
+Note: this function has to disable the device while setting clock speeds
+and so it may lose other settings you've made. Please call it first,
+then make any addition changes to the settings to complete your setup
+such as enabling interrupts, dma, etc.
+*/
+void i2c_set_speed(uint32_t i2c, uint8_t fast)
+{
+	int	freq;
+	uint32_t reg;
+
+	/* force disable, to set clocks */
+	I2C_CR1(i2c) &= ~(I2C_CR1_PE);
+
+	/* frequency in megahertz */
+	freq = rcc_apb1_frequency / 1000000;
+	reg = (I2C_CR2(i2c) & ~(I2C_CR2_FREQ_MASK)) | (freq & I2C_CR2_FREQ_MASK);
+	I2C_CR2(i2c) = reg;
+
+	/* Note supports the two 'simple' versions not the 9:16 ratio version */
+	if (fast) {
+		I2C_CCR(i2c) = I2C_CCR_FS | (((freq * 5) / 6) & I2C_CCR_CCRMASK);
+	} else {
+		I2C_CCR(i2c) = (freq * 5) & I2C_CCR_CCRMASK;
+	}
+	
+	/* set rise time to 1000ns */
+	reg = (I2C_TRISE(i2c) & ~(I2C_TRISE_MASK)) | ((freq + 1) & I2C_TRISE_MASK);
+	I2C_TRISE(i2c) = reg;
+	/* enable i2c device */
+	I2C_CR1(i2c) |= I2C_CR1_PE;
+}
+
 /**@}*/

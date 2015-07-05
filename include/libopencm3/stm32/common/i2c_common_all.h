@@ -160,6 +160,8 @@ specific memorymap.h header before including this header file.*/
 /* ITERREN: Error interrupt enable */
 #define I2C_CR2_ITERREN			(1 << 8)
 
+#define I2C_CR2_FREQ_MASK		0x3ff
+
 /* Note: Bits [7:6] are reserved, and forced to 0 by hardware. */
 
 /* FREQ[5:0]: Peripheral clock frequency (valid values: 2-36 MHz, 2-42 MHz for
@@ -267,9 +269,11 @@ specific memorymap.h header before including this header file.*/
 
 /* TxE: Data register empty (transmitters) */
 #define I2C_SR1_TxE			(1 << 7)
+#define I2C_SR1_TXE			(1 << 7)
 
 /* RxNE: Data register not empty (receivers) */
 #define I2C_SR1_RxNE			(1 << 6)
+#define I2C_SR1_RXNE			(1 << 6)
 
 /* Note: Bit 5 is reserved, and forced to 0 by hardware. */
 
@@ -320,6 +324,8 @@ specific memorymap.h header before including this header file.*/
 /* F/S: I2C Master mode selection (fast / standard) */
 #define I2C_CCR_FS			(1 << 15)
 
+#define I2C_CCR_CCRMASK			0xfff
+
 /* DUTY: Fast Mode Duty Cycle */
 /** @defgroup i2c_duty_cycle I2C peripheral clock duty cycles
 @ingroup i2c_defines
@@ -345,6 +351,7 @@ specific memorymap.h header before including this header file.*/
  * Bits [5:0]:
  * TRISE[5:0]: Maximum rise time in Fast/Standard mode (master mode)
  */
+#define I2C_TRISE_MASK			0x3f
 
 /* --- I2C constant definitions -------------------------------------------- */
 
@@ -391,6 +398,7 @@ void i2c_enable_dma(uint32_t i2c);
 void i2c_disable_dma(uint32_t i2c);
 void i2c_set_dma_last_transfer(uint32_t i2c);
 void i2c_clear_dma_last_transfer(uint32_t i2c);
+void i2c_set_speed(uint32_t i2c, uint8_t fastmode);
 
 END_DECLS
 
