@@ -109,6 +109,7 @@ error "This file should not be included directly, it is included with fsmc.h"
 /* --- FMC_SDTRx values --------------------------------------------------- */
 
 /* Bits [31:28]: Reserved. */
+#define FMC_SDTR_ERASE_MASK						0xF0000000
 
 /* TRCD: Row to Column Delay */
 #define FMC_SDTR_TRCD_SHIFT						24
@@ -152,6 +153,7 @@ error "This file should not be included directly, it is included with fsmc.h"
 /* --- FMC_SDCMR values --------------------------------------------------- */
 
 /* Bits [31:22]: Reserved. */
+#define FMC_SDCR_ERASE_MASK						0xffff8000
 
 /* MRD: Mode Register Definition */
 #define FMC_SDCMR_MRD_SHIFT						9
@@ -181,6 +183,7 @@ error "This file should not be included directly, it is included with fsmc.h"
 /* --- FMC_SDRTR values ---------------------------------------------------- */
 
 /* Bits [31:15]: Reserved. */
+#define FMC_SDRTR_ERASE_MASK					0xffffffc0
 
 /* REIE: Refresh Error Interrupt Enable */
 #define FMC_SDRTR_REIE							(1 << 14)
@@ -213,20 +216,20 @@ error "This file should not be included directly, it is included with fsmc.h"
 
 /* Helper function for setting the timing parameters */
 struct sdram_timing {
-	int trcd;		/* RCD Delay */
-	int trp;		/* RP Delay */
-	int twr;		/* Write Recovery Time */
-	int trc;		/* Row Cycle Delay */
-	int tras;		/* Self Refresh TIme */
-	int txsr;		/* Exit Self Refresh Time */
-	int tmrd;		/* Load to Active delay */
+	uint8_t trcd : 4;		/* RCD Delay */
+	uint8_t trp : 4;		/* RP Delay */
+	uint8_t twr : 4;		/* Write Recovery Time */
+	uint8_t trc : 4;		/* Row Cycle Delay */
+	uint8_t tras : 4;		/* Self Refresh TIme */
+	uint8_t txsr : 4;		/* Exit Self Refresh Time */
+	uint8_t tmrd : 4;		/* Load to Active delay */
 };
 
 /* Mode register parameters */
 #define SDRAM_MODE_BURST_LENGTH_1				((uint16_t)0x0000)
 #define SDRAM_MODE_BURST_LENGTH_2				((uint16_t)0x0001)
 #define SDRAM_MODE_BURST_LENGTH_4				((uint16_t)0x0002)
-#define SDRAM_MODE_BURST_LENGTH_8				((uint16_t)0x0004)
+#define SDRAM_MODE_BURST_LENGTH_8				((uint16_t)0x0003)
 #define SDRAM_MODE_BURST_TYPE_SEQUENTIAL		((uint16_t)0x0000)
 #define SDRAM_MODE_BURST_TYPE_INTERLEAVED		((uint16_t)0x0008)
 #define SDRAM_MODE_CAS_LATENCY_2				((uint16_t)0x0020)
