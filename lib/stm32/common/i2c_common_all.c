@@ -468,6 +468,11 @@ Note: this function has to disable the device while setting clock speeds
 and so it may lose other settings you've made. Please call it first,
 then make any addition changes to the settings to complete your setup
 such as enabling interrupts, dma, etc.
+
+Also when you set "fast" mode you get the common 1:2 clock duty cycle,
+if you want the more complext 9:16 duty cycle that the chip does support
+then you will need to program the FREQ and CCR registers directly
+with the @ref i2c_set_ccr and @ref i2c_set_clock_frequency calls.
 */
 void i2c_set_speed(uint32_t i2c, uint8_t fast)
 {
@@ -482,7 +487,6 @@ void i2c_set_speed(uint32_t i2c, uint8_t fast)
 	reg = (I2C_CR2(i2c) & ~(I2C_CR2_FREQ_MASK)) | (freq & I2C_CR2_FREQ_MASK);
 	I2C_CR2(i2c) = reg;
 
-	/* Note supports the two 'simple' versions not the 9:16 ratio version */
 	if (fast) {
 		I2C_CCR(i2c) = I2C_CCR_FS | (((freq * 5) / 6) & I2C_CCR_CCRMASK);
 	} else {
