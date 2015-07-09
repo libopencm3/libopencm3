@@ -89,20 +89,6 @@
 /**@{*/
 
 /*---------------------------------------------------------------------------*/
-/** @brief ADC Off
- *
- * Turn off the ADC to reduce power consumption to a few microamps.
- *
- * @param[in] adc Unsigned int32. ADC block register address base @ref
- * adc_reg_base
-*/
-
-void adc_off(uint32_t adc)
-{
-	ADC_CR(adc) |= ADC_CR_ADDIS;
-}
-
-/*---------------------------------------------------------------------------*/
 /** @brief ADC Enable Analog Watchdog for Regular Conversions
  *
  * The analog watchdog allows the monitoring of an analog signal between two
@@ -825,6 +811,20 @@ void adc_set_injected_offset(uint32_t adc, uint8_t reg, uint32_t offset)
 }
 
 /*---------------------------------------------------------------------------*/
+/** @brief ADC Power Off
+ *
+ * Turn off the ADC to reduce power consumption to a few microamps.
+ *
+ * @param[in] adc Unsigned int32. ADC block register address base @ref
+ * adc_reg_base
+*/
+
+void adc_power_off(uint32_t adc)
+{
+	ADC_CR(adc) |= ADC_CR_ADDIS;
+}
+
+/*---------------------------------------------------------------------------*/
 /** @brief ADC Power On
  *
  * If the ADC is in power-down mode then it is powered up. The application
@@ -839,7 +839,6 @@ void adc_power_on(uint32_t adc)
 {
 	ADC_CR(adc) |= ADC_CR_ADEN;
 }
-
 
 /*---------------------------------------------------------------------------*/
 /** @brief ADC Set Clock Prescale
