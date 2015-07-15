@@ -2,6 +2,7 @@
  * This file is part of the libopencm3 project.
  *
  * Copyright (C) 2013 Alexandru Gagniuc <mr.nuke.me@gmail.com>
+ * Copyright (C) 2015 Kuldeep Singh Dhaka <kuldeepdhaka9@gmail.com>
  *
  * This library is free software: you can redistribute it and/or modify
  * it under the terms of the GNU Lesser General Public License as published by
@@ -573,6 +574,16 @@ static void lm4f_disconnect(usbd_device *usbd_dev, bool disconnected)
 	}
 }
 
+static void lm4f_enable_sof(usbd_device *usbd_dev)
+{
+	/* note: USB_IM_* can be used for USB_IE */
+	if(usbd_dev->user_callback_sof) {
+		USB_IE |= USB_IM_SOF;
+	} else {
+		USB_IE &= ~USB_IM_SOF;
+	}
+}
+
 /*
  * A static struct works as long as we have only one USB peripheral. If we
  * meet LM4Fs with more than one USB, then we need to rework this approach.
@@ -638,6 +649,7 @@ const struct _usbd_driver lm4f_usb_driver = {
 	.ep_read_packet = lm4f_ep_read_packet,
 	.poll = lm4f_poll,
 	.disconnect = lm4f_disconnect,
+	.enable_sof = lm4f_enable_sof,
 	.base_address = USB_BASE,
 	.set_address_before_status = false,
 	.rx_fifo_size = RX_FIFO_SIZE,

@@ -2,6 +2,7 @@
  * This file is part of the libopencm3 project.
  *
  * Copyright (C) 2010 Gareth McMullin <gareth@blacksphere.co.nz>
+ * Copyright (C) 2015 Kuldeep Singh Dhaka <kuldeepdhaka9@gmail.com>
  *
  * This library is free software: you can redistribute it and/or modify
  * it under the terms of the GNU Lesser General Public License as published by
@@ -41,6 +42,7 @@ static uint16_t stm32f103_ep_write_packet(usbd_device *usbd_dev, uint8_t addr,
 static uint16_t stm32f103_ep_read_packet(usbd_device *usbd_dev, uint8_t addr,
 					 void *buf, uint16_t len);
 static void stm32f103_poll(usbd_device *usbd_dev);
+static void stm32f103_enable_sof(usbd_device *dev);
 
 static uint8_t force_nak[8];
 static struct _usbd_device usbd_dev;
@@ -55,6 +57,7 @@ const struct _usbd_driver stm32f103_usb_driver = {
 	.ep_nak_set = stm32f103_ep_nak_set,
 	.ep_write_packet = stm32f103_ep_write_packet,
 	.ep_read_packet = stm32f103_ep_read_packet,
+	.enable_sof = stm32f103_enable_sof,
 	.poll = stm32f103_poll,
 };
 
@@ -343,7 +346,10 @@ static void stm32f103_poll(usbd_device *dev)
 			dev->user_callback_sof();
 		}
 	}
+}
 
+static void stm32f103_enable_sof(usbd_device *dev)
+{
 	if (dev->user_callback_sof) {
 		BBIO_PERIPH(USB_CNTR_REG, USB_CNTR_SOFM) = 1;
 	} else {

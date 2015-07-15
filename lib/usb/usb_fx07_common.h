@@ -34,6 +34,7 @@ uint16_t stm32fx07_ep_read_packet(usbd_device *usbd_dev, uint8_t addr,
 				  void *buf, uint16_t len);
 void stm32fx07_poll(usbd_device *usbd_dev);
 void stm32fx07_disconnect(usbd_device *usbd_dev, bool disconnected);
+void stm32fx07_enable_sof(usbd_device *usbd_dev);
 
 
 #endif /* __USB_FX07_COMMON_H_ */

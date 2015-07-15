@@ -2,6 +2,7 @@
  * This file is part of the libopencm3 project.
  *
  * Copyright (C) 2011 Gareth McMullin <gareth@blacksphere.co.nz>
+ * Copyright (C) 2015 Kuldeep Singh Dhaka <kuldeepdhaka9@gmail.com>
  *
  * This library is free software: you can redistribute it and/or modify
  * it under the terms of the GNU Lesser General Public License as published by
@@ -326,12 +327,6 @@ void stm32fx07_poll(usbd_device *usbd_dev)
 		}
 		REBASE(OTG_GINTSTS) = OTG_GINTSTS_SOF;
 	}
-
-	if (usbd_dev->user_callback_sof) {
-		REBASE(OTG_GINTMSK) |= OTG_GINTMSK_SOFM;
-	} else {
-		REBASE(OTG_GINTMSK) &= ~OTG_GINTMSK_SOFM;
-	}
 }
 
 void stm32fx07_disconnect(usbd_device *usbd_dev, bool disconnected)
@@ -340,5 +335,14 @@ void stm32fx07_disconnect(usbd_device *usbd_dev, bool disconnected)
 		REBASE(OTG_DCTL) |= OTG_DCTL_SDIS;
 	} else {
 		REBASE(OTG_DCTL) &= ~OTG_DCTL_SDIS;
+	}
+}
+
+void stm32fx07_enable_sof(usbd_device *usbd_dev)
+{
+	if (usbd_dev->user_callback_sof) {
+		REBASE(OTG_GINTMSK) |= OTG_GINTMSK_SOFM;
+	} else {
+		REBASE(OTG_GINTMSK) &= ~OTG_GINTMSK_SOFM;
 	}
 }

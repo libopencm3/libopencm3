@@ -1,3 +1,4 @@
+
 /*
  * This file is part of the libopencm3 project.
  *
@@ -44,6 +45,7 @@ const struct _usbd_driver stm32f207_usb_driver = {
 	.ep_read_packet = stm32fx07_ep_read_packet,
 	.poll = stm32fx07_poll,
 	.disconnect = stm32fx07_disconnect,
+	.enable_sof = stm32fx07_enable_sof,
 	.base_address = USB_OTG_HS_BASE,
 	.set_address_before_status = 1,
 	.rx_fifo_size = RX_FIFO_SIZE,

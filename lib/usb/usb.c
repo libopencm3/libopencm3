@@ -18,6 +18,7 @@ LGPL License Terms @ref lgpl_license
  * This file is part of the libopencm3 project.
  *
  * Copyright (C) 2010 Gareth McMullin <gareth@blacksphere.co.nz>
+ * Copyright (C) 2015 Kuldeep Singh Dhaka <kuldeepdhaka9@gmail.com>
  *
  * This library is free software: you can redistribute it and/or modify
  * it under the terms of the GNU Lesser General Public License as published by
@@ -114,6 +115,11 @@ void usbd_register_resume_callback(usbd_device *usbd_dev,
 void usbd_register_sof_callback(usbd_device *usbd_dev, void (*callback)(void))
 {
 	usbd_dev->user_callback_sof = callback;
+
+	/* backend enable/disable */
+	if (usbd_dev->driver->enable_sof) {
+		usbd_dev->driver->enable_sof(usbd_dev);
+	}
 }
 
 void _usbd_reset(usbd_device *usbd_dev)
