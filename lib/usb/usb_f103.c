@@ -338,9 +338,10 @@ static void stm32f103_poll(usbd_device *dev)
 	}
 
 	if (istr & USB_ISTR_SOF) {
+		USB_CLR_ISTR_SOF();
 		if (dev->user_callback_sof) {
 			dev->user_callback_sof();
 		}
-		USB_CLR_ISTR_SOF();
 	}
+	BBIO_PERIPH(USB_CNTR_REG, USB_CNTR_SOFM) = (dev->user_callback_sof)?1:0;
 }
