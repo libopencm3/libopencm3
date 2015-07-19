@@ -91,7 +91,10 @@
 
 /* --- FSMC_BCRx values ---------------------------------------------------- */
 
-/* Bits [31:20]: Reserved. */
+/* Bits [31:21]: Reserved. */
+
+/* CCLKEN: Continous clock enable */
+#define FSMC_BCR_CCLKEN			(1 << 20)
 
 /* CBURSTRW: Write burst enable */
 #define FSMC_BCR_CBURSTRW		(1 << 19)
@@ -129,9 +132,9 @@
 
 /* MWID[5:4]: Memory data bus width */
 #define FSMC_BCR_MWID_SHIFT			4
-#define FSMC_BCR_MWID_8BIT			(1 << BCR_MWID_SHIFT)
-#define FSMC_BCR_MWID_16BIT			(1 << BCR_MWID_SHIFT)
-#define FSMC_BCR_MWID_32BIT			(1 << BCR_MWID_SHIFT)
+#define FSMC_BCR_MWID_8BIT			(1 << FSMC_BCR_MWID_SHIFT)
+#define FSMC_BCR_MWID_16BIT			(1 << FSMC_BCR_MWID_SHIFT)
+#define FSMC_BCR_MWID_32BIT			(1 << FSMC_BCR_MWID_SHIFT)
 
 /* MTYP[3:2]: Memory type */
 #define FSMC_BCR_MTYP_SHIFT			2
