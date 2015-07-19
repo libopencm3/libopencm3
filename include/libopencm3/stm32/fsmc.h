@@ -128,10 +128,16 @@
 #define FSMC_BCR_FACCEN			(1 << 6)
 
 /* MWID[5:4]: Memory data bus width */
-#define FSMC_BCR_MWID			(1 << 4)
+#define FSMC_BCR_MWID_SHIFT			4
+#define FSMC_BCR_MWID_8BIT			(1 << BCR_MWID_SHIFT)
+#define FSMC_BCR_MWID_16BIT			(1 << BCR_MWID_SHIFT)
+#define FSMC_BCR_MWID_32BIT			(1 << BCR_MWID_SHIFT)
 
 /* MTYP[3:2]: Memory type */
-#define FSMC_BCR_MTYP			(1 << 2)
+#define FSMC_BCR_MTYP_SHIFT			2
+#define FSMC_BCR_MTYP_SRAM			(0 << FSMC_BCR_MTYP_SHIFT)
+#define FSMC_BCR_MTYP_PSRAM			(1 << FSMC_BCR_MTYP_SHIFT)
+#define FSMC_BCR_MTYP_NOR_ONENAND	(2 << FSMC_BCR_MTYP_SHIFT)
 
 /* MUXEN: Address/data multiplexing enable bit */
 #define FSMC_BCR_MUXEN			(1 << 1)
