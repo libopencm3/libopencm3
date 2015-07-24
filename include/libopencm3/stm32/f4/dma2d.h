@@ -78,7 +78,7 @@ specific memorymap.h header before including this header file.*/
 #define DMA2D_BGCOLR		(DMA2D + 0x0028)
 
 /* DMA2D foreground CLUT memory address register (DMA2D_FGCMAR) */
-#define DMA2D+FGCMAR		(DMA2D + 0x002C)
+#define DMA2D_FGCMAR		(DMA2D + 0x002C)
 
 /* DMA2D background CLUT memory address register (DMA2D_BGCMAR) */
 #define DMA2D_BGCMAR		(DMA2D + 0x0030)
@@ -98,9 +98,6 @@ specific memorymap.h header before including this header file.*/
 /* DMA2D number of line register (DMA2D_NLR) */
 #define DMA2D_NLR			(DMA2D + 0x0044)
 
-/* DMA2D number of line register (DMA2D_NLR) */
-#define DMA2D_NLR			(DMA2D + 0x0044)
-
 /* DMA2D line watermark register (DMA2D_LWR) */
 #define DMA2D_LWR			(DMA2D + 0x0048)
 
@@ -116,43 +113,65 @@ specific memorymap.h header before including this header file.*/
 
 /* Bits 31:18 Reserved, must be kept at reset value */
 
+/* MODE: DMA2D mode */
 #define DMA2D_CR_MODE_SHIFT				16
 #define DMA2D_CR_MODE_M2M				(0x0 << DMA2D_CR_MODE_SHIFT)
 #define DMA2D_CR_MODE_M2M_PFC			(0x1 << DMA2D_CR_MODE_SHIFT)
 #define DMA2D_CR_MODE_M2M_PFC_BLEND		(0x2 << DMA2D_CR_MODE_SHIFT)
 #define DMA2D_CR_MODE_R2M				(0x3 << DMA2D_CR_MODE_SHIFT)
 
+/* CEIE: Configuration errror interrupt enable */
 #define DMA2D_CR_CEIE					(1 << 13)
+/* CTCIE: CLUT transfer complete interrupt enable */
 #define DMA2D_CR_CTCIE					(1 << 12)
+/* CAEIE: CLUT acces error interrupt enable */
 #define DMA2D_CR_CAEIE					(1 << 11)
+/* TWIE: Transfer watermark interrupt enable */
 #define DMA2D_CR_TWIE					(1 << 10)
+/* TCIE: Transfer complete interrupt enable */
 #define DMA2D_CR_TCIE					(1 << 9)
+/* TCIE: Transfer complete interrupt enable */
 #define DMA2D_CR_TEIE					(1 << 8)
 /* Bits 7:3 Reserved, must be kept at reset value */
+/* ABORT: Abort current transfer */
 #define DMA2D_CR_ABORT					(1 << 2)
+/* SUSP: Suspend the current transfer */
 #define DMA2D_CR_SUSP					(1 << 1)
+/* START: Start a transfer */
 #define DMA2D_CR_START					(1 << 0)
 
 
 /* --- DMA2D_ISR value ----------------------------------------------------- */
 
 /* Bits 31:6 Reserved, must be kept at reset value */
+/* CEIF: Configuration error interrupt flag */
 #define DMA2D_ISR_CEIF					(1 << 5)
+/* CTCIF: CLUT transfer complete interrupt flag */
 #define DMA2D_ISR_CTCIF					(1 << 4)
+/* CAEIF: CLUT access error interrupt flag */
 #define DMA2D_ISR_CAEIF					(1 << 3)
+/* TWIF: Transfer watermark interrupt flag */
 #define DMA2D_ISR_TWIF					(1 << 2)
+/* TCIF: Transfer complete interrupt flag */
 #define DMA2D_ISR_TCIF					(1 << 1)
+/* TEIF: Tansfer error interrupt flag */
 #define DMA2D_ISR_TEIF					(1 << 0)
 
 
 /* --- DMA2D_IFCR value ----------------------------------------------------- */
 
 /* Bits 31:6 Reserved, must be kept at reset value */
+/* CCEIF: Clear configuration error interrupt flag */
 #define DMA2D_IFCR_CCEIF				(1 << 5)
+/* CCTCIF: Clear CLUT transfer complete interrupt flag */
 #define DMA2D_IFCR_CCTCIF				(1 << 4)
+/* CCAEIF: Clear CLUT access error interrupt flag */
 #define DMA2D_IFCR_CCAEIF				(1 << 3)
+/* CTWIF: Clear transfer watermark interrupt flag */
 #define DMA2D_IFCR_CTWIF				(1 << 2)
+/* CTCIF: Clear transfer complete interrupt flag */
 #define DMA2D_IFCR_CTCIF				(1 << 1)
+/* CTEIF: Clear transfer error interrupt flag */
 #define DMA2D_IFCR_CTEIF				(1 << 0)
 
 
@@ -163,6 +182,7 @@ specific memorymap.h header before including this header file.*/
 /* --- DMA2D_FGOR value ----------------------------------------------------- */
 
 /* Bits 31:14 Reserved, must be kept at reset value */
+/* LO: Line offset */
 #define DMA2D_FGOR_LO_MASK				(0x3FF << 0)
 
 
@@ -173,32 +193,39 @@ specific memorymap.h header before including this header file.*/
 /* --- DMA2D_BGOR value ----------------------------------------------------- */
 
 /* Bits 31:14 Reserved, must be kept at reset value */
+/* LO: Line offset */
 #define DMA2D_BGOR_LO_MASK				(0x3FF << 0)
 
 
 /* --- DMA2D_FGPFCCR value ----------------------------------------------------- */
 
+/* ALPHA: Fixed alpha value which can replace the original alpha value */
 #define DMA2D_FGPFCCR_ALPHA_SHIFT		24
 #define DMA2D_FGPFCCR_ALPHA_MASK		(0xFF << DMA2D_FGPFCCR_ALPHA_SHIFT)
 
 /* Bits 23:18 Reserved, must be kept at reset value */
 
+/* AM: Alpha channel mode: leave alone, replace or multiply with ALPHA */
 #define DMA2D_FGPFCCR_AM_SHIFT			16
-#define DMA2D_FGPFCCR_AM_NO_MOD			(0x0 << DMA2D_FGPFCCR_AM_SHIFT)
+#define DMA2D_FGPFCCR_AM_NO_CHANGE		(0x0 << DMA2D_FGPFCCR_AM_SHIFT)
 #define DMA2D_FGPFCCR_AM_REPLACE		(0x1 << DMA2D_FGPFCCR_AM_SHIFT)
 #define DMA2D_FGPFCCR_AM_MULTIPLY		(0x2 << DMA2D_FGPFCCR_AM_SHIFT)
 
+/* CS: CLUT size, CS+1 entries */
 #define DMA2D_FGPFCCR_CS_SHIFT			8
 #define DMA2D_FGPFCCR_CS_MASK			(0xFF << DMA2D_FGPFCCR_CS_SHIFT)
 
 /* Bits 7:6 Reserved, must be kept at reset value */
 
+/* START: Start automatic loading of the CLUT */
 #define DMA2D_FGPFCCR_START				(1 << 5)
 
+/* CCM: CLUT color mode */
 #define DMA2D_FGPFCCR_CCM_SHIFT			4
 #define DMA2D_FGPFCCR_CCM_ARGB			(0 << DMA2D_FGPFCCR_CCM_SHIFT)
 #define DMA2D_FGPFCCR_CCM_RGB			(1 << DMA2D_FGPFCCR_CCM_SHIFT)
 
+/* CM: Color mode for the foreground image */
 #define DMA2D_FGPFCCR_CM_SHIFT			0
 #define DMA2D_FGPFCCR_CM_ARGB8888		(0x0 << DMA2D_FGPFCCR_CM_SHIFT)
 #define DMA2D_FGPFCCR_CM_RGB888			(0x1 << DMA2D_FGPFCCR_CM_SHIFT)
@@ -216,39 +243,48 @@ specific memorymap.h header before including this header file.*/
 /* --- DMA2D_FGCOLR value ----------------------------------------------------- */
 
 /* Bits 31:24 Reserved, must be kept at reset value */
+/* RED: Red value for the A4 or A8 mode of the foreground image */
 #define DMA2D_FGCOLR_RED_SHIFT			16
 #define DMA2D_FGCOLR_RED_MASK			(0xF << DMA2D_FGCOLR_RED_SHIFT)
 
+/* GREEN: Green value for the A4 or A8 mode of the foreground image */
 #define DMA2D_FGCOLR_GREEN_SHIFT		8
 #define DMA2D_FGCOLR_GREEN_MASK			(0xF << DMA2D_FGCOLR_RED_SHIFT)
 
+/* BLUE: Blue value for the A4 or A8 mode of the foreground image */
 #define DMA2D_FGCOLR_BLUE_SHIFT			0
 #define DMA2D_FGCOLR_BLUE_MASK			(0xF << DMA2D_FGCOLR_RED_SHIFT)
 
 
 /* --- DMA2D_BGPFCCR value ----------------------------------------------------- */
 
+/* ALPHA: Fixed alpha value which can replace the original alpha value */
 #define DMA2D_BGPFCCR_ALPHA_SHIFT		24
 #define DMA2D_BGPFCCR_ALPHA_MASK		(0xFF << DMA2D_BGPFCCR_ALPHA_SHIFT)
 
 /* Bits 23:18 Reserved, must be kept at reset value */
 
+/* AM: Alpha channel mode: leave alone, replace or multiply with ALPHA */
 #define DMA2D_BGPFCCR_AM_SHIFT			16
 #define DMA2D_BGPFCCR_AM_NO_MOD			(0x0 << DMA2D_BGPFCCR_AM_SHIFT)
 #define DMA2D_BGPFCCR_AM_REPLACE		(0x1 << DMA2D_BGPFCCR_AM_SHIFT)
 #define DMA2D_BGPFCCR_AM_MULTIPLY		(0x2 << DMA2D_BGPFCCR_AM_SHIFT)
 
+/* CS: CLUT size, CS+1 entries */
 #define DMA2D_BGPFCCR_CS_SHIFT			8
 #define DMA2D_BGPFCCR_CS_MASK			(0xFF << DMA2D_BGPFCCR_CS_SHIFT)
 
 /* Bits 7:6 Reserved, must be kept at reset value */
 
+/* START: Start automatic loading of the CLUT */
 #define DMA2D_BGPFCCR_START				(1 << 5)
 
+/* CCM: CLUT color mode */
 #define DMA2D_BGPFCCR_CCM_SHIFT			4
 #define DMA2D_BGPFCCR_CCM_ARGB			(0 << DMA2D_BGPFCCR_CCM_SHIFT)
 #define DMA2D_BGPFCCR_CCM_RGB			(1 << DMA2D_BGPFCCR_CCM_SHIFT)
 
+/* CM: Color mode for the background image */
 #define DMA2D_BGPFCCR_CM_SHIFT			0
 #define DMA2D_BGPFCCR_CM_ARGB8888		(0x0 << DMA2D_BGPFCCR_CM_SHIFT)
 #define DMA2D_BGPFCCR_CM_RGB888			(0x1 << DMA2D_BGPFCCR_CM_SHIFT)
@@ -266,12 +302,15 @@ specific memorymap.h header before including this header file.*/
 /* --- DMA2D_BGCOLR value ----------------------------------------------------- */
 
 /* Bits 31:24 Reserved, must be kept at reset value */
+/* RED: Red value for the A4 or A8 mode of the foreground image */
 #define DMA2D_BGCOLR_RED_SHIFT			16
 #define DMA2D_BGCOLR_RED_MASK			(0xF << DMA2D_BGCOLR_RED_SHIFT)
 
+/* GREEN: Green value for the A4 or A8 mode of the foreground image */
 #define DMA2D_BGCOLR_GREEN_SHIFT		8
 #define DMA2D_BGCOLR_GREEN_MASK			(0xF << DMA2D_BGCOLR_RED_SHIFT)
 
+/* BLUE: Blue value for the A4 or A8 mode of the foreground image */
 #define DMA2D_BGCOLR_BLUE_SHIFT			0
 #define DMA2D_BGCOLR_BLUE_MASK			(0xF << DMA2D_BGCOLR_RED_SHIFT)
 
@@ -286,6 +325,7 @@ specific memorymap.h header before including this header file.*/
 /* --- DMA2D_OPFCCR value ----------------------------------------------------- */
 
 /* Bits 31:3 Reserved, must be kept at reset value */
+/* CM: Color mode for the output image */
 #define DMA2D_OPFCCR_CM_SHIFT			0
 #define DMA2D_OPFCCR_CM_ARGB8888		(0x0 << DMA2D_OPFCCR_CM_SHIFT)
 #define DMA2D_OPFCCR_CM_RGB888			(0x1 << DMA2D_OPFCCR_CM_SHIFT)
@@ -296,15 +336,19 @@ specific memorymap.h header before including this header file.*/
 
 /* --- DMA2D_OCOLR value ----------------------------------------------------- */
 
+/* ALPHA: Alpha channel value of the output color */
 #define DMA2D_OCOLR_ALPHA_SHIFT			24
 #define DMA2D_OCOLR_ALPHA_MASK			(0xF << DMA2D_OCOLR_ALPHA_SHIFT)
 
+/* RED: Red channel value of the output color */
 #define DMA2D_OCOLR_RED_SHIFT			16
 #define DMA2D_OCOLR_RED_MASK			(0xF << DMA2D_OCOLR_RED_SHIFT)
 
+/* GREEN: Green channel value of the output color */
 #define DMA2D_OCOLR_GREEN_SHIFT			8
 #define DMA2D_OCOLR_GREEN_MASK			(0xF << DMA2D_OCOLR_GREEN_SHIFT)
 
+/* BLUE: Blue channel value of the output color */
 #define DMA2D_OCOLR_BLUE_SHIFT			0
 #define DMA2D_OCOLR_BLUE_MASK			(0xF << DMA2D_OCOLR_BLUE_SHIFT)
 
@@ -316,15 +360,18 @@ specific memorymap.h header before including this header file.*/
 /* --- DMA2D_OOR value ----------------------------------------------------- */
 
 /* Bits 31:14 Reserved, must be kept at reset value */
+/* LO: Line offset */
 #define DMA2D_OOR_LO_MASK				(0x3FF << 0)
 
 
 /* --- DMA2D_NLR value ----------------------------------------------------- */
 
 /* Bits 31:30 Reserved, must be kept at reset value */
+/* PL: Number of pixel per line of the area to be transferred */
 #define DMA2D_NLR_PL_SHIFT				16
 #define DMA2D_NLR_PL_MASK				(0x3FF << DMA2D_NLR_PL_SHIFT)
 
+/* NL: Number of lines of the area to be transferred */
 #define DMA2D_NLR_NL_SHIFT				0
 #define DMA2D_NLR_NL_MASK				(0xFFFF << DMA2D_NLR_NL_SHIFT)
 
@@ -332,6 +379,7 @@ specific memorymap.h header before including this header file.*/
 /* --- DMA2D_LWR value ----------------------------------------------------- */
 
 /* Bits 31:16 Reserved, must be kept at reset value */
+/* LW: Line number for watermarking, generates an interrupt when that line is transferred */
 #define DMA2D_LWR_LW_SHIFT				0
 #define DMA2D_LWR_LW_MASK				(0xFFFF << DMA2D_LWR_LW_SHIFT)
 
@@ -339,9 +387,11 @@ specific memorymap.h header before including this header file.*/
 /* --- DMA2D_AMTCR value ----------------------------------------------------- */
 
 /* Bits 31:16 Reserved */
+/* DT: Dead time between to consecutive on the AHB master port in AHB cycles */
 #define DMA2D_AMTCR_DT_SHIFT			8
 #define DMA2D_AMTCR_DT_MASK				(0xFF << DMA2D_AMTCR_DT_SHIFT)
 /* Bits 7:16 Reserved */
+/* EN: Enables the dead time functionality */
 #define DMA2D_AMTCR_EN					1
 
 
