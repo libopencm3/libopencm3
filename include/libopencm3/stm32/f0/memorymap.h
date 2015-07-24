@@ -58,7 +58,7 @@
 #define I2C1_BASE			(PERIPH_BASE_APB + 0x5400)
 #define I2C2_BASE			(PERIPH_BASE_APB + 0x5800)
 #define USB_DEV_FS_BASE			(PERIPH_BASE_APB + 0x5C00)
-/* USB_PMA_BASE already defined in usb.h */
+#define USB_PMA_BASE			(PERIPH_BASE_APB + 0x6000)
 #define BX_CAN1_BASE			(PERIPH_BASE_APB + 0x6400)
 
 #define CRS_BASE			(PERIPH_BASE_APB + 0x6C00)
