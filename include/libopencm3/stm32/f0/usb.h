@@ -1,5 +1,3 @@
-/* This provides unification of USB code for supported STM32F subfamilies */
-
 /*
  * This file is part of the libopencm3 project.
  *
@@ -16,23 +14,14 @@
  * You should have received a copy of the GNU Lesser General Public License
  * along with this library.  If not, see <http://www.gnu.org/licenses/>.
  */
+/* THIS FILE SHOULD NOT BE INCLUDED DIRECTLY !
+ * Use top-level <libopencm3/stm32/usb.h>
+ */
 
 #ifndef LIBOPENCM3_USB_H
-#define LIBOPENCM3_USB_H
-
-#include <libopencm3/cm3/common.h>
-#include <libopencm3/stm32/memorymap.h>
-
-#if defined(STM32F0)
-#       include <libopencm3/stm32/f0/usb.h>
-#elif defined(STM32F1)
-#       include <libopencm3/stm32/f1/usb.h>
-#elif defined(STM32F3)
-#       include <libopencm3/stm32/f3/usb.h>
-#elif defined(STM32L1)
-#       include <libopencm3/stm32/l1/usb.h>
+#	error Do not include directly !
 #else
-#       error "STM32 family not defined or not supported."
-#endif
+
+#include <libopencm3/stm32/common/usb_common_v2.h>
 
 #endif
