@@ -59,8 +59,10 @@ LGPL License Terms @ref lgpl_license
 /* USB Buffer table address register */
 #define USB_BTABLE_REG		(&MMIO32(USB_DEV_FS_BASE + 0x50))
 
+/* Link Power Management register */
 #define USB_LPMCSR_REG		(&MMIO32(USB_DEV_FS_BASE + 0x54))
-#define USB_BDCR_REG		(&MMIO32(USB_DEV_FS_BASE + 0x58))
+/* Battery Charge Detection register */
+#define USB_BCDR_REG		(&MMIO32(USB_DEV_FS_BASE + 0x58))
 
 /* USB EP register */
 #define USB_EP_REG(EP)		(&MMIO32(USB_DEV_FS_BASE) + (EP))
@@ -116,6 +118,7 @@ LGPL License Terms @ref lgpl_license
 #define USB_DADDR_EF	0x0080
 #define USB_DADDR_ADDR		0x007F
 
+/* --- USB Link Power Management control/status register masks / bits ------ */
 #define USB_LPMCSR_BESL_SHIFT	4
 #define USB_LPMCSR_BESL		(15 << USB_LPMCSR_BESL_SHIFT)
 
@@ -123,15 +126,16 @@ LGPL License Terms @ref lgpl_license
 #define USB_LPMCSR_LPMACK	(1 << 1)
 #define USB_LPMCSR_LPMEN	(1 << 0)
 
-#define USB_BDCR_DPPU		(1 << 15)
-#define USB_BDCR_PS2DET		(1 << 7)
-#define USB_BDCR_SDET		(1 << 6)
-#define USB_BDCR_PDET		(1 << 5)
-#define USB_BDCR_DCDET		(1 << 4)
-#define USB_BDCR_SDEN		(1 << 3)
-#define USB_BDCR_PDEN		(1 << 2)
-#define USB_BDCR_DCDEN		(1 << 1)
-#define USB_BDCR_BCDEN		(1 << 0)
+/* --- USB Battery Charge Detection register masks / bits ------ */
+#define USB_BCDR_DPPU		(1 << 15)
+#define USB_BCDR_PS2DET		(1 << 7)
+#define USB_BCDR_SDET		(1 << 6)
+#define USB_BCDR_PDET		(1 << 5)
+#define USB_BCDR_DCDET		(1 << 4)
+#define USB_BCDR_SDEN		(1 << 3)
+#define USB_BCDR_PDEN		(1 << 2)
+#define USB_BCDR_DCDEN		(1 << 1)
+#define USB_BCDR_BCDEN		(1 << 0)
 
 /* --- USB device address register manipulators ---------------------------- */
 
