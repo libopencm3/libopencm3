@@ -458,4 +458,59 @@ void i2c_clear_dma_last_transfer(uint32_t i2c)
 	I2C_CR2(i2c) &= ~I2C_CR2_LAST;
 }
 
+uint8_t i2c_busy(uint32_t i2c)
+{
+	if ((I2C_SR2(i2c) & I2C_SR2_BUSY) != 0) {
+		return 1;
+	}
+	return 0;
+}
+
+uint8_t i2c_start_generated(uint32_t i2c)
+{
+	if ((I2C_SR1(i2c) & I2C_SR1_SB) != 0) {
+		(void)I2C_SR1(i2c);
+		return 1;
+	}
+	return 0;
+}
+
+uint8_t i2c_address_sent(uint32_t i2c)
+{
+	if ((I2C_SR1(i2c) & I2C_SR1_ADDR) != 0) {
+		(void)I2C_SR1(i2c);
+		(void)I2C_SR2(i2c);
+		return 1;
+	}
+	return 0;
+}
+
+uint8_t i2c_address_received(uint32_t i2c)
+{
+	return i2c_address_sent(i2c);
+}
+
+uint8_t i2c_byte_transfer_finished(uint32_t i2c)
+{
+	if ((I2C_SR1(i2c) & I2C_SR1_BTF) != 0) {
+		return 1;
+	}
+	return 0;
+}
+
+uint8_t i2c_nack_received(uint32_t i2c)
+{
+	if ((I2C_SR1(i2c) & I2C_SR1_AF) != 0) {
+		return 1;
+	}
+	return 0;
+}
+
+uint8_t i2c_data_received(uint32_t i2c) {
+	if ((I2C_SR1(i2c) & I2C_SR1_RxNE) != 0) {
+		return 1;
+	}
+	return 0;
+}
+
 /**@}*/

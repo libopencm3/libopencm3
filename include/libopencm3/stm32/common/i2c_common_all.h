@@ -391,6 +391,13 @@ void i2c_enable_dma(uint32_t i2c);
 void i2c_disable_dma(uint32_t i2c);
 void i2c_set_dma_last_transfer(uint32_t i2c);
 void i2c_clear_dma_last_transfer(uint32_t i2c);
+uint8_t i2c_busy(uint32_t i2c);
+uint8_t i2c_start_generated(uint32_t i2c);
+uint8_t i2c_address_sent(uint32_t i2c);
+uint8_t i2c_address_received(uint32_t i2c);
+uint8_t i2c_byte_transfer_finished(uint32_t i2c);
+uint8_t i2c_nack_received(uint32_t i2c);
+uint8_t i2c_data_received(uint32_t i2c);
 
 END_DECLS
 
