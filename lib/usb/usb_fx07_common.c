@@ -94,7 +94,7 @@ void stm32fx07_ep_setup(usbd_device *usbd_dev, uint8_t addr, uint8_t type,
 		    | OTG_FS_DIEPCTL0_USBAEP | OTG_FS_DIEPCTLX_SD0PID
 		    | (addr << 22) | max_size;
 
-		if (callback) {
+		if (addr) {
 			usbd_dev->user_callback_ctr[addr][USB_TRANSACTION_IN] =
 			    (void *)callback;
 		}
@@ -108,7 +108,7 @@ void stm32fx07_ep_setup(usbd_device *usbd_dev, uint8_t addr, uint8_t type,
 		    OTG_FS_DOEPCTL0_USBAEP | OTG_FS_DIEPCTL0_CNAK |
 		    OTG_FS_DOEPCTLX_SD0PID | (type << 18) | max_size;
 
-		if (callback) {
+		if (addr) {
 			usbd_dev->user_callback_ctr[addr][USB_TRANSACTION_OUT] =
 			    (void *)callback;
 		}
