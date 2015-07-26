@@ -308,21 +308,21 @@ void stm32fx07_poll(usbd_device *usbd_dev)
 
 	if (intsts & OTG_GINTSTS_USBSUSP) {
 		if (usbd_dev->user_callback_suspend) {
-			usbd_dev->user_callback_suspend();
+			usbd_dev->user_callback_suspend(usbd_dev);
 		}
 		REBASE(OTG_GINTSTS) = OTG_GINTSTS_USBSUSP;
 	}
 
 	if (intsts & OTG_GINTSTS_WKUPINT) {
 		if (usbd_dev->user_callback_resume) {
-			usbd_dev->user_callback_resume();
+			usbd_dev->user_callback_resume(usbd_dev);
 		}
 		REBASE(OTG_GINTSTS) = OTG_GINTSTS_WKUPINT;
 	}
 
 	if (intsts & OTG_GINTSTS_SOF) {
 		if (usbd_dev->user_callback_sof) {
-			usbd_dev->user_callback_sof();
+			usbd_dev->user_callback_sof(usbd_dev);
 		}
 		REBASE(OTG_GINTSTS) = OTG_GINTSTS_SOF;
 	}

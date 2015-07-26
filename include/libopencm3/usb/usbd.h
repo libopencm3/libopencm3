@@ -66,14 +66,16 @@ extern usbd_device * usbd_init(const usbd_driver *driver,
 			       uint8_t *control_buffer,
 			       uint16_t control_buffer_size);
 
+typedef void (* usbd_generic_callback)(usbd_device *usbd_dev);
+
 extern void usbd_register_reset_callback(usbd_device *usbd_dev,
-					 void (*callback)(void));
+					usbd_generic_callback callback);
 extern void usbd_register_suspend_callback(usbd_device *usbd_dev,
-					   void (*callback)(void));
+					usbd_generic_callback callback);
 extern void usbd_register_resume_callback(usbd_device *usbd_dev,
-					  void (*callback)(void));
+					usbd_generic_callback callback);
 extern void usbd_register_sof_callback(usbd_device *usbd_dev,
-				       void (*callback)(void));
+				    usbd_generic_callback callback);
 
 typedef int (*usbd_control_complete_callback)(usbd_device *usbd_dev,
 		struct usb_setup_data *req);

@@ -472,11 +472,11 @@ static void lm4f_poll(usbd_device *usbd_dev)
 	const uint8_t usb_csrl0 = USB_CSRL0;
 
 	if ((usb_is & USB_IM_SUSPEND) && (usbd_dev->user_callback_suspend)) {
-		usbd_dev->user_callback_suspend();
+		usbd_dev->user_callback_suspend(usbd_dev);
 	}
 
 	if ((usb_is & USB_IM_RESUME) && (usbd_dev->user_callback_resume)) {
-		usbd_dev->user_callback_resume();
+		usbd_dev->user_callback_resume(usbd_dev);
 	}
 
 	if (usb_is & USB_IM_RESET) {
@@ -484,7 +484,7 @@ static void lm4f_poll(usbd_device *usbd_dev)
 	}
 
 	if ((usb_is & USB_IM_SOF) && (usbd_dev->user_callback_sof)) {
-		usbd_dev->user_callback_sof();
+		usbd_dev->user_callback_sof(usbd_dev);
 	}
 
 	if (usb_txis & USB_EP0) {

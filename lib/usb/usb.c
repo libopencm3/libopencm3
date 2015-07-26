@@ -94,24 +94,26 @@ usbd_device *usbd_init(const usbd_driver *driver,
 	return usbd_dev;
 }
 
-void usbd_register_reset_callback(usbd_device *usbd_dev, void (*callback)(void))
+void usbd_register_reset_callback(usbd_device *usbd_dev,
+			usbd_generic_callback callback)
 {
 	usbd_dev->user_callback_reset = callback;
 }
 
 void usbd_register_suspend_callback(usbd_device *usbd_dev,
-				    void (*callback)(void))
+			usbd_generic_callback callback)
 {
 	usbd_dev->user_callback_suspend = callback;
 }
 
 void usbd_register_resume_callback(usbd_device *usbd_dev,
-				   void (*callback)(void))
+			usbd_generic_callback callback)
 {
 	usbd_dev->user_callback_resume = callback;
 }
 
-void usbd_register_sof_callback(usbd_device *usbd_dev, void (*callback)(void))
+void usbd_register_sof_callback(usbd_device *usbd_dev,
+			usbd_generic_callback callback)
 {
 	usbd_dev->user_callback_sof = callback;
 }
@@ -124,7 +126,7 @@ void _usbd_reset(usbd_device *usbd_dev)
 	usbd_dev->driver->set_address(usbd_dev, 0);
 
 	if (usbd_dev->user_callback_reset) {
-		usbd_dev->user_callback_reset();
+		usbd_dev->user_callback_reset(usbd_dev);
 	}
 }
 

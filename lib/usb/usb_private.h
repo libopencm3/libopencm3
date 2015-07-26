@@ -59,10 +59,10 @@ struct _usbd_device {
 	uint16_t pm_top;    /**< Top of allocated endpoint buffer memory */
 
 	/* User callback functions for various USB events */
-	void (*user_callback_reset)(void);
-	void (*user_callback_suspend)(void);
-	void (*user_callback_resume)(void);
-	void (*user_callback_sof)(void);
+	usbd_generic_callback user_callback_reset;
+	usbd_generic_callback user_callback_suspend;
+	usbd_generic_callback user_callback_resume;
+	usbd_generic_callback user_callback_sof;
 
 	struct usb_control_state {
 		enum {
