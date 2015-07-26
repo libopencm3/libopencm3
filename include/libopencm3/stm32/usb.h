@@ -113,7 +113,7 @@ LGPL License Terms @ref lgpl_license
 
 /* --- USB device address register masks / bits ---------------------------- */
 
-#define USB_DADDR_ENABLE	0x0080
+#define USB_DADDR_EF	0x0080
 #define USB_DADDR_ADDR		0x007F
 
 #define USB_LPMCSR_BESL_SHIFT	4

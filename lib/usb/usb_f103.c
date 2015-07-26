@@ -76,7 +76,7 @@ static void stm32f103_set_address(usbd_device *dev, uint8_t addr)
 {
 	(void)dev;
 	/* Set device address and enable. */
-	SET_REG(USB_DADDR_REG, (addr & USB_DADDR_ADDR) | USB_DADDR_ENABLE);
+	SET_REG(USB_DADDR_REG, (addr & USB_DADDR_ADDR) | USB_DADDR_EF);
 }
 
 /**
