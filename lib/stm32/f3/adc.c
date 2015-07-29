@@ -714,8 +714,8 @@ void adc_set_injected_sequence(uint32_t adc, uint8_t length, uint8_t channel[])
 /*---------------------------------------------------------------------------*/
 /** @brief ADC Read the End-of-Conversion Flag
  *
- * This flag is set after all channels of a regular or injected group have been
- * converted.
+ * This flag is set by hardware at the end of each regular conversion of a
+ * channel when a new data is available in the ADCx_DR register.
  *
  * @param[in] adc Unsigned int32. ADC block register address base
  * @ref adc_reg_base
@@ -730,8 +730,8 @@ bool adc_eoc(uint32_t adc)
 /*---------------------------------------------------------------------------*/
 /** @brief ADC Read the End-of-Conversion Flag for Injected Conversion
  *
- * This flag is set after all channels of an injected group have been
- * converted.
+ * This flag is set by hardware at the end of each injected conversion of a
+ * channel when a new data is available in the corresponding ADCx_JDRy register.
  *
  * @param[in] adc Unsigned int32. ADC block register address base
  * @ref adc_reg_base
@@ -1028,36 +1028,6 @@ void adc_clear_overrun_flag(uint32_t adc)
 {
 	/* r_w1 bit */
 	ADC_ISR(adc) |= ADC_ISR_OVR;
-}
-
-/*---------------------------------------------------------------------------*/
-/** @brief ADC Enable an EOC for Each Conversion
- *
- * The EOC is set after each conversion in a sequence rather than at the end of
- * the sequence. Overrun detection is enabled only if DMA is enabled.
- *
- * @param[in] adc Unsigned int32. ADC block register address base
- * @ref adc_reg_base
- */
-
-void adc_eoc_after_each(uint32_t adc)
-{
-	ADC_ISR(adc) |= ADC_ISR_EOS;
-}
-
-/*---------------------------------------------------------------------------*/
-/** @brief ADC Disable the EOC for Each Conversion
- *
- * The EOC is set at the end of each sequence rather than after each conversion
- * in the sequence. Overrun detection is enabled always.
- *
- * @param[in] adc Unsigned int32. ADC block register address base @ref
- * adc_reg_base
- */
-
-void adc_eoc_after_group(uint32_t adc)
-{
-	ADC_ISR(adc) &= ~ADC_ISR_EOS;
 }
 
 /*---------------------------------------------------------------------------*/
