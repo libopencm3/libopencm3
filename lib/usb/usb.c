@@ -59,7 +59,7 @@ LGPL License Terms @ref lgpl_license
  *                       received during control requests with DATA
  *                       stage
  * @param control_buffer_size Size of control_buffer
- * @return Zero on success (currently cannot fail).
+ * @return the usb device initialized for use. (currently cannot fail).
  */
 usbd_device *usbd_init(const usbd_driver *driver,
 		       const struct usb_device_descriptor *dev,
