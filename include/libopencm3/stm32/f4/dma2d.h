@@ -28,11 +28,13 @@ Moritz Nöltner-Augustin <>
 The order of header inclusion is important. dma.h includes the device
 specific memorymap.h header before including this header file.*/
 
+
+
 /** @cond */
 #ifdef LIBOPENCM3_DMA2D_H
 /** @endcond */
-#ifndef LIBOPENCM3_DMA2D_H
-#define LIBOPENCM3_DMA2D_H
+#ifndef LIBOPENCM3_F4_DMA2D_H
+#define LIBOPENCM3_F4_DMA2D_H
 
 /**@{*/
 
@@ -45,71 +47,74 @@ specific memorymap.h header before including this header file.*/
 /* --- DMA2D controller registers -------------------------------------------- */
 
 /* DMA2D control register (DMA2D_CR) */
-#define DMA2D_CR			(DMA2D + 0x0000)
+#define DMA2D_CR			(MMIO32(DMA2D + 0x0000))
 
 /* DMA2D interrupt status register (DMA2D_ISR) */
-#define DMA2D_ISR			(DMA2D + 0x0004)
+#define DMA2D_ISR			(MMIO32(DMA2D + 0x0004))
 
 /* DMA2D interrupt flag clear register (DMA2D_IFCR) */
-#define DMA2D_IFCR			(DMA2D + 0x0008)
+#define DMA2D_IFCR			(MMIO32(DMA2D + 0x0008))
 
 /* DMA2D foreground memory address register (DMA2D_FGMAR) */
-#define DMA2D_FGMAR			(DMA2D + 0x000C)
+#define DMA2D_FGMAR			(MMIO32(DMA2D + 0x000C))
 
 /* DMA2D foreground offset register (DMA2D_FGOR) */
-#define DMA2D_FGOR			(DMA2D + 0x0010)
+#define DMA2D_FGOR			(MMIO32(DMA2D + 0x0010))
 
 /* DMA2D background memory address register (DMA2D_BGMAR) */
-#define DMA2D_BGMAR			(DMA2D + 0x0014)
+#define DMA2D_BGMAR			(MMIO32(DMA2D + 0x0014))
 
 /* DMA2D background offset register (DMA2D_BGOR) */
-#define DMA2D_BGOR			(DMA2D + 0x0018)
+#define DMA2D_BGOR			(MMIO32(DMA2D + 0x0018))
 
 /* DMA2D foreground PFC control register (DMA2D_FGPFCCR) */
-#define DMA2D_FGPFCCR		(DMA2D + 0x001C)
+#define DMA2D_FGPFCCR		(MMIO32(DMA2D + 0x001C))
 
 /* DMA2D foreground color register (DMA2D_FGCOLR) */
-#define DMA2D_FGCOLR		(DMA2D + 0x0020)
+#define DMA2D_FGCOLR		(MMIO32(DMA2D + 0x0020))
 
 /* DMA2D background PFC control register (DMA2D_BGPFCCR) */
-#define DMA2D_BGPFCCR		(DMA2D + 0x0024)
+#define DMA2D_BGPFCCR		(MMIO32(DMA2D + 0x0024))
 
 /* DMA2D background color register (DMA2D_BGCOLR) */
-#define DMA2D_BGCOLR		(DMA2D + 0x0028)
+#define DMA2D_BGCOLR		(MMIO32(DMA2D + 0x0028))
 
 /* DMA2D foreground CLUT memory address register (DMA2D_FGCMAR) */
-#define DMA2D_FGCMAR		(DMA2D + 0x002C)
+#define DMA2D_FGCMAR		(MMIO32(DMA2D + 0x002C))
 
 /* DMA2D background CLUT memory address register (DMA2D_BGCMAR) */
-#define DMA2D_BGCMAR		(DMA2D + 0x0030)
+#define DMA2D_BGCMAR		(MMIO32(DMA2D + 0x0030))
 
 /* DMA2D output PFC control register (DMA2D_OPFCCR) */
-#define DMA2D_OPFCCR		(DMA2D + 0x0034)
+#define DMA2D_OPFCCR		(MMIO32(DMA2D + 0x0034))
 
 /* DMA2D output color register (DMA2D_OCOLR) */
-#define DMA2D_OCOLR			(DMA2D + 0x0038)
+#define DMA2D_OCOLR			(MMIO32(DMA2D + 0x0038))
 
 /* DMA2D output memory address register (DMA2D_OMAR) */
-#define DMA2D_OMAR			(DMA2D + 0x003C)
+#define DMA2D_OMAR			(MMIO32(DMA2D + 0x003C))
 
 /* DMA2D output offset register (DMA2D_OOR) */
-#define DMA2D_OOR			(DMA2D + 0x0040)
+#define DMA2D_OOR			(MMIO32(DMA2D + 0x0040))
 
 /* DMA2D number of line register (DMA2D_NLR) */
-#define DMA2D_NLR			(DMA2D + 0x0044)
+#define DMA2D_NLR			(MMIO32(DMA2D + 0x0044))
 
 /* DMA2D line watermark register (DMA2D_LWR) */
-#define DMA2D_LWR			(DMA2D + 0x0048)
+#define DMA2D_LWR			(MMIO32(DMA2D + 0x0048))
 
 /* DMA2D AHB master timer configuration register (DMA2D_AMTCR) */
-#define DMA2D_AMTCR			(DMA2D + 0x004C)
+#define DMA2D_AMTCR			(MMIO32(DMA2D + 0x004C))
 
 /* DMA2D AHB master timer configuration register (DMA2D_AMTCR) */
-#define DMA2D_AMTCR			(DMA2D + 0x004C)
+#define DMA2D_AMTCR			(MMIO32(DMA2D + 0x004C))
 
 
 
 /* --- DMA2D_CR value ----------------------------------------------------- */
+
+/* Mask for clearing all non-reserved bits */
+#define DMA2D_CR_MASK                     ((uint32_t) 0xFFFCE0FC)
 
 /* Bits 31:18 Reserved, must be kept at reset value */
 
@@ -327,6 +332,7 @@ specific memorymap.h header before including this header file.*/
 /* Bits 31:3 Reserved, must be kept at reset value */
 /* CM: Color mode for the output image */
 #define DMA2D_OPFCCR_CM_SHIFT			0
+#define DMA2D_OPFCCR_CM_MASK			(0x7 << DMA2D_OPFCCR_CM_SHIFT)
 #define DMA2D_OPFCCR_CM_ARGB8888		(0x0 << DMA2D_OPFCCR_CM_SHIFT)
 #define DMA2D_OPFCCR_CM_RGB888			(0x1 << DMA2D_OPFCCR_CM_SHIFT)
 #define DMA2D_OPFCCR_CM_RGB565			(0x2 << DMA2D_OPFCCR_CM_SHIFT)
@@ -417,11 +423,11 @@ specific memorymap.h header before including this header file.*/
 
 /* --- Function prototypes ------------------------------------------------- */
 
-BEGIN_DECLS
-
-//void dma_stream_reset(uint32_t dma, uint8_t stream);
-
-END_DECLS
+//BEGIN_DECLS
+//
+////void dma_stream_reset(uint32_t dma, uint8_t stream);
+//
+//END_DECLS
 /**@}*/
 #endif
 /** @cond */
