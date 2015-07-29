@@ -132,9 +132,9 @@
 
 /* MWID[5:4]: Memory data bus width */
 #define FSMC_BCR_MWID_SHIFT			4
-#define FSMC_BCR_MWID_8BIT			(1 << FSMC_BCR_MWID_SHIFT)
+#define FSMC_BCR_MWID_8BIT			(0 << FSMC_BCR_MWID_SHIFT)
 #define FSMC_BCR_MWID_16BIT			(1 << FSMC_BCR_MWID_SHIFT)
-#define FSMC_BCR_MWID_32BIT			(1 << FSMC_BCR_MWID_SHIFT)
+/* values 2 and 3 reserved */
 
 /* MTYP[3:2]: Memory type */
 #define FSMC_BCR_MTYP_SHIFT			2
