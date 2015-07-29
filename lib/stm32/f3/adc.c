@@ -724,7 +724,7 @@ void adc_set_injected_sequence(uint32_t adc, uint8_t length, uint8_t channel[])
 
 bool adc_eoc(uint32_t adc)
 {
-	return ((ADC_ISR(adc) & ADC_ISR_EOC) != 0);
+	return ADC_ISR(adc) & ADC_ISR_EOC;
 }
 
 /*---------------------------------------------------------------------------*/
@@ -740,7 +740,7 @@ bool adc_eoc(uint32_t adc)
 
 bool adc_eoc_injected(uint32_t adc)
 {
-	return ((ADC_ISR(adc) & ADC_ISR_JEOC) != 0);
+	return ADC_ISR(adc) & ADC_ISR_JEOC;
 }
 
 /*---------------------------------------------------------------------------*/
