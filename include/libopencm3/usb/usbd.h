@@ -75,10 +75,19 @@ extern void usbd_register_resume_callback(usbd_device *usbd_dev,
 extern void usbd_register_sof_callback(usbd_device *usbd_dev,
 				       void (*callback)(void));
 
+typedef int (*usbd_control_complete_callback)(usbd_device *usbd_dev,
+		struct usb_setup_data *req);
+
 typedef int (*usbd_control_callback)(usbd_device *usbd_dev,
 		struct usb_setup_data *req, uint8_t **buf, uint16_t *len,
-		void (**complete)(usbd_device *usbd_dev,
-				  struct usb_setup_data *req));
+		usbd_control_complete_callback *complete);
+
+typedef void (*usbd_set_config_callback)(usbd_device *usbd_dev, uint16_t wValue);
+
+typedef void (*usbd_set_altsetting_callback)(usbd_device *usbd_dev,
+		uint16_t wIndex, uint16_t wValue);
+
+typedef void (*usbd_endpoint_callback)(usbd_device *usbd_dev, uint8_t ep);
 
 /* <usb_control.c> */
 extern int usbd_register_control_callback(usbd_device *usbd_dev, uint8_t type,
@@ -87,18 +96,17 @@ extern int usbd_register_control_callback(usbd_device *usbd_dev, uint8_t type,
 
 /* <usb_standard.c> */
 extern int usbd_register_set_config_callback(usbd_device *usbd_dev,
-	void (*callback)(usbd_device *usbd_dev, uint16_t wValue));
+					  usbd_set_config_callback callback);
 
 extern void usbd_register_set_altsetting_callback(usbd_device *usbd_dev,
-						  void (*callback)(usbd_device *usbd_dev, uint16_t wIndex, uint16_t wValue));
+					  usbd_set_altsetting_callback callback);
 
 /* Functions to be provided by the hardware abstraction layer */
 extern void usbd_poll(usbd_device *usbd_dev);
 extern void usbd_disconnect(usbd_device *usbd_dev, bool disconnected);
 
 extern void usbd_ep_setup(usbd_device *usbd_dev, uint8_t addr, uint8_t type,
-		uint16_t max_size,
-		void (*callback)(usbd_device *usbd_dev, uint8_t ep));
+		uint16_t max_size, usbd_endpoint_callback callback);
 
 extern uint16_t usbd_ep_write_packet(usbd_device *usbd_dev, uint8_t addr,
 				const void *buf, uint16_t len);

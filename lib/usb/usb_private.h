@@ -73,8 +73,7 @@ struct _usbd_device {
 		struct usb_setup_data req __attribute__((aligned(4)));
 		uint8_t *ctrl_buf;
 		uint16_t ctrl_len;
-		void (*complete)(usbd_device *usbd_dev,
-				 struct usb_setup_data *req);
+		usbd_control_complete_callback complete;
 	} control_state;
 
 	struct user_control_callback {
@@ -83,14 +82,12 @@ struct _usbd_device {
 		uint8_t type_mask;
 	} user_control_callback[MAX_USER_CONTROL_CALLBACK];
 
-	void (*user_callback_ctr[8][3])(usbd_device *usbd_dev, uint8_t ea);
+	usbd_endpoint_callback user_callback_ctr[8][3];
 
 	/* User callback function for some standard USB function hooks */
-	void (*user_callback_set_config[MAX_USER_SET_CONFIG_CALLBACK])
-				(usbd_device *usbd_dev, uint16_t wValue);
+	usbd_set_config_callback user_callback_set_config[MAX_USER_SET_CONFIG_CALLBACK];
 
-	void (*user_callback_set_altsetting)(usbd_device *usbd_dev,
-					     uint16_t wIndex, uint16_t wValue);
+	usbd_set_altsetting_callback user_callback_set_altsetting;
 
 	const struct _usbd_driver *driver;
 
@@ -144,8 +141,7 @@ struct _usbd_driver {
 	usbd_device *(*init)(void);
 	void (*set_address)(usbd_device *usbd_dev, uint8_t addr);
 	void (*ep_setup)(usbd_device *usbd_dev, uint8_t addr, uint8_t type,
-			 uint16_t max_size,
-			 void (*cb)(usbd_device *usbd_dev, uint8_t ep));
+			 uint16_t max_size, usbd_endpoint_callback cb);
 	void (*ep_reset)(usbd_device *usbd_dev);
 	void (*ep_stall_set)(usbd_device *usbd_dev, uint8_t addr,
 			     uint8_t stall);

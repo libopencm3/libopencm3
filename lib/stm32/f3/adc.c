@@ -367,6 +367,31 @@ void adc_disable_eoc_interrupt_injected(uint32_t adc)
 }
 
 /*---------------------------------------------------------------------------*/
+/** @brief ADC Enable Injected End-Of-Sequence Interrupt
+ *
+ * @param[in] adc Unsigned int32. ADC block register address base @ref
+ * adc_reg_base
+ */
+
+void adc_enable_eos_interrupt_injected(uint32_t adc)
+{
+        ADC_IER(adc) |= ADC_IER_JEOSIE;
+}
+
+/*---------------------------------------------------------------------------*/
+/** @brief ADC Disable Injected End-Of-Sequence Interrupt
+ *
+ * @param[in] adc Unsigned int32. ADC block register address base @ref
+ * adc_reg_base
+ */
+
+void adc_disable_eos_interrupt_injected(uint32_t adc)
+{
+        ADC_IER(adc) &= ~ADC_IER_JEOSIE;
+}
+
+
+/*---------------------------------------------------------------------------*/
 /** @brief ADC Enable Analog Watchdog Interrupt
  *
  * @param[in] adc Unsigned int32. ADC block register address base @ref
@@ -417,6 +442,31 @@ void adc_disable_eoc_interrupt(uint32_t adc)
 {
 	ADC_IER(adc) &= ~ADC_IER_EOCIE;
 }
+
+/*---------------------------------------------------------------------------*/
+/** @brief ADC Enable Regular End-Of-Sequence Interrupt
+ *
+ * @param[in] adc Unsigned int32. ADC block register address base @ref
+ * adc_reg_base
+ */
+
+void adc_enable_eos_interrupt(uint32_t adc)
+{
+        ADC_IER(adc) |= ADC_IER_EOSIE;
+}
+
+/*---------------------------------------------------------------------------*/
+/** @brief ADC Disable Regular End-Of-Sequence Interrupt
+ *
+ * @param[in] adc Unsigned int32. ADC block register address base @ref
+ * adc_reg_base
+ */
+
+void adc_disable_eos_interrupt(uint32_t adc)
+{
+        ADC_IER(adc) &= ~ADC_IER_EOSIE;
+}
+
 
 /*---------------------------------------------------------------------------*/
 /** @brief ADC Software Triggered Conversion on Regular Channels
@@ -714,8 +764,8 @@ void adc_set_injected_sequence(uint32_t adc, uint8_t length, uint8_t channel[])
 /*---------------------------------------------------------------------------*/
 /** @brief ADC Read the End-of-Conversion Flag
  *
- * This flag is set after all channels of a regular or injected group have been
- * converted.
+ * This flag is set by hardware at the end of each regular conversion of a
+ * channel when a new data is available in the ADCx_DR register.
  *
  * @param[in] adc Unsigned int32. ADC block register address base
  * @ref adc_reg_base
@@ -724,14 +774,14 @@ void adc_set_injected_sequence(uint32_t adc, uint8_t length, uint8_t channel[])
 
 bool adc_eoc(uint32_t adc)
 {
-	return ((ADC_ISR(adc) & ADC_ISR_EOC) != 0);
+	return ADC_ISR(adc) & ADC_ISR_EOC;
 }
 
 /*---------------------------------------------------------------------------*/
 /** @brief ADC Read the End-of-Conversion Flag for Injected Conversion
  *
- * This flag is set after all channels of an injected group have been
- * converted.
+ * This flag is set by hardware at the end of each injected conversion of a
+ * channel when a new data is available in the corresponding ADCx_JDRy register.
  *
  * @param[in] adc Unsigned int32. ADC block register address base
  * @ref adc_reg_base
@@ -740,8 +790,39 @@ bool adc_eoc(uint32_t adc)
 
 bool adc_eoc_injected(uint32_t adc)
 {
-	return ((ADC_ISR(adc) & ADC_ISR_JEOC) != 0);
+	return ADC_ISR(adc) & ADC_ISR_JEOC;
 }
+
+/*---------------------------------------------------------------------------*/
+/** @brief ADC Read the End-of-Sequence Flag for Regular Conversions
+ *
+ * This flag is set after all channels of an regular group have been
+ * converted.
+ *
+ * @param[in] adc Unsigned int32. ADC block register address base
+ * @ref adc_reg_base
+ * @returns bool. End of conversion flag.
+ */
+bool adc_eos(uint32_t adc)
+{
+	return ADC_ISR(adc) & ADC_ISR_EOS;
+}
+
+/*---------------------------------------------------------------------------*/
+/** @brief ADC Read the End-of-Sequence Flag for Injected Conversions
+ *
+ * This flag is set after all channels of an injected group have been
+ * converted.
+ *
+ * @param[in] adc Unsigned int32. ADC block register address base
+ * @ref adc_reg_base
+ * @returns bool. End of conversion flag.
+ */
+bool adc_eos_injected(uint32_t adc)
+{
+	return ADC_ISR(adc) & ADC_ISR_JEOS;
+}
+
 
 /*---------------------------------------------------------------------------*/
 /** @brief ADC Read from the Regular Conversion Result Register
@@ -1026,38 +1107,8 @@ bool adc_get_overrun_flag(uint32_t adc)
 
 void adc_clear_overrun_flag(uint32_t adc)
 {
-/* need to write zero to clear this */
-	ADC_ISR(adc) &= ~ADC_ISR_OVR;
-}
-
-/*---------------------------------------------------------------------------*/
-/** @brief ADC Enable an EOC for Each Conversion
- *
- * The EOC is set after each conversion in a sequence rather than at the end of
- * the sequence. Overrun detection is enabled only if DMA is enabled.
- *
- * @param[in] adc Unsigned int32. ADC block register address base
- * @ref adc_reg_base
- */
-
-void adc_eoc_after_each(uint32_t adc)
-{
-	ADC_ISR(adc) |= ADC_ISR_EOS;
-}
-
-/*---------------------------------------------------------------------------*/
-/** @brief ADC Disable the EOC for Each Conversion
- *
- * The EOC is set at the end of each sequence rather than after each conversion
- * in the sequence. Overrun detection is enabled always.
- *
- * @param[in] adc Unsigned int32. ADC block register address base @ref
- * adc_reg_base
- */
-
-void adc_eoc_after_group(uint32_t adc)
-{
-	ADC_ISR(adc) &= ~ADC_ISR_EOS;
+	/* r_w1 bit */
+	ADC_ISR(adc) |= ADC_ISR_OVR;
 }
 
 /*---------------------------------------------------------------------------*/

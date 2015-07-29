@@ -59,7 +59,7 @@ LGPL License Terms @ref lgpl_license
  *                       received during control requests with DATA
  *                       stage
  * @param control_buffer_size Size of control_buffer
- * @return Zero on success (currently cannot fail).
+ * @return the usb device initialized for use. (currently cannot fail).
  */
 usbd_device *usbd_init(const usbd_driver *driver,
 		       const struct usb_device_descriptor *dev,
@@ -143,8 +143,7 @@ void usbd_disconnect(usbd_device *usbd_dev, bool disconnected)
 }
 
 void usbd_ep_setup(usbd_device *usbd_dev, uint8_t addr, uint8_t type,
-		   uint16_t max_size,
-		   void (*callback)(usbd_device *usbd_dev, uint8_t ep))
+		   uint16_t max_size, usbd_endpoint_callback callback)
 {
 	usbd_dev->driver->ep_setup(usbd_dev, addr, type, max_size, callback);
 }

@@ -300,9 +300,9 @@ static void stm32f103_poll(usbd_device *dev)
 	uint16_t istr = *USB_ISTR_REG;
 
 	if (istr & USB_ISTR_RESET) {
+		USB_CLR_ISTR_RESET();
 		dev->pm_top = 0x40;
 		_usbd_reset(dev);
-		USB_CLR_ISTR_RESET();
 		return;
 	}
 
@@ -338,9 +338,15 @@ static void stm32f103_poll(usbd_device *dev)
 	}
 
 	if (istr & USB_ISTR_SOF) {
+		USB_CLR_ISTR_SOF();
 		if (dev->user_callback_sof) {
 			dev->user_callback_sof();
 		}
-		USB_CLR_ISTR_SOF();
+	}
+
+	if (dev->user_callback_sof) {
+		BBIO_PERIPH(USB_CNTR_REG, USB_CNTR_SOFM) = 1;
+	} else {
+		BBIO_PERIPH(USB_CNTR_REG, USB_CNTR_SOFM) = 0;
 	}
 }

@@ -326,6 +326,12 @@ void stm32fx07_poll(usbd_device *usbd_dev)
 		}
 		REBASE(OTG_GINTSTS) = OTG_FS_GINTSTS_SOF;
 	}
+
+	if (usbd_dev->user_callback_sof) {
+		REBASE(OTG_GINTMSK) |= OTG_FS_GINTMSK_SOFM;
+	} else {
+		REBASE(OTG_GINTMSK) &= ~OTG_FS_GINTMSK_SOFM;
+	}
 }
 
 void stm32fx07_disconnect(usbd_device *usbd_dev, bool disconnected)
