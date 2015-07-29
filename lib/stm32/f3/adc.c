@@ -1026,8 +1026,8 @@ bool adc_get_overrun_flag(uint32_t adc)
 
 void adc_clear_overrun_flag(uint32_t adc)
 {
-/* need to write zero to clear this */
-	ADC_ISR(adc) &= ~ADC_ISR_OVR;
+	/* r_w1 bit */
+	ADC_ISR(adc) |= ADC_ISR_OVR;
 }
 
 /*---------------------------------------------------------------------------*/
