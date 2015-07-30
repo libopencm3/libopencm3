@@ -39,8 +39,7 @@ void stm32fx07_set_address(usbd_device *usbd_dev, uint8_t addr)
 }
 
 void stm32fx07_ep_setup(usbd_device *usbd_dev, uint8_t addr, uint8_t type,
-			uint16_t max_size,
-			void (*callback) (usbd_device *usbd_dev, uint8_t ep))
+			uint16_t max_size, usbd_endpoint_callback callback)
 {
 	/*
 	 * Configure endpoint address and type. Allocate FIFO memory for
@@ -96,7 +95,7 @@ void stm32fx07_ep_setup(usbd_device *usbd_dev, uint8_t addr, uint8_t type,
 
 		if (callback) {
 			usbd_dev->user_endpoint_callback[addr][USB_TRANSACTION_IN] =
-			    (void *)callback;
+			    callback;
 		}
 	}
 
@@ -110,7 +109,7 @@ void stm32fx07_ep_setup(usbd_device *usbd_dev, uint8_t addr, uint8_t type,
 
 		if (callback) {
 			usbd_dev->user_endpoint_callback[addr][USB_TRANSACTION_OUT] =
-			    (void *)callback;
+			    callback;
 		}
 	}
 }
