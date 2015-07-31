@@ -145,7 +145,8 @@ void usbd_disconnect(usbd_device *usbd_dev, bool disconnected)
 void usbd_ep_setup(usbd_device *usbd_dev, uint8_t addr, uint8_t type,
 		   uint16_t max_size, usbd_endpoint_callback callback)
 {
-	usbd_dev->driver->ep_setup(usbd_dev, addr, type, max_size, callback);
+	usbd_dev->driver->ep_setup(usbd_dev, addr, type, max_size);
+	usbd_ep_callback_set(usbd_dev, addr, callback);
 }
 
 uint16_t usbd_ep_write_packet(usbd_device *usbd_dev, uint8_t addr,
@@ -182,7 +183,7 @@ void usbd_ep_callback_set(usbd_device *usbd_dev, uint8_t addr,
 		USB_TRANSACTION_IN : USB_TRANSACTION_OUT;
 	addr &= 0x7F;
 
-	if(addr) {
+	if (addr) {
 		usbd_dev->user_endpoint_callback[addr][dir] = callback;
 	}
 }

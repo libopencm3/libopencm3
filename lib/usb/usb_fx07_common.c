@@ -39,8 +39,7 @@ void stm32fx07_set_address(usbd_device *usbd_dev, uint8_t addr)
 }
 
 void stm32fx07_ep_setup(usbd_device *usbd_dev, uint8_t addr, uint8_t type,
-			uint16_t max_size,
-			void (*callback) (usbd_device *usbd_dev, uint8_t ep))
+			uint16_t max_size)
 {
 	/*
 	 * Configure endpoint address and type. Allocate FIFO memory for
@@ -93,11 +92,6 @@ void stm32fx07_ep_setup(usbd_device *usbd_dev, uint8_t addr, uint8_t type,
 		    OTG_DIEPCTL0_EPENA | OTG_DIEPCTL0_SNAK | (type << 18)
 		    | OTG_DIEPCTL0_USBAEP | OTG_DIEPCTLX_SD0PID
 		    | (addr << 22) | max_size;
-
-		if (callback) {
-			usbd_dev->user_endpoint_callback[addr][USB_TRANSACTION_IN] =
-			    (void *)callback;
-		}
 	}
 
 	if (!dir) {
@@ -107,11 +101,6 @@ void stm32fx07_ep_setup(usbd_device *usbd_dev, uint8_t addr, uint8_t type,
 		REBASE(OTG_DOEPCTL(addr)) |= OTG_DOEPCTL0_EPENA |
 		    OTG_DOEPCTL0_USBAEP | OTG_DIEPCTL0_CNAK |
 		    OTG_DOEPCTLX_SD0PID | (type << 18) | max_size;
-
-		if (callback) {
-			usbd_dev->user_endpoint_callback[addr][USB_TRANSACTION_OUT] =
-			    (void *)callback;
-		}
 	}
 }
 

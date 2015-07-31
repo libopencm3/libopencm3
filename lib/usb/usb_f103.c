@@ -27,9 +27,7 @@
 static usbd_device *stm32f103_usbd_init(void);
 static void stm32f103_set_address(usbd_device *usbd_dev, uint8_t addr);
 static void stm32f103_ep_setup(usbd_device *usbd_dev, uint8_t addr,
-			       uint8_t type, uint16_t max_size,
-			       void (*callback) (usbd_device *usbd_dev,
-						 uint8_t ep));
+			       uint8_t type, uint16_t max_size);
 static void stm32f103_endpoints_reset(usbd_device *usbd_dev);
 static void stm32f103_ep_stall_set(usbd_device *usbd_dev, uint8_t addr,
 				   uint8_t stall);
@@ -102,9 +100,7 @@ static void usb_set_ep_rx_bufsize(usbd_device *dev, uint8_t ep, uint32_t size)
 }
 
 static void stm32f103_ep_setup(usbd_device *dev, uint8_t addr, uint8_t type,
-			       uint16_t max_size,
-			       void (*callback) (usbd_device *usbd_dev,
-						 uint8_t ep))
+			       uint16_t max_size)
 {
 	/* Translate USB standard type codes to STM32. */
 	const uint16_t typelookup[] = {
@@ -122,10 +118,6 @@ static void stm32f103_ep_setup(usbd_device *dev, uint8_t addr, uint8_t type,
 
 	if (dir || (addr == 0)) {
 		USB_SET_EP_TX_ADDR(addr, dev->pm_top);
-		if (callback) {
-			dev->user_endpoint_callback[addr][USB_TRANSACTION_IN] =
-			    (void *)callback;
-		}
 		USB_CLR_EP_TX_DTOG(addr);
 		USB_SET_EP_TX_STAT(addr, USB_EP_TX_STAT_NAK);
 		dev->pm_top += max_size;
@@ -134,10 +126,6 @@ static void stm32f103_ep_setup(usbd_device *dev, uint8_t addr, uint8_t type,
 	if (!dir) {
 		USB_SET_EP_RX_ADDR(addr, dev->pm_top);
 		usb_set_ep_rx_bufsize(dev, addr, max_size);
-		if (callback) {
-			dev->user_endpoint_callback[addr][USB_TRANSACTION_OUT] =
-			    (void *)callback;
-		}
 		USB_CLR_EP_RX_DTOG(addr);
 		USB_SET_EP_RX_STAT(addr, USB_EP_RX_STAT_VALID);
 		dev->pm_top += max_size;
