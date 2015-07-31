@@ -262,7 +262,7 @@ static void lm4f_ep_setup(usbd_device *usbd_dev, uint8_t addr, uint8_t type,
 		USB_TXMAXP(ep) = max_size;
 		USB_TXFIFOSZ = reg8;
 		USB_TXFIFOADD = ((usbd_dev->fifo_mem_top) >> 3);
-		if (callback) {
+		if (ep) {
 			usbd_dev->user_callback_ctr[ep][USB_TRANSACTION_IN] =
 			(void *)callback;
 		}
@@ -275,7 +275,7 @@ static void lm4f_ep_setup(usbd_device *usbd_dev, uint8_t addr, uint8_t type,
 		USB_RXMAXP(ep) = max_size;
 		USB_RXFIFOSZ = reg8;
 		USB_RXFIFOADD = ((usbd_dev->fifo_mem_top) >> 3);
-		if (callback) {
+		if (ep) {
 			usbd_dev->user_callback_ctr[ep][USB_TRANSACTION_OUT] =
 			(void *)callback;
 		}
