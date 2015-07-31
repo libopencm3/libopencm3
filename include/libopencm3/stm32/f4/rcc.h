@@ -548,6 +548,7 @@ extern uint32_t rcc_apb2_frequency;
 
 typedef enum {
 	CLOCK_3V3_48MHZ,
+	CLOCK_3V3_84MHZ,
 	CLOCK_3V3_120MHZ,
 	CLOCK_3V3_168MHZ,
 	CLOCK_3V3_END
