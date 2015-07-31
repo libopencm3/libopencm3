@@ -93,7 +93,7 @@ void rtc_awake_from_off(enum rcc_osc clock_source)
 	/* Enable access to the backup registers and the RTC. */
 	pwr_disable_backup_domain_write_protect();
 
-        /* Set the clock source */
+	/* Set the clock source */
 	rcc_set_rtc_clock_source(clock_source);
 
 	/* Clear the RTC Registers */
@@ -372,11 +372,11 @@ void rtc_awake_from_standby(void)
 	uint32_t reg32;
 
 	/* Enable power and backup interface clocks. */
-        rcc_periph_clock_enable(RCC_PWR);
-        rcc_periph_clock_enable(RCC_BKP);
+	rcc_periph_clock_enable(RCC_PWR);
+	rcc_periph_clock_enable(RCC_BKP);
 
 	/* Enable access to the backup registers and the RTC. */
-        pwr_disable_backup_domain_write_protect();
+	pwr_disable_backup_domain_write_protect();
 
 	/* Wait for the RSF bit in RTC_CRL to be set by hardware. */
 	RTC_CRL &= ~RTC_CRL_RSF;
@@ -404,8 +404,8 @@ void rtc_auto_awake(enum rcc_osc clock_source, uint32_t prescale_val)
 	uint32_t reg32;
 
 	/* Enable power and backup interface clocks. */
-        rcc_periph_clock_enable(RCC_PWR);
-        rcc_periph_clock_enable(RCC_BKP);
+	rcc_periph_clock_enable(RCC_PWR);
+	rcc_periph_clock_enable(RCC_BKP);
 
 	reg32 = rcc_rtc_clock_enabled_flag();
 

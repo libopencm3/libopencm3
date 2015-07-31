@@ -140,12 +140,12 @@
 
 /** RTC Interrupt Flags */
 typedef enum {
-/** Counter Second Flag */
+	/** Counter Second Flag */
 	RTC_SEC,
-/** Alarm Event Flag */
-    RTC_ALR,
-/** Counter Overflow Flag */
-    RTC_OW,
+	/** Alarm Event Flag */
+	RTC_ALR,
+	/** Counter Overflow Flag */
+	RTC_OW,
 } rtcflag_t;
 
 /* --- Function prototypes --------------------------------------------------*/
