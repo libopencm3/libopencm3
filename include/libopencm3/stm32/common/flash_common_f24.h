@@ -78,10 +78,15 @@
 #define FLASH_CR_SNB_MASK		0x1f
 #define FLASH_CR_PROGRAM_MASK		0x3
 #define FLASH_CR_PROGRAM_SHIFT		8
+/** @defgroup flash_cr_program_width Flash programming width
+@ingroup flash_group
+
+@{*/
 #define FLASH_CR_PROGRAM_X8		0
 #define FLASH_CR_PROGRAM_X16		1
 #define FLASH_CR_PROGRAM_X32		2
 #define FLASH_CR_PROGRAM_X64		3
+/**@}*/
 
 /* --- FLASH_OPTCR values -------------------------------------------------- */
 
