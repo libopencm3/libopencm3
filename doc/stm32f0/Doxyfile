@@ -25,9 +25,10 @@ INPUT                  += ../../lib/stm32/f0 \
 EXCLUDE                 = ../../include/libopencm3/stm32/f0/usb.h \
                          ../../include/libopencm3/stm32/f0/usb_desc.h
 
-EXCLUDE_PATTERNS	= *_common_*f24.h *_common_*f24.c \
-                          *_common_*f234.h *_common_*f234.c \
-                          *_common_*f124.h *_common_*f124.c
+EXCLUDE_PATTERNS	= *_common_*f1*.h *_common_*f1*.c \
+                          *_common_*f2*.h *_common_*f2*.c \
+                          *_common_*f3*.h *_common_*f3*.c \
+                          *_common_*f4.h *_common_*f4.c
 
 LAYOUT_FILE 	        = DoxygenLayout_stm32f0.xml
 
