@@ -108,6 +108,17 @@ LGPL License Terms @ref lgpl_license
 #define USB_CLR_ISTR_SOF()	CLR_REG_BIT(USB_ISTR_REG, USB_ISTR_SOF)
 #define USB_CLR_ISTR_ESOF()	CLR_REG_BIT(USB_ISTR_REG, USB_ISTR_ESOF)
 
+/* USB Frame Number Register bits ------------------------------------------ */
+
+#define USB_FNR_RXDP		(1 << 15)
+#define USB_FNR_RXDM		(1 << 14)
+#define USB_FNR_LCK		(1 << 13)
+
+#define USB_FNR_LSOF_SHIFT	11
+#define USB_FNR_LSOF		(3 << USB_FNR_LSOF_SHIFT)
+
+#define USB_FNR_FN		(0x7FF << 0)
+
 /* --- USB device address register masks / bits ---------------------------- */
 
 #define USB_DADDR_EF	0x0080
