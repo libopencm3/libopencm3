@@ -52,23 +52,23 @@ const struct _usbd_driver stm32f207_usb_driver = {
 /** Initialize the USB device controller hardware of the STM32. */
 static usbd_device *stm32f207_usbd_init(void)
 {
-	OTG_HS_GINTSTS = OTG_HS_GINTSTS_MMIS;
+	OTG_HS_GINTSTS = OTG_GINTSTS_MMIS;
 
-	OTG_HS_GUSBCFG |= OTG_HS_GUSBCFG_PHYSEL;
+	OTG_HS_GUSBCFG |= OTG_GUSBCFG_PHYSEL;
 	/* Enable VBUS sensing in device mode and power down the PHY. */
-	OTG_HS_GCCFG |= OTG_HS_GCCFG_VBUSBSEN | OTG_HS_GCCFG_PWRDWN;
+	OTG_HS_GCCFG |= OTG_GCCFG_VBUSBSEN | OTG_GCCFG_PWRDWN;
 
 	/* Wait for AHB idle. */
-	while (!(OTG_HS_GRSTCTL & OTG_HS_GRSTCTL_AHBIDL));
+	while (!(OTG_HS_GRSTCTL & OTG_GRSTCTL_AHBIDL));
 	/* Do core soft reset. */
-	OTG_HS_GRSTCTL |= OTG_HS_GRSTCTL_CSRST;
-	while (OTG_HS_GRSTCTL & OTG_HS_GRSTCTL_CSRST);
+	OTG_HS_GRSTCTL |= OTG_GRSTCTL_CSRST;
+	while (OTG_HS_GRSTCTL & OTG_GRSTCTL_CSRST);
 
 	/* Force peripheral only mode. */
-	OTG_HS_GUSBCFG |= OTG_HS_GUSBCFG_FDMOD | OTG_HS_GUSBCFG_TRDT_MASK;
+	OTG_HS_GUSBCFG |= OTG_GUSBCFG_FDMOD | OTG_GUSBCFG_TRDT_MASK;
 
 	/* Full speed device. */
-	OTG_HS_DCFG |= OTG_HS_DCFG_DSPD;
+	OTG_HS_DCFG |= OTG_DCFG_DSPD;
 
 	/* Restart the PHY clock. */
 	OTG_HS_PCGCCTL = 0;
@@ -77,14 +77,14 @@ static usbd_device *stm32f207_usbd_init(void)
 	usbd_dev.fifo_mem_top = stm32f207_usb_driver.rx_fifo_size;
 
 	/* Unmask interrupts for TX and RX. */
-	OTG_HS_GAHBCFG |= OTG_HS_GAHBCFG_GINT;
-	OTG_HS_GINTMSK = OTG_HS_GINTMSK_ENUMDNEM |
-			 OTG_HS_GINTMSK_RXFLVLM |
-			 OTG_HS_GINTMSK_IEPINT |
-			 OTG_HS_GINTMSK_USBSUSPM |
-			 OTG_HS_GINTMSK_WUIM;
+	OTG_HS_GAHBCFG |= OTG_GAHBCFG_GINT;
+	OTG_HS_GINTMSK = OTG_GINTMSK_ENUMDNEM |
+			 OTG_GINTMSK_RXFLVLM |
+			 OTG_GINTMSK_IEPINT |
+			 OTG_GINTMSK_USBSUSPM |
+			 OTG_GINTMSK_WUIM;
 	OTG_HS_DAINTMSK = 0xF;
-	OTG_HS_DIEPMSK = OTG_HS_DIEPMSK_XFRCM;
+	OTG_HS_DIEPMSK = OTG_DIEPMSK_XFRCM;
 
 	return &usbd_dev;
 }
