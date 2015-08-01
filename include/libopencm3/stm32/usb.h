@@ -41,11 +41,6 @@ LGPL License Terms @ref lgpl_license
 #include <libopencm3/stm32/memorymap.h>
 #include <libopencm3/stm32/tools.h>
 
-/* --- USB base addresses -------------------------------------------------- */
-
-/* USB packet buffer memory base address. */
-#define USB_PMA_BASE		0x40006000L
-
 /* --- USB general registers ----------------------------------------------- */
 
 /* USB Control register */
