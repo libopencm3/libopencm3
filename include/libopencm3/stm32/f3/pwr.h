@@ -38,8 +38,8 @@
  * along with this library.  If not, see <http://www.gnu.org/licenses/>.
  */
 
-#ifndef LIBOPENCM3_PWR_F3_H
-#define LIBOPENCM3_PWR_F3_H
+#ifndef LIBOPENCM3_PWR_H
+#define LIBOPENCM3_PWR_H
 
 #include <libopencm3/stm32/common/pwr_common_all.h>
 
