@@ -20,6 +20,8 @@
 
 #include <libopencm3/cm3/vector.h>
 
+#include <libopencm3/cm3/scb.h>
+
 /* load optional platform dependent initialization routines */
 #include "../dispatch/vector_chipset.c"
 /* load the weak symbols for IRQ_HANDLERS */
@@ -73,6 +75,10 @@ void WEAK __attribute__ ((naked)) reset_handler(void)
 	while (dest < &_ebss) {
 		*dest++ = 0;
 	}
+
+	/* Ensure 8-byte alignment of stack pointer on interrupts */
+	/* Enabled by default on most Cortex-M parts, but not M3 r1 */
+	SCB_CCR |= SCB_CCR_STKALIGN;
 
 	/* might be provided by platform specific vector.c */
 	pre_main();
