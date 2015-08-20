@@ -1,0 +1,43 @@
+##
+## This file is part of the libopencm3 project.
+##
+## This library is free software: you can redistribute it and/or modify
+## it under the terms of the GNU Lesser General Public License as published by
+## the Free Software Foundation, either version 3 of the License, or
+## (at your option) any later version.
+##
+## This library is distributed in the hope that it will be useful,
+## but WITHOUT ANY WARRANTY; without even the implied warranty of
+## MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
+## GNU Lesser General Public License for more details.
+##
+## You should have received a copy of the GNU Lesser General Public License
+## along with this library.  If not, see <http://www.gnu.org/licenses/>.
+##
+
+BOARD = stm32f4disco
+PROJECT = usb-gadget0-$(BOARD)
+BUILD_DIR = bin-$(BOARD)
+
+SHARED_DIR = ../shared
+
+CFILES = main-$(BOARD).c
+CFILES += usb-gadget0.c trace.c trace_stdio.c
+
+VPATH += $(SHARED_DIR)
+
+INCLUDES += $(patsubst %,-I%, . $(SHARED_DIR))
+
+OPENCM3_DIR=../..
+
+### This section can go to an arch shared rules eventually...
+LDSCRIPT = ../../lib/stm32/f4/stm32f405x6.ld
+OPENCM3_LIB = opencm3_stm32f4
+OPENCM3_DEFS = -DSTM32F4
+FP_FLAGS ?= -mfloat-abi=hard -mfpu=fpv4-sp-d16
+ARCH_FLAGS = -mthumb -mcpu=cortex-m4 $(FP_FLAGS)
+#OOCD_INTERFACE = stlink-v2
+#OOCD_TARGET = stm32f4x
+OOCD_FILE = openocd.stm32f4disco.cfg
+
+include ../rules.mk
