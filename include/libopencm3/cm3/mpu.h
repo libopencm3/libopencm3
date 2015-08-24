@@ -17,55 +17,91 @@
  * along with this library.  If not, see <http://www.gnu.org/licenses/>.
  */
 
-#ifndef LIBOPENCM3_CM0_MPU_H
-#define LIBOPENCM3_CM0_MPU_H
+/** @defgroup CM3_mpu_defines MPU Defines
+ *
+ * @brief <b>libopencm3 Cortex Memory Protection Unit</b>
+ *
+ * @ingroup CM3_defines
+ *
+ * @version 1.0.0
+ *
+ * LGPL License Terms @ref lgpl_license
+ *
+ * The MPU is available as an option in both ARMv6-M and ARMv7-M, but it has
+ * more features in v7, particularly in the available attributes.
+ *
+ * For more information see the ARM Architecture reference manuals.
+ */
+/**@{*/
 
-#ifndef CM0_PLUS
-#error "mpu is supported only on CM0+ architecture"
-#else
+#ifndef LIBOPENCM3_MPU_H
+#define LIBOPENCM3_MPU_H
 
-#include <libopencm3/cm0/memorymap.h>
-#include <libopencm3/cm0/common.h>
+#include <libopencm3/cm3/memorymap.h>
+#include <libopencm3/cm3/common.h>
 
 /* --- SCB: Registers ------------------------------------------------------ */
-
+/** @defgroup CM3_mpu_registers MPU Registers
+ * @ingroup CM3_mpu_defines
+ *
+ *@{*/
+/** MPU_TYPE is alays available, even if the MPU is not implemented */
 #define MPU_TYPE			MMIO32(MPU_BASE + 0x00)
 #define MPU_CTRL			MMIO32(MPU_BASE + 0x04)
 #define MPU_RNR				MMIO32(MPU_BASE + 0x08)
 #define MPU_RBAR			MMIO32(MPU_BASE + 0x0C)
 #define MPU_RASR			MMIO32(MPU_BASE + 0x10)
+/**@}*/
 
 /* --- MPU values ---------------------------------------------------------- */
 
-/* --- MPU_TYPE values ----------------------------------------------------- */
-
+/** @defgroup CM3_mpu_type MPU TYPE register fields
+ * @ingroup CM3_mpu_defines
+ * The MPU_TYPE register is always avilable, even if the MPU is not implemented.
+ * In that case, the DREGION field will read as 0.
+ *@{*/
+/** v6m/v7m only support a unified MPU (IREGION always 0) */
 #define MPU_TYPE_IREGION_LSB		16
 #define MPU_TYPE_IREGION		(0xFF << MPU_TYPE_IREGION_LSB)
+/** DREGION is non zero if the MPU is available */
 #define MPU_TYPE_DREGION_LSB		8
 #define MPU_TYPE_DREGION		(0xFF << MPU_TYPE_DREGION_LSB)
+/** v6m/v7m only support a unifed MPU (Separate always 0) */
 #define MPU_TYPE_SEPARATE		(1<<0)
+/**@}*/
 
-/* --- MPU_CTRL values ----------------------------------------------------- */
-
+/** @defgroup CM3_mpu_ctrl MPU CTRL register fields
+ * @ingroup CM3_mpu_defines
+ * Defines for the Control Register.
+ *@{*/
 #define MPU_CTRL_PRIVDEFENA		(1<<2)
 #define MPU_CTRL_HFNMIENA		(1<<1)
 #define MPU_CTRL_ENABLE			(1<<0)
+/**@}*/
 
-/* --- MPU_RNR values ------------------------------------------------------ */
-
+/** @defgroup CM3_mpu_rnr MPU RNR register fields
+ * @ingroup CM3_mpu_defines
+ * Defines for the Region Number Register.
+ *@{*/
 #define MPU_RNR_REGION_LSB		0
 #define MPU_RNR_REGION			(0xFF << MPU_RNR_REGION_LSB)
+/**@}*/
 
-/* --- MPU_RBAR values ----------------------------------------------------- */
-
-#define MPU_RBAR_ADDR_LSB		8
-#define MPU_RBAR_ADDR			(0x00FFFFFF << MPU_RBAR_REGION_LSB)
+/** @defgroup CM3_mpu_rbar MPU RBAR register fields
+ * @ingroup CM3_mpu_defines
+ * Defines for the Region Base Address Register.
+ *@{*/
+/** minimum size supported is by writing all ones to ADDR, then reading back */
+#define MPU_RBAR_ADDR			0xFFFFFFE0
 #define MPU_RBAR_VALID			(1<<4)
 #define MPU_RBAR_REGION_LSB		0
 #define MPU_RBAR_REGION			(0xF << MPU_RBAR_REGION_LSB)
+/**@}*/
 
-/* --- MPU_RASR values ----------------------------------------------------- */
-
+/** @defgroup CM3_mpu_rasr MPU RASR register fields
+ * @ingroup CM3_mpu_defines
+ * Defines for the Region Attribute and Size Register.
+ *@{*/
 #define MPU_RASR_ATTRS_LSB		16
 #define MPU_RASR_ATTRS			(0xFFFF << MPU_RASR_ATTRS_LSB)
 #define MPU_RASR_SRD_LSB		8
@@ -74,7 +110,11 @@
 #define MPU_RASR_SIZE			(0x1F << MPU_RASR_SIZE_LSB)
 #define MPU_RASR_ENABLE			(1 << 0)
 
-
+/** @defgroup mpu_rasr_attributes MPU RASR Attributes
+ * @ingroup CM3_mpu_rasr
+ * Not all attributes are available on v6m.
+ *
+ *@{*/
 #define MPU_RASR_ATTR_XN		(1 << 28)
 #define MPU_RASR_ATTR_AP		(7 << 24)
 #define MPU_RASR_ATTR_AP_PNO_UNO	(0 << 24)
@@ -97,6 +137,8 @@
 #define MPU_RASR_ATTR_SCB_SH_DEVICE	(5 << 16)
 #define MPU_RASR_ATTR_SCB_SH_WT		(6 << 16)
 #define MPU_RASR_ATTR_SCB_SH_WB		(7 << 16)
+/**@}*/
+/**@}*/
 
 /* --- MPU functions ------------------------------------------------------- */
 
@@ -105,6 +147,6 @@ BEGIN_DECLS
 
 END_DECLS
 
-#endif /* CM0_PLUS */
+/**@}*/
 
 #endif

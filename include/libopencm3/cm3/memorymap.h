@@ -65,10 +65,8 @@
 /* SCB: System Control Block */
 #define SCB_BASE                        (SCS_BASE + 0x0D00)
 
-#ifdef CM0_PLUS
 /* MPU: Memory protection unit */
 #define MPU_BASE                        (SCS_BASE + 0x0D90)
-#endif
 
 /* Those defined only on CM0*/
 #if defined(__ARM_ARCH_6M__)
