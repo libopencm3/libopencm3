@@ -99,6 +99,22 @@ void usart_wait_send_ready(uint32_t usart)
 }
 
 /*---------------------------------------------------------------------------*/
+/** @brief USART check if Received Data Available
+
+Check if data buffer holds a valid received data word.
+
+@param[in] usart unsigned 32 bit. USART block register address base @ref
+usart_reg_base
+@returns boolean: data buffer holds a valid received data word.
+*/
+
+bool usart_is_recv_ready(uint32_t usart)
+{
+	return ((USART_SR(usart) & USART_SR_RXNE) == 0);
+}
+
+
+/*---------------------------------------------------------------------------*/
 /** @brief USART Wait for Received Data Available
 
 Blocks until the receive data buffer holds a valid received data word.
