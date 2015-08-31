@@ -108,6 +108,13 @@ LDLIBS += -Wl,--start-group -lc -lgcc -lnosys -Wl,--end-group
 .SUFFIXES:
 .SUFFIXES: .c .h .o .cxx .elf .bin .list .lss
 
+# Bad make, never *ever* try to get a file out of source control by yourself.
+%: %,v
+%: RCS/%,v
+%: RCS/%
+%: s.%
+%: SCCS/s.%
+
 all: $(PROJECT).elf $(PROJECT).bin
 flash: $(PROJECT).flash
 
