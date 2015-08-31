@@ -104,6 +104,10 @@ LDLIBS += -l$(OPENCM3_LIB)
 #LDLIBS += -specs=nosys.specs
 LDLIBS += -Wl,--start-group -lc -lgcc -lnosys -Wl,--end-group
 
+# Burn in legacy hell fortran modula pascal yacc idontevenwat
+.SUFFIXES:
+.SUFFIXES: .c .h .o .cxx .elf .bin .list .lss
+
 all: $(PROJECT).elf $(PROJECT).bin
 flash: $(PROJECT).flash
 
