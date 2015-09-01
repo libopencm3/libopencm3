@@ -77,7 +77,6 @@ uint16_t usart_recv(uint32_t usart)
 
 bool usart_is_send_ready(uint32_t usart)
 {
-	/* Wait until the data has been transferred into the shift register. */
 	return ((USART_SR(usart) & USART_SR_TXE) == 0);
 }
 
