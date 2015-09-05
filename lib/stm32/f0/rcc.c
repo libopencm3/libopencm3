@@ -431,8 +431,10 @@ void rcc_set_usbclk_source(enum rcc_osc clk)
 	switch (clk) {
 	case PLL:
 		RCC_CFGR3 |= RCC_CFGR3_USBSW;
+		break;
 	case HSI48:
 		RCC_CFGR3 &= ~RCC_CFGR3_USBSW;
+		break;
 	case HSI:
 	case HSE:
 	case LSI:
