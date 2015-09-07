@@ -20,8 +20,24 @@
 
 #include <libopencm3/cm3/scb.h>
 
+extern unsigned _ccm_data_loadaddr, _ccm_data, _ccm_edata, _ccm_ebss;
+
 static void pre_main(void)
 {
+	volatile unsigned *src, *dest;
+
 	/* Enable access to Floating-Point coprocessor. */
 	SCB_CPACR |= SCB_CPACR_FULL * (SCB_CPACR_CP10 | SCB_CPACR_CP11);
+
+	/* copy initialized code and data to CCM RAM */
+	for (src = &_ccm_data_loadaddr, dest = &_ccm_data;
+		dest < &_ccm_edata;
+		src++, dest++) {
+		*dest = *src;
+	}
+
+	/* clear zero-initialized data on CCM RAM */
+	while (dest < &_ccm_ebss) {
+		*dest++ = 0;
+	}
 }

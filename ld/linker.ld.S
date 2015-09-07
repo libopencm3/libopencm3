@@ -47,8 +47,12 @@ MEMORY
 #if defined(_RAM2)
 	ram2 (rwx) : ORIGIN = _RAM2_OFF, LENGTH = _RAM2
 #endif
-#if defined(_CCM)
+#if defined(_CCM_OFF)
+#	if defined(_CCM)
 	ccm (rwx) : ORIGIN = _CCM_OFF, LENGTH = _CCM
+#	else
+	ccm (rwx) : ORIGIN = _CCM_OFF, LENGTH = 0K
+#	endif
 #endif
 #if defined(_EEP)
 	eep (r) : ORIGIN = _EEP_OFF, LENGTH = _EEP
@@ -137,10 +141,23 @@ SECTIONS
 	} >eep
 #endif
 
-#if defined(_CCM)
-	.ccm : {
-		*(.ccmram*)
+#if defined(_CCM_OFF)
+	.ccm_data : {
+		_ccm_data = .;
+		*(.ccm_text*)	/* CCM program code */
 		. = ALIGN(4);
+		*(.ccm_rodata*)	/* CCM read-only data */
+		. = ALIGN(4);
+		*(.ccm_data*)	/* CCM read-write initialized data */
+		. = ALIGN(4);
+		_ccm_edata = .;
+	} >ccm AT >rom
+	_ccm_data_loadaddr = LOADADDR(.ccm_data);
+
+	.ccm_bss : {
+		*(.ccm_bss*) /* CCM read-write zero initialized data */
+		. = ALIGN(4);
+		_ccm_ebss = .;
 	} >ccm
 #endif
 

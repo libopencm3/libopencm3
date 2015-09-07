@@ -22,7 +22,7 @@
 /* Memory regions must be defined in the ld script which includes this one. */
 
 /* Enforce emmition of the vector table. */
-EXTERN (vector_table)
+EXTERN(vector_table)
 
 /* Define the entry point of the output file. */
 ENTRY(reset_handler)
@@ -91,6 +91,24 @@ SECTIONS
 		. = ALIGN(4);
 		_ebss = .;
 	} >ram
+
+	.ccm_data : {
+		_ccm_data = .;
+		*(.ccm_text*)	/* CCM program code */
+		. = ALIGN(4);
+		*(.ccm_rodata*)	/* CCM read-only data */
+		. = ALIGN(4);
+		*(.ccm_data*)	/* CCM read-write initialized data */
+		. = ALIGN(4);
+		_ccm_edata = .;
+	} >ccm AT >rom
+	_ccm_data_loadaddr = LOADADDR(.ccm_data);
+
+	.ccm_bss : {
+		*(.ccm_bss*) /* CCm read-write zero initialized data */
+		. = ALIGN(4);
+		_ccm_ebss = .;
+	} >ccm
 
 	/*
 	 * The .eh_frame section appears to be used for C++ exception handling.
