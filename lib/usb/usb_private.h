@@ -122,16 +122,16 @@ void _usbd_control_in(usbd_device *usbd_dev, uint8_t ea);
 void _usbd_control_out(usbd_device *usbd_dev, uint8_t ea);
 void _usbd_control_setup(usbd_device *usbd_dev, uint8_t ea);
 
-int _usbd_standard_request_device(usbd_device *usbd_dev,
+enum usbd_request_return_codes _usbd_standard_request_device(usbd_device *usbd_dev,
 				  struct usb_setup_data *req, uint8_t **buf,
 				  uint16_t *len);
-int _usbd_standard_request_interface(usbd_device *usbd_dev,
+enum usbd_request_return_codes _usbd_standard_request_interface(usbd_device *usbd_dev,
 				     struct usb_setup_data *req, uint8_t **buf,
 				     uint16_t *len);
-int _usbd_standard_request_endpoint(usbd_device *usbd_dev,
+enum usbd_request_return_codes _usbd_standard_request_endpoint(usbd_device *usbd_dev,
 				    struct usb_setup_data *req, uint8_t **buf,
 				    uint16_t *len);
-int _usbd_standard_request(usbd_device *usbd_dev, struct usb_setup_data *req,
+enum usbd_request_return_codes _usbd_standard_request(usbd_device *usbd_dev, struct usb_setup_data *req,
 			   uint8_t **buf, uint16_t *len);
 
 void _usbd_reset(usbd_device *usbd_dev);
