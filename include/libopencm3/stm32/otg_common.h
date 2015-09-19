@@ -124,6 +124,7 @@
 #define OTG_GRSTCTL_AHBIDL		(1 << 31)
 /* Bits 30:11 - Reserved */
 #define OTG_GRSTCTL_TXFNUM_MASK		(0x1f << 6)
+#define OTG_GRSTCTL_TXFNUM_ALL		(0x10 << 6)
 #define OTG_GRSTCTL_TXFFLSH		(1 << 5)
 #define OTG_GRSTCTL_RXFFLSH		(1 << 4)
 /* Bit 3 - Reserved */

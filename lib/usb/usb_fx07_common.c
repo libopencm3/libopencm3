@@ -117,8 +117,22 @@ void stm32fx07_ep_setup(usbd_device *usbd_dev, uint8_t addr, uint8_t type,
 
 void stm32fx07_endpoints_reset(usbd_device *usbd_dev)
 {
+	int i;
 	/* The core resets the endpoints automatically on reset. */
 	usbd_dev->fifo_mem_top = usbd_dev->fifo_mem_top_ep0;
+
+	/* Disable any currently active endpoints */
+	for (i = 1; i < 4; i++) {
+		if (REBASE(OTG_DOEPCTL(i)) & OTG_DOEPCTL0_EPENA) {
+			REBASE(OTG_DOEPCTL(i)) |= OTG_DOEPCTL0_EPDIS;
+		}
+		if (REBASE(OTG_DIEPCTL(i)) & OTG_DIEPCTL0_EPENA) {
+			REBASE(OTG_DIEPCTL(i)) |= OTG_DIEPCTL0_EPDIS;
+		}
+	}
+
+	/* Flush all tx/rx fifos */
+	REBASE(OTG_GRSTCTL) = OTG_GRSTCTL_TXFFLSH | OTG_GRSTCTL_TXFNUM_ALL | OTG_GRSTCTL_RXFFLSH;
 }
 
 void stm32fx07_ep_stall_set(usbd_device *usbd_dev, uint8_t addr, uint8_t stall)
