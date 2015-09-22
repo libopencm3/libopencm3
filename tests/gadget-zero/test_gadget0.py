@@ -8,6 +8,7 @@ import unittest
 
 DUT_SERIAL = "stm32f4disco"
 #DUT_SERIAL = "stm32f103-generic"
+#DUT_SERIAL = "stm32l1-generic"
 
 class find_by_serial(object):
     def __init__(self, serial):
