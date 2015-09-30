@@ -61,6 +61,8 @@ void dma_stream_reset(uint32_t dma, uint8_t stream)
 {
 /* Disable stream (must be done before register is otherwise changed). */
 	DMA_SCR(dma, stream) &= ~DMA_SxCR_EN;
+/* Wait until the stream is actually disabled. */
+	while(DMA_SCR(dma, stream) & DMA_SxCR_EN);
 /* Reset all config bits. */
 	DMA_SCR(dma, stream) = 0;
 /* Reset data transfer number. */
@@ -746,8 +748,8 @@ This is the default base memory address used in direct mode.
 void dma_set_memory_address(uint32_t dma, uint8_t stream, uint32_t address)
 {
 	uint32_t reg32 = DMA_SCR(dma, stream);
-	if (!(reg32 & DMA_SxCR_EN) ||
-	     ((reg32 & DMA_SxCR_CT) && (reg32 & DMA_SxCR_DBM))) {
+	if (!(reg32 & DMA_SxCR_EN) || ((reg32 & DMA_SxCR_CT) && (reg32 & DMA_SxCR_DBM)))
+	{
 		DMA_SM0AR(dma, stream) = (uint32_t *) address;
 	}
 }
