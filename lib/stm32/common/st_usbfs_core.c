@@ -270,8 +270,8 @@ void st_usbfs_poll(usbd_device *dev)
 	}
 
 	if (dev->user_callback_sof) {
-		BBIO_PERIPH(USB_CNTR_REG, USB_CNTR_SOFM) = 1;
+		*USB_CNTR_REG |= USB_CNTR_SOFM;
 	} else {
-		BBIO_PERIPH(USB_CNTR_REG, USB_CNTR_SOFM) = 0;
+		*USB_CNTR_REG &= ~USB_CNTR_SOFM;
 	}
 }
