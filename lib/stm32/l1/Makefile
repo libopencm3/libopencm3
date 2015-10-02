@@ -44,8 +44,10 @@ OBJS		+= spi_common_all.o spi_common_l1f124.o timer_common_all.o
 OBJS		+= usart_common_all.o usart_common_f124.o
 OBJS		+= exti_common_all.o
 OBJS		+= rcc_common_all.o
-OBJS		+= usb.o usb_control.o usb_standard.o usb_f103.o
 OBJS		+= adc.o adc_common_v1.o
+
+OBJS		+= usb.o usb_control.o usb_standard.o
+OBJS		+= st_usbfs_core.o st_usbfs_v1.o
 
 VPATH += ../../usb:../:../../cm3:../common
 

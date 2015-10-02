@@ -1,8 +1,8 @@
-/** @defgroup adc_defines USB Defines
+/** @defgroup usb_defines USB Defines
 
-@brief <b>Defined Constants and Types for the STM32F1xx USB Module</b>
+@brief <b>Defined Constants and Types for the STM32F* USB drivers</b>
 
-@ingroup STM32F1xx_defines
+@ingroup STM32Fx_defines
 
 @version 1.0.0
 
@@ -32,14 +32,27 @@ LGPL License Terms @ref lgpl_license
  * along with this library.  If not, see <http://www.gnu.org/licenses/>.
  */
 
+/* THIS FILE SHOULD NOT BE INCLUDED DIRECTLY !
+ * Use top-level <libopencm3/stm32/st_usbfs.h>
+ */
+
 /**@{*/
 
-#ifndef LIBOPENCM3_USB_H
-#define LIBOPENCM3_USB_H
+/** @cond */
+#ifdef LIBOPENCM3_ST_USBFS_H
+/** @endcond */
+#ifndef LIBOPENCM3_ST_USBFS_COMMON_H
+#define LIBOPENCM3_ST_USBFS_COMMON_H
 
-#include <libopencm3/cm3/common.h>
-#include <libopencm3/stm32/memorymap.h>
 #include <libopencm3/stm32/tools.h>
+
+/*****************************************************************************/
+/* Module definitions                                                        */
+/*****************************************************************************/
+
+/*****************************************************************************/
+/* Register definitions                                                      */
+/*****************************************************************************/
 
 /* --- USB general registers ----------------------------------------------- */
 
@@ -54,13 +67,13 @@ LGPL License Terms @ref lgpl_license
 /* USB Buffer table address register */
 #define USB_BTABLE_REG		(&MMIO32(USB_DEV_FS_BASE + 0x50))
 
-/* Link Power Management register */
-#define USB_LPMCSR_REG		(&MMIO32(USB_DEV_FS_BASE + 0x54))
-/* Battery Charge Detection register */
-#define USB_BCDR_REG		(&MMIO32(USB_DEV_FS_BASE + 0x58))
-
 /* USB EP register */
 #define USB_EP_REG(EP)		(&MMIO32(USB_DEV_FS_BASE) + (EP))
+
+
+/*****************************************************************************/
+/* Register values                                                           */
+/*****************************************************************************/
 
 /* --- USB control register masks / bits ----------------------------------- */
 
@@ -75,8 +88,6 @@ LGPL License Terms @ref lgpl_license
 #define USB_CNTR_ESOFM		0x0100
 
 /* Request/Force bits */
-#define USB_CNTR_L1REQM		0x0080 /* F0 port */
-#define USB_CNTR_L1RESUME	0x0020 /* F0 port */
 #define USB_CNTR_RESUME		0x0010 /* Resume request */
 #define USB_CNTR_FSUSP		0x0008 /* Force suspend */
 #define USB_CNTR_LP_MODE	0x0004 /* Low-power mode */
@@ -93,7 +104,6 @@ LGPL License Terms @ref lgpl_license
 #define USB_ISTR_RESET		0x0400 /* USB RESET request */
 #define USB_ISTR_SOF		0x0200 /* Start Of Frame */
 #define USB_ISTR_ESOF		0x0100 /* Expected Start Of Frame */
-#define USB_ISTR_L1REQ		0x0080
 #define USB_ISTR_DIR		0x0010 /* Direction of transaction */
 #define USB_ISTR_EP_ID		0x000F /* Endpoint Identifier */
 
@@ -108,7 +118,7 @@ LGPL License Terms @ref lgpl_license
 #define USB_CLR_ISTR_SOF()	CLR_REG_BIT(USB_ISTR_REG, USB_ISTR_SOF)
 #define USB_CLR_ISTR_ESOF()	CLR_REG_BIT(USB_ISTR_REG, USB_ISTR_ESOF)
 
-/* USB Frame Number Register bits ------------------------------------------ */
+/* --- USB Frame Number Register bits -------------------------------------- */
 
 #define USB_FNR_RXDP		(1 << 15)
 #define USB_FNR_RXDM		(1 << 14)
@@ -121,27 +131,12 @@ LGPL License Terms @ref lgpl_license
 
 /* --- USB device address register masks / bits ---------------------------- */
 
-#define USB_DADDR_EF	0x0080
+#define USB_DADDR_EF		(1 << 7)
 #define USB_DADDR_ADDR		0x007F
 
-/* --- USB Link Power Management control/status register masks / bits ------ */
-#define USB_LPMCSR_BESL_SHIFT	4
-#define USB_LPMCSR_BESL		(15 << USB_LPMCSR_BESL_SHIFT)
+/* USB_BTABLE Values ------------------------------------------------------- */
 
-#define USB_LPMCSR_REMWAKE	(1 << 3)
-#define USB_LPMCSR_LPMACK	(1 << 1)
-#define USB_LPMCSR_LPMEN	(1 << 0)
-
-/* --- USB Battery Charge Detection register masks / bits ------ */
-#define USB_BCDR_DPPU		(1 << 15)
-#define USB_BCDR_PS2DET		(1 << 7)
-#define USB_BCDR_SDET		(1 << 6)
-#define USB_BCDR_PDET		(1 << 5)
-#define USB_BCDR_DCDET		(1 << 4)
-#define USB_BCDR_SDEN		(1 << 3)
-#define USB_BCDR_PDEN		(1 << 2)
-#define USB_BCDR_DCDEN		(1 << 1)
-#define USB_BCDR_BCDEN		(1 << 0)
+#define USB_BTABLE_BTABLE	0xFFF8
 
 /* --- USB device address register manipulators ---------------------------- */
 
@@ -240,6 +235,7 @@ LGPL License Terms @ref lgpl_license
 #define USB_CLR_EP_TX_CTR(EP) \
 	USB_CLR_EP_NTOGGLE_BIT_AND_SET(EP, USB_EP_TX_CTR, USB_EP_RX_CTR)
 
+
 #define USB_SET_EP_TYPE(EP, TYPE) \
 	SET_REG(USB_EP_REG(EP), \
 		(GET_REG(USB_EP_REG(EP)) & \
@@ -277,21 +273,10 @@ LGPL License Terms @ref lgpl_license
 		GET_REG(USB_EP_REG(EP)) & \
 		(USB_EP_NTOGGLE_MSK | USB_EP_RX_DTOG))
 
+
 /* --- USB BTABLE registers ------------------------------------------------ */
 
 #define USB_GET_BTABLE		GET_REG(USB_BTABLE_REG)
-
-#define USB_EP_TX_ADDR(EP) \
-	((uint32_t *)(USB_PMA_BASE + (USB_GET_BTABLE + EP * 8 + 0) * 2))
-
-#define USB_EP_TX_COUNT(EP) \
-	((uint32_t *)(USB_PMA_BASE + (USB_GET_BTABLE + EP * 8 + 2) * 2))
-
-#define USB_EP_RX_ADDR(EP) \
-	((uint32_t *)(USB_PMA_BASE + (USB_GET_BTABLE + EP * 8 + 4) * 2))
-
-#define USB_EP_RX_COUNT(EP) \
-	((uint32_t *)(USB_PMA_BASE + (USB_GET_BTABLE + EP * 8 + 6) * 2))
 
 /* --- USB BTABLE manipulators --------------------------------------------- */
 
@@ -304,13 +289,14 @@ LGPL License Terms @ref lgpl_license
 #define USB_SET_EP_RX_ADDR(EP, ADDR)	SET_REG(USB_EP_RX_ADDR(EP), ADDR)
 #define USB_SET_EP_RX_COUNT(EP, COUNT)	SET_REG(USB_EP_RX_COUNT(EP), COUNT)
 
-#define USB_GET_EP_TX_BUFF(EP) \
-	(USB_PMA_BASE + (uint8_t *)(USB_GET_EP_TX_ADDR(EP) * 2))
 
-#define USB_GET_EP_RX_BUFF(EP) \
-	(USB_PMA_BASE + (uint8_t *)(USB_GET_EP_RX_ADDR(EP) * 2))
-
-#endif
 
 /**@}*/
+
+#endif
+/** @cond */
+#else
+#error "st_usbfs_common.h should not be included explicitly, only via st_usbfs.h"
+#endif
+/** @endcond */
 

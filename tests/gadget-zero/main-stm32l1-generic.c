@@ -57,7 +57,7 @@ int main(void)
 	gpio_mode_setup(GPIOB, GPIO_MODE_OUTPUT, GPIO_PUPD_NONE, GPIO1);
 	gpio_set(GPIOB, GPIO1);
 
-	usbd_device *usbd_dev = gadget0_init(&stm32f103_usb_driver, "stm32l1-generic");
+	usbd_device *usbd_dev = gadget0_init(&st_usbfs_v1_usb_driver, "stm32l1-generic");
 
 	ER_DPRINTF("bootup complete\n");
 	gpio_clear(GPIOB, GPIO1);
