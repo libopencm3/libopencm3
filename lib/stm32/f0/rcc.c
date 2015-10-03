@@ -43,6 +43,7 @@
 /* Set the default clock frequencies */
 uint32_t rcc_ahb_frequency = 8000000; /* 8MHz after reset */
 uint32_t rcc_apb1_frequency = 8000000; /* 8MHz after reset */
+uint32_t rcc_lse_frequency = 32768;		/* most common default */
 
 /*---------------------------------------------------------------------------*/
 /** @brief RCC Clear the Oscillator Ready Interrupt Flag

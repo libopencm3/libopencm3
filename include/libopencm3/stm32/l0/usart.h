@@ -1,4 +1,15 @@
-/* This provides unification of code over STM32F subfamilies */
+/** @defgroup usart_defines USART Defines
+ *
+ * @brief <b>Defined Constants and Types for the STM32L0xx USART</b>
+ *
+ * @ingroup STM32L0xx_defines
+ *
+ * @version 1.0.0
+ *
+ * @date 2 July 2013
+ *
+ * LGPL License Terms @ref lgpl_license
+ */
 
 /*
  * This file is part of the libopencm3 project.
@@ -17,24 +28,16 @@
  * along with this library.  If not, see <http://www.gnu.org/licenses/>.
  */
 
-#include <libopencm3/cm3/common.h>
-#include <libopencm3/stm32/memorymap.h>
+#ifndef LIBOPENCM3_USART_H
+#define LIBOPENCM3_USART_H
 
-#if defined(STM32F0)
-#       include <libopencm3/stm32/f0/usart.h>
-#elif defined(STM32F1)
-#       include <libopencm3/stm32/f1/usart.h>
-#elif defined(STM32F2)
-#       include <libopencm3/stm32/f2/usart.h>
-#elif defined(STM32F3)
-#       include <libopencm3/stm32/f3/usart.h>
-#elif defined(STM32F4)
-#       include <libopencm3/stm32/f4/usart.h>
-#elif defined(STM32L1)
-#       include <libopencm3/stm32/l1/usart.h>
-#elif defined(STM32L0)
-#       include <libopencm3/stm32/l0/usart.h>
-#else
-#       error "stm32 family not defined."
+/*****************************************************************************/
+/* USARTS available on the L0                                                */
+/*****************************************************************************/
+
+#define USART1				USART1_BASE
+#define USART2				USART2_BASE
+#define LPUART1				LPUART1_BASE
+
+#include <libopencm3/stm32/common/usart_common_fl_0.h>
 #endif
-

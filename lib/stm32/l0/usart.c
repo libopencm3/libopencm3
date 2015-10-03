@@ -1,12 +1,12 @@
 /** @defgroup usart_file USART
  *
- * @ingroup STM32F0xx
+ * @ingroup STM32L0xx
  *
- * @brief <b>libopencm3 STM32F0xx Specific USART</b>
+ * @brief <b>libopencm3 STM32L0xx USART</b>
  *
  * @version 1.0.0
  *
- * @date 7 Jul 2013
+ * @date 1 Jan 2015
  *
  * LGPL License Terms @ref lgpl_license
  */
@@ -31,43 +31,40 @@
 #include <libopencm3/stm32/usart.h>
 #include <libopencm3/stm32/rcc.h>
 
-/*----------------------------------------------------------------------*/
-/** @brief Get base clock for specified USART/UART
+/*---------------------------------------------------------------------------*/
+/** @brief USART Get Clocksource
  *
- * @param [in] usart unsigned 32 bit, base address of USART
- *
- * This function returns the frequency of the clock supplying the
- * baudrate clock for the give USART/UART. It is used by the common
- * baudrate setting function to calculate the divisor for this particular
- * USART.
+ * @param[in] usart unsigned 32 bit, USART block register address base @ref
  */
 uint32_t usart_get_clock(uint32_t usart) {
-	int	shift;
+	uint32_t	shift, mask;
+
 	switch (usart) {
 		case USART1:
-			shift = RCC_CFGR3_USART1SW_SHIFT;
+			shift = RCC_CCIPR_USART1SEL_SHIFT;
+			mask = RCC_CCIPR_USART1SEL_MASK;
 			break;
 		case USART2:
-			shift = RCC_CFGR3_USART2SW_SHIFT;
+			shift = RCC_CCIPR_USART2SEL_SHIFT;
+			mask = RCC_CCIPR_USART2SEL_MASK;
 			break;
-		case USART3:
-			shift = RCC_CFGR3_USART3SW_SHIFT;
+		case LPUART1:
+			shift = RCC_CCIPR_LPUART1SEL_SHIFT;
+			mask = RCC_CCIPR_LPUART1SEL_MASK;
 			break;
 		default:
-			return rcc_apb1_frequency;
+			return rcc_apb1_frequency; // probable answer? 
 	}
-	switch ((RCC_CFGR3 >> shift) & RCC_CFGR3_USART_CLK_MASK) {
+	switch ((RCC_CCIPR >> shift) & mask) {
 		default:
-		case RCC_CFGR3_USART_CLK_APB:
 			return rcc_apb1_frequency;
-		case RCC_CFGR3_USART_CLK_SYS:
+		case RCC_CCIPR_USART1SEL_SYS:
 			return rcc_ahb_frequency;
-		case RCC_CFGR3_USART_CLK_HSI:
+		case RCC_CCIPR_USART1SEL_HSI16:
 			return 16000000;
-		case RCC_CFGR3_USART_CLK_LSE:
+		case RCC_CCIPR_USART1SEL_LSE:
 			return rcc_lse_frequency;
 	}
 }
 
 /**@}*/
-
