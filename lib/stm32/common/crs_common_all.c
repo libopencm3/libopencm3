@@ -1,8 +1,8 @@
 /** @defgroup crs_file CRS
  *
- * @ingroup STM32F0xx
+ * @ingroup STM32xx
  *
- * @brief <b>libopencm3 STM32F0xx Clock Recovery Subsystem</b>
+ * @brief <b>libopencm3 STM32 Clock Recovery Subsystem</b>
  *
  * @version 1.0.0
  *
@@ -32,7 +32,7 @@
 #include <libopencm3/stm32/rcc.h>
 
 /**
- * This function enables autonatic trimming of internal RC oscillator by USB SOF
+ * This function enables automatic trimming of internal RC oscillator by USB SOF
  * frames
  */
 void crs_autotrim_usb_enable(void)

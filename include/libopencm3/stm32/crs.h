@@ -1,4 +1,4 @@
-/* This provides unification of code over STM32F subfamilies */
+/* This provides unification of code over STM32 subfamilies */
 
 /*
  * This file is part of the libopencm3 project.
@@ -21,8 +21,8 @@
 #include <libopencm3/stm32/memorymap.h>
 
 #if defined(STM32F0)
-#       include <libopencm3/stm32/f0/crs.h>
+#       include <libopencm3/stm32/common/crs_common_all.h>
 #else
-#       error "stm32 family not defined."
+#       error "stm32 family not defined or not supported for this peripheral"
 #endif
 
