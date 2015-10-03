@@ -20,7 +20,6 @@
 #include <libopencm3/cm3/nvic.h>
 #include <libopencm3/stm32/crs.h>
 #include <libopencm3/stm32/gpio.h>
-#include <libopencm3/stm32/flash.h>
 #include <libopencm3/stm32/rcc.h>
 
 #include <stdio.h>
@@ -47,11 +46,10 @@ int main(void)
 	rcc_clock_setup_in_hsi48_out_48mhz();
 	crs_autotrim_usb_enable();
 	rcc_set_usbclk_source(HSI48);
-	rcc_set_sysclk_source(HSI48);
 
-	/* LED on custom board for boot progress */
-        rcc_periph_clock_enable(RCC_GPIOC);
-        gpio_mode_setup(GPIOC, GPIO_MODE_OUTPUT, GPIO_PUPD_NONE, GPIO7);
+	/* LED on for boot progress */
+	rcc_periph_clock_enable(RCC_GPIOC);
+	gpio_mode_setup(GPIOC, GPIO_MODE_OUTPUT, GPIO_PUPD_NONE, GPIO7);
 	gpio_set(GPIOC, GPIO7);
 
 	usbd_device *usbd_dev = gadget0_init(&st_usbfs_v2_usb_driver, "stm32f072disco");
