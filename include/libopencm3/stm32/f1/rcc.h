@@ -436,6 +436,13 @@
 #define RCC_CSR_LSIRDY				(1 << 1)
 #define RCC_CSR_LSION				(1 << 0)
 
+#define RCC_CSR_RSTF_MASK			(RCC_CSR_LPWRRSTF | \
+						RCC_CSR_WWDGRSTF | \
+						RCC_CSR_IWDGRSTF | \
+						RCC_CSR_SFTRSTF | \
+						RCC_CSR_PORRSTF | \
+						RCC_CSR_PINRSTF)
+
 /* --- RCC_AHBRSTR values -------------------------------------------------- */
 
 /** @defgroup rcc_ahbrstr_rst RCC_AHBRSTR reset values
@@ -718,6 +725,8 @@ void rcc_clock_setup_in_hse_12mhz_out_72mhz(void);
 void rcc_clock_setup_in_hse_16mhz_out_72mhz(void);
 void rcc_clock_setup_in_hse_25mhz_out_72mhz(void);
 void rcc_backupdomain_reset(void);
+uint32_t rcc_reset_flags(void);
+void rcc_clear_reset_flags(void);
 
 END_DECLS
 
