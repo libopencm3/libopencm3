@@ -1,7 +1,11 @@
-/* This provides unification of code over STM32F subfamilies */
-
+/** @addtogroup pwr_file
+ *
+ * @author @htmlonly &copy; @endhtmlonly 2012 Karl Palsson <karlp@tweak.net.au>
+ */
 /*
  * This file is part of the libopencm3 project.
+ *
+ * Copyright (C) 2012 Karl Palsson <karlp@tweak.net.au>
  *
  * This library is free software: you can redistribute it and/or modify
  * it under the terms of the GNU Lesser General Public License as published by
@@ -17,22 +21,25 @@
  * along with this library.  If not, see <http://www.gnu.org/licenses/>.
  */
 
-#include <libopencm3/cm3/common.h>
-#include <libopencm3/stm32/memorymap.h>
+#include <libopencm3/stm32/pwr.h>
+#include <libopencm3/stm32/rcc.h>
 
-#if defined(STM32F0)
-#       include <libopencm3/stm32/f0/syscfg.h>
-#elif defined(STM32F2)
-#       include <libopencm3/stm32/f2/syscfg.h>
-#elif defined(STM32F3)
-#       include <libopencm3/stm32/f3/syscfg.h>
-#elif defined(STM32F4)
-#       include <libopencm3/stm32/f4/syscfg.h>
-#elif defined(STM32L0)
-#       include <libopencm3/stm32/l0/syscfg.h>
-#elif defined(STM32L1)
-#       include <libopencm3/stm32/l1/syscfg.h>
-#else
-#       error "stm32 family not defined."
-#endif
+void pwr_set_vos_scale(vos_scale_t scale)
+{
+	/* You are not allowed to write zeros here, don't try and optimize! */
+	uint32_t reg = PWR_CR;
+	reg &= ~(PWR_CR_VOS_MASK);
+	switch (scale) {
+	case RANGE1:
+		reg |= PWR_CR_VOS_RANGE1;
+		break;
+	case RANGE2:
+		reg |= PWR_CR_VOS_RANGE2;
+		break;
+	case RANGE3:
+		reg |= PWR_CR_VOS_RANGE3;
+		break;
+	}
+	PWR_CR = reg;
+}
 

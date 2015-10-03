@@ -1,4 +1,9 @@
-/* This provides unification of code over STM32F subfamilies */
+/** @defgroup crs_file CRS
+ *
+ * @ingroup STM32L0xx
+ *
+ * @brief <b>libopencm3 STM32L0xx Clock Recovery Subsystem</b>
+ */
 
 /*
  * This file is part of the libopencm3 project.
@@ -17,22 +22,4 @@
  * along with this library.  If not, see <http://www.gnu.org/licenses/>.
  */
 
-#include <libopencm3/cm3/common.h>
-#include <libopencm3/stm32/memorymap.h>
-
-#if defined(STM32F0)
-#       include <libopencm3/stm32/f0/syscfg.h>
-#elif defined(STM32F2)
-#       include <libopencm3/stm32/f2/syscfg.h>
-#elif defined(STM32F3)
-#       include <libopencm3/stm32/f3/syscfg.h>
-#elif defined(STM32F4)
-#       include <libopencm3/stm32/f4/syscfg.h>
-#elif defined(STM32L0)
-#       include <libopencm3/stm32/l0/syscfg.h>
-#elif defined(STM32L1)
-#       include <libopencm3/stm32/l1/syscfg.h>
-#else
-#       error "stm32 family not defined."
-#endif
-
+#include <libopencm3/stm32/crs.h>

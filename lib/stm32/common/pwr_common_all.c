@@ -1,4 +1,4 @@
-/** @addtogroup pwr_file PWR
+/** @addtogroup pwr_file
 
 @author @htmlonly &copy; @endhtmlonly 2012
 Ken Sarkies <ksarkies@internode.on.net>

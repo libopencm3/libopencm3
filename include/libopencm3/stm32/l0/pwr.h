@@ -1,4 +1,15 @@
-/* This provides unification of code over STM32F subfamilies */
+/** @defgroup pwr_defines PWR Defines
+ *
+ * @brief <b>Defined Constants and Types for the STM32L0xx PWR Control</b>
+ *
+ * @ingroup STM32L0xx_defines
+ *
+ * @version 1.0.0
+ *
+ * @date 21 May 2015
+ *
+ * LGPL License Terms @ref lgpl_license
+ */
 
 /*
  * This file is part of the libopencm3 project.
@@ -17,22 +28,10 @@
  * along with this library.  If not, see <http://www.gnu.org/licenses/>.
  */
 
-#include <libopencm3/cm3/common.h>
-#include <libopencm3/stm32/memorymap.h>
+#ifndef LIBOPENCM3_PWR_H
+#define LIBOPENCM3_PWR_H
 
-#if defined(STM32F0)
-#       include <libopencm3/stm32/f0/syscfg.h>
-#elif defined(STM32F2)
-#       include <libopencm3/stm32/f2/syscfg.h>
-#elif defined(STM32F3)
-#       include <libopencm3/stm32/f3/syscfg.h>
-#elif defined(STM32F4)
-#       include <libopencm3/stm32/f4/syscfg.h>
-#elif defined(STM32L0)
-#       include <libopencm3/stm32/l0/syscfg.h>
-#elif defined(STM32L1)
-#       include <libopencm3/stm32/l1/syscfg.h>
-#else
-#       error "stm32 family not defined."
+#include <libopencm3/stm32/common/pwr_common_l01.h>
+
 #endif
 

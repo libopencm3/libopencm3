@@ -3,12 +3,6 @@
  * @ingroup STM32F0xx
  *
  * @brief <b>libopencm3 STM32F0xx Clock Recovery Subsystem</b>
- *
- * @version 1.0.0
- *
- * @date 5 Feb 2014
- *
- * LGPL License Terms @ref lgpl_license
  */
 
 /*
@@ -29,19 +23,3 @@
  */
 
 #include <libopencm3/stm32/crs.h>
-#include <libopencm3/stm32/rcc.h>
-
-/**
- * This function enables autonatic trimming of internal RC oscillator by USB SOF
- * frames
- */
-void crs_autotrim_usb_enable(void)
-{
-	rcc_periph_clock_enable(RCC_CRS);
-	
-	CRS_CFGR &= ~CRS_CFGR_SYNCSRC;
-	CRS_CFGR |= CRS_CFGR_SYNCSRC_USB_SOF;
-	
-	CRS_CR |= CRS_CR_AUTOTRIMEN;
-	CRS_CR |= CRS_CR_CEN;
-}

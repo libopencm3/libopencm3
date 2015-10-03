@@ -22,6 +22,8 @@
 
 #if defined(STM32F0)
 #       include <libopencm3/stm32/f0/crs.h>
+#elif defined(STM32L0)
+#       include <libopencm3/stm32/l0/crs.h>
 #else
 #       error "stm32 family not defined."
 #endif
