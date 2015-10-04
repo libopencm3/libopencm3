@@ -290,5 +290,117 @@ void rcc_wait_for_osc_ready(enum rcc_osc osc)
 	}
 }
 
+/*---------------------------------------------------------------------------*/
+/** @brief RCC Set HSI48 clock source to the RC48 (CRS)
+ */
+void rcc_set_hsi48_source_rc48(void) {
+	RCC_CCIPR |= RCC_CCIPR_HSI48SEL;
+}
+
+/*---------------------------------------------------------------------------*/
+/** @brief RCC Set HSI48 clock source to the PLL
+ */
+void rcc_set_hsi48_source_pll(void) {
+	RCC_CCIPR &= ~RCC_CCIPR_HSI48SEL;
+}
+
+/*---------------------------------------------------------------------------*/
+/** @brief RCC Set the Source for the System Clock.
+ *
+ * @param[in] osc enum ::osc_t. Oscillator ID. Only HSE, HSI16, MSI and PLL have
+ * effect.
+ */
+
+void rcc_set_sysclk_source(enum rcc_osc osc)
+{
+	switch (osc) {
+	case PLL:
+		RCC_CFGR |=  RCC_CFGR_SW_PLL;
+		break;
+	case HSE:
+		RCC_CFGR = (RCC_CFGR & ~RCC_CFGR_SW_MASK) | RCC_CFGR_SW_HSE;
+		break;
+	case HSI16:
+		RCC_CFGR = (RCC_CFGR & ~RCC_CFGR_SW_MASK) | RCC_CFGR_SW_HSI16;
+		break;
+	case MSI:
+		RCC_CFGR = (RCC_CFGR & ~RCC_CFGR_SW_MASK) | RCC_CFGR_SW_MSI;
+		break;
+	case HSI48:
+	case LSE:
+	case LSI:
+		break;
+	}
+}
+
+/*---------------------------------------------------------------------------*/
+/** @brief RCC Set the PLL Multiplication Factor.
+ *
+ * @note This only has effect when the PLL is disabled.
+ *
+ * @param[in] mul Unsigned int32. PLL multiplication factor @ref rcc_cfgr_pmf
+ */
+
+void rcc_set_pll_multiplier(uint32_t factor)
+{
+	uint32_t reg = RCC_CFGR & ~(RCC_CFGR_PLLMUL_MASK<<RCC_CFGR_PLLMUL_SHIFT);
+	RCC_CFGR = reg | (factor << RCC_CFGR_PLLMUL_SHIFT);
+}
+
+
+/*---------------------------------------------------------------------------*/
+/** @brief RCC Set the PLL Division Factor.
+ *
+ * @note This only has effect when the PLL is disabled.
+ *
+ * @param[in] mul Unsigned int32. PLL multiplication factor @ref rcc_cfgr_pdf
+ */
+
+void rcc_set_pll_divider(uint32_t factor)
+{
+	uint32_t reg = RCC_CFGR & ~(RCC_CFGR_PLLDIV_MASK<<RCC_CFGR_PLLDIV_SHIFT);
+	RCC_CFGR = reg | (factor << RCC_CFGR_PLLDIV_SHIFT);
+}
+
+/*---------------------------------------------------------------------------*/
+/** @brief RCC Set the APB1 Prescale Factor.
+ *
+ * @note The APB1 clock frequency must not exceed 32MHz.
+ *
+ * @param[in] ppre1 Unsigned int32. APB prescale factor @ref rcc_cfgr_apb1pre
+ */
+
+void rcc_set_ppre1(uint32_t ppre)
+{
+	uint32_t reg = RCC_CFGR & ~(RCC_CFGR_PPRE1_MASK << RCC_CFGR_PPRE1_SHIFT);
+	RCC_CFGR = reg | (ppre << RCC_CFGR_PPRE1_SHIFT);
+}
+
+/*---------------------------------------------------------------------------*/
+/** @brief RCC Set the APB2 Prescale Factor.
+ *
+ * @note The APB2 clock frequency must not exceed 32MHz.
+ *
+ * @param[in] ppre1 Unsigned int32. APB prescale factor @ref rcc_cfgr_apb2pre
+ */
+
+void rcc_set_ppre2(uint32_t ppre)
+{
+	uint32_t reg = RCC_CFGR & ~(RCC_CFGR_PPRE2_MASK << RCC_CFGR_PPRE2_SHIFT);
+	RCC_CFGR = reg | (ppre << RCC_CFGR_PPRE2_SHIFT);
+}
+
+/*---------------------------------------------------------------------------*/
+/** @brief RCC Set the AHB Prescale Factor.
+ *
+ * @param[in] hpre Unsigned int32. AHB prescale factor @ref rcc_cfgr_ahbpre
+ */
+
+void rcc_set_hpre(uint32_t hpre)
+{
+	uint32_t reg = RCC_CFGR & ~(RCC_CFGR_HPRE_MASK << RCC_CFGR_HPRE_SHIFT);
+	RCC_CFGR = reg | (hpre << RCC_CFGR_HPRE_SHIFT);
+}
+
 
 /**@}*/
