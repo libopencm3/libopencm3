@@ -457,6 +457,11 @@
 #define RCC_BDCR_BDRST				(1 << 16)
 #define RCC_BDCR_RTCEN				(1 << 15)
 /* RCC_BDCR[9:8]: RTCSEL */
+#define RCC_BDCR_RTCSEL_MASK		(3 << 8)
+#define RCC_BDCR_RTCSEL_NONE		(0 << 8)
+#define RCC_BDCR_RTCSEL_LSE			(1 << 8)
+#define RCC_BDCR_RTCSEL_LSI			(2 << 8)
+#define RCC_BDCR_RTCSEL_HSI			(3 << 8)
 #define RCC_BDCR_LSEBYP				(1 << 2)
 #define RCC_BDCR_LSERDY				(1 << 1)
 #define RCC_BDCR_LSEON				(1 << 0)
@@ -857,6 +862,7 @@ void rcc_set_main_pll_hse(uint32_t pllm, uint32_t plln, uint32_t pllp,
 uint32_t rcc_system_clock_source(void);
 void rcc_clock_setup_hse_3v3(const clock_scale_t *clock);
 
+void rcc_rtc_select_clock(uint32_t clock);
 END_DECLS
 
 #endif

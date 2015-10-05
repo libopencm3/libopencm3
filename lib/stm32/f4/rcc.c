@@ -633,5 +633,11 @@ void rcc_clock_setup_hse_3v3(const clock_scale_t *clock)
 }
 
 
+void rcc_rtc_select_clock(uint32_t clock)
+{
+	RCC_BDCR = (RCC_BDCR & ~RCC_BDCR_RTCSEL_MASK) | clock;
+	//RCC_BDCR &= ~RCC_BDCR_RTCSEL_MASK;
+	//RCC_BDCR |= clock;
+}
 
 /**@}*/
