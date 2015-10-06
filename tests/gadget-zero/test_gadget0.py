@@ -10,6 +10,7 @@ DUT_SERIAL = "stm32f4disco"
 #DUT_SERIAL = "stm32f103-generic"
 #DUT_SERIAL = "stm32l1-generic"
 #DUT_SERIAL = "stm32f072disco"
+#DUT_SERIAL = "stm32l053disco"
 
 class find_by_serial(object):
     def __init__(self, serial):

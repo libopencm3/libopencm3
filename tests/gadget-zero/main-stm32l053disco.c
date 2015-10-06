@@ -1,0 +1,109 @@
+/*
+ * This file is part of the libopencm3 project.
+ *
+ * Copyright (C) 2015 Karl Palsson <karlp@tweak.net.au>
+ *
+ * This library is free software: you can redistribute it and/or modify
+ * it under the terms of the GNU Lesser General Public License as published by
+ * the Free Software Foundation, either version 3 of the License, or
+ * (at your option) any later version.
+ *
+ * This library is distributed in the hope that it will be useful,
+ * but WITHOUT ANY WARRANTY; without even the implied warranty of
+ * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
+ * GNU Lesser General Public License for more details.
+ *
+ * You should have received a copy of the GNU Lesser General Public License
+ * along with this library.  If not, see <http://www.gnu.org/licenses/>.
+ */
+
+#include <libopencm3/cm3/nvic.h>
+#include <libopencm3/stm32/crs.h>
+#include <libopencm3/stm32/gpio.h>
+#include <libopencm3/stm32/rcc.h>
+#include <libopencm3/stm32/syscfg.h>
+
+#include <stdio.h>
+#include "usb-gadget0.h"
+
+// no trace on cm0 #define ER_DEBUG
+#ifdef ER_DEBUG
+#define ER_DPRINTF(fmt, ...) \
+    do { printf(fmt, ## __VA_ARGS__); } while (0)
+#else
+#define ER_DPRINTF(fmt, ...) \
+    do { } while (0)
+#endif
+
+#include "trace.h"
+void trace_send_blocking8(int stimulus_port, char c) {
+	(void)stimulus_port;
+	(void)c;
+}
+
+#if 0
+void rcc_clock_setup_in_hsi16_out_32mhz() {
+	rcc_osc_on(HSI16);
+
+	rcc_set_hpre(RCC_CFGR_HPRE_NODIV);
+	rcc_set_ppre1(RCC_CFGR_PPRE1_NODIV);
+	rcc_set_ppre2(RCC_CFGR_PPRE2_NODIV);
+	rcc_wait_for_osc_ready(HSI16);
+
+	rcc_peripheral_enable_clock(RCC_PWR);
+	pwr_set_vos_scale(RANGE1);
+	
+	/* Flash wait states too.  */
+	
+/*
+ * 	rcc_set_pll_configuration(clock->pll_source, clock->pll_mul,
+				  clock->pll_div);
+*/
+	/* Enable PLL oscillator and wait for it to stabilize. */
+	rcc_osc_on(PLL);
+	rcc_wait_for_osc_ready(PLL);
+	
+	rcc_set_sysclk_source(PLL);
+	rcc_apb1_frequency = 32000000;
+	rcc_ahb_frequency = 32000000;
+	
+	
+	
+}
+#endif
+
+
+int main(void)
+{
+	/* LED for boot progress */
+        rcc_periph_clock_enable(RCC_GPIOA);
+        gpio_mode_setup(GPIOA, GPIO_MODE_OUTPUT, GPIO_PUPD_NONE, GPIO5);
+	gpio_set(GPIOA, GPIO5);
+
+	/* jump up to 16mhz, leave PLL setup for later. */
+	rcc_osc_on(HSI16);
+	rcc_wait_for_osc_ready(HSI16);
+	rcc_set_sysclk_source(HSI16);
+
+	/* HSI48 needs the vrefint turned on */
+	rcc_periph_clock_enable(RCC_SYSCFG);
+	SYSCFG_CFGR3 |= SYSCFG_CFGR3_ENREF_HSI48 | SYSCFG_CFGR3_EN_VREFINT;
+	while(!(SYSCFG_CFGR3 & SYSCFG_CFGR3_REF_HSI48_RDYF));
+	
+	/* For USB, but can't use HSI48 as a sysclock on L0 */
+	crs_autotrim_usb_enable();
+	rcc_set_hsi48_source_rc48();
+
+	rcc_osc_on(HSI48);
+	rcc_wait_for_osc_ready(HSI48);
+
+	usbd_device *usbd_dev = gadget0_init(&st_usbfs_v2_usb_driver, "stm32l053disco");
+
+	ER_DPRINTF("bootup complete\n");
+	gpio_clear(GPIOA, GPIO5);
+	while (1) {
+		usbd_poll(usbd_dev);
+	}
+
+}
+
