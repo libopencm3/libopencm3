@@ -58,85 +58,85 @@ error "This file should not be included directly, it is included with fsmc.h"
 /* Bits [31:15]: Reserved. */
 
 /* RPIPE: Read Pipe */
-#define FMC_SDCR_RPIPE_SHIFT		(1 << 13)
-#define FMC_SDCR_RPIPE_MASK		(3 << 13)
-#define FMC_SDCR_RPIPE_NONE		(0x0)       /* No Delay */
-#define FMC_SDCR_RPIPE_1CLK		(1 << 13)   /* one clock */
-#define FMC_SDCR_RPIPE_2CLK		(2 << 13)   /* two clocks */
+#define FMC_SDCR_RPIPE_SHIFT		13
+#define FMC_SDCR_RPIPE_MASK		(3 << FMC_SDCR_RPIPE_SHIFT)
+#define FMC_SDCR_RPIPE_NONE		(0 << FMC_SDCR_RPIPE_SHIFT)
+#define FMC_SDCR_RPIPE_1CLK		(1 << FMC_SDCR_RPIPE_SHIFT)
+#define FMC_SDCR_RPIPE_2CLK		(2 << FMC_SDCR_RPIPE_SHIFT)
 
 /* RBURST: Burst Read */
 #define FMC_SDCR_RBURST			(1 << 12)
 
 /* SDCLK: SDRAM Clock Configuration */
-#define FMC_SDCR_SDCLK_SHIFT		(1 << 10)
-#define FMC_SDCR_SDCLK_MASK		(3 << 10)
-#define FMC_SDCR_SDCLK_DISABLE		(0)
-#define FMC_SDCR_SDCLK_2HCLK		(2 << 10)
-#define FMC_SDCR_SDCLK_3HCLK		(3 << 10)
+#define FMC_SDCR_SDCLK_SHIFT		10
+#define FMC_SDCR_SDCLK_MASK		(3 << FMC_SDCR_SDCLK_SHIFT)
+#define FMC_SDCR_SDCLK_DISABLE		(0 << FMC_SDCR_SDCLK_SHIFT)
+#define FMC_SDCR_SDCLK_2HCLK		(2 << FMC_SDCR_SDCLK_SHIFT)
+#define FMC_SDCR_SDCLK_3HCLK		(3 << FMC_SDCR_SDCLK_SHIFT)
 
 /* WP: Write Protect */
 #define FMC_SDCR_WP_ENABLE		(1 << 9)
 
 /* CAS: CAS Latency */
-#define FMC_SDCR_CAS_SHIFT		(1 << 7)
-#define FMC_SDCR_CAS_1CYC		(1 << 7)
-#define FMC_SDCR_CAS_2CYC		(2 << 7)
-#define FMC_SDCR_CAS_3CYC		(3 << 7)
+#define FMC_SDCR_CAS_SHIFT		7
+#define FMC_SDCR_CAS_1CYC		(1 << FMC_SDCR_CAS_SHIFT)
+#define FMC_SDCR_CAS_2CYC		(2 << FMC_SDCR_CAS_SHIFT)
+#define FMC_SDCR_CAS_3CYC		(3 << FMC_SDCR_CAS_SHIFT)
 
 /* NB: Number of Internal banks */
 #define FMC_SDCR_NB2			0
 #define FMC_SDCR_NB4			(1 << 6)
 
 /* MWID: Memory width */
-#define FMC_SDCR_MWID_SHIFT		(1 << 4)
-#define FMC_SDCR_MWID_8b		(0 << 4)
-#define FMC_SDCR_MWID_16b		(1 << 4)
-#define FMC_SDCR_MWID_32b		(2 << 4)
+#define FMC_SDCR_MWID_SHIFT		4
+#define FMC_SDCR_MWID_8b		(0 << FMC_SDCR_MWID_SHIFT)
+#define FMC_SDCR_MWID_16b		(1 << FMC_SDCR_MWID_SHIFT)
+#define FMC_SDCR_MWID_32b		(2 << FMC_SDCR_MWID_SHIFT)
 
 /* NR: Number of rows */
-#define FMC_SDCR_NR_SHIFT		(1 << 2)
-#define FMC_SDCR_NR_11			(0 << 2)
-#define FMC_SDCR_NR_12			(1 << 2)
-#define FMC_SDCR_NR_13			(2 << 2)
+#define FMC_SDCR_NR_SHIFT		2
+#define FMC_SDCR_NR_11			(0 << FMC_SDCR_NR_SHIFT)
+#define FMC_SDCR_NR_12			(1 << FMC_SDCR_NR_SHIFT)
+#define FMC_SDCR_NR_13			(2 << FMC_SDCR_NR_SHIFT)
 
 /* NC: Number of Columns */
-#define FMC_SDCR_NC_SHIFT		(1 << 0)
-#define FMC_SDCR_NC_8			(0 << 0)
-#define FMC_SDCR_NC_9			(1 << 0)
-#define FMC_SDCR_NC_10			(2 << 0)
-#define FMC_SDCR_NC_11			(3 << 0)
+#define FMC_SDCR_NC_SHIFT		0
+#define FMC_SDCR_NC_8			(0 << FMC_SDCR_NC_SHIFT)
+#define FMC_SDCR_NC_9			(1 << FMC_SDCR_NC_SHIFT)
+#define FMC_SDCR_NC_10			(2 << FMC_SDCR_NC_SHIFT)
+#define FMC_SDCR_NC_11			(3 << FMC_SDCR_NC_SHIFT)
 
 /* --- FMC_SDTRx values --------------------------------------------------- */
 
 /* Bits [31:28]: Reserved. */
 
 /* TRCD: Row to Column Delay */
-#define FMC_SDTR_TRCD_SHIFT		(1 << 24)
-#define FMC_SDTR_TRCD_MASK		(15 << 24)
+#define FMC_SDTR_TRCD_SHIFT		24
+#define FMC_SDTR_TRCD_MASK		(15 << FMC_SDTR_TRCD_SHIFT)
 
 /* TRP: Row Precharge Delay */
-#define FMC_SDTR_TRP_SHIFT		(1 << 20)
-#define FMC_SDTR_TRP_MASK		(15 << 20)
+#define FMC_SDTR_TRP_SHIFT		20
+#define FMC_SDTR_TRP_MASK		(15 << FMC_SDTR_TRP_SHIFT)
 
 /* TWR: Recovery Delay */
-#define FMC_SDTR_TWR_SHIFT		(1 << 16)
-#define FMC_SDTR_TWR_MASK		(15 << 16)
+#define FMC_SDTR_TWR_SHIFT		16
+#define FMC_SDTR_TWR_MASK		(15 << FMC_SDTR_TWR_SHIFT)
 
 /* TRC: Row Cycle Delay */
-#define FMC_SDTR_TRC_SHIFT		(1 << 12)
-#define FMC_SDTR_TRC_MASK		(15 << 12)
+#define FMC_SDTR_TRC_SHIFT		12
+#define FMC_SDTR_TRC_MASK		(15 << FMC_SDTR_TRC_SHIFT)
 
 /* TRAS: Self Refresh Time */
-#define FMC_SDTR_TRAS_SHIFT		(1 << 8)
-#define FMC_SDTR_TRAS_MASK		(15 << 8)
+#define FMC_SDTR_TRAS_SHIFT		8
+#define FMC_SDTR_TRAS_MASK		(15 << FMC_SDTR_TRAS_SHIFT)
 
 /* TXSR: Exit Self-refresh Delay */
-#define FMC_SDTR_TXSR_SHIFT		(1 << 4)
-#define FMC_SDTR_TXSR_MASK		(15 << 4)
+#define FMC_SDTR_TXSR_SHIFT		4
+#define FMC_SDTR_TXSR_MASK		(15 << FMC_SDTR_TXSR_SHIFT)
 
 /* TRMD: Load Mode Register to Active */
-#define FMC_SDTR_TMRD_SHIFT		(1 << 0)
-#define FMC_SDTR_TMRD_MASK		(15 << 0)
+#define FMC_SDTR_TMRD_SHIFT		0
+#define FMC_SDTR_TMRD_MASK		(15 << FMC_SDTR_TMRD_SHIFT)
 
 /*
  * Some config bits only count in CR1 or TR1, even if you
@@ -154,12 +154,12 @@ error "This file should not be included directly, it is included with fsmc.h"
 /* Bits [31:22]: Reserved. */
 
 /* MRD: Mode Register Definition */
-#define FMC_SDCMR_MRD_SHIFT		(1 << 9)
-#define FMC_SDCMR_MRD_MASK		(0x1fff << 9)
+#define FMC_SDCMR_MRD_SHIFT		9
+#define FMC_SDCMR_MRD_MASK		(0x1fff << FMC_SDCMR_MRD_SHIFT)
 
 /* NRFS: Number of Auto-refresh */
-#define FMC_SDCMR_NRFS_SHIFT		(1 << 5)
-#define FMC_SDCMR_NRFS_MASK		(15 << 5)
+#define FMC_SDCMR_NRFS_SHIFT		5
+#define FMC_SDCMR_NRFS_MASK		(15 << FMC_SDCMR_NRFS_SHIFT)
 
 /* CTB1: Command Target Bank 1 */
 #define FMC_SDCMR_CTB1			(1 << 4)
@@ -168,8 +168,8 @@ error "This file should not be included directly, it is included with fsmc.h"
 #define FMC_SDCMR_CTB2			(1 << 3)
 
 /* MODE: Command Mode */
-#define FMC_SDCMR_MODE_SHIFT		(1 << 0)
-#define FMC_SDCMR_MODE_MASK		(7 << 0)
+#define FMC_SDCMR_MODE_SHIFT		0
+#define FMC_SDCMR_MODE_MASK		7
 #define FMC_SDCMR_MODE_NORMAL			0
 #define FMC_SDCMR_MODE_CLOCK_CONFIG_ENA		1
 #define FMC_SDCMR_MODE_PALL			2
@@ -186,8 +186,8 @@ error "This file should not be included directly, it is included with fsmc.h"
 #define FMC_SDRTR_REIE			(1 << 14)
 
 /* COUNT: Refresh Timer Count */
-#define FMC_SDRTR_COUNT_SHIFT		(1 << 1)
-#define FMC_SDRTR_COUNT_MASK		(0x1fff << 1)
+#define FMC_SDRTR_COUNT_SHIFT		1
+#define FMC_SDRTR_COUNT_MASK		(0x1fff << FMC_SDRTR_COUNT_SHIFT)
 
 /* CRE: Clear Refresh Error Flag */
 #define FMC_SDRTR_CRE			(1 << 0)
@@ -205,8 +205,8 @@ error "This file should not be included directly, it is included with fsmc.h"
 #define FMC_SDSR_MODE_POWER_DOWN	2
 
 /* Mode shift */
-#define FMC_SDSR_MODE2_SHIFT		( 1 << 3)
-#define FMC_SDSR_MODE1_SHIFT		( 1 << 1)
+#define FMC_SDSR_MODE2_SHIFT		3
+#define FMC_SDSR_MODE1_SHIFT		1
 
 /* RE: Refresh Error */
 #define FMC_SDSR_RE			(1 << 0)
