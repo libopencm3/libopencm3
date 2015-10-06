@@ -34,13 +34,13 @@ sdram_timing(struct sdram_timing *t) {
 	uint32_t result;
 
 	result = 0;
-	result |= ((t->trcd - 1) & 0xf) * FMC_SDTR_TRCD_SHIFT;
-	result |= ((t->trp - 1) & 0xf) * FMC_SDTR_TRP_SHIFT;
-	result |= ((t->twr - 1) & 0xf) * FMC_SDTR_TWR_SHIFT;
-	result |= ((t->trc - 1) & 0xf) * FMC_SDTR_TRC_SHIFT;
-	result |= ((t->tras - 1) & 0xf) * FMC_SDTR_TRAS_SHIFT;
-	result |= ((t->txsr - 1) & 0xf) * FMC_SDTR_TXSR_SHIFT;
-	result |= ((t->tmrd - 1) & 0xf) * FMC_SDTR_TMRD_SHIFT;
+	result |= ((t->trcd - 1) & 0xf) << FMC_SDTR_TRCD_SHIFT;
+	result |= ((t->trp - 1) & 0xf) << FMC_SDTR_TRP_SHIFT;
+	result |= ((t->twr - 1) & 0xf) << FMC_SDTR_TWR_SHIFT;
+	result |= ((t->trc - 1) & 0xf) << FMC_SDTR_TRC_SHIFT;
+	result |= ((t->tras - 1) & 0xf) << FMC_SDTR_TRAS_SHIFT;
+	result |= ((t->txsr - 1) & 0xf) << FMC_SDTR_TXSR_SHIFT;
+	result |= ((t->tmrd - 1) & 0xf) << FMC_SDTR_TMRD_SHIFT;
 	return result;
 }
 
@@ -65,8 +65,8 @@ sdram_command(enum fmc_sdram_bank bank,
 		tmp_reg = FMC_SDCMR_CTB1 | FMC_SDCMR_CTB2;
 		break;
 	}
-	tmp_reg |= autorefresh * FMC_SDCMR_NRFS_SHIFT;
-	tmp_reg |= modereg * FMC_SDCMR_MRD_SHIFT;
+	tmp_reg |= autorefresh << FMC_SDCMR_NRFS_SHIFT;
+	tmp_reg |= modereg << FMC_SDCMR_MRD_SHIFT;
 	switch (cmd) {
 		case SDRAM_CLK_CONF:
 			tmp_reg |= FMC_SDCMR_MODE_CLOCK_CONFIG_ENA;

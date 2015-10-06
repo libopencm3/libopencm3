@@ -397,6 +397,7 @@ typedef struct {
 	uint8_t ppre1;
 	uint8_t ppre2;
 	vos_scale_t voltage_scale;
+	uint32_t ahb_frequency;
 	uint32_t apb1_frequency;
 	uint32_t apb2_frequency;
 	uint8_t msi_range;

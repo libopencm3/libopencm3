@@ -125,7 +125,8 @@ specific memorymap.h header before including this header file.*/
 #define RTC_DR_WDU_SHIFT  (13)      /* Weekday units shift */
 #define RTC_DR_WDU_MASK   (0x7)     /* Weekday units mask */
 #define RTC_DR_MT         (1<<12)   /* Month tens in BCD format shift */
-#define RTC_DR_MT_SHIFT   (12)      /* Month tens in BCD format mask */
+#define RTC_DR_MT_SHIFT   (12)      /* Month tens in BCD format shift */
+#define RTC_DR_MT_MASK    (0x1)     /* Month tens in BCD format mask */
 #define RTC_DR_MU_SHIFT   (8)       /* Month units in BCD format shift */
 #define RTC_DR_MU_MASK    (0xf)     /* Month units in BCD format mask */
 #define RTC_DR_DT_SHIFT   (4)       /* Date tens in BCD format shift */

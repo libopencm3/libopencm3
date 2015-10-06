@@ -220,6 +220,7 @@
 
 #define RCC_AHB1RSTR_OTGHSRST			(1 << 29)
 #define RCC_AHB1RSTR_ETHMACRST			(1 << 25)
+#define RCC_AHB1RSTR_DMA2DRST			(1 << 23)
 #define RCC_AHB1RSTR_DMA2RST			(1 << 22)
 #define RCC_AHB1RSTR_DMA1RST			(1 << 21)
 #define RCC_AHB1RSTR_CRCRST			(1 << 12)
@@ -293,6 +294,7 @@
 #define RCC_AHB1ENR_ETHMACRXEN			(1 << 27)
 #define RCC_AHB1ENR_ETHMACTXEN			(1 << 26)
 #define RCC_AHB1ENR_ETHMACEN			(1 << 25)
+#define RCC_AHB1ENR_DMA2DEN			(1 << 23)
 #define RCC_AHB1ENR_DMA2EN			(1 << 22)
 #define RCC_AHB1ENR_DMA1EN			(1 << 21)
 #define RCC_AHB1ENR_BKPSRAMEN			(1 << 18)
@@ -378,6 +380,7 @@
 #define RCC_AHB1LPENR_ETHMACRXLPEN		(1 << 27)
 #define RCC_AHB1LPENR_ETHMACTXLPEN		(1 << 26)
 #define RCC_AHB1LPENR_ETHMACLPEN		(1 << 25)
+#define RCC_AHB1LPENR_DMA2DLPEN			(1 << 23)
 #define RCC_AHB1LPENR_DMA2LPEN			(1 << 22)
 #define RCC_AHB1LPENR_DMA1LPEN			(1 << 21)
 #define RCC_AHB1LPENR_BKPSRAMLPEN		(1 << 18)
@@ -454,6 +457,11 @@
 #define RCC_BDCR_BDRST				(1 << 16)
 #define RCC_BDCR_RTCEN				(1 << 15)
 /* RCC_BDCR[9:8]: RTCSEL */
+#define RCC_BDCR_RTCSEL_MASK		(3 << 8)
+#define RCC_BDCR_RTCSEL_NONE		(0 << 8)
+#define RCC_BDCR_RTCSEL_LSE			(1 << 8)
+#define RCC_BDCR_RTCSEL_LSI			(2 << 8)
+#define RCC_BDCR_RTCSEL_HSI			(3 << 8)
 #define RCC_BDCR_LSEBYP				(1 << 2)
 #define RCC_BDCR_LSERDY				(1 << 1)
 #define RCC_BDCR_LSEON				(1 << 0)
@@ -551,6 +559,7 @@ typedef enum {
 	CLOCK_3V3_84MHZ,
 	CLOCK_3V3_120MHZ,
 	CLOCK_3V3_168MHZ,
+	CLOCK_3V3_180MHZ,
 	CLOCK_3V3_END
 } clock_3v3_t;
 
@@ -564,6 +573,7 @@ typedef struct {
 	uint8_t ppre1;
 	uint8_t ppre2;
 	uint8_t power_save;
+	uint32_t ahb_frequency;
 	uint32_t apb1_frequency;
 	uint32_t apb2_frequency;
 } clock_scale_t;
@@ -595,6 +605,7 @@ enum rcc_periph_clken {
 	RCC_CCMDATARAM	= _REG_BIT(0x30, 20),
 	RCC_DMA1	= _REG_BIT(0x30, 21),
 	RCC_DMA2	= _REG_BIT(0x30, 22),
+	RCC_DMA2D	= _REG_BIT(0x30, 23),
 	RCC_ETHMAC	= _REG_BIT(0x30, 25),
 	RCC_ETHMACTX	= _REG_BIT(0x30, 26),
 	RCC_ETHMACRX	= _REG_BIT(0x30, 27),
@@ -681,6 +692,7 @@ enum rcc_periph_clken {
 	SCC_SRAM3	= _REG_BIT(0x50, 19),/* F2xx, F3xx */
 	SCC_DMA1	= _REG_BIT(0x50, 21),
 	SCC_DMA2	= _REG_BIT(0x50, 22),
+	SCC_DMA2D	= _REG_BIT(0x50, 23),
 	SCC_ETHMAC	= _REG_BIT(0x50, 25),
 	SCC_ETHMACTX	= _REG_BIT(0x50, 26),
 	SCC_ETHMACRX	= _REG_BIT(0x50, 27),
@@ -758,6 +770,7 @@ enum rcc_periph_rst {
 	RST_CRC		= _REG_BIT(0x10, 12),
 	RST_DMA1	= _REG_BIT(0x10, 21),
 	RST_DMA2	= _REG_BIT(0x10, 22),
+	RST_DMA2D	= _REG_BIT(0x10, 23),
 	RST_ETHMAC	= _REG_BIT(0x10, 25),
 	RST_OTGHS	= _REG_BIT(0x10, 29),
 
@@ -850,6 +863,7 @@ void rcc_set_main_pll_hse(uint32_t pllm, uint32_t plln, uint32_t pllp,
 uint32_t rcc_system_clock_source(void);
 void rcc_clock_setup_hse_3v3(const clock_scale_t *clock);
 
+void rcc_rtc_select_clock(uint32_t clock);
 END_DECLS
 
 #endif

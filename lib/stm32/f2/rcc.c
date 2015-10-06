@@ -59,6 +59,7 @@ const clock_scale_t hse_8mhz_3v3[CLOCK_3V3_END] = {
 		.ppre2 = RCC_CFGR_PPRE_DIV_2,
 		.flash_config = FLASH_ACR_ICE | FLASH_ACR_DCE |
 				FLASH_ACR_LATENCY_3WS,
+		.ahb_frequency = 120000000,
 		.apb1_frequency = 30000000,
 		.apb2_frequency = 60000000,
 	},
@@ -402,6 +403,7 @@ void rcc_clock_setup_hse_3v3(const clock_scale_t *clock)
 	rcc_wait_for_sysclk_status(PLL);
 
 	/* Set the peripheral clock frequencies used. */
+	rcc_ahb_frequency  = clock->ahb_frequency;;
 	rcc_apb1_frequency = clock->apb1_frequency;
 	rcc_apb2_frequency = clock->apb2_frequency;
 }
