@@ -41,38 +41,6 @@ void trace_send_blocking8(int stimulus_port, char c) {
 	(void)c;
 }
 
-#if 0
-void rcc_clock_setup_in_hsi16_out_32mhz() {
-	rcc_osc_on(HSI16);
-
-	rcc_set_hpre(RCC_CFGR_HPRE_NODIV);
-	rcc_set_ppre1(RCC_CFGR_PPRE1_NODIV);
-	rcc_set_ppre2(RCC_CFGR_PPRE2_NODIV);
-	rcc_wait_for_osc_ready(HSI16);
-
-	rcc_peripheral_enable_clock(RCC_PWR);
-	pwr_set_vos_scale(RANGE1);
-	
-	/* Flash wait states too.  */
-	
-/*
- * 	rcc_set_pll_configuration(clock->pll_source, clock->pll_mul,
-				  clock->pll_div);
-*/
-	/* Enable PLL oscillator and wait for it to stabilize. */
-	rcc_osc_on(PLL);
-	rcc_wait_for_osc_ready(PLL);
-	
-	rcc_set_sysclk_source(PLL);
-	rcc_apb1_frequency = 32000000;
-	rcc_ahb_frequency = 32000000;
-	
-	
-	
-}
-#endif
-
-
 int main(void)
 {
 	/* LED for boot progress */
