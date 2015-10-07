@@ -41,7 +41,7 @@
 /* Register definitions                                                      */
 /*****************************************************************************/
 
-#define GPIO_BRR(port)			MMIO32(port + 0x24)
+#define GPIO_BRR(port)			MMIO32(port + 0x28)
 #define GPIOA_BRR			GPIO_BRR(GPIOA)
 #define GPIOB_BRR			GPIO_BRR(GPIOB)
 #define GPIOC_BRR			GPIO_BRR(GPIOC)
