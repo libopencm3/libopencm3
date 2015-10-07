@@ -90,6 +90,7 @@ them as environment variables, for example:
     $ VARIABLE=value make
 
 * `FP_FLAGS` - Control the floating-point ABI
+
    If the Cortex-M core supports a hard float ABI, it will be compiled with
    floating-point support by default. In cases where this is not desired, the
    behavior can be specified by setting `FP_FLAGS` Currently, M4F cores default
@@ -99,6 +100,17 @@ them as environment variables, for example:
 
         $ FP_FLAGS="-mfloat-abi=soft" make               # No hardfloat
         $ FP_FLAGS="-mfloat-abi=hard -mfpu=magic" make   # New FPU we don't know of
+
+* `CFLAGS` - Add to or supersede compiler flags
+
+   If the library needs to be compiled with additional flags, they can be
+   passed to the build system via the environment variable `CFLAGS`. The
+   contents of `CFLAGS` will be placed after all flags defined by the build
+   system, giving the user a way to override any default if necessary.
+
+   Examples:
+
+        $ CFLAGS="-fshort-wchar" make    # compile lib with 2 byte wide wchar_t
 
 Example projects
 ----------------

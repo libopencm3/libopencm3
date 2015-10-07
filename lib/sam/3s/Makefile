@@ -25,10 +25,10 @@ PREFIX		?= arm-none-eabi
 
 CC		= $(PREFIX)-gcc
 AR		= $(PREFIX)-ar
-CFLAGS		= -Os -Wall -Wextra -I../../../include -fno-common \
+TGT_CFLAGS	= -Os -Wall -Wextra -I../../../include -fno-common \
 		  -mcpu=cortex-m3 -mthumb $(FP_FLAGS) -Wstrict-prototypes \
 		  -ffunction-sections -fdata-sections -MD -DSAM3S
-CFLAGS          += $(DEBUG_FLAGS)
+TGT_CFLAGS      += $(DEBUG_FLAGS)
 # ARFLAGS	= rcsv
 ARFLAGS		= rcs
 OBJS		= gpio_common_all.o gpio_common_3n3s.o pmc.o usart.o

@@ -26,14 +26,14 @@ PREFIX		?= arm-none-eabi
 
 CC		= $(PREFIX)-gcc
 AR		= $(PREFIX)-ar
-CFLAGS		= -Os \
+TGT_CFLAGS	= -Os \
 		  -Wall -Wextra -Wimplicit-function-declaration \
 		  -Wredundant-decls -Wmissing-prototypes -Wstrict-prototypes \
 		  -Wundef -Wshadow \
 		  -I../../include -fno-common \
 		  -mcpu=cortex-m4 -mthumb $(FP_FLAGS) -Wstrict-prototypes \
 		  -ffunction-sections -fdata-sections -MD -DVF6XX
-CFLAGS          += $(DEBUG_FLAGS)
+TGT_CFLAGS      += $(DEBUG_FLAGS)
 ARFLAGS		= rcs
 OBJS		= ccm.o uart.o gpio.o iomuxc.o
 
