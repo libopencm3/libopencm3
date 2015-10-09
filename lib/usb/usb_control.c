@@ -89,7 +89,10 @@ static void usb_control_send_chunk(usbd_device *usbd_dev)
 		usbd_ep_write_packet(usbd_dev, 0,
 				     usbd_dev->control_state.ctrl_buf,
 				     usbd_dev->control_state.ctrl_len);
-		usbd_dev->control_state.state = LAST_DATA_IN;
+
+		usbd_dev->control_state.state =
+			usbd_dev->control_state.send_zlp_at_end ? DATA_IN : LAST_DATA_IN;
+		usbd_dev->control_state.send_zlp_at_end = false;
 		usbd_dev->control_state.ctrl_len = 0;
 		usbd_dev->control_state.ctrl_buf = NULL;
 	}
@@ -153,7 +156,21 @@ static void usb_control_setup_read(usbd_device *usbd_dev,
 	usbd_dev->control_state.ctrl_len = req->wLength;
 
 	if (usb_control_request_dispatch(usbd_dev, req)) {
-		if (usbd_dev->control_state.ctrl_len) {
+		if (req->wLength) {
+			usbd_dev->control_state.send_zlp_at_end = false;
+			/* application is sending less data than host is expecting.
+			 * and if application send length is multiple of ep0 size,
+			 * then we have to send a ZLP (Zero Length Packet) to host
+			 * to notify that we are out of data (in the end) */
+			if (usbd_dev->control_state.ctrl_len < req->wLength) {
+				if (usbd_dev->control_state.ctrl_len) {
+					if (!(usbd_dev->control_state.ctrl_len %
+							usbd_dev->desc->bMaxPacketSize0)) {
+						usbd_dev->control_state.send_zlp_at_end = true;
+					}
+				}
+			}
+
 			/* Go to data out stage if handled. */
 			usb_control_send_chunk(usbd_dev);
 		} else {
