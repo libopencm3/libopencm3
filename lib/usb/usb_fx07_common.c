@@ -282,25 +282,30 @@ void stm32fx07_poll(usbd_device *usbd_dev)
 		/* Save packet size for stm32f107_ep_read_packet(). */
 		usbd_dev->rxbcnt = (rxstsp & OTG_GRXSTSP_BCNT_MASK) >> 4;
 
-		/*
-		 * FIXME: Why is a delay needed here?
-		 * This appears to fix a problem where the first 4 bytes
-		 * of the DATA OUT stage of a control transaction are lost.
-		 */
-		for (i = 0; i < 1000; i++) {
-			__asm__("nop");
-		}
+		/* spurious RXFLVL IRQs with rxbcnt=0 can occur
+		 * only proceed if rxbcnt != 0 */
+		if(usbd_dev->rxbcnt) {
 
-		if (usbd_dev->user_callback_ctr[ep][type]) {
-			usbd_dev->user_callback_ctr[ep][type] (usbd_dev, ep);
-		}
+			/*
+			 * FIXME: Why is a delay needed here?
+			 * This appears to fix a problem where the first 4 bytes
+			 * of the DATA OUT stage of a control transaction are lost.
+			 */
+			for (i = 0; i < 1000; i++) {
+				__asm__("nop");
+			}
 
-		/* Discard unread packet data. */
-		for (i = 0; i < usbd_dev->rxbcnt; i += 4) {
-			(void)*REBASE_FIFO(ep);
-		}
+			if (usbd_dev->user_callback_ctr[ep][type]) {
+				usbd_dev->user_callback_ctr[ep][type] (usbd_dev, ep);
+			}
 
-		usbd_dev->rxbcnt = 0;
+			/* Discard unread packet data. */
+			for (i = 0; i < usbd_dev->rxbcnt; i += 4) {
+				(void)*REBASE_FIFO(ep);
+			}
+
+			usbd_dev->rxbcnt = 0;
+		}
 	}
 
 	/*
