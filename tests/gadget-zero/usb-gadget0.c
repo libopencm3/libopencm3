@@ -44,6 +44,7 @@
  * USB Vendor:Interface control requests.
  */
 #define GZ_REQ_SET_PATTERN	1
+#define GZ_REQ_PRODUCE		2
 #define INTEL_COMPLIANCE_WRITE 0x5b
 #define INTEL_COMPLIANCE_READ 0x5c
 
@@ -168,7 +169,7 @@ static const char * usb_strings[] = {
 };
 
 /* Buffer to be used for control requests. */
-static uint8_t usbd_control_buffer[128];
+static uint8_t usbd_control_buffer[5*64];
 static usbd_device *our_dev;
 
 /* Private global for state */
@@ -253,6 +254,21 @@ static int gadget0_control_request(usbd_device *usbd_dev,
 	case INTEL_COMPLIANCE_READ:
 		ER_DPRINTF("unimplemented!");
 		return USBD_REQ_NOTSUPP;
+	case GZ_REQ_PRODUCE:
+		ER_DPRINTF("fake loopback of %d\n", req->wValue);
+		if (req->wValue > sizeof(usbd_control_buffer)) {
+			ER_DPRINTF("Can't write more than out control buffer! %d > %d\n",
+				req->wValue, sizeof(usbd_control_buffer));
+			return USBD_REQ_NOTSUPP;
+		}
+		/* Don't produce more than asked for! */
+		if (req->wValue > req->wLength) {
+			ER_DPRINTF("Truncating reply to match wLen\n");
+			*len = req->wLength;
+		} else {
+			*len = req->wValue;
+		}
+		return USBD_REQ_HANDLED;
 	}
 	return USBD_REQ_NEXT_CALLBACK;
 }

@@ -209,3 +209,104 @@ class TestConfigSourceSinkPerformance(unittest.TestCase):
             txc += w
         te = datetime.datetime.now() - ts
         print("wrote %s bytes in %s for %s kps" % (txc, te, self.tput(txc, te)))
+
+
+class TestControlTransfer_Reads(unittest.TestCase):
+    """
+    https://github.com/libopencm3/libopencm3/pull/194
+    and
+    https://github.com/libopencm3/libopencm3/pull/505
+    """
+
+    def setUp(self):
+        self.dev = usb.core.find(idVendor=0xcafe, idProduct=0xcafe, custom_match=find_by_serial(DUT_SERIAL))
+        self.assertIsNotNone(self.dev, "Couldn't find locm3 gadget0 device")
+
+        self.cfg = uu.find_descriptor(self.dev, bConfigurationValue=2)
+        self.assertIsNotNone(self.cfg, "Config 2 should exist")
+        self.dev.set_configuration(self.cfg);
+        self.req = uu.CTRL_IN | uu.CTRL_TYPE_VENDOR | uu.CTRL_RECIPIENT_INTERFACE
+
+    def inner_t(self, wVal, read_len):
+        wVal = int(wVal)
+        read_len = int(read_len)
+        q = self.dev.ctrl_transfer(self.req, 2, wVal, 0, read_len)
+        self.assertEqual(len(q), wVal, "Should have read as much as we asked for?")
+
+    def tearDown(self):
+        uu.dispose_resources(self.dev)
+
+    def test_basic(self):
+        x = self.dev.ctrl_transfer(self.req, 2, 32, 0, 32)
+        self.assertEqual(32, len(x))
+
+    def test_matching_sizes(self):
+        """
+        Can we request x control in when we tell the device to produce x?
+        :return:
+        """
+        def inner(x):
+            x = int(x)
+            q = self.dev.ctrl_transfer(self.req, 2, x, 0, x)
+            self.assertEqual(len(q), x, "Should have read as much as we asked for")
+
+        ep0_size = self.dev.bMaxPacketSize0
+        inner(ep0_size)
+        inner(ep0_size * 3)
+        inner(ep0_size / 3)
+        inner(ep0_size - 7)
+        inner(ep0_size + 11)
+        inner(ep0_size * 4 + 11)
+
+    def test_waytoobig(self):
+        """
+        monster reads should fail, but not fatally.
+        (Don't make them too, big, or libusb will reject you outright, see MAX_CTRL_BUFFER_LENGTH in libusb sources)
+        """
+        try:
+            self.dev.ctrl_transfer(self.req, 2, 10 * self.dev.bMaxPacketSize0, 0, 10 * self.dev.bMaxPacketSize0)
+            self.fail("Should have got a stall")
+        except usb.core.USBError as e:
+            # Note, this might not be as portable as we'd like.
+            self.assertIn("Pipe", e.strerror)
+
+    def test_read_longer(self):
+        """
+        Attempt to read more than the device replied with.
+        This is explicitly allowed by spec:
+        "On an input request, a device must never return more data than is indicated
+        by the wLength value; it may return less"
+        """
+
+        ep0_size = self.dev.bMaxPacketSize0
+        self.inner_t(ep0_size / 2, ep0_size)
+        self.inner_t(ep0_size / 2, ep0_size * 2)
+        self.inner_t(ep0_size + 31, ep0_size * 5)
+
+    def test_read_needs_zlp(self):
+        ep0_size = self.dev.bMaxPacketSize0
+        self.inner_t(ep0_size, ep0_size + 10)
+        self.inner_t(ep0_size * 2, ep0_size * 5)
+
+    def test_read_zero(self):
+        """
+        try and read > 0, but have the device only produce 0
+        """
+        self.inner_t(0, self.dev.bMaxPacketSize0)
+        self.inner_t(0, 200)
+
+    def test_read_nothing(self):
+        """
+        Don't read anything, don't create anything (no data stage)
+        """
+        self.inner_t(0, 0)
+
+    def test_mean_limits(self):
+        """
+        tell the device to produce more than we ask for.
+        Note, this doesn't test the usb stack, it tests the application code behaves.
+        """
+        q = self.dev.ctrl_transfer(self.req, 2, 100, 0, 10)
+        self.assertEqual(len(q), 10, "In this case, should have gotten wLen back")
+
+

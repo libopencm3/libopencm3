@@ -74,6 +74,7 @@ struct _usbd_device {
 		uint8_t *ctrl_buf;
 		uint16_t ctrl_len;
 		usbd_control_complete_callback complete;
+		bool needs_zlp;
 	} control_state;
 
 	struct user_control_callback {
