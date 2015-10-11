@@ -72,31 +72,31 @@ INCLUDES += $(patsubst %,-I%, . $(OPENCM3_INC) )
 
 OBJS = $(CFILES:%.c=$(BUILD_DIR)/%.o)
 
-CPPFLAGS += -MD
-CPPFLAGS += -Wall -Wundef $(INCLUDES)
-CPPFLAGS += $(INCLUDES) $(OPENCM3_DEFS)
+TGT_CPPFLAGS += -MD
+TGT_CPPFLAGS += -Wall -Wundef $(INCLUDES)
+TGT_CPPFLAGS += $(INCLUDES) $(OPENCM3_DEFS)
 
-CFLAGS += $(OPT) $(CSTD) -ggdb3
-CFLAGS += $(ARCH_FLAGS)
-CFLAGS += -fno-common
-CFLAGS += -ffunction-sections -fdata-sections
-CFLAGS += -Wextra -Wshadow -Wno-unused-variable -Wimplicit-function-declaration
-CFLAGS += -Wredundant-decls -Wstrict-prototypes -Wmissing-prototypes
+TGT_CFLAGS += $(OPT) $(CSTD) -ggdb3
+TGT_CFLAGS += $(ARCH_FLAGS)
+TGT_CFLAGS += -fno-common
+TGT_CFLAGS += -ffunction-sections -fdata-sections
+TGT_CFLAGS += -Wextra -Wshadow -Wno-unused-variable -Wimplicit-function-declaration
+TGT_CFLAGS += -Wredundant-decls -Wstrict-prototypes -Wmissing-prototypes
 
-CXXFLAGS += $(OPT) $(CXXSTD) -ggdb3
-CXXFLAGS += $(ARCH_FLAGS)
-CXXFLAGS += -fno-common
-CXXFLAGS += -ffunction-sections -fdata-sections
-CXXFLAGS += -Wextra -Wshadow -Wredundant-decls  -Weffc++
+TGT_CXXFLAGS += $(OPT) $(CXXSTD) -ggdb3
+TGT_CXXFLAGS += $(ARCH_FLAGS)
+TGT_CXXFLAGS += -fno-common
+TGT_CXXFLAGS += -ffunction-sections -fdata-sections
+TGT_CXXFLAGS += -Wextra -Wshadow -Wredundant-decls  -Weffc++
 
-LDFLAGS += -T$(LDSCRIPT) -L$(OPENCM3_DIR)/lib -nostartfiles
-LDFLAGS += $(ARCH_FLAGS)
-LDFLAGS += -specs=nano.specs
-LDFLAGS += -Wl,--gc-sections
+TGT_LDFLAGS += -T$(LDSCRIPT) -L$(OPENCM3_DIR)/lib -nostartfiles
+TGT_LDFLAGS += $(ARCH_FLAGS)
+TGT_LDFLAGS += -specs=nano.specs
+TGT_LDFLAGS += -Wl,--gc-sections
 # OPTIONAL
-#LDFLAGS += -Wl,-Map=$(PROJECT).map
+#TGT_LDFLAGS += -Wl,-Map=$(PROJECT).map
 ifeq ($(V),99)
-LDFLAGS += -Wl,--print-gc-sections
+TGT_LDFLAGS += -Wl,--print-gc-sections
 endif
 
 LDLIBS += -l$(OPENCM3_LIB)
@@ -127,16 +127,16 @@ endif
 $(BUILD_DIR)/%.o: %.c
 	@printf "  CC\t$<\n"
 	@mkdir -p $(dir $@)
-	$(Q)$(CC) $(CFLAGS) $(CPPFLAGS) -o $@ -c $<
+	$(Q)$(CC) $(TGT_CFLAGS) $(CFLAGS) $(TGT_CPPFLAGS) $(CPPFLAGS) -o $@ -c $<
 
 $(BUILD_DIR)/%.o: %.cxx
 	@printf "  CXX\t$<\n"
 	@mkdir -p $(dir $@)
-	$(Q)$(CC) $(CXXFLAGS) $(CPPFLAGS) -o $@ -c $<
+	$(Q)$(CC) $(TGT_CXXFLAGS) $(CXXFLAGS) $(TGT_CPPFLAGS) $(CPPFLAGS) -o $@ -c $<
 
 $(PROJECT).elf: $(OBJS) $(LDSCRIPT)
 	@printf "  LD\t$@\n"
-	$(Q)$(LD) $(LDFLAGS) $(OBJS) $(LDLIBS) -o $@
+	$(Q)$(LD) $(TGT_LDFLAGS) $(LDFLAGS) $(OBJS) $(LDLIBS) -o $@
 
 %.bin: %.elf
 	@printf "  OBJCOPY\t$@\n"
