@@ -39,28 +39,6 @@ LGPL License Terms @ref lgpl_license
 #include <libopencm3/usb/usbd.h>
 #include "usb_private.h"
 
-/**
- * Main initialization entry point.
- *
- * Initialize the USB firmware library to implement the USB device described
- * by the descriptors provided.
- *
- * It is required that the 48MHz USB clock is already available.
- *
- * @param driver TODO
- * @param dev Pointer to USB device descriptor. This must not be changed while
- *            the device is in use.
- * @param conf Pointer to array of USB configuration descriptors. These must
- *             not be changed while the device is in use. The length of this
- *             array is determined by the bNumConfigurations field in the
- *             device descriptor.
- * @param strings TODO
- * @param control_buffer Pointer to array that would hold the data
- *                       received during control requests with DATA
- *                       stage
- * @param control_buffer_size Size of control_buffer
- * @return the usb device initialized for use. (currently cannot fail).
- */
 usbd_device *usbd_init(const usbd_driver *driver,
 		       const struct usb_device_descriptor *dev,
 		       const struct usb_config_descriptor *conf,
