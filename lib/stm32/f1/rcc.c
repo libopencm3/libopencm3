@@ -973,7 +973,7 @@ void rcc_clock_setup_in_hse_8mhz_out_72mhz(void)
 }
 
 /*---------------------------------------------------------------------------*/
-/** @brief RCC Set System Clock PLL at 24MHz from HSE at 12MHz
+/** @brief RCC Set System Clock PLL at 72MHz from HSE at 12MHz
 
 */
 
@@ -1037,7 +1037,7 @@ void rcc_clock_setup_in_hse_12mhz_out_72mhz(void)
 }
 
 /*---------------------------------------------------------------------------*/
-/** @brief RCC Set System Clock PLL at 24MHz from HSE at 16MHz
+/** @brief RCC Set System Clock PLL at 72MHz from HSE at 16MHz
 
 */
 
