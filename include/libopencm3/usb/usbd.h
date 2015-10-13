@@ -60,6 +60,28 @@ extern const usbd_driver st_usbfs_v2_usb_driver;
 #define otghs_usb_driver stm32f207_usb_driver
 
 /* <usb.c> */
+/**
+ * Main initialization entry point.
+ *
+ * Initialize the USB firmware library to implement the USB device described
+ * by the descriptors provided.
+ *
+ * It is required that the 48MHz USB clock is already available.
+ *
+ * @param driver TODO
+ * @param dev Pointer to USB device descriptor. This must not be changed while
+ *            the device is in use.
+ * @param conf Pointer to array of USB configuration descriptors. These must
+ *             not be changed while the device is in use. The length of this
+ *             array is determined by the bNumConfigurations field in the
+ *             device descriptor.
+ * @param strings TODO
+ * @param control_buffer Pointer to array that would hold the data
+ *                       received during control requests with DATA
+ *                       stage
+ * @param control_buffer_size Size of control_buffer
+ * @return the usb device initialized for use. (currently cannot fail).
+ */
 extern usbd_device * usbd_init(const usbd_driver *driver,
 			       const struct usb_device_descriptor *dev,
 			       const struct usb_config_descriptor *conf,
@@ -67,12 +89,16 @@ extern usbd_device * usbd_init(const usbd_driver *driver,
 			       uint8_t *control_buffer,
 			       uint16_t control_buffer_size);
 
+/** Registers a reset callback */
 extern void usbd_register_reset_callback(usbd_device *usbd_dev,
 					 void (*callback)(void));
+/** Registers a suspend callback */
 extern void usbd_register_suspend_callback(usbd_device *usbd_dev,
 					   void (*callback)(void));
+/** Registers a resume callback */
 extern void usbd_register_resume_callback(usbd_device *usbd_dev,
 					  void (*callback)(void));
+/** Registers a SOF callback */
 extern void usbd_register_sof_callback(usbd_device *usbd_dev,
 				       void (*callback)(void));
 
@@ -91,34 +117,72 @@ typedef void (*usbd_set_altsetting_callback)(usbd_device *usbd_dev,
 typedef void (*usbd_endpoint_callback)(usbd_device *usbd_dev, uint8_t ep);
 
 /* <usb_control.c> */
+/** Registers a control callback.
+ *
+ * The specified callback will be called if (type == (bmRequestType & type_mask))
+ * @param type Handled request type
+ * @param type_mask Mask to apply before matching request type
+ * @return 0 if successful
+ */
 extern int usbd_register_control_callback(usbd_device *usbd_dev, uint8_t type,
 					  uint8_t type_mask,
 					  usbd_control_callback callback);
 
 /* <usb_standard.c> */
+/** Registers a "Set Config" callback
+ * @return 0 if successful
+ */
 extern int usbd_register_set_config_callback(usbd_device *usbd_dev,
 					  usbd_set_config_callback callback);
-
+/** Registers a "Set Interface" (alternate setting) callback */
 extern void usbd_register_set_altsetting_callback(usbd_device *usbd_dev,
 					  usbd_set_altsetting_callback callback);
 
 /* Functions to be provided by the hardware abstraction layer */
 extern void usbd_poll(usbd_device *usbd_dev);
+
+/** Disconnect, if supported by the driver */
 extern void usbd_disconnect(usbd_device *usbd_dev, bool disconnected);
 
+/** Setup an endpoint
+ * @param addr Full EP address including direction (e.g. 0x01 or 0x81)
+ * @param type Value for bmAttributes (USB_ENDPOINT_ATTR_*)
+ */
 extern void usbd_ep_setup(usbd_device *usbd_dev, uint8_t addr, uint8_t type,
 		uint16_t max_size, usbd_endpoint_callback callback);
 
+/** Write a packet
+ * @param addr EP address (direction is ignored)
+ * @param len # of bytes
+ * @return 0 if failed, len if succesful
+ */
 extern uint16_t usbd_ep_write_packet(usbd_device *usbd_dev, uint8_t addr,
 				const void *buf, uint16_t len);
 
+/** Read a packet
+ * @param addr EP address
+ * @param len # of bytes
+ * @return Actual # of bytes read
+ */
 extern uint16_t usbd_ep_read_packet(usbd_device *usbd_dev, uint8_t addr,
 			       void *buf, uint16_t len);
-
+/** Set/clear STALL condition on an endpoint
+ * @param addr Full EP address (with direction bit)
+ * @param stall if 0, clear STALL, else set stall.
+ */
 extern void usbd_ep_stall_set(usbd_device *usbd_dev, uint8_t addr,
 			      uint8_t stall);
+
+/** Get STALL status of an endpoint
+ * @param addr Full EP address (with direction bit)
+ * @return nonzero if endpoint is stalled
+ */
 extern uint8_t usbd_ep_stall_get(usbd_device *usbd_dev, uint8_t addr);
 
+/** Set an Out endpoint to NAK
+ * @param addr EP address
+ * @param nak if nonzero, set NAK
+ */
 extern void usbd_ep_nak_set(usbd_device *usbd_dev, uint8_t addr, uint8_t nak);
 
 /* Optional */
