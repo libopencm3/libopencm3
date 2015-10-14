@@ -693,7 +693,7 @@ LGPL License Terms @ref lgpl_license
 #define GPIO_W255                       (GPIO_PORT_BASE + 0x13FC)
 
 /* GPIO data direction register (GPIOn_DIR) */
-#define GPIO_DIR(port)                  MMIO32(port + 0x00)
+#define GPIO_DIR(port)                  MMIO32((port) + 0x00)
 #define GPIO0_DIR                       GPIO_DIR(GPIO0)
 #define GPIO1_DIR                       GPIO_DIR(GPIO1)
 #define GPIO2_DIR                       GPIO_DIR(GPIO2)
@@ -704,7 +704,7 @@ LGPL License Terms @ref lgpl_license
 #define GPIO7_DIR                       GPIO_DIR(GPIO7)
 
 /* GPIO fast mask register (GPIOn_MASK) */
-#define GPIO_MASK(port)                 MMIO32(port + 0x80)
+#define GPIO_MASK(port)                 MMIO32((port) + 0x80)
 #define GPIO0_MASK                      GPIO_MASK(GPIO0)
 #define GPIO1_MASK                      GPIO_MASK(GPIO1)
 #define GPIO2_MASK                      GPIO_MASK(GPIO2)
@@ -715,7 +715,7 @@ LGPL License Terms @ref lgpl_license
 #define GPIO7_MASK                      GPIO_MASK(GPIO7)
 
 /* GPIO port pin value register (GPIOn_PIN) */
-#define GPIO_PIN(port)                  MMIO32(port + 0x100)
+#define GPIO_PIN(port)                  MMIO32((port) + 0x100)
 #define GPIO0_PIN                       GPIO_PIN(GPIO0)
 #define GPIO1_PIN                       GPIO_PIN(GPIO1)
 #define GPIO2_PIN                       GPIO_PIN(GPIO2)
@@ -726,7 +726,7 @@ LGPL License Terms @ref lgpl_license
 #define GPIO7_PIN                       GPIO_PIN(GPIO7)
 
 /* GPIO port masked pin value register (GPIOn_MPIN) */
-#define GPIO_MPIN(port)                 MMIO32(port + 0x180)
+#define GPIO_MPIN(port)                 MMIO32((port) + 0x180)
 #define GPIO0_MPIN                      GPIO_MPIN(GPIO0)
 #define GPIO1_MPIN                      GPIO_MPIN(GPIO1)
 #define GPIO2_MPIN                      GPIO_MPIN(GPIO2)
@@ -737,7 +737,7 @@ LGPL License Terms @ref lgpl_license
 #define GPIO7_MPIN                      GPIO_MPIN(GPIO7)
 
 /* GPIO port output set register (GPIOn_SET) */
-#define GPIO_SET(port)                  MMIO32(port + 0x200)
+#define GPIO_SET(port)                  MMIO32((port) + 0x200)
 #define GPIO0_SET                       GPIO_SET(GPIO0)
 #define GPIO1_SET                       GPIO_SET(GPIO1)
 #define GPIO2_SET                       GPIO_SET(GPIO2)
@@ -748,7 +748,7 @@ LGPL License Terms @ref lgpl_license
 #define GPIO7_SET                       GPIO_SET(GPIO7)
 
 /* GPIO port output clear register (GPIOn_CLR) */
-#define GPIO_CLR(port)                  MMIO32(port + 0x280)
+#define GPIO_CLR(port)                  MMIO32((port) + 0x280)
 #define GPIO0_CLR                       GPIO_CLR(GPIO0)
 #define GPIO1_CLR                       GPIO_CLR(GPIO1)
 #define GPIO2_CLR                       GPIO_CLR(GPIO2)
@@ -759,7 +759,7 @@ LGPL License Terms @ref lgpl_license
 #define GPIO7_CLR                       GPIO_CLR(GPIO7)
 
 /* GPIO port toggle register (GPIOn_NOT) */
-#define GPIO_NOT(port)                  MMIO32(port + 0x300)
+#define GPIO_NOT(port)                  MMIO32((port) + 0x300)
 #define GPIO0_NOT                       GPIO_NOT(GPIO0)
 #define GPIO1_NOT                       GPIO_NOT(GPIO1)
 #define GPIO2_NOT                       GPIO_NOT(GPIO2)

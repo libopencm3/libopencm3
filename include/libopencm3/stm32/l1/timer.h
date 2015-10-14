@@ -43,7 +43,7 @@ LGPL License Terms @ref lgpl_license
  */
 
 /* Timer 2/3 option register (TIMx_OR) */
-#define TIM_OR(tim_base)		MMIO32(tim_base + 0x50)
+#define TIM_OR(tim_base)		MMIO32((tim_base) + 0x50)
 #define TIM2_OR				TIM_OR(TIM2)
 #define TIM3_OR				TIM_OR(TIM3)
 

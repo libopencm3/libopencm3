@@ -50,22 +50,22 @@ LGPL License Terms @ref lgpl_license
 /* --- SSP registers ------------------------------------------------------- */
 
 /* Control Register 0 */
-#define SSP_CR0(port)                   MMIO32(port + 0x000)
+#define SSP_CR0(port)                   MMIO32((port) + 0x000)
 #define SSP0_CR0                        SSP_CR0(SSP0)
 #define SSP1_CR0                        SSP_CR0(SSP1)
 
 /* Control Register 1 */
-#define SSP_CR1(port)                   MMIO32(port + 0x004)
+#define SSP_CR1(port)                   MMIO32((port) + 0x004)
 #define SSP0_CR1                        SSP_CR1(SSP0)
 #define SSP1_CR1                        SSP_CR1(SSP1)
 
 /* Data Register */
-#define SSP_DR(port)                    MMIO32(port + 0x008)
+#define SSP_DR(port)                    MMIO32((port) + 0x008)
 #define SSP0_DR                         SSP_DR(SSP0)
 #define SSP1_DR                         SSP_DR(SSP1)
 
 /* Status Register */
-#define SSP_SR(port)                    MMIO32(port + 0x00C)
+#define SSP_SR(port)                    MMIO32((port) + 0x00C)
 #define SSP0_SR                         SSP_SR(SSP0)
 #define SSP1_SR                         SSP_SR(SSP1)
 
@@ -76,32 +76,32 @@ LGPL License Terms @ref lgpl_license
 #define SSP_SR_BSY                      BIT4
 
 /* Clock Prescale Register */
-#define SSP_CPSR(port)                  MMIO32(port + 0x010)
+#define SSP_CPSR(port)                  MMIO32((port) + 0x010)
 #define SSP0_CPSR                       SSP_CPSR(SSP0)
 #define SSP1_CPSR                       SSP_CPSR(SSP1)
 
 /* Interrupt Mask Set and Clear Register */
-#define SSP_IMSC(port)                  MMIO32(port + 0x014)
+#define SSP_IMSC(port)                  MMIO32((port) + 0x014)
 #define SSP0_IMSC                       SSP_IMSC(SSP0)
 #define SSP1_IMSC                       SSP_IMSC(SSP1)
 
 /* Raw Interrupt Status Register */
-#define SSP_RIS(port)                   MMIO32(port + 0x018)
+#define SSP_RIS(port)                   MMIO32((port) + 0x018)
 #define SSP0_RIS                        SSP_RIS(SSP0)
 #define SSP1_RIS                        SSP_RIS(SSP1)
 
 /* Masked Interrupt Status Register */
-#define SSP_MIS(port)                   MMIO32(port + 0x01C)
+#define SSP_MIS(port)                   MMIO32((port) + 0x01C)
 #define SSP0_MIS                        SSP_MIS(SSP0)
 #define SSP1_MIS                        SSP_MIS(SSP1)
 
 /* SSPICR Interrupt Clear Register */
-#define SSP_ICR(port)                   MMIO32(port + 0x020)
+#define SSP_ICR(port)                   MMIO32((port) + 0x020)
 #define SSP0_ICR                        SSP_ICR(SSP0)
 #define SSP1_ICR                        SSP_ICR(SSP1)
 
 /* SSP1 DMA control register */
-#define SSP_DMACR(port)                 MMIO32(port + 0x024)
+#define SSP_DMACR(port)                 MMIO32((port) + 0x024)
 #define SSP0_DMACR                      SSP_DMACR(SSP0)
 #define SSP1_DMACR                      SSP_DMACR(SSP1)
 

@@ -57,7 +57,7 @@ LGPL License Terms @ref lgpl_license
 /* --- GPIO registers ------------------------------------------------------ */
 
 /* Port mode register (GPIOx_MODER) */
-#define GPIO_MODER(port)		MMIO32(port + 0x00)
+#define GPIO_MODER(port)		MMIO32((port) + 0x00)
 #define GPIOA_MODER			GPIO_MODER(GPIOA)
 #define GPIOB_MODER			GPIO_MODER(GPIOB)
 #define GPIOC_MODER			GPIO_MODER(GPIOC)
@@ -66,7 +66,7 @@ LGPL License Terms @ref lgpl_license
 #define GPIOH_MODER			GPIO_MODER(GPIOH)
 
 /* Port output type register (GPIOx_OTYPER) */
-#define GPIO_OTYPER(port)		MMIO32(port + 0x04)
+#define GPIO_OTYPER(port)		MMIO32((port) + 0x04)
 #define GPIOA_OTYPER			GPIO_OTYPER(GPIOA)
 #define GPIOB_OTYPER			GPIO_OTYPER(GPIOB)
 #define GPIOC_OTYPER			GPIO_OTYPER(GPIOC)
@@ -75,7 +75,7 @@ LGPL License Terms @ref lgpl_license
 #define GPIOH_OTYPER			GPIO_OTYPER(GPIOH)
 
 /* Port output speed register (GPIOx_OSPEEDR) */
-#define GPIO_OSPEEDR(port)		MMIO32(port + 0x08)
+#define GPIO_OSPEEDR(port)		MMIO32((port) + 0x08)
 #define GPIOA_OSPEEDR			GPIO_OSPEEDR(GPIOA)
 #define GPIOB_OSPEEDR			GPIO_OSPEEDR(GPIOB)
 #define GPIOC_OSPEEDR			GPIO_OSPEEDR(GPIOC)
@@ -84,7 +84,7 @@ LGPL License Terms @ref lgpl_license
 #define GPIOH_OSPEEDR			GPIO_OSPEEDR(GPIOH)
 
 /* Port pull-up/pull-down register (GPIOx_PUPDR) */
-#define GPIO_PUPDR(port)                MMIO32(port + 0x0c)
+#define GPIO_PUPDR(port)                MMIO32((port) + 0x0c)
 #define GPIOA_PUPDR                     GPIO_PUPDR(GPIOA)
 #define GPIOB_PUPDR                     GPIO_PUPDR(GPIOB)
 #define GPIOC_PUPDR                     GPIO_PUPDR(GPIOC)
@@ -93,7 +93,7 @@ LGPL License Terms @ref lgpl_license
 #define GPIOH_PUPDR                     GPIO_PUPDR(GPIOH)
 
 /* Port input data register (GPIOx_IDR) */
-#define GPIO_IDR(port)			MMIO32(port + 0x10)
+#define GPIO_IDR(port)			MMIO32((port) + 0x10)
 #define GPIOA_IDR			GPIO_IDR(GPIOA)
 #define GPIOB_IDR			GPIO_IDR(GPIOB)
 #define GPIOC_IDR			GPIO_IDR(GPIOC)
@@ -102,7 +102,7 @@ LGPL License Terms @ref lgpl_license
 #define GPIOH_IDR			GPIO_IDR(GPIOH)
 
 /* Port output data register (GPIOx_ODR) */
-#define GPIO_ODR(port)			MMIO32(port + 0x14)
+#define GPIO_ODR(port)			MMIO32((port) + 0x14)
 #define GPIOA_ODR			GPIO_ODR(GPIOA)
 #define GPIOB_ODR			GPIO_ODR(GPIOB)
 #define GPIOC_ODR			GPIO_ODR(GPIOC)
@@ -111,7 +111,7 @@ LGPL License Terms @ref lgpl_license
 #define GPIOH_ODR			GPIO_ODR(GPIOH)
 
 /* Port bit set/reset register (GPIOx_BSRR) */
-#define GPIO_BSRR(port)			MMIO32(port + 0x18)
+#define GPIO_BSRR(port)			MMIO32((port) + 0x18)
 #define GPIOA_BSRR			GPIO_BSRR(GPIOA)
 #define GPIOB_BSRR			GPIO_BSRR(GPIOB)
 #define GPIOC_BSRR			GPIO_BSRR(GPIOC)
@@ -120,7 +120,7 @@ LGPL License Terms @ref lgpl_license
 #define GPIOH_BSRR			GPIO_BSRR(GPIOH)
 
 /* Port configuration lock register (GPIOx_LCKR) */
-#define GPIO_LCKR(port)			MMIO32(port + 0x1C)
+#define GPIO_LCKR(port)			MMIO32((port) + 0x1C)
 #define GPIOA_LCKR			GPIO_LCKR(GPIOA)
 #define GPIOB_LCKR			GPIO_LCKR(GPIOB)
 #define GPIOC_LCKR			GPIO_LCKR(GPIOC)
@@ -129,7 +129,7 @@ LGPL License Terms @ref lgpl_license
 #define GPIOH_LCKR			GPIO_LCKR(GPIOH)
 
 /* Alternate function low register (GPIOx_AFRL) */
-#define GPIO_AFRL(port)                 MMIO32(port + 0x20)
+#define GPIO_AFRL(port)                 MMIO32((port) + 0x20)
 #define GPIOA_AFRL                      GPIO_AFRL(GPIOA)
 #define GPIOB_AFRL                      GPIO_AFRL(GPIOB)
 #define GPIOC_AFRL                      GPIO_AFRL(GPIOC)
@@ -138,7 +138,7 @@ LGPL License Terms @ref lgpl_license
 #define GPIOH_AFRL                      GPIO_AFRL(GPIOH)
 
 /* Alternate function high register (GPIOx_AFRH) */
-#define GPIO_AFRH(port)                 MMIO32(port + 0x24)
+#define GPIO_AFRH(port)                 MMIO32((port) + 0x24)
 #define GPIOA_AFRH                      GPIO_AFRH(GPIOA)
 #define GPIOB_AFRH                      GPIO_AFRH(GPIOB)
 #define GPIOC_AFRH                      GPIO_AFRH(GPIOC)
@@ -148,7 +148,7 @@ LGPL License Terms @ref lgpl_license
 
 /* --- GPIOx_MODER values-------------------------------------------- */
 
-#define GPIO_MODE(n, mode)              (mode << (2 * (n)))
+#define GPIO_MODE(n, mode)              ((mode) << (2 * (n)))
 #define GPIO_MODE_MASK(n)               (0x3 << (2 * (n)))
 /** @defgroup gpio_mode GPIO Pin Direction and Analog/Digital Mode
 @ingroup gpio_defines
@@ -171,7 +171,7 @@ LGPL License Terms @ref lgpl_license
 /**@}*/
 
 /* Output speed values */
-#define GPIO_OSPEED(n, speed)           (speed << (2 * (n)))
+#define GPIO_OSPEED(n, speed)           ((speed) << (2 * (n)))
 #define GPIO_OSPEED_MASK(n)             (0x3 << (2 * (n)))
 /** @defgroup gpio_speed GPIO Output Pin Speed
 @ingroup gpio_defines
@@ -184,7 +184,7 @@ LGPL License Terms @ref lgpl_license
 
 /* --- GPIOx_PUPDR values ------------------------------------------- */
 
-#define GPIO_PUPD(n, pupd)              (pupd << (2 * (n)))
+#define GPIO_PUPD(n, pupd)              ((pupd) << (2 * (n)))
 #define GPIO_PUPD_MASK(n)               (0x3 << (2 * (n)))
 /** @defgroup gpio_pup GPIO Output Pin Pullup
 @ingroup gpio_defines
@@ -217,7 +217,7 @@ LGPL License Terms @ref lgpl_license
 /* Note: AFRL is used for bits 0..7, AFRH is used for 8..15 */
 /* See datasheet table 5, page 35 for the definitions */
 
-#define GPIO_AFR(n, af)                 (af << ((n) * 4))
+#define GPIO_AFR(n, af)                 ((af) << ((n) * 4))
 #define GPIO_AFR_MASK(n)                (0xf << ((n) * 4))
 /** @defgroup gpio_af_num Alternate Function Pin Selection
 @ingroup gpio_defines

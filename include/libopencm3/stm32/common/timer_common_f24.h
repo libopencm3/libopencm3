@@ -41,7 +41,7 @@ specific memorymap.h header before including this header file.*/
  */
 
 /* Timer 2/5 option register (TIMx_OR) */
-#define TIM_OR(tim_base)		MMIO32(tim_base + 0x50)
+#define TIM_OR(tim_base)		MMIO32((tim_base) + 0x50)
 #define TIM2_OR				TIM_OR(TIM2)
 #define TIM5_OR				TIM_OR(TIM5)
 

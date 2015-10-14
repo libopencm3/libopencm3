@@ -48,82 +48,82 @@ LGPL License Terms @ref lgpl_license
 /* --- I2C registers ------------------------------------------------------- */
 
 /* I2C Control Set Register */
-#define I2C_CONSET(port)                MMIO32(port + 0x000)
+#define I2C_CONSET(port)                MMIO32((port) + 0x000)
 #define I2C0_CONSET                     I2C_CONSET(I2C0)
 #define I2C1_CONSET                     I2C_CONSET(I2C1)
 
 /* I2C Status Register */
-#define I2C_STAT(port)                  MMIO32(port + 0x004)
+#define I2C_STAT(port)                  MMIO32((port) + 0x004)
 #define I2C0_STAT                       I2C_STAT(I2C0)
 #define I2C1_STAT                       I2C_STAT(I2C1)
 
 /* I2C Data Register */
-#define I2C_DAT(port)                   MMIO32(port + 0x008)
+#define I2C_DAT(port)                   MMIO32((port) + 0x008)
 #define I2C0_DAT                        I2C_DAT(I2C0)
 #define I2C1_DAT                        I2C_DAT(I2C1)
 
 /* I2C Slave Address Register 0 */
-#define I2C_ADR0(port)                  MMIO32(port + 0x00C)
+#define I2C_ADR0(port)                  MMIO32((port) + 0x00C)
 #define I2C0_ADR0                       I2C_ADR0(I2C0)
 #define I2C1_ADR0                       I2C_ADR0(I2C1)
 
 /* SCH Duty Cycle Register High Half Word */
-#define I2C_SCLH(port)                  MMIO32(port + 0x010)
+#define I2C_SCLH(port)                  MMIO32((port) + 0x010)
 #define I2C0_SCLH                       I2C_SCLH(I2C0)
 #define I2C1_SCLH                       I2C_SCLH(I2C1)
 
 /* SCL Duty Cycle Register Low Half Word */
-#define I2C_SCLL(port)                  MMIO32(port + 0x014)
+#define I2C_SCLL(port)                  MMIO32((port) + 0x014)
 #define I2C0_SCLL                       I2C_SCLL(I2C0)
 #define I2C1_SCLL                       I2C_SCLL(I2C1)
 
 /* I2C Control Clear Register */
-#define I2C_CONCLR(port)                MMIO32(port + 0x018)
+#define I2C_CONCLR(port)                MMIO32((port) + 0x018)
 #define I2C0_CONCLR                     I2C_CONCLR(I2C0)
 #define I2C1_CONCLR                     I2C_CONCLR(I2C1)
 
 /* Monitor mode control register */
-#define I2C_MMCTRL(port)                MMIO32(port + 0x01C)
+#define I2C_MMCTRL(port)                MMIO32((port) + 0x01C)
 #define I2C0_MMCTRL                     I2C_MMCTRL(I2C0)
 #define I2C1_MMCTRL                     I2C_MMCTRL(I2C1)
 
 /* I2C Slave Address Register 1 */
-#define I2C_ADR1(port)                  MMIO32(port + 0x020)
+#define I2C_ADR1(port)                  MMIO32((port) + 0x020)
 #define I2C0_ADR1                       I2C_ADR1(I2C0)
 #define I2C1_ADR1                       I2C_ADR1(I2C1)
 
 /* I2C Slave Address Register 2 */
-#define I2C_ADR2(port)                  MMIO32(port + 0x024)
+#define I2C_ADR2(port)                  MMIO32((port) + 0x024)
 #define I2C0_ADR2                       I2C_ADR2(I2C0)
 #define I2C1_ADR2                       I2C_ADR2(I2C1)
 
 /* I2C Slave Address Register 3 */
-#define I2C_ADR3(port)                  MMIO32(port + 0x028)
+#define I2C_ADR3(port)                  MMIO32((port) + 0x028)
 #define I2C0_ADR3                       I2C_ADR3(I2C0)
 #define I2C1_ADR3                       I2C_ADR3(I2C1)
 
 /* Data buffer register */
-#define I2C_DATA_BUFFER(port)           MMIO32(port + 0x02C)
+#define I2C_DATA_BUFFER(port)           MMIO32((port) + 0x02C)
 #define I2C0_DATA_BUFFER                I2C_DATA_BUFFER(I2C0)
 #define I2C1_DATA_BUFFER                I2C_DATA_BUFFER(I2C1)
 
 /* I2C Slave address mask register 0 */
-#define I2C_MASK0(port)                 MMIO32(port + 0x030)
+#define I2C_MASK0(port)                 MMIO32((port) + 0x030)
 #define I2C0_MASK0                      I2C_MASK0(I2C0)
 #define I2C1_MASK0                      I2C_MASK0(I2C1)
 
 /* I2C Slave address mask register 1 */
-#define I2C_MASK1(port)                 MMIO32(port + 0x034)
+#define I2C_MASK1(port)                 MMIO32((port) + 0x034)
 #define I2C0_MASK1                      I2C_MASK1(I2C0)
 #define I2C1_MASK1                      I2C_MASK1(I2C1)
 
 /* I2C Slave address mask register 2 */
-#define I2C_MASK2(port)                 MMIO32(port + 0x038)
+#define I2C_MASK2(port)                 MMIO32((port) + 0x038)
 #define I2C0_MASK2                      I2C_MASK2(I2C0)
 #define I2C1_MASK2                      I2C_MASK2(I2C1)
 
 /* I2C Slave address mask register 3 */
-#define I2C_MASK3(port)                 MMIO32(port + 0x03C)
+#define I2C_MASK3(port)                 MMIO32((port) + 0x03C)
 #define I2C0_MASK3                      I2C_MASK3(I2C0)
 #define I2C1_MASK3                      I2C_MASK3(I2C1)
 

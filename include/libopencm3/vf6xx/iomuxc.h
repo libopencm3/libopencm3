@@ -45,7 +45,7 @@
 @ingroup VF6xx_iomuxc_defines
 
 @{*/
-#define IOMUXC(pad)			MMIO32(IOMUXC_BASE + (0x4 * pad))
+#define IOMUXC(pad)			MMIO32(IOMUXC_BASE + (0x4 * (pad)))
 
 #define IOMUXC_PAD(mode, speed, dse, pus, flags) \
 	(IOMUXC_##mode) << IOMUXC_MUX_MODE_SHIFT | \

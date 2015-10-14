@@ -49,19 +49,19 @@ specific memorymap.h header before including this header file.*/
 /* --- ADC registers ------------------------------------------------------- */
 
 /* ADC status register (ADC_SR) */
-#define ADC_SR(block)                   MMIO32(block + 0x00)
+#define ADC_SR(block)                   MMIO32((block) + 0x00)
 
 /* ADC control register 1 (ADC_CR1) */
-#define ADC_CR1(block)                  MMIO32(block + 0x04)
+#define ADC_CR1(block)                  MMIO32((block) + 0x04)
 
 /* ADC control register 2 (ADC_CR2) */
-#define ADC_CR2(block)                  MMIO32(block + 0x08)
+#define ADC_CR2(block)                  MMIO32((block) + 0x08)
 
 /* ADC sample time register 1 (ADC_SMPR1) */
-#define ADC_SMPR1(block)                MMIO32(block + 0x0c)
+#define ADC_SMPR1(block)                MMIO32((block) + 0x0c)
 
 /* ADC sample time register 2 (ADC_SMPR2) */
-#define ADC_SMPR2(block)                MMIO32(block + 0x10)
+#define ADC_SMPR2(block)                MMIO32((block) + 0x10)
 
 #define ADC1_SR                         ADC_SR(ADC1)
 #define ADC1_CR1                        ADC_CR1(ADC1)

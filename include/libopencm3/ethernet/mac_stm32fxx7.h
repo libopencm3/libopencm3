@@ -57,9 +57,9 @@
 #define ETH_MACIMR			MMIO32(ETHERNET_BASE + 0x3C)
 
 /* i=[0..3] */
-#define ETH_MACAHR(i)			MMIO32(ETHERNET_BASE + 0x40+i*8)
+#define ETH_MACAHR(i)			MMIO32(ETHERNET_BASE + 0x40+(i)*8)
 /* i=[0..3] */
-#define ETH_MACALR(i)			MMIO32(ETHERNET_BASE + 0x44+i*8)
+#define ETH_MACALR(i)			MMIO32(ETHERNET_BASE + 0x44+(i)*8)
 
 /* Ethernet MMC registers */
 #define ETH_MMCCR			MMIO32(ETHERNET_BASE + 0x100)

@@ -30,9 +30,9 @@
 /* --- ITM registers ------------------------------------------------------- */
 
 /* Stimulus Port x (ITM_STIM<sz>(x)) */
-#define ITM_STIM8(n)			(MMIO8(ITM_BASE + (n*4)))
-#define ITM_STIM16(n)			(MMIO16(ITM_BASE + (n*4)))
-#define ITM_STIM32(n)			(MMIO32(ITM_BASE + (n*4)))
+#define ITM_STIM8(n)			(MMIO8(ITM_BASE + ((n)*4)))
+#define ITM_STIM16(n)			(MMIO16(ITM_BASE + ((n)*4)))
+#define ITM_STIM32(n)			(MMIO32(ITM_BASE + ((n)*4)))
 
 /* Trace Enable ports (ITM_TER[x]) */
 #define ITM_TER				(&MMIO32(ITM_BASE + 0xE00))

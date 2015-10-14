@@ -60,8 +60,8 @@ specific memorymap.h header before including this header file.*/
 /**@}*/
 
 #define DMA_STREAM(port, n)		((port) + 0x10 + (24 * (n)))
-#define DMA1_STREAM(n)			DMA_STREAM(DMA1, n)
-#define DMA2_STREAM(n)			DMA_STREAM(DMA2, n)
+#define DMA1_STREAM(n)			DMA_STREAM(DMA1, (n))
+#define DMA2_STREAM(n)			DMA_STREAM(DMA2, (n))
 
 #define DMA1_STREAM0			DMA1_STREAM(0)
 #define DMA1_STREAM1			DMA1_STREAM(1)
@@ -84,31 +84,31 @@ specific memorymap.h header before including this header file.*/
 /* --- DMA controller registers -------------------------------------------- */
 
 /* DMA low interrupt status register (DMAx_LISR) */
-#define DMA_LISR(port)			MMIO32(port + 0x00)
+#define DMA_LISR(port)			MMIO32((port) + 0x00)
 #define DMA1_LISR			DMA_LISR(DMA1)
 #define DMA2_LISR			DMA_LISR(DMA2)
 
 /* DMA high interrupt status register (DMAx_HISR) */
-#define DMA_HISR(port)			MMIO32(port + 0x04)
+#define DMA_HISR(port)			MMIO32((port) + 0x04)
 #define DMA1_HISR			DMA_HISR(DMA1)
 #define DMA2_HISR			DMA_HISR(DMA2)
 
 /* DMA low interrupt flag clear register (DMAx_LIFCR) */
-#define DMA_LIFCR(port)			MMIO32(port + 0x08)
+#define DMA_LIFCR(port)			MMIO32((port) + 0x08)
 #define DMA1_LIFCR			DMA_LIFCR(DMA1)
 #define DMA2_LIFCR			DMA_LIFCR(DMA2)
 
 /* DMA high interrupt flag clear register (DMAx_HIFCR) */
-#define DMA_HIFCR(port)			MMIO32(port + 0x0C)
+#define DMA_HIFCR(port)			MMIO32((port) + 0x0C)
 #define DMA1_HIFCR			DMA_HIFCR(DMA1)
 #define DMA2_HIFCR			DMA_HIFCR(DMA2)
 
 /* --- DMA stream registers ------------------------------------------------ */
 
 /* DMA Stream x configuration register (DMA_SxCR) */
-#define DMA_SCR(port, n)		MMIO32(DMA_STREAM(port, n) + 0x00)
-#define DMA1_SCR(n)			DMA_SCR(DMA1, n)
-#define DMA2_SCR(n)			DMA_SCR(DMA2, n)
+#define DMA_SCR(port, n)		MMIO32(DMA_STREAM((port), (n)) + 0x00)
+#define DMA1_SCR(n)			DMA_SCR(DMA1, (n))
+#define DMA2_SCR(n)			DMA_SCR(DMA2, (n))
 
 #define DMA1_S0CR			DMA1_SCR(0)
 #define DMA1_S1CR			DMA1_SCR(1)
@@ -129,9 +129,9 @@ specific memorymap.h header before including this header file.*/
 #define DMA2_S7CR			DMA2_SCR(7)
 
 /* DMA Stream x number of data register (DMA_SxNDTR) */
-#define DMA_SNDTR(port, n)		MMIO32(DMA_STREAM(port, n) + 0x04)
-#define DMA1_SNDTR(n)			DMA_SNDTR(DMA1, n)
-#define DMA2_SNDTR(n)			DMA_SNDTR(DMA2, n)
+#define DMA_SNDTR(port, n)		MMIO32(DMA_STREAM((port), (n)) + 0x04)
+#define DMA1_SNDTR(n)			DMA_SNDTR(DMA1, (n))
+#define DMA2_SNDTR(n)			DMA_SNDTR(DMA2, (n))
 
 #define DMA1_S0NDTR			DMA1_SNDTR(0)
 #define DMA1_S1NDTR			DMA1_SNDTR(1)
@@ -153,9 +153,9 @@ specific memorymap.h header before including this header file.*/
 
 /* DMA Stream x peripheral address register (DMA_SxPAR) */
 #define DMA_SPAR(port, n)		(*(volatile void **)\
-					 (DMA_STREAM(port, n) + 0x08))
-#define DMA1_SPAR(n)			DMA_SPAR(DMA1, n)
-#define DMA2_SPAR(n)			DMA_SPAR(DMA2, n)
+					 (DMA_STREAM((port), (n)) + 0x08))
+#define DMA1_SPAR(n)			DMA_SPAR(DMA1, (n))
+#define DMA2_SPAR(n)			DMA_SPAR(DMA2, (n))
 
 #define DMA1_S0PAR			DMA1_SPAR(0)
 #define DMA1_S1PAR			DMA1_SPAR(1)
@@ -177,9 +177,9 @@ specific memorymap.h header before including this header file.*/
 
 /* DMA Stream x memory address 0 register (DMA_SxM0AR) */
 #define DMA_SM0AR(port, n)		(*(volatile void **) \
-					 (DMA_STREAM(port, n) + 0x0c))
-#define DMA1_SM0AR(n)			DMA_SM0AR(DMA1, n)
-#define DMA2_SM0AR(n)			DMA_SM0AR(DMA2, n)
+					 (DMA_STREAM((port), (n)) + 0x0c))
+#define DMA1_SM0AR(n)			DMA_SM0AR(DMA1, (n))
+#define DMA2_SM0AR(n)			DMA_SM0AR(DMA2, (n))
 
 #define DMA1_S0M0AR			DMA1_SM0AR(0)
 #define DMA1_S1M0AR			DMA1_SM0AR(1)
@@ -201,9 +201,9 @@ specific memorymap.h header before including this header file.*/
 
 /* DMA Stream x memory address 1 register (DMA_SxM1AR) */
 #define DMA_SM1AR(port, n)		(*(volatile void **)\
-					 (DMA_STREAM(port, n) + 0x10))
-#define DMA1_SM1AR(n)			DMA_SM1AR(DMA1, n)
-#define DMA2_SM1AR(n)			DMA_SM1AR(DMA2, n)
+					 (DMA_STREAM((port), (n)) + 0x10))
+#define DMA1_SM1AR(n)			DMA_SM1AR(DMA1, (n))
+#define DMA2_SM1AR(n)			DMA_SM1AR(DMA2, (n))
 
 #define DMA1_S0M1AR			DMA1_SM1AR(0)
 #define DMA1_S1M1AR			DMA1_SM1AR(1)
@@ -224,9 +224,9 @@ specific memorymap.h header before including this header file.*/
 #define DMA2_S7M1AR			DMA2_SM1AR(7)
 
 /* DMA Stream x FIFO control register (DMA_SxFCR) */
-#define DMA_SFCR(port, n)		MMIO32(DMA_STREAM(port, n) + 0x14)
-#define DMA1_SFCR(n)			DMA_SFCR(DMA1, n)
-#define DMA2_SFCR(n)			DMA_SFCR(DMA2, n)
+#define DMA_SFCR(port, n)		MMIO32(DMA_STREAM((port), (n)) + 0x14)
+#define DMA1_SFCR(n)			DMA_SFCR(DMA1, (n))
+#define DMA2_SFCR(n)			DMA_SFCR(DMA2, (n))
 
 #define DMA1_S0FCR			DMA1_SFCR(0)
 #define DMA1_S1FCR			DMA1_SFCR(1)
@@ -269,7 +269,7 @@ being at the same relative location */
 /* Offset within interrupt status register to start of stream interrupt flag
  * field
  */
-#define DMA_ISR_OFFSET(stream)	(6*(stream & 0x01)+16*((stream & 0x02) >> 1))
+#define DMA_ISR_OFFSET(stream)	(6*((stream) & 0x01)+16*(((stream) & 0x02) >> 1))
 #define DMA_ISR_FLAGS		(DMA_TCIF | DMA_HTIF | DMA_TEIF | DMA_DMEIF | \
 				 DMA_FEIF)
 #define DMA_ISR_MASK(stream)	(DMA_ISR_FLAGS << DMA_ISR_OFFSET(stream))
@@ -501,7 +501,7 @@ being at the same relative location */
 /**@}*/
 #define DMA_SxCR_CHSEL_SHIFT		25
 #define DMA_SxCR_CHSEL_MASK		(7 << 25)
-#define DMA_SxCR_CHSEL(n)		(n << DMA_SxCR_CHSEL_SHIFT)
+#define DMA_SxCR_CHSEL(n)		((n) << DMA_SxCR_CHSEL_SHIFT)
 
 /* Reserved [31:28] */
 

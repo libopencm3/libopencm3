@@ -52,15 +52,15 @@
 #define GPIO3				(GPIO_BASE + 0x0C0)
 #define GPIO4				(GPIO_BASE + 0x100)
 
-#define GPIO_OFFSET(gpio)		(0x1 << (gpio % 32))
+#define GPIO_OFFSET(gpio)		(0x1 << ((gpio) % 32))
 
 /* --- GPIO registers ------------------------------------------------------ */
 
-#define GPIO_PDOR(gpio_base)		MMIO32(gpio_base + 0x00)
-#define GPIO_PSOR(gpio_base)		MMIO32(gpio_base + 0x04)
-#define GPIO_PCOR(gpio_base)		MMIO32(gpio_base + 0x08)
-#define GPIO_PTOR(gpio_base)		MMIO32(gpio_base + 0x0C)
-#define GPIO_PDIR(gpio_base)		MMIO32(gpio_base + 0x10)
+#define GPIO_PDOR(gpio_base)		MMIO32((gpio_base) + 0x00)
+#define GPIO_PSOR(gpio_base)		MMIO32((gpio_base) + 0x04)
+#define GPIO_PCOR(gpio_base)		MMIO32((gpio_base) + 0x08)
+#define GPIO_PTOR(gpio_base)		MMIO32((gpio_base) + 0x0C)
+#define GPIO_PDIR(gpio_base)		MMIO32((gpio_base) + 0x10)
 
 /* --- Function prototypes ------------------------------------------------- */
 

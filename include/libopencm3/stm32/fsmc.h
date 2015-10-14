@@ -37,46 +37,46 @@
 /* --- FSMC registers ------------------------------------------------------ */
 
 /* SRAM/NOR-Flash chip-select control registers 1..4 (FSMC_BCRx) */
-#define FSMC_BCR(x)			MMIO32(FSMC_BASE + 0x00 + 8 * x)
+#define FSMC_BCR(x)			MMIO32(FSMC_BASE + 0x00 + 8 * (x))
 #define FSMC_BCR1			FSMC_BCR(0)
 #define FSMC_BCR2			FSMC_BCR(1)
 #define FSMC_BCR3			FSMC_BCR(2)
 #define FSMC_BCR4			FSMC_BCR(3)
 
 /* SRAM/NOR-Flash chip-select timing registers 1..4 (FSMC_BTRx) */
-#define FSMC_BTR(x)			MMIO32(FSMC_BASE + 0x04 + 8 * x)
+#define FSMC_BTR(x)			MMIO32(FSMC_BASE + 0x04 + 8 * (x))
 #define FSMC_BTR1			FSMC_BTR(0)
 #define FSMC_BTR2			FSMC_BTR(1)
 #define FSMC_BTR3			FSMC_BTR(2)
 #define FSMC_BTR4			FSMC_BTR(3)
 
 /* SRAM/NOR-Flash write timing registers 1..4 (FSMC_BWTRx) */
-#define FSMC_BWTR(x)			MMIO32(FSMC_BASE + 0x104 + 8 * x)
+#define FSMC_BWTR(x)			MMIO32(FSMC_BASE + 0x104 + 8 * (x))
 #define FSMC_BWTR1			FSMC_BWTR(0)
 #define FSMC_BWTR2			FSMC_BWTR(1)
 #define FSMC_BWTR3			FSMC_BWTR(2)
 #define FSMC_BWTR4			FSMC_BWTR(3)
 
 /* PC Card/NAND Flash control registers 2..4 (FSMC_PCRx) */
-#define FSMC_PCR(x)			MMIO32(FSMC_BASE + 0x40 + 0x20 * x)
+#define FSMC_PCR(x)			MMIO32(FSMC_BASE + 0x40 + 0x20 * (x))
 #define FSMC_PCR2			FSMC_PCR(1)
 #define FSMC_PCR3			FSMC_PCR(2)
 #define FSMC_PCR4			FSMC_PCR(3)
 
 /* FIFO status and interrupt registers 2..4 (FSMC_SRx) */
-#define FSMC_SR(x)			MMIO32(FSMC_BASE + 0x44 + 0x20 * x)
+#define FSMC_SR(x)			MMIO32(FSMC_BASE + 0x44 + 0x20 * (x))
 #define FSMC_SR2			FSMC_SR(1)
 #define FSMC_SR3			FSMC_SR(2)
 #define FSMC_SR4			FSMC_SR(3)
 
 /* Common memory space timing registers 2..4 (FSMC_PMEMx) */
-#define FSMC_PMEM(x)			MMIO32(FSMC_BASE + 0x48 + 0x20 * x)
+#define FSMC_PMEM(x)			MMIO32(FSMC_BASE + 0x48 + 0x20 * (x))
 #define FSMC_PMEM2			FSMC_PMEM(1)
 #define FSMC_PMEM3			FSMC_PMEM(2)
 #define FSMC_PMEM4			FSMC_PMEM(3)
 
 /* Attribute memory space timing registers 2..4 (FSMC_PATTx) */
-#define FSMC_PATT(x)			MMIO32(FSMC_BASE + 0x4c + 0x20 * x)
+#define FSMC_PATT(x)			MMIO32(FSMC_BASE + 0x4c + 0x20 * (x))
 #define FSMC_PATT2			FSMC_PATT(1)
 #define FSMC_PATT3			FSMC_PATT(2)
 #define FSMC_PATT4			FSMC_PATT(3)
@@ -85,7 +85,7 @@
 #define FSMC_PIO4			MMIO32(FSMC_BASE + 0xb0)
 
 /* ECC result registers 2/3 (FSMC_ECCRx) */
-#define FSMC_ECCR(x)			MMIO32(FSMC_BASE + 0x54 + 0x20 * x)
+#define FSMC_ECCR(x)			MMIO32(FSMC_BASE + 0x54 + 0x20 * (x))
 #define FSMC_ECCR2			FSMC_ECCR(1)
 #define FSMC_ECCR3			FSMC_ECCR(2)
 

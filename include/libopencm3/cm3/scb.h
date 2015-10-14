@@ -46,7 +46,7 @@
 
 /* SHP: System Handler Priority Registers */
 /* Note: 12 8bit registers */
-#define SCB_SHPR(shpr_id)			MMIO8(SCB_BASE + 0x18 + shpr_id)
+#define SCB_SHPR(shpr_id)			MMIO8(SCB_BASE + 0x18 + (shpr_id))
 #define SCB_SHPR1				MMIO32(SCB_BASE + 0x18)
 #define SCB_SHPR2				MMIO32(SCB_BASE + 0x1C)
 #define SCB_SHPR3				MMIO32(SCB_BASE + 0x20)

@@ -61,104 +61,104 @@
  * ---------------------------------------------------------------------------*/
 
 /* UART data register */
-#define UART_DR(uart_base)		MMIO32(uart_base + 0x00)
+#define UART_DR(uart_base)		MMIO32((uart_base) + 0x00)
 
 /* UART Receive Status/Error Clear register */
-#define UART_RSR(uart_base)		MMIO32(uart_base + 0x04)
-#define UART_ECR(uart_base)		MMIO32(uart_base + 0x04)
+#define UART_RSR(uart_base)		MMIO32((uart_base) + 0x04)
+#define UART_ECR(uart_base)		MMIO32((uart_base) + 0x04)
 
 /* UART Flag register */
-#define UART_FR(uart_base)		MMIO32(uart_base + 0x18)
+#define UART_FR(uart_base)		MMIO32((uart_base) + 0x18)
 
 /* UART IrDA Low-Power register */
-#define UART_ILPR(uart_base)		MMIO32(uart_base + 0x20)
+#define UART_ILPR(uart_base)		MMIO32((uart_base) + 0x20)
 
 /* UART Integer baudrate divisor */
-#define UART_IBRD(uart_base)		MMIO32(uart_base + 0x24)
+#define UART_IBRD(uart_base)		MMIO32((uart_base) + 0x24)
 
 /* UART Fractional baudrate divisor */
-#define UART_FBRD(uart_base)		MMIO32(uart_base + 0x28)
+#define UART_FBRD(uart_base)		MMIO32((uart_base) + 0x28)
 
 /* UART Line control */
-#define UART_LCRH(uart_base)		MMIO32(uart_base + 0x2C)
+#define UART_LCRH(uart_base)		MMIO32((uart_base) + 0x2C)
 
 /* UART Control */
-#define UART_CTL(uart_base)		MMIO32(uart_base + 0x30)
+#define UART_CTL(uart_base)		MMIO32((uart_base) + 0x30)
 
 /* UART Interrupt FIFO level select */
-#define UART_IFLS(uart_base)		MMIO32(uart_base + 0x34)
+#define UART_IFLS(uart_base)		MMIO32((uart_base) + 0x34)
 
 /* UART Interrupt mask */
-#define UART_IM(uart_base)		MMIO32(uart_base + 0x38)
+#define UART_IM(uart_base)		MMIO32((uart_base) + 0x38)
 
 /* UART Raw interrupt status */
-#define UART_RIS(uart_base)		MMIO32(uart_base + 0x3C)
+#define UART_RIS(uart_base)		MMIO32((uart_base) + 0x3C)
 
 /* UART Masked Interrupt status */
-#define UART_MIS(uart_base)		MMIO32(uart_base + 0x40)
+#define UART_MIS(uart_base)		MMIO32((uart_base) + 0x40)
 
 /* UART Interrupt Clear */
-#define UART_ICR(uart_base)		MMIO32(uart_base + 0x44)
+#define UART_ICR(uart_base)		MMIO32((uart_base) + 0x44)
 
 /* UART DMA control */
-#define UART_DMACTL(uart_base)		MMIO32(uart_base + 0x48)
+#define UART_DMACTL(uart_base)		MMIO32((uart_base) + 0x48)
 
 /* UART LIN control */
-#define UART_LCTL(uart_base)		MMIO32(uart_base + 0x90)
+#define UART_LCTL(uart_base)		MMIO32((uart_base) + 0x90)
 
 /* UART LIN snap shot */
-#define UART_LSS(uart_base)		MMIO32(uart_base + 0x94)
+#define UART_LSS(uart_base)		MMIO32((uart_base) + 0x94)
 
 /* UART LIN timer */
-#define UART_LTIM(uart_base)		MMIO32(uart_base + 0x98)
+#define UART_LTIM(uart_base)		MMIO32((uart_base) + 0x98)
 
 /* UART 9-Bit self address */
-#define UART_9BITADDR(uart_base)	MMIO32(uart_base + 0xA4)
+#define UART_9BITADDR(uart_base)	MMIO32((uart_base) + 0xA4)
 
 /* UART 9-Bit self address mask */
-#define UART_9BITAMASK(uart_base)	MMIO32(uart_base + 0xA8)
+#define UART_9BITAMASK(uart_base)	MMIO32((uart_base) + 0xA8)
 
 /* UART Peripheral properties */
-#define UART_PP(uart_base)		MMIO32(uart_base + 0xFC0)
+#define UART_PP(uart_base)		MMIO32((uart_base) + 0xFC0)
 
 /* UART Clock configuration */
-#define UART_CC(uart_base)		MMIO32(uart_base + 0xFC8)
+#define UART_CC(uart_base)		MMIO32((uart_base) + 0xFC8)
 
 /* UART Peripheral Identification 4 */
-#define UART_PERIPH_ID4(uart_base)	MMIO32(uart_base + 0xFD0)
+#define UART_PERIPH_ID4(uart_base)	MMIO32((uart_base) + 0xFD0)
 
 /* UART Peripheral Identification 5 */
-#define UART_PERIPH_ID5(uart_base)	MMIO32(uart_base + 0xFD4)
+#define UART_PERIPH_ID5(uart_base)	MMIO32((uart_base) + 0xFD4)
 
 /* UART Peripheral Identification 6 */
-#define UART_PERIPH_ID6(uart_base)	MMIO32(uart_base + 0xFD8)
+#define UART_PERIPH_ID6(uart_base)	MMIO32((uart_base) + 0xFD8)
 
 /* UART Peripheral Identification 7 */
-#define UART_PERIPH_ID7(uart_base)	MMIO32(uart_base + 0xFDC)
+#define UART_PERIPH_ID7(uart_base)	MMIO32((uart_base) + 0xFDC)
 
 /* UART Peripheral Identification 0 */
-#define UART_PERIPH_ID0(uart_base)	MMIO32(uart_base + 0xFE0)
+#define UART_PERIPH_ID0(uart_base)	MMIO32((uart_base) + 0xFE0)
 
 /* UART Peripheral Identification 1 */
-#define UART_PERIPH_ID1(uart_base)	MMIO32(uart_base + 0xFE4)
+#define UART_PERIPH_ID1(uart_base)	MMIO32((uart_base) + 0xFE4)
 
 /* UART Peripheral Identification 2 */
-#define UART_PERIPH_ID2(uart_base)	MMIO32(uart_base + 0xFE8)
+#define UART_PERIPH_ID2(uart_base)	MMIO32((uart_base) + 0xFE8)
 
 /* UART Peripheral Identification 3 */
-#define UART_PERIPH_ID3(uart_base)	MMIO32(uart_base + 0xFEC)
+#define UART_PERIPH_ID3(uart_base)	MMIO32((uart_base) + 0xFEC)
 
 /* UART PrimeCell Identification 0 */
-#define UART_PCELL_ID0(uart_base)	MMIO32(uart_base + 0xFF0)
+#define UART_PCELL_ID0(uart_base)	MMIO32((uart_base) + 0xFF0)
 
 /* UART PrimeCell Identification 1 */
-#define UART_PCELL_ID1(uart_base)	MMIO32(uart_base + 0xFF4)
+#define UART_PCELL_ID1(uart_base)	MMIO32((uart_base) + 0xFF4)
 
 /* UART PrimeCell Identification 2 */
-#define UART_PCELL_ID2(uart_base)	MMIO32(uart_base + 0xFF8)
+#define UART_PCELL_ID2(uart_base)	MMIO32((uart_base) + 0xFF8)
 
 /* UART PrimeCell Identification 3 */
-#define UART_PCELL_ID3(uart_base)	MMIO32(uart_base + 0xFFC)
+#define UART_PCELL_ID3(uart_base)	MMIO32((uart_base) + 0xFFC)
 
 
 /* =============================================================================

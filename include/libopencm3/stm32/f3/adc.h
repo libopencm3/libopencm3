@@ -45,7 +45,7 @@
 /*----------- ADC registers -------------------------------------- */
 
 /* ADC interrupt and status register (ADCx_ISR, x=1..4) */
-#define ADC_ISR(adc_base)	MMIO32(adc_base + 0x00)
+#define ADC_ISR(adc_base)	MMIO32((adc_base) + 0x00)
 #define ADC1_ISR		ADC_ISR(ADC1_BASE)
 #define ADC2_ISR		ADC_ISR(ADC2_BASE)
 #define ADC3_ISR		ADC_ISR(ADC3_BASE)
@@ -53,7 +53,7 @@
 
 
 /* Interrupt Enable Register (ADCx_IER, x=1..4) IER */
-#define ADC_IER(adc_base)	MMIO32(adc_base + 0x04)
+#define ADC_IER(adc_base)	MMIO32((adc_base) + 0x04)
 #define ADC1_IER		ADC_IER(ADC1_BASE)
 #define ADC2_IER		ADC_IER(ADC2_BASE)
 #define ADC3_IER		ADC_IER(ADC3_BASE)
@@ -61,7 +61,7 @@
 
 
 /* Control Register (ADCx_CR, x=1..4) CR */
-#define ADC_CR(adc_base)	MMIO32(adc_base + 0x08)
+#define ADC_CR(adc_base)	MMIO32((adc_base) + 0x08)
 #define ADC1_CR			ADC_CR(ADC1_BASE)
 #define ADC2_CR			ADC_CR(ADC2_BASE)
 #define ADC3_CR			ADC_CR(ADC3_BASE)
@@ -69,7 +69,7 @@
 
 
 /* Configuration Register (ADCx_CFGR, x=1..4) CFGR */
-#define ADC_CFGR(adc_base)	MMIO32(adc_base + 0x0C)
+#define ADC_CFGR(adc_base)	MMIO32((adc_base) + 0x0C)
 #define ADC1_CFGR		ADC_CFGR(ADC1_BASE)
 #define ADC2_CFGR		ADC_CFGR(ADC2_BASE)
 #define ADC3_CFGR		ADC_CFGR(ADC3_BASE)
@@ -77,7 +77,7 @@
 
 
 /* Sample Time Register 1 (ADCx_SMPR1, x=1..4) SMPR1 */
-#define ADC_SMPR1(adc_base)	MMIO32(adc_base + 0x14)
+#define ADC_SMPR1(adc_base)	MMIO32((adc_base) + 0x14)
 #define ADC1_SMPR1		ADC_SMPR1(ADC1_BASE)
 #define ADC2_SMPR1		ADC_SMPR1(ADC2_BASE)
 #define ADC3_SMPR1		ADC_SMPR1(ADC3_BASE)
@@ -85,7 +85,7 @@
 
 
 /* Sample Time Register 2 (ADCx_SMPR2, x=1..4) SMPR2 */
-#define ADC_SMPR2(adc_base)	MMIO32(adc_base + 0x18)
+#define ADC_SMPR2(adc_base)	MMIO32((adc_base) + 0x18)
 #define ADC1_SMPR2		ADC_SMPR2(ADC1_BASE)
 #define ADC2_SMPR2		ADC_SMPR2(ADC2_BASE)
 #define ADC3_SMPR2		ADC_SMPR2(ADC3_BASE)
@@ -93,7 +93,7 @@
 
 
 /* Watchdog Threshold Register 1 (ADCx_TR1, x=1..4) TR1 */
-#define ADC_TR1(adc_base)	MMIO32(adc_base + 0x20)
+#define ADC_TR1(adc_base)	MMIO32((adc_base) + 0x20)
 #define ADC1_TR1		ADC_TR1(ADC1_BASE)
 #define ADC2_TR1		ADC_TR1(ADC2_BASE)
 #define ADC3_TR1		ADC_TR1(ADC3_BASE)
@@ -101,7 +101,7 @@
 
 
 /* Watchdog Threshold Register 2 (ADCx_TR2, x=1..4) TR2 */
-#define ADC_TR2(adc_base)	MMIO32(adc_base + 0x24)
+#define ADC_TR2(adc_base)	MMIO32((adc_base) + 0x24)
 #define ADC1_TR2		ADC_TR2(ADC1_BASE)
 #define ADC2_TR2		ADC_TR2(ADC2_BASE)
 #define ADC3_TR2		ADC_TR2(ADC3_BASE)
@@ -109,7 +109,7 @@
 
 
 /* Watchdog Threshold Register 3 (ADCx_TR3, x=1..4) TR3 */
-#define ADC_TR3(adc_base)	MMIO32(adc_base + 0x28)
+#define ADC_TR3(adc_base)	MMIO32((adc_base) + 0x28)
 #define ADC1_TR3		ADC_TR3(ADC1_BASE)
 #define ADC2_TR3		ADC_TR3(ADC2_BASE)
 #define ADC3_TR3		ADC_TR3(ADC3_BASE)
@@ -117,7 +117,7 @@
 
 
 /* Regular Sequence Register 1 (ADCx_SQR1, x=1..4) SQR1 */
-#define ADC_SQR1(adc_base)	MMIO32(adc_base + 0x30)
+#define ADC_SQR1(adc_base)	MMIO32((adc_base) + 0x30)
 #define ADC1_SQR1		ADC_SQR1(ADC1_BASE)
 #define ADC2_SQR1		ADC_SQR1(ADC2_BASE)
 #define ADC3_SQR1		ADC_SQR1(ADC3_BASE)
@@ -125,7 +125,7 @@
 
 
 /* Regular Sequence Register 2 (ADCx_SQR2, x=1..4) SQR2 */
-#define ADC_SQR2(adc_base)	MMIO32(adc_base + 0x34)
+#define ADC_SQR2(adc_base)	MMIO32((adc_base) + 0x34)
 #define ADC1_SQR2		ADC_SQR2(ADC1_BASE)
 #define ADC2_SQR2		ADC_SQR2(ADC2_BASE)
 #define ADC3_SQR2		ADC_SQR2(ADC3_BASE)
@@ -133,7 +133,7 @@
 
 
 /* Regular Sequence Register 3 (ADCx_SQR3, x=1..4) SQR3 */
-#define ADC_SQR3(adc_base)	MMIO32(adc_base + 0x38)
+#define ADC_SQR3(adc_base)	MMIO32((adc_base) + 0x38)
 #define ADC1_SQR3		ADC_SQR3(ADC1_BASE)
 #define ADC2_SQR3		ADC_SQR3(ADC2_BASE)
 #define ADC3_SQR3		ADC_SQR3(ADC3_BASE)
@@ -141,7 +141,7 @@
 
 
 /* Regular Sequence Register 4 (ADCx_SQR3, x=1..4) SQR4 */
-#define ADC_SQR4(adc_base)	MMIO32(adc_base + 0x3C)
+#define ADC_SQR4(adc_base)	MMIO32((adc_base) + 0x3C)
 #define ADC1_SQR4		ADC_SQR4(ADC1_BASE)
 #define ADC2_SQR4		ADC_SQR4(ADC2_BASE)
 #define ADC3_SQR4		ADC_SQR4(ADC3_BASE)
@@ -149,7 +149,7 @@
 
 
 /* regular Data Register (ADCx_DR, x=1..4) DR */
-#define ADC_DR(adc_base)	MMIO32(adc_base + 0x40)
+#define ADC_DR(adc_base)	MMIO32((adc_base) + 0x40)
 #define ADC1_DR			ADC_DR(ADC1_BASE)
 #define ADC2_DR			ADC_DR(ADC2_BASE)
 #define ADC3_DR			ADC_DR(ADC3_BASE)
@@ -157,7 +157,7 @@
 
 
 /* Injected Sequence Register (ADCx_JSQR, x=1..4) JSQR */
-#define ADC_JSQR(adc_base)	MMIO32(adc_base + 0x30)
+#define ADC_JSQR(adc_base)	MMIO32((adc_base) + 0x30)
 #define ADC1_JSQR		ADC_JSQR(ADC1_BASE)
 #define ADC2_JSQR		ADC_JSQR(ADC2_BASE)
 #define ADC3_JSQR		ADC_JSQR(ADC3_BASE)
@@ -165,25 +165,25 @@
 
 
 /* Offset Register x (ADCx_OFRy, x=1..4) (y=1..4) OFRy */
-#define ADC_OFR1(adc_base)	MMIO32(adc_base + 0x60)
+#define ADC_OFR1(adc_base)	MMIO32((adc_base) + 0x60)
 #define ADC1_OFR1		ADC_OFR1(ADC1_BASE)
 #define ADC2_OFR1		ADC_OFR1(ADC2_BASE)
 #define ADC3_OFR1		ADC_OFR1(ADC3_BASE)
 #define ADC4_OFR1		ADC_OFR1(ADC4_BASE)
 
-#define ADC_OFR2(adc_base)	MMIO32(adc_base + 0x64)
+#define ADC_OFR2(adc_base)	MMIO32((adc_base) + 0x64)
 #define ADC1_OFR2		ADC_OFR2(ADC1_BASE)
 #define ADC2_OFR2		ADC_OFR2(ADC2_BASE)
 #define ADC3_OFR2		ADC_OFR2(ADC3_BASE)
 #define ADC4_OFR2		ADC_OFR2(ADC4_BASE)
 
-#define ADC_OFR3(adc_base)	MMIO32(adc_base + 0x68)
+#define ADC_OFR3(adc_base)	MMIO32((adc_base) + 0x68)
 #define ADC1_OFR3		ADC_OFR3(ADC1_BASE)
 #define ADC2_OFR3		ADC_OFR3(ADC2_BASE)
 #define ADC3_OFR3		ADC_OFR3(ADC3_BASE)
 #define ADC4_OFR3		ADC_OFR3(ADC4_BASE)
 
-#define ADC_OFR4(adc_base)	MMIO32(adc_base + 0x6C)
+#define ADC_OFR4(adc_base)	MMIO32((adc_base) + 0x6C)
 #define ADC1_OFR4		ADC_OFR4(ADC1_BASE)
 #define ADC2_OFR4		ADC_OFR4(ADC2_BASE)
 #define ADC3_OFR4		ADC_OFR4(ADC3_BASE)
@@ -191,25 +191,25 @@
 
 
 /* Injected Data Register y (ADCx_JDRy, x=1..4, y= 1..4) JDRy */
-#define ADC_JDR1(adc_base)	MMIO32(adc_base + 0x80)
+#define ADC_JDR1(adc_base)	MMIO32((adc_base) + 0x80)
 #define ADC1_JDR1		ADC_JDR1(ADC1_BASE)
 #define ADC2_JDR1		ADC_JDR1(ADC2_BASE)
 #define ADC3_JDR1		ADC_JDR1(ADC3_BASE)
 #define ADC4_JDR1		ADC_JDR1(ADC4_BASE)
 
-#define ADC_JDR2(adc_base)	MMIO32(adc_base + 0x84)
+#define ADC_JDR2(adc_base)	MMIO32((adc_base) + 0x84)
 #define ADC1_JDR2		ADC_JDR2(ADC1_BASE)
 #define ADC2_JDR2		ADC_JDR2(ADC2_BASE)
 #define ADC3_JDR2		ADC_JDR2(ADC3_BASE)
 #define ADC4_JDR2		ADC_JDR2(ADC4_BASE)
 
-#define ADC_JDR3(adc_base)	MMIO32(adc_base + 0x88)
+#define ADC_JDR3(adc_base)	MMIO32((adc_base) + 0x88)
 #define ADC1_JDR3		ADC_JDR3(ADC1_BASE)
 #define ADC2_JDR3		ADC_JDR3(ADC2_BASE)
 #define ADC3_JDR3		ADC_JDR3(ADC3_BASE)
 #define ADC4_JDR3		ADC_JDR3(ADC4_BASE)
 
-#define ADC_JDR4(adc_base)	MMIO32(adc_base + 0x8C)
+#define ADC_JDR4(adc_base)	MMIO32((adc_base) + 0x8C)
 #define ADC1_JDR4		ADC_JDR4(ADC1_BASE)
 #define ADC2_JDR4		ADC_JDR4(ADC2_BASE)
 #define ADC3_JDR4		ADC_JDR4(ADC3_BASE)
@@ -217,7 +217,7 @@
 
 
 /* Analog Watchdog 2 Configuration Register (ADCx_AWD2CR, x=1..4) AWD2CR */
-#define ADC_AWD2CR(adc_base)	MMIO32(adc_base + 0xA0)
+#define ADC_AWD2CR(adc_base)	MMIO32((adc_base) + 0xA0)
 #define ADC1_AWD2CR		ADC_AWD2CR(ADC1_BASE)
 #define ADC2_AWD2CR		ADC_AWD2CR(ADC2_BASE)
 #define ADC3_AWD2CR		ADC_AWD2CR(ADC3_BASE)
@@ -225,7 +225,7 @@
 
 
 /* Analog Watchdog 3 Configuration Register (ADCx_AWD3CR, x=1..4) AWD3CR */
-#define ADC_AWD3CR(adc_base)	MMIO32(adc_base + 0xA4)
+#define ADC_AWD3CR(adc_base)	MMIO32((adc_base) + 0xA4)
 #define ADC1_AWD3CR		ADC_AWD3CR(ADC1_BASE)
 #define ADC2_AWD3CR		ADC_AWD3CR(ADC2_BASE)
 #define ADC3_AWD3CR		ADC_AWD3CR(ADC3_BASE)
@@ -233,7 +233,7 @@
 
 
 /* Differential Mode Selection Register 2 (ADCx_DIFSEL, x=1..4) DIFSEL */
-#define ADC_DIFSEL(adc_base)	MMIO32(adc_base + 0xB0)
+#define ADC_DIFSEL(adc_base)	MMIO32((adc_base) + 0xB0)
 #define ADC1_DIFSEL		ADC_DIFSEL(ADC1_BASE)
 #define ADC2_DIFSEL		ADC_DIFSEL(ADC2_BASE)
 #define ADC3_DIFSEL		ADC_DIFSEL(ADC3_BASE)
@@ -241,7 +241,7 @@
 
 
 /* Calibration Factors (ADCx_CALFACT, x=1..4) CALFACT */
-#define ADC_CALFACT(adc_base)	MMIO32(adc_base + 0xB4)
+#define ADC_CALFACT(adc_base)	MMIO32((adc_base) + 0xB4)
 #define ADC1_CALFACT		ADC_CALFACT(ADC1_BASE)
 #define ADC2_CALFACT		ADC_CALFACT(ADC2_BASE)
 #define ADC3_CALFACT		ADC_CALFACT(ADC3_BASE)

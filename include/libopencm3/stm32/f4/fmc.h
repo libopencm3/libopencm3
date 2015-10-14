@@ -34,13 +34,13 @@ error "This file should not be included directly, it is included with fsmc.h"
 /* --- FMC registers ------------------------------------------------------ */
 
 /* SDRAM Control Registers 1 .. 2 */
-#define FMC_SDCR(x)			MMIO32(FSMC_BASE + 0x140 + 4 * x)
+#define FMC_SDCR(x)			MMIO32(FSMC_BASE + 0x140 + 4 * (x))
 #define FMC_SDCR1			FMC_SDCR(0)
 #define FMC_SDCR2			FMC_SDCR(1)
 
 
 /* SDRAM Timing Registers 1 .. 2 */
-#define FMC_SDTR(x)			MMIO32(FSMC_BASE + 0x148 + 4 * x)
+#define FMC_SDTR(x)			MMIO32(FSMC_BASE + 0x148 + 4 * (x))
 #define FMC_SDTR1			FMC_SDTR(0)
 #define FMC_SDTR2			FMC_SDTR(1)
 

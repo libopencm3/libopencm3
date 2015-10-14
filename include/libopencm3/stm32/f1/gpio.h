@@ -523,7 +523,7 @@ LGPL License Terms @ref lgpl_license
 /* --- GPIO registers ------------------------------------------------------ */
 
 /* Port configuration register low (GPIOx_CRL) */
-#define GPIO_CRL(port)			MMIO32(port + 0x00)
+#define GPIO_CRL(port)			MMIO32((port) + 0x00)
 #define GPIOA_CRL			GPIO_CRL(GPIOA)
 #define GPIOB_CRL			GPIO_CRL(GPIOB)
 #define GPIOC_CRL			GPIO_CRL(GPIOC)
@@ -533,7 +533,7 @@ LGPL License Terms @ref lgpl_license
 #define GPIOG_CRL			GPIO_CRL(GPIOG)
 
 /* Port configuration register low (GPIOx_CRH) */
-#define GPIO_CRH(port)			MMIO32(port + 0x04)
+#define GPIO_CRH(port)			MMIO32((port) + 0x04)
 #define GPIOA_CRH			GPIO_CRH(GPIOA)
 #define GPIOB_CRH			GPIO_CRH(GPIOB)
 #define GPIOC_CRH			GPIO_CRH(GPIOC)
@@ -543,7 +543,7 @@ LGPL License Terms @ref lgpl_license
 #define GPIOG_CRH			GPIO_CRH(GPIOG)
 
 /* Port input data register (GPIOx_IDR) */
-#define GPIO_IDR(port)			MMIO32(port + 0x08)
+#define GPIO_IDR(port)			MMIO32((port) + 0x08)
 #define GPIOA_IDR			GPIO_IDR(GPIOA)
 #define GPIOB_IDR			GPIO_IDR(GPIOB)
 #define GPIOC_IDR			GPIO_IDR(GPIOC)
@@ -553,7 +553,7 @@ LGPL License Terms @ref lgpl_license
 #define GPIOG_IDR			GPIO_IDR(GPIOG)
 
 /* Port output data register (GPIOx_ODR) */
-#define GPIO_ODR(port)			MMIO32(port + 0x0c)
+#define GPIO_ODR(port)			MMIO32((port) + 0x0c)
 #define GPIOA_ODR			GPIO_ODR(GPIOA)
 #define GPIOB_ODR			GPIO_ODR(GPIOB)
 #define GPIOC_ODR			GPIO_ODR(GPIOC)
@@ -563,7 +563,7 @@ LGPL License Terms @ref lgpl_license
 #define GPIOG_ODR			GPIO_ODR(GPIOG)
 
 /* Port bit set/reset register (GPIOx_BSRR) */
-#define GPIO_BSRR(port)			MMIO32(port + 0x10)
+#define GPIO_BSRR(port)			MMIO32((port) + 0x10)
 #define GPIOA_BSRR			GPIO_BSRR(GPIOA)
 #define GPIOB_BSRR			GPIO_BSRR(GPIOB)
 #define GPIOC_BSRR			GPIO_BSRR(GPIOC)
@@ -573,7 +573,7 @@ LGPL License Terms @ref lgpl_license
 #define GPIOG_BSRR			GPIO_BSRR(GPIOG)
 
 /* Port bit reset register (GPIOx_BRR) */
-#define GPIO_BRR(port)			MMIO16(port + 0x14)
+#define GPIO_BRR(port)			MMIO16((port) + 0x14)
 #define GPIOA_BRR			GPIO_BRR(GPIOA)
 #define GPIOB_BRR			GPIO_BRR(GPIOB)
 #define GPIOC_BRR			GPIO_BRR(GPIOC)
@@ -583,7 +583,7 @@ LGPL License Terms @ref lgpl_license
 #define GPIOG_BRR			GPIO_BRR(GPIOG)
 
 /* Port configuration lock register (GPIOx_LCKR) */
-#define GPIO_LCKR(port)			MMIO32(port + 0x18)
+#define GPIO_LCKR(port)			MMIO32((port) + 0x18)
 #define GPIOA_LCKR			GPIO_LCKR(GPIOA)
 #define GPIOB_LCKR			GPIO_LCKR(GPIOB)
 #define GPIOC_LCKR			GPIO_LCKR(GPIOC)

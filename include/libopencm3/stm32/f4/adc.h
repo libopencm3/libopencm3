@@ -44,37 +44,37 @@ LGPL License Terms @ref lgpl_license
 /* --- Convenience macros -------------------------------------------------- */
 
 /* ADC injected channel data offset register x (ADC_JOFRx) (x=1..4) */
-#define ADC_JOFR1(block)		MMIO32(block + 0x14)
-#define ADC_JOFR2(block)		MMIO32(block + 0x18)
-#define ADC_JOFR3(block)		MMIO32(block + 0x1c)
-#define ADC_JOFR4(block)		MMIO32(block + 0x20)
+#define ADC_JOFR1(block)		MMIO32((block) + 0x14)
+#define ADC_JOFR2(block)		MMIO32((block) + 0x18)
+#define ADC_JOFR3(block)		MMIO32((block) + 0x1c)
+#define ADC_JOFR4(block)		MMIO32((block) + 0x20)
 
 /* ADC watchdog high threshold register (ADC_HTR) */
-#define ADC_HTR(block)			MMIO32(block + 0x24)
+#define ADC_HTR(block)			MMIO32((block) + 0x24)
 
 /* ADC watchdog low threshold register (ADC_LTR) */
-#define ADC_LTR(block)			MMIO32(block + 0x28)
+#define ADC_LTR(block)			MMIO32((block) + 0x28)
 
 /* ADC regular sequence register 1 (ADC_SQR1) */
-#define ADC_SQR1(block)			MMIO32(block + 0x2c)
+#define ADC_SQR1(block)			MMIO32((block) + 0x2c)
 
 /* ADC regular sequence register 2 (ADC_SQR2) */
-#define ADC_SQR2(block)			MMIO32(block + 0x30)
+#define ADC_SQR2(block)			MMIO32((block) + 0x30)
 
 /* ADC regular sequence register 3 (ADC_SQR3) */
-#define ADC_SQR3(block)			MMIO32(block + 0x34)
+#define ADC_SQR3(block)			MMIO32((block) + 0x34)
 
 /* ADC injected sequence register (ADC_JSQR) */
-#define ADC_JSQR(block)			MMIO32(block + 0x38)
+#define ADC_JSQR(block)			MMIO32((block) + 0x38)
 
 /* ADC injected data register x (ADC_JDRx) (x=1..4) */
-#define ADC_JDR1(block)			MMIO32(block + 0x3c)
-#define ADC_JDR2(block)			MMIO32(block + 0x40)
-#define ADC_JDR3(block)			MMIO32(block + 0x44)
-#define ADC_JDR4(block)			MMIO32(block + 0x48)
+#define ADC_JDR1(block)			MMIO32((block) + 0x3c)
+#define ADC_JDR2(block)			MMIO32((block) + 0x40)
+#define ADC_JDR3(block)			MMIO32((block) + 0x44)
+#define ADC_JDR4(block)			MMIO32((block) + 0x48)
 
 /* ADC regular data register (ADC_DR) */
-#define ADC_DR(block)			MMIO32(block + 0x4c)
+#define ADC_DR(block)			MMIO32((block) + 0x4c)
 
 /* ADC common (shared) registers */
 #define	ADC_COMMON_REGISTERS_BASE	(ADC1_BASE+0x300)

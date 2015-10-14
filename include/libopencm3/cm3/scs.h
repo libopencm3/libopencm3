@@ -44,7 +44,7 @@
 
 /* System Handler Priority 8 bits Registers, SHPR1/2/3 */
 /* Note: 12 8bit Registers */
-#define SCS_SHPR(ipr_id)		MMIO8(SCS_BASE + 0xD18 + ipr_id)
+#define SCS_SHPR(ipr_id)		MMIO8(SCS_BASE + 0xD18 + (ipr_id))
 
 /*
  * Debug Halting Control and Status Register (DHCSR).

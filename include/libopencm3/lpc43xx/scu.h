@@ -87,7 +87,7 @@ LGPL License Terms @ref lgpl_license
 
 /* Pin configuration registers */
 
-#define SCU_SFS(group, pin)             MMIO32(group + pin)
+#define SCU_SFS(group, pin)             MMIO32((group) + (pin))
 
 /* Pins P0_n */
 #define SCU_SFSP0_0                     SCU_SFS(PIN_GROUP0, PIN0)

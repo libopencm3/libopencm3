@@ -56,12 +56,12 @@
 #define CCM_CIMR			MMIO32(CCM_BASE + 0x34)
 #define CCM_CCOSR			MMIO32(CCM_BASE + 0x38)
 #define CCM_CGPR			MMIO32(CCM_BASE + 0x3C)
-#define CCM_CCGR(offset)		MMIO32(CCM_BASE + 0x40 + offset)
-#define CCM_CMEOR(ovrr)			MMIO32(CCM_BASE + 0x70 + (4 * ovrr))
+#define CCM_CCGR(offset)		MMIO32(CCM_BASE + 0x40 + (offset))
+#define CCM_CMEOR(ovrr)			MMIO32(CCM_BASE + 0x70 + (4 * (ovrr)))
 #define CCM_CPPDSR			MMIO32(CCM_BASE + 0x88)
 
 #define CCM_CCOWR			MMIO32(CCM_BASE + 0x8C)
-#define CCM_CCPGR(pcgr)			MMIO32(CCM_BASE + 0x90 + (4 * pcgr))
+#define CCM_CCPGR(pcgr)			MMIO32(CCM_BASE + 0x90 + (4 * (pcgr)))
 
 /* --- CCM values -....----------------------------------------------------- */
 

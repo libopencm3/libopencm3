@@ -34,66 +34,66 @@
 /* --- UART registers ------------------------------------------------------- */
 
 /* Receiver Buffer Register (DLAB=0) Read Only */
-#define UART_RBR(port)                  MMIO32(port + 0x000) /* 8bits */
+#define UART_RBR(port)                  MMIO32((port) + 0x000) /* 8bits */
 
 /* Transmitter Holding Register (DLAB=0) Write Only */
-#define UART_THR(port)                  MMIO32(port + 0x000) /* 8bits */
+#define UART_THR(port)                  MMIO32((port) + 0x000) /* 8bits */
 
 /* Divisor Latch LSB Register (DLAB=1) */
-#define UART_DLL(port)                  MMIO32(port + 0x000) /* 8bits */
+#define UART_DLL(port)                  MMIO32((port) + 0x000) /* 8bits */
 
 /* Divisor Latch MSB Register (DLAB=1) */
-#define UART_DLM(port)                  MMIO32(port + 0x004) /* 8bits */
+#define UART_DLM(port)                  MMIO32((port) + 0x004) /* 8bits */
 
 /* Interrupt Enable Register (DLAB=0) */
-#define UART_IER(port)                  MMIO32(port + 0x004)
+#define UART_IER(port)                  MMIO32((port) + 0x004)
 
 /* Interrupt ID Register Read Only */
-#define UART_IIR(port)                  MMIO32(port + 0x008)
+#define UART_IIR(port)                  MMIO32((port) + 0x008)
 
 /* FIFO Control Register Write Only */
-#define UART_FCR(port)                  MMIO32(port + 0x008)
+#define UART_FCR(port)                  MMIO32((port) + 0x008)
 
 /* Line Control Register */
-#define UART_LCR(port)                  MMIO32(port + 0x00C)
+#define UART_LCR(port)                  MMIO32((port) + 0x00C)
 
 /* MCR only for UART1 */
 
 /* Line Status Register */
-#define UART_LSR(port)                  MMIO32(port + 0x014)
+#define UART_LSR(port)                  MMIO32((port) + 0x014)
 
 /* Auto Baud Control Register */
-#define UART_ACR(port)                  MMIO32(port + 0x020)
+#define UART_ACR(port)                  MMIO32((port) + 0x020)
 
 /* IrDA Control Register only for UART0/2/3 */
-#define UART_ICR(port)                  MMIO32(port + 0x024)
+#define UART_ICR(port)                  MMIO32((port) + 0x024)
 
 /* Fractional Divider Register */
-#define UART_FDR(port)                  MMIO32(port + 0x028)
+#define UART_FDR(port)                  MMIO32((port) + 0x028)
 
 /* Oversampling Register only for UART0/2/3 */
-#define UART_OSR(port)                  MMIO32(port + 0x02C)
+#define UART_OSR(port)                  MMIO32((port) + 0x02C)
 
 /* Half-Duplex enable Register only for UART0/2/3 */
-#define UART_HDEN(port)                 MMIO32(port + 0x040)
+#define UART_HDEN(port)                 MMIO32((port) + 0x040)
 
 /* Smart card Interface Register Only for UART0/2/3 */
-#define UART_SCICTRL(port)              MMIO32(port + 0x048)
+#define UART_SCICTRL(port)              MMIO32((port) + 0x048)
 
 /* RS-485/EIA-485 Control Register */
-#define UART_RS485CTRL(port)            MMIO32(port + 0x04C)
+#define UART_RS485CTRL(port)            MMIO32((port) + 0x04C)
 
 /* RS-485/EIA-485 Address Match Register */
-#define UART_RS485ADRMATCH(port)        MMIO32(port + 0x050)
+#define UART_RS485ADRMATCH(port)        MMIO32((port) + 0x050)
 
 /* RS-485/EIA-485 Direction Control Delay Register */
-#define UART_RS485DLY(port)             MMIO32(port + 0x054)
+#define UART_RS485DLY(port)             MMIO32((port) + 0x054)
 
 /* Synchronous Mode Control Register only for UART0/2/3 */
-#define UART_SYNCCTRL(port)             MMIO32(port + 0x058)
+#define UART_SYNCCTRL(port)             MMIO32((port) + 0x058)
 
 /* Transmit Enable Register */
-#define UART_TER(port)                  MMIO32(port + 0x05C)
+#define UART_TER(port)                  MMIO32((port) + 0x05C)
 
 /* --------------------- BIT DEFINITIONS ----------------------------------- */
 /***********************************************************************
@@ -291,7 +291,7 @@
 /* IrDA fixed pulse width mode */
 #define UART_ICR_FIXPULSE_EN            (1 << 2)
 /* PulseDiv - Configures the pulse when FixPulseEn = 1 */
-#define UART_ICR_PULSEDIV(n)            ((uint32_t)((n&0x07)<<3))
+#define UART_ICR_PULSEDIV(n)            ((uint32_t)(((n)&0x07)<<3))
 /* UART IRDA bit mask */
 #define UART_ICR_BITMASK                ((uint32_t)(0x3F))
 
@@ -311,9 +311,9 @@
 /* ISO7816-3 protocol T1 is selected*/
 #define UART_SCICTRL_PROTSEL_T1         (1 << 2)
 /* number of retransmission*/
-#define UART_SCICTRL_TXRETRY(n)         ((uint32_t)((n&0x07)<<5))
+#define UART_SCICTRL_TXRETRY(n)         ((uint32_t)(((n)&0x07)<<5))
 /* Extra guard time*/
-#define UART_SCICTRL_GUARDTIME(n)       ((uint32_t)((n&0xFF)<<8))
+#define UART_SCICTRL_GUARDTIME(n)       ((uint32_t)(((n)&0xFF)<<8))
 
 /*********************************************************************
 * Macro defines for Macro defines for UART synchronous control register
@@ -338,9 +338,9 @@
 **********************************************************************/
 
 /* Baud-rate generation pre-scaler divisor */
-#define UART_FDR_DIVADDVAL(n)           ((uint32_t)(n&0x0F))
+#define UART_FDR_DIVADDVAL(n)           ((uint32_t)((n)&0x0F))
 /* Baud-rate pre-scaler multiplier value */
-#define UART_FDR_MULVAL(n)              ((uint32_t)((n<<4)&0xF0))
+#define UART_FDR_MULVAL(n)              ((uint32_t)(((n)<<4)&0xF0))
 /* UART Fractional Divider register bit mask */
 #define UART_FDR_BITMASK                ((uint32_t)(0xFF))
 
@@ -354,9 +354,9 @@
 * Macro defines for Macro defines for UART FIFO Level register
 **********************************************************************/
 /* Reflects the current level of the UART receiver FIFO */
-#define UART_FIFOLVL_RX(n)              ((uint32_t)(n&0x0F))
+#define UART_FIFOLVL_RX(n)              ((uint32_t)((n)&0x0F))
 /* Reflects the current level of the UART transmitter FIFO */
-#define UART_FIFOLVL_TX(n)              ((uint32_t)((n>>8)&0x0F))
+#define UART_FIFOLVL_TX(n)              ((uint32_t)(((n)>>8)&0x0F))
 /* UART FIFO Level Register bit mask */
 #define UART_FIFOLVL_BITMASK            ((uint32_t)(0x0F0F))
 

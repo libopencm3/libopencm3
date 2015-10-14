@@ -54,20 +54,20 @@
 
 /* --- UART registers ------------------------------------------------------ */
 
-#define UART_BDH(uart_base)		MMIO8(uart_base + 0x00)
-#define UART_BDL(uart_base)		MMIO8(uart_base + 0x01)
-#define UART_C1(uart_base)		MMIO8(uart_base + 0x02)
-#define UART_C2(uart_base)		MMIO8(uart_base + 0x03)
-#define UART_S1(uart_base)		MMIO8(uart_base + 0x04)
-#define UART_S2(uart_base)		MMIO8(uart_base + 0x05)
-#define UART_C3(uart_base)		MMIO8(uart_base + 0x06)
-#define UART_D(uart_base)		MMIO8(uart_base + 0x07)
-#define UART_MA1(uart_base)		MMIO8(uart_base + 0x08)
-#define UART_MA2(uart_base)		MMIO8(uart_base + 0x09)
-#define UART_C4(uart_base)		MMIO8(uart_base + 0x0A)
-#define UART_C5(uart_base)		MMIO8(uart_base + 0x0B)
-#define UART_ED(uart_base)		MMIO8(uart_base + 0x0C)
-#define UART_MODEM(uart_base)		MMIO8(uart_base + 0x0D)
+#define UART_BDH(uart_base)		MMIO8((uart_base) + 0x00)
+#define UART_BDL(uart_base)		MMIO8((uart_base) + 0x01)
+#define UART_C1(uart_base)		MMIO8((uart_base) + 0x02)
+#define UART_C2(uart_base)		MMIO8((uart_base) + 0x03)
+#define UART_S1(uart_base)		MMIO8((uart_base) + 0x04)
+#define UART_S2(uart_base)		MMIO8((uart_base) + 0x05)
+#define UART_C3(uart_base)		MMIO8((uart_base) + 0x06)
+#define UART_D(uart_base)		MMIO8((uart_base) + 0x07)
+#define UART_MA1(uart_base)		MMIO8((uart_base) + 0x08)
+#define UART_MA2(uart_base)		MMIO8((uart_base) + 0x09)
+#define UART_C4(uart_base)		MMIO8((uart_base) + 0x0A)
+#define UART_C5(uart_base)		MMIO8((uart_base) + 0x0B)
+#define UART_ED(uart_base)		MMIO8((uart_base) + 0x0C)
+#define UART_MODEM(uart_base)		MMIO8((uart_base) + 0x0D)
 /* Incomplete */
 
 /* --- CCM values -....----------------------------------------------------- */

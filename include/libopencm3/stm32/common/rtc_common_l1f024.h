@@ -95,7 +95,7 @@ specific memorymap.h header before including this header file.*/
 
 /* RTC backup registers (RTC_BKPxR) */
 #define RTC_BKP_BASE    (RTC_BASE + 0x50)
-#define RTC_BKPXR(reg)  MMIO32(RTC_BKP_BASE + (4*reg))
+#define RTC_BKPXR(reg)  MMIO32(RTC_BKP_BASE + (4 * (reg)))
 
 
 /* RTC time register (RTC_TR) ----------------------------------- */

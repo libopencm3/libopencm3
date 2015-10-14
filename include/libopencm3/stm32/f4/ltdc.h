@@ -45,51 +45,51 @@
 #define LTDC_CDSR                  (MMIO32(LTDC_BASE + 0x48))
 
 /* x == LTDC_LAYER_x */
-#define LTDC_LxCR(x)               (MMIO32(LTDC_BASE + 0x84 + 0x80 * (x - 1)))
+#define LTDC_LxCR(x)               (MMIO32(LTDC_BASE + 0x84 + 0x80 * ((x) - 1)))
 #define LTDC_L1CR                  LTDC_LxCR(LTDC_LAYER_1)
 #define LTDC_L2CR                  LTDC_LxCR(LTDC_LAYER_2)
 
-#define LTDC_LxWHPCR(x)            (MMIO32(LTDC_BASE + 0x88 + 0x80 * (x - 1)))
+#define LTDC_LxWHPCR(x)            (MMIO32(LTDC_BASE + 0x88 + 0x80 * ((x) - 1)))
 #define LTDC_L1WHPCR               LTDC_LxWHPCR(LTDC_LAYER_1)
 #define LTDC_L2WHPCR               LTDC_LxWHPCR(LTDC_LAYER_2)
 
-#define LTDC_LxWVPCR(x)            (MMIO32(LTDC_BASE + 0x8C + 0x80 * (x - 1)))
+#define LTDC_LxWVPCR(x)            (MMIO32(LTDC_BASE + 0x8C + 0x80 * ((x) - 1)))
 #define LTDC_L1WVPCR               LTDC_LxWVPCR(LTDC_LAYER_1)
 #define LTDC_L2WVPCR               LTDC_LxWVPCR(LTDC_LAYER_2)
 
-#define LTDC_LxCKCR(x)             (MMIO32(LTDC_BASE + 0x90 + 0x80 * (x - 1)))
+#define LTDC_LxCKCR(x)             (MMIO32(LTDC_BASE + 0x90 + 0x80 * ((x) - 1)))
 #define LTDC_L1CKCR                LTDC_LxCKCR(LTDC_LAYER_1)
 #define LTDC_L2CKCR                LTDC_LxCKCR(LTDC_LAYER_2)
 
-#define LTDC_LxPFCR(x)             (MMIO32(LTDC_BASE + 0x94 + 0x80 * (x - 1)))
+#define LTDC_LxPFCR(x)             (MMIO32(LTDC_BASE + 0x94 + 0x80 * ((x) - 1)))
 #define LTDC_L1PFCR                LTDC_LxPFCR(LTDC_LAYER_1)
 #define LTDC_L2PFCR                LTDC_LxPFCR(LTDC_LAYER_2)
 
-#define LTDC_LxCACR(x)             (MMIO32(LTDC_BASE + 0x98 + 0x80 * (x - 1)))
+#define LTDC_LxCACR(x)             (MMIO32(LTDC_BASE + 0x98 + 0x80 * ((x) - 1)))
 #define LTDC_L1CACR                LTDC_LxCACR(LTDC_LAYER_1)
 #define LTDC_L2CACR                LTDC_LxCACR(LTDC_LAYER_2)
 
-#define LTDC_LxDCCR(x)             (MMIO32(LTDC_BASE + 0x9C + 0x80 * (x - 1)))
+#define LTDC_LxDCCR(x)             (MMIO32(LTDC_BASE + 0x9C + 0x80 * ((x) - 1)))
 #define LTDC_L1DCCR                LTDC_LxDCCR(LTDC_LAYER_1)
 #define LTDC_L2DCCR                LTDC_LxDCCR(LTDC_LAYER_2)
 
-#define LTDC_LxBFCR(x)             (MMIO32(LTDC_BASE + 0xA0 + 0x80 * (x - 1)))
+#define LTDC_LxBFCR(x)             (MMIO32(LTDC_BASE + 0xA0 + 0x80 * ((x) - 1)))
 #define LTDC_L1BFCR                LTDC_LxBFCR(LTDC_LAYER_1)
 #define LTDC_L2BFCR                LTDC_LxBFCR(LTDC_LAYER_2)
 
-#define LTDC_LxCFBAR(x)            (MMIO32(LTDC_BASE + 0xAC + 0x80 * (x - 1)))
+#define LTDC_LxCFBAR(x)            (MMIO32(LTDC_BASE + 0xAC + 0x80 * ((x) - 1)))
 #define LTDC_L1CFBAR               LTDC_LxCFBAR(LTDC_LAYER_1)
 #define LTDC_L2CFBAR               LTDC_LxCFBAR(LTDC_LAYER_2)
 
-#define LTDC_LxCFBLR(x)            (MMIO32(LTDC_BASE + 0xB0 + 0x80 * (x - 1)))
+#define LTDC_LxCFBLR(x)            (MMIO32(LTDC_BASE + 0xB0 + 0x80 * ((x) - 1)))
 #define LTDC_L1CFBLR               LTDC_LxCFBLR(LTDC_LAYER_1)
 #define LTDC_L2CFBLR               LTDC_LxCFBLR(LTDC_LAYER_2)
 
-#define LTDC_LxCFBLNR(x)           (MMIO32(LTDC_BASE + 0xB4 + 0x80 * (x - 1)))
+#define LTDC_LxCFBLNR(x)           (MMIO32(LTDC_BASE + 0xB4 + 0x80 * ((x) - 1)))
 #define LTDC_L1CFBLNR              LTDC_LxCFBLNR(LTDC_LAYER_1)
 #define LTDC_L2CFBLNR              LTDC_LxCFBLNR(LTDC_LAYER_2)
 
-#define LTDC_LxCLUTWR(x)           (MMIO32(LTDC_BASE + 0xC4 + 0x80 * (x - 1)))
+#define LTDC_LxCLUTWR(x)           (MMIO32(LTDC_BASE + 0xC4 + 0x80 * ((x) - 1)))
 #define LTDC_L1CLUTWR              LTDC_LxCLUTWR(LTDC_LAYER_1)
 #define LTDC_L2CLUTWR              LTDC_LxCLUTWR(LTDC_LAYER_2)
 

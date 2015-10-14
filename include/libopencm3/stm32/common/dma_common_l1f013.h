@@ -48,17 +48,17 @@ specific memorymap.h header before including this header file.*/
 /* --- DMA registers ------------------------------------------------------- */
 
 /* DMA interrupt status register (DMAx_ISR) */
-#define DMA_ISR(dma_base)		MMIO32(dma_base + 0x00)
+#define DMA_ISR(dma_base)		MMIO32((dma_base) + 0x00)
 #define DMA1_ISR			DMA_ISR(DMA1)
 #define DMA2_ISR			DMA_ISR(DMA2)
 
 /* DMA interrupt flag clear register (DMAx_IFCR) */
-#define DMA_IFCR(dma_base)		MMIO32(dma_base + 0x04)
+#define DMA_IFCR(dma_base)		MMIO32((dma_base) + 0x04)
 #define DMA1_IFCR			DMA_IFCR(DMA1)
 #define DMA2_IFCR			DMA_IFCR(DMA2)
 
 /* DMA channel configuration register (DMAx_CCRy) */
-#define DMA_CCR(dma_base, channel)	MMIO32(dma_base + 0x08 + \
+#define DMA_CCR(dma_base, channel)	MMIO32((dma_base) + 0x08 + \
 					       (0x14 * ((channel) - 1)))
 
 #define DMA1_CCR(channel)		DMA_CCR(DMA1, channel)
@@ -78,7 +78,7 @@ specific memorymap.h header before including this header file.*/
 #define DMA2_CCR5			DMA2_CCR(DMA_CHANNEL5)
 
 /* DMA number of data register (DMAx_CNDTRy) */
-#define DMA_CNDTR(dma_base, channel)	MMIO32(dma_base + 0x0C + \
+#define DMA_CNDTR(dma_base, channel)	MMIO32((dma_base) + 0x0C + \
 					       (0x14 * ((channel) - 1)))
 
 #define DMA1_CNDTR(channel)		DMA_CNDTR(DMA1, channel)
@@ -98,7 +98,7 @@ specific memorymap.h header before including this header file.*/
 #define DMA2_CNDTR5			DMA2_CNDTR(DMA_CHANNEL5)
 
 /* DMA peripheral address register (DMAx_CPARy) */
-#define DMA_CPAR(dma_base, channel)	MMIO32(dma_base + 0x10 + \
+#define DMA_CPAR(dma_base, channel)	MMIO32((dma_base) + 0x10 + \
 					       (0x14 * ((channel) - 1)))
 
 #define DMA1_CPAR(channel)		DMA_CPAR(DMA1, channel)
@@ -119,7 +119,7 @@ specific memorymap.h header before including this header file.*/
 
 /* DMA memory address register (DMAx_CMARy) */
 
-#define DMA_CMAR(dma_base, channel)	MMIO32(dma_base + 0x14 + \
+#define DMA_CMAR(dma_base, channel)	MMIO32((dma_base) + 0x14 + \
 					       (0x14 * ((channel) - 1)))
 
 #define DMA1_CMAR(channel)		DMA_CMAR(DMA1, channel)
@@ -162,7 +162,7 @@ group.
 /* Offset within interrupt status register to start of channel interrupt flag
  * field
  */
-#define DMA_FLAG_OFFSET(channel)	(4*(channel - 1))
+#define DMA_FLAG_OFFSET(channel)	(4*((channel) - 1))
 #define DMA_FLAGS			(DMA_TEIF | DMA_TCIF | DMA_HTIF | \
 					 DMA_GIF)
 #define DMA_ISR_MASK(channel)		(DMA_FLAGS << DMA_FLAG_OFFSET(channel))
