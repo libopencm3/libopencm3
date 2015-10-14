@@ -49,7 +49,7 @@
         "tim8_cc",
         "dma1_stream7",
         "fsmc",
-        "sdio",
+        "sdmmc1",
         "tim5",
         "spi3",
         "uart4",
@@ -90,7 +90,12 @@
         "sai1",
         "lcd_tft",
         "lcd_tft_err",
-        "dma2d"
+        "dma2d",
+        "sai2",
+        "quadspi",
+        "i2c4_ev",
+        "i2c4_er",
+        "spdifrx"
     ],
     "partname_humanreadable": "STM32 F7 series",
     "partname_doxygen": "STM32F7",
