@@ -1,3 +1,20 @@
+/** @defgroup STM32L1xx-rcc-file RCC
+
+@ingroup STM32L1xx
+
+@brief <b>libopencm3 STM32F1xx Reset and Clock Control</b>
+
+@version 1.0.0
+
+This library supports the Reset and Clock Control System in the STM32L1xx
+series of ARM Cortex Microcontrollers by ST Microelectronics.
+
+Clock settings and resets for many peripherals are given here rather than in
+the corresponding peripheral library.
+
+The library also provides a number of common configurations for the processor
+system clock. Not all possible configurations are included.
+ */
 /*
  * This file is part of the libopencm3 project.
  *
@@ -20,6 +37,7 @@
  * along with this library.  If not, see <http://www.gnu.org/licenses/>.
  * Based on the F4 code...
  */
+/**@{*/
 
 #include <libopencm3/stm32/rcc.h>
 #include <libopencm3/stm32/flash.h>
@@ -538,3 +556,5 @@ void rcc_clock_setup_pll(const clock_scale_t *clock)
 	rcc_apb1_frequency = clock->apb1_frequency;
 	rcc_apb2_frequency = clock->apb2_frequency;
 }
+
+/**@}*/
