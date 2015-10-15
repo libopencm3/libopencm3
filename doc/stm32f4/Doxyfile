@@ -27,7 +27,8 @@ EXCLUDE                =
 EXCLUDE_PATTERNS       = *_common_f*3.h *_common_f*3.c \
                          *_common_*f013.h *_common_*f013.c \
                          *_common_*f01.h *_common_*f01.c \ \
-                         *_common_*f03.h *_common_*f03.c
+                         *_common_*f03.h *_common_*f03.c \
+                         *crs_common_all.[ch]
 
 LAYOUT_FILE 	       = DoxygenLayout_stm32f4.xml
 
