@@ -780,7 +780,7 @@ enum rcc_periph_clken {
 	SCC_SAI1	= _REG_BIT(0x64, 22),
 	SCC_SAI2	= _REG_BIT(0x64, 23),
 	SCC_LTDC	= _REG_BIT(0x64, 26),
-}
+};
 
 enum rcc_periph_rst {
 	/* AHB1 peripherals*/
