@@ -215,8 +215,8 @@ This performs all operations necessary to program a 64 bit word to FLASH memory.
 The program error flag should be checked separately for the event that memory
 was not properly erased.
 
-@param[in] uint32_t address
-@param[in] uint64_t data.
+@param[in] address Starting address in Flash.
+@param[in] data Double word to write
 */
 
 void flash_program_double_word(uint32_t address, uint64_t data)
@@ -245,8 +245,8 @@ This performs all operations necessary to program a 32 bit word to FLASH memory.
 The program error flag should be checked separately for the event that memory
 was not properly erased.
 
-@param[in] uint32_t address
-@param[in] uint32_t data.
+@param[in] address Starting address in Flash.
+@param[in] data word to write
 */
 
 void flash_program_word(uint32_t address, uint32_t data)
@@ -275,8 +275,8 @@ This performs all operations necessary to program a 16 bit word to FLASH memory.
 The program error flag should be checked separately for the event that memory
 was not properly erased.
 
-@param[in] uint32_t address
-@param[in] uint16_t data.
+@param[in] address Starting address in Flash.
+@param[in] data half word to write
 */
 
 void flash_program_half_word(uint32_t address, uint16_t data)
@@ -300,8 +300,8 @@ This performs all operations necessary to program an 8 bit byte to FLASH memory.
 The program error flag should be checked separately for the event that memory
 was not properly erased.
 
-@param[in] uint32_t address
-@param[in] uint8_t data.
+@param[in] address Starting address in Flash.
+@param[in] data byte to write
 */
 
 void flash_program_byte(uint32_t address, uint8_t data)
@@ -325,9 +325,9 @@ This programs an arbitrary length data block to FLASH memory.
 The program error flag should be checked separately for the event that memory
 was not properly erased.
 
-@param[in] uint32_t address. Starting address in Flash.
-@param[in] uint8_t *data. Pointer to start of data block.
-@param[in] uint32_t len. Length of data block.
+@param[in] address Starting address in Flash.
+@param[in] data Pointer to start of data block.
+@param[in] len Length of data block.
 */
 
 void flash_program(uint32_t address, uint8_t *data, uint32_t len)
@@ -350,7 +350,7 @@ first be fully erased before attempting to program it.
 
 See the reference manual or the FLASH programming manual for details.
 
-@param[in] uint32_t sector (0 - 11 for some parts, 0-23 on others)
+@param[in] sector (0 - 11 for some parts, 0-23 on others)
 @param program_size: 0 (8-bit), 1 (16-bit), 2 (32-bit), 3 (64-bit)
 */
 
@@ -396,7 +396,7 @@ void flash_erase_all_sectors(uint32_t program_size)
 This performs all operations necessary to program the option bytes.
 The option bytes do not need to be erased first.
 
-@param[in] uint32_t data to be programmed.
+@param[in] data value to be programmed.
 */
 
 void flash_program_option_bytes(uint32_t data)

@@ -108,7 +108,7 @@ latency must be changed to the appropriate value <b>before</b> any increase in
 clock speed, or <b>after</b> any decrease in clock speed. A latency setting of
 zero only applies if 64-bit mode is not used.
 
-@param[in] uint32_t ws: values from @ref flash_latency.
+@param[in] ws values from @ref flash_latency.
 */
 
 void flash_set_ws(uint32_t ws)
@@ -188,8 +188,8 @@ void eeprom_program_word(uint32_t address, uint32_t data) {
  *
  * @param[in] address must point to EEPROM space, no checking!
  * @param[in] data pointer to data to write
- * @param[in] length size of of data in WORDS!
- *  */
+ * @param[in] length_in_words size of of data in WORDS!
+ */
 void eeprom_program_words(uint32_t address, uint32_t *data, int length_in_words)
 {
        int i;

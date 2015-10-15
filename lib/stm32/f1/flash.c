@@ -221,8 +221,8 @@ was not properly erased.
 
 Status bit polling is used to detect end of operation.
 
-@param[in] uint32_t address. Full address of flash half word to be programmed.
-@param[in] uint16_t data.
+@param[in] address Full address of flash half word to be programmed.
+@param[in] data half word to write
 */
 
 void flash_program_half_word(uint32_t address, uint16_t data)
@@ -252,7 +252,7 @@ first be fully erased before attempting to program it.
 Note that the page sizes differ between devices. See the reference manual or
 the FLASH programming manual for details.
 
-@param[in] uint32_t page_address. Full address of flash page to be erased.
+@param[in] page_address Full address of flash page to be erased.
 */
 
 void flash_erase_page(uint32_t page_address)

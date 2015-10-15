@@ -61,7 +61,7 @@ reference manual for more information on clock speed ranges for each wait state.
 The latency must be changed to the appropriate value <b>before</b> any increase
 in clock speed, or <b>after</b> any decrease in clock speed.
 
-@param[in] uint32_t ws: values from @ref flash_latency.
+@param[in] ws values from @ref flash_latency.
 */
 
 void flash_set_ws(uint32_t ws)
@@ -158,8 +158,8 @@ was not properly erased.
 
 Status bit polling is used to detect end of operation.
 
-@param[in] uint32_t address. Full address of flash word to be programmed.
-@param[in] uint32_t data.
+@param[in] address Full address of flash word to be programmed.
+@param[in] data word to write
 */
 
 void flash_program_word(uint32_t address, uint32_t data)
@@ -213,8 +213,8 @@ an option byte had not been properly erased before calling this function.
 
 Only the lower 8 bits of the data is significant.
 
-@param[in] uint32_t address. Address of option byte from @ref flash_options.
-@param[in] uint16_t data.
+@param[in] address Address of option byte from @ref flash_options.
+@param[in] data value to write
 */
 
 void flash_program_option_bytes(uint32_t address, uint16_t data)

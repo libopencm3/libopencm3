@@ -34,9 +34,8 @@ programming manual for more information on clock speed ranges. The latency must
 be changed to the appropriate value <b>before</b> any increase in clock
 speed, or <b>after</b> any decrease in clock speed.
 
-@param[in] uint32_t ws: values from @ref flash_latency.
+@param[in] ws values from @ref flash_latency.
 */
-
 void flash_set_ws(uint32_t ws)
 {
 	uint32_t reg32;
