@@ -99,8 +99,9 @@ them as environment variables, for example:
    behavior can be specified by setting `FP_FLAGS`.
    
    Currently, M4F cores default to `-mfloat-abi=hard -mfpu=fpv4-sp-d16`,
-   M7 core defaults to double precision `-mfloat-abi=hard -mfpu=fpv5-d16`
-   and other architectures to no FP flags forcing to use software computation.
+   M7 cores defaults to double precision `-mfloat-abi=hard -mfpu=fpv5-d16` if available,
+   and single precision `-mfloat-abi=hard -mfpu=fpv5-sp-d16` otherwise.
+   Other architectures use no FP flags, in otherwords, traditional softfp.
    
    You may find which FP_FLAGS you can use in particular architecture in readme.txt
    shipped with gcc-arm-embedded package.

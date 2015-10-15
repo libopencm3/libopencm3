@@ -26,8 +26,8 @@ PREFIX		?= arm-none-eabi
 CC		= $(PREFIX)-gcc
 AR		= $(PREFIX)-ar
 
-# By default, use double precision FPU
-FP_FLAGS	?= -mfloat-abi=hard -mfpu=fpv5-d16
+# STM32F7 only supports single precision FPU
+FP_FLAGS	?= -mfloat-abi=hard -mfpu=fpv5-sp-d16
 
 CFLAGS		= -Os -g \
 		  -Wall -Wextra -Wimplicit-function-declaration \
