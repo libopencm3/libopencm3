@@ -47,57 +47,57 @@
 /* --- I2C registers ------------------------------------------------------- */
 
 /* Control register 1 (I2Cx_CR1) */
-#define I2C_CR1(i2c_base)		MMIO32(i2c_base + 0x00)
+#define I2C_CR1(i2c_base)		MMIO32((i2c_base) + 0x00)
 #define I2C1_CR1			I2C_CR1(I2C1)
 #define I2C2_CR1			I2C_CR1(I2C2)
 
 /* Control register 2 (I2Cx_CR2) */
-#define I2C_CR2(i2c_base)		MMIO32(i2c_base + 0x04)
+#define I2C_CR2(i2c_base)		MMIO32((i2c_base) + 0x04)
 #define I2C1_CR2			I2C_CR2(I2C1)
 #define I2C2_CR2			I2C_CR2(I2C2)
 
 /* Own address register 1 (I2Cx_OAR1) */
-#define I2C_OAR1(i2c_base)		MMIO32(i2c_base + 0x08)
+#define I2C_OAR1(i2c_base)		MMIO32((i2c_base) + 0x08)
 #define I2C1_OAR1			I2C_OAR1(I2C1)
 #define I2C2_OAR1			I2C_OAR1(I2C2)
 
 /* Own address register 2 (I2Cx_OAR2) */
-#define I2C_OAR2(i2c_base)		MMIO32(i2c_base + 0x0c)
+#define I2C_OAR2(i2c_base)		MMIO32((i2c_base) + 0x0c)
 #define I2C1_OAR2			I2C_OAR2(I2C1)
 #define I2C2_OAR2			I2C_OAR2(I2C2)
 
 /* Timing register (I2Cx_TIMINGR) */
-#define I2C_TIMINGR(i2c_base)		MMIO32(i2c_base + 0x10)
+#define I2C_TIMINGR(i2c_base)		MMIO32((i2c_base) + 0x10)
 #define I2C1_TIMINGR			I2C_TIMINGR(I2C1)
 #define I2C2_TIMINGR			I2C_TIMINGR(I2C2)
 
 /* Timeout register (I2Cx_TIMEOUTR) */
-#define I2C_TIMEOUTR(i2c_base)		MMIO32(i2c_base + 0x14)
+#define I2C_TIMEOUTR(i2c_base)		MMIO32((i2c_base) + 0x14)
 #define I2C1_TIMEOUTR			I2C_TIMEOUTR(I2C1)
 #define I2C2_TIMEOUTR			I2C_TIMEOUTR(I2C2)
 
 /* Interrupt and Status register (I2Cx_ISR) */
-#define I2C_ISR(i2c_base)		MMIO32(i2c_base + 0x18)
+#define I2C_ISR(i2c_base)		MMIO32((i2c_base) + 0x18)
 #define I2C1_ISR			I2C_ISR(I2C1)
 #define I2C2_ISR			I2C_ISR(I2C2)
 
 /* Interrupt clear register (I2Cx_ICR) */
-#define I2C_ICR(i2c_base)		MMIO32(i2c_base + 0x1C)
+#define I2C_ICR(i2c_base)		MMIO32((i2c_base) + 0x1C)
 #define I2C1_ICR			I2C_ICR(I2C1)
 #define I2C2_ICR			I2C_ICR(I2C2)
 
 /* PEC register (I2Cx_PECR) */
-#define I2C_PECR(i2c_base)		MMIO32(i2c_base + 0x20)
+#define I2C_PECR(i2c_base)		MMIO32((i2c_base) + 0x20)
 #define I2C1_PECR			I2C_PECR(I2C1)
 #define I2C2_PECR			I2C_PECR(I2C2)
 
 /* Receive data register (I2Cx_RXDR) */
-#define I2C_RXDR(i2c_base)		MMIO32(i2c_base + 0x24)
+#define I2C_RXDR(i2c_base)		MMIO32((i2c_base) + 0x24)
 #define I2C1_RXDR			I2C_RXDR(I2C1)
 #define I2C2_RXDR			I2C_RXDR(I2C2)
 
 /* Transmit data register (I2Cx_TXDR) */
-#define I2C_TXDR(i2c_base)		MMIO32(i2c_base + 0x28)
+#define I2C_TXDR(i2c_base)		MMIO32((i2c_base) + 0x28)
 #define I2C1_TXDR			I2C_TXDR(I2C1)
 #define I2C2_TXDR			I2C_TXDR(I2C2)
 

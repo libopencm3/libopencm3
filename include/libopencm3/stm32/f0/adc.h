@@ -50,45 +50,45 @@
 /*****************************************************************************/
 
 /* ADC interrupt and status register */
-#define ADC_ISR(base)			MMIO32(base + 0x00)
+#define ADC_ISR(base)			MMIO32((base) + 0x00)
 #define ADC1_ISR			ADC_ISR(ADC)
 
 /* Interrupt Enable Register */
-#define ADC_IER(base)			MMIO32(base + 0x04)
+#define ADC_IER(base)			MMIO32((base) + 0x04)
 #define ADC1_IER			ADC_IER(ADC)
 
 /* Control Register */
-#define ADC_CR(base)			MMIO32(base + 0x08)
+#define ADC_CR(base)			MMIO32((base) + 0x08)
 #define ADC1_CR				ADC_CR(ADC)
 
 
 /* Configuration Register 1 */
-#define ADC_CFGR1(base)			MMIO32(base + 0x0C)
+#define ADC_CFGR1(base)			MMIO32((base) + 0x0C)
 #define ADC1_CFGR1			ADC_CFGR1(ADC)
 
 
 /* Configuration Register 2 */
-#define ADC_CFGR2(base)			MMIO32(base + 0x10)
+#define ADC_CFGR2(base)			MMIO32((base) + 0x10)
 #define ADC1_CFGR2			ADC_CFGR2(ADC)
 
 
 /* Sample Time Register 1 */
-#define ADC_SMPR(base)			MMIO32(base + 0x14)
+#define ADC_SMPR(base)			MMIO32((base) + 0x14)
 #define ADC1_SMPR			ADC_SMPR(ADC)
 
 
 /* Watchdog Threshold Register */
-#define ADC_TR(base)			MMIO32(base + 0x20)
+#define ADC_TR(base)			MMIO32((base) + 0x20)
 #define ADC1_TR				ADC_TR(ADC)
 
 
 /* Channel Select Register */
-#define ADC_CHSELR(base)		MMIO32(base + 0x28)
+#define ADC_CHSELR(base)		MMIO32((base) + 0x28)
 #define ADC1_CHSELR			ADC_CHSELR(ADC)
 
 
 /* Regular Data Register */
-#define ADC_DR(base)			MMIO32(base + 0x40)
+#define ADC_DR(base)			MMIO32((base) + 0x40)
 #define ADC1_DR				ADC_DR(ADC)
 
 

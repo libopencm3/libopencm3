@@ -117,9 +117,9 @@ knob.
 #define ADVANCED_TIMERS (defined(TIM1_BASE) || defined(TIM8_BASE))
 
 #if defined(TIM8)
-#define TIMER_IS_ADVANCED(periph) ((periph == TIM1) || (periph == TIM8))
+#define TIMER_IS_ADVANCED(periph) (((periph) == TIM1) || ((periph) == TIM8))
 #else
-#define TIMER_IS_ADVANCED(periph) (periph == TIM1)
+#define TIMER_IS_ADVANCED(periph) ((periph) == TIM1)
 #endif
 
 /*---------------------------------------------------------------------------*/

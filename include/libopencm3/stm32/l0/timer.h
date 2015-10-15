@@ -39,7 +39,7 @@ LGPL License Terms @ref lgpl_license
 
 /* Timer 2/21/22 option register (TIMx_OR) */
 
-#define TIM_OR(tim_base)		MMIO32(tim_base + 0x50)
+#define TIM_OR(tim_base)		MMIO32((tim_base) + 0x50)
 #define TIM2_OR				TIM_OR(TIM2)
 #define TIM21_OR			TIM_OR(TIM21)
 #define TIM22_OR			TIM_OR(TIM22)
@@ -96,14 +96,14 @@ LGPL License Terms @ref lgpl_license
 
 /* --- LPTIM (low power timer) ------------------------------------------- */
 
-#define LPTIM_ISR(tim_base)		MMIO32(tim_base + 0x00)
-#define LPTIM_ICR(tim_base)		MMIO32(tim_base + 0x04)
-#define LPTIM_IER(tim_base)		MMIO32(tim_base + 0x08)
-#define LPTIM_CFGR(tim_base)		MMIO32(tim_base + 0x0C)
-#define LPTIM_CR(tim_base)		MMIO32(tim_base + 0x10)
-#define LPTIM_CMP(tim_base)		MMIO32(tim_base + 0x14)
-#define LPTIM_ARR(tim_base)		MMIO32(tim_base + 0x18)
-#define LPTIM_CNT(tim_base)		MMIO32(tim_base + 0x1C)
+#define LPTIM_ISR(tim_base)		MMIO32((tim_base) + 0x00)
+#define LPTIM_ICR(tim_base)		MMIO32((tim_base) + 0x04)
+#define LPTIM_IER(tim_base)		MMIO32((tim_base) + 0x08)
+#define LPTIM_CFGR(tim_base)		MMIO32((tim_base) + 0x0C)
+#define LPTIM_CR(tim_base)		MMIO32((tim_base) + 0x10)
+#define LPTIM_CMP(tim_base)		MMIO32((tim_base) + 0x14)
+#define LPTIM_ARR(tim_base)		MMIO32((tim_base) + 0x18)
+#define LPTIM_CNT(tim_base)		MMIO32((tim_base) + 0x1C)
 
 #define LPTIM1_ISR			LPTIM_ISR(LPTIM1_BASE)
 #define LPTIM1_ICR			LPTIM_ICR(LPTIM1_BASE)

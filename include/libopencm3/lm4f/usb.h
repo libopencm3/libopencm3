@@ -79,9 +79,9 @@
 #define USB_TEST			MMIO8(USB_BASE + 0x0F)
 
 /* USB FIFO Endpoint [0-7] */
-#define USB_FIFO8(n)			MMIO8(USB_BASE + 0x20 + n*0x04)
-#define USB_FIFO16(n)			MMIO16(USB_BASE + 0x20 + n*0x04)
-#define USB_FIFO32(n)			MMIO32(USB_BASE + 0x20 + n*0x04)
+#define USB_FIFO8(n)			MMIO8(USB_BASE + 0x20 + (n)*0x04)
+#define USB_FIFO16(n)			MMIO16(USB_BASE + 0x20 + (n)*0x04)
+#define USB_FIFO32(n)			MMIO32(USB_BASE + 0x20 + (n)*0x04)
 
 /* USB Transmit Dynamic FIFO Sizing */
 #define USB_TXFIFOSZ			MMIO8(USB_BASE + 0x62)

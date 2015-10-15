@@ -299,8 +299,8 @@ void gpio_set_output_config(uint32_t gpioport, enum gpio_output_type otype,
 	}
 }
 
-#define PCTL_AF(pin, af)		(af << (pin << 2))
-#define PCTL_MASK(pin)			PCTL_AF(pin, 0xf)
+#define PCTL_AF(pin, af)		((af) << ((pin) << 2))
+#define PCTL_MASK(pin)			PCTL_AF((pin), 0xf)
 /**
  * \brief Multiplex group of pins to the given alternate function
  *

@@ -42,7 +42,7 @@
 #define OTG_GCCFG			0x038
 #define OTG_CID				0x03C
 #define OTG_HPTXFSIZ			0x100
-#define OTG_DIEPTXF(x)			(0x104 + 4*(x-1))
+#define OTG_DIEPTXF(x)			(0x104 + 4*((x)-1))
 
 /* Host-mode Control and Status Registers */
 #define OTG_HCFG			0x400
