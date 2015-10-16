@@ -34,6 +34,8 @@
 #ifndef LIBOPENCM3_ADC_H
 #define LIBOPENCM3_ADC_H
 
+#include <libopencm3/stm32/common/adc_common_v2.h>
+
 #define ADC1		ADC1_BASE
 #define ADC2		ADC2_BASE
 #define ADC3		ADC3_BASE
@@ -863,8 +865,6 @@
 
 BEGIN_DECLS
 
-void adc_power_on(uint32_t adc);
-void adc_power_off(uint32_t adc);
 void adc_enable_analog_watchdog_regular(uint32_t adc);
 void adc_disable_analog_watchdog_regular(uint32_t adc);
 void adc_enable_analog_watchdog_injected(uint32_t adc);

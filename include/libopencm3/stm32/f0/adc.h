@@ -33,6 +33,8 @@
 #ifndef LIBOPENCM3_ADC_H
 #define LIBOPENCM3_ADC_H
 
+#include <libopencm3/stm32/common/adc_common_v2.h>
+
 /*****************************************************************************/
 /* Module definitions                                                        */
 /*****************************************************************************/
@@ -305,8 +307,6 @@ void adc_enable_eoc_interrupt(uint32_t adc);
 void adc_disable_eoc_interrupt(uint32_t adc);
 
 /* Basic configuration */
-void adc_power_off(uint32_t adc);
-void adc_power_on(uint32_t adc);
 void adc_set_clk_source(uint32_t adc, uint32_t source);
 void adc_set_regular_sequence(uint32_t adc, uint8_t length, uint8_t channel[]);
 void adc_set_sample_time_on_all_channels(uint32_t adc, uint8_t time);
