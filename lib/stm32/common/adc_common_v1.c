@@ -53,7 +53,7 @@ and ADC, reset ADC and set the prescaler divider. Set dual mode to independent
 
 @code
     rcc_periph_clock_enable(RCC_ADC1);
-    adc_off(ADC1);
+    adc_power_off(ADC1);
     rcc_periph_reset_pulse(RST_ADC1);
     rcc_set_adcpre(RCC_CFGR_ADCPRE_PCLK2_DIV2);
     adc_set_dual_mode(ADC_CR1_DUALMOD_IND);
@@ -104,7 +104,7 @@ Turn off the ADC to reduce power consumption to a few microamps.
 adc_reg_base.
 */
 
-void adc_off(uint32_t adc)
+void adc_power_off(uint32_t adc)
 {
 	ADC_CR2(adc) &= ~ADC_CR2_ADON;
 }
