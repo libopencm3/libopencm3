@@ -357,7 +357,7 @@ specific memorymap.h header before including this header file.*/
 BEGIN_DECLS
 
 void adc_power_on(uint32_t adc);
-void adc_off(uint32_t adc);
+void adc_power_off(uint32_t adc);
 void adc_enable_analog_watchdog_regular(uint32_t adc);
 void adc_disable_analog_watchdog_regular(uint32_t adc);
 void adc_enable_analog_watchdog_injected(uint32_t adc);
