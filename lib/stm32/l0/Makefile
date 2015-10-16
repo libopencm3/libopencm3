@@ -39,6 +39,7 @@ OBJS		= gpio.o rcc.o desig.o
 OBJS		+= pwr_common_all.o pwr_common_l01.o
 
 OBJS            += gpio_common_all.o gpio_common_f0234.o rcc_common_all.o
+OBJS		+= adc_common_v2.o
 OBJS		+= crs_common_all.o
 
 OBJS            += usb.o usb_control.o usb_standard.o
