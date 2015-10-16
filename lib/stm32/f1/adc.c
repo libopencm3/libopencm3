@@ -55,7 +55,7 @@ and ADC, reset ADC and set the prescaler divider. Set dual mode to independent
 
 @code
 	rcc_peripheral_enable_clock(&RCC_APB2ENR, RCC_APB2ENR_ADC1EN);
-	adc_off(ADC1);
+	adc_power_off(ADC1);
 	rcc_peripheral_reset(&RCC_APB2RSTR, RCC_APB2RSTR_ADC1RST);
 	rcc_peripheral_clear_reset(&RCC_APB2RSTR, RCC_APB2RSTR_ADC1RST);
 	rcc_set_adcpre(RCC_CFGR_ADCPRE_PCLK2_DIV2);
