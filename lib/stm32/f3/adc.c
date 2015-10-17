@@ -115,7 +115,7 @@ void adc_power_off(uint32_t adc)
 
 void adc_enable_analog_watchdog_regular(uint32_t adc)
 {
-	ADC_CFGR(adc) |= ADC_CFGR_AWD1EN;
+	ADC_CFGR1(adc) |= ADC_CFGR1_AWD1EN;
 }
 
 /*---------------------------------------------------------------------------*/
@@ -130,7 +130,7 @@ void adc_enable_analog_watchdog_regular(uint32_t adc)
  */
 void adc_disable_analog_watchdog_regular(uint32_t adc)
 {
-	ADC_CFGR(adc) &= ~ADC_CFGR_AWD1EN;
+	ADC_CFGR1(adc) &= ~ADC_CFGR1_AWD1EN;
 }
 
 /*---------------------------------------------------------------------------*/
@@ -146,7 +146,7 @@ void adc_disable_analog_watchdog_regular(uint32_t adc)
 
 void adc_enable_analog_watchdog_injected(uint32_t adc)
 {
-	ADC_CFGR(adc) |= ADC_CFGR_JAWD1EN;
+	ADC_CFGR1(adc) |= ADC_CFGR1_JAWD1EN;
 }
 
 /*---------------------------------------------------------------------------*/
@@ -158,7 +158,7 @@ void adc_enable_analog_watchdog_injected(uint32_t adc)
 
 void adc_disable_analog_watchdog_injected(uint32_t adc)
 {
-	ADC_CFGR(adc) &= ~ADC_CFGR_JAWD1EN;
+	ADC_CFGR1(adc) &= ~ADC_CFGR1_JAWD1EN;
 }
 
 /*---------------------------------------------------------------------------*/
@@ -182,8 +182,8 @@ void adc_enable_discontinuous_mode_regular(uint32_t adc, uint8_t length)
 	if ((length-1) > 7) {
 		return;
 	}
-	ADC_CFGR(adc) |= ADC_CFGR_DISCEN;
-	ADC_CFGR(adc) |= ((length-1) << ADC_CFGR_DISCNUM_SHIFT);
+	ADC_CFGR1(adc) |= ADC_CFGR1_DISCEN;
+	ADC_CFGR1(adc) |= ((length-1) << ADC_CFGR1_DISCNUM_SHIFT);
 }
 
 /*---------------------------------------------------------------------------*/
@@ -195,7 +195,7 @@ void adc_enable_discontinuous_mode_regular(uint32_t adc, uint8_t length)
 
 void adc_disable_discontinuous_mode_regular(uint32_t adc)
 {
-	ADC_CFGR(adc) &= ~ADC_CFGR_DISCEN;
+	ADC_CFGR1(adc) &= ~ADC_CFGR1_DISCEN;
 }
 
 /*---------------------------------------------------------------------------*/
@@ -211,7 +211,7 @@ void adc_disable_discontinuous_mode_regular(uint32_t adc)
 
 void adc_enable_discontinuous_mode_injected(uint32_t adc)
 {
-	ADC_CFGR(adc) |= ADC_CFGR_JDISCEN;
+	ADC_CFGR1(adc) |= ADC_CFGR1_JDISCEN;
 }
 
 /*---------------------------------------------------------------------------*/
@@ -223,7 +223,7 @@ void adc_enable_discontinuous_mode_injected(uint32_t adc)
 
 void adc_disable_discontinuous_mode_injected(uint32_t adc)
 {
-	ADC_CFGR(adc) &= ~ADC_CFGR_JDISCEN;
+	ADC_CFGR1(adc) &= ~ADC_CFGR1_JDISCEN;
 }
 
 /*---------------------------------------------------------------------------*/
@@ -240,7 +240,7 @@ void adc_disable_discontinuous_mode_injected(uint32_t adc)
 void adc_enable_automatic_injected_group_conversion(uint32_t adc)
 {
 	adc_disable_external_trigger_injected(adc);
-	ADC_CFGR(adc) |= ADC_CFGR_JAUTO;
+	ADC_CFGR1(adc) |= ADC_CFGR1_JAUTO;
 }
 
 /*---------------------------------------------------------------------------*/
@@ -252,7 +252,7 @@ void adc_enable_automatic_injected_group_conversion(uint32_t adc)
 
 void adc_disable_automatic_injected_group_conversion(uint32_t adc)
 {
-	ADC_CFGR(adc) &= ~ADC_CFGR_JAUTO;
+	ADC_CFGR1(adc) &= ~ADC_CFGR1_JAUTO;
 }
 /*---------------------------------------------------------------------------*/
 /** @brief ADC Enable Analog Watchdog for All Regular and/or Injected Channels
@@ -274,7 +274,7 @@ void adc_disable_automatic_injected_group_conversion(uint32_t adc)
 
 void adc_enable_analog_watchdog_on_all_channels(uint32_t adc)
 {
-	ADC_CFGR(adc) &= ~ADC_CFGR_AWD1SGL;
+	ADC_CFGR1(adc) &= ~ADC_CFGR1_AWD1SGL;
 }
 
 /*---------------------------------------------------------------------------*/
@@ -301,12 +301,12 @@ void adc_enable_analog_watchdog_on_selected_channel(uint32_t adc,
 {
 	uint32_t reg32;
 
-	reg32 = (ADC_CFGR(adc) & ~ADC_CFGR_AWD1CH_MASK); /* Clear bit [4:0]. */
+	reg32 = (ADC_CFGR1(adc) & ~ADC_CFGR1_AWD1CH_MASK); /* Clear bit [4:0]. */
 	if (channel < 18) {
 		reg32 |= channel;
 	}
-	ADC_CFGR(adc) = reg32;
-	ADC_CFGR(adc) |= ADC_CFGR_AWD1SGL;
+	ADC_CFGR1(adc) = reg32;
+	ADC_CFGR1(adc) |= ADC_CFGR1_AWD1SGL;
 }
 
 /*---------------------------------------------------------------------------*/
@@ -515,7 +515,7 @@ void adc_start_conversion_injected(uint32_t adc)
 
 void adc_set_left_aligned(uint32_t adc)
 {
-	ADC_CFGR(adc) |= ADC_CFGR_ALIGN;
+	ADC_CFGR1(adc) |= ADC_CFGR1_ALIGN;
 }
 
 /*---------------------------------------------------------------------------*/
@@ -527,7 +527,7 @@ void adc_set_left_aligned(uint32_t adc)
 
 void adc_set_right_aligned(uint32_t adc)
 {
-	ADC_CFGR(adc) &= ~ADC_CFGR_ALIGN;
+	ADC_CFGR1(adc) &= ~ADC_CFGR1_ALIGN;
 }
 
 /*---------------------------------------------------------------------------*/
@@ -539,7 +539,7 @@ void adc_set_right_aligned(uint32_t adc)
 
 void adc_enable_dma(uint32_t adc)
 {
-	ADC_CFGR(adc) |= ADC_CFGR_DMAEN;
+	ADC_CFGR1(adc) |= ADC_CFGR1_DMAEN;
 }
 
 /*---------------------------------------------------------------------------*/
@@ -551,7 +551,7 @@ void adc_enable_dma(uint32_t adc)
 
 void adc_disable_dma(uint32_t adc)
 {
-	ADC_CFGR(adc) &= ~ADC_CFGR_DMAEN;
+	ADC_CFGR1(adc) &= ~ADC_CFGR1_DMAEN;
 }
 
 /*---------------------------------------------------------------------------*/
@@ -972,11 +972,11 @@ void adc_set_multi_mode(uint32_t adc, uint32_t mode)
 void adc_enable_external_trigger_regular(uint32_t adc, uint32_t trigger,
 					 uint32_t polarity)
 {
-	uint32_t reg32 = ADC_CFGR(adc);
+	uint32_t reg32 = ADC_CFGR1(adc);
 
-	reg32 &= ~(ADC_CFGR_EXTSEL_MASK | ADC_CFGR_EXTEN_MASK);
+	reg32 &= ~(ADC_CFGR1_EXTSEL_MASK | ADC_CFGR1_EXTEN_MASK);
 	reg32 |= (trigger | polarity);
-	ADC_CFGR(adc) = reg32;
+	ADC_CFGR1(adc) = reg32;
 }
 
 /*---------------------------------------------------------------------------*/
@@ -988,7 +988,7 @@ void adc_enable_external_trigger_regular(uint32_t adc, uint32_t trigger,
 
 void adc_disable_external_trigger_regular(uint32_t adc)
 {
-	ADC_CFGR(adc) &= ~ADC_CFGR_EXTEN_MASK;
+	ADC_CFGR1(adc) &= ~ADC_CFGR1_EXTEN_MASK;
 }
 
 /*---------------------------------------------------------------------------*/
@@ -1040,11 +1040,11 @@ void adc_disable_external_trigger_injected(uint32_t adc)
 
 void adc_set_resolution(uint32_t adc, uint16_t resolution)
 {
-	uint32_t reg32 = ADC_CFGR(adc);
+	uint32_t reg32 = ADC_CFGR1(adc);
 
-	reg32 &= ~ADC_CFGR_RES_MASK;
+	reg32 &= ~ADC_CFGR1_RES_MASK;
 	reg32 |= resolution;
-	ADC_CFGR(adc) = reg32;
+	ADC_CFGR1(adc) = reg32;
 }
 
 /*---------------------------------------------------------------------------*/

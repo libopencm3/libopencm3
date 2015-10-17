@@ -68,12 +68,18 @@
 #define ADC4_CR			ADC_CR(ADC4_BASE)
 
 
-/* Configuration Register (ADCx_CFGR, x=1..4) CFGR */
-#define ADC_CFGR(adc_base)	MMIO32((adc_base) + 0x0C)
-#define ADC1_CFGR		ADC_CFGR(ADC1_BASE)
-#define ADC2_CFGR		ADC_CFGR(ADC2_BASE)
-#define ADC3_CFGR		ADC_CFGR(ADC3_BASE)
-#define ADC4_CFGR		ADC_CFGR(ADC4_BASE)
+/* Configuration Register (ADCx_CFGR1, x=1..4) CFGR */
+#define ADC_CFGR1(adc_base)	MMIO32((adc_base) + 0x0C)
+#define ADC1_CFGR1		ADC_CFGR1(ADC1_BASE)
+#define ADC2_CFGR1		ADC_CFGR1(ADC2_BASE)
+#define ADC3_CFGR1		ADC_CFGR1(ADC3_BASE)
+#define ADC4_CFGR1		ADC_CFGR1(ADC4_BASE)
+/* Compatibility with original ref man names */
+#define ADC_CFGR(adc)		ADC_CFGR1(adc)
+#define ADC1_CFGR		ADC_CFGR1(ADC1_BASE)
+#define ADC2_CFGR		ADC_CFGR1(ADC2_BASE)
+#define ADC3_CFGR		ADC_CFGR1(ADC3_BASE)
+#define ADC4_CFGR		ADC_CFGR1(ADC4_BASE)
 
 
 /* Sample Time Register 1 (ADCx_SMPR1, x=1..4) SMPR1 */
@@ -363,120 +369,120 @@
 #define ADC_CR_ADEN		(1 << 0)
 
 
-/*------- ADC_CFGR values ---------*/
+/*------- ADC_CFGR1 values ---------*/
 
 /* AWD1CH[4:0]: Analog watchdog 1 channel selection */
 /* Bit 0x0 reserved */
-#define ADC_CFGR_AWD1CH_ADC_IN_CH_1	(0x01 << 26)
-#define ADC_CFGR_AWD1CH_ADC_IN_CH_2	(0x02 << 26)
-#define ADC_CFGR_AWD1CH_ADC_IN_CH_3	(0x03 << 26)
-#define ADC_CFGR_AWD1CH_ADC_IN_CH_4	(0x04 << 26)
-#define ADC_CFGR_AWD1CH_ADC_IN_CH_5	(0x05 << 26)
-#define ADC_CFGR_AWD1CH_ADC_IN_CH_6	(0x06 << 26)
-#define ADC_CFGR_AWD1CH_ADC_IN_CH_7	(0x07 << 26)
-#define ADC_CFGR_AWD1CH_ADC_IN_CH_8	(0x08 << 26)
-#define ADC_CFGR_AWD1CH_ADC_IN_CH_9	(0x09 << 26)
-#define ADC_CFGR_AWD1CH_ADC_IN_CH_10	(0x0A << 26)
-#define ADC_CFGR_AWD1CH_ADC_IN_CH_11	(0x0B << 26)
-#define ADC_CFGR_AWD1CH_ADC_IN_CH_12	(0x0C << 26)
-#define ADC_CFGR_AWD1CH_ADC_IN_CH_13	(0x0D << 26)
-#define ADC_CFGR_AWD1CH_ADC_IN_CH_14	(0x0E << 26)
-#define ADC_CFGR_AWD1CH_ADC_IN_CH_15	(0x0F << 26)
-#define ADC_CFGR_AWD1CH_ADC_IN_CH_16	(0x10 << 26)
-#define ADC_CFGR_AWD1CH_ADC_IN_CH_17	(0x11 << 26)
+#define ADC_CFGR1_AWD1CH_ADC_IN_CH_1	(0x01 << 26)
+#define ADC_CFGR1_AWD1CH_ADC_IN_CH_2	(0x02 << 26)
+#define ADC_CFGR1_AWD1CH_ADC_IN_CH_3	(0x03 << 26)
+#define ADC_CFGR1_AWD1CH_ADC_IN_CH_4	(0x04 << 26)
+#define ADC_CFGR1_AWD1CH_ADC_IN_CH_5	(0x05 << 26)
+#define ADC_CFGR1_AWD1CH_ADC_IN_CH_6	(0x06 << 26)
+#define ADC_CFGR1_AWD1CH_ADC_IN_CH_7	(0x07 << 26)
+#define ADC_CFGR1_AWD1CH_ADC_IN_CH_8	(0x08 << 26)
+#define ADC_CFGR1_AWD1CH_ADC_IN_CH_9	(0x09 << 26)
+#define ADC_CFGR1_AWD1CH_ADC_IN_CH_10	(0x0A << 26)
+#define ADC_CFGR1_AWD1CH_ADC_IN_CH_11	(0x0B << 26)
+#define ADC_CFGR1_AWD1CH_ADC_IN_CH_12	(0x0C << 26)
+#define ADC_CFGR1_AWD1CH_ADC_IN_CH_13	(0x0D << 26)
+#define ADC_CFGR1_AWD1CH_ADC_IN_CH_14	(0x0E << 26)
+#define ADC_CFGR1_AWD1CH_ADC_IN_CH_15	(0x0F << 26)
+#define ADC_CFGR1_AWD1CH_ADC_IN_CH_16	(0x10 << 26)
+#define ADC_CFGR1_AWD1CH_ADC_IN_CH_17	(0x11 << 26)
 
-#define ADC_CFGR_AWD1CH_MASK		(0x1F << 26)
+#define ADC_CFGR1_AWD1CH_MASK		(0x1F << 26)
 
 /* Ohters bits reserved, must not be used */
 
 /* JAUTO: Autoamtic injected group conversion */
-#define ADC_CFGR_JAUTO		(1 << 25)
+#define ADC_CFGR1_JAUTO		(1 << 25)
 
 /* JAWD1EN: Analog watchdog 1 enable on injected channels */
-#define ADC_CFGR_JAWD1EN	(1 << 24)
+#define ADC_CFGR1_JAWD1EN	(1 << 24)
 
 /* AWD1EN: Analog watchdog 1 enable on regular channels */
-#define ADC_CFGR_AWD1EN		(1 << 23)
+#define ADC_CFGR1_AWD1EN		(1 << 23)
 
 /* AWD1SGL: Enable the watchdog 1 on a single channel or on all channels */
-#define ADC_CFGR_AWD1SGL	(1 << 22)
+#define ADC_CFGR1_AWD1SGL	(1 << 22)
 
 /* JQM: JSQR queue mode */
-#define ADC_CFGR_JQM		(1 << 21)
+#define ADC_CFGR1_JQM		(1 << 21)
 
 /* JDISCEN: Discontinuous mode on injected channels */
-#define ADC_CFGR_JDISCEN	(1 << 20)
+#define ADC_CFGR1_JDISCEN	(1 << 20)
 
 /* DISCNUM[2:0]: Discontinuous mode channel count */
-#define ADC_CFGR_DISCNUM_1_CH	(0x0 << 17)
-#define ADC_CFGR_DISCNUM_2_CH	(0x1 << 17)
-#define ADC_CFGR_DISCNUM_3_CH	(0x2 << 17)
-#define ADC_CFGR_DISCNUM_4_CH	(0x3 << 17)
-#define ADC_CFGR_DISCNUM_5_CH	(0x4 << 17)
-#define ADC_CFGR_DISCNUM_6_CH	(0x5 << 17)
-#define ADC_CFGR_DISCNUM_7_CH	(0x6 << 17)
-#define ADC_CFGR_DISCNUM_8_CH	(0x7 << 17)
-#define ADC_CFGR_DISCNUM_SHIFT	17
+#define ADC_CFGR1_DISCNUM_1_CH	(0x0 << 17)
+#define ADC_CFGR1_DISCNUM_2_CH	(0x1 << 17)
+#define ADC_CFGR1_DISCNUM_3_CH	(0x2 << 17)
+#define ADC_CFGR1_DISCNUM_4_CH	(0x3 << 17)
+#define ADC_CFGR1_DISCNUM_5_CH	(0x4 << 17)
+#define ADC_CFGR1_DISCNUM_6_CH	(0x5 << 17)
+#define ADC_CFGR1_DISCNUM_7_CH	(0x6 << 17)
+#define ADC_CFGR1_DISCNUM_8_CH	(0x7 << 17)
+#define ADC_CFGR1_DISCNUM_SHIFT	17
 
 /* DISCEN: Discontinuous mode for regular channels */
-#define ADC_CFGR_DISCEN		(1 << 16)
+#define ADC_CFGR1_DISCEN		(1 << 16)
 
 /* AUTDLY: Delayed conversion mode */
-#define ADC_CFGR_AUTDLY		(1 << 14)
+#define ADC_CFGR1_AUTDLY		(1 << 14)
 
 /* CONT: Single / continuous conversion mode for regular conversions */
-#define ADC_CFGR_CONT		(1 << 13)
+#define ADC_CFGR1_CONT		(1 << 13)
 
 /* OVRMOD: Overrun Mode */
-#define ADC_CFGR_OVRMOD		(1 << 12)
+#define ADC_CFGR1_OVRMOD		(1 << 12)
 
 /*
  * EXTEN[1:0]: External trigger enable and polarity selection for regular
  * channels
  */
-#define ADC_CFGR_EXTEN_DISABLED		(0x0 << 10)
-#define ADC_CFGR_EXTEN_RISING_EDGE	(0x1 << 10)
-#define ADC_CFGR_EXTEN_FALLING_EDGE	(0x2 << 10)
-#define ADC_CFGR_EXTEN_BOTH_EDGES	(0x3 << 10)
+#define ADC_CFGR1_EXTEN_DISABLED		(0x0 << 10)
+#define ADC_CFGR1_EXTEN_RISING_EDGE	(0x1 << 10)
+#define ADC_CFGR1_EXTEN_FALLING_EDGE	(0x2 << 10)
+#define ADC_CFGR1_EXTEN_BOTH_EDGES	(0x3 << 10)
 
-#define ADC_CFGR_EXTEN_MASK		(0x3 << 10)
+#define ADC_CFGR1_EXTEN_MASK		(0x3 << 10)
 
 /* EXTSEL[3:0]: External trigger selection for regular group */
-#define ADC_CFGR_EXTSEL_EVENT_0		(0x0 << 6)
-#define ADC_CFGR_EXTSEL_EVENT_1		(0x1 << 6)
-#define ADC_CFGR_EXTSEL_EVENT_2		(0x2 << 6)
-#define ADC_CFGR_EXTSEL_EVENT_3		(0x3 << 6)
-#define ADC_CFGR_EXTSEL_EVENT_4		(0x4 << 6)
-#define ADC_CFGR_EXTSEL_EVENT_5		(0x5 << 6)
-#define ADC_CFGR_EXTSEL_EVENT_6		(0x6 << 6)
-#define ADC_CFGR_EXTSEL_EVENT_7		(0x7 << 6)
-#define ADC_CFGR_EXTSEL_EVENT_8		(0x8 << 6)
-#define ADC_CFGR_EXTSEL_EVENT_9		(0x9 << 6)
-#define ADC_CFGR_EXTSEL_EVENT_10	(0xA << 6)
-#define ADC_CFGR_EXTSEL_EVENT_11	(0xB << 6)
-#define ADC_CFGR_EXTSEL_EVENT_12	(0xC << 6)
-#define ADC_CFGR_EXTSEL_EVENT_13	(0xD << 6)
-#define ADC_CFGR_EXTSEL_EVENT_14	(0xE << 6)
-#define ADC_CFGR_EXTSEL_EVENT_15	(0xF << 6)
+#define ADC_CFGR1_EXTSEL_EVENT_0		(0x0 << 6)
+#define ADC_CFGR1_EXTSEL_EVENT_1		(0x1 << 6)
+#define ADC_CFGR1_EXTSEL_EVENT_2		(0x2 << 6)
+#define ADC_CFGR1_EXTSEL_EVENT_3		(0x3 << 6)
+#define ADC_CFGR1_EXTSEL_EVENT_4		(0x4 << 6)
+#define ADC_CFGR1_EXTSEL_EVENT_5		(0x5 << 6)
+#define ADC_CFGR1_EXTSEL_EVENT_6		(0x6 << 6)
+#define ADC_CFGR1_EXTSEL_EVENT_7		(0x7 << 6)
+#define ADC_CFGR1_EXTSEL_EVENT_8		(0x8 << 6)
+#define ADC_CFGR1_EXTSEL_EVENT_9		(0x9 << 6)
+#define ADC_CFGR1_EXTSEL_EVENT_10	(0xA << 6)
+#define ADC_CFGR1_EXTSEL_EVENT_11	(0xB << 6)
+#define ADC_CFGR1_EXTSEL_EVENT_12	(0xC << 6)
+#define ADC_CFGR1_EXTSEL_EVENT_13	(0xD << 6)
+#define ADC_CFGR1_EXTSEL_EVENT_14	(0xE << 6)
+#define ADC_CFGR1_EXTSEL_EVENT_15	(0xF << 6)
 
-#define ADC_CFGR_EXTSEL_MASK		(0xF << 6)
+#define ADC_CFGR1_EXTSEL_MASK		(0xF << 6)
 
 /* ALIGN: Data alignment */
-#define ADC_CFGR_ALIGN		(1 << 5)
+#define ADC_CFGR1_ALIGN		(1 << 5)
 
 /* RES[1:0]: Data resolution */
-#define ADC_CFGR_RES_12_BIT	(0x0 << 3)
-#define ADC_CFGR_RES_10_BIT	(0x1 << 3)
-#define ADC_CFGR_RES_8_BIT	(0x2 << 3)
-#define ADC_CFGR_RES_6_BIT	(0x3 << 3)
+#define ADC_CFGR1_RES_12_BIT	(0x0 << 3)
+#define ADC_CFGR1_RES_10_BIT	(0x1 << 3)
+#define ADC_CFGR1_RES_8_BIT	(0x2 << 3)
+#define ADC_CFGR1_RES_6_BIT	(0x3 << 3)
 
-#define ADC_CFGR_RES_MASK	(0x3 << 3)
+#define ADC_CFGR1_RES_MASK	(0x3 << 3)
 
 /* DMACFG: Direct memory access configuration */
-#define ADC_CFGR_DMACFG		(1 << 1)
+#define ADC_CFGR1_DMACFG		(1 << 1)
 
 /* DMAEN: Direct memory access enable */
-#define ADC_CFGR_DMAEN		(1 << 0)
+#define ADC_CFGR1_DMAEN		(1 << 0)
 
 
 /****************************************************************************/
