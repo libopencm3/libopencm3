@@ -113,3 +113,27 @@ void adc_power_off(uint32_t adc)
 	while (!adc_is_power_off(adc));
 }
 
+/**
+ * Enable Continuous Conversion Mode
+ * In this mode the ADC starts a new conversion of a single channel or a channel
+ * group immediately following completion of the previous channel group
+ * conversion.
+ *
+ * @param[in] adc ADC block register address base @ref adc_reg_base
+ */
+void adc_set_continuous_conversion_mode(uint32_t adc)
+{
+	ADC_CFGR1(adc) |= ADC_CFGR1_CONT;
+}
+
+/**
+ * Enable Single Conversion Mode
+ * In this mode the ADC performs a conversion of one channel or a channel group
+ * and stops.
+ *
+ * @param[in] adc ADC block register address base @ref adc_reg_base
+ */
+void adc_set_single_conversion_mode(uint32_t adc)
+{
+	ADC_CFGR1(adc) &= ~ADC_CFGR1_CONT;
+}

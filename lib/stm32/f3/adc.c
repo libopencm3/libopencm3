@@ -540,36 +540,6 @@ void adc_disable_dma(uint32_t adc)
 	ADC_CFGR1(adc) &= ~ADC_CFGR1_DMAEN;
 }
 
-/*---------------------------------------------------------------------------*/
-/** @brief ADC Enable Continuous Conversion Mode
- *
- * In this mode the ADC starts a new conversion of a single channel or a channel
- * group immediately following completion of the previous channel group
- * conversion.
- *
- * @param[in] adc Unsigned int32. ADC block register address base
- * @ref adc_reg_base
- */
-
-void adc_set_continuous_conversion_mode(uint32_t adc)
-{
-	ADC_CFGR(adc) |= ADC_CFGR_CONT;
-}
-
-/*---------------------------------------------------------------------------*/
-/** @brief ADC Enable Single Conversion Mode
- *
- * In this mode the ADC performs a conversion of one channel or a channel group
- * and stops.
- *
- * @param[in] adc Unsigned int32. ADC block register address base
- * @ref adc_reg_base
- */
-
-void adc_set_single_conversion_mode(uint32_t adc)
-{
-	ADC_CFGR(adc) &= ~ADC_CFGR_CONT;
-}
 
 /*---------------------------------------------------------------------------*/
 /** @brief ADC Set the Sample Time for a Single Channel

@@ -275,8 +275,6 @@ enum adc_opmode {
 BEGIN_DECLS
 
 /* Operation mode API */
-void adc_set_continuous_conversion_mode(uint32_t adc);
-void adc_set_single_conversion_mode(uint32_t adc);
 void adc_enable_discontinuous_mode(uint32_t adc);
 void adc_disable_discontinuous_mode(uint32_t adc);
 void adc_set_operation_mode(uint32_t adc, enum adc_opmode opmode);

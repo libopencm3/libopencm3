@@ -46,6 +46,8 @@ bool adc_is_power_on(uint32_t adc);
 void adc_power_off_async(uint32_t adc);
 void adc_power_off(uint32_t adc);
 bool adc_is_power_off(uint32_t adc);
+void adc_set_continuous_conversion_mode(uint32_t adc);
+void adc_set_single_conversion_mode(uint32_t adc);
 
 END_DECLS
 
