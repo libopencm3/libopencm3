@@ -898,8 +898,6 @@ void adc_set_left_aligned(uint32_t adc);
 void adc_set_right_aligned(uint32_t adc);
 void adc_enable_dma(uint32_t adc);
 void adc_disable_dma(uint32_t adc);
-void adc_set_continuous_conversion_mode(uint32_t adc);
-void adc_set_single_conversion_mode(uint32_t adc);
 void adc_set_sample_time(uint32_t adc, uint8_t channel, uint8_t time);
 void adc_set_sample_time_on_all_channels(uint32_t adc, uint8_t time);
 void adc_set_watchdog_high_threshold(uint32_t adc, uint8_t threshold);
