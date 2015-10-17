@@ -402,7 +402,6 @@ and ADC2
 BEGIN_DECLS
 
 void adc_start_conversion_direct(uint32_t adc);
-void adc_set_single_channel(uint32_t adc, uint8_t channel);
 void adc_set_dual_mode(uint32_t mode);
 void adc_enable_temperature_sensor(uint32_t adc);
 void adc_disable_temperature_sensor(uint32_t adc);
