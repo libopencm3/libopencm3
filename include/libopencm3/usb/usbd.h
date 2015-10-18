@@ -114,20 +114,41 @@ extern void usbd_register_resume_callback(usbd_device *usbd_dev,
 extern void usbd_register_sof_callback(usbd_device *usbd_dev,
 				       void (*callback)(void));
 
+/** Callback function pointer for control transfer completion
+ * @param req Control request data
+ */
 typedef void (*usbd_control_complete_callback)(usbd_device *usbd_dev,
 		struct usb_setup_data *req);
 
+/** Callback function pointer for control transfers
+ * @param req Control request data,
+ * @param buf Buffer for DATA stage of control transfer, if applicable.
+ * @param len Size of buf
+ * @param complete Function to be called on completion.
+ */
 typedef enum usbd_request_return_codes (*usbd_control_callback)(
 		usbd_device *usbd_dev,
 		struct usb_setup_data *req, uint8_t **buf, uint16_t *len,
 		usbd_control_complete_callback *complete);
 
+/** Callback function pointer for standard Set Configuration requests
+ * @param wValue new configuration value
+ */
 typedef void (*usbd_set_config_callback)(usbd_device *usbd_dev,
 					 uint16_t wValue);
 
+/** Callback function pointer for standard Set Interface (alternate setting) requests
+ * @param wIndex Interface number
+ * @param wValue Alternate setting
+ */
 typedef void (*usbd_set_altsetting_callback)(usbd_device *usbd_dev,
 					     uint16_t wIndex, uint16_t wValue);
 
+/** Callback function pointer for endpoint CTR event (?)
+ *
+ * Called when an OUT, IN, or SETUP token is received (?)
+ * @param ep EP number
+ */
 typedef void (*usbd_endpoint_callback)(usbd_device *usbd_dev, uint8_t ep);
 
 /* <usb_control.c> */
@@ -178,7 +199,7 @@ extern void usbd_ep_setup(usbd_device *usbd_dev, uint8_t addr, uint8_t type,
 
 /** Write a packet
  * @param addr EP address (direction is ignored)
- * @param len # of bytes
+ * @param len # of bytes, must not exceed wMaxPacketSize
  * @return 0 if failed, len if successful
  */
 extern uint16_t usbd_ep_write_packet(usbd_device *usbd_dev, uint8_t addr,

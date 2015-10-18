@@ -602,7 +602,6 @@ enum usbd_request_return_codes
 _usbd_standard_request(usbd_device *usbd_dev, struct usb_setup_data *req,
 		       uint8_t **buf, uint16_t *len)
 {
-	/* FIXME: Have class/vendor requests as well. */
 	if ((req->bmRequestType & USB_REQ_TYPE_TYPE) != USB_REQ_TYPE_STANDARD) {
 		return USBD_REQ_NOTSUPP;
 	}
