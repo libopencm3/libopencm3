@@ -592,7 +592,7 @@ void rcc_set_pll_source(uint32_t pllsrc);
 void rcc_set_ppre2(uint32_t ppre2);
 void rcc_set_ppre1(uint32_t ppre1);
 void rcc_set_hpre(uint32_t hpre);
-void rcc_set_main_pll_hsi(uint32_t pll);
+void rcc_set_pll_multiplier(uint32_t pll);
 uint32_t rcc_get_system_clock_source(void);
 void rcc_backupdomain_reset(void);
 void rcc_clock_setup_hsi(const clock_scale_t *clock);

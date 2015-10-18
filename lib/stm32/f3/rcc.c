@@ -366,7 +366,7 @@ void rcc_set_hpre(uint32_t hpre)
 }
 
 
-void rcc_set_main_pll_hsi(uint32_t pll)
+void rcc_set_pll_multiplier(uint32_t pll)
 {
 	RCC_CFGR = (~RCC_CFGR_PLLMUL_MASK & RCC_CFGR) |
 		   (pll << RCC_CFGR_PLLMUL_SHIFT);
@@ -392,7 +392,7 @@ void rcc_clock_setup_hsi(const clock_scale_t *clock)
 	rcc_osc_off(PLL);
 	rcc_wait_for_osc_not_ready(PLL);
 	rcc_set_pll_source(clock->pllsrc);
-	rcc_set_main_pll_hsi(clock->pll);
+	rcc_set_pll_multiplier(clock->pll);
 	/* Enable PLL oscillator and wait for it to stabilize. */
 	rcc_osc_on(PLL);
 	rcc_wait_for_osc_ready(PLL);
