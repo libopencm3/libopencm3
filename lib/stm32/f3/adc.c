@@ -1197,5 +1197,30 @@ void adc_disable_temperature_sensor()
 
 /*---------------------------------------------------------------------------*/
 
+/**
+ * Enable the ADC Voltage regulator
+ * Before any use of the ADC, the ADC Voltage regulator must be enabled.
+ * You must wait up to 10uSecs afterwards before trying anything else.
+ * @param[in] adc ADC block register address base
+ * @sa adc_disable_regulator
+ */
+void adc_enable_regulator(uint32_t adc)
+{
+	ADC_CR(adc) &= ~ADC_CR_ADVREGEN_MASK;
+	ADC_CR(adc) |= ADC_CR_ADVREGEN_ENABLE;
+}
+
+/**
+ * Disable the ADC Voltage regulator
+ * You can disable the adc vreg when not in use to save power
+ * @param[in] adc ADC block register address base
+ * @sa adc_enable_regulator
+ */
+void adc_disable_regulator(uint32_t adc)
+{
+	ADC_CR(adc) &= ~ADC_CR_ADVREGEN_MASK;
+	ADC_CR(adc) |= ADC_CR_ADVREGEN_DISABLE;
+}
+
 /**@}*/
 
