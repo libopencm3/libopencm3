@@ -334,11 +334,10 @@
 /* ADCALDIF: Differential mode for calibration */
 #define ADC_CR_ADCALDIF		(1 << 30)
 
-/* ADVREGEN: ADC voltage regulador enable */
-#define ADC_CR_ADVREGEN_INTERMEDIATE	(0x0 << 28)
+/** ADVREGEN: ADC voltage regulator enable */
 #define ADC_CR_ADVREGEN_ENABLE		(0x1 << 28)
 #define ADC_CR_ADVREGEN_DISABLE		(0x2 << 28)
-/* --- Bit 0x3 reserved --- */
+#define ADC_CR_ADVREGEN_MASK		(0x3 << 28)
 
 /* JADSTP: ADC stop of injected conversion command */
 #define ADC_CR_JADSTP		(1 << 5)
@@ -920,6 +919,8 @@ bool adc_awd(uint32_t adc);
 /*void adc_set_dma_terminate(uint32_t adc);*/
 void adc_enable_temperature_sensor(void);
 void adc_disable_temperature_sensor(void);
+void adc_enable_regulator(uint32_t adc);
+void adc_disable_regulator(uint32_t adc);
 
 END_DECLS
 
