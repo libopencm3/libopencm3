@@ -368,8 +368,11 @@ void rcc_set_hpre(uint32_t hpre)
 
 void rcc_set_pll_multiplier(uint32_t pll)
 {
-	RCC_CFGR = (~RCC_CFGR_PLLMUL_MASK & RCC_CFGR) |
-		   (pll << RCC_CFGR_PLLMUL_SHIFT);
+	uint32_t reg32;
+
+	reg32 = RCC_CFGR;
+	reg32 &= ~(RCC_CFGR_PLLMUL_MASK << RCC_CFGR_PLLMUL_SHIFT);
+	RCC_CFGR = (reg32 | (pll << RCC_CFGR_PLLMUL_SHIFT));
 }
 
 
