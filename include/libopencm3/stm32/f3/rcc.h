@@ -124,6 +124,7 @@
 
 /* PPRE2: APB high-speed prescaler (APB2) */
 #define RCC_CFGR_PPRE2_SHIFT			11
+#define RCC_CFGR_PPRE2_MASK			0x7
 /* 0XX: HCLK not divided */
 #define RCC_CFGR_PPRE2_DIV_NONE			0x0
 
@@ -134,6 +135,7 @@
 
 /* PPRE1:APB Low-speed prescaler (APB1) */
 #define RCC_CFGR_PPRE1_SHIFT			8
+#define RCC_CFGR_PPRE1_MASK			0x7
 /* 0XX: HCLK not divided */
 #define RCC_CFGR_PPRE1_DIV_NONE			0x0
 #define RCC_CFGR_PPRE1_DIV_2			0x4
@@ -143,6 +145,7 @@
 
 /* HPRE: HLCK prescaler */
 #define RCC_CFGR_HPRE_SHIFT			4
+#define RCC_CFGR_HPRE_MASK			0xf
 /* 0XXX: SYSCLK not divided */
 #define RCC_CFGR_HPRE_DIV_NONE			0x0
 #define RCC_CFGR_HPRE_DIV_2			0x8

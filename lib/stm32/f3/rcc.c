@@ -343,8 +343,8 @@ void rcc_set_ppre2(uint32_t ppre2)
 	uint32_t reg32;
 
 	reg32 = RCC_CFGR;
-	reg32 &= ~((1 << 13) | (1 << 14) | (1 << 15));
-	RCC_CFGR = (reg32 | (ppre2 << 11));
+	reg32 &= ~(RCC_CFGR_PPRE2_MASK << RCC_CFGR_PPRE2_SHIFT);
+	RCC_CFGR = (reg32 | (ppre2 << RCC_CFGR_PPRE2_SHIFT));
 }
 
 void rcc_set_ppre1(uint32_t ppre1)
@@ -352,8 +352,8 @@ void rcc_set_ppre1(uint32_t ppre1)
 	uint32_t reg32;
 
 	reg32 = RCC_CFGR;
-	reg32 &= ~((1 << 10) | (1 << 11) | (1 << 12));
-	RCC_CFGR = (reg32 | (ppre1 << 8));
+	reg32 &= ~(RCC_CFGR_PPRE1_MASK << RCC_CFGR_PPRE1_SHIFT);
+	RCC_CFGR = (reg32 | (ppre1 << RCC_CFGR_PPRE1_SHIFT));
 }
 
 void rcc_set_hpre(uint32_t hpre)
@@ -361,8 +361,8 @@ void rcc_set_hpre(uint32_t hpre)
 	uint32_t reg32;
 
 	reg32 = RCC_CFGR;
-	reg32 &= ~((1 << 4) | (1 << 5) | (1 << 6) | (1 << 7));
-	RCC_CFGR = (reg32 | (hpre << 4));
+	reg32 &= ~(RCC_CFGR_HPRE_MASK << RCC_CFGR_HPRE_SHIFT);
+	RCC_CFGR = (reg32 | (hpre << RCC_CFGR_HPRE_SHIFT));
 }
 
 
