@@ -247,11 +247,16 @@
 #define ADC3_CALFACT		ADC_CALFACT(ADC3_BASE)
 #define ADC4_CALFACT		ADC_CALFACT(ADC4_BASE)
 
-/* ADC common (shared) registers */
-#define	ADC_COMMON_REGISTERS_BASE	(ADC1_BASE+0x300)
-#define ADC_CSR				MMIO32(ADC_COMMON_REGISTERS_BASE + 0x0)
-#define ADC_CCR				MMIO32(ADC_COMMON_REGISTERS_BASE + 0x8)
-#define ADC_CDR				MMIO32(ADC_COMMON_REGISTERS_BASE + 0xA)
+/* ADC common (shared) registers, adc_pair is ADC12 or ADC34 */
+#define ADC_CSR(adc_pair)		MMIO32((adc_pair) + 0x300 + 0x0)
+#define ADC_CCR(adc_pair)		MMIO32((adc_pair) + 0x300 + 0x8)
+#define ADC_CDR(adc_pair)		MMIO32((adc_pair) + 0x300 + 0xa)
+#define ADC12_CSR			ADC_CSR(ADC1)
+#define ADC12_CCR			ADC_CCR(ADC1)
+#define ADC12_CDR			ADC_CDR(ADC1)
+#define ADC34_CSR			ADC_CSR(ADC3)
+#define ADC34_CCR			ADC_CCR(ADC3)
+#define ADC34_CDR			ADC_CDR(ADC3)
 
 
 /*------- ADC_ISR values ---------*/
@@ -903,8 +908,8 @@ uint32_t adc_read_regular(uint32_t adc);
 uint32_t adc_read_injected(uint32_t adc, uint8_t reg);
 void adc_set_injected_offset(uint32_t adc, uint8_t reg, uint32_t offset);
 
-void adc_set_clk_prescale(uint32_t prescaler);
-void adc_set_multi_mode(uint32_t mode);
+void adc_set_clk_prescale(uint32_t adc, uint32_t prescaler);
+void adc_set_multi_mode(uint32_t adc, uint32_t mode);
 void adc_enable_external_trigger_regular(uint32_t adc, uint32_t trigger,
 					 uint32_t polarity);
 void adc_enable_external_trigger_injected(uint32_t adc, uint32_t trigger,
