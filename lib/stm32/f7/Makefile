@@ -40,7 +40,9 @@ TGT_CFLAGS	= -Os -g \
 
 ARFLAGS		= rcs
 
-OBJS		= gpio.o gpio_common_all.o gpio_common_f0234.o
+OBJS		= rcc.o gpio.o gpio_common_all.o gpio_common_f0234.o
+
+OBJS		+= rcc_common_all.o
 
 OBJS		+= rng_common_v1.o
 
