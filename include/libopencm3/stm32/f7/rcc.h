@@ -595,6 +595,39 @@
 #define RCC_DCKCFGR2_UART1SEL_MASK		0x3
 #define RCC_DCKCFGR2_UART1SEL_SHIFT		0
 
+extern uint32_t rcc_ahb_frequency;
+extern uint32_t rcc_apb1_frequency;
+extern uint32_t rcc_apb2_frequency;
+
+enum rcc_clock_3v3 {
+	RCC_CLOCK_3V3_216MHZ,
+	RCC_CLOCK_3V3_END
+};
+
+struct rcc_clock_scale {
+	uint8_t pllm;
+	uint16_t plln;
+	uint8_t pllp;
+	uint8_t pllq;
+	uint32_t flash_config;
+	uint8_t hpre;
+	uint8_t ppre1;
+	uint8_t ppre2;
+	uint8_t power_save;
+	uint32_t apb1_frequency;
+	uint32_t apb2_frequency;
+};
+
+extern const struct rcc_clock_scale rcc_hse_25mhz_3v3[RCC_CLOCK_3V3_END];
+
+enum rcc_osc {
+	RCC_PLL,
+	RCC_HSE,
+	RCC_HSI,
+	RCC_LSE,
+	RCC_LSI
+};
+
 #define _REG_BIT(base, bit)		(((base) << 5) + (bit))
 
 enum rcc_periph_clken {
@@ -870,7 +903,31 @@ enum rcc_periph_rst {
 #include <libopencm3/stm32/common/rcc_common_all.h>
 
 BEGIN_DECLS
-
+void rcc_osc_ready_int_clear(enum rcc_osc osc);
+void rcc_osc_ready_int_enable(enum rcc_osc osc);
+void rcc_osc_ready_int_disable(enum rcc_osc osc);
+int rcc_osc_ready_int_flag(enum rcc_osc osc);
+void rcc_css_int_clear(void);
+int rcc_css_int_flag(void);
+void rcc_wait_for_sysclk_status(enum rcc_osc osc);
+void rcc_osc_on(enum rcc_osc osc);
+void rcc_osc_off(enum rcc_osc osc);
+void rcc_css_enable(void);
+void rcc_css_disable(void);
+void rcc_osc_bypass_enable(enum rcc_osc osc);
+void rcc_osc_bypass_disable(enum rcc_osc osc);
+void rcc_set_sysclk_source(uint32_t clk);
+void rcc_set_pll_source(uint32_t pllsrc);
+void rcc_set_ppre2(uint32_t ppre2);
+void rcc_set_ppre1(uint32_t ppre1);
+void rcc_set_hpre(uint32_t hpre);
+void rcc_set_rtcpre(uint32_t rtcpre);
+void rcc_set_main_pll_hsi(uint32_t pllm, uint32_t plln, uint32_t pllp,
+			  uint32_t pllq);
+void rcc_set_main_pll_hse(uint32_t pllm, uint32_t plln, uint32_t pllp,
+			  uint32_t pllq);
+uint32_t rcc_system_clock_source(void);
+void rcc_clock_setup_hse_3v3(const struct rcc_clock_scale *clock);
 END_DECLS
 
 #endif
