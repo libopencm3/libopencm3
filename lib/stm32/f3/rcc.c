@@ -462,5 +462,15 @@ void rcc_usb_prescale_1(void)
 {
 	RCC_CFGR |= RCC_CFGR_USBPRES;
 }
+
+void rcc_adc_prescale(uint32_t prescale1, uint32_t prescale2)
+{
+	uint32_t clear_mask = (RCC_CFGR2_ADCxPRES_MASK << RCC_CFGR2_ADC12PRES_SHIFT) |
+		(RCC_CFGR2_ADCxPRES_MASK << RCC_CFGR2_ADC34PRES_SHIFT);
+	uint32_t set = (prescale1 << RCC_CFGR2_ADC12PRES_SHIFT) |
+		(prescale2 << RCC_CFGR2_ADC34PRES_SHIFT);
+	RCC_CFGR2 &= ~(clear_mask);
+	RCC_CFGR2 |= (set);
+}
 /**@}*/
 
