@@ -200,9 +200,11 @@
 
 /* --- RCC_APB2RSTR values ------------------------------------------------- */
 
+#define RCC_APB2RSTR_TIM20RST			(1 << 20)
 #define RCC_APB2RSTR_TIM17RST			(1 << 18)
 #define RCC_APB2RSTR_TIM16RST			(1 << 17)
 #define RCC_APB2RSTR_TIM15RST			(1 << 16)
+#define RCC_APB2RSTR_SPI4RST			(1 << 15)
 #define RCC_APB2RSTR_USART1RST			(1 << 14)
 #define RCC_APB2RSTR_TIM8RST			(1 << 13)
 #define RCC_APB2RSTR_SPI1RST			(1 << 12)
@@ -211,8 +213,10 @@
 
 /* --- RCC_APB1RSTR values ------------------------------------------------- */
 
-#define RCC_APB1RSTR_DACRST			(1 << 29)
+#define RCC_APB1RSTR_I2C3RST			(1 << 30)
+#define RCC_APB1RSTR_DAC1RST			(1 << 29)
 #define RCC_APB1RSTR_PWRRST			(1 << 28)
+#define RCC_APB1RSTR_DAC2RST			(1 << 26)
 #define RCC_APB1RSTR_CANRST			(1 << 25)
 #define RCC_APB1RSTR_USBRST			(1 << 23)
 #define RCC_APB1RSTR_I2C2RST			(1 << 22)
@@ -234,13 +238,16 @@
 #define RCC_AHBENR_ADC34EN			(1 << 29)
 #define RCC_AHBENR_ADC12EN			(1 << 28)
 #define RCC_AHBENR_TSCEN			(1 << 24)
+#define RCC_AHBENR_IOPGEN			(1 << 23)
 #define RCC_AHBENR_IOPFEN			(1 << 22)
 #define RCC_AHBENR_IOPEEN			(1 << 21)
 #define RCC_AHBENR_IOPDEN			(1 << 20)
 #define RCC_AHBENR_IOPCEN			(1 << 19)
 #define RCC_AHBENR_IOPBEN			(1 << 18)
 #define RCC_AHBENR_IOPAEN			(1 << 17)
+#define RCC_AHBENR_IOPHEN			(1 << 16)
 #define RCC_AHBENR_CRCEN			(1 << 6)
+#define RCC_AHBENR_FMCEN			(1 << 5)
 #define RCC_AHBENR_FLITFEN			(1 << 4)
 #define RCC_AHBENR_SRAMEN			(1 << 2)
 #define RCC_AHBENR_DMA2EN			(1 << 1)
@@ -248,9 +255,11 @@
 
 /* --- RCC_APB2ENR values -------------------------------------------------- */
 
+#define RCC_APB2ENR_TIM20EN			(1 << 20)
 #define RCC_APB2ENR_TIM17EN			(1 << 18)
 #define RCC_APB2ENR_TIM16EN			(1 << 17)
 #define RCC_APB2ENR_TIM15EN			(1 << 16)
+#define RCC_APB2ENR_SPI4EN			(1 << 15)
 #define RCC_APB2ENR_USART1EN			(1 << 14)
 #define RCC_APB2ENR_TIM8EN			(1 << 13)
 #define RCC_APB2ENR_SPI1EN			(1 << 12)
@@ -259,8 +268,10 @@
 
 /* --- RCC_APB1ENR values -------------------------------------------------- */
 
-#define RCC_APB1ENR_DACEN			(1 << 29)
+#define RCC_APB1ENR_I2C3EN			(1 << 30)
+#define RCC_APB1ENR_DAC1EN			(1 << 29)
 #define RCC_APB1ENR_PWREN			(1 << 28)
+#define RCC_APB1ENR_DAC2EN			(1 << 26)
 #define RCC_APB1ENR_CANEN			(1 << 25)
 #define RCC_APB1ENR_USBEN			(1 << 23)
 #define RCC_APB1ENR_I2C2EN			(1 << 22)
@@ -305,12 +316,15 @@
 #define RCC_AHBRSTR_ADC34RST			(1 << 29)
 #define RCC_AHBRSTR_ADC12RST			(1 << 28)
 #define RCC_AHBRSTR_TSCRST			(1 << 24)
+#define RCC_AHBRSTR_IOPGRST			(1 << 23)
 #define RCC_AHBRSTR_IOPFRST			(1 << 22)
 #define RCC_AHBRSTR_IOPERST			(1 << 21)
 #define RCC_AHBRSTR_IOPDRST			(1 << 20)
 #define RCC_AHBRSTR_IOPCRST			(1 << 19)
 #define RCC_AHBRSTR_IOPBRST			(1 << 18)
 #define RCC_AHBRSTR_IOPARST			(1 << 17)
+#define RCC_AHBRSTR_IOPHRST			(1 << 16)
+#define RCC_AHBRSTR_FMCRST			(1 << 5)
 
 /* --- RCC_CFGR2 values ---------------------------------------------------- */
 /* ADC34PRES: ADC34 prescaler */
@@ -451,13 +465,16 @@ enum rcc_periph_clken {
 	RCC_DMA2	= _REG_BIT(0x14, 1),/*0178*/
 	RCC_SRAM	= _REG_BIT(0x14, 2),/*0178*/
 	RCC_FLTIF	= _REG_BIT(0x14, 4),/*0178*/
+	RCC_FMC		= _REG_BIT(0x14, 5),/*0178*/
 	RCC_CRC		= _REG_BIT(0x14, 6),/*0178*/
+	RCC_GPIOH	= _REG_BIT(0x14, 16),/*0178*/
 	RCC_GPIOA	= _REG_BIT(0x14, 17),/*0178*/
 	RCC_GPIOB	= _REG_BIT(0x14, 18),/*0178*/
 	RCC_GPIOC	= _REG_BIT(0x14, 19),/*0178*/
 	RCC_GPIOD	= _REG_BIT(0x14, 20),/*0178*/
 	RCC_GPIOE	= _REG_BIT(0x14, 21),/*0178*/
 	RCC_GPIOF	= _REG_BIT(0x14, 22),/*0178*/
+	RCC_GPIOG	= _REG_BIT(0x14, 23),/*0178*/
 	RCC_TSC		= _REG_BIT(0x14, 24),/*0178*/
 	RCC_ADC12	= _REG_BIT(0x14, 28),/*01--*/
 	RCC_ADC34	= _REG_BIT(0x14, 29),/*01--*/
@@ -469,10 +486,12 @@ enum rcc_periph_clken {
 	RCC_SPI1	= _REG_BIT(0x18, 12),/*0178*/
 	RCC_TIM8	= _REG_BIT(0x18, 13),/*01--*/
 	RCC_USART1	= _REG_BIT(0x18, 14),/*0178*/
+	RCC_SPI4	= _REG_BIT(0x18, 15),
 	RCC_TIM15	= _REG_BIT(0x18, 16),/*0178*/
 	RCC_TIM16	= _REG_BIT(0x18, 17),/*0178*/
 	RCC_TIM17	= _REG_BIT(0x18, 18),/*0178*/
 	RCC_TIM19	= _REG_BIT(0x18, 19),/*--78*/
+	RCC_TIM20	= _REG_BIT(0x18, 20),
 	RCC_DBGMCU	= _REG_BIT(0x18, 22),/*--78*/
 	RCC_SDADC1	= _REG_BIT(0x18, 24),/*--78*/
 	RCC_SDADC2	= _REG_BIT(0x18, 25),/*--78*/
@@ -500,11 +519,11 @@ enum rcc_periph_clken {
 	RCC_I2C2	= _REG_BIT(0x1C, 22),/*0178*/
 	RCC_USB		= _REG_BIT(0x1C, 23),/*0178*/
 	RCC_CAN		= _REG_BIT(0x1C, 25),/*0178*/
-	RCC_DAC2	= _REG_BIT(0x1C, 26),/*--78*/
+	RCC_DAC2	= _REG_BIT(0x1C, 26),
 	RCC_PWR		= _REG_BIT(0x1C, 28),/*0178*/
-	RCC_DAC		= _REG_BIT(0x1C, 29),/*12--*/
-	RCC_DAC1	= _REG_BIT(0x1C, 29),/*--78*/
-	RCC_CEC		= _REG_BIT(0x1C, 29),/*--78*/
+	RCC_DAC1	= _REG_BIT(0x1C, 29),
+	RCC_CEC		= _REG_BIT(0x1C, 30),/*--78*/
+	RCC_I2C3	= _REG_BIT(0x1C, 30),
 };
 
 enum rcc_periph_rst {
@@ -515,10 +534,12 @@ enum rcc_periph_rst {
 	RST_SPI1	= _REG_BIT(0x0C, 12),/*0178*/
 	RST_TIM8	= _REG_BIT(0x0C, 13),/*01--*/
 	RST_USART1	= _REG_BIT(0x0C, 14),/*0178*/
+	RST_SPI4	= _REG_BIT(0x0C, 15),
 	RST_TIM15	= _REG_BIT(0x0C, 16),/*0178*/
 	RST_TIM16	= _REG_BIT(0x0C, 17),/*0178*/
 	RST_TIM17	= _REG_BIT(0x0C, 18),/*0178*/
 	RST_TIM19	= _REG_BIT(0x0C, 19),/*--78*/
+	RST_TIM20	= _REG_BIT(0x0C, 20),
 	RST_SDADC1	= _REG_BIT(0x0C, 24),/*--78*/
 	RST_SDADC2	= _REG_BIT(0x0C, 25),/*--78*/
 	RST_SDADC3	= _REG_BIT(0x0C, 26),/*--78*/
@@ -545,19 +566,22 @@ enum rcc_periph_rst {
 	RST_I2C2	= _REG_BIT(0x10, 22),/*0178*/
 	RST_USB		= _REG_BIT(0x10, 23),/*0178*/
 	RST_CAN		= _REG_BIT(0x10, 25),/*0178*/
-	RST_DAC2	= _REG_BIT(0x10, 26),/*--78*/
+	RST_DAC2	= _REG_BIT(0x10, 26),
 	RST_PWR		= _REG_BIT(0x10, 28),/*0178*/
-	RST_DAC		= _REG_BIT(0x10, 29),/*01--*/
-	RST_DAC1	= _REG_BIT(0x10, 29),/*--78*/
+	RST_DAC1	= _REG_BIT(0x10, 29),
 	RST_CEC		= _REG_BIT(0x10, 30),/*--78*/
+	RST_I2C3	= _REG_BIT(0x10, 30),
 
 	/* AHB peripherals */
+	RST_FMC		= _REG_BIT(0x28, 5),
+	RST_GPIOH	= _REG_BIT(0x28, 16),
 	RST_GPIOA	= _REG_BIT(0x28, 17),/*0178*/
 	RST_GPIOB	= _REG_BIT(0x28, 18),/*0178*/
 	RST_GPIOC	= _REG_BIT(0x28, 19),/*0178*/
 	RST_GPIOD	= _REG_BIT(0x28, 20),/*0178*/
 	RST_GPIOE	= _REG_BIT(0x28, 21),/*0178*/
 	RST_GPIOF	= _REG_BIT(0x28, 22),/*0178*/
+	RST_GPIOG	= _REG_BIT(0x28, 23),
 	RST_TSC		= _REG_BIT(0x28, 24),/*0178*/
 	RST_ADC12	= _REG_BIT(0x28, 28),/*01--*/
 	RST_ADC34	= _REG_BIT(0x28, 29),/*01--*/
