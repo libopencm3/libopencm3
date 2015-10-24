@@ -35,6 +35,16 @@ specific memorymap.h header before including this header file.*/
 #ifndef LIBOPENCM3_ADC_COMMON_V2_H
 #define LIBOPENCM3_ADC_COMMON_V2_H
 
+/* ADC common (shared) registers */
+#define ADC_CSR(adc)		MMIO32((adc) + 0x300 + 0x0)
+#define ADC_CCR(adc)		MMIO32((adc) + 0x300 + 0x8)
+#define ADC_CDR(adc)		MMIO32((adc) + 0x300 + 0xa)
+
+/* ADC_CCR Values -----------------------------------------------------------*/
+#define ADC_CCR_VBATEN			(1 << 24)
+#define ADC_CCR_TSEN			(1 << 23)
+#define ADC_CCR_VREFEN			(1 << 22)
+
 
 /* --- Function prototypes ------------------------------------------------- */
 

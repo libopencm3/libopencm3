@@ -580,7 +580,7 @@ void adc_disable_dma(uint32_t adc)
 
 void adc_enable_vbat_sensor(void)
 {
-	ADC_CCR |= ADC_CCR_VBATEN;
+	ADC_CCR(ADC1) |= ADC_CCR_VBATEN;
 }
 
 /*---------------------------------------------------------------------------*/
@@ -592,7 +592,7 @@ void adc_enable_vbat_sensor(void)
 
 void adc_disable_vbat_sensor(void)
 {
-	ADC_CCR &= ~ADC_CCR_VBATEN;
+	ADC_CCR(ADC1) &= ~ADC_CCR_VBATEN;
 }
 
 /*---------------------------------------------------------------------------*/

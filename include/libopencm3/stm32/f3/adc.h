@@ -255,10 +255,6 @@
 #define ADC3_CALFACT		ADC_CALFACT(ADC3_BASE)
 #define ADC4_CALFACT		ADC_CALFACT(ADC4_BASE)
 
-/* ADC common (shared) registers, adc_pair is ADC12 or ADC34 */
-#define ADC_CSR(adc_pair)		MMIO32((adc_pair) + 0x300 + 0x0)
-#define ADC_CCR(adc_pair)		MMIO32((adc_pair) + 0x300 + 0x8)
-#define ADC_CDR(adc_pair)		MMIO32((adc_pair) + 0x300 + 0xa)
 #define ADC12_CSR			ADC_CSR(ADC1)
 #define ADC12_CCR			ADC_CCR(ADC1)
 #define ADC12_CDR			ADC_CDR(ADC1)
