@@ -571,51 +571,6 @@ void adc_disable_dma(uint32_t adc)
 	ADC_CFGR1(adc) &= ~ADC_CFGR1_DMAEN;
 }
 
-/*---------------------------------------------------------------------------*/
-/** @brief ADC Enable The Temperature Sensor
- *
- * This enables the sensor on channel 16
- */
-
-void adc_enable_temperature_sensor(void)
-{
-	ADC_CCR |= ADC_CCR_TSEN;
-}
-
-/*---------------------------------------------------------------------------*/
-/** @brief ADC Disable The Temperature Sensor
- *
- * Disabling this will reduce power consumption from the temperature sensor
- * measurement.
- */
-
-void adc_disable_temperature_sensor(void)
-{
-	ADC_CCR &= ~ADC_CCR_TSEN;
-}
-
-/*---------------------------------------------------------------------------*/
-/** @brief ADC Enable The VRef Sensor
- *
- * This enables the reference voltage measurements on channel 17.
- */
-
-void adc_enable_vref_sensor(void)
-{
-	ADC_CCR |= ADC_CCR_VREFEN;
-}
-
-/*---------------------------------------------------------------------------*/
-/** @brief ADC Disable The VRef Sensor
- *
- * Disabling this will reduce power consumption from the reference voltage
- * measurement.
- */
-
-void adc_disable_vref_sensor(void)
-{
-	ADC_CCR &= ~ADC_CCR_VREFEN;
-}
 
 /*---------------------------------------------------------------------------*/
 /** @brief ADC Enable The VBat Sensor
