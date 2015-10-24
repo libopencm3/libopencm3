@@ -137,3 +137,44 @@ void adc_set_single_conversion_mode(uint32_t adc)
 {
 	ADC_CFGR1(adc) &= ~ADC_CFGR1_CONT;
 }
+
+/**
+ * Enable the temperature sensor (only)
+ * The channel this is available on is unfortunately not
+ * consistent, even though the bit used to enable it is.
+ * @sa adc_disable_temperature_sensor
+ */
+void adc_enable_temperature_sensor(void)
+{
+	ADC_CCR(ADC1) |= ADC_CCR_TSEN;
+}
+
+/**
+ * Disable the temperature sensor (only)
+ * @sa adc_enable_temperature_sensor
+ */
+void adc_disable_temperature_sensor(void)
+{
+	ADC_CCR(ADC1) &= ~ADC_CCR_TSEN;
+}
+
+/**
+ * Enable the internal voltage reference (only)
+ * The channel this is available on is unfortunately not
+ * consistent, even though the bit used to enable it is.
+ * FIXME - on f3, you can actually have it on ADC34 as well!
+ * @sa adc_disable_vrefint
+ */
+void adc_enable_vrefint(void)
+{
+	ADC_CCR(ADC1) |= ADC_CCR_VREFEN;
+}
+
+/**
+ * Disable the internal voltage reference (only)
+ * @sa adc_enable_vrefint
+ */
+void adc_disable_vrefint(void)
+{
+	ADC_CCR(ADC1) &= ~ADC_CCR_VREFEN;
+}

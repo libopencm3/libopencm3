@@ -1103,38 +1103,6 @@ bool adc_awd(uint32_t adc)
 	       (ADC_ISR(adc) & ADC_ISR_AWD3);
 }
 
-/*---------------------------------------------------------------------------*/
-/** @brief ADC Enable The Temperature Sensor
- *
- * This enables both the sensor and the reference voltage measurements on
- * channels
- * 16 and 17. These are only available on ADC1 channel 16 and 17 respectively.
- *
- * @param[in] adc Unsigned int32. ADC block register address base @ref
- * adc_reg_base
- */
-
-void adc_enable_temperature_sensor()
-{
-	ADC12_CCR |= ADC_CCR_TSEN;
-}
-
-/*---------------------------------------------------------------------------*/
-/** @brief ADC Disable The Temperature Sensor
- *
- * Disabling this will reduce power consumption from the sensor and the
- * reference voltage measurements.
- *
- * @param[in] adc Unsigned int32. ADC block register address base @ref
- * adc_reg_base
- */
-
-void adc_disable_temperature_sensor()
-{
-	ADC12_CCR &= ~ADC_CCR_TSEN;
-}
-
-/*---------------------------------------------------------------------------*/
 
 /**
  * Enable the ADC Voltage regulator
