@@ -93,10 +93,6 @@
 #define ADC_DR(base)			MMIO32((base) + 0x40)
 #define ADC1_DR				ADC_DR(ADC)
 
-
-/* Regular Data Register */
-#define ADC_CCR				MMIO32(ADC_BASE + 0x308)
-
 /*****************************************************************************/
 /* Register values                                                           */
 /*****************************************************************************/
@@ -204,11 +200,6 @@
 
 #define ADC_DR_DATA			0xFFFF
 
-/* ADC_CCR Values -----------------------------------------------------------*/
-
-#define ADC_CCR_VBATEN			(1 << 24)
-#define ADC_CCR_TSEN			(1 << 23)
-#define ADC_CCR_VREFEN			(1 << 22)
 
 /*****************************************************************************/
 /* API definitions                                                           */
