@@ -48,6 +48,10 @@ void adc_power_off(uint32_t adc);
 bool adc_is_power_off(uint32_t adc);
 void adc_set_continuous_conversion_mode(uint32_t adc);
 void adc_set_single_conversion_mode(uint32_t adc);
+void adc_enable_temperature_sensor(void);
+void adc_disable_temperature_sensor(void);
+void adc_enable_vrefint(void);
+void adc_disable_vrefint(void);
 
 END_DECLS
 

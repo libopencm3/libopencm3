@@ -926,8 +926,6 @@ void adc_clear_overrun_flag(uint32_t adc);
 bool adc_awd(uint32_t adc);
 /*void adc_set_dma_continue(uint32_t adc);*/
 /*void adc_set_dma_terminate(uint32_t adc);*/
-void adc_enable_temperature_sensor(void);
-void adc_disable_temperature_sensor(void);
 void adc_enable_regulator(uint32_t adc);
 void adc_disable_regulator(uint32_t adc);
 
