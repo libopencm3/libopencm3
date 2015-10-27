@@ -136,6 +136,16 @@ void exti_select_source(uint32_t exti, uint32_t gpioport)
 			bits = 8;
 			break;
 #endif
+#if defined(GPIOJ) && defined(GPIO_PORT_J_BASE)
+		case GPIOJ:
+			bits = 9;
+			break;
+#endif
+#if defined(GPIOK) && defined(GPIO_PORT_K_BASE)
+		case GPIOK:
+			bits = 10;
+			break;
+#endif
 		}
 
 		uint8_t shift = (uint8_t)(4 * (line % 4));
