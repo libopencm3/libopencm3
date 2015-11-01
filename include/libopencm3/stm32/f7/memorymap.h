@@ -20,7 +20,7 @@
 
 #include <libopencm3/cm3/memorymap.h>
 
-/* --- STM32F4 specific peripheral definitions ----------------------------- */
+/* --- STM32F7 specific peripheral definitions ----------------------------- */
 
 /* Memory map for all busses */
 #define PERIPH_BASE			(0x40000000U)
@@ -146,15 +146,15 @@
 #define FMC5_BASE			(PERIPH_BASE_AHB3 + 0x60000000U)
 #define FMC6_BASE			(PERIPH_BASE_AHB3 + 0x70000000U)
 
-/* PPIB */
-#define DBGMCU_BASE			(PPBI_BASE + 0x00042000)	/* TODO */
+/* Private peripherals */
+#define DBGMCU_BASE			(PPBI_BASE + 0x00042000)
 
 /* Device Electronic Signature */
-#define DESIG_FLASH_SIZE_BASE		(0x1FFF7A22U)			/* TODO */
-#define DESIG_UNIQUE_ID_BASE		(0x1FFF7A10U)			/* TODO */
-#define DESIG_UNIQUE_ID0		MMIO32(DESIG_UNIQUE_ID_BASE)	/* TODO */
-#define DESIG_UNIQUE_ID1		MMIO32(DESIG_UNIQUE_ID_BASE + 4)/* TODO */
-#define DESIG_UNIQUE_ID2		MMIO32(DESIG_UNIQUE_ID_BASE + 8)/* TODO */
+#define DESIG_FLASH_SIZE_BASE		(0x1FF0F422U)
+#define DESIG_UNIQUE_ID_BASE		(0x1FF0F420U)
+#define DESIG_UNIQUE_ID0		MMIO32(DESIG_UNIQUE_ID_BASE)
+#define DESIG_UNIQUE_ID1		MMIO32(DESIG_UNIQUE_ID_BASE + 4)
+#define DESIG_UNIQUE_ID2		MMIO32(DESIG_UNIQUE_ID_BASE + 8)
 
 /* ST provided factory calibration values @ 3.3V */
 #define ST_VREFINT_CAL			MMIO16(0x1FF07A4A)
