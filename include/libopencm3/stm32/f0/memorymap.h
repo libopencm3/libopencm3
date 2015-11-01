@@ -111,6 +111,6 @@
 /* ST provided factory calibration values @ 3.3V */
 #define ST_VREFINT_CAL		MMIO16(0x1FFFF7BA)
 #define ST_TSENSE_CAL1_30C	MMIO16(0x1FFFF7B8)
-#define ST_TSENSE_CAL2_110	MMIO16(0x1FFFF7C2)
+#define ST_TSENSE_CAL2_110C	MMIO16(0x1FFFF7C2)
 
 #endif
