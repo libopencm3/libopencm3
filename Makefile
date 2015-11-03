@@ -17,28 +17,29 @@
 ## along with this library.  If not, see <http://www.gnu.org/licenses/>.
 ##
 
-PREFIX		?= arm-none-eabi
-#PREFIX		?= arm-elf
+PREFIX      ?= arm-none-eabi
+#PREFIX      ?= arm-elf
 
 STYLECHECK      := scripts/checkpatch.pl
 STYLECHECKFLAGS := --no-tree -f --terse --mailback
 
-DESTDIR		?= /usr/local
+DESTDIR     ?= /usr/local
 
-INCDIR		:= $(DESTDIR)/$(PREFIX)/include
-LIBDIR		:= $(DESTDIR)/$(PREFIX)/lib
-SHAREDIR	:= $(DESTDIR)/$(PREFIX)/share/libopencm3/scripts
-INSTALL		:= install
+INCDIR      := $(DESTDIR)/$(PREFIX)/include
+LIBDIR      := $(DESTDIR)/$(PREFIX)/lib
+SHAREDIR    := $(DESTDIR)/$(PREFIX)/share/libopencm3/scripts
+INSTALL     := install
 
 space:=
 space+=
 SRCLIBDIR:= $(subst $(space),\$(space),$(realpath lib))
 
-TARGETS:= stm32/f0 stm32/f1 stm32/f2 stm32/f3 stm32/f4 stm32/f7 stm32/l0 stm32/l1 \
-	  lpc13xx lpc17xx lpc43xx/m4 lpc43xx/m0 lm3s lm4f \
-	  efm32/efm32tg efm32/efm32g efm32/efm32lg efm32/efm32gg \
-	  sam/3a sam/3n sam/3s sam/3u sam/3x \
-	  vf6xx
+# You can limit build to eg. stm32/f4 by using 'make TARGETS=stm32/f4'
+TARGETS ?= stm32/f0 stm32/f1 stm32/f2 stm32/f3 stm32/f4 stm32/f7 stm32/l0 stm32/l1 \
+           lpc13xx lpc17xx lpc43xx/m4 lpc43xx/m0 lm3s lm4f \
+           efm32/efm32tg efm32/efm32g efm32/efm32lg efm32/efm32gg \
+           sam/3a sam/3n sam/3s sam/3u sam/3x \
+           vf6xx
 
 # Be silent per default, but 'make V=1' will show all compiler calls.
 ifneq ($(V),1)
@@ -47,7 +48,7 @@ Q := @
 MAKEFLAGS += --no-print-directory
 endif
 
-IRQ_DEFN_FILES	:= $(shell find . -name 'irq.json')
+IRQ_DEFN_FILES  := $(shell find . -name 'irq.json')
 STYLECHECKFILES := $(shell find . -name '*.[ch]')
 
 all: build
