@@ -475,47 +475,23 @@
 #define ADC_CFGR_DMAEN		(1 << 0)
 
 
-/*------- ADC_SMPR1 values ---------*/
-#define ADC_SMPR1_SMP8_LSB		24
-#define ADC_SMPR1_SMP7_LSB		21
-#define ADC_SMPR1_SMP6_LSB		18
-#define ADC_SMPR1_SMP5_LSB		15
-#define ADC_SMPR1_SMP4_LSB		12
-#define ADC_SMPR1_SMP3_LSB		9
-#define ADC_SMPR1_SMP2_LSB		6
-#define ADC_SMPR1_SMP1_LSB		3
-#define ADC_SMPR1_SMP8_MSK		(0x7 << ADC_SMP8_LSB)
-#define ADC_SMPR1_SMP7_MSK		(0x7 << ADC_SMP7_LSB)
-#define ADC_SMPR1_SMP6_MSK		(0x7 << ADC_SMP6_LSB)
-#define ADC_SMPR1_SMP5_MSK		(0x7 << ADC_SMP5_LSB)
-#define ADC_SMPR1_SMP4_MSK		(0x7 << ADC_SMP4_LSB)
-#define ADC_SMPR1_SMP3_MSK		(0x7 << ADC_SMP3_LSB)
-#define ADC_SMPR1_SMP2_MSK		(0x7 << ADC_SMP2_LSB)
-#define ADC_SMPR1_SMP1_MSK		(0x7 << ADC_SMP1_LSB)
 /****************************************************************************/
-/* ADC_SMPR1 ADC Sample Time Selection for Channels */
-/** @defgroup adc_sample_r1 ADC Sample Time Selection for ADC1
+/* ADC_SMPRx ADC Sample Time Selection for Channels */
+/** @defgroup adc_sample ADC Sample Time Selection values
 @ingroup adc_defines
 
 @{*/
-#define ADC_SMPR1_SMP_1DOT5CYC		0x0
-#define ADC_SMPR1_SMP_2DOT5CYC		0x1
-#define ADC_SMPR1_SMP_4DOT5CYC		0x2
-#define ADC_SMPR1_SMP_7DOT5CYC		0x3
-#define ADC_SMPR1_SMP_19DOT5CYC		0x4
-#define ADC_SMPR1_SMP_61DOT5CYC		0x5
-#define ADC_SMPR1_SMP_181DOT5CYC	0x6
-#define ADC_SMPR1_SMP_601DOT5CYC	0x7
+#define ADC_SMPR_SMP_1DOT5CYC		0x0
+#define ADC_SMPR_SMP_2DOT5CYC		0x1
+#define ADC_SMPR_SMP_4DOT5CYC		0x2
+#define ADC_SMPR_SMP_7DOT5CYC		0x3
+#define ADC_SMPR_SMP_19DOT5CYC		0x4
+#define ADC_SMPR_SMP_61DOT5CYC		0x5
+#define ADC_SMPR_SMP_181DOT5CYC		0x6
+#define ADC_SMPR_SMP_601DOT5CYC		0x7
 /**@}*/
 
 /* SMPx[2:0]: Channel x sampling time selection */
-
-
-/*------- ADC_SMPR2 values ---------*/
-
-/* SMPx[2:0]: Channel x sampling time selection */
-
-
 
 /*------- ADC_TR1 values ---------*/
 
