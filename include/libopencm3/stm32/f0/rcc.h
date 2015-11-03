@@ -405,6 +405,7 @@ enum rcc_periph_clken {
 	/* APB2 peripherals */
 	RCC_SYSCFG_COMP	= _REG_BIT(0x18, 0),
 	RCC_ADC		= _REG_BIT(0x18, 9),
+	RCC_ADC1	= _REG_BIT(0x18, 9), /* Compatibility alias */
 	RCC_TIM1	= _REG_BIT(0x18, 11),
 	RCC_SPI1	= _REG_BIT(0x18, 12),
 	RCC_USART1	= _REG_BIT(0x18, 14),
@@ -431,6 +432,7 @@ enum rcc_periph_clken {
 	RCC_CRS		= _REG_BIT(0x1C, 27),
 	RCC_PWR		= _REG_BIT(0x1C, 28),
 	RCC_DAC		= _REG_BIT(0x1C, 29),
+	RCC_DAC1	= _REG_BIT(0x1C, 29), /* Compatibility alias */
 	RCC_CEC		= _REG_BIT(0x1C, 30),
 
 	/* Advanced peripherals */
@@ -441,6 +443,7 @@ enum rcc_periph_rst {
 	/* APB2 peripherals */
 	RST_SYSCFG	= _REG_BIT(0x0C, 0),
 	RST_ADC		= _REG_BIT(0x0C, 9),
+	RST_ADC1	= _REG_BIT(0x0C, 9), /* Compatibility alias */
 	RST_TIM1	= _REG_BIT(0x0C, 11),
 	RST_SPI1	= _REG_BIT(0x0C, 12),
 	RST_USART1	= _REG_BIT(0x0C, 14),
@@ -467,6 +470,7 @@ enum rcc_periph_rst {
 	RST_CRS		= _REG_BIT(0x10, 27),
 	RST_PWR		= _REG_BIT(0x10, 28),
 	RST_DAC		= _REG_BIT(0x10, 29),
+	RST_DAC1	= _REG_BIT(0x10, 29), /* Compatibility alias */
 	RST_CEC		= _REG_BIT(0x10, 30),
 
 	/* Advanced peripherals */
