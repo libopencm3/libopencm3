@@ -318,6 +318,9 @@ Control</b>
 /* --- RCC_CFGR2 values ---------------------------------------------------- */
 
 #define RCC_CFGR2_PREDIV			0xf
+/** @defgroup rcc_cfgr2_prediv PLL source predividers
+@ingroup rcc_defines
+@{*/
 #define RCC_CFGR2_PREDIV_NODIV			0x0
 #define RCC_CFGR2_PREDIV_DIV2			0x1
 #define RCC_CFGR2_PREDIV_DIV3			0x2
@@ -334,6 +337,7 @@ Control</b>
 #define RCC_CFGR2_PREDIV_DIV14			0xd
 #define RCC_CFGR2_PREDIV_DIV15			0xe
 #define RCC_CFGR2_PREDIV_DIV16			0xf
+/**@}*/
 
 /* --- RCC_CFGR3 values ---------------------------------------------------- */
 
