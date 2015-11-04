@@ -344,25 +344,27 @@
 #define RCC_CFGR2_ADCxPRES_PLL_CLK_DIV_128	0x1A
 #define RCC_CFGR2_ADCxPRES_PLL_CLK_DIV_256	0x1B
 
-/* PREDIV[3:0] PREDIV division factor */
-/* REVISAR DIRECCIONES */
-#define RCC_CFGR2_PREDIV_SHIFT			0
-#define RCC_CFGR2_PREDIV_HSE_IN_PLL_DIV_NONE	0x0
-#define RCC_CFGR2_PREDIV_HSE_IN_PLL_DIV_2	0x1
-#define RCC_CFGR2_PREDIV_HSE_IN_PLL_DIV_3	0x2
-#define RCC_CFGR2_PREDIV_HSE_IN_PLL_DIV_4	0x3
-#define RCC_CFGR2_PREDIV_HSE_IN_PLL_DIV_5	0x4
-#define RCC_CFGR2_PREDIV_HSE_IN_PLL_DIV_6	0x5
-#define RCC_CFGR2_PREDIV_HSE_IN_PLL_DIV_7	0x6
-#define RCC_CFGR2_PREDIV_HSE_IN_PLL_DIV_8	0x7
-#define RCC_CFGR2_PREDIV_HSE_IN_PLL_DIV_9	0x8
-#define RCC_CFGR2_PREDIV_HSE_IN_PLL_DIV_10	0x9
-#define RCC_CFGR2_PREDIV_HSE_IN_PLL_DIV_11	0xA
-#define RCC_CFGR2_PREDIV_HSE_IN_PLL_DIV_12	0xB
-#define RCC_CFGR2_PREDIV_HSE_IN_PLL_DIV_13	0xC
-#define RCC_CFGR2_PREDIV_HSE_IN_PLL_DIV_14	0xD
-#define RCC_CFGR2_PREDIV_HSE_IN_PLL_DIV_15	0xE
-#define RCC_CFGR2_PREDIV_HSE_IN_PLL_DIV_16	0xF
+#define RCC_CFGR2_PREDIV			0xf
+/** @defgroup rcc_cfgr2_prediv PLL source predividers
+@ingroup rcc_defines
+@{*/
+#define RCC_CFGR2_PREDIV_NODIV			0x0
+#define RCC_CFGR2_PREDIV_DIV2			0x1
+#define RCC_CFGR2_PREDIV_DIV3			0x2
+#define RCC_CFGR2_PREDIV_DIV4			0x3
+#define RCC_CFGR2_PREDIV_DIV5			0x4
+#define RCC_CFGR2_PREDIV_DIV6			0x5
+#define RCC_CFGR2_PREDIV_DIV7			0x6
+#define RCC_CFGR2_PREDIV_DIV8			0x7
+#define RCC_CFGR2_PREDIV_DIV9			0x8
+#define RCC_CFGR2_PREDIV_DIV10			0x9
+#define RCC_CFGR2_PREDIV_DIV11			0xa
+#define RCC_CFGR2_PREDIV_DIV12			0xb
+#define RCC_CFGR2_PREDIV_DIV13			0xc
+#define RCC_CFGR2_PREDIV_DIV14			0xd
+#define RCC_CFGR2_PREDIV_DIV15			0xe
+#define RCC_CFGR2_PREDIV_DIV16			0xf
+/**@}*/
 
 /* --- RCC_CFGR3 values ---------------------------------------------------- */
 #define RCC_CFGR3_TIM8SW			(1 << 9)
@@ -598,6 +600,7 @@ void rcc_set_pll_source(uint32_t pllsrc);
 void rcc_set_ppre2(uint32_t ppre2);
 void rcc_set_ppre1(uint32_t ppre1);
 void rcc_set_hpre(uint32_t hpre);
+void rcc_set_prediv(uint32_t prediv);
 void rcc_set_pll_multiplier(uint32_t pll);
 uint32_t rcc_get_system_clock_source(void);
 void rcc_backupdomain_reset(void);
