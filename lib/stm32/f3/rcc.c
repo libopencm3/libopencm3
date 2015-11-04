@@ -365,6 +365,16 @@ void rcc_set_hpre(uint32_t hpre)
 	RCC_CFGR = (reg32 | (hpre << RCC_CFGR_HPRE_SHIFT));
 }
 
+/**
+ * Set PLL Source pre-divider **CAUTION**.
+ * On some F3 devices, prediv only applies to HSE source. On others,
+ * this is _after_ source selection. See also f0.
+ * @param[in] prediv division by prediv+1 @ref rcc_cfgr2_prediv
+ */
+void rcc_set_prediv(uint32_t prediv)
+{
+	RCC_CFGR2 = (RCC_CFGR2 & ~RCC_CFGR2_PREDIV) | prediv;
+}
 
 void rcc_set_pll_multiplier(uint32_t pll)
 {
