@@ -75,10 +75,6 @@ LGPL License Terms @ref lgpl_license
 /* ADC regular data register (ADC_DR) */
 #define ADC_DR(block)			MMIO32((block) + 0x4c)
 
-/* --- ADC Channels ------------------------------------------------------- */
-#define ADC_CHANNEL_TEMP        ADC_CHANNEL16
-#define ADC_CHANNEL_VREFINT     ADC_CHANNEL17
-
 
 /* --- ADC_CR1 values ------------------------------------------------------ */
 
@@ -396,6 +392,14 @@ and ADC2
 #define ADC_DATA_MSK			(0xffff << ADC_DA)
 #define ADC_ADC2DATA_MSK		(0xffff << ADC_ADC2DATA_LSB)
 					/* ADC1 only (dual mode) */
+
+/** @defgroup adc_channel ADC Channel Numbers
+ * @ingroup adc_defines
+ *
+ *@{*/
+#define ADC_CHANNEL_TEMP	16
+#define ADC_CHANNEL_VREF	17
+/**@}*/
 
 /* --- Function prototypes ------------------------------------------------- */
 

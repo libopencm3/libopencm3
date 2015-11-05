@@ -91,11 +91,14 @@ LGPL License Terms @ref lgpl_license
 #define ADC_CSR				MMIO32(ADC1 + 0x300)
 #define ADC_CCR				MMIO32(ADC1 + 0x304)
 
-
-/* These are _not_ consistent unfortunately! */
-#define ADC_CHANNEL_TEMP        ADC_CHANNEL16
-#define ADC_CHANNEL_VREFINT     ADC_CHANNEL17
-#define ADC_CHANNEL_VBAT        ADC_CHANNEL18
+/** @defgroup adc_channel ADC Channel Numbers
+ * @ingroup adc_defines
+ *
+ *@{*/
+#define ADC_CHANNEL_TEMP	ADC_CHANNEL16
+#define ADC_CHANNEL_VREF	ADC_CHANNEL17
+#define ADC_CHANNEL_VBAT	ADC_CHANNEL18
+/**@}*/
 
 /* --- ADC_SR values ------------------------------------------------------- */
 #define ADC_SR_JCNR			(1 << 9)
