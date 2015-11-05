@@ -669,22 +669,6 @@ void adc_set_injected_sequence(uint32_t adc, uint8_t length, uint8_t channel[])
 }
 
 /*---------------------------------------------------------------------------*/
-/** @brief ADC Read the End-of-Conversion Flag
- *
- * This flag is set by hardware at the end of each regular conversion of a
- * channel when a new data is available in the ADCx_DR register.
- *
- * @param[in] adc Unsigned int32. ADC block register address base
- * @ref adc_reg_base
- * @returns bool. End of conversion flag.
- */
-
-bool adc_eoc(uint32_t adc)
-{
-	return ADC_ISR(adc) & ADC_ISR_EOC;
-}
-
-/*---------------------------------------------------------------------------*/
 /** @brief ADC Read the End-of-Conversion Flag for Injected Conversion
  *
  * This flag is set by hardware at the end of each injected conversion of a
@@ -698,21 +682,6 @@ bool adc_eoc(uint32_t adc)
 bool adc_eoc_injected(uint32_t adc)
 {
 	return ADC_ISR(adc) & ADC_ISR_JEOC;
-}
-
-/*---------------------------------------------------------------------------*/
-/** @brief ADC Read the End-of-Sequence Flag for Regular Conversions
- *
- * This flag is set after all channels of an regular group have been
- * converted.
- *
- * @param[in] adc Unsigned int32. ADC block register address base
- * @ref adc_reg_base
- * @returns bool. End of conversion flag.
- */
-bool adc_eos(uint32_t adc)
-{
-	return ADC_ISR(adc) & ADC_ISR_EOS;
 }
 
 /*---------------------------------------------------------------------------*/
@@ -730,23 +699,6 @@ bool adc_eos_injected(uint32_t adc)
 	return ADC_ISR(adc) & ADC_ISR_JEOS;
 }
 
-
-/*---------------------------------------------------------------------------*/
-/** @brief ADC Read from the Regular Conversion Result Register
- *
- * The result read back is 12 bits, right or left aligned within the first
- * 16 bits. For ADC1 only, the higher 16 bits will hold the result from ADC2 if
- * an appropriate dual mode has been set @see adc_set_dual_mode.
- *
- * @param[in] adc Unsigned int32. ADC block register address base
- * @ref adc_reg_base
- * @returns Unsigned int32 conversion result.
- */
-
-uint32_t adc_read_regular(uint32_t adc)
-{
-	return ADC_DR(adc);
-}
 
 /*---------------------------------------------------------------------------*/
 /** @brief ADC Read from an Injected Conversion Result Register

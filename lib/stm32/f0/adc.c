@@ -172,37 +172,6 @@ void adc_start_conversion_regular(uint32_t adc)
 	while (ADC_CR(adc) & ADC_CR_ADSTART);
 }
 
-/*---------------------------------------------------------------------------*/
-/** @brief ADC Read the End-of-Conversion Flag
- *
- * This flag is set after all channels of a regular or injected group have been
- * converted.
- *
- * @param[in] adc Unsigned int32. ADC base address (@ref adc_reg_base)
- * @returns bool. End of conversion flag.
- */
-
-bool adc_eoc(uint32_t adc)
-{
-	return ((ADC_ISR(adc) & ADC_ISR_EOC) != 0);
-}
-
-/*---------------------------------------------------------------------------*/
-/** @brief ADC Read from the Regular Conversion Result Register
- *
- * The result read back is 12 bits, right or left aligned within the first
- * 16 bits. For ADC1 only, the higher 16 bits will hold the result from ADC2 if
- * an appropriate dual mode has been set @see adc_set_dual_mode.
- *
- * @param[in] adc Unsigned int32. ADC base address (@ref adc_reg_base)
- * @returns Unsigned int32 conversion result.
- */
-
-uint32_t adc_read_regular(uint32_t adc)
-{
-	return ADC_DR(adc);
-}
-
 /**@}*/
 
 /*---------------------------------------------------------------------------*/
