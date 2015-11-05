@@ -493,55 +493,6 @@ void adc_start_conversion_injected(uint32_t adc)
 }
 
 /*---------------------------------------------------------------------------*/
-/** @brief ADC Set the Data as Left Aligned
- *
- * @param[in] adc Unsigned int32. ADC block register address base @ref
- * adc_reg_base
- */
-
-void adc_set_left_aligned(uint32_t adc)
-{
-	ADC_CFGR1(adc) |= ADC_CFGR1_ALIGN;
-}
-
-/*---------------------------------------------------------------------------*/
-/** @brief ADC Set the Data as Right Aligned
- *
- * @param[in] adc Unsigned int32. ADC block register address base @ref
- * adc_reg_base
- */
-
-void adc_set_right_aligned(uint32_t adc)
-{
-	ADC_CFGR1(adc) &= ~ADC_CFGR1_ALIGN;
-}
-
-/*---------------------------------------------------------------------------*/
-/** @brief ADC Enable DMA Transfers
- *
- * @param[in] adc Unsigned int32. ADC block register address base
- * @ref adc_reg_base
- */
-
-void adc_enable_dma(uint32_t adc)
-{
-	ADC_CFGR1(adc) |= ADC_CFGR1_DMAEN;
-}
-
-/*---------------------------------------------------------------------------*/
-/** @brief ADC Disable DMA Transfers
- *
- * @param[in] adc Unsigned int32. ADC block register address base
- * @ref adc_reg_base
- */
-
-void adc_disable_dma(uint32_t adc)
-{
-	ADC_CFGR1(adc) &= ~ADC_CFGR1_DMAEN;
-}
-
-
-/*---------------------------------------------------------------------------*/
 /** @brief ADC Set the Sample Time for a Single Channel
  *
  * The sampling time can be selected in ADC clock cycles from 1.5 to 239.5.
@@ -964,26 +915,6 @@ void adc_enable_external_trigger_injected(uint32_t adc, uint32_t trigger,
 void adc_disable_external_trigger_injected(uint32_t adc)
 {
 	ADC_JSQR(adc) &= ~ADC_JSQR_JEXTEN_MASK;
-}
-
-/*---------------------------------------------------------------------------*/
-/** @brief ADC Set Resolution
- *
- * ADC Resolution can be reduced from 12 bits to 10, 8 or 6 bits for a
- * corresponding reduction in conversion time (resolution + 3 ADC clock cycles).
- *
- * @param[in] adc Unsigned int32. ADC block register address base @ref
- * adc_reg_base
- * @param[in] resolution Unsigned int8. Resolution value @ref adc_cr1_res
- */
-
-void adc_set_resolution(uint32_t adc, uint16_t resolution)
-{
-	uint32_t reg32 = ADC_CFGR1(adc);
-
-	reg32 &= ~ADC_CFGR1_RES_MASK;
-	reg32 |= resolution;
-	ADC_CFGR1(adc) = reg32;
 }
 
 /*---------------------------------------------------------------------------*/

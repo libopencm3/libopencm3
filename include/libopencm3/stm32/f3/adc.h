@@ -603,10 +603,6 @@ void adc_start_conversion_regular(uint32_t adc);
 void adc_start_conversion_injected(uint32_t adc);
 void adc_disable_external_trigger_regular(uint32_t adc);
 void adc_disable_external_trigger_injected(uint32_t adc);
-void adc_set_left_aligned(uint32_t adc);
-void adc_set_right_aligned(uint32_t adc);
-void adc_enable_dma(uint32_t adc);
-void adc_disable_dma(uint32_t adc);
 void adc_set_sample_time(uint32_t adc, uint8_t channel, uint8_t time);
 void adc_set_sample_time_on_all_channels(uint32_t adc, uint8_t time);
 void adc_set_watchdog_high_threshold(uint32_t adc, uint8_t threshold);
@@ -627,7 +623,6 @@ void adc_enable_external_trigger_regular(uint32_t adc, uint32_t trigger,
 					 uint32_t polarity);
 void adc_enable_external_trigger_injected(uint32_t adc, uint32_t trigger,
 					  uint32_t polarity);
-void adc_set_resolution(uint32_t adc, uint16_t resolution);
 void adc_enable_overrun_interrupt(uint32_t adc);
 void adc_disable_overrun_interrupt(uint32_t adc);
 bool adc_get_overrun_flag(uint32_t adc);
