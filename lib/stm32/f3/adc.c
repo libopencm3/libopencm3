@@ -287,7 +287,7 @@ void adc_enable_analog_watchdog_on_selected_channel(uint32_t adc,
 {
 	uint32_t reg32;
 
-	reg32 = (ADC_CFGR1(adc) & ~ADC_CFGR1_AWD1CH_MASK); /* Clear bit [4:0]. */
+	reg32 = (ADC_CFGR1(adc) & ~ADC_CFGR1_AWD1CH); /* Clear bit [4:0]. */
 	if (channel < 18) {
 		reg32 |= channel;
 	}
