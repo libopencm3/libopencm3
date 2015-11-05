@@ -233,7 +233,7 @@ void adc_enable_external_trigger_regular(uint32_t adc, uint32_t trigger,
 				 uint32_t polarity)
 {
 	ADC_CFGR1(adc) = (ADC_CFGR1(adc) & ~ADC_CFGR1_EXTSEL) | trigger;
-	ADC_CFGR1(adc) = (ADC_CFGR1(adc) & ~ADC_CFGR1_EXTEN) | polarity;
+	ADC_CFGR1(adc) = (ADC_CFGR1(adc) & ~ADC_CFGR1_EXTEN_MASK) | polarity;
 }
 
 /*---------------------------------------------------------------------------*/
@@ -244,7 +244,7 @@ void adc_enable_external_trigger_regular(uint32_t adc, uint32_t trigger,
 
 void adc_disable_external_trigger_regular(uint32_t adc)
 {
-	ADC_CFGR1(adc) &= ~ADC_CFGR1_EXTEN;
+	ADC_CFGR1(adc) &= ~ADC_CFGR1_EXTEN_MASK;
 }
 
 /**@}*/
@@ -268,7 +268,7 @@ void adc_disable_external_trigger_regular(uint32_t adc)
 
 void adc_enable_watchdog_interrupt(uint32_t adc)
 {
-	ADC_IER(adc) |= ADC_IER_AWDIE;
+	ADC_IER(adc) |= ADC_IER_AWD1IE;
 }
 
 /*---------------------------------------------------------------------------*/
@@ -279,7 +279,7 @@ void adc_enable_watchdog_interrupt(uint32_t adc)
 
 void adc_disable_watchdog_interrupt(uint32_t adc)
 {
-	ADC_IER(adc) &= ~ADC_IER_AWDIE;
+	ADC_IER(adc) &= ~ADC_IER_AWD1IE;
 }
 
 /*---------------------------------------------------------------------------*/
@@ -294,7 +294,7 @@ void adc_disable_watchdog_interrupt(uint32_t adc)
 
 bool adc_get_watchdog_flag(uint32_t adc)
 {
-	return ADC_ISR(adc) & ADC_ISR_AWD;
+	return ADC_ISR(adc) & ADC_ISR_AWD1;
 }
 
 /*---------------------------------------------------------------------------*/
@@ -305,7 +305,7 @@ bool adc_get_watchdog_flag(uint32_t adc)
 
 void adc_clear_watchdog_flag(uint32_t adc)
 {
-	ADC_ISR(adc) = ADC_ISR_AWD;
+	ADC_ISR(adc) = ADC_ISR_AWD1;
 }
 
 /*---------------------------------------------------------------------------*/
@@ -524,7 +524,7 @@ void adc_set_sample_time_on_all_channels(uint32_t adc, uint8_t time)
 
 void adc_set_resolution(uint32_t adc, uint16_t resolution)
 {
-	ADC_CFGR1(adc) = (ADC_CFGR1(adc) & ~ADC_CFGR1_RES) | resolution;
+	ADC_CFGR1(adc) = (ADC_CFGR1(adc) & ~ADC_CFGR1_RES_MASK) | resolution;
 }
 
 /*---------------------------------------------------------------------------*/
@@ -673,8 +673,8 @@ void adc_calibrate_wait_finish(uint32_t adc)
 
 void adc_enable_analog_watchdog_on_all_channels(uint32_t adc)
 {
-	ADC_CFGR1(adc) |= ADC_CFGR1_AWDEN;
-	ADC_CFGR1(adc) &= ~ADC_CFGR1_AWDSGL;
+	ADC_CFGR1(adc) |= ADC_CFGR1_AWD1EN;
+	ADC_CFGR1(adc) &= ~ADC_CFGR1_AWD1SGL;
 }
 
 /*---------------------------------------------------------------------------*/
@@ -686,10 +686,10 @@ void adc_enable_analog_watchdog_on_all_channels(uint32_t adc)
 
 void adc_enable_analog_watchdog_on_selected_channel(uint32_t adc, uint8_t chan)
 {
-	ADC_CFGR1(adc) = (ADC_CFGR1(adc) & ~ADC_CFGR1_AWDCH) |
-			  ADC_CFGR1_AWDCH_VAL(chan);
+	ADC_CFGR1(adc) = (ADC_CFGR1(adc) & ~ADC_CFGR1_AWD1CH) |
+			  ADC_CFGR1_AWD1CH_VAL(chan);
 
-	ADC_CFGR1(adc) |= ADC_CFGR1_AWDEN | ADC_CFGR1_AWDSGL;
+	ADC_CFGR1(adc) |= ADC_CFGR1_AWD1EN | ADC_CFGR1_AWD1SGL;
 }
 
 /*---------------------------------------------------------------------------*/
@@ -699,7 +699,7 @@ void adc_enable_analog_watchdog_on_selected_channel(uint32_t adc, uint8_t chan)
  */
 void adc_disable_analog_watchdog(uint32_t adc)
 {
-	ADC_CFGR1(adc) &= ~ADC_CFGR1_AWDEN;
+	ADC_CFGR1(adc) &= ~ADC_CFGR1_AWD1EN;
 }
 
 /*---------------------------------------------------------------------------*/
@@ -711,7 +711,7 @@ void adc_disable_analog_watchdog(uint32_t adc)
 
 void adc_set_watchdog_high_threshold(uint32_t adc, uint8_t threshold)
 {
-	ADC_TR(adc) = (ADC_TR(adc) & ~ADC_TR_HT) | ADC_TR_HT_VAL(threshold);
+	ADC_TR1(adc) = (ADC_TR1(adc) & ~ADC_TR1_HT) | ADC_TR1_HT_VAL(threshold);
 }
 
 /*---------------------------------------------------------------------------*/
@@ -723,7 +723,7 @@ void adc_set_watchdog_high_threshold(uint32_t adc, uint8_t threshold)
 
 void adc_set_watchdog_low_threshold(uint32_t adc, uint8_t threshold)
 {
-	ADC_TR(adc) = (ADC_TR(adc) & ~ADC_TR_LT) | ADC_TR_LT_VAL(threshold);
+	ADC_TR1(adc) = (ADC_TR1(adc) & ~ADC_TR1_LT) | ADC_TR1_LT_VAL(threshold);
 }
 
 /**@}*/
