@@ -249,25 +249,9 @@
  * @ingroup adc_defines
  *
  *@{*/
-#define ADC_CHANNEL0		0x00
-#define ADC_CHANNEL1		0x01
-#define ADC_CHANNEL2		0x02
-#define ADC_CHANNEL3		0x03
-#define ADC_CHANNEL4		0x04
-#define ADC_CHANNEL5		0x05
-#define ADC_CHANNEL6		0x06
-#define ADC_CHANNEL7		0x07
-#define ADC_CHANNEL8		0x08
-#define ADC_CHANNEL9		0x09
-#define ADC_CHANNEL10		0x0A
-#define ADC_CHANNEL11		0x0B
-#define ADC_CHANNEL12		0x0C
-#define ADC_CHANNEL13		0x0D
-#define ADC_CHANNEL14		0x0E
-#define ADC_CHANNEL15		0x0F
-#define ADC_CHANNEL_TEMP	0x10
-#define ADC_CHANNEL_VREF	0x11
-#define ADC_CHANNEL_VBAT	0x12
+#define ADC_CHANNEL_TEMP	16
+#define ADC_CHANNEL_VREF	17
+#define ADC_CHANNEL_VBAT	18
 /**@}*/
 
 /** @defgroup adc_api_opmode ADC Operation Modes
