@@ -865,6 +865,14 @@
 
 /* Bits 15:0 RDATA_MST[15:0]: Regular data of the master ADC. */
 
+/** @defgroup adc_channel ADC Channel Numbers
+ * @ingroup adc_defines
+ *
+ *@{*/
+#define ADC_CHANNEL_TEMP	16
+#define ADC_CHANNEL_VBAT	17
+#define ADC_CHANNEL_VREF	18
+/**@}*/
 
 
 BEGIN_DECLS
