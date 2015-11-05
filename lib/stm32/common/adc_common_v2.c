@@ -35,6 +35,35 @@ LGPL License Terms @ref lgpl_license
 
 #include <libopencm3/stm32/adc.h>
 
+
+/** @brief ADC Read the End-of-Conversion Flag
+ *
+ * This flag is set by hardware at the end of each regular conversion of a
+ * channel when a new data is available in the ADCx_DR register.
+ *
+ * @param[in] adc Unsigned int32. ADC block register address base
+ * @ref adc_reg_base
+ * @returns bool. End of conversion flag.
+ */
+bool adc_eoc(uint32_t adc)
+{
+	return ADC_ISR(adc) & ADC_ISR_EOC;
+}
+
+/** @brief ADC Read the End-of-Sequence Flag for Regular Conversions
+ *
+ * This flag is set after all channels of an regular group have been
+ * converted.
+ *
+ * @param[in] adc Unsigned int32. ADC block register address base
+ * @ref adc_reg_base
+ * @returns bool. End of conversion flag.
+ */
+bool adc_eos(uint32_t adc)
+{
+	return ADC_ISR(adc) & ADC_ISR_EOS;
+}
+
 /**
  * Turn on the ADC (async)
  * @sa adc_wait_power_on
@@ -187,6 +216,20 @@ void adc_disable_dma(uint32_t adc)
 	ADC_CFGR1(adc) &= ~ADC_CFGR1_DMAEN;
 }
 
+
+/** @brief ADC Read from the Regular Conversion Result Register
+ *
+ * The result read back is 12 bits, right or left aligned within the first
+ * 16 bits.
+ *
+ * @param[in] adc Unsigned int32. ADC block register address base
+ * @ref adc_reg_base
+ * @returns Unsigned int32 conversion result.
+ */
+uint32_t adc_read_regular(uint32_t adc)
+{
+	return ADC_DR(adc);
+}
 
 /**
  * Enable the temperature sensor (only)
