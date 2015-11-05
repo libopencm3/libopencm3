@@ -185,6 +185,11 @@ void adc_enable_temperature_sensor(void);
 void adc_disable_temperature_sensor(void);
 void adc_enable_vrefint(void);
 void adc_disable_vrefint(void);
+void adc_set_resolution(uint32_t adc, uint16_t resolution);
+void adc_set_left_aligned(uint32_t adc);
+void adc_set_right_aligned(uint32_t adc);
+void adc_enable_dma(uint32_t adc);
+void adc_disable_dma(uint32_t adc);
 
 END_DECLS
 

@@ -513,66 +513,6 @@ void adc_set_sample_time_on_all_channels(uint32_t adc, uint8_t time)
 }
 
 /*---------------------------------------------------------------------------*/
-/** @brief ADC Set Resolution
- *
- * ADC Resolution can be reduced from 12 bits to 10, 8 or 6 bits for a
- * corresponding reduction in conversion time.
- *
- * @param[in] adc Unsigned int32. ADC base address (@ref adc_reg_base)
- * @param[in] resolution Unsigned int16. Resolution value (@ref adc_api_res)
- */
-
-void adc_set_resolution(uint32_t adc, uint16_t resolution)
-{
-	ADC_CFGR1(adc) = (ADC_CFGR1(adc) & ~ADC_CFGR1_RES_MASK) | resolution;
-}
-
-/*---------------------------------------------------------------------------*/
-/** @brief ADC Set the Data as Left Aligned
- *
- * @param[in] adc Unsigned int32. ADC base address (@ref adc_reg_base)
- */
-
-void adc_set_left_aligned(uint32_t adc)
-{
-	ADC_CFGR1(adc) |= ADC_CFGR1_ALIGN;
-}
-
-/*---------------------------------------------------------------------------*/
-/** @brief ADC Set the Data as Right Aligned
- *
- * @param[in] adc Unsigned int32. ADC base address (@ref adc_reg_base)
- */
-
-void adc_set_right_aligned(uint32_t adc)
-{
-	ADC_CFGR1(adc) &= ~ADC_CFGR1_ALIGN;
-}
-
-/*---------------------------------------------------------------------------*/
-/** @brief ADC Enable DMA Transfers
- *
- * @param[in] adc Unsigned int32. ADC base address (@ref adc_reg_base)
- */
-
-void adc_enable_dma(uint32_t adc)
-{
-	ADC_CFGR1(adc) |= ADC_CFGR1_DMAEN;
-}
-
-/*---------------------------------------------------------------------------*/
-/** @brief ADC Disable DMA Transfers
- *
- * @param[in] adc Unsigned int32. ADC base address (@ref adc_reg_base)
- */
-
-void adc_disable_dma(uint32_t adc)
-{
-	ADC_CFGR1(adc) &= ~ADC_CFGR1_DMAEN;
-}
-
-
-/*---------------------------------------------------------------------------*/
 /** @brief ADC Enable The VBat Sensor
  *
  * This enables the battery voltage measurements on channel 17.
