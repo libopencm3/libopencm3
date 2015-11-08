@@ -406,30 +406,6 @@ void adc_disable_all_awd_interrupt(uint32_t adc)
 }
 
 /*---------------------------------------------------------------------------*/
-/** @brief ADC Enable Regular End-Of-Conversion Interrupt
- *
- * @param[in] adc Unsigned int32. ADC block register address base @ref
- * adc_reg_base
- */
-
-void adc_enable_eoc_interrupt(uint32_t adc)
-{
-	ADC_IER(adc) |= ADC_IER_EOCIE;
-}
-
-/*---------------------------------------------------------------------------*/
-/** @brief ADC Disable Regular End-Of-Conversion Interrupt
- *
- * @param[in] adc Unsigned int32. ADC block register address base @ref
- * adc_reg_base
- */
-
-void adc_disable_eoc_interrupt(uint32_t adc)
-{
-	ADC_IER(adc) &= ~ADC_IER_EOCIE;
-}
-
-/*---------------------------------------------------------------------------*/
 /** @brief ADC Enable Regular End-Of-Sequence Interrupt
  *
  * @param[in] adc Unsigned int32. ADC block register address base @ref
@@ -867,70 +843,6 @@ void adc_enable_external_trigger_injected(uint32_t adc, uint32_t trigger,
 void adc_disable_external_trigger_injected(uint32_t adc)
 {
 	ADC_JSQR(adc) &= ~ADC_JSQR_JEXTEN_MASK;
-}
-
-/*---------------------------------------------------------------------------*/
-/** @brief ADC Enable the Overrun Interrupt
- *
- * The overrun interrupt is generated when data is not read from a result
- * register before the next conversion is written. If DMA is enabled, all
- * transfers are terminated and any conversion sequence is aborted.
- *
- * @param[in] adc Unsigned int32. ADC block register address base @ref
- * adc_reg_base
- */
-
-void adc_enable_overrun_interrupt(uint32_t adc)
-{
-	ADC_IER(adc) |= ADC_IER_OVRIE;
-}
-
-/*---------------------------------------------------------------------------*/
-/** @brief ADC Disable the Overrun Interrupt
- *
- * @param[in] adc Unsigned int32. ADC block register address base @ref
- * adc_reg_base
- */
-
-void adc_disable_overrun_interrupt(uint32_t adc)
-{
-	ADC_IER(adc) &= ~ADC_IER_OVRIE;
-}
-
-/*---------------------------------------------------------------------------*/
-/** @brief ADC Read the Overrun Flag
- *
- * The overrun flag is set when data is not read from a result register before
- * the next conversion is written. If DMA is enabled, all transfers are
- * terminated and any conversion sequence is aborted.
- *
- * @param[in] adc Unsigned int32. ADC block register address base @ref
- * adc_reg_base
- * @returns Unsigned int32 conversion result.
- */
-
-bool adc_get_overrun_flag(uint32_t adc)
-{
-	return ADC_ISR(adc) & ADC_ISR_OVR;
-}
-
-/*---------------------------------------------------------------------------*/
-/** @brief ADC Clear Overrun Flags
- *
- * The overrun flag is cleared. Note that if an overrun occurs, DMA is
- * terminated.
- * The flag must be cleared and the DMA stream and ADC reinitialised to resume
- * conversions (see the reference manual).
- *
- * @param[in] adc Unsigned int32. ADC block register address base
- * @ref adc_reg_base
- * @returns Unsigned int32 conversion result.
- */
-
-void adc_clear_overrun_flag(uint32_t adc)
-{
-	/* r_w1 bit */
-	ADC_ISR(adc) |= ADC_ISR_OVR;
 }
 
 /*---------------------------------------------------------------------------*/
