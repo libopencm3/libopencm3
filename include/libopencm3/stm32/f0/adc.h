@@ -180,8 +180,6 @@ bool adc_get_eoc_sequence_flag(uint32_t adc);
 
 /* Basic configuration */
 void adc_set_clk_source(uint32_t adc, uint32_t source);
-void adc_set_regular_sequence(uint32_t adc, uint8_t length, uint8_t channel[]);
-void adc_set_sample_time_on_all_channels(uint32_t adc, uint8_t time);
 void adc_enable_vbat_sensor(void);
 void adc_disable_vbat_sensor(void);
 void adc_calibrate_start(uint32_t adc);
