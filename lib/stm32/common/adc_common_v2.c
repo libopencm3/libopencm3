@@ -216,6 +216,72 @@ void adc_disable_dma(uint32_t adc)
 	ADC_CFGR1(adc) &= ~ADC_CFGR1_DMAEN;
 }
 
+/** @brief ADC Enable the Overrun Interrupt
+ *
+ * The overrun interrupt is generated when data is not read from a result
+ * register before the next conversion is written. If DMA is enabled, all
+ * transfers are terminated and any conversion sequence is aborted.
+ *
+ * @param[in] adc Unsigned int32. ADC base address (@ref adc_reg_base)
+ */
+void adc_enable_overrun_interrupt(uint32_t adc)
+{
+	ADC_IER(adc) |= ADC_IER_OVRIE;
+}
+
+/** @brief ADC Disable the Overrun Interrupt
+ *
+ * @param[in] adc Unsigned int32. ADC base address (@ref adc_reg_base)
+ */
+void adc_disable_overrun_interrupt(uint32_t adc)
+{
+	ADC_IER(adc) &= ~ADC_IER_OVRIE;
+}
+
+/** @brief ADC Read the Overrun Flag
+ *
+ * The overrun flag is set when data is not read from a result register before
+ * the next conversion is written. If DMA is enabled, all transfers are
+ * terminated and any conversion sequence is aborted.
+ *
+ * @param[in] adc Unsigned int32. ADC base address (@ref adc_reg_base)
+ */
+bool adc_get_overrun_flag(uint32_t adc)
+{
+	return ADC_ISR(adc) & ADC_ISR_OVR;
+}
+
+/** @brief ADC Clear Overrun Flags
+ *
+ * The overrun flag is cleared. Note that if an overrun occurs, DMA is
+ * terminated.
+ * The flag must be cleared and the DMA stream and ADC reinitialised to resume
+ * conversions (see the reference manual).
+ *
+ * @param[in] adc Unsigned int32. ADC base address (@ref adc_reg_base)
+ */
+void adc_clear_overrun_flag(uint32_t adc)
+{
+	ADC_ISR(adc) = ADC_ISR_OVR;
+}
+
+/** @brief ADC Enable Regular End-Of-Conversion Interrupt
+ *
+ * @param[in] adc Unsigned int32. ADC base address (@ref adc_reg_base)
+ */
+void adc_enable_eoc_interrupt(uint32_t adc)
+{
+	ADC_IER(adc) |= ADC_IER_EOCIE;
+}
+
+/** @brief ADC Disable Regular End-Of-Conversion Interrupt
+ *
+ * @param[in] adc Unsigned int32. ADC base address (@ref adc_reg_base)
+ */
+void adc_disable_eoc_interrupt(uint32_t adc)
+{
+	ADC_IER(adc) &= ~ADC_IER_EOCIE;
+}
 
 /** @brief ADC Read from the Regular Conversion Result Register
  *

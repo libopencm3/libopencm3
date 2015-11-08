@@ -595,8 +595,6 @@ void adc_enable_eos_interrupt_injected(uint32_t adc);
 void adc_disable_eos_interrupt_injected(uint32_t adc);
 void adc_enable_all_awd_interrupt(uint32_t adc);
 void adc_disable_all_awd_interrupt(uint32_t adc);
-void adc_enable_eoc_interrupt(uint32_t adc);
-void adc_disable_eoc_interrupt(uint32_t adc);
 void adc_enable_eos_interrupt(uint32_t adc);
 void adc_disable_eos_interrupt(uint32_t adc);
 void adc_start_conversion_regular(uint32_t adc);
@@ -620,10 +618,6 @@ void adc_enable_external_trigger_regular(uint32_t adc, uint32_t trigger,
 					 uint32_t polarity);
 void adc_enable_external_trigger_injected(uint32_t adc, uint32_t trigger,
 					  uint32_t polarity);
-void adc_enable_overrun_interrupt(uint32_t adc);
-void adc_disable_overrun_interrupt(uint32_t adc);
-bool adc_get_overrun_flag(uint32_t adc);
-void adc_clear_overrun_flag(uint32_t adc);
 bool adc_awd(uint32_t adc);
 /*void adc_set_dma_continue(uint32_t adc);*/
 /*void adc_set_dma_terminate(uint32_t adc);*/
