@@ -388,7 +388,7 @@
 #define RCC_CSR_LSIRDY				(1 << 1)
 #define RCC_CSR_LSION				(1 << 0)
 
-typedef struct {
+struct rcc_clock_scale {
 	uint8_t pll_mul;
 	uint16_t pll_div;
 	uint8_t pll_source;
@@ -396,23 +396,23 @@ typedef struct {
 	uint8_t hpre;
 	uint8_t ppre1;
 	uint8_t ppre2;
-	vos_scale_t voltage_scale;
+	enum pwr_vos_scale voltage_scale;
 	uint32_t apb1_frequency;
 	uint32_t apb2_frequency;
 	uint8_t msi_range;
-} clock_scale_t;
+};
 
-typedef enum {
-	CLOCK_VRANGE1_HSI_PLL_24MHZ,
-	CLOCK_VRANGE1_HSI_PLL_32MHZ,
-	CLOCK_VRANGE1_HSI_RAW_16MHZ,
-	CLOCK_VRANGE1_HSI_RAW_4MHZ,
-	CLOCK_VRANGE1_MSI_RAW_4MHZ,
-	CLOCK_VRANGE1_MSI_RAW_2MHZ,
-	CLOCK_CONFIG_END
-} clock_config_entry_t;
+enum rcc_clock_config_entry {
+	RCC_CLOCK_VRANGE1_HSI_PLL_24MHZ,
+	RCC_CLOCK_VRANGE1_HSI_PLL_32MHZ,
+	RCC_CLOCK_VRANGE1_HSI_RAW_16MHZ,
+	RCC_CLOCK_VRANGE1_HSI_RAW_4MHZ,
+	RCC_CLOCK_VRANGE1_MSI_RAW_4MHZ,
+	RCC_CLOCK_VRANGE1_MSI_RAW_2MHZ,
+	RCC_CLOCK_CONFIG_END
+};
 
-extern const clock_scale_t clock_config[CLOCK_CONFIG_END];
+extern const struct rcc_clock_scale rcc_clock_config[RCC_CLOCK_CONFIG_END];
 
 
 /* --- Variable definitions ------------------------------------------------ */
@@ -422,9 +422,9 @@ extern uint32_t rcc_apb2_frequency;
 
 /* --- Function prototypes ------------------------------------------------- */
 
-typedef enum {
-	PLL, HSE, HSI, MSI, LSE, LSI
-} osc_t;
+enum rcc_osc {
+	RCC_PLL, RCC_HSE, RCC_HSI, RCC_MSI, RCC_LSE, RCC_LSI
+};
 
 #define _REG_BIT(base, bit)		(((base) << 5) + (bit))
 
@@ -580,20 +580,20 @@ enum rcc_periph_rst {
 
 BEGIN_DECLS
 
-void rcc_osc_ready_int_clear(osc_t osc);
-void rcc_osc_ready_int_enable(osc_t osc);
-void rcc_osc_ready_int_disable(osc_t osc);
-int rcc_osc_ready_int_flag(osc_t osc);
+void rcc_osc_ready_int_clear(enum rcc_osc osc);
+void rcc_osc_ready_int_enable(enum rcc_osc osc);
+void rcc_osc_ready_int_disable(enum rcc_osc osc);
+int rcc_osc_ready_int_flag(enum rcc_osc osc);
 void rcc_css_int_clear(void);
 int rcc_css_int_flag(void);
-void rcc_wait_for_osc_ready(osc_t osc);
-void rcc_wait_for_sysclk_status(osc_t osc);
-void rcc_osc_on(osc_t osc);
-void rcc_osc_off(osc_t osc);
+void rcc_wait_for_osc_ready(enum rcc_osc osc);
+void rcc_wait_for_sysclk_status(enum rcc_osc osc);
+void rcc_osc_on(enum rcc_osc osc);
+void rcc_osc_off(enum rcc_osc osc);
 void rcc_css_enable(void);
 void rcc_css_disable(void);
-void rcc_osc_bypass_enable(osc_t osc);
-void rcc_osc_bypass_disable(osc_t osc);
+void rcc_osc_bypass_enable(enum rcc_osc osc);
+void rcc_osc_bypass_disable(enum rcc_osc osc);
 void rcc_set_sysclk_source(uint32_t clk);
 void rcc_set_pll_configuration(uint32_t source, uint32_t multiplier,
 			       uint32_t divisor);
@@ -606,9 +606,9 @@ void rcc_set_usbpre(uint32_t usbpre);
 void rcc_set_rtcpre(uint32_t rtcpre);
 uint32_t rcc_system_clock_source(void);
 void rcc_rtc_select_clock(uint32_t clock);
-void rcc_clock_setup_msi(const clock_scale_t *clock);
-void rcc_clock_setup_hsi(const clock_scale_t *clock);
-void rcc_clock_setup_pll(const clock_scale_t *clock);
+void rcc_clock_setup_msi(const struct rcc_clock_scale *clock);
+void rcc_clock_setup_hsi(const struct rcc_clock_scale *clock);
+void rcc_clock_setup_pll(const struct rcc_clock_scale *clock);
 void rcc_backupdomain_reset(void);
 
 END_DECLS

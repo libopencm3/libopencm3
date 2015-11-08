@@ -540,7 +540,7 @@ extern uint32_t rcc_apb2_frequency;
 /* --- Function prototypes ------------------------------------------------- */
 
 enum rcc_osc {
-	PLL, PLL2, PLL3, HSE, HSI, LSE, LSI
+	RCC_PLL, RCC_PLL2, RCC_PLL3, RCC_HSE, RCC_HSI, RCC_LSE, RCC_LSI
 };
 
 #define _REG_BIT(base, bit)		(((base) << 5) + (bit))

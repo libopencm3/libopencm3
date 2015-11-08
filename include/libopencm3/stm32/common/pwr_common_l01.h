@@ -77,15 +77,15 @@
 
 /* --- Function prototypes ------------------------------------------------- */
 
-typedef enum {
-	RANGE1,
-	RANGE2,
-	RANGE3,
+enum pwr_vos_scale {
+	PWR_SCALE1,
+	PWR_SCALE2,
+	PWR_SCALE3,
 } vos_scale_t;
 
 BEGIN_DECLS
 
-void pwr_set_vos_scale(vos_scale_t scale);
+void pwr_set_vos_scale(enum pwr_vos_scale scale);
 
 END_DECLS
 
