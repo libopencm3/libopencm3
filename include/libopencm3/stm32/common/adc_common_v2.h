@@ -64,7 +64,7 @@ specific memorymap.h header before including this header file.*/
 /* AWD1: Analog watchdog 1 flag */
 #define ADC_ISR_AWD1		(1 << 7)
 #define ADC_ISR_OVR			(1 << 4)
-#define ADC_ISR_EOS			(1 << 3)
+#define ADC_ISR_EOS			(1 << 3)   // FIXME - move to single/multi here.
 #define ADC_ISR_EOSEQ			ADC_ISR_EOS /* TODO - keep only one? */
 #define ADC_ISR_EOC			(1 << 2)
 #define ADC_ISR_EOSMP			(1 << 1)
