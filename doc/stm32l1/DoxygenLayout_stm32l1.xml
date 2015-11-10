@@ -14,6 +14,7 @@
     <tab type="user" visible="yes" url="../../stm32f7/html/modules.html" title="STM32F7" intro=""/>
     <tab type="user" visible="yes" url="../../stm32l0/html/modules.html" title="STM32L0" intro=""/>
     <tab type="modules" visible="yes" title="STM32L1" intro=""/>
+    <tab type="user" visible="yes" url="../../stm32l4/html/modules.html" title="STM32L4" intro=""/>
     <tab type="user" visible="yes" url="../../lm3s/html/modules.html" title="LM3S" intro=""/>
     <tab type="user" visible="yes" url="../../lm4f/html/modules.html" title="LM4F" intro=""/>
     <tab type="user" visible="yes" url="../../lpc13xx/html/modules.html" title="LPC13" intro=""/>

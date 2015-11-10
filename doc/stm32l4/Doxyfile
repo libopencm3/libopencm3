@@ -1,0 +1,39 @@
+# HTML Documentation for STM32L4 code level
+
+# 15 December 2012
+# (C) Ken Sarkies <ksarkies@internode.on.net>
+
+#---------------------------------------------------------------------------
+# Common Include File
+#---------------------------------------------------------------------------
+
+@INCLUDE 	       = ../Doxyfile_common
+
+#---------------------------------------------------------------------------
+# Local settings
+#---------------------------------------------------------------------------
+
+WARN_LOGFILE           = doxygen_stm32l4.log
+
+INPUT		= ../../include/libopencm3/license.dox
+INPUT		+=../../include/libopencm3/stm32/l4
+#INPUT		+=../../include/libopencm3/stm32/common
+
+INPUT		+=../../lib/stm32/l4
+#INPUT		+=../../lib/stm32/common
+
+# No headers to exclude until we include some!
+EXCLUDE		=
+
+# No libs to exclude until we include some!
+EXCLUDE		 =
+
+EXCLUDE_PATTERNS       =
+
+LAYOUT_FILE 	       = DoxygenLayout_stm32l4.xml
+
+GENERATE_TAGFILE       = stm32l4.tag
+
+ENABLE_PREPROCESSING   = YES
+
+
