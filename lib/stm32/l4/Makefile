@@ -40,7 +40,7 @@ ARFLAGS		= rcs
 OBJS		= 
 
 # common/shared objs
-OBJS            +=
+OBJS            += rcc_common_all.o
 
 VPATH += ../../usb:../:../../cm3:../common
 VPATH += ../../ethernet

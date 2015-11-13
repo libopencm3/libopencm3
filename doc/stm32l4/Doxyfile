@@ -18,9 +18,11 @@ WARN_LOGFILE           = doxygen_stm32l4.log
 INPUT		= ../../include/libopencm3/license.dox
 INPUT		+=../../include/libopencm3/stm32/l4
 #INPUT		+=../../include/libopencm3/stm32/common
+INPUT		+=../../include/libopencm3/stm32/common/rcc_common_all.h
 
 INPUT		+=../../lib/stm32/l4
 #INPUT		+=../../lib/stm32/common
+INPUT		+=../../lib/stm32/common/rcc_common_all.c
 
 # No headers to exclude until we include some!
 EXCLUDE		=
