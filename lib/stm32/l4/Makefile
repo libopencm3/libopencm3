@@ -24,7 +24,7 @@ FP_FLAGS	?= -mfloat-abi=hard -mfpu=fpv4-sp-d16
 PREFIX	        ?= arm-none-eabi
 
 CC		= $(PREFIX)-gcc
-AR		= $(PREFIX)-ar
+AR		= $(PREFIX)-gcc-ar
 TGT_CFLAGS	= -Os \
 		  -Wall -Wextra -Wimplicit-function-declaration \
 		  -Wredundant-decls -Wmissing-prototypes -Wstrict-prototypes \
@@ -37,7 +37,7 @@ TGT_CFLAGS      += $(DEBUG_FLAGS)
 ARFLAGS		= rcs
 
 # Specific objs
-OBJS		= 
+OBJS		=
 
 # common/shared objs
 OBJS            += rcc_common_all.o
