@@ -595,7 +595,9 @@ enum rcc_periph_rst {
 
 	/* APB1 peripherals*/
 	RST_TIM2 = _REG_BIT(0x28, 0),
+	RST_TIM3 = _REG_BIT(0x28, 1),
 	RST_TIM6 = _REG_BIT(0x28, 4),
+	RST_TIM7 = _REG_BIT(0x28, 5),
 	RST_LCD = _REG_BIT(0x28, 9),
 	RST_WWDG = _REG_BIT(0x28, 11),
 	RST_SPI2 = _REG_BIT(0x28, 14),
