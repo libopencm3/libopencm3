@@ -291,7 +291,9 @@
 #define RCC_APB1RSTR_SPI2RST			(1 << 14)
 #define RCC_APB1RSTR_WWDGRST			(1 << 11)
 #define RCC_APB1RSTR_LCDRST			(1 << 9)
+#define RCC_APB1RSTR_TIM7RST			(1 << 5)
 #define RCC_APB1RSTR_TIM6RST			(1 << 4)
+#define RCC_APB1RSTR_TIM3RST			(1 << 1)
 #define RCC_APB1RSTR_TIM2RST			(1 << 0)
 
 /* --- RCC_IOPENR - GPIO clock enable register */
@@ -350,7 +352,9 @@
 #define RCC_APB1ENR_SPI2EN			(1 << 14)
 #define RCC_APB1ENR_WWDGEN			(1 << 11)
 #define RCC_APB1ENR_LCDEN			(1 << 9)
+#define RCC_APB1ENR_TIM7EN			(1 << 5)
 #define RCC_APB1ENR_TIM6EN			(1 << 4)
+#define RCC_APB1ENR_TIM3EN			(1 << 1)
 #define RCC_APB1ENR_TIM2EN			(1 << 0)
 /*@}*/
 
@@ -396,7 +400,9 @@
 #define RCC_APB1SMENR_SPI2SMEN		(1 << 14)
 #define RCC_APB1SMENR_WWDGSMEN		(1 << 11)
 #define RCC_APB1SMENR_LCDSMEN		(1 << 9)
+#define RCC_APB1SMENR_TIM7SMEN		(1 << 5)
 #define RCC_APB1SMENR_TIM6SMEN		(1 << 4)
+#define RCC_APB1SMENR_TIM3SMEN		(1 << 1)
 #define RCC_APB1SMENR_TIM2SMEN		(1 << 0)
 
 /* --- RCC_CCIPR - Clock config register */
@@ -512,7 +518,9 @@ enum rcc_periph_clken {
 
 	/* APB1 peripherals */
 	RCC_TIM2 = _REG_BIT(0x38, 0),
+	RCC_TIM3 = _REG_BIT(0x38, 1),
 	RCC_TIM6 = _REG_BIT(0x38, 4),
+	RCC_TIM7 = _REG_BIT(0x38, 5),
 	RCC_LCD = _REG_BIT(0x38, 9),
 	RCC_WWDG = _REG_BIT(0x38, 11),
 	RCC_SPI2 = _REG_BIT(0x38, 14),
@@ -553,7 +561,9 @@ enum rcc_periph_clken {
 
 	/* APB1 peripherals in sleep mode */
 	SCC_TIM2 = _REG_BIT(0x48, 0),
+	SCC_TIM3 = _REG_BIT(0x48, 1),
 	SCC_TIM6 = _REG_BIT(0x48, 4),
+	SCC_TIM7 = _REG_BIT(0x48, 5),
 	SCC_LCD = _REG_BIT(0x48, 9),
 	SCC_WWDG = _REG_BIT(0x48, 11),
 	SCC_SPI2 = _REG_BIT(0x48, 14),
@@ -595,7 +605,9 @@ enum rcc_periph_rst {
 
 	/* APB1 peripherals*/
 	RST_TIM2 = _REG_BIT(0x28, 0),
+	RST_TIM3 = _REG_BIT(0x28, 1),
 	RST_TIM6 = _REG_BIT(0x28, 4),
+	RST_TIM7 = _REG_BIT(0x28, 5),
 	RST_LCD = _REG_BIT(0x28, 9),
 	RST_WWDG = _REG_BIT(0x28, 11),
 	RST_SPI2 = _REG_BIT(0x28, 14),

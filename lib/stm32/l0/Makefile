@@ -37,6 +37,7 @@ ARFLAGS		= rcs
 
 OBJS		= gpio.o rcc.o desig.o
 OBJS		+= pwr_common_all.o pwr_common_l01.o
+OBJS		+= timer_common_all.o
 
 OBJS            += gpio_common_all.o gpio_common_f0234.o rcc_common_all.o
 OBJS		+= adc_common_v2.o
