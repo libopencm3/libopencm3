@@ -23,8 +23,6 @@
  * along with this library.  If not, see <http://www.gnu.org/licenses/>.
  */
 
-#define WEAK __attribute__((weak))
-
 #include <libopencm3/stm32/gpio.h>
 
 /**@{*/

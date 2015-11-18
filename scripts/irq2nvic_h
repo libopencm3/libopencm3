@@ -121,7 +121,7 @@ def convert(infile, outfile_nvic, outfile_vectornvic, outfile_cmsis):
         data['irqcount'] = max([int(x) for x in data['irqs'].keys()]) + 1
 
     data['irqdefinitions'] = "\n".join('#define NVIC_%s_IRQ %d'%(v.upper(),int(k)) for (k,v) in irq2name)
-    data['isrprototypes'] = "\n".join('void WEAK %s_isr(void);'%name.lower() for name in irqnames)
+    data['isrprototypes'] = "\n".join('void %s_isr(void);'%name.lower() for name in irqnames)
     data['isrpragmas'] = "\n".join('#pragma weak %s_isr = blocking_handler'%name.lower() for name in irqnames)
     data['vectortableinitialization'] = ', \\\n    '.join('[NVIC_%s_IRQ] = %s_isr'%(name.upper(), name.lower()) for name in irqnames)
     data['cmsisbends'] = "\n".join("#define %s_IRQHandler %s_isr"%(name.upper(), name.lower()) for name in irqnames)
