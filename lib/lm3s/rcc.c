@@ -98,7 +98,6 @@ int rcc_lm3s_init(uint32_t sys_div, uint32_t pwm_div, uint32_t xtal)
 
 int rcc_qemu_init(void)
 {
-    const uint32_t SYS_CLOCK = 50000000;
     int ret;
     ret = rcc_lm3s_init(QEMU_SYSDIV_VAL, QEMU_PWMDIV_VAL, QEMU_XTAL_VAL);
     return ret;
