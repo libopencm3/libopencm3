@@ -78,20 +78,6 @@ void usart_wait_send_ready(uint32_t usart)
 }
 
 /*---------------------------------------------------------------------------*/
-/** @brief USART Poll for Received Data Available
- *
- * Returns true if receive data buffer holds a valid received data word.
- *
- * @param[in] usart unsigned 32 bit. USART block register address base @ref
- * usart_reg_base
- * @returns bool, true if data buffer can be read, false otherwise.
- */
-bool usart_rx_data_ready(uint32_t usart)
-{
-	return ((USART_ISR(usart) & USART_ISR_RXNE) != 0);
-}
-
-/*---------------------------------------------------------------------------*/
 /** @brief USART Wait for Received Data Available
  *
  * Blocks until the receive data buffer holds a valid received data word.
