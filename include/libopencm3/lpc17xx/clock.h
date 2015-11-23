@@ -154,7 +154,7 @@ LGPL License Terms @ref lgpl_license
 #define CLK_CLKOUTCFG_SEL_RTC		0x04
 #define CLK_CLKOUTCFG_DIV_SHIFT	4
 #define CLK_CLKOUTCFG_ENABLE		(1 << 8)
-#define CLK_CLKOUTCFG_ENABLE		(1 << 9)
+#define CLK_CLKOUTCFG_ACTIVITY		(1 << 9)
 /* Reserved: [31:10]*/
 
 #endif
