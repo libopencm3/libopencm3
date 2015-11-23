@@ -62,6 +62,23 @@ uint16_t usart_recv(uint32_t usart)
 }
 
 /*---------------------------------------------------------------------------*/
+/** @brief USART Check if Transmit Data Buffer is Empty
+ *
+ * Check if transmit data buffer is empty and is ready to accept
+ * the next data word.
+ *
+ * @param[in] usart unsigned 32 bit. USART block register address base @ref
+ * usart_reg_base
+ * @returns boolean: transmit data buffer is ready to accept the next data word
+ */
+
+bool usart_is_send_ready(uint32_t usart)
+{
+	return ((USART_ISR(usart) & USART_ISR_TXE) == 0);
+}
+
+
+/*---------------------------------------------------------------------------*/
 /** @brief USART Wait for Transmit Data Buffer Empty
  *
  * Blocks until the transmit data buffer becomes empty and is ready to accept
@@ -76,6 +93,22 @@ void usart_wait_send_ready(uint32_t usart)
 	/* Wait until the data has been transferred into the shift register. */
 	while ((USART_ISR(usart) & USART_ISR_TXE) == 0);
 }
+
+/*---------------------------------------------------------------------------*/
+/** @brief USART check if Received Data Available
+
+Check if data buffer holds a valid received data word.
+
+@param[in] usart unsigned 32 bit. USART block register address base @ref
+usart_reg_base
+@returns boolean: data buffer holds a valid received data word.
+*/
+
+bool usart_is_recv_ready(uint32_t usart)
+{
+	return ((USART_SR(usart) & USART_SR_RXNE) == 0);
+}
+
 
 /*---------------------------------------------------------------------------*/
 /** @brief USART Wait for Received Data Available
