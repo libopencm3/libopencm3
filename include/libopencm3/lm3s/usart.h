@@ -120,12 +120,13 @@ void usart_send(uint32_t usart, uint16_t data);
 uint16_t usart_recv(uint32_t usart);
 void usart_wait_send_ready(uint32_t usart);
 void usart_wait_recv_ready(uint32_t usart);
+bool usart_is_send_ready(uint32_t usart);
+bool usart_is_recv_ready(uint32_t usart);
 void usart_send_blocking(uint32_t usart, uint16_t data);
 uint16_t usart_recv_blocking(uint32_t usart);
 void usart_enable_rx_interrupt(uint32_t usart);
 void usart_disable_rx_interrupt(uint32_t usart);
 void usart_clear_rx_interrupt(uint32_t usart);
-bool usart_rx_data_ready(uint32_t usart);
 
 #endif
 

@@ -99,9 +99,14 @@ void usart_send_blocking(uint32_t usart, uint16_t data)
 	usart_send(usart, data);
 }
 
-bool usart_rx_data_ready(uint32_t usart)
+bool usart_is_recv_ready(uint32_t usart)
 {
 	return((USART_FR(usart) & USART_FR_RXFE) == 0);
+}
+
+bool usart_is_send_ready(uint32_t usart)
+{
+	return((USART_FR(usart) & USART_FR_TXFE) == 0);
 }
 
 uint16_t usart_recv_blocking(uint32_t usart)
