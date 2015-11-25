@@ -81,8 +81,8 @@
 #define USART_IC_RX     		(0x01 << 4)
 /* Bits [3:0] - Reserved */
 
-#define UART_SR_RXNE  USART_IC_RX
-#define UART_SR_TXE   USART_IC_TX
+#define USART_SR_RXNE  USART_IC_RX
+#define USART_SR_TXE   USART_IC_TX
 
 enum usart_stopbits {
 	USART_STOPBITS_1,
