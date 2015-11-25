@@ -106,7 +106,7 @@ bool usart_is_recv_ready(uint32_t usart)
 
 bool usart_is_send_ready(uint32_t usart)
 {
-	return((USART_FR(usart) & USART_FR_TXFE) == 0);
+	return((USART_FR(usart) & USART_FR_TXFE) != 0);
 }
 
 uint16_t usart_recv_blocking(uint32_t usart)
@@ -120,12 +120,27 @@ void usart_enable_rx_interrupt(uint32_t usart)
 	USART_IM(usart) |= USART_IM_RX;
 }
 
+void usart_enable_tx_interrupt(uint32_t usart)
+{
+	USART_IM(usart) |= USART_IM_TX;
+}
+
 void usart_disable_rx_interrupt(uint32_t usart)
 {
 	USART_IM(usart) &= (~USART_IM_RX);
 }
 
+void usart_disable_tx_interrupt(uint32_t usart)
+{
+	USART_IM(usart) &= (~USART_IM_TX);
+}
+
 void usart_clear_rx_interrupt(uint32_t usart)
 {
 	USART_IC(usart) |= USART_IC_RX;
+}
+
+void usart_clear_tx_interrupt(uint32_t usart)
+{
+	USART_IC(usart) |= USART_IC_TX;
 }

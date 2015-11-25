@@ -127,6 +127,9 @@ uint16_t usart_recv_blocking(uint32_t usart);
 void usart_enable_rx_interrupt(uint32_t usart);
 void usart_disable_rx_interrupt(uint32_t usart);
 void usart_clear_rx_interrupt(uint32_t usart);
+void usart_enable_tx_interrupt(uint32_t usart);
+void usart_disable_tx_interrupt(uint32_t usart);
+void usart_clear_tx_interrupt(uint32_t usart);
 
 #endif
 
