@@ -26,6 +26,14 @@ const clock_scale_t clock_scale[] = {
             .m = 12,
             .n = 1,
             .cclkdiv = 3,
+        },
+        {
+            /* ( 2 * M * Fin ) / N = 360MHz
+                Final div = 3
+                Clk = 120MHz */
+            .m = 15,
+            .n = 1,
+            .cclkdiv = 3,
         }
 };
  void clock_setup(const clock_scale_t *clock)

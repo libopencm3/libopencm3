@@ -172,6 +172,7 @@ typedef struct
 
 typedef enum {
     CLOCK_96MHZ,
+    CLOCK_120MHZ,
 } clock_speed_t;
 
 extern const clock_scale_t clock_scale[];
