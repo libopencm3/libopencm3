@@ -81,6 +81,9 @@
 #define USART_IC_RX     		(0x01 << 4)
 /* Bits [3:0] - Reserved */
 
+#define USART_SR_RXNE  USART_IC_RX
+#define USART_SR_TXE   USART_IC_TX
+
 enum usart_stopbits {
 	USART_STOPBITS_1,
 	USART_STOPBITS_1_5,
@@ -130,6 +133,7 @@ void usart_clear_rx_interrupt(uint32_t usart);
 void usart_enable_tx_interrupt(uint32_t usart);
 void usart_disable_tx_interrupt(uint32_t usart);
 void usart_clear_tx_interrupt(uint32_t usart);
+bool usart_get_interrupt_source(uint32_t usart, uint32_t flag);
 
 #endif
 
