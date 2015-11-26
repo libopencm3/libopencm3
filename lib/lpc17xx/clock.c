@@ -20,79 +20,51 @@
 
 const clock_scale_t clock_scale[] = {
         {
-            /* ( 2 * M * Fin ) / N = 288MHz
-                Final div = 3
+            /* ( 2 * M * Fin ) / N = 200MHz
+                Final div = 2
                 Clk = 96MHz */
-            .m = 12,
-            .n = 1,
-            .cclkdiv = 3,
+            .m = 25,
+            .n = 3,
+            .cclkdiv = 2,
         },
         {
-            /* ( 2 * M * Fin ) / N = 360MHz
-                Final div = 3
+            /* ( 2 * M * Fin ) / N = 240MHz
+                Final div = 2
                 Clk = 120MHz */
-            .m = 15,
-            .n = 1,
-            .cclkdiv = 3,
+            .m = 30,
+            .n = 3,
+            .cclkdiv = 2,
         }
 };
  void clock_setup(const clock_scale_t *clock)
 {
-    volatile uint32_t scs;
-    volatile uint32_t pll0ctrl;
-    /* Check if PLL0 is already connected, if so, disconnect */
-    if (CLK_PLL0STAT & (CLK_PLL1STAT_CONNECT)) {
-        pll0ctrl = CLK_PLL0CON;
-        pll0ctrl &= ~(CLK_PLL1STAT_CONNECT);
-        CLK_PLL0CON = pll0ctrl;
-    }
-    
-    /* Check if PLL0 is already ON, if so, disable */
-    if (CLK_PLL0STAT & (CLK_PLL0STAT_ENABLE)) {
-        pll0ctrl = CLK_PLL0CON;
-        pll0ctrl &= ~(CLK_PLL0STAT_ENABLE);
-        CLK_PLL0CON = pll0ctrl;
-    }
-
-    /* Check if oscillator is enabled, otherwise enable */
-    do {
-        scs = CLK_SCS;
-        scs |= (CLK_SCS_OSCEN);
-        CLK_SCS = scs;
-    } while ((scs & (CLK_SCS_OSCSTAT)) == 0);
-
-    /* Reset CPU Clock divider */
-    CLK_CCLKCFG = 0u;
-
-    /* Select Main Oscillator as primary clock source */
-    CLK_CLKSRCSEL = CLK_CLKSRCSEL_MAIN;
-
-    /* Set oscillator frequency to 384 MHz */
-    CLK_PLL0CFG = PLL0_CFG_VAL(clock->m, clock->n);
-
-    /* Enable oscillator */
-    CLK_PLL0CON = 1;
-
-    /* Enable oscillator */
-    pll0ctrl = CLK_PLL0CON;
-    pll0ctrl |= (CLK_PLL0STAT_ENABLE);
-    CLK_PLL0CON = pll0ctrl;
-
-    /* Kickstart oscillator */
-    CLK_PLL0FEED = PLL_KICK0;
-    CLK_PLL0FEED = PLL_KICK1;
-
-    /* Set correct divider */
-    CLK_CCLKCFG = clock->cclkdiv;
-
-    /* Wait for lock */
-    while ((CLK_PLL0STAT & CLK_PLL0STAT_PLOCK) == 0){}
-
-    /* Connect oscillator */ 
-    pll0ctrl = CLK_PLL0CON;
-    pll0ctrl |= (CLK_PLL1STAT_CONNECT);
-    CLK_PLL0CON = pll0ctrl;
-
+     /* Enable the external clock */
+     CLK_SCS |= CLK_SCS_OSCEN;                
+     while((CLK_SCS & CLK_SCS_OSCSTAT) == 0);
+     /* Select external oscilator */
+     CLK_CLKSRCSEL = CLK_CLKSRCSEL_MAIN;   
+     
+     CLK_PLL0CFG = PLL0_CFG_VAL(clock->m, clock->n);
+     /*Feed*/
+     CLK_PLL0FEED=PLL_KICK0; 
+     CLK_PLL0FEED=PLL_KICK1;
+     /*PLL0 Enable */
+     CLK_PLL0CON = CLK_PLLCON_ENABLE;
+     /*Feed*/
+     CLK_PLL0FEED=PLL_KICK0; 
+     CLK_PLL0FEED=PLL_KICK1;
+     /* Divide by 3 */
+     CLK_CCLKCFG = clock->cclkdiv;
+     /* wait until locked */
+     while (!(CLK_PLL0STAT & CLK_PLL0STAT_PLOCK));
+     /* see flash accelerator - TBD*/
+     /*_FLASHCFG = (_FLASHCFG & 0xFFF) | (4<<12);*/
+     /* PLL0 connect */
+     CLK_PLL0CON |= CLK_PLLCON_CONNECT;
+     /*Feed*/
+     CLK_PLL0FEED=PLL_KICK0; 
+     CLK_PLL0FEED=PLL_KICK1;
+     /* PLL0 operational */
 }
 
     

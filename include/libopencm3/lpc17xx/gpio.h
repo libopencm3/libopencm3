@@ -148,10 +148,28 @@ LGPL License Terms @ref lgpl_license
 /* Overall interrupt status */
 #define GPIO_IS                         MMIO32(GPIOINTERRUPT_BASE + 0x80)
 
+
+#define GPIO_AF0                            0x00
+#define GPIO_AF1                            0x01
+#define GPIO_AF2                            0x02
+#define GPIO_AF3                            0x03
+
+#define GPIO_PUPD_PULLUP          0x00
+#define GPIO_PUPD_REPEATER      0x01
+#define GPIO_PUPD_NONE               0x02
+#define GPIO_PUPD_PULLDOWN     0x03
+
+#define GPIO_MODE_INPUT			0x00
+#define GPIO_MODE_OUTPUT		0x01
+#define GPIO_MODE_AF                        0x02
+#define GPIO_MODE_ANALOG            0x03
+
 BEGIN_DECLS
 
 void gpio_set(uint32_t gpioport, uint32_t gpios);
 void gpio_clear(uint32_t gpioport, uint32_t gpios);
+void gpio_set_af(uint32_t gpioport, uint8_t alt_func_num, uint32_t gpios);
+void gpio_mode_setup(uint32_t gpioport, uint8_t mode, uint8_t pull_up_down,uint32_t gpios);
 
 END_DECLS
 
