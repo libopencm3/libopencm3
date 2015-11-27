@@ -122,7 +122,7 @@ uint32_t systick_get_value(void)
 void systick_set_clocksource(uint8_t clocksource)
 {
 	STK_CSR = (STK_CSR & ~STK_CSR_CLKSOURCE) |
-		  (clocksource & STK_CSR_CLKSOURCE);
+		  (clocksource ? STK_CSR_CLKSOURCE : 0);
 }
 
 /*---------------------------------------------------------------------------*/
