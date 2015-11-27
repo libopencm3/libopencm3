@@ -149,3 +149,9 @@ void gpio_mode_setup(uint32_t gpioport, uint8_t mode, uint8_t pull_up_down,
         shift++;
     }while(gpios);
 }
+
+uint16_t gpio_get(uint32_t gpioport, uint32_t gpios)
+{
+    return (GPIO_PIN(gpioport) & gpios);
+}
+

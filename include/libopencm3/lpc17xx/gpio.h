@@ -170,6 +170,7 @@ void gpio_set(uint32_t gpioport, uint32_t gpios);
 void gpio_clear(uint32_t gpioport, uint32_t gpios);
 void gpio_set_af(uint32_t gpioport, uint8_t alt_func_num, uint32_t gpios);
 void gpio_mode_setup(uint32_t gpioport, uint8_t mode, uint8_t pull_up_down,uint32_t gpios);
+uint16_t gpio_get(uint32_t gpioport, uint32_t gpios);
 
 END_DECLS
 
