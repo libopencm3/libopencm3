@@ -34,7 +34,7 @@ TGT_CFLAGS	= -Os \
 TGT_CFLAGS      += $(DEBUG_FLAGS)
 # ARFLAGS	= rcsv
 ARFLAGS		= rcs
-OBJS		= gpio.o pwr.o clock.o
+OBJS		= gpio.o pwr.o clock.o exti.o
 
 VPATH += ../cm3
 
