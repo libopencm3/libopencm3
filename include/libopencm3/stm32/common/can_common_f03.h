@@ -15,7 +15,6 @@ LGPL License Terms @ref lgpl_license
 /*
  * This file is part of the libopencm3 project.
  *
- * Copyright (C) 2010 Piotr Esden-Tempski <piotr@esden.net>
  *
  * This library is free software: you can redistribute it and/or modify
  * it under the terms of the GNU Lesser General Public License as published by
@@ -31,19 +30,24 @@ LGPL License Terms @ref lgpl_license
  * along with this library.  If not, see <http://www.gnu.org/licenses/>.
  */
 
-#include <libopencm3/stm32/memorymap.h>
-#include <libopencm3/cm3/common.h>
+/* THIS FILE SHOULD NOT BE INCLUDED DIRECTLY, BUT ONLY VIA CAN.H
+The order of header inclusion is important. can.h includes the device
+specific memorymap.h header before including this header file.*/
 
-#if defined(STM32F0)
-#       include <libopencm3/stm32/f0/can.h>
-#elif defined(STM32F1)
-#       include <libopencm3/stm32/f1/can.h>
-#elif defined(STM32F2)
-#       include <libopencm3/stm32/f2/can.h>
-#elif defined(STM32F3)
-#       include <libopencm3/stm32/f3/can.h>
-#elif defined(STM32F4)
-#       include <libopencm3/stm32/f4/can.h>
-#else
-#       error "CAN not supported for this device."
+#ifndef LIBOPENCM3_CAN_COMMON_F03_H
+#define LIBOPENCM3_CAN_COMMON_F03_H
+
+#include <libopencm3/stm32/common/can_common_bxcan.h>
+
+/* --- Convenience macros -------------------------------------------------- */
+
+/* CAN register base addresses (for convenience) */
+/*****************************************************************************/
+/** @defgroup can_reg_base CAN register base address
+@ingroup can_defines
+
+@{*/
+#define CAN				BX_CAN_BASE
+/**@}*/
+
 #endif
