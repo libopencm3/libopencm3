@@ -163,7 +163,7 @@ specific memorymap.h header before including this header file.*/
 /* Note: Bits [7:6] are reserved, and forced to 0 by hardware. */
 
 /* FREQ[5:0]: Peripheral clock frequency (valid values: 2-36 MHz, 2-42 MHz for
- * STM32F4 respectivly) */
+ * STM32F4 respectively) */
 /****************************************************************************/
 /** @defgroup i2c_clock I2C clock frequency settings
 @ingroup i2c_defines

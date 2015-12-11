@@ -236,7 +236,7 @@ After the number of bytes/words to be transferred has been completed, the
 original transfer block size, memory and peripheral base addresses are
 reloaded and the process repeats.
 
-@note This cannot be used with memory to memory mode, which is explictly
+@note This cannot be used with memory to memory mode, which is explicitly
 disabled here.
 
 @param[in] dma unsigned int32. DMA controller base address: DMA1 or DMA2

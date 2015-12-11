@@ -23,7 +23,7 @@ numbers.
 Code generation is chosen here because the resulting C code needs to be very
 repetetive (definition of the IRQ numbers, function prototypes, weak fallback
 definition and vector table definition), all being very repetitive. No portable
-method to achive the same thing with C preprocessor is known to the author.
+method to achieve the same thing with C preprocessor is known to the author.
 (Neither is any non-portable method, for that matter.)"""
 
 import sys
@@ -149,7 +149,7 @@ def main():
         remove = False
     infile = sys.argv[1]
     if not infile.startswith('./include/libopencm3/') or not infile.endswith('/irq.json'):
-        raise ValueError("Arguent must match ./include/libopencm3/**/irq.json")
+        raise ValueError("Argument must match ./include/libopencm3/**/irq.json")
     nvic_h = infile.replace('irq.json', 'nvic.h')
     vector_nvic_c = infile.replace('./include/libopencm3/', './lib/').replace('irq.json', 'vector_nvic.c')
     cmsis = infile.replace('irq.json', 'irqhandlers.h').replace('/libopencm3/', '/libopencmsis/')

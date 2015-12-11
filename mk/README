@@ -54,7 +54,7 @@ gcc
 -------------------------------------------------------------------------------
 
   This module adds an extended support for GCC toolchain. This adds rules,
-neccessary for compiling C and C++ files into elf binary, and rules for
+necessary for compiling C and C++ files into elf binary, and rules for
 generation of bin, hex, or srec output files for flashing.
 
 Variables to control the build process (should be set in your makefile):
@@ -109,7 +109,7 @@ OPENCM3_LIBNAME	(replaced)
  ! Ensure that you have line 'LDLIBS += -l$(OPENCM3_LIBNAME)' in your makefile.
  ! Ensure that you have line 'LDFLAGS += -L$(OPENCM3_DIR)/lib' in your makefile.
  ! Ensure that you have rule '$(OPENCM3_DIR)/lib/lib$(OPENCM3_LIBNAME).a:'
-   to be the library archive succesfully built when needed.
+   to be the library archive successfully built when needed.
 
 Temporary variables that you should not use in your makefile:
 -------------------------------------------------------------

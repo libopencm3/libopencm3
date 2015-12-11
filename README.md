@@ -66,11 +66,11 @@ The most heavily tested toolchain is "gcc-arm-embedded"
 https://launchpad.net/gcc-arm-embedded
 
 Other toolchains _should_ work, but have not been nearly as well tested.
-Toolchains targetting linux, such as "gcc-arm-linux-gnu" or the like are
+Toolchains targeting linux, such as "gcc-arm-linux-gnu" or the like are
 _not_ appropriate.
 
 _NOTE_ We recommend, that you use g-a-c version 2.8 2014q3 or newer
-to build all platforms covered by libopencm3 succesfully.
+to build all platforms covered by libopencm3 successfully.
 
 Building
 --------

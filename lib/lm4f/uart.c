@@ -256,7 +256,7 @@ void uart_clock_from_sysclk(uint32_t uart)
  *
  * \brief <b>Sending and receiving data through the UART</b>
  *
- * Primitives for sending and recieving data are provided, @ref uart_send() and
+ * Primitives for sending and receiving data are provided, @ref uart_send() and
  * @ref uart_recv(). These primitives do not check if data can be transmitted
  * or wait for data. If waiting until data is available or can be transmitted is
  * desired, blocking primitives are also available, @ref uart_send_blocking()
@@ -407,7 +407,7 @@ uint16_t uart_recv_blocking(uint32_t uart)
  *		serviced_irq |= UART_INT_CTS;
  *	}
  *
- *	// Clear the interupt flag for the processed IRQs
+ *	// Clear the interrupt flag for the processed IRQs
  *	uart_clear_interrupt_flag(UART0, serviced_irqs);
  * }
  * @endcode

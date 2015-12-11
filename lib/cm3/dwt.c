@@ -27,7 +27,7 @@
  * benchmarking performance of the code. If function fails, the cycle counter
  * isn't available on this architecture.
  *
- * @returnd true, if success
+ * @return true, if success
  */
 bool dwt_enable_cycle_counter(void)
 {

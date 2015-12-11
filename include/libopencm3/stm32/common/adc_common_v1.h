@@ -287,7 +287,7 @@ specific memorymap.h header before including this header file.*/
 /* DMA: Direct memory access mode. (ADC1 and ADC3 only!) */
 #define ADC_CR2_DMA                     (1 << 8)
 
-/* CONT: Continous conversion. */
+/* CONT: Continuous conversion. */
 #define ADC_CR2_CONT                    (1 << 1)
 
 /* ADON: A/D converter On/Off. */

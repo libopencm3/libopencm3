@@ -93,7 +93,7 @@ void crypto_set_datatype(enum crypto_datatype datatype)
 }
 
 /**
- * @brief Set the algoritm for Encryption/decryption
+ * @brief Set the algorithm for Encryption/decryption
  *
  *@param[in] mode enum crypto_mode Mode of execution
  */
