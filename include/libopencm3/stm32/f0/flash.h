@@ -84,9 +84,11 @@
 #define FLASH_OBR_DATA0_SHIFT		16
 #define FLASH_OBR_DATA0			(0xFF << FLASH_OBR_DATA0_SHIFT)
 
+#define FLASH_OBR_BOOT_SEL		(1 << 15)
 #define FLASH_OBR_RAM_PARITY_CHECK	(1 << 14)
 #define FLASH_OBR_VDDA_MONITOR		(1 << 13)
 #define FLASH_OBR_NBOOT1		(1 << 12)
+#define FLASH_OBR_NBOOT0		(1 << 11)
 #define FLASH_OBR_NRST_STDBY		(1 << 10)
 #define FLASH_OBR_NRST_STOP		(1 << 9)
 #define FLASH_OBR_WDG_SW		(1 << 8)
