@@ -98,7 +98,8 @@ void dac_disable_sine(uint32_t dac)
  * @param[in] dac_ch DAC Channel (use DAC_CHx)
  * @param[in] prs_ch PRS Channel (use PRS_CHx)
  */
-void dac_set_prs_trigger(uint32_t dac, enum dac_ch dac_chan, enum prs_ch prs_chan)
+void dac_set_prs_trigger(uint32_t dac, enum dac_ch dac_chan,
+			 enum prs_ch prs_chan)
 {
 	uint32_t ch_ctrl = DAC_CHx_CTRL(dac, dac_chan);
 	ch_ctrl &= DAC_CH_CTRL_PRSSEL_MASK;

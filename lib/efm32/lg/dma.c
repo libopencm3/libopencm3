@@ -307,7 +307,8 @@ void dma_disable_done_interrupt(enum dma_ch ch)
  */
 void dma_set_source(enum dma_ch ch, uint32_t source)
 {
-	DMA_CHx_CTRL(ch) = (DMA_CHx_CTRL(ch) & ~DMA_CH_CTRL_SOURCESEL_MASK) | source;
+	DMA_CHx_CTRL(ch) = (DMA_CHx_CTRL(ch) & ~DMA_CH_CTRL_SOURCESEL_MASK)
+			    | source;
 }
 
 /**
@@ -317,7 +318,8 @@ void dma_set_source(enum dma_ch ch, uint32_t source)
  */
 void dma_set_signal(enum dma_ch ch, uint32_t signal)
 {
-	DMA_CHx_CTRL(ch) = (DMA_CHx_CTRL(ch) & ~DMA_CH_CTRL_SIGSEL_MASK) | signal;
+	DMA_CHx_CTRL(ch) = (DMA_CHx_CTRL(ch) & ~DMA_CH_CTRL_SIGSEL_MASK)
+			    | signal;
 }
 
 /**
@@ -335,7 +337,7 @@ void dma_channel_reset(enum dma_ch ch)
 	/* clear channel interrupt */
 	DMA_IFC = DMA_IFC_CHxDONE(ch);
 	/* disable loop */
-	if(CHANNEL_SUPPORT_LOOP(ch)) {
+	if (CHANNEL_SUPPORT_LOOP(ch)) {
 		DMA_LOOPx(ch) = 0;
 	}
 	/* reset signal {source, select} */
@@ -350,11 +352,12 @@ void dma_channel_reset(enum dma_ch ch)
  */
 void dma_set_loop_count(enum dma_ch ch, uint16_t count)
 {
-	if(!CHANNEL_SUPPORT_LOOP(ch)) {
+	if (!CHANNEL_SUPPORT_LOOP(ch)) {
 		return;
 	}
 
-	DMA_LOOPx(ch) = (DMA_LOOPx(ch) & ~DMA_LOOP_WIDTH_MASK) | DMA_LOOP_WIDTH(count - 1);
+	DMA_LOOPx(ch) = (DMA_LOOPx(ch) & ~DMA_LOOP_WIDTH_MASK)
+			| DMA_LOOP_WIDTH(count - 1);
 }
 
 /**
@@ -363,7 +366,7 @@ void dma_set_loop_count(enum dma_ch ch, uint16_t count)
  */
 void dma_enable_loop(enum dma_ch ch)
 {
-	if(!CHANNEL_SUPPORT_LOOP(ch)) {
+	if (!CHANNEL_SUPPORT_LOOP(ch)) {
 		return;
 	}
 
@@ -376,7 +379,7 @@ void dma_enable_loop(enum dma_ch ch)
  */
 void dma_disable_loop(enum dma_ch ch)
 {
-	if(!CHANNEL_SUPPORT_LOOP(ch)) {
+	if (!CHANNEL_SUPPORT_LOOP(ch)) {
 		return;
 	}
 
@@ -385,11 +388,13 @@ void dma_disable_loop(enum dma_ch ch)
 
 /**
  * Set desination size
- * @param[in] desc_base start of memory location that contain channel descriptor
+ * @param[in] desc_base start of memory location that contain channel
+ *            descriptor
  * @param[in] ch Channel (use DMA_CHx)
  * @param[in] size Size (use DMA_MEM_*)
  */
-void dma_desc_set_dest_size(uint32_t desc_base, enum dma_ch ch, enum dma_mem size)
+void dma_desc_set_dest_size(uint32_t desc_base, enum dma_ch ch,
+			    enum dma_mem size)
 {
 	uint32_t cfg = DMA_DESC_CHx_CFG(desc_base, ch);
 	cfg &= ~DMA_DESC_CH_CFG_DEST_SIZE_MASK;
@@ -399,11 +404,13 @@ void dma_desc_set_dest_size(uint32_t desc_base, enum dma_ch ch, enum dma_mem siz
 
 /**
  * Set destination increment
- * @param[in] desc_base start of memory location that contain channel descriptor
+ * @param[in] desc_base start of memory location that contain channel
+ *            descriptor
  * @param[in] ch Channel (use DMA_CHx)
  * @param[in] inc Increment (use DMA_MEM_*)
  */
-void dma_desc_set_dest_inc(uint32_t desc_base, enum dma_ch ch, enum dma_mem inc)
+void dma_desc_set_dest_inc(uint32_t desc_base, enum dma_ch ch,
+			   enum dma_mem inc)
 {
 	uint32_t cfg = DMA_DESC_CHx_CFG(desc_base, ch);
 	cfg &= ~DMA_DESC_CH_CFG_DEST_INC_MASK;
@@ -413,11 +420,13 @@ void dma_desc_set_dest_inc(uint32_t desc_base, enum dma_ch ch, enum dma_mem inc)
 
 /**
  * Set source size
- * @param[in] desc_base start of memory location that contain channel descriptor
+ * @param[in] desc_base start of memory location that contain channel
+ *            descriptor
  * @param[in] ch Channel (use DMA_CHx)
  * @param[in] size Size (use DMA_MEM_*)
  */
-void dma_desc_set_src_size(uint32_t desc_base, enum dma_ch ch, enum dma_mem size)
+void dma_desc_set_src_size(uint32_t desc_base, enum dma_ch ch,
+			   enum dma_mem size)
 {
 	uint32_t cfg = DMA_DESC_CHx_CFG(desc_base, ch);
 	cfg &= ~DMA_DESC_CH_CFG_SRC_SIZE_MASK;
@@ -427,7 +436,8 @@ void dma_desc_set_src_size(uint32_t desc_base, enum dma_ch ch, enum dma_mem size
 
 /**
  * Set source increment
- * @param[in] desc_base start of memory location that contain channel descriptor
+ * @param[in] desc_base start of memory location that contain channel
+ *            descriptor
  * @param[in] ch Channel (use DMA_CHx)
  * @param[in] inc Increment (use DMA_MEM_*)
  */
@@ -442,11 +452,13 @@ void dma_desc_set_src_inc(uint32_t desc_base, enum dma_ch ch, enum dma_mem inc)
 
 /**
  * Set R Power
- * @param[in] desc_base start of memory location that contain channel descriptor
+ * @param[in] desc_base start of memory location that contain channel
+ *            descriptor
  * @param[in] ch Channel (use DMA_CHx)
  * @param[in] r_power R Power (Use DMA_R_POWER_*)
  */
-void dma_desc_set_r_power(uint32_t desc_base, enum dma_ch ch, enum dma_r_power r_power)
+void dma_desc_set_r_power(uint32_t desc_base, enum dma_ch ch,
+			  enum dma_r_power r_power)
 {
 	uint32_t cfg = DMA_DESC_CHx_CFG(desc_base, ch);
 	cfg &= ~DMA_DESC_CH_CFG_R_POWER_MASK;
@@ -456,7 +468,8 @@ void dma_desc_set_r_power(uint32_t desc_base, enum dma_ch ch, enum dma_r_power r
 
 /**
  * Enable next useburst
- * @param[in] desc_base start of memory location that contain channel descriptor
+ * @param[in] desc_base start of memory location that contain channel
+ *            descriptor
  * @param[in] ch Channel (use DMA_CHx)
  */
 void dma_desc_enable_next_useburst(uint32_t desc_base, enum dma_ch ch)
@@ -466,7 +479,8 @@ void dma_desc_enable_next_useburst(uint32_t desc_base, enum dma_ch ch)
 
 /**
  * Disable next useburst
- * @param[in] desc_base start of memory location that contain channel descriptor
+ * @param[in] desc_base start of memory location that contain channel
+ *            descriptor
  * @param[in] ch Channel (use DMA_CHx)
  */
 void dma_desc_disable_next_useburst(uint32_t desc_base, enum dma_ch ch)
@@ -476,7 +490,8 @@ void dma_desc_disable_next_useburst(uint32_t desc_base, enum dma_ch ch)
 
 /**
  * Set number (count) of transfer to be performed
- * @param[in] desc_base start of memory location that contain channel descriptor
+ * @param[in] desc_base start of memory location that contain channel
+ *            descriptor
  * @param[in] ch Channel (use DMA_CHx)
  * @param[in] count Count
  */
@@ -490,18 +505,21 @@ void dma_desc_set_count(uint32_t desc_base, enum dma_ch ch, uint16_t count)
 
 /**
  * Store user data field in channel descriptor
- * @param[in] desc_base start of memory location that contain channel descriptor
+ * @param[in] desc_base start of memory location that contain channel
+ *            descriptor
  * @param[in] ch Channel (use DMA_CHx)
  * @param[in] user_data User data
  */
-void dma_desc_set_user_data(uint32_t desc_base, enum dma_ch ch, uint32_t user_data)
+void dma_desc_set_user_data(uint32_t desc_base, enum dma_ch ch,
+			    uint32_t user_data)
 {
 	DMA_DESC_CHx_USER_DATA(desc_base, ch) = user_data;
 }
 
 /**
  * Extract user data field from channel descriptor
- * @param[in] desc_base start of memory location that contain channel descriptor
+ * @param[in] desc_base start of memory location that contain channel
+ *            descriptor
  * @param[in] ch Channel (use DMA_CHx)
  * @return user data
  */
@@ -522,7 +540,8 @@ uint32_t dma_desc_get_user_data(uint32_t desc_base, enum dma_ch ch)
  * @return the calculate end address
  * @note can be used to calculate {source, destination} end address
  */
-inline uint32_t dma_calc_end_from_start(uint32_t start, uint8_t inc, uint16_t n_minus_1)
+inline uint32_t dma_calc_end_from_start(uint32_t start, uint8_t inc,
+					uint16_t n_minus_1)
 {
 	switch (inc) {
 	case DMA_MEM_BYTE:
@@ -540,49 +559,56 @@ inline uint32_t dma_calc_end_from_start(uint32_t start, uint8_t inc, uint16_t n_
 
 /**
  * Assign Source address to DMA Channel
- * @param[in] desc_base start of memory location that contain channel descriptor
+ * @param[in] desc_base start of memory location that contain channel
+ *            descriptor
  * @param[in] ch Channel (use DMA_CHx)
  * @param[in] src_start Source data start address
- * @param[in] this function use dma_desc_set_count() and dma_desc_set_src_inc() set value
- *    to calculate the src data end address from @a src_start
+ * @param[in] this function use dma_desc_set_count() and dma_desc_set_src_inc()
+ *            set value to calculate the src data end address from @a src_start
  * @note dma_desc_set_count() should be called first.
  * @note dma_desc_set_src_inc() should be called first.
  */
-void dma_desc_set_src_address(uint32_t desc_base, enum dma_ch ch, uint32_t src_start)
+void dma_desc_set_src_address(uint32_t desc_base, enum dma_ch ch,
+			      uint32_t src_start)
 {
 	uint32_t cfg = DMA_DESC_CHx_CFG(desc_base, ch);
-	uint8_t inc = (cfg & DMA_DESC_CH_CFG_SRC_INC_MASK) >>
-			DMA_DESC_CH_CFG_SRC_INC_SHIFT;
-	uint16_t n_minus_1 = (cfg & DMA_DESC_CH_CFG_N_MINUS_1_MASK) >>
-			DMA_DESC_CH_CFG_N_MINUS_1_SHIFT;
+	uint8_t inc = (cfg & DMA_DESC_CH_CFG_SRC_INC_MASK)
+		      >> DMA_DESC_CH_CFG_SRC_INC_SHIFT;
+	uint16_t n_minus_1 = (cfg & DMA_DESC_CH_CFG_N_MINUS_1_MASK)
+			     >> DMA_DESC_CH_CFG_N_MINUS_1_SHIFT;
 	uint32_t src_end = dma_calc_end_from_start(src_start, inc, n_minus_1);
 	DMA_DESC_CHx_SRC_DATA_END_PTR(desc_base, ch) = src_end;
 }
 
 /**
  * Assign Destination address to DMA Channel
- * @param[in] desc_base start of memory location that contain channel descriptor
+ * @param[in] desc_base start of memory location that contain channel
+ *            descriptor
  * @param[in] ch Channel (use DMA_CHx)
  * @param[in] dest_start Destination data start address
- * @param[in] this function use dma_desc_set_count() and dma_desc_set_dest_inc() set value
- *    to calculate the dest data end address from @a dest_start
+ * @param[in] this function use dma_desc_set_count() and
+ *            dma_desc_set_dest_inc() set value to calculate the dest data end
+ *            address from @a dest_start
  * @note dma_desc_set_count() should be called first.
  * @note dma_desc_set_dest_inc() should be called first.
  */
-void dma_desc_set_dest_address(uint32_t desc_base, enum dma_ch ch, uint32_t dest_start)
+void dma_desc_set_dest_address(uint32_t desc_base, enum dma_ch ch,
+			       uint32_t dest_start)
 {
 	uint32_t cfg = DMA_DESC_CHx_CFG(desc_base, ch);
-	uint8_t inc = (cfg & DMA_DESC_CH_CFG_DEST_INC_MASK) >>
-			DMA_DESC_CH_CFG_DEST_INC_SHIFT;
-	uint16_t n_minus_1 = (cfg & DMA_DESC_CH_CFG_N_MINUS_1_MASK) >>
-			DMA_DESC_CH_CFG_N_MINUS_1_SHIFT;
-	uint32_t dest_end = dma_calc_end_from_start(dest_start, inc, n_minus_1);
+	uint8_t inc = (cfg & DMA_DESC_CH_CFG_DEST_INC_MASK)
+		      >> DMA_DESC_CH_CFG_DEST_INC_SHIFT;
+	uint16_t n_minus_1 = (cfg & DMA_DESC_CH_CFG_N_MINUS_1_MASK)
+			     >> DMA_DESC_CH_CFG_N_MINUS_1_SHIFT;
+	uint32_t dest_end = dma_calc_end_from_start(dest_start, inc,
+						    n_minus_1);
 	DMA_DESC_CHx_DEST_DATA_END_PTR(desc_base, ch) = dest_end;
 }
 
 /**
  * Set the channel mode ("Cycle control")
- * @param[in] desc_base start of memory location that contain channel descriptor
+ * @param[in] desc_base start of memory location that contain channel
+ *            descriptor
  * @param[in] ch Channel (use DMA_CHx)
  * @param[in] mode Mode (use DMA_MODE_*)
  */

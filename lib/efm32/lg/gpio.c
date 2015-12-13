@@ -48,7 +48,8 @@ void gpio_disable_lock(void)
  */
 bool gpio_get_lock_flag(void)
 {
-	return (GPIO_LOCK & GPIO_LOCK_LOCKKEY_MASK) == GPIO_LOCK_LOCKKEY_LOCKED;
+	return (GPIO_LOCK & GPIO_LOCK_LOCKKEY_MASK)
+	       == GPIO_LOCK_LOCKKEY_LOCKED;
 }
 
 /**
@@ -56,7 +57,8 @@ bool gpio_get_lock_flag(void)
  * @param[in] gpio_port GPIO Port (use GPIO* ex. GPIOA, GPIOB, ....)
  * @param[in] drive_stength Driver Stength (use GPIO_STENGTH_*)
  */
-void gpio_set_drive_strength(uint32_t gpio_port, enum gpio_drive_strength drive_stength)
+void gpio_set_drive_strength(uint32_t gpio_port,
+			     enum gpio_drive_strength drive_stength)
 {
 	GPIO_P_CTRL(gpio_port) = GPIO_P_CTRL_DRIVEMODE(drive_stength);
 }
@@ -122,7 +124,7 @@ void gpio_clear(uint32_t gpio_port, uint16_t gpios)
  */
 uint16_t gpio_get(uint32_t gpio_port, uint16_t gpios)
 {
-	return (GPIO_P_DIN(gpio_port) & gpios);
+	return GPIO_P_DIN(gpio_port) & gpios;
 }
 
 /**
@@ -159,9 +161,9 @@ void gpio_port_write(uint32_t gpio_port, uint16_t data)
 /**
  * @brief Lock the Configuration of a Group of Pins
  *
- * The configuration of one or more pins of the given GPIO port is locked. There
- * is no mechanism to unlock these via software. Unlocking occurs at the next
- * reset.
+ * The configuration of one or more pins of the given GPIO port is locked.
+ * There is no mechanism to unlock these via software. Unlocking occurs at the
+ * next reset.
  *
  * @param[in] gpio_port GPIO Port (use GPIO* ex. GPIOA, GPIOB, ....)
  * @param[in] gpios (pins mask (use GPIO* ex . GPIO0, GPIO1 .... GPIO_ALL,

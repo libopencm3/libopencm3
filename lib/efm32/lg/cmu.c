@@ -56,7 +56,8 @@ bool cmu_get_lock_flag(void)
  *
  * @param[in] periph enum cmu_periph_clken Peripheral Name
  *
- * For available constants, see @a enum::cmu_periph_clken (CMU_LEUART1 for example)
+ * For available constants, see @a enum::cmu_periph_clken (CMU_LEUART1 for
+ * example)
  */
 
 void cmu_periph_clock_enable(enum cmu_periph_clken clken)
@@ -70,7 +71,8 @@ void cmu_periph_clock_enable(enum cmu_periph_clken clken)
  *
  * @param[in] periph enum cmu_periph_clken Peripheral Name
  *
- * For available constants, see @a enum::cmu_periph_clken (CMU_LEUART1 for example)
+ * For available constants, see @a enum::cmu_periph_clken (CMU_LEUART1 for
+ * example)
  */
 
 void cmu_periph_clock_disable(enum cmu_periph_clken clken)
@@ -203,7 +205,7 @@ void cmu_wait_for_osc_ready(enum cmu_osc osc)
  */
 void cmu_set_hfclk_source(enum cmu_osc osc)
 {
-	switch(osc) {
+	switch (osc) {
 	case HFXO:
 		CMU_CMD = CMU_CMD_HFCLKSEL_HFXO;
 		break;
@@ -225,13 +227,13 @@ void cmu_set_hfclk_source(enum cmu_osc osc)
 enum cmu_osc cmu_get_hfclk_source(void)
 {
 	uint32_t status = CMU_STATUS;
-	if(status & CMU_STATUS_LFXOSEL) {
+	if (status & CMU_STATUS_LFXOSEL) {
 		return LFXO;
-	} else if(status & CMU_STATUS_LFRCOSEL) {
+	} else if (status & CMU_STATUS_LFRCOSEL) {
 		return LFRCO;
-	} else if(status & CMU_STATUS_HFXOSEL) {
+	} else if (status & CMU_STATUS_HFXOSEL) {
 		return HFXO;
-	} else if(status & CMU_STATUS_HFRCOSEL) {
+	} else if (status & CMU_STATUS_HFRCOSEL) {
 		return HFRCO;
 	}
 
@@ -245,11 +247,12 @@ enum cmu_osc cmu_get_hfclk_source(void)
 void cmu_clock_setup_in_hfxo_out_48mhz(void)
 {
 	/* configure HFXO and prescaler */
-	CMU_HFCORECLKDIV = CMU_HFCORECLKDIV_HFCORECLKDIV_NODIV |
-			CMU_HFCORECLKDIV_HFCORECLKLEDIV;
-	CMU_CTRL = (CMU_CTRL &
-			~(CMU_CTRL_HFCLKDIV_MASK | CMU_CTRL_HFXOBUFCUR_MASK)) |
-			(CMU_CTRL_HFCLKDIV_NODIV | CMU_CTRL_HFXOBUFCUR_BOOSTABOVE32MHZ);
+	CMU_HFCORECLKDIV = CMU_HFCORECLKDIV_HFCORECLKDIV_NODIV
+			   | CMU_HFCORECLKDIV_HFCORECLKLEDIV;
+	CMU_CTRL = (CMU_CTRL
+		    & ~(CMU_CTRL_HFCLKDIV_MASK | CMU_CTRL_HFXOBUFCUR_MASK))
+		    | (CMU_CTRL_HFCLKDIV_NODIV
+		       | CMU_CTRL_HFXOBUFCUR_BOOSTABOVE32MHZ);
 
 	/* enable HFXO */
 	cmu_osc_on(HFXO);
@@ -258,12 +261,12 @@ void cmu_clock_setup_in_hfxo_out_48mhz(void)
 	cmu_wait_for_osc_ready(HFXO);
 
 	/* set flash wait state */
-	MSC_READCTRL = (MSC_READCTRL & ~MSC_READCTRL_MODE_MASK) |
-							MSC_READCTRL_MODE_WS2;
+	MSC_READCTRL = (MSC_READCTRL & ~MSC_READCTRL_MODE_MASK)
+			| MSC_READCTRL_MODE_WS2;
 
 	/* switch to HFXO */
 	cmu_set_hfclk_source(HFXO);
 
 	/* wait till HFXO not selected */
-	while(cmu_get_hfclk_source() != HFXO);
+	while (cmu_get_hfclk_source() != HFXO);
 }

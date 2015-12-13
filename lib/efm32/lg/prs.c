@@ -123,7 +123,8 @@ void prs_set_edge(enum prs_ch ch, uint32_t edge)
  */
 void prs_set_source(enum prs_ch ch, uint32_t source)
 {
-	PRS_CHx_CTRL(ch) = (PRS_CHx_CTRL(ch) & ~PRS_CH_CTRL_SOURCESEL_MASK) | source;
+	PRS_CHx_CTRL(ch) = (PRS_CHx_CTRL(ch) & ~PRS_CH_CTRL_SOURCESEL_MASK)
+			   | source;
 }
 
 /**
@@ -134,5 +135,6 @@ void prs_set_source(enum prs_ch ch, uint32_t source)
  */
 void prs_set_signal(enum prs_ch ch, uint32_t signal)
 {
-	PRS_CHx_CTRL(ch) = (PRS_CHx_CTRL(ch) & ~PRS_CH_CTRL_SIGSEL_MASK) | signal;
+	PRS_CHx_CTRL(ch) = (PRS_CHx_CTRL(ch) & ~PRS_CH_CTRL_SIGSEL_MASK)
+			   | signal;
 }
