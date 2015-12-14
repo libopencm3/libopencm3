@@ -81,7 +81,7 @@ enum pwr_vos_scale {
 	PWR_SCALE1,
 	PWR_SCALE2,
 	PWR_SCALE3,
-} vos_scale_t;
+};
 
 BEGIN_DECLS
 
