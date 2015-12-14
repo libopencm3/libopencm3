@@ -59,7 +59,8 @@ static void stall_transaction(usbd_device *usbd_dev)
  * @param ep_size
  * @return
  */
-static bool needs_zlp(uint16_t len, uint16_t wLength, uint8_t ep_size) {
+static bool needs_zlp(uint16_t len, uint16_t wLength, uint8_t ep_size)
+{
 	if (len < wLength) {
 		if (len && (len % ep_size == 0)) {
 			return true;
@@ -109,7 +110,8 @@ static void usb_control_send_chunk(usbd_device *usbd_dev)
 				     usbd_dev->control_state.ctrl_len);
 
 		usbd_dev->control_state.state =
-			usbd_dev->control_state.needs_zlp ? DATA_IN : LAST_DATA_IN;
+			usbd_dev->control_state.needs_zlp ?
+			DATA_IN : LAST_DATA_IN;
 		usbd_dev->control_state.needs_zlp = false;
 		usbd_dev->control_state.ctrl_len = 0;
 		usbd_dev->control_state.ctrl_buf = NULL;

@@ -523,7 +523,7 @@ enum rcc_osc rcc_system_clock_source(void)
  *
  * @returns ::osc_t USB clock source:
  */
- 
+
 enum rcc_osc rcc_usb_clock_source(void)
 {
 	return (RCC_CFGR3 & RCC_CFGR3_USBSW) ? PLL : HSI48;
@@ -669,10 +669,10 @@ void rcc_clock_setup_in_hsi48_out_48mhz(void)
 {
 	rcc_osc_on(HSI48);
 	rcc_wait_for_osc_ready(HSI48);
-	
+
 	rcc_set_hpre(RCC_CFGR_HPRE_NODIV);
 	rcc_set_ppre(RCC_CFGR_PPRE_NODIV);
-	
+
 	flash_set_ws(FLASH_ACR_LATENCY_024_048MHZ);
 
 	rcc_set_sysclk_source(HSI48);

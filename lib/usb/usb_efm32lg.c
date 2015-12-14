@@ -51,7 +51,7 @@ static usbd_device *efm32lg_usbd_init(void)
 	CMU_CMD = CMU_CMD_USBCCLKSEL_HFCLKNODIV;
 
 	/* wait till clock not selected */
-	while(!(CMU_STATUS & CMU_STATUS_USBCHFCLKSEL));
+	while (!(CMU_STATUS & CMU_STATUS_USBCHFCLKSEL));
 
 	USB_GINTSTS = USB_GINTSTS_MMIS;
 
@@ -179,7 +179,8 @@ static void efm32lg_endpoints_reset(usbd_device *usbd_dev)
 	usbd_dev->fifo_mem_top = usbd_dev->fifo_mem_top_ep0;
 }
 
-static void efm32lg_ep_stall_set(usbd_device *usbd_dev, uint8_t addr, uint8_t stall)
+static void efm32lg_ep_stall_set(usbd_device *usbd_dev, uint8_t addr,
+				 uint8_t stall)
 {
 	(void)usbd_dev;
 	if (addr == 0) {

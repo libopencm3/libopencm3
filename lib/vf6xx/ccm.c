@@ -102,8 +102,7 @@ uint32_t ccm_get_pll_pfd(uint32_t pfd_sel, uint32_t pll_pfd, uint32_t pll_clk)
 	uint64_t pll_pfd_clk;
 	uint32_t pll_pfd_frac = pll_pfd;
 
-	switch(pfd_sel)
-	{
+	switch (pfd_sel) {
 	case CCM_CCSR_PLL_PFD_CLK_SEL_MAIN:
 		return pll_clk;
 	case CCM_CCSR_PLL_PFD_CLK_SEL_PFD1:
@@ -164,8 +163,7 @@ void ccm_calculate_clocks()
 	ipg_clk_div += 1;
 
 	/* Get Cortex-A5 core clock from system clock selection */
-	switch(ccsr & CCM_CCSR_SYS_CLK_SEL_MASK)
-	{
+	switch (ccsr & CCM_CCSR_SYS_CLK_SEL_MASK) {
 	case CCM_CCSR_SYS_CLK_SEL_FAST:
 		ccm_core_clk = 24000000;
 		break;

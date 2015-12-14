@@ -293,14 +293,16 @@ void rcc_wait_for_osc_ready(enum rcc_osc osc)
 /*---------------------------------------------------------------------------*/
 /** @brief RCC Set HSI48 clock source to the RC48 (CRS)
  */
-void rcc_set_hsi48_source_rc48(void) {
+void rcc_set_hsi48_source_rc48(void)
+{
 	RCC_CCIPR |= RCC_CCIPR_HSI48SEL;
 }
 
 /*---------------------------------------------------------------------------*/
 /** @brief RCC Set HSI48 clock source to the PLL
  */
-void rcc_set_hsi48_source_pll(void) {
+void rcc_set_hsi48_source_pll(void)
+{
 	RCC_CCIPR &= ~RCC_CCIPR_HSI48SEL;
 }
 
@@ -343,7 +345,8 @@ void rcc_set_sysclk_source(enum rcc_osc osc)
 
 void rcc_set_pll_multiplier(uint32_t factor)
 {
-	uint32_t reg = RCC_CFGR & ~(RCC_CFGR_PLLMUL_MASK<<RCC_CFGR_PLLMUL_SHIFT);
+	uint32_t reg = RCC_CFGR
+		       & ~(RCC_CFGR_PLLMUL_MASK << RCC_CFGR_PLLMUL_SHIFT);
 	RCC_CFGR = reg | (factor << RCC_CFGR_PLLMUL_SHIFT);
 }
 
@@ -358,7 +361,8 @@ void rcc_set_pll_multiplier(uint32_t factor)
 
 void rcc_set_pll_divider(uint32_t factor)
 {
-	uint32_t reg = RCC_CFGR & ~(RCC_CFGR_PLLDIV_MASK<<RCC_CFGR_PLLDIV_SHIFT);
+	uint32_t reg = RCC_CFGR
+		       & ~(RCC_CFGR_PLLDIV_MASK << RCC_CFGR_PLLDIV_SHIFT);
 	RCC_CFGR = reg | (factor << RCC_CFGR_PLLDIV_SHIFT);
 }
 
@@ -372,7 +376,8 @@ void rcc_set_pll_divider(uint32_t factor)
 
 void rcc_set_ppre1(uint32_t ppre)
 {
-	uint32_t reg = RCC_CFGR & ~(RCC_CFGR_PPRE1_MASK << RCC_CFGR_PPRE1_SHIFT);
+	uint32_t reg = RCC_CFGR
+		       & ~(RCC_CFGR_PPRE1_MASK << RCC_CFGR_PPRE1_SHIFT);
 	RCC_CFGR = reg | (ppre << RCC_CFGR_PPRE1_SHIFT);
 }
 
@@ -386,7 +391,8 @@ void rcc_set_ppre1(uint32_t ppre)
 
 void rcc_set_ppre2(uint32_t ppre)
 {
-	uint32_t reg = RCC_CFGR & ~(RCC_CFGR_PPRE2_MASK << RCC_CFGR_PPRE2_SHIFT);
+	uint32_t reg = RCC_CFGR
+		       & ~(RCC_CFGR_PPRE2_MASK << RCC_CFGR_PPRE2_SHIFT);
 	RCC_CFGR = reg | (ppre << RCC_CFGR_PPRE2_SHIFT);
 }
 

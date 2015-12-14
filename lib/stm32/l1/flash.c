@@ -121,39 +121,46 @@ void flash_set_ws(uint32_t ws)
 	FLASH_ACR = reg32;
 }
 
-void flash_unlock_pecr(void) {
+void flash_unlock_pecr(void)
+{
 	FLASH_PEKEYR = FLASH_PEKEYR_PEKEY1;
 	FLASH_PEKEYR = FLASH_PEKEYR_PEKEY2;
 }
 
-void flash_lock_pecr(void) {
+void flash_lock_pecr(void)
+{
 	FLASH_PECR |= FLASH_PECR_PELOCK;
 }
 
-void flash_unlock_progmem(void) {
+void flash_unlock_progmem(void)
+{
 	flash_unlock_pecr();
 	FLASH_PRGKEYR = FLASH_PRGKEYR_PRGKEY1;
 	FLASH_PRGKEYR = FLASH_PRGKEYR_PRGKEY2;
 }
 
-void flash_lock_progmem(void) {
+void flash_lock_progmem(void)
+{
 	FLASH_PECR |= FLASH_PECR_PRGLOCK;
 }
 
-void flash_unlock_option_bytes(void) {
+void flash_unlock_option_bytes(void)
+{
 	flash_unlock_pecr();
 	FLASH_OPTKEYR = FLASH_OPTKEYR_OPTKEY1;
 	FLASH_OPTKEYR = FLASH_OPTKEYR_OPTKEY2;
 }
 
-void flash_lock_option_bytes(void) {
+void flash_lock_option_bytes(void)
+{
 	FLASH_PECR |= FLASH_PECR_OPTLOCK;
 }
 
 /** @brief Unlock all segments of flash
  *
  */
-void flash_unlock(void) {
+void flash_unlock(void)
+{
 	flash_unlock_pecr();
 	flash_unlock_progmem();
 	flash_unlock_option_bytes();
@@ -162,7 +169,8 @@ void flash_unlock(void) {
 /** @brief Lock all segments of flash
  *
  */
-void flash_lock(void) {
+void flash_lock(void)
+{
 	flash_lock_option_bytes();
 	flash_lock_progmem();
 	flash_lock_pecr();
@@ -173,7 +181,8 @@ void flash_lock(void) {
  * @param address assumed to be in the eeprom space, no checking
  * @param data word to write
  */
-void eeprom_program_word(uint32_t address, uint32_t data) {
+void eeprom_program_word(uint32_t address, uint32_t data)
+{
 	flash_unlock_pecr();
 	/* erase only if needed */
 	FLASH_PECR &= ~FLASH_PECR_FTDW;
@@ -183,8 +192,9 @@ void eeprom_program_word(uint32_t address, uint32_t data) {
 
 /** @brief Write a block of words to eeprom
  *
- * Writes a block of words to EEPROM at the requested address, erasing if necessary,
- * and locking afterwards.  Only wordwise writing is safe for writing any value
+ * Writes a block of words to EEPROM at the requested address, erasing if
+ * necessary, and locking afterwards.  Only wordwise writing is safe for
+ * writing any value
  *
  * @param[in] address must point to EEPROM space, no checking!
  * @param[in] data pointer to data to write
@@ -192,16 +202,16 @@ void eeprom_program_word(uint32_t address, uint32_t data) {
  */
 void eeprom_program_words(uint32_t address, uint32_t *data, int length_in_words)
 {
-       int i;
-       flash_unlock_pecr();
-       while (FLASH_SR & FLASH_SR_BSY);
-       /* erase only if needed */
-       FLASH_PECR &= ~FLASH_PECR_FTDW;
-       for (i = 0; i < length_in_words; i++) {
-               MMIO32(address + (i * sizeof(uint32_t))) = *(data+i);
-               while (FLASH_SR & FLASH_SR_BSY);
-       }
-       flash_lock_pecr();
+	int i;
+	flash_unlock_pecr();
+	while (FLASH_SR & FLASH_SR_BSY);
+	/* erase only if needed */
+	FLASH_PECR &= ~FLASH_PECR_FTDW;
+	for (i = 0; i < length_in_words; i++) {
+		MMIO32(address + (i * sizeof(uint32_t))) = *(data+i);
+		while (FLASH_SR & FLASH_SR_BSY);
+	}
+	flash_lock_pecr();
 }
 
 

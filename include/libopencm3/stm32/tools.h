@@ -35,7 +35,7 @@
 
 /* Clear register bit masking out some bits that must not be touched. */
 #define CLR_REG_BIT_MSK_AND_SET(REG, MSK, BIT, EXTRA_BITS) \
-		SET_REG((REG), (GET_REG((REG)) & (MSK) & (~(BIT))) | (EXTRA_BITS))
+	SET_REG((REG), (GET_REG((REG)) & (MSK) & (~(BIT))) | (EXTRA_BITS))
 
 #define CLR_REG_BIT_MSK(REG, MSK, BIT) \
 		CLR_REG_BIT_MSK_AND_SET((REG), (MSK), (BIT), 0)

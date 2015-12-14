@@ -375,7 +375,7 @@ void adc_disable_eoc_interrupt_injected(uint32_t adc)
 
 void adc_enable_eos_interrupt_injected(uint32_t adc)
 {
-        ADC_IER(adc) |= ADC_IER_JEOSIE;
+	ADC_IER(adc) |= ADC_IER_JEOSIE;
 }
 
 /*---------------------------------------------------------------------------*/
@@ -387,7 +387,7 @@ void adc_enable_eos_interrupt_injected(uint32_t adc)
 
 void adc_disable_eos_interrupt_injected(uint32_t adc)
 {
-        ADC_IER(adc) &= ~ADC_IER_JEOSIE;
+	ADC_IER(adc) &= ~ADC_IER_JEOSIE;
 }
 
 
@@ -452,7 +452,7 @@ void adc_disable_eoc_interrupt(uint32_t adc)
 
 void adc_enable_eos_interrupt(uint32_t adc)
 {
-        ADC_IER(adc) |= ADC_IER_EOSIE;
+	ADC_IER(adc) |= ADC_IER_EOSIE;
 }
 
 /*---------------------------------------------------------------------------*/
@@ -464,7 +464,7 @@ void adc_enable_eos_interrupt(uint32_t adc)
 
 void adc_disable_eos_interrupt(uint32_t adc)
 {
-        ADC_IER(adc) &= ~ADC_IER_EOSIE;
+	ADC_IER(adc) &= ~ADC_IER_EOSIE;
 }
 
 

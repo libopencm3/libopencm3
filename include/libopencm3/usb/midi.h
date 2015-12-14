@@ -144,9 +144,9 @@ struct usb_midi_element_descriptor_tail {
 	uint8_t bInTerminalLink;
 	uint8_t bOutTerminalLink;
 	uint8_t bElCapsSize;
-	uint16_t bmElementCaps; /* host cannot assume this is 16-bit but
-	                           device can (since highest defined bitmap
-				   value in v1.0 is bit 11) */
+	uint16_t bmElementCaps; /* host cannot assume this is 16-bit but device
+				   can (since highest defined bitmap value in
+				   v1.0 is bit 11) */
 	uint8_t iElement;
 } __attribute__((packed));
 

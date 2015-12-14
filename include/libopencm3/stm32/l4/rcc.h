@@ -766,7 +766,7 @@ enum rcc_periph_clken {
 	SCC_FLASH = _REG_BIT(RCC_AHB1SMENR_OFFSET, 8),
 	SCC_DMA2 = _REG_BIT(RCC_AHB1SMENR_OFFSET, 1),
 	SCC_DMA1 = _REG_BIT(RCC_AHB1SMENR_OFFSET, 0),
-	
+
 	/* AHB2 peripherals in sleep mode */
 	SCC_RNG = _REG_BIT(RCC_AHB2SMENR_OFFSET, 18),
 	SCC_AES = _REG_BIT(RCC_AHB2SMENR_OFFSET, 16),
@@ -895,7 +895,7 @@ enum rcc_periph_rst {
 	RST_TIM1 = _REG_BIT(RCC_APB2RSTR_OFFSET, 11),
 	RST_SDMMC1 = _REG_BIT(RCC_APB2RSTR_OFFSET, 10),
 	RST_SYSCFG = _REG_BIT(RCC_APB2RSTR_OFFSET, 0),
-	
+
 };
 #include <libopencm3/stm32/common/rcc_common_all.h>
 

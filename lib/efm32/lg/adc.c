@@ -87,7 +87,7 @@ void adc_disable_tailgating(uint32_t adc)
  */
 void adc_set_warm_up_mode(uint32_t adc, uint32_t warmupmode)
 {
-	ADC_CTRL(adc) = (ADC_CTRL(adc) & ~ADC_CTRL_WARMUPMODE_MASK) 
+	ADC_CTRL(adc) = (ADC_CTRL(adc) & ~ADC_CTRL_WARMUPMODE_MASK)
 			| warmupmode;
 }
 

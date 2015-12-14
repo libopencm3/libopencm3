@@ -509,7 +509,7 @@ void rcc_set_pllxtpre(uint32_t pllxtpre)
 
 uint32_t rcc_rtc_clock_enabled_flag(void)
 {
-        return RCC_BDCR & RCC_BDCR_RTCEN;
+	return RCC_BDCR & RCC_BDCR_RTCEN;
 }
 
 /*---------------------------------------------------------------------------*/
@@ -638,10 +638,11 @@ The prescale factor can be set to 1 (no prescale) for use when the PLL clock is
 
 void rcc_set_usbpre(uint32_t usbpre)
 {
-	if (usbpre)
+	if (usbpre) {
 		RCC_CFGR |= RCC_CFGR_USBPRE;
-	else
+	} else {
 		RCC_CFGR &= ~RCC_CFGR_USBPRE;
+	}
 }
 
 void rcc_set_prediv1(uint32_t prediv)
@@ -658,10 +659,11 @@ void rcc_set_prediv2(uint32_t prediv)
 
 void rcc_set_prediv1_source(uint32_t rccsrc)
 {
-	if (rccsrc)
+	if (rccsrc) {
 		RCC_CFGR2 |= RCC_CFGR2_PREDIV1SRC;
-	else
+	} else {
 		RCC_CFGR2 &= ~RCC_CFGR2_PREDIV1SRC;
+	}
 }
 
 /*---------------------------------------------------------------------------*/

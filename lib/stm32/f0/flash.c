@@ -76,10 +76,10 @@ error, bit 5: end of operation.
 
 uint32_t flash_get_status_flags(void)
 {
-	return (FLASH_SR & (FLASH_SR_PGERR |
+	return FLASH_SR & (FLASH_SR_PGERR |
 			FLASH_SR_EOP |
 			FLASH_SR_WRPRTERR |
-			FLASH_SR_BSY));
+			FLASH_SR_BSY);
 }
 
 /*---------------------------------------------------------------------------*/
