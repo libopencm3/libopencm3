@@ -51,7 +51,7 @@ void pmc_peripheral_clock_enable(uint8_t pid)
 		PMC_PCER1 = 1 << (pid & 31);
 	}
 #else
-	//SAM3N and SAM3U only have one Peripheral Clock Enable Register
+	/* SAM3N and SAM3U only have one Peripheral Clock Enable Register */
 	PMC_PCER = 1 << pid;
 #endif
 }

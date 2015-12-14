@@ -48,11 +48,11 @@
 #define IOMUXC(pad)			MMIO32(IOMUXC_BASE + (0x4 * (pad)))
 
 #define IOMUXC_PAD(mode, speed, dse, pus, flags) \
-	(IOMUXC_##mode) << IOMUXC_MUX_MODE_SHIFT | \
-	(IOMUXC_##speed) << IOMUXC_SPEED_SHIFT | \
-	(IOMUXC_##dse) << IOMUXC_DSE_SHIFT | \
-	(IOMUXC_##pus) << IOMUXC_PUS_SHIFT | \
-	(flags)
+	((IOMUXC_##mode) << IOMUXC_MUX_MODE_SHIFT | \
+	 (IOMUXC_##speed) << IOMUXC_SPEED_SHIFT | \
+	 (IOMUXC_##dse) << IOMUXC_DSE_SHIFT | \
+	 (IOMUXC_##pus) << IOMUXC_PUS_SHIFT | \
+	 (flags))
 
 
 /* --- GPIO registers ------------------------------------------------------ */
