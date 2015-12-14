@@ -383,7 +383,7 @@ extern uint32_t rcc_ahb_frequency;
 extern uint32_t rcc_apb1_frequency;
 
 enum rcc_osc {
-	HSI14, HSI, HSE, PLL, LSI, LSE, HSI48
+	RCC_HSI14, RCC_HSI, RCC_HSE, RCC_PLL, RCC_LSI, RCC_LSE, RCC_HSI48
 };
 
 #define _REG_BIT(base, bit)		(((base) << 5) + (bit))

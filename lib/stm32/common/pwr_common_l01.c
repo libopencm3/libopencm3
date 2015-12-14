@@ -24,19 +24,19 @@
 #include <libopencm3/stm32/pwr.h>
 #include <libopencm3/stm32/rcc.h>
 
-void pwr_set_vos_scale(vos_scale_t scale)
+void pwr_set_vos_scale(enum pwr_vos_scale scale)
 {
 	/* You are not allowed to write zeros here, don't try and optimize! */
 	uint32_t reg = PWR_CR;
 	reg &= ~(PWR_CR_VOS_MASK);
 	switch (scale) {
-	case RANGE1:
+	case PWR_SCALE1:
 		reg |= PWR_CR_VOS_RANGE1;
 		break;
-	case RANGE2:
+	case PWR_SCALE2:
 		reg |= PWR_CR_VOS_RANGE2;
 		break;
-	case RANGE3:
+	case PWR_SCALE3:
 		reg |= PWR_CR_VOS_RANGE3;
 		break;
 	}

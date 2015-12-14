@@ -40,25 +40,25 @@
 void rcc_osc_on(enum rcc_osc osc)
 {
 	switch (osc) {
-	case PLL:
+	case RCC_PLL:
 		RCC_CR |= RCC_CR_PLLON;
 		break;
-	case MSI:
+	case RCC_MSI:
 		RCC_CR |= RCC_CR_MSION;
 		break;
-	case HSE:
+	case RCC_HSE:
 		RCC_CR |= RCC_CR_HSEON;
 		break;
-	case HSI48:
+	case RCC_HSI48:
 		RCC_CRRCR |= RCC_CRRCR_HSI48ON;
 		break;
-	case HSI16:
+	case RCC_HSI16:
 		RCC_CR |= RCC_CR_HSI16ON;
 		break;
-	case LSE:
+	case RCC_LSE:
 		RCC_CSR |= RCC_CSR_LSEON;
 		break;
-	case LSI:
+	case RCC_LSI:
 		RCC_CSR |= RCC_CSR_LSION;
 		break;
 	}
@@ -67,25 +67,25 @@ void rcc_osc_on(enum rcc_osc osc)
 void rcc_osc_off(enum rcc_osc osc)
 {
 	switch (osc) {
-	case PLL:
+	case RCC_PLL:
 		RCC_CR &= ~RCC_CR_PLLON;
 		break;
-	case MSI:
+	case RCC_MSI:
 		RCC_CR &= ~RCC_CR_MSION;
 		break;
-	case HSE:
+	case RCC_HSE:
 		RCC_CR &= ~RCC_CR_HSEON;
 		break;
-	case HSI48:
+	case RCC_HSI48:
 		RCC_CRRCR &= ~RCC_CRRCR_HSI48ON;
 		break;
-	case HSI16:
+	case RCC_HSI16:
 		RCC_CR &= ~RCC_CR_HSI16ON;
 		break;
-	case LSE:
+	case RCC_LSE:
 		RCC_CSR &= ~RCC_CSR_LSEON;
 		break;
-	case LSI:
+	case RCC_LSI:
 		RCC_CSR &= ~RCC_CSR_LSION;
 		break;
 	}
@@ -95,10 +95,10 @@ void rcc_osc_off(enum rcc_osc osc)
 void rcc_osc_bypass_enable(enum rcc_osc osc)
 {
 	switch (osc) {
-	case HSE:
+	case RCC_HSE:
 		RCC_CR |= RCC_CR_HSEBYP;
 		break;
-	case LSE:
+	case RCC_LSE:
 		RCC_CSR |= RCC_CSR_LSEBYP;
 		break;
 	default:
@@ -111,10 +111,10 @@ void rcc_osc_bypass_enable(enum rcc_osc osc)
 void rcc_osc_bypass_disable(enum rcc_osc osc)
 {
 	switch (osc) {
-	case HSE:
+	case RCC_HSE:
 		RCC_CR &= ~RCC_CR_HSEBYP;
 		break;
-	case LSE:
+	case RCC_LSE:
 		RCC_CSR &= ~RCC_CSR_LSEBYP;
 		break;
 	default:
@@ -134,25 +134,25 @@ void rcc_osc_bypass_disable(enum rcc_osc osc)
 void rcc_osc_ready_int_clear(enum rcc_osc osc)
 {
 	switch (osc) {
-	case PLL:
+	case RCC_PLL:
 		RCC_CICR |= RCC_CICR_PLLRDYC;
 		break;
-	case HSE:
+	case RCC_HSE:
 		RCC_CICR |= RCC_CICR_HSERDYC;
 		break;
-	case HSI48:
+	case RCC_HSI48:
 		RCC_CICR |= RCC_CICR_HSI48RDYC;
 		break;
-	case HSI16:
+	case RCC_HSI16:
 		RCC_CICR |= RCC_CICR_HSI16RDYC;
 		break;
-	case MSI:
+	case RCC_MSI:
 		RCC_CICR |= RCC_CICR_MSIRDYC;
 		break;
-	case LSE:
+	case RCC_LSE:
 		RCC_CICR |= RCC_CICR_LSERDYC;
 		break;
-	case LSI:
+	case RCC_LSI:
 		RCC_CICR |= RCC_CICR_LSIRDYC;
 		break;
 	}
@@ -166,25 +166,25 @@ void rcc_osc_ready_int_clear(enum rcc_osc osc)
 void rcc_osc_ready_int_enable(enum rcc_osc osc)
 {
 	switch (osc) {
-	case PLL:
+	case RCC_PLL:
 		RCC_CIER |= RCC_CIER_PLLRDYIE;
 		break;
-	case HSE:
+	case RCC_HSE:
 		RCC_CIER |= RCC_CIER_HSERDYIE;
 		break;
-	case HSI48:
+	case RCC_HSI48:
 		RCC_CIER |= RCC_CIER_HSI48RDYIE;
 		break;
-	case HSI16:
+	case RCC_HSI16:
 		RCC_CIER |= RCC_CIER_HSI16RDYIE;
 		break;
-	case MSI:
+	case RCC_MSI:
 		RCC_CIER |= RCC_CIER_MSIRDYIE;
 		break;
-	case LSE:
+	case RCC_LSE:
 		RCC_CIER |= RCC_CIER_LSERDYIE;
 		break;
-	case LSI:
+	case RCC_LSI:
 		RCC_CIER |= RCC_CIER_LSIRDYIE;
 		break;
 	}
@@ -198,25 +198,25 @@ void rcc_osc_ready_int_enable(enum rcc_osc osc)
 void rcc_osc_ready_int_disable(enum rcc_osc osc)
 {
 	switch (osc) {
-	case PLL:
+	case RCC_PLL:
 		RCC_CIER &= ~RCC_CIER_PLLRDYIE;
 		break;
-	case HSE:
+	case RCC_HSE:
 		RCC_CIER &= ~RCC_CIER_HSERDYIE;
 		break;
-	case HSI48:
+	case RCC_HSI48:
 		RCC_CIER &= ~RCC_CIER_HSI48RDYIE;
 		break;
-	case HSI16:
+	case RCC_HSI16:
 		RCC_CIER &= ~RCC_CIER_HSI16RDYIE;
 		break;
-	case MSI:
+	case RCC_MSI:
 		RCC_CIER &= ~RCC_CIER_MSIRDYIE;
 		break;
-	case LSE:
+	case RCC_LSE:
 		RCC_CIER &= ~RCC_CIER_LSERDYIE;
 		break;
-	case LSI:
+	case RCC_LSI:
 		RCC_CIER &= ~RCC_CIER_LSIRDYIE;
 		break;
 	}
@@ -231,25 +231,25 @@ void rcc_osc_ready_int_disable(enum rcc_osc osc)
 int rcc_osc_ready_int_flag(enum rcc_osc osc)
 {
 	switch (osc) {
-	case PLL:
+	case RCC_PLL:
 		return ((RCC_CIFR & RCC_CIFR_PLLRDYF) != 0);
 		break;
-	case HSE:
+	case RCC_HSE:
 		return ((RCC_CIFR & RCC_CIFR_HSERDYF) != 0);
 		break;
-	case HSI48:
+	case RCC_HSI48:
 		return ((RCC_CIFR & RCC_CIFR_HSI48RDYF) != 0);
 		break;
-	case HSI16:
+	case RCC_HSI16:
 		return ((RCC_CIFR & RCC_CIFR_HSI16RDYF) != 0);
 		break;
-	case MSI:
+	case RCC_MSI:
 		return ((RCC_CIFR & RCC_CIFR_MSIRDYF) != 0);
 		break;
-	case LSE:
+	case RCC_LSE:
 		return ((RCC_CIFR & RCC_CIFR_LSERDYF) != 0);
 		break;
-	case LSI:
+	case RCC_LSI:
 		return ((RCC_CIFR & RCC_CIFR_LSIRDYF) != 0);
 		break;
 	}
@@ -266,25 +266,25 @@ int rcc_osc_ready_int_flag(enum rcc_osc osc)
 void rcc_wait_for_osc_ready(enum rcc_osc osc)
 {
 	switch (osc) {
-	case PLL:
+	case RCC_PLL:
 		while ((RCC_CR & RCC_CR_PLLRDY) == 0);
 		break;
-	case HSE:
+	case RCC_HSE:
 		while ((RCC_CR & RCC_CR_HSERDY) == 0);
 		break;
-	case HSI16:
+	case RCC_HSI16:
 		while ((RCC_CR & RCC_CR_HSI16RDY) == 0);
 		break;
-	case HSI48:
+	case RCC_HSI48:
 		while ((RCC_CRRCR & RCC_CRRCR_HSI48RDY) == 0);
 		break;
-	case MSI:
+	case RCC_MSI:
 		while ((RCC_CR & RCC_CR_MSIRDY) == 0);
 		break;
-	case LSE:
+	case RCC_LSE:
 		while ((RCC_CSR & RCC_CSR_LSERDY) == 0);
 		break;
-	case LSI:
+	case RCC_LSI:
 		while ((RCC_CSR & RCC_CSR_LSIRDY) == 0);
 		break;
 	}
@@ -314,21 +314,21 @@ void rcc_set_hsi48_source_pll(void) {
 void rcc_set_sysclk_source(enum rcc_osc osc)
 {
 	switch (osc) {
-	case PLL:
+	case RCC_PLL:
 		RCC_CFGR |=  RCC_CFGR_SW_PLL;
 		break;
-	case HSE:
+	case RCC_HSE:
 		RCC_CFGR = (RCC_CFGR & ~RCC_CFGR_SW_MASK) | RCC_CFGR_SW_HSE;
 		break;
-	case HSI16:
+	case RCC_HSI16:
 		RCC_CFGR = (RCC_CFGR & ~RCC_CFGR_SW_MASK) | RCC_CFGR_SW_HSI16;
 		break;
-	case MSI:
+	case RCC_MSI:
 		RCC_CFGR = (RCC_CFGR & ~RCC_CFGR_SW_MASK) | RCC_CFGR_SW_MSI;
 		break;
-	case HSI48:
-	case LSE:
-	case LSI:
+	case RCC_HSI48:
+	case RCC_LSE:
+	case RCC_LSI:
 		break;
 	}
 }

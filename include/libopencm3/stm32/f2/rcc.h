@@ -478,12 +478,12 @@ extern uint32_t rcc_apb2_frequency;
 
 /* --- Function prototypes ------------------------------------------------- */
 
-typedef enum {
-	CLOCK_3V3_120MHZ,
-	CLOCK_3V3_END
-} clock_3v3_t;
+enum rcc_clock_3v3 {
+	RCC_CLOCK_3V3_120MHZ,
+	RCC_CLOCK_3V3_END
+};
 
-typedef struct {
+struct rcc_clock_scale {
 	uint8_t pllm;
 	uint16_t plln;
 	uint8_t pllp;
@@ -494,12 +494,12 @@ typedef struct {
 	uint8_t ppre2;
 	uint32_t apb1_frequency;
 	uint32_t apb2_frequency;
-} clock_scale_t;
+};
 
-extern const clock_scale_t hse_8mhz_3v3[CLOCK_3V3_END];
+extern const struct rcc_clock_scale rcc_hse_8mhz_3v3[RCC_CLOCK_3V3_END];
 
 typedef enum {
-	PLL, HSE, HSI, LSE, LSI
+	RCC_PLL, RCC_HSE, RCC_HSI, RCC_LSE, RCC_LSI
 } osc_t;
 
 #define _REG_BIT(base, bit)		(((base) << 5) + (bit))
@@ -751,7 +751,7 @@ void rcc_set_main_pll_hsi(uint32_t pllm, uint32_t plln, uint32_t pllp,
 void rcc_set_main_pll_hse(uint32_t pllm, uint32_t plln, uint32_t pllp,
 			  uint32_t pllq);
 uint32_t rcc_system_clock_source(void);
-void rcc_clock_setup_hse_3v3(const clock_scale_t *clock);
+void rcc_clock_setup_hse_3v3(const struct rcc_clock_scale *clock);
 void rcc_backupdomain_reset(void);
 
 END_DECLS
