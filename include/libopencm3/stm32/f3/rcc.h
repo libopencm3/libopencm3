@@ -429,7 +429,7 @@ struct rcc_clock_scale {
 	uint32_t apb2_frequency;
 };
 
-extern const struct rcc_clock_scale hsi_8mhz[RCC_CLOCK_END];
+extern const struct rcc_clock_scale rcc_hsi_8mhz[RCC_CLOCK_END];
 
 enum rcc_osc {
 	RCC_PLL, RCC_HSE, RCC_HSI, RCC_LSE, RCC_LSI
