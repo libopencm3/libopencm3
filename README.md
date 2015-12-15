@@ -1,6 +1,8 @@
 README
 ======
 
+[![Gitter channel](https://badges.gitter.im/libopencm3/discuss.svg)](https://gitter.im/libopencm3/discuss)
+
 The libopencm3 project aims to create an open-source firmware library for
 various ARM Cortex-M3 microcontrollers.
 
@@ -159,10 +161,11 @@ Public License (LGPL), version 3 or later.
 
 See COPYING.GPL3 and COPYING.LGPL3 for details.
 
-IRC
----
+Community
+---------
 
- * You can reach us in #libopencm3 on the freenode IRC network.
+ * Our [![Gitter channel](https://badges.gitter.im/libopencm3/discuss.svg)](https://gitter.im/libopencm3/discuss)
+ * Our IRC channel on the freenode IRC network is called #libopencm3
 
 Mailing lists
 -------------
