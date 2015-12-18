@@ -27,10 +27,12 @@
  * @see efm32lg/memorymap.h
  */
 
-#if defined(EFM32TG)
-#	include <libopencm3/efm32/tg/memorymap.h>
-#elif defined(EFM32LG)
+#if defined(EFM32LG)
 #	include <libopencm3/efm32/lg/memorymap.h>
+#elif defined(EFM32TG)
+#	include <libopencm3/efm32/tg/memorymap.h>
+#elif defined(EFM32WG)
+#	include <libopencm3/efm32/wg/memorymap.h>
 #else
 #	error "efm32 family not defined."
 #endif
