@@ -102,6 +102,14 @@
 #define OTG_GOTGCTL_SRQ			(1 << 1)
 #define OTG_GOTGCTL_SRQSCS		(1 << 0)
 
+/* OTG USB control registers (OTG_GOTGINT) */
+#define OTG_GOTGINT_DBCDNE		(1 << 19)
+#define OTG_GOTGINT_ADTOCHG		(1 << 18)
+#define OTG_GOTGINT_HNGDET		(1 << 17)
+#define OTG_GOTGINT_HNSSCHG		(1 << 9)
+#define OTG_GOTGINT_SRSSCHG		(1 << 8)
+#define OTG_GOTGINT_SEDET		(1 << 2)
+
 /* OTG AHB configuration register (OTG_GAHBCFG) */
 #define OTG_GAHBCFG_GINT		0x0001
 #define OTG_GAHBCFG_TXFELVL		0x0080
