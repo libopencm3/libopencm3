@@ -254,6 +254,16 @@ void stm32fx07_poll(usbd_device *usbd_dev)
 	uint32_t intsts = REBASE(OTG_GINTSTS);
 	int i;
 
+	if (intsts & OTG_GINTSTS_OTGINT) {
+		uint32_t gotgints = REBASE(OTG_GOTGINT);
+		if (gotgints & OTG_GOTGINT_SEDET) {
+			/* Handle USB Session end detected (Vbus < 0.8V) */
+			/* TODO Create hardware USB RESET condition */
+			intsts |= OTG_GINTSTS_ENUMDNE;
+		}
+		REBASE(OTG_GOTGINT) = gotgints;
+	}
+
 	if (intsts & OTG_GINTSTS_ENUMDNE) {
 		/* Handle USB RESET condition. */
 		REBASE(OTG_GINTSTS) = OTG_GINTSTS_ENUMDNE;
