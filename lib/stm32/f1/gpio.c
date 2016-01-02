@@ -88,7 +88,7 @@ open drain/push pull), for a set of GPIO pins on a given GPIO port.
 @param[in] mode Unsigned int8. Pin mode @ref gpio_mode
 @param[in] cnf Unsigned int8. Pin configuration @ref gpio_cnf
 @param[in] gpios Unsigned int16. Pin identifiers @ref gpio_pin_id
-	     If multiple pins are to be set, use logical OR '|' to separate
+	     If multiple pins are to be set, use bitwise OR '|' to separate
 	     them.
 */
 
@@ -161,7 +161,7 @@ this function as its current value cannot be ascertained from the hardware.
 
 @param[in] swjdisable Unsigned int8. Disable parts of the SWJ capability @ref
 afio_swj_disable.
-@param[in] maps Unsigned int32. Logical OR of map enable controls from @ref
+@param[in] maps Unsigned int32. Bitwise OR of map enable controls from @ref
 afio_remap, @ref afio_remap_can1, @ref afio_remap_tim3, @ref afio_remap_tim2,
 @ref afio_remap_tim1, @ref afio_remap_usart3. For connectivity line devices
 only @ref afio_remap_cld are also available.
@@ -182,7 +182,7 @@ gpio_primary_remap for the main set of remaps.
 
 The AFIO remapping feature is used only with the STM32F10x series.
 
-@param[in] maps Unsigned int32. Logical OR of map enable controls from @ref
+@param[in] maps Unsigned int32. Bitwise OR of map enable controls from @ref
 afio_remap2
 */
 void gpio_secondary_remap(uint32_t maps)
