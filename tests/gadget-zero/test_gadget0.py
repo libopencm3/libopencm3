@@ -6,6 +6,7 @@ import logging
 
 import unittest
 
+#DUT_SERIAL = "stm32f429i-disco"
 DUT_SERIAL = "stm32f4disco"
 #DUT_SERIAL = "stm32f103-generic"
 #DUT_SERIAL = "stm32l1-generic"

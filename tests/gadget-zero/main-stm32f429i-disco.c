@@ -33,27 +33,50 @@
     do { } while (0)
 #endif
 
+
+//#define USE_USB_INTERRUPT
+
+
+static usbd_device *usbd_dev;
+
+#ifdef USE_USB_INTERRUPT
+
+void otg_hs_isr(void)
+{
+	usbd_poll(usbd_dev);
+}
+
+#endif
+
+
 int main(void)
 {
 	rcc_clock_setup_hse_3v3(&rcc_hse_8mhz_3v3[RCC_CLOCK_3V3_168MHZ]);
-	rcc_periph_clock_enable(RCC_GPIOA);
-	rcc_periph_clock_enable(RCC_OTGFS);
+	rcc_periph_clock_enable(RCC_GPIOB);
+	rcc_periph_clock_enable(RCC_OTGHS);
 
-	gpio_mode_setup(GPIOA, GPIO_MODE_AF, GPIO_PUPD_NONE,
-			GPIO9 | GPIO11 | GPIO12);
-	gpio_set_af(GPIOA, GPIO_AF10, GPIO9 | GPIO11 | GPIO12);
+	gpio_mode_setup(GPIOB, GPIO_MODE_AF, GPIO_PUPD_NONE,
+			GPIO13 | GPIO14 | GPIO15);
+	gpio_set_af(GPIOB, GPIO_AF12, GPIO13 | GPIO14 | GPIO15);
 
 	/* LEDS on discovery board */
 	rcc_periph_clock_enable(RCC_GPIOD);
 	gpio_mode_setup(GPIOD, GPIO_MODE_OUTPUT,
-			GPIO_PUPD_NONE, GPIO12 | GPIO13 | GPIO14 | GPIO15);
+					GPIO_PUPD_NONE, GPIO12 | GPIO13 | GPIO14 | GPIO15);
 
-	usbd_device *usbd_dev = gadget0_init(&otgfs_usb_driver, "stm32f4disco");
+	usbd_dev = gadget0_init(&otghs_usb_driver, "stm32f429i-disco");
 
 	ER_DPRINTF("bootup complete\n");
+	
+#ifndef USE_USB_INTERRUPT
 	while (1) {
 		usbd_poll(usbd_dev);
 	}
-
+#else
+	nvic_enable_irq(NVIC_OTG_HS_IRQ);
+	
+	volatile int i = 1;
+	while (i);
+#endif
 }
 
