@@ -51,7 +51,7 @@ void mutex_lock(mutex_t *m)
 /* returns 1 if the lock was acquired */
 uint32_t mutex_trylock(mutex_t *m)
 {
-	uint32_t status = 0;
+	uint32_t status = 1;
 
 	/* If the mutex is unlocked. */
 	if (__ldrex(m) == MUTEX_UNLOCKED) {
