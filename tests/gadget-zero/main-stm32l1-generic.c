@@ -34,7 +34,7 @@
     do { } while (0)
 #endif
 
-const clock_scale_t this_clock_config = {
+const struct rcc_clock_scale this_clock_config = {
 		/* 32MHz PLL from 8MHz HSE */
 		.pll_source = RCC_CFGR_PLLSRC_HSE_CLK,
 		.pll_mul = RCC_CFGR_PLLMUL_MUL12,
@@ -42,7 +42,7 @@ const clock_scale_t this_clock_config = {
 		.hpre = RCC_CFGR_HPRE_SYSCLK_NODIV,
 		.ppre1 = RCC_CFGR_PPRE1_HCLK_NODIV,
 		.ppre2 = RCC_CFGR_PPRE2_HCLK_NODIV,
-		.voltage_scale = RANGE1,
+		.voltage_scale = PWR_SCALE1,
 		.flash_config = FLASH_ACR_LATENCY_1WS,
 		.apb1_frequency = 32000000,
 		.apb2_frequency = 32000000,

@@ -50,9 +50,9 @@ int main(void)
 	gpio_set(GPIOA, GPIO5);
 
 	/* jump up to 16mhz, leave PLL setup for later. */
-	rcc_osc_on(HSI16);
-	rcc_wait_for_osc_ready(HSI16);
-	rcc_set_sysclk_source(HSI16);
+	rcc_osc_on(RCC_HSI16);
+	rcc_wait_for_osc_ready(RCC_HSI16);
+	rcc_set_sysclk_source(RCC_HSI16);
 
 	/* HSI48 needs the vrefint turned on */
 	rcc_periph_clock_enable(RCC_SYSCFG);
@@ -63,8 +63,8 @@ int main(void)
 	crs_autotrim_usb_enable();
 	rcc_set_hsi48_source_rc48();
 
-	rcc_osc_on(HSI48);
-	rcc_wait_for_osc_ready(HSI48);
+	rcc_osc_on(RCC_HSI48);
+	rcc_wait_for_osc_ready(RCC_HSI48);
 
 	usbd_device *usbd_dev = gadget0_init(&st_usbfs_v2_usb_driver,
 					     "stm32l053disco");

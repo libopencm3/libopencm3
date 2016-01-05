@@ -46,7 +46,7 @@ int main(void)
 {
 	rcc_clock_setup_in_hsi48_out_48mhz();
 	crs_autotrim_usb_enable();
-	rcc_set_usbclk_source(HSI48);
+	rcc_set_usbclk_source(RCC_HSI48);
 
 	/* LED on for boot progress */
 	rcc_periph_clock_enable(RCC_GPIOC);
