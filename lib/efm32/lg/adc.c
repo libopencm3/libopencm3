@@ -26,7 +26,8 @@
  */
 void adc_set_oversampling(uint32_t adc, uint32_t oversamp)
 {
-	ADC_CTRL(adc) = (ADC_CTRL(adc) & ~ADC_CTRL_OVERSEL_MASK) | oversamp;
+	ADC_CTRL(adc) = (ADC_CTRL(adc) & ~ADC_CTRL_OVERSEL_MASK)
+                        | ADC_CTRL_OVERSEL(oversamp);
 }
 
 /**
@@ -59,7 +60,8 @@ void adc_set_clock_prescaler(uint32_t adc, uint8_t factor)
  */
 void adc_set_lowpass_filter(uint32_t adc, uint32_t lpfmode)
 {
-	ADC_CTRL(adc) = (ADC_CTRL(adc) & ~ADC_CTRL_LPFMODE_MASK) | lpfmode;
+	ADC_CTRL(adc) = (ADC_CTRL(adc) & ~ADC_CTRL_LPFMODE_MASK)
+                        | ADC_CTRL_LPFMODE(lpfmode);
 }
 
 /**
@@ -88,7 +90,7 @@ void adc_disable_tailgating(uint32_t adc)
 void adc_set_warm_up_mode(uint32_t adc, uint32_t warmupmode)
 {
 	ADC_CTRL(adc) = (ADC_CTRL(adc) & ~ADC_CTRL_WARMUPMODE_MASK)
-			| warmupmode;
+			| ADC_CTRL_WARMUPMODE(warmupmode);
 }
 
 /**
@@ -137,7 +139,7 @@ void adc_set_single_prs_trigger(uint32_t adc, uint8_t prssel)
 {
 	ADC_SINGLECTRL(adc) =
 		(ADC_SINGLECTRL(adc) & ~ADC_SINGLECTRL_PRSSEL_MASK) |
-		(ADC_SINGLECTRL_PRSSEL_PRSCHx(prssel));
+		ADC_SINGLECTRL_PRSSEL_PRSCHx(prssel);
 }
 
 /**
@@ -166,7 +168,8 @@ void adc_disable_single_prs_trigger(uint32_t adc)
 void adc_set_single_acquisition_cycle(uint32_t adc, uint32_t at)
 {
 	ADC_SINGLECTRL(adc) =
-		(ADC_SINGLECTRL(adc) & ~ADC_SINGLECTRL_AT_MASK) | at;
+		(ADC_SINGLECTRL(adc) & ~ADC_SINGLECTRL_AT_MASK) |
+                ADC_SINGLECTRL_AT(at);
 }
 
 /**
@@ -177,7 +180,8 @@ void adc_set_single_acquisition_cycle(uint32_t adc, uint32_t at)
 void adc_set_single_reference(uint32_t adc, uint32_t ref)
 {
 	ADC_SINGLECTRL(adc) =
-		(ADC_SINGLECTRL(adc) & ~ADC_SINGLECTRL_REF_MASK) | ref;
+		(ADC_SINGLECTRL(adc) & ~ADC_SINGLECTRL_REF_MASK) |
+                ADC_SINGLECTRL_REF(ref);
 }
 
 /**
@@ -200,7 +204,8 @@ void adc_set_single_channel(uint32_t adc, uint8_t ch)
 void adc_set_single_resolution(uint32_t adc, uint32_t res)
 {
 	ADC_SINGLECTRL(adc) =
-		(ADC_SINGLECTRL(adc) & ~ADC_SINGLECTRL_RES_MASK) | res;
+		(ADC_SINGLECTRL(adc) & ~ADC_SINGLECTRL_RES_MASK) |
+                ADC_SINGLECTRL_RES(res);
 }
 
 /**
@@ -296,7 +301,8 @@ void adc_disable_scan_prs_trigger(uint32_t adc)
 void adc_set_scan_acquisition_cycle(uint32_t adc, uint32_t at)
 {
 	ADC_SCANCTRL(adc) =
-		(ADC_SCANCTRL(adc) & ~ADC_SCANCTRL_AT_MASK) | at;
+		(ADC_SCANCTRL(adc) & ~ADC_SCANCTRL_AT_MASK) |
+                ADC_SCANCTRL_AT(at);
 }
 
 /**
@@ -307,7 +313,8 @@ void adc_set_scan_acquisition_cycle(uint32_t adc, uint32_t at)
 void adc_set_scan_reference(uint32_t adc, uint32_t ref)
 {
 	ADC_SCANCTRL(adc) =
-		(ADC_SCANCTRL(adc) & ~ADC_SCANCTRL_REF_MASK) | ref;
+		(ADC_SCANCTRL(adc) & ~ADC_SCANCTRL_REF_MASK) |
+                ADC_SCANCTRL_REF(ref);
 }
 
 /**
@@ -339,7 +346,8 @@ void adc_set_scan_channel(uint32_t adc, uint8_t length, uint8_t channel[])
 void adc_set_scan_resolution(uint32_t adc, uint32_t res)
 {
 	ADC_SCANCTRL(adc) =
-		(ADC_SCANCTRL(adc) & ~ADC_SCANCTRL_RES_MASK) | res;
+		(ADC_SCANCTRL(adc) & ~ADC_SCANCTRL_RES_MASK) |
+                ADC_SCANCTRL(res);
 }
 
 /**

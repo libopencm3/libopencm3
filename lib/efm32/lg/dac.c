@@ -31,7 +31,8 @@
  */
 void dac_set_refresh_cycle(uint32_t dac, uint32_t refrsel)
 {
-	DAC_CTRL(dac) = (DAC_CTRL(dac) & ~DAC_CTRL_REFRSEL_MASK) | refrsel;
+	DAC_CTRL(dac) = (DAC_CTRL(dac) & ~DAC_CTRL_REFRSEL_MASK) |
+                        DAC_CTRL_REFRSEL(refrsel);
 }
 
 /**
@@ -41,7 +42,8 @@ void dac_set_refresh_cycle(uint32_t dac, uint32_t refrsel)
  */
 void dac_set_clock_prescaler(uint32_t dac, uint32_t presc)
 {
-	DAC_CTRL(dac) = (DAC_CTRL(dac) & ~DAC_CTRL_PRESC_MASK) | presc;
+	DAC_CTRL(dac) = (DAC_CTRL(dac) & ~DAC_CTRL_PRESC_MASK) |
+            DAC_CTRL_PRESC(presc);
 }
 
 /**
@@ -51,7 +53,8 @@ void dac_set_clock_prescaler(uint32_t dac, uint32_t presc)
  */
 void dac_set_reference(uint32_t dac, uint32_t refsel)
 {
-	DAC_CTRL(dac) = (DAC_CTRL(dac) & ~DAC_CTRL_REFSEL_MASK) | refsel;
+	DAC_CTRL(dac) = (DAC_CTRL(dac) & ~DAC_CTRL_REFSEL_MASK) |
+                        DAC_CTRL_REFSEL(refsel);
 }
 
 /**
@@ -61,7 +64,8 @@ void dac_set_reference(uint32_t dac, uint32_t refsel)
  */
 void dac_set_out_mode(uint32_t dac, uint32_t outmode)
 {
-	DAC_CTRL(dac) = (DAC_CTRL(dac) & ~DAC_CTRL_OUTMODE_MASK) | outmode;
+	DAC_CTRL(dac) = (DAC_CTRL(dac) & ~DAC_CTRL_OUTMODE_MASK) |
+                        DAC_CTRL_OUTMODE(outmode);
 }
 
 /**
@@ -71,7 +75,8 @@ void dac_set_out_mode(uint32_t dac, uint32_t outmode)
  */
 void dac_set_conversion_mode(uint32_t dac, uint32_t convmode)
 {
-	DAC_CTRL(dac) = (DAC_CTRL(dac) & ~DAC_CTRL_CONVMODE_MASK) | convmode;
+	DAC_CTRL(dac) = (DAC_CTRL(dac) & ~DAC_CTRL_CONVMODE_MASK) |
+            DAC_CTRL_CONVMODE(convmode);
 }
 
 /**
