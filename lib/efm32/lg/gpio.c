@@ -68,7 +68,7 @@ void gpio_set_drive_strength(uint32_t gpio_port,
  * @param[in] gpio_port GPIO Port (use GPIO* ex. GPIOA, GPIOB, ....)
  * @param[in] mode Mode (use GPIO_MODE_*)
  * @param[in] gpios (pins mask (use GPIO* ex . GPIO0, GPIO1 .... GPIO_ALL,
- *                 use logical OR '|' to separate)
+ *                 use bitwise OR '|' to separate)
  */
 void gpio_mode_setup(uint32_t gpio_port, enum gpio_mode mode, uint16_t gpios)
 {
@@ -97,7 +97,7 @@ void gpio_mode_setup(uint32_t gpio_port, enum gpio_mode mode, uint16_t gpios)
  * Set port pins output value (Atomic)
  * @param[in] gpio_port GPIO Port (use GPIO* ex. GPIOA, GPIOB, ....)
  * @param[in] gpios (pins mask (use GPIO* ex . GPIO0, GPIO1 .... GPIO_ALL,
- *                 use logical OR '|' to separate)
+ *                 use bitwise OR '|' to separate)
  */
 void gpio_set(uint32_t gpio_port, uint16_t gpios)
 {
@@ -108,7 +108,7 @@ void gpio_set(uint32_t gpio_port, uint16_t gpios)
  * Set port pins output value (Atomic)
  * @param[in] gpio_port GPIO Port (use GPIO* ex. GPIOA, GPIOB, ....)
  * @param[in] gpios (pins mask (use GPIO* ex . GPIO0, GPIO1 .... GPIO_ALL,
- *                 use logical OR '|' to separate)
+ *                 use bitwise OR '|' to separate)
  */
 void gpio_clear(uint32_t gpio_port, uint16_t gpios)
 {
@@ -119,8 +119,8 @@ void gpio_clear(uint32_t gpio_port, uint16_t gpios)
  * Get port pins input value
  * @param[in] gpio_port GPIO Port (use GPIO* ex. GPIOA, GPIOB, ....)
  * @param[in] gpios (pins mask (use GPIO* ex . GPIO0, GPIO1 .... GPIO_ALL,
- *                 use logical OR '|' to separate)
- * @return masked pins value (separated by logical OR '|')
+ *                 use bitwise OR '|' to separate)
+ * @return masked pins value (separated by bitwise OR '|')
  */
 uint16_t gpio_get(uint32_t gpio_port, uint16_t gpios)
 {
@@ -131,7 +131,7 @@ uint16_t gpio_get(uint32_t gpio_port, uint16_t gpios)
  * Toggle port pins output value (Atomic)
  * @param[in] gpio_port GPIO Port (use GPIO* ex. GPIOA, GPIOB, ....)
  * @param[in] gpios (pins mask (use GPIO* ex . GPIO0, GPIO1 .... GPIO_ALL,
- *                 use logical OR '|' to separate)
+ *                 use bitwise OR '|' to separate)
  */
 void gpio_toggle(uint32_t gpio_port, uint16_t gpios)
 {
@@ -167,7 +167,7 @@ void gpio_port_write(uint32_t gpio_port, uint16_t data)
  *
  * @param[in] gpio_port GPIO Port (use GPIO* ex. GPIOA, GPIOB, ....)
  * @param[in] gpios (pins mask (use GPIO* ex . GPIO0, GPIO1 .... GPIO_ALL,
- *                 use logical OR '|' to separate)
+ *                 use bitwise OR '|' to separate)
 */
 void gpio_port_config_lock(uint32_t gpio_port, uint16_t gpios)
 {
