@@ -123,20 +123,11 @@
 #define MPU_RASR_ATTR_AP_PRW_URW	(3 << 24)
 #define MPU_RASR_ATTR_AP_PRO_UNO	(5 << 24)
 #define MPU_RASR_ATTR_AP_PRO_URO	(6 << 24)
-#define MPU_RASR_ATTR_AP_PRO_URO	(7 << 24)
 #define MPU_RASR_ATTR_TEX		(7 << 19)
 #define MPU_RASR_ATTR_S			(1 << 18)
 #define MPU_RASR_ATTR_C			(1 << 17)
 #define MPU_RASR_ATTR_B			(1 << 16)
 #define MPU_RASR_ATTR_SCB		(7 << 16)
-#define MPU_RASR_ATTR_SCB_SH_STRONG	(0 << 16)
-#define MPU_RASR_ATTR_SCB_SH_DEVICE	(1 << 16)
-#define MPU_RASR_ATTR_SCB_NSH_WT	(2 << 16)
-#define MPU_RASR_ATTR_SCB_NSH_WB	(3 << 16)
-#define MPU_RASR_ATTR_SCB_SH_STRONG	(4 << 16)
-#define MPU_RASR_ATTR_SCB_SH_DEVICE	(5 << 16)
-#define MPU_RASR_ATTR_SCB_SH_WT		(6 << 16)
-#define MPU_RASR_ATTR_SCB_SH_WB		(7 << 16)
 /**@}*/
 /**@}*/
 
