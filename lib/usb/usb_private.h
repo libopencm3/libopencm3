@@ -63,6 +63,7 @@ struct _usbd_device {
 	void (*user_callback_suspend)(void);
 	void (*user_callback_resume)(void);
 	void (*user_callback_sof)(void);
+	void (*user_callback_incomplete)(void);
 
 	struct usb_control_state {
 		enum {

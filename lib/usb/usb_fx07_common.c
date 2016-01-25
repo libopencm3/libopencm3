@@ -335,6 +335,13 @@ void stm32fx07_poll(usbd_device *usbd_dev)
 		REBASE(OTG_GINTSTS) = OTG_GINTSTS_WKUPINT;
 	}
 
+	if (intsts & OTG_GINTSTS_IISOIXFR) {
+		if (usbd_dev->user_callback_incomplete) {
+			usbd_dev->user_callback_incomplete();
+		}
+		REBASE(OTG_GINTSTS) = OTG_GINTSTS_IISOIXFR;
+	}
+
 	if (intsts & OTG_GINTSTS_SOF) {
 		if (usbd_dev->user_callback_sof) {
 			usbd_dev->user_callback_sof();
