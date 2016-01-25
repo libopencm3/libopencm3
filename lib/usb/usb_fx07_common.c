@@ -33,6 +33,14 @@
 #define REBASE(x)        MMIO32((x) + (dev_base_address))
 #define REBASE_FIFO(x)   (&MMIO32((dev_base_address) + (OTG_FIFO(x))))
 
+#define IS_ISO_OUT(addr) ((REBASE(OTG_DOEPCTL(addr))&OTG_DOEPCTLX_EPTYPE_MASK)\
+		== OTG_DOEOCTLX_EPTYPE_ISOC)
+#define IS_ISO_IN(addr) ((REBASE(OTG_DIEPCTL(addr))&OTG_DIEPCTLX_EPTYPE_MASK)\
+		== OTG_DIEOCTLX_EPTYPE_ISOC)
+
+/* Odd/Even frame. See OTG_HS_DSTS 8..21: FNSOF Frame Number */
+#define DSTS_FNSOF_ODD_MASK	(1 << 8)
+
 void stm32fx07_set_address(usbd_device *usbd_dev, uint8_t addr)
 {
 	REBASE(OTG_DCFG) = (REBASE(OTG_DCFG) & ~OTG_DCFG_DAD) | (addr << 4);
@@ -179,7 +187,7 @@ uint8_t stm32fx07_ep_stall_get(usbd_device *usbd_dev, uint8_t addr)
 
 void stm32fx07_ep_nak_set(usbd_device *usbd_dev, uint8_t addr, uint8_t nak)
 {
-	/* It does not make sence to force NAK on IN endpoints. */
+	/* It does not make sense to force NAK on IN endpoints. */
 	if (addr & 0x80) {
 		return;
 	}
@@ -204,6 +212,17 @@ uint16_t stm32fx07_ep_write_packet(usbd_device *usbd_dev, uint8_t addr,
 	/* Return if endpoint is already enabled. */
 	if (REBASE(OTG_DIEPTSIZ(addr)) & OTG_DIEPSIZ0_PKTCNT) {
 		return 0;
+	}
+	
+	if (IS_ISO_IN(addr)) {	
+		/* Isochronous support: update odd/even frame bits */
+		REBASE(OTG_DIEPCTL(addr)) &= ~OTG_DIEPCTLX_FRAME_MASK;
+
+		if ((REBASE(OTG_DSTS) & DSTS_FNSOF_ODD_MASK) == 0) {
+			REBASE(OTG_DIEPCTL(addr)) |= OTG_DIEPCTLX_SEVNFRM;
+		} else {
+			REBASE(OTG_DIEPCTL(addr)) |= OTG_DIEPCTLX_SODDFRM;
+		}
 	}
 
 	/* Enable endpoint for transmission. */
@@ -239,6 +258,16 @@ uint16_t stm32fx07_ep_read_packet(usbd_device *usbd_dev, uint8_t addr,
 		extra = *fifo++;
 		memcpy(buf32, &extra, i);
 	}
+	
+	if (IS_ISO_OUT(addr)) {
+		/* Isochronous support: update odd/even frame bits */
+		REBASE(OTG_DOEPCTL(addr)) &= ~OTG_DOEPCTLX_FRAME_MASK;
+		if (REBASE(OTG_DSTS) & DSTS_FNSOF_ODD_MASK) {
+			REBASE(OTG_DOEPCTL(addr)) |= OTG_DOEPCTLX_SEVNFRM;
+		} else {
+			REBASE(OTG_DOEPCTL(addr)) |= OTG_DOEPCTLX_SODDFRM;
+		}
+	} 
 
 	REBASE(OTG_DOEPTSIZ(addr)) = usbd_dev->doeptsiz[addr];
 	REBASE(OTG_DOEPCTL(addr)) |= OTG_DOEPCTL0_EPENA |
