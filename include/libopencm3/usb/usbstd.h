@@ -210,12 +210,14 @@ struct usb_endpoint_descriptor {
 	uint8_t bmAttributes;
 	uint16_t wMaxPacketSize;
 	uint8_t bInterval;
+	uint8_t bRefresh; 			// for Audio only
+	uint8_t bSynchAddress; 		// for Audio only
 
 	/* Descriptor ends here.  The following are used internally: */
 	const void *extra;
 	int extralen;
 } __attribute__((packed));
-#define USB_DT_ENDPOINT_SIZE		7
+#define USB_DT_ENDPOINT_SIZE		9
 
 /* USB bEndpointAddress helper macros */
 #define USB_ENDPOINT_ADDR_OUT(x) (x)
