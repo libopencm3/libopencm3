@@ -94,6 +94,11 @@ void usbd_register_sof_callback(usbd_device *usbd_dev, void (*callback)(void))
 	usbd_dev->user_callback_sof = callback;
 }
 
+void usbd_register_incomplete_callback(usbd_device *usbd_dev, void (*callback)(void))
+{
+	usbd_dev->user_callback_incomplete = callback;
+}
+
 void _usbd_reset(usbd_device *usbd_dev)
 {
 	usbd_dev->current_address = 0;
