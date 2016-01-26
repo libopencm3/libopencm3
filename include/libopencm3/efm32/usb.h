@@ -21,6 +21,8 @@
 #	include <libopencm3/efm32/lg/usb.h>
 #elif defined(EFM32HG)
 #	include <libopencm3/efm32/hg/usb.h>
+#elif defined(EFM32WG)
+#	include <libopencm3/efm32/wg/usb.h>
 #else
 #	error "efm32 family not defined."
 #endif

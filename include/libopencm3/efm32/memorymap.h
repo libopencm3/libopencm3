@@ -33,6 +33,8 @@
 #	include <libopencm3/efm32/lg/memorymap.h>
 #elif defined(EFM32HG)
 #	include <libopencm3/efm32/hg/memorymap.h>
+#elif defined(EFM32WG)
+#	include <libopencm3/efm32/wg/memorymap.h>
 #else
 #	error "efm32 family not defined."
 #endif
