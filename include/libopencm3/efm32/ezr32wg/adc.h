@@ -1,7 +1,7 @@
 /*
  * This file is part of the libopencm3 project.
  *
- * Copyright (C) 2015 Kuldeep Singh Dhaka <kuldeepdhaka9@gmail.com>
+ * Copyright (C) 2016 Bob Miller <kbob@jogger-egg.com>
  *
  * This library is free software: you can redistribute it and/or modify
  * it under the terms of the GNU Lesser General Public License as published by
@@ -14,15 +14,12 @@
  * GNU Lesser General Public License for more details.
  *
  * You should have received a copy of the GNU Lesser General Public License
- * along with this library. If not, see <http://www.gnu.org/licenses/>.
+ * along with this library.  If not, see <http://www.gnu.org/licenses/>.
  */
 
-#if defined(EFM32LG)
-#	include <libopencm3/efm32/lg/i2c.h>
-#elif defined(EFM32WG)
-#	include <libopencm3/efm32/wg/i2c.h>
-#elif defined(EZR32WG)
-#	include <libopencm3/efm32/ezr32wg/i2c.h>
-#else
-#	error "efm32 family not defined."
+#ifndef LIBOPENCM3_EFM32_EZR32WG_ADC_H
+#define LIBOPENCM3_EFM32_EZR32WG_ADC_H
+
+#include <libopencm3/efm32/common/adc_common.h>
+
 #endif

@@ -1,5 +1,5 @@
 {
-    "_source": "The names and sequence are taken from d0183_efm32lg_reference_manual.pdf table 4.1.",
+    "_source": "The names and sequence are taken from d0334_ezr32wg_reference_manual.pdf table 5.1.",
     "irqs": [
         "dma", 
         "gpio_even", 
@@ -39,9 +39,9 @@
         "msc", 
         "aes", 
         "ebi",
-        "emu"
+	"emu"
     ], 
-    "partname_humanreadable": "EFM32 Leopard Gecko series", 
-    "partname_doxygen": "EFM32LG", 
-    "includeguard": "LIBOPENCM3_EFM32LG_NVIC_H"
+    "partname_humanreadable": "EZR32 Wonder Gecko series", 
+    "partname_doxygen": "EZR32WG", 
+    "includeguard": "LIBOPENCM3_EZR32WG_NVIC_H"
 }
