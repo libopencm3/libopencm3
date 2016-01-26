@@ -21,6 +21,8 @@
 #	include <libopencm3/efm32/lg/acmp.h>
 #elif defined(EFM32WG)
 #	include <libopencm3/efm32/wg/acmp.h>
+#elif defined(EZR32WG)
+#	include <libopencm3/efm32/ezr32wg/acmp.h>
 #else
 #	error "efm32 family not defined."
 #endif

@@ -21,6 +21,8 @@
 #	include <libopencm3/efm32/lg/dma.h>
 #elif defined(EFM32WG)
 #	include <libopencm3/efm32/wg/dma.h>
+#elif defined(EZR32WG)
+#	include <libopencm3/efm32/ezr32wg/dma.h>
 #else
 #	error "efm32 family not defined."
 #endif
