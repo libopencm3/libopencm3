@@ -18,6 +18,6 @@
 #ifndef LIBOPENCM3_GPIO_H
 #define LIBOPENCM3_GPIO_H
 
-#include <libopencm3/efm32/common/gpio_common_hglg.h>
+#include <libopencm3/efm32/common/gpio_common.h>
 
 #endif

@@ -40,7 +40,7 @@ TGT_CFLAGS	+= $(STANDARD_FLAGS)
 
 ARFLAGS		= rcs
 
-OBJS		= cmu.o gpio_common_hglg.o timer_common_hglg.o
+OBJS		= cmu.o gpio_common.o timer_common.o
 OBJS		+= usb.o usb_control.o usb_standard.o usb_msc.o \
 		   usb_dwc_common.o usb_efm32hg.o
 

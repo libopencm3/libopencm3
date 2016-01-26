@@ -1,7 +1,7 @@
 /*
  * This file is part of the libopencm3 project.
  *
- * Copyright (C) 2016 Bob Miller <kbob@jogger-egg.com>
+ * Copyright (C) 2015 Kuldeep Singh Dhaka <kuldeepdhaka9@gmail.com>
  *
  * This library is free software: you can redistribute it and/or modify
  * it under the terms of the GNU Lesser General Public License as published by
@@ -17,9 +17,5 @@
  * along with this library.  If not, see <http://www.gnu.org/licenses/>.
  */
 
-#ifndef LIBOPENCM3_EFM32_LG_ACMP_H
-#define LIBOPENCM3_EFM32_LG_ACMP_H
-
-#include <libopencm3/efm32/common/acmp_common.h>
-
-#endif
+/* OpAmp register are in dac.h */
+#include <libopencm3/efm32/dac.h>

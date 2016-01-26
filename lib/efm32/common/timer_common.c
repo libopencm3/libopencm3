@@ -47,7 +47,7 @@ void timer_stop(uint32_t timer)
 void timer_set_clock_prescaler(uint32_t timer, uint32_t presc)
 {
 	TIMER_CTRL(timer) = (TIMER_CTRL(timer) & ~TIMER_CTRL_PRESC_MASK)
-			    | presc;
+			    | TIMER_CTRL_PRESC(presc);
 }
 
 /**
