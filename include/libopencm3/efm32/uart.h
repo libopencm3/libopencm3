@@ -19,6 +19,8 @@
 
 #if defined(EFM32LG)
 #	include <libopencm3/efm32/lg/uart.h>
+#elif defined(EFM32WG)
+#	include <libopencm3/efm32/wg/uart.h>
 #else
 #	error "efm32 family not defined."
 #endif

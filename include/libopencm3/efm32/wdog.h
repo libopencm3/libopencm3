@@ -19,6 +19,8 @@
 
 #el defined(EFM32LG)
 #	include <libopencm3/efm32/lg/wdog.h>
+#elif defined(EFM32WG)
+#	include <libopencm3/efm32/wg/wdog.h>
 #else
 #	error "efm32 family not defined."
 #endif

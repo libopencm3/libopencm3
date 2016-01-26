@@ -19,6 +19,8 @@
 
 #if defined(EFM32LG)
 #	include <libopencm3/efm32/lg/rtc.h>
+#elif defined(EFM32WG)
+#	include <libopencm3/efm32/wg/rtc.h>
 #else
 #	error "efm32 family not defined."
 #endif
