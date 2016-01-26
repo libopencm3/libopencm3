@@ -1,0 +1,170 @@
+/*
+ * This file is part of the libopencm3 project.
+ *
+ * Copyright (C) 2015 Kuldeep Singh Dhaka <kuldeepdhaka9@gmail.com>
+ *
+ * This library is free software: you can redistribute it and/or modify
+ * it under the terms of the GNU Lesser General Public License as published by
+ * the Free Software Foundation, either version 3 of the License, or
+ * (at your option) any later version.
+ *
+ * This library is distributed in the hope that it will be useful,
+ * but WITHOUT ANY WARRANTY; without even the implied warranty of
+ * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
+ * GNU Lesser General Public License for more details.
+ *
+ * You should have received a copy of the GNU Lesser General Public License
+ * along with this library.  If not, see <http://www.gnu.org/licenses/>.
+ */
+
+#ifndef LIBOPENCM3_EFM32_BURTC_H
+#define LIBOPENCM3_EFM32_BURTC_H
+
+#include <libopencm3/efm32/memorymap.h>
+#include <libopencm3/cm3/common.h>
+
+#define BURTC_CTRL	MMIO32(BURTC_BASE + 0x000)
+#define BURTC_LPMODE	MMIO32(BURTC_BASE + 0x004)
+#define BURTC_CNT	MMIO32(BURTC_BASE + 0x008)
+#define BURTC_COMP0	MMIO32(BURTC_BASE + 0x00C)
+#define BURTC_TIMESTAMP	MMIO32(BURTC_BASE + 0x010)
+#define BURTC_LFXOFDET	MMIO32(BURTC_BASE + 0x014)
+#define BURTC_STATUS	MMIO32(BURTC_BASE + 0x018)
+#define BURTC_CMD	MMIO32(BURTC_BASE + 0x01C)
+#define BURTC_POWERDOWN	MMIO32(BURTC_BASE + 0x020)
+#define BURTC_LOCK	MMIO32(BURTC_BASE + 0x024)
+#define BURTC_IF	MMIO32(BURTC_BASE + 0x028)
+#define BURTC_IFS	MMIO32(BURTC_BASE + 0x02C)
+#define BURTC_IFC	MMIO32(BURTC_BASE + 0x030)
+#define BURTC_IEN	MMIO32(BURTC_BASE + 0x034)
+#define BURTC_FREEZE	MMIO32(BURTC_BASE + 0x038)
+#define BURTC_SYNCBUSY	MMIO32(BURTC_BASE + 0x03C)
+
+#define RETx_REG(x)	MMIO32(BURTC_BASE + 0x100 + (4 * (x)))
+/* [for ease] */
+#define BURTC_RETx(x)	RETx_REG(x)
+
+/* BURTC_CTRL */
+#define BURTC_CTRL_BUMODETSEN		(1 << 14)
+
+#define BURTC_CTRL_CLKSEL_SHIFT		(8)
+#define BURTC_CTRL_CLKSEL_MASK		(0x3 << BURTC_CTRL_CLKSEL_SHIFT)
+#define BURTC_CTRL_CLKSEL(v)		\
+	(((v) << BURTC_CTRL_CLKSEL_SHIFT) & BURTC_CTRL_CLKSEL_MASK)
+#define BURTC_CTRL_CLKSEL_NONE		0
+#define BURTC_CTRL_CLKSEL_LFRCO		1
+#define BURTC_CTRL_CLKSEL_LFXO		2
+#define BURTC_CTRL_CLKSEL_ULFRCO	3
+
+#define BURTC_CTRL_PRESC_SHIFT	(12)
+#define BURTC_CTRL_PRESC_MASK	(0x7 << BURTC_CTRL_PRESC_SHIFT)
+#define BURTC_CTRL_PRESC(v)	\
+	(((v) << BURTC_CTRL_PRESC_SHIFT) & BURTC_CTRL_PRESC_MASK)
+#define BURTC_CTRL_PRESC_DIV1	0
+#define BURTC_CTRL_PRESC_DIV2	1
+#define BURTC_CTRL_PRESC_DIV4	2
+#define BURTC_CTRL_PRESC_DIV8	3
+#define BURTC_CTRL_PRESC_DIV16	4
+#define BURTC_CTRL_PRESC_DIV32	5
+#define BURTC_CTRL_PRESC_DIV64	6
+#define BURTC_CTRL_PRESC_DIV128	7
+#define BURTC_CTRL_PRESC_NODIV	BURTC_CTRL_PRESC_DIV1
+
+#define BURTC_CTRL_LPCOMPC_SHIFT	(5)
+#define BURTC_CTRL_LPCOMPC_MASK		(0x7 << BURTC_CTRL_LPCOMPC_SHIFT)
+#define BURTC_CTRL_LPCOMPC(v)		\
+	(((v) << BURTC_CTRL_LPCOMPC_SHIFT) & BURTC_CTRL_LPCOMPC_MASK)
+#define BURTC_CTRL_LPCOMPC_IGNxLSB(x)	BURTC_CTRL_LPCOMPC(x)
+#define BURTC_CTRL_LPCOMPC_IGN0LSB	0
+#define BURTC_CTRL_LPCOMPC_IGN1LSB	1
+#define BURTC_CTRL_LPCOMPC_IGN2LSB	2
+#define BURTC_CTRL_LPCOMPC_IGN3LSB	3
+#define BURTC_CTRL_LPCOMPC_IGN4LSB	4
+#define BURTC_CTRL_LPCOMPC_IGN5LSB	5
+#define BURTC_CTRL_LPCOMPC_IGN6LSB	6
+#define BURTC_CTRL_LPCOMPC_IGN7LSB	7
+
+#define BURTC_CTRL_COMP0TOP	(1 << 4)
+#define BURTC_CTRL_RSTEN	(1 << 3)
+#define BURTC_CTRL_DEBUGRUN	(1 << 2)
+
+#define BURTC_CTRL_MODE_SHIFT		(0)
+#define BURTC_CTRL_MODE_MASK		(0x3 << BURTC_CTRL_MODE_SHIFT)
+#define BURTC_CTRL_MODE(v)		\
+	(((v) << BURTC_CTRL_MODE_SHIFT) & BURTC_CTRL_MODE_MASK)
+#define BURTC_CTRL_MODE_DISABLE		0
+#define BURTC_CTRL_MODE_EM2EN		1
+#define BURTC_CTRL_MODE_EM3EN		2
+#define BURTC_CTRL_MODE_EM4EN		3
+
+/* BURTC_LPMODE */
+#define BURTC_LPMODE_LPMODE_SHIFT	(0)
+#define BURTC_LPMODE_LPMODE_MASK	(0x3 << BURTC_LPMODE_LPMODE_SHIFT)
+#define BURTC_LPMODE_LPMODE(v)		\
+	(((v) << BURTC_LPMODE_LPMODE_SHIFT) & BURTC_LPMODE_LPMODE_MASK)
+#define BURTC_LPMODE_LPMODE_DISABLE	0
+#define BURTC_LPMODE_LPMODE_ENABLE	1
+#define BURTC_LPMODE_LPMODE_BUEN	2
+
+/* BURTC_LFXOFDET */
+#define BURTC_LFXOFDET_TOP_SHIFT	(4)
+#define BURTC_LFXOFDET_TOP_MASK		(0xF << BURTC_LFXOFDET_TOP_SHIFT)
+#define BURTC_LFXOFDET_TOP(v)		\
+	(((v) << BURTC_LFXOFDET_TOP_SHIFT) & BURTC_LFXOFDET_TOP_MASK)
+
+#define BURTC_LFXOFDET_OSC_SHIFT	(0)
+#define BURTC_LFXOFDET_OSC_MASK		(0x3 << BURTC_LFXOFDET_OSC_SHIFT)
+#define BURTC_LFXOFDET_OSC(v)		\
+	(((v) << BURTC_LFXOFDET_OSC_SHIFT) & BURTC_LFXOFDET_OSC_MASK)
+#define BURTC_LFXOFDET_OSC_DISABLE	0
+#define BURTC_LFXOFDET_OSC_LFRCO	1
+#define BURTC_LFXOFDET_OSC_ULFRCO	2
+
+/* BURTC_STATUS */
+#define BURTC_STATUS_RAMWERR		(1 << 2)
+#define BURTC_STATUS_BUMODETS		(1 << 1)
+#define BURTC_STATUS_LPMODEACT		(1 << 0)
+
+/* BURTC_CMD */
+#define BURTC_CMD_CLRSTATUS		(1 << 0)
+
+/* BURTC_POWERDOWN */
+#define BURTC_POWERDOWN_RAM		(1 << 0)
+
+/* BURTC_LOCK */
+#define BURTC_LOCK_LOCKKEY_SHIFT	(0)
+#define BURTC_LOCK_LOCKKEY_MASK		(0xFFFF << BURTC_LOCK_LOCKKEY_SHIFT)
+#define BURTC_LOCK_LOCKKEY_UNLOCKED	(0x0000 << BURTC_LOCK_LOCKKEY_SHIFT)
+#define BURTC_LOCK_LOCKKEY_LOCKED	(0x0001 << BURTC_LOCK_LOCKKEY_SHIFT)
+#define BURTC_LOCK_LOCKKEY_LOCK		(0x0000 << BURTC_LOCK_LOCKKEY_SHIFT)
+#define BURTC_LOCK_LOCKKEY_UNLOCK	(0xAEE8 << BURTC_LOCK_LOCKKEY_SHIFT)
+
+/* BURTC_IF */
+#define BURTC_IF_LFXOFAIL		(1 << 2)
+#define BURTC_IF_COMP0			(1 << 1)
+#define BURTC_IF_OF			(1 << 0)
+
+/* BURTC_IFS */
+#define BURTC_IFS_LFXOFAIL		(1 << 2)
+#define BURTC_IFS_COMP0			(1 << 1)
+#define BURTC_IFS_OF			(1 << 0)
+
+/* BURTC_IFC */
+#define BURTC_IFC_LFXOFAIL		(1 << 2)
+#define BURTC_IFC_COMP0			(1 << 1)
+#define BURTC_IFC_OF			(1 << 0)
+
+/* BURTC_IEN */
+#define BURTC_IEN_LFXOFAIL		(1 << 2)
+#define BURTC_IEN_COMP0			(1 << 1)
+#define BURTC_IEN_OF			(1 << 0)
+
+/* BURTC_FREEZE */
+#define BURTC_FREEZE_REGFREEZE		(1 << 0)
+
+/* BURTC_SYNCBUSY */
+#define BURTC_SYNCBUSY_COMP0		(1 << 1)
+#define BURTC_SYNCBUSY_LPMODE		(1 << 0)
+
+#endif
+
