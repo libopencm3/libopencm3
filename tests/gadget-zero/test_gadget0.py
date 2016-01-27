@@ -27,6 +27,7 @@ class TestGadget0(unittest.TestCase):
     def setUp(self):
         self.dev = usb.core.find(idVendor=0xcafe, idProduct=0xcafe, custom_match=find_by_serial(DUT_SERIAL))
         self.assertIsNotNone(self.dev, "Couldn't find locm3 gadget0 device")
+        self.longMessage = True
 
     def tearDown(self):
         uu.dispose_resources(self.dev)
