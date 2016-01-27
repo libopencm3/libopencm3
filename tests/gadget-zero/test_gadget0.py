@@ -49,6 +49,12 @@ class TestGadget0(unittest.TestCase):
         """
         self.dev.set_configuration(3)
 
+    def test_config_zero_addressed(self):
+        self.dev.set_configuration(0)
+        x = self.dev.ctrl_transfer(0x80, 0x08, 0, 0, 1)
+        self.assertEqual(0, x[0], "Should be configuration 0 before configuration is set")
+
+
     def test_fetch_config(self):
         self.dev.set_configuration(3)
         # FIXME - find a way to get the defines for these from pyusb
