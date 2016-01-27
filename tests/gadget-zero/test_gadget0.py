@@ -75,7 +75,7 @@ class TestConfigSourceSink(unittest.TestCase):
 
         self.cfg = uu.find_descriptor(self.dev, bConfigurationValue=2)
         self.assertIsNotNone(self.cfg, "Config 2 should exist")
-        self.dev.set_configuration(self.cfg);
+        self.dev.set_configuration(self.cfg)
         self.intf = self.cfg[(0, 0)]
         # heh, kinda gross...
         self.ep_out = [ep for ep in self.intf if uu.endpoint_direction(ep.bEndpointAddress) == uu.ENDPOINT_OUT][0]
