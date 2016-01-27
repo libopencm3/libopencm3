@@ -6,6 +6,7 @@ import logging
 
 import unittest
 
+#DUT_SERIAL = "stm32f429i-disco"
 DUT_SERIAL = "stm32f4disco"
 #DUT_SERIAL = "stm32f103-generic"
 #DUT_SERIAL = "stm32l1-generic"
@@ -26,6 +27,7 @@ class TestGadget0(unittest.TestCase):
     def setUp(self):
         self.dev = usb.core.find(idVendor=0xcafe, idProduct=0xcafe, custom_match=find_by_serial(DUT_SERIAL))
         self.assertIsNotNone(self.dev, "Couldn't find locm3 gadget0 device")
+        self.longMessage = True
 
     def tearDown(self):
         uu.dispose_resources(self.dev)
@@ -46,6 +48,12 @@ class TestGadget0(unittest.TestCase):
         Uses the simple API
         """
         self.dev.set_configuration(3)
+
+    def test_config_zero_addressed(self):
+        self.dev.set_configuration(0)
+        x = self.dev.ctrl_transfer(0x80, 0x08, 0, 0, 1)
+        self.assertEqual(0, x[0], "Should be configuration 0 before configuration is set")
+
 
     def test_fetch_config(self):
         self.dev.set_configuration(3)
@@ -74,7 +82,7 @@ class TestConfigSourceSink(unittest.TestCase):
 
         self.cfg = uu.find_descriptor(self.dev, bConfigurationValue=2)
         self.assertIsNotNone(self.cfg, "Config 2 should exist")
-        self.dev.set_configuration(self.cfg);
+        self.dev.set_configuration(self.cfg)
         self.intf = self.cfg[(0, 0)]
         # heh, kinda gross...
         self.ep_out = [ep for ep in self.intf if uu.endpoint_direction(ep.bEndpointAddress) == uu.ENDPOINT_OUT][0]

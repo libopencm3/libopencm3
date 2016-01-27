@@ -411,13 +411,13 @@ extern uint32_t rcc_apb2_frequency;
 /* --- Function prototypes ------------------------------------------------- */
 
 enum rcc_clock {
-	CLOCK_44MHZ,
-	CLOCK_48MHZ,
-	CLOCK_64MHZ,
-	CLOCK_END
+	RCC_CLOCK_44MHZ,
+	RCC_CLOCK_48MHZ,
+	RCC_CLOCK_64MHZ,
+	RCC_CLOCK_END
 };
 
-typedef struct {
+struct rcc_clock_scale {
 	uint8_t pll;
 	uint8_t pllsrc;
 	uint32_t flash_config;
@@ -427,12 +427,12 @@ typedef struct {
 	uint8_t power_save;
 	uint32_t apb1_frequency;
 	uint32_t apb2_frequency;
-} clock_scale_t;
+};
 
-extern const clock_scale_t hsi_8mhz[CLOCK_END];
+extern const struct rcc_clock_scale rcc_hsi_8mhz[RCC_CLOCK_END];
 
-enum osc {
-	PLL, HSE, HSI, LSE, LSI
+enum rcc_osc {
+	RCC_PLL, RCC_HSE, RCC_HSI, RCC_LSE, RCC_LSI
 };
 
 #define _REG_BIT(base, bit)		(((base) << 5) + (bit))
@@ -580,21 +580,21 @@ enum rcc_periph_rst {
 
 BEGIN_DECLS
 
-void rcc_osc_ready_int_clear(enum osc osc);
-void rcc_osc_ready_int_enable(enum osc osc);
-void rcc_osc_ready_int_disable(enum osc osc);
-int rcc_osc_ready_int_flag(enum osc osc);
+void rcc_osc_ready_int_clear(enum rcc_osc osc);
+void rcc_osc_ready_int_enable(enum rcc_osc osc);
+void rcc_osc_ready_int_disable(enum rcc_osc osc);
+int rcc_osc_ready_int_flag(enum rcc_osc osc);
 void rcc_css_int_clear(void);
 int rcc_css_int_flag(void);
-void rcc_wait_for_osc_ready(enum osc osc);
-void rcc_wait_for_osc_not_ready(enum osc osc);
-void rcc_wait_for_sysclk_status(enum osc osc);
-void rcc_osc_on(enum osc osc);
-void rcc_osc_off(enum osc osc);
+void rcc_wait_for_osc_ready(enum rcc_osc osc);
+void rcc_wait_for_osc_not_ready(enum rcc_osc osc);
+void rcc_wait_for_sysclk_status(enum rcc_osc osc);
+void rcc_osc_on(enum rcc_osc osc);
+void rcc_osc_off(enum rcc_osc osc);
 void rcc_css_enable(void);
 void rcc_css_disable(void);
-void rcc_osc_bypass_enable(enum osc osc);
-void rcc_osc_bypass_disable(enum osc osc);
+void rcc_osc_bypass_enable(enum rcc_osc osc);
+void rcc_osc_bypass_disable(enum rcc_osc osc);
 void rcc_set_sysclk_source(uint32_t clk);
 void rcc_set_pll_source(uint32_t pllsrc);
 void rcc_set_ppre2(uint32_t ppre2);
@@ -604,7 +604,7 @@ void rcc_set_prediv(uint32_t prediv);
 void rcc_set_pll_multiplier(uint32_t pll);
 uint32_t rcc_get_system_clock_source(void);
 void rcc_backupdomain_reset(void);
-void rcc_clock_setup_hsi(const clock_scale_t *clock);
+void rcc_clock_setup_hsi(const struct rcc_clock_scale *clock);
 void rcc_set_i2c_clock_hsi(uint32_t i2c);
 void rcc_set_i2c_clock_sysclk(uint32_t i2c);
 uint32_t rcc_get_i2c_clocks(void);

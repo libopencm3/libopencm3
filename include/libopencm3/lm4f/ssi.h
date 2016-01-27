@@ -1,16 +1,16 @@
 /** @defgroup ssi_defines Synchronous Serial Interface
- * 
+ *
  * @brief <b>Defined Constants and Types for the LM4F Synchronous Serial Interface (SSI)</b>
- * 
+ *
  * @ingroup LM4Fxx_defines
- * 
+ *
  * @version 1.0.0
- * 
+ *
  * @author @htmlonly &copy; @endhtmlonly 2014
  * Tiago Costa <nippius+github@gmail.com>
- * 
+ *
  * @date 11 June 2014
- * 
+ *
  * LGPL License Terms @ref lgpl_license
  */
 
@@ -67,7 +67,7 @@
 
 /* SSI Satus */
 #define SSI_SR(port)		MMIO32((port) + 0x00C)
- 
+
 /* SSI Clock Prescale */
 #define SSI_CPSR(port)		MMIO32((port) + 0x010)
 
@@ -84,7 +84,7 @@
 #define SSI_ICR(port)		MMIO32((port) + 0x020)
 
 /* SSI DMA Control */
-#define SSI_DMACTL(port) 	MMIO32((port) + 0x024)
+#define SSI_DMACTL(port)	MMIO32((port) + 0x024)
 
 /* SSI Clock Configuration */
 #define SSI_CC(port)		MMIO32((port) + 0xFC8)
@@ -115,4 +115,4 @@ END_DECLS
 /**@}*/
 
 #endif	/* LM4F_SSI_H */
- 
+

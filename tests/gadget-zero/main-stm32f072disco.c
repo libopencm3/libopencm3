@@ -25,7 +25,7 @@
 #include <stdio.h>
 #include "usb-gadget0.h"
 
-// no trace on cm0 #define ER_DEBUG
+/* no trace on cm0 #define ER_DEBUG */
 #ifdef ER_DEBUG
 #define ER_DPRINTF(fmt, ...) \
     do { printf(fmt, ## __VA_ARGS__); } while (0)
@@ -35,7 +35,8 @@
 #endif
 
 #include "trace.h"
-void trace_send_blocking8(int stimulus_port, char c) {
+void trace_send_blocking8(int stimulus_port, char c)
+{
 	(void)stimulus_port;
 	(void)c;
 }
@@ -45,14 +46,15 @@ int main(void)
 {
 	rcc_clock_setup_in_hsi48_out_48mhz();
 	crs_autotrim_usb_enable();
-	rcc_set_usbclk_source(HSI48);
+	rcc_set_usbclk_source(RCC_HSI48);
 
 	/* LED on for boot progress */
 	rcc_periph_clock_enable(RCC_GPIOC);
 	gpio_mode_setup(GPIOC, GPIO_MODE_OUTPUT, GPIO_PUPD_NONE, GPIO7);
 	gpio_set(GPIOC, GPIO7);
 
-	usbd_device *usbd_dev = gadget0_init(&st_usbfs_v2_usb_driver, "stm32f072disco");
+	usbd_device *usbd_dev = gadget0_init(&st_usbfs_v2_usb_driver,
+					     "stm32f072disco");
 
 	ER_DPRINTF("bootup complete\n");
 	gpio_clear(GPIOC, GPIO7);

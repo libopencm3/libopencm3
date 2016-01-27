@@ -35,18 +35,18 @@
 
 int main(void)
 {
-	rcc_clock_setup_hse_3v3(&hse_8mhz_3v3[CLOCK_3V3_168MHZ]);
-        rcc_periph_clock_enable(RCC_GPIOA);
-        rcc_periph_clock_enable(RCC_OTGFS);
+	rcc_clock_setup_hse_3v3(&rcc_hse_8mhz_3v3[RCC_CLOCK_3V3_168MHZ]);
+	rcc_periph_clock_enable(RCC_GPIOA);
+	rcc_periph_clock_enable(RCC_OTGFS);
 
-        gpio_mode_setup(GPIOA, GPIO_MODE_AF, GPIO_PUPD_NONE,
-                        GPIO9 | GPIO11 | GPIO12);
-        gpio_set_af(GPIOA, GPIO_AF10, GPIO9 | GPIO11 | GPIO12);
+	gpio_mode_setup(GPIOA, GPIO_MODE_AF, GPIO_PUPD_NONE,
+			GPIO9 | GPIO11 | GPIO12);
+	gpio_set_af(GPIOA, GPIO_AF10, GPIO9 | GPIO11 | GPIO12);
 
 	/* LEDS on discovery board */
-        rcc_periph_clock_enable(RCC_GPIOD);
-        gpio_mode_setup(GPIOD, GPIO_MODE_OUTPUT,
-                        GPIO_PUPD_NONE, GPIO12 | GPIO13 | GPIO14 | GPIO15);
+	rcc_periph_clock_enable(RCC_GPIOD);
+	gpio_mode_setup(GPIOD, GPIO_MODE_OUTPUT,
+			GPIO_PUPD_NONE, GPIO12 | GPIO13 | GPIO14 | GPIO15);
 
 	usbd_device *usbd_dev = gadget0_init(&otgfs_usb_driver, "stm32f4disco");
 

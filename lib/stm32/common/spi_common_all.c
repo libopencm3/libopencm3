@@ -730,10 +730,10 @@ Mode | CPOL | CPHA
 
 void spi_set_standard_mode(uint32_t spi, uint8_t mode)
 {
-	if(mode > 3) {
+	if (mode > 3) {
 		return;
 	}
-	
+
 	uint32_t reg32 = SPI_CR1(spi) & ~(SPI_CR1_CPOL | SPI_CR1_CPHA);
 	SPI_CR1(spi) = reg32 | mode;
 }

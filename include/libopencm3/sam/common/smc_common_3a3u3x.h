@@ -117,19 +117,24 @@
 #define SMC_ECC_PR15			MMIO32(SMC_BASE + 0x6C)
 
 /* Setup Register */
-#define SMC_SETUP(CS_number)		MMIO32(SMC_BASE + 0x14*(CS_number) + 0x70)
+#define SMC_SETUP(CS_number)		MMIO32(SMC_BASE + 0x14*(CS_number) \
+						+ 0x70)
 
 /* Pulse Register */
-#define SMC_PULSE(CS_number)		MMIO32(SMC_BASE + 0x14*(CS_number) + 0x74)
+#define SMC_PULSE(CS_number)		MMIO32(SMC_BASE + 0x14*(CS_number) \
+						+ 0x74)
 
 /* Cycle Register */
-#define SMC_CYCLE(CS_number)		MMIO32(SMC_BASE + 0x14*(CS_number) + 0x78)
+#define SMC_CYCLE(CS_number)		MMIO32(SMC_BASE + 0x14*(CS_number) \
+						+ 0x78)
 
 /* Timings Register */
-#define SMC_TIMINGS(CS_number)		MMIO32(SMC_BASE + 0x14*(CS_number) + 0x7C)
+#define SMC_TIMINGS(CS_number)		MMIO32(SMC_BASE + 0x14*(CS_number) \
+						+ 0x7C)
 
 /* Mode Register */
-#define SMC_MODE(CS_number)		MMIO32(SMC_BASE + 0x14*(CS_number) + 0x80)
+#define SMC_MODE(CS_number)		MMIO32(SMC_BASE + 0x14*(CS_number) \
+						+ 0x80)
 
 /* Off Chip Memory Scrambling Mode Register */
 #define SMC_OCMS			MMIO32(SMC_BASE + 0x110)
@@ -374,10 +379,14 @@
 #define SMC_ECC_MD_ECC_PAGESIZE_MASK	(0x03 << SMC_ECC_MD_ECC_PAGESIZE_SHIFT)
 
 /* ECC Page Size Values */
-#define SMC_ECC_MD_ECC_PAGESIZE_PS512_16	(0x00 << SMC_ECC_MD_ECC_PAGESIZE_SHIFT)
-#define SMC_ECC_MD_ECC_PAGESIZE_PS1024_32	(0x01 << SMC_ECC_MD_ECC_PAGESIZE_SHIFT)
-#define SMC_ECC_MD_ECC_PAGESIZE_PS2048_64	(0x02 << SMC_ECC_MD_ECC_PAGESIZE_SHIFT)
-#define SMC_ECC_MD_ECC_PAGESIZE_PS4096_128	(0x03 << SMC_ECC_MD_ECC_PAGESIZE_SHIFT)
+#define SMC_ECC_MD_ECC_PAGESIZE_PS512_16	\
+	(0x00 << SMC_ECC_MD_ECC_PAGESIZE_SHIFT)
+#define SMC_ECC_MD_ECC_PAGESIZE_PS1024_32	\
+	(0x01 << SMC_ECC_MD_ECC_PAGESIZE_SHIFT)
+#define SMC_ECC_MD_ECC_PAGESIZE_PS2048_64	\
+	(0x02 << SMC_ECC_MD_ECC_PAGESIZE_SHIFT)
+#define SMC_ECC_MD_ECC_PAGESIZE_PS4096_128	\
+	(0x03 << SMC_ECC_MD_ECC_PAGESIZE_SHIFT)
 
 
 /* --- SMC ECC Status Register 1 (SMC_ECC_SR1) ----------------------------- */

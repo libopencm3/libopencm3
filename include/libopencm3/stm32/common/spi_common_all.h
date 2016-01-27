@@ -308,7 +308,7 @@ specific memorymap.h header before including this header file.*/
 
 /* I2SSTD[5:4]: I2S standard selection */
 #define SPI_I2SCFGR_I2SSTD_LSB			4
-#define SPI_I2SCFGR_I2SSTD_I2S_PHILLIPS		0x0
+#define SPI_I2SCFGR_I2SSTD_I2S_PHILIPS		0x0
 #define SPI_I2SCFGR_I2SSTD_MSB_JUSTIFIED	0x1
 #define SPI_I2SCFGR_I2SSTD_LSB_JUSTIFIED	0x2
 #define SPI_I2SCFGR_I2SSTD_PCM			0x3

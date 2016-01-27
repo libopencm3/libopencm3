@@ -33,16 +33,20 @@
 /* --- Static Memory Controller (SMC) registers ---------------------------- */
 
 /* Setup Register */
-#define SMC_SETUP(CS_number)		MMIO32(SMC_BASE + 0x10*(CS_number) + 0x00)
+#define SMC_SETUP(CS_number)		MMIO32(SMC_BASE + 0x10*(CS_number) \
+						+ 0x00)
 
 /* Pulse Register */
-#define SMC_PULSE(CS_number)		MMIO32(SMC_BASE + 0x10*(CS_number) + 0x04)
+#define SMC_PULSE(CS_number)		MMIO32(SMC_BASE + 0x10*(CS_number) \
+						+ 0x04)
 
 /* Cycle Register */
-#define SMC_CYCLE(CS_number)		MMIO32(SMC_BASE + 0x10*(CS_number) + 0x08)
+#define SMC_CYCLE(CS_number)		MMIO32(SMC_BASE + 0x10*(CS_number) \
+						+ 0x08)
 
 /* Mode Register */
-#define SMC_MODE(CS_number)		MMIO32(SMC_BASE + 0x10*(CS_number) + 0x0C)
+#define SMC_MODE(CS_number)		MMIO32(SMC_BASE + 0x10*(CS_number) \
+						+ 0x0C)
 
 /* Off Chip Memory Scrambling Mode Register */
 #define SMC_OCMS			MMIO32(SMC_BASE + 0x80)

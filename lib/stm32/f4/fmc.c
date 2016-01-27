@@ -51,7 +51,7 @@ sdram_timing(struct sdram_timing *t) {
  */
 void
 sdram_command(enum fmc_sdram_bank bank,
-              enum fmc_sdram_command cmd, int autorefresh, int modereg) {
+	      enum fmc_sdram_command cmd, int autorefresh, int modereg) {
 	uint32_t tmp_reg = 0;
 
 	switch (bank) {
@@ -68,31 +68,31 @@ sdram_command(enum fmc_sdram_bank bank,
 	tmp_reg |= autorefresh << FMC_SDCMR_NRFS_SHIFT;
 	tmp_reg |= modereg << FMC_SDCMR_MRD_SHIFT;
 	switch (cmd) {
-		case SDRAM_CLK_CONF:
-			tmp_reg |= FMC_SDCMR_MODE_CLOCK_CONFIG_ENA;
-			break;
-		case SDRAM_AUTO_REFRESH:
-			tmp_reg |= FMC_SDCMR_MODE_AUTO_REFRESH;
-			break;
-		case SDRAM_LOAD_MODE:
-			tmp_reg |= FMC_SDCMR_MODE_LOAD_MODE_REGISTER;
-			break;
-		case SDRAM_PALL:
-			tmp_reg |= FMC_SDCMR_MODE_PALL;
-			break;
-		case SDRAM_SELF_REFRESH:
-			tmp_reg |= FMC_SDCMR_MODE_SELF_REFRESH;
-			break;
-		case SDRAM_POWER_DOWN:
-			tmp_reg |= FMC_SDCMR_MODE_POWER_DOWN;
-			break;
-		case SDRAM_NORMAL:
-		default:
-			break;
+	case SDRAM_CLK_CONF:
+		tmp_reg |= FMC_SDCMR_MODE_CLOCK_CONFIG_ENA;
+		break;
+	case SDRAM_AUTO_REFRESH:
+		tmp_reg |= FMC_SDCMR_MODE_AUTO_REFRESH;
+		break;
+	case SDRAM_LOAD_MODE:
+		tmp_reg |= FMC_SDCMR_MODE_LOAD_MODE_REGISTER;
+		break;
+	case SDRAM_PALL:
+		tmp_reg |= FMC_SDCMR_MODE_PALL;
+		break;
+	case SDRAM_SELF_REFRESH:
+		tmp_reg |= FMC_SDCMR_MODE_SELF_REFRESH;
+		break;
+	case SDRAM_POWER_DOWN:
+		tmp_reg |= FMC_SDCMR_MODE_POWER_DOWN;
+		break;
+	case SDRAM_NORMAL:
+	default:
+		break;
 	}
 
 	/* Wait for the next chance to talk to the controller */
-	while (FMC_SDSR & FMC_SDSR_BUSY) ;
+	while (FMC_SDSR & FMC_SDSR_BUSY);
 
 	/* Send the next command */
 	FMC_SDCMR = tmp_reg;

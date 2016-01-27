@@ -2,6 +2,7 @@
  * This file is part of the libopencm3 project.
  *
  * Copyright (C) 2012 chrysn <chrysn@fsfe.org>
+ * Copyright (C) 2015 Kuldeep Singh Dhaka <kuldeepdhaka9@gmail.com>
  *
  * This library is free software: you can redistribute it and/or modify
  * it under the terms of the GNU Lesser General Public License as published by
@@ -22,16 +23,14 @@
  * Dispatcher for the base address definitions, depending on the particular
  * Gecko family.
  *
- * @see tinygecko/memorymap.h
+ * @see efm32tg/memorymap.h
+ * @see efm32lg/memorymap.h
  */
 
-#ifndef LIBOPENCM3_EFM32_MEMORYMAP_H
-#define LIBOPENCM3_EFM32_MEMORYMAP_H
-
-#ifdef TINYGECKO
-#	include <libopencm3/efm32/tinygecko/memorymap.h>
+#if defined(EFM32TG)
+#	include <libopencm3/efm32/tg/memorymap.h>
+#elif defined(EFM32LG)
+#	include <libopencm3/efm32/lg/memorymap.h>
 #else
 #	error "efm32 family not defined."
-#endif
-
 #endif

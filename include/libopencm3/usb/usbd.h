@@ -58,6 +58,7 @@ extern const usbd_driver stm32f207_usb_driver;
 extern const usbd_driver st_usbfs_v2_usb_driver;
 #define otgfs_usb_driver stm32f107_usb_driver
 #define otghs_usb_driver stm32f207_usb_driver
+extern const usbd_driver efm32lg_usb_driver;
 
 /* <usb.c> */
 /**
@@ -109,17 +110,19 @@ typedef int (*usbd_control_callback)(usbd_device *usbd_dev,
 		struct usb_setup_data *req, uint8_t **buf, uint16_t *len,
 		usbd_control_complete_callback *complete);
 
-typedef void (*usbd_set_config_callback)(usbd_device *usbd_dev, uint16_t wValue);
+typedef void (*usbd_set_config_callback)(usbd_device *usbd_dev,
+					 uint16_t wValue);
 
 typedef void (*usbd_set_altsetting_callback)(usbd_device *usbd_dev,
-		uint16_t wIndex, uint16_t wValue);
+					     uint16_t wIndex, uint16_t wValue);
 
 typedef void (*usbd_endpoint_callback)(usbd_device *usbd_dev, uint8_t ep);
 
 /* <usb_control.c> */
 /** Registers a control callback.
  *
- * The specified callback will be called if (type == (bmRequestType & type_mask))
+ * The specified callback will be called if (type == (bmRequestType
+ * & type_mask))
  * @param type Handled request type
  * @param type_mask Mask to apply before matching request type
  * @return 0 if successful
@@ -136,7 +139,7 @@ extern int usbd_register_set_config_callback(usbd_device *usbd_dev,
 					  usbd_set_config_callback callback);
 /** Registers a "Set Interface" (alternate setting) callback */
 extern void usbd_register_set_altsetting_callback(usbd_device *usbd_dev,
-					  usbd_set_altsetting_callback callback);
+					usbd_set_altsetting_callback callback);
 
 /* Functions to be provided by the hardware abstraction layer */
 extern void usbd_poll(usbd_device *usbd_dev);

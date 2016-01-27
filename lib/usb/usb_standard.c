@@ -45,8 +45,9 @@ int usbd_register_set_config_callback(usbd_device *usbd_dev,
 	int i;
 
 	for (i = 0; i < MAX_USER_SET_CONFIG_CALLBACK; i++) {
-		if (usbd_dev->user_callback_set_config[i])
+		if (usbd_dev->user_callback_set_config[i]) {
 			continue;
+		}
 
 		usbd_dev->user_callback_set_config[i] = callback;
 		return 0;
@@ -56,7 +57,7 @@ int usbd_register_set_config_callback(usbd_device *usbd_dev,
 }
 
 void usbd_register_set_altsetting_callback(usbd_device *usbd_dev,
-					   usbd_set_altsetting_callback callback)
+					usbd_set_altsetting_callback callback)
 {
 	usbd_dev->user_callback_set_altsetting = callback;
 }
@@ -253,9 +254,10 @@ static int usb_standard_set_configuration(usbd_device *usbd_dev,
 	(void)buf;
 	(void)len;
 
-	if(req->wValue > 0) {
+	if (req->wValue > 0) {
 		for (i = 0; i < usbd_dev->desc->bNumConfigurations; i++) {
-			if (req->wValue == usbd_dev->config[i].bConfigurationValue) {
+			if (req->wValue
+			    == usbd_dev->config[i].bConfigurationValue) {
 				found_index = i;
 				break;
 			}
@@ -310,8 +312,13 @@ static int usb_standard_get_configuration(usbd_device *usbd_dev,
 	if (*len > 1) {
 		*len = 1;
 	}
-	const struct usb_config_descriptor *cfg = &usbd_dev->config[usbd_dev->current_config - 1];
-	(*buf)[0] = cfg->bConfigurationValue;
+	if (usbd_dev->current_config > 0) {
+		const struct usb_config_descriptor *cfg =
+			&usbd_dev->config[usbd_dev->current_config - 1];
+		(*buf)[0] = cfg->bConfigurationValue;
+	} else {
+		(*buf)[0] = 0;
+	}
 
 	return 1;
 }
@@ -320,7 +327,8 @@ static int usb_standard_set_interface(usbd_device *usbd_dev,
 				      struct usb_setup_data *req,
 				      uint8_t **buf, uint16_t *len)
 {
-	const struct usb_config_descriptor *cfx = &usbd_dev->config[usbd_dev->current_config - 1];
+	const struct usb_config_descriptor *cfx =
+		&usbd_dev->config[usbd_dev->current_config - 1];
 	const struct usb_interface *iface;
 
 	(void)buf;
@@ -343,7 +351,8 @@ static int usb_standard_set_interface(usbd_device *usbd_dev,
 
 	if (usbd_dev->user_callback_set_altsetting) {
 			usbd_dev->user_callback_set_altsetting(usbd_dev,
-							req->wIndex, req->wValue);
+							       req->wIndex,
+							       req->wValue);
 	}
 
 	*len = 0;
@@ -356,7 +365,8 @@ static int usb_standard_get_interface(usbd_device *usbd_dev,
 				      uint8_t **buf, uint16_t *len)
 {
 	uint8_t *cur_altsetting;
-	const struct usb_config_descriptor *cfx = &usbd_dev->config[usbd_dev->current_config - 1];
+	const struct usb_config_descriptor *cfx =
+		&usbd_dev->config[usbd_dev->current_config - 1];
 
 	if (req->wIndex >= cfx->bNumInterfaces) {
 		return USBD_REQ_NOTSUPP;

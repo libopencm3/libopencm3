@@ -30,6 +30,6 @@
  *	to the hardware.
  * @return the usbd_device created.
 */
-usbd_device* gadget0_init(const usbd_driver *driver, const char *userserial);
+usbd_device *gadget0_init(const usbd_driver *driver, const char *userserial);
 
 #endif

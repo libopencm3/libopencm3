@@ -153,8 +153,9 @@ struct usb_msc_trans {
 
 	uint32_t bytes_to_read;
 	uint32_t bytes_to_write;
-	uint32_t byte_count;		/* Either read until equal to bytes_to_read or
-					   write until equal to bytes_to_write. */
+	uint32_t byte_count;		/* Either read until equal to
+					   bytes_to_read or write until equal
+					   to bytes_to_write. */
 	uint32_t lba_start;
 	uint32_t block_count;
 	uint32_t current_block;
@@ -288,7 +289,8 @@ static void scsi_write_6(usbd_mass_storage *ms,
 
 		buf = get_cbw_buf(trans);
 
-		trans->lba_start = ((0x1f & buf[1]) << 16) | (buf[2] << 8) | buf[3];
+		trans->lba_start = ((0x1f & buf[1]) << 16)
+				    | (buf[2] << 8) | buf[3];
 		trans->block_count = buf[4];
 		trans->current_block = 0;
 
@@ -325,7 +327,8 @@ static void scsi_read_10(usbd_mass_storage *ms,
 
 		buf = get_cbw_buf(trans);
 
-		trans->lba_start = (buf[2] << 24) | (buf[3] << 16) | (buf[4] << 8) | buf[5];
+		trans->lba_start = (buf[2] << 24) | (buf[3] << 16)
+				   | (buf[4] << 8) | buf[5];
 		trans->block_count = (buf[7] << 8) | buf[8];
 
 		/* TODO: Check the lba & block_count for range. */
@@ -384,7 +387,8 @@ static void scsi_request_sense(usbd_mass_storage *ms,
 		buf = &trans->cbw.cbw.CBWCB[0];
 
 		trans->bytes_to_write = buf[4];	/* allocation length */
-		memcpy(trans->msd_buf, _spc3_request_sense, sizeof(_spc3_request_sense));
+		memcpy(trans->msd_buf, _spc3_request_sense,
+		       sizeof(_spc3_request_sense));
 
 		trans->msd_buf[2] = ms->sense.key;
 		trans->msd_buf[12] = ms->sense.asc;
@@ -445,7 +449,8 @@ static void scsi_inquiry(usbd_mass_storage *ms,
 		if (0 == evpd) {
 			size_t len;
 			trans->bytes_to_write = sizeof(_spc3_inquiry_response);
-			memcpy(trans->msd_buf, _spc3_inquiry_response, sizeof(_spc3_inquiry_response));
+			memcpy(trans->msd_buf, _spc3_inquiry_response,
+			       sizeof(_spc3_inquiry_response));
 
 			len = strlen(ms->vendor_id);
 			len = MIN(len, 8);
@@ -457,9 +462,11 @@ static void scsi_inquiry(usbd_mass_storage *ms,
 
 			len = strlen(ms->product_revision_level);
 			len = MIN(len, 4);
-			memcpy(&trans->msd_buf[32], ms->product_revision_level, len);
+			memcpy(&trans->msd_buf[32], ms->product_revision_level,
+			       len);
 
-			trans->csw.csw.dCSWDataResidue = sizeof(_spc3_inquiry_response);
+			trans->csw.csw.dCSWDataResidue =
+				sizeof(_spc3_inquiry_response);
 
 			set_sbc_status_good(ms);
 		} else {
@@ -564,7 +571,7 @@ static void msc_data_rx_cb(usbd_device *usbd_dev, uint8_t ep)
 
 	if (trans->byte_count < trans->bytes_to_read) {
 		if (0 < trans->block_count) {
-			if ((0 == trans->byte_count) && (NULL != ms->lock)){
+			if ((0 == trans->byte_count) && (NULL != ms->lock)) {
 				(*ms->lock)();
 			}
 		}
@@ -580,7 +587,8 @@ static void msc_data_rx_cb(usbd_device *usbd_dev, uint8_t ep)
 				uint32_t lba;
 
 				lba = trans->lba_start + trans->current_block;
-				if (0 != (*ms->write_block)(lba, trans->msd_buf)) {
+				if (0 != (*ms->write_block)(lba,
+							    trans->msd_buf)) {
 					/* Error */
 				}
 				trans->current_block++;
@@ -596,7 +604,8 @@ static void msc_data_rx_cb(usbd_device *usbd_dev, uint8_t ep)
 				uint32_t lba;
 
 				lba = trans->lba_start + trans->current_block;
-				if (0 != (*ms->read_block)(lba, trans->msd_buf)) {
+				if (0 != (*ms->read_block)(lba,
+							   trans->msd_buf)) {
 					/* Error */
 				}
 				trans->current_block++;
@@ -614,12 +623,13 @@ static void msc_data_rx_cb(usbd_device *usbd_dev, uint8_t ep)
 				uint32_t lba;
 
 				lba = trans->lba_start + trans->current_block;
-				if (0 != (*ms->write_block)(lba, trans->msd_buf)) {
+				if (0 != (*ms->write_block)(lba,
+							    trans->msd_buf)) {
 					/* Error */
 				}
 
 				trans->current_block = 0;
-				if (NULL != ms->unlock){
+				if (NULL != ms->unlock) {
 					(*ms->unlock)();
 				}
 			}
@@ -633,7 +643,8 @@ static void msc_data_rx_cb(usbd_device *usbd_dev, uint8_t ep)
 		if (0 < left) {
 			max_len = MIN(ms->ep_out_size, left);
 			p = &trans->csw.buf[trans->csw_sent];
-			len = usbd_ep_write_packet(usbd_dev, ms->ep_in, p, max_len);
+			len = usbd_ep_write_packet(usbd_dev, ms->ep_in, p,
+						   max_len);
 			trans->csw_sent += len;
 		}
 	}
@@ -656,7 +667,8 @@ static void msc_data_tx_cb(usbd_device *usbd_dev, uint8_t ep)
 				uint32_t lba;
 
 				lba = trans->lba_start + trans->current_block;
-				if (0 != (*ms->read_block)(lba, trans->msd_buf)) {
+				if (0 != (*ms->read_block)(lba,
+							   trans->msd_buf)) {
 					/* Error */
 				}
 				trans->current_block++;
@@ -672,7 +684,7 @@ static void msc_data_tx_cb(usbd_device *usbd_dev, uint8_t ep)
 		if (0 < trans->block_count) {
 			if (trans->current_block == trans->block_count) {
 				trans->current_block = 0;
-				if (NULL != ms->unlock){
+				if (NULL != ms->unlock) {
 					(*ms->unlock)();
 				}
 			}
@@ -707,8 +719,9 @@ static void msc_data_tx_cb(usbd_device *usbd_dev, uint8_t ep)
  *	   interface.
  */
 static int msc_control_request(usbd_device *usbd_dev,
-				struct usb_setup_data *req, uint8_t **buf, uint16_t *len,
-				usbd_control_complete_callback *complete)
+			       struct usb_setup_data *req, uint8_t **buf,
+			       uint16_t *len,
+			       usbd_control_complete_callback *complete)
 {
 	(void)complete;
 	(void)usbd_dev;
@@ -777,8 +790,10 @@ usbd_mass_storage *usb_msc_init(usbd_device *usbd_dev,
 				 const char *product_id,
 				 const char *product_revision_level,
 				 const uint32_t block_count,
-				 int (*read_block)(uint32_t lba, uint8_t *copy_to),
-				 int (*write_block)(uint32_t lba, const uint8_t *copy_from))
+				 int (*read_block)(uint32_t lba,
+						   uint8_t *copy_to),
+				 int (*write_block)(uint32_t lba,
+						    const uint8_t *copy_from))
 {
 	_mass_storage.usbd_dev = usbd_dev;
 	_mass_storage.ep_in = ep_in;

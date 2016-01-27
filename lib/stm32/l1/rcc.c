@@ -48,7 +48,7 @@ uint32_t rcc_ahb_frequency = 2097000;
 uint32_t rcc_apb1_frequency = 2097000;
 uint32_t rcc_apb2_frequency = 2097000;
 
-const clock_scale_t clock_config[CLOCK_CONFIG_END] = {
+const struct rcc_clock_scale rcc_clock_config[RCC_CLOCK_CONFIG_END] = {
 	{ /* 24MHz PLL from HSI */
 		.pll_source = RCC_CFGR_PLLSRC_HSI_CLK,
 		.pll_mul = RCC_CFGR_PLLMUL_MUL3,
@@ -56,7 +56,7 @@ const clock_scale_t clock_config[CLOCK_CONFIG_END] = {
 		.hpre = RCC_CFGR_HPRE_SYSCLK_NODIV,
 		.ppre1 = RCC_CFGR_PPRE1_HCLK_NODIV,
 		.ppre2 = RCC_CFGR_PPRE2_HCLK_NODIV,
-		.voltage_scale = RANGE1,
+		.voltage_scale = PWR_SCALE1,
 		.flash_config = FLASH_ACR_LATENCY_1WS,
 		.apb1_frequency = 24000000,
 		.apb2_frequency = 24000000,
@@ -68,7 +68,7 @@ const clock_scale_t clock_config[CLOCK_CONFIG_END] = {
 		.hpre = RCC_CFGR_HPRE_SYSCLK_NODIV,
 		.ppre1 = RCC_CFGR_PPRE1_HCLK_NODIV,
 		.ppre2 = RCC_CFGR_PPRE2_HCLK_NODIV,
-		.voltage_scale = RANGE1,
+		.voltage_scale = PWR_SCALE1,
 		.flash_config = FLASH_ACR_LATENCY_1WS,
 		.apb1_frequency = 32000000,
 		.apb2_frequency = 32000000,
@@ -77,7 +77,7 @@ const clock_scale_t clock_config[CLOCK_CONFIG_END] = {
 		.hpre = RCC_CFGR_HPRE_SYSCLK_NODIV,
 		.ppre1 = RCC_CFGR_PPRE1_HCLK_NODIV,
 		.ppre2 = RCC_CFGR_PPRE2_HCLK_NODIV,
-		.voltage_scale = RANGE1,
+		.voltage_scale = PWR_SCALE1,
 		.flash_config = FLASH_ACR_LATENCY_0WS,
 		.apb1_frequency = 16000000,
 		.apb2_frequency = 16000000,
@@ -86,7 +86,7 @@ const clock_scale_t clock_config[CLOCK_CONFIG_END] = {
 		.hpre = RCC_CFGR_HPRE_SYSCLK_DIV4,
 		.ppre1 = RCC_CFGR_PPRE1_HCLK_NODIV,
 		.ppre2 = RCC_CFGR_PPRE2_HCLK_NODIV,
-		.voltage_scale = RANGE1,
+		.voltage_scale = PWR_SCALE1,
 		.flash_config = FLASH_ACR_LATENCY_0WS,
 		.apb1_frequency = 4000000,
 		.apb2_frequency = 4000000,
@@ -95,7 +95,7 @@ const clock_scale_t clock_config[CLOCK_CONFIG_END] = {
 		.hpre = RCC_CFGR_HPRE_SYSCLK_NODIV,
 		.ppre1 = RCC_CFGR_PPRE1_HCLK_NODIV,
 		.ppre2 = RCC_CFGR_PPRE2_HCLK_NODIV,
-		.voltage_scale = RANGE1,
+		.voltage_scale = PWR_SCALE1,
 		.flash_config = FLASH_ACR_LATENCY_0WS,
 		.apb1_frequency = 4194000,
 		.apb2_frequency = 4194000,
@@ -105,7 +105,7 @@ const clock_scale_t clock_config[CLOCK_CONFIG_END] = {
 		.hpre = RCC_CFGR_HPRE_SYSCLK_NODIV,
 		.ppre1 = RCC_CFGR_PPRE1_HCLK_NODIV,
 		.ppre2 = RCC_CFGR_PPRE2_HCLK_NODIV,
-		.voltage_scale = RANGE1,
+		.voltage_scale = PWR_SCALE1,
 		.flash_config = FLASH_ACR_LATENCY_0WS,
 		.apb1_frequency = 2097000,
 		.apb2_frequency = 2097000,
@@ -113,97 +113,97 @@ const clock_scale_t clock_config[CLOCK_CONFIG_END] = {
 	},
 };
 
-void rcc_osc_ready_int_clear(osc_t osc)
+void rcc_osc_ready_int_clear(enum rcc_osc osc)
 {
 	switch (osc) {
-	case PLL:
+	case RCC_PLL:
 		RCC_CIR |= RCC_CIR_PLLRDYC;
 		break;
-	case HSE:
+	case RCC_HSE:
 		RCC_CIR |= RCC_CIR_HSERDYC;
 		break;
-	case HSI:
+	case RCC_HSI:
 		RCC_CIR |= RCC_CIR_HSIRDYC;
 		break;
-	case LSE:
+	case RCC_LSE:
 		RCC_CIR |= RCC_CIR_LSERDYC;
 		break;
-	case LSI:
+	case RCC_LSI:
 		RCC_CIR |= RCC_CIR_LSIRDYC;
 		break;
-	case MSI:
+	case RCC_MSI:
 		RCC_CIR |= RCC_CIR_MSIRDYC;
 		break;
 	}
 }
 
-void rcc_osc_ready_int_enable(osc_t osc)
+void rcc_osc_ready_int_enable(enum rcc_osc osc)
 {
 	switch (osc) {
-	case PLL:
+	case RCC_PLL:
 		RCC_CIR |= RCC_CIR_PLLRDYIE;
 		break;
-	case HSE:
+	case RCC_HSE:
 		RCC_CIR |= RCC_CIR_HSERDYIE;
 		break;
-	case HSI:
+	case RCC_HSI:
 		RCC_CIR |= RCC_CIR_HSIRDYIE;
 		break;
-	case LSE:
+	case RCC_LSE:
 		RCC_CIR |= RCC_CIR_LSERDYIE;
 		break;
-	case LSI:
+	case RCC_LSI:
 		RCC_CIR |= RCC_CIR_LSIRDYIE;
 		break;
-	case MSI:
+	case RCC_MSI:
 		RCC_CIR |= RCC_CIR_MSIRDYIE;
 		break;
 	}
 }
 
-void rcc_osc_ready_int_disable(osc_t osc)
+void rcc_osc_ready_int_disable(enum rcc_osc osc)
 {
 	switch (osc) {
-	case PLL:
+	case RCC_PLL:
 		RCC_CIR &= ~RCC_CIR_PLLRDYIE;
 		break;
-	case HSE:
+	case RCC_HSE:
 		RCC_CIR &= ~RCC_CIR_HSERDYIE;
 		break;
-	case HSI:
+	case RCC_HSI:
 		RCC_CIR &= ~RCC_CIR_HSIRDYIE;
 		break;
-	case LSE:
+	case RCC_LSE:
 		RCC_CIR &= ~RCC_CIR_LSERDYIE;
 		break;
-	case LSI:
+	case RCC_LSI:
 		RCC_CIR &= ~RCC_CIR_LSIRDYIE;
 		break;
-	case MSI:
+	case RCC_MSI:
 		RCC_CIR &= ~RCC_CIR_MSIRDYIE;
 		break;
 	}
 }
 
-int rcc_osc_ready_int_flag(osc_t osc)
+int rcc_osc_ready_int_flag(enum rcc_osc osc)
 {
 	switch (osc) {
-	case PLL:
+	case RCC_PLL:
 		return ((RCC_CIR & RCC_CIR_PLLRDYF) != 0);
 		break;
-	case HSE:
+	case RCC_HSE:
 		return ((RCC_CIR & RCC_CIR_HSERDYF) != 0);
 		break;
-	case HSI:
+	case RCC_HSI:
 		return ((RCC_CIR & RCC_CIR_HSIRDYF) != 0);
 		break;
-	case LSE:
+	case RCC_LSE:
 		return ((RCC_CIR & RCC_CIR_LSERDYF) != 0);
 		break;
-	case LSI:
+	case RCC_LSI:
 		return ((RCC_CIR & RCC_CIR_LSIRDYF) != 0);
 		break;
-	case MSI:
+	case RCC_MSI:
 		return ((RCC_CIR & RCC_CIR_MSIRDYF) != 0);
 		break;
 	}
@@ -222,46 +222,46 @@ int rcc_css_int_flag(void)
 	return ((RCC_CIR & RCC_CIR_CSSF) != 0);
 }
 
-void rcc_wait_for_osc_ready(osc_t osc)
+void rcc_wait_for_osc_ready(enum rcc_osc osc)
 {
 	switch (osc) {
-	case PLL:
+	case RCC_PLL:
 		while ((RCC_CR & RCC_CR_PLLRDY) == 0);
 		break;
-	case HSE:
+	case RCC_HSE:
 		while ((RCC_CR & RCC_CR_HSERDY) == 0);
 		break;
-	case HSI:
+	case RCC_HSI:
 		while ((RCC_CR & RCC_CR_HSIRDY) == 0);
 		break;
-	case MSI:
+	case RCC_MSI:
 		while ((RCC_CR & RCC_CR_MSIRDY) == 0);
 		break;
-	case LSE:
+	case RCC_LSE:
 		while ((RCC_CSR & RCC_CSR_LSERDY) == 0);
 		break;
-	case LSI:
+	case RCC_LSI:
 		while ((RCC_CSR & RCC_CSR_LSIRDY) == 0);
 		break;
 	}
 }
 
-void rcc_wait_for_sysclk_status(osc_t osc)
+void rcc_wait_for_sysclk_status(enum rcc_osc osc)
 {
 	switch (osc) {
-	case PLL:
+	case RCC_PLL:
 		while ((RCC_CFGR & ((1 << 1) | (1 << 0))) !=
 				RCC_CFGR_SWS_SYSCLKSEL_PLLCLK);
 		break;
-	case HSE:
+	case RCC_HSE:
 		while ((RCC_CFGR & ((1 << 1) | (1 << 0))) !=
 				RCC_CFGR_SWS_SYSCLKSEL_HSECLK);
 		break;
-	case HSI:
+	case RCC_HSI:
 		while ((RCC_CFGR & ((1 << 1) | (1 << 0))) !=
 				RCC_CFGR_SWS_SYSCLKSEL_HSICLK);
 		break;
-	case MSI:
+	case RCC_MSI:
 		while ((RCC_CFGR & ((1 << 1) | (1 << 0))) !=
 				RCC_CFGR_SWS_SYSCLKSEL_MSICLK);
 		break;
@@ -271,49 +271,49 @@ void rcc_wait_for_sysclk_status(osc_t osc)
 	}
 }
 
-void rcc_osc_on(osc_t osc)
+void rcc_osc_on(enum rcc_osc osc)
 {
 	switch (osc) {
-	case PLL:
+	case RCC_PLL:
 		RCC_CR |= RCC_CR_PLLON;
 		break;
-	case MSI:
+	case RCC_MSI:
 		RCC_CR |= RCC_CR_MSION;
 		break;
-	case HSE:
+	case RCC_HSE:
 		RCC_CR |= RCC_CR_HSEON;
 		break;
-	case HSI:
+	case RCC_HSI:
 		RCC_CR |= RCC_CR_HSION;
 		break;
-	case LSE:
+	case RCC_LSE:
 		RCC_CSR |= RCC_CSR_LSEON;
 		break;
-	case LSI:
+	case RCC_LSI:
 		RCC_CSR |= RCC_CSR_LSION;
 		break;
 	}
 }
 
-void rcc_osc_off(osc_t osc)
+void rcc_osc_off(enum rcc_osc osc)
 {
 	switch (osc) {
-	case PLL:
+	case RCC_PLL:
 		RCC_CR &= ~RCC_CR_PLLON;
 		break;
-	case MSI:
+	case RCC_MSI:
 		RCC_CR &= ~RCC_CR_MSION;
 		break;
-	case HSE:
+	case RCC_HSE:
 		RCC_CR &= ~RCC_CR_HSEON;
 		break;
-	case HSI:
+	case RCC_HSI:
 		RCC_CR &= ~RCC_CR_HSION;
 		break;
-	case LSE:
+	case RCC_LSE:
 		RCC_CSR &= ~RCC_CSR_LSEON;
 		break;
-	case LSI:
+	case RCC_LSI:
 		RCC_CSR &= ~RCC_CSR_LSION;
 		break;
 	}
@@ -329,37 +329,37 @@ void rcc_css_disable(void)
 	RCC_CR &= ~RCC_CR_CSSON;
 }
 
-void rcc_osc_bypass_enable(osc_t osc)
+void rcc_osc_bypass_enable(enum rcc_osc osc)
 {
 	switch (osc) {
-	case HSE:
+	case RCC_HSE:
 		RCC_CR |= RCC_CR_HSEBYP;
 		break;
-	case LSE:
+	case RCC_LSE:
 		RCC_CSR |= RCC_CSR_LSEBYP;
 		break;
-	case PLL:
-	case HSI:
-	case LSI:
-	case MSI:
+	case RCC_PLL:
+	case RCC_HSI:
+	case RCC_LSI:
+	case RCC_MSI:
 		/* Do nothing, only HSE/LSE allowed here. */
 		break;
 	}
 }
 
-void rcc_osc_bypass_disable(osc_t osc)
+void rcc_osc_bypass_disable(enum rcc_osc osc)
 {
 	switch (osc) {
-	case HSE:
+	case RCC_HSE:
 		RCC_CR &= ~RCC_CR_HSEBYP;
 		break;
-	case LSE:
+	case RCC_LSE:
 		RCC_CSR &= ~RCC_CSR_LSEBYP;
 		break;
-	case PLL:
-	case HSI:
-	case LSI:
-	case MSI:
+	case RCC_PLL:
+	case RCC_HSI:
+	case RCC_LSI:
+	case RCC_MSI:
 		/* Do nothing, only HSE/LSE allowed here. */
 		break;
 	}
@@ -446,7 +446,7 @@ void rcc_rtc_select_clock(uint32_t clock)
 	RCC_CSR |= (clock << RCC_CSR_RTCSEL_SHIFT);
 }
 
-void rcc_clock_setup_msi(const clock_scale_t *clock)
+void rcc_clock_setup_msi(const struct rcc_clock_scale *clock)
 {
 	/* Enable internal multi-speed oscillator. */
 
@@ -455,8 +455,8 @@ void rcc_clock_setup_msi(const clock_scale_t *clock)
 	reg |= (clock->msi_range << RCC_ICSCR_MSIRANGE_SHIFT);
 	RCC_ICSCR = reg;
 
-	rcc_osc_on(MSI);
-	rcc_wait_for_osc_ready(MSI);
+	rcc_osc_on(RCC_MSI);
+	rcc_wait_for_osc_ready(RCC_MSI);
 
 	/* Select MSI as SYSCLK source. */
 	rcc_set_sysclk_source(RCC_CFGR_SW_SYSCLKSEL_MSICLK);
@@ -483,11 +483,11 @@ void rcc_clock_setup_msi(const clock_scale_t *clock)
 	rcc_apb2_frequency = clock->apb2_frequency;
 }
 
-void rcc_clock_setup_hsi(const clock_scale_t *clock)
+void rcc_clock_setup_hsi(const struct rcc_clock_scale *clock)
 {
 	/* Enable internal high-speed oscillator. */
-	rcc_osc_on(HSI);
-	rcc_wait_for_osc_ready(HSI);
+	rcc_osc_on(RCC_HSI);
+	rcc_wait_for_osc_ready(RCC_HSI);
 
 	/* Select HSI as SYSCLK source. */
 	rcc_set_sysclk_source(RCC_CFGR_SW_SYSCLKSEL_HSICLK);
@@ -514,15 +514,15 @@ void rcc_clock_setup_hsi(const clock_scale_t *clock)
 	rcc_apb2_frequency = clock->apb2_frequency;
 }
 
-void rcc_clock_setup_pll(const clock_scale_t *clock)
+void rcc_clock_setup_pll(const struct rcc_clock_scale *clock)
 {
 	/* Turn on the appropriate source for the PLL */
 	if (clock->pll_source == RCC_CFGR_PLLSRC_HSE_CLK) {
-		rcc_osc_on(HSE);
-		rcc_wait_for_osc_ready(HSE);
+		rcc_osc_on(RCC_HSE);
+		rcc_wait_for_osc_ready(RCC_HSE);
 	} else {
-		rcc_osc_on(HSI);
-		rcc_wait_for_osc_ready(HSI);
+		rcc_osc_on(RCC_HSI);
+		rcc_wait_for_osc_ready(RCC_HSI);
 	}
 
 	/*
@@ -546,8 +546,8 @@ void rcc_clock_setup_pll(const clock_scale_t *clock)
 				  clock->pll_div);
 
 	/* Enable PLL oscillator and wait for it to stabilize. */
-	rcc_osc_on(PLL);
-	rcc_wait_for_osc_ready(PLL);
+	rcc_osc_on(RCC_PLL);
+	rcc_wait_for_osc_ready(RCC_PLL);
 
 	/* Select PLL as SYSCLK source. */
 	rcc_set_sysclk_source(RCC_CFGR_SW_SYSCLKSEL_PLLCLK);

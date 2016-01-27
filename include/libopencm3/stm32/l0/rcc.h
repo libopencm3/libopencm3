@@ -478,7 +478,7 @@ extern uint32_t rcc_apb2_frequency;
 /* --- Function prototypes ------------------------------------------------- */
 
 enum rcc_osc {
-	PLL, HSE, HSI48, HSI16, MSI, LSE, LSI
+	RCC_PLL, RCC_HSE, RCC_HSI48, RCC_HSI16, RCC_MSI, RCC_LSE, RCC_LSI
 };
 
 

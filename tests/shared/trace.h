@@ -1,4 +1,4 @@
-/* 
+/*
  * File:   trace.h
  * Author: karlp
  *

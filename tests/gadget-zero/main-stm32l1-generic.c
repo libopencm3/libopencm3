@@ -34,19 +34,19 @@
     do { } while (0)
 #endif
 
-const clock_scale_t this_clock_config =
-        { /* 32MHz PLL from 8MHz HSE */
-                .pll_source = RCC_CFGR_PLLSRC_HSE_CLK,
-                .pll_mul = RCC_CFGR_PLLMUL_MUL12,
-                .pll_div = RCC_CFGR_PLLDIV_DIV3,
-                .hpre = RCC_CFGR_HPRE_SYSCLK_NODIV,
-                .ppre1 = RCC_CFGR_PPRE1_HCLK_NODIV,
-                .ppre2 = RCC_CFGR_PPRE2_HCLK_NODIV,
-                .voltage_scale = RANGE1,
-                .flash_config = FLASH_ACR_LATENCY_1WS,
-                .apb1_frequency = 32000000,
-                .apb2_frequency = 32000000,
-        };
+const struct rcc_clock_scale this_clock_config = {
+		/* 32MHz PLL from 8MHz HSE */
+		.pll_source = RCC_CFGR_PLLSRC_HSE_CLK,
+		.pll_mul = RCC_CFGR_PLLMUL_MUL12,
+		.pll_div = RCC_CFGR_PLLDIV_DIV3,
+		.hpre = RCC_CFGR_HPRE_SYSCLK_NODIV,
+		.ppre1 = RCC_CFGR_PPRE1_HCLK_NODIV,
+		.ppre2 = RCC_CFGR_PPRE2_HCLK_NODIV,
+		.voltage_scale = PWR_SCALE1,
+		.flash_config = FLASH_ACR_LATENCY_1WS,
+		.apb1_frequency = 32000000,
+		.apb2_frequency = 32000000,
+	};
 
 
 int main(void)
@@ -57,7 +57,8 @@ int main(void)
 	gpio_mode_setup(GPIOB, GPIO_MODE_OUTPUT, GPIO_PUPD_NONE, GPIO1);
 	gpio_set(GPIOB, GPIO1);
 
-	usbd_device *usbd_dev = gadget0_init(&st_usbfs_v1_usb_driver, "stm32l1-generic");
+	usbd_device *usbd_dev = gadget0_init(&st_usbfs_v1_usb_driver,
+					     "stm32l1-generic");
 
 	ER_DPRINTF("bootup complete\n");
 	gpio_clear(GPIOB, GPIO1);

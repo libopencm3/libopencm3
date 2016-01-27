@@ -144,10 +144,10 @@ error "This file should not be included directly, it is included with fsmc.h"
  * out those bits after you have computed values for CR2 and
  * TR2 and put them into CR1 and TR1
  */
-#define FMC_SDTR_DNC_MASK	( FMC_SDTR_TRP_MASK| FMC_SDTR_TRC_MASK )
-#define FMC_SDCR_DNC_MASK	( FMC_SDCR_SDCLK_MASK |\
-				  FMC_SDCR_RPIPE_MASK  |\
-				  FMC_SDCR_RBURST )
+#define FMC_SDTR_DNC_MASK	(FMC_SDTR_TRP_MASK | FMC_SDTR_TRC_MASK)
+#define FMC_SDCR_DNC_MASK	(FMC_SDCR_SDCLK_MASK | \
+				 FMC_SDCR_RPIPE_MASK  | \
+				 FMC_SDCR_RBURST)
 
 /* --- FMC_SDCMR values --------------------------------------------------- */
 
@@ -240,7 +240,9 @@ enum fmc_sdram_command { SDRAM_CLK_CONF, SDRAM_NORMAL, SDRAM_PALL,
 			 SDRAM_AUTO_REFRESH, SDRAM_LOAD_MODE,
 			 SDRAM_SELF_REFRESH, SDRAM_POWER_DOWN };
 
-/* Send an array of timing parameters (indices above) to create SDTR register value */
+/* Send an array of timing parameters (indices above) to create SDTR register
+ * value
+ */
 uint32_t sdram_timing(struct sdram_timing *t);
 void sdram_command(enum fmc_sdram_bank bank, enum fmc_sdram_command cmd,
 			int autorefresh, int modereg);

@@ -51,13 +51,15 @@ int main(void)
 	gpio_set_mode(GPIOA, GPIO_MODE_OUTPUT_2_MHZ,
 		GPIO_CNF_OUTPUT_PUSHPULL, GPIO12);
 	gpio_clear(GPIOA, GPIO11);
-	for (unsigned int i = 0; i < 800000; i++)
+	for (unsigned int i = 0; i < 800000; i++) {
 		__asm__("nop");
+	}
 
 	rcc_periph_clock_enable(RCC_OTGFS);
 
 
-	usbd_device *usbd_dev = gadget0_init(&st_usbfs_v1_usb_driver, "stm32f103-generic");
+	usbd_device *usbd_dev = gadget0_init(&st_usbfs_v1_usb_driver,
+					     "stm32f103-generic");
 
 	ER_DPRINTF("bootup complete\n");
 	gpio_clear(GPIOC, GPIO13);

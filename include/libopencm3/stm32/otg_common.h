@@ -443,12 +443,12 @@
 #define OTG_HCINT_FRMOR		(1 << 9)
 #define OTG_HCINT_BBERR		(1 << 8)
 #define OTG_HCINT_TXERR		(1 << 7)
-// Note: OTG_HCINT_NYET: Only in OTG_HS
+/* Note: OTG_HCINT_NYET: Only in OTG_HS */
 #define OTG_HCINT_NYET		(1 << 6)
 #define OTG_HCINT_ACK		(1 << 5)
 #define OTG_HCINT_NAK		(1 << 4)
 #define OTG_HCINT_STALL		(1 << 3)
-// Note: OTG_HCINT_AHBERR: Only in OTG_HS
+/* Note: OTG_HCINT_AHBERR: Only in OTG_HS */
 #define OTG_HCINT_AHBERR	(1 << 2)
 #define OTG_HCINT_CHH		(1 << 1)
 #define OTG_HCINT_XFRC		(1 << 0)
@@ -459,18 +459,18 @@
 #define OTG_HCINTMSK_FRMORM		(1 << 9)
 #define OTG_HCINTMSK_BBERRM		(1 << 8)
 #define OTG_HCINTMSK_TXERRM		(1 << 7)
-// Note: OTG_HCINTMSK_NYET: Only in OTG_HS
+/* Note: OTG_HCINTMSK_NYET: Only in OTG_HS */
 #define OTG_HCINTMSK_NYET		(1 << 6)
 #define OTG_HCINTMSK_ACKM		(1 << 5)
 #define OTG_HCINTMSK_NAKM		(1 << 4)
 #define OTG_HCINTMSK_STALLM		(1 << 3)
-// Note: OTG_HCINTMSK_AHBERR: Only in OTG_HS
+/* Note: OTG_HCINTMSK_AHBERR: Only in OTG_HS */
 #define OTG_HCINTMSK_AHBERR		(1 << 2)
 #define OTG_HCINTMSK_CHHM		(1 << 1)
 #define OTG_HCINTMSK_XFRCM		(1 << 0)
 
 /* OTG Host channel-x transfer size register (OTG_HCTSIZx) */
-// Note: OTG_HCTSIZ_DOPING: Only in OTG_HS
+/* Note: OTG_HCTSIZ_DOPING: Only in OTG_HS */
 #define OTG_HCTSIZ_DOPING	(1 << 31)
 #define OTG_HCTSIZ_DPID_DATA0	(0x0 << 29)
 #define OTG_HCTSIZ_DPID_DATA1	(0x2 << 29)

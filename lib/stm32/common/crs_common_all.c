@@ -38,10 +38,11 @@
 void crs_autotrim_usb_enable(void)
 {
 	rcc_periph_clock_enable(RCC_CRS);
-	
+
 	CRS_CFGR &= ~CRS_CFGR_SYNCSRC;
 	CRS_CFGR |= CRS_CFGR_SYNCSRC_USB_SOF;
-	
+
 	CRS_CR |= CRS_CR_AUTOTRIMEN;
 	CRS_CR |= CRS_CR_CEN;
 }
+

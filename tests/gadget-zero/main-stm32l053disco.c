@@ -26,7 +26,7 @@
 #include <stdio.h>
 #include "usb-gadget0.h"
 
-// no trace on cm0 #define ER_DEBUG
+/* no trace on cm0 #define ER_DEBUG */
 #ifdef ER_DEBUG
 #define ER_DPRINTF(fmt, ...) \
     do { printf(fmt, ## __VA_ARGS__); } while (0)
@@ -36,7 +36,8 @@
 #endif
 
 #include "trace.h"
-void trace_send_blocking8(int stimulus_port, char c) {
+void trace_send_blocking8(int stimulus_port, char c)
+{
 	(void)stimulus_port;
 	(void)c;
 }
@@ -44,28 +45,29 @@ void trace_send_blocking8(int stimulus_port, char c) {
 int main(void)
 {
 	/* LED for boot progress */
-        rcc_periph_clock_enable(RCC_GPIOA);
-        gpio_mode_setup(GPIOA, GPIO_MODE_OUTPUT, GPIO_PUPD_NONE, GPIO5);
+	rcc_periph_clock_enable(RCC_GPIOA);
+	gpio_mode_setup(GPIOA, GPIO_MODE_OUTPUT, GPIO_PUPD_NONE, GPIO5);
 	gpio_set(GPIOA, GPIO5);
 
 	/* jump up to 16mhz, leave PLL setup for later. */
-	rcc_osc_on(HSI16);
-	rcc_wait_for_osc_ready(HSI16);
-	rcc_set_sysclk_source(HSI16);
+	rcc_osc_on(RCC_HSI16);
+	rcc_wait_for_osc_ready(RCC_HSI16);
+	rcc_set_sysclk_source(RCC_HSI16);
 
 	/* HSI48 needs the vrefint turned on */
 	rcc_periph_clock_enable(RCC_SYSCFG);
 	SYSCFG_CFGR3 |= SYSCFG_CFGR3_ENREF_HSI48 | SYSCFG_CFGR3_EN_VREFINT;
-	while(!(SYSCFG_CFGR3 & SYSCFG_CFGR3_REF_HSI48_RDYF));
-	
+	while (!(SYSCFG_CFGR3 & SYSCFG_CFGR3_REF_HSI48_RDYF));
+
 	/* For USB, but can't use HSI48 as a sysclock on L0 */
 	crs_autotrim_usb_enable();
 	rcc_set_hsi48_source_rc48();
 
-	rcc_osc_on(HSI48);
-	rcc_wait_for_osc_ready(HSI48);
+	rcc_osc_on(RCC_HSI48);
+	rcc_wait_for_osc_ready(RCC_HSI48);
 
-	usbd_device *usbd_dev = gadget0_init(&st_usbfs_v2_usb_driver, "stm32l053disco");
+	usbd_device *usbd_dev = gadget0_init(&st_usbfs_v2_usb_driver,
+					     "stm32l053disco");
 
 	ER_DPRINTF("bootup complete\n");
 	gpio_clear(GPIOA, GPIO5);
