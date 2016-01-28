@@ -160,6 +160,8 @@
 #define RCC_CFGR_PLLMUL_MASK		0xf
 
 /* PLLSRC: PLL entry clock source */
+#define RCC_CFGR_PLLSRC_SHIFT 16
+#define RCC_CFGR_PLLSRC_MASK (1 << RCC_CFGR_PLLSRC_SHIFT)
 #define RCC_CFGR_PLLSRC_HSI16_CLK	0x0
 #define RCC_CFGR_PLLSRC_HSE_CLK		0x1
 
@@ -622,9 +624,11 @@ void rcc_osc_ready_int_enable(enum rcc_osc osc);
 void rcc_osc_ready_int_disable(enum rcc_osc osc);
 int rcc_osc_ready_int_flag(enum rcc_osc osc);
 void rcc_wait_for_osc_ready(enum rcc_osc osc);
+void rcc_hsi16_div4(uint32_t hsi16diven);
 void rcc_set_hsi48_source_rc48(void);
 void rcc_set_hsi48_source_pll(void);
 void rcc_set_sysclk_source(enum rcc_osc osc);
+void rcc_set_pll_source(enum rcc_osc osc);
 void rcc_set_pll_multiplier(uint32_t factor);
 void rcc_set_pll_divider(uint32_t factor);
 void rcc_set_ppre2(uint32_t ppre2);

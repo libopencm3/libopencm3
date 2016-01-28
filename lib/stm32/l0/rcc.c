@@ -408,5 +408,50 @@ void rcc_set_hpre(uint32_t hpre)
 	RCC_CFGR = reg | (hpre << RCC_CFGR_HPRE_SHIFT);
 }
 
+/*---------------------------------------------------------------------------*/
+/** @brief RCC Enable /4 divider for hsi16 oscillator.
+ *
+ * @param[in] hsi16diven Unsigned int32. hsi16 /4 divider if argument is
+ * RCC_CR_HSI16DIVEN, and disable division if argument is 0.
+ * @ref rcc_cr_his16diven
+ */
+
+void rcc_hsi16_div4(uint32_t hsi16diven)
+{
+	switch(hsi16diven) {
+		case RCC_CR_HSI16DIVEN:
+			RCC_CR = ( RCC_CR & ~RCC_CR_HSI16DIVEN) | RCC_CR_HSI16DIVEN;
+			break;
+		case 0:
+			RCC_CR = ( RCC_CR & ~RCC_CR_HSI16DIVEN);
+		default:
+			break;
+	}
+}
+
+/*---------------------------------------------------------------------------*/
+/** @brief RCC Set PLL entry clock source
+ *
+ * @note This only has effect when the PLL is disabled.
+ *
+ * @param[in] osc enum ::osc_t. Oscillator ID. Only HSE and HSI16 have an
+ * effect
+ */
+
+void rcc_set_pll_source(enum rcc_osc osc)
+{
+	switch (osc) {
+	case RCC_HSE:
+		RCC_CFGR = (RCC_CFGR & ~RCC_CFGR_PLLSRC_MASK) |
+			(RCC_CFGR_PLLSRC_HSE_CLK << RCC_CFGR_PLLSRC_SHIFT);
+		break;
+	case RCC_HSI16:
+		RCC_CFGR = (RCC_CFGR & ~RCC_CFGR_PLLSRC_MASK) |
+			(RCC_CFGR_PLLSRC_HSI16_CLK << RCC_CFGR_PLLSRC_SHIFT);
+		break;
+	default:
+		break;
+	}
+}
 
 /**@}*/
