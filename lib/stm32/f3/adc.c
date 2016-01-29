@@ -431,25 +431,6 @@ void adc_disable_eos_interrupt(uint32_t adc)
 
 
 /*---------------------------------------------------------------------------*/
-/** @brief ADC Software Triggered Conversion on Regular Channels
- *
- * This starts conversion on a set of defined regular channels. It is cleared
- * by hardware once conversion starts.
- *
- * @param[in] adc Unsigned int32. ADC block register address base @ref
- * adc_reg_base
- */
-
-void adc_start_conversion_regular(uint32_t adc)
-{
-	/* Start conversion on regular channels. */
-	ADC_CR(adc) |= ADC_CR_ADSTART;
-
-	/* Wait until the ADC starts the conversion. */
-	while (ADC_CR(adc) & ADC_CR_ADSTART);
-}
-
-/*---------------------------------------------------------------------------*/
 /** @brief ADC Software Triggered Conversion on Injected Channels
  *
  * This starts conversion on a set of defined injected channels. It is cleared

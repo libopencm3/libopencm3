@@ -201,6 +201,7 @@ void adc_disable_overrun_interrupt(uint32_t adc);
 bool adc_get_overrun_flag(uint32_t adc);
 void adc_clear_overrun_flag(uint32_t adc);
 uint32_t adc_read_regular(uint32_t adc);
+void adc_start_conversion_regular(uint32_t adc);
 
 END_DECLS
 
