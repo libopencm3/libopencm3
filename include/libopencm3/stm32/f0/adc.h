@@ -166,9 +166,6 @@ void adc_enable_external_trigger_regular(uint32_t adc, uint32_t trigger,
 				uint32_t polarity);
 void adc_disable_external_trigger_regular(uint32_t adc);
 
-/* Conversion API */
-void adc_start_conversion_regular(uint32_t adc);
-
 /* Interrupt configuration */
 void adc_enable_watchdog_interrupt(uint32_t adc);
 void adc_disable_watchdog_interrupt(uint32_t adc);

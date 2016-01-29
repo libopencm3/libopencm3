@@ -337,3 +337,20 @@ void adc_disable_vrefint(void)
 {
 	ADC_CCR(ADC1) &= ~ADC_CCR_VREFEN;
 }
+
+/** @brief ADC Software Triggered Conversion on Regular Channels
+ *
+ * This starts conversion on a set of defined regular channels. It is cleared
+ * by hardware once conversion starts.
+ *
+ * @param[in] adc ADC block register address base @ref adc_reg_base
+ */
+void adc_start_conversion_regular(uint32_t adc)
+{
+	/* Start conversion on regular channels. */
+	ADC_CR(adc) |= ADC_CR_ADSTART;
+
+	/* Wait until the ADC starts the conversion. */
+	while (ADC_CR(adc) & ADC_CR_ADSTART);
+}
+
