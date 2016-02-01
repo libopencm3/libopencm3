@@ -28,6 +28,10 @@ void __attribute__((section(".data.ramfunc")))
 eefc_do_read(uint32_t port, uint32_t start, uint32_t stop, void *dst, uint32_t len)
 {
     uint32_t fsr;
+    
+    asm volatile("dsb");
+    asm volatile("isb");
+    
     /* ISRs will cause a fault due to remapping of the vector table. */
     CM_ATOMIC_CONTEXT();
     
@@ -62,6 +66,9 @@ eefc_do_read(uint32_t port, uint32_t start, uint32_t stop, void *dst, uint32_t l
 	do {
 	    fsr = EEFC_FSR(port);
 	} while ((fsr & EEFC_FSR_FRDY) == 0);
+	
+    asm volatile("dsb");
+    asm volatile("isb");
 } /* eefc_do_read */
 
 /* Reads the 128-bit flash unique ID. */
