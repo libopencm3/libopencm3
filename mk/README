@@ -20,15 +20,16 @@ Example makefile using gcc compiler module:
 >>>>>>
 OBJS		+= foo.o bar.o
 
-CFLAGS		+= -O0 -g
-CPPFLAGS	+= -MD -MP $(@F).d
+CFLAGS		+= -Os -ggdb3
+CPPFLAGS	+= -MD -MP -MF $(@F).d
 CPPFLAGS	+= $(DEFS)
 CPPFLAGS	+= $(INCS)
-LDFLAGS		+= --static --nostartfiles
+LDFLAGS		+= -static -nostartfiles
 LDLIBS		+= -Wl,--start-group -lc -lgcc -lnosys -Wl,--end-group
 # parameters for gcc module
 PREFIX		= arm-elf
 
+include $(OPENCM3_DIR)/mk/genlink-config.mk
 include $(OPENCM3_DIR)/mk/gcc-config.mk
 
 .PHONY: clean all
@@ -37,6 +38,7 @@ all: binary.images
 
 %.images: %.elf %.hex
 
+include $(OPENCM3_DIR)/mk/genlink-rules.mk
 include $(OPENCM3_DIR)/mk/gcc-rules.mk
 
 clean:
