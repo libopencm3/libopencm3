@@ -82,6 +82,7 @@
 #define RI_ICR_IC2              (1 << 19)
 #define RI_ICR_IC3              (1 << 20)
 #define RI_ICR_IC4              (1 << 21)
+/* bits 22-31 reserved */
 
 /**
  * RI analog switches control register 1
@@ -89,36 +90,37 @@
  * The RI_ASCR1 register is used to configure the analog switches of the I/Os
  * linked to the ADC. These I/Os are pointed to by the ADC channel number.
  */
-#define RI_ASCR1_GR1_1          (1 << 0)
-#define RI_ASCR1_GR1_2          (1 << 1)
-#define RI_ASCR1_GR1_3          (1 << 2)
-#define RI_ASCR1_GR1_4          (1 << 3)
+#define RI_ASCR1_CH0_GR1_1      (1 << 0)
+#define RI_ASCR1_CH1_GR1_2      (1 << 1)
+#define RI_ASCR1_CH2_GR1_3      (1 << 2)
+#define RI_ASCR1_CH3_GR1_4      (1 << 3)
 #define RI_ASCR1_CH4            (1 << 4)
 #define RI_ASCR1_CH5            (1 << 5)
-#define RI_ASCR1_GR2_1          (1 << 6)
-#define RI_ASCR1_GR2_2          (1 << 7)
-#define RI_ASCR1_GR3_1          (1 << 8)
-#define RI_ASCR1_GR3_2          (1 << 9)
-#define RI_ASCR1_GR8_1          (1 << 10)
-#define RI_ASCR1_GR8_2          (1 << 11)
-#define RI_ASCR1_GR8_3          (1 << 12)
-#define RI_ASCR1_GR8_4          (1 << 13)
-#define RI_ASCR1_GR9_1          (1 << 14)
-#define RI_ASCR1_GR9_2          (1 << 15)
-#define RI_ASCR1_GR11_5         (1 << 16)
-#define RI_ASCR1_GR7_1          (1 << 18)
-#define RI_ASCR1_GR7_2          (1 << 19)
-#define RI_ASCR1_GR7_3          (1 << 20)
-#define RI_ASCR1_GR7_4          (1 << 21)
+#define RI_ASCR1_CH6_GR2_1      (1 << 6)
+#define RI_ASCR1_CH7_GR2_2      (1 << 7)
+#define RI_ASCR1_CH8_GR3_1      (1 << 8)
+#define RI_ASCR1_CH9_GR3_2      (1 << 9)
+#define RI_ASCR1_CH10_GR8_1     (1 << 10)
+#define RI_ASCR1_CH11_GR8_2     (1 << 11)
+#define RI_ASCR1_CH12_GR8_3     (1 << 12)
+#define RI_ASCR1_CH13_GR8_4     (1 << 13)
+#define RI_ASCR1_CH14_GR9_1     (1 << 14)
+#define RI_ASCR1_CH15_GR9_2     (1 << 15)
+#define RI_ASCR1_CH31_GR11_5    (1 << 16)
+/* bit 17 reserved */
+#define RI_ASCR1_CH18_GR7_1     (1 << 18)
+#define RI_ASCR1_CH19_GR7_2     (1 << 19)
+#define RI_ASCR1_CH20_GR7_3     (1 << 20)
+#define RI_ASCR1_CH21_GR7_4     (1 << 21)
 #define RI_ASCR1_CH22           (1 << 22)
 #define RI_ASCR1_CH23           (1 << 23)
 #define RI_ASCR1_CH24           (1 << 24)
 #define RI_ASCR1_CH25           (1 << 25)
 #define RI_ASCR1_VCOMP          (1 << 26)
-#define RI_ASCR1_GR11_1         (1 << 27)
-#define RI_ASCR1_GR11_2         (1 << 28)
-#define RI_ASCR1_GR11_3         (1 << 29)
-#define RI_ASCR1_GR11_4         (1 << 30)
+#define RI_ASCR1_CH27_GR11_1    (1 << 27)
+#define RI_ASCR1_CH28_GR11_2    (1 << 28)
+#define RI_ASCR1_CH29_GR11_3    (1 << 29)
+#define RI_ASCR1_CH30_GR11_4    (1 << 30)
 #define RI_ASCR1_SCM            (1 << 31)
 
 /**
@@ -140,159 +142,65 @@
 #define RI_ASCR2_GR4_1          (1 << 9)
 #define RI_ASCR2_GR4_2          (1 << 10)
 #define RI_ASCR2_GR4_3          (1 << 11)
-#define RI_ASCR2_GR3_3          (1 << 16)
-#define RI_ASCR2_GR3_4          (1 << 17)
-#define RI_ASCR2_GR3_5          (1 << 18)
-#define RI_ASCR2_GR9_3          (1 << 19)
-#define RI_ASCR2_GR9_4          (1 << 20)
-#define RI_ASCR2_GR2_3          (1 << 21)
-#define RI_ASCR2_GR2_4          (1 << 22)
-#define RI_ASCR2_GR2_5          (1 << 23)
-#define RI_ASCR2_GR7_5          (1 << 24)
-#define RI_ASCR2_GR7_6          (1 << 25)
-#define RI_ASCR2_GR7_7          (1 << 26)
+/* bits 12-15 reserved */
+#define RI_ASCR2_CH0B_GR3_3     (1 << 16)
+#define RI_ASCR2_CH1B_GR3_4     (1 << 17)
+#define RI_ASCR2_CH2B_GR3_5     (1 << 18)
+#define RI_ASCR2_CH3B_GR9_3     (1 << 19)
+#define RI_ASCR2_CH6B_GR9_4     (1 << 20)
+#define RI_ASCR2_CH7B_GR2_3     (1 << 21)
+#define RI_ASCR2_CH8B_GR2_4     (1 << 22)
+#define RI_ASCR2_CH9B_GR2_5     (1 << 23)
+#define RI_ASCR2_CH10B_GR7_5    (1 << 24)
+#define RI_ASCR2_CH11B_GR7_6    (1 << 25)
+#define RI_ASCR2_CH12B_GR7_7    (1 << 26)
 #define RI_ASCR2_GR6_3          (1 << 27)
 #define RI_ASCR2_GR6_4          (1 << 28)
+/* bits 29-31 reserved */
 
 /**
  * RI hysteresis control register 1
  *
  * The RI_HYSCR1 register is used to enable/disable the hysteresis of the input
  * Schmitt trigger of ports A and B.
+ *
+ * GPIO0-GPIO15 defines should be used as parameters.
  */
-#define RI_HYSCR1_PA0           (1 << 0)
-#define RI_HYSCR1_PA1           (1 << 1)
-#define RI_HYSCR1_PA2           (1 << 2)
-#define RI_HYSCR1_PA3           (1 << 3)
-#define RI_HYSCR1_PA4           (1 << 4)
-#define RI_HYSCR1_PA5           (1 << 5)
-#define RI_HYSCR1_PA6           (1 << 6)
-#define RI_HYSCR1_PA7           (1 << 7)
-#define RI_HYSCR1_PA8           (1 << 8)
-#define RI_HYSCR1_PA9           (1 << 9)
-#define RI_HYSCR1_PA10          (1 << 10)
-#define RI_HYSCR1_PA11          (1 << 11)
-#define RI_HYSCR1_PA12          (1 << 12)
-#define RI_HYSCR1_PA13          (1 << 13)
-#define RI_HYSCR1_PA14          (1 << 14)
-#define RI_HYSCR1_PA15          (1 << 15)
-#define RI_HYSCR1_PB0           (1 << 16)
-#define RI_HYSCR1_PB1           (1 << 17)
-#define RI_HYSCR1_PB2           (1 << 18)
-#define RI_HYSCR1_PB3           (1 << 19)
-#define RI_HYSCR1_PB4           (1 << 20)
-#define RI_HYSCR1_PB5           (1 << 21)
-#define RI_HYSCR1_PB6           (1 << 22)
-#define RI_HYSCR1_PB7           (1 << 23)
-#define RI_HYSCR1_PB8           (1 << 24)
-#define RI_HYSCR1_PB9           (1 << 25)
-#define RI_HYSCR1_PB10          (1 << 26)
-#define RI_HYSCR1_PB11          (1 << 27)
-#define RI_HYSCR1_PB12          (1 << 28)
-#define RI_HYSCR1_PB13          (1 << 29)
-#define RI_HYSCR1_PB14          (1 << 30)
-#define RI_HYSCR1_PB15          (1 << 31)
+#define RI_HYSCR1_PA(x)         (x)
+#define RI_HYSCR1_PB(x)         (x << 16)
 
 /**
  * RI hysteresis control register 2
  *
  * RI_HYSCR2 register allows to enable/disable hysteresis of input Schmitt
  * trigger of ports C and D.
+ *
+ * GPIO0-GPIO15 defines should be used as parameters.
  */
-#define RI_HYSCR2_PC0           (1 << 0)
-#define RI_HYSCR2_PC1           (1 << 1)
-#define RI_HYSCR2_PC2           (1 << 2)
-#define RI_HYSCR2_PC3           (1 << 3)
-#define RI_HYSCR2_PC4           (1 << 4)
-#define RI_HYSCR2_PC5           (1 << 5)
-#define RI_HYSCR2_PC6           (1 << 6)
-#define RI_HYSCR2_PC7           (1 << 7)
-#define RI_HYSCR2_PC8           (1 << 8)
-#define RI_HYSCR2_PC9           (1 << 9)
-#define RI_HYSCR2_PC10          (1 << 10)
-#define RI_HYSCR2_PC11          (1 << 11)
-#define RI_HYSCR2_PC12          (1 << 12)
-#define RI_HYSCR2_PC13          (1 << 13)
-#define RI_HYSCR2_PC14          (1 << 14)
-#define RI_HYSCR2_PC15          (1 << 15)
-#define RI_HYSCR2_PD0           (1 << 16)
-#define RI_HYSCR2_PD1           (1 << 17)
-#define RI_HYSCR2_PD2           (1 << 18)
-#define RI_HYSCR2_PD3           (1 << 19)
-#define RI_HYSCR2_PD4           (1 << 20)
-#define RI_HYSCR2_PD5           (1 << 21)
-#define RI_HYSCR2_PD6           (1 << 22)
-#define RI_HYSCR2_PD7           (1 << 23)
-#define RI_HYSCR2_PD8           (1 << 24)
-#define RI_HYSCR2_PD9           (1 << 25)
-#define RI_HYSCR2_PD10          (1 << 26)
-#define RI_HYSCR2_PD11          (1 << 27)
-#define RI_HYSCR2_PD12          (1 << 28)
-#define RI_HYSCR2_PD13          (1 << 29)
-#define RI_HYSCR2_PD14          (1 << 30)
-#define RI_HYSCR2_PD15          (1 << 31)
+#define RI_HYSCR2_PC(x)         (x)
+#define RI_HYSCR2_PD(x)         (x << 16)
 
 /**
  * RI hysteresis control register 3
  *
  * The RI_HYSCR3 register is used to enable/disable the hysteresis of the input
  * Schmitt trigger of the entire port E and F.
+ *
+ * GPIO0-GPIO15 defines should be used as parameters.
  */
-#define RI_HYSCR3_PE0           (1 << 0)
-#define RI_HYSCR3_PE1           (1 << 1)
-#define RI_HYSCR3_PE2           (1 << 2)
-#define RI_HYSCR3_PE3           (1 << 3)
-#define RI_HYSCR3_PE4           (1 << 4)
-#define RI_HYSCR3_PE5           (1 << 5)
-#define RI_HYSCR3_PE6           (1 << 6)
-#define RI_HYSCR3_PE7           (1 << 7)
-#define RI_HYSCR3_PE8           (1 << 8)
-#define RI_HYSCR3_PE9           (1 << 9)
-#define RI_HYSCR3_PE10          (1 << 10)
-#define RI_HYSCR3_PE11          (1 << 11)
-#define RI_HYSCR3_PE12          (1 << 12)
-#define RI_HYSCR3_PE13          (1 << 13)
-#define RI_HYSCR3_PE14          (1 << 14)
-#define RI_HYSCR3_PE15          (1 << 15)
-#define RI_HYSCR3_PF0           (1 << 16)
-#define RI_HYSCR3_PF1           (1 << 17)
-#define RI_HYSCR3_PF2           (1 << 18)
-#define RI_HYSCR3_PF3           (1 << 19)
-#define RI_HYSCR3_PF4           (1 << 20)
-#define RI_HYSCR3_PF5           (1 << 21)
-#define RI_HYSCR3_PF6           (1 << 22)
-#define RI_HYSCR3_PF7           (1 << 23)
-#define RI_HYSCR3_PF8           (1 << 24)
-#define RI_HYSCR3_PF9           (1 << 25)
-#define RI_HYSCR3_PF10          (1 << 26)
-#define RI_HYSCR3_PF11          (1 << 27)
-#define RI_HYSCR3_PF12          (1 << 28)
-#define RI_HYSCR3_PF13          (1 << 29)
-#define RI_HYSCR3_PF14          (1 << 30)
-#define RI_HYSCR3_PF15          (1 << 31)
+#define RI_HYSCR3_PE(x)         (x)
+#define RI_HYSCR3_PF(x)         (x << 16)
 
 /**
  * RI hysteresis control register 4
  *
  * The RI_HYSCR4 register is used to enable/disable the hysteresis of the input
  * Schmitt trigger of the entire port G.
+ *
+ * GPIO0-GPIO15 defines should be used as parameters.
  */
-#define RI_HYSCR4_PG0           (1 << 0)
-#define RI_HYSCR4_PG1           (1 << 1)
-#define RI_HYSCR4_PG2           (1 << 2)
-#define RI_HYSCR4_PG3           (1 << 3)
-#define RI_HYSCR4_PG4           (1 << 4)
-#define RI_HYSCR4_PG5           (1 << 5)
-#define RI_HYSCR4_PG6           (1 << 6)
-#define RI_HYSCR4_PG7           (1 << 7)
-#define RI_HYSCR4_PG8           (1 << 8)
-#define RI_HYSCR4_PG9           (1 << 9)
-#define RI_HYSCR4_PG10          (1 << 10)
-#define RI_HYSCR4_PG11          (1 << 11)
-#define RI_HYSCR4_PG12          (1 << 12)
-#define RI_HYSCR4_PG13          (1 << 13)
-#define RI_HYSCR4_PG14          (1 << 14)
-#define RI_HYSCR4_PG15          (1 << 15)
+#define RI_HYSCR2_PG(x)         (x)
+/* bits 16-31 reserved */
 
 /**
  * Analog switch mode register (RI_ASMR1)
@@ -300,23 +208,11 @@
  * The RI_ASMR1 register is available in Cat.3, Cat.4, Cat.5 and Cat.6 devices
  * only and is used to select if analog switches of port A are to be controlled
  * by the timer OC or through the ADC interface or RI_ASCRx registers.
+ *
+ * GPIO0-GPIO15 defines should be used as parameters.
  */
-#define RI_ASMR1_PA0           (1 << 0)
-#define RI_ASMR1_PA1           (1 << 1)
-#define RI_ASMR1_PA2           (1 << 2)
-#define RI_ASMR1_PA3           (1 << 3)
-#define RI_ASMR1_PA4           (1 << 4)
-#define RI_ASMR1_PA5           (1 << 5)
-#define RI_ASMR1_PA6           (1 << 6)
-#define RI_ASMR1_PA7           (1 << 7)
-#define RI_ASMR1_PA8           (1 << 8)
-#define RI_ASMR1_PA9           (1 << 9)
-#define RI_ASMR1_PA10          (1 << 10)
-#define RI_ASMR1_PA11          (1 << 11)
-#define RI_ASMR1_PA12          (1 << 12)
-#define RI_ASMR1_PA13          (1 << 13)
-#define RI_ASMR1_PA14          (1 << 14)
-#define RI_ASMR1_PA15          (1 << 15)
+#define RI_ASMR1_PA(x)          (x)
+/* bits 16-31 reserved */
 
 /**
  * Channel mask register (RI_CMR1)
@@ -324,23 +220,11 @@
  * RI_CMR1 is available in Cat.3, Cat.4, Cat.5 and Cat.6 devices only and is
  * used to mask a port A channel designated as a timer input capture (after
  * acquisition completion to avoid triggering multiple detections).
+ *
+ * GPIO0-GPIO15 defines should be used as parameters.
  */
-#define RI_CMR1_PA0           (1 << 0)
-#define RI_CMR1_PA1           (1 << 1)
-#define RI_CMR1_PA2           (1 << 2)
-#define RI_CMR1_PA3           (1 << 3)
-#define RI_CMR1_PA4           (1 << 4)
-#define RI_CMR1_PA5           (1 << 5)
-#define RI_CMR1_PA6           (1 << 6)
-#define RI_CMR1_PA7           (1 << 7)
-#define RI_CMR1_PA8           (1 << 8)
-#define RI_CMR1_PA9           (1 << 9)
-#define RI_CMR1_PA10          (1 << 10)
-#define RI_CMR1_PA11          (1 << 11)
-#define RI_CMR1_PA12          (1 << 12)
-#define RI_CMR1_PA13          (1 << 13)
-#define RI_CMR1_PA14          (1 << 14)
-#define RI_CMR1_PA15          (1 << 15)
+#define RI_CMR1_PA(x)           (x)
+/* bits 16-31 reserved */
 
 /**
  * Channel identification for capture register (RI_CICR1)
@@ -348,23 +232,11 @@
  * The RI_CICR1 register is available in Cat.3, Cat.4, Cat.5 and Cat.6 devices
  * only and is used when analog switches are controlled by a timer OC. RI_CICR1
  * allows a channel to be identified for timer input capture.
+ *
+ * GPIO0-GPIO15 defines should be used as parameters.
  */
-#define RI_CICR1_PA0           (1 << 0)
-#define RI_CICR1_PA1           (1 << 1)
-#define RI_CICR1_PA2           (1 << 2)
-#define RI_CICR1_PA3           (1 << 3)
-#define RI_CICR1_PA4           (1 << 4)
-#define RI_CICR1_PA5           (1 << 5)
-#define RI_CICR1_PA6           (1 << 6)
-#define RI_CICR1_PA7           (1 << 7)
-#define RI_CICR1_PA8           (1 << 8)
-#define RI_CICR1_PA9           (1 << 9)
-#define RI_CICR1_PA10          (1 << 10)
-#define RI_CICR1_PA11          (1 << 11)
-#define RI_CICR1_PA12          (1 << 12)
-#define RI_CICR1_PA13          (1 << 13)
-#define RI_CICR1_PA14          (1 << 14)
-#define RI_CICR1_PA15          (1 << 15)
+#define RI_CICR1_PA(x)          (x)
+/* bits 16-31 reserved */
 
 /**
  * Analog switch mode register (RI_ASMR2)
@@ -372,23 +244,11 @@
  * The RI_ASMR2 register is available in Cat.3, Cat.4, Cat.5 and Cat.6 devices
  * only and is used to select if analog switches of port B are to be controlled
  * by the timer OC or through the ADC interface or RI_ASCRx registers.
+ *
+ * GPIO0-GPIO15 defines should be used as parameters.
  */
-#define RI_ASMR2_PB0           (1 << 0)
-#define RI_ASMR2_PB1           (1 << 1)
-#define RI_ASMR2_PB2           (1 << 2)
-#define RI_ASMR2_PB3           (1 << 3)
-#define RI_ASMR2_PB4           (1 << 4)
-#define RI_ASMR2_PB5           (1 << 5)
-#define RI_ASMR2_PB6           (1 << 6)
-#define RI_ASMR2_PB7           (1 << 7)
-#define RI_ASMR2_PB8           (1 << 8)
-#define RI_ASMR2_PB9           (1 << 9)
-#define RI_ASMR2_PB10          (1 << 10)
-#define RI_ASMR2_PB11          (1 << 11)
-#define RI_ASMR2_PB12          (1 << 12)
-#define RI_ASMR2_PB13          (1 << 13)
-#define RI_ASMR2_PB14          (1 << 14)
-#define RI_ASMR2_PB15          (1 << 15)
+#define RI_ASMR2_PB(x)          (x)
+/* bits 16-31 reserved */
 
 /**
  * Channel mask register (RI_CMR2)
@@ -396,23 +256,11 @@
  * RI_CMR2 is available in Cat.3, Cat.4, Cat.5 and Cat.6 devices only and is
  * used to mask a port B channel designated as a timer input capture (after
  * acquisition completion to avoid triggering multiple detections).
+ *
+ * GPIO0-GPIO15 defines should be used as parameters.
  */
-#define RI_CMR2_PB0           (1 << 0)
-#define RI_CMR2_PB1           (1 << 1)
-#define RI_CMR2_PB2           (1 << 2)
-#define RI_CMR2_PB3           (1 << 3)
-#define RI_CMR2_PB4           (1 << 4)
-#define RI_CMR2_PB5           (1 << 5)
-#define RI_CMR2_PB6           (1 << 6)
-#define RI_CMR2_PB7           (1 << 7)
-#define RI_CMR2_PB8           (1 << 8)
-#define RI_CMR2_PB9           (1 << 9)
-#define RI_CMR2_PB10          (1 << 10)
-#define RI_CMR2_PB11          (1 << 11)
-#define RI_CMR2_PB12          (1 << 12)
-#define RI_CMR2_PB13          (1 << 13)
-#define RI_CMR2_PB14          (1 << 14)
-#define RI_CMR2_PB15          (1 << 15)
+#define RI_CMR2_PB(x)           (x)
+/* bits 16-31 reserved */
 
 /**
  * Channel identification for capture register (RI_CICR2)
@@ -420,23 +268,11 @@
  * The RI_CICR2 register is available in Cat.3, Cat.4, Cat.5 and Cat.6 devices
  * only and is used when analog switches are controlled by a timer OC. RI_CICR2
  * allows a channel to be identified for timer input capture.
+ *
+ * GPIO0-GPIO15 defines should be used as parameters.
  */
-#define RI_CICR2_PB0           (1 << 0)
-#define RI_CICR2_PB1           (1 << 1)
-#define RI_CICR2_PB2           (1 << 2)
-#define RI_CICR2_PB3           (1 << 3)
-#define RI_CICR2_PB4           (1 << 4)
-#define RI_CICR2_PB5           (1 << 5)
-#define RI_CICR2_PB6           (1 << 6)
-#define RI_CICR2_PB7           (1 << 7)
-#define RI_CICR2_PB8           (1 << 8)
-#define RI_CICR2_PB9           (1 << 9)
-#define RI_CICR2_PB10          (1 << 10)
-#define RI_CICR2_PB11          (1 << 11)
-#define RI_CICR2_PB12          (1 << 12)
-#define RI_CICR2_PB13          (1 << 13)
-#define RI_CICR2_PB14          (1 << 14)
-#define RI_CICR2_PB15          (1 << 15)
+#define RI_CICR2_PB(x)          (x)
+/* bits 16-31 reserved */
 
 /**
  * Analog switch mode register (RI_ASMR3)
@@ -444,23 +280,11 @@
  * The RI_ASMR3 register is available in Cat.3, Cat.4, Cat.5 and Cat.6 devices
  * only and is used to select if analog switches of port C are to be controlled
  * by the timer OC or through the ADC interface or RI_ASCRx registers.
+ *
+ * GPIO0-GPIO15 defines should be used as parameters.
  */
-#define RI_ASMR3_PC0           (1 << 0)
-#define RI_ASMR3_PC1           (1 << 1)
-#define RI_ASMR3_PC2           (1 << 2)
-#define RI_ASMR3_PC3           (1 << 3)
-#define RI_ASMR3_PC4           (1 << 4)
-#define RI_ASMR3_PC5           (1 << 5)
-#define RI_ASMR3_PC6           (1 << 6)
-#define RI_ASMR3_PC7           (1 << 7)
-#define RI_ASMR3_PC8           (1 << 8)
-#define RI_ASMR3_PC9           (1 << 9)
-#define RI_ASMR3_PC10          (1 << 10)
-#define RI_ASMR3_PC11          (1 << 11)
-#define RI_ASMR3_PC12          (1 << 12)
-#define RI_ASMR3_PC13          (1 << 13)
-#define RI_ASMR3_PC14          (1 << 14)
-#define RI_ASMR3_PC15          (1 << 15)
+#define RI_ASMR3_PC(x)          (x)
+/* bits 16-31 reserved */
 
 /**
  * Channel mask register (RI_CMR3)
@@ -468,23 +292,11 @@
  * RI_CMR3 is available in Cat.3, Cat.4, Cat.5 and Cat.6 devices only and is
  * used to mask a port C channel designated as a timer input capture (after
  * acquisition completion to avoid triggering multiple detections).
+ *
+ * GPIO0-GPIO15 defines should be used as parameters.
  */
-#define RI_CMR3_PC0           (1 << 0)
-#define RI_CMR3_PC1           (1 << 1)
-#define RI_CMR3_PC2           (1 << 2)
-#define RI_CMR3_PC3           (1 << 3)
-#define RI_CMR3_PC4           (1 << 4)
-#define RI_CMR3_PC5           (1 << 5)
-#define RI_CMR3_PC6           (1 << 6)
-#define RI_CMR3_PC7           (1 << 7)
-#define RI_CMR3_PC8           (1 << 8)
-#define RI_CMR3_PC9           (1 << 9)
-#define RI_CMR3_PC10          (1 << 10)
-#define RI_CMR3_PC11          (1 << 11)
-#define RI_CMR3_PC12          (1 << 12)
-#define RI_CMR3_PC13          (1 << 13)
-#define RI_CMR3_PC14          (1 << 14)
-#define RI_CMR3_PC15          (1 << 15)
+#define RI_CMR3_PC(x)           (x)
+/* bits 16-31 reserved */
 
 /**
  * Channel identification for capture register (RI_CICR3)
@@ -492,23 +304,11 @@
  * The RI_CICR3 register is available in Cat.3, Cat.4, Cat.5 and Cat.6 devices
  * only and is used when analog switches are controlled by a timer OC. RI_CICR3
  * allows a channel to be identified for timer input capture.
+ *
+ * GPIO0-GPIO15 defines should be used as parameters.
  */
-#define RI_CICR3_PC0           (1 << 0)
-#define RI_CICR3_PC1           (1 << 1)
-#define RI_CICR3_PC2           (1 << 2)
-#define RI_CICR3_PC3           (1 << 3)
-#define RI_CICR3_PC4           (1 << 4)
-#define RI_CICR3_PC5           (1 << 5)
-#define RI_CICR3_PC6           (1 << 6)
-#define RI_CICR3_PC7           (1 << 7)
-#define RI_CICR3_PC8           (1 << 8)
-#define RI_CICR3_PC9           (1 << 9)
-#define RI_CICR3_PC10          (1 << 10)
-#define RI_CICR3_PC11          (1 << 11)
-#define RI_CICR3_PC12          (1 << 12)
-#define RI_CICR3_PC13          (1 << 13)
-#define RI_CICR3_PC14          (1 << 14)
-#define RI_CICR3_PC15          (1 << 15)
+#define RI_CICR3_PC(x)          (x)
+/* bits 16-31 reserved */
 
 /**
  * Analog switch mode register (RI_ASMR4)
@@ -516,23 +316,11 @@
  * The RI_ASMR4 register is available in Cat.3, Cat.4, Cat.5 and Cat.6 devices
  * only and is used to select if analog switches of port F are to be controlled
  * by the timer OC or through the ADC interface or RI_ASCRx registers.
+ *
+ * GPIO0-GPIO15 defines should be used as parameters.
  */
-#define RI_ASMR4_PF0           (1 << 0)
-#define RI_ASMR4_PF1           (1 << 1)
-#define RI_ASMR4_PF2           (1 << 2)
-#define RI_ASMR4_PF3           (1 << 3)
-#define RI_ASMR4_PF4           (1 << 4)
-#define RI_ASMR4_PF5           (1 << 5)
-#define RI_ASMR4_PF6           (1 << 6)
-#define RI_ASMR4_PF7           (1 << 7)
-#define RI_ASMR4_PF8           (1 << 8)
-#define RI_ASMR4_PF9           (1 << 9)
-#define RI_ASMR4_PF10          (1 << 10)
-#define RI_ASMR4_PF11          (1 << 11)
-#define RI_ASMR4_PF12          (1 << 12)
-#define RI_ASMR4_PF13          (1 << 13)
-#define RI_ASMR4_PF14          (1 << 14)
-#define RI_ASMR4_PF15          (1 << 15)
+#define RI_ASMR4_PF(x)          (x)
+/* bits 16-31 reserved */
 
 /**
  * Channel mask register (RI_CMRF)
@@ -540,23 +328,11 @@
  * RI_CMR4 is available in Cat.3, Cat.4, Cat.5 and Cat.6 devices only and is
  * used to mask a port F channel designated as a timer input capture (after
  * acquisition completion to avoid triggering multiple detections).
+ *
+ * GPIO0-GPIO15 defines should be used as parameters.
  */
-#define RI_CMR4_PF0           (1 << 0)
-#define RI_CMR4_PF1           (1 << 1)
-#define RI_CMR4_PF2           (1 << 2)
-#define RI_CMR4_PF3           (1 << 3)
-#define RI_CMR4_PF4           (1 << 4)
-#define RI_CMR4_PF5           (1 << 5)
-#define RI_CMR4_PF6           (1 << 6)
-#define RI_CMR4_PF7           (1 << 7)
-#define RI_CMR4_PF8           (1 << 8)
-#define RI_CMR4_PF9           (1 << 9)
-#define RI_CMR4_PF10          (1 << 10)
-#define RI_CMR4_PF11          (1 << 11)
-#define RI_CMR4_PF12          (1 << 12)
-#define RI_CMR4_PF13          (1 << 13)
-#define RI_CMR4_PF14          (1 << 14)
-#define RI_CMR4_PF15          (1 << 15)
+#define RI_CMR4_PF(x)           (x)
+/* bits 16-31 reserved */
 
 /**
  * Channel identification for capture register (RI_CICR4)
@@ -564,23 +340,11 @@
  * The RI_CICR4 register is available in Cat.3, Cat.4, Cat.5 and Cat.6 devices
  * only and is used when analog switches are controlled by a timer OC. RI_CICR4
  * allows a channel to be identified for timer input capture.
+ *
+ * GPIO0-GPIO15 defines should be used as parameters.
  */
-#define RI_CICR4_PF0           (1 << 0)
-#define RI_CICR4_PF1           (1 << 1)
-#define RI_CICR4_PF2           (1 << 2)
-#define RI_CICR4_PF3           (1 << 3)
-#define RI_CICR4_PF4           (1 << 4)
-#define RI_CICR4_PF5           (1 << 5)
-#define RI_CICR4_PF6           (1 << 6)
-#define RI_CICR4_PF7           (1 << 7)
-#define RI_CICR4_PF8           (1 << 8)
-#define RI_CICR4_PF9           (1 << 9)
-#define RI_CICR4_PF10          (1 << 10)
-#define RI_CICR4_PF11          (1 << 11)
-#define RI_CICR4_PF12          (1 << 12)
-#define RI_CICR4_PF13          (1 << 13)
-#define RI_CICR4_PF14          (1 << 14)
-#define RI_CICR4_PF15          (1 << 15)
+#define RI_CICR4_PF(x)          (x)
+/* bits 16-31 reserved */
 
 /**
  * Analog switch mode register (RI_ASMR5)
@@ -588,23 +352,11 @@
  * The RI_ASMR5 register is available in Cat.3, Cat.4, Cat.5 and Cat.6 devices
  * only and is used to select if analog switches of port G are to be controlled
  * by the timer OC or through the ADC interface or RI_ASCRx registers.
+ *
+ * GPIO0-GPIO15 defines should be used as parameters.
  */
-#define RI_ASMR5_PG0           (1 << 0)
-#define RI_ASMR5_PG1           (1 << 1)
-#define RI_ASMR5_PG2           (1 << 2)
-#define RI_ASMR5_PG3           (1 << 3)
-#define RI_ASMR5_PG4           (1 << 4)
-#define RI_ASMR5_PG5           (1 << 5)
-#define RI_ASMR5_PG6           (1 << 6)
-#define RI_ASMR5_PG7           (1 << 7)
-#define RI_ASMR5_PG8           (1 << 8)
-#define RI_ASMR5_PG9           (1 << 9)
-#define RI_ASMR5_PG10          (1 << 10)
-#define RI_ASMR5_PG11          (1 << 11)
-#define RI_ASMR5_PG12          (1 << 12)
-#define RI_ASMR5_PG13          (1 << 13)
-#define RI_ASMR5_PG14          (1 << 14)
-#define RI_ASMR5_PG15          (1 << 15)
+#define RI_ASMR5_PG(x)          (x)
+/* bits 16-31 reserved */
 
 /**
  * Channel mask register (RI_CMR5)
@@ -612,23 +364,11 @@
  * RI_CMR1 is available in Cat.3, Cat.4, Cat.5 and Cat.6 devices only and is
  * used to mask a port G channel designated as a timer input capture (after
  * acquisition completion to avoid triggering multiple detections).
+ *
+ * GPIO0-GPIO15 defines should be used as parameters.
  */
-#define RI_CMR5_PG0           (1 << 0)
-#define RI_CMR5_PG1           (1 << 1)
-#define RI_CMR5_PG2           (1 << 2)
-#define RI_CMR5_PG3           (1 << 3)
-#define RI_CMR5_PG4           (1 << 4)
-#define RI_CMR5_PG5           (1 << 5)
-#define RI_CMR5_PG6           (1 << 6)
-#define RI_CMR5_PG7           (1 << 7)
-#define RI_CMR5_PG8           (1 << 8)
-#define RI_CMR5_PG9           (1 << 9)
-#define RI_CMR5_PG10          (1 << 10)
-#define RI_CMR5_PG11          (1 << 11)
-#define RI_CMR5_PG12          (1 << 12)
-#define RI_CMR5_PG13          (1 << 13)
-#define RI_CMR5_PG14          (1 << 14)
-#define RI_CMR5_PG15          (1 << 15)
+#define RI_CMR5_PG(x)           (x)
+/* bits 16-31 reserved */
 
 /**
  * Channel identification for capture register (RI_CICR5)
@@ -636,23 +376,11 @@
  * The RI_CICR5 register is available in Cat.3, Cat.4, Cat.5 and Cat.6 devices
  * only and is used when analog switches are controlled by a timer OC. RI_CICR5
  * allows a channel to be identified for timer input capture.
+ *
+ * GPIO0-GPIO15 defines should be used as parameters.
  */
-#define RI_CICR5_PG0           (1 << 0)
-#define RI_CICR5_PG1           (1 << 1)
-#define RI_CICR5_PG2           (1 << 2)
-#define RI_CICR5_PG3           (1 << 3)
-#define RI_CICR5_PG4           (1 << 4)
-#define RI_CICR5_PG5           (1 << 5)
-#define RI_CICR5_PG6           (1 << 6)
-#define RI_CICR5_PG7           (1 << 7)
-#define RI_CICR5_PG8           (1 << 8)
-#define RI_CICR5_PG9           (1 << 9)
-#define RI_CICR5_PG10          (1 << 10)
-#define RI_CICR5_PG11          (1 << 11)
-#define RI_CICR5_PG12          (1 << 12)
-#define RI_CICR5_PG13          (1 << 13)
-#define RI_CICR5_PG14          (1 << 14)
-#define RI_CICR5_PG15          (1 << 15)
+#define RI_CICR5_PG(x)          (x)
+/* bits 16-31 reserved */
 
 /**@}*/
 
