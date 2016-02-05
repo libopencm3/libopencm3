@@ -94,40 +94,44 @@ open drain/push pull), for a set of GPIO pins on a given GPIO port.
 
 void gpio_set_mode(uint32_t gpioport, uint8_t mode, uint8_t cnf, uint16_t gpios)
 {
-	uint16_t i, offset = 0;
-	uint32_t crl = 0, crh = 0, tmp32 = 0;
+	uint16_t i;
+	uint32_t crl_set = 0, crh_set = 0, crl_clear = 0, crh_clear = 0, config;
 
-	/*
-	 * We want to set the config only for the pins mentioned in gpios,
-	 * but keeping the others, so read out the actual config first.
-	 */
-	crl = GPIO_CRL(gpioport);
-	crh = GPIO_CRH(gpioport);
-
-	/* Iterate over all bits, use i as the bitnumber. */
-	for (i = 0; i < 16; i++) {
-		/* Only set the config if the bit is set in gpios. */
-		if (!((1 << i) & gpios)) {
-			continue;
-		}
-
-		/* Calculate bit offset. */
-		offset = (i < 8) ? (i * 4) : ((i - 8) * 4);
-
-		/* Use tmp32 to either modify crl or crh. */
-		tmp32 = (i < 8) ? crl : crh;
-
-		/* Modify bits are needed. */
-		tmp32 &= ~(0xf << offset);	/* Clear the bits first. */
-		tmp32 |= (mode << offset) | (cnf << (offset + 2));
-
-		/* Write tmp32 into crl or crh, leave the other unchanged. */
-		crl = (i < 8) ? tmp32 : crl;
-		crh = (i >= 8) ? tmp32 : crh;
+	/* if no port pin to be setup, return */
+	if( gpios == 0 ) {
+		return;
 	}
 
-	GPIO_CRL(gpioport) = crl;
-	GPIO_CRH(gpioport) = crh;
+	/* build pin configuration nibble in lowest 4 bit of config */
+	config = (cnf << 2 | mode) & 0x0f;
+	
+	/* loop over all bits in gpios. abort if only unset bits left over */
+	for( i=0; gpios != 0; i++, gpios >>=1 ) {
+
+   		/* Only set the config if the bit is set in gpios. */
+		if( gpios & 0x01 ) { 
+			
+			/* if current bit belongs to lower half of gpioport (bits 0..7) */
+			if( i < 8 ) {
+				/* write new configuration into crl_set */
+				crl_set |= config << (4*i);
+				/* remember bits that have to be cleared (1=clear, 0=dont change) */
+				crl_clear |= 0x0f << (4*i);
+			}
+
+			/* if current bit belongs to upper half of gpioport (bits 8..15) */
+			else {
+				/* write new configuration into crh_set */
+				crh_set |= config << (4 * (i-8));
+				/* remember bits that have to be cleared (1=clear, 0=dont change) */
+				crh_clear |= 0x0f << (4 * (i-8));
+			}
+		}
+	}
+
+	/* read old port config from mem, write back modified config */
+	GPIO_CRL(gpioport) = ( GPIO_CRL(gpioport) & ~crl_clear) | crl_set;
+	GPIO_CRH(gpioport) = ( GPIO_CRH(gpioport) & ~crh_clear) | crh_set;
 }
 
 /*---------------------------------------------------------------------------*/
