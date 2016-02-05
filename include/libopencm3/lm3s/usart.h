@@ -17,22 +17,22 @@
  * along with this library.  If not, see <http://www.gnu.org/licenses/>.
  */
 
-#ifndef SAM3X_USART_H
-#define SAM3X_USART_H
+#ifndef LM3S_USART_H
+#define LM3S_USART_H
 
 #include <libopencm3/cm3/common.h>
 
 
 
-#define USART0		0x4000C000
-#define USART1		0x4000D000
-#define USART2		0x4000E000
+#define USART0_BASE        0x4000C000
+#define USART1_BASE        0x4000D000
+#define USART2_BASE        0x4000E000
 
 /* --- Universal Synchronous Asynchronous Receiver Transmitter (USART) */
-#define USART_DR(x)			    MMIO32((x) + 0x0000)
-#define USART_IR(x)			    MMIO32((x) + 0x0004)
+#define USART_DR(x)             MMIO32((x) + 0x0000)
+#define USART_IR(x)             MMIO32((x) + 0x0004)
 #define USART_FR(x)             MMIO32((x) + 0x0018)
-#define USART_ILPR(x)   	    MMIO32((x) + 0x0020)
+#define USART_ILPR(x)           MMIO32((x) + 0x0020)
 #define USART_IBRD(x)           MMIO32((x) + 0x0024)
 #define USART_FBRD(x)           MMIO32((x) + 0x0028)
 #define USART_LCRH(x)           MMIO32((x) + 0x002c)
@@ -45,70 +45,67 @@
 
 /* USART Data Register (USART_DR) */
 /* Bits [31:12] - Reserved */
-#define USART_DR_OE     		(0x01 << 11)
-#define USART_DR_BE     		(0x01 << 10)
-#define USART_DR_PE     		(0x01 << 9)
-#define USART_DR_FE     		(0x01 << 8)
+#define USART_DR_OE             (0x01 << 11)
+#define USART_DR_BE             (0x01 << 10)
+#define USART_DR_PE             (0x01 << 9)
+#define USART_DR_FE             (0x01 << 8)
 
 /* USART Flags Register (USART_FR) */
 /* Bits [31:8] - Reserved */
-#define USART_FR_TXFE           (0x01 << 7)
-#define USART_FR_RXFF           (0x01 << 6)
-#define USART_FR_TXFF			(0x01 << 5)
-#define USART_FR_RXFE			(0x01 << 4)
-#define USART_FR_BUSY			(0x01 << 3)
+#define USART_FR_TXFE            (0x01 << 7)
+#define USART_FR_RXFF            (0x01 << 6)
+#define USART_FR_TXFF            (0x01 << 5)
+#define USART_FR_RXFE            (0x01 << 4)
+#define USART_FR_BUSY            (0x01 << 3)
 /* Bits [2:0] - Reserved */
 
 /* USART Interrupt Mask Register (USART_IM) */
 /* Bits [31:11] - Reserved */
-#define USART_IM_OE     		(0x01 << 10)
-#define USART_IM_BE     		(0x01 << 9)
-#define USART_IM_PE     		(0x01 << 8)
-#define USART_IM_FE     		(0x01 << 7)
-#define USART_IM_RT     		(0x01 << 6)
-#define USART_IM_TX     		(0x01 << 5)
-#define USART_IM_RX     		(0x01 << 4)
+#define USART_IM_OE             (0x01 << 10)
+#define USART_IM_BE             (0x01 << 9)
+#define USART_IM_PE             (0x01 << 8)
+#define USART_IM_FE             (0x01 << 7)
+#define USART_IM_RT             (0x01 << 6)
+#define USART_IM_TX             (0x01 << 5)
+#define USART_IM_RX             (0x01 << 4)
 /* Bits [3:0] - Reserved */
 
 /* USART Interrupt Clear Register (USART_IC) */
 /* Bits [31:11] - Reserved */
-#define USART_IC_OE     		(0x01 << 10)
-#define USART_IC_BE     		(0x01 << 9)
-#define USART_IC_PE     		(0x01 << 8)
-#define USART_IC_FE     		(0x01 << 7)
-#define USART_IC_RT     		(0x01 << 6)
-#define USART_IC_TX     		(0x01 << 5)
-#define USART_IC_RX     		(0x01 << 4)
+#define USART_IC_OE             (0x01 << 10)
+#define USART_IC_BE             (0x01 << 9)
+#define USART_IC_PE             (0x01 << 8)
+#define USART_IC_FE             (0x01 << 7)
+#define USART_IC_RT             (0x01 << 6)
+#define USART_IC_TX             (0x01 << 5)
+#define USART_IC_RX             (0x01 << 4)
 /* Bits [3:0] - Reserved */
 
 #define USART_SR_RXNE  USART_IC_RX
 #define USART_SR_TXE   USART_IC_TX
 
 enum usart_stopbits {
-	USART_STOPBITS_1,
-	USART_STOPBITS_1_5,
-	USART_STOPBITS_2,
+    USART_STOPBITS_1,
+    USART_STOPBITS_1_5,
+    USART_STOPBITS_2,
 };
 
 enum usart_parity {
-	USART_PARITY_EVEN,
-	USART_PARITY_ODD,
-	USART_PARITY_SPACE,
-	USART_PARITY_MARK,
-	USART_PARITY_NONE,
-	USART_PARITY_MULTIDROP,
+    USART_PARITY_NONE,
+    USART_PARITY_ODD,
+    USART_PARITY_EVEN,
 };
 
 enum usart_mode {
-	USART_MODE_DISABLED,
-	USART_MODE_RX,
-	USART_MODE_TX,
-	USART_MODE_TX_RX,
+    USART_MODE_DISABLED,
+    USART_MODE_RX,
+    USART_MODE_TX,
+    USART_MODE_TX_RX,
 };
 
 enum usart_flowcontrol {
-	USART_FLOWCONTROL_NONE,
-	USART_FLOWCONTROL_RTS_CTS,
+    USART_FLOWCONTROL_NONE,
+    USART_FLOWCONTROL_RTS_CTS,
 };
 
 void usart_set_baudrate(uint32_t usart, uint32_t baud);

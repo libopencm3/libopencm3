@@ -17,10 +17,6 @@
 /*
  * This file is part of the libopencm3 project.
  *
- * Copyright (C) 2009 Uwe Hermann <uwe@hermann-uwe.de>
- * Copyright (C) 2009 Federico Ruiz-Ugalde <memeruiz at gmail dot com>
- * Copyright (C) 2011 Fergus Noble <fergusnoble@gmail.com>
- * Copyright (C) 2011 Stephen Caudle <scaudle@doceme.com>
  * Copyright (C) 2015 Daniele Lacamera <root@danielinux.net>
  *
  * This library is free software: you can redistribute it and/or modify
@@ -43,42 +39,45 @@
 
 /* Interface required types */
 
-enum rcc_periph_clken { CLK_ENA_E };
-enum rcc_periph_rst { CLK_RST_E };
-
-#include <libopencm3/stm32/common/rcc_common_all.h>
+#define RCC_CLK_ENA_E 0
+#define RCC_CLK_RST_E 1
 
 /* --- RCC registers ------------------------------------------------------- */
 
 #define RCC_RIS             MMIO32(0x400FE050)
-#define RCC_CR			    MMIO32(0x400FE060)
-#define RCC2_CR				MMIO32(0x400FE070)
+#define RCC_CR              MMIO32(0x400FE060)
+#define RCC2_CR             MMIO32(0x400FE070)
 
-#define RCC_DEFAULT_VALUE   (0x078E3AD1)
-#define RCC2_DEFAULT_VALUE  (0x07802810)
+#define RCC_RESET_VALUE   (0x078E3AD1)
+#define RCC2_RESET_VALUE  (0x07802810)
 
 /* RCC1 bits */
 #define RCC_SYSDIV    (1 << 23)
-#define RCC_SYSDIV_BITPOS  (23)
+#define RCC_SYSDIV_MASK  (0x0F << 23)
+#define RCC_SYSDIV_VAL(X)    (((X - 1) << 23) & (RCC_SYSDIV_MASK) )
 
 #define RCC_USESYSDIV (1 << 22)
 #define RCC_USEPWMDIV (1 << 20)
 
 #define RCC_PWMDIV    (1 << 17)
-#define RCC_PWMDIV_BITPOS  (17)
+#define RCC_PWMDIV_MASK (0x07 << 17)
+#define RCC_PWMDIV_DEFAULT (0x07 << 17)
 
 #define RCC_OFF       (1 << 13)
 #define RCC_BYPASS    (1 << 11)
 
 #define RCC_XTAL      (1 << 6)
-#define RCC_XTAL_BITPOS    (6)
+#define RCC_XTAL_MASK (0x0F << 6)    
+/* For other values, see datasheet p.583 */
+#define RCC_XTAL_8MHZ_400MHZ    (0x0D << 6)
 
 #define RCC_IOSCDIS   (1 << 1)
 
 /* RCC2 bits */
 #define RCC2_USERRCC2  (1 << 31)
 #define RCC2_SYSDIV    (1 << 23)
-#define RCC2_SYSDIV_BITPOS ( 23)
+#define RCC2_SYSDIV_MASK        RCC_SYSDIV_MASK
+#define RCC2_SYSDIV_VAL(X)      RCC_SYSDIV_VAL(X)
 #define RCC2_OFF       (1 << 13)
 #define RCC2_BYPASS    (1 << 11)
 
@@ -88,8 +87,7 @@ enum rcc_periph_rst { CLK_RST_E };
 
 BEGIN_DECLS
 
-int rcc_lm3s_init(uint32_t sys_div, uint32_t pwm_div, uint32_t xtal);
-int rcc_qemu_init(void);
+int rcc_lm3s_init(void);
 
 END_DECLS
 

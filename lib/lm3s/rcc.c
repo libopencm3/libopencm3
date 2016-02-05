@@ -6,7 +6,7 @@
 
 @version 1.0.0
 
-@author @htmlonly &copy; @endhtmlonly 2011
+@author @htmlonly &copy; @endhtmlonly 2015
 Daniele Lacamera <root at danielinux dot net>
 
 @date 21 November 2015
@@ -16,10 +16,6 @@ LGPL License Terms @ref lgpl_license
 /*
  * This file is part of the libopencm3 project.
  *
- * Copyright (C) 2009 Uwe Hermann <uwe@hermann-uwe.de>
- * Copyright (C) 2009 Federico Ruiz-Ugalde <memeruiz at gmail dot com>
- * Copyright (C) 2011 Fergus Noble <fergusnoble@gmail.com>
- * Copyright (C) 2011 Stephen Caudle <scaudle@doceme.com>
  * Copyright (C) 2015 Daniele Lacamera <root@danielinux.net>
  *
  * This library is free software: you can redistribute it and/or modify
@@ -36,33 +32,28 @@ LGPL License Terms @ref lgpl_license
  * along with this library.  If not, see <http://www.gnu.org/licenses/>.
  */
 
-#include "stdint.h"
-#include "libopencm3/lm3s/rcc.h"
+#include <stdint.h>
+#include <libopencm3/lm3s/rcc.h>
+#include <libopencm3/cm3/sync.h>
 
-extern void __dmb(void);
+/* PLL/Systick Configured values, default settings for LM3S6965EVB */
+#define LM3S_SYSDIV_VAL        (3)
+#define LM3S_PWMDIV_VAL        (7)
+#define LM3S_XTAL_VAL          (14)
 
-
-/* PLL/Systick Configured values */
-#define QEMU_SYSDIV_VAL        (3)
-#define QEMU_PWMDIV_VAL        (7)
-#define QEMU_XTAL_VAL          (14)
-
-int rcc_lm3s_init(uint32_t sys_div, uint32_t pwm_div, uint32_t xtal)
+int rcc_lm3s_init(void)
 {
-    uint32_t rcc = RCC_DEFAULT_VALUE;
-    uint32_t rcc2 = RCC2_DEFAULT_VALUE;
+    uint32_t rcc = RCC_RESET_VALUE;
+    uint32_t rcc2 = RCC2_RESET_VALUE;
 
-    /* Initials: set default values */
-
+    /* Initials: reset values */
     RCC_CR = rcc;
     RCC2_CR = rcc2;
 
-
     /* Stage 1: Reset Oscillators and select configured values */
-    rcc = (sys_div << RCC_SYSDIV_BITPOS) | (pwm_div << RCC_PWMDIV_BITPOS) | 
-        (xtal << RCC_XTAL_BITPOS) | RCC_USEPWMDIV;
+    rcc = RCC_SYSDIV_VAL(4) | RCC_PWMDIV_DEFAULT | RCC_XTAL_8MHZ_400MHZ | RCC_USEPWMDIV; 
 
-    rcc2 = (sys_div << RCC2_SYSDIV_BITPOS); 
+    rcc2 = RCC2_SYSDIV_VAL(4);
 
     rcc  |= RCC_BYPASS | RCC_OFF;
     rcc2 |= RCC2_BYPASS | RCC2_OFF;
@@ -95,11 +86,3 @@ int rcc_lm3s_init(uint32_t sys_div, uint32_t pwm_div, uint32_t xtal)
     __dmb();
     return 0;
 }
-
-int rcc_qemu_init(void)
-{
-    int ret;
-    ret = rcc_lm3s_init(QEMU_SYSDIV_VAL, QEMU_PWMDIV_VAL, QEMU_XTAL_VAL);
-    return ret;
-}
-
