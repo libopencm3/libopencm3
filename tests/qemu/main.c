@@ -47,10 +47,11 @@ int main(void)
     uint32_t last_time = 0;
     rcc_clock_setup_in_xtal_8mhz_out_50mhz();
     systick_app_config(HZ);
+
     nvic_set_priority(NVIC_SYSTICK_IRQ, 0);
     jiffies = 0;
     while(1) {
-        if (jiffies > 1000) {
+        if (jiffies > HZ) {
             printbanner();
             jiffies = 0;
         }
