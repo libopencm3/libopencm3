@@ -37,53 +37,73 @@
 #define LIBOPENCM3_RCC_H
 #include <libopencm3/cm3/common.h>
 
-/* Interface required types */
-
-#define RCC_CLK_ENA_E 0
-#define RCC_CLK_RST_E 1
-
 /* --- RCC registers ------------------------------------------------------- */
 
 #define RCC_RIS             MMIO32(0x400FE050)
 #define RCC_CR              MMIO32(0x400FE060)
 #define RCC2_CR             MMIO32(0x400FE070)
 
-#define RCC_RESET_VALUE   (0x078E3AD1)
-#define RCC2_RESET_VALUE  (0x07802810)
-
 /* RCC1 bits */
-#define RCC_SYSDIV    (1 << 23)
-#define RCC_SYSDIV_MASK  (0x0F << 23)
-#define RCC_SYSDIV_VAL(X)    (((X - 1) << 23) & (RCC_SYSDIV_MASK) )
+#define RCC_SYSDIV_MASK      (0x0F << 23)
+#define RCC_SYSDIV_12_5MHZ   (0x0F << 23)
+#define RCC_SYSDIV_50MHZ     (0x03 << 23)
 
 #define RCC_USESYSDIV (1 << 22)
 #define RCC_USEPWMDIV (1 << 20)
 
-#define RCC_PWMDIV    (1 << 17)
 #define RCC_PWMDIV_MASK (0x07 << 17)
-#define RCC_PWMDIV_DEFAULT (0x07 << 17)
+#define RCC_PWMDIV_64   (0x07 << 17)
 
 #define RCC_OFF       (1 << 13)
 #define RCC_BYPASS    (1 << 11)
 
-#define RCC_XTAL      (1 << 6)
 #define RCC_XTAL_MASK (0x0F << 6)    
-/* For other values, see datasheet p.583 */
+/* For other values, see datasheet section 23.2.2 - table 23-9  */
+#define RCC_XTAL_6MHZ_RESET     (0x0B << 6)
 #define RCC_XTAL_8MHZ_400MHZ    (0x0D << 6)
 
+
+#define RCC_OSCRC_MASK   (0x03 << 4)
+#define RCC_OSCRC_MOSC   (0x00 << 4)
+#define RCC_OSCRC_IOSC   (0x01 << 4)
+#define RCC_OSCRC_IOSC_Q (0x02 << 4)
+#define RCC_OSCRC_30KHZ  (0x03 << 4)
+
 #define RCC_IOSCDIS   (1 << 1)
+#define RCC_MOSCDIS   (1 << 0)
 
 /* RCC2 bits */
-#define RCC2_USERRCC2  (1 << 31)
-#define RCC2_SYSDIV    (1 << 23)
-#define RCC2_SYSDIV_MASK        RCC_SYSDIV_MASK
-#define RCC2_SYSDIV_VAL(X)      RCC_SYSDIV_VAL(X)
+#define RCC2_USERRCC2       (1 << 31)
+#define RCC2_SYSDIV2_MASK   (0x7f << 23)
+
+#define RCC2_SYSDIV2_1      (0  << 23)
+#define RCC2_SYSDIV2_2      (1  << 23)
+#define RCC2_SYSDIV2_4      (3  << 23)
+#define RCC2_SYSDIV2_8      (7  << 23)
+#define RCC2_SYSDIV2_16     (15 << 23)
+#define RCC2_SYSDIV2_32     (15 << 23)
+#define RCC2_SYSDIV2_64     (63 << 23)
+
 #define RCC2_OFF       (1 << 13)
 #define RCC2_BYPASS    (1 << 11)
 
 /* RIS bit */
 #define RIS_PLLLRIS    (1 << 6)
 
+
+/* From Datasheet description for reset values 
+ * Section 6.4 - Register Descriptions
+ */
+
+/* Register 8: RCC
+ * Type R/W, reset 0x078E.3AD1
+ */
+#define RCC_RESET_VALUE   (0x078E3AD1)
+
+/* Register 10: RCC2
+ * Type R/W, reset 0x0780.2810
+ */
+#define RCC2_RESET_VALUE  (0x07802810)
 
 BEGIN_DECLS
 

@@ -33,7 +33,7 @@ LDSCRIPT = ../../lib/lm3s/lm3s6965.ld
 OPENCM3_LIB = opencm3_lm3s
 OPENCM3_DEFS = -DLM3S
 FP_FLAGS ?= -mfloat-abi=soft
-ARCH_FLAGS = -mthumb -mcpu=cortex-m3 $(FP_FLAGS)
+ARCH_FLAGS = -mthumb -mcpu=cortex-m3 $(FP_FLAGS) -ggdb
 
 include ../rules.mk
 

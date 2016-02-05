@@ -36,34 +36,24 @@ LGPL License Terms @ref lgpl_license
 #include <libopencm3/lm3s/rcc.h>
 #include <libopencm3/cm3/sync.h>
 
-/* PLL/Systick Configured values, default settings for LM3S6965EVB */
-#define LM3S_SYSDIV_VAL        (3)
-#define LM3S_PWMDIV_VAL        (7)
-#define LM3S_XTAL_VAL          (14)
-
-
 int rcc_clock_setup_in_xtal_8mhz_out_50mhz(void)
 {
     uint32_t rcc = RCC_RESET_VALUE;
     uint32_t rcc2 = RCC2_RESET_VALUE;
 
-    /* Initials: reset values */
-    RCC_CR = rcc;
-    RCC2_CR = rcc2;
-
-    /* Stage 1: Reset Oscillators and select configured values */
-    rcc = RCC_SYSDIV_VAL(4) | RCC_PWMDIV_DEFAULT | RCC_XTAL_8MHZ_400MHZ | RCC_USEPWMDIV; 
-
-    rcc2 = RCC2_SYSDIV_VAL(4);
-
-    rcc  |= RCC_BYPASS | RCC_OFF;
-    rcc2 |= RCC2_BYPASS | RCC2_OFF;
-
+    /* Stage 0: Reset values applied */
     RCC_CR = rcc;
     RCC2_CR = rcc2;
     __dmb();
 
-    /* Stage 2: Power up oscillators */
+    /* Stage 1: Reset Oscillators and select configured values */
+    rcc = RCC_SYSDIV_50MHZ | RCC_PWMDIV_64 | RCC_XTAL_8MHZ_400MHZ | RCC_USEPWMDIV; 
+    rcc2 = RCC2_SYSDIV2_4;
+    RCC_CR = rcc;
+    RCC2_CR = rcc2;
+    __dmb();
+
+    /* Stage 2: Power on oscillators */
     rcc  &= ~RCC_OFF;
     rcc2 &= ~RCC2_OFF;
     RCC_CR = rcc;
