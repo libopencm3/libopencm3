@@ -97,13 +97,13 @@ void gpio_set_mode(uint32_t gpioport, uint8_t mode, uint8_t cnf, uint16_t gpios)
 	uint16_t i;
 	uint32_t crl_set = 0, crh_set = 0, crl_clear = 0, crh_clear = 0, config;
 
-	/* if no port pin to be setup, return */
-	if( gpios == 0 ) {
+	/* return if no port pin to be setup or conf invalid or mode invalid */
+	if( gpios == 0 || cnf > 0x03 || mode > 0x03 ) {
 		return;
 	}
 
 	/* build pin configuration nibble in lowest 4 bit of config */
-	config = (cnf << 2 | mode) & 0x0f;
+	config = cnf << 2 | mode;
 	
 	/* loop over all bits in gpios. abort if only unset bits left over */
 	for( i=0; gpios != 0; i++, gpios >>=1 ) {
@@ -130,8 +130,8 @@ void gpio_set_mode(uint32_t gpioport, uint8_t mode, uint8_t cnf, uint16_t gpios)
 	}
 
 	/* read old port config from mem, write back modified config */
-	GPIO_CRL(gpioport) = ( GPIO_CRL(gpioport) & ~crl_clear) | crl_set;
-	GPIO_CRH(gpioport) = ( GPIO_CRH(gpioport) & ~crh_clear) | crh_set;
+	GPIO_CRL(gpioport) = ( GPIO_CRL(gpioport) & ~crl_clear ) | crl_set;
+	GPIO_CRH(gpioport) = ( GPIO_CRH(gpioport) & ~crh_clear ) | crh_set;
 }
 
 /*---------------------------------------------------------------------------*/
