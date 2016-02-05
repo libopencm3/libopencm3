@@ -20,59 +20,6 @@
 
 #include <libopencm3/lm3s/usart.h>
 
-
-void usart_set_baudrate(uint32_t usart, uint32_t baud)
-{
-    /* TODO */
-    (void)usart;
-    (void)baud;
-}
-
-void usart_set_databits(uint32_t usart, int bits)
-{
-    /* TODO */
-    (void)usart;
-    (void)bits;
-}
-
-void usart_set_stopbits(uint32_t usart, enum usart_stopbits sb)
-{
-    /* TODO */
-    (void)usart;
-    (void)sb;
-}
-
-void usart_set_parity(uint32_t usart, enum usart_parity par)
-{
-    /* TODO */
-    (void)usart;
-    (void)par;
-}
-
-void usart_set_mode(uint32_t usart, enum usart_mode mode)
-{
-    /* TODO */
-    (void)usart;
-    (void)mode;
-}
-
-void usart_set_flow_control(uint32_t usart, enum usart_flowcontrol fc)
-{
-    /* TODO */
-    (void)usart;
-    (void)fc;
-}
-
-void usart_enable(uint32_t usart)
-{
-	(void)usart;
-}
-
-void usart_disable(uint32_t usart)
-{
-	(void)usart;
-}
-
 void usart_send(uint32_t usart, uint16_t data)
 {
 	USART_DR(usart) = data;
