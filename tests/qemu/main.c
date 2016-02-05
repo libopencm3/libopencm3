@@ -45,7 +45,7 @@ static inline uint32_t systick_app_config(uint32_t n_ticks)
 int main(void)
 {
     uint32_t last_time = 0;
-    rcc_lm3s_init();
+    rcc_clock_setup_in_xtal_8mhz_out_50mhz();
     systick_app_config(HZ);
     nvic_set_priority(NVIC_SYSTICK_IRQ, 0);
     jiffies = 0;

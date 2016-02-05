@@ -41,7 +41,8 @@ LGPL License Terms @ref lgpl_license
 #define LM3S_PWMDIV_VAL        (7)
 #define LM3S_XTAL_VAL          (14)
 
-int rcc_lm3s_init(void)
+
+int rcc_clock_setup_in_xtal_8mhz_out_50mhz(void)
 {
     uint32_t rcc = RCC_RESET_VALUE;
     uint32_t rcc2 = RCC2_RESET_VALUE;

@@ -87,7 +87,7 @@
 
 BEGIN_DECLS
 
-int rcc_lm3s_init(void);
+int rcc_clock_setup_in_xtal_8mhz_out_50mhz(void);
 
 END_DECLS
 
