@@ -81,9 +81,6 @@
 #define USART_IC_RX             (0x01 << 4)
 /* Bits [3:0] - Reserved */
 
-#define USART_SR_RXNE  USART_IC_RX
-#define USART_SR_TXE   USART_IC_TX
-
 enum usart_stopbits {
     USART_STOPBITS_1,
     USART_STOPBITS_1_5,
@@ -108,6 +105,7 @@ enum usart_flowcontrol {
     USART_FLOWCONTROL_RTS_CTS,
 };
 
+<<<<<<< HEAD
 void usart_set_baudrate(uint32_t usart, uint32_t baud);
 void usart_set_databits(uint32_t usart, int bits);
 void usart_set_stopbits(uint32_t usart, enum usart_stopbits);
@@ -116,6 +114,8 @@ void usart_set_mode(uint32_t usart, enum usart_mode);
 void usart_set_flow_control(uint32_t usart, enum usart_flowcontrol);
 void usart_enable(uint32_t usart);
 void usart_disable(uint32_t usart);
+=======
+>>>>>>> lm3s-support
 void usart_send(uint32_t usart, uint16_t data);
 uint16_t usart_recv(uint32_t usart);
 void usart_wait_send_ready(uint32_t usart);
