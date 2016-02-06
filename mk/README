@@ -15,34 +15,31 @@ where you are defining variables (near the beginning of the file), and file
 <module>-rules.mk should be included in the rules part of makefile (somewhere
 near to the end of file).
 
-Example makefile using gcc compiler module:
+Example makefile using the gcc compiler module together with the linker script
+generator module:
 
 >>>>>>
-OBJS		+= foo.o bar.o
+DEVICE          =
+OPENCM3_DIR     =
+OBJS            += foo.o
 
-CFLAGS		+= -O0 -g
-CPPFLAGS	+= -MD -MP $(@F).d
-CPPFLAGS	+= $(DEFS)
-CPPFLAGS	+= $(INCS)
-LDFLAGS		+= --static --nostartfiles
-LDLIBS		+= -Wl,--start-group -lc -lgcc -lnosys -Wl,--end-group
-# parameters for gcc module
-PREFIX		= arm-elf
+CFLAGS          += -Os -ggdb3
+CPPFLAGS	+= -MD
+LDFLAGS         += -static -nostartfiles
+LDLIBS          += -Wl,--start-group -lc -lgcc -lnosys -Wl,--end-group
 
+include $(OPENCM3_DIR)/mk/genlink-config.mk
 include $(OPENCM3_DIR)/mk/gcc-config.mk
 
 .PHONY: clean all
 
-all: binary.images
-
-%.images: %.elf %.hex
-
-include $(OPENCM3_DIR)/mk/gcc-rules.mk
+all: binary.elf binary.hex
 
 clean:
-	$(Q)$(RM) -rf binary.* *.o *.d
+	$(Q)$(RM) -rf binary.* *.o
 
--include $(OBJS:.o=.d)
+include $(OPENCM3_DIR)/mk/genlink-rules.mk
+include $(OPENCM3_DIR)/mk/gcc-rules.mk
 <<<<<<
 
 
@@ -81,7 +78,8 @@ genlink
 
   This module adds an support for the user to the linker script generator. The
 linker script will be generated as the file $(DEVICE).ld in the project folder,
-and automatically used for the linking process.
+and automatically be used for the linking process.
+Additionally the matching library is added to the LDLIBS variable.
 
 Variables to control the build process (should be set in your makefile):
 ------------------------------------------------------------------------
@@ -92,9 +90,9 @@ OPENCM3_DIR	The root path of libopencm3 library.
 Output variables from this module:
 ----------------------------------
 
-DEFS		(appended)
- - Appended definitions specified in chip database file.
- ! Ensure that you have line 'CPPFLAGS += $(DEFS)' in your makefile.
+CPPFLAGS		(appended)
+ - Appends the chip family to the CPPFLAGS. For example -DSTM32F1
+ - Appends the include path for libopencm3
 
 ARCH_FLAGS	(replaced)
  - Architecture build flags for specified chip.
@@ -104,12 +102,16 @@ LDSCRIPT	(replaced)
  - Linker script generated file.
  * No needed to handle this variable if you use module <gcc> too.
 
-OPENCM3_LIBNAME	(replaced)
- - The right libopencm3 library base name to be linked with.
- ! Ensure that you have line 'LDLIBS += -l$(OPENCM3_LIBNAME)' in your makefile.
- ! Ensure that you have line 'LDFLAGS += -L$(OPENCM3_DIR)/lib' in your makefile.
- ! Ensure that you have rule '$(OPENCM3_DIR)/lib/lib$(OPENCM3_LIBNAME).a:'
-   to be the library archive successfully built when needed.
+LDLIBS (appended)
+ - LDLIBS += -lopencm3_$(family) is appended to link against the
+   matching library.
+
+LDFLAGS (appended)
+ - LDFLAGS += -L$(OPENCM3_DIR)/lib is appended to make sure the
+   matching library can be found.
+
+family,cpu,fpu (replaced)
+ - these are used internally to create the above variables
 
 Temporary variables that you should not use in your makefile:
 -------------------------------------------------------------

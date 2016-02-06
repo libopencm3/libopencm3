@@ -18,17 +18,62 @@
 ##
 
 ifeq ($(DEVICE),)
-$(error no DEVICE specified for linker script generator)
+$(warning no DEVICE specified for linker script generator)
 endif
 
 LDSCRIPT	= $(DEVICE).ld
+DEVICES_DATA = $(OPENCM3_DIR)/ld/devices.data
 
-GENLINK_DEFS	:=$(shell awk -v PAT="$(DEVICE)" -v MODE="DEFS" -f $(OPENCM3_DIR)/scripts/genlink.awk $(OPENCM3_DIR)/ld/devices.data 2>/dev/null)
-GENLINK_ARCH	:=$(shell awk -v PAT="$(DEVICE)" -v MODE="ARCH" -f $(OPENCM3_DIR)/scripts/genlink.awk $(OPENCM3_DIR)/ld/devices.data 2>/dev/null)
-GENLINK_LIB	:=$(shell awk -v PAT="$(DEVICE)" -v MODE="LIB" -f $(OPENCM3_DIR)/scripts/genlink.awk $(OPENCM3_DIR)/ld/devices.data 2>/dev/null)
+genlink_family		:=$(shell awk -v PAT="$(DEVICE)" -v MODE="FAMILY" -f $(OPENCM3_DIR)/scripts/genlink.awk $(DEVICES_DATA) 2>/dev/null)
+genlink_subfamily	:=$(shell awk -v PAT="$(DEVICE)" -v MODE="SUBFAMILY" -f $(OPENCM3_DIR)/scripts/genlink.awk $(DEVICES_DATA) 2>/dev/null)
+genlink_cpu		:=$(shell awk -v PAT="$(DEVICE)" -v MODE="CPU" -f $(OPENCM3_DIR)/scripts/genlink.awk $(DEVICES_DATA) 2>/dev/null)
+genlink_fpu		:=$(shell awk -v PAT="$(DEVICE)" -v MODE="FPU" -f $(OPENCM3_DIR)/scripts/genlink.awk $(DEVICES_DATA) 2>/dev/null)
+genlink_cppflags	:=$(shell awk -v PAT="$(DEVICE)" -v MODE="CPPFLAGS" -f $(OPENCM3_DIR)/scripts/genlink.awk $(DEVICES_DATA) 2>/dev/null)
 
-DEFS		+= $(GENLINK_DEFS)
-ARCH_FLAGS	:= $(GENLINK_ARCH)
-OPENCM3_LIBNAME	:= $(strip $(subst -l,,$(GENLINK_LIB)))
+CPPFLAGS	+= $(genlink_cppflags)
 
-GENFILES	+= $(LDSCRIPT)
+ARCH_FLAGS	:=-mcpu=$(genlink_cpu)
+ifeq ($(genlink_cpu),$(filter $(genlink_cpu),cortex-m0 cortex-m0plus cortex-m3 cortex-m4 cortex-m7))
+ARCH_FLAGS    +=-mthumb
+endif
+
+ifeq ($(genlink_fpu),soft)
+ARCH_FLAGS	+= -msoft-float
+else ifeq ($(genlink_fpu),hard-fpv4-sp-d16)
+ARCH_FLAGS	+= -mfloat-abi=hard -mfpu=fpv4-sp-d16
+else ifeq ($(genlink_fpu),hard-fpv5-sp-d16)
+ARCH_FLAGS      += -mfloat-abi=hard -mfpu=fpv5-sp-d16
+else
+$(warning No match for the FPU flags)
+endif
+
+
+ifeq ($(genlink_family),)
+$(warning $(DEVICE) not found in $(DEVICES_DATA))
+endif
+
+# only append to LDFLAGS if the library file exists to not break builds
+# where those are provided by different means
+ifneq (,$(wildcard $(OPENCM3_DIR)/lib/libopencm3_$(genlink_family).a))
+LDLIBS += -lopencm3_$(genlink_family)
+else
+ifneq (,$(wildcard $(OPENCM3_DIR)/lib/libopencm3_$(genlink_subfamily).a))
+LDLIBS += -lopencm3_$(genlink_subfamily)
+else
+$(warning $(OPENCM3_DIR)/lib/libopencm3_$(genlink_subfamily).a library variant for the selected device does not exist.)
+endif
+endif
+
+# only append to LDLIBS if the directory exists
+ifneq (,$(wildcard $(OPENCM3_DIR)/lib))
+LDFLAGS += -L$(OPENCM3_DIR)/lib
+else
+$(warning $(OPENCM3_DIR)/lib as given be OPENCM3_DIR does not exist.)
+endif
+
+# only append include path to CPPFLAGS if the directory exists
+ifneq (,$(wildcard $(OPENCM3_DIR)/include))
+CPPFLAGS += -I$(OPENCM3_DIR)/include
+else
+$(warning $(OPENCM3_DIR)/include as given be OPENCM3_DIR does not exist.)
+endif
