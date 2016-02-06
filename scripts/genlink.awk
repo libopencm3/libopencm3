@@ -41,21 +41,34 @@ BEGIN {
 			PAT=$2;
 
 		for (i = 3; i <= NF; i = i + 1) {
-			if ($i ~ /^-l/) {
-				if ("LIB" ~ MODE)
-					printf "%s ",$i;
+			if ($i ~ /^FAMILY=/) {
+				if ("FAMILY" ~ MODE){
+					sub(/[^=]*=/,"",$i);
+					printf "%s",$i;
+					exit;
+				}
 			}
-			else if ($i ~ /^-m/) {
-				if ("ARCH" ~ MODE)
-					printf "%s ",$i;
+			else if ($i ~ /^CPU=/) {
+				if ("CPU" ~ MODE){
+					sub(/[^=]*=/,"",$i);
+					printf "%s",$i;
+					exit;
+				}
 			}
-			else if ($i ~ /^-D/) {
-				if ("DEFS" ~ MODE)
-					printf "%s ",$i;
+			else if ($i ~ /^FPU=/) {
+				if ("FPU" ~ MODE){
+					sub(/[^=]*=/,"",$i);
+					printf "%s",$i;
+					exit;
+				}
 			}
-			else {
+			else if ($i ~ /[[:upper:]]*=/) {
 				if ("DEFS" ~ MODE)
 					printf "-D_%s ",$i;
+			}
+			if ($i ~ /[[:upper:]]*=/) {
+				if ("VARS" ~ MODE)
+				printf "%s ",$i;
 			}
 		}
 
