@@ -103,7 +103,7 @@ LDSCRIPT	(replaced)
  * No needed to handle this variable if you use module <gcc> too.
 
 LDLIBS (appended)
- - LDLIBS += -l$(OPENCM3_LIBNAME) is appended to link against the
+ - LDLIBS += -lopencm3_$(family) is appended to link against the
    matching library.
 
 LDFLAGS (appended)
