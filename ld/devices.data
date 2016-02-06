@@ -333,75 +333,63 @@ sam3xnfc sam3x NFCRAM=4K NFCRAM_OFF=0x20100000
 # the lpc family groups
 
 
-lpc13u lpc13 USBRAM_OFF=0x20004000
+lpc13u lpc13xx USBRAM_OFF=0x20004000
 
-lpc17[56]x lpc17 RAM1_OFF=0x2007C000 RAM2_OFF=0x20080000
-lpc17[78]x lpc17 RAM1_OFF=0x20000000 RAM2_OFF=0x20040000
+lpc17[56]x lpc17xx RAM1_OFF=0x2007C000 RAM2_OFF=0x20080000
+lpc17[78]x lpc17xx RAM1_OFF=0x20000000 RAM2_OFF=0x20040000
 
 ################################################################################
 ################################################################################
 ################################################################################
 # the STM32 families
 
-stm32f0 stm32 ROM_OFF=0x08000000 RAM_OFF=0x20000000 -mcpu=cortex-m0 -mthumb -DSTM32F0 -lopencm3_stm32f0 -msoft-float
-stm32f1 stm32 ROM_OFF=0x08000000 RAM_OFF=0x20000000 -mcpu=cortex-m3 -mthumb -DSTM32F1 -lopencm3_stm32f1 -msoft-float
-stm32f2 stm32 ROM_OFF=0x08000000 RAM_OFF=0x20000000 -mcpu=cortex-m3 -mthumb -DSTM32F2 -lopencm3_stm32f2 -msoft-float
-stm32f3 stm32 ROM_OFF=0x08000000 RAM_OFF=0x20000000 -mcpu=cortex-m4 -mthumb -DSTM32F3 -lopencm3_stm32f3 -mfloat-abi=hard -mfpu=fpv4-sp-d16
-stm32f4 stm32 ROM_OFF=0x08000000 RAM_OFF=0x20000000 -mcpu=cortex-m4 -mthumb -DSTM32F4 -lopencm3_stm32f4 -mfloat-abi=hard -mfpu=fpv4-sp-d16
+stm32f0 END ROM_OFF=0x08000000 RAM_OFF=0x20000000 CPU=cortex-m0 FPU=soft
+stm32f1 END ROM_OFF=0x08000000 RAM_OFF=0x20000000 CPU=cortex-m3 FPU=soft
+stm32f2 END ROM_OFF=0x08000000 RAM_OFF=0x20000000 CPU=cortex-m3 FPU=soft
+stm32f3 END ROM_OFF=0x08000000 RAM_OFF=0x20000000 CPU=cortex-m4 FPU=hard-fpv4-sp-d16
+stm32f4 END ROM_OFF=0x08000000 RAM_OFF=0x20000000 CPU=cortex-m4 FPU=hard-fpv4-sp-d16
 #stm32f7 is supported on GCC-arm-embedded 4.8 2014q4 
-stm32f7 stm32 ROM_OFF=0x08000000 RAM_OFF=0x20010000 -mcpu=cortex-m7 -mthumb -DSTM32F7 -lopencm3_stm32f7 -mfloat-abi=hard -mfpu=fpv5-sp-d16
-stm32l0 stm32 ROM_OFF=0x08000000 RAM_OFF=0x20000000 -mcpu=cortex-m0plus -mthumb -DSTM32L0 -lopencm3_stm32l0 -msoft-float
-stm32l1 stm32 ROM_OFF=0x08000000 RAM_OFF=0x20000000 -mcpu=cortex-m3 -mthumb -DSTM32L1 -lopencm3_stm32l1 -msoft-float
-stm32l4 stm32 ROM_OFF=0x08000000 RAM_OFF=0x20000000 -mcpu=cortex-m4 -mthumb -DSTM32L4 -lopencm3_stm32l4 -mfloat-abi=hard -mfpu=fpv4-sp-d16
-stm32w stm32 ROM_OFF=0x08000000 RAM_OFF=0x20000000 -mcpu=cortex-m3 -mthumb
-stm32t stm32 ROM_OFF=0x08000000 RAM_OFF=0x20000000 -mcpu=cortex-m3 -mthumb
+stm32f7 END ROM_OFF=0x08000000 RAM_OFF=0x20010000 CPU=cortex-m7 FPU=hard-fpv5-sp-d16
+stm32l0 END ROM_OFF=0x08000000 RAM_OFF=0x20000000 CPU=cortex-m0plus FPU=soft
+stm32l1 END ROM_OFF=0x08000000 RAM_OFF=0x20000000 CPU=cortex-m3 FPU=soft
+stm32l4 END ROM_OFF=0x08000000 RAM_OFF=0x20000000 CPU=cortex-m4 FPU=hard-fpv4-sp-d16
+stm32w END ROM_OFF=0x08000000 RAM_OFF=0x20000000 CPU=cortex-m3 FPU=soft
+stm32t END ROM_OFF=0x08000000 RAM_OFF=0x20000000 CPU=cortex-m3 FPU=soft
 
 ################################################################################
 # the SAM3 families
 
-sam3a sam3 ROM_OFF=0x00080000 RAM_OFF=0x20000000 RAM1_OFF=0x20080000
-sam3n sam3 ROM_OFF=0x00400000 RAM_OFF=0x20000000
-sam3s sam3 ROM_OFF=0x00400000 RAM_OFF=0x20000000
-sam3u sam3 ROM_OFF=0x00080000 RAM_OFF=0x20000000 RAM1_OFF=0x20080000 NFCRAM=4K NFCRAM_OFF=0x20100000
-sam3x sam3 ROM_OFF=0x00080000 RAM_OFF=0x20000000 RAM1_OFF=0x20080000
+sam3a END ROM_OFF=0x00080000 RAM_OFF=0x20000000 RAM1_OFF=0x20080000 CPU=cortex-m3 FPU=soft
+sam3n END ROM_OFF=0x00400000 RAM_OFF=0x20000000 CPU=cortex-m3 FPU=soft
+sam3s END ROM_OFF=0x00400000 RAM_OFF=0x20000000 CPU=cortex-m3 FPU=soft
+sam3u END ROM_OFF=0x00080000 RAM_OFF=0x20000000 RAM1_OFF=0x20080000 NFCRAM=4K NFCRAM_OFF=0x20100000 CPU=cortex-m3 FPU=soft
+sam3x END ROM_OFF=0x00080000 RAM_OFF=0x20000000 RAM1_OFF=0x20080000 CPU=cortex-m3 FPU=soft
 
 ################################################################################
 # the lpc families
 
-lpc13 lpc ROM_OFF=0x00000000 RAM_OFF=0x10000000 RAM1_OFF=0x20000000
-lpc17 lpc ROM_OFF=0x00000000 RAM_OFF=0x10000000
+lpc13xx END ROM_OFF=0x00000000 RAM_OFF=0x10000000 RAM1_OFF=0x20000000 CPU=cortex-m3 FPU=soft
+lpc17xx END ROM_OFF=0x00000000 RAM_OFF=0x10000000 CPU=cortex-m3 FPU=soft
 
 ################################################################################
 # the efm32 Gecko families
 
-efm32zg efm32 ROM_OFF=0x00000000 RAM_OFF=0x20000000 RAM1_OFF=0x10000000
-efm32tg efm32 ROM_OFF=0x00000000 RAM_OFF=0x20000000 RAM1_OFF=0x10000000
-efm32g efm32 ROM_OFF=0x00000000 RAM_OFF=0x20000000 RAM1_OFF=0x10000000
-efm32lg efm32 ROM_OFF=0x00000000 RAM_OFF=0x20000000 RAM1_OFF=0x10000000
-efm32gg efm32 ROM_OFF=0x00000000 RAM_OFF=0x20000000 RAM1_OFF=0x10000000
-efm32wg efm32 ROM_OFF=0x00000000 RAM_OFF=0x20000000 RAM1_OFF=0x10000000
+efm32zg END ROM_OFF=0x00000000 RAM_OFF=0x20000000 RAM1_OFF=0x10000000 CPU=cortex-m0plus FPU=soft
+efm32tg END ROM_OFF=0x00000000 RAM_OFF=0x20000000 RAM1_OFF=0x10000000 CPU=cortex-m3 FPU=soft
+efm32g END ROM_OFF=0x00000000 RAM_OFF=0x20000000 RAM1_OFF=0x10000000 CPU=cortex-m3 FPU=soft
+efm32lg END ROM_OFF=0x00000000 RAM_OFF=0x20000000 RAM1_OFF=0x10000000 CPU=cortex-m3 FPU=soft
+efm32gg END ROM_OFF=0x00000000 RAM_OFF=0x20000000 RAM1_OFF=0x10000000 CPU=cortex-m3 FPU=soft
+efm32wg END ROM_OFF=0x00000000 RAM_OFF=0x20000000 RAM1_OFF=0x10000000 CPU=cortex-m4 FPU=hard-fpv4-sp-d16
 
 ################################################################################
 # Cortex LM3 families
 
-lm3fury lm3 ROM_OFF=0x00000000 RAM_OFF=0x20000000
-lm3sandstorm lm3 ROM_OFF=0x00000000 RAM_OFF=0x20000000
+lm3fury lm3s
+lm3sandstorm lm3s
+lm3s END ROM_OFF=0x00000000 RAM_OFF=0x20000000 CPU=cortex-m3 FPU=soft
 
 
 ################################################################################
 # Cortex R4F families
 
-rm46l rm4 ROM_OFF=0x00000000 RAM_OFF=0x08000000 RAM1_OFF=0x08400000
-
-################################################################################
-################################################################################
-################################################################################
-# the architectures
-
-stm32 END
-sam3 END
-lpc END
-efm32 END
-lm3 END
-rm4 END
-
+rm46l END ROM_OFF=0x00000000 RAM_OFF=0x08000000 RAM1_OFF=0x08400000
