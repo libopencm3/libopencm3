@@ -283,6 +283,7 @@ void stm32fx07_poll(usbd_device *usbd_dev)
 		/* Save packet size for stm32f107_ep_read_packet(). */
 		usbd_dev->rxbcnt = (rxstsp & OTG_GRXSTSP_BCNT_MASK) >> 4;
 
+#if 0
 		/*
 		 * FIXME: Why is a delay needed here?
 		 * This appears to fix a problem where the first 4 bytes
@@ -291,6 +292,7 @@ void stm32fx07_poll(usbd_device *usbd_dev)
 		for (i = 0; i < 1000; i++) {
 			__asm__("nop");
 		}
+#endif
 
 		if (usbd_dev->user_callback_ctr[ep][type]) {
 			usbd_dev->user_callback_ctr[ep][type] (usbd_dev, ep);
