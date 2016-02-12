@@ -58,10 +58,6 @@ BEGIN {
 				if ("DEFS" ~ MODE)
 					printf "-D_%s ",$i;
 			}
-			if ($i ~ /[[:upper:]]*=/) {
-				if ("VARS" ~ MODE)
-				printf "%s ",$i;
-			}
 		}
 		if (PAT=="END"){
 			if ("FAMILY" ~ MODE)
