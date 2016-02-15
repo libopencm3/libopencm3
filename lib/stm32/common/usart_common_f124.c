@@ -77,7 +77,7 @@ uint16_t usart_recv(uint32_t usart)
 
 bool usart_is_send_ready(uint32_t usart)
 {
-	return ((USART_SR(usart) & USART_SR_TXE) == 0);
+	return ((USART_SR(usart) & USART_SR_TXE) == 1);
 }
 
 
@@ -109,7 +109,7 @@ usart_reg_base
 
 bool usart_is_recv_ready(uint32_t usart)
 {
-	return ((USART_SR(usart) & USART_SR_RXNE) == 0);
+	return ((USART_SR(usart) & USART_SR_RXNE) == 1);
 }
 
 

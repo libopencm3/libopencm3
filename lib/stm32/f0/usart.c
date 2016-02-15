@@ -203,7 +203,7 @@ uint8_t usart_recv(uint32_t usart)
 
 bool usart_is_send_ready(uint32_t usart)
 {
-	return ((USART_ISR(usart) & USART_ISR_TXE) == 0);
+	return ((USART_ISR(usart) & USART_ISR_TXE) == 1);
 }
 
 /*---------------------------------------------------------------------------*/
@@ -234,7 +234,7 @@ usart_reg_base
 
 bool usart_is_recv_ready(uint32_t usart)
 {
-	return ((USART_ISR(usart) & USART_ISR_RXNE) == 0);
+	return ((USART_ISR(usart) & USART_ISR_RXNE) == 1);
 }
 
 
