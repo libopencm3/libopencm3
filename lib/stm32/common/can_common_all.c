@@ -36,16 +36,7 @@ LGPL License Terms @ref lgpl_license
  */
 
 #include <libopencm3/stm32/can.h>
-
-#if defined(STM32F1)
-#	include <libopencm3/stm32/f1/rcc.h>
-#elif defined(STM32F2)
-#	include <libopencm3/stm32/f2/rcc.h>
-#elif defined(STM32F4)
-#	include <libopencm3/stm32/f4/rcc.h>
-#else
-#	error "stm32 family not defined."
-#endif
+#include <libopencm3/stm32/rcc.h>
 
 /* Timeout for CAN INIT acknowledge
  * this value is difficult to define.
@@ -71,6 +62,12 @@ can_reg_base.
  */
 void can_reset(uint32_t canport)
 {
+#if defined(STM32F0)
+	(void) canport;
+
+	rcc_peripheral_reset(&RCC_APB1RSTR, RCC_APB1RSTR_CANRST);
+	rcc_peripheral_clear_reset(&RCC_APB1RSTR, RCC_APB1RSTR_CANRST);
+#else
 	if (canport == CAN1) {
 		rcc_peripheral_reset(&RCC_APB1RSTR, RCC_APB1RSTR_CAN1RST);
 		rcc_peripheral_clear_reset(&RCC_APB1RSTR, RCC_APB1RSTR_CAN1RST);
@@ -78,6 +75,7 @@ void can_reset(uint32_t canport)
 		rcc_peripheral_reset(&RCC_APB1RSTR, RCC_APB1RSTR_CAN2RST);
 		rcc_peripheral_clear_reset(&RCC_APB1RSTR, RCC_APB1RSTR_CAN2RST);
 	}
+#endif
 }
 
 /*---------------------------------------------------------------------------*/
