@@ -45,6 +45,9 @@
 
 #include <libopencm3/stm32/common/flash_common_f01.h>
 
+/* Memory Size Register */
+#define MEMORY_SIZE_REG			MMIO16(DESIG_FLASH_SIZE_BASE)
+
 /* --- FLASH_OPTION bytes ------------------------------------------------- */
 
 /** @defgroup flash_options Option Byte Addresses
