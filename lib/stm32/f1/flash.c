@@ -62,7 +62,7 @@
 #include <libopencm3/stm32/flash.h>
 
 /* Memory Size Register */
-#define MEMORY_SIZE_REG			MMIO32(DESIG_FLASH_SIZE_BASE)
+#define MEMORY_SIZE_REG			MMIO16(DESIG_FLASH_SIZE_BASE)
 
 /*---------------------------------------------------------------------------*/
 /** @brief Enable the FLASH Half Cycle Mode
