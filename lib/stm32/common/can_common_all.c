@@ -62,6 +62,12 @@ can_reg_base.
  */
 void can_reset(uint32_t canport)
 {
+#if defined(STM32F0)
+	(void) canport;
+
+	rcc_peripheral_reset(&RCC_APB1RSTR, RCC_APB1RSTR_CANRST);
+	rcc_peripheral_clear_reset(&RCC_APB1RSTR, RCC_APB1RSTR_CANRST);
+#else
 	if (canport == CAN1) {
 		rcc_peripheral_reset(&RCC_APB1RSTR, RCC_APB1RSTR_CAN1RST);
 		rcc_peripheral_clear_reset(&RCC_APB1RSTR, RCC_APB1RSTR_CAN1RST);
@@ -69,6 +75,7 @@ void can_reset(uint32_t canport)
 		rcc_peripheral_reset(&RCC_APB1RSTR, RCC_APB1RSTR_CAN2RST);
 		rcc_peripheral_clear_reset(&RCC_APB1RSTR, RCC_APB1RSTR_CAN2RST);
 	}
+#endif
 }
 
 /*---------------------------------------------------------------------------*/
