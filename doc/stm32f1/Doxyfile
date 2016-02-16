@@ -27,8 +27,7 @@ EXCLUDE                = ../../include/libopencm3/stm32/f1/usb.h \
                          ../../include/libopencm3/stm32/common/crs_common_all.h
 
 EXCLUDE	+=	../../lib/stm32/common/crs_common_all.c \
-		../../lib/stm32/common/rtc_common_l1f024.c \
-		../../lib/stm32/common/
+		../../lib/stm32/common/rtc_common_l1f024.c
 
 EXCLUDE_PATTERNS       = *_common_*f24.h *_common_*f24.c \
                          *_common_*f234.h *_common_*f234.c \
