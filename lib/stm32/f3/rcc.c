@@ -52,6 +52,7 @@ const struct rcc_clock_scale rcc_hsi_8mhz[RCC_CLOCK_END] = {
 		.ppre1 = RCC_CFGR_PPRE1_DIV_2,
 		.ppre2 = RCC_CFGR_PPRE2_DIV_NONE,
 		.flash_config = FLASH_ACR_PRFTBE | FLASH_ACR_LATENCY_1WS,
+		.ahb_frequency	= 44000000,
 		.apb1_frequency = 22000000,
 		.apb2_frequency = 44000000,
 	},
@@ -62,6 +63,7 @@ const struct rcc_clock_scale rcc_hsi_8mhz[RCC_CLOCK_END] = {
 		.ppre1 = RCC_CFGR_PPRE1_DIV_2,
 		.ppre2 = RCC_CFGR_PPRE2_DIV_NONE,
 		.flash_config = FLASH_ACR_PRFTBE | FLASH_ACR_LATENCY_1WS,
+		.ahb_frequency	= 48000000,
 		.apb1_frequency = 24000000,
 		.apb2_frequency = 48000000,
 	},
@@ -72,6 +74,7 @@ const struct rcc_clock_scale rcc_hsi_8mhz[RCC_CLOCK_END] = {
 		.ppre1 = RCC_CFGR_PPRE1_DIV_2,
 		.ppre2 = RCC_CFGR_PPRE2_DIV_NONE,
 		.flash_config = FLASH_ACR_PRFTBE | FLASH_ACR_LATENCY_2WS,
+		.ahb_frequency	= 64000000,
 		.apb1_frequency = 32000000,
 		.apb2_frequency = 64000000,
 	}
@@ -424,6 +427,7 @@ void rcc_clock_setup_hsi(const struct rcc_clock_scale *clock)
 	rcc_wait_for_sysclk_status(RCC_PLL);
 
 	/* Set the peripheral clock frequencies used. */
+	rcc_ahb_frequency  = clock->ahb_frequency;
 	rcc_apb1_frequency = clock->apb1_frequency;
 	rcc_apb2_frequency = clock->apb2_frequency;
 }
