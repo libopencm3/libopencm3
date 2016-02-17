@@ -58,6 +58,7 @@ const struct rcc_clock_scale rcc_clock_config[RCC_CLOCK_CONFIG_END] = {
 		.ppre2 = RCC_CFGR_PPRE2_HCLK_NODIV,
 		.voltage_scale = PWR_SCALE1,
 		.flash_config = FLASH_ACR_LATENCY_1WS,
+		.ahb_frequency	= 24000000,
 		.apb1_frequency = 24000000,
 		.apb2_frequency = 24000000,
 	},
@@ -70,6 +71,7 @@ const struct rcc_clock_scale rcc_clock_config[RCC_CLOCK_CONFIG_END] = {
 		.ppre2 = RCC_CFGR_PPRE2_HCLK_NODIV,
 		.voltage_scale = PWR_SCALE1,
 		.flash_config = FLASH_ACR_LATENCY_1WS,
+		.ahb_frequency	= 32000000,
 		.apb1_frequency = 32000000,
 		.apb2_frequency = 32000000,
 	},
@@ -79,6 +81,7 @@ const struct rcc_clock_scale rcc_clock_config[RCC_CLOCK_CONFIG_END] = {
 		.ppre2 = RCC_CFGR_PPRE2_HCLK_NODIV,
 		.voltage_scale = PWR_SCALE1,
 		.flash_config = FLASH_ACR_LATENCY_0WS,
+		.ahb_frequency	= 16000000,
 		.apb1_frequency = 16000000,
 		.apb2_frequency = 16000000,
 	},
@@ -88,6 +91,7 @@ const struct rcc_clock_scale rcc_clock_config[RCC_CLOCK_CONFIG_END] = {
 		.ppre2 = RCC_CFGR_PPRE2_HCLK_NODIV,
 		.voltage_scale = PWR_SCALE1,
 		.flash_config = FLASH_ACR_LATENCY_0WS,
+		.ahb_frequency	= 4000000,
 		.apb1_frequency = 4000000,
 		.apb2_frequency = 4000000,
 	},
@@ -97,6 +101,7 @@ const struct rcc_clock_scale rcc_clock_config[RCC_CLOCK_CONFIG_END] = {
 		.ppre2 = RCC_CFGR_PPRE2_HCLK_NODIV,
 		.voltage_scale = PWR_SCALE1,
 		.flash_config = FLASH_ACR_LATENCY_0WS,
+		.ahb_frequency	= 4194000,
 		.apb1_frequency = 4194000,
 		.apb2_frequency = 4194000,
 		.msi_range = RCC_ICSCR_MSIRANGE_4MHZ,
@@ -107,6 +112,7 @@ const struct rcc_clock_scale rcc_clock_config[RCC_CLOCK_CONFIG_END] = {
 		.ppre2 = RCC_CFGR_PPRE2_HCLK_NODIV,
 		.voltage_scale = PWR_SCALE1,
 		.flash_config = FLASH_ACR_LATENCY_0WS,
+		.ahb_frequency	= 2097000,
 		.apb1_frequency = 2097000,
 		.apb2_frequency = 2097000,
 		.msi_range = RCC_ICSCR_MSIRANGE_2MHZ,
@@ -479,6 +485,7 @@ void rcc_clock_setup_msi(const struct rcc_clock_scale *clock)
 	flash_set_ws(clock->flash_config);
 
 	/* Set the peripheral clock frequencies used. */
+	rcc_ahb_frequency  = clock->ahb_frequency;
 	rcc_apb1_frequency = clock->apb1_frequency;
 	rcc_apb2_frequency = clock->apb2_frequency;
 }
@@ -510,6 +517,7 @@ void rcc_clock_setup_hsi(const struct rcc_clock_scale *clock)
 	flash_set_ws(clock->flash_config);
 
 	/* Set the peripheral clock frequencies used. */
+	rcc_ahb_frequency  = clock->ahb_frequency;
 	rcc_apb1_frequency = clock->apb1_frequency;
 	rcc_apb2_frequency = clock->apb2_frequency;
 }
@@ -553,6 +561,7 @@ void rcc_clock_setup_pll(const struct rcc_clock_scale *clock)
 	rcc_set_sysclk_source(RCC_CFGR_SW_SYSCLKSEL_PLLCLK);
 
 	/* Set the peripheral clock frequencies used. */
+	rcc_ahb_frequency  = clock->ahb_frequency;
 	rcc_apb1_frequency = clock->apb1_frequency;
 	rcc_apb2_frequency = clock->apb2_frequency;
 }
