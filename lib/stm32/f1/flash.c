@@ -59,6 +59,7 @@
 
 /**@{*/
 
+#include <libopencm3/stm32/desig.h>
 #include <libopencm3/stm32/flash.h>
 
 /*---------------------------------------------------------------------------*/
@@ -96,7 +97,7 @@ It is locked by default on reset.
 
 void flash_unlock_upper(void)
 {
-	if (MEMORY_SIZE_REG > 512) {
+	if (DESIG_FLASH_SIZE > 512) {
 
 		/* Clear the unlock state. */
 		FLASH_CR2 |= FLASH_CR_LOCK;
@@ -125,7 +126,7 @@ void flash_lock_upper(void)
 
 void flash_clear_pgerr_flag_upper(void)
 {
-	if (MEMORY_SIZE_REG > 512) {
+	if (DESIG_FLASH_SIZE > 512) {
 		FLASH_SR2 |= FLASH_SR_PGERR;
 	}
 }
@@ -137,7 +138,7 @@ void flash_clear_pgerr_flag_upper(void)
 
 void flash_clear_eop_flag_upper(void)
 {
-	if (MEMORY_SIZE_REG > 512) {
+	if (DESIG_FLASH_SIZE > 512) {
 		FLASH_SR2 |= FLASH_SR_EOP;
 	}
 }
@@ -149,7 +150,7 @@ void flash_clear_eop_flag_upper(void)
 
 void flash_clear_wrprterr_flag_upper(void)
 {
-	if (MEMORY_SIZE_REG > 512) {
+	if (DESIG_FLASH_SIZE > 512) {
 		FLASH_SR2 |= FLASH_SR_WRPRTERR;
 	}
 }
@@ -161,7 +162,7 @@ void flash_clear_wrprterr_flag_upper(void)
 
 void flash_clear_bsy_flag_upper(void)
 {
-	if (MEMORY_SIZE_REG > 512) {
+	if (DESIG_FLASH_SIZE > 512) {
 		FLASH_SR2 &= ~FLASH_SR_BSY;
 	}
 }
@@ -178,7 +179,7 @@ void flash_clear_status_flags(void)
 	flash_clear_eop_flag();
 	flash_clear_wrprterr_flag();
 	flash_clear_bsy_flag();
-	if (MEMORY_SIZE_REG > 512) {
+	if (DESIG_FLASH_SIZE > 512) {
 		flash_clear_pgerr_flag_upper();
 		flash_clear_eop_flag_upper();
 		flash_clear_wrprterr_flag_upper();
@@ -205,7 +206,7 @@ uint32_t flash_get_status_flags(void)
 			FLASH_SR_EOP |
 			FLASH_SR_WRPRTERR |
 			FLASH_SR_BSY));
-	if (MEMORY_SIZE_REG > 512) {
+	if (DESIG_FLASH_SIZE > 512) {
 		flags |= (FLASH_SR2 & (FLASH_SR_PGERR |
 			FLASH_SR_EOP |
 			FLASH_SR_WRPRTERR |
@@ -232,7 +233,7 @@ void flash_program_half_word(uint32_t address, uint16_t data)
 {
 	flash_wait_for_last_operation();
 
-	if ((MEMORY_SIZE_REG > 512) && (address >= FLASH_BASE+0x00080000)) {
+	if ((DESIG_FLASH_SIZE > 512) && (address >= FLASH_BASE+0x00080000)) {
 		FLASH_CR2 |= FLASH_CR_PG;
 	} else {
 		FLASH_CR |= FLASH_CR_PG;
@@ -242,7 +243,7 @@ void flash_program_half_word(uint32_t address, uint16_t data)
 
 	flash_wait_for_last_operation();
 
-	if ((MEMORY_SIZE_REG > 512) && (address >= FLASH_BASE+0x00080000)) {
+	if ((DESIG_FLASH_SIZE > 512) && (address >= FLASH_BASE+0x00080000)) {
 		FLASH_CR2 &= ~FLASH_CR_PG;
 	} else {
 		FLASH_CR &= ~FLASH_CR_PG;
@@ -266,7 +267,7 @@ void flash_erase_page(uint32_t page_address)
 {
 	flash_wait_for_last_operation();
 
-	if ((MEMORY_SIZE_REG > 512)
+	if ((DESIG_FLASH_SIZE > 512)
 	    && (page_address >= FLASH_BASE+0x00080000)) {
 		FLASH_CR2 |= FLASH_CR_PER;
 		FLASH_AR2 = page_address;
@@ -279,7 +280,7 @@ void flash_erase_page(uint32_t page_address)
 
 	flash_wait_for_last_operation();
 
-	if ((MEMORY_SIZE_REG > 512)
+	if ((DESIG_FLASH_SIZE > 512)
 	    && (page_address >= FLASH_BASE+0x00080000)) {
 		FLASH_CR2 &= ~FLASH_CR_PER;
 	} else {
