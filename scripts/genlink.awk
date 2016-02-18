@@ -23,6 +23,7 @@
 
 BEGIN {
 	PAT = tolower(PAT);
+	family = PAT;
 }
 !/^#/{
 	#remove cr on windows
@@ -35,6 +36,8 @@ BEGIN {
 	tolower(tmp);
 
 	if (PAT ~ tmp) {
+		if ("CPPFLAGS" == MODE)
+			printf "-D%s ",toupper(PAT);
 		if ($2 != "+")
 			PAT=$2;
                 for (i = 3; i <= NF; i = i + 1) {
@@ -67,9 +70,7 @@ BEGIN {
 		else{
 			subfamily = family;
 			family = PAT;
-	                if ("CPPFLAGS" == MODE)
-				printf "-D%s ",toupper(PAT);
-			else if("DEFS" == MODE)
+	                if("DEFS" == MODE)
 				printf "-D%s ",toupper(PAT);
 		}
 	}
