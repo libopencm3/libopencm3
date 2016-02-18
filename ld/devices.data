@@ -126,6 +126,7 @@ stm32f401?d* stm32f4 ROM=384K RAM=96K
 stm32f401?e* stm32f4 ROM=512K RAM=96K
 stm32f4[01][57]?e* stm32f4ccm ROM=512K RAM=128K CCM=64K
 stm32f4[01][57]?g* stm32f4ccm ROM=1024K RAM=128K CCM=64K
+stm32f411re stm32f4 ROM=512K RAM=128K
 stm32f4[23][79]?g* stm32f4ccm ROM=1024K RAM=192K CCM=64K
 stm32f4[23][79]?i* stm32f4ccm ROM=2048K RAM=192K CCM=64K
 
@@ -222,6 +223,39 @@ lpc1786* lpc178x ROM=256K RAM=64K RAM1=16K
 lpc1787* lpc178x ROM=512K RAM=64K RAM1=16K RAM2=16K
 lpc1788* lpc178x ROM=512K RAM=64K RAM1=16K RAM2=16K
 
+lpc4370* lpc43xx RAM=128K RAM1=72K RAM2=32K RAM3=16K
+lpc4350* lpc43xx RAM=128K RAM1=72K RAM2=32K RAM3=16K
+lpc4330* lpc43xx RAM=128K RAM1=72K RAM2=32K RAM3=16K
+lpc4320* lpc43xx RAM=96K RAM1=40K RAM2=32K RAM3=16K
+lpc4310* lpc43xx RAM=96K RAM1=40K RAM2=16K
+lpc43S70* lpc43xx RAM=128K RAM1=72K RAM2=32K RAM3=16K
+lpc43S50* lpc43xx RAM=128K RAM1=72K RAM2=32K RAM3=16K
+lpc43S30* lpc43xx RAM=128K RAM1=72K RAM2=32K RAM3=16K
+lpc43S20* lpc43xx RAM=96K RAM1=40K RAM2=32K RAM3=16K
+lpc43S10* lpc43xx RAM=96K RAM1=40K RAM2=16K
+lpc4367* lpc43xx ROM=512K ROM1=512K RAM=32K RAM1=40K RAM2=32K RAM3=16K
+lpc4357* lpc43xx ROM=512K ROM1=512K RAM=32K RAM1=40K RAM2=32K RAM3=16K
+lpc4355* lpc43xx ROM=384K ROM1=384K RAM=32K RAM1=40K RAM2=32K RAM3=16K
+lpc4353* lpc43xx ROM=256K ROM1=256K RAM=32K RAM1=40K RAM2=32K RAM3=16K
+lpc4352* lpc43xx ROM=512K RAM=32K RAM1=40K RAM2=32K RAM3=16K
+lpc4350* lpc43xx RAM=32K RAM1=40K RAM2=32K RAM3=16K
+lpc4337* lpc43xx ROM=512K ROM1=512K RAM=32K RAM1=40K RAM2=32K RAM3=16K
+lpc4335* lpc43xx ROM=384K ROM1=384K RAM=32K RAM1=40K RAM2=32K RAM3=16K
+lpc4333* lpc43xx ROM=256K ROM1=256K RAM=32K RAM1=40K RAM2=32K RAM3=16K
+lpc4332* lpc43xx ROM=512K RAM=32K RAM1=40K RAM2=32K RAM3=16K
+lpc4330* lpc43xx RAM=32K RAM1=40K RAM2=32K RAM3=16K
+lpc4327* lpc43xx ROM=512K ROM1=512K RAM=32K RAM1=40K RAM2=32K RAM3=16K
+lpc4325* lpc43xx ROM=384K ROM1=384K RAM=32K RAM1=40K RAM2=32K RAM3=16K
+lpc4323* lpc43xx ROM=256K ROM1=256K RAM=32K RAM1=40K RAM2=16K
+lpc4322* lpc43xx ROM=512K RAM=32K RAM1=40K RAM2=16K
+lpc4317* lpc43xx ROM=512K ROM1=512K RAM=32K RAM1=40K RAM2=32K RAM3=16K
+lpc4315* lpc43xx ROM=384K ROM1=384K RAM=32K RAM1=40K RAM2=32K RAM3=16K
+lpc4313* lpc43xx ROM=256K ROM1=256K RAM=32K RAM1=40K RAM2=16K
+lpc4312* lpc43xx ROM=512K RAM=32K RAM1=40K RAM2=16K
+lpc43S67* lpc43xx ROM=512K ROM1=512K RAM=32K RAM1=40K RAM2=32K RAM3=16K
+lpc43S57* lpc43xx RAM=32K RAM1=40K RAM2=32K RAM3=16K
+lpc43S37* lpc43xx RAM=32K RAM1=40K RAM2=32K RAM3=16K
+
 ################################################################################
 # the efm32 chips
 
@@ -308,12 +342,21 @@ lm3s1601 lm3fury ROM=128K RAM=32K
 lm3s1607 lm3fury ROM=128K RAM=32K
 lm3s1608 lm3fury ROM=128K RAM=32K
 lm3s1620 lm3fury ROM=128K RAM=32K
+lm3s3748 lm3fury ROM=128K RAM=64K
 lm3s8962 lm3fury ROM=256K RAM=64K
+
+lm4f120xl lm4f ROM=128K RAM=32K
+
 
 ################################################################################
 # the TI cortex R4F chips
 
 rm46l852* rm46l ROM=1280K RAM=192K
+
+################################################################################
+# NXP/Freescale Vybrid VF6xx parts. (Cortex A5+M4 pair)
+
+vf610 vf6xx RAM=256K RAM1=256K RAM_OFF=0x1f000000 RAM1_OFF=0x3f040000
 
 ################################################################################
 ################################################################################
@@ -332,11 +375,14 @@ sam3xnfc sam3x NFCRAM=4K NFCRAM_OFF=0x20100000
 ################################################################################
 # the lpc family groups
 
-
+lpc13 lpc13xx
 lpc13u lpc13xx USBRAM_OFF=0x20004000
 
 lpc17[56]x lpc17xx RAM1_OFF=0x2007C000 RAM2_OFF=0x20080000
 lpc17[78]x lpc17xx RAM1_OFF=0x20000000 RAM2_OFF=0x20040000
+
+lpc43xx_m0 lpc43xx CPU=cortex-m0 FPU=soft
+lpc43xx_m4 lpc43xx CPU=cortex-m4 FPU=hard-fp4-sp-d16
 
 ################################################################################
 ################################################################################
@@ -370,6 +416,9 @@ sam3x END ROM_OFF=0x00080000 RAM_OFF=0x20000000 RAM1_OFF=0x20080000 CPU=cortex-m
 
 lpc13xx END ROM_OFF=0x00000000 RAM_OFF=0x10000000 RAM1_OFF=0x20000000 CPU=cortex-m3 FPU=soft
 lpc17xx END ROM_OFF=0x00000000 RAM_OFF=0x10000000 CPU=cortex-m3 FPU=soft
+lpc43xx + ROM_OFF=0x1A000000 ROM1_OFF=0x1B000000 RAM_OFF=0x10000000 RAM1_OFF=0x10080000
+lpc43xx + RAM2_OFF=0x20000000 RAM3_OFF=0x20008000
+lpc43xx END CPU=cortex-m4 FPU=hard-fpv4-sp-d16
 
 ################################################################################
 # the efm32 Gecko families
@@ -382,14 +431,20 @@ efm32gg END ROM_OFF=0x00000000 RAM_OFF=0x20000000 RAM1_OFF=0x10000000 CPU=cortex
 efm32wg END ROM_OFF=0x00000000 RAM_OFF=0x20000000 RAM1_OFF=0x10000000 CPU=cortex-m4 FPU=hard-fpv4-sp-d16
 
 ################################################################################
-# Cortex LM3 families
+# Cortex LM3 and LM4 families
 
 lm3fury lm3s
 lm3sandstorm lm3s
 lm3s END ROM_OFF=0x00000000 RAM_OFF=0x20000000 CPU=cortex-m3 FPU=soft
+lm4f END ROM_OFF=0x00000000 RAM_OFF=0x20000000 CPU=cortex-m4 FPU=hard-fpv4-sp-d16
 
 
 ################################################################################
 # Cortex R4F families
 
 rm46l END ROM_OFF=0x00000000 RAM_OFF=0x08000000 RAM1_OFF=0x08400000
+
+################################################################################
+# VF6xx families
+
+vf6xx END CPU=cortex-m4 FPU=hard-fpv4-sp-d16
