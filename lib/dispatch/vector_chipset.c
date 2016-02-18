@@ -12,7 +12,10 @@
 #	include "../lpc43xx/m4/vector_chipset.c"
 #elif defined(VF6XX)
 #	include "../vf6xx/vector_chipset.c"
-
+#elif defined(EFM32WG)
+#	include "../efm32/wg/vector_chipset.c"
+#elif defined(EZR32WG)
+#	include "../efm32/ezr32wg/vector_chipset.c"
 #else
 
 static void pre_main(void) {}

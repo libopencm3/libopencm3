@@ -23,6 +23,7 @@ LIBNAME		= libopencm3_efm32wg
 SRCLIBDIR	?= ../..
 FAMILY		= EFM32WG
 
+FP_FLAGS        ?= -mfloat-abi=hard -mfpu=fpv4-sp-d16
 PREFIX		?= arm-none-eabi
 #PREFIX		?= arm-elf
 CC		= $(PREFIX)-gcc
