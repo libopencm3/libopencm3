@@ -59,7 +59,7 @@ else
 ifneq (,$(wildcard $(OPENCM3_DIR)/lib/libopencm3_$(genlink_subfamily).a))
 LDLIBS += -lopencm3_$(genlink_subfamily)
 else
-$(warning $(OPENCM3_DIR)/lib/libopencm3_$(genlink_subfamily).a library variant for the selected device does not exist.)
+$(warning $(OPENCM3_DIR)/lib/libopencm3_$(genlink_family).a library variant for the selected device does not exist.)
 endif
 endif
 
