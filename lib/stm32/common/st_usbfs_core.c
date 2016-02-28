@@ -42,21 +42,23 @@ void st_usbfs_set_address(usbd_device *dev, uint8_t addr)
  *
  * @param ep Index of endpoint to configure.
  * @param size Size in bytes of the RX buffer.
+ * @return size of the actual reserved memory
  */
-void st_usbfs_set_ep_rx_bufsize(usbd_device *dev, uint8_t ep, uint32_t size)
+uint16_t st_usbfs_set_ep_rx_bufsize(usbd_device *dev, uint8_t ep, uint32_t size)
 {
 	(void)dev;
 	if (size > 62) {
 		if (size & 0x1f) {
-			size -= 32;
+			size &= ~0x1F;
+		} else {
+			size -=0x20;
 		}
 		USB_SET_EP_RX_COUNT(ep, (size << 5) | 0x8000);
+		size += 0x20;
 	} else {
-		if (size & 1) {
-			size++;
-		}
-		USB_SET_EP_RX_COUNT(ep, size << 10);
+		USB_SET_EP_RX_COUNT(ep, size << 9);
 	}
+	return size;
 }
 
 void st_usbfs_ep_setup(usbd_device *dev, uint8_t addr, uint8_t type,
@@ -73,7 +75,8 @@ void st_usbfs_ep_setup(usbd_device *dev, uint8_t addr, uint8_t type,
 	};
 	uint8_t dir = addr & 0x80;
 	addr &= 0x7f;
-
+	/* Endpoint size should be 2-byte aligned */
+	if (max_size & 0x01) max_size++;
 	/* Assign address. */
 	USB_SET_EP_ADDR(addr, addr);
 	USB_SET_EP_TYPE(addr, typelookup[type]);
@@ -91,14 +94,13 @@ void st_usbfs_ep_setup(usbd_device *dev, uint8_t addr, uint8_t type,
 
 	if (!dir) {
 		USB_SET_EP_RX_ADDR(addr, dev->pm_top);
-		st_usbfs_set_ep_rx_bufsize(dev, addr, max_size);
+		dev->pm_top += st_usbfs_set_ep_rx_bufsize(dev, addr, max_size);
 		if (callback) {
 			dev->user_callback_ctr[addr][USB_TRANSACTION_OUT] =
 			    (void *)callback;
 		}
 		USB_CLR_EP_RX_DTOG(addr);
 		USB_SET_EP_RX_STAT(addr, USB_EP_RX_STAT_VALID);
-		dev->pm_top += max_size;
 	}
 }
 
