@@ -280,7 +280,12 @@ tim_reg_base
 
 void timer_clear_flag(uint32_t timer_peripheral, uint32_t flag)
 {
-	TIM_SR(timer_peripheral) &= ~flag;
+	/* Avoid R-M-W operation !*/
+	TIM_SR(timer_peripheral) = ~flag;
+	/* Paranoid version : set reserved bits to "Reset value" (0)
+	 * by masking out undefined flags :
+	 * TIM_SR(timer_peripheral) = ~flag & (TIM_SR_ALL_FLAGS);
+	 */
 }
 
 /*---------------------------------------------------------------------------*/
