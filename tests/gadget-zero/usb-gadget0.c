@@ -34,10 +34,10 @@
 #ifdef ER_DEBUG
 #include <stdio.h>
 #define ER_DPRINTF(fmt, ...) \
-    do { printf(fmt, ## __VA_ARGS__); } while (0)
+	do { printf(fmt, ## __VA_ARGS__); } while (0)
 #else
 #define ER_DPRINTF(fmt, ...) \
-    do { } while (0)
+	do { } while (0)
 #endif
 
 /*

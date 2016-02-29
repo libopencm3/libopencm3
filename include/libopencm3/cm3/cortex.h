@@ -165,7 +165,7 @@ static inline uint32_t __cm_atomic_set(uint32_t *val)
 }
 
 #define __CM_SAVER(state)					\
-	__val = state,						\
+	__val = (state),					\
 	__save __attribute__((__cleanup__(__cm_atomic_set))) =	\
 	__cm_atomic_set(&__val)
 
