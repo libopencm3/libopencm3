@@ -139,6 +139,9 @@ void st_usbfs_ep_stall_set(usbd_device *dev, uint8_t addr,
 		/* Reset to DATA0 if clearing stall condition. */
 		if (!stall) {
 			USB_CLR_EP_RX_DTOG(addr);
+		} else {
+		/* clearing CTR_RX when stalling rx transaction */
+			USB_CLR_EP_RX_CTR(addr);
 		}
 
 		USB_SET_EP_RX_STAT(addr, stall ? USB_EP_RX_STAT_STALL :
