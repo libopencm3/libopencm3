@@ -280,7 +280,8 @@ tim_reg_base
 
 void timer_clear_flag(uint32_t timer_peripheral, uint32_t flag)
 {
-	TIM_SR(timer_peripheral) &= ~flag;
+	/* All defined bits are rc_w0 */
+	TIM_SR(timer_peripheral) = ~flag;
 }
 
 /*---------------------------------------------------------------------------*/

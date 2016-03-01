@@ -161,14 +161,20 @@ this function as its current value cannot be ascertained from the hardware.
 
 @param[in] swjdisable Unsigned int8. Disable parts of the SWJ capability @ref
 afio_swj_disable.
-@param[in] maps Unsigned int32. Bitwise OR of map enable controls from @ref
-afio_remap, @ref afio_remap_can1, @ref afio_remap_tim3, @ref afio_remap_tim2,
-@ref afio_remap_tim1, @ref afio_remap_usart3. For connectivity line devices
-only @ref afio_remap_cld are also available.
+@param[in] maps Unsigned int32. Bitwise OR of map enable controls you wish to
+enable from @ref afio_remap, @ref afio_remap_can1, @ref afio_remap_tim3,
+@ref afio_remap_tim2, @ref afio_remap_tim1, @ref afio_remap_usart3. For
+connectivity line devices only @ref afio_remap_cld are also available.
 */
 void gpio_primary_remap(uint32_t swjdisable, uint32_t maps)
 {
-	AFIO_MAPR |= (swjdisable & AFIO_MAPR_SWJ_MASK) | (maps & 0x1FFFFF);
+	/*
+	 * the SWJ_CFG bits are write only.  (read is explicitly undefined)
+	 * To be sure we set only the bits we want we must clear them first.
+	 * However, we are still trying to only enable the map bits desired.
+	 */
+	uint32_t reg = AFIO_MAPR & ~AFIO_MAPR_SWJ_MASK;
+	AFIO_MAPR = reg | swjdisable | maps;
 }
 
 /*---------------------------------------------------------------------------*/

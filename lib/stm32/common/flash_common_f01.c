@@ -164,8 +164,8 @@ Status bit polling is used to detect end of operation.
 
 void flash_program_word(uint32_t address, uint32_t data)
 {
-    flash_program_half_word(address, (uint16_t)data);
-    flash_program_half_word(address+2, (uint16_t)(data>>16));
+	flash_program_half_word(address, (uint16_t)data);
+	flash_program_half_word(address+2, (uint16_t)(data>>16));
 }
 
 /*---------------------------------------------------------------------------*/
