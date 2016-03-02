@@ -25,6 +25,10 @@
 #	include "../efm32/lg/vector_nvic.c"
 #elif defined(EFM32GG)
 #	include "../efm32/gg/vector_nvic.c"
+#elif defined(EFM32WG)
+#	include "../efm32/wg/vector_nvic.c"
+#elif defined(EZR32WG)
+#	include "../efm32/ezr32wg/vector_nvic.c"
 
 #elif defined(LPC13XX)
 #	include "../lpc13xx/vector_nvic.c"

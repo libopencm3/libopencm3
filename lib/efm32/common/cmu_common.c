@@ -207,16 +207,16 @@ void cmu_set_hfclk_source(enum cmu_osc osc)
 {
 	switch (osc) {
 	case HFXO:
-		CMU_CMD = CMU_CMD_HFCLKSEL_HFXO;
+		CMU_CMD = CMU_CMD_HFCLKSEL(CMU_CMD_HFCLKSEL_HFXO);
 		break;
 	case HFRCO:
-		CMU_CMD = CMU_CMD_HFCLKSEL_HFRCO;
+		CMU_CMD = CMU_CMD_HFCLKSEL(CMU_CMD_HFCLKSEL_HFRCO);
 		break;
 	case LFXO:
-		CMU_CMD = CMU_CMD_HFCLKSEL_LFXO;
+		CMU_CMD = CMU_CMD_HFCLKSEL(CMU_CMD_HFCLKSEL_LFXO);
 		break;
 	case LFRCO:
-		CMU_CMD = CMU_CMD_HFCLKSEL_LFRCO;
+		CMU_CMD = CMU_CMD_HFCLKSEL(CMU_CMD_HFCLKSEL_LFRCO);
 		break;
 	default:
 		/* not applicable */

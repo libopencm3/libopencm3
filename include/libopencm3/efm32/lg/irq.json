@@ -38,7 +38,8 @@
         "lcd", 
         "msc", 
         "aes", 
-        "ebi"
+        "ebi",
+        "emu"
     ], 
     "partname_humanreadable": "EFM32 Leopard Gecko series", 
     "partname_doxygen": "EFM32LG", 

@@ -308,7 +308,7 @@ void dma_disable_done_interrupt(enum dma_ch ch)
 void dma_set_source(enum dma_ch ch, uint32_t source)
 {
 	DMA_CHx_CTRL(ch) = (DMA_CHx_CTRL(ch) & ~DMA_CH_CTRL_SOURCESEL_MASK)
-			    | source;
+			    | DMA_CH_CTRL_SOURCESEL(source);
 }
 
 /**
@@ -319,7 +319,7 @@ void dma_set_source(enum dma_ch ch, uint32_t source)
 void dma_set_signal(enum dma_ch ch, uint32_t signal)
 {
 	DMA_CHx_CTRL(ch) = (DMA_CHx_CTRL(ch) & ~DMA_CH_CTRL_SIGSEL_MASK)
-			    | signal;
+			    | DMA_CH_CTRL_SIGSEL(signal);
 }
 
 /**

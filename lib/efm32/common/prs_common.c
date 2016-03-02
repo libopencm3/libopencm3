@@ -46,7 +46,8 @@ void prs_disable_gpio_output(enum prs_ch ch)
  */
 void prs_set_output_loc(uint32_t loc)
 {
-	PRS_ROUTE = (PRS_ROUTE & ~PRS_ROUTE_LOCATION_MASK) | loc;
+	PRS_ROUTE = (PRS_ROUTE & ~PRS_ROUTE_LOCATION_MASK) |
+                    PRS_ROUTE_LOCATION(loc);
 }
 
 /**
@@ -124,7 +125,7 @@ void prs_set_edge(enum prs_ch ch, uint32_t edge)
 void prs_set_source(enum prs_ch ch, uint32_t source)
 {
 	PRS_CHx_CTRL(ch) = (PRS_CHx_CTRL(ch) & ~PRS_CH_CTRL_SOURCESEL_MASK)
-			   | source;
+			   | PRS_CH_CTRL_SOURCESEL(source);
 }
 
 /**
@@ -136,5 +137,5 @@ void prs_set_source(enum prs_ch ch, uint32_t source)
 void prs_set_signal(enum prs_ch ch, uint32_t signal)
 {
 	PRS_CHx_CTRL(ch) = (PRS_CHx_CTRL(ch) & ~PRS_CH_CTRL_SIGSEL_MASK)
-			   | signal;
+			   | PRS_CH_CTRL_SIGSEL(signal);
 }

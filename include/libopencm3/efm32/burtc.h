@@ -19,6 +19,10 @@
 
 #if defined(EFM32LG)
 #	include <libopencm3/efm32/lg/burtc.h>
+#elif defined(EFM32WG)
+#	include <libopencm3/efm32/wg/burtc.h>
+#elif defined(EZR32WG)
+#	include <libopencm3/efm32/ezr32wg/burtc.h>
 #else
 #	error "efm32 family not defined."
 #endif

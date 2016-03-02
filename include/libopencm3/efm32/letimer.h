@@ -19,6 +19,10 @@
 
 #if defined(EFM32LG)
 #	include <libopencm3/efm32/lg/letimer.h>
+#elif defined(EFM32WG)
+#	include <libopencm3/efm32/wg/letimer.h>
+#elif defined(EZR32WG)
+#	include <libopencm3/efm32/ezr32wg/letimer.h>
 #else
 #	error "efm32 family not defined."
 #endif
