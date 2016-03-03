@@ -449,63 +449,6 @@ void adc_start_conversion_injected(uint32_t adc)
 	while (ADC_CR(adc) & ADC_CR_JADSTART);
 }
 
-/*---------------------------------------------------------------------------*/
-/** @brief ADC Set the Sample Time for a Single Channel
- *
- * The sampling time can be selected in ADC clock cycles from 1.5 to 239.5.
- *
- * @param[in] adc Unsigned int32. ADC block register address base
- * @ref adc_reg_base
- * @param[in] channel Unsigned int8. ADC Channel integer 0..18 or from
- * @ref adc_channel
- * @param[in] time Unsigned int8. Sampling time selection from
- * @ref adc_sample_rg
- */
-
-void adc_set_sample_time(uint32_t adc, uint8_t channel, uint8_t time)
-{
-	uint32_t reg32;
-
-	if (channel < 10) {
-		reg32 = ADC_SMPR2(adc);
-		reg32 &= ~(0x7 << (channel * 3));
-		reg32 |= (time << (channel * 3));
-		ADC_SMPR2(adc) = reg32;
-	} else {
-		reg32 = ADC_SMPR1(adc);
-		reg32 &= ~(0x7 << ((channel - 10) * 3));
-		reg32 |= (time << ((channel - 10) * 3));
-		ADC_SMPR1(adc) = reg32;
-	}
-}
-
-/*---------------------------------------------------------------------------*/
-/** @brief ADC Set the Sample Time for All Channels
- *
- * The sampling time can be selected in ADC clock cycles from 1.5 to 239.5,
- * same for all channels.
- *
- * @param[in] adc Unsigned int32. ADC block register address base
- * @ref adc_reg_base
- * @param[in] time Unsigned int8. Sampling time selection from
- * @ref adc_sample_rg
- */
-
-void adc_set_sample_time_on_all_channels(uint32_t adc, uint8_t time)
-{
-	uint8_t i;
-	uint32_t reg32 = 0;
-
-	for (i = 0; i <= 9; i++) {
-		reg32 |= (time << (i * 3));
-	}
-	ADC_SMPR2(adc) = reg32;
-
-	for (i = 10; i <= 17; i++) {
-		reg32 |= (time << ((i - 10) * 3));
-	}
-	ADC_SMPR1(adc) = reg32;
-}
 
 /*---------------------------------------------------------------------------*/
 /** @brief ADC Set Analog Watchdog Upper Threshold
