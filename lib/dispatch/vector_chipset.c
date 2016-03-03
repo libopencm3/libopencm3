@@ -4,6 +4,8 @@
 #	include "../stm32/f4/vector_chipset.c"
 #elif defined(STM32F7)
 #	include "../stm32/f7/vector_chipset.c"
+#elif defined(STM32L4)
+#	include "../stm32/l4/vector_chipset.c"
 #elif defined(LPC43XX_M4)
 #	include "../lpc43xx/m4/vector_chipset.c"
 #elif defined(VF6XX)
