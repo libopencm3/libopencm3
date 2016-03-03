@@ -34,5 +34,8 @@ LGPL License Terms @ref lgpl_license
 #include <libopencm3/stm32/common/usart_common_f124.h>
 #include <libopencm3/stm32/common/usart_common_all.h>
 
+#define USART6				USART6_BASE
+#define USART7				USART7_BASE
+
 #endif
 
