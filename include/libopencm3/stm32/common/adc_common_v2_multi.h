@@ -145,6 +145,28 @@ specific memorymap.h header before including this header file.*/
 #define ADC_CFGR1_EXTSEL_MASK		(0xf << ADC_CFGR1_EXTSEL_SHIFT)
 #define ADC_CFGR1_EXTSEL_VAL(x)		((x) << ADC_CFGR1_EXTSEL_SHIFT)
 
+/* ADC_SQRx Values: Regular Sequence ordering------------------------------- */
+
+#define ADC_SQR1_L_SHIFT		0
+#define ADC_SQR1_L_MASK			0xf
+#define ADC_SQRx_SQx_MASK		0x1f
+#define ADC_SQR1_SQ1_SHIFT		6
+#define ADC_SQR1_SQ2_SHIFT		12
+#define ADC_SQR1_SQ3_SHIFT		18
+#define ADC_SQR1_SQ4_SHIFT		24
+#define ADC_SQR2_SQ5_SHIFT		0
+#define ADC_SQR2_SQ6_SHIFT		6
+#define ADC_SQR2_SQ7_SHIFT		12
+#define ADC_SQR2_SQ8_SHIFT		18
+#define ADC_SQR2_SQ9_SHIFT		24
+#define ADC_SQR3_SQ10_SHIFT		0
+#define ADC_SQR3_SQ11_SHIFT		6
+#define ADC_SQR3_SQ12_SHIFT		12
+#define ADC_SQR3_SQ13_SHIFT		18
+#define ADC_SQR3_SQ14_SHIFT		24
+#define ADC_SQR4_SQ15_SHIFT		0
+#define ADC_SQR4_SQ16_SHIFT		6
+
 /* --- Function prototypes ------------------------------------------------- */
 
 BEGIN_DECLS
