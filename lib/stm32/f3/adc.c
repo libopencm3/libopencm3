@@ -488,52 +488,6 @@ void adc_set_watchdog_low_threshold(uint32_t adc, uint8_t threshold)
 	ADC_TR3(adc) = reg32;
 }
 
-/*---------------------------------------------------------------------------*/
-/** @brief ADC Set a Regular Channel Conversion Sequence
- *
- * Define a sequence of channels to be converted as a regular group with a
- * length from 1 to 16 channels. If this is called during conversion, the
- * current conversion is reset and conversion begins again with the newly
- * defined group.
- *
- * @param[in] adc Unsigned int32. ADC block register address base
- * @ref adc_reg_base
- * @param[in] length Unsigned int8. Number of channels in the group.
- * @param[in] channel Unsigned int8[]. Set of channels in sequence, integers
- * 0..18.
- */
-
-void adc_set_regular_sequence(uint32_t adc, uint8_t length, uint8_t channel[])
-{
-	uint32_t reg32_1 = 0, reg32_2 = 0, reg32_3 = 0, reg32_4 = 0;
-	uint8_t i = 0;
-
-	/* Maximum sequence length is 16 channels. */
-	if (length > 16) {
-		return;
-	}
-
-	for (i = 1; i <= length; i++) {
-		if (i <= 4) {
-			reg32_1 |= (channel[i - 1] << (i * 6));
-		}
-		if ((i > 4) & (i <= 9)) {
-			reg32_2 |= (channel[i - 1] << ((i - 4 - 1) * 6));
-		}
-		if ((i > 9) & (i <= 14)) {
-			reg32_3 |= (channel[i - 1] << ((i - 9 - 1) * 6));
-		}
-		if ((i > 14) & (i <= 16)) {
-			reg32_4 |= (channel[i - 1] << ((i - 14 - 1) * 6));
-		}
-	}
-	reg32_1 |= ((length - 1) << ADC_SQR1_L_LSB);
-
-	ADC_SQR1(adc) = reg32_1;
-	ADC_SQR2(adc) = reg32_2;
-	ADC_SQR3(adc) = reg32_3;
-	ADC_SQR4(adc) = reg32_4;
-}
 
 /*---------------------------------------------------------------------------*/
 /** @brief ADC Set an Injected Channel Conversion Sequence
