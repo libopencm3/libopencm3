@@ -172,6 +172,8 @@ specific memorymap.h header before including this header file.*/
 BEGIN_DECLS
 
 void adc_set_sample_time(uint32_t adc, uint8_t channel, uint8_t time);
+void adc_enable_regulator(uint32_t adc);
+void adc_disable_regulator(uint32_t adc);
 
 END_DECLS
 

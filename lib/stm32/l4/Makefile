@@ -37,7 +37,7 @@ TGT_CFLAGS      += $(DEBUG_FLAGS)
 ARFLAGS		= rcs
 
 # Specific objs
-OBJS		= 
+OBJS		= adc.o
 
 # common/shared objs
 OBJS            += rcc_common_all.o

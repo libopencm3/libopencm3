@@ -54,6 +54,15 @@
 #define ADC_CHANNEL_VBAT	18
 /**@}*/
 
+/* ADC_CR Values ------------------------------------------------------------*/
+
+/* DEEPPWD: Deep power down */
+#define ADC_CR_DEEPPWD		(1 << 29)
+
+/* ADVREGEN: Voltage regulator enable bit */
+#define ADC_CR_ADVREGEN		(1 << 28)
+
+
 /****************************************************************************/
 /* ADC_SMPRx ADC Sample Time Selection for Channels */
 /** @defgroup adc_sample ADC Sample Time Selection values
