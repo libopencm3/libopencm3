@@ -42,7 +42,7 @@ ARFLAGS		= rcs
 
 OBJS		= rcc.o gpio.o gpio_common_all.o gpio_common_f0234.o
 
-OBJS		+= rcc_common_all.o flash_common_f234.o flash_common_f24.o usart_common_f124.o usart_common_all.o
+OBJS		+= rcc_common_all.o flash_common_f234.o flash_common_f24.o usart_f7.o usart_common_all.o
 
 VPATH += ../../usb:../:../../cm3:../common
 VPATH += ../../ethernet
