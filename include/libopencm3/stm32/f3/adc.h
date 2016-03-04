@@ -544,8 +544,6 @@ void adc_enable_external_trigger_injected(uint32_t adc, uint32_t trigger,
 bool adc_awd(uint32_t adc);
 /*void adc_set_dma_continue(uint32_t adc);*/
 /*void adc_set_dma_terminate(uint32_t adc);*/
-void adc_enable_regulator(uint32_t adc);
-void adc_disable_regulator(uint32_t adc);
 
 END_DECLS
 
