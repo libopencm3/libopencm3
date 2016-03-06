@@ -28,6 +28,7 @@
  * along with this library.  If not, see <http://www.gnu.org/licenses/>.
  */
 
+/**@{*/
 #ifndef LIBOPENCM3_GPIO_H
 #define LIBOPENCM3_GPIO_H
 
@@ -88,3 +89,4 @@ BEGIN_DECLS
 END_DECLS
 
 #endif
+/**@}*/
