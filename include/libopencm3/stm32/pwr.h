@@ -34,6 +34,8 @@
 #       include <libopencm3/stm32/l1/pwr.h>
 #elif defined(STM32L0)
 #       include <libopencm3/stm32/l0/pwr.h>
+#elif defined(STM32L4)
+#       include <libopencm3/stm32/l4/pwr.h>
 #else
 #       error "stm32 family not defined."
 #endif
