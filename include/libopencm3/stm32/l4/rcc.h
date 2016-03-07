@@ -39,7 +39,6 @@
 #ifndef LIBOPENCM3_RCC_H
 #define LIBOPENCM3_RCC_H
 
-
 /* --- RCC registers ------------------------------------------------------- */
 
 #define RCC_CR				MMIO32(RCC_BASE + 0x00)
@@ -680,8 +679,11 @@ Twelve frequency ranges are available: 100 kHz, 200 kHz, 400 kHz, 800 kHz,
 #define RCC_CSR_LSIRDY				(1 << 1)
 #define RCC_CSR_LSION				(1 << 0)
 
-
 /* --- Variable definitions ------------------------------------------------ */
+
+extern uint32_t rcc_ahb_frequency;
+extern uint32_t rcc_apb1_frequency;
+extern uint32_t rcc_apb2_frequency;
 
 /* --- Function prototypes ------------------------------------------------- */
 
@@ -906,7 +908,28 @@ enum rcc_periph_rst {
 
 BEGIN_DECLS
 
-/* TODO */
+void rcc_osc_ready_int_clear(enum rcc_osc osc);
+void rcc_osc_ready_int_enable(enum rcc_osc osc);
+void rcc_osc_ready_int_disable(enum rcc_osc osc);
+int rcc_osc_ready_int_flag(enum rcc_osc osc);
+void rcc_css_int_clear(void);
+int rcc_css_int_flag(void);
+bool rcc_is_osc_ready(enum rcc_osc osc);
+void rcc_wait_for_osc_ready(enum rcc_osc osc);
+void rcc_wait_for_sysclk_status(enum rcc_osc osc);
+void rcc_osc_on(enum rcc_osc osc);
+void rcc_osc_off(enum rcc_osc osc);
+void rcc_css_enable(void);
+void rcc_css_disable(void);
+void rcc_osc_bypass_enable(enum rcc_osc osc);
+void rcc_osc_bypass_disable(enum rcc_osc osc);
+void rcc_set_sysclk_source(uint32_t clk);
+void rcc_set_pll_source(uint32_t pllsrc);
+void rcc_set_ppre2(uint32_t ppre2);
+void rcc_set_ppre1(uint32_t ppre1);
+void rcc_set_hpre(uint32_t hpre);
+void rcc_set_main_pll(uint32_t source, uint32_t pllm, uint32_t plln, uint32_t pllp, uint32_t pllq, uint32_t pllr);
+uint32_t rcc_system_clock_source(void);
 
 END_DECLS
 
