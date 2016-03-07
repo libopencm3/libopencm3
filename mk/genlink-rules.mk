@@ -18,8 +18,5 @@
 ##
 
 $(LDSCRIPT):$(OPENCM3_DIR)/ld/linker.ld.S
-ifeq ($(GENLINK_DEFS),)
-	$(error unknown device $(DEVICE) for the linker. Cannot generate ldscript)
-endif
 	@printf "  GENLNK  $@\n"
-	$(Q)$(CPP) $(GENLINK_DEFS) -P -E $< > $@
+	$(Q)$(CPP) $(ARCH_FLAGS) $(shell awk -v PAT="$(basename $@)" -v MODE="DEFS" -f $(OPENCM3_DIR)/scripts/genlink.awk $(OPENCM3_DIR)/ld/devices.data 2>/dev/null) -P -E $< > $@

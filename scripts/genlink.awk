@@ -23,8 +23,7 @@
 
 BEGIN {
 	PAT = tolower(PAT);
-	if (length(MODE) == 0)
-		MODE = ".*";
+	family = PAT;
 }
 !/^#/{
 	#remove cr on windows
@@ -37,29 +36,42 @@ BEGIN {
 	tolower(tmp);
 
 	if (PAT ~ tmp) {
+		if ("CPPFLAGS" == MODE)
+			printf "-D%s ",toupper(PAT);
 		if ($2 != "+")
 			PAT=$2;
-
-		for (i = 3; i <= NF; i = i + 1) {
-			if ($i ~ /^-l/) {
-				if ("LIB" ~ MODE)
-					printf "%s ",$i;
+                for (i = 3; i <= NF; i = i + 1) {
+			if ($i ~ /^CPU=/) {
+				if ("CPU" == MODE){
+					sub(/[^=]*=/,"",$i);
+					printf "%s",$i;
+					exit;
+				}
 			}
-			else if ($i ~ /^-m/) {
-				if ("ARCH" ~ MODE)
-					printf "%s ",$i;
+			else if ($i ~ /^FPU=/) {
+				if ("FPU" == MODE){
+					sub(/[^=]*=/,"",$i);
+					printf "%s",$i;
+					exit;
+				}
 			}
-			else if ($i ~ /^-D/) {
-				if ("DEFS" ~ MODE)
-					printf "%s ",$i;
-			}
-			else {
-				if ("DEFS" ~ MODE)
+			else if ($i ~ /[[:upper:]]*=/) {
+				if ("DEFS" == MODE)
 					printf "-D_%s ",$i;
 			}
 		}
-
-		if (PAT=="END")
+		if (PAT=="END"){
+			if ("FAMILY" == MODE)
+				printf "%s",family;
+			else if ("SUBFAMILY" == MODE)
+				printf "%s",subfamily;
 			exit;
+		}
+		else{
+			subfamily = family;
+			family = PAT;
+	                if("DEFS" == MODE)
+				printf "-D%s ",toupper(PAT);
+		}
 	}
 }
