@@ -33,6 +33,6 @@
 #ifndef LIBOPENCM3_CRC_H
 #define LIBOPENCM3_CRC_H
 
-#include <libopencm3/stm32/common/crc_common_f03.h>
+#include <libopencm3/stm32/common/crc_v2.h>
 
 #endif

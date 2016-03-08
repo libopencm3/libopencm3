@@ -30,8 +30,8 @@
 /** @cond */
 #ifdef LIBOPENCM3_CRC_H
 /** @endcond */
-#ifndef LIBOPENCM3_CRC_COMMON_F03_H
-#define LIBOPENCM3_CRC_COMMON_F03_H
+#ifndef LIBOPENCM3_CRC_V2_H
+#define LIBOPENCM3_CRC_V2_H
 
 /**@{*/
 
@@ -104,7 +104,7 @@ END_DECLS
 #endif
 /** @cond */
 #else
-#warning "crc_common_f03.h should not be included explicitly, only via crc.h"
+#warning "crc_v2.h should not be included explicitly, only via crc.h"
 #endif
 /** @endcond */
 
