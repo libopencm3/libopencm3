@@ -82,11 +82,13 @@ void crc_set_polysize(uint32_t polysize)
 /** @brief Polynomial coefficient
 
  Set the coefficients of the polynomial to be used for CRC calculation.
- If the polynomial size is less than 32-bits, the least significant bits have to be used to program the correct value.
+ If the polynomial size is less than 32-bits, the least significant bits
+ have to be used to program the correct value.
 
- @note To obtain a reliable CRC calculation, the change on-fly of the polynomial
- value or size can not be performed during a CRC calculation. As a result, if a CRC calculation is ongoing,
- the application must either reset it or perform a CRC_DR read before changing the polynomial.
+ @note To obtain a reliable CRC calculation, any changes to the polynomial
+ value or size can not be performed during a CRC calculation.
+ As a result, if a CRC calculation is ongoing, the application must either
+ reset the crc unit it or perform a CRC_DR read before changing the polynomial.
 
  @note The default polynomial value is the CRC-32 (Ethernet) polynomial: 0x4C11DB7.
 
