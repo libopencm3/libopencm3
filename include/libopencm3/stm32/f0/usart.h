@@ -31,6 +31,8 @@
 #ifndef LIBOPENCM3_USART_H
 #define LIBOPENCM3_USART_H
 
+#include <libopencm3/stm32/common/usart_common_f03.h>
+
 /*****************************************************************************/
 /* Module definitions                                                        */
 /*****************************************************************************/

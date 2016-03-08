@@ -32,6 +32,7 @@
 #define LIBOPENCM3_USART_H
 
 #include <libopencm3/stm32/common/usart_common_all.h>
+#include <libopencm3/stm32/common/usart_common_f03.h>
 
 /* --- USART registers ----------------------------------------------------- */
 
