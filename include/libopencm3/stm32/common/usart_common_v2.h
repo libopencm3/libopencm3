@@ -28,6 +28,22 @@
 #ifndef LIBOPENCM3_USART_COMMON_V2_H
 #define LIBOPENCM3_USART_COMMON_V2_H
 
+/*****************************************************************************/
+/* Register values                                                           */
+/*****************************************************************************/
+
+/* --- USART_RTOR values --------------------------------------------------- */
+
+/* BLEN[7:0]: Block Length */
+#define USART_RTOR_BLEN_SHIFT			24
+#define USART_RTOR_BLEN_MASK			(0xFF << USART_RTOR_BLEN_SHIFT)
+#define USART_RTOR_BLEN_VAL(x)			((x) << USART_RTOR_BLEN_SHIFT)
+
+/* RTO[23:0]: Receiver timeout value */
+#define USART_RTOR_RTO_SHIFT			0
+#define USART_RTOR_RTO_MASK				(0xFFFFF << USART_RTOR_RTO_SHIFT)
+#define USART_RTOR_RTO_VAL(x)			((x) << USART_RTOR_RTO_SHIFT)
+
 /* --- Function prototypes ------------------------------------------------- */
 
 BEGIN_DECLS
@@ -40,6 +56,12 @@ void usart_enable_rx_inversion(uint32_t usart);
 void usart_disable_rx_inversion(uint32_t usart);
 void usart_enable_halfduplex(uint32_t usart);
 void usart_disable_halfduplex(uint32_t usart);
+
+void usart_set_rx_timeout_value(uint32_t usart, uint32_t value);
+void usart_enable_rx_timeout(uint32_t usart);
+void usart_disable_rx_timeout(uint32_t usart);
+void usart_enable_rx_timeout_interrupt(uint32_t usart);
+void usart_disable_rx_timeout_interrupt(uint32_t usart);
 
 END_DECLS
 

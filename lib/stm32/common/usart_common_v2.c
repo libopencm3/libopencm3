@@ -148,4 +148,81 @@ void usart_disable_halfduplex(uint32_t usart)
 	USART_CR3(usart) &= ~USART_CR3_HDSEL;
 }
 
+/*---------------------------------------------------------------------------*/
+/** @brief USART Set receiver timeout value
+
+ Sets the receive timeout value in terms of number of bit duration.
+ The RTOF @ref usart_isr_rtof is set if, after the last received character,
+ no new start bit is detected for more than the receive timeout value.
+
+ @note The timeout value can also be written when USART is enabled.
+ If the new value is lower/equals the internal hardware counter,
+ the RTOF flag will be set.
+
+ @param[in] usart USART block register address base @ref usart_reg_base
+ @param[in] value The receive timeout value in terms of number of bit duration.
+ */
+void usart_set_rx_timeout_value(uint32_t usart, uint32_t value)
+{
+	uint32_t reg;
+	reg = USART_RTOR(usart) & ~USART_RTOR_RTO_MASK;
+	reg |= (USART_RTOR_RTO_VAL(value) & USART_RTOR_RTO_MASK);
+	USART_RTOR(usart) = reg;
+}
+
+/*---------------------------------------------------------------------------*/
+/** @brief USART enable receive timeout function
+
+ @note If the USART does not support the Receiver timeout feature,
+ this bit is reserved and forced by hardware to ‘0’.
+
+ @param[in] usart USART block register address base @ref usart_reg_base
+ */
+void usart_enable_rx_timeout(uint32_t usart)
+{
+	USART_CR2(usart) |= USART_CR2_RTOEN;
+}
+
+/*---------------------------------------------------------------------------*/
+/** @brief USART disable receive timeout function
+
+ @note If the USART does not support the Receiver timeout feature,
+ this bit is reserved and forced by hardware to ‘0’.
+
+ @param[in] usart USART block register address base @ref usart_reg_base
+ */
+void usart_disable_rx_timeout(uint32_t usart)
+{
+	USART_CR2(usart) &= ~USART_CR2_RTOEN;
+}
+
+/*---------------------------------------------------------------------------*/
+/** @brief USART enable receive timeout interrupt
+
+ An interrupt is generated when the RTOF Flag is set
+ in the ISR @ref usart_isr register.
+
+ @note If the USART does not support the Receiver timeout feature,
+ this bit is reserved and forced by hardware to ‘0’.
+
+ @param[in] usart USART block register address base @ref usart_reg_base
+ */
+void usart_enable_rx_timeout_interrupt(uint32_t usart)
+{
+	USART_CR1(usart) |= USART_CR1_RTOIE;
+}
+
+/*---------------------------------------------------------------------------*/
+/** @brief USART disable receive timeout interrupt
+
+ @note If the USART does not support the Receiver timeout feature,
+ this bit is reserved and forced by hardware to ‘0’.
+
+ @param[in] usart USART block register address base @ref usart_reg_base
+ */
+void usart_disable_rx_timeout_interrupt(uint32_t usart)
+{
+	USART_CR1(usart) &= ~USART_CR1_RTOIE;
+}
+
 /**@}*/
