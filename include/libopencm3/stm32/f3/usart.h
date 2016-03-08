@@ -32,6 +32,7 @@
 #define LIBOPENCM3_USART_H
 
 #include <libopencm3/stm32/common/usart_common_all.h>
+#include <libopencm3/stm32/common/usart_common_v2.h>
 
 /* --- USART registers ----------------------------------------------------- */
 
@@ -342,14 +343,6 @@
 /* Note: N/A on UART4/5 */
 #define USART_GTPR_PSC_MASK             0xFF
 
-/* --- USART_RTOR values --------------------------------------------------- */
-
-/* XXX: Preguntar */
-/* BLEN[7:0]: Block Length */
-#define USART_RTOR_BLEN1_MASK             (0xFF << 24)
-
-/* RTO[23:0]: Receiver timeout value */
-#define USART_RTOR_BLEN2_MASK             (0xFFFF << 0)
 
 /* --- USART_RQR values --------------------------------------------------- */
 

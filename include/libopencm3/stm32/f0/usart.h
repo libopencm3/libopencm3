@@ -31,6 +31,8 @@
 #ifndef LIBOPENCM3_USART_H
 #define LIBOPENCM3_USART_H
 
+#include <libopencm3/stm32/common/usart_common_v2.h>
+
 /*****************************************************************************/
 /* Module definitions                                                        */
 /*****************************************************************************/
@@ -223,17 +225,6 @@
 #define USART_GTPR_PSC_SHIFT		0
 #define USART_GTPR_PSC			(0xFF << USART_GTPR_PSC_SHIFT)
 #define USART_GTPR_PSC_VAL(x)		((x) << USART_GTPR_PSC_SHIFT)
-
-
-/* USART_RTOR Values --------------------------------------------------------*/
-
-#define USART_RTOR_BLEN_SHIFT		24
-#define USART_RTOR_BLEN			(0xFF << USART_RTOR_BLEN_SHIFT)
-#define USART_RTOR_BLEN_VAL(x)		((x) << USART_RTOR_BLEN_SHIFT)
-
-#define USART_RTOR_RTO_SHIFT		0
-#define USART_RTOR_RTO			(0xFF << USART_RTOR_RTO_SHIFT)
-#define USART_RTOR_RTO_VAL(x)		((x) << USART_RTOR_RTO_SHIFT)
 
 /* USART_RQR Values ---------------------------------------------------------*/
 
