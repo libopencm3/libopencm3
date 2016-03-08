@@ -7,7 +7,7 @@
 /*
  * This file is part of the libopencm3 project.
  *
- * Copyright (C) 2016 Cem Basoglu <cem.basoglu@web.de
+ * Copyright (C) 2016 Cem Basoglu <cem.basoglu@web.de>
  *
  * This library is free software: you can redistribute it and/or modify
  * it under the terms of the GNU Lesser General Public License as published by
@@ -30,12 +30,12 @@
 /*---------------------------------------------------------------------------*/
 /** @brief USART enable data inversion
 
- Logical data from the data register are send/received in negative/inverse logic. (1=L, 0=H). The parity bit is also inverted.
+ Logical data from the data register are send/received in negative/inverse logic.
+ (1=L, 0=H). The parity bit is also inverted.
 
- @This bit field can only be written when the USART is disabled.
+ @note This bit field can only be written when the USART is disabled.
 
- @param[in] usart unsigned 32 bit. USART block register address base @ref
- usart_reg_base
+ @param[in] usart USART block register address base @ref usart_reg_base
  */
 void usart_enable_data_inversion(uint32_t usart)
 {
@@ -45,12 +45,12 @@ void usart_enable_data_inversion(uint32_t usart)
 /*---------------------------------------------------------------------------*/
 /** @brief USART disable data inversion
 
- Logical data from the data register are send/received in positive/direct logic. (1=H, 0=L)
+ Logical data from the data register are send/received in positive/direct logic.
+ (1=H, 0=L)
 
- @This bit field can only be written when the USART is disabled.
+ @note This bit field can only be written when the USART is disabled.
 
- @param[in] usart unsigned 32 bit. USART block register address base @ref
- usart_reg_base
+ @param[in] usart USART block register address base @ref usart_reg_base
  */
 void usart_disable_data_inversion(uint32_t usart)
 {
@@ -62,10 +62,9 @@ void usart_disable_data_inversion(uint32_t usart)
 
  TX pin signal values are inverted. (VDD =0/mark, Gnd=1/idle).
 
- @This bit field can only be written when the USART is disabled.
+ @note This bit field can only be written when the USART is disabled.
 
- @param[in] usart unsigned 32 bit. USART block register address base @ref
- usart_reg_base
+ @param[in] usart USART block register address base @ref usart_reg_base
  */
 void usart_enable_tx_inversion(uint32_t usart)
 {
@@ -77,10 +76,9 @@ void usart_enable_tx_inversion(uint32_t usart)
 
  TX pin signal works using the standard logic levels (VDD =1/idle, Gnd=0/mark)
 
- @This bit field can only be written when the USART is disabled.
+ @note This bit field can only be written when the USART is disabled.
 
- @param[in] usart unsigned 32 bit. USART block register address base @ref
- usart_reg_base
+ @param[in] usart USART block register address base @ref usart_reg_base
  */
 void usart_disable_tx_inversion(uint32_t usart)
 {
@@ -94,8 +92,7 @@ void usart_disable_tx_inversion(uint32_t usart)
 
  @This bit field can only be written when the USART is disabled.
 
- @param[in] usart unsigned 32 bit. USART block register address base @ref
- usart_reg_base
+ @param[in] usart USART block register address base @ref usart_reg_base
  */
 void usart_enable_rx_inversion(uint32_t usart)
 {
@@ -109,8 +106,7 @@ void usart_enable_rx_inversion(uint32_t usart)
 
  @This bit field can only be written when the USART is disabled.
 
- @param[in] usart unsigned 32 bit. USART block register address base @ref
- usart_reg_base
+ @param[in] usart USART block register address base @ref usart_reg_base
  */
 void usart_disable_rx_inversion(uint32_t usart)
 {
@@ -133,8 +129,7 @@ void usart_disable_rx_inversion(uint32_t usart)
 
  @This bit field can only be written when the USART is disabled.
 
- @param[in] usart unsigned 32 bit. USART block register address base @ref
- usart_reg_base
+ @param[in] usart USART block register address base @ref usart_reg_base
  */
 void usart_enable_halfduplex(uint32_t usart)
 {
@@ -146,8 +141,7 @@ void usart_enable_halfduplex(uint32_t usart)
 
  @This bit field can only be written when the USART is disabled.
 
- @param[in] usart unsigned 32 bit. USART block register address base @ref
- usart_reg_base
+ @param[in] usart USART block register address base @ref usart_reg_base
  */
 void usart_disable_halfduplex(uint32_t usart)
 {

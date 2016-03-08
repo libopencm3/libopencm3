@@ -7,7 +7,7 @@
 /*
  * This file is part of the libopencm3 project.
  *
- * Copyright (C) 2016 Cem Basoglu <cem.basoglu@web.de
+ * Copyright (C) 2016 Cem Basoglu <cem.basoglu@web.de>
  *
  * This library is free software: you can redistribute it and/or modify
  * it under the terms of the GNU Lesser General Public License as published by
@@ -25,8 +25,8 @@
 /** @cond */
 #if defined(LIBOPENCM3_USART_H)
 /** @endcond */
-#ifndef LIBOPENCM3_USART_COMMON_F03_H
-#define LIBOPENCM3_USART_COMMON_F03_H
+#ifndef LIBOPENCM3_USART_COMMON_V2_H
+#define LIBOPENCM3_USART_COMMON_V2_H
 
 /* --- Function prototypes ------------------------------------------------- */
 
@@ -46,6 +46,6 @@ END_DECLS
 #endif
 /** @cond */
 #else
-#warning "usart_common_all.h should not be included directly, only via usart.h"
+#warning "usart_common_v2.h should not be included directly, only via usart.h"
 #endif
 /** @endcond */
