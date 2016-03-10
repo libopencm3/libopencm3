@@ -44,6 +44,9 @@ OBJS		= rcc.o gpio.o gpio_common_all.o gpio_common_f0234.o
 
 OBJS		+= rcc_common_all.o flash_common_f234.o flash_common_f24.o usart_f7.o usart_common_all.o
 
+OBJS            += usb.o usb_standard.o usb_control.o usb_fx07_common.o \
+		   usb_f107.o usb_f207.o usb_msc.o
+
 VPATH += ../../usb:../:../../cm3:../common
 VPATH += ../../ethernet
 
