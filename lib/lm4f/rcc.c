@@ -92,7 +92,7 @@ Alexandru Gagniuc <mr.nuke.me@gmail.com>
  * internal 16MHz oscillator.
  *
  * High-level routines update the system clock automatically.
- * For read access, it is recommended to acces this variable via
+ * For read access, it is recommended to access this variable via
  * @code
  *	rcc_get_system_clock_frequency();
  * @endcode

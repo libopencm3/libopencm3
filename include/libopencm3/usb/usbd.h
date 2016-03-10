@@ -157,7 +157,7 @@ extern void usbd_ep_setup(usbd_device *usbd_dev, uint8_t addr, uint8_t type,
 /** Write a packet
  * @param addr EP address (direction is ignored)
  * @param len # of bytes
- * @return 0 if failed, len if succesful
+ * @return 0 if failed, len if successful
  */
 extern uint16_t usbd_ep_write_packet(usbd_device *usbd_dev, uint8_t addr,
 				const void *buf, uint16_t len);

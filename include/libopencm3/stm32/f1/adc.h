@@ -273,7 +273,7 @@ and ADC2
 /* CAL: A/D Calibration. */
 #define ADC_CR2_CAL			(1 << 2)
 
-/* CONT: Continous conversion. */
+/* CONT: Continuous conversion. */
 #define ADC_CR2_CONT			(1 << 1)
 
 /* ADON: A/D converter On/Off. */

@@ -57,7 +57,7 @@
 
 /** @defgroup CM3_mpu_type MPU TYPE register fields
  * @ingroup CM3_mpu_defines
- * The MPU_TYPE register is always avilable, even if the MPU is not implemented.
+ * The MPU_TYPE register is always available, even if the MPU is not implemented.
  * In that case, the DREGION field will read as 0.
  *@{*/
 /** v6m/v7m only support a unified MPU (IREGION always 0) */

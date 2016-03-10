@@ -252,7 +252,7 @@
 /* ADDM7:7-bit Address Detection/4-bit Address Detection */
 #define USART_CR2_ADDM7			(1 << 4)
 
-/* ADD[3:0]: Addres of the usart node
+/* ADD[3:0]: Address of the usart node
 #define USART_CR2_ADD_MASK              0xF */
 
 /* --- USART_CR3 values ---------------------------------------------------- */

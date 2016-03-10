@@ -44,7 +44,7 @@ void stm32fx07_ep_setup(usbd_device *usbd_dev, uint8_t addr, uint8_t type,
 {
 	/*
 	 * Configure endpoint address and type. Allocate FIFO memory for
-	 * endpoint. Install callback funciton.
+	 * endpoint. Install callback function.
 	 */
 	uint8_t dir = addr & 0x80;
 	addr &= 0x7f;
@@ -179,7 +179,7 @@ uint8_t stm32fx07_ep_stall_get(usbd_device *usbd_dev, uint8_t addr)
 
 void stm32fx07_ep_nak_set(usbd_device *usbd_dev, uint8_t addr, uint8_t nak)
 {
-	/* It does not make sence to force NAK on IN endpoints. */
+	/* It does not make sense to force NAK on IN endpoints. */
 	if (addr & 0x80) {
 		return;
 	}

@@ -64,7 +64,7 @@ void usart_set_baudrate(uint32_t usart, uint32_t baud)
 	/*
 	 * Yes it is as simple as that. The reference manual is
 	 * talking about fractional calculation but it seems to be only
-	 * marketting babble to sound awesome. It is nothing else but a
+	 * marketing babble to sound awesome. It is nothing else but a
 	 * simple divider to generate the correct baudrate.
 	 *
 	 * Note: We round() the value rather than floor()ing it, for more

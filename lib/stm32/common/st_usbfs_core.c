@@ -164,7 +164,7 @@ uint8_t st_usbfs_ep_stall_get(usbd_device *dev, uint8_t addr)
 void st_usbfs_ep_nak_set(usbd_device *dev, uint8_t addr, uint8_t nak)
 {
 	(void)dev;
-	/* It does not make sence to force NAK on IN endpoints. */
+	/* It does not make sense to force NAK on IN endpoints. */
 	if (addr & 0x80) {
 		return;
 	}
