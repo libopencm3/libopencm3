@@ -2,6 +2,7 @@
 ## This file is part of the libopencm3 project.
 ##
 ## Copyright (C) 2015 Karl Palsson <karlp@tweak.net.au>
+## Copyright (C) 2016 Benjamin Levine <benjamin@jesco.karoo.co.uk>
 ##
 ## This library is free software: you can redistribute it and/or modify
 ## it under the terms of the GNU Lesser General Public License as published by
@@ -37,11 +38,12 @@ TGT_CFLAGS      += $(DEBUG_FLAGS)
 ARFLAGS		= rcs
 
 # Specific objs
-OBJS		= 
+OBJS		= exti.o flash.o gpio.o pwr.o rcc.o timer.o
 
 # common/shared objs
 OBJS            += rcc_common_all.o
 OBJS            += gpio_common_all.o gpio_common_f0234.o
+OBJS            += timer_common_all.o
 
 VPATH += ../../usb:../:../../cm3:../common
 VPATH += ../../ethernet
