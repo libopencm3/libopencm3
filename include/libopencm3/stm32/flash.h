@@ -32,6 +32,8 @@
 #       include <libopencm3/stm32/f4/flash.h>
 #elif defined(STM32L1)
 #       include <libopencm3/stm32/l1/flash.h>
+#elif defined(STM32L4)
+#       include <libopencm3/stm32/l4/flash.h>
 #else
 #       error "stm32 family not defined."
 #endif
