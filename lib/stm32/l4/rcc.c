@@ -356,4 +356,33 @@ uint32_t rcc_system_clock_source(void)
 	return ((RCC_CFGR >> RCC_CFGR_SWS_SHIFT) & RCC_CFGR_SWS_MASK);
 }
 
+/**
+ * Set the msi run time range.
+ * Can only be called when MSI is either OFF, or when MSI is on _and_
+ * ready. (RCC_CR_MSIRDY bit).  @sa rcc_set_msi_range_standby
+ * @param msi_range range number @ref rcc_cr_msirange
+ */
+void rcc_set_msi_range(uint32_t msi_range)
+{
+	uint32_t reg = RCC_CR;
+	reg &= ~(RCC_CR_MSIRANGE_MASK << RCC_CR_MSIRANGE_SHIFT);
+	reg |= msi_range << RCC_CR_MSIRANGE_SHIFT;
+	RCC_CR = reg | RCC_CR_MSIRGSEL;
+}
+
+/**
+ * Set the msi range after reset/standby.
+ * Until MSIRGSEl bit is set, this defines the MSI range.
+ * Note that not all MSI range values are allowed here!
+ * @sa rcc_set_msi_range
+ * @param msi_range range number valid for post standby @ref rcc_csr_msirange
+ */
+void rcc_set_msi_range_standby(uint32_t msi_range)
+{
+	uint32_t reg = RCC_CSR;
+	reg &= ~(RCC_CSR_MSIRANGE_MASK << RCC_CSR_MSIRANGE_SHIFT);
+	reg |= msi_range << RCC_CSR_MSIRANGE_SHIFT;
+	RCC_CSR = reg;
+}
+
 /**@}*/
