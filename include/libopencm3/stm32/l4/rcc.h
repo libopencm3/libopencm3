@@ -115,6 +115,18 @@ Twelve frequency ranges are available: 100 kHz, 200 kHz, 400 kHz, 800 kHz,
 @{*/
 #define RCC_CR_MSIRANGE_SHIFT			4
 #define RCC_CR_MSIRANGE_MASK			0xf
+#define RCC_CR_MSIRANGE_100KHZ			0
+#define RCC_CR_MSIRANGE_200KHZ			1
+#define RCC_CR_MSIRANGE_400KHZ			2
+#define RCC_CR_MSIRANGE_800KHZ			3
+#define RCC_CR_MSIRANGE_1MHZ			4
+#define RCC_CR_MSIRANGE_2MHZ			5
+#define RCC_CR_MSIRANGE_4MHZ			6
+#define RCC_CR_MSIRANGE_8MHZ			7
+#define RCC_CR_MSIRANGE_16MHZ			8
+#define RCC_CR_MSIRANGE_24MHZ			9
+#define RCC_CR_MSIRANGE_32MHZ			10
+#define RCC_CR_MSIRANGE_48MHZ			11
 /*@}*/
 #define RCC_CR_MSIRGSEL				(1 << 3)
 #define RCC_CR_MSIPLLEN				(1 << 2)
@@ -674,6 +686,10 @@ Twelve frequency ranges are available: 100 kHz, 200 kHz, 400 kHz, 800 kHz,
 @{*/
 #define RCC_CSR_MSIRANGE_MASK			0xf
 #define RCC_CSR_MSIRANGE_SHIFT			8
+#define RCC_CSR_MSIRANGE_1MHZ			4
+#define RCC_CSR_MSIRANGE_2MHZ			5
+#define RCC_CSR_MSIRANGE_4MHZ			6
+#define RCC_CSR_MSIRANGE_8MHZ			7
 /*@}*/
 
 #define RCC_CSR_LSIRDY				(1 << 1)
@@ -930,6 +946,8 @@ void rcc_set_ppre1(uint32_t ppre1);
 void rcc_set_hpre(uint32_t hpre);
 void rcc_set_main_pll(uint32_t source, uint32_t pllm, uint32_t plln, uint32_t pllp, uint32_t pllq, uint32_t pllr);
 uint32_t rcc_system_clock_source(void);
+void rcc_set_msi_range(uint32_t msi_range);
+void rcc_set_msi_range_standby(uint32_t msi_range);
 
 END_DECLS
 
