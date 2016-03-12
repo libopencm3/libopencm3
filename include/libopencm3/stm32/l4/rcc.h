@@ -228,6 +228,8 @@ Twelve frequency ranges are available: 100 kHz, 200 kHz, 400 kHz, 800 kHz,
 
 /* Division for PLLSAI3CLK, 0 == 7, 1 == 17 */
 #define RCC_PLLCFGR_PLLP		(1 << 17)
+#define RCC_PLLCFGR_PLLP_DIV7		0
+#define RCC_PLLCFGR_PLLP_DIV17		RCC_PLLCFGR_PLLP
 #define RCC_PLLPEN			(1 << 16)
 
 /** @defgroup rcc_pllcfgr_plln RCC_PLLCFGR PLLN values
