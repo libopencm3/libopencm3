@@ -169,7 +169,7 @@ enum pwr_vos_scale {
 
 BEGIN_DECLS
 
-/* TODO */
+void pwr_set_vos_scale(enum pwr_vos_scale scale);
 
 END_DECLS
 
