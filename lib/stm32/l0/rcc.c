@@ -37,6 +37,11 @@
 #include <libopencm3/cm3/assert.h>
 #include <libopencm3/stm32/rcc.h>
 
+/* Set the default clock frequencies after reset. */
+uint32_t rcc_ahb_frequency  = 2097000;
+uint32_t rcc_apb1_frequency = 2097000;
+uint32_t rcc_apb2_frequency = 2097000;
+
 void rcc_osc_on(enum rcc_osc osc)
 {
 	switch (osc) {
