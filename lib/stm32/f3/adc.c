@@ -97,7 +97,7 @@
  * adc_reg_base
 */
 
-void adc_off(uint32_t adc)
+void adc_power_off(uint32_t adc)
 {
 	ADC_CR(adc) &= ~ADC_CR_ADEN;
 }
@@ -931,10 +931,10 @@ void adc_power_on(uint32_t adc)
  * adc_ccr_adcpre
 */
 
-void adc_set_clk_prescale(uint32_t prescale)
+void adc_set_clk_prescale(uint32_t adc, uint32_t prescale)
 {
-	uint32_t reg32 = ((ADC_CCR & ~ADC_CCR_CKMODE_MASK) | prescale);
-	ADC_CCR = reg32;
+	uint32_t reg32 = ((ADC_CCR(adc) & ~ADC_CCR_CKMODE_MASK) | prescale);
+	ADC_CCR(adc) = reg32;
 }
 
 /*---------------------------------------------------------------------------*/
@@ -949,9 +949,9 @@ void adc_set_clk_prescale(uint32_t prescale)
  * adc_multi_mode
 */
 
-void adc_set_multi_mode(uint32_t mode)
+void adc_set_multi_mode(uint32_t adc, uint32_t mode)
 {
-	ADC_CCR |= mode;
+	ADC_CCR(adc) |= mode;
 }
 
 /*---------------------------------------------------------------------------*/
@@ -1177,7 +1177,7 @@ bool adc_awd(uint32_t adc)
 
 void adc_enable_temperature_sensor()
 {
-	ADC_CCR |= ADC_CCR_TSEN;
+	ADC12_CCR |= ADC_CCR_TSEN;
 }
 
 /*---------------------------------------------------------------------------*/
@@ -1192,10 +1192,35 @@ void adc_enable_temperature_sensor()
 
 void adc_disable_temperature_sensor()
 {
-	ADC_CCR &= ~ADC_CCR_TSEN;
+	ADC12_CCR &= ~ADC_CCR_TSEN;
 }
 
 /*---------------------------------------------------------------------------*/
+
+/**
+ * Enable the ADC Voltage regulator
+ * Before any use of the ADC, the ADC Voltage regulator must be enabled.
+ * You must wait up to 10uSecs afterwards before trying anything else.
+ * @param[in] adc ADC block register address base
+ * @sa adc_disable_regulator
+ */
+void adc_enable_regulator(uint32_t adc)
+{
+	ADC_CR(adc) &= ~ADC_CR_ADVREGEN_MASK;
+	ADC_CR(adc) |= ADC_CR_ADVREGEN_ENABLE;
+}
+
+/**
+ * Disable the ADC Voltage regulator
+ * You can disable the adc vreg when not in use to save power
+ * @param[in] adc ADC block register address base
+ * @sa adc_enable_regulator
+ */
+void adc_disable_regulator(uint32_t adc)
+{
+	ADC_CR(adc) &= ~ADC_CR_ADVREGEN_MASK;
+	ADC_CR(adc) |= ADC_CR_ADVREGEN_DISABLE;
+}
 
 /**@}*/
 

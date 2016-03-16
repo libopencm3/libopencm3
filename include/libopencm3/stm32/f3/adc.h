@@ -247,11 +247,16 @@
 #define ADC3_CALFACT		ADC_CALFACT(ADC3_BASE)
 #define ADC4_CALFACT		ADC_CALFACT(ADC4_BASE)
 
-/* ADC common (shared) registers */
-#define	ADC_COMMON_REGISTERS_BASE	(ADC1_BASE+0x300)
-#define ADC_CSR				MMIO32(ADC_COMMON_REGISTERS_BASE + 0x0)
-#define ADC_CCR				MMIO32(ADC_COMMON_REGISTERS_BASE + 0x8)
-#define ADC_CDR				MMIO32(ADC_COMMON_REGISTERS_BASE + 0xA)
+/* ADC common (shared) registers, adc_pair is ADC12 or ADC34 */
+#define ADC_CSR(adc_pair)		MMIO32((adc_pair) + 0x300 + 0x0)
+#define ADC_CCR(adc_pair)		MMIO32((adc_pair) + 0x300 + 0x8)
+#define ADC_CDR(adc_pair)		MMIO32((adc_pair) + 0x300 + 0xa)
+#define ADC12_CSR			ADC_CSR(ADC1)
+#define ADC12_CCR			ADC_CCR(ADC1)
+#define ADC12_CDR			ADC_CDR(ADC1)
+#define ADC34_CSR			ADC_CSR(ADC3)
+#define ADC34_CCR			ADC_CCR(ADC3)
+#define ADC34_CDR			ADC_CDR(ADC3)
 
 
 /*------- ADC_ISR values ---------*/
@@ -334,11 +339,10 @@
 /* ADCALDIF: Differential mode for calibration */
 #define ADC_CR_ADCALDIF		(1 << 30)
 
-/* ADVREGEN: ADC voltage regulador enable */
-#define ADC_CR_ADVREGEN_INTERMEDIATE	(0x0 << 28)
+/** ADVREGEN: ADC voltage regulator enable */
 #define ADC_CR_ADVREGEN_ENABLE		(0x1 << 28)
 #define ADC_CR_ADVREGEN_DISABLE		(0x2 << 28)
-/* --- Bit 0x3 reserved --- */
+#define ADC_CR_ADVREGEN_MASK		(0x3 << 28)
 
 /* JADSTP: ADC stop of injected conversion command */
 #define ADC_CR_JADSTP		(1 << 5)
@@ -475,47 +479,23 @@
 #define ADC_CFGR_DMAEN		(1 << 0)
 
 
-/*------- ADC_SMPR1 values ---------*/
-#define ADC_SMPR1_SMP8_LSB		24
-#define ADC_SMPR1_SMP7_LSB		21
-#define ADC_SMPR1_SMP6_LSB		18
-#define ADC_SMPR1_SMP5_LSB		15
-#define ADC_SMPR1_SMP4_LSB		12
-#define ADC_SMPR1_SMP3_LSB		9
-#define ADC_SMPR1_SMP2_LSB		6
-#define ADC_SMPR1_SMP1_LSB		3
-#define ADC_SMPR1_SMP8_MSK		(0x7 << ADC_SMP8_LSB)
-#define ADC_SMPR1_SMP7_MSK		(0x7 << ADC_SMP7_LSB)
-#define ADC_SMPR1_SMP6_MSK		(0x7 << ADC_SMP6_LSB)
-#define ADC_SMPR1_SMP5_MSK		(0x7 << ADC_SMP5_LSB)
-#define ADC_SMPR1_SMP4_MSK		(0x7 << ADC_SMP4_LSB)
-#define ADC_SMPR1_SMP3_MSK		(0x7 << ADC_SMP3_LSB)
-#define ADC_SMPR1_SMP2_MSK		(0x7 << ADC_SMP2_LSB)
-#define ADC_SMPR1_SMP1_MSK		(0x7 << ADC_SMP1_LSB)
 /****************************************************************************/
-/* ADC_SMPR1 ADC Sample Time Selection for Channels */
-/** @defgroup adc_sample_r1 ADC Sample Time Selection for ADC1
+/* ADC_SMPRx ADC Sample Time Selection for Channels */
+/** @defgroup adc_sample ADC Sample Time Selection values
 @ingroup adc_defines
 
 @{*/
-#define ADC_SMPR1_SMP_1DOT5CYC		0x0
-#define ADC_SMPR1_SMP_2DOT5CYC		0x1
-#define ADC_SMPR1_SMP_4DOT5CYC		0x2
-#define ADC_SMPR1_SMP_7DOT5CYC		0x3
-#define ADC_SMPR1_SMP_19DOT5CYC		0x4
-#define ADC_SMPR1_SMP_61DOT5CYC		0x5
-#define ADC_SMPR1_SMP_181DOT5CYC	0x6
-#define ADC_SMPR1_SMP_601DOT5CYC	0x7
+#define ADC_SMPR_SMP_1DOT5CYC		0x0
+#define ADC_SMPR_SMP_2DOT5CYC		0x1
+#define ADC_SMPR_SMP_4DOT5CYC		0x2
+#define ADC_SMPR_SMP_7DOT5CYC		0x3
+#define ADC_SMPR_SMP_19DOT5CYC		0x4
+#define ADC_SMPR_SMP_61DOT5CYC		0x5
+#define ADC_SMPR_SMP_181DOT5CYC		0x6
+#define ADC_SMPR_SMP_601DOT5CYC		0x7
 /**@}*/
 
 /* SMPx[2:0]: Channel x sampling time selection */
-
-
-/*------- ADC_SMPR2 values ---------*/
-
-/* SMPx[2:0]: Channel x sampling time selection */
-
-
 
 /*------- ADC_TR1 values ---------*/
 
@@ -865,12 +845,20 @@
 
 /* Bits 15:0 RDATA_MST[15:0]: Regular data of the master ADC. */
 
+/** @defgroup adc_channel ADC Channel Numbers
+ * @ingroup adc_defines
+ *
+ *@{*/
+#define ADC_CHANNEL_TEMP	16
+#define ADC_CHANNEL_VBAT	17
+#define ADC_CHANNEL_VREF	18
+/**@}*/
 
 
 BEGIN_DECLS
 
 void adc_power_on(uint32_t adc);
-void adc_off(uint32_t adc);
+void adc_power_off(uint32_t adc);
 void adc_enable_analog_watchdog_regular(uint32_t adc);
 void adc_disable_analog_watchdog_regular(uint32_t adc);
 void adc_enable_analog_watchdog_injected(uint32_t adc);
@@ -920,8 +908,8 @@ uint32_t adc_read_regular(uint32_t adc);
 uint32_t adc_read_injected(uint32_t adc, uint8_t reg);
 void adc_set_injected_offset(uint32_t adc, uint8_t reg, uint32_t offset);
 
-void adc_set_clk_prescale(uint32_t prescaler);
-void adc_set_multi_mode(uint32_t mode);
+void adc_set_clk_prescale(uint32_t adc, uint32_t prescaler);
+void adc_set_multi_mode(uint32_t adc, uint32_t mode);
 void adc_enable_external_trigger_regular(uint32_t adc, uint32_t trigger,
 					 uint32_t polarity);
 void adc_enable_external_trigger_injected(uint32_t adc, uint32_t trigger,
@@ -936,6 +924,8 @@ bool adc_awd(uint32_t adc);
 /*void adc_set_dma_terminate(uint32_t adc);*/
 void adc_enable_temperature_sensor(void);
 void adc_disable_temperature_sensor(void);
+void adc_enable_regulator(uint32_t adc);
+void adc_disable_regulator(uint32_t adc);
 
 END_DECLS
 
