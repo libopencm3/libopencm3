@@ -215,7 +215,7 @@
 #define SCB_AIRCR_VECTKEYSTAT		(0xFFFF << SCB_AIRCR_VECTKEYSTAT_LSB)
 #define SCB_AIRCR_VECTKEY		(0x05FA << SCB_AIRCR_VECTKEYSTAT_LSB)
 
-/* ENDIANESS Data endianness bit */
+/* ENDIANNESS Data endianness bit */
 #define SCB_AIRCR_ENDIANESS			(1 << 15)
 
 /* Those defined only on ARMv7 and above */

@@ -241,7 +241,7 @@ LGPL License Terms @ref lgpl_license
 
 /* Note: Bits [7:2] are reserved and must be kept at reset value. */
 
-/* CONT: Continous conversion. */
+/* CONT: Continuous conversion. */
 #define ADC_CR2_CONT			(1 << 1)
 
 /* ADON: A/D converter On/Off. */

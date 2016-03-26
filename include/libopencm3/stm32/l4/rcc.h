@@ -99,7 +99,7 @@
 #define RCC_CR_PLLSAI1ON			(1 << 26)
 #define RCC_CR_PLLRDY				(1 << 25)
 #define RCC_CR_PLLON				(1 << 24)
-#define RCC_CR_CSSEON				(1 << 19)
+#define RCC_CR_CSSON				(1 << 19)
 #define RCC_CR_HSEBYP				(1 << 18)
 #define RCC_CR_HSERDY				(1 << 17)
 #define RCC_CR_HSEON				(1 << 16)

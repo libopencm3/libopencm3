@@ -319,7 +319,7 @@
 #define UART_DMACTL_DMAERR		(1 << 2)
 /** Transmit DMA enable */
 #define UART_DMACTL_TXDMAE		(1 << 1)
-/** Recieve DMA enable */
+/** Receive DMA enable */
 #define UART_DMACTL_RXDMAE		(1 << 0)
 
 /* =============================================================================

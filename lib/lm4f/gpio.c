@@ -502,7 +502,7 @@ void gpio_toggle(uint32_t gpioport, uint8_t gpios)
  *		serviced_irq |= GPIO4;
  *	}
  *
- *	// Clear the interupt flag for the processed IRQs
+ *	// Clear the interrupt flag for the processed IRQs
  *	gpio_clear_interrupt_flag(GPIOF, serviced_irqs);
  * }
  * @endcode

@@ -13,7 +13,7 @@ Gareth McMullin <gareth@blacksphere.co.nz>
 @date 10 March 2013
 
 A set of structure definitions for the USB control structures
-defined in chapter 9 of the "Univeral Serial Bus Specification Revision 2.0"
+defined in chapter 9 of the "Universal Serial Bus Specification Revision 2.0"
 Available from the USB Implementers Forum - http://www.usb.org/
 
 LGPL License Terms @ref lgpl_license
@@ -48,7 +48,7 @@ LGPL License Terms @ref lgpl_license
 
 /*
  * This file contains structure definitions for the USB control structures
- * defined in chapter 9 of the "Univeral Serial Bus Specification Revision 2.0"
+ * defined in chapter 9 of the "Universal Serial Bus Specification Revision 2.0"
  * Available from the USB Implementers Forum - http://www.usb.org/
  */
 

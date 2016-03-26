@@ -462,8 +462,6 @@ void rcc_set_pll_multiplication_factor(uint32_t mul)
 /*---------------------------------------------------------------------------*/
 /** @brief RCC Set the APB Prescale Factor.
  *
- * @note The APB1 clock frequency must not exceed 36MHz.
- *
  * @param[in] ppre1 Unsigned int32. APB prescale factor @ref rcc_cfgr_apb1pre
  */
 

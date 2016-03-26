@@ -193,7 +193,7 @@ static int usb_standard_get_descriptor(usbd_device *usbd_dev,
 				return USBD_REQ_NOTSUPP;
 			}
 
-			/* Ths string is returned as UTF16, hence the
+			/* This string is returned as UTF16, hence the
 			 * multiplication
 			 */
 			sd->bLength = strlen(usbd_dev->strings[array_idx]) * 2 +
