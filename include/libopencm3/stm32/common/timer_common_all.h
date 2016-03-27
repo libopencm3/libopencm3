@@ -546,11 +546,11 @@ specific memorymap.h header before including this header file.*/
 /** Internal Trigger 3 (ITR3) */
 #define TIM_SMCR_TS_ITR3		(0x3 << 4)
 /** TI1 Edge Detector (TI1F_ED) */
-#define TIM_SMCR_TS_IT1F_ED		(0x4 << 4)
+#define TIM_SMCR_TS_TI1F_ED		(0x4 << 4)
 /** Filtered Timer Input 1 (TI1FP1) */
-#define TIM_SMCR_TS_IT1FP1		(0x5 << 4)
-/** Filtered Timer Input 2 (TI1FP2) */
-#define TIM_SMCR_TS_IT1FP2		(0x6 << 4)
+#define TIM_SMCR_TS_TI1FP1		(0x5 << 4)
+/** Filtered Timer Input 2 (TI2FP2) */
+#define TIM_SMCR_TS_TI2FP2		(0x6 << 4)
 /** External Trigger input (ETRF) */
 #define TIM_SMCR_TS_ETRF		(0x7 << 4)
 #define TIM_SMCR_TS_MASK		(0x7 << 4)
