@@ -97,9 +97,9 @@
  * adc_reg_base
 */
 
-void adc_off(uint32_t adc)
+void adc_power_off(uint32_t adc)
 {
-	ADC_CR(adc) &= ~ADC_CR_ADEN;
+	ADC_CR(adc) |= ADC_CR_ADDIS;
 }
 
 /*---------------------------------------------------------------------------*/

@@ -471,7 +471,7 @@ void adc_disable_eoc_interrupt(uint32_t adc)
 
 void adc_power_off(uint32_t adc)
 {
-	ADC_CR(adc) &= ~ADC_CR_ADEN;
+	ADC_CR(adc) |= ADC_CR_ADDIS;
 }
 
 /*---------------------------------------------------------------------------*/
