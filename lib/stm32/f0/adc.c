@@ -487,6 +487,7 @@ void adc_power_off(uint32_t adc)
 void adc_power_on(uint32_t adc)
 {
 	ADC_CR(adc) |= ADC_CR_ADEN;
+	while ( (ADC_ISR(adc) & ADC_ISR_ADRDY) == 0 );
 }
 
 /*---------------------------------------------------------------------------*/
