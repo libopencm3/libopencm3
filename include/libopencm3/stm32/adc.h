@@ -28,8 +28,12 @@
 #       include <libopencm3/stm32/f3/adc.h>
 #elif defined(STM32F4)
 #       include <libopencm3/stm32/f4/adc.h>
+#elif defined(STM32L0)
+#       include <libopencm3/stm32/l0/adc.h>
 #elif defined(STM32L1)
 #       include <libopencm3/stm32/l1/adc.h>
+#elif defined(STM32L4)
+#       include <libopencm3/stm32/l4/adc.h>
 #else
 #       error "stm32 family not defined."
 #endif
