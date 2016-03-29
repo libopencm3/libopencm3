@@ -36,6 +36,8 @@
 #       include <libopencm3/stm32/l0/timer.h>
 #elif defined(STM32L1)
 #       include <libopencm3/stm32/l1/timer.h>
+#elif defined(STM32L4)
+#       include <libopencm3/stm32/l4/timer.h>
 #else
 #       error "stm32 family not defined."
 #endif
