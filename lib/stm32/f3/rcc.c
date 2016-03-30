@@ -176,30 +176,47 @@ int rcc_css_int_flag(void)
 	return ((RCC_CIR & RCC_CIR_CSSF) != 0);
 }
 
-bool rcc_is_osc_ready(enum rcc_osc osc) {
-	switch (osc) {
-	case RCC_PLL:
-		return (RCC_CR & RCC_CR_PLLRDY);
-	case RCC_HSE:
-		return (RCC_CR & RCC_CR_HSERDY);
-	case RCC_HSI:
-		return (RCC_CR & RCC_CR_HSIRDY);
-	case RCC_LSE:
-		return (RCC_BDCR & RCC_BDCR_LSERDY);
-	case RCC_LSI:
-		return (RCC_CSR & RCC_CSR_LSIRDY);
-	}
-	return false;
-}
-
 void rcc_wait_for_osc_ready(enum rcc_osc osc)
 {
-	while (!rcc_is_osc_ready(osc));
+	switch (osc) {
+	case RCC_PLL:
+		while ((RCC_CR & RCC_CR_PLLRDY) == 0);
+		break;
+	case RCC_HSE:
+		while ((RCC_CR & RCC_CR_HSERDY) == 0);
+		break;
+	case RCC_HSI:
+		while ((RCC_CR & RCC_CR_HSIRDY) == 0);
+		break;
+	case RCC_LSE:
+		while ((RCC_BDCR & RCC_BDCR_LSERDY) == 0);
+		break;
+	case RCC_LSI:
+		while ((RCC_CSR & RCC_CSR_LSIRDY) == 0);
+		break;
+	}
 }
+
 
 void rcc_wait_for_osc_not_ready(enum rcc_osc osc)
 {
-	while (rcc_is_osc_ready(osc));
+	switch (osc) {
+	case RCC_PLL:
+		while ((RCC_CR & RCC_CR_PLLRDY) != 0);
+		break;
+	case RCC_HSE:
+		while ((RCC_CR & RCC_CR_HSERDY) != 0);
+		break;
+	case RCC_HSI:
+		while ((RCC_CR & RCC_CR_HSIRDY) != 0);
+		break;
+	case RCC_LSE:
+		while ((RCC_BDCR & RCC_BDCR_LSERDY) != 0);
+		break;
+	case RCC_LSI:
+		while ((RCC_CSR & RCC_CSR_LSIRDY) != 0);
+		break;
+	}
 }
 
 void rcc_wait_for_sysclk_status(enum rcc_osc osc)

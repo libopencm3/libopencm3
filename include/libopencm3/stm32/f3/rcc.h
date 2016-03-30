@@ -587,7 +587,6 @@ void rcc_osc_ready_int_disable(enum rcc_osc osc);
 int rcc_osc_ready_int_flag(enum rcc_osc osc);
 void rcc_css_int_clear(void);
 int rcc_css_int_flag(void);
-bool rcc_is_osc_ready(enum rcc_osc osc);
 void rcc_wait_for_osc_ready(enum rcc_osc osc);
 void rcc_wait_for_osc_not_ready(enum rcc_osc osc);
 void rcc_wait_for_sysclk_status(enum rcc_osc osc);
