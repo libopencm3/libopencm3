@@ -35,7 +35,7 @@ TGT_CFLAGS      += $(DEBUG_FLAGS)
 
 ARFLAGS		= rcs
 
-OBJS		= gpio.o rcc.o timer.o desig.o
+OBJS		= gpio.o rcc.o desig.o
 OBJS		+= pwr_common_all.o pwr_common_l01.o timer_common_all.o
 
 OBJS            += gpio_common_all.o gpio_common_f0234.o rcc_common_all.o
