@@ -25,6 +25,7 @@ PREFIX		?= arm-none-eabi
 
 CC		= $(PREFIX)-gcc
 AR		= $(PREFIX)-ar
+AS		= $(PREFIX)-as
 
 # STM32F7 only supports single precision FPU
 FP_FLAGS	?= -mfloat-abi=hard -mfpu=fpv5-sp-d16
@@ -56,8 +57,15 @@ Your toolchain doesn't support -mcpu=cortex-m7.
 Please use gcc-arm-embedded 4.8 2014q3 or newer. Skipping this sub-library.
 endef
 
+define MISSING_CPU2
+Your toolchain doesn't support -mcpu=cortex-m7.
+Please use binutils 2.26 or newer. Skipping this sub-library.
+endef
+
 ifneq ($(shell $(CC) --help=target | grep -q '\<cortex-m7\>'; echo $$?),0)
   $(warning $(MISSING_CPU))
+else ifeq ($(shell $(AS) --version | grep -q '\<2.25\>'; echo $$?),0)
+  $(warning $(MISSING_CPU2))
 
 all clean:
 	@true
