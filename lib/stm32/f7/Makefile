@@ -25,7 +25,6 @@ PREFIX		?= arm-none-eabi
 
 CC		= $(PREFIX)-gcc
 AR		= $(PREFIX)-ar
-AS		= $(PREFIX)-as
 
 # STM32F7 only supports single precision FPU
 FP_FLAGS	?= -mfloat-abi=hard -mfpu=fpv5-sp-d16
@@ -75,7 +74,7 @@ $(SRCLIBDIR)/$(LIBNAME).a:
 
 else
 
-ifeq ($(shell $(AS) --version | grep -q '\<2.25\>'; echo $$?),0)
+ifeq ($(shell $(AR) --version | grep -q '\<2.25\>'; echo $$?),0)
   $(error $(MISSING_CPU2))
 
 else
