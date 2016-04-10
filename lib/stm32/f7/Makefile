@@ -58,14 +58,14 @@ Please use gcc-arm-embedded 4.8 2014q3 or newer. Skipping this sub-library.
 endef
 
 define MISSING_CPU2
-Your toolchain doesn't support -mcpu=cortex-m7.
-Please use binutils 2.26 or newer. Skipping this sub-library.
+Your toolchain doesn't support -mcpu=cortex-m7 because of a mismatch between
+gcc-arm-none-eabi and binutils-arm-none-eabi. You should report this bug to
+your distribution. It may be bug 1568437.
+Please use binutils 2.26 or newer. Not continuing.
 endef
 
 ifneq ($(shell $(CC) --help=target | grep -q '\<cortex-m7\>'; echo $$?),0)
   $(warning $(MISSING_CPU))
-else ifeq ($(shell $(AS) --version | grep -q '\<2.25\>'; echo $$?),0)
-  $(warning $(MISSING_CPU2))
 
 all clean:
 	@true
@@ -74,5 +74,11 @@ $(SRCLIBDIR)/$(LIBNAME).a:
 	@true
 
 else
+
+ifeq ($(shell $(AS) --version | grep -q '\<2.25\>'; echo $$?),0)
+  $(error $(MISSING_CPU2))
+
+else
   include ../../Makefile.include
+endif
 endif
