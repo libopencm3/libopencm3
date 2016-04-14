@@ -1,0 +1,26 @@
+{
+    "irqs": [
+        "pm",
+        "sysctrl",
+        "wdt",
+        "rtc",
+        "eic",
+        "nvmctrl",
+        "dmac",
+        "reserved1",
+        "evsys",
+        "sercom0",
+        "sercom1",
+        "sercom2",
+        "tcc0",
+        "tc1",
+        "tc2",
+        "adc",
+        "ac",
+        "dac",
+        "ptc"
+    ],
+    "partname_humanreadable": "Atmel SAMD series",
+    "partname_doxygen": "SAMD",
+    "includeguard": "LIBOPENCM3_SAMD_NVIC_H"
+}
