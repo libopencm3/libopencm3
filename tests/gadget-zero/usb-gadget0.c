@@ -45,6 +45,8 @@
  */
 #define GZ_REQ_SET_PATTERN	1
 #define GZ_REQ_PRODUCE		2
+#define GZ_REQ_SET_ALIGNED	3
+#define GZ_REQ_SET_UNALIGNED	4
 #define INTEL_COMPLIANCE_WRITE 0x5b
 #define INTEL_COMPLIANCE_READ 0x5c
 
@@ -177,42 +179,60 @@ static usbd_device *our_dev;
 static struct {
 	uint8_t pattern;
 	int pattern_counter;
+	int test_unaligned;	/* If 0 (default), use 16-bit aligned buffers. This should not be declared as bool */
 } state = {
 	.pattern = 0,
 	.pattern_counter = 0,
+	.test_unaligned = 0,
 };
 
 static void gadget0_ss_out_cb(usbd_device *usbd_dev, uint8_t ep)
 {
 	(void) ep;
+	uint16_t x;
 	/* TODO - if you're really keen, perf test this. tiva implies it matters */
 	/* char buf[64] __attribute__ ((aligned(4))); */
-	char buf[BULK_EP_MAXPACKET];
+	uint8_t buf[BULK_EP_MAXPACKET + 1] __attribute__ ((aligned(2)));
+	uint8_t *dest;
+
 	trace_send_blocking8(0, 'O');
-	uint16_t x = usbd_ep_read_packet(usbd_dev, ep, buf, sizeof(buf));
+	if (state.test_unaligned) {
+		dest = buf + 1;
+	} else {
+		dest = buf;
+	}
+	x = usbd_ep_read_packet(usbd_dev, ep, dest, BULK_EP_MAXPACKET);
 	trace_send_blocking8(1, x);
 }
 
 static void gadget0_ss_in_cb(usbd_device *usbd_dev, uint8_t ep)
 {
 	(void) usbd_dev;
+	uint8_t buf[BULK_EP_MAXPACKET + 1] __attribute__ ((aligned(2)));
+	uint8_t *src;
+
 	trace_send_blocking8(0, 'I');
-	uint8_t buf[BULK_EP_MAXPACKET];
+	if (state.test_unaligned) {
+		src = buf + 1;
+	} else {
+		src = buf;
+	}
+
 	switch (state.pattern) {
 	case 0:
-		memset(buf, 0, sizeof(buf));
+		memset(src, 0, BULK_EP_MAXPACKET);
 		break;
 	case 1:
-		for (unsigned i = 0; i < sizeof(buf); i++) {
-			buf[i] = state.pattern_counter++ % 63;
+		for (unsigned i = 0; i < BULK_EP_MAXPACKET; i++) {
+			src[i] = state.pattern_counter++ % 63;
 		}
 		break;
 	}
 
-	uint16_t x = usbd_ep_write_packet(usbd_dev, ep, buf, sizeof(buf));
+	uint16_t x = usbd_ep_write_packet(usbd_dev, ep, src, BULK_EP_MAXPACKET);
 	/* As we are calling write in the callback, this should never fail */
 	trace_send_blocking8(2, x);
-	if (x != sizeof(buf)) {
+	if (x != BULK_EP_MAXPACKET) {
 		ER_DPRINTF("failed to write?: %d\n", x);
 	}
 	/*assert(x == sizeof(buf));*/
@@ -256,6 +276,12 @@ static int gadget0_control_request(usbd_device *usbd_dev,
 	case INTEL_COMPLIANCE_READ:
 		ER_DPRINTF("unimplemented!");
 		return USBD_REQ_NOTSUPP;
+	case GZ_REQ_SET_UNALIGNED:
+		state.test_unaligned = 1;
+		return USBD_REQ_HANDLED;
+	case GZ_REQ_SET_ALIGNED:
+		state.test_unaligned = 0;
+		return USBD_REQ_HANDLED;
 	case GZ_REQ_PRODUCE:
 		ER_DPRINTF("fake loopback of %d\n", req->wValue);
 		if (req->wValue > sizeof(usbd_control_buffer)) {
@@ -280,6 +306,7 @@ static void gadget0_set_config(usbd_device *usbd_dev, uint16_t wValue)
 	ER_DPRINTF("set cfg %d\n", wValue);
 	switch (wValue) {
 	case GZ_CFG_SOURCESINK:
+		state.test_unaligned = 0;
 		usbd_ep_setup(usbd_dev, 0x01, USB_ENDPOINT_ATTR_BULK, BULK_EP_MAXPACKET,
 			gadget0_ss_out_cb);
 		usbd_ep_setup(usbd_dev, 0x82, USB_ENDPOINT_ATTR_BULK, BULK_EP_MAXPACKET,

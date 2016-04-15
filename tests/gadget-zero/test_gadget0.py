@@ -318,3 +318,54 @@ class TestControlTransfer_Reads(unittest.TestCase):
         self.assertEqual(len(q), 10, "In this case, should have gotten wLen back")
 
 
+class TestUnaligned(unittest.TestCase):
+    """
+    M0 and M0+ cores don't support unaligned memory accesses. These test
+    how the stack behaves with aligned vs unaligned buffers.
+    https://github.com/libopencm3/libopencm3/issues/401
+    https://github.com/libopencm3/libopencm3/issues/461
+    """
+
+    def setUp(self):
+        self.dev = usb.core.find(idVendor=0xcafe, idProduct=0xcafe, custom_match=find_by_serial(DUT_SERIAL))
+        self.assertIsNotNone(self.dev, "Couldn't find locm3 gadget0 device")
+
+        self.cfg = uu.find_descriptor(self.dev, bConfigurationValue=2)
+        self.assertIsNotNone(self.cfg, "Config 2 should exist")
+        self.dev.set_configuration(self.cfg);
+        self.req = uu.CTRL_OUT | uu.CTRL_TYPE_VENDOR | uu.CTRL_RECIPIENT_INTERFACE
+        self.intf = self.cfg[(0, 0)]
+        # heh, kinda gross...
+        self.ep_out = [ep for ep in self.intf if uu.endpoint_direction(ep.bEndpointAddress) == uu.ENDPOINT_OUT][0]
+        self.ep_in = [ep for ep in self.intf if uu.endpoint_direction(ep.bEndpointAddress) == uu.ENDPOINT_IN][0]
+
+    def tearDown(self):
+        uu.dispose_resources(self.dev)
+
+    def set_unaligned(self):
+        # GZ_REQ_SET_UNALIGNED
+        x = self.dev.ctrl_transfer(self.req, 4, 0, 0)
+
+    def set_aligned(self):
+        # GZ_REQ_SET_ALIGNED
+        x = self.dev.ctrl_transfer(self.req, 3, 0, 0)
+
+    def do_readwrite(self):
+        """
+        transfer garbage data to/from bulk EP; alignment issues will hardfault the target
+        """
+        data = [x for x in range(int(self.ep_out.wMaxPacketSize / 2))]
+        written = self.dev.write(self.ep_out, data)
+        self.assertEqual(written, len(data), "Should have written all bytes plz")
+
+        read_size = self.ep_in.wMaxPacketSize * 10
+        data = self.dev.read(self.ep_in, read_size)
+        self.assertEqual(len(data), read_size, "Should have read as much as we asked for")
+
+    def test_aligned(self):
+        self.set_aligned()
+        self.do_readwrite()
+
+    def test_unaligned(self):
+        self.set_unaligned()
+        self.do_readwrite()
