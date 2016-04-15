@@ -41,7 +41,7 @@ uint16_t desig_get_flash_size(void);
  * Note: ST specifies that bits 31..16 are _also_ reserved for future use
  * @param result pointer to at least 3xuint32_ts (96 bits)
  */
-void desig_get_unique_id(uint32_t result[]);
+void desig_get_unique_id(uint32_t *result);
 
 /**
  * Read the full 96 bit unique identifier and return it as a
