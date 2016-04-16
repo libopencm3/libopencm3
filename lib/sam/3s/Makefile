@@ -32,7 +32,7 @@ TGT_CFLAGS      += $(DEBUG_FLAGS)
 TGT_CFLAGS	+= $(STANDARD_FLAGS)
 # ARFLAGS	= rcsv
 ARFLAGS		= rcs
-OBJS		= gpio_common_all.o gpio_common_3n3s.o pmc.o usart.o
+OBJS		= gpio_common_all.o gpio_common_3n3s.o pmc.o usart_common_all.o usart_common_3.o
 
 VPATH += ../../usb:../../cm3:../common
 
