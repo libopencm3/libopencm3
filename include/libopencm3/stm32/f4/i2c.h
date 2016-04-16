@@ -33,5 +33,7 @@ LGPL License Terms @ref lgpl_license
 
 #include <libopencm3/stm32/common/i2c_common_f24.h>
 
+#define FMPI2C1             FMPI2C1_BASE
+
 #endif
 
