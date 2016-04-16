@@ -18,5 +18,5 @@
 ##
 
 $(LDSCRIPT):$(OPENCM3_DIR)/ld/linker.ld.S
-	@printf "  GENLNK  $@\n"
-	$(Q)$(CPP) $(ARCH_FLAGS) $(shell awk -v PAT="$(basename $@)" -v MODE="DEFS" -f $(OPENCM3_DIR)/scripts/genlink.awk $(OPENCM3_DIR)/ld/devices.data 2>/dev/null) -P -E $< > $@
+	@printf "  GENLNK  $(DEVICE)\n"
+	$(Q)$(CPP) $(ARCH_FLAGS) $(shell awk -v PAT="$(DEVICE)" -v MODE="DEFS" -f $(OPENCM3_DIR)/scripts/genlink.awk $(OPENCM3_DIR)/ld/devices.data 2>/dev/null) -P -E $< > $@

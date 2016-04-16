@@ -21,7 +21,7 @@ ifeq ($(DEVICE),)
 $(warning no DEVICE specified for linker script generator)
 endif
 
-LDSCRIPT	= $(DEVICE).ld
+LDSCRIPT	= generated.$(DEVICE).ld
 DEVICES_DATA = $(OPENCM3_DIR)/ld/devices.data
 
 genlink_family		:=$(shell awk -v PAT="$(DEVICE)" -v MODE="FAMILY" -f $(OPENCM3_DIR)/scripts/genlink.awk $(DEVICES_DATA) 2>/dev/null)
