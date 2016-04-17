@@ -4,6 +4,7 @@ m4_define(`GPIOREG', `
 `#'define GPIO_$1S(X)			MMIO32((X) + $2 + 0x4)
 `#'define GPIO_$1C(X)			MMIO32((X) + $2 + 0x8)
 `#'define GPIO_$1T(X)			MMIO32((X) + $2 + 0xc)')
+
 m4_define(`GPIOPORT', `m4_ifelse(`$#', `2', `GPIOREG($2, 0x10 * $1)', `
 GPIOREG($2, 0x10 * $1)
 GPIOPORT(m4_incr($1), m4_shift(m4_shift($@)))')')
