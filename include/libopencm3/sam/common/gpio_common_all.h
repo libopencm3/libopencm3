@@ -29,10 +29,13 @@ specific memorymap.h header before including this header file.*/
 
 #include <libopencm3/cm3/common.h>
 
+BEGIN_DECLS
+
 void gpio_set(uint32_t gpioport, uint32_t gpios);
 void gpio_clear(uint32_t gpioport, uint32_t gpios);
 void gpio_toggle(uint32_t gpioport, uint32_t gpios);
 
+END_DECLS
 
 #endif
 
