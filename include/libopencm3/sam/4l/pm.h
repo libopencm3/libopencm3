@@ -26,63 +26,53 @@
 
 /* Main Clock Control MCCTRL Read/Write */
 #define PM_MCCTRL			MMIO32(PM_BASE + 0x000)
+#define PM_MCCTRL_KEY		(PM_UNLOCK_KEY)
 
-/* CPU Clock Select CPUSEL Read/Write */
-#define PM_CPUSEL			MMIO32(PM_BASE + 0x004)
+/* CPU & PBx Clock Select, Read/Write */
+#define PM_CKSEL(I)			MMIO32(PM_BASE + 0x004 + (0x004 * (I)))
+#define PM_CKSEL_KEY(I)		(PM_UNLOCK_KEY | (0x004 + (0x004 * (I))))
 
-/* PBA Clock Select PBASEL Read/Write */
-#define PM_PBASEL			MMIO32(PM_BASE + 0x00C)
-
-/* PBB Clock Select PBBSEL Read/Write */
-
-#define PM_PBBSEL			MMIO32(PM_BASE + 0x010)
-/* PBC Clock Select PBCSEL Read/Write */
-
-#define PM_PBCSEL			MMIO32(PM_BASE + 0x014)
-/* PBD Clock Select PBDSEL Read/Write */
-
-#define PM_PBDSEL			MMIO32(PM_BASE + 0x018)
 /* CPU Mask CPUMASK Read/Write */
-
 #define PM_CPUMASK			MMIO32(PM_BASE + 0x020)
+
 /* HSB Mask HSBMASK Read/Write */
-
 #define PM_HSBMASK			MMIO32(PM_BASE + 0x024)
+
 /* PBA Mask PBAMASK Read/Write */
-
 #define PM_PBAMASK			MMIO32(PM_BASE + 0x028)
+
 /* PBB Mask PBBMASK Read/Write */
-
 #define PM_PBBMASK			MMIO32(PM_BASE + 0x02C)
+
 /* PBC Mask PBCMASK Read/Write */
-
 #define PM_PBCMASK			MMIO32(PM_BASE + 0x030)
+
 /* PBD Mask PBDMASK Read/Write */
-
 #define PM_PBDMASK			MMIO32(PM_BASE + 0x034)
+
 /* PBA Divided Mask PBADIVMASK Read/Write */
-
 #define PM_PBADIVMASK			MMIO32(PM_BASE + 0x040)
+
 /* Clock Failure Detector Control CFDCTRL Read/Write */
-
 #define PM_CFDCTRL			MMIO32(PM_BASE + 0x054)
+
 /* Unlock Register UNLOCK Write-only */
-
 #define PM_UNLOCK			MMIO32(PM_BASE + 0x058)
+#define PM_UNLOCK_KEY		(0xaa << 24)
+
 /* Interrupt Enable Register IER Write-only */
-
 #define PM_IER				MMIO32(PM_BASE + 0x0C0)
+
 /* Interrupt Disable Register IDR Write-only */
-
 #define PM_IDR				MMIO32(PM_BASE + 0x0C4)
+
 /* Interrupt Mask Register IMR Read-only */
-
 #define PM_IMR				MMIO32(PM_BASE + 0x0C8)
+
 /* Interrupt Status Register ISR Read-only */
-
 #define PM_ISR				MMIO32(PM_BASE + 0x0CC)
-/* Interrupt Clear Register ICR Write-only */
 
+/* Interrupt Clear Register ICR Write-only */
 #define PM_ICR				MMIO32(PM_BASE + 0x0D0)
 
 /* Status Register SR Read-only */
@@ -115,71 +105,74 @@
 
 /* --- Register contents --------------------------------------------------- */
 #define PM_MCCTRL_MCSEL_SHIFT			0
+#define PM_MCCTRL_MCSEL_MASK			3
 
-#define PM_CPUSEL_CPUDIV_SHIFT			7
-#define PM_CPUSEL_CPUSEL_SHIFT			0
+// Values common for CPUSEL and PBxSEL
+#define PM_CKSEL_DIV			(1 << 7)
+#define PM_CKSEL_MASK			(3)
 
-#define PM_PBSEL_PBDIV_SHIFT			7
-#define PM_PBSEL_PBSEL_SHIFT			0
+#define PM_CPUMASK_OSC			(1 << 0)
 
-#define PM_CPUMASK_OSC_SHIFT			0
+#define PM_HSBMASK_PDCA			(1 << 0)
+#define PM_HSBMASK_FLASHCALW			(1 << 1)
+#define PM_HSBMASK_FLASHCALW_PICO			(1 << 2)
+#define PM_HSBMASK_USBC			(1 << 3)
+#define PM_HSBMASK_CRCCU			(1 << 4)
+#define PM_HSBMASK_APBA			(1 << 5)
+#define PM_HSBMASK_APBB			(1 << 6)
+#define PM_HSBMASK_APBC			(1 << 7)
+#define PM_HSBMASK_APBD			(1 << 8)
+#define PM_HSBMASK_AESA			(1 << 9)
 
-#define PM_HSBMASK_PDCA_SHIFT			0
-#define PM_HSBMASK_FLASHCALW_SHIFT			1
-#define PM_HSBMASK_FLASHCALW_PICO_SHIFT			2
-#define PM_HSBMASK_USBC_SHIFT			3
-#define PM_HSBMASK_CRCCU_SHIFT			4
-#define PM_HSBMASK_APBA_SHIFT			5
-#define PM_HSBMASK_APBB_SHIFT			6
-#define PM_HSBMASK_APBC_SHIFT			7
-#define PM_HSBMASK_APBD_SHIFT			8
-#define PM_HSBMASK_AESA_SHIFT			9
-
-#define PM_PBAMASK_IISC_SHIFT			0
-#define PM_PBAMASK_SPI_SHIFT			1
-#define PM_PBAMASK_TC0_SHIFT			2
-#define PM_PBAMASK_TC1_SHIFT			3
-#define PM_PBAMASK_TWIM0_SHIFT			4
-#define PM_PBAMASK_TWIS0_SHIFT			5
-#define PM_PBAMASK_TWIM1_SHIFT			6
-#define PM_PBAMASK_TWIS1_SHIFT			7
-#define PM_PBAMASK_USART0_SHIFT			8
-#define PM_PBAMASK_USART1_SHIFT			9
-#define PM_PBAMASK_USART2_SHIFT			10
-#define PM_PBAMASK_USART3_SHIFT			11
-#define PM_PBAMASK_ADCIFE_SHIFT			12
-#define PM_PBAMASK_DACC_SHIFT			13
-#define PM_PBAMASK_ACIFC_SHIFT			14
-#define PM_PBAMASK_GLOC_SHIFT			15
-#define PM_PBAMASK_ABDACB_SHIFT			16
-#define PM_PBAMASK_TRNG_SHIFT			17
-#define PM_PBAMASK_PARC_SHIFT			18
-#define PM_PBAMASK_CATB_SHIFT			19
+#define PM_PBAMASK_IISC			(1 << 0)
+#define PM_PBAMASK_SPI			(1 << 1)
+#define PM_PBAMASK_TC0			(1 << 2)
+#define PM_PBAMASK_TC1			(1 << 3)
+#define PM_PBAMASK_TWIM0			(1 << 4)
+#define PM_PBAMASK_TWIS0			(1 << 5)
+#define PM_PBAMASK_TWIM1			(1 << 6)
+#define PM_PBAMASK_TWIS1			(1 << 7)
+#define PM_PBAMASK_USART0			(1 << 8)
+#define PM_PBAMASK_USART1			(1 << 9)
+#define PM_PBAMASK_USART2			(1 << 10)
+#define PM_PBAMASK_USART3			(1 << 11)
+#define PM_PBAMASK_ADCIFE			(1 << 12)
+#define PM_PBAMASK_DACC			(1 << 13)
+#define PM_PBAMASK_ACIFC			(1 << 14)
+#define PM_PBAMASK_GLOC			(1 << 15)
+#define PM_PBAMASK_ABDACB			(1 << 16)
+#define PM_PBAMASK_TRNG			(1 << 17)
+#define PM_PBAMASK_PARC			(1 << 18)
+#define PM_PBAMASK_CATB			(1 << 19)
 /* -- */
-#define PM_PBAMASK_TWIM2_SHIFT			21
-#define PM_PBAMASK_TWIM3_SHIFT			22
-#define PM_PBAMASK_LCDCA_SHIFT			23
+#define PM_PBAMASK_TWIM2			(1 << 21)
+#define PM_PBAMASK_TWIM3			(1 << 22)
+#define PM_PBAMASK_LCDCA			(1 << 23)
 
-#define PM_PBBMASK_FLASHCALW_SHIFT			0
-#define PM_PBBMASK_HRAMC1_SHIFT			1
-#define PM_PBBMASK_HMATRIX_SHIFT			2
-#define PM_PBBMASK_PDCA_SHIFT			3
-#define PM_PBBMASK_CRCCU_SHIFT			4
-#define PM_PBBMASK_USBC_SHIFT			5
-#define PM_PBBMASK_PEVC_SHIFT			6
+#define PM_PBBMASK_FLASHCALW			(1 << 0)
+#define PM_PBBMASK_HRAMC1			(1 << 1)
+#define PM_PBBMASK_HMATRIX			(1 << 2)
+#define PM_PBBMASK_PDCA			(1 << 3)
+#define PM_PBBMASK_CRCCU			(1 << 4)
+#define PM_PBBMASK_USBC			(1 << 5)
+#define PM_PBBMASK_PEVC			(1 << 6)
 
-#define PM_PBCMASK_PM_SHIFT			0
-#define PM_PBCMASK_CHIPID_SHIFT			1
-#define PM_PBCMASK_SCIF_SHIFT			2
-#define PM_PBCMASK_FREQM_SHIFT			3
-#define PM_PBCMASK_GPIO_SHIFT			4
+#define PM_PBCMASK_PM			(1 << 0)
+#define PM_PBCMASK_CHIPID			(1 << 1)
+#define PM_PBCMASK_SCIF			(1 << 2)
+#define PM_PBCMASK_FREQM			(1 << 3)
+#define PM_PBCMASK_GPIO			(1 << 4)
 
-#define PM_PBDMASK_BPM_SHIFT			0
-#define PM_PBDMASK_BSCIF_SHIFT			1
-#define PM_PBDMASK_AST_SHIFT			2
-#define PM_PBDMASK_WDT_SHIFT			3
-#define PM_PBDMASK_EIC_SHIFT			4
-#define PM_PBDMASK_PICOUART_SHIFT			5
+#define PM_PBDMASK_BPM			(1 << 0)
+#define PM_PBDMASK_BSCIF			(1 << 1)
+#define PM_PBDMASK_AST			(1 << 2)
+#define PM_PBDMASK_WDT			(1 << 3)
+#define PM_PBDMASK_EIC			(1 << 4)
+#define PM_PBDMASK_PICOUART			(1 << 5)
+
+#define PM_SR_CFD			(1 << 0)
+#define PM_SR_CKRDY			(1 << 5)
+#define PM_SR_WAKE			(1 << 8)
 
 enum mck_src {
 	MCK_SRC_RCSYS = 0,
@@ -190,5 +183,20 @@ enum mck_src {
 	MCK_SRC_RCFAST,
 	MCK_SRC_RC1M,
 };
+
+enum cksel {
+	CKSEL_CPU = 0,
+	CKSEL_PBA = 2,
+	CKSEL_PBB,
+	CKSEL_PBC,
+	CKSEL_PBD,
+};
+
+BEGIN_DECLS
+
+void pm_select_main_clock(enum mck_src source_clock);
+void pm_enable_clock_div(enum cksel sel_target, uint8_t div);
+
+END_DECLS
 
 #endif

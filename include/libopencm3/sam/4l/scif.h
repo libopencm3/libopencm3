@@ -56,6 +56,7 @@
 
 /* 0x0024 PLL0 Control Register PLL0 Read/Write 0x00000000 */
 #define SCIF_PLL0			MMIO32(SCIF_BASE + 0x0024)
+#define SCIF_PLL0_KEY			(SCIF_UNLOCK_KEY | 0x0024)
 
 /* 0x0028 DFLL0 Config Register DFLL0CONF Read/Write 0x00000000 */
 #define SCIF_DFLL0CONF			MMIO32(SCIF_BASE + 0x0028)
@@ -158,21 +159,37 @@
 
 /* Interrupt Enable/Disable/Mask/Status/Clear registers and PCLKSR
  * have the same bit configuration */
-#define SCIF_OSC0RDY_SHIFT			0
-#define SCIF_DFLL0LOCKC_SHIFT			1
-#define SCIF_DFLL0LOCKF_SHIFT			2
-#define SCIF_DFLL0RDY_SHIFT			3
-#define SCIF_DFLL0RCS_SHIFT			4
-#define SCIF_PLL0LOCK_SHIFT			6
-#define SCIF_PLL0LOCKLOST_SHIFT			7
-#define SCIF_RCFASTLOCK_SHIFT			13
-#define SCIF_RCFASTLOCKLOST_SHIFT			14
+#define SCIF_OSC0RDY			(1 << 0)
+#define SCIF_DFLL0LOCKC			(1 << 1)
+#define SCIF_DFLL0LOCKF			(1 << 2)
+#define SCIF_DFLL0RDY			(1 << 3)
+#define SCIF_DFLL0RCS			(1 << 4)
+#define SCIF_PLL0LOCK			(1 << 6)
+#define SCIF_PLL0LOCKLOST			(1 << 7)
+#define SCIF_RCFASTLOCK			(1 << 13)
+#define SCIF_RCFASTLOCKLOST			(1 << 14)
 
 #define SCIF_OSCCTRL_MODE_SHIFT			0
 #define SCIF_OSCCTRL_GAIN_SHIFT			1
 #define SCIF_OSCCTRL_AGC_SHIFT			3
 #define SCIF_OSCCTRL_STARTUP_SHIFT			8
-#define SCIF_OSCCTRL_OSCEN_SHIFT			16
+#define SCIF_OSCCTRL_OSCEN			(1 << 16)
+
+#define SCIF_PLL0_PLLEN			(1 << 0)
+#define SCIF_PLL0_PLLOSC_SHIFT			1
+#define SCIF_PLL0_PLLOSC_MASK			3
+
+#define SCIF_PLL0_PLLOPT_SHIFT			3
+#define SCIF_PLL0_PLLOPT_MASK			7
+
+#define SCIF_PLL0_PLLDIV_SHIFT			8
+#define SCIF_PLL0_PLLDIV_MASK			0xf
+
+#define SCIF_PLL0_PLLMUL_SHIFT			16
+#define SCIF_PLL0_PLLMUL_MASK			0xf
+
+#define SCIF_PLL0_PLLCOUNT_SHIFT			24
+#define SCIF_PLL0_PLLCOUNT_MASK			0x3f
 
 enum osc_mode {
 	OSC_MODE_XIN = 0,
@@ -197,9 +214,15 @@ enum osc_startup {
 	OSC_STARTUP_32K = 7,
 };
 
+enum pll_clk_src {
+	PLL_CLK_SRC_OSC0 = 0,
+	PLL_CLK_SRC_GCLK9,
+};
+
 BEGIN_DECLS
 
 int scif_osc_enable(enum osc_mode mode, uint32_t freq, enum osc_startup startup);
+int scif_enable_pll(uint8_t delay, uint8_t mul, uint8_t div, uint8_t pll_opt, enum pll_clk_src source_clock);
 
 END_DECLS
 

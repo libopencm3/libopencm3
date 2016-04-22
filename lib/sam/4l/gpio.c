@@ -74,9 +74,8 @@ void gpio_enable(uint32_t gpioport, uint32_t gpios, enum gpio_mode mode)
 	if (mode < GPIO_MODE_IN) {
 		GPIO_GPERC(gpioport) = gpios;
 		uint8_t i = 0;
-		uint8_t mask = 1;
-		for (; i < 3; ++i, mask <<= 1) {
-			GPIO_PMR_FLIP(gpioport, i, mode & mask);
+		for (; i < 3; ++i, mode >>= 1) {
+			GPIO_PMR_FLIP(gpioport, i, mode & 1) = gpios;
 		}
 	} else if (mode == GPIO_MODE_OUT) {
 		GPIO_GPERS(gpioport) = gpios;
@@ -85,7 +84,6 @@ void gpio_enable(uint32_t gpioport, uint32_t gpios, enum gpio_mode mode)
 		GPIO_GPERS(gpioport) = gpios;
 		GPIO_ODERC(gpioport) = gpios;
 	}
-
 }
 
 /** @brief Disable output pins.
