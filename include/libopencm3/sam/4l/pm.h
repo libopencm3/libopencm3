@@ -32,6 +32,8 @@
 #define PM_CKSEL(I)			MMIO32(PM_BASE + 0x004 + (0x004 * (I)))
 #define PM_CKSEL_KEY(I)		(PM_UNLOCK_KEY | (0x004 + (0x004 * (I))))
 
+#define PM_MASK(I)			MMIO32(PM_BASE + 0x020 + (0x004) * (I))
+#define PM_MASK_KEY(I)		(PM_UNLOCK_KEY | (0x020 + (0x004) * (I)))
 /* CPU Mask CPUMASK Read/Write */
 #define PM_CPUMASK			MMIO32(PM_BASE + 0x020)
 
@@ -40,6 +42,7 @@
 
 /* PBA Mask PBAMASK Read/Write */
 #define PM_PBAMASK			MMIO32(PM_BASE + 0x028)
+#define PM_PBAMASK_KEY		(PM_UNLOCK_KEY | 0x028)
 
 /* PBB Mask PBBMASK Read/Write */
 #define PM_PBBMASK			MMIO32(PM_BASE + 0x02C)
@@ -52,6 +55,7 @@
 
 /* PBA Divided Mask PBADIVMASK Read/Write */
 #define PM_PBADIVMASK			MMIO32(PM_BASE + 0x040)
+#define PM_PBADIVMASK_KEY	(PM_UNLOCK_KEY | 0x040)
 
 /* Clock Failure Detector Control CFDCTRL Read/Write */
 #define PM_CFDCTRL			MMIO32(PM_BASE + 0x054)
@@ -170,6 +174,15 @@
 #define PM_PBDMASK_EIC			(1 << 4)
 #define PM_PBDMASK_PICOUART			(1 << 5)
 
+#define PM_PBADIVMASK_TC2		(1 << 0)
+#define PM_PBADIVMASK_USART0	(1 << 2)
+#define PM_PBADIVMASK_USART1	(1 << 2)
+#define PM_PBADIVMASK_USART2	(1 << 2)
+#define PM_PBADIVMASK_USART3	(1 << 2)
+#define PM_PBADIVMASK_TC3	(1 << 2)
+#define PM_PBADIVMASK_TC4	(1 << 4)
+#define PM_PBADIVMASK_TC5	(1 << 6)
+
 #define PM_SR_CFD			(1 << 0)
 #define PM_SR_CKRDY			(1 << 5)
 #define PM_SR_WAKE			(1 << 8)
@@ -192,10 +205,28 @@ enum cksel {
 	CKSEL_PBD,
 };
 
+/*
+ * Ids are designed such that
+ * PM_MASK(id/32) = (1 << id % 32)
+ * would enable the peripheral clock.
+ */
+enum pm_peripheral {
+	PM_PERIPHERAL_OCD = 0,
+	PM_PERIPHERAL_PDCA = 32,
+	PM_PERIPHERAL_IISC = 64,
+	PM_PERIPHERAL_USART2 = 74,
+	PM_PERIPHERAL_FLASHCALW = 96,
+	PM_PERIPHERAL_PM = 128,
+	PM_PERIPHERAL_BPM = 160,
+};
+
 BEGIN_DECLS
 
 void pm_select_main_clock(enum mck_src source_clock);
 void pm_enable_clock_div(enum cksel sel_target, uint8_t div);
+void pm_set_divmask_clock(uint8_t mask);
+void pm_enable_peripheral_clock(enum pm_peripheral periph);
+void pm_disable_peripheral_clock(enum pm_peripheral periph);
 
 END_DECLS
 
