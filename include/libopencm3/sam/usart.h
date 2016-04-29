@@ -116,11 +116,12 @@
 /* Bits [8:0] - Reserved */
 #define USART_MR_SYNC			(0x01 << 8)
 #define USART_MR_CPHA			(0x01 << 8)
-#define USART_MR_CHRL_MASK		(0x03 << 6)
-#define USART_MR_CHRL_5BIT		(0x00 << 6)
-#define USART_MR_CHRL_6BIT		(0x01 << 6)
-#define USART_MR_CHRL_7BIT		(0x02 << 6)
-#define USART_MR_CHRL_8BIT		(0x03 << 6)
+#define USART_MR_CHRL_SHIFT		(6)
+#define USART_MR_CHRL_MASK		(0x03 << USART_MR_CHRL_SHIFT)
+#define USART_MR_CHRL_5BIT		(0x00 << USART_MR_CHRL_SHIFT)
+#define USART_MR_CHRL_6BIT		(0x01 << USART_MR_CHRL_SHIFT)
+#define USART_MR_CHRL_7BIT		(0x02 << USART_MR_CHRL_SHIFT)
+#define USART_MR_CHRL_8BIT		(0x03 << USART_MR_CHRL_SHIFT)
 #define USART_MR_USCLKS_SHIFT	(4)
 #define USART_MR_USCLKS_MASK		(0x03 << USART_MR_USCLKS_SHIFT)
 #define USART_MR_USCLKS_MCK		(0x00 << 4)
@@ -205,6 +206,13 @@ enum usart_clock {
 	USART_CLOCK_CLK = 3,
 };
 
+enum usart_chrl {
+	USART_CHRL_5BIT,
+	USART_CHRL_6BIT,
+	USART_CHRL_7BIT,
+	USART_CHRL_8BIT,
+};
+
 BEGIN_DECLS
 
 void usart_set_baudrate(uint32_t usart, uint32_t baud);
@@ -212,6 +220,7 @@ void usart_set_databits(uint32_t usart, int bits);
 void usart_set_stopbits(uint32_t usart, enum usart_stopbits);
 void usart_set_parity(uint32_t usart, enum usart_parity);
 void usart_set_mode(uint32_t usart, enum usart_mode);
+void usart_set_character_length(uint32_t usart, enum usart_chrl chrl);
 void usart_set_flow_control(uint32_t usart, enum usart_flowcontrol);
 void usart_enable(uint32_t usart);
 void usart_disable(uint32_t usart);

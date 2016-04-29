@@ -118,3 +118,9 @@ void usart_select_clock(uint32_t usart, enum usart_clock clk)
 	uint32_t reg_mr = USART_MR(usart) & (~USART_MR_USCLKS_MASK);
 	USART_MR(usart) = ((clk << USART_MR_USCLKS_SHIFT) & USART_MR_USCLKS_MASK) | reg_mr;
 }
+
+void usart_set_character_length(uint32_t usart, enum usart_chrl chrl)
+{
+	uint32_t reg_mr = USART_MR(usart) & (~USART_MR_CHRL_MASK);
+	USART_MR(usart) = reg_mr | (chrl << USART_MR_CHRL_SHIFT);
+}
