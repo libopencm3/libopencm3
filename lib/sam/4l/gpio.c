@@ -4,7 +4,7 @@
  * @ingroup SAM4_defines
  * LGPL License Terms @ref lgpl_license
  * @author @htmlonly &copy; @endhtmlonly 2016
- * Maxim Sloyko <maxim@sloyko.com>
+ * Maxim Sloyko <maxims@google.com>
  *
  */
 
