@@ -4,14 +4,12 @@
  * @ingroup SAM4
  * LGPL License Terms @ref lgpl_license
  * @author @htmlonly &copy; @endhtmlonly 2016
- * Maxim Sloyko <maxim@sloyko.com>
+ * Maxim Sloyko <maxims@google.com>
  *
  */
 
 /*
  * This file is part of the libopencm3 project.
- *
- * Copyright (C) 2016 Maxim Sloyko <maxim@sloyko.com>
  *
  * This library is free software: you can redistribute it and/or modify
  * it under the terms of the GNU Lesser General Public License as published by
@@ -96,11 +94,11 @@ int scif_enable_pll(uint8_t delay, uint8_t mul, uint8_t div, uint8_t pll_opt, en
 	if (mul == 0)
 		mul = 1;
 
-	pll_val = ((source_clock & SCIF_PLL0_PLLOSC_MASK) << SCIF_PLL0_PLLOSC_SHIFT)
-		| ((pll_opt & SCIF_PLL0_PLLOPT_MASK) << SCIF_PLL0_PLLOPT_SHIFT)
-		| ((div & SCIF_PLL0_PLLDIV_MASK) << SCIF_PLL0_PLLDIV_SHIFT)
-		| ((mul & SCIF_PLL0_PLLMUL_MASK) << SCIF_PLL0_PLLMUL_SHIFT)
-		| ((delay & SCIF_PLL0_PLLCOUNT_MASK) << SCIF_PLL0_PLLCOUNT_SHIFT);
+	pll_val = SCIF_PLL0_PLLOSC_MASKED(source_clock)
+		| SCIF_PLL0_PLLOPT_MASKED(pll_opt)
+		| SCIF_PLL0_PLLDIV_MASKED(div)
+		| SCIF_PLL0_PLLMUL_MASKED(mul)
+		| SCIF_PLL0_PLLCOUNT_MASKED(delay);
 
 	SCIF_UNLOCK = SCIF_PLL0_KEY;
 	SCIF_PLL0 = pll_val;
@@ -112,4 +110,25 @@ int scif_enable_pll(uint8_t delay, uint8_t mul, uint8_t div, uint8_t pll_opt, en
 	while(!(SCIF_PCLKSR & SCIF_PLL0LOCK));
 
 	return 0;
+}
+
+/** @brief Configure and enable Generic Clock
+ *
+ *	@param[in] gclk enum generic_clock: Generic Clock to configure and enable.
+ *	@param[in] source_clock enum gclk_src: Source Clock for this Generic Clock.
+ *	@param[in] div uint16_t: Division Factor. Upper 8 bits only used for Generic Clock 11,
+ *		If 0, clock is undivided.
+ */
+void scif_enable_gclk(enum generic_clock gclk, enum gclk_src source_clock, uint16_t div)
+{
+	uint32_t reg_val = SCIF_GCCTRL_CEN | SCIF_GCCTRL_OSCSEL_MASKED(source_clock);
+	if (div) {
+		if (gclk < GENERIC_CLOCK11) {
+			div &= 0xf;
+		}
+
+		reg_val |= SCIF_GCCTRL_DIV_MASKED(div) | SCIF_GCCTRL_DIVEN;
+	}
+
+	SCIF_GCTRL(gclk) = reg_val;
 }

@@ -92,6 +92,9 @@
 /* 0x0064 High Resolution Prescaler Control Register HRPCR Read/Write 0x0068 Fractional Prescaler Control Register FPCR Read/Write 0x006C Fractional Prescaler Multiplier Register FPMUL Read/Write 0x0070 Fractional Prescaler DIVIDER Register FPDIV Read/Write 0x0074 Generic Clock Control0 GCCTRL0 Read/Write 0x00000000 */
 #define SCIF_HPPCR			MMIO32(SCIF_BASE + 0x0064)
 
+/* 0x0074 Generic Clock Control1 GCCTRL0 Read/Write 0x00000000 */
+#define SCIF_GCCTRL0			MMIO32(SCIF_BASE + 0x0074)
+
 /* 0x0078 Generic Clock Control1 GCCTRL1 Read/Write 0x00000000 */
 #define SCIF_GCCTRL1			MMIO32(SCIF_BASE + 0x0078)
 
@@ -124,6 +127,9 @@
 
 /* 0x00A0 Generic Clock Control11 GCCTRL11 Read/Write 0x00000000 */
 #define SCIF_GCCTRL11			MMIO32(SCIF_BASE + 0x00A0)
+
+#define SCIF_GCTRL(N)			MMIO32(SCIF_BASE + 0x0074 + 0x0004 * (N))
+#define SCIF_GCLK_MAX_NUM			11
 
 /* 0x03D8 4/8/12MHz RC Oscillator Version Register RCFASTVERSION Read-only - (1) */
 #define SCIF_RCFASTVERSION			MMIO32(SCIF_BASE + 0x03D8)
@@ -167,27 +173,48 @@
 #define SCIF_RCFASTLOCK			(1 << 13)
 #define SCIF_RCFASTLOCKLOST			(1 << 14)
 
-#define SCIF_OSCCTRL_MODE_SHIFT			0
+#define SCIF_OSCCTRL_MODE			(1 << 0)
 #define SCIF_OSCCTRL_GAIN_SHIFT			1
-#define SCIF_OSCCTRL_AGC_SHIFT			3
+#define SCIF_OSCCTRL_GAIN_MASK		(3 << SCIF_OSCCTRL_GAIN_SHIFT)
+#define SCIF_OSCCTRL_AGC			(1 << 3)
 #define SCIF_OSCCTRL_STARTUP_SHIFT			8
+#define SCIF_OSCCTRL_STARTUP_MASK	(0xf << SCIF_OSCCTRL_STARTUP_SHIFT)
 #define SCIF_OSCCTRL_OSCEN			(1 << 16)
+
+/* TODO: Put into cm3/common.h ? */
+#define _MASKED_VALUE(V, S, M)			(((V) << (S)) & (M))
 
 #define SCIF_PLL0_PLLEN			(1 << 0)
 #define SCIF_PLL0_PLLOSC_SHIFT			1
-#define SCIF_PLL0_PLLOSC_MASK			3
+#define SCIF_PLL0_PLLOSC_MASK			(3 << SCIF_PLL0_PLLOSC_SHIFT)
+#define SCIF_PLL0_PLLOSC_MASKED(V)			_MASKED_VALUE((V), SCIF_PLL0_PLLOSC_SHIFT, SCIF_PLL0_PLLOSC_MASK)
 
 #define SCIF_PLL0_PLLOPT_SHIFT			3
-#define SCIF_PLL0_PLLOPT_MASK			7
+#define SCIF_PLL0_PLLOPT_MASK			(7 << SCIF_PLL0_PLLOPT_SHIFT)
+#define SCIF_PLL0_PLLOPT_MASKED(V)			_MASKED_VALUE((V), SCIF_PLL0_PLLOPT_SHIFT, SCIF_PLL0_PLLOPT_MASK)
 
 #define SCIF_PLL0_PLLDIV_SHIFT			8
-#define SCIF_PLL0_PLLDIV_MASK			0xf
+#define SCIF_PLL0_PLLDIV_MASK			(0xf << SCIF_PLL0_PLLDIV_SHIFT)
+#define SCIF_PLL0_PLLDIV_MASKED(V)			_MASKED_VALUE((V), SCIF_PLL0_PLLDIV_SHIFT, SCIF_PLL0_PLLDIV_MASK)
 
 #define SCIF_PLL0_PLLMUL_SHIFT			16
-#define SCIF_PLL0_PLLMUL_MASK			0xf
+#define SCIF_PLL0_PLLMUL_MASK			(0xf << SCIF_PLL0_PLLMUL_SHIFT)
+#define SCIF_PLL0_PLLMUL_MASKED(V)			_MASKED_VALUE((V), SCIF_PLL0_PLLMUL_SHIFT, SCIF_PLL0_PLLMUL_MASK)
 
 #define SCIF_PLL0_PLLCOUNT_SHIFT			24
-#define SCIF_PLL0_PLLCOUNT_MASK			0x3f
+#define SCIF_PLL0_PLLCOUNT_MASK			(0x3f << SCIF_PLL0_PLLCOUNT_SHIFT)
+#define SCIF_PLL0_PLLCOUNT_MASKED(V)			_MASKED_VALUE((V), SCIF_PLL0_PLLCOUNT_SHIFT, SCIF_PLL0_PLLCOUNT_MASK)
+
+
+#define SCIF_GCCTRL_CEN			(1 << 0)
+#define SCIF_GCCTRL_DIVEN			(1 << 1)
+#define SCIF_GCCTRL_OSCSEL_SHIFT			8
+#define SCIF_GCCTRL_OSCSEL_MASK			(0x1f << SCIF_GCCTRL_OSCSEL_SHIFT)
+#define SCIF_GCCTRL_OSCSEL_MASKED(V)			_MASKED_VALUE(V, SCIF_GCCTRL_OSCSEL_SHIFT, SCIF_GCCTRL_OSCSEL_MASK)
+#define SCIF_GCCTRL_DIV_SHIFT			16
+#define SCIF_GCCTRL_DIV_MASK			(0xffff << SCIF_GCCTRL_DIV_SHIFT)
+#define SCIF_GCCTRL_DIV_MASKED(V)			_MASKED_VALUE(V, SCIF_GCCTRL_DIV_SHIFT, SCIF_GCCTRL_DIV_MASK)
+
 
 enum osc_mode {
 	OSC_MODE_XIN = 0,
@@ -217,10 +244,75 @@ enum pll_clk_src {
 	PLL_CLK_SRC_GCLK9,
 };
 
+/* Generic Clock Source
+ * 0 RCSYS System RC oscillator clock
+ * 1 OSC32K Output clock from OSC32K
+ * 2 DFLL0 Output clock from DFLL0
+ * 3 OSC0 Output clock from Oscillator0
+ * 4 RC80M Output from 80MHz RCOSC
+ * 5 RCFAST Output from 4,8,12MHz RCFAST
+ * 6 RC1M Output from 1MHz RC1M
+ * 7 CLK_CPU The clock the CPU runs on
+ * 8 CLK_HSB High Speed Bus clock
+ * 9 CLK_PBA Peripheral Bus A clock
+ * 10 CLK_PBB Peripheral Bus B clock
+ * 11 CLK_PBC Peripheral Bus C clock
+ * 12 CLK_PBD Peripheral Bus D clock
+ * 13 RC32K Output from 32kHz RCOSC
+ * 14 Reserved
+ * 15 CLK_1K 1kHz output clock from OSC32K
+ * 16 PLL0 Output clock from PLL0
+ * 17 HRP High Resolution Prescaler Output
+ * 18 FP Fractionnal Prescaler Output
+ * 19-20 GCLK_IN[0-1] GCLK_IN[0-1] pins, digital clock input
+ * 21 GCLK11 Generic Clock 11. Can not be use as input to itself.
+ */
+enum gclk_src {
+	GCLK_SRC_RCSYS,
+	GCLK_SRC_OSC32K,
+	GCLK_SRC_DFLL0,
+	GCLK_SRC_OSC0,
+	GCLK_SRC_RC80M,
+	GCLK_SRC_RCFAST,
+	GCLK_SRC_RC1M,
+	GCLK_SRC_CLK_CPU,
+	GCLK_SRC_CLK_HSB,
+	GCLK_SRC_CLK_PBA,
+	GCLK_SRC_CLK_PBB,
+	GCLK_SRC_CLK_PBC,
+	GCLK_SRC_CLK_PBD,
+	GCLK_SRC_RC32K,
+	GCLK_SRC_RESERVED_,
+	GCLK_SRC_CLK_1K,
+	GCLK_SRC_PLL0,
+	GCLK_SRC_HRP,
+	GCLK_SRC_FP,
+	GCLK_SRC_GCLK_IN0,
+	GCLK_SRC_GCLK_IN1,
+	GCLK_SRC_GCLK11,
+};
+
+enum generic_clock {
+	GENERIC_CLOCK0,
+	GENERIC_CLOCK1,
+	GENERIC_CLOCK2,
+	GENERIC_CLOCK3,
+	GENERIC_CLOCK4,
+	GENERIC_CLOCK5,
+	GENERIC_CLOCK6,
+	GENERIC_CLOCK7,
+	GENERIC_CLOCK8,
+	GENERIC_CLOCK9,
+	GENERIC_CLOCK10,
+	GENERIC_CLOCK_ADCIFE = GENERIC_CLOCK10,
+	GENERIC_CLOCK11,
+};
+
 BEGIN_DECLS
 
 int scif_osc_enable(enum osc_mode mode, uint32_t freq, enum osc_startup startup);
 int scif_enable_pll(uint8_t delay, uint8_t mul, uint8_t div, uint8_t pll_opt, enum pll_clk_src source_clock);
+void scif_enable_gclk(enum generic_clock gclk, enum gclk_src source_clock, uint16_t div);
 
 END_DECLS
 
