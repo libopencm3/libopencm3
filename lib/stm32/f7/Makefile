@@ -46,6 +46,7 @@ OBJS		+= rcc_common_all.o flash_common_f234.o flash_common_f24.o usart_f7.o usar
 
 OBJS            += usb.o usb_standard.o usb_control.o usb_fx07_common.o \
 		   usb_f107.o usb_f207.o usb_msc.o
+OBJS		+= ltdc_common_f47.o
 
 VPATH += ../../usb:../:../../cm3:../common
 VPATH += ../../ethernet
