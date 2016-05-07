@@ -34,10 +34,10 @@ TGT_CFLAGS	= -Os -g \
 		  -Wredundant-decls -Wmissing-prototypes -Wstrict-prototypes \
 		  -Wundef -Wshadow \
 		  -I../../../include -fno-common \
-		  -mthumb $(FP_FLAGS) \
+		  -mcpu=cortex-m4 -mthumb $(FP_FLAGS) \
 		  -Wstrict-prototypes \
 		  -ffunction-sections -fdata-sections -MD -DSTM32F7
-
+TGT_CFLAGS      += $(DEBUG_FLAGS)
 ARFLAGS		= rcs
 
 OBJS		= rcc.o gpio.o gpio_common_all.o gpio_common_f0234.o
