@@ -95,6 +95,12 @@
 #define ADCIFE_SR_REFBUF			(1 << 28)
 #define ADCIFE_SR_BGREQ			(1 << 30)
 
+#define ADCIFE_IR_SEOC			(1 << 0)
+#define ADCIFE_IR_LOVR			(1 << 1)
+#define ADCIFE_IR_WM			(1 << 2)
+#define ADCIFE_IR_SMTRG			(1 << 3)
+#define ADCIFE_IR_TTO			(1 << 5)
+
 #define ADCIFE_SEQCFG_HWLA			(1 << 0)
 #define ADCIFE_SEQCFG_BIPOLAR			(1 << 2)
 #define ADCIFE_SEQCFG_GAIN_SHIFT		(4)
@@ -225,6 +231,8 @@ void adcife_set_left_adjust(bool enable);
 void adcife_start_conversion(void);
 void adcife_wait_conversion(void);
 struct adcife_lcv adcife_get_lcv(void);
+void adcife_enable_interrupts(uint32_t imask);
+void adcife_disable_interrupts(uint32_t imask);
 
 END_DECLS
 

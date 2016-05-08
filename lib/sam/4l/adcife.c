@@ -94,3 +94,13 @@ struct adcife_lcv adcife_get_lcv(void)
 	res._lc_u.lcv = ADCIFE_LCV;
 	return res;
 }
+
+void adcife_enable_interrupts(uint32_t imask)
+{
+	ADCIFE_IER = imask;
+}
+
+void adcife_disable_interrupts(uint32_t imask)
+{
+	ADCIFE_IDR = imask;
+}
