@@ -168,6 +168,46 @@ enum adcife_channel {
 	ADCIFE_CHANNEL_AD14,
 };
 
+enum adcife_resolution {
+	ADCIFE_RESOLUTION_12BITS,
+	ADCIFE_RESOLUTION_8BITS,
+};
+
+enum adcife_trigger {
+	ADCIFE_TRIGGER_SW,
+	ADCIFE_TRIGGER_IADC_TMR,
+	ADCIFE_TRIGGER_ITS,
+	ADCIFE_TRIGGER_CONT,
+	ADCIFE_TRIGGER_EXT_RIS,
+	ADCIFE_TRIGGER_EXT_FALL,
+	ADCIFE_TRIGGER_EXT_BOTH,
+};
+
+enum adcife_gain {
+	ADCIFE_GAIN_1X,
+	ADCIFE_GAIN_2X,
+	ADCIFE_GAIN_4X,
+	ADCIFE_GAIN_8X,
+	ADCIFE_GAIN_16X,
+	ADCIFE_GAIN_32X,
+	ADCIFE_GAIN_64X,
+	ADCIFE_GAIN_0_5X,
+};
+
+struct adcife_lcv {
+	union {
+		uint32_t lcv;
+		struct {
+			uint8_t reserved;
+			uint8_t channel;
+			uint16_t value;
+		} _lc_s;
+	} _lc_u;
+};
+
+#define lc_channel _lc_u._lc_s.channel
+#define lc_value _lc_u._lc_s.value
+
 BEGIN_DECLS
 
 void adcife_enable_sync(void);
@@ -177,6 +217,14 @@ void adcife_configure(
 		enum adcife_clk clk,
 		enum adcife_prescal prescal);
 void adcife_select_channel(enum adcife_channel ad);
+void adcife_set_resolution(enum adcife_resolution res);
+void adcife_select_trigger(enum adcife_trigger trig);
+void adcife_set_gain(enum adcife_gain gain);
+void adcife_set_bipolar(bool enable);
+void adcife_set_left_adjust(bool enable);
+void adcife_start_conversion(void);
+void adcife_wait_conversion(void);
+struct adcife_lcv adcife_get_lcv(void);
 
 END_DECLS
 

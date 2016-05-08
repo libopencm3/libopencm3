@@ -17,7 +17,7 @@
  */
 void adcife_enable_sync(void)
 {
-	ADCIFE_CFG |= ADCIFE_CR_EN;
+	ADCIFE_CR = ADCIFE_CR_EN;
 	while (!(ADCIFE_SR & ADCIFE_SR_EN));
 }
 
@@ -33,7 +33,64 @@ void adcife_configure(
 		| clk;
 }
 
-void adcife_select_channel(ad)
+void adcife_select_channel(enum adcife_channel ad)
 {
-	/* TODO */
+	ADCIFE_SEQCFG |= ADCIFE_SEQCFG_MUXPOS_MASKED(ad);
+}
+
+void adcife_set_resolution(enum adcife_resolution res)
+{
+	if (ADCIFE_RESOLUTION_12BITS == res) {
+		ADCIFE_SEQCFG &= ~ADCIFE_SEQCFG_RES;
+	} else {
+		ADCIFE_SEQCFG |= ADCIFE_SEQCFG_RES;
+	}
+}
+
+void adcife_select_trigger(enum adcife_trigger trig)
+{
+	ADCIFE_SEQCFG &= ~ADCIFE_SEQCFG_TRGSEL_MASK;
+	ADCIFE_SEQCFG |= ADCIFE_SEQCFG_TRGSEL_MASKED(trig);
+}
+
+void adcife_set_gain(enum adcife_gain gain)
+{
+	ADCIFE_SEQCFG &= ~ADCIFE_SEQCFG_GAIN_MASK;
+	ADCIFE_SEQCFG |= ADCIFE_SEQCFG_GAIN_MASKED(gain);
+}
+
+void adcife_set_bipolar(bool enable)
+{
+	if (enable) {
+		ADCIFE_SEQCFG |= ADCIFE_SEQCFG_BIPOLAR;
+	} else {
+		ADCIFE_SEQCFG &= ~ADCIFE_SEQCFG_BIPOLAR;
+	}
+}
+
+void adcife_set_left_adjust(bool enable)
+{
+	if (enable) {
+		ADCIFE_SEQCFG |= ADCIFE_SEQCFG_HWLA;
+	} else {
+		ADCIFE_SEQCFG &= ~ADCIFE_SEQCFG_HWLA;
+	}
+}
+
+void adcife_start_conversion(void)
+{
+	ADCIFE_CR = ADCIFE_CR_SWRST;
+}
+
+void adcife_wait_conversion(void)
+{
+	while (!(ADCIFE_SR & ADCIFE_SR_SEOC));
+	ADCIFE_SCR = ADCIFE_SR_SEOC;
+}
+
+struct adcife_lcv adcife_get_lcv(void)
+{
+	struct adcife_lcv res;
+	res._lc_u.lcv = ADCIFE_LCV;
+	return res;
 }
