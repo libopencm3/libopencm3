@@ -198,9 +198,9 @@ struct adcife_lcv {
 	union {
 		uint32_t lcv;
 		struct {
-			uint8_t reserved;
-			uint8_t channel;
 			uint16_t value;
+			uint8_t channel;
+			uint8_t reserved;
 		} _lc_s;
 	} _lc_u;
 };

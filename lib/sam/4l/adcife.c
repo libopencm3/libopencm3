@@ -79,7 +79,7 @@ void adcife_set_left_adjust(bool enable)
 
 void adcife_start_conversion(void)
 {
-	ADCIFE_CR = ADCIFE_CR_SWRST;
+	ADCIFE_CR = ADCIFE_CR_STRIG;
 }
 
 void adcife_wait_conversion(void)
