@@ -233,6 +233,9 @@ void adcife_wait_conversion(void);
 struct adcife_lcv adcife_get_lcv(void);
 void adcife_enable_interrupts(uint32_t imask);
 void adcife_disable_interrupts(uint32_t imask);
+void adcife_timer_start(void);
+void adcife_timer_stop(void);
+void adcife_timer_set_timeout(uint16_t timeout);
 
 END_DECLS
 

@@ -104,3 +104,18 @@ void adcife_disable_interrupts(uint32_t imask)
 {
 	ADCIFE_IDR = imask;
 }
+
+void adcife_timer_start(void)
+{
+	ADCIFE_CR = ADCIFE_CR_TSTART;
+}
+
+void adcife_timer_stop(void)
+{
+	ADCIFE_CR = ADCIFE_CR_TSTOP;
+}
+
+void adcife_timer_set_timeout(uint16_t timeout)
+{
+	ADCIFE_TIM = timeout;
+}
