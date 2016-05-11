@@ -72,19 +72,18 @@ void ltdc_set_tft_sync_timings(uint16_t sync_width,    uint16_t sync_height,
 	LTDC_TWCR = (w << 16) | (h << 0);
 }
 
-void ltdc_setup_windowing(uint8_t  layer_number,
-			  uint16_t h_back_porch, uint16_t v_back_porch,
-			  uint16_t active_width, uint16_t active_height)
+void ltdc_setup_windowing(uint8_t  layer_number, uint16_t active_width, uint16_t active_height)
 {
-	active_width  += h_back_porch - 1;
-	active_height += v_back_porch - 1;
+    uint32_t h_back_porch = (LTDC_BPCR >> LTDC_BPCR_AHBP_SHIFT) & LTDC_BPCR_AHBP_MASK;
+    uint32_t v_back_porch = (LTDC_BPCR >> LTDC_BPCR_AVBP_SHIFT) & LTDC_BPCR_AVBP_MASK;
+
 	/*assert((h_back_porch & 0xfff == h_back_porch) &&
 		 (v_back_porch  & 0xfff == v_back_porch) &&
 		 (active_width & 0xfff == active_width) &&
 		 (active_height & 0xfff == active_height));*/
-	LTDC_LxWHPCR(layer_number) = (active_width  << 16) |
-				     (h_back_porch << 0);
-	LTDC_LxWVPCR(layer_number) = (active_height << 16) |
-				     (v_back_porch << 0);
+	LTDC_LxWHPCR(layer_number) = ((active_width + h_back_porch)  << 16) |
+				     ((h_back_porch+1) << 0);
+	LTDC_LxWVPCR(layer_number) = ((active_height + v_back_porch) << 16) |
+				     ((v_back_porch+1) << 0);
 }
 

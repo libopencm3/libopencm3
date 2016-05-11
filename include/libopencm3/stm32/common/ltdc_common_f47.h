@@ -450,7 +450,7 @@ static inline void ltdc_set_fbuffer_address(uint32_t layer, uint32_t address)
 static inline void ltdc_set_fb_line_length(uint32_t layer,
 					   uint16_t len, uint16_t pitch)
 {
-	LTDC_LxCFBLR(layer)  = ((((pitch)&0x1FFF)<<16) | (((len)&0x1FFF)<<0));
+	LTDC_LxCFBLR(layer)  = ((((pitch)&0x1FFF)<<16) | (((len+3)&0x1FFF)<<0));
 }
 
 static inline void ltdc_set_fb_line_count(uint32_t layer, uint16_t linecount)
@@ -469,7 +469,6 @@ void ltdc_set_tft_sync_timings(
 );
 void ltdc_setup_windowing(
 		uint8_t  layer_number,
-		uint16_t h_back_porch,  uint16_t v_back_porch,
 		uint16_t active_width,  uint16_t active_height
 );
 
