@@ -45,35 +45,6 @@
  *@{*/
 
 /*---------------------------------------------------------------------------*/
-/** @brief ADC Enable Continuous Conversion Mode
- *
- * In this mode the ADC starts a new conversion of a single channel or a channel
- * group immediately following completion of the previous channel group
- * conversion.
- *
- * @param[in] adc Unsigned int32. ADC base address (@ref adc_reg_base)
- */
-
-void adc_set_continuous_conversion_mode(uint32_t adc)
-{
-	ADC_CFGR1(adc) |= ADC_CFGR1_CONT;
-}
-
-/*---------------------------------------------------------------------------*/
-/** @brief ADC Enable Single Conversion Mode
- *
- * In this mode the ADC performs a conversion of one channel or a channel group
- * and stops.
- *
- * @param[in] adc Unsigned int32. ADC base address (@ref adc_reg_base)
- */
-
-void adc_set_single_conversion_mode(uint32_t adc)
-{
-	ADC_CFGR1(adc) &= ~ADC_CFGR1_CONT;
-}
-
-/*---------------------------------------------------------------------------*/
 /** @brief ADC Enable Discontinuous Mode for Regular Conversions
  *
  * @param[in] adc Unsigned int32. ADC base address (@ref adc_reg_base)
@@ -176,67 +147,6 @@ void adc_set_operation_mode(uint32_t adc, enum adc_opmode opmode)
 /*---------------------------------------------------------------------------*/
 /*---------------------------------------------------------------------------*/
 /**
- * @defgroup adc_api_result ADC Result API
- * @ingroup adc_file
- *
- * @brief ADC Result API
- *
- *@{*/
-
-/*---------------------------------------------------------------------------*/
-/** @brief ADC Software Triggered Conversion on Regular Channels
- *
- * This starts conversion on a set of defined regular channels. It is cleared
- * by hardware once conversion starts.
- *
- * @param[in] adc Unsigned int32. ADC base address (@ref adc_reg_base)
- */
-
-void adc_start_conversion_regular(uint32_t adc)
-{
-	/* Start conversion on regular channels. */
-	ADC_CR(adc) |= ADC_CR_ADSTART;
-
-	/* Wait until the ADC starts the conversion. */
-	while (ADC_CR(adc) & ADC_CR_ADSTART);
-}
-
-/*---------------------------------------------------------------------------*/
-/** @brief ADC Read the End-of-Conversion Flag
- *
- * This flag is set after all channels of a regular or injected group have been
- * converted.
- *
- * @param[in] adc Unsigned int32. ADC base address (@ref adc_reg_base)
- * @returns bool. End of conversion flag.
- */
-
-bool adc_eoc(uint32_t adc)
-{
-	return ((ADC_ISR(adc) & ADC_ISR_EOC) != 0);
-}
-
-/*---------------------------------------------------------------------------*/
-/** @brief ADC Read from the Regular Conversion Result Register
- *
- * The result read back is 12 bits, right or left aligned within the first
- * 16 bits. For ADC1 only, the higher 16 bits will hold the result from ADC2 if
- * an appropriate dual mode has been set @see adc_set_dual_mode.
- *
- * @param[in] adc Unsigned int32. ADC base address (@ref adc_reg_base)
- * @returns Unsigned int32 conversion result.
- */
-
-uint32_t adc_read_regular(uint32_t adc)
-{
-	return ADC_DR(adc);
-}
-
-/**@}*/
-
-/*---------------------------------------------------------------------------*/
-/*---------------------------------------------------------------------------*/
-/**
  * @defgroup adc_api_trigger ADC Trigger API
  * @ingroup adc_file
  *
@@ -262,7 +172,7 @@ void adc_enable_external_trigger_regular(uint32_t adc, uint32_t trigger,
 				 uint32_t polarity)
 {
 	ADC_CFGR1(adc) = (ADC_CFGR1(adc) & ~ADC_CFGR1_EXTSEL) | trigger;
-	ADC_CFGR1(adc) = (ADC_CFGR1(adc) & ~ADC_CFGR1_EXTEN) | polarity;
+	ADC_CFGR1(adc) = (ADC_CFGR1(adc) & ~ADC_CFGR1_EXTEN_MASK) | polarity;
 }
 
 /*---------------------------------------------------------------------------*/
@@ -273,7 +183,7 @@ void adc_enable_external_trigger_regular(uint32_t adc, uint32_t trigger,
 
 void adc_disable_external_trigger_regular(uint32_t adc)
 {
-	ADC_CFGR1(adc) &= ~ADC_CFGR1_EXTEN;
+	ADC_CFGR1(adc) &= ~ADC_CFGR1_EXTEN_MASK;
 }
 
 /**@}*/
@@ -297,7 +207,7 @@ void adc_disable_external_trigger_regular(uint32_t adc)
 
 void adc_enable_watchdog_interrupt(uint32_t adc)
 {
-	ADC_IER(adc) |= ADC_IER_AWDIE;
+	ADC_IER(adc) |= ADC_IER_AWD1IE;
 }
 
 /*---------------------------------------------------------------------------*/
@@ -308,7 +218,7 @@ void adc_enable_watchdog_interrupt(uint32_t adc)
 
 void adc_disable_watchdog_interrupt(uint32_t adc)
 {
-	ADC_IER(adc) &= ~ADC_IER_AWDIE;
+	ADC_IER(adc) &= ~ADC_IER_AWD1IE;
 }
 
 /*---------------------------------------------------------------------------*/
@@ -323,7 +233,7 @@ void adc_disable_watchdog_interrupt(uint32_t adc)
 
 bool adc_get_watchdog_flag(uint32_t adc)
 {
-	return ADC_ISR(adc) & ADC_ISR_AWD;
+	return ADC_ISR(adc) & ADC_ISR_AWD1;
 }
 
 /*---------------------------------------------------------------------------*/
@@ -334,64 +244,7 @@ bool adc_get_watchdog_flag(uint32_t adc)
 
 void adc_clear_watchdog_flag(uint32_t adc)
 {
-	ADC_ISR(adc) = ADC_ISR_AWD;
-}
-
-/*---------------------------------------------------------------------------*/
-/** @brief ADC Enable the Overrun Interrupt
- *
- * The overrun interrupt is generated when data is not read from a result
- * register before the next conversion is written. If DMA is enabled, all
- * transfers are terminated and any conversion sequence is aborted.
- *
- * @param[in] adc Unsigned int32. ADC base address (@ref adc_reg_base)
- */
-
-void adc_enable_overrun_interrupt(uint32_t adc)
-{
-	ADC_IER(adc) |= ADC_IER_OVRIE;
-}
-
-/*---------------------------------------------------------------------------*/
-/** @brief ADC Disable the Overrun Interrupt
- *
- * @param[in] adc Unsigned int32. ADC base address (@ref adc_reg_base)
- */
-
-void adc_disable_overrun_interrupt(uint32_t adc)
-{
-	ADC_IER(adc) &= ~ADC_IER_OVRIE;
-}
-
-/*---------------------------------------------------------------------------*/
-/** @brief ADC Read the Overrun Flag
- *
- * The overrun flag is set when data is not read from a result register before
- * the next conversion is written. If DMA is enabled, all transfers are
- * terminated and any conversion sequence is aborted.
- *
- * @param[in] adc Unsigned int32. ADC base address (@ref adc_reg_base)
- */
-
-bool adc_get_overrun_flag(uint32_t adc)
-{
-	return ADC_ISR(adc) & ADC_ISR_OVR;
-}
-
-/*---------------------------------------------------------------------------*/
-/** @brief ADC Clear Overrun Flags
- *
- * The overrun flag is cleared. Note that if an overrun occurs, DMA is
- * terminated.
- * The flag must be cleared and the DMA stream and ADC reinitialised to resume
- * conversions (see the reference manual).
- *
- * @param[in] adc Unsigned int32. ADC base address (@ref adc_reg_base)
- */
-
-void adc_clear_overrun_flag(uint32_t adc)
-{
-	ADC_ISR(adc) = ADC_ISR_OVR;
+	ADC_ISR(adc) = ADC_ISR_AWD1;
 }
 
 /*---------------------------------------------------------------------------*/
@@ -427,27 +280,6 @@ bool adc_get_eoc_sequence_flag(uint32_t adc)
 	return ADC_ISR(adc) & ADC_ISR_EOSEQ;
 }
 
-/*---------------------------------------------------------------------------*/
-/** @brief ADC Enable Regular End-Of-Conversion Interrupt
- *
- * @param[in] adc Unsigned int32. ADC base address (@ref adc_reg_base)
- */
-
-void adc_enable_eoc_interrupt(uint32_t adc)
-{
-	ADC_IER(adc) |= ADC_IER_EOCIE;
-}
-
-/*---------------------------------------------------------------------------*/
-/** @brief ADC Disable Regular End-Of-Conversion Interrupt
- *
- * @param[in] adc Unsigned int32. ADC base address (@ref adc_reg_base)
- */
-
-void adc_disable_eoc_interrupt(uint32_t adc)
-{
-	ADC_IER(adc) &= ~ADC_IER_EOCIE;
-}
 
 /**@}*/
 
@@ -460,34 +292,6 @@ void adc_disable_eoc_interrupt(uint32_t adc)
  * @brief ADC Basic configuration API
  *
  *@{*/
-
-/*---------------------------------------------------------------------------*/
-/** @brief ADC Power Off
- *
- * Turn off the ADC to reduce power consumption to a few microamps.
- *
- * @param[in] adc Unsigned int32. ADC base address (@ref adc_reg_base)
- */
-
-void adc_power_off(uint32_t adc)
-{
-	ADC_CR(adc) &= ~ADC_CR_ADEN;
-}
-
-/*---------------------------------------------------------------------------*/
-/** @brief ADC Power On
- *
- * If the ADC is in power-down mode then it is powered up. The application
- * needs to wait a time of about 3 microseconds for stabilization before using
- * the ADC. If the ADC is already on this function call will have no effect.
- *
- * @param[in] adc Unsigned int32. ADC base address (@ref adc_reg_base)
- */
-
-void adc_power_on(uint32_t adc)
-{
-	ADC_CR(adc) |= ADC_CR_ADEN;
-}
 
 /*---------------------------------------------------------------------------*/
 /** @brief ADC Set Clock Prescale
@@ -570,111 +374,6 @@ void adc_set_sample_time_on_all_channels(uint32_t adc, uint8_t time)
 }
 
 /*---------------------------------------------------------------------------*/
-/** @brief ADC Set Resolution
- *
- * ADC Resolution can be reduced from 12 bits to 10, 8 or 6 bits for a
- * corresponding reduction in conversion time.
- *
- * @param[in] adc Unsigned int32. ADC base address (@ref adc_reg_base)
- * @param[in] resolution Unsigned int16. Resolution value (@ref adc_api_res)
- */
-
-void adc_set_resolution(uint32_t adc, uint16_t resolution)
-{
-	ADC_CFGR1(adc) = (ADC_CFGR1(adc) & ~ADC_CFGR1_RES) | resolution;
-}
-
-/*---------------------------------------------------------------------------*/
-/** @brief ADC Set the Data as Left Aligned
- *
- * @param[in] adc Unsigned int32. ADC base address (@ref adc_reg_base)
- */
-
-void adc_set_left_aligned(uint32_t adc)
-{
-	ADC_CFGR1(adc) |= ADC_CFGR1_ALIGN;
-}
-
-/*---------------------------------------------------------------------------*/
-/** @brief ADC Set the Data as Right Aligned
- *
- * @param[in] adc Unsigned int32. ADC base address (@ref adc_reg_base)
- */
-
-void adc_set_right_aligned(uint32_t adc)
-{
-	ADC_CFGR1(adc) &= ~ADC_CFGR1_ALIGN;
-}
-
-/*---------------------------------------------------------------------------*/
-/** @brief ADC Enable DMA Transfers
- *
- * @param[in] adc Unsigned int32. ADC base address (@ref adc_reg_base)
- */
-
-void adc_enable_dma(uint32_t adc)
-{
-	ADC_CFGR1(adc) |= ADC_CFGR1_DMAEN;
-}
-
-/*---------------------------------------------------------------------------*/
-/** @brief ADC Disable DMA Transfers
- *
- * @param[in] adc Unsigned int32. ADC base address (@ref adc_reg_base)
- */
-
-void adc_disable_dma(uint32_t adc)
-{
-	ADC_CFGR1(adc) &= ~ADC_CFGR1_DMAEN;
-}
-
-/*---------------------------------------------------------------------------*/
-/** @brief ADC Enable The Temperature Sensor
- *
- * This enables the sensor on channel 16
- */
-
-void adc_enable_temperature_sensor(void)
-{
-	ADC_CCR |= ADC_CCR_TSEN;
-}
-
-/*---------------------------------------------------------------------------*/
-/** @brief ADC Disable The Temperature Sensor
- *
- * Disabling this will reduce power consumption from the temperature sensor
- * measurement.
- */
-
-void adc_disable_temperature_sensor(void)
-{
-	ADC_CCR &= ~ADC_CCR_TSEN;
-}
-
-/*---------------------------------------------------------------------------*/
-/** @brief ADC Enable The VRef Sensor
- *
- * This enables the reference voltage measurements on channel 17.
- */
-
-void adc_enable_vref_sensor(void)
-{
-	ADC_CCR |= ADC_CCR_VREFEN;
-}
-
-/*---------------------------------------------------------------------------*/
-/** @brief ADC Disable The VRef Sensor
- *
- * Disabling this will reduce power consumption from the reference voltage
- * measurement.
- */
-
-void adc_disable_vref_sensor(void)
-{
-	ADC_CCR &= ~ADC_CCR_VREFEN;
-}
-
-/*---------------------------------------------------------------------------*/
 /** @brief ADC Enable The VBat Sensor
  *
  * This enables the battery voltage measurements on channel 17.
@@ -682,7 +381,7 @@ void adc_disable_vref_sensor(void)
 
 void adc_enable_vbat_sensor(void)
 {
-	ADC_CCR |= ADC_CCR_VBATEN;
+	ADC_CCR(ADC1) |= ADC_CCR_VBATEN;
 }
 
 /*---------------------------------------------------------------------------*/
@@ -694,7 +393,7 @@ void adc_enable_vbat_sensor(void)
 
 void adc_disable_vbat_sensor(void)
 {
-	ADC_CCR &= ~ADC_CCR_VBATEN;
+	ADC_CCR(ADC1) &= ~ADC_CCR_VBATEN;
 }
 
 /*---------------------------------------------------------------------------*/
@@ -775,8 +474,8 @@ void adc_calibrate_wait_finish(uint32_t adc)
 
 void adc_enable_analog_watchdog_on_all_channels(uint32_t adc)
 {
-	ADC_CFGR1(adc) |= ADC_CFGR1_AWDEN;
-	ADC_CFGR1(adc) &= ~ADC_CFGR1_AWDSGL;
+	ADC_CFGR1(adc) |= ADC_CFGR1_AWD1EN;
+	ADC_CFGR1(adc) &= ~ADC_CFGR1_AWD1SGL;
 }
 
 /*---------------------------------------------------------------------------*/
@@ -788,10 +487,10 @@ void adc_enable_analog_watchdog_on_all_channels(uint32_t adc)
 
 void adc_enable_analog_watchdog_on_selected_channel(uint32_t adc, uint8_t chan)
 {
-	ADC_CFGR1(adc) = (ADC_CFGR1(adc) & ~ADC_CFGR1_AWDCH) |
-			  ADC_CFGR1_AWDCH_VAL(chan);
+	ADC_CFGR1(adc) = (ADC_CFGR1(adc) & ~ADC_CFGR1_AWD1CH) |
+			  ADC_CFGR1_AWD1CH_VAL(chan);
 
-	ADC_CFGR1(adc) |= ADC_CFGR1_AWDEN | ADC_CFGR1_AWDSGL;
+	ADC_CFGR1(adc) |= ADC_CFGR1_AWD1EN | ADC_CFGR1_AWD1SGL;
 }
 
 /*---------------------------------------------------------------------------*/
@@ -801,7 +500,7 @@ void adc_enable_analog_watchdog_on_selected_channel(uint32_t adc, uint8_t chan)
  */
 void adc_disable_analog_watchdog(uint32_t adc)
 {
-	ADC_CFGR1(adc) &= ~ADC_CFGR1_AWDEN;
+	ADC_CFGR1(adc) &= ~ADC_CFGR1_AWD1EN;
 }
 
 /*---------------------------------------------------------------------------*/
@@ -813,7 +512,7 @@ void adc_disable_analog_watchdog(uint32_t adc)
 
 void adc_set_watchdog_high_threshold(uint32_t adc, uint8_t threshold)
 {
-	ADC_TR(adc) = (ADC_TR(adc) & ~ADC_TR_HT) | ADC_TR_HT_VAL(threshold);
+	ADC_TR1(adc) = (ADC_TR1(adc) & ~ADC_TR1_HT) | ADC_TR1_HT_VAL(threshold);
 }
 
 /*---------------------------------------------------------------------------*/
@@ -825,7 +524,7 @@ void adc_set_watchdog_high_threshold(uint32_t adc, uint8_t threshold)
 
 void adc_set_watchdog_low_threshold(uint32_t adc, uint8_t threshold)
 {
-	ADC_TR(adc) = (ADC_TR(adc) & ~ADC_TR_LT) | ADC_TR_LT_VAL(threshold);
+	ADC_TR1(adc) = (ADC_TR1(adc) & ~ADC_TR1_LT) | ADC_TR1_LT_VAL(threshold);
 }
 
 /**@}*/

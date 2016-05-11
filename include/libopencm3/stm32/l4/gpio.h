@@ -28,6 +28,7 @@
  * along with this library.  If not, see <http://www.gnu.org/licenses/>.
  */
 
+/**@{*/
 #ifndef LIBOPENCM3_GPIO_H
 #define LIBOPENCM3_GPIO_H
 
@@ -51,15 +52,16 @@
 #define GPIOG_BRR			GPIO_BRR(GPIOG)
 #define GPIOH_BRR			GPIO_BRR(GPIOH)
 
-#define GPIO_ASC(port)			MMIO32((port) + 0x2c)
-#define GPIOA_ASC			GPIO_ASC(GPIOA)
-#define GPIOB_ASC			GPIO_ASC(GPIOB)
-#define GPIOC_ASC			GPIO_ASC(GPIOC)
-#define GPIOD_ASC			GPIO_ASC(GPIOD)
-#define GPIOE_ASC			GPIO_ASC(GPIOE)
-#define GPIOF_ASC			GPIO_ASC(GPIOF)
-#define GPIOG_ASC			GPIO_ASC(GPIOG)
-#define GPIOH_ASC			GPIO_ASC(GPIOH)
+/* Analog Switch Control Register */
+#define GPIO_ASCR(port)			MMIO32((port) + 0x2c)
+#define GPIOA_ASCR			GPIO_ASCR(GPIOA)
+#define GPIOB_ASCR			GPIO_ASCR(GPIOB)
+#define GPIOC_ASCR			GPIO_ASCR(GPIOC)
+#define GPIOD_ASCR			GPIO_ASCR(GPIOD)
+#define GPIOE_ASCR			GPIO_ASCR(GPIOE)
+#define GPIOF_ASCR			GPIO_ASCR(GPIOF)
+#define GPIOG_ASCR			GPIO_ASCR(GPIOG)
+#define GPIOH_ASCR			GPIO_ASCR(GPIOH)
 
 /*****************************************************************************/
 /* Register values                                                           */
@@ -87,3 +89,4 @@ BEGIN_DECLS
 END_DECLS
 
 #endif
+/**@}*/

@@ -39,13 +39,12 @@
 #ifndef LIBOPENCM3_RCC_H
 #define LIBOPENCM3_RCC_H
 
-
 /* --- RCC registers ------------------------------------------------------- */
 
 #define RCC_CR				MMIO32(RCC_BASE + 0x00)
 #define RCC_ICSCR			MMIO32(RCC_BASE + 0x04)
 #define RCC_CFGR			MMIO32(RCC_BASE + 0x08)
-#define RCC_PLL_CFGR			MMIO32(RCC_BASE + 0x0c)
+#define RCC_PLLCFGR			MMIO32(RCC_BASE + 0x0c)
 #define RCC_PLLSAI1_CFGR		MMIO32(RCC_BASE + 0x10)
 #define RCC_PLLSAI2_CFGR		MMIO32(RCC_BASE + 0x14)
 #define RCC_CIER			MMIO32(RCC_BASE + 0x18)
@@ -116,6 +115,18 @@ Twelve frequency ranges are available: 100 kHz, 200 kHz, 400 kHz, 800 kHz,
 @{*/
 #define RCC_CR_MSIRANGE_SHIFT			4
 #define RCC_CR_MSIRANGE_MASK			0xf
+#define RCC_CR_MSIRANGE_100KHZ			0
+#define RCC_CR_MSIRANGE_200KHZ			1
+#define RCC_CR_MSIRANGE_400KHZ			2
+#define RCC_CR_MSIRANGE_800KHZ			3
+#define RCC_CR_MSIRANGE_1MHZ			4
+#define RCC_CR_MSIRANGE_2MHZ			5
+#define RCC_CR_MSIRANGE_4MHZ			6
+#define RCC_CR_MSIRANGE_8MHZ			7
+#define RCC_CR_MSIRANGE_16MHZ			8
+#define RCC_CR_MSIRANGE_24MHZ			9
+#define RCC_CR_MSIRANGE_32MHZ			10
+#define RCC_CR_MSIRANGE_48MHZ			11
 /*@}*/
 #define RCC_CR_MSIRGSEL				(1 << 3)
 #define RCC_CR_MSIPLLEN				(1 << 2)
@@ -228,6 +239,8 @@ Twelve frequency ranges are available: 100 kHz, 200 kHz, 400 kHz, 800 kHz,
 
 /* Division for PLLSAI3CLK, 0 == 7, 1 == 17 */
 #define RCC_PLLCFGR_PLLP		(1 << 17)
+#define RCC_PLLCFGR_PLLP_DIV7		0
+#define RCC_PLLCFGR_PLLP_DIV17		RCC_PLLCFGR_PLLP
 #define RCC_PLLPEN			(1 << 16)
 
 /** @defgroup rcc_pllcfgr_plln RCC_PLLCFGR PLLN values
@@ -673,13 +686,20 @@ Twelve frequency ranges are available: 100 kHz, 200 kHz, 400 kHz, 800 kHz,
 @{*/
 #define RCC_CSR_MSIRANGE_MASK			0xf
 #define RCC_CSR_MSIRANGE_SHIFT			8
+#define RCC_CSR_MSIRANGE_1MHZ			4
+#define RCC_CSR_MSIRANGE_2MHZ			5
+#define RCC_CSR_MSIRANGE_4MHZ			6
+#define RCC_CSR_MSIRANGE_8MHZ			7
 /*@}*/
 
 #define RCC_CSR_LSIRDY				(1 << 1)
 #define RCC_CSR_LSION				(1 << 0)
 
-
 /* --- Variable definitions ------------------------------------------------ */
+
+extern uint32_t rcc_ahb_frequency;
+extern uint32_t rcc_apb1_frequency;
+extern uint32_t rcc_apb2_frequency;
 
 /* --- Function prototypes ------------------------------------------------- */
 
@@ -703,6 +723,7 @@ enum rcc_periph_clken {
 	RCC_RNG = _REG_BIT(RCC_AHB2ENR_OFFSET, 18),
 	RCC_AES = _REG_BIT(RCC_AHB2ENR_OFFSET, 16),
 	RCC_ADC = _REG_BIT(RCC_AHB2ENR_OFFSET, 13),
+	RCC_ADC1 = _REG_BIT(RCC_AHB2ENR_OFFSET, 13), /* Compatibility */
 	RCC_OTGFS = _REG_BIT(RCC_AHB2ENR_OFFSET, 12),
 	RCC_GPIOH = _REG_BIT(RCC_AHB2ENR_OFFSET, 7),
 	RCC_GPIOG = _REG_BIT(RCC_AHB2ENR_OFFSET, 6),
@@ -771,6 +792,7 @@ enum rcc_periph_clken {
 	SCC_RNG = _REG_BIT(RCC_AHB2SMENR_OFFSET, 18),
 	SCC_AES = _REG_BIT(RCC_AHB2SMENR_OFFSET, 16),
 	SCC_ADC = _REG_BIT(RCC_AHB2SMENR_OFFSET, 13),
+	SCC_ADC1 = _REG_BIT(RCC_AHB2SMENR_OFFSET, 13), /* Compatibility */
 	SCC_OTGFS = _REG_BIT(RCC_AHB2SMENR_OFFSET, 12),
 	SCC_SRAM2 = _REG_BIT(RCC_AHB2SMENR_OFFSET, 9),
 	SCC_GPIOH = _REG_BIT(RCC_AHB2SMENR_OFFSET, 7),
@@ -841,6 +863,7 @@ enum rcc_periph_rst {
 	RST_RNG = _REG_BIT(RCC_AHB2RSTR_OFFSET, 18),
 	RST_AES = _REG_BIT(RCC_AHB2RSTR_OFFSET, 16),
 	RST_ADC = _REG_BIT(RCC_AHB2RSTR_OFFSET, 13),
+	RST_ADC1 = _REG_BIT(RCC_AHB2RSTR_OFFSET, 13), /* Compatibility */
 	RST_OTGFS = _REG_BIT(RCC_AHB2RSTR_OFFSET, 12),
 	RST_GPIOH = _REG_BIT(RCC_AHB2RSTR_OFFSET, 7),
 	RST_GPIOG = _REG_BIT(RCC_AHB2RSTR_OFFSET, 6),
@@ -901,7 +924,30 @@ enum rcc_periph_rst {
 
 BEGIN_DECLS
 
-/* TODO */
+void rcc_osc_ready_int_clear(enum rcc_osc osc);
+void rcc_osc_ready_int_enable(enum rcc_osc osc);
+void rcc_osc_ready_int_disable(enum rcc_osc osc);
+int rcc_osc_ready_int_flag(enum rcc_osc osc);
+void rcc_css_int_clear(void);
+int rcc_css_int_flag(void);
+bool rcc_is_osc_ready(enum rcc_osc osc);
+void rcc_wait_for_osc_ready(enum rcc_osc osc);
+void rcc_wait_for_sysclk_status(enum rcc_osc osc);
+void rcc_osc_on(enum rcc_osc osc);
+void rcc_osc_off(enum rcc_osc osc);
+void rcc_css_enable(void);
+void rcc_css_disable(void);
+void rcc_osc_bypass_enable(enum rcc_osc osc);
+void rcc_osc_bypass_disable(enum rcc_osc osc);
+void rcc_set_sysclk_source(uint32_t clk);
+void rcc_set_pll_source(uint32_t pllsrc);
+void rcc_set_ppre2(uint32_t ppre2);
+void rcc_set_ppre1(uint32_t ppre1);
+void rcc_set_hpre(uint32_t hpre);
+void rcc_set_main_pll(uint32_t source, uint32_t pllm, uint32_t plln, uint32_t pllp, uint32_t pllq, uint32_t pllr);
+uint32_t rcc_system_clock_source(void);
+void rcc_set_msi_range(uint32_t msi_range);
+void rcc_set_msi_range_standby(uint32_t msi_range);
 
 END_DECLS
 
