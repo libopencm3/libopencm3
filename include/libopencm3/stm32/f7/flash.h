@@ -1,7 +1,18 @@
+/** @defgroup flash_defines FLASH Defines
+ *
+ * @ingroup STM32F7xx_defines
+ *
+ * @brief Defined Constants and Types for the STM32F7xx FLASH Memory
+ *
+ * @version 1.0.0
+ *
+ * @date 14 January 2014
+ *
+ * LGPL License Terms @ref lgpl_license
+ */
+
 /*
  * This file is part of the libopencm3 project.
- *
- * Copyright (C) 2013 Chuck McManis <cmcmanis@mcmanis.com>
  *
  * This library is free software: you can redistribute it and/or modify
  * it under the terms of the GNU Lesser General Public License as published by
@@ -17,9 +28,10 @@
  * along with this library.  If not, see <http://www.gnu.org/licenses/>.
  */
 
-#ifndef LIBOPENCM3_FMC_H
-#define LIBOPENCM3_FMC_H
+#ifndef LIBOPENCM3_FLASH_H
+#define LIBOPENCM3_FLASH_H
 
-#include <libopencm3/stm32/common/fmc_common_f47.h>
+#include <libopencm3/stm32/common/flash_common_f24.h>
 
 #endif
+

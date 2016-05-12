@@ -83,12 +83,14 @@ void eth_desc_init(uint8_t *buf, uint32_t nTx, uint32_t nRx, uint32_t cTx,
 	TxBD = bd;
 	while (--nTx > 0) {
 		ETH_DES0(bd) = ETH_TDES0_TCH;
-		ETH_DES2(bd) = bd + sz;
-		ETH_DES3(bd) = bd + sz + cTx;
+		ETH_DES1(bd) = 0;
+		ETH_DES2(bd) = bd + sz;         /* buffer: point just after descriptor */
+		ETH_DES3(bd) = bd + sz + cTx;   /* n_desc: pointer after descripter and buffer */
 		bd = ETH_DES3(bd);
 	}
 
 	ETH_DES0(bd) = ETH_TDES0_TCH;
+	ETH_DES1(bd) = 0;
 	ETH_DES2(bd) = bd + sz;
 	ETH_DES3(bd) = TxBD;
 	bd += sz + cTx;
@@ -135,6 +137,12 @@ bool eth_tx(uint8_t *ppkt, uint32_t n)
 		ETH_DMATPDR = 0;
 	}
 
+	/* If the DMA engine is stalled then a restart request is issued.*/
+	if ((ETH_DMASR & ETH_DMASR_TPS) == ETH_DMASR_TPS_SUSPEND) {
+	    ETH_DMASR   = ETH_DMASR_TBUS;
+	    ETH_DMATPDR = ETH_DMASR_TBUS; /* Any value is OK.*/
+	}
+
 	return true;
 }
 
@@ -172,9 +180,11 @@ bool eth_rx(uint8_t *ppkt, uint32_t *len, uint32_t maxlen)
 		RxBD = ETH_DES3(RxBD);
 	}
 
-	if (ETH_DMASR & ETH_DMASR_RBUS) {
-		ETH_DMASR = ETH_DMASR_RBUS;
-		ETH_DMARPDR = 0;
+	/* If the DMA engine is stalled then a restart request is issued.*/
+	if ((ETH_DMASR & ETH_DMASR_RPS) == ETH_DMASR_RPS_SUSPEND)
+	{
+		ETH_DMASR   = ETH_DMASR_RBUS;
+		ETH_DMARPDR = ETH_DMASR_RBUS; /* Any value is OK.*/
 	}
 
 	return fs && ls && !overrun;

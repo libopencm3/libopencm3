@@ -1,21 +1,21 @@
 /** @defgroup ltdc_file LTDC
  *
- * @ingroup STM32F4xx
+ * @ingroup STM32xx
  *
- * @brief <b>libopencm3 STM32F4xx LTDC</b>
- *
- * @version 1.0.0
+ * @brief <b>libopencm3 STM32xx LTDC</b>
  *
  * @author @htmlonly &copy; @endhtmlonly 2014
  * Oliver Meier <h2obrain@gmail.com>
+ * Maxime Vincent <maxime.vince@gmail.com>
  *
- * @date 5 December 2014
- *
- * This library supports the LCD controller (LTDC) in the STM32F4
+ * This library supports the LCD controller (LTDC) in the STM32F4/7
  * series of ARM Cortex Microcontrollers by ST Microelectronics.
  *
  * For the STM32F4xx, LTDC is described in LCD-TFT Controller (LTDC)
  * section 16 of the STM32F4xx Reference Manual (RM0090,Rev8).
+ *
+ * For the STM32F7xx, LTDC is described in LCD-TFT Controller (LTDC)
+ * section 18 of the STM32F7xx Reference Manual (RM0090,Rev8).
  *
  *
  * LGPL License Terms @ref lgpl_license
@@ -25,6 +25,7 @@
  * This file is part of the libopencm3 project.
  *
  * Copyright (C) 2014 Oliver Meier <h2obrain@gmail.com>
+ * Copyright (C) 2016 Maxime Vincent <maxime.vince@gmail.com>
  *
  * This library is free software: you can redistribute it and/or modify
  * it under the terms of the GNU Lesser General Public License as published by
@@ -40,7 +41,7 @@
  * along with this library.  If not, see <http://www.gnu.org/licenses/>.
  */
 
-#include <libopencm3/stm32/f4/ltdc.h>
+#include <libopencm3/stm32/ltdc.h>
 
 void ltdc_set_tft_sync_timings(uint16_t sync_width,    uint16_t sync_height,
 			       uint16_t h_back_porch,  uint16_t v_back_porch,
@@ -71,19 +72,18 @@ void ltdc_set_tft_sync_timings(uint16_t sync_width,    uint16_t sync_height,
 	LTDC_TWCR = (w << 16) | (h << 0);
 }
 
-void ltdc_setup_windowing(uint8_t  layer_number,
-			  uint16_t h_back_porch, uint16_t v_back_porch,
-			  uint16_t active_width, uint16_t active_height)
+void ltdc_setup_windowing(uint8_t  layer_number, uint16_t active_width, uint16_t active_height)
 {
-	active_width  += h_back_porch - 1;
-	active_height += v_back_porch - 1;
+    uint32_t h_back_porch = (LTDC_BPCR >> LTDC_BPCR_AHBP_SHIFT) & LTDC_BPCR_AHBP_MASK;
+    uint32_t v_back_porch = (LTDC_BPCR >> LTDC_BPCR_AVBP_SHIFT) & LTDC_BPCR_AVBP_MASK;
+
 	/*assert((h_back_porch & 0xfff == h_back_porch) &&
 		 (v_back_porch  & 0xfff == v_back_porch) &&
 		 (active_width & 0xfff == active_width) &&
 		 (active_height & 0xfff == active_height));*/
-	LTDC_LxWHPCR(layer_number) = (active_width  << 16) |
-				     (h_back_porch << 0);
-	LTDC_LxWVPCR(layer_number) = (active_height << 16) |
-				     (v_back_porch << 0);
+	LTDC_LxWHPCR(layer_number) = ((active_width + h_back_porch)  << 16) |
+				     ((h_back_porch+1) << 0);
+	LTDC_LxWVPCR(layer_number) = ((active_height + v_back_porch) << 16) |
+				     ((v_back_porch+1) << 0);
 }
 

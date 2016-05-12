@@ -1,8 +1,6 @@
 /*
  * This file is part of the libopencm3 project.
  *
- * Copyright (C) 2013 Chuck McManis <cmcmanis@mcmanis.com>
- *
  * This library is free software: you can redistribute it and/or modify
  * it under the terms of the GNU Lesser General Public License as published by
  * the Free Software Foundation, either version 3 of the License, or
@@ -17,9 +15,9 @@
  * along with this library.  If not, see <http://www.gnu.org/licenses/>.
  */
 
-#ifndef LIBOPENCM3_FMC_H
-#define LIBOPENCM3_FMC_H
+#ifndef LIBOPENCM3_RNG_H
+#define LIBOPENCM3_RNG_H
 
-#include <libopencm3/stm32/common/fmc_common_f47.h>
+#include <libopencm3/stm32/common/rng_common_f24.h>
 
 #endif

@@ -44,7 +44,7 @@ usart_reg_base
 void usart_send(uint32_t usart, uint16_t data)
 {
 	/* Send data. */
-	USART_DR(usart) = (data & USART_DR_MASK);
+	USART_TDR(usart) = (data & USART_TDR_MASK);
 }
 
 /*---------------------------------------------------------------------------*/
@@ -61,7 +61,7 @@ usart_reg_base
 uint16_t usart_recv(uint32_t usart)
 {
 	/* Receive data. */
-	return USART_DR(usart) & USART_DR_MASK;
+	return USART_RDR(usart) & USART_RDR_MASK;
 }
 
 /*---------------------------------------------------------------------------*/
@@ -77,7 +77,7 @@ uint16_t usart_recv(uint32_t usart)
 
 bool usart_is_send_ready(uint32_t usart)
 {
-	return ((USART_SR(usart) & USART_SR_TXE)); /* TXE set, means ready to write byte */
+	return ((USART_ISR(usart) & USART_ISR_TXE)); /* TXE set, means ready to write byte */
 }
 
 
@@ -94,7 +94,7 @@ usart_reg_base
 void usart_wait_send_ready(uint32_t usart)
 {
 	/* Wait until the data has been transferred into the shift register. */
-	while ((USART_SR(usart) & USART_SR_TXE) == 0);
+	while ((USART_ISR(usart) & USART_ISR_TXE) == 0);
 }
 
 /*---------------------------------------------------------------------------*/
@@ -109,7 +109,7 @@ usart_reg_base
 
 bool usart_is_recv_ready(uint32_t usart)
 {
-	return ((USART_SR(usart) & USART_SR_RXNE)); /* RXNE set means there is data to be read */
+	return ((USART_ISR(usart) & USART_ISR_RXNE)); /* RXNE set means there is data to be read */
 }
 
 
@@ -125,7 +125,7 @@ usart_reg_base
 void usart_wait_recv_ready(uint32_t usart)
 {
 	/* Wait until the data is ready to be received. */
-	while ((USART_SR(usart) & USART_SR_RXNE) == 0);
+	while ((USART_ISR(usart) & USART_ISR_RXNE) == 0);
 }
 
 /*---------------------------------------------------------------------------*/
@@ -139,7 +139,7 @@ usart_reg_base
 
 bool usart_get_flag(uint32_t usart, uint32_t flag)
 {
-	return ((USART_SR(usart) & flag) != 0);
+	return ((USART_ISR(usart) & flag) != 0);
 }
 
 /*---------------------------------------------------------------------------*/
@@ -161,12 +161,12 @@ usart_reg_base
 
 bool usart_get_interrupt_source(uint32_t usart, uint32_t flag)
 {
-	uint32_t flag_set = (USART_SR(usart) & flag);
+	uint32_t flag_set = (USART_ISR(usart) & flag);
 	/* IDLE, RXNE, TC, TXE interrupts */
-	if ((flag >= USART_SR_IDLE) && (flag <= USART_SR_TXE)) {
+	if ((flag >= USART_ISR_IDLE) && (flag <= USART_ISR_TXE)) {
 		return ((flag_set & USART_CR1(usart)) != 0);
 	/* Overrun error */
-	} else if (flag == USART_SR_ORE) {
+	} else if (flag == USART_ISR_ORE) {
 		return flag_set && (USART_CR3(usart) & USART_CR3_CTSIE);
 	}
 

@@ -92,6 +92,12 @@ LGPL License Terms @ref lgpl_license
 #define CLK_PLL0STAT_PLOCK		(1 << 26)
 /* STAT Reserved: [31:27] */
 
+#define PLL0_CFG_VAL(M,N)   (((N-1) << 16) |(M-1))
+
+/* PLL0 Feed sequence */
+#define PLL_KICK0 0xAAUL
+#define PLL_KICK1 0x55UL
+
 /* CLK_PLL1CFG and CLK_PLL1STAT Values */
 #define CLK_PLL1_MSEL_SHIFT		0
 #define CLK_PLL1_MSEL_MASK		0x1f
@@ -156,5 +162,21 @@ LGPL License Terms @ref lgpl_license
 #define CLK_CLKOUTCFG_ENABLE		(1 << 8)
 #define CLK_CLKOUTCFG_ACTIVITY		(1 << 9)
 /* Reserved: [31:10]*/
+
+typedef struct
+{
+    uint32_t    m;
+    uint32_t    n;
+    uint32_t    cclkdiv;
+}clock_scale_t;
+
+typedef enum {
+    CLOCK_96MHZ,
+    CLOCK_120MHZ,
+} clock_speed_t;
+
+extern const clock_scale_t clock_scale[];
+
+void clock_setup(const clock_scale_t *clock);
 
 #endif

@@ -1,7 +1,7 @@
 /*
  * This file is part of the libopencm3 project.
  *
- * Copyright (C) 2013 Chuck McManis <cmcmanis@mcmanis.com>
+ * Copyright (C) 2010 Uwe Hermann <uwe@hermann-uwe.de>
  *
  * This library is free software: you can redistribute it and/or modify
  * it under the terms of the GNU Lesser General Public License as published by
@@ -17,9 +17,19 @@
  * along with this library.  If not, see <http://www.gnu.org/licenses/>.
  */
 
-#ifndef LIBOPENCM3_FMC_H
-#define LIBOPENCM3_FMC_H
+#include <libopencm3/lpc17xx/exti.h>
 
-#include <libopencm3/stm32/common/fmc_common_f47.h>
+void exti_set_trigger(uint32_t extis, enum exti_trigger_type trig)
+{
+    EXTPOLAR &= ~(1<<extis);
+    EXTPOLAR |= (trig == EXTI_TRIGGER_RISING  || trig == EXTI_TRIGGER_HIGH) ? (1 << extis) : 0;
 
-#endif
+    EXTMODE &= ~(1<<extis);
+    EXTMODE |= (trig == EXTI_TRIGGER_RISING  || trig == EXTI_TRIGGER_FALLING) ? (1 << extis) : 0;
+}
+
+void exti_clear_flag(uint32_t extis)
+{
+    EXTINT = (1 << extis);
+}
+

@@ -1,7 +1,7 @@
 /*
  * This file is part of the libopencm3 project.
  *
- * Copyright (C) 2013 Chuck McManis <cmcmanis@mcmanis.com>
+ * Copyright (C) 2015 Daniele Lacamera <root at danielinux dot net>
  *
  * This library is free software: you can redistribute it and/or modify
  * it under the terms of the GNU Lesser General Public License as published by
@@ -17,9 +17,17 @@
  * along with this library.  If not, see <http://www.gnu.org/licenses/>.
  */
 
-#ifndef LIBOPENCM3_FMC_H
-#define LIBOPENCM3_FMC_H
+#ifndef LPC17XX_UART_H
+#define LPC17XX_UART_H
 
-#include <libopencm3/stm32/common/fmc_common_f47.h>
+#include <libopencm3/cm3/common.h>
+
+#define USART_SR_RXNE  USART_IC_RX
+#define USART_SR_TXE   USART_IC_TX
+
+
+bool usart_get_interrupt_source(uint32_t usart, uint32_t flag);
+
 
 #endif
+

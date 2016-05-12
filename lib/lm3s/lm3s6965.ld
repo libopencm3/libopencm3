@@ -1,7 +1,7 @@
 /*
  * This file is part of the libopencm3 project.
  *
- * Copyright (C) 2013 Chuck McManis <cmcmanis@mcmanis.com>
+ * Copyright (C) 2016 Daniele Lacamera <root@danielinux.net>
  *
  * This library is free software: you can redistribute it and/or modify
  * it under the terms of the GNU Lesser General Public License as published by
@@ -17,9 +17,15 @@
  * along with this library.  If not, see <http://www.gnu.org/licenses/>.
  */
 
-#ifndef LIBOPENCM3_FMC_H
-#define LIBOPENCM3_FMC_H
+/* Linker script for the LM3S6965 chip (256K flash, 64K RAM). */
 
-#include <libopencm3/stm32/common/fmc_common_f47.h>
+/* Define memory regions. */
+MEMORY
+{
+	rom (rx) : ORIGIN = 0x00000000, LENGTH = 256K
+	ram (rwx) : ORIGIN = 0x20000000, LENGTH = 64K
+}
 
-#endif
+/* Include the common ld script. */
+INCLUDE libopencm3_lm3s.ld
+

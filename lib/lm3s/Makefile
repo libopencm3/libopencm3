@@ -34,7 +34,7 @@ TGT_CFLAGS	= -Os \
 TGT_CFLAGS      += $(DEBUG_FLAGS)
 # ARFLAGS	= rcsv
 ARFLAGS		= rcs
-OBJS		= gpio.o vector.o assert.o
+OBJS		= gpio.o vector.o assert.o rcc.o usart.o
 
 VPATH += ../cm3
 
