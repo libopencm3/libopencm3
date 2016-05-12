@@ -3,8 +3,6 @@
 /*
  * This file is part of the libopencm3 project.
  *
- * Copyright (C) 2014 Felix Held <felix-libopencm3@felixheld.de>
- *
  * This library is free software: you can redistribute it and/or modify
  * it under the terms of the GNU Lesser General Public License as published by
  * the Free Software Foundation, either version 3 of the License, or
@@ -19,18 +17,8 @@
  * along with this library.  If not, see <http://www.gnu.org/licenses/>.
  */
 
-#if defined(SAM3A)
-#       include <libopencm3/sam/3a/gpio.h>
-#elif defined(SAM3N)
-#       include <libopencm3/sam/3n/gpio.h>
-#elif defined(SAM3S)
-#       include <libopencm3/sam/3s/gpio.h>
-#elif defined(SAM3U)
-#       include <libopencm3/sam/3u/gpio.h>
-#elif defined(SAM3X)
-#       include <libopencm3/sam/3x/gpio.h>
-#elif defined(SAM4L)
-#       include <libopencm3/sam/4l/gpio.h>
+#if defined(SAM4L)
+#       include <libopencm3/sam/4l/scif.h>
 #else
-#       error "sam family not defined."
+#       error "SCIF undefined for your processor family."
 #endif

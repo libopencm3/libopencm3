@@ -18,12 +18,6 @@
  */
 
 #include <libopencm3/sam/usart.h>
-#include <libopencm3/sam/pmc.h>
-
-void usart_set_baudrate(uint32_t usart, uint32_t baud)
-{
-	USART_BRGR(usart) = pmc_mck_frequency / (16 * baud);
-}
 
 void usart_set_databits(uint32_t usart, int bits)
 {
@@ -58,12 +52,12 @@ void usart_set_flow_control(uint32_t usart, enum usart_flowcontrol fc)
 
 void usart_enable(uint32_t usart)
 {
-	(void)usart;
+	USART_CR(usart) = USART_CR_TXEN | USART_CR_RXEN;
 }
 
 void usart_disable(uint32_t usart)
 {
-	(void)usart;
+	USART_CR(usart) = USART_CR_TXDIS | USART_CR_RXDIS;
 }
 
 void usart_send(uint32_t usart, uint16_t data)
@@ -107,4 +101,26 @@ void usart_enable_rx_interrupt(uint32_t usart)
 void usart_disable_rx_interrupt(uint32_t usart)
 {
 	USART_IDR(usart) = USART_CSR_RXRDY;
+}
+
+void usart_wp_enable(uint32_t usart)
+{
+	USART_WPMR(usart) = USART_WPMR_KEY | USART_WPMR_WPEN;
+}
+
+void usart_wp_disable(uint32_t usart)
+{
+	USART_WPMR(usart) = USART_WPMR_KEY & (~USART_WPMR_WPEN);
+}
+
+void usart_select_clock(uint32_t usart, enum usart_clock clk)
+{
+	uint32_t reg_mr = USART_MR(usart) & (~USART_MR_USCLKS_MASK);
+	USART_MR(usart) = ((clk << USART_MR_USCLKS_SHIFT) & USART_MR_USCLKS_MASK) | reg_mr;
+}
+
+void usart_set_character_length(uint32_t usart, enum usart_chrl chrl)
+{
+	uint32_t reg_mr = USART_MR(usart) & (~USART_MR_CHRL_MASK);
+	USART_MR(usart) = reg_mr | (chrl << USART_MR_CHRL_SHIFT);
 }

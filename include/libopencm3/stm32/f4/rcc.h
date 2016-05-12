@@ -251,6 +251,7 @@
 #define RCC_APB1RSTR_PWRRST			(1 << 28)
 #define RCC_APB1RSTR_CAN2RST			(1 << 26)
 #define RCC_APB1RSTR_CAN1RST			(1 << 25)
+#define RCC_APB1RSTR_FMPI2C1RST			(1 << 24)
 #define RCC_APB1RSTR_I2C3RST			(1 << 23)
 #define RCC_APB1RSTR_I2C2RST			(1 << 22)
 #define RCC_APB1RSTR_I2C1RST			(1 << 21)
@@ -329,6 +330,7 @@
 #define RCC_APB1ENR_PWREN			(1 << 28)
 #define RCC_APB1ENR_CAN2EN			(1 << 26)
 #define RCC_APB1ENR_CAN1EN			(1 << 25)
+#define RCC_APB1ENR_FMPI2C1EN		(1 << 24)
 #define RCC_APB1ENR_I2C3EN			(1 << 23)
 #define RCC_APB1ENR_I2C2EN			(1 << 22)
 #define RCC_APB1ENR_I2C1EN			(1 << 21)
@@ -413,6 +415,7 @@
 #define RCC_APB1LPENR_PWRLPEN			(1 << 28)
 #define RCC_APB1LPENR_CAN2LPEN			(1 << 26)
 #define RCC_APB1LPENR_CAN1LPEN			(1 << 25)
+#define RCC_APB1LPENR_FMPI2C1LPEN		(1 << 24)
 #define RCC_APB1LPENR_I2C3LPEN			(1 << 23)
 #define RCC_APB1LPENR_I2C2LPEN			(1 << 22)
 #define RCC_APB1LPENR_I2C1LPEN			(1 << 21)
@@ -639,6 +642,7 @@ enum rcc_periph_clken {
 	RCC_I2C1	= _REG_BIT(0x40, 21),
 	RCC_I2C2	= _REG_BIT(0x40, 22),
 	RCC_I2C3	= _REG_BIT(0x40, 23),
+	RCC_FMPI2C1	= _REG_BIT(0x40, 24),
 	RCC_CAN1	= _REG_BIT(0x40, 25),
 	RCC_CAN2	= _REG_BIT(0x40, 26),
 	RCC_PWR		= _REG_BIT(0x40, 28),
