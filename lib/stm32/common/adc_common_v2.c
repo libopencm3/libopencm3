@@ -116,7 +116,8 @@ void adc_power_off_async(uint32_t adc)
 		ADC_CR(adc) |= stops;
 		while (ADC_CR(adc) & checks);
 	}
-	ADC_CR(adc) |= ADC_CR_ADDIS;
+	if (ADC_CR(adc) & ADC_CR_ADEN)
+		ADC_CR(adc) |= ADC_CR_ADDIS;
 }
 
 /**
