@@ -480,6 +480,26 @@ extern uint32_t rcc_apb2_frequency;
 
 /* --- Function prototypes ------------------------------------------------- */
 
+enum rcc_clock_3v3 {
+	RCC_CLOCK_3V3_32MHZ,
+	RCC_CLOCK_3V3_END
+};
+
+struct rcc_clock_scale {
+	uint8_t pllm;
+	uint8_t plld;
+	uint32_t flash_config;
+	uint8_t hpre;
+	uint8_t ppre1;
+	uint8_t ppre2;
+	uint32_t ahb_frequency;
+	uint32_t apb1_frequency;
+	uint32_t apb2_frequency;
+};
+
+extern const struct rcc_clock_scale rcc_hsi16_3v3[RCC_CLOCK_3V3_END];
+extern const struct rcc_clock_scale rcc_hse_16mhz_3v3[RCC_CLOCK_3V3_END];
+
 enum rcc_osc {
 	RCC_PLL, RCC_HSE, RCC_HSI48, RCC_HSI16, RCC_MSI, RCC_LSE, RCC_LSI
 };
@@ -667,6 +687,8 @@ void rcc_set_pll_divider(uint32_t factor);
 void rcc_set_ppre2(uint32_t ppre2);
 void rcc_set_ppre1(uint32_t ppre1);
 void rcc_set_hpre(uint32_t hpre);
+void rcc_clock_setup_hsi16_3v3(const struct rcc_clock_scale *clock);
+void rcc_clock_setup_hse_3v3(const struct rcc_clock_scale *clock);
 
 END_DECLS
 

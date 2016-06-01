@@ -43,6 +43,34 @@ uint32_t rcc_ahb_frequency = 2097000;
 uint32_t rcc_apb1_frequency = 2097000;
 uint32_t rcc_apb2_frequency = 2097000;
 
+const struct rcc_clock_scale rcc_hsi16_3v3[RCC_CLOCK_3V3_END] = {
+	{ /* 32MHz */
+		.pllm = RCC_CFGR_PLLMUL_MUL4,
+		.plld = RCC_CFGR_PLLDIV_DIV2,
+		.flash_config = FLASH_ACR_LATENCY_1WS,
+		.hpre = RCC_CFGR_HPRE_NODIV,
+		.ppre1 = RCC_CFGR_PPRE1_NODIV,
+		.ppre2 = RCC_CFGR_PPRE2_NODIV,
+		.ahb_frequency  = 32000000,
+		.apb1_frequency = 32000000,
+		.apb2_frequency = 32000000,
+	},
+};
+
+const struct rcc_clock_scale rcc_hse_16mhz_3v3[RCC_CLOCK_3V3_END] = {
+	{ /* 32MHz */
+		.pllm = RCC_CFGR_PLLMUL_MUL4,
+		.plld = RCC_CFGR_PLLDIV_DIV2,
+		.flash_config = FLASH_ACR_LATENCY_1WS,
+		.hpre = RCC_CFGR_HPRE_NODIV,
+		.ppre1 = RCC_CFGR_PPRE1_NODIV,
+		.ppre2 = RCC_CFGR_PPRE2_NODIV,
+		.ahb_frequency  = 32000000,
+		.apb1_frequency = 32000000,
+		.apb2_frequency = 32000000,
+	},
+};
+
 void rcc_osc_on(enum rcc_osc osc)
 {
 	switch (osc) {
@@ -537,6 +565,103 @@ void rcc_set_hpre(uint32_t hpre)
 {
 	uint32_t reg = RCC_CFGR & ~(RCC_CFGR_HPRE_MASK << RCC_CFGR_HPRE_SHIFT);
 	RCC_CFGR = reg | (hpre << RCC_CFGR_HPRE_SHIFT);
+}
+
+/*---------------------------------------------------------------------------*/
+/** @brief Setup clock: PLL, clocked from HSI16.
+ *
+ * @param[in] clock struct ::rcc_clock_scale Setup parameters structure.
+ */
+
+void rcc_clock_setup_hsi16_3v3(const struct rcc_clock_scale *clock)
+{
+	/* Enable internal high-speed oscillator. */
+	rcc_osc_on(RCC_HSI16);
+	rcc_wait_for_osc_ready(RCC_HSI16);
+
+	/* Select HSI as SYSCLK source. */
+	rcc_set_sysclk_source(RCC_HSI16);
+
+	/* Set the peripheral clocks' prescale. */
+	rcc_set_hpre(clock->hpre);
+	rcc_set_ppre1(clock->ppre1);
+	rcc_set_ppre2(clock->ppre2);
+
+	/* Turn off PLL and wait for it to fully stop */
+	rcc_osc_off(RCC_PLL);
+	while (RCC_CR & RCC_CR_PLLRDY);
+
+	/* Set the flash latency */
+	flash_set_ws(clock->flash_config);
+
+	/* Set the PLL source to HSI16 */
+	rcc_set_pll_source_hsi16();
+
+	/* Set up the PLL */
+	rcc_set_pll_multiplier(clock->pllm);
+	rcc_set_pll_divider(clock->plld);
+
+	/* Turn on PLL and switch to it */
+	rcc_osc_on(RCC_PLL);
+	rcc_wait_for_osc_ready(RCC_PLL);
+	rcc_set_sysclk_source(RCC_PLL);
+
+	/* Set the peripheral clock frequencies used. */
+	rcc_ahb_frequency  = clock->ahb_frequency;
+	rcc_apb1_frequency = clock->apb1_frequency;
+	rcc_apb2_frequency = clock->apb2_frequency;
+}
+
+/*---------------------------------------------------------------------------*/
+/** @brief Setup clock: PLL, clocked from HSE.
+ *
+ * @param[in] clock struct ::rcc_clock_scale Setup parameters structure.
+ */
+
+void rcc_clock_setup_hse_3v3(const struct rcc_clock_scale *clock)
+{
+	/* Enable internal high-speed oscillator. */
+	rcc_osc_on(RCC_HSI16);
+	rcc_wait_for_osc_ready(RCC_HSI16);
+
+	/* Select HSI as SYSCLK source. */
+	rcc_set_sysclk_source(RCC_HSI16);
+
+	/* Set the peripheral clocks' prescale. */
+	rcc_set_hpre(clock->hpre);
+	rcc_set_ppre1(clock->ppre1);
+	rcc_set_ppre2(clock->ppre2);
+
+	/* Enable external high-speed oscillator ??MHz. */
+	rcc_osc_on(RCC_HSE);
+	rcc_wait_for_osc_ready(RCC_HSE);
+
+	/* Turn off PLL and wait for it to fully stop */
+	rcc_osc_off(RCC_PLL);
+	while (RCC_CR & RCC_CR_PLLRDY);
+
+	/* Set the flash latency */
+	flash_set_ws(clock->flash_config);
+
+	/* Set the PLL source to HSE */
+	rcc_set_pll_source_hse();
+
+	/* Set up the PLL */
+	rcc_set_pll_multiplier(clock->pllm);
+	rcc_set_pll_divider(clock->plld);
+
+	/* Turn on PLL and switch to it */
+	rcc_osc_on(RCC_PLL);
+	rcc_wait_for_osc_ready(RCC_PLL);
+	rcc_set_sysclk_source(RCC_PLL);
+
+	/* Set the peripheral clock frequencies used. */
+	rcc_ahb_frequency  = clock->ahb_frequency;
+	rcc_apb1_frequency = clock->apb1_frequency;
+	rcc_apb2_frequency = clock->apb2_frequency;
+
+	/* Disable the internal high-speed oscillator. */
+	rcc_osc_off(RCC_HSI16);
 }
 
 /**@}*/
