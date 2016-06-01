@@ -1,4 +1,15 @@
-/* This provides unification of code over STM32F subfamilies */
+/** @defgroup i2c_file I2C
+ *
+ * @ingroup STM32L0xx
+ *
+ * @brief <b>libopencm3 STM32L0xx I2C</b>
+ *
+ * @version 1.0.0
+ *
+ * @date 1 Jun 2016
+ *
+ * LGPL License Terms @ref lgpl_license
+ */
 
 /*
  * This file is part of the libopencm3 project.
@@ -17,24 +28,5 @@
  * along with this library.  If not, see <http://www.gnu.org/licenses/>.
  */
 
-#include <libopencm3/cm3/common.h>
-#include <libopencm3/stm32/memorymap.h>
-
-#if defined(STM32F0)
-#       include <libopencm3/stm32/f0/i2c.h>
-#elif defined(STM32F1)
-#       include <libopencm3/stm32/f1/i2c.h>
-#elif defined(STM32F2)
-#       include <libopencm3/stm32/f2/i2c.h>
-#elif defined(STM32F3)
-#       include <libopencm3/stm32/f3/i2c.h>
-#elif defined(STM32F4)
-#       include <libopencm3/stm32/f4/i2c.h>
-#elif defined(STM32L0)
-#       include <libopencm3/stm32/l0/i2c.h>
-#elif defined(STM32L1)
-#       include <libopencm3/stm32/l1/i2c.h>
-#else
-#       error "stm32 family not defined."
-#endif
+#include <libopencm3/stm32/i2c.h>
 

@@ -43,6 +43,7 @@ OBJS		+= adc_common_v2.o
 OBJS		+= crs_common_all.o
 OBJS		+= flash.o
 OBJS		+= flash_common_l01.o
+OBJS		+= i2c_common_v2.o
 
 OBJS            += usb.o usb_control.o usb_standard.o
 OBJS            += st_usbfs_core.o st_usbfs_v2.o
