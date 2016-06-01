@@ -35,7 +35,7 @@ TGT_CFLAGS      += $(DEBUG_FLAGS)
 
 ARFLAGS		= rcs
 
-OBJS		= flash.o rcc.o usart.o dma.o rtc.o comparator.o crc.o \
+OBJS		= flash.o rcc.o dma.o rtc.o comparator.o crc.o \
                   dac.o iwdg.o pwr.o gpio.o timer.o adc.o desig.o
 
 OBJS            += gpio_common_all.o gpio_common_f0234.o crc_common_all.o \
@@ -46,6 +46,8 @@ OBJS            += gpio_common_all.o gpio_common_f0234.o crc_common_all.o \
 OBJS		+= adc_common_v2.o
 OBJS		+= crs_common_all.o
 OBJS		+= i2c_common_v2.o
+OBJS		+= usart.o
+OBJS		+= usart_common_l0f0.o
 OBJS		+= usart_common_v2.o
 
 OBJS		+= usb.o usb_control.o usb_standard.o
