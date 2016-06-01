@@ -43,6 +43,7 @@ OBJS		+= pwr_common_all.o pwr_common_l01.o rtc_common_l1f024.o
 OBJS		+= spi_common_all.o spi_common_l1f124.o timer_common_all.o
 OBJS		+= usart_common_all.o usart_common_f124.o
 OBJS		+= exti_common_all.o
+OBJS		+= flash_common_l01.o
 OBJS		+= rcc_common_all.o
 OBJS		+= adc.o adc_common_v1.o
 

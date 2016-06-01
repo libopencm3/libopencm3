@@ -36,6 +36,12 @@
 
 #include <libopencm3/cm3/assert.h>
 #include <libopencm3/stm32/rcc.h>
+#include <libopencm3/stm32/flash.h>
+
+/* Set the default clock frequencies: MSI@2.1MHz */
+uint32_t rcc_ahb_frequency = 2097000;
+uint32_t rcc_apb1_frequency = 2097000;
+uint32_t rcc_apb2_frequency = 2097000;
 
 void rcc_osc_on(enum rcc_osc osc)
 {
@@ -307,6 +313,109 @@ void rcc_set_hsi48_source_pll(void)
 }
 
 /*---------------------------------------------------------------------------*/
+/** @brief RCC Set the PLL source to the HSI16
+ */
+void rcc_set_pll_source_hsi16(void)
+{
+	RCC_CFGR &= ~RCC_CFGR_PLLSRC;
+}
+
+/*---------------------------------------------------------------------------*/
+/** @brief RCC Set the PLL source to the HSE
+ */
+void rcc_set_pll_source_hse(void)
+{
+	RCC_CFGR |= RCC_CFGR_PLLSRC;
+}
+
+/*---------------------------------------------------------------------------*/
+/** @brief RCC Get the HSI48 clock source.
+ *
+ * @returns ::osc_t HSI48 clock source:
+ */
+
+enum rcc_osc rcc_hsi48_clock_source(void)
+{
+	return (RCC_CCIPR & RCC_CCIPR_HSI48SEL) ? RCC_HSI48 : RCC_PLL;
+}
+
+/*---------------------------------------------------------------------------*/
+/** @brief RCC Enable the Clock Security System on HSE.
+ */
+
+void rcc_css_hse_enable(void)
+{
+	RCC_CR |= RCC_CR_CSSHSEON;
+}
+
+/*---------------------------------------------------------------------------*/
+/** @brief RCC Enable the Clock Security System on LSE.
+ */
+
+void rcc_css_lse_enable(void)
+{
+	RCC_CSR |= RCC_CSR_CSSLSEON;
+}
+
+/*---------------------------------------------------------------------------*/
+/** @brief RCC Disable the Clock Security System on HSE.
+ */
+
+void rcc_css_hse_disable(void)
+{
+	RCC_CR &= ~RCC_CR_CSSHSEON;
+}
+
+/*---------------------------------------------------------------------------*/
+/** @brief RCC Disable the Clock Security System on LSE.
+ */
+
+void rcc_css_lse_disable(void)
+{
+	RCC_CSR &= ~RCC_CSR_CSSLSEON;
+}
+
+/*---------------------------------------------------------------------------*/
+/** @brief RCC Clear the Clock Security System on HSE Interrupt Flag
+*/
+
+void rcc_css_hse_int_clear(void)
+{
+	RCC_CICR |= RCC_CICR_CSSHSEC;
+}
+
+/*---------------------------------------------------------------------------*/
+/** @brief RCC Clear the Clock Security System on LSE Interrupt Flag
+*/
+
+void rcc_css_lse_int_clear(void)
+{
+	RCC_CICR |= RCC_CICR_CSSLSEC;
+}
+
+/*---------------------------------------------------------------------------*/
+/** @brief RCC Read the Clock Security System on HSE Interrupt Flag
+ *
+ * @returns int. Boolean value for flag set.
+ */
+
+int rcc_css_hse_int_flag(void)
+{
+	return ((RCC_CIFR & RCC_CIFR_CSSHSEF) != 0);
+}
+
+/*---------------------------------------------------------------------------*/
+/** @brief RCC Read the Clock Security System on LSE Interrupt Flag
+ *
+ * @returns int. Boolean value for flag set.
+ */
+
+int rcc_css_lse_int_flag(void)
+{
+	return ((RCC_CIFR & RCC_CIFR_CSSLSEF) != 0);
+}
+
+/*---------------------------------------------------------------------------*/
 /** @brief RCC Set the Source for the System Clock.
  *
  * @param[in] osc enum ::osc_t. Oscillator ID. Only HSE, HSI16, MSI and PLL have
@@ -336,6 +445,29 @@ void rcc_set_sysclk_source(enum rcc_osc osc)
 }
 
 /*---------------------------------------------------------------------------*/
+/** @brief RCC Get the System Clock Source.
+ *
+ * @returns ::osc_t System clock source:
+ */
+
+enum rcc_osc rcc_system_clock_source(void)
+{
+	/* Return the clock source which is used as system clock. */
+	switch ((RCC_CFGR >> RCC_CFGR_SWS_SHIFT) & RCC_CFGR_SWS_MASK ) {
+	case RCC_CFGR_SWS_MSI:
+		return RCC_MSI;
+	case RCC_CFGR_SWS_HSE:
+		return RCC_HSE;
+	case RCC_CFGR_SWS_PLL:
+		return RCC_PLL;
+	case RCC_CFGR_SWS_HSI16:
+		return RCC_HSI16;
+	}
+
+	cm3_assert_not_reached();
+}
+
+/*---------------------------------------------------------------------------*/
 /** @brief RCC Set the PLL Multiplication Factor.
  *
  * @note This only has effect when the PLL is disabled.
@@ -349,7 +481,6 @@ void rcc_set_pll_multiplier(uint32_t factor)
 		       & ~(RCC_CFGR_PLLMUL_MASK << RCC_CFGR_PLLMUL_SHIFT);
 	RCC_CFGR = reg | (factor << RCC_CFGR_PLLMUL_SHIFT);
 }
-
 
 /*---------------------------------------------------------------------------*/
 /** @brief RCC Set the PLL Division Factor.
@@ -407,6 +538,5 @@ void rcc_set_hpre(uint32_t hpre)
 	uint32_t reg = RCC_CFGR & ~(RCC_CFGR_HPRE_MASK << RCC_CFGR_HPRE_SHIFT);
 	RCC_CFGR = reg | (hpre << RCC_CFGR_HPRE_SHIFT);
 }
-
 
 /**@}*/
