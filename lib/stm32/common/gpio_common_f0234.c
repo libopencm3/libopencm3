@@ -32,7 +32,7 @@ Example 1: Push-pull digital output actions with pullup on ports C2 and C9
 @code
 	gpio_mode_setup(GPIOC, GPIO_MODE_OUTPUT,
 			GPIO_PUPD_PULLUP,  GPIO2 | GPIO9);
-	gpio_output_options(GPIOC, GPIO_OTYPE_PP,
+	gpio_set_output_options(GPIOC, GPIO_OTYPE_PP,
 			    GPIO_OSPEED_25MHZ,  GPIO2 | GPIO9);
 	gpio_set(GPIOC, GPIO2 | GPIO9);
 	gpio_clear(GPIOC, GPIO2);
