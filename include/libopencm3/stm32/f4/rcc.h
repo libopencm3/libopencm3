@@ -710,6 +710,8 @@ enum rcc_periph_clken {
 
 	/* AHB3 peripherals */
 	RCC_FSMC	= _REG_BIT(0x38, 0),
+	RCC_FMC		= _REG_BIT(0x38, 0),
+	RCC_QUADSPI	= _REG_BIT(0x38, 1),
 
 	/* APB1 peripherals*/
 	RCC_TIM2	= _REG_BIT(0x40, 0),
