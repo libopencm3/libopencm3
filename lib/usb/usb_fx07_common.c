@@ -248,6 +248,30 @@ uint16_t stm32fx07_ep_read_packet(usbd_device *usbd_dev, uint8_t addr,
 	return len;
 }
 
+static void stm32fx07_flush_txfifo(usbd_device *usbd_dev, int ep)
+{
+	uint32_t fifo;
+	/* set IN endpoint NAK */
+	REBASE(OTG_DIEPCTL(ep)) |= OTG_DIEPCTL0_SNAK;
+	/* wait for core to respond */
+	while (!(REBASE(OTG_DIEPINT(ep)) & OTG_DIEPINTX_INEPNE)) {
+		/* idle */
+	}
+	/* get fifo for this endpoint */
+	fifo = (REBASE(OTG_DIEPCTL(ep)) & OTG_DIEPCTL0_TXFNUM_MASK) >> 22;
+	/* wait for core to idle */
+	while (!(REBASE(OTG_GRSTCTL) & OTG_GRSTCTL_AHBIDL)) {
+		/* idle */
+	}
+	/* flush tx fifo */
+	REBASE(OTG_GRSTCTL) = (fifo << 6) | OTG_GRSTCTL_TXFFLSH;
+	/* reset packet counter */
+	REBASE(OTG_DIEPTSIZ(ep)) = 0;
+	while ((REBASE(OTG_GRSTCTL) & OTG_GRSTCTL_TXFFLSH)) {
+		/* idle */
+	}
+}
+
 void stm32fx07_poll(usbd_device *usbd_dev)
 {
 	/* Read interrupt status register. */
@@ -295,6 +319,14 @@ void stm32fx07_poll(usbd_device *usbd_dev)
 			type = USB_TRANSACTION_SETUP;
 		} else {
 			type = USB_TRANSACTION_OUT;
+		}
+
+		if (type == USB_TRANSACTION_SETUP
+			&& (REBASE(OTG_DIEPTSIZ(ep)) & OTG_DIEPSIZ0_PKTCNT)) {
+			/* SETUP received but there is still something stuck
+			 * in the transmit fifo.  Flush it.
+			 */
+			stm32fx07_flush_txfifo(usbd_dev, ep);
 		}
 
 		/* Save packet size for stm32f107_ep_read_packet(). */
