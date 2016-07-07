@@ -262,6 +262,23 @@ void stm32fx07_poll(usbd_device *usbd_dev)
 		return;
 	}
 
+	/*
+	 * There is no global interrupt flag for transmit complete.
+	 * The XFRC bit must be checked in each OTG_DIEPINT(x).
+	 */
+	for (i = 0; i < 4; i++) { /* Iterate over endpoints. */
+		if (REBASE(OTG_DIEPINT(i)) & OTG_DIEPINTX_XFRC) {
+			/* Transfer complete. */
+			if (usbd_dev->user_callback_ctr[i]
+						       [USB_TRANSACTION_IN]) {
+				usbd_dev->user_callback_ctr[i]
+					[USB_TRANSACTION_IN](usbd_dev, i);
+			}
+
+			REBASE(OTG_DIEPINT(i)) = OTG_DIEPINTX_XFRC;
+		}
+	}
+
 	/* Note: RX and TX handled differently in this device. */
 	if (intsts & OTG_GINTSTS_RXFLVL) {
 		/* Receive FIFO non-empty. */
@@ -302,23 +319,6 @@ void stm32fx07_poll(usbd_device *usbd_dev)
 		}
 
 		usbd_dev->rxbcnt = 0;
-	}
-
-	/*
-	 * There is no global interrupt flag for transmit complete.
-	 * The XFRC bit must be checked in each OTG_DIEPINT(x).
-	 */
-	for (i = 0; i < 4; i++) { /* Iterate over endpoints. */
-		if (REBASE(OTG_DIEPINT(i)) & OTG_DIEPINTX_XFRC) {
-			/* Transfer complete. */
-			if (usbd_dev->user_callback_ctr[i]
-						       [USB_TRANSACTION_IN]) {
-				usbd_dev->user_callback_ctr[i]
-					[USB_TRANSACTION_IN](usbd_dev, i);
-			}
-
-			REBASE(OTG_DIEPINT(i)) = OTG_DIEPINTX_XFRC;
-		}
 	}
 
 	if (intsts & OTG_GINTSTS_USBSUSP) {
