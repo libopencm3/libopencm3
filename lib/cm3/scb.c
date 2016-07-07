@@ -25,16 +25,22 @@
 #if defined(__ARM_ARCH_7M__) || defined(__ARM_ARCH_7EM__)
 void scb_reset_core(void)
 {
-	SCB_AIRCR = SCB_AIRCR_VECTKEY | SCB_AIRCR_VECTRESET;
-
+	__asm__ volatile ("dsb");
+	SCB->AIRCR  = (SCB_AIRCR_VECTKEY
+				| (SCB->AIRCR & SCB_AIRCR_PRIGROUP_MASK)
+				|  SCB_AIRCR_VECTRESET);
+	__asm__ volatile ("dsb");
 	while (1);
 }
 #endif
 
 void scb_reset_system(void)
 {
-	SCB_AIRCR = SCB_AIRCR_VECTKEY | SCB_AIRCR_SYSRESETREQ;
-
+	__asm__ volatile ("dsb");
+	SCB->AIRCR  = (SCB_AIRCR_VECTKEY
+				| (SCB->AIRCR & SCB_AIRCR_PRIGROUP_MASK)
+				|  SCB_AIRCR_SYSRESETREQ);
+	__asm__ volatile ("dsb");
 	while (1);
 }
 
