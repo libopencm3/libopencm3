@@ -24,11 +24,11 @@ endif
 LDSCRIPT	= generated.$(DEVICE).ld
 DEVICES_DATA = $(OPENCM3_DIR)/ld/devices.data
 
-genlink_family		:=$(shell awk -v PAT="$(DEVICE)" -v MODE="FAMILY" -f $(OPENCM3_DIR)/scripts/genlink.awk $(DEVICES_DATA) 2>/dev/null)
-genlink_subfamily	:=$(shell awk -v PAT="$(DEVICE)" -v MODE="SUBFAMILY" -f $(OPENCM3_DIR)/scripts/genlink.awk $(DEVICES_DATA) 2>/dev/null)
-genlink_cpu		:=$(shell awk -v PAT="$(DEVICE)" -v MODE="CPU" -f $(OPENCM3_DIR)/scripts/genlink.awk $(DEVICES_DATA) 2>/dev/null)
-genlink_fpu		:=$(shell awk -v PAT="$(DEVICE)" -v MODE="FPU" -f $(OPENCM3_DIR)/scripts/genlink.awk $(DEVICES_DATA) 2>/dev/null)
-genlink_cppflags	:=$(shell awk -v PAT="$(DEVICE)" -v MODE="CPPFLAGS" -f $(OPENCM3_DIR)/scripts/genlink.awk $(DEVICES_DATA) 2>/dev/null)
+genlink_family		:=$(shell awk -v PAT="$(DEVICE)" -v MODE="FAMILY" -f $(OPENCM3_DIR)/scripts/genlink.awk $(DEVICES_DATA))
+genlink_subfamily	:=$(shell awk -v PAT="$(DEVICE)" -v MODE="SUBFAMILY" -f $(OPENCM3_DIR)/scripts/genlink.awk $(DEVICES_DATA))
+genlink_cpu		:=$(shell awk -v PAT="$(DEVICE)" -v MODE="CPU" -f $(OPENCM3_DIR)/scripts/genlink.awk $(DEVICES_DATA))
+genlink_fpu		:=$(shell awk -v PAT="$(DEVICE)" -v MODE="FPU" -f $(OPENCM3_DIR)/scripts/genlink.awk $(DEVICES_DATA))
+genlink_cppflags	:=$(shell awk -v PAT="$(DEVICE)" -v MODE="CPPFLAGS" -f $(OPENCM3_DIR)/scripts/genlink.awk $(DEVICES_DATA))
 
 CPPFLAGS	+= $(genlink_cppflags)
 
