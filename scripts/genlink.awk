@@ -31,9 +31,9 @@ BEGIN {
 	gsub(/\r$/,"");
 
 	tmp = "^"$1"$";
-	gsub(/?/, ".", tmp);
-	gsub(/*/, ".*", tmp);
-	gsub(/+/, ".+", tmp);
+	gsub(/[?]/, ".", tmp);
+	gsub(/[*]/, ".*", tmp);
+	gsub(/[+]/, ".+", tmp);
 	tolower(tmp);
 
 	if (PAT ~ tmp) {
