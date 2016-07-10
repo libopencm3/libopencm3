@@ -228,15 +228,22 @@ uint16_t stm32fx07_ep_read_packet(usbd_device *usbd_dev, uint8_t addr,
 	uint32_t extra;
 
 	len = MIN(len, usbd_dev->rxbcnt);
-	usbd_dev->rxbcnt -= len;
 
 	volatile uint32_t *fifo = REBASE_FIFO(addr);
 	for (i = len; i >= 4; i -= 4) {
 		*buf32++ = *fifo++;
+		usbd_dev->rxbcnt -= 4;
 	}
 
 	if (i) {
 		extra = *fifo++;
+		/* we read 4 bytes from the fifo, so update rxbcnt */
+		if (usbd_dev->rxbcnt < 4) {
+			/* Be careful not to underflow (rxbcnt is unsigned) */
+			usbd_dev->rxbcnt = 0;
+		} else {
+			usbd_dev->rxbcnt -= 4;
+		}
 		memcpy(buf32, &extra, i);
 	}
 
