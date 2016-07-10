@@ -233,7 +233,8 @@ class TestControlTransfer_Reads(unittest.TestCase):
         self.cfg = uu.find_descriptor(self.dev, bConfigurationValue=2)
         self.assertIsNotNone(self.cfg, "Config 2 should exist")
         self.dev.set_configuration(self.cfg);
-        self.req = uu.CTRL_IN | uu.CTRL_TYPE_VENDOR | uu.CTRL_RECIPIENT_INTERFACE
+        self.req     = uu.CTRL_IN  | uu.CTRL_TYPE_VENDOR | uu.CTRL_RECIPIENT_INTERFACE
+        self.req_out = uu.CTRL_OUT | uu.CTRL_TYPE_VENDOR | uu.CTRL_RECIPIENT_INTERFACE
 
     def inner_t(self, wVal, read_len):
         wVal = int(wVal)
@@ -265,6 +266,25 @@ class TestControlTransfer_Reads(unittest.TestCase):
         inner(ep0_size - 7)
         inner(ep0_size + 11)
         inner(ep0_size * 4 + 11)
+
+    def test_loopback(self) :
+        """
+        Can we request x control in when we tell the device to produce x?
+        :return:
+        """
+        def inner(x):
+            x = int(x)
+            buf_out = array.array('b')
+            for i in range(0,x) : buf_out.append(48 + (x+i) % 10)
+            self.dev.ctrl_transfer(self.req_out, 10, 0, 0, buf_out)
+            buf_in = self.dev.ctrl_transfer(self.req, 11, 0, 0, x)
+            self.assertEqual(len(buf_in), x,  "Should have read as much as we asked for")
+            self.assertEqual(buf_in, buf_out,
+                             "Buffers don't match!\n - buf_out : %r\n - buf_in  : %r" %(
+                             buf_out.tostring(), buf_in.tostring()))
+        
+        ep0_size = self.dev.bMaxPacketSize0
+        for i in range(4, ep0_size) : inner(i)
 
     def test_waytoobig(self):
         """
@@ -369,3 +389,7 @@ class TestUnaligned(unittest.TestCase):
     def test_unaligned(self):
         self.set_unaligned()
         self.do_readwrite()
+
+
+if __name__ == '__main__':
+    unittest.main()
