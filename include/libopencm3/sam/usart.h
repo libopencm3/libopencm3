@@ -17,8 +17,8 @@
  * along with this library.  If not, see <http://www.gnu.org/licenses/>.
  */
 
-#ifndef SAM3X_USART_H
-#define SAM3X_USART_H
+#ifndef SAM_USART_H
+#define SAM_USART_H
 
 #include <libopencm3/cm3/common.h>
 #include <libopencm3/sam/memorymap.h>
@@ -42,7 +42,6 @@
 #define USART_TTGR(x)			MMIO32((x) + 0x0028)
 /* 0x002C:0x003C - Reserved */
 #define USART_FIDI(x)			MMIO32((x) + 0x0040)
-#define USART_NER(x)			MMIO32((x) + 0x0044)
 #define USART_NER(x)			MMIO32((x) + 0x0044)
 /* 0x0048 - Reserved */
 #define USART_IF(x)			MMIO32((x) + 0x004C)
@@ -117,12 +116,14 @@
 /* Bits [8:0] - Reserved */
 #define USART_MR_SYNC			(0x01 << 8)
 #define USART_MR_CPHA			(0x01 << 8)
-#define USART_MR_CHRL_MASK		(0x03 << 6)
-#define USART_MR_CHRL_5BIT		(0x00 << 6)
-#define USART_MR_CHRL_6BIT		(0x01 << 6)
-#define USART_MR_CHRL_7BIT		(0x02 << 6)
-#define USART_MR_CHRL_8BIT		(0x03 << 6)
-#define USART_MR_USCLKS_MASK		(0x03 << 4)
+#define USART_MR_CHRL_SHIFT		(6)
+#define USART_MR_CHRL_MASK		(0x03 << USART_MR_CHRL_SHIFT)
+#define USART_MR_CHRL_5BIT		(0x00 << USART_MR_CHRL_SHIFT)
+#define USART_MR_CHRL_6BIT		(0x01 << USART_MR_CHRL_SHIFT)
+#define USART_MR_CHRL_7BIT		(0x02 << USART_MR_CHRL_SHIFT)
+#define USART_MR_CHRL_8BIT		(0x03 << USART_MR_CHRL_SHIFT)
+#define USART_MR_USCLKS_SHIFT	(4)
+#define USART_MR_USCLKS_MASK		(0x03 << USART_MR_USCLKS_SHIFT)
 #define USART_MR_USCLKS_MCK		(0x00 << 4)
 #define USART_MR_USCLKS_DIV		(0x01 << 4)
 #define USART_MR_USCLKS_SCK		(0x03 << 4)
@@ -169,6 +170,9 @@
 #define USART_CSR_TXRDY			(0x01 << 1)
 #define USART_CSR_RXRDY			(0x01 << 0)
 
+#define USART_WPMR_KEY			(0x555341 << 8)
+#define USART_WPMR_WPEN			(0x01 << 0)
+
 enum usart_stopbits {
 	USART_STOPBITS_1,
 	USART_STOPBITS_1_5,
@@ -196,11 +200,27 @@ enum usart_flowcontrol {
 	USART_FLOWCONTROL_RTS_CTS,
 };
 
+enum usart_clock {
+	USART_CLOCK_CLK_USART,
+	USART_CLOCK_CLK_USART_DIV,
+	USART_CLOCK_CLK = 3,
+};
+
+enum usart_chrl {
+	USART_CHRL_5BIT,
+	USART_CHRL_6BIT,
+	USART_CHRL_7BIT,
+	USART_CHRL_8BIT,
+};
+
+BEGIN_DECLS
+
 void usart_set_baudrate(uint32_t usart, uint32_t baud);
 void usart_set_databits(uint32_t usart, int bits);
 void usart_set_stopbits(uint32_t usart, enum usart_stopbits);
 void usart_set_parity(uint32_t usart, enum usart_parity);
 void usart_set_mode(uint32_t usart, enum usart_mode);
+void usart_set_character_length(uint32_t usart, enum usart_chrl chrl);
 void usart_set_flow_control(uint32_t usart, enum usart_flowcontrol);
 void usart_enable(uint32_t usart);
 void usart_disable(uint32_t usart);
@@ -212,6 +232,11 @@ void usart_send_blocking(uint32_t usart, uint16_t data);
 uint16_t usart_recv_blocking(uint32_t usart);
 void usart_enable_rx_interrupt(uint32_t usart);
 void usart_disable_rx_interrupt(uint32_t usart);
+void usart_wp_disable(uint32_t usart);
+void usart_wp_enable(uint32_t usart);
+void usart_select_clock(uint32_t usart, enum usart_clock clk);
+
+END_DECLS
 
 #endif
 

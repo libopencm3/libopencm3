@@ -1,8 +1,6 @@
 ##
 ## This file is part of the libopencm3 project.
 ##
-## Copyright (C) 2009 Uwe Hermann <uwe@hermann-uwe.de>
-##
 ## This library is free software: you can redistribute it and/or modify
 ## it under the terms of the GNU Lesser General Public License as published by
 ## the Free Software Foundation, either version 3 of the License, or
@@ -17,20 +15,21 @@
 ## along with this library.  If not, see <http://www.gnu.org/licenses/>.
 ##
 
-LIBNAME		= libopencm3_sam3x
+LIBNAME		= libopencm3_sam4l
 SRCLIBDIR	?= ../..
 
 PREFIX		?= arm-none-eabi
+FP_FLAGS ?= -msoft-float
 
 CC		= $(PREFIX)-gcc
 AR		= $(PREFIX)-ar
 TGT_CFLAGS	= -Os -Wall -Wextra -I../../../include -fno-common \
-		  -mcpu=cortex-m3 -mthumb $(FP_FLAGS) -Wstrict-prototypes \
-		  -ffunction-sections -fdata-sections -MD -DSAM3X
+		  -mcpu=cortex-m4 -mthumb $(FP_FLAGS) -Wstrict-prototypes \
+		  -ffunction-sections -fdata-sections -MD -DSAM4L
 TGT_CFLAGS      += $(DEBUG_FLAGS)
 # ARFLAGS	= rcsv
 ARFLAGS		= rcs
-OBJS		= gpio_common_all.o gpio_common_3a3u3x.o pmc.o usart_common_all.o usart_common_3.o
+OBJS		= adcife.o gpio.o scif.o pm.o usart_common_all.o usart.o
 
 VPATH += ../../usb:../../cm3:../common
 
