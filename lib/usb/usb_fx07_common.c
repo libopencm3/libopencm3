@@ -247,11 +247,6 @@ uint16_t stm32fx07_ep_read_packet(usbd_device *usbd_dev, uint8_t addr,
 		memcpy(buf32, &extra, i);
 	}
 
-	REBASE(OTG_DOEPTSIZ(addr)) = usbd_dev->doeptsiz[addr];
-	REBASE(OTG_DOEPCTL(addr)) |= OTG_DOEPCTL0_EPENA |
-	    (usbd_dev->force_nak[addr] ?
-	     OTG_DOEPCTL0_SNAK : OTG_DOEPCTL0_CNAK);
-
 	return len;
 }
 
@@ -315,12 +310,21 @@ void stm32fx07_poll(usbd_device *usbd_dev)
 		/* Receive FIFO non-empty. */
 		uint32_t rxstsp = REBASE(OTG_GRXSTSP);
 		uint32_t pktsts = rxstsp & OTG_GRXSTSP_PKTSTS_MASK;
+		uint8_t ep = rxstsp & OTG_GRXSTSP_EPNUM_MASK;
+		if (pktsts == OTG_GRXSTSP_PKTSTS_OUT_COMP
+			|| pktsts == OTG_GRXSTSP_PKTSTS_SETUP_COMP)  {
+			REBASE(OTG_DOEPTSIZ(ep)) = usbd_dev->doeptsiz[ep];
+			REBASE(OTG_DOEPCTL(ep)) |= OTG_DOEPCTL0_EPENA |
+				(usbd_dev->force_nak[ep] ?
+				 OTG_DOEPCTL0_SNAK : OTG_DOEPCTL0_CNAK);
+			return;
+		}
+
 		if ((pktsts != OTG_GRXSTSP_PKTSTS_OUT) &&
 		    (pktsts != OTG_GRXSTSP_PKTSTS_SETUP)) {
 			return;
 		}
 
-		uint8_t ep = rxstsp & OTG_GRXSTSP_EPNUM_MASK;
 		uint8_t type;
 		if (pktsts == OTG_GRXSTSP_PKTSTS_SETUP) {
 			type = USB_TRANSACTION_SETUP;
@@ -338,15 +342,6 @@ void stm32fx07_poll(usbd_device *usbd_dev)
 
 		/* Save packet size for stm32f107_ep_read_packet(). */
 		usbd_dev->rxbcnt = (rxstsp & OTG_GRXSTSP_BCNT_MASK) >> 4;
-
-		/*
-		 * FIXME: Why is a delay needed here?
-		 * This appears to fix a problem where the first 4 bytes
-		 * of the DATA OUT stage of a control transaction are lost.
-		 */
-		for (i = 0; i < 1000; i++) {
-			__asm__("nop");
-		}
 
 		if (usbd_dev->user_callback_ctr[ep][type]) {
 			usbd_dev->user_callback_ctr[ep][type] (usbd_dev, ep);
