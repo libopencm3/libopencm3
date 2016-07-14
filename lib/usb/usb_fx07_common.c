@@ -31,7 +31,6 @@
  * according to the selected cores base address. */
 #define dev_base_address (usbd_dev->driver->base_address)
 #define REBASE(x)        MMIO32((x) + (dev_base_address))
-#define REBASE_FIFO(x)   (&MMIO32((dev_base_address) + (OTG_FIFO(x))))
 
 void stm32fx07_set_address(usbd_device *usbd_dev, uint8_t addr)
 {
@@ -210,11 +209,10 @@ uint16_t stm32fx07_ep_write_packet(usbd_device *usbd_dev, uint8_t addr,
 	REBASE(OTG_DIEPTSIZ(addr)) = OTG_DIEPSIZ0_PKTCNT | len;
 	REBASE(OTG_DIEPCTL(addr)) |= OTG_DIEPCTL0_EPENA |
 				     OTG_DIEPCTL0_CNAK;
-	volatile uint32_t *fifo = REBASE_FIFO(addr);
 
 	/* Copy buffer to endpoint FIFO, note - memcpy does not work */
 	for (i = len; i > 0; i -= 4) {
-		*fifo++ = *buf32++;
+		REBASE(OTG_FIFO(addr)) = *buf32++;
 	}
 
 	return len;
@@ -227,16 +225,19 @@ uint16_t stm32fx07_ep_read_packet(usbd_device *usbd_dev, uint8_t addr,
 	uint32_t *buf32 = buf;
 	uint32_t extra;
 
+	/* We do not need to know the endpoint address since there is only one
+	 * receive FIFO for all endpoints.
+	 */
+	(void) addr;
 	len = MIN(len, usbd_dev->rxbcnt);
 
-	volatile uint32_t *fifo = REBASE_FIFO(addr);
 	for (i = len; i >= 4; i -= 4) {
-		*buf32++ = *fifo++;
+		*buf32++ = REBASE(OTG_FIFO(0));
 		usbd_dev->rxbcnt -= 4;
 	}
 
 	if (i) {
-		extra = *fifo++;
+		extra = REBASE(OTG_FIFO(0));
 		/* we read 4 bytes from the fifo, so update rxbcnt */
 		if (usbd_dev->rxbcnt < 4) {
 			/* Be careful not to underflow (rxbcnt is unsigned) */
@@ -349,7 +350,8 @@ void stm32fx07_poll(usbd_device *usbd_dev)
 
 		/* Discard unread packet data. */
 		for (i = 0; i < usbd_dev->rxbcnt; i += 4) {
-			(void)*REBASE_FIFO(ep);
+			/* There is only one receive FIFO, so use OTG_FIFO(0) */
+			(void)REBASE(OTG_FIFO(0));
 		}
 
 		usbd_dev->rxbcnt = 0;
