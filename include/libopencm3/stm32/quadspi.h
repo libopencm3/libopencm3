@@ -21,8 +21,8 @@
 #include <libopencm3/stm32/memorymap.h>
 
 #if defined(STM32F4)
-#       include <libopencm3/stm32/f4/qspi.h>
+#       include <libopencm3/stm32/f4/quadspi.h>
 #else
-#       error "qspi.h not available for this family."
+#       error "quadspi.h not available for this family."
 #endif
 
