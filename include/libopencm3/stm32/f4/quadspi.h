@@ -153,6 +153,8 @@
 
 /* QUADSPI data register */
 #define QUADSPI_DR			MMIO32(QUADSPI_BASE + 0x20U)
+/* BYTE addressable version for fetching bytes from the interface */
+#define QUADSPI_BYTE_DR			MMIO8(QUADSPI_BASE + 0x20U)
 
 /* QUADSPI polling status */
 #define QUADSPI_PSMKR			MMIO32(QUADSPI_BASE + 0x24U)
