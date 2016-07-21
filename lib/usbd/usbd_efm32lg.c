@@ -23,8 +23,8 @@
 #include <libopencm3/efm32/memorymap.h>
 #include <libopencm3/efm32/cmu.h>
 #include <libopencm3/efm32/usb.h>
-#include <libopencm3/usb/usbd.h>
-#include "usb_private.h"
+#include <libopencm3/usbd/usbd.h>
+#include "usbd_private.h"
 
 /* Receive FIFO size in 32-bit words. */
 #define RX_FIFO_SIZE 256

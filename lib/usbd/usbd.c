@@ -36,8 +36,8 @@ LGPL License Terms @ref lgpl_license
 /**@{*/
 
 #include <string.h>
-#include <libopencm3/usb/usbd.h>
-#include "usb_private.h"
+#include <libopencm3/usbd/usbd.h>
+#include "usbd_private.h"
 
 usbd_device *usbd_init(const usbd_driver *driver,
 		       const struct usb_device_descriptor *dev,

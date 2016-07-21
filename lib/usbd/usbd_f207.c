@@ -20,20 +20,20 @@
 #include <string.h>
 #include <libopencm3/cm3/common.h>
 #include <libopencm3/stm32/tools.h>
-#include <libopencm3/stm32/otg_fs.h>
-#include <libopencm3/usb/usbd.h>
-#include "usb_private.h"
-#include "usb_fx07_common.h"
+#include <libopencm3/stm32/otg_hs.h>
+#include <libopencm3/usbd/usbd.h>
+#include "usbd_private.h"
+#include "usbd_fx07_common.h"
 
 /* Receive FIFO size in 32-bit words. */
-#define RX_FIFO_SIZE 128
+#define RX_FIFO_SIZE 512
 
-static usbd_device *stm32f107_usbd_init(void);
+static usbd_device *stm32f207_usbd_init(void);
 
 static struct _usbd_device usbd_dev;
 
-const struct _usbd_driver stm32f107_usb_driver = {
-	.init = stm32f107_usbd_init,
+const struct _usbd_driver stm32f207_usb_driver = {
+	.init = stm32f207_usbd_init,
 	.set_address = stm32fx07_set_address,
 	.ep_setup = stm32fx07_ep_setup,
 	.ep_reset = stm32fx07_endpoints_reset,
@@ -44,47 +44,47 @@ const struct _usbd_driver stm32f107_usb_driver = {
 	.ep_read_packet = stm32fx07_ep_read_packet,
 	.poll = stm32fx07_poll,
 	.disconnect = stm32fx07_disconnect,
-	.base_address = USB_OTG_FS_BASE,
+	.base_address = USB_OTG_HS_BASE,
 	.set_address_before_status = 1,
 	.rx_fifo_size = RX_FIFO_SIZE,
 };
 
 /** Initialize the USB device controller hardware of the STM32. */
-static usbd_device *stm32f107_usbd_init(void)
+static usbd_device *stm32f207_usbd_init(void)
 {
-	OTG_FS_GINTSTS = OTG_GINTSTS_MMIS;
+	OTG_HS_GINTSTS = OTG_GINTSTS_MMIS;
 
-	OTG_FS_GUSBCFG |= OTG_GUSBCFG_PHYSEL;
+	OTG_HS_GUSBCFG |= OTG_GUSBCFG_PHYSEL;
 	/* Enable VBUS sensing in device mode and power down the PHY. */
-	OTG_FS_GCCFG |= OTG_GCCFG_VBUSBSEN | OTG_GCCFG_PWRDWN;
+	OTG_HS_GCCFG |= OTG_GCCFG_VBUSBSEN | OTG_GCCFG_PWRDWN;
 
 	/* Wait for AHB idle. */
-	while (!(OTG_FS_GRSTCTL & OTG_GRSTCTL_AHBIDL));
+	while (!(OTG_HS_GRSTCTL & OTG_GRSTCTL_AHBIDL));
 	/* Do core soft reset. */
-	OTG_FS_GRSTCTL |= OTG_GRSTCTL_CSRST;
-	while (OTG_FS_GRSTCTL & OTG_GRSTCTL_CSRST);
+	OTG_HS_GRSTCTL |= OTG_GRSTCTL_CSRST;
+	while (OTG_HS_GRSTCTL & OTG_GRSTCTL_CSRST);
 
 	/* Force peripheral only mode. */
-	OTG_FS_GUSBCFG |= OTG_GUSBCFG_FDMOD | OTG_GUSBCFG_TRDT_MASK;
+	OTG_HS_GUSBCFG |= OTG_GUSBCFG_FDMOD | OTG_GUSBCFG_TRDT_MASK;
 
 	/* Full speed device. */
-	OTG_FS_DCFG |= OTG_DCFG_DSPD;
+	OTG_HS_DCFG |= OTG_DCFG_DSPD;
 
 	/* Restart the PHY clock. */
-	OTG_FS_PCGCCTL = 0;
+	OTG_HS_PCGCCTL = 0;
 
-	OTG_FS_GRXFSIZ = stm32f107_usb_driver.rx_fifo_size;
-	usbd_dev.fifo_mem_top = stm32f107_usb_driver.rx_fifo_size;
+	OTG_HS_GRXFSIZ = stm32f207_usb_driver.rx_fifo_size;
+	usbd_dev.fifo_mem_top = stm32f207_usb_driver.rx_fifo_size;
 
 	/* Unmask interrupts for TX and RX. */
-	OTG_FS_GAHBCFG |= OTG_GAHBCFG_GINT;
-	OTG_FS_GINTMSK = OTG_GINTMSK_ENUMDNEM |
+	OTG_HS_GAHBCFG |= OTG_GAHBCFG_GINT;
+	OTG_HS_GINTMSK = OTG_GINTMSK_ENUMDNEM |
 			 OTG_GINTMSK_RXFLVLM |
 			 OTG_GINTMSK_IEPINT |
 			 OTG_GINTMSK_USBSUSPM |
 			 OTG_GINTMSK_WUIM;
-	OTG_FS_DAINTMSK = 0xF;
-	OTG_FS_DIEPMSK = OTG_DIEPMSK_XFRCM;
+	OTG_HS_DAINTMSK = 0xF;
+	OTG_HS_DIEPMSK = OTG_DIEPMSK_XFRCM;
 
 	return &usbd_dev;
 }

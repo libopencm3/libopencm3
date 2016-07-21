@@ -46,9 +46,9 @@ OBJS            += gpio_common_all.o gpio_common_f0234.o \
 OBJS		+= adc_common_v2.o adc_common_v2_multi.o
 OBJS		+= usart_common_v2.o usart_common_all.o
 
-OBJS		+= usb.o usb_control.o usb_standard.o
+OBJS		+= usbd.o usbd_control.o usbd_standard.o
 OBJS		+= st_usbfs_core.o st_usbfs_v1.o
 
-VPATH += ../../usb:../:../../cm3:../common
+VPATH += ../../usbd:../:../../cm3:../common
 
 include ../../Makefile.include

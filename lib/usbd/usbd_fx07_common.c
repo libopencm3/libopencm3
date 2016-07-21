@@ -22,9 +22,9 @@
 #include <libopencm3/stm32/tools.h>
 #include <libopencm3/stm32/otg_fs.h>
 #include <libopencm3/stm32/otg_hs.h>
-#include <libopencm3/usb/usbd.h>
-#include "usb_private.h"
-#include "usb_fx07_common.h"
+#include <libopencm3/usbd/usbd.h>
+#include "usbd_private.h"
+#include "usbd_fx07_common.h"
 
 /* The FS core and the HS core have the same register layout.
  * As the code can be used on both cores, the registers offset is modified

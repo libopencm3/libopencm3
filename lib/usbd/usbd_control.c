@@ -36,8 +36,8 @@ LGPL License Terms @ref lgpl_license
 /**@{*/
 
 #include <stdlib.h>
-#include <libopencm3/usb/usbd.h>
-#include "usb_private.h"
+#include <libopencm3/usbd/usbd.h>
+#include "usbd_private.h"
 
 /*
  * According to the USB 2.0 specification, section 8.5.3, when a control

@@ -35,8 +35,8 @@ LGPL License Terms @ref lgpl_license
 
 /**@{*/
 
-#ifndef __USBD_H
-#define __USBD_H
+#ifndef LIBOPENCM3_USBD_H
+#define LIBOPENCM3_USBD_H
 
 #include <libopencm3/usb/usbstd.h>
 

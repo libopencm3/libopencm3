@@ -21,7 +21,7 @@
 #define LIBOPENCM3_EFM32_USB_H
 
 #include <libopencm3/cm3/common.h>
-#include <libopencm3/usb/usbd.h>
+#include <libopencm3/usbd/usbd.h>
 
 #define USB_CTRL			MMIO32(USB_BASE + 0x000)
 #define USB_STATUS			MMIO32(USB_BASE + 0x004)

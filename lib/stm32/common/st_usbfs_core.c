@@ -22,8 +22,8 @@
 #include <libopencm3/stm32/rcc.h>
 #include <libopencm3/stm32/tools.h>
 #include <libopencm3/stm32/st_usbfs.h>
-#include <libopencm3/usb/usbd.h>
-#include "../../usb/usb_private.h"
+#include <libopencm3/usbd/usbd.h>
+#include "../../usbd/usbd_private.h"
 #include "st_usbfs_core.h"
 
 /* TODO - can't these be inside the impls, not globals from the core? */
