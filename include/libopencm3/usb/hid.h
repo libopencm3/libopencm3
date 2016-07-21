@@ -45,6 +45,16 @@ LGPL License Terms @ref lgpl_license
 #define USB_DT_HID	0x21
 #define USB_DT_REPORT	0x22
 
+#define USB_REQ_HID_SET_IDLE 0x0A
+#define USB_REQ_HID_SET_PROTOCOL 0x0B
+#define USB_REQ_HID_PROTOCOL_BOOT 0x00
+#define USB_REQ_HID_PROTOCOL_REPORT 0x01
+
+#define USB_REQ_HID_GET_REPORT 0x01
+#define USB_REQ_HID_REPORT_TYPE_INPUT 0x01
+#define USB_REQ_HID_REPORT_TYPE_OUTPUT 0x02
+#define USB_REQ_HID_REPORT_TYPE_FEATURE 0x03
+
 struct usb_hid_descriptor {
 	uint8_t bLength;
 	uint8_t bDescriptorType;

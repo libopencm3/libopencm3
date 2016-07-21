@@ -45,7 +45,7 @@ OBJS            += gpio_common_all.o gpio_common_f0234.o
 OBJS            += adc_common_v2.o adc_common_v2_multi.o
 OBJS            += timer_common_all.o
 
-# FIXME: USB device not being compiled
+# FIXME: USB device and host stack not being compiled
 
 VPATH += ../../usbd:../:../../cm3:../common
 VPATH += ../../ethernet

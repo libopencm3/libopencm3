@@ -44,8 +44,15 @@ OBJS		= gpio.o gpio_common_all.o gpio_common_f0234.o
 
 # FIXME: USB device stack not being compiled
 
+OBJS		+= usbh_dev_enum.o usbh_device.o usbh_host.o
+OBJS		+= usbh_hub.o usbh_transfer.o usbh_urb.o
+OBJS		+= usbh_dwc_otg.o usbh_stm32_otg_fs.o
+OBJS		+= usbh_hid.o
+OBJS		+= usbh_ctrlreq.o
+
 VPATH += ../../usbd:../:../../cm3:../common
 VPATH += ../../ethernet
+VPATH += ../../usbh:../../usbh/backend:../../usbh/helper:../../usbh/class
 
 ###############################################################################
 # Checking CPU support in the toolchain

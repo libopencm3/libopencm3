@@ -48,6 +48,13 @@ OBJS            += crc_common_all.o dac_common_all.o dma_common_f24.o \
 OBJS            += usbd.o usbd_standard.o usbd_control.o usbd_fx07_common.o \
                    usbd_f107.o usbd_f207.o usbd_msc.o
 
+OBJS		+= usbh_dev_enum.o usbh_device.o usbh_host.o
+OBJS		+= usbh_hub.o usbh_transfer.o usbh_urb.o
+OBJS		+= usbh_dwc_otg.o usbh_stm32_otg_fs.o
+OBJS		+= usbh_hid.o
+OBJS		+= usbh_ctrlreq.o
+
 VPATH += ../../usbd:../:../../cm3:../common
+VPATH += ../../usbh:../../usbh/backend:../../usbh/helper:../../usbh/class
 
 include ../../Makefile.include
