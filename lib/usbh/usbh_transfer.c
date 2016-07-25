@@ -21,6 +21,13 @@
 
 usbh_urb_id usbh_transfer_submit(const usbh_transfer *transfer)
 {
+	/* Check if the device is acceptable or not. */
+	if (transfer->device == NULL || IS_DEVICE_INVALID(transfer->device)) {
+		LOG_LN("Invalid device provided");
+		TRANSFER_INVALID(transfer);
+		return USBH_INVALID_URB_ID;
+	}
+
 	usbh_host *host = transfer->device->host;
 
 	if (transfer->ep_type == USBH_EP_CONTROL) {
