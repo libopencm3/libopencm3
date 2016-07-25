@@ -1026,7 +1026,7 @@ static void handle_rxflvl_interrupt(usbh_host *host)
 
 		/* TODO: We need to manually flush these? */
 		volatile uint32_t *fifo = REBASE_FIFO(i);
-		for (unsigned j = 0; j < len; i += 4) {
+		for (unsigned j = 0; j < len; j += 4) {
 			*fifo;
 		}
 
