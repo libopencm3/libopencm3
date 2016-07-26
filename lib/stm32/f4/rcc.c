@@ -578,13 +578,18 @@ void rcc_set_main_pll_hsi(uint32_t pllm, uint32_t plln, uint32_t pllp,
 }
 
 void rcc_set_main_pll_hse(uint32_t pllm, uint32_t plln, uint32_t pllp,
-			  uint32_t pllq)
+			  uint32_t pllq, uint32_t pllr)
 {
-	RCC_PLLCFGR = (pllm << RCC_PLLCFGR_PLLM_SHIFT) |
+	uint32_t reg32 = RCC_PLLCFGR & RCC_PLLCFGR_NO_R_RESERVED;
+	if (pllr != 0) {
+		reg32 &= RCC_PLLCFGR_R_RESERVED;
+	}
+	RCC_PLLCFGR = reg32 | (pllm << RCC_PLLCFGR_PLLM_SHIFT) |
 		(plln << RCC_PLLCFGR_PLLN_SHIFT) |
 		(((pllp >> 1) - 1) << RCC_PLLCFGR_PLLP_SHIFT) |
 		RCC_PLLCFGR_PLLSRC |
-		(pllq << RCC_PLLCFGR_PLLQ_SHIFT);
+		(pllq << RCC_PLLCFGR_PLLQ_SHIFT) |
+		(pllr << RCC_PLLCFGR_PLLR_SHIFT);
 }
 
 uint32_t rcc_system_clock_source(void)
@@ -622,7 +627,7 @@ void rcc_clock_setup_hse_3v3(const struct rcc_clock_scale *clock)
 	rcc_set_ppre2(clock->ppre2);
 
 	rcc_set_main_pll_hse(clock->pllm, clock->plln,
-			clock->pllp, clock->pllq);
+			clock->pllp, clock->pllq,clock->pllr);
 
 	/* Enable PLL oscillator and wait for it to stabilize. */
 	rcc_osc_on(RCC_PLL);

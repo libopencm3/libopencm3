@@ -103,6 +103,8 @@
 
 /* --- RCC_PLLCFGR values -------------------------------------------------- */
 
+/* PLLQ: [30:28] */
+#define RCC_PLLCFGR_PLLR_SHIFT			28 /* F4 with PLLR (STM32F446,STM32F469) */
 /* PLLQ: [27:24] */
 #define RCC_PLLCFGR_PLLQ_SHIFT			24
 #define RCC_PLLCFGR_PLLSRC			(1 << 22)
@@ -559,6 +561,7 @@ struct rcc_clock_scale {
 	uint16_t plln;
 	uint8_t pllp;
 	uint8_t pllq;
+	uint8_t pllr;
 	uint32_t flash_config;
 	uint8_t hpre;
 	uint8_t ppre1;
@@ -568,6 +571,9 @@ struct rcc_clock_scale {
 	uint32_t apb1_frequency;
 	uint32_t apb2_frequency;
 };
+
+#define RCC_PLLCFGR_NO_R_RESERVED 0xf0bc8000
+#define RCC_PLLCFGR_R_RESERVED    0x80bc8000
 
 extern const struct rcc_clock_scale rcc_hse_8mhz_3v3[RCC_CLOCK_3V3_END];
 extern const struct rcc_clock_scale rcc_hse_12mhz_3v3[RCC_CLOCK_3V3_END];
@@ -857,7 +863,7 @@ void rcc_set_rtcpre(uint32_t rtcpre);
 void rcc_set_main_pll_hsi(uint32_t pllm, uint32_t plln, uint32_t pllp,
 			  uint32_t pllq);
 void rcc_set_main_pll_hse(uint32_t pllm, uint32_t plln, uint32_t pllp,
-			  uint32_t pllq);
+			  uint32_t pllq, uint32_t pllr);
 uint32_t rcc_system_clock_source(void);
 void rcc_clock_setup_hse_3v3(const struct rcc_clock_scale *clock);
 
