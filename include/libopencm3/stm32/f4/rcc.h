@@ -115,6 +115,10 @@
 /* PLLM: [5:0] */
 #define RCC_PLLCFGR_PLLM_SHIFT			0
 
+#define RCC_PLLCFGR_NO_R_RESERVED 0xf0bc8000
+#define RCC_PLLCFGR_R_RESERVED    0x80bc8000
+
+
 /* --- RCC_CFGR values ----------------------------------------------------- */
 
 /* MCO2: Microcontroller clock output 2 */
@@ -509,6 +513,9 @@
 #define RCC_PLLSAICFGR_PLLSAIN_SHIFT		6
 #define RCC_PLLSAICFGR_PLLSAIN_MASK		0x1FF
 
+#define RCC_PLLSAICFGR_NO_P_RESERVED 0x80ff803f
+#define RCC_PLLSAICFGR_P_RESERVED    0x80fc803f
+
 
 /* --- RCC_DCKCFGR values -------------------------------------------------- */
 #define RCC_DCKCFGR_PLLSAIDIVR_MSK                 (0x3 << 16)
@@ -530,12 +537,20 @@ static inline bool rcc_pllsai_ready(void)
 
 /* pllsain=49..432, pllsaiq=2..15, pllsair=2..7 */
 static inline void rcc_pllsai_config(uint16_t pllsain,
+				     uint16_t pllsaip,
 				     uint16_t pllsaiq,
 				     uint16_t pllsair)
 {
-	RCC_PLLSAICFGR = (((pllsain & 0x1ff) << 6) |
-			  ((pllsaiq & 0xF) << 24) |
-			  ((pllsair & 0x7) << 28));
+	uint32_t reg32 = RCC_PLLSAICFGR & RCC_PLLSAICFGR_NO_P_RESERVED;
+	if (pllsaip != 0) {
+		reg32 &= RCC_PLLSAICFGR_P_RESERVED;
+	}
+
+	RCC_PLLSAICFGR = reg32 |
+			  (((pllsain & RCC_PLLSAICFGR_PLLSAIN_MASK) << RCC_PLLSAICFGR_PLLSAIN_SHIFT) |
+			  ((pllsaip & RCC_PLLSAICFGR_PLLSAIP_MASK) << RCC_PLLSAICFGR_PLLSAIP_SHIFT) |
+			  ((pllsaiq & RCC_PLLSAICFGR_PLLSAIQ_MASK) << RCC_PLLSAICFGR_PLLSAIQ_SHIFT) |
+			  ((pllsair & RCC_PLLSAICFGR_PLLSAIR_MASK) << RCC_PLLSAICFGR_PLLSAIR_SHIFT));
 }
 
 static inline void rcc_ltdc_set_clock_divr(uint8_t pllsaidivr)
@@ -575,9 +590,6 @@ struct rcc_clock_scale {
 	uint32_t apb1_frequency;
 	uint32_t apb2_frequency;
 };
-
-#define RCC_PLLCFGR_NO_R_RESERVED 0xf0bc8000
-#define RCC_PLLCFGR_R_RESERVED    0x80bc8000
 
 extern const struct rcc_clock_scale rcc_hse_8mhz_3v3[RCC_CLOCK_3V3_END];
 extern const struct rcc_clock_scale rcc_hse_12mhz_3v3[RCC_CLOCK_3V3_END];
