@@ -44,6 +44,7 @@
 #define OTG_HPTXFSIZ			0x100
 #define OTG_DIEPTXF(x)			(0x104 + 4*((x)-1))
 
+#define OTG_CID_HAS_VBDEN	0x00002000
 /* Host-mode Control and Status Registers */
 #define OTG_HCFG			0x400
 #define OTG_HFIR			0x404
@@ -219,9 +220,14 @@
 #define OTG_GRXSTSP_BCNT_MASK		(0x7ff << 4)
 #define OTG_GRXSTSP_EPNUM_MASK		(0xf << 0)
 
-/* OTG general core configuration register (OTG_GCCFG) */
+/* OTG general core configuration register (OTG_GCCFG)
+ * Depending on the usb core, some bits have different
+ * meanings e.g. NOVBUSSENS (STM32F427) and VBDEN
+ * (STM32F46STM32F469)
+ */
 /* Bits 31:22 - Reserved */
-#define OTG_GCCFG_NOVBUSSENS		(1 << 21)
+#define OTG_GCCFG_NOVBUSSENS	(1 << 21)
+#define OTG_GCCFG_VBDEN			(1 << 21)
 #define OTG_GCCFG_SOFOUTEN		(1 << 20)
 #define OTG_GCCFG_VBUSBSEN		(1 << 19)
 #define OTG_GCCFG_VBUSASEN		(1 << 18)
