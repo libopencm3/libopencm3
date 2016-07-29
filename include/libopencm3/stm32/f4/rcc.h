@@ -612,20 +612,23 @@ static inline bool rcc_pllsai_ready(void)
 }
 
 /* pllsain=49..432, pllsaiq=2..15, pllsair=2..7 */
-static inline void rcc_pllsai_config(uint16_t pllsain,
-				     uint16_t pllsaiq,
-				     uint16_t pllsair)
+static inline void rcc_pllsai_config(uint16_t n,
+				     uint16_t p,
+				     uint16_t q,
+				     uint16_t r)
 {
-	RCC_PLLSAICFGR = (((pllsain & 0x1ff) << 6) |
-			  ((pllsaiq & 0xF) << 24) |
-			  ((pllsair & 0x7) << 28));
+	RCC_PLLSAICFGR = (
+	  ((n & RCC_PLLSAICFGR_PLLSAIN_MASK) << RCC_PLLSAICFGR_PLLSAIN_SHIFT) |
+	  ((p & RCC_PLLSAICFGR_PLLSAIP_MASK) << RCC_PLLSAICFGR_PLLSAIP_SHIFT) |
+	  ((q & RCC_PLLSAICFGR_PLLSAIQ_MASK) << RCC_PLLSAICFGR_PLLSAIQ_SHIFT) |
+	  ((r & RCC_PLLSAICFGR_PLLSAIR_MASK) << RCC_PLLSAICFGR_PLLSAIR_SHIFT));
 }
 
-static inline void rcc_ltdc_set_clock_divr(uint8_t pllsaidivr)
+static inline void rcc_ltdc_set_clock_divr(uint8_t r)
 {
-	RCC_DCKCFGR    = (((RCC_DCKCFGR &
-			    ~RCC_DCKCFGR_PLLSAIDIVR_MASK) |
-				((pllsaidivr & 0x3) << 16)));
+	RCC_DCKCFGR = (((RCC_DCKCFGR &
+		~(RCC_DCKCFGR_PLLSAIDIVR_MASK << RCC_DCKCFGR_PLLSAIDIVR_SHIFT)) |
+	   	((r & RCC_DCKCFGR_PLLSAIDIVR_MASK) << RCC_DCKCFGR_PLLSAIDIVR_SHIFT)));
 }
 
 /* --- Variable definitions ------------------------------------------------ */
@@ -648,6 +651,7 @@ struct rcc_clock_scale {
 	uint16_t plln;
 	uint8_t pllp;
 	uint8_t pllq;
+	uint8_t pllr;
 	uint32_t flash_config;
 	uint8_t hpre;
 	uint8_t ppre1;
@@ -959,9 +963,9 @@ void rcc_set_ppre1(uint32_t ppre1);
 void rcc_set_hpre(uint32_t hpre);
 void rcc_set_rtcpre(uint32_t rtcpre);
 void rcc_set_main_pll_hsi(uint32_t pllm, uint32_t plln, uint32_t pllp,
-			  uint32_t pllq);
+			  uint32_t pllq, uint32_t pllr);
 void rcc_set_main_pll_hse(uint32_t pllm, uint32_t plln, uint32_t pllp,
-			  uint32_t pllq);
+			  uint32_t pllq, uint32_t pllr);
 uint32_t rcc_system_clock_source(void);
 void rcc_clock_setup_hse_3v3(const struct rcc_clock_scale *clock);
 
