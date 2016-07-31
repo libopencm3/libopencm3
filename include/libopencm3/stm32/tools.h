@@ -56,12 +56,7 @@
 #define TOG_SET_REG_BIT_MSK_AND_SET(REG, MSK, BIT, EXTRA_BITS)		\
 do {									\
 	register uint16_t toggle_mask = GET_REG(REG) & (MSK);		\
-	register uint16_t bit_selector;					\
-	for (bit_selector = 1; bit_selector; bit_selector <<= 1) {	\
-		if ((bit_selector & (BIT)) != 0) {			\
-			toggle_mask ^= bit_selector;			\
-		}							\
-	}								\
+	toggle_mask ^= BIT;						\
 	SET_REG((REG), toggle_mask | (EXTRA_BITS));			\
 } while (0)
 
