@@ -576,7 +576,14 @@ void rcc_set_main_pll_hsi(uint32_t pllm, uint32_t plln, uint32_t pllp,
 		(((pllp >> 1) - 1) << RCC_PLLCFGR_PLLP_SHIFT) |
 		(pllq << RCC_PLLCFGR_PLLQ_SHIFT);
 }
-
+/*
+ * At the time of this writting pllr is only found on STM32F446 and STM32F469
+ * Therefore for other F4 series parts the default is 0. This keeps all the
+ * legacy code working, because the compiler will fill the cosnt structs with
+ *  0 for pllr. A non zero value for pllr will gate used with the appropriate
+ *  masks. to preserve the reserved bits.
+ *
+ */
 void rcc_set_main_pll_hse(uint32_t pllm, uint32_t plln, uint32_t pllp,
 			  uint32_t pllq, uint32_t pllr)
 {
