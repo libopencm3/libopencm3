@@ -92,7 +92,6 @@ static usbd_device *stm32f107_usbd_init(void)
 			 OTG_GINTMSK_IEPINT |
 			 OTG_GINTMSK_USBSUSPM |
 			 OTG_GINTMSK_WUIM;
-
 	OTG_FS_DAINTMSK = 0xF;
 	OTG_FS_DIEPMSK = OTG_DIEPMSK_XFRCM;
 
