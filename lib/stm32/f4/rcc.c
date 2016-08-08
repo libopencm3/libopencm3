@@ -627,7 +627,7 @@ void rcc_clock_setup_hse_3v3(const struct rcc_clock_scale *clock)
 	rcc_set_ppre2(clock->ppre2);
 
 	rcc_set_main_pll_hse(clock->pllm, clock->plln,
-			clock->pllp, clock->pllq,clock->pllr);
+			clock->pllp, clock->pllq, clock->pllr);
 
 	/* Enable PLL oscillator and wait for it to stabilize. */
 	rcc_osc_on(RCC_PLL);
