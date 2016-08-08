@@ -103,7 +103,7 @@
 
 /* --- RCC_PLLCFGR values -------------------------------------------------- */
 
-/* PLLQ: [30:28] */
+/* PLLR: [30:28] */
 #define RCC_PLLCFGR_PLLR_SHIFT			28 /* F4 with PLLR (STM32F446,STM32F469) */
 /* PLLQ: [27:24] */
 #define RCC_PLLCFGR_PLLQ_SHIFT			24
