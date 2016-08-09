@@ -487,15 +487,36 @@ static inline bool LTDC_SRCR_IS_RELOADING(void)
 }
 
 /**
- * color conversion helper function
+ * RGB565-to-RGB888 color conversion helper function
  * (simulate the ltdc color conversion)
+ * NOTE: always use this function to calculate rgb888 for color key
+ *       from rgb565 color!
  */
-
-static inline uint16_t ltdc_get_rgb888_from_rgb565(uint16_t rgb888)
+static inline uint32_t ltdc_get_rgb888_from_rgb565(uint16_t rgb565)
 {
-	return ((((rgb888) & 0xF800)   >> (11-8))/31)<<16
-	       | ((((rgb888) & 0x07E0) <<  (8-5))/63)<<8
-	       | ((((rgb888) & 0x001F) <<  (8-0))/31)<<0;
+	uint32_t r,g,b;
+	
+	r = ((((rgb565) & 0xF800) >> (11-8))/31);
+	g = ((((rgb565) & 0x07E0) <<  (8-5))/63);
+	b = ((((rgb565) & 0x001F) <<  (8-0))/31);
+
+	if (r==256) r = 255;
+	if (g==256) g = 255;
+	if (b==256) b = 255;
+
+	return (r<<16) | (g<<8) | b;
+}
+
+/**
+ * RGB888-to-RGB565 color conversion helper function
+ */
+static inline uint16_t ltdc_get_rgb565_from_rgb888(uint32_t rgb888)
+{
+	return (uint16_t)(
+		((rgb888 & 0xf80000) >> (16-11 + 8-5)) /* grab upper 5 bits of red   */
+	  | ((rgb888 & 0x00fc00) >> (8-5   + 8-6)) /* grab upper 6 bits of green */
+	  | ((rgb888 & 0x0000f8) >> (0-0   + 8-5)) /* grab upper 5 bits of blue  */
+	);
 }
 
 
