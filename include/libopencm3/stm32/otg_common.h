@@ -219,9 +219,11 @@
 #define OTG_GRXSTSP_BCNT_MASK		(0x7ff << 4)
 #define OTG_GRXSTSP_EPNUM_MASK		(0xf << 0)
 
-/* OTG general core configuration register (OTG_GCCFG) */
 /* Bits 31:22 - Reserved */
-#define OTG_GCCFG_NOVBUSSENS		(1 << 21)
+/** Only on cores < 0x2000 */
+#define OTG_GCCFG_NOVBUSSENS	(1 << 21)
+/** Only on cores >= 0x2000 */
+#define OTG_GCCFG_VBDEN			(1 << 21)
 #define OTG_GCCFG_SOFOUTEN		(1 << 20)
 #define OTG_GCCFG_VBUSBSEN		(1 << 19)
 #define OTG_GCCFG_VBUSASEN		(1 << 18)
@@ -229,6 +231,8 @@
 #define OTG_GCCFG_PWRDWN		(1 << 16)
 /* Bits 15:0 - Reserved */
 
+/* OTG FS Product ID register (OTG_CID) */
+#define OTG_CID_HAS_VBDEN	0x00002000
 
 /* Device-mode CSRs */
 /* OTG device control register (OTG_DCTL) */
