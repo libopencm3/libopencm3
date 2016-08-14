@@ -1,3 +1,16 @@
+/** @defgroup dsi_defines DSI Defines
+ *
+ * @ingroup STM32F4xx_defines
+ *
+ * @brief Defined Constants and Macros for the STM32F4xx DSI Peripheral
+ *
+ * @version 1.0.0
+ *
+ * @date 7 July 2016
+ *
+ * LGPL License Terms @ref lgpl_license
+ */
+
 /*
  * STM32F4 DSI Host Defines
  *
@@ -26,17 +39,86 @@
 #ifndef DSI_H
 #define DSI_H
 
-/*
- * A couple of helper macros to avoid copy pasta code
- * For multi-bit fields we can use these macros to create
- * a unified SET_<reg>_<field> version and a GET_<reg_<field> version.
+/**@{*/
+
+/**
+ *	@brief Macro for reading register bitfields
+ *
+ *	This macro will extract the bit field value from the named
+ *	REGISTER and the named FIELD. The value in X is assumed to
+ *	come from the register. The field value is returned shifted
+ *	right into the least significant bits.
+ *
+ *	@param[in] reg The data sheet register name
+ *	@param[in] field The data sheet bit field name
+ *	@param[in] x A value from that register.
+ *
+ *	**Example:**
+ *
+ * \code{.c}
+ *	uint32_t x = DSI_GHCR;
+ *	uint8_t data0 = DSI_GET(GHCR, DATA0, x);
+ * \endcode
+ *
+ * You could also extract directly from GHCR with this code:
+ *
+ * \code{.c}
+ *	uint8_t data0 = DSI_GET(GHCR, DATA0, DSI_GHCR);
+ * \endcode
+ *
  */
 #define DSI_GET(reg, field, x) \
     (((x) >> DSI_ ## reg ## _ ## field ##_SHIFT) & DSI_ ## reg ##_ ## field ##_MASK)
 
+/**
+ * 	@brief Macros for setting  register bitfields
+ * 
+ * 	This macro will insert the bit field value passed as X
+ * 	into position for the named REGISTER and the named FIELD.
+ * 	The macro returns a 32 bit integer with the field value
+ * 	masked and shifted into position.
+ * 
+ * 	@param[in] reg The data sheet register name
+ * 	@param[in] field The data sheet bit field name
+ * 	@param[in] x A value to insert into that register
+ * 
+ * 	**Example:**
+ * 
+ *	It is useful when ORing together multiple fields.
+ * \code{.c}
+ * 	DSI_GHCR = DSI_SET(GHCR, DATA0, 0x22) | DSI_SET(GHCR, DATA1, 0x35);
+ * \endcode
+ *
+ * Or when you have an existing register and want to just update a field:
+ *
+ * \code{.c}
+ * 	DSI_CCR |= DSI_SET(CCR, TOCKDIV, 05);
+ * \endcode
+ *
+ */
 #define DSI_SET(reg, field, x) \
     (((x) & DSI_ ## reg ##_## field ##_MASK) << DSI_## reg ##_## field ##_SHIFT)
 
+/**
+ *	@brief Macros for masking register bitfields
+ *
+ *	This macro will create a mask (all 1 bits) which can be
+ *	used to clear (when inverted) the bits of the bit field
+ *	named FIELD in the data sheet of the register named REGISTER
+ *	in the data sheet.
+ *
+ *	@param[in] reg The data sheet register name
+ *	@param[in] field The data sheet bit field name
+ *
+ *	**Example:**
+ *
+ *	Clear the `DATA0` and `DATA1` fields of the `GHCR` register:
+ *
+ *	\code{.c}
+ * 	DSI_GHCR &= ~(DSI_MASK(GHCR, DATA0) | DSI_MASK(GHCR, DATA1);
+ * \endcode
+ *
+ */
 #define DSI_MASK(reg, field) \
     ((DSI_ ## reg ##_## field ##_MASK) << DSI_## reg ##_## field ##_SHIFT)
 
@@ -812,3 +894,4 @@
 #define DSI_WRPCR_PLLEN			(1 << 0)
 
 #endif
+/**}@*/
