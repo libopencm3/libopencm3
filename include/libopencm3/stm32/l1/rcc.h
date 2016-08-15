@@ -164,6 +164,8 @@
 #define RCC_CFGR_PPRE2_HCLK_DIV4		0x5
 #define RCC_CFGR_PPRE2_HCLK_DIV8		0x6
 #define RCC_CFGR_PPRE2_HCLK_DIV16		0x7
+#define RCC_CFGR_PPRE2_MASK			0x7
+#define RCC_CFGR_PPRE2_SHIFT			11
 
 /* PPRE1: APB low-speed prescaler (APB1) */
 #define RCC_CFGR_PPRE1_HCLK_NODIV		0x0
@@ -171,6 +173,8 @@
 #define RCC_CFGR_PPRE1_HCLK_DIV4		0x5
 #define RCC_CFGR_PPRE1_HCLK_DIV8		0x6
 #define RCC_CFGR_PPRE1_HCLK_DIV16		0x7
+#define RCC_CFGR_PPRE1_MASK			0x7
+#define RCC_CFGR_PPRE1_SHIFT			8
 
 /* HPRE: AHB prescaler */
 #define RCC_CFGR_HPRE_SYSCLK_NODIV		0x0
@@ -182,6 +186,8 @@
 #define RCC_CFGR_HPRE_SYSCLK_DIV128		0xd
 #define RCC_CFGR_HPRE_SYSCLK_DIV256		0xe
 #define RCC_CFGR_HPRE_SYSCLK_DIV512		0xf
+#define RCC_CFGR_HPRE_MASK			0xf
+#define RCC_CFGR_HPRE_SHIFT			4
 
 /* SWS: System clock switch status */
 #define RCC_CFGR_SWS_SYSCLKSEL_MSICLK		0x0
@@ -196,6 +202,8 @@
 #define RCC_CFGR_SW_SYSCLKSEL_HSICLK		0x1
 #define RCC_CFGR_SW_SYSCLKSEL_HSECLK		0x2
 #define RCC_CFGR_SW_SYSCLKSEL_PLLCLK		0x3
+#define RCC_CFGR_SW_MASK			0x3
+#define RCC_CFGR_SW_SHIFT			0
 
 /* --- RCC_CIR values ------------------------------------------------------ */
 
