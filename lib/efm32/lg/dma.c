@@ -540,7 +540,7 @@ uint32_t dma_desc_get_user_data(uint32_t desc_base, enum dma_ch ch)
  * @return the calculate end address
  * @note can be used to calculate {source, destination} end address
  */
-inline uint32_t dma_calc_end_from_start(uint32_t start, uint8_t inc,
+static inline uint32_t dma_calc_end_from_start(uint32_t start, uint8_t inc,
 					uint16_t n_minus_1)
 {
 	switch (inc) {
