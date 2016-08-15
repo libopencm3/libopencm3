@@ -98,25 +98,35 @@
 #define RCC_CR_HSEON				(1 << 16)
 /* HSICAL: [15:8] */
 /* HSITRIM: [7:3] */
+#define RCC_CR_HSITRIM_SHIFT			3
+#define RCC_CR_HSITRIM_MASK			0x1f
 #define RCC_CR_HSIRDY				(1 << 1)
 #define RCC_CR_HSION				(1 << 0)
 
 /* --- RCC_PLLCFGR values -------------------------------------------------- */
 
+/* PLLR: [30:28] */
+#define RCC_PLLCFGR_PLLR_SHIFT			28
+#define RCC_PLLCFGR_PLLR_MASK			0x7
 /* PLLQ: [27:24] */
 #define RCC_PLLCFGR_PLLQ_SHIFT			24
+#define RCC_PLLCFGR_PLLQ_MASK			0xf
 #define RCC_PLLCFGR_PLLSRC			(1 << 22)
 /* PLLP: [17:16] */
 #define RCC_PLLCFGR_PLLP_SHIFT			16
+#define RCC_PLLCFGR_PLLP_MASK			0x3
 /* PLLN: [14:6] */
 #define RCC_PLLCFGR_PLLN_SHIFT			6
+#define RCC_PLLCFGR_PLLN_MASK			0x1ff
 /* PLLM: [5:0] */
 #define RCC_PLLCFGR_PLLM_SHIFT			0
+#define RCC_PLLCFGR_PLLM_MASK			0x3f
 
 /* --- RCC_CFGR values ----------------------------------------------------- */
 
 /* MCO2: Microcontroller clock output 2 */
 #define RCC_CFGR_MCO2_SHIFT			30
+#define RCC_CFGR_MC02_MASK			0x3
 #define RCC_CFGR_MCO2_SYSCLK			0x0
 #define RCC_CFGR_MCO2_PLLI2S			0x1
 #define RCC_CFGR_MCO2_HSE			0x2
@@ -124,7 +134,9 @@
 
 /* MCO1/2PRE: MCO Prescalers */
 #define RCC_CFGR_MCO2PRE_SHIFT			27
+#define RCC_CFGR_MCO2PRE_MASK			0x7
 #define RCC_CFGR_MCO1PRE_SHIFT			24
+#define RCC_CFGR_MCO1PRE_MASK			0x7
 #define RCC_CFGR_MCOPRE_DIV_NONE		0x0
 #define RCC_CFGR_MCOPRE_DIV_2			0x4
 #define RCC_CFGR_MCOPRE_DIV_3			0x5
@@ -191,6 +203,7 @@
 #define RCC_CIR_CSSC				(1 << 23)
 
 /* OSC ready interrupt clear bits */
+#define RCC_CIR_PLLSAIRDYC			(1 << 22)
 #define RCC_CIR_PLLI2SRDYC			(1 << 21)
 #define RCC_CIR_PLLRDYC				(1 << 20)
 #define RCC_CIR_HSERDYC				(1 << 19)
@@ -199,6 +212,7 @@
 #define RCC_CIR_LSIRDYC				(1 << 16)
 
 /* OSC ready interrupt enable bits */
+#define RCC_CIR_PLLSAIRDYIE			(1 << 14)
 #define RCC_CIR_PLLI2SRDYIE			(1 << 13)
 #define RCC_CIR_PLLRDYIE			(1 << 12)
 #define RCC_CIR_HSERDYIE			(1 << 11)
@@ -210,6 +224,7 @@
 #define RCC_CIR_CSSF				(1 << 7)
 
 /* OSC ready interrupt flag bits */
+#define RCC_CIR_PLLSAIRDYF			(1 << 6)
 #define RCC_CIR_PLLI2SRDYF			(1 << 5)
 #define RCC_CIR_PLLRDYF				(1 << 4)
 #define RCC_CIR_HSERDYF				(1 << 3)
@@ -221,9 +236,12 @@
 
 #define RCC_AHB1RSTR_OTGHSRST			(1 << 29)
 #define RCC_AHB1RSTR_ETHMACRST			(1 << 25)
+#define RCC_AHB1RSTR_DMA2DRST			(1 << 23)
 #define RCC_AHB1RSTR_DMA2RST			(1 << 22)
 #define RCC_AHB1RSTR_DMA1RST			(1 << 21)
 #define RCC_AHB1RSTR_CRCRST			(1 << 12)
+#define RCC_AHB1RSTR_IOPKRST			(1 << 10)
+#define RCC_AHB1RSTR_IOPJRST			(1 << 9)
 #define RCC_AHB1RSTR_IOPIRST			(1 << 8)
 #define RCC_AHB1RSTR_IOPHRST			(1 << 7)
 #define RCC_AHB1RSTR_IOPGRST			(1 << 6)
@@ -244,10 +262,13 @@
 
 /* --- RCC_AHB3RSTR values ------------------------------------------------- */
 
+#define RCC_AHB3RSTR_QSPIRST			(1 << 1)
 #define RCC_AHB3RSTR_FSMCRST			(1 << 0)
 
 /* --- RCC_APB1RSTR values ------------------------------------------------- */
 
+#define RCC_APB1RSTR_UART8RST			(1 << 31)
+#define RCC_APB1RSTR_UART7RST			(1 << 30)
 #define RCC_APB1RSTR_DACRST			(1 << 29)
 #define RCC_APB1RSTR_PWRRST			(1 << 28)
 #define RCC_APB1RSTR_CAN2RST			(1 << 26)
@@ -274,10 +295,16 @@
 
 /* --- RCC_APB2RSTR values ------------------------------------------------- */
 
+#define RCC_APB2RSTR_DSIRST			(1 << 27)
+#define RCC_APB2RSTR_LTDCRST			(1 << 26)
+#define RCC_APB2RSTR_SAI1RST			(1 << 22)
+#define RCC_APB2RSTR_SPI6RST			(1 << 21)
+#define RCC_APB2RSTR_SPI5RST			(1 << 20)
 #define RCC_APB2RSTR_TIM11RST			(1 << 18)
 #define RCC_APB2RSTR_TIM10RST			(1 << 17)
 #define RCC_APB2RSTR_TIM9RST			(1 << 16)
 #define RCC_APB2RSTR_SYSCFGRST			(1 << 14)
+#define RCC_APB2RSTR_SPI4RST			(1 << 13)
 #define RCC_APB2RSTR_SPI1RST			(1 << 12)
 #define RCC_APB2RSTR_SDIORST			(1 << 11)
 #define RCC_APB2RSTR_ADCRST			(1 << 8)
@@ -294,10 +321,14 @@
 #define RCC_AHB1ENR_ETHMACRXEN			(1 << 27)
 #define RCC_AHB1ENR_ETHMACTXEN			(1 << 26)
 #define RCC_AHB1ENR_ETHMACEN			(1 << 25)
+#define RCC_AHB1ENR_DMA2DEN			(1 << 23)
 #define RCC_AHB1ENR_DMA2EN			(1 << 22)
 #define RCC_AHB1ENR_DMA1EN			(1 << 21)
+#define RCC_AHB1ENR_CCMDATARAMEN		(1 << 20)
 #define RCC_AHB1ENR_BKPSRAMEN			(1 << 18)
 #define RCC_AHB1ENR_CRCEN			(1 << 12)
+#define RCC_AHB1ENR_IOPKEN			(1 << 10)
+#define RCC_AHB1ENR_IOPJEN			(1 << 9)
 #define RCC_AHB1ENR_IOPIEN			(1 << 8)
 #define RCC_AHB1ENR_IOPHEN			(1 << 7)
 #define RCC_AHB1ENR_IOPGEN			(1 << 6)
@@ -318,6 +349,7 @@
 
 /* --- RCC_AHB3ENR values ------------------------------------------------- */
 
+#define RCC_AHB3ENR_QSPIEN			(1 << 1)
 #define RCC_AHB3ENR_FSMCEN			(1 << 0)
 /* Alternate now that F429 has DRAM controller as well */
 #define RCC_AHB3ENR_FMCEN			(1 << 0)
@@ -352,6 +384,7 @@
 
 /* --- RCC_APB2ENR values ------------------------------------------------- */
 
+#define RCC_APB2ENR_DSIEN			(1 << 27)
 #define RCC_APB2ENR_LTDCEN			(1 << 26)
 #define RCC_APB2ENR_SAI1EN			(1 << 22)
 #define RCC_APB2ENR_SPI6EN			(1 << 21)
@@ -379,13 +412,17 @@
 #define RCC_AHB1LPENR_ETHMACRXLPEN		(1 << 27)
 #define RCC_AHB1LPENR_ETHMACTXLPEN		(1 << 26)
 #define RCC_AHB1LPENR_ETHMACLPEN		(1 << 25)
+#define RCC_AHB1LPENR_DMA2DLPEN			(1 << 23)
 #define RCC_AHB1LPENR_DMA2LPEN			(1 << 22)
 #define RCC_AHB1LPENR_DMA1LPEN			(1 << 21)
+#define RCC_AHB1LPENR_SRAM3LPEN			(1 << 19)
 #define RCC_AHB1LPENR_BKPSRAMLPEN		(1 << 18)
 #define RCC_AHB1LPENR_SRAM2LPEN			(1 << 17)
 #define RCC_AHB1LPENR_SRAM1LPEN			(1 << 16)
 #define RCC_AHB1LPENR_FLITFLPEN			(1 << 15)
 #define RCC_AHB1LPENR_CRCLPEN			(1 << 12)
+#define RCC_AHB1LPENR_IOPKLPEN			(1 << 10)
+#define RCC_AHB1LPENR_IOPJLPEN			(1 << 9)
 #define RCC_AHB1LPENR_IOPILPEN			(1 << 8)
 #define RCC_AHB1LPENR_IOPHLPEN			(1 << 7)
 #define RCC_AHB1LPENR_IOPGLPEN			(1 << 6)
@@ -406,10 +443,14 @@
 
 /* --- RCC_AHB3LPENR values ------------------------------------------------- */
 
+#define RCC_AHB3LPENR_QSPIEN			(1 << 1)
 #define RCC_AHB3LPENR_FSMCLPEN			(1 << 0)
+#define RCC_AHB3LPENR_FMCLPEN			(1 << 0)
 
 /* --- RCC_APB1LPENR values ------------------------------------------------- */
 
+#define RCC_APB1LPENR_UART8EN			(1 << 31)
+#define RCC_APB1LPENR_UART7EN			(1 << 30)
 #define RCC_APB1LPENR_DACLPEN			(1 << 29)
 #define RCC_APB1LPENR_PWRLPEN			(1 << 28)
 #define RCC_APB1LPENR_CAN2LPEN			(1 << 26)
@@ -436,6 +477,11 @@
 
 /* --- RCC_APB2LPENR values ------------------------------------------------- */
 
+#define RCC_APB2LPENR_DSILPEN			(1 << 27)
+#define RCC_APB2LPENR_LTDCLPEN			(1 << 26)
+#define RCC_APB2LPENR_SAI1LPEN			(1 << 22)
+#define RCC_APB2LPENR_SPI6LPEN			(1 << 21)
+#define RCC_APB2LPENR_SPI5LPEN			(1 << 20)
 #define RCC_APB2LPENR_TIM11LPEN			(1 << 18)
 #define RCC_APB2LPENR_TIM10LPEN			(1 << 17)
 #define RCC_APB2LPENR_TIM9LPEN			(1 << 16)
@@ -455,6 +501,13 @@
 #define RCC_BDCR_BDRST				(1 << 16)
 #define RCC_BDCR_RTCEN				(1 << 15)
 /* RCC_BDCR[9:8]: RTCSEL */
+#define RCC_BDCR_RTCSEL_SHIFT			8
+#define RCC_BDCR_RTCSEL_MASK			0x3
+#define RCC_BDCR_RTCSEL_NONE			0
+#define RCC_BDCR_RTCSEL_LSE			1
+#define RCC_BDCR_RTCSEL_LSI			2
+#define RCC_BDCR_RTCSEL_HSE			3
+#define RCC_BDCR_LSEMOD				(1 << 3)
 #define RCC_BDCR_LSEBYP				(1 << 2)
 #define RCC_BDCR_LSERDY				(1 << 1)
 #define RCC_BDCR_LSEON				(1 << 0)
@@ -478,17 +531,24 @@
 
 #define RCC_SSCGR_SSCGEN			(1 << 31)
 #define RCC_SSCGR_SPREADSEL			(1 << 30)
-/* RCC_SSCGR[27:16]: INCSTEP */
-#define RCC_SSCGR_INCSTEP_SHIFT			16
+/* RCC_SSCGR[27:13]: INCSTEP */
+#define RCC_SSCGR_INCSTEP_SHIFT			13
+#define RCC_SSCGR_INCSTEP_MASK			0x7fff
 /* RCC_SSCGR[15:0]: MODPER */
-#define RCC_SSCGR_MODPER_SHIFT			15
+#define RCC_SSCGR_MODPER_SHIFT			0
+#define RCC_SSCGR_MODPER_MASK			0x1fff
 
 /* --- RCC_PLLI2SCFGR values ----------------------------------------------- */
 
 /* RCC_PLLI2SCFGR[30:28]: PLLI2SR */
 #define RCC_PLLI2SCFGR_PLLI2SR_SHIFT		28
+#define RCC_PLLI2SCFGR_PLLI2SR_MASK		0x7
+/* RCC_PLLI2SCFGR[27:24] PLLI2SQ */
+#define RCC_PLLI2SCFGR_PLLI2SQ_SHIFT		24
+#define RCC_PLLI2SCFGR_PLLI2SQ_MASK		0xf
 /* RCC_PLLI2SCFGR[14:6]: PLLI2SN */
 #define RCC_PLLI2SCFGR_PLLI2SN_SHIFT		6
+#define RCC_PLLI2SCFGR_PLLI2SN_MASK		0x1ff
 
 /* --- RCC_PLLSAICFGR values ----------------------------------------------- */
 
@@ -500,17 +560,45 @@
 #define RCC_PLLSAICFGR_PLLSAIQ_SHIFT		24
 #define RCC_PLLSAICFGR_PLLSAIQ_MASK		0xF
 
+/* RCC_PLLSAICFGR[18:16]: PLLSAIP */
+#define RCC_PLLSAICFGR_PLLSAIP_SHIFT		16
+#define RCC_PLLSAICFGR_PLLSAIP_MASK		0x3
+
 /* RCC_PLLSAICFGR[14:6]: PLLSAIN */
-#define RCC_PLLSAICFGR_PLLSAIN_SHIFT		14
+#define RCC_PLLSAICFGR_PLLSAIN_SHIFT		6
 #define RCC_PLLSAICFGR_PLLSAIN_MASK		0x1FF
 
 
 /* --- RCC_DCKCFGR values -------------------------------------------------- */
-#define RCC_DCKCFGR_PLLSAIDIVR_MSK                 (0x3 << 16)
-#define RCC_DCKCFGR_PLLSAIDIVR_DIVR_2              (0x0)
-#define RCC_DCKCFGR_PLLSAIDIVR_DIVR_4              (0x1)
-#define RCC_DCKCFGR_PLLSAIDIVR_DIVR_8              (0x2)
-#define RCC_DCKCFGR_PLLSAIDIVR_DIVR_16             (0x3)
+#define RCC_DCKCFGR_DSISEL			(1 << 29)
+#define RCC_DCKCFGR_SDMMCSEL			(1 << 28)
+#define RCC_DCKCFGR_48MSEL			(1 << 27)
+#define RCC_DCKCFGR_TIMPRE			(1 << 24)
+
+#define RCC_DCKCFGR_SAI1BSRC_SHIFT		22
+#define RCC_DCKCFGR_SAI1BSRC_MASK		0x3
+
+#define RCC_DCKCFGR_SAI1ASRC_SHIFT		20
+#define RCC_DCKCFGR_SAI1ASRC_MASK		0x3
+
+/* Values for the BSRC and ASRC fields */
+#define RCC_DCKCFGR_SAI1SRC_SAIQ		0x0
+#define RCC_DCKCFGR_SAI1SRC_I2SQ		0x1
+#define RCC_DCKCFGR_SAI1SRC_ALT			0x2
+#define RCC_DCKCFGR_SAI1SRC_ERROR		0x3
+
+#define RCC_DCKCFGR_PLLSAIDIVR_SHIFT		16
+#define RCC_DCKCFGR_PLLSAIDIVR_MASK		0x3
+#define RCC_DCKCFGR_PLLSAIDIVR_DIVR_2		0x0
+#define RCC_DCKCFGR_PLLSAIDIVR_DIVR_4		0x1
+#define RCC_DCKCFGR_PLLSAIDIVR_DIVR_8		0x2
+#define RCC_DCKCFGR_PLLSAIDIVR_DIVR_16		0x3
+
+#define RCC_DCKCFGR_PLLSAIDIVQ_SHIFT		8
+#define RCC_DCKCFGR_PLLSAIDIVQ_MASK		0x1f
+
+#define RCC_DCKCFGR_PLLI2SDIVQ_SHIFT		0
+#define RCC_DCKCFGR_PLLI2SDIVQ_MASK		0x1f
 
 /* PLLSAI1 helper macros */
 static inline void rcc_pllsai_enable(void)
@@ -603,6 +691,7 @@ enum rcc_periph_clken {
 	RCC_CCMDATARAM	= _REG_BIT(0x30, 20),
 	RCC_DMA1	= _REG_BIT(0x30, 21),
 	RCC_DMA2	= _REG_BIT(0x30, 22),
+	RCC_DMA2D	= _REG_BIT(0x30, 23),
 	RCC_ETHMAC	= _REG_BIT(0x30, 25),
 	RCC_ETHMACTX	= _REG_BIT(0x30, 26),
 	RCC_ETHMACRX	= _REG_BIT(0x30, 27),
@@ -666,6 +755,7 @@ enum rcc_periph_clken {
 	RCC_SPI6	= _REG_BIT(0x44, 21),/* F2xx, F3xx */
 	RCC_SAI1EN	= _REG_BIT(0x44, 22),/* F42x, F43x */
 	RCC_LTDC	= _REG_BIT(0x44, 26),/* F42x, F43x */
+	RCC_DSI		= _REG_BIT(0x44, 27),/* F4x9, F4x9 */
 
 
 	/* BDCR */
@@ -691,6 +781,7 @@ enum rcc_periph_clken {
 	SCC_SRAM3	= _REG_BIT(0x50, 19),/* F2xx, F3xx */
 	SCC_DMA1	= _REG_BIT(0x50, 21),
 	SCC_DMA2	= _REG_BIT(0x50, 22),
+	SCC_DMA2D	= _REG_BIT(0x50, 23), /* F4x9 */
 	SCC_ETHMAC	= _REG_BIT(0x50, 25),
 	SCC_ETHMACTX	= _REG_BIT(0x50, 26),
 	SCC_ETHMACRX	= _REG_BIT(0x50, 27),
@@ -706,6 +797,8 @@ enum rcc_periph_clken {
 	SCC_OTGFS	= _REG_BIT(0x54, 7),
 
 	/* AHB3 peripherals */
+	SCC_QSPIC	= _REG_BIT(0x58, 1),
+	SCC_FMC		= _REG_BIT(0x58, 0),
 	SCC_FSMC	= _REG_BIT(0x58, 0),
 
 	/* APB1 peripherals*/
@@ -752,6 +845,9 @@ enum rcc_periph_clken {
 	SCC_TIM11	= _REG_BIT(0x64, 18),
 	SCC_SPI5	= _REG_BIT(0x64, 20),/* F2xx, F3xx */
 	SCC_SPI6	= _REG_BIT(0x64, 21),/* F2xx, F3xx */
+	SCC_SAI1	= _REG_BIT(0x64, 22),/* F4x9 */
+	SCC_LTDC	= _REG_BIT(0x64, 26),/* F4x9 */
+	SCC_DSI		= _REG_BIT(0x64, 27),/* F4x9 */
 };
 
 enum rcc_periph_rst {
@@ -770,6 +866,7 @@ enum rcc_periph_rst {
 	RST_CRC		= _REG_BIT(0x10, 12),
 	RST_DMA1	= _REG_BIT(0x10, 21),
 	RST_DMA2	= _REG_BIT(0x10, 22),
+	RST_DMA2D	= _REG_BIT(0x10, 23),
 	RST_ETHMAC	= _REG_BIT(0x10, 25),
 	RST_OTGHS	= _REG_BIT(0x10, 29),
 
@@ -781,7 +878,9 @@ enum rcc_periph_rst {
 	RST_OTGFS	= _REG_BIT(0x14, 7),
 
 	/* AHB3 peripherals */
+	RST_QSPI	= _REG_BIT(0x18, 1), /* F4x9 */
 	RST_FSMC	= _REG_BIT(0x18, 0),
+	RST_FMC		= _REG_BIT(0x18, 0), /* F4x9 */
 
 	/* APB1 peripherals*/
 	RST_TIM2	= _REG_BIT(0x20, 0),
@@ -827,6 +926,7 @@ enum rcc_periph_rst {
 	RST_SPI6	= _REG_BIT(0x24, 21),/* F2xx, F3xx */
 	RST_SAI1RST	= _REG_BIT(0x24, 22),/* F42x, F43x */
 	RST_LTDC	= _REG_BIT(0x24, 26),/* F42x, F43x */
+	RST_DSI		= _REG_BIT(0x24, 27),/* F42x, F43x */
 };
 
 #undef _REG_BIT
