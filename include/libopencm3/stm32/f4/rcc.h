@@ -665,6 +665,8 @@ extern const struct rcc_clock_scale rcc_hse_25mhz_3v3[RCC_CLOCK_3V3_END];
 
 enum rcc_osc {
 	RCC_PLL,
+	RCC_PLLSAI,
+	RCC_PLLI2S,
 	RCC_HSE,
 	RCC_HSI,
 	RCC_LSE,
