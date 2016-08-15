@@ -256,20 +256,20 @@ void rcc_wait_for_sysclk_status(enum rcc_osc osc)
 {
 	switch (osc) {
 	case RCC_PLL:
-		while ((RCC_CFGR & ((1 << 1) | (1 << 0))) !=
-				RCC_CFGR_SWS_SYSCLKSEL_PLLCLK);
+		while (((RCC_CFGR >> RCC_CFGR_SWS_SHIFT) & RCC_CFGR_SWS_MASK) !=
+			RCC_CFGR_SWS_SYSCLKSEL_PLLCLK);
 		break;
 	case RCC_HSE:
-		while ((RCC_CFGR & ((1 << 1) | (1 << 0))) !=
-				RCC_CFGR_SWS_SYSCLKSEL_HSECLK);
+		while (((RCC_CFGR >> RCC_CFGR_SWS_SHIFT) & RCC_CFGR_SWS_MASK) !=
+			RCC_CFGR_SWS_SYSCLKSEL_HSECLK);
 		break;
 	case RCC_HSI:
-		while ((RCC_CFGR & ((1 << 1) | (1 << 0))) !=
-				RCC_CFGR_SWS_SYSCLKSEL_HSICLK);
+		while (((RCC_CFGR >> RCC_CFGR_SWS_SHIFT) & RCC_CFGR_SWS_MASK) !=
+			RCC_CFGR_SWS_SYSCLKSEL_HSICLK);
 		break;
 	case RCC_MSI:
-		while ((RCC_CFGR & ((1 << 1) | (1 << 0))) !=
-				RCC_CFGR_SWS_SYSCLKSEL_MSICLK);
+		while (((RCC_CFGR >> RCC_CFGR_SWS_SHIFT) & RCC_CFGR_SWS_MASK) !=
+			RCC_CFGR_SWS_SYSCLKSEL_MSICLK);
 		break;
 	default:
 		/* Shouldn't be reached. */

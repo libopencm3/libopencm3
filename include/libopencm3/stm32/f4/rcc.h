@@ -174,6 +174,7 @@
 
 /* SWS: System clock switch status */
 #define RCC_CFGR_SWS_SHIFT			2
+#define RCC_CFGR_SWS_MASK			0x3
 #define RCC_CFGR_SWS_HSI			0x0
 #define RCC_CFGR_SWS_HSE			0x1
 #define RCC_CFGR_SWS_PLL			0x2
