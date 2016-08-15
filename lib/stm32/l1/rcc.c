@@ -2,7 +2,7 @@
 
 @ingroup STM32L1xx
 
-@brief <b>libopencm3 STM32F1xx Reset and Clock Control</b>
+@brief <b>libopencm3 STM32L1xx Reset and Clock Control</b>
 
 @version 1.0.0
 
