@@ -51,6 +51,13 @@ void rcc_periph_reset_release(enum rcc_periph_rst rst);
 
 void rcc_set_mco(uint32_t mcosrc);
 
+/**
+ * Wait for Oscillator Ready.
+ * Block until the hardware indicates that the Oscillator is ready.
+ * @param osc Oscillator ID
+ */
+void rcc_wait_for_osc_ready(enum rcc_osc osc);
+
 END_DECLS
 /**@}*/
 

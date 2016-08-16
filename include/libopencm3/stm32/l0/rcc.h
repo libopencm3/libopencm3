@@ -633,7 +633,6 @@ void rcc_osc_ready_int_clear(enum rcc_osc osc);
 void rcc_osc_ready_int_enable(enum rcc_osc osc);
 void rcc_osc_ready_int_disable(enum rcc_osc osc);
 int rcc_osc_ready_int_flag(enum rcc_osc osc);
-void rcc_wait_for_osc_ready(enum rcc_osc osc);
 void rcc_set_hsi48_source_rc48(void);
 void rcc_set_hsi48_source_pll(void);
 void rcc_set_sysclk_source(enum rcc_osc osc);
