@@ -64,7 +64,7 @@ const struct rcc_clock_scale rcc_hse_8mhz_3v3[RCC_CLOCK_3V3_END] = {
 	},
 };
 
-void rcc_osc_ready_int_clear(osc_t osc)
+void rcc_osc_ready_int_clear(enum rcc_osc osc)
 {
 	switch (osc) {
 	case RCC_PLL:
@@ -85,7 +85,7 @@ void rcc_osc_ready_int_clear(osc_t osc)
 	}
 }
 
-void rcc_osc_ready_int_enable(osc_t osc)
+void rcc_osc_ready_int_enable(enum rcc_osc osc)
 {
 	switch (osc) {
 	case RCC_PLL:
@@ -106,7 +106,7 @@ void rcc_osc_ready_int_enable(osc_t osc)
 	}
 }
 
-void rcc_osc_ready_int_disable(osc_t osc)
+void rcc_osc_ready_int_disable(enum rcc_osc osc)
 {
 	switch (osc) {
 	case RCC_PLL:
@@ -127,7 +127,7 @@ void rcc_osc_ready_int_disable(osc_t osc)
 	}
 }
 
-int rcc_osc_ready_int_flag(osc_t osc)
+int rcc_osc_ready_int_flag(enum rcc_osc osc)
 {
 	switch (osc) {
 	case RCC_PLL:
@@ -160,7 +160,7 @@ int rcc_css_int_flag(void)
 	return ((RCC_CIR & RCC_CIR_CSSF) != 0);
 }
 
-void rcc_wait_for_osc_ready(osc_t osc)
+void rcc_wait_for_osc_ready(enum rcc_osc osc)
 {
 	switch (osc) {
 	case RCC_PLL:
@@ -181,7 +181,7 @@ void rcc_wait_for_osc_ready(osc_t osc)
 	}
 }
 
-void rcc_wait_for_sysclk_status(osc_t osc)
+void rcc_wait_for_sysclk_status(enum rcc_osc osc)
 {
 	switch (osc) {
 	case RCC_PLL:
@@ -202,7 +202,7 @@ void rcc_wait_for_sysclk_status(osc_t osc)
 	}
 }
 
-void rcc_osc_on(osc_t osc)
+void rcc_osc_on(enum rcc_osc osc)
 {
 	switch (osc) {
 	case RCC_PLL:
@@ -223,7 +223,7 @@ void rcc_osc_on(osc_t osc)
 	}
 }
 
-void rcc_osc_off(osc_t osc)
+void rcc_osc_off(enum rcc_osc osc)
 {
 	switch (osc) {
 	case RCC_PLL:
@@ -254,7 +254,7 @@ void rcc_css_disable(void)
 	RCC_CR &= ~RCC_CR_CSSON;
 }
 
-void rcc_osc_bypass_enable(osc_t osc)
+void rcc_osc_bypass_enable(enum rcc_osc osc)
 {
 	switch (osc) {
 	case RCC_HSE:
@@ -271,7 +271,7 @@ void rcc_osc_bypass_enable(osc_t osc)
 	}
 }
 
-void rcc_osc_bypass_disable(osc_t osc)
+void rcc_osc_bypass_disable(enum rcc_osc osc)
 {
 	switch (osc) {
 	case RCC_HSE:
