@@ -371,6 +371,18 @@ void rcc_osc_bypass_disable(enum rcc_osc osc)
 	}
 }
 
+/**
+ * Set the range of the MSI oscillator
+ * @param range desired range @ref rcc_icscr_msirange
+ */
+void rcc_set_msi_range(uint32_t range)
+{
+	uint32_t reg = RCC_ICSCR;
+	reg &= ~(RCC_ICSCR_MSIRANGE_MASK << RCC_ICSCR_MSIRANGE_SHIFT);
+	reg |= (range << RCC_ICSCR_MSIRANGE_SHIFT);
+	RCC_ICSCR = reg;
+}
+
 void rcc_set_sysclk_source(uint32_t clk)
 {
 	uint32_t reg32;
@@ -455,12 +467,7 @@ void rcc_rtc_select_clock(uint32_t clock)
 void rcc_clock_setup_msi(const struct rcc_clock_scale *clock)
 {
 	/* Enable internal multi-speed oscillator. */
-
-	uint32_t reg = RCC_ICSCR;
-	reg &= ~(RCC_ICSCR_MSIRANGE_MASK << RCC_ICSCR_MSIRANGE_SHIFT);
-	reg |= (clock->msi_range << RCC_ICSCR_MSIRANGE_SHIFT);
-	RCC_ICSCR = reg;
-
+	rcc_set_msi_range(clock->msi_range);
 	rcc_osc_on(RCC_MSI);
 	rcc_wait_for_osc_ready(RCC_MSI);
 

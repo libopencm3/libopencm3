@@ -89,8 +89,10 @@
 #define RCC_CR_RTCPRE_SHIFT	29
 #define RCC_CR_RTCPRE_MASK	0x3
 
-/* --- RCC_ICSCR values ---------------------------------------------------- */
-
+/** @defgroup rcc_icscr_defines RCC_ICSCR definitions
+ * @brief Internal clock sources calibration register
+ * @ingroup rcc_defines
+ *@{*/
 #define RCC_ICSCR_MSITRIM_SHIFT		24
 #define RCC_ICSCR_MSITRIM_MASK		0xff
 #define RCC_ICSCR_MSICAL_SHIFT		16
@@ -98,6 +100,9 @@
 
 #define RCC_ICSCR_MSIRANGE_SHIFT	13
 #define RCC_ICSCR_MSIRANGE_MASK		0x7
+/** @defgroup rcc_icscr_msirange MSI Ranges
+ * @ingroup rcc_icscr_defines
+ *@{*/
 #define RCC_ICSCR_MSIRANGE_65KHZ	0x0
 #define RCC_ICSCR_MSIRANGE_131KHZ	0x1
 #define RCC_ICSCR_MSIRANGE_262KHZ	0x2
@@ -105,11 +110,12 @@
 #define RCC_ICSCR_MSIRANGE_1MHZ		0x4
 #define RCC_ICSCR_MSIRANGE_2MHZ		0x5
 #define RCC_ICSCR_MSIRANGE_4MHZ		0x6
-
+/**@}*/
 #define RCC_ICSCR_HSITRIM_SHIFT		8
 #define RCC_ICSCR_HSITRIM_MASK		0x1f
 #define RCC_ICSCR_HSICAL_SHIFT		0
 #define RCC_ICSCR_HSICAL_MASK		0xff
+/**@}*/
 
 /* --- RCC_CFGR values ----------------------------------------------------- */
 
@@ -605,6 +611,7 @@ void rcc_css_enable(void);
 void rcc_css_disable(void);
 void rcc_osc_bypass_enable(enum rcc_osc osc);
 void rcc_osc_bypass_disable(enum rcc_osc osc);
+void rcc_set_msi_range(uint32_t range);
 void rcc_set_sysclk_source(uint32_t clk);
 void rcc_set_pll_configuration(uint32_t source, uint32_t multiplier,
 			       uint32_t divisor);
