@@ -202,37 +202,30 @@ int rcc_css_int_flag(void)
 	return ((RCC_CIR & RCC_CIR_CSSF) != 0);
 }
 
-/*---------------------------------------------------------------------------*/
-/** @brief RCC Wait for Oscillator Ready.
- *
- * @param[in] osc enum ::osc_t. Oscillator ID
- */
-
-void rcc_wait_for_osc_ready(enum rcc_osc osc)
+bool rcc_is_osc_ready(enum rcc_osc osc)
 {
 	switch (osc) {
 	case RCC_HSI48:
-		while ((RCC_CR2 & RCC_CR2_HSI48RDY) == 0);
-		break;
+		return (RCC_CR2 & RCC_CR2_HSI48RDY);
 	case RCC_HSI14:
-		while ((RCC_CR2 & RCC_CR2_HSI14RDY) == 0);
-		break;
+		return (RCC_CR2 & RCC_CR2_HSI14RDY);
 	case RCC_HSI:
-		while ((RCC_CR & RCC_CR_HSIRDY) == 0);
-		break;
+		return (RCC_CR & RCC_CR_HSIRDY);
 	case RCC_HSE:
-		while ((RCC_CR & RCC_CR_HSERDY) == 0);
-		break;
+		return (RCC_CR & RCC_CR_HSERDY);
 	case RCC_PLL:
-		while ((RCC_CR & RCC_CR_PLLRDY) == 0);
-		break;
+		return (RCC_CR & RCC_CR_PLLRDY);
 	case RCC_LSE:
-		while ((RCC_BDCR & RCC_BDCR_LSERDY) == 0);
-		break;
+		return (RCC_BDCR & RCC_BDCR_LSERDY);
 	case RCC_LSI:
-		while ((RCC_CSR & RCC_CSR_LSIRDY) == 0);
-		break;
+		return (RCC_CSR & RCC_CSR_LSIRDY);
 	}
+	return false;
+}
+
+void rcc_wait_for_osc_ready(enum rcc_osc osc)
+{
+	while (!rcc_is_osc_ready(osc));
 }
 
 /*---------------------------------------------------------------------------*/
