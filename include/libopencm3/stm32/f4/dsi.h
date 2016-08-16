@@ -45,7 +45,7 @@
 /**
  * DSI Host Version Register
  */
-#define DSI_VR				MMIO32(DSI_BASE + 0x0U)	
+#define DSI_VR				MMIO32(DSI_BASE + 0x0U)
 
 /**
  * DSI Host Control Register
