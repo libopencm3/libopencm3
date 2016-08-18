@@ -178,5 +178,7 @@ void adc_disable_regulator(uint32_t adc);
 END_DECLS
 
 #endif
-#endif	/* LIBOPENCM3_ADC_H */
+/** @cond */
+#endif
+/** @endcond */
 /**@}*/

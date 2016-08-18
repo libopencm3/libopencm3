@@ -37,10 +37,14 @@
 #include <libopencm3/stm32/common/adc_common_v2.h>
 #include <libopencm3/stm32/common/adc_common_v2_multi.h>
 
+/** @defgroup adc_reg_base ADC register base addresses
+@ingroup STM32xx_adc_defines
+@{*/
 #define ADC1		ADC1_BASE
 #define ADC2		ADC2_BASE
 #define ADC3		ADC3_BASE
 #define ADC4		ADC4_BASE
+/**@}*/
 
 /* Master and slave ADCs common registers (ADC12 or ADC34) */
 

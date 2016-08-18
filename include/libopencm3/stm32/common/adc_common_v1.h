@@ -180,7 +180,7 @@ specific memorymap.h header before including this header file.*/
 #define ADC_CHANNEL16           0x10
 #define ADC_CHANNEL17           0x11
 #define ADC_CHANNEL18           0x12
-
+/**@}*/
 #define ADC_CHANNEL_MASK        0x1F
 
 
@@ -406,5 +406,7 @@ void adc_disable_external_trigger_injected(uint32_t adc);
 END_DECLS
 
 #endif
-#endif	/* ADC_COMMON_V1_H */
+/** @cond */
+#endif
+/** @endcond */
 /**@}*/

@@ -206,5 +206,7 @@ void adc_start_conversion_regular(uint32_t adc);
 END_DECLS
 
 #endif
-#endif	/* LIBOPENCM3_ADC_H */
+/** @cond */
+#endif
+/** @endcond */
 /**@}*/

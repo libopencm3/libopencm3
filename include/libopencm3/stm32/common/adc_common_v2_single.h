@@ -68,5 +68,7 @@ BEGIN_DECLS
 END_DECLS
 
 #endif
-#endif	/* LIBOPENCM3_ADC_H */
+/** @cond */
+#endif
+/** @endcond */
 /**@}*/
