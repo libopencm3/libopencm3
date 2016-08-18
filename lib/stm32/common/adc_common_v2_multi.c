@@ -127,3 +127,5 @@ void adc_set_regular_sequence(uint32_t adc, uint8_t length, uint8_t channel[])
 	ADC_SQR3(adc) = reg32_3;
 	ADC_SQR4(adc) = reg32_4;
 }
+
+/**@}*/

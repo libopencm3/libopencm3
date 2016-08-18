@@ -90,7 +90,7 @@ void usart_disable_tx_inversion(uint32_t usart)
 
  RX pin signal values are inverted. (VDD =0/mark, Gnd=1/idle).
 
- @This bit field can only be written when the USART is disabled.
+ This bit field can only be written when the USART is disabled.
 
  @param[in] usart USART block register address base @ref usart_reg_base
  */
@@ -104,7 +104,7 @@ void usart_enable_rx_inversion(uint32_t usart)
 
  RX pin signal works using the standard logic levels (VDD =1/idle, Gnd=0/mark)
 
- @This bit field can only be written when the USART is disabled.
+ This bit field can only be written when the USART is disabled.
 
  @param[in] usart USART block register address base @ref usart_reg_base
  */
@@ -127,7 +127,7 @@ void usart_disable_rx_inversion(uint32_t usart)
  Apart from this, the communication protocol is similar to normal USART mode.
  Any conflicts on the line must be managed by software
 
- @This bit field can only be written when the USART is disabled.
+ This bit field can only be written when the USART is disabled.
 
  @param[in] usart USART block register address base @ref usart_reg_base
  */
@@ -139,7 +139,7 @@ void usart_enable_halfduplex(uint32_t usart)
 /*---------------------------------------------------------------------------*/
 /** @brief USART Disable Half-duplex
 
- @This bit field can only be written when the USART is disabled.
+ This bit field can only be written when the USART is disabled.
 
  @param[in] usart USART block register address base @ref usart_reg_base
  */

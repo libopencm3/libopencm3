@@ -354,3 +354,4 @@ void adc_start_conversion_regular(uint32_t adc)
 	while (ADC_CR(adc) & ADC_CR_ADSTART);
 }
 
+/**@}*/
