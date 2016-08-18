@@ -66,6 +66,9 @@ Development guidelines
 
  - For examples on using libopencm3 see the libopencm3-examples repository.
 
+ - Doxygen is used to generate API docs, please follow that style for function
+   and definition commentary where possible.
+
 Tips and tricks
 ---------------
 
