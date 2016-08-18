@@ -20,6 +20,7 @@
  * You should have received a copy of the GNU Lesser General Public License
  * along with this library.  If not, see <http://www.gnu.org/licenses/>.
  */
+/**@{*/
 
 #include <libopencm3/stm32/pwr.h>
 #include <libopencm3/stm32/rcc.h>
@@ -43,3 +44,4 @@ void pwr_set_vos_scale(enum pwr_vos_scale scale)
 	PWR_CR = reg;
 }
 
+/**@}*/

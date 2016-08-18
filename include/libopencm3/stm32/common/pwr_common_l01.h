@@ -77,9 +77,14 @@
 
 /* --- Function prototypes ------------------------------------------------- */
 
+/** Voltage scales for internal regulator
+ */
 enum pwr_vos_scale {
+	/** high performance, highest voltage */
 	PWR_SCALE1,
+	/** medium performance, flash operational but slow */
 	PWR_SCALE2,
+	/** low performance, no flash erase/program */
 	PWR_SCALE3,
 };
 
