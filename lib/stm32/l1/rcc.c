@@ -497,31 +497,46 @@ void rcc_clock_setup_msi(const struct rcc_clock_scale *clock)
 	rcc_apb2_frequency = clock->apb2_frequency;
 }
 
+
+/**
+ * Switch sysclock to HSI with the given parameters.
+ * This should be usable from any point in time, but only if you have used
+ * library functions to manage clocks.  It relies on the global
+ * @ref rcc_ahb_frequency to ensure that it reliably scales voltage up or down
+ * as appropriate.
+ * @param clock full struct with desired parameters
+ */
 void rcc_clock_setup_hsi(const struct rcc_clock_scale *clock)
 {
 	/* Enable internal high-speed oscillator. */
 	rcc_osc_on(RCC_HSI);
-	rcc_wait_for_osc_ready(RCC_HSI);
-
-	/* Select HSI as SYSCLK source. */
-	rcc_set_sysclk_source(RCC_CFGR_SW_SYSCLKSEL_HSICLK);
-
-	/*
-	 * Set prescalers for AHB, ADC, ABP1, ABP2.
-	 * Do this before touching the PLL (TODO: why?).
-	 */
-	rcc_set_hpre(clock->hpre);
-	rcc_set_ppre1(clock->ppre1);
-	rcc_set_ppre2(clock->ppre2);
-
 	rcc_periph_clock_enable(RCC_PWR);
-	pwr_set_vos_scale(clock->voltage_scale);
 
 	/* I guess this should be in the settings? */
 	flash_64bit_enable();
 	flash_prefetch_enable();
-	/* Configure flash settings. */
-	flash_set_ws(clock->flash_config);
+
+	/* Don't try and go to fast for a voltage range! */
+	if (clock->ahb_frequency > rcc_ahb_frequency) {
+		/* Going up, power up first */
+		pwr_set_vos_scale(clock->voltage_scale);
+		rcc_set_hpre(clock->hpre);
+		rcc_set_ppre1(clock->ppre1);
+		rcc_set_ppre2(clock->ppre2);
+		flash_set_ws(clock->flash_config);
+	} else {
+		/* going down, slow down before cutting power */
+		rcc_set_hpre(clock->hpre);
+		rcc_set_ppre1(clock->ppre1);
+		rcc_set_ppre2(clock->ppre2);
+		flash_set_ws(clock->flash_config);
+		pwr_set_vos_scale(clock->voltage_scale);
+	}
+
+	rcc_wait_for_osc_ready(RCC_HSI);
+	while (PWR_CSR & PWR_CSR_VOSF)
+		;
+	rcc_set_sysclk_source(RCC_CFGR_SW_SYSCLKSEL_HSICLK);
 
 	/* Set the peripheral clock frequencies used. */
 	rcc_ahb_frequency  = clock->ahb_frequency;
