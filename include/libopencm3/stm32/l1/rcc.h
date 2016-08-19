@@ -50,8 +50,9 @@
 
 #include <libopencm3/stm32/pwr.h>
 
-/* --- RCC registers ------------------------------------------------------- */
-
+/** @defgroup rcc_registers RCC Registers
+ * @ingroup rcc_defines
+ *@{*/
 #define RCC_CR					MMIO32(RCC_BASE + 0x00)
 #define RCC_ICSCR				MMIO32(RCC_BASE + 0x04)
 #define RCC_CFGR				MMIO32(RCC_BASE + 0x08)
@@ -66,9 +67,12 @@
 #define RCC_APB2LPENR				MMIO32(RCC_BASE + 0x2c)
 #define RCC_APB1LPENR				MMIO32(RCC_BASE + 0x30)
 #define RCC_CSR					MMIO32(RCC_BASE + 0x34)
+/*@}*/
 
-/* --- RCC_CR values ------------------------------------------------------- */
-
+/** @defgroup rcc_cr_defines RCC_CR definitions
+ * @brief Clock control register
+ * @ingroup rcc_defines
+ *@{*/
 #define RCC_CR_RTCPRE_SHIFT			29
 #define RCC_CR_RTCPRE_MASK			0x3
 #define RCC_CR_CSSON				(1 << 28)
@@ -88,6 +92,7 @@
 #define RCC_CR_RTCPRE_DIV16	3
 #define RCC_CR_RTCPRE_SHIFT	29
 #define RCC_CR_RTCPRE_MASK	0x3
+/*@}*/
 
 /** @defgroup rcc_icscr_defines RCC_ICSCR definitions
  * @brief Internal clock sources calibration register
@@ -117,8 +122,10 @@
 #define RCC_ICSCR_HSICAL_MASK		0xff
 /**@}*/
 
-/* --- RCC_CFGR values ----------------------------------------------------- */
-
+/** @defgroup rcc_cfgr_defines RCC_CFGR definitions
+ * @brief Clock configuration register
+ * @ingroup rcc_defines
+ *@{*/
 /* MCOPRE */
 #define RCC_CFGR_MCOPRE_DIV1	    0
 #define RCC_CFGR_MCOPRE_DIV2	    1
@@ -210,9 +217,12 @@
 #define RCC_CFGR_SW_SYSCLKSEL_PLLCLK		0x3
 #define RCC_CFGR_SW_MASK			0x3
 #define RCC_CFGR_SW_SHIFT			0
+/**@}*/
 
-/* --- RCC_CIR values ------------------------------------------------------ */
-
+/** @defgroup rcc_cir_defines RCC_CIR definitions
+ * @brief Clock interrupt register
+ * @ingroup rcc_defines
+ *@{*/
 /* Clock security system interrupt clear bit */
 #define RCC_CIR_CSSC				(1 << 23)
 
@@ -242,8 +252,12 @@
 #define RCC_CIR_HSIRDYF				(1 << 2)
 #define RCC_CIR_LSERDYF				(1 << 1)
 #define RCC_CIR_LSIRDYF				(1 << 0)
+/**@}*/
 
-/* --- RCC_AHBRSTR values ------------------------------------------------- */
+/** @defgroup rcc_ahbrstr_defines RCC_AHBRSTR definitions
+ * @brief AHB peripheral reset register
+ * @ingroup rcc_defines
+ *@{*/
 #define RCC_AHBRSTR_DMA1RST			(1 << 24)
 #define RCC_AHBRSTR_FLITFRST			(1 << 15)
 #define RCC_AHBRSTR_CRCRST			(1 << 12)
@@ -253,9 +267,12 @@
 #define RCC_AHBRSTR_GPIOCRST			(1 << 2)
 #define RCC_AHBRSTR_GPIOBRST			(1 << 1)
 #define RCC_AHBRSTR_GPIOARST			(1 << 0)
+/**@}*/
 
-/* --- RCC_APB2RSTR values ------------------------------------------------- */
-
+/** @defgroup rcc_apb2rstr_defines RCC_APB2RSTR definitions
+ * @brief APB2 peripheral reset register
+ * @ingroup rcc_defines
+ *@{*/
 #define RCC_APB2RSTR_USART1RST			(1 << 14)
 #define RCC_APB2RSTR_SPI1RST			(1 << 12)
 #define RCC_APB2RSTR_ADC1RST			(1 << 9)
@@ -263,9 +280,12 @@
 #define RCC_APB2RSTR_TIM10RST			(1 << 3)
 #define RCC_APB2RSTR_TIM9RST			(1 << 2)
 #define RCC_APB2RSTR_SYSCFGRST			(1 << 0)
+/**@}*/
 
-/* --- RCC_APB1RSTR values ------------------------------------------------- */
-
+/** @defgroup rcc_apb1rstr_defines RCC_APB1RSTR definitions
+ * @brief APB1 peripheral reset register
+ * @ingroup rcc_defines
+ *@{*/
 #define RCC_APB1RSTR_COMPRST			(1 << 31)
 #define RCC_APB1RSTR_DACRST			(1 << 29)
 #define RCC_APB1RSTR_PWRRST			(1 << 28)
@@ -283,13 +303,12 @@
 #define RCC_APB1RSTR_TIM4RST			(1 << 2)
 #define RCC_APB1RSTR_TIM3RST			(1 << 1)
 #define RCC_APB1RSTR_TIM2RST			(1 << 0)
+/**@}*/
 
-/* --- RCC_AHBENR values --------------------------------------------------- */
-
-/** @defgroup rcc_ahbenr_en RCC_AHBENR enable values
-@ingroup STM32L1xx_rcc_defines
-
-@{*/
+/** @defgroup rcc_ahbenr_defines RCC_AHBENR definitions
+ * @brief AHB peripheral clock enable register
+ * @ingroup rcc_defines
+ *@{*/
 #define RCC_AHBENR_DMA1EN			(1 << 24)
 #define RCC_AHBENR_FLITFEN			(1 << 15)
 #define RCC_AHBENR_CRCEN			(1 << 12)
@@ -299,14 +318,12 @@
 #define RCC_AHBENR_GPIOCEN			(1 << 2)
 #define RCC_AHBENR_GPIOBEN			(1 << 1)
 #define RCC_AHBENR_GPIOAEN			(1 << 0)
-/*@}*/
+/**@}*/
 
-/* --- RCC_APB2ENR values -------------------------------------------------- */
-
-/** @defgroup rcc_apb2enr_en RCC_APB2ENR enable values
-@ingroup STM32L1xx_rcc_defines
-
-@{*/
+/** @defgroup rcc_apb2enr_defines RCC_APB2ENR definitions
+ * @brief APB2 peripheral clock enable register
+ * @ingroup rcc_defines
+ *@{*/
 #define RCC_APB2ENR_USART1EN			(1 << 14)
 #define RCC_APB2ENR_SPI1EN			(1 << 12)
 #define RCC_APB2ENR_ADC1EN			(1 << 9)
@@ -314,14 +331,12 @@
 #define RCC_APB2ENR_TIM10EN			(1 << 3)
 #define RCC_APB2ENR_TIM9EN			(1 << 2)
 #define RCC_APB2ENR_SYSCFGEN			(1 << 0)
-/*@}*/
+/**@}*/
 
-/* --- RCC_APB1ENR values -------------------------------------------------- */
-
-/** @defgroup rcc_apb1enr_en RCC_APB1ENR enable values
-@ingroup STM32L1xx_rcc_defines
-
-@{*/
+/** @defgroup rcc_apb1enr_defines RCC_APB1ENR definitions
+ * @brief APB1 peripheral clock enable register
+ * @ingroup rcc_defines
+ *@{*/
 #define RCC_APB1ENR_COMPEN			(1 << 31)
 #define RCC_APB1ENR_DACEN			(1 << 29)
 #define RCC_APB1ENR_PWREN			(1 << 28)
@@ -338,9 +353,12 @@
 #define RCC_APB1ENR_TIM4EN			(1 << 2)
 #define RCC_APB1ENR_TIM3EN			(1 << 1)
 #define RCC_APB1ENR_TIM2EN			(1 << 0)
-/*@}*/
+/**@}*/
 
-/* --- RCC_AHBLPENR -------------------------------------------------------- */
+/** @defgroup rcc_ahblpenr_defines RCC_AHBLPENR definitions
+ * @brief AHB peripheral clock enable in low power register
+ * @ingroup rcc_defines
+ *@{*/
 #define RCC_AHBLPENR_DMA1LPEN			(1 << 24)
 #define RCC_AHBLPENR_SRAMLPEN			(1 << 16)
 #define RCC_AHBLPENR_FLITFLPEN			(1 << 15)
@@ -351,7 +369,12 @@
 #define RCC_AHBLPENR_GPIOCLPEN			(1 << 2)
 #define RCC_AHBLPENR_GPIOBLPEN			(1 << 1)
 #define RCC_AHBLPENR_GPIOALPEN			(1 << 0)
+/**@}*/
 
+/** @defgroup rcc_apb2lpenr_defines RCC_APB2LPENR definitions
+ * @brief APB2 peripheral clock enable in low power register
+ * @ingroup rcc_defines
+ *@{*/
 #define RCC_APB2LPENR_USART1LPEN		(1 << 14)
 #define RCC_APB2LPENR_SPI1LPEN			(1 << 12)
 #define RCC_APB2LPENR_ADC1LPEN			(1 << 9)
@@ -359,7 +382,12 @@
 #define RCC_APB2LPENR_TIM10LPEN			(1 << 3)
 #define RCC_APB2LPENR_TIM9LPEN			(1 << 2)
 #define RCC_APB2LPENR_SYSCFGLPEN		(1 << 0)
+/**@}*/
 
+/** @defgroup rcc_apb1lpenr_defines RCC_APB1LPENR definitions
+ * @brief APB1 peripheral clock enable in low power register
+ * @ingroup rcc_defines
+ *@{*/
 #define RCC_APB1LPENR_COMPLPEN			(1 << 31)
 #define RCC_APB1LPENR_DACLPEN			(1 << 29)
 #define RCC_APB1LPENR_PWRLPEN			(1 << 28)
@@ -376,10 +404,12 @@
 #define RCC_APB1LPENR_TIM4LPEN			(1 << 2)
 #define RCC_APB1LPENR_TIM3LPEN			(1 << 1)
 #define RCC_APB1LPENR_TIM2LPEN			(1 << 0)
+/**@}*/
 
-
-/* --- RCC_CSR values ------------------------------------------------------ */
-
+/** @defgroup rcc_csr_defines RCC_CSR definitions
+ * @brief Control/Status register
+ * @ingroup rcc_defines
+ *@{*/
 #define RCC_CSR_LPWRRSTF			(1 << 31)
 #define RCC_CSR_WWDGRSTF			(1 << 30)
 #define RCC_CSR_IWDGRSTF			(1 << 29)
@@ -403,6 +433,7 @@
 #define RCC_CSR_LSEON				(1 << 8)
 #define RCC_CSR_LSIRDY				(1 << 1)
 #define RCC_CSR_LSION				(1 << 0)
+/**@}*/
 
 struct rcc_clock_scale {
 	uint8_t pll_mul;

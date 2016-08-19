@@ -497,31 +497,50 @@ void rcc_clock_setup_msi(const struct rcc_clock_scale *clock)
 	rcc_apb2_frequency = clock->apb2_frequency;
 }
 
+
+/**
+ * Switch sysclock to HSI with the given parameters.
+ * Only guaranteed to be valid from initial reset state at present.
+ * @param clock
+ */
 void rcc_clock_setup_hsi(const struct rcc_clock_scale *clock)
 {
 	/* Enable internal high-speed oscillator. */
 	rcc_osc_on(RCC_HSI);
-	rcc_wait_for_osc_ready(RCC_HSI);
-
-	/* Select HSI as SYSCLK source. */
-	rcc_set_sysclk_source(RCC_CFGR_SW_SYSCLKSEL_HSICLK);
-
-	/*
-	 * Set prescalers for AHB, ADC, ABP1, ABP2.
-	 * Do this before touching the PLL (TODO: why?).
-	 */
-	rcc_set_hpre(clock->hpre);
-	rcc_set_ppre1(clock->ppre1);
-	rcc_set_ppre2(clock->ppre2);
-
 	rcc_periph_clock_enable(RCC_PWR);
-	pwr_set_vos_scale(clock->voltage_scale);
-
+	
 	/* I guess this should be in the settings? */
 	flash_64bit_enable();
 	flash_prefetch_enable();
-	/* Configure flash settings. */
-	flash_set_ws(clock->flash_config);
+	
+	
+	/** This is actually based on vrange, not ahb freq!*/
+	if (clock->ahb_frequency > rcc_ahb_frequency) {
+		/* going up! */
+		// voltage up
+		pwr_set_vos_scale(clock->voltage_scale);
+
+		// then clock up
+		rcc_set_hpre(clock->hpre);
+		rcc_set_ppre1(clock->ppre1);
+		rcc_set_ppre2(clock->ppre2);
+		flash_set_ws(clock->flash_config);
+	} else {
+		// clock down
+		rcc_set_hpre(clock->hpre);
+		rcc_set_ppre1(clock->ppre1);
+		rcc_set_ppre2(clock->ppre2);
+		flash_set_ws(clock->flash_config);
+
+		// then voltage down
+		pwr_set_vos_scale(clock->voltage_scale);
+	}
+
+	rcc_wait_for_osc_ready(RCC_HSI);
+	// Make sure the regulator is ready too
+	while (PWR_CSR & PWR_CSR_VOSF)
+		;
+	rcc_set_sysclk_source(RCC_CFGR_SW_SYSCLKSEL_HSICLK);
 
 	/* Set the peripheral clock frequencies used. */
 	rcc_ahb_frequency  = clock->ahb_frequency;
