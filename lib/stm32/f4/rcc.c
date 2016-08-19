@@ -653,60 +653,52 @@ void rcc_set_rtcpre(uint32_t rtcpre)
 	RCC_CFGR = (reg32 | (rtcpre << 16));
 }
 
+/**
+ * Reconfigures the main PLL for a HSI source.
+ * Any reserved bits are kept at their reset values.
+ * @param pllm Divider for the main PLL input clock
+ * @param plln Main PLL multiplication factor for VCO
+ * @param pllp Main PLL divider for main system clock
+ * @param pllq Main PLL divider for USB OTG FS, SDMMC & RNG
+ * @param pllr Main PLL divider for DSI (for parts without DSI, provide 0 here)
+ */
 void rcc_set_main_pll_hsi(uint32_t pllm, uint32_t plln, uint32_t pllp,
 			  uint32_t pllq, uint32_t pllr)
 {
-	uint32_t reg32 = RCC_PLLCFGR;
-	uint8_t	new_r;
-
-	/* If passed in value is legal, use it, else use version from register */
-	new_r = (pllr > 1) ? pllr :
-	     (reg32 >> RCC_PLLCFGR_PLLR_SHIFT) & RCC_PLLCFGR_PLLR_MASK;
-
-	/* mask out any previous values */
-	reg32 &= ~(
-		 RCC_PLLCFGR_PLLSRC |	/* 0 = HSI */
-		(RCC_PLLCFGR_PLLM_MASK << RCC_PLLCFGR_PLLM_SHIFT) |
-		(RCC_PLLCFGR_PLLN_MASK << RCC_PLLCFGR_PLLN_SHIFT) |
-		(RCC_PLLCFGR_PLLP_MASK << RCC_PLLCFGR_PLLP_SHIFT) |
-		(RCC_PLLCFGR_PLLQ_MASK << RCC_PLLCFGR_PLLQ_SHIFT) |
-		(RCC_PLLCFGR_PLLR_MASK << RCC_PLLCFGR_PLLR_SHIFT));
-
-	/* add back new values, PLLSRC is HSI */
-	RCC_PLLCFGR = reg32 | (
+	/* Use reset value if not legal, for parts without pllr */
+	if (pllr < 2) {
+		pllr = 2;
+	}
+	RCC_PLLCFGR = 0 | /* HSI */
 		(pllm << RCC_PLLCFGR_PLLM_SHIFT) |
 		(plln << RCC_PLLCFGR_PLLN_SHIFT) |
 		(((pllp >> 1) - 1) << RCC_PLLCFGR_PLLP_SHIFT) |
 		(pllq << RCC_PLLCFGR_PLLQ_SHIFT) |
-		(new_r << RCC_PLLCFGR_PLLR_SHIFT));
+		(pllr << RCC_PLLCFGR_PLLR_SHIFT);
 }
 
-/* Note it adjusts PLLP */
+/**
+ * Reconfigures the main PLL for a HSE source.
+ * Any reserved bits are kept at their reset values.
+ * @param pllm Divider for the main PLL input clock
+ * @param plln Main PLL multiplication factor for VCO
+ * @param pllp Main PLL divider for main system clock
+ * @param pllq Main PLL divider for USB OTG FS, SDMMC & RNG
+ * @param pllr Main PLL divider for DSI (for parts without DSI, provide 0 here)
+ */
 void rcc_set_main_pll_hse(uint32_t pllm, uint32_t plln, uint32_t pllp,
 			  uint32_t pllq, uint32_t pllr)
 {
-	uint32_t reg32 = RCC_PLLCFGR;
-	uint8_t	new_r;
-
-	/* If passed in value is legal, use it, else use version from register */
-	new_r = (pllr > 1) ? pllr :
-		(reg32 >> RCC_PLLCFGR_PLLR_SHIFT) & RCC_PLLCFGR_PLLR_MASK;
-
-	/* mask out any previous values */
-	reg32 &= ~(
-		(RCC_PLLCFGR_PLLM_MASK << RCC_PLLCFGR_PLLM_SHIFT) |
-		(RCC_PLLCFGR_PLLN_MASK << RCC_PLLCFGR_PLLN_SHIFT) |
-		(RCC_PLLCFGR_PLLP_MASK << RCC_PLLCFGR_PLLP_SHIFT) |
-		(RCC_PLLCFGR_PLLQ_MASK << RCC_PLLCFGR_PLLQ_SHIFT) |
-		(RCC_PLLCFGR_PLLR_MASK << RCC_PLLCFGR_PLLR_SHIFT));
-
-	/* add in the new values + PLLSRC */
-	RCC_PLLCFGR = reg32 | RCC_PLLCFGR_PLLSRC | (
+	/* Use reset value if not legal, for parts without pllr */
+	if (pllr < 2) {
+		pllr = 2;
+	}
+	RCC_PLLCFGR = RCC_PLLCFGR_PLLSRC | /* HSE */
 		(pllm << RCC_PLLCFGR_PLLM_SHIFT) |
 		(plln << RCC_PLLCFGR_PLLN_SHIFT) |
 		(((pllp >> 1) - 1) << RCC_PLLCFGR_PLLP_SHIFT) |
 		(pllq << RCC_PLLCFGR_PLLQ_SHIFT) |
-		(new_r << RCC_PLLCFGR_PLLR_SHIFT));
+		(pllr << RCC_PLLCFGR_PLLR_SHIFT);
 }
 
 uint32_t rcc_system_clock_source(void)
