@@ -563,6 +563,14 @@
 /* RCC_PLLSAICFGR[18:16]: PLLSAIP */
 #define RCC_PLLSAICFGR_PLLSAIP_SHIFT		16
 #define RCC_PLLSAICFGR_PLLSAIP_MASK		0x3
+/** @defgroup rcc_pllsaicfgr_pllsaip PLLSAICFGR PLLSAIP values
+@ingroup rcc_defines
+@{*/
+#define RCC_PLLSAICFGR_PLLSAIP_DIV2		0x0
+#define RCC_PLLSAICFGR_PLLSAIP_DIV4		0x1
+#define RCC_PLLSAICFGR_PLLSAIP_DIV6		0x2
+#define RCC_PLLSAICFGR_PLLSAIP_DIV8		0x3
+/**@}*/
 
 /* RCC_PLLSAICFGR[14:6]: PLLSAIN */
 #define RCC_PLLSAICFGR_PLLSAIN_SHIFT		6
@@ -611,25 +619,6 @@ static inline bool rcc_pllsai_ready(void)
 	return (RCC_CR & RCC_CR_PLLSAIRDY) != 0;
 }
 
-/* pllsain=49..432, pllsaiq=2..15, pllsair=2..7 */
-static inline void rcc_pllsai_config(uint16_t n,
-				     uint16_t p,
-				     uint16_t q,
-				     uint16_t r)
-{
-	RCC_PLLSAICFGR = (
-	  ((n & RCC_PLLSAICFGR_PLLSAIN_MASK) << RCC_PLLSAICFGR_PLLSAIN_SHIFT) |
-	  ((p & RCC_PLLSAICFGR_PLLSAIP_MASK) << RCC_PLLSAICFGR_PLLSAIP_SHIFT) |
-	  ((q & RCC_PLLSAICFGR_PLLSAIQ_MASK) << RCC_PLLSAICFGR_PLLSAIQ_SHIFT) |
-	  ((r & RCC_PLLSAICFGR_PLLSAIR_MASK) << RCC_PLLSAICFGR_PLLSAIR_SHIFT));
-}
-
-static inline void rcc_ltdc_set_clock_divr(uint8_t r)
-{
-	RCC_DCKCFGR = (((RCC_DCKCFGR &
-		~(RCC_DCKCFGR_PLLSAIDIVR_MASK << RCC_DCKCFGR_PLLSAIDIVR_SHIFT)) |
-	   	((r & RCC_DCKCFGR_PLLSAIDIVR_MASK) << RCC_DCKCFGR_PLLSAIDIVR_SHIFT)));
-}
 
 /* --- Variable definitions ------------------------------------------------ */
 extern uint32_t rcc_ahb_frequency;

@@ -562,6 +562,43 @@ void rcc_osc_bypass_disable(enum rcc_osc osc)
 	}
 }
 
+
+/**
+ * Set the dividers for the PLLSAI clock outputs
+ * divider p is only available on F4x9 parts, pass 0 for other parts.
+ * @param n valid range is 49..432
+ * @param p 0 if unused, @ref rcc_pllsaicfgr_pllsaip
+ * @param q valid range is 2..15
+ * @param r valid range is 2..7
+ * @sa rcc_pllsai_postscalers
+ */
+void rcc_pllsai_config(uint16_t n, uint16_t p, uint16_t q, uint16_t r)
+{
+	RCC_PLLSAICFGR = (
+	  ((n & RCC_PLLSAICFGR_PLLSAIN_MASK) << RCC_PLLSAICFGR_PLLSAIN_SHIFT) |
+	  ((p & RCC_PLLSAICFGR_PLLSAIP_MASK) << RCC_PLLSAICFGR_PLLSAIP_SHIFT) |
+	  ((q & RCC_PLLSAICFGR_PLLSAIQ_MASK) << RCC_PLLSAICFGR_PLLSAIQ_SHIFT) |
+	  ((r & RCC_PLLSAICFGR_PLLSAIR_MASK) << RCC_PLLSAICFGR_PLLSAIR_SHIFT));
+}
+
+
+/**
+ * Set the dedicated dividers after the PLLSAI configuration.
+ *
+ * @param q dedicated PLLSAI divider, for either A or B
+ * @param r dedicated LCD-TFT divider, see LTDC
+ * @sa rcc_pllsai_config
+ */
+void rcc_pllsai_postscalers(uint8_t q, uint8_t r)
+{
+	uint32 reg32 = RCC_CFGR;
+	reg32 &= ((RCC_DCKCFGR_PLLSAIDIVR_MASK << RCC_DCKCFGR_PLLSAIDIVR_SHIFT)
+		| (RCC_DCKCFGR_PLLSAIDIVQ_MASK << RCC_DCKCFGR_PLLSAIDIVQ_SHIFT));
+	RCC_DCKCFGR = reg32 | ((q << RCC_DCKCFGR_PLLSAIDIVQ_SHIFT) |
+		(r << RCC_DCKCFGR_PLLSAIDIVR_SHIFT));
+}
+
+
 void rcc_set_sysclk_source(uint32_t clk)
 {
 	uint32_t reg32;
