@@ -945,6 +945,8 @@ void rcc_css_enable(void);
 void rcc_css_disable(void);
 void rcc_osc_bypass_enable(enum rcc_osc osc);
 void rcc_osc_bypass_disable(enum rcc_osc osc);
+void rcc_pllsai_config(uint16_t n, uint16_t p, uint16_t q, uint16_t r);
+void rcc_pllsai_postscalers(uint8_t q, uint8_t r);
 void rcc_set_sysclk_source(uint32_t clk);
 void rcc_set_pll_source(uint32_t pllsrc);
 void rcc_set_ppre2(uint32_t ppre2);

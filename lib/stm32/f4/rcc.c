@@ -591,7 +591,7 @@ void rcc_pllsai_config(uint16_t n, uint16_t p, uint16_t q, uint16_t r)
  */
 void rcc_pllsai_postscalers(uint8_t q, uint8_t r)
 {
-	uint32 reg32 = RCC_DCKCFGR;
+	uint32_t reg32 = RCC_DCKCFGR;
 	reg32 &= ((RCC_DCKCFGR_PLLSAIDIVR_MASK << RCC_DCKCFGR_PLLSAIDIVR_SHIFT)
 		| (RCC_DCKCFGR_PLLSAIDIVQ_MASK << RCC_DCKCFGR_PLLSAIDIVQ_SHIFT));
 	RCC_DCKCFGR = reg32 | ((q << RCC_DCKCFGR_PLLSAIDIVQ_SHIFT) |
