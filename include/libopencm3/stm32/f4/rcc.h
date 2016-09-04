@@ -652,11 +652,13 @@ struct rcc_clock_scale {
 	uint32_t apb2_frequency;
 };
 
+
 extern const struct rcc_clock_scale rcc_hse_8mhz_3v3[RCC_CLOCK_3V3_END];
 extern const struct rcc_clock_scale rcc_hse_12mhz_3v3[RCC_CLOCK_3V3_END];
 extern const struct rcc_clock_scale rcc_hse_16mhz_3v3[RCC_CLOCK_3V3_END];
 extern const struct rcc_clock_scale rcc_hse_25mhz_3v3[RCC_CLOCK_3V3_END];
-extern const struct rcc_clock_scale rcc_hsi_3v3[RCC_CLOCK_3V3_END];
+#define rcc_hsi_3v3 rcc_hse_16mhz_3v3
+
 
 enum rcc_osc {
 	RCC_PLL,

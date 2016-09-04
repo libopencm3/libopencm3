@@ -49,7 +49,6 @@ uint32_t rcc_ahb_frequency = 16000000;
 uint32_t rcc_apb1_frequency = 16000000;
 uint32_t rcc_apb2_frequency = 16000000;
 
-#define rcc_hsi_3v3 rcc_hse_16mhz_3v3
 
 const struct rcc_clock_scale rcc_hse_8mhz_3v3[RCC_CLOCK_3V3_END] = {
 	{ /* 48MHz */
