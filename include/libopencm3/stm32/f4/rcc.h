@@ -632,6 +632,7 @@ enum rcc_clock_3v3 {
 	RCC_CLOCK_3V3_84MHZ,
 	RCC_CLOCK_3V3_120MHZ,
 	RCC_CLOCK_3V3_168MHZ,
+	RCC_CLOCK_3V3_96MHZ,
 	RCC_CLOCK_3V3_END
 };
 
@@ -655,6 +656,7 @@ extern const struct rcc_clock_scale rcc_hse_8mhz_3v3[RCC_CLOCK_3V3_END];
 extern const struct rcc_clock_scale rcc_hse_12mhz_3v3[RCC_CLOCK_3V3_END];
 extern const struct rcc_clock_scale rcc_hse_16mhz_3v3[RCC_CLOCK_3V3_END];
 extern const struct rcc_clock_scale rcc_hse_25mhz_3v3[RCC_CLOCK_3V3_END];
+extern const struct rcc_clock_scale rcc_hsi_3v3[RCC_CLOCK_3V3_END];
 
 enum rcc_osc {
 	RCC_PLL,
@@ -959,6 +961,7 @@ void rcc_set_main_pll_hse(uint32_t pllm, uint32_t plln, uint32_t pllp,
 			  uint32_t pllq, uint32_t pllr);
 uint32_t rcc_system_clock_source(void);
 void rcc_clock_setup_hse_3v3(const struct rcc_clock_scale *clock);
+void rcc_clock_setup_hsi_3v3(const struct rcc_clock_scale *clock);
 
 END_DECLS
 
