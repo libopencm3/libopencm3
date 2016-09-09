@@ -396,28 +396,6 @@ void adc_disable_vbat_sensor(void)
 	ADC_CCR(ADC1) &= ~ADC_CCR_VBATEN;
 }
 
-/*---------------------------------------------------------------------------*/
-/** @brief ADC Start the calibration procedure
- *
- * @param[in] adc Unsigned int32. ADC base address (@ref adc_reg_base)
- */
-
-void adc_calibrate_start(uint32_t adc)
-{
-	ADC_CR(adc) = ADC_CR_ADCAL;
-}
-
-/*---------------------------------------------------------------------------*/
-/** @brief ADC Wait to finish the ADC calibration procedure
- *
- * @param[in] adc Unsigned int32. ADC base address (@ref adc_reg_base)
- */
-
-void adc_calibrate_wait_finish(uint32_t adc)
-{
-	while (ADC_CR(adc) & ADC_CR_ADCAL);
-}
-
 /**@}*/
 
 /*---------------------------------------------------------------------------*/

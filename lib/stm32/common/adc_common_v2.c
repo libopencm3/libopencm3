@@ -147,6 +147,37 @@ void adc_power_off(uint32_t adc)
 }
 
 /**
+ * Start the ADC calibration and immediately return.
+ * @sa adc_calibrate
+ * @sa adc_is_calibrate
+ * @param adc ADC Block register address base @ref adc_reg_base
+ */
+void adc_calibrate_async(uint32_t adc)
+{
+	ADC_CR(adc) = ADC_CR_ADCAL;
+}
+
+/**
+ * Is the ADC Calibrating?
+ * @param adc ADC Block register address base @ref adc_reg_base
+ * @return true if the adc is currently calibrating
+ */
+bool adc_is_calibrating(uint32_t adc)
+{
+	return (ADC_CR(adc) & ADC_CR_ADCAL);
+}
+
+/**
+ * Start ADC calibration and wait for it to finish
+ * @param adc ADC Block register address base @ref adc_reg_base
+ */
+void adc_calibrate(uint32_t adc)
+{
+	adc_calibrate_async(adc);
+	while (adc_is_calibrating(adc));
+}
+
+/**
  * Enable Continuous Conversion Mode
  * In this mode the ADC starts a new conversion of a single channel or a channel
  * group immediately following completion of the previous channel group
