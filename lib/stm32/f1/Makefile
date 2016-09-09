@@ -35,7 +35,7 @@ TGT_CFLAGS      += $(DEBUG_FLAGS)
 # ARFLAGS	= rcsv
 ARFLAGS		= rcs
 
-OBJS		= adc.o adc_common_v1.o can.o desig.o ethernet.o flash.o gpio.o \
+OBJS		= adc.o adc_common_v1.o can.o desig.o flash.o gpio.o \
                   rcc.o rtc.o timer.o
 OBJS		+= mac.o mac_stm32fxx7.o phy.o phy_ksz8051mll.o
 
