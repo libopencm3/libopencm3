@@ -106,6 +106,10 @@ void adc_power_on(uint32_t adc)
  */
 void adc_power_off_async(uint32_t adc)
 {
+	if (adc_is_power_off(adc)) {
+		return;
+	}
+
 	uint32_t checks = ADC_CR_ADSTART;
 	uint32_t stops = ADC_CR_ADSTP;
 #if defined (ADC_CR_JADSTART)
