@@ -349,7 +349,7 @@ void adc_reset_calibration(uint32_t adc)
 
 /*---------------------------------------------------------------------------*/
 /** @brief ADC Calibration
-
+@deprecated replaced by adc_calibrate/_async/_is_calibrating
 The calibration data for the ADC is recomputed. The hardware clears the
 calibration status flag when calibration is complete. This function does not
 return until this happens and the ADC is ready for use.
@@ -365,6 +365,39 @@ void adc_calibration(uint32_t adc)
 {
 	ADC_CR2(adc) |= ADC_CR2_CAL;
 	while (ADC_CR2(adc) & ADC_CR2_CAL);
+}
+
+/**
+ * Start the ADC calibration and immediately return.
+ * @sa adc_calibrate
+ * @sa adc_is_calibrate
+ * @param adc ADC Block register address base @ref adc_reg_base
+ */
+void adc_calibrate_async(uint32_t adc)
+{
+	ADC_CR2(adc) |= ADC_CR2_CAL;
+}
+
+/**
+ * Is the ADC Calibrating?
+ * @param adc ADC Block register address base @ref adc_reg_base
+ * @return true if the adc is currently calibrating
+ */
+bool adc_is_calibrating(uint32_t adc)
+{
+	return (ADC_CR2(adc) & ADC_CR2_CAL);
+}
+
+/**
+ * Start ADC calibration and wait for it to finish.
+ * The ADC must have been powered down for at least 2 ADC clock cycles, then
+ * powered on before calibration starts
+ * @param adc ADC Block register address base @ref adc_reg_base
+ */
+void adc_calibrate(uint32_t adc)
+{
+	adc_calibrate_async(adc);
+	while (adc_is_calibrating(adc));
 }
 
 /*---------------------------------------------------------------------------*/
