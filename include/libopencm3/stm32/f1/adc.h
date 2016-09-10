@@ -412,7 +412,9 @@ void adc_disable_temperature_sensor(uint32_t adc);
 void adc_enable_external_trigger_regular(uint32_t adc, uint32_t trigger);
 void adc_enable_external_trigger_injected(uint32_t adc, uint32_t trigger);
 void adc_reset_calibration(uint32_t adc);
-void adc_calibration(uint32_t adc);
+void adc_calibrate_async(uint32_t adc);
+bool adc_is_calibrating(uint32_t adc);
+void adc_calibrate(uint32_t adc);
 void adc_on(uint32_t adc)
 	LIBOPENCM3_DEPRECATED("will be removed in the first release");
 
