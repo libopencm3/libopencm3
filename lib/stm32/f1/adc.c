@@ -400,24 +400,6 @@ void adc_calibrate(uint32_t adc)
 	while (adc_is_calibrating(adc));
 }
 
-/*---------------------------------------------------------------------------*/
-/** @brief ADC Power On
-
-If the ADC is in power-down mode then it is powered up. The application needs
-to wait a time of about 3 microseconds for stabilization before using the ADC.
-If the ADC is already on this function call will initiate a conversion.
-
-@deprecated to be removed in a later release
-
-@param[in] adc Unsigned int32. ADC block register address base @ref
-adc_reg_base.
-*/
-
-void adc_on(uint32_t adc)
-{
-	ADC_CR2(adc) |= ADC_CR2_ADON;
-}
-
 
 /*---------------------------------------------------------------------------*/
 /** @brief ADC Set the Sample Time for a Single Channel

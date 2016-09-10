@@ -417,8 +417,6 @@ void adc_calibration(uint32_t adc)
 void adc_calibrate_async(uint32_t adc);
 bool adc_is_calibrating(uint32_t adc);
 void adc_calibrate(uint32_t adc);
-void adc_on(uint32_t adc)
-	LIBOPENCM3_DEPRECATED("will be removed in the first release");
 
 END_DECLS
 
