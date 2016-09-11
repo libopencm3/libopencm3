@@ -407,8 +407,8 @@ BEGIN_DECLS
 
 void adc_start_conversion_direct(uint32_t adc);
 void adc_set_dual_mode(uint32_t mode);
-void adc_enable_temperature_sensor(uint32_t adc);
-void adc_disable_temperature_sensor(uint32_t adc);
+void adc_enable_temperature_sensor(void);
+void adc_disable_temperature_sensor(void);
 void adc_enable_external_trigger_regular(uint32_t adc, uint32_t trigger);
 void adc_enable_external_trigger_injected(uint32_t adc, uint32_t trigger);
 void adc_reset_calibration(uint32_t adc);

@@ -199,13 +199,11 @@ void adc_set_dual_mode(uint32_t mode)
 This enables both the sensor and the reference voltage measurements on channels
 16 and 17.
 
-@param[in] adc Unsigned int32. ADC block register address base @ref
-adc_reg_base.
 */
 
-void adc_enable_temperature_sensor(uint32_t adc)
+void adc_enable_temperature_sensor()
 {
-	ADC_CR2(adc) |= ADC_CR2_TSVREFE;
+	ADC_CR2(ADC1) |= ADC_CR2_TSVREFE;
 }
 
 /*---------------------------------------------------------------------------*/
@@ -213,14 +211,11 @@ void adc_enable_temperature_sensor(uint32_t adc)
 
 Disabling this will reduce power consumption from the sensor and the reference
 voltage measurements.
-
-@param[in] adc Unsigned int32. ADC block register address base @ref
-adc_reg_base.
 */
 
-void adc_disable_temperature_sensor(uint32_t adc)
+void adc_disable_temperature_sensor()
 {
-	ADC_CR2(adc) &= ~ADC_CR2_TSVREFE;
+	ADC_CR2(ADC1) &= ~ADC_CR2_TSVREFE;
 }
 
 
