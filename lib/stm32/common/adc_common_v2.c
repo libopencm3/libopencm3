@@ -149,7 +149,7 @@ void adc_power_off(uint32_t adc)
 /**
  * Start the ADC calibration and immediately return.
  * @sa adc_calibrate
- * @sa adc_is_calibrate
+ * @sa adc_is_calibrating
  * @param adc ADC Block register address base @ref adc_reg_base
  */
 void adc_calibrate_async(uint32_t adc)
