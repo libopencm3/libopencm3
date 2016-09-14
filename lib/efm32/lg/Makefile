@@ -40,9 +40,9 @@ ARFLAGS		= rcs
 OBJS		=
 
 OBJS		= gpio.o cmu.o prs.o adc.o dma.o timer.o dac.o
-OBJS		+= usb.o usb_control.o usb_standard.o usb_efm32lg.o
+OBJS		+= usbd.o usbd_control.o usbd_standard.o usbd_efm32lg.o
 
-VPATH += ../../usb:../:../../cm3
+VPATH += ../../usbd:../:../../cm3
 
 include ../../Makefile.include
 

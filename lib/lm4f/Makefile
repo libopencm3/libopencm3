@@ -37,8 +37,8 @@ TGT_CFLAGS      += $(DEBUG_FLAGS)
 # ARFLAGS	= rcsv
 ARFLAGS		= rcs
 OBJS		= gpio.o vector.o assert.o systemcontrol.o rcc.o uart.o \
-		  usb_lm4f.o usb.o usb_control.o usb_standard.o
+		  usbd_lm4f.o usbd.o usbd_control.o usbd_standard.o
 
-VPATH += ../usb:../cm3
+VPATH += ../usbd:../cm3
 
 include ../Makefile.include

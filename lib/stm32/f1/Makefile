@@ -46,11 +46,18 @@ OBJS            += crc_common_all.o dac_common_all.o dma_common_l1f013.o \
                    rcc_common_all.o exti_common_all.o \
                    flash_common_f01.o
 
-OBJS            += usb.o usb_control.o usb_standard.o usb_msc.o
-OBJS		+= usb_fx07_common.o usb_f107.o
+OBJS            += usbd.o usbd_control.o usbd_standard.o usbd_msc.o
+OBJS		+= usbd_fx07_common.o usbd_f107.o
 OBJS		+= st_usbfs_core.o st_usbfs_v1.o
 
-VPATH += ../../usb:../:../../cm3:../common:../../ethernet
+OBJS		+= usbh_dev_enum.o usbh_device.o usbh_host.o
+OBJS		+= usbh_hub.o usbh_transfer.o usbh_urb.o
+OBJS		+= usbh_dwc_otg.o usbh_stm32_otg_fs.o
+OBJS		+= usbh_hid.o
+OBJS		+= usbh_ctrlreq.o
+
+VPATH += ../../usbd:../:../../cm3:../common:../../ethernet
+VPATH += ../../usbh:../../usbh/backend:../../usbh/helper:../../usbh/class
 
 include ../../Makefile.include
 

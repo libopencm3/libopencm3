@@ -21,8 +21,8 @@
 #include <libopencm3/stm32/rcc.h>
 #include <libopencm3/stm32/tools.h>
 #include <libopencm3/stm32/st_usbfs.h>
-#include <libopencm3/usb/usbd.h>
-#include "../usb/usb_private.h"
+#include <libopencm3/usbd/usbd.h>
+#include "../usbd/usbd_private.h"
 #include "common/st_usbfs_core.h"
 
 static usbd_device *st_usbfs_v1_usbd_init(void);
