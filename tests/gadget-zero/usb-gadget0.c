@@ -52,6 +52,7 @@
 #define GZ_CFG_SOURCESINK	2
 #define GZ_CFG_LOOPBACK		3
 
+#define BULK_EP_MAXPACKET	64
 
 static const struct usb_device_descriptor dev = {
 	.bLength = USB_DT_DEVICE_SIZE,
@@ -60,7 +61,7 @@ static const struct usb_device_descriptor dev = {
 	.bDeviceClass = USB_CLASS_VENDOR,
 	.bDeviceSubClass = 0,
 	.bDeviceProtocol = 0,
-	.bMaxPacketSize0 = 64,
+	.bMaxPacketSize0 = BULK_EP_MAXPACKET,
 
 	/* when we're compatible with gadget 0
 	 * #define DRIVER_VENDOR_NUM       0x0525
@@ -81,7 +82,7 @@ static const struct usb_endpoint_descriptor endp_bulk[] = {
 		.bDescriptorType = USB_DT_ENDPOINT,
 		.bEndpointAddress = 0x01,
 		.bmAttributes = USB_ENDPOINT_ATTR_BULK,
-		.wMaxPacketSize = 64,
+		.wMaxPacketSize = BULK_EP_MAXPACKET,
 		.bInterval = 1,
 	},
 	{
@@ -89,7 +90,7 @@ static const struct usb_endpoint_descriptor endp_bulk[] = {
 		.bDescriptorType = USB_DT_ENDPOINT,
 		.bEndpointAddress = 0x82,
 		.bmAttributes = USB_ENDPOINT_ATTR_BULK,
-		.wMaxPacketSize = 64,
+		.wMaxPacketSize = BULK_EP_MAXPACKET,
 		.bInterval = 1,
 	}
 };
@@ -169,7 +170,7 @@ static const char *usb_strings[] = {
 };
 
 /* Buffer to be used for control requests. */
-static uint8_t usbd_control_buffer[5*64];
+static uint8_t usbd_control_buffer[5*BULK_EP_MAXPACKET];
 static usbd_device *our_dev;
 
 /* Private global for state */
@@ -186,7 +187,7 @@ static void gadget0_ss_out_cb(usbd_device *usbd_dev, uint8_t ep)
 	(void) ep;
 	/* TODO - if you're really keen, perf test this. tiva implies it matters */
 	/* char buf[64] __attribute__ ((aligned(4))); */
-	char buf[64];
+	char buf[BULK_EP_MAXPACKET];
 	trace_send_blocking8(0, 'O');
 	uint16_t x = usbd_ep_read_packet(usbd_dev, ep, buf, sizeof(buf));
 	trace_send_blocking8(1, x);
@@ -196,7 +197,7 @@ static void gadget0_ss_in_cb(usbd_device *usbd_dev, uint8_t ep)
 {
 	(void) usbd_dev;
 	trace_send_blocking8(0, 'I');
-	uint8_t buf[64];
+	uint8_t buf[BULK_EP_MAXPACKET];
 	switch (state.pattern) {
 	case 0:
 		memset(buf, 0, sizeof(buf));
@@ -279,9 +280,9 @@ static void gadget0_set_config(usbd_device *usbd_dev, uint16_t wValue)
 	ER_DPRINTF("set cfg %d\n", wValue);
 	switch (wValue) {
 	case GZ_CFG_SOURCESINK:
-		usbd_ep_setup(usbd_dev, 0x01, USB_ENDPOINT_ATTR_BULK, 64,
+		usbd_ep_setup(usbd_dev, 0x01, USB_ENDPOINT_ATTR_BULK, BULK_EP_MAXPACKET,
 			gadget0_ss_out_cb);
-		usbd_ep_setup(usbd_dev, 0x82, USB_ENDPOINT_ATTR_BULK, 64,
+		usbd_ep_setup(usbd_dev, 0x82, USB_ENDPOINT_ATTR_BULK, BULK_EP_MAXPACKET,
 			gadget0_ss_in_cb);
 		usbd_register_control_callback(
 			usbd_dev,
@@ -292,9 +293,9 @@ static void gadget0_set_config(usbd_device *usbd_dev, uint16_t wValue)
 		gadget0_ss_in_cb(usbd_dev, 0x82);
 		break;
 	case GZ_CFG_LOOPBACK:
-		usbd_ep_setup(usbd_dev, 0x01, USB_ENDPOINT_ATTR_BULK, 64,
+		usbd_ep_setup(usbd_dev, 0x01, USB_ENDPOINT_ATTR_BULK, BULK_EP_MAXPACKET,
 			gadget0_rx_cb_loopback);
-		usbd_ep_setup(usbd_dev, 0x82, USB_ENDPOINT_ATTR_BULK, 64,
+		usbd_ep_setup(usbd_dev, 0x82, USB_ENDPOINT_ATTR_BULK, BULK_EP_MAXPACKET,
 			gadget0_tx_cb_loopback);
 		break;
 	default:
