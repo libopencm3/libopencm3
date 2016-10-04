@@ -191,7 +191,7 @@ class TestConfigSourceSinkPerformance(unittest.TestCase):
 
         self.cfg = uu.find_descriptor(self.dev, bConfigurationValue=2)
         self.assertIsNotNone(self.cfg, "Config 2 should exist")
-        self.dev.set_configuration(self.cfg);
+        self.dev.set_configuration(self.cfg)
         self.intf = self.cfg[(0, 0)]
         # heh, kinda gross...
         self.ep_out = [ep for ep in self.intf if uu.endpoint_direction(ep.bEndpointAddress) == uu.ENDPOINT_OUT][0]
@@ -242,7 +242,7 @@ class TestControlTransfer_Reads(unittest.TestCase):
 
         self.cfg = uu.find_descriptor(self.dev, bConfigurationValue=2)
         self.assertIsNotNone(self.cfg, "Config 2 should exist")
-        self.dev.set_configuration(self.cfg);
+        self.dev.set_configuration(self.cfg)
         self.req = uu.CTRL_IN | uu.CTRL_TYPE_VENDOR | uu.CTRL_RECIPIENT_INTERFACE
 
     def inner_t(self, wVal, read_len):
