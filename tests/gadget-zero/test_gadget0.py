@@ -6,12 +6,22 @@ import logging
 
 import unittest
 
+VENDOR_ID=0xcafe
+PRODUCT_ID=0xcafe
+
 #DUT_SERIAL = "stm32f429i-disco"
 DUT_SERIAL = "stm32f4disco"
 #DUT_SERIAL = "stm32f103-generic"
 #DUT_SERIAL = "stm32l1-generic"
 #DUT_SERIAL = "stm32f072disco"
 #DUT_SERIAL = "stm32l053disco"
+
+GZ_REQ_SET_PATTERN=1
+GZ_REQ_PRODUCE=2
+GZ_REQ_SET_ALIGNED=3
+GZ_REQ_SET_UNALIGNED=4
+GZ_REQ_WRITE_LOOPBACK_BUFFER=10
+GZ_REQ_READ_LOOPBACK_BUFFER=11
 
 class find_by_serial(object):
     def __init__(self, serial):
@@ -25,7 +35,7 @@ class TestGadget0(unittest.TestCase):
     # TODO - parameterize this with serial numbers so we can find
     # gadget 0 code for different devices.  (or use different PIDs?)
     def setUp(self):
-        self.dev = usb.core.find(idVendor=0xcafe, idProduct=0xcafe, custom_match=find_by_serial(DUT_SERIAL))
+        self.dev = usb.core.find(idVendor=VENDOR_ID, idProduct=PRODUCT_ID, custom_match=find_by_serial(DUT_SERIAL))
         self.assertIsNotNone(self.dev, "Couldn't find locm3 gadget0 device")
         self.longMessage = True
 
@@ -77,7 +87,7 @@ class TestConfigSourceSink(unittest.TestCase):
     """
 
     def setUp(self):
-        self.dev = usb.core.find(idVendor=0xcafe, idProduct=0xcafe, custom_match=find_by_serial(DUT_SERIAL))
+        self.dev = usb.core.find(idVendor=VENDOR_ID, idProduct=PRODUCT_ID, custom_match=find_by_serial(DUT_SERIAL))
         self.assertIsNotNone(self.dev, "Couldn't find locm3 gadget0 device")
 
         self.cfg = uu.find_descriptor(self.dev, bConfigurationValue=2)
@@ -121,7 +131,7 @@ class TestConfigSourceSink(unittest.TestCase):
             self.assertEqual(written, len(data), "should have written all bytes plz")
 
     def test_read_zeros(self):
-        self.dev.ctrl_transfer(uu.CTRL_TYPE_VENDOR | uu.CTRL_RECIPIENT_INTERFACE, 0x1, 0)
+        self.dev.ctrl_transfer(uu.CTRL_TYPE_VENDOR | uu.CTRL_RECIPIENT_INTERFACE, GZ_REQ_SET_PATTERN, 0)
         self.ep_in.read(self.ep_in.wMaxPacketSize)  # Clear out any prior pattern data
         # unless, you know _exactly_ how much will be written by the device, always read
         # an integer multiple of max packet size, to avoid overflows.
@@ -136,9 +146,9 @@ class TestConfigSourceSink(unittest.TestCase):
     def test_read_sequence(self):
         # switching to the mod63 pattern requires resynching carefully to read out any zero frames already
         # queued, but still make sure we start the sequence at zero.
-        self.dev.ctrl_transfer(uu.CTRL_TYPE_VENDOR | uu.CTRL_RECIPIENT_INTERFACE, 0x1, 1)
+        self.dev.ctrl_transfer(uu.CTRL_TYPE_VENDOR | uu.CTRL_RECIPIENT_INTERFACE, GZ_REQ_SET_PATTERN, 1)
         self.ep_in.read(self.ep_in.wMaxPacketSize)  # Potentially queued zeros, or would have been safe.
-        self.dev.ctrl_transfer(uu.CTRL_TYPE_VENDOR | uu.CTRL_RECIPIENT_INTERFACE, 0x1, 1)
+        self.dev.ctrl_transfer(uu.CTRL_TYPE_VENDOR | uu.CTRL_RECIPIENT_INTERFACE, GZ_REQ_SET_PATTERN, 1)
         self.ep_in.read(self.ep_in.wMaxPacketSize)  # definitely right pattern now, but need to restart at zero.
         read_size = self.ep_in.wMaxPacketSize * 3
         data = self.dev.read(self.ep_in, read_size)
@@ -155,10 +165,10 @@ class TestConfigSourceSink(unittest.TestCase):
             self.assertEqual(oo, len(dd), "should have written full packet")
 
     def test_control_known(self):
-        self.dev.ctrl_transfer(uu.CTRL_TYPE_VENDOR | uu.CTRL_RECIPIENT_INTERFACE, 0x1, 0)
-        self.dev.ctrl_transfer(uu.CTRL_TYPE_VENDOR | uu.CTRL_RECIPIENT_INTERFACE, 0x1, 1)
-        self.dev.ctrl_transfer(uu.CTRL_TYPE_VENDOR | uu.CTRL_RECIPIENT_INTERFACE, 0x1, 99)
-        self.dev.ctrl_transfer(uu.CTRL_TYPE_VENDOR | uu.CTRL_RECIPIENT_INTERFACE, 0x1, 0)
+        self.dev.ctrl_transfer(uu.CTRL_TYPE_VENDOR | uu.CTRL_RECIPIENT_INTERFACE, GZ_REQ_SET_PATTERN, 0)
+        self.dev.ctrl_transfer(uu.CTRL_TYPE_VENDOR | uu.CTRL_RECIPIENT_INTERFACE, GZ_REQ_SET_PATTERN, 1)
+        self.dev.ctrl_transfer(uu.CTRL_TYPE_VENDOR | uu.CTRL_RECIPIENT_INTERFACE, GZ_REQ_SET_PATTERN, 99)
+        self.dev.ctrl_transfer(uu.CTRL_TYPE_VENDOR | uu.CTRL_RECIPIENT_INTERFACE, GZ_REQ_SET_PATTERN, 0)
 
     def test_control_unknown(self):
         try:
@@ -176,7 +186,7 @@ class TestConfigSourceSinkPerformance(unittest.TestCase):
     """
 
     def setUp(self):
-        self.dev = usb.core.find(idVendor=0xcafe, idProduct=0xcafe, custom_match=find_by_serial(DUT_SERIAL))
+        self.dev = usb.core.find(idVendor=VENDOR_ID, idProduct=PRODUCT_ID, custom_match=find_by_serial(DUT_SERIAL))
         self.assertIsNotNone(self.dev, "Couldn't find locm3 gadget0 device")
 
         self.cfg = uu.find_descriptor(self.dev, bConfigurationValue=2)
@@ -227,7 +237,7 @@ class TestControlTransfer_Reads(unittest.TestCase):
     """
 
     def setUp(self):
-        self.dev = usb.core.find(idVendor=0xcafe, idProduct=0xcafe, custom_match=find_by_serial(DUT_SERIAL))
+        self.dev = usb.core.find(idVendor=VENDOR_ID, idProduct=PRODUCT_ID, custom_match=find_by_serial(DUT_SERIAL))
         self.assertIsNotNone(self.dev, "Couldn't find locm3 gadget0 device")
 
         self.cfg = uu.find_descriptor(self.dev, bConfigurationValue=2)
@@ -239,14 +249,14 @@ class TestControlTransfer_Reads(unittest.TestCase):
     def inner_t(self, wVal, read_len):
         wVal = int(wVal)
         read_len = int(read_len)
-        q = self.dev.ctrl_transfer(self.req, 2, wVal, 0, read_len)
+        q = self.dev.ctrl_transfer(self.req, GZ_REQ_PRODUCE, wVal, 0, read_len)
         self.assertEqual(len(q), wVal, "Should have read as much as we asked for?")
 
     def tearDown(self):
         uu.dispose_resources(self.dev)
 
     def test_basic(self):
-        x = self.dev.ctrl_transfer(self.req, 2, 32, 0, 32)
+        x = self.dev.ctrl_transfer(self.req, GZ_REQ_PRODUCE, 32, 0, 32)
         self.assertEqual(32, len(x))
 
     def test_matching_sizes(self):
@@ -256,7 +266,7 @@ class TestControlTransfer_Reads(unittest.TestCase):
         """
         def inner(x):
             x = int(x)
-            q = self.dev.ctrl_transfer(self.req, 2, x, 0, x)
+            q = self.dev.ctrl_transfer(self.req, GZ_REQ_PRODUCE, x, 0, x)
             self.assertEqual(len(q), x, "Should have read as much as we asked for")
 
         ep0_size = self.dev.bMaxPacketSize0
@@ -276,8 +286,8 @@ class TestControlTransfer_Reads(unittest.TestCase):
             x = int(x)
             buf_out = array.array('b')
             for i in range(0,x) : buf_out.append(48 + (x+i) % 10)
-            self.dev.ctrl_transfer(self.req_out, 10, 0, 0, buf_out)
-            buf_in = self.dev.ctrl_transfer(self.req, 11, 0, 0, x)
+            self.dev.ctrl_transfer(self.req_out, GZ_REQ_WRITE_LOOPBACK_BUFFER, 0, 0, buf_out)
+            buf_in = self.dev.ctrl_transfer(self.req, GZ_REQ_READ_LOOPBACK_BUFFER, 0, 0, x)
             self.assertEqual(len(buf_in), x,  "Should have read as much as we asked for")
             self.assertEqual(buf_in, buf_out,
                              "Buffers don't match!\n - buf_out : %r\n - buf_in  : %r" %(
@@ -292,7 +302,7 @@ class TestControlTransfer_Reads(unittest.TestCase):
         (Don't make them too, big, or libusb will reject you outright, see MAX_CTRL_BUFFER_LENGTH in libusb sources)
         """
         try:
-            self.dev.ctrl_transfer(self.req, 2, 10 * self.dev.bMaxPacketSize0, 0, 10 * self.dev.bMaxPacketSize0)
+            self.dev.ctrl_transfer(self.req, GZ_REQ_PRODUCE, 10 * self.dev.bMaxPacketSize0, 0, 10 * self.dev.bMaxPacketSize0)
             self.fail("Should have got a stall")
         except usb.core.USBError as e:
             # Note, this might not be as portable as we'd like.
@@ -334,7 +344,7 @@ class TestControlTransfer_Reads(unittest.TestCase):
         tell the device to produce more than we ask for.
         Note, this doesn't test the usb stack, it tests the application code behaves.
         """
-        q = self.dev.ctrl_transfer(self.req, 2, 100, 0, 10)
+        q = self.dev.ctrl_transfer(self.req, GZ_REQ_PRODUCE, 100, 0, 10)
         self.assertEqual(len(q), 10, "In this case, should have gotten wLen back")
 
 
@@ -347,7 +357,7 @@ class TestUnaligned(unittest.TestCase):
     """
 
     def setUp(self):
-        self.dev = usb.core.find(idVendor=0xcafe, idProduct=0xcafe, custom_match=find_by_serial(DUT_SERIAL))
+        self.dev = usb.core.find(idVendor=VENDOR_ID, idProduct=PRODUCT_ID, custom_match=find_by_serial(DUT_SERIAL))
         self.assertIsNotNone(self.dev, "Couldn't find locm3 gadget0 device")
 
         self.cfg = uu.find_descriptor(self.dev, bConfigurationValue=2)
@@ -364,11 +374,11 @@ class TestUnaligned(unittest.TestCase):
 
     def set_unaligned(self):
         # GZ_REQ_SET_UNALIGNED
-        x = self.dev.ctrl_transfer(self.req, 4, 0, 0)
+        x = self.dev.ctrl_transfer(self.req, GZ_REQ_SET_UNALIGNED, 0, 0)
 
     def set_aligned(self):
         # GZ_REQ_SET_ALIGNED
-        x = self.dev.ctrl_transfer(self.req, 3, 0, 0)
+        x = self.dev.ctrl_transfer(self.req, GZ_REQ_SET_ALIGNED, 0, 0)
 
     def do_readwrite(self):
         """
