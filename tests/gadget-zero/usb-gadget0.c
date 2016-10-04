@@ -52,11 +52,15 @@
 #define INTEL_COMPLIANCE_WRITE 0x5b
 #define INTEL_COMPLIANCE_READ 0x5c
 
+#define GZ_INTR_CMD_DELAY	0
+
 /* USB configurations */
 #define GZ_CFG_SOURCESINK	2
 #define GZ_CFG_LOOPBACK		3
+#define GZ_CFG_INTERRUPT	4
 
 #define BULK_EP_MAXPACKET	64
+#define INTERRUPT_EP_MAXPACKET	64
 
 static const struct usb_device_descriptor dev = {
 	.bLength = USB_DT_DEVICE_SIZE,
@@ -77,7 +81,7 @@ static const struct usb_device_descriptor dev = {
 	.iManufacturer = 1,
 	.iProduct = 2,
 	.iSerialNumber = 3,
-	.bNumConfigurations = 2,
+	.bNumConfigurations = 3,
 };
 
 static const struct usb_endpoint_descriptor endp_bulk[] = {
@@ -95,6 +99,25 @@ static const struct usb_endpoint_descriptor endp_bulk[] = {
 		.bEndpointAddress = 0x82,
 		.bmAttributes = USB_ENDPOINT_ATTR_BULK,
 		.wMaxPacketSize = BULK_EP_MAXPACKET,
+		.bInterval = 1,
+	}
+};
+
+static const struct usb_endpoint_descriptor endp_interrupt[] = {
+	{
+		.bLength = USB_DT_ENDPOINT_SIZE,
+		.bDescriptorType = USB_DT_ENDPOINT,
+		.bEndpointAddress = 0x01,
+		.bmAttributes = USB_ENDPOINT_ATTR_INTERRUPT,
+		.wMaxPacketSize = INTERRUPT_EP_MAXPACKET,
+		.bInterval = 1,
+	},
+	{
+		.bLength = USB_DT_ENDPOINT_SIZE,
+		.bDescriptorType = USB_DT_ENDPOINT,
+		.bEndpointAddress = 0x81,
+		.bmAttributes = USB_ENDPOINT_ATTR_INTERRUPT,
+		.wMaxPacketSize = INTERRUPT_EP_MAXPACKET,
 		.bInterval = 1,
 	}
 };
@@ -125,6 +148,19 @@ static const struct usb_interface_descriptor iface_loopback[] = {
 	}
 };
 
+static const struct usb_interface_descriptor iface_interrupt[] = {
+	{
+		.bLength = USB_DT_INTERFACE_SIZE,
+		.bDescriptorType = USB_DT_INTERFACE,
+		.bInterfaceNumber = 0,
+		.bAlternateSetting = 0,
+		.bNumEndpoints = 2,
+		.bInterfaceClass = USB_CLASS_VENDOR,
+		.iInterface = 0,
+		.endpoint = endp_interrupt,
+	}
+};
+
 static const struct usb_interface ifaces_sourcesink[] = {
 	{
 		.num_altsetting = 1,
@@ -136,6 +172,13 @@ static const struct usb_interface ifaces_loopback[] = {
 	{
 		.num_altsetting = 1,
 		.altsetting = iface_loopback,
+	}
+};
+
+static const struct usb_interface ifaces_interrupt[] = {
+	{
+		.num_altsetting = 1,
+		.altsetting = iface_interrupt,
 	}
 };
 
@@ -161,6 +204,17 @@ static const struct usb_config_descriptor config[] = {
 		.bmAttributes = 0x80,
 		.bMaxPower = 0x32,
 		.interface = ifaces_loopback,
+	},
+	{
+		.bLength = USB_DT_CONFIGURATION_SIZE,
+		.bDescriptorType = USB_DT_CONFIGURATION,
+		.wTotalLength = 0,
+		.bNumInterfaces = 1,
+		.bConfigurationValue = GZ_CFG_INTERRUPT,
+		.iConfiguration = 6, /* string index */
+		.bmAttributes = 0x80,
+		.bMaxPower = 0x32,
+		.interface = ifaces_interrupt,
 	}
 };
 
@@ -170,7 +224,8 @@ static const char *usb_strings[] = {
 	"Gadget-Zero",
 	serial,
 	"source and sink data",
-	"loop input to output"
+	"loop input to output",
+	"interrupt"
 };
 
 /* Buffer to be used for control requests. */
@@ -252,6 +307,29 @@ static void gadget0_tx_cb_loopback(usbd_device *usbd_dev, uint8_t ep)
 	(void) usbd_dev;
 	ER_DPRINTF("loop tx %x\n", ep);
 	/* TODO - unimplemented - consult linux source on proper behaviour */
+}
+
+static void gadget0_rx_cb_interrupt(usbd_device *usbd_dev, uint8_t ep)
+{
+	static uint8_t buf[INTERRUPT_EP_MAXPACKET];
+	int len = usbd_ep_read_packet(usbd_dev, ep, buf, INTERRUPT_EP_MAXPACKET);
+	uint32_t delay;
+
+	ER_DPRINTF("interrupt rx %x %d\n", ep, len);
+
+	if (len == 0)
+		return;
+	switch (buf[0]) {
+	case GZ_INTR_CMD_DELAY:
+		if (len < 5) {
+			return;
+		}
+		memcpy(&delay, buf+1, sizeof(uint32_t));
+		while (delay--) {
+			__asm__ ("nop");
+		}
+		ER_DPRINTF("delayed\n");
+	}
 }
 
 static int gadget0_control_request(usbd_device *usbd_dev,
@@ -347,6 +425,16 @@ static void gadget0_set_config(usbd_device *usbd_dev, uint16_t wValue)
 		usbd_ep_setup(usbd_dev, 0x82, USB_ENDPOINT_ATTR_BULK, BULK_EP_MAXPACKET,
 			gadget0_tx_cb_loopback);
 		break;
+	case GZ_CFG_INTERRUPT:
+		usbd_ep_setup(usbd_dev, 0x01, USB_ENDPOINT_ATTR_INTERRUPT, INTERRUPT_EP_MAXPACKET,
+			gadget0_rx_cb_interrupt);
+		usbd_ep_setup(usbd_dev, 0x81, USB_ENDPOINT_ATTR_INTERRUPT, INTERRUPT_EP_MAXPACKET, 0);
+		usbd_register_control_callback(
+			usbd_dev,
+			USB_REQ_TYPE_VENDOR | USB_REQ_TYPE_INTERFACE,
+			USB_REQ_TYPE_TYPE | USB_REQ_TYPE_RECIPIENT,
+			gadget0_control_request);
+		break;
 	default:
 		ER_DPRINTF("set configuration unknown: %d\n", wValue);
 	}
@@ -361,7 +449,7 @@ usbd_device *gadget0_init(const usbd_driver *driver, const char *userserial)
 		usb_strings[2] = userserial;
 	}
 	our_dev = usbd_init(driver, &dev, config,
-		usb_strings, 5,
+		usb_strings, 6,
 		usbd_control_buffer, sizeof(usbd_control_buffer));
 
 	usbd_register_set_config_callback(our_dev, gadget0_set_config);

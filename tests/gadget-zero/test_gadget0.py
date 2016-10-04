@@ -3,6 +3,8 @@ import datetime
 import usb.core
 import usb.util as uu
 import logging
+import struct
+import time
 
 import unittest
 
@@ -22,6 +24,13 @@ GZ_REQ_SET_ALIGNED=3
 GZ_REQ_SET_UNALIGNED=4
 GZ_REQ_WRITE_LOOPBACK_BUFFER=10
 GZ_REQ_READ_LOOPBACK_BUFFER=11
+
+GZ_INTR_CMD_DELAY=0
+GZ_INTR_CMD_UNDEFINED=255
+
+# The delays must be adapted to the speed of the device (and
+# maybe even compiler optimizations).
+DELAY_MSEC=33600     # 168 MHz divided by 5 cycles.
 
 class find_by_serial(object):
     def __init__(self, serial):
@@ -43,7 +52,7 @@ class TestGadget0(unittest.TestCase):
         uu.dispose_resources(self.dev)
 
     def test_sanity(self):
-        self.assertEqual(2, self.dev.bNumConfigurations, "Should have 2 configs")
+        self.assertEqual(3, self.dev.bNumConfigurations, "Should have 3 configs")
 
     def test_config_switch_2(self):
         """
@@ -399,6 +408,74 @@ class TestUnaligned(unittest.TestCase):
     def test_unaligned(self):
         self.set_unaligned()
         self.do_readwrite()
+
+
+class TestControlTransfer_Delays(unittest.TestCase):
+    """
+    Test cases for
+    https://github.com/libopencm3/libopencm3/issue/668
+    """
+
+    def setUp(self):
+        self.dev = usb.core.find(idVendor=VENDOR_ID, idProduct=PRODUCT_ID, custom_match=find_by_serial(DUT_SERIAL))
+        self.assertIsNotNone(self.dev, "Couldn't find locm3 gadget0 device")
+
+        self.cfg = uu.find_descriptor(self.dev, bConfigurationValue=4)
+        self.assertIsNotNone(self.cfg, "Config 4 should exist")
+        self.dev.set_configuration(self.cfg)
+        self.req     = uu.CTRL_IN  | uu.CTRL_TYPE_VENDOR | uu.CTRL_RECIPIENT_INTERFACE
+        self.req_out = uu.CTRL_OUT | uu.CTRL_TYPE_VENDOR | uu.CTRL_RECIPIENT_INTERFACE
+        self.intr_out = 1
+        # send dummy packages on interrupt port to get in sync
+        # (alternating bit protocol)
+        # FIXME: Why is this necessary?
+        cmd = struct.pack('<B', GZ_INTR_CMD_UNDEFINED)
+        self.dev.write(self.intr_out, cmd)
+        self.dev.write(self.intr_out, cmd)
+
+    def tearDown(self):
+        uu.dispose_resources(self.dev)
+
+    def read_string(self, idx, lang=0x0409):
+        req = uu.CTRL_IN | uu.CTRL_TYPE_STANDARD | uu.CTRL_RECIPIENT_DEVICE
+        return self.dev.ctrl_transfer(req, uu.GET_DESCRIPTOR, idx, lang, 255)
+
+    def test_shortDelay(self):
+        """
+        Test if usb stack can handle a short delay.
+        The short delay should not cause any problems or missed packets.
+        """
+        x = 16
+        buf_out = array.array('b')
+        for i in range(0,x) : buf_out.append(48 + (x+i) % 10)
+        self.dev.ctrl_transfer(self.req_out, GZ_REQ_WRITE_LOOPBACK_BUFFER, 0, 0, buf_out)
+        delaycmd = struct.pack('<BL', GZ_INTR_CMD_DELAY, 150 * DELAY_MSEC)
+        self.dev.write(self.intr_out, delaycmd)
+        buf_in = self.dev.ctrl_transfer(self.req, GZ_REQ_READ_LOOPBACK_BUFFER, 0, 0, x)
+        self.assertEqual(len(buf_in), x,  "Should have read as much as we asked for")
+        self.assertEqual(buf_in, buf_out, "Buffers don't match!\n")
+
+    @unittest.skip("Long delay test only on demand (comment this line!)")
+    def test_longDelay(self):
+        """
+        Test if usb stack recovers correctly after a timeout.
+        The long delay will cause a timeout on the next ctrl_transfer
+        and we check that this gives an exception.  The next ctrl_transfer
+        should go through without problems.
+        """
+        x = 16
+        buf_out = array.array('b')
+        for i in range(0,x) : buf_out.append(48 + (x+i) % 10)
+        self.dev.ctrl_transfer(self.req_out, GZ_REQ_WRITE_LOOPBACK_BUFFER, 0, 0, buf_out)
+        delaycmd = struct.pack('<BL', GZ_INTR_CMD_DELAY, 1500 * DELAY_MSEC)
+        self.dev.write(self.intr_out, delaycmd)
+        # this is expected to timeout
+        self.assertRaises(usb.USBError, self.dev.ctrl_transfer, self.req, GZ_REQ_READ_LOOPBACK_BUFFER, 0, 0, x)
+        time.sleep(2)
+        # this should work again
+        buf_in = self.dev.ctrl_transfer(self.req, GZ_REQ_READ_LOOPBACK_BUFFER, 0, 0, x)
+        self.assertEqual(len(buf_in), x,  "Should have read as much as we asked for")
+        self.assertEqual(buf_in, buf_out, "Buffers don't match!\n")
 
 
 if __name__ == '__main__':
