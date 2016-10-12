@@ -553,8 +553,8 @@ LGPL License Terms @ref lgpl_license
 /* --- CAN_RDTxR values ----------------------------------------------------- */
 
 /* TIME[15:0]: Message time stamp */
-#define CAN_RDTxR_TIME_MASK		(0xFFFF << 15)
-#define CAN_RDTxR_TIME_SHIFT		15
+#define CAN_RDTxR_TIME_MASK		(0xFFFF << 16)
+#define CAN_RDTxR_TIME_SHIFT		16
 
 /* FMI[7:0]: Filter match index */
 #define CAN_RDTxR_FMI_MASK		(0xFF << 8)
