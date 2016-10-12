@@ -670,7 +670,7 @@ int can_transmit(uint32_t canport, uint32_t id, bool ext, bool rtr,
 		 uint8_t length, uint8_t *data);
 void can_receive(uint32_t canport, uint8_t fifo, bool release, uint32_t *id,
 		 bool *ext, bool *rtr, uint32_t *fmi, uint8_t *length,
-		 uint8_t *data);
+		 uint8_t *data, uint16_t *timestamp);
 
 void can_fifo_release(uint32_t canport, uint8_t fifo);
 bool can_available_mailbox(uint32_t canport);
