@@ -60,7 +60,7 @@ static usbd_device *stm32f107_usbd_init(void)
 	OTG_FS_GRSTCTL |= OTG_GRSTCTL_CSRST;
 	while (OTG_FS_GRSTCTL & OTG_GRSTCTL_CSRST);
 
-	if (OTG_FS_CID == OTG_CID_HAS_VBDEN) {
+	if (OTG_FS_CID >= OTG_CID_HAS_VBDEN) {
 		/* Enable VBUS detection in device mode and power up the PHY. */
 		OTG_FS_GCCFG |= OTG_GCCFG_VBDEN | OTG_GCCFG_PWRDWN;
 		/* Set the Soft Connect (STMF32446, STMF32469 comes up disconnected) */
