@@ -47,10 +47,18 @@ void desig_get_unique_id(uint32_t *result);
  * Read the full 96 bit unique identifier and return it as a
  * zero-terminated string
  * @param string memory region to write the result to
- 8 @param string_len the size of string in bytes
+ * @param string_len the size of string in bytes
  */
 void desig_get_unique_id_as_string(char *string,
 				   unsigned int string_len);
+
+/** 
+ * Returns the same serial number that the factory DFU 
+ * bootloader reports (via USB descriptors). 
+ * @param string memory region to write the result to. This is 
+ *        expected to be a 13-byte buffer.
+ */
+void desig_get_unique_id_as_dfu(char *string);
 
 END_DECLS
 
