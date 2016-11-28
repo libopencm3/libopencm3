@@ -80,6 +80,43 @@ void rtc_enable_wakeup_timer_interrupt(void)
 }
 
 /*---------------------------------------------------------------------------*/
+/** @brief Setup the RTC timing regs
+    @warning Blocking.  Checks the RTC_INIT bit via a while loop.  Hardware should guarantee this bit becoming active within a handful of clock cycles.
+    @param async this 7 bit value has a one added, then divides RTCCLK
+    @param sync this 13 bit value has a one added, then divides the result from async
+    @param date BCD encoded date to start RTC
+    @param time BCD encoded time to start RTC
+
+Sets the clock divider components and loads the current time and date into the RTC regs.  References Table 2 from AN3371 app note on RTCs for STM32 F0, F2, F3, F4 and L1
+*/
+
+void rtc_initialize(uint32_t sync, uint32_t async, uint32_t date, uint32_t time)
+{
+    /* unlock the rtc domain */
+    rtc_unlock();
+
+    /* set the INIT bit to freeze the RTC and allow for editing */
+    RTC_ISR |= RTC_ISR_INIT;
+    /* wait for previous to take effect */
+    while (!(RTC_ISR & RTC_ISR_INITF));
+
+    /* set the LSE raw prescaler and synchronous prescaler */
+    rtc_set_prescaler(sync, async);
+
+    /* load date and time registers */
+    RTC_DR = date;
+    RTC_TR = time;
+    /* set 24h time */
+    RTC_CR &= ~(RTC_CR_FMT);
+
+    /* end setup by clearing the init bit */
+    RTC_ISR &= ~(RTC_ISR_INIT);
+
+    /* lock it back up */
+    rtc_lock();
+}
+
+/*---------------------------------------------------------------------------*/
 /** @brief Disable the wakeup timer interrupt
     @warning You must unlock the registers before using this function
 

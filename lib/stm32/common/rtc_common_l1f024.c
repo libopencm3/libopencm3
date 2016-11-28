@@ -28,6 +28,28 @@
 #include <libopencm3/stm32/rtc.h>
 
 /*---------------------------------------------------------------------------*/
+/** @brief Get BCD date.
+
+This returns the current date stored as a BCD value from the RTC.
+*/
+
+uint32_t rtc_get_bcd_date(void)
+{
+    return RTC_DR;
+}
+
+/*---------------------------------------------------------------------------*/
+/** @brief Get BCD time.
+
+This returns the current time stored as a BCD value from the RTC.
+*/
+
+uint32_t rtc_get_bcd_time(void)
+{
+    return RTC_TR;
+}
+
+/*---------------------------------------------------------------------------*/
 /** @brief Set RTC prescalars.
 
 This sets the RTC synchronous and asynchronous prescalars.
