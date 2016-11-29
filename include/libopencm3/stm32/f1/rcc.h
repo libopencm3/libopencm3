@@ -113,11 +113,11 @@
 #define RCC_CFGR_MCO_MASK			0xf
 #define RCC_CFGR_MCO_NOCLK			0x0
 #define RCC_CFGR_MCO_SYSCLK			0x4
-#define RCC_CFGR_MCO_HSICLK			0x5
-#define RCC_CFGR_MCO_HSECLK			0x6
-#define RCC_CFGR_MCO_PLLCLK_DIV2		0x7
-#define RCC_CFGR_MCO_PLL2CLK			0x8 /* (**) */
-#define RCC_CFGR_MCO_PLL3CLK_DIV2		0x9 /* (**) */
+#define RCC_CFGR_MCO_HSI			0x5
+#define RCC_CFGR_MCO_HSE			0x6
+#define RCC_CFGR_MCO_PLL_DIV2			0x7
+#define RCC_CFGR_MCO_PLL2			0x8 /* (**) */
+#define RCC_CFGR_MCO_PLL3_DIV2			0x9 /* (**) */
 #define RCC_CFGR_MCO_XT1			0xa /* (**) */
 #define RCC_CFGR_MCO_PLL3			0xb /* (**) */
 /**@}*/

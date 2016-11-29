@@ -160,12 +160,12 @@ Twelve frequency ranges are available: 100 kHz, 200 kHz, 400 kHz, 800 kHz,
 /* MCO: Microcontroller clock output */
 #define RCC_CFGR_MCO_NOCLK			0x0
 #define RCC_CFGR_MCO_SYSCLK			0x1
-#define RCC_CFGR_MCO_MSICLK			0x2
-#define RCC_CFGR_MCO_HSI16CLK			0x3
-#define RCC_CFGR_MCO_HSECLK			0x4
-#define RCC_CFGR_MCO_PLLCLK			0x5
-#define RCC_CFGR_MCO_LSICLK			0x6
-#define RCC_CFGR_MCO_LSECLK			0x7
+#define RCC_CFGR_MCO_MSI			0x2
+#define RCC_CFGR_MCO_HSI16			0x3
+#define RCC_CFGR_MCO_HSE			0x4
+#define RCC_CFGR_MCO_PLL			0x5
+#define RCC_CFGR_MCO_LSI			0x6
+#define RCC_CFGR_MCO_LSE			0x7
 #define RCC_CFGR_MCO_SHIFT			24
 #define RCC_CFGR_MCO_MASK			0xf
 
