@@ -120,13 +120,13 @@
 /* --- RCC_CFGR values ----------------------------------------------------- */
 
 /* MCOPRE */
-#define RCC_CFGR_MCOPRE_DIV1	    0
-#define RCC_CFGR_MCOPRE_DIV2	    1
-#define RCC_CFGR_MCOPRE_DIV4	    2
-#define RCC_CFGR_MCOPRE_DIV8	    3
-#define RCC_CFGR_MCOPRE_DIV16	    4
-#define RCC_CFGR_MCOPRE_SHIFT       28
-#define RCC_CFGR_MCOPRE             (0x7 << RCC_CFGR_MCOPRE_SHIFT)
+#define RCC_CFGR_MCOPRE_DIV1	0
+#define RCC_CFGR_MCOPRE_DIV2	1
+#define RCC_CFGR_MCOPRE_DIV4	2
+#define RCC_CFGR_MCOPRE_DIV8	3
+#define RCC_CFGR_MCOPRE_DIV16	4
+#define RCC_CFGR_MCOPRE_SHIFT	28
+#define RCC_CFGR_MCOPRE_MASK	0x7
 
 /* MCO: Microcontroller clock output */
 #define RCC_CFGR_MCO_NOCLK			0x0
