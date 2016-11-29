@@ -154,7 +154,7 @@ Twelve frequency ranges are available: 100 kHz, 200 kHz, 400 kHz, 800 kHz,
 #define RCC_CFGR_MCOPRE_DIV4	    2
 #define RCC_CFGR_MCOPRE_DIV8	    3
 #define RCC_CFGR_MCOPRE_DIV16	    4
-#define RCC_CFGR_MCOPRE_SHIFT	    27
+#define RCC_CFGR_MCOPRE_SHIFT	    28
 #define RCC_CFGR_MCOPRE_MASK	    0x7
 
 /* MCO: Microcontroller clock output */
