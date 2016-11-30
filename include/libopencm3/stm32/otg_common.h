@@ -490,4 +490,137 @@
 
 
 
+
+//*******************************************************************
+//          this OTG IO structures imported from CMSIS
+/**
+ * @brief __USB_OTG_Core_register
+ */
+typedef struct {
+    uint32_t GOTGCTL;       /*!<  USB_OTG Control and Status Register    000h*/
+    uint32_t GOTGINT;       /*!<  USB_OTG Interrupt Register             004h*/
+    uint32_t GAHBCFG;       /*!<  Core AHB Configuration Register    008h*/
+    uint32_t GUSBCFG;       /*!<  Core USB Configuration Register    00Ch*/
+    uint32_t GRSTCTL;       /*!<  Core Reset Register                010h*/
+    uint32_t GINTSTS;       /*!<  Core Interrupt Register            014h*/
+    uint32_t GINTMSK;       /*!<  Core Interrupt Mask Register       018h*/
+    uint32_t GRXSTSR;       /*!<  Receive Sts Q Read Register        01Ch*/
+    uint32_t GRXSTSP;       /*!<  Receive Sts Q Read & POP Register  020h*/
+    uint32_t GRXFSIZ;       /* Receive FIFO Size Register         024h*/
+    uint32_t DIEPTXF0_HNPTXFSIZ; /*!<  EP0 / Non Periodic Tx FIFO Size Register 028h*/
+    uint32_t HNPTXSTS;      /*!<  Non Periodic Tx FIFO/Queue Sts reg 02Ch*/
+    uint32_t Reserved30[2]; /* Reserved                           030h*/
+    uint32_t GCCFG;         /* General Purpose IO Register        038h*/
+    uint32_t CID;           /* User ID Register                   03Ch*/
+    uint32_t Reserved40[48];/* Reserved                      040h-0FFh*/
+    uint32_t HPTXFSIZ;      /* Host Periodic Tx FIFO Size Reg     100h*/
+    uint32_t DIEPTXF[0x0F]; /* dev Periodic Transmit FIFO */
+} OTG_global_regs;
+typedef volatile OTG_global_regs OTG_global_io;
+
+#define OTGx_GLOBAL(base)   (*(OTG_global_io*)(base+OTG_GOTGCTL))
+
+
+/** 
+ * @brief __device_Registers
+ */
+typedef struct {
+    uint32_t DCFG;          /* dev Configuration Register   800h*/
+    uint32_t DCTL;          /* dev Control Register         804h*/
+    uint32_t DSTS;          /* dev Status Register (RO)     808h*/
+    uint32_t Reserved0C;    /* Reserved                     80Ch*/
+    uint32_t DIEPMSK;       /* dev IN Endpoint Mask         810h*/
+    uint32_t DOEPMSK;       /* dev OUT Endpoint Mask        814h*/
+    uint32_t DAINT;         /* dev All Endpoints Itr Reg    818h*/
+    uint32_t DAINTMSK;      /* dev All Endpoints Itr Mask   81Ch*/
+    uint32_t Reserved20;    /* Reserved                     820h*/
+    uint32_t Reserved9;     /* Reserved                     824h*/
+    uint32_t DVBUSDIS;      /* dev VBUS discharge Register  828h*/
+    uint32_t DVBUSPULSE;    /* dev VBUS Pulse Register      82Ch*/
+    uint32_t DTHRCTL;       /* dev thr                      830h*/
+    uint32_t DIEPEMPMSK;    /* dev empty msk             834h*/
+    uint32_t DEACHINT;      /* dedicated EP interrupt       838h*/
+    uint32_t DEACHMSK;      /* dedicated EP msk             83Ch*/
+    uint32_t Reserved40;    /* dedicated EP mask           840h*/
+    uint32_t DINEP1MSK;     /* dedicated EP mask           844h*/
+    uint32_t Reserved44[15];/* Reserved                 844-87Ch*/
+    uint32_t DOUTEP1MSK;    /* dedicated EP msk            884h*/
+} OTG_device_regs;
+typedef volatile OTG_device_regs OTG_device_io;
+
+#define OTGx_DEVICE(base)   (*(OTG_device_io*)(base+OTG_DCFG))
+
+/** 
+ * @brief __IN_Endpoint-Specific_Register
+ */
+typedef struct {
+    uint32_t DIEPCTL;       /* dev IN Endpoint Control Reg 900h + (ep_num * 20h) + 00h*/
+    uint32_t Reserved04;    /* Reserved                       900h + (ep_num * 20h) + 04h*/
+    uint32_t DIEPINT;       /* dev IN Endpoint Itr Reg     900h + (ep_num * 20h) + 08h*/
+    uint32_t Reserved0C;    /* Reserved                       900h + (ep_num * 20h) + 0Ch*/
+    uint32_t DIEPTSIZ;      /* IN Endpoint Txfer Size   900h + (ep_num * 20h) + 10h*/
+    uint32_t DIEPDMA;       /* IN Endpoint DMA Address Reg    900h + (ep_num * 20h) + 14h*/
+    uint32_t DTXFSTS;       /*IN Endpoint Tx FIFO Status Reg 900h + (ep_num * 20h) + 18h*/
+    uint32_t Reserved18;    /* Reserved  900h+(ep_num*20h)+1Ch-900h+ (ep_num * 20h) + 1Ch*/
+} OTG_IEP_regs;
+typedef volatile OTG_IEP_regs OTG_IEP_io;
+
+#define OTGx_IEPn(base, n)  (*(OTG_IEP_io*)((base)+OTG_DIEPCTL(n)))
+
+/**
+ * @brief __OUT_Endpoint-Specific_Registers
+ */
+typedef struct {
+    uint32_t DOEPCTL;       /* dev OUT Endpoint Control Reg  B00h + (ep_num * 20h) + 00h*/
+    uint32_t Reserved04;    /* Reserved                      B00h + (ep_num * 20h) + 04h*/
+    uint32_t DOEPINT;       /* dev OUT Endpoint Itr Reg      B00h + (ep_num * 20h) + 08h*/
+    uint32_t Reserved0C;    /* Reserved                      B00h + (ep_num * 20h) + 0Ch*/
+    uint32_t DOEPTSIZ;      /* dev OUT Endpoint Txfer Size   B00h + (ep_num * 20h) + 10h*/
+    uint32_t DOEPDMA;       /* dev OUT Endpoint DMA Address  B00h + (ep_num * 20h) + 14h*/
+    uint32_t Reserved18[2]; /* Reserved B00h + (ep_num * 20h) + 18h - B00h + (ep_num * 20h) + 1Ch*/
+} OTG_OEP_regs;
+typedef volatile OTG_OEP_regs OTG_OEP_io;
+
+#define OTGx_OEPn(base, n)  (*(OTG_OEP_io*)((base)+OTG_OIEPCTL(n)))
+
+/** 
+ * @brief __Host_Mode_Register_Structures
+ */
+typedef struct {
+    uint32_t HCFG;          /* Host Configuration Register    400h*/
+    uint32_t HFIR;          /* Host Frame Interval Register   404h*/
+    uint32_t HFNUM;         /* Host Frame Nbr/Frame Remaining 408h*/
+    uint32_t Reserved40C;   /* Reserved                       40Ch*/
+    uint32_t HPTXSTS;       /* Host Periodic Tx FIFO/ Queue Status 410h*/
+    uint32_t HAINT;         /* Host All Channels Interrupt Register 414h*/
+    uint32_t HAINTMSK;      /* Host All Channels Interrupt Mask 418h*/
+} OTG_host_regs;
+typedef volatile OTG_host_regs OTG_host_io;
+
+#define OTGx_HOST(base)     (*(OTG_host_io*)(base+OTG_HCFG))
+
+/** 
+ * @brief __Host_Channel_Specific_Registers
+ */
+typedef struct {
+    uint32_t HCCHAR;
+    uint32_t HCSPLT;        // HS only
+    uint32_t HCINT;
+    uint32_t HCINTMSK;
+    uint32_t HCTSIZ;
+    uint32_t HCDMA;         // HS only
+    uint32_t Reserved[2];
+} OTG_host_channel_regs;
+typedef volatile OTG_host_channel_regs OTG_host_channel_io;
+
+#define OTGx_HCn(base, n)   (*(OTG_host_channel_io*)((base)+OTG_HCCHAR(n)))
+
+/* Power and clock gating control and status register */
+#define OTGx_PCGCCTL(base)	MMIO32((base)+OTG_PCGCCTL)
+
+/* Data FIFO */
+#define OTGx_FIFO(base, x)  (base + OTG_FIFO(x))
+
+
+
 #endif
