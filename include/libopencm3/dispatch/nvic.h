@@ -27,6 +27,8 @@
 #	include <libopencm3/efm32/g/nvic.h>
 #elif defined(EFM32LG)
 #	include <libopencm3/efm32/lg/nvic.h>
+#elif defined(EFM32WG)
+#	include <libopencm3/efm32/wg/nvic.h>
 #elif defined(EFM32GG)
 #	include <libopencm3/efm32/gg/nvic.h>
 
