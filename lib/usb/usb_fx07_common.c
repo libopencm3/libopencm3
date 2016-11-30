@@ -96,7 +96,7 @@ void stm32fx07_ep_setup(usbd_device *usbd_dev, uint8_t addr, uint8_t type,
 
 		if (callback) {
 			usbd_dev->user_callback_ctr[addr][USB_TRANSACTION_IN] =
-			    (void *)callback;
+			    (usbd_endpoint_callback)(void *)callback;
 		}
 	}
 
@@ -110,7 +110,7 @@ void stm32fx07_ep_setup(usbd_device *usbd_dev, uint8_t addr, uint8_t type,
 
 		if (callback) {
 			usbd_dev->user_callback_ctr[addr][USB_TRANSACTION_OUT] =
-			    (void *)callback;
+			    (usbd_endpoint_callback)(void *)callback;
 		}
 	}
 }
