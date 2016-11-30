@@ -40,24 +40,44 @@ specific memorymap.h header before including this header file.*/
 
 #include <libopencm3/stm32/common/gpio_common_all.h>
 
+#if defined(__CM3_CMSIS_VERSION_MAIN) || defined(__CM4_CMSIS_VERSION_MAIN)
+#define __CMSIS_USE	1
+#else
+#define __CMSIS_USE	0
+#endif
+
+#if defined(HAL_MODULE_ENABLED) || defined(HAL_GPIO_MODULE_ENABLED)
+#define __HAL_USE	1
+#else
+#define __HAL_USE	0
+#endif
+
 /* GPIO port base addresses (for convenience) */
 /** @defgroup gpio_port_id GPIO Port IDs
 @ingroup gpio_defines
 
 @{*/
+#if !(__CMSIS_USE)
 #define GPIOA				GPIO_PORT_A_BASE
 #define GPIOB				GPIO_PORT_B_BASE
 #define GPIOC				GPIO_PORT_C_BASE
 #define GPIOD				GPIO_PORT_D_BASE
 #define GPIOE				GPIO_PORT_E_BASE
 #define GPIOF				GPIO_PORT_F_BASE
+#define GPIOA_BASE  GPIO_PORT_A_BASE
+#define GPIOB_BASE  GPIO_PORT_B_BASE
+#define GPIOC_BASE  GPIO_PORT_C_BASE
+#define GPIOD_BASE  GPIO_PORT_D_BASE
+#define GPIOE_BASE  GPIO_PORT_E_BASE
+#define GPIOF_BASE  GPIO_PORT_F_BASE
+#endif
 
 /**@}*/
 
 /* --- GPIO registers for STM32F2, STM32F3 and STM32F4 --------------------- */
 
 /* Port mode register (GPIOx_MODER) */
-#define GPIO_MODER(port)		MMIO32((port) + 0x00)
+#define GPIO_MODER(port)		MMIO32(((uint32_t)port) + 0x00)
 #define GPIOA_MODER			GPIO_MODER(GPIOA)
 #define GPIOB_MODER			GPIO_MODER(GPIOB)
 #define GPIOC_MODER			GPIO_MODER(GPIOC)
@@ -66,7 +86,7 @@ specific memorymap.h header before including this header file.*/
 #define GPIOF_MODER			GPIO_MODER(GPIOF)
 
 /* Port output type register (GPIOx_OTYPER) */
-#define GPIO_OTYPER(port)		MMIO32((port) + 0x04)
+#define GPIO_OTYPER(port)		MMIO32(((uint32_t)port) + 0x04)
 #define GPIOA_OTYPER			GPIO_OTYPER(GPIOA)
 #define GPIOB_OTYPER			GPIO_OTYPER(GPIOB)
 #define GPIOC_OTYPER			GPIO_OTYPER(GPIOC)
@@ -75,7 +95,7 @@ specific memorymap.h header before including this header file.*/
 #define GPIOF_OTYPER			GPIO_OTYPER(GPIOF)
 
 /* Port output speed register (GPIOx_OSPEEDR) */
-#define GPIO_OSPEEDR(port)		MMIO32((port) + 0x08)
+#define GPIO_OSPEEDR(port)		MMIO32(((uint32_t)port) + 0x08)
 #define GPIOA_OSPEEDR			GPIO_OSPEEDR(GPIOA)
 #define GPIOB_OSPEEDR			GPIO_OSPEEDR(GPIOB)
 #define GPIOC_OSPEEDR			GPIO_OSPEEDR(GPIOC)
@@ -84,7 +104,7 @@ specific memorymap.h header before including this header file.*/
 #define GPIOF_OSPEEDR			GPIO_OSPEEDR(GPIOF)
 
 /* Port pull-up/pull-down register (GPIOx_PUPDR) */
-#define GPIO_PUPDR(port)		MMIO32((port) + 0x0c)
+#define GPIO_PUPDR(port)		MMIO32(((uint32_t)port) + 0x0c)
 #define GPIOA_PUPDR			GPIO_PUPDR(GPIOA)
 #define GPIOB_PUPDR			GPIO_PUPDR(GPIOB)
 #define GPIOC_PUPDR			GPIO_PUPDR(GPIOC)
@@ -93,7 +113,7 @@ specific memorymap.h header before including this header file.*/
 #define GPIOF_PUPDR			GPIO_PUPDR(GPIOF)
 
 /* Port input data register (GPIOx_IDR) */
-#define GPIO_IDR(port)			MMIO32((port) + 0x10)
+#define GPIO_IDR(port)			MMIO32(((uint32_t)port) + 0x10)
 #define GPIOA_IDR			GPIO_IDR(GPIOA)
 #define GPIOB_IDR			GPIO_IDR(GPIOB)
 #define GPIOC_IDR			GPIO_IDR(GPIOC)
@@ -102,7 +122,7 @@ specific memorymap.h header before including this header file.*/
 #define GPIOF_IDR			GPIO_IDR(GPIOF)
 
 /* Port output data register (GPIOx_ODR) */
-#define GPIO_ODR(port)			MMIO32((port) + 0x14)
+#define GPIO_ODR(port)			MMIO32(((uint32_t)port) + 0x14)
 #define GPIOA_ODR			GPIO_ODR(GPIOA)
 #define GPIOB_ODR			GPIO_ODR(GPIOB)
 #define GPIOC_ODR			GPIO_ODR(GPIOC)
@@ -111,7 +131,7 @@ specific memorymap.h header before including this header file.*/
 #define GPIOF_ODR			GPIO_ODR(GPIOF)
 
 /* Port bit set/reset register (GPIOx_BSRR) */
-#define GPIO_BSRR(port)			MMIO32((port) + 0x18)
+#define GPIO_BSRR(port)			MMIO32(((uint32_t)port) + 0x18)
 #define GPIOA_BSRR			GPIO_BSRR(GPIOA)
 #define GPIOB_BSRR			GPIO_BSRR(GPIOB)
 #define GPIOC_BSRR			GPIO_BSRR(GPIOC)
@@ -120,7 +140,7 @@ specific memorymap.h header before including this header file.*/
 #define GPIOF_BSRR			GPIO_BSRR(GPIOF)
 
 /* Port configuration lock register (GPIOx_LCKR) */
-#define GPIO_LCKR(port)			MMIO32((port) + 0x1c)
+#define GPIO_LCKR(port)			MMIO32(((uint32_t)port) + 0x1c)
 #define GPIOA_LCKR			GPIO_LCKR(GPIOA)
 #define GPIOB_LCKR			GPIO_LCKR(GPIOB)
 #define GPIOC_LCKR			GPIO_LCKR(GPIOC)
@@ -129,7 +149,7 @@ specific memorymap.h header before including this header file.*/
 #define GPIOF_LCKR			GPIO_LCKR(GPIOF)
 
 /* Alternate function low register (GPIOx_AFRL) */
-#define GPIO_AFRL(port)			MMIO32((port) + 0x20)
+#define GPIO_AFRL(port)			MMIO32(((uint32_t)port) + 0x20)
 #define GPIOA_AFRL			GPIO_AFRL(GPIOA)
 #define GPIOB_AFRL			GPIO_AFRL(GPIOB)
 #define GPIOC_AFRL			GPIO_AFRL(GPIOC)
@@ -138,7 +158,7 @@ specific memorymap.h header before including this header file.*/
 #define GPIOF_AFRL			GPIO_AFRL(GPIOF)
 
 /* Alternate function high register (GPIOx_AFRH) */
-#define GPIO_AFRH(port)			MMIO32((port) + 0x24)
+#define GPIO_AFRH(port)			MMIO32(((uint32_t)port) + 0x24)
 #define GPIOA_AFRH			GPIO_AFRH(GPIOA)
 #define GPIOB_AFRH			GPIO_AFRH(GPIOB)
 #define GPIOC_AFRH			GPIO_AFRH(GPIOC)
@@ -153,10 +173,14 @@ specific memorymap.h header before including this header file.*/
 /** @defgroup gpio_mode GPIO Pin Direction and Analog/Digital Mode
 @ingroup gpio_defines
 @{*/
+#if !(__HAL_USE)
 #define GPIO_MODE_INPUT			0x0
+#endif
 #define GPIO_MODE_OUTPUT		0x1
 #define GPIO_MODE_AF			0x2
+#if !(__HAL_USE)
 #define GPIO_MODE_ANALOG		0x3
+#endif
 /**@}*/
 
 /* --- GPIOx_OTYPER values ------------------------------------------------- */
@@ -210,7 +234,7 @@ specific memorymap.h header before including this header file.*/
 
 /* --- GPIOx_LCKR values --------------------------------------------------- */
 
-#define GPIO_LCKK			(1 << 16)
+//#define GPIO_LCKK			(1ul << 16)
 /* GPIOx_LCKR[15:0]: LCKy: Port x lock bit y (y = 0..15) */
 
 /* --- GPIOx_AFRL/H values ------------------------------------------------- */

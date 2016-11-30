@@ -45,11 +45,18 @@ specific memorymap.h header before including this header file.*/
 @ingroup gpio_defines
 
 @{*/
+#if !(__CMSIS_USE)
 #define GPIOG				GPIO_PORT_G_BASE
 #define GPIOH				GPIO_PORT_H_BASE
 #define GPIOI				GPIO_PORT_I_BASE
 #define GPIOJ				GPIO_PORT_J_BASE
 #define GPIOK				GPIO_PORT_K_BASE
+#define GPIOG_BASE  GPIO_PORT_G_BASE
+#define GPIOH_BASE  GPIO_PORT_H_BASE
+#define GPIOI_BASE  GPIO_PORT_I_BASE
+#define GPIOJ_BASE  GPIO_PORT_J_BASE
+#define GPIOK_BASE  GPIO_PORT_K_BASE
+#endif
 /**@}*/
 
 /* --- GPIO registers for STM32F2, STM32F3 and STM32F4 --------------------- */
