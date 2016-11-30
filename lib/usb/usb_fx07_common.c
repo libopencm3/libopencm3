@@ -90,13 +90,12 @@ void stm32fx07_ep_setup(usbd_device *usbd_dev, uint8_t addr, uint8_t type,
 		REBASE(OTG_DIEPTSIZ(addr)) =
 		    (max_size & OTG_DIEPSIZ0_XFRSIZ_MASK);
 		REBASE(OTG_DIEPCTL(addr)) |=
-		    OTG_DIEPCTL0_EPENA | OTG_DIEPCTL0_SNAK | (type << 18)
+		    OTG_DIEPCTL0_EPENA | OTG_DIEPCTL0_SNAK | ((uint32_t)type << 18)
 		    | OTG_DIEPCTL0_USBAEP | OTG_DIEPCTLX_SD0PID
-		    | (addr << 22) | max_size;
+		    | ((uint32_t)addr << 22) | max_size;
 
 		if (callback) {
-			usbd_dev->user_callback_ctr[addr][USB_TRANSACTION_IN] =
-			    (usbd_endpoint_callback)(void *)callback;
+			usbd_dev->user_callback_ctr[addr][USB_TRANSACTION_IN] = callback;
 		}
 	}
 
@@ -106,11 +105,10 @@ void stm32fx07_ep_setup(usbd_device *usbd_dev, uint8_t addr, uint8_t type,
 		REBASE(OTG_DOEPTSIZ(addr)) = usbd_dev->doeptsiz[addr];
 		REBASE(OTG_DOEPCTL(addr)) |= OTG_DOEPCTL0_EPENA |
 		    OTG_DOEPCTL0_USBAEP | OTG_DIEPCTL0_CNAK |
-		    OTG_DOEPCTLX_SD0PID | (type << 18) | max_size;
+		    OTG_DOEPCTLX_SD0PID | ((uint32_t)type << 18) | max_size;
 
 		if (callback) {
-			usbd_dev->user_callback_ctr[addr][USB_TRANSACTION_OUT] =
-			    (usbd_endpoint_callback)(void *)callback;
+			usbd_dev->user_callback_ctr[addr][USB_TRANSACTION_OUT] = callback;
 		}
 	}
 }

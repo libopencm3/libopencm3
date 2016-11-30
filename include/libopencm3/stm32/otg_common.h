@@ -127,7 +127,7 @@
 #define OTG_GUSBCFG_PHYSEL		(1 << 6)
 
 /* OTG reset register (OTG_GRSTCTL) */
-#define OTG_GRSTCTL_AHBIDL		(1 << 31)
+#define OTG_GRSTCTL_AHBIDL		(1ul << 31)
 /* Bits 30:11 - Reserved */
 #define OTG_GRSTCTL_TXFNUM_MASK		(0x1f << 6)
 #define OTG_GRSTCTL_TXFNUM_ALL		(0x10 << 6)
@@ -139,7 +139,7 @@
 #define OTG_GRSTCTL_CSRST		(1 << 0)
 
 /* OTG interrupt status register (OTG_GINTSTS) */
-#define OTG_GINTSTS_WKUPINT		(1 << 31)
+#define OTG_GINTSTS_WKUPINT		(1ul << 31)
 #define OTG_GINTSTS_SRQINT		(1 << 30)
 #define OTG_GINTSTS_DISCINT		(1 << 29)
 #define OTG_GINTSTS_CIDSCHG		(1 << 28)
@@ -276,7 +276,7 @@
 #define OTG_DOEPMSK_XFRCM	(1 << 0)
 
 /* OTG Device Control IN Endpoint 0 Control Register (OTG_DIEPCTL0) */
-#define OTG_DIEPCTL0_EPENA		(1 << 31)
+#define OTG_DIEPCTL0_EPENA		(1ul << 31)
 #define OTG_DIEPCTL0_EPDIS		(1 << 30)
 /* Bits 29:28 - Reserved */
 #define OTG_DIEPCTLX_SD0PID		(1 << 28)
@@ -297,7 +297,7 @@
 #define OTG_DIEPCTL0_MPSIZ_8		(0x3 << 0)
 
 /* OTG Device Control OUT Endpoint 0 Control Register (OTG_DOEPCTL0) */
-#define OTG_DOEPCTL0_EPENA		(1 << 31)
+#define OTG_DOEPCTL0_EPENA		(1ul << 31)
 #define OTG_DOEPCTL0_EPDIS		(1 << 30)
 /* Bits 29:28 - Reserved */
 #define OTG_DOEPCTLX_SD0PID		(1 << 28)
@@ -424,7 +424,7 @@
 #define OTG_HPRT_PCSTS		(1 << 0)
 
 /* OTG Host channel-x characteristics register (OTG_HCCHARx) */
-#define OTG_HCCHAR_CHENA		(1 << 31)
+#define OTG_HCCHAR_CHENA		(1ul << 31)
 #define OTG_HCCHAR_CHDIS		(1 << 30)
 #define OTG_HCCHAR_ODDFRM		(1 << 29)
 #define OTG_HCCHAR_DAD_MASK		(0x7f << 22)
@@ -479,7 +479,7 @@
 
 /* OTG Host channel-x transfer size register (OTG_HCTSIZx) */
 /* Note: OTG_HCTSIZ_DOPING: Only in OTG_HS */
-#define OTG_HCTSIZ_DOPING	(1 << 31)
+#define OTG_HCTSIZ_DOPING	(1ul << 31)
 #define OTG_HCTSIZ_DPID_DATA0	(0x0 << 29)
 #define OTG_HCTSIZ_DPID_DATA1	(0x2 << 29)
 #define OTG_HCTSIZ_DPID_DATA2	(0x1 << 29)
