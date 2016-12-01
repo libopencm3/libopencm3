@@ -44,6 +44,7 @@ OBJS            += rcc_common_all.o
 OBJS            += gpio_common_all.o gpio_common_f0234.o
 OBJS            += adc_common_v2.o adc_common_v2_multi.o
 OBJS            += timer_common_all.o
+OBJS            += i2c_common_v2.o
 
 VPATH += ../../usb:../:../../cm3:../common
 VPATH += ../../ethernet
