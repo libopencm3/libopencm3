@@ -38,7 +38,7 @@ ARFLAGS		= rcs
 OBJS		= gpio.o rcc.o desig.o
 
 OBJS            += crc_common_all.o dac_common_all.o dma_common_f24.o \
-                   gpio_common_all.o gpio_common_f0234.o i2c_common_all.o \
+                   gpio_common_all.o gpio_common_f0234.o i2c_common_v1.o \
                    iwdg_common_all.o rtc_common_l1f024.o spi_common_all.o \
                    spi_common_l1f124.o timer_common_all.o timer_common_f0234.o \
 		   timer_common_f24.o usart_common_all.o usart_common_f124.o \
