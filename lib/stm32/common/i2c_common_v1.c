@@ -65,6 +65,11 @@ void i2c_reset(uint32_t i2c)
 		rcc_periph_reset_pulse(RST_I2C3);
 		break;
 #endif
+#if defined(I2C4_BASE)
+	case I2C4:
+		rcc_periph_reset_pulse(RST_I2C4);
+		break;
+#endif
 	default:
 		break;
 	}
