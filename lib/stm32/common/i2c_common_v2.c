@@ -38,12 +38,24 @@ void i2c_reset(uint32_t i2c)
 {
 	switch (i2c) {
 	case I2C1:
-		rcc_peripheral_reset(&RCC_APB1RSTR, RCC_APB1RSTR_I2C1RST);
-		rcc_peripheral_clear_reset(&RCC_APB1RSTR, RCC_APB1RSTR_I2C1RST);
+		rcc_periph_reset_pulse(RST_I2C1);
 		break;
+#if defined(I2C2_BASE)
 	case I2C2:
-		rcc_peripheral_reset(&RCC_APB1RSTR, RCC_APB1RSTR_I2C2RST);
-		rcc_peripheral_clear_reset(&RCC_APB1RSTR, RCC_APB1RSTR_I2C2RST);
+		rcc_periph_reset_pulse(RST_I2C2);
+		break;
+#endif
+#if defined(I2C3_BASE)
+	case I2C3:
+		rcc_periph_reset_pulse(RST_I2C3);
+		break;
+#endif
+#if defined(I2C4_BASE)
+	case I2C4:
+		rcc_periph_reset_pulse(RST_I2C4);
+		break;
+#endif
+	default:
 		break;
 	}
 }
