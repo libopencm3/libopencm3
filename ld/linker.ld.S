@@ -130,13 +130,6 @@ SECTIONS
 		_ebss = .;
 	} >ram
 
-#if defined(_EEP)
-	.eep : {
-		*(.eeprom*)
-		. = ALIGN(4);
-	} >eep
-#endif
-
 #if defined(_CCM)
 	.ccm : {
 		*(.ccmram*)
