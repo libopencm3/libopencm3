@@ -44,6 +44,7 @@ const struct _usbd_driver stm32f107_usb_driver = {
 	.ep_nak_set = stm32fx07_ep_nak_set,
 	.ep_write_packet = stm32fx07_ep_write_packet,
 	.ep_read_packet = stm32fx07_ep_read_packet,
+	.ep_set_eonum = stm32fx07_set_eonum,
 	.poll = stm32fx07_poll,
 	.disconnect = stm32fx07_disconnect,
 	.base_address = USB_OTG_FS_BASE,

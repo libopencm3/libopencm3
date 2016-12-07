@@ -158,5 +158,10 @@ void usbd_ep_nak_set(usbd_device *usbd_dev, uint8_t addr, uint8_t nak)
 	usbd_dev->driver->ep_nak_set(usbd_dev, addr, nak);
 }
 
+void usbd_ep_set_eonum(usbd_device *usbd_dev, uint8_t addr, uint8_t value)
+{
+	usbd_dev->driver->ep_set_eonum(usbd_dev, addr, value);
+}
+
 /**@}*/
 

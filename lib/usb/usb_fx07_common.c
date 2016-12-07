@@ -283,6 +283,20 @@ static void stm32fx07_flush_txfifo(usbd_device *usbd_dev, int ep)
 	}
 }
 
+void stm32fx07_set_eonum(usbd_device *usbd_dev, uint8_t addr,
+			 uint8_t value)
+{
+	int bit;
+
+	if (addr & 0x80) {
+		bit = (value & 1) ? OTG_DIEPCTLX_SODDFRM : OTG_DIEPCTLX_SEVNFRM;
+		REBASE(OTG_DIEPCTL(addr & 0x7f)) |= bit;
+	} else {
+		bit = (value & 1) ? OTG_DOEPCTLX_SODDFRM : OTG_DOEPCTLX_SEVNFRM;
+		REBASE(OTG_DOEPCTL(addr)) |= bit;
+	}
+}
+
 void stm32fx07_poll(usbd_device *usbd_dev)
 {
 	/* Read interrupt status register. */

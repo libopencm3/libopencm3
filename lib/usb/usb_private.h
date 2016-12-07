@@ -153,6 +153,7 @@ struct _usbd_driver {
 				    const void *buf, uint16_t len);
 	uint16_t (*ep_read_packet)(usbd_device *usbd_dev, uint8_t addr,
 				   void *buf, uint16_t len);
+	void (*ep_set_eonum)(usbd_device *usbd_dev, uint8_t addr, uint8_t value);
 	void (*poll)(usbd_device *usbd_dev);
 	void (*disconnect)(usbd_device *usbd_dev, bool disconnected);
 	uint32_t base_address;

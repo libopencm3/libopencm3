@@ -194,6 +194,15 @@ extern uint8_t usbd_ep_stall_get(usbd_device *usbd_dev, uint8_t addr);
  */
 extern void usbd_ep_nak_set(usbd_device *usbd_dev, uint8_t addr, uint8_t nak);
 
+/** Set even/odd frame bit for a endpoint.
+ *
+ * Make sense only for isochronous endpoints.
+ *
+ * @param addr Full EP address (with direction bit)
+ * @param value if value itself is odd, sets flag to "odd", otherwise, to "even"
+ */
+extern void usbd_ep_set_eonum(usbd_device *usbd_dev, uint8_t addr, uint8_t value);
+
 END_DECLS
 
 #endif
