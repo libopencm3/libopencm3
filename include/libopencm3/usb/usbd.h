@@ -90,6 +90,12 @@ extern usbd_device * usbd_init(const usbd_driver *driver,
 			       uint8_t *control_buffer,
 			       uint16_t control_buffer_size);
 
+
+/** Returns frame number from received SOF. Useful to call from
+ *  user SOF callback.
+ */
+extern uint16_t usbd_get_fnsof(usbd_device *usbd_dev);
+
 /** Registers a reset callback */
 extern void usbd_register_reset_callback(usbd_device *usbd_dev,
 					 void (*callback)(void));

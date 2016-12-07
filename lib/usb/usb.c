@@ -72,6 +72,11 @@ usbd_device *usbd_init(const usbd_driver *driver,
 	return usbd_dev;
 }
 
+uint16_t usbd_get_fnsof(usbd_device *usbd_dev)
+{
+	return usbd_dev->driver->get_fnsof(usbd_dev);
+}
+
 void usbd_register_reset_callback(usbd_device *usbd_dev, void (*callback)(void))
 {
 	usbd_dev->user_callback_reset = callback;
