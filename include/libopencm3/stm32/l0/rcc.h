@@ -454,7 +454,7 @@
 #define RCC_CSR_OBLRSTF				(1 << 25)
 #define RCC_CSR_RMVF				(1 << 24)
 #define RCC_CSR_RTCRST				(1 << 19)
-#define RCC_CSR_RTCEN				(1 << 19)
+#define RCC_CSR_RTCEN				(1 << 18)
 #define RCC_CSR_RTCSEL_SHIFT			(16)
 #define RCC_CSR_RTCSEL_MASK			(0x3)
 #define RCC_CSR_RTCSEL_NONE			(0x0)
