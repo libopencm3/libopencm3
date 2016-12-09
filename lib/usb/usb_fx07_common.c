@@ -197,6 +197,8 @@ uint16_t stm32fx07_ep_write_packet(usbd_device *usbd_dev, uint8_t addr,
 			      const void *buf, uint16_t len)
 {
 	const uint32_t *buf32 = buf;
+	struct packed_buf{uint32_t  word;} __attribute__((packed));
+	struct packed_buf *buf32p = (struct packed_buf *)buf;
 	int i;
 
 	addr &= 0x7F;
@@ -213,8 +215,14 @@ uint16_t stm32fx07_ep_write_packet(usbd_device *usbd_dev, uint8_t addr,
 	volatile uint32_t *fifo = REBASE_FIFO(addr);
 
 	/* Copy buffer to endpoint FIFO, note - memcpy does not work */
+	if (((uintptr_t)buf & 3) == 0)
 	for (i = len; i > 0; i -= 4) {
 		*fifo++ = *buf32++;
+	}
+	else {
+		for (i = len; i > 0; i -= 4) {
+			*fifo++ = (buf32p++)->word;
+		}
 	}
 
 	return len;
@@ -225,14 +233,23 @@ uint16_t stm32fx07_ep_read_packet(usbd_device *usbd_dev, uint8_t addr,
 {
 	int i;
 	uint32_t *buf32 = buf;
+	struct packed_buf{uint32_t  word;} __attribute__((packed));
+	struct packed_buf *buf32p = (struct packed_buf *)buf;
 	uint32_t extra;
 
 	len = MIN(len, usbd_dev->rxbcnt);
 	usbd_dev->rxbcnt -= len;
 
 	volatile uint32_t *fifo = REBASE_FIFO(addr);
+	if (((uintptr_t)buf & 3) == 0)
 	for (i = len; i >= 4; i -= 4) {
 		*buf32++ = *fifo++;
+	}
+	else {
+		for (i = len; i >= 4; i -= 4) {
+			(buf32p++)->word = *fifo++;
+		}
+		buf32 = (uint32_t*)buf32p;
 	}
 
 	if (i) {
