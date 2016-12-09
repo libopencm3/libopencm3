@@ -84,10 +84,10 @@ extern const usbd_driver efm32lg_usb_driver;
  * @return the usb device initialized for use. (currently cannot fail).
  */
 extern usbd_device * usbd_init(const usbd_driver *driver,
-			       const struct usb_device_descriptor *dev,
-			       const struct usb_config_descriptor *conf,
+			       const struct usb_device_descriptor *dev,     //MUST alined(4)
+			       const struct usb_config_descriptor *conf,    //MUST alined(4)
 			       const char **strings, int num_strings,
-			       uint8_t *control_buffer,
+			       uint8_t *control_buffer,                     //MUST alined(4)
 			       uint16_t control_buffer_size);
 
 /** Registers a reset callback */
