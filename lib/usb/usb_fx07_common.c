@@ -310,14 +310,13 @@ void stm32fx07_poll(usbd_device *usbd_dev)
 	 */
 	for (i = 0; i < 4; i++) { /* Iterate over endpoints. */
 		if (REBASE(OTG_DIEPINT(i)) & OTG_DIEPINTX_XFRC) {
+			REBASE(OTG_DIEPINT(i)) = OTG_DIEPINTX_XFRC;
 			/* Transfer complete. */
 			if (usbd_dev->user_callback_ctr[i]
 						       [USB_TRANSACTION_IN]) {
 				usbd_dev->user_callback_ctr[i]
 					[USB_TRANSACTION_IN](usbd_dev, i);
 			}
-
-			REBASE(OTG_DIEPINT(i)) = OTG_DIEPINTX_XFRC;
 		}
 	}
 
