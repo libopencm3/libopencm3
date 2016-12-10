@@ -40,11 +40,17 @@ specific memorymap.h header before including this header file.*/
 
 #include <libopencm3/stm32/common/gpio_common_all.h>
 
-#if defined(__CM3_CMSIS_VERSION_MAIN) || defined(__CM4_CMSIS_VERSION_MAIN)
+#if defined(__STM32F0xx_CMSIS_DEVICE_VERSION) \
+            || defined(__STM32F1xx_CMSIS_DEVICE_VERSION)\
+            || defined(__STM32F2xx_CMSIS_DEVICE_VERSION)\
+            || defined(__STM32F3xx_CMSIS_DEVICE_VERSION)\
+            || defined(__STM32F4xx_CMSIS_DEVICE_VERSION)
 #define __CMSIS_USE	1
 #else
 #define __CMSIS_USE	0
 #endif
+
+
 
 #if defined(HAL_MODULE_ENABLED) || defined(HAL_GPIO_MODULE_ENABLED)
 #define __HAL_USE	1
@@ -57,7 +63,7 @@ specific memorymap.h header before including this header file.*/
 @ingroup gpio_defines
 
 @{*/
-#if !(__CMSIS_USE)
+#if !(__HAL_USE) && !(__CMSIS_USE)
 #define GPIOA				GPIO_PORT_A_BASE
 #define GPIOB				GPIO_PORT_B_BASE
 #define GPIOC				GPIO_PORT_C_BASE

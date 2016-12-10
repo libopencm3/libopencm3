@@ -21,7 +21,11 @@
 #define LIBOPENCM3_CM3_MEMORYMAP_H
 
 #ifndef __CMSIS_USE
-#if defined(__CM3_CMSIS_VERSION_MAIN) || defined(__CM4_CMSIS_VERSION_MAIN)
+#if defined(__STM32F0xx_CMSIS_DEVICE_VERSION) \
+            || defined(__STM32F1xx_CMSIS_DEVICE_VERSION)\
+            || defined(__STM32F2xx_CMSIS_DEVICE_VERSION)\
+            || defined(__STM32F3xx_CMSIS_DEVICE_VERSION)\
+            || defined(__STM32F4xx_CMSIS_DEVICE_VERSION)
 #define __CMSIS_USE	1
 #else
 #define __CMSIS_USE	0

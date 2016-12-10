@@ -45,7 +45,7 @@ specific memorymap.h header before including this header file.*/
 @ingroup gpio_defines
 
 @{*/
-#if !(__CMSIS_USE)
+#if !(__HAL_USE) && !(__CMSIS_USE)
 #define GPIOG				GPIO_PORT_G_BASE
 #define GPIOH				GPIO_PORT_H_BASE
 #define GPIOI				GPIO_PORT_I_BASE
