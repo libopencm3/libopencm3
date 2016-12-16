@@ -121,6 +121,12 @@ void flash_set_ws(uint32_t ws)
 	FLASH_ACR = reg32;
 }
 
+/**
+ * Unlock primary access to the flash control/erase block
+ * You must call this before using any of the low level routines
+ * yourself.
+ * @sa flash_unlock
+ */
 void flash_unlock_pecr(void)
 {
 	FLASH_PEKEYR = FLASH_PEKEYR_PEKEY1;
@@ -132,9 +138,14 @@ void flash_lock_pecr(void)
 	FLASH_PECR |= FLASH_PECR_PELOCK;
 }
 
+/**
+ * Unlock program memory itself.
+ * Writes the magic sequence to unlock the program memory
+ * you must have already unlocked access to this register!
+ * @sa flash_unlock_pecr
+ */
 void flash_unlock_progmem(void)
 {
-	flash_unlock_pecr();
 	FLASH_PRGKEYR = FLASH_PRGKEYR_PRGKEY1;
 	FLASH_PRGKEYR = FLASH_PRGKEYR_PRGKEY2;
 }
@@ -144,9 +155,14 @@ void flash_lock_progmem(void)
 	FLASH_PECR |= FLASH_PECR_PRGLOCK;
 }
 
+/**
+ * Unlock option bytes.
+ * Writes the magic sequence to unlock the option bytes,
+ * you must have already unlocked access to this register!
+ * @sa flash_unlock_pecr
+ */
 void flash_unlock_option_bytes(void)
 {
-	flash_unlock_pecr();
 	FLASH_OPTKEYR = FLASH_OPTKEYR_OPTKEY1;
 	FLASH_OPTKEYR = FLASH_OPTKEYR_OPTKEY2;
 }
