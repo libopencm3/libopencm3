@@ -591,6 +591,33 @@ enum rcc_osc rcc_usb_clock_source(void)
 	return (RCC_CFGR3 & RCC_CFGR3_USBSW) ? RCC_PLL : RCC_HSI48;
 }
 
+/**
+ * Set System Clock PLL at 48MHz from HSE at 8MHz.
+ */
+void rcc_clock_setup_in_hse_8mhz_out_48mhz(void)
+{
+	rcc_osc_on(RCC_HSE);
+	rcc_wait_for_osc_ready(RCC_HSE);
+	rcc_set_sysclk_source(RCC_HSE);
+
+	rcc_set_hpre(RCC_CFGR_HPRE_NODIV);
+	rcc_set_ppre(RCC_CFGR_PPRE_NODIV);
+
+	flash_set_ws(FLASH_ACR_LATENCY_024_048MHZ);
+
+	/* PLL: 8MHz * 6 = 48MHz */
+	rcc_set_pll_multiplication_factor(RCC_CFGR_PLLMUL_MUL6);
+	rcc_set_pll_source(RCC_CFGR_PLLSRC_HSE_CLK);
+	rcc_set_pllxtpre(RCC_CFGR_PLLXTPRE_HSE_CLK);
+
+	rcc_osc_on(RCC_PLL);
+	rcc_wait_for_osc_ready(RCC_PLL);
+	rcc_set_sysclk_source(RCC_PLL);
+
+	rcc_apb1_frequency = 48000000;
+	rcc_ahb_frequency = 48000000;
+}
+
 /*---------------------------------------------------------------------------*/
 /** @brief RCC Set System Clock HSI at 8MHz
 
