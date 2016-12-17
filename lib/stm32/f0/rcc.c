@@ -451,6 +451,33 @@ void rcc_set_pll_multiplication_factor(uint32_t mul)
 	RCC_CFGR = (RCC_CFGR & ~RCC_CFGR_PLLMUL) | mul;
 }
 
+/*---------------------------------------------------------------------------*/
+/** @brief RCC Set the PLL Clock Source.
+
+@note This only has effect when the PLL is disabled.
+
+@param[in] pllsrc Unsigned int32. PLL clock source @ref rcc_cfgr_pcs
+*/
+
+void rcc_set_pll_source(uint32_t pllsrc)
+{
+	RCC_CFGR = (RCC_CFGR & ~RCC_CFGR_PLLSRC) |
+			(pllsrc << 16);
+}
+
+/*---------------------------------------------------------------------------*/
+/** @brief RCC Set the HSE Frequency Divider used as PLL Clock Source.
+
+@note This only has effect when the PLL is disabled.
+
+@param[in] pllxtpre Unsigned int32. HSE division factor @ref rcc_cfgr_hsepre
+*/
+
+void rcc_set_pllxtpre(uint32_t pllxtpre)
+{
+	RCC_CFGR = (RCC_CFGR & ~RCC_CFGR_PLLXTPRE) |
+			(pllxtpre << 17);
+}
 
 /*---------------------------------------------------------------------------*/
 /** @brief RCC Set the APB Prescale Factor.

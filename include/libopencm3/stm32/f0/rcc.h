@@ -125,10 +125,15 @@ Control</b>
 #define RCC_CFGR_PLLMUL_MUL16			(0x0E << RCC_CFGR_PLLMUL_SHIFT)
 
 #define RCC_CFGR_PLLXTPRE			(1<<17)
+#define RCC_CFGR_PLLXTPRE_HSE_CLK		0x0
+#define RCC_CFGR_PLLXTPRE_HSE_CLK_DIV2		0x1
+
 #define RCC_CFGR_PLLSRC				(1<<16)
+#define RCC_CFGR_PLLSRC_HSI_CLK_DIV2		0x0
+#define RCC_CFGR_PLLSRC_HSE_CLK			0x1
+
 #define RCC_CFGR_PLLSRC0			(1<<15)
 #define RCC_CFGR_ADCPRE				(1<<14)
-
 
 #define RCC_CFGR_PPRE_SHIFT			8
 #define RCC_CFGR_PPRE				(7 << RCC_CFGR_PPRE_SHIFT)
@@ -510,6 +515,8 @@ int rcc_css_int_flag(void);
 void rcc_set_sysclk_source(enum rcc_osc clk);
 void rcc_set_usbclk_source(enum rcc_osc clk);
 void rcc_set_pll_multiplication_factor(uint32_t mul);
+void rcc_set_pll_source(uint32_t pllsrc);
+void rcc_set_pllxtpre(uint32_t pllxtpre);
 void rcc_set_ppre(uint32_t ppre);
 void rcc_set_hpre(uint32_t hpre);
 void rcc_set_prediv(uint32_t prediv);
