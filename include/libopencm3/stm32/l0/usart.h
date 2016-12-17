@@ -1,8 +1,8 @@
 /** @defgroup usart_defines USART Defines
  *
- * @brief <b>Defined Constants and Types for the STM32F0xx USART</b>
+ * @brief <b>Defined Constants and Types for the STM32L0xx USART</b>
  *
- * @ingroup STM32F0xx_defines
+ * @ingroup STM32L0xx_defines
  *
  * @version 1.0.0
  *

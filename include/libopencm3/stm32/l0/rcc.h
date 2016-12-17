@@ -160,8 +160,9 @@
 #define RCC_CFGR_PLLMUL_MASK		0xf
 
 /* PLLSRC: PLL entry clock source */
-#define RCC_CFGR_PLLSRC_HSI16_CLK	0x0
-#define RCC_CFGR_PLLSRC_HSE_CLK		0x1
+#define RCC_CFGR_PLLSRC             (1<<16)
+#define RCC_CFGR_PLLSRC_HSI16_CLK	(0<<16)
+#define RCC_CFGR_PLLSRC_HSE_CLK		(1<<16)
 
 /* Wakeup from stop clock selection */
 #define RCC_CFGR_STOPWUCK_MSI		(0<<15)
@@ -312,7 +313,8 @@
 @{*/
 #define RCC_AHBENR_CRYPEN			(1 << 24)
 #define RCC_AHBENR_RNGEN			(1 << 20)
-#define RCC_AHBENR_TOUCHEN			(1 << 16)
+#define RCC_AHBENR_TOUCHEN			(1 << 16) /* Compatibility */
+#define RCC_AHBENR_TSCEN			(1 << 16)
 #define RCC_AHBENR_CRCEN			(1 << 12)
 #define RCC_AHBENR_MIFEN			(1 << 8)
 #define RCC_AHBENR_DMAEN			(1 << 0)
@@ -370,7 +372,8 @@
 
 #define RCC_AHBSMENR_CRYPSMEN			(1 << 24)
 #define RCC_AHBSMENR_RNGSMEN			(1 << 20)
-#define RCC_AHBSMENR_TOUCHSMEN			(1 << 16)
+#define RCC_AHBSMENR_TOUCHSMEN			(1 << 16) /* Compatibility */
+#define RCC_AHBSMENR_TSCSMEN			(1 << 16)
 #define RCC_AHBSMENR_CRCSMEN			(1 << 12)
 #define RCC_AHBSMENR_MIFSMEN			(1 << 8)
 #define RCC_AHBSMENR_DMASMEN			(1 << 0)
@@ -483,6 +486,26 @@ extern uint32_t rcc_apb2_frequency;
 
 /* --- Function prototypes ------------------------------------------------- */
 
+enum rcc_clock_3v3 {
+	RCC_CLOCK_3V3_32MHZ,
+	RCC_CLOCK_3V3_END
+};
+
+struct rcc_clock_scale {
+	uint8_t pllm;
+	uint8_t plld;
+	uint32_t flash_config;
+	uint8_t hpre;
+	uint8_t ppre1;
+	uint8_t ppre2;
+	uint32_t ahb_frequency;
+	uint32_t apb1_frequency;
+	uint32_t apb2_frequency;
+};
+
+extern const struct rcc_clock_scale rcc_hsi16_3v3[RCC_CLOCK_3V3_END];
+extern const struct rcc_clock_scale rcc_hse_16mhz_3v3[RCC_CLOCK_3V3_END];
+
 enum rcc_osc {
 	RCC_PLL, RCC_HSE, RCC_HSI48, RCC_HSI16, RCC_MSI, RCC_LSE, RCC_LSI
 };
@@ -496,13 +519,15 @@ enum rcc_periph_clken {
 	RCC_GPIOB = _REG_BIT(0x2c, 1),
 	RCC_GPIOC = _REG_BIT(0x2c, 2),
 	RCC_GPIOD = _REG_BIT(0x2c, 3),
+	RCC_GPIOE = _REG_BIT(0x2c, 4),
 	RCC_GPIOH = _REG_BIT(0x2c, 7),
 
 	/* AHB peripherals */
 	RCC_DMA = _REG_BIT(0x30, 0),
 	RCC_MIF = _REG_BIT(0x30, 8),
 	RCC_CRC = _REG_BIT(0x30, 12),
-	RCC_TOUCH = _REG_BIT(0x30, 16),
+	RCC_TOUCH = _REG_BIT(0x30, 16), /* Compatibility */
+	RCC_TSC = _REG_BIT(0x30, 16),
 	RCC_RNG = _REG_BIT(0x30, 20),
 	RCC_CRYPT = _REG_BIT(0x30, 24),
 
@@ -510,7 +535,8 @@ enum rcc_periph_clken {
 	RCC_SYSCFG = _REG_BIT(0x34, 0),
 	RCC_TIM21 = _REG_BIT(0x34, 2),
 	RCC_TIM22 = _REG_BIT(0x34, 5),
-	RCC_MIFI = _REG_BIT(0x34, 7),
+	RCC_MIFI = _REG_BIT(0x34, 7), /* Compatibility */
+	RCC_FW = _REG_BIT(0x34, 7),
 	RCC_ADC1 = _REG_BIT(0x34, 9),
 	RCC_SPI1 = _REG_BIT(0x34, 12),
 	RCC_USART1 = _REG_BIT(0x34, 14),
@@ -526,12 +552,15 @@ enum rcc_periph_clken {
 	RCC_SPI2 = _REG_BIT(0x38, 14),
 	RCC_USART2 = _REG_BIT(0x38, 17),
 	RCC_LPUART1 = _REG_BIT(0x38, 18),
+	RCC_USART4 = _REG_BIT(0x38, 19),
+	RCC_USART5 = _REG_BIT(0x38, 20),
 	RCC_I2C1 = _REG_BIT(0x38, 21),
 	RCC_I2C2 = _REG_BIT(0x38, 22),
 	RCC_USB = _REG_BIT(0x38, 23),
 	RCC_CRS = _REG_BIT(0x38, 27),
 	RCC_PWR = _REG_BIT(0x38, 28),
 	RCC_DAC = _REG_BIT(0x38, 29),
+	RCC_I2C3 = _REG_BIT(0x38, 30),
 	RCC_LPTIM1 = _REG_BIT(0x38, 31),
 
 	/* GPIO peripherals in sleep mode */
@@ -539,6 +568,7 @@ enum rcc_periph_clken {
 	SCC_GPIOB = _REG_BIT(0x3c, 1),
 	SCC_GPIOC = _REG_BIT(0x3c, 2),
 	SCC_GPIOD = _REG_BIT(0x3c, 3),
+	SCC_GPIOE = _REG_BIT(0x3c, 4),
 	SCC_GPIOH = _REG_BIT(0x3c, 7),
 
 	/* AHB peripherals in sleep mode */
@@ -546,7 +576,8 @@ enum rcc_periph_clken {
 	SCC_MIF = _REG_BIT(0x40, 8),
 	SCC_SRAM = _REG_BIT(0x40, 12),
 	SCC_CRC = _REG_BIT(0x40, 12),
-	SCC_TOUCH = _REG_BIT(0x40, 16),
+	SCC_TOUCH = _REG_BIT(0x40, 16), /* Compatibility */
+	SCC_TSC = _REG_BIT(0x40, 16),
 	SCC_RNG = _REG_BIT(0x40, 20),
 	SCC_CRYPT = _REG_BIT(0x40, 24),
 
@@ -569,12 +600,15 @@ enum rcc_periph_clken {
 	SCC_SPI2 = _REG_BIT(0x48, 14),
 	SCC_USART2 = _REG_BIT(0x48, 17),
 	SCC_LPUART1 = _REG_BIT(0x48, 18),
+	SCC_USART4 = _REG_BIT(0x48, 19),
+	SCC_USART5 = _REG_BIT(0x48, 20),
 	SCC_I2C1 = _REG_BIT(0x48, 21),
 	SCC_I2C2 = _REG_BIT(0x48, 22),
 	SCC_USB = _REG_BIT(0x48, 23),
 	SCC_CRS = _REG_BIT(0x48, 27),
 	SCC_PWR = _REG_BIT(0x48, 28),
 	SCC_DAC = _REG_BIT(0x48, 29),
+	SCC_I2C3 = _REG_BIT(0x48, 30),
 	SCC_LPTIM1 = _REG_BIT(0x48, 31),
 };
 
@@ -584,6 +618,7 @@ enum rcc_periph_rst {
 	RST_GPIOB = _REG_BIT(0x1c, 1),
 	RST_GPIOC = _REG_BIT(0x1c, 2),
 	RST_GPIOD = _REG_BIT(0x1c, 3),
+	RST_GPIOE = _REG_BIT(0x1c, 4),
 	RST_GPIOH = _REG_BIT(0x1c, 7),
 
 	/* AHB peripherals  */
@@ -613,14 +648,18 @@ enum rcc_periph_rst {
 	RST_SPI2 = _REG_BIT(0x28, 14),
 	RST_USART2 = _REG_BIT(0x28, 17),
 	RST_LPUART1 = _REG_BIT(0x28, 18),
+	RST_USART4 = _REG_BIT(0x28, 19),
+	RST_USART5 = _REG_BIT(0x28, 20),
 	RST_I2C1 = _REG_BIT(0x28, 21),
 	RST_I2C2 = _REG_BIT(0x28, 22),
 	RST_USB = _REG_BIT(0x28, 23),
 	RST_CRS = _REG_BIT(0x28, 27),
 	RST_PWR = _REG_BIT(0x28, 28),
 	RST_DAC = _REG_BIT(0x28, 29),
+	RST_I2C3 = _REG_BIT(0x28, 30),
 	RST_LPTIM1 = _REG_BIT(0x28, 31),
 };
+
 #include <libopencm3/stm32/common/rcc_common_all.h>
 
 BEGIN_DECLS
@@ -635,13 +674,26 @@ void rcc_osc_ready_int_disable(enum rcc_osc osc);
 int rcc_osc_ready_int_flag(enum rcc_osc osc);
 void rcc_set_hsi48_source_rc48(void);
 void rcc_set_hsi48_source_pll(void);
+void rcc_set_pll_source_hsi16(void);
+void rcc_set_pll_source_hse(void);
+enum rcc_osc rcc_hsi48_clock_source(void);
+void rcc_css_hse_enable(void);
+void rcc_css_lse_enable(void);
+void rcc_css_hse_disable(void);
+void rcc_css_lse_disable(void);
+void rcc_css_hse_int_clear(void);
+void rcc_css_lse_int_clear(void);
+int rcc_css_hse_int_flag(void);
+int rcc_css_lse_int_flag(void);
 void rcc_set_sysclk_source(enum rcc_osc osc);
+enum rcc_osc rcc_system_clock_source(void);
 void rcc_set_pll_multiplier(uint32_t factor);
 void rcc_set_pll_divider(uint32_t factor);
 void rcc_set_ppre2(uint32_t ppre2);
 void rcc_set_ppre1(uint32_t ppre1);
 void rcc_set_hpre(uint32_t hpre);
-/* TODO */
+void rcc_clock_setup_hsi16_3v3(const struct rcc_clock_scale *clock);
+void rcc_clock_setup_hse_3v3(const struct rcc_clock_scale *clock);
 
 END_DECLS
 

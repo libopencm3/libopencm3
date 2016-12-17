@@ -1,8 +1,8 @@
-/** @defgroup usart_defines USART Defines
+/** @defgroup i2c_file I2C
  *
- * @brief <b>Defined Constants and Types for the STM32F0xx USART</b>
+ * @ingroup STM32L0xx
  *
- * @ingroup STM32F0xx_defines
+ * @brief <b>libopencm3 STM32L0xx I2C</b>
  *
  * @version 1.0.0
  *
@@ -28,10 +28,5 @@
  * along with this library.  If not, see <http://www.gnu.org/licenses/>.
  */
 
-#ifndef LIBOPENCM3_USART_H
-#define LIBOPENCM3_USART_H
-
-#include <libopencm3/stm32/common/usart_common_l0f0.h>
-
-#endif
+#include <libopencm3/stm32/i2c.h>
 

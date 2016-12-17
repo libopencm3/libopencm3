@@ -1,8 +1,8 @@
-/** @defgroup usart_defines USART Defines
+/** @defgroup usart_file USART
  *
- * @brief <b>Defined Constants and Types for the STM32F0xx USART</b>
+ * @ingroup STM32L0xx
  *
- * @ingroup STM32F0xx_defines
+ * @brief <b>libopencm3 STM32L0xx USART</b>
  *
  * @version 1.0.0
  *
@@ -28,10 +28,26 @@
  * along with this library.  If not, see <http://www.gnu.org/licenses/>.
  */
 
-#ifndef LIBOPENCM3_USART_H
-#define LIBOPENCM3_USART_H
+#include <libopencm3/stm32/usart.h>
+#include <libopencm3/stm32/rcc.h>
 
-#include <libopencm3/stm32/common/usart_common_l0f0.h>
+/*---------------------------------------------------------------------------*/
+/** @brief USART Set Baudrate.
+ *
+ * @param[in] usart unsigned 32 bit. USART block register address base @ref
+ * usart_reg_base
+ * @param[in] baud unsigned 32 bit. Baud rate specified in Hz.
+ */
 
-#endif
+void usart_set_baudrate(uint32_t usart, uint32_t baud)
+{
+	uint32_t clock = rcc_apb2_frequency;
 
+	if (usart == USART1) {
+		clock = rcc_apb1_frequency;
+		/* TODO selective PCLK, SYSCLK, HSI or LSE */
+	}
+
+	/* TODO check oversampling 16 */
+	USART_BRR(usart) = ((2 * clock) + baud) / (2 * baud);
+}

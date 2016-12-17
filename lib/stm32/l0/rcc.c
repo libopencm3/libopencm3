@@ -36,6 +36,40 @@
 
 #include <libopencm3/cm3/assert.h>
 #include <libopencm3/stm32/rcc.h>
+#include <libopencm3/stm32/flash.h>
+
+/* Set the default clock frequencies: MSI@2.1MHz */
+uint32_t rcc_ahb_frequency = 2097000;
+uint32_t rcc_apb1_frequency = 2097000;
+uint32_t rcc_apb2_frequency = 2097000;
+
+const struct rcc_clock_scale rcc_hsi16_3v3[RCC_CLOCK_3V3_END] = {
+	{ /* 32MHz */
+		.pllm = RCC_CFGR_PLLMUL_MUL4,
+		.plld = RCC_CFGR_PLLDIV_DIV2,
+		.flash_config = FLASH_ACR_LATENCY_1WS,
+		.hpre = RCC_CFGR_HPRE_NODIV,
+		.ppre1 = RCC_CFGR_PPRE1_NODIV,
+		.ppre2 = RCC_CFGR_PPRE2_NODIV,
+		.ahb_frequency  = 32000000,
+		.apb1_frequency = 32000000,
+		.apb2_frequency = 32000000,
+	},
+};
+
+const struct rcc_clock_scale rcc_hse_16mhz_3v3[RCC_CLOCK_3V3_END] = {
+	{ /* 32MHz */
+		.pllm = RCC_CFGR_PLLMUL_MUL4,
+		.plld = RCC_CFGR_PLLDIV_DIV2,
+		.flash_config = FLASH_ACR_LATENCY_1WS,
+		.hpre = RCC_CFGR_HPRE_NODIV,
+		.ppre1 = RCC_CFGR_PPRE1_NODIV,
+		.ppre2 = RCC_CFGR_PPRE2_NODIV,
+		.ahb_frequency  = 32000000,
+		.apb1_frequency = 32000000,
+		.apb2_frequency = 32000000,
+	},
+};
 
 void rcc_osc_on(enum rcc_osc osc)
 {
@@ -301,6 +335,109 @@ void rcc_set_hsi48_source_pll(void)
 }
 
 /*---------------------------------------------------------------------------*/
+/** @brief RCC Set the PLL source to the HSI16
+ */
+void rcc_set_pll_source_hsi16(void)
+{
+	RCC_CFGR &= ~RCC_CFGR_PLLSRC;
+}
+
+/*---------------------------------------------------------------------------*/
+/** @brief RCC Set the PLL source to the HSE
+ */
+void rcc_set_pll_source_hse(void)
+{
+	RCC_CFGR |= RCC_CFGR_PLLSRC;
+}
+
+/*---------------------------------------------------------------------------*/
+/** @brief RCC Get the HSI48 clock source.
+ *
+ * @returns ::osc_t HSI48 clock source:
+ */
+
+enum rcc_osc rcc_hsi48_clock_source(void)
+{
+	return (RCC_CCIPR & RCC_CCIPR_HSI48SEL) ? RCC_HSI48 : RCC_PLL;
+}
+
+/*---------------------------------------------------------------------------*/
+/** @brief RCC Enable the Clock Security System on HSE.
+ */
+
+void rcc_css_hse_enable(void)
+{
+	RCC_CR |= RCC_CR_CSSHSEON;
+}
+
+/*---------------------------------------------------------------------------*/
+/** @brief RCC Enable the Clock Security System on LSE.
+ */
+
+void rcc_css_lse_enable(void)
+{
+	RCC_CSR |= RCC_CSR_CSSLSEON;
+}
+
+/*---------------------------------------------------------------------------*/
+/** @brief RCC Disable the Clock Security System on HSE.
+ */
+
+void rcc_css_hse_disable(void)
+{
+	RCC_CR &= ~RCC_CR_CSSHSEON;
+}
+
+/*---------------------------------------------------------------------------*/
+/** @brief RCC Disable the Clock Security System on LSE.
+ */
+
+void rcc_css_lse_disable(void)
+{
+	RCC_CSR &= ~RCC_CSR_CSSLSEON;
+}
+
+/*---------------------------------------------------------------------------*/
+/** @brief RCC Clear the Clock Security System on HSE Interrupt Flag
+*/
+
+void rcc_css_hse_int_clear(void)
+{
+	RCC_CICR |= RCC_CICR_CSSHSEC;
+}
+
+/*---------------------------------------------------------------------------*/
+/** @brief RCC Clear the Clock Security System on LSE Interrupt Flag
+*/
+
+void rcc_css_lse_int_clear(void)
+{
+	RCC_CICR |= RCC_CICR_CSSLSEC;
+}
+
+/*---------------------------------------------------------------------------*/
+/** @brief RCC Read the Clock Security System on HSE Interrupt Flag
+ *
+ * @returns int. Boolean value for flag set.
+ */
+
+int rcc_css_hse_int_flag(void)
+{
+	return ((RCC_CIFR & RCC_CIFR_CSSHSEF) != 0);
+}
+
+/*---------------------------------------------------------------------------*/
+/** @brief RCC Read the Clock Security System on LSE Interrupt Flag
+ *
+ * @returns int. Boolean value for flag set.
+ */
+
+int rcc_css_lse_int_flag(void)
+{
+	return ((RCC_CIFR & RCC_CIFR_CSSLSEF) != 0);
+}
+
+/*---------------------------------------------------------------------------*/
 /** @brief RCC Set the Source for the System Clock.
  *
  * @param[in] osc enum ::osc_t. Oscillator ID. Only HSE, HSI16, MSI and PLL have
@@ -330,6 +467,29 @@ void rcc_set_sysclk_source(enum rcc_osc osc)
 }
 
 /*---------------------------------------------------------------------------*/
+/** @brief RCC Get the System Clock Source.
+ *
+ * @returns ::osc_t System clock source:
+ */
+
+enum rcc_osc rcc_system_clock_source(void)
+{
+	/* Return the clock source which is used as system clock. */
+	switch ((RCC_CFGR >> RCC_CFGR_SWS_SHIFT) & RCC_CFGR_SWS_MASK ) {
+	case RCC_CFGR_SWS_MSI:
+		return RCC_MSI;
+	case RCC_CFGR_SWS_HSE:
+		return RCC_HSE;
+	case RCC_CFGR_SWS_PLL:
+		return RCC_PLL;
+	case RCC_CFGR_SWS_HSI16:
+		return RCC_HSI16;
+	}
+
+	cm3_assert_not_reached();
+}
+
+/*---------------------------------------------------------------------------*/
 /** @brief RCC Set the PLL Multiplication Factor.
  *
  * @note This only has effect when the PLL is disabled.
@@ -343,7 +503,6 @@ void rcc_set_pll_multiplier(uint32_t factor)
 		       & ~(RCC_CFGR_PLLMUL_MASK << RCC_CFGR_PLLMUL_SHIFT);
 	RCC_CFGR = reg | (factor << RCC_CFGR_PLLMUL_SHIFT);
 }
-
 
 /*---------------------------------------------------------------------------*/
 /** @brief RCC Set the PLL Division Factor.
@@ -402,5 +561,101 @@ void rcc_set_hpre(uint32_t hpre)
 	RCC_CFGR = reg | (hpre << RCC_CFGR_HPRE_SHIFT);
 }
 
+/*---------------------------------------------------------------------------*/
+/** @brief Setup clock: PLL, clocked from HSI16.
+ *
+ * @param[in] clock struct ::rcc_clock_scale Setup parameters structure.
+ */
+
+void rcc_clock_setup_hsi16_3v3(const struct rcc_clock_scale *clock)
+{
+	/* Enable internal high-speed oscillator. */
+	rcc_osc_on(RCC_HSI16);
+	rcc_wait_for_osc_ready(RCC_HSI16);
+
+	/* Select HSI as SYSCLK source. */
+	rcc_set_sysclk_source(RCC_HSI16);
+
+	/* Set the peripheral clocks' prescale. */
+	rcc_set_hpre(clock->hpre);
+	rcc_set_ppre1(clock->ppre1);
+	rcc_set_ppre2(clock->ppre2);
+
+	/* Turn off PLL and wait for it to fully stop */
+	rcc_osc_off(RCC_PLL);
+	while (RCC_CR & RCC_CR_PLLRDY);
+
+	/* Set the flash latency */
+	flash_set_ws(clock->flash_config);
+
+	/* Set the PLL source to HSI16 */
+	rcc_set_pll_source_hsi16();
+
+	/* Set up the PLL */
+	rcc_set_pll_multiplier(clock->pllm);
+	rcc_set_pll_divider(clock->plld);
+
+	/* Turn on PLL and switch to it */
+	rcc_osc_on(RCC_PLL);
+	rcc_wait_for_osc_ready(RCC_PLL);
+	rcc_set_sysclk_source(RCC_PLL);
+
+	/* Set the peripheral clock frequencies used. */
+	rcc_ahb_frequency  = clock->ahb_frequency;
+	rcc_apb1_frequency = clock->apb1_frequency;
+	rcc_apb2_frequency = clock->apb2_frequency;
+}
+
+/*---------------------------------------------------------------------------*/
+/** @brief Setup clock: PLL, clocked from HSE.
+ *
+ * @param[in] clock struct ::rcc_clock_scale Setup parameters structure.
+ */
+
+void rcc_clock_setup_hse_3v3(const struct rcc_clock_scale *clock)
+{
+	/* Enable internal high-speed oscillator. */
+	rcc_osc_on(RCC_HSI16);
+	rcc_wait_for_osc_ready(RCC_HSI16);
+
+	/* Select HSI as SYSCLK source. */
+	rcc_set_sysclk_source(RCC_HSI16);
+
+	/* Set the peripheral clocks' prescale. */
+	rcc_set_hpre(clock->hpre);
+	rcc_set_ppre1(clock->ppre1);
+	rcc_set_ppre2(clock->ppre2);
+
+	/* Enable external high-speed oscillator ??MHz. */
+	rcc_osc_on(RCC_HSE);
+	rcc_wait_for_osc_ready(RCC_HSE);
+
+	/* Turn off PLL and wait for it to fully stop */
+	rcc_osc_off(RCC_PLL);
+	while (RCC_CR & RCC_CR_PLLRDY);
+
+	/* Set the flash latency */
+	flash_set_ws(clock->flash_config);
+
+	/* Set the PLL source to HSE */
+	rcc_set_pll_source_hse();
+
+	/* Set up the PLL */
+	rcc_set_pll_multiplier(clock->pllm);
+	rcc_set_pll_divider(clock->plld);
+
+	/* Turn on PLL and switch to it */
+	rcc_osc_on(RCC_PLL);
+	rcc_wait_for_osc_ready(RCC_PLL);
+	rcc_set_sysclk_source(RCC_PLL);
+
+	/* Set the peripheral clock frequencies used. */
+	rcc_ahb_frequency  = clock->ahb_frequency;
+	rcc_apb1_frequency = clock->apb1_frequency;
+	rcc_apb2_frequency = clock->apb2_frequency;
+
+	/* Disable the internal high-speed oscillator. */
+	rcc_osc_off(RCC_HSI16);
+}
 
 /**@}*/
