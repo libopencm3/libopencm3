@@ -39,7 +39,8 @@ _TIP_: Include this repository as a GIT submodule in your project. To make sure
 Prerequisites
 -------------
 
-Building requires python. (Some code is generated)
+Building requires python and GNU awk (`gawk`, e.g. `mawk` won't do), which
+help generate some code.
 
 **For Ubuntu/Fedora:**
 
