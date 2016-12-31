@@ -56,7 +56,7 @@ Your toolchain doesn't support -mcpu=cortex-m7.
 Please use gcc-arm-embedded 4.8 2014q3 or newer. Skipping this sub-library.
 endef
 
-ifneq ($(shell $(CC) -fsyntax-only -mcpu=cortex-m7 -mthumb -xc /dev/null 2>&1; echo $$?),0)
+#ifneq ($(shell $(CC) -fsyntax-only -mcpu=cortex-m7 -mthumb -xc /dev/null 2>&1; echo $$?),0)
   $(warning $(MISSING_CPU))
 
 all clean:
@@ -65,6 +65,6 @@ all clean:
 $(SRCLIBDIR)/$(LIBNAME).a:
 	@true
 
-else
-  include ../../Makefile.include
-endif
+#else
+#  include ../../Makefile.include
+#endif
