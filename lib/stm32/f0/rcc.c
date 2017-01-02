@@ -439,6 +439,50 @@ void rcc_set_usbclk_source(enum rcc_osc clk)
 }
 
 /*---------------------------------------------------------------------------*/
+/** @brief RCC Enable the RTC clock
+
+*/
+
+void rcc_enable_rtc_clock(void)
+{
+	RCC_BDCR |= RCC_BDCR_RTCEN;
+}
+
+/*---------------------------------------------------------------------------*/
+/** @brief RCC Disable the RTC clock
+
+*/
+
+void rcc_disable_rtc_clock(void)
+{
+	RCC_BDCR &= ~RCC_BDCR_RTCEN;
+}
+
+/*---------------------------------------------------------------------------*/
+/** @brief RCC Set the Source for the RTC clock
+
+@param[in] clock_source ::rcc_osc. RTC clock source. Only HSE/32, LSE and LSI.
+*/
+
+void rcc_set_rtc_clock_source(enum rcc_osc clk)
+{
+	switch (clk) {
+	case RCC_HSE:
+		RCC_BDCR = (RCC_BDCR & ~RCC_BDCR_RTCSEL) | RCC_BDCR_RTCSEL_HSE;
+		break;
+	case RCC_LSE:
+		RCC_BDCR = (RCC_BDCR & ~RCC_BDCR_RTCSEL) | RCC_BDCR_RTCSEL_LSE;
+		break;
+	case RCC_LSI:
+		RCC_BDCR = (RCC_BDCR & ~RCC_BDCR_RTCSEL) | RCC_BDCR_RTCSEL_LSI;
+		break;
+	default:
+		/* do nothing */
+		break;
+	}
+}
+
+/*---------------------------------------------------------------------------*/
 /** @brief RCC Set the PLL Multiplication Factor.
  *
  * @note This only has effect when the PLL is disabled.
