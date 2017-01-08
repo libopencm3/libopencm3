@@ -398,32 +398,5 @@ bool usart_get_flag(uint32_t usart, uint32_t flag)
 	return ((USART_ISR(usart) & flag) != 0);
 }
 
-/*---------------------------------------------------------------------------*/
-/** @brief USART Return Interrupt Source.
- *
- * Returns true if the specified interrupt flag (IDLE, RXNE, TC, TXE or OE) was
- * set and the interrupt was enabled. If the specified flag is not an interrupt
- * flag, the function returns false.
- *
- * @param[in] usart unsigned 32 bit. USART block register address base @ref
- * usart_reg_base
- * @param[in] flag Unsigned int32. Status register flag  @ref usart_sr_flags.
- * @returns boolean: flag and interrupt enable both set.
- */
-
-bool usart_get_interrupt_source(uint32_t usart, uint32_t flag)
-{
-	uint32_t flag_set = (USART_ISR(usart) & flag);
-	/* IDLE, RXNE, TC, TXE interrupts */
-	if ((flag >= USART_ISR_IDLE) && (flag <= USART_ISR_TXE)) {
-		return ((flag_set & USART_CR1(usart)) != 0);
-	/* Overrun error */
-	} else if (flag == USART_ISR_ORE) {
-		return flag_set && (USART_CR3(usart) & USART_CR3_CTSIE);
-	}
-
-	return false;
-}
-
 /**@}*/
 
