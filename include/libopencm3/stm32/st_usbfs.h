@@ -1,4 +1,4 @@
-/* This provides unification of USB code for supported STM32F subfamilies */
+/* This provides unification of USB code for supported STM32 subfamilies */
 
 /*
  * This file is part of the libopencm3 project.
