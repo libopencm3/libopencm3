@@ -1,15 +1,10 @@
-/* This file is used for documentation purposes. It does not need
-to be compiled. All source code is in the common area.
-If there is any device specific code required it can be included here,
-in which case this file must be added to the compile list. */
-
-/** @defgroup rng_file RNG
-
-@ingroup STM32F4xx
-
-@brief <b>libopencm3 STM32F4xx RNG</b>
-
-*/
+/** @addtogroup rng_file
+ *
+ * This library supports the random number generator peripheral (RNG) in the
+ * STM32F4 series of ARM Cortex Microcontrollers by ST Microelectronics.
+ *
+ * LGPL License Terms @ref lgpl_license
+ */
 
 /*
  * This file is part of the libopencm3 project.
@@ -29,3 +24,21 @@ in which case this file must be added to the compile list. */
  */
 
 #include <libopencm3/stm32/rng.h>
+
+/**@{*/
+
+/** Disable the Random Number Generator peripheral.
+*/
+void rng_disable(void)
+{
+    RNG_CR &= ~RNG_CR_RNGEN;
+}
+
+/** Enable the Random Number Generator peripheral.
+*/
+void rng_enable(void)
+{
+    RNG_CR |= RNG_CR_RNGEN;
+}
+
+/**@}*/

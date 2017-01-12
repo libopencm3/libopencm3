@@ -20,7 +20,9 @@
 #include <libopencm3/cm3/common.h>
 #include <libopencm3/stm32/memorymap.h>
 
-#if defined(STM32F4)
+#if defined(STM32F2)
+#       include <libopencm3/stm32/f2/rng.h>
+#elif defined(STM32F4)
 #       include <libopencm3/stm32/f4/rng.h>
 #else
 #       error "stm32 family not defined."

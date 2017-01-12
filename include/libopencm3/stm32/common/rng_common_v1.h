@@ -25,8 +25,8 @@ specific memorymap.h header before including this header file.*/
 /** @cond */
 #ifdef LIBOPENCM3_RNG_H
 /** @endcond */
-#ifndef LIBOPENCM3_RNG_COMMON_F24_H
-#define LIBOPENCM3_RNG_COMMON_F24_H
+#ifndef LIBOPENCM3_RNG_V1_H
+#define LIBOPENCM3_RNG_V1_H
 
 /**@{*/
 
@@ -80,7 +80,7 @@ END_DECLS
 #endif
 /** @cond */
 #else
-#warning "rng_common_f24.h should not be included explicitly, only via rng.h"
+#warning "rng_common_v1.h should not be included explicitly, only via rng.h"
 #endif
 /** @endcond */
 
