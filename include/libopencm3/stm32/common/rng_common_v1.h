@@ -28,6 +28,9 @@ specific memorymap.h header before including this header file.*/
 #ifndef LIBOPENCM3_RNG_V1_H
 #define LIBOPENCM3_RNG_V1_H
 
+#include <stdbool.h>
+#include <stdint.h>
+
 /**@{*/
 
 /* --- Random number generator registers ----------------------------------- */
@@ -72,6 +75,8 @@ BEGIN_DECLS
 
 void rng_enable(void);
 void rng_disable(void);
+bool rng_get_random(uint32_t *rand_nr);
+uint32_t rng_get_random_blocking(void);
 
 END_DECLS
 
