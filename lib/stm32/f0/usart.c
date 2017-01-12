@@ -158,7 +158,7 @@ void usart_disable(uint32_t usart)
  * @param data
  */
 
-void usart_send(uint32_t usart, uint8_t data)
+void usart_send(uint32_t usart, uint16_t data)
 {
 	USART_TDR(usart) = data;
 }
@@ -173,7 +173,7 @@ void usart_send(uint32_t usart, uint8_t data)
  * @returns data word.
  */
 
-uint8_t usart_recv(uint32_t usart)
+uint16_t usart_recv(uint32_t usart)
 {
 	/* Receive data. */
 	return USART_RDR(usart);
@@ -218,7 +218,7 @@ void usart_wait_recv_ready(uint32_t usart)
  * @param data word to send
  */
 
-void usart_send_blocking(uint32_t usart, uint8_t data)
+void usart_send_blocking(uint32_t usart, uint16_t data)
 {
 	usart_wait_send_ready(usart);
 	usart_send(usart, data);
@@ -233,7 +233,7 @@ void usart_send_blocking(uint32_t usart, uint8_t data)
  * @returns data word.
  */
 
-uint8_t usart_recv_blocking(uint32_t usart)
+uint16_t usart_recv_blocking(uint32_t usart)
 {
 	usart_wait_recv_ready(usart);
 
