@@ -45,3 +45,4 @@ void pwr_set_vos_scale(enum pwr_vos_scale scale)
 }
 
 /**@}*/
+

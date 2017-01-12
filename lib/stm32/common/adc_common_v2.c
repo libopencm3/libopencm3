@@ -82,7 +82,7 @@ void adc_power_on_async(uint32_t adc)
  */
 bool adc_is_power_on(uint32_t adc)
 {
-	return (ADC_ISR(adc) & ADC_ISR_ADRDY);
+	return ADC_ISR(adc) & ADC_ISR_ADRDY;
 }
 
 /**
@@ -112,7 +112,7 @@ void adc_power_off_async(uint32_t adc)
 
 	uint32_t checks = ADC_CR_ADSTART;
 	uint32_t stops = ADC_CR_ADSTP;
-#if defined (ADC_CR_JADSTART)
+#if defined(ADC_CR_JADSTART)
 	checks |= ADC_CR_JADSTART;
 	stops |= ADC_CR_JADSTP;
 #endif
@@ -130,7 +130,7 @@ void adc_power_off_async(uint32_t adc)
  */
 bool adc_is_power_off(uint32_t adc)
 {
-	return (!(ADC_CR(adc) & ADC_CR_ADEN));
+	return !(ADC_CR(adc) & ADC_CR_ADEN);
 }
 
 /**
@@ -164,7 +164,7 @@ void adc_calibrate_async(uint32_t adc)
  */
 bool adc_is_calibrating(uint32_t adc)
 {
-	return (ADC_CR(adc) & ADC_CR_ADCAL);
+	return ADC_CR(adc) & ADC_CR_ADCAL;
 }
 
 /**

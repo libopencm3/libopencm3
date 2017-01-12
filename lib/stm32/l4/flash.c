@@ -246,7 +246,7 @@ void flash_lock_option_bytes(void)
  * This performs all operations necessary to program a 32 bit word to FLASH
  * memory. The program error flag should be checked separately for the event
  * that memory was not properly erased.
- * 
+ *
  * @param[in] address Starting address in Flash.
  * @param[in] data word to write
  */
@@ -341,3 +341,4 @@ void flash_program_option_bytes(uint32_t data)
 	flash_wait_for_last_operation();
 }
 /**@}*/
+

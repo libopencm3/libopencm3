@@ -23,8 +23,8 @@
 
 /* --- Convenience macros ------------------------------------------------ */
 
-#define PORTA				PORT_BASE + 0
-#define PORTB				PORT_BASE + 0x80
+#define PORTA				(PORT_BASE + 0)
+#define PORTB				(PORT_BASE + 0x80)
 
 /* --- PORT registers ----------------------------------------------------- */
 
