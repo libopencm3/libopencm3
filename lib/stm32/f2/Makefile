@@ -44,6 +44,7 @@ OBJS            += crc_common_all.o dac_common_all.o dma_common_f24.o \
 		   timer_common_f24.o usart_common_all.o usart_common_f124.o \
 		   flash_common_f234.o flash_common_f24.o hash_common_f24.o \
 		   crypto_common_f24.o exti_common_all.o rcc_common_all.o
+OBJS		+= rng_common_v1.o
 
 OBJS            += usb.o usb_standard.o usb_control.o usb_fx07_common.o \
                    usb_f107.o usb_f207.o usb_msc.o
