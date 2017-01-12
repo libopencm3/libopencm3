@@ -82,27 +82,27 @@
 /* Bits [3:0] - Reserved */
 
 enum usart_stopbits {
-    USART_STOPBITS_1,
-    USART_STOPBITS_1_5,
-    USART_STOPBITS_2,
+	USART_STOPBITS_1,
+	USART_STOPBITS_1_5,
+	USART_STOPBITS_2,
 };
 
 enum usart_parity {
-    USART_PARITY_NONE,
-    USART_PARITY_ODD,
-    USART_PARITY_EVEN,
+	USART_PARITY_NONE,
+	USART_PARITY_ODD,
+	USART_PARITY_EVEN,
 };
 
 enum usart_mode {
-    USART_MODE_DISABLED,
-    USART_MODE_RX,
-    USART_MODE_TX,
-    USART_MODE_TX_RX,
+	USART_MODE_DISABLED,
+	USART_MODE_RX,
+	USART_MODE_TX,
+	USART_MODE_TX_RX,
 };
 
 enum usart_flowcontrol {
-    USART_FLOWCONTROL_NONE,
-    USART_FLOWCONTROL_RTS_CTS,
+	USART_FLOWCONTROL_NONE,
+	USART_FLOWCONTROL_RTS_CTS,
 };
 
 void usart_send(uint32_t usart, uint16_t data);

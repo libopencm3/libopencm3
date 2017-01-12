@@ -56,3 +56,4 @@ void adc_disable_regulator(uint32_t adc)
 }
 
 /**@}*/
+

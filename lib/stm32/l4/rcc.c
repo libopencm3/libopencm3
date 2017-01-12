@@ -155,17 +155,17 @@ bool rcc_is_osc_ready(enum rcc_osc osc)
 {
 	switch (osc) {
 	case RCC_PLL:
-		return (RCC_CR & RCC_CR_PLLRDY);
+		return RCC_CR & RCC_CR_PLLRDY;
 	case RCC_HSE:
-		return (RCC_CR & RCC_CR_HSERDY);
+		return RCC_CR & RCC_CR_HSERDY;
 	case RCC_HSI16:
-		return (RCC_CR & RCC_CR_HSIRDY);
+		return RCC_CR & RCC_CR_HSIRDY;
 	case RCC_MSI:
-		return (RCC_CR & RCC_CR_MSIRDY);
+		return RCC_CR & RCC_CR_MSIRDY;
 	case RCC_LSE:
-		return (RCC_BDCR & RCC_BDCR_LSERDY);
+		return RCC_BDCR & RCC_BDCR_LSERDY;
 	case RCC_LSI:
-		return (RCC_CSR & RCC_CSR_LSIRDY);
+		return RCC_CSR & RCC_CSR_LSIRDY;
 	}
 	return false;
 }
@@ -353,7 +353,7 @@ void rcc_set_main_pll(uint32_t source, uint32_t pllm, uint32_t plln, uint32_t pl
 uint32_t rcc_system_clock_source(void)
 {
 	/* Return the clock source which is used as system clock. */
-	return ((RCC_CFGR >> RCC_CFGR_SWS_SHIFT) & RCC_CFGR_SWS_MASK);
+	return (RCC_CFGR >> RCC_CFGR_SWS_SHIFT) & RCC_CFGR_SWS_MASK;
 }
 
 /**
