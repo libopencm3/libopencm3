@@ -43,6 +43,7 @@ OBJS            += gpio_common_all.o gpio_common_f0234.o rcc_common_all.o
 OBJS		+= adc_common_v2.o
 OBJS		+= crs_common_all.o
 OBJS		+= exti_common_all.o
+OBJS		+= rng_common_v1.o
 
 OBJS            += usb.o usb_control.o usb_standard.o
 OBJS            += st_usbfs_core.o st_usbfs_v2.o

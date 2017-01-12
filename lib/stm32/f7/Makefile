@@ -42,6 +42,8 @@ ARFLAGS		= rcs
 
 OBJS		= gpio.o gpio_common_all.o gpio_common_f0234.o
 
+OBJS		+= rng_common_v1.o
+
 VPATH += ../../usb:../:../../cm3:../common
 VPATH += ../../ethernet
 
