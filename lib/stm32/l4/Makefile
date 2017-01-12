@@ -43,6 +43,7 @@ OBJS		= adc.o flash.o pwr.o rcc.o
 OBJS            += rcc_common_all.o
 OBJS            += gpio_common_all.o gpio_common_f0234.o
 OBJS            += adc_common_v2.o adc_common_v2_multi.o
+OBJS            += rng_common_v1.o
 OBJS            += timer_common_all.o
 
 VPATH += ../../usb:../:../../cm3:../common
