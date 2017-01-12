@@ -100,13 +100,13 @@
 #define USART3_ICR			USART_ICR(USART3_BASE)
 #define USART4_ICR			USART_ICR(USART4_BASE)
 
-#define USART_RDR(usart_base)		MMIO8((usart_base) + 0x24)
+#define USART_RDR(usart_base)		MMIO16((usart_base) + 0x24)
 #define USART1_RDR			USART_RDR(USART1_BASE)
 #define USART2_RDR			USART_RDR(USART2_BASE)
 #define USART3_RDR			USART_RDR(USART3_BASE)
 #define USART4_RDR			USART_RDR(USART4_BASE)
 
-#define USART_TDR(usart_base)		MMIO8((usart_base) + 0x28)
+#define USART_TDR(usart_base)		MMIO16((usart_base) + 0x28)
 #define USART1_TDR			USART_TDR(USART1_BASE)
 #define USART2_TDR			USART_TDR(USART2_BASE)
 #define USART3_TDR			USART_TDR(USART3_BASE)
@@ -309,12 +309,12 @@ void usart_set_mode(uint32_t usart, uint32_t mode);
 void usart_set_flow_control(uint32_t usart, uint32_t flowcontrol);
 void usart_enable(uint32_t usart);
 void usart_disable(uint32_t usart);
-void usart_send(uint32_t usart, uint8_t data);
-uint8_t usart_recv(uint32_t usart);
+void usart_send(uint32_t usart, uint16_t data);
+uint16_t usart_recv(uint32_t usart);
 void usart_wait_send_ready(uint32_t usart);
 void usart_wait_recv_ready(uint32_t usart);
-void usart_send_blocking(uint32_t usart, uint8_t data);
-uint8_t usart_recv_blocking(uint32_t usart);
+void usart_send_blocking(uint32_t usart, uint16_t data);
+uint16_t usart_recv_blocking(uint32_t usart);
 void usart_enable_rx_dma(uint32_t usart);
 void usart_disable_rx_dma(uint32_t usart);
 void usart_enable_tx_dma(uint32_t usart);
