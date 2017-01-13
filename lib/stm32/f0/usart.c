@@ -271,6 +271,16 @@ void usart_enable_rx_dma(uint32_t usart)
 	USART_CR3(usart) |= USART_CR3_DMAR;
 }
 
+// разрешение прерывание по освобождению шины
+void usart_enable_idle(uint32_t usart)
+{
+	USART_CR1(usart) |=USART_CR1_IDLEIE;
+}
+// запрещения прерывания по освобождению шины
+void usart_disable_idle(uint32_t usart)
+{
+	USART_CR1(usart)&=~USART_CR1_IDLEIE;
+}
 /*---------------------------------------------------------------------------*/
 /** @brief USART Receiver DMA Disable.
  *

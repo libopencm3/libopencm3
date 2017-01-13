@@ -327,6 +327,8 @@ void usart_enable_error_interrupt(uint32_t usart);
 void usart_disable_error_interrupt(uint32_t usart);
 bool usart_get_flag(uint32_t usart, uint32_t flag);
 bool usart_get_interrupt_source(uint32_t usart, uint32_t flag);
+void usart_enable_idle(uint32_t usart);
+void usart_disable_idle(uint32_t usart);
 
 END_DECLS
 
