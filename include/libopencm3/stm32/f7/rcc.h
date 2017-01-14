@@ -166,6 +166,7 @@
 
 /* SW: System clock switch */
 #define RCC_CFGR_SW_SHIFT			0
+#define RCC_CFGR_SW_MASK			0x3
 #define RCC_CFGR_SW_HSI				0x0
 #define RCC_CFGR_SW_HSE				0x1
 #define RCC_CFGR_SW_PLL				0x2
