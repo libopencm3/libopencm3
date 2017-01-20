@@ -38,7 +38,7 @@ specific memorymap.h header before including this header file.*/
 
 /*
  * This file extends the common STM32 version with definitions only
- * applicable to the STM32F2/4 series of devices.
+ * applicable to the STM32L0/L1 and STM32F2/4 series of devices.
  */
 
 /* Note, these values are also on the F0, but other parts are _not_ */
