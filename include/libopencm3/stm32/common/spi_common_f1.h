@@ -38,7 +38,7 @@ specific memorymap.h header before including this header file.*/
 
 /*
  * This file extends the common STM32 version with definitions only
- * applicable to the STM32L1/F1/2/4 series of devices.
+ * applicable to the STM32F1 series of devices.
  */
 
 /* DFF: Data frame format */
@@ -53,7 +53,16 @@ specific memorymap.h header before including this header file.*/
 
 /**@}*/
 
-#define SPI_CR1_DFF         (1 << 11)
+#define SPI_CR1_DFF             (1 << 11)
+
+/* --- Function prototypes ------------------------------------------------- */
+
+BEGIN_DECLS
+
+void spi_set_dff_8bit(uint32_t spi);
+void spi_set_dff_16bit(uint32_t spi);
+
+END_DECLS
 
 #endif
 /** @cond */

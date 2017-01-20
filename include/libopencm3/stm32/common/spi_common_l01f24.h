@@ -57,6 +57,14 @@ specific memorymap.h header before including this header file.*/
 #define SPI_SR_TIFRFE			(1 << 8) //F2
 #define SPI_SR_FRE				(1 << 8) //others
 
+/* --- Function prototypes ------------------------------------------------- */
+
+BEGIN_DECLS
+
+void spi_set_frf_ti(uint32_t spi);
+void spi_set_frf_motorola(uint32_t spi);
+
+END_DECLS
 
 #endif
 /** @cond */
