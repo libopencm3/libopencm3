@@ -760,4 +760,42 @@ void rcc_clock_setup_hse_3v3(const struct rcc_clock_scale *clock)
 	rcc_osc_off(RCC_HSI);
 }
 
+void rcc_backupdomain_reset(void)
+{
+    /* Set the backup domain software reset. */
+    RCC_BDCR |= RCC_BDCR_BDRST;
+
+    /* Clear the backup domain software reset. */
+    RCC_BDCR &= ~RCC_BDCR_BDRST;
+}
+
+void rcc_set_rtc_source(uint32_t rtc_sel)
+{
+    uint32_t reg32;
+
+    reg32 = RCC_BDCR;
+    reg32 &= ~(RCC_BDCR_RTCSEL_MASK << RCC_BDCR_RTCSEL_SHIFT);
+    reg32 |= (rtc_sel & RCC_BDCR_RTCSEL_MASK) << RCC_BDCR_RTCSEL_SHIFT;
+    RCC_BDCR = reg32;
+}
+
+void rcc_rtc_clk_enable(void)
+{
+    RCC_BDCR |= RCC_BDCR_RTCEN;
+}
+
+void rcc_rtc_clk_disable(void)
+{
+    RCC_BDCR &= ~(RCC_BDCR_RTCEN);
+}
+
+void rcc_set_lsemode(uint32_t mode)
+{
+    uint32_t reg32;
+
+    reg32 = RCC_BDCR;
+    reg32 &= ~(RCC_BDCR_LSEMOD);
+    RCC_BDCR = (reg32 | mode);
+}
+
 /**@}*/
