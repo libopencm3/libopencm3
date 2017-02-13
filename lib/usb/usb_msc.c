@@ -3,6 +3,7 @@
  *
  * Copyright (C) 2013 Weston Schmidt <weston_schmidt@alumni.purdue.edu>
  * Copyright (C) 2013 Pavol Rusnak <stick@gk2.sk>
+ * Copyright (C) 2017 Lixing Ding <lixing@cupkee.cn>
  *
  * This library is free software: you can redistribute it and/or modify
  * it under the terms of the GNU Lesser General Public License as published by
@@ -24,150 +25,91 @@
 #include <libopencm3/cm3/common.h>
 #include <libopencm3/usb/usbd.h>
 #include <libopencm3/usb/msc.h>
-#include "usb_private.h"
 
-/* Definitions of Mass Storage Class from:
- *
- * (A) "Universal Serial Bus Mass Storage Class Bulk-Only Transport
- *      Revision 1.0"
- *
- * (B) "Universal Serial Bus Mass Storage Class Specification Overview
- *      Revision 1.0"
- */
+#define BUF_LENGTH 512
 
-/* Command Block Wrapper */
-#define CBW_SIGNATURE				0x43425355
-#define CBW_STATUS_SUCCESS			0
-#define CBW_STATUS_FAILED			1
-#define CBW_STATUS_PHASE_ERROR			2
-
-/* Command Status Wrapper */
-#define CSW_SIGNATURE				0x53425355
-#define CSW_STATUS_SUCCESS			0
-#define CSW_STATUS_FAILED			1
-#define CSW_STATUS_PHASE_ERROR			2
+#define HOST_2_DEV    0
+#define DEV_2_HOST    1
 
 /* Implemented SCSI Commands */
-#define SCSI_TEST_UNIT_READY			0x00
+#define SCSI_TEST_UNIT_READY		0x00
 #define SCSI_REQUEST_SENSE			0x03
-#define SCSI_FORMAT_UNIT			0x04
-#define SCSI_READ_6				0x08
-#define SCSI_WRITE_6				0x0A
 #define SCSI_INQUIRY				0x12
+#define SCSI_START_STOP_UNIT		0x1B
 #define SCSI_MODE_SENSE_6			0x1A
-#define SCSI_SEND_DIAGNOSTIC			0x1D
+#define SCSI_MODE_SENSE_10			0x5A
+#define SCSI_READ_FORMAT_CAPACITIES	0x23
 #define SCSI_READ_CAPACITY			0x25
 #define SCSI_READ_10				0x28
-
+#define SCSI_WRITE_10				0x2A
 
 /* Required SCSI Commands */
 
 /* Optional SCSI Commands */
-#define SCSI_REPORT_LUNS			0xA0
-#define SCSI_PREVENT_ALLOW_MEDIUM_REMOVAL	0x1E
+#define SCSI_FORMAT_UNIT			0x04
 #define SCSI_MODE_SELECT_6			0x15
 #define SCSI_MODE_SELECT_10			0x55
+#define SCSI_SEND_DIAGNOSTIC		0x1D
+#define SCSI_REPORT_LUNS			0xA0
+#define SCSI_PREVENT_ALLOW_MEDIUM_REMOVAL	0x1E
 #define SCSI_MODE_SENSE_10			0x5A
 #define SCSI_READ_12				0xA8
-#define SCSI_READ_FORMAT_CAPACITIES		0x23
-#define SCSI_READ_TOC_PMA_ATIP			0x43
-#define SCSI_START_STOP_UNIT			0x1B
-#define SCSI_SYNCHRONIZE_CACHE			0x35
-#define SCSI_VERIFY				0x2F
-#define SCSI_WRITE_10				0x2A
+#define SCSI_READ_TOC_PMA_ATIP		0x43
+#define SCSI_SYNCHRONIZE_CACHE		0x35
+#define SCSI_VERIFY				    0x2F
 #define SCSI_WRITE_12				0xAA
 
 /* The sense codes */
 enum sbc_sense_key {
 	SBC_SENSE_KEY_NO_SENSE			= 0x00,
-	SBC_SENSE_KEY_RECOVERED_ERROR		= 0x01,
+	SBC_SENSE_KEY_RECOVERED_ERROR	= 0x01,
 	SBC_SENSE_KEY_NOT_READY			= 0x02,
 	SBC_SENSE_KEY_MEDIUM_ERROR		= 0x03,
-	SBC_SENSE_KEY_HARDWARE_ERROR		= 0x04,
-	SBC_SENSE_KEY_ILLEGAL_REQUEST		= 0x05,
-	SBC_SENSE_KEY_UNIT_ATTENTION		= 0x06,
+	SBC_SENSE_KEY_HARDWARE_ERROR	= 0x04,
+	SBC_SENSE_KEY_ILLEGAL_REQUEST	= 0x05,
+	SBC_SENSE_KEY_UNIT_ATTENTION	= 0x06,
 	SBC_SENSE_KEY_DATA_PROTECT		= 0x07,
 	SBC_SENSE_KEY_BLANK_CHECK		= 0x08,
-	SBC_SENSE_KEY_VENDOR_SPECIFIC		= 0x09,
+	SBC_SENSE_KEY_VENDOR_SPECIFIC	= 0x09,
 	SBC_SENSE_KEY_COPY_ABORTED		= 0x0A,
-	SBC_SENSE_KEY_ABORTED_COMMAND		= 0x0B,
-	SBC_SENSE_KEY_VOLUME_OVERFLOW		= 0x0D,
+	SBC_SENSE_KEY_ABORTED_COMMAND	= 0x0B,
+	SBC_SENSE_KEY_VOLUME_OVERFLOW	= 0x0D,
 	SBC_SENSE_KEY_MISCOMPARE		= 0x0E
 };
 
 enum sbc_asc {
 	SBC_ASC_NO_ADDITIONAL_SENSE_INFORMATION	= 0x00,
 	SBC_ASC_PERIPHERAL_DEVICE_WRITE_FAULT	= 0x03,
-	SBC_ASC_LOGICAL_UNIT_NOT_READY		= 0x04,
-	SBC_ASC_UNRECOVERED_READ_ERROR		= 0x11,
+	SBC_ASC_LOGICAL_UNIT_NOT_READY		    = 0x04,
+	SBC_ASC_UNRECOVERED_READ_ERROR		    = 0x11,
 	SBC_ASC_INVALID_COMMAND_OPERATION_CODE	= 0x20,
-	SBC_ASC_LBA_OUT_OF_RANGE		= 0x21,
-	SBC_ASC_INVALID_FIELD_IN_CDB		= 0x24,
-	SBC_ASC_WRITE_PROTECTED			= 0x27,
-	SBC_ASC_NOT_READY_TO_READY_CHANGE	= 0x28,
-	SBC_ASC_FORMAT_ERROR			= 0x31,
-	SBC_ASC_MEDIUM_NOT_PRESENT		= 0x3A
+	SBC_ASC_LBA_OUT_OF_RANGE		        = 0x21,
+	SBC_ASC_INVALID_FIELD_IN_CDB	    	= 0x24,
+	SBC_ASC_WRITE_PROTECTED			        = 0x27,
+	SBC_ASC_NOT_READY_TO_READY_CHANGE   	= 0x28,
+	SBC_ASC_FORMAT_ERROR			        = 0x31,
+	SBC_ASC_MEDIUM_NOT_PRESENT		        = 0x3A
 };
 
 enum sbc_ascq {
-	SBC_ASCQ_NA				= 0x00,
-	SBC_ASCQ_FORMAT_COMMAND_FAILED		= 0x01,
+	SBC_ASCQ_NA				                = 0x00,
+	SBC_ASCQ_FORMAT_COMMAND_FAILED		    = 0x01,
 	SBC_ASCQ_INITIALIZING_COMMAND_REQUIRED	= 0x02,
-	SBC_ASCQ_OPERATION_IN_PROGRESS		= 0x07
+	SBC_ASCQ_OPERATION_IN_PROGRESS		    = 0x07
 };
 
-enum trans_event {
-	EVENT_CBW_VALID,
-	EVENT_NEED_STATUS
+enum trans_state {
+    STATE_IDLE,
+    STATE_IN,
+    STATE_OUT,
+    STATE_CSW,
+    STATE_ERR
 };
-
-struct usb_msc_cbw {
-	uint32_t dCBWSignature;
-	uint32_t dCBWTag;
-	uint32_t dCBWDataTransferLength;
-	uint8_t  bmCBWFlags;
-	uint8_t  bCBWLUN;
-	uint8_t  bCBWCBLength;
-	uint8_t  CBWCB[16];
-} __attribute__((packed));
-
-struct usb_msc_csw {
-	uint32_t dCSWSignature;
-	uint32_t dCSWTag;
-	uint32_t dCSWDataResidue;
-	uint8_t  bCSWStatus;
-} __attribute__((packed));
 
 struct sbc_sense_info {
 	uint8_t key;
 	uint8_t asc;
 	uint8_t ascq;
-};
-
-struct usb_msc_trans {
-	uint8_t cbw_cnt;		/* Read until 31 bytes */
-	union {
-		struct usb_msc_cbw cbw;
-		uint8_t buf[1];
-	} cbw;
-
-	uint32_t bytes_to_read;
-	uint32_t bytes_to_write;
-	uint32_t byte_count;		/* Either read until equal to
-					   bytes_to_read or write until equal
-					   to bytes_to_write. */
-	uint32_t lba_start;
-	uint32_t block_count;
-	uint32_t current_block;
-
-	uint8_t msd_buf[512];
-
-	bool csw_valid;
-	uint8_t csw_sent;		/* Write until 13 bytes */
-	union {
-		struct usb_msc_csw csw;
-		uint8_t buf[1];
-	} csw;
 };
 
 struct _usbd_mass_storage {
@@ -180,41 +122,61 @@ struct _usbd_mass_storage {
 	const char *vendor_id;
 	const char *product_id;
 	const char *product_revision_level;
-	uint32_t block_count;
 
 	int (*read_block)(uint32_t lba, uint8_t *copy_to);
 	int (*write_block)(uint32_t lba, const uint8_t *copy_from);
 
-	void (*lock)(void);
-	void (*unlock)(void);
+	uint32_t block_count;
 
-	struct usb_msc_trans trans;
+    uint8_t state;
+
+    /* current cbw info */
+    uint8_t lun;
+    uint8_t data_dir;
+    uint8_t cbwcb_len;
+    uint8_t cbw_tag[4];
+    uint8_t cbwcb[16];
+    uint32_t data_want;
+
+    /* current IN/OUT info */
+    uint32_t block_cur;
+    uint32_t block_end;
+
+    /* ms cache */
+    uint16_t cache_cnt;
+    uint16_t cache_pos;
+    uint8_t  cache_buf[BUF_LENGTH];
+
+    /* current sense info */
 	struct sbc_sense_info sense;
 };
+
 
 static usbd_mass_storage _mass_storage;
 
 /*-- SCSI Base Responses -----------------------------------------------------*/
 
-static const uint8_t _spc3_inquiry_response[36] = {
+static const uint8_t standard_inquiry_response[36] = {
 	0x00,	/* Byte 0: Peripheral Qualifier = 0, Peripheral Device Type = 0 */
 	0x80,	/* Byte 1: RMB = 1, Reserved = 0 */
-	0x04,	/* Byte 2: Version = 0 */
+	0x02,	/* Byte 2: Version = 0 */
 	0x02,	/* Byte 3: Obsolete = 0, NormACA = 0, HiSup = 0, Response Data Format = 2 */
-	0x20,	/* Byte 4: Additional Length (n-4) = 31 + 4 */
+
+	36 - 4,	/* Byte 4: Additional Length (n-4) = 36 - 4 */
 	0x00,	/* Byte 5: SCCS = 0, ACC = 0, TPGS = 0, 3PC = 0, Reserved = 0, Protect = 0 */
 	0x00,	/* Byte 6: BQue = 0, EncServ = 0, VS = 0, MultiP = 0, MChngr = 0, Obsolete = 0, Addr16 = 0 */
 	0x00,	/* Byte 7: Obsolete = 0, Wbus16 = 0, Sync = 0, Linked = 0, CmdQue = 0, VS = 0 */
+
 		/* Byte 8 - Byte 15: Vendor Identification */
-	0x20, 0x20, 0x20, 0x20, 0x20, 0x20, 0x20, 0x20,
+	'S', 'T', 'M', ' ', ' ', ' ', ' ', ' ',
 		/* Byte 16 - Byte 31: Product Identification */
-	0x20, 0x20, 0x20, 0x20, 0x20, 0x20, 0x20, 0x20,
-	0x20, 0x20, 0x20, 0x20, 0x20, 0x20, 0x20, 0x20,
+	'S', 'D', ' ', 'F', 'l', 'a', 's', 'h', ' ',
+	'D', 'i', 's', 'k', ' ', ' ', ' ',
 		/* Byte 32 - Byte 35: Product Revision Level */
-	0x20, 0x20, 0x20, 0x20
+	'1', '.', '0', ' '
 };
 
-static const uint8_t _spc3_request_sense[18] = {
+static const uint8_t standard_request_sense[18] = {
 	0x70,	/* Byte 0: VALID = 0, Response Code = 112 */
 	0x00,	/* Byte 1: Obsolete = 0 */
 	0x00,	/* Byte 2: Filemark = 0, EOM = 0, ILI = 0, Reserved = 0, Sense Key = 0 */
@@ -232,8 +194,25 @@ static const uint8_t _spc3_request_sense[18] = {
 };
 
 /*-- SCSI Layer --------------------------------------------------------------*/
+static inline uint32_t msb_2_uint32(uint8_t *p)
+{
+    return p[0] * 0x1000000 + p[1] * 0x10000 + p[2] * 0x100 + p[3];
+}
 
-static void set_sbc_status(usbd_mass_storage *ms,
+static inline uint16_t msb_2_uint16(uint8_t *p)
+{
+    return p[0] * 0x100 + p[1];
+}
+
+static inline void uint32_2_msb(uint8_t *p, uint32_t d)
+{
+    p[0] = (uint8_t) (d >> 24);
+    p[1] = (uint8_t) (d >> 16);
+    p[2] = (uint8_t) (d >> 8);
+    p[3] = (uint8_t) (d);
+}
+
+static inline void set_sbc_status(usbd_mass_storage *ms,
 			   enum sbc_sense_key key,
 			   enum sbc_asc asc,
 			   enum sbc_ascq ascq)
@@ -241,6 +220,14 @@ static void set_sbc_status(usbd_mass_storage *ms,
 	ms->sense.key = (uint8_t) key;
 	ms->sense.asc = (uint8_t) asc;
 	ms->sense.ascq = (uint8_t) ascq;
+}
+
+static void set_sbc_status_illegal(usbd_mass_storage *ms)
+{
+    set_sbc_status(ms,
+               SBC_SENSE_KEY_ILLEGAL_REQUEST,
+               SBC_ASC_INVALID_FIELD_IN_CDB,
+               SBC_ASCQ_NA);
 }
 
 static void set_sbc_status_good(usbd_mass_storage *ms)
@@ -251,473 +238,399 @@ static void set_sbc_status_good(usbd_mass_storage *ms)
 		       SBC_ASCQ_NA);
 }
 
-static uint8_t *get_cbw_buf(struct usb_msc_trans *trans)
+static int scsi_format_unit(usbd_mass_storage *ms, uint8_t *buf)
 {
-	return &trans->cbw.cbw.CBWCB[0];
+    set_sbc_status_good(ms);
+
+    (void) buf;
+
+    // Todo: format code here
+
+    return 0;
 }
 
-static void scsi_read_6(usbd_mass_storage *ms,
-			struct usb_msc_trans *trans,
-			enum trans_event event)
+static int scsi_request_sense(usbd_mass_storage *ms, uint8_t *buf)
 {
-	if (EVENT_CBW_VALID == event) {
-		uint8_t *buf;
+    uint8_t want = ms->cbwcb[4];
 
-		buf = get_cbw_buf(trans);
+    memcpy(buf, standard_request_sense, want);
 
-		trans->lba_start = (buf[2] << 8) | buf[3];
-		trans->block_count = buf[4];
-		trans->current_block = 0;
+    buf[2] = ms->sense.key;
+    buf[12] = ms->sense.asc;
+    buf[13] = ms->sense.ascq;
 
-		/* TODO: Check the lba & block_count for range. */
+    set_sbc_status_good(ms);
 
-		/* both are in terms of 512 byte blocks, so shift by 9 */
-		trans->bytes_to_write = trans->block_count << 9;
+    if (want > sizeof(standard_request_sense)) {
+        want = sizeof(standard_request_sense);
+    }
 
-		set_sbc_status_good(ms);
-	}
+    return want;
 }
 
-static void scsi_write_6(usbd_mass_storage *ms,
-			 struct usb_msc_trans *trans,
-			 enum trans_event event)
+static int scsi_mode_sense_6(usbd_mass_storage *ms, uint8_t *buf)
 {
-	(void) ms;
-
-	if (EVENT_CBW_VALID == event) {
-		uint8_t *buf;
-
-		buf = get_cbw_buf(trans);
-
-		trans->lba_start = ((0x1f & buf[1]) << 16)
-				    | (buf[2] << 8) | buf[3];
-		trans->block_count = buf[4];
-		trans->current_block = 0;
-
-		trans->bytes_to_read = trans->block_count << 9;
-	}
+    (void) ms;
+    buf[0] = 3;
+    buf[1] = 0;
+    buf[2] = 0;
+    buf[3] = 0;
+    set_sbc_status_good(ms);
+    return 4;
 }
 
-static void scsi_write_10(usbd_mass_storage *ms,
-			  struct usb_msc_trans *trans,
-			  enum trans_event event)
+static int scsi_inquiry(usbd_mass_storage *ms, uint8_t *buf)
 {
-	(void) ms;
+    uint8_t evpd = ms->cbwcb[1] & 1;
+    uint8_t want = ms->cbwcb[4];
+    uint8_t len;
 
-	if (EVENT_CBW_VALID == event) {
-		uint8_t *buf;
+    if (evpd != 0) {
+        memset(buf, 0, 5);
+        len = 5;
+    } else {
+        memcpy(buf, standard_inquiry_response, sizeof(standard_inquiry_response));
+        len = sizeof(standard_inquiry_response);
 
-		buf = get_cbw_buf(trans);
-
-		trans->lba_start = (buf[2] << 24) | (buf[3] << 16) |
-					(buf[4] << 8) | buf[5];
-		trans->block_count = (buf[7] << 8) | buf[8];
-		trans->current_block = 0;
-
-		trans->bytes_to_read = trans->block_count << 9;
-	}
+    }
+    set_sbc_status_good(ms);
+    if (len > want) {
+        len = want;
+    }
+    return len;
 }
 
-static void scsi_read_10(usbd_mass_storage *ms,
-			 struct usb_msc_trans *trans,
-			 enum trans_event event)
+static int scsi_read_format_capacities(usbd_mass_storage *ms, uint8_t *buf)
 {
-	if (EVENT_CBW_VALID == event) {
-		uint8_t *buf;
+    buf[0] = 0;
+    buf[1] = 0;
+    buf[2] = 0;
+    buf[3] = 8; // Capacity length
 
-		buf = get_cbw_buf(trans);
+    /* Block count, MSB */
+    uint32_2_msb(buf + 4, ms->block_count);
 
-		trans->lba_start = (buf[2] << 24) | (buf[3] << 16)
-				   | (buf[4] << 8) | buf[5];
-		trans->block_count = (buf[7] << 8) | buf[8];
+    /* Block size, MSB */
+    uint32_2_msb(buf + 8, 0x200);
 
-		/* TODO: Check the lba & block_count for range. */
-
-		/* both are in terms of 512 byte blocks, so shift by 9 */
-		trans->bytes_to_write = trans->block_count << 9;
-
-		set_sbc_status_good(ms);
-	}
+    set_sbc_status_good(ms);
+    return 12;
 }
 
-static void scsi_read_capacity(usbd_mass_storage *ms,
-			       struct usb_msc_trans *trans,
-			       enum trans_event event)
+static int scsi_read_capacity(usbd_mass_storage *ms, uint8_t *buf)
 {
-	if (EVENT_CBW_VALID == event) {
-		trans->msd_buf[0] = ms->block_count >> 24;
-		trans->msd_buf[1] = 0xff & (ms->block_count >> 16);
-		trans->msd_buf[2] = 0xff & (ms->block_count >> 8);
-		trans->msd_buf[3] = 0xff & ms->block_count;
+    /* Block count, MSB */
+    uint32_2_msb(buf, ms->block_count - 1);
 
-		/* Block size: 512 */
-		trans->msd_buf[4] = 0;
-		trans->msd_buf[5] = 0;
-		trans->msd_buf[6] = 2;
-		trans->msd_buf[7] = 0;
-		trans->bytes_to_write = 8;
-		set_sbc_status_good(ms);
-	}
+    /* Block size, MSB */
+    uint32_2_msb(buf + 4, 0x200);
+
+    set_sbc_status_good(ms);
+    return 8;
 }
 
-static void scsi_format_unit(usbd_mass_storage *ms,
-			     struct usb_msc_trans *trans,
-			     enum trans_event event)
+static int scsi_read_10(usbd_mass_storage *ms, uint8_t *buf)
 {
-	if (EVENT_CBW_VALID == event) {
-		uint32_t i;
+    uint32_t start, end;
+    uint16_t count;
 
-		memset(trans->msd_buf, 0, 512);
+    start = msb_2_uint32(ms->cbwcb + 2);
+    count = msb_2_uint16(ms->cbwcb + 7);
+    end = start + count;
+    if (end > ms->block_count || count < 1) {
+        set_sbc_status_illegal(ms);
+        return -1;
+    }
 
-		for (i = 0; i < ms->block_count; i++) {
-			(*ms->write_block)(i, trans->msd_buf);
-		}
+    ms->block_cur = start;
+    ms->block_end = end;
+    ms->read_block(start, buf);
 
-		set_sbc_status_good(ms);
-	}
+    set_sbc_status_good(ms);
+    return 512;
 }
 
-static void scsi_request_sense(usbd_mass_storage *ms,
-			       struct usb_msc_trans *trans,
-			       enum trans_event event)
+static int scsi_write_10(usbd_mass_storage *ms, uint8_t *buf)
 {
-	if (EVENT_CBW_VALID == event) {
-		uint8_t *buf;
+    uint32_t start, end;
+    uint16_t count;
 
-		buf = &trans->cbw.cbw.CBWCB[0];
+    (void) buf;
 
-		trans->bytes_to_write = buf[4];	/* allocation length */
-		memcpy(trans->msd_buf, _spc3_request_sense,
-		       sizeof(_spc3_request_sense));
+    start = msb_2_uint32(ms->cbwcb + 2);
+    count = msb_2_uint16(ms->cbwcb + 7);
+    end = start + count;
+    if (end > ms->block_count || count < 1) {
+        set_sbc_status_illegal(ms);
+        return -1;
+    }
 
-		trans->msd_buf[2] = ms->sense.key;
-		trans->msd_buf[12] = ms->sense.asc;
-		trans->msd_buf[13] = ms->sense.ascq;
-	}
-}
+    ms->block_cur = start;
+    ms->block_end = end;
 
-static void scsi_mode_sense_6(usbd_mass_storage *ms,
-			      struct usb_msc_trans *trans,
-			      enum trans_event event)
-{
-	(void) ms;
-
-	if (EVENT_CBW_VALID == event) {
-#if 0
-		uint8_t *buf;
-		uint8_t page_code;
-		uint8_t allocation_length;
-
-		buf = &trans->cbw.cbw.CBWCB[0];
-		page_code = buf[2];
-		allocation_length = buf[4];
-
-		if (0x1C == page_code) {	/* Informational Exceptions */
-#endif
-			trans->bytes_to_write = 4;
-
-			trans->msd_buf[0] = 3;	/* Num bytes that follow */
-			trans->msd_buf[1] = 0;	/* Medium Type */
-			trans->msd_buf[2] = 0;	/* Device specific param */
-			trans->csw.csw.dCSWDataResidue = 4;
-#if 0
-		} else if (0x01 == page_code) {	/* Error recovery */
-		} else if (0x3F == page_code) {	/* All */
-		} else {
-			/* Error */
-			trans->csw.csw.bCSWStatus = CSW_STATUS_FAILED;
-			set_sbc_status(ms,
-				       SBC_SENSE_KEY_ILLEGAL_REQUEST,
-				       SBC_ASC_INVALID_FIELD_IN_CDB,
-				       SBC_ASCQ_NA);
-		}
-#endif
-	}
-}
-
-static void scsi_inquiry(usbd_mass_storage *ms,
-			 struct usb_msc_trans *trans,
-			 enum trans_event event)
-{
-	if (EVENT_CBW_VALID == event) {
-		uint8_t evpd;
-		uint8_t *buf;
-
-		buf = get_cbw_buf(trans);
-		evpd = 1 & buf[1];
-
-		if (0 == evpd) {
-			size_t len;
-			trans->bytes_to_write = sizeof(_spc3_inquiry_response);
-			memcpy(trans->msd_buf, _spc3_inquiry_response,
-			       sizeof(_spc3_inquiry_response));
-
-			len = strlen(ms->vendor_id);
-			len = MIN(len, 8);
-			memcpy(&trans->msd_buf[8], ms->vendor_id, len);
-
-			len = strlen(ms->product_id);
-			len = MIN(len, 16);
-			memcpy(&trans->msd_buf[16], ms->product_id, len);
-
-			len = strlen(ms->product_revision_level);
-			len = MIN(len, 4);
-			memcpy(&trans->msd_buf[32], ms->product_revision_level,
-			       len);
-
-			trans->csw.csw.dCSWDataResidue =
-				sizeof(_spc3_inquiry_response);
-
-			set_sbc_status_good(ms);
-		} else {
-			/* TODO: Add VPD 0x83 support */
-			/* TODO: Add VPD 0x00 support */
-		}
-	}
-}
-
-static void scsi_command(usbd_mass_storage *ms,
-			 struct usb_msc_trans *trans,
-			 enum trans_event event)
-{
-	if (EVENT_CBW_VALID == event) {
-		/* Setup the default success */
-		trans->csw_sent = 0;
-		trans->csw.csw.dCSWSignature = CSW_SIGNATURE;
-		trans->csw.csw.dCSWTag = trans->cbw.cbw.dCBWTag;
-		trans->csw.csw.dCSWDataResidue = 0;
-		trans->csw.csw.bCSWStatus = CSW_STATUS_SUCCESS;
-
-		trans->bytes_to_write = 0;
-		trans->bytes_to_read = 0;
-		trans->byte_count = 0;
-	}
-
-	switch (trans->cbw.cbw.CBWCB[0]) {
-	case SCSI_TEST_UNIT_READY:
-	case SCSI_SEND_DIAGNOSTIC:
-		/* Do nothing, just send the success. */
-		set_sbc_status_good(ms);
-		break;
-	case SCSI_FORMAT_UNIT:
-		scsi_format_unit(ms, trans, event);
-		break;
-	case SCSI_REQUEST_SENSE:
-		scsi_request_sense(ms, trans, event);
-		break;
-	case SCSI_MODE_SENSE_6:
-		scsi_mode_sense_6(ms, trans, event);
-		break;
-	case SCSI_READ_6:
-		scsi_read_6(ms, trans, event);
-		break;
-	case SCSI_INQUIRY:
-		scsi_inquiry(ms, trans, event);
-		break;
-	case SCSI_READ_CAPACITY:
-		scsi_read_capacity(ms, trans, event);
-		break;
-	case SCSI_READ_10:
-		scsi_read_10(ms, trans, event);
-		break;
-	case SCSI_WRITE_6:
-		scsi_write_6(ms, trans, event);
-		break;
-	case SCSI_WRITE_10:
-		scsi_write_10(ms, trans, event);
-		break;
-	default:
-		set_sbc_status(ms, SBC_SENSE_KEY_ILLEGAL_REQUEST,
-					SBC_ASC_INVALID_COMMAND_OPERATION_CODE,
-					SBC_ASCQ_NA);
-
-		trans->bytes_to_write = 0;
-		trans->bytes_to_read = 0;
-		trans->csw.csw.bCSWStatus = CSW_STATUS_FAILED;
-		break;
-	}
+    set_sbc_status_good(ms);
+    return 0;
 }
 
 /*-- USB Mass Storage Layer --------------------------------------------------*/
 
-/** @brief Handle the USB 'OUT' requests. */
+static inline int msc_send(usbd_mass_storage *ms, int len, const void *data)
+{
+    len = len < ms->ep_in_size ? len : ms->ep_in_size;
+
+    return usbd_ep_write_packet(ms->usbd_dev, ms->ep_in, data, len);
+}
+
+static inline void msc_cache_csw(usbd_mass_storage *ms)
+{
+    uint8_t *csw = ms->cache_buf;
+
+    csw[0] = 0x55;
+    csw[1] = 0x53;
+    csw[2] = 0x42;
+    csw[3] = 0x53;
+
+    csw[4] = ms->cbw_tag[0];
+    csw[5] = ms->cbw_tag[1];
+    csw[6] = ms->cbw_tag[2];
+    csw[7] = ms->cbw_tag[3];
+
+    // Todo: set real residue
+    csw[8] = 0;
+    csw[9] = 0;
+    csw[10] = 0;
+    csw[11] = 0;
+
+    csw[12] = ms->sense.key ? 1 : 0;
+
+    ms->cache_pos = 0;
+    ms->cache_cnt = 13;
+}
+
+static void msc_send_csw(usbd_mass_storage *ms)
+{
+    msc_cache_csw(ms);
+
+    msc_send(ms, ms->cache_cnt, ms->cache_buf);
+    ms->cache_cnt = 0;
+}
+
+static int msc_cbw_decode(usbd_mass_storage *ms)
+{
+    uint8_t *cbw = ms->cache_buf;
+    uint8_t cbwcb_len;
+
+    /* Check signature of cbw */
+    if (cbw[0] != 0x55 || cbw[1] != 0x53 || cbw[2] != 0x42 || cbw[3] != 0x43) {
+        return -1;
+    }
+
+    /* restore cbw tag */
+    ms->cbw_tag[0] = cbw[4];
+    ms->cbw_tag[1] = cbw[5];
+    ms->cbw_tag[2] = cbw[6];
+    ms->cbw_tag[3] = cbw[7];
+
+    ms->data_want  = cbw[11] * 0x1000000 + cbw[10] * 0x10000 + cbw[10] * 0x100 + cbw[8];
+    ms->data_dir   = (cbw[12] & 0x80) ? DEV_2_HOST : HOST_2_DEV;
+    ms->lun        = cbw[13] & 0xf;
+    cbwcb_len      = cbw[14] & 0x1f;
+
+    if (cbwcb_len < 1 || cbwcb_len > 16) {
+        return -1;
+    }
+    ms->cbwcb_len = cbwcb_len;
+
+    memcpy(ms->cbwcb, cbw + 15, cbwcb_len);
+
+    return 0;
+}
+
+static void msc_go_error(usbd_mass_storage *ms)
+{
+    ms->cache_cnt = 0;
+    ms->cache_pos = 0;
+    ms->block_cur = 0;
+    ms->block_end = 0;
+
+    ms->state = STATE_ERR;
+
+    usbd_ep_stall_set(ms->usbd_dev, ms->ep_in, 1);
+    usbd_ep_stall_set(ms->usbd_dev, ms->ep_out, 1);
+}
+
+static void msc_go_idle(usbd_mass_storage *ms)
+{
+    ms->cache_cnt = 0;
+    ms->cache_pos = 0;
+    ms->block_cur = 0;
+    ms->block_end = 0;
+
+    ms->state = STATE_IDLE;
+}
+
+static void msc_do_command(usbd_mass_storage *ms)
+{
+    int len = 0;
+
+    if (msc_cbw_decode(ms)) {
+        msc_go_error(ms);
+        return;
+    }
+
+    switch (ms->cbwcb[0]) {
+    case SCSI_SEND_DIAGNOSTIC:
+    case SCSI_TEST_UNIT_READY:
+        set_sbc_status_good(ms);
+        len = 0;
+        break;
+    case SCSI_FORMAT_UNIT:
+        len = scsi_format_unit(ms, ms->cache_buf);
+        break;
+    case SCSI_REQUEST_SENSE:
+        len = scsi_request_sense(ms, ms->cache_buf);
+        break;
+    case SCSI_MODE_SENSE_6:
+        len = scsi_mode_sense_6(ms, ms->cache_buf);
+        break;
+    case SCSI_INQUIRY:
+        len = scsi_inquiry(ms, ms->cache_buf);
+        break;
+    case SCSI_READ_FORMAT_CAPACITIES:
+        len = scsi_read_format_capacities(ms, ms->cache_buf);
+        break;
+    case SCSI_READ_CAPACITY:
+        len = scsi_read_capacity(ms, ms->cache_buf);
+        break;
+    case SCSI_READ_10:
+        len = scsi_read_10(ms, ms->cache_buf);
+        break;
+    case SCSI_WRITE_10:
+        len = scsi_write_10(ms, ms->cache_buf);
+        break;
+    default:
+        set_sbc_status_illegal(ms);
+        len = -1;
+        break;
+    }
+
+    if (len < 0) {
+        msc_send_csw(ms);
+        ms->state = STATE_CSW;
+    } else {
+        if (len) {
+            ms->cache_pos = msc_send(ms, len, ms->cache_buf);
+            ms->cache_cnt = len;
+            ms->state = STATE_IN;
+        } else {
+            if (ms->cbwcb[0] == SCSI_WRITE_10) {
+                ms->cache_pos = 0;
+                ms->cache_cnt = 0;
+                ms->state = STATE_OUT;
+            } else {
+                msc_send_csw(ms);
+                ms->state = STATE_CSW;
+            }
+        }
+    }
+}
+
+static void msc_do_recv(usbd_mass_storage *ms)
+{
+    if (ms->cache_cnt < BUF_LENGTH) {
+        return;
+    }
+
+    ms->cache_cnt = 0;
+    ms->cache_pos = 0;
+
+    if (ms->block_cur < ms->block_end) {
+        if (0 != ms->write_block(ms->block_cur, ms->cache_buf)) {
+            msc_go_error(ms);
+            return;
+        } else {
+            ms->block_cur++;
+        }
+    }
+
+    if (ms->block_cur >= ms->block_end) {
+        // Data phare complete
+        msc_send_csw(ms);
+        ms->state = STATE_CSW;
+    }
+}
+
+static void msc_do_send(usbd_mass_storage *ms)
+{
+    if (ms->state == STATE_IN) {
+        ms->block_cur++;
+        if (ms->block_cur < ms->block_end) {
+            if (0 == ms->read_block(ms->block_cur, ms->cache_buf)) {
+                ms->cache_cnt = BUF_LENGTH;
+                ms->cache_pos = 0;
+            } else {
+                msc_go_error(ms);
+            }
+        } else {
+            // Data phare complete
+            msc_cache_csw(ms);
+            ms->state = STATE_CSW;
+        }
+        ms->cache_pos = msc_send(ms, ms->cache_cnt, ms->cache_buf);
+    } else {
+        msc_go_idle(ms);
+    }
+}
+
+/* Handle the USB 'OUT' requests. */
 static void msc_data_rx_cb(usbd_device *usbd_dev, uint8_t ep)
 {
-	usbd_mass_storage *ms;
-	struct usb_msc_trans *trans;
-	int len, max_len, left;
+	usbd_mass_storage *ms = &_mass_storage;
+	int len;
 	void *p;
 
-	ms = &_mass_storage;
-	trans = &ms->trans;
+    if (ms->state != STATE_IDLE && ms->state != STATE_OUT) {
+        msc_go_idle(ms);
+        //msc_go_error(ms);
+        return;
+    }
 
-	/* RX only */
-	left = sizeof(struct usb_msc_cbw) - trans->cbw_cnt;
-	if (0 < left) {
-		max_len = MIN(ms->ep_out_size, left);
-		p = &trans->cbw.buf[0x1ff & trans->cbw_cnt];
-		len = usbd_ep_read_packet(usbd_dev, ep, p, max_len);
-		trans->cbw_cnt += len;
+    // Load data received from host to cache
+    p = &ms->cache_buf[ms->cache_cnt];
+    len = usbd_ep_read_packet(usbd_dev, ep, p, BUF_LENGTH - ms->cache_cnt);
+    ms->cache_cnt += len;
 
-		if (sizeof(struct usb_msc_cbw) == trans->cbw_cnt) {
-			scsi_command(ms, trans, EVENT_CBW_VALID);
-			if (trans->byte_count < trans->bytes_to_read) {
-				/* We must wait until there is something to
-				 * read again. */
-				return;
-			}
-		}
-	}
-
-	if (trans->byte_count < trans->bytes_to_read) {
-		if (0 < trans->block_count) {
-			if ((0 == trans->byte_count) && (NULL != ms->lock)) {
-				(*ms->lock)();
-			}
-		}
-
-		left = trans->bytes_to_read - trans->byte_count;
-		max_len = MIN(ms->ep_out_size, left);
-		p = &trans->msd_buf[0x1ff & trans->byte_count];
-		len = usbd_ep_read_packet(usbd_dev, ep, p, max_len);
-		trans->byte_count += len;
-
-		if (0 < trans->block_count) {
-			if (0 == (0x1ff & trans->byte_count)) {
-				uint32_t lba;
-
-				lba = trans->lba_start + trans->current_block;
-				if (0 != (*ms->write_block)(lba,
-							    trans->msd_buf)) {
-					/* Error */
-				}
-				trans->current_block++;
-			}
-		}
-	} else if (trans->byte_count < trans->bytes_to_write) {
-		if (0 < trans->block_count) {
-			if ((0 == trans->byte_count) && (NULL != ms->lock)) {
-				(*ms->lock)();
-			}
-
-			if (0 == (0x1ff & trans->byte_count)) {
-				uint32_t lba;
-
-				lba = trans->lba_start + trans->current_block;
-				if (0 != (*ms->read_block)(lba,
-							   trans->msd_buf)) {
-					/* Error */
-				}
-				trans->current_block++;
-			}
-		}
-
-		left = trans->bytes_to_write - trans->byte_count;
-		max_len = MIN(ms->ep_out_size, left);
-		p = &trans->msd_buf[0x1ff & trans->byte_count];
-		len = usbd_ep_write_packet(usbd_dev, ms->ep_in, p, max_len);
-		trans->byte_count += len;
-	} else {
-		if (0 < trans->block_count) {
-			if (trans->current_block == trans->block_count) {
-				uint32_t lba;
-
-				lba = trans->lba_start + trans->current_block;
-				if (0 != (*ms->write_block)(lba,
-							    trans->msd_buf)) {
-					/* Error */
-				}
-
-				trans->current_block = 0;
-				if (NULL != ms->unlock) {
-					(*ms->unlock)();
-				}
-			}
-		}
-		if (false == trans->csw_valid) {
-			scsi_command(ms, trans, EVENT_NEED_STATUS);
-			trans->csw_valid = true;
-		}
-
-		left = sizeof(struct usb_msc_csw) - trans->csw_sent;
-		if (0 < left) {
-			max_len = MIN(ms->ep_out_size, left);
-			p = &trans->csw.buf[trans->csw_sent];
-			len = usbd_ep_write_packet(usbd_dev, ms->ep_in, p,
-						   max_len);
-			trans->csw_sent += len;
-		}
-	}
+    if (ms->state == STATE_IDLE) {
+        msc_do_command(ms);
+    } else {
+        msc_do_recv(ms);
+    }
 }
 
-/** @brief Handle the USB 'IN' requests. */
+/* Handle the USB 'IN' requests. */
 static void msc_data_tx_cb(usbd_device *usbd_dev, uint8_t ep)
 {
-	usbd_mass_storage *ms;
-	struct usb_msc_trans *trans;
-	int len, max_len, left;
-	void *p;
+	usbd_mass_storage *ms = &_mass_storage;
+	int len;
 
-	ms = &_mass_storage;
-	trans = &ms->trans;
+    (void) usbd_dev;
+    (void) ep;
 
-	if (trans->byte_count < trans->bytes_to_write) {
-		if (0 < trans->block_count) {
-			if (0 == (0x1ff & trans->byte_count)) {
-				uint32_t lba;
+    /* Send cached data to host */
+    len = ms->cache_cnt - ms->cache_pos;
+    if (len > 0) {
+        void *p = &ms->cache_buf[ms->cache_pos];
 
-				lba = trans->lba_start + trans->current_block;
-				if (0 != (*ms->read_block)(lba,
-							   trans->msd_buf)) {
-					/* Error */
-				}
-				trans->current_block++;
-			}
-		}
+        len = msc_send(ms, len, p);
+        ms->cache_pos += len;
+    }
 
-		left = trans->bytes_to_write - trans->byte_count;
-		max_len = MIN(ms->ep_out_size, left);
-		p = &trans->msd_buf[0x1ff & trans->byte_count];
-		len = usbd_ep_write_packet(usbd_dev, ep, p, max_len);
-		trans->byte_count += len;
-	} else {
-		if (0 < trans->block_count) {
-			if (trans->current_block == trans->block_count) {
-				trans->current_block = 0;
-				if (NULL != ms->unlock) {
-					(*ms->unlock)();
-				}
-			}
-		}
-		if (false == trans->csw_valid) {
-			scsi_command(ms, trans, EVENT_NEED_STATUS);
-			trans->csw_valid = true;
-		}
-
-		left = sizeof(struct usb_msc_csw) - trans->csw_sent;
-		if (0 < left) {
-			max_len = MIN(ms->ep_out_size, left);
-			p = &trans->csw.buf[trans->csw_sent];
-			len = usbd_ep_write_packet(usbd_dev, ep, p, max_len);
-			trans->csw_sent += len;
-		} else if (sizeof(struct usb_msc_csw) == trans->csw_sent) {
-			/* End of transaction */
-			trans->lba_start = 0xffffffff;
-			trans->block_count = 0;
-			trans->current_block = 0;
-			trans->cbw_cnt = 0;
-			trans->bytes_to_read = 0;
-			trans->bytes_to_write = 0;
-			trans->byte_count = 0;
-			trans->csw_sent = 0;
-			trans->csw_valid = false;
-		}
-	}
+    if (ms->cache_pos >= ms->cache_cnt) {
+        msc_do_send(ms);
+    }
 }
 
-/** @brief Handle various control requests related to the msc storage
- *	   interface.
- */
+/* Handle various control requests related to the msc storage interface. */
 static int msc_control_request(usbd_device *usbd_dev,
 			       struct usb_setup_data *req, uint8_t **buf,
 			       uint16_t *len,
@@ -740,7 +653,6 @@ static int msc_control_request(usbd_device *usbd_dev,
 	return USBD_REQ_NOTSUPP;
 }
 
-/** @brief Setup the endpoints to be bulk & register the callbacks. */
 static void msc_set_config(usbd_device *usbd_dev, uint16_t wValue)
 {
 	usbd_mass_storage *ms = &_mass_storage;
@@ -759,30 +671,6 @@ static void msc_set_config(usbd_device *usbd_dev, uint16_t wValue)
 				msc_control_request);
 }
 
-/** @addtogroup usb_msc */
-/** @{ */
-
-/** @brief Initializes the USB Mass Storage subsystem.
-
-@note Currently you can only have this profile active.
-
-@param[in] usbd_dev The USB device to associate the Mass Storage with.
-@param[in] ep_in The USB 'IN' endpoint.
-@param[in] ep_in_size The maximum endpoint size.  Valid values: 8, 16, 32 or 64
-@param[in] ep_out The USB 'OUT' endpoint.
-@param[in] ep_out_size The maximum endpoint size.  Valid values: 8, 16, 32 or 64
-@param[in] vendor_id The SCSI vendor ID to return.  Maximum used length is 8.
-@param[in] product_id The SCSI product ID to return.  Maximum used length is 16.
-@param[in] product_revision_level The SCSI product revision level to return.
-		Maximum used length is 4.
-@param[in] block_count The number of 512-byte blocks available.
-@param[in] read_block The function called when the host requests to read a LBA
-		block.  Must _NOT_ be NULL.
-@param[in] write_block The function called when the host requests to write a
-		LBA block.  Must _NOT_ be NULL.
-
-@return Pointer to the usbd_mass_storage struct.
-*/
 usbd_mass_storage *usb_msc_init(usbd_device *usbd_dev,
 				 uint8_t ep_in, uint8_t ep_in_size,
 				 uint8_t ep_out, uint8_t ep_out_size,
@@ -796,34 +684,24 @@ usbd_mass_storage *usb_msc_init(usbd_device *usbd_dev,
 						    const uint8_t *copy_from))
 {
 	_mass_storage.usbd_dev = usbd_dev;
+
 	_mass_storage.ep_in = ep_in;
 	_mass_storage.ep_in_size = ep_in_size;
 	_mass_storage.ep_out = ep_out;
 	_mass_storage.ep_out_size = ep_out_size;
+
 	_mass_storage.vendor_id = vendor_id;
 	_mass_storage.product_id = product_id;
 	_mass_storage.product_revision_level = product_revision_level;
-	_mass_storage.block_count = block_count - 1;
+
+	_mass_storage.block_count = block_count;
 	_mass_storage.read_block = read_block;
 	_mass_storage.write_block = write_block;
-	_mass_storage.lock = NULL;
-	_mass_storage.unlock = NULL;
 
-	_mass_storage.trans.lba_start = 0xffffffff;
-	_mass_storage.trans.block_count = 0;
-	_mass_storage.trans.current_block = 0;
-	_mass_storage.trans.cbw_cnt = 0;
-	_mass_storage.trans.bytes_to_read = 0;
-	_mass_storage.trans.bytes_to_write = 0;
-	_mass_storage.trans.byte_count = 0;
-	_mass_storage.trans.csw_valid = false;
-	_mass_storage.trans.csw_sent = 0;
-
-	set_sbc_status_good(&_mass_storage);
+    msc_go_idle(&_mass_storage);
 
 	usbd_register_set_config_callback(usbd_dev, msc_set_config);
 
 	return &_mass_storage;
 }
 
-/** @} */
