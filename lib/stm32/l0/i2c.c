@@ -1,14 +1,14 @@
-/** @defgroup i2c_defines I2C Defines
-
-@brief <b>Defined Constants and Types for the STM32L1xx I2C </b>
-
-@ingroup STM32L1xx_defines
-
-@version 1.0.0
-
-@date 12 October 2012
-
-LGPL License Terms @ref lgpl_license
+/** @defgroup i2c_file I2C
+ *
+ * @ingroup STM32L0xx
+ *
+ * @brief <b>libopencm3 STM32L0xx I2C</b>
+ *
+ * @version 1.0.0
+ *
+ * @date 1 December 2016
+ *
+ * LGPL License Terms @ref lgpl_license
  */
 
 /*
@@ -28,10 +28,5 @@ LGPL License Terms @ref lgpl_license
  * along with this library.  If not, see <http://www.gnu.org/licenses/>.
  */
 
-#ifndef LIBOPENCM3_I2C_H
-#define LIBOPENCM3_I2C_H
-
-#include <libopencm3/stm32/common/i2c_common_v1.h>
-
-#endif
+#include <libopencm3/stm32/i2c.h>
 

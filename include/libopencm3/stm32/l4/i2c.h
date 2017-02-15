@@ -1,14 +1,18 @@
-/** @addtogroup i2c_defines
+/** @defgroup i2c_defines I2C Defines
 
-@author @htmlonly &copy; @endhtmlonly 2012
-Ken Sarkies <ksarkies@internode.on.net>
+@brief <b>Defined Constants and Types for the STM32L4xx I2C </b>
 
-*/
+@ingroup STM32L4xx_defines
+
+@version 1.0.0
+
+@date 12 October 2012
+
+LGPL License Terms @ref lgpl_license
+ */
 
 /*
  * This file is part of the libopencm3 project.
- *
- * Copyright (C) 2012 Ken Sarkies <ksarkies@internode.on.net>
  *
  * This library is free software: you can redistribute it and/or modify
  * it under the terms of the GNU Lesser General Public License as published by
@@ -24,17 +28,10 @@ Ken Sarkies <ksarkies@internode.on.net>
  * along with this library.  If not, see <http://www.gnu.org/licenses/>.
  */
 
-/* THIS FILE SHOULD NOT BE INCLUDED DIRECTLY, BUT ONLY VIA I2C.H
-The order of header inclusion is important. i2c.h includes the device
-specific memorymap.h header before including this header file.*/
+#ifndef LIBOPENCM3_I2C_H
+#define LIBOPENCM3_I2C_H
 
-/** @cond */
-#ifdef LIBOPENCM3_I2C_H
-/** @endcond */
-#ifndef LIBOPENCM3_I2C_COMMON_F24_H
-#define LIBOPENCM3_I2C_COMMON_F24_H
-
-#include <libopencm3/stm32/common/i2c_common_all.h>
+#include <libopencm3/stm32/common/i2c_common_v2.h>
 
 /**@{*/
 
@@ -43,9 +40,4 @@ specific memorymap.h header before including this header file.*/
 /**@}*/
 
 #endif
-/** @cond */
-#else
-#warning "i2c_common_f24.h should not be included explicitly, only via i2c.h"
-#endif
-/** @endcond */
 
