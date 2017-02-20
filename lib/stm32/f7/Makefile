@@ -40,7 +40,9 @@ TGT_CFLAGS	= -Os -g \
 
 ARFLAGS		= rcs
 
-OBJS		= gpio.o gpio_common_all.o gpio_common_f0234.o
+OBJS		= rcc.o gpio.o gpio_common_all.o gpio_common_f0234.o
+
+OBJS		+= rcc_common_all.o flash_common_f234.o flash_common_f24.o
 
 VPATH += ../../usb:../:../../cm3:../common
 VPATH += ../../ethernet
