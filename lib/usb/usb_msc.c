@@ -168,12 +168,12 @@ static const uint8_t standard_inquiry_response[36] = {
 	0x00,	/* Byte 7: Obsolete = 0, Wbus16 = 0, Sync = 0, Linked = 0, CmdQue = 0, VS = 0 */
 
 		/* Byte 8 - Byte 15: Vendor Identification */
-	'S', 'T', 'M', ' ', ' ', ' ', ' ', ' ',
+	' ', ' ', ' ', ' ', ' ', ' ', ' ', ' ',
 		/* Byte 16 - Byte 31: Product Identification */
-	'S', 'D', ' ', 'F', 'l', 'a', 's', 'h', ' ',
-	'D', 'i', 's', 'k', ' ', ' ', ' ',
+	' ', ' ', ' ', ' ', ' ', ' ', ' ', ' ', ' ',
+	' ', ' ', ' ', ' ', ' ', ' ', ' ',
 		/* Byte 32 - Byte 35: Product Revision Level */
-	'1', '.', '0', ' '
+	' ', ' ', ' ', ' '
 };
 
 static const uint8_t standard_request_sense[18] = {
@@ -289,9 +289,22 @@ static int scsi_inquiry(usbd_mass_storage *ms, uint8_t *buf)
         memset(buf, 0, 5);
         len = 5;
     } else {
+        int size;
+
         memcpy(buf, standard_inquiry_response, sizeof(standard_inquiry_response));
         len = sizeof(standard_inquiry_response);
 
+        size = strlen(ms->vendor_id);
+        size = size < 8 ? size : 8;
+        memcpy(buf + 8, ms->vendor_id, size);
+
+        size = strlen(ms->product_id);
+        size = size < 16 ? size : 16;
+        memcpy(buf + 16, ms->product_id, size);
+
+        size = strlen(ms->product_revision_level);
+        size = size < 4 ? size : 4;
+        memcpy(buf + 32, ms->product_revision_level, size);
     }
     set_sbc_status_good(ms);
     if (len > want) {
