@@ -482,6 +482,7 @@ enum rcc_periph_clken {
 	RCC_SDADC1	= _REG_BIT(0x18, 24),/*--78*/
 	RCC_SDADC2	= _REG_BIT(0x18, 25),/*--78*/
 	RCC_SDADC3	= _REG_BIT(0x18, 26),/*--78*/
+	RCC_HRTIM	= _REG_BIT(0x18, 29),
 
 	/* APB1 peripherals */
 	RCC_TIM2	= _REG_BIT(0x1C, 0),/*0178*/
@@ -530,6 +531,7 @@ enum rcc_periph_rst {
 	RST_SDADC1	= _REG_BIT(0x0C, 24),/*--78*/
 	RST_SDADC2	= _REG_BIT(0x0C, 25),/*--78*/
 	RST_SDADC3	= _REG_BIT(0x0C, 26),/*--78*/
+	RST_HRTIM	= _REG_BIT(0x0C, 29),
 
 	/* APB1 peripherals */
 	RST_TIM2	= _REG_BIT(0x10, 0),/*0178*/
