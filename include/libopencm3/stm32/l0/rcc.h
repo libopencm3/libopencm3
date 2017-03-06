@@ -312,7 +312,7 @@
 @{*/
 #define RCC_AHBENR_CRYPEN			(1 << 24)
 #define RCC_AHBENR_RNGEN			(1 << 20)
-#define RCC_AHBENR_TOUCHEN			(1 << 16)
+#define RCC_AHBENR_TSCEN			(1 << 16)
 #define RCC_AHBENR_CRCEN			(1 << 12)
 #define RCC_AHBENR_MIFEN			(1 << 8)
 #define RCC_AHBENR_DMAEN			(1 << 0)
@@ -370,7 +370,7 @@
 
 #define RCC_AHBSMENR_CRYPSMEN			(1 << 24)
 #define RCC_AHBSMENR_RNGSMEN			(1 << 20)
-#define RCC_AHBSMENR_TOUCHSMEN			(1 << 16)
+#define RCC_AHBSMENR_TSCSMEN			(1 << 16)
 #define RCC_AHBSMENR_CRCSMEN			(1 << 12)
 #define RCC_AHBSMENR_MIFSMEN			(1 << 8)
 #define RCC_AHBSMENR_DMASMEN			(1 << 0)
@@ -502,7 +502,7 @@ enum rcc_periph_clken {
 	RCC_DMA = _REG_BIT(0x30, 0),
 	RCC_MIF = _REG_BIT(0x30, 8),
 	RCC_CRC = _REG_BIT(0x30, 12),
-	RCC_TOUCH = _REG_BIT(0x30, 16),
+	RCC_TSC = _REG_BIT(0x30, 16),
 	RCC_RNG = _REG_BIT(0x30, 20),
 	RCC_CRYPT = _REG_BIT(0x30, 24),
 
@@ -510,7 +510,7 @@ enum rcc_periph_clken {
 	RCC_SYSCFG = _REG_BIT(0x34, 0),
 	RCC_TIM21 = _REG_BIT(0x34, 2),
 	RCC_TIM22 = _REG_BIT(0x34, 5),
-	RCC_MIFI = _REG_BIT(0x34, 7),
+	RCC_FW = _REG_BIT(0x34, 7),
 	RCC_ADC1 = _REG_BIT(0x34, 9),
 	RCC_SPI1 = _REG_BIT(0x34, 12),
 	RCC_USART1 = _REG_BIT(0x34, 14),
@@ -546,7 +546,7 @@ enum rcc_periph_clken {
 	SCC_MIF = _REG_BIT(0x40, 8),
 	SCC_SRAM = _REG_BIT(0x40, 12),
 	SCC_CRC = _REG_BIT(0x40, 12),
-	SCC_TOUCH = _REG_BIT(0x40, 16),
+	SCC_TSC = _REG_BIT(0x40, 16),
 	SCC_RNG = _REG_BIT(0x40, 20),
 	SCC_CRYPT = _REG_BIT(0x40, 24),
 
