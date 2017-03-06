@@ -15,7 +15,7 @@ const struct rcc_clock_scale rcc_hse_25mhz_3v3[RCC_CLOCK_3V3_END] = {
 		.hpre = RCC_CFGR_HPRE_DIV_NONE,
 		.ppre1 = RCC_CFGR_PPRE_DIV_4,
 		.ppre2 = RCC_CFGR_PPRE_DIV_2,
-		.flash_config = FLASH_ACR_ICE | FLASH_ACR_DCE |
+		.flash_config = FLASH_ACR_ICEN | FLASH_ACR_DCEN |
 				FLASH_ACR_LATENCY_7WS,
 		.apb1_frequency = 108000000,
 		.apb2_frequency = 216000000,

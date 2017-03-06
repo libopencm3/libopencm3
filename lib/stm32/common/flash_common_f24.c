@@ -48,7 +48,7 @@ static inline void flash_set_program_size(uint32_t psize)
 
 void flash_dcache_enable(void)
 {
-	FLASH_ACR |= FLASH_ACR_DCE;
+	FLASH_ACR |= FLASH_ACR_DCEN;
 }
 
 /*---------------------------------------------------------------------------*/
@@ -58,7 +58,7 @@ void flash_dcache_enable(void)
 
 void flash_dcache_disable(void)
 {
-	FLASH_ACR &= ~FLASH_ACR_DCE;
+	FLASH_ACR &= ~FLASH_ACR_DCEN;
 }
 
 /*---------------------------------------------------------------------------*/
@@ -68,7 +68,7 @@ void flash_dcache_disable(void)
 
 void flash_icache_enable(void)
 {
-	FLASH_ACR |= FLASH_ACR_ICE;
+	FLASH_ACR |= FLASH_ACR_ICEN;
 }
 
 /*---------------------------------------------------------------------------*/
@@ -78,7 +78,7 @@ void flash_icache_enable(void)
 
 void flash_icache_disable(void)
 {
-	FLASH_ACR &= ~FLASH_ACR_ICE;
+	FLASH_ACR &= ~FLASH_ACR_ICEN;
 }
 
 /*---------------------------------------------------------------------------*/
@@ -412,4 +412,3 @@ void flash_program_option_bytes(uint32_t data)
 	flash_wait_for_last_operation();
 }
 /**@}*/
-
