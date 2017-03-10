@@ -618,143 +618,9 @@ void rcc_clock_setup_in_hse_8mhz_out_48mhz(void)
 	rcc_ahb_frequency = 48000000;
 }
 
-/*---------------------------------------------------------------------------*/
-/** @brief RCC Set System Clock HSI at 8MHz
-
-*/
-
-void rcc_clock_setup_in_hsi_out_8mhz(void)
-{
-	rcc_osc_on(RCC_HSI);
-	rcc_wait_for_osc_ready(RCC_HSI);
-	rcc_set_sysclk_source(RCC_HSI);
-
-	rcc_set_hpre(RCC_CFGR_HPRE_NODIV);
-	rcc_set_ppre(RCC_CFGR_PPRE_NODIV);
-
-	flash_set_ws(FLASH_ACR_LATENCY_000_024MHZ);
-
-	rcc_apb1_frequency = 8000000;
-	rcc_ahb_frequency = 8000000;
-}
-
-/*---------------------------------------------------------------------------*/
-/** @brief RCC Set System Clock PLL at 16MHz from HSI
-
-*/
-
-void rcc_clock_setup_in_hsi_out_16mhz(void)
-{
-	rcc_osc_on(RCC_HSI);
-	rcc_wait_for_osc_ready(RCC_HSI);
-	rcc_set_sysclk_source(RCC_HSI);
-
-	rcc_set_hpre(RCC_CFGR_HPRE_NODIV);
-	rcc_set_ppre(RCC_CFGR_PPRE_NODIV);
-
-	flash_set_ws(FLASH_ACR_LATENCY_000_024MHZ);
-
-	/* 8MHz * 4 / 2 = 16MHz	 */
-	rcc_set_pll_multiplication_factor(RCC_CFGR_PLLMUL_MUL4);
-	rcc_set_pll_source(RCC_CFGR_PLLSRC_HSI_CLK_DIV2);
-
-	rcc_osc_on(RCC_PLL);
-	rcc_wait_for_osc_ready(RCC_PLL);
-	rcc_set_sysclk_source(RCC_PLL);
-
-	rcc_apb1_frequency = 16000000;
-	rcc_ahb_frequency = 16000000;
-}
-
-/*---------------------------------------------------------------------------*/
-/** @brief RCC Set System Clock PLL at 24MHz from HSI
-
-*/
-
-void rcc_clock_setup_in_hsi_out_24mhz(void)
-{
-	rcc_osc_on(RCC_HSI);
-	rcc_wait_for_osc_ready(RCC_HSI);
-	rcc_set_sysclk_source(RCC_HSI);
-
-	rcc_set_hpre(RCC_CFGR_HPRE_NODIV);
-	rcc_set_ppre(RCC_CFGR_PPRE_NODIV);
-
-	flash_set_ws(FLASH_ACR_LATENCY_000_024MHZ);
-
-	/* 8MHz * 6 / 2 = 24MHz	 */
-	rcc_set_pll_multiplication_factor(RCC_CFGR_PLLMUL_MUL6);
-	rcc_set_pll_source(RCC_CFGR_PLLSRC_HSI_CLK_DIV2);
-
-	rcc_osc_on(RCC_PLL);
-	rcc_wait_for_osc_ready(RCC_PLL);
-	rcc_set_sysclk_source(RCC_PLL);
-
-	rcc_apb1_frequency = 24000000;
-	rcc_ahb_frequency = 24000000;
-}
-
-/*---------------------------------------------------------------------------*/
-/** @brief RCC Set System Clock PLL at 32MHz from HSI
-
-*/
-
-void rcc_clock_setup_in_hsi_out_32mhz(void)
-{
-	rcc_osc_on(RCC_HSI);
-	rcc_wait_for_osc_ready(RCC_HSI);
-	rcc_set_sysclk_source(RCC_HSI);
-
-	rcc_set_hpre(RCC_CFGR_HPRE_NODIV);
-	rcc_set_ppre(RCC_CFGR_PPRE_NODIV);
-
-	flash_set_ws(FLASH_ACR_LATENCY_024_048MHZ);
-
-	/* 8MHz * 8 / 2 = 32MHz	*/
-	rcc_set_pll_multiplication_factor(RCC_CFGR_PLLMUL_MUL8);
-	rcc_set_pll_source(RCC_CFGR_PLLSRC_HSI_CLK_DIV2);
-
-	rcc_osc_on(RCC_PLL);
-	rcc_wait_for_osc_ready(RCC_PLL);
-	rcc_set_sysclk_source(RCC_PLL);
-
-	rcc_apb1_frequency = 32000000;
-	rcc_ahb_frequency = 32000000;
-}
-
-/*---------------------------------------------------------------------------*/
-/** @brief RCC Set System Clock PLL at 40MHz from HSI
-
-*/
-
-void rcc_clock_setup_in_hsi_out_40mhz(void)
-{
-	rcc_osc_on(RCC_HSI);
-	rcc_wait_for_osc_ready(RCC_HSI);
-	rcc_set_sysclk_source(RCC_HSI);
-
-	rcc_set_hpre(RCC_CFGR_HPRE_NODIV);
-	rcc_set_ppre(RCC_CFGR_PPRE_NODIV);
-
-	flash_set_ws(FLASH_ACR_LATENCY_024_048MHZ);
-
-	/* 8MHz * 10 / 2 = 40MHz */
-	rcc_set_pll_multiplication_factor(RCC_CFGR_PLLMUL_MUL10);
-	rcc_set_pll_source(RCC_CFGR_PLLSRC_HSI_CLK_DIV2);
-
-	rcc_osc_on(RCC_PLL);
-	rcc_wait_for_osc_ready(RCC_PLL);
-	rcc_set_sysclk_source(RCC_PLL);
-
-	rcc_apb1_frequency = 40000000;
-	rcc_ahb_frequency = 40000000;
-}
-
-/*---------------------------------------------------------------------------*/
-/** @brief RCC Set System Clock PLL at 48MHz from HSI
-
-*/
-
+/**
+ * Set System Clock PLL at 48MHz from HSI
+ */
 void rcc_clock_setup_in_hsi_out_48mhz(void)
 {
 	rcc_osc_on(RCC_HSI);
@@ -778,11 +644,9 @@ void rcc_clock_setup_in_hsi_out_48mhz(void)
 	rcc_ahb_frequency = 48000000;
 }
 
-/*---------------------------------------------------------------------------*/
-/** @brief RCC Set System Clock HSI48 at 48MHz
-
-*/
-
+/**
+ * Set System Clock HSI48 at 48MHz
+ */
 void rcc_clock_setup_in_hsi48_out_48mhz(void)
 {
 	rcc_osc_on(RCC_HSI48);

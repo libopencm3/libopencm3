@@ -526,11 +526,6 @@ void rcc_set_prediv(uint32_t prediv);
 enum rcc_osc rcc_system_clock_source(void);
 enum rcc_osc rcc_usb_clock_source(void);
 void rcc_clock_setup_in_hse_8mhz_out_48mhz(void);
-void rcc_clock_setup_in_hsi_out_8mhz(void);
-void rcc_clock_setup_in_hsi_out_16mhz(void);
-void rcc_clock_setup_in_hsi_out_24mhz(void);
-void rcc_clock_setup_in_hsi_out_32mhz(void);
-void rcc_clock_setup_in_hsi_out_40mhz(void);
 void rcc_clock_setup_in_hsi_out_48mhz(void);
 void rcc_clock_setup_in_hsi48_out_48mhz(void);
 
