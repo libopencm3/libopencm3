@@ -21,6 +21,48 @@
 
 #include <libopencm3/stm32/rcc.h>
 
+static void periph_clock_enable_delay(void)
+{
+	// A delay is necessary between enabling peripheral clock and using the
+	// peripheral. The requirements differ between families.
+	// Cortex-M0/0+ (errata):
+	// AHB: 1 AHB cycle
+	// APB: No delay
+	//
+	// Cortex-M3/4 (errata):
+	// AHB: 2 AHB cycles (or DSB instruction)
+	// APB: 1 + (AHB/APB prescaler) AHB cycles (or DSB instruction)
+	//
+	// Cortex-M7 (reference manual):
+	// AHB: 2 AHB cycles
+	// APB: 2 * (AHB/APB prescaler) AHB cycles
+
+	#if 	defined(STM32F0) || defined(STM32F1) || defined(STM32F2) || \
+		defined(STM32F3) || defined(STM32F4) || defined(STM32L0) || \
+		defined(STM32L1) || defined(STM32L4)
+		// For M0/0+/3/4, a DSB instruction is sufficient in all cases
+		asm volatile("dsb":::"memory");
+	#elif defined(STM32F7)
+		/* TODO: Enable this once we have clock setup functions for F7*/
+		#if 0
+		// We don't know which bus is the peripheral on, so we delay
+		// for the slowest. This only works if the user set up clocks
+		// using libopencm3 functions.
+		uint32_t ppre1 = rcc_ahb_frequency / rcc_apb1_frequency;
+		uint32_t ppre2 = rcc_ahb_frequency / rcc_apb2_frequency;
+		uint32_t delay_cycles = 2 * (ppre1 > ppre2 ? ppre1 : ppre2);
+		for (uint32_t i = 0; i < delay_cycles; ++i)
+		{
+			// Cortex-M7 is dual issue, so we need 2 NOPs per cycle
+			asm volatile("nop":::"memory");
+			asm volatile("nop":::"memory");
+		}
+		#endif
+	#else
+	#       error "Unknown family. Do we need a delay?"
+	#endif
+}
+
 /*---------------------------------------------------------------------------*/
 /** @brief RCC Enable Peripheral Clocks.
  *
@@ -41,6 +83,7 @@
 void rcc_peripheral_enable_clock(volatile uint32_t *reg, uint32_t en)
 {
 	*reg |= en;
+	periph_clock_enable_delay();
 }
 
 /*---------------------------------------------------------------------------*/
@@ -121,6 +164,7 @@ void rcc_peripheral_clear_reset(volatile uint32_t *reg, uint32_t clear_reset)
 void rcc_periph_clock_enable(enum rcc_periph_clken clken)
 {
 	_RCC_REG(clken) |= _RCC_BIT(clken);
+	periph_clock_enable_delay();
 }
 
 /*---------------------------------------------------------------------------*/
