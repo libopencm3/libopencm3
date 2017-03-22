@@ -281,13 +281,9 @@ void i2c_set_bytes_to_transfer(uint32_t i2c, uint32_t n_bytes)
 		       (n_bytes << I2C_CR2_NBYTES_SHIFT);
 }
 
-uint8_t i2c_is_start(uint32_t i2c)
+bool i2c_is_start(uint32_t i2c)
 {
-	if ((I2C_CR2(i2c) & I2C_CR2_START) != 0) {
-		return 1;
-	}
-
-	return 0;
+	return (I2C_CR2(i2c) & I2C_CR2_START);
 }
 
 void i2c_enable_autoend(uint32_t i2c)
@@ -300,49 +296,29 @@ void i2c_disable_autoend(uint32_t i2c)
 	I2C_CR2(i2c) &= ~I2C_CR2_AUTOEND;
 }
 
-uint8_t i2c_nack(uint32_t i2c)
+bool i2c_nack(uint32_t i2c)
 {
-	if ((I2C_ISR(i2c) & I2C_ISR_NACKF) != 0) {
-		return 1;
-	}
-
-	return 0;
+	return (I2C_ISR(i2c) & I2C_ISR_NACKF);
 }
 
-uint8_t i2c_busy(uint32_t i2c)
+bool i2c_busy(uint32_t i2c)
 {
-	if ((I2C_ISR(i2c) & I2C_ISR_BUSY) != 0) {
-		return 1;
-	}
-
-	return 0;
+	return (I2C_ISR(i2c) & I2C_ISR_BUSY);
 }
 
-uint8_t i2c_transmit_int_status(uint32_t i2c)
+bool i2c_transmit_int_status(uint32_t i2c)
 {
-	if ((I2C_ISR(i2c) & I2C_ISR_TXIS) != 0) {
-		return 1;
-	}
-
-	return 0;
+	return (I2C_ISR(i2c) & I2C_ISR_TXIS);
 }
 
-uint8_t i2c_transfer_complete(uint32_t i2c)
+bool i2c_transfer_complete(uint32_t i2c)
 {
-	if ((I2C_ISR(i2c) & I2C_ISR_TC) != 0) {
-		return 1;
-	}
-
-	return 0;
+	return (I2C_ISR(i2c) & I2C_ISR_TC);
 }
 
-uint8_t i2c_received_data(uint32_t i2c)
+bool i2c_received_data(uint32_t i2c)
 {
-	if ((I2C_ISR(i2c) & I2C_ISR_RXNE) != 0) {
-		return 1;
-	}
-
-	return 0;
+	return (I2C_ISR(i2c) & I2C_ISR_RXNE);
 }
 
 
