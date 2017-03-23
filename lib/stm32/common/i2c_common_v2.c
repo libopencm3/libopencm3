@@ -234,15 +234,6 @@ void i2c_disable_stretching(uint32_t i2c)
 	I2C_CR1(i2c) |= I2C_CR1_NOSTRETCH;
 }
 
-void i2c_100khz_i2cclk8mhz(uint32_t i2c)
-{
-	i2c_set_prescaler(i2c, 1);
-	i2c_set_scl_low_period(i2c, 0x13);
-	i2c_set_scl_high_period(i2c, 0xF);
-	i2c_set_data_hold_time(i2c, 0x2);
-	i2c_set_data_setup_time(i2c, 0x4);
-}
-
 void i2c_set_7bit_addr_mode(uint32_t i2c)
 {
 	I2C_CR2(i2c) &= ~I2C_CR2_ADD10;
