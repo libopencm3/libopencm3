@@ -406,7 +406,6 @@ void i2c_set_scl_high_period(uint32_t i2c, uint8_t period);
 void i2c_set_scl_low_period(uint32_t i2c, uint8_t period);
 void i2c_enable_stretching(uint32_t i2c);
 void i2c_disable_stretching(uint32_t i2c);
-void i2c_100khz_i2cclk8mhz(uint32_t i2c);
 void i2c_set_7bit_addr_mode(uint32_t i2c);
 void i2c_set_10bit_addr_mode(uint32_t i2c);
 void i2c_set_7bit_address(uint32_t i2c, uint8_t addr);
