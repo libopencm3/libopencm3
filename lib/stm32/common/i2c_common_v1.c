@@ -463,4 +463,26 @@ void i2c_clear_dma_last_transfer(uint32_t i2c)
 	I2C_CR2(i2c) &= ~I2C_CR2_LAST;
 }
 
+void i2c_set_speed(uint32_t p, enum i2c_speeds speed, uint32_t clock_megahz)
+{
+	i2c_set_clock_frequency(p, clock_megahz);
+	switch(speed) {
+	case i2c_speed_fm_400k:
+		i2c_set_fast_mode(p);
+		i2c_set_ccr(p, clock_megahz * 5 / 6);
+		i2c_set_trise(p, clock_megahz + 1);
+		break;
+	default:
+		/* fall back to standard mode */
+	case i2c_speed_sm_100k:
+		i2c_set_standard_mode(p);
+		/* x Mhz / (100kHz * 2) */
+		i2c_set_ccr(p, clock_megahz * 5);
+		/* Sm mode, (100kHz) freqMhz + 1 */
+		i2c_set_trise(p, clock_megahz + 1);
+		break;
+	}
+}
+
+
 /**@}*/

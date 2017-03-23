@@ -375,4 +375,34 @@ void i2c_disable_txdma(uint32_t i2c)
 	I2C_CR1(i2c) &= ~I2C_CR1_TXDMAEN;
 }
 
+void i2c_set_speed(uint32_t p, enum i2c_speeds speed, uint32_t clock_megahz)
+{
+	int prescaler;
+	switch(speed) {
+	case i2c_speed_fmp_1m:
+		/* FIXME - add support for this mode! */
+		break;
+	case i2c_speed_fm_400k:
+		/* target 8Mhz input, so tpresc = 125ns */
+		prescaler = clock_megahz / 8 - 1;
+		i2c_set_prescaler(p, prescaler);
+		i2c_set_scl_low_period(p, 0x9); // 1250ns
+		i2c_set_scl_high_period(p, 3); // 500ns
+		i2c_set_data_hold_time(p, 2); // 250ns
+		i2c_set_data_setup_time(p, 2); // 375ns
+		break;
+	default:
+		/* fall back to standard mode */
+	case i2c_speed_sm_100k:
+		/* target 2Mhz input, so tpresc = 500ns */
+		prescaler = clock_megahz / 4 - 1;
+		i2c_set_prescaler(p, prescaler);
+		i2c_set_scl_low_period(p, 0xf); // 5usecs
+		i2c_set_scl_high_period(p, 0x13); // 4usecs
+		i2c_set_data_hold_time(p, 2); // 0.5usecs
+		i2c_set_data_setup_time(p, 4); // 1.25usecs
+		break;
+	}
+}
+
 /**@}*/
