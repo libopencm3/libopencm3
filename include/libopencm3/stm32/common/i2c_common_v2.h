@@ -386,6 +386,16 @@ specific memorymap.h header before including this header file.*/
 
 /* --- I2C function prototypes---------------------------------------------- */
 
+/**
+ * I2C speed modes.
+ */
+enum i2c_speeds {
+	i2c_speed_sm_100k,
+	i2c_speed_fm_400k,
+	i2c_speed_fmp_1m,
+	i2c_speed_unknown
+};
+
 BEGIN_DECLS
 
 void i2c_reset(uint32_t i2c);
@@ -431,6 +441,7 @@ void i2c_disable_rxdma(uint32_t i2c);
 void i2c_enable_txdma(uint32_t i2c);
 void i2c_disable_txdma(uint32_t i2c);
 void i2c_transfer7(uint32_t i2c, uint8_t addr, uint8_t *w, size_t wn, uint8_t *r, size_t rn);
+void i2c_set_speed(uint32_t i2c, enum i2c_speeds speed, uint32_t clock_megahz);
 
 END_DECLS
 

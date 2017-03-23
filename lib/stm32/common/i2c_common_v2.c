@@ -436,4 +436,42 @@ void i2c_transfer7(uint32_t i2c, uint8_t addr, uint8_t *w, size_t wn, uint8_t *r
 }
 
 
+/**
+ * Set the i2c communication speed.
+ * NOTE: 1MHz mode not yet implemented!
+ * Min clock speed: 8MHz for FM, 2Mhz for SM,
+ * @param i2c peripheral, eg I2C1
+ * @param speed one of the listed speed modes @ref i2c_speeds
+ * @param clock_megahz i2c peripheral clock speed in MHz. Usually, rcc_apb1_frequency / 1e6
+ */
+void i2c_set_speed(uint32_t i2c, enum i2c_speeds speed, uint32_t clock_megahz)
+{
+	int prescaler;
+	switch(speed) {
+	case i2c_speed_fmp_1m:
+		/* FIXME - add support for this mode! */
+		break;
+	case i2c_speed_fm_400k:
+		/* target 8Mhz input, so tpresc = 125ns */
+		prescaler = clock_megahz / 8 - 1;
+		i2c_set_prescaler(i2c, prescaler);
+		i2c_set_scl_low_period(i2c, 10-1); // 1250ns
+		i2c_set_scl_high_period(i2c, 4-1); // 500ns
+		i2c_set_data_hold_time(i2c, 3); // 375ns
+		i2c_set_data_setup_time(i2c, 4-1); // 500ns
+		break;
+	default:
+		/* fall back to standard mode */
+	case i2c_speed_sm_100k:
+		/* target 4Mhz input, so tpresc = 250ns */
+		prescaler = (clock_megahz / 4) - 1;
+		i2c_set_prescaler(i2c, prescaler);
+		i2c_set_scl_low_period(i2c, 20-1); // 5usecs
+		i2c_set_scl_high_period(i2c, 16-1); // 4usecs
+		i2c_set_data_hold_time(i2c, 2); // 0.5usecs
+		i2c_set_data_setup_time(i2c, 5-1); // 1.25usecs
+		break;
+	}
+}
+
 /**@}*/
