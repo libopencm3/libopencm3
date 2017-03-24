@@ -34,6 +34,9 @@ specific memorymap.h header before including this header file.*/
 #ifndef LIBOPENCM3_I2C_COMMON_V1_H
 #define LIBOPENCM3_I2C_COMMON_V1_H
 
+#include <stddef.h>
+#include <stdint.h>
+
 /* --- Convenience macros -------------------------------------------------- */
 
 /* I2C register base addresses (for convenience) */
@@ -391,6 +394,7 @@ void i2c_enable_dma(uint32_t i2c);
 void i2c_disable_dma(uint32_t i2c);
 void i2c_set_dma_last_transfer(uint32_t i2c);
 void i2c_clear_dma_last_transfer(uint32_t i2c);
+void i2c_transfer7(uint32_t i2c, uint8_t addr, uint8_t *w, size_t wn, uint8_t *r, size_t rn);
 
 END_DECLS
 
