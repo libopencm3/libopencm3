@@ -405,4 +405,54 @@ void i2c_set_speed(uint32_t p, enum i2c_speeds speed, uint32_t clock_megahz)
 	}
 }
 
+void i2c_transfer7(uint32_t i2c, uint8_t addr, uint8_t *w, size_t wn, uint8_t *r, size_t rn)
+{
+	/*  waiting for busy is unnecessary. read the RM */
+	if (wn) {
+		i2c_set_7bit_address(i2c, addr);
+		i2c_set_write_transfer_dir(i2c);
+		i2c_set_bytes_to_transfer(i2c, wn);
+		if (rn) {
+			i2c_disable_autoend(i2c);
+		} else {
+			i2c_enable_autoend(i2c);
+		}
+		i2c_send_start(i2c);
+
+		while (wn--) {
+			bool wait = true;
+			while (wait) {
+				if (i2c_transmit_int_status(i2c)) {
+					wait = false;
+				}
+				while (i2c_nack(i2c)); /* FIXME Some error */
+			}
+			i2c_send_data(i2c, *w++);
+		}
+		/* not entirely sure this is really necessary.
+		 * RM implies it will stall until it can write out the later bits
+		 */
+		if (rn) {
+			while (!i2c_transfer_complete(i2c));
+		}
+	}
+
+	if (rn) {
+		/* Setting transfer properties */
+		i2c_set_7bit_address(i2c, addr);
+		i2c_set_read_transfer_dir(i2c);
+		i2c_set_bytes_to_transfer(i2c, rn);
+		/* start transfer */
+		i2c_send_start(i2c);
+		/* important to do it afterwards to do a proper repeated start! */
+		i2c_enable_autoend(i2c);
+
+		for (size_t i = 0; i < rn; i++) {
+			while (i2c_received_data(i2c) == 0);
+			r[i] = i2c_get_data(i2c);
+		}
+	}
+}
+
+
 /**@}*/

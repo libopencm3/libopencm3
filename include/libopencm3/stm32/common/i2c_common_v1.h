@@ -34,6 +34,9 @@ specific memorymap.h header before including this header file.*/
 #ifndef LIBOPENCM3_I2C_COMMON_V1_H
 #define LIBOPENCM3_I2C_COMMON_V1_H
 
+#include <stddef.h>
+#include <stdint.h>
+
 /* --- Convenience macros -------------------------------------------------- */
 
 /* I2C register base addresses (for convenience) */
@@ -408,6 +411,18 @@ void i2c_clear_dma_last_transfer(uint32_t i2c);
  * @param clock_megahz i2c peripheral clock speed in MHz. Usually, rcc_apb1_frequency / 1e6
  */
 void i2c_set_speed(uint32_t i2c, enum i2c_speeds speed, uint32_t clock_megahz);
+/**
+ * Run a write/read transaction to a given 7bit i2c address
+ * If both write & read are provided, the read will use repeated start.
+ * Both write and read are optional
+ * @param i2c peripheral of choice, eg I2C1
+ * @param addr 7 bit i2c device address
+ * @param w buffer of data to write
+ * @param wn length of w
+ * @param r destination buffer to read into
+ * @param rn number of bytes to read (r should be at least this long)
+ */
+void i2c_transfer7(uint32_t i2c, uint8_t addr, uint8_t *w, size_t wn, uint8_t *r, size_t rn);
 
 
 END_DECLS
