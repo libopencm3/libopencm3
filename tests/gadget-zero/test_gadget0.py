@@ -3,6 +3,7 @@ import datetime
 import usb.core
 import usb.util as uu
 import logging
+import sys
 
 import unittest
 
@@ -379,3 +380,10 @@ class TestUnaligned(unittest.TestCase):
     def test_unaligned(self):
         self.set_unaligned()
         self.do_readwrite()
+
+
+if __name__ == "__main__":
+    if len(sys.argv) > 1:
+        DUT_SERIAL = sys.argv.pop()
+    print("Running tests for DUT: ", DUT_SERIAL)
+    unittest.main()
