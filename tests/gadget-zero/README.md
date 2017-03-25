@@ -27,11 +27,13 @@ broken, and are awaiting code fixes, or are long running performance tests
 
 ## Running the tests
 Below is an example of running the full suite of tests from the command line.
+The argument specifies the serial number to look for in the usb gadget.
 ```
-$ python -m unittest
-.........ss..............
+$ python test_gadget0.py stm32f072disco
+Running tests for DUT:  stm32f072disco
+.........ss................
 ----------------------------------------------------------------------
-Ran 25 tests in 0.381s
+Ran 27 tests in 0.388s
 
 OK (skipped=2)
 ```
