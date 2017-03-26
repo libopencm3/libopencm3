@@ -305,6 +305,9 @@ Control</b>
 #define RCC_CSR_PINRSTF				(1 << 26)
 #define RCC_CSR_OBLRSTF				(1 << 25)
 #define RCC_CSR_RMVF				(1 << 24)
+#define RCC_CSR_RESET_FLAGS	(RCC_CSR_LPWRRSTF | RCC_CSR_WWDGRSTF |\
+		RCC_CSR_IWDGRSTF | RCC_CSR_SFTRSTF | RCC_CSR_PORRSTF |\
+		RCC_CSR_PINRSTF | RCC_CSR_OBLRSTF)
 #define RCC_CSR_V18PWRRSTF			(1 << 23)
 #define RCC_CSR_LSIRDY				(1 << 1)
 #define RCC_CSR_LSION				(1 << 0)
