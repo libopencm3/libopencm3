@@ -1,15 +1,15 @@
-/** @defgroup spi_defines SPI Defines
+/** @defgroup spi_file SPI
 
-@brief <b>Defined Constants and Types for the STM32F4xx SPI</b>
+@ingroup STM32L0xx
 
-@ingroup STM32F4xx_defines
+@brief <b>libopencm3 STM32L0xx SPI</b>
 
 @version 1.0.0
 
-@date 5 December 2012
+@date 20 January 2017
 
 LGPL License Terms @ref lgpl_license
- */
+*/
 
 /*
  * This file is part of the libopencm3 project.
@@ -28,10 +28,4 @@ LGPL License Terms @ref lgpl_license
  * along with this library.  If not, see <http://www.gnu.org/licenses/>.
  */
 
-#ifndef LIBOPENCM3_SPI_H
-#define LIBOPENCM3_SPI_H
-
-#include <libopencm3/stm32/common/spi_common_l01f24.h>
-
-#endif
-
+#include <libopencm3/stm32/spi.h>

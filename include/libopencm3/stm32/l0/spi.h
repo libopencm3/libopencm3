@@ -1,12 +1,12 @@
 /** @defgroup spi_defines SPI Defines
 
-@brief <b>Defined Constants and Types for the STM32F4xx SPI</b>
+@brief <b>Defined Constants and Types for the STM32L0xx SPI</b>
 
-@ingroup STM32F4xx_defines
+@ingroup STM32L0xx_defines
 
 @version 1.0.0
 
-@date 5 December 2012
+@date 20 January 2017
 
 LGPL License Terms @ref lgpl_license
  */
