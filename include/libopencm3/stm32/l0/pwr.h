@@ -31,7 +31,7 @@
 #ifndef LIBOPENCM3_PWR_H
 #define LIBOPENCM3_PWR_H
 
-#include <libopencm3/stm32/common/pwr_common_l01.h>
+#include <libopencm3/stm32/common/pwr_common_v2.h>
 
 #endif
 

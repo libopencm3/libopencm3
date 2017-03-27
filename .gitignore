@@ -20,6 +20,7 @@ latex/
 *.pdf
 *.tag
 .DS_Store
+locm3.sublime-workspace
 # These are generated
 include/libopencm3/**/nvic.h
 include/libopencm3/**/**/nvic.h
