@@ -165,7 +165,7 @@ void usart_disable(uint32_t usart)
  *
  * @param[in] usart unsigned 32 bit. USART block register address base @ref
  * usart_reg_base
- * @param[in] data unsigned 16 bit.
+ * @param[in] data unsigned 8 bit.
  */
 
 void usart_send(uint32_t usart, uint8_t data)
@@ -181,7 +181,7 @@ void usart_send(uint32_t usart, uint8_t data)
  *
  * @param[in] usart unsigned 32 bit. USART block register address base @ref
  * usart_reg_base
- * @returns unsigned 16 bit data word.
+ * @returns unsigned 8 bit data word.
  */
 
 uint8_t usart_recv(uint32_t usart)
@@ -229,7 +229,7 @@ void usart_wait_recv_ready(uint32_t usart)
  *
  * @param[in] usart unsigned 32 bit. USART block register address base @ref
  * usart_reg_base
- * @param[in] data unsigned 16 bit.
+ * @param[in] data unsigned 8 bit.
  */
 
 void usart_send_blocking(uint32_t usart, uint8_t data)
@@ -245,7 +245,7 @@ void usart_send_blocking(uint32_t usart, uint8_t data)
  *
  * @param[in] usart unsigned 32 bit. USART block register address base @ref
  * usart_reg_base
- * @returns unsigned 16 bit data word.
+ * @returns unsigned 8 bit data word.
  */
 
 uint8_t usart_recv_blocking(uint32_t usart)
