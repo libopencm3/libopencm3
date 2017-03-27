@@ -1,3 +1,5 @@
+/** @addtogroup rng_file
+ */
 /*
  * This file is part of the libopencm3 project.
  *
@@ -23,8 +25,13 @@ specific memorymap.h header before including this header file.*/
 /** @cond */
 #ifdef LIBOPENCM3_RNG_H
 /** @endcond */
-#ifndef LIBOPENCM3_RNG_COMMON_F24_H
-#define LIBOPENCM3_RNG_COMMON_F24_H
+#ifndef LIBOPENCM3_RNG_V1_H
+#define LIBOPENCM3_RNG_V1_H
+
+#include <stdbool.h>
+#include <stdint.h>
+
+/**@{*/
 
 /* --- Random number generator registers ----------------------------------- */
 
@@ -62,10 +69,23 @@ specific memorymap.h header before including this header file.*/
 /* Seed error interrupt status */
 #define RNG_SR_SEIS		(1 << 6)
 
+/* --- Function prototypes ------------------------------------------------- */
+
+BEGIN_DECLS
+
+void rng_enable(void);
+void rng_disable(void);
+bool rng_get_random(uint32_t *rand_nr);
+uint32_t rng_get_random_blocking(void);
+
+END_DECLS
+
+/**@}*/
+
 #endif
 /** @cond */
 #else
-#warning "rng_common_f24.h should not be included explicitly, only via rng.h"
+#warning "rng_common_v1.h should not be included explicitly, only via rng.h"
 #endif
 /** @endcond */
 

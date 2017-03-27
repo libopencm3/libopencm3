@@ -41,7 +41,7 @@ void flash_set_ws(uint32_t ws)
 	uint32_t reg32;
 
 	reg32 = FLASH_ACR;
-	reg32 &= ~((1 << 0) | (1 << 1) | (1 << 2));
+	reg32 &= ~(FLASH_ACR_LATENCY_MASK);
 	reg32 |= ws;
 	FLASH_ACR = reg32;
 }

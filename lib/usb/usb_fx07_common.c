@@ -31,7 +31,6 @@
  * according to the selected cores base address. */
 #define dev_base_address (usbd_dev->driver->base_address)
 #define REBASE(x)        MMIO32((x) + (dev_base_address))
-#define REBASE_FIFO(x)   (&MMIO32((dev_base_address) + (OTG_FIFO(x))))
 
 void stm32fx07_set_address(usbd_device *usbd_dev, uint8_t addr)
 {
@@ -210,11 +209,10 @@ uint16_t stm32fx07_ep_write_packet(usbd_device *usbd_dev, uint8_t addr,
 	REBASE(OTG_DIEPTSIZ(addr)) = OTG_DIEPSIZ0_PKTCNT | len;
 	REBASE(OTG_DIEPCTL(addr)) |= OTG_DIEPCTL0_EPENA |
 				     OTG_DIEPCTL0_CNAK;
-	volatile uint32_t *fifo = REBASE_FIFO(addr);
 
 	/* Copy buffer to endpoint FIFO, note - memcpy does not work */
 	for (i = len; i > 0; i -= 4) {
-		*fifo++ = *buf32++;
+		REBASE(OTG_FIFO(addr)) = *buf32++;
 	}
 
 	return len;
@@ -227,25 +225,54 @@ uint16_t stm32fx07_ep_read_packet(usbd_device *usbd_dev, uint8_t addr,
 	uint32_t *buf32 = buf;
 	uint32_t extra;
 
+	/* We do not need to know the endpoint address since there is only one
+	 * receive FIFO for all endpoints.
+	 */
+	(void) addr;
 	len = MIN(len, usbd_dev->rxbcnt);
-	usbd_dev->rxbcnt -= len;
 
-	volatile uint32_t *fifo = REBASE_FIFO(addr);
 	for (i = len; i >= 4; i -= 4) {
-		*buf32++ = *fifo++;
+		*buf32++ = REBASE(OTG_FIFO(0));
+		usbd_dev->rxbcnt -= 4;
 	}
 
 	if (i) {
-		extra = *fifo++;
+		extra = REBASE(OTG_FIFO(0));
+		/* we read 4 bytes from the fifo, so update rxbcnt */
+		if (usbd_dev->rxbcnt < 4) {
+			/* Be careful not to underflow (rxbcnt is unsigned) */
+			usbd_dev->rxbcnt = 0;
+		} else {
+			usbd_dev->rxbcnt -= 4;
+		}
 		memcpy(buf32, &extra, i);
 	}
 
-	REBASE(OTG_DOEPTSIZ(addr)) = usbd_dev->doeptsiz[addr];
-	REBASE(OTG_DOEPCTL(addr)) |= OTG_DOEPCTL0_EPENA |
-	    (usbd_dev->force_nak[addr] ?
-	     OTG_DOEPCTL0_SNAK : OTG_DOEPCTL0_CNAK);
-
 	return len;
+}
+
+static void stm32fx07_flush_txfifo(usbd_device *usbd_dev, int ep)
+{
+	uint32_t fifo;
+	/* set IN endpoint NAK */
+	REBASE(OTG_DIEPCTL(ep)) |= OTG_DIEPCTL0_SNAK;
+	/* wait for core to respond */
+	while (!(REBASE(OTG_DIEPINT(ep)) & OTG_DIEPINTX_INEPNE)) {
+		/* idle */
+	}
+	/* get fifo for this endpoint */
+	fifo = (REBASE(OTG_DIEPCTL(ep)) & OTG_DIEPCTL0_TXFNUM_MASK) >> 22;
+	/* wait for core to idle */
+	while (!(REBASE(OTG_GRSTCTL) & OTG_GRSTCTL_AHBIDL)) {
+		/* idle */
+	}
+	/* flush tx fifo */
+	REBASE(OTG_GRSTCTL) = (fifo << 6) | OTG_GRSTCTL_TXFFLSH;
+	/* reset packet counter */
+	REBASE(OTG_DIEPTSIZ(ep)) = 0;
+	while ((REBASE(OTG_GRSTCTL) & OTG_GRSTCTL_TXFFLSH)) {
+		/* idle */
+	}
 }
 
 void stm32fx07_poll(usbd_device *usbd_dev)
@@ -260,48 +287,6 @@ void stm32fx07_poll(usbd_device *usbd_dev)
 		usbd_dev->fifo_mem_top = usbd_dev->driver->rx_fifo_size;
 		_usbd_reset(usbd_dev);
 		return;
-	}
-
-	/* Note: RX and TX handled differently in this device. */
-	if (intsts & OTG_GINTSTS_RXFLVL) {
-		/* Receive FIFO non-empty. */
-		uint32_t rxstsp = REBASE(OTG_GRXSTSP);
-		uint32_t pktsts = rxstsp & OTG_GRXSTSP_PKTSTS_MASK;
-		if ((pktsts != OTG_GRXSTSP_PKTSTS_OUT) &&
-		    (pktsts != OTG_GRXSTSP_PKTSTS_SETUP)) {
-			return;
-		}
-
-		uint8_t ep = rxstsp & OTG_GRXSTSP_EPNUM_MASK;
-		uint8_t type;
-		if (pktsts == OTG_GRXSTSP_PKTSTS_SETUP) {
-			type = USB_TRANSACTION_SETUP;
-		} else {
-			type = USB_TRANSACTION_OUT;
-		}
-
-		/* Save packet size for stm32f107_ep_read_packet(). */
-		usbd_dev->rxbcnt = (rxstsp & OTG_GRXSTSP_BCNT_MASK) >> 4;
-
-		/*
-		 * FIXME: Why is a delay needed here?
-		 * This appears to fix a problem where the first 4 bytes
-		 * of the DATA OUT stage of a control transaction are lost.
-		 */
-		for (i = 0; i < 1000; i++) {
-			__asm__("nop");
-		}
-
-		if (usbd_dev->user_callback_ctr[ep][type]) {
-			usbd_dev->user_callback_ctr[ep][type] (usbd_dev, ep);
-		}
-
-		/* Discard unread packet data. */
-		for (i = 0; i < usbd_dev->rxbcnt; i += 4) {
-			(void)*REBASE_FIFO(ep);
-		}
-
-		usbd_dev->rxbcnt = 0;
 	}
 
 	/*
@@ -319,6 +304,57 @@ void stm32fx07_poll(usbd_device *usbd_dev)
 
 			REBASE(OTG_DIEPINT(i)) = OTG_DIEPINTX_XFRC;
 		}
+	}
+
+	/* Note: RX and TX handled differently in this device. */
+	if (intsts & OTG_GINTSTS_RXFLVL) {
+		/* Receive FIFO non-empty. */
+		uint32_t rxstsp = REBASE(OTG_GRXSTSP);
+		uint32_t pktsts = rxstsp & OTG_GRXSTSP_PKTSTS_MASK;
+		uint8_t ep = rxstsp & OTG_GRXSTSP_EPNUM_MASK;
+		if (pktsts == OTG_GRXSTSP_PKTSTS_OUT_COMP
+			|| pktsts == OTG_GRXSTSP_PKTSTS_SETUP_COMP)  {
+			REBASE(OTG_DOEPTSIZ(ep)) = usbd_dev->doeptsiz[ep];
+			REBASE(OTG_DOEPCTL(ep)) |= OTG_DOEPCTL0_EPENA |
+				(usbd_dev->force_nak[ep] ?
+				 OTG_DOEPCTL0_SNAK : OTG_DOEPCTL0_CNAK);
+			return;
+		}
+
+		if ((pktsts != OTG_GRXSTSP_PKTSTS_OUT) &&
+		    (pktsts != OTG_GRXSTSP_PKTSTS_SETUP)) {
+			return;
+		}
+
+		uint8_t type;
+		if (pktsts == OTG_GRXSTSP_PKTSTS_SETUP) {
+			type = USB_TRANSACTION_SETUP;
+		} else {
+			type = USB_TRANSACTION_OUT;
+		}
+
+		if (type == USB_TRANSACTION_SETUP
+			&& (REBASE(OTG_DIEPTSIZ(ep)) & OTG_DIEPSIZ0_PKTCNT)) {
+			/* SETUP received but there is still something stuck
+			 * in the transmit fifo.  Flush it.
+			 */
+			stm32fx07_flush_txfifo(usbd_dev, ep);
+		}
+
+		/* Save packet size for stm32f107_ep_read_packet(). */
+		usbd_dev->rxbcnt = (rxstsp & OTG_GRXSTSP_BCNT_MASK) >> 4;
+
+		if (usbd_dev->user_callback_ctr[ep][type]) {
+			usbd_dev->user_callback_ctr[ep][type] (usbd_dev, ep);
+		}
+
+		/* Discard unread packet data. */
+		for (i = 0; i < usbd_dev->rxbcnt; i += 4) {
+			/* There is only one receive FIFO, so use OTG_FIFO(0) */
+			(void)REBASE(OTG_FIFO(0));
+		}
+
+		usbd_dev->rxbcnt = 0;
 	}
 
 	if (intsts & OTG_GINTSTS_USBSUSP) {

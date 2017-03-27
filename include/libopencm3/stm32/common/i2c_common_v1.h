@@ -26,13 +26,16 @@
 The order of header inclusion is important. i2c.h includes the device
 specific memorymap.h header before including this header file.*/
 
-/** @cond */
-#if defined(LIBOPENCM3_I2C_H)
-/** @endcond */
-#ifndef LIBOPENCM3_I2C_COMMON_ALL_H
-#define LIBOPENCM3_I2C_COMMON_ALL_H
-
 /**@{*/
+
+/** @cond */
+#ifdef LIBOPENCM3_I2C_H
+/** @endcond */
+#ifndef LIBOPENCM3_I2C_COMMON_V1_H
+#define LIBOPENCM3_I2C_COMMON_V1_H
+
+#include <stddef.h>
+#include <stdint.h>
 
 /* --- Convenience macros -------------------------------------------------- */
 
@@ -359,6 +362,16 @@ specific memorymap.h header before including this header file.*/
 
 /* --- I2C function prototypes---------------------------------------------- */
 
+/**
+ * I2C speed modes.
+ */
+enum i2c_speeds {
+	i2c_speed_sm_100k,
+	i2c_speed_fm_400k,
+	i2c_speed_fmp_1m,
+	i2c_speed_unknown
+};
+
 BEGIN_DECLS
 
 void i2c_reset(uint32_t i2c);
@@ -391,13 +404,33 @@ void i2c_enable_dma(uint32_t i2c);
 void i2c_disable_dma(uint32_t i2c);
 void i2c_set_dma_last_transfer(uint32_t i2c);
 void i2c_clear_dma_last_transfer(uint32_t i2c);
+/**
+ * Set the i2c communication speed.
+ * @param i2c peripheral, eg I2C1
+ * @param speed one of the listed speed modes @ref i2c_speeds
+ * @param clock_megahz i2c peripheral clock speed in MHz. Usually, rcc_apb1_frequency / 1e6
+ */
+void i2c_set_speed(uint32_t i2c, enum i2c_speeds speed, uint32_t clock_megahz);
+/**
+ * Run a write/read transaction to a given 7bit i2c address
+ * If both write & read are provided, the read will use repeated start.
+ * Both write and read are optional
+ * @param i2c peripheral of choice, eg I2C1
+ * @param addr 7 bit i2c device address
+ * @param w buffer of data to write
+ * @param wn length of w
+ * @param r destination buffer to read into
+ * @param rn number of bytes to read (r should be at least this long)
+ */
+void i2c_transfer7(uint32_t i2c, uint8_t addr, uint8_t *w, size_t wn, uint8_t *r, size_t rn);
+
 
 END_DECLS
 
 #endif
 /** @cond */
 #else
-#warning "i2c_common_all.h should not be included explicitly, only via i2c.h"
+#warning "i2c_common_v1.h should not be included explicitly, only via i2c.h"
 #endif
 /** @endcond */
 /**@}*/

@@ -31,10 +31,10 @@ specific memorymap.h header before including this header file.*/
 
 /*
  * The adc v2 peripheral optionally supports per channel sampling, injected
- * sequences, watchdogs, offsets and other "advanced" features, and is 
+ * sequences, watchdogs, offsets and other "advanced" features, and is
  * found on the (so far) F3 and L4,
  * or only a much "simpler" version as found on (so far) f0 and l0.
- */ 
+ */
 
 /** @cond */
 #ifdef LIBOPENCM3_ADC_H

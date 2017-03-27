@@ -30,8 +30,8 @@
 /*---------------------------------------------------------------------------*/
 /** @brief USART enable data inversion
 
- Logical data from the data register are send/received in negative/inverse logic.
- (1=L, 0=H). The parity bit is also inverted.
+ Logical data from the data register are send/received in negative/inverse
+ logic. (1=L, 0=H). The parity bit is also inverted.
 
  @note This bit field can only be written when the USART is disabled.
 

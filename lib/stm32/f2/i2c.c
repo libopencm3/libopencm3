@@ -29,5 +29,4 @@
  */
 
 #include <libopencm3/stm32/i2c.h>
-#include <libopencm3/stm32/common/i2c_common_all.h>
 

@@ -678,6 +678,9 @@ Twelve frequency ranges are available: 100 kHz, 200 kHz, 400 kHz, 800 kHz,
 #define RCC_CSR_OBLRSTF				(1 << 25)
 #define RCC_CSR_FWRSTF				(1 << 24)
 #define RCC_CSR_RMVF				(1 << 23)
+#define RCC_CSR_RESET_FLAGS	(RCC_CSR_LPWRRSTF | RCC_CSR_WWDGRSTF |\
+		RCC_CSR_IWDGRSTF | RCC_CSR_SFTRSTF | RCC_CSR_BORRSTF |\
+		RCC_CSR_PINRSTF | RCC_CSR_OBLRSTF | RCC_CSR_FWRSTF)
 
 /** @defgroup rcc_csr_msirange MSI Range after standby values
 @brief Range of the MSI oscillator after returning from standby

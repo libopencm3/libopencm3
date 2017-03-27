@@ -1,14 +1,5 @@
-/** @addtogroup i2c_defines
-
-@author @htmlonly &copy; @endhtmlonly 2012
-Ken Sarkies <ksarkies@internode.on.net>
-
-*/
-
 /*
  * This file is part of the libopencm3 project.
- *
- * Copyright (C) 2012 Ken Sarkies <ksarkies@internode.on.net>
  *
  * This library is free software: you can redistribute it and/or modify
  * it under the terms of the GNU Lesser General Public License as published by
@@ -24,28 +15,9 @@ Ken Sarkies <ksarkies@internode.on.net>
  * along with this library.  If not, see <http://www.gnu.org/licenses/>.
  */
 
-/* THIS FILE SHOULD NOT BE INCLUDED DIRECTLY, BUT ONLY VIA I2C.H
-The order of header inclusion is important. i2c.h includes the device
-specific memorymap.h header before including this header file.*/
+#ifndef LIBOPENCM3_RNG_H
+#define LIBOPENCM3_RNG_H
 
-/** @cond */
-#ifdef LIBOPENCM3_I2C_H
-/** @endcond */
-#ifndef LIBOPENCM3_I2C_COMMON_F24_H
-#define LIBOPENCM3_I2C_COMMON_F24_H
-
-#include <libopencm3/stm32/common/i2c_common_all.h>
-
-/**@{*/
-
-#define I2C3				I2C3_BASE
-
-/**@}*/
+#include <libopencm3/stm32/common/rng_common_v1.h>
 
 #endif
-/** @cond */
-#else
-#warning "i2c_common_f24.h should not be included explicitly, only via i2c.h"
-#endif
-/** @endcond */
-

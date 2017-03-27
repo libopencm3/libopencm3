@@ -34,9 +34,8 @@
 /*---------------------------------------------------------------------------*/
 /** @brief USART Set Baudrate.
  *
- * @param[in] usart unsigned 32 bit. USART block register address base @ref
- * usart_reg_base
- * @param[in] baud unsigned 32 bit. Baud rate specified in Hz.
+ * @param usart USART block register address base @ref usart_reg_base
+ * @param baud Baud rate specified in Hz.
  */
 
 void usart_set_baudrate(uint32_t usart, uint32_t baud)
@@ -59,9 +58,8 @@ void usart_set_baudrate(uint32_t usart, uint32_t baud)
  * parity bit if parity is enabled, in which case the data length will be 7
  * or 8 bits respectively.
  *
- * @param[in] usart unsigned 32 bit. USART block register address base @ref
- * usart_reg_base
- * @param[in] bits unsigned 32 bit. Word length in bits 8 or 9.
+ * @param usart USART block register address base @ref usart_reg_base
+ * @param bits Word length in bits 8 or 9.
  */
 
 void usart_set_databits(uint32_t usart, uint32_t bits)
@@ -78,9 +76,8 @@ void usart_set_databits(uint32_t usart, uint32_t bits)
  *
  * The stop bits are specified as 0.5, 1, 1.5 or 2.
  *
- * @param[in] usart unsigned 32 bit. USART block register address base @ref
- * usart_reg_base
- * @param[in] stopbits unsigned 32 bit. Stop bits @ref usart_cr2_stopbits.
+ * @param usart USART block register address base @ref usart_reg_base
+ * @param stopbits Stop bits @ref usart_cr2_stopbits.
  */
 
 void usart_set_stopbits(uint32_t usart, uint32_t stopbits)
@@ -93,9 +90,8 @@ void usart_set_stopbits(uint32_t usart, uint32_t stopbits)
  *
  * The parity bit can be selected as none, even or odd.
  *
- * @param[in] usart unsigned 32 bit. USART block register address base @ref
- * usart_reg_base
- * @param[in] parity unsigned 32 bit. Parity @ref usart_cr1_parity.
+ * @param usart USART block register address base @ref usart_reg_base
+ * @param parity Parity @ref usart_cr1_parity.
  */
 
 void usart_set_parity(uint32_t usart, uint32_t parity)
@@ -108,9 +104,8 @@ void usart_set_parity(uint32_t usart, uint32_t parity)
  *
  * The mode can be selected as Rx only, Tx only or Rx+Tx.
  *
- * @param[in] usart unsigned 32 bit. USART block register address base @ref
- * usart_reg_base
- * @param[in] mode unsigned 32 bit. Mode @ref usart_cr1_mode.
+ * @param usart USART block register address base @ref usart_reg_base
+ * @param mode Mode @ref usart_cr1_mode.
  */
 
 void usart_set_mode(uint32_t usart, uint32_t mode)
@@ -123,10 +118,8 @@ void usart_set_mode(uint32_t usart, uint32_t mode)
  *
  * The flow control bit can be selected as none, RTS, CTS or RTS+CTS.
  *
- * @param[in] usart unsigned 32 bit. USART block register address base @ref
- * usart_reg_base
- * @param[in] flowcontrol unsigned 32 bit. Flowcontrol @ref
- * usart_cr3_flowcontrol.
+ * @param usart USART block register address base @ref usart_reg_base
+ * @param flowcontrol Flowcontrol @ref usart_cr3_flowcontrol.
  */
 
 void usart_set_flow_control(uint32_t usart, uint32_t flowctrl)
@@ -137,8 +130,7 @@ void usart_set_flow_control(uint32_t usart, uint32_t flowctrl)
 /*---------------------------------------------------------------------------*/
 /** @brief USART Enable.
  *
- * @param[in] usart unsigned 32 bit. USART block register address base @ref
- * usart_reg_base
+ * @param usart USART block register address base @ref usart_reg_base
  */
 
 void usart_enable(uint32_t usart)
@@ -151,8 +143,7 @@ void usart_enable(uint32_t usart)
  *
  * At the end of the current frame, the USART is disabled to reduce power.
  *
- * @param[in] usart unsigned 32 bit. USART block register address base @ref
- * usart_reg_base
+ * @param usart USART block register address base @ref usart_reg_base
  */
 
 void usart_disable(uint32_t usart)
@@ -163,12 +154,11 @@ void usart_disable(uint32_t usart)
 /*---------------------------------------------------------------------------*/
 /** @brief USART Send a Data Word.
  *
- * @param[in] usart unsigned 32 bit. USART block register address base @ref
- * usart_reg_base
- * @param[in] data unsigned 16 bit.
+ * @param usart USART block register address base @ref usart_reg_base
+ * @param data
  */
 
-void usart_send(uint32_t usart, uint8_t data)
+void usart_send(uint32_t usart, uint16_t data)
 {
 	USART_TDR(usart) = data;
 }
@@ -179,12 +169,11 @@ void usart_send(uint32_t usart, uint8_t data)
  * If parity is enabled the MSB (bit 7 or 8 depending on the word length) is
  * the parity bit.
  *
- * @param[in] usart unsigned 32 bit. USART block register address base @ref
- * usart_reg_base
- * @returns unsigned 16 bit data word.
+ * @param usart USART block register address base @ref usart_reg_base
+ * @returns data word.
  */
 
-uint8_t usart_recv(uint32_t usart)
+uint16_t usart_recv(uint32_t usart)
 {
 	/* Receive data. */
 	return USART_RDR(usart);
@@ -196,8 +185,7 @@ uint8_t usart_recv(uint32_t usart)
  * Blocks until the transmit data buffer becomes empty and is ready to accept
  * the next data word.
  *
- * @param[in] usart unsigned 32 bit. USART block register address base @ref
- * usart_reg_base
+ * @param usart USART block register address base @ref usart_reg_base
  */
 
 void usart_wait_send_ready(uint32_t usart)
@@ -211,8 +199,7 @@ void usart_wait_send_ready(uint32_t usart)
  *
  * Blocks until the receive data buffer holds a valid received data word.
  *
- * @param[in] usart unsigned 32 bit. USART block register address base @ref
- * usart_reg_base
+ * @param usart USART block register address base @ref usart_reg_base
  */
 
 void usart_wait_recv_ready(uint32_t usart)
@@ -227,12 +214,11 @@ void usart_wait_recv_ready(uint32_t usart)
  * Blocks until the transmit data buffer becomes empty then writes the next
  * data word for transmission.
  *
- * @param[in] usart unsigned 32 bit. USART block register address base @ref
- * usart_reg_base
- * @param[in] data unsigned 16 bit.
+ * @param usart USART block register address base @ref usart_reg_base
+ * @param data word to send
  */
 
-void usart_send_blocking(uint32_t usart, uint8_t data)
+void usart_send_blocking(uint32_t usart, uint16_t data)
 {
 	usart_wait_send_ready(usart);
 	usart_send(usart, data);
@@ -243,12 +229,11 @@ void usart_send_blocking(uint32_t usart, uint8_t data)
  *
  * Wait until a data word has been received then return the word.
  *
- * @param[in] usart unsigned 32 bit. USART block register address base @ref
- * usart_reg_base
- * @returns unsigned 16 bit data word.
+ * @param usart USART block register address base @ref usart_reg_base
+ * @returns data word.
  */
 
-uint8_t usart_recv_blocking(uint32_t usart)
+uint16_t usart_recv_blocking(uint32_t usart)
 {
 	usart_wait_recv_ready(usart);
 
@@ -262,8 +247,7 @@ uint8_t usart_recv_blocking(uint32_t usart)
  * @li USART1 Rx DMA1 channel 3 or 5.
  * @li USART2 Rx DMA1 channel 5.
  *
- * @param[in] usart unsigned 32 bit. USART block register address base @ref
- * usart_reg_base
+ * @param usart USART block register address base @ref usart_reg_base
  */
 
 void usart_enable_rx_dma(uint32_t usart)
@@ -274,8 +258,7 @@ void usart_enable_rx_dma(uint32_t usart)
 /*---------------------------------------------------------------------------*/
 /** @brief USART Receiver DMA Disable.
  *
- * @param[in] usart unsigned 32 bit. USART block register address base @ref
- * usart_reg_base
+ * @param usart USART block register address base @ref usart_reg_base
  */
 
 void usart_disable_rx_dma(uint32_t usart)
@@ -290,8 +273,7 @@ void usart_disable_rx_dma(uint32_t usart)
  * @li USART1 Tx DMA1 channel 2 or 4.
  * @li USART2 Tx DMA1 channel 4.
  *
- * @param[in] usart unsigned 32 bit. USART block register address base @ref
- * usart_reg_base
+ * @param usart USART block register address base @ref usart_reg_base
  */
 
 void usart_enable_tx_dma(uint32_t usart)
@@ -302,8 +284,7 @@ void usart_enable_tx_dma(uint32_t usart)
 /*---------------------------------------------------------------------------*/
 /** @brief USART Transmitter DMA Disable.
  *
- * @param[in] usart unsigned 32 bit. USART block register address base @ref
- * usart_reg_base
+ * @param usart USART block register address base @ref usart_reg_base
  */
 
 void usart_disable_tx_dma(uint32_t usart)
@@ -313,11 +294,9 @@ void usart_disable_tx_dma(uint32_t usart)
 
 /*---------------------------------------------------------------------------*/
 /** @brief USART Receiver Interrupt Enable.
-
-@param[in] usart unsigned 32 bit. USART block register address base @ref
-usart_reg_base
-*/
-
+ *
+ * @param usart USART block register address base @ref usart_reg_base
+ */
 void usart_enable_rx_interrupt(uint32_t usart)
 {
 	USART_CR1(usart) |= USART_CR1_RXNEIE;
@@ -327,8 +306,7 @@ void usart_enable_rx_interrupt(uint32_t usart)
 /*---------------------------------------------------------------------------*/
 /** @brief USART Receiver Interrupt Disable.
  *
- * @param[in] usart unsigned 32 bit. USART block register address base @ref
- * usart_reg_base
+ * @param usart USART block register address base @ref usart_reg_base
  */
 
 void usart_disable_rx_interrupt(uint32_t usart)
@@ -339,8 +317,7 @@ void usart_disable_rx_interrupt(uint32_t usart)
 /*---------------------------------------------------------------------------*/
 /** @brief USART Transmitter Interrupt Enable.
  *
- * @param[in] usart unsigned 32 bit. USART block register address base @ref
- * usart_reg_base
+ * @param usart USART block register address base @ref usart_reg_base
  */
 
 void usart_enable_tx_interrupt(uint32_t usart)
@@ -351,8 +328,7 @@ void usart_enable_tx_interrupt(uint32_t usart)
 /*---------------------------------------------------------------------------*/
 /** @brief USART Transmitter Interrupt Disable.
  *
- * @param[in] usart unsigned 32 bit. USART block register address base @ref
- * usart_reg_base
+ * @param usart USART block register address base @ref usart_reg_base
  */
 
 void usart_disable_tx_interrupt(uint32_t usart)
@@ -363,8 +339,7 @@ void usart_disable_tx_interrupt(uint32_t usart)
 /*---------------------------------------------------------------------------*/
 /** @brief USART Error Interrupt Enable.
  *
- * @param[in] usart unsigned 32 bit. USART block register address base @ref
- * usart_reg_base
+ * @param usart USART block register address base @ref usart_reg_base
  */
 
 void usart_enable_error_interrupt(uint32_t usart)
@@ -375,8 +350,7 @@ void usart_enable_error_interrupt(uint32_t usart)
 /*---------------------------------------------------------------------------*/
 /** @brief USART Error Interrupt Disable.
  *
- * @param[in] usart unsigned 32 bit. USART block register address base @ref
- * usart_reg_base
+ * @param usart USART block register address base @ref usart_reg_base
  */
 
 void usart_disable_error_interrupt(uint32_t usart)
@@ -387,42 +361,14 @@ void usart_disable_error_interrupt(uint32_t usart)
 /*---------------------------------------------------------------------------*/
 /** @brief USART Read a Status Flag.
  *
- * @param[in] usart unsigned 32 bit. USART block register address base @ref
- * usart_reg_base
- * @param[in] flag Unsigned int32. Status register flag  @ref usart_sr_flags.
+ * @param usart USART block register address base @ref usart_reg_base
+ * @param flag Status register flag  @ref usart_sr_flags.
  * @returns boolean: flag set.
  */
 
 bool usart_get_flag(uint32_t usart, uint32_t flag)
 {
 	return ((USART_ISR(usart) & flag) != 0);
-}
-
-/*---------------------------------------------------------------------------*/
-/** @brief USART Return Interrupt Source.
- *
- * Returns true if the specified interrupt flag (IDLE, RXNE, TC, TXE or OE) was
- * set and the interrupt was enabled. If the specified flag is not an interrupt
- * flag, the function returns false.
- *
- * @param[in] usart unsigned 32 bit. USART block register address base @ref
- * usart_reg_base
- * @param[in] flag Unsigned int32. Status register flag  @ref usart_sr_flags.
- * @returns boolean: flag and interrupt enable both set.
- */
-
-bool usart_get_interrupt_source(uint32_t usart, uint32_t flag)
-{
-	uint32_t flag_set = (USART_ISR(usart) & flag);
-	/* IDLE, RXNE, TC, TXE interrupts */
-	if ((flag >= USART_ISR_IDLE) && (flag <= USART_ISR_TXE)) {
-		return ((flag_set & USART_CR1(usart)) != 0);
-	/* Overrun error */
-	} else if (flag == USART_ISR_ORE) {
-		return flag_set && (USART_CR3(usart) & USART_CR3_CTSIE);
-	}
-
-	return false;
 }
 
 /**@}*/

@@ -1,11 +1,18 @@
-/** @addtogroup pwr_file
+/** @defgroup i2c_file I2C
  *
- * @author @htmlonly &copy; @endhtmlonly 2012 Karl Palsson <karlp@tweak.net.au>
+ * @ingroup STM32L0xx
+ *
+ * @brief <b>libopencm3 STM32L0xx I2C</b>
+ *
+ * @version 1.0.0
+ *
+ * @date 1 December 2016
+ *
+ * LGPL License Terms @ref lgpl_license
  */
+
 /*
  * This file is part of the libopencm3 project.
- *
- * Copyright (C) 2012 Karl Palsson <karlp@tweak.net.au>
  *
  * This library is free software: you can redistribute it and/or modify
  * it under the terms of the GNU Lesser General Public License as published by
@@ -20,28 +27,6 @@
  * You should have received a copy of the GNU Lesser General Public License
  * along with this library.  If not, see <http://www.gnu.org/licenses/>.
  */
-/**@{*/
 
-#include <libopencm3/stm32/pwr.h>
-#include <libopencm3/stm32/rcc.h>
+#include <libopencm3/stm32/i2c.h>
 
-void pwr_set_vos_scale(enum pwr_vos_scale scale)
-{
-	/* You are not allowed to write zeros here, don't try and optimize! */
-	uint32_t reg = PWR_CR;
-	reg &= ~(PWR_CR_VOS_MASK);
-	switch (scale) {
-	case PWR_SCALE1:
-		reg |= PWR_CR_VOS_RANGE1;
-		break;
-	case PWR_SCALE2:
-		reg |= PWR_CR_VOS_RANGE2;
-		break;
-	case PWR_SCALE3:
-		reg |= PWR_CR_VOS_RANGE3;
-		break;
-	}
-	PWR_CR = reg;
-}
-
-/**@}*/

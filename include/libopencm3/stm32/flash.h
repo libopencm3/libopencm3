@@ -30,6 +30,8 @@
 #       include <libopencm3/stm32/f3/flash.h>
 #elif defined(STM32F4)
 #       include <libopencm3/stm32/f4/flash.h>
+#elif defined(STM32F7)
+#       include <libopencm3/stm32/f7/flash.h>
 #elif defined(STM32L1)
 #       include <libopencm3/stm32/l1/flash.h>
 #elif defined(STM32L4)

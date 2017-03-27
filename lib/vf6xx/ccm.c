@@ -45,13 +45,13 @@ static const uint32_t pll2_main_clk = 528000000;
 static const uint32_t pll3_main_clk = 480000000;
 
 /* ARM Cortex-A5 clock, core clock */
-uint32_t ccm_core_clk = 0;
+uint32_t ccm_core_clk;
 
 /* Platform bus clock and Cortex-M4 core clock */
-uint32_t ccm_platform_bus_clk = 0;
+uint32_t ccm_platform_bus_clk;
 
 /* IPS bus clock */
-uint32_t ccm_ipg_bus_clk = 0;
+uint32_t ccm_ipg_bus_clk;
 
 
 uint32_t ccm_get_pll_pfd(uint32_t pfd_sel, uint32_t pll_pfd, uint32_t pll_clk);

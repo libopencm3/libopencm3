@@ -206,19 +206,19 @@ bool rcc_is_osc_ready(enum rcc_osc osc)
 {
 	switch (osc) {
 	case RCC_HSI48:
-		return (RCC_CR2 & RCC_CR2_HSI48RDY);
+		return RCC_CR2 & RCC_CR2_HSI48RDY;
 	case RCC_HSI14:
-		return (RCC_CR2 & RCC_CR2_HSI14RDY);
+		return RCC_CR2 & RCC_CR2_HSI14RDY;
 	case RCC_HSI:
-		return (RCC_CR & RCC_CR_HSIRDY);
+		return RCC_CR & RCC_CR_HSIRDY;
 	case RCC_HSE:
-		return (RCC_CR & RCC_CR_HSERDY);
+		return RCC_CR & RCC_CR_HSERDY;
 	case RCC_PLL:
-		return (RCC_CR & RCC_CR_PLLRDY);
+		return RCC_CR & RCC_CR_PLLRDY;
 	case RCC_LSE:
-		return (RCC_BDCR & RCC_BDCR_LSERDY);
+		return RCC_BDCR & RCC_BDCR_LSERDY;
 	case RCC_LSI:
-		return (RCC_CSR & RCC_CSR_LSIRDY);
+		return RCC_CSR & RCC_CSR_LSIRDY;
 	}
 	return false;
 }
@@ -439,6 +439,50 @@ void rcc_set_usbclk_source(enum rcc_osc clk)
 }
 
 /*---------------------------------------------------------------------------*/
+/** @brief RCC Enable the RTC clock
+
+*/
+
+void rcc_enable_rtc_clock(void)
+{
+	RCC_BDCR |= RCC_BDCR_RTCEN;
+}
+
+/*---------------------------------------------------------------------------*/
+/** @brief RCC Disable the RTC clock
+
+*/
+
+void rcc_disable_rtc_clock(void)
+{
+	RCC_BDCR &= ~RCC_BDCR_RTCEN;
+}
+
+/*---------------------------------------------------------------------------*/
+/** @brief RCC Set the Source for the RTC clock
+
+@param[in] clock_source ::rcc_osc. RTC clock source. Only HSE/32, LSE and LSI.
+*/
+
+void rcc_set_rtc_clock_source(enum rcc_osc clk)
+{
+	switch (clk) {
+	case RCC_HSE:
+		RCC_BDCR = (RCC_BDCR & ~RCC_BDCR_RTCSEL) | RCC_BDCR_RTCSEL_HSE;
+		break;
+	case RCC_LSE:
+		RCC_BDCR = (RCC_BDCR & ~RCC_BDCR_RTCSEL) | RCC_BDCR_RTCSEL_LSE;
+		break;
+	case RCC_LSI:
+		RCC_BDCR = (RCC_BDCR & ~RCC_BDCR_RTCSEL) | RCC_BDCR_RTCSEL_LSI;
+		break;
+	default:
+		/* do nothing */
+		break;
+	}
+}
+
+/*---------------------------------------------------------------------------*/
 /** @brief RCC Set the PLL Multiplication Factor.
  *
  * @note This only has effect when the PLL is disabled.
@@ -451,6 +495,33 @@ void rcc_set_pll_multiplication_factor(uint32_t mul)
 	RCC_CFGR = (RCC_CFGR & ~RCC_CFGR_PLLMUL) | mul;
 }
 
+/*---------------------------------------------------------------------------*/
+/** @brief RCC Set the PLL Clock Source.
+
+@note This only has effect when the PLL is disabled.
+
+@param[in] pllsrc Unsigned int32. PLL clock source @ref rcc_cfgr_pcs
+*/
+
+void rcc_set_pll_source(uint32_t pllsrc)
+{
+	RCC_CFGR = (RCC_CFGR & ~RCC_CFGR_PLLSRC) |
+			(pllsrc << 16);
+}
+
+/*---------------------------------------------------------------------------*/
+/** @brief RCC Set the HSE Frequency Divider used as PLL Clock Source.
+
+@note This only has effect when the PLL is disabled.
+
+@param[in] pllxtpre Unsigned int32. HSE division factor @ref rcc_cfgr_hsepre
+*/
+
+void rcc_set_pllxtpre(uint32_t pllxtpre)
+{
+	RCC_CFGR = (RCC_CFGR & ~RCC_CFGR_PLLXTPRE) |
+			(pllxtpre << 17);
+}
 
 /*---------------------------------------------------------------------------*/
 /** @brief RCC Set the APB Prescale Factor.
@@ -520,118 +591,36 @@ enum rcc_osc rcc_usb_clock_source(void)
 	return (RCC_CFGR3 & RCC_CFGR3_USBSW) ? RCC_PLL : RCC_HSI48;
 }
 
-void rcc_clock_setup_in_hsi_out_8mhz(void)
+/**
+ * Set System Clock PLL at 48MHz from HSE at 8MHz.
+ */
+void rcc_clock_setup_in_hse_8mhz_out_48mhz(void)
 {
-	rcc_osc_on(RCC_HSI);
-	rcc_wait_for_osc_ready(RCC_HSI);
-	rcc_set_sysclk_source(RCC_HSI);
+	rcc_osc_on(RCC_HSE);
+	rcc_wait_for_osc_ready(RCC_HSE);
+	rcc_set_sysclk_source(RCC_HSE);
 
 	rcc_set_hpre(RCC_CFGR_HPRE_NODIV);
 	rcc_set_ppre(RCC_CFGR_PPRE_NODIV);
 
-	flash_set_ws(FLASH_ACR_LATENCY_000_024MHZ);
+	flash_set_ws(FLASH_ACR_LATENCY_024_048MHZ);
 
-	rcc_apb1_frequency = 8000000;
-	rcc_ahb_frequency = 8000000;
-}
-
-void rcc_clock_setup_in_hsi_out_16mhz(void)
-{
-	rcc_osc_on(RCC_HSI);
-	rcc_wait_for_osc_ready(RCC_HSI);
-	rcc_set_sysclk_source(RCC_HSI);
-
-	rcc_set_hpre(RCC_CFGR_HPRE_NODIV);
-	rcc_set_ppre(RCC_CFGR_PPRE_NODIV);
-
-	flash_set_ws(FLASH_ACR_LATENCY_000_024MHZ);
-
-	/* 8MHz * 4 / 2 = 16MHz	 */
-	rcc_set_pll_multiplication_factor(RCC_CFGR_PLLMUL_MUL4);
-
-	RCC_CFGR &= ~RCC_CFGR_PLLSRC;
-
-	rcc_osc_on(RCC_PLL);
-	rcc_wait_for_osc_ready(RCC_PLL);
-	rcc_set_sysclk_source(RCC_PLL);
-
-	rcc_apb1_frequency = 16000000;
-	rcc_ahb_frequency = 16000000;
-}
-
-
-void rcc_clock_setup_in_hsi_out_24mhz(void)
-{
-	rcc_osc_on(RCC_HSI);
-	rcc_wait_for_osc_ready(RCC_HSI);
-	rcc_set_sysclk_source(RCC_HSI);
-
-	rcc_set_hpre(RCC_CFGR_HPRE_NODIV);
-	rcc_set_ppre(RCC_CFGR_PPRE_NODIV);
-
-	flash_set_ws(FLASH_ACR_LATENCY_000_024MHZ);
-
-	/* 8MHz * 6 / 2 = 24MHz	 */
+	/* PLL: 8MHz * 6 = 48MHz */
 	rcc_set_pll_multiplication_factor(RCC_CFGR_PLLMUL_MUL6);
-
-	RCC_CFGR &= ~RCC_CFGR_PLLSRC;
-
-	rcc_osc_on(RCC_PLL);
-	rcc_wait_for_osc_ready(RCC_PLL);
-	rcc_set_sysclk_source(RCC_PLL);
-
-	rcc_apb1_frequency = 24000000;
-	rcc_ahb_frequency = 24000000;
-}
-
-void rcc_clock_setup_in_hsi_out_32mhz(void)
-{
-	rcc_osc_on(RCC_HSI);
-	rcc_wait_for_osc_ready(RCC_HSI);
-	rcc_set_sysclk_source(RCC_HSI);
-
-	rcc_set_hpre(RCC_CFGR_HPRE_NODIV);
-	rcc_set_ppre(RCC_CFGR_PPRE_NODIV);
-
-	flash_set_ws(FLASH_ACR_LATENCY_024_048MHZ);
-
-	/* 8MHz * 8 / 2 = 32MHz	*/
-	rcc_set_pll_multiplication_factor(RCC_CFGR_PLLMUL_MUL8);
-
-	RCC_CFGR &= ~RCC_CFGR_PLLSRC;
+	rcc_set_pll_source(RCC_CFGR_PLLSRC_HSE_CLK);
+	rcc_set_pllxtpre(RCC_CFGR_PLLXTPRE_HSE_CLK);
 
 	rcc_osc_on(RCC_PLL);
 	rcc_wait_for_osc_ready(RCC_PLL);
 	rcc_set_sysclk_source(RCC_PLL);
 
-	rcc_apb1_frequency = 32000000;
-	rcc_ahb_frequency = 32000000;
+	rcc_apb1_frequency = 48000000;
+	rcc_ahb_frequency = 48000000;
 }
 
-void rcc_clock_setup_in_hsi_out_40mhz(void)
-{
-	rcc_osc_on(RCC_HSI);
-	rcc_wait_for_osc_ready(RCC_HSI);
-	rcc_set_sysclk_source(RCC_HSI);
-
-	rcc_set_hpre(RCC_CFGR_HPRE_NODIV);
-	rcc_set_ppre(RCC_CFGR_PPRE_NODIV);
-
-	flash_set_ws(FLASH_ACR_LATENCY_024_048MHZ);
-
-	/* 8MHz * 10 / 2 = 40MHz */
-	rcc_set_pll_multiplication_factor(RCC_CFGR_PLLMUL_MUL10);
-
-	RCC_CFGR &= ~RCC_CFGR_PLLSRC;
-
-	rcc_osc_on(RCC_PLL);
-	rcc_wait_for_osc_ready(RCC_PLL);
-	rcc_set_sysclk_source(RCC_PLL);
-
-	rcc_apb1_frequency = 40000000;
-	rcc_ahb_frequency = 40000000;
-}
-
+/**
+ * Set System Clock PLL at 48MHz from HSI
+ */
 void rcc_clock_setup_in_hsi_out_48mhz(void)
 {
 	rcc_osc_on(RCC_HSI);
@@ -645,8 +634,7 @@ void rcc_clock_setup_in_hsi_out_48mhz(void)
 
 	/* 8MHz * 12 / 2 = 48MHz */
 	rcc_set_pll_multiplication_factor(RCC_CFGR_PLLMUL_MUL12);
-
-	RCC_CFGR &= ~RCC_CFGR_PLLSRC;
+	rcc_set_pll_source(RCC_CFGR_PLLSRC_HSI_CLK_DIV2);
 
 	rcc_osc_on(RCC_PLL);
 	rcc_wait_for_osc_ready(RCC_PLL);
@@ -656,6 +644,9 @@ void rcc_clock_setup_in_hsi_out_48mhz(void)
 	rcc_ahb_frequency = 48000000;
 }
 
+/**
+ * Set System Clock HSI48 at 48MHz
+ */
 void rcc_clock_setup_in_hsi48_out_48mhz(void)
 {
 	rcc_osc_on(RCC_HSI48);

@@ -36,7 +36,7 @@ void desig_get_unique_id_as_string(char *string,
 {
 	int i, len;
 	uint32_t dev_id_buf[3];
-	uint8_t *device_id = (uint8_t*)dev_id_buf;
+	uint8_t *device_id = (uint8_t *)dev_id_buf;
 	const char chars[] = "0123456789ABCDEF";
 
 	desig_get_unique_id(dev_id_buf);

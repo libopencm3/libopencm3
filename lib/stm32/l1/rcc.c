@@ -232,17 +232,17 @@ bool rcc_is_osc_ready(enum rcc_osc osc)
 {
 	switch (osc) {
 	case RCC_PLL:
-		return (RCC_CR & RCC_CR_PLLRDY);
+		return RCC_CR & RCC_CR_PLLRDY;
 	case RCC_HSE:
-		return (RCC_CR & RCC_CR_HSERDY);
+		return RCC_CR & RCC_CR_HSERDY;
 	case RCC_HSI:
-		return (RCC_CR & RCC_CR_HSIRDY);
+		return RCC_CR & RCC_CR_HSIRDY;
 	case RCC_MSI:
-		return (RCC_CR & RCC_CR_MSIRDY);
+		return RCC_CR & RCC_CR_MSIRDY;
 	case RCC_LSE:
-		return (RCC_CSR & RCC_CSR_LSERDY);
+		return RCC_CSR & RCC_CSR_LSERDY;
 	case RCC_LSI:
-		return (RCC_CSR & RCC_CSR_LSIRDY);
+		return RCC_CSR & RCC_CSR_LSIRDY;
 	}
 	return false;
 }
@@ -534,8 +534,9 @@ void rcc_clock_setup_hsi(const struct rcc_clock_scale *clock)
 	}
 
 	rcc_wait_for_osc_ready(RCC_HSI);
-	while (PWR_CSR & PWR_CSR_VOSF)
+	while (PWR_CSR & PWR_CSR_VOSF) {
 		;
+	}
 	rcc_set_sysclk_source(RCC_CFGR_SW_SYSCLKSEL_HSICLK);
 
 	/* Set the peripheral clock frequencies used. */
