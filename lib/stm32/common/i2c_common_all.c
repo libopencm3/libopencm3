@@ -458,4 +458,77 @@ void i2c_clear_dma_last_transfer(uint32_t i2c)
 	I2C_CR2(i2c) &= ~I2C_CR2_LAST;
 }
 
+/*---------------------------------------------------------------------------*/
+/** @brief I2C check bus busy
+
+@param[in] i2c Unsigned int32. I2C register base address @ref i2c_reg_base.
+*/
+uint8_t i2c_busy(uint32_t i2c)
+{
+	return ((I2C_SR2(i2c) & I2C_SR2_BUSY) != 0);
+}
+
+/*---------------------------------------------------------------------------*/
+/** @brief I2C check start condition generated
+
+@param[in] i2c Unsigned int32. I2C register base address @ref i2c_reg_base.
+*/
+uint8_t i2c_start_generated(uint32_t i2c)
+{
+	return ((I2C_SR1(i2c) & I2C_SR1_SB) != 0);
+}
+
+/*---------------------------------------------------------------------------*/
+/** @brief I2C check slave address sent by master
+
+@param[in] i2c Unsigned int32. I2C register base address @ref i2c_reg_base.
+*/
+uint8_t i2c_address_sent(uint32_t i2c)
+{
+	if ((I2C_SR1(i2c) & I2C_SR1_ADDR) != 0) {
+		//(void)I2C_SR2(i2c);
+		return 1;
+	}
+	return 0;
+}
+
+/*---------------------------------------------------------------------------*/
+/** @brief I2C check our address received (in slave mode)
+
+@param[in] i2c Unsigned int32. I2C register base address @ref i2c_reg_base.
+*/
+uint8_t i2c_address_received(uint32_t i2c)
+{
+	return i2c_address_sent(i2c);
+}
+
+/*---------------------------------------------------------------------------*/
+/** @brief I2C check is byte transfer finished (used in transmitter mode)
+
+@param[in] i2c Unsigned int32. I2C register base address @ref i2c_reg_base.
+*/
+uint8_t i2c_byte_transfer_finished(uint32_t i2c)
+{
+	return ((I2C_SR1(i2c) & I2C_SR1_BTF) != 0);
+}
+
+/*---------------------------------------------------------------------------*/
+/** @brief I2C check is NACK or ACK received (used in transmitter mode)
+
+@param[in] i2c Unsigned int32. I2C register base address @ref i2c_reg_base.
+*/
+uint8_t i2c_nack_received(uint32_t i2c)
+{
+	return ((I2C_SR1(i2c) & I2C_SR1_AF) != 0);
+}
+
+/*---------------------------------------------------------------------------*/
+/** @brief I2C check data received (used receiver mode)
+
+@param[in] i2c Unsigned int32. I2C register base address @ref i2c_reg_base.
+*/
+uint8_t i2c_data_received(uint32_t i2c) {
+	return ((I2C_SR1(i2c) & I2C_SR1_RxNE) != 0);
+}
+
 /**@}*/
