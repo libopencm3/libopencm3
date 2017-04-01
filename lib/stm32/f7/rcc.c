@@ -1,5 +1,6 @@
 #include <libopencm3/cm3/assert.h>
 #include <libopencm3/stm32/rcc.h>
+#include <libopencm3/stm32/pwr.h>
 #include <libopencm3/stm32/flash.h>
 
 uint32_t rcc_ahb_frequency = 16000000;
@@ -12,11 +13,13 @@ const struct rcc_clock_scale rcc_hse_25mhz_3v3[RCC_CLOCK_3V3_END] = {
 		.plln = 432,
 		.pllp = 2,
 		.pllq = 9,
+		.flash_config = FLASH_ACR_ICEN | FLASH_ACR_DCEN |
+				FLASH_ACR_LATENCY_7WS,
 		.hpre = RCC_CFGR_HPRE_DIV_NONE,
 		.ppre1 = RCC_CFGR_PPRE_DIV_4,
 		.ppre2 = RCC_CFGR_PPRE_DIV_2,
-		.flash_config = FLASH_ACR_ICEN | FLASH_ACR_DCEN |
-				FLASH_ACR_LATENCY_7WS,
+		.vos_scale = PWR_SCALE1,
+		.overdrive = 1,
 		.apb1_frequency = 108000000,
 		.apb2_frequency = 216000000,
 	},
@@ -338,13 +341,13 @@ void rcc_clock_setup_hse_3v3(const struct rcc_clock_scale *clock)
 	rcc_osc_on(RCC_HSE);
 	rcc_wait_for_osc_ready(RCC_HSE);
 
-	/* Enable/disable high performance mode */
-/*	if (!clock->power_save) {
-		pwr_set_vos_scale(SCALE1);
-	} else {
-		pwr_set_vos_scale(SCALE2);
+	rcc_periph_clock_enable(RCC_PWR);
+	pwr_set_vos_scale(clock->vos_scale);
+
+	if (clock->overdrive) {
+		pwr_enable_overdrive();
 	}
-*/
+
 	/*
 	 * Set prescalers for AHB, ADC, ABP1, ABP2.
 	 * Do this before touching the PLL (TODO: why?).
