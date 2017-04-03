@@ -419,6 +419,7 @@ void i2c_transfer7(uint32_t i2c, uint8_t addr, uint8_t *w, size_t wn, uint8_t *r
 	}
 
 	if (rn) {
+		size_t i;
 		/* Setting transfer properties */
 		i2c_set_7bit_address(i2c, addr);
 		i2c_set_read_transfer_dir(i2c);
@@ -428,7 +429,7 @@ void i2c_transfer7(uint32_t i2c, uint8_t addr, uint8_t *w, size_t wn, uint8_t *r
 		/* important to do it afterwards to do a proper repeated start! */
 		i2c_enable_autoend(i2c);
 
-		for (size_t i = 0; i < rn; i++) {
+		for (i = 0; i < rn; i++) {
 			while (i2c_received_data(i2c) == 0);
 			r[i] = i2c_get_data(i2c);
 		}
