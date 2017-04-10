@@ -27,6 +27,7 @@ space:=
 space+=
 SRCLIBDIR:= $(subst $(space),\$(space),$(realpath lib))
 
+ifndef TARGET
 TARGETS := stm32/f0 stm32/f1 stm32/f2 stm32/f3 stm32/f4 stm32/f7
 TARGETS += stm32/l0 stm32/l1 stm32/l4
 TARGETS += lpc13xx lpc17xx lpc43xx/m4 lpc43xx/m0
@@ -35,6 +36,13 @@ TARGETS += efm32/tg efm32/g efm32/lg efm32/gg
 TARGETS += sam/3a sam/3n sam/3s sam/3u sam/3x
 TARGETS += sam/d
 TARGETS += vf6xx
+IRQ_DEFN_FILES	:= $(shell find . -name 'irq.json')
+STYLECHECKFILES := $(shell find . -name '*.[ch]')
+else
+TARGETS := $(TARGET)
+IRQ_DEFN_FILES	:= $(shell find include/libopencm3/$(TARGET) -name 'irq.json')
+STYLECHECKFILES :=
+endif
 
 # Be silent per default, but 'make V=1' will show all compiler calls.
 ifneq ($(V),1)
@@ -43,8 +51,6 @@ Q := @
 MAKEFLAGS += --no-print-directory
 endif
 
-IRQ_DEFN_FILES	:= $(shell find . -name 'irq.json')
-STYLECHECKFILES := $(shell find . -name '*.[ch]')
 
 all: build
 
