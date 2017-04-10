@@ -47,7 +47,7 @@ uint32_t RxBD;
  *
  * @param[in] mac uint8_t* Desired MAC
  */
-void eth_set_mac(uint8_t *mac)
+void eth_set_mac(const uint8_t *mac)
 {
 	ETH_MACAHR(0) = ((uint32_t)mac[5] << 8) | (uint32_t)mac[4] |
 			ETH_MACA0HR_MACA0H;
