@@ -19,7 +19,7 @@ of 8. The ADC resolution can be set to 12, 10, 8 or 6 bits.
 
 Each A/D converter has up to 19 channels:
 @li On ADC1 the analog channels 16 is internally connected to the temperature
-sensor, channel 17 to V<sub>REFINT</sub>, and channel 18 to V<sub>BATT</sub>.
+sensor, channel 17 to V<sub>REFINT</sub>, and channel 18 to V<sub>BAT</sub>.
 @li On ADC2 and ADC3 the analog channels 16 - 18 are not used.
 
 The conversions can occur as a one-off conversion whereby the process stops
@@ -42,22 +42,22 @@ of conversion, which occurs after all channels have been scanned.
 @section adc_f4_api_ex Basic ADC Handling API.
 
 Example 1: Simple single channel conversion polled. Enable the peripheral clock
-and ADC, reset ADC and set the prescaler divider. Set multiple mode to
-independent.
+and ADC, reset ADC and set the prescaler divider. Set the sample time to a
+minimum of 3 cycles. Set multiple mode to independent.
 
 @code
 gpio_mode_setup(GPIOA, GPIO_MODE_ANALOG, GPIO_PUPD_NONE, GPIO1);
-rcc_peripheral_enable_clock(&RCC_APB2ENR, RCC_APB2ENR_ADC1EN);
-adc_set_clk_prescale(RCC_CFGR_ADCPRE_BY2);
+rcc_periph_clock_enable(RCC_ADC1);
+adc_set_clk_prescale(ADC_CCR_ADCPRE_BY2);
 adc_disable_scan_mode(ADC1);
 adc_set_single_conversion_mode(ADC1);
-adc_set_sample_time(ADC1, ADC_CHANNEL0, ADC_SMPR1_SMP_1DOT5CYC);
+adc_set_sample_time(ADC1, ADC_CHANNEL0, ADC_SMPR_SMP_3CYC);
 uint8_t channels[] = ADC_CHANNEL0;
 adc_set_regular_sequence(ADC1, 1, channels);
 adc_set_multi_mode(ADC_CCR_MULTI_INDEPENDENT);
 adc_power_on(ADC1);
 adc_start_conversion_regular(ADC1);
-while (! adc_eoc(ADC1));
+while (!adc_eoc(ADC1));
 reg16 = adc_read_regular(ADC1);
 @endcode
 
@@ -406,13 +406,13 @@ bool adc_awd(uint32_t adc)
 /*---------------------------------------------------------------------------*/
 /** @brief ADC Enable The Temperature Sensor
 
-This enables both the sensor and the reference voltage measurements on channels
-16 and 17. These are only available on ADC1 channel 16 and 17 respectively.
-
-@param[in] adc Unsigned int32. ADC block register address base @ref adc_reg_base
+This enables both the sensor and the reference voltage measurements on ADC1
+channels 16 and 17. On STM32F42x and STM32F43x, the temperature sensor is
+connected to ADC1 channel 18, the same as VBat. If both are enabled, only the
+VBat conversion is performed.
 */
 
-void adc_enable_temperature_sensor()
+void adc_enable_temperature_sensor(void)
 {
 	ADC_CCR |= ADC_CCR_TSVREFE;
 }
@@ -422,11 +422,9 @@ void adc_enable_temperature_sensor()
 
 Disabling this will reduce power consumption from the sensor and the reference
 voltage measurements.
-
-@param[in] adc Unsigned int32. ADC block register address base @ref adc_reg_base
 */
 
-void adc_disable_temperature_sensor()
+void adc_disable_temperature_sensor(void)
 {
 	ADC_CCR &= ~ADC_CCR_TSVREFE;
 }
@@ -434,4 +432,3 @@ void adc_disable_temperature_sensor()
 /*---------------------------------------------------------------------------*/
 
 /**@}*/
-
