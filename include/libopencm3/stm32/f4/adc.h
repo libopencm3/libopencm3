@@ -579,9 +579,10 @@ void adc_eoc_after_each(uint32_t adc);
 void adc_eoc_after_group(uint32_t adc);
 void adc_set_dma_continue(uint32_t adc);
 void adc_set_dma_terminate(uint32_t adc);
-
 void adc_enable_temperature_sensor(void);
 void adc_disable_temperature_sensor(void);
+void adc_enable_vbat_sensor(void);
+void adc_disable_vbat_sensor(void);
 
 END_DECLS
 
