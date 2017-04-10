@@ -79,6 +79,8 @@ enum phy_status {
 	LINK_FD_10000M,
 };
 
+BEGIN_DECLS
+
 void phy_reset(uint8_t phy);
 bool phy_link_isup(uint8_t phy);
 
@@ -86,6 +88,8 @@ enum phy_status phy_link_status(uint8_t phy);
 
 void phy_autoneg_force(uint8_t phy, enum phy_status mode);
 void phy_autoneg_enable(uint8_t phy);
+
+END_DECLS
 
 /**@}*/
 
