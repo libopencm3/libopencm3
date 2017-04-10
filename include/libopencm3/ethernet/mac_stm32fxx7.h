@@ -713,7 +713,7 @@ void eth_smi_bit_op(uint8_t phy, uint8_t reg, uint16_t bits, uint16_t mask);
 void eth_smi_bit_clear(uint8_t phy, uint8_t reg, uint16_t clearbits);
 void eth_smi_bit_set(uint8_t phy, uint8_t reg, uint16_t setbits);
 
-void eth_set_mac(uint8_t *mac);
+void eth_set_mac(const uint8_t *mac);
 void eth_desc_init(uint8_t *buf, uint32_t nTx, uint32_t nRx, uint32_t cTx,
 		    uint32_t cRx, bool isext);
 bool eth_tx(uint8_t *ppkt, uint32_t n);
