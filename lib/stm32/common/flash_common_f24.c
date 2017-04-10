@@ -330,7 +330,7 @@ was not properly erased.
 @param[in] len Length of data block.
 */
 
-void flash_program(uint32_t address, uint8_t *data, uint32_t len)
+void flash_program(uint32_t address, const uint8_t *data, uint32_t len)
 {
 	/* TODO: Use dword and word size program operations where possible for
 	 * turbo speed.
