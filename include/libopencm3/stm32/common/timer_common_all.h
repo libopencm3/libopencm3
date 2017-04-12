@@ -953,6 +953,9 @@ depending on the level of the complementary input. */
 
 /* --- TIMx_CCER values ---------------------------------------------------- */
 
+/* CC4NP: Capture/compare 4 complementary output polarity */
+#define TIM_CCER_CC4NP			(1 << 15)
+
 /* CC4P: Capture/compare 4 output polarity */
 #define TIM_CCER_CC4P			(1 << 13)
 
@@ -1264,4 +1267,3 @@ END_DECLS
 #endif
 /** @endcond */
 /**@}*/
-
