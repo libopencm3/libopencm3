@@ -42,9 +42,10 @@ TGT_CFLAGS	+= $(STANDARD_FLAGS)
 
 ARFLAGS		= rcs
 
-OBJS		= pwr.o rcc.o gpio.o gpio_common_all.o gpio_common_f0234.o
+OBJS		= flash.o pwr.o rcc.o 
+OBJS		+= gpio.o gpio_common_all.o gpio_common_f0234.o
 
-OBJS		+= rcc_common_all.o flash_common_f234.o flash_common_f24.o
+OBJS		+= rcc_common_all.o
 
 OBJS		+= rng_common_v1.o
 
