@@ -27,14 +27,14 @@ space:=
 space+=
 SRCLIBDIR:= $(subst $(space),\$(space),$(realpath lib))
 
-TARGETS := stm32/f0 stm32/f1 stm32/f2 stm32/f3 stm32/f4 stm32/f7
-TARGETS += stm32/l0 stm32/l1 stm32/l4
-TARGETS += lpc13xx lpc17xx lpc43xx/m4 lpc43xx/m0
-TARGETS += lm3s lm4f
-TARGETS += efm32/tg efm32/g efm32/lg efm32/gg efm32/hg
-TARGETS += sam/3a sam/3n sam/3s sam/3u sam/3x
-TARGETS += sam/d
-TARGETS += vf6xx
+TARGETS ?=	stm32/f0 stm32/f1 stm32/f2 stm32/f3 stm32/f4 stm32/f7 \
+		stm32/l0 stm32/l1 stm32/l4 \
+		lpc13xx lpc17xx lpc43xx/m4 lpc43xx/m0 \
+		lm3s lm4f \
+		efm32/tg efm32/g efm32/lg efm32/gg efm32/hg \
+		sam/3a sam/3n sam/3s sam/3u sam/3x \
+		sam/d \
+		vf6xx
 
 # Be silent per default, but 'make V=1' will show all compiler calls.
 ifneq ($(V),1)
@@ -44,8 +44,7 @@ MAKEFLAGS += --no-print-directory
 endif
 
 # Avoid the use of shell find, for windows compatibility
-IRQ_DEFN_FILES	:= $(wildcard include/libopencm3/*/irq.json)
-IRQ_DEFN_FILES	+= $(wildcard include/libopencm3/*/*/irq.json)
+IRQ_DEFN_FILES  := $(foreach TARGET,$(TARGETS),$(wildcard include/libopencm3/$(TARGET)/irq.json))
 STYLECHECKFILES := $(wildcard include/*/*.h include/*/*/*.h include/*/*/*/*.h)
 STYLECHECKFILES += $(wildcard lib/*/*.h lib/*/*/*.h lib/*/*/*/*.h)
 STYLECHECKFILES += $(wildcard lib/*/*.c lib/*/*/*.c lib/*/*/*/*.c)
