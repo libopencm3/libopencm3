@@ -15,8 +15,7 @@ const struct rcc_clock_scale rcc_hse_25mhz_3v3[RCC_CLOCK_3V3_END] = {
 		.hpre = RCC_CFGR_HPRE_DIV_NONE,
 		.ppre1 = RCC_CFGR_PPRE_DIV_4,
 		.ppre2 = RCC_CFGR_PPRE_DIV_2,
-		.flash_config = FLASH_ACR_ICEN | FLASH_ACR_DCEN |
-				FLASH_ACR_LATENCY_7WS,
+		.flash_waitstates = FLASH_ACR_LATENCY_7WS,
 		.apb1_frequency = 108000000,
 		.apb2_frequency = 216000000,
 	},
@@ -361,7 +360,9 @@ void rcc_clock_setup_hse_3v3(const struct rcc_clock_scale *clock)
 	rcc_wait_for_osc_ready(RCC_PLL);
 
 	/* Configure flash settings. */
-	flash_set_ws(clock->flash_config);
+	flash_set_ws(clock->flash_waitstates);
+	flash_art_enable();
+	flash_prefetch_enable();
 
 	/* Select PLL as SYSCLK source. */
 	rcc_set_sysclk_source(RCC_CFGR_SW_PLL);
