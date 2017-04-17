@@ -34,6 +34,7 @@
 #define LIBOPENCM3_PHY_H
 
 #include <stdbool.h>
+#include <libopencm3/cm3/common.h>
 
 /**@{*/
 
