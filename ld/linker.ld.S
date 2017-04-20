@@ -62,6 +62,23 @@ MEMORY
 #if defined(_NFCRAM)
 	nfcram (rw) : ORIGIN _NFCRAM_OFF, LENGTH = _NFCRAM
 #endif
+
+/* 
+ * On some platforms (eg. stm32f7), flash is mapped to both the standard ROM
+ * address as well as a faster ITCM interface which is read-only. We need the
+ * linker to put the code on ITCM addresses, but we still need to flash to the
+ * standard ROM address.
+ *
+ * Here we determine where to run the code from.
+ *
+ * In ld terminology, this is the VMA (virtual address) of the code sections.
+ */
+#if defined(_ROM_CCM_OFF)
+	rom_vma (rx) : ORIGIN = _ROM_CCM_OFF, LENGTH = _ROM
+#else
+	rom_vma (rx) : ORIGIN = _ROM_OFF, LENGTH = _ROM
+#endif
+
 }
 
 /* Define sections. */
@@ -73,7 +90,7 @@ SECTIONS
 		. = ALIGN(4);
 		*(.rodata*)	/* Read-only data */
 		. = ALIGN(4);
-	} >rom
+	} >rom_vma AT >rom
 
 	/* C++ Static constructors/destructors, also used for
 	 * __attribute__((constructor)) and the likes.
@@ -83,21 +100,23 @@ SECTIONS
 		__preinit_array_start = .;
 		KEEP (*(.preinit_array))
 		__preinit_array_end = .;
-	} >rom
+	} >rom_vma AT >rom
+
 	.init_array : {
 		. = ALIGN(4);
 		__init_array_start = .;
 		KEEP (*(SORT(.init_array.*)))
 		KEEP (*(.init_array))
 		__init_array_end = .;
-	} >rom
+	} >rom_vma AT >rom
+
 	.fini_array : {
 		. = ALIGN(4);
 		__fini_array_start = .;
 		KEEP (*(.fini_array))
 		KEEP (*(SORT(.fini_array.*)))
 		__fini_array_end = .;
-	} >rom
+	} >rom_vma AT >rom
 
 	/*
 	 * Another section used by C++ stuff, appears when using newlib with
@@ -105,12 +124,13 @@ SECTIONS
 	 */
 	.ARM.extab : {
 		*(.ARM.extab*)
-	} >rom
+	} >rom_vma AT >rom
+
 	.ARM.exidx : {
 		__exidx_start = .;
 		*(.ARM.exidx*)
 		__exidx_end = .;
-	} >rom
+	} >rom_vma AT >rom
 
 	. = ALIGN(4);
 	_etext = .;
