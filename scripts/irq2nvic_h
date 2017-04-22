@@ -141,6 +141,14 @@ def needs_update(infiles, outfiles):
     timestamp = lambda filename: os.stat(filename).st_mtime
     return any(not os.path.exists(o) for o in outfiles) or max(map(timestamp, infiles)) > min(map(timestamp, outfiles))
 
+def remove_empty_dirs(path):
+    for f in os.listdir(path):
+        fullpath = os.path.join(path, f)
+        if os.path.isdir(fullpath):
+            remove_empty_dirs(fullpath)
+    if not os.listdir(path):
+        os.rmdir(path)
+
 def main():
     if sys.argv[1] == '--remove':
         remove = True
@@ -161,6 +169,7 @@ def main():
             os.unlink(vector_nvic_c)
         if os.path.exists(cmsis):
             os.unlink(cmsis)
+            remove_empty_dirs(os.path.dirname(cmsis))
         sys.exit(0)
 
     if not needs_update([__file__, infile], [nvic_h, vector_nvic_c]):
