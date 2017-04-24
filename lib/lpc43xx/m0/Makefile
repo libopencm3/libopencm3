@@ -30,6 +30,7 @@ TGT_CFLAGS	= -O2 -Wall -Wextra -I../../../include -fno-common \
 		  -mcpu=cortex-m0 -mthumb -Wstrict-prototypes \
 		  -ffunction-sections -fdata-sections -MD -DLPC43XX -DLPC43XX_M0
 TGT_CFLAGS      += $(DEBUG_FLAGS)
+TGT_CFLAGS	+= $(STANDARD_FLAGS)
 # ARFLAGS	= rcsv
 ARFLAGS		= rcs
 

@@ -35,6 +35,7 @@ TGT_CFLAGS	= -Os \
 		  -Wstrict-prototypes \
 		  -ffunction-sections -fdata-sections -MD -DSTM32F4
 TGT_CFLAGS      += $(DEBUG_FLAGS)
+TGT_CFLAGS	+= $(STANDARD_FLAGS)
 # ARFLAGS	= rcsv
 ARFLAGS		= rcs
 

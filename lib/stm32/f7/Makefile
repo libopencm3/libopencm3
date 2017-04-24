@@ -37,6 +37,7 @@ TGT_CFLAGS	= -Os -g \
 		  -mcpu=cortex-m7 -mthumb $(FP_FLAGS) \
 		  -Wstrict-prototypes \
 		  -ffunction-sections -fdata-sections -MD -DSTM32F7
+TGT_CFLAGS	+= $(STANDARD_FLAGS)
 
 ARFLAGS		= rcs
 
