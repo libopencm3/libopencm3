@@ -465,6 +465,8 @@ void i2c_clear_dma_last_transfer(uint32_t i2c)
 
 static void i2c_write7_v1(uint32_t i2c, int addr, uint8_t *data, size_t n)
 {
+	size_t i;
+
 	while ((I2C_SR2(i2c) & I2C_SR2_BUSY)) {
 	}
 
@@ -482,7 +484,7 @@ static void i2c_write7_v1(uint32_t i2c, int addr, uint8_t *data, size_t n)
 	/* Clearing ADDR condition sequence. */
 	(void)I2C_SR2(i2c);
 
-	for (size_t i = 0; i < n; i++) {
+	for (i = 0; i < n; i++) {
 		i2c_send_data(i2c, data[i]);
 		while (!(I2C_SR1(i2c) & (I2C_SR1_BTF)));
 	}
@@ -490,6 +492,8 @@ static void i2c_write7_v1(uint32_t i2c, int addr, uint8_t *data, size_t n)
 
 static void i2c_read7_v1(uint32_t i2c, int addr, uint8_t *res, size_t n)
 {
+	size_t i;
+
 	i2c_send_start(i2c);
 	i2c_enable_ack(i2c);
 
@@ -504,7 +508,7 @@ static void i2c_read7_v1(uint32_t i2c, int addr, uint8_t *res, size_t n)
 	/* Clearing ADDR condition sequence. */
 	(void)I2C_SR2(i2c);
 
-	for (size_t i = 0; i < n; ++i) {
+	for (i = 0; i < n; ++i) {
 		if (i == n - 1) {
 			i2c_disable_ack(i2c);
 		}
