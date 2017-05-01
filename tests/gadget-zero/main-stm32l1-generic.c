@@ -63,7 +63,7 @@ int main(void)
 	ER_DPRINTF("bootup complete\n");
 	gpio_clear(GPIOB, GPIO1);
 	while (1) {
-		usbd_poll(usbd_dev);
+		gadget0_run(usbd_dev);
 	}
 
 }

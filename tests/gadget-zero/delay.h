@@ -1,7 +1,7 @@
 /*
  * This file is part of the libopencm3 project.
  *
- * Copyright (C) 2015 Karl Palsson <karlp@tweak.net.au>
+ * Copyright (C) 2017 Karl Palsson <karlp@tweak.net.au>
  *
  * This library is free software: you can redistribute it and/or modify
  * it under the terms of the GNU Lesser General Public License as published by
@@ -17,26 +17,23 @@
  * along with this library.  If not, see <http://www.gnu.org/licenses/>.
  */
 
-#ifndef USB_GADGET0_H
-#define USB_GADGET0_H
+#pragma once
 
-#include <libopencm3/usb/usbd.h>
+#ifdef __cplusplus
+extern "C" {
+#endif
 
-/**
- * Start up the gadget0 framework.
- * @param driver which usbd hardware driver to use.
- * @param userserial if non-null, will become the serial number.
- *	You should provide this to help the test code find something particular
- *	to the hardware.
- * @return the usbd_device created.
-*/
-usbd_device *gadget0_init(const usbd_driver *driver, const char *userserial);
+	/**
+	 * Initialize the timers used for delays.
+	 */
+	void delay_setup(void);
 
-/**
- * Call this forever.
- * @param usbd_dev the object returned in _init.
- * @sa gadget0_init
- */
-void gadget0_run(usbd_device *usbd_dev);
+	/**
+	 * busy wait for a number of usecs.
+	 * @param us number of usecs to delay.
+	 */
+	void delay_us(uint16_t us);
 
+#ifdef __cplusplus
+}
 #endif

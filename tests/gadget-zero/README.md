@@ -40,6 +40,11 @@ Ran 27 tests in 0.388s
 OK (skipped=2)
 ```
 
+To be even more brutal, run this in a shell loop.
+```
+$ while true; do python test_gadget0.py stm32f072disco; done
+```
+
 You can also run individual tests, or individual sets of tests, see the [unittest documentation](https://docs.python.org/3/library/unittest.html) for more information.
 
 Many development environments, such as [PyCharm](https://www.jetbrains.com/pycharm/) can
