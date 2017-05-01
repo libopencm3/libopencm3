@@ -335,42 +335,6 @@ void rcc_css_disable(void)
 	RCC_CR &= ~RCC_CR_CSSON;
 }
 
-void rcc_osc_bypass_enable(enum rcc_osc osc)
-{
-	switch (osc) {
-	case RCC_HSE:
-		RCC_CR |= RCC_CR_HSEBYP;
-		break;
-	case RCC_LSE:
-		RCC_CSR |= RCC_CSR_LSEBYP;
-		break;
-	case RCC_PLL:
-	case RCC_HSI:
-	case RCC_LSI:
-	case RCC_MSI:
-		/* Do nothing, only HSE/LSE allowed here. */
-		break;
-	}
-}
-
-void rcc_osc_bypass_disable(enum rcc_osc osc)
-{
-	switch (osc) {
-	case RCC_HSE:
-		RCC_CR &= ~RCC_CR_HSEBYP;
-		break;
-	case RCC_LSE:
-		RCC_CSR &= ~RCC_CSR_LSEBYP;
-		break;
-	case RCC_PLL:
-	case RCC_HSI:
-	case RCC_LSI:
-	case RCC_MSI:
-		/* Do nothing, only HSE/LSE allowed here. */
-		break;
-	}
-}
-
 /**
  * Set the range of the MSI oscillator
  * @param range desired range @ref rcc_icscr_msirange
