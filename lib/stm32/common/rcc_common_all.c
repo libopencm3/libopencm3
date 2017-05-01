@@ -197,6 +197,66 @@ void rcc_set_mco(uint32_t mcosrc)
 			(mcosrc << RCC_CFGR_MCO_SHIFT);
 }
 
+/**
+ * RCC Enable Bypass.
+ * Enable an external clock to bypass the internal clock (high speed and low
+ * speed clocks only). The external clock must be enabled (see @ref rcc_osc_on)
+ * and the internal clock must be disabled (see @ref rcc_osc_off) for this to
+ * have effect.
+ * @note The LSE clock is in the backup domain and cannot be bypassed until the
+ * backup domain write protection has been removed (see @ref
+ * pwr_disable_backup_domain_write_protect).
+ * @param[in] osc Oscillator ID. Only HSE and LSE have effect.
+ */
+void rcc_osc_bypass_enable(enum rcc_osc osc)
+{
+	switch (osc) {
+	case RCC_HSE:
+		RCC_CR |= RCC_CR_HSEBYP;
+		break;
+	case RCC_LSE:
+#ifdef RCC_CSR_LSEBYP
+		RCC_CSR |= RCC_CSR_LSEBYP;
+#else
+		RCC_BDCR |= RCC_BDCR_LSEBYP;
+#endif
+		break;
+	default:
+		/* Do nothing, only HSE/LSE allowed here. */
+		break;
+	}
+}
+
+/**
+ * RCC Disable Bypass.
+ * Re-enable the internal clock (high speed and low speed clocks only). The
+ * internal clock must be disabled (see @ref rcc_osc_off) for this to have
+ * effect.
+ * @note The LSE clock is in the backup domain and cannot have bypass removed
+ * until the backup domain write protection has been removed (see @ref
+ * pwr_disable_backup_domain_write_protect) or the backup domain has been reset
+ * (see @ref rcc_backupdomain_reset).
+ * @param[in] osc Oscillator ID. Only HSE and LSE have effect.
+ */
+void rcc_osc_bypass_disable(enum rcc_osc osc)
+{
+	switch (osc) {
+	case RCC_HSE:
+		RCC_CR &= ~RCC_CR_HSEBYP;
+		break;
+	case RCC_LSE:
+#ifdef RCC_CSR_LSEBYP
+		RCC_CSR &= ~RCC_CSR_LSEBYP;
+#else
+		RCC_BDCR &= ~RCC_BDCR_LSEBYP;
+#endif
+		break;
+	default:
+		/* Do nothing, only HSE/LSE allowed here. */
+		break;
+	}
+}
+
 /**@}*/
 
 #undef _RCC_REG

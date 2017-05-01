@@ -324,66 +324,6 @@ void rcc_css_disable(void)
 }
 
 /*---------------------------------------------------------------------------*/
-/** @brief RCC Enable Bypass.
- *
- * Enable an external clock to bypass the internal clock (high speed and low
- * speed clocks only). The external clock must be enabled (see @ref rcc_osc_on)
- * and the internal clock must be disabled (see @ref rcc_osc_off) for this to
- * have effect.
- *
- * @param[in] osc enum ::osc_t. Oscillator ID. Only HSE and LSE have effect.
- */
-
-void rcc_osc_bypass_enable(enum rcc_osc osc)
-{
-	switch (osc) {
-	case RCC_HSE:
-		RCC_CR |= RCC_CR_HSEBYP;
-		break;
-	case RCC_LSE:
-		RCC_BDCR |= RCC_BDCR_LSEBYP;
-		break;
-	case RCC_HSI48:
-	case RCC_HSI14:
-	case RCC_HSI:
-	case RCC_LSI:
-	case RCC_PLL:
-		/* Do nothing */
-		break;
-	}
-}
-
-/*---------------------------------------------------------------------------*/
-/** @brief RCC Disable Bypass.
- *
- * Re-enable the internal clock (high speed and low speed clocks only). The
- * internal clock must be disabled (see @ref rcc_osc_off) for this to have
- * effect.
- *
- *
- * @param[in] osc enum ::osc_t. Oscillator ID. Only HSE and LSE have effect.
- */
-
-void rcc_osc_bypass_disable(enum rcc_osc osc)
-{
-	switch (osc) {
-	case RCC_HSE:
-		RCC_CR &= ~RCC_CR_HSEBYP;
-		break;
-	case RCC_LSE:
-		RCC_BDCR &= ~RCC_BDCR_LSEBYP;
-		break;
-	case RCC_HSI48:
-	case RCC_HSI14:
-	case RCC_PLL:
-	case RCC_HSI:
-	case RCC_LSI:
-		/* Do nothing */
-		break;
-	}
-}
-
-/*---------------------------------------------------------------------------*/
 /** @brief RCC Set the Source for the System Clock.
  *
  * @param[in] osc enum ::osc_t. Oscillator ID. Only HSE, LSE and PLL have

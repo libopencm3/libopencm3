@@ -91,37 +91,6 @@ void rcc_osc_off(enum rcc_osc osc)
 	}
 }
 
-/* TODO easy target for shared code */
-void rcc_osc_bypass_enable(enum rcc_osc osc)
-{
-	switch (osc) {
-	case RCC_HSE:
-		RCC_CR |= RCC_CR_HSEBYP;
-		break;
-	case RCC_LSE:
-		RCC_CSR |= RCC_CSR_LSEBYP;
-		break;
-	default:
-		/* Do nothing, only HSE/LSE allowed here. */
-		break;
-	}
-}
-
-/* TODO easy target for shared code */
-void rcc_osc_bypass_disable(enum rcc_osc osc)
-{
-	switch (osc) {
-	case RCC_HSE:
-		RCC_CR &= ~RCC_CR_HSEBYP;
-		break;
-	case RCC_LSE:
-		RCC_CSR &= ~RCC_CSR_LSEBYP;
-		break;
-	default:
-		/* Do nothing, only HSE/LSE allowed here. */
-		break;
-	}
-}
 
 /*---------------------------------------------------------------------------*/
 /** @brief RCC Clear the Oscillator Ready Interrupt Flag
