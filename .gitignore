@@ -42,3 +42,4 @@ locm3.sublime-workspace
 
 # cscope databases
 cscope.out
+compile_commands.json
