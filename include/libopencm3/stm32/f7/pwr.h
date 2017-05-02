@@ -36,25 +36,29 @@ LGPL License Terms @ref lgpl_license
 
 /**@{*/
 
-/* --- PWR registers ------------------------------------------------------- */
-
-/* Power control register (PWR_CR1) */
+/** @defgroup pwr_registers PWR Registers
+ * @ingroup STM32F_pwr_defines
+@{*/
+/** Power control register (PWR_CR1) */
 #define PWR_CR1				MMIO32(POWER_CONTROL_BASE + 0x00)
 
-/* Power control/status register (PWR_CSR1) */
+/** Power control/status register (PWR_CSR1) */
 #define PWR_CSR1			MMIO32(POWER_CONTROL_BASE + 0x04)
 
-/* Power control register 2 (PWR_CR2) */
+/** Power control register 2 (PWR_CR2) */
 #define PWR_CR2				MMIO32(POWER_CONTROL_BASE + 0x08)
 
-/* Power control/status register 2 (PWR_CSR2) */
+/** Power control/status register 2 (PWR_CSR2) */
 #define PWR_CSR2			MMIO32(POWER_CONTROL_BASE + 0x0c)
+/*@}*/
 
-/* --- PWR_CR1 values ------------------------------------------------------- */
+/** @defgroup pwr_cr1_defines PWR_CR1 values
+ * @ingroup STM32F_pwr_defines
+@{*/
 
 /* Bits [31:20]: Reserved, must be kept at reset value. */
 
-/* UDEN[19:18]: Under-drive enable in stop mode */
+/** UDEN[19:18]: Under-drive enable in stop mode */
 #define PWR_CR1_UDEN_LSB		18
 /** @defgroup pwr_uden Under-drive enable in stop mode
 @ingroup STM32F_pwr_defines
@@ -65,10 +69,10 @@ LGPL License Terms @ref lgpl_license
 /**@}*/
 #define PWR_CR1_UDEN_MASK		(0x3 << PWR_CR1_UDEN_LSB)
 
-/* ODSWEN: Over-drive switching enabled */
+/** ODSWEN: Over-drive switching enabled */
 #define PWR_CR1_ODSWEN			(1 << 17)
 
-/* ODEN: Over-drive enable */
+/** ODEN: Over-drive enable */
 #define PWR_CR1_ODEN			(1 << 16)
 
 /* VOS[15:14]: Regulator voltage scaling output selection */
@@ -83,21 +87,21 @@ LGPL License Terms @ref lgpl_license
 /**@}*/
 #define PWR_CR1_VOS_MASK		(0x3 << PWR_CR1_VOS_LSB)
 
-/* ADCDC1: Masks extra flash accesses by prefetch (see AN4073) */
+/** ADCDC1: Masks extra flash accesses by prefetch (see AN4073) */
 #define PWR_CR1_ADCDC1			(1 << 13)
 
 /* Bit 12: Reserved, must be kept at reset value. */
 
-/* MRUDS: Main regulator in deepsleep under-drive mode */
+/** MRUDS: Main regulator in deepsleep under-drive mode */
 #define PWR_CR1_MRUDS			(1 << 11)
 
-/* LPUDS: Low-power regulator in deepsleep under-drive mode */
+/** LPUDS: Low-power regulator in deepsleep under-drive mode */
 #define PWR_CR1_LPUDS			(1 << 10)
 
-/* FPDS: Flash power-down in Stop mode */
+/** FPDS: Flash power-down in Stop mode */
 #define PWR_CR1_FPDS			(1 << 9)
 
-/* DBP: Disable backup domain write protection */
+/** DBP: Disable backup domain write protection */
 #define PWR_CR1_DBP			(1 << 8)
 
 /* PLS[7:5]: PVD level selection */
@@ -117,21 +121,24 @@ LGPL License Terms @ref lgpl_license
 /**@}*/
 #define PWR_CR1_PLS_MASK		(0x7 << PWR_CR_PLS_LSB)
 
-/* PVDE: Power voltage detector enable */
+/** PVDE: Power voltage detector enable */
 #define PWR_CR1_PVDE			(1 << 4)
 
-/* CSBF: Clear standby flag */
+/** CSBF: Clear standby flag */
 #define PWR_CR1_CSBF			(1 << 3)
 
 /* Bit 2: Reserved, must be kept at reset value. */
 
-/* PDDS: Power down deepsleep */
+/** PDDS: Power down deepsleep */
 #define PWR_CR1_PDDS			(1 << 1)
 
-/* LPDS: Low-power deepsleep */
+/** LPDS: Low-power deepsleep */
 #define PWR_CR1_LPDS			(1 << 0)
+/*@}*/
 
-/* --- PWR_CSR1 values ------------------------------------------------------ */
+/** @defgroup pwr_csr1_defines PWR_CSR1 values
+ * @ingroup STM32F_pwr_defines
+@{*/
 
 /* Bits [31:20]: Reserved, must be kept at reset value. */
 
@@ -146,123 +153,129 @@ LGPL License Terms @ref lgpl_license
 /**@}*/
 #define PWR_CSR1_UDRDY_MASK		(0x3 << PWR_CSR1_UDRDY_LSB)
 
-/* ODSWRDY: Over-drive mode switching ready */
+/** ODSWRDY: Over-drive mode switching ready */
 #define PWR_CSR1_ODSWRDY		(1 << 17)
 
-/* ODRDY: Over-drive mode ready */
+/** ODRDY: Over-drive mode ready */
 #define PWR_CSR1_ODRDY			(1 << 16)
 
 /* Bit 15: Reserved, must be kept at reset value. */
 
-/* VOSRDY: Regulator voltage scaling output selection ready bit */
+/** VOSRDY: Regulator voltage scaling output selection ready bit */
 #define PWR_CSR1_VOSRDY			(1 << 14)
 
 /* Bits [13:10]: Reserved, must be kept at reset value. */
 
-/* BRE: Backup regulator enable */
+/** BRE: Backup regulator enable */
 #define PWR_CSR1_BRE			(1 << 9)
 
-/* EIWUP: Enable internal wakeup */
+/** EIWUP: Enable internal wakeup */
 #define PWR_CSR1_EIWUP			(1 << 8)
 
 /* Bits [7:4]: Reserved, must be kept at reset value. */
 
-/* BRR: Backup regulator ready */
+/** BRR: Backup regulator ready */
 #define PWR_CSR1_BRR			(1 << 3)
 
-/* PVDO: PVD output */
+/** PVDO: PVD output */
 #define PWR_CSR1_PVDO			(1 << 2)
 
-/* SBF: Standby flag */
+/** SBF: Standby flag */
 #define PWR_CSR1_SBF			(1 << 1)
 
-/* WUIF: Wakeup internal flag */
+/** WUIF: Wakeup internal flag */
 #define PWR_CSR1_WUIF			(1 << 0)
+/*@}*/
 
-/* --- PWR_CR2 values ------------------------------------------------------ */
+/** @defgroup pwr_cr2_defines PWR_CR2 values
+ * @ingroup STM32F_pwr_defines
+@{*/
 
 /* Bits [31:14]: Reserved, must be kept at reset value. */
 
-/* WUPP6: Wakeup pin polarity bit for PI11 */
+/** WUPP6: Wakeup pin polarity bit for PI11 */
 #define PWR_CR2_WUPP6			(1 << 13)
 
-/* WUPP5: Wakeup pin polarity bit for PI8 */
+/** WUPP5: Wakeup pin polarity bit for PI8 */
 #define PWR_CR2_WUPP5			(1 << 12)
 
-/* WUPP4: Wakeup pin polarity bit for PC13 */
+/** WUPP4: Wakeup pin polarity bit for PC13 */
 #define PWR_CR2_WUPP4			(1 << 11)
 
-/* WUPP3: Wakeup pin polarity bit for PC1 */
+/** WUPP3: Wakeup pin polarity bit for PC1 */
 #define PWR_CR2_WUPP3			(1 << 10)
 
-/* WUPP2: Wakeup pin polarity bit for PA2 */
+/** WUPP2: Wakeup pin polarity bit for PA2 */
 #define PWR_CR2_WUPP2			(1 << 9)
 
-/* WUPP1: Wakeup pin polarity bit for PA0 */
+/** WUPP1: Wakeup pin polarity bit for PA0 */
 #define PWR_CR2_WUPP1			(1 << 8)
 
 /* Bits [7:6]: Reserved, must be kept at reset value. */
 
-/* CWUPF6: Clear Wakeup Pin flag for PI11 */
+/** CWUPF6: Clear Wakeup Pin flag for PI11 */
 #define PWR_CR2_CWUPF6			(1 << 5)
 
-/* CWUPF5: Clear Wakeup Pin flag for PI8 */
+/** CWUPF5: Clear Wakeup Pin flag for PI8 */
 #define PWR_CR2_CWUPF5			(1 << 4)
 
-/* CWUPF4: Clear Wakeup Pin flag for PC13 */
+/** CWUPF4: Clear Wakeup Pin flag for PC13 */
 #define PWR_CR2_CWUPF4			(1 << 3)
 
-/* CWUPF3: Clear Wakeup Pin flag for PC1 */
+/** CWUPF3: Clear Wakeup Pin flag for PC1 */
 #define PWR_CR2_CWUPF3			(1 << 2)
 
-/* CWUPF2: Clear Wakeup Pin flag for PA2 */
+/** CWUPF2: Clear Wakeup Pin flag for PA2 */
 #define PWR_CR2_CWUPF2			(1 << 1)
 
-/* CWUPF1: Clear Wakeup Pin flag for PA0 */
+/** CWUPF1: Clear Wakeup Pin flag for PA0 */
 #define PWR_CR2_CWUPF1			(1 << 0)
+/*@}*/
 
-/* --- PWR_CSR2 values ------------------------------------------------------ */
+/** @defgroup pwr_csr2_defines PWR_CSR2 values
+ * @ingroup STM32F_pwr_defines
+@{*/
 
 /* Bits [31:14]: Reserved, must be kept at reset value. */
 
-/* EWUP6: Enable Wakeup pin for PI11 */
+/** EWUP6: Enable Wakeup pin for PI11 */
 #define PWR_CSR2_EWUP6			(1 << 13)
 
-/* EWUP5: Enable Wakeup pin for PI8 */
+/** EWUP5: Enable Wakeup pin for PI8 */
 #define PWR_CSR2_EWUP5			(1 << 12)
 
-/* EWUP4: Enable Wakeup pin for PC13 */
+/** EWUP4: Enable Wakeup pin for PC13 */
 #define PWR_CSR2_EWUP4			(1 << 11)
 
-/* EWUP3: Enable Wakeup pin for PC1 */
+/** EWUP3: Enable Wakeup pin for PC1 */
 #define PWR_CSR2_EWUP3			(1 << 10)
 
-/* EWUP2: Enable Wakeup pin for PA2 */
+/** EWUP2: Enable Wakeup pin for PA2 */
 #define PWR_CSR2_EWUP2			(1 << 19)
 
-/* EWUP1: Enable Wakeup pin for PA0 */
+/** EWUP1: Enable Wakeup pin for PA0 */
 #define PWR_CSR2_EWUP1			(1 << 18)
 
 /* Bits [7:6]: Reserved, must be kept at reset value. */
 
-/* WUPF6: Wakeup Pin flag for PI11 */
+/** WUPF6: Wakeup Pin flag for PI11 */
 #define PWR_CSR2_WUPF6			(1 << 5)
 
-/* WUPF5: Wakeup Pin flag for PI8 */
+/** WUPF5: Wakeup Pin flag for PI8 */
 #define PWR_CSR2_WUPF5			(1 << 4)
 
-/* WUPF4: Wakeup Pin flag for PC13 */
+/** WUPF4: Wakeup Pin flag for PC13 */
 #define PWR_CSR2_WUPF4			(1 << 3)
 
-/* WUPF3: Wakeup Pin flag for PC1 */
+/** WUPF3: Wakeup Pin flag for PC1 */
 #define PWR_CSR2_WUPF3			(1 << 2)
 
-/* WUPF2: Wakeup Pin flag for PA2 */
+/** WUPF2: Wakeup Pin flag for PA2 */
 #define PWR_CSR2_WUPF2			(1 << 1)
 
-/* WUPF1: Wakeup Pin flag for PA0 */
+/** WUPF1: Wakeup Pin flag for PA0 */
 #define PWR_CSR2_WUPF1			(1 << 0)
-
+/*@}*/
 /* --- Function prototypes ------------------------------------------------- */
 
 enum pwr_vos_scale {
