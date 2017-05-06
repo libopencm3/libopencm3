@@ -411,7 +411,7 @@ struct rcc_clock_scale {
 	uint8_t pll_mul;
 	uint16_t pll_div;
 	uint8_t pll_source;
-	uint32_t flash_config;
+	uint8_t flash_waitstates;
 	uint8_t hpre;
 	uint8_t ppre1;
 	uint8_t ppre2;
