@@ -480,7 +480,7 @@ LGPL License Terms @ref lgpl_license
 /* 15:10 Reserved, forced by hardware to 0 */
 
 /* BRP[9:0]: Baud rate prescaler */
-#define CAN_BTR_BRP_MASK		(0x1FFUL << 0)
+#define CAN_BTR_BRP_MASK		(0x3FFUL << 0)
 
 /* --- CAN_TIxR values ------------------------------------------------------ */
 
