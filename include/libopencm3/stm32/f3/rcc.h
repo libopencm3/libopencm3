@@ -505,6 +505,7 @@ enum rcc_periph_clken {
 	RCC_I2C2	= _REG_BIT(0x1C, 22),/*0178*/
 	RCC_USB		= _REG_BIT(0x1C, 23),/*0178*/
 	RCC_CAN		= _REG_BIT(0x1C, 25),/*0178*/
+	RCC_CAN1	= _REG_BIT(0x1C, 25),/*0178*/
 	RCC_DAC2	= _REG_BIT(0x1C, 26),
 	RCC_PWR		= _REG_BIT(0x1C, 28),/*0178*/
 	RCC_DAC1	= _REG_BIT(0x1C, 29),
@@ -552,6 +553,7 @@ enum rcc_periph_rst {
 	RST_I2C2	= _REG_BIT(0x10, 22),/*0178*/
 	RST_USB		= _REG_BIT(0x10, 23),/*0178*/
 	RST_CAN		= _REG_BIT(0x10, 25),/*0178*/
+	RST_CAN1	= _REG_BIT(0x10, 25),/*0178*/
 	RST_DAC2	= _REG_BIT(0x10, 26),
 	RST_PWR		= _REG_BIT(0x10, 28),/*0178*/
 	RST_DAC1	= _REG_BIT(0x10, 29),
