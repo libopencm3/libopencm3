@@ -23,6 +23,8 @@ ifneq ($(V),1)
 Q := @
 endif
 
+CFLAGS += -I/usr/include
+
 # common objects
 OBJS += vector.o systick.o scb.o nvic.o assert.o sync.o dwt.o
 
