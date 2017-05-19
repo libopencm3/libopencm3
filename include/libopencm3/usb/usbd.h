@@ -40,6 +40,42 @@ LGPL License Terms @ref lgpl_license
 
 #include <libopencm3/usb/usbstd.h>
 
+#define OUT		0
+#define IN		1
+
+#define EP00_OUT	((OUT << 7) | 0x00)
+#define EP00_IN		((IN  << 7) | 0x00)
+#define EP01_OUT	((OUT << 7) | 0x01)
+#define EP01_IN		((IN  << 7) | 0x01)
+#define EP02_OUT	((OUT << 7) | 0x02)
+#define EP02_IN		((IN  << 7) | 0x02)
+#define EP03_OUT	((OUT << 7) | 0x03)
+#define EP03_IN		((IN  << 7) | 0x03)
+#define EP04_OUT	((OUT << 7) | 0x04)
+#define EP04_IN		((IN  << 7) | 0x04)
+#define EP05_OUT	((OUT << 7) | 0x05)
+#define EP05_IN		((IN  << 7) | 0x05)
+#define EP06_OUT	((OUT << 7) | 0x06)
+#define EP06_IN		((IN  << 7) | 0x06)
+#define EP07_OUT	((OUT << 7) | 0x07)
+#define EP07_IN		((IN  << 7) | 0x07)
+#define EP08_OUT	((OUT << 7) | 0x08)
+#define EP08_IN		((IN  << 7) | 0x08)
+#define EP09_OUT	((OUT << 7) | 0x09)
+#define EP09_IN		((IN  << 7) | 0x09)
+#define EP10_OUT	((OUT << 7) | 0x0A)
+#define EP10_IN		((IN  << 7) | 0x0A)
+#define EP11_OUT	((OUT << 7) | 0x0B)
+#define EP11_IN		((IN  << 7) | 0x0B)
+#define EP12_OUT	((OUT << 7) | 0x0C)
+#define EP12_IN		((IN  << 7) | 0x0C)
+#define EP13_OUT	((OUT << 7) | 0x0D)
+#define EP13_IN		((IN  << 7) | 0x0D)
+#define EP14_OUT	((OUT << 7) | 0x0E)
+#define EP14_IN		((IN  << 7) | 0x0E)
+#define EP15_OUT	((OUT << 7) | 0x0F)
+#define EP15_IN 	((IN  << 7) | 0x0F)
+
 BEGIN_DECLS
 
 
