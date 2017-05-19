@@ -31,6 +31,8 @@
 #ifndef LIBOPENCM3_CORTEX_H
 #define LIBOPENCM3_CORTEX_H
 
+#include <libopencm3/cm3/common.h>
+
 /**@{*/
 
 #include <stdbool.h>
