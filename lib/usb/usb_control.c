@@ -270,6 +270,13 @@ void _usbd_control_out(usbd_device *usbd_dev, uint8_t ea)
 		}
 		break;
 	case STATUS_OUT:
+	case DATA_IN:
+	case LAST_DATA_IN:
+		/* Why handle DATA_IN and LAST_DATA_IN?
+		 *  because the Host can send a OUT(0byte) packet
+		 *  to prematurely end a control IN transfer.
+		 *  so that it dont have to read all data.
+		 */
 		usbd_ep_read_packet(usbd_dev, 0, NULL, 0);
 		usbd_dev->control_state.state = IDLE;
 		if (usbd_dev->control_state.complete) {
