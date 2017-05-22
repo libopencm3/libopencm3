@@ -23,7 +23,7 @@ Amendments to the Linux kernel coding style
 2) Based on the same logic as in (1) we do not use __packed and __aligned
    definitions, it is not our job to add compiler extensions. If we need to
    deal with compiler incompatibility we will do that the same way we are
-   dealing with the depricated attribute by introducing a normal macro that is
+   dealing with the deprecated attribute by introducing a normal macro that is
    not in the compiler reserved keyword space.
 
 3) We accept to write an empty body busy waiting while loop like this:
