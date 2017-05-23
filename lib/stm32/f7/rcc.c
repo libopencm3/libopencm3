@@ -1,25 +1,99 @@
 #include <libopencm3/cm3/assert.h>
 #include <libopencm3/stm32/rcc.h>
+#include <libopencm3/stm32/pwr.h>
 #include <libopencm3/stm32/flash.h>
 
 uint32_t rcc_ahb_frequency = 16000000;
 uint32_t rcc_apb1_frequency = 16000000;
 uint32_t rcc_apb2_frequency = 16000000;
 
-const struct rcc_clock_scale rcc_hse_25mhz_3v3[RCC_CLOCK_3V3_END] = {
+// All PLL configurations without PLLM. PLLM should be set to the input clock
+// frequency in MHz.
+const struct rcc_clock_scale rcc_3v3[RCC_CLOCK_3V3_END] = {
 	{ /* 216MHz */
-		.pllm = 25,
 		.plln = 432,
 		.pllp = 2,
 		.pllq = 9,
 		.hpre = RCC_CFGR_HPRE_DIV_NONE,
 		.ppre1 = RCC_CFGR_PPRE_DIV_4,
 		.ppre2 = RCC_CFGR_PPRE_DIV_2,
-		.flash_config = FLASH_ACR_ICEN | FLASH_ACR_DCEN |
-				FLASH_ACR_LATENCY_7WS,
-		.apb1_frequency = 108000000,
-		.apb2_frequency = 216000000,
+		.vos_scale = PWR_SCALE1,
+		.overdrive = 1,
+		.flash_waitstates = FLASH_ACR_LATENCY_7WS,
+		.ahb_frequency = 216000000,
+		.apb1_frequency = 54000000,
+		.apb2_frequency = 108000000,
 	},
+	{ /* 168MHz */
+		.plln = 336,
+		.pllp = 2,
+		.pllq = 7,
+		.hpre = RCC_CFGR_HPRE_DIV_NONE,
+		.ppre1 = RCC_CFGR_PPRE_DIV_4,
+		.ppre2 = RCC_CFGR_PPRE_DIV_2,
+		.vos_scale = PWR_SCALE2,
+		.overdrive = 1,
+		.flash_waitstates = FLASH_ACR_LATENCY_5WS,
+		.ahb_frequency = 168000000,
+		.apb1_frequency = 42000000,
+		.apb2_frequency = 84000000,
+	},
+	{ /* 120MHz */
+		.plln = 240,
+		.pllp = 2,
+		.pllq = 5,
+		.hpre = RCC_CFGR_HPRE_DIV_NONE,
+		.ppre1 = RCC_CFGR_PPRE_DIV_4,
+		.ppre2 = RCC_CFGR_PPRE_DIV_2,
+		.vos_scale = PWR_SCALE3,
+		.overdrive = 0,
+		.flash_waitstates = FLASH_ACR_LATENCY_3WS,
+		.ahb_frequency = 120000000,
+		.apb1_frequency = 30000000,
+		.apb2_frequency = 60000000,
+	},
+	{ /* 72MHz */
+		.plln = 144,
+		.pllp = 2,
+		.pllq = 3,
+		.hpre = RCC_CFGR_HPRE_DIV_NONE,
+		.ppre1 = RCC_CFGR_PPRE_DIV_4,
+		.ppre2 = RCC_CFGR_PPRE_DIV_2,
+		.vos_scale = PWR_SCALE3,
+		.overdrive = 0,
+		.flash_waitstates = FLASH_ACR_LATENCY_2WS,
+		.ahb_frequency = 72000000,
+		.apb1_frequency = 18000000,
+		.apb2_frequency = 36000000,
+	},
+	{ /* 48MHz */
+		.plln = 192,
+		.pllp = 4,
+		.pllq = 4,
+		.hpre = RCC_CFGR_HPRE_DIV_NONE,
+		.ppre1 = RCC_CFGR_PPRE_DIV_2,
+		.ppre2 = RCC_CFGR_PPRE_DIV_2,
+		.vos_scale = PWR_SCALE3,
+		.overdrive = 0,
+		.flash_waitstates = FLASH_ACR_LATENCY_1WS,
+		.ahb_frequency = 48000000,
+		.apb1_frequency = 24000000,
+		.apb2_frequency = 24000000,
+	},
+	{ /* 24MHz */
+		.plln = 192,
+		.pllp = 8,
+		.pllq = 4,
+		.hpre = RCC_CFGR_HPRE_DIV_NONE,
+		.ppre1 = RCC_CFGR_PPRE_DIV_NONE,
+		.ppre2 = RCC_CFGR_PPRE_DIV_NONE,
+		.vos_scale = PWR_SCALE3,
+		.overdrive = 0,
+		.flash_waitstates = FLASH_ACR_LATENCY_0WS,
+		.ahb_frequency = 24000000,
+		.apb1_frequency = 24000000,
+		.apb2_frequency = 24000000,
+	}
 };
 
 void rcc_osc_ready_int_clear(enum rcc_osc osc)
@@ -324,9 +398,10 @@ uint32_t rcc_system_clock_source(void)
 	return (RCC_CFGR >> RCC_CFGR_SWS_SHIFT) & RCC_CFGR_SWS_MASK;
 }
 
-
-void rcc_clock_setup_hse_3v3(const struct rcc_clock_scale *clock)
+void rcc_clock_setup_hse(const struct rcc_clock_scale *clock, uint32_t hse_mhz)
 {
+	uint8_t pllm = hse_mhz;
+
 	/* Enable internal high-speed oscillator. */
 	rcc_osc_on(RCC_HSI);
 	rcc_wait_for_osc_ready(RCC_HSI);
@@ -334,17 +409,17 @@ void rcc_clock_setup_hse_3v3(const struct rcc_clock_scale *clock)
 	/* Select HSI as SYSCLK source. */
 	rcc_set_sysclk_source(RCC_CFGR_SW_HSI);
 
-	/* Enable external high-speed oscillator 8MHz. */
+	/* Enable external high-speed oscillator. */
 	rcc_osc_on(RCC_HSE);
 	rcc_wait_for_osc_ready(RCC_HSE);
 
-	/* Enable/disable high performance mode */
-/*	if (!clock->power_save) {
-		pwr_set_vos_scale(SCALE1);
-	} else {
-		pwr_set_vos_scale(SCALE2);
+	rcc_periph_clock_enable(RCC_PWR);
+	pwr_set_vos_scale(clock->vos_scale);
+
+	if (clock->overdrive) {
+		pwr_enable_overdrive();
 	}
-*/
+
 	/*
 	 * Set prescalers for AHB, ADC, ABP1, ABP2.
 	 * Do this before touching the PLL (TODO: why?).
@@ -353,15 +428,17 @@ void rcc_clock_setup_hse_3v3(const struct rcc_clock_scale *clock)
 	rcc_set_ppre1(clock->ppre1);
 	rcc_set_ppre2(clock->ppre2);
 
-	rcc_set_main_pll_hse(clock->pllm, clock->plln,
-			clock->pllp, clock->pllq);
+	rcc_set_main_pll_hse(pllm, clock->plln,
+			     clock->pllp, clock->pllq);
 
 	/* Enable PLL oscillator and wait for it to stabilize. */
 	rcc_osc_on(RCC_PLL);
 	rcc_wait_for_osc_ready(RCC_PLL);
 
 	/* Configure flash settings. */
-	flash_set_ws(clock->flash_config);
+	flash_set_ws(clock->flash_waitstates);
+	flash_art_enable();
+	flash_prefetch_enable();
 
 	/* Select PLL as SYSCLK source. */
 	rcc_set_sysclk_source(RCC_CFGR_SW_PLL);
@@ -369,10 +446,61 @@ void rcc_clock_setup_hse_3v3(const struct rcc_clock_scale *clock)
 	/* Wait for PLL clock to be selected. */
 	rcc_wait_for_sysclk_status(RCC_PLL);
 
-	/* Set the peripheral clock frequencies used. */
+	/* Set the clock frequencies used. */
+	rcc_ahb_frequency = clock->ahb_frequency;
 	rcc_apb1_frequency = clock->apb1_frequency;
 	rcc_apb2_frequency = clock->apb2_frequency;
 
 	/* Disable internal high-speed oscillator. */
 	rcc_osc_off(RCC_HSI);
+}
+
+void rcc_clock_setup_hsi(const struct rcc_clock_scale *clock)
+{
+	uint8_t pllm = 16;
+
+	/* Enable internal high-speed oscillator. */
+	rcc_osc_on(RCC_HSI);
+	rcc_wait_for_osc_ready(RCC_HSI);
+
+	/* Select HSI as SYSCLK source. */
+	rcc_set_sysclk_source(RCC_CFGR_SW_HSI);
+
+	rcc_periph_clock_enable(RCC_PWR);
+	pwr_set_vos_scale(clock->vos_scale);
+
+	if (clock->overdrive) {
+		pwr_enable_overdrive();
+	}
+
+	/*
+	 * Set prescalers for AHB, ADC, ABP1, ABP2.
+	 * Do this before touching the PLL (TODO: why?).
+	 */
+	rcc_set_hpre(clock->hpre);
+	rcc_set_ppre1(clock->ppre1);
+	rcc_set_ppre2(clock->ppre2);
+
+	rcc_set_main_pll_hsi(pllm, clock->plln,
+			     clock->pllp, clock->pllq);
+
+	/* Enable PLL oscillator and wait for it to stabilize. */
+	rcc_osc_on(RCC_PLL);
+	rcc_wait_for_osc_ready(RCC_PLL);
+
+	/* Configure flash settings. */
+	flash_set_ws(clock->flash_waitstates);
+	flash_art_enable();
+	flash_prefetch_enable();
+
+	/* Select PLL as SYSCLK source. */
+	rcc_set_sysclk_source(RCC_CFGR_SW_PLL);
+
+	/* Wait for PLL clock to be selected. */
+	rcc_wait_for_sysclk_status(RCC_PLL);
+
+	/* Set the clock frequencies used. */
+	rcc_ahb_frequency = clock->ahb_frequency;
+	rcc_apb1_frequency = clock->apb1_frequency;
+	rcc_apb2_frequency = clock->apb2_frequency;
 }
