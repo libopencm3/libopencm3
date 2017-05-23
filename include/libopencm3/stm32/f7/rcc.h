@@ -36,6 +36,8 @@
 #ifndef LIBOPENCM3_RCC_H
 #define LIBOPENCM3_RCC_H
 
+#include <libopencm3/stm32/f7/pwr.h>
+
 /* --- RCC registers ------------------------------------------------------- */
 
 #define RCC_CR					MMIO32(RCC_BASE + 0x00)
@@ -617,7 +619,8 @@ struct rcc_clock_scale {
 	uint8_t hpre;
 	uint8_t ppre1;
 	uint8_t ppre2;
-	uint8_t power_save;
+	enum pwr_vos_scale vos_scale;
+	uint8_t overdrive;
 	uint32_t apb1_frequency;
 	uint32_t apb2_frequency;
 };
