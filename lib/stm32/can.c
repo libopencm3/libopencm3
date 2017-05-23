@@ -190,8 +190,8 @@ Initialize incoming message filter and assign to FIFO.
 
 @param[in] canport Unsigned int32. CAN block register base @ref can_reg_base.
 @param[in] nr Unsigned int32. ID number of the filter.
-@param[in] scale_32bit bool. 32-bit scale for the filter?
-@param[in] id_list_mode bool. ID list filter mode?
+@param[in] scale_32bit true for single 32bit, false for dual 16bit
+@param[in] id_list_mode true for id lists, false for id/mask
 @param[in] fr1 Unsigned int32. First filter register content.
 @param[in] fr2 Unsigned int32. Second filter register content.
 @param[in] fifo Unsigned int32. FIFO id.
@@ -263,8 +263,8 @@ void can_filter_id_mask_16bit_init(uint32_t canport, uint32_t nr, uint16_t id1,
 				   uint16_t mask2, uint32_t fifo, bool enable)
 {
 	can_filter_init(canport, nr, false, false,
-			((uint32_t)id1 << 16) | (uint32_t)mask1,
-			((uint32_t)id2 << 16) | (uint32_t)mask2, fifo, enable);
+			((uint32_t)mask1 << 16) | (uint32_t)id1,
+			((uint32_t)mask2 << 16) | (uint32_t)id2, fifo, enable);
 }
 
 /*---------------------------------------------------------------------------*/
