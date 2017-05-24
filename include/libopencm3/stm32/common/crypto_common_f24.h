@@ -138,11 +138,12 @@ specific memorymap.h header before including this header file.*/
 #define CRYP_MISR		MMIO32(CRYP_BASE + 0x1C)
 
 /* CRYP Key registers (CRYP_KxLR) x=0..3 */
-#define CRYP_KR(i)		MMIO64(CRYP_BASE + 0x20 + (i) * 8)
+#define CRYP_KR(i)		MMIO64(CRYP_BASE + 0x20 + (i) * 4)
+#define CRYP_KR_COUNT   8
 
 /* CRYP Initialization Vector Registers (CRYP_IVxLR) x=0..1 */
-#define CRYP_IVR(i)		MMIO32(CRYP_BASE + 0x40 + (i) * 8)
-
+#define CRYP_IVR(i)		MMIO32(CRYP_BASE + 0x40 + (i) * 4)
+#define CRYP_IVR_COUNT  4
 /* --- CRYP_CR values ------------------------------------------------------ */
 
 /* ALGODIR: Algorithm direction */
@@ -150,7 +151,7 @@ specific memorymap.h header before including this header file.*/
 
 /* ALGOMODE: Algorithm mode */
 #define CRYP_CR_ALGOMODE_SHIFT		3
-#define CRYP_CR_ALGOMODE		(7 << CRYP_CR_ALGOMODE_SHIFT)
+#define CRYP_CR_ALGOMODE		    (7 << CRYP_CR_ALGOMODE_SHIFT)
 #define CRYP_CR_ALGOMODE_TDES_ECB	(0 << CRYP_CR_ALGOMODE_SHIFT)
 #define CRYP_CR_ALGOMODE_TDES_CBC	(1 << CRYP_CR_ALGOMODE_SHIFT)
 #define CRYP_CR_ALGOMODE_DES_ECB	(2 << CRYP_CR_ALGOMODE_SHIFT)
@@ -162,7 +163,7 @@ specific memorymap.h header before including this header file.*/
 
 /* DATATYPE: Data type selection */
 #define CRYP_CR_DATATYPE_SHIFT		6
-#define CRYP_CR_DATATYPE		(3 << CRYP_CR_DATATYPE_SHIFT)
+#define CRYP_CR_DATATYPE		   (3 << CRYP_CR_DATATYPE_SHIFT)
 #define CRYP_CR_DATATYPE_32		(0 << CRYP_CR_DATATYPE_SHIFT)
 #define CRYP_CR_DATATYPE_16		(1 << CRYP_CR_DATATYPE_SHIFT)
 #define CRYP_CR_DATATYPE_8		(2 << CRYP_CR_DATATYPE_SHIFT)
@@ -261,6 +262,12 @@ enum crypto_keysize {
 	CRYPTO_KEY_192BIT,
 	CRYPTO_KEY_256BIT,
 };
+enum key_offset
+{
+	KEY_128BIT_OFFSET = 4,
+	KEY_192BIT_OFFSET = 2,
+	KEY_256BIT_OFFSET = 0,
+};
 enum crypto_datatype {
 
 	CRYPTO_DATA_32BIT = 0,
@@ -271,8 +278,8 @@ enum crypto_datatype {
 
 BEGIN_DECLS
 void crypto_wait_busy(void);
-void crypto_set_key(enum crypto_keysize keysize, uint64_t key[]);
-void crypto_set_iv(uint64_t iv[]);
+void crypto_set_key(enum crypto_keysize keysize, uint8_t *key);
+void crypto_set_iv(uint8_t *iv);
 void crypto_set_datatype(enum crypto_datatype datatype);
 void crypto_set_algorithm(enum crypto_mode mode);
 void crypto_start(void);
