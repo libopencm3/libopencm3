@@ -30,6 +30,15 @@
 #include <libopencm3/stm32/otg_common.h>
 
 /***********************************************************************/
+//              OTG IO structures
+#define	OTG_FS_GLOBAL   OTGx_GLOBAL(USB_OTG_FS_BASE)
+#define	OTG_FS_DEVICE   OTGx_DEVICE(USB_OTG_FS_BASE)
+#define	OTG_FS_IEPn(n)  OTGx_IEPn(USB_OTG_FS_BASE, n)
+#define	OTG_FS_OEPn(n)  OTGx_OEPn(USB_OTG_FS_BASE, n)
+#define	OTG_FS_HOST     OTGx_HOST(USB_OTG_FS_BASE)
+#define	OTG_FS_HCn(n)   OTGx_HCn(USB_OTG_FS_BASE, n)
+
+/***********************************************************************/
 
 /* Core Global Control and Status Registers */
 #define OTG_FS_GOTGCTL		MMIO32(USB_OTG_FS_BASE + OTG_GOTGCTL)

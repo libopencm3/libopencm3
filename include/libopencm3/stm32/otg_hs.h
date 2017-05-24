@@ -41,6 +41,15 @@
 
 
 /***********************************************************************/
+//              OTG IO structures
+#define	OTG_HS_GLOBAL   OTGx_GLOBAL(USB_OTG_HS_BASE)
+#define	OTG_HS_DEVICE   OTGx_DEVICE(USB_OTG_HS_BASE)
+#define	OTG_HS_IEPn(n)  OTGx_IEPn(USB_OTG_HS_BASE, n)
+#define	OTG_HS_OEPn(n)  OTGx_OEPn(USB_OTG_HS_BASE, n)
+#define	OTG_HS_HOST     OTGx_HOST(USB_OTG_HS_BASE)
+#define	OTG_HS_HCn(n)   OTGx_HCn(USB_OTG_HS_BASE, n)
+
+/***********************************************************************/
 
 /* Core Global Control and Status Registers */
 #define OTG_HS_GOTGCTL		MMIO32(USB_OTG_HS_BASE + OTG_GOTGCTL)
