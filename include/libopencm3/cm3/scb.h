@@ -116,6 +116,8 @@
 /* CPACR: Coprocessor Access Control Register */
 #define SCB_CPACR				MMIO32(SCB_BASE + 0x88)
 
+/* Those defined only on ARMv7E with FPU */
+#if defined(__ARM_ARCH_7EM__)
 /* FPCCR: Floating-Point Context Control Register */
 #define SCB_FPCCR				MMIO32(SCB_BASE + 0x234)
 
@@ -130,6 +132,7 @@
 
 /* MVFR1: Media and Floating-Point Feature Register 1 */
 #define SCB_MVFR1				MMIO32(SCB_BASE + 0x244)
+#endif
 #endif
 
 /* --- SCB values ---------------------------------------------------------- */
