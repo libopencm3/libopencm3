@@ -1,4 +1,15 @@
-/* This provides unification of code over STM32F subfamilies */
+/** @defgroup sdio_file SDIO
+ *
+ * @ingroup STM32F4xx
+ *
+ * @brief <b>libopencm3 STM32F4xx SDIO</b>
+ *
+ * @version 1.0.0
+ *
+ * @date 18 April 2017
+ *
+ * LGPL License Terms @ref lgpl_license
+ */
 
 /*
  * This file is part of the libopencm3 project.
@@ -17,14 +28,4 @@
  * along with this library.  If not, see <http://www.gnu.org/licenses/>.
  */
 
-#include <libopencm3/cm3/common.h>
-#include <libopencm3/stm32/memorymap.h>
-
-#if defined(STM32F2)
-#       include <libopencm3/stm32/f2/sdio.h>
-#elif defined(STM32F4)
-#       include <libopencm3/stm32/f4/sdio.h>
-#else
-#       error "stm32 family not defined."
-#endif
-
+#include <libopencm3/stm32/sdio.h>
