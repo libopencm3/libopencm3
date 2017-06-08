@@ -482,7 +482,8 @@ void can_fifo_release(uint32_t canport, uint8_t fifo)
 @param[out] fmi Unsigned int32 pointer. ID of the matched filter.
 @param[out] length Unsigned int8 pointer. Length of message payload.
 @param[out] data Unsigned int8[]. Message payload data.
-@param[out] timestamp. Pointer to store the message timestamp. Only valid on time triggered CAN. Use NULL to ignore.
+@param[out] timestamp. Pointer to store the message timestamp.
+			Only valid on time triggered CAN. Use NULL to ignore.
  */
 void can_receive(uint32_t canport, uint8_t fifo, bool release, uint32_t *id,
 		 bool *ext, bool *rtr, uint32_t *fmi, uint8_t *length,
@@ -528,8 +529,9 @@ void can_receive(uint32_t canport, uint8_t fifo, bool release, uint32_t *id,
 	 */
 
 	if (timestamp) {
-		*timestamp = (CAN_RDTxR(canport, fifo_id) & CAN_RDTxR_TIME_MASK) >> CAN_RDTxR_TIME_SHIFT;
-    }
+		*timestamp = (CAN_RDTxR(canport, fifo_id) &
+			CAN_RDTxR_TIME_MASK) >> CAN_RDTxR_TIME_SHIFT;
+	}
 
 	rdlxr.data32 = CAN_RDLxR(canport, fifo_id);
 	rdhxr.data32 = CAN_RDHxR(canport, fifo_id);
