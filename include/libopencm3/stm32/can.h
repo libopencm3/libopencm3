@@ -553,8 +553,8 @@ LGPL License Terms @ref lgpl_license
 /* --- CAN_RDTxR values ----------------------------------------------------- */
 
 /* TIME[15:0]: Message time stamp */
-#define CAN_RDTxR_TIME_MASK		(0xFFFF << 15)
-#define CAN_RDTxR_TIME_SHIFT		15
+#define CAN_RDTxR_TIME_MASK		(0xFFFF << 16)
+#define CAN_RDTxR_TIME_SHIFT		16
 
 /* FMI[7:0]: Filter match index */
 #define CAN_RDTxR_FMI_MASK		(0xFF << 8)
@@ -670,7 +670,7 @@ int can_transmit(uint32_t canport, uint32_t id, bool ext, bool rtr,
 		 uint8_t length, uint8_t *data);
 void can_receive(uint32_t canport, uint8_t fifo, bool release, uint32_t *id,
 		 bool *ext, bool *rtr, uint32_t *fmi, uint8_t *length,
-		 uint8_t *data);
+		 uint8_t *data, uint16_t *timestamp);
 
 void can_fifo_release(uint32_t canport, uint8_t fifo);
 bool can_available_mailbox(uint32_t canport);
