@@ -4,12 +4,12 @@ README
 [![Gitter channel](https://badges.gitter.im/libopencm3/discuss.svg)](https://gitter.im/libopencm3/discuss)
 
 The libopencm3 project aims to create an open-source firmware library for
-various ARM Cortex-M3 microcontrollers.
+various ARM Cortex-M microcontrollers.
 
 Currently (at least partly) supported microcontrollers:
 
- - ST STM32F0xx/F1xx/F2xx/F30x/F37x/F4xx/L0xx/L1xx series
- - Atmel SAM3A/3N/3S/3U/3X series
+ - ST STM32F0xx/F1xx/F2xx/F30x/F37x/F4xx/F7xx/L0xx/L1xx/L4xx series
+ - Atmel SAM3A/3N/3S/3U/3X series, as well as SAMDxx and friends
  - NXP LPC1311/13/17/42/43
  - Stellaris LM3S series (discontinued, without replacement)
  - TI (Tiva) LM4F series (continuing as TM4F, pin and peripheral compatible)
@@ -40,6 +40,8 @@ Prerequisites
 -------------
 
 Building requires python. (Some code is generated)
+If your user application uses the (optional) dynamic linker script generator,
+you will (presently) need GNU awk.  Please see https://github.com/libopencm3/libopencm3/issues/732
 
 **For Ubuntu/Fedora:**
 

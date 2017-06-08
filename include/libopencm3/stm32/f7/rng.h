@@ -1,5 +1,3 @@
-/* This provides unification of code over STM32F subfamilies */
-
 /*
  * This file is part of the libopencm3 project.
  *
@@ -17,11 +15,9 @@
  * along with this library.  If not, see <http://www.gnu.org/licenses/>.
  */
 
-#if defined(STM32F1)
-#       include <libopencm3/ethernet/mac/stm32fxx7.h>
-#elif defined(STM32F4)
-#       include <libopencm3/ethernet/mac/stm32fxx7.h>
-#else
-#       error "stm32 family not defined."
-#endif
+#ifndef LIBOPENCM3_RNG_H
+#define LIBOPENCM3_RNG_H
 
+#include <libopencm3/stm32/common/rng_common_v1.h>
+
+#endif

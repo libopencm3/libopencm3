@@ -182,7 +182,7 @@ void adc_disable_vbat_sensor(void);
 void adc_calibrate_start(uint32_t adc)
 	LIBOPENCM3_DEPRECATED("see adc_calibrate/_async");
 void adc_calibrate_wait_finish(uint32_t adc)
-	LIBOPENCM3_DEPRECATED("see adc_is_calibrating"); ;
+	LIBOPENCM3_DEPRECATED("see adc_is_calibrating");
 
 /* Analog Watchdog */
 void adc_enable_analog_watchdog_on_all_channels(uint32_t adc);

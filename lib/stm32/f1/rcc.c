@@ -221,19 +221,19 @@ bool rcc_is_osc_ready(enum rcc_osc osc)
 {
 	switch (osc) {
 	case RCC_PLL:
-		return (RCC_CR & RCC_CR_PLLRDY);
+		return RCC_CR & RCC_CR_PLLRDY;
 	case RCC_PLL2:
-		return (RCC_CR & RCC_CR_PLL2RDY);
+		return RCC_CR & RCC_CR_PLL2RDY;
 	case RCC_PLL3:
-		return (RCC_CR & RCC_CR_PLL3RDY);
+		return RCC_CR & RCC_CR_PLL3RDY;
 	case RCC_HSE:
-		return (RCC_CR & RCC_CR_HSERDY);
+		return RCC_CR & RCC_CR_HSERDY;
 	case RCC_HSI:
-		return (RCC_CR & RCC_CR_HSIRDY);
+		return RCC_CR & RCC_CR_HSIRDY;
 	case RCC_LSE:
-		return (RCC_BDCR & RCC_BDCR_LSERDY);
+		return RCC_BDCR & RCC_BDCR_LSERDY;
 	case RCC_LSI:
-		return (RCC_CSR & RCC_CSR_LSIRDY);
+		return RCC_CSR & RCC_CSR_LSIRDY;
 	}
 	return false;
 }

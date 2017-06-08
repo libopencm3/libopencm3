@@ -90,7 +90,7 @@
 /* MCO: Microcontroller clock output */
 #define RCC_CFGR_MCO_SHIFT			24
 #define RCC_CFGR_MCO_MASK			0x7
-#define RCC_CFGR_MCO_DISABLED			0x0
+#define RCC_CFGR_MCO_NOCLK			0x0
 /*Reserve RCC_CFGR_MCO				0x1*/
 #define RCC_CFGR_MCO_LSI			0x2
 #define RCC_CFGR_MCO_LSE			0x3
@@ -218,7 +218,7 @@
 #define RCC_APB1RSTR_DAC1RST			(1 << 29)
 #define RCC_APB1RSTR_PWRRST			(1 << 28)
 #define RCC_APB1RSTR_DAC2RST			(1 << 26)
-#define RCC_APB1RSTR_CANRST			(1 << 25)
+#define RCC_APB1RSTR_CAN1RST			(1 << 25)
 #define RCC_APB1RSTR_USBRST			(1 << 23)
 #define RCC_APB1RSTR_I2C2RST			(1 << 22)
 #define RCC_APB1RSTR_I2C1RST			(1 << 21)

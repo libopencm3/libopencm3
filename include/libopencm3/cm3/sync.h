@@ -22,6 +22,8 @@
 
 #include "common.h"
 
+BEGIN_DECLS
+
 void __dmb(void);
 
 /* Implements synchronisation primitives as discussed in the ARM document
@@ -51,5 +53,7 @@ uint32_t mutex_trylock(mutex_t *m);
 void mutex_unlock(mutex_t *m);
 
 #endif
+
+END_DECLS
 
 #endif

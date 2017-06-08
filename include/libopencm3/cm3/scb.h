@@ -51,19 +51,19 @@
 #define SCB_SHPR2				MMIO32(SCB_BASE + 0x1C)
 #define SCB_SHPR3				MMIO32(SCB_BASE + 0x20)
 
-/* Those defined only on ARMv7 and above */
-#if defined(__ARM_ARCH_7M__) || defined(__ARM_ARCH_7EM__)
 /* SHCSR: System Handler Control and State Register */
 #define SCB_SHCSR				MMIO32(SCB_BASE + 0x24)
 
+/* DFSR: Debug Fault Status Register */
+#define SCB_DFSR				MMIO32(SCB_BASE + 0x30)
+
+/* Those defined only on ARMv7 and above */
+#if defined(__ARM_ARCH_7M__) || defined(__ARM_ARCH_7EM__)
 /* CFSR: Configurable Fault Status Registers */
 #define SCB_CFSR				MMIO32(SCB_BASE + 0x28)
 
 /* HFSR: Hard Fault Status Register */
 #define SCB_HFSR				MMIO32(SCB_BASE + 0x2C)
-
-/* DFSR: Debug Fault Status Register */
-#define SCB_DFSR				MMIO32(SCB_BASE + 0x30)
 
 /* MMFAR: Memory Manage Fault Address Register */
 #define SCB_MMFAR				MMIO32(SCB_BASE + 0x34)
@@ -299,19 +299,25 @@
 #define SCB_SHPR_PRI_14_PENDSV		10
 #define SCB_SHPR_PRI_15_SYSTICK		11
 
-/* Those defined only on ARMv7 and above */
-#if defined(__ARM_ARCH_7M__) || defined(__ARM_ARCH_7EM__)
 /* --- SCB_SHCSR values ---------------------------------------------------- */
 
 /* Bits [31:19]: reserved - must be kept cleared */
+
+/* Those defined only on ARMv7 and above */
+#if defined(__ARM_ARCH_7M__) || defined(__ARM_ARCH_7EM__)
 /* USGFAULTENA: Usage fault enable */
 #define SCB_SHCSR_USGFAULTENA			(1 << 18)
 /* BUSFAULTENA: Bus fault enable */
 #define SCB_SHCSR_BUSFAULTENA			(1 << 17)
 /* MEMFAULTENA: Memory management fault enable */
 #define SCB_SHCSR_MEMFAULTENA			(1 << 16)
+#endif
+
 /* SVCALLPENDED: SVC call pending */
 #define SCB_SHCSR_SVCALLPENDED			(1 << 15)
+
+/* Those defined only on ARMv7 and above */
+#if defined(__ARM_ARCH_7M__) || defined(__ARM_ARCH_7EM__)
 /* BUSFAULTPENDED: Bus fault exception pending */
 #define SCB_SHCSR_BUSFAULTPENDED		(1 << 14)
 /* MEMFAULTPENDED: Memory management fault exception pending */

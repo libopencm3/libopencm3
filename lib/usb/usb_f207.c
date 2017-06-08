@@ -21,6 +21,7 @@
 #include <libopencm3/cm3/common.h>
 #include <libopencm3/stm32/tools.h>
 #include <libopencm3/stm32/otg_hs.h>
+#include <libopencm3/stm32/rcc.h>
 #include <libopencm3/usb/usbd.h>
 #include "usb_private.h"
 #include "usb_fx07_common.h"
@@ -52,6 +53,7 @@ const struct _usbd_driver stm32f207_usb_driver = {
 /** Initialize the USB device controller hardware of the STM32. */
 static usbd_device *stm32f207_usbd_init(void)
 {
+	rcc_periph_clock_enable(RCC_OTGHS);
 	OTG_HS_GINTSTS = OTG_GINTSTS_MMIS;
 
 	OTG_HS_GUSBCFG |= OTG_GUSBCFG_PHYSEL;

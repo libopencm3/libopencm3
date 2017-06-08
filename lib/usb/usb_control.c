@@ -262,7 +262,7 @@ void _usbd_control_out(usbd_device *usbd_dev, uint8_t ea)
 		 */
 		if (usb_control_request_dispatch(usbd_dev,
 					&(usbd_dev->control_state.req))) {
-			/* Got to status stage on success. */
+			/* Go to status stage on success. */
 			usbd_ep_write_packet(usbd_dev, 0, NULL, 0);
 			usbd_dev->control_state.state = STATUS_IN;
 		} else {

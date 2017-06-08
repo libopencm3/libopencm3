@@ -41,6 +41,8 @@ LGPL License Terms @ref lgpl_license
 #	include <libopencm3/stm32/f1/rcc.h>
 #elif defined(STM32F2)
 #	include <libopencm3/stm32/f2/rcc.h>
+#elif defined(STM32F3)
+#	include <libopencm3/stm32/f3/rcc.h>
 #elif defined(STM32F4)
 #	include <libopencm3/stm32/f4/rcc.h>
 #else
@@ -75,8 +77,10 @@ void can_reset(uint32_t canport)
 		rcc_peripheral_reset(&RCC_APB1RSTR, RCC_APB1RSTR_CAN1RST);
 		rcc_peripheral_clear_reset(&RCC_APB1RSTR, RCC_APB1RSTR_CAN1RST);
 	} else {
+#if defined(BX_CAN2_BASE)
 		rcc_peripheral_reset(&RCC_APB1RSTR, RCC_APB1RSTR_CAN2RST);
 		rcc_peripheral_clear_reset(&RCC_APB1RSTR, RCC_APB1RSTR_CAN2RST);
+#endif
 	}
 }
 

@@ -26,13 +26,16 @@
 The order of header inclusion is important. i2c.h includes the device
 specific memorymap.h header before including this header file.*/
 
-/** @cond */
-#if defined(LIBOPENCM3_I2C_H)
-/** @endcond */
-#ifndef LIBOPENCM3_I2C_COMMON_ALL_H
-#define LIBOPENCM3_I2C_COMMON_ALL_H
-
 /**@{*/
+
+/** @cond */
+#ifdef LIBOPENCM3_I2C_H
+/** @endcond */
+#ifndef LIBOPENCM3_I2C_COMMON_V1_H
+#define LIBOPENCM3_I2C_COMMON_V1_H
+
+#include <stddef.h>
+#include <stdint.h>
 
 /* --- Convenience macros -------------------------------------------------- */
 
@@ -391,13 +394,14 @@ void i2c_enable_dma(uint32_t i2c);
 void i2c_disable_dma(uint32_t i2c);
 void i2c_set_dma_last_transfer(uint32_t i2c);
 void i2c_clear_dma_last_transfer(uint32_t i2c);
+void i2c_transfer7(uint32_t i2c, uint8_t addr, uint8_t *w, size_t wn, uint8_t *r, size_t rn);
 
 END_DECLS
 
 #endif
 /** @cond */
 #else
-#warning "i2c_common_all.h should not be included explicitly, only via i2c.h"
+#warning "i2c_common_v1.h should not be included explicitly, only via i2c.h"
 #endif
 /** @endcond */
 /**@}*/

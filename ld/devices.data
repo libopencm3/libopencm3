@@ -58,7 +58,7 @@
 # --- output of the awk script ---
 # -DROM=16K -DRAM=4K -DROM_OFF=0x08000000 -DRAM_OFF=0x20000000
 #
-# The generated linker script file will contain sections rom and ram with 
+# The generated linker script file will contain sections rom and ram with
 # appropriate initialization code, specified in linker file source linker.ld.S
 #
 
@@ -68,6 +68,8 @@
 stm32f03[01]?4* stm32f0 ROM=16K RAM=4K
 stm32f03[01]?6* stm32f0 ROM=32K RAM=4K
 stm32f030?8* stm32f0 ROM=64K RAM=8K
+stm32f042?4* stm32f0 ROM=16K RAM=6K
+stm32f042?6* stm32f0 ROM=32K RAM=6K
 stm32f050?4* stm32f0 ROM=16K RAM=4K
 stm32f050?6* stm32f0 ROM=32K RAM=4K
 stm32f051?4* stm32f0 ROM=16K RAM=8K
@@ -131,8 +133,18 @@ stm32f4[23][79]?g* stm32f4ccm ROM=1024K RAM=192K CCM=64K
 stm32f4[23][79]?i* stm32f4ccm ROM=2048K RAM=192K CCM=64K
 
 # on F7 CCM is in some datasheets named as DTCM
-stm32f756?e* stm32f7ccm ROM=512K RAM=256K CCM=64K
-stm32f756?g* stm32f7ccm ROM=1024K RAM=256K CCM=64K
+stm32f7[23][23]?c* stm32f7ccm ROM=256K RAM=192K CCM=64K
+stm32f7[23][23]?e* stm32f7ccm ROM=512K RAM=192K CCM=64K
+stm32f745?e* stm32f7ccm ROM=512K RAM=256K CCM=64K
+stm32f745?g* stm32f7ccm ROM=1024K RAM=256K CCM=64K
+stm32f765?g* stm32f7ccm ROM=512K RAM=384K CCM=128K
+stm32f765?i* stm32f7ccm ROM=2048K RAM=384K CCM=128K
+stm32f7[45]6?e* stm32f7ccm ROM=512K RAM=256K CCM=64K
+stm32f7[45]6?g* stm32f7ccm ROM=1024K RAM=256K CCM=64K
+stm32f7[67]7?g* stm32f7ccm ROM=1024K RAM=384K CCM=128K
+stm32f7[67]7?i* stm32f7ccm ROM=2048K RAM=384K CCM=128K
+stm32f769?g* stm32f7ccm ROM=1024K RAM=384K CCM=128K
+stm32f7[67][89]?i* stm32f7ccm ROM=2048K RAM=384K CCM=128K
 
 stm32l01??3* stm32l0 ROM=8K RAM=2K
 stm32l0[12]??4* stm32l0 ROM=16K RAM=2K
@@ -155,9 +167,9 @@ stm32l15[12]?d* stm32l1eep ROM=384K RAM=48K EEP=12K
 stm32l162?c* stm32l1eep ROM=256K RAM=32K EEP=8K
 stm32l162?d* stm32l1eep ROM=384K RAM=48K EEP=12K
 
-stm32l4?6?c* stm32l4 ROM=256K RAM=128K
-stm32l4?6?e* stm32l4 ROM=512K RAM=128K
-stm32l4?6?g* stm32l4 ROM=1024K RAM=128K
+stm32l4?6?c* stm32l4 ROM=256K RAM=96K RAM2=32K
+stm32l4?6?e* stm32l4 ROM=512K RAM=96K RAM2=32K
+stm32l4?6?g* stm32l4 ROM=1024K RAM=96K RAM2=32K
 
 stm32ts60 stm32t ROM=32K RAM=10K
 
@@ -404,11 +416,11 @@ stm32f1 END ROM_OFF=0x08000000 RAM_OFF=0x20000000 CPU=cortex-m3 FPU=soft
 stm32f2 END ROM_OFF=0x08000000 RAM_OFF=0x20000000 CPU=cortex-m3 FPU=soft
 stm32f3 END ROM_OFF=0x08000000 RAM_OFF=0x20000000 CPU=cortex-m4 FPU=hard-fpv4-sp-d16
 stm32f4 END ROM_OFF=0x08000000 RAM_OFF=0x20000000 CPU=cortex-m4 FPU=hard-fpv4-sp-d16
-#stm32f7 is supported on GCC-arm-embedded 4.8 2014q4 
+#stm32f7 is supported on GCC-arm-embedded 4.8 2014q4
 stm32f7 END ROM_OFF=0x08000000 RAM_OFF=0x20010000 CPU=cortex-m7 FPU=hard-fpv5-sp-d16
 stm32l0 END ROM_OFF=0x08000000 RAM_OFF=0x20000000 CPU=cortex-m0plus FPU=soft
 stm32l1 END ROM_OFF=0x08000000 RAM_OFF=0x20000000 CPU=cortex-m3 FPU=soft
-stm32l4 END ROM_OFF=0x08000000 RAM_OFF=0x20000000 CPU=cortex-m4 FPU=hard-fpv4-sp-d16
+stm32l4 END ROM_OFF=0x08000000 RAM_OFF=0x20000000 RAM2_OFF=0x10000000 CPU=cortex-m4 FPU=hard-fpv4-sp-d16
 stm32w END ROM_OFF=0x08000000 RAM_OFF=0x20000000 CPU=cortex-m3 FPU=soft
 stm32t END ROM_OFF=0x08000000 RAM_OFF=0x20000000 CPU=cortex-m3 FPU=soft
 

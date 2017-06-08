@@ -23,8 +23,8 @@
  * along with this library.  If not, see <http://www.gnu.org/licenses/>.
  */
 
-/* THIS FILE SHOULD NOT BE INCLUDED DIRECTLY, BUT ONLY VIA SPI.H
-The order of header inclusion is important. spi.h includes the device
+/* THIS FILE SHOULD NOT BE INCLUDED DIRECTLY, BUT ONLY VIA SYSCFG.H
+The order of header inclusion is important. syscfg.h includes the device
 specific memorymap.h header before including this header file.*/
 
 /** @cond */

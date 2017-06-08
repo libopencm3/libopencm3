@@ -92,11 +92,6 @@ SECTIONS
 		_ebss = .;
 	} >ram
 
-	.eeprom (NOLOAD) : {
-		. = ALIGN(4);
-		*(.eeprom*)
-	} >eep
-
 	/*
 	 * The .eh_frame section appears to be used for C++ exception handling.
 	 * You may need to fix this if you're using C++.

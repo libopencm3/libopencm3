@@ -34,10 +34,11 @@ include/libopencmsis/sam/
 include/libopencmsis/stm32/
 include/libopencmsis/vf6xx/
 
-# netbeans, intellij, eclipse project files
+# Editor/IDE config files
 nbproject/
 .idea/
 .project
+locm3.sublime-workspace
 
 # cscope databases
 cscope.out

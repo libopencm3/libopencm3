@@ -38,12 +38,12 @@ void usart_send_blocking(uint32_t usart, uint16_t data)
 
 bool usart_is_recv_ready(uint32_t usart)
 {
-	return((USART_FR(usart) & USART_FR_RXFE) == 0);
+	return ((USART_FR(usart) & USART_FR_RXFE) == 0);
 }
 
 bool usart_is_send_ready(uint32_t usart)
 {
-	return((USART_FR(usart) & USART_FR_BUSY) == 0);
+	return ((USART_FR(usart) & USART_FR_BUSY) == 0);
 }
 
 uint16_t usart_recv_blocking(uint32_t usart)
@@ -84,5 +84,5 @@ void usart_clear_tx_interrupt(uint32_t usart)
 
 bool usart_get_interrupt_source(uint32_t usart, uint32_t flag)
 {
-    return ((USART_RIS(usart) & flag) != 0);
+	return ((USART_RIS(usart) & flag) != 0);
 }
