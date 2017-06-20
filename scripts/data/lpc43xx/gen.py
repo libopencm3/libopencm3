@@ -2,10 +2,6 @@
 
 import sys
 import yaml
-import yaml_odict
-from collections import OrderedDict
-
-from pprint import pprint
 
 registers = yaml.load(open(sys.argv[1], 'r'))
 
