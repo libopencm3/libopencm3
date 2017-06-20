@@ -2,7 +2,6 @@ import array
 import datetime
 import usb.core
 import usb.util as uu
-import logging
 import sys
 
 import unittest

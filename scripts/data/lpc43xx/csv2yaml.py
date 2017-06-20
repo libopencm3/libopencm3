@@ -4,7 +4,6 @@ import sys
 import yaml
 import csv
 from collections import OrderedDict
-import yaml_odict
  
 def convert_file(fname):
     reader = csv.reader(open(fname, 'r'))
