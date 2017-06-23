@@ -355,11 +355,11 @@ class TestUnaligned(unittest.TestCase):
 
     def set_unaligned(self):
         # GZ_REQ_SET_UNALIGNED
-        x = self.dev.ctrl_transfer(self.req, GZ_REQ_SET_UNALIGNED, 0, 0)
+        self.dev.ctrl_transfer(self.req, GZ_REQ_SET_UNALIGNED, 0, 0)
 
     def set_aligned(self):
         # GZ_REQ_SET_ALIGNED
-        x = self.dev.ctrl_transfer(self.req, GZ_REQ_SET_ALIGNED, 0, 0)
+        self.dev.ctrl_transfer(self.req, GZ_REQ_SET_ALIGNED, 0, 0)
 
     def do_readwrite(self):
         """
