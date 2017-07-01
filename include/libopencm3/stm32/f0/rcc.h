@@ -213,7 +213,7 @@ Control</b>
 #define RCC_APB1RSTR_DACRST			(1 << 29)
 #define RCC_APB1RSTR_PWRRST			(1 << 28)
 #define RCC_APB1RSTR_CRSRST			(1 << 27)
-#define RCC_APB1RSTR_CANRST			(1 << 25)
+#define RCC_APB1RSTR_CAN1RST			(1 << 25)	/* ../can.c:79:39 needs RCC_APB1RSTR_CAN1RST to be defined  */
 #define RCC_APB1RSTR_USBRST			(1 << 23)
 #define RCC_APB1RSTR_I2C2RST			(1 << 22)
 #define RCC_APB1RSTR_I2C1RST			(1 << 21)

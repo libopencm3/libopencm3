@@ -37,7 +37,9 @@ LGPL License Terms @ref lgpl_license
 
 #include <libopencm3/stm32/can.h>
 
-#if defined(STM32F1)
+#if defined(STM32F0)
+#	include <libopencm3/stm32/f0/rcc.h>
+#elif defined(STM32F1)
 #	include <libopencm3/stm32/f1/rcc.h>
 #elif defined(STM32F2)
 #	include <libopencm3/stm32/f2/rcc.h>
