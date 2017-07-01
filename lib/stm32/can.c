@@ -466,14 +466,14 @@ void can_fifo_release(uint32_t canport, uint8_t fifo)
 @param[out] id Unsigned int32 pointer. Message ID.
 @param[out] ext bool pointer. The message ID is extended?
 @param[out] rtr bool pointer. Request of transmission?
-@param[out] fmi Unsigned int32 pointer. ID of the matched filter.
+@param[out] fmi Unsigned int8 pointer. ID of the matched filter.
 @param[out] length Unsigned int8 pointer. Length of message payload.
 @param[out] data Unsigned int8[]. Message payload data.
 @param[out] timestamp. Pointer to store the message timestamp.
 			Only valid on time triggered CAN. Use NULL to ignore.
  */
 void can_receive(uint32_t canport, uint8_t fifo, bool release, uint32_t *id,
-		 bool *ext, bool *rtr, uint32_t *fmi, uint8_t *length,
+		 bool *ext, bool *rtr, uint8_t *fmi, uint8_t *length,
 		 uint8_t *data, uint16_t *timestamp)
 {
 	uint32_t fifo_id = 0;
