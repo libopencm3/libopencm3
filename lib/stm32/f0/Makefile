@@ -35,7 +35,7 @@ TGT_CFLAGS      += $(DEBUG_FLAGS)
 
 ARFLAGS		= rcs
 
-OBJS		= flash.o rcc.o usart.o dma.o rtc.o comparator.o crc.o \
+OBJS		= flash.o  rcc.o can.o usart.o dma.o rtc.o comparator.o crc.o \
                   dac.o iwdg.o pwr.o gpio.o timer.o adc.o desig.o
 
 OBJS            += gpio_common_all.o gpio_common_f0234.o crc_common_all.o \
@@ -54,4 +54,3 @@ OBJS		+= st_usbfs_core.o st_usbfs_v2.o
 VPATH += ../../usb:../:../../cm3:../common
 
 include ../../Makefile.include
-
