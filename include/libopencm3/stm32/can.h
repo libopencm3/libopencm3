@@ -669,7 +669,7 @@ void can_disable_irq(uint32_t canport, uint32_t irq);
 int can_transmit(uint32_t canport, uint32_t id, bool ext, bool rtr,
 		 uint8_t length, uint8_t *data);
 void can_receive(uint32_t canport, uint8_t fifo, bool release, uint32_t *id,
-		 bool *ext, bool *rtr, uint32_t *fmi, uint8_t *length,
+		 bool *ext, bool *rtr, uint8_t *fmi, uint8_t *length,
 		 uint8_t *data);
 
 void can_fifo_release(uint32_t canport, uint8_t fifo);

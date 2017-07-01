@@ -484,7 +484,7 @@ void can_fifo_release(uint32_t canport, uint8_t fifo)
 @param[out] data Unsigned int8[]. Message payload data.
  */
 void can_receive(uint32_t canport, uint8_t fifo, bool release, uint32_t *id,
-		 bool *ext, bool *rtr, uint32_t *fmi, uint8_t *length,
+		 bool *ext, bool *rtr, uint8_t *fmi, uint8_t *length,
 		 uint8_t *data)
 {
 	uint32_t fifo_id = 0;
