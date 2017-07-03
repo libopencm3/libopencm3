@@ -479,7 +479,7 @@ void can_fifo_release(uint32_t canport, uint8_t fifo)
 @param[out] id Unsigned int32 pointer. Message ID.
 @param[out] ext bool pointer. The message ID is extended?
 @param[out] rtr bool pointer. Request of transmission?
-@param[out] fmi Unsigned int32 pointer. ID of the matched filter.
+@param[out] fmi Unsigned int8 pointer. ID of the matched filter.
 @param[out] length Unsigned int8 pointer. Length of message payload.
 @param[out] data Unsigned int8[]. Message payload data.
  */
