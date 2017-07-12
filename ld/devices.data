@@ -55,7 +55,8 @@
 # stm32f103rbt6
 #
 # --- output of /scripts/genlink.awk with parameter MODE ---
-# MODE=DEFS:   -D_ROM=128K -D_RAM=20K -DSTM32F1 -D_ROM_OFF=0x08000000 -D_RAM_OFF=0x20000000
+# MODE=DEFS:   -D_ROM=128K -D_RAM=20K -DSTM32F1 -D_ROM_OFF=0x08000000 \
+#              -D_RAM_OFF=0x20000000
 # MODE=CPU:    cortex-m3
 # MODE=FPU:    soft
 # MODE_FAMILY: stm32f1
