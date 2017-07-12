@@ -85,6 +85,10 @@ Variables to control the build process (should be set in your makefile):
 ------------------------------------------------------------------------
 
 DEVICE		The full device part name used for the compilation process.
+		Note that full device part name must be specified, because the
+		device specific features is usually dependent on the last
+		characters of device name string. Note that the device name
+		string search is case insensitive.
 OPENCM3_DIR	The root path of libopencm3 library.
 
 Output variables from this module:
