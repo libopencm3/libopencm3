@@ -276,8 +276,8 @@ void can_filter_id_mask_16bit_init(uint32_t canport, uint32_t nr, uint16_t id1,
 				   uint16_t mask2, uint32_t fifo, bool enable)
 {
 	can_filter_init(canport, nr, false, false,
-			((uint32_t)id1 << 16) | (uint32_t)mask1,
-			((uint32_t)id2 << 16) | (uint32_t)mask2, fifo, enable);
+			((uint32_t)mask1 << 16) | (uint32_t)id1,
+			((uint32_t)mask2 << 16) | (uint32_t)id2, fifo, enable);
 }
 
 /*---------------------------------------------------------------------------*/
