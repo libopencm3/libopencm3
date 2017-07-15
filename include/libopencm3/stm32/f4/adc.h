@@ -266,14 +266,14 @@ LGPL License Terms @ref lgpl_license
 #define ADC_SMPR1_SMP12_LSB		6
 #define ADC_SMPR1_SMP11_LSB		3
 #define ADC_SMPR1_SMP10_LSB		0
-#define ADC_SMPR1_SMP17_MSK		(0x7 << ADC_SMP17_LSB)
-#define ADC_SMPR1_SMP16_MSK		(0x7 << ADC_SMP16_LSB)
-#define ADC_SMPR1_SMP15_MSK		(0x7 << ADC_SMP15_LSB)
-#define ADC_SMPR1_SMP14_MSK		(0x7 << ADC_SMP14_LSB)
-#define ADC_SMPR1_SMP13_MSK		(0x7 << ADC_SMP13_LSB)
-#define ADC_SMPR1_SMP12_MSK		(0x7 << ADC_SMP12_LSB)
-#define ADC_SMPR1_SMP11_MSK		(0x7 << ADC_SMP11_LSB)
-#define ADC_SMPR1_SMP10_MSK		(0x7 << ADC_SMP10_LSB)
+#define ADC_SMPR1_SMP17_MSK		(0x7 << ADC_SMPR1_SMP17_LSB)
+#define ADC_SMPR1_SMP16_MSK		(0x7 << ADC_SMPR1_SMP16_LSB)
+#define ADC_SMPR1_SMP15_MSK		(0x7 << ADC_SMPR1_SMP15_LSB)
+#define ADC_SMPR1_SMP14_MSK		(0x7 << ADC_SMPR1_SMP14_LSB)
+#define ADC_SMPR1_SMP13_MSK		(0x7 << ADC_SMPR1_SMP13_LSB)
+#define ADC_SMPR1_SMP12_MSK		(0x7 << ADC_SMPR1_SMP12_LSB)
+#define ADC_SMPR1_SMP11_MSK		(0x7 << ADC_SMPR1_SMP11_LSB)
+#define ADC_SMPR1_SMP10_MSK		(0x7 << ADC_SMPR1_SMP10_LSB)
 
 /* --- ADC_SMPR2 values ---------------------------------------------------- */
 
@@ -287,16 +287,16 @@ LGPL License Terms @ref lgpl_license
 #define ADC_SMPR2_SMP2_LSB		6
 #define ADC_SMPR2_SMP1_LSB		3
 #define ADC_SMPR2_SMP0_LSB		0
-#define ADC_SMPR2_SMP9_MSK		(0x7 << ADC_SMP9_LSB)
-#define ADC_SMPR2_SMP8_MSK		(0x7 << ADC_SMP8_LSB)
-#define ADC_SMPR2_SMP7_MSK		(0x7 << ADC_SMP7_LSB)
-#define ADC_SMPR2_SMP6_MSK		(0x7 << ADC_SMP6_LSB)
-#define ADC_SMPR2_SMP5_MSK		(0x7 << ADC_SMP5_LSB)
-#define ADC_SMPR2_SMP4_MSK		(0x7 << ADC_SMP4_LSB)
-#define ADC_SMPR2_SMP3_MSK		(0x7 << ADC_SMP3_LSB)
-#define ADC_SMPR2_SMP2_MSK		(0x7 << ADC_SMP2_LSB)
-#define ADC_SMPR2_SMP1_MSK		(0x7 << ADC_SMP1_LSB)
-#define ADC_SMPR2_SMP0_MSK		(0x7 << ADC_SMP0_LSB)
+#define ADC_SMPR2_SMP9_MSK		(0x7 << ADC_SMPR2_SMP9_LSB)
+#define ADC_SMPR2_SMP8_MSK		(0x7 << ADC_SMPR2_SMP8_LSB)
+#define ADC_SMPR2_SMP7_MSK		(0x7 << ADC_SMPR2_SMP7_LSB)
+#define ADC_SMPR2_SMP6_MSK		(0x7 << ADC_SMPR2_SMP6_LSB)
+#define ADC_SMPR2_SMP5_MSK		(0x7 << ADC_SMPR2_SMP5_LSB)
+#define ADC_SMPR2_SMP4_MSK		(0x7 << ADC_SMPR2_SMP4_LSB)
+#define ADC_SMPR2_SMP3_MSK		(0x7 << ADC_SMPR2_SMP3_LSB)
+#define ADC_SMPR2_SMP2_MSK		(0x7 << ADC_SMPR2_SMP2_LSB)
+#define ADC_SMPR2_SMP1_MSK		(0x7 << ADC_SMPR2_SMP1_LSB)
+#define ADC_SMPR2_SMP0_MSK		(0x7 << ADC_SMPR2_SMP0_LSB)
 
 /* --- ADC_SMPRx values --------------------------------------------------- */
 /****************************************************************************/
