@@ -315,7 +315,7 @@ LGPL License Terms @ref lgpl_license
 #define CAN_RF0R_RFOM0			(1 << 5)
 
 /* FOVR0: FIFO 0 overrun */
-#define CAN_RF0R_FAVR0			(1 << 4)
+#define CAN_RF0R_FOVR0			(1 << 4)
 
 /* FULL0: FIFO 0 full */
 #define CAN_RF0R_FULL0			(1 << 3)
@@ -333,7 +333,7 @@ LGPL License Terms @ref lgpl_license
 #define CAN_RF1R_RFOM1			(1 << 5)
 
 /* FOVR1: FIFO 1 overrun */
-#define CAN_RF1R_FAVR1			(1 << 4)
+#define CAN_RF1R_FOVR1			(1 << 4)
 
 /* FULL1: FIFO 1 full */
 #define CAN_RF1R_FULL1			(1 << 3)
