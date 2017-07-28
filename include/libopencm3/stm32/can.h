@@ -257,7 +257,7 @@ LGPL License Terms @ref lgpl_license
 #define CAN_TSR_CODE_MASK		(0x3 << 24)
 
 /* ABRQ2: Abort request for mailbox 2 */
-#define CAN_TSR_TABRQ2			(1 << 23)
+#define CAN_TSR_ABRQ2			(1 << 23)
 
 /* 22:20 Reserved, forced by hardware to 0 */
 
