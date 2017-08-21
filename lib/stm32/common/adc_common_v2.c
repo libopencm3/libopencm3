@@ -384,9 +384,6 @@ void adc_start_conversion_regular(uint32_t adc)
 {
 	/* Start conversion on regular channels. */
 	ADC_CR(adc) |= ADC_CR_ADSTART;
-
-	/* Wait until the ADC starts the conversion. */
-	while (ADC_CR(adc) & ADC_CR_ADSTART);
 }
 
 /**@}*/
