@@ -50,6 +50,20 @@
 #define USB_EP_RX_COUNT(EP) \
 	((uint32_t *)(USB_PMA_BASE + (USB_GET_BTABLE + EP * 8 + 6) * 2))
 
+// for double-buffered endpoints
+// see "Figure 220. Packet buffer areas with examples of buffer description table locations"
+// in RM0008
+#define USB_EP_TX_0_ADDR(EP) USB_EP_TX_ADDR(EP)
+#define USB_EP_TX_1_ADDR(EP) USB_EP_RX_ADDR(EP)
+#define USB_EP_RX_0_ADDR(EP) USB_EP_TX_ADDR(EP)
+#define USB_EP_RX_1_ADDR(EP) USB_EP_RX_ADDR(EP)
+
+#define USB_EP_TX_0_COUNT(EP) USB_EP_TX_COUNT(EP)
+#define USB_EP_TX_1_COUNT(EP) USB_EP_RX_COUNT(EP)
+#define USB_EP_RX_0_COUNT(EP) USB_EP_TX_COUNT(EP)
+#define USB_EP_RX_1_COUNT(EP) USB_EP_RX_COUNT(EP)
+
+
 /* --- USB BTABLE manipulators --------------------------------------------- */
 
 #define USB_GET_EP_TX_BUFF(EP) \
@@ -57,6 +71,12 @@
 
 #define USB_GET_EP_RX_BUFF(EP) \
 	(USB_PMA_BASE + (uint8_t *)(USB_GET_EP_RX_ADDR(EP) * 2))
+
+// also for double-buffered endpoints
+#define USB_GET_EP_TX_0_BUFF(EP) USB_GET_EP_TX_BUFF(EP)
+#define USB_GET_EP_TX_1_BUFF(EP) USB_GET_EP_RX_BUFF(EP)
+#define USB_GET_EP_RX_0_BUFF(EP) USB_GET_EP_TX_BUFF(EP)
+#define USB_GET_EP_RX_1_BUFF(EP) USB_GET_EP_RX_BUFF(EP)
 
 #endif
 /** @cond */
