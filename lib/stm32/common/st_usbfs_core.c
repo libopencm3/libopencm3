@@ -38,6 +38,25 @@ void st_usbfs_set_address(usbd_device *dev, uint8_t addr)
 }
 
 /**
+ * Converts size from raw byte count to special encoded value suitable for writing
+ * to USB_COUNTn_RX register, which consists of NUM_BLOCK[4:0] and BLSIZE.
+ */
+static uint32_t convert_bufsize(uint32_t size)
+{
+	if (size > 62) {
+		if (size & 0x1f) {
+			size -= 32;
+		}
+		return (size << 5) | 0x8000;
+	} else {
+		if (size & 1) {
+			size++;
+		}
+		return size << 10;
+	}
+}
+
+/**
  * Set the receive buffer size for a given USB endpoint.
  *
  * @param ep Index of endpoint to configure.
@@ -46,17 +65,7 @@ void st_usbfs_set_address(usbd_device *dev, uint8_t addr)
 void st_usbfs_set_ep_rx_bufsize(usbd_device *dev, uint8_t ep, uint32_t size)
 {
 	(void)dev;
-	if (size > 62) {
-		if (size & 0x1f) {
-			size -= 32;
-		}
-		USB_SET_EP_RX_COUNT(ep, (size << 5) | 0x8000);
-	} else {
-		if (size & 1) {
-			size++;
-		}
-		USB_SET_EP_RX_COUNT(ep, size << 10);
-	}
+	USB_SET_EP_RX_COUNT(ep, convert_bufsize(size));
 }
 
 void st_usbfs_ep_setup(usbd_device *dev, uint8_t addr, uint8_t type,
@@ -79,26 +88,39 @@ void st_usbfs_ep_setup(usbd_device *dev, uint8_t addr, uint8_t type,
 	USB_SET_EP_TYPE(addr, typelookup[type]);
 
 	if (dir || (addr == 0)) {
+		// TODO support isochronous endpoints with their double buffering
+
 		USB_SET_EP_TX_ADDR(addr, dev->pm_top);
+		dev->pm_top += max_size;
 		if (callback) {
 			dev->user_callback_ctr[addr][USB_TRANSACTION_IN] =
 			    (void *)callback;
 		}
 		USB_CLR_EP_TX_DTOG(addr);
 		USB_SET_EP_TX_STAT(addr, USB_EP_TX_STAT_NAK);
-		dev->pm_top += max_size;
 	}
 
 	if (!dir) {
-		USB_SET_EP_RX_ADDR(addr, dev->pm_top);
-		st_usbfs_set_ep_rx_bufsize(dev, addr, max_size);
+		if (type == USB_ENDPOINT_ATTR_ISOCHRONOUS) {
+			// isochronous endpoints always use double buffering
+			USB_SET_EP_RX_0_ADDR(addr, dev->pm_top);
+			USB_SET_EP_RX_0_COUNT(addr, convert_bufsize(max_size));
+			dev->pm_top += max_size;
+			USB_SET_EP_RX_1_ADDR(addr, dev->pm_top);
+			USB_SET_EP_RX_1_COUNT(addr, convert_bufsize(max_size));
+			dev->pm_top += max_size;
+		} else {
+			USB_SET_EP_RX_ADDR(addr, dev->pm_top);
+			USB_SET_EP_RX_COUNT(addr, convert_bufsize(max_size));
+			dev->pm_top += max_size;
+		}
 		if (callback) {
 			dev->user_callback_ctr[addr][USB_TRANSACTION_OUT] =
 			    (void *)callback;
 		}
 		USB_CLR_EP_RX_DTOG(addr);
 		USB_SET_EP_RX_STAT(addr, USB_EP_RX_STAT_VALID);
-		dev->pm_top += max_size;
+
 	}
 }
 
@@ -184,6 +206,8 @@ uint16_t st_usbfs_ep_write_packet(usbd_device *dev, uint8_t addr,
 	(void)dev;
 	addr &= 0x7F;
 
+	// TODO support isochronous endpoints with their double buffering
+
 	if ((*USB_EP_REG(addr) & USB_EP_TX_STAT) == USB_EP_TX_STAT_VALID) {
 		return 0;
 	}
@@ -198,13 +222,35 @@ uint16_t st_usbfs_ep_write_packet(usbd_device *dev, uint8_t addr,
 uint16_t st_usbfs_ep_read_packet(usbd_device *dev, uint8_t addr,
 					 void *buf, uint16_t len)
 {
+	void *usb_buf;
+	uint16_t usb_len;
+
 	(void)dev;
-	if ((*USB_EP_REG(addr) & USB_EP_RX_STAT) == USB_EP_RX_STAT_VALID) {
-		return 0;
+
+	if ((GET_REG(USB_EP_REG(addr)) & USB_EP_TYPE) == USB_EP_TYPE_ISO) {
+		// isochronous endpoints always use double buffering
+		// additionally, RX_STAT check doesn't make sense for them
+
+		if (GET_REG(USB_EP_REG(addr)) & USB_EP_RX_DTOG) {
+			// buffer 1 is in use by the peripheral
+			usb_buf = USB_GET_EP_RX_0_BUFF(addr);
+			usb_len = USB_GET_EP_RX_0_COUNT(addr) & 0x3ff;
+		} else {
+			// buffer 0 is in use by the peripheral
+			usb_buf = USB_GET_EP_RX_1_BUFF(addr);
+			usb_len = USB_GET_EP_RX_1_COUNT(addr) & 0x3ff;
+		}
+	} else {
+		if ((*USB_EP_REG(addr) & USB_EP_RX_STAT) == USB_EP_RX_STAT_VALID) {
+		    return 0;
+		}
+
+		usb_buf = USB_GET_EP_RX_BUFF(addr);
+		usb_len = USB_GET_EP_RX_COUNT(addr) & 0x3ff;
 	}
 
-	len = MIN(USB_GET_EP_RX_COUNT(addr) & 0x3ff, len);
-	st_usbfs_copy_from_pm(buf, USB_GET_EP_RX_BUFF(addr), len);
+	len = MIN(usb_len, len);
+	st_usbfs_copy_from_pm(buf, usb_buf, len);
 	USB_CLR_EP_RX_CTR(addr);
 
 	if (!st_usbfs_force_nak[addr]) {
