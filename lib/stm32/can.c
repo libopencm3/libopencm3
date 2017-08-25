@@ -63,10 +63,10 @@ can_reg_base.
 void can_reset(uint32_t canport)
 {
 	if (canport == CAN1) {
-		rcc_periph_reset_pulse(RCC_CAN1);
+		rcc_periph_reset_pulse(RST_CAN1);
 	} else {
 #if defined(BX_CAN2_BASE)
-		rcc_periph_reset_pulse(RCC_CAN2);
+		rcc_periph_reset_pulse(RST_CAN2);
 #endif
 	}
 }
