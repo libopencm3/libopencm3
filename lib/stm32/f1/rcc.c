@@ -556,7 +556,7 @@ void rcc_set_hpre(uint32_t hpre)
 /** @brief RCC Set the USB Prescale Factor.
 
 The prescale factor can be set to 1 (no prescale) for use when the PLL clock is
-48MHz, or 1.5 to generate the 48MHz USB clock from a 64MHz PLL clock.
+48MHz, or 1.5 to generate the 48MHz USB clock from a 72MHz PLL clock.
 
 @note This bit cannot be reset while the USB clock is enabled.
 
