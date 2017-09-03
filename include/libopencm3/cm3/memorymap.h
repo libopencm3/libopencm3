@@ -20,6 +20,18 @@
 #ifndef LIBOPENCM3_CM3_MEMORYMAP_H
 #define LIBOPENCM3_CM3_MEMORYMAP_H
 
+#ifndef __CMSIS_USE
+#if defined(__STM32F0xx_CMSIS_DEVICE_VERSION) \
+            || defined(__STM32F1xx_CMSIS_DEVICE_VERSION)\
+            || defined(__STM32F2xx_CMSIS_DEVICE_VERSION)\
+            || defined(__STM32F3xx_CMSIS_DEVICE_VERSION)\
+            || defined(__STM32F4xx_CMSIS_DEVICE_VERSION)
+#define __CMSIS_USE	1
+#else
+#define __CMSIS_USE	0
+#endif
+#endif
+
 /* --- ARM Cortex-M0, M3 and M4 specific definitions ----------------------- */
 
 /* Private peripheral bus - Internal */
@@ -39,7 +51,9 @@
 
 /* PPBI_BASE + 0x3000 (0xE000 3000 - 0xE000 DFFF): Reserved */
 
+#if !(__CMSIS_USE)
 #define SCS_BASE                        (PPBI_BASE + 0xE000)
+#endif
 
 /* PPBI_BASE + 0xF000 (0xE000 F000 - 0xE003 FFFF): Reserved */
 
@@ -59,6 +73,7 @@
 /* SYS_TICK: System Timer */
 #define SYS_TICK_BASE                   (SCS_BASE + 0x0010)
 
+#if !(__CMSIS_USE)
 /* NVIC: Nested Vector Interrupt Controller */
 #define NVIC_BASE                       (SCS_BASE + 0x0100)
 
@@ -67,6 +82,8 @@
 
 /* MPU: Memory protection unit */
 #define MPU_BASE                        (SCS_BASE + 0x0D90)
+
+#endif// !(__CMSIS_USE)
 
 /* Those defined only on CM0*/
 #if defined(__ARM_ARCH_6M__)
