@@ -83,6 +83,10 @@
 #define RCC_PLLI2SCFGR				MMIO32(RCC_BASE + 0x84)
 #define RCC_PLLSAICFGR				MMIO32(RCC_BASE + 0x88)
 #define RCC_DCKCFGR				MMIO32(RCC_BASE + 0x8C)
+/** RCC clocks gated enable register */
+#define RCC_CKGATENR				MMIO32(RCC_BASE + 0x90)
+/** RCC Dedicated Clocks Configuration Register 2 */
+#define RCC_DCKCFGR2				MMIO32(RCC_BASE + 0x94)
 
 /* --- RCC_CR values ------------------------------------------------------- */
 
@@ -610,6 +614,20 @@
 
 #define RCC_DCKCFGR_PLLI2SDIVQ_SHIFT		0
 #define RCC_DCKCFGR_PLLI2SDIVQ_MASK		0x1f
+
+/** @defgroup rcc_ckgatenr_values RCC_CKGATENR bits
+ * @ingroup rcc_defines
+ * @brief Allows to enable or disable the clock gating for the specified IPs.
+@{*/
+#define RCC_CKGATENR_EVTCL_CKEN			(1<<7)
+#define RCC_CKGATENR_RCC_CKEN			(1<<6)
+#define RCC_CKGATENR_FLITF_CKEN			(1<<5)
+#define RCC_CKGATENR_SRAM_CKEN			(1<<4)
+#define RCC_CKGATENR_SPARE_CKEN			(1<<3)
+#define RCC_CKGATENR_CM4DBG_CKEN		(1<<2)
+#define RCC_CKGATENR_AHB2APB2_CKEN		(1<<1)
+#define RCC_CKGATENR_AHB2APB1_CKEN		(1<<0)
+/*@}*/
 
 /* PLLSAI1 helper macros */
 static inline void rcc_pllsai_enable(void)
