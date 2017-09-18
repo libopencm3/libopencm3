@@ -22,6 +22,6 @@
 #	error Do not include directly !
 #else
 
-#include <libopencm3/stm32/common/st_usbfs_v1.h>
+#include <libopencm3/stm32/common/st_usbfs_v2.h>
 
 #endif
