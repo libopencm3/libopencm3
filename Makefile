@@ -43,8 +43,12 @@ Q := @
 MAKEFLAGS += --no-print-directory
 endif
 
-IRQ_DEFN_FILES	:= $(shell find . -name 'irq.json')
-STYLECHECKFILES := $(shell find . -name '*.[ch]')
+# Avoid the use of shell find, for windows compatibility
+IRQ_DEFN_FILES	:= $(wildcard include/libopencm3/*/irq.json)
+IRQ_DEFN_FILES	+= $(wildcard include/libopencm3/*/*/irq.json)
+STYLECHECKFILES := $(wildcard include/*/*.h include/*/*/*.h include/*/*/*/*.h)
+STYLECHECKFILES += $(wildcard lib/*/*.h lib/*/*/*.h lib/*/*/*/*.h)
+STYLECHECKFILES += $(wildcard lib/*/*.c lib/*/*/*.c lib/*/*/*/*.c)
 
 all: build
 
