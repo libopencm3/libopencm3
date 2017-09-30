@@ -744,7 +744,7 @@ void rcc_clock_setup_in_hsi_out_24mhz(void)
 	rcc_set_ppre2(RCC_CFGR_PPRE2_HCLK_NODIV); /* Set. 24MHz Max. 24MHz */
 
 	/*
-	 * Sysclk is (will be) running with 24MHz -> 2 waitstates.
+	 * Sysclk is (will be) running with 24MHz -> 0 waitstates.
 	 * 0WS from 0-24MHz
 	 * 1WS from 24-48MHz
 	 * 2WS from 48-72MHz
