@@ -96,7 +96,13 @@ LGPL License Terms @ref lgpl_license
 
 /* --- ADC_SR values ------------------------------------------------------- */
 
+/** @defgroup adc_sr_values ADC Status Register Flags
+ * @ingroup adc_defines
+ *@{*/
+
+/* OVR:*//** Overrun */
 #define ADC_SR_OVR			(1 << 5)
+/**@}*/
 
 /* --- ADC_CR1 values specific to STM32F2,4--------------------------------- */
 
