@@ -417,9 +417,10 @@ void adc_calibration(uint32_t adc)
 void adc_calibrate_async(uint32_t adc);
 bool adc_is_calibrating(uint32_t adc);
 void adc_calibrate(uint32_t adc);
+bool adc_get_flag(uint32_t adc, uint32_t flag);
+void adc_clear_flag(uint32_t adc, uint32_t flag);
 
 END_DECLS
 
 #endif
 /**@}*/
-

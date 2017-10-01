@@ -185,12 +185,27 @@ specific memorymap.h header before including this header file.*/
 
 
 /* --- ADC_SR values ------------------------------------------------------- */
+/****************************************************************************/
+/** @defgroup adc_sr_values ADC Status Register Flags
+@ingroup STM32xx_adc_defines
 
+@{*/
+
+/* STRT:*//** Regular channel Start flag */
 #define ADC_SR_STRT                     (1 << 4)
+
+/* JSTRT:*//** Injected channel Start flag */
 #define ADC_SR_JSTRT                    (1 << 3)
+
+/* JEOC:*//** Injected channel end of conversion */
 #define ADC_SR_JEOC                     (1 << 2)
+
+/* EOC:*//** End of conversion */
 #define ADC_SR_EOC                      (1 << 1)
+
+/* AWD:*//** Analog watchdog flag */
 #define ADC_SR_AWD                      (1 << 0)
+/**@}*/
 
 /* --- ADC_CR1 values ------------------------------------------------------ */
 
