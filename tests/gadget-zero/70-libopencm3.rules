@@ -1,0 +1,6 @@
+# Put this in /etc/udev/rules.d/70-libopencm3.rules
+# then do "sudo udevadm control --reload" and unplug/replug the usb device.
+# This grants user accesss to the "cafe" USB Vendor ID used/hijacked/squatted by the test gadget
+
+# libopencm hacking
+SUBSYSTEMS=="usb", ATTRS{idVendor}=="cafe", TAG+="uaccess"
