@@ -15,9 +15,8 @@
 
 WARN_LOGFILE           = doxygen_lm4f.log
 
-INPUT                  = ../../include/libopencm3/license.dox \
-					     ../../include/libopencm3/lm4f \
-                         ../../lib/lm4f
+INPUT                  = ../../include/libopencm3/license.dox
+@INCLUDE = doxy.sourcelist
 
 LAYOUT_FILE 		   = DoxygenLayout_lm4f.xml
 
