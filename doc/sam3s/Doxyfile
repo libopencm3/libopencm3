@@ -17,16 +17,8 @@
 
 WARN_LOGFILE            = doxygen_sam3s.log
 
-INPUT                   = ../../include/libopencm3/license.dox \
-                         ../../include/libopencm3/sam/3s \
-                         ../../include/libopencm3/sam/common
-
-INPUT                  += ../../lib/sam/3a \
-                         ../../lib/sam/common
-
-EXCLUDE                 =
-
-EXCLUDE_PATTERNS	= *_common_3a3u3x.h
+INPUT                  = ../../include/libopencm3/license.dox
+@INCLUDE = doxy.sourcelist
 
 LAYOUT_FILE 	        = DoxygenLayout_sam3s.xml
 

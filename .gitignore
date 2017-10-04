@@ -25,6 +25,7 @@ include/libopencm3/**/nvic.h
 include/libopencm3/**/**/nvic.h
 lib/**/vector_nvic.c
 lib/**/**/vector_nvic.c
+doxy.sourcelist
 include/libopencmsis/efm32/
 include/libopencmsis/lm3s/
 include/libopencmsis/lpc13xx/

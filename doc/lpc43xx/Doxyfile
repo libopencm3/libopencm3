@@ -15,9 +15,9 @@
 
 WARN_LOGFILE           = doxygen_lpc43xx.log
 
-INPUT                  = ../../include/libopencm3/license.dox \
-					     ../../include/libopencm3/lpc43xx \
-                         ../../lib/lpc43xx
+INPUT = ../../include/libopencm3/license.dox
+INPUT += ../../include/libopencm3/lpc43xx
+INPUT += ../../lib/lpc43xx
 
 LAYOUT_FILE 		   = DoxygenLayout_lpc43xx.xml
 

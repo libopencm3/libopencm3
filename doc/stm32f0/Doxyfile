@@ -1,4 +1,4 @@
-# HTML Documentation for STM32F1 code level
+# HTML Documentation for STM32F0 code level
 
 # 14 September 2012
 # (C) Ken Sarkies <ksarkies@internode.on.net>
@@ -15,19 +15,8 @@
 
 WARN_LOGFILE            = doxygen_stm32f0.log
 
-INPUT                   = ../../include/libopencm3/license.dox \
-                         ../../include/libopencm3/stm32/f0 \
-                         ../../include/libopencm3/stm32/common
-
-INPUT                  += ../../lib/stm32/f0 \
-                         ../../lib/stm32/common
-
-EXCLUDE                 = ../../include/libopencm3/stm32/f0/usb.h \
-                         ../../include/libopencm3/stm32/f0/usb_desc.h
-
-EXCLUDE_PATTERNS	= *_common_*f24.h *_common_*f24.c \
-                          *_common_*f234.h *_common_*f234.c \
-                          *_common_*f124.h *_common_*f124.c
+INPUT                   = ../../include/libopencm3/license.dox
+@INCLUDE		= doxy.sourcelist
 
 LAYOUT_FILE 	        = DoxygenLayout_stm32f0.xml
 
