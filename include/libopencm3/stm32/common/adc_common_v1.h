@@ -411,6 +411,8 @@ void adc_start_conversion_regular(uint32_t adc);
 void adc_start_conversion_injected(uint32_t adc);
 void adc_enable_dma(uint32_t adc);
 void adc_disable_dma(uint32_t adc);
+bool adc_get_flag(uint32_t adc, uint32_t flag);
+void adc_clear_flag(uint32_t adc, uint32_t flag);
 
 /* common methods that have slight differences */
 void adc_set_sample_time(uint32_t adc, uint8_t channel, uint8_t time);

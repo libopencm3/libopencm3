@@ -747,6 +747,36 @@ void adc_disable_dma(uint32_t adc)
 	ADC_CR2(adc) &= ~ADC_CR2_DMA;
 }
 
+/*---------------------------------------------------------------------------*/
+/** @brief Read a Status Flag.
 
+@param[in] adc Unsigned int32. ADC register address base @ref adc_reg_base
+@param[in] flag Unsigned int32. Status register flag  @ref adc_sr_values.
+@returns boolean: flag set.
+*/
+
+bool adc_get_flag(uint32_t adc, uint32_t flag)
+{
+	if ((ADC_SR(adc) & flag) != 0) {
+		return true;
+	}
+
+	return false;
+}
+
+/*---------------------------------------------------------------------------*/
+/** @brief Clear a Status Flag.
+
+@param[in] adc Unsigned int32. ADC register address base @ref adc_reg_base
+@param[in] flag Unsigned int32. Status register flag  @ref adc_sr_values.
+*/
+
+void adc_clear_flag(uint32_t adc, uint32_t flag)
+{
+	/* All defined bits are rc_w0 */
+	ADC_SR(adc) = ~flag;
+}
+
+/*---------------------------------------------------------------------------*/
 
 /**@}*/

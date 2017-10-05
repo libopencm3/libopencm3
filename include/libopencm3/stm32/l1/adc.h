@@ -101,10 +101,24 @@ LGPL License Terms @ref lgpl_license
 /**@}*/
 
 /* --- ADC_SR values ------------------------------------------------------- */
+/****************************************************************************/
+/** @defgroup adc_sr_values ADC Status Register Flags
+ * @ingroup adc_defines
+ *
+ *@{*/
+
+/* JCNR:*//** Injected channel not ready */
 #define ADC_SR_JCNR			(1 << 9)
+
+/* RCNR:*//** Regular channel not ready */
 #define ADC_SR_RCNR			(1 << 8)
+
+/* ADONS:*//** ADC ON status */
 #define ADC_SR_ADONS			(1 << 6)
+
+/* OVR:*//** Overrun */
 #define ADC_SR_OVR			(1 << 5)
+/**@}*/
 
 /* --- ADC_CR1 values ------------------------------------------------------- */
 #define ADC_CR1_OVRIE			(1 << 28)

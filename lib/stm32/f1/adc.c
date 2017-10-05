@@ -454,36 +454,4 @@ void adc_set_sample_time_on_all_channels(uint32_t adc, uint8_t time)
 	ADC_SMPR1(adc) = reg32;
 }
 
-/*---------------------------------------------------------------------------*/
-/** @brief Read a Status Flag.
-
-@param[in] adc Unsigned int32. ADC register address base @ref adc_reg_base
-@param[in] flag Unsigned int32. Status register flag  @ref adc_sr_values.
-@returns boolean: flag set.
-*/
-
-bool adc_get_flag(uint32_t adc, uint32_t flag)
-{
-	if ((ADC_SR(adc) & flag) != 0) {
-		return true;
-	}
-
-	return false;
-}
-
-/*---------------------------------------------------------------------------*/
-/** @brief Clear a Status Flag.
-
-@param[in] adc Unsigned int32. ADC register address base @ref adc_reg_base
-@param[in] flag Unsigned int32. Status register flag  @ref adc_sr_values.
-*/
-
-void adc_clear_flag(uint32_t adc, uint32_t flag)
-{
-	/* All defined bits are rc_w0 */
-	ADC_SR(adc) = ~flag;
-}
-
-/*---------------------------------------------------------------------------*/
-
 /**@}*/
