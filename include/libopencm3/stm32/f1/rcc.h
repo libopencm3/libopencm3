@@ -668,9 +668,9 @@ enum rcc_periph_rst {
 	RST_I2C1	= _REG_BIT(0x10, 21),/*VNC*/
 	RST_I2C2	= _REG_BIT(0x10, 22),/*VNC*/
 	RST_USB		= _REG_BIT(0x10, 23),/*-N-*/
-	RST_CAN		= _REG_BIT(0x10, 24),/*-N-*/
-	RST_CAN1	= _REG_BIT(0x10, 24),/*--C*/
-	RST_CAN2	= _REG_BIT(0x10, 25),/*--C*/
+	RST_CAN		= _REG_BIT(0x10, 25),/*-N-*/
+	RST_CAN1	= _REG_BIT(0x10, 25),/*--C*/
+	RST_CAN2	= _REG_BIT(0x10, 26),/*--C*/
 	RST_BKP		= _REG_BIT(0x10, 27),/*VNC*/
 	RST_PWR		= _REG_BIT(0x10, 28),/*VNC*/
 	RST_DAC		= _REG_BIT(0x10, 29),/*VNC*/
