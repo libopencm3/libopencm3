@@ -406,28 +406,28 @@ int can_transmit(uint32_t canport, uint32_t id, bool ext, bool rtr,
 	switch (length) {
 	case 8:
 		tdhxr.data8[3] = data[7];
-		/* no break */
+		/* fall through */
 	case 7:
 		tdhxr.data8[2] = data[6];
-		/* no break */
+		/* fall through */
 	case 6:
 		tdhxr.data8[1] = data[5];
-		/* no break */
+		/* fall through */
 	case 5:
 		tdhxr.data8[0] = data[4];
-		/* no break */
+		/* fall through */
 	case 4:
 		tdlxr.data8[3] = data[3];
-		/* no break */
+		/* fall through */
 	case 3:
 		tdlxr.data8[2] = data[2];
-		/* no break */
+		/* fall through */
 	case 2:
 		tdlxr.data8[1] = data[1];
-		/* no break */
+		/* fall through */
 	case 1:
 		tdlxr.data8[0] = data[0];
-		/* no break */
+		/* fall through */
 	default:
 		break;
 	}
