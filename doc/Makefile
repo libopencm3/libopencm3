@@ -15,16 +15,10 @@ PDFS := $(ARCHS:=.pdf)
 
 doc: html latex
 
-html: rebuildsources cm3 usb $(ARCHS)
+html: rebuildsources $(ARCHS)
 	doxygen
 
 latex: $(PDFS)
-
-cm3:
-	cd cm3/; doxygen
-
-usb:
-	cd usb/; doxygen
 
 $(ARCHS):
 	cd $@/; doxygen
@@ -62,5 +56,5 @@ rebuildsources:
 	../scripts/gendoxylist ../lib/sam/3x sam3x
 	../scripts/gendoxylist ../lib/vf6xx vf6xx
 
-.PHONY: doc html cm3 usb $(ARCHS) latex rebuildsources
+.PHONY: doc html $(ARCHS) latex rebuildsources
 
