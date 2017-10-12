@@ -79,13 +79,14 @@
 /* --- SDIO_POWER values --------------------------------------------------- */
 
 #define SDIO_POWER_PWRCTRL_SHIFT	0
+#define SDIO_POWER_PWRCTRL_MASK		0x3
 #define SDIO_POWER_PWRCTRL_PWROFF	(0x0 << SDIO_POWER_PWRCTRL_SHIFT)
 /* what does "10: Reserved power-up" mean? */
 #define SDIO_POWER_PWRCTRL_RSVPWRUP	(0x2 << SDIO_POWER_PWRCTRL_SHIFT)
 #define SDIO_POWER_PWRCTRL_PWRON	(0x3 << SDIO_POWER_PWRCTRL_SHIFT)
 
 
-/* --- SDIO_POWER values --------------------------------------------------- */
+/* --- SDIO_CLKCR values --------------------------------------------------- */
 
 /* HWFC_EN: HW Flow Control enable */
 #define SDIO_CLKCR_HWFC_EN		(1 << 14)
@@ -96,6 +97,7 @@
 /* WIDBUS: Wide bus mode enable bit */
 /* set the width of the data bus */
 #define SDIO_CLKCR_WIDBUS_SHIFT		11
+#define SDIO_CLKCR_WIDBUS_MASK	0x3
 #define SDIO_CLKCR_WIDBUS_1		(0x0 << SDIO_CLKCR_WIDBUS_SHIFT)
 #define SDIO_CLKCR_WIDBUS_4		(0x1 << SDIO_CLKCR_WIDBUS_SHIFT)
 #define SDIO_CLKCR_WIDBUS_8		(0x2 << SDIO_CLKCR_WIDBUS_SHIFT)
@@ -111,7 +113,7 @@
 
 /* CLKDIV: Clock divide factor */
 #define SDIO_CLKCR_CLKDIV_SHIFT		0
-#define SDIO_CLKCR_CLKDIV_MSK		(0xFF << SDIO_CLKCR_CLKDIV_SHIFT)
+#define SDIO_CLKCR_CLKDIV_MASK		0xFF
 
 
 /* --- SDIO_CMD values ---------------------------------------------------- */
@@ -139,6 +141,7 @@
 
 /* WAITRESP: Wait for response bits */
 #define SDIO_CMD_WAITRESP_SHIFT		6
+#define SDIO_CMD_WAITRESP_MASK		0x3
 /* 00: No response, expect CMDSENT flag */
 #define SDIO_CMD_WAITRESP_NO_0		(0x0 << SDIO_CMD_WAITRESP_SHIFT)
 /* 01: Short response, expect CMDREND or CCRCFAIL flag */
@@ -150,13 +153,20 @@
 
 /* CMDINDEX: Command index */
 #define SDIO_CMD_CMDINDEX_SHIFT		0
-#define SDIO_CMD_CMDINDEX_MSK		(0x3F << SDIO_CMD_CMDINDEX_SHIFT)
+#define SDIO_CMD_CMDINDEX_MASK		0x3F
 
 
 /* --- SDIO_RESPCMD values ------------------------------------------------ */
 
 #define SDIO_RESPCMD_SHIFT		0
-#define SDIO_RESPCMD_MSK		(0x3F << SDIO_RESPCMD_SHIFT)
+#define SDIO_RESPCMD_MASK		0x3F
+
+
+/* --- SDIO_DLEN values --------------------------------------------------- */
+
+/* DATALENGTH: Data length value */
+#define SDIO_DLEN_DATALENGTH_SHIFT	0
+#define SDIO_DLEN_DATALENGTH_MASK	0x1FFFFFF
 
 
 /* --- SDIO_DCTRL values -------------------------------------------------- */
@@ -184,6 +194,7 @@
  * block size is 2**n bytes with 0<=n<=14
  */
 #define SDIO_DCTRL_DBLOCKSIZE_SHIFT	4
+#define SDIO_DCTRL_DBLOCKSIZE_MASK	0xF
 #define SDIO_DCTRL_DBLOCKSIZE_0		(0x0 << SDIO_DCTRL_DBLOCKSIZE_SHIFT)
 #define SDIO_DCTRL_DBLOCKSIZE_1		(0x1 << SDIO_DCTRL_DBLOCKSIZE_SHIFT)
 #define SDIO_DCTRL_DBLOCKSIZE_2		(0x2 << SDIO_DCTRL_DBLOCKSIZE_SHIFT)
@@ -414,6 +425,15 @@
 
 /* CCRCFAILIE: Command CRC fail interrupt enable */
 #define SDIO_MASK_CCRCFAILIE		(1 << 0)
+
+
+/* --- SDIO_FIFOCNT values ------------------------------------------------- */
+
+/* FIFOCOUNT: Remaining number of words to be written to or read from the
+ * FIFO
+ */
+#define SDIO_FIFOCNT_FIFOCOUNT_SHIFT	0
+#define SDIO_FIFOCNT_FIFOCOUNT_MASK	0xFFFFFF
 
 
 /* --- Function prototypes ------------------------------------------------- */
