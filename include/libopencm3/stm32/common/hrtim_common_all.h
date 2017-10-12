@@ -36,8 +36,10 @@ specific memorymap.h header before including this header file.*/
 #ifndef LIBOPENCM3_HRTIM_COMMON_ALL_H
 #define LIBOPENCM3_HRTIM_COMMON_ALL_H
 
-/* --- HRTIM Common registers ----------------------------------------------- */
-
+/** @defgroup hrtim_registers_common HRTIM Common Registers
+ * @ingroup hrtim_defines
+ * @{
+ */
 /** Control Register 1 (CR1) */
 #define HRTIM_CR1               MMIO32(HRTIM_BASE + 0x380 + 0x00)
 
@@ -112,10 +114,13 @@ specific memorymap.h header before including this header file.*/
 
 /** Burst DMA Data Register (BDMADR) */
 #define HRTIM_BDMADR            MMIO32(HRTIM_BASE + 0x380 + 0x70)
+/**@}*/
 
 
-/* --- HRTIM Master Timer registers ----------------------------------------- */
-
+/** @defgroup hrtim_registers_master HRTIM Master Registers
+ * @ingroup hrtim_defines
+ * @{
+ */
 /** Master Timer Control Register (MCR) */
 #define HRTIM_MCR               MMIO32(HRTIM_BASE + 0x00)
 
@@ -148,9 +153,13 @@ specific memorymap.h header before including this header file.*/
 
 /** Master Timer Compare 4 Register (MCMP4R) */
 #define HRTIM_MCMP4R            MMIO32(HRTIM_BASE + 0x2c)
+/**@}*/
 
 
-/* --- HRTIM_TIMx registers ------------------------------------------------- */
+/** @defgroup hrtim_registers_timer HRTIM TIMx Registers
+ * @ingroup hrtim_defines
+ * @{
+ */
 #define HRTIM_TIMx_BASE(x)             (HRTIM_BASE + 0x80 + (x) * 0x80)
 
 #define HRTIM_TIMA                     0
@@ -240,9 +249,12 @@ specific memorymap.h header before including this header file.*/
 /** Timerx Fault Register (FLT) */
 #define HRTIM_TIMx_FLT(x)              MMIO32(HRTIM_TIMx_BASE(x) + 0x68)
 
+/**@}*/
 
-/* --- HRTIM_CR1 values ---------------------------------------------- */
-
+/** @defgroup hrtim_cr1_values HRTIM_CR1 Values
+ * @ingroup hrtim_defines
+ * @{
+ */
 /** AD4USRC[27:25]: ADC Trigger 4 Update Source */
 #define HRTIM_CR1_AD4USRC_SHIFT 25
 #define HRTIM_CR1_AD4USRC_MASK  (0x7 << HRTIM_CR1_AD4USRC_SHIFT)
@@ -283,9 +295,13 @@ specific memorymap.h header before including this header file.*/
 
 /** MUDIS: Master Update Disable */
 #define HRTIM_CR1_MUDIS         (1 << 0)
+/**@}*/
 
 
-/* --- HRTIM_CR2 values ---------------------------------------------- */
+/** @defgroup hrtim_cr2_values HRTIM_CR2 Values
+ * @ingroup hrtim_defines
+ * @{
+ */
 
 /** TERST: Timer E counter software reset */
 #define HRTIM_CR2_TERST         (1 << 13)
@@ -322,9 +338,13 @@ specific memorymap.h header before including this header file.*/
 
 /** MSWU: Master Timer Software update */
 #define HRTIM_CR2_MSWU          (1 << 0)
+/**@}*/
 
 
-/* --- HRTIM_ISR values ---------------------------------------------- */
+/** @defgroup hrtim_isr_values HRTIM_ISR Values
+ * @ingroup hrtim_defines
+ * @{
+ */
 
 /** BMPER: Burst mode Period Interrupt Flag */
 #define HRTIM_ISR_BMPER         (1 << 17)
@@ -349,9 +369,12 @@ specific memorymap.h header before including this header file.*/
 
 /** FLT1: Fault 1 Interrupt Flag */
 #define HRTIM_ISR_FLT1          (1 << 0)
+/**@}*/
 
-
-/* --- HRTIM_ICR values ---------------------------------------------- */
+/** @defgroup hrtim_icr_values HRTIM_ICR Values
+ * @ingroup hrtim_defines
+ * @{
+ */
 
 /** BMPERC: Burst mode period flag Clear */
 #define HRTIM_ICR_BMPERC        (1 << 17)
@@ -377,8 +400,12 @@ specific memorymap.h header before including this header file.*/
 /** FLT1C: Fault 1 Interrupt Flag Clear */
 #define HRTIM_ICR_FLT1C         (1 << 0)
 
+/**@}*/
 
-/* --- HRTIM_IER values ---------------------------------------------- */
+/** @defgroup hrtim_ier_values HRTIM_IER Values
+ * @ingroup hrtim_defines
+ * @{
+ */
 
 /** BMPERIE: Burst mode period Interrupt Enable */
 #define HRTIM_IER_BMPERIE       (1 << 17)
@@ -404,8 +431,12 @@ specific memorymap.h header before including this header file.*/
 /** FLT1IE: Fault 1 Interrupt Enable */
 #define HRTIM_IER_FLT1IE        (1 << 0)
 
+/**@}*/
 
-/* --- HRTIM_OENR values --------------------------------------------- */
+/** @defgroup hrtim_oenr_values HRTIM_OENR Values
+ * @ingroup hrtim_defines
+ * @{
+ */
 
 /** TE2OEN: Timer E Output 2 Enable */
 #define HRTIM_OENR_TE2OEN       (1 << 9)
@@ -437,8 +468,12 @@ specific memorymap.h header before including this header file.*/
 /** TA1OEN: Timer A Output 1 Enable */
 #define HRTIM_OENR_TA1OEN       (1 << 0)
 
+/**@}*/
 
-/* --- HRTIM_ODISR values -------------------------------------------- */
+/** @defgroup hrtim_odisr_values HRTIM_ODISR Values
+ * @ingroup hrtim_defines
+ * @{
+ */
 
 /** TE2ODIS: Timer E Output 2 disable */
 #define HRTIM_DISR_TE2ODIS      (1 << 9)
@@ -470,8 +505,12 @@ specific memorymap.h header before including this header file.*/
 /** TA1ODIS: Timer A Output 1 disable */
 #define HRTIM_DISR_TA1ODIS      (1 << 0)
 
+/**@}*/
 
-/* --- HRTIM_ODSR values --------------------------------------------- */
+/** @defgroup hrtim_odsr_values HRTIM_ODSR Values
+ * @ingroup hrtim_defines
+ * @{
+ */
 
 /** TE2ODS: Timer E Output 2 disable status */
 #define HRTIM_ODSR_TE2ODS       (1 << 9)
@@ -503,8 +542,12 @@ specific memorymap.h header before including this header file.*/
 /** TA1ODS: Timer A Output 1 disable status */
 #define HRTIM_ODSR_TA1ODS       (1 << 0)
 
+/**@}*/
 
-/* --- HRTIM_BMCR values --------------------------------------------- */
+/** @defgroup hrtim_bmcr_values HRTIM_BMCR Values
+ * @ingroup hrtim_defines
+ * @{
+ */
 
 /** BMSTAT: Burst Mode Status */
 #define HRTIM_BMCR_BMSTAT       (1 << 31)
@@ -573,8 +616,12 @@ specific memorymap.h header before including this header file.*/
 /** BME: Burst Mode enable */
 #define HRTIM_BMCR_BME          (1 << 0)
 
+/**@}*/
 
-/* --- HRTIM_BMTRGR values -------------------------------------------- */
+/** @defgroup hrtim_bmtrgr_values HRTIM_BMTRGR Values
+ * @ingroup hrtim_defines
+ * @{
+ */
 
 /** OCHPEV: On-chip Event */
 #define HRTIM_BMTRGR_OCHPEV      (1 << 31)
@@ -672,8 +719,12 @@ specific memorymap.h header before including this header file.*/
 /** SW: Software start */
 #define HRTIM_BMTRGR_SW          (1 << 0)
 
+/**@}*/
 
-/* --- HRTIM_EECR1/2 values -------------------------------------------- */
+/** @defgroup hrtim_eecrx_values HRTIM_EECRx Values
+ * @ingroup hrtim_defines
+ * @{
+ */
 
 /** EExFAST: External Event x Fast mode */
 #define HRTIM_EECR_EExFAST(x)     (1 << ((x) * 6 - 1))
@@ -701,7 +752,12 @@ specific memorymap.h header before including this header file.*/
 #define HRTIM_EECR3_EExF_SHIFT(x) ((x - 6) * 4)
 #define HRTIM_EECR3_EExF_MASK(x) (0xF << HRTIM_EECR3_EExF_SHIFT(x))
 
-/* --- HRTIM_ADC1R values -------------------------------------------- */
+/**@}*/
+
+/** @defgroup hrtim_adc1r_values HRTIM_ADC1R Values
+ * @ingroup hrtim_defines
+ * @{
+ */
 
 /** AD1TEPER: ADC trigger 1 on Timer E Period */
 #define HRTIM_ADC1R_AD1TEPER    (1 << 31)
@@ -799,8 +855,12 @@ specific memorymap.h header before including this header file.*/
 /** AD1MC1: ADC trigger 1 on Master Compare 1 */
 #define HRTIM_ADC1R_AD1MC1      (1 << 0)
 
+/**@}*/
 
-/* --- HRTIM_ADC2R values -------------------------------------------- */
+/** @defgroup hrtim_adc2r_values HRTIM_ADC2R Values
+ * @ingroup hrtim_defines
+ * @{
+ */
 
 /** AD2TERST: ADC trigger 2 on Timer E Reset and counter roll-over */
 #define HRTIM_ADC2R_AD2TERST    (1 << 31)
@@ -898,8 +958,12 @@ specific memorymap.h header before including this header file.*/
 /** AD2MC1: ADC trigger 2 on Master Compare 1 */
 #define HRTIM_ADC2R_AD2MC1      (1 << 0)
 
+/**@}*/
 
-/* --- HRTIM_ADC3R values -------------------------------------------- */
+/** @defgroup hrtim_adc3r_values HRTIM_ADC3R Values
+ * @ingroup hrtim_defines
+ * @{
+ */
 
 /** AD1TEPER: ADC trigger 1 on Timer E Period */
 #define HRTIM_ADC3R_AD3TEPER    (1 << 31)
@@ -997,8 +1061,12 @@ specific memorymap.h header before including this header file.*/
 /** AD3MC1: ADC trigger 3 on Master Compare 1 */
 #define HRTIM_ADC3R_AD3MC1      (1 << 0)
 
+/**@}*/
 
-/* --- HRTIM_ADC4R values -------------------------------------------- */
+/** @defgroup hrtim_adc4r_values HRTIM_ADC4R Values
+ * @ingroup hrtim_defines
+ * @{
+ */
 
 /** AD4TERST: ADC trigger 2 on Timer E Reset and counter roll-over */
 #define HRTIM_ADC4R_AD4TERST    (1 << 31)
@@ -1096,8 +1164,12 @@ specific memorymap.h header before including this header file.*/
 /** AD4MC1: ADC trigger 4 on Master Compare 1 */
 #define HRTIM_ADC4R_AD4MC1      (1 << 0)
 
+/**@}*/
 
-/* --- HRTIM_DLLCR values -------------------------------------------- */
+/** @defgroup hrtim_dllcr_values HRTIM_DLLCR Values
+ * @ingroup hrtim_defines
+ * @{
+ */
 
 /** CALRTE[3:2]: DLL Calibration rate */
 #define HRTIM_DLLCR_CALRTE_SHIFT 2
@@ -1114,8 +1186,12 @@ specific memorymap.h header before including this header file.*/
 /** CAL: DLL Calibration Start */
 #define HRTIM_DLLCR_CAL         (1 << 0)
 
+/**@}*/
 
-/* --- HRTIM_FLTINR1 values ------------------------------------------ */
+/** @defgroup hrtim_fltinr1_values HRTIM_FLTINR1 Values
+ * @ingroup hrtim_defines
+ * @{
+ */
 
 /** FLTxLCK: FLTxLCK */
 #define HRTIM_FLTINR1_FLTxLCK(x)   (1 << ((x) * 8 - 1))
@@ -1133,8 +1209,12 @@ specific memorymap.h header before including this header file.*/
 /** FLTxE: FLTxE */
 #define HRTIM_FLTINR1_FLTxE(x)     (1 << ((x) * 8 - 8))
 
+/**@}*/
 
-/* --- HRTIM_FLTINR2 values ------------------------------------------ */
+/** @defgroup hrtim_fltinr2_values HRTIM_FLTINR2 Values
+ * @ingroup hrtim_defines
+ * @{
+ */
 
 /** FLTSD[25:24]: FLTSD */
 #define HRTIM_FLTINR2_FLTSD_SHIFT 24
@@ -1161,8 +1241,12 @@ specific memorymap.h header before including this header file.*/
 /** FLT5E: FLT5E */
 #define HRTIM_FLTINR2_FLT5E     (1 << 0)
 
+/**@}*/
 
-/* --- HRTIM_BDMUPDR values ------------------------------------------ */
+/** @defgroup hrtim_bmdupdr_values HRTIM_BDMUPDR Values
+ * @ingroup hrtim_defines
+ * @{
+ */
 
 /** MCMP4: MCMP4 register update enable */
 #define HRTIM_BDMUPDR_MCMP4     (1 << 9)
@@ -1194,8 +1278,12 @@ specific memorymap.h header before including this header file.*/
 /** MCR: MCR register update enable */
 #define HRTIM_BDMUPDR_MCR       (1 << 0)
 
+/**@}*/
 
-/* --- HRTIM_BDTxUPR values ------------------------------------------ */
+/** @defgroup hrtim_bdtxupr_values HRTIM_BDTxUPR Values
+ * @ingroup hrtim_defines
+ * @{
+ */
 
 /** TIMxFLTR: HRTIM_FLTxR register update enable */
 #define HRTIM_BDTxUPR_TIMxFLTR  (1 << 20)
@@ -1260,7 +1348,12 @@ specific memorymap.h header before including this header file.*/
 /** TIMxCR: HRTIM_TIMxCR register update enable */
 #define HRTIM_BDTxUPR_TIMxCR    (1 << 0)
 
-/* --- HRTIM_MCR values ---------------------------------------------- */
+/**@}*/
+
+/** @defgroup hrtim_mcr_values HRTIM_MCR Values
+ * @ingroup hrtim_defines
+ * @{
+ */
 
 /** BRSTDMA[31:30]: Burst DMA Update */
 #define HRTIM_MCR_BRSTDMA_SHIFT 30
@@ -1342,8 +1435,12 @@ specific memorymap.h header before including this header file.*/
 #define HRTIM_MCR_CK_PSC_SHIFT  0
 #define HRTIM_MCR_CK_PSC_MASK   (0x7 << HRTIM_MCR_CK_PSC_SHIFT)
 
+/**@}*/
 
-/* --- HRTIM_MISR values --------------------------------------------- */
+/** @defgroup hrtim_misr_values HRTIM_MISR Values
+ * @ingroup hrtim_defines
+ * @{
+ */
 
 /** MUPD: Master Update Interrupt Flag */
 #define HRTIM_MISR_MUPD         (1 << 6)
@@ -1366,8 +1463,12 @@ specific memorymap.h header before including this header file.*/
 /** MCMP1: Master Compare 1 Interrupt Flag */
 #define HRTIM_MISR_MCMP1        (1 << 0)
 
+/**@}*/
 
-/* --- HRTIM_MICR values --------------------------------------------- */
+/** @defgroup hrtim_micr_values HRTIM_MICR Values
+ * @ingroup hrtim_defines
+ * @{
+ */
 
 /** MUPDC: Master update Interrupt flag clear */
 #define HRTIM_MICR_MUPDC        (1 << 6)
@@ -1390,8 +1491,12 @@ specific memorymap.h header before including this header file.*/
 /** MCMP1C: Master Compare 1 Interrupt flag clear */
 #define HRTIM_MICR_MCMP1C       (1 << 0)
 
+/**@}*/
 
-/* --- HRTIM_MDIER values ------------------------------------------- */
+/** @defgroup hrtim_mdier_values HRTIM_MDIER Values
+ * @ingroup hrtim_defines
+ * @{
+ */
 
 /** MUPDDE: Master Update DMA request Enable */
 #define HRTIM_MDIER_MUPDDE     (1 << 22)
@@ -1435,8 +1540,12 @@ specific memorymap.h header before including this header file.*/
 /** MCMP1IE: Master Compare 1 Interrupt Enable */
 #define HRTIM_MDIER_MCMP1IE    (1 << 0)
 
+/**@}*/
 
-/* --- HRTIM_TIMx_CR values ------------------------------------------------ */
+/** @defgroup hrtim_timxcr_values HRTIM_TIMxCR Values
+ * @ingroup hrtim_defines
+ * @{
+ */
 
 /** UPDGAT[31:28]: Update Gating */
 #define HRTIM_TIMx_CR_UPDGAT_SHIFT    28
@@ -1525,8 +1634,12 @@ specific memorymap.h header before including this header file.*/
 #define HRTIM_TIMx_CR_CK_PSCx_SHIFT   0
 #define HRTIM_TIMx_CR_CK_PSCx_MASK    (0x7 << HRTIM_TIMx_CR_CK_PSCx_SHIFT)
 
+/**@}*/
 
-/* --- HRTIM_TIMx_ISR values ------------------------------------------------ */
+/** @defgroup hrtim_timxisr_values HRTIM_TIMxISR Values
+ * @ingroup hrtim_defines
+ * @{
+ */
 
 /** O2STAT: Output 2 State */
 #define HRTIM_TIMx_ISR_O2STAT          (1 << 19)
@@ -1582,8 +1695,12 @@ specific memorymap.h header before including this header file.*/
 /** CMP1: Compare 1 Interrupt Flag */
 #define HRTIM_TIMx_ISR_CMP1            (1 << 0)
 
+/**@}*/
 
-/* --- HRTIM_TIMx_ICR values ---------------------------------------------- */
+/** @defgroup hrtim_timxicr_values HRTIM_TIMxICR Values
+ * @ingroup hrtim_defines
+ * @{
+ */
 
 /** DLYPRTC: Delayed Protection Flag Clear */
 #define HRTIM_TIMx_ICR_DLYPRTC       (1 << 14)
@@ -1627,8 +1744,12 @@ specific memorymap.h header before including this header file.*/
 /** CMP1C: Compare 1 Interrupt flag Clear */
 #define HRTIM_TIMx_ICR_CMP1C         (1 << 0)
 
+/**@}*/
 
-/* --- HRTIM_TIMx_DIER values ----------------------------------------------- */
+/** @defgroup hrtim_timxdier_values HRTIM_TIMxDIER Values
+ * @ingroup hrtim_defines
+ * @{
+ */
 
 /** DLYPRTDE: Delay Protection DMA request Enable */
 #define HRTIM_TIMx_DIER_DLYPRTDE      (1 << 30)
@@ -1714,8 +1835,12 @@ specific memorymap.h header before including this header file.*/
 /** CMP1IE: Compare 1 Interrupt Enable */
 #define HRTIM_TIMx_DIER_CMP1IE        (1 << 0)
 
+/**@}*/
 
-/* --- HRTIM_TIMx_CMP1C values ---------------------------------------------- */
+/** @defgroup hrtim_timxcmp1c_values HRTIM_TIMxCMP1C Values
+ * @ingroup hrtim_defines
+ * @{
+ */
 
 /** REPx[23:16]: Timerx Repetition value (aliased from HRTIM_REPx register) */
 #define HRTIM_TIMx_CMP1C_REPx_SHIFT    16
@@ -1725,8 +1850,12 @@ specific memorymap.h header before including this header file.*/
 #define HRTIM_TIMx_CMP1C_CMP1x_SHIFT   0
 #define HRTIM_TIMx_CMP1C_CMP1x_MASK    (0xffff << HRTIM_TIMx_CMP1C_CMP1x_SHIFT)
 
+/**@}*/
 
-/* --- HRTIM_TIMx_DT values ------------------------------------------------- */
+/** @defgroup hrtim_timxdt_values HRTIM_TIMxDT Values
+ * @ingroup hrtim_defines
+ * @{
+ */
 
 /** DTFLKx: Deadtime Falling Lock */
 #define HRTIM_TIMx_DT_DTFLKx           (1 << 31)
@@ -1758,8 +1887,12 @@ specific memorymap.h header before including this header file.*/
 #define HRTIM_TIMx_DT_DTRx_SHIFT       0
 #define HRTIM_TIMx_DT_DTRx_MASK        (0x1ff << HRTIM_TIMx_DT_DTRx_SHIFT)
 
+/**@}*/
 
-/* --- HRTIM_TIMx_SETy values ----------------------------------------------- */
+/** @defgroup hrtim_timxsety_values HRTIM_TIMxSETy Values
+ * @ingroup hrtim_defines
+ * @{
+ */
 
 /** UPDATE: Registers update (transfer preload to active) */
 #define HRTIM_TIMx_SETy_UPDATE         (1 << 31)
@@ -1857,8 +1990,12 @@ specific memorymap.h header before including this header file.*/
 /** SST: Software Set trigger */
 #define HRTIM_TIMx_SETy_SST            (1 << 0)
 
+/**@}*/
 
-/* --- HRTIM_TIMx_RSTy values ----------------------------------------------- */
+/** @defgroup hrtim_timxrsty_values HRTIM_TIMxRSTy Values
+ * @ingroup hrtim_defines
+ * @{
+ */
 
 /** UPDATE: Registers update (transfer preload to active) */
 #define HRTIM_TIMx_RSTy_UPDATE         (1 << 31)
@@ -1956,8 +2093,12 @@ specific memorymap.h header before including this header file.*/
 /** SST: Software Reset trigger */
 #define HRTIM_TIMx_RSTy_SRT            (1 << 0)
 
+/**@}*/
 
-/* --- HRTIM_TIMx_EEF1 values ----------------------------------------------- */
+/** @defgroup hrtim_timxeef1_values HRTIM_TIMxEEF1 Values
+ * @ingroup hrtim_defines
+ * @{
+ */
 
 /** EExFLTR:25]: External Event x filter */
 #define HRTIM_TIMx_EEF1_EExFLTR_SHIFT(x)      ((x) * 6 - 5)
@@ -1983,8 +2124,12 @@ specific memorymap.h header before including this header file.*/
 /** EExLTCH: External Event x latch */
 #define HRTIM_TIMx_EEF1_EExLTCH            (1 << ((x) * 6 - 6))
 
+/**@}*/
 
-/* --- HRTIM_TIMx_EEF2 values ----------------------------------------------- */
+/** @defgroup hrtim_timxeef2_values HRTIM_TIMxEEF2 Values
+ * @ingroup hrtim_defines
+ * @{
+ */
 
 /** EExFLTR:25]: External Event x filter */
 #define HRTIM_TIMx_EEF2_EExFLTR_SHIFT(x)      (((x) - 6) * 6 + 1)
@@ -2010,8 +2155,18 @@ specific memorymap.h header before including this header file.*/
 /** EExLTCH: External Event x latch */
 #define HRTIM_TIMx_EEF2_EExLTCH            (1 << (((x) - 6) * 6))
 
+/**@}*/
 
-/* --- HRTIM_TIMA_RST values ------------------------------------------------ */
+/** @defgroup hrtim_timarst_values HRTIM_TIMA_RST Values
+ * @ingroup hrtim_defines
+ * Only bits 30:19 differ between TIMx_RST registers.
+ * @sa hrtim_timarst_values
+ * @sa hrtim_timbrst_values
+ * @sa hrtim_timcrst_values
+ * @sa hrtim_timdrst_values
+ * @sa hrtim_timerst_values
+ * @{
+ */
 
 /** TIMECMP4: Timer E Compare 4 */
 #define HRTIM_TIMA_RST_TIMECMP4        (1 << 30)
@@ -2103,8 +2258,18 @@ specific memorymap.h header before including this header file.*/
 /** UPDT: Timer A Update reset */
 #define HRTIM_TIMA_RST_UPDT            (1 << 1)
 
+/**@}*/
 
-/* --- HRTIM_TIMB_RST values ------------------------------------------------ */
+/** @defgroup hrtim_timbrst_values HRTIM_TIMB_RST Values
+ * @ingroup hrtim_defines
+ * Only bits 30:19 differ between TIMx_RST registers.
+ * @sa hrtim_timarst_values
+ * @sa hrtim_timbrst_values
+ * @sa hrtim_timcrst_values
+ * @sa hrtim_timdrst_values
+ * @sa hrtim_timerst_values
+ * @{
+ */
 
 /** TIMECMP4: Timer E Compare 4 */
 #define HRTIM_TIMB_RST_TIMECMP4        (1 << 30)
@@ -2196,8 +2361,18 @@ specific memorymap.h header before including this header file.*/
 /** UPDT: Timer A Update reset */
 #define HRTIM_TIMB_RST_UPDT            (1 << 1)
 
+/**@}*/
 
-/* --- HRTIM_TIMC_RST values ------------------------------------------------ */
+/** @defgroup hrtim_timcrst_values HRTIM_TIMC_RST Values
+ * @ingroup hrtim_defines
+ * Only bits 30:19 differ between TIMx_RST registers.
+ * @sa hrtim_timarst_values
+ * @sa hrtim_timbrst_values
+ * @sa hrtim_timcrst_values
+ * @sa hrtim_timdrst_values
+ * @sa hrtim_timerst_values
+ * @{
+ */
 
 /** TIMECMP4: Timer E Compare 4 */
 #define HRTIM_TIMC_RST_TIMECMP4        (1 << 30)
@@ -2289,8 +2464,18 @@ specific memorymap.h header before including this header file.*/
 /** UPDT: Timer A Update reset */
 #define HRTIM_TIMC_RST_UPDT            (1 << 1)
 
+/**@}*/
 
-/* --- HRTIM_TIMD_RST values ------------------------------------------------ */
+/** @defgroup hrtim_timdrst_values HRTIM_TIMD_RST Values
+ * @ingroup hrtim_defines
+ * Only bits 30:19 differ between TIMx_RST registers.
+ * @sa hrtim_timarst_values
+ * @sa hrtim_timbrst_values
+ * @sa hrtim_timcrst_values
+ * @sa hrtim_timdrst_values
+ * @sa hrtim_timerst_values
+ * @{
+ */
 
 /** TIMECMP4: Timer E Compare 4 */
 #define HRTIM_TIMD_RST_TIMECMP4        (1 << 30)
@@ -2382,8 +2567,18 @@ specific memorymap.h header before including this header file.*/
 /** UPDT: Timer A Update reset */
 #define HRTIM_TIMD_RST_UPDT            (1 << 1)
 
+/**@}*/
 
-/* --- HRTIM_TIME_RST values ------------------------------------------------ */
+/** @defgroup hrtim_timerst_values HRTIM_TIME_RST Values
+ * @ingroup hrtim_defines
+ * Only bits 30:19 differ between TIMx_RST registers.
+ * @sa hrtim_timarst_values
+ * @sa hrtim_timbrst_values
+ * @sa hrtim_timcrst_values
+ * @sa hrtim_timdrst_values
+ * @sa hrtim_timerst_values
+ * @{
+ */
 
 /** TIMDCMP4: Timer D Compare 4 */
 #define HRTIM_TIME_RST_TIMDCMP4        (1 << 30)
@@ -2475,7 +2670,12 @@ specific memorymap.h header before including this header file.*/
 /** UPDT: Timer A Update reset */
 #define HRTIM_TIME_RST_UPDT            (1 << 1)
 
-/* --- HRTIM_TIMx_CHP values ------------------------------------------------ */
+/**@}*/
+
+/** @defgroup hrtim_timxchp_values HRTIM_TIMxCHP Values
+ * @ingroup hrtim_defines
+ * @{
+ */
 
 /** STRTPW[10:7]: STRTPW */
 #define HRTIM_TIMx_CHP_STRTPW_SHIFT    7
@@ -2515,8 +2715,12 @@ specific memorymap.h header before including this header file.*/
 #define HRTIM_TIMx_CHP_CHPFRQ_DIV240      (14 << HRTIM_TIMx_CHP_CHPFRQ_SHIFT)
 #define HRTIM_TIMx_CHP_CHPFRQ_DIV256      (15 << HRTIM_TIMx_CHP_CHPFRQ_SHIFT)
 
+/**@}*/
 
-/* --- HRTIM_TIMx_CPT1 values ----------------------------------------------- */
+/** @defgroup hrtim_timxcpt1_values HRTIM_TIMxCPT1 Values
+ * @ingroup hrtim_defines
+ * @{
+ */
 
 /** TECMP2: Timer E Compare 2 */
 #define HRTIM_TIMx_CPT1_TECMP2         (1 << 31)
@@ -2602,8 +2806,12 @@ specific memorymap.h header before including this header file.*/
 /** SWCPT: Software Capture */
 #define HRTIM_TIMx_CPT1_SWCPT          (1 << 0)
 
+/**@}*/
 
-/* --- HRTIM_TIMx_CPT2 values ----------------------------------------------- */
+/** @defgroup hrtim_timxcpt2_values HRTIM_TIMxCPT2 Values
+ * @ingroup hrtim_defines
+ * @{
+ */
 
 /** TECMP2: Timer E Compare 2 */
 #define HRTIM_TIMx_CPT2_TECMP2         (1 << 31)
@@ -2689,8 +2897,12 @@ specific memorymap.h header before including this header file.*/
 /** SWCPT: Software Capture */
 #define HRTIM_TIMx_CPT2_SWCPT          (1 << 0)
 
+/**@}*/
 
-/* --- HRTIM_TIMx_OUT values ------------------------------------------------ */
+/** @defgroup hrtim_timxout_values HRTIM_TIMxOUT Values
+ * @ingroup hrtim_defines
+ * @{
+ */
 
 /** DIDL2: Output 2 Deadtime upon burst mode Idle entry */
 #define HRTIM_TIMx_OUT_DIDL2           (1 << 23)
@@ -2750,8 +2962,12 @@ specific memorymap.h header before including this header file.*/
 /** POL1: Output 1 polarity */
 #define HRTIM_TIMx_OUT_POL1            (1 << 1)
 
+/**@}*/
 
-/* --- HRTIM_TIMx_FLT values ------------------------------------------------ */
+/** @defgroup hrtim_timxflt_values HRTIM_TIMxFLT Values
+ * @ingroup hrtim_defines
+ * @{
+ */
 
 /** FLTLCK: Fault sources Lock */
 #define HRTIM_TIMx_FLT_FLTLCK          (1 << 31)
@@ -2770,6 +2986,7 @@ specific memorymap.h header before including this header file.*/
 
 /** FLT1EN: Fault 1 enable */
 #define HRTIM_TIMx_FLT_FLT1EN          (1 << 0)
+/**@}*/
 
 /* --- Function prototypes ------------------------------------------------- */
 
