@@ -15,27 +15,8 @@
 
 WARN_LOGFILE           = doxygen_stm32f1.log
 
-INPUT                  = ../../include/libopencm3/license.dox \
-                         ../../include/libopencm3/stm32/f1 \
-                         ../../include/libopencm3/stm32/common
-
-INPUT                 += ../../lib/stm32/f1 \
-                         ../../lib/stm32/common
-
-EXCLUDE                = ../../include/libopencm3/stm32/f1/usb.h \
-                         ../../include/libopencm3/stm32/f1/usb_desc.h \
-                         ../../include/libopencm3/stm32/common/crs_common_all.h
-
-EXCLUDE	+=	../../lib/stm32/common/crs_common_all.c \
-		../../lib/stm32/common/rtc_common_l1f024.c \
-		../../lib/stm32/common/
-
-EXCLUDE_PATTERNS       = *_common_*f24.h *_common_*f24.c \
-                         *_common_*f234.h *_common_*f234.c \
-                         *_common_*f0234.h *_common_*f0234.c \
-                         *_common_*f024.h *_common_*f024.c \
-                         *_common_*f03.h *_common_*f03.c \
-                         *_common_l01.h _common_l01.c
+INPUT                  = ../../include/libopencm3/license.dox
+@INCLUDE = doxy.sourcelist
 
 LAYOUT_FILE 	       = DoxygenLayout_stm32f1.xml
 
