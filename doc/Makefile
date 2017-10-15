@@ -11,23 +11,16 @@ ARCHS += lpc13xx lpc17xx lpc43xx
 ARCHS += sam3a sam3n sam3s sam3u sam3x
 ARCHS += vf6xx
 
-PDFS := $(ARCHS:=.pdf)
-
-doc: html latex
+doc: html
 
 html: rebuildsources $(ARCHS)
 	doxygen
 
-latex: $(PDFS)
-
 $(ARCHS):
 	cd $@/; doxygen
 
-%.pdf:
-	cd $*/; doxygen Doxyfile_latex; cd latex/; $(MAKE); cp refman.pdf ../../$(*).pdf
-
 clean:
-	@rm -rf html/ */html/ */latex/ *.pdf */*.tag
+	@rm -rf html/ */html/ */*.tag
 
 rebuildsources:
 	@printf "Manually regenerating source lists from build deps\n"
@@ -56,5 +49,5 @@ rebuildsources:
 	../scripts/gendoxylist ../lib/sam/3x sam3x
 	../scripts/gendoxylist ../lib/vf6xx vf6xx
 
-.PHONY: doc html $(ARCHS) latex rebuildsources
+.PHONY: doc html $(ARCHS) rebuildsources
 
