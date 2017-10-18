@@ -63,6 +63,6 @@ typedef struct {
 
 /* Common symbols exported by the linker script(s): */
 extern unsigned _data_loadaddr, _data, _edata, _ebss, _stack;
-extern unsigned vector_table;
+extern vector_table_t vector_table;
 
 #endif

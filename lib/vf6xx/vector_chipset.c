@@ -19,8 +19,6 @@
 
 #include <libopencm3/cm3/scb.h>
 
-extern vector_table_t vector_table;
-
 static inline void pre_main(void)
 {
 	/*
