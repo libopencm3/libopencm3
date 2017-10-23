@@ -22,11 +22,8 @@
  * You should have received a copy of the GNU Lesser General Public License
  * along with this library.  If not, see <http://www.gnu.org/licenses/>.
  */
-/** @cond */
-#if defined(LIBOPENCM3_USART_H)
-/** @endcond */
-#ifndef LIBOPENCM3_USART_COMMON_V2_H
-#define LIBOPENCM3_USART_COMMON_V2_H
+
+#pragma once
 
 /** @defgroup usart_registers USART Registers
 @ingroup usart_defines
@@ -562,10 +559,3 @@ void usart_enable_rx_timeout_interrupt(uint32_t usart);
 void usart_disable_rx_timeout_interrupt(uint32_t usart);
 
 END_DECLS
-
-#endif
-/** @cond */
-#else
-#warning "usart_common_v2.h should not be included directly, only via usart.h"
-#endif
-/** @endcond */
