@@ -195,14 +195,6 @@ specific memorymap.h header before including this header file.*/
 /* LINEN: LIN mode enable */
 #define USART_CR2_LINEN			(1 << 14)
 
-/* STOP[13:12]: STOP bits */
-#define USART_CR2_STOPBITS_1		(0x00 << 12)     /* 1 stop bit */
-#define USART_CR2_STOPBITS_0_5		(0x01 << 12)     /* 0.5 stop bits */
-#define USART_CR2_STOPBITS_2		(0x02 << 12)     /* 2 stop bits */
-#define USART_CR2_STOPBITS_1_5		(0x03 << 12)     /* 1.5 stop bits */
-#define USART_CR2_STOPBITS_MASK         (0x03 << 12)
-#define USART_CR2_STOPBITS_SHIFT        12
-
 /* CLKEN: Clock enable */
 #define USART_CR2_CLKEN			(1 << 11)
 

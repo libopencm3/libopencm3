@@ -50,14 +50,6 @@
 #define USART_CR2_ABRMOD_FRAME_0x7F	(0x2 << 21)
 #define USART_CR2_ABRMOD_FRAME_0x55	(0x3 << 21)
 
-/* STOP[13:12]: STOP bits */
-#define USART_CR2_STOPBITS_1		(0x00 << 12)     /* 1 stop bit */
-#define USART_CR2_STOPBITS_0_5		(0x01 << 12)     /* 0.5 stop bits */
-#define USART_CR2_STOPBITS_2		(0x02 << 12)     /* 2 stop bits */
-#define USART_CR2_STOPBITS_1_5		(0x03 << 12)     /* 1.5 stop bits */
-#define USART_CR2_STOPBITS_MASK         (0x03 << 12)
-#define USART_CR2_STOPBITS_SHIFT        12
-
 /* ADD[3:0]: Address of the usart node
 #define USART_CR2_ADD_MASK              0xF */
 
