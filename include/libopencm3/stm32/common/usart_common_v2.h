@@ -196,6 +196,24 @@
 
 /**@}*/
 
+/** @defgroup usart_convenience_flags U(S)ART convenience Flags
+ * @ingroup STM32F_usart_defines
+ * We define the "common" lower flag bits using a standard name,
+ * allowing them to be used regardless of which usart peripheral
+ * version you have.
+ * @{
+ */
+#define USART_FLAG_PE	USART_ISR_PE
+#define USART_FLAG_FE	USART_ISR_FE
+#define USART_FLAG_NF	USART_ISR_NF
+#define USART_FLAG_ORE	USART_ISR_ORE
+#define USART_FLAG_IDLE	USART_ISR_IDLE
+#define USART_FLAG_RXNE	USART_ISR_RXNE
+#define USART_FLAG_TC	USART_ISR_TC
+#define USART_FLAG_TXE	USART_ISR_TXE
+/**@}*/
+
+
 /*****************************************************************************/
 /* Register values                                                           */
 /*****************************************************************************/

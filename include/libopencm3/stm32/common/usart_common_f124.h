@@ -95,6 +95,23 @@ specific memorymap.h header before including this header file.*/
 #define UART4_GTPR			USART_GTPR(UART4_BASE)
 #define UART5_GTPR			USART_GTPR(UART5_BASE)
 
+/** @defgroup usart_convenience_flags U(S)ART convenience Flags
+ * @ingroup STM32F_usart_defines
+ * We define the "common" lower flag bits using a standard name,
+ * allowing them to be used regardless of which usart peripheral
+ * version you have.
+ * @{
+ */
+#define USART_FLAG_PE	USART_SR_PE
+#define USART_FLAG_FE	USART_SR_FE
+#define USART_FLAG_NF	USART_SR_NF
+#define USART_FLAG_ORE	USART_SR_ORE
+#define USART_FLAG_IDLE	USART_SR_IDLE
+#define USART_FLAG_RXNE	USART_SR_RXNE
+#define USART_FLAG_TC	USART_SR_TC
+#define USART_FLAG_TXE	USART_SR_TXE
+/**@}*/
+
 /* --- USART_SR values ----------------------------------------------------- */
 /****************************************************************************/
 /** @defgroup usart_sr_flags USART Status register Flags
