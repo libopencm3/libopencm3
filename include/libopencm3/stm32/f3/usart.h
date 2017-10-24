@@ -80,15 +80,6 @@
 
 
 
-/* --- USART_RDR values --------------------------------------------------- */
-
-/* RDR[8:0]: Receive data value */
-#define USART_RDR_MASK		    (0x1FF << 0)
-
-/* --- USART_TDR values --------------------------------------------------- */
-
-/* TDR[8:0]: Transmit data value */
-#define USART_TDR_MASK		    (0x1FF << 0)
 
 #endif
 

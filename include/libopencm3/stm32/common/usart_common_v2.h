@@ -557,6 +557,17 @@
 
 /**@}*/
 
+/** @defgroup usart_dr_values USART_RDR/TDR Values
+ * @ingroup usart_defines
+ * @{
+ */
+/** RDR[8:0]: Receive data value */
+#define USART_RDR_MASK		    (0x1FF << 0)
+/** TDR[8:0]: Transmit data value */
+#define USART_TDR_MASK		    (0x1FF << 0)
+/**@}*/
+
+
 /* --- Function prototypes ------------------------------------------------- */
 
 BEGIN_DECLS
