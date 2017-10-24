@@ -85,6 +85,15 @@ specific memorymap.h header before including this header file.*/
 #define USART_STOPBITS_1_5		USART_CR2_STOPBITS_1_5 /* 1.5 stop bit*/
 /**@}*/
 
+/* STOP[13:12]: STOP bits */
+#define USART_CR2_STOPBITS_1		(0x00 << 12)     /* 1 stop bit */
+#define USART_CR2_STOPBITS_0_5		(0x01 << 12)     /* 0.5 stop bits */
+#define USART_CR2_STOPBITS_2		(0x02 << 12)     /* 2 stop bits */
+#define USART_CR2_STOPBITS_1_5		(0x03 << 12)     /* 1.5 stop bits */
+#define USART_CR2_STOPBITS_MASK		(0x03 << 12)
+#define USART_CR2_STOPBITS_SHIFT	12
+
+
 /* CR3_CTSE/CR3_RTSE combined values */
 /****************************************************************************/
 /** @defgroup usart_cr3_flowcontrol USART Hardware Flow Control Selection
