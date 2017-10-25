@@ -231,9 +231,15 @@
 /** RTOIE: Receiver timeout interrupt enable */
 #define USART_CR1_RTOIE			(1 << 26)
 
-/* DEAT[4:0]: Driver Enable assertion time */
+#define USART_CR1_DEAT_SHIFT		21
+#define USART_CR1_DEAT			(0x1F << USART_CR1_DEAT_SHIFT)
+/** DEAT[4:0]: Driver Enable assertion time */
+#define USART_CR1_DEAT_VAL(x)		((x) << USART_CR1_DEAT_SHIFT)
 
-/* DEDT[4:0]: Driver Enable deassertion time */
+#define USART_CR1_DEDT_SHIFT		16
+#define USART_CR1_DEDT			(0x1F << USART_CR1_DEDT_SHIFT)
+/** DEDT[4:0]: Driver Enable deassertion time */
+#define USART_CR1_DEDT_VAL(x)		((x) << USART_CR1_DEDT_SHIFT)
 
 /** OVER8: Oversampling mode */
 #define USART_CR1_OVER8			(1 << 15)
@@ -368,6 +374,12 @@
 #define USART_CR3_WUS_START_BIT		(0x2 << 20)
 #define USART_CR3_WUS_RXNE		(0x3 << 20)
 
+#define USART_CR3_SCARCNT_SHIFT		17
+#define USART_CR3_SCARCNT_MASK		0x7
+/** SCARCNT[2:0]: Smartcard auto retry count */
+#define USART_CR3_SCARCNT_DISABLE	(0 << USART_CR3_SCARCNT_SHIFT)
+#define USART_CR3_SCARCNT_VAL(x)	((x) << USART_CR3_SCARCNT_SHIFT)
+
 /** DEP: Driver enable polarity selection */
 #define USART_CR3_DEP			(1 << 15)
 
@@ -416,6 +428,19 @@
 /** EIE: Error interrupt enable */
 #define USART_CR3_EIE			(1 << 0)
 
+/**@}*/
+
+/** @defgroup usart_gtpr_values USART_GTPR Values
+ * @ingroup usart_defines
+ * @{
+ */
+#define USART_GTPR_GT_SHIFT		8
+#define USART_GTPR_GT			(0xFF << USART_GTPR_GT_SHIFT)
+#define USART_GTPR_GT_VAL(x)		((x) << USART_GTPR_GT_SHIFT)
+
+#define USART_GTPR_PSC_SHIFT		0
+#define USART_GTPR_PSC			(0xFF << USART_GTPR_PSC_SHIFT)
+#define USART_GTPR_PSC_VAL(x)		((x) << USART_GTPR_PSC_SHIFT)
 /**@}*/
 
 /* ------------------------------------------------------ */

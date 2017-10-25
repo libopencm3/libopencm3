@@ -47,34 +47,9 @@
 #define UART5				UART5_BASE
 /**@}*/
 
+BEGIN_DECLS
 
-/* --- USART_CR3 values ---------------------------------------------------- */
-
-
-/* SCARCNT[2:0]: Smartcard auto-retry count */
-#define USART_CR3_SCARCNT_OFF		(0x0 << 17)
-/* 0x1 to 0x7: number of automatic retransmission attempts */
-
-
-/* --- USART_BRR values ---------------------------------------------------- */
-
-/* DIV_Mantissa[11:0]: mantissa of USARTDIV */
-#define USART_BRR_DIV_MANTISSA_MASK     (0xFFF << 4)
-/* DIV_Fraction[3:0]: fraction of USARTDIV */
-#define USART_BRR_DIV_FRACTION_MASK     0xF
-
-/* --- USART_GTPR values --------------------------------------------------- */
-
-/* GT[7:0]: Guard time value */
-/* Note: N/A on UART4 & UART5 */
-#define USART_GTPR_GT_MASK              (0xFF << 8)
-
-/* PSC[7:0]: Prescaler value */
-/* Note: N/A on UART4/5 */
-#define USART_GTPR_PSC_MASK             0xFF
-
-
-
+END_DECLS
 
 #endif
 

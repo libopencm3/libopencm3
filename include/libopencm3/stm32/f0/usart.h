@@ -47,33 +47,6 @@
 /* Register values                                                           */
 /*****************************************************************************/
 
-/* USART_CR1 Values ---------------------------------------------------------*/
-
-#define USART_CR1_DEAT_SHIFT		21
-#define USART_CR1_DEAT			(0x1F << USART_CR1_DEAT_SHIFT)
-#define USART_CR1_DEAT_VAL(x)		((x) << USART_CR1_DEAT_SHIFT)
-
-#define USART_CR1_DEDT_SHIFT		16
-#define USART_CR1_DEDT			(0x1F << USART_CR1_DEDT_SHIFT)
-#define USART_CR1_DEDT_VAL(x)		((x) << USART_CR1_DEDT_SHIFT)
-
-/* USART_CR3 Values ---------------------------------------------------------*/
-
-#define USART_CR3_SCARCNT_SHIFT		17
-#define USART_CR3_SCARCNT		(7 << USART_CR3_SCARCNT_SHIFT)
-#define USART_CR3_SCARCNT_DISABLE	(0 << USART_CR3_SCARCNT_SHIFT)
-#define USART_CR3_SCARCNT_VAL(x)	((x) << USART_CR3_SCARCNT_SHIFT)
-
-/* USART_GTPR Values --------------------------------------------------------*/
-
-#define USART_GTPR_GT_SHIFT		8
-#define USART_GTPR_GT			(0xFF << USART_GTPR_GT_SHIFT)
-#define USART_GTPR_GT_VAL(x)		((x) << USART_GTPR_GT_SHIFT)
-
-#define USART_GTPR_PSC_SHIFT		0
-#define USART_GTPR_PSC			(0xFF << USART_GTPR_PSC_SHIFT)
-#define USART_GTPR_PSC_VAL(x)		((x) << USART_GTPR_PSC_SHIFT)
-
 /*****************************************************************************/
 /* API Functions                                                             */
 /*****************************************************************************/
