@@ -588,8 +588,8 @@ LGPL License Terms @ref lgpl_license
  * CAN2SB[5:0]: CAN2 start bank
  * (only on connectivity line devices otherwise reserved)
  */
-#define CAN_FMR_CAN2SB_MASK		(0x3F << 8)
-#define CAN_FMR_CAN2SB_SHIFT		15
+#define CAN_FMR_CAN2SB_SHIFT		8
+#define CAN_FMR_CAN2SB_MASK		(0x3F << CAN_FMR_CAN2SB_SHIFT)
 
 /* 7:1 Reserved, forced to reset value */
 
