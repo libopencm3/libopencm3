@@ -34,19 +34,6 @@ specific memorymap.h header before including this header file.*/
 #ifndef LIBOPENCM3_USART_COMMON_ALL_H
 #define LIBOPENCM3_USART_COMMON_ALL_H
 
-/* --- Convenience macros -------------------------------------------------- */
-
-/****************************************************************************/
-/** @defgroup usart_reg_base USART register base addresses
-@ingroup STM32F_usart_defines
-
-@{*/
-#define USART1				USART1_BASE
-#define USART2				USART2_BASE
-#define USART3				USART3_BASE
-/**@}*/
-#define UART4				UART4_BASE
-#define UART5				UART5_BASE
 
 /* --- Convenience defines ------------------------------------------------- */
 
