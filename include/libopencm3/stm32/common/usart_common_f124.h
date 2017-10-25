@@ -37,6 +37,19 @@ specific memorymap.h header before including this header file.*/
 
 #include <libopencm3/stm32/common/usart_common_all.h>
 
+
+/** @defgroup usart_reg_base USART register base addresses
+ * @ingroup STM32F_usart_defines
+ * Holds all the U(S)ART peripherals supported.
+ * @{
+ */
+#define USART1				USART1_BASE
+#define USART2				USART2_BASE
+#define USART3				USART3_BASE
+#define UART4				UART4_BASE
+#define UART5				UART5_BASE
+/**@}*/
+
 /* --- USART registers ----------------------------------------------------- */
 
 /* Status register (USARTx_SR) */
