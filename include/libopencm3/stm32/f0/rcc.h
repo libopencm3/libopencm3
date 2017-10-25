@@ -389,6 +389,10 @@ Control</b>
 /* --- Variable definitions ------------------------------------------------ */
 extern uint32_t rcc_ahb_frequency;
 extern uint32_t rcc_apb1_frequency;
+/** F0 doens't _realllly_ have apb2, but it has a bunch of things
+ * enabled via the "APB2" enable register. Fake it out.
+ */
+#define rcc_apb2_frequency rcc_apb1_frequency
 
 enum rcc_osc {
 	RCC_HSI14, RCC_HSI, RCC_HSE, RCC_PLL, RCC_LSI, RCC_LSE, RCC_HSI48

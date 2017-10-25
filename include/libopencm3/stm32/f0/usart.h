@@ -31,6 +31,7 @@
 #ifndef LIBOPENCM3_USART_H
 #define LIBOPENCM3_USART_H
 
+#include <libopencm3/stm32/common/usart_common_all.h>
 #include <libopencm3/stm32/common/usart_common_v2.h>
 
 /*****************************************************************************/
@@ -67,12 +68,6 @@
 #define USART_CR2_ABRMOD_STARTBIT	(0 << USART_CR2_ABRMOD_SHIFT)
 #define USART_CR2_ABRMOD_FALLTOFALL	(1 << USART_CR2_ABRMOD_SHIFT)
 
-#define USART_CR2_STOP_SHIFT		12
-#define USART_CR2_STOP			(3 << USART_CR2_STOP_SHIFT)
-#define USART_CR2_STOP_1_0BIT		(0 << USART_CR2_STOP_SHIFT)
-#define USART_CR2_STOP_2_0BIT		(2 << USART_CR2_STOP_SHIFT)
-#define USART_CR2_STOP_1_5BIT		(3 << USART_CR2_STOP_SHIFT)
-
 /* USART_CR3 Values ---------------------------------------------------------*/
 
 #define USART_CR3_SCARCNT_SHIFT		17
@@ -91,57 +86,10 @@
 #define USART_GTPR_PSC_VAL(x)		((x) << USART_GTPR_PSC_SHIFT)
 
 /*****************************************************************************/
-/* API definitions                                                           */
-/*****************************************************************************/
-
-#define USART_PARITY			(USART_CR1_PCE | USART_CR1_PS)
-#define USART_PARITY_NONE		(0)
-#define USART_PARITY_EVEN		(USART_CR1_PCE)
-#define USART_PARITY_ODD		(USART_CR1_PCE | USART_CR1_PS)
-
-#define USART_MODE			(USART_CR1_TE | USART_CR1_RE)
-#define USART_MODE_NONE			(0)
-#define USART_MODE_RX			(USART_CR1_RE)
-#define USART_MODE_TX			(USART_CR1_TE)
-#define USART_MODE_TX_RX		(USART_CR1_TE | USART_CR1_RE)
-
-#define USART_FLOWCONTROL		(USART_CR3_RTSE | USART_CR3_CTSE)
-#define USART_FLOWCONTROL_NONE		(0)
-#define USART_FLOWCONTROL_RTS		(USART_CR3_RTSE)
-#define USART_FLOWCONTROL_CTS		(USART_CR3_CTSE)
-#define USART_FLOWCONTROL_RTS_CTS	(USART_CR3_RTSE | USART_CR3_CTSE)
-
-/*****************************************************************************/
 /* API Functions                                                             */
 /*****************************************************************************/
 
 BEGIN_DECLS
-
-void usart_set_baudrate(uint32_t usart, uint32_t baud);
-void usart_set_databits(uint32_t usart, uint32_t bits);
-void usart_set_stopbits(uint32_t usart, uint32_t stopbits);
-void usart_set_parity(uint32_t usart, uint32_t parity);
-void usart_set_mode(uint32_t usart, uint32_t mode);
-void usart_set_flow_control(uint32_t usart, uint32_t flowcontrol);
-void usart_enable(uint32_t usart);
-void usart_disable(uint32_t usart);
-void usart_send(uint32_t usart, uint16_t data);
-uint16_t usart_recv(uint32_t usart);
-void usart_wait_send_ready(uint32_t usart);
-void usart_wait_recv_ready(uint32_t usart);
-void usart_send_blocking(uint32_t usart, uint16_t data);
-uint16_t usart_recv_blocking(uint32_t usart);
-void usart_enable_rx_dma(uint32_t usart);
-void usart_disable_rx_dma(uint32_t usart);
-void usart_enable_tx_dma(uint32_t usart);
-void usart_disable_tx_dma(uint32_t usart);
-void usart_enable_rx_interrupt(uint32_t usart);
-void usart_disable_rx_interrupt(uint32_t usart);
-void usart_enable_tx_interrupt(uint32_t usart);
-void usart_disable_tx_interrupt(uint32_t usart);
-void usart_enable_error_interrupt(uint32_t usart);
-void usart_disable_error_interrupt(uint32_t usart);
-bool usart_get_flag(uint32_t usart, uint32_t flag);
 
 END_DECLS
 
