@@ -83,7 +83,7 @@ specific memorymap.h header before including this header file.*/
 
 /* ADC common (shared) registers */
 #define ADC_CSR(adc)		MMIO32((adc) + 0x300 + 0x0)
-#define ADC_CDR(adc)		MMIO32((adc) + 0x300 + 0xa)
+#define ADC_CDR(adc)		MMIO32((adc) + 0x300 + 0xc)
 
 /* --- Register values ------------------------------------------------------*/
 /* ADC_ISR Values -----------------------------------------------------------*/
