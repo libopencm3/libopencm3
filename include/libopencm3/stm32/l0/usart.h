@@ -1,12 +1,8 @@
 /** @defgroup usart_defines USART Defines
  *
- * @brief <b>Defined Constants and Types for the STM32F0xx USART</b>
+ * @brief <b>Defined Constants and Types for the STM32L0xx USART</b>
  *
- * @ingroup STM32F0xx_defines
- *
- * @version 1.0.0
- *
- * @date 2 July 2013
+ * @ingroup STM32L0xx_defines
  *
  * LGPL License Terms @ref lgpl_license
  */
@@ -34,26 +30,20 @@
 #include <libopencm3/stm32/common/usart_common_all.h>
 #include <libopencm3/stm32/common/usart_common_v2.h>
 
-/*****************************************************************************/
-/* Module definitions                                                        */
-/*****************************************************************************/
-
+/** @defgroup usart_reg_base USART register base addresses
+ * @ingroup STM32F_usart_defines
+ * Holds all the U(S)ART peripherals supported.
+ * @{
+ */
 #define USART1				USART1_BASE
 #define USART2				USART2_BASE
-#define USART3				USART3_BASE
 #define USART4				USART4_BASE
-
-/*****************************************************************************/
-/* Register values                                                           */
-/*****************************************************************************/
-
-/*****************************************************************************/
-/* API Functions                                                             */
-/*****************************************************************************/
+#define USART5				USART5_BASE
+#define LPUART1				LPUART1_BASE
+/**@}*/
 
 BEGIN_DECLS
 
 END_DECLS
 
 #endif
-

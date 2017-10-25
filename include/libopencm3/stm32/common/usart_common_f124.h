@@ -37,6 +37,19 @@ specific memorymap.h header before including this header file.*/
 
 #include <libopencm3/stm32/common/usart_common_all.h>
 
+
+/** @defgroup usart_reg_base USART register base addresses
+ * @ingroup STM32F_usart_defines
+ * Holds all the U(S)ART peripherals supported.
+ * @{
+ */
+#define USART1				USART1_BASE
+#define USART2				USART2_BASE
+#define USART3				USART3_BASE
+#define UART4				UART4_BASE
+#define UART5				UART5_BASE
+/**@}*/
+
 /* --- USART registers ----------------------------------------------------- */
 
 /* Status register (USARTx_SR) */
@@ -94,6 +107,23 @@ specific memorymap.h header before including this header file.*/
 #define USART3_GTPR			USART_GTPR(USART3_BASE)
 #define UART4_GTPR			USART_GTPR(UART4_BASE)
 #define UART5_GTPR			USART_GTPR(UART5_BASE)
+
+/** @defgroup usart_convenience_flags U(S)ART convenience Flags
+ * @ingroup STM32F_usart_defines
+ * We define the "common" lower flag bits using a standard name,
+ * allowing them to be used regardless of which usart peripheral
+ * version you have.
+ * @{
+ */
+#define USART_FLAG_PE	USART_SR_PE
+#define USART_FLAG_FE	USART_SR_FE
+#define USART_FLAG_NF	USART_SR_NF
+#define USART_FLAG_ORE	USART_SR_ORE
+#define USART_FLAG_IDLE	USART_SR_IDLE
+#define USART_FLAG_RXNE	USART_SR_RXNE
+#define USART_FLAG_TC	USART_SR_TC
+#define USART_FLAG_TXE	USART_SR_TXE
+/**@}*/
 
 /* --- USART_SR values ----------------------------------------------------- */
 /****************************************************************************/
@@ -194,14 +224,6 @@ specific memorymap.h header before including this header file.*/
 
 /* LINEN: LIN mode enable */
 #define USART_CR2_LINEN			(1 << 14)
-
-/* STOP[13:12]: STOP bits */
-#define USART_CR2_STOPBITS_1		(0x00 << 12)     /* 1 stop bit */
-#define USART_CR2_STOPBITS_0_5		(0x01 << 12)     /* 0.5 stop bits */
-#define USART_CR2_STOPBITS_2		(0x02 << 12)     /* 2 stop bits */
-#define USART_CR2_STOPBITS_1_5		(0x03 << 12)     /* 1.5 stop bits */
-#define USART_CR2_STOPBITS_MASK         (0x03 << 12)
-#define USART_CR2_STOPBITS_SHIFT        12
 
 /* CLKEN: Clock enable */
 #define USART_CR2_CLKEN			(1 << 11)

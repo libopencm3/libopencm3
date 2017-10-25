@@ -46,7 +46,7 @@ OBJS            += gpio_common_all.o gpio_common_f0234.o crc_common_all.o \
 		   timer_common_all.o timer_common_f0234.o rcc_common_all.o
 OBJS		+= adc_common_v2.o
 OBJS		+= crs_common_all.o
-OBJS		+= usart_common_v2.o
+OBJS		+= usart_common_all.o usart_common_v2.o
 OBJS		+= i2c_common_v2.o
 
 OBJS		+= usb.o usb_control.o usb_standard.o
