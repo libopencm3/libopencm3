@@ -291,6 +291,24 @@
 @ingroup usart_defines
 @{*/
 
+/** ADD[7:0]: Address of the USART node. */
+#define USART_CR2_ADD_SHIFT		24
+#define USART_CR2_ADD			(0xFF << USART_CR2_ADD_SHIFT)
+#define USART_CR2_ADD_VAL(x)		((x) << USART_CR2_ADD_SHIFT)
+
+#define USART_CR2_ABRMOD_MASK	3
+#define USART_CR2_ABRMOD_SHIFT	21
+/** ABRMOD[1:0]: Auto baud rate mode
+ * @defgroup usart_cr2_abrmod Auto baud rate mode
+ * @ingroup usart_defines
+ * @{
+ */
+#define USART_CR2_ABRMOD_STARTBIT	(0x0 << USART_CR2_ABRMOD_SHIFT)
+#define USART_CR2_ABRMOD_FALL_EDGE	(0x1 << USART_CR2_ABRMOD_SHIFT)
+#define USART_CR2_ABRMOD_FRAME_0x7F	(0x2 << USART_CR2_ABRMOD_SHIFT)
+#define USART_CR2_ABRMOD_FRAME_0x55	(0x3 << USART_CR2_ABRMOD_SHIFT)
+/**@}*/
+
 /** RTOEN: Receiver timeout enable */
 #define USART_CR2_RTOEN			(1 << 23)
 

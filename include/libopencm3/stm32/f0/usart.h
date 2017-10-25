@@ -57,17 +57,6 @@
 #define USART_CR1_DEDT			(0x1F << USART_CR1_DEDT_SHIFT)
 #define USART_CR1_DEDT_VAL(x)		((x) << USART_CR1_DEDT_SHIFT)
 
-/* USART_CR2 Values ---------------------------------------------------------*/
-
-#define USART_CR2_ADD_SHIFT		24
-#define USART_CR2_ADD			(0xFF << USART_CR2_ADD_SHIFT)
-#define USART_CR2_ADD_VAL(x)		((x) << USART_CR2_ADD_SHIFT)
-
-#define USART_CR2_ABRMOD_SHIFT		21
-#define USART_CR2_ABRMOD		(3 << USART_CR2_ABRMOD_SHIFT)
-#define USART_CR2_ABRMOD_STARTBIT	(0 << USART_CR2_ABRMOD_SHIFT)
-#define USART_CR2_ABRMOD_FALLTOFALL	(1 << USART_CR2_ABRMOD_SHIFT)
-
 /* USART_CR3 Values ---------------------------------------------------------*/
 
 #define USART_CR3_SCARCNT_SHIFT		17

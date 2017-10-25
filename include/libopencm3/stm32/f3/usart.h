@@ -47,22 +47,6 @@
 #define UART5				UART5_BASE
 /**@}*/
 
-/* --- USART_CR2 values ---------------------------------------------------- */
-
-/* ADD[7:4]: Address of the USART node (31,28) */
-#define USART_CR2_ADD1_MASK              (0xF << 28)
-
-/* ADD[3:0]: Address of the USART node (27,24) */
-#define USART_CR2_ADD2_MASK              (0xF << 24)
-
-/* ABRMOD[1:0]: Auto baud rate mode */
-#define USART_CR2_ABRMOD_BAUD		(0x0 << 21)
-#define USART_CR2_ABRMOD_FALL_EDGE	(0x1 << 21)
-#define USART_CR2_ABRMOD_FRAME_0x7F	(0x2 << 21)
-#define USART_CR2_ABRMOD_FRAME_0x55	(0x3 << 21)
-
-/* ADD[3:0]: Address of the usart node
-#define USART_CR2_ADD_MASK              0xF */
 
 /* --- USART_CR3 values ---------------------------------------------------- */
 
