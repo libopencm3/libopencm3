@@ -188,9 +188,18 @@ void i2c_disable_analog_filter(uint32_t i2c)
 	I2C_CR1(i2c) |= I2C_CR1_ANFOFF;
 }
 
+/**
+ * Set the I2C digital filter.
+ * These bits are used to configure the digital noise filter on SDA and
+ * SCL input. The digital filter will filter spikes with a length of up
+ * to dnf_setting * I2CCLK clocks
+ * @param i2c peripheral of interest
+ * @param dnf_setting 0 to disable, else 1..15 i2c clocks
+ */
 void i2c_set_digital_filter(uint32_t i2c, uint8_t dnf_setting)
 {
-	I2C_CR1(i2c) = (I2C_CR1(i2c) & ~I2C_CR1_DNF_MASK) | dnf_setting;
+	I2C_CR1(i2c) = (I2C_CR1(i2c) & ~(I2C_CR1_DNF_MASK << I2C_CR1_DNF_SHIFT)) |
+		(dnf_setting << I2C_CR1_DNF_SHIFT);
 }
 
 /* t_presc= (presc+1)*t_i2cclk */
