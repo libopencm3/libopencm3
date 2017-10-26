@@ -205,7 +205,6 @@ uint16_t st_usbfs_ep_read_packet(usbd_device *dev, uint8_t addr,
 
 	len = MIN(USB_GET_EP_RX_COUNT(addr) & 0x3ff, len);
 	st_usbfs_copy_from_pm(buf, USB_GET_EP_RX_BUFF(addr), len);
-	USB_CLR_EP_RX_CTR(addr);
 
 	if (!st_usbfs_force_nak[addr]) {
 		USB_SET_EP_RX_STAT(addr, USB_EP_RX_STAT_VALID);
@@ -243,7 +242,9 @@ void st_usbfs_poll(usbd_device *dev)
 
 		if (dev->user_callback_ctr[ep][type]) {
 			dev->user_callback_ctr[ep][type] (dev, ep);
-		} else {
+		}
+
+		if (istr & USB_ISTR_DIR) {
 			USB_CLR_EP_RX_CTR(ep);
 		}
 	}
