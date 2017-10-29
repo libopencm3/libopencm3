@@ -93,6 +93,9 @@ struct _usbd_device {
 	const struct _usbd_driver *driver;
 
 	/* private driver data */
+	/* Extra, non-contiguous user string descriptor index and value */
+	int extra_string_idx;
+	const char* extra_string;
 
 	uint16_t fifo_mem_top;
 	uint16_t fifo_mem_top_ep0;
