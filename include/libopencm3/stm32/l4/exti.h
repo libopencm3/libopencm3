@@ -1,5 +1,16 @@
-/* This provides unification of code over STM32 subfamilies */
-
+/** @defgroup exti_defines EXTI Defines
+ *
+ * @brief <b>Defined Constants and Types for the STM32L4xx External Interrupts
+ * </b>
+ *
+ * @ingroup STM32L4xx_defines
+ *
+ * @version 1.0.0
+ *
+ * @date 16 November 2017
+ *
+ * LGPL License Terms @ref lgpl_license
+ */
 /*
  * This file is part of the libopencm3 project.
  *
@@ -19,26 +30,9 @@
  * along with this library.  If not, see <http://www.gnu.org/licenses/>.
  */
 
-#include <libopencm3/cm3/common.h>
-#include <libopencm3/stm32/memorymap.h>
+#ifndef LIBOPENCM3_EXTI_H
+#define LIBOPENCM3_EXTI_H
 
-#if defined(STM32F0)
-#       include <libopencm3/stm32/f0/exti.h>
-#elif defined(STM32F1)
-#       include <libopencm3/stm32/f1/exti.h>
-#elif defined(STM32F2)
-#       include <libopencm3/stm32/f2/exti.h>
-#elif defined(STM32F3)
-#       include <libopencm3/stm32/f3/exti.h>
-#elif defined(STM32F4)
-#       include <libopencm3/stm32/f4/exti.h>
-#elif defined(STM32L0)
-#       include <libopencm3/stm32/l0/exti.h>
-#elif defined(STM32L1)
-#       include <libopencm3/stm32/l1/exti.h>
-#elif defined(STM32L4)
-#       include <libopencm3/stm32/l4/exti.h>
-#else
-#       error "stm32 family not defined."
+#include <libopencm3/stm32/common/exti_common_all.h>
+
 #endif
-
