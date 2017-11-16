@@ -64,6 +64,9 @@ void rcc_osc_ready_int_clear(enum rcc_osc osc)
 	case RCC_LSI:
 		RCC_CICR |= RCC_CICR_LSIRDYC;
 		break;
+	case RCC_HSI48:
+		RCC_CICR |= RCC_CICR_HSI48RDYC;
+		break;
 	}
 }
 
@@ -87,6 +90,9 @@ void rcc_osc_ready_int_enable(enum rcc_osc osc)
 		break;
 	case RCC_LSI:
 		RCC_CIER |= RCC_CIER_LSIRDYIE;
+		break;
+	case RCC_HSI48:
+		RCC_CIER |= RCC_CIER_HSI48RDYIE;
 		break;
 	}
 }
@@ -112,6 +118,9 @@ void rcc_osc_ready_int_disable(enum rcc_osc osc)
 	case RCC_LSI:
 		RCC_CIER &= ~RCC_CIER_LSIRDYIE;
 		break;
+	case RCC_HSI48:
+		RCC_CIER &= ~RCC_CIER_HSI48RDYIE;
+		break;
 	}
 }
 
@@ -135,6 +144,9 @@ int rcc_osc_ready_int_flag(enum rcc_osc osc)
 		break;
 	case RCC_LSI:
 		return ((RCC_CIFR & RCC_CIFR_LSIRDYF) != 0);
+		break;
+	case RCC_HSI48:
+		return ((RCC_CIFR & RCC_CIFR_HSI48RDYF) != 0);
 		break;
 	}
 	return false;
@@ -166,6 +178,8 @@ bool rcc_is_osc_ready(enum rcc_osc osc)
 		return RCC_BDCR & RCC_BDCR_LSERDY;
 	case RCC_LSI:
 		return RCC_CSR & RCC_CSR_LSIRDY;
+	case RCC_HSI48:
+		return RCC_CRRCR & RCC_CRRCR_HSI48RDY;
 	}
 	return false;
 }
@@ -221,6 +235,9 @@ void rcc_osc_on(enum rcc_osc osc)
 	case RCC_LSI:
 		RCC_CSR |= RCC_CSR_LSION;
 		break;
+	case RCC_HSI48:
+		RCC_CRRCR |= RCC_CRRCR_HSI48ON;
+		break;
 	}
 }
 
@@ -244,6 +261,9 @@ void rcc_osc_off(enum rcc_osc osc)
 		break;
 	case RCC_LSI:
 		RCC_CSR &= ~RCC_CSR_LSION;
+		break;
+	case RCC_HSI48:
+		RCC_CRRCR &= ~RCC_CRRCR_HSI48ON;
 		break;
 	}
 }
