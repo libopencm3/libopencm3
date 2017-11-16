@@ -138,7 +138,7 @@
 #define QUADSPI_AR			MMIO32(QUADSPI_BASE + 0x18U)
 
 /* QUADSPI alternate bytes register */
-#define QUADSPI_ABR			MMI032(QUADSPI_BASE + 0x1CU)
+#define QUADSPI_ABR			MMIO32(QUADSPI_BASE + 0x1CU)
 
 /* QUADSPI data register */
 #define QUADSPI_DR			MMIO32(QUADSPI_BASE + 0x20U)
