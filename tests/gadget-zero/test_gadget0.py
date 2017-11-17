@@ -2,7 +2,6 @@ import array
 import datetime
 import usb.core
 import usb.util as uu
-import logging
 import sys
 
 import unittest
@@ -10,6 +9,8 @@ import unittest
 VENDOR_ID=0xcafe
 PRODUCT_ID=0xcafe
 
+# you only need to worry about these if you are trying to explicitly test
+# a single target.  Normally, the test will autofind the attached target
 #DUT_SERIAL = "stm32f429i-disco"
 DUT_SERIAL = "stm32f4disco"
 #DUT_SERIAL = "stm32f103-generic"
@@ -355,11 +356,11 @@ class TestUnaligned(unittest.TestCase):
 
     def set_unaligned(self):
         # GZ_REQ_SET_UNALIGNED
-        x = self.dev.ctrl_transfer(self.req, GZ_REQ_SET_UNALIGNED, 0, 0)
+        self.dev.ctrl_transfer(self.req, GZ_REQ_SET_UNALIGNED, 0, 0)
 
     def set_aligned(self):
         # GZ_REQ_SET_ALIGNED
-        x = self.dev.ctrl_transfer(self.req, GZ_REQ_SET_ALIGNED, 0, 0)
+        self.dev.ctrl_transfer(self.req, GZ_REQ_SET_ALIGNED, 0, 0)
 
     def do_readwrite(self):
         """
@@ -385,5 +386,12 @@ class TestUnaligned(unittest.TestCase):
 if __name__ == "__main__":
     if len(sys.argv) > 1:
         DUT_SERIAL = sys.argv.pop()
-    print("Running tests for DUT: ", DUT_SERIAL)
-    unittest.main()
+        print("Running tests for DUT: ", DUT_SERIAL)
+        unittest.main()
+    else:
+        # scan for available and try them all!
+        devs = usb.core.find(idVendor=VENDOR_ID, idProduct=PRODUCT_ID, find_all=True)
+        for dev in devs:
+            DUT_SERIAL = dev.serial_number
+            print("Running tests for DUT: ", DUT_SERIAL)
+            unittest.main(exit=False)

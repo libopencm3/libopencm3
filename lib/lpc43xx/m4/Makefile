@@ -37,6 +37,7 @@ TGT_CFLAGS	= -O2 \
 		  -ffunction-sections -fdata-sections -MD \
 		  $(FP_FLAGS) -DLPC43XX -DLPC43XX_M4
 TGT_CFLAGS      += $(DEBUG_FLAGS)
+TGT_CFLAGS	+= $(STANDARD_FLAGS)
 
 ARFLAGS		= rcs
 

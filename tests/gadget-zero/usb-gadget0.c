@@ -28,6 +28,7 @@
 #include <libopencm3/usb/usbd.h>
 
 #include "trace.h"
+#include "delay.h"
 #include "usb-gadget0.h"
 
 #define ER_DEBUG
@@ -343,6 +344,14 @@ usbd_device *gadget0_init(const usbd_driver *driver, const char *userserial)
 		usbd_control_buffer, sizeof(usbd_control_buffer));
 
 	usbd_register_set_config_callback(our_dev, gadget0_set_config);
+	delay_setup();
 
 	return our_dev;
+}
+
+void gadget0_run(usbd_device *usbd_dev)
+{
+	usbd_poll(usbd_dev);
+	/* This should be more than allowable! */
+	delay_us(100);
 }

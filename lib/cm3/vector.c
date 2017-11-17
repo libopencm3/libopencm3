@@ -26,8 +26,7 @@
 /* load the weak symbols for IRQ_HANDLERS */
 #include "../dispatch/vector_nvic.c"
 
-/* Symbols exported by the linker script(s): */
-extern unsigned _data_loadaddr, _data, _edata, _ebss, _stack;
+/* Less common symbols exported by the linker script(s): */
 typedef void (*funcp_t) (void);
 extern funcp_t __preinit_array_start, __preinit_array_end;
 extern funcp_t __init_array_start, __init_array_end;

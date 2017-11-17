@@ -36,18 +36,7 @@ LGPL License Terms @ref lgpl_license
  */
 
 #include <libopencm3/stm32/can.h>
-
-#if defined(STM32F1)
-#	include <libopencm3/stm32/f1/rcc.h>
-#elif defined(STM32F2)
-#	include <libopencm3/stm32/f2/rcc.h>
-#elif defined(STM32F3)
-#	include <libopencm3/stm32/f3/rcc.h>
-#elif defined(STM32F4)
-#	include <libopencm3/stm32/f4/rcc.h>
-#else
-#	error "stm32 family not defined."
-#endif
+#include <libopencm3/stm32/rcc.h>
 
 /* Timeout for CAN INIT acknowledge
  * this value is difficult to define.
@@ -74,12 +63,10 @@ can_reg_base.
 void can_reset(uint32_t canport)
 {
 	if (canport == CAN1) {
-		rcc_peripheral_reset(&RCC_APB1RSTR, RCC_APB1RSTR_CAN1RST);
-		rcc_peripheral_clear_reset(&RCC_APB1RSTR, RCC_APB1RSTR_CAN1RST);
+		rcc_periph_reset_pulse(RST_CAN1);
 	} else {
 #if defined(BX_CAN2_BASE)
-		rcc_peripheral_reset(&RCC_APB1RSTR, RCC_APB1RSTR_CAN2RST);
-		rcc_peripheral_clear_reset(&RCC_APB1RSTR, RCC_APB1RSTR_CAN2RST);
+		rcc_periph_reset_pulse(RST_CAN2);
 #endif
 	}
 }
@@ -203,8 +190,8 @@ Initialize incoming message filter and assign to FIFO.
 
 @param[in] canport Unsigned int32. CAN block register base @ref can_reg_base.
 @param[in] nr Unsigned int32. ID number of the filter.
-@param[in] scale_32bit bool. 32-bit scale for the filter?
-@param[in] id_list_mode bool. ID list filter mode?
+@param[in] scale_32bit true for single 32bit, false for dual 16bit
+@param[in] id_list_mode true for id lists, false for id/mask
 @param[in] fr1 Unsigned int32. First filter register content.
 @param[in] fr2 Unsigned int32. Second filter register content.
 @param[in] fifo Unsigned int32. FIFO id.
@@ -276,8 +263,8 @@ void can_filter_id_mask_16bit_init(uint32_t canport, uint32_t nr, uint16_t id1,
 				   uint16_t mask2, uint32_t fifo, bool enable)
 {
 	can_filter_init(canport, nr, false, false,
-			((uint32_t)id1 << 16) | (uint32_t)mask1,
-			((uint32_t)id2 << 16) | (uint32_t)mask2, fifo, enable);
+			((uint32_t)mask1 << 16) | (uint32_t)id1,
+			((uint32_t)mask2 << 16) | (uint32_t)id2, fifo, enable);
 }
 
 /*---------------------------------------------------------------------------*/
@@ -419,28 +406,28 @@ int can_transmit(uint32_t canport, uint32_t id, bool ext, bool rtr,
 	switch (length) {
 	case 8:
 		tdhxr.data8[3] = data[7];
-		/* no break */
+		/* fall through */
 	case 7:
 		tdhxr.data8[2] = data[6];
-		/* no break */
+		/* fall through */
 	case 6:
 		tdhxr.data8[1] = data[5];
-		/* no break */
+		/* fall through */
 	case 5:
 		tdhxr.data8[0] = data[4];
-		/* no break */
+		/* fall through */
 	case 4:
 		tdlxr.data8[3] = data[3];
-		/* no break */
+		/* fall through */
 	case 3:
 		tdlxr.data8[2] = data[2];
-		/* no break */
+		/* fall through */
 	case 2:
 		tdlxr.data8[1] = data[1];
-		/* no break */
+		/* fall through */
 	case 1:
 		tdlxr.data8[0] = data[0];
-		/* no break */
+		/* fall through */
 	default:
 		break;
 	}
@@ -479,13 +466,15 @@ void can_fifo_release(uint32_t canport, uint8_t fifo)
 @param[out] id Unsigned int32 pointer. Message ID.
 @param[out] ext bool pointer. The message ID is extended?
 @param[out] rtr bool pointer. Request of transmission?
-@param[out] fmi Unsigned int32 pointer. ID of the matched filter.
+@param[out] fmi Unsigned int8 pointer. ID of the matched filter.
 @param[out] length Unsigned int8 pointer. Length of message payload.
 @param[out] data Unsigned int8[]. Message payload data.
+@param[out] timestamp. Pointer to store the message timestamp.
+			Only valid on time triggered CAN. Use NULL to ignore.
  */
 void can_receive(uint32_t canport, uint8_t fifo, bool release, uint32_t *id,
-		 bool *ext, bool *rtr, uint32_t *fmi, uint8_t *length,
-		 uint8_t *data)
+		 bool *ext, bool *rtr, uint8_t *fmi, uint8_t *length,
+		 uint8_t *data, uint16_t *timestamp)
 {
 	uint32_t fifo_id = 0;
 	union {
@@ -525,6 +514,11 @@ void can_receive(uint32_t canport, uint8_t fifo, bool release, uint32_t *id,
 	/* accelerate reception by copying the CAN data from the controller
 	 * memory to the fast internal RAM
 	 */
+
+	if (timestamp) {
+		*timestamp = (CAN_RDTxR(canport, fifo_id) &
+			CAN_RDTxR_TIME_MASK) >> CAN_RDTxR_TIME_SHIFT;
+	}
 
 	rdlxr.data32 = CAN_RDLxR(canport, fifo_id);
 	rdhxr.data32 = CAN_RDHxR(canport, fifo_id);

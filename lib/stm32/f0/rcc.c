@@ -324,66 +324,6 @@ void rcc_css_disable(void)
 }
 
 /*---------------------------------------------------------------------------*/
-/** @brief RCC Enable Bypass.
- *
- * Enable an external clock to bypass the internal clock (high speed and low
- * speed clocks only). The external clock must be enabled (see @ref rcc_osc_on)
- * and the internal clock must be disabled (see @ref rcc_osc_off) for this to
- * have effect.
- *
- * @param[in] osc enum ::osc_t. Oscillator ID. Only HSE and LSE have effect.
- */
-
-void rcc_osc_bypass_enable(enum rcc_osc osc)
-{
-	switch (osc) {
-	case RCC_HSE:
-		RCC_CR |= RCC_CR_HSEBYP;
-		break;
-	case RCC_LSE:
-		RCC_BDCR |= RCC_BDCR_LSEBYP;
-		break;
-	case RCC_HSI48:
-	case RCC_HSI14:
-	case RCC_HSI:
-	case RCC_LSI:
-	case RCC_PLL:
-		/* Do nothing */
-		break;
-	}
-}
-
-/*---------------------------------------------------------------------------*/
-/** @brief RCC Disable Bypass.
- *
- * Re-enable the internal clock (high speed and low speed clocks only). The
- * internal clock must be disabled (see @ref rcc_osc_off) for this to have
- * effect.
- *
- *
- * @param[in] osc enum ::osc_t. Oscillator ID. Only HSE and LSE have effect.
- */
-
-void rcc_osc_bypass_disable(enum rcc_osc osc)
-{
-	switch (osc) {
-	case RCC_HSE:
-		RCC_CR &= ~RCC_CR_HSEBYP;
-		break;
-	case RCC_LSE:
-		RCC_BDCR &= ~RCC_BDCR_LSEBYP;
-		break;
-	case RCC_HSI48:
-	case RCC_HSI14:
-	case RCC_PLL:
-	case RCC_HSI:
-	case RCC_LSI:
-		/* Do nothing */
-		break;
-	}
-}
-
-/*---------------------------------------------------------------------------*/
 /** @brief RCC Set the Source for the System Clock.
  *
  * @param[in] osc enum ::osc_t. Oscillator ID. Only HSE, LSE and PLL have
@@ -603,6 +543,7 @@ void rcc_clock_setup_in_hse_8mhz_out_48mhz(void)
 	rcc_set_hpre(RCC_CFGR_HPRE_NODIV);
 	rcc_set_ppre(RCC_CFGR_PPRE_NODIV);
 
+	flash_prefetch_buffer_enable();
 	flash_set_ws(FLASH_ACR_LATENCY_024_048MHZ);
 
 	/* PLL: 8MHz * 6 = 48MHz */
@@ -630,6 +571,7 @@ void rcc_clock_setup_in_hsi_out_48mhz(void)
 	rcc_set_hpre(RCC_CFGR_HPRE_NODIV);
 	rcc_set_ppre(RCC_CFGR_PPRE_NODIV);
 
+	flash_prefetch_buffer_enable();
 	flash_set_ws(FLASH_ACR_LATENCY_024_048MHZ);
 
 	/* 8MHz * 12 / 2 = 48MHz */
@@ -655,6 +597,7 @@ void rcc_clock_setup_in_hsi48_out_48mhz(void)
 	rcc_set_hpre(RCC_CFGR_HPRE_NODIV);
 	rcc_set_ppre(RCC_CFGR_PPRE_NODIV);
 
+	flash_prefetch_buffer_enable();
 	flash_set_ws(FLASH_ACR_LATENCY_024_048MHZ);
 
 	rcc_set_sysclk_source(RCC_HSI48);

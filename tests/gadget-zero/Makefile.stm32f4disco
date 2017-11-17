@@ -23,6 +23,7 @@ SHARED_DIR = ../shared
 
 CFILES = main-$(BOARD).c
 CFILES += usb-gadget0.c trace.c trace_stdio.c
+CFILES += delay.c
 
 VPATH += $(SHARED_DIR)
 

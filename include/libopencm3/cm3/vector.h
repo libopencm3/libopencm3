@@ -61,4 +61,8 @@ typedef struct {
 	vector_table_entry_t irq[NVIC_IRQ_COUNT];
 } vector_table_t;
 
+/* Common symbols exported by the linker script(s): */
+extern unsigned _data_loadaddr, _data, _edata, _ebss, _stack;
+extern vector_table_t vector_table;
+
 #endif

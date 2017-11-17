@@ -11,29 +11,43 @@ ARCHS += lpc13xx lpc17xx lpc43xx
 ARCHS += sam3a sam3n sam3s sam3u sam3x
 ARCHS += vf6xx
 
-PDFS := $(ARCHS:=.pdf)
+doc: html
 
-doc: html latex
-
-html: cm3 usb $(ARCHS)
+html: rebuildsources $(ARCHS)
 	doxygen
-
-latex: $(PDFS)
-
-cm3:
-	cd cm3/; doxygen
-
-usb:
-	cd usb/; doxygen
 
 $(ARCHS):
 	cd $@/; doxygen
 
-%.pdf:
-	cd $*/; doxygen Doxyfile_latex; cd latex/; $(MAKE); cp refman.pdf ../../$(*).pdf
-
 clean:
-	@rm -rf html/ */html/ */latex/ *.pdf */*.tag
+	@rm -rf html/ */html/ */*.tag
 
-.PHONY: doc html cm3 usb $(ARCHS) latex
+rebuildsources:
+	@printf "Manually regenerating source lists from build deps\n"
+	../scripts/gendoxylist ../lib/stm32/f0 stm32f0
+	../scripts/gendoxylist ../lib/stm32/f1 stm32f1
+	../scripts/gendoxylist ../lib/stm32/f2 stm32f2
+	../scripts/gendoxylist ../lib/stm32/f3 stm32f3
+	../scripts/gendoxylist ../lib/stm32/f4 stm32f4
+	../scripts/gendoxylist ../lib/stm32/f7 stm32f7
+	../scripts/gendoxylist ../lib/stm32/l0 stm32l0
+	../scripts/gendoxylist ../lib/stm32/l1 stm32l1
+	../scripts/gendoxylist ../lib/stm32/l4 stm32l4
+	../scripts/gendoxylist ../lib/stm32/l4 stm32l4
+	../scripts/gendoxylist ../lib/efm32/g efm32g
+	../scripts/gendoxylist ../lib/efm32/gg efm32gg
+	../scripts/gendoxylist ../lib/efm32/lg efm32lg
+	../scripts/gendoxylist ../lib/efm32/tg efm32tg
+	../scripts/gendoxylist ../lib/lm3s lm3s
+	../scripts/gendoxylist ../lib/lm4f lm4f
+	../scripts/gendoxylist ../lib/lpc13xx lpc13xx
+	../scripts/gendoxylist ../lib/lpc17xx lpc17xx
+	../scripts/gendoxylist ../lib/sam/3a sam3a
+	../scripts/gendoxylist ../lib/sam/3n sam3n
+	../scripts/gendoxylist ../lib/sam/3s sam3s
+	../scripts/gendoxylist ../lib/sam/3u sam3u
+	../scripts/gendoxylist ../lib/sam/3x sam3x
+	../scripts/gendoxylist ../lib/vf6xx vf6xx
+
+.PHONY: doc html $(ARCHS) rebuildsources
 

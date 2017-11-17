@@ -40,6 +40,9 @@
 #ifndef LIBOPENCM3_RCC_H
 #define LIBOPENCM3_RCC_H
 
+#include <stdbool.h>
+#include <stdint.h>
+#include <libopencm3/stm32/pwr.h>
 
 /* --- RCC registers ------------------------------------------------------- */
 
@@ -496,6 +499,21 @@
 #define RCC_CSR_LSIRDY				(1 << 1)
 #define RCC_CSR_LSION				(1 << 0)
 
+struct rcc_clock_scale {
+	uint8_t pll_mul;
+	uint16_t pll_div;
+	uint8_t pll_source;
+	uint8_t flash_waitstates;
+	enum pwr_vos_scale voltage_scale;
+	uint8_t hpre;
+	uint8_t ppre1;
+	uint8_t ppre2;
+	// FIXME enum pwr_vos_scale voltage_scale;
+	uint32_t ahb_frequency;
+	uint32_t apb1_frequency;
+	uint32_t apb2_frequency;
+	uint8_t msi_range;
+};
 
 /* --- Variable definitions ------------------------------------------------ */
 extern uint32_t rcc_ahb_frequency;
@@ -660,8 +678,6 @@ BEGIN_DECLS
 
 void rcc_osc_on(enum rcc_osc osc);
 void rcc_osc_off(enum rcc_osc osc);
-void rcc_osc_bypass_enable(enum rcc_osc osc);
-void rcc_osc_bypass_disable(enum rcc_osc osc);
 void rcc_osc_ready_int_clear(enum rcc_osc osc);
 void rcc_osc_ready_int_enable(enum rcc_osc osc);
 void rcc_osc_ready_int_disable(enum rcc_osc osc);
@@ -674,7 +690,7 @@ void rcc_set_pll_divider(uint32_t factor);
 void rcc_set_ppre2(uint32_t ppre2);
 void rcc_set_ppre1(uint32_t ppre1);
 void rcc_set_hpre(uint32_t hpre);
-/* TODO */
+void rcc_clock_setup_pll(const struct rcc_clock_scale *clock);
 
 END_DECLS
 

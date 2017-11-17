@@ -437,6 +437,7 @@ enum rcc_periph_clken {
 	RCC_I2C2	= _REG_BIT(0x1C, 22),
 	RCC_USB		= _REG_BIT(0x1C, 23),
 	RCC_CAN		= _REG_BIT(0x1C, 25),
+	RCC_CAN1	= _REG_BIT(0x1C, 25), /* Compatibility alias */
 	RCC_CRS		= _REG_BIT(0x1C, 27),
 	RCC_PWR		= _REG_BIT(0x1C, 28),
 	RCC_DAC		= _REG_BIT(0x1C, 29),
@@ -475,6 +476,7 @@ enum rcc_periph_rst {
 	RST_I2C2	= _REG_BIT(0x10, 22),
 	RST_USB		= _REG_BIT(0x10, 23),
 	RST_CAN		= _REG_BIT(0x10, 25),
+	RST_CAN1	= _REG_BIT(0x10, 25), /* Compatibility alias */
 	RST_CRS		= _REG_BIT(0x10, 27),
 	RST_PWR		= _REG_BIT(0x10, 28),
 	RST_DAC		= _REG_BIT(0x10, 29),
@@ -509,8 +511,6 @@ void rcc_osc_ready_int_disable(enum rcc_osc osc);
 int rcc_osc_ready_int_flag(enum rcc_osc osc);
 void rcc_osc_on(enum rcc_osc osc);
 void rcc_osc_off(enum rcc_osc osc);
-void rcc_osc_bypass_enable(enum rcc_osc osc);
-void rcc_osc_bypass_disable(enum rcc_osc osc);
 void rcc_css_enable(void);
 void rcc_css_disable(void);
 void rcc_css_int_clear(void);

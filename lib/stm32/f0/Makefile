@@ -32,10 +32,11 @@ TGT_CFLAGS	= -Os \
 		  -mcpu=cortex-m0 $(FP_FLAGS) -mthumb -Wstrict-prototypes \
 		  -ffunction-sections -fdata-sections -MD -DSTM32F0
 TGT_CFLAGS      += $(DEBUG_FLAGS)
+TGT_CFLAGS	+= $(STANDARD_FLAGS)
 
 ARFLAGS		= rcs
 
-OBJS		= flash.o rcc.o usart.o dma.o rtc.o comparator.o crc.o \
+OBJS		= can.o flash.o rcc.o usart.o dma.o rtc.o comparator.o crc.o \
                   dac.o iwdg.o pwr.o gpio.o timer.o adc.o desig.o
 
 OBJS            += gpio_common_all.o gpio_common_f0234.o crc_common_all.o \

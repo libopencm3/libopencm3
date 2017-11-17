@@ -532,37 +532,6 @@ void rcc_css_disable(void)
 	RCC_CR &= ~RCC_CR_CSSON;
 }
 
-void rcc_osc_bypass_enable(enum rcc_osc osc)
-{
-	switch (osc) {
-	case RCC_HSE:
-		RCC_CR |= RCC_CR_HSEBYP;
-		break;
-	case RCC_LSE:
-		RCC_BDCR |= RCC_BDCR_LSEBYP;
-		break;
-	default:
-		/* Do nothing, only HSE/LSE allowed here. */
-		break;
-	}
-}
-
-void rcc_osc_bypass_disable(enum rcc_osc osc)
-{
-	switch (osc) {
-	case RCC_HSE:
-		RCC_CR &= ~RCC_CR_HSEBYP;
-		break;
-	case RCC_LSE:
-		RCC_BDCR &= ~RCC_BDCR_LSEBYP;
-		break;
-	default:
-		/* Do nothing, only HSE/LSE allowed here. */
-		break;
-	}
-}
-
-
 /**
  * Set the dividers for the PLLSAI clock outputs
  * divider p is only available on F4x9 parts, pass 0 for other parts.

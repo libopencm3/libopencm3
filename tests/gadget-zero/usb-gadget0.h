@@ -32,4 +32,11 @@
 */
 usbd_device *gadget0_init(const usbd_driver *driver, const char *userserial);
 
+/**
+ * Call this forever.
+ * @param usbd_dev the object returned in _init.
+ * @sa gadget0_init
+ */
+void gadget0_run(usbd_device *usbd_dev);
+
 #endif

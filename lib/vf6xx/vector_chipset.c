@@ -19,15 +19,13 @@
 
 #include <libopencm3/cm3/scb.h>
 
-extern vector_table_t vector_table;
-
 static inline void pre_main(void)
 {
 	/*
 	 * For Vybrid we need to set the stack pointer manually
 	 * since the boot ROM has its own stack
 	 */
-	asm (	\
+	__asm__ (	\
 		"ldr sp,=_stack;" \
 	    );
 

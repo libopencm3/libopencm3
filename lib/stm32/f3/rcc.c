@@ -277,40 +277,6 @@ void rcc_css_disable(void)
 	RCC_CR &= ~RCC_CR_CSSON;
 }
 
-void rcc_osc_bypass_enable(enum rcc_osc osc)
-{
-	switch (osc) {
-	case RCC_HSE:
-		RCC_CR |= RCC_CR_HSEBYP;
-		break;
-	case RCC_LSE:
-		RCC_BDCR |= RCC_BDCR_LSEBYP;
-		break;
-	case RCC_PLL:
-	case RCC_HSI:
-	case RCC_LSI:
-		/* Do nothing, only HSE/LSE allowed here. */
-		break;
-	}
-}
-
-void rcc_osc_bypass_disable(enum rcc_osc osc)
-{
-	switch (osc) {
-	case RCC_HSE:
-		RCC_CR &= ~RCC_CR_HSEBYP;
-		break;
-	case RCC_LSE:
-		RCC_BDCR &= ~RCC_BDCR_LSEBYP;
-		break;
-	case RCC_PLL:
-	case RCC_HSI:
-	case RCC_LSI:
-		/* Do nothing, only HSE/LSE allowed here. */
-		break;
-	}
-}
-
 void rcc_set_sysclk_source(uint32_t clk)
 {
 	uint32_t reg32;

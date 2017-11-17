@@ -15,9 +15,8 @@
 
 WARN_LOGFILE           = doxygen_lpc13xx.log
 
-INPUT                  = ../../include/libopencm3/license.dox \
-					     ../../include/libopencm3/lpc13xx \
-                         ../../lib/lpc13xx
+INPUT                  = ../../include/libopencm3/license.dox
+@INCLUDE = doxy.sourcelist
 
 LAYOUT_FILE 		   = DoxygenLayout_lpc13xx.xml
 

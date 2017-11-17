@@ -29,7 +29,7 @@ AR		= $(PREFIX)-ar
 # STM32F7 only supports single precision FPU
 FP_FLAGS	?= -mfloat-abi=hard -mfpu=fpv5-sp-d16
 
-TGT_CFLAGS	= -Os -g \
+TGT_CFLAGS	= -Os \
 		  -Wall -Wextra -Wimplicit-function-declaration \
 		  -Wredundant-decls -Wmissing-prototypes -Wstrict-prototypes \
 		  -Wundef -Wshadow \
@@ -37,10 +37,12 @@ TGT_CFLAGS	= -Os -g \
 		  -mcpu=cortex-m7 -mthumb $(FP_FLAGS) \
 		  -Wstrict-prototypes \
 		  -ffunction-sections -fdata-sections -MD -DSTM32F7
+TGT_CFLAGS	+= $(DEBUG_FLAGS)
+TGT_CFLAGS	+= $(STANDARD_FLAGS)
 
 ARFLAGS		= rcs
 
-OBJS		= rcc.o gpio.o gpio_common_all.o gpio_common_f0234.o
+OBJS		= pwr.o rcc.o gpio.o gpio_common_all.o gpio_common_f0234.o
 
 OBJS		+= rcc_common_all.o flash_common_f234.o flash_common_f24.o
 

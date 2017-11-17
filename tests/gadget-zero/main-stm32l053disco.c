@@ -49,10 +49,21 @@ int main(void)
 	gpio_mode_setup(GPIOA, GPIO_MODE_OUTPUT, GPIO_PUPD_NONE, GPIO5);
 	gpio_set(GPIOA, GPIO5);
 
-	/* jump up to 16mhz, leave PLL setup for later. */
-	rcc_osc_on(RCC_HSI16);
-	rcc_wait_for_osc_ready(RCC_HSI16);
-	rcc_set_sysclk_source(RCC_HSI16);
+	/* PLL from HSI16, just to exercise that code */
+	struct rcc_clock_scale myclock = {
+		.ahb_frequency = 32e6,
+		.apb1_frequency = 32e6,
+		.apb2_frequency = 32e6,
+		.flash_waitstates = 1,
+		.pll_source = RCC_CFGR_PLLSRC_HSI16_CLK, /* not even sure there's hse on l053 disco */
+		/* .msi_range  doesn't matter */
+		.pll_mul = RCC_CFGR_PLLMUL_MUL4,
+		.pll_div = RCC_CFGR_PLLDIV_DIV2,
+		.hpre = RCC_CFGR_HPRE_NODIV,
+		.ppre1 = RCC_CFGR_PPRE1_NODIV,
+		.ppre2 = RCC_CFGR_PPRE2_NODIV,
+	};
+	rcc_clock_setup_pll(&myclock);
 
 	/* HSI48 needs the vrefint turned on */
 	rcc_periph_clock_enable(RCC_SYSCFG);
@@ -72,7 +83,7 @@ int main(void)
 	ER_DPRINTF("bootup complete\n");
 	gpio_clear(GPIOA, GPIO5);
 	while (1) {
-		usbd_poll(usbd_dev);
+		gadget0_run(usbd_dev);
 	}
 
 }

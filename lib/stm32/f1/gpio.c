@@ -49,7 +49,7 @@ Example 1: Push-pull digital output actions on ports C2 and C9
 Example 1: Digital input on port C12
 
 @code
-	gpio_set_mode(GPIOC, GPIO_MODE_INPUT, GPIO_CNF_INPUT, GPIO12);
+	gpio_set_mode(GPIOC, GPIO_MODE_INPUT, GPIO_CNF_INPUT_FLOAT, GPIO12);
 	reg16 = gpio_port_read(GPIOC);
 @endcode
 

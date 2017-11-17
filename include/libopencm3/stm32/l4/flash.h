@@ -71,12 +71,13 @@
 #define FLASH_ACR_PRFTEN		(1 << 8)
 
 #define FLASH_ACR_LATENCY_SHIFT		0
-#define FLASH_ACR_LATENCY_MASK		0x03
+#define FLASH_ACR_LATENCY_MASK		0x07
 
 #define FLASH_ACR_LATENCY_0WS		0x00
 #define FLASH_ACR_LATENCY_1WS		0x01
 #define FLASH_ACR_LATENCY_2WS		0x02
 #define FLASH_ACR_LATENCY_3WS		0x03
+#define FLASH_ACR_LATENCY_4WS		0x04
 
 /* --- FLASH_SR values ----------------------------------------------------- */
 

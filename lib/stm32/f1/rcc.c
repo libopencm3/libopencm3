@@ -347,72 +347,6 @@ void rcc_css_disable(void)
 }
 
 /*---------------------------------------------------------------------------*/
-/** @brief RCC Enable Bypass.
-
-Enable an external clock to bypass the internal clock (high speed and low speed
-clocks only). The external clock must be enabled (see @ref rcc_osc_on) and the
-internal clock must be disabled (see @ref rcc_osc_off) for this to have effect.
-
-@note The LSE clock is in the backup domain and cannot be bypassed until the
-backup domain write protection has been removed (see @ref
-pwr_disable_backup_domain_write_protect).
-
-@param[in] osc enum ::osc_t. Oscillator ID. Only HSE and LSE have effect.
-*/
-
-void rcc_osc_bypass_enable(enum rcc_osc osc)
-{
-	switch (osc) {
-	case RCC_HSE:
-		RCC_CR |= RCC_CR_HSEBYP;
-		break;
-	case RCC_LSE:
-		RCC_BDCR |= RCC_BDCR_LSEBYP;
-		break;
-	case RCC_PLL:
-	case RCC_PLL2:
-	case RCC_PLL3:
-	case RCC_HSI:
-	case RCC_LSI:
-		/* Do nothing, only HSE/LSE allowed here. */
-		break;
-	}
-}
-
-/*---------------------------------------------------------------------------*/
-/** @brief RCC Disable Bypass.
-
-Re-enable the internal clock (high speed and low speed clocks only). The
-internal clock must be disabled (see @ref rcc_osc_off) for this to have effect.
-
-@note The LSE clock is in the backup domain and cannot have bypass removed
-until the backup domain write protection has been removed (see @ref
-pwr_disable_backup_domain_write_protect) or the backup domain has been reset
-(see @ref rcc_backupdomain_reset).
-
-@param[in] osc enum ::osc_t. Oscillator ID. Only HSE and LSE have effect.
-*/
-
-void rcc_osc_bypass_disable(enum rcc_osc osc)
-{
-	switch (osc) {
-	case RCC_HSE:
-		RCC_CR &= ~RCC_CR_HSEBYP;
-		break;
-	case RCC_LSE:
-		RCC_BDCR &= ~RCC_BDCR_LSEBYP;
-		break;
-	case RCC_PLL:
-	case RCC_PLL2:
-	case RCC_PLL3:
-	case RCC_HSI:
-	case RCC_LSI:
-		/* Do nothing, only HSE/LSE allowed here. */
-		break;
-	}
-}
-
-/*---------------------------------------------------------------------------*/
 /** @brief RCC Set the Source for the System Clock.
 
 @param[in] clk Unsigned int32. System Clock Selection @ref rcc_cfgr_scs
@@ -622,7 +556,7 @@ void rcc_set_hpre(uint32_t hpre)
 /** @brief RCC Set the USB Prescale Factor.
 
 The prescale factor can be set to 1 (no prescale) for use when the PLL clock is
-48MHz, or 1.5 to generate the 48MHz USB clock from a 64MHz PLL clock.
+48MHz, or 1.5 to generate the 48MHz USB clock from a 72MHz PLL clock.
 
 @note This bit cannot be reset while the USB clock is enabled.
 
@@ -810,7 +744,7 @@ void rcc_clock_setup_in_hsi_out_24mhz(void)
 	rcc_set_ppre2(RCC_CFGR_PPRE2_HCLK_NODIV); /* Set. 24MHz Max. 24MHz */
 
 	/*
-	 * Sysclk is (will be) running with 24MHz -> 2 waitstates.
+	 * Sysclk is (will be) running with 24MHz -> 0 waitstates.
 	 * 0WS from 0-24MHz
 	 * 1WS from 24-48MHz
 	 * 2WS from 48-72MHz

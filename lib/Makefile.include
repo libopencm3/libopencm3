@@ -28,6 +28,7 @@ OBJS += vector.o systick.o scb.o nvic.o assert.o sync.o dwt.o
 
 # Slightly bigger .elf files but gains the ability to decode macros
 DEBUG_FLAGS ?= -ggdb3
+STANDARD_FLAGS ?= -std=c99
 
 all: $(SRCLIBDIR)/$(LIBNAME).a
 

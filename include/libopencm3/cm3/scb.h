@@ -246,8 +246,8 @@
 /* --- SCB_SCR values ------------------------------------------------------ */
 
 /* Bits [31:5]: reserved - must be kept cleared */
-/* SEVEONPEND Send Event on Pending bit */
-#define SCB_SCR_SEVEONPEND			(1 << 4)
+/* SEVONPEND Send Event on Pending bit */
+#define SCB_SCR_SEVONPEND			(1 << 4)
 /* Bit 3: reserved - must be kept cleared */
 /* SLEEPDEEP */
 #define SCB_SCR_SLEEPDEEP			(1 << 2)
