@@ -55,7 +55,7 @@
 ifneq ($(DEVICE),)
 
 LDSCRIPT=$(DEVICE).ld
-LD_PARAMS=$(shell awk -v PAT="$(DEVICE)" -f $(SRCLIBDIR)/scripts/genlink.awk $(SRCLIBDIR)/ld/devices.data 2>/dev/null)
+LD_PARAMS=$(shell gawk -v PAT="$(DEVICE)" -f $(SRCLIBDIR)/scripts/genlink.awk $(SRCLIBDIR)/ld/devices.data 2>/dev/null)
 CFLAGS+=$(LD_PARAMS)
 LDFLAGS+=$(LD_PARAMS)
 ARCH_FLAGS=

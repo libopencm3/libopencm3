@@ -26,7 +26,7 @@
 
 # run test
 PAAT=`basename $1`;
-awk -v PAT="$PAAT" -f scripts/genlink.awk $1.data > $1.out;
+gawk -v PAT="$PAAT" -f scripts/genlink.awk $1.data > $1.out;
 
 #check test
 if ! diff -q $1.out $1.result >/dev/null; then
