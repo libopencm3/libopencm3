@@ -1,1 +1,6 @@
--D_A -D_B -D_C -D_D 
+-DSINGLE
+-DSINGLE -D_A=val -D_B=val
+single
+
+
+

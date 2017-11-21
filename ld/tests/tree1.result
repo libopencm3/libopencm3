@@ -1,1 +1,6 @@
--D_A -D_B -D_C -D_D -D_E -D_F 
+-DPARENT -DTREE1
+-DPARENT -DTREE1 -D_A=val -D_B=val -D_C=val -D_D=val
+parent
+tree1
+
+
