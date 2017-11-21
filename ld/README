@@ -13,9 +13,8 @@ File contents
 
 * {ROOT}/ld/tests/* 		- Prepared tests for the testing of the script
 * {ROOT}/ld/devices.data	- Device database file
-* {ROOT}/ld/Makefile.linker	- Common makefile part
 * {ROOT}/ld/linker.ld.S		- Linker script template
-* {ROOT}/scripts/genlink.awk	- Device database file search script 
+* {ROOT}/scripts/genlink.py	- Device database file search script 
 * {ROOT}/scripts/genlinktest.sh	- Device database file search test script
 
 Principle of operation
@@ -29,26 +28,15 @@ is case insensitive.
 
 DEVICE=stm32f407vgt6
 
-Then, the user includes the file /ld/Makefile.linker exactly after the first
-target (usually all) has been defined.
-
-The script automatically modifies the $(LDSCRIPT) variable to meet the new
-generated script with <device part name>.ld in the project directory, and adds
-a rule to make it from the scratch.
-
-Making the script is done by looking to device database file for the needed
-definitions, and applying those definitions to the C preprocessor source
-linker.ld.S outputting the preprocessed ld file.
-
 Device database contains definitions of common sections and its origins for
 the linker preprocessor. Every definition is interpreted in the linker script
 template as a macro, and it can be used for conditional insertion of the device
 dependent stuff.
 
-The search in the device database is pattern-based, and using awk script
-genlink.awk. The awk script traverses the file as a tree, joining the options
-for the preprocessor together by single space. The awk script adds -D to each
-parameter for you.
+The search in the device database is pattern-based, and using python script
+genlink.py. The python script traverses the file as a tree, joining the options
+for the preprocessor together by single space. The python script adds -D to
+each parameter for you.
 
 Testing
 -------
@@ -69,7 +57,7 @@ The testing stops after all test cases are valid, or at first error found.
 Example of use
 --------------
 
-* See Makefile.example file
+* Check the documentation for the genlink module in /mk/README.
 
 Device database file structure
 ------------------------------
@@ -127,9 +115,8 @@ stm32 END
 --- queried chip name ---
 stm32f051c4t6
 
---- output of the awk script ---
--D_ROM=16K -D_RAM=4K -D_ROM_OFF=0x08000000 -D_RAM_OFF=0x20000000 \
--mcpu=cortex-m0 -mthumb
+--- output of the python script ---
+-D_ROM=16K -D_RAM=4K -D_ROM_OFF=0x08000000 -D_RAM_OFF=0x20000000
 
 The generated linker script file will contain sections rom and ram with 
 appropriate initialization code, specified in linker file source linker.ld.S

@@ -55,7 +55,7 @@
 # --- queried chip name ---
 # stm32f051c8t6
 #
-# --- output of the awk script ---
+# --- output of the python script ---
 # -DROM=16K -DRAM=4K -DROM_OFF=0x08000000 -DRAM_OFF=0x20000000
 #
 # The generated linker script file will contain sections rom and ram with

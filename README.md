@@ -40,9 +40,7 @@ _TIP_: Include this repository as a Git submodule in your project to make sure
 Prerequisites
 -------------
 
-Building requires Python (some code is generated).
-If your user application uses the (optional) dynamic linker script generator,
-you will (presently) need GNU AWK.  Please see https://github.com/libopencm3/libopencm3/issues/732
+Building requires Python (Some code is generated).
 
 **For Ubuntu/Fedora:**
 
