@@ -1,6 +1,6 @@
 #!/bin/sh
 
-# This script is intended to test the awk program genlink.awk for the linker 
+# This script is intended to test the python program genlink.py for the linker 
 # script generator feature.
 #
 # See ld/README file for more info.
@@ -25,8 +25,13 @@
 # along with this library. If not, see <http://www.gnu.org/licenses/>.
 
 # run test
-PAAT=`basename $1`;
-gawk -v PAT="$PAAT" -f scripts/genlink.awk $1.data > $1.out;
+DEVICE=`basename $1`;
+(scripts/genlink.py $1.data $DEVICE CPPFLAGS; echo) > $1.out
+(scripts/genlink.py $1.data $DEVICE DEFS; echo) >> $1.out
+(scripts/genlink.py $1.data $DEVICE FAMILY; echo) >> $1.out
+(scripts/genlink.py $1.data $DEVICE SUBFAMILY; echo) >> $1.out
+(scripts/genlink.py $1.data $DEVICE CPU; echo) >> $1.out
+(scripts/genlink.py $1.data $DEVICE FPU; echo) >> $1.out
 
 #check test
 if ! diff -q $1.out $1.result >/dev/null; then
@@ -36,4 +41,4 @@ fi
 #remove workout only if it is OK
 rm -f $1.out
 
-exit 0  
+exit 0

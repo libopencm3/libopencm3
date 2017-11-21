@@ -40,8 +40,6 @@ Prerequisites
 -------------
 
 Building requires python. (Some code is generated)
-If your user application uses the (optional) dynamic linker script generator,
-you will (presently) need GNU awk.  Please see https://github.com/libopencm3/libopencm3/issues/732
 
 **For Ubuntu/Fedora:**
 
