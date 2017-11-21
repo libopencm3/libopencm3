@@ -1,0 +1,6 @@
+-DFAMILY -DDEVICE
+-DFAMILY -DDEVICE -D_A=val -D_B=val
+family
+device
+cpu
+fpu

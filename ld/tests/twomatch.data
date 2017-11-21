@@ -1,4 +1,4 @@
-twomatch treeparent A B C D
+twomatch treeparent A=val B=val C=val D=val
 # the next line will be ignored because previous matches before and no + there
-twomatch treeparent P Q R S
+twomatch treeparent P=val Q=val R=val S=val
 treeparent END E F
