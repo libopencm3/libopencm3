@@ -386,6 +386,47 @@ void rcc_clock_setup_hsi(const struct rcc_clock_scale *clock)
 	rcc_apb2_frequency = clock->apb2_frequency;
 }
 
+/**
+ * Set up clocks using a 8 MHz bypass clock source with a 72 MHz sysclk and
+ * 48 MHz USB clock. Useful for setting the STM32F3 discovery to it's
+ * maximum clock speed.
+ */
+void rcc_clock_setup_hse_8mhz_bypass_72mhz(void)
+{
+	/* enable HSE bypass and wait to get ready */
+	rcc_osc_bypass_enable(RCC_HSE);
+	rcc_osc_on(RCC_HSE);
+	rcc_wait_for_osc_ready(RCC_HSE);
+
+	/* shut down PLL and configure it to use HSE as pll source.
+	 * 8Mhz * 9 = 72MHz */
+	rcc_osc_off(RCC_PLL);
+	rcc_wait_for_osc_not_ready(RCC_PLL);
+	rcc_set_prediv(RCC_CFGR2_PREDIV_NODIV);
+	rcc_set_pll_source(RCC_CFGR_PLLSRC_HSE_PREDIV);
+	rcc_set_pll_multiplier(RCC_CFGR_PLLMUL_PLL_IN_CLK_X9);
+	rcc_osc_on(RCC_PLL);
+	rcc_wait_for_osc_ready(RCC_PLL);
+
+	/* set up peripheral prescalers */
+	rcc_usb_prescale_1_5();
+	rcc_set_hpre(RCC_CFGR_HPRE_DIV_NONE);
+	rcc_set_ppre1(RCC_CFGR_PPRE1_DIV_2);
+	rcc_set_ppre2(RCC_CFGR_PPRE2_DIV_NONE);
+
+	/* flash needs two wait states at sysclk >= 48MHz */
+	flash_set_ws(FLASH_ACR_PRFTBE | FLASH_ACR_LATENCY_2WS);
+
+	/* set sysclk source to pll */
+	rcc_set_sysclk_source(RCC_CFGR_SW_PLL);
+	rcc_wait_for_sysclk_status(RCC_PLL);
+
+	/* set the peripheral frequencies used */
+	rcc_ahb_frequency = 72000000;
+	rcc_apb1_frequency = 36000000;
+	rcc_apb2_frequency = 72000000;
+}
+
 
 void rcc_backupdomain_reset(void)
 {
@@ -443,4 +484,3 @@ void rcc_adc_prescale(uint32_t prescale1, uint32_t prescale2)
 	RCC_CFGR2 |= (set);
 }
 /**@}*/
-

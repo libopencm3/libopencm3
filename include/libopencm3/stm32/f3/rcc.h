@@ -608,6 +608,7 @@ void rcc_set_pll_multiplier(uint32_t pll);
 uint32_t rcc_get_system_clock_source(void);
 void rcc_backupdomain_reset(void);
 void rcc_clock_setup_hsi(const struct rcc_clock_scale *clock);
+void rcc_clock_setup_hse_8mhz_bypass_72mhz(void);
 void rcc_set_i2c_clock_hsi(uint32_t i2c);
 void rcc_set_i2c_clock_sysclk(uint32_t i2c);
 uint32_t rcc_get_i2c_clocks(void);
