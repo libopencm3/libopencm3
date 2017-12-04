@@ -48,6 +48,8 @@ OBJS		+= rcc_common_all.o flash_common_f234.o flash_common_f24.o
 
 OBJS		+= rng_common_v1.o
 
+OBJS		+= usart_common_all.o usart_common_v2.o
+
 VPATH += ../../usb:../:../../cm3:../common
 VPATH += ../../ethernet
 
