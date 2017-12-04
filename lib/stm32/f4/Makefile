@@ -26,7 +26,7 @@ PREFIX	        ?= arm-none-eabi
 
 CC		= $(PREFIX)-gcc
 AR		= $(PREFIX)-ar
-TGT_CFLAGS	= -Os \
+TGT_CFLAGS	= $(OPT) \
 		  -Wall -Wextra -Wimplicit-function-declaration \
 		  -Wredundant-decls -Wmissing-prototypes -Wstrict-prototypes \
 		  -Wundef -Wshadow \
