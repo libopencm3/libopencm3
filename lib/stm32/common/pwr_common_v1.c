@@ -172,7 +172,7 @@ threshold.
 
 bool pwr_voltage_high(void)
 {
-	return PWR_CSR & PWR_CSR_PVDO;
+	return !(PWR_CSR & PWR_CSR_PVDO);
 }
 
 /*---------------------------------------------------------------------------*/
