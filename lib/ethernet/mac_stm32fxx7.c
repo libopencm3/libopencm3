@@ -47,7 +47,7 @@ uint32_t RxBD;
  *
  * @param[in] mac uint8_t* Desired MAC
  */
-void eth_set_mac(uint8_t *mac)
+void eth_set_mac(const uint8_t *mac)
 {
 	ETH_MACAHR(0) = ((uint32_t)mac[5] << 8) | (uint32_t)mac[4] |
 			ETH_MACA0HR_MACA0H;
@@ -125,6 +125,38 @@ bool eth_tx(uint8_t *ppkt, uint32_t n)
 	}
 
 	memcpy((void *)ETH_DES2(TxBD), ppkt, n);
+
+	ETH_DES1(TxBD) = n & ETH_TDES1_TBS1;
+	ETH_DES0(TxBD) |= ETH_TDES0_LS | ETH_TDES0_FS | ETH_TDES0_OWN;
+	TxBD = ETH_DES3(TxBD);
+
+	if (ETH_DMASR & ETH_DMASR_TBUS) {
+		ETH_DMASR = ETH_DMASR_TBUS;
+		ETH_DMATPDR = 0;
+	}
+
+	return true;
+}
+
+
+/*---------------------------------------------------------------------------*/
+/** @brief Transmit packet with custom scatter gather handler.
+ *
+ * This makes it possible to transmit payloads that aren't contiguous without
+ * extra copying.
+ *
+ * @param[in] copy_fn uint32_t(*)(void* dst, void* ctx) Pointer to the custom
+ * function
+ * @param[in] ctx void* user context passes back to the callback
+ * @returns bool true, if successful.
+ */
+bool eth_tx_custom_sg(uint32_t (*copy_fn)(void* dst, void*ctx), void* ctx)
+{
+	if (ETH_DES0(TxBD) & ETH_TDES0_OWN) {
+		return false;
+	}
+
+	uint32_t n = copy_fn((void *)ETH_DES2(TxBD), ctx);
 
 	ETH_DES1(TxBD) = n & ETH_TDES1_TBS1;
 	ETH_DES0(TxBD) |= ETH_TDES0_LS | ETH_TDES0_FS | ETH_TDES0_OWN;
