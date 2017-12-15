@@ -1,4 +1,15 @@
-/* This provides unification of code over STM32 subfamilies */
+/** @defgroup spi_defines SPI Defines
+ *
+ * @brief <b>Defined Constants and Types for the STM32L4xx SPI</b>
+ *
+ * @ingroup STM32L4xx_defines
+ *
+ * @version 1.0.0
+ *
+ * @date 15 December 2017
+ *
+ * LGPL License Terms @ref lgpl_license
+ */
 
 /*
  * This file is part of the libopencm3 project.
@@ -17,24 +28,9 @@
  * along with this library.  If not, see <http://www.gnu.org/licenses/>.
  */
 
-#include <libopencm3/cm3/common.h>
-#include <libopencm3/stm32/memorymap.h>
+#ifndef LIBOPENCM3_SPI_H
+#define LIBOPENCM3_SPI_H
 
-#if defined(STM32F0)
-#       include <libopencm3/stm32/f0/spi.h>
-#elif defined(STM32F1)
-#       include <libopencm3/stm32/f1/spi.h>
-#elif defined(STM32F2)
-#       include <libopencm3/stm32/f2/spi.h>
-#elif defined(STM32F3)
-#       include <libopencm3/stm32/f3/spi.h>
-#elif defined(STM32F4)
-#       include <libopencm3/stm32/f4/spi.h>
-#elif defined(STM32L1)
-#       include <libopencm3/stm32/l1/spi.h>
-#elif defined(STM32L4)
-#       include <libopencm3/stm32/l4/spi.h>
-#else
-#       error "stm32 family not defined."
+#include <libopencm3/stm32/common/spi_common_f03.h>
+
 #endif
-
