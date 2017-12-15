@@ -50,6 +50,7 @@ OBJS            += i2c_common_v2.o
 OBJS            += exti_common_all.o
 OBJS            += usart_common_all.o usart_common_v2.o
 OBJS		+= crc_common_all.o
+OBJS		+= spi_common_all.o spi_common_f03.o
 
 VPATH += ../../usb:../:../../cm3:../common
 VPATH += ../../ethernet
