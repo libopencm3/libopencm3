@@ -50,6 +50,7 @@ OBJS            += timer_common_all.o
 OBJS            += i2c_common_v2.o
 OBJS            += usart_common_all.o usart_common_v2.o
 OBJS            += dma_common_l1f013.o
+OBJS            += iwdg_common_all.o
 
 VPATH += ../../usb:../:../../cm3:../common
 VPATH += ../../ethernet
