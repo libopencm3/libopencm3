@@ -326,7 +326,7 @@ void rcc_set_hpre(uint32_t hpre)
 void rcc_set_main_pll(uint32_t source, uint32_t pllm, uint32_t plln, uint32_t pllp,
 	uint32_t pllq, uint32_t pllr)
 {
-	RCC_PLLCFGR = (pllm << RCC_PLLCFGR_PLLM_SHIFT) |
+	RCC_PLLCFGR = (RCC_PLLCFGR_PLLM(pllm) << RCC_PLLCFGR_PLLM_SHIFT) |
 		(plln << RCC_PLLCFGR_PLLN_SHIFT) |
 		(pllp) |
 		(source << RCC_PLLCFGR_PLLSRC_SHIFT) |
