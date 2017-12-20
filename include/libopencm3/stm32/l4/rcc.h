@@ -89,6 +89,7 @@
 #define RCC_CCIPR			MMIO32(RCC_BASE + 0x88)
 #define RCC_BDCR			MMIO32(RCC_BASE + 0x90)
 #define RCC_CSR				MMIO32(RCC_BASE + 0x94)
+#define RCC_CRRCR			MMIO32(RCC_BASE + 0x98)
 
 /* --- RCC_CR values ------------------------------------------------------- */
 
@@ -133,6 +134,10 @@ Twelve frequency ranges are available: 100 kHz, 200 kHz, 400 kHz, 800 kHz,
 #define RCC_CR_MSIRDY				(1 << 1)
 #define RCC_CR_MSION				(1 << 0)
 
+/* --- RCC_CRRCR values ---------------------------------------------------- */
+
+#define RCC_CRRCR_HSI48ON             (1 << 0)
+#define RCC_CRRCR_HSI48RDY            (1 << 1)
 
 /* --- RCC_ICSCR values ---------------------------------------------------- */
 
@@ -166,6 +171,7 @@ Twelve frequency ranges are available: 100 kHz, 200 kHz, 400 kHz, 800 kHz,
 #define RCC_CFGR_MCO_PLL			0x5
 #define RCC_CFGR_MCO_LSI			0x6
 #define RCC_CFGR_MCO_LSE			0x7
+#define RCC_CFGR_MCO_HSI48			0x8
 #define RCC_CFGR_MCO_SHIFT			24
 #define RCC_CFGR_MCO_MASK			0xf
 
@@ -274,6 +280,7 @@ Twelve frequency ranges are available: 100 kHz, 200 kHz, 400 kHz, 800 kHz,
 
 /* --- RCC_CIER - Clock interrupt enable register -------------------------- */
 
+#define RCC_CIER_HSI48RDYIE			(1 << 10)
 #define RCC_CIER_LSE_CSSIE			(1 << 9)
 /* OSC ready interrupt enable bits */
 #define RCC_CIER_PLLSAI2RDYIE			(1 << 7)
@@ -287,6 +294,7 @@ Twelve frequency ranges are available: 100 kHz, 200 kHz, 400 kHz, 800 kHz,
 
 /* --- RCC_CIFR - Clock interrupt flag register */
 
+#define RCC_CIFR_HSI48RDYF			(1 << 10)
 #define RCC_CIFR_LSECSSF			(1 << 9)
 #define RCC_CIFR_CSSF				(1 << 8)
 #define RCC_CIFR_PLLSAI2RDYF			(1 << 7)
@@ -300,6 +308,7 @@ Twelve frequency ranges are available: 100 kHz, 200 kHz, 400 kHz, 800 kHz,
 
 /* --- RCC_CICR - Clock interrupt clear register */
 
+#define RCC_CICR_HSI48RDYC			(1 << 10)
 #define RCC_CICR_LSECSSC			(1 << 9)
 #define RCC_CICR_CSSC				(1 << 8)
 #define RCC_CICR_PLLSAI2RDYC			(1 << 7)
@@ -706,8 +715,10 @@ extern uint32_t rcc_apb2_frequency;
 
 /* --- Function prototypes ------------------------------------------------- */
 
+// Note: RCC_HSI48 not available on all STM32L4 devices
+
 enum rcc_osc {
-	RCC_PLL, RCC_HSE, RCC_HSI16, RCC_MSI, RCC_LSE, RCC_LSI
+	RCC_PLL, RCC_HSE, RCC_HSI16, RCC_MSI, RCC_LSE, RCC_LSI, RCC_HSI48
 };
 
 
