@@ -587,7 +587,7 @@ Twelve frequency ranges are available: 100 kHz, 200 kHz, 400 kHz, 800 kHz,
 #define RCC_CCIPR_ADCSEL_MASK		0x3
 #define RCC_CCIPR_ADCSEL_SHIFT		28
 
-#define RCC_CCIPR_CLK48SEL_NONE		0
+#define RCC_CCIPR_CLK48SEL_HSI48	0
 #define RCC_CCIPR_CLK48SEL_PLLSAI1Q	1
 #define RCC_CCIPR_CLK48SEL_PLL		2
 #define RCC_CCIPR_CLK48SEL_MSI		3
