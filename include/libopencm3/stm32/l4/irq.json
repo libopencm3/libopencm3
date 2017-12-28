@@ -81,7 +81,8 @@
         "lcd",
         "aes",
         "rng",
-        "fpu"
+        "fpu",
+        "crs"
     ],
     "partname_humanreadable": "STM32 L4 series",
     "partname_doxygen": "STM32L4",
