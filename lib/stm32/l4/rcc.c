@@ -369,4 +369,33 @@ void rcc_set_msi_range_standby(uint32_t msi_range)
 	RCC_CSR = reg;
 }
 
+/** Enable PLL Output
+ *
+ *	- P (RCC_PLLCFGR_PLLPEN)
+ *	- Q (RCC_PLLCFGR_PLLQEN)
+ *	- R (RCC_PLLCFGR_PLLREN)
+ *
+ * @param pllout One or more of the definitions above
+ */
+void rcc_pll_output_enable(uint32_t pllout)
+{
+	RCC_PLLCFGR |= pllout;
+}
+
+/** Set clock source for 48MHz clock
+ *
+ * The 48 MHz clock is derived from one of the four following sources:
+ *	- main PLL VCO (RCC_CCIPR_CLK48SEL_PLL)
+ *	- PLLSAI1 VCO (RCC_CCIPR_CLK48SEL_PLLSAI1Q)
+ *	- MSI clock (RCC_CCIPR_CLK48SEL_MSI)
+ *	- HSI48 internal oscillator (RCC_CCIPR_CLK48SEL_HSI48)
+ *
+ * @param clksel One of the definitions above
+ */
+void rcc_set_clock48_source(uint32_t clksel)
+{
+	RCC_CCIPR &= ~(RCC_CCIPR_CLK48SEL_MASK << RCC_CCIPR_CLK48SEL_SHIFT);
+	RCC_CCIPR |= (clksel << RCC_CCIPR_CLK48SEL_SHIFT);
+}
+
 /**@}*/
