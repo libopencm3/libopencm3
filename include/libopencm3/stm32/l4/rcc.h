@@ -39,6 +39,8 @@
 #ifndef LIBOPENCM3_RCC_H
 #define LIBOPENCM3_RCC_H
 
+#include <libopencm3/stm32/pwr.h>
+
 /* --- RCC registers ------------------------------------------------------- */
 
 #define RCC_CR				MMIO32(RCC_BASE + 0x00)
@@ -713,6 +715,39 @@ extern uint32_t rcc_ahb_frequency;
 extern uint32_t rcc_apb1_frequency;
 extern uint32_t rcc_apb2_frequency;
 
+struct rcc_clock_scale {
+	uint8_t pll_source;
+	/* m: division factor (1-8) for input in 4-16MHz range */
+	uint8_t pllm;
+	/* n: multiplication factor (8-86) */
+	uint16_t plln;
+	/* p: division for SAI2 output (2,4,6,8) */
+	uint8_t pllp;
+	/* q: division for 48MHz output (2,4,6,8) */
+	uint8_t pllq;
+	/* r: division for PLL output (2,4,6,8) */
+	uint8_t pllr;
+	uint8_t flash_waitstates;
+	uint8_t hpre;
+	uint8_t ppre1;
+	uint8_t ppre2;
+	enum pwr_vos_scale voltage_scale;
+	uint32_t ahb_frequency;
+	uint32_t apb1_frequency;
+	uint32_t apb2_frequency;
+};
+
+enum rcc_clock_config_entry {
+	RCC_CLOCK_CONFIG_HSI_PLL48MHZ,
+	RCC_CLOCK_CONFIG_HSI_PLL80MHZ,
+	RCC_CLOCK_CONFIG_HSE24_PLL80MHZ,
+	RCC_CLOCK_CONFIG_HSE24_PLL48MHZ,
+	RCC_CLOCK_CONFIG_HSE24_PLL72MHZ,
+	_RCC_CLOCK_CONFIG_END
+};
+
+extern const struct rcc_clock_scale rcc_clock_config[_RCC_CLOCK_CONFIG_END];
+
 /* --- Function prototypes ------------------------------------------------- */
 
 // Note: RCC_HSI48 not available on all STM32L4 devices
@@ -964,6 +999,8 @@ void rcc_set_msi_range(uint32_t msi_range);
 void rcc_set_msi_range_standby(uint32_t msi_range);
 void rcc_pll_output_enable(uint32_t pllout);
 void rcc_set_clock48_source(uint32_t clksel);
+void rcc_clock_setup_hsi16(void);
+void rcc_clock_setup_pll(const struct rcc_clock_scale *clock);
 
 END_DECLS
 
