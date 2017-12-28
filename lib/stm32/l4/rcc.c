@@ -369,4 +369,15 @@ void rcc_set_msi_range_standby(uint32_t msi_range)
 	RCC_CSR = reg;
 }
 
+void rcc_pll_output_enable(uint32_t pllout)
+{
+	RCC_PLLCFGR |= pllout;
+}
+
+void rcc_set_clock48_source(uint32_t clksel)
+{
+	RCC_CCIPR &= ~(RCC_CCIPR_CLK48SEL_MASK << RCC_CCIPR_CLK48SEL_SHIFT);
+	RCC_CCIPR |= (clksel << RCC_CCIPR_CLK48SEL_SHIFT);
+}
+
 /**@}*/
