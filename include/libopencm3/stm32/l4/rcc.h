@@ -962,6 +962,8 @@ void rcc_set_main_pll(uint32_t source, uint32_t pllm, uint32_t plln, uint32_t pl
 uint32_t rcc_system_clock_source(void);
 void rcc_set_msi_range(uint32_t msi_range);
 void rcc_set_msi_range_standby(uint32_t msi_range);
+void rcc_pll_output_enable(uint32_t pllout);
+void rcc_set_clock48_source(uint32_t clksel);
 
 END_DECLS
 
