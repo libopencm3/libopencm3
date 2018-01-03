@@ -56,22 +56,27 @@ void eth_set_mac(uint8_t *mac)
 }
 
 /*---------------------------------------------------------------------------*/
-/** @brief Initialize descriptors
+/** @brief Initialize buffers and descriptors.
  *
- * @param[in] buf uint8_t* Buffer for the descriptors
- * @param[in] nTx uint32_t Count of Transmit Descriptors
- * @param[in] nRx uint32_t Count of Receive Descriptors
- * @param[in] cTx uint32_t Bytes in each Transmit Descriptor
- * @param[in] cRx uint32_t Bytes in each Receive Descriptor
- * @param[in] isext bool true, if extended descriptors should be used
+ * @param[in] buf uint8_t* Memory area for the descriptors and data buffers
+ * @param[in] nTx uint32_t Count of transmit descriptors (equal to count of buffers)
+ * @param[in] nRx uint32_t Count of receive descriptors (equal to count of buffers)
+ * @param[in] cTx uint32_t Bytes in each transmit buffer, must be a
+ *                         multiple of 4
+ * @param[in] cRx uint32_t Bytes in each receive buffer, must be a
+ *                         multiple of 4
+ * @param[in] isext bool true if extended descriptors should be used
+ *
+ * Note, the space passed via buf pointer must be large enough to
+ * hold all the buffers and one descriptor per buffer.
  */
 void eth_desc_init(uint8_t *buf, uint32_t nTx, uint32_t nRx, uint32_t cTx,
 		    uint32_t cRx, bool isext)
 {
-	memset(buf, 0, nTx * cTx + nRx * cRx);
-
 	uint32_t bd = (uint32_t)buf;
 	uint32_t sz = isext ? ETH_DES_EXT_SIZE : ETH_DES_STD_SIZE;
+
+	memset(buf, 0, nTx * (cTx + sz) + nRx * (cRx + sz));
 
 	/* enable / disable extended frames */
 	if (isext) {
