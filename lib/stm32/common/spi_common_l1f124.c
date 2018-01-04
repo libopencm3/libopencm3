@@ -16,10 +16,10 @@ is also supported. A CRC can be generated and checked in hardware.
 @note The I2S protocol shares the SPI hardware so the two protocols cannot be
 used at the same time on the same peripheral.
 
-Example: 1Mbps, positive clock polarity, leading edge trigger, 8-bit words,
+Example: Clk/4, positive clock polarity, leading edge trigger, 8-bit words,
 LSB first.
 @code
-	spi_init_master(SPI1, 1000000, SPI_CR1_CPOL_CLK_TO_0_WHEN_IDLE,
+	spi_init_master(SPI1, SPI_CR1_BR_FPCLK_DIV_4, SPI_CR1_CPOL_CLK_TO_0_WHEN_IDLE,
 			SPI_CR1_CPHA_CLK_TRANSITION_1, SPI_CR1_DFF_8BIT,
 			SPI_CR1_LSBFIRST);
 	spi_write(SPI1, 0x55);		// 8-bit write
@@ -53,19 +53,6 @@ LSB first.
 
 #include <libopencm3/stm32/spi.h>
 #include <libopencm3/stm32/rcc.h>
-
-/*
- * SPI and I2S code.
- *
- * Examples:
- *  spi_init_master(SPI1, 1000000, SPI_CR1_CPOL_CLK_TO_0_WHEN_IDLE,
- *                  SPI_CR1_CPHA_CLK_TRANSITION_1, SPI_CR1_DFF_8BIT,
- *                  SPI_CR1_LSBFIRST);
- *  spi_write(SPI1, 0x55);		// 8-bit write
- *  spi_write(SPI1, 0xaa88);		// 16-bit write
- *  reg8 = spi_read(SPI1);		// 8-bit read
- *  reg16 = spi_read(SPI1);		// 16-bit read
- */
 
 /**@{*/
 
