@@ -73,7 +73,7 @@ lib: $(LIB_DIRS)
 html doc:
 	$(Q)$(MAKE) -C doc html
 
-clean: $(IRQ_DEFN_FILES:=.cleanhdr) $(LIB_DIRS:=.clean) $(EXAMPLE_DIRS:=.clean) doc.clean styleclean
+clean: $(IRQ_DEFN_FILES:=.cleanhdr) $(LIB_DIRS:=.clean) $(EXAMPLE_DIRS:=.clean) doc.clean styleclean genlinktests.clean
 
 %.clean:
 	$(Q)if [ -d $* ]; then \
@@ -103,6 +103,8 @@ styleclean: $(STYLECHECKFILES:=.styleclean)
 LDTESTS		:=$(wildcard ld/tests/*.data)
 
 genlinktests: $(LDTESTS:.data=.ldtest)
+genlinktests.clean:
+	$(Q)rm -f $(LDTESTS:.data=.out)
 
 %.ldtest:
 	@if ./scripts/genlinktest.sh $* >/dev/null; then\
@@ -112,4 +114,4 @@ genlinktests: $(LDTESTS:.data=.ldtest)
 	fi;
 
 
-.PHONY: build lib $(LIB_DIRS) doc clean generatedheaders cleanheaders stylecheck genlinktests
+.PHONY: build lib $(LIB_DIRS) doc clean generatedheaders cleanheaders stylecheck genlinktests genlinktests.clean
