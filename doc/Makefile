@@ -20,7 +20,7 @@ $(ARCHS):
 	cd $@/; doxygen
 
 clean:
-	@rm -rf html/ */html/ */*.tag
+	@rm -rf html/ */html/ */*.tag */doxy.sourcelist */doxygen_*.log
 
 rebuildsources:
 	@printf "Manually regenerating source lists from build deps\n"
