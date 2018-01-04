@@ -1,0 +1,2 @@
+device family A=val B=val
+family END CPU=cpu FPU=fpu

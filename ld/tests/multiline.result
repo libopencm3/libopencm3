@@ -1,0 +1,6 @@
+-DMULTILINE
+-DMULTILINE -D_A=val -D_B=val -D_C=val -D_D=val
+multiline
+
+
+

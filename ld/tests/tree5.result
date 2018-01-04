@@ -1,1 +1,6 @@
--D_A -D_B -D_C -D_D -D_E -D_F 
+-DTREE1 -DTREE2 -DTREE3 -DTREE4 -DTREE5
+-DTREE1 -DTREE2 -DTREE3 -DTREE4 -DTREE5 -D_A=val -D_B=val -D_C=val -D_D=val -D_E=VAL -D_F=val
+tree1
+tree2
+
+
