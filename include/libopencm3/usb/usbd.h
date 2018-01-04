@@ -121,8 +121,12 @@ typedef void (*usbd_endpoint_callback)(usbd_device *usbd_dev, uint8_t ep);
 /* <usb_control.c> */
 /** Registers a control callback.
  *
- * The specified callback will be called if (type == (bmRequestType
- * & type_mask))
+ * Since the list of user control callbacks is cleared every time
+ * device configuration is set (inside usb_standard_set_configuration()),
+ * control callback registration must happen inside (or after) the
+ * config callback. The specified callback will be called if
+ * (type == (bmRequestType & type_mask)).
+ * @sa usbd_register_set_config_callback
  * @param type Handled request type
  * @param type_mask Mask to apply before matching request type
  * @return 0 if successful
