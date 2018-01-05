@@ -398,4 +398,40 @@ void rcc_set_clock48_source(uint32_t clksel)
 	RCC_CCIPR |= (clksel << RCC_CCIPR_CLK48SEL_SHIFT);
 }
 
+
+/** Enable the RTC clock */
+void rcc_enable_rtc_clock(void)
+{
+	RCC_BDCR |= RCC_BDCR_RTCEN;
+}
+
+/** Disable the RTC clock */
+void rcc_disable_rtc_clock(void)
+{
+	RCC_BDCR &= ~RCC_BDCR_RTCEN;
+}
+
+/** Set the source for the RTC clock
+ * @param[in] clk ::rcc_osc. RTC clock source. Only HSE/32, LSE and LSI.
+ */
+void rcc_set_rtc_clock_source(enum rcc_osc clk)
+{
+	RCC_BDCR &= ~(RCC_BDCR_RTCSEL_MASK << RCC_BDCR_RTCSEL_SHIFT);
+
+	switch (clk) {
+	case RCC_HSE:
+		RCC_BDCR |= (RCC_BDCR_RTCSEL_HSEDIV32 << RCC_BDCR_RTCSEL_SHIFT);
+		break;
+	case RCC_LSE:
+		RCC_BDCR |= (RCC_BDCR_RTCSEL_LSE << RCC_BDCR_RTCSEL_SHIFT);
+		break;
+	case RCC_LSI:
+		RCC_BDCR |= (RCC_BDCR_RTCSEL_LSI << RCC_BDCR_RTCSEL_SHIFT);
+		break;
+	default:
+		/* none selected */
+		break;
+	}
+}
+
 /**@}*/
