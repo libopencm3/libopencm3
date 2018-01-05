@@ -999,6 +999,9 @@ void rcc_pll_output_enable(uint32_t pllout);
 void rcc_set_clock48_source(uint32_t clksel);
 void rcc_clock_setup_hsi16(void);
 void rcc_clock_setup_pll(const struct rcc_clock_scale *clock);
+void rcc_enable_rtc_clock(void);
+void rcc_disable_rtc_clock(void);
+void rcc_set_rtc_clock_source(enum rcc_osc clk);
 
 END_DECLS
 
