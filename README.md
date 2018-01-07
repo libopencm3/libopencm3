@@ -29,19 +29,19 @@ The libopencm3 project is currently work in progress. Not all subsystems
 of the microcontrollers are supported, yet.
 
 **IMPORTANT**: The API of the library is _NOT_ yet considered stable! Please do
-           not rely on it, yet! Changes to function names, macro names etc.
+           not rely on it, yet! Changes to function names, macro names, etc.
            can happen at any time without prior notice!
 
-_TIP_: Include this repository as a GIT submodule in your project. To make sure
+_TIP_: Include this repository as a Git submodule in your project to make sure
      your users get the right version of the library to compile your project.
      For how that can be done refer to the libopencm3-examples repository.
 
 Prerequisites
 -------------
 
-Building requires python. (Some code is generated)
+Building requires Python (some code is generated).
 If your user application uses the (optional) dynamic linker script generator,
-you will (presently) need GNU awk.  Please see https://github.com/libopencm3/libopencm3/issues/732
+you will (presently) need GNU AWK.  Please see https://github.com/libopencm3/libopencm3/issues/732
 
 **For Ubuntu/Fedora:**
 
@@ -67,8 +67,8 @@ Toolchain
 The most heavily tested toolchain is "gcc-arm-embedded"
 https://launchpad.net/gcc-arm-embedded
 
-Other toolchains _should_ work, but have not been nearly as well tested.
-Toolchains targeting linux, such as "gcc-arm-linux-gnu" or the like are
+Other toolchains _should_ work, but they have not been nearly as well tested.
+Toolchains targeting Linux, such as "gcc-arm-linux-gnu" or the like are
 _not_ appropriate.
 
 _NOTE_ We recommend, that you use g-a-c version 2.8 2014q3 or newer
@@ -79,7 +79,7 @@ Building
 
     $ make
 
-If your have an arm-elf toolchain (uncommon) you may want to override the
+If you have an arm-elf toolchain (uncommon) you may want to override the
 toolchain prefix (arm-none-eabi is the default)
 
     $ PREFIX=arm-elf make
@@ -99,16 +99,16 @@ them as environment variables, for example:
 * `FP_FLAGS` - Control the floating-point ABI
 
    If the Cortex-M core supports a hard float ABI, it will be compiled with
-   best floating-point support by default. In cases where this is not desired, the
+   the best floating-point support by default. In cases where this is not desired, the
    behavior can be specified by setting `FP_FLAGS`.
    
-   Currently, M4F cores default to `-mfloat-abi=hard -mfpu=fpv4-sp-d16`,
+   Currently, M4F cores default to `-mfloat-abi=hard -mfpu=fpv4-sp-d16`, and
    M7 cores defaults to double precision `-mfloat-abi=hard -mfpu=fpv5-d16` if available,
    and single precision `-mfloat-abi=hard -mfpu=fpv5-sp-d16` otherwise.
    Other architectures use no FP flags, in otherwords, traditional softfp.
    
-   You may find which FP_FLAGS you can use in particular architecture in readme.txt
-   shipped with gcc-arm-embedded package.
+   You may find which FP_FLAGS you can use in a particular architecture in the readme.txt 
+   file shipped with the gcc-arm-embedded package.
 
    Examples:
 
@@ -124,7 +124,7 @@ them as environment variables, for example:
 
    Examples:
 
-        $ CFLAGS="-fshort-wchar" make    # compile lib with 2 byte wide wchar_t
+        $ CFLAGS="-fshort-wchar" make    # Compile lib with 2 byte wide wchar_t
 
 Example projects
 ----------------
@@ -139,15 +139,15 @@ Installation
 ------------
 
 Simply pass -I and -L flags to your own project.  See the libopencm3-examples
-repository for an example of using this library as a git submodule, the most
+repository for an example of using this library as a Git submodule, the most
 popular method of use.
 
 It is strongly advised that you do not attempt to install this library to any
 path inside your toolchain itself.  While this means you don't have to include
-any `-I` or `-L` flags in your projects, it is _very_ easy to confuse a multilib
+any `-I` or `-L` flags in your projects, it is _very_ easy to confuse a multi-library
 linker from picking the right versions of libraries.  Common symptoms are
-hardfaults caused by branches into arm code.  You can use `arm-none-eabi-objdump`
-to check for this in your final elf.  You have been warned.
+hardfaults caused by branches into ARM code.  You can use `arm-none-eabi-objdump`
+to check for this in your final ELF file.  You have been warned.
 
 Coding style and development guidelines
 ---------------------------------------
