@@ -157,6 +157,8 @@ void sv_call_handler(void);
 void pend_sv_handler(void);
 void sys_tick_handler(void);
 
+void cm3_reset_handler(void);
+
 /* Those defined only on ARMv7 and above */
 #if defined(__ARM_ARCH_7M__) || defined(__ARM_ARCH_7EM__)
 void mem_manage_handler(void);

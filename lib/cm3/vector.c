@@ -61,6 +61,11 @@ vector_table_t vector_table = {
 
 void __attribute__ ((weak, naked)) reset_handler(void)
 {
+	cm3_reset_handler();
+}
+
+void cm3_reset_handler(void)
+{
 	volatile unsigned *src, *dest;
 	funcp_t *fp;
 
