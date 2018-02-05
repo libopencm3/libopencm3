@@ -43,13 +43,13 @@ specific memorymap.h header before including this header file.*/
 /* Register definitions                                                      */
 /*****************************************************************************/
 
-/* Data register (CRC_DR) */
+/** CRC_DR Data register */
 #define CRC_DR				MMIO32(CRC_BASE + 0x00)
 
-/* Independent data register (CRC_IDR) */
+/** CRC_IDR Independent data register */
 #define CRC_IDR				MMIO32(CRC_BASE + 0x04)
 
-/* Control register (CRC_CR) */
+/** CRC_CR Control register */
 #define CRC_CR				MMIO32(CRC_BASE + 0x08)
 
 /*****************************************************************************/
@@ -66,12 +66,12 @@ specific memorymap.h header before including this header file.*/
 
 /* Bits [7:0]: General-purpose 8-bit data register bits */
 
-/* --- CRC_CR values ------------------------------------------------------- */
 
-/* Bits [31:1]: Reserved */
-
-/* RESET bit */
+/** @defgroup crc_cr_values CRC_CR values
+ @{*/
+/** CRC_CR_RESET reset the CRC peripheral */
 #define CRC_CR_RESET			(1 << 0)
+/**@}*/
 
 /*****************************************************************************/
 /* API definitions                                                           */

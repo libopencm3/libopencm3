@@ -1,4 +1,4 @@
-/** @addtogroup crc_file
+/** @addtogroup crc_file CRC
 
 @author @htmlonly &copy; @endhtmlonly 2012 Karl Palsson <karlp@remake.is>
 

@@ -45,20 +45,22 @@
 /* Register definitions                                                      */
 /*****************************************************************************/
 
-/* Data register (CRC_DR) */
+/** CRC_DR Data register 8bit wide access */
 #define CRC_DR8 					MMIO8(CRC_BASE + 0x00)
+/** CRC_DR Data register 16bit wide access */
 #define CRC_DR16					MMIO16(CRC_BASE + 0x00)
 
-/* Initial CRC Value */
+/** CRC_INIT Initial CRC Value */
 #define CRC_INIT					MMIO32(CRC_BASE + 0x10)
 
-/* CRC Polynomial */
+/** CRC_POL CRC Polynomial */
 #define CRC_POL						MMIO32(CRC_BASE + 0x14)
 
 /*****************************************************************************/
 /* Register values                                                           */
 /*****************************************************************************/
-
+/** @addtogroup crc_cr_values CRC_CR values
+ @{*/
 #define CRC_CR_REV_OUT				(1 << 7)
 
 #define CRC_CR_REV_IN_SHIFT			5
@@ -77,6 +79,7 @@
 
 /* Default polynomial */
 #define CRC_POL_DEFAULT				0x04C11DB7
+/**@}*/
 
 /*****************************************************************************/
 /* API definitions                                                           */
