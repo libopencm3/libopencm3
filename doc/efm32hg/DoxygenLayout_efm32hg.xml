@@ -7,6 +7,7 @@
     <tab type="user" visible="yes" url="../../stm32f0/html/modules.html" title="STM32F0" intro=""/>
     <tab type="user" visible="yes" url="../../stm32f1/html/modules.html" title="STM32F1" intro=""/>
     <tab type="user" visible="yes" url="../../stm32f2/html/modules.html" title="STM32F2" intro=""/>
+    <tab type="user" visible="yes" url="../../stm32f3/html/modules.html" title="STM32F3" intro=""/>
     <tab type="user" visible="yes" url="../../stm32f4/html/modules.html" title="STM32F4" intro=""/>
     <tab type="user" visible="yes" url="../../stm32f7/html/modules.html" title="STM32F7" intro=""/>
     <tab type="user" visible="yes" url="../../stm32l0/html/modules.html" title="STM32L0" intro=""/>
@@ -14,12 +15,12 @@
     <tab type="user" visible="yes" url="../../stm32l4/html/modules.html" title="STM32L4" intro=""/>
     <tab type="user" visible="yes" url="../../lm3s/html/modules.html" title="LM3S" intro=""/>
     <tab type="user" visible="yes" url="../../lm4f/html/modules.html" title="LM4F" intro=""/>
-    <tab type="modules" visible="yes" title="LPC13" intro=""/>
+    <tab type="user" visible="yes" url="../../lpc13xx/html/modules.html" title="LPC13" intro=""/>
     <tab type="user" visible="yes" url="../../lpc17xx/html/modules.html" title="LPC17" intro=""/>
     <tab type="user" visible="yes" url="../../lpc43xx/html/modules.html" title="LPC43" intro=""/>
     <tab type="user" visible="yes" url="../../efm32g/html/modules.html" title="EFM32 Gecko" intro=""/>
     <tab type="user" visible="yes" url="../../efm32gg/html/modules.html" title="EFM32 Giant Gecko" intro=""/>
-    <tab type="user" visible="yes" url="../../efm32hg/html/modules.html" title="EFM32 Happy Gecko" intro=""/>
+    <tab type="modules" visible="yes" title="EFM32 Happy Gecko" intro=""/>
     <tab type="user" visible="yes" url="../../efm32lg/html/modules.html" title="EFM32 Leopard Gecko" intro=""/>
     <tab type="user" visible="yes" url="../../efm32tg/html/modules.html" title="EFM32 Tiny Gecko" intro=""/>
     <tab type="user" visible="yes" url="../../sam3a/html/modules.html" title="SAM3A" intro=""/>
@@ -34,7 +35,7 @@
     </tab>
     <tab type="classes" visible="yes" title="">
       <tab type="classes" visible="yes" title="" intro=""/>
-      <tab type="classindex" visible="$ALPHABETICAL_INDEX" title=""/> 
+      <tab type="classindex" visible="$ALPHABETICAL_INDEX" title=""/>
       <tab type="hierarchy" visible="yes" title="" intro=""/>
       <tab type="classmembers" visible="yes" title="" intro=""/>
     </tab>
@@ -42,7 +43,7 @@
       <tab type="files" visible="yes" title="" intro=""/>
       <tab type="globals" visible="yes" title="" intro=""/>
     </tab>
-    <tab type="examples" visible="yes" title="" intro=""/>  
+    <tab type="examples" visible="yes" title="" intro=""/>
   </navindex>
 
   <!-- Layout definition for a class page -->
