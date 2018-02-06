@@ -39,6 +39,8 @@
 #ifndef LIBOPENCM3_RCC_H
 #define LIBOPENCM3_RCC_H
 
+#include <libopencm3/stm32/pwr.h>
+
 /* --- RCC registers ------------------------------------------------------- */
 
 #define RCC_CR				MMIO32(RCC_BASE + 0x00)
@@ -89,6 +91,7 @@
 #define RCC_CCIPR			MMIO32(RCC_BASE + 0x88)
 #define RCC_BDCR			MMIO32(RCC_BASE + 0x90)
 #define RCC_CSR				MMIO32(RCC_BASE + 0x94)
+#define RCC_CRRCR			MMIO32(RCC_BASE + 0x98)
 
 /* --- RCC_CR values ------------------------------------------------------- */
 
@@ -133,6 +136,10 @@ Twelve frequency ranges are available: 100 kHz, 200 kHz, 400 kHz, 800 kHz,
 #define RCC_CR_MSIRDY				(1 << 1)
 #define RCC_CR_MSION				(1 << 0)
 
+/* --- RCC_CRRCR values ---------------------------------------------------- */
+
+#define RCC_CRRCR_HSI48ON             (1 << 0)
+#define RCC_CRRCR_HSI48RDY            (1 << 1)
 
 /* --- RCC_ICSCR values ---------------------------------------------------- */
 
@@ -166,6 +173,7 @@ Twelve frequency ranges are available: 100 kHz, 200 kHz, 400 kHz, 800 kHz,
 #define RCC_CFGR_MCO_PLL			0x5
 #define RCC_CFGR_MCO_LSI			0x6
 #define RCC_CFGR_MCO_LSE			0x7
+#define RCC_CFGR_MCO_HSI48			0x8
 #define RCC_CFGR_MCO_SHIFT			24
 #define RCC_CFGR_MCO_MASK			0xf
 
@@ -274,6 +282,7 @@ Twelve frequency ranges are available: 100 kHz, 200 kHz, 400 kHz, 800 kHz,
 
 /* --- RCC_CIER - Clock interrupt enable register -------------------------- */
 
+#define RCC_CIER_HSI48RDYIE			(1 << 10)
 #define RCC_CIER_LSE_CSSIE			(1 << 9)
 /* OSC ready interrupt enable bits */
 #define RCC_CIER_PLLSAI2RDYIE			(1 << 7)
@@ -287,6 +296,7 @@ Twelve frequency ranges are available: 100 kHz, 200 kHz, 400 kHz, 800 kHz,
 
 /* --- RCC_CIFR - Clock interrupt flag register */
 
+#define RCC_CIFR_HSI48RDYF			(1 << 10)
 #define RCC_CIFR_LSECSSF			(1 << 9)
 #define RCC_CIFR_CSSF				(1 << 8)
 #define RCC_CIFR_PLLSAI2RDYF			(1 << 7)
@@ -300,6 +310,7 @@ Twelve frequency ranges are available: 100 kHz, 200 kHz, 400 kHz, 800 kHz,
 
 /* --- RCC_CICR - Clock interrupt clear register */
 
+#define RCC_CICR_HSI48RDYC			(1 << 10)
 #define RCC_CICR_LSECSSC			(1 << 9)
 #define RCC_CICR_CSSC				(1 << 8)
 #define RCC_CICR_PLLSAI2RDYC			(1 << 7)
@@ -578,7 +589,7 @@ Twelve frequency ranges are available: 100 kHz, 200 kHz, 400 kHz, 800 kHz,
 #define RCC_CCIPR_ADCSEL_MASK		0x3
 #define RCC_CCIPR_ADCSEL_SHIFT		28
 
-#define RCC_CCIPR_CLK48SEL_NONE		0
+#define RCC_CCIPR_CLK48SEL_HSI48	0
 #define RCC_CCIPR_CLK48SEL_PLLSAI1Q	1
 #define RCC_CCIPR_CLK48SEL_PLL		2
 #define RCC_CCIPR_CLK48SEL_MSI		3
@@ -704,10 +715,45 @@ extern uint32_t rcc_ahb_frequency;
 extern uint32_t rcc_apb1_frequency;
 extern uint32_t rcc_apb2_frequency;
 
+struct rcc_clock_scale {
+	uint8_t pll_source;
+	/* m: division factor (1-8) for input in 4-16MHz range */
+	uint8_t pllm;
+	/* n: multiplication factor (8-86) */
+	uint16_t plln;
+	/* p: division for SAI2 output (2,4,6,8) */
+	uint8_t pllp;
+	/* q: division for 48MHz output (2,4,6,8) */
+	uint8_t pllq;
+	/* r: division for PLL output (2,4,6,8) */
+	uint8_t pllr;
+	uint8_t flash_waitstates;
+	uint8_t hpre;
+	uint8_t ppre1;
+	uint8_t ppre2;
+	enum pwr_vos_scale voltage_scale;
+	uint32_t ahb_frequency;
+	uint32_t apb1_frequency;
+	uint32_t apb2_frequency;
+};
+
+enum rcc_clock_config_entry {
+	RCC_CLOCK_CONFIG_HSI_PLL48MHZ,
+	RCC_CLOCK_CONFIG_HSI_PLL80MHZ,
+	RCC_CLOCK_CONFIG_HSE24_PLL80MHZ,
+	RCC_CLOCK_CONFIG_HSE24_PLL48MHZ,
+	RCC_CLOCK_CONFIG_HSE24_PLL72MHZ,
+	_RCC_CLOCK_CONFIG_END
+};
+
+extern const struct rcc_clock_scale rcc_clock_config[_RCC_CLOCK_CONFIG_END];
+
 /* --- Function prototypes ------------------------------------------------- */
 
+// Note: RCC_HSI48 not available on all STM32L4 devices
+
 enum rcc_osc {
-	RCC_PLL, RCC_HSE, RCC_HSI16, RCC_MSI, RCC_LSE, RCC_LSI
+	RCC_PLL, RCC_HSE, RCC_HSI16, RCC_MSI, RCC_LSE, RCC_LSI, RCC_HSI48
 };
 
 
@@ -746,7 +792,9 @@ enum rcc_periph_clken {
 	RCC_OPAMP = _REG_BIT(RCC_APB1ENR1_OFFSET, 30),
 	RCC_DAC1 = _REG_BIT(RCC_APB1ENR1_OFFSET, 29),
 	RCC_PWR = _REG_BIT(RCC_APB1ENR1_OFFSET, 28),
+	RCC_USB = _REG_BIT(RCC_APB1ENR1_OFFSET, 26),
 	RCC_CAN1 = _REG_BIT(RCC_APB1ENR1_OFFSET, 25),
+	RCC_CRS = _REG_BIT(RCC_APB1ENR1_OFFSET, 24),
 	RCC_I2C3 = _REG_BIT(RCC_APB1ENR1_OFFSET, 23),
 	RCC_I2C2 = _REG_BIT(RCC_APB1ENR1_OFFSET, 22),
 	RCC_I2C1 = _REG_BIT(RCC_APB1ENR1_OFFSET, 21),
@@ -886,7 +934,9 @@ enum rcc_periph_rst {
 	RST_OPAMP = _REG_BIT(RCC_APB1RSTR1_OFFSET, 30),
 	RST_DAC1 = _REG_BIT(RCC_APB1RSTR1_OFFSET, 29),
 	RST_PWR = _REG_BIT(RCC_APB1RSTR1_OFFSET, 28),
+	RST_USB = _REG_BIT(RCC_APB1RSTR1_OFFSET, 26),
 	RST_CAN1 = _REG_BIT(RCC_APB1RSTR1_OFFSET, 25),
+	RST_CRS = _REG_BIT(RCC_APB1RSTR1_OFFSET, 24),
 	RST_I2C3 = _REG_BIT(RCC_APB1RSTR1_OFFSET, 23),
 	RST_I2C2 = _REG_BIT(RCC_APB1RSTR1_OFFSET, 22),
 	RST_I2C1 = _REG_BIT(RCC_APB1RSTR1_OFFSET, 21),
@@ -947,6 +997,10 @@ void rcc_set_main_pll(uint32_t source, uint32_t pllm, uint32_t plln, uint32_t pl
 uint32_t rcc_system_clock_source(void);
 void rcc_set_msi_range(uint32_t msi_range);
 void rcc_set_msi_range_standby(uint32_t msi_range);
+void rcc_pll_output_enable(uint32_t pllout);
+void rcc_set_clock48_source(uint32_t clksel);
+void rcc_clock_setup_hsi16(void);
+void rcc_clock_setup_pll(const struct rcc_clock_scale *clock);
 
 END_DECLS
 

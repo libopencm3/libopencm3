@@ -242,15 +242,16 @@ void flash_lock_option_bytes(void)
 	FLASH_CR |= FLASH_CR_OPTLOCK;
 }
 
-/** @brief Program a 32 bit Word to FLASH
- * This performs all operations necessary to program a 32 bit word to FLASH
- * memory. The program error flag should be checked separately for the event
- * that memory was not properly erased.
+/** @brief Program a 64 bit word to FLASH
+ *
+ * This performs all operations necessary to program a 64 bit word to FLASH memory.
+ * The program error flag should be checked separately for the event that memory
+ * was not properly erased.
  *
  * @param[in] address Starting address in Flash.
- * @param[in] data word to write
+ * @param[in] data Double word to write
  */
-void flash_program_word(uint32_t address, uint32_t data)
+void flash_program_double_word(uint32_t address, uint64_t data)
 {
 	/* Ensure that all flash operations are complete. */
 	flash_wait_for_last_operation();
@@ -258,8 +259,9 @@ void flash_program_word(uint32_t address, uint32_t data)
 	/* Enable writes to flash. */
 	FLASH_CR |= FLASH_CR_PG;
 
-	/* Program the word. */
-	MMIO32(address) = data;
+	/* Program the each word separately. */
+	MMIO32(address) = (uint32_t)data;
+	MMIO32(address+4) = (uint32_t)(data >> 32);
 
 	/* Wait for the write to complete. */
 	flash_wait_for_last_operation();
@@ -274,16 +276,12 @@ void flash_program_word(uint32_t address, uint32_t data)
  * memory was not properly erased.
  * @param[in] address Starting address in Flash.
  * @param[in] data Pointer to start of data block.
- * @param[in] len Length of data block.
+ * @param[in] len Length of data block in bytes (multiple of 8).
  */
 void flash_program(uint32_t address, uint8_t *data, uint32_t len)
 {
-	/* TODO: Use dword and word size program operations where possible for
-	 * turbo speed.
-	 */
-	uint32_t i;
-	for (i = 0; i < len; i++) {
-		flash_program_word(address+i, data[i]);
+	for (uint32_t i = 0; i < len; i += 8) {
+		flash_program_double_word(address+i, *(uint64_t*)(data + i));
 	}
 }
 

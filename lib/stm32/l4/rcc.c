@@ -37,11 +37,96 @@
 
 /**@{*/
 #include <libopencm3/stm32/rcc.h>
+#include <libopencm3/stm32/flash.h>
+#include <libopencm3/stm32/pwr.h>
 
 /* Set the default clock frequencies after reset. */
 uint32_t rcc_ahb_frequency = 4000000;
 uint32_t rcc_apb1_frequency = 4000000;
 uint32_t rcc_apb2_frequency = 4000000;
+
+const struct rcc_clock_scale rcc_clock_config[] = {
+	{ /* 48MHz PLL from HSI */
+		.pll_source = RCC_PLLCFGR_PLLSRC_HSI16,
+		.pllm = 4,
+		.plln = 24,
+		.pllp = RCC_PLLCFGR_PLLP_DIV7,
+		.pllq = RCC_PLLCFGR_PLLQ_DIV2,
+		.pllr = RCC_PLLCFGR_PLLR_DIV2,
+		.hpre = RCC_CFGR_HPRE_DIV2,
+		.ppre1 = RCC_CFGR_PPRE1_NODIV,
+		.ppre2 = RCC_CFGR_PPRE2_NODIV,
+		.voltage_scale = PWR_SCALE1,
+		.flash_waitstates = 2,
+		.ahb_frequency = 48000000,
+		.apb1_frequency = 24000000,
+		.apb2_frequency = 24000000
+	},
+	{ /* 80MHz PLL from HSI */
+		.pll_source = RCC_PLLCFGR_PLLSRC_HSI16,
+		.pllm = 1,
+		.plln = 10,
+		.pllp = RCC_PLLCFGR_PLLP_DIV7,
+		.pllq = RCC_PLLCFGR_PLLQ_DIV4,
+		.pllr = RCC_PLLCFGR_PLLR_DIV2,
+		.hpre = RCC_CFGR_HPRE_DIV2,
+		.ppre1 = RCC_CFGR_PPRE1_NODIV,
+		.ppre2 = RCC_CFGR_PPRE2_NODIV,
+		.voltage_scale = PWR_SCALE1,
+		.flash_waitstates = 4,
+		.ahb_frequency = 80000000,
+		.apb1_frequency = 40000000,
+		.apb2_frequency = 40000000
+	},
+	{ /* 80MHz PLL from 24MHz HSE */
+		.pll_source = RCC_PLLCFGR_PLLSRC_HSE,
+		.pllm = 3,
+		.plln = 20,
+		.pllp = RCC_PLLCFGR_PLLP_DIV7,
+		.pllq = RCC_PLLCFGR_PLLQ_DIV4,
+		.pllr = RCC_PLLCFGR_PLLR_DIV2,
+		.hpre = RCC_CFGR_HPRE_DIV2,
+		.ppre1 = RCC_CFGR_PPRE1_NODIV,
+		.ppre2 = RCC_CFGR_PPRE2_NODIV,
+		.voltage_scale = PWR_SCALE1,
+		.flash_waitstates = 4,
+		.ahb_frequency = 80000000,
+		.apb1_frequency = 40000000,
+		.apb2_frequency = 40000000
+	},
+	{ /* 48MHz PLL and USB from 24MHz HSE */
+		.pll_source = RCC_PLLCFGR_PLLSRC_HSE,
+		.pllm = 2,
+		.plln = 8,
+		.pllp = RCC_PLLCFGR_PLLP_DIV7,
+		.pllq = RCC_PLLCFGR_PLLQ_DIV2,
+		.pllr = RCC_PLLCFGR_PLLR_DIV2,
+		.hpre = RCC_CFGR_HPRE_DIV2,
+		.ppre1 = RCC_CFGR_PPRE1_NODIV,
+		.ppre2 = RCC_CFGR_PPRE2_NODIV,
+		.voltage_scale = PWR_SCALE1,
+		.flash_waitstates = 2,
+		.ahb_frequency = 48000000,
+		.apb1_frequency = 24000000,
+		.apb2_frequency = 24000000
+	},
+	{ /* 72MHz PLL and 48MHz USB from 24MHz HSE */
+		.pll_source = RCC_PLLCFGR_PLLSRC_HSE,
+		.pllm = 2,
+		.plln = 24,
+		.pllp = RCC_PLLCFGR_PLLP_DIV7,
+		.pllq = RCC_PLLCFGR_PLLQ_DIV6,
+		.pllr = RCC_PLLCFGR_PLLR_DIV4,
+		.hpre = RCC_CFGR_HPRE_DIV2,
+		.ppre1 = RCC_CFGR_PPRE1_NODIV,
+		.ppre2 = RCC_CFGR_PPRE2_NODIV,
+		.voltage_scale = PWR_SCALE1,
+		.flash_waitstates = 4,
+		.ahb_frequency = 72000000,
+		.apb1_frequency = 36000000,
+		.apb2_frequency = 36000000
+	}
+};
 
 void rcc_osc_ready_int_clear(enum rcc_osc osc)
 {
@@ -63,6 +148,9 @@ void rcc_osc_ready_int_clear(enum rcc_osc osc)
 		break;
 	case RCC_LSI:
 		RCC_CICR |= RCC_CICR_LSIRDYC;
+		break;
+	case RCC_HSI48:
+		RCC_CICR |= RCC_CICR_HSI48RDYC;
 		break;
 	}
 }
@@ -88,6 +176,9 @@ void rcc_osc_ready_int_enable(enum rcc_osc osc)
 	case RCC_LSI:
 		RCC_CIER |= RCC_CIER_LSIRDYIE;
 		break;
+	case RCC_HSI48:
+		RCC_CIER |= RCC_CIER_HSI48RDYIE;
+		break;
 	}
 }
 
@@ -112,6 +203,9 @@ void rcc_osc_ready_int_disable(enum rcc_osc osc)
 	case RCC_LSI:
 		RCC_CIER &= ~RCC_CIER_LSIRDYIE;
 		break;
+	case RCC_HSI48:
+		RCC_CIER &= ~RCC_CIER_HSI48RDYIE;
+		break;
 	}
 }
 
@@ -135,6 +229,9 @@ int rcc_osc_ready_int_flag(enum rcc_osc osc)
 		break;
 	case RCC_LSI:
 		return ((RCC_CIFR & RCC_CIFR_LSIRDYF) != 0);
+		break;
+	case RCC_HSI48:
+		return ((RCC_CIFR & RCC_CIFR_HSI48RDYF) != 0);
 		break;
 	}
 	return false;
@@ -166,6 +263,8 @@ bool rcc_is_osc_ready(enum rcc_osc osc)
 		return RCC_BDCR & RCC_BDCR_LSERDY;
 	case RCC_LSI:
 		return RCC_CSR & RCC_CSR_LSIRDY;
+	case RCC_HSI48:
+		return RCC_CRRCR & RCC_CRRCR_HSI48RDY;
 	}
 	return false;
 }
@@ -221,6 +320,9 @@ void rcc_osc_on(enum rcc_osc osc)
 	case RCC_LSI:
 		RCC_CSR |= RCC_CSR_LSION;
 		break;
+	case RCC_HSI48:
+		RCC_CRRCR |= RCC_CRRCR_HSI48ON;
+		break;
 	}
 }
 
@@ -244,6 +346,9 @@ void rcc_osc_off(enum rcc_osc osc)
 		break;
 	case RCC_LSI:
 		RCC_CSR &= ~RCC_CSR_LSION;
+		break;
+	case RCC_HSI48:
+		RCC_CRRCR &= ~RCC_CRRCR_HSI48ON;
 		break;
 	}
 }
@@ -306,7 +411,7 @@ void rcc_set_hpre(uint32_t hpre)
 void rcc_set_main_pll(uint32_t source, uint32_t pllm, uint32_t plln, uint32_t pllp,
 	uint32_t pllq, uint32_t pllr)
 {
-	RCC_PLLCFGR = (pllm << RCC_PLLCFGR_PLLM_SHIFT) |
+	RCC_PLLCFGR = (RCC_PLLCFGR_PLLM(pllm) << RCC_PLLCFGR_PLLM_SHIFT) |
 		(plln << RCC_PLLCFGR_PLLN_SHIFT) |
 		(pllp) |
 		(source << RCC_PLLCFGR_PLLSRC_SHIFT) |
@@ -347,6 +452,85 @@ void rcc_set_msi_range_standby(uint32_t msi_range)
 	reg &= ~(RCC_CSR_MSIRANGE_MASK << RCC_CSR_MSIRANGE_SHIFT);
 	reg |= msi_range << RCC_CSR_MSIRANGE_SHIFT;
 	RCC_CSR = reg;
+}
+
+void rcc_pll_output_enable(uint32_t pllout)
+{
+	RCC_PLLCFGR |= pllout;
+}
+
+void rcc_set_clock48_source(uint32_t clksel)
+{
+	RCC_CCIPR &= ~(RCC_CCIPR_CLK48SEL_MASK << RCC_CCIPR_CLK48SEL_SHIFT);
+	RCC_CCIPR |= (clksel << RCC_CCIPR_CLK48SEL_SHIFT);
+}
+
+void rcc_clock_setup_hsi16(void)
+{
+	/* Enable internal high-speed oscillator */
+	rcc_osc_on(RCC_HSI16);
+	rcc_wait_for_osc_ready(RCC_HSI16);
+
+	/* Select HSI as SYSCLK source */
+	rcc_set_sysclk_source(RCC_CFGR_SW_HSI16);
+
+	/* Enable high performance mode */
+	rcc_periph_clock_enable(RCC_PWR);
+	pwr_set_vos_scale(PWR_SCALE1);
+
+	/* Set prescalers for AHB, ABP1, ABP2 */
+	rcc_set_hpre(RCC_CFGR_HPRE_NODIV);
+	rcc_set_ppre1(RCC_CFGR_PPRE1_NODIV);
+	rcc_set_ppre2(RCC_CFGR_PPRE2_NODIV);
+
+	/* Configure flash wait states */
+	flash_set_ws(FLASH_ACR_LATENCY_0WS);
+
+	/* Set the peripheral clock frequencies used */
+	rcc_ahb_frequency = 16000000;
+	rcc_apb1_frequency = 16000000;
+	rcc_apb2_frequency = 16000000;
+}
+
+void rcc_clock_setup_pll(const struct rcc_clock_scale *clock)
+{
+	/* Enable selected high-speed oscillator */
+	if (clock->pll_source == RCC_PLLCFGR_PLLSRC_HSE) {
+		rcc_osc_on(RCC_HSE);
+		rcc_wait_for_osc_ready(RCC_HSE);
+	} else if (clock->pll_source == RCC_PLLCFGR_PLLSRC_HSI16) {
+		rcc_osc_on(RCC_HSI16);
+		rcc_wait_for_osc_ready(RCC_HSI16);
+	}
+
+	/* Set performance mode */
+	rcc_periph_clock_enable(RCC_PWR);
+	pwr_set_vos_scale(clock->voltage_scale);
+
+	/* Set prescalers for AHB, ABP1, ABP2 */
+	rcc_set_hpre(clock->hpre);
+	rcc_set_ppre1(clock->ppre1);
+	rcc_set_ppre2(clock->ppre2);
+
+	/* Configure PLL */
+	rcc_set_main_pll(clock->pll_source, clock->pllm, clock->plln,
+			 clock->pllp, clock->pllq, clock->pllr);
+
+	/* Enable PLL and wait for it to stabilize */
+	rcc_osc_on(RCC_PLL);
+	rcc_wait_for_osc_ready(RCC_PLL);
+
+	/* Configure flash wait states */
+	flash_set_ws(clock->flash_waitstates);
+
+	/* Select PLL as SYSCLK source and wait for it to be selected */
+	rcc_set_sysclk_source(RCC_CFGR_SW_PLL);
+	rcc_wait_for_sysclk_status(RCC_PLL);
+
+	/* Set the peripheral clock frequencies used */
+	rcc_ahb_frequency = clock->ahb_frequency;
+	rcc_apb1_frequency = clock->apb1_frequency;
+	rcc_apb2_frequency = clock->apb2_frequency;
 }
 
 /**@}*/

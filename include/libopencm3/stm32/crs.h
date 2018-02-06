@@ -24,6 +24,8 @@
 #       include <libopencm3/stm32/common/crs_common_all.h>
 #elif defined(STM32L0)
 #       include <libopencm3/stm32/common/crs_common_all.h>
+#elif defined(STM32L4)
+#       include <libopencm3/stm32/common/crs_common_all.h>
 #else
 #       error "stm32 family not defined or not supported for this peripheral"
 #endif

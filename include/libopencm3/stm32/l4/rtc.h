@@ -1,4 +1,15 @@
-/* This provides unification of USB code for supported STM32 subfamilies */
+/** @defgroup rtc_defines RTC Defines
+
+@brief <b>Defined Constants and Types for the STM32L4xx RTC</b>
+
+@ingroup STM32L4xx_defines
+
+@version 1.0.0
+
+@date 18 December 2017
+
+LGPL License Terms @ref lgpl_license
+ */
 
 /*
  * This file is part of the libopencm3 project.
@@ -17,26 +28,9 @@
  * along with this library.  If not, see <http://www.gnu.org/licenses/>.
  */
 
-#ifndef LIBOPENCM3_ST_USBFS_H
-#define LIBOPENCM3_ST_USBFS_H
+#ifndef LIBOPENCM3_RTC_H
+#define LIBOPENCM3_RTC_H
 
-#include <libopencm3/cm3/common.h>
-#include <libopencm3/stm32/memorymap.h>
-
-#if defined(STM32F0)
-#       include <libopencm3/stm32/f0/st_usbfs.h>
-#elif defined(STM32F1)
-#       include <libopencm3/stm32/f1/st_usbfs.h>
-#elif defined(STM32F3)
-#       include <libopencm3/stm32/f3/st_usbfs.h>
-#elif defined(STM32L0)
-#       include <libopencm3/stm32/l0/st_usbfs.h>
-#elif defined(STM32L1)
-#       include <libopencm3/stm32/l1/st_usbfs.h>
-#elif defined(STM32L4)
-#       include <libopencm3/stm32/l4/st_usbfs.h>
-#else
-#       error "STM32 family not defined or not supported."
-#endif
+#include <libopencm3/stm32/common/rtc_common_l1f024.h>
 
 #endif
