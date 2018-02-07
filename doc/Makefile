@@ -33,7 +33,6 @@ rebuildsources:
 	../scripts/gendoxylist ../lib/stm32/l0 stm32l0
 	../scripts/gendoxylist ../lib/stm32/l1 stm32l1
 	../scripts/gendoxylist ../lib/stm32/l4 stm32l4
-	../scripts/gendoxylist ../lib/stm32/l4 stm32l4
 	../scripts/gendoxylist ../lib/efm32/g efm32g
 	../scripts/gendoxylist ../lib/efm32/gg efm32gg
 	../scripts/gendoxylist ../lib/efm32/lg efm32lg
