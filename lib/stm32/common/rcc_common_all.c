@@ -188,7 +188,7 @@ void rcc_periph_reset_release(enum rcc_periph_rst rst)
  * Exact sources available depend on your target.  On devices with multiple
  * MCO pins, this function controls MCO1
  *
- * @parame[in] mcosrc the unshifted source bits
+ * @param[in] mcosrc the unshifted source bits
  */
 
 void rcc_set_mco(uint32_t mcosrc)
