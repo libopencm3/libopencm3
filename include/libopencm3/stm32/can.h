@@ -676,4 +676,5 @@ void can_fifo_release(uint32_t canport, uint8_t fifo);
 bool can_available_mailbox(uint32_t canport);
 END_DECLS
 
+/**@}*/
 #endif
