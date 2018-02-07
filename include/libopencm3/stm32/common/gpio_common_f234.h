@@ -163,10 +163,10 @@ specific memorymap.h header before including this header file.*/
 
 /** @defgroup gpio_output_type GPIO Output Pin Driver Type
 @ingroup gpio_defines
-@list Push Pull
-@list Open Drain
 @{*/
+/** Push Pull */
 #define GPIO_OTYPE_PP			0x0
+/** Open Drain */
 #define GPIO_OTYPE_OD			0x1
 /**@}*/
 
