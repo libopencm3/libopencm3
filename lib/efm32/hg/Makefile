@@ -40,7 +40,7 @@ TGT_CFLAGS	+= $(STANDARD_FLAGS)
 
 ARFLAGS		= rcs
 
-OBJS		= gpio_common_hglg.o timer_common_hglg.o
+OBJS		= cmu.o gpio_common_hglg.o timer_common_hglg.o
 
 VPATH += ../../usb:../:../../cm3:../common
 
