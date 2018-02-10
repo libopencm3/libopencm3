@@ -40,8 +40,8 @@ TGT_CFLAGS	+= $(STANDARD_FLAGS)
 
 ARFLAGS		= rcs
 
-OBJS		=
+OBJS		= gpio_common_hglg.o
 
-VPATH += ../../usb:../:../../cm3:
+VPATH += ../../usb:../:../../cm3:../common
 
 include ../../Makefile.include
