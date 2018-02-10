@@ -1,0 +1,29 @@
+{
+    "_source": "The names and sequence are taken from EFM32HG-RM.pdf table 4.1.",
+    "irqs": [
+        "dma",
+        "gpio_even",
+        "timer0",
+        "acmp0",
+        "adc0",
+        "i2c0",
+        "gpio_odd",
+        "timer1",
+        "usart1_rx",
+        "usart1_tx",
+        "leuart0",
+        "pcnt0",
+        "rtc",
+        "cmu",
+        "vcmp",
+        "msc",
+        "aes",
+        "usart0_rx",
+        "usart0_tx",
+        "usb",
+        "timer2"
+    ],
+    "partname_humanreadable": "EFM32 Happy Gecko series",
+    "partname_doxygen": "EFM32HG",
+    "includeguard": "LIBOPENCM3_EFM32HG_NVIC_H"
+}
