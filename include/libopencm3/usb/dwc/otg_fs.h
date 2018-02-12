@@ -18,16 +18,23 @@
  */
 
 /*
- * This file covers definitions for the USB OTG FS peripheral.
- * This is the USB core included in the F105, F107, F2, F4 devices
+ * This file covers definitions for DesignWare USB OTG HS peripherals.
  */
 
-#ifndef LIBOPENCM3_OTG_FS_H
-#define LIBOPENCM3_OTG_FS_H
+#ifndef LIBOPENCM3_USB_DWC_OTG_FS_H
+#define LIBOPENCM3_USB_DWC_OTG_FS_H
 
 #include <libopencm3/cm3/common.h>
-#include <libopencm3/stm32/memorymap.h>
-#include <libopencm3/stm32/otg_common.h>
+#include <libopencm3/usb/dwc/otg_common.h>
+
+/* Memory map is required for USB_OTG_FS_BASE address */
+#if defined(STM32F1) || defined(STM32F2) || defined(STM32F4)
+#	include <libopencm3/stm32/memorymap.h>
+#elif defined(EFM32HG)
+#	include <libopencm3/efm32/memorymap.h>
+#else
+#	error "device family not supported by dwc/otg_fs."
+#endif
 
 /***********************************************************************/
 
