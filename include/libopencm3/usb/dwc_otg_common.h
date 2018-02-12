@@ -19,12 +19,12 @@
 
 /*
  * This file is intended to be included by either otg_hs.h or otg_fs.h
- * Contains common definitions of Command and Status Registers (CSR) and their
- * bit definitions.
+ * It contains register definitions common to chips using DesignWare
+ * USB OTG controllers, including STM32 and EFM32
  */
 
-#ifndef LIBOPENCM3_OTG_COMMON_H
-#define LIBOPENCM3_OTG_COMMON_H
+#ifndef LIBOPENCM3_DWC_OTG_COMMON_H
+#define LIBOPENCM3_DWC_OTG_COMMON_H
 
 /* Core Global Control and Status Registers */
 #define OTG_GOTGCTL			0x000
