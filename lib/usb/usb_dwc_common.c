@@ -194,6 +194,10 @@ uint16_t dwc_ep_write_packet(usbd_device *usbd_dev, uint8_t addr,
 			      const void *buf, uint16_t len)
 {
 	const uint32_t *buf32 = buf;
+#if defined(__ARM_ARCH_6M__)
+	const uint8_t *buf8 = buf;
+	uint32_t word32;
+#endif /* defined(__ARM_ARCH_6M__) */
 	int i;
 
 	addr &= 0x7F;
@@ -208,10 +212,28 @@ uint16_t dwc_ep_write_packet(usbd_device *usbd_dev, uint8_t addr,
 	REBASE(OTG_DIEPCTL(addr)) |= OTG_DIEPCTL0_EPENA |
 				     OTG_DIEPCTL0_CNAK;
 
-	/* Copy buffer to endpoint FIFO, note - memcpy does not work */
+	/* Copy buffer to endpoint FIFO, note - memcpy does not work.
+	 * ARMv7M supports non-word-aligned accesses, ARMv6M does not. */
+#if defined(__ARM_ARCH_7M__) || defined(__ARM_ARCH_7EM__)
 	for (i = len; i > 0; i -= 4) {
 		REBASE(OTG_FIFO(addr)) = *buf32++;
 	}
+#endif /* defined(__ARM_ARCH_7M__) || defined(__ARM_ARCH_7EM__) */
+
+#if defined(__ARM_ARCH_6M__)
+	/* Take care of word-aligned and non-word-aligned buffers */
+	if (((uint32_t)buf8 & 0x3) == 0) {
+		for (i = len; i > 0; i -= 4) {
+			REBASE(OTG_FIFO(addr)) = *buf32++;
+		}
+	} else {
+		for (i = len; i > 0; i -= 4) {
+			memcpy(&word32, buf8, 4);
+			REBASE(OTG_FIFO(addr)) = word32;
+			buf8 += 4;
+		}
+	}
+#endif /* defined(__ARM_ARCH_6M__) */
 
 	return len;
 }
@@ -221,6 +243,10 @@ uint16_t dwc_ep_read_packet(usbd_device *usbd_dev, uint8_t addr,
 {
 	int i;
 	uint32_t *buf32 = buf;
+#if defined(__ARM_ARCH_6M__)
+	uint8_t *buf8 = buf;
+	uint32_t word32;
+#endif /* defined(__ARM_ARCH_6M__) */
 	uint32_t extra;
 
 	/* We do not need to know the endpoint address since there is only one
@@ -229,10 +255,32 @@ uint16_t dwc_ep_read_packet(usbd_device *usbd_dev, uint8_t addr,
 	(void) addr;
 	len = MIN(len, usbd_dev->rxbcnt);
 
+	/* ARMv7M supports non-word-aligned accesses, ARMv6M does not. */
+#if defined(__ARM_ARCH_7M__) || defined(__ARM_ARCH_7EM__)
 	for (i = len; i >= 4; i -= 4) {
 		*buf32++ = REBASE(OTG_FIFO(0));
 		usbd_dev->rxbcnt -= 4;
 	}
+#endif /* defined(__ARM_ARCH_7M__) || defined(__ARM_ARCH_7EM__) */
+
+#if defined(__ARM_ARCH_6M__)
+	/* Take care of word-aligned and non-word-aligned buffers */
+	if (((uint32_t)buf8 & 0x3) == 0) {
+		for (i = len; i >= 4; i -= 4) {
+			*buf32++ = REBASE(OTG_FIFO(0));
+			usbd_dev->rxbcnt -= 4;
+		}
+	} else {
+		for (i = len; i >= 4; i -= 4) {
+			word32 = REBASE(OTG_FIFO(0));
+			memcpy(buf8, &word32, 4);
+			usbd_dev->rxbcnt -= 4;
+			buf8 += 4;
+		}
+		/* buf32 needs to be updated as it is used for extra */
+		buf32 = (uint32_t *)buf8;
+	}
+#endif /* defined(__ARM_ARCH_6M__) */
 
 	if (i) {
 		extra = REBASE(OTG_FIFO(0));
