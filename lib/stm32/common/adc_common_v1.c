@@ -1,4 +1,5 @@
-/** @addtogroup adc_file
+/** @addtogroup adc_file ADC peripheral API
+@ingroup peripheral_apis
 
 @author @htmlonly &copy; @endhtmlonly
 2009 Edward Cheeseman <evbuilder@users.sourceforge.net>

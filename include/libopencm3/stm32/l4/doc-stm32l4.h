@@ -9,6 +9,10 @@ API documentation for ST Microelectronics STM32L4 Cortex M4 series.
 LGPL License Terms @ref lgpl_license
 */
 
+/** @defgroup peripheral_apis Peripheral APIs
+ * APIs for device peripherals
+ */
+
 /** @defgroup STM32L4xx STM32L4xx
 Libraries for ST Microelectronics STM32L4xx series.
 
