@@ -71,7 +71,7 @@ Other toolchains _should_ work, but they have not been nearly as well tested.
 Toolchains targeting Linux, such as "gcc-arm-linux-gnu" or the like are
 _not_ appropriate.
 
-_NOTE_ We recommend, that you use g-a-c version 2.8 2014q3 or newer
+_NOTE_ We recommend that you use gcc-arm-embedded version 4.8 2014q3 or newer
 to build all platforms covered by libopencm3 successfully.
 
 Building
