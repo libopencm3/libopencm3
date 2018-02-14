@@ -24,6 +24,7 @@
 
 /**@{*/
 
+#include <string.h>
 #include <libopencm3/stm32/flash.h>
 
 /*---------------------------------------------------------------------------*/
@@ -332,10 +333,27 @@ was not properly erased.
 
 void flash_program(uint32_t address, const uint8_t *data, uint32_t len)
 {
-	/* TODO: Use dword and word size program operations where possible for
-	 * turbo speed.
-	 */
 	uint32_t i;
+
+	if ((address & 0x3) != 0) {
+		uint32_t to_align = 4 - (address & 0x3);
+		for (i = 0; i < to_align; i++) {
+			flash_program_byte(address, *data);
+			address++;
+			data++;
+		}
+		len -= to_align;
+	}
+
+	while (len >= 4) {
+		uint32_t d;
+		memcpy(&d, data, sizeof(d));
+		flash_program_word(address, d);
+		data += 4;
+		address += 4;
+		len -= 4;
+	}
+
 	for (i = 0; i < len; i++) {
 		flash_program_byte(address+i, data[i]);
 	}
