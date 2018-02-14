@@ -9,6 +9,10 @@ API documentation for ST Microelectronics STM32F4 Cortex M3 series.
 LGPL License Terms @ref lgpl_license
 */
 
+/** @defgroup peripheral_apis Peripheral APIs
+ * APIs for device peripherals
+ */
+
 /** @defgroup STM32F4xx STM32F4xx
 Libraries for ST Microelectronics STM32F4xx series.
 

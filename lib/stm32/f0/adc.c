@@ -1,8 +1,5 @@
-/** @defgroup adc_file ADC
- *
- * @ingroup STM32F0xx
- *
- * @brief <b>libopencm3 STM32F0xx Analog to Digital Converters</b>
+/** @addtogroup adc_file ADC peripheral API
+ * @ingroup peripheral_apis
  *
  * based on F3 file
  *

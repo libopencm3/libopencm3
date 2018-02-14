@@ -1,4 +1,5 @@
 /** @addtogroup usart_file
+@ingroup peripheral_apis
 
  @author @htmlonly &copy; @endhtmlonly 2016 Cem Basoglu <cem.basoglu@web.de>
 

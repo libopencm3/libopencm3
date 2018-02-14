@@ -10,6 +10,10 @@ LGPL License Terms @ref lgpl_license
 */
 
 
+/** @defgroup peripheral_apis Peripheral APIs
+ * APIs for device peripherals
+ */
+
 /** @defgroup STM32F2xx STM32F2xx
 Libraries for ST Microelectronics STM32F2xx series.
 
