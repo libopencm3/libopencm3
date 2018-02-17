@@ -1,5 +1,11 @@
 language: c
-script: make
+script:
+ - make
+ - make doc
+
+before_install:
+  - sudo apt-get -qq update
+  - sudo apt-get install -y doxygen
 
 addons:
   apt:

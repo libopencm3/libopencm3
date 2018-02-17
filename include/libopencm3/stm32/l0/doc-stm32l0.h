@@ -9,6 +9,10 @@ API documentation for ST Microelectronics STM32L0 Cortex M0 series.
 LGPL License Terms @ref lgpl_license
 */
 
+/** @defgroup peripheral_apis Peripheral APIs
+ * APIs for device peripherals
+ */
+
 /** @defgroup STM32L0xx STM32L0xx
 Libraries for ST Microelectronics STM32L0xx series.
 

@@ -1,4 +1,5 @@
-/** @addtogroup usart_file
+/** @addtogroup usart_file USART peripheral API
+@ingroup peripheral_apis
 
 @author @htmlonly &copy; @endhtmlonly 2009 Uwe Hermann <uwe@hermann-uwe.de>
 
