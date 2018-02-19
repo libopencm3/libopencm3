@@ -288,6 +288,8 @@ efm32zg???f16 efm32zg ROM=16K RAM=4K
 efm32zg???f32 efm32zg ROM=32K RAM=4K
 
 # Happy Gecko
+efm32hg[12]??f32 efm32hg ROM=32K RAM=4K
+efm32hg3??f32 efm32hg ROM=32K RAM=8K
 efm32hg???f64 efm32hg ROM=64K RAM=8K
 
 # Tiny Gecko
