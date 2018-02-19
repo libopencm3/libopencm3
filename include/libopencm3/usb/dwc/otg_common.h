@@ -23,8 +23,8 @@
  * USB OTG controllers, including STM32 and EFM32
  */
 
-#ifndef LIBOPENCM3_DWC_OTG_COMMON_H
-#define LIBOPENCM3_DWC_OTG_COMMON_H
+#ifndef LIBOPENCM3_USB_DWC_OTG_COMMON_H
+#define LIBOPENCM3_USB_DWC_OTG_COMMON_H
 
 /* Core Global Control and Status Registers */
 #define OTG_GOTGCTL			0x000
