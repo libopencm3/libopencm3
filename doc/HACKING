@@ -4,9 +4,11 @@ libopencm3 Documentation
 
 Each family and subfamily of devices has a separate directory and configuration
 files. Doxygen is run independently on each of these and the result is
-integrated under a single HTML page. LaTeX and pdf files are produced
-separately. Due to relative referencing used in the files, the directory
+integrated under a single HTML page. 
+Due to relative referencing used in the files, the directory
 structure is important and should be maintained.
+The Makefile will automatically generate the list of input files based on the
+current library makefiles, so you _must_ have run built the library itself first.
 
 Each of the subdirectories has a configuration file, a layout file and
 subdirectories for the documentation. Doxygen is intended to be run inside
@@ -101,14 +103,4 @@ INPUT = ../include/libopencm3/docmain.dox to add in the main page text
 LAYOUT_FILE = DoxygenLayout.xml
 WARN_LOGFILE = doxygen.log
 TAGFILES = cm3/cm3.tag=../cm3/html plus all families to be included.
-
-Generation of PDF
------------------
-
-The needs for pdf documents differ from HTML so separate Doxyfile_latex
-files are provided.
-
-@INCLUDE = ../Doxyfile_common
-GENERATE_LATEX = YES
-GENERATE_HTML = NO
 
