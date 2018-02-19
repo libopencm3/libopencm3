@@ -96,4 +96,6 @@
 #define ACMP0_BASE			(PERIPH_BASE + 0x01000)
 #define VCMP_BASE			(PERIPH_BASE + 0x00000)
 
+#define USB_OTG_FS_BASE			(USB_BASE    + 0x3C000)
+
 #endif
