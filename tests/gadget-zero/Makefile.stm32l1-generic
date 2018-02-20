@@ -32,7 +32,7 @@ INCLUDES += $(patsubst %,-I%, . $(SHARED_DIR))
 OPENCM3_DIR=../..
 
 ### This section can go to an arch shared rules eventually...
-LDSCRIPT = ../../lib/stm32/l1/stm32l15xxb.ld
+LDSCRIPT = ../../lib/stm32/l1/stm32l15xx8.ld
 OPENCM3_LIB = opencm3_stm32l1
 OPENCM3_DEFS = -DSTM32L1
 ARCH_FLAGS = -mthumb -mcpu=cortex-m3
