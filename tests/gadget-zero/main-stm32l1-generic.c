@@ -43,7 +43,7 @@ const struct rcc_clock_scale this_clock_config = {
 		.ppre1 = RCC_CFGR_PPRE1_HCLK_NODIV,
 		.ppre2 = RCC_CFGR_PPRE2_HCLK_NODIV,
 		.voltage_scale = PWR_SCALE1,
-		.flash_config = FLASH_ACR_LATENCY_1WS,
+		.flash_waitstates = 1,
 		.apb1_frequency = 32000000,
 		.apb2_frequency = 32000000,
 	};
