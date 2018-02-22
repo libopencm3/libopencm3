@@ -47,6 +47,9 @@ MEMORY
 #if defined(_RAM2)
 	ram2 (rwx) : ORIGIN = _RAM2_OFF, LENGTH = _RAM2
 #endif
+#if defined(_RAM3)
+	ram3 (rwx) : ORIGIN = _RAM3_OFF, LENGTH = _RAM3
+#endif
 #if defined(_CCM)
 	ccm (rwx) : ORIGIN = _CCM_OFF, LENGTH = _CCM
 #endif
@@ -149,6 +152,13 @@ SECTIONS
 		*(.ram2*)
 		. = ALIGN(4);
 	} >ram2
+#endif
+
+#if defined(_RAM3)
+	.ram3 : {
+		*(.ram3*)
+		. = ALIGN(4);
+	} >ram3
 #endif
 
 #if defined(_XSRAM)
