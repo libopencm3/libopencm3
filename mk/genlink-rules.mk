@@ -17,6 +17,6 @@
 ## along with this library.  If not, see <http://www.gnu.org/licenses/>.
 ##
 
-$(LDSCRIPT):$(OPENCM3_DIR)/ld/linker.ld.S
+$(LDSCRIPT): $(OPENCM3_DIR)/ld/linker.ld.S $(OPENCM3_DIR)/ld/devices.data
 	@printf "  GENLNK  $(DEVICE)\n"
 	$(Q)$(CPP) $(ARCH_FLAGS) $(shell gawk -v PAT="$(DEVICE)" -v MODE="DEFS" -f $(OPENCM3_DIR)/scripts/genlink.awk $(OPENCM3_DIR)/ld/devices.data 2>/dev/null) -P -E $< > $@
