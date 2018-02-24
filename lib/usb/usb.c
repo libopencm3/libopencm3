@@ -36,6 +36,7 @@ LGPL License Terms @ref lgpl_license
 /**@{*/
 
 #include <string.h>
+#include <assert.h>
 #include <libopencm3/usb/usbd.h>
 #include "usb_private.h"
 
@@ -46,6 +47,9 @@ usbd_device *usbd_init(const usbd_driver *driver,
 		       uint8_t *control_buffer, uint16_t control_buffer_size)
 {
 	usbd_device *usbd_dev;
+	assert( ((uintptr_t)dev & 3) == 0);
+	assert( ((uintptr_t)conf & 3) == 0);
+	assert( ((uintptr_t)control_buffer & 3) == 0);
 
 	usbd_dev = driver->init();
 
