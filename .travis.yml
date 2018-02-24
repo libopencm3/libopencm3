@@ -1,5 +1,7 @@
 language: c
-script: make
+script:
+  - make
+  - make -C tests/gadget-zero
 
 addons:
   apt:
