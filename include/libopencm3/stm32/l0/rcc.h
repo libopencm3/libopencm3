@@ -687,6 +687,7 @@ void rcc_set_hsi48_source_pll(void);
 void rcc_set_sysclk_source(enum rcc_osc osc);
 void rcc_set_pll_multiplier(uint32_t factor);
 void rcc_set_pll_divider(uint32_t factor);
+void rcc_set_pll_source(uint32_t pllsrc);
 void rcc_set_ppre2(uint32_t ppre2);
 void rcc_set_ppre1(uint32_t ppre1);
 void rcc_set_hpre(uint32_t hpre);
