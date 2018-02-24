@@ -33,7 +33,7 @@
 
 #include <libopencm3/ethernet/mac.h>
 #include <libopencm3/ethernet/phy.h>
-#include <libopencm3/ethernet/phy_ksz8051mll.h>
+#include <libopencm3/ethernet/phy_ksz80x1.h>
 
 
 /**@{*/
@@ -48,7 +48,7 @@
  */
 enum phy_status phy_link_status(uint8_t phy)
 {
-	return eth_smi_read(phy, PHY_REG_CR1) & 0x07;
+	return eth_smi_read(phy, KSZ80X1_CR1) & 0x07;
 }
 
 /*---------------------------------------------------------------------------*/

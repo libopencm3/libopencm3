@@ -129,9 +129,8 @@
 #define KSZ80X1_AFECTRL4_10TE			(1 << 4) /* ----------KL */
 
 /* KSZ80X1_MIICTRL ----------------------------------------------------------*/
-
-#define KSZ8051_MIICTRL_100MRESTORE		(1 << 7) /* ---DE------ */
-#define KSZ8051_MIICTRL_100MRESTORE		(1 << 6) /* ---DE------ */
+#define KSZ8051_MIICTRL_PREAM_RESTORE_100M		(1 << 7) /* ---DE------ */
+#define KSZ8051_MIICTRL_PREAM_RESTORE_10M		(1 << 6) /* ---DE------ */
 
 /* KSZ80X1_RXERCTR ----------------------------------------------------------*/
 
@@ -204,7 +203,7 @@
 
 /* KSZ80X1_CR1 --------------------------------------------------------------*/
 
-/* family set 1 */
+/* family set 1, "8041" when conflicts arise */
 
 #define KSZ80X1_CR1_LEDMODE			(3 << 14) /* A-CDE------- */
 #define KSZ80X1_CR1_LEDMODE_COL_FD_SPD_LNK	(0 << 14) /* A---------- */
@@ -212,9 +211,9 @@
 #define KSZ80X1_CR1_LEDMODE_ACT_FD_100_10	(2 << 14) /* A---------- */
 #define KSZ80X1_CR1_LEDMODE_SPD_LNK		(0 << 14) /* --CDE------ */
 #define KSZ80X1_CR1_LEDMODE_ACT_LNK		(1 << 14) /* --CDE------ */
-#define KSZ80X1_CR1_POLARITY			(1 << 13) /* A-CDE------ */
+#define KSZ8041_CR1_POLARITY			(1 << 13) /* A-CDE------ */
 #define KSZ80X1_CR1_FEFAULT			(1 << 12) /* A---E------ */
-#define KSZ80X1_CR1_MDIX			(1 << 11) /* A-CDE------ */
+#define KSZ8041_CR1_MDIX			(1 << 11) /* A-CDE------ */
 #define KSZ80X1_CR1_LOOPBACK			(1 << 7)  /* A-CDE------ */
 
 /* family set 2 */
