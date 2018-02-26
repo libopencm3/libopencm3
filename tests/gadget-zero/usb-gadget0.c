@@ -48,14 +48,19 @@
 #define GZ_REQ_PRODUCE		2
 #define GZ_REQ_SET_ALIGNED	3
 #define GZ_REQ_SET_UNALIGNED	4
+#define GZ_REQ_RXDELAYED_TEST	5
 #define INTEL_COMPLIANCE_WRITE 0x5b
 #define INTEL_COMPLIANCE_READ 0x5c
 
 /* USB configurations */
 #define GZ_CFG_SOURCESINK	2
 #define GZ_CFG_LOOPBACK		3
+#define GZ_CFG_RXDELAYED		4
 
 #define BULK_EP_MAXPACKET	64
+
+#define RXDELAYED_EP_IN	0x82
+#define RXDELAYED_EP_OUT 0x01
 
 static const struct usb_device_descriptor dev = {
 	.bLength = USB_DT_DEVICE_SIZE,
@@ -76,7 +81,7 @@ static const struct usb_device_descriptor dev = {
 	.iManufacturer = 1,
 	.iProduct = 2,
 	.iSerialNumber = 3,
-	.bNumConfigurations = 2,
+	.bNumConfigurations = 3,
 };
 
 static const struct usb_endpoint_descriptor endp_bulk[] = {
@@ -115,7 +120,20 @@ static const struct usb_interface_descriptor iface_loopback[] = {
 	{
 		.bLength = USB_DT_INTERFACE_SIZE,
 		.bDescriptorType = USB_DT_INTERFACE,
-		.bInterfaceNumber = 0, /* still 0, as it's a different config...? */
+		.bInterfaceNumber = 0,
+		.bAlternateSetting = 0,
+		.bNumEndpoints = 2,
+		.bInterfaceClass = USB_CLASS_VENDOR,
+		.iInterface = 0,
+		.endpoint = endp_bulk,
+	}
+};
+
+static const struct usb_interface_descriptor iface_rxdelayed[] = {
+	{
+		.bLength = USB_DT_INTERFACE_SIZE,
+		.bDescriptorType = USB_DT_INTERFACE,
+		.bInterfaceNumber = 0,
 		.bAlternateSetting = 0,
 		.bNumEndpoints = 2,
 		.bInterfaceClass = USB_CLASS_VENDOR,
@@ -135,6 +153,13 @@ static const struct usb_interface ifaces_loopback[] = {
 	{
 		.num_altsetting = 1,
 		.altsetting = iface_loopback,
+	}
+};
+
+static const struct usb_interface ifaces_rxdelayed[] = {
+	{
+		.num_altsetting = 1,
+		.altsetting = iface_rxdelayed,
 	}
 };
 
@@ -160,16 +185,29 @@ static const struct usb_config_descriptor config[] = {
 		.bmAttributes = 0x80,
 		.bMaxPower = 0x32,
 		.interface = ifaces_loopback,
+	},
+	{
+		.bLength = USB_DT_CONFIGURATION_SIZE,
+		.bDescriptorType = USB_DT_CONFIGURATION,
+		.wTotalLength = 0,
+		.bNumInterfaces = 1,
+		.bConfigurationValue = GZ_CFG_RXDELAYED,
+		.iConfiguration = 6, /* string index */
+		.bmAttributes = 0x80,
+		.bMaxPower = 0x32,
+		.interface = ifaces_rxdelayed,
 	}
 };
 
+#define USB_NUM_STRINGS 6
 static char serial[] = "0123456789.0123456789.0123456789";
-static const char *usb_strings[] = {
+static const char *usb_strings[USB_NUM_STRINGS] = {
 	"libopencm3",
 	"Gadget-Zero",
 	serial,
 	"source and sink data",
-	"loop input to output"
+	"loop input to output",
+	"delayed RX processing"
 };
 
 /* Buffer to be used for control requests. */
@@ -181,10 +219,12 @@ static struct {
 	uint8_t pattern;
 	int pattern_counter;
 	int test_unaligned;	/* If 0 (default), use 16-bit aligned buffers. This should not be declared as bool */
+	int test_rxdelayed;	/* flag for GZ_CFG_RXDELAYED test */
 } state = {
 	.pattern = 0,
 	.pattern_counter = 0,
 	.test_unaligned = 0,
+	.test_rxdelayed = 0,
 };
 
 static void gadget0_ss_out_cb(usbd_device *usbd_dev, uint8_t ep)
@@ -246,11 +286,41 @@ static void gadget0_rx_cb_loopback(usbd_device *usbd_dev, uint8_t ep)
 	/* TODO - unimplemented - consult linux source on proper behaviour */
 }
 
+
 static void gadget0_tx_cb_loopback(usbd_device *usbd_dev, uint8_t ep)
 {
 	(void) usbd_dev;
 	ER_DPRINTF("loop tx %x\n", ep);
 	/* TODO - unimplemented - consult linux source on proper behaviour */
+}
+
+
+static void gadget0_rxdelayed_cb(usbd_device *usbd_dev, uint8_t ep)
+{
+	(void) usbd_dev;
+	(void) ep;
+	/* leave the packet in the EP buffer, but notify control */
+	state.test_rxdelayed = 1;
+}
+
+static void gadget0_rxdelayed_test(usbd_device *usbd_dev) {
+	/* The control request was a maximum length packet; now we
+	 * send back the data to the host for comparison.
+	 */
+
+	uint8_t rxdata[BULK_EP_MAXPACKET];
+	uint16_t rlen;
+
+	if (!state.test_rxdelayed) {
+		//abort if there was no data pending
+		return;
+	}
+	state.test_rxdelayed = 0;
+
+	/* read packet and resend */
+	rlen = usbd_ep_read_packet(usbd_dev, RXDELAYED_EP_OUT, rxdata, BULK_EP_MAXPACKET);
+	usbd_ep_write_packet(usbd_dev, RXDELAYED_EP_IN, rxdata, rlen);
+	return;
 }
 
 static int gadget0_control_request(usbd_device *usbd_dev,
@@ -259,7 +329,6 @@ static int gadget0_control_request(usbd_device *usbd_dev,
 	uint16_t *len,
 	usbd_control_complete_callback *complete)
 {
-	(void) usbd_dev;
 	(void) complete;
 	(void) buf;
 	(void) len;
@@ -298,6 +367,9 @@ static int gadget0_control_request(usbd_device *usbd_dev,
 			*len = req->wValue;
 		}
 		return USBD_REQ_HANDLED;
+	case GZ_REQ_RXDELAYED_TEST:
+		gadget0_rxdelayed_test(usbd_dev);
+		return USBD_REQ_HANDLED;
 	}
 	return USBD_REQ_NEXT_CALLBACK;
 }
@@ -326,6 +398,18 @@ static void gadget0_set_config(usbd_device *usbd_dev, uint16_t wValue)
 		usbd_ep_setup(usbd_dev, 0x82, USB_ENDPOINT_ATTR_BULK, BULK_EP_MAXPACKET,
 			gadget0_tx_cb_loopback);
 		break;
+	case GZ_CFG_RXDELAYED:
+		usbd_ep_setup(usbd_dev, RXDELAYED_EP_OUT, USB_ENDPOINT_ATTR_BULK, BULK_EP_MAXPACKET,
+			gadget0_rxdelayed_cb);
+		usbd_ep_setup(usbd_dev, RXDELAYED_EP_IN, USB_ENDPOINT_ATTR_BULK, BULK_EP_MAXPACKET,
+			NULL);
+		usbd_register_control_callback(
+			usbd_dev,
+			USB_REQ_TYPE_VENDOR | USB_REQ_TYPE_INTERFACE,
+			USB_REQ_TYPE_TYPE | USB_REQ_TYPE_RECIPIENT,
+			gadget0_control_request);
+		state.test_rxdelayed = 0;
+		break;
 	default:
 		ER_DPRINTF("set configuration unknown: %d\n", wValue);
 	}
@@ -340,7 +424,7 @@ usbd_device *gadget0_init(const usbd_driver *driver, const char *userserial)
 		usb_strings[2] = userserial;
 	}
 	our_dev = usbd_init(driver, &dev, config,
-		usb_strings, 5,
+		usb_strings, USB_NUM_STRINGS,
 		usbd_control_buffer, sizeof(usbd_control_buffer));
 
 	usbd_register_set_config_callback(our_dev, gadget0_set_config);

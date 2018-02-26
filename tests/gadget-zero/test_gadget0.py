@@ -22,8 +22,11 @@ GZ_REQ_SET_PATTERN=1
 GZ_REQ_PRODUCE=2
 GZ_REQ_SET_ALIGNED=3
 GZ_REQ_SET_UNALIGNED=4
+GZ_REQ_RXDELAYED_TEST=5
 GZ_REQ_WRITE_LOOPBACK_BUFFER=10
 GZ_REQ_READ_LOOPBACK_BUFFER=11
+
+GZ_CFG_RXDELAYED=4
 
 class find_by_serial(object):
     def __init__(self, serial):
@@ -45,7 +48,7 @@ class TestGadget0(unittest.TestCase):
         uu.dispose_resources(self.dev)
 
     def test_sanity(self):
-        self.assertEqual(2, self.dev.bNumConfigurations, "Should have 2 configs")
+        self.assertEqual(3, self.dev.bNumConfigurations, "Should have 3 configs")
 
     def test_config_switch_2(self):
         """
@@ -381,6 +384,63 @@ class TestUnaligned(unittest.TestCase):
     def test_unaligned(self):
         self.set_unaligned()
         self.do_readwrite()
+
+
+class TestDelayedRX(unittest.TestCase):
+    """
+    Sends a bulk transfer; target leaves it there until a max-length control transfer is sent.
+    Then, target echoes the first bulk transfer.
+    The control data must not overflow into and corrupt the OUT buffer contents
+    https://github.com/libopencm3/libopencm3/issues/476
+    """
+
+    def setUp(self):
+        self.dev = usb.core.find(idVendor=VENDOR_ID, idProduct=PRODUCT_ID, custom_match=find_by_serial(DUT_SERIAL))
+        self.assertIsNotNone(self.dev, "Couldn't find locm3 gadget0 device")
+
+        self.cfg = uu.find_descriptor(self.dev, bConfigurationValue=GZ_CFG_RXDELAYED)
+        self.assertIsNotNone(self.cfg, "RXDELAYED config should exist")
+        self.dev.set_configuration(self.cfg);
+        self.req = uu.CTRL_OUT | uu.CTRL_TYPE_VENDOR | uu.CTRL_RECIPIENT_INTERFACE
+        self.intf = self.cfg[(0, 0)]
+        # heh, kinda gross...
+        self.ep_out = [ep for ep in self.intf if uu.endpoint_direction(ep.bEndpointAddress) == uu.ENDPOINT_OUT][0]
+        self.ep_in = [ep for ep in self.intf if uu.endpoint_direction(ep.bEndpointAddress) == uu.ENDPOINT_IN][0]
+
+    def tearDown(self):
+        uu.dispose_resources(self.dev)
+
+    def request_echo(self):
+        """
+        Send max length control request
+        """
+        data = [0xaa for x in range(int(self.dev.bMaxPacketSize0))]
+        self.dev.ctrl_transfer(self.req, GZ_REQ_RXDELAYED_TEST, 0, 0, data)
+
+    def send_bulkdata(self):
+        """
+        transfer known data to bulk EP. No ZLP to keep things simple
+        """
+        data = [0x55 for x in range(int(self.ep_out.wMaxPacketSize - 1))]
+        written = self.dev.write(self.ep_out, data)
+        self.assertEqual(written, len(data), "Incomplete write")
+
+    def readcheck_bulkdata(self):
+        """
+        read back and validate
+        """
+        read_size = self.ep_in.wMaxPacketSize - 1
+        data = self.dev.read(self.ep_in, read_size)
+        self.assertEqual(len(data), read_size, "Incomplete read")
+
+        wanted = array.array('B', [0x55 for x in range(int(self.ep_out.wMaxPacketSize - 1))])
+        self.assertEqual(data, wanted, "Corrupt data received !")
+
+    def test_delayed_rx(self):
+        self.send_bulkdata()
+        self.request_echo()
+        self.readcheck_bulkdata()
+
 
 
 if __name__ == "__main__":
