@@ -336,6 +336,19 @@ void rcc_set_pll_divider(uint32_t factor)
 	RCC_CFGR = reg | (factor << RCC_CFGR_PLLDIV_SHIFT);
 }
 
+/**
+ * Set the pll source.
+ * @param pllsrc RCC_CFGR_PLLSRC_HSI16_CLK or RCC_CFGR_PLLSRC_HSE_CLK
+ */
+void rcc_set_pll_source(uint32_t pllsrc)
+{
+	uint32_t reg32;
+
+	reg32 = RCC_CFGR;
+	reg32 &= ~(RCC_CFGR_PLLSRC_HSE_CLK << 16);
+	RCC_CFGR = (reg32 | (pllsrc<<16));
+}
+
 /*---------------------------------------------------------------------------*/
 /** @brief RCC Set the APB1 Prescale Factor.
  *

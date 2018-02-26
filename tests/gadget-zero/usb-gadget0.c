@@ -253,7 +253,7 @@ static void gadget0_tx_cb_loopback(usbd_device *usbd_dev, uint8_t ep)
 	/* TODO - unimplemented - consult linux source on proper behaviour */
 }
 
-static int gadget0_control_request(usbd_device *usbd_dev,
+static enum usbd_request_return_codes gadget0_control_request(usbd_device *usbd_dev,
 	struct usb_setup_data *req,
 	uint8_t **buf,
 	uint16_t *len,

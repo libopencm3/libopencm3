@@ -19,12 +19,10 @@
 
 #include <string.h>
 #include <libopencm3/cm3/common.h>
-#include <libopencm3/stm32/tools.h>
-#include <libopencm3/stm32/otg_fs.h>
-#include <libopencm3/stm32/otg_hs.h>
 #include <libopencm3/usb/usbd.h>
+#include <libopencm3/usb/dwc/otg_common.h>
 #include "usb_private.h"
-#include "usb_fx07_common.h"
+#include "usb_dwc_common.h"
 
 /* The FS core and the HS core have the same register layout.
  * As the code can be used on both cores, the registers offset is modified
@@ -32,12 +30,12 @@
 #define dev_base_address (usbd_dev->driver->base_address)
 #define REBASE(x)        MMIO32((x) + (dev_base_address))
 
-void stm32fx07_set_address(usbd_device *usbd_dev, uint8_t addr)
+void dwc_set_address(usbd_device *usbd_dev, uint8_t addr)
 {
 	REBASE(OTG_DCFG) = (REBASE(OTG_DCFG) & ~OTG_DCFG_DAD) | (addr << 4);
 }
 
-void stm32fx07_ep_setup(usbd_device *usbd_dev, uint8_t addr, uint8_t type,
+void dwc_ep_setup(usbd_device *usbd_dev, uint8_t addr, uint8_t type,
 			uint16_t max_size,
 			void (*callback) (usbd_device *usbd_dev, uint8_t ep))
 {
@@ -114,7 +112,7 @@ void stm32fx07_ep_setup(usbd_device *usbd_dev, uint8_t addr, uint8_t type,
 	}
 }
 
-void stm32fx07_endpoints_reset(usbd_device *usbd_dev)
+void dwc_endpoints_reset(usbd_device *usbd_dev)
 {
 	int i;
 	/* The core resets the endpoints automatically on reset. */
@@ -135,7 +133,7 @@ void stm32fx07_endpoints_reset(usbd_device *usbd_dev)
 			      | OTG_GRSTCTL_RXFFLSH;
 }
 
-void stm32fx07_ep_stall_set(usbd_device *usbd_dev, uint8_t addr, uint8_t stall)
+void dwc_ep_stall_set(usbd_device *usbd_dev, uint8_t addr, uint8_t stall)
 {
 	if (addr == 0) {
 		if (stall) {
@@ -164,7 +162,7 @@ void stm32fx07_ep_stall_set(usbd_device *usbd_dev, uint8_t addr, uint8_t stall)
 	}
 }
 
-uint8_t stm32fx07_ep_stall_get(usbd_device *usbd_dev, uint8_t addr)
+uint8_t dwc_ep_stall_get(usbd_device *usbd_dev, uint8_t addr)
 {
 	/* Return non-zero if STALL set. */
 	if (addr & 0x80) {
@@ -176,7 +174,7 @@ uint8_t stm32fx07_ep_stall_get(usbd_device *usbd_dev, uint8_t addr)
 	}
 }
 
-void stm32fx07_ep_nak_set(usbd_device *usbd_dev, uint8_t addr, uint8_t nak)
+void dwc_ep_nak_set(usbd_device *usbd_dev, uint8_t addr, uint8_t nak)
 {
 	/* It does not make sense to force NAK on IN endpoints. */
 	if (addr & 0x80) {
@@ -192,10 +190,14 @@ void stm32fx07_ep_nak_set(usbd_device *usbd_dev, uint8_t addr, uint8_t nak)
 	}
 }
 
-uint16_t stm32fx07_ep_write_packet(usbd_device *usbd_dev, uint8_t addr,
+uint16_t dwc_ep_write_packet(usbd_device *usbd_dev, uint8_t addr,
 			      const void *buf, uint16_t len)
 {
 	const uint32_t *buf32 = buf;
+#if defined(__ARM_ARCH_6M__)
+	const uint8_t *buf8 = buf;
+	uint32_t word32;
+#endif /* defined(__ARM_ARCH_6M__) */
 	int i;
 
 	addr &= 0x7F;
@@ -210,19 +212,41 @@ uint16_t stm32fx07_ep_write_packet(usbd_device *usbd_dev, uint8_t addr,
 	REBASE(OTG_DIEPCTL(addr)) |= OTG_DIEPCTL0_EPENA |
 				     OTG_DIEPCTL0_CNAK;
 
-	/* Copy buffer to endpoint FIFO, note - memcpy does not work */
+	/* Copy buffer to endpoint FIFO, note - memcpy does not work.
+	 * ARMv7M supports non-word-aligned accesses, ARMv6M does not. */
+#if defined(__ARM_ARCH_7M__) || defined(__ARM_ARCH_7EM__)
 	for (i = len; i > 0; i -= 4) {
 		REBASE(OTG_FIFO(addr)) = *buf32++;
 	}
+#endif /* defined(__ARM_ARCH_7M__) || defined(__ARM_ARCH_7EM__) */
+
+#if defined(__ARM_ARCH_6M__)
+	/* Take care of word-aligned and non-word-aligned buffers */
+	if (((uint32_t)buf8 & 0x3) == 0) {
+		for (i = len; i > 0; i -= 4) {
+			REBASE(OTG_FIFO(addr)) = *buf32++;
+		}
+	} else {
+		for (i = len; i > 0; i -= 4) {
+			memcpy(&word32, buf8, 4);
+			REBASE(OTG_FIFO(addr)) = word32;
+			buf8 += 4;
+		}
+	}
+#endif /* defined(__ARM_ARCH_6M__) */
 
 	return len;
 }
 
-uint16_t stm32fx07_ep_read_packet(usbd_device *usbd_dev, uint8_t addr,
+uint16_t dwc_ep_read_packet(usbd_device *usbd_dev, uint8_t addr,
 				  void *buf, uint16_t len)
 {
 	int i;
 	uint32_t *buf32 = buf;
+#if defined(__ARM_ARCH_6M__)
+	uint8_t *buf8 = buf;
+	uint32_t word32;
+#endif /* defined(__ARM_ARCH_6M__) */
 	uint32_t extra;
 
 	/* We do not need to know the endpoint address since there is only one
@@ -231,10 +255,32 @@ uint16_t stm32fx07_ep_read_packet(usbd_device *usbd_dev, uint8_t addr,
 	(void) addr;
 	len = MIN(len, usbd_dev->rxbcnt);
 
+	/* ARMv7M supports non-word-aligned accesses, ARMv6M does not. */
+#if defined(__ARM_ARCH_7M__) || defined(__ARM_ARCH_7EM__)
 	for (i = len; i >= 4; i -= 4) {
 		*buf32++ = REBASE(OTG_FIFO(0));
 		usbd_dev->rxbcnt -= 4;
 	}
+#endif /* defined(__ARM_ARCH_7M__) || defined(__ARM_ARCH_7EM__) */
+
+#if defined(__ARM_ARCH_6M__)
+	/* Take care of word-aligned and non-word-aligned buffers */
+	if (((uint32_t)buf8 & 0x3) == 0) {
+		for (i = len; i >= 4; i -= 4) {
+			*buf32++ = REBASE(OTG_FIFO(0));
+			usbd_dev->rxbcnt -= 4;
+		}
+	} else {
+		for (i = len; i >= 4; i -= 4) {
+			word32 = REBASE(OTG_FIFO(0));
+			memcpy(buf8, &word32, 4);
+			usbd_dev->rxbcnt -= 4;
+			buf8 += 4;
+		}
+		/* buf32 needs to be updated as it is used for extra */
+		buf32 = (uint32_t *)buf8;
+	}
+#endif /* defined(__ARM_ARCH_6M__) */
 
 	if (i) {
 		extra = REBASE(OTG_FIFO(0));
@@ -251,7 +297,7 @@ uint16_t stm32fx07_ep_read_packet(usbd_device *usbd_dev, uint8_t addr,
 	return len;
 }
 
-static void stm32fx07_flush_txfifo(usbd_device *usbd_dev, int ep)
+static void dwc_flush_txfifo(usbd_device *usbd_dev, int ep)
 {
 	uint32_t fifo;
 	/* set IN endpoint NAK */
@@ -275,7 +321,7 @@ static void stm32fx07_flush_txfifo(usbd_device *usbd_dev, int ep)
 	}
 }
 
-void stm32fx07_poll(usbd_device *usbd_dev)
+void dwc_poll(usbd_device *usbd_dev)
 {
 	/* Read interrupt status register. */
 	uint32_t intsts = REBASE(OTG_GINTSTS);
@@ -338,10 +384,10 @@ void stm32fx07_poll(usbd_device *usbd_dev)
 			/* SETUP received but there is still something stuck
 			 * in the transmit fifo.  Flush it.
 			 */
-			stm32fx07_flush_txfifo(usbd_dev, ep);
+			dwc_flush_txfifo(usbd_dev, ep);
 		}
 
-		/* Save packet size for stm32f107_ep_read_packet(). */
+		/* Save packet size for dwc_ep_read_packet(). */
 		usbd_dev->rxbcnt = (rxstsp & OTG_GRXSTSP_BCNT_MASK) >> 4;
 
 		if (usbd_dev->user_callback_ctr[ep][type]) {
@@ -385,7 +431,7 @@ void stm32fx07_poll(usbd_device *usbd_dev)
 	}
 }
 
-void stm32fx07_disconnect(usbd_device *usbd_dev, bool disconnected)
+void dwc_disconnect(usbd_device *usbd_dev, bool disconnected)
 {
 	if (disconnected) {
 		REBASE(OTG_DCTL) |= OTG_DCTL_SDIS;

@@ -594,6 +594,21 @@ static void msc_data_rx_cb(usbd_device *usbd_dev, uint8_t ep)
 				trans->current_block++;
 			}
 		}
+
+		/* Fix "writes aren't acknowledged" bug on Linux (PR #409) */
+		if (false == trans->csw_valid) {
+			scsi_command(ms, trans, EVENT_NEED_STATUS);
+			trans->csw_valid = true;
+		}
+		left = sizeof(struct usb_msc_csw) - trans->csw_sent;
+		if (0 < left) {
+			max_len = MIN(ms->ep_out_size, left);
+			p = &trans->csw.buf[trans->csw_sent];
+			len = usbd_ep_write_packet(usbd_dev, ms->ep_in, p,
+						   max_len);
+			trans->csw_sent += len;
+		}
+
 	} else if (trans->byte_count < trans->bytes_to_write) {
 		if (0 < trans->block_count) {
 			if ((0 == trans->byte_count) && (NULL != ms->lock)) {
@@ -718,10 +733,10 @@ static void msc_data_tx_cb(usbd_device *usbd_dev, uint8_t ep)
 /** @brief Handle various control requests related to the msc storage
  *	   interface.
  */
-static int msc_control_request(usbd_device *usbd_dev,
-			       struct usb_setup_data *req, uint8_t **buf,
-			       uint16_t *len,
-			       usbd_control_complete_callback *complete)
+static enum usbd_request_return_codes
+msc_control_request(usbd_device *usbd_dev,
+		    struct usb_setup_data *req, uint8_t **buf, uint16_t *len,
+		    usbd_control_complete_callback *complete)
 {
 	(void)complete;
 	(void)usbd_dev;

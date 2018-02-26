@@ -38,4 +38,7 @@
 
 #include <libopencm3/stm32/common/syscfg_common_l1f234.h>
 
+/** Enable internal USB pullup iff USB periph is not powered down */
+#define SYSCFG_PMC_USB_PU			(1<<0)
+
 #endif
