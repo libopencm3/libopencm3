@@ -141,6 +141,7 @@ void _usbd_reset(usbd_device *usbd_dev);
 struct _usbd_driver {
 	usbd_device *(*init)(void);
 	void (*set_address)(usbd_device *usbd_dev, uint8_t addr);
+	uint16_t (*get_fnsof)(usbd_device *usbd_device);
 	void (*ep_setup)(usbd_device *usbd_dev, uint8_t addr, uint8_t type,
 			 uint16_t max_size, usbd_endpoint_callback cb);
 	void (*ep_reset)(usbd_device *usbd_dev);
@@ -152,6 +153,7 @@ struct _usbd_driver {
 				    const void *buf, uint16_t len);
 	uint16_t (*ep_read_packet)(usbd_device *usbd_dev, uint8_t addr,
 				   void *buf, uint16_t len);
+	void (*ep_set_eonum)(usbd_device *usbd_dev, uint8_t addr, uint8_t value);
 	void (*poll)(usbd_device *usbd_dev);
 	void (*disconnect)(usbd_device *usbd_dev, bool disconnected);
 	uint32_t base_address;

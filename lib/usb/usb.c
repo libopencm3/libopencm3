@@ -72,6 +72,11 @@ usbd_device *usbd_init(const usbd_driver *driver,
 	return usbd_dev;
 }
 
+uint16_t usbd_get_fnsof(usbd_device *usbd_dev)
+{
+	return usbd_dev->driver->get_fnsof(usbd_dev);
+}
+
 void usbd_register_reset_callback(usbd_device *usbd_dev, void (*callback)(void))
 {
 	usbd_dev->user_callback_reset = callback;
@@ -151,6 +156,11 @@ uint8_t usbd_ep_stall_get(usbd_device *usbd_dev, uint8_t addr)
 void usbd_ep_nak_set(usbd_device *usbd_dev, uint8_t addr, uint8_t nak)
 {
 	usbd_dev->driver->ep_nak_set(usbd_dev, addr, nak);
+}
+
+void usbd_ep_set_eonum(usbd_device *usbd_dev, uint8_t addr, uint8_t value)
+{
+	usbd_dev->driver->ep_set_eonum(usbd_dev, addr, value);
 }
 
 /**@}*/

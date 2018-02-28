@@ -37,6 +37,14 @@ void stm32fx07_set_address(usbd_device *usbd_dev, uint8_t addr)
 	REBASE(OTG_DCFG) = (REBASE(OTG_DCFG) & ~OTG_DCFG_DAD) | (addr << 4);
 }
 
+uint16_t stm32fx07_get_fnsof(usbd_device *usbd_dev)
+{
+	/*
+	 *  FNSOF: Frame number of the received SOF
+	 */
+	return (REBASE(OTG_DSTS) >> 8) & 0x3fff;
+}
+
 void stm32fx07_ep_setup(usbd_device *usbd_dev, uint8_t addr, uint8_t type,
 			uint16_t max_size,
 			void (*callback) (usbd_device *usbd_dev, uint8_t ep))
@@ -272,6 +280,20 @@ static void stm32fx07_flush_txfifo(usbd_device *usbd_dev, int ep)
 	REBASE(OTG_DIEPTSIZ(ep)) = 0;
 	while ((REBASE(OTG_GRSTCTL) & OTG_GRSTCTL_TXFFLSH)) {
 		/* idle */
+	}
+}
+
+void stm32fx07_set_eonum(usbd_device *usbd_dev, uint8_t addr,
+			 uint8_t value)
+{
+	int bit;
+
+	if (addr & 0x80) {
+		bit = (value & 1) ? OTG_DIEPCTLX_SODDFRM : OTG_DIEPCTLX_SEVNFRM;
+		REBASE(OTG_DIEPCTL(addr & 0x7f)) |= bit;
+	} else {
+		bit = (value & 1) ? OTG_DOEPCTLX_SODDFRM : OTG_DOEPCTLX_SEVNFRM;
+		REBASE(OTG_DOEPCTL(addr)) |= bit;
 	}
 }
 

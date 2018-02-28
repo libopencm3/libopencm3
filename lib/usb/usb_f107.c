@@ -36,6 +36,7 @@ static struct _usbd_device usbd_dev;
 const struct _usbd_driver stm32f107_usb_driver = {
 	.init = stm32f107_usbd_init,
 	.set_address = stm32fx07_set_address,
+	.get_fnsof = stm32fx07_get_fnsof,
 	.ep_setup = stm32fx07_ep_setup,
 	.ep_reset = stm32fx07_endpoints_reset,
 	.ep_stall_set = stm32fx07_ep_stall_set,
@@ -43,6 +44,7 @@ const struct _usbd_driver stm32f107_usb_driver = {
 	.ep_nak_set = stm32fx07_ep_nak_set,
 	.ep_write_packet = stm32fx07_ep_write_packet,
 	.ep_read_packet = stm32fx07_ep_read_packet,
+	.ep_set_eonum = stm32fx07_set_eonum,
 	.poll = stm32fx07_poll,
 	.disconnect = stm32fx07_disconnect,
 	.base_address = USB_OTG_FS_BASE,
