@@ -20,11 +20,11 @@
 #include <string.h>
 #include <libopencm3/cm3/common.h>
 #include <libopencm3/stm32/tools.h>
-#include <libopencm3/stm32/otg_fs.h>
 #include <libopencm3/stm32/rcc.h>
 #include <libopencm3/usb/usbd.h>
+#include <libopencm3/usb/dwc/otg_fs.h>
 #include "usb_private.h"
-#include "usb_fx07_common.h"
+#include "usb_dwc_common.h"
 
 /* Receive FIFO size in 32-bit words. */
 #define RX_FIFO_SIZE 128
@@ -35,16 +35,16 @@ static struct _usbd_device usbd_dev;
 
 const struct _usbd_driver stm32f107_usb_driver = {
 	.init = stm32f107_usbd_init,
-	.set_address = stm32fx07_set_address,
-	.ep_setup = stm32fx07_ep_setup,
-	.ep_reset = stm32fx07_endpoints_reset,
-	.ep_stall_set = stm32fx07_ep_stall_set,
-	.ep_stall_get = stm32fx07_ep_stall_get,
-	.ep_nak_set = stm32fx07_ep_nak_set,
-	.ep_write_packet = stm32fx07_ep_write_packet,
-	.ep_read_packet = stm32fx07_ep_read_packet,
-	.poll = stm32fx07_poll,
-	.disconnect = stm32fx07_disconnect,
+	.set_address = dwc_set_address,
+	.ep_setup = dwc_ep_setup,
+	.ep_reset = dwc_endpoints_reset,
+	.ep_stall_set = dwc_ep_stall_set,
+	.ep_stall_get = dwc_ep_stall_get,
+	.ep_nak_set = dwc_ep_nak_set,
+	.ep_write_packet = dwc_ep_write_packet,
+	.ep_read_packet = dwc_ep_read_packet,
+	.poll = dwc_poll,
+	.disconnect = dwc_disconnect,
 	.base_address = USB_OTG_FS_BASE,
 	.set_address_before_status = 1,
 	.rx_fifo_size = RX_FIFO_SIZE,

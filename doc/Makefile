@@ -5,7 +5,7 @@
 
 ARCHS := stm32f0 stm32f1 stm32f2 stm32f3 stm32f4 stm32f7
 ARCHS += stm32l0 stm32l1 stm32l4
-ARCHS += efm32g efm32gg efm32lg efm32tg
+ARCHS += efm32g efm32gg efm32hg efm32lg efm32tg
 ARCHS += lm3s lm4f
 ARCHS += lpc13xx lpc17xx lpc43xx
 ARCHS += sam3a sam3n sam3s sam3u sam3x
@@ -35,6 +35,7 @@ rebuildsources:
 	../scripts/gendoxylist ../lib/stm32/l4 stm32l4
 	../scripts/gendoxylist ../lib/efm32/g efm32g
 	../scripts/gendoxylist ../lib/efm32/gg efm32gg
+	../scripts/gendoxylist ../lib/efm32/hg efm32hg
 	../scripts/gendoxylist ../lib/efm32/lg efm32lg
 	../scripts/gendoxylist ../lib/efm32/tg efm32tg
 	../scripts/gendoxylist ../lib/lm3s lm3s

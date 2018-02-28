@@ -17,12 +17,22 @@
  * along with this library.  If not, see <http://www.gnu.org/licenses/>.
  */
 
-#ifndef LIBOPENCM3_OTG_HS_H
-#define LIBOPENCM3_OTG_HS_H
+/*
+ * This file covers definitions for DesignWare USB OTG HS peripherals.
+ */
+
+#ifndef LIBOPENCM3_USB_DWC_OTG_HS_H
+#define LIBOPENCM3_USB_DWC_OTG_HS_H
 
 #include <libopencm3/cm3/common.h>
-#include <libopencm3/stm32/memorymap.h>
-#include <libopencm3/stm32/otg_common.h>
+#include <libopencm3/usb/dwc/otg_common.h>
+
+/* Memory map is required for USB_OTG_HS_BASE address */
+#if defined(STM32F2) || defined(STM32F4)
+#	include <libopencm3/stm32/memorymap.h>
+#else
+#	error "device family not supported by dwc/otg_hs."
+#endif
 
 /* OTG_HS specific registers */
 
