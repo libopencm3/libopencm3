@@ -153,6 +153,14 @@
 #define LTDC_GCR_HSPOL_ACTIVE_LOW  (0<<31)
 #define LTDC_GCR_HSPOL_ACTIVE_HIGH (1<<31)
 
+/* GCR - register bit defines (no semantics) */
+#define	LTDC_GCR_HSPOL			(1 << 31)
+#define LTDC_GCR_VSPOL			(1 << 30)
+#define LTDC_GCR_DEPOL			(1 << 29)
+#define LTDC_GCR_PCPOL			(1 << 28)
+#define LTDC_GCR_DITHER			(1 << 16)
+#define LTDC_GCR_LTDCEN			(1 << 0)
+
 /* --- LTDC_SRCR values ---------------------------------------------------- */
 
 /* Vertical Blanking Reload */
