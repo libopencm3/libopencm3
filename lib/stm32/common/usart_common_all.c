@@ -48,7 +48,13 @@ usart_reg_base
 
 void usart_set_baudrate(uint32_t usart, uint32_t baud)
 {
-	uint32_t clock = rcc_apb1_frequency;
+#ifdef LPUART1
+	uint64_t clock;
+#else
+	uint32_t clock;
+#endif
+
+	clock = rcc_apb1_frequency;
 
 #if defined USART1
 	if ((usart == USART1)
@@ -69,7 +75,14 @@ void usart_set_baudrate(uint32_t usart, uint32_t baud)
 	 * Note: We round() the value rather than floor()ing it, for more
 	 * accurate divisor selection.
 	 */
-	USART_BRR(usart) = ((2 * clock) + baud) / (2 * baud);
+	clock *= 2;
+#ifdef LPUART1
+	if (usart == LPUART1) {
+		clock *= 256;
+	}
+#endif
+
+	USART_BRR(usart) = (clock + baud) / (2 * baud);
 }
 
 /*---------------------------------------------------------------------------*/
