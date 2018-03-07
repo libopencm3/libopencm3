@@ -16,7 +16,7 @@
         "lptim1", 
         "reserved1", 
         "tim2", 
-        "reserved2", 
+        "tim3", 
         "tim6_dac", 
         "reserved3", 
         "reserved4", 
