@@ -437,11 +437,11 @@ struct scb_exception_stack_frame {
 			      : [frameptr]"=r" (f));			\
 	} while (0)
 
-void scb_reset_system(void) __attribute__((noreturn, naked));
+void scb_reset_system(void) __attribute__((noreturn));
 
 /* Those defined only on ARMv7 and above */
 #if defined(__ARM_ARCH_7M__) || defined(__ARM_ARCH_7EM__)
-void scb_reset_core(void) __attribute__((noreturn, naked));
+void scb_reset_core(void) __attribute__((noreturn));
 void scb_set_priority_grouping(uint32_t prigroup);
 #endif
 
