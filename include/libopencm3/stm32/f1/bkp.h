@@ -1,4 +1,8 @@
-/*
+/**
+ * @defgroup bkp_defines BKP Defines
+ * @ingroup STM32F1xx_defines
+ * @brief <b>Defined Constants and Types for the Backup Registers</b>
+ *
  * This file is part of the libopencm3 project.
  *
  * Copyright (C) 2010 Thomas Otto <tommi@viadmin.org>
@@ -20,8 +24,9 @@
 #ifndef LIBOPENCM3_BKP_H
 #define LIBOPENCM3_BKP_H
 
-/* --- BKP registers ------------------------------------------------------- */
-
+/** @defgroup BKP_registers BKP Registers
+ * @ingroup bkp_defines
+@{*/
 /* Backup data register 1 (BKP_DR1) */
 #define BKP_DR1				MMIO32(BACKUP_REGS_BASE + 0x04)
 
@@ -52,13 +57,13 @@
 /* Backup data register 10 (BKP_DR10) */
 #define BKP_DR10			MMIO32(BACKUP_REGS_BASE + 0x28)
 
-/* RTC clock calibration register (BKP_RTCCR) */
+/** RTC clock calibration register (BKP_RTCCR) */
 #define BKP_RTCCR			MMIO32(BACKUP_REGS_BASE + 0x2C)
 
-/* Backup control register (BKP_CR) */
+/** Backup control register (BKP_CR) */
 #define BKP_CR				MMIO32(BACKUP_REGS_BASE + 0x30)
 
-/* Backup control/status register (BKP_CSR) */
+/** Backup control/status register (BKP_CSR) */
 #define BKP_CSR				MMIO32(BACKUP_REGS_BASE + 0x34)
 
 /* Backup data register 11 (BKP_DR11) */
@@ -156,50 +161,51 @@
 
 /* Backup data register 42 (BKP_DR42) */
 #define BKP_DR42			MMIO32(BACKUP_REGS_BASE + 0xBC)
+/*@}*/
 
-/* --- BKP_RTCCR values ---------------------------------------------------- */
-
-/* ASOS: Alarm or second output selection */
+/** @defgroup BKP_RTCCR_Values BKP_RTCCR Values
+ * @ingroup bkp_defines
+@{*/
+/** ASOS: Alarm or second output selection */
 #define BKP_RTCCR_ASOS			(1 << 9)
 
-/* ASOE: Alarm or second output enable */
+/** ASOE: Alarm or second output enable */
 #define BKP_RTCCR_ASOE			(1 << 8)
 
-/* CCO: Calibration clock output */
+/** CCO: Calibration clock output */
 #define BKP_RTCCR_CCO			(1 << 7)
 
-/* CAL[6:0]: Calibration value */
+/** CAL[6:0]: Calibration value */
 #define BKP_RTCCR_CAL_LSB		0
+/*@}*/
 
-/* --- BKP_CR values ------------------------------------------------------- */
-
-/* TPAL: TAMPER pin active level */
+/** @defgroup BKP_CR_Values BKP_CR Values
+ * @ingroup bkp_defines
+@{*/
+/** TPAL: TAMPER pin active level */
 #define BKP_CR_TPAL			(1 << 1)
 
-/* TPE: TAMPER pin enable */
+/** TPE: TAMPER pin enable */
 #define BKP_CR_TPE			(1 << 0)
+/*@}*/
 
-/* --- BKP_CSR values ------------------------------------------------------ */
-
-/* TIF: Tamper interrupt flag */
+/** @defgroup BKP_CSR_Values BKP_CSR Values
+ * @ingroup bkp_defines
+@{*/
+/** TIF: Tamper interrupt flag */
 #define BKP_CSR_TIF			(1 << 9)
 
-/* TEF: Tamper event flag */
+/** TEF: Tamper event flag */
 #define BKP_CSR_TEF			(1 << 8)
 
-/* TPIE: TAMPER pin interrupt enable */
+/** TPIE: TAMPER pin interrupt enable */
 #define BKP_CSR_TPIE			(1 << 2)
 
-/* CTI: Clear tamper interrupt */
+/** CTI: Clear tamper interrupt */
 #define BKP_CSR_CTI			(1 << 1)
 
-/* CTE: Clear tamper event */
+/** CTE: Clear tamper event */
 #define BKP_CSR_CTE			(1 << 0)
-
-/* --- BKP_DRx values ------------------------------------------------------ */
-
-/* Bits[15:0]: Backup data */
-
-/* --- BKP function prototypes --------------------------------------------- */
+/*@}*/
 
 #endif
