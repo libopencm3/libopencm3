@@ -174,7 +174,7 @@
 /* --- BKP_CR values ------------------------------------------------------- */
 
 /* TPAL: TAMPER pin active level */
-#define BKP_CR_TAL			(1 << 1)
+#define BKP_CR_TPAL			(1 << 1)
 
 /* TPE: TAMPER pin enable */
 #define BKP_CR_TPE			(1 << 0)
