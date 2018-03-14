@@ -12,4 +12,4 @@ MEMORY
 	ram (rwx) : ORIGIN = 0x20000000, LENGTH = 128k
 }
 
-INCLUDE libopencm3_efm32gg.ld;
+INCLUDE cortex-m-generic.ld;

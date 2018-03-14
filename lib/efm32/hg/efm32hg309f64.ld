@@ -25,4 +25,4 @@ MEMORY
 }
 
 /* Include the common ld script. */
-INCLUDE libopencm3_efm32hg.ld
+INCLUDE cortex-m-generic.ld
