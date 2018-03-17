@@ -389,6 +389,7 @@ void i2c_peripheral_disable(uint32_t i2c);
 void i2c_send_start(uint32_t i2c);
 void i2c_send_stop(uint32_t i2c);
 void i2c_clear_stop(uint32_t i2c);
+void i2c_clear_nak(uint32_t i2c);
 void i2c_set_own_7bit_slave_address(uint32_t i2c, uint8_t slave);
 void i2c_set_own_10bit_slave_address(uint32_t i2c, uint16_t slave);
 void i2c_send_data(uint32_t i2c, uint8_t data);
@@ -425,7 +426,7 @@ void i2c_enable_rxdma(uint32_t i2c);
 void i2c_disable_rxdma(uint32_t i2c);
 void i2c_enable_txdma(uint32_t i2c);
 void i2c_disable_txdma(uint32_t i2c);
-void i2c_transfer7(uint32_t i2c, uint8_t addr, uint8_t *w, size_t wn, uint8_t *r, size_t rn);
+bool i2c_transfer7(uint32_t i2c, uint8_t addr, const uint8_t *w, size_t wn, uint8_t *r, size_t rn);
 void i2c_set_speed(uint32_t i2c, enum i2c_speeds speed, uint32_t clock_megahz);
 
 END_DECLS
