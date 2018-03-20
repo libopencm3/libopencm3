@@ -99,8 +99,6 @@ void crypto_set_datatype(enum crypto_datatype datatype)
  */
 void crypto_set_algorithm(enum crypto_mode mode)
 {
-	mode &= ~CRYP_CR_ALGOMODE_MASK;
-
 	if ((mode == DECRYPT_AES_ECB) || (mode == DECRYPT_AES_CBC)) {
 		/* Unroll keys for the AES encoder for the user automatically */
 
@@ -111,8 +109,8 @@ void crypto_set_algorithm(enum crypto_mode mode)
 		crypto_wait_busy();
 		/* module switches to DISABLE automatically */
 	}
-	/* set algo mode */
-	CRYP_CR = (CRYP_CR & ~CRYP_CR_ALGOMODE_MASK) | mode;
+	/* set algo mode and chaining */
+	CRYP_CR = (CRYP_CR & ~(CRYP_CR_ALGOMODE_MASK|CRYP_CR_ALGODIR)) | mode;
 
 	/* flush buffers */
 	CRYP_CR |= CRYP_CR_FFLUSH;
