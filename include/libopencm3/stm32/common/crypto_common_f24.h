@@ -141,7 +141,7 @@ specific memorymap.h header before including this header file.*/
 #define CRYP_KR(i)		MMIO64(CRYP_BASE + 0x20 + (i) * 8)
 
 /* CRYP Initialization Vector Registers (CRYP_IVxLR) x=0..1 */
-#define CRYP_IVR(i)		MMIO32(CRYP_BASE + 0x40 + (i) * 8)
+#define CRYP_IVR(i)		MMIO64(CRYP_BASE + 0x40 + (i) * 8)
 
 /* --- CRYP_CR values ------------------------------------------------------ */
 

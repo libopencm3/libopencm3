@@ -66,7 +66,7 @@ void crypto_set_key(enum crypto_keysize keysize, uint64_t key[])
 /**
  * @brief Set Initialization Vector
  *
- * @param[in] iv uint64_t[] Initialization vector (array of 4 items)
+ * @param[in] iv uint64_t[] Initialization vector (array of 2 items)
 
  * @note Cryptographic controller must be in disabled state
  */
@@ -76,7 +76,7 @@ void crypto_set_iv(uint64_t iv[])
 
 	crypto_wait_busy();
 
-	for (i = 0; i < 4; i++) {
+	for (i = 0; i < 2; i++) {
 		CRYP_IVR(i) = iv[i];
 	}
 }
