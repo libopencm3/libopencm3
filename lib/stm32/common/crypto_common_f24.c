@@ -47,37 +47,67 @@ void crypto_wait_busy(void)
 /**
  * @brief Set key value to the controller
  * @param[in] keysize enum crypto_keysize Specified size of the key.
- * @param[in] key uint64_t[] Key value (array of 4 items)
+ * @param[in] key uint8_t[] Key value (array of items depending on keysize)
  */
-void crypto_set_key(enum crypto_keysize keysize, uint64_t key[])
+void crypto_set_key(enum crypto_keysize keysize, uint8_t key[])
 {
-	int i;
+	uint32_t* ptr = (uint32_t*) key;
 
 	crypto_wait_busy();
 
 	CRYP_CR = (CRYP_CR & ~CRYP_CR_KEYSIZE) |
 		  (keysize << CRYP_CR_KEYSIZE_SHIFT);
 
-	for (i = 0; i < 4; i++) {
-		CRYP_KR(i) = key[i];
+	/* stm32 cryto interprets the keys (word) in little endian,
+	 * a reserve byte order is needed
+	 */
+	switch (keysize) {
+	case CRYPTO_KEY_256BIT:
+		CRYP_KR(0) = __builtin_bswap32(*ptr++);	/* K0LR */
+		CRYP_KR(1) = __builtin_bswap32(*ptr++);	/* K0RR */
+	/* fallthrough */
+	case CRYPTO_KEY_192BIT:
+		CRYP_KR(2) = __builtin_bswap32(*ptr++);	/* K1LR */
+		CRYP_KR(3) = __builtin_bswap32(*ptr++);	/* K1RR */
+	/* fallthrough */
+	case CRYPTO_KEY_128BIT:
+		CRYP_KR(4) = __builtin_bswap32(*ptr++);	/* K2LR */
+		CRYP_KR(5) = __builtin_bswap32(*ptr++);	/* K2RR */
+		CRYP_KR(6) = __builtin_bswap32(*ptr++);	/* K3LR */
+		CRYP_KR(7) = __builtin_bswap32(*ptr);	/* K3RR */
+		break;
 	}
 }
 
 /**
  * @brief Set Initialization Vector
  *
- * @param[in] iv uint64_t[] Initialization vector (array of 2 items)
+ * @param[in] keysize enum crypto_keysize Specified size of the key.
+ * @param[in] iv uint8_t[] Initialization vector (array of items depending on keysize)
 
  * @note Cryptographic controller must be in disabled state
  */
-void crypto_set_iv(uint64_t iv[])
+void crypto_set_iv(enum crypto_keysize keysize, uint8_t iv[])
 {
-	int i;
+	uint32_t* ptr = (uint32_t*) iv;
 
 	crypto_wait_busy();
 
-	for (i = 0; i < 2; i++) {
-		CRYP_IVR(i) = iv[i];
+	/* stm32 cryto interprets the keys (word) in little endian,
+	 * a reserve byte order is needed
+	 */
+	switch (keysize) {
+	case CRYPTO_KEY_128BIT:
+		CRYP_IVR(0) = __builtin_bswap32(*ptr++); /* IV0LR */
+		CRYP_IVR(1) = __builtin_bswap32(*ptr++); /* IV0RR */
+		CRYP_IVR(2) = __builtin_bswap32(*ptr++); /* IV1LR */
+		CRYP_IVR(3) = __builtin_bswap32(*ptr);	 /* IV1RR */
+		break;
+	default:
+		/* whatever other keysize use 64-bit */
+		CRYP_IVR(0) = __builtin_bswap32(*ptr++); /* IV0LR */
+		CRYP_IVR(1) = __builtin_bswap32(*ptr);	 /* IV0RR */
+		break;
 	}
 }
 

@@ -138,10 +138,10 @@ specific memorymap.h header before including this header file.*/
 #define CRYP_MISR		MMIO32(CRYP_BASE + 0x1C)
 
 /* CRYP Key registers (CRYP_KxLR) x=0..3 */
-#define CRYP_KR(i)		MMIO64(CRYP_BASE + 0x20 + (i) * 8)
+#define CRYP_KR(i)		MMIO32(CRYP_BASE + 0x20 + (i) * 4)
 
 /* CRYP Initialization Vector Registers (CRYP_IVxLR) x=0..1 */
-#define CRYP_IVR(i)		MMIO64(CRYP_BASE + 0x40 + (i) * 8)
+#define CRYP_IVR(i)		MMIO32(CRYP_BASE + 0x40 + (i) * 4)
 
 /* --- CRYP_CR values ------------------------------------------------------ */
 
@@ -271,8 +271,8 @@ enum crypto_datatype {
 
 BEGIN_DECLS
 void crypto_wait_busy(void);
-void crypto_set_key(enum crypto_keysize keysize, uint64_t key[]);
-void crypto_set_iv(uint64_t iv[]);
+void crypto_set_key(enum crypto_keysize keysize, uint8_t key[]);
+void crypto_set_iv(enum crypto_keysize keysize, uint8_t iv[]);
 void crypto_set_datatype(enum crypto_datatype datatype);
 void crypto_set_algorithm(enum crypto_mode mode);
 void crypto_start(void);
