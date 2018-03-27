@@ -43,7 +43,7 @@
 /* --- IWDG_SR values ------------------------------------------------------ */
 
 /* WVU: Watchdog counter window value update */
-#define IWGD_SR_WVU                     (1 << 2)
+#define IWDG_SR_WVU			(1 << 2)
 
 /* --- IWDG_WIN values ----------------------------------------------------- */
 
