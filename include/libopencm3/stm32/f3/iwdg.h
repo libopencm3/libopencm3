@@ -33,21 +33,6 @@
 #ifndef LIBOPENCM3_IWDG_H
 #define LIBOPENCM3_IWDG_H
 
-#include <libopencm3/stm32/common/iwdg_common_all.h>
-
-/* --- IWDG registers ------------------------------------------------------ */
-
-/* Window register (IWDG_WINR) */
-#define IWDG_WINR                               MMIO32(IWDG_BASE + 0x10)
-
-/* --- IWDG_SR values ------------------------------------------------------ */
-
-/* WVU: Watchdog counter window value update */
-#define IWDG_SR_WVU			(1 << 2)
-
-/* --- IWDG_WIN values ----------------------------------------------------- */
-
-/* Bits 11:0 WIN[11:0]: Watchdog counter window value */
+#include <libopencm3/stm32/common/iwdg_common_v2.h>
 
 #endif
-
