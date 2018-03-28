@@ -1,20 +1,18 @@
-/** @defgroup iwdg_defines IWDG Defines
- *
- * @brief <b>Defined Constants and Types for the STM32F0xx Independent Watchdog
- * Timer</b>
- *
- * @ingroup STM32F0xx_defines
- *
- * @version 1.0.0
- *
- * @date 18 August 2012
- *
- * LGPL License Terms @ref lgpl_license
- */
+/** @defgroup iwdg_file IWDG
+
+@ingroup STM32l0xx
+
+@brief <b>libopencm3 STM32L0xx Independent Watchdog Timer</b>
+
+@version 1.0.0
+
+@date 28 March 2018
+
+LGPL License Terms @ref lgpl_license
+*/
+
 /*
  * This file is part of the libopencm3 project.
- *
- * Copyright (C) 2010 Thomas Otto <tommi@viadmin.org>
  *
  * This library is free software: you can redistribute it and/or modify
  * it under the terms of the GNU Lesser General Public License as published by
@@ -30,9 +28,4 @@
  * along with this library.  If not, see <http://www.gnu.org/licenses/>.
  */
 
-#ifndef LIBOPENCM3_IWDG_H
-#define LIBOPENCM3_IWDG_H
-
-#include <libopencm3/stm32/common/iwdg_common_v2.h>
-
-#endif
+#include <libopencm3/stm32/iwdg.h>
