@@ -44,19 +44,17 @@ specific memorymap.h header before including this header file.*/
 /* Register definitions                                                      */
 /*****************************************************************************/
 
-/* Window Register (IWDG_WINR) */
+/** Window Register (IWDG_WINR) */
 #define IWDG_WINR				MMIO32(IWDG_BASE + 0x10)
 
 /*****************************************************************************/
 /* Register values                                                           */
 /*****************************************************************************/
-/** @{*/
 
-/* --- IWDG_SR values ------------------------------------------------------ */
-
-/* WVU: Watchdog counter window value update */
+/** @addtogroup iwdg_sr_values
+@{*/
+/** WVU: Watchdog counter window value update */
 #define IWDG_SR_WVU			(1 << 2)
-
 /**@}*/
 
 /*****************************************************************************/

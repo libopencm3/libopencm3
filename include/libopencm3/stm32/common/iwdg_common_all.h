@@ -36,16 +36,16 @@ specific memorymap.h header before including this header file.*/
 
 /* --- IWDG registers ------------------------------------------------------ */
 
-/* Key Register (IWDG_KR) */
+/** Key Register (IWDG_KR) */
 #define IWDG_KR				MMIO32(IWDG_BASE + 0x00)
 
-/* Prescaler register (IWDG_PR) */
+/** Prescaler register (IWDG_PR) */
 #define IWDG_PR				MMIO32(IWDG_BASE + 0x04)
 
-/* Reload register (IWDG_RLR) */
+/** Reload register (IWDG_RLR) */
 #define IWDG_RLR			MMIO32(IWDG_BASE + 0x08)
 
-/* Status register (IWDG_SR) */
+/** Status register (IWDG_SR) */
 #define IWDG_SR				MMIO32(IWDG_BASE + 0x0c)
 
 /* --- IWDG_KR values ------------------------------------------------------ */
@@ -54,7 +54,7 @@ specific memorymap.h header before including this header file.*/
 
 /* KEY[15:0]: Key value (write-only, reads as 0x0000) */
 /** @defgroup iwdg_key IWDG Key Values
-@ingroup STM32F_iwdg_defines
+@ingroup iwdg_defines
 
 @{*/
 #define IWDG_KR_RESET			0xaaaa
@@ -69,7 +69,7 @@ specific memorymap.h header before including this header file.*/
 /* PR[2:0]: Prescaler divider */
 #define IWDG_PR_LSB			0
 /** @defgroup iwdg_prediv IWDG prescaler divider
-@ingroup STM32F_iwdg_defines
+@ingroup iwdg_defines
 
 @{*/
 #define IWDG_PR_DIV4			0x0
@@ -89,15 +89,15 @@ specific memorymap.h header before including this header file.*/
 
 /* RL[11:0]: Watchdog counter reload value */
 
-/* --- IWDG_SR values ------------------------------------------------------ */
-
-/* Bits [31:2]: Reserved. */
-
-/* RVU: Watchdog counter reload value update */
+/** @defgroup iwdg_sr_values IWDG Status Register Values
+@ingroup iwdg_defines
+@{*/
+/** RVU: Watchdog counter reload value update */
 #define IWDG_SR_RVU			(1 << 1)
 
-/* PVU: Watchdog prescaler value update */
+/** PVU: Watchdog prescaler value update */
 #define IWDG_SR_PVU			(1 << 0)
+/*@}*/
 
 /* --- IWDG function prototypes---------------------------------------------- */
 
