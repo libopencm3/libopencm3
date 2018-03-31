@@ -77,17 +77,26 @@ extern const usbd_driver efm32hg_usb_driver;
  *             not be changed while the device is in use. The length of this
  *             array is determined by the bNumConfigurations field in the
  *             device descriptor.
- * @param strings TODO
+ * @param strings Pointer to an array of strings for USB string descriptors.
+ *                Referenced in @e iSomething fields, e.g. @a iManufacturer.
+ *                Since a zero index means "no string", an iSomething value of
+ *                1 refers strings[0].
+ * @param num_strings Number of items in @a strings array.
  * @param control_buffer Pointer to array that would hold the data
  *                       received during control requests with DATA
  *                       stage
  * @param control_buffer_size Size of control_buffer
  * @return the usb device initialized for use. (currently cannot fail).
+ *
+ * To place @a strings entirely into Flash/read-only memory, use
+ * @code static const * const strings[] = { ... }; @endcode
+ * (note the double @e const.)  The first @e const refers to the strings
+ * while the second @e const refers to the array.
  */
 extern usbd_device * usbd_init(const usbd_driver *driver,
 			       const struct usb_device_descriptor *dev,
 			       const struct usb_config_descriptor *conf,
-			       const char **strings, int num_strings,
+			       const char * const *strings, int num_strings,
 			       uint8_t *control_buffer,
 			       uint16_t control_buffer_size);
 

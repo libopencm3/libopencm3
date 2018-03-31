@@ -42,7 +42,7 @@ LGPL License Terms @ref lgpl_license
 usbd_device *usbd_init(const usbd_driver *driver,
 		       const struct usb_device_descriptor *dev,
 		       const struct usb_config_descriptor *conf,
-		       const char **strings, int num_strings,
+		       const char * const *strings, int num_strings,
 		       uint8_t *control_buffer, uint16_t control_buffer_size)
 {
 	usbd_device *usbd_dev;
