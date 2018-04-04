@@ -41,12 +41,13 @@ OBJS		= rcc.o adc.o can.o pwr.o usart.o dma.o flash.o desig.o
 
 OBJS            += gpio_common_all.o gpio_common_f0234.o \
 		   dac_common_all.o crc_common_all.o crc_v2.o \
-		   iwdg_common_all.o pwr_common_v1.o spi_common_all.o dma_common_l1f013.o\
+		   iwdg_common_all.o pwr_common_v1.o dma_common_l1f013.o\
 		   timer_common_all.o timer_common_f0234.o flash_common_f234.o \
-		   flash.o exti_common_all.o rcc_common_all.o spi_common_f03.o
+		   flash.o exti_common_all.o rcc_common_all.o
 OBJS		+= adc_common_v2.o adc_common_v2_multi.o
 OBJS		+= usart_common_v2.o usart_common_all.o
 OBJS		+= i2c_common_v2.o
+OBJS		+= spi_common_all.o spi_common_v2.o
 
 OBJS		+= usb.o usb_control.o usb_standard.o
 OBJS		+= st_usbfs_core.o st_usbfs_v1.o
