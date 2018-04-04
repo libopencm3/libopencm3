@@ -1,3 +1,4 @@
+
 /** @addtogroup spi_file
 
 @author @htmlonly &copy; @endhtmlonly 2009
@@ -53,6 +54,7 @@ LSB first.
 #include <libopencm3/stm32/spi.h>
 #include <libopencm3/stm32/rcc.h>
 
+
 /**@{*/
 
 /*---------------------------------------------------------------------------*/
@@ -96,7 +98,7 @@ int spi_init_master(uint32_t spi, uint32_t br, uint32_t cpol, uint32_t cpha,
 	SPI_CR2(spi) |= SPI_CR2_SSOE; /* common case */
 	SPI_CR1(spi) = reg32;
 
-	return 0; /* TODO */
+	return 0;
 }
 
 /*---------------------------------------------------------------------------*/

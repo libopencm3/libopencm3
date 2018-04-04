@@ -345,8 +345,6 @@ specific memorymap.h header before including this header file.*/
 BEGIN_DECLS
 
 void spi_reset(uint32_t spi_peripheral);
-int spi_init_master(uint32_t spi, uint32_t br, uint32_t cpol, uint32_t cpha,
-		    uint32_t dff, uint32_t lsbfirst);
 void spi_enable(uint32_t spi);
 void spi_disable(uint32_t spi);
 uint16_t spi_clean_disable(uint32_t spi);
@@ -362,8 +360,6 @@ void spi_enable_crc(uint32_t spi);
 void spi_disable_crc(uint32_t spi);
 void spi_set_next_tx_from_buffer(uint32_t spi);
 void spi_set_next_tx_from_crc(uint32_t spi);
-void spi_set_dff_8bit(uint32_t spi);
-void spi_set_dff_16bit(uint32_t spi);
 void spi_set_full_duplex_mode(uint32_t spi);
 void spi_set_receive_only_mode(uint32_t spi);
 void spi_disable_software_slave_management(uint32_t spi);

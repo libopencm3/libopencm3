@@ -42,10 +42,11 @@ OBJS		+= mac.o mac_stm32fxx7.o phy.o phy_ksz80x1.o
 
 OBJS            += crc_common_all.o dac_common_all.o dma_common_l1f013.o \
                    gpio_common_all.o i2c_common_v1.o iwdg_common_all.o \
-                   pwr_common_v1.o spi_common_all.o spi_common_l1f124.o \
+                   pwr_common_v1.o \
                    timer_common_all.o usart_common_all.o usart_common_f124.o \
                    rcc_common_all.o exti_common_all.o \
                    flash_common_f01.o
+OBJS		+= spi_common_all.o spi_common_v1.o
 
 OBJS            += usb.o usb_control.o usb_standard.o usb_msc.o
 OBJS		+= usb_dwc_common.o usb_f107.o
