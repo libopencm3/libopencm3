@@ -65,6 +65,7 @@
 #define ADC1_TR				ADC1_TR(ADC) /* Compatibility */
 #define ADC1_CHSELR			ADC_CHSELR(ADC)
 #define ADC1_DR				ADC_DR(ADC)
+#define ADC1_CCR			ADC_CCR(ADC)
 
 /*****************************************************************************/
 /* Register values                                                           */
