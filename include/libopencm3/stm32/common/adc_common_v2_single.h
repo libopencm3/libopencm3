@@ -49,6 +49,8 @@ specific memorymap.h header before including this header file.*/
 /* ----- ADC registers values -----------------------------------------------*/
 /* ADC_CFGR1 values */
 #define ADC_CFGR1_WAIT		(1<<14)
+#define ADC_CFGR1_AUTOFF		(1 << 15)
+
 /* EXTSEL[2:0]: External trigger selection for regular group */
 #define ADC_CFGR1_EXTSEL_SHIFT		6
 #define ADC_CFGR1_EXTSEL		(0x7 << ADC_CFGR1_EXTSEL_SHIFT)
