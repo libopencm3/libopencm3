@@ -19,32 +19,26 @@
  */
 
 /* THIS FILE SHOULD NOT BE INCLUDED DIRECTLY, BUT ONLY VIA SPI.H
- * The order of header inclusion is important. spi.h includes the device
- * specific memorymap.h header before including this header file.*/
+The order of header inclusion is important. spi.h includes the device
+specific memorymap.h header before including this header file.*/
 
 /** @cond */
 #ifdef LIBOPENCM3_SPI_H
 /** @endcond */
-#ifndef LIBOPENCM3_SPI_COMMON_F03_H
-#define LIBOPENCM3_SPI_COMMON_F03_H
+#pragma once
 
 /**@{*/
 
 #include <libopencm3/stm32/common/spi_common_all.h>
-
-/*
- * This file extends the common stm32 version with defintions only
- * applicable to the STM32F0/F3 series of devices
- */
 
 #define SPI_DR8(spi_base)	MMIO8((spi_base) + 0x0c)
 #define SPI1_DR8		SPI_DR8(SPI1_BASE)
 #define SPI2_DR8		SPI_DR8(SPI2_BASE)
 #define SPI3_DR8		SPI_DR8(SPI3_BASE)
 
-/* DFF: Data frame format */
+/* CRCL: CRC Length */
 /****************************************************************************/
-/** @defgroup spi_dff SPI data frame format
+/** @defgroup spi_crcl SPI crc length
  * @ingroup spi_defines
  *
  * @{*/
@@ -65,8 +59,12 @@
 /* FRXTH: FIFO reception threshold */
 #define SPI_CR2_FRXTH			(1 << 12)
 
-/* DS [3:0]: Data size */
-/* 0x0 - 0x2 NOT USED */
+/* DS: Data size */
+/****************************************************************************/
+/** @defgroup spi_ds SPI data size
+ * @ingroup spi_defines
+ *
+ * @{*/
 #define SPI_CR2_DS_4BIT			(0x3 << 8)
 #define SPI_CR2_DS_5BIT			(0x4 << 8)
 #define SPI_CR2_DS_6BIT			(0x5 << 8)
@@ -80,6 +78,7 @@
 #define SPI_CR2_DS_14BIT		(0xD << 8)
 #define SPI_CR2_DS_15BIT		(0xE << 8)
 #define SPI_CR2_DS_16BIT		(0xF << 8)
+/**@}*/
 #define SPI_CR2_DS_MASK			(0xF << 8)
 
 /* NSSP: NSS pulse management */
@@ -102,7 +101,8 @@
 /* --- Function prototypes ------------------------------------------------- */
 
 BEGIN_DECLS
-
+int spi_init_master(uint32_t spi, uint32_t br, uint32_t cpol, uint32_t cpha, 
+		uint32_t lsbfirst);
 void spi_set_crcl_8bit(uint32_t spi);
 void spi_set_crcl_16bit(uint32_t spi);
 void spi_set_data_size(uint32_t spi, uint16_t data_s);
@@ -114,10 +114,9 @@ uint8_t spi_read8(uint32_t spi);
 
 END_DECLS
 
-#endif
 /** @cond */
 #else
-#warning "spi_common_f03.h should not be included explicitly, only via spi.h"
+#warning "spi_common_v2.h should not be included explicitly, only via spi.h"
 #endif
 /** @endcond */
 /**@}*/

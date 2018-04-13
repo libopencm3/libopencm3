@@ -54,7 +54,7 @@ OBJS            += usart_common_all.o usart_common_v2.o
 OBJS            += dma_common_l1f013.o
 OBJS            += iwdg_common_all.o
 OBJS            += rtc_common_l1f024.o
-OBJS            += spi_common_all.o spi_common_f03.o
+OBJS            += spi_common_all.o spi_common_v2.o
 
 OBJS            += usb.o usb_control.o usb_standard.o
 OBJS            += st_usbfs_core.o st_usbfs_v2.o

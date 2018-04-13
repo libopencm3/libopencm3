@@ -19,9 +19,8 @@ used at the same time on the same peripheral.
 Example: Clk/4, positive clock polarity, leading edge trigger, 8-bit words,
 LSB first.
 @code
-	spi_init_master(SPI1, SPI_CR1_BR_FPCLK_DIV_4, SPI_CR1_CPOL_CLK_TO_0_WHEN_IDLE,
-			SPI_CR1_CPHA_CLK_TRANSITION_1, SPI_CR1_CRCL_8BIT,
-			SPI_CR1_LSBFIRST);
+	spi_init_master(SPI1, SPI_CR1_BAUDRATE_FPCLK_DIV_4, SPI_CR1_CPOL_CLK_TO_0_WHEN_IDLE,
+			SPI_CR1_CPHA_CLK_TRANSITION_1, SPI_CR1_CRCL_8BIT, SPI_CR1_LSBFIRST);
 	spi_write(SPI1, 0x55);		// 8-bit write
 	spi_write(SPI1, 0xaa88);	// 16-bit write
 	reg8 = spi_read(SPI1);		// 8-bit read
@@ -60,40 +59,35 @@ LSB first.
 /** @brief Configure the SPI as Master.
 
 The SPI peripheral is configured as a master with communication parameters
-baudrate, crc length 8/16 bits, frame format lsb/msb first, clock polarity
-and phase. The SPI enable, CRC enable and CRC next controls are not affected.
+baudrate, frame format lsb/msb first, clock polarity and phase. The SPI 
+enable, CRC enable, CRC next CRC length controls are not affected.
 These must be controlled separately.
-
-@todo NSS pin handling.
 
 @param[in] spi Unsigned int32. SPI peripheral identifier @ref spi_reg_base.
 @param[in] br Unsigned int32. Baudrate @ref spi_baudrate.
 @param[in] cpol Unsigned int32. Clock polarity @ref spi_cpol.
 @param[in] cpha Unsigned int32. Clock Phase @ref spi_cpha.
-@param[in] crcl Unsigned int32. CRC length 8/16 bits @ref spi_crcl.
 @param[in] lsbfirst Unsigned int32. Frame format lsb/msb first @ref
 spi_lsbfirst.
 @returns int. Error code.
 */
 
 int spi_init_master(uint32_t spi, uint32_t br, uint32_t cpol, uint32_t cpha,
-		    uint32_t crcl, uint32_t lsbfirst)
+		    uint32_t lsbfirst)
 {
 	uint32_t reg32 = SPI_CR1(spi);
 
-	/* Reset all bits omitting SPE, CRCEN and CRCNEXT bits. */
-	reg32 &= SPI_CR1_SPE | SPI_CR1_CRCEN | SPI_CR1_CRCNEXT;
+	/* Reset all bits omitting SPE, CRCEN, CRCNEXT and CRCL bits. */
+	reg32 &= SPI_CR1_SPE | SPI_CR1_CRCEN | SPI_CR1_CRCNEXT | SPI_CR1_CRCL;
 
 	reg32 |= SPI_CR1_MSTR;	/* Configure SPI as master. */
 
 	reg32 |= br;		/* Set baud rate bits. */
 	reg32 |= cpol;		/* Set CPOL value. */
 	reg32 |= cpha;		/* Set CPHA value. */
-	reg32 |= crcl;		/* Set crc length (8 or 16 bits). */
 	reg32 |= lsbfirst;	/* Set frame format (LSB- or MSB-first). */
 
-	/* TODO: NSS pin handling. */
-
+	SPI_CR2(spi) |= SPI_CR2_SSOE;
 	SPI_CR1(spi) = reg32;
 
 	return 0; /* TODO */
@@ -104,7 +98,6 @@ void spi_send8(uint32_t spi, uint8_t data)
 	/* Wait for transfer finished. */
 	while (!(SPI_SR(spi) & SPI_SR_TXE));
 
-	/* Write data (8 or 16 bits, depending on DFF) into DR. */
 	SPI_DR8(spi) = data;
 }
 
@@ -113,7 +106,6 @@ uint8_t spi_read8(uint32_t spi)
 	/* Wait for transfer finished. */
 	while (!(SPI_SR(spi) & SPI_SR_RXNE));
 
-	/* Read the data (8 or 16 bits, depending on DFF bit) from DR. */
 	return SPI_DR8(spi);
 }
 
@@ -139,26 +131,38 @@ void spi_set_crcl_16bit(uint32_t spi)
 	SPI_CR1(spi) |= SPI_CR1_CRCL;
 }
 
+/** @brief SPI Set data size
+
+@param[in] spi Unsigned int32. SPI peripheral identifier @ref spi_reg_base.
+@param[in] data_s Unsigned int16. data size @ref spi_ds.
+*/
+
 void spi_set_data_size(uint32_t spi, uint16_t data_s)
 {
 	SPI_CR2(spi) = (SPI_CR2(spi) & ~SPI_CR2_DS_MASK) |
 		       (data_s & SPI_CR2_DS_MASK);
 }
 
+/*---------------------------------------------------------------------------*/
+/** @brief SPI Set reception threshold to 8 bits
+
+@param[in] spi Unsigned int32. SPI peripheral identifier @ref spi_reg_base.
+*/
+
 void spi_fifo_reception_threshold_8bit(uint32_t spi)
 {
 	SPI_CR2(spi) |= SPI_CR2_FRXTH;
 }
 
+/*---------------------------------------------------------------------------*/
+/** @brief SPI Set reception threshold to 16 bits
+
+@param[in] spi Unsigned int32. SPI peripheral identifier @ref spi_reg_base.
+*/
+
 void spi_fifo_reception_threshold_16bit(uint32_t spi)
 {
 	SPI_CR2(spi) &= ~SPI_CR2_FRXTH;
 }
-
-void spi_i2s_mode_spi_mode(uint32_t spi)
-{
-	SPI_I2SCFGR(spi) &= ~SPI_I2SCFGR_I2SMOD;
-}
-
 
 /**@}*/
