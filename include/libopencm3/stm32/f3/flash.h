@@ -69,5 +69,9 @@
 #define FLASH_CR_PG			(1 << 0)
 /**@}*/
 
+uint32_t flash_get_status_flags(void);
+void flash_clear_wrprterr_flag(void);
+void flash_erase_page(uint32_t page_address);
+void flash_erase_all_pages(void);
 #endif
 
