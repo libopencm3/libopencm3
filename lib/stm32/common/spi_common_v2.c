@@ -87,8 +87,7 @@ int spi_init_master(uint32_t spi, uint32_t br, uint32_t cpol, uint32_t cpha,
 	reg32 |= cpha;		/* Set CPHA value. */
 	reg32 |= lsbfirst;	/* Set frame format (LSB- or MSB-first). */
 
-	/* TODO: NSS pin handling. */
-
+	SPI_CR2(spi) |= SPI_CR2_SSOE; /* common case */
 	SPI_CR1(spi) = reg32;
 
 	return 0; /* TODO */
