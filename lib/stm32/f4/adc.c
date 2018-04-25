@@ -432,6 +432,30 @@ void adc_disable_temperature_sensor()
 }
 
 /*---------------------------------------------------------------------------*/
+/** @brief ADC Enable The VBat Sensor
+
+This enables the battery voltage measurements on ADC1 channel 18. On STM32F42x
+and STM32F43x, this must be disabled when the temperature sensor is enabled. If
+both are enabled, only the VBat conversion is performed.
+*/
+
+void adc_enable_vbat_sensor(void)
+{
+	ADC_CCR |= ADC_CCR_VBATE;
+}
+
+/*---------------------------------------------------------------------------*/
+/** @brief ADC Disable The VBat Sensor
+
+Disabling this will reduce power consumption from the battery voltage
+measurement.
+*/
+
+void adc_disable_vbat_sensor(void)
+{
+	ADC_CCR &= ~ADC_CCR_VBATE;
+}
+
+/*---------------------------------------------------------------------------*/
 
 /**@}*/
-
