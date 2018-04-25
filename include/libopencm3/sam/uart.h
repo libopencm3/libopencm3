@@ -23,16 +23,21 @@
 #include <libopencm3/cm3/common.h>
 #include <libopencm3/sam/memorymap.h>
 
+/* --- Convenience macros ------------------------------------------------ */
+#define UART				UART_BASE
+#define UART0				UART0_BASE
+#define UART1				UART1_BASE
+
 /* --- Universal Asynchronous Receiver Transmitter (UART) registers ------- */
-#define UART_CR				MMIO32(UART_BASE + 0x0000)
-#define UART_MR				MMIO32(UART_BASE + 0x0004)
-#define UART_IER			MMIO32(UART_BASE + 0x0008)
-#define UART_IDR			MMIO32(UART_BASE + 0x000C)
-#define UART_IMR			MMIO32(UART_BASE + 0x0010)
-#define UART_SR				MMIO32(UART_BASE + 0x0014)
-#define UART_RHR			MMIO32(UART_BASE + 0x0018)
-#define UART_THR			MMIO32(UART_BASE + 0x001C)
-#define UART_BRGR			MMIO32(UART_BASE + 0x0020)
+#define UART_CR(x)			MMIO32((x) + 0x0000)
+#define UART_MR(x)			MMIO32((x) + 0x0004)
+#define UART_IER(x)			MMIO32((x) + 0x0008)
+#define UART_IDR(x)			MMIO32((x) + 0x000C)
+#define UART_IMR(x)			MMIO32((x) + 0x0010)
+#define UART_SR(x)			MMIO32((x) + 0x0014)
+#define UART_RHR(x)			MMIO32((x) + 0x0018)
+#define UART_THR(x)			MMIO32((x) + 0x001C)
+#define UART_BRGR(x)		MMIO32((x) + 0x0020)
 /* 0x0024:0x003C - Reserved */
 /* 0x004C:0x00FC - Reserved */
 /* 0x0100:0x0124 - PDC Area */
@@ -80,6 +85,35 @@
 /* Bit [2] - Reserved */
 #define UART_SR_TXRDY			(0x01 << 1)
 #define UART_SR_RXRDY			(0x01 << 0)
+
+enum uart_parity {
+	UART_PARITY_EVEN,
+	UART_PARITY_ODD,
+	UART_PARITY_SPACE,
+	UART_PARITY_MARK,
+	UART_PARITY_NONE,
+};
+
+enum uart_mode {
+	UART_MODE_DISABLED,
+	UART_MODE_RX,
+	UART_MODE_TX,
+	UART_MODE_TX_RX,
+};
+
+void uart_set_baudrate(uint32_t uart, uint32_t baud);
+void uart_set_parity(uint32_t uart, enum uart_parity);
+void uart_set_mode(uint32_t uart, enum uart_mode);
+void uart_enable(uint32_t uart);
+void uart_disable(uint32_t uart);
+void uart_send(uint32_t uart, uint8_t data);
+uint8_t uart_recv(uint32_t uart);
+void uart_wait_send_ready(uint32_t uart);
+void uart_wait_recv_ready(uint32_t uart);
+void uart_send_blocking(uint32_t uart, uint8_t data);
+uint8_t uart_recv_blocking(uint32_t uart);
+void uart_enable_rx_interrupt(uint32_t uart);
+void uart_disable_rx_interrupt(uint32_t uart);
 
 #endif
 
