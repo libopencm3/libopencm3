@@ -32,6 +32,10 @@ DEVICE=stm32f407vgt6
 Then, the user includes the file /ld/Makefile.linker exactly after the first
 target (usually all) has been defined.
 
+Note:
+SRCLIBDIR=path_to_libopencm3_folder
+must also be defined. This is equivalent to the "TOOLCHAIN_DIR" in the example Makefile
+
 The script automatically modifies the $(LDSCRIPT) variable to meet the new
 generated script with <device part name>.ld in the project directory, and adds
 a rule to make it from the scratch.
