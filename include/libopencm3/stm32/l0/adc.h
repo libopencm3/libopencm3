@@ -66,6 +66,19 @@
 #define ADC_CFGR2_CKMODE_PCLK_DIV4	(2 << ADC_CFGR2_CKMODE_SHIFT)
 #define ADC_CFGR2_CKMODE_PCLK		(3 << ADC_CFGR2_CKMODE_SHIFT)
 
+/** @defgroup adc_sample_rg ADC Sample Time Selection for All Channels
+@ingroup adc_defines
+
+@{*/
+#define ADC_SMPR_SMP_1DOT5CYC		0x0
+#define ADC_SMPR_SMP_3DOT5CYC		0x1
+#define ADC_SMPR_SMP_7DOT5CYC		0x2
+#define ADC_SMPR_SMP_12DOT5CYC		0x3
+#define ADC_SMPR_SMP_19DOT5CYC		0x4
+#define ADC_SMPR_SMP_39DOT5CYC		0x5
+#define ADC_SMPR_SMP_79DOT5CYC		0x6
+#define ADC_SMPR_SMP_160DOT5CYC		0x7
+/**@}*/
 
 BEGIN_DECLS
 
