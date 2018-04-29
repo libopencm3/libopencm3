@@ -1,4 +1,15 @@
-/* This provides unification of code over STM32 subfamilies */
+/** @defgroup dma_defines DMA Defines
+ *
+ * @ingroup STM32L0xx_defines
+ *
+ * @brief Defined Constants and Types for the STM32L0xx DMA Controller
+ *
+ * @version 1.0.0
+ *
+ * @date 29 April 2018
+ *
+ * LGPL License Terms @ref lgpl_license
+ */
 
 /*
  * This file is part of the libopencm3 project.
@@ -17,26 +28,10 @@
  * along with this library.  If not, see <http://www.gnu.org/licenses/>.
  */
 
-#include <libopencm3/cm3/common.h>
-#include <libopencm3/stm32/memorymap.h>
+#ifndef LIBOPENCM3_DMA_H
+#define LIBOPENCM3_DMA_H
 
-#if defined(STM32F0)
-#       include <libopencm3/stm32/f0/dma.h>
-#elif defined(STM32F1)
-#       include <libopencm3/stm32/f1/dma.h>
-#elif defined(STM32F2)
-#       include <libopencm3/stm32/f2/dma.h>
-#elif defined(STM32F3)
-#       include <libopencm3/stm32/f3/dma.h>
-#elif defined(STM32F4)
-#       include <libopencm3/stm32/f4/dma.h>
-#elif defined(STM32L0)
-#       include <libopencm3/stm32/l0/dma.h>
-#elif defined(STM32L1)
-#       include <libopencm3/stm32/l1/dma.h>
-#elif defined(STM32L4)
-#       include <libopencm3/stm32/l4/dma.h>
-#else
-#       error "stm32 family not defined."
+#include <libopencm3/stm32/common/dma_common_l1f013.h>
+
 #endif
 
