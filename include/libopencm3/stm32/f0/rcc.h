@@ -403,6 +403,8 @@ enum rcc_osc {
 enum rcc_periph_clken {
 	/* AHB peripherals */
 	RCC_DMA		= _REG_BIT(0x14, 0),
+	RCC_DMA1	= _REG_BIT(0x14, 0), /* Compatibility alias */
+	RCC_DMA2	= _REG_BIT(0x14, 1),
 	RCC_SRAM	= _REG_BIT(0x14, 2),
 	RCC_FLTIF	= _REG_BIT(0x14, 4),
 	RCC_CRC		= _REG_BIT(0x14, 6),
