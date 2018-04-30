@@ -67,6 +67,14 @@
 #define FLASH_CR_MER			(1 << 2)
 #define FLASH_CR_PER			(1 << 1)
 #define FLASH_CR_PG			(1 << 0)
+
+BEGIN_DECLS
+
+void flash_prefetch_enable(void);
+void flash_prefetch_disable(void);
+
+END_DECLS
+
 /**@}*/
 
 #endif
