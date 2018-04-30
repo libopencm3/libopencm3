@@ -51,6 +51,8 @@
 #ifndef LIBOPENCM3_RCC_H
 #define LIBOPENCM3_RCC_H
 
+#include <stdbool.h>
+
 /* --- RCC registers ------------------------------------------------------- */
 
 #define RCC_CR					MMIO32(RCC_BASE + 0x00)
@@ -419,9 +421,11 @@ enum rcc_clock {
 };
 
 struct rcc_clock_scale {
-	uint8_t pll;
 	uint8_t pllsrc;
-	uint32_t flash_config;
+	uint8_t pllmul;
+	uint8_t plldiv;
+	bool usbdiv1;
+	uint32_t flash_waitstates;
 	uint8_t hpre;
 	uint8_t ppre1;
 	uint8_t ppre2;
@@ -607,6 +611,7 @@ void rcc_set_prediv(uint32_t prediv);
 void rcc_set_pll_multiplier(uint32_t pll);
 uint32_t rcc_get_system_clock_source(void);
 void rcc_backupdomain_reset(void);
+void rcc_clock_setup_pll(const struct rcc_clock_scale *clock);
 void rcc_clock_setup_hsi(const struct rcc_clock_scale *clock);
 void rcc_set_i2c_clock_hsi(uint32_t i2c);
 void rcc_set_i2c_clock_sysclk(uint32_t i2c);

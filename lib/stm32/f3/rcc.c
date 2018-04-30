@@ -46,34 +46,34 @@ uint32_t rcc_apb2_frequency = 8000000;
 
 const struct rcc_clock_scale rcc_hsi_8mhz[RCC_CLOCK_END] = {
 	{ /* 44MHz */
-		.pll = RCC_CFGR_PLLMUL_MUL11,
+		.pllmul = RCC_CFGR_PLLMUL_MUL11,
 		.pllsrc = RCC_CFGR_PLLSRC_HSI_DIV2,
 		.hpre = RCC_CFGR_HPRE_DIV_NONE,
 		.ppre1 = RCC_CFGR_PPRE1_DIV_2,
 		.ppre2 = RCC_CFGR_PPRE2_DIV_NONE,
-		.flash_config = FLASH_ACR_PRFTBE | FLASH_ACR_LATENCY_1WS,
+		.flash_waitstates = 1,
 		.ahb_frequency	= 44000000,
 		.apb1_frequency = 22000000,
 		.apb2_frequency = 44000000,
 	},
 	{ /* 48MHz */
-		.pll = RCC_CFGR_PLLMUL_MUL12,
+		.pllmul = RCC_CFGR_PLLMUL_MUL12,
 		.pllsrc = RCC_CFGR_PLLSRC_HSI_DIV2,
 		.hpre = RCC_CFGR_HPRE_DIV_NONE,
 		.ppre1 = RCC_CFGR_PPRE1_DIV_2,
 		.ppre2 = RCC_CFGR_PPRE2_DIV_NONE,
-		.flash_config = FLASH_ACR_PRFTBE | FLASH_ACR_LATENCY_1WS,
+		.flash_waitstates = 1,
 		.ahb_frequency	= 48000000,
 		.apb1_frequency = 24000000,
 		.apb2_frequency = 48000000,
 	},
 	{ /* 64MHz */
-		.pll = RCC_CFGR_PLLMUL_MUL16,
+		.pllmul = RCC_CFGR_PLLMUL_MUL16,
 		.pllsrc = RCC_CFGR_PLLSRC_HSI_DIV2,
 		.hpre = RCC_CFGR_HPRE_DIV_NONE,
 		.ppre1 = RCC_CFGR_PPRE1_DIV_2,
 		.ppre2 = RCC_CFGR_PPRE2_DIV_NONE,
-		.flash_config = FLASH_ACR_PRFTBE | FLASH_ACR_LATENCY_2WS,
+		.flash_waitstates = 2,
 		.ahb_frequency	= 64000000,
 		.apb1_frequency = 32000000,
 		.apb2_frequency = 64000000,
@@ -349,8 +349,54 @@ uint32_t rcc_get_system_clock_source(void)
 	return (RCC_CFGR & 0x000c) >> 2;
 }
 
+/**
+ * Setup clocks to run from PLL.
+ * The arguments provide the pll source, multipliers, dividers, all that's
+ * needed to establish a system clock.
+ * @param clock clock information structure
+ */
+void rcc_clock_setup_pll(const struct rcc_clock_scale *clock)
+{
+	if (clock->pllsrc == RCC_CFGR_PLLSRC_HSE_PREDIV) {
+		rcc_osc_on(RCC_HSE);
+		rcc_wait_for_osc_ready(RCC_HSE);
+	} else {
+		rcc_osc_on(RCC_HSI);
+		rcc_wait_for_osc_ready(RCC_HSI);
+	}
+	rcc_osc_off(RCC_PLL);
+	rcc_usb_prescale_1_5();
+	if (clock->usbdiv1) {
+		rcc_usb_prescale_1();
+	}
+	rcc_wait_for_osc_not_ready(RCC_PLL);
+	rcc_set_pll_source(clock->pllsrc);
+	rcc_set_pll_multiplier(clock->pllmul);
+	rcc_set_prediv(clock->plldiv);
+	/* Enable PLL oscillator and wait for it to stabilize. */
+	rcc_osc_on(RCC_PLL);
+	rcc_wait_for_osc_ready(RCC_PLL);
 
-void rcc_clock_setup_hsi(const struct rcc_clock_scale *clock)
+	/* Configure flash settings. */
+	flash_prefetch_enable();
+	flash_set_ws(clock->flash_waitstates);
+
+	rcc_set_hpre(clock->hpre);
+	rcc_set_ppre2(clock->ppre2);
+	rcc_set_ppre1(clock->ppre1);
+	/* Select PLL as SYSCLK source. */
+	rcc_set_sysclk_source(RCC_CFGR_SW_PLL);
+	/* Wait for PLL clock to be selected. */
+	rcc_wait_for_sysclk_status(RCC_PLL);
+
+	/* Set the peripheral clock frequencies used. */
+	rcc_ahb_frequency  = clock->ahb_frequency;
+	rcc_apb1_frequency = clock->apb1_frequency;
+	rcc_apb2_frequency = clock->apb2_frequency;
+}
+
+
+void __attribute__((deprecated)) rcc_clock_setup_hsi(const struct rcc_clock_scale *clock)
 {
 	/* Enable internal high-speed oscillator. */
 	rcc_osc_on(RCC_HSI);
@@ -362,7 +408,7 @@ void rcc_clock_setup_hsi(const struct rcc_clock_scale *clock)
 	rcc_osc_off(RCC_PLL);
 	rcc_wait_for_osc_not_ready(RCC_PLL);
 	rcc_set_pll_source(clock->pllsrc);
-	rcc_set_pll_multiplier(clock->pll);
+	rcc_set_pll_multiplier(clock->pllmul);
 	/* Enable PLL oscillator and wait for it to stabilize. */
 	rcc_osc_on(RCC_PLL);
 	rcc_wait_for_osc_ready(RCC_PLL);
@@ -374,7 +420,7 @@ void rcc_clock_setup_hsi(const struct rcc_clock_scale *clock)
 	rcc_set_ppre2(clock->ppre2);
 	rcc_set_ppre1(clock->ppre1);
 	/* Configure flash settings. */
-	flash_set_ws(clock->flash_config);
+	flash_set_ws(clock->flash_waitstates);
 	/* Select PLL as SYSCLK source. */
 	rcc_set_sysclk_source(RCC_CFGR_SW_PLL); /* XXX: se cayo */
 	/* Wait for PLL clock to be selected. */
