@@ -46,7 +46,7 @@ uint32_t rcc_apb2_frequency = 8000000;
 
 const struct rcc_clock_scale rcc_hsi_8mhz[RCC_CLOCK_END] = {
 	{ /* 44MHz */
-		.pll = RCC_CFGR_PLLMUL_PLL_IN_CLK_X11,
+		.pll = RCC_CFGR_PLLMUL_MUL11,
 		.pllsrc = RCC_CFGR_PLLSRC_HSI_DIV2,
 		.hpre = RCC_CFGR_HPRE_DIV_NONE,
 		.ppre1 = RCC_CFGR_PPRE1_DIV_2,
@@ -57,7 +57,7 @@ const struct rcc_clock_scale rcc_hsi_8mhz[RCC_CLOCK_END] = {
 		.apb2_frequency = 44000000,
 	},
 	{ /* 48MHz */
-		.pll = RCC_CFGR_PLLMUL_PLL_IN_CLK_X12,
+		.pll = RCC_CFGR_PLLMUL_MUL12,
 		.pllsrc = RCC_CFGR_PLLSRC_HSI_DIV2,
 		.hpre = RCC_CFGR_HPRE_DIV_NONE,
 		.ppre1 = RCC_CFGR_PPRE1_DIV_2,
@@ -68,7 +68,7 @@ const struct rcc_clock_scale rcc_hsi_8mhz[RCC_CLOCK_END] = {
 		.apb2_frequency = 48000000,
 	},
 	{ /* 64MHz */
-		.pll = RCC_CFGR_PLLMUL_PLL_IN_CLK_X16,
+		.pll = RCC_CFGR_PLLMUL_MUL16,
 		.pllsrc = RCC_CFGR_PLLSRC_HSI_DIV2,
 		.hpre = RCC_CFGR_HPRE_DIV_NONE,
 		.ppre1 = RCC_CFGR_PPRE1_DIV_2,
