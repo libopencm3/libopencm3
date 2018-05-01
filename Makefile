@@ -64,11 +64,13 @@ build: lib
 
 LIB_DIRS:=$(wildcard $(addprefix lib/,$(TARGETS)))
 $(LIB_DIRS): $(IRQ_DEFN_FILES:=.genhdr)
+	$(Q)$(RM) .stamp_failure_$(subst /,_,$@)
 	@printf "  BUILD   $@\n";
-	$(Q)$(MAKE) --directory=$@ SRCLIBDIR="$(SRCLIBDIR)"
+	$(Q)$(MAKE) --directory=$@ SRCLIBDIR="$(SRCLIBDIR)" || \
+		echo "Failure building: $@: code: $$?" > .stamp_failure_$(subst /,_,$@)
 
 lib: $(LIB_DIRS)
-	$(Q)true
+	$(Q)[ -f .stamp_failure_* ] && cat .stamp_failure_* && exit 1 || true;
 
 html doc:
 	$(Q)$(MAKE) -C doc html
@@ -80,6 +82,7 @@ clean: $(IRQ_DEFN_FILES:=.cleanhdr) $(LIB_DIRS:=.clean) $(EXAMPLE_DIRS:=.clean) 
 		printf "  CLEAN   $*\n"; \
 		$(MAKE) -C $* clean SRCLIBDIR="$(SRCLIBDIR)" || exit $?; \
 	fi;
+	$(Q)$(RM) .stamp_failure_*;
 
 
 stylecheck: $(STYLECHECKFILES:=.stylecheck)
