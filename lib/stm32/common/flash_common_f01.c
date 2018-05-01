@@ -37,7 +37,7 @@ the power-on low frequency mode before being set to a higher speed mode.
 See the reference manual for details.
 */
 
-void flash_prefetch_buffer_enable(void)
+void flash_prefetch_enable(void)
 {
 	FLASH_ACR |= FLASH_ACR_PRFTBE;
 }
@@ -49,7 +49,7 @@ Note carefully the clock restrictions under which the prefetch buffer may be
 set to disabled. See the reference manual for details.
 */
 
-void flash_prefetch_buffer_disable(void)
+void flash_prefetch_disable(void)
 {
 	FLASH_ACR &= ~FLASH_ACR_PRFTBE;
 }

@@ -543,7 +543,7 @@ void rcc_clock_setup_in_hse_8mhz_out_48mhz(void)
 	rcc_set_hpre(RCC_CFGR_HPRE_NODIV);
 	rcc_set_ppre(RCC_CFGR_PPRE_NODIV);
 
-	flash_prefetch_buffer_enable();
+	flash_prefetch_enable();
 	flash_set_ws(FLASH_ACR_LATENCY_024_048MHZ);
 
 	/* PLL: 8MHz * 6 = 48MHz */
@@ -571,7 +571,7 @@ void rcc_clock_setup_in_hsi_out_48mhz(void)
 	rcc_set_hpre(RCC_CFGR_HPRE_NODIV);
 	rcc_set_ppre(RCC_CFGR_PPRE_NODIV);
 
-	flash_prefetch_buffer_enable();
+	flash_prefetch_enable();
 	flash_set_ws(FLASH_ACR_LATENCY_024_048MHZ);
 
 	/* 8MHz * 12 / 2 = 48MHz */
@@ -597,7 +597,7 @@ void rcc_clock_setup_in_hsi48_out_48mhz(void)
 	rcc_set_hpre(RCC_CFGR_HPRE_NODIV);
 	rcc_set_ppre(RCC_CFGR_PPRE_NODIV);
 
-	flash_prefetch_buffer_enable();
+	flash_prefetch_enable();
 	flash_set_ws(FLASH_ACR_LATENCY_024_048MHZ);
 
 	rcc_set_sysclk_source(RCC_HSI48);

@@ -98,8 +98,8 @@
 BEGIN_DECLS
 
 void flash_set_ws(uint32_t ws);
-void flash_prefetch_buffer_enable(void);
-void flash_prefetch_buffer_disable(void);
+void flash_prefetch_enable(void);
+void flash_prefetch_disable(void);
 void flash_unlock(void);
 void flash_lock(void);
 void flash_clear_pgerr_flag(void);
