@@ -3,6 +3,7 @@ import datetime
 import random
 import usb.core
 import usb.util as uu
+import random
 import sys
 
 import unittest
@@ -25,6 +26,8 @@ GZ_REQ_SET_ALIGNED=3
 GZ_REQ_SET_UNALIGNED=4
 GZ_REQ_WRITE_LOOPBACK_BUFFER=10
 GZ_REQ_READ_LOOPBACK_BUFFER=11
+GZ_REQ_INTEL_WRITE=0x5b
+GZ_REQ_INTEL_READ=0x5c
 
 class find_by_serial(object):
     def __init__(self, serial):
@@ -82,6 +85,41 @@ class TestGadget0(unittest.TestCase):
         except usb.core.USBError as e:
             # Note, this might not be as portable as we'd like.
             self.assertIn("Pipe", e.strerror)
+
+class TestIntelCompliance(unittest.TestCase):
+    """
+    Part of intel's usb 2.0 compliance is writing and reading back control transfers
+    """
+    def setUp(self):
+        self.dev = usb.core.find(idVendor=VENDOR_ID, idProduct=PRODUCT_ID, custom_match=find_by_serial(DUT_SERIAL))
+        self.assertIsNotNone(self.dev, "Couldn't find locm3 gadget0 device")
+
+        self.cfg = uu.find_descriptor(self.dev, bConfigurationValue=2)
+        self.assertIsNotNone(self.cfg, "Config 2 should exist")
+        self.dev.set_configuration(self.cfg)
+
+    def tearDown(self):
+        uu.dispose_resources(self.dev)
+
+    def inner_t(self, mylen):
+        data = [random.randrange(255) for x in range(mylen)]
+        written = self.dev.ctrl_transfer(uu.CTRL_OUT | uu.CTRL_RECIPIENT_INTERFACE | uu.CTRL_TYPE_VENDOR, GZ_REQ_INTEL_WRITE, 0, 0, data)
+        self.assertEqual(written, len(data), "Should have written all bytes plz")
+        # now. in _theory_ I should be able to make a bulk transfer here and have it not "interfere"
+        # fixme - try this out?
+        read = self.dev.ctrl_transfer(uu.CTRL_IN | uu.CTRL_RECIPIENT_INTERFACE | uu.CTRL_TYPE_VENDOR, GZ_REQ_INTEL_READ, 0, 0, mylen)
+        self.assertEqual(mylen, len(read))
+        expected = array.array('B', [x for x in data])
+        self.assertEqual(expected, read, "should have read back what we wrote")
+
+    def test_ctrl_loopbacks(self):
+        self.inner_t(0)
+        self.inner_t(10)
+        self.inner_t(63)
+        self.inner_t(64)
+        self.inner_t(65)
+        self.inner_t(140)
+        self.inner_t(183)
 
 
 class TestConfigSourceSink(unittest.TestCase):

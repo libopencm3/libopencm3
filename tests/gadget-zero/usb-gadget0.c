@@ -280,7 +280,6 @@ static enum usbd_request_return_codes gadget0_control_request(usbd_device *usbd_
 	(void) usbd_dev;
 	(void) complete;
 	(void) buf;
-	(void) len;
 	ER_DPRINTF("ctrl breq: %x, bmRT: %x, windex :%x, wlen: %x, wval :%x\n",
 		req->bRequest, req->bmRequestType, req->wIndex, req->wLength,
 		req->wValue);
@@ -292,9 +291,31 @@ static enum usbd_request_return_codes gadget0_control_request(usbd_device *usbd_
 		state.pattern = req->wValue;
 		return USBD_REQ_HANDLED;
 	case INTEL_COMPLIANCE_WRITE:
+		/* accept correctly formed ctrl writes */
+		if (req->bmRequestType != (USB_REQ_TYPE_VENDOR|USB_REQ_TYPE_INTERFACE)) {
+			return USBD_REQ_NOTSUPP;
+		}
+		if (req->wValue || req->wIndex) {
+			return USBD_REQ_NOTSUPP;
+		}
+		if (req->wLength > sizeof(usbd_control_buffer)) {
+			return USBD_REQ_NOTSUPP;
+		}
+		/* ok, mark it as accepted. */
+		return USBD_REQ_HANDLED;
 	case INTEL_COMPLIANCE_READ:
-		ER_DPRINTF("unimplemented!");
-		return USBD_REQ_NOTSUPP;
+		if (req->bmRequestType != (USB_REQ_TYPE_IN|USB_REQ_TYPE_VENDOR|USB_REQ_TYPE_INTERFACE)) {
+			return USBD_REQ_NOTSUPP;
+		}
+		if (req->wValue || req->wIndex) {
+			return USBD_REQ_NOTSUPP;
+		}
+		if (req->wLength > sizeof(usbd_control_buffer)) {
+			return USBD_REQ_NOTSUPP;
+		}
+		/* ok, return what they left there earlier */
+		*len = req->wLength;
+		return USBD_REQ_HANDLED;
 	case GZ_REQ_SET_UNALIGNED:
 		state.test_unaligned = 1;
 		return USBD_REQ_HANDLED;
@@ -316,6 +337,9 @@ static enum usbd_request_return_codes gadget0_control_request(usbd_device *usbd_
 			*len = req->wValue;
 		}
 		return USBD_REQ_HANDLED;
+	default:
+		ER_DPRINTF("Unhandled request!\n");
+		return USBD_REQ_NOTSUPP;
 	}
 	return USBD_REQ_NEXT_CALLBACK;
 }
