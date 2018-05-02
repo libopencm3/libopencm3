@@ -20,6 +20,8 @@
 PREFIX		?= arm-none-eabi
 #PREFIX		?= arm-elf
 
+PYTHON		?= python
+
 STYLECHECK      := scripts/checkpatch.pl
 STYLECHECKFLAGS := --no-tree -f --terse --mailback
 
@@ -56,11 +58,11 @@ build: lib
 
 %.genhdr:
 	@printf "  GENHDR  $*\n";
-	@./scripts/irq2nvic_h ./$*;
+	$(Q)$(PYTHON) ./scripts/irq2nvic_h ./$*;
 
 %.cleanhdr:
 	@printf "  CLNHDR  $*\n";
-	@./scripts/irq2nvic_h --remove ./$*
+	$(Q)$(PYTHON) ./scripts/irq2nvic_h --remove ./$*
 
 LIB_DIRS:=$(wildcard $(addprefix lib/,$(TARGETS)))
 $(LIB_DIRS): $(IRQ_DEFN_FILES:=.genhdr)
