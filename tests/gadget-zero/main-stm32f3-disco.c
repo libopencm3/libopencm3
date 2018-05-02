@@ -84,9 +84,7 @@ int main(void)
 	gpio_clear(GPIOE, GPIO12);
 	static int i = 0;
 	while (1) {
-		gpio_toggle(GPIOE, GPIO12);
 		gadget0_run(usbd_dev);
-		ER_DPRINTF("loop %d\n", i++);
 	}
 
 }
