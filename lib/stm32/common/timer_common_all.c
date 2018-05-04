@@ -32,7 +32,6 @@ mode.
 Example: Timer 2 with 2x clock divide, edge aligned and up counting.
 @code
 	rcc_periph_clock_enable(RCC_TIM2);
-	timer_reset(TIM2);
 	timer_set_mode(TIM2, TIM_CR1_CKD_CK_INT_MUL_2,
 		       TIM_CR1_CMS_EDGE, TIM_CR1_DIR_UP);
 	...
@@ -53,7 +52,6 @@ to alternate function push-pull outputs where the PWM output will appear.
 	gpio_set_output_options(GPIOA, GPIO_OTYPE_PP,
 				GPIO_OSPEED_50MHZ, GPIO8 | GPIO9);
 	rcc_periph_clock_enable(RCC_TIM1);
-	timer_reset(TIM1);
 	timer_set_mode(TIM1, TIM_CR1_CKD_CK_INT, TIM_CR1_CMS_CENTER_1,
 		       TIM_CR1_DIR_UP);
 	timer_set_oc_mode(TIM1, TIM_OC1, TIM_OCM_PWM2);
@@ -113,75 +111,6 @@ knob.
 
 #include <libopencm3/stm32/timer.h>
 #include <libopencm3/stm32/rcc.h>
-
-/*---------------------------------------------------------------------------*/
-/** @brief Reset a Timer.
-
-The counter and all its associated configuration registers are placed in the
-reset condition. The reset is effected via the RCC peripheral reset system.
-
-@param[in] timer_peripheral Unsigned int32. Timer register address base @ref
-			    tim_reg_base (TIM9 .. TIM14 not yet supported here).
-*/
-
-void timer_reset(uint32_t timer_peripheral)
-{
-	switch (timer_peripheral) {
-#if defined(TIM1_BASE)
-	case TIM1:
-		rcc_periph_reset_pulse(RST_TIM1);
-		break;
-#endif
-	case TIM2:
-		rcc_periph_reset_pulse(RST_TIM2);
-		break;
-	case TIM3:
-		rcc_periph_reset_pulse(RST_TIM3);
-		break;
-#if defined(TIM4_BASE)
-	case TIM4:
-		rcc_periph_reset_pulse(RST_TIM4);
-		break;
-#endif
-#if defined(TIM5_BASE)
-	case TIM5:
-		rcc_periph_reset_pulse(RST_TIM5);
-		break;
-#endif
-	case TIM6:
-		rcc_periph_reset_pulse(RST_TIM6);
-		break;
-	case TIM7:
-		rcc_periph_reset_pulse(RST_TIM7);
-		break;
-#if defined(TIM8_BASE)
-	case TIM8:
-		rcc_periph_reset_pulse(RST_TIM8);
-		break;
-#endif
-/* These timers are not supported in libopencm3 yet */
-/*
-	case TIM9:
-		rcc_periph_reset_pulse(RST_TIM9);
-		break;
-	case TIM10:
-		rcc_periph_reset_pulse(RST_TIM10);
-		break;
-	case TIM11:
-		rcc_periph_reset_pulse(RST_TIM11);
-		break;
-	case TIM12:
-		rcc_periph_reset_pulse(RST_TIM12);
-		break;
-	case TIM13:
-		rcc_periph_reset_pulse(RST_TIM13);
-		break;
-	case TIM14:
-		rcc_periph_reset_pulse(RST_TIM14);
-		break;
-*/
-	}
-}
 
 /*---------------------------------------------------------------------------*/
 /** @brief Enable Interrupts for a Timer

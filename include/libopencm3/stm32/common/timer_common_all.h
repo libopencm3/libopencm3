@@ -1170,7 +1170,6 @@ enum tim_et_pol {
 
 BEGIN_DECLS
 
-void timer_reset(uint32_t timer_peripheral);
 void timer_enable_irq(uint32_t timer_peripheral, uint32_t irq);
 void timer_disable_irq(uint32_t timer_peripheral, uint32_t irq);
 bool timer_interrupt_source(uint32_t timer_peripheral, uint32_t flag);
