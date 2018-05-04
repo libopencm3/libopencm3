@@ -44,7 +44,7 @@ uint32_t rcc_ahb_frequency = 8000000;
 uint32_t rcc_apb1_frequency = 8000000;
 uint32_t rcc_apb2_frequency = 8000000;
 
-const struct rcc_clock_scale rcc_hsi_8mhz[RCC_CLOCK_END] = {
+const struct rcc_clock_scale rcc_hsi_configs[] = {
 	{ /* 48MHz */
 		.pllmul = RCC_CFGR_PLLMUL_MUL12,
 		.pllsrc = RCC_CFGR_PLLSRC_HSI_DIV2,
@@ -66,6 +66,22 @@ const struct rcc_clock_scale rcc_hsi_8mhz[RCC_CLOCK_END] = {
 		.ahb_frequency	= 64000000,
 		.apb1_frequency = 32000000,
 		.apb2_frequency = 64000000,
+	}
+};
+
+const struct rcc_clock_scale rcc_hse8mhz_configs[] = {
+	{
+		.pllsrc = RCC_CFGR_PLLSRC_HSE_PREDIV,
+		.pllmul = RCC_CFGR_PLLMUL_MUL9,
+		.plldiv = RCC_CFGR2_PREDIV_NODIV,
+		.usbdiv1 = false,
+		.flash_waitstates = 2,
+		.hpre = RCC_CFGR_HPRE_DIV_NONE,
+		.ppre1 = RCC_CFGR_PPRE1_DIV_2,
+		.ppre2 = RCC_CFGR_PPRE2_DIV_NONE,
+		.ahb_frequency = 72e6,
+		.apb1_frequency = 32e6,
+		.apb2_frequency = 72e6,
 	}
 };
 
