@@ -413,11 +413,16 @@ extern uint32_t rcc_apb2_frequency;
 
 /* --- Function prototypes ------------------------------------------------- */
 
-enum rcc_clock {
-	RCC_CLOCK_48MHZ,
-	RCC_CLOCK_64MHZ,
-	RCC_CLOCK_END
+enum rcc_clock_hsi {
+	RCC_CLOCK_HSI_48MHZ,
+	RCC_CLOCK_HSI_64MHZ, /* Max from HSI */
+	RCC_CLOCK_HSI_END
 };
+enum rcc_clock_hse8 {
+	RCC_CLOCK_HSE8_72MHZ,
+	RCC_CLOCK_HSE8_END
+};
+
 
 struct rcc_clock_scale {
 	uint8_t pllsrc;
@@ -434,7 +439,8 @@ struct rcc_clock_scale {
 	uint32_t apb2_frequency;
 };
 
-extern const struct rcc_clock_scale rcc_hsi_8mhz[RCC_CLOCK_END];
+extern const struct rcc_clock_scale rcc_configs[RCC_CLOCK_HSI_END];
+extern const struct rcc_clock_scale rcc_hse8mhz_configs[RCC_CLOCK_HSE8_END];
 
 enum rcc_osc {
 	RCC_PLL, RCC_HSE, RCC_HSI, RCC_LSE, RCC_LSI
