@@ -414,7 +414,6 @@ extern uint32_t rcc_apb2_frequency;
 /* --- Function prototypes ------------------------------------------------- */
 
 enum rcc_clock {
-	RCC_CLOCK_44MHZ,
 	RCC_CLOCK_48MHZ,
 	RCC_CLOCK_64MHZ,
 	RCC_CLOCK_END
