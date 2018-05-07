@@ -100,7 +100,10 @@ ifeq ($(V),99)
 TGT_LDFLAGS += -Wl,--print-gc-sections
 endif
 
+# Linker script generator fills this in for us.
+ifeq (,$(DEVICE))
 LDLIBS += -l$(OPENCM3_LIB)
+endif
 # nosys is only in newer gcc-arm-embedded...
 #LDLIBS += -specs=nosys.specs
 LDLIBS += -Wl,--start-group -lc -lgcc -lnosys -Wl,--end-group
@@ -119,9 +122,12 @@ LDLIBS += -Wl,--start-group -lc -lgcc -lnosys -Wl,--end-group
 all: $(PROJECT).elf $(PROJECT).bin
 flash: $(PROJECT).flash
 
+# error if not using linker script generator
+ifeq (,$(DEVICE))
 $(LDSCRIPT):
 ifeq (,$(wildcard $(LDSCRIPT)))
     $(error Unable to find specified linker script: $(LDSCRIPT))
+endif
 endif
 
 # Need a special rule to have a bin dir
