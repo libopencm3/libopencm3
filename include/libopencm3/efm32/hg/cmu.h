@@ -352,6 +352,7 @@
 #define CMU_CMD_HFCLKSEL_HFXO		CMU_CMD_HFCLKSEL(2)
 #define CMU_CMD_HFCLKSEL_LFRCO		CMU_CMD_HFCLKSEL(3)
 #define CMU_CMD_HFCLKSEL_LFXO		CMU_CMD_HFCLKSEL(4)
+#define CMU_CMD_HFCLKSEL_USHFRCODIV2	CMU_CMD_HFCLKSEL(5)
 
 /* CMU_LFCLKSEL */
 /* Bits 31:21 - Reserved */
@@ -633,6 +634,7 @@ enum cmu_osc {
 	LFXO, /**< External, 32.768kHz */
 	AUXHFRCO, /**< Internal, 1-28Mhz */
 	USHFRCO, /**< Internal, 48MHz */
+	USHFRCODIV2, /**< Internal, 24MHz */
 };
 
 /* --- Function prototypes ------------------------------------------------- */
