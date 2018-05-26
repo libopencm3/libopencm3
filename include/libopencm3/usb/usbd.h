@@ -160,7 +160,12 @@ extern void usbd_register_set_altsetting_callback(usbd_device *usbd_dev,
 /* Functions to be provided by the hardware abstraction layer */
 extern void usbd_poll(usbd_device *usbd_dev);
 
-/** Disconnect, if supported by the driver */
+/** Disconnect, if supported by the driver
+ *
+ * This function is implemented as weak function and can be replaced by an
+ * application specific version to handle chips that don't have built-in
+ * handling for this (e.g. STM32F1.)
+ */
 extern void usbd_disconnect(usbd_device *usbd_dev, bool disconnected);
 
 /** Setup an endpoint

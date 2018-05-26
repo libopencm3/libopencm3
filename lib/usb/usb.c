@@ -112,7 +112,8 @@ void usbd_poll(usbd_device *usbd_dev)
 	usbd_dev->driver->poll(usbd_dev);
 }
 
-void usbd_disconnect(usbd_device *usbd_dev, bool disconnected)
+__attribute__((weak)) void usbd_disconnect(usbd_device *usbd_dev,
+					   bool disconnected)
 {
 	/* not all drivers support disconnection */
 	if (usbd_dev->driver->disconnect) {
