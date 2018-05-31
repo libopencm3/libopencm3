@@ -548,7 +548,8 @@ void adc_enable_external_trigger_injected(uint32_t adc, uint32_t trigger,
 bool adc_awd(uint32_t adc);
 /*void adc_set_dma_continue(uint32_t adc);*/
 /*void adc_set_dma_terminate(uint32_t adc);*/
-
+void adc_enable_dma_circular_mode(uint32_t adc);
+void adc_disable_dma_circular_mode(uint32_t adc);
 END_DECLS
 
 
