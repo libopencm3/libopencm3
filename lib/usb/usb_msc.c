@@ -476,7 +476,7 @@ static void scsi_inquiry(usbd_mass_storage *ms,
 				sizeof(_spc3_inquiry_response);
 
 			set_sbc_status_good(ms);
-		else if (1 == evpd) {
+		} else if (1 == evpd) {
 			trans->bytes_to_write = sizeof(_spc3_inquiry_sn_response);
 			memcpy(trans->msd_buf, _spc3_inquiry_sn_response, 
 						sizeof(_spc3_inquiry_sn_response));
