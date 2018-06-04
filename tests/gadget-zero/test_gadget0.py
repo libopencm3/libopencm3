@@ -30,7 +30,7 @@ class find_by_serial(object):
         self._serial = serial
 
     def __call__(self, device):
-        return device.serial_number == self._serial
+        return usb.util.get_string(device, device.iSerialNumber)
 
 
 class TestGadget0(unittest.TestCase):
