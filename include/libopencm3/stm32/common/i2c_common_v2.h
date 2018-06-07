@@ -154,7 +154,7 @@ specific memorymap.h header before including this header file.*/
 #define I2C_CR1_NACKIE			(1 << 4)
 
 /* ADDRIE: Address match Interrupt enable (slave only) */
-#define I2C_CR1_DDRIE			(1 << 3)
+#define I2C_CR1_ADDRIE			(1 << 3)
 
 /* RXIE: RX Interrupt enable */
 #define I2C_CR1_RXIE			(1 << 2)
