@@ -52,7 +52,7 @@ OBJS		+= rng_common_v1.o
 OBJS		+= usart_common_all.o usart_common_v2.o
 OBJS		+= iwdg_common_all.o
 
-OBJS            += usb.o usb_control.o usb_standard.o
+OBJS            += usb.o usb_control.o usb_standard.o usb_msc.o
 OBJS            += st_usbfs_core.o st_usbfs_v2.o
 
 VPATH += ../../usb:../:../../cm3:../common

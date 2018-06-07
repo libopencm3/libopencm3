@@ -39,6 +39,7 @@ TGT_CFLAGS	+= $(STANDARD_FLAGS)
 ARFLAGS		= rcs
 OBJS		= gpio.o vector.o assert.o systemcontrol.o rcc.o uart.o \
 		  usb_lm4f.o usb.o usb_control.o usb_standard.o
+OBJS		+= usb_msc.o
 
 VPATH += ../usb:../cm3
 

@@ -49,7 +49,7 @@ OBJS		+= exti_common_all.o
 OBJS		+= rcc_common_all.o
 OBJS		+= adc.o adc_common_v1.o
 
-OBJS		+= usb.o usb_control.o usb_standard.o
+OBJS		+= usb.o usb_control.o usb_standard.o usb_msc.o
 OBJS		+= st_usbfs_core.o st_usbfs_v1.o
 
 VPATH += ../../usb:../:../../cm3:../common
