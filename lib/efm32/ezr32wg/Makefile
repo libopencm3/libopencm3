@@ -44,7 +44,7 @@ OBJS		= gpio_common.o cmu_common.o prs_common.o
 OBJS		+= adc_common.o dma_common.o timer_common.o
 OBJS		+= dac_common.o
 
-OBJS            += usb.o usb_control.o usb_standard.o
+OBJS            += usb.o usb_control.o usb_standard.o usb_msc.o
 OBJS            += usb_efm32.o
 
 VPATH += ../../usb:../:../../cm3:../common
