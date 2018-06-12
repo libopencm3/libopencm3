@@ -32,6 +32,8 @@
 #       include <libopencm3/stm32/f4/dac.h>
 #elif defined(STM32L1)
 #       include <libopencm3/stm32/l1/dac.h>
+#elif defined(GD32F1x0)
+#       include <libopencm3/stm32/f1x0/dac.h>
 #else
 #       error "stm32 family not defined."
 #endif

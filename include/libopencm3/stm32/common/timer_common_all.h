@@ -50,7 +50,9 @@ specific memorymap.h header before including this header file.*/
 #endif
 #define TIM5				TIM5_BASE
 #define TIM6				TIM6_BASE
+#if defined(TIM8_BASE)
 #define TIM7				TIM7_BASE
+#endif
 #if defined(TIM8_BASE)
 # define TIM8				TIM8_BASE
 #endif

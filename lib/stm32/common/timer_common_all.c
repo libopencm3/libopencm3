@@ -151,9 +151,11 @@ void timer_reset(uint32_t timer_peripheral)
 	case TIM6:
 		rcc_periph_reset_pulse(RST_TIM6);
 		break;
+#if defined(TIM7)
 	case TIM7:
 		rcc_periph_reset_pulse(RST_TIM7);
 		break;
+#endif
 #if defined(TIM8_BASE)
 	case TIM8:
 		rcc_periph_reset_pulse(RST_TIM8);
