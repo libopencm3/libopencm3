@@ -136,6 +136,8 @@ stm32f4[01][57]?g* stm32f4ccm ROM=1024K RAM=128K CCM=64K
 stm32f411re stm32f4 ROM=512K RAM=128K
 stm32f4[23][79]?g* stm32f4ccm ROM=1024K RAM=192K CCM=64K
 stm32f4[23][79]?i* stm32f4ccm ROM=2048K RAM=192K CCM=64K
+stm32f446?c* stm32f4 ROM=256K RAM=128K
+stm32f446?e* stm32f4 ROM=512K RAM=128K
 
 # on F7 CCM is in some datasheets named as DTCM
 stm32f7[23][23]?c* stm32f7ccm ROM=256K RAM=192K CCM=64K
