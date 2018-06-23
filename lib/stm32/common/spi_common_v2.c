@@ -1,4 +1,5 @@
-/** @addtogroup spi_file
+/** @addtogroup spi_file SPI peripheral API
+ * @ingroup peripheral_apis
 
 @author @htmlonly &copy; @endhtmlonly 2009
 Uwe Hermann <uwe@hermann-uwe.de>
