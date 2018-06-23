@@ -1,5 +1,5 @@
-/** @addtogroup i2c_file
- *
+/** @addtogroup i2c_file I2C peripheral API
+ * @ingroup peripheral_apis
  */
 
 /*
