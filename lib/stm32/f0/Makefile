@@ -37,7 +37,7 @@ TGT_CFLAGS	+= $(STANDARD_FLAGS)
 ARFLAGS		= rcs
 
 OBJS		= can.o flash.o rcc.o dma.o rtc.o comparator.o \
-                  dac.o iwdg.o pwr.o gpio.o timer.o adc.o desig.o
+                  dac.o pwr.o gpio.o timer.o adc.o desig.o
 
 OBJS            += gpio_common_all.o gpio_common_f0234.o crc_common_all.o crc_v2.o \
                    pwr_common_v1.o iwdg_common_all.o rtc_common_l1f024.o \

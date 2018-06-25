@@ -1,4 +1,5 @@
-/** @addtogroup iwdg_file
+/** @addtogroup iwdg_file IWDG peripheral API
+@ingroup peripheral_apis
 
 @author @htmlonly &copy; @endhtmlonly 2012 Ken Sarkies ksarkies@internode.on.net
 
