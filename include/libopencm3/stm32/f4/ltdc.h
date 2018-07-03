@@ -138,20 +138,14 @@
 #define LTDC_TWCR_TOTALH_MASK           0x7ff
 
 /* GCR - control register */
-#define LTDC_GCR_LTDC_ENABLE       (1<<0)
-#define LTDC_GCR_DITHER_ENABLE     (1<<16)
+#define LTDC_GCR_LTDC_ENABLE		(1<<0)
+#define LTDC_GCR_DITHER_ENABLE 		(1<<16)
 
-#define LTDC_GCR_PCPOL_ACTIVE_LOW  (0<<28)
-#define LTDC_GCR_PCPOL_ACTIVE_HIGH (1<<28)
-
-#define LTDC_GCR_DEPOL_ACTIVE_LOW  (0<<29)
-#define LTDC_GCR_DEPOL_ACTIVE_HIGH (1<<29)
-
-#define LTDC_GCR_VSPOL_ACTIVE_LOW  (0<<30)
-#define LTDC_GCR_VSPOL_ACTIVE_HIGH (1<<30)
-
-#define LTDC_GCR_HSPOL_ACTIVE_LOW  (0<<31)
-#define LTDC_GCR_HSPOL_ACTIVE_HIGH (1<<31)
+/* GCR polarity flags (1) signal is active high, (0) signal is active low */
+#define LTDC_GCR_PCPOL			(1<<28)
+#define LTDC_GCR_DEPOL			(1<<29)
+#define LTDC_GCR_VSPOL			(1<<30)
+#define LTDC_GCR_HSPOL			(1<<31)
 
 /* GCR - register bit defines (no semantics) */
 #define	LTDC_GCR_HSPOL			(1 << 31)
