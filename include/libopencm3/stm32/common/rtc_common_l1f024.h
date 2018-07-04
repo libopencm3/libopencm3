@@ -223,7 +223,10 @@ specific memorymap.h header before including this header file.*/
 #define RTC_PRER_PREDIV_S_MASK    (0x7fff) /* Sync prescaler factor mask */
 
 /* RTC calibration register (RTC_CALIBR) ------------------------ */
-/* FIXME - TODO */
+#define RTC_CALIBR_DCS            (1 << 7)
+
+#define RTC_CALIBR_DC_SHIFT       (0)
+#define RTC_CALIBR_DC_MASK        (0x1f)
 
 /* RTC Alarm register ------------------------------------------- */
 /* Note: Applies to RTC_ALRMAR and RTC_ALRMBR */
@@ -250,8 +253,11 @@ specific memorymap.h header before including this header file.*/
 #define RTC_ALRMXR_SU_SHIFT       (0)
 #define RTC_ALRMXR_SU_MASK        (0xf)
 
-/* RTC shift control register (RTC_SHIFTR) */
-/* FIXME - TODO */
+/* RTC shift control register (RTC_SHIFTR) ---------------------- */
+#define RTC_SHIFTR_ADD1S          (31)
+
+#define RTC_SHIFTR_SUBFS_SHIFT    (0)
+#define RTC_SHIFTR_SUBFS_MASK     (0x7fff)
 
 /* RTC time stamp time register (RTC_TSTR) ---------------------- */
 #define RTC_TSTR_PM               (1<<22)
@@ -280,7 +286,11 @@ specific memorymap.h header before including this header file.*/
 #define RTC_TSDR_DU_MASK          (0xf)
 
 /* RTC calibration register (RTC_CALR) -------------------------- */
-/* FIXME - TODO */
+#define RTC_CALR_CALP             (1 << 15)
+#define RTC_CALR_CALW8            (1 << 14)
+#define RTC_CALR_CALW16           (1 << 13)
+#define RTC_CALR_CALM_SHIFT       (0)
+#define RTC_CALR_CALM_MASK        (0x1ff)
 
 /* RTC tamper and alternate function configuration register (RTC_TAFCR) --- */
 #define RTC_TAFCR_ALARMOUTTYPE    (1<<18)
@@ -320,9 +330,13 @@ specific memorymap.h header before including this header file.*/
 #define RTC_TAFCR_TAMP1TRG        (1<<1)
 #define RTC_TAFCR_TAMP1E          (1<<0)
 
-/* RTC alarm X sub second register */
-/* FIXME - TODO */
+/* RTC alarm X sub second register ------------------------------ */
+/* Note: Applies to RTC_ALRMASSR and RTC_ALRMBSSR */
+#define RTC_ALRMXSSR_MASKSS_SHIFT (24)
+#define RTC_ALARXSSR_MASKSS_MASK  (0xf)
 
+#define RTC_ALRMXSSR_SS_SHIFT     (0)
+#define RTC_ALARXSSR_SS_MASK      (0x7fff)
 
 
 BEGIN_DECLS
@@ -340,7 +354,7 @@ END_DECLS
 #endif  /* RTC2_H */
 /** @cond */
 #else
-#warning "rtc_common_bcd.h should not be included explicitly, only via rtc.h"
+#warning "rtc_common_l1f024.h should not be included explicitly, only via rtc.h"
 #endif
 /** @endcond */
 
