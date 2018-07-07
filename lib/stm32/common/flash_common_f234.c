@@ -39,10 +39,8 @@ speed, or <b>after</b> any decrease in clock speed.
 void flash_set_ws(uint32_t ws)
 {
 	uint32_t reg32;
-
-	reg32 = FLASH_ACR;
-	reg32 &= ~(FLASH_ACR_LATENCY_MASK);
-	reg32 |= ws;
+	reg32 = FLASH_ACR & ~(FLASH_ACR_LATENCY_MASK);
+	reg32 |= ws & FLASH_ACR_LATENCY_MASK;
 	FLASH_ACR = reg32;
 }
 
@@ -117,4 +115,3 @@ void flash_wait_for_last_operation(void)
 	while ((FLASH_SR & FLASH_SR_BSY) == FLASH_SR_BSY);
 }
 /**@}*/
-
