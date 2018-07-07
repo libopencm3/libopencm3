@@ -38,9 +38,8 @@
 
 void pwr_set_vos_scale(enum pwr_vos_scale scale)
 {
-	if (scale == PWR_SCALE1) {
-		PWR_CR |= PWR_CR_VOS;
-	} else if (scale == PWR_SCALE2) {
-		PWR_CR &= PWR_CR_VOS;
-	}
+	uint32_t reg32;
+	reg32 = PWR_CR & ~(PWR_CR_VOS_MASK << PWR_CR_VOS_SHIFT);
+	reg32 |= (scale & PWR_CR_VOS_MASK) << PWR_CR_VOS_SHIFT;
+	PWR_CR = reg32;
 }
