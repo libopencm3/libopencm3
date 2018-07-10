@@ -43,3 +43,6 @@ locm3.sublime-workspace
 
 # cscope databases
 cscope.out
+
+# build droppings
+.stamp_failure*
