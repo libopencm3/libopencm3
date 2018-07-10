@@ -29,6 +29,8 @@
 #define LIBOPENCM3_FLASH_COMMON_L01_H
 /**@{*/
 
+#include <libopencm3/stm32/common/flash_common_all.h>
+
 /* --- FLASH registers ----------------------------------------------------- */
 
 #define FLASH_ACR			MMIO32(FLASH_MEM_INTERFACE_BASE + 0x00)
@@ -110,9 +112,6 @@
 
 BEGIN_DECLS
 
-void flash_prefetch_enable(void);
-void flash_prefetch_disable(void);
-void flash_set_ws(uint32_t ws);
 void flash_unlock_pecr(void);
 void flash_lock_pecr(void);
 void flash_unlock_progmem(void);

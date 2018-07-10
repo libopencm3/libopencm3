@@ -42,11 +42,12 @@ OBJS		= can.o flash.o rcc.o dma.o rtc.o comparator.o \
 OBJS            += gpio_common_all.o gpio_common_f0234.o crc_common_all.o crc_v2.o \
                    pwr_common_v1.o iwdg_common_all.o rtc_common_l1f024.o \
                    dma_common_l1f013.o exti_common_all.o \
-                   flash_common_f01.o dac_common_all.o \
+                   dac_common_all.o \
                    timer_common_all.o timer_common_f0234.o rcc_common_all.o
 
 OBJS		+= adc_common_v2.o
 OBJS		+= crs_common_all.o
+OBJS		+= flash_common_all.o flash_common_f01.o
 OBJS		+= usart_common_all.o usart_common_v2.o
 OBJS		+= i2c_common_v2.o
 OBJS		+= spi_common_all.o spi_common_v2.o

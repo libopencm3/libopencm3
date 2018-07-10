@@ -30,34 +30,6 @@
 #include <libopencm3/stm32/flash.h>
 
 /*---------------------------------------------------------------------------*/
-/** @brief Enable the FLASH Prefetch Buffer
-
-This buffer is used for instruction fetches and is enabled by default after
-reset.
-
-Note carefully the restrictions under which the prefetch buffer may be
-enabled or disabled. Prefetch is only available when 64-bit
-access is enabled.
-*/
-
-void flash_prefetch_enable(void)
-{
-	FLASH_ACR |= FLASH_ACR_PRFTEN;
-}
-
-/*---------------------------------------------------------------------------*/
-/** @brief Disable the FLASH Prefetch Buffer
-
-Note carefully the restrictions under which the prefetch buffer may be
-set to disabled. See the reference and programming manuals for details.
-*/
-
-void flash_prefetch_disable(void)
-{
-	FLASH_ACR &= ~FLASH_ACR_PRFTEN;
-}
-
-/*---------------------------------------------------------------------------*/
 /** @brief Set the Number of Wait States
 
 Used to match the system clock to the FLASH memory access time. See the

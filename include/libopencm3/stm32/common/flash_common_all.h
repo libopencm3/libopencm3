@@ -1,16 +1,6 @@
-/** @defgroup flash_defines FLASH Defines
+/** @addtogroup flash_defines
  *
- * @ingroup STM32F4xx_defines
- *
- * @brief Defined Constants and Types for the STM32F4xx FLASH Memory
- *
- * @version 1.0.0
- *
- * @date 14 January 2014
- *
- * LGPL License Terms @ref lgpl_license
  */
-
 /*
  * This file is part of the libopencm3 project.
  *
@@ -28,11 +18,31 @@
  * along with this library.  If not, see <http://www.gnu.org/licenses/>.
  */
 
-#ifndef LIBOPENCM3_FLASH_H
-#define LIBOPENCM3_FLASH_H
+#pragma once
 
-#include <libopencm3/stm32/common/flash_common_all.h>
-#include <libopencm3/stm32/common/flash_common_f24.h>
+#include <libopencm3/cm3/common.h>
 
-#endif
+BEGIN_DECLS
 
+/**
+ * This buffer is used for instruction fetches and is enabled by default after
+ * reset.
+ * 
+ * Note carefully the clock restrictions under which the prefetch buffer may be
+ * enabled or disabled. Changes are normally made while the clock is running in
+ * the power-on low frequency mode before being set to a higher speed mode.
+ *
+ * See the reference manual for details.
+ */
+void flash_prefetch_enable(void);
+
+/**
+ * Note carefully the clock restrictions under which the prefetch buffer may be
+ * set to disabled. See the reference manual for details.
+ */
+void flash_prefetch_disable(void);
+
+
+void flash_set_ws(uint32_t ws);
+
+END_DECLS
