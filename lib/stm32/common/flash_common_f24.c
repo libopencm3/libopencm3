@@ -359,6 +359,11 @@ void flash_erase_sector(uint8_t sector, uint32_t program_size)
 	flash_wait_for_last_operation();
 	flash_set_program_size(program_size);
 
+	/* Sector numbering is not contiguous internally! */
+	if (sector >= 12) {
+		sector += 4;
+	}
+
 	FLASH_CR &= ~(FLASH_CR_SNB_MASK << FLASH_CR_SNB_SHIFT);
 	FLASH_CR |= (sector & FLASH_CR_SNB_MASK) << FLASH_CR_SNB_SHIFT;
 	FLASH_CR |= FLASH_CR_SER;
