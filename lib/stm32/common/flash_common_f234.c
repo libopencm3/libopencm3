@@ -92,16 +92,6 @@ void flash_clear_eop_flag(void)
 	FLASH_SR |= FLASH_SR_EOP;
 }
 
-/*---------------------------------------------------------------------------*/
-/** @brief Clear the Busy Status Flag
-
-*/
-
-void flash_clear_bsy_flag(void)
-{
-	FLASH_SR &= ~FLASH_SR_BSY;
-}
-
 
 /*---------------------------------------------------------------------------*/
 /** @brief Wait until Last Operation has Ended

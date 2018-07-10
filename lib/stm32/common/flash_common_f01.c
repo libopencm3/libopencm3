@@ -128,16 +128,6 @@ void flash_clear_wrprterr_flag(void)
 }
 
 /*---------------------------------------------------------------------------*/
-/** @brief Clear the Busy Status Flag
-
-*/
-
-void flash_clear_bsy_flag(void)
-{
-	FLASH_SR &= ~FLASH_SR_BSY;
-}
-
-/*---------------------------------------------------------------------------*/
 /** @brief Wait until Last Operation has Ended
 
 This loops indefinitely until an operation (write or erase) has completed by
