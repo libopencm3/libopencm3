@@ -79,7 +79,6 @@ void flash_unlock(void);
 void flash_lock(void);
 void flash_clear_pgperr_flag(void);
 void flash_clear_eop_flag(void);
-void flash_clear_bsy_flag(void);
 void flash_clear_status_flags(void);
 void flash_wait_for_last_operation(void);
 

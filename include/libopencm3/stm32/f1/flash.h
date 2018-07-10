@@ -111,7 +111,6 @@ void flash_lock_upper(void);
 void flash_clear_pgerr_flag_upper(void);
 void flash_clear_eop_flag_upper(void);
 void flash_clear_wrprterr_flag_upper(void);
-void flash_clear_bsy_flag_upper(void);
 
 END_DECLS
 

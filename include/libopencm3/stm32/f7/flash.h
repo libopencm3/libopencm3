@@ -50,8 +50,6 @@
  * 	by F7 require more than 7 wait states.
  * 4. 	FLASH_SR_PGSERR (programming sequence error) is now FLASH_SR_ERSERR (
  *	erase sequence error).
- * 5. 	FLASH_SR_BSY field is now read-only. Seems to also be read-only in F4?
- *	Why did we have a clear busy flag function?
  * 6. 	There are now two watchdogs - IWDG (independent watchdog) and WWDG (
  * 	window watchdog).
  */

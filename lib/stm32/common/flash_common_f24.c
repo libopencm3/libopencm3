@@ -176,7 +176,6 @@ void flash_clear_status_flags(void)
 	flash_clear_wrperr_flag();
 	flash_clear_pgperr_flag();
 	flash_clear_eop_flag();
-	flash_clear_bsy_flag();
 }
 
 /*---------------------------------------------------------------------------*/
