@@ -62,6 +62,8 @@
 
 #define FLASH_ACR_PRFTBS		(1 << 5)
 #define FLASH_ACR_PRFTBE		(1 << 4)
+/** Compatibility define */
+#define FLASH_ACR_PRFTEN		FLASH_ACR_PRFTBE
 
 /* --- FLASH_SR values ----------------------------------------------------- */
 
@@ -97,9 +99,6 @@
 
 BEGIN_DECLS
 
-void flash_set_ws(uint32_t ws);
-void flash_prefetch_enable(void);
-void flash_prefetch_disable(void);
 void flash_unlock(void);
 void flash_lock(void);
 void flash_clear_pgerr_flag(void);

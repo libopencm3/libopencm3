@@ -32,6 +32,7 @@
  * along with this library.  If not, see <http://www.gnu.org/licenses/>.
  */
 
+#include <libopencm3/stm32/common/flash_common_all.h>
 /*
  * For details see:
  * PM0081 Programming manual: STM32F40xxx and STM32F41xxx Flash programming
@@ -151,7 +152,6 @@
 
 BEGIN_DECLS
 
-void flash_set_ws(uint32_t ws);
 void flash_unlock(void);
 void flash_lock(void);
 void flash_clear_pgperr_flag(void);
@@ -165,8 +165,6 @@ void flash_clear_wrperr_flag(void);
 void flash_clear_pgaerr_flag(void);
 void flash_art_enable(void);
 void flash_art_disable(void);
-void flash_prefetch_enable(void);
-void flash_prefetch_disable(void);
 void flash_art_reset(void);
 void flash_clear_status_flags(void);
 void flash_erase_all_sectors(uint32_t program_size);

@@ -124,8 +124,6 @@ void flash_dcache_enable(void);
 void flash_dcache_disable(void);
 void flash_icache_enable(void);
 void flash_icache_disable(void);
-void flash_prefetch_enable(void);
-void flash_prefetch_disable(void);
 void flash_dcache_reset(void);
 void flash_icache_reset(void);
 void flash_erase_all_sectors(uint32_t program_size);

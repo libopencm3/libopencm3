@@ -32,6 +32,7 @@
 #define LIBOPENCM3_FLASH_H
 /**@{*/
 
+#include <libopencm3/stm32/common/flash_common_all.h>
 #include <libopencm3/stm32/common/flash_common_f234.h>
 
 /* --- FLASH registers ----------------------------------------------------- */
@@ -44,6 +45,8 @@
 
 #define FLASH_ACR_PRFTBS		(1 << 5)
 #define FLASH_ACR_PRFTBE		(1 << 4)
+/** Compatibility alias */
+#define FLASH_ACR_PRFTEN		FLASH_ACR_PRFTBE
 #define FLASH_ACR_HLFCYA		(1 << 3)
 
 /* --- FLASH_SR values ----------------------------------------------------- */
@@ -70,8 +73,6 @@
 
 BEGIN_DECLS
 
-void flash_prefetch_enable(void);
-void flash_prefetch_disable(void);
 
 END_DECLS
 
