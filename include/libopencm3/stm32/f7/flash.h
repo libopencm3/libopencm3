@@ -80,6 +80,7 @@
 #define FLASH_ACR_ARTEN			(1 << 9)
 #define FLASH_ACR_PRFTEN		(1 << 8)
 
+#define FLASH_ACR_LATENCY_SHIFT		0
 #define FLASH_ACR_LATENCY_MASK		0x0f
 
 /* --- FLASH_SR values ----------------------------------------------------- */

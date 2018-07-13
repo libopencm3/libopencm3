@@ -43,6 +43,15 @@ void flash_prefetch_enable(void);
 void flash_prefetch_disable(void);
 
 
+/** Set the Number of Wait States.
+
+Used to match the system clock to the FLASH memory access time. See the
+programming manual for more information on clock speed ranges. The latency must
+be changed to the appropriate value <b>before</b> any increase in clock
+speed, or <b>after</b> any decrease in clock speed.
+
+@param[in] ws values from @ref flash_latency.
+*/
 void flash_set_ws(uint32_t ws);
 
 /** Lock the Flash Program and Erase Controller

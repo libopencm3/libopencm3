@@ -59,32 +59,6 @@ static inline void flash_pipeline_stall(void)
 }
 
 /*---------------------------------------------------------------------------*/
-/** @brief Set the Number of Wait States
-
-Used to match the system clock to the FLASH memory access time. See the
-programming manual for more information on clock speed ranges. The latency must
-be changed to the appropriate value <b>before</b> any increase in clock
-speed, or <b>after</b> any decrease in clock speed.
-
-@param[in] ws values from @ref flash_latency.
-*/
-void flash_set_ws(uint32_t ws)
-{
-	uint32_t reg32;
-
-	reg32 = FLASH_ACR;
-	reg32 &= ~(FLASH_ACR_LATENCY_MASK);
-	reg32 |= ws;
-	FLASH_ACR = reg32;
-
-	/* Wait until the new wait states take effect.
-	 * RM0385: Check that the new number of wait states is taken into
-	 * account to access the Flash memory by reading the FLASH_ACR register.
-	 */
-	while ((FLASH_ACR & FLASH_ACR_LATENCY_MASK) != ws);
-}
-
-/*---------------------------------------------------------------------------*/
 /** @brief Clear the Programming Error Status Flag
 
 */

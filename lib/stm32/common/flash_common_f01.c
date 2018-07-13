@@ -25,21 +25,6 @@
 
 #include <libopencm3/stm32/flash.h>
 
-/*---------------------------------------------------------------------------*/
-/** @brief Set the Number of Wait States
-
-Used to match the system clock to the FLASH memory access time. See the
-reference manual for more information on clock speed ranges for each wait state.
-The latency must be changed to the appropriate value <b>before</b> any increase
-in clock speed, or <b>after</b> any decrease in clock speed.
-
-@param[in] ws values from @ref flash_latency.
-*/
-
-void flash_set_ws(uint32_t ws)
-{
-	FLASH_ACR = (FLASH_ACR & ~FLASH_ACR_LATENCY) | ws;
-}
 
 /*---------------------------------------------------------------------------*/
 /** @brief Unlock the Flash Program and Erase Controller

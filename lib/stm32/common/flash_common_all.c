@@ -33,5 +33,16 @@ void flash_prefetch_disable(void)
 	FLASH_ACR &= ~FLASH_ACR_PRFTEN;
 }
 
+void flash_set_ws(uint32_t ws)
+{
+	uint32_t reg32;
+
+	reg32 = FLASH_ACR;
+	reg32 &= ~(FLASH_ACR_LATENCY_MASK << FLASH_ACR_LATENCY_SHIFT);
+	reg32 |= (ws << FLASH_ACR_LATENCY_SHIFT);
+	FLASH_ACR = reg32;
+}
+
+
 
 /*@}*/
