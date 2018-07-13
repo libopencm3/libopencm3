@@ -42,6 +42,7 @@
 #define LIBOPENCM3_FLASH_H
 
 #include <libopencm3/stm32/common/flash_common_all.h>
+#include <libopencm3/stm32/common/flash_common_f.h>
 
 /* --- FLASH registers ----------------------------------------------------- */
 
@@ -225,7 +226,6 @@
 BEGIN_DECLS
 
 void flash_clear_pgperr_flag(void);
-void flash_clear_eop_flag(void);
 void flash_wait_for_last_operation(void);
 void flash_dcache_enable(void);
 void flash_dcache_disable(void);

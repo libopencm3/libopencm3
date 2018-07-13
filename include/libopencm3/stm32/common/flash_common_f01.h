@@ -100,7 +100,6 @@
 BEGIN_DECLS
 
 void flash_clear_pgerr_flag(void);
-void flash_clear_eop_flag(void);
 void flash_clear_wrprterr_flag(void);
 void flash_clear_status_flags(void);
 uint32_t flash_get_status_flags(void);

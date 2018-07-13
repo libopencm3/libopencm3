@@ -60,16 +60,6 @@ void flash_clear_pgerr_flag(void)
 }
 
 /*---------------------------------------------------------------------------*/
-/** @brief Clear the End of Operation Status Flag
-
-*/
-
-void flash_clear_eop_flag(void)
-{
-	FLASH_SR |= FLASH_SR_EOP;
-}
-
-/*---------------------------------------------------------------------------*/
 /** @brief Clear the Write Protect Error Status Flag
 
 */

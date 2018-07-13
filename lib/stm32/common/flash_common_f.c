@@ -22,6 +22,7 @@
 /**@{*/
 
 #include <libopencm3/stm32/flash.h>
+#include <libopencm3/stm32/common/flash_common_f.h>
 
 
 void flash_unlock(void)
@@ -37,5 +38,11 @@ void flash_unlock(void)
 void flash_lock(void)
 {
 	FLASH_CR |= FLASH_CR_LOCK;
+}
+
+/* The bit number for EOP moves sometimes, but it's always a write 1 to clear */
+void flash_clear_eop_flag(void)
+{
+	FLASH_SR |= FLASH_SR_EOP;
 }
 

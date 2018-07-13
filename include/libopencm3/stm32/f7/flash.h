@@ -33,6 +33,7 @@
  */
 
 #include <libopencm3/stm32/common/flash_common_all.h>
+#include <libopencm3/stm32/common/flash_common_f.h>
 /*
  * For details see:
  * PM0081 Programming manual: STM32F40xxx and STM32F41xxx Flash programming
@@ -153,7 +154,6 @@
 BEGIN_DECLS
 
 void flash_clear_pgperr_flag(void);
-void flash_clear_eop_flag(void);
 void flash_wait_for_last_operation(void);
 
 void flash_unlock_option_bytes(void);
