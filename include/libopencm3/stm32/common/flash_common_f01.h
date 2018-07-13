@@ -99,8 +99,6 @@
 
 BEGIN_DECLS
 
-void flash_unlock(void);
-void flash_lock(void);
 void flash_clear_pgerr_flag(void);
 void flash_clear_eop_flag(void);
 void flash_clear_wrprterr_flag(void);

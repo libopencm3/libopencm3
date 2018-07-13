@@ -47,7 +47,7 @@ OBJS            += gpio_common_all.o gpio_common_f0234.o crc_common_all.o crc_v2
 
 OBJS		+= adc_common_v2.o
 OBJS		+= crs_common_all.o
-OBJS		+= flash_common_all.o flash_common_f01.o
+OBJS		+= flash_common_all.o flash_common_f.o flash_common_f01.o
 OBJS		+= usart_common_all.o usart_common_v2.o
 OBJS		+= i2c_common_v2.o
 OBJS		+= spi_common_all.o spi_common_v2.o
