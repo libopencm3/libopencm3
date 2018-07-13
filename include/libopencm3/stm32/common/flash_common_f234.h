@@ -50,6 +50,7 @@
 
 /* --- FLASH_ACR values ---------------------------------------------------- */
 
+#define FLASH_ACR_LATENCY_SHIFT		0
 #define FLASH_ACR_LATENCY_MASK		0x0f
 #define FLASH_ACR_LATENCY(w)		((w) & FLASH_ACR_LATENCY_MASK)
 #define FLASH_ACR_LATENCY_0WS		0x00

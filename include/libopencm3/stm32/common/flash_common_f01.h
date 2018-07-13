@@ -58,7 +58,7 @@
 /* --- FLASH_ACR values ---------------------------------------------------- */
 
 #define FLASH_ACR_LATENCY_SHIFT		0
-#define FLASH_ACR_LATENCY		7
+#define FLASH_ACR_LATENCY_MASK		7
 
 #define FLASH_ACR_PRFTBS		(1 << 5)
 #define FLASH_ACR_PRFTBE		(1 << 4)

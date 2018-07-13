@@ -48,6 +48,8 @@
 #define FLASH_ACR_RUNPD			(1 << 4)
 #define FLASH_ACR_SLEEPPD		(1 << 3)
 #define FLASH_ACR_PRFTEN		(1 << 1)
+#define FLASH_ACR_LATENCY_SHIFT		0
+#define FLASH_ACR_LATENCY_MASK		1
 /** @defgroup flash_latency FLASH Wait States
 @ingroup flash_defines
 @{*/
