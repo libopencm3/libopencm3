@@ -45,4 +45,15 @@ void flash_prefetch_disable(void);
 
 void flash_set_ws(uint32_t ws);
 
+/** Lock the Flash Program and Erase Controller
+ * Used to prevent spurious writes to FLASH.
+ */
+void flash_lock(void);
+
+/** Unlock the Flash Program and Erase Controller
+ * This enables write access to the Flash memory. It is locked by default on
+ * reset.
+ */
+void flash_unlock(void);
+
 END_DECLS

@@ -118,8 +118,6 @@ void flash_unlock_progmem(void);
 void flash_lock_progmem(void);
 void flash_unlock_option_bytes(void);
 void flash_lock_option_bytes(void);
-void flash_unlock(void);
-void flash_lock(void);
 
 void eeprom_program_word(uint32_t address, uint32_t data);
 void eeprom_program_words(uint32_t address, uint32_t *data, int length_in_words);

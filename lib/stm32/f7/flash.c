@@ -85,34 +85,6 @@ void flash_set_ws(uint32_t ws)
 }
 
 /*---------------------------------------------------------------------------*/
-/** @brief Unlock the Flash Program and Erase Controller
-
-This enables write access to the Flash memory. It is locked by default on
-reset.
-*/
-
-void flash_unlock(void)
-{
-	/* Clear the unlock sequence state. */
-	FLASH_CR |= FLASH_CR_LOCK;
-
-	/* Authorize the FPEC access. */
-	FLASH_KEYR = FLASH_KEYR_KEY1;
-	FLASH_KEYR = FLASH_KEYR_KEY2;
-}
-
-/*---------------------------------------------------------------------------*/
-/** @brief Lock the Flash Program and Erase Controller
-
-Used to prevent spurious writes to FLASH.
-*/
-
-void flash_lock(void)
-{
-	FLASH_CR |= FLASH_CR_LOCK;
-}
-
-/*---------------------------------------------------------------------------*/
 /** @brief Clear the Programming Error Status Flag
 
 */
