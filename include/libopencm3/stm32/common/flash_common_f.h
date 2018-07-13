@@ -1,16 +1,6 @@
-/** @defgroup flash_defines FLASH Defines
+/** @addtogroup flash_defines
  *
- * @ingroup STM32F4xx_defines
- *
- * @brief Defined Constants and Types for the STM32F4xx FLASH Memory
- *
- * @version 1.0.0
- *
- * @date 14 January 2014
- *
- * LGPL License Terms @ref lgpl_license
  */
-
 /*
  * This file is part of the libopencm3 project.
  *
@@ -28,12 +18,15 @@
  * along with this library.  If not, see <http://www.gnu.org/licenses/>.
  */
 
-#ifndef LIBOPENCM3_FLASH_H
-#define LIBOPENCM3_FLASH_H
+#pragma once
 
-#include <libopencm3/stm32/common/flash_common_all.h>
-#include <libopencm3/stm32/common/flash_common_f.h>
-#include <libopencm3/stm32/common/flash_common_f24.h>
+#include <libopencm3/cm3/common.h>
 
-#endif
+BEGIN_DECLS
 
+/**
+ * Clear the End of OPeration flag.
+ */
+void flash_clear_eop_flag(void);
+
+END_DECLS

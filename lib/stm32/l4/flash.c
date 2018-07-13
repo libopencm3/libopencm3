@@ -68,13 +68,6 @@ void flash_clear_pgperr_flag(void)
 	FLASH_SR |= FLASH_SR_PROGERR;
 }
 
-/** @brief Clear the End of Operation Status Flag
- */
-void flash_clear_eop_flag(void)
-{
-	FLASH_SR |= FLASH_SR_EOP;
-}
-
 /** @brief Wait until Last Operation has Ended
  * This loops indefinitely until an operation (write or erase) has completed
  * by testing the busy flag.

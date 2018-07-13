@@ -37,6 +37,7 @@
 /**@{*/
 
 #include <libopencm3/stm32/common/flash_common_all.h>
+#include <libopencm3/stm32/common/flash_common_f.h>
 #include <libopencm3/stm32/common/flash_common_f01.h>
 
 /* --- FLASH_OPTION values ------------------------------------------------- */
