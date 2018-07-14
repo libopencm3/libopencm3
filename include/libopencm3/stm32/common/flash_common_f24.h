@@ -88,6 +88,8 @@
 #define FLASH_CR_PROGRAM_X64		3
 /**@}*/
 
+#define FLASH_CR_SNB_BANK_BIT_OFFSET	0x04
+
 /* --- FLASH_OPTCR values -------------------------------------------------- */
 
 /* FLASH_OPTCR[27:16]: nWRP */
@@ -110,6 +112,9 @@
 
 #define FLASH_OPTKEYR_KEY1		((uint32_t)0x08192a3b)
 #define FLASH_OPTKEYR_KEY2		((uint32_t)0x4c5d6e7f)
+
+/* --- FLASH sector bank split --------------------------------------------- */
+#define FLASH_SECTOR_BANK2_START        12
 
 /* --- Function prototypes ------------------------------------------------- */
 
@@ -147,3 +152,4 @@ END_DECLS
 #warning "only via flash.h"
 #endif
 /** @endcond */
+

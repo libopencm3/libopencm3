@@ -359,6 +359,10 @@ void flash_erase_sector(uint8_t sector, uint32_t program_size)
 	flash_wait_for_last_operation();
 	flash_set_program_size(program_size);
 
+	/* assign bank 2 selection bit 7 for sectors 12 or higher */
+	if (sector >= FLASH_SECTOR_BANK2_START)
+		sector += FLASH_CR_SNB_BANK_BIT_OFFSET;
+
 	FLASH_CR &= ~(FLASH_CR_SNB_MASK << FLASH_CR_SNB_SHIFT);
 	FLASH_CR |= (sector & FLASH_CR_SNB_MASK) << FLASH_CR_SNB_SHIFT;
 	FLASH_CR |= FLASH_CR_SER;
@@ -412,3 +416,4 @@ void flash_program_option_bytes(uint32_t data)
 	flash_wait_for_last_operation();
 }
 /**@}*/
+
