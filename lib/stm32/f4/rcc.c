@@ -59,9 +59,9 @@ const struct rcc_clock_scale rcc_hse_8mhz_3v3[RCC_CLOCK_3V3_END] = {
 		.hpre = RCC_CFGR_HPRE_DIV_NONE,
 		.ppre1 = RCC_CFGR_PPRE_DIV_4,
 		.ppre2 = RCC_CFGR_PPRE_DIV_2,
-		.power_save = 1,
+		.power_save = PWR_SCALE1,
 		.flash_config = FLASH_ACR_DCEN | FLASH_ACR_ICEN |
-				FLASH_ACR_LATENCY_3WS,
+				FLASH_ACR_LATENCY_1WS,
 		.ahb_frequency  = 48000000,
 		.apb1_frequency = 12000000,
 		.apb2_frequency = 24000000,
@@ -75,6 +75,7 @@ const struct rcc_clock_scale rcc_hse_8mhz_3v3[RCC_CLOCK_3V3_END] = {
 		.hpre = RCC_CFGR_HPRE_DIV_NONE,
 		.ppre1 = RCC_CFGR_PPRE_DIV_2,
 		.ppre2 = RCC_CFGR_PPRE_DIV_NONE,
+		.power_save = PWR_SCALE1,
 		.flash_config = FLASH_ACR_DCEN | FLASH_ACR_ICEN |
 				FLASH_ACR_LATENCY_2WS,
 		.ahb_frequency  = 84000000,
@@ -90,7 +91,7 @@ const struct rcc_clock_scale rcc_hse_8mhz_3v3[RCC_CLOCK_3V3_END] = {
 		.hpre = RCC_CFGR_HPRE_DIV_NONE,
 		.ppre1 = RCC_CFGR_PPRE_DIV_4,
 		.ppre2 = RCC_CFGR_PPRE_DIV_2,
-		.power_save = 1,
+		.power_save = PWR_SCALE1,
 		.flash_config = FLASH_ACR_DCEN | FLASH_ACR_ICEN |
 				FLASH_ACR_LATENCY_3WS,
 		.ahb_frequency  = 120000000,
@@ -106,6 +107,7 @@ const struct rcc_clock_scale rcc_hse_8mhz_3v3[RCC_CLOCK_3V3_END] = {
 		.hpre = RCC_CFGR_HPRE_DIV_NONE,
 		.ppre1 = RCC_CFGR_PPRE_DIV_4,
 		.ppre2 = RCC_CFGR_PPRE_DIV_2,
+		.power_save = PWR_SCALE1,
 		.flash_config = FLASH_ACR_DCEN | FLASH_ACR_ICEN |
 				FLASH_ACR_LATENCY_5WS,
 		.ahb_frequency  = 168000000,
@@ -124,9 +126,9 @@ const struct rcc_clock_scale rcc_hse_12mhz_3v3[RCC_CLOCK_3V3_END] = {
 		.hpre = RCC_CFGR_HPRE_DIV_NONE,
 		.ppre1 = RCC_CFGR_PPRE_DIV_4,
 		.ppre2 = RCC_CFGR_PPRE_DIV_2,
-		.power_save = 1,
+		.power_save = PWR_SCALE1,
 		.flash_config = FLASH_ACR_DCEN | FLASH_ACR_ICEN |
-				FLASH_ACR_LATENCY_3WS,
+				FLASH_ACR_LATENCY_1WS,
 		.ahb_frequency  = 48000000,
 		.apb1_frequency = 12000000,
 		.apb2_frequency = 24000000,
@@ -140,6 +142,7 @@ const struct rcc_clock_scale rcc_hse_12mhz_3v3[RCC_CLOCK_3V3_END] = {
 		.hpre = RCC_CFGR_HPRE_DIV_NONE,
 		.ppre1 = RCC_CFGR_PPRE_DIV_2,
 		.ppre2 = RCC_CFGR_PPRE_DIV_NONE,
+		.power_save = PWR_SCALE1,
 		.flash_config = FLASH_ACR_DCEN | FLASH_ACR_ICEN |
 				FLASH_ACR_LATENCY_2WS,
 		.ahb_frequency  = 84000000,
@@ -155,7 +158,7 @@ const struct rcc_clock_scale rcc_hse_12mhz_3v3[RCC_CLOCK_3V3_END] = {
 		.hpre = RCC_CFGR_HPRE_DIV_NONE,
 		.ppre1 = RCC_CFGR_PPRE_DIV_4,
 		.ppre2 = RCC_CFGR_PPRE_DIV_2,
-		.power_save = 1,
+		.power_save = PWR_SCALE1,
 		.flash_config = FLASH_ACR_DCEN | FLASH_ACR_ICEN |
 				FLASH_ACR_LATENCY_3WS,
 		.ahb_frequency  = 120000000,
@@ -171,6 +174,7 @@ const struct rcc_clock_scale rcc_hse_12mhz_3v3[RCC_CLOCK_3V3_END] = {
 		.hpre = RCC_CFGR_HPRE_DIV_NONE,
 		.ppre1 = RCC_CFGR_PPRE_DIV_4,
 		.ppre2 = RCC_CFGR_PPRE_DIV_2,
+		.power_save = PWR_SCALE1,
 		.flash_config = FLASH_ACR_DCEN | FLASH_ACR_ICEN |
 				FLASH_ACR_LATENCY_5WS,
 		.ahb_frequency  = 168000000,
@@ -189,9 +193,9 @@ const struct rcc_clock_scale rcc_hse_16mhz_3v3[RCC_CLOCK_3V3_END] = {
 		.hpre = RCC_CFGR_HPRE_DIV_NONE,
 		.ppre1 = RCC_CFGR_PPRE_DIV_4,
 		.ppre2 = RCC_CFGR_PPRE_DIV_2,
-		.power_save = 1,
+		.power_save = PWR_SCALE1,
 		.flash_config = FLASH_ACR_DCEN | FLASH_ACR_ICEN |
-				FLASH_ACR_LATENCY_3WS,
+				FLASH_ACR_LATENCY_1WS,
 		.ahb_frequency  = 48000000,
 		.apb1_frequency = 12000000,
 		.apb2_frequency = 24000000,
@@ -205,6 +209,7 @@ const struct rcc_clock_scale rcc_hse_16mhz_3v3[RCC_CLOCK_3V3_END] = {
 		.hpre = RCC_CFGR_HPRE_DIV_NONE,
 		.ppre1 = RCC_CFGR_PPRE_DIV_2,
 		.ppre2 = RCC_CFGR_PPRE_DIV_NONE,
+		.power_save = PWR_SCALE1,
 		.flash_config = FLASH_ACR_DCEN | FLASH_ACR_ICEN |
 				FLASH_ACR_LATENCY_2WS,
 		.ahb_frequency  = 84000000,
@@ -220,7 +225,7 @@ const struct rcc_clock_scale rcc_hse_16mhz_3v3[RCC_CLOCK_3V3_END] = {
 		.hpre = RCC_CFGR_HPRE_DIV_NONE,
 		.ppre1 = RCC_CFGR_PPRE_DIV_4,
 		.ppre2 = RCC_CFGR_PPRE_DIV_2,
-		.power_save = 1,
+		.power_save = PWR_SCALE1,
 		.flash_config = FLASH_ACR_DCEN | FLASH_ACR_ICEN |
 				FLASH_ACR_LATENCY_3WS,
 		.ahb_frequency  = 120000000,
@@ -236,6 +241,7 @@ const struct rcc_clock_scale rcc_hse_16mhz_3v3[RCC_CLOCK_3V3_END] = {
 		.hpre = RCC_CFGR_HPRE_DIV_NONE,
 		.ppre1 = RCC_CFGR_PPRE_DIV_4,
 		.ppre2 = RCC_CFGR_PPRE_DIV_2,
+		.power_save = PWR_SCALE1,
 		.flash_config = FLASH_ACR_DCEN | FLASH_ACR_ICEN |
 				FLASH_ACR_LATENCY_5WS,
 		.ahb_frequency  = 168000000,
@@ -254,9 +260,9 @@ const struct rcc_clock_scale rcc_hse_25mhz_3v3[RCC_CLOCK_3V3_END] = {
 		.hpre = RCC_CFGR_HPRE_DIV_NONE,
 		.ppre1 = RCC_CFGR_PPRE_DIV_4,
 		.ppre2 = RCC_CFGR_PPRE_DIV_2,
-		.power_save = 1,
+		.power_save = PWR_SCALE1,
 		.flash_config = FLASH_ACR_DCEN | FLASH_ACR_ICEN |
-				FLASH_ACR_LATENCY_3WS,
+				FLASH_ACR_LATENCY_1WS,
 		.ahb_frequency  = 48000000,
 		.apb1_frequency = 12000000,
 		.apb2_frequency = 24000000,
@@ -270,6 +276,7 @@ const struct rcc_clock_scale rcc_hse_25mhz_3v3[RCC_CLOCK_3V3_END] = {
 		.hpre = RCC_CFGR_HPRE_DIV_NONE,
 		.ppre1 = RCC_CFGR_PPRE_DIV_2,
 		.ppre2 = RCC_CFGR_PPRE_DIV_NONE,
+		.power_save = PWR_SCALE1,
 		.flash_config = FLASH_ACR_DCEN | FLASH_ACR_ICEN |
 				FLASH_ACR_LATENCY_2WS,
 		.ahb_frequency  = 84000000,
@@ -285,7 +292,7 @@ const struct rcc_clock_scale rcc_hse_25mhz_3v3[RCC_CLOCK_3V3_END] = {
 		.hpre = RCC_CFGR_HPRE_DIV_NONE,
 		.ppre1 = RCC_CFGR_PPRE_DIV_4,
 		.ppre2 = RCC_CFGR_PPRE_DIV_2,
-		.power_save = 1,
+		.power_save = PWR_SCALE1,
 		.flash_config = FLASH_ACR_DCEN | FLASH_ACR_ICEN |
 				FLASH_ACR_LATENCY_3WS,
 		.ahb_frequency  = 120000000,
@@ -301,6 +308,7 @@ const struct rcc_clock_scale rcc_hse_25mhz_3v3[RCC_CLOCK_3V3_END] = {
 		.hpre = RCC_CFGR_HPRE_DIV_NONE,
 		.ppre1 = RCC_CFGR_PPRE_DIV_4,
 		.ppre2 = RCC_CFGR_PPRE_DIV_2,
+		.power_save = PWR_SCALE1,
 		.flash_config = FLASH_ACR_DCEN | FLASH_ACR_ICEN |
 				FLASH_ACR_LATENCY_5WS,
 		.ahb_frequency  = 168000000,

@@ -43,10 +43,11 @@ LGPL License Terms @ref lgpl_license
 
 /* --- PWR_CR values ------------------------------------------------------- */
 
-/* Bits [31:15]: Reserved */
+/* Bits [31:16]: Reserved */
 
 /* VOS: Regulator voltage scaling output selection */
-#define PWR_CR_VOS			(1 << 14)
+#define PWR_CR_VOS_SHIFT		14
+#define PWR_CR_VOS_MASK			0x3
 
 /* Bits [13:10]: Reserved */
 
@@ -72,14 +73,13 @@ LGPL License Terms @ref lgpl_license
 
 /* --- Function prototypes ------------------------------------------------- */
 
-enum pwr_vos_scale {
-	PWR_SCALE1,
-	PWR_SCALE2,
-};
+#define	PWR_SCALE1	0x3
+#define PWR_SCALE2	0x2
+#define PWR_SCALE3	0x1
 
 BEGIN_DECLS
 
-void pwr_set_vos_scale(enum pwr_vos_scale scale);
+void pwr_set_vos_scale(int8_t scale);
 
 END_DECLS
 
