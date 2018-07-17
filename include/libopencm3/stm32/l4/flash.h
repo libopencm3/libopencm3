@@ -43,6 +43,7 @@
 
 #include <libopencm3/stm32/common/flash_common_all.h>
 #include <libopencm3/stm32/common/flash_common_f.h>
+#include <libopencm3/stm32/common/flash_common_idcache.h>
 
 /* --- FLASH registers ----------------------------------------------------- */
 
@@ -67,10 +68,6 @@
 
 #define FLASH_ACR_SLEEP_PD		(1 << 14)
 #define FLASH_ACR_RUN_PD		(1 << 13)
-#define FLASH_ACR_DCRST			(1 << 12)
-#define FLASH_ACR_ICRST			(1 << 11)
-#define FLASH_ACR_DCEN			(1 << 10)
-#define FLASH_ACR_ICEN			(1 << 9)
 #define FLASH_ACR_PRFTEN		(1 << 8)
 
 #define FLASH_ACR_LATENCY_SHIFT		0
@@ -227,12 +224,6 @@ BEGIN_DECLS
 
 void flash_clear_pgperr_flag(void);
 void flash_wait_for_last_operation(void);
-void flash_dcache_enable(void);
-void flash_dcache_disable(void);
-void flash_icache_enable(void);
-void flash_icache_disable(void);
-void flash_dcache_reset(void);
-void flash_icache_reset(void);
 void flash_clear_pgserr_flag(void);
 void flash_clear_pgaerr_flag(void);
 void flash_clear_wrperr_flag(void);

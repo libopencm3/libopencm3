@@ -58,51 +58,6 @@ void flash_wait_for_last_operation(void)
 	while ((FLASH_SR & FLASH_SR_BSY) == FLASH_SR_BSY);
 }
 
-/** @brief Enable the Data Cache
- */
-void flash_dcache_enable(void)
-{
-	FLASH_ACR |= FLASH_ACR_DCEN;
-}
-
-/** @brief Disable the Data Cache
- */
-void flash_dcache_disable(void)
-{
-	FLASH_ACR &= ~FLASH_ACR_DCEN;
-}
-
-/** @brief Enable the Instruction Cache
- */
-void flash_icache_enable(void)
-{
-	FLASH_ACR |= FLASH_ACR_ICEN;
-}
-
-/** @brief Disable the Instruction Cache
- */
-void flash_icache_disable(void)
-{
-	FLASH_ACR &= ~FLASH_ACR_ICEN;
-}
-
-
-/** @brief Reset the Data Cache
- * The data cache must be disabled for this to have effect.
- */
-void flash_dcache_reset(void)
-{
-	FLASH_ACR |= FLASH_ACR_DCRST;
-}
-
-/** @brief Reset the Instruction Cache
- * The instruction cache must be disabled for this to have effect.
- */
-void flash_icache_reset(void)
-{
-	FLASH_ACR |= FLASH_ACR_ICRST;
-}
-
 /** @brief Clear the Programming Sequence Error Flag
  * This flag is set when incorrect programming configuration has been made.
  */
