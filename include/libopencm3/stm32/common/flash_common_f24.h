@@ -41,6 +41,7 @@
 /**@{*/
 
 #include <libopencm3/stm32/common/flash_common_f234.h>
+#include <libopencm3/stm32/common/flash_common_idcache.h>
 
 /* --- FLASH registers ----------------------------------------------------- */
 
@@ -49,10 +50,6 @@
 
 /* --- FLASH_ACR values ---------------------------------------------------- */
 
-#define FLASH_ACR_DCRST			(1 << 12)
-#define FLASH_ACR_ICRST			(1 << 11)
-#define FLASH_ACR_DCEN			(1 << 10)
-#define FLASH_ACR_ICEN			(1 << 9)
 #define FLASH_ACR_PRFTEN		(1 << 8)
 
 /* --- FLASH_SR values ----------------------------------------------------- */
@@ -120,12 +117,6 @@ void flash_lock_option_bytes(void);
 void flash_clear_pgserr_flag(void);
 void flash_clear_wrperr_flag(void);
 void flash_clear_pgaerr_flag(void);
-void flash_dcache_enable(void);
-void flash_dcache_disable(void);
-void flash_icache_enable(void);
-void flash_icache_disable(void);
-void flash_dcache_reset(void);
-void flash_icache_reset(void);
 void flash_erase_all_sectors(uint32_t program_size);
 void flash_erase_sector(uint8_t sector, uint32_t program_size);
 void flash_program_double_word(uint32_t address, uint64_t data);
