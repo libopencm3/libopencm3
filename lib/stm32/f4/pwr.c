@@ -38,9 +38,14 @@
 
 void pwr_set_vos_scale(enum pwr_vos_scale scale)
 {
+	/*
+	 * Scale 1 mode: max 168MHz (high performance, default at reset).
+	 * Scale 2 mode: max 144MHz (power saving).
+	 * Scale 3 mode: max 120MHz (STM32F42xxx/3xxx only).
+	 */
 	if (scale == PWR_SCALE1) {
 		PWR_CR |= PWR_CR_VOS;
 	} else if (scale == PWR_SCALE2) {
-		PWR_CR &= PWR_CR_VOS;
+		PWR_CR &= ~PWR_CR_VOS;
 	}
 }
