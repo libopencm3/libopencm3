@@ -235,6 +235,10 @@ specific memorymap.h header before including this header file.*/
 
 /* Bits [15:8]: Reserved. Forced to 0 by hardware. Used on F3. */
 
+/* FRE: Frame format error */
+/* Note: Used in TI slave mode or I2S slave mode */
+#define SPI_SR_FRE			(1 << 8)
+
 /* BSY: Busy flag */
 #define SPI_SR_BSY			(1 << 7)
 
