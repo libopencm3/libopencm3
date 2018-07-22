@@ -43,6 +43,10 @@ void flash_set_ws(uint32_t ws)
 	FLASH_ACR = reg32;
 }
 
-
+void flash_unlock_option_bytes(void)
+{
+	FLASH_OPTKEYR = FLASH_OPTKEYR_KEY1;
+	FLASH_OPTKEYR = FLASH_OPTKEYR_KEY2;
+}
 
 /*@}*/

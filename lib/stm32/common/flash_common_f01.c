@@ -86,20 +86,6 @@ void flash_program_word(uint32_t address, uint32_t data)
 }
 
 /*---------------------------------------------------------------------------*/
-/** @brief Unlock the Option Byte Access
-
-This enables write access to the option bytes. It is locked by default on
-reset.
-*/
-
-void flash_unlock_option_bytes(void)
-{
-	/* F1 uses same keys for flash and option */
-	FLASH_OPTKEYR = FLASH_KEYR_KEY1;
-	FLASH_OPTKEYR = FLASH_KEYR_KEY2;
-}
-
-/*---------------------------------------------------------------------------*/
 /** @brief Erase All Option Bytes
 
 This performs all operations necessary to erase the option bytes. These must

@@ -95,6 +95,9 @@
 #define FLASH_KEYR_KEY1			((uint32_t)0x45670123)
 #define FLASH_KEYR_KEY2			((uint32_t)0xcdef89ab)
 
+#define FLASH_OPTKEYR_KEY1		FLASH_KEYR_KEY1
+#define FLASH_OPTKEYR_KEY2		FLASH_KEYR_KEY2
+
 /* --- Function prototypes ------------------------------------------------- */
 
 BEGIN_DECLS
@@ -108,7 +111,6 @@ void flash_program_word(uint32_t address, uint32_t data);
 void flash_program_half_word(uint32_t address, uint16_t data);
 void flash_erase_page(uint32_t page_address);
 void flash_erase_all_pages(void);
-void flash_unlock_option_bytes(void);
 void flash_erase_option_bytes(void);
 void flash_program_option_bytes(uint32_t address, uint16_t data);
 

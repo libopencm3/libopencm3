@@ -64,18 +64,6 @@ void flash_lock_progmem(void)
 	FLASH_PECR |= FLASH_PECR_PRGLOCK;
 }
 
-/**
- * Unlock option bytes.
- * Writes the magic sequence to unlock the option bytes,
- * you must have already unlocked access to this register!
- * @sa flash_unlock_pecr
- */
-void flash_unlock_option_bytes(void)
-{
-	FLASH_OPTKEYR = FLASH_OPTKEYR_KEY1;
-	FLASH_OPTKEYR = FLASH_OPTKEYR_KEY2;
-}
-
 void flash_lock_option_bytes(void)
 {
 	FLASH_PECR |= FLASH_PECR_OPTLOCK;
