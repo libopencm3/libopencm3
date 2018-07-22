@@ -3,7 +3,7 @@
  * @brief <b>libopencm3 Defined Constants and Types for the STM32F3xx
  * Comparator module</b>
  *
- * @ingroup STM32F0xx_defines
+ * @ingroup STM32F3xx_defines
  *
  * @version 1.0.0
  *
