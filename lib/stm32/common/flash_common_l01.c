@@ -72,8 +72,8 @@ void flash_lock_progmem(void)
  */
 void flash_unlock_option_bytes(void)
 {
-	FLASH_OPTKEYR = FLASH_OPTKEYR_OPTKEY1;
-	FLASH_OPTKEYR = FLASH_OPTKEYR_OPTKEY2;
+	FLASH_OPTKEYR = FLASH_OPTKEYR_KEY1;
+	FLASH_OPTKEYR = FLASH_OPTKEYR_KEY2;
 }
 
 void flash_lock_option_bytes(void)

@@ -84,8 +84,8 @@
 #define FLASH_PRGKEYR_PRGKEY2		((uint32_t)0x13141516)
 
 /* Option byte key register (FLASH_OPTKEYR) */
-#define FLASH_OPTKEYR_OPTKEY1		((uint32_t)0xFBEAD9C8)
-#define FLASH_OPTKEYR_OPTKEY2		((uint32_t)0x24252627)
+#define FLASH_OPTKEYR_KEY1		((uint32_t)0xFBEAD9C8)
+#define FLASH_OPTKEYR_KEY2		((uint32_t)0x24252627)
 
 /* --- FLASH_SR values ----------------------------------------------------- */
 #define FLASH_SR_OPTVERR		(1 << 11)
