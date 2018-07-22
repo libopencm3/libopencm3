@@ -91,10 +91,6 @@ reset.
 
 void flash_unlock_option_bytes(void)
 {
-	/* Clear the unlock state. */
-	FLASH_OPTCR |= FLASH_OPTCR_OPTLOCK;
-
-	/* Unlock option bytes. */
 	FLASH_OPTKEYR = FLASH_OPTKEYR_KEY1;
 	FLASH_OPTKEYR = FLASH_OPTKEYR_KEY2;
 }

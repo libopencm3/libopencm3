@@ -27,9 +27,6 @@
 
 void flash_unlock(void)
 {
-	/* Clear the unlock state. */
-	FLASH_CR |= FLASH_CR_LOCK;
-
 	/* Authorize the FPEC access. */
 	FLASH_KEYR = FLASH_KEYR_KEY1;
 	FLASH_KEYR = FLASH_KEYR_KEY2;
