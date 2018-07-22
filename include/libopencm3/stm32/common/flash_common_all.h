@@ -65,4 +65,10 @@ void flash_lock(void);
  */
 void flash_unlock(void);
 
+/** Unlock the Option Byte Access.
+ * This enables write access to the option bytes. It is locked by default on
+ * reset.
+ */
+void flash_unlock_option_bytes(void);
+
 END_DECLS

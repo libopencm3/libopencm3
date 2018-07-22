@@ -83,19 +83,6 @@ void flash_wait_for_last_operation(void)
 }
 
 /*---------------------------------------------------------------------------*/
-/** @brief Unlock the Option Byte Access
-
-This enables write access to the option bytes. It is locked by default on
-reset.
-*/
-
-void flash_unlock_option_bytes(void)
-{
-	FLASH_OPTKEYR = FLASH_OPTKEYR_KEY1;
-	FLASH_OPTKEYR = FLASH_OPTKEYR_KEY2;
-}
-
-/*---------------------------------------------------------------------------*/
 /** @brief Lock the Option Byte Access
 
 This disables write access to the option bytes. It is locked by default on

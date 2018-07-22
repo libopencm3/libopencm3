@@ -157,7 +157,6 @@ BEGIN_DECLS
 void flash_clear_pgperr_flag(void);
 void flash_wait_for_last_operation(void);
 
-void flash_unlock_option_bytes(void);
 void flash_lock_option_bytes(void);
 void flash_clear_erserr_flag(void);
 void flash_clear_wrperr_flag(void);

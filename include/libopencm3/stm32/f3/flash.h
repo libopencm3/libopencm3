@@ -72,6 +72,10 @@
 #define FLASH_CR_PER			(1 << 1)
 #define FLASH_CR_PG			(1 << 0)
 
+/* F3 uses the same keys for option bytes */
+#define FLASH_OPTKEYR_KEY1		FLASH_KEYR_KEY1
+#define FLASH_OPTKEYR_KEY2		FLASH_KEYR_KEY2
+
 BEGIN_DECLS
 
 
