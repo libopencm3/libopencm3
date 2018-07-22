@@ -98,10 +98,6 @@ void flash_clear_status_flags(void)
  */
 void flash_unlock_option_bytes(void)
 {
-	/* Clear the unlock state. */
-	FLASH_CR |= FLASH_CR_OPTLOCK;
-
-	/* Unlock option bytes. */
 	FLASH_OPTKEYR = FLASH_OPTKEYR_KEY1;
 	FLASH_OPTKEYR = FLASH_OPTKEYR_KEY2;
 }
