@@ -223,7 +223,6 @@
 BEGIN_DECLS
 
 void flash_clear_pgperr_flag(void);
-void flash_wait_for_last_operation(void);
 void flash_clear_pgserr_flag(void);
 void flash_clear_pgaerr_flag(void);
 void flash_clear_wrperr_flag(void);

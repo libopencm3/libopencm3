@@ -75,8 +75,6 @@
 
 BEGIN_DECLS
 
-void flash_wait_for_last_operation(void);
-
 END_DECLS
 /**@}*/
 
