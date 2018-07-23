@@ -29,4 +29,11 @@ BEGIN_DECLS
  */
 void flash_clear_eop_flag(void);
 
+/**
+ * Clear all status flags.
+ * The number of bits can vary across families.
+ */
+void flash_clear_status_flags(void);
+
+
 END_DECLS
