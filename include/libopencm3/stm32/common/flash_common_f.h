@@ -35,5 +35,10 @@ void flash_clear_eop_flag(void);
  */
 void flash_clear_status_flags(void);
 
+/** Wait until Last Operation has Ended.
+ * This loops indefinitely until an operation (write or erase) has completed by
+ * testing the busy flag
+ */
+void flash_wait_for_last_operation(void);
 
 END_DECLS

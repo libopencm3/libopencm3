@@ -105,7 +105,6 @@ BEGIN_DECLS
 void flash_clear_pgerr_flag(void);
 void flash_clear_wrprterr_flag(void);
 uint32_t flash_get_status_flags(void);
-void flash_wait_for_last_operation(void);
 void flash_program_word(uint32_t address, uint32_t data);
 void flash_program_half_word(uint32_t address, uint16_t data);
 void flash_erase_page(uint32_t page_address);
