@@ -54,7 +54,7 @@
 
 #define FLASH_SR_BSY			(1 << 0)
 #define FLASH_SR_ERLYBSY		(1 << 1)
-#define FLASH_SR_PGPERR			(1 << 2)
+#define FLASH_SR_PGERR			(1 << 2)
 #define FLASH_SR_WRPRTERR		(1 << 4)
 #define FLASH_SR_EOP			(1 << 5)
 
@@ -78,6 +78,7 @@
 
 BEGIN_DECLS
 
+void flash_clear_pgerr_flag(void);
 
 END_DECLS
 

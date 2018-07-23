@@ -46,6 +46,11 @@
 
 #include <libopencm3/stm32/flash.h>
 
+void flash_clear_pgerr_flag(void)
+{
+	FLASH_SR |= FLASH_SR_PGERR;
+}
+
 /*---------------------------------------------------------------------------*/
 /** @brief Clear All Status Flags
 
@@ -54,7 +59,7 @@ Clears program error, end of operation, busy flags.
 
 void flash_clear_status_flags(void)
 {
-	flash_clear_pgperr_flag();
+	flash_clear_pgerr_flag();
 	flash_clear_eop_flag();
 }
 

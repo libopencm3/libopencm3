@@ -114,6 +114,7 @@ BEGIN_DECLS
 
 void flash_lock_option_bytes(void);
 void flash_clear_pgserr_flag(void);
+void flash_clear_pgperr_flag(void);
 void flash_clear_wrperr_flag(void);
 void flash_clear_pgaerr_flag(void);
 void flash_erase_all_sectors(uint32_t program_size);

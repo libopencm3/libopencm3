@@ -27,16 +27,6 @@
 #include <libopencm3/stm32/flash.h>
 
 /*---------------------------------------------------------------------------*/
-/** @brief Clear the Programming Error Status Flag
-
-*/
-
-void flash_clear_pgperr_flag(void)
-{
-	FLASH_SR |= FLASH_SR_PGPERR;
-}
-
-/*---------------------------------------------------------------------------*/
 /** @brief Wait until Last Operation has Ended
 
 This loops indefinitely until an operation (write or erase) has completed by

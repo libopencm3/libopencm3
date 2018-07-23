@@ -62,6 +62,13 @@ void flash_clear_pgaerr_flag(void)
 	FLASH_SR |= FLASH_SR_PGAERR;
 }
 
+/** Clear programming parallelism error flag
+ */
+void flash_clear_pgperr_flag(void)
+{
+	FLASH_SR |= FLASH_SR_PGPERR;
+}
+
 /*---------------------------------------------------------------------------*/
 /** @brief Clear the Write Protect Error Flag
 
