@@ -146,32 +146,28 @@ void flash_program(uint32_t address, uint8_t *data, uint32_t len)
 	}
 }
 
-/** @brief Erase a Sector of FLASH
- * This performs all operations necessary to erase a sector in FLASH memory.
- * The page should be checked to ensure that it was properly erased. A sector
- * must first be fully erased before attempting to program it.
- * See the reference manual or the FLASH programming manual for details.
- * @param[in] sector (0 - 11 for some parts, 0-23 on others)
+/** @brief Erase a page of FLASH
+ * @param[in] page (0 - 255 for bank 1, 256-511 for bank 2)
  */
-void flash_erase_sector(uint8_t sector)
+void flash_erase_page(uint32_t page)
 {
 	flash_wait_for_last_operation();
 
-	FLASH_CR &= ~(FLASH_CR_PNB_MASK << FLASH_CR_PNB_SHIFT);
-	FLASH_CR |= (sector & FLASH_CR_PNB_MASK) << FLASH_CR_PNB_SHIFT;
+	/* page and bank are contiguous bits */
+	FLASH_CR &= ~((FLASH_CR_PNB_MASK << FLASH_CR_PNB_SHIFT) | FLASH_CR_BKER);
+	FLASH_CR |= page << FLASH_CR_PNB_SHIFT;
 	FLASH_CR |= FLASH_CR_PER;
 	FLASH_CR |= FLASH_CR_START;
 
 	flash_wait_for_last_operation();
 	FLASH_CR &= ~FLASH_CR_PER;
-	FLASH_CR &= ~(FLASH_CR_PNB_MASK << FLASH_CR_PNB_SHIFT);
 }
 
 /** @brief Erase All FLASH
  * This performs all operations necessary to erase all sectors in the FLASH
  * memory.
  */
-void flash_erase_all_sectors(void)
+void flash_erase_all_pages(void)
 {
 	flash_wait_for_last_operation();
 
