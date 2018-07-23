@@ -75,7 +75,6 @@
 
 BEGIN_DECLS
 
-void flash_clear_pgperr_flag(void);
 void flash_clear_status_flags(void);
 void flash_wait_for_last_operation(void);
 
