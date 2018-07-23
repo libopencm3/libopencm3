@@ -164,7 +164,6 @@ void flash_clear_pgaerr_flag(void);
 void flash_art_enable(void);
 void flash_art_disable(void);
 void flash_art_reset(void);
-void flash_clear_status_flags(void);
 void flash_erase_all_sectors(uint32_t program_size);
 void flash_erase_sector(uint8_t sector, uint32_t program_size);
 void flash_program_double_word(uint32_t address, uint64_t data);
