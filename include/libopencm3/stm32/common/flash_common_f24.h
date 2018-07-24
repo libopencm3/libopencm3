@@ -82,7 +82,6 @@
 /* --- FLASH_SR values ----------------------------------------------------- */
 
 #define FLASH_SR_BSY			(1 << 16)
-#define FLASH_SR_PGSERR			(1 << 7)
 #define FLASH_SR_PGPERR			(1 << 6)
 #define FLASH_SR_PGAERR			(1 << 5)
 #define FLASH_SR_WRPERR			(1 << 4)
@@ -118,7 +117,6 @@
 /* FLASH_OBR[15:8]: RDP */
 #define FLASH_OPTCR_NRST_STDBY		(1 << 7)
 #define FLASH_OPTCR_NRST_STOP		(1 << 6)
-#define FLASH_OPTCR_WDG_SW		(1 << 5)
 #define FLASH_OPTCR_OPTSTRT		(1 << 1)
 #define FLASH_OPTCR_OPTLOCK		(1 << 0)
 #define FLASH_OPTCR_BOR_LEVEL_3		(0x00 << 2)
@@ -143,7 +141,6 @@
 BEGIN_DECLS
 
 void flash_lock_option_bytes(void);
-void flash_clear_pgserr_flag(void);
 void flash_clear_pgperr_flag(void);
 void flash_clear_wrperr_flag(void);
 void flash_clear_pgaerr_flag(void);

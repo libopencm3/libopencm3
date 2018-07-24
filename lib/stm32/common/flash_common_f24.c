@@ -42,17 +42,6 @@ static inline void flash_set_program_size(uint32_t psize)
 }
 
 /*---------------------------------------------------------------------------*/
-/** @brief Clear the Programming Sequence Error Flag
-
-This flag is set when incorrect programming configuration has been made.
-*/
-
-void flash_clear_pgserr_flag(void)
-{
-	FLASH_SR |= FLASH_SR_PGSERR;
-}
-
-/*---------------------------------------------------------------------------*/
 /** @brief Clear the Programming Alignment Error Flag
 
 */
@@ -77,21 +66,6 @@ void flash_clear_pgperr_flag(void)
 void flash_clear_wrperr_flag(void)
 {
 	FLASH_SR |= FLASH_SR_WRPERR;
-}
-
-/*---------------------------------------------------------------------------*/
-/** @brief Clear All Status Flags
-
-Program error, end of operation, write protect error, busy.
-*/
-
-void flash_clear_status_flags(void)
-{
-	flash_clear_pgserr_flag();
-	flash_clear_pgaerr_flag();
-	flash_clear_wrperr_flag();
-	flash_clear_pgperr_flag();
-	flash_clear_eop_flag();
 }
 
 /*---------------------------------------------------------------------------*/
