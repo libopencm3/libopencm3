@@ -222,8 +222,9 @@
 
 BEGIN_DECLS
 
-void flash_clear_pgperr_flag(void);
+void flash_clear_progerr_flag(void);
 void flash_clear_pgserr_flag(void);
+void flash_clear_size_flag(void);
 void flash_clear_pgaerr_flag(void);
 void flash_clear_wrperr_flag(void);
 void flash_lock_option_bytes(void);
