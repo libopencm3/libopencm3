@@ -35,5 +35,13 @@
 #include <libopencm3/stm32/common/flash_common_f.h>
 #include <libopencm3/stm32/common/flash_common_f24.h>
 
-#endif
+#define FLASH_SR_PGSERR			(1 << 7)
+#define FLASH_OPTCR_WDG_SW		(1 << 5)
 
+BEGIN_DECLS
+
+void flash_clear_pgserr_flag(void);
+
+END_DECLS
+
+#endif
