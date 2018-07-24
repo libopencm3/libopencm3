@@ -90,7 +90,6 @@ BEGIN_DECLS
 
 void flash_clear_erserr_flag(void);
 void flash_art_enable(void);
-void flash_art_disable(void);
 void flash_art_reset(void);
 
 END_DECLS
