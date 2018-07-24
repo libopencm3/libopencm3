@@ -26,11 +26,6 @@
 
 #include <libopencm3/stm32/flash.h>
 
-void flash_wait_for_last_operation(void)
-{
-	while ((FLASH_SR & FLASH_SR_BSY) == FLASH_SR_BSY);
-}
-
 /*---------------------------------------------------------------------------*/
 /** @brief Set the Program Parallelism Size
 
