@@ -42,13 +42,6 @@
 
 #include <libopencm3/stm32/flash.h>
 
-/** @brief Clear the Programming Error Status Flag
- */
-void flash_clear_pgperr_flag(void)
-{
-	FLASH_SR |= FLASH_SR_PROGERR;
-}
-
 /** @brief Wait until Last Operation has Ended
  * This loops indefinitely until an operation (write or erase) has completed
  * by testing the busy flag.
@@ -66,6 +59,12 @@ void flash_clear_pgserr_flag(void)
 	FLASH_SR |= FLASH_SR_PGSERR;
 }
 
+/** Clear programming size error flag */
+void flash_clear_size_flag(void)
+{
+	FLASH_SR |= FLASH_SR_SIZERR;
+}
+
 /** @brief Clear the Programming Alignment Error Flag
  */
 void flash_clear_pgaerr_flag(void)
@@ -80,15 +79,23 @@ void flash_clear_wrperr_flag(void)
 	FLASH_SR |= FLASH_SR_WRPERR;
 }
 
+/** @brief Clear the Programming Error Status Flag
+ */
+void flash_clear_progerr_flag(void)
+{
+	FLASH_SR |= FLASH_SR_PROGERR;
+}
+
 /** @brief Clear All Status Flags
  * Program error, end of operation, write protect error, busy.
  */
 void flash_clear_status_flags(void)
 {
 	flash_clear_pgserr_flag();
+	flash_clear_size_flag();
 	flash_clear_pgaerr_flag();
 	flash_clear_wrperr_flag();
-	flash_clear_pgperr_flag();
+	flash_clear_progerr_flag();
 	flash_clear_eop_flag();
 }
 
