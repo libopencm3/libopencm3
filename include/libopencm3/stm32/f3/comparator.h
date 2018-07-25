@@ -30,6 +30,7 @@
 
 #ifndef LIBOPENCM3_COMP_H
 #define LIBOPENCM3_COMP_H
+/**@{*/
 
 #define COMP1				(COMP_BASE + 0x1C)
 #define COMP2				(COMP_BASE + 0x20)
@@ -57,22 +58,25 @@
 #define COMP_CSR_OUT			(0x1 << 30)
 
 /* individual blanking sources depends on COMP used */
-#define COMP_CSR_BLANKING_NONE		(0x0 << 18)
-#define COMP_CSR_BLANKING(blanking)	(((blanking) & 0x3) << 18)
-#define COMP_CSR_BLANKING_MASK		(0x7 << 18)
+#define COMP_CSR_BLANKING_MASK		(0x7)
+#define COMP_CSR_BLANKING_SHIFT		(18)
+#define COMP_CSR_BLANKING_NONE		(0x0)
+#define COMP_CSR_BLANKING(blanking)	(((blanking) & COMP_CSR_BLANKING_MASK) << COMP_CSR_BLANKING_SHIFT)
 
 /* only on COMP1/3/5/7 */
-#define COMP_CSR_HYST_NONE		(0x0 << 16)
-#define COMP_CSR_HYST_LOW		(0x1 << 16)
-#define COMP_CSR_HYST_MEDIUM		(0x2 << 16)
-#define COMP_CSR_HYST_HIGH		(0x3 << 16)
-#define COMP_CSR_HYST_MASK		(0x3 << 16)
+#define COMP_CSR_HYST_NONE		(0x0)
+#define COMP_CSR_HYST_LOW		(0x1)
+#define COMP_CSR_HYST_MEDIUM		(0x2)
+#define COMP_CSR_HYST_HIGH		(0x3)
+#define COMP_CSR_HYST_MASK		(0x3)
+#define COMP_CSR_HYST_SHIFT		(16)
 
 #define COMP_CSR_POL			(0x1 << 15)
 
 /* individual value depends on COMP used */
-#define COMP_CSR_OUTSEL(outsel)		(((outsel) & 0xf) << 10)
-#define COMP_CSR_OUTSEL_MASK		(0xf << 10)
+#define COMP_CSR_OUTSEL(outsel)		(((outsel) & COMP_CSR_OUTSEL_MASK) << COMP_CSR_OUTSEL_SHIFT)
+#define COMP_CSR_OUTSEL_MASK		(0xf)
+#define COMP_CSR_OUTSEL_SHIFT		(10)
 
 /* only on COMP2/4/6 */
 #define COMP_CSR_WINMODE		(0x1 << 9)
@@ -86,15 +90,17 @@
 					 ((((inmsel) & 0x8) >> 3) << 22))
 #define COMP_CSR_INMSEL_MASK		(0x7 << 4)
 
-#define COMP_CSR_MODE_HIGHSPEED		(0x0 << 2)
-#define COMP_CSR_MODE_MEDIUMSPEED	(0x1 << 2)
-#define COMP_CSR_MODE_LOWSPEED		(0x2 << 2)
-#define COMP_CSR_MODE_ULTRALOWPOWER	(0x3 << 2)
-#define COMP_CSR_MODE_MASK		(0x3 << 2)
+#define COMP_CSR_MODE_HIGHSPEED		(0x0)
+#define COMP_CSR_MODE_MEDIUMSPEED	(0x1)
+#define COMP_CSR_MODE_LOWSPEED		(0x2)
+#define COMP_CSR_MODE_ULTRALOWPOWER	(0x3)
+#define COMP_CSR_MODE_MASK		(0x3)
+#define COMP_CSR_MODE_SHIFT		(2)
 
 /* only on COMP1 and COMP2 */
 #define COMP_CSR_INPDAC			(0x1 << 1)
 
 #define COMP_CSR_EN			(0x1 << 0)
 
+/**@}*/
 #endif
