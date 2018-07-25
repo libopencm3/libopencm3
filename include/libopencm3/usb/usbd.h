@@ -139,7 +139,8 @@ extern int usbd_register_control_callback(usbd_device *usbd_dev, uint8_t type,
 
 /* <usb_standard.c> */
 /** Registers a "Set Config" callback
- * @return 0 if successful
+ * @return 0 if successful or already existed.
+ * @return -1 if no more space was available for callbacks.
  */
 extern int usbd_register_set_config_callback(usbd_device *usbd_dev,
 					  usbd_set_config_callback callback);
