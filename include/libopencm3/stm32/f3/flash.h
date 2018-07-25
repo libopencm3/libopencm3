@@ -99,6 +99,9 @@ BEGIN_DECLS
 
 void flash_clear_pgerr_flag(void);
 void flash_clear_wrprterr_flag(void);
+void flash_program_half_word(uint32_t address, uint16_t data);
+void flash_erase_page(uint32_t page_address);
+void flash_erase_all_pages(void);
 
 END_DECLS
 

@@ -46,6 +46,11 @@
 
 #include <libopencm3/stm32/flash.h>
 
+void flash_wait_for_last_operation(void)
+{
+	while ((FLASH_SR & FLASH_SR_BSY) == FLASH_SR_BSY);
+}
+
 void flash_clear_pgerr_flag(void)
 {
 	FLASH_SR |= FLASH_SR_PGERR;
@@ -57,10 +62,11 @@ void flash_clear_wrprterr_flag(void)
 }
 
 /*---------------------------------------------------------------------------*/
+
 /** @brief Clear All Status Flags
 
 Clears program error, end of operation, busy flags.
-*/
+ */
 
 void flash_clear_status_flags(void)
 {
@@ -68,6 +74,44 @@ void flash_clear_status_flags(void)
 	flash_clear_wrprterr_flag();
 	flash_clear_eop_flag();
 }
+
+void flash_program_half_word(uint32_t address, uint16_t data)
+{
+	flash_wait_for_last_operation();
+
+	FLASH_CR |= FLASH_CR_PG;
+
+	MMIO16(address) = data;
+
+	flash_wait_for_last_operation();
+
+	FLASH_CR &= ~FLASH_CR_PG;
+}
+
+void flash_erase_page(uint32_t page_address)
+{
+	flash_wait_for_last_operation();
+
+	FLASH_CR |= FLASH_CR_PER;
+	FLASH_AR = page_address;
+	FLASH_CR |= FLASH_CR_STRT;
+
+	flash_wait_for_last_operation();
+
+	FLASH_CR &= ~FLASH_CR_PER;
+}
+
+void flash_erase_all_pages(void)
+{
+	flash_wait_for_last_operation();
+
+	FLASH_CR |= FLASH_CR_MER;
+	FLASH_CR |= FLASH_CR_STRT;
+
+	flash_wait_for_last_operation();
+	FLASH_CR &= ~FLASH_CR_MER;
+}
+
 
 /**@}*/
 
