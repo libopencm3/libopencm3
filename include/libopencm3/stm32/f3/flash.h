@@ -98,6 +98,7 @@
 BEGIN_DECLS
 
 void flash_clear_pgerr_flag(void);
+void flash_clear_wrprterr_flag(void);
 
 END_DECLS
 
