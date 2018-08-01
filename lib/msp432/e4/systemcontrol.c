@@ -112,6 +112,9 @@ bool sysctl_periph_is_ready(enum msp432_periph periph)
  *
  * @param[in] power_mode ::msp432_power_mode Power mode
  * @param[in] periph ::msp432_periph Peripheral block
+ *
+ * @note If the module is in run, sleep or deep-sleep mode - the module
+ * is powered and receives a clock regardless of the value of power mode.
  */
 void sysctl_periph_set_power_state(enum msp432_power_mode power_mode,
                                    enum msp432_periph periph)
