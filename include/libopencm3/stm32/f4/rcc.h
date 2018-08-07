@@ -168,7 +168,7 @@
 @{*/
 /* MCO2: Microcontroller clock output 2 */
 #define RCC_CFGR_MCO2_SHIFT			30
-#define RCC_CFGR_MC02_MASK			0x3
+#define RCC_CFGR_MCO2_MASK			0x3
 #define RCC_CFGR_MCO2_SYSCLK			0x0
 #define RCC_CFGR_MCO2_PLLI2S			0x1
 #define RCC_CFGR_MCO2_HSE			0x2
