@@ -46,7 +46,10 @@ int usbd_register_set_config_callback(usbd_device *usbd_dev,
 
 	for (i = 0; i < MAX_USER_SET_CONFIG_CALLBACK; i++) {
 		if (usbd_dev->user_callback_set_config[i]) {
-			continue;
+			if (usbd_dev->user_callback_set_config[i] != callback)
+				continue;
+			else
+				return 0;
 		}
 
 		usbd_dev->user_callback_set_config[i] = callback;
