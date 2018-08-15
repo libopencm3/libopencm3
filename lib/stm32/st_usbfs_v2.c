@@ -27,6 +27,7 @@
 #include "common/st_usbfs_core.h"
 
 static usbd_device *st_usbfs_v2_usbd_init(void);
+static void st_usbfs_disconnect(usbd_device *usbd_dev, bool disconnected);
 
 const struct _usbd_driver st_usbfs_v2_usb_driver = {
 	.init = st_usbfs_v2_usbd_init,
@@ -39,6 +40,7 @@ const struct _usbd_driver st_usbfs_v2_usb_driver = {
 	.ep_write_packet = st_usbfs_ep_write_packet,
 	.ep_read_packet = st_usbfs_ep_read_packet,
 	.poll = st_usbfs_poll,
+	.disconnect = st_usbfs_disconnect,
 };
 
 /** Initialize the USB device controller hardware of the STM32. */
@@ -52,8 +54,13 @@ static usbd_device *st_usbfs_v2_usbd_init(void)
 	/* Enable RESET, SUSPEND, RESUME and CTR interrupts. */
 	SET_REG(USB_CNTR_REG, USB_CNTR_RESETM | USB_CNTR_CTRM |
 		USB_CNTR_SUSPM | USB_CNTR_WKUPM);
-	SET_REG(USB_BCDR_REG, USB_BCDR_DPPU);
+//	SET_REG(USB_BCDR_REG, USB_BCDR_DPPU);
 	return &st_usbfs_dev;
+}
+
+static void st_usbfs_disconnect(usbd_device *usbd_dev, bool disconnected) {
+	(void)usbd_dev;
+	SET_REG(USB_BCDR_REG, (disconnected) ? 0 : USB_BCDR_DPPU);
 }
 
 void st_usbfs_copy_to_pm(volatile void *vPM, const void *buf, uint16_t len)
