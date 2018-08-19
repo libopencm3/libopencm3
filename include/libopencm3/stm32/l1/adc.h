@@ -97,7 +97,6 @@ LGPL License Terms @ref lgpl_license
  *@{*/
 #define ADC_CHANNEL_TEMP	ADC_CHANNEL16
 #define ADC_CHANNEL_VREF	ADC_CHANNEL17
-#define ADC_CHANNEL_VBAT	ADC_CHANNEL18
 /**@}*/
 
 /* --- ADC_SR values ------------------------------------------------------- */
