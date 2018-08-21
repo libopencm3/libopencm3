@@ -52,6 +52,9 @@ OBJS		+= rng_common_v1.o
 
 OBJS		+= usart_common_all.o usart_common_v2.o
 
+OBJS    += usb.o usb_standard.o usb_control.o usb_dwc_common.o \
+          usb_f107.o usb_f207.o usb_msc.o
+
 VPATH += ../../usb:../:../../cm3:../common
 VPATH += ../../ethernet
 
