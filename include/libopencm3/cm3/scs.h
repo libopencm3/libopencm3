@@ -328,17 +328,4 @@
 /* CoreSight Lock Access key, common for all */
 #define SCS_LAR_KEY		0xC5ACCE55
 
-#define SCS_SYSTICK_DISABLED()	(SCS_SYST_CSR = 0)
-
-/* Macro to be called at startup to Enable CortexMx SysTick (but IRQ not
- * enabled)
- */
-#define SCS_SYSTICK_ENABLED()	(SCS_SYST_CSR = (SCS_SYST_CSR_ENABLE | \
-				 SCS_SYST_CSR_CLKSOURCE))
-
-/* Macro to be called at startup to Enable CortexMx SysTick and IRQ */
-#define SCS_SYSTICK_AND_IRQ_ENABLED()  (SCS_SYST_CSR = (SCS_SYST_CSR_ENABLE | \
-					SCS_SYST_CSR_CLKSOURCE | \
-					SCS_SYST_CSR_TICKINT))
-
 #endif
