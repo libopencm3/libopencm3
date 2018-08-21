@@ -328,12 +328,6 @@
 /* CoreSight Lock Access key, common for all */
 #define SCS_LAR_KEY		0xC5ACCE55
 
-/* TODO bit definition values for other DWT_XXX register */
-
-/* Macro to be called at startup to enable SCS & Cycle Counter */
-#define SCS_DWT_CYCLE_COUNTER_ENABLED()	((SCS_DEMCR |= SCS_DEMCR_TRCENA)\
-				(SCS_DWT_CTRL |= SCS_DWT_CTRL_CYCCNTENA))
-
 #define SCS_SYSTICK_DISABLED()	(SCS_SYST_CSR = 0)
 
 /* Macro to be called at startup to Enable CortexMx SysTick (but IRQ not
