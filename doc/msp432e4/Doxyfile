@@ -1,0 +1,11 @@
+
+# Common settings, you shouldn't have to change these...
+@INCLUDE = ../Doxyfile_common
+INPUT = ../../include/libopencm3/license.dox
+@INCLUDE = doxy.sourcelist
+ENABLE_PREPROCESSING = YES
+
+# Target settings, should only need name changes
+WARN_LOGFILE = doxygen_msp432e4.log
+LAYOUT_FILE = DoxygenLayout_msp432e4.xml
+GENERATE_TAGFILE = msp432e4.tag
