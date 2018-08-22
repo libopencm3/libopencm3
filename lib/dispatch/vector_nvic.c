@@ -63,6 +63,9 @@
 /* Yes, we use the same interrupt table for both LM3S and LM4F */
 #	include "../lm3s/vector_nvic.c"
 
+#elif defined(MSP432E4)
+#       include "../msp432/e4/vector_nvic.c"
+
 #else
 #	warning "no interrupts defined for chipset;"\
 	"not allocating space in the vector table"
