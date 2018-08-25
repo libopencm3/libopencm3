@@ -34,12 +34,13 @@
 #ifndef MSP432E4_SYSTEMCONTROL_H
 #define MSP432E4_SYSTEMCONTROL_H
 
+/**@{*/
+
 #include <libopencm3/cm3/common.h>
 #include <libopencm3/msp432/e4/memorymap.h>
 #include <stdbool.h>
 
 /** @defgroup sysctl_registers SYSCTL Registers
- * @ingroup sysctl_defines
  * @brief System Control Registers
 @{*/
 /** Device Identification 0 */
@@ -436,10 +437,9 @@
 #define SYSCTL_UNIQUEID2        MMIO32(SYSCTL_BASE + 0xF28)
 /** Unique ID 3 */
 #define SYSCTL_UNIQUEID3        MMIO32(SYSCTL_BASE + 0xF2C)
-/*@}*/
+/**@}*/
 
 /** @defgroup sysctl_did0_values SYSCTL_DID0 Values
- * @ingroup sysctl_registers
  * @brief System Control Device Identification 0 Register Values
 @{*/
 /** DID0 Version Shift */
@@ -458,10 +458,9 @@
 #define SYSCTL_DID0_MINOR_SHIFT     (0)
 /** Minor Revision Mask */
 #define SYSCTL_DID0_MINOR_MASK      (0xFF)
-/*@}*/
+/**@}*/
 
 /** @defgroup sysctl_did1_values SYSCTL_DID1 Values
- * @ingroup sysctl_registers
  * @brief System Control Device Identification 1 Register Values
 @{*/
 /** DID1 Version Shift */
@@ -514,10 +513,9 @@
 #define SYSCTL_DID1_QUAL_PILOT      (0x1)
 /** Fully Qualified */
 #define SYSCTL_DID1_QUAL_QUALIFIED  (0x2)
-/*@}*/
+/**@}*/
 
 /** @defgroup sysctl_ptboctl_values SYSCTL_PTBOCTL0 Values
- * @ingroup sysctl_registers
  * @brief System Control Power-Temp Brownout Control Register Values
 @{*/
 /** VDDA Under BOR Event Action Shift */
@@ -544,10 +542,9 @@
 #define SYSCTL_PTBOCTL_VDD_UBOR_NMI     (0x2)
 /** VDD Under BOR Event Action - Reset */
 #define SYSCTL_PTBOCTL_VDD_UBOR_RESET   (0x3)
-/*@}*/
+/**@}*/
 
 /** @defgroup sysctl_ric_values SYSCTL_RIS Values
- * @ingroup sysctl_registers
  * @brief System Control Raw Interrupt Status Register Values
 @{*/
 /** MOSC Power Up Raw Interrupt Status */
@@ -558,10 +555,9 @@
 #define SYSCTL_RIS_MOFRIS       (1 << 3)
 /** Brown-Out Reset Raw Interrupt Status */
 #define SYSCTL_RIS_BORRIS       (1 << 1)
-/*@}*/
+/**@}*/
 
 /** @defgroup sysctl_imc_values SYSCTL_IMC Values
- * @ingroup sysctl_registers
  * @brief System Control Interrupt Mask Control Register Values
 @{*/
 /** MOSC Power Up Raw Interrupt Mask */
@@ -572,10 +568,9 @@
 #define SYSCTL_IMC_MOFIM        (1 << 3)
 /** Brown-Out Reset Raw Interrupt Mask */
 #define SYSCTL_IMC_BORIM        (1 << 1)
-/*@}*/
+/**@}*/
 
 /** @defgroup sysctl_misc_values SYSCTL_MISC Values
- * @ingroup sysctl_registers
  * @brief System Control Masked Interrupt Status and Clear Register Values
 @{*/
 /** MOSC Power Up Raw Interrupt Status*/
@@ -586,10 +581,9 @@
 #define SYSCTL_MISC_MOFMIS      (1 << 3)
 /** Brown-Out Reset Raw Interrupt Status */
 #define SYSCTL_MISC_BORMIS      (1 << 1)
-/*@}*/
+/**@}*/
 
 /** @defgroup sysctl_resc_values SYSCTL_RESC Values
- * @ingroup sysctl_registers
  * @brief System Control Reset Cause Register Values
 @{*/
 /** MOSC Failure Reset */
@@ -608,20 +602,18 @@
 #define SYSCTL_RESC_POR         (1 << 1)
 /** External Reset */
 #define SYSCTL_RESC_EXT         (1 << 0)
-/*@}*/
+/**@}*/
 
 /** @defgroup sysctl_pwrtc_values SYSCTL_PWRTC Values
- * @ingroup sysctl_registers
  * @brief System Control Power-Temperature Cause Register Values
 @{*/
 /** VDDA Under BOR Status */
 #define SYSCTL_PWRTC_VDDA_UBOR  (1 << 4)
 /** VDD Under BOR Status */
 #define SYSCTL_PWRTC_VDD_UBOR   (1 << 0)
-/*@}*/
+/**@}*/
 
 /** @defgroup sysctl_nmic_values SYSCTL_NMIC Values
- * @ingroup sysctl_registers
  * @brief System Control NMI Cause Register Values
 @{*/
 /** MOSC Failure NMI */
@@ -636,10 +628,9 @@
 #define SYSCTL_NMIC_POWER       (1 << 2)
 /** External Pin NMI */
 #define SYSCTL_NMIC_EXTERNAL    (1 << 0)
-/*@}*/
+/**@}*/
 
 /** @defgroup sysctl_moscctl_values SYSCTL_MOSCCTL Values
- * @ingroup sysctl_registers
  * @brief System Control Main Oscillator Control Register Values
 @{*/
 /** Oscillator Range */
@@ -652,10 +643,9 @@
 #define SYSCTL_MOSCCTL_MOSCIM   (1 << 1)
 /** Clock Validation for MOSC */
 #define SYSCTL_MOSCCTL_CVAL     (1 << 0)
-/*@}*/
+/**@}*/
 
 /** @defgroup sysctl_rsclkcfg_values SYSCTL_RSCLKCFG Values
- * @ingroup sysctl_registers
  * @brief System Control Run and Sleep Mode Configuration Register Values
 @{*/
 /** Memory Timing Register Update */
@@ -690,10 +680,9 @@
 #define SYSCTL_RSCLKCFG_PSYSDIV_SHIFT   (0)
 /** PLL System Clock Divisor Mask */
 #define SYSCTL_RSCLKCFG_PSYSDIV_MASK    (0x3FF)
-/*@}*/
+/**@}*/
 
 /** @defgroup sysctl_memtim0_values SYSCTL_MEMTIM0 Values
- * @ingroup sysctl_registers
  * @brief System Control Memory Timing Parameter Register 0 for Main Flash
  * and EEPROM Register Values
  *
@@ -791,10 +780,9 @@
 #define SYSCTL_MEMTIM0_FWS_6            (0x6)
 /** FWS - 7 wait state */
 #define SYSCTL_MEMTIM0_FWS_7            (0x7)
-/*@}*/
+/**@}*/
 
 /** @defgroup sysctl_altclkcfg_values SYSCTL_ALTCLKCFG Values
- * @ingroup sysctl_registers
  * @brief System Control Alternate Clock Configuration Register Values
 @{*/
 /** Alternate Clock Source Shift */
@@ -805,10 +793,9 @@
 #define SYSCTL_ALTCLKCFG_ALTCLK_RTCOSC  (0x3)
 /** Alternate Clock Source - LFIOSC */
 #define SYSCTL_ALTCLKCFG_ALTCLK_LFIOSC  (0x4)
-/*@}*/
+/**@}*/
 
 /** @defgroup sysctl_dsclkcfg_values SYSCTL_DSCLKCFG Values
- * @ingroup sysctl_registers
  * @brief System Control Deep Sleep Clock Configuration Register Values
 @{*/
 /** PIOSC Power Down */
@@ -829,10 +816,9 @@
 #define SYSCTL_DSCLKCFG_DSSYSDIV_SHIFT  (0)
 /** Deep Sleep Clock Divisor Mask */
 #define SYSCTL_DSCLKCFG_DSSYSDIV_MASK   (0x3FF)
-/*@}*/
+/**@}*/
 
 /** @defgroup sysctl_divsclk_values SYSCTL_DIVSCLK Values
- * @ingroup sysctl_registers
  * @brief System Control Divisor and Source Clock Configuration Register Values
 @{*/
 /** DIVSCLK Enable */
@@ -853,10 +839,9 @@
 #define SYSCTL_DIVSCLK_DIV_1      (0x0)
 /** Divisor Value - 2 */
 #define SYSCTL_DIVSCLK_DIV_2      (0x1)
-/*@}*/
+/**@}*/
 
 /** @defgroup sysctl_sysprop_values SYSCTL_SYSPROP Values
- * @ingroup sysctl_registers
  * @brief System Control System Properties Register Values
 @{*/
 /** LDO Sleep Mode Enable */
@@ -875,10 +860,9 @@
 #define SYSCTL_SYSPROP_LDOSEQ    (1 << 5)
 /** FPU Present */
 #define SYSCTL_SYSPROP_FPU       (1 << 0)
-/*@}*/
+/**@}*/
 
 /** @defgroup sysctl_piosccal_values SYSCTL_PIOSCCAL Values
- * @ingroup sysctl_registers
  * @brief System Control Precision Internal Oscillator
  *        Calibration Register Values
 @{*/
@@ -892,10 +876,9 @@
 #define SYSCTL_PIOSCCAL_UT_SHIFT  (0)
 /** User Trim Value Mask */
 #define SYSCTL_PIOSCCAL_UT_MASK   (0x7F)
-/*@}*/
+/**@}*/
 
 /** @defgroup sysctl_pioscstat_values SYSCTL_PIOSCSTAT Values
- * @ingroup sysctl_registers
  * @brief System Control Precision Internal Oscillator
  *        Statistics Register Values
 @{*/
@@ -917,10 +900,9 @@
 #define SYSCTL_PIOSCSTAT_CT_SHIFT           (0)
 /** Calibration Value Mask */
 #define SYSCTL_PIOSCSTAT_CT_MASK            (0x7F)
-/*@}*/
+/**@}*/
 
 /** @defgroup sysctl_pllfreq0_values SYSCTL_PLLFREQ0 Values
- * @ingroup sysctl_registers
  * @brief System Control PLL Frequency 0 Register Values
 @{*/
 /** PLL Power */
@@ -933,10 +915,9 @@
 #define SYSCTL_PLLFREQ0_MINT_SHIFT  (0)
 /** PLL M Integer Value Mask */
 #define SYSCTL_PLLFREQ0_MINT_MASK   (0x3FF)
-/*@}*/
+/**@}*/
 
 /** @defgroup sysctl_pllfreq1_values SYSCTL_PLLFREQ1 Values
- * @ingroup sysctl_registers
  * @brief System Control PLL Frequency 1 Register Values
 @{*/
 /** PLL Q Value Shift */
@@ -947,18 +928,16 @@
 #define SYSCTL_PLLFREQ1_N_SHIFT (0)
 /** PLL N Value Mask */
 #define SYSCTL_PLLFREQ1_N_MASK  (0x1F)
-/*@}*/
+/**@}*/
 
 /** @defgroup sysctl_pllstat_values SYSCTL_PLLSTAT Values
- * @ingroup sysctl_registers
  * @brief System Control PLL Status Register Values
 @{*/
 /** PLL Lock */
 #define SYSCTL_PLLSTAT_LOCK     (1 << 0)
-/*@}*/
+/**@}*/
 
 /** @defgroup sysctl_slppwrcfg_values SYSCTL_SLPPWRCFG Values
- * @ingroup sysctl_registers
  * @brief System Control Sleep Power Configuration Register Values
 @{*/
 /** Flash Power Modes Shift */
@@ -979,10 +958,9 @@
 #define SYSCTL_SLPPWRCFG_SRAMPM_STANDBY  (0x1)
 /** SRAM Power Mode - Low-Power Mode */
 #define SYSCTL_SLPPWRCFG_SRAMPM_LP       (0x3)
-/*@}*/
+/**@}*/
 
 /** @defgroup sysctl_dslppwrcfg_values SYSCTL_DSLPPWRCFG Values
- * @ingroup sysctl_registers
  * @brief System Control Deep-Sleep Power Configuration Register Values
 @{*/
 /** LDO Sleep Mode */
@@ -1007,18 +985,16 @@
 #define SYSCTL_DSLPPWRCFG_SRAMPM_STANDBY  (0x1)
 /** SRAM Power Mode - Low-Power Mode */
 #define SYSCTL_DSLPPWRCFG_SRAMPM_LP       (0x3)
-/*@}*/
+/**@}*/
 
 /** @defgroup sysctl_nvmstat_values SYSCTL_NVMSTAT Values
- * @ingroup sysctl_registers
  * @brief System Control Non-Volatile Memory Information Register Values
 @{*/
 /** 32 Word Flash Write Buffer Available */
 #define SYSCTL_NVMSTAT_FWB  (1 << 0)
-/*@}*/
+/**@}*/
 
 /** @defgroup sysctl_ldospctl_values SYSCTL_LDOSPCTL Values
- * @ingroup sysctl_registers
  * @brief System Control LDO Sleep Power Control Register Values
 @{*/
 /** Voltage Adjust Enable */
@@ -1041,10 +1017,9 @@
 #define SYSCTL_LDOSPCTL_VLDO_1_POINT_15  (0x17)
 /** LDO Out Voltage - 1.20V */
 #define SYSCTL_LDOSPCTL_VLDO_1_POINT_20  (0x18)
-/*@}*/
+/**@}*/
 
 /** @defgroup sysctl_ldospcal_values SYSCTL_LDOSPCAL Values
- * @ingroup sysctl_registers
  * @brief System Control LDO Sleep Power Calibration Register Values
 @{*/
 /** Sleep With PLL Shift */
@@ -1055,10 +1030,9 @@
 #define SYSCTL_LDOSPCAL_NOPLL_SHIFT    (0)
 /** Sleep Without PLL Mask */
 #define SYSCTL_LDOSPCAL_NOPLL_MASK     (0xFF)
-/*@}*/
+/**@}*/
 
 /** @defgroup sysctl_ldodpctl_values SYSCTL_LDODPCTL Values
- * @ingroup sysctl_registers
  * @brief System Control LDO Deep-Sleep Power Control Register Values
 @{*/
 /** Voltage Adjust Enable */
@@ -1081,10 +1055,9 @@
 #define SYSCTL_LDODPCTL_VLDO_1_POINT_15  (0x17)
 /** LDO Out Voltage - 1.20V */
 #define SYSCTL_LDODPCTL_VLDO_1_POINT_20  (0x18)
-/*@}*/
+/**@}*/
 
 /** @defgroup sysctl_ldodpcal_values SYSCTL_LDODPCAL Values
- * @ingroup sysctl_registers
  * @brief System Control LDO Deep-Sleep Power Calibration Register Values
 @{*/
 /** Deep-Sleep Without PLL Shift */
@@ -1095,10 +1068,9 @@
 #define SYSCTL_LDODPCAL_30KHZ_SHIFT  (0)
 /** Deep-Sleep With IOSC Mask */
 #define SYSCTL_LDODPCAL_30KHZ_MASK   (0xFF)
-/*@}*/
+/**@}*/
 
 /** @defgroup sysctl_sdpmst_values SYSCTL_SDPMST Values
- * @ingroup sysctl_registers
  * @brief System Control Sleep/Deep-Sleep Power Mode Status Register Values
 @{*/
 /** LDO Update Active */
@@ -1123,10 +1095,9 @@
 #define SYSCTL_SDPMST_FPDERR    (1 << 1)
 /** SRAM Power Down Request Error */
 #define SYSCTL_SDPMST_SPDERR    (1 << 0)
-/*@}*/
+/**@}*/
 
 /** @defgroup sysctl_resbehavctl_values SYSCTL_RESBEHAVCTL Values
- * @ingroup sysctl_registers
  * @brief System Control Reset Behavior Control Register Values
 @{*/
 /** Reset Operation - System Reset */
@@ -1149,10 +1120,9 @@
 #define SYSCTL_RESBEHAVCTL_EXTRES_SHIFT  (2)
 /** EXT Reset Operation Mask */
 #define SYSCTL_RESBEHAVCTL_EXTRES_MASK   (0x3)
-/*@}*/
+/**@}*/
 
 /** @defgroup sysctl_hssr_values SYSCTL_HSSR Values
- * @ingroup sysctl_registers
  * @brief System Control Hardware System Service Request Register Values
 @{*/
 /** Write Key Shift */
@@ -1169,10 +1139,9 @@
 #define SYSCTL_HSSR_CDOFF_NO_REQUEST  (0x000000)
 /** Command Descriptor - Error Or Incomplete Request */
 #define SYSCTL_HSSR_CDOFF_ERROR       (0xFFFFFF)
-/*@}*/
+/**@}*/
 
 /** @defgroup sysctl_usbpds_values SYSCTL_USBPDS Values
- * @ingroup sysctl_registers
  * @brief System Control USB Power Domain Status Register Values
 @{*/
 /** Memory Array Power Status Shift */
@@ -1193,10 +1162,9 @@
 #define SYSCTL_USBPDS_PWRSTAT_OFF       (0x0)
 /** Power Domain Status - On */
 #define SYSCTL_USBPDS_PWRSTAT_ON        (0x3)
-/*@}*/
+/**@}*/
 
 /** @defgroup sysctl_usbmpc_values SYSCTL_USBMPC Values
- * @ingroup sysctl_registers
  * @brief System Control USB Memory Power Control Register Values
 @{*/
 /** Memory Array Power Control Shift */
@@ -1209,10 +1177,9 @@
 #define SYSCTL_USBMPC_PWRCTL_SRAM_RET (0x1)
 /** Memory Array Power Control - On */
 #define SYSCTL_USBMPC_PWRCTL_ARR_ON   (0x3)
-/*@}*/
+/**@}*/
 
 /** @defgroup sysctl_emacpds_values SYSCTL_EMACPDS Values
- * @ingroup sysctl_registers
  * @brief System Control Ethernet MAC Power Domain Status Register Values
 @{*/
 /** Memory Array Power Status Shift */
@@ -1231,10 +1198,9 @@
 #define SYSCTL_EMACPDS_PWRSTAT_OFF       (0x0)
 /** Power Domain Status - On */
 #define SYSCTL_EMACPDS_PWRSTAT_ON        (0x3)
-/*@}*/
+/**@}*/
 
 /** @defgroup sysctl_emacmpc_values SYSCTL_EMACMPC Values
- * @ingroup sysctl_registers
  * @brief System Control Ethernet MAC Memory Power Control Register Values
 @{*/
 /** Memory Array Power Control Shift */
@@ -1245,10 +1211,9 @@
 #define SYSCTL_EMACMPC_PWRCTL_ARR_OFF  (0x0)
 /** Memory Array Power Control - On */
 #define SYSCTL_EMACMPC_PWRCTL_ARR_ON   (0x3)
-/*@}*/
+/**@}*/
 
 /** @defgroup sysctl_lcdpds_values SYSCTL_LCDPDS Values
- * @ingroup sysctl_registers
  * @brief System Control LCD Power Domain Status Register Values
 @{*/
 /** Memory Array Power Status Shift */
@@ -1267,10 +1232,9 @@
 #define SYSCTL_LCDPDS_PWRSTAT_OFF       (0x0)
 /** Power Domain Status - On */
 #define SYSCTL_LCDPDS_PWRSTAT_ON        (0x3)
-/*@}*/
+/**@}*/
 
 /** @defgroup sysctl_lcdmpc_values SYSCTL_LCDMPC Values
- * @ingroup sysctl_registers
  * @brief System Control LCD Memory Power Control Register Values
 @{*/
 /** Memory Array Power Control Shift */
@@ -1281,10 +1245,9 @@
 #define SYSCTL_LCDMPC_PWRCTL_ARR_OFF  (0x0)
 /** Memory Array Power Control - On */
 #define SYSCTL_LCDMPC_PWRCTL_ARR_ON   (0x3)
-/*@}*/
+/**@}*/
 
 /** @defgroup sysctl_can0pds_values SYSCTL_CAN0PDS Values
- * @ingroup sysctl_registers
  * @brief System Control CAN 0 Power Domain Status Register Values
 @{*/
 /** Memory Array Power Status Shift */
@@ -1303,10 +1266,9 @@
 #define SYSCTL_CAN0PDS_PWRSTAT_OFF       (0x0)
 /** Power Domain Status - On */
 #define SYSCTL_CAN0PDS_PWRSTAT_ON        (0x3)
-/*@}*/
+/**@}*/
 
 /** @defgroup sysctl_can0mpc_values SYSCTL_CAN0MPC Values
- * @ingroup sysctl_registers
  * @brief System Control CAN 0 Memory Power Control Register Values
 @{*/
 /** Memory Array Power Control Shift */
@@ -1317,10 +1279,9 @@
 #define SYSCTL_CAN0MPC_PWRCTL_ARR_OFF  (0x0)
 /** Memory Array Power Control - On */
 #define SYSCTL_CAN0MPC_PWRCTL_ARR_ON   (0x3)
-/*@}*/
+/**@}*/
 
 /** @defgroup sysctl_can1pds_values SYSCTL_CAN1PDS Values
- * @ingroup sysctl_registers
  * @brief System Control CAN 1 Power Domain Status Register Values
 @{*/
 /** Memory Array Power Status Shift */
@@ -1339,10 +1300,9 @@
 #define SYSCTL_CAN1PDS_PWRSTAT_OFF       (0x0)
 /** Power Domain Status - On */
 #define SYSCTL_CAN1PDS_PWRSTAT_ON        (0x3)
-/*@}*/
+/**@}*/
 
 /** @defgroup sysctl_can1mpc_values SYSCTL_CAN1MPC Values
- * @ingroup sysctl_registers
  * @brief System Control CAN 1 Memory Power Control Register Values
 @{*/
 /** Memory Array Power Control Shift */
@@ -1353,7 +1313,7 @@
 #define SYSCTL_CAN1MPC_PWRCTL_ARR_OFF  (0x0)
 /** Memory Array Power Control - On */
 #define SYSCTL_CAN1MPC_PWRCTL_ARR_ON   (0x3)
-/*@}*/
+/**@}*/
 
 /**
  * @brief Clock mode definitions
@@ -1505,5 +1465,7 @@ void sysctl_periph_set_power_state(enum msp432_power_mode power_mode,
                                    enum msp432_periph periph);
 
 END_DECLS
+
+/**@}*/
 
 #endif /* MSP432E4_SYSTEMCONTROL_H */
