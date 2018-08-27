@@ -23,6 +23,7 @@
 #include <libopencm3/lm4f/systemcontrol.h>
 
 #include <stdio.h>
+#include "delay.h"
 #include "usb-gadget0.h"
 
 #define ER_DEBUG
@@ -33,6 +34,15 @@
 #define ER_DPRINTF(fmt, ...) \
 	do { } while (0)
 #endif
+
+
+/* FIXME - implement delay functionality for better test coverage */
+void delay_setup(void) {
+}
+
+void delay_us(uint16_t us) {
+	(void)us;
+}
 
 int main(void)
 {
