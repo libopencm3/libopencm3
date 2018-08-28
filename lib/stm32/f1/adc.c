@@ -451,8 +451,4 @@ void adc_set_sample_time_on_all_channels(uint32_t adc, uint8_t time)
 	ADC_SMPR1(adc) = reg32;
 }
 
-
-/*---------------------------------------------------------------------------*/
-
 /**@}*/
-
