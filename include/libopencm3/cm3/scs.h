@@ -28,7 +28,9 @@
  * Processors" for details on System Timer/SysTick.
  */
 
-/*
+/**
+ * @defgroup cm_scs Cortex-M System Control Space
+ * @ingroup CM3_defines
  * The System Control Space (SCS) is a memory-mapped 4KB address space that
  * provides 32-bit registers for configuration, status reporting and control.
  * The SCS registers divide into the following groups:
@@ -328,4 +330,5 @@
 /* CoreSight Lock Access key, common for all */
 #define SCS_LAR_KEY		0xC5ACCE55
 
+/**@}*/
 #endif

@@ -21,6 +21,11 @@
 #ifndef LIBOPENCM3_SCB_H
 #define LIBOPENCM3_SCB_H
 
+/**
+ * @defgroup cm_scb Cortex-M System Control Block
+ * @ingroup CM3_defines
+ * @{
+ */
 #include <libopencm3/cm3/memorymap.h>
 #include <libopencm3/cm3/common.h>
 
@@ -446,5 +451,7 @@ void scb_set_priority_grouping(uint32_t prigroup);
 #endif
 
 END_DECLS
+
+/**@}*/
 
 #endif

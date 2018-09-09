@@ -1,4 +1,5 @@
 /** @defgroup debugging Debugging
+@ingroup CM3_defines
 
 @brief Macros and functions to aid in debugging
 

@@ -20,7 +20,11 @@
 #ifndef LIBOPENCM3_CM3_TPIU_H
 #define LIBOPENCM3_CM3_TPIU_H
 
-/* Cortex-M3 Trace Port Interface Unit (TPIU) */
+/**
+ * @defgroup cm_tpiu Cortex-M Trace Port Interface Unit (TPIU)
+ * @ingroup CM3_defines
+ * @{
+ */
 
 /* Those defined only on ARMv7 and above */
 #if !defined(__ARM_ARCH_7M__) && !defined(__ARM_ARCH_7EM__)
@@ -93,5 +97,7 @@
 /* Bit 9 - RAZ, indicated that trace data and clock are supported */
 #define TPUI_DEVID_FIFO_SIZE_MASK	(7 << 6)
 /* Bits 5:0 - Implementation defined */
+
+/**@}*/
 
 #endif

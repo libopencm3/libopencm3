@@ -20,6 +20,12 @@
 #ifndef LIBOPENCM3_CM3_DWT_H
 #define LIBOPENCM3_CM3_DWT_H
 
+/**
+ * @defgroup cm_fpb Cortex-M Flash Patch and Breakpoint (FPB) unit
+ * @ingroup CM3_defines
+ * @{
+ */
+
 #include <libopencm3/cm3/common.h>
 #include <libopencm3/cm3/memorymap.h>
 
@@ -148,5 +154,7 @@ bool dwt_enable_cycle_counter(void);
 uint32_t dwt_read_cycle_counter(void);
 
 END_DECLS
+
+/**@}*/
 
 #endif /* LIBOPENCM3_CM3_DWT_H */

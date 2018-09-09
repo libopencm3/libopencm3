@@ -20,7 +20,11 @@
 #ifndef LIBOPENCM3_CM3_FPB_H
 #define LIBOPENCM3_CM3_FPB_H
 
-/* Cortex-M3 Flash Patch and Breakpoint (FPB) unit */
+/**
+ * @defgroup cm_fpb Cortex-M Flash Patch and Breakpoint (FPB) unit
+ * @ingroup CM3_defines
+ * @{
+ */
 
 /* Those defined only on ARMv7 and above */
 #if !defined(__ARM_ARCH_7M__) && !defined(__ARM_ARCH_7EM__)
@@ -83,5 +87,7 @@
 /* Bit 1: Reserved */
 
 #define FPB_COMP_ENABLE			(1 << 0)
+
+/**@}*/
 
 #endif
