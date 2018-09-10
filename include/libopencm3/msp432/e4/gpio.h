@@ -84,7 +84,7 @@
 #define GPIO_AF15               0xF
 #define GPIO_AF_ALL             0xF
 
-/* Остановился на PM4 (вывод M18, страница 18) */
+/* Остановился на PR4 (вывод P3, страница 19) */
 
 /** @defgroup gpio_registers GPIO Registers
  *  @brief GPIO Registers
@@ -652,6 +652,13 @@
 #define GPIO_AF_PJ5_LCDDATA17   GPIO_AF15
 /**@}*/
 
+/** @defgroup gpio_af_pj6_values GPIO_AF_PJ6 Values
+ * @brief GPIO PJ6 Alternate Functions Values
+@{*/
+#define GPIO_AF_PJ6_U4RTS       GPIO_AF1
+#define GPIO_AF_PJ6_LCDAC       GPIO_AF15
+/**@}*/
+
 /** @defgroup gpio_af_pj7_values GPIO_AF_PJ7 Values
  * @brief GPIO PJ7 Alternate Functions Values
 @{*/
@@ -820,6 +827,7 @@
 @{*/
 #define GPIO_AF_PM4_U0CTS       GPIO_AF1
 #define GPIO_AF_PM4_T4CCP0      GPIO_AF3
+#define GPIO_AF_PM4_EN0RREF_CLK GPIO_AF14
 /**@}*/
 
 /** @defgroup gpio_af_pm5_values GPIO_AF_PM5 Values
@@ -834,6 +842,7 @@
 @{*/
 #define GPIO_AF_PM6_U0DSR       GPIO_AF1
 #define GPIO_AF_PM6_T5CCP0      GPIO_AF3
+#define GPIO_AF_PM6_EN0CRS      GPIO_AF14
 /**@}*/
 
 /** @defgroup gpio_af_pm7_values GPIO_AF_PM7 Values
@@ -841,6 +850,7 @@
 @{*/
 #define GPIO_AF_PM7_U0RI        GPIO_AF1
 #define GPIO_AF_PM7_T5CCP1      GPIO_AF3
+#define GPIO_AF_PM7_EN0COL      GPIO_AF14
 /**@}*/
 
 /** @defgroup gpio_af_pn0_values GPIO_AF_PN0 Values
@@ -992,6 +1002,42 @@
  * @brief GPIO PQ7 Alternate Functions Values
 @{*/
 #define GPIO_AF_PQ7_U1RI        GPIO_AF1
+/**@}*/
+
+/** @defgroup gpio_af_pr0_values GPIO_AF_PR0 Values
+ * @brief GPIO PR0 Alternate Functions Values
+@{*/
+#define GPIO_AF_PR0_U4TX        GPIO_AF1
+#define GPIO_AF_PR0_I2C1SCL     GPIO_AF2
+#define GPIO_AF_PR0_M0PWM0      GPIO_AF6
+#define GPIO_AF_PR0_LCDCP       GPIO_AF15
+/**@}*/
+
+/** @defgroup gpio_af_pr1_values GPIO_AF_PR1 Values
+ * @brief GPIO PR1 Alternate Functions Values
+@{*/
+#define GPIO_AF_PR1_U4RX        GPIO_AF1
+#define GPIO_AF_PR1_I2C1SDA     GPIO_AF2
+#define GPIO_AF_PR1_M0PWM1      GPIO_AF6
+#define GPIO_AF_PR1_LCDFP       GPIO_AF15
+/**@}*/
+
+/** @defgroup gpio_af_pr2_values GPIO_AF_PR2 Values
+ * @brief GPIO PR2 Alternate Functions Values
+@{*/
+#define GPIO_AF_PR2_I2C2SCL     GPIO_AF2
+#define GPIO_AF_PR2_M0PWM2      GPIO_AF6
+#define GPIO_AF_PR2_LCDLP       GPIO_AF15
+/**@}*/
+
+/** @defgroup gpio_af_pr5_values GPIO_AF_PR5 Values
+ * @brief GPIO PR5 Alternate Functions Values
+@{*/
+#define GPIO_AF_PR5_U1RX        GPIO_AF1
+#define GPIO_AF_PR5_I2C3SDA     GPIO_AF2
+#define GPIO_AF_PR5_T0CCP1      GPIO_AF3
+#define GPIO_AF_PR5_M0PWM5      GPIO_AF6
+#define GPIO_AF_PR5_LCDDATA01   GPIO_AF15
 /**@}*/
 
 /** @defgroup gpio_af_ps0_values GPIO_AF_PS0 Values
