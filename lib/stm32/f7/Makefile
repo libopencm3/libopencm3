@@ -56,26 +56,4 @@ OBJS		+= usart_common_all.o usart_common_v2.o
 VPATH += ../../usb:../:../../cm3:../common
 VPATH += ../../ethernet
 
-###############################################################################
-# Checking CPU support in the toolchain
-###############################################################################
-# TODO: This check and silent skip of build should be removed, when it will be
-# sure that first compatible toolchain (g-a-e 4.8 2014q3) will be sufficiently
-# penetrated in majority of user stations.
-define MISSING_CPU
-Your toolchain doesn't support -mcpu=cortex-m7.
-Please use gcc-arm-embedded 4.8 2014q3 or newer. Skipping this sub-library.
-endef
-
-ifneq ($(shell $(CC) --help=target | grep -q '\<cortex-m7\>'; echo $$?),0)
-  $(warning $(MISSING_CPU))
-
-all clean:
-	@true
-
-$(SRCLIBDIR)/$(LIBNAME).a:
-	@true
-
-else
-  include ../../Makefile.include
-endif
+include ../../Makefile.include
