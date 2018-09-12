@@ -184,7 +184,7 @@
  * TQFP-128    |       33       |
  * NFBGA-212   |       V3       |
 @{*/
-/**  */
+/** UART module 0 receive */
 #define GPIO_AF_PA0_U0RX        GPIO_AF1
 /** I2C module 9 clock */
 #define GPIO_AF_PA0_I2C9SCL     GPIO_AF2
@@ -201,7 +201,7 @@
  * TQFP-128    |       34       |
  * NFBGA-212   |       W3       |
 @{*/
-/**  */
+/** UART module 0 transmit */
 #define GPIO_AF_PA1_U0TX        GPIO_AF1
 /** I2C module 9 data */
 #define GPIO_AF_PA1_I2C9SDA     GPIO_AF2
@@ -218,13 +218,13 @@
  * TQFP-128    |       35       |
  * NFBGA-212   |       T6       |
 @{*/
-/**  */
+/** UART module 4 receive */
 #define GPIO_AF_PA2_U4RX        GPIO_AF1
 /** I2C module 8 clock */
 #define GPIO_AF_PA2_I2C8SCL     GPIO_AF2
 /** 16- and 32-bit Timer 1 capture, compare, or PWM 0 */
 #define GPIO_AF_PA2_T1CCP0      GPIO_AF3
-/**  */
+/** SSI module 0 clock */
 #define GPIO_AF_PA2_SSI0CLK     GPIO_AF15
 /**@}*/
 
@@ -235,13 +235,13 @@
  * TQFP-128    |       36       |
  * NFBGA-212   |       U5       |
 @{*/
-/**  */
+/** UART module 4 transmit */
 #define GPIO_AF_PA3_U4TX        GPIO_AF1
 /** I2C module 8 data */
 #define GPIO_AF_PA3_I2C8SDA     GPIO_AF2
 /** 16- and 32-bit Timer 1 capture, compare, or PWM 1 */
 #define GPIO_AF_PA3_T1CCP1      GPIO_AF3
-/**  */
+/** SSI module 0 frame signal */
 #define GPIO_AF_PA3_SSI0FSS     GPIO_AF15
 /**@}*/
 
@@ -252,13 +252,13 @@
  * TQFP-128    |       37       |
  * NFBGA-212   |       V4       |
 @{*/
-/**  */
+/** UART module 3 receive */
 #define GPIO_AF_PA4_U3RX        GPIO_AF1
 /** I2C module 7 clock */
 #define GPIO_AF_PA4_I2C7SCL     GPIO_AF2
 /** 16- and 32-bit Timer 2 capture, compare, or PWM 0 */
 #define GPIO_AF_PA4_T2CCP0      GPIO_AF3
-/**  */
+/** SSI Module 0 bidirectional data pin 0 */
 #define GPIO_AF_PA4_SSI0XDAT0   GPIO_AF15
 /**@}*/
 
@@ -269,13 +269,13 @@
  * TQFP-128    |       38       |
  * NFBGA-212   |       W4       |
 @{*/
-/**  */
+/** UART module 3 transmit */
 #define GPIO_AF_PA5_U3TX        GPIO_AF1
 /** I2C module 7 data */
 #define GPIO_AF_PA5_I2C7SDA     GPIO_AF2
 /** 16- and 32-bit Timer 2 capture, compare, or PWM 1 */
 #define GPIO_AF_PA5_T2CCP1      GPIO_AF3
-/**  */
+/** SSI Module 0 bidirectional data pin 1 */
 #define GPIO_AF_PA5_SSI0XDAT1   GPIO_AF15
 /**@}*/
 
@@ -286,15 +286,15 @@
  * TQFP-128    |       40       |
  * NFBGA-212   |       V5       |
 @{*/
-/**  */
+/** UART module 2 receive */
 #define GPIO_AF_PA6_U2RX        GPIO_AF1
 /** I2C module 6 clock */
 #define GPIO_AF_PA6_I2C6SCL     GPIO_AF2
 /** 16- and 32-bit Timer 3 capture, compare, or PWM 0 */
 #define GPIO_AF_PA6_T3CCP0      GPIO_AF3
-/**  */
+/** USB Control an external power source in host mode */
 #define GPIO_AF_PA6_USB0EPEN    GPIO_AF5
-/**  */
+/** SSI Module 0 bidirectional data pin 2 */
 #define GPIO_AF_PA6_SSI0XDAT2   GPIO_AF13
 /** Ethernet 0 receive clock */
 #define GPIO_AF_PA6_EN0RXCK     GPIO_AF14
@@ -309,17 +309,17 @@
  * TQFP-128    |       41       |
  * NFBGA-212   |       R7       |
 @{*/
-/**  */
-#define GPIO_AF_PA7_U2Tx        GPIO_AF1
+/** UART module 2 transmit */
+#define GPIO_AF_PA7_U2TX        GPIO_AF1
 /** I2C module 6 data */
 #define GPIO_AF_PA7_I2C6SDA     GPIO_AF2
 /** 16- and 32-bit Timer 3 capture, compare, or PWM 1 */
 #define GPIO_AF_PA7_T3CCP1      GPIO_AF3
-/**  */
+/** USB Power Fault input in host mode */
 #define GPIO_AF_PA7_USB0PFLT    GPIO_AF5
-/**  */
+/** USB Control an external power source in host mode */
 #define GPIO_AF_PA7_USB0EPEN    GPIO_AF11
-/**  */
+/** SSI Module 0 bidirectional data pin 3 */
 #define GPIO_AF_PA7_SSI0XDAT3   GPIO_AF13
 /** EPI module 0 signal 9 */
 #define GPIO_AF_PA7_EPI0S9      GPIO_AF15
@@ -332,7 +332,7 @@
  * TQFP-128    |       95       |
  * NFBGA-212   |      A16       |
 @{*/
-/**  */
+/** UART module 1 receive */
 #define GPIO_AF_PB0_U1RX        GPIO_AF1
 /** I2C module 5 clock */
 #define GPIO_AF_PB0_I2C5SCL     GPIO_AF2
@@ -349,7 +349,7 @@
  * TQFP-128    |       96       |
  * NFBGA-212   |      B16       |
 @{*/
-/**  */
+/** UART module 1 transmit */
 #define GPIO_AF_PB1_U1TX        GPIO_AF1
 /** I2C module 5 data */
 #define GPIO_AF_PB1_I2C5SDA     GPIO_AF2
@@ -372,7 +372,8 @@
 #define GPIO_AF_PB2_T5CCP0      GPIO_AF3
 /** Ethernet 0 management data clock */
 #define GPIO_AF_PB2_EN0MDC      GPIO_AF5
-/**  */
+/** USB Asserted by the USB controller to signal the end of a USB transmit
+ *  packet or register write operation */
 #define GPIO_AF_PB2_USB0STP     GPIO_AF14
 /** EPI module 0 signal 27 */
 #define GPIO_AF_PB2_EPI0S27     GPIO_AF15
@@ -391,7 +392,7 @@
 #define GPIO_AF_PB3_T5CCP1      GPIO_AF3
 /** Ethernet 0 management data input/output signal */
 #define GPIO_AF_PB3_EN0MDIO     GPIO_AF5
-/**  */
+/** USB 60-MHz clock to the external PHY */
 #define GPIO_AF_PB3_USB0CLK     GPIO_AF14
 /** EPI module 0 signal 28 */
 #define GPIO_AF_PB3_EPI0S28     GPIO_AF15
@@ -404,11 +405,11 @@
  * TQFP-128    |      121       |
  * NFBGA-212   |       C6       |
 @{*/
-/**  */
+/** UART module 0 clear to send modem flow control input signal */
 #define GPIO_AF_PB4_U0CTS       GPIO_AF1
 /** I2C module 5 clock */
 #define GPIO_AF_PB4_I2C5SCL     GPIO_AF2
-/**  */
+/** SSI module 1 frame signal */
 #define GPIO_AF_PB4_SSI1FSS     GPIO_AF15
 /**@}*/
 
@@ -419,11 +420,11 @@
  * TQFP-128    |      120       |
  * NFBGA-212   |       B6       |
 @{*/
-/**  */
+/** UART module 0 request to send modem flow control output signal */
 #define GPIO_AF_PB5_U0RTS       GPIO_AF1
 /** I2C module 5 data */
 #define GPIO_AF_PB5_I2C5SDA     GPIO_AF2
-/**  */
+/** SSI module 1 clock */
 #define GPIO_AF_PB5_SSI1CLK     GPIO_AF15
 /**@}*/
 
@@ -504,7 +505,7 @@
  * TQFP-128    |       25       |
  * NFBGA-212   |       M2       |
 @{*/
-/**  */
+/** UART module 7 receive */
 #define GPIO_AF_PC4_U7RX        GPIO_AF1
 /** 16- and 32-bit Timer 7 capture, compare, or PWM 0 */
 #define GPIO_AF_PC4_T7CCP0      GPIO_AF3
@@ -519,11 +520,11 @@
  * TQFP-128    |       24       |
  * NFBGA-212   |       M1       |
 @{*/
-/**  */
+/** UART module 7 transmit */
 #define GPIO_AF_PC5_U7TX        GPIO_AF1
 /** 16- and 32-bit Timer 7 capture, compare, or PWM 1 */
 #define GPIO_AF_PC5_T7CCP1      GPIO_AF3
-/**  */
+/** Buffered version of the 32.768-kHz clock of the Hibernation module */
 #define GPIO_AF_PC5_RTCCLK      GPIO_AF7
 /** EPI module 0 signal 6 */
 #define GPIO_AF_PC5_EPI0S6      GPIO_AF15
@@ -536,7 +537,7 @@
  * TQFP-128    |       22       |
  * NFBGA-212   |       L2       |
 @{*/
-/**  */
+/** UART module 5 receive */
 #define GPIO_AF_PC6_U5RX        GPIO_AF1
 /** EPI module 0 signal 5 */
 #define GPIO_AF_PC6_EPI0S5      GPIO_AF15
@@ -549,7 +550,7 @@
  * TQFP-128    |       22       |
  * NFBGA-212   |       K3       |
 @{*/
-/**  */
+/** UART module 5 transmit */
 #define GPIO_AF_PC7_U5TX        GPIO_AF1
 /** EPI module 0 signal 4 */
 #define GPIO_AF_PC7_EPI0S4      GPIO_AF15
@@ -568,7 +569,7 @@
 #define GPIO_AF_PD0_T0CCP0      GPIO_AF3
 /** Analog comparator 0 output */
 #define GPIO_AF_PD0_C0O         GPIO_AF5
-/**  */
+/** SSI Module 2 bidirectional data pin 1 */
 #define GPIO_AF_PD0_SSI2XDAT1   GPIO_AF15
 /**@}*/
 
@@ -585,7 +586,7 @@
 #define GPIO_AF_PD1_T0CCP1      GPIO_AF3
 /** Analog comparator 1 output */
 #define GPIO_AF_PD1_C1O         GPIO_AF5
-/**  */
+/** SSI Module 2 bidirectional data pin 0 */
 #define GPIO_AF_PD1_SSI2XDAT0   GPIO_AF15
 /**@}*/
 
@@ -602,7 +603,7 @@
 #define GPIO_AF_PD2_T1CCP0      GPIO_AF3
 /** Analog comparator 2 output */
 #define GPIO_AF_PD2_C2O         GPIO_AF5
-/**  */
+/** SSI module 2 frame signal */
 #define GPIO_AF_PD2_SSI2FSS     GPIO_AF15
 /**@}*/
 
@@ -617,7 +618,7 @@
 #define GPIO_AF_PD3_I2C8SDA     GPIO_AF2
 /** 16- and 32-bit Timer 1 capture, compare, or PWM 1 */
 #define GPIO_AF_PD3_T1CCP1      GPIO_AF3
-/**  */
+/** SSI module 2 clock */
 #define GPIO_AF_PD3_SSI2CLK     GPIO_AF15
 /**@}*/
 
@@ -628,11 +629,11 @@
  * TQFP-128    |      125       |
  * NFBGA-212   |       A4       |
 @{*/
-/**  */
+/** UART module 2 receive */
 #define GPIO_AF_PD4_U2RX        GPIO_AF1
 /** 16- and 32-bit Timer 3 capture, compare, or PWM 0 */
 #define GPIO_AF_PD4_T3CCP0      GPIO_AF3
-/**  */
+/** SSI Module 1 bidirectional data pin 2 */
 #define GPIO_AF_PD4_SSI1XDAT2   GPIO_AF15
 /**@}*/
 
@@ -643,11 +644,11 @@
  * TQFP-128    |      126       |
  * NFBGA-212   |       B4       |
 @{*/
-/**  */
+/** UART module 2 transmit */
 #define GPIO_AF_PD5_U2TX        GPIO_AF1
 /** 16- and 32-bit Timer 3 capture, compare, or PWM 1 */
 #define GPIO_AF_PD5_T3CCP1      GPIO_AF3
-/**  */
+/** SSI Module 1 bidirectional data pin 3 */
 #define GPIO_AF_PD5_SSI1XDAT3   GPIO_AF15
 /**@}*/
 
@@ -658,13 +659,13 @@
  * TQFP-128    |      127       |
  * NFBGA-212   |       B3       |
 @{*/
-/**  */
+/** UART module 2 request to send modem flow control output line */
 #define GPIO_AF_PD6_U2RTS       GPIO_AF1
 /** 16- and 32-bit Timer 4 capture, compare, or PWM 0 */
 #define GPIO_AF_PD6_T4CCP0      GPIO_AF3
-/**  */
+/** USB Control an external power source in host mode */
 #define GPIO_AF_PD6_USB0EPEN    GPIO_AF5
-/**  */
+/** SSI Module 2 bidirectional data pin 3 */
 #define GPIO_AF_PD6_SSI2XDAT3   GPIO_AF15
 /**@}*/
 
@@ -675,15 +676,15 @@
  * TQFP-128    |      128       |
  * NFBGA-212   |       B2       |
 @{*/
-/**  */
+/** UART module 2 clear to send modem flow control input signal */
 #define GPIO_AF_PD7_U2CTS       GPIO_AF1
 /** 16- and 32-bit Timer 4 capture, compare, or PWM 1 */
 #define GPIO_AF_PD7_T4CCP1      GPIO_AF3
-/**  */
+/** USB Power Fault input in host mode */
 #define GPIO_AF_PD7_USB0PFLT    GPIO_AF5
-/**  */
+/** Nonmaskable interrupt */
 #define GPIO_AF_PD7_NMI         GPIO_AF8
-/**  */
+/** SSI Module 2 bidirectional data pin 2 */
 #define GPIO_AF_PD7_SSI2XDAT2   GPIO_AF15
 /**@}*/
 
@@ -694,7 +695,7 @@
  * TQFP-128    |       15       |
  * NFBGA-212   |       H3       |
 @{*/
-/**  */
+/** UART module 1 request to send modem flow control output line */
 #define GPIO_AF_PE0_U1RTS       GPIO_AF1
 /**@}*/
 
@@ -705,7 +706,7 @@
  * TQFP-128    |       14       |
  * NFBGA-212   |       H2       |
 @{*/
-/**  */
+/** UART module 1 data set ready modem output control line */
 #define GPIO_AF_PE1_U1DSR       GPIO_AF1
 /**@}*/
 
@@ -716,7 +717,7 @@
  * TQFP-128    |       13       |
  * NFBGA-212   |       G1       |
 @{*/
-/**  */
+/** UART module 1 data carrier detect modem status input signal */
 #define GPIO_AF_PE2_U1DCD       GPIO_AF1
 /**@}*/
 
@@ -727,7 +728,7 @@
  * TQFP-128    |       12       |
  * NFBGA-212   |       G2       |
 @{*/
-/**  */
+/** UART module 1 data terminal ready modem status input signal */
 #define GPIO_AF_PE3_U1DTR       GPIO_AF1
 /** 1-Wire single bus pin */
 #define GPIO_AF_PE3_OWIRE       GPIO_AF5
@@ -740,9 +741,9 @@
  * TQFP-128    |      123       |
  * NFBGA-212   |       A5       |
 @{*/
-/**  */
+/** UART module 1 ring indicator modem status input signal */
 #define GPIO_AF_PE4_U1RI        GPIO_AF1
-/**  */
+/** SSI Module 1 bidirectional data pin 0 */
 #define GPIO_AF_PE4_SSI1XDAT0   GPIO_AF15
 /**@}*/
 
@@ -753,7 +754,7 @@
  * TQFP-128    |      124       |
  * NFBGA-212   |       B5       |
 @{*/
-/**  */
+/** SSI Module 1 bidirectional data pin 1 */
 #define GPIO_AF_PE5_SSI1XDAT1   GPIO_AF15
 /**@}*/
 
@@ -764,7 +765,7 @@
  * TQFP-128    |  Not available |
  * NFBGA-212   |       A7       |
 @{*/
-/**  */
+/** UART module 0 clear to send modem flow control input signal */
 #define GPIO_AF_PE6_U0CTS       GPIO_AF1
 /** I2C module 9 clock */
 #define GPIO_AF_PE6_I2C9SCL     GPIO_AF2
@@ -777,11 +778,11 @@
  * TQFP-128    |  Not available |
  * NFBGA-212   |       B7       |
 @{*/
-/**  */
+/** UART module 0 request to send modem flow control output signal */
 #define GPIO_AF_PE7_U0RTS       GPIO_AF1
 /** I2C module 9 data */
 #define GPIO_AF_PE7_I2C9SDA     GPIO_AF2
-/**  */
+/** Nonmaskable interrupt */
 #define GPIO_AF_PE7_NMI         GPIO_AF8
 /**@}*/
 
@@ -796,7 +797,7 @@
 #define GPIO_AF_PF0_EN0LED0     GPIO_AF5
 /** Motion control module 0 PWM 0 */
 #define GPIO_AF_PF0_M0PWM0      GPIO_AF6
-/**  */
+/** SSI Module 3 bidirectional data pin 1 */
 #define GPIO_AF_PF0_SSI3XDAT1   GPIO_AF14
 /** Trace data 2 */
 #define GPIO_AF_PF0_TRD2        GPIO_AF15
@@ -813,7 +814,7 @@
 #define GPIO_AF_PF1_EN0LED2     GPIO_AF5
 /** Motion control module 0 PWM 1 */
 #define GPIO_AF_PF1_M0PWM1      GPIO_AF6
-/**  */
+/** SSI Module 3 bidirectional data pin 0 */
 #define GPIO_AF_PF1_SSI3XDAT0   GPIO_AF14
 /** Trace data 1 */
 #define GPIO_AF_PF1_TRD1        GPIO_AF15
@@ -830,7 +831,7 @@
 #define GPIO_AF_PF2_EN0MDC      GPIO_AF5
 /** Motion control module 0 PWM 2 */
 #define GPIO_AF_PF2_M0PWM2      GPIO_AF6
-/**  */
+/** SSI module 3 frame signal */
 #define GPIO_AF_PF2_SSI3FSS     GPIO_AF14
 /** Trace data 0 */
 #define GPIO_AF_PF2_TRD0        GPIO_AF15
@@ -847,7 +848,7 @@
 #define GPIO_AF_PF3_EN0MDIO     GPIO_AF5
 /** Motion control module 0 PWM 3 */
 #define GPIO_AF_PF3_M0PWM3      GPIO_AF6
-/**  */
+/** SSI module 3 clock */
 #define GPIO_AF_PF3_SSI3CLK     GPIO_AF14
 /** Trace clock */
 #define GPIO_AF_PF3_TRCLK       GPIO_AF15
@@ -864,7 +865,7 @@
 #define GPIO_AF_PF4_EN0LED1     GPIO_AF5
 /** Motion control module 0 PWM fault 0 */
 #define GPIO_AF_PF4_M0FAULT0    GPIO_AF6
-/**  */
+/** SSI Module 3 bidirectional data pin 2 */
 #define GPIO_AF_PF4_SSI3XDAT2   GPIO_AF14
 /** Trace data 3 */
 #define GPIO_AF_PF4_TRD3        GPIO_AF15
@@ -877,7 +878,7 @@
  * TQFP-128    |  Not available |
  * NFBGA-212   |       W7       |
 @{*/
-/**  */
+/** SSI Module 3 bidirectional data pin 3 */
 #define GPIO_AF_PF5_SSI3XDAT3   GPIO_AF14
 /**@}*/
 
@@ -946,7 +947,7 @@
 #define GPIO_AF_PG2_I2C2SCL     GPIO_AF2
 /** Ethernet 0 transmit clock */
 #define GPIO_AF_PG2_EN0TXCK     GPIO_AF14
-/**  */
+/** SSI Module 2 bidirectional data pin 3 */
 #define GPIO_AF_PG2_SSI2XDAT3   GPIO_AF15
 /**@}*/
 
@@ -961,7 +962,7 @@
 #define GPIO_AF_PG3_I2C2SDA     GPIO_AF2
 /** Ethernet 0 transmit enable */
 #define GPIO_AF_PG3_EN0TXEN     GPIO_AF14
-/**  */
+/** SSI Module 2 bidirectional data pin 2 */
 #define GPIO_AF_PG3_SSI2XDAT2   GPIO_AF15
 /**@}*/
 
@@ -972,7 +973,7 @@
  * TQFP-128    |  Not available |
  * NFBGA-212   |      K17       |
 @{*/
-/**  */
+/** UART module 0 clear to send modem flow control input signal */
 #define GPIO_AF_PG4_U0CTS       GPIO_AF1
 /** I2C module 3 clock */
 #define GPIO_AF_PG4_I2C3SCL     GPIO_AF2
@@ -980,7 +981,7 @@
 #define GPIO_AF_PG4_OWIRE       GPIO_AF5
 /** Ethernet 0 transmit data 0 */
 #define GPIO_AF_PG4_EN0TXD0     GPIO_AF14
-/**  */
+/** SSI Module 2 bidirectional data pin 1 */
 #define GPIO_AF_PG4_SSI2XDAT1   GPIO_AF15
 /**@}*/
 
@@ -991,15 +992,15 @@
  * TQFP-128    |  Not available |
  * NFBGA-212   |      K15       |
 @{*/
-/**  */
+/** UART module 0 request to send modem flow control output signal */
 #define GPIO_AF_PG5_U0RTS       GPIO_AF1
 /** I2C module 3 data */
 #define GPIO_AF_PG5_I2C3SDA     GPIO_AF2
-/**  */
+/** 1-Wire optional second signal to be used as output */
 #define GPIO_AF_PG5_OWALT       GPIO_AF5
 /** Ethernet 0 transmit data 1 */
 #define GPIO_AF_PG5_EN0TXD1     GPIO_AF14
-/**  */
+/** SSI Module 2 bidirectional data pin 0 */
 #define GPIO_AF_PG5_SSI2XDAT0   GPIO_AF15
 /**@}*/
 
@@ -1016,7 +1017,7 @@
 #define GPIO_AF_PG6_OWIRE       GPIO_AF5
 /** Ethernet 0 receive error */
 #define GPIO_AF_PG6_EN0RXER     GPIO_AF14
-/**  */
+/** SSI module 2 frame signal */
 #define GPIO_AF_PG6_SSI2FSS     GPIO_AF15
 /**@}*/
 
@@ -1033,7 +1034,7 @@
 #define GPIO_AF_PG7_OWIRE       GPIO_AF5
 /** Ethernet 0 receive data valid */
 #define GPIO_AF_PG7_EN0RXDV     GPIO_AF14
-/**  */
+/** SSI module 2 clock */
 #define GPIO_AF_PG7_SSI2CLK     GPIO_AF15
 /**@}*/
 
@@ -1044,7 +1045,7 @@
  * TQFP-128    |       29       |
  * NFBGA-212   |       P4       |
 @{*/
-/**  */
+/** UART module 0 request to send modem flow control output signal */
 #define GPIO_AF_PH0_U0RTS       GPIO_AF1
 /** EPI module 0 signal 0 */
 #define GPIO_AF_PH0_EPI0S0      GPIO_AF15
@@ -1057,7 +1058,7 @@
  * TQFP-128    |       30       |
  * NFBGA-212   |       R2       |
 @{*/
-/**  */
+/** UART module 0 clear to send modem flow control input signal */
 #define GPIO_AF_PH1_U0CTS       GPIO_AF1
 /** EPI module 0 signal 1 */
 #define GPIO_AF_PH1_EPI0S1      GPIO_AF15
@@ -1070,7 +1071,7 @@
  * TQFP-128    |       31       |
  * NFBGA-212   |       R1       |
 @{*/
-/**  */
+/** UART module 0 data carrier detect modem status input signal */
 #define GPIO_AF_PH2_U0DCD       GPIO_AF1
 /** EPI module 0 signal 2 */
 #define GPIO_AF_PH2_EPI0S2      GPIO_AF15
@@ -1083,7 +1084,7 @@
  * TQFP-128    |       32       |
  * NFBGA-212   |       T1       |
 @{*/
-/**  */
+/** UART module 0 data set ready modem output control line */
 #define GPIO_AF_PH3_U0DSR       GPIO_AF1
 /** EPI module 0 signal 3 */
 #define GPIO_AF_PH3_EPI0S3      GPIO_AF15
@@ -1096,7 +1097,7 @@
  * TQFP-128    |  Not available |
  * NFBGA-212   |       R3       |
 @{*/
-/**  */
+/** UART module 0 data terminal ready modem status input signal */
 #define GPIO_AF_PH4_U0DTR       GPIO_AF1
 /**@}*/
 
@@ -1107,7 +1108,7 @@
  * TQFP-128    |  Not available |
  * NFBGA-212   |       T2       |
 @{*/
-/**  */
+/** UART module 0 ring indicator modem status input signal */
 #define GPIO_AF_PH5_U0RI        GPIO_AF1
 /** Ethernet 0 pulse-per-second (PPS) output */
 #define GPIO_AF_PH5_EN0PPS      GPIO_AF15
@@ -1120,9 +1121,9 @@
  * TQFP-128    |  Not available |
  * NFBGA-212   |       U2       |
 @{*/
-/**  */
+/** UART module 5 receive */
 #define GPIO_AF_PH6_U5RX        GPIO_AF1
-/**  */
+/** UART module 7 receive */
 #define GPIO_AF_PH6_U7RX        GPIO_AF2
 /**@}*/
 
@@ -1133,9 +1134,9 @@
  * TQFP-128    |  Not available |
  * NFBGA-212   |       V2       |
 @{*/
-/**  */
+/** UART module 5 transmit */
 #define GPIO_AF_PH7_U5TX        GPIO_AF1
-/**  */
+/** UART module 7 transmit */
 #define GPIO_AF_PH7_U7TX        GPIO_AF2
 /**@}*/
 
@@ -1146,7 +1147,7 @@
  * TQFP-128    |      116       |
  * NFBGA-212   |       C8       |
 @{*/
-/**  */
+/** UART module 3 receive */
 #define GPIO_AF_PJ0_U3RX        GPIO_AF1
 /** Ethernet 0 pulse-per-second (PPS) output */
 #define GPIO_AF_PJ0_EN0PPS      GPIO_AF5
@@ -1159,7 +1160,7 @@
  * TQFP-128    |      117       |
  * NFBGA-212   |       E7       |
 @{*/
-/**  */
+/** UART module 3 transmit */
 #define GPIO_AF_PJ1_U3TX        GPIO_AF1
 /**@}*/
 
@@ -1170,7 +1171,7 @@
  * TQFP-128    |  Not available |
  * NFBGA-212   |      H17       |
 @{*/
-/**  */
+/** UART module 2 request to send modem flow control output line */
 #define GPIO_AF_PJ2_U2RTS       GPIO_AF1
 /** LCD data pin 14 input/output */
 #define GPIO_AF_PJ2_LCDDATA14   GPIO_AF15
@@ -1183,7 +1184,7 @@
  * TQFP-128    |  Not available |
  * NFBGA-212   |      F16       |
 @{*/
-/**  */
+/** UART module 2 clear to send modem flow control input signal */
 #define GPIO_AF_PJ3_U2CTS       GPIO_AF1
 /** LCD data pin 15 input/output */
 #define GPIO_AF_PJ3_LCDDATA15   GPIO_AF15
@@ -1196,7 +1197,7 @@
  * TQFP-128    |  Not available |
  * NFBGA-212   |      F18       |
 @{*/
-/**  */
+/** UART module 3 request to send modem flow control output line */
 #define GPIO_AF_PJ4_U3RTS       GPIO_AF1
 /** LCD data pin 16 output */
 #define GPIO_AF_PJ4_LCDDATA16   GPIO_AF15
@@ -1209,7 +1210,7 @@
  * TQFP-128    |  Not available |
  * NFBGA-212   |      E17       |
 @{*/
-/**  */
+/** UART module 3 clear to send modem flow control input signal */
 #define GPIO_AF_PJ5_U3CTS       GPIO_AF1
 /** LCD data pin 17 output */
 #define GPIO_AF_PJ5_LCDDATA17   GPIO_AF15
@@ -1222,7 +1223,7 @@
  * TQFP-128    |  Not available |
  * NFBGA-212   |       N1       |
 @{*/
-/**  */
+/** UART module 4 request to send modem flow control output line */
 #define GPIO_AF_PJ6_U4RTS       GPIO_AF1
 /** LCD AC bias or latch enable in raster mode */
 #define GPIO_AF_PJ6_LCDAC       GPIO_AF15
@@ -1235,7 +1236,7 @@
  * TQFP-128    |  Not available |
  * NFBGA-212   |       K5       |
 @{*/
-/**  */
+/** UART module 4 clear to send modem flow control input signal */
 #define GPIO_AF_PJ7_U4CTS       GPIO_AF1
 /**@}*/
 
@@ -1246,7 +1247,7 @@
  * TQFP-128    |       18       |
  * NFBGA-212   |       J1       |
 @{*/
-/**  */
+/** UART module 4 receive */
 #define GPIO_AF_PK0_U4RX        GPIO_AF1
 /** EPI module 0 signal 0 */
 #define GPIO_AF_PK0_EPI0S0      GPIO_AF15
@@ -1259,7 +1260,7 @@
  * TQFP-128    |       19       |
  * NFBGA-212   |       J2       |
 @{*/
-/**  */
+/** UART module 4 transmit */
 #define GPIO_AF_PK1_U4TX        GPIO_AF1
 /** EPI module 0 signal 1 */
 #define GPIO_AF_PK1_EPI0S1      GPIO_AF15
@@ -1272,7 +1273,7 @@
  * TQFP-128    |       20       |
  * NFBGA-212   |       K1       |
 @{*/
-/**  */
+/** UART module 4 request to send modem flow control output line */
 #define GPIO_AF_PK2_U4RTS       GPIO_AF1
 /** EPI module 0 signal 2 */
 #define GPIO_AF_PK2_EPI0S2      GPIO_AF15
@@ -1285,7 +1286,7 @@
  * TQFP-128    |       21       |
  * NFBGA-212   |       K2       |
 @{*/
-/**  */
+/** UART module 4 clear to send modem flow control input signal */
 #define GPIO_AF_PK3_U4CTS       GPIO_AF1
 /** EPI module 0 signal 3 */
 #define GPIO_AF_PK3_EPI0S3      GPIO_AF15
@@ -1357,11 +1358,11 @@
  * TQFP-128    |       60       |
  * NFBGA-212   |      W16       |
 @{*/
-/**  */
+/** UART module 0 ring indicator modem status input signal */
 #define GPIO_AF_PK7_U0RI        GPIO_AF1
 /** I2C module 4 data */
 #define GPIO_AF_PK7_I2C4SDA     GPIO_AF2
-/**  */
+/** Buffered version of the 32.768-kHz clock of the Hibernation module */
 #define GPIO_AF_PK7_RTCCLK      GPIO_AF5
 /** Motion control module 0 PWM fault 2 */
 #define GPIO_AF_PK7_M0FAULT2    GPIO_AF6
@@ -1382,7 +1383,7 @@
 #define GPIO_AF_PL0_I2C2SDA     GPIO_AF2
 /** Motion control module 0 PWM fault 3 */
 #define GPIO_AF_PL0_M0FAULT3    GPIO_AF6
-/**  */
+/** USB data 0 */
 #define GPIO_AF_PL0_USB0D0      GPIO_AF14
 /** EPI module 0 signal 16 */
 #define GPIO_AF_PL0_EPI0S16     GPIO_AF15
@@ -1397,9 +1398,9 @@
 @{*/
 /** I2C module 2 clock */
 #define GPIO_AF_PL1_I2C2SCL     GPIO_AF2
-/**  */
+/** QEI module 0 phase A */
 #define GPIO_AF_PL1_PHA0        GPIO_AF6
-/**  */
+/** USB data 1 */
 #define GPIO_AF_PL1_USB0D1      GPIO_AF14
 /** EPI module 0 signal 17 */
 #define GPIO_AF_PL1_EPI0S17     GPIO_AF15
@@ -1414,9 +1415,9 @@
 @{*/
 /** Analog comparator 0 output */
 #define GPIO_AF_PL2_C0O         GPIO_AF5
-/**  */
+/** QEI module 0 phase B */
 #define GPIO_AF_PL2_PHB0        GPIO_AF6
-/**  */
+/** USB data 2 */
 #define GPIO_AF_PL2_USB0D2      GPIO_AF14
 /** EPI module 0 signal 18 */
 #define GPIO_AF_PL2_EPI0S18     GPIO_AF15
@@ -1431,9 +1432,9 @@
 @{*/
 /** Analog comparator 1 output */
 #define GPIO_AF_PL3_C1O         GPIO_AF5
-/**  */
+/** QEI module 0 index */
 #define GPIO_AF_PL3_IDX0        GPIO_AF6
-/**  */
+/** USB data 3 */
 #define GPIO_AF_PL3_USB0D3      GPIO_AF14
 /** EPI module 0 signal 19 */
 #define GPIO_AF_PL3_EPI0S19     GPIO_AF15
@@ -1448,7 +1449,7 @@
 @{*/
 /** 16- and 32-bit Timer 0 capture, compare, or PWM 0 */
 #define GPIO_AF_PL4_T0CCP0      GPIO_AF3
-/**  */
+/** USB data 4 */
 #define GPIO_AF_PL4_USB0D4      GPIO_AF14
 /** EPI module 0 signal 26 */
 #define GPIO_AF_PL4_EPI0S26     GPIO_AF15
@@ -1463,7 +1464,7 @@
 @{*/
 /** 16- and 32-bit Timer 0 capture, compare, or PWM 1 */
 #define GPIO_AF_PL5_T0CCP1      GPIO_AF3
-/**  */
+/** USB data 5 */
 #define GPIO_AF_PL5_USB0D5      GPIO_AF14
 /** EPI module 0 signal 33 */
 #define GPIO_AF_PL5_EPI0S33     GPIO_AF15
@@ -1550,7 +1551,7 @@
  * TQFP-128    |       74       |
  * NFBGA-212   |      M18       |
 @{*/
-/**  */
+/** UART module 0 clear to send modem flow control input signal */
 #define GPIO_AF_PM4_U0CTS       GPIO_AF1
 /** 16- and 32-bit Timer 4 capture, compare, or PWM 0 */
 #define GPIO_AF_PM4_T4CCP0      GPIO_AF3
@@ -1565,7 +1566,7 @@
  * TQFP-128    |       73       |
  * NFBGA-212   |      G15       |
 @{*/
-/**  */
+/** UART module 0 data carrier detect modem status input signal */
 #define GPIO_AF_PM5_U0DCD       GPIO_AF1
 /** 16- and 32-bit Timer 4 capture, compare, or PWM 1 */
 #define GPIO_AF_PM5_T4CCP1      GPIO_AF3
@@ -1578,7 +1579,7 @@
  * TQFP-128    |       72       |
  * NFBGA-212   |      N19       |
 @{*/
-/**  */
+/** UART module 0 data set ready modem output control line */
 #define GPIO_AF_PM6_U0DSR       GPIO_AF1
 /** 16- and 32-bit Timer 5 capture, compare, or PWM 0 */
 #define GPIO_AF_PM6_T5CCP0      GPIO_AF3
@@ -1593,7 +1594,7 @@
  * TQFP-128    |       71       |
  * NFBGA-212   |      N18       |
 @{*/
-/**  */
+/** UART module 0 ring indicator modem status input signal */
 #define GPIO_AF_PM7_U0RI        GPIO_AF1
 /** 16- and 32-bit Timer 5 capture, compare, or PWM 1 */
 #define GPIO_AF_PM7_T5CCP1      GPIO_AF3
@@ -1608,7 +1609,7 @@
  * TQFP-128    |      107       |
  * NFBGA-212   |      C10       |
 @{*/
-/**  */
+/** UART module 1 request to send modem flow control output line */
 #define GPIO_AF_PN0_U1RTS       GPIO_AF1
 /**@}*/
 
@@ -1619,7 +1620,7 @@
  * TQFP-128    |      108       |
  * NFBGA-212   |      B11       |
 @{*/
-/**  */
+/** UART module 1 clear to send modem flow control input signal */
 #define GPIO_AF_PN1_U1CTS       GPIO_AF1
 /**@}*/
 
@@ -1630,9 +1631,9 @@
  * TQFP-128    |      109       |
  * NFBGA-212   |      A11       |
 @{*/
-/**  */
+/** UART module 1 data carrier detect modem status input signal */
 #define GPIO_AF_PN2_U1DCD       GPIO_AF1
-/**  */
+/** UART module 2 request to send modem flow control output line */
 #define GPIO_AF_PN2_U2RTS       GPIO_AF2
 /** EPI module 0 signal 29 */
 #define GPIO_AF_PN2_EPI0S29     GPIO_AF15
@@ -1645,9 +1646,9 @@
  * TQFP-128    |      110       |
  * NFBGA-212   |      B10       |
 @{*/
-/**  */
+/** UART module 1 data set ready modem output control line */
 #define GPIO_AF_PN3_U1DSR       GPIO_AF1
-/**  */
+/** UART module 2 clear to send modem flow control input signal */
 #define GPIO_AF_PN3_U2CTS       GPIO_AF2
 /** EPI module 0 signal 30 */
 #define GPIO_AF_PN3_EPI0S30     GPIO_AF15
@@ -1660,9 +1661,9 @@
  * TQFP-128    |      111       |
  * NFBGA-212   |      A10       |
 @{*/
-/**  */
+/** UART module 1 data terminal ready modem status input signal */
 #define GPIO_AF_PN4_U1DTR       GPIO_AF1
-/**  */
+/** UART module 3 request to send modem flow control output line */
 #define GPIO_AF_PN4_U3RTS       GPIO_AF2
 /** I2C module 2 data */
 #define GPIO_AF_PN4_I2C2SDA     GPIO_AF3
@@ -1677,9 +1678,9 @@
  * TQFP-128    |      112       |
  * NFBGA-212   |       B9       |
 @{*/
-/**  */
+/** UART module 1 ring indicator modem status input signal */
 #define GPIO_AF_PN5_U1RI        GPIO_AF1
-/**  */
+/** UART module 3 clear to send modem flow control input signal */
 #define GPIO_AF_PN5_U3CTS       GPIO_AF2
 /** I2C module 2 clock */
 #define GPIO_AF_PN5_I2C2SCL     GPIO_AF3
@@ -1694,7 +1695,7 @@
  * TQFP-128    |  Not available |
  * NFBGA-212   |      T12       |
 @{*/
-/**  */
+/** UART module 4 request to send modem flow control output line */
 #define GPIO_AF_PN6_U4RTS       GPIO_AF2
 /** Ethernet 0 transmit error */
 #define GPIO_AF_PN6_EN0TXER     GPIO_AF14
@@ -1709,9 +1710,9 @@
  * TQFP-128    |  Not available |
  * NFBGA-212   |      U12       |
 @{*/
-/**  */
+/** UART module 1 request to send modem flow control output line */
 #define GPIO_AF_PN7_U1RTS       GPIO_AF1
-/**  */
+/** UART module 4 clear to send modem flow control input signal */
 #define GPIO_AF_PN7_U4CTS       GPIO_AF2
 /** LCD data pin 12 input/output */
 #define GPIO_AF_PN7_LCDDATA12   GPIO_AF15
@@ -1724,13 +1725,13 @@
  * TQFP-128    |      118       |
  * NFBGA-212   |       D6       |
 @{*/
-/**  */
+/** UART module 6 receive */
 #define GPIO_AF_PP0_U6RX        GPIO_AF1
 /** 16- and 32-bit Timer 6 capture, compare, or PWM 0 */
 #define GPIO_AF_PP0_T6CCP0      GPIO_AF5
 /** Ethernet 0 interrupt from the Ethernet PHY */
 #define GPIO_AF_PP0_EN0INTRN    GPIO_AF7
-/**  */
+/** SSI Module 3 bidirectional data pin 2 */
 #define GPIO_AF_PP0_SSI3XDAT2   GPIO_AF15
 /**@}*/
 
@@ -1741,11 +1742,11 @@
  * TQFP-128    |      119       |
  * NFBGA-212   |       D7       |
 @{*/
-/**  */
+/** UART module 6 transmit */
 #define GPIO_AF_PP1_U6TX        GPIO_AF1
 /** 16- and 32-bit Timer 6 capture, compare, or PWM 1 */
 #define GPIO_AF_PP1_T6CCP1      GPIO_AF5
-/**  */
+/** SSI Module 3 bidirectional data pin 3 */
 #define GPIO_AF_PP1_SSI3XDAT3   GPIO_AF15
 /**@}*/
 
@@ -1756,9 +1757,9 @@
  * TQFP-128    |      103       |
  * NFBGA-212   |      B13       |
 @{*/
-/**  */
+/** UART module 0 data terminal ready modem status input signal */
 #define GPIO_AF_PP2_U0DTR       GPIO_AF1
-/**  */
+/** USB Asserted by the external PHY to throttle all data types */
 #define GPIO_AF_PP2_USB0NXT     GPIO_AF14
 /** EPI module 0 signal 29 */
 #define GPIO_AF_PP2_EPI0S29     GPIO_AF15
@@ -1771,13 +1772,14 @@
  * TQFP-128    |      104       |
  * NFBGA-212   |      C12       |
 @{*/
-/**  */
+/** UART module 1 clear to send modem flow control input signal */
 #define GPIO_AF_PP3_U1CTS       GPIO_AF1
-/**  */
+/** UART module 0 data carrier detect modem status input signal */
 #define GPIO_AF_PP3_U0DCD       GPIO_AF2
-/**  */
+/** Buffered version of the 32.768-kHz clock of the Hibernation module */
 #define GPIO_AF_PP3_RTCCLK      GPIO_AF7
-/**  */
+/** USB Indicates that the external PHY is able to accept data
+ *  from the USB controller */
 #define GPIO_AF_PP3_USB0DIR     GPIO_AF14
 /** EPI module 0 signal 30 */
 #define GPIO_AF_PP3_EPI0S30     GPIO_AF15
@@ -1790,13 +1792,13 @@
  * TQFP-128    |      105       |
  * NFBGA-212   |       D8       |
 @{*/
-/**  */
+/** UART module 3 request to send modem flow control output line */
 #define GPIO_AF_PP4_U3RTS       GPIO_AF1
-/**  */
+/** UART module 0 data set ready modem output control line */
 #define GPIO_AF_PP4_U0DSR       GPIO_AF2
 /** 1-Wire single bus pin */
 #define GPIO_AF_PP4_OWIRE       GPIO_AF4
-/**  */
+/** USB data 7 */
 #define GPIO_AF_PP4_USB0D7      GPIO_AF14
 /**@}*/
 
@@ -1807,13 +1809,13 @@
  * TQFP-128    |      106       |
  * NFBGA-212   |      B12       |
 @{*/
-/**  */
+/** UART module 3 clear to send modem flow control input signal */
 #define GPIO_AF_PP5_U3CTS       GPIO_AF1
 /** I2C module 2 clock */
 #define GPIO_AF_PP5_I2C2SCL     GPIO_AF2
-/**  */
+/** 1-Wire optional second signal to be used as output */
 #define GPIO_AF_PP5_OWALT       GPIO_AF4
-/**  */
+/** USB data 6 */
 #define GPIO_AF_PP5_USB0D6      GPIO_AF14
 /**@}*/
 
@@ -1824,7 +1826,7 @@
  * TQFP-128    |  Not available |
  * NFBGA-212   |       B8       |
 @{*/
-/**  */
+/** UART module 1 data carrier detect modem status input signal */
 #define GPIO_AF_PP6_U1DCD       GPIO_AF1
 /** I2C module 2 data */
 #define GPIO_AF_PP6_I2C2SDA     GPIO_AF2
@@ -1850,7 +1852,7 @@
 @{*/
 /** 16- and 32-bit Timer 6 capture, compare, or PWM 0 */
 #define GPIO_AF_PQ0_T6CCP0      GPIO_AF3
-/**  */
+/** SSI module 3 clock */
 #define GPIO_AF_PQ0_SSI3CLK     GPIO_AF14
 /** EPI module 0 signal 20 */
 #define GPIO_AF_PQ0_EPI0S20     GPIO_AF15
@@ -1865,7 +1867,7 @@
 @{*/
 /** 16- and 32-bit Timer 6 capture, compare, or PWM 1 */
 #define GPIO_AF_PQ1_T6CCP1      GPIO_AF3
-/**  */
+/** SSI module 3 frame signal */
 #define GPIO_AF_PQ1_SSI3FSS     GPIO_AF14
 /** EPI module 0 signal 21 */
 #define GPIO_AF_PQ1_EPI0S21     GPIO_AF15
@@ -1880,7 +1882,7 @@
 @{*/
 /** 16- and 32-bit Timer 7 capture, compare, or PWM 0 */
 #define GPIO_AF_PQ2_T7CCP0      GPIO_AF3
-/**  */
+/** SSI Module 3 bidirectional data pin 0 */
 #define GPIO_AF_PQ2_SSI3XDAT0   GPIO_AF14
 /** EPI module 0 signal 22 */
 #define GPIO_AF_PQ2_EPI0S22     GPIO_AF15
@@ -1895,7 +1897,7 @@
 @{*/
 /** 16- and 32-bit Timer 7 capture, compare, or PWM 1 */
 #define GPIO_AF_PQ3_T7CCP1      GPIO_AF3
-/**  */
+/** SSI Module 3 bidirectional data pin 1 */
 #define GPIO_AF_PQ3_SSI3XDAT1   GPIO_AF14
 /** EPI module 0 signal 23 */
 #define GPIO_AF_PQ3_EPI0S23     GPIO_AF15
@@ -1908,9 +1910,9 @@
  * TQFP-128    |      102       |
  * NFBGA-212   |      A13       |
 @{*/
-/**  */
+/** UART module 1 receive */
 #define GPIO_AF_PQ4_U1RX        GPIO_AF1
-/**  */
+/** Divided reference clock output */
 #define GPIO_AF_PQ4_DIVSCLK     GPIO_AF7
 /**@}*/
 
@@ -1921,7 +1923,7 @@
  * TQFP-128    |  Not available |
  * NFBGA-212   |      W12       |
 @{*/
-/**  */
+/** UART module 1 transmit */
 #define GPIO_AF_PQ5_U1TX        GPIO_AF1
 /** Ethernet 0 receive data 0 */
 #define GPIO_AF_PQ5_EN0RXD0     GPIO_AF14
@@ -1934,7 +1936,7 @@
  * TQFP-128    |  Not available |
  * NFBGA-212   |      U15       |
 @{*/
-/**  */
+/** UART module 1 data terminal ready modem status input signal */
 #define GPIO_AF_PQ6_U1DTR       GPIO_AF1
 /** Ethernet 0 receive data 1 */
 #define GPIO_AF_PQ6_EN0RXD1     GPIO_AF14
@@ -1947,7 +1949,7 @@
  * TQFP-128    |  Not available |
  * NFBGA-212   |       M3       |
 @{*/
-/**  */
+/** UART module 1 ring indicator modem status input signal */
 #define GPIO_AF_PQ7_U1RI        GPIO_AF1
 /**@}*/
 
@@ -1958,7 +1960,7 @@
  * TQFP-128    |  Not available |
  * NFBGA-212   |       N5       |
 @{*/
-/**  */
+/** UART module 4 transmit */
 #define GPIO_AF_PR0_U4TX        GPIO_AF1
 /** I2C module 1 clock */
 #define GPIO_AF_PR0_I2C1SCL     GPIO_AF2
@@ -1975,7 +1977,7 @@
  * TQFP-128    |  Not available |
  * NFBGA-212   |       N4       |
 @{*/
-/**  */
+/** UART module 4 receive */
 #define GPIO_AF_PR1_U4RX        GPIO_AF1
 /** I2C module 1 data */
 #define GPIO_AF_PR1_I2C1SDA     GPIO_AF2
@@ -2039,7 +2041,7 @@
  * TQFP-128    |  Not available |
  * NFBGA-212   |       P2       |
 @{*/
-/**  */
+/** UART module 1 receive */
 #define GPIO_AF_PR5_U1RX        GPIO_AF1
 /** I2C module 3 data */
 #define GPIO_AF_PR5_I2C3SDA     GPIO_AF2
@@ -2058,7 +2060,7 @@
  * TQFP-128    |  Not available |
  * NFBGA-212   |       W9       |
 @{*/
-/**  */
+/** UART module 1 transmit */
 #define GPIO_AF_PR6_U1TX        GPIO_AF1
 /** I2C module 4 clock */
 #define GPIO_AF_PR6_I2C4SCL     GPIO_AF2
@@ -2126,7 +2128,7 @@
  * TQFP-128    |  Not available |
  * NFBGA-212   |      B14       |
 @{*/
-/**  */
+/** UART module 1 data set ready modem output control line */
 #define GPIO_AF_PS2_U1DSR       GPIO_AF1
 /** 16- and 32-bit Timer 3 capture, compare, or PWM 0 */
 #define GPIO_AF_PS2_T3CCP0      GPIO_AF3
@@ -2160,7 +2162,7 @@
 @{*/
 /** 16- and 32-bit Timer 4 capture, compare, or PWM 0 */
 #define GPIO_AF_PS4_T4CCP0      GPIO_AF3
-/**  */
+/** QEI module 0 phase A */
 #define GPIO_AF_PS4_PHA0        GPIO_AF6
 /** Ethernet 0 transmit data 0 */
 #define GPIO_AF_PS4_EN0TXD0     GPIO_AF14
@@ -2177,7 +2179,7 @@
 @{*/
 /** 16- and 32-bit Timer 4 capture, compare, or PWM 1 */
 #define GPIO_AF_PS5_T4CCP1      GPIO_AF3
-/**  */
+/** QEI module 0 phase B */
 #define GPIO_AF_PS5_PHB0        GPIO_AF6
 /** Ethernet 0 transmit data 1 */
 #define GPIO_AF_PS5_EN0TXD1     GPIO_AF14
@@ -2194,7 +2196,7 @@
 @{*/
 /** 16- and 32-bit Timer 5 capture, compare, or PWM 0 */
 #define GPIO_AF_PS6_T5CCP0      GPIO_AF3
-/**  */
+/** QEI module 0 index */
 #define GPIO_AF_PS6_IDX0        GPIO_AF6
 /** Ethernet 0 receive error */
 #define GPIO_AF_PS6_EN0RXER     GPIO_AF14
