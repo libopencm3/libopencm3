@@ -82,7 +82,7 @@
 #define GPIO_AF15               0xF
 #define GPIO_AF_ALL             0xF
 
-/* AF выводов завершены. Указать, для каких корпусов применимо */
+/* Корпуса указаны. Добавить описание для каждой функции каждого пина. */
 
 /** @defgroup gpio_registers GPIO Registers
  *  @brief GPIO Registers
@@ -182,11 +182,15 @@
  * Package     |   Pin number   |
  * ----------- | -------------- |
  * TQFP-128    |       33       |
- * NFBGA-212   |                |
+ * NFBGA-212   |       V3       |
 @{*/
+/**  */
 #define GPIO_AF_PA0_U0RX        GPIO_AF1
+/** I2C module 9 clock */
 #define GPIO_AF_PA0_I2C9SCL     GPIO_AF2
+/** 16- and 32-bit Timer 0 capture, compare, or PWM 0 */
 #define GPIO_AF_PA0_T0CCP0      GPIO_AF3
+/** CAN module 0 receive */
 #define GPIO_AF_PA0_CAN0RX      GPIO_AF7
 /**@}*/
 
@@ -195,11 +199,15 @@
  * Package     |   Pin number   |
  * ----------- | -------------- |
  * TQFP-128    |       34       |
- * NFBGA-212   |                |
+ * NFBGA-212   |       W3       |
 @{*/
+/**  */
 #define GPIO_AF_PA1_U0TX        GPIO_AF1
+/** I2C module 9 data */
 #define GPIO_AF_PA1_I2C9SDA     GPIO_AF2
+/** 16- and 32-bit Timer 0 capture, compare, or PWM 1 */
 #define GPIO_AF_PA1_T0CCP1      GPIO_AF3
+/** CAN module 0 transmit */
 #define GPIO_AF_PA1_CAN0TX      GPIO_AF7
 /**@}*/
 
@@ -208,11 +216,15 @@
  * Package     |   Pin number   |
  * ----------- | -------------- |
  * TQFP-128    |       35       |
- * NFBGA-212   |                |
+ * NFBGA-212   |       T6       |
 @{*/
+/**  */
 #define GPIO_AF_PA2_U4RX        GPIO_AF1
+/** I2C module 8 clock */
 #define GPIO_AF_PA2_I2C8SCL     GPIO_AF2
+/** 16- and 32-bit Timer 1 capture, compare, or PWM 0 */
 #define GPIO_AF_PA2_T1CCP0      GPIO_AF3
+/**  */
 #define GPIO_AF_PA2_SSI0CLK     GPIO_AF15
 /**@}*/
 
@@ -221,11 +233,15 @@
  * Package     |   Pin number   |
  * ----------- | -------------- |
  * TQFP-128    |       36       |
- * NFBGA-212   |                |
+ * NFBGA-212   |       U5       |
 @{*/
+/**  */
 #define GPIO_AF_PA3_U4TX        GPIO_AF1
+/** I2C module 8 data */
 #define GPIO_AF_PA3_I2C8SDA     GPIO_AF2
+/** 16- and 32-bit Timer 1 capture, compare, or PWM 1 */
 #define GPIO_AF_PA3_T1CCP1      GPIO_AF3
+/**  */
 #define GPIO_AF_PA3_SSI0FSS     GPIO_AF15
 /**@}*/
 
@@ -234,11 +250,15 @@
  * Package     |   Pin number   |
  * ----------- | -------------- |
  * TQFP-128    |       37       |
- * NFBGA-212   |                |
+ * NFBGA-212   |       V4       |
 @{*/
+/**  */
 #define GPIO_AF_PA4_U3RX        GPIO_AF1
+/** I2C module 7 clock */
 #define GPIO_AF_PA4_I2C7SCL     GPIO_AF2
+/** 16- and 32-bit Timer 2 capture, compare, or PWM 0 */
 #define GPIO_AF_PA4_T2CCP0      GPIO_AF3
+/**  */
 #define GPIO_AF_PA4_SSI0XDAT0   GPIO_AF15
 /**@}*/
 
@@ -247,11 +267,15 @@
  * Package     |   Pin number   |
  * ----------- | -------------- |
  * TQFP-128    |       38       |
- * NFBGA-212   |                |
+ * NFBGA-212   |       W4       |
 @{*/
+/**  */
 #define GPIO_AF_PA5_U3TX        GPIO_AF1
+/** I2C module 7 data */
 #define GPIO_AF_PA5_I2C7SDA     GPIO_AF2
+/** 16- and 32-bit Timer 2 capture, compare, or PWM 1 */
 #define GPIO_AF_PA5_T2CCP1      GPIO_AF3
+/**  */
 #define GPIO_AF_PA5_SSI0XDAT1   GPIO_AF15
 /**@}*/
 
@@ -260,14 +284,21 @@
  * Package     |   Pin number   |
  * ----------- | -------------- |
  * TQFP-128    |       40       |
- * NFBGA-212   |                |
+ * NFBGA-212   |       V5       |
 @{*/
+/**  */
 #define GPIO_AF_PA6_U2RX        GPIO_AF1
+/** I2C module 6 clock */
 #define GPIO_AF_PA6_I2C6SCL     GPIO_AF2
+/** 16- and 32-bit Timer 3 capture, compare, or PWM 0 */
 #define GPIO_AF_PA6_T3CCP0      GPIO_AF3
+/**  */
 #define GPIO_AF_PA6_USB0EPEN    GPIO_AF5
+/**  */
 #define GPIO_AF_PA6_SSI0XDAT2   GPIO_AF13
+/** Ethernet 0 receive clock */
 #define GPIO_AF_PA6_EN0RXCK     GPIO_AF14
+/** EPI module 0 signal 8 */
 #define GPIO_AF_PA6_EPI0S8      GPIO_AF15
 /**@}*/
 
@@ -276,14 +307,21 @@
  * Package     |   Pin number   |
  * ----------- | -------------- |
  * TQFP-128    |       41       |
- * NFBGA-212   |                |
+ * NFBGA-212   |       R7       |
 @{*/
+/**  */
 #define GPIO_AF_PA7_U2Tx        GPIO_AF1
+/** I2C module 6 data */
 #define GPIO_AF_PA7_I2C6SDA     GPIO_AF2
+/** 16- and 32-bit Timer 3 capture, compare, or PWM 1 */
 #define GPIO_AF_PA7_T3CCP1      GPIO_AF3
+/**  */
 #define GPIO_AF_PA7_USB0PFLT    GPIO_AF5
+/**  */
 #define GPIO_AF_PA7_USB0EPEN    GPIO_AF11
+/**  */
 #define GPIO_AF_PA7_SSI0XDAT3   GPIO_AF13
+/** EPI module 0 signal 9 */
 #define GPIO_AF_PA7_EPI0S9      GPIO_AF15
 /**@}*/
 
@@ -292,11 +330,15 @@
  * Package     |   Pin number   |
  * ----------- | -------------- |
  * TQFP-128    |       95       |
- * NFBGA-212   |                |
+ * NFBGA-212   |      A16       |
 @{*/
+/**  */
 #define GPIO_AF_PB0_U1RX        GPIO_AF1
+/** I2C module 5 clock */
 #define GPIO_AF_PB0_I2C5SCL     GPIO_AF2
+/** 16- and 32-bit Timer 4 capture, compare, or PWM 0 */
 #define GPIO_AF_PB0_T4CCP0      GPIO_AF3
+/** CAN module 1 receive */
 #define GPIO_AF_PB0_CAN1RX      GPIO_AF7
 /**@}*/
 
@@ -305,11 +347,15 @@
  * Package     |   Pin number   |
  * ----------- | -------------- |
  * TQFP-128    |       96       |
- * NFBGA-212   |                |
+ * NFBGA-212   |      B16       |
 @{*/
+/**  */
 #define GPIO_AF_PB1_U1TX        GPIO_AF1
+/** I2C module 5 data */
 #define GPIO_AF_PB1_I2C5SDA     GPIO_AF2
+/** 16- and 32-bit Timer 4 capture, compare, or PWM 1 */
 #define GPIO_AF_PB1_T4CCP1      GPIO_AF3
+/** CAN module 1 transmit */
 #define GPIO_AF_PB1_CAN1TX      GPIO_AF7
 /**@}*/
 
@@ -318,12 +364,17 @@
  * Package     |   Pin number   |
  * ----------- | -------------- |
  * TQFP-128    |       91       |
- * NFBGA-212   |                |
+ * NFBGA-212   |      A17       |
 @{*/
+/** I2C module 0 clock */
 #define GPIO_AF_PB2_I2C0SCL     GPIO_AF2
+/** 16- and 32-bit Timer 5 capture, compare, or PWM 0 */
 #define GPIO_AF_PB2_T5CCP0      GPIO_AF3
+/** Ethernet 0 management data clock */
 #define GPIO_AF_PB2_EN0MDC      GPIO_AF5
+/**  */
 #define GPIO_AF_PB2_USB0STP     GPIO_AF14
+/** EPI module 0 signal 27 */
 #define GPIO_AF_PB2_EPI0S27     GPIO_AF15
 /**@}*/
 
@@ -332,12 +383,17 @@
  * Package     |   Pin number   |
  * ----------- | -------------- |
  * TQFP-128    |       92       |
- * NFBGA-212   |                |
+ * NFBGA-212   |      B17       |
 @{*/
+/** I2C module 0 data */
 #define GPIO_AF_PB3_I2C0SDA     GPIO_AF2
+/** 16- and 32-bit Timer 5 capture, compare, or PWM 1 */
 #define GPIO_AF_PB3_T5CCP1      GPIO_AF3
+/** Ethernet 0 management data input/output signal */
 #define GPIO_AF_PB3_EN0MDIO     GPIO_AF5
+/**  */
 #define GPIO_AF_PB3_USB0CLK     GPIO_AF14
+/** EPI module 0 signal 28 */
 #define GPIO_AF_PB3_EPI0S28     GPIO_AF15
 /**@}*/
 
@@ -346,10 +402,13 @@
  * Package     |   Pin number   |
  * ----------- | -------------- |
  * TQFP-128    |      121       |
- * NFBGA-212   |                |
+ * NFBGA-212   |       C6       |
 @{*/
+/**  */
 #define GPIO_AF_PB4_U0CTS       GPIO_AF1
+/** I2C module 5 clock */
 #define GPIO_AF_PB4_I2C5SCL     GPIO_AF2
+/**  */
 #define GPIO_AF_PB4_SSI1FSS     GPIO_AF15
 /**@}*/
 
@@ -358,10 +417,13 @@
  * Package     |   Pin number   |
  * ----------- | -------------- |
  * TQFP-128    |      120       |
- * NFBGA-212   |                |
+ * NFBGA-212   |       B6       |
 @{*/
+/**  */
 #define GPIO_AF_PB5_U0RTS       GPIO_AF1
+/** I2C module 5 data */
 #define GPIO_AF_PB5_I2C5SDA     GPIO_AF2
+/**  */
 #define GPIO_AF_PB5_SSI1CLK     GPIO_AF15
 /**@}*/
 
@@ -370,9 +432,11 @@
  * Package     |   Pin number   |
  * ----------- | -------------- |
  * TQFP-128    |  Not available |
- * NFBGA-212   |                |
+ * NFBGA-212   |       F2       |
 @{*/
+/** I2C module 6 clock */
 #define GPIO_AF_PB6_I2C6SCL     GPIO_AF1
+/** 16- and 32-bit Timer 6 capture, compare, or PWM 0 */
 #define GPIO_AF_PB6_T6CCP0      GPIO_AF3
 /**@}*/
 
@@ -381,9 +445,11 @@
  * Package     |   Pin number   |
  * ----------- | -------------- |
  * TQFP-128    |  Not available |
- * NFBGA-212   |                |
+ * NFBGA-212   |       F1       |
 @{*/
+/** I2C module 6 data */
 #define GPIO_AF_PB7_I2C6SDA       GPIO_AF1
+/** 16- and 32-bit Timer 6 capture, compare, or PWM 1 */
 #define GPIO_AF_PB7_T6CCP1        GPIO_AF3
 /**@}*/
 
@@ -392,8 +458,9 @@
  * Package     |   Pin number   |
  * ----------- | -------------- |
  * TQFP-128    |      100       |
- * NFBGA-212   |                |
+ * NFBGA-212   |      B15       |
 @{*/
+/** JTAG and SWD clock */
 #define GPIO_AF_PC0_TCK         GPIO_AF1
 /**@}*/
 
@@ -402,8 +469,9 @@
  * Package     |   Pin number   |
  * ----------- | -------------- |
  * TQFP-128    |       99       |
- * NFBGA-212   |                |
+ * NFBGA-212   |      C15       |
 @{*/
+/** JTAG TMS and SWDIO */
 #define GPIO_AF_PC1_TMS         GPIO_AF1
 /**@}*/
 
@@ -412,8 +480,9 @@
  * Package     |   Pin number   |
  * ----------- | -------------- |
  * TQFP-128    |       98       |
- * NFBGA-212   |                |
+ * NFBGA-212   |      D14       |
 @{*/
+/** JTAG TDI */
 #define GPIO_AF_PC2_TDI         GPIO_AF1
 /**@}*/
 
@@ -422,8 +491,9 @@
  * Package     |   Pin number   |
  * ----------- | -------------- |
  * TQFP-128    |       97       |
- * NFBGA-212   |                |
+ * NFBGA-212   |      C14       |
 @{*/
+/** JTAG TDO and SWO */
 #define GPIO_AF_PC3_TDO         GPIO_AF1
 /**@}*/
 
@@ -432,10 +502,13 @@
  * Package     |   Pin number   |
  * ----------- | -------------- |
  * TQFP-128    |       25       |
- * NFBGA-212   |                |
+ * NFBGA-212   |       M2       |
 @{*/
+/**  */
 #define GPIO_AF_PC4_U7RX        GPIO_AF1
+/** 16- and 32-bit Timer 7 capture, compare, or PWM 0 */
 #define GPIO_AF_PC4_T7CCP0      GPIO_AF3
+/** EPI module 0 signal 7 */
 #define GPIO_AF_PC4_EPI0S7      GPIO_AF15
 /**@}*/
 
@@ -444,11 +517,15 @@
  * Package     |   Pin number   |
  * ----------- | -------------- |
  * TQFP-128    |       24       |
- * NFBGA-212   |                |
+ * NFBGA-212   |       M1       |
 @{*/
+/**  */
 #define GPIO_AF_PC5_U7TX        GPIO_AF1
+/** 16- and 32-bit Timer 7 capture, compare, or PWM 1 */
 #define GPIO_AF_PC5_T7CCP1      GPIO_AF3
+/**  */
 #define GPIO_AF_PC5_RTCCLK      GPIO_AF7
+/** EPI module 0 signal 6 */
 #define GPIO_AF_PC5_EPI0S6      GPIO_AF15
 /**@}*/
 
@@ -457,9 +534,11 @@
  * Package     |   Pin number   |
  * ----------- | -------------- |
  * TQFP-128    |       22       |
- * NFBGA-212   |                |
+ * NFBGA-212   |       L2       |
 @{*/
+/**  */
 #define GPIO_AF_PC6_U5RX        GPIO_AF1
+/** EPI module 0 signal 5 */
 #define GPIO_AF_PC6_EPI0S5      GPIO_AF15
 /**@}*/
 
@@ -468,9 +547,11 @@
  * Package     |   Pin number   |
  * ----------- | -------------- |
  * TQFP-128    |       22       |
- * NFBGA-212   |                |
+ * NFBGA-212   |       K3       |
 @{*/
+/**  */
 #define GPIO_AF_PC7_U5TX        GPIO_AF1
+/** EPI module 0 signal 4 */
 #define GPIO_AF_PC7_EPI0S4      GPIO_AF15
 /**@}*/
 
@@ -479,11 +560,15 @@
  * Package     |   Pin number   |
  * ----------- | -------------- |
  * TQFP-128    |       1        |
- * NFBGA-212   |                |
+ * NFBGA-212   |       C2       |
 @{*/
+/** I2C module 7 clock */
 #define GPIO_AF_PD0_I2C7SCL     GPIO_AF2
+/** 16- and 32-bit Timer 0 capture, compare, or PWM 0 */
 #define GPIO_AF_PD0_T0CCP0      GPIO_AF3
+/** Analog comparator 0 output */
 #define GPIO_AF_PD0_C0O         GPIO_AF5
+/**  */
 #define GPIO_AF_PD0_SSI2XDAT1   GPIO_AF15
 /**@}*/
 
@@ -492,11 +577,15 @@
  * Package     |   Pin number   |
  * ----------- | -------------- |
  * TQFP-128    |       2        |
- * NFBGA-212   |                |
+ * NFBGA-212   |       C1       |
 @{*/
+/** I2C module 7 data */
 #define GPIO_AF_PD1_I2C7SDA     GPIO_AF2
+/** 16- and 32-bit Timer 0 capture, compare, or PWM 1 */
 #define GPIO_AF_PD1_T0CCP1      GPIO_AF3
+/** Analog comparator 1 output */
 #define GPIO_AF_PD1_C1O         GPIO_AF5
+/**  */
 #define GPIO_AF_PD1_SSI2XDAT0   GPIO_AF15
 /**@}*/
 
@@ -505,11 +594,15 @@
  * Package     |   Pin number   |
  * ----------- | -------------- |
  * TQFP-128    |       3        |
- * NFBGA-212   |                |
+ * NFBGA-212   |       D2       |
 @{*/
+/** I2C module 8 clock */
 #define GPIO_AF_PD2_I2C8SCL     GPIO_AF2
+/** 16- and 32-bit Timer 1 capture, compare, or PWM 0 */
 #define GPIO_AF_PD2_T1CCP0      GPIO_AF3
+/** Analog comparator 2 output */
 #define GPIO_AF_PD2_C2O         GPIO_AF5
+/**  */
 #define GPIO_AF_PD2_SSI2FSS     GPIO_AF15
 /**@}*/
 
@@ -518,10 +611,13 @@
  * Package     |   Pin number   |
  * ----------- | -------------- |
  * TQFP-128    |       4        |
- * NFBGA-212   |                |
+ * NFBGA-212   |       D1       |
 @{*/
+/** I2C module 8 data */
 #define GPIO_AF_PD3_I2C8SDA     GPIO_AF2
+/** 16- and 32-bit Timer 1 capture, compare, or PWM 1 */
 #define GPIO_AF_PD3_T1CCP1      GPIO_AF3
+/**  */
 #define GPIO_AF_PD3_SSI2CLK     GPIO_AF15
 /**@}*/
 
@@ -530,10 +626,13 @@
  * Package     |   Pin number   |
  * ----------- | -------------- |
  * TQFP-128    |      125       |
- * NFBGA-212   |                |
+ * NFBGA-212   |       A4       |
 @{*/
+/**  */
 #define GPIO_AF_PD4_U2RX        GPIO_AF1
+/** 16- and 32-bit Timer 3 capture, compare, or PWM 0 */
 #define GPIO_AF_PD4_T3CCP0      GPIO_AF3
+/**  */
 #define GPIO_AF_PD4_SSI1XDAT2   GPIO_AF15
 /**@}*/
 
@@ -542,10 +641,13 @@
  * Package     |   Pin number   |
  * ----------- | -------------- |
  * TQFP-128    |      126       |
- * NFBGA-212   |                |
+ * NFBGA-212   |       B4       |
 @{*/
+/**  */
 #define GPIO_AF_PD5_U2TX        GPIO_AF1
+/** 16- and 32-bit Timer 3 capture, compare, or PWM 1 */
 #define GPIO_AF_PD5_T3CCP1      GPIO_AF3
+/**  */
 #define GPIO_AF_PD5_SSI1XDAT3   GPIO_AF15
 /**@}*/
 
@@ -554,11 +656,15 @@
  * Package     |   Pin number   |
  * ----------- | -------------- |
  * TQFP-128    |      127       |
- * NFBGA-212   |                |
+ * NFBGA-212   |       B3       |
 @{*/
+/**  */
 #define GPIO_AF_PD6_U2RTS       GPIO_AF1
+/** 16- and 32-bit Timer 4 capture, compare, or PWM 0 */
 #define GPIO_AF_PD6_T4CCP0      GPIO_AF3
+/**  */
 #define GPIO_AF_PD6_USB0EPEN    GPIO_AF5
+/**  */
 #define GPIO_AF_PD6_SSI2XDAT3   GPIO_AF15
 /**@}*/
 
@@ -567,12 +673,17 @@
  * Package     |   Pin number   |
  * ----------- | -------------- |
  * TQFP-128    |      128       |
- * NFBGA-212   |                |
+ * NFBGA-212   |       B2       |
 @{*/
+/**  */
 #define GPIO_AF_PD7_U2CTS       GPIO_AF1
+/** 16- and 32-bit Timer 4 capture, compare, or PWM 1 */
 #define GPIO_AF_PD7_T4CCP1      GPIO_AF3
+/**  */
 #define GPIO_AF_PD7_USB0PFLT    GPIO_AF5
+/**  */
 #define GPIO_AF_PD7_NMI         GPIO_AF8
+/**  */
 #define GPIO_AF_PD7_SSI2XDAT2   GPIO_AF15
 /**@}*/
 
@@ -581,8 +692,9 @@
  * Package     |   Pin number   |
  * ----------- | -------------- |
  * TQFP-128    |       15       |
- * NFBGA-212   |                |
+ * NFBGA-212   |       H3       |
 @{*/
+/**  */
 #define GPIO_AF_PE0_U1RTS       GPIO_AF1
 /**@}*/
 
@@ -591,8 +703,9 @@
  * Package     |   Pin number   |
  * ----------- | -------------- |
  * TQFP-128    |       14       |
- * NFBGA-212   |                |
+ * NFBGA-212   |       H2       |
 @{*/
+/**  */
 #define GPIO_AF_PE1_U1DSR       GPIO_AF1
 /**@}*/
 
@@ -601,8 +714,9 @@
  * Package     |   Pin number   |
  * ----------- | -------------- |
  * TQFP-128    |       13       |
- * NFBGA-212   |                |
+ * NFBGA-212   |       G1       |
 @{*/
+/**  */
 #define GPIO_AF_PE2_U1DCD       GPIO_AF1
 /**@}*/
 
@@ -611,9 +725,11 @@
  * Package     |   Pin number   |
  * ----------- | -------------- |
  * TQFP-128    |       12       |
- * NFBGA-212   |                |
+ * NFBGA-212   |       G2       |
 @{*/
+/**  */
 #define GPIO_AF_PE3_U1DTR       GPIO_AF1
+/** 1-Wire single bus pin */
 #define GPIO_AF_PE3_OWIRE       GPIO_AF5
 /**@}*/
 
@@ -622,9 +738,11 @@
  * Package     |   Pin number   |
  * ----------- | -------------- |
  * TQFP-128    |      123       |
- * NFBGA-212   |                |
+ * NFBGA-212   |       A5       |
 @{*/
+/**  */
 #define GPIO_AF_PE4_U1RI        GPIO_AF1
+/**  */
 #define GPIO_AF_PE4_SSI1XDAT0   GPIO_AF15
 /**@}*/
 
@@ -633,8 +751,9 @@
  * Package     |   Pin number   |
  * ----------- | -------------- |
  * TQFP-128    |      124       |
- * NFBGA-212   |                |
+ * NFBGA-212   |       B5       |
 @{*/
+/**  */
 #define GPIO_AF_PE5_SSI1XDAT1   GPIO_AF15
 /**@}*/
 
@@ -643,9 +762,11 @@
  * Package     |   Pin number   |
  * ----------- | -------------- |
  * TQFP-128    |  Not available |
- * NFBGA-212   |                |
+ * NFBGA-212   |       A7       |
 @{*/
+/**  */
 #define GPIO_AF_PE6_U0CTS       GPIO_AF1
+/** I2C module 9 clock */
 #define GPIO_AF_PE6_I2C9SCL     GPIO_AF2
 /**@}*/
 
@@ -654,10 +775,13 @@
  * Package     |   Pin number   |
  * ----------- | -------------- |
  * TQFP-128    |  Not available |
- * NFBGA-212   |                |
+ * NFBGA-212   |       B7       |
 @{*/
+/**  */
 #define GPIO_AF_PE7_U0RTS       GPIO_AF1
+/** I2C module 9 data */
 #define GPIO_AF_PE7_I2C9SDA     GPIO_AF2
+/**  */
 #define GPIO_AF_PE7_NMI         GPIO_AF8
 /**@}*/
 
@@ -666,11 +790,15 @@
  * Package     |   Pin number   |
  * ----------- | -------------- |
  * TQFP-128    |       42       |
- * NFBGA-212   |                |
+ * NFBGA-212   |       U6       |
 @{*/
-#define GPIO_AF_PF0_EN0LED      GPIO_AF5
+/** Ethernet 0 LED 0 */
+#define GPIO_AF_PF0_EN0LED0     GPIO_AF5
+/** Motion control module 0 PWM 0 */
 #define GPIO_AF_PF0_M0PWM0      GPIO_AF6
+/**  */
 #define GPIO_AF_PF0_SSI3XDAT1   GPIO_AF14
+/** Trace data 2 */
 #define GPIO_AF_PF0_TRD2        GPIO_AF15
 /**@}*/
 
@@ -679,11 +807,15 @@
  * Package     |   Pin number   |
  * ----------- | -------------- |
  * TQFP-128    |       43       |
- * NFBGA-212   |                |
+ * NFBGA-212   |       V6       |
 @{*/
+/** Ethernet 0 LED 2 */
 #define GPIO_AF_PF1_EN0LED2     GPIO_AF5
+/** Motion control module 0 PWM 1 */
 #define GPIO_AF_PF1_M0PWM1      GPIO_AF6
+/**  */
 #define GPIO_AF_PF1_SSI3XDAT0   GPIO_AF14
+/** Trace data 1 */
 #define GPIO_AF_PF1_TRD1        GPIO_AF15
 /**@}*/
 
@@ -692,11 +824,15 @@
  * Package     |   Pin number   |
  * ----------- | -------------- |
  * TQFP-128    |       44       |
- * NFBGA-212   |                |
+ * NFBGA-212   |       W6       |
 @{*/
+/** Ethernet 0 management data clock */
 #define GPIO_AF_PF2_EN0MDC      GPIO_AF5
+/** Motion control module 0 PWM 2 */
 #define GPIO_AF_PF2_M0PWM2      GPIO_AF6
+/**  */
 #define GPIO_AF_PF2_SSI3FSS     GPIO_AF14
+/** Trace data 0 */
 #define GPIO_AF_PF2_TRD0        GPIO_AF15
 /**@}*/
 
@@ -705,11 +841,15 @@
  * Package     |   Pin number   |
  * ----------- | -------------- |
  * TQFP-128    |       45       |
- * NFBGA-212   |                |
+ * NFBGA-212   |       T7       |
 @{*/
+/** Ethernet 0 management data input/output signal */
 #define GPIO_AF_PF3_EN0MDIO     GPIO_AF5
+/** Motion control module 0 PWM 3 */
 #define GPIO_AF_PF3_M0PWM3      GPIO_AF6
+/**  */
 #define GPIO_AF_PF3_SSI3CLK     GPIO_AF14
+/** Trace clock */
 #define GPIO_AF_PF3_TRCLK       GPIO_AF15
 /**@}*/
 
@@ -718,11 +858,15 @@
  * Package     |   Pin number   |
  * ----------- | -------------- |
  * TQFP-128    |       46       |
- * NFBGA-212   |                |
+ * NFBGA-212   |       V7       |
 @{*/
+/** Ethernet 0 LED 1 */
 #define GPIO_AF_PF4_EN0LED1     GPIO_AF5
+/** Motion control module 0 PWM fault 0 */
 #define GPIO_AF_PF4_M0FAULT0    GPIO_AF6
+/**  */
 #define GPIO_AF_PF4_SSI3XDAT2   GPIO_AF14
+/** Trace data 3 */
 #define GPIO_AF_PF4_TRD3        GPIO_AF15
 /**@}*/
 
@@ -731,8 +875,9 @@
  * Package     |   Pin number   |
  * ----------- | -------------- |
  * TQFP-128    |  Not available |
- * NFBGA-212   |                |
+ * NFBGA-212   |       W7       |
 @{*/
+/**  */
 #define GPIO_AF_PF5_SSI3XDAT3   GPIO_AF14
 /**@}*/
 
@@ -741,8 +886,9 @@
  * Package     |   Pin number   |
  * ----------- | -------------- |
  * TQFP-128    |  Not available |
- * NFBGA-212   |                |
+ * NFBGA-212   |       T8       |
 @{*/
+/** LCD memory clock, secondary chip select (CS1), or secondary enable (E1) */
 #define GPIO_AF_PF6_LCDMCLK     GPIO_AF15
 /**@}*/
 
@@ -751,8 +897,9 @@
  * Package     |   Pin number   |
  * ----------- | -------------- |
  * TQFP-128    |  Not available |
- * NFBGA-212   |                |
+ * NFBGA-212   |       U8       |
 @{*/
+/** LCD data pin 2 input/output */
 #define GPIO_AF_PF7_LCDDATA02   GPIO_AF15
 /**@}*/
 
@@ -761,11 +908,15 @@
  * Package     |   Pin number   |
  * ----------- | -------------- |
  * TQFP-128    |       49       |
- * NFBGA-212   |                |
+ * NFBGA-212   |      N15       |
 @{*/
+/** I2C module 1 clock */
 #define GPIO_AF_PG0_I2C1SCL     GPIO_AF2
+/** Ethernet 0 pulse-per-second (PPS) output */
 #define GPIO_AF_PG0_EN0PPS      GPIO_AF5
+/** Motion control module 0 PWM 4 */
 #define GPIO_AF_PG0_M0PWM4      GPIO_AF6
+/** EPI module 0 signal 11 */
 #define GPIO_AF_PG0_EPI0S11     GPIO_AF15
 /**@}*/
 
@@ -774,10 +925,13 @@
  * Package     |   Pin number   |
  * ----------- | -------------- |
  * TQFP-128    |       50       |
- * NFBGA-212   |                |
+ * NFBGA-212   |      T14       |
 @{*/
+/** I2C module 1 data */
 #define GPIO_AF_PG1_I2C1SDA     GPIO_AF2
+/** Motion control module 0 PWM 5 */
 #define GPIO_AF_PG1_M0PWM5      GPIO_AF6
+/** EPI module 0 signal 10 */
 #define GPIO_AF_PG1_EPI0S10     GPIO_AF15
 /**@}*/
 
@@ -786,10 +940,13 @@
  * Package     |   Pin number   |
  * ----------- | -------------- |
  * TQFP-128    |  Not available |
- * NFBGA-212   |                |
+ * NFBGA-212   |      V11       |
 @{*/
+/** I2C module 2 clock */
 #define GPIO_AF_PG2_I2C2SCL     GPIO_AF2
+/** Ethernet 0 transmit clock */
 #define GPIO_AF_PG2_EN0TXCK     GPIO_AF14
+/**  */
 #define GPIO_AF_PG2_SSI2XDAT3   GPIO_AF15
 /**@}*/
 
@@ -798,10 +955,13 @@
  * Package     |   Pin number   |
  * ----------- | -------------- |
  * TQFP-128    |  Not available |
- * NFBGA-212   |                |
+ * NFBGA-212   |      M16       |
 @{*/
+/** I2C module 2 data */
 #define GPIO_AF_PG3_I2C2SDA     GPIO_AF2
+/** Ethernet 0 transmit enable */
 #define GPIO_AF_PG3_EN0TXEN     GPIO_AF14
+/**  */
 #define GPIO_AF_PG3_SSI2XDAT2   GPIO_AF15
 /**@}*/
 
@@ -810,12 +970,17 @@
  * Package     |   Pin number   |
  * ----------- | -------------- |
  * TQFP-128    |  Not available |
- * NFBGA-212   |                |
+ * NFBGA-212   |      K17       |
 @{*/
+/**  */
 #define GPIO_AF_PG4_U0CTS       GPIO_AF1
+/** I2C module 3 clock */
 #define GPIO_AF_PG4_I2C3SCL     GPIO_AF2
+/** 1-Wire single bus pin */
 #define GPIO_AF_PG4_OWIRE       GPIO_AF5
+/** Ethernet 0 transmit data 0 */
 #define GPIO_AF_PG4_EN0TXD0     GPIO_AF14
+/**  */
 #define GPIO_AF_PG4_SSI2XDAT1   GPIO_AF15
 /**@}*/
 
@@ -824,12 +989,17 @@
  * Package     |   Pin number   |
  * ----------- | -------------- |
  * TQFP-128    |  Not available |
- * NFBGA-212   |                |
+ * NFBGA-212   |      K15       |
 @{*/
+/**  */
 #define GPIO_AF_PG5_U0RTS       GPIO_AF1
+/** I2C module 3 data */
 #define GPIO_AF_PG5_I2C3SDA     GPIO_AF2
+/**  */
 #define GPIO_AF_PG5_OWALT       GPIO_AF5
+/** Ethernet 0 transmit data 1 */
 #define GPIO_AF_PG5_EN0TXD1     GPIO_AF14
+/**  */
 #define GPIO_AF_PG5_SSI2XDAT0   GPIO_AF15
 /**@}*/
 
@@ -838,11 +1008,15 @@
  * Package     |   Pin number   |
  * ----------- | -------------- |
  * TQFP-128    |  Not available |
- * NFBGA-212   |                |
+ * NFBGA-212   |      V12       |
 @{*/
+/** I2C module 4 clock */
 #define GPIO_AF_PG6_I2C4SCL     GPIO_AF2
+/** 1-Wire single bus pin */
 #define GPIO_AF_PG6_OWIRE       GPIO_AF5
+/** Ethernet 0 receive error */
 #define GPIO_AF_PG6_EN0RXER     GPIO_AF14
+/**  */
 #define GPIO_AF_PG6_SSI2FSS     GPIO_AF15
 /**@}*/
 
@@ -851,11 +1025,15 @@
  * Package     |   Pin number   |
  * ----------- | -------------- |
  * TQFP-128    |  Not available |
- * NFBGA-212   |                |
+ * NFBGA-212   |      U14       |
 @{*/
+/** I2C module 4 data */
 #define GPIO_AF_PG7_I2C4SDA     GPIO_AF2
+/** 1-Wire single bus pin */
 #define GPIO_AF_PG7_OWIRE       GPIO_AF5
+/** Ethernet 0 receive data valid */
 #define GPIO_AF_PG7_EN0RXDV     GPIO_AF14
+/**  */
 #define GPIO_AF_PG7_SSI2CLK     GPIO_AF15
 /**@}*/
 
@@ -864,9 +1042,11 @@
  * Package     |   Pin number   |
  * ----------- | -------------- |
  * TQFP-128    |       29       |
- * NFBGA-212   |                |
+ * NFBGA-212   |       P4       |
 @{*/
+/**  */
 #define GPIO_AF_PH0_U0RTS       GPIO_AF1
+/** EPI module 0 signal 0 */
 #define GPIO_AF_PH0_EPI0S0      GPIO_AF15
 /**@}*/
 
@@ -875,9 +1055,11 @@
  * Package     |   Pin number   |
  * ----------- | -------------- |
  * TQFP-128    |       30       |
- * NFBGA-212   |                |
+ * NFBGA-212   |       R2       |
 @{*/
+/**  */
 #define GPIO_AF_PH1_U0CTS       GPIO_AF1
+/** EPI module 0 signal 1 */
 #define GPIO_AF_PH1_EPI0S1      GPIO_AF15
 /**@}*/
 
@@ -886,9 +1068,11 @@
  * Package     |   Pin number   |
  * ----------- | -------------- |
  * TQFP-128    |       31       |
- * NFBGA-212   |                |
+ * NFBGA-212   |       R1       |
 @{*/
+/**  */
 #define GPIO_AF_PH2_U0DCD       GPIO_AF1
+/** EPI module 0 signal 2 */
 #define GPIO_AF_PH2_EPI0S2      GPIO_AF15
 /**@}*/
 
@@ -897,9 +1081,11 @@
  * Package     |   Pin number   |
  * ----------- | -------------- |
  * TQFP-128    |       32       |
- * NFBGA-212   |                |
+ * NFBGA-212   |       T1       |
 @{*/
+/**  */
 #define GPIO_AF_PH3_U0DSR       GPIO_AF1
+/** EPI module 0 signal 3 */
 #define GPIO_AF_PH3_EPI0S3      GPIO_AF15
 /**@}*/
 
@@ -908,8 +1094,9 @@
  * Package     |   Pin number   |
  * ----------- | -------------- |
  * TQFP-128    |  Not available |
- * NFBGA-212   |                |
+ * NFBGA-212   |       R3       |
 @{*/
+/**  */
 #define GPIO_AF_PH4_U0DTR       GPIO_AF1
 /**@}*/
 
@@ -918,9 +1105,11 @@
  * Package     |   Pin number   |
  * ----------- | -------------- |
  * TQFP-128    |  Not available |
- * NFBGA-212   |                |
+ * NFBGA-212   |       T2       |
 @{*/
+/**  */
 #define GPIO_AF_PH5_U0RI        GPIO_AF1
+/** Ethernet 0 pulse-per-second (PPS) output */
 #define GPIO_AF_PH5_EN0PPS      GPIO_AF15
 /**@}*/
 
@@ -929,9 +1118,11 @@
  * Package     |   Pin number   |
  * ----------- | -------------- |
  * TQFP-128    |  Not available |
- * NFBGA-212   |                |
+ * NFBGA-212   |       U2       |
 @{*/
+/**  */
 #define GPIO_AF_PH6_U5RX        GPIO_AF1
+/**  */
 #define GPIO_AF_PH6_U7RX        GPIO_AF2
 /**@}*/
 
@@ -940,9 +1131,11 @@
  * Package     |   Pin number   |
  * ----------- | -------------- |
  * TQFP-128    |  Not available |
- * NFBGA-212   |                |
+ * NFBGA-212   |       V2       |
 @{*/
+/**  */
 #define GPIO_AF_PH7_U5TX        GPIO_AF1
+/**  */
 #define GPIO_AF_PH7_U7TX        GPIO_AF2
 /**@}*/
 
@@ -951,9 +1144,11 @@
  * Package     |   Pin number   |
  * ----------- | -------------- |
  * TQFP-128    |      116       |
- * NFBGA-212   |                |
+ * NFBGA-212   |       C8       |
 @{*/
+/**  */
 #define GPIO_AF_PJ0_U3RX        GPIO_AF1
+/** Ethernet 0 pulse-per-second (PPS) output */
 #define GPIO_AF_PJ0_EN0PPS      GPIO_AF5
 /**@}*/
 
@@ -962,8 +1157,9 @@
  * Package     |   Pin number   |
  * ----------- | -------------- |
  * TQFP-128    |      117       |
- * NFBGA-212   |                |
+ * NFBGA-212   |       E7       |
 @{*/
+/**  */
 #define GPIO_AF_PJ1_U3TX        GPIO_AF1
 /**@}*/
 
@@ -972,9 +1168,11 @@
  * Package     |   Pin number   |
  * ----------- | -------------- |
  * TQFP-128    |  Not available |
- * NFBGA-212   |                |
+ * NFBGA-212   |      H17       |
 @{*/
+/**  */
 #define GPIO_AF_PJ2_U2RTS       GPIO_AF1
+/** LCD data pin 14 input/output */
 #define GPIO_AF_PJ2_LCDDATA14   GPIO_AF15
 /**@}*/
 
@@ -983,9 +1181,11 @@
  * Package     |   Pin number   |
  * ----------- | -------------- |
  * TQFP-128    |  Not available |
- * NFBGA-212   |                |
+ * NFBGA-212   |      F16       |
 @{*/
+/**  */
 #define GPIO_AF_PJ3_U2CTS       GPIO_AF1
+/** LCD data pin 15 input/output */
 #define GPIO_AF_PJ3_LCDDATA15   GPIO_AF15
 /**@}*/
 
@@ -994,9 +1194,11 @@
  * Package     |   Pin number   |
  * ----------- | -------------- |
  * TQFP-128    |  Not available |
- * NFBGA-212   |                |
+ * NFBGA-212   |      F18       |
 @{*/
+/**  */
 #define GPIO_AF_PJ4_U3RTS       GPIO_AF1
+/** LCD data pin 16 output */
 #define GPIO_AF_PJ4_LCDDATA16   GPIO_AF15
 /**@}*/
 
@@ -1005,9 +1207,11 @@
  * Package     |   Pin number   |
  * ----------- | -------------- |
  * TQFP-128    |  Not available |
- * NFBGA-212   |                |
+ * NFBGA-212   |      E17       |
 @{*/
+/**  */
 #define GPIO_AF_PJ5_U3CTS       GPIO_AF1
+/** LCD data pin 17 output */
 #define GPIO_AF_PJ5_LCDDATA17   GPIO_AF15
 /**@}*/
 
@@ -1016,9 +1220,11 @@
  * Package     |   Pin number   |
  * ----------- | -------------- |
  * TQFP-128    |  Not available |
- * NFBGA-212   |                |
+ * NFBGA-212   |       N1       |
 @{*/
+/**  */
 #define GPIO_AF_PJ6_U4RTS       GPIO_AF1
+/** LCD AC bias or latch enable in raster mode */
 #define GPIO_AF_PJ6_LCDAC       GPIO_AF15
 /**@}*/
 
@@ -1027,8 +1233,9 @@
  * Package     |   Pin number   |
  * ----------- | -------------- |
  * TQFP-128    |  Not available |
- * NFBGA-212   |                |
+ * NFBGA-212   |       K5       |
 @{*/
+/**  */
 #define GPIO_AF_PJ7_U4CTS       GPIO_AF1
 /**@}*/
 
@@ -1037,9 +1244,11 @@
  * Package     |   Pin number   |
  * ----------- | -------------- |
  * TQFP-128    |       18       |
- * NFBGA-212   |                |
+ * NFBGA-212   |       J1       |
 @{*/
+/**  */
 #define GPIO_AF_PK0_U4RX        GPIO_AF1
+/** EPI module 0 signal 0 */
 #define GPIO_AF_PK0_EPI0S0      GPIO_AF15
 /**@}*/
 
@@ -1048,9 +1257,11 @@
  * Package     |   Pin number   |
  * ----------- | -------------- |
  * TQFP-128    |       19       |
- * NFBGA-212   |                |
+ * NFBGA-212   |       J2       |
 @{*/
+/**  */
 #define GPIO_AF_PK1_U4TX        GPIO_AF1
+/** EPI module 0 signal 1 */
 #define GPIO_AF_PK1_EPI0S1      GPIO_AF15
 /**@}*/
 
@@ -1059,9 +1270,11 @@
  * Package     |   Pin number   |
  * ----------- | -------------- |
  * TQFP-128    |       20       |
- * NFBGA-212   |                |
+ * NFBGA-212   |       K1       |
 @{*/
+/**  */
 #define GPIO_AF_PK2_U4RTS       GPIO_AF1
+/** EPI module 0 signal 2 */
 #define GPIO_AF_PK2_EPI0S2      GPIO_AF15
 /**@}*/
 
@@ -1070,9 +1283,11 @@
  * Package     |   Pin number   |
  * ----------- | -------------- |
  * TQFP-128    |       21       |
- * NFBGA-212   |                |
+ * NFBGA-212   |       K2       |
 @{*/
+/**  */
 #define GPIO_AF_PK3_U4CTS       GPIO_AF1
+/** EPI module 0 signal 3 */
 #define GPIO_AF_PK3_EPI0S3      GPIO_AF15
 /**@}*/
 
@@ -1081,13 +1296,19 @@
  * Package     |   Pin number   |
  * ----------- | -------------- |
  * TQFP-128    |       63       |
- * NFBGA-212   |                |
+ * NFBGA-212   |      U19       |
 @{*/
+/** I2C module 3 clock */
 #define GPIO_AF_PK4_I2C3SCL     GPIO_AF2
+/** Ethernet 0 LED 0 */
 #define GPIO_AF_PK4_EN0LED0     GPIO_AF5
+/** Motion control module 0 PWM 6 */
 #define GPIO_AF_PK4_M0PWM6      GPIO_AF6
+/** Ethernet 0 interrupt from the Ethernet PHY */
 #define GPIO_AF_PK4_EN0INTRN    GPIO_AF7
+/** Ethernet 0 receive data 3 */
 #define GPIO_AF_PK4_EN0RXD3     GPIO_AF14
+/** EPI module 0 signal 32 */
 #define GPIO_AF_PK4_EPI0S32     GPIO_AF15
 /**@}*/
 
@@ -1096,12 +1317,17 @@
  * Package     |   Pin number   |
  * ----------- | -------------- |
  * TQFP-128    |       62       |
- * NFBGA-212   |                |
+ * NFBGA-212   |      V17       |
 @{*/
+/** I2C module 3 data */
 #define GPIO_AF_PK5_I2C3SDA     GPIO_AF2
+/** Ethernet 0 LED 2 */
 #define GPIO_AF_PK5_EN0LED2     GPIO_AF5
+/** Motion control module 0 PWM 7 */
 #define GPIO_AF_PK5_M0PWM7      GPIO_AF6
+/** Ethernet 0 receive data 2 */
 #define GPIO_AF_PK5_EN0RXD2     GPIO_AF14
+/** EPI module 0 signal 31 */
 #define GPIO_AF_PK5_EPI0S31     GPIO_AF15
 /**@}*/
 
@@ -1110,12 +1336,17 @@
  * Package     |   Pin number   |
  * ----------- | -------------- |
  * TQFP-128    |       61       |
- * NFBGA-212   |                |
+ * NFBGA-212   |      V16       |
 @{*/
+/** I2C module 4 clock */
 #define GPIO_AF_PK6_I2C4SCL     GPIO_AF2
+/** Ethernet 0 LED 1 */
 #define GPIO_AF_PK6_EN0LED1     GPIO_AF5
+/** Motion control module 0 PWM fault 1 */
 #define GPIO_AF_PK6_M0FAULT1    GPIO_AF6
+/** Ethernet 0 transmit data 2 */
 #define GPIO_AF_PK6_EN0TXD2     GPIO_AF14
+/** EPI module 0 signal 25 */
 #define GPIO_AF_PK6_EPI0S25     GPIO_AF15
 /**@}*/
 
@@ -1124,13 +1355,19 @@
  * Package     |   Pin number   |
  * ----------- | -------------- |
  * TQFP-128    |       60       |
- * NFBGA-212   |                |
+ * NFBGA-212   |      W16       |
 @{*/
+/**  */
 #define GPIO_AF_PK7_U0RI        GPIO_AF1
+/** I2C module 4 data */
 #define GPIO_AF_PK7_I2C4SDA     GPIO_AF2
+/**  */
 #define GPIO_AF_PK7_RTCCLK      GPIO_AF5
+/** Motion control module 0 PWM fault 2 */
 #define GPIO_AF_PK7_M0FAULT2    GPIO_AF6
+/** Ethernet 0 transmit data 3 */
 #define GPIO_AF_PK7_EN0TXD3     GPIO_AF14
+/** EPI module 0 signal 24 */
 #define GPIO_AF_PK7_EPI0S24     GPIO_AF15
 /**@}*/
 
@@ -1139,11 +1376,15 @@
  * Package     |   Pin number   |
  * ----------- | -------------- |
  * TQFP-128    |       81       |
- * NFBGA-212   |                |
+ * NFBGA-212   |      G16       |
 @{*/
+/** I2C module 2 data */
 #define GPIO_AF_PL0_I2C2SDA     GPIO_AF2
+/** Motion control module 0 PWM fault 3 */
 #define GPIO_AF_PL0_M0FAULT3    GPIO_AF6
+/**  */
 #define GPIO_AF_PL0_USB0D0      GPIO_AF14
+/** EPI module 0 signal 16 */
 #define GPIO_AF_PL0_EPI0S16     GPIO_AF15
 /**@}*/
 
@@ -1152,11 +1393,15 @@
  * Package     |   Pin number   |
  * ----------- | -------------- |
  * TQFP-128    |       82       |
- * NFBGA-212   |                |
+ * NFBGA-212   |      H19       |
 @{*/
+/** I2C module 2 clock */
 #define GPIO_AF_PL1_I2C2SCL     GPIO_AF2
+/**  */
 #define GPIO_AF_PL1_PHA0        GPIO_AF6
+/**  */
 #define GPIO_AF_PL1_USB0D1      GPIO_AF14
+/** EPI module 0 signal 17 */
 #define GPIO_AF_PL1_EPI0S17     GPIO_AF15
 /**@}*/
 
@@ -1165,11 +1410,15 @@
  * Package     |   Pin number   |
  * ----------- | -------------- |
  * TQFP-128    |       83       |
- * NFBGA-212   |                |
+ * NFBGA-212   |      G18       |
 @{*/
+/** Analog comparator 0 output */
 #define GPIO_AF_PL2_C0O         GPIO_AF5
+/**  */
 #define GPIO_AF_PL2_PHB0        GPIO_AF6
+/**  */
 #define GPIO_AF_PL2_USB0D2      GPIO_AF14
+/** EPI module 0 signal 18 */
 #define GPIO_AF_PL2_EPI0S18     GPIO_AF15
 /**@}*/
 
@@ -1178,11 +1427,15 @@
  * Package     |   Pin number   |
  * ----------- | -------------- |
  * TQFP-128    |       84       |
- * NFBGA-212   |                |
+ * NFBGA-212   |      J18       |
 @{*/
+/** Analog comparator 1 output */
 #define GPIO_AF_PL3_C1O         GPIO_AF5
+/**  */
 #define GPIO_AF_PL3_IDX0        GPIO_AF6
+/**  */
 #define GPIO_AF_PL3_USB0D3      GPIO_AF14
+/** EPI module 0 signal 19 */
 #define GPIO_AF_PL3_EPI0S19     GPIO_AF15
 /**@}*/
 
@@ -1191,10 +1444,13 @@
  * Package     |   Pin number   |
  * ----------- | -------------- |
  * TQFP-128    |       85       |
- * NFBGA-212   |                |
+ * NFBGA-212   |      H18       |
 @{*/
+/** 16- and 32-bit Timer 0 capture, compare, or PWM 0 */
 #define GPIO_AF_PL4_T0CCP0      GPIO_AF3
+/**  */
 #define GPIO_AF_PL4_USB0D4      GPIO_AF14
+/** EPI module 0 signal 26 */
 #define GPIO_AF_PL4_EPI0S26     GPIO_AF15
 /**@}*/
 
@@ -1203,10 +1459,13 @@
  * Package     |   Pin number   |
  * ----------- | -------------- |
  * TQFP-128    |       86       |
- * NFBGA-212   |                |
+ * NFBGA-212   |      G19       |
 @{*/
+/** 16- and 32-bit Timer 0 capture, compare, or PWM 1 */
 #define GPIO_AF_PL5_T0CCP1      GPIO_AF3
+/**  */
 #define GPIO_AF_PL5_USB0D5      GPIO_AF14
+/** EPI module 0 signal 33 */
 #define GPIO_AF_PL5_EPI0S33     GPIO_AF15
 /**@}*/
 
@@ -1215,8 +1474,9 @@
  * Package     |   Pin number   |
  * ----------- | -------------- |
  * TQFP-128    |       94       |
- * NFBGA-212   |                |
+ * NFBGA-212   |      C18       |
 @{*/
+/** 16- and 32-bit Timer 1 capture, compare, or PWM 0 */
 #define GPIO_AF_PL6_T1CCP0      GPIO_AF3
 /**@}*/
 
@@ -1225,8 +1485,9 @@
  * Package     |   Pin number   |
  * ----------- | -------------- |
  * TQFP-128    |       93       |
- * NFBGA-212   |                |
+ * NFBGA-212   |      B18       |
 @{*/
+/** 16- and 32-bit Timer 1 capture, compare, or PWM 1 */
 #define GPIO_AF_PL7_T1CCP1      GPIO_AF3
 /**@}*/
 
@@ -1235,9 +1496,11 @@
  * Package     |   Pin number   |
  * ----------- | -------------- |
  * TQFP-128    |       78       |
- * NFBGA-212   |                |
+ * NFBGA-212   |      K18       |
 @{*/
+/** 16- and 32-bit Timer 2 capture, compare, or PWM 0 */
 #define GPIO_AF_PM0_T2CCP0      GPIO_AF3
+/** EPI module 0 signal 15 */
 #define GPIO_AF_PM0_EPI0S15     GPIO_AF15
 /**@}*/
 
@@ -1246,9 +1509,11 @@
  * Package     |   Pin number   |
  * ----------- | -------------- |
  * TQFP-128    |       77       |
- * NFBGA-212   |                |
+ * NFBGA-212   |      K19       |
 @{*/
+/** 16- and 32-bit Timer 2 capture, compare, or PWM 1 */
 #define GPIO_AF_PM1_T2CCP1      GPIO_AF3
+/** EPI module 0 signal 14 */
 #define GPIO_AF_PM1_EPI0S14     GPIO_AF15
 /**@}*/
 
@@ -1257,9 +1522,11 @@
  * Package     |   Pin number   |
  * ----------- | -------------- |
  * TQFP-128    |       76       |
- * NFBGA-212   |                |
+ * NFBGA-212   |      L18       |
 @{*/
+/** 16- and 32-bit Timer 3 capture, compare, or PWM 0 */
 #define GPIO_AF_PM2_T3CCP0      GPIO_AF3
+/** EPI module 0 signal 13 */
 #define GPIO_AF_PM2_EPI0S13     GPIO_AF15
 /**@}*/
 
@@ -1268,9 +1535,11 @@
  * Package     |   Pin number   |
  * ----------- | -------------- |
  * TQFP-128    |       75       |
- * NFBGA-212   |                |
+ * NFBGA-212   |      L19       |
 @{*/
+/** 16- and 32-bit Timer 3 capture, compare, or PWM 1 */
 #define GPIO_AF_PM3_T3CCP1      GPIO_AF3
+/** EPI module 0 signal 12 */
 #define GPIO_AF_PM3_EPI0S12     GPIO_AF15
 /**@}*/
 
@@ -1279,10 +1548,13 @@
  * Package     |   Pin number   |
  * ----------- | -------------- |
  * TQFP-128    |       74       |
- * NFBGA-212   |                |
+ * NFBGA-212   |      M18       |
 @{*/
+/**  */
 #define GPIO_AF_PM4_U0CTS       GPIO_AF1
+/** 16- and 32-bit Timer 4 capture, compare, or PWM 0 */
 #define GPIO_AF_PM4_T4CCP0      GPIO_AF3
+/** Ethernet 0 reference clock */
 #define GPIO_AF_PM4_EN0RREF_CLK GPIO_AF14
 /**@}*/
 
@@ -1291,9 +1563,11 @@
  * Package     |   Pin number   |
  * ----------- | -------------- |
  * TQFP-128    |       73       |
- * NFBGA-212   |                |
+ * NFBGA-212   |      G15       |
 @{*/
+/**  */
 #define GPIO_AF_PM5_U0DCD       GPIO_AF1
+/** 16- and 32-bit Timer 4 capture, compare, or PWM 1 */
 #define GPIO_AF_PM5_T4CCP1      GPIO_AF3
 /**@}*/
 
@@ -1302,10 +1576,13 @@
  * Package     |   Pin number   |
  * ----------- | -------------- |
  * TQFP-128    |       72       |
- * NFBGA-212   |                |
+ * NFBGA-212   |      N19       |
 @{*/
+/**  */
 #define GPIO_AF_PM6_U0DSR       GPIO_AF1
+/** 16- and 32-bit Timer 5 capture, compare, or PWM 0 */
 #define GPIO_AF_PM6_T5CCP0      GPIO_AF3
+/** Ethernet 0 carrier sense */
 #define GPIO_AF_PM6_EN0CRS      GPIO_AF14
 /**@}*/
 
@@ -1314,10 +1591,13 @@
  * Package     |   Pin number   |
  * ----------- | -------------- |
  * TQFP-128    |       71       |
- * NFBGA-212   |                |
+ * NFBGA-212   |      N18       |
 @{*/
+/**  */
 #define GPIO_AF_PM7_U0RI        GPIO_AF1
+/** 16- and 32-bit Timer 5 capture, compare, or PWM 1 */
 #define GPIO_AF_PM7_T5CCP1      GPIO_AF3
+/** Ethernet 0 collision detect */
 #define GPIO_AF_PM7_EN0COL      GPIO_AF14
 /**@}*/
 
@@ -1326,8 +1606,9 @@
  * Package     |   Pin number   |
  * ----------- | -------------- |
  * TQFP-128    |      107       |
- * NFBGA-212   |                |
+ * NFBGA-212   |      C10       |
 @{*/
+/**  */
 #define GPIO_AF_PN0_U1RTS       GPIO_AF1
 /**@}*/
 
@@ -1336,8 +1617,9 @@
  * Package     |   Pin number   |
  * ----------- | -------------- |
  * TQFP-128    |      108       |
- * NFBGA-212   |                |
+ * NFBGA-212   |      B11       |
 @{*/
+/**  */
 #define GPIO_AF_PN1_U1CTS       GPIO_AF1
 /**@}*/
 
@@ -1346,10 +1628,13 @@
  * Package     |   Pin number   |
  * ----------- | -------------- |
  * TQFP-128    |      109       |
- * NFBGA-212   |                |
+ * NFBGA-212   |      A11       |
 @{*/
+/**  */
 #define GPIO_AF_PN2_U1DCD       GPIO_AF1
+/**  */
 #define GPIO_AF_PN2_U2RTS       GPIO_AF2
+/** EPI module 0 signal 29 */
 #define GPIO_AF_PN2_EPI0S29     GPIO_AF15
 /**@}*/
 
@@ -1358,10 +1643,13 @@
  * Package     |   Pin number   |
  * ----------- | -------------- |
  * TQFP-128    |      110       |
- * NFBGA-212   |                |
+ * NFBGA-212   |      B10       |
 @{*/
+/**  */
 #define GPIO_AF_PN3_U1DSR       GPIO_AF1
+/**  */
 #define GPIO_AF_PN3_U2CTS       GPIO_AF2
+/** EPI module 0 signal 30 */
 #define GPIO_AF_PN3_EPI0S30     GPIO_AF15
 /**@}*/
 
@@ -1370,11 +1658,15 @@
  * Package     |   Pin number   |
  * ----------- | -------------- |
  * TQFP-128    |      111       |
- * NFBGA-212   |                |
+ * NFBGA-212   |      A10       |
 @{*/
+/**  */
 #define GPIO_AF_PN4_U1DTR       GPIO_AF1
+/**  */
 #define GPIO_AF_PN4_U3RTS       GPIO_AF2
+/** I2C module 2 data */
 #define GPIO_AF_PN4_I2C2SDA     GPIO_AF3
+/** EPI module 0 signal 34 */
 #define GPIO_AF_PN4_EPI0S34     GPIO_AF15
 /**@}*/
 
@@ -1383,11 +1675,15 @@
  * Package     |   Pin number   |
  * ----------- | -------------- |
  * TQFP-128    |      112       |
- * NFBGA-212   |                |
+ * NFBGA-212   |       B9       |
 @{*/
+/**  */
 #define GPIO_AF_PN5_U1RI        GPIO_AF1
+/**  */
 #define GPIO_AF_PN5_U3CTS       GPIO_AF2
+/** I2C module 2 clock */
 #define GPIO_AF_PN5_I2C2SCL     GPIO_AF3
+/** EPI module 0 signal 35 */
 #define GPIO_AF_PN5_EPI0S35     GPIO_AF15
 /**@}*/
 
@@ -1396,10 +1692,13 @@
  * Package     |   Pin number   |
  * ----------- | -------------- |
  * TQFP-128    |  Not available |
- * NFBGA-212   |                |
+ * NFBGA-212   |      T12       |
 @{*/
+/**  */
 #define GPIO_AF_PN6_U4RTS       GPIO_AF2
+/** Ethernet 0 transmit error */
 #define GPIO_AF_PN6_EN0TXER     GPIO_AF14
+/** LCD data pin 13 input/output */
 #define GPIO_AF_PN6_LCDDATA13   GPIO_AF15
 /**@}*/
 
@@ -1408,10 +1707,13 @@
  * Package     |   Pin number   |
  * ----------- | -------------- |
  * TQFP-128    |  Not available |
- * NFBGA-212   |                |
+ * NFBGA-212   |      U12       |
 @{*/
+/**  */
 #define GPIO_AF_PN7_U1RTS       GPIO_AF1
+/**  */
 #define GPIO_AF_PN7_U4CTS       GPIO_AF2
+/** LCD data pin 12 input/output */
 #define GPIO_AF_PN7_LCDDATA12   GPIO_AF15
 /**@}*/
 
@@ -1420,11 +1722,15 @@
  * Package     |   Pin number   |
  * ----------- | -------------- |
  * TQFP-128    |      118       |
- * NFBGA-212   |                |
+ * NFBGA-212   |       D6       |
 @{*/
+/**  */
 #define GPIO_AF_PP0_U6RX        GPIO_AF1
+/** 16- and 32-bit Timer 6 capture, compare, or PWM 0 */
 #define GPIO_AF_PP0_T6CCP0      GPIO_AF5
+/** Ethernet 0 interrupt from the Ethernet PHY */
 #define GPIO_AF_PP0_EN0INTRN    GPIO_AF7
+/**  */
 #define GPIO_AF_PP0_SSI3XDAT2   GPIO_AF15
 /**@}*/
 
@@ -1433,10 +1739,13 @@
  * Package     |   Pin number   |
  * ----------- | -------------- |
  * TQFP-128    |      119       |
- * NFBGA-212   |                |
+ * NFBGA-212   |       D7       |
 @{*/
+/**  */
 #define GPIO_AF_PP1_U6TX        GPIO_AF1
+/** 16- and 32-bit Timer 6 capture, compare, or PWM 1 */
 #define GPIO_AF_PP1_T6CCP1      GPIO_AF5
+/**  */
 #define GPIO_AF_PP1_SSI3XDAT3   GPIO_AF15
 /**@}*/
 
@@ -1445,10 +1754,13 @@
  * Package     |   Pin number   |
  * ----------- | -------------- |
  * TQFP-128    |      103       |
- * NFBGA-212   |                |
+ * NFBGA-212   |      B13       |
 @{*/
+/**  */
 #define GPIO_AF_PP2_U0DTR       GPIO_AF1
+/**  */
 #define GPIO_AF_PP2_USB0NXT     GPIO_AF14
+/** EPI module 0 signal 29 */
 #define GPIO_AF_PP2_EPI0S29     GPIO_AF15
 /**@}*/
 
@@ -1457,12 +1769,17 @@
  * Package     |   Pin number   |
  * ----------- | -------------- |
  * TQFP-128    |      104       |
- * NFBGA-212   |                |
+ * NFBGA-212   |      C12       |
 @{*/
+/**  */
 #define GPIO_AF_PP3_U1CTS       GPIO_AF1
+/**  */
 #define GPIO_AF_PP3_U0DCD       GPIO_AF2
+/**  */
 #define GPIO_AF_PP3_RTCCLK      GPIO_AF7
+/**  */
 #define GPIO_AF_PP3_USB0DIR     GPIO_AF14
+/** EPI module 0 signal 30 */
 #define GPIO_AF_PP3_EPI0S30     GPIO_AF15
 /**@}*/
 
@@ -1471,11 +1788,15 @@
  * Package     |   Pin number   |
  * ----------- | -------------- |
  * TQFP-128    |      105       |
- * NFBGA-212   |                |
+ * NFBGA-212   |       D8       |
 @{*/
+/**  */
 #define GPIO_AF_PP4_U3RTS       GPIO_AF1
+/**  */
 #define GPIO_AF_PP4_U0DSR       GPIO_AF2
+/** 1-Wire single bus pin */
 #define GPIO_AF_PP4_OWIRE       GPIO_AF4
+/**  */
 #define GPIO_AF_PP4_USB0D7      GPIO_AF14
 /**@}*/
 
@@ -1484,11 +1805,15 @@
  * Package     |   Pin number   |
  * ----------- | -------------- |
  * TQFP-128    |      106       |
- * NFBGA-212   |                |
+ * NFBGA-212   |      B12       |
 @{*/
+/**  */
 #define GPIO_AF_PP5_U3CTS       GPIO_AF1
+/** I2C module 2 clock */
 #define GPIO_AF_PP5_I2C2SCL     GPIO_AF2
+/**  */
 #define GPIO_AF_PP5_OWALT       GPIO_AF4
+/**  */
 #define GPIO_AF_PP5_USB0D6      GPIO_AF14
 /**@}*/
 
@@ -1497,9 +1822,11 @@
  * Package     |   Pin number   |
  * ----------- | -------------- |
  * TQFP-128    |  Not available |
- * NFBGA-212   |                |
+ * NFBGA-212   |       B8       |
 @{*/
+/**  */
 #define GPIO_AF_PP6_U1DCD       GPIO_AF1
+/** I2C module 2 data */
 #define GPIO_AF_PP6_I2C2SDA     GPIO_AF2
 /**@}*/
 
@@ -1508,8 +1835,9 @@
  * Package     |   Pin number   |
  * ----------- | -------------- |
  * TQFP-128    |  Not available |
- * NFBGA-212   |                |
+ * NFBGA-212   |       A8       |
 @{*/
+/** 1-Wire single bus pin */
 #define GPIO_AF_PP7_OWIRE       GPIO_AF5
 /**@}*/
 
@@ -1518,10 +1846,13 @@
  * Package     |   Pin number   |
  * ----------- | -------------- |
  * TQFP-128    |       5        |
- * NFBGA-212   |                |
+ * NFBGA-212   |       E3       |
 @{*/
+/** 16- and 32-bit Timer 6 capture, compare, or PWM 0 */
 #define GPIO_AF_PQ0_T6CCP0      GPIO_AF3
+/**  */
 #define GPIO_AF_PQ0_SSI3CLK     GPIO_AF14
+/** EPI module 0 signal 20 */
 #define GPIO_AF_PQ0_EPI0S20     GPIO_AF15
 /**@}*/
 
@@ -1530,10 +1861,13 @@
  * Package     |   Pin number   |
  * ----------- | -------------- |
  * TQFP-128    |       6        |
- * NFBGA-212   |                |
+ * NFBGA-212   |       E2       |
 @{*/
+/** 16- and 32-bit Timer 6 capture, compare, or PWM 1 */
 #define GPIO_AF_PQ1_T6CCP1      GPIO_AF3
+/**  */
 #define GPIO_AF_PQ1_SSI3FSS     GPIO_AF14
+/** EPI module 0 signal 21 */
 #define GPIO_AF_PQ1_EPI0S21     GPIO_AF15
 /**@}*/
 
@@ -1542,10 +1876,13 @@
  * Package     |   Pin number   |
  * ----------- | -------------- |
  * TQFP-128    |       11       |
- * NFBGA-212   |                |
+ * NFBGA-212   |       H4       |
 @{*/
+/** 16- and 32-bit Timer 7 capture, compare, or PWM 0 */
 #define GPIO_AF_PQ2_T7CCP0      GPIO_AF3
+/**  */
 #define GPIO_AF_PQ2_SSI3XDAT0   GPIO_AF14
+/** EPI module 0 signal 22 */
 #define GPIO_AF_PQ2_EPI0S22     GPIO_AF15
 /**@}*/
 
@@ -1554,10 +1891,13 @@
  * Package     |   Pin number   |
  * ----------- | -------------- |
  * TQFP-128    |       27       |
- * NFBGA-212   |                |
+ * NFBGA-212   |       M4       |
 @{*/
+/** 16- and 32-bit Timer 7 capture, compare, or PWM 1 */
 #define GPIO_AF_PQ3_T7CCP1      GPIO_AF3
+/**  */
 #define GPIO_AF_PQ3_SSI3XDAT1   GPIO_AF14
+/** EPI module 0 signal 23 */
 #define GPIO_AF_PQ3_EPI0S23     GPIO_AF15
 /**@}*/
 
@@ -1566,9 +1906,11 @@
  * Package     |   Pin number   |
  * ----------- | -------------- |
  * TQFP-128    |      102       |
- * NFBGA-212   |                |
+ * NFBGA-212   |      A13       |
 @{*/
+/**  */
 #define GPIO_AF_PQ4_U1RX        GPIO_AF1
+/**  */
 #define GPIO_AF_PQ4_DIVSCLK     GPIO_AF7
 /**@}*/
 
@@ -1577,9 +1919,11 @@
  * Package     |   Pin number   |
  * ----------- | -------------- |
  * TQFP-128    |  Not available |
- * NFBGA-212   |                |
+ * NFBGA-212   |      W12       |
 @{*/
+/**  */
 #define GPIO_AF_PQ5_U1TX        GPIO_AF1
+/** Ethernet 0 receive data 0 */
 #define GPIO_AF_PQ5_EN0RXD0     GPIO_AF14
 /**@}*/
 
@@ -1588,9 +1932,11 @@
  * Package     |   Pin number   |
  * ----------- | -------------- |
  * TQFP-128    |  Not available |
- * NFBGA-212   |                |
+ * NFBGA-212   |      U15       |
 @{*/
+/**  */
 #define GPIO_AF_PQ6_U1DTR       GPIO_AF1
+/** Ethernet 0 receive data 1 */
 #define GPIO_AF_PQ6_EN0RXD1     GPIO_AF14
 /**@}*/
 
@@ -1599,8 +1945,9 @@
  * Package     |   Pin number   |
  * ----------- | -------------- |
  * TQFP-128    |  Not available |
- * NFBGA-212   |                |
+ * NFBGA-212   |       M3       |
 @{*/
+/**  */
 #define GPIO_AF_PQ7_U1RI        GPIO_AF1
 /**@}*/
 
@@ -1609,11 +1956,15 @@
  * Package     |   Pin number   |
  * ----------- | -------------- |
  * TQFP-128    |  Not available |
- * NFBGA-212   |                |
+ * NFBGA-212   |       N5       |
 @{*/
+/**  */
 #define GPIO_AF_PR0_U4TX        GPIO_AF1
+/** I2C module 1 clock */
 #define GPIO_AF_PR0_I2C1SCL     GPIO_AF2
+/** Motion control module 0 PWM 0 */
 #define GPIO_AF_PR0_M0PWM0      GPIO_AF6
+/** LCD pixel clock in raster mode */
 #define GPIO_AF_PR0_LCDCP       GPIO_AF15
 /**@}*/
 
@@ -1622,11 +1973,15 @@
  * Package     |   Pin number   |
  * ----------- | -------------- |
  * TQFP-128    |  Not available |
- * NFBGA-212   |                |
+ * NFBGA-212   |       N4       |
 @{*/
+/**  */
 #define GPIO_AF_PR1_U4RX        GPIO_AF1
+/** I2C module 1 data */
 #define GPIO_AF_PR1_I2C1SDA     GPIO_AF2
+/** Motion control module 0 PWM 1 */
 #define GPIO_AF_PR1_M0PWM1      GPIO_AF6
+/** LCD frame clock or VSYNC in raster mode */
 #define GPIO_AF_PR1_LCDFP       GPIO_AF15
 /**@}*/
 
@@ -1635,10 +1990,13 @@
  * Package     |   Pin number   |
  * ----------- | -------------- |
  * TQFP-128    |  Not available |
- * NFBGA-212   |                |
+ * NFBGA-212   |       N2       |
 @{*/
+/** I2C module 2 clock */
 #define GPIO_AF_PR2_I2C2SCL     GPIO_AF2
+/** Motion control module 0 PWM 2 */
 #define GPIO_AF_PR2_M0PWM2      GPIO_AF6
+/** LCD line clock or HSYNC in raster mode */
 #define GPIO_AF_PR2_LCDLP       GPIO_AF15
 /**@}*/
 
@@ -1647,10 +2005,13 @@
  * Package     |   Pin number   |
  * ----------- | -------------- |
  * TQFP-128    |  Not available |
- * NFBGA-212   |                |
+ * NFBGA-212   |       V8       |
 @{*/
+/** I2C module 2 data */
 #define GPIO_AF_PR3_I2C2SDA     GPIO_AF2
+/** Motion control module 0 PWM 3 */
 #define GPIO_AF_PR3_M0PWM3      GPIO_AF6
+/** LCD data pin 3 input/output */
 #define GPIO_AF_PR3_LCDDATA03   GPIO_AF15
 /**@}*/
 
@@ -1659,11 +2020,15 @@
  * Package     |   Pin number   |
  * ----------- | -------------- |
  * TQFP-128    |  Not available |
- * NFBGA-212   |                |
+ * NFBGA-212   |       P3       |
 @{*/
+/** I2C module 3 clock */
 #define GPIO_AF_PR4_I2C3SCL     GPIO_AF2
+/** 16- and 32-bit Timer 0 capture, compare, or PWM 0 */
 #define GPIO_AF_PR4_T0CCP0      GPIO_AF3
+/** Motion control module 0 PWM 4 */
 #define GPIO_AF_PR4_M0PWM4      GPIO_AF6
+/** LCD data pin 0 input/output */
 #define GPIO_AF_PR4_LCDDATA00   GPIO_AF15
 /**@}*/
 
@@ -1672,12 +2037,17 @@
  * Package     |   Pin number   |
  * ----------- | -------------- |
  * TQFP-128    |  Not available |
- * NFBGA-212   |                |
+ * NFBGA-212   |       P2       |
 @{*/
+/**  */
 #define GPIO_AF_PR5_U1RX        GPIO_AF1
+/** I2C module 3 data */
 #define GPIO_AF_PR5_I2C3SDA     GPIO_AF2
+/** 16- and 32-bit Timer 0 capture, compare, or PWM 1 */
 #define GPIO_AF_PR5_T0CCP1      GPIO_AF3
+/** Motion control module 0 PWM 5 */
 #define GPIO_AF_PR5_M0PWM5      GPIO_AF6
+/** LCD data pin 1 input/output */
 #define GPIO_AF_PR5_LCDDATA01   GPIO_AF15
 /**@}*/
 
@@ -1686,12 +2056,17 @@
  * Package     |   Pin number   |
  * ----------- | -------------- |
  * TQFP-128    |  Not available |
- * NFBGA-212   |                |
+ * NFBGA-212   |       W9       |
 @{*/
+/**  */
 #define GPIO_AF_PR6_U1TX        GPIO_AF1
+/** I2C module 4 clock */
 #define GPIO_AF_PR6_I2C4SCL     GPIO_AF2
+/** 16- and 32-bit Timer 1 capture, compare, or PWM 0 */
 #define GPIO_AF_PR6_T1CCP0      GPIO_AF3
+/** Motion control module 0 PWM 6 */
 #define GPIO_AF_PR6_M0PWM6      GPIO_AF6
+/** LCD data pin 4 input/output */
 #define GPIO_AF_PR6_LCDDATA04   GPIO_AF15
 /**@}*/
 
@@ -1700,12 +2075,17 @@
  * Package     |   Pin number   |
  * ----------- | -------------- |
  * TQFP-128    |  Not available |
- * NFBGA-212   |                |
+ * NFBGA-212   |      R10       |
 @{*/
+/** I2C module 4 data */
 #define GPIO_AF_PR7_I2C4SDA     GPIO_AF2
+/** 16- and 32-bit Timer 1 capture, compare, or PWM 1 */
 #define GPIO_AF_PR7_T1CCP1      GPIO_AF3
+/** Motion control module 0 PWM 7 */
 #define GPIO_AF_PR7_M0PWM7      GPIO_AF6
+/** Ethernet 0 transmit enable */
 #define GPIO_AF_PR7_EN0TXEN     GPIO_AF14
+/** LCD data pin 5 input/output */
 #define GPIO_AF_PR7_LCDDATA05   GPIO_AF15
 /**@}*/
 
@@ -1714,10 +2094,13 @@
  * Package     |   Pin number   |
  * ----------- | -------------- |
  * TQFP-128    |  Not available |
- * NFBGA-212   |                |
+ * NFBGA-212   |      D12       |
 @{*/
+/** 16- and 32-bit Timer 2 capture, compare, or PWM 0 */
 #define GPIO_AF_PS0_T2CCP0      GPIO_AF3
+/** Motion control module 0 PWM fault 0 */
 #define GPIO_AF_PS0_M0FAULT0    GPIO_AF6
+/** LCD data pin 20 output */
 #define GPIO_AF_PS0_LCDDATA20   GPIO_AF15
 /**@}*/
 
@@ -1726,10 +2109,13 @@
  * Package     |   Pin number   |
  * ----------- | -------------- |
  * TQFP-128    |  Not available |
- * NFBGA-212   |                |
+ * NFBGA-212   |      D13       |
 @{*/
+/** 16- and 32-bit Timer 2 capture, compare, or PWM 1 */
 #define GPIO_AF_PS1_T2CCP1      GPIO_AF3
+/** Motion control module 0 PWM fault 1 */
 #define GPIO_AF_PS1_M0FAULT1    GPIO_AF6
+/** LCD data pin 21 output */
 #define GPIO_AF_PS1_LCDDATA21   GPIO_AF15
 /**@}*/
 
@@ -1738,11 +2124,15 @@
  * Package     |   Pin number   |
  * ----------- | -------------- |
  * TQFP-128    |  Not available |
- * NFBGA-212   |                |
+ * NFBGA-212   |      B14       |
 @{*/
+/**  */
 #define GPIO_AF_PS2_U1DSR       GPIO_AF1
+/** 16- and 32-bit Timer 3 capture, compare, or PWM 0 */
 #define GPIO_AF_PS2_T3CCP0      GPIO_AF3
+/** Motion control module 0 PWM fault 2 */
 #define GPIO_AF_PS2_M0FAULT2    GPIO_AF6
+/** LCD data pin 22 output */
 #define GPIO_AF_PS2_LCDDATA22   GPIO_AF15
 /**@}*/
 
@@ -1751,10 +2141,13 @@
  * Package     |   Pin number   |
  * ----------- | -------------- |
  * TQFP-128    |  Not available |
- * NFBGA-212   |                |
+ * NFBGA-212   |      A14       |
 @{*/
+/** 16- and 32-bit Timer 3 capture, compare, or PWM 1 */
 #define GPIO_AF_PS3_T3CCP1        GPIO_AF3
+/** Motion control module 0 PWM fault 3 */
 #define GPIO_AF_PS3_M0FAULT3      GPIO_AF6
+/** LCD data pin 23 output */
 #define GPIO_AF_PS3_LCDDATA23     GPIO_AF15
 /**@}*/
 
@@ -1763,20 +2156,32 @@
  * Package     |   Pin number   |
  * ----------- | -------------- |
  * TQFP-128    |  Not available |
- * NFBGA-212   |                |
+ * NFBGA-212   |       V9       |
 @{*/
+/** 16- and 32-bit Timer 4 capture, compare, or PWM 0 */
 #define GPIO_AF_PS4_T4CCP0      GPIO_AF3
+/**  */
 #define GPIO_AF_PS4_PHA0        GPIO_AF6
+/** Ethernet 0 transmit data 0 */
 #define GPIO_AF_PS4_EN0TXD0     GPIO_AF14
+/** LCD data pin 6 input/output */
 #define GPIO_AF_PS4_LCDDATA06   GPIO_AF15
 /**@}*/
 
 /** @defgroup gpio_af_ps5_values GPIO_AF_PS5 Values
  * @brief GPIO PS5 Alternate Functions Values
+ * Package     |   Pin number   |
+ * ----------- | -------------- |
+ * TQFP-128    |  Not available |
+ * NFBGA-212   |      T13       |
 @{*/
+/** 16- and 32-bit Timer 4 capture, compare, or PWM 1 */
 #define GPIO_AF_PS5_T4CCP1      GPIO_AF3
+/**  */
 #define GPIO_AF_PS5_PHB0        GPIO_AF6
+/** Ethernet 0 transmit data 1 */
 #define GPIO_AF_PS5_EN0TXD1     GPIO_AF14
+/** LCD data pin 7 input/output */
 #define GPIO_AF_PS5_LCDDATA07   GPIO_AF15
 /**@}*/
 
@@ -1785,11 +2190,15 @@
  * Package     |   Pin number   |
  * ----------- | -------------- |
  * TQFP-128    |  Not available |
- * NFBGA-212   |                |
+ * NFBGA-212   |      U10       |
 @{*/
+/** 16- and 32-bit Timer 5 capture, compare, or PWM 0 */
 #define GPIO_AF_PS6_T5CCP0      GPIO_AF3
+/**  */
 #define GPIO_AF_PS6_IDX0        GPIO_AF6
+/** Ethernet 0 receive error */
 #define GPIO_AF_PS6_EN0RXER     GPIO_AF14
+/** LCD data pin 8 input/output */
 #define GPIO_AF_PS6_LCDDATA08   GPIO_AF15
 /**@}*/
 
@@ -1798,10 +2207,13 @@
  * Package     |   Pin number   |
  * ----------- | -------------- |
  * TQFP-128    |  Not available |
- * NFBGA-212   |                |
+ * NFBGA-212   |      R13       |
 @{*/
+/** 16- and 32-bit Timer 5 capture, compare, or PWM 1 */
 #define GPIO_AF_PS7_T5CCP1      GPIO_AF3
+/** Ethernet 0 receive data valid */
 #define GPIO_AF_PS7_EN0RXDV     GPIO_AF14
+/** LCD data pin 9 input/output */
 #define GPIO_AF_PS7_LCDDATA09   GPIO_AF15
 /**@}*/
 
@@ -1810,11 +2222,15 @@
  * Package     |   Pin number   |
  * ----------- | -------------- |
  * TQFP-128    |  Not available |
- * NFBGA-212   |                |
+ * NFBGA-212   |      W10       |
 @{*/
+/** 16- and 32-bit Timer 6 capture, compare, or PWM 0 */
 #define GPIO_AF_PT0_T6CCP0      GPIO_AF3
+/** CAN module 0 receive */
 #define GPIO_AF_PT0_CAN0RX      GPIO_AF7
+/** Ethernet 0 receive data 0 */
 #define GPIO_AF_PT0_EN0RXD0     GPIO_AF14
+/** LCD data pin 10 input/output */
 #define GPIO_AF_PT0_LCDDATA10   GPIO_AF15
 /**@}*/
 
@@ -1823,11 +2239,15 @@
  * Package     |   Pin number   |
  * ----------- | -------------- |
  * TQFP-128    |  Not available |
- * NFBGA-212   |                |
+ * NFBGA-212   |      V10       |
 @{*/
+/** 16- and 32-bit Timer 6 capture, compare, or PWM 1 */
 #define GPIO_AF_PT1_T6CCP1      GPIO_AF3
+/** CAN module 0 transmit */
 #define GPIO_AF_PT1_CAN0TX      GPIO_AF7
+/** Ethernet 0 receive data 1 */
 #define GPIO_AF_PT1_EN0RXD1     GPIO_AF14
+/** LCD data pin 11 input/output */
 #define GPIO_AF_PT1_LCDDATA11   GPIO_AF15
 /**@}*/
 
@@ -1836,10 +2256,13 @@
  * Package     |   Pin number   |
  * ----------- | -------------- |
  * TQFP-128    |  Not available |
- * NFBGA-212   |                |
+ * NFBGA-212   |      E18       |
 @{*/
+/** 16- and 32-bit Timer 7 capture, compare, or PWM 0 */
 #define GPIO_AF_PT2_T7CCP0      GPIO_AF3
+/** CAN module 1 receive */
 #define GPIO_AF_PT2_CAN1RX      GPIO_AF7
+/** LCD data pin 18 output */
 #define GPIO_AF_PT2_LCDDATA18   GPIO_AF15
 /**@}*/
 
@@ -1848,10 +2271,13 @@
  * Package     |   Pin number   |
  * ----------- | -------------- |
  * TQFP-128    |  Not available |
- * NFBGA-212   |                |
+ * NFBGA-212   |      F17       |
 @{*/
+/** 16- and 32-bit Timer 7 capture, compare, or PWM 1 */
 #define GPIO_AF_PT3_T7CCP1      GPIO_AF3
+/** CAN module 1 transmit */
 #define GPIO_AF_PT3_CAN1TX      GPIO_AF7
+/** LCD data pin 19 output */
 #define GPIO_AF_PT3_LCDDATA19   GPIO_AF15
 /**@}*/
 
