@@ -580,9 +580,9 @@ void dma_set_memory_size(uint32_t dma, uint8_t stream, uint32_t mem_size);
 void dma_set_peripheral_size(uint32_t dma, uint8_t stream,
 			     uint32_t peripheral_size);
 void dma_enable_memory_increment_mode(uint32_t dma, uint8_t stream);
-void dma_disable_memory_increment_mode(uint32_t dma, uint8_t channel);
+void dma_disable_memory_increment_mode(uint32_t dma, uint8_t stream);
 void dma_enable_peripheral_increment_mode(uint32_t dma, uint8_t stream);
-void dma_disable_peripheral_increment_mode(uint32_t dma, uint8_t channel);
+void dma_disable_peripheral_increment_mode(uint32_t dma, uint8_t stream);
 void dma_enable_fixed_peripheral_increment_mode(uint32_t dma, uint8_t stream);
 void dma_enable_circular_mode(uint32_t dma, uint8_t stream);
 void dma_channel_select(uint32_t dma, uint8_t stream, uint32_t channel);
