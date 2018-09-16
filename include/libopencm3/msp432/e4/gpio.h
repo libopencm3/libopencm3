@@ -6,15 +6,17 @@
  *
  * @version 1.0.0
  *
- * @date 22 July 2018
+ * @date 16 September 2018
  *
  * LGPL License Terms @ref lgpl_license
  */
+
 /*
  * This file is part of the libopencm3 project.
  *
  * Copyright (C) 2011 Gareth McMullin <gareth@blacksphere.co.nz>
  * Copyright (C) 2013 Alexandru Gagniuc <mr.nuke.me@gmail.com>
+ * Copyright (C) 2018 Dmitry Rezvanov <dmitry.rezvanov@yandex.ru>
  *
  * This library is free software: you can redistribute it and/or modify
  * it under the terms of the GNU Lesser General Public License as published by
@@ -33,59 +35,101 @@
 #ifndef MSP432E4_GPIO_H
 #define MSP432E4_GPIO_H
 
+/**@{*/
+
 #include <libopencm3/cm3/common.h>
 #include <libopencm3/msp432/e4/memorymap.h>
+#include <stdbool.h>
 
-/** @defgroup gpio_reg_base GPIO register base addresses
- *@{*/
+/* Указать для AF применимость (401/411)
+ * Придумать, что сделать с PC_EDE
+*/
+
+/** @defgroup gpio_reg_base GPIO Register Base Addresses
+@{*/
+/** GPIOA Base Address */
 #define GPIOA               GPIOA_BASE
+/** GPIOB Base Address */
 #define GPIOB               GPIOB_BASE
+/** GPIOC Base Address */
 #define GPIOC               GPIOC_BASE
+/** GPIOD Base Address */
 #define GPIOD               GPIOD_BASE
+/** GPIOE Base Address */
 #define GPIOE               GPIOE_BASE
+/** GPIOF Base Address */
 #define GPIOF               GPIOF_BASE
+/** GPIOG Base Address */
 #define GPIOG               GPIOG_BASE
+/** GPIOH Base Address */
 #define GPIOH               GPIOH_BASE
+/** GPIOJ Base Address */
 #define GPIOJ               GPIOJ_BASE
+/** GPIOK Base Address */
 #define GPIOK               GPIOK_BASE
+/** GPIOL Base Address */
 #define GPIOL               GPIOL_BASE
+/** GPIOM Base Address */
 #define GPIOM               GPIOM_BASE
+/** GPION Base Address */
 #define GPION               GPION_BASE
+/** GPIOP Base Address */
 #define GPIOP               GPIOP_BASE
+/** GPIOQ Base Address */
 #define GPIOQ               GPIOQ_BASE
 /**@}*/
 
-/** @defgroup gpio_pin_id GPIO pin identifiers
- * @{*/
-#define GPIO0                   (1 << 0)
-#define GPIO1                   (1 << 1)
-#define GPIO2                   (1 << 2)
-#define GPIO3                   (1 << 3)
-#define GPIO4                   (1 << 4)
-#define GPIO5                   (1 << 5)
-#define GPIO6                   (1 << 6)
-#define GPIO7                   (1 << 7)
-#define GPIO_ALL                (0xFF)
-/** @} */
+/** @defgroup gpio_pin_id GPIO Pin Identifiers
+@{*/
+/** GPIO Pin 0 Identifier */
+#define GPIO0               (1 << 0)
+/** GPIO Pin 1 Identifier */
+#define GPIO1               (1 << 1)
+/** GPIO Pin 2 Identifier */
+#define GPIO2               (1 << 2)
+/** GPIO Pin 3 Identifier */
+#define GPIO3               (1 << 3)
+/** GPIO Pin 4 Identifier */
+#define GPIO4               (1 << 4)
+/** GPIO Pin 5 Identifier */
+#define GPIO5               (1 << 5)
+/** GPIO Pin 6 Identifier */
+#define GPIO6               (1 << 6)
+/** GPIO Pin 7 Identifier */
+#define GPIO7               (1 << 7)
+/** GPIO All Pins Identifier */
+#define GPIO_ALL            (0xFF)
+/**@}*/
 
-#define GPIO_AF1                0x1
-#define GPIO_AF2                0x2
-#define GPIO_AF3                0x3
-#define GPIO_AF4                0x4
-#define GPIO_AF5                0x5
-#define GPIO_AF6                0x6
-#define GPIO_AF7                0x7
-#define GPIO_AF8                0x8
-#define GPIO_AF11               0xB
-#define GPIO_AF13               0xD
-#define GPIO_AF14               0xE
-#define GPIO_AF15               0xF
-#define GPIO_AF_ALL             0xF
-
-/* Корпуса указаны. Добавить описание для каждой функции каждого пина. */
+/** @defgroup gpio_af_id GPIO Alternate Functions Identifiers
+@{*/
+/** GPIO Alternate Functions 1 Identifier */
+#define GPIO_AF1            0x1
+/** GPIO Alternate Functions 2 Identifier */
+#define GPIO_AF2            0x2
+/** GPIO Alternate Functions 3 Identifier */
+#define GPIO_AF3            0x3
+/** GPIO Alternate Functions 4 Identifier */
+#define GPIO_AF4            0x4
+/** GPIO Alternate Functions 5 Identifier */
+#define GPIO_AF5            0x5
+/** GPIO Alternate Functions 6 Identifier */
+#define GPIO_AF6            0x6
+/** GPIO Alternate Functions 7 Identifier */
+#define GPIO_AF7            0x7
+/** GPIO Alternate Functions 8 Identifier */
+#define GPIO_AF8            0x8
+/** GPIO Alternate Functions 11 Identifier */
+#define GPIO_AF11           0xB
+/** GPIO Alternate Functions 13 Identifier */
+#define GPIO_AF13           0xD
+/** GPIO Alternate Functions 14 Identifier */
+#define GPIO_AF14           0xE
+/** GPIO Alternate Functions 15 Identifier */
+#define GPIO_AF15           0xF
+/**@}*/
 
 /** @defgroup gpio_registers GPIO Registers
- *  @brief GPIO Registers
 @{*/
 /** GPIO Data */
 #define GPIO_DATA(port)         (&MMIO32((port) + 0x000))
@@ -139,7 +183,9 @@
 #define GPIO_SI(port)           MMIO32((port) + 0x538)
 /** GPIO 12-mA Drive Select */
 #define GPIO_DR12R(port)        MMIO32((port) + 0x53C)
-/** GPIO Wake Pin Enable */
+/** GPIO Wake Pin Enable
+ * @note This register is only available on Port K
+*/
 #define GPIO_WAKEPEN(port)      MMIO32((port) + 0x540)
 /** GPIO Wake Level */
 #define GPIO_WAKELVL(port)      MMIO32((port) + 0x544)
@@ -151,30 +197,138 @@
 #define GPIO_PC(port)           MMIO32((port) + 0xFC4)
 
 /** GPIO Peripheral Identification 0 */
-#define GPIO_PERIPH_ID0(port)       MMIO32((port) + 0xFE0)
+#define GPIO_PERIPH_ID0(port)   MMIO32((port) + 0xFE0)
 /** GPIO Peripheral Identification 1 */
-#define GPIO_PERIPH_ID1(port)       MMIO32((port) + 0xFE4)
+#define GPIO_PERIPH_ID1(port)   MMIO32((port) + 0xFE4)
 /** GPIO Peripheral Identification 2 */
-#define GPIO_PERIPH_ID2(port)       MMIO32((port) + 0xFE8)
+#define GPIO_PERIPH_ID2(port)   MMIO32((port) + 0xFE8)
 /** GPIO Peripheral Identification 3 */
-#define GPIO_PERIPH_ID3(port)       MMIO32((port) + 0xFEC)
+#define GPIO_PERIPH_ID3(port)   MMIO32((port) + 0xFEC)
 /** GPIO Peripheral Identification 4 */
-#define GPIO_PERIPH_ID4(port)       MMIO32((port) + 0xFD0)
+#define GPIO_PERIPH_ID4(port)   MMIO32((port) + 0xFD0)
 /** GPIO Peripheral Identification 5 */
-#define GPIO_PERIPH_ID5(port)       MMIO32((port) + 0xFD4)
+#define GPIO_PERIPH_ID5(port)   MMIO32((port) + 0xFD4)
 /** GPIO Peripheral Identification 6 */
-#define GPIO_PERIPH_ID6(port)       MMIO32((port) + 0xFD8)
+#define GPIO_PERIPH_ID6(port)   MMIO32((port) + 0xFD8)
 /** GPIO Peripheral Identification 7 */
-#define GPIO_PERIPH_ID7(port)       MMIO32((port) + 0xFDC)
+#define GPIO_PERIPH_ID7(port)   MMIO32((port) + 0xFDC)
 
 /** GPIO PrimeCell Identification 0 */
-#define GPIO_PCELL_ID0(port)        MMIO32((port) + 0xFF0)
+#define GPIO_PCELL_ID0(port)    MMIO32((port) + 0xFF0)
 /** GPIO PrimeCell Identification 1 */
-#define GPIO_PCELL_ID1(port)        MMIO32((port) + 0xFF4)
+#define GPIO_PCELL_ID1(port)    MMIO32((port) + 0xFF4)
 /** GPIO PrimeCell Identification 2 */
-#define GPIO_PCELL_ID2(port)        MMIO32((port) + 0xFF8)
+#define GPIO_PCELL_ID2(port)    MMIO32((port) + 0xFF8)
 /** GPIO PrimeCell Identification 3 */
-#define GPIO_PCELL_ID3(port)        MMIO32((port) + 0xFFC)
+#define GPIO_PCELL_ID3(port)    MMIO32((port) + 0xFFC)
+/**@}*/
+
+/** @defgroup gpio_im_values GPIO_IM Values
+ * @brief GPIO Interrupt Mask Register Values
+@{*/
+/** GPIO Micro Direct Memory Access Done Interrupt Mask Enable */
+#define GPIO_IM_DMAIME          (1 << 8)
+/**@}*/
+
+/** @defgroup gpio_ris_values GPIO_RIS Values
+ * @brief GPIO Raw Interrupt Status Register Values
+@{*/
+/** GPIO Micro Direct Memory Access Done Interrupt Raw Status */
+#define GPIO_RIS_DMARIS         (1 << 8)
+/**@}*/
+
+/** @defgroup gpio_mis_values GPIO_MIS Values
+ * @brief GPIO Masked Interrupt Status Register Values
+@{*/
+/** GPIO Micro Direct Memory Access Done Masked Interrupt Status */
+#define GPIO_MIS_DMAMIS         (1 << 8)
+/**@}*/
+
+/** @defgroup gpio_icr_values GPIO_RIS Values
+ * @brief GPIO Interrupt Clear Register Values
+@{*/
+/** GPIO Micro Direct Memory Access Interrupt Clear */
+#define GPIO_ICR_DMAIC          (1 << 8)
+/**@}*/
+
+/** @defgroup gpio_lock_values GPIO_LOCK Values
+ * @brief GPIO Lock Register Values
+@{*/
+/* Value we need to write to unlock the GPIO commit register */
+#define GPIO_LOCK_UNLOCK_CODE   (0x4C4F434B)
+/** GPIO Lock Status */
+#define GPIO_LOCK               (1 << 0)
+/**@}*/
+
+/** @defgroup gpio_si_values GPIO_SI Values
+ * @brief GPIO Select Interrupt Register Values
+@{*/
+/** Summary Interrupt */
+#define GPIO_SI_SUM             (1 << 0)
+/**@}*/
+
+/** @defgroup gpio_wakepen_values GPIO_WAKEPEN Values
+ * @brief GPIO Wake Pin Enable Register Values
+ * @note This register is only available on Port K
+@{*/
+/** PK7 Wake Enable */
+#define GPIO_WAKEPEN_WAKEP7     (1 << 7)
+/** PK6 Wake Enable */
+#define GPIO_WAKEPEN_WAKEP6     (1 << 6)
+/** PK5 Wake Enable */
+#define GPIO_WAKEPEN_WAKEP5     (1 << 5)
+/** PK4 Wake Enable */
+#define GPIO_WAKEPEN_WAKEP4     (1 << 4)
+/**@}*/
+
+/** @defgroup gpio_wakelvl_values GPIO_WAKELVL Values
+ * @brief GPIO Wake Level Register Values
+@{*/
+/** PK7 Wake Level */
+#define GPIO_WAKELVL_WAKELVL7   (1 << 7)
+/** PK6 Wake Level */
+#define GPIO_WAKELVL_WAKELVL6   (1 << 6)
+/** PK5 Wake Level */
+#define GPIO_WAKELVL_WAKELVL5   (1 << 5)
+/** PK4 Wake Level */
+#define GPIO_WAKELVL_WAKELVL4   (1 << 4)
+/**@}*/
+
+/** @defgroup gpio_wakestat_values GPIO_WAKESTAT Values
+ * @brief GPIO Wake Status Register Values
+@{*/
+/** PK7 Wake Status */
+#define GPIO_WAKESTAT_STAT7     (1 << 7)
+/** PK6 Wake Status */
+#define GPIO_WAKESTAT_STAT6     (1 << 6)
+/** PK5 Wake Status */
+#define GPIO_WAKESTAT_STAT5     (1 << 5)
+/** PK4 Wake Status */
+#define GPIO_WAKESTAT_STAT4     (1 << 4)
+/**@}*/
+
+/** @defgroup gpio_pp_values GPIO_PP Values
+ * @brief GPIO Peripheral Property Register Values
+@{*/
+/** Extended Drive Enable */
+#define GPIO_PP_EDE             (1 << 0)
+/**@}*/
+
+/** @defgroup gpio_pc_values GPIO_PC Values
+ * @brief GPIO Peripheral Configuration Register Values
+@{*/
+/** Extended Drive Mode Bit N */
+#define GPIO_PC_EDM(n, mode)    ((mode) << (2 * (n)))
+/** Extended Drive Mode Bit N Mask */
+#define GPIO_PC_EDM_MASK(n)     (0x3 << (2 * (n)))
+/** Normal behavior, 2, 4 and 8 mA are available */
+#define GPIO_PC_EDM_NORMAL      0x0
+/** An additional 6 mA option is provided.
+ * Set one, clear other behavior is disabled */
+#define GPIO_PC_EDM_ADD_6MA     0x1
+/** Full range, 2, 4, 6, 8, 10 and 12 mA are available.
+ * Set one, clear other behavior is disabled */
+#define GPIO_PC_EDM_FULL_RANGE  0x3
 /**@}*/
 
 /** @defgroup gpio_af_pa0_values GPIO_AF_PA0 Values
@@ -2283,36 +2437,6 @@
 #define GPIO_AF_PT3_LCDDATA19   GPIO_AF15
 /**@}*/
 
-#define GPIO_EDM(n, mode)       ((mode) << (2 * (n)))
-#define GPIO_EDM_MASK(n)        (0x3 << (2 * (n)))
-
-#define GPIO_IM_DMAIME          (1 << 8)
-#define GPIO_RIS_DMARIS         (1 << 8)
-#define GPIO_MIS_DMAMIS         (1 << 8)
-#define GPIO_ICR_DMAIC          (1 << 8)
-#define GPIO_SI_SUM             (1 << 0)
-#define GPIO_WAKEPEN_WAKEP4     (1 << 4)
-#define GPIO_WAKEPEN_WAKEP5     (1 << 5)
-#define GPIO_WAKEPEN_WAKEP6     (1 << 6)
-#define GPIO_WAKEPEN_WAKEP7     (1 << 7)
-#define GPIO_WAKELVL_WAKELVL4   (1 << 4)
-#define GPIO_WAKELVL_WAKELVL5   (1 << 5)
-#define GPIO_WAKELVL_WAKELVL6   (1 << 6)
-#define GPIO_WAKELVL_WAKELVL7   (1 << 7)
-#define GPIO_WAKESTAT_STAT4     (1 << 4)
-#define GPIO_WAKESTAT_STAT5     (1 << 5)
-#define GPIO_WAKESTAT_STAT6     (1 << 6)
-#define GPIO_WAKESTAT_STAT7     (1 << 7)
-#define GPIO_PP_EDE             (1 << 0)
-/* Normal behavior, 2, 4 and 8 mA are available. */
-#define GPIO_EDM_NORMAL         0x0
-/* Full range, 2, 4, 6, 8, 10 and 12 mA are available.
- * Set one, clear other behavior is disabled. */
-#define GPIO_EDM_FULL_RANGE     0x3
-
-/* Value we need to write to unlock the GPIO commit register */
-#define GPIO_LOCK_UNLOCK_CODE       0x4C4F434B
-
 /* =============================================================================
  * Convenience enums
  * ---------------------------------------------------------------------------*/
@@ -2361,7 +2485,7 @@ BEGIN_DECLS
 
 void gpio_mode_setup(uint32_t gpioport, enum gpio_mode mode,
                      enum gpio_pullup pullup, uint8_t gpios);
-void gpio_set_output_config(uint32_t gpioport,
+void gpio_set_output_options(uint32_t gpioport,
                             enum gpio_output_type otype,
                             enum gpio_drive_strength drive,
                             enum gpio_slew_ctl slewctl,
