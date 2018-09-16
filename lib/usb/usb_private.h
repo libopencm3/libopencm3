@@ -47,7 +47,7 @@ LGPL License Terms @ref lgpl_license
 struct _usbd_device {
 	const struct usb_device_descriptor *desc;
 	const struct usb_config_descriptor *config;
-	const char **strings;
+	const char * const *strings;
 	int num_strings;
 
 	uint8_t *ctrl_buf;  /**< Internal buffer used for control transfers */

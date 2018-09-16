@@ -60,6 +60,7 @@ extern const usbd_driver st_usbfs_v2_usb_driver;
 #define otghs_usb_driver stm32f207_usb_driver
 extern const usbd_driver efm32lg_usb_driver;
 extern const usbd_driver efm32hg_usb_driver;
+extern const usbd_driver lm4f_usb_driver;
 
 /* <usb.c> */
 /**
@@ -77,17 +78,26 @@ extern const usbd_driver efm32hg_usb_driver;
  *             not be changed while the device is in use. The length of this
  *             array is determined by the bNumConfigurations field in the
  *             device descriptor.
- * @param strings TODO
+ * @param strings Pointer to an array of strings for USB string descriptors.
+ *                Referenced in @e iSomething fields, e.g. @a iManufacturer.
+ *                Since a zero index means "no string", an iSomething value of
+ *                1 refers strings[0].
+ * @param num_strings Number of items in @a strings array.
  * @param control_buffer Pointer to array that would hold the data
  *                       received during control requests with DATA
  *                       stage
  * @param control_buffer_size Size of control_buffer
  * @return the usb device initialized for use. (currently cannot fail).
+ *
+ * To place @a strings entirely into Flash/read-only memory, use
+ * @code static const * const strings[] = { ... }; @endcode
+ * (note the double @e const.)  The first @e const refers to the strings
+ * while the second @e const refers to the array.
  */
 extern usbd_device * usbd_init(const usbd_driver *driver,
 			       const struct usb_device_descriptor *dev,
 			       const struct usb_config_descriptor *conf,
-			       const char **strings, int num_strings,
+			       const char * const *strings, int num_strings,
 			       uint8_t *control_buffer,
 			       uint16_t control_buffer_size);
 
@@ -139,7 +149,8 @@ extern int usbd_register_control_callback(usbd_device *usbd_dev, uint8_t type,
 
 /* <usb_standard.c> */
 /** Registers a "Set Config" callback
- * @return 0 if successful
+ * @return 0 if successful or already existed.
+ * @return -1 if no more space was available for callbacks.
  */
 extern int usbd_register_set_config_callback(usbd_device *usbd_dev,
 					  usbd_set_config_callback callback);
@@ -150,7 +161,12 @@ extern void usbd_register_set_altsetting_callback(usbd_device *usbd_dev,
 /* Functions to be provided by the hardware abstraction layer */
 extern void usbd_poll(usbd_device *usbd_dev);
 
-/** Disconnect, if supported by the driver */
+/** Disconnect, if supported by the driver
+ *
+ * This function is implemented as weak function and can be replaced by an
+ * application specific version to handle chips that don't have built-in
+ * handling for this (e.g. STM32F1.)
+ */
 extern void usbd_disconnect(usbd_device *usbd_dev, bool disconnected);
 
 /** Setup an endpoint

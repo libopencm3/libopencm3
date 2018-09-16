@@ -26,21 +26,6 @@
 #include "../usb/usb_private.h"
 #include "common/st_usbfs_core.h"
 
-static usbd_device *st_usbfs_v2_usbd_init(void);
-
-const struct _usbd_driver st_usbfs_v2_usb_driver = {
-	.init = st_usbfs_v2_usbd_init,
-	.set_address = st_usbfs_set_address,
-	.ep_setup = st_usbfs_ep_setup,
-	.ep_reset = st_usbfs_endpoints_reset,
-	.ep_stall_set = st_usbfs_ep_stall_set,
-	.ep_stall_get = st_usbfs_ep_stall_get,
-	.ep_nak_set = st_usbfs_ep_nak_set,
-	.ep_write_packet = st_usbfs_ep_write_packet,
-	.ep_read_packet = st_usbfs_ep_read_packet,
-	.poll = st_usbfs_poll,
-};
-
 /** Initialize the USB device controller hardware of the STM32. */
 static usbd_device *st_usbfs_v2_usbd_init(void)
 {
@@ -99,3 +84,28 @@ void st_usbfs_copy_from_pm(void *buf, const volatile void *vPM, uint16_t len)
 		*(uint8_t *) buf = *(uint8_t *) PM;
 	}
 }
+
+static void st_usbfs_v2_disconnect(usbd_device *usbd_dev, bool disconnected)
+{
+	(void)usbd_dev;
+	uint16_t reg = GET_REG(USB_BCDR_REG);
+	if (disconnected) {
+		SET_REG(USB_BCDR_REG, reg | USB_BCDR_DPPU);
+	} else {
+		SET_REG(USB_BCDR_REG, reg & ~USB_BCDR_DPPU);
+	}
+}
+
+const struct _usbd_driver st_usbfs_v2_usb_driver = {
+	.init = st_usbfs_v2_usbd_init,
+	.set_address = st_usbfs_set_address,
+	.ep_setup = st_usbfs_ep_setup,
+	.ep_reset = st_usbfs_endpoints_reset,
+	.ep_stall_set = st_usbfs_ep_stall_set,
+	.ep_stall_get = st_usbfs_ep_stall_get,
+	.ep_nak_set = st_usbfs_ep_nak_set,
+	.ep_write_packet = st_usbfs_ep_write_packet,
+	.ep_read_packet = st_usbfs_ep_read_packet,
+	.disconnect = st_usbfs_v2_disconnect,
+	.poll = st_usbfs_poll,
+};

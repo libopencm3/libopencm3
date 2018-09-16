@@ -58,10 +58,12 @@
 /* --- FLASH_ACR values ---------------------------------------------------- */
 
 #define FLASH_ACR_LATENCY_SHIFT		0
-#define FLASH_ACR_LATENCY		7
+#define FLASH_ACR_LATENCY_MASK		7
 
 #define FLASH_ACR_PRFTBS		(1 << 5)
 #define FLASH_ACR_PRFTBE		(1 << 4)
+/** Compatibility define */
+#define FLASH_ACR_PRFTEN		FLASH_ACR_PRFTBE
 
 /* --- FLASH_SR values ----------------------------------------------------- */
 
@@ -93,27 +95,20 @@
 #define FLASH_KEYR_KEY1			((uint32_t)0x45670123)
 #define FLASH_KEYR_KEY2			((uint32_t)0xcdef89ab)
 
+#define FLASH_OPTKEYR_KEY1		FLASH_KEYR_KEY1
+#define FLASH_OPTKEYR_KEY2		FLASH_KEYR_KEY2
+
 /* --- Function prototypes ------------------------------------------------- */
 
 BEGIN_DECLS
 
-void flash_set_ws(uint32_t ws);
-void flash_prefetch_enable(void);
-void flash_prefetch_disable(void);
-void flash_unlock(void);
-void flash_lock(void);
 void flash_clear_pgerr_flag(void);
-void flash_clear_eop_flag(void);
 void flash_clear_wrprterr_flag(void);
-void flash_clear_bsy_flag(void);
-void flash_clear_status_flags(void);
 uint32_t flash_get_status_flags(void);
-void flash_wait_for_last_operation(void);
 void flash_program_word(uint32_t address, uint32_t data);
 void flash_program_half_word(uint32_t address, uint16_t data);
 void flash_erase_page(uint32_t page_address);
 void flash_erase_all_pages(void);
-void flash_unlock_option_bytes(void);
 void flash_erase_option_bytes(void);
 void flash_program_option_bytes(uint32_t address, uint16_t data);
 

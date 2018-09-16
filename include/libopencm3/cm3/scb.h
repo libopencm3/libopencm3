@@ -21,171 +21,192 @@
 #ifndef LIBOPENCM3_SCB_H
 #define LIBOPENCM3_SCB_H
 
+/**
+ * @defgroup cm_scb Cortex-M System Control Block
+ * @ingroup CM3_defines
+ * @{
+ */
 #include <libopencm3/cm3/memorymap.h>
 #include <libopencm3/cm3/common.h>
 
-/* --- SCB: Registers ------------------------------------------------------ */
+/** @defgroup cm_scb_registers SCB Registers
+ * @ingroup cm_scb
+ * @{
+ */
 
-/* CPUID: CPUID base register */
+/** CPUID: CPUID base register */
 #define SCB_CPUID				MMIO32(SCB_BASE + 0x00)
 
-/* ICSR: Interrupt Control State Register */
+/** ICSR: Interrupt Control State Register */
 #define SCB_ICSR				MMIO32(SCB_BASE + 0x04)
 
-/* VTOR: Vector Table Offset Register */
+/** VTOR: Vector Table Offset Register */
 #define SCB_VTOR				MMIO32(SCB_BASE + 0x08)
 
-/* AIRCR: Application Interrupt and Reset Control Register */
+/** AIRCR: Application Interrupt and Reset Control Register */
 #define SCB_AIRCR				MMIO32(SCB_BASE + 0x0C)
 
-/* SCR: System Control Register */
+/** SCR: System Control Register */
 #define SCB_SCR					MMIO32(SCB_BASE + 0x10)
 
-/* CCR: Configuration Control Register */
+/** CCR: Configuration Control Register */
 #define SCB_CCR					MMIO32(SCB_BASE + 0x14)
 
-/* SHP: System Handler Priority Registers */
-/* Note: 12 8bit registers */
+/** SHP: System Handler Priority Registers.
+ * Note: 12 8bit registers
+ */
 #define SCB_SHPR(shpr_id)			MMIO8(SCB_BASE + 0x18 + (shpr_id))
 #define SCB_SHPR1				MMIO32(SCB_BASE + 0x18)
 #define SCB_SHPR2				MMIO32(SCB_BASE + 0x1C)
 #define SCB_SHPR3				MMIO32(SCB_BASE + 0x20)
 
-/* SHCSR: System Handler Control and State Register */
+/** SHCSR: System Handler Control and State Register */
 #define SCB_SHCSR				MMIO32(SCB_BASE + 0x24)
 
-/* DFSR: Debug Fault Status Register */
+/** DFSR: Debug Fault Status Register */
 #define SCB_DFSR				MMIO32(SCB_BASE + 0x30)
 
 /* Those defined only on ARMv7 and above */
 #if defined(__ARM_ARCH_7M__) || defined(__ARM_ARCH_7EM__)
-/* CFSR: Configurable Fault Status Registers */
+/** CFSR: Configurable Fault Status Registers */
 #define SCB_CFSR				MMIO32(SCB_BASE + 0x28)
 
-/* HFSR: Hard Fault Status Register */
+/** HFSR: Hard Fault Status Register */
 #define SCB_HFSR				MMIO32(SCB_BASE + 0x2C)
 
-/* MMFAR: Memory Manage Fault Address Register */
+/** MMFAR: Memory Manage Fault Address Register */
 #define SCB_MMFAR				MMIO32(SCB_BASE + 0x34)
 
-/* BFAR: Bus Fault Address Register */
+/** BFAR: Bus Fault Address Register */
 #define SCB_BFAR				MMIO32(SCB_BASE + 0x38)
 
-/* AFSR: Auxiliary Fault Status Register */
+/** AFSR: Auxiliary Fault Status Register */
 #define SCB_AFSR				MMIO32(SCB_BASE + 0x3C)
 
-/* ID_PFR0: Processor Feature Register 0 */
+/** ID_PFR0: Processor Feature Register 0 */
 #define SCB_ID_PFR0				MMIO32(SCB_BASE + 0x40)
 
-/* ID_PFR1: Processor Feature Register 1 */
+/** ID_PFR1: Processor Feature Register 1 */
 #define SCB_ID_PFR1				MMIO32(SCB_BASE + 0x44)
 
-/* ID_DFR0: Debug Features Register 0 */
+/** ID_DFR0: Debug Features Register 0 */
 #define SCB_ID_DFR0				MMIO32(SCB_BASE + 0x48)
 
-/* ID_AFR0: Auxiliary Features Register 0 */
+/** ID_AFR0: Auxiliary Features Register 0 */
 #define SCB_ID_AFR0				MMIO32(SCB_BASE + 0x4C)
 
-/* ID_MMFR0: Memory Model Feature Register 0 */
+/** ID_MMFR0: Memory Model Feature Register 0 */
 #define SCB_ID_MMFR0				MMIO32(SCB_BASE + 0x50)
 
-/* ID_MMFR1: Memory Model Feature Register 1 */
+/** ID_MMFR1: Memory Model Feature Register 1 */
 #define SCB_ID_MMFR1				MMIO32(SCB_BASE + 0x54)
 
-/* ID_MMFR2: Memory Model Feature Register 2 */
+/** ID_MMFR2: Memory Model Feature Register 2 */
 #define SCB_ID_MMFR2				MMIO32(SCB_BASE + 0x58)
 
-/* ID_MMFR3: Memory Model Feature Register 3 */
+/** ID_MMFR3: Memory Model Feature Register 3 */
 #define SCB_ID_MMFR3				MMIO32(SCB_BASE + 0x5C)
 
-/* ID_ISAR0: Instruction Set Attributes Register 0 */
+/** ID_ISAR0: Instruction Set Attributes Register 0 */
 #define SCB_ID_ISAR0				MMIO32(SCB_BASE + 0x60)
 
-/* ID_ISAR1: Instruction Set Attributes Register 1 */
+/** ID_ISAR1: Instruction Set Attributes Register 1 */
 #define SCB_ID_ISAR1				MMIO32(SCB_BASE + 0x64)
 
-/* ID_ISAR2: Instruction Set Attributes Register 2 */
+/** ID_ISAR2: Instruction Set Attributes Register 2 */
 #define SCB_ID_ISAR2				MMIO32(SCB_BASE + 0x68)
 
-/* ID_ISAR3: Instruction Set Attributes Register 3 */
+/** ID_ISAR3: Instruction Set Attributes Register 3 */
 #define SCB_ID_ISAR3				MMIO32(SCB_BASE + 0x6C)
 
-/* ID_ISAR4: Instruction Set Attributes Register 4 */
+/** ID_ISAR4: Instruction Set Attributes Register 4 */
 #define SCB_ID_ISAR4				MMIO32(SCB_BASE + 0x70)
 
-/* CPACR: Coprocessor Access Control Register */
+/** CPACR: Coprocessor Access Control Register */
 #define SCB_CPACR				MMIO32(SCB_BASE + 0x88)
 
-/* FPCCR: Floating-Point Context Control Register */
+/** FPCCR: Floating-Point Context Control Register */
 #define SCB_FPCCR				MMIO32(SCB_BASE + 0x234)
 
-/* FPCAR: Floating-Point Context Address Register */
+/** FPCAR: Floating-Point Context Address Register */
 #define SCB_FPCAR				MMIO32(SCB_BASE + 0x238)
 
-/* FPDSCR: Floating-Point Default Status Control Register */
+/** FPDSCR: Floating-Point Default Status Control Register */
 #define SCB_FPDSCR				MMIO32(SCB_BASE + 0x23C)
 
-/* MVFR0: Media and Floating-Point Feature Register 0 */
+/** MVFR0: Media and Floating-Point Feature Register 0 */
 #define SCB_MVFR0				MMIO32(SCB_BASE + 0x240)
 
-/* MVFR1: Media and Floating-Point Feature Register 1 */
+/** MVFR1: Media and Floating-Point Feature Register 1 */
 #define SCB_MVFR1				MMIO32(SCB_BASE + 0x244)
 #endif
 
+/**@}*/
+
 /* --- SCB values ---------------------------------------------------------- */
 
-/* --- SCB_CPUID values ---------------------------------------------------- */
-
-/* Implementer[31:24]: Implementer code */
+/**
+ * @defgroup cm3_scb_cpuid_values SCB_CPUID Values
+ * @{
+ */
+/** Implementer[31:24]: Implementer code */
 #define SCB_CPUID_IMPLEMENTER_LSB	24
 #define SCB_CPUID_IMPLEMENTER		(0xFF << SCB_CPUID_IMPLEMENTER_LSB)
-/* Variant[23:20]: Variant number */
+/** Variant[23:20]: Variant number */
 #define SCB_CPUID_VARIANT_LSB		20
 #define SCB_CPUID_VARIANT		(0xF << SCB_CPUID_VARIANT_LSB)
-/* Constant[19:16]: Reads as 0xF (ARMv7-M) M3, M4  */
-/* Constant[19:16]: Reads as 0xC (ARMv6-M) M0, M0+ */
+/** Constant[19:16]
+ * Reads as 0xF (ARMv7-M) M3, M4
+ * Reads as 0xC (ARMv6-M) M0, M0+
+ */
 #define SCB_CPUID_CONSTANT_LSB		16
 #define SCB_CPUID_CONSTANT		(0xF << SCB_CPUID_CONSTANT_LSB)
 #define SCB_CPUID_CONSTANT_ARMV6	(0xC << SCB_CPUID_CONSTANT_LSB)
 #define SCB_CPUID_CONSTANT_ARMV7	(0xF << SCB_CPUID_CONSTANT_LSB)
 
-/* PartNo[15:4]: Part number of the processor */
+/** PartNo[15:4]: Part number of the processor */
 #define SCB_CPUID_PARTNO_LSB		4
 #define SCB_CPUID_PARTNO		(0xFFF << SCB_CPUID_PARTNO_LSB)
-/* Revision[3:0]: Revision number */
+/** Revision[3:0]: Revision number */
 #define SCB_CPUID_REVISION_LSB			0
 #define SCB_CPUID_REVISION		(0xF << SCB_CPUID_REVISION_LSB)
+/**@}*/
 
-/* --- SCB_ICSR values ----------------------------------------------------- */
-
-/* NMIPENDSET: NMI set-pending bit */
+/**
+ * @defgroup cm3_scb_icsr_values SCB_ICSR Values
+ * @{
+ */
+/** NMIPENDSET: NMI set-pending bit */
 #define SCB_ICSR_NMIPENDSET		(1 << 31)
 /* Bits [30:29]: reserved - must be kept cleared */
-/* PENDSVSET: PendSV set-pending bit */
+/** PENDSVSET: PendSV set-pending bit */
 #define SCB_ICSR_PENDSVSET		(1 << 28)
-/* PENDSVCLR: PendSV clear-pending bit */
+/** PENDSVCLR: PendSV clear-pending bit */
 #define SCB_ICSR_PENDSVCLR		(1 << 27)
-/* PENDSTSET: SysTick exception set-pending bit */
+/** PENDSTSET: SysTick exception set-pending bit */
 #define SCB_ICSR_PENDSTSET		(1 << 26)
-/* PENDSTCLR: SysTick exception clear-pending bit */
+/** PENDSTCLR: SysTick exception clear-pending bit */
 #define SCB_ICSR_PENDSTCLR		(1 << 25)
 /* Bit 24: reserved - must be kept cleared */
-/* Bit 23: reserved for debug - reads as 0 when not in debug mode */
+/** Bit 23: reserved for debug - reads as 0 when not in debug mode */
 #define SCB_ICSR_ISRPREEMPT		(1 << 23)
-/* ISRPENDING: Interrupt pending flag, excluding NMI and Faults */
+/** ISRPENDING: Interrupt pending flag, excluding NMI and Faults */
 #define SCB_ICSR_ISRPENDING		(1 << 22)
-/* VECTPENDING[21:12] Pending vector */
+/** VECTPENDING[21:12] Pending vector */
 #define SCB_ICSR_VECTPENDING_LSB	12
 #define SCB_ICSR_VECTPENDING		(0x1FF << SCB_ICSR_VECTPENDING_LSB)
-/* RETOBASE: Return to base level */
+/** RETOBASE: Return to base level */
 #define SCB_ICSR_RETOBASE		(1 << 11)
 /* Bits [10:9]: reserved - must be kept cleared */
-/* VECTACTIVE[8:0] Active vector */
+/** VECTACTIVE[8:0] Active vector */
 #define SCB_ICSR_VECTACTIVE_LSB		0
 #define SCB_ICSR_VECTACTIVE		(0x1FF << SCB_ICSR_VECTACTIVE_LSB)
+/**@}*/
 
-
-/* --- SCB_VTOR values ----------------------------------------------------- */
+/**
+ * @defgroup cm3_scb_vtor_values SCB_VTOR Values
+ * @{
+ */
 
 /* IMPLEMENTATION DEFINED */
 
@@ -207,21 +228,25 @@
 #define SCB_VTOR_TBLOFF			(0x7FFFFF << SCB_VTOR_TBLOFF_LSB)
 
 #endif
+/**@}*/
 
-/* --- SCB_AIRCR values ---------------------------------------------------- */
 
-/* VECTKEYSTAT[31:16]/ VECTKEY[31:16] Register key */
+/**
+ * @defgroup cm3_scb_aicr_values SCB_AICR Values
+ * @{
+ */
+/** VECTKEYSTAT[31:16]/ VECTKEY[31:16] Register key */
 #define SCB_AIRCR_VECTKEYSTAT_LSB	16
 #define SCB_AIRCR_VECTKEYSTAT		(0xFFFF << SCB_AIRCR_VECTKEYSTAT_LSB)
 #define SCB_AIRCR_VECTKEY		(0x05FA << SCB_AIRCR_VECTKEYSTAT_LSB)
 
-/* ENDIANNESS Data endianness bit */
+/** ENDIANNESS Data endianness bit */
 #define SCB_AIRCR_ENDIANESS			(1 << 15)
 
 /* Those defined only on ARMv7 and above */
 #if defined(__ARM_ARCH_7M__) || defined(__ARM_ARCH_7EM__)
 /* Bits [14:11]: reserved - must be kept cleared */
-/* PRIGROUP[10:8]: Interrupt priority grouping field */
+/** PRIGROUP[10:8]: Interrupt priority grouping field */
 #define SCB_AIRCR_PRIGROUP_GROUP16_NOSUB	(0x3 << 8)
 #define SCB_AIRCR_PRIGROUP_GROUP8_SUB2		(0x4 << 8)
 #define SCB_AIRCR_PRIGROUP_GROUP4_SUB4		(0x5 << 8)
@@ -232,55 +257,62 @@
 /* Bits [7:3]: reserved - must be kept cleared */
 #endif
 
-/* SYSRESETREQ System reset request */
+/** SYSRESETREQ System reset request */
 #define SCB_AIRCR_SYSRESETREQ			(1 << 2)
-/* VECTCLRACTIVE */
+/** VECTCLRACTIVE clears state information for exceptions */
 #define SCB_AIRCR_VECTCLRACTIVE			(1 << 1)
 
 /* Those defined only on ARMv7 and above */
 #if defined(__ARM_ARCH_7M__) || defined(__ARM_ARCH_7EM__)
-/* VECTRESET */
+/** VECTRESET cause local system reset */
 #define SCB_AIRCR_VECTRESET			(1 << 0)
 #endif
+/**@}*/
 
-/* --- SCB_SCR values ------------------------------------------------------ */
-
+/**
+ * @defgroup cm3_scb_scr_values SCB_SCR Values
+ * @{
+ */
 /* Bits [31:5]: reserved - must be kept cleared */
-/* SEVONPEND Send Event on Pending bit */
+/** SEVONPEND Send Event on Pending bit */
 #define SCB_SCR_SEVONPEND			(1 << 4)
 /* Bit 3: reserved - must be kept cleared */
-/* SLEEPDEEP */
+/** SLEEPDEEP implementation defined */
 #define SCB_SCR_SLEEPDEEP			(1 << 2)
-/* SLEEPONEXIT */
+/** SLEEPONEXIT sleep when exiting ISR */
 #define SCB_SCR_SLEEPONEXIT			(1 << 1)
 /* Bit 0: reserved - must be kept cleared */
+/**@}*/
 
-/* --- SCB_CCR values ------------------------------------------------------ */
-
+/**
+ * @defgroup cm3_scb_ccr_values SCB_CCR Values
+ * @{
+ */
 /* Bits [31:10]: reserved - must be kept cleared */
-/* STKALIGN */
+/** STKALIGN set to zero to break things :) */
 #define SCB_CCR_STKALIGN			(1 << 9)
 
 /* Those defined only on ARMv7 and above */
 #if defined(__ARM_ARCH_7M__) || defined(__ARM_ARCH_7EM__)
-/* BFHFNMIGN */
+/** BFHFNMIGN set to attempt ignoring faults in handlers */
 #define SCB_CCR_BFHFNMIGN			(1 << 8)
 /* Bits [7:5]: reserved - must be kept cleared */
-/* DIV_0_TRP */
+/** DIV_0_TRP set to trap on divide by zero*/
 #define SCB_CCR_DIV_0_TRP			(1 << 4)
 #endif
 
-/* UNALIGN_TRP */
+/** UNALIGN_TRP set to trap on unaligned */
 #define SCB_CCR_UNALIGN_TRP			(1 << 3)
 
 /* Those defined only on ARMv7 and above */
 #if defined(__ARM_ARCH_7M__) || defined(__ARM_ARCH_7EM__)
 /* Bit 2: reserved - must be kept cleared */
-/* USERSETMPEND */
+/** USERSETMPEND set to allow unprivileged access to STIR */
 #define SCB_CCR_USERSETMPEND			(1 << 1)
-/* NONBASETHRDENA */
+/** NONBASETHRDENA set to allow non base priority threads */
 #define SCB_CCR_NONBASETHRDENA			(1 << 0)
 #endif
+/**@}*/
 
 /* These numbers are designed to be used with the SCB_SHPR() macro */
 /* SCB_SHPR1 */
@@ -437,14 +469,16 @@ struct scb_exception_stack_frame {
 			      : [frameptr]"=r" (f));			\
 	} while (0)
 
-void scb_reset_system(void) __attribute__((noreturn, naked));
+void scb_reset_system(void) __attribute__((noreturn));
 
 /* Those defined only on ARMv7 and above */
 #if defined(__ARM_ARCH_7M__) || defined(__ARM_ARCH_7EM__)
-void scb_reset_core(void) __attribute__((noreturn, naked));
+void scb_reset_core(void) __attribute__((noreturn));
 void scb_set_priority_grouping(uint32_t prigroup);
 #endif
 
 END_DECLS
+
+/**@}*/
 
 #endif

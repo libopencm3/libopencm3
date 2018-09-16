@@ -31,6 +31,7 @@ include/libopencmsis/lm3s/
 include/libopencmsis/lpc13xx/
 include/libopencmsis/lpc17xx/
 include/libopencmsis/lpc43xx/
+include/libopencmsis/msp432/
 include/libopencmsis/sam/
 include/libopencmsis/stm32/
 include/libopencmsis/vf6xx/
@@ -43,3 +44,6 @@ locm3.sublime-workspace
 
 # cscope databases
 cscope.out
+
+# build droppings
+.stamp_failure*

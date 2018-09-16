@@ -70,7 +70,11 @@ $(LIB_DIRS): $(IRQ_DEFN_FILES:=.genhdr)
 		echo "Failure building: $@: code: $$?" > .stamp_failure_$(subst /,_,$@)
 
 lib: $(LIB_DIRS)
-	$(Q)[ -f .stamp_failure_* ] && cat .stamp_failure_* && exit 1 || true;
+	$(Q)$(RM) .stamp_failure_tld
+	$(Q)for failure in .stamp_failure_*; do \
+		[ -f $$failure ] && cat $$failure >> .stamp_failure_tld || true; \
+	done;
+	$(Q)[ -f .stamp_failure_tld ] && cat .stamp_failure_tld && exit 1 || true;
 
 html doc:
 	$(Q)$(MAKE) -C doc html

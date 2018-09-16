@@ -156,18 +156,6 @@ void flash_clear_wrprterr_flag_upper(void)
 }
 
 /*---------------------------------------------------------------------------*/
-/** @brief Clear the Busy Status Flag, upper Bank
-
-*/
-
-void flash_clear_bsy_flag_upper(void)
-{
-	if (DESIG_FLASH_SIZE > 512) {
-		FLASH_SR2 &= ~FLASH_SR_BSY;
-	}
-}
-
-/*---------------------------------------------------------------------------*/
 /** @brief Clear All Status Flags
 
 Program error, end of operation, write protect error, busy. Both banks cleared.
@@ -178,12 +166,10 @@ void flash_clear_status_flags(void)
 	flash_clear_pgerr_flag();
 	flash_clear_eop_flag();
 	flash_clear_wrprterr_flag();
-	flash_clear_bsy_flag();
 	if (DESIG_FLASH_SIZE > 512) {
 		flash_clear_pgerr_flag_upper();
 		flash_clear_eop_flag_upper();
 		flash_clear_wrprterr_flag_upper();
-		flash_clear_bsy_flag_upper();
 	}
 }
 

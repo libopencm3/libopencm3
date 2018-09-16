@@ -28,7 +28,9 @@
  * Processors" for details on System Timer/SysTick.
  */
 
-/*
+/**
+ * @defgroup cm_scs Cortex-M System Control Space
+ * @ingroup CM3_defines
  * The System Control Space (SCS) is a memory-mapped 4KB address space that
  * provides 32-bit registers for configuration, status reporting and control.
  * The SCS registers divide into the following groups:
@@ -40,13 +42,20 @@
  * - a Nested Vectored Interrupt Controller (NVIC)
  * - a Protected Memory System Architecture (PMSA)
  * - system debug.
+ * @{
  */
 
-/* System Handler Priority 8 bits Registers, SHPR1/2/3 */
-/* Note: 12 8bit Registers */
+/** @defgroup cm_scs_registers SCS Registers
+ * @ingroup cm_scs
+ * @{
+ */
+
+/** System Handler Priority 8 bits Registers, SHPR1/2/3.
+ * Note: 12 8bit Registers
+ */
 #define SCS_SHPR(ipr_id)		MMIO8(SCS_BASE + 0xD18 + (ipr_id))
 
-/*
+/**
  * Debug Halting Control and Status Register (DHCSR).
  *
  * Purpose Controls halting debug.
@@ -60,9 +69,8 @@
  *   C1-824.
  * Configurations Always implemented.
  */
-/* SCS_DHCSR register */
 #define SCS_DHCSR		MMIO32(SCS_BASE + 0xDF0)
-/*
+/**
  * Debug Core Register Selector Register (DCRSR).
  *
  * Purpose With the DCRDR, the DCRSR provides debug access to the ARM core
@@ -73,9 +81,8 @@
  * Configurations Always implemented.
  *
  */
-/* SCS_DCRS register */
 #define SCS_DCRSR		MMIO32(SCS_BASE + 0xDF4)
-/*
+/**
  * Debug Core Register Data Register (DCRDR)
  *
  * Purpose With the DCRSR, see Debug Core Register Selector Register, the DCRDR
@@ -92,9 +99,8 @@
  * Configurations Always implemented.
  *
  */
-/* SCS_DCRDR register */
 #define SCS_DCRDR		MMIO32(SCS_BASE + 0xDF8)
-/*
+/**
  * Debug Exception and Monitor Control Register (DEMCR).
  *
  * Purpose Manages vector catch behavior and DebugMonitor handling when
@@ -105,8 +111,9 @@
  * Configurations Always implemented.
  *
  */
-/* SCS_DEMCR register */
 #define SCS_DEMCR		MMIO32(SCS_BASE + 0xDFC)
+
+/**@}*/
 
 /* Debug Halting Control and Status Register (DHCSR) */
 #define SCS_DHCSR_DBGKEY	0xA05F0000
@@ -328,23 +335,5 @@
 /* CoreSight Lock Access key, common for all */
 #define SCS_LAR_KEY		0xC5ACCE55
 
-/* TODO bit definition values for other DWT_XXX register */
-
-/* Macro to be called at startup to enable SCS & Cycle Counter */
-#define SCS_DWT_CYCLE_COUNTER_ENABLED()	((SCS_DEMCR |= SCS_DEMCR_TRCENA)\
-				(SCS_DWT_CTRL |= SCS_DWT_CTRL_CYCCNTENA))
-
-#define SCS_SYSTICK_DISABLED()	(SCS_SYST_CSR = 0)
-
-/* Macro to be called at startup to Enable CortexMx SysTick (but IRQ not
- * enabled)
- */
-#define SCS_SYSTICK_ENABLED()	(SCS_SYST_CSR = (SCS_SYST_CSR_ENABLE | \
-				 SCS_SYST_CSR_CLKSOURCE))
-
-/* Macro to be called at startup to Enable CortexMx SysTick and IRQ */
-#define SCS_SYSTICK_AND_IRQ_ENABLED()  (SCS_SYST_CSR = (SCS_SYST_CSR_ENABLE | \
-					SCS_SYST_CSR_CLKSOURCE | \
-					SCS_SYST_CSR_TICKINT))
-
+/**@}*/
 #endif

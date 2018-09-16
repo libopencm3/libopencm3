@@ -25,49 +25,6 @@
 
 #include <libopencm3/stm32/flash.h>
 
-/*---------------------------------------------------------------------------*/
-/** @brief Enable the FLASH Prefetch Buffer
-
-This buffer is used for instruction fetches and is enabled by default after
-reset.
-
-Note carefully the clock restrictions under which the prefetch buffer may be
-enabled or disabled. Changes are normally made while the clock is running in
-the power-on low frequency mode before being set to a higher speed mode.
-See the reference manual for details.
-*/
-
-void flash_prefetch_enable(void)
-{
-	FLASH_ACR |= FLASH_ACR_PRFTBE;
-}
-
-/*---------------------------------------------------------------------------*/
-/** @brief Disable the FLASH Prefetch Buffer
-
-Note carefully the clock restrictions under which the prefetch buffer may be
-set to disabled. See the reference manual for details.
-*/
-
-void flash_prefetch_disable(void)
-{
-	FLASH_ACR &= ~FLASH_ACR_PRFTBE;
-}
-/*---------------------------------------------------------------------------*/
-/** @brief Set the Number of Wait States
-
-Used to match the system clock to the FLASH memory access time. See the
-reference manual for more information on clock speed ranges for each wait state.
-The latency must be changed to the appropriate value <b>before</b> any increase
-in clock speed, or <b>after</b> any decrease in clock speed.
-
-@param[in] ws values from @ref flash_latency.
-*/
-
-void flash_set_ws(uint32_t ws)
-{
-	FLASH_ACR = (FLASH_ACR & ~FLASH_ACR_LATENCY) | ws;
-}
 
 /*---------------------------------------------------------------------------*/
 /** @brief Unlock the Flash Program and Erase Controller
@@ -76,26 +33,6 @@ This enables write access to the Flash memory. It is locked by default on
 reset.
 */
 
-void flash_unlock(void)
-{
-	/* Clear the unlock state. */
-	FLASH_CR |= FLASH_CR_LOCK;
-
-	/* Authorize the FPEC access. */
-	FLASH_KEYR = FLASH_KEYR_KEY1;
-	FLASH_KEYR = FLASH_KEYR_KEY2;
-}
-
-/*---------------------------------------------------------------------------*/
-/** @brief Lock the Flash Program and Erase Controller
-
-Used to prevent spurious writes to FLASH.
-*/
-
-void flash_lock(void)
-{
-	FLASH_CR |= FLASH_CR_LOCK;
-}
 
 /*---------------------------------------------------------------------------*/
 /** @brief Clear the Programming Error Status Flag
@@ -108,16 +45,6 @@ void flash_clear_pgerr_flag(void)
 }
 
 /*---------------------------------------------------------------------------*/
-/** @brief Clear the End of Operation Status Flag
-
-*/
-
-void flash_clear_eop_flag(void)
-{
-	FLASH_SR |= FLASH_SR_EOP;
-}
-
-/*---------------------------------------------------------------------------*/
 /** @brief Clear the Write Protect Error Status Flag
 
 */
@@ -125,16 +52,6 @@ void flash_clear_eop_flag(void)
 void flash_clear_wrprterr_flag(void)
 {
 	FLASH_SR |= FLASH_SR_WRPRTERR;
-}
-
-/*---------------------------------------------------------------------------*/
-/** @brief Clear the Busy Status Flag
-
-*/
-
-void flash_clear_bsy_flag(void)
-{
-	FLASH_SR &= ~FLASH_SR_BSY;
 }
 
 /*---------------------------------------------------------------------------*/
@@ -166,20 +83,6 @@ void flash_program_word(uint32_t address, uint32_t data)
 {
 	flash_program_half_word(address, (uint16_t)data);
 	flash_program_half_word(address+2, (uint16_t)(data>>16));
-}
-
-/*---------------------------------------------------------------------------*/
-/** @brief Unlock the Option Byte Access
-
-This enables write access to the option bytes. It is locked by default on
-reset.
-*/
-
-void flash_unlock_option_bytes(void)
-{
-	/* F1 uses same keys for flash and option */
-	FLASH_OPTKEYR = FLASH_KEYR_KEY1;
-	FLASH_OPTKEYR = FLASH_KEYR_KEY2;
 }
 
 /*---------------------------------------------------------------------------*/

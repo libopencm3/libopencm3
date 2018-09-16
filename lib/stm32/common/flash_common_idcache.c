@@ -1,15 +1,6 @@
-/** @defgroup spi_file SPI
-
-@ingroup STM32F0xx
-
-@brief <b>libopencm3 STM32F0xx SPI</b>
-
-@version 1.0.0
-
-@date 20 February 2014
-
-LGPL License Terms @ref lgpl_license
-*/
+/** @addtogroup flash_file
+ *
+ */
 
 /*
  * This file is part of the libopencm3 project.
@@ -28,4 +19,40 @@ LGPL License Terms @ref lgpl_license
  * along with this library.  If not, see <http://www.gnu.org/licenses/>.
  */
 
-#include <libopencm3/stm32/spi.h>
+/**@{*/
+
+#include <libopencm3/stm32/flash.h>
+#include <libopencm3/stm32/common/flash_common_idcache.h>
+
+void flash_dcache_enable(void)
+{
+	FLASH_ACR |= FLASH_ACR_DCEN;
+}
+
+void flash_dcache_disable(void)
+{
+	FLASH_ACR &= ~FLASH_ACR_DCEN;
+}
+
+void flash_icache_enable(void)
+{
+	FLASH_ACR |= FLASH_ACR_ICEN;
+}
+
+void flash_icache_disable(void)
+{
+	FLASH_ACR &= ~FLASH_ACR_ICEN;
+}
+
+
+void flash_dcache_reset(void)
+{
+	FLASH_ACR |= FLASH_ACR_DCRST;
+}
+
+void flash_icache_reset(void)
+{
+	FLASH_ACR |= FLASH_ACR_ICRST;
+}
+
+
