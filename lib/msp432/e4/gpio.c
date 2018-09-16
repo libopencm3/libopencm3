@@ -49,7 +49,7 @@
  *            - GPIO_PUPD_NONE     -- Do not pull the pin high or low \n
  *            - GPIO_PUPD_PULLUP   -- Pull the pin high \n
  *            - GPIO_PUPD_PULLDOWN -- Pull the pin low
- * @param[in] gpios @ref gpio_pin_id.  If multiple pins are to be set,
+ * @param[in] gpios @ref gpio_pin_id. If multiple pins are to be set,
  *            use bitwise OR '|' to separate them.
  */
 void gpio_mode_setup(uint32_t gpioport, enum gpio_mode mode,
@@ -119,8 +119,8 @@ void gpio_mode_setup(uint32_t gpioport, enum gpio_mode mode,
  *            Available only for 8, 10 and 12-ma drive strength.
  *            - GPIO_SLEW_CTL_ENABLE  -- Slew rate control enable
  *            - GPIO_SLEW_CTL_DISABLE -- Slew rate control disable
- * @param[in] gpios @ref gpio_pin_id. Any combination of pins may be specified
- *            by OR'ing then together
+ * @param[in] gpios @ref gpio_pin_id. If multiple pins are to be set,
+ *            use bitwise OR '|' to separate them.
  */
 void gpio_set_output_options(uint32_t gpioport,
                             enum gpio_output_type otype,
@@ -189,24 +189,19 @@ void gpio_set_output_options(uint32_t gpioport,
     }
 }
 
-#define PCTL_AF(pin, af)        ((af) << ((pin) * 4))
-#define PCTL_MASK(pin)          PCTL_AF((pin), 0xf)
-
 /** @brief General Purpose Input/Outputs Set Alternate Function Selection
  *
  * Mux the pin or group of pins to the given alternate function. Note that a
- * number of pins may be set but only with a single AF number. This is useful
- * when one or more of a peripheral's pins are assigned to the same alternate
- * function.
+ * number of pins may be set but only with a single AF number.
  *
- * Because AF0 is not used on the LM4F, passing 0 as the alt_func_num parameter
- * will disable the alternate function of the given pins.
+ * Because AF0 is not used on the MSP432E4, passing 0 as the alt_func_num
+ * parameter will disable the alternate function of the given pins.
  *
  * @param[in] gpioport GPIO block register address base @ref gpio_reg_base
  * @param[in] alt_func_num Pin alternate function number or 0 to disable the
  *            alternate function multiplexing.
- * @param[in] gpios @ref gpio_pin_id. Any combination of pins may be specified
- *            by OR'ing then together
+ * @param[in] gpios @ref gpio_pin_id. If multiple pins are to be set,
+ *            use bitwise OR '|' to separate them.
  */
 void gpio_set_af(uint32_t gpioport, uint8_t alt_func_num, uint8_t gpios)
 {
@@ -232,22 +227,22 @@ void gpio_set_af(uint32_t gpioport, uint8_t alt_func_num, uint8_t gpios)
             continue;
         }
 
-        pctl32 &= ~PCTL_MASK(i);
-        pctl32 |= PCTL_AF(i, (alt_func_num & 0xf));
+        pctl32 &= ~GPIO_PCTL_MASK(i);
+        pctl32 |= GPIO_PCTL_AF(i, (alt_func_num & 0xf));
     }
 
     GPIO_PCTL(gpioport) = pctl32;
 }
 
-/** @brief General Purpose Input/Outputs Unlock the commit control
+/** @brief General Purpose Input/Outputs Unlock The Commit Control
  *
  * Unlocks the commit control of the given pin or group of pins. If a pin is a
  * JTAG/SWD or NMI, the pin may then be reconfigured as a GPIO pin. If the pin
  * is not locked by default, this has no effect.
  *
  * @param[in] gpioport GPIO block register address base @ref gpio_reg_base
- * @param[in] gpios @ref gpio_pin_id. Any combination of pins may be specified
- *            by OR'ing then together.
+ * @param[in] gpios @ref gpio_pin_id. If multiple pins are to be set,
+ *            use bitwise OR '|' to separate them.
  */
 void gpio_unlock_commit(uint32_t gpioport, uint8_t gpios)
 {
@@ -265,7 +260,8 @@ void gpio_unlock_commit(uint32_t gpioport, uint8_t gpios)
  * Toggle one or more pins of the given GPIO port.
  *
  * @param[in] gpioport GPIO block register address base @ref gpio_reg_base
- * @param[in] gpios Pin identifiers. @ref gpio_pin_id
+ * @param[in] gpios @ref gpio_pin_id. If multiple pins are to be set,
+ *            use bitwise OR '|' to separate them.
  */
 void gpio_toggle(uint32_t gpioport, uint8_t gpios)
 {
@@ -285,8 +281,8 @@ void gpio_toggle(uint32_t gpioport, uint8_t gpios)
  *            - GPIO_TRIG_EDGE_FALL -- Trigger on falling edges \n
  *            - GPIO_TRIG_EDGE_RISE -- Trigger on rising edges \n
  *            - GPIO_TRIG_EDGE_BOTH -- Trigger on all edges
- * @param[in] gpios @ref gpio_pin_id. Any combination of pins may be specified
- *            by OR'ing then together
+ * @param[in] gpios @ref gpio_pin_id. If multiple pins are to be set,
+ *            use bitwise OR '|' to separate them.
  */
 void gpio_configure_trigger(uint32_t gpioport, enum gpio_trigger trigger,
                             uint8_t gpios)
@@ -328,8 +324,9 @@ void gpio_configure_trigger(uint32_t gpioport, enum gpio_trigger trigger,
  * to be routed to the CPU.
  *
  * @param[in] gpioport GPIO block register address base @ref gpio_reg_base
- * @param[in] gpios @ref gpio_pin_id. Pins whose interrupts to enable. Any
- *            combination of pins may be specified by OR'ing them together.
+ * @param[in] gpios @ref gpio_pin_id. Pins whose interrupts to enable.
+ *            If multiple pins are to be set, use bitwise
+ *            OR '|' to separate them.
  */
 void gpio_enable_interrupts(uint32_t gpioport, uint8_t gpios)
 {
@@ -344,8 +341,9 @@ void gpio_enable_interrupts(uint32_t gpioport, uint8_t gpios)
  * to be routed to the CPU.
  *
  * @param[in] gpioport GPIO block register address base @ref gpio_reg_base
- * @param[in] gpios @ref gpio_pin_id. Pins whose interrupts to disable. Any
- *            combination of pins may be specified by OR'ing them together.
+ * @param[in] gpios @ref gpio_pin_id. Pins whose interrupts to disable.
+ *            If multiple pins are to be set, use bitwise
+ *            OR '|' to separate them.
  */
 void gpio_disable_interrupts(uint32_t gpioport, uint8_t gpios)
 {

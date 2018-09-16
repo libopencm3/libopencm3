@@ -41,8 +41,8 @@
 #include <libopencm3/msp432/e4/memorymap.h>
 #include <stdbool.h>
 
-/* Указать для AF применимость (401/411)
- * Придумать, что сделать с PC_EDE
+/* 
+ * Доделать enum
 */
 
 /** @defgroup gpio_reg_base GPIO Register Base Addresses
@@ -103,30 +103,32 @@
 
 /** @defgroup gpio_af_id GPIO Alternate Functions Identifiers
 @{*/
-/** GPIO Alternate Functions 1 Identifier */
+/** GPIO Alternate Function 1 Identifier */
 #define GPIO_AF1            0x1
-/** GPIO Alternate Functions 2 Identifier */
+/** GPIO Alternate Function 2 Identifier */
 #define GPIO_AF2            0x2
-/** GPIO Alternate Functions 3 Identifier */
+/** GPIO Alternate Function 3 Identifier */
 #define GPIO_AF3            0x3
-/** GPIO Alternate Functions 4 Identifier */
+/** GPIO Alternate Function 4 Identifier */
 #define GPIO_AF4            0x4
-/** GPIO Alternate Functions 5 Identifier */
+/** GPIO Alternate Function 5 Identifier */
 #define GPIO_AF5            0x5
-/** GPIO Alternate Functions 6 Identifier */
+/** GPIO Alternate Function 6 Identifier */
 #define GPIO_AF6            0x6
-/** GPIO Alternate Functions 7 Identifier */
+/** GPIO Alternate Function 7 Identifier */
 #define GPIO_AF7            0x7
-/** GPIO Alternate Functions 8 Identifier */
+/** GPIO Alternate Function 8 Identifier */
 #define GPIO_AF8            0x8
-/** GPIO Alternate Functions 11 Identifier */
+/** GPIO Alternate Function 11 Identifier */
 #define GPIO_AF11           0xB
-/** GPIO Alternate Functions 13 Identifier */
+/** GPIO Alternate Function 13 Identifier */
 #define GPIO_AF13           0xD
-/** GPIO Alternate Functions 14 Identifier */
+/** GPIO Alternate Function 14 Identifier */
 #define GPIO_AF14           0xE
-/** GPIO Alternate Functions 15 Identifier */
+/** GPIO Alternate Function 15 Identifier */
 #define GPIO_AF15           0xF
+/** GPIO Alternate Function Disable */
+#define GPIO_AF_DISABLE     0x0
 /**@}*/
 
 /** @defgroup gpio_registers GPIO Registers
@@ -184,12 +186,13 @@
 /** GPIO 12-mA Drive Select */
 #define GPIO_DR12R(port)        MMIO32((port) + 0x53C)
 /** GPIO Wake Pin Enable
- * @note This register is only available on Port K
-*/
+ * @note This register is only available on Port K */
 #define GPIO_WAKEPEN(port)      MMIO32((port) + 0x540)
-/** GPIO Wake Level */
+/** GPIO Wake Level
+ * @note This register is only available on Port K */
 #define GPIO_WAKELVL(port)      MMIO32((port) + 0x544)
-/** GPIO Wake Status */
+/** GPIO Wake Status
+ * @note This register is only available on Port K */
 #define GPIO_WAKESTAT(port)     MMIO32((port) + 0x548)
 /** GPIO Peripheral Property */
 #define GPIO_PP(port)           MMIO32((port) + 0xFC0)
@@ -258,6 +261,15 @@
 #define GPIO_LOCK_UNLOCK_CODE   (0x4C4F434B)
 /** GPIO Lock Status */
 #define GPIO_LOCK               (1 << 0)
+/**@}*/
+
+/** @defgroup gpio_pctl_values GPIO_PCTL Values
+ * @brief GPIO Port Control Register Values
+@{*/
+/** GPIO Port Control Set AF for Pin */
+#define GPIO_PCTL_AF(pin, af)   ((af) << ((pin) * 4))
+/* GPIO Port Control Mask for Pin */
+#define GPIO_PCTL_MASK(pin)     PCTL_AF((pin), 0xf)
 /**@}*/
 
 /** @defgroup gpio_si_values GPIO_SI Values
