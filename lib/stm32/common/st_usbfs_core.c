@@ -41,22 +41,39 @@ void st_usbfs_set_address(usbd_device *dev, uint8_t addr)
  * Set the receive buffer size for a given USB endpoint.
  *
  * @param ep Index of endpoint to configure.
- * @param size Size in bytes of the RX buffer.
+ * @param size Size in bytes of the RX buffer. Legal sizes : {2,4,6...62}; {64,96,128...992}.
+ * @returns (uint16) Actual size set
  */
-void st_usbfs_set_ep_rx_bufsize(usbd_device *dev, uint8_t ep, uint32_t size)
+uint16_t st_usbfs_set_ep_rx_bufsize(usbd_device *dev, uint8_t ep, uint32_t size)
 {
+	uint16_t realsize;
 	(void)dev;
+	/*
+	 * Writes USB_COUNTn_RX reg fields : bits <14:10> are NUM_BLOCK; bit 15 is BL_SIZE
+	 * - When (size <= 62), BL_SIZE is set to 0 and NUM_BLOCK set to (size / 2).
+	 * - When (size > 62), BL_SIZE is set to 1 and NUM_BLOCK=((size / 32) - 1).
+	 *
+	 * This algo rounds to the next largest legal buffer size, except 0. Examples:
+	 *	size =>	BL_SIZE, NUM_BLOCK	=> Actual bufsize
+	 *	0		0		0			??? "Not allowed" according to RM0091, RM0008
+	 *	1		0		1			2
+	 *	61		0		31			62
+	 *	63		1		1			64
+	 */
 	if (size > 62) {
-		if (size & 0x1f) {
-			size -= 32;
-		}
-		USB_SET_EP_RX_COUNT(ep, (size << 5) | 0x8000);
+		/* Round up, div by 32 and sub 1 == (size + 31)/32 - 1 == (size-1)/32)*/
+		size = ((size - 1) >> 5) & 0x1F;
+		realsize = (size + 1) << 5;
+		/* Set BL_SIZE bit (no macro for this) */
+		size |= (1<<5);
 	} else {
-		if (size & 1) {
-			size++;
-		}
-		USB_SET_EP_RX_COUNT(ep, size << 10);
+		/* round up and div by 2 */
+		size = (size + 1) >> 1;
+		realsize = size << 1;
 	}
+	/* write to the BL_SIZE and NUM_BLOCK fields */
+	USB_SET_EP_RX_COUNT(ep, size << 10);
+	return realsize;
 }
 
 void st_usbfs_ep_setup(usbd_device *dev, uint8_t addr, uint8_t type,
@@ -90,15 +107,16 @@ void st_usbfs_ep_setup(usbd_device *dev, uint8_t addr, uint8_t type,
 	}
 
 	if (!dir) {
+		uint16_t realsize;
 		USB_SET_EP_RX_ADDR(addr, dev->pm_top);
-		st_usbfs_set_ep_rx_bufsize(dev, addr, max_size);
+		realsize = st_usbfs_set_ep_rx_bufsize(dev, addr, max_size);
 		if (callback) {
 			dev->user_callback_ctr[addr][USB_TRANSACTION_OUT] =
 			    (void *)callback;
 		}
 		USB_CLR_EP_RX_DTOG(addr);
 		USB_SET_EP_RX_STAT(addr, USB_EP_RX_STAT_VALID);
-		dev->pm_top += max_size;
+		dev->pm_top += realsize;
 	}
 }
 
@@ -233,6 +251,7 @@ void st_usbfs_poll(usbd_device *dev)
 			/* OUT or SETUP? */
 			if (*USB_EP_REG(ep) & USB_EP_SETUP) {
 				type = USB_TRANSACTION_SETUP;
+				st_usbfs_ep_read_packet(dev, ep, &dev->control_state.req, 8);
 			} else {
 				type = USB_TRANSACTION_OUT;
 			}

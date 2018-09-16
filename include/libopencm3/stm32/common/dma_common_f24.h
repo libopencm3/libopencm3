@@ -580,9 +580,9 @@ void dma_set_memory_size(uint32_t dma, uint8_t stream, uint32_t mem_size);
 void dma_set_peripheral_size(uint32_t dma, uint8_t stream,
 			     uint32_t peripheral_size);
 void dma_enable_memory_increment_mode(uint32_t dma, uint8_t stream);
-void dma_disable_memory_increment_mode(uint32_t dma, uint8_t channel);
+void dma_disable_memory_increment_mode(uint32_t dma, uint8_t stream);
 void dma_enable_peripheral_increment_mode(uint32_t dma, uint8_t stream);
-void dma_disable_peripheral_increment_mode(uint32_t dma, uint8_t channel);
+void dma_disable_peripheral_increment_mode(uint32_t dma, uint8_t stream);
 void dma_enable_fixed_peripheral_increment_mode(uint32_t dma, uint8_t stream);
 void dma_enable_circular_mode(uint32_t dma, uint8_t stream);
 void dma_channel_select(uint32_t dma, uint8_t stream, uint32_t channel);
@@ -613,6 +613,7 @@ void dma_disable_stream(uint32_t dma, uint8_t stream);
 void dma_set_peripheral_address(uint32_t dma, uint8_t stream, uint32_t address);
 void dma_set_memory_address(uint32_t dma, uint8_t stream, uint32_t address);
 void dma_set_memory_address_1(uint32_t dma, uint8_t stream, uint32_t address);
+uint16_t dma_get_number_of_data(uint32_t dma, uint8_t stream);
 void dma_set_number_of_data(uint32_t dma, uint8_t stream, uint16_t number);
 
 END_DECLS

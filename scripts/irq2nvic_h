@@ -79,12 +79,12 @@ template_vector_nvic_c = '''\
  */
 
 
-/** @defgroup CM3_nvic_isrpragmas_{partname_doxygen} User interrupt service routines (ISR) defaults for {partname_humanreadable}
-    @ingroup CM3_nvic_isrpragmas
+/** @defgroup CM3_nvic_isrdecls_{partname_doxygen} User interrupt service routines (ISR) defaults for {partname_humanreadable}
+    @ingroup CM3_nvic_isrdecls
 
     @{{*/
 
-{isrpragmas}
+{isrdecls}
 
 /**@}}*/
 
@@ -122,7 +122,7 @@ def convert(infile, outfile_nvic, outfile_vectornvic, outfile_cmsis):
 
     data['irqdefinitions'] = "\n".join('#define NVIC_%s_IRQ %d'%(v.upper(),int(k)) for (k,v) in irq2name)
     data['isrprototypes'] = "\n".join('void %s_isr(void);'%name.lower() for name in irqnames)
-    data['isrpragmas'] = "\n".join('#pragma weak %s_isr = blocking_handler'%name.lower() for name in irqnames)
+    data['isrdecls'] = "\n".join('void %s_isr(void) __attribute__((weak, alias("blocking_handler")));'%name.lower() for name in irqnames)
     data['vectortableinitialization'] = ', \\\n    '.join('[NVIC_%s_IRQ] = %s_isr'%(name.upper(), name.lower()) for name in irqnames)
     data['cmsisbends'] = "\n".join("#define %s_IRQHandler %s_isr"%(name.upper(), name.lower()) for name in irqnames)
 

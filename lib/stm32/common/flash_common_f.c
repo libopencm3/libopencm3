@@ -1,15 +1,6 @@
-/** @defgroup spi_file SPI
-
-@ingroup STM32L1xx
-
-@brief <b>libopencm3 STM32L1xx SPI</b>
-
-@version 1.0.0
-
-@date 15 October 2012
-
-LGPL License Terms @ref lgpl_license
-*/
+/** @addtogroup flash_file
+ *
+ */
 
 /*
  * This file is part of the libopencm3 project.
@@ -28,4 +19,27 @@ LGPL License Terms @ref lgpl_license
  * along with this library.  If not, see <http://www.gnu.org/licenses/>.
  */
 
-#include <libopencm3/stm32/spi.h>
+/**@{*/
+
+#include <libopencm3/stm32/flash.h>
+#include <libopencm3/stm32/common/flash_common_f.h>
+
+
+void flash_unlock(void)
+{
+	/* Authorize the FPEC access. */
+	FLASH_KEYR = FLASH_KEYR_KEY1;
+	FLASH_KEYR = FLASH_KEYR_KEY2;
+}
+
+void flash_lock(void)
+{
+	FLASH_CR |= FLASH_CR_LOCK;
+}
+
+/* The bit number for EOP moves sometimes, but it's always a write 1 to clear */
+void flash_clear_eop_flag(void)
+{
+	FLASH_SR |= FLASH_SR_EOP;
+}
+

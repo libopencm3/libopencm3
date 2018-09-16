@@ -1,15 +1,6 @@
-/** @defgroup spi_file SPI
-
-@ingroup STM32F3xx
-
-@brief <b>libopencm3 STM32F3xx SPI</b>
-
-@version 1.0.0
-
-@date 20 February 2014
-
-LGPL License Terms @ref lgpl_license
-*/
+/** @addtogroup flash_file
+ *
+ */
 
 /*
  * This file is part of the libopencm3 project.
@@ -28,4 +19,34 @@ LGPL License Terms @ref lgpl_license
  * along with this library.  If not, see <http://www.gnu.org/licenses/>.
  */
 
-#include <libopencm3/stm32/spi.h>
+/**@{*/
+
+#include <libopencm3/stm32/flash.h>
+
+void flash_prefetch_enable(void)
+{
+	FLASH_ACR |= FLASH_ACR_PRFTEN;
+}
+
+void flash_prefetch_disable(void)
+{
+	FLASH_ACR &= ~FLASH_ACR_PRFTEN;
+}
+
+void flash_set_ws(uint32_t ws)
+{
+	uint32_t reg32;
+
+	reg32 = FLASH_ACR;
+	reg32 &= ~(FLASH_ACR_LATENCY_MASK << FLASH_ACR_LATENCY_SHIFT);
+	reg32 |= (ws << FLASH_ACR_LATENCY_SHIFT);
+	FLASH_ACR = reg32;
+}
+
+void flash_unlock_option_bytes(void)
+{
+	FLASH_OPTKEYR = FLASH_OPTKEYR_KEY1;
+	FLASH_OPTKEYR = FLASH_OPTKEYR_KEY2;
+}
+
+/*@}*/

@@ -45,6 +45,8 @@
 #ifndef LIBOPENCM3_RCC_H
 #define LIBOPENCM3_RCC_H
 
+#include <libopencm3/stm32/pwr.h>
+
 /** @defgroup rcc_registers RCC Registers
  * @ingroup rcc_defines
  * @brief Reset / Clock Control Registers
@@ -166,7 +168,7 @@
 @{*/
 /* MCO2: Microcontroller clock output 2 */
 #define RCC_CFGR_MCO2_SHIFT			30
-#define RCC_CFGR_MC02_MASK			0x3
+#define RCC_CFGR_MCO2_MASK			0x3
 #define RCC_CFGR_MCO2_SYSCLK			0x0
 #define RCC_CFGR_MCO2_PLLI2S			0x1
 #define RCC_CFGR_MCO2_HSE			0x2
@@ -781,7 +783,7 @@ struct rcc_clock_scale {
 	uint8_t hpre;
 	uint8_t ppre1;
 	uint8_t ppre2;
-	uint8_t power_save;
+	enum pwr_vos_scale voltage_scale;
 	uint32_t ahb_frequency;
 	uint32_t apb1_frequency;
 	uint32_t apb2_frequency;

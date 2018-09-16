@@ -42,108 +42,6 @@ static inline void flash_set_program_size(uint32_t psize)
 }
 
 /*---------------------------------------------------------------------------*/
-/** @brief Enable the Data Cache
-
-*/
-
-void flash_dcache_enable(void)
-{
-	FLASH_ACR |= FLASH_ACR_DCEN;
-}
-
-/*---------------------------------------------------------------------------*/
-/** @brief Disable the Data Cache
-
-*/
-
-void flash_dcache_disable(void)
-{
-	FLASH_ACR &= ~FLASH_ACR_DCEN;
-}
-
-/*---------------------------------------------------------------------------*/
-/** @brief Enable the Instruction Cache
-
-*/
-
-void flash_icache_enable(void)
-{
-	FLASH_ACR |= FLASH_ACR_ICEN;
-}
-
-/*---------------------------------------------------------------------------*/
-/** @brief Disable the Instruction Cache
-
-*/
-
-void flash_icache_disable(void)
-{
-	FLASH_ACR &= ~FLASH_ACR_ICEN;
-}
-
-/*---------------------------------------------------------------------------*/
-/** @brief Enable the FLASH Prefetch Buffer
-
-This buffer is used for instruction fetches and is enabled by default after
-reset.
-
-Note carefully the clock restrictions under which the prefetch buffer may be
-enabled or disabled. Changes are normally made while the clock is running in
-the power-on low frequency mode before being set to a higher speed mode.
-See the reference manual for details.
-*/
-
-void flash_prefetch_enable(void)
-{
-	FLASH_ACR |= FLASH_ACR_PRFTEN;
-}
-
-/*---------------------------------------------------------------------------*/
-/** @brief Disable the FLASH Prefetch Buffer
-
-Note carefully the clock restrictions under which the prefetch buffer may be
-set to disabled. See the reference manual for details.
-*/
-
-void flash_prefetch_disable(void)
-{
-	FLASH_ACR &= ~FLASH_ACR_PRFTEN;
-}
-
-/*---------------------------------------------------------------------------*/
-/** @brief Reset the Data Cache
-
-The data cache must be disabled for this to have effect.
-*/
-
-void flash_dcache_reset(void)
-{
-	FLASH_ACR |= FLASH_ACR_DCRST;
-}
-
-/*---------------------------------------------------------------------------*/
-/** @brief Reset the Instruction Cache
-
-The instruction cache must be disabled for this to have effect.
-*/
-
-void flash_icache_reset(void)
-{
-	FLASH_ACR |= FLASH_ACR_ICRST;
-}
-
-/*---------------------------------------------------------------------------*/
-/** @brief Clear the Programming Sequence Error Flag
-
-This flag is set when incorrect programming configuration has been made.
-*/
-
-void flash_clear_pgserr_flag(void)
-{
-	FLASH_SR |= FLASH_SR_PGSERR;
-}
-
-/*---------------------------------------------------------------------------*/
 /** @brief Clear the Programming Alignment Error Flag
 
 */
@@ -151,6 +49,13 @@ void flash_clear_pgserr_flag(void)
 void flash_clear_pgaerr_flag(void)
 {
 	FLASH_SR |= FLASH_SR_PGAERR;
+}
+
+/** Clear programming parallelism error flag
+ */
+void flash_clear_pgperr_flag(void)
+{
+	FLASH_SR |= FLASH_SR_PGPERR;
 }
 
 /*---------------------------------------------------------------------------*/
@@ -161,39 +66,6 @@ void flash_clear_pgaerr_flag(void)
 void flash_clear_wrperr_flag(void)
 {
 	FLASH_SR |= FLASH_SR_WRPERR;
-}
-
-/*---------------------------------------------------------------------------*/
-/** @brief Clear All Status Flags
-
-Program error, end of operation, write protect error, busy.
-*/
-
-void flash_clear_status_flags(void)
-{
-	flash_clear_pgserr_flag();
-	flash_clear_pgaerr_flag();
-	flash_clear_wrperr_flag();
-	flash_clear_pgperr_flag();
-	flash_clear_eop_flag();
-	flash_clear_bsy_flag();
-}
-
-/*---------------------------------------------------------------------------*/
-/** @brief Unlock the Option Byte Access
-
-This enables write access to the option bytes. It is locked by default on
-reset.
-*/
-
-void flash_unlock_option_bytes(void)
-{
-	/* Clear the unlock state. */
-	FLASH_OPTCR |= FLASH_OPTCR_OPTLOCK;
-
-	/* Unlock option bytes. */
-	FLASH_OPTKEYR = FLASH_OPTKEYR_KEY1;
-	FLASH_OPTKEYR = FLASH_OPTKEYR_KEY2;
 }
 
 /*---------------------------------------------------------------------------*/
@@ -358,6 +230,11 @@ void flash_erase_sector(uint8_t sector, uint32_t program_size)
 {
 	flash_wait_for_last_operation();
 	flash_set_program_size(program_size);
+
+	/* Sector numbering is not contiguous internally! */
+	if (sector >= 12) {
+		sector += 4;
+	}
 
 	FLASH_CR &= ~(FLASH_CR_SNB_MASK << FLASH_CR_SNB_SHIFT);
 	FLASH_CR |= (sector & FLASH_CR_SNB_MASK) << FLASH_CR_SNB_SHIFT;

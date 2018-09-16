@@ -1,18 +1,20 @@
-/** @defgroup spi_file SPI
+/** @defgroup timer_defines Timer Defines
 
-@ingroup STM32F1xx
+@brief <b>libopencm3 Defined Constants and Types for the STM32F7xx Timers</b>
 
-@brief <b>libopencm3 STM32F1xx SPI</b>
+@ingroup STM32F7xx_defines
 
 @version 1.0.0
 
-@date 15 October 2012
+@author @htmlonly &copy; @endhtmlonly 2018 Karl Palsson <karlp@tweak.net.au>
 
 LGPL License Terms @ref lgpl_license
 */
 
 /*
  * This file is part of the libopencm3 project.
+ *
+ * Copyright (C) 2018 Karl Palsson <karlp@tweak.net.au>
  *
  * This library is free software: you can redistribute it and/or modify
  * it under the terms of the GNU Lesser General Public License as published by
@@ -28,4 +30,13 @@ LGPL License Terms @ref lgpl_license
  * along with this library.  If not, see <http://www.gnu.org/licenses/>.
  */
 
-#include <libopencm3/stm32/spi.h>
+#ifndef LIBOPENCM3_TIMER_H
+#define LIBOPENCM3_TIMER_H
+
+#include <libopencm3/stm32/common/timer_common_all.h>
+
+BEGIN_DECLS
+
+END_DECLS
+
+#endif

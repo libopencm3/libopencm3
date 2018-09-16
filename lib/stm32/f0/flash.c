@@ -61,7 +61,6 @@ void flash_clear_status_flags(void)
 	flash_clear_pgerr_flag();
 	flash_clear_eop_flag();
 	flash_clear_wrprterr_flag();
-	flash_clear_bsy_flag();
 }
 
 /*---------------------------------------------------------------------------*/
