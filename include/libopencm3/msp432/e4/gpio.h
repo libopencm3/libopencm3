@@ -2449,26 +2449,53 @@
 #define GPIO_AF_PT3_LCDDATA19   GPIO_AF15
 /**@}*/
 
-/* =============================================================================
- * Convenience enums
- * ---------------------------------------------------------------------------*/
+/**
+ * @brief GPIO Mode Definitions
+ *
+ * @li GPIO_MODE_OUTPUT - Configure pin as output
+ * @li GPIO_MODE_INPUT  - Configure pin as input
+ * @li GPIO_MODE_ANALOG - Configure pin as analog function
+ */
 enum gpio_mode {
     GPIO_MODE_OUTPUT,       /**< Configure pin as output */
     GPIO_MODE_INPUT,        /**< Configure pin as input */
     GPIO_MODE_ANALOG        /**< Configure pin as analog function */
 };
 
+/**
+ * @brief GPIO Pull-Up/Pull-Down Definitions
+ *
+ * @li GPIO_PUPD_NONE     - Do not pull the pin high or low
+ * @li GPIO_PUPD_PULLUP   - Pull the pin high
+ * @li GPIO_PUPD_PULLDOWN - Pull the pin low
+ */
 enum gpio_pullup {
     GPIO_PUPD_NONE,     /**< Do not pull the pin high or low */
     GPIO_PUPD_PULLUP,   /**< Pull the pin high */
     GPIO_PUPD_PULLDOWN, /**< Pull the pin low */
 };
 
+/**
+ * @brief GPIO Output Type Definitions
+ *
+ * @li GPIO_OTYPE_PP - Push-pull configuration
+ * @li GPIO_OTYPE_OD - Open drain configuration
+ */
 enum gpio_output_type {
     GPIO_OTYPE_PP,      /**< Push-pull configuration */
     GPIO_OTYPE_OD,      /**< Open drain configuration */
 };
 
+/**
+ * @brief GPIO Drive Strength Definitions
+ *
+ * @li GPIO_DRIVE_2MA  - 2mA drive
+ * @li GPIO_DRIVE_4MA  - 4mA drive
+ * @li GPIO_DRIVE_6MA  - 6mA drive
+ * @li GPIO_DRIVE_8MA  - 8mA drive
+ * @li GPIO_DRIVE_10MA - 10mA drive
+ * @li GPIO_DRIVE_12MA - 12mA drive
+ */
 enum gpio_drive_strength {
     GPIO_DRIVE_2MA,          /**< 2mA drive */
     GPIO_DRIVE_4MA,          /**< 4mA drive */
@@ -2478,21 +2505,34 @@ enum gpio_drive_strength {
     GPIO_DRIVE_12MA          /**< 12mA drive */
 };
 
+/**
+ * @brief GPIO Slew Control Definitions
+ *
+ * @li GPIO_SLEW_CTL_ENABLE  - Slew rate control enable
+ * @li GPIO_SLEW_CTL_DISABLE - Slew rate control disable
+ */
 enum gpio_slew_ctl {
     GPIO_SLEW_CTL_ENABLE, /**< Slew rate control enable */
     GPIO_SLEW_CTL_DISABLE /**< Slew rate control disable */
 };
 
-enum gpio_trigger {
+/**
+ * @brief GPIO Trigger Level/Edge Definitions
+ *
+ * @li GPIO_TRIG_LVL_LOW   - Level trigger, signal low
+ * @li GPIO_TRIG_LVL_HIGH  - Level trigger, signal high
+ * @li GPIO_TRIG_EDGE_FALL - Falling edge trigger
+ * @li GPIO_TRIG_EDGE_RISE - Rising edge trigger
+ * @li GPIO_TRIG_EDGE_BOTH - Both edges trigger
+ */
+enum gpio_trigger_level {
     GPIO_TRIG_LVL_LOW,      /**< Level trigger, signal low */
     GPIO_TRIG_LVL_HIGH,     /**< Level trigger, signal high */
     GPIO_TRIG_EDGE_FALL,    /**< Falling edge trigger */
     GPIO_TRIG_EDGE_RISE,    /**< Rising edge trigger */
-    GPIO_TRIG_EDGE_BOTH,    /**< Falling and Rising edges trigger */
+    GPIO_TRIG_EDGE_BOTH     /**< Both edges trigger */
 };
-/* =============================================================================
- * Function prototypes
- * ---------------------------------------------------------------------------*/
+
 BEGIN_DECLS
 
 void gpio_mode_setup(uint32_t gpioport, enum gpio_mode mode,
