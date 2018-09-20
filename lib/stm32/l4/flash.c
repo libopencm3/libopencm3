@@ -196,8 +196,8 @@ void flash_program_option_bytes(uint32_t data)
 		flash_unlock_option_bytes();
 	}
 
-	FLASH_OPTR = data & ~0x3;
-	FLASH_OPTR |= FLASH_CR_OPTSTRT;
+	FLASH_OPTR = data;
+	FLASH_CR |= FLASH_CR_OPTSTRT;
 	flash_wait_for_last_operation();
 }
 /**@}*/
