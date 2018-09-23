@@ -424,9 +424,10 @@ void gpio_unlock_commit(uint32_t gpioport, uint8_t gpios)
  *            If multiple pins are to be check,
  *            use bitwise OR '|' to separate them.
  *
- * @return bool. True, if pins is source of interrupt. False - if else.
+ * @return Unsigned int8. The bit position of the pin
+           value returned corresponds to the pin number.
  */
-bool gpio_is_interrupt_source(uint32_t gpioport, uint8_t gpios)
+uint8_t gpio_is_interrupt_source(uint32_t gpioport, uint8_t gpios)
 {
     return GPIO_MIS(gpioport) & gpios;
 }

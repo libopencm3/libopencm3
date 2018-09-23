@@ -269,7 +269,7 @@
 /** GPIO Port Control Set AF for Pin */
 #define GPIO_PCTL_AF(pin, af)   ((af) << ((pin) * 4))
 /* GPIO Port Control Mask for Pin */
-#define GPIO_PCTL_MASK(pin)     PCTL_AF((pin), 0xf)
+#define GPIO_PCTL_MASK(pin)     GPIO_PCTL_AF((pin), 0xf)
 /**@}*/
 
 /** @defgroup gpio_si_values GPIO_SI Values
@@ -2514,7 +2514,7 @@ void gpio_port_write(uint32_t gpioport, uint8_t data);
 void gpio_enable_interrupts(uint32_t gpioport, uint8_t gpios);
 void gpio_disable_interrupts(uint32_t gpioport, uint8_t gpios);
 void gpio_unlock_commit(uint32_t gpioport, uint8_t gpios);
-bool gpio_is_interrupt_source(uint32_t gpioport, uint8_t gpios);
+uint8_t gpio_is_interrupt_source(uint32_t gpioport, uint8_t gpios);
 void gpio_clear_interrupt_flag(uint32_t gpioport, uint8_t gpios);
 
 END_DECLS
