@@ -6,7 +6,7 @@
  *
  * @version 1.0.0
  *
- * @date 16 September 2018
+ * @date 23 September 2018
  *
  * LGPL License Terms @ref lgpl_license
  */
@@ -41,11 +41,8 @@
 #include <libopencm3/msp432/e4/memorymap.h>
 #include <stdbool.h>
 
-/* 
- * Доделать enum
-*/
-
 /** @defgroup gpio_reg_base GPIO Register Base Addresses
+ * @brief GPIO Register Base Addresses
 @{*/
 /** GPIOA Base Address */
 #define GPIOA               GPIOA_BASE
@@ -80,6 +77,7 @@
 /**@}*/
 
 /** @defgroup gpio_pin_id GPIO Pin Identifiers
+ * @brief GPIO Pin Identifiers
 @{*/
 /** GPIO Pin 0 Identifier */
 #define GPIO0               (1 << 0)
@@ -102,6 +100,7 @@
 /**@}*/
 
 /** @defgroup gpio_af_id GPIO Alternate Functions Identifiers
+ * @brief GPIO Alternate Functions Identifiers
 @{*/
 /** GPIO Alternate Function 1 Identifier */
 #define GPIO_AF1            0x1
@@ -132,6 +131,7 @@
 /**@}*/
 
 /** @defgroup gpio_registers GPIO Registers
+ * @brief GPIO Registers
 @{*/
 /** GPIO Data */
 #define GPIO_DATA(port)         (&MMIO32((port) + 0x000))
@@ -260,7 +260,7 @@
 /* Value we need to write to unlock the GPIO commit register */
 #define GPIO_LOCK_UNLOCK_CODE   (0x4C4F434B)
 /** GPIO Lock Status */
-#define GPIO_LOCK               (1 << 0)
+#define GPIO_LOCK_STATUS        (1 << 0)
 /**@}*/
 
 /** @defgroup gpio_pctl_values GPIO_PCTL Values
@@ -2449,83 +2449,44 @@
 #define GPIO_AF_PT3_LCDDATA19   GPIO_AF15
 /**@}*/
 
-/**
- * @brief GPIO Mode Definitions
- *
- * @li GPIO_MODE_OUTPUT - Configure pin as output
- * @li GPIO_MODE_INPUT  - Configure pin as input
- * @li GPIO_MODE_ANALOG - Configure pin as analog function
- */
+/** @brief GPIO Mode Definitions */
 enum gpio_mode {
     GPIO_MODE_OUTPUT,       /**< Configure pin as output */
     GPIO_MODE_INPUT,        /**< Configure pin as input */
     GPIO_MODE_ANALOG        /**< Configure pin as analog function */
 };
 
-/**
- * @brief GPIO Pull-Up/Pull-Down Definitions
- *
- * @li GPIO_PUPD_NONE     - Do not pull the pin high or low
- * @li GPIO_PUPD_PULLUP   - Pull the pin high
- * @li GPIO_PUPD_PULLDOWN - Pull the pin low
- */
-enum gpio_pullup {
-    GPIO_PUPD_NONE,     /**< Do not pull the pin high or low */
-    GPIO_PUPD_PULLUP,   /**< Pull the pin high */
-    GPIO_PUPD_PULLDOWN, /**< Pull the pin low */
+/** @brief GPIO Pull-Up/Pull-Down Definitions */
+enum gpio_pull_up_down {
+    GPIO_PUPD_NONE,         /**< Do not pull the pin high or low */
+    GPIO_PUPD_PULLUP,       /**< Pull the pin high */
+    GPIO_PUPD_PULLDOWN,     /**< Pull the pin low */
 };
 
-/**
- * @brief GPIO Output Type Definitions
- *
- * @li GPIO_OTYPE_PP - Push-pull configuration
- * @li GPIO_OTYPE_OD - Open drain configuration
- */
+/** @brief GPIO Output Type Definitions */
 enum gpio_output_type {
-    GPIO_OTYPE_PP,      /**< Push-pull configuration */
-    GPIO_OTYPE_OD,      /**< Open drain configuration */
+    GPIO_OTYPE_PP,          /**< Push-pull configuration */
+    GPIO_OTYPE_OD,          /**< Open drain configuration */
 };
 
-/**
- * @brief GPIO Drive Strength Definitions
- *
- * @li GPIO_DRIVE_2MA  - 2mA drive
- * @li GPIO_DRIVE_4MA  - 4mA drive
- * @li GPIO_DRIVE_6MA  - 6mA drive
- * @li GPIO_DRIVE_8MA  - 8mA drive
- * @li GPIO_DRIVE_10MA - 10mA drive
- * @li GPIO_DRIVE_12MA - 12mA drive
- */
+/** @brief GPIO Drive Strength Definitions */
 enum gpio_drive_strength {
-    GPIO_DRIVE_2MA,          /**< 2mA drive */
-    GPIO_DRIVE_4MA,          /**< 4mA drive */
-    GPIO_DRIVE_6MA,          /**< 6mA drive */
-    GPIO_DRIVE_8MA,          /**< 8mA drive */
-    GPIO_DRIVE_10MA,         /**< 10mA drive */
-    GPIO_DRIVE_12MA          /**< 12mA drive */
+    GPIO_DRIVE_2MA,         /**< 2mA drive */
+    GPIO_DRIVE_4MA,         /**< 4mA drive */
+    GPIO_DRIVE_6MA,         /**< 6mA drive */
+    GPIO_DRIVE_8MA,         /**< 8mA drive */
+    GPIO_DRIVE_10MA,        /**< 10mA drive */
+    GPIO_DRIVE_12MA         /**< 12mA drive */
 };
 
-/**
- * @brief GPIO Slew Control Definitions
- *
- * @li GPIO_SLEW_CTL_ENABLE  - Slew rate control enable
- * @li GPIO_SLEW_CTL_DISABLE - Slew rate control disable
- */
+/** @brief GPIO Slew Control Definitions */
 enum gpio_slew_ctl {
-    GPIO_SLEW_CTL_ENABLE, /**< Slew rate control enable */
-    GPIO_SLEW_CTL_DISABLE /**< Slew rate control disable */
+    GPIO_SLEW_CTL_ENABLE,   /**< Slew rate control enable */
+    GPIO_SLEW_CTL_DISABLE   /**< Slew rate control disable */
 };
 
-/**
- * @brief GPIO Trigger Level/Edge Definitions
- *
- * @li GPIO_TRIG_LVL_LOW   - Level trigger, signal low
- * @li GPIO_TRIG_LVL_HIGH  - Level trigger, signal high
- * @li GPIO_TRIG_EDGE_FALL - Falling edge trigger
- * @li GPIO_TRIG_EDGE_RISE - Rising edge trigger
- * @li GPIO_TRIG_EDGE_BOTH - Both edges trigger
- */
-enum gpio_trigger_level {
+/** @brief GPIO Trigger Level/Edge Definitions */
+enum gpio_trigger {
     GPIO_TRIG_LVL_LOW,      /**< Level trigger, signal low */
     GPIO_TRIG_LVL_HIGH,     /**< Level trigger, signal high */
     GPIO_TRIG_EDGE_FALL,    /**< Falling edge trigger */
@@ -2536,152 +2497,28 @@ enum gpio_trigger_level {
 BEGIN_DECLS
 
 void gpio_mode_setup(uint32_t gpioport, enum gpio_mode mode,
-                     enum gpio_pullup pullup, uint8_t gpios);
-void gpio_set_output_options(uint32_t gpioport,
-                            enum gpio_output_type otype,
-                            enum gpio_drive_strength drive,
-                            enum gpio_slew_ctl slewctl,
-                            uint8_t gpios);
+                     enum gpio_pull_up_down pull_up_down, uint8_t gpios);
+void gpio_set_output_options(uint32_t gpioport, enum gpio_output_type otype,
+                             enum gpio_drive_strength drive,
+                             enum gpio_slew_ctl slewctl,
+                             uint8_t gpios);
 void gpio_set_af(uint32_t gpioport, uint8_t alt_func_num, uint8_t gpios);
-
-void gpio_toggle(uint32_t gpioport, uint8_t gpios);
-void gpio_unlock_commit(uint32_t gpioport, uint8_t gpios);
-
-/**
- * @brief Get status of a Group of Pins (atomic)
- *
- * Reads the level of the given pins. Bit 0 of the returned data corresponds to
- * GPIO0 level, bit 1 to GPIO1 level. and so on. Bits corresponding to masked
- * pins (corresponding bit of gpios parameter set to zero) are returned as 0.
- *
- * This is an atomic operation.
- *
- * @param[in] gpioport GPIO block register address base @ref gpio_reg_base
- * @param[in] gpios @ref gpio_pin_id. Any combination of pins may be specified
- *		    by OR'ing then together.
- *
- * @return The level of the GPIO port. The pins not specified in gpios are
- *	   masked to zero.
- */
-static inline uint8_t gpio_read(uint32_t gpioport, uint8_t gpios)
-{
-    return GPIO_DATA(gpioport)[gpios];
-}
-
-/**
- * @brief Set level of a Group of Pins (atomic)
- *
- * Sets the level of the given pins. Bit 0 of the data parameter corresponds to
- * GPIO0, bit 1 to GPIO1. and so on. Maskedpins (corresponding bit of gpios
- * parameter set to zero) are returned not affected.
- *
- * This is an atomic operation.
- *
- * @param[in] gpioport GPIO block register address base @ref gpio_reg_base
- * @param[in] gpios @ref gpio_pin_id. Any combination of pins may be specified
- *		    by OR'ing then together.
- * @param[in] data Level to set pin to. Bit 0 of data corresponds to GPIO0, bit
- *		   1 to GPIO1. and so on.
- */
-static inline void gpio_write(uint32_t gpioport, uint8_t gpios, uint8_t data)
-{
-	/* ipaddr[9:2] mask the bits to be set, hence the array index */
-    GPIO_DATA(gpioport)[gpios] = data;
-}
-
-/**
- * @brief Set a Group of Pins (atomic)
- *
- * Set one or more pins of the given GPIO port. This is an atomic operation.
- *
- * @param[in] gpioport GPIO block register address base @ref gpio_reg_base
- * @param[in] gpios @ref gpio_pin_id. Any combination of pins may be specified
- *		    by OR'ing then together.
- */
-static inline void gpio_set(uint32_t gpioport, uint8_t gpios)
-{
-    gpio_write(gpioport, gpios, 0xff);
-}
-
-/**
- * @brief Clear a Group of Pins (atomic)
- *
- * Clear one or more pins of the given GPIO port. This is an atomic operation.
- *
- * @param[in] gpioport GPIO block register address base @ref gpio_reg_base
- * @param[in] gpios @ref gpio_pin_id. Any combination of pins may be specified
- *		    by OR'ing then together.
- */
-static inline void gpio_clear(uint32_t gpioport, uint8_t gpios)
-{
-    gpio_write(gpioport, gpios, 0);
-}
-
-/**
- * @brief Read level of all pins from a port (atomic)
- *
- * Read the current value of the given GPIO port. This is an atomic operation.
- *
- * This is functionally identical to @ref gpio_read (gpioport, GPIO_ALL).
- *
- * @param[in] gpioport GPIO block register address base @ref gpio_reg_base
- *
- * @return The level of all the pins on the GPIO port.
- */
-static inline uint8_t gpio_port_read(uint32_t gpioport)
-{
-    return gpio_read(gpioport, GPIO_ALL);
-}
-
-/**
- * @brief Set level of of all pins from a port (atomic)
- *
- * Set the level of all pins on the given GPIO port. This is an atomic
- * operation.
- *
- * This is functionally identical to @ref gpio_write (gpioport, GPIO_ALL, data).
- *
- * @param[in] gpioport GPIO block register address base @ref gpio_reg_base
- * @param[in] gpios @ref gpio_pin_id. Any combination of pins may be specified
- *		    by OR'ing then together.
- * @param[in] data Level to set pin to. Bit 0 of data corresponds to GPIO0, bit
- *		   1 to GPIO1. and so on.
- */
-static inline void gpio_port_write(uint32_t gpioport, uint8_t data)
-{
-    gpio_write(gpioport, GPIO_ALL, data);
-}
-
 void gpio_configure_trigger(uint32_t gpioport, enum gpio_trigger trigger,
                             uint8_t gpios);
+void gpio_set(uint32_t gpioport, uint8_t gpios);
+void gpio_clear(uint32_t gpioport, uint8_t gpios);
+uint8_t gpio_get(uint32_t gpioport, uint8_t gpios);
+void gpio_toggle(uint32_t gpioport, uint8_t gpios);
+uint8_t gpio_port_read(uint32_t gpioport);
+void gpio_port_write(uint32_t gpioport, uint8_t data);
 void gpio_enable_interrupts(uint32_t gpioport, uint8_t gpios);
 void gpio_disable_interrupts(uint32_t gpioport, uint8_t gpios);
-
-/** @brief Determine if interrupt is generated by the given pin
- *
- * @param[in] gpioport GPIO block register address base @ref gpio_reg_base
- * @param[in] srcpins source pin or group of pins to check.
- */
-static inline bool gpio_is_interrupt_source(uint32_t gpioport, uint8_t srcpins)
-{
-	return GPIO_MIS(gpioport) & srcpins;
-}
-
-/** @brief Mark interrupt as serviced
- * After an interrupt is services, its flag must be cleared. If the flag is not
- * cleared, then execution will jump back to the start of the ISR after the ISR
- * returns.
- *
- * @param[in] gpioport GPIO block register address base @ref gpio_reg_base
- * @param[in] gpios @ref gpio_pin_id. Any combination of pins may be specified
- *            by OR'ing then together.
- */
-static inline void gpio_clear_interrupt_flag(uint32_t gpioport, uint8_t gpios)
-{
-    GPIO_ICR(gpioport) |= gpios;
-}
+void gpio_unlock_commit(uint32_t gpioport, uint8_t gpios);
+bool gpio_is_interrupt_source(uint32_t gpioport, uint8_t gpios);
+void gpio_clear_interrupt_flag(uint32_t gpioport, uint8_t gpios);
 
 END_DECLS
 
-#endif
+/**@}*/
 
+#endif /* MSP432E4_GPIO_H */
