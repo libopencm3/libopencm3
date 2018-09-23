@@ -423,6 +423,8 @@ void gpio_unlock_commit(uint32_t gpioport, uint8_t gpios)
  * @param[in] gpios Source pin identifiers @ref gpio_pin_id.
  *            If multiple pins are to be check,
  *            use bitwise OR '|' to separate them.
+ *
+ * @return bool. True, if pins is source of interrupt. False - if else.
  */
 bool gpio_is_interrupt_source(uint32_t gpioport, uint8_t gpios)
 {
