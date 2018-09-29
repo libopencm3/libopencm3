@@ -422,6 +422,7 @@ void rcc_clock_setup_pll(const struct rcc_clock_scale *clock)
 	/* Set up the PLL */
 	rcc_set_pll_multiplier(clock->pll_mul);
 	rcc_set_pll_divider(clock->pll_div);
+	rcc_set_pll_source(clock->pll_source);
 
 	rcc_osc_on(RCC_PLL);
 	rcc_wait_for_osc_ready(RCC_PLL);
