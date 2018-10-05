@@ -81,6 +81,12 @@ specific memorymap.h header before including this header file.*/
 #if defined(TIM17_BASE)
 # define TIM17				TIM17_BASE
 #endif
+#if defined(TIM21_BASE)
+# define TIM21				TIM21_BASE
+#endif
+#if defined(TIM22_BASE)
+# define TIM22				TIM22_BASE
+#endif
 /**@}*/
 
 /* --- Timer registers ----------------------------------------------------- */
