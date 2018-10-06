@@ -46,6 +46,7 @@ OBJS		= flash_common_all.o flash_common_f.o flash_common_f24.o flash.o
 OBJS		+= desig.o
 OBJS		+= gpio.o gpio_common_all.o gpio_common_f0234.o
 OBJS		+= pwr.o rcc.o
+OBJS        += dma_common_f247.o
 
 OBJS		+= rcc_common_all.o
 OBJS		+= rng_common_v1.o

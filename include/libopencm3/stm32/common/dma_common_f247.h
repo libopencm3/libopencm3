@@ -33,8 +33,8 @@ specific memorymap.h header before including this header file.*/
 /** @cond */
 #ifdef LIBOPENCM3_DMA_H
 /** @endcond */
-#ifndef LIBOPENCM3_DMA_COMMON_F24_H
-#define LIBOPENCM3_DMA_COMMON_F24_H
+#ifndef LIBOPENCM3_DMA_COMMON_F247_H
+#define LIBOPENCM3_DMA_COMMON_F247_H
 
 /**@{*/
 
@@ -621,7 +621,7 @@ END_DECLS
 #endif
 /** @cond */
 #else
-#warning "dma_common_f24.h should not be included explicitly, only via dma.h"
+#warning "dma_common_f247.h should not be included explicitly, only via dma.h"
 #endif
 /** @endcond */
 

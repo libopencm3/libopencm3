@@ -31,7 +31,7 @@ LGPL License Terms @ref lgpl_license
 #ifndef LIBOPENCM3_DMA_H
 #define LIBOPENCM3_DMA_H
 
-#include <libopencm3/stm32/common/dma_common_f24.h>
+#include <libopencm3/stm32/common/dma_common_f247.h>
 
 #endif
 

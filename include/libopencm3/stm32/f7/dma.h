@@ -1,12 +1,12 @@
 /** @defgroup dma_defines DMA Defines
 
-@ingroup STM32F2xx_defines
+@ingroup STM32F7xx_defines
 
-@brief Defined Constants and Types for the STM32F2xx DMA Controller
+@brief Defined Constants and Types for the STM32F7xx DMA Controller
 
 @version 1.0.0
 
-@date 18 October 2012
+@date 06 October 2018
 
 LGPL License Terms @ref lgpl_license
  */

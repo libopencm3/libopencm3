@@ -42,7 +42,7 @@ ARFLAGS		= rcs
 OBJS		= adc.o adc_common_v1.o can.o desig.o gpio.o pwr.o rcc.o \
 		  rtc.o crypto.o
 
-OBJS            += crc_common_all.o dac_common_all.o dma_common_f24.o \
+OBJS            += crc_common_all.o dac_common_all.o dma_common_f247.o \
                    gpio_common_all.o gpio_common_f0234.o i2c_common_v1.o \
                    iwdg_common_all.o pwr_common_v1.o rtc_common_l1f024.o \
                    timer_common_all.o \
