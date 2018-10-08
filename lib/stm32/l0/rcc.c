@@ -496,9 +496,10 @@ void rcc_set_peripheral_clk_sel(uint32_t periph, uint32_t sel)
 	RCC_CCIPR = reg32 | (sel << shift);
 }
 
-/**
- * Set up sysclock with PLL from HSI16
- * @param clock full struct with desired parameters
+/** @brief RCC Setup PLL and use it as Sysclk source.
+ *
+ * @param[in] clock full struct with desired parameters
+ *
  */
 void rcc_clock_setup_pll(const struct rcc_clock_scale *clock)
 {
