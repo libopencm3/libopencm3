@@ -20,6 +20,8 @@
 #ifndef LIBOPENCM3_CM3_COMMON_H
 #define LIBOPENCM3_CM3_COMMON_H
 
+#ifndef __ASSEMBLER__
+
 #include <stdint.h>
 #include <stdbool.h>
 
@@ -58,6 +60,29 @@
 
 #define BBIO_PERIPH(addr, bit) \
 	MMIO32((((uint32_t)addr) & 0x0FFFFF) * 32 + 0x42000000 + (bit) * 4)
+
+#else
+
+/* Basic Assembler support */
+
+/* Skip all C/C++ declarations */
+#define BEGIN_DECLS .if 0
+#define END_DECLS .endif
+
+/* All addresses are just numbers */
+#define MMIO8(addr) (addr)
+#define MMIO16(addr) (addr)
+#define MMIO32(addr) (addr)
+#define MMIO64(addr) (addr)
+
+/* Generic bit-band I/O accessor functions */
+#define BBIO_SRAM(addr, bit) \
+	(((addr) & 0x0FFFFF) * 32 + 0x22000000 + (bit) * 4)
+
+#define BBIO_PERIPH(addr, bit) \
+	(((addr) & 0x0FFFFF) * 32 + 0x42000000 + (bit) * 4)
+
+#endif
 
 /* Generic bit definition */
 #define BIT0  (1<<0)
