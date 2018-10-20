@@ -1,0 +1,3 @@
+# Force LF line endings for bash scripts (for correct running on Windows)
+scripts/*.sh          eol=lf
+scripts/gendoxylist   eol=lf
