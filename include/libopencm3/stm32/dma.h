@@ -30,6 +30,8 @@
 #       include <libopencm3/stm32/f3/dma.h>
 #elif defined(STM32F4)
 #       include <libopencm3/stm32/f4/dma.h>
+#elif defined(STM32F7)
+#       include <libopencm3/stm32/f7/dma.h>
 #elif defined(STM32L0)
 #       include <libopencm3/stm32/l0/dma.h>
 #elif defined(STM32L1)
