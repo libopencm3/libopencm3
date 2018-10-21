@@ -480,17 +480,17 @@ adc_set_injected_offset.
 @returns Unsigned int32 conversion result.
 */
 
-uint32_t adc_read_injected(uint32_t adc, uint8_t reg)
+int32_t adc_read_injected(uint32_t adc, uint8_t reg)
 {
 	switch (reg) {
 	case 1:
-		return ADC_JDR1(adc);
+		return (int16_t)ADC_JDR1(adc);
 	case 2:
-		return ADC_JDR2(adc);
+		return (int16_t)ADC_JDR2(adc);
 	case 3:
-		return ADC_JDR3(adc);
+		return (int16_t)ADC_JDR3(adc);
 	case 4:
-		return ADC_JDR4(adc);
+		return (int16_t)ADC_JDR4(adc);
 	}
 	return 0;
 }
