@@ -31,7 +31,14 @@ LGPL License Terms @ref lgpl_license
 #ifndef LIBOPENCM3_SPI_H
 #define LIBOPENCM3_SPI_H
 
-#include <libopencm3/stm32/common/spi_common_v1_frf.h>
+#include <libopencm3/stm32/common/spi_common_v2.h>
+
+/* --- SPI_CR2 values ------------------------------------------------------ */
+
+/* LDMA_TX: Last DMA transfer for transmission */
+#define SPI_CR2_FRF             (1 << 4)
+#define SPI_CR2_FRF_MOTOROLA    (0 << 4)
+#define SPI_CR2_FRF_TI         (1 << 4)
 
 #endif
 
