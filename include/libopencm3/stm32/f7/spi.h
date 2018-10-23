@@ -31,7 +31,7 @@ LGPL License Terms @ref lgpl_license
 #ifndef LIBOPENCM3_SPI_H
 #define LIBOPENCM3_SPI_H
 
-#include <libopencm3/stm32/common/spi_common_v1_frf.h>
+#include <libopencm3/stm32/common/spi_common_v2.h>
 
 #endif
 
