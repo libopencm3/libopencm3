@@ -44,9 +44,9 @@
  * @param[in] periph ::msp432_periph Peripheral block
  */
 void sysctl_periph_clock_enable(enum msp432_clock_mode clock_mode,
-                                enum msp432_periph periph)
+	enum msp432_periph periph)
 {
-    _SYSCTL_REG(SYSCTL_BASE + clock_mode, periph) |= _SYSCTL_BIT(periph);
+	_SYSCTL_REG(SYSCTL_BASE + clock_mode, periph) |= _SYSCTL_BIT(periph);
 }
 
 /*----------------------------------------------------------------------------*/
@@ -56,9 +56,9 @@ void sysctl_periph_clock_enable(enum msp432_clock_mode clock_mode,
  * @param[in] periph ::msp432_periph Peripheral block
  */
 void sysctl_periph_clock_disable(enum msp432_clock_mode clock_mode,
-                                 enum msp432_periph periph)
+	enum msp432_periph periph)
 {
-    _SYSCTL_REG(SYSCTL_BASE + clock_mode, periph) &= ~_SYSCTL_BIT(periph);
+	_SYSCTL_REG(SYSCTL_BASE + clock_mode, periph) &= ~_SYSCTL_BIT(periph);
 }
 
 /*----------------------------------------------------------------------------*/
@@ -68,7 +68,7 @@ void sysctl_periph_clock_disable(enum msp432_clock_mode clock_mode,
  */
 void sysctl_periph_reset(enum msp432_periph periph)
 {
-    _SYSCTL_REG((uint32_t)&SYSCTL_SRWD, periph) |= _SYSCTL_BIT(periph);
+	_SYSCTL_REG((uint32_t) &SYSCTL_SRWD, periph) |= _SYSCTL_BIT(periph);
 }
 
 /*----------------------------------------------------------------------------*/
@@ -78,7 +78,7 @@ void sysctl_periph_reset(enum msp432_periph periph)
  */
 void sysctl_periph_clear_reset(enum msp432_periph periph)
 {
-    _SYSCTL_REG((uint32_t)&SYSCTL_SRWD, periph) &= ~_SYSCTL_BIT(periph);
+	_SYSCTL_REG((uint32_t) &SYSCTL_SRWD, periph) &= ~_SYSCTL_BIT(periph);
 }
 
 /*----------------------------------------------------------------------------*/
@@ -88,10 +88,10 @@ void sysctl_periph_clear_reset(enum msp432_periph periph)
  */
 bool sysctl_periph_is_present(enum msp432_periph periph)
 {
-    uint32_t reg32 = _SYSCTL_REG((uint32_t)&SYSCTL_PPWD, periph);
-    uint32_t mask = _SYSCTL_BIT(periph);
+	uint32_t reg32 = _SYSCTL_REG((uint32_t) &SYSCTL_PPWD, periph);
+	uint32_t mask = _SYSCTL_BIT(periph);
 
-    return ((reg32 & mask) != 0);
+	return((reg32 & mask) != 0);
 }
 
 /*----------------------------------------------------------------------------*/
@@ -101,10 +101,10 @@ bool sysctl_periph_is_present(enum msp432_periph periph)
  */
 bool sysctl_periph_is_ready(enum msp432_periph periph)
 {
-    uint32_t reg32 = _SYSCTL_REG((uint32_t)&SYSCTL_PRWD, periph);
-    uint32_t mask = _SYSCTL_BIT(periph);
+	uint32_t reg32 = _SYSCTL_REG((uint32_t) &SYSCTL_PRWD, periph);
+	uint32_t mask = _SYSCTL_BIT(periph);
 
-    return ((reg32 & mask) != 0);
+	return((reg32 & mask) != 0);
 }
 
 /*----------------------------------------------------------------------------*/
@@ -117,13 +117,13 @@ bool sysctl_periph_is_ready(enum msp432_periph periph)
  * is powered and receives a clock regardless of the value of power mode.
  */
 void sysctl_periph_set_power_state(enum msp432_power_mode power_mode,
-                                   enum msp432_periph periph)
+	enum msp432_periph periph)
 {
-    if(power_mode == POWER_ENABLE) {
-        _SYSCTL_REG((uint32_t)&SYSCTL_PCWD, periph) |= _SYSCTL_BIT(periph);
-    } else {
-        _SYSCTL_REG((uint32_t)&SYSCTL_PCWD, periph) &= ~_SYSCTL_BIT(periph);
-    }
+	if (power_mode == POWER_ENABLE) {
+		_SYSCTL_REG((uint32_t) &SYSCTL_PCWD, periph) |= _SYSCTL_BIT(periph);
+	} else {
+		_SYSCTL_REG((uint32_t) &SYSCTL_PCWD, periph) &= ~_SYSCTL_BIT(periph);
+	}
 }
 
 #undef _SYSCTL_REG

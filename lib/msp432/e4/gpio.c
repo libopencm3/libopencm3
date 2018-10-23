@@ -53,50 +53,50 @@
  *            to be set, use bitwise OR '|' to separate them.
  */
 void gpio_mode_setup(uint32_t gpioport, enum gpio_mode mode,
-                     enum gpio_pull_up_down pull_up_down, uint8_t gpios)
+	enum gpio_pull_up_down pull_up_down, uint8_t gpios)
 {
-    GPIO_AFSEL(gpioport) &= ~gpios;
+	GPIO_AFSEL(gpioport) &= ~gpios;
 
-    switch (mode) {
-    case GPIO_MODE_OUTPUT:
-        GPIO_DIR(gpioport) |= gpios;
-        GPIO_DEN(gpioport) |= gpios;
-        GPIO_AMSEL(gpioport) &= ~gpios;
-        break;
-    case GPIO_MODE_INPUT:
-        GPIO_DIR(gpioport) &= ~gpios;
-        GPIO_DEN(gpioport) |= gpios;
-        GPIO_AMSEL(gpioport) &= ~gpios;
-        break;
-    case GPIO_MODE_ANALOG:
-        GPIO_AFSEL(gpioport) |= gpios;
-        GPIO_DEN(gpioport) &= ~gpios;
-        GPIO_AMSEL(gpioport) |= gpios;
-        break;
-    default:
-        /* Don't do anything */
-        break;
-    }
+	switch (mode) {
+	case GPIO_MODE_OUTPUT:
+		GPIO_DIR(gpioport) |= gpios;
+		GPIO_DEN(gpioport) |= gpios;
+		GPIO_AMSEL(gpioport) &= ~gpios;
+		break;
+	case GPIO_MODE_INPUT:
+		GPIO_DIR(gpioport) &= ~gpios;
+		GPIO_DEN(gpioport) |= gpios;
+		GPIO_AMSEL(gpioport) &= ~gpios;
+		break;
+	case GPIO_MODE_ANALOG:
+		GPIO_AFSEL(gpioport) |= gpios;
+		GPIO_DEN(gpioport) &= ~gpios;
+		GPIO_AMSEL(gpioport) |= gpios;
+		break;
+	default:
+		/* Don't do anything */
+		break;
+	}
 
-    /*
-     * Setting a bit in the GPIO_PDR register clears the corresponding bit
-     * in the GPIO_PUR register, and vice-versa.
-     */
-    switch (pull_up_down) {
-    case GPIO_PUPD_PULLUP:
-        GPIO_PDR(gpioport) &= ~gpios;
-        GPIO_PUR(gpioport) |= gpios;
-        break;
-    case GPIO_PUPD_PULLDOWN:
-        GPIO_PUR(gpioport) &= ~gpios;
-        GPIO_PDR(gpioport) |= gpios;
-        break;
-    case GPIO_PUPD_NONE:	/* Fall through */
-    default:
-        GPIO_PUR(gpioport) &= ~gpios;
-        GPIO_PDR(gpioport) &= ~gpios;
-        break;
-    }
+	/*
+	 * Setting a bit in the GPIO_PDR register clears the corresponding bit
+	 * in the GPIO_PUR register, and vice-versa.
+	 */
+	switch (pull_up_down) {
+	case GPIO_PUPD_PULLUP:
+		GPIO_PDR(gpioport) &= ~gpios;
+		GPIO_PUR(gpioport) |= gpios;
+		break;
+	case GPIO_PUPD_PULLDOWN:
+		GPIO_PUR(gpioport) &= ~gpios;
+		GPIO_PDR(gpioport) |= gpios;
+		break;
+	case GPIO_PUPD_NONE: /* Fall through */
+	default:
+		GPIO_PUR(gpioport) &= ~gpios;
+		GPIO_PDR(gpioport) &= ~gpios;
+		break;
+	}
 }
 
 /** @brief General Purpose Input/Outputs Set Output Options
@@ -124,70 +124,70 @@ void gpio_mode_setup(uint32_t gpioport, enum gpio_mode mode,
  *            to be set, use bitwise OR '|' to separate them.
  */
 void gpio_set_output_options(uint32_t gpioport,
-                            enum gpio_output_type otype,
-                            enum gpio_drive_strength drive,
-                            enum gpio_slew_ctl slewctl,
-                            uint8_t gpios)
+	enum gpio_output_type otype,
+	enum gpio_drive_strength drive,
+	enum gpio_slew_ctl slewctl,
+	uint8_t gpios)
 {
-    uint8_t i;
-    uint8_t pin_mask;
+	uint8_t i;
+	uint8_t pin_mask;
 
-    if (otype == GPIO_OTYPE_OD) {
-        GPIO_ODR(gpioport) |= gpios;
-    } else {
-        GPIO_ODR(gpioport) &= ~gpios;
-    }
+	if (otype == GPIO_OTYPE_OD) {
+		GPIO_ODR(gpioport) |= gpios;
+	} else {
+		GPIO_ODR(gpioport) &= ~gpios;
+	}
 
-    GPIO_PP(gpioport) |= GPIO_PP_EDE;
+	GPIO_PP(gpioport) |= GPIO_PP_EDE;
 
-    for (i = 0; i < 8; i++) {
-        pin_mask = (1 << i);
+	for (i = 0; i < 8; i++) {
+		pin_mask = (1 << i);
 
-        if (!(gpios & pin_mask)) {
-            continue;
-        }
+		if (!(gpios & pin_mask)) {
+			continue;
+		}
 
-        GPIO_PC(gpioport) &= ~GPIO_PC_EDM_MASK(i);
-        GPIO_PC(gpioport) |= GPIO_PC_EDM(i, GPIO_PC_EDM_FULL_RANGE);
-    }
+		GPIO_PC(gpioport) &= ~GPIO_PC_EDM_MASK(i);
+		GPIO_PC(gpioport) |= GPIO_PC_EDM(i, GPIO_PC_EDM_FULL_RANGE);
+	}
 
-    GPIO_DR4R(gpioport) &= ~gpios;
-    GPIO_DR8R(gpioport) &= ~gpios;
-    GPIO_DR12R(gpioport) &= ~gpios;
+	GPIO_DR4R(gpioport) &= ~gpios;
+	GPIO_DR8R(gpioport) &= ~gpios;
+	GPIO_DR12R(gpioport) &= ~gpios;
 
-    switch (drive) {
-    case GPIO_DRIVE_4MA:
-        GPIO_DR4R(gpioport) |= gpios;
-        break;
-    case GPIO_DRIVE_6MA:
-        GPIO_DR8R(gpioport) |= gpios;
-        break;
-    case GPIO_DRIVE_8MA:
-        GPIO_DR4R(gpioport) |= gpios;
-        GPIO_DR8R(gpioport) |= gpios;
-        break;
-    case GPIO_DRIVE_10MA:
-        GPIO_DR8R(gpioport) |= gpios;
-        GPIO_DR12R(gpioport) |= gpios;
-        break;
-    case GPIO_DRIVE_12MA:
-        GPIO_DR4R(gpioport) |= gpios;
-        GPIO_DR8R(gpioport) |= gpios;
-        GPIO_DR12R(gpioport) |= gpios;
-        break;
-    case GPIO_DRIVE_2MA:	/* Fall through */
-    default:
-        /* don't anything */
-        break;
-    }
+	switch (drive) {
+	case GPIO_DRIVE_4MA:
+		GPIO_DR4R(gpioport) |= gpios;
+		break;
+	case GPIO_DRIVE_6MA:
+		GPIO_DR8R(gpioport) |= gpios;
+		break;
+	case GPIO_DRIVE_8MA:
+		GPIO_DR4R(gpioport) |= gpios;
+		GPIO_DR8R(gpioport) |= gpios;
+		break;
+	case GPIO_DRIVE_10MA:
+		GPIO_DR8R(gpioport) |= gpios;
+		GPIO_DR12R(gpioport) |= gpios;
+		break;
+	case GPIO_DRIVE_12MA:
+		GPIO_DR4R(gpioport) |= gpios;
+		GPIO_DR8R(gpioport) |= gpios;
+		GPIO_DR12R(gpioport) |= gpios;
+		break;
+	case GPIO_DRIVE_2MA: /* Fall through */
+	default:
+		/* don't anything */
+		break;
+	}
 
-    if ((slewctl == GPIO_SLEW_CTL_ENABLE) &&
-       ((drive ==  GPIO_DRIVE_8MA) || (drive ==  GPIO_DRIVE_10MA) ||
-        (drive ==  GPIO_DRIVE_12MA))) {
-        GPIO_SLR(gpioport) |= gpios;
-    } else {
-        GPIO_SLR(gpioport) &= ~gpios;
-    }
+	if ((slewctl == GPIO_SLEW_CTL_ENABLE) &&
+		((drive == GPIO_DRIVE_8MA) || (drive == GPIO_DRIVE_10MA) ||
+		(drive == GPIO_DRIVE_12MA))) {
+		GPIO_SLR(gpioport) |= gpios;
+	} else {
+		GPIO_SLR(gpioport) &= ~gpios;
+	}
 }
 
 /** @brief General Purpose Input/Outputs Set Alternate Function Selection
@@ -207,33 +207,33 @@ void gpio_set_output_options(uint32_t gpioport,
  */
 void gpio_set_af(uint32_t gpioport, uint8_t alt_func_num, uint8_t gpios)
 {
-    uint32_t pctl32;
-    uint8_t pin_mask;
-    uint8_t i;
+	uint32_t pctl32;
+	uint8_t pin_mask;
+	uint8_t i;
 
-    /* Did we mean to disable the alternate function? */
-    if (alt_func_num == 0) {
-        GPIO_AFSEL(gpioport) &= ~gpios;
-        return;
-    }
+	/* Did we mean to disable the alternate function? */
+	if (alt_func_num == 0) {
+		GPIO_AFSEL(gpioport) &= ~gpios;
+		return;
+	}
 
-    /* Enable the alternate function */
-    GPIO_AFSEL(gpioport) |= gpios;
+	/* Enable the alternate function */
+	GPIO_AFSEL(gpioport) |= gpios;
 
-    /* Now take care of the actual multiplexing */
-    pctl32 = GPIO_PCTL(gpioport);
-    for (i = 0; i < 8; i++) {
-        pin_mask = (1 << i);
+	/* Now take care of the actual multiplexing */
+	pctl32 = GPIO_PCTL(gpioport);
+	for (i = 0; i < 8; i++) {
+		pin_mask = (1 << i);
 
-        if (!(gpios & pin_mask)) {
-            continue;
-        }
+		if (!(gpios & pin_mask)) {
+			continue;
+		}
 
-        pctl32 &= ~GPIO_PCTL_MASK(i);
-        pctl32 |= GPIO_PCTL_AF(i, (alt_func_num & 0xf));
-    }
+		pctl32 &= ~GPIO_PCTL_MASK(i);
+		pctl32 |= GPIO_PCTL_AF(i, (alt_func_num & 0xf));
+	}
 
-    GPIO_PCTL(gpioport) = pctl32;
+	GPIO_PCTL(gpioport) = pctl32;
 }
 
 /** @brief General Purpose Input/Outputs Configure Interrupt Trigger
@@ -251,35 +251,35 @@ void gpio_set_af(uint32_t gpioport, uint8_t alt_func_num, uint8_t gpios)
  *            to be configure, use bitwise OR '|' to separate them.
  */
 void gpio_configure_trigger(uint32_t gpioport, enum gpio_trigger trigger,
-                            uint8_t gpios)
+	uint8_t gpios)
 {
-    switch (trigger) {
-    case GPIO_TRIG_LVL_LOW:
-        GPIO_IS(gpioport) |= gpios;
-        GPIO_IEV(gpioport) &= ~gpios;
-        break;
-    case GPIO_TRIG_LVL_HIGH:
-        GPIO_IS(gpioport) |= gpios;
-        GPIO_IEV(gpioport) |= gpios;
-        break;
-    case GPIO_TRIG_EDGE_FALL:
-        GPIO_IS(gpioport) &= ~gpios;
-        GPIO_IBE(gpioport) &= ~gpios;
-        GPIO_IEV(gpioport) &= ~gpios;
-        break;
-    case GPIO_TRIG_EDGE_RISE:
-        GPIO_IS(gpioport) &= ~gpios;
-        GPIO_IBE(gpioport) &= ~gpios;
-        GPIO_IEV(gpioport) |= gpios;
-        break;
-    case GPIO_TRIG_EDGE_BOTH:
-        GPIO_IS(gpioport) &= ~gpios;
-        GPIO_IBE(gpioport) |= gpios;
-        break;
-    default:
-        /* Don't do anything */
-        break;
-    }
+	switch (trigger) {
+	case GPIO_TRIG_LVL_LOW:
+		GPIO_IS(gpioport) |= gpios;
+		GPIO_IEV(gpioport) &= ~gpios;
+		break;
+	case GPIO_TRIG_LVL_HIGH:
+		GPIO_IS(gpioport) |= gpios;
+		GPIO_IEV(gpioport) |= gpios;
+		break;
+	case GPIO_TRIG_EDGE_FALL:
+		GPIO_IS(gpioport) &= ~gpios;
+		GPIO_IBE(gpioport) &= ~gpios;
+		GPIO_IEV(gpioport) &= ~gpios;
+		break;
+	case GPIO_TRIG_EDGE_RISE:
+		GPIO_IS(gpioport) &= ~gpios;
+		GPIO_IBE(gpioport) &= ~gpios;
+		GPIO_IEV(gpioport) |= gpios;
+		break;
+	case GPIO_TRIG_EDGE_BOTH:
+		GPIO_IS(gpioport) &= ~gpios;
+		GPIO_IBE(gpioport) |= gpios;
+		break;
+	default:
+		/* Don't do anything */
+		break;
+	}
 }
 
 /** @brief General Purpose Input/Outputs Set a Group of Pins Atomic
@@ -292,7 +292,7 @@ void gpio_configure_trigger(uint32_t gpioport, enum gpio_trigger trigger,
  */
 void gpio_set(uint32_t gpioport, uint8_t gpios)
 {
-    GPIO_DATA(gpioport)[gpios] = 0xFF;
+	GPIO_DATA(gpioport)[gpios] = 0xFF;
 }
 
 /** @brief General Purpose Input/Outputs Clear a Group of Pins Atomic
@@ -305,7 +305,7 @@ void gpio_set(uint32_t gpioport, uint8_t gpios)
  */
 void gpio_clear(uint32_t gpioport, uint8_t gpios)
 {
-    GPIO_DATA(gpioport)[gpios] = 0x0;
+	GPIO_DATA(gpioport)[gpios] = 0x0;
 }
 
 /** @brief General Purpose Input/Outputs Read a Group of Pins
@@ -315,11 +315,11 @@ void gpio_clear(uint32_t gpioport, uint8_t gpios)
  *            to be read, use bitwise OR '|' to separate them.
  *
  * @return Unsigned int8 value of the pin values. The bit position of the pin
-           value returned corresponds to the pin number.
+	   value returned corresponds to the pin number.
  */
 uint8_t gpio_get(uint32_t gpioport, uint8_t gpios)
 {
-    return (uint8_t)GPIO_DATA(gpioport)[gpios];
+	return (uint8_t)GPIO_DATA(gpioport)[gpios];
 }
 
 /** @brief General Purpose Input/Outputs Toggle a Group of Pins
@@ -333,8 +333,8 @@ uint8_t gpio_get(uint32_t gpioport, uint8_t gpios)
  */
 void gpio_toggle(uint32_t gpioport, uint8_t gpios)
 {
-    /* The mask makes sure we only toggle the GPIOs we want to */
-    GPIO_DATA(gpioport)[gpios] ^= GPIO_ALL;
+	/* The mask makes sure we only toggle the GPIOs we want to */
+	GPIO_DATA(gpioport)[gpios] ^= GPIO_ALL;
 }
 
 /** @brief General Purpose Input/Outputs Read from a Port
@@ -347,7 +347,7 @@ void gpio_toggle(uint32_t gpioport, uint8_t gpios)
  */
 uint8_t gpio_port_read(uint32_t gpioport)
 {
-    return (uint8_t)GPIO_DATA(gpioport)[GPIO_ALL];
+	return (uint8_t)GPIO_DATA(gpioport)[GPIO_ALL];
 }
 
 /** @brief General Purpose Input/Outputs Write to a Port
@@ -359,7 +359,7 @@ uint8_t gpio_port_read(uint32_t gpioport)
  */
 void gpio_port_write(uint32_t gpioport, uint8_t data)
 {
-    GPIO_DATA(gpioport)[GPIO_ALL] = data;
+	GPIO_DATA(gpioport)[GPIO_ALL] = data;
 }
 
 /** @brief General Purpose Input/Outputs Enable Interrupts on specified pins
@@ -377,7 +377,7 @@ void gpio_port_write(uint32_t gpioport, uint8_t data)
  */
 void gpio_enable_interrupts(uint32_t gpioport, uint8_t gpios)
 {
-    GPIO_IM(gpioport) |= gpios;
+	GPIO_IM(gpioport) |= gpios;
 }
 
 /** @brief General Purpose Input/Outputs Disable interrupts on specified pins
@@ -392,7 +392,7 @@ void gpio_enable_interrupts(uint32_t gpioport, uint8_t gpios)
  */
 void gpio_disable_interrupts(uint32_t gpioport, uint8_t gpios)
 {
-    GPIO_IM(gpioport) &= ~gpios;
+	GPIO_IM(gpioport) &= ~gpios;
 }
 
 /** @brief General Purpose Input/Outputs Unlock The Commit Control
@@ -408,12 +408,12 @@ void gpio_disable_interrupts(uint32_t gpioport, uint8_t gpios)
  */
 void gpio_unlock_commit(uint32_t gpioport, uint8_t gpios)
 {
-    /* Unlock the GPIO_CR register */
-    GPIO_LOCK(gpioport) = GPIO_LOCK_UNLOCK_CODE;
-    /* Enable committing changes */
-    GPIO_CR(gpioport) |= gpios;
-    /* Lock the GPIO_CR register */
-    GPIO_LOCK(gpioport) = ~GPIO_LOCK_UNLOCK_CODE;
+	/* Unlock the GPIO_CR register */
+	GPIO_LOCK(gpioport) = GPIO_LOCK_UNLOCK_CODE;
+	/* Enable committing changes */
+	GPIO_CR(gpioport) |= gpios;
+	/* Lock the GPIO_CR register */
+	GPIO_LOCK(gpioport) = ~GPIO_LOCK_UNLOCK_CODE;
 }
 
 /** @brief General Purpose Input/Outputs Determine if interrupt is generated
@@ -425,11 +425,11 @@ void gpio_unlock_commit(uint32_t gpioport, uint8_t gpios)
  *            use bitwise OR '|' to separate them.
  *
  * @return Unsigned int8. The bit position of the pin
-           value returned corresponds to the pin number.
+	   value returned corresponds to the pin number.
  */
 uint8_t gpio_is_interrupt_source(uint32_t gpioport, uint8_t gpios)
 {
-    return GPIO_MIS(gpioport) & gpios;
+	return GPIO_MIS(gpioport) & gpios;
 }
 
 /** @brief General Purpose Input/Outputs Mark Interrupt as Serviced
@@ -444,5 +444,5 @@ uint8_t gpio_is_interrupt_source(uint32_t gpioport, uint8_t gpios)
  */
 void gpio_clear_interrupt_flag(uint32_t gpioport, uint8_t gpios)
 {
-    GPIO_ICR(gpioport) |= gpios;
+	GPIO_ICR(gpioport) |= gpios;
 }

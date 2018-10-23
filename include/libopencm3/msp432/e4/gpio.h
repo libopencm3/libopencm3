@@ -2451,60 +2451,60 @@
 
 /** @brief GPIO Mode Definitions */
 enum gpio_mode {
-    GPIO_MODE_OUTPUT,       /**< Configure pin as output */
-    GPIO_MODE_INPUT,        /**< Configure pin as input */
-    GPIO_MODE_ANALOG        /**< Configure pin as analog function */
+	GPIO_MODE_OUTPUT, /**< Configure pin as output */
+	GPIO_MODE_INPUT, /**< Configure pin as input */
+	GPIO_MODE_ANALOG /**< Configure pin as analog function */
 };
 
 /** @brief GPIO Pull-Up/Pull-Down Definitions */
 enum gpio_pull_up_down {
-    GPIO_PUPD_NONE,         /**< Do not pull the pin high or low */
-    GPIO_PUPD_PULLUP,       /**< Pull the pin high */
-    GPIO_PUPD_PULLDOWN,     /**< Pull the pin low */
+	GPIO_PUPD_NONE, /**< Do not pull the pin high or low */
+	GPIO_PUPD_PULLUP, /**< Pull the pin high */
+	GPIO_PUPD_PULLDOWN, /**< Pull the pin low */
 };
 
 /** @brief GPIO Output Type Definitions */
 enum gpio_output_type {
-    GPIO_OTYPE_PP,          /**< Push-pull configuration */
-    GPIO_OTYPE_OD,          /**< Open drain configuration */
+	GPIO_OTYPE_PP, /**< Push-pull configuration */
+	GPIO_OTYPE_OD, /**< Open drain configuration */
 };
 
 /** @brief GPIO Drive Strength Definitions */
 enum gpio_drive_strength {
-    GPIO_DRIVE_2MA,         /**< 2mA drive */
-    GPIO_DRIVE_4MA,         /**< 4mA drive */
-    GPIO_DRIVE_6MA,         /**< 6mA drive */
-    GPIO_DRIVE_8MA,         /**< 8mA drive */
-    GPIO_DRIVE_10MA,        /**< 10mA drive */
-    GPIO_DRIVE_12MA         /**< 12mA drive */
+	GPIO_DRIVE_2MA, /**< 2mA drive */
+	GPIO_DRIVE_4MA, /**< 4mA drive */
+	GPIO_DRIVE_6MA, /**< 6mA drive */
+	GPIO_DRIVE_8MA, /**< 8mA drive */
+	GPIO_DRIVE_10MA, /**< 10mA drive */
+	GPIO_DRIVE_12MA /**< 12mA drive */
 };
 
 /** @brief GPIO Slew Control Definitions */
 enum gpio_slew_ctl {
-    GPIO_SLEW_CTL_ENABLE,   /**< Slew rate control enable */
-    GPIO_SLEW_CTL_DISABLE   /**< Slew rate control disable */
+	GPIO_SLEW_CTL_ENABLE, /**< Slew rate control enable */
+	GPIO_SLEW_CTL_DISABLE /**< Slew rate control disable */
 };
 
 /** @brief GPIO Trigger Level/Edge Definitions */
 enum gpio_trigger {
-    GPIO_TRIG_LVL_LOW,      /**< Level trigger, signal low */
-    GPIO_TRIG_LVL_HIGH,     /**< Level trigger, signal high */
-    GPIO_TRIG_EDGE_FALL,    /**< Falling edge trigger */
-    GPIO_TRIG_EDGE_RISE,    /**< Rising edge trigger */
-    GPIO_TRIG_EDGE_BOTH     /**< Both edges trigger */
+	GPIO_TRIG_LVL_LOW, /**< Level trigger, signal low */
+	GPIO_TRIG_LVL_HIGH, /**< Level trigger, signal high */
+	GPIO_TRIG_EDGE_FALL, /**< Falling edge trigger */
+	GPIO_TRIG_EDGE_RISE, /**< Rising edge trigger */
+	GPIO_TRIG_EDGE_BOTH /**< Both edges trigger */
 };
 
 BEGIN_DECLS
 
 void gpio_mode_setup(uint32_t gpioport, enum gpio_mode mode,
-                     enum gpio_pull_up_down pull_up_down, uint8_t gpios);
+	enum gpio_pull_up_down pull_up_down, uint8_t gpios);
 void gpio_set_output_options(uint32_t gpioport, enum gpio_output_type otype,
-                             enum gpio_drive_strength drive,
-                             enum gpio_slew_ctl slewctl,
-                             uint8_t gpios);
+	enum gpio_drive_strength drive,
+	enum gpio_slew_ctl slewctl,
+	uint8_t gpios);
 void gpio_set_af(uint32_t gpioport, uint8_t alt_func_num, uint8_t gpios);
 void gpio_configure_trigger(uint32_t gpioport, enum gpio_trigger trigger,
-                            uint8_t gpios);
+	uint8_t gpios);
 void gpio_set(uint32_t gpioport, uint8_t gpios);
 void gpio_clear(uint32_t gpioport, uint8_t gpios);
 uint8_t gpio_get(uint32_t gpioport, uint8_t gpios);
