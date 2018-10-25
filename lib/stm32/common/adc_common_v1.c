@@ -477,7 +477,7 @@ adc_set_injected_offset.
 
 @param[in] adc Unsigned int32. ADC block register address base @ref adc_reg_base
 @param[in] reg Unsigned int8. Register number (1 ... 4).
-@returns Unsigned int32 conversion result.
+@returns Signed int32 conversion result.
 */
 
 int32_t adc_read_injected(uint32_t adc, uint8_t reg)
