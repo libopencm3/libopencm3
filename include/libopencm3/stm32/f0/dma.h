@@ -33,5 +33,10 @@
 
 #include <libopencm3/stm32/common/dma_common_l1f013.h>
 
+/* DMA channel selection register (DMAx_CSELR) */
+#define DMA_CSELR(dma_base)		MMIO32((dma_base) + 0xA8)
+#define DMA1_CSELR			DMA_CSELR(DMA1)
+#define DMA2_CSELR			DMA_CSELR(DMA2)
+
 #endif
 

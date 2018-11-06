@@ -138,11 +138,6 @@ specific memorymap.h header before including this header file.*/
 #define DMA2_CMAR4			DMA2_CMAR(DMA_CHANNEL4)
 #define DMA2_CMAR5			DMA2_CMAR(DMA_CHANNEL5)
 
-/* DMA channel selection register (DMAx_CSELR) */
-#define DMA_CSELR(dma_base)		MMIO32((dma_base) + 0xA8)
-#define DMA1_CSELR			DMA_CSELR(DMA1)
-#define DMA2_CSELR			DMA_CSELR(DMA2)
-
 /* --- DMA_ISR values ------------------------------------------------------ */
 
 /* --- DMA Interrupt Flag offset values ------------------------------------- */
