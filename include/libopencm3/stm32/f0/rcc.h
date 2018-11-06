@@ -244,6 +244,7 @@ Control</b>
 #define RCC_AHBENR_CRCEN			(1 << 6)
 #define RCC_AHBENR_FLTFEN			(1 << 4)
 #define RCC_AHBENR_SRAMEN			(1 << 2)
+#define RCC_AHBENR_DMA2EN			(1 << 1)
 #define RCC_AHBENR_DMAEN			(1 << 0)
 
 /* --- RCC_APB2ENR values -------------------------------------------------- */
