@@ -59,6 +59,12 @@ specific memorymap.h header before including this header file.*/
 /* FRXTH: FIFO reception threshold */
 #define SPI_CR2_FRXTH			(1 << 12)
 
+/* FRF: Frame format */
+/* Note: Not used in I2S mode. */
+#define SPI_CR2_FRF				(1 << 4)
+#define SPI_CR2_FRF_MOTOROLA_MODE	(0 << 4)
+#define SPI_CR2_FRF_TI_MODE		(1 << 4)
+
 /* DS: Data size */
 /****************************************************************************/
 /** @defgroup spi_ds SPI data size
@@ -97,6 +103,9 @@ specific memorymap.h header before including this header file.*/
 #define SPI_SR_FRLVL_QUARTER_FIFO	(0x1 << 9)
 #define SPI_SR_FRLVL_HALF_FIFO		(0x2 << 9)
 #define SPI_SR_FRLVL_FIFO_FULL		(0x3 << 9)
+
+/* FRE : TI frame format error */
+#define SPI_SR_FRE			(1 << 8)
 
 /* --- Function prototypes ------------------------------------------------- */
 

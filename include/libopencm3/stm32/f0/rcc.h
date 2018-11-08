@@ -205,6 +205,9 @@ Control</b>
 #define RCC_APB2RSTR_SPI1RST			(1 << 12)
 #define RCC_APB2RSTR_TIM1RST			(1 << 11)
 #define RCC_APB2RSTR_ADCRST			(1 << 9)
+#define RCC_APB2RSTR_USART8RST			(1 << 7)
+#define RCC_APB2RSTR_USART7RST			(1 << 6)
+#define RCC_APB2RSTR_USART6RST			(1 << 5)
 #define RCC_APB2RSTR_SYSCFGRST			(1 << 0)
 
 /* --- RCC_APB1RSTR values ------------------------------------------------- */
@@ -217,6 +220,7 @@ Control</b>
 #define RCC_APB1RSTR_USBRST			(1 << 23)
 #define RCC_APB1RSTR_I2C2RST			(1 << 22)
 #define RCC_APB1RSTR_I2C1RST			(1 << 21)
+#define RCC_APB1RSTR_USART5RST			(1 << 20)
 #define RCC_APB1RSTR_USART4RST			(1 << 19)
 #define RCC_APB1RSTR_USART3RST			(1 << 18)
 #define RCC_APB1RSTR_USART2RST			(1 << 17)
@@ -252,6 +256,9 @@ Control</b>
 #define RCC_APB2ENR_SPI1EN			(1 << 12)
 #define RCC_APB2ENR_TIM1EN			(1 << 11)
 #define RCC_APB2ENR_ADCEN			(1 << 9)
+#define RCC_APB2ENR_USART8EN			(1 << 7)
+#define RCC_APB2ENR_USART7EN			(1 << 6)
+#define RCC_APB2ENR_USART6EN			(1 << 5)
 #define RCC_APB2ENR_SYSCFGCOMPEN		(1 << 0)
 
 /* --- RCC_APB1ENR values -------------------------------------------------- */
@@ -264,6 +271,7 @@ Control</b>
 #define RCC_APB1ENR_USBEN			(1 << 23)
 #define RCC_APB1ENR_I2C2EN			(1 << 22)
 #define RCC_APB1ENR_I2C1EN			(1 << 21)
+#define RCC_APB1ENR_USART5EN			(1 << 20)
 #define RCC_APB1ENR_USART4EN			(1 << 19)
 #define RCC_APB1ENR_USART3EN			(1 << 18)
 #define RCC_APB1ENR_USART2EN			(1 << 17)
@@ -418,6 +426,9 @@ enum rcc_periph_clken {
 
 	/* APB2 peripherals */
 	RCC_SYSCFG_COMP	= _REG_BIT(0x18, 0),
+	RCC_USART6	= _REG_BIT(0x18, 5),
+	RCC_USART7	= _REG_BIT(0x18, 6),
+	RCC_USART8	= _REG_BIT(0x18, 7),
 	RCC_ADC		= _REG_BIT(0x18, 9),
 	RCC_ADC1	= _REG_BIT(0x18, 9), /* Compatibility alias */
 	RCC_TIM1	= _REG_BIT(0x18, 11),
@@ -439,6 +450,7 @@ enum rcc_periph_clken {
 	RCC_USART2	= _REG_BIT(0x1C, 17),
 	RCC_USART3	= _REG_BIT(0x1C, 18),
 	RCC_USART4	= _REG_BIT(0x1C, 19),
+	RCC_USART5	= _REG_BIT(0x1C, 20),
 	RCC_I2C1	= _REG_BIT(0x1C, 21),
 	RCC_I2C2	= _REG_BIT(0x1C, 22),
 	RCC_USB		= _REG_BIT(0x1C, 23),
