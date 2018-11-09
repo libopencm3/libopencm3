@@ -392,6 +392,10 @@ void rcc_clock_setup_hse(const struct rcc_clock_scale *clock, uint32_t hse_mhz)
 	rcc_set_ppre1(clock->ppre1);
 	rcc_set_ppre2(clock->ppre2);
 
+	/* Disable PLL oscillator before changing its configuration. */
+	rcc_osc_off(RCC_PLL);
+
+	/* Configure the PLL oscillator. */
 	rcc_set_main_pll_hse(pllm, clock->plln,
 			     clock->pllp, clock->pllq);
 
