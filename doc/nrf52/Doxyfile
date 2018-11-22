@@ -1,0 +1,27 @@
+# HTML Documentation for NRF52 code level
+
+# 14 September 2012
+# (C) Ken Sarkies <ksarkies@internode.on.net>
+
+#---------------------------------------------------------------------------
+# Common Include File
+#---------------------------------------------------------------------------
+
+@INCLUDE 	       = ../Doxyfile_common
+
+#---------------------------------------------------------------------------
+# Local settings
+#---------------------------------------------------------------------------
+
+WARN_LOGFILE           = doxygen_nrf52.log
+
+INPUT                  = ../../include/libopencm3/license.dox
+@INCLUDE = doxy.sourcelist
+
+LAYOUT_FILE 	       = DoxygenLayout_nrf52.xml
+
+GENERATE_TAGFILE       = nrf52.tag
+
+ENABLE_PREPROCESSING    = YES
+
+

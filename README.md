@@ -16,6 +16,7 @@ Currently (at least partly) supported microcontrollers:
  - TI (Tiva) LM4F series (continuing as TM4F, pin and peripheral compatible)
  - EFM32 Gecko series (only core support)
  - Freescale Vybrid VF6xx
+ - nRF52 series
 
 The library is written completely from scratch based on the vendor datasheets,
 programming manuals, and application notes. The code is meant to be used
