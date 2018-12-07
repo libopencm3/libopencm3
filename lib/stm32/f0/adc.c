@@ -277,6 +277,16 @@ bool adc_get_eoc_sequence_flag(uint32_t adc)
 	return ADC_ISR(adc) & ADC_ISR_EOSEQ;
 }
 
+/*---------------------------------------------------------------------------*/
+/** @ brief ADC Clear Regular End-Of-Conversion Sequence Flag
+ *
+ * @param[in] adc Unsigned int32. ADC base address (@ref adc_reg_base)
+ */
+
+void adc_clear_eoc_sequence_flag(uint32_t adc)
+{
+	ADC_ISR(adc) = ADC_ISR_EOSEQ;
+}
 
 /**@}*/
 
