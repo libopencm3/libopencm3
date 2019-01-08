@@ -89,6 +89,14 @@ void flash_lock(void)
 	flash_lock_pecr();
 }
 
+/** @brief Unlock RUN_PD bit from FLASH_ACR register.
+ */
+void flash_unlock_acr(void)
+{
+	FLASH_PDKEYR = FLASH_PDKEYR_PDKEY1;
+	FLASH_PDKEYR = FLASH_PDKEYR_PDKEY2;
+}
+
 /** @brief Write a word to eeprom
  *
  * @param address assumed to be in the eeprom space, no checking
