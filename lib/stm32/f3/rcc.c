@@ -80,7 +80,7 @@ const struct rcc_clock_scale rcc_hse8mhz_configs[] = {
 		.ppre1 = RCC_CFGR_PPRE1_DIV_2,
 		.ppre2 = RCC_CFGR_PPRE2_DIV_NONE,
 		.ahb_frequency = 72e6,
-		.apb1_frequency = 32e6,
+		.apb1_frequency = 36e6,
 		.apb2_frequency = 72e6,
 	}
 };
