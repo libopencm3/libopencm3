@@ -1,20 +1,7 @@
-/** @defgroup exti_defines EXTI Defines
- *
- * @brief <b>Defined Constants and Types for the STM32F0xx External Interrupts
- * </b>
- *
- * @ingroup STM32F0xx_defines
- *
- * @version 1.0.0
- *
- * @date 11 July 2013
- *
- * LGPL License Terms @ref lgpl_license
- */
+#pragma once
+
 /*
  * This file is part of the libopencm3 project.
- *
- * Copyright (C) 2013 Frantisek Burian <BuFran@seznam.cz>
  *
  * This library is free software: you can redistribute it and/or modify
  * it under the terms of the GNU Lesser General Public License as published by
@@ -30,14 +17,28 @@
  * along with this library.  If not, see <http://www.gnu.org/licenses/>.
  */
 
-#ifndef LIBOPENCM3_EXTI_H
-#define LIBOPENCM3_EXTI_H
+/** @cond */
+#if defined(LIBOPENCM3_EXTI_H)
+/** @endcond */
+
 /**@{*/
 
-#include <libopencm3/stm32/common/exti_common_all.h>
-#include <libopencm3/stm32/common/exti_common_v1.h>
+/* --- EXTI registers ------------------------------------------------------ */
 
+#define EXTI_IMR			MMIO32(EXTI_BASE + 0x00)
+#define EXTI_EMR			MMIO32(EXTI_BASE + 0x04)
+#define EXTI_RTSR			MMIO32(EXTI_BASE + 0x08)
+#define EXTI_FTSR			MMIO32(EXTI_BASE + 0x0c)
+#define EXTI_SWIER			MMIO32(EXTI_BASE + 0x10)
+#define EXTI_PR				MMIO32(EXTI_BASE + 0x14)
+
+BEGIN_DECLS
+
+END_DECLS
 
 /**@}*/
 
+#else
+#warning "exti_common_v1.h should not be included directly, only via exti.h"
 #endif
+/** @endcond */

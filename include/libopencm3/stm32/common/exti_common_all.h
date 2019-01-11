@@ -29,15 +29,6 @@
 #define LIBOPENCM3_EXTI_COMMON_ALL_H
 /**@{*/
 
-/* --- EXTI registers ------------------------------------------------------ */
-
-#define EXTI_IMR			MMIO32(EXTI_BASE + 0x00)
-#define EXTI_EMR			MMIO32(EXTI_BASE + 0x04)
-#define EXTI_RTSR			MMIO32(EXTI_BASE + 0x08)
-#define EXTI_FTSR			MMIO32(EXTI_BASE + 0x0c)
-#define EXTI_SWIER			MMIO32(EXTI_BASE + 0x10)
-#define EXTI_PR				MMIO32(EXTI_BASE + 0x14)
-
 /* EXTI number definitions */
 #define EXTI0				(1 << 0)
 #define EXTI1				(1 << 1)
