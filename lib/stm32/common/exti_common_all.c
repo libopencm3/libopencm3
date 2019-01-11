@@ -25,8 +25,17 @@
 
 #include <libopencm3/stm32/exti.h>
 #include <libopencm3/stm32/gpio.h>
-#if !defined(AFIO_BASE)
-#       include <libopencm3/stm32/syscfg.h>
+
+#if defined(EXTI_EXTICR)
+	#define EXTICR_SELECTION_FIELDSIZE	EXTI_EXTICR_FIELDSIZE
+	#define EXTICR_SELECTION_REG(x)	EXTI_EXTICR(x)
+#elif defined(AFIO_EXTICR)
+	#define EXTICR_SELECTION_FIELDSIZE	AFIO_EXTICR_FIELDSIZE
+	#define EXTICR_SELECTION_REG(x)	AFIO_EXTICR(x)
+#else
+	#include <libopencm3/stm32/syscfg.h>
+	#define EXTICR_SELECTION_FIELDSIZE	SYSCFG_EXTICR_FIELDSIZE
+	#define EXTICR_SELECTION_REG(x)	SYSCFG_EXTICR(x)
 #endif
 
 void exti_set_trigger(uint32_t extis, enum exti_trigger_type trig)
@@ -96,7 +105,7 @@ void exti_select_source(uint32_t exti, uint32_t gpioport)
 			continue;
 		}
 
-		uint32_t bits = 0, mask = 0x0F;
+		uint32_t bits = 0;
 
 		switch (gpioport) {
 		case GPIOA:
@@ -148,16 +157,11 @@ void exti_select_source(uint32_t exti, uint32_t gpioport)
 #endif
 		}
 
-		uint8_t shift = (uint8_t)(4 * (line % 4));
+		uint8_t shift = (uint8_t)(EXTICR_SELECTION_FIELDSIZE * (line % 4));
+		uint32_t mask = ((1 << EXTICR_SELECTION_FIELDSIZE) - 1) << shift;
 		uint32_t reg = line / 4;
-		bits <<= shift;
-		mask <<= shift;
 
-#if defined(AFIO_BASE)
-		AFIO_EXTICR(reg) = (AFIO_EXTICR(reg) & ~mask) | bits;
-#else
-		SYSCFG_EXTICR(reg) = (SYSCFG_EXTICR(reg) & ~mask) | bits;
-#endif
+		EXTICR_SELECTION_REG(reg) = (EXTICR_SELECTION_REG(reg) & ~mask) | (bits << shift);
 	};
 }
 /**@}*/
