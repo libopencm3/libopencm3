@@ -56,6 +56,7 @@
 #define SCSI_INQUIRY				0x12
 #define SCSI_MODE_SENSE_6			0x1A
 #define SCSI_SEND_DIAGNOSTIC			0x1D
+#define SCSI_READ_FORMAT_CAPACITIES		0x23
 #define SCSI_READ_CAPACITY			0x25
 #define SCSI_READ_10				0x28
 
@@ -435,6 +436,33 @@ static void scsi_mode_sense_6(usbd_mass_storage *ms,
 	}
 }
 
+static void scsi_read_format_capacities(usbd_mass_storage *ms,
+			  struct usb_msc_trans *trans,
+			  enum trans_event event)
+{
+	if (EVENT_CBW_VALID == event) {
+		trans->msd_buf[0] = 0;
+		trans->msd_buf[1] = 0;
+		trans->msd_buf[2] = 0;
+
+		/* Capacity List Length */
+		trans->msd_buf[3] = 0x08;
+		trans->msd_buf[4] = ms->block_count >> 24;
+		trans->msd_buf[5] = 0xff & (ms->block_count >> 16);
+		trans->msd_buf[6] = 0xff & (ms->block_count >> 8);
+		trans->msd_buf[7] = 0xff & ms->block_count;
+
+		/* Descriptor Code: Formatted Media */
+		trans->msd_buf[8] = 0x02;
+		/* Block size: 512 */
+		trans->msd_buf[9] = 0;
+		trans->msd_buf[10] = 2;
+		trans->msd_buf[11] = 0;
+		trans->bytes_to_write = 12;
+		set_sbc_status_good(ms);
+	}
+}
+
 static void scsi_inquiry(usbd_mass_storage *ms,
 			 struct usb_msc_trans *trans,
 			 enum trans_event event)
@@ -470,8 +498,9 @@ static void scsi_inquiry(usbd_mass_storage *ms,
 
 			set_sbc_status_good(ms);
 		} else {
-			/* TODO: Add VPD 0x83 support */
-			/* TODO: Add VPD 0x00 support */
+			memset(trans->msd_buf, 0, 5);
+			trans->bytes_to_write = 5;
+			set_sbc_status_good(ms);
 		}
 	}
 }
@@ -525,6 +554,9 @@ static void scsi_command(usbd_mass_storage *ms,
 		break;
 	case SCSI_WRITE_10:
 		scsi_write_10(ms, trans, event);
+		break;
+	case SCSI_READ_FORMAT_CAPACITIES:
+		scsi_read_format_capacities(ms, trans, event);
 		break;
 	default:
 		set_sbc_status(ms, SBC_SENSE_KEY_ILLEGAL_REQUEST,
