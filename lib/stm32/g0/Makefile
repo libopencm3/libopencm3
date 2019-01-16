@@ -39,6 +39,7 @@ ARFLAGS		= rcs
 # specific objs
 OBJS		= rcc.o
 OBJS		+= flash.o
+OBJS		+= pwr.o
 
 # common/shared objs
 OBJS		+= rcc_common_all.o
