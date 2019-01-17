@@ -15,6 +15,7 @@
     <tab type="user" visible="yes" url="../../stm32l4/html/modules.html" title="STM32L4" intro=""/>
     <tab type="modules" visible="yes" title="LM3S" intro=""/>
     <tab type="user" visible="yes" url="../../lm4f/html/modules.html" title="LM4F" intro=""/>
+    <tab type="user" visible="yes" url="../../msp432e4/html/modules.html" title="MSP432E4" intro=""/>
     <tab type="user" visible="yes" url="../../lpc13xx/html/modules.html" title="LPC13" intro=""/>
     <tab type="user" visible="yes" url="../../lpc17xx/html/modules.html" title="LPC17" intro=""/>
     <tab type="user" visible="yes" url="../../lpc43xx/html/modules.html" title="LPC43" intro=""/>

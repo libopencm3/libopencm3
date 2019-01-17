@@ -15,6 +15,7 @@
     <tab type="user" visible="yes" url="../../stm32l4/html/modules.html" title="STM32L4" intro=""/>
     <tab type="user" visible="yes" url="../../lm3s/html/modules.html" title="LM3S" intro=""/>
     <tab type="user" visible="yes" url="../../lm4f/html/modules.html" title="LM4F" intro=""/>
+    <tab type="user" visible="yes" url="../../msp432e4/html/modules.html" title="MSP432E4" intro=""/>
     <tab type="user" visible="yes" url="../../lpc13xx/html/modules.html" title="LPC13" intro=""/>
     <tab type="user" visible="yes" url="../../lpc17xx/html/modules.html" title="LPC17" intro=""/>
     <tab type="user" visible="yes" url="../../lpc43xx/html/modules.html" title="LPC43" intro=""/>
@@ -28,6 +29,7 @@
     <tab type="user" visible="yes" url="../../sam3s/html/modules.html" title="SAM3S" intro=""/>
     <tab type="user" visible="yes" url="../../sam3u/html/modules.html" title="SAM3U" intro=""/>
     <tab type="user" visible="yes" url="../../sam3x/html/modules.html" title="SAM3X" intro=""/>
+    <tab type="user" visible="yes" url="../../vf6xx/html/modules.html" title="VF6XX" intro=""/>
     <tab type="namespaces" visible="yes" title="">
       <tab type="namespaces" visible="yes" title="" intro=""/>
       <tab type="namespacemembers" visible="yes" title="" intro=""/>

@@ -15,11 +15,13 @@
     <tab type="user" visible="yes" url="../../stm32l4/html/modules.html" title="STM32L4" intro=""/>
     <tab type="user" visible="yes" url="../../lm3s/html/modules.html" title="LM3S" intro=""/>
     <tab type="user" visible="yes" url="../../lm4f/html/modules.html" title="LM4F" intro=""/>
+    <tab type="user" visible="yes" url="../../msp432e4/html/modules.html" title="MSP432E4" intro=""/>
     <tab type="user" visible="yes" url="../../lpc13xx/html/modules.html" title="LPC13" intro=""/>
     <tab type="user" visible="yes" url="../../lpc17xx/html/modules.html" title="LPC17" intro=""/>
     <tab type="user" visible="yes" url="../../lpc43xx/html/modules.html" title="LPC43" intro=""/>
     <tab type="user" visible="yes" url="../../efm32g/html/modules.html" title="EFM32 Gecko" intro=""/>
     <tab type="user" visible="yes" url="../../efm32gg/html/modules.html" title="EFM32 Giant Gecko" intro=""/>
+    <tab type="user" visible="yes" url="../../efm32hg/html/modules.html" title="EFM32 Happy Gecko" intro=""/>
     <tab type="user" visible="yes" url="../../efm32lg/html/modules.html" title="EFM32 Leopard Gecko" intro=""/>
     <tab type="user" visible="yes" url="../../efm32tg/html/modules.html" title="EFM32 Tiny Gecko" intro=""/>
     <tab type="user" visible="yes" url="../../sam3a/html/modules.html" title="SAM3A" intro=""/>
