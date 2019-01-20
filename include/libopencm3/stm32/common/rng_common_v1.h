@@ -29,7 +29,9 @@ specific memorymap.h header before including this header file.*/
 #define LIBOPENCM3_RNG_V1_H
 
 #include <stdbool.h>
+#if !defined (__ASSEMBLER__)
 #include <stdint.h>
+#endif
 
 /**@{*/
 

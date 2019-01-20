@@ -211,6 +211,7 @@ error "This file should not be included directly, it is included with fsmc.h"
 /* RE: Refresh Error */
 #define FMC_SDSR_RE			(1 << 0)
 
+#if !defined(__ASSEMBLER__)
 /* Helper function for setting the timing parameters */
 struct sdram_timing {
 	int trcd;		/* RCD Delay */
@@ -221,6 +222,7 @@ struct sdram_timing {
 	int txsr;		/* Exit Self Refresh Time */
 	int tmrd;		/* Load to Active delay */
 };
+#endif
 
 /* Mode register parameters */
 #define SDRAM_MODE_BURST_LENGTH_1		((uint16_t)0x0000)
@@ -235,10 +237,12 @@ struct sdram_timing {
 #define SDRAM_MODE_WRITEBURST_MODE_PROGRAMMED	((uint16_t)0x0000)
 #define SDRAM_MODE_WRITEBURST_MODE_SINGLE	((uint16_t)0x0200)
 
+#if !defined(__ASSEMBLER__)
 enum fmc_sdram_bank { SDRAM_BANK1, SDRAM_BANK2, SDRAM_BOTH_BANKS };
 enum fmc_sdram_command { SDRAM_CLK_CONF, SDRAM_NORMAL, SDRAM_PALL,
 			 SDRAM_AUTO_REFRESH, SDRAM_LOAD_MODE,
 			 SDRAM_SELF_REFRESH, SDRAM_POWER_DOWN };
+#endif
 
 /* Send an array of timing parameters (indices above) to create SDTR register
  * value

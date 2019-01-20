@@ -22,7 +22,9 @@
 #define LIBOPENCM3_STM32_F4_LTDC_H_
 
 
+#if !defined (__ASSEMBLER__)
 #include <stdint.h>
+#endif
 #include <libopencm3/stm32/rcc.h>
 
 /**
@@ -357,6 +359,7 @@
 #define LTDC_LxCLUTWR_BLUE_SHIFT        0
 #define LTDC_LxCLUTWR_BLUE_MASK         0xff
 
+#if !defined(__ASSEMBLER__)
 /**
  * simple helper macros
  */
@@ -506,5 +509,6 @@ static inline uint16_t ltdc_get_rgb888_from_rgb565(uint16_t rgb888)
 	       | ((((rgb888) & 0x001F) <<  (8-0))/31)<<0;
 }
 
+#endif
 
 #endif /* LIBOPENCM3_STM32_F4_LTDC_H_ */

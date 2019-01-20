@@ -240,6 +240,8 @@ specific memorymap.h header before including this header file.*/
  */
 /**@{*/
 
+#if !defined(__ASSEMBLER__)
+
 enum crypto_mode {
 	ENCRYPT_TDES_ECB = CRYP_CR_ALGOMODE_TDES_ECB,
 	ENCRYPT_TDES_CBC = CRYP_CR_ALGOMODE_TDES_CBC,
@@ -268,6 +270,8 @@ enum crypto_datatype {
 	CRYPTO_DATA_8BIT,
 	CRYPTO_DATA_BIT,
 };
+
+#endif
 
 BEGIN_DECLS
 void crypto_wait_busy(void);

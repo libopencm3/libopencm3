@@ -70,12 +70,14 @@
 #define EXTI36				(1 << 4)
 #define EXTI37				(1 << 5)
 
+#if !defined(__ASSEMBLER__)
 /* Trigger types */
 enum exti_trigger_type {
 	EXTI_TRIGGER_RISING,
 	EXTI_TRIGGER_FALLING,
 	EXTI_TRIGGER_BOTH,
 };
+#endif
 
 BEGIN_DECLS
 

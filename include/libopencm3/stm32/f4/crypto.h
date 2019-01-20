@@ -77,6 +77,8 @@
  */
 /**@{*/
 
+#if !defined(__ASSEMBLER__)
+
 enum crypto_mode_mac {
 	ENCRYPT_GCM = CRYP_CR_ALGOMODE_TDES_ECB | CRYP_CR_ALGOMODE3,
 	ENCRYPT_CCM = CRYP_CR_ALGOMODE_TDES_CBC | CRYP_CR_ALGOMODE3,
@@ -85,6 +87,8 @@ enum crypto_mode_mac {
 	DECRYPT_CCM = CRYP_CR_ALGOMODE_TDES_CBC | CRYP_CR_ALGOMODE3 |
 		      CRYP_CR_ALGODIR,
 };
+
+#endif
 
 BEGIN_DECLS
 

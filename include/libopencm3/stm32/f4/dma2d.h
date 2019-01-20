@@ -33,7 +33,9 @@
  */
 
 #include <libopencm3/stm32/memorymap.h>
+#if !defined (__ASSEMBLER__)
 #include <stdint.h>
+#endif
 
 #ifndef DMA2D_H
 #define DMA2D_H

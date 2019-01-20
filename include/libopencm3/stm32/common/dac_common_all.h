@@ -377,6 +377,8 @@ Unmask bits [(n-1)..0] of LFSR/Triangle Amplitude equal to (2**(n+1)-1
 #define DAC_DOR2_DACC2DOR_LSB		(1 << 0)
 #define DAC_DOR2_DACC2DOR_MSK		(0x0FFF << 0)
 
+#if !defined(__ASSEMBLER__)
+
 /** DAC channel identifier */
 typedef enum {
 	CHANNEL_1, CHANNEL_2, CHANNEL_D
@@ -386,6 +388,8 @@ typedef enum {
 typedef enum {
 	RIGHT8, RIGHT12, LEFT12
 } data_align;
+
+#endif
 
 /* --- Function prototypes ------------------------------------------------- */
 

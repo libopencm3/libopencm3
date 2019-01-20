@@ -34,8 +34,10 @@ specific memorymap.h header before including this header file.*/
 #ifndef LIBOPENCM3_I2C_COMMON_V1_H
 #define LIBOPENCM3_I2C_COMMON_V1_H
 
+#if !defined (__ASSEMBLER__)
 #include <stddef.h>
 #include <stdint.h>
+#endif
 
 /* --- Convenience macros -------------------------------------------------- */
 
@@ -378,6 +380,7 @@ specific memorymap.h header before including this header file.*/
 
 /* --- I2C function prototypes---------------------------------------------- */
 
+#if !defined(__ASSEMBLER__)
 /**
  * I2C speed modes.
  */
@@ -387,6 +390,7 @@ enum i2c_speeds {
 	i2c_speed_fmp_1m,
 	i2c_speed_unknown
 };
+#endif
 
 BEGIN_DECLS
 

@@ -1084,6 +1084,7 @@ depending on the level of the complementary input. */
 
 /* DMAB[15:0]: DMA register for burst accesses */
 
+#if !defined(__ASSEMBLER__)
 /* --- TIMx convenience defines -------------------------------------------- */
 
 /** Output Compare channel designators */
@@ -1171,6 +1172,7 @@ enum tim_et_pol {
 	TIM_ET_RISING,
 	TIM_ET_FALLING,
 };
+#endif
 
 /* --- TIM function prototypes --------------------------------------------- */
 

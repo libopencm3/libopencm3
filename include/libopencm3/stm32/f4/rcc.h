@@ -746,6 +746,7 @@
 #define RCC_CKGATENR_AHB2APB1_CKEN		(1<<0)
 /*@}*/
 
+#if !defined(__ASSEMBLER__)
 /* PLLSAI1 helper macros */
 static inline void rcc_pllsai_enable(void)
 {
@@ -1066,6 +1067,8 @@ enum rcc_periph_rst {
 };
 
 #undef _REG_BIT
+
+#endif
 
 #include <libopencm3/stm32/common/rcc_common_all.h>
 

@@ -73,11 +73,13 @@ LGPL License Terms @ref lgpl_license
 
 /* --- Function prototypes ------------------------------------------------- */
 
+#if !defined(__ASSEMBLER__)
 enum pwr_vos_scale {
 	PWR_SCALE1 = 0x3,
 	PWR_SCALE2 = 0x2,
 	PWR_SCALE3 = 0x1,
 };
+#endif
 
 BEGIN_DECLS
 

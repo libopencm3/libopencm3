@@ -88,12 +88,14 @@ Only available in F2 and F4 series.
 /**@}*/
 #define TIM5_OR_TI4_RMP_MASK		(0x3 << 6)
 
+#if !defined(__ASSEMBLER__)
 /** Input Capture input polarity */
 enum tim_ic_pol {
 	TIM_IC_RISING,
 	TIM_IC_FALLING,
 	TIM_IC_BOTH,
 };
+#endif
 
 /* --- Function prototypes ------------------------------------------------- */
 
