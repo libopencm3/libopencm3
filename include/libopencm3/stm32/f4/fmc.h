@@ -243,7 +243,12 @@ enum fmc_sdram_command { SDRAM_CLK_CONF, SDRAM_NORMAL, SDRAM_PALL,
 /* Send an array of timing parameters (indices above) to create SDTR register
  * value
  */
+BEGIN_DECLS
+
 uint32_t sdram_timing(struct sdram_timing *t);
 void sdram_command(enum fmc_sdram_bank bank, enum fmc_sdram_command cmd,
 			int autorefresh, int modereg);
+
+END_DECLS
+
 #endif
