@@ -13,7 +13,7 @@
     <tab type="user" visible="yes" url="../../stm32l0/html/modules.html" title="STM32L0" intro=""/>
     <tab type="user" visible="yes" url="../../stm32l1/html/modules.html" title="STM32L1" intro=""/>
     <tab type="user" visible="yes" url="../../stm32l4/html/modules.html" title="STM32L4" intro=""/>
-    <tab type="user" visible="yes" url="../../stm32g0/html/modules.html" title="STM32G0" intro=""/>
+    <tab type="modules" visible="yes" title="STM32G0" intro=""/>
     <tab type="user" visible="yes" url="../../lm3s/html/modules.html" title="LM3S" intro=""/>
     <tab type="user" visible="yes" url="../../lm4f/html/modules.html" title="LM4F" intro=""/>
     <tab type="user" visible="yes" url="../../msp432e4/html/modules.html" title="MSP432E4" intro=""/>
@@ -29,7 +29,7 @@
     <tab type="user" visible="yes" url="../../sam3n/html/modules.html" title="SAM3N" intro=""/>
     <tab type="user" visible="yes" url="../../sam3s/html/modules.html" title="SAM3S" intro=""/>
     <tab type="user" visible="yes" url="../../sam3u/html/modules.html" title="SAM3U" intro=""/>
-    <tab type="modules" visible="yes" title="SAM3X" intro=""/>
+    <tab type="user" visible="yes" url="../../sam3x/html/modules.html" title="SAM3X" intro=""/>
     <tab type="user" visible="yes" url="../../vf6xx/html/modules.html" title="VF6XX" intro=""/>
     <tab type="namespaces" visible="yes" title="">
       <tab type="namespaces" visible="yes" title="" intro=""/>
@@ -37,7 +37,7 @@
     </tab>
     <tab type="classes" visible="yes" title="">
       <tab type="classes" visible="yes" title="" intro=""/>
-      <tab type="classindex" visible="$ALPHABETICAL_INDEX" title=""/>
+      <tab type="classindex" visible="$ALPHABETICAL_INDEX" title=""/> 
       <tab type="hierarchy" visible="yes" title="" intro=""/>
       <tab type="classmembers" visible="yes" title="" intro=""/>
     </tab>
@@ -45,7 +45,7 @@
       <tab type="files" visible="yes" title="" intro=""/>
       <tab type="globals" visible="yes" title="" intro=""/>
     </tab>
-    <tab type="examples" visible="yes" title="" intro=""/>
+    <tab type="examples" visible="yes" title="" intro=""/>  
   </navindex>
 
   <!-- Layout definition for a class page -->

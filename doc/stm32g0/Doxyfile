@@ -1,0 +1,24 @@
+# HTML Documentation for STM32G0 code level
+
+#---------------------------------------------------------------------------
+# Common Include File
+#---------------------------------------------------------------------------
+
+@INCLUDE 	       = ../Doxyfile_common
+
+#---------------------------------------------------------------------------
+# Local settings
+#---------------------------------------------------------------------------
+
+WARN_LOGFILE           = doxygen_stm32g0.log
+
+INPUT                  = ../../include/libopencm3/license.dox
+@INCLUDE = doxy.sourcelist
+
+LAYOUT_FILE 	       = DoxygenLayout_stm32g0.xml
+
+GENERATE_TAGFILE       = stm32g0.tag
+
+ENABLE_PREPROCESSING   = YES
+
+
