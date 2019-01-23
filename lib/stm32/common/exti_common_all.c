@@ -80,7 +80,12 @@ void exti_disable_request(uint32_t extis)
  */
 void exti_reset_request(uint32_t extis)
 {
+#if defined(EXTI_RPR1) && defined(EXTI_FPR1)
+	EXTI_RPR1 = extis;
+	EXTI_FPR1 = extis;
+#else
 	EXTI_PR = extis;
+#endif
 }
 
 /*
@@ -88,7 +93,11 @@ void exti_reset_request(uint32_t extis)
  * */
 uint32_t exti_get_flag_status(uint32_t exti)
 {
+#if defined(EXTI_RPR1) && defined(EXTI_FPR1)
+	return (EXTI_RPR1 & exti) | (EXTI_FPR1 & exti);
+#else
 	return EXTI_PR & exti;
+#endif
 }
 
 /*
