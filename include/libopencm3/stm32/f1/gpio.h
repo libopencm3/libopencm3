@@ -933,10 +933,10 @@ Line Devices only
 
 /**@}*/
 
-/* --- AFIO_EXTICR1 values ------------------------------------------------- */
-/* --- AFIO_EXTICR2 values ------------------------------------------------- */
-/* --- AFIO_EXTICR3 values ------------------------------------------------- */
-/* --- AFIO_EXTICR4 values ------------------------------------------------- */
+/* --- AFIO_EXTICRx values ------------------------------------------------- */
+
+/** EXTICR port selection bits  */
+#define AFIO_EXTICR_FIELDSIZE			4
 
 /** @defgroup afio_exti Alternate Function EXTI pin number
 @ingroup gpio_defines
