@@ -50,6 +50,10 @@ specific memorymap.h header before including this header file.*/
 
 #define SYSCFG_CMPCR			MMIO32(SYSCFG_BASE + 0x20)
 
+/* --- SYSCFG_EXTICR Values -------------------------------------------------*/
+
+#define SYSCFG_EXTICR_FIELDSIZE		4
+
 #endif
 /**@}*/
 
