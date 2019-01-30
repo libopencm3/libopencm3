@@ -391,6 +391,17 @@ void rcc_set_hpre(uint32_t hpre)
 	RCC_CFGR = reg | (hpre << RCC_CFGR_HPRE_SHIFT);
 }
 
+/*---------------------------------------------------------------------------*/
+/** @brief Set the range of the MSI oscillator
+*
+ * @param range desired range @ref rcc_icscr_msirange
+ */
+void rcc_set_msi_range(uint32_t msi_range)
+{
+	uint32_t reg32 = RCC_ICSCR & ~(RCC_ICSCR_MSIRANGE_MASK << RCC_ICSCR_MSIRANGE_SHIFT);
+	RCC_ICSCR = reg32 | (msi_range << RCC_ICSCR_MSIRANGE_SHIFT);
+}
+
 /**
  * Set up sysclock with PLL from HSI16
  * @param clock full struct with desired parameters

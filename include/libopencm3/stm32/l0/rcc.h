@@ -693,6 +693,8 @@ void rcc_set_ppre1(uint32_t ppre1);
 void rcc_set_hpre(uint32_t hpre);
 void rcc_clock_setup_pll(const struct rcc_clock_scale *clock);
 
+void rcc_set_msi_range(uint32_t msi_range);
+
 END_DECLS
 
 /**@}*/
