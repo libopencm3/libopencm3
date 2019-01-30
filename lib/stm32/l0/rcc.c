@@ -402,6 +402,50 @@ void rcc_set_msi_range(uint32_t msi_range)
 	RCC_ICSCR = reg32 | (msi_range << RCC_ICSCR_MSIRANGE_SHIFT);
 }
 
+/*---------------------------------------------------------------------------*/
+/** @brief Set the LPTIM1 clock source
+*
+ * @param lptim1_sel peripheral clock source @ref rcc_ccpipr_lptim1sel
+ */
+void rcc_set_lptim1_sel(uint32_t lptim1_sel)
+{
+	RCC_CCIPR &= ~(RCC_CCIPR_LPTIM1SEL_MASK << RCC_CCIPR_LPTIM1SEL_SHIFT);
+	RCC_CCIPR |= (lptim1_sel << RCC_CCIPR_LPTIM1SEL_SHIFT);
+}
+
+
+/*---------------------------------------------------------------------------*/
+/** @brief Set the LPUART1 clock source
+*
+ * @param lpuart1_sel periphral clock source @ref rcc_ccpipr_lpuart1sel
+ */
+void rcc_set_lpuart1_sel(uint32_t lpuart1_sel)
+{
+	RCC_CCIPR &= ~(RCC_CCIPR_LPUART1SEL_MASK << RCC_CCIPR_LPTIM1SEL_SHIFT);
+	RCC_CCIPR |= (lpuart1_sel << RCC_CCIPR_LPTIM1SEL_SHIFT);
+}
+
+/*---------------------------------------------------------------------------*/
+/** @brief Set the USART1 clock source
+*
+ * @param usart1_sel periphral clock source @ref rcc_ccpipr_usart1sel
+ */
+void rcc_set_usart1_sel(uint32_t usart1_sel)
+{
+	RCC_CCIPR &= ~(RCC_CCIPR_USART1SEL_MASK << RCC_CCIPR_USART1SEL_SHIFT);
+	RCC_CCIPR |= (usart1_sel << RCC_CCIPR_USART1SEL_SHIFT);
+}
+/*---------------------------------------------------------------------------*/
+/** @brief Set the USART2 clock source
+*
+ * @param usart2_sel periphral clock source @ref rcc_ccpipr_usartxsel
+ */
+void rcc_set_usart2_sel(uint32_t usart2_sel)
+{
+	RCC_CCIPR &= ~(RCC_CCIPR_USART2SEL_MASK << RCC_CCIPR_USART2SEL_SHIFT);
+	RCC_CCIPR |= (usart2_sel << RCC_CCIPR_USART2SEL_SHIFT);
+}
+
 /**
  * Set up sysclock with PLL from HSI16
  * @param clock full struct with desired parameters

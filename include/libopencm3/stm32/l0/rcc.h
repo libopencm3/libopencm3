@@ -695,6 +695,11 @@ void rcc_clock_setup_pll(const struct rcc_clock_scale *clock);
 
 void rcc_set_msi_range(uint32_t msi_range);
 
+void rcc_set_lptim1_sel(uint32_t lptim1_sel);
+void rcc_set_lpuart1_sel(uint32_t lpupart1_sel);
+void rcc_set_usart1_sel(uint32_t usart1_sel);
+void rcc_set_usart2_sel(uint32_t usart2_sel);
+
 END_DECLS
 
 /**@}*/
