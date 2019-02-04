@@ -44,6 +44,7 @@ OBJS += usart_common_all.o usart_common_v2.o
 OBJS += spi_common_all.o spi_common_v1_frf.o
 OBJS += i2c_common_v2.o
 OBJS += rng_common_v1.o
+OBJS += crc_common_all.o
 
 VPATH +=../:../../cm3:../common
 
