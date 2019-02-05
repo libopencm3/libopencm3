@@ -94,10 +94,16 @@ uint32_t rng_get_random_blocking(void)
         uint32_t rv;
         bool done;
         do {
-                if (RNG_SR & RNG_SR_SECS) {
-                        rng_disable();
-                        rng_enable();
+
+                if (RNG_SR & RNG_SR_SEIS) {
+                        RNG_SR = RNG_SR & ~RNG_SR_SEIS;
+                        for (int i = 12; i != 0; i--) {
+                                rv = RNG_DR;
+                        }
+                        RNG_CR &= ~RNG_CR_RNGEN;
+                        RNG_CR |= RNG_CR_RNGEN;
                 }
+
                 done = rng_get_random(&rv);
         } while (!done);
 
