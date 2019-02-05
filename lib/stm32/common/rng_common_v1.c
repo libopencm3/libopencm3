@@ -87,6 +87,9 @@ bool rng_get_random(uint32_t *rand_nr)
  * Get a random number and block until it works.
  * Unless you have a clock problem, this should always return "promptly"
  * If you have a clock problem, you will wait here forever!
+ * Check device RM for clock requirements (usually fRNGCLK > fHCLK/16 or 
+ * fRNGCLK > fHCLK/32
+
  * @returns a random 32bit number
  */
 uint32_t rng_get_random_blocking(void)
@@ -102,6 +105,10 @@ uint32_t rng_get_random_blocking(void)
                         }
                         RNG_CR &= ~RNG_CR_RNGEN;
                         RNG_CR |= RNG_CR_RNGEN;
+                }
+
+                if (RNG_SR & RNG_SR_CEIS) {
+                        RNG_SR = RNG_SR & ~RNG_SR_CEIS;
                 }
 
                 done = rng_get_random(&rv);
