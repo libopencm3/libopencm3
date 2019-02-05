@@ -1,5 +1,13 @@
-/* This provides unification of code over STM32 subfamilies */
-
+/** @defgroup rng_defines RNG Defines
+ *
+ * @ingroup STM32G0xx_defines
+ *
+ * @brief <b>Defined Constants and Types for the STM32G0xx EXTI Control</b>
+ *
+ * @version 1.0.0
+ *
+ * LGPL License Terms @ref lgpl_license
+ *  */
 /*
  * This file is part of the libopencm3 project.
  *
@@ -17,21 +25,16 @@
  * along with this library.  If not, see <http://www.gnu.org/licenses/>.
  */
 
-#include <libopencm3/cm3/common.h>
-#include <libopencm3/stm32/memorymap.h>
+/**@{*/
+#ifndef LIBOPENCM3_RNG_H
+#define LIBOPENCM3_RNG_H
 
-#if defined(STM32F2)
-#       include <libopencm3/stm32/f2/rng.h>
-#elif defined(STM32F4)
-#       include <libopencm3/stm32/f4/rng.h>
-#elif defined(STM32F7)
-#       include <libopencm3/stm32/f7/rng.h>
-#elif defined(STM32L0)
-#       include <libopencm3/stm32/l0/rng.h>
-#elif defined(STM32L4)
-#       include <libopencm3/stm32/l4/rng.h>
-#elif defined(STM32G0)
-#       include <libopencm3/stm32/g0/rng.h>
-#else
-#       error "stm32 family not defined."
+#include <libopencm3/stm32/common/rng_common_v1.h>
+
+/* --- RNG_CR values ------------------------------------------------------- */
+
+/** Clock error detection : CED = 0 : Detection Enabled */
+#define RNG_CR_CED		(1 << 5)
+
 #endif
+/**@}*/
