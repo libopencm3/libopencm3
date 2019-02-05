@@ -75,6 +75,8 @@ BEGIN_DECLS
 
 void rng_enable(void);
 void rng_disable(void);
+void rng_interrupt_enable(void);
+void rng_interrupt_disable(void);
 bool rng_get_random(uint32_t *rand_nr);
 uint32_t rng_get_random_blocking(void);
 

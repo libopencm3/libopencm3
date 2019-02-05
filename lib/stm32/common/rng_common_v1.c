@@ -44,6 +44,20 @@ void rng_enable(void)
     RNG_CR |= RNG_CR_RNGEN;
 }
 
+/** Enable the Random Number Generator error interrupt.
+*/
+void rng_interrupt_enable(void)
+{
+    RNG_CR |= RNG_CR_IE;
+}
+
+/** Disable the Random Number Generator error interrupt.
+*/
+void rng_interrupt_disable(void)
+{
+    RNG_CR &= ~RNG_CR_IE;
+}
+
 /** Randomizes a number (non-blocking).
  * Can fail if a clock error or seed error is detected. Consult the Reference
  * Manual, but "try again", potentially after resetting the peripheral
