@@ -435,6 +435,7 @@ void rcc_set_usart1_sel(uint32_t usart1_sel)
 	RCC_CCIPR &= ~(RCC_CCIPR_USART1SEL_MASK << RCC_CCIPR_USART1SEL_SHIFT);
 	RCC_CCIPR |= (usart1_sel << RCC_CCIPR_USART1SEL_SHIFT);
 }
+
 /*---------------------------------------------------------------------------*/
 /** @brief Set the USART2 clock source
 *
@@ -444,6 +445,55 @@ void rcc_set_usart2_sel(uint32_t usart2_sel)
 {
 	RCC_CCIPR &= ~(RCC_CCIPR_USART2SEL_MASK << RCC_CCIPR_USART2SEL_SHIFT);
 	RCC_CCIPR |= (usart2_sel << RCC_CCIPR_USART2SEL_SHIFT);
+}
+
+/*---------------------------------------------------------------------------*/
+/** @brief Set the peripheral clock source
+*
+ * @param sel periphral clock source
+ */
+void rcc_set_peripheral_clk_sel(uint32_t periph, uint32_t sel)
+{
+	uint8_t shift;
+	uint32_t mask;
+
+	switch (periph) {
+		case LPTIM1_BASE:
+			shift = RCC_CCIPR_LPTIM1SEL_SHIFT;
+			mask = RCC_CCIPR_LPTIM1SEL_MASK;
+			break;
+
+		case I2C3_BASE:
+			shift = RCC_CCIPR_I2C3SEL_SHIFT;
+			mask = RCC_CCIPR_I2C3SEL_MASK;
+			break;
+
+		case I2C1_BASE:
+			shift = RCC_CCIPR_I2C1SEL_SHIFT;
+			mask = RCC_CCIPR_I2C1SEL_MASK;
+			break;
+
+		case LPUART1_BASE:
+			shift = RCC_CCIPR_LPUART1SEL_SHIFT;
+			mask = RCC_CCIPR_LPUART1SEL_MASK;
+			break;
+
+		case USART2_BASE:
+			shift = RCC_CCIPR_USART2SEL_SHIFT;
+			mask = RCC_CCIPR_USART2SEL_MASK;
+			break;
+
+		case USART1_BASE:
+			shift = RCC_CCIPR_USART1SEL_SHIFT;
+			mask = RCC_CCIPR_USART1SEL_MASK;
+			break;
+
+		default:
+			return;
+	}
+
+	uint32_t reg32 = RCC_CCIPR & ~(mask << shift);
+	RCC_CCIPR = reg32 | (sel << shift);
 }
 
 /**
