@@ -67,13 +67,13 @@ void rng_interrupt_disable(void)
  */
 bool rng_get_random(uint32_t *rand_nr)
 {
-        /* data ready */
-        if (!(RNG_SR & RNG_SR_DRDY)) {
+        /* Check for errors */
+        if (RNG_SR & (RNG_SR_CECS | RNG_SR_SECS)) {
                 return false;
         }
 
-        /* Check for errors */
-        if (RNG_SR & (RNG_SR_CECS | RNG_SR_SECS)) {
+        /* data ready */
+        if (!(RNG_SR & RNG_SR_DRDY)) {
                 return false;
         }
 
