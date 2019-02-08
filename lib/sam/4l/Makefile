@@ -22,7 +22,7 @@ PREFIX		?= arm-none-eabi
 FP_FLAGS ?= -msoft-float
 
 CC		= $(PREFIX)-gcc
-AR		= $(PREFIX)-ar
+AR		= $(PREFIX)-gcc-ar
 TGT_CFLAGS	= -Os -Wall -Wextra -I../../../include -fno-common \
 		  -mcpu=cortex-m4 -mthumb $(FP_FLAGS) -Wstrict-prototypes \
 		  -ffunction-sections -fdata-sections -MD -DSAM4L

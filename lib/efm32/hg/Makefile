@@ -27,7 +27,7 @@ FAMILY		= EFM32HG
 PREFIX		?= arm-none-eabi
 #PREFIX		?= arm-elf
 CC		= $(PREFIX)-gcc
-AR		= $(PREFIX)-ar
+AR		= $(PREFIX)-gcc-ar
 TGT_CFLAGS	= -Os \
 		  -Wall -Wextra -Wimplicit-function-declaration \
 		  -Wredundant-decls -Wmissing-prototypes -Wstrict-prototypes \
