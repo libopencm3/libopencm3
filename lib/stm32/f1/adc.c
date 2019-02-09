@@ -59,11 +59,11 @@ and ADC, reset ADC and set the prescaler divider. Set dual mode to independent
 	adc_set_dual_mode(ADC_CR1_DUALMOD_IND);
 	adc_disable_scan_mode(ADC1);
 	adc_set_single_conversion_mode(ADC1);
-	adc_set_sample_time(ADC1, ADC_CHANNEL0, ADC_SMPR1_SMP_1DOT5CYC);
-	adc_enable_trigger(ADC1, ADC_CR2_EXTSEL_SWSTART);
+	adc_set_sample_time(ADC1, ADC_CHANNEL0, ADC_SMPR_SMP_1DOT5CYC);
+	adc_enable_external_trigger_regular(ADC1, ADC_CR2_EXTSEL_SWSTART);
 	adc_power_on(ADC1);
 	adc_reset_calibration(ADC1);
-	adc_calibration(ADC1);
+	adc_calibrate(ADC1);
 	adc_start_conversion_regular(ADC1);
 	while (! adc_eoc(ADC1));
 	reg16 = adc_read_regular(ADC1);
