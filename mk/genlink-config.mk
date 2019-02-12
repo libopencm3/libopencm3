@@ -24,11 +24,11 @@ endif
 LDSCRIPT	= generated.$(DEVICE).ld
 DEVICES_DATA = $(OPENCM3_DIR)/ld/devices.data
 
-genlink_family		:=$(shell $(OPENCM3_DIR)/scripts/genlink.py $(DEVICES_DATA) $(DEVICE) FAMILY)
-genlink_subfamily	:=$(shell $(OPENCM3_DIR)/scripts/genlink.py $(DEVICES_DATA) $(DEVICE) SUBFAMILY)
-genlink_cpu		:=$(shell $(OPENCM3_DIR)/scripts/genlink.py $(DEVICES_DATA) $(DEVICE) CPU)
-genlink_fpu		:=$(shell $(OPENCM3_DIR)/scripts/genlink.py $(DEVICES_DATA) $(DEVICE) FPU)
-genlink_cppflags	:=$(shell $(OPENCM3_DIR)/scripts/genlink.py $(DEVICES_DATA) $(DEVICE) CPPFLAGS)
+genlink_family		:=$(shell python "$(OPENCM3_DIR)/scripts/genlink.py" $(DEVICES_DATA) $(DEVICE) FAMILY)
+genlink_subfamily	:=$(shell python "$(OPENCM3_DIR)/scripts/genlink.py" $(DEVICES_DATA) $(DEVICE) SUBFAMILY)
+genlink_cpu		:=$(shell python "$(OPENCM3_DIR)/scripts/genlink.py" $(DEVICES_DATA) $(DEVICE) CPU)
+genlink_fpu		:=$(shell python "$(OPENCM3_DIR)/scripts/genlink.py" $(DEVICES_DATA) $(DEVICE) FPU)
+genlink_cppflags	:=$(shell python "$(OPENCM3_DIR)/scripts/genlink.py" $(DEVICES_DATA) $(DEVICE) CPPFLAGS)
 
 CPPFLAGS	+= $(genlink_cppflags)
 
