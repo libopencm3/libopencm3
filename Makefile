@@ -77,7 +77,7 @@ lib: $(LIB_DIRS)
 	$(Q)[ -f .stamp_failure_tld ] && cat .stamp_failure_tld && exit 1 || true;
 
 html doc:
-	$(Q)$(MAKE) -C doc html
+	$(Q)$(MAKE) -C doc html TARGETS="$(TARGETS)"
 
 clean: $(IRQ_DEFN_FILES:=.cleanhdr) $(LIB_DIRS:=.clean) $(EXAMPLE_DIRS:=.clean) doc.clean styleclean genlinktests.clean
 
