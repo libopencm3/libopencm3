@@ -54,6 +54,8 @@
 /* Yes, we use the same interrupt table for both LM3S and LM4F */
 #	include <libopencmsis/lm3s/irqhandlers.h>
 
+#elif defined(SWM050)
+#	include <libopencmsis/swm050/irqhandlers.h>
 #else
 #	warning"no chipset defined; user interrupts are not redirected"
 
