@@ -316,9 +316,9 @@
 #define SCS_DWT_PCSR		MMIO32(DWT_BASE + 0x18)
 
 /* CoreSight Lock Status Register for this peripheral */
-#define SCS_DWT_LSR		MMIO32(SCS_DWT_BASE + 0xFB4)
+#define SCS_DWT_LSR		MMIO32(DWT_BASE + 0xFB4)
 /* CoreSight Lock Access Register for this peripheral */
-#define SCS_DWT_LAR		MMIO32(SCS_DWT_BASE + 0xFB0)
+#define SCS_DWT_LAR		MMIO32(DWT_BASE + 0xFB0)
 
 /* --- SCS_DWT_CTRL values ------------------------------------------------- */
 /*
