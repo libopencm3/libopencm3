@@ -58,7 +58,9 @@ OBJS		+= spi_common_all.o spi_common_v1.o spi_common_v1_frf.o
 OBJS            += usb.o usb_standard.o usb_control.o usb_dwc_common.o \
 		   usb_f107.o usb_f207.o usb_msc.o
 
-OBJS		+= mac.o phy.o mac_stm32fxx7.o phy_ksz80x1.o fmc.o
+OBJS		+= mac.o phy.o mac_stm32fxx7.o phy_ksz80x1.o
+
+OBJS		+= fmc_common_f47.o
 
 OBJS		+= ltdc.o 
 
