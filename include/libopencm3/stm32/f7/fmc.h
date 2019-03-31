@@ -1,7 +1,7 @@
 /** @defgroup fmc_defines FMC Defines
- * @brief <b>Defined Constants and Types for the STM32F4xx Flexible Memory
+ * @brief <b>Defined Constants and Types for the STM32F7xx Flexible Memory
  * Controller</b>
- * @ingroup STM32F4xx_defines
+ * @ingroup STM32F7xx_defines
  */
 /*
  * This file is part of the libopencm3 project.
@@ -21,14 +21,17 @@
  */
 /**@{*/
 
-#ifndef LIBOPENCM3_F4_FMC_H
-#define LIBOPENCM3_F4_FMC_H
+#ifndef LIBOPENCM3_F7_FMC_H
+#define LIBOPENCM3_F7_FMC_H
 
 #ifndef LIBOPENCM3_FSMC_H
 #error "This file should not be included directly, it is included with fsmc.h"
 #endif
 
 #include <libopencm3/stm32/common/fmc_common_f47.h>
+
+/* --- Convenience macros -------------------------------------------------- */
+#define FSMC_BASE				FMCC_BASE
 
 #endif
 
