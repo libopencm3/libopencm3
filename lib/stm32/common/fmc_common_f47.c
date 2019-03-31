@@ -1,3 +1,11 @@
+/** @addtogroup fmc_file FMC peripheral API
+@ingroup peripheral_apis
+
+@author @htmlonly &copy; @endhtmlonly 2012 Ken Sarkies ksarkies@internode.on.net
+
+This library supports the Flexible Memory Controller in the STM32F4xx and
+STM32F7xx series of ARM Cortex Microcontrollers by ST Microelectronics.
+*/
 /*
  *
  * This file is part of the libopencm3 project.
@@ -20,6 +28,8 @@
 
 #include <stdint.h>
 #include <libopencm3/stm32/fsmc.h>
+
+/**@{*/
 
 /*
  * Install various timing values into the correct place in the
@@ -97,3 +107,5 @@ sdram_command(enum fmc_sdram_bank bank,
 	/* Send the next command */
 	FMC_SDCMR = tmp_reg;
 }
+
+/**@}*/

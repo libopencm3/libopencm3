@@ -23,16 +23,17 @@
 #include <libopencm3/cm3/common.h>
 #include <libopencm3/stm32/memorymap.h>
 
-#if defined(STM32F4)
+#if   defined(STM32F4)
 #       include <libopencm3/stm32/f4/fmc.h>
+#elif defined(STM32F7)
+#       include <libopencm3/stm32/f7/fmc.h>
 #endif
 
 /* --- Convenience macros -------------------------------------------------- */
-
 #define FSMC_BANK1_BASE			0x60000000U /* NOR / PSRAM */
-#define FSMC_BANK2_BASE			0x70000000U /* NAND flash */
+#define FSMC_BANK2_BASE			0x70000000U /* NAND flash (reserved in F7) */
 #define FSMC_BANK3_BASE			0x80000000U /* NAND flash */
-#define FSMC_BANK4_BASE			0x90000000U /* PC card */
+#define FSMC_BANK4_BASE			0x90000000U /* PC card (reserved in F7) */
 
 /* --- FSMC registers ------------------------------------------------------ */
 
