@@ -145,7 +145,7 @@ Installation
 ------------
 
 Simply pass -I and -L flags to your own project.  See the
-[libopencm3-template](https://github.com/libopencm3/libopencm3-miniblink)
+[libopencm3-template](https://github.com/libopencm3/libopencm3-template)
 repository for a template repository using this library as a Git submodule,
 the most popular method of use.  The libopencm3-examples is another
 example of this.
