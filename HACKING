@@ -6,7 +6,7 @@ Coding style
 ------------
 
 The whole library is programmed using the Linux kernel coding style, see
-http://lxr.linux.no/linux/Documentation/CodingStyle for details.
+https://www.kernel.org/doc/html/latest/process/coding-style.html for details.
 
 Please use the same style for any code contributions, thanks!
 
