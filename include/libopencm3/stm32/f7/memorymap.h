@@ -94,6 +94,7 @@
 #define SAI1_BASE			(PERIPH_BASE_APB2 + 0x5800)
 #define SAI2_BASE			(PERIPH_BASE_APB2 + 0x5C00)
 #define LCD_TFT_BASE			(PERIPH_BASE_APB2 + 0x6800)
+#define LTDC_BASE			(PERIPH_BASE_APB2 + 0x6800) /* compat. with f4 */
 /* PERIPH_BASE_APB2 + 0x6C00 (0x4001 6C00 - 0x4001 FFFF): Reserved */
 
 /* AHB1 */
