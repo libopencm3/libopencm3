@@ -1,7 +1,7 @@
 /** @defgroup ltdc_defines LTDC Defines
- * @brief <b>Defined Constants and Types for the STM32F4xx LCD TFT Display
+ * @brief <b>Defined Constants and Types for the STM32F7xx LCD TFT Display
  *           Controller</b>
- * @ingroup STM32F4xx_defines
+ * @ingroup STM32F7xx_defines
  */
 /*
  * This file is part of the libopencm3 project.
@@ -21,11 +21,11 @@
  */
 /**@{*/
 
-#ifndef LIBOPENCM3_STM32_F4_LTDC_H_
-#define LIBOPENCM3_STM32_F4_LTDC_H_
+#ifndef LIBOPENCM3_STM32_F7_LTDC_H_
+#define LIBOPENCM3_STM32_F7_LTDC_H_
 
 #include <libopencm3/stm32/common/ltdc_common_f47.h>
 
-#endif /* LIBOPENCM3_STM32_F4_LTDC_H_ */
+#endif /* LIBOPENCM3_STM32_F7_LTDC_H_ */
 
 /**@}*/

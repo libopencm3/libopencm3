@@ -54,6 +54,7 @@ OBJS		+= fmc_common_f47.o
 OBJS		+= gpio.o gpio_common_all.o gpio_common_f0234.o
 OBJS		+= i2c_common_v2.o
 OBJS		+= iwdg_common_all.o
+OBJS		+= ltdc_common_f47.o 
 OBJS		+= pwr.o rcc.o
 OBJS		+= rcc_common_all.o
 OBJS		+= rng_common_v1.o
