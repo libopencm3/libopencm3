@@ -62,7 +62,7 @@ OBJS		+= mac.o phy.o mac_stm32fxx7.o phy_ksz80x1.o
 
 OBJS		+= fmc_common_f47.o
 
-OBJS		+= ltdc.o 
+OBJS		+= ltdc_common_f47.o 
 
 VPATH += ../../usb:../:../../cm3:../common
 VPATH += ../../ethernet
