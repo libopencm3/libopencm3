@@ -185,6 +185,10 @@
 #define RCC_CFGR_MCOPRE_DIV_4			0x6
 #define RCC_CFGR_MCOPRE_DIV_5			0x7
 
+/* PLLSRC: PLL entry clock source */
+#define RCC_CFGR_PLLSRC_HSI_CLK			0x0
+#define RCC_CFGR_PLLSRC_HSE_CLK			0x1
+
 /* I2SSRC: I2S clock selection */
 #define RCC_CFGR_I2SSRC				(1 << 23)
 
@@ -780,6 +784,7 @@ struct rcc_clock_scale {
 	uint8_t pllp;
 	uint8_t pllq;
 	uint8_t pllr;
+	uint8_t pll_source;
 	uint32_t flash_config;
 	uint8_t hpre;
 	uint8_t ppre1;
@@ -1095,6 +1100,7 @@ void rcc_set_main_pll_hsi(uint32_t pllm, uint32_t plln, uint32_t pllp,
 void rcc_set_main_pll_hse(uint32_t pllm, uint32_t plln, uint32_t pllp,
 			  uint32_t pllq, uint32_t pllr);
 uint32_t rcc_system_clock_source(void);
+void rcc_clock_setup_pll(const struct rcc_clock_scale *clock);
 void rcc_clock_setup_hse_3v3(const struct rcc_clock_scale *clock);
 
 END_DECLS
