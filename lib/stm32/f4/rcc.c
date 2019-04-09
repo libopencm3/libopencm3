@@ -932,7 +932,9 @@ void rcc_clock_setup_pll(const struct rcc_clock_scale *clock)
 	rcc_apb2_frequency = clock->apb2_frequency;
 
 	/* Disable internal high-speed oscillator. */
-	rcc_osc_off(RCC_HSI);
+	if (clock->pll_source == RCC_CFGR_PLLSRC_HSE_CLK) {
+		rcc_osc_off(RCC_HSI);
+	}
 }
 
 /**
