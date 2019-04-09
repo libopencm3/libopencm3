@@ -935,6 +935,11 @@ void rcc_clock_setup_pll(const struct rcc_clock_scale *clock)
 	rcc_osc_off(RCC_HSI);
 }
 
+/**
+ * Setup clocks with the HSE.
+ *
+ * @deprecated Use `rcc_clock_setup_pll` instead.
+ */
 void __attribute__((deprecated)) rcc_clock_setup_hse_3v3(const struct rcc_clock_scale *clock)
 {
 	rcc_clock_setup_pll(clock);
