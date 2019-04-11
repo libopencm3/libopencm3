@@ -1,5 +1,16 @@
-/* This provides unification of code over STM32 subfamilies */
-
+/** @defgroup crc_defines CRC Defines
+ *
+ * @brief <b>libopencm3 Defined Constants and Types for the STM32F7xx CRC
+ * Generator </b>
+ *
+ * @ingroup STM32F7xx_defines
+ *
+ * @version 1.0.0
+ *
+ * @date 11 Apr 2019
+ *
+ *LGPL License Terms @ref lgpl_license
+ */
 /*
  * This file is part of the libopencm3 project.
  *
@@ -17,26 +28,9 @@
  * along with this library.  If not, see <http://www.gnu.org/licenses/>.
  */
 
-#include <libopencm3/cm3/common.h>
-#include <libopencm3/stm32/memorymap.h>
+#ifndef LIBOPENCM3_CRC_H
+#define LIBOPENCM3_CRC_H
 
-#if defined(STM32F0)
-#       include <libopencm3/stm32/f0/crc.h>
-#elif defined(STM32F1)
-#       include <libopencm3/stm32/f1/crc.h>
-#elif defined(STM32F2)
-#       include <libopencm3/stm32/f2/crc.h>
-#elif defined(STM32F3)
-#       include <libopencm3/stm32/f3/crc.h>
-#elif defined(STM32F4)
-#       include <libopencm3/stm32/f4/crc.h>
-#elif defined(STM32F7)
-#       include <libopencm3/stm32/f7/crc.h>
-#elif defined(STM32L1)
-#       include <libopencm3/stm32/l1/crc.h>
-#elif defined(STM32L4)
-#       include <libopencm3/stm32/l4/crc.h>
-#else
-#       error "stm32 family not defined."
+#include <libopencm3/stm32/common/crc_v2.h>
+
 #endif
-
