@@ -155,7 +155,7 @@ void adc_power_off(uint32_t adc)
  */
 void adc_calibrate_async(uint32_t adc)
 {
-	ADC_CR(adc) = ADC_CR_ADCAL;
+	ADC_CR(adc) |= ADC_CR_ADCAL;
 }
 
 /**
