@@ -56,28 +56,26 @@ LGPL License Terms @ref lgpl_license
 #define ADC_CR2_EXTSEL_TIM1_CC3		(0x2 << 24)
 /** Timer 2 Compare Output 2 */
 #define ADC_CR2_EXTSEL_TIM2_CC2		(0x3 << 24)
-/** Timer 2 Compare Output 3 */
-#define ADC_CR2_EXTSEL_TIM2_CC3		(0x4 << 24)
-/** Timer 2 Compare Output 4 */
-#define ADC_CR2_EXTSEL_TIM2_CC4		(0x5 << 24)
-/** Timer 2 TRGO Event */
-#define ADC_CR2_EXTSEL_TIM2_TRGO	(0x6 << 24)
-/** Timer 3 Compare Output 1 */
-#define ADC_CR2_EXTSEL_TIM3_CC1		(0x7 << 24)
-/** Timer 3 TRGO Event */
-#define ADC_CR2_EXTSEL_TIM3_TRGO	(0x8 << 24)
+/** Timer 5 TRGO Event */
+#define ADC_CR2_EXTSEL_TIM5_TRGO	(0x4 << 24)
 /** Timer 4 Compare Output 4 */
-#define ADC_CR2_EXTSEL_TIM4_CC4		(0x9 << 24)
-/** Timer 5 Compare Output 1 */
-#define ADC_CR2_EXTSEL_TIM5_CC1		(0xA << 24)
-/** Timer 5 Compare Output 2 */
-#define ADC_CR2_EXTSEL_TIM5_CC2		(0xB << 24)
-/** Timer 5 Compare Output 3 */
-#define ADC_CR2_EXTSEL_TIM5_CC3		(0xC << 24)
-/** Timer 8 Compare Output 1 */
-#define ADC_CR2_EXTSEL_TIM8_CC1		(0xD << 24)
+#define ADC_CR2_EXTSEL_TIM4_CC4		(0x5 << 24)
+/** Timer 3 Compare Output 4 */
+#define ADC_CR2_EXTSEL_TIM3_CC4		(0x6 << 24)
 /** Timer 8 TRGO Event */
-#define ADC_CR2_EXTSEL_TIM8_TRGO	(0xE << 24)
+#define ADC_CR2_EXTSEL_TIM8_TRGO	(0x7 << 24)
+/** Timer 8 TRGO2 Event */
+#define ADC_CR2_EXTSEL_TIM8_TRGO2	(0x8 << 24)
+/** Timer 1 TRGO Event */
+#define ADC_CR2_EXTSEL_TIM1_TRGO	(0x9 << 24)
+/** Timer 1 TRGO2 Event */
+#define ADC_CR2_EXTSEL_TIM1_TRGO2	(0xA << 24)
+/** Timer 2 TRGO Event */
+#define ADC_CR2_EXTSEL_TIM2_TRGO	(0xB << 24)
+/** Timer 4 TRGO Event */
+#define ADC_CR2_EXTSEL_TIM4_TRGO	(0xC << 24)
+/** Timer 6 TRGO Event */
+#define ADC_CR2_EXTSEL_TIM6_TRGO	(0xD << 24)
 /** EXTI Line 11 Event */
 #define ADC_CR2_EXTSEL_EXTI_LINE_11	(0xF << 24)
 /**@}*/
@@ -88,22 +86,22 @@ LGPL License Terms @ref lgpl_license
 @ingroup adc_defines
 
 @{*/
-#define ADC_CR2_JEXTSEL_TIM1_CC4	(0x0 << 16)
-#define ADC_CR2_JEXTSEL_TIM1_TRGO	(0x1 << 16)
-#define ADC_CR2_JEXTSEL_TIM2_CC1	(0x2 << 16)
-#define ADC_CR2_JEXTSEL_TIM2_TRGO	(0x3 << 16)
-#define ADC_CR2_JEXTSEL_TIM3_CC2	(0x4 << 16)
-#define ADC_CR2_JEXTSEL_TIM3_CC4	(0x5 << 16)
-#define ADC_CR2_JEXTSEL_TIM4_CC1	(0x6 << 16)
-#define ADC_CR2_JEXTSEL_TIM4_CC2	(0x7 << 16)
-#define ADC_CR2_JEXTSEL_TIM4_CC3	(0x8 << 16)
-#define ADC_CR2_JEXTSEL_TIM4_TRGO	(0x9 << 16)
-#define ADC_CR2_JEXTSEL_TIM5_CC4	(0xA << 16)
-#define ADC_CR2_JEXTSEL_TIM5_TRGO	(0xB << 16)
-#define ADC_CR2_JEXTSEL_TIM8_CC2	(0xC << 16)
-#define ADC_CR2_JEXTSEL_TIM8_CC3	(0xD << 16)
-#define ADC_CR2_JEXTSEL_TIM8_CC4	(0xE << 16)
-#define ADC_CR2_JEXTSEL_EXTI_LINE_15	(0xF << 16)
+#define ADC_CR2_JEXTSEL_TIM1_TRGO	(0x0 << 16)
+#define ADC_CR2_JEXTSEL_TIM1_CC4	(0x1 << 16)
+#define ADC_CR2_JEXTSEL_TIM2_TRGO	(0x2 << 16)
+#define ADC_CR2_JEXTSEL_TIM2_CC1	(0x3 << 16)
+#define ADC_CR2_JEXTSEL_TIM3_CC4	(0x4 << 16)
+#define ADC_CR2_JEXTSEL_TIM4_TRGO	(0x5 << 16)
+/* 0x6 undefined */
+#define ADC_CR2_JEXTSEL_TIM8_CC4	(0x7 << 16)
+#define ADC_CR2_JEXTSEL_TIM1_TRGO2	(0x8 << 16)
+#define ADC_CR2_JEXTSEL_TIM8_TRGO	(0x9 << 16)
+#define ADC_CR2_JEXTSEL_TIM8_TRGO2	(0xA << 16)
+#define ADC_CR2_JEXTSEL_TIM3_cc3	(0xB << 16)
+#define ADC_CR2_JEXTSEL_TIM5_TRGO	(0xC << 16)
+#define ADC_CR2_JEXTSEL_TIM3_CC1	(0xD << 16)
+#define ADC_CR2_JEXTSEL_TIM6_TRGO	(0xE << 16)
+/* 0xf undefined */
 /**@}*/
 
 #endif
