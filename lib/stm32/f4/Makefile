@@ -39,7 +39,7 @@ TGT_CFLAGS	+= $(STANDARD_FLAGS)
 # ARFLAGS	= rcsv
 ARFLAGS		= rcs
 
-OBJS		= adc.o adc_common_v1.o can.o desig.o gpio.o pwr.o rcc.o \
+OBJS		= adc_common_v3.o adc_common_v1.o can.o desig.o gpio.o pwr.o rcc.o \
 		  rtc.o crypto.o
 
 OBJS            += crc_common_all.o dac_common_all.o dma_common_f24.o \
