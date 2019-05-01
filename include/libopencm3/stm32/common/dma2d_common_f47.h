@@ -145,7 +145,8 @@
 #define DMA2D_OPFCCR_CM_ARGB8888	0
 #define DMA2D_OPFCCR_CM_RGB888		1
 #define DMA2D_OPFCCR_CM_RGB565		2
-#define DMA2D_OPFCCR_CM_ARGB4444	3
+#define DMA2D_OPFCCR_CM_ARGB1555	3
+#define DMA2D_OPFCCR_CM_ARGB4444	4
 
 /** DMA2D Output Color Register */
 /* The format of this register depends on PFC control above */
