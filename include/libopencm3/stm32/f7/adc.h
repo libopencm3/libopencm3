@@ -39,7 +39,7 @@ LGPL License Terms @ref lgpl_license
 #ifndef LIBOPENCM3_ADC_H
 #define LIBOPENCM3_ADC_H
 
-#include <libopencm3/stm32/common/adc_common_v3.h>
+#include <libopencm3/stm32/common/adc_common_v1_multi.h>
 
 /* --- Convenience macros -------------------------------------------------- */
 /* EXTSEL[3:0]: External event selection for regular group. */
