@@ -33,5 +33,19 @@ LGPL License Terms @ref lgpl_license
 
 #include <libopencm3/stm32/common/dac_common_all.h>
 
+
+/* DAC status register (DAC_SR) */
+#define DAC_SR				MMIO32(DAC_BASE + 0x34)
+
+/* --- DAC_SR values ------------------------------------------------------- */
+
+/* DMAUDR2: DAC channel 1 DMA underrun flag */
+#define DAC_SR_DMAUDR1		(1 << 13)
+
+
+/* DMAUDR2: DAC channel 2 DMA underrun flag */
+#define DAC_SR_DMAUDR2		(1 << 29)
+
+
 #endif
 
