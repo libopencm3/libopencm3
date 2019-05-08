@@ -44,6 +44,8 @@ nbproject/
 .idea/
 .project
 locm3.sublime-workspace
+.cproject
+.settings
 
 # cscope databases
 cscope.out
