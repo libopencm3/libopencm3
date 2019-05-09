@@ -77,6 +77,10 @@ specific memorymap.h header before including this header file.*/
 /* DAC channel2 data output register (DAC_DOR2) */
 #define DAC_DOR2			MMIO32(DAC_BASE + 0x30)
 
+/** DAC status register.
+ * @note not available on F1
+ */
+#define DAC_SR				MMIO32(DAC_BASE + 0x34)
 
 /* --- DAC_CR values ------------------------------------------------------- */
 
@@ -376,6 +380,15 @@ Unmask bits [(n-1)..0] of LFSR/Triangle Amplitude equal to (2**(n+1)-1
 /* --- DAC_DOR2 values ----------------------------------------------------- */
 #define DAC_DOR2_DACC2DOR_LSB		(1 << 0)
 #define DAC_DOR2_DACC2DOR_MSK		(0x0FFF << 0)
+
+/** @defgroup dac_sr_values DAC_SR Values
+@{*/
+/** DAC channel 1 DMA underrun flag */
+#define DAC_SR_DMAUDR1		(1 << 13)
+
+/** DAC channel 2 DMA underrun flag */
+#define DAC_SR_DMAUDR2		(1 << 29)
+/*@}*/
 
 /** DAC channel identifier */
 typedef enum {
