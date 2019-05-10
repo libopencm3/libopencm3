@@ -30,11 +30,6 @@
 The order of header inclusion is important. adc.h includes the device
 specific memorymap.h header before including this header file.*/
 
-/*
- * Common code for F4 and F7 ADCs. The only differences are in external trigger
- * setup (see AN4660).
- */
-
 /** @cond */
 #ifdef LIBOPENCM3_ADC_H
 /** @endcond */
@@ -45,38 +40,6 @@ specific memorymap.h header before including this header file.*/
 
 /* --- Convenience macros -------------------------------------------------- */
 
-/* ADC injected channel data offset register x (ADC_JOFRx) (x=1..4) */
-#define ADC_JOFR1(block)		MMIO32((block) + 0x14)
-#define ADC_JOFR2(block)		MMIO32((block) + 0x18)
-#define ADC_JOFR3(block)		MMIO32((block) + 0x1c)
-#define ADC_JOFR4(block)		MMIO32((block) + 0x20)
-
-/* ADC watchdog high threshold register (ADC_HTR) */
-#define ADC_HTR(block)			MMIO32((block) + 0x24)
-
-/* ADC watchdog low threshold register (ADC_LTR) */
-#define ADC_LTR(block)			MMIO32((block) + 0x28)
-
-/* ADC regular sequence register 1 (ADC_SQR1) */
-#define ADC_SQR1(block)			MMIO32((block) + 0x2c)
-
-/* ADC regular sequence register 2 (ADC_SQR2) */
-#define ADC_SQR2(block)			MMIO32((block) + 0x30)
-
-/* ADC regular sequence register 3 (ADC_SQR3) */
-#define ADC_SQR3(block)			MMIO32((block) + 0x34)
-
-/* ADC injected sequence register (ADC_JSQR) */
-#define ADC_JSQR(block)			MMIO32((block) + 0x38)
-
-/* ADC injected data register x (ADC_JDRx) (x=1..4) */
-#define ADC_JDR1(block)			MMIO32((block) + 0x3c)
-#define ADC_JDR2(block)			MMIO32((block) + 0x40)
-#define ADC_JDR3(block)			MMIO32((block) + 0x44)
-#define ADC_JDR4(block)			MMIO32((block) + 0x48)
-
-/* ADC regular data register (ADC_DR) */
-#define ADC_DR(block)			MMIO32((block) + 0x4c)
 
 /* ADC common (shared) registers */
 #define	ADC_COMMON_REGISTERS_BASE	(ADC1_BASE+0x300)
@@ -97,8 +60,6 @@ specific memorymap.h header before including this header file.*/
 #define ADC_SR_OVR			(1 << 5)
 /**@}*/
 
-/* --- ADC_CR1 values specific to STM32F2,4--------------------------------- */
-
 /* OVRIE: Overrun interrupt enable */
 #define ADC_CR1_OVRIE			(1 << 26)
 
@@ -118,8 +79,6 @@ specific memorymap.h header before including this header file.*/
 
 /* Note: Bits [21:16] are reserved, and must be kept at reset value. */
 
-/* --- ADC_CR1 values (note some of these are defined elsewhere) ----------- */
-#define ADC_CR1_AWDCH_MAX		18
 
 
 /* --- ADC_CR2 values ------------------------------------------------------ */
@@ -200,22 +159,7 @@ specific memorymap.h header before including this header file.*/
 
 /* --- ADC_SMPRx values --------------------------------------------------- */
 /****************************************************************************/
-/* ADC_SMPRG ADC Sample Time Selection for Channels */
-/** @defgroup adc_sample_rg ADC Sample Time Selection for All Channels
-@ingroup adc_defines
 
-@{*/
-#define ADC_SMPR_SMP_3CYC		0x0
-#define ADC_SMPR_SMP_15CYC		0x1
-#define ADC_SMPR_SMP_28CYC		0x2
-#define ADC_SMPR_SMP_56CYC		0x3
-#define ADC_SMPR_SMP_84CYC		0x4
-#define ADC_SMPR_SMP_112CYC		0x5
-#define ADC_SMPR_SMP_144CYC		0x6
-#define ADC_SMPR_SMP_480CYC		0x7
-/**@}*/
-
-#define ADC_SQR1_L_MSK                 (0xf << ADC_SQR1_L_LSB)
 #define ADC_SQRx_MASK		0x1f
 
 /* --- ADC_JDRx, ADC_DR values --------------------------------------------- */
@@ -296,20 +240,6 @@ specific memorymap.h header before including this header file.*/
 #define ADC_CCR_VBATE				(1 << 22)
 
 /* Bit 18:21 reserved, must be kept at reset value. */
-
-/* ADCPRE: ADC prescaler. */
-/****************************************************************************/
-/** @defgroup adc_ccr_adcpre ADC Prescale
-@ingroup adc_defines
-
-@{*/
-#define ADC_CCR_ADCPRE_BY2		(0x0 << 16)
-#define ADC_CCR_ADCPRE_BY4		(0x1 << 16)
-#define ADC_CCR_ADCPRE_BY6		(0x2 << 16)
-#define ADC_CCR_ADCPRE_BY8		(0x3 << 16)
-/**@}*/
-#define ADC_CCR_ADCPRE_MASK		(0x3 << 16)
-#define ADC_CCR_ADCPRE_SHIFT		16
 
 /* DMA: Direct memory access mode for multi ADC mode. */
 /****************************************************************************/
@@ -423,7 +353,6 @@ specific memorymap.h header before including this header file.*/
 BEGIN_DECLS
 
 void adc_set_clk_prescale(uint32_t prescaler);
-void adc_set_multi_mode(uint32_t mode);
 void adc_enable_external_trigger_regular(uint32_t adc, uint32_t trigger,
 					 uint32_t polarity);
 void adc_enable_external_trigger_injected(uint32_t adc, uint32_t trigger,
@@ -440,8 +369,6 @@ void adc_set_dma_continue(uint32_t adc);
 void adc_set_dma_terminate(uint32_t adc);
 void adc_enable_temperature_sensor(void);
 void adc_disable_temperature_sensor(void);
-void adc_enable_vbat_sensor(void);
-void adc_disable_vbat_sensor(void);
 
 END_DECLS
 
