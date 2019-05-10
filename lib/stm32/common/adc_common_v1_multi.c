@@ -14,10 +14,14 @@ registers.  However all the A/D converters share a common clock which is
 prescaled from the APB2 clock by default by a minimum factor of 2 to a maximum
 of 8. The ADC resolution can be set to 12, 10, 8 or 6 bits.
 
-Each A/D converter has up to 19 channels:
-@li On ADC1 the analog channels 16 is internally connected to the temperature
-sensor, channel 17 to V<sub>REFINT</sub>, and channel 18 to V<sub>BAT</sub>.
-@li On ADC2 and ADC3 the analog channels 16 - 18 are not used.
+Each A/D converter has multiple channels, not all of which might be available
+externally.  Internal channels can be used for the the temperature sensor,
+VBat monitoring, and the internal reference voltage VREFINT.  Consult the
+Reference manual for the specifics of your part.
+@sa ADC_MAX_CHANNELS
+@sa ADC_CHANNEL_TEMP
+@sa ADC_CHANNEL_VREF
+@sa ADC_CHANNEL_VBAT
 
 The conversions can occur as a one-off conversion whereby the process stops
 once conversion is complete. The conversions can also be continuous wherein a
@@ -36,7 +40,7 @@ Injected conversions allow a second group of channels to be converted
 separately from the regular group. An interrupt can be set to occur at the end
 of conversion, which occurs after all channels have been scanned.
 
-@section adc_f4_api_ex Basic ADC Handling API.
+@section adc_api_ex Basic ADC Handling API.
 
 Example 1: Simple single channel conversion polled. Enable the peripheral clock
 and ADC, reset ADC and set the prescaler divider. Set the sample time to a
@@ -102,11 +106,9 @@ void adc_power_on(uint32_t adc)
 
 /*---------------------------------------------------------------------------*/
 /** @brief ADC Set Clock Prescale
-
-The ADC clock taken from the APB2 clock can be scaled down by 2, 4, 6 or 8.
-
-@param[in] prescale Unsigned int32. Prescale value for ADC Clock @ref
-adc_ccr_adcpre
+The ADC clock can be prescaled.
+The Clock sources and scaler values are part specific.
+@param[in] prescale  Prescale value for ADC Clock @ref adc_ccr_adcpre
 */
 
 void adc_set_clk_prescale(uint32_t prescale)
@@ -332,8 +334,8 @@ bool adc_awd(uint32_t adc)
 /*---------------------------------------------------------------------------*/
 /** @brief ADC Enable The Temperature Sensor
 
-This enables both the sensor and the reference voltage measurements on ADC1
-channels 16 and 17. On STM32F42x and STM32F43x, the temperature sensor is
+This enables both the sensor and the reference voltage measurements on ADC1.
+On STM32F42x and STM32F43x, the temperature sensor is
 connected to ADC1 channel 18, the same as VBat. If both are enabled, only the
 VBat conversion is performed.
 */
@@ -354,7 +356,5 @@ void adc_disable_temperature_sensor(void)
 {
 	ADC_CCR &= ~ADC_CCR_TSVREFE;
 }
-
-
 
 /**@}*/
