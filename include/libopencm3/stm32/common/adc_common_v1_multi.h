@@ -129,17 +129,16 @@ specific memorymap.h header before including this header file.*/
 
 /* EXTEN[1:0]: External trigger enable for regular channels. */
 /****************************************************************************/
+#define ADC_CR2_EXTEN_SHIFT		28
+#define ADC_CR2_EXTEN_MASK		(0x3 << ADC_CR2_EXTEN_SHIFT)
 /** @defgroup adc_trigger_polarity_regular ADC Trigger Polarity
 @ingroup adc_defines
-
 @{*/
-#define ADC_CR2_EXTEN_DISABLED		(0x0 << 28)
-#define ADC_CR2_EXTEN_RISING_EDGE	(0x1 << 28)
-#define ADC_CR2_EXTEN_FALLING_EDGE	(0x2 << 28)
-#define ADC_CR2_EXTEN_BOTH_EDGES	(0x3 << 28)
+#define ADC_CR2_EXTEN_DISABLED		(0x0 << ADC_CR2_EXTEN_SHIFT)
+#define ADC_CR2_EXTEN_RISING_EDGE	(0x1 << ADC_CR2_EXTEN_SHIFT)
+#define ADC_CR2_EXTEN_FALLING_EDGE	(0x2 << ADC_CR2_EXTEN_SHIFT)
+#define ADC_CR2_EXTEN_BOTH_EDGES	(0x3 << ADC_CR2_EXTEN_SHIFT)
 /**@}*/
-#define ADC_CR2_EXTEN_MASK			(0x3 << 28)
-#define ADC_CR2_EXTEN_SHIFT			28
 
 /* EXTSEL[3:0]: External event selection for regular group. */
 /****************************************************************************/
@@ -154,23 +153,22 @@ specific memorymap.h header before including this header file.*/
 
 /* JEXTEN[1:0]: External trigger enable for injected channels. */
 /****************************************************************************/
+#define ADC_CR2_JEXTEN_SHIFT		20
+#define ADC_CR2_JEXTEN_MASK		(0x3 << ADC_CR2_JEXTEN_SHIFT)
 /** @defgroup adc_trigger_polarity_injected ADC Injected Trigger Polarity
 @ingroup adc_defines
-
 @{*/
-#define ADC_CR2_JEXTEN_DISABLED		(0x0 << 20)
-#define ADC_CR2_JEXTEN_RISING_EDGE	(0x1 << 20)
-#define ADC_CR2_JEXTEN_FALLING_EDGE	(0x2 << 20)
-#define ADC_CR2_JEXTEN_BOTH_EDGES	(0x3 << 20)
+#define ADC_CR2_JEXTEN_DISABLED		(0x0 << ADC_CR2_JEXTEN_SHIFT)
+#define ADC_CR2_JEXTEN_RISING_EDGE	(0x1 << ADC_CR2_JEXTEN_SHIFT)
+#define ADC_CR2_JEXTEN_FALLING_EDGE	(0x2 << ADC_CR2_JEXTEN_SHIFT)
+#define ADC_CR2_JEXTEN_BOTH_EDGES	(0x3 << ADC_CR2_JEXTEN_SHIFT)
 /**@}*/
-#define ADC_CR2_JEXTEN_MASK			(0x3 << 20)
-#define ADC_CR2_JEXTEN_SHIFT		20
 
 /* JEXTSEL[3:0]: External event selection for injected group. */
 /****************************************************************************/
 /* Note: Selection values are family-dependent. */
-#define ADC_CR2_JEXTSEL_MASK		(0xF << 16)
 #define ADC_CR2_JEXTSEL_SHIFT		16
+#define ADC_CR2_JEXTSEL_MASK		(0xF << ADC_CR2_JEXTSEL_SHIFT)
 
 /* ALIGN: Data alignement. */
 #define ADC_CR2_ALIGN_RIGHT             (0 << 11)
