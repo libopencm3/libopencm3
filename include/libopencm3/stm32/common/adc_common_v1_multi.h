@@ -86,15 +86,6 @@ specific memorymap.h header before including this header file.*/
 
 /* --- ADC Channels ------------------------------------------------------- */
 
-/** @defgroup adc_channel ADC Channel Numbers
- * @ingroup adc_defines
- * Thanks ST! F40x and F41x are on 16, F42x and F43x are on 18!
- *@{*/
-#define ADC_CHANNEL_TEMP_F40	16
-#define ADC_CHANNEL_TEMP_F42	18
-#define ADC_CHANNEL_VREF	17
-#define ADC_CHANNEL_VBAT	18
-/**@}*/
 
 /* --- ADC_SR values ------------------------------------------------------- */
 

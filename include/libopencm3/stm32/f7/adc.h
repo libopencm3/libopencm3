@@ -41,6 +41,14 @@ LGPL License Terms @ref lgpl_license
 
 #include <libopencm3/stm32/common/adc_common_v1_multi.h>
 
+/** @defgroup adc_channel ADC Channel Numbers
+ * @ingroup adc_defines
+ *@{*/
+#define ADC_CHANNEL_TEMP	18
+#define ADC_CHANNEL_VREF	17
+#define ADC_CHANNEL_VBAT	18
+/**@}*/
+
 /* --- Convenience macros -------------------------------------------------- */
 /* EXTSEL[3:0]: External event selection for regular group. */
 /****************************************************************************/
