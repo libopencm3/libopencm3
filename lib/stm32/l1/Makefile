@@ -47,7 +47,7 @@ OBJS		+= timer_common_all.o
 OBJS		+= usart_common_all.o usart_common_f124.o
 OBJS		+= exti_common_all.o
 OBJS		+= rcc_common_all.o
-OBJS		+= adc.o adc_common_v1.o
+OBJS		+= adc.o adc_common_v1.o adc_common_v1_multi.o
 
 OBJS		+= usb.o usb_control.o usb_standard.o usb_msc.o
 OBJS		+= st_usbfs_core.o st_usbfs_v1.o
