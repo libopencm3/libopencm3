@@ -197,47 +197,6 @@ specific memorymap.h header before including this header file.*/
  */
 #define ADC_CR2_ADON			(1 << 0)
 
-/* --- ADC_SMPR1 values ---------------------------------------------------- */
-
-#define ADC_SMPR1_SMP17_LSB		21
-#define ADC_SMPR1_SMP16_LSB		18
-#define ADC_SMPR1_SMP15_LSB		15
-#define ADC_SMPR1_SMP14_LSB		12
-#define ADC_SMPR1_SMP13_LSB		9
-#define ADC_SMPR1_SMP12_LSB		6
-#define ADC_SMPR1_SMP11_LSB		3
-#define ADC_SMPR1_SMP10_LSB		0
-#define ADC_SMPR1_SMP17_MSK		(0x7 << ADC_SMPR1_SMP17_LSB)
-#define ADC_SMPR1_SMP16_MSK		(0x7 << ADC_SMPR1_SMP16_LSB)
-#define ADC_SMPR1_SMP15_MSK		(0x7 << ADC_SMPR1_SMP15_LSB)
-#define ADC_SMPR1_SMP14_MSK		(0x7 << ADC_SMPR1_SMP14_LSB)
-#define ADC_SMPR1_SMP13_MSK		(0x7 << ADC_SMPR1_SMP13_LSB)
-#define ADC_SMPR1_SMP12_MSK		(0x7 << ADC_SMPR1_SMP12_LSB)
-#define ADC_SMPR1_SMP11_MSK		(0x7 << ADC_SMPR1_SMP11_LSB)
-#define ADC_SMPR1_SMP10_MSK		(0x7 << ADC_SMPR1_SMP10_LSB)
-
-/* --- ADC_SMPR2 values ---------------------------------------------------- */
-
-#define ADC_SMPR2_SMP9_LSB		27
-#define ADC_SMPR2_SMP8_LSB		24
-#define ADC_SMPR2_SMP7_LSB		21
-#define ADC_SMPR2_SMP6_LSB		18
-#define ADC_SMPR2_SMP5_LSB		15
-#define ADC_SMPR2_SMP4_LSB		12
-#define ADC_SMPR2_SMP3_LSB		9
-#define ADC_SMPR2_SMP2_LSB		6
-#define ADC_SMPR2_SMP1_LSB		3
-#define ADC_SMPR2_SMP0_LSB		0
-#define ADC_SMPR2_SMP9_MSK		(0x7 << ADC_SMPR2_SMP9_LSB)
-#define ADC_SMPR2_SMP8_MSK		(0x7 << ADC_SMPR2_SMP8_LSB)
-#define ADC_SMPR2_SMP7_MSK		(0x7 << ADC_SMPR2_SMP7_LSB)
-#define ADC_SMPR2_SMP6_MSK		(0x7 << ADC_SMPR2_SMP6_LSB)
-#define ADC_SMPR2_SMP5_MSK		(0x7 << ADC_SMPR2_SMP5_LSB)
-#define ADC_SMPR2_SMP4_MSK		(0x7 << ADC_SMPR2_SMP4_LSB)
-#define ADC_SMPR2_SMP3_MSK		(0x7 << ADC_SMPR2_SMP3_LSB)
-#define ADC_SMPR2_SMP2_MSK		(0x7 << ADC_SMPR2_SMP2_LSB)
-#define ADC_SMPR2_SMP1_MSK		(0x7 << ADC_SMPR2_SMP1_LSB)
-#define ADC_SMPR2_SMP0_MSK		(0x7 << ADC_SMPR2_SMP0_LSB)
 
 /* --- ADC_SMPRx values --------------------------------------------------- */
 /****************************************************************************/
@@ -256,49 +215,8 @@ specific memorymap.h header before including this header file.*/
 #define ADC_SMPR_SMP_480CYC		0x7
 /**@}*/
 
-/* --- ADC_SQR1 values ----------------------------------------------------- */
-
-#define ADC_SQR_MAX_CHANNELS_REGULAR	16
-
-#define ADC_SQR1_SQ16_LSB		15
-#define ADC_SQR1_SQ15_LSB		10
-#define ADC_SQR1_SQ14_LSB		5
-#define ADC_SQR1_SQ13_LSB		0
-#define ADC_SQR1_L_MSK			(0xf << ADC_SQR1_L_LSB)
-#define ADC_SQR1_SQ16_MSK		(0x1f << ADC_SQR1_SQ16_LSB)
-#define ADC_SQR1_SQ15_MSK		(0x1f << ADC_SQR1_SQ15_LSB)
-#define ADC_SQR1_SQ14_MSK		(0x1f << ADC_SQR1_SQ14_LSB)
-#define ADC_SQR1_SQ13_MSK		(0x1f << ADC_SQR1_SQ13_LSB)
-
-/* --- ADC_SQR2 values ----------------------------------------------------- */
-
-#define ADC_SQR2_SQ12_LSB		25
-#define ADC_SQR2_SQ11_LSB		20
-#define ADC_SQR2_SQ10_LSB		15
-#define ADC_SQR2_SQ9_LSB		10
-#define ADC_SQR2_SQ8_LSB		5
-#define ADC_SQR2_SQ7_LSB		0
-#define ADC_SQR2_SQ12_MSK		(0x1f << ADC_SQR2_SQ12_LSB)
-#define ADC_SQR2_SQ11_MSK		(0x1f << ADC_SQR2_SQ11_LSB)
-#define ADC_SQR2_SQ10_MSK		(0x1f << ADC_SQR2_SQ10_LSB)
-#define ADC_SQR2_SQ9_MSK		(0x1f << ADC_SQR2_SQ9_LSB)
-#define ADC_SQR2_SQ8_MSK		(0x1f << ADC_SQR2_SQ8_LSB)
-#define ADC_SQR2_SQ7_MSK		(0x1f << ADC_SQR2_SQ7_LSB)
-
-/* --- ADC_SQR3 values ----------------------------------------------------- */
-
-#define ADC_SQR3_SQ6_LSB		25
-#define ADC_SQR3_SQ5_LSB		20
-#define ADC_SQR3_SQ4_LSB		15
-#define ADC_SQR3_SQ3_LSB		10
-#define ADC_SQR3_SQ2_LSB		5
-#define ADC_SQR3_SQ1_LSB		0
-#define ADC_SQR3_SQ6_MSK		(0x1f << ADC_SQR3_SQ6_LSB)
-#define ADC_SQR3_SQ5_MSK		(0x1f << ADC_SQR3_SQ5_LSB)
-#define ADC_SQR3_SQ4_MSK		(0x1f << ADC_SQR3_SQ4_LSB)
-#define ADC_SQR3_SQ3_MSK		(0x1f << ADC_SQR3_SQ3_LSB)
-#define ADC_SQR3_SQ2_MSK		(0x1f << ADC_SQR3_SQ2_LSB)
-#define ADC_SQR3_SQ1_MSK		(0x1f << ADC_SQR3_SQ1_LSB)
+#define ADC_SQR1_L_MSK                 (0xf << ADC_SQR1_L_LSB)
+#define ADC_SQRx_MASK		0x1f
 
 /* --- ADC_JDRx, ADC_DR values --------------------------------------------- */
 
