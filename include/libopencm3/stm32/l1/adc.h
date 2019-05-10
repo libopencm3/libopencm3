@@ -33,7 +33,7 @@ LGPL License Terms @ref lgpl_license
 #ifndef LIBOPENCM3_ADC_H
 #define LIBOPENCM3_ADC_H
 
-#include <libopencm3/stm32/common/adc_common_v1.h>
+#include <libopencm3/stm32/common/adc_common_v1_multi.h>
 
 #define ADC_MAX_REGULAR_SEQUENCE	28
 /* 26 in L/M, but 32 in two banks for M+/H density */
@@ -88,9 +88,6 @@ LGPL License Terms @ref lgpl_license
 #define ADC_SMPR0(block)		MMIO32((block) + 0x5c)
 #define ADC1_SMPR0			ADC_SMPR0(ADC1)
 
-#define ADC_CSR				MMIO32(ADC1 + 0x300)
-#define ADC_CCR				MMIO32(ADC1 + 0x304)
-
 /** @defgroup adc_channel ADC Channel Numbers
  * @ingroup adc_defines
  *
@@ -115,49 +112,16 @@ LGPL License Terms @ref lgpl_license
 /* ADONS:*//** ADC ON status */
 #define ADC_SR_ADONS			(1 << 6)
 
-/* OVR:*//** Overrun */
-#define ADC_SR_OVR			(1 << 5)
 /**@}*/
 
 /* --- ADC_CR1 values ------------------------------------------------------- */
-#define ADC_CR1_OVRIE			(1 << 28)
-/****************************************************************************/
-/** @defgroup adc_cr1_res ADC Resolution.
-@ingroup adc_defines
-@{*/
-#define ADC_CR1_RES_12_BIT		0
-#define ADC_CR1_RES_10_BIT		1
-#define ADC_CR1_RES_8_BIT		2
-#define ADC_CR1_RES_6_BIT		3
-/**@}*/
-#define ADC_CR1_RES_MASK		(0x3)
-#define ADC_CR1_RES_SHIFT		24
 #define ADC_CR1_PDI			(1 << 17)
 #define ADC_CR1_PDD			(1 << 16)
 
 #define ADC_CR1_AWDCH_MAX		26
 
-/* --- ADC_CR2 values ------------------------------------------------------- */
-/* SWSTART: */ /** Start conversion of regular channels. */
-#define ADC_CR2_SWSTART			(1 << 30)
-
-/* EXTEN[1:0]: External trigger enable for regular channels. */
-/****************************************************************************/
-#define ADC_CR2_EXTEN_SHIFT		28
-#define ADC_CR2_EXTEN_MASK		(0x3 << ADC_CR2_EXTEN_SHIFT)
-/** @defgroup adc_trigger_polarity_regular ADC Trigger Polarity
-@ingroup adc_defines
-@{*/
-#define ADC_CR2_EXTEN_DISABLED		(0x0 << ADC_CR2_EXTEN_SHIFT)
-#define ADC_CR2_EXTEN_RISING_EDGE	(0x1 << ADC_CR2_EXTEN_SHIFT)
-#define ADC_CR2_EXTEN_FALLING_EDGE	(0x2 << ADC_CR2_EXTEN_SHIFT)
-#define ADC_CR2_EXTEN_BOTH_EDGES	(0x3 << ADC_CR2_EXTEN_SHIFT)
-/**@}*/
-
 /* EXTSEL[3:0]: External event selection for regular group. */
 /****************************************************************************/
-#define ADC_CR2_EXTSEL_SHIFT		24
-#define ADC_CR2_EXTSEL_MASK		(0xf << ADC_CR2_EXTSEL_SHIFT)
 /** @defgroup adc_trigger_regular ADC Trigger Identifier for Regular group
 @ingroup adc_defines
 
@@ -177,27 +141,9 @@ LGPL License Terms @ref lgpl_license
 #define ADC_CR2_EXTSEL_EXTI11		(15 << ADC_CR2_EXTSEL_SHIFT)
 /**@}*/
 
-#define ADC_CR2_JSWSTART		(1 << 22)
 
-/* JEXTEN[1:0]: External trigger enable for injected channels. */
-/****************************************************************************/
-#define ADC_CR2_JEXTEN_SHIFT		20
-#define ADC_CR2_JEXTEN_MASK		(0x3 << ADC_CR2_JEXTEN_SHIFT)
-/** @defgroup adc_trigger_polarity_injected ADC Injected Trigger Polarity
-@ingroup adc_defines
-@{*/
-#define ADC_CR2_JEXTEN_DISABLED		(0x0 << ADC_CR2_JEXTEN_SHIFT)
-#define ADC_CR2_JEXTEN_RISING_EDGE	(0x1 << ADC_CR2_JEXTEN_SHIFT)
-#define ADC_CR2_JEXTEN_FALLING_EDGE	(0x2 << ADC_CR2_JEXTEN_SHIFT)
-#define ADC_CR2_JEXTEN_BOTH_EDGES	(0x3 << ADC_CR2_JEXTEN_SHIFT)
-/**@}*/
+/* FIXME - JEXTSEL values here */
 
-/* FIXME - add the values here */
-#define ADC_CR2_JEXTSEL_SHIFT		16
-#define ADC_CR2_JEXTSEL_MASK		(0xf << ADC_CR2_JEXTSEL_SHIFT)
-
-#define ADC_CR2_EOCS			(1 << 10)
-#define ADC_CR2_DDS			(1 << 9)
 /* FIXME- add the values here */
 #define ADC_CR2_DELS_SHIFT		4
 #define ADC_CR2_DELS_MASK		0x7
@@ -227,16 +173,17 @@ LGPL License Terms @ref lgpl_license
 #define ADC_SQR_MASK			0x1f
 #define ADC_SQR_MAX_CHANNELS_REGULAR	28 /* m+/h only, otherwise 27 */
 
-#define ADC_CCR_TSVREFE			(1 << 23)
+/** @defgroup adc_ccr_adcpre ADC Prescale
+@ingroup adc_defines
+@{*/
+#define ADC_CCR_ADCPRE_BY1		(0x0 << 16)
+#define ADC_CCR_ADCPRE_BY2		(0x1 << 16)
+#define ADC_CCR_ADCPRE_BY4		(0x2 << 16)
+/**@}*/
+#define ADC_CCR_ADCPRE_MASK		(0x3 << 16)
+#define ADC_CCR_ADCPRE_SHIFT		16
 
 BEGIN_DECLS
-	/* L1 specific, or not fully unified adc routines */
-void adc_enable_temperature_sensor(void);
-void adc_disable_temperature_sensor(void);
-void adc_enable_external_trigger_regular(uint32_t adc, uint32_t trigger,
-					 uint32_t polarity);
-void adc_enable_external_trigger_injected(uint32_t adc, uint32_t trigger,
-					  uint32_t polarity);
 
 END_DECLS
 
