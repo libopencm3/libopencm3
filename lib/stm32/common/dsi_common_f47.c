@@ -1,5 +1,15 @@
-/* This provides unification of code over STM32 subfamilies */
-
+/** @defgroup dsi_file DSI peripheral API
+ *
+ * @ingroup peripheral_apis
+ *
+ * @version 1.0.0
+ *
+ * This library supports the Display Serial Interface Host and Wrapper in
+ * the STM32F4xx and STM32F7xx series of ARM Cortex Microcontrollers by
+ * ST Microelectronics.
+ *
+ * LGPL License Terms @ref lgpl_license
+ */
 /*
  * This file is part of the libopencm3 project.
  *
@@ -17,11 +27,8 @@
  * along with this library.  If not, see <http://www.gnu.org/licenses/>.
  */
 
-#if defined(STM32F4)
-#       include <libopencm3/stm32/f4/dsi.h>
-#elif defined(STM32F7)
-#       include <libopencm3/stm32/f7/dsi.h>
-#else
-#       error "dsi.h not available for this family."
-#endif
+#include <libopencm3/stm32/common/dsi_common_f47.h>
 
+/**@{*/
+
+/**@}*/
