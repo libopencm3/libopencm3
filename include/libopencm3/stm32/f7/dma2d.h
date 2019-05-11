@@ -1,6 +1,6 @@
 /** @defgroup dma2d_defines DMA2D Defines
- * @brief <b>Defined Constants and Types for the STM32F4xx DMA2D Peripheral</b>
- * @ingroup STM32F4xx_defines
+ * @brief <b>Defined Constants and Types for the STM32F7xx DMA2D Peripheral</b>
+ * @ingroup STM32F7xx_defines
  */
 /*
  * This file is part of the libopencm3 project.
@@ -20,11 +20,11 @@
  */
 /**@{*/
 
-#ifndef LIBOPENCM3_STM32_F4_DMA2D_H_
-#define LIBOPENCM3_STM32_F4_DMA2D_H_
+#ifndef LIBOPENCM3_STM32_F7_DMA2D_H_
+#define LIBOPENCM3_STM32_F7_DMA2D_H_
 
 #include <libopencm3/stm32/common/dma2d_common_f47.h>
 
-#endif /* LIBOPENCM3_STM32_F4_DMA2D_H_ */
+#endif /* LIBOPENCM3_STM32_F7_DMA2D_H_ */
 
 /**@}*/

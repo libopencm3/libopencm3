@@ -1,6 +1,13 @@
-/** @defgroup dma2d_defines DMA2D Defines
- * @brief <b>Defined Constants and Types for the STM32F4xx DMA2D Peripheral</b>
- * @ingroup STM32F4xx_defines
+/** @defgroup dma2d_file DMA2D peripheral API
+ *
+ * @ingroup peripheral_apis
+ *
+ * @version 1.0.0
+ *
+ * This library supports the DMA2D Peripheral in the STM32F4xx and STM32F7xx
+ * series of ARM Cortex Microcontrollers by ST Microelectronics.
+ *
+ * LGPL License Terms @ref lgpl_license
  */
 /*
  * This file is part of the libopencm3 project.
@@ -18,13 +25,9 @@
  * You should have received a copy of the GNU Lesser General Public License
  * along with this library.  If not, see <http://www.gnu.org/licenses/>.
  */
-/**@{*/
-
-#ifndef LIBOPENCM3_STM32_F4_DMA2D_H_
-#define LIBOPENCM3_STM32_F4_DMA2D_H_
 
 #include <libopencm3/stm32/common/dma2d_common_f47.h>
 
-#endif /* LIBOPENCM3_STM32_F4_DMA2D_H_ */
+/**@{*/
 
 /**@}*/
