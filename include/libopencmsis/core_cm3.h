@@ -36,16 +36,35 @@
 
 /* structure as in, for example,
  * DeviceSupport/EnergyMicro/EFM32/efm32tg840f32.h, data from
- * libopencm3/cm3/scb.h. FIXME incomplete. */
+ * libopencm3/cm3/scb.h */
 typedef struct {
-	__IO uint32_t CPUID;
+	__I  uint32_t CPUID;
 	__IO uint32_t ICSR;
 	__IO uint32_t VTOR;
 	__IO uint32_t AIRCR;
 	__IO uint32_t SCR;
 	__IO uint32_t CCR;
-	__IO uint8_t SHPR[12]; /* FIXME: how is this properly indexed? */
+	__IO uint8_t  SHPR[12]; /* FIXME: how is this properly indexed? */
 	__IO uint32_t SHCSR;
+#if defined(__ARM_ARCH_7M__) || defined(__ARM_ARCH_7EM__)
+	__IO uint32_t CFSR;
+	__IO uint32_t HFSR;
+#else
+	__I  uint32_t RESERVED0[2];
+#endif
+	__IO uint32_t DFSR;
+#if defined(__ARM_ARCH_7M__) || defined(__ARM_ARCH_7EM__)
+	__IO uint32_t MMFAR;
+	__IO uint32_t BFAR;
+	__IO uint32_t AFSR;
+	__I  uint32_t ID_PFR[2];
+	__I  uint32_t ID_DFR0;
+	__I  uint32_t ID_AFR0;
+	__I  uint32_t ID_MMFR[4];
+	__I  uint32_t ID_ISAR[5];
+	__I  uint32_t RESERVED1[5];
+	__IO uint32_t ID_CPACR;
+#endif
 } SCB_TypeDef;
 #define SCB ((SCB_TypeDef *) SCB_BASE)
 
