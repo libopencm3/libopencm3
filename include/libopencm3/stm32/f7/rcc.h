@@ -571,6 +571,7 @@
 
 /* --- RCC_DCKCFGR2 values -------------------------------------------------- */
 
+#define RCC_DCKCFGR2_DSISEL			(1<<28)
 #define RCC_DCKCFGR2_SDMMCSEL			(1<<28)
 #define RCC_DCKCFGR2_CK48MSEL			(1<<27)
 #define RCC_DCKCFGR2_CECSEL			(1<<26)

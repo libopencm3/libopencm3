@@ -1,5 +1,8 @@
-/* This provides unification of code over STM32 subfamilies */
-
+/** @defgroup dsi_defines DSI Defines
+ * @brief <b>Defines Constants and Macros for the STM32F7xx Display Serial
+ *           Interface Host and Wrapper</b>
+ * @ingroup STM32F7xx_defines
+ */
 /*
  * This file is part of the libopencm3 project.
  *
@@ -16,12 +19,13 @@
  * You should have received a copy of the GNU Lesser General Public License
  * along with this library.  If not, see <http://www.gnu.org/licenses/>.
  */
+/**@{*/
 
-#if defined(STM32F4)
-#       include <libopencm3/stm32/f4/dsi.h>
-#elif defined(STM32F7)
-#       include <libopencm3/stm32/f7/dsi.h>
-#else
-#       error "dsi.h not available for this family."
+#ifndef LIBOPENCM3_STM32_F7_DSI_H_
+#define LIBOPENCM3_STM32_F7_DSI_H_
+
+#include <libopencm3/stm32/common/dsi_common_f47.h>
+
 #endif
 
+/**@}*/
