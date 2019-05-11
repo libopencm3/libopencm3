@@ -50,6 +50,7 @@ OBJS            += crc_common_all.o dac_common_all.o dma_common_f24.o \
 		   usart_common_f124.o \
 		   hash_common_f24.o crypto_common_f24.o exti_common_all.o \
 		   rcc_common_all.o
+OBJS		+= dma2d_common_f47.o
 OBJS		+= dsi_common_f47.o
 OBJS		+= flash.o flash_common_all.o flash_common_f.o flash_common_f24.o
 OBJS		+= flash_common_idcache.o
