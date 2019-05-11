@@ -17,7 +17,7 @@
  * You should have received a copy of the GNU Lesser General Public License
  * along with this library.  If not, see <http://www.gnu.org/licenses/>.
  *
- * This provides the code for the "next gen" EXTI block provided in F2/F4/L1
+ * This provides the code for the "next gen" EXTI block provided in F2/F4/F7/L1
  * devices.  (differences only in the source selection)
  */
 /**@{*/

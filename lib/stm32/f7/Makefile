@@ -48,6 +48,7 @@ OBJS		+= crc_common_all.o crc_v2.o
 OBJS		+= dac_common_all.o
 OBJS		+= desig.o
 OBJS		+= dma_common_f24.o
+OBJS		+= exti_common_all.o
 OBJS		+= flash_common_all.o flash_common_f.o flash_common_f24.o flash.o
 OBJS		+= gpio.o gpio_common_all.o gpio_common_f0234.o
 OBJS		+= i2c_common_v2.o
