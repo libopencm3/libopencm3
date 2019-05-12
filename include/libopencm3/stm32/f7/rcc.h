@@ -708,8 +708,8 @@ enum rcc_periph_clken {
 	RCC_CEC		= _REG_BIT(0x40, 27),
 	RCC_PWR		= _REG_BIT(0x40, 28),
 	RCC_DAC		= _REG_BIT(0x40, 29),
-	RCC_USART7	= _REG_BIT(0x40, 30),
-	RCC_USART8	= _REG_BIT(0x40, 31),
+	RCC_UART7	= _REG_BIT(0x40, 30),
+	RCC_UART8	= _REG_BIT(0x40, 31),
 
 	/* APB2 peripherals */
 	RCC_TIM1	= _REG_BIT(0x44, 0),
