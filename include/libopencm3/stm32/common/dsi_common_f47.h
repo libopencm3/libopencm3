@@ -131,7 +131,7 @@
 #define DSI_VMCR_PGE			(1 << 16)
 #define DSI_VMCR_LPCE			(1 << 15)
 #define DSI_VMCR_FBTAAE			(1 << 14)
-#define DSI_VMCR_LPHFE			(1 << 13)
+#define DSI_VMCR_LPHFPE			(1 << 13)
 #define DSI_VMCR_LPHBPE			(1 << 12)
 #define DSI_VMCR_LPVAE			(1 << 11)
 #define DSI_VMCR_LPVFPE			(1 << 10)
@@ -319,8 +319,8 @@
  * DSI Host Timeout Counter Configuration Register 4
  */
 #define DSI_TCCR4			MMIO32(DSI_BASE + 0x88U)
-#define DSI_TCCR4_LSWR_TOCNT_SHIFT	0
-#define DSI_TCCR4_LSWR_TOCNT_MASK	0xffff
+#define DSI_TCCR4_LPWR_TOCNT_SHIFT	0
+#define DSI_TCCR4_LPWR_TOCNT_MASK	0xffff
 
 /**
  * DSI Host Timeout Counter Configuration Register 5
@@ -674,7 +674,7 @@
 #define DSI_WCR_DSIEN			(1 << 3)
 #define DSI_WCR_LTDCEN			(1 << 2)
 #define DSI_WCR_SHTDN			(1 << 1)
-#define DSI_SCR_COLM			(1 << 0)
+#define DSI_WCR_COLM			(1 << 0)
 
 /**
  * DSI Wrapper Interrupt Enable Register
@@ -770,7 +770,7 @@
 #define DSI_WPCR2_THSPREP_MASK		0xff
 #define DSI_WPCR2_TCLKZERO_SHIFT	8
 #define DSI_WPCR2_TCLKZERO_MASK		0xff
-#define DSI_WPCR2_TCLKPREP_SHIF		0
+#define DSI_WPCR2_TCLKPREP_SHIFT	0
 #define DSI_WPCR2_TCLKPREP_MASK		0xff
 
 /**
