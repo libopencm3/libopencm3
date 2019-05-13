@@ -117,7 +117,8 @@ enum sbc_asc {
 	SBC_ASC_WRITE_PROTECTED			= 0x27,
 	SBC_ASC_NOT_READY_TO_READY_CHANGE	= 0x28,
 	SBC_ASC_FORMAT_ERROR			= 0x31,
-	SBC_ASC_MEDIUM_NOT_PRESENT		= 0x3A
+	SBC_ASC_MEDIUM_NOT_PRESENT		= 0x3A,
+	SBC_ASC_MEDIA_LOAD_OR_EJECT_FAILED	= 0x53
 };
 
 enum sbc_ascq {
@@ -192,6 +193,7 @@ struct _usbd_mass_storage {
 	const char *product_id;
 	const char *product_revision_level;
 	uint32_t block_count;
+	uint8_t medium_eject_locked;
 
 	int (*read_block)(uint32_t lba, uint8_t *copy_to);
 	int (*write_block)(uint32_t lba, const uint8_t *copy_from);
@@ -421,6 +423,20 @@ static void scsi_read_format_capacities(usbd_mass_storage *ms, struct usb_msc_tr
 	}
 }
 
+static void scsi_prevent_allow_medium_removal(usbd_mass_storage *ms,
+					      struct usb_msc_trans *trans,
+					      enum trans_event event)
+{
+	if (EVENT_CBW_VALID == event) {
+		uint8_t *buf;
+
+		buf = get_cbw_buf(trans);
+		ms->medium_eject_locked = buf[4] & 0x03;
+
+		set_sbc_status_good(ms);
+	}
+}
+
 static void scsi_format_unit(usbd_mass_storage *ms,
 			     struct usb_msc_trans *trans,
 			     enum trans_event event)
@@ -621,6 +637,9 @@ static void scsi_command(usbd_mass_storage *ms,
 		break;
 	case SCSI_READ_FORMAT_CAPACITIES:
 		scsi_read_format_capacities(ms, trans, event);
+		break;
+	case SCSI_PREVENT_ALLOW_MEDIUM_REMOVAL:
+		scsi_prevent_allow_medium_removal(ms, trans, event);
 		break;
 	default:
 		set_sbc_status(ms, SBC_SENSE_KEY_ILLEGAL_REQUEST,
@@ -915,6 +934,7 @@ usbd_mass_storage *usb_msc_init(usbd_device *usbd_dev,
 	_mass_storage.product_id = product_id;
 	_mass_storage.product_revision_level = product_revision_level;
 	_mass_storage.block_count = block_count - 1;
+	_mass_storage.medium_eject_locked = USB_MSC_SPC_2_MEDIUM_EJECT_LOCKED_NONE;
 	_mass_storage.read_block = read_block;
 	_mass_storage.write_block = write_block;
 	_mass_storage.lock = NULL;
@@ -935,6 +955,17 @@ usbd_mass_storage *usb_msc_init(usbd_device *usbd_dev,
 	usbd_register_set_config_callback(usbd_dev, msc_set_config);
 
 	return &_mass_storage;
+}
+
+/** @brief Returns the medium eject locked state.
+
+ @param[in] msc_dev The mass storage devive handle returned by usb_msc_init.
+
+ @return Current eject lock state.
+ */
+uint8_t usb_msc_get_medium_eject_locked(usbd_mass_storage *msc_dev)
+{
+   return msc_dev->medium_eject_locked;
 }
 
 /** @} */
