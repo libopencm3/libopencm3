@@ -194,12 +194,15 @@ struct _usbd_mass_storage {
 	const char *product_revision_level;
 	uint32_t block_count;
 	uint8_t medium_eject_locked;
+	uint8_t medium_loaded;
 
 	int (*read_block)(uint32_t lba, uint8_t *copy_to);
 	int (*write_block)(uint32_t lba, const uint8_t *copy_from);
 
 	void (*lock)(void);
 	void (*unlock)(void);
+
+	void (*power_condition_changed)(uint8_t power_condition, uint8_t load_eject);
 
 	struct usb_msc_trans trans;
 	struct sbc_sense_info sense;
@@ -423,6 +426,70 @@ static void scsi_read_format_capacities(usbd_mass_storage *ms, struct usb_msc_tr
 	}
 }
 
+static void scsi_start_stop_unit(usbd_mass_storage *ms,
+				 struct usb_msc_trans *trans,
+				 enum trans_event event)
+{
+	if (EVENT_CBW_VALID == event) {
+		uint8_t *buf;
+		uint8_t power_condition;
+
+		buf = get_cbw_buf(trans);
+		power_condition = (buf[4] & 0xf0) >> 4;
+
+		switch (power_condition) {
+			case 0x00:
+			{
+				uint8_t load_eject = (buf[4] & 2) != 0x00;
+
+				if (load_eject &&
+				    (ms->medium_eject_locked == USB_MSC_SPC_2_MEDIUM_EJECT_LOCKED_REMOTE ||
+                                     ms->medium_eject_locked == USB_MSC_SPC_2_MEDIUM_EJECT_LOCKED_BOTH)) {
+					set_sbc_status(ms,
+						       SBC_SENSE_KEY_ILLEGAL_REQUEST,
+						       SBC_ASC_MEDIA_LOAD_OR_EJECT_FAILED,
+						       SBC_ASCQ_NA);
+					trans->csw.csw.bCSWStatus = CSW_STATUS_FAILED;
+				} else {
+					if ((buf[4] & 1) != 0) {
+						if (ms->power_condition_changed) {
+							ms->power_condition_changed(USB_MSC_SBC_2_POWER_CONDITION_START,
+										    load_eject);
+						}
+					} else {
+						if (ms->power_condition_changed) {
+							ms->power_condition_changed(USB_MSC_SBC_2_POWER_CONDITION_STOP,
+										    load_eject);
+						}
+					}
+
+					set_sbc_status_good(ms);
+				}
+				break;
+			}
+			case 0x01:
+			case 0x02:
+			case 0x03:
+			case 0x05:
+			case 0x07:
+			case 0x0A:
+			case 0x0B:
+				if (ms->power_condition_changed) {
+					ms->power_condition_changed(power_condition,
+								    false);
+				}
+				set_sbc_status_good(ms);
+				break;
+			default:
+				set_sbc_status(ms, SBC_SENSE_KEY_ILLEGAL_REQUEST,
+					       SBC_ASC_INVALID_COMMAND_OPERATION_CODE,
+					       SBC_ASCQ_NA);
+				trans->csw.csw.bCSWStatus = CSW_STATUS_FAILED;
+				break;
+		}
+	}
+}
+
 static void scsi_prevent_allow_medium_removal(usbd_mass_storage *ms,
 					      struct usb_msc_trans *trans,
 					      enum trans_event event)
@@ -604,8 +671,17 @@ static void scsi_command(usbd_mass_storage *ms,
 
 	switch (trans->cbw.cbw.CBWCB[0]) {
 	case SCSI_TEST_UNIT_READY:
+		/* Send the current state. */
+			if (ms->medium_loaded) {
+				set_sbc_status_good(ms);
+			} else {
+				set_sbc_status(ms, SBC_SENSE_KEY_NOT_READY,
+									SBC_ASC_MEDIUM_NOT_PRESENT,
+									SBC_ASCQ_NA);
+				trans->csw.csw.bCSWStatus = CSW_STATUS_FAILED;
+			}
+		break;
 	case SCSI_SEND_DIAGNOSTIC:
-		/* Do nothing, just send the success. */
 		set_sbc_status_good(ms);
 		break;
 	case SCSI_FORMAT_UNIT:
@@ -637,6 +713,9 @@ static void scsi_command(usbd_mass_storage *ms,
 		break;
 	case SCSI_READ_FORMAT_CAPACITIES:
 		scsi_read_format_capacities(ms, trans, event);
+		break;
+	case SCSI_START_STOP_UNIT:
+		scsi_start_stop_unit(ms, trans, event);
 		break;
 	case SCSI_PREVENT_ALLOW_MEDIUM_REMOVAL:
 		scsi_prevent_allow_medium_removal(ms, trans, event);
@@ -935,10 +1014,12 @@ usbd_mass_storage *usb_msc_init(usbd_device *usbd_dev,
 	_mass_storage.product_revision_level = product_revision_level;
 	_mass_storage.block_count = block_count - 1;
 	_mass_storage.medium_eject_locked = USB_MSC_SPC_2_MEDIUM_EJECT_LOCKED_NONE;
+	_mass_storage.medium_loaded = !0;
 	_mass_storage.read_block = read_block;
 	_mass_storage.write_block = write_block;
 	_mass_storage.lock = NULL;
 	_mass_storage.unlock = NULL;
+	_mass_storage.power_condition_changed = NULL;
 
 	_mass_storage.trans.lba_start = 0xffffffff;
 	_mass_storage.trans.block_count = 0;
@@ -966,6 +1047,44 @@ usbd_mass_storage *usb_msc_init(usbd_device *usbd_dev,
 uint8_t usb_msc_get_medium_eject_locked(usbd_mass_storage *msc_dev)
 {
    return msc_dev->medium_eject_locked;
+}
+
+/** @brief Updates the medium loaded state.
+
+ @param[in] is_loaded 0 if the device no longer has a medium available,
+			anything else to signal that a medium is present.
+ */
+void usb_msc_set_medium_loaded(usbd_mass_storage *msc_dev,
+			       uint8_t is_loaded)
+{
+	msc_dev->medium_loaded = is_loaded != 0;
+}
+
+/** @brief Get the medium loaded state.
+
+ @param[in] msc_dev The mass storage devive handle returned by usb_msc_init.
+
+ @return 0 signals the device is marked as not having a medium loaded,
+	 any other value signals that the medium is loaded.
+ */
+uint8_t usb_msc_get_medium_loaded(usbd_mass_storage *msc_dev)
+{
+	return msc_dev->medium_loaded;
+}
+
+/** @brief Registers a callback for SCSI power condition changes.
+ 
+ @param[in] msc_dev The mass storage devive handle returned by usb_msc_init.
+ @param[in] power_condition_changed The function called when the host requests 
+				    power condition changes.
+ 
+ @return Pointer to the usbd_mass_storage struct.
+ */
+void usb_msc_register_power_condition_callback(usbd_mass_storage *msc_dev,
+					       void (*power_condition_changed)(uint8_t power_condition,
+									       uint8_t load_eject))
+{
+	msc_dev->power_condition_changed = power_condition_changed;
 }
 
 /** @} */

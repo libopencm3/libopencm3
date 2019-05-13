@@ -78,6 +78,17 @@ typedef struct _usbd_mass_storage usbd_mass_storage;
 #define USB_MSC_REQ_BULK_ONLY_RESET	0xFF
 #define USB_MSC_REQ_GET_MAX_LUN		0xFE
 
+/* SBC-2, 5.1.22 START STOP UNIT, Table 52 */
+#define USB_MSC_SBC_2_POWER_CONDITION_START		0x10	// Additional code.
+#define USB_MSC_SBC_2_POWER_CONDITION_STOP		0x20	// Additional code.
+#define USB_MSC_SBC_2_POWER_CONDITION_ACTIVE		0x01
+#define USB_MSC_SBC_2_POWER_CONDITION_IDLE		0x02
+#define USB_MSC_SBC_2_POWER_CONDITION_STANDBY		0x03
+#define USB_MSC_SBC_2_POWER_CONDITION_SLEEP		0x05
+#define USB_MSC_SBC_2_POWER_CONDITION_DEVICE		0x07
+#define USB_MSC_SBC_2_POWER_CONDITION_DEVICE_IDLE	0x0A
+#define USB_MSC_SBC_2_POWER_CONDITION_DEVICE_STANDBY	0x0B
+
 /* SPC-2, 7.12 PREVENT ALLOW MEDIUM REMOVAL, Table 77 */
 #define USB_MSC_SPC_2_MEDIUM_EJECT_LOCKED_NONE		0x00
 #define USB_MSC_SPC_2_MEDIUM_EJECT_LOCKED_REMOTE	0x01
@@ -95,6 +106,14 @@ usbd_mass_storage *usb_msc_init(usbd_device *usbd_dev,
 				 int (*write_block)(uint32_t lba, const uint8_t *copy_from));
 
 uint8_t usb_msc_get_medium_eject_locked(usbd_mass_storage *msc_dev);
+
+void usb_msc_set_medium_loaded(usbd_mass_storage *msc_dev,
+                               uint8_t is_loaded);
+uint8_t usb_msc_get_medium_loaded(usbd_mass_storage *msc_dev);
+
+void usb_msc_register_power_condition_callback(usbd_mass_storage *msc_dev,
+					       void (*power_condition_changed)(uint8_t power_condition,
+									       uint8_t load_eject));
 
 #endif
 
