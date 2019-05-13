@@ -397,6 +397,30 @@ static void scsi_read_capacity(usbd_mass_storage *ms,
 	}
 }
 
+static void scsi_read_format_capacities(usbd_mass_storage *ms, struct usb_msc_trans *trans, enum trans_event event)
+{
+	if (EVENT_CBW_VALID == event) {
+		trans->msd_buf[0] = 0x00;		// Reserved
+		trans->msd_buf[1] = 0x00;		// Reserved
+		trans->msd_buf[2] = 0x00;		// Reserved
+
+		trans->msd_buf[3] = 0x08;		// Capacity List Length
+
+		trans->msd_buf[4] = ms->block_count >> 24;		// Number of blocks (MSB)
+		trans->msd_buf[5] = 0xff & (ms->block_count >> 16);
+		trans->msd_buf[6] = 0xff & (ms->block_count >> 8);
+		trans->msd_buf[7] = 0xff & ms->block_count;		// Number of blocks (LSB)
+
+		trans->msd_buf[8] = 0x02;		// Descriptor Tpye: Formatted media
+		trans->msd_buf[9] = 0x00;		// Block Length (MSB)
+		trans->msd_buf[10] = 0x02;
+		trans->msd_buf[11] = 0x00;		// Block Length (LSB)
+
+		trans->bytes_to_write = 12;
+		set_sbc_status_good(ms);
+	}
+}
+
 static void scsi_format_unit(usbd_mass_storage *ms,
 			     struct usb_msc_trans *trans,
 			     enum trans_event event)
@@ -594,6 +618,9 @@ static void scsi_command(usbd_mass_storage *ms,
 		break;
 	case SCSI_WRITE_10:
 		scsi_write_10(ms, trans, event);
+		break;
+	case SCSI_READ_FORMAT_CAPACITIES:
+		scsi_read_format_capacities(ms, trans, event);
 		break;
 	default:
 		set_sbc_status(ms, SBC_SENSE_KEY_ILLEGAL_REQUEST,
