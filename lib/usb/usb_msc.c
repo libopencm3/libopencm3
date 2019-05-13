@@ -60,6 +60,17 @@
 #define SCSI_READ_10				0x28
 
 
+/* Vital product data inquiry page codes */
+#define VPD_PAGE_CODE_SUPPORTED_VPD_PAGES			0x00
+#define VPD_PAGE_CODE_UNIT_SERIAL_NUMBER			0x80
+#define VPD_PAGE_CODE_DEVICE_IDENTIFICATION			0x83
+#define VPD_PAGE_CODE_SOFTWARE_INTERFACE_IDENTIFICATION		0x84
+#define VPD_PAGE_CODE_MANAGEMENT_NETWORK_ADDRESSES		0x85
+#define VPD_PAGE_CODE_EXTENDED_INQUIRY_DATA			0x86
+#define VPD_PAGE_CODE_MODE_PAGE_POLICY				0x87
+#define VPD_PAGE_CODE_SCSI_PORTS				0x88
+
+
 /* Required SCSI Commands */
 
 /* Optional SCSI Commands */
@@ -229,6 +240,32 @@ static const uint8_t _spc3_request_sense[18] = {
 	0x00,	/* Byte 15: SKSV = 0, SenseKeySpecific[0] = 0 */
 	0x00,	/* Byte 16: SenseKeySpecific[0] = 0 */
 	0x00	/* Byte 17: SenseKeySpecific[0] = 0 */
+};
+
+static const uint8_t _spc3_vpd_supported_vpd_pages[7] = {
+	0x00,	/* Byte 0: Peripheral Qualifier = 0, Peripheral Device Type = 0 */
+	VPD_PAGE_CODE_SUPPORTED_VPD_PAGES,	/* Byte 1: Page code */
+	0x00,	/* Byte 2: Reserved */
+	0x03,	/* Byte 3: Page Length (n-3): 3 */
+		/* Byte 4 - Byte 6: Supported pages */
+	VPD_PAGE_CODE_SUPPORTED_VPD_PAGES,
+	VPD_PAGE_CODE_UNIT_SERIAL_NUMBER,
+	VPD_PAGE_CODE_DEVICE_IDENTIFICATION
+};
+
+static const uint8_t _spc3_vpd_unit_serial_number[5] = {
+	0x00,	/* Byte 0: Peripheral Qualifier = 0, Peripheral Device Type = 0 */
+	VPD_PAGE_CODE_UNIT_SERIAL_NUMBER,	/* Byte 1: Page code */
+	0x00,	/* Byte 2: Reserved */
+	0x01,	/* Byte 3: Page Length (n-3): 1 */
+	0x20	/* Byte 4: ASCII space - serial number not available */
+};
+
+static const uint8_t _spc3_vpd_device_identification[4] = {
+	0x00,	/* Byte 0: Peripheral Qualifier = 0, Peripheral Device Type = 0 */
+	VPD_PAGE_CODE_DEVICE_IDENTIFICATION,	/* Byte 1: Page code */
+	0x00,	/* Byte 3 - Byte 4: Page Length (n-3): 0 */
+	0x00
 };
 
 /*-- SCSI Layer --------------------------------------------------------------*/
@@ -470,8 +507,40 @@ static void scsi_inquiry(usbd_mass_storage *ms,
 
 			set_sbc_status_good(ms);
 		} else {
-			/* TODO: Add VPD 0x83 support */
-			/* TODO: Add VPD 0x00 support */
+			const uint8_t page_code = buf[2];
+			switch (page_code) {
+				case VPD_PAGE_CODE_SUPPORTED_VPD_PAGES:
+					trans->bytes_to_write = sizeof(_spc3_vpd_supported_vpd_pages);
+					memcpy(trans->msd_buf, _spc3_vpd_supported_vpd_pages, sizeof(_spc3_vpd_supported_vpd_pages));
+					trans->csw.csw.dCSWDataResidue = sizeof(_spc3_vpd_supported_vpd_pages);
+
+					set_sbc_status_good(ms);
+					break;
+
+				case VPD_PAGE_CODE_UNIT_SERIAL_NUMBER:
+					trans->bytes_to_write = sizeof(_spc3_vpd_unit_serial_number);
+					memcpy(trans->msd_buf, _spc3_vpd_unit_serial_number, sizeof(_spc3_vpd_unit_serial_number));
+					trans->csw.csw.dCSWDataResidue = sizeof(_spc3_vpd_unit_serial_number);
+
+					set_sbc_status_good(ms);
+					break;
+
+				case VPD_PAGE_CODE_DEVICE_IDENTIFICATION:
+					trans->bytes_to_write = sizeof(_spc3_vpd_device_identification);
+					memcpy(trans->msd_buf, _spc3_vpd_device_identification, sizeof(_spc3_vpd_device_identification));
+					trans->csw.csw.dCSWDataResidue = sizeof(_spc3_vpd_device_identification);
+
+					set_sbc_status_good(ms);
+					break;
+
+				default:
+					trans->csw.csw.bCSWStatus = CSW_STATUS_FAILED;
+					set_sbc_status(ms,
+						       SBC_SENSE_KEY_ILLEGAL_REQUEST,
+						       SBC_ASC_INVALID_FIELD_IN_CDB,
+						       SBC_ASCQ_NA);
+					break;
+			}
 		}
 	}
 }
