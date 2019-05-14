@@ -17,6 +17,16 @@ for FN in $(find ${UNTRACKED_DIRS} -name '*.h'); do
 	printf "INPUT += ../%s\n" "$FN" >> ${ODIR}/${ONAME}
 done
 
+# Find header dependencies in the manufacturer-folder (eg. libopencm3/stm32)
+# and ../common folder (eg. libopencm3/stm32/common)
+printf "# Headers lying around..\n" >> ${ODIR}/${ONAME}
+SERIES_PATH="../include/libopencm3/${IPATH}"
+MANUFACTURER_PATH=$(dirname ${SERIES_PATH})
+COMMON_PATH="${MANUFACTURER_PATH}/common"
+INCLUDES=$(find "${MANUFACTURER_PATH}" "${SERIES_PATH}" -maxdepth 1 -name '*.h' | sed "s/^\(.*\)$/#include <\1>/")
+CC="gcc - -D__ARM_ARCH_7M__  -D$(echo $2 | tr '[:lower:]' '[:upper:]') -I../include -x c - -M -MG -MF-"
+echo "${INCLUDES}" | ${CC} 2>/dev/null | grep -o '[^ ]*.h' | grep -e "${COMMON_PATH}/[^/]*.h" | cut -d ':' -f2 | sort | uniq | sed "s#^#INPUT += #" >> ${ODIR}/${ONAME}
+
 # There will be duplicates here, but doxygen doesn't mind.
 printf "# Headers first\n" >> ${ODIR}/${ONAME}
 grep -o '[^ ]*.h' ${DDIR}/*.d | grep 'include/libopencm3' | cut -d ':' -f2 | sort | uniq | sed "s#^#INPUT += ${PATH_DELTA}/#" >> ${ODIR}/${ONAME}
