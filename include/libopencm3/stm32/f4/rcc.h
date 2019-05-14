@@ -132,8 +132,8 @@
 #define RCC_CR_HSEBYP				(1 << 18)
 #define RCC_CR_HSERDY				(1 << 17)
 #define RCC_CR_HSEON				(1 << 16)
-/* HSICAL: [15:8] */
-/* HSITRIM: [7:3] */
+#define RCC_CR_HSICAL_SHIFT			8
+#define RCC_CR_HSICAL_MASK			0xff
 #define RCC_CR_HSITRIM_SHIFT			3
 #define RCC_CR_HSITRIM_MASK			0x1f
 #define RCC_CR_HSIRDY				(1 << 1)
@@ -235,6 +235,7 @@
 
 /* SW: System clock switch */
 #define RCC_CFGR_SW_SHIFT			0
+#define RCC_CFGR_SW_MASK			0x3
 #define RCC_CFGR_SW_HSI				0x0
 #define RCC_CFGR_SW_HSE				0x1
 #define RCC_CFGR_SW_PLL				0x2
@@ -746,18 +747,6 @@
 #define RCC_CKGATENR_AHB2APB1_CKEN		(1<<0)
 /*@}*/
 
-/* PLLSAI1 helper macros */
-static inline void rcc_pllsai_enable(void)
-{
-	RCC_CR |= RCC_CR_PLLSAION;
-}
-
-static inline bool rcc_pllsai_ready(void)
-{
-	return (RCC_CR & RCC_CR_PLLSAIRDY) != 0;
-}
-
-
 /* --- Variable definitions ------------------------------------------------ */
 extern uint32_t rcc_ahb_frequency;
 extern uint32_t rcc_apb1_frequency;
@@ -1082,6 +1071,9 @@ void rcc_osc_on(enum rcc_osc osc);
 void rcc_osc_off(enum rcc_osc osc);
 void rcc_css_enable(void);
 void rcc_css_disable(void);
+void rcc_pllsai_enable(void);
+void rcc_pllsai_disable(void);
+bool rcc_pllsai_ready(void);
 void rcc_pllsai_config(uint16_t n, uint16_t p, uint16_t q, uint16_t r);
 void rcc_pllsai_postscalers(uint8_t q, uint8_t r);
 void rcc_set_sysclk_source(uint32_t clk);
