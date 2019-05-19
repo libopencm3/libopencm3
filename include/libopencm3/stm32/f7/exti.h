@@ -5,13 +5,6 @@
  *
  * @ingroup STM32F7xx_defines
  *
- * @author @htmlonly &copy; @endhtmlonly 2013
- * Piotr Esden-Tempski <piotr@esden.net>
- *
- * @version 1.0.0
- *
- * @date 14 January 2014
- *
  * LGPL License Terms @ref lgpl_license
  */
 /*
