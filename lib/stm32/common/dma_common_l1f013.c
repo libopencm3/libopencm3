@@ -1,4 +1,5 @@
-/** @addtogroup dma_file
+/** @addtogroup dma_file DMA peripheral API
+@ingroup peripheral_apis
 
 @author @htmlonly &copy; @endhtmlonly 2010 Thomas Otto <tommi@viadmin.org>
 
