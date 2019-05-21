@@ -1,6 +1,4 @@
-/** @defgroup gpio_file GPIO
-
-@ingroup STM32F1xx
+/** @addtogroup gpio_file
 
 @brief <b>libopencm3 STM32F1xx General Purpose I/O</b>
 
