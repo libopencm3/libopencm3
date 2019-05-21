@@ -1,7 +1,10 @@
-/** @addtogroup rng_file
+/** @addtogroup rng_file RNG peripheral API
+ * @ingroup peripheral_apis
  *
- * This library supports the random number generator peripheral (RNG) in the
- * STM32F4 series of ARM Cortex Microcontrollers by ST Microelectronics.
+ * This library supports "version 1" of the random number generator
+ * peripheral (RNG) in the STM32 series of ARM Cortex Microcontrollers
+ * by ST Microelectronics.  This is a common peripheral available on multiple
+ * devices in the family.
  *
  * LGPL License Terms @ref lgpl_license
  */
