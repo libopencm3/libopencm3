@@ -61,7 +61,7 @@ Trigger 1 Remap
 /** Internal Trigger 1 remapped to timer 5 TGO */
 #define TIM2_OR_ITR1_RMP_TIM5_TGO	(0x1 << 0)
 /**@}*/
-#define TIM3_OR_ITR1_RMP_MASK		(0x1 << 0)
+#define TIM2_OR_ITR1_RMP_MASK		(0x1 << 0)
 
 /* --- TIMx_OR values ---------------------------------------------------- */
 
