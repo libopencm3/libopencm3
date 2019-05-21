@@ -1,12 +1,13 @@
-/** @addtogroup dac_file
+/** @addtogroup dac_file DAC peripheral API
+ * @ingroup peripheral_apis
 
 @author @htmlonly &copy; @endhtmlonly 2012 Ken Sarkies ksarkies@internode.on.net
 
 This library supports the Digital to Analog Conversion System in the
-STM32F series of ARM Cortex Microcontrollers by ST Microelectronics.
+STM32 series of ARM Cortex Microcontrollers by ST Microelectronics.
 
-The DAC is present only in a limited set of devices, notably some
-of the connection line, high density and XL devices.
+The DAC peripheral found on many of the devices in the STM32 lineup,
+sometimes with only one channel, but normally with two channels.
 
 Two DAC channels are available, however unlike the ADC channels these
 are separate DAC devices controlled by the same register block.
