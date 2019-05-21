@@ -1,5 +1,6 @@
-/** @addtogroup flash_file
+/** @defgroup flash_file
  *
+ * @ingroup peripheral_apis
  */
 
 /*

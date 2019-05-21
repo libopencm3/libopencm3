@@ -1,4 +1,4 @@
-/** @defgroup flash_file FLASH peripheral API
+/** @defgroup flash_file
  *
  * @ingroup peripheral_apis
  *
