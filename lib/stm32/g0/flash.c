@@ -30,51 +30,43 @@
 
 #include <libopencm3/stm32/flash.h>
 
-/* @brief Enable instruction cache */
 void flash_icache_enable(void)
 {
 	FLASH_ACR |= FLASH_ACR_ICEN;
 }
 
-/* @brief Disable instruction cache */
 void flash_icache_disable(void)
 {
 	FLASH_ACR &= ~FLASH_ACR_ICEN;
 }
 
-/* @brief Reset instruction cache */
 void flash_icache_reset(void)
 {
 	FLASH_ACR |= FLASH_ACR_ICRST;
 }
 
-/* @brief Unlock program memory */
 void flash_unlock_progmem(void)
 {
 	FLASH_KEYR = FLASH_KEYR_KEY1;
 	FLASH_KEYR = FLASH_KEYR_KEY2;
 }
 
-/* @brief lock program memory */
 void flash_lock_progmem(void)
 {
 	FLASH_CR |= FLASH_CR_LOCK;
 }
 
-/* @brief Lock Option Byte Access */
 void flash_lock_option_bytes(void)
 {
 	FLASH_CR |= FLASH_CR_OPTLOCK;
 }
 
-/* @brief Unlock all segments of flash */
 void flash_unlock(void)
 {
 	flash_unlock_progmem();
 	flash_unlock_option_bytes();
 }
 
-/* @brief Lock all segments of flash */
 void flash_lock(void)
 {
 	flash_lock_option_bytes();
