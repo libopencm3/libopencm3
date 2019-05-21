@@ -58,7 +58,6 @@
 #define FLASH_ACR_LATENCY_SHIFT		0
 #define FLASH_ACR_LATENCY_MASK		0x7
 /** @defgroup flash_latency FLASH Wait States
- * @ingroup flash_defines
  * @brief Flash memory access latency. flash HCLK max freq for 0ws is 24mhz (range 1 voltage) / 8mhz (range 0), 48mhz/16mhz for 1ws and 64mhz for 2ws.
 @{*/
 #define FLASH_ACR_LATENCY_0WS		0x00
@@ -129,7 +128,7 @@
 #define FLASH_OPTR_NRST_MODE_RESET	1
 #define FLASH_OPTR_NRST_MODE_GPIO	2
 #define FLASH_OPTR_NRST_MODE_BIDIR	3
-/*@}*/
+/**@}*/
 
 #define FLASH_OPTR_nBOOT0			(1 << 26)
 #define FLASH_OPTR_nBOOT1			(1 << 25)
@@ -152,7 +151,7 @@
 #define FLASH_OPTR_BORR_LEV_2V3		1
 #define FLASH_OPTR_BORR_LEV_2V6		2
 #define FLASH_OPTR_BORR_LEV_2V9		3
-/*@}*/
+/**@}*/
 
 #define FLASH_OPTR_BORF_LEV_SHIFT	9
 #define FLASH_OPTR_BORF_LEV_MASK	0x03
@@ -163,7 +162,7 @@
 #define FLASH_OPTR_BORF_LEV_2V2		1
 #define FLASH_OPTR_BORF_LEV_2V5		2
 #define FLASH_OPTR_BORF_LEV_2V8		3
-/*@}*/
+/**@}*/
 
 #define FLASH_OPTR_BOREN			(1 << 8)
 
@@ -175,7 +174,7 @@
 #define FLASH_OPTR_RDP_LEVEL_0		0xAA
 #define FLASH_OPTR_RDP_LEVEL_1		0xBB
 #define FLASH_OPTR_RDP_LEVEL_2		0xCC /* or any other value. */
-/*@}*/
+/**@}*/
 
 BEGIN_DECLS
 

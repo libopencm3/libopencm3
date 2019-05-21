@@ -84,7 +84,6 @@
 #define RCC_CR_HSIDIV_SHIFT		11
 #define RCC_CR_HSIDIV_MASK		0x7
 /** @defgroup rcc_cr_hsidiv HSI Div
- * @ingroup STM32G0xx_rcc_defines
  * @brief Division factor of the HSI16 oscillator to produce HSISYS clock
 @sa rcc_cr_hsidiv
 @{*/
@@ -96,7 +95,7 @@
 #define RCC_CR_HSIDIV_DIV32		5
 #define RCC_CR_HSIDIV_DIV64		6
 #define RCC_CR_HSIDIV_DIV128	7
-/*@}*/
+/**@}*/
 
 #define RCC_CR_HSIRDY			(1 << 10)
 #define RCC_CR_HSIKERON			(1 << 9)
@@ -114,7 +113,6 @@
 #define RCC_CFGR_MCOPRE_SHIFT	    28
 #define RCC_CFGR_MCOPRE_MASK	    0x7
 /** @defgroup rcc_cfgr_mcopre MCO Pre
- * @ingroup STM32G0xx_rcc_defines
  * @brief Division factor of microcontroler clock output
 @sa rcc_cfgr_mcopre
 @{*/
@@ -126,13 +124,12 @@
 #define RCC_CFGR_MCOPRE_DIV32	    5
 #define RCC_CFGR_MCOPRE_DIV64	    6
 #define RCC_CFGR_MCOPRE_DIV128	    7
-/*@}*/
+/**@}*/
 
 #define RCC_CFGR_MCO_SHIFT			24
 #define RCC_CFGR_MCO_MASK			0xf
 
 /** @defgroup rcc_cfgr_mcosel MCO Sel
- * @ingroup STM32G0xx_rcc_defines
  * @brief Microcontroler clock output selector
 @sa rcc_cfgr_mcosel
 @{*/
@@ -143,13 +140,12 @@
 #define RCC_CFGR_MCO_PLLRCLK		0x5
 #define RCC_CFGR_MCO_LSI			0x6
 #define RCC_CFGR_MCO_LSE			0x7
-/*@}*/
+/**@}*/
 
 #define RCC_CFGR_PPRE_MASK		0x7
 #define RCC_CFGR_PPRE_SHIFT		12
 
 /** @defgroup rcc_cfgr_ppre PPRE
- * @ingroup STM32G0xx_rcc_defines
  * @brief APB Prescaler
 @sa rcc_cfgr_ppre
 @{*/
@@ -158,12 +154,11 @@
 #define RCC_CFGR_PPRE_DIV4		0x5
 #define RCC_CFGR_PPRE_DIV8		0x6
 #define RCC_CFGR_PPRE_DIV16		0x7
-/*@}*/
+/**@}*/
 
 #define RCC_CFGR_HPRE_MASK		0xf
 #define RCC_CFGR_HPRE_SHIFT		8
 /** @defgroup rcc_cfgr_hpre HPRE
- * @ingroup STM32G0xx_rcc_defines
  * @brief APB Prescaler
 @sa rcc_cfgr_hpre
 @{*/
@@ -176,12 +171,11 @@
 #define RCC_CFGR_HPRE_DIV128	0xd
 #define RCC_CFGR_HPRE_DIV256	0xe
 #define RCC_CFGR_HPRE_DIV512	0xf
-/*@}*/
+/**@}*/
 
 #define RCC_CFGR_SWS_MASK			0x3
 #define RCC_CFGR_SWS_SHIFT			3
 /** @defgroup rcc_cfgr_sws SWS
- * @ingroup STM32G0xx_rcc_defines
  * @brief System clock switch status
 @sa rcc_cfgr_sws
 @{*/
@@ -190,12 +184,11 @@
 #define RCC_CFGR_SWS_PLLRCLK		0x2
 #define RCC_CFGR_SWS_LSI			0x3
 #define RCC_CFGR_SWS_LSE			0x4
-/*@}*/
+/**@}*/
 
 #define RCC_CFGR_SW_MASK			0x3
 #define RCC_CFGR_SW_SHIFT			0
 /** @defgroup rcc_cfgr_sws SW
- * @ingroup STM32G0xx_rcc_defines
  * @brief System clock switch
 @sa rcc_cfgr_sw
 @{*/
@@ -204,75 +197,69 @@
 #define RCC_CFGR_SW_PLLRCLK			0x2
 #define RCC_CFGR_SW_LSI				0x3
 #define RCC_CFGR_SW_LSE				0x4
-/*@}*/
+/**@}*/
 
 /* --- RCC_PLLCFGR - PLL Configuration Register */
 
 #define RCC_PLLCFGR_PLLR_SHIFT		29
 #define RCC_PLLCFGR_PLLR_MASK		0x7
 /** @defgroup rcc_pllcfgr_pllr PLLR
- * @ingroup STM32G0xx_rcc_defines
  * @brief VCO Division factor R for PLLRCLK clock output [2..8]. Frequency must not exceed 64mhz in voltage range 1, or 16mhz in voltage range 2.
 @sa rcc_pllcfgr_pllr
 @{*/
 #define RCC_PLLCFGR_PLLR_DIV(x)		((x)-1)
-/*@}*/
+/**@}*/
 
 #define RCC_PLLCFGR_PLLREN			(1<<28)
 
 #define RCC_PLLCFGR_PLLQ_SHIFT		25
 #define RCC_PLLCFGR_PLLQ_MASK		0x7
 /** @defgroup rcc_pllcfgr_pllq PLLQ
- * @ingroup STM32G0xx_rcc_defines
  * @brief VCO Division factor Q for PLLQCLK clock output [2..8]. Frequency must not exceed 128mhz in voltage range 1, or 32mhz in range 2
 @sa rcc_pllcfgr_pllq
 @{*/
 #define RCC_PLLCFGR_PLLQ_DIV(x)		((x)-1)
-/*@}*/
+/**@}*/
 
 #define RCC_PLLCFGR_PLLQEN		(1 << 24)
 
 #define RCC_PLLCFGR_PLLP_SHIFT		17
 #define RCC_PLLCFGR_PLLP_MASK		0x1f
 /** @defgroup rcc_pllcfgr_pllp PLLP
- * @ingroup STM32G0xx_rcc_defines
  * @brief VCO Division factor P for PLLPCLK clock output [2..32]. Frequency must not exceed 122mhz in voltage range 1, or 40mhz in range 2
 @sa rcc_pllcfgr_pllp
 @{*/
 #define RCC_PLLCFGR_PLLP_DIV(x)		((x)-1)
-/*@}*/
+/**@}*/
 
 #define RCC_PLLCFGR_PLLPEN			(1 << 16)
 
 #define RCC_PLLCFGR_PLLN_SHIFT		0x8
 #define RCC_PLLCFGR_PLLN_MASK		0x7f
 /** @defgroup rcc_pllcfgr_plln PLLN
-@ingroup STM32G0xx_rcc_defines
  * @brief Multiplication factor N [8..86] for PLL VCO output frequency. Frequency must be between 64mhz and 344mhz.
 @{*/
 #define RCC_PLLCFGR_PLLN_MUL(x)		(x)
-/*@}*/
+/**@}*/
 
 #define RCC_PLLCFGR_PLLM_SHIFT		0x4
 #define RCC_PLLCFGR_PLLM_MASK		0x7
 /** @defgroup rcc_pllcfgr_pllm PLLM
-@ingroup STM32G0xx_rcc_defines
  * @brief Division factor M [1..8] for PLL input clock. Input frequency must be between 4mhz and 16mhz. 
 @{*/
 #define RCC_PLLCFGR_PLLM_DIV(x)		((x)-1)
-/*@}*/
+/**@}*/
 
 #define RCC_PLLCFGR_PLLSRC_SHIFT	0
 #define RCC_PLLCFGR_PLLSRC_MASK		0x3
 /** @defgroup rcc_pllcfgr_pllsrc PLLSRC
- * @ingroup STM32G0xx_rcc_defines
  * @brief PLL input clock source
 @sa rcc_pllcfgr_pllsrc
 @{*/
 #define RCC_PLLCFGR_PLLSRC_NONE		0
 #define RCC_PLLCFGR_PLLSRC_HSI16	2
 #define RCC_PLLCFGR_PLLSRC_HSE		3
-/*@}*/
+/**@}*/
 
 /* --- RCC_CIER - Clock interrupt enable register */
 
@@ -305,19 +292,17 @@
 /* --- RCC_AHBRSTR values ------------------------------------------------- */
 
 /** @defgroup rcc_ahbenr_en RCC_AHBRSTR reset values
-@ingroup STM32G0xx_rcc_defines
 @{*/
 #define RCC_AHBRSTR_RNGRST			(1 << 18)
 #define RCC_AHBRSTR_AESRST			(1 << 16)
 #define RCC_AHBRSTR_CRCRST			(1 << 12)
 #define RCC_AHBRSTR_FLASHRST		(1 << 8)
 #define RCC_AHBRSTR_DMARST			(1 << 0)
-/*@}*/
+/**@}*/
 
 /* --- RCC_APBRSTR1 values ------------------------------------------------- */
 
 /** @defgroup rcc_apbenr1_en RCC_APBRSTR1 reset values
-@ingroup STM32G0xx_rcc_defines
 @{*/
 #define RCC_APBRSTR1_LPTIM1RST			(1 << 31)
 #define RCC_APBRSTR1_LPTIM2RST			(1 << 30)
@@ -337,12 +322,11 @@
 #define RCC_APBRSTR1_TIM6RST			(1 << 4)
 #define RCC_APBRSTR1_TIM3RST			(1 << 1)
 #define RCC_APBRSTR1_TIM2RST			(1 << 0)
-/*@}*/
+/**@}*/
 
 /* --- RCC_APBRSTR2 values ------------------------------------------------- */
 
 /** @defgroup rcc_apbenr2_en RCC_APBRSTR2 reset values
-@ingroup STM32G0xx_rcc_defines
 @{*/
 #define RCC_APBRSTR2_ADCRST				(1 << 20)
 #define RCC_APBRSTR2_TIM17RST			(1 << 18)
@@ -354,24 +338,22 @@
 #define RCC_APBRSTR2_SPI1RST			(1 << 12)
 #define RCC_APBRSTR2_TIM1RST			(1 << 11)
 #define RCC_APBRSTR2_SYSCFGRST			(1 << 0)
-/*@}*/
+/**@}*/
 
 /* --- RCC_AHBENR values ------------------------------------------------- */
 
 /** @defgroup rcc_apbenr1_en RCC_AHBENR enable values
-@ingroup STM32G0xx_rcc_defines
 @{*/
 #define RCC_AHBENR_RNGEN			(1 << 18)
 #define RCC_AHBENR_AESEN			(1 << 16)
 #define RCC_AHBENR_CRCEN			(1 << 12)
 #define RCC_AHBENR_FLASHEN			(1 << 8)
 #define RCC_AHBENR_DMAEN			(1 << 0)
-/*@}*/
+/**@}*/
 
 /* --- RCC_APBENR1 values ------------------------------------------------- */
 
 /** @defgroup rcc_apbenr1_en RCC_APBENR1 enable values
-@ingroup STM32G0xx_rcc_defines
 @{*/
 #define RCC_APBENR1_LPTIM1EN		(1 << 31)
 #define RCC_APBENR1_LPTIM2EN		(1 << 30)
@@ -394,12 +376,11 @@
 #define RCC_APBENR1_TIM6EN			(1 << 4)
 #define RCC_APBENR1_TIM3EN			(1 << 1)
 #define RCC_APBENR1_TIM2EN			(1 << 0)
-/*@}*/
+/**@}*/
 
 /* --- RCC_APBENR2 values ------------------------------------------------- */
 
 /** @defgroup rcc_apbenr2_en RCC_APBENR2 enable values
-@ingroup STM32G0xx_rcc_defines
 @{*/
 #define RCC_APBENR2_ADCEN			(1 << 20)
 #define RCC_APBENR2_TIM17EN			(1 << 18)
@@ -411,12 +392,11 @@
 #define RCC_APBENR2_SPI1EN			(1 << 12)
 #define RCC_APBENR2_TIM1EN			(1 << 11)
 #define RCC_APBENR2_SYSCFGEN		(1 << 0)
-/*@}*/
+/**@}*/
 
 /* --- RCC_AHBSMENR values ------------------------------------------------- */
 
 /** @defgroup rcc_aphbsmenr_en RCC_AHBSMENR enable in sleep/stop mode values
-@ingroup STM32G0xx_rcc_defines
 @{*/
 #define RCC_AHBSMENR_RNGSMEN			(1 << 18)
 #define RCC_AHBSMENR_AESSMEN			(1 << 16)
@@ -424,12 +404,11 @@
 #define RCC_AHBSMENR_SRAMSMEN			(1 << 9)
 #define RCC_AHBSMENR_FLASHSMEN			(1 << 8)
 #define RCC_AHBSMENR_DMASMEN			(1 << 0)
-/*@}*/
+/**@}*/
 
 /* --- RCC_APBSMENR1 values ------------------------------------------------- */
 
 /** @defgroup rcc_apbsmenr_en RCC_APBSMENR1 enable in sleep/stop mode values
-@ingroup STM32G0xx_rcc_defines
 @{*/
 #define RCC_APBSMENR1_LPTIM1SMEN		(1 << 31)
 #define RCC_APBSMENR1_LPTIM2SMEN		(1 << 30)
@@ -452,12 +431,11 @@
 #define RCC_APBSMENR1_TIM6SMEN			(1 << 4)
 #define RCC_APBSMENR1_TIM3SMEN			(1 << 1)
 #define RCC_APBSMENR1_TIM2SMEN			(1 << 0)
-/*@}*/
+/**@}*/
 
 /* --- RCC_APBSMENR2 values ------------------------------------------------- */
 
 /** @defgroup rcc_apbsmenr2_en RCC_APBSMENR2 enable in sleep/stop mode values
-@ingroup STM32G0xx_rcc_defines
 @{*/
 #define RCC_APBSMENR2_ADCSMEN			(1 << 20)
 #define RCC_APBSMENR2_TIM17SMEN			(1 << 18)
@@ -469,144 +447,131 @@
 #define RCC_APBSMENR2_SPI1SMEN			(1 << 12)
 #define RCC_APBSMENR2_TIM1SMEN			(1 << 11)
 #define RCC_APBSMENR2_SYSCFGSMEN		(1 << 0)
-/*@}*/
+/**@}*/
 
 /* --- RCC_CCIPR - Peripherals independent clock config register ----------- */
 
 #define RCC_CCIPR_ADCSEL_MASK		0x3
 #define RCC_CCIPR_ADCSEL_SHIFT		30
 /** @defgroup rcc_ccipr_adcsel ADCSEL
-@ingroup STM32G0xx_rcc_defines
 @{*/
 #define RCC_CCIPR_ADCSEL_SYSCLK		0
 #define RCC_CCIPR_ADCSEL_PLLPCLK	1
 #define RCC_CCIPR_ADCSEL_HSI16		2
-/*@}*/
+/**@}*/
 
 #define RCC_CCIPR_RNGDIV_MASK		0x3
 #define RCC_CCIPR_RNGDIV_SHIFT		28
 /** @defgroup rcc_ccipr_rngdiv RNGDIV
-@ingroup STM32G0xx_rcc_defines
 @{*/
 #define RCC_CCIPR_RNGDIV_1		0
 #define RCC_CCIPR_RNGDIV_2 		1
 #define RCC_CCIPR_RNGDIV_4		2
 #define RCC_CCIPR_RNGDIV_8		3
-/*@}*/
+/**@}*/
 
 #define RCC_CCIPR_RNGSEL_MASK		0x3
 #define RCC_CCIPR_RNGSEL_SHIFT		26
 /** @defgroup rcc_ccipr_rngsel RNGSEL
-@ingroup STM32G0xx_rcc_defines
 @{*/
 #define RCC_CCIPR_RNGSEL_NONE		0
 #define RCC_CCIPR_RNGSEL_HSI16 		1
 #define RCC_CCIPR_RNGSEL_SYSCLK		2
 #define RCC_CCIPR_RNGSEL_PLLQCLK	3
-/*@}*/
+/**@}*/
 
 #define RCC_CCIPR_TIM15SEL_MASK		0x1
 #define RCC_CCIPR_TIM15SEL_SHIFT	24
 /** @defgroup rcc_ccipr_tim15sel TIM15SEL
-@ingroup STM32G0xx_rcc_defines
 @{*/
 #define RCC_CCIPR_TIM15SEL_TIMPCLK		0
 #define RCC_CCIPR_TIM15SEL_PLLQCLK 		1
-/*@}*/
+/**@}*/
 
 #define RCC_CCIPR_TIM1SEL_MASK		0x1
 #define RCC_CCIPR_TIM1SEL_SHIFT		20
 /** @defgroup rcc_ccipr_tim1sel TIM1SEL
-@ingroup STM32G0xx_rcc_defines
 @{*/
 #define RCC_CCIPR_TIM1SEL_TIMPCLK		0
 #define RCC_CCIPR_TIM1SEL_PLLQCLK 		1
-/*@}*/
+/**@}*/
 
 #define RCC_CCIPR_LPTIM2SEL_MASK		0x3
 #define RCC_CCIPR_LPTIM2SEL_SHIFT		20
 /** @defgroup rcc_ccipr_lptim2sel LPTIM2SEL LPTIM2 Clock source selection
-@ingroup STM32G0xx_rcc_defines
 @{*/
 #define RCC_CCIPR_LPTIM2SEL_PCLK		0
 #define RCC_CCIPR_LPTIM2SEL_LSI		 	1
 #define RCC_CCIPR_LPTIM2SEL_HSI16 		2
 #define RCC_CCIPR_LPTIM2SEL_LSE			3
-/*@}*/
+/**@}*/
 
 #define RCC_CCIPR_LPTIM1SEL_MASK		0x3
 #define RCC_CCIPR_LPTIM1SEL_SHIFT		18
 /** @defgroup rcc_ccipr_lptim1sel LPTIM1SEL LPTIM1 Clock source selection
-@ingroup STM32G0xx_rcc_defines
 @{*/
 #define RCC_CCIPR_LPTIM1SEL_PCLK		0
 #define RCC_CCIPR_LPTIM1SEL_LSI			1
 #define RCC_CCIPR_LPTIM1SEL_HSI16 		2
 #define RCC_CCIPR_LPTIM1SEL_LSE			3
-/*@}*/
+/**@}*/
 
 #define RCC_CCIPR_I2S1SEL_MASK		0x3
 #define RCC_CCIPR_I2S1SEL_SHIFT		14
 /** @defgroup rcc_ccipr_i2s1sel I2S1SEL I2S1 Clock source selection
-@ingroup STM32G0xx_rcc_defines
 @{*/
 #define RCC_CCIPR_I2S1SEL_SYSCLK		0
 #define RCC_CCIPR_I2S1SEL_PLLPLCK		1
 #define RCC_CCIPR_I2S1SEL_HSI16 		2
 #define RCC_CCIPR_I2S1SEL_I2S_CKIN 		2
-/*@}*/
+/**@}*/
 
 #define RCC_CCIPR_I2C1SEL_MASK		0x3
 #define RCC_CCIPR_I2C1SEL_SHIFT		12
 /** @defgroup rcc_ccipr_i2c1sel I2C1SEL I2C1 Clock source selection
-@ingroup STM32G0xx_rcc_defines
 @{*/
 #define RCC_CCIPR_I2C1SEL_PCLK			0
 #define RCC_CCIPR_I2C1SEL_SYSCLK		1
 #define RCC_CCIPR_I2C1SEL_HSI16 		2
-/*@}*/
+/**@}*/
 
 #define RCC_CCIPR_LPUART1SEL_MASK		0x3
 #define RCC_CCIPR_LPUART1SEL_SHIFT		10
 /** @defgroup rcc_ccipr_lpuart1sel LPUART1SEL LPUART1 Clock source selection
-@ingroup STM32G0xx_rcc_defines
 @{*/
 #define RCC_CCIPR_LPUART1SEL_PCLK			0
 #define RCC_CCIPR_LPUART1SEL_SYSCLK			1
 #define RCC_CCIPR_LPUART1SEL_HSI16 			2
 #define RCC_CCIPR_LPUART1SEL_LSE			3
-/*@}*/
+/**@}*/
 
 #define RCC_CCIPR_CECSEL_MASK			0x1
 #define RCC_CCIPR_CECSEL_SHIFT			6
 /** @defgroup rcc_ccipr_cecsel CECSEL CEC Clock souce selection
-@ingroup STM32G0xx_rcc_defines
 @{*/
 #define RCC_CCIPR_CECSEL_HSI16			0
 #define RCC_CCIPR_CECSEL_LSE 			1
-/*@}*/
+/**@}*/
 
 #define RCC_CCIPR_USART2SEL_MASK		0x3
 #define RCC_CCIPR_USART2SEL_SHIFT		2
 /** @defgroup rcc_ccipr_usart2sel USART2SEL USART2 Clock source selection
-@ingroup STM32G0xx_rcc_defines
 @{*/
 #define RCC_CCIPR_USART2SEL_PCLK		0
 #define RCC_CCIPR_USART2SEL_SYSCLK	 	1
 #define RCC_CCIPR_USART2SEL_HSI16 		2
 #define RCC_CCIPR_USART2SEL_LSE			3
-/*@}*/
+/**@}*/
 
 #define RCC_CCIPR_USART1SEL_MASK		0x3
 #define RCC_CCIPR_USART1SEL_SHIFT		0
 /** @defgroup rcc_ccipr_usart1sel USART1SEL USART1 Clock source selection
-@ingroup STM32G0xx_rcc_defines
 @{*/
 #define RCC_CCIPR_USART1SEL_PCLK		0
 #define RCC_CCIPR_USART1SEL_SYSCLK		1
 #define RCC_CCIPR_USART1SEL_HSI16 		2
 #define RCC_CCIPR_USART1SEL_LSE			3
-/*@}*/
+/**@}*/
 
 /* --- RCC_BDCR - PLL Configuration Register */
 
@@ -618,24 +583,22 @@
 #define RCC_BDCR_RTCSEL_SHIFT		8
 #define RCC_BDCR_RTCSEL_MASK		0x3
 /** @defgroup rcc_bdcr_rtcsel RTCSEL RTC Clock source selection
-@ingroup STM32G0xx_rcc_defines
 @{*/
 #define RCC_BDCR_RTCSEL_NONE		0
 #define RCC_BDCR_RTCSEL_LSE		1
 #define RCC_BDCR_RTCSEL_LSI		2
 #define RCC_BDCR_RTCSEL_HSE_DIV32	3
-/*@}*/
+/**@}*/
 
 #define RCC_BDCR_LSEDRV_SHIFT		3
 #define RCC_BDCR_LSEDRV_MASK		0x3
 /** @defgroup rcc_bdcr_lsedrv LSEDRV LSE Oscillator drive capacity
-@ingroup STM32G0xx_rcc_defines
 @{*/
 #define RCC_BDCR_LSEDRV_LOW			0
 #define RCC_BDCR_LSEDRV_MEDLOW		1
 #define RCC_BDCR_LSEDRV_MEDHIGH		2
 #define RCC_BDCR_LSEDRV_HIGH		3
-/*@}*/
+/**@}*/
 
 #define RCC_BDCR_LSEBYP				(1 << 2)
 #define RCC_BDCR_LSERDY				(1 << 1)

@@ -81,3 +81,4 @@ void flash_lock(void)
 	flash_lock_progmem();
 }
 
+/**@}*/

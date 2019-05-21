@@ -52,7 +52,6 @@
 /*****************************************************************************/
 
 /** @defgroup gpio_speed GPIO Output Pin Speed
-@ingroup gpio_defines
 @{*/
 #define GPIO_OSPEED_LOW		0x0
 #define GPIO_OSPEED_MED		0x1

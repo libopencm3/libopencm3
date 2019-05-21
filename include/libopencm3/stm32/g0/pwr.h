@@ -30,7 +30,6 @@
 /**@{*/
 
 /** @defgroup pwr_registers PWR Registers
- * @ingroup STM32G0_pwr_defines
 @{*/
 /** Power control register 1 (PWR_CR1) */
 #define PWR_CR1				MMIO32(POWER_CONTROL_BASE + 0x00)
@@ -62,6 +61,7 @@
 
 #define PWR_PUCR(pwr_port)	MMIO32((pwr_port) + 0x00)
 #define PWR_PDCR(pwr_port)	MMIO32((pwr_port) + 0x04)
+/**@}*/
 
 /* --- PWR_CR1 values ------------------------------------------------------- */
 
@@ -70,7 +70,6 @@
 #define PWR_CR1_VOS_SHIFT		9
 #define PWR_CR1_VOS_MASK		0x3
 /** @defgroup pwr_cr1_vos VOS
- * @ingroup STM32G0xx_pwr_defines
  * @brief Voltage scaling range selection.
 @{*/
 #define PWR_CR1_VOS_RANGE_1		1
@@ -100,7 +99,6 @@
 #define PWR_CR2_PVDRT_SHIFT	4
 #define PWR_CR2_PVDRT_MASK	0x07
 /** @defgroup pwr_cr2_pvdrt PVDRT
-@ingroup STM32G0xx_pwr_defines
  * @brief Power voltage detector rising threshold selection
 @{*/
 #define PWR_CR2_PVDRT_2V1	0x00
@@ -116,7 +114,6 @@
 #define PWR_CR2_PVDFT_SHIFT	1
 #define PWR_CR2_PVDFT_MASK	0x07
 /** @defgroup pwr_cr2_pvdft PVDFT
-@ingroup STM32G0xx_pwr_defines
  * @brief Power voltage detector falling threshold selection
 @{*/
 #define PWR_CR2_PVDFT_2V0	0x00
@@ -200,5 +197,6 @@ void pwr_disable_power_voltage_detect(void);
 
 END_DECLS
 
+/**@}*/
 #endif
 
