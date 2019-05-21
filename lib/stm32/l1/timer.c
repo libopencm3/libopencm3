@@ -1,7 +1,5 @@
-/** @defgroup timer_file Timers
-
-@ingroup STM32L1xx
-
+/** @defgroup timer_file
+@ingroup peripheral_apis
 @brief <b>libopencm3 STM32L1xx Timers</b>
 
 @version 1.0.0
@@ -30,9 +28,9 @@
  * along with this library.  If not, see <http://www.gnu.org/licenses/>.
  */
 
-/**@{*/
-
 #include <libopencm3/stm32/timer.h>
+
+/**@{*/
 
 /*---------------------------------------------------------------------------*/
 /** @brief Set Timer Option
