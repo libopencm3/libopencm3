@@ -30,6 +30,7 @@ doc/*/Doxyfile
 doc/*/DoxygenLayout_*.xml
 doc/*/doxy.sourcelist
 include/libopencmsis/efm32/
+include/libopencmsis/gd32/
 include/libopencmsis/lm3s/
 include/libopencmsis/lpc13xx/
 include/libopencmsis/lpc17xx/
