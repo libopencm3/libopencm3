@@ -1,3 +1,6 @@
+/** @addtogroup exti_file EXTI peripheral API
+ * @ingroup peripheral_apis
+ */
 /*
  * This file is part of the libopencm3 project.
  *

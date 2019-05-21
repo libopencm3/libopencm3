@@ -1,4 +1,4 @@
-/** @addtogroup exti_defines
+/** @addtogroup exti_file
  *
  * @author @htmlonly &copy; @endhtmlonly 2019 Guillaume Revaillot <g.revaillot@gmail.com>
  *
