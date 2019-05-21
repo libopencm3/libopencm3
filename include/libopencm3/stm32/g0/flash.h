@@ -31,7 +31,8 @@
 
 #include <libopencm3/stm32/common/flash_common_all.h>
 
-/* --- FLASH registers ------------------------------------------------------ */
+/** @defgroup flash_registers FLASH Registers
+@{*/
 #define FLASH_ACR			MMIO32(FLASH_MEM_INTERFACE_BASE + 0x00)
 #define FLASH_KEYR			MMIO32(FLASH_MEM_INTERFACE_BASE + 0x08)
 #define FLASH_OPTKEYR		MMIO32(FLASH_MEM_INTERFACE_BASE + 0x0c)
@@ -46,6 +47,7 @@
 #define FLASH_PCROP1BSR		MMIO32(FLASH_MEM_INTERFACE_BASE + 0x34)
 #define FLASH_PCROP1BER		MMIO32(FLASH_MEM_INTERFACE_BASE + 0x38)
 #define FLASH_SECR			MMIO32(FLASH_MEM_INTERFACE_BASE + 0x80)
+/**@}*/
 
 /* --- FLASH_ACR values ----------------------------------------------------- */
 
