@@ -1,8 +1,8 @@
-/** @defgroup pwr_file PWR
+/** @defgroup pwr_file PWR peripheral APIS
  *
  * @author @htmlonly &copy; @endhtmlonly 2019 Guillaume Revaillot <g.revaillot@gmail.com>
  *
- * @ingroup STM32G0xx
+ * @ingroup peripheral_apis
  *
  * @brief <b>libopencm3 STM32G0xx Power Control</b>
  *

@@ -1,6 +1,6 @@
-/** @defgroup flash_file FLASH
+/** @defgroup flash_file FLASH peripheral API
  *
- * @ingroup STM32G0xx
+ * @ingroup peripheral_apis
  *
  * @brief <b>libopencm3 STM32G0xx FLASH</b>
  *

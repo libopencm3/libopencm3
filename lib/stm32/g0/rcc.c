@@ -1,6 +1,6 @@
-/** @defgroup rcc_file RCC
+/** @defgroup rcc_file RCC peripheral API
  *
- * @ingroup STM32G0xx
+ * @ingroup peripheral_apis
  *
  * @brief <b>libopencm3 STM32G0xx Reset and Clock Control</b>
  *
