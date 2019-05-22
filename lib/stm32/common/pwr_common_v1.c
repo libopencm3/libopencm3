@@ -1,4 +1,5 @@
-/** @addtogroup pwr_file
+/** @addtogroup pwr_file PWR peripheral API
+@ingroup peripheral_apis
 
 @author @htmlonly &copy; @endhtmlonly 2012
 Ken Sarkies <ksarkies@internode.on.net>

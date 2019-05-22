@@ -1,6 +1,6 @@
-/** @defgroup pwr_file PWR
+/** @defgroup pwr_file
  *
- * @ingroup STM32F4xx
+ * @ingroup peripheral_apis
  *
  * @brief <b>libopencm3 STM32F4xx Power Control</b>
  *
@@ -36,6 +36,8 @@
 
 #include <libopencm3/stm32/pwr.h>
 
+/**@{*/
+
 void pwr_set_vos_scale(enum pwr_vos_scale scale)
 {
 	uint32_t reg32;
@@ -43,3 +45,5 @@ void pwr_set_vos_scale(enum pwr_vos_scale scale)
 	reg32 |= (scale & PWR_CR_VOS_MASK) << PWR_CR_VOS_SHIFT;
 	PWR_CR = reg32;
 }
+
+/**@}*/

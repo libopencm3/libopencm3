@@ -1,6 +1,6 @@
-/** @defgroup pwr_file PWR
+/** @defgroup pwr_file PWR peripheral API
  *
- * @ingroup STM32L4xx
+ * @ingroup peripheral_apis
  *
  * @brief <b>libopencm3 STM32L4xx Power Control</b>
  *

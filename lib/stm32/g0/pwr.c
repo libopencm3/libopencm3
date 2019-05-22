@@ -1,4 +1,5 @@
-/** @defgroup pwr_file PWR peripheral APIS
+/** @defgroup pwr_file PWR peripheral API
+ * @ingroup peripheral_apis
  *
  * @author @htmlonly &copy; @endhtmlonly 2019 Guillaume Revaillot <g.revaillot@gmail.com>
  *
