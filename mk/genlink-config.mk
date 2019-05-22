@@ -54,18 +54,15 @@ endif
 
 # only append to LDFLAGS if the library file exists to not break builds
 # where those are provided by different means
-ifneq (,$(wildcard $(OPENCM3_DIR)/lib/libopencm3_$(genlink_family).a))
-LIBNAME = opencm3_$(genlink_family)
-else
+ifeq ($(LIBNAME),)
 ifneq (,$(wildcard $(OPENCM3_DIR)/lib/libopencm3_$(genlink_subfamily).a))
 LIBNAME = opencm3_$(genlink_subfamily)
 else
-$(warning $(OPENCM3_DIR)/lib/libopencm3_$(genlink_family).a library variant for the selected device does not exist.)
+LIBNAME = opencm3_$(genlink_family)
 endif
-endif
-
 LDLIBS += -l$(LIBNAME)
-LIBDEPS += $(OPENCM3_DIR)/lib/lib$(LIBNAME)
+LIBDEPS += $(OPENCM3_DIR)/lib/lib$(LIBNAME).a
+endif
 
 # only append to LDLIBS if the directory exists
 ifneq (,$(wildcard $(OPENCM3_DIR)/lib))
