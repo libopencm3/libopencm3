@@ -1,6 +1,6 @@
-/** @defgroup rtc_file RTC
+/** @defgroup rtc_file RTC peripheral API
  *
- * @ingroup STM32F1xx
+ * @ingroup peripheral_apis
  *
  * @brief <b>libopencm3 STM32F1xx RTC</b>
  *

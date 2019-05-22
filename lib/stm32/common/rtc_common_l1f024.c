@@ -1,4 +1,5 @@
-/** @addtogroup rtc_file
+/** @addtogroup rtc_file RTC peripheral API
+@ingroup peripheral_apis
 
 @author @htmlonly &copy; @endhtmlonly 2012 Karl Palsson <karlp@tweak.net.au>
 
