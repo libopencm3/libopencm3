@@ -21,6 +21,12 @@
 #ifndef LIBOPENCM3_CM3_SCS_H
 #define LIBOPENCM3_CM3_SCS_H
 
+#include <stdbool.h>
+#include <stdint.h>
+
+#include <libopencm3/cm3/common.h>
+#include <libopencm3/cm3/memorymap.h>
+
 /*
  * All the definition hereafter are generic for CortexMx ARMv7-M
  * See ARM document "ARMv7-M Architecture Reference Manual" for more details.
@@ -334,6 +340,16 @@
 #define SCS_LSR_SLI		(1<<0)
 /* CoreSight Lock Access key, common for all */
 #define SCS_LAR_KEY		0xC5ACCE55
+
+/*****************************************************************************/
+/* API Functions                                                             */
+/*****************************************************************************/
+
+BEGIN_DECLS
+
+void scs_set_trace_enabled(bool enable);
+
+END_DECLS
 
 /**@}*/
 #endif
