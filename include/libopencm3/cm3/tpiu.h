@@ -20,6 +20,12 @@
 #ifndef LIBOPENCM3_CM3_TPIU_H
 #define LIBOPENCM3_CM3_TPIU_H
 
+#include <stdbool.h>
+#include <stdint.h>
+
+#include <libopencm3/cm3/common.h>
+#include <libopencm3/cm3/memorymap.h>
+
 /**
  * @defgroup cm_tpiu Cortex-M Trace Port Interface Unit (TPIU)
  * @ingroup CM3_defines
@@ -97,6 +103,19 @@
 /* Bit 9 - RAZ, indicated that trace data and clock are supported */
 #define TPUI_DEVID_FIFO_SIZE_MASK	(7 << 6)
 /* Bits 5:0 - Implementation defined */
+
+/*****************************************************************************/
+/* API Functions                                                             */
+/*****************************************************************************/
+
+BEGIN_DECLS
+
+void tpiu_set_output_clock_divider(uint16_t div);
+void tpiu_set_output_clock_speed(uint32_t core_clock_hz, uint32_t output_hz);
+void tpiu_set_trace_output_mode(uint16_t mode);
+void tpiu_set_continuous_formatting_enabled(bool enable);
+
+END_DECLS
 
 /**@}*/
 
