@@ -17,6 +17,42 @@
  * along with this library.  If not, see <http://www.gnu.org/licenses/>.
  */
 
+/**
+@section  itm_example Example ITM setup for async SWO
+
+Example: Async SWO output enabled, Manchester format, 8MHz:
+@code
+  // Enable trace subsystem
+  scs_set_trace_enabled(true);
+
+  // Use Manchester code for asynchronous transmission
+  tpiu_set_trace_output_mode(TPIU_SPPR_ASYNC_MANCHESTER);
+
+  // 8MHz operation
+  tpiu_set_output_clock_speed(8000000);
+
+  // Disable formatter
+  tpiu_set_continuous_formatting_enabled(false);
+
+  // Enable TRACESWO pin for async mode.
+  DBGMCU_CR = DBGMCU_CR_TRACE_IOEN | DBGMCU_CR_TRACE_MODE_ASYNC;
+
+  // Unlock access to ITM registers.
+  itm_set_write_access_enabled(true);
+
+  // Enable ITM with ID = 1.
+  itm_set_trace_bus_id(1);
+  itm_set_enabled(true);
+
+  // Enable stimulus port
+  itm_enable_stimulus_ports(ITM_PORT0);
+
+  // Send message to host
+  itm_send_string(0, "SWO Enabled\n");
+@endcode
+
+*/
+
 #include <libopencm3/cm3/itm.h>
 
 /*---------------------------------------------------------------------------*/
