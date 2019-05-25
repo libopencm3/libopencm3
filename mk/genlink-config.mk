@@ -65,7 +65,7 @@ endif
 endif
 
 LDLIBS += -l$(LIBNAME)
-LIBDEPS += $(OPENCM3_DIR)/lib/lib$(LIBNAME)
+LIBDEPS += $(OPENCM3_DIR)/lib/lib$(LIBNAME).a
 
 # only append to LDLIBS if the directory exists
 ifneq (,$(wildcard $(OPENCM3_DIR)/lib))
