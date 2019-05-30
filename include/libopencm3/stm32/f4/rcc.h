@@ -1096,6 +1096,11 @@ void rcc_set_main_pll_hse(uint32_t pllm, uint32_t plln, uint32_t pllp,
 			  uint32_t pllq, uint32_t pllr);
 uint32_t rcc_system_clock_source(void);
 void rcc_clock_setup_hse_3v3(const struct rcc_clock_scale *clock);
+void rcc_backupdomain_reset(void);
+void rcc_set_rtc_source(uint32_t rtc_sel);
+void rcc_set_lsemode(uint32_t mode);
+void rcc_rtc_clk_enable(void);
+void rcc_rtc_clk_disable(void);
 
 END_DECLS
 
