@@ -34,7 +34,7 @@ $(1)/doxy.sourcelist: $(1)/
 	@../scripts/gendoxylist ../lib/$(TARGET_SRC_DIR) $(1)
 
 $(1)/Doxyfile: templates/Doxyfile_Device | $(1)/
-	@cat $$< | sed -s s/#device#/$(1)/g > $$@
+	@cat $$< | sed s/#device#/$(1)/g > $$@
 
 $(1)/DoxygenLayout_$(1).xml: templates/DoxygenLayout_Device.xml | $(1)/
 	@../scripts/gendoxylayout.py --template $$< --out $$@ --target $(1) $$(TARGETS_DIRS)
