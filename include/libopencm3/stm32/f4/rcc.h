@@ -770,9 +770,7 @@ extern uint32_t rcc_apb2_frequency;
 /* --- Function prototypes ------------------------------------------------- */
 
 enum rcc_clock_3v3 {
-	RCC_CLOCK_3V3_48MHZ,
 	RCC_CLOCK_3V3_84MHZ,
-	RCC_CLOCK_3V3_120MHZ,
 	RCC_CLOCK_3V3_168MHZ,
 	RCC_CLOCK_3V3_180MHZ,
 	RCC_CLOCK_3V3_END
