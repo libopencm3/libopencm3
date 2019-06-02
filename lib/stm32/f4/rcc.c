@@ -770,9 +770,11 @@ void rcc_clock_setup_pll(const struct rcc_clock_scale *clock)
 /**
  * Setup clocks with the HSE.
  *
- * @deprecated Use `rcc_clock_setup_pll` instead.
+ * @deprecated replaced by rcc_clock_setup_pll as a drop in replacement.
+ * @see rcc_clock_setup_pll which supports HSI as well as HSE, using the same
+ * clock structures.
  */
-void __attribute__((deprecated)) rcc_clock_setup_hse_3v3(const struct rcc_clock_scale *clock)
+void rcc_clock_setup_hse_3v3(const struct rcc_clock_scale *clock)
 {
 	rcc_clock_setup_pll(clock);
 }
