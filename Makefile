@@ -58,11 +58,11 @@ build: lib
 
 %.genhdr:
 	@printf "  GENHDR  $*\n";
-	@./scripts/irq2nvic_h ./$*;
+	$(Q)./scripts/irq2nvic_h ./$*;
 
 %.cleanhdr:
 	@printf "  CLNHDR  $*\n";
-	@./scripts/irq2nvic_h --remove ./$*
+	$(Q)./scripts/irq2nvic_h --remove ./$*
 
 LIB_DIRS:=$(wildcard $(addprefix lib/,$(TARGETS)))
 $(LIB_DIRS): $(IRQ_DEFN_FILES:=.genhdr)
