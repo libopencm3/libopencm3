@@ -30,6 +30,12 @@
 #include <libopencm3/stm32/st_usbfs.h>
 #include <libopencm3/usb/usbd.h>
 
+/* Offset, within the dedicated packet buffer memory, of the first endpoint buffer(s).
+ * 0x40 (64) allows the full 8 EP buffer descriptors (8 bytes each) to be placed
+ * before the buffers themselves;
+ * Applications using fewer buffer descriptors could alter PM_TOP and therefore
+ * gain more usable buffer space.
+ */
 #define USBD_PM_TOP 0x40
 
 void st_usbfs_set_address(usbd_device *dev, uint8_t addr);

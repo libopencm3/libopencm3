@@ -83,6 +83,11 @@ struct _usbd_device {
 		uint8_t type_mask;
 	} user_control_callback[MAX_USER_CONTROL_CALLBACK];
 
+	/* Array of callbacks for 8 possible endpoint adresses, and 3 possible values
+	 * of "enum _usbd_transaction"
+	 * (USB_TRANSACTION_IN, USB_TRANSACTION_OUT, USB_TRANSACTION_SETUP)
+	 * 'ctr' stands for "Correct Transfer Received" (stm32 nomenclature ?)...
+	 */
 	usbd_endpoint_callback user_callback_ctr[8][3];
 
 	/* User callback function for some standard USB function hooks */
