@@ -24,7 +24,7 @@ SRCLIBDIR	?= ../..
 PREFIX		?= arm-none-eabi
 
 CC		= $(PREFIX)-gcc
-AR		= $(PREFIX)-ar
+AR		= $(PREFIX)-gcc-ar
 
 # STM32F7 only supports single precision FPU
 FP_FLAGS	?= -mfloat-abi=hard -mfpu=fpv5-sp-d16
