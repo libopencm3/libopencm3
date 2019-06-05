@@ -1,3 +1,6 @@
+/** @addtogroup gpio_file GPIO peripheral API
+ * @ingroup peripheral_apis
+ */
 /*
  * This file is part of the libopencm3 project.
  *
@@ -19,13 +22,15 @@
 
 #include <libopencm3/swm050/gpio.h>
 
+/**@{*/
+
 /*---------------------------------------------------------------------------*/
 /** @brief Set a Group of Pins
 
 Set one or more pins of GPIO to 1. Please note that this chip doesn't support
 atomic pin setting.
 
-@param[in] gpios Unsigned int16. Pin identifiers @ref gpio_pin_id
+@param[in] gpios Pin identifiers @ref gpio_pin_id
 	     If multiple pins are to be changed, use bitwise OR '|' to separate
 	     them.
 */
@@ -40,7 +45,7 @@ void gpio_set(uint16_t gpios)
 Set one or more pins of GPIO to 0. Please note that this chip doesn't support
 atomic pin setting.
 
-@param[in] gpios Unsigned int16. Pin identifiers @ref gpio_pin_id
+@param[in] gpios Pin identifiers @ref gpio_pin_id
 	     If multiple pins are to be changed, use bitwise OR '|' to separate
 	     them.
 */
@@ -52,10 +57,10 @@ void gpio_clear(uint16_t gpios)
 /*---------------------------------------------------------------------------*/
 /** @brief Read a Group of Pins.
 
-@param[in] gpios Unsigned int16. Pin identifiers @ref gpio_pin_id
+@param[in] gpios Pin identifiers @ref gpio_pin_id
 	    If multiple pins are to be read, use bitwise OR '|' to separate
 	    them.
-@return Unsigned int16 value of the pin values. The bit position of the pin
+@return The pin values as a bitfield. The bit position of the pin
 	value returned corresponds to the pin number.
 */
 uint16_t gpio_get(uint16_t gpios)
@@ -68,7 +73,7 @@ uint16_t gpio_get(uint16_t gpios)
 
 Toggle one or more pins of GPIO. The non-toggled pins are not affected.
 
-@param[in] gpios Unsigned int16. Pin identifiers @ref gpio_pin_id
+@param[in] gpios Pin identifiers @ref gpio_pin_id
 	     If multiple pins are to be changed, use bitwise OR '|' to separate
 	     them.
 */
@@ -83,7 +88,7 @@ void gpio_toggle(uint16_t gpios)
 
 Set the direction of one or more pins of GPIO to input.
 
-@param[in] gpios Unsigned int16. Pin identifiers @ref gpio_pin_id
+@param[in] gpios Pin identifiers @ref gpio_pin_id
 	     If multiple pins are to be changed, use bitwise OR '|' to separate
 	     them.
 */
@@ -97,7 +102,7 @@ void gpio_input(uint16_t gpios)
 
 Set the direction of one or more pins of GPIO to output.
 
-@param[in] gpios Unsigned int16. Pin identifiers @ref gpio_pin_id
+@param[in] gpios Pin identifiers @ref gpio_pin_id
 	     If multiple pins are to be changed, use bitwise OR '|' to separate
 	     them.
 */
@@ -111,10 +116,10 @@ void gpio_output(uint16_t gpios)
 
 Select the alternative function of one or more pins of GPIO.
 
-@param[in] gpios Unsigned int16. Pin identifiers @ref gpio_pin_id
+@param[in] gpios Pin identifiers @ref gpio_pin_id
 	     If multiple pins are to be changed, use bitwise OR '|' to separate
 	     them.
-@param[in] af_en Bool. Whether alternative function is selected
+@param[in] af_en Whether alternative function is selected
 */
 void gpio_sel_af(uint16_t gpios, bool af_en)
 {
@@ -137,7 +142,7 @@ void gpio_sel_af(uint16_t gpios, bool af_en)
 
 Enable or disable the internal pull-up of one or more pins of GPIO.
 
-@param[in] gpios Unsigned int16. Pin identifiers @ref gpio_pin_id
+@param[in] gpios Pin identifiers @ref gpio_pin_id
 	     If multiple pins are to be changed, use bitwise OR '|' to separate
 	     them.
 @param[in] en Bool. Whether pull-up is enabled
@@ -155,12 +160,12 @@ void gpio_pullup(uint16_t gpios, bool en)
 /** @brief Enable the input function of a Group of Pins
 
 Enable or disable the input function of one or more pins of GPIO. Disabling
-the input function of pins can decrease the power usage of the MCU.
+the input function of pins decreases the power usage of the MCU.
 
-@param[in] gpios Unsigned int16. Pin identifiers @ref gpio_pin_id
+@param[in] gpios Pin identifiers @ref gpio_pin_id
 	     If multiple pins are to be changed, use bitwise OR '|' to separate
 	     them.
-@param[in] en Bool. Whether input function is enabled
+@param[in] en true to enable input function.
 */
 void gpio_in_en(uint16_t gpios, bool en)
 {
@@ -178,7 +183,7 @@ void gpio_in_en(uint16_t gpios, bool en)
 Enable or disable the SWD debugging port at GPIO 1/2. When SWD debugging port
 is enabled, GPIO and AF of the SWD pins will be both unavailable.
 
-@param[in] en Bool. Whether SWD is enabled
+@param[in] en true to enable SWD.
 */
 void gpio_sel_swd(bool en)
 {
@@ -188,3 +193,5 @@ void gpio_sel_swd(bool en)
 		SWD_SEL = 0;
 	}
 }
+
+/**@}*/
