@@ -172,6 +172,9 @@ extern void usbd_disconnect(usbd_device *usbd_dev, bool disconnected);
 /** Setup an endpoint
  * @param addr Full EP address including direction (e.g. 0x01 or 0x81)
  * @param type Value for bmAttributes (USB_ENDPOINT_ATTR_*)
+ * @note The stack only supports 8 endpoints, 0..7, so don't try
+ * and use arbitrary addresses here, even though USB itself would allow this.
+ * Not all backends support arbitrary addressing anyway.
  */
 extern void usbd_ep_setup(usbd_device *usbd_dev, uint8_t addr, uint8_t type,
 		uint16_t max_size, usbd_endpoint_callback callback);
