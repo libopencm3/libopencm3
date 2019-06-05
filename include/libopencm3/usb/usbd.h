@@ -71,7 +71,14 @@ extern const usbd_driver lm4f_usb_driver;
  *
  * It is required that the 48MHz USB clock is already available.
  *
- * @param driver TODO
+ * @param driver Pointer to an USB driver's information structure.  The
+ *               following drivers are available:
+ *               @li @link st_usbfs_v1_usb_driver @endlink
+ *               @li @link stm32f107_usb_driver @endlink
+ *               @li @link stm32f207_usb_driver @endlink
+ *               @li @link st_usbfs_v2_usb_driver @endlink
+ *               @li @link efm32lg_usb_driver @endlink
+ *               @li @link efm32hg_usb_driver @endlink
  * @param dev Pointer to USB device descriptor. This must not be changed while
  *            the device is in use.
  * @param conf Pointer to array of USB configuration descriptors. These must
@@ -172,6 +179,11 @@ extern void usbd_disconnect(usbd_device *usbd_dev, bool disconnected);
 /** Setup an endpoint
  * @param addr Full EP address including direction (e.g. 0x01 or 0x81)
  * @param type Value for bmAttributes (USB_ENDPOINT_ATTR_*)
+ *
+ * @warning For OUT endpoints, the callback MUST read the received data.
+ *          If it does not, the callback might (endlessly) run again.
+ *          Additionally, the received data may be overwritten, for example
+ *          with data arriving for other endpoints.
  */
 extern void usbd_ep_setup(usbd_device *usbd_dev, uint8_t addr, uint8_t type,
 		uint16_t max_size, usbd_endpoint_callback callback);
@@ -180,6 +192,8 @@ extern void usbd_ep_setup(usbd_device *usbd_dev, uint8_t addr, uint8_t type,
  * @param addr EP address (direction is ignored)
  * @param len # of bytes
  * @return 0 if failed, len if successful
+ *
+ * @bug When sending an empty packet (len = 0), errors cannot be detected.
  */
 extern uint16_t usbd_ep_write_packet(usbd_device *usbd_dev, uint8_t addr,
 				const void *buf, uint16_t len);
@@ -188,6 +202,16 @@ extern uint16_t usbd_ep_write_packet(usbd_device *usbd_dev, uint8_t addr,
  * @param addr EP address
  * @param len # of bytes
  * @return Actual # of bytes read
+ *
+ * @bug Receiving an empty packet (len = 0) is indistinguishable from no data
+ *      being available.  An empty packet can be assumed if the EP's receive
+ *      callback has been called and usbd_ep_read_packet returns 0.
+ *
+ * This function will mark the EP as ready to receive further data unless
+ * @link usbd_ep_nak_set @endlink has been used to mark the EP to remain in
+ * NAK.  To implement flow control, mark the EP as NAK @b before calling
+ * @p usbd_ep_read_packet and remove the NAK setting afterwards (or not,
+ * depending on whether the application can receive further packets.)
  */
 extern uint16_t usbd_ep_read_packet(usbd_device *usbd_dev, uint8_t addr,
 			       void *buf, uint16_t len);
@@ -204,9 +228,27 @@ extern void usbd_ep_stall_set(usbd_device *usbd_dev, uint8_t addr,
  */
 extern uint8_t usbd_ep_stall_get(usbd_device *usbd_dev, uint8_t addr);
 
-/** Set an Out endpoint to NAK
- * @param addr EP address
- * @param nak if nonzero, set NAK
+/** Set/clear an OUT endpoint's NAK (flow control) indication.
+ * @param addr Full EP address (with direction bit)
+ * @param nak if nonzero, set NAK, otherwise clear NAK
+ *
+ * @warning Calling usbd_ep_nak_set with nonzero @p nak is racy against
+ *          concurrent incoming data from the USB host.
+ *
+ * This function should only be called with a nonzero @p nak value either
+ * @li inside of an endpoint's read callback, @b before calling
+ *     @link usbd_ep_read_packet @endlink (i.e. when the endpoint will be
+ *     in NAK state due to having valid data in its buffer.)
+ * @li when other parts of the application or implemented USB protocol
+ *     guarantee that no data will arrive for the EP in the meantime.
+ *
+ * If this constraint is violated, the endpoint can end up in NAK state with
+ * data in its buffer.  This can cause an infinite callback loop because
+ * @link usbd_ep_read_packet @endlink will mistakenly assume there is no data
+ * to read, yet the USB hardware keeps signalling an interrupt.
+ *
+ * Calling usbd_ep_nak_set with a zero @p nak value does not have this issue
+ * and can be done freely.
  */
 extern void usbd_ep_nak_set(usbd_device *usbd_dev, uint8_t addr, uint8_t nak);
 
