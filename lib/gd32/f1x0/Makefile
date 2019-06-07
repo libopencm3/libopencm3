@@ -20,10 +20,8 @@
 LIBNAME		= libopencm3_gd32f1x0
 SRCLIBDIR	?= ../..
 
-PREFIX		?= arm-none-eabi
-
-CC		= $(PREFIX)-gcc
-AR		= $(PREFIX)-ar
+CC		= $(PREFIX)gcc
+AR		= $(PREFIX)ar
 TGT_CFLAGS	= -Os \
 		  -Wall -Wextra -Wimplicit-function-declaration \
 		  -Wredundant-decls -Wmissing-prototypes -Wstrict-prototypes \

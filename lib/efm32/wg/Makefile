@@ -24,10 +24,8 @@ SRCLIBDIR	?= ../..
 FAMILY		= EFM32WG
 
 FP_FLAGS        ?= -mfloat-abi=hard -mfpu=fpv4-sp-d16
-PREFIX		?= arm-none-eabi
-#PREFIX		?= arm-elf
-CC		= $(PREFIX)-gcc
-AR		= $(PREFIX)-ar
+CC		= $(PREFIX)gcc
+AR		= $(PREFIX)ar
 TGT_CFLAGS	= -Os \
 		  -Wall -Wextra -Wimplicit-function-declaration \
 		  -Wredundant-decls -Wmissing-prototypes -Wstrict-prototypes \

@@ -24,10 +24,8 @@ LIBNAME		= libopencm3_lpc43xx
 SRCLIBDIR	?= ../..
 
 FP_FLAGS	?= -mfloat-abi=hard -mfpu=fpv4-sp-d16
-PREFIX		?= arm-none-eabi
-
-CC		= $(PREFIX)-gcc
-AR		= $(PREFIX)-ar
+CC		= $(PREFIX)gcc
+AR		= $(PREFIX)ar
 TGT_CFLAGS	= -O2 \
 		  -Wall -Wextra -Wimplicit-function-declaration \
 		  -Wredundant-decls -Wmissing-prototypes -Wstrict-prototypes \

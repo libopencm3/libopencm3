@@ -17,8 +17,7 @@
 ## along with this library.  If not, see <http://www.gnu.org/licenses/>.
 ##
 
-PREFIX		?= arm-none-eabi
-#PREFIX		?= arm-elf
+PREFIX		?= arm-none-eabi-
 
 STYLECHECK      := scripts/checkpatch.pl
 STYLECHECKFLAGS := --no-tree -f --terse --mailback
@@ -69,7 +68,7 @@ LIB_DIRS:=$(wildcard $(addprefix lib/,$(TARGETS)))
 $(LIB_DIRS): $(IRQ_DEFN_FILES:=.genhdr)
 	$(Q)$(RM) .stamp_failure_$(subst /,_,$@)
 	@printf "  BUILD   $@\n";
-	$(Q)$(MAKE) --directory=$@ SRCLIBDIR="$(SRCLIBDIR)" || \
+	$(Q)$(MAKE) --directory=$@ SRCLIBDIR="$(SRCLIBDIR)" PREFIX="$(PREFIX)" || \
 		echo "Failure building: $@: code: $$?" > .stamp_failure_$(subst /,_,$@)
 
 lib: $(LIB_DIRS)

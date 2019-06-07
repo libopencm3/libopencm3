@@ -22,10 +22,8 @@ LIBNAME		= libopencm3_efm32tg
 SRCLIBDIR	?= ../..
 FAMILY		= EFM32TG
 
-PREFIX		?= arm-none-eabi
-#PREFIX		?= arm-elf
-CC		= $(PREFIX)-gcc
-AR		= $(PREFIX)-ar
+CC		= $(PREFIX)gcc
+AR		= $(PREFIX)ar
 TGT_CFLAGS	= -Os \
 		  -Wall -Wextra -Wimplicit-function-declaration \
 		  -Wredundant-decls -Wmissing-prototypes -Wstrict-prototypes \
