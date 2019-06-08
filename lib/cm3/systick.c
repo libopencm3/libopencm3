@@ -48,7 +48,7 @@
  *
  * @note The systick counter value might be undefined upon startup. To get
  * predictable behavior, it is a good idea to set or clear the counter after
- * set reload. @seealso systick_clear
+ * set reload. @sa systick_clear
  *
  * @param[in] value uint32_t. 24 bit reload value.
  */
