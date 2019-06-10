@@ -186,7 +186,7 @@ static inline uint32_t __cm_atomic_set(uint32_t *val)
  * @note It is safe to use this block inside normal code and in interrupt
  * routine.
  *
- * @example 1: Basic usage of atomic block
+ * Basic usage of atomic block
  *
  * @code
  * uint64_t value;		// This value is used somewhere in interrupt
@@ -198,7 +198,7 @@ static inline uint32_t __cm_atomic_set(uint32_t *val)
  * }					// interrupts is restored automatically
  * @endcode
  *
- * @example 2: Use of return inside block:
+ * Use of return inside block
  *
  * @code
  * uint64_t value;		// This value is used somewhere in interrupt
@@ -237,7 +237,7 @@ static inline uint32_t __cm_atomic_set(uint32_t *val)
  * @note It is safe to use this block inside normal code and in interrupt
  * routine.
  *
- * @example 1: Basic usage of atomic context
+ * Basic usage of atomic context
  *
  * @code
  * uint64_t value;		// This value is used somewhere in interrupt
@@ -253,7 +253,7 @@ static inline uint32_t __cm_atomic_set(uint32_t *val)
  * }					// interrupts is restored automatically
  * @endcode
  *
- * @example 2: Usage of atomic context inside atomic reader fcn.
+ * Usage of atomic context inside atomic reader fcn.
  *
  * @code
  * uint64_t value;		// This value is used somewhere in interrupt
