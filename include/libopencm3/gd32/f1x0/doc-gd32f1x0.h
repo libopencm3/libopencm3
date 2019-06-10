@@ -1,4 +1,4 @@
-/** @mainpage libopencm3 GD32F1x0
+/** @page libopencm3 GD32F1x0
 
 @version 1.0.0
 

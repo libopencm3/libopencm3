@@ -1,4 +1,4 @@
-/** @mainpage libopencm3 SWM050
+/** @page libopencm3 SWM050
 
 @version 1.0.0
 

@@ -1,4 +1,4 @@
-/** @mainpage libopencm3 LPC43xx
+/** @page libopencm3 LPC43xx
 
 @version 1.0.0
 

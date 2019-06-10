@@ -1,4 +1,4 @@
-/** @mainpage libopencm3 MSP432E4
+/** @page libopencm3 MSP432E4
 
 @version 1.0.0
 

@@ -1,4 +1,4 @@
-/** @mainpage libopencm3 STM32G0
+/** @page libopencm3 STM32G0
 
 @version 1.0.0
 

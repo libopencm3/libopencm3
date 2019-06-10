@@ -1,4 +1,4 @@
-/** @mainpage libopencm3 EFM32 Leopard Gecko
+/** @page libopencm3 EFM32 Leopard Gecko
 
 @version 1.0.0
 
