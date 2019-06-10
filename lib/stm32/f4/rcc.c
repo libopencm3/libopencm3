@@ -1,6 +1,6 @@
-/** @defgroup rcc_file RCC
+/** @defgroup rcc_file RCC Peripheral API
  *
- * @ingroup STM32F4xx
+ * @ingroup peripheral_apis
  *
  * @section rcc_f4_api_ex Reset and Clock Control API.
  *

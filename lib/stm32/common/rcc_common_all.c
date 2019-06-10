@@ -1,3 +1,6 @@
+/** @addtogroup rcc_file RCC peripheral API
+ * @ingroup peripheral_apis
+ */
 /*
  * This file is part of the libopencm3 project.
  *
