@@ -1,4 +1,4 @@
-/** @addtogroup timer_file Timer peripheral API
+/** @addtogroup timer_file TIMER peripheral API
 @ingroup peripheral_apis
 
 @author @htmlonly &copy; @endhtmlonly 2010

@@ -1,4 +1,4 @@
-/** @defgroup pwr_file
+/** @defgroup pwr_file PWR peripheral API
  *
  * @ingroup peripheral_apis
  *

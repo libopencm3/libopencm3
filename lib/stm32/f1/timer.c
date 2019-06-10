@@ -1,4 +1,4 @@
-/** @defgroup timer_file
+/** @defgroup timer_file TIMER peripheral API
 @ingroup peripheral_apis
 @brief <b>libopencm3 STM32F1xx Timers</b>
 

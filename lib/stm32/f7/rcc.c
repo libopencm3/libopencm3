@@ -1,4 +1,4 @@
-/** @defgroup rcc_file RCC Peripheral API
+/** @defgroup rcc_file RCC peripheral API
  *
  * @ingroup peripheral_apis
  * This library supports the Reset and Clock Control System in the STM32 series

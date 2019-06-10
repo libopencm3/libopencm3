@@ -1,4 +1,4 @@
-/** @defgroup rtc_file
+/** @defgroup rtc_file RTC peripheral API
  *
  * @ingroup peripheral_apis
  *
