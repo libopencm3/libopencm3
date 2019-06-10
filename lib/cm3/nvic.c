@@ -51,7 +51,7 @@
  *
  * Enables a user interrupt.
  *
- * @param[in] irqn Unsigned int8. Interrupt number @ref nvic_stm32f1_userint
+ * @param[in] irqn Unsigned int8. Interrupt number @ref CM3_nvic_defines_irqs
  */
 
 void nvic_enable_irq(uint8_t irqn)
@@ -64,7 +64,7 @@ void nvic_enable_irq(uint8_t irqn)
  *
  * Disables a user interrupt.
  *
- * @param[in] irqn Unsigned int8. Interrupt number @ref nvic_stm32f1_userint
+ * @param[in] irqn Unsigned int8. Interrupt number @ref CM3_nvic_defines_irqs
  */
 
 void nvic_disable_irq(uint8_t irqn)
@@ -77,7 +77,7 @@ void nvic_disable_irq(uint8_t irqn)
  *
  * True if the interrupt has occurred and is waiting for service.
  *
- * @param[in] irqn Unsigned int8. Interrupt number @ref nvic_stm32f1_userint
+ * @param[in] irqn Unsigned int8. Interrupt number @ref CM3_nvic_defines_irqs
  * @return Boolean. Interrupt pending.
  */
 
@@ -92,7 +92,7 @@ uint8_t nvic_get_pending_irq(uint8_t irqn)
  * Force a user interrupt to a pending state. This has no effect if the
  * interrupt is already pending.
  *
- * @param[in] irqn Unsigned int8. Interrupt number @ref nvic_stm32f1_userint
+ * @param[in] irqn Unsigned int8. Interrupt number @ref CM3_nvic_defines_irqs
  */
 
 void nvic_set_pending_irq(uint8_t irqn)
@@ -106,7 +106,7 @@ void nvic_set_pending_irq(uint8_t irqn)
  * Force remove a user interrupt from a pending state. This has no effect if
  * the interrupt is actively being serviced.
  *
- * @param[in] irqn Unsigned int8. Interrupt number @ref nvic_stm32f1_userint
+ * @param[in] irqn Unsigned int8. Interrupt number @ref CM3_nvic_defines_irqs
  */
 
 void nvic_clear_pending_irq(uint8_t irqn)
@@ -119,7 +119,7 @@ void nvic_clear_pending_irq(uint8_t irqn)
 /*---------------------------------------------------------------------------*/
 /** @brief NVIC Return Enabled Interrupt
  *
- * @param[in] irqn Unsigned int8. Interrupt number @ref nvic_stm32f1_userint
+ * @param[in] irqn Unsigned int8. Interrupt number @ref CM3_nvic_defines_irqs
  * @return Boolean. Interrupt enabled.
  */
 
@@ -144,7 +144,7 @@ uint8_t nvic_get_irq_enabled(uint8_t irqn)
  * There are 4 priority levels only, given by the upper two bits of the
  * priority byte, as required by ARM standards. No grouping available.
  *
- * @param[in] irqn Unsigned int8. Interrupt number @ref nvic_stm32f1_userint
+ * @param[in] irqn Unsigned int8. Interrupt number @ref CM3_nvic_defines_irqs
  * @param[in] priority Unsigned int8. Interrupt priority (0 ... 255 in steps of
  * 16)
  */
@@ -170,7 +170,7 @@ void nvic_set_priority(uint8_t irqn, uint8_t priority)
  *
  * Interrupt has occurred and is currently being serviced.
  *
- * @param[in] irqn Unsigned int8. Interrupt number @ref nvic_stm32f1_userint
+ * @param[in] irqn Unsigned int8. Interrupt number @ref CM3_nvic_defines_irqs
  * @return Boolean. Interrupt active.
  */
 

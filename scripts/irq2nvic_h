@@ -42,7 +42,7 @@ template_nvic_h = '''\
 
 #include <libopencm3/cm3/nvic.h>
 
-/** @defgroup CM3_nvic_defines_{partname_doxygen} User interrupts for {partname_humanreadable}
+/** @defgroup CM3_nvic_defines_irqs User interrupts for {partname_humanreadable}
     @ingroup CM3_nvic_defines
 
     @{{*/
