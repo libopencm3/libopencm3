@@ -43,3 +43,4 @@ void flash_clear_eop_flag(void)
 	FLASH_SR |= FLASH_SR_EOP;
 }
 
+/**@}*/
