@@ -39,7 +39,6 @@ specific memorymap.h header before including this header file.*/
 
 
 /** @defgroup usart_reg_base USART register base addresses
- * @ingroup STM32F_usart_defines
  * Holds all the U(S)ART peripherals supported.
  * @{
  */

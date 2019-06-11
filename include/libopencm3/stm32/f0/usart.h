@@ -34,10 +34,16 @@
 #include <libopencm3/stm32/common/usart_common_all.h>
 #include <libopencm3/stm32/common/usart_common_v2.h>
 
+/**@{*/
+
 /*****************************************************************************/
 /* Module definitions                                                        */
 /*****************************************************************************/
 
+/** @defgroup usart_reg_base USART register base addresses
+ * Holds all the U(S)ART peripherals supported.
+ * @{
+ */
 #define USART1				USART1_BASE
 #define USART2				USART2_BASE
 #define USART3				USART3_BASE
@@ -46,6 +52,7 @@
 #define USART6				USART6_BASE
 #define USART7				USART7_BASE
 #define USART8				USART8_BASE
+/**@}*/
 
 /*****************************************************************************/
 /* Register values                                                           */
@@ -58,6 +65,8 @@
 BEGIN_DECLS
 
 END_DECLS
+
+/**@}*/
 
 #endif
 

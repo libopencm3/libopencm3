@@ -34,9 +34,9 @@
 #include <libopencm3/stm32/common/usart_common_all.h>
 #include <libopencm3/stm32/common/usart_common_v2.h>
 
+/**@{*/
 
 /** @defgroup usart_reg_base USART register base addresses
- * @ingroup STM32F_usart_defines
  * Holds all the U(S)ART peripherals supported.
  * @{
  */
@@ -50,6 +50,8 @@
 BEGIN_DECLS
 
 END_DECLS
+
+/**@}*/
 
 #endif
 
