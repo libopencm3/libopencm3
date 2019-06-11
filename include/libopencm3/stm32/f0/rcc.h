@@ -137,14 +137,19 @@ Control</b>
 
 #define RCC_CFGR_PPRE_SHIFT			8
 #define RCC_CFGR_PPRE				(7 << RCC_CFGR_PPRE_SHIFT)
+/** @defgroup rcc_cfgr_apb1pre RCC_CFGR APB prescale Factors
+@{*/
 #define RCC_CFGR_PPRE_NODIV			(0 << RCC_CFGR_PPRE_SHIFT)
 #define RCC_CFGR_PPRE_DIV2			(4 << RCC_CFGR_PPRE_SHIFT)
 #define RCC_CFGR_PPRE_DIV4			(5 << RCC_CFGR_PPRE_SHIFT)
 #define RCC_CFGR_PPRE_DIV8			(6 << RCC_CFGR_PPRE_SHIFT)
 #define RCC_CFGR_PPRE_DIV16			(7 << RCC_CFGR_PPRE_SHIFT)
+/**@}*/
 
 #define RCC_CFGR_HPRE_SHIFT			4
 #define RCC_CFGR_HPRE				(0xf << RCC_CFGR_HPRE_SHIFT)
+/** @defgroup rcc_cfgr_ahbpre RCC_CFGR AHB prescale Factors
+@{*/
 #define RCC_CFGR_HPRE_NODIV			(0x0 << RCC_CFGR_HPRE_SHIFT)
 #define RCC_CFGR_HPRE_DIV2			(0x8 << RCC_CFGR_HPRE_SHIFT)
 #define RCC_CFGR_HPRE_DIV4			(0x9 << RCC_CFGR_HPRE_SHIFT)
@@ -154,6 +159,7 @@ Control</b>
 #define RCC_CFGR_HPRE_DIV128			(0xd << RCC_CFGR_HPRE_SHIFT)
 #define RCC_CFGR_HPRE_DIV256			(0xe << RCC_CFGR_HPRE_SHIFT)
 #define RCC_CFGR_HPRE_DIV512			(0xf << RCC_CFGR_HPRE_SHIFT)
+/**@}*/
 
 #define RCC_CFGR_SWS_SHIFT			2
 #define RCC_CFGR_SWS				(3 << RCC_CFGR_SWS_SHIFT)

@@ -467,7 +467,7 @@ void rcc_set_pllxtpre(uint32_t pllxtpre)
 /*---------------------------------------------------------------------------*/
 /** @brief RCC Set the APB Prescale Factor.
  *
- * @param[in] ppre1 Unsigned int32. APB prescale factor @ref rcc_cfgr_apb1pre
+ * @param[in] ppre Unsigned int32. APB prescale factor @ref rcc_cfgr_apb1pre
  */
 
 void rcc_set_ppre(uint32_t ppre)
