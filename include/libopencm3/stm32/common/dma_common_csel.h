@@ -43,6 +43,8 @@ specific memorymap.h header before including this header file.*/
 
 BEGIN_DECLS
 
+void dma_set_channel_request(uint32_t dma, uint8_t channel, uint8_t request);
+
 END_DECLS
 
 /** @cond */
