@@ -1,3 +1,4 @@
+/** @addtogroup exti_defines */
 #pragma once
 
 /*
@@ -25,12 +26,21 @@
 
 /* --- EXTI registers ------------------------------------------------------ */
 
+/** @defgroup exti_registers EXTI Registers
+@{*/
+/** EXTI Interrupt Mask Registers */
 #define EXTI_IMR			MMIO32(EXTI_BASE + 0x00)
+/** EXTI Event Mask Register */
 #define EXTI_EMR			MMIO32(EXTI_BASE + 0x04)
+/** EXTI Rising Trigger Selection Register */
 #define EXTI_RTSR			MMIO32(EXTI_BASE + 0x08)
+/** EXTI Falling Triger Selection Register */
 #define EXTI_FTSR			MMIO32(EXTI_BASE + 0x0c)
+/** EXTI Software Interrupt Event Register */
 #define EXTI_SWIER			MMIO32(EXTI_BASE + 0x10)
+/** EXTI Pending Register */
 #define EXTI_PR				MMIO32(EXTI_BASE + 0x14)
+/**@}*/
 
 BEGIN_DECLS
 
@@ -38,6 +48,7 @@ END_DECLS
 
 /**@}*/
 
+/** @cond */
 #else
 #warning "exti_common_v1.h should not be included directly, only via exti.h"
 #endif
