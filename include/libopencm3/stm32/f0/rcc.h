@@ -195,8 +195,8 @@ Control</b>
 #define RCC_CIR_LSERDYF				(1 << 1)
 #define RCC_CIR_LSIRDYF				(1 << 0)
 
-/* --- RCC_APB2RSTR values ------------------------------------------------- */
-
+/** @defgroup rcc_apb2rstr_rst RCC_APB2RSTR reset values
+@{*/
 #define RCC_APB2RSTR_DBGMCURST			(1 << 22)
 #define RCC_APB2RSTR_TIM17RST			(1 << 18)
 #define RCC_APB2RSTR_TIM16RST			(1 << 17)
@@ -209,9 +209,11 @@ Control</b>
 #define RCC_APB2RSTR_USART7RST			(1 << 6)
 #define RCC_APB2RSTR_USART6RST			(1 << 5)
 #define RCC_APB2RSTR_SYSCFGRST			(1 << 0)
+/**@}*/
 
-/* --- RCC_APB1RSTR values ------------------------------------------------- */
 
+/** @defgroup rcc_apb1rstr_rst RCC_APB1RSTR reset values
+@{*/
 #define RCC_APB1RSTR_CECRST			(1 << 30)
 #define RCC_APB1RSTR_DACRST			(1 << 29)
 #define RCC_APB1RSTR_PWRRST			(1 << 28)
@@ -231,9 +233,10 @@ Control</b>
 #define RCC_APB1RSTR_TIM6RST			(1 << 4)
 #define RCC_APB1RSTR_TIM3RST			(1 << 1)
 #define RCC_APB1RSTR_TIM2RST			(1 << 0)
+/**@}*/
 
-/* --- RCC_AHBENR values --------------------------------------------------- */
-
+/** @defgroup rcc_ahbenr_en RCC_APHBENR enable values
+@{*/
 #define RCC_AHBENR_TSCEN			(1 << 24)
 #define RCC_AHBENR_GPIOFEN			(1 << 22)
 #define RCC_AHBENR_GPIOEEN			(1 << 21)
@@ -247,9 +250,10 @@ Control</b>
 #define RCC_AHBENR_DMA2EN			(1 << 1)
 #define RCC_AHBENR_DMA1EN			(1 << 0)
 #define RCC_AHBENR_DMAEN			RCC_AHBENR_DMA1EN /* compatibility alias */
+/**@}*/
 
-/* --- RCC_APB2ENR values -------------------------------------------------- */
-
+/** @defgroup rcc_apb2enr_en RCC_APPB2ENR enable values
+@{*/
 #define RCC_APB2ENR_DBGMCUEN			(1 << 22)
 #define RCC_APB2ENR_TIM17EN			(1 << 18)
 #define RCC_APB2ENR_TIM16EN			(1 << 17)
@@ -262,9 +266,10 @@ Control</b>
 #define RCC_APB2ENR_USART7EN			(1 << 6)
 #define RCC_APB2ENR_USART6EN			(1 << 5)
 #define RCC_APB2ENR_SYSCFGCOMPEN		(1 << 0)
+/**@}*/
 
-/* --- RCC_APB1ENR values -------------------------------------------------- */
-
+/** @defgroup rcc_apb1enr_en RCC_APB1ENR enable values
+@{*/
 #define RCC_APB1ENR_CECEN			(1 << 30)
 #define RCC_APB1ENR_DACEN			(1 << 29)
 #define RCC_APB1ENR_PWREN			(1 << 28)
@@ -284,6 +289,7 @@ Control</b>
 #define RCC_APB1ENR_TIM6EN			(1 << 4)
 #define RCC_APB1ENR_TIM3EN			(1 << 1)
 #define RCC_APB1ENR_TIM2EN			(1 << 0)
+/**@}*/
 
 /* --- RCC_BDCR values ----------------------------------------------------- */
 
@@ -322,8 +328,8 @@ Control</b>
 #define RCC_CSR_LSIRDY				(1 << 1)
 #define RCC_CSR_LSION				(1 << 0)
 
-/* --- RCC_AHBRSTR values -------------------------------------------------- */
-
+/** @defgroup rcc_ahbrstr_rst RCC_AHBRSTR reset values
+@{*/
 #define RCC_AHBRSTR_TSCRST			(1 << 24)
 #define RCC_AHBRSTR_IOPFRST			(1 << 22)
 #define RCC_AHBRSTR_IOPERST			(1 << 21)
@@ -331,6 +337,7 @@ Control</b>
 #define RCC_AHBRSTR_IOPCRST			(1 << 19)
 #define RCC_AHBRSTR_IOPBRST			(1 << 18)
 #define RCC_AHBRSTR_IOPARST			(1 << 17)
+/**@}*/
 
 
 /* --- RCC_CFGR2 values ---------------------------------------------------- */
