@@ -117,7 +117,7 @@ void adc_disable_discontinuous_mode(uint32_t adc)
  * @par
  *
  * @param[in] adc Unsigned int32. ADC base address (@ref adc_reg_base)
- * @param[in] adc ::adc_opmode. ADC operation mode (@ref adc_opmode)
+ * @param[in] opmode ADC operation mode
  */
 
 void adc_set_operation_mode(uint32_t adc, enum adc_opmode opmode)
