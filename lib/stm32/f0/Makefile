@@ -39,7 +39,8 @@ OBJS		= can.o flash.o rcc.o comparator.o \
 
 OBJS            += gpio_common_all.o gpio_common_f0234.o crc_common_all.o crc_v2.o \
                    pwr_common_v1.o iwdg_common_all.o rtc_common_l1f024.o \
-                   dma_common_l1f013.o exti_common_all.o \
+                   dma_common_l1f013.o dma_common_csel.o \
+                   exti_common_all.o \
                    dac_common_all.o \
                    timer_common_all.o timer_common_f0234.o rcc_common_all.o
 
