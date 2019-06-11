@@ -43,6 +43,8 @@ specific memorymap.h header before including this header file.*/
 /* Register definitions                                                      */
 /*****************************************************************************/
 
+/**@defgroup crc_registers CRC Registers
+ @{*/
 /** CRC_DR Data register */
 #define CRC_DR				MMIO32(CRC_BASE + 0x00)
 
@@ -51,6 +53,7 @@ specific memorymap.h header before including this header file.*/
 
 /** CRC_CR Control register */
 #define CRC_CR				MMIO32(CRC_BASE + 0x08)
+/*@}*/
 
 /*****************************************************************************/
 /* Register values                                                           */
