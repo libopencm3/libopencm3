@@ -40,6 +40,7 @@ void st_usbfs_set_address(usbd_device *dev, uint8_t addr)
 /**
  * Set the receive buffer size for a given USB endpoint.
  *
+ * @param dev the usb device handle returned from @ref usbd_init
  * @param ep Index of endpoint to configure.
  * @param size Size in bytes of the RX buffer. Legal sizes : {2,4,6...62}; {64,96,128...992}.
  * @returns (uint16) Actual size set

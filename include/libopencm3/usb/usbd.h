@@ -139,8 +139,10 @@ typedef void (*usbd_endpoint_callback)(usbd_device *usbd_dev, uint8_t ep);
  * config callback. The specified callback will be called if
  * (type == (bmRequestType & type_mask)).
  * @sa usbd_register_set_config_callback
+ * @param usbd_dev the usb device handle returned from @ref usbd_init
  * @param type Handled request type
  * @param type_mask Mask to apply before matching request type
+ * @param callback your desired callback function
  * @return 0 if successful
  */
 extern int usbd_register_control_callback(usbd_device *usbd_dev, uint8_t type,
@@ -149,12 +151,17 @@ extern int usbd_register_control_callback(usbd_device *usbd_dev, uint8_t type,
 
 /* <usb_standard.c> */
 /** Registers a "Set Config" callback
+ * @param usbd_dev the usb device handle returned from @ref usbd_init
+ * @param callback your desired callback function
  * @return 0 if successful or already existed.
  * @return -1 if no more space was available for callbacks.
  */
 extern int usbd_register_set_config_callback(usbd_device *usbd_dev,
 					  usbd_set_config_callback callback);
-/** Registers a "Set Interface" (alternate setting) callback */
+/** Registers a "Set Interface" (alternate setting) callback
+ * @param usbd_dev the usb device handle returned from @ref usbd_init
+ * @param callback your desired callback function
+ */
 extern void usbd_register_set_altsetting_callback(usbd_device *usbd_dev,
 					usbd_set_altsetting_callback callback);
 
@@ -166,12 +173,17 @@ extern void usbd_poll(usbd_device *usbd_dev);
  * This function is implemented as weak function and can be replaced by an
  * application specific version to handle chips that don't have built-in
  * handling for this (e.g. STM32F1.)
+ * @param usbd_dev the usb device handle returned from @ref usbd_init
+ * @param disconnected true to request a disconnect
  */
 extern void usbd_disconnect(usbd_device *usbd_dev, bool disconnected);
 
 /** Setup an endpoint
+ * @param usbd_dev the usb device handle returned from @ref usbd_init
  * @param addr Full EP address including direction (e.g. 0x01 or 0x81)
  * @param type Value for bmAttributes (USB_ENDPOINT_ATTR_*)
+ * @param max_size Endpoint max size
+ * @param callback your desired callback function
  * @note The stack only supports 8 endpoints, 0..7, so don't try
  * and use arbitrary addresses here, even though USB itself would allow this.
  * Not all backends support arbitrary addressing anyway.
@@ -180,7 +192,9 @@ extern void usbd_ep_setup(usbd_device *usbd_dev, uint8_t addr, uint8_t type,
 		uint16_t max_size, usbd_endpoint_callback callback);
 
 /** Write a packet
+ * @param usbd_dev the usb device handle returned from @ref usbd_init
  * @param addr EP address (direction is ignored)
+ * @param buf pointer to user data to write
  * @param len # of bytes
  * @return 0 if failed, len if successful
  */
@@ -188,13 +202,16 @@ extern uint16_t usbd_ep_write_packet(usbd_device *usbd_dev, uint8_t addr,
 				const void *buf, uint16_t len);
 
 /** Read a packet
+ * @param usbd_dev the usb device handle returned from @ref usbd_init
  * @param addr EP address
+ * @param buf user buffer that will receive data
  * @param len # of bytes
  * @return Actual # of bytes read
  */
 extern uint16_t usbd_ep_read_packet(usbd_device *usbd_dev, uint8_t addr,
 			       void *buf, uint16_t len);
 /** Set/clear STALL condition on an endpoint
+ * @param usbd_dev the usb device handle returned from @ref usbd_init
  * @param addr Full EP address (with direction bit)
  * @param stall if 0, clear STALL, else set stall.
  */
@@ -202,12 +219,14 @@ extern void usbd_ep_stall_set(usbd_device *usbd_dev, uint8_t addr,
 			      uint8_t stall);
 
 /** Get STALL status of an endpoint
+ * @param usbd_dev the usb device handle returned from @ref usbd_init
  * @param addr Full EP address (with direction bit)
  * @return nonzero if endpoint is stalled
  */
 extern uint8_t usbd_ep_stall_get(usbd_device *usbd_dev, uint8_t addr);
 
 /** Set an Out endpoint to NAK
+ * @param usbd_dev the usb device handle returned from @ref usbd_init
  * @param addr EP address
  * @param nak if nonzero, set NAK
  */
