@@ -382,7 +382,7 @@ void rcc_enable_pllr(bool enable)
 
 /**
  * @brief Configure APB peripheral clock prescaler
- * @param[in] APB clock prescaler value @ref rcc_cfgr_ppre
+ * @param[in] ppre APB clock prescaler value @ref rcc_cfgr_ppre
  */
 void rcc_set_ppre(uint32_t ppre)
 {
@@ -395,7 +395,7 @@ void rcc_set_ppre(uint32_t ppre)
 
 /**
  * @brief Configure AHB peripheral clock prescaler
- * @param[in] AHB clock prescaler value @ref rcc_cfgr_hpre
+ * @param[in] hpre AHB clock prescaler value @ref rcc_cfgr_hpre
  */
 void rcc_set_hpre(uint32_t hpre)
 {
@@ -408,7 +408,7 @@ void rcc_set_hpre(uint32_t hpre)
 
 /**
  * @brief Configure HSI16 clock division factor to feed SYSCLK
- * @param[in] HSYSSIS clock division factor @ref rcc_cr_hsidiv
+ * @param[in] hsidiv HSYSSIS clock division factor @ref rcc_cr_hsidiv
  */
 void rcc_set_hsisys_div(uint32_t hsidiv)
 {
@@ -421,7 +421,7 @@ void rcc_set_hsisys_div(uint32_t hsidiv)
 
 /**
  * @brief Configure mco prescaler.
- * @param[in] mcore prescaler value @ref rcc_cfgr_mcopre
+ * @param[in] mcopre prescaler value @ref rcc_cfgr_mcopre
  */
 void rcc_set_mcopre(uint32_t mcopre)
 {
@@ -434,7 +434,7 @@ void rcc_set_mcopre(uint32_t mcopre)
 
 /**
  * @brief Setup sysclock with desired source (HSE/HSI/PLL/LSE/LSI). taking care of flash/pwr and src configuration
- * @param rcc_clock_scale with desired parameters
+ * @param clock rcc_clock_scale with desired parameters
  */
 void rcc_clock_setup(const struct rcc_clock_scale *clock)
 {	
@@ -497,6 +497,7 @@ void rcc_set_rng_clk_div(uint32_t rng_div)
 
 /**
  * @brief Set the peripheral clock source
+ * @param periph peripheral of choice, eg XXX_BASE
  * @param sel periphral clock source
  */
 void rcc_set_peripheral_clk_sel(uint32_t periph, uint32_t sel)
