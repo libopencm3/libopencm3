@@ -142,14 +142,17 @@
 #define RCC_CFGR_MCO_SHIFT			24
 #define RCC_CFGR_MCO_MASK			0xf
 
-/* PLL Output division selection */
+/** @defgroup rcc_cfgr_pdf PLLDIV PLL division factor
+ @{*/
 #define RCC_CFGR_PLLDIV_DIV2	0x1
 #define RCC_CFGR_PLLDIV_DIV3	0x2
 #define RCC_CFGR_PLLDIV_DIV4	0x3
+/**@}*/
 #define RCC_CFGR_PLLDIV_SHIFT	22
 #define RCC_CFGR_PLLDIV_MASK	0x3
 
-/* PLLMUL: PLL multiplication factor */
+/** @defgroup rcc_cfgr_pmf PLLMUL PLL multiplication factor
+ @{*/
 #define RCC_CFGR_PLLMUL_MUL3		0x0
 #define RCC_CFGR_PLLMUL_MUL4		0x1
 #define RCC_CFGR_PLLMUL_MUL6		0x2
@@ -159,6 +162,7 @@
 #define RCC_CFGR_PLLMUL_MUL24		0x6
 #define RCC_CFGR_PLLMUL_MUL32		0x7
 #define RCC_CFGR_PLLMUL_MUL48		0x8
+/**@}*/
 #define RCC_CFGR_PLLMUL_SHIFT		18
 #define RCC_CFGR_PLLMUL_MASK		0xf
 

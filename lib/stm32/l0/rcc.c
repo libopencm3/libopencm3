@@ -309,7 +309,7 @@ void rcc_set_sysclk_source(enum rcc_osc osc)
  *
  * @note This only has effect when the PLL is disabled.
  *
- * @param[in] mul Unsigned int32. PLL multiplication factor @ref rcc_cfgr_pmf
+ * @param[in] factor PLL multiplication factor @ref rcc_cfgr_pmf
  */
 
 void rcc_set_pll_multiplier(uint32_t factor)
@@ -325,7 +325,7 @@ void rcc_set_pll_multiplier(uint32_t factor)
  *
  * @note This only has effect when the PLL is disabled.
  *
- * @param[in] mul Unsigned int32. PLL multiplication factor @ref rcc_cfgr_pdf
+ * @param[in] factor PLL multiplication factor @ref rcc_cfgr_pdf
  */
 
 void rcc_set_pll_divider(uint32_t factor)
@@ -353,7 +353,7 @@ void rcc_set_pll_source(uint32_t pllsrc)
  *
  * @note The APB1 clock frequency must not exceed 32MHz.
  *
- * @param[in] ppre1 Unsigned int32. APB prescale factor @ref rcc_cfgr_apb1pre
+ * @param[in] ppre APB prescale factor @ref rcc_cfgr_apb1pre
  */
 
 void rcc_set_ppre1(uint32_t ppre)
@@ -368,7 +368,7 @@ void rcc_set_ppre1(uint32_t ppre)
  *
  * @note The APB2 clock frequency must not exceed 32MHz.
  *
- * @param[in] ppre1 Unsigned int32. APB prescale factor @ref rcc_cfgr_apb2pre
+ * @param[in] ppre APB prescale factor @ref rcc_cfgr_apb2pre
  */
 
 void rcc_set_ppre2(uint32_t ppre)
@@ -393,7 +393,7 @@ void rcc_set_hpre(uint32_t hpre)
 /*---------------------------------------------------------------------------*/
 /** @brief Set the range of the MSI oscillator
 *
- * @param range desired range @ref rcc_icscr_msirange
+ * @param msi_range desired range @ref rcc_icscr_msirange
  */
 void rcc_set_msi_range(uint32_t msi_range)
 {
@@ -448,8 +448,8 @@ void rcc_set_usart2_sel(uint32_t usart2_sel)
 
 /*---------------------------------------------------------------------------*/
 /** @brief Set the peripheral clock source
-*
- * @param sel periphral clock source
+ * @param periph peripheral of desire, eg XXX_BASE
+ * @param sel peripheral clock source
  */
 void rcc_set_peripheral_clk_sel(uint32_t periph, uint32_t sel)
 {
