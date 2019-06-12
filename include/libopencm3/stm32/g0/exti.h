@@ -75,9 +75,11 @@ void exti_reset_rising_request(uint32_t extis);
 void exti_reset_falling_request(uint32_t extis);
 
 END_DECLS
-/**@}*/
 
 #else
+/** @cond */
 #warning "exti_common_v1.h should not be included directly, only via exti.h"
 #endif
 /** @endcond */
+
+/**@}*/

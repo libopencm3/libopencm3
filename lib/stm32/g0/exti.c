@@ -1,4 +1,5 @@
-/** @addtogroup exti_file
+/** @defgroup exti_file EXTI peripheral API
+ * @ingroup peripheral_apis
  *
  * @author @htmlonly &copy; @endhtmlonly 2019 Guillaume Revaillot <g.revaillot@gmail.com>
  *
