@@ -289,9 +289,7 @@
 #define RCC_CICR_LSERDYC			(1 << 1)
 #define RCC_CICR_LSIRDYC			(1 << 0)
 
-/* --- RCC_AHBRSTR values ------------------------------------------------- */
-
-/** @defgroup rcc_ahbenr_en RCC_AHBRSTR reset values
+/** @defgroup rcc_ahbrstr_rst RCC_AHBRSTR reset values
 @{*/
 #define RCC_AHBRSTR_RNGRST			(1 << 18)
 #define RCC_AHBRSTR_AESRST			(1 << 16)
@@ -300,9 +298,9 @@
 #define RCC_AHBRSTR_DMARST			(1 << 0)
 /**@}*/
 
-/* --- RCC_APBRSTR1 values ------------------------------------------------- */
-
-/** @defgroup rcc_apbenr1_en RCC_APBRSTR1 reset values
+/** @defgroup rcc_apb1rstr_rst RCC_APBRSTRx reset values (full set)
+@{*/
+/** @defgroup rcc_apbrstr1_rst RCC_APBRSTR1 reset values
 @{*/
 #define RCC_APBRSTR1_LPTIM1RST			(1 << 31)
 #define RCC_APBRSTR1_LPTIM2RST			(1 << 30)
@@ -324,9 +322,7 @@
 #define RCC_APBRSTR1_TIM2RST			(1 << 0)
 /**@}*/
 
-/* --- RCC_APBRSTR2 values ------------------------------------------------- */
-
-/** @defgroup rcc_apbenr2_en RCC_APBRSTR2 reset values
+/** @defgroup rcc_apbrstr2_rst RCC_APBRSTR2 reset values
 @{*/
 #define RCC_APBRSTR2_ADCRST				(1 << 20)
 #define RCC_APBRSTR2_TIM17RST			(1 << 18)
@@ -339,10 +335,9 @@
 #define RCC_APBRSTR2_TIM1RST			(1 << 11)
 #define RCC_APBRSTR2_SYSCFGRST			(1 << 0)
 /**@}*/
+/**@}*/
 
-/* --- RCC_AHBENR values ------------------------------------------------- */
-
-/** @defgroup rcc_apbenr1_en RCC_AHBENR enable values
+/** @defgroup rcc_ahbenr_en RCC_AHBENR enable values
 @{*/
 #define RCC_AHBENR_RNGEN			(1 << 18)
 #define RCC_AHBENR_AESEN			(1 << 16)
@@ -351,8 +346,8 @@
 #define RCC_AHBENR_DMAEN			(1 << 0)
 /**@}*/
 
-/* --- RCC_APBENR1 values ------------------------------------------------- */
-
+/** @defgroup rcc_apb1enr_en RCC_APBENRx enable values (full set)
+@{*/
 /** @defgroup rcc_apbenr1_en RCC_APBENR1 enable values
 @{*/
 #define RCC_APBENR1_LPTIM1EN		(1 << 31)
@@ -378,8 +373,6 @@
 #define RCC_APBENR1_TIM2EN			(1 << 0)
 /**@}*/
 
-/* --- RCC_APBENR2 values ------------------------------------------------- */
-
 /** @defgroup rcc_apbenr2_en RCC_APBENR2 enable values
 @{*/
 #define RCC_APBENR2_ADCEN			(1 << 20)
@@ -392,6 +385,7 @@
 #define RCC_APBENR2_SPI1EN			(1 << 12)
 #define RCC_APBENR2_TIM1EN			(1 << 11)
 #define RCC_APBENR2_SYSCFGEN		(1 << 0)
+/**@}*/
 /**@}*/
 
 /* --- RCC_AHBSMENR values ------------------------------------------------- */
