@@ -262,17 +262,18 @@
 #define RCC_IOPPRSTR_IOPBRST			(1<<1)
 #define RCC_IOPPRSTR_IOPARST			(1<<0)
 
-/* --- RCC_AHBRSTR values ------------------------------------------------- */
-
+/** @defgroup rcc_ahbrstr_rst RCC_AHBRSTR reset values
+@{*/
 #define RCC_AHBRSTR_CRYPRST			(1 << 24)
 #define RCC_AHBRSTR_RNGRST			(1 << 20)
 #define RCC_AHBRSTR_TSCRST			(1 << 16)
 #define RCC_AHBRSTR_CRCRST			(1 << 12)
 #define RCC_AHBRSTR_MIFRST			(1 << 8)
 #define RCC_AHBRSTR_DMARST			(1 << 0)
+/**@}*/
 
-/* --- RCC_APB2RSTR values ------------------------------------------------- */
-
+/** @defgroup rcc_apb2rstr_rst RCC_APB2RSTR reset values
+@{*/
 #define RCC_APB2RSTR_DBGRST			(1 << 22)
 #define RCC_APB2RSTR_USART1RST			(1 << 14)
 #define RCC_APB2RSTR_SPI1RST			(1 << 12)
@@ -280,9 +281,10 @@
 #define RCC_APB2RSTR_TIM22RST			(1 << 5)
 #define RCC_APB2RSTR_TIM21RST			(1 << 2)
 #define RCC_APB2RSTR_SYSCFGRST			(1 << 0)
+/**@}*/
 
-/* --- RCC_APB1RSTR values ------------------------------------------------- */
-
+/** @defgroup rcc_apb1rstr_rst RCC_APB1RSTR reset values
+@{*/
 #define RCC_APB1RSTR_LPTIM1RST			(1 << 31)
 #define RCC_APB1RSTR_I2C3RST			(1 << 30)
 #define RCC_APB1RSTR_DACRST			(1 << 29)
@@ -302,6 +304,7 @@
 #define RCC_APB1RSTR_TIM6RST			(1 << 4)
 #define RCC_APB1RSTR_TIM3RST			(1 << 1)
 #define RCC_APB1RSTR_TIM2RST			(1 << 0)
+/**@}*/
 
 /* --- RCC_IOPENR - GPIO clock enable register */
 
@@ -312,11 +315,7 @@
 #define RCC_IOPENR_IOPBEN			(1<<1)
 #define RCC_IOPENR_IOPAEN			(1<<0)
 
-/* --- RCC_AHBENR values --------------------------------------------------- */
-
-/** @defgroup rcc_ahbenr_en RCC_AHBENR enable values
-@ingroup STM32L0xx_rcc_defines
-
+/** @defgroup rcc_ahbenr_en RCC_APHBENR enable values
 @{*/
 #define RCC_AHBENR_CRYPEN			(1 << 24)
 #define RCC_AHBENR_RNGEN			(1 << 20)
@@ -324,13 +323,9 @@
 #define RCC_AHBENR_CRCEN			(1 << 12)
 #define RCC_AHBENR_MIFEN			(1 << 8)
 #define RCC_AHBENR_DMAEN			(1 << 0)
-/*@}*/
+/**@}*/
 
-/* --- RCC_APB2ENR values -------------------------------------------------- */
-
-/** @defgroup rcc_apb2enr_en RCC_APB2ENR enable values
-@ingroup STM32L0xx_rcc_defines
-
+/** @defgroup rcc_apb2enr_en RCC_APPB2ENR enable values
 @{*/
 #define RCC_APB2ENR_DBGEN			(1 << 22)
 #define RCC_APB2ENR_USART1EN			(1 << 14)
@@ -340,13 +335,9 @@
 #define RCC_APB2ENR_TIM22EN			(1 << 5)
 #define RCC_APB2ENR_TIM21EN			(1 << 2)
 #define RCC_APB2ENR_SYSCFGEN			(1 << 0)
-/*@}*/
-
-/* --- RCC_APB1ENR values -------------------------------------------------- */
+/**@}*/
 
 /** @defgroup rcc_apb1enr_en RCC_APB1ENR enable values
-@ingroup STM32L0xx_rcc_defines
-
 @{*/
 #define RCC_APB1ENR_LPTIM1EN			(1 << 31)
 #define RCC_APB1ENR_DACEN			(1 << 29)
@@ -366,7 +357,7 @@
 #define RCC_APB1ENR_TIM6EN			(1 << 4)
 #define RCC_APB1ENR_TIM3EN			(1 << 1)
 #define RCC_APB1ENR_TIM2EN			(1 << 0)
-/*@}*/
+/**@}*/
 
 /* --- RCC_IOPSMENR - GPIO Clock enable in sleep mode */
 
