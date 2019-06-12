@@ -55,4 +55,5 @@ void flash_icache_reset(void)
 	FLASH_ACR |= FLASH_ACR_ICRST;
 }
 
+/**@}*/
 
