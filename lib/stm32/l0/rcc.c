@@ -105,7 +105,7 @@ void rcc_osc_off(enum rcc_osc osc)
  * Clear the interrupt flag that was set when a clock oscillator became ready
  * to use.
  *
- * @param[in] osc enum ::osc_t. Oscillator ID
+ * @param[in] osc Oscillator ID
  */
 void rcc_osc_ready_int_clear(enum rcc_osc osc)
 {
@@ -137,7 +137,7 @@ void rcc_osc_ready_int_clear(enum rcc_osc osc)
 /*---------------------------------------------------------------------------*/
 /** @brief RCC Enable the Oscillator Ready Interrupt
  *
- * @param[in] osc enum ::osc_t. Oscillator ID
+ * @param[in] osc Oscillator ID
  */
 void rcc_osc_ready_int_enable(enum rcc_osc osc)
 {
@@ -169,7 +169,7 @@ void rcc_osc_ready_int_enable(enum rcc_osc osc)
 /*---------------------------------------------------------------------------*/
 /** @brief RCC Disable the Oscillator Ready Interrupt
  *
- * @param[in] osc enum ::osc_t. Oscillator ID
+ * @param[in] osc Oscillator ID
  */
 void rcc_osc_ready_int_disable(enum rcc_osc osc)
 {
@@ -201,7 +201,7 @@ void rcc_osc_ready_int_disable(enum rcc_osc osc)
 /*---------------------------------------------------------------------------*/
 /** @brief RCC Read the Oscillator Ready Interrupt Flag
  *
- * @param[in] osc enum ::osc_t. Oscillator ID
+ * @param[in] osc Oscillator ID
  * @returns int. Boolean value for flag set.
  */
 int rcc_osc_ready_int_flag(enum rcc_osc osc)
@@ -279,8 +279,7 @@ void rcc_set_hsi48_source_pll(void)
 /*---------------------------------------------------------------------------*/
 /** @brief RCC Set the Source for the System Clock.
  *
- * @param[in] osc enum ::osc_t. Oscillator ID. Only HSE, HSI16, MSI and PLL have
- * effect.
+ * @param[in] osc Oscillator ID. Only HSE, HSI16, MSI and PLL have effect.
  */
 
 void rcc_set_sysclk_source(enum rcc_osc osc)

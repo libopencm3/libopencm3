@@ -64,7 +64,7 @@ uint32_t rcc_ahb_frequency = 8000000;
 Clear the interrupt flag that was set when a clock oscillator became ready to
 use.
 
-@param[in] osc enum ::osc_t. Oscillator ID
+@param[in] osc Oscillator ID
 */
 
 void rcc_osc_ready_int_clear(enum rcc_osc osc)
@@ -97,7 +97,7 @@ void rcc_osc_ready_int_clear(enum rcc_osc osc)
 /*---------------------------------------------------------------------------*/
 /** @brief RCC Enable the Oscillator Ready Interrupt
 
-@param[in] osc enum ::osc_t. Oscillator ID
+@param osc Oscillator ID
 */
 
 void rcc_osc_ready_int_enable(enum rcc_osc osc)
@@ -130,7 +130,7 @@ void rcc_osc_ready_int_enable(enum rcc_osc osc)
 /*---------------------------------------------------------------------------*/
 /** @brief RCC Disable the Oscillator Ready Interrupt
 
-@param[in] osc enum ::osc_t. Oscillator ID
+@param[in] osc Oscillator ID
 */
 
 void rcc_osc_ready_int_disable(enum rcc_osc osc)
@@ -163,7 +163,7 @@ void rcc_osc_ready_int_disable(enum rcc_osc osc)
 /*---------------------------------------------------------------------------*/
 /** @brief RCC Read the Oscillator Ready Interrupt Flag
 
-@param[in] osc enum ::osc_t. Oscillator ID
+@param[in] osc Oscillator ID
 @returns int. Boolean value for flag set.
 */
 
@@ -255,7 +255,7 @@ status flag is available to indicate when the oscillator becomes ready (see
 backup domain write protection has been removed (see @ref
 pwr_disable_backup_domain_write_protect).
 
-@param[in] osc enum ::osc_t. Oscillator ID
+@param[in] osc Oscillator ID
 */
 
 void rcc_osc_on(enum rcc_osc osc)
@@ -296,7 +296,7 @@ backup domain write protection has been removed (see
 @ref pwr_disable_backup_domain_write_protect) or the backup domain has been
 (see reset @ref rcc_backupdomain_reset).
 
-@param[in] osc enum ::osc_t. Oscillator ID
+@param[in] osc Oscillator ID
 */
 
 void rcc_osc_off(enum rcc_osc osc)
@@ -452,7 +452,7 @@ void rcc_enable_rtc_clock(void)
 /*---------------------------------------------------------------------------*/
 /** @brief RCC Set the Source for the RTC clock
 
-@param[in] clock_source ::rcc_osc. RTC clock source. Only HSE/128, LSE and LSI.
+@param[in] clock_source RTC clock source. Only HSE/128, LSE and LSI.
 */
 
 void rcc_set_rtc_clock_source(enum rcc_osc clock_source)
