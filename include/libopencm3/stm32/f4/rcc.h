@@ -282,12 +282,10 @@
 #define RCC_CIR_LSIRDYF				(1 << 0)
 /*@}*/
 
-/** @defgroup rcc_AxBY_reset_values AHB/APB reset bits
- * @ingroup rcc_registers
- * @brief Reset bits for the AHB/APB peripherals
+/** @defgroup rcc_ahbrstr_rst RCC_AHBxRSTR reset values (full set)
 @{*/
-/* --- RCC_AHB1RSTR values ------------------------------------------------- */
-
+/** @defgroup rcc_ahb1rstr_rst RCC_AHB1RSTR reset values
+@{*/
 #define RCC_AHB1RSTR_OTGHSRST			(1 << 29)
 #define RCC_AHB1RSTR_ETHMACRST			(1 << 25)
 #define RCC_AHB1RSTR_DMA2DRST			(1 << 23)
@@ -305,6 +303,7 @@
 #define RCC_AHB1RSTR_GPIOCRST			(1 << 2)
 #define RCC_AHB1RSTR_GPIOBRST			(1 << 1)
 #define RCC_AHB1RSTR_GPIOARST			(1 << 0)
+/**@}*/
 
 /** @addtogroup deprecated_201802_rcc Deprecated 2018
  * @deprecated replace zzz_IOPxRST with zzz_GPIOxRST
@@ -323,21 +322,24 @@
 #define RCC_AHB1RSTR_IOPARST	RCC_AHB1RSTR_GPIOARST
 /**@}*/
 
-/* --- RCC_AHB2RSTR values ------------------------------------------------- */
-
+/** @defgroup rcc_ahb2rstr_rst RCC_AHB2RSTR reset values
+@{*/
 #define RCC_AHB2RSTR_OTGFSRST			(1 << 7)
 #define RCC_AHB2RSTR_RNGRST			(1 << 6)
 #define RCC_AHB2RSTR_HASHRST			(1 << 5)
 #define RCC_AHB2RSTR_CRYPRST			(1 << 4)
 #define RCC_AHB2RSTR_DCMIRST			(1 << 0)
+/**@}*/
 
-/* --- RCC_AHB3RSTR values ------------------------------------------------- */
-
+/** @defgroup rcc_ahb3rstr_rst RCC_AHB3RSTR reset values
+@{*/
 #define RCC_AHB3RSTR_QSPIRST			(1 << 1)
 #define RCC_AHB3RSTR_FSMCRST			(1 << 0)
+/**@}*/
+/**@}*/
 
-/* --- RCC_APB1RSTR values ------------------------------------------------- */
-
+/** @defgroup rcc_apb1rstr_rst RCC_APB1RSTR reset values
+@{*/
 #define RCC_APB1RSTR_UART8RST			(1 << 31)
 #define RCC_APB1RSTR_UART7RST			(1 << 30)
 #define RCC_APB1RSTR_DACRST			(1 << 29)
@@ -363,9 +365,10 @@
 #define RCC_APB1RSTR_TIM4RST			(1 << 2)
 #define RCC_APB1RSTR_TIM3RST			(1 << 1)
 #define RCC_APB1RSTR_TIM2RST			(1 << 0)
+/**@}*/
 
-/* --- RCC_APB2RSTR values ------------------------------------------------- */
-
+/** @defgroup rcc_apb2rstr_rst RCC_APB2RSTR reset values
+@{*/
 #define RCC_APB2RSTR_DSIRST			(1 << 27)
 #define RCC_APB2RSTR_LTDCRST			(1 << 26)
 #define RCC_APB2RSTR_SAI1RST			(1 << 22)
@@ -383,14 +386,12 @@
 #define RCC_APB2RSTR_USART1RST			(1 << 4)
 #define RCC_APB2RSTR_TIM8RST			(1 << 1)
 #define RCC_APB2RSTR_TIM1RST			(1 << 0)
-/*@}*/
+/**@}*/
 
-/** @defgroup rcc_AxBY_reset_values AHB/APB enable bits
- * @ingroup rcc_registers
- * @brief Enable bits for the AHB/APB peripherals
+/** @defgroup rcc_ahbenr_en RCC_AHBxENR enable values (full set)
 @{*/
-/* --- RCC_AHB1ENR values ------------------------------------------------- */
-
+/** @defgroup rcc_ahb1enr_en RCC_AHB1ENR enable values
+@{*/
 #define RCC_AHB1ENR_OTGHSULPIEN			(1 << 30)
 #define RCC_AHB1ENR_OTGHSEN			(1 << 29)
 #define RCC_AHB1ENR_ETHMACPTPEN			(1 << 28)
@@ -432,23 +433,26 @@
 #define RCC_AHB1ENR_IOPAEN	RCC_AHB1ENR_GPIOAEN
 /**@}*/
 
-/* --- RCC_AHB2ENR values ------------------------------------------------- */
-
+/** @defgroup rcc_ahb2enr_en RCC_AHB2ENR enable values
+@{*/
 #define RCC_AHB2ENR_OTGFSEN			(1 << 7)
 #define RCC_AHB2ENR_RNGEN			(1 << 6)
 #define RCC_AHB2ENR_HASHEN			(1 << 5)
 #define RCC_AHB2ENR_CRYPEN			(1 << 4)
 #define RCC_AHB2ENR_DCMIEN			(1 << 0)
+/**@}*/
 
-/* --- RCC_AHB3ENR values ------------------------------------------------- */
-
+/** @defgroup rcc_ahb3enr_en RCC_AHB3ENR enable values
+@{*/
 #define RCC_AHB3ENR_QSPIEN			(1 << 1)
 #define RCC_AHB3ENR_FSMCEN			(1 << 0)
 /* Alternate now that F429 has DRAM controller as well */
 #define RCC_AHB3ENR_FMCEN			(1 << 0)
+/**@}*/
+/**@}*/
 
-/* --- RCC_APB1ENR values ------------------------------------------------- */
-
+/** @defgroup rcc_apb1enr_en RCC_APB1ENR enable values
+@{*/
 #define RCC_APB1ENR_UART8EN			(1 << 31)
 #define RCC_APB1ENR_UART7EN			(1 << 30)
 #define RCC_APB1ENR_DACEN			(1 << 29)
@@ -474,9 +478,10 @@
 #define RCC_APB1ENR_TIM4EN			(1 << 2)
 #define RCC_APB1ENR_TIM3EN			(1 << 1)
 #define RCC_APB1ENR_TIM2EN			(1 << 0)
+/**@}*/
 
-/* --- RCC_APB2ENR values ------------------------------------------------- */
-
+/** @defgroup rcc_apb2enr_en RCC_APB2ENR enable values
+@{*/
 #define RCC_APB2ENR_DSIEN			(1 << 27)
 #define RCC_APB2ENR_LTDCEN			(1 << 26)
 #define RCC_APB2ENR_SAI1EN			(1 << 22)
@@ -496,6 +501,7 @@
 #define RCC_APB2ENR_USART1EN			(1 << 4)
 #define RCC_APB2ENR_TIM8EN			(1 << 1)
 #define RCC_APB2ENR_TIM1EN			(1 << 0)
+/**@}*/
 
 /* --- RCC_AHB1LPENR values ------------------------------------------------- */
 
