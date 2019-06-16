@@ -37,7 +37,9 @@ LGPL License Terms @ref lgpl_license
 
 #include <libopencm3/stm32/common/timer_common_all.h>
 
-/* Timer 2/21/22 option register (TIMx_OR) */
+/**@{*/
+
+/** Timer 2/21/22 option register (TIMx_OR) */
 
 #define TIM_OR(tim_base)		MMIO32((tim_base) + 0x50)
 #define TIM2_OR				TIM_OR(TIM2)
@@ -115,7 +117,6 @@ LGPL License Terms @ref lgpl_license
 #define LPTIM1_CNT			LPTIM_CNT(LPTIM1_BASE)
 
 /** @defgroup lptim_isr LPTIM_ISR Interrupt and Status Register
-* @ingroup timer_defines
 @{*/
 #define LPTIM_ISR_CMPM			(1 << 0)
 #define LPTIM_ISR_ARRM			(1 << 1)
@@ -127,7 +128,6 @@ LGPL License Terms @ref lgpl_license
 /**@}*/
 
 /** @defgroup lptim_icr LPTIM_ICR Interrupt Clear Register 
-* @ingroup timer_defines
 @{*/
 #define LPTIM_ICR_CMPMCF		(1 << 0)
 #define LPTIM_ICR_ARRMCF		(1 << 1)
@@ -139,7 +139,6 @@ LGPL License Terms @ref lgpl_license
 /**@}*/
 
 /** @defgroup lptim_ier LPTIM_IER Interrupt Enable Register
-* @ingroup timer_defines
 @{*/
 #define LPTIM_IER_CMPMIE		(1 << 0)
 #define LPTIM_IER_ARRMIE		(1 << 1)
@@ -151,7 +150,6 @@ LGPL License Terms @ref lgpl_license
 /**@}*/
 
 /** @defgroup lptim_cfgr LPTIM_CFGR Configuration Register
-* @ingroup timer_defines
 @{*/
 
 /** CKSEL: Select internal (0) or external clock source (1) **/
@@ -223,7 +221,7 @@ LGPL License Terms @ref lgpl_license
 #define LPTIM_CFGR_TRIGEN_SHIFT		17
 #define LPTIM_CFGR_TRIGSEL_MASK		0x07
 #define LPTIM_CFGR_TRIGEN		(3 << LPTIM_CFGR_TRIGEN_SHIFT)
-/* @defgroup LPTIM_CFGR_TRIGEN LPTIM_CFGR TRIGEN Trigger enable and polarity
+/** @defgroup LPTIM_CFGR_TRIGEN LPTIM_CFGR TRIGEN Trigger enable and polarity
 @{*/
 #define LPTIM_CFGR_TRIGEN_SW		(0 << LPTIM_CFGR_TRIGEN_SHIFT)
 #define LPTIM_CFGR_TRIGEN_RISING	(1 << LPTIM_CFGR_TRIGEN_SHIFT)
@@ -252,7 +250,6 @@ LGPL License Terms @ref lgpl_license
 /**@}*/
 
 /** @defgroup lptim_cr LPTIM_CR Control Register
-* @ingroup timer_defines
 @{*/
 
 /** ENABLE: Counter enable **/
@@ -266,4 +263,7 @@ LGPL License Terms @ref lgpl_license
 
 /**@}*/
 
+
 #endif
+
+/**@}*/
