@@ -54,7 +54,7 @@ bool cmu_get_lock_flag(void)
  *
  * Enable the clock on particular peripheral.
  *
- * @param[in] periph enum cmu_periph_clken Peripheral Name
+ * @param[in] clken Peripheral Name
  *
  * For available constants, see @a enum::cmu_periph_clken (CMU_LEUART1 for
  * example)
@@ -69,7 +69,7 @@ void cmu_periph_clock_enable(enum cmu_periph_clken clken)
  * @brief Disable Peripheral Clock in running mode.
  * Disable the clock on particular peripheral.
  *
- * @param[in] periph enum cmu_periph_clken Peripheral Name
+ * @param[in] clken Peripheral Name
  *
  * For available constants, see @a enum::cmu_periph_clken (CMU_LEUART1 for
  * example)
@@ -264,7 +264,7 @@ enum cmu_osc cmu_get_hfclk_source(void)
 
 /**
  * Set USBCLK clock source
- * @retval enum cmu_osc Oscillator name
+ * @param osc Oscillator name
  */
 void cmu_set_usbclk_source(enum cmu_osc osc)
 {
