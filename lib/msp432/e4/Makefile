@@ -38,7 +38,8 @@ TGT_CFLAGS	+= $(STANDARD_FLAGS)
 # ARFLAGS	= rcsv
 ARFLAGS		= rcs
 
-OBJS		= systemcontrol.o gpio.o
+OBJS += gpio.o
+OBJS += systemcontrol.o
 
 VPATH += ../:../../cm3:../common
 
