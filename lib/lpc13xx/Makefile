@@ -33,7 +33,8 @@ TGT_CFLAGS      += $(DEBUG_FLAGS)
 TGT_CFLAGS	+= $(STANDARD_FLAGS)
 # ARFLAGS	= rcsv
 ARFLAGS		= rcs
-OBJS		= gpio.o
+
+OBJS += gpio.o
 
 VPATH += ../cm3
 
