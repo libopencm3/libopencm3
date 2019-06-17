@@ -563,8 +563,8 @@ static inline uint32_t dma_calc_end_from_start(uint32_t start, uint8_t inc,
  *            descriptor
  * @param[in] ch Channel (use DMA_CHx)
  * @param[in] src_start Source data start address
- * @param[in] this function use dma_desc_set_count() and dma_desc_set_src_inc()
- *            set value to calculate the src data end address from @a src_start
+ * this function uses @ref dma_calc_end_from_start to calculate the
+ * src data end address from @a src_start
  * @note dma_desc_set_count() should be called first.
  * @note dma_desc_set_src_inc() should be called first.
  */
@@ -586,9 +586,8 @@ void dma_desc_set_src_address(uint32_t desc_base, enum dma_ch ch,
  *            descriptor
  * @param[in] ch Channel (use DMA_CHx)
  * @param[in] dest_start Destination data start address
- * @param[in] this function use dma_desc_set_count() and
- *            dma_desc_set_dest_inc() set value to calculate the dest data end
- *            address from @a dest_start
+ * this function uses @ref dma_calc_end_from_start to calculate the
+ * dest data end address from @a dest_start
  * @note dma_desc_set_count() should be called first.
  * @note dma_desc_set_dest_inc() should be called first.
  */

@@ -95,8 +95,8 @@ void dac_disable_sine(uint32_t dac)
 /**
  * Set PRS trigger source on DAC channel
  * @param[in] dac DAC (use DACx)
- * @param[in] dac_ch DAC Channel (use DAC_CHx)
- * @param[in] prs_ch PRS Channel (use PRS_CHx)
+ * @param[in] dac_chan DAC Channel (use DAC_CHx)
+ * @param[in] prs_chan PRS Channel (use PRS_CHx)
  */
 void dac_set_prs_trigger(uint32_t dac, enum dac_ch dac_chan,
 			 enum prs_ch prs_chan)
@@ -110,7 +110,7 @@ void dac_set_prs_trigger(uint32_t dac, enum dac_ch dac_chan,
 /**
  * Enable PRS triggerring
  * @param[in] dac DAC (use DACx)
- * @param[in] dac_ch DAC Channel (use DAC_CHx)
+ * @param[in] ch DAC Channel (use DAC_CHx)
  */
 void dac_enable_prs_trigger(uint32_t dac, enum dac_ch ch)
 {
@@ -120,7 +120,7 @@ void dac_enable_prs_trigger(uint32_t dac, enum dac_ch ch)
 /**
  * Disable PRS triggerring
  * @param[in] dac DAC (use DACx)
- * @param[in] dac_ch DAC Channel (use DAC_CHx)
+ * @param[in] ch DAC Channel (use DAC_CHx)
  */
 void dac_disable_prs_trigger(uint32_t dac, enum dac_ch ch)
 {
@@ -130,7 +130,7 @@ void dac_disable_prs_trigger(uint32_t dac, enum dac_ch ch)
 /**
  * Enable auto refresh
  * @param[in] dac DAC (use DACx)
- * @param[in] dac_ch DAC Channel (use DAC_CHx)
+ * @param[in] ch DAC Channel (use DAC_CHx)
  */
 void dac_enable_auto_refresh(uint32_t dac, enum dac_ch ch)
 {
@@ -140,7 +140,7 @@ void dac_enable_auto_refresh(uint32_t dac, enum dac_ch ch)
 /**
  * Disable auto refresh
  * @param[in] dac DAC (use DACx)
- * @param[in] dac_ch DAC Channel (use DAC_CHx)
+ * @param[in] ch DAC Channel (use DAC_CHx)
  */
 void dac_disable_auto_refresh(uint32_t dac, enum dac_ch ch)
 {
@@ -150,7 +150,7 @@ void dac_disable_auto_refresh(uint32_t dac, enum dac_ch ch)
 /**
  * Enable channel
  * @param[in] dac DAC (use DACx)
- * @param[in] dac_ch DAC Channel (use DAC_CHx)
+ * @param[in] ch DAC Channel (use DAC_CHx)
  */
 void dac_enable_channel(uint32_t dac, enum dac_ch ch)
 {
@@ -160,7 +160,7 @@ void dac_enable_channel(uint32_t dac, enum dac_ch ch)
 /**
  * Disable channel
  * @param[in] dac DAC (use DACx)
- * @param[in] dac_ch DAC Channel (use DAC_CHx)
+ * @param[in] ch DAC Channel (use DAC_CHx)
  */
 void dac_disable_channel(uint32_t dac, enum dac_ch ch)
 {

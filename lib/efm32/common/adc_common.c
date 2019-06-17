@@ -633,6 +633,7 @@ uint32_t adc_scan_data_peak(uint32_t adc)
 /**
  * Set ADC scan gain calibration
  * @param[in] adc ADC (use ADCx)
+ * @param scan_gain calibration of gain for internal ref
  */
 void adc_set_calibration_scan_gain(uint32_t adc, uint8_t scan_gain)
 {
@@ -642,6 +643,7 @@ void adc_set_calibration_scan_gain(uint32_t adc, uint8_t scan_gain)
 /**
  * Set ADC scan offset calibration
  * @param[in] adc ADC (use ADCx)
+ * @param scan_offset calibration of offset for internal ref
  */
 void adc_set_calibration_scan_offset(uint32_t adc, uint8_t scan_offset)
 {
@@ -651,6 +653,7 @@ void adc_set_calibration_scan_offset(uint32_t adc, uint8_t scan_offset)
 /**
  * Set ADC single gain calibration
  * @param[in] adc ADC (use ADCx)
+ * @param single_gain calibration of gain for internal ref
  */
 void adc_set_calibration_single_gain(uint32_t adc, uint8_t single_gain)
 {
@@ -660,6 +663,7 @@ void adc_set_calibration_single_gain(uint32_t adc, uint8_t single_gain)
 /**
  * Set ADC single offset calibration
  * @param[in] adc ADC (use ADCx)
+ * @param single_offset calibration of offset for internal ref
  */
 void adc_set_calibration_single_offset(uint32_t adc, uint8_t single_offset)
 {
