@@ -33,8 +33,7 @@ Set timer options register on TIM2 or TIM5, used for trigger remapping on TIM2,
 and similarly for TIM5 for oscillator calibration purposes.
 
 @param[in] timer_peripheral Unsigned int32. Timer register address base
-@returns Unsigned int32. Option flags TIM2: @ref tim2_opt_trigger_remap, TIM5:
-@ref tim5_opt_trigger_remap.
+@param option flags TIM2 @ref tim2_opt_trigger_remap or TIM5 @ref tim5_opt_trigger_remap
 */
 
 void timer_set_option(uint32_t timer_peripheral, uint32_t option)
