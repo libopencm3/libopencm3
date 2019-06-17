@@ -38,6 +38,7 @@ include/libopencmsis/lpc43xx/
 include/libopencmsis/msp432/
 include/libopencmsis/sam/
 include/libopencmsis/stm32/
+include/libopencmsis/swm050/
 include/libopencmsis/vf6xx/
 
 # Editor/IDE config files
