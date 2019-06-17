@@ -47,7 +47,7 @@ void rng_enable(void)
 /** Randomizes a number (non-blocking).
  * Can fail if a clock error or seed error is detected. Consult the Reference
  * Manual, but "try again", potentially after resetting the peripheral
- * @param pointer to a uint32_t that will be randomized.
+ * @param rand_nr pointer to a uint32_t that will be randomized.
  * @returns true on success, pointer is only written to on success
  * @sa rng_get_random_blocking
  */
