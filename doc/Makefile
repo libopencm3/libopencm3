@@ -9,6 +9,7 @@ TARGETS ?= stm32/f0 stm32/f1 stm32/f2 stm32/f3 stm32/f4 stm32/f7 \
 		   stm32/g0 \
 		   gd32/f1x0 \
 		   efm32/g efm32/gg efm32/hg efm32/lg efm32/tg \
+		   efm32/ezr32wg \
 		   lm3s lm4f \
 		   msp432/e4 \
 		   lpc13xx lpc17xx lpc43xx \
