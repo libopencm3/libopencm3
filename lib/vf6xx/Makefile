@@ -34,7 +34,11 @@ TGT_CFLAGS	= -Os \
 TGT_CFLAGS      += $(DEBUG_FLAGS)
 TGT_CFLAGS	+= $(STANDARD_FLAGS)
 ARFLAGS		= rcs
-OBJS		= ccm.o uart.o gpio.o iomuxc.o
+
+OBJS += ccm.o
+OBJS += gpio.o
+OBJS += iomuxc.o
+OBJS += uart.o
 
 VPATH += ../cm3
 
