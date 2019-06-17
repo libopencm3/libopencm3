@@ -33,7 +33,12 @@ TGT_CFLAGS      += $(DEBUG_FLAGS)
 TGT_CFLAGS	+= $(STANDARD_FLAGS)
 # ARFLAGS	= rcsv
 ARFLAGS		= rcs
-OBJS		= gpio.o vector.o assert.o rcc.o usart.o
+
+OBJS += assert.o
+OBJS += gpio.o
+OBJS += rcc.o
+OBJS += usart.o
+OBJS += vector.o
 
 VPATH += ../cm3
 
