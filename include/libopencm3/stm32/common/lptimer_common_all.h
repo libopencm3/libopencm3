@@ -1,12 +1,14 @@
 /** @addtogroup lptimer_defines
  *
  * @author @htmlonly &copy; @endhtmlonly 2009 Piotr Esden-Tempski <piotr@esden.net>
+ * @author @htmlonly &copy; @endhtmlonly 2019 Guillaume Revaillot <g.revaillot@gmail.com>
  *
  */
 /*
  * This file is part of the libopencm3 project.
  *
  * Copyright (C) 2009 Piotr Esden-Tempski <piotr@esden.net>
+ * Copyright (C) 2019 Guillaume Revaillot <g.revaillot@gmail.com>
  *
  * This library is free software: you can redistribute it and/or modify
  * it under the terms of the GNU Lesser General Public License as published by
@@ -252,10 +254,43 @@
 #define LPTIM_CR_CNTSTRT		(1 << 2)
 
 /**@}*/
+
+/* --- LPTIM function prototypes --------------------------------------------- */
+
+BEGIN_DECLS
+
+void lptimer_enable(uint32_t timer_peripheral);
+void lptimer_disable(uint32_t timer_peripheral);
+
+void lptimer_start_counter(uint32_t timer_peripheral, uint32_t mode);
+void lptimer_set_counter(uint32_t timer_peripheral, uint16_t count);
+uint16_t lptimer_get_counter(uint32_t timer_peripheral);
+void lptimer_set_compare(uint32_t timer_peripheral, uint16_t compare_value);
+void lptimer_set_period(uint32_t lptimer_peripheral, uint16_t period_value);
+void lptimer_enable_preload(uint32_t lptimer_peripheral);
+void lptimer_disable_preload(uint32_t lptimer_peripheral);
+void lptimer_set_waveform_polarity_high(uint32_t lptimer_peripheral);
+void lptimer_set_waveform_polarity_low(uint32_t lptimer_peripheral);
+
+void lptimer_set_prescaler(uint32_t timer_peripheral, uint32_t prescaler);
+void lptimer_enable_trigger(uint32_t lptimer_peripheral, uint32_t trigen);
+void lptimer_select_trigger_source(uint32_t lptimer_peripheral, uint32_t trigger_source);
+void lptimer_set_internal_clock_source(uint32_t timer_peripheral);
+void lptimer_set_external_clock_source(uint32_t timer_peripheral);
+
+void lptimer_clear_flag(uint32_t timer_peripheral, uint32_t flag);
+bool lptimer_get_flag(uint32_t timer_peripheral, uint32_t flag);
+void lptimer_enable_irq(uint32_t timer_peripheral, uint32_t irq);
+void lptimer_disable_irq(uint32_t timer_peripheral, uint32_t irq);
+
+
+END_DECLS
+
 #endif
 /** @cond */
 #else
 #warning "lptimer_common_all.h should not be included directly, only via lptimer.h"
 #endif
 /** @endcond */
+
 /**@}*/
