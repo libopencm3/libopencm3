@@ -86,9 +86,14 @@
 
 /* IPR: Interrupt Priority Registers */
 /* Note: 240 8bit Registers */
-/* Note: 32 8bit Registers on CM0 */
+/* Note: 8 32bit Registers on CM0, requires word access */
+#if defined(__ARM_ARCH_6M__)
+#define NVIC_IPR32(ipr_id)		MMIO32(NVIC_BASE + 0x300 + \
+						((ipr_id) * 4))
+#else
 #define NVIC_IPR(ipr_id)		MMIO8(NVIC_BASE + 0x300 + \
 						(ipr_id))
+#endif
 
 #if defined(__ARM_ARCH_7M__) || defined(__ARM_ARCH_7EM__)
 /* STIR: Software Trigger Interrupt Register */
