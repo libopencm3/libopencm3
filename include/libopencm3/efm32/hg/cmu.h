@@ -1,3 +1,11 @@
+/** @defgroup cmu_defines CMU Defines
+ *
+ * @brief <b>Defined Constants and Types for the EFM32HG Clock Management Unit</b>
+ *
+ * @ingroup EFM32HG_defines
+ *
+ * LGPL License Terms @ref lgpl_license
+ */
 /*
  * This file is part of the libopencm3 project.
  *
@@ -18,8 +26,9 @@
  * along with this library.  If not, see <http://www.gnu.org/licenses/>.
  */
 
-#ifndef LIBOPENCM3_EFM32_CMU_H
-#define LIBOPENCM3_EFM32_CMU_H
+/**@{*/
+
+#pragma once
 
 #include <libopencm3/efm32/memorymap.h>
 #include <libopencm3/cm3/common.h>
@@ -673,4 +682,4 @@ void cmu_wait_for_usbclk_selected(enum cmu_osc osc);
 
 END_DECLS
 
-#endif
+/**@}*/

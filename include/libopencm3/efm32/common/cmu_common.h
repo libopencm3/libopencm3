@@ -1,3 +1,5 @@
+/** @addtogroup cmu_defines
+ */
 /*
  * This file is part of the libopencm3 project.
  *
@@ -17,8 +19,9 @@
  * along with this library.  If not, see <http://www.gnu.org/licenses/>.
  */
 
-#ifndef LIBOPENCM3_EFM32_CMU_H
-#define LIBOPENCM3_EFM32_CMU_H
+#pragma once
+
+/**@{*/
 
 #include <libopencm3/efm32/memorymap.h>
 #include <libopencm3/cm3/common.h>
@@ -701,5 +704,4 @@ void cmu_clock_setup_in_hfxo_out_48mhz(void);
 
 END_DECLS
 
-#endif
-
+/**@}*/

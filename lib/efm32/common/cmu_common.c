@@ -1,3 +1,6 @@
+/** @addtogroup cmu_file CMU peripheral API
+ * @ingroup peripheral_apis
+ */
 /*
  * This file is part of the libopencm3 project.
  *
@@ -19,6 +22,8 @@
 
 #include <libopencm3/efm32/cmu.h>
 #include <libopencm3/efm32/msc.h>
+
+/**@{*/
 
 /**
  * Enable CMU registers lock.
@@ -270,3 +275,5 @@ void cmu_clock_setup_in_hfxo_out_48mhz(void)
 	/* wait till HFXO not selected */
 	while (cmu_get_hfclk_source() != HFXO);
 }
+
+/**@}*/

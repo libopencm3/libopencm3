@@ -1,3 +1,6 @@
+/** @addtogroup cmu_file CMU peripheral API
+ * @ingroup peripheral_apis
+ */
 /*
  * This file is part of the libopencm3 project.
  *
@@ -19,6 +22,8 @@
  */
 
 #include <libopencm3/efm32/cmu.h>
+
+/**@{*/
 
 /**
  * Enable CMU registers lock.
@@ -305,3 +310,5 @@ void cmu_wait_for_usbclk_selected(enum cmu_osc osc)
 		return;
 	}
 }
+
+/**@}*/

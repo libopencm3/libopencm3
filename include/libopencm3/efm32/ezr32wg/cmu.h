@@ -1,3 +1,11 @@
+/** @defgroup cmu_defines CMU Defines
+ *
+ * @brief <b>Defined Constants and Types for the EZR32WG Clock Management Unit</b>
+ *
+ * @ingroup EZR32WG_defines
+ *
+ * LGPL License Terms @ref lgpl_license
+ */
 /*
  * This file is part of the libopencm3 project.
  *
@@ -17,10 +25,11 @@
  * along with this library.  If not, see <http://www.gnu.org/licenses/>.
  */
 
-#ifndef LIBOPENCM3_EFM32_EZR32WG_CMU_H
-#define LIBOPENCM3_EFM32_EZR32WG_CMU_H
+#pragma once
 
 #include <libopencm3/efm32/common/cmu_common.h>
+
+/**@{*/
 
 /* EZR32WG refers to USART0 as USART0RF
  * because it is connected to the radio MCU.
@@ -29,4 +38,4 @@
 #define CMU_HFPERCLKEN0_USARTRF0 CMU_HFPERCLKEN0_USART0
 #define CMU_USARTRF0             CMU_USART0
 
-#endif
+/**@}*/
