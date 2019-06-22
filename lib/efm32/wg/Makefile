@@ -37,6 +37,7 @@ TGT_CFLAGS      += $(DEBUG_FLAGS)
 # ARFLAGS	= rcsv
 ARFLAGS		= rcs
 
+OBJS += acmp_common.o
 OBJS += adc_common.o
 OBJS += cmu_common.o
 OBJS += dac_common.o

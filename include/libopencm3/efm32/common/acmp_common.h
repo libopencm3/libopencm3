@@ -1,3 +1,5 @@
+/** @addtogroup acmp_defines
+ */
 /*
  * This file is part of the libopencm3 project.
  *
@@ -17,8 +19,9 @@
  * along with this library.  If not, see <http://www.gnu.org/licenses/>.
  */
 
-#ifndef LIBOPENCM3_EFM32_ACMP_H
-#define LIBOPENCM3_EFM32_ACMP_H
+#pragma once
+
+/**@{*/
 
 #include <libopencm3/efm32/memorymap.h>
 #include <libopencm3/cm3/common.h>
@@ -181,5 +184,4 @@
 #define ACMP1_IFC		ACMP_IFC(ACMP1)
 #define ACMP1_ROUTE		ACMP_ROUTE(ACMP1)
 
-#endif
-
+/**@}*/

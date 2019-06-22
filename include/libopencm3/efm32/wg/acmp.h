@@ -1,3 +1,11 @@
+/** @defgroup acmp_defines ACMP Defines
+ *
+ * @brief <b>Defined Constants and Types for the Analog Comparator module</b>
+ *
+ * @ingroup EFM32WG_defines
+ *
+ * LGPL License Terms @ref lgpl_license
+ */
 /*
  * This file is part of the libopencm3 project.
  *
@@ -17,9 +25,6 @@
  * along with this library.  If not, see <http://www.gnu.org/licenses/>.
  */
 
-#ifndef LIBOPENCM3_EFM32_WG_ACMP_H
-#define LIBOPENCM3_EFM32_WG_ACMP_H
+#pragma once
 
 #include <libopencm3/efm32/common/acmp_common.h>
-
-#endif
