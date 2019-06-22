@@ -1,3 +1,5 @@
+/** @addtogroup adc_defines
+ */
 /*
  * This file is part of the libopencm3 project.
  *
@@ -17,8 +19,9 @@
  * along with this library.  If not, see <http://www.gnu.org/licenses/>.
  */
 
-#ifndef LIBOPENCM3_EFM32_ADC_H
-#define LIBOPENCM3_EFM32_ADC_H
+/**@{*/
+
+#pragma once
 
 #include <libopencm3/efm32/memorymap.h>
 #include <libopencm3/cm3/common.h>
@@ -340,8 +343,6 @@
 #define ADC0_BIASPROG		ADC_BIASPROG(ADC0)
 
 /** @defgroup adc_ch ADC Channel Number
-@ingroup adc_defines
-
 @{*/
 #define ADC_CH0			0
 #define ADC_CH1			1
@@ -453,5 +454,4 @@ void adc_set_calibration_single_offset(uint32_t adc, uint8_t single_offset);
 
 END_DECLS
 
-#endif
-
+/**@}*/

@@ -1,3 +1,6 @@
+/** @addtogroup adc_file ADC peripheral API
+ * @ingroup peripheral_apis
+ */
 /*
  * This file is part of the libopencm3 project.
  *
@@ -18,6 +21,8 @@
  */
 
 #include <libopencm3/efm32/adc.h>
+
+/**@{*/
 
 /**
  * Set ADC over sampling
@@ -669,3 +674,5 @@ void adc_set_calibration_single_offset(uint32_t adc, uint8_t single_offset)
 {
 	ADC_CAL(adc) = (ADC_CAL(adc) & ADC_CAL_SINGLEOFF_MASK) | single_offset;
 }
+
+/**@}*/
