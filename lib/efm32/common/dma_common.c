@@ -1,3 +1,6 @@
+/** @addtogroup dma_file DMA peripheral API
+ * @ingroup peripheral_apis
+ */
 /*
  * This file is part of the libopencm3 project.
  *
@@ -18,6 +21,8 @@
  */
 
 #include <libopencm3/efm32/dma.h>
+
+/**@{*/
 
 #define CHANNEL_SUPPORT_LOOP(ch) (((ch) == DMA_CH0) || ((ch) == DMA_CH1))
 
@@ -618,3 +623,5 @@ void dma_desc_set_mode(uint32_t desc_base, enum dma_ch ch, enum dma_mode mode)
 	cfg |= DMA_DESC_CH_CFG_CYCLE_CTRL(mode);
 	DMA_DESC_CHx_CFG(desc_base, ch) = cfg;
 }
+
+/**@}*/
