@@ -1,3 +1,6 @@
+/** @addtogroup dac_file DAC peripheral API
+ * @ingroup peripheral_apis
+ */
 /*
  * This file is part of the libopencm3 project.
  *
@@ -21,6 +24,8 @@
  */
 
 #include <libopencm3/efm32/dac.h>
+
+/**@{*/
 
 /**
  * Set DAC refresh cycle
@@ -166,3 +171,5 @@ void dac_disable_channel(uint32_t dac, enum dac_ch ch)
 {
 	DAC_CHx_CTRL(dac, ch) &= ~DAC_CH_CTRL_REFREN;
 }
+
+/**@}*/
