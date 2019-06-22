@@ -19,6 +19,10 @@ Libraries for Energy Micro EFM32 Giant Gecko series.
 LGPL License Terms @ref lgpl_license
 */
 
+/** @defgroup peripheral_apis Peripheral APIs
+ * APIs for device peripherals
+ */
+
 /** @defgroup EFM32GG_defines EFM32 Giant Gecko Defines
 
 @brief Defined Constants and Types for the Energy Micro EFM32 Giant Gecko series

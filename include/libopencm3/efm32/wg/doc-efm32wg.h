@@ -19,6 +19,10 @@ Libraries for Silicon Laboratories EFM32 Wonder Gecko series.
 LGPL License Terms @ref lgpl_license
 */
 
+/** @defgroup peripheral_apis Peripheral APIs
+ * APIs for device peripherals
+ */
+
 /** @defgroup EFM32WG_defines EFM32 Wonder Gecko Defines
 
 @brief Defined Constants and Types for the Silicon Laboratories EFM32
