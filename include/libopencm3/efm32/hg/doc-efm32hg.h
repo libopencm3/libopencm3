@@ -9,7 +9,7 @@ API documentation for Energy Micro EFM32 Happy Gecko Cortex M0+ series.
 LGPL License Terms @ref lgpl_license
 */
 
-/** @defgroup EFM32LG EFM32 HappyGecko
+/** @defgroup EFM32HG EFM32 HappyGecko
 Libraries for Energy Micro EFM32 Happy Gecko series.
 
 @version 1.0.0
