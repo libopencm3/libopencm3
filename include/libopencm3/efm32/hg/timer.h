@@ -1,3 +1,11 @@
+/** @defgroup timer_defines TIMER Defines
+ *
+ * @brief <b>Defined Constants and Types for the TIMER module</b>
+ *
+ * @ingroup EFM32HG_defines
+ *
+ * LGPL License Terms @ref lgpl_license
+ */
 /*
  * This file is part of the libopencm3 project.
  *
@@ -15,8 +23,7 @@
  * along with this library.  If not, see <http://www.gnu.org/licenses/>.
  */
 
-#ifndef LIBOPENCM3_TIMER_H
-#define LIBOPENCM3_TIMER_H
+#pragma once
 
 #include <libopencm3/efm32/common/timer_common.h>
 
@@ -27,5 +34,3 @@
 
 /* TIMER_CCx_CTRL */
 #define TIMER_CC_CTRL_PRSCONF		(1 << 28)
-
-#endif
