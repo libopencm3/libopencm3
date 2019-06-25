@@ -1,3 +1,5 @@
+/** @addtogroup dma_defines
+ */
 /*
  * This file is part of the libopencm3 project.
  *
@@ -17,11 +19,12 @@
  * along with this library.  If not, see <http://www.gnu.org/licenses/>.
  */
 
-#ifndef LIBOPENCM3_EFM32_DMA_H
-#define LIBOPENCM3_EFM32_DMA_H
+#pragma once
 
 #include <libopencm3/efm32/memorymap.h>
 #include <libopencm3/cm3/common.h>
+
+/**@{*/
 
 /*
  * As per the datasheet, it is an PL230 (licenced from ARM)
@@ -908,5 +911,4 @@ void dma_desc_set_mode(uint32_t desc_base, enum dma_ch ch, enum dma_mode mode);
 
 END_DECLS
 
-#endif
-
+/**@}*/
