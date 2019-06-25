@@ -1,3 +1,5 @@
+/** @addtogroup prs_defines
+ */
 /*
  * This file is part of the libopencm3 project.
  *
@@ -17,11 +19,12 @@
  * along with this library.  If not, see <http://www.gnu.org/licenses/>.
  */
 
-#ifndef LIBOPENCM3_EFM32_PRS_H
-#define LIBOPENCM3_EFM32_PRS_H
+#pragma once
 
 #include <libopencm3/cm3/common.h>
 #include <libopencm3/efm32/memorymap.h>
+
+/**@{*/
 
 #define PRS_SWPULSE		MMIO32(PRS_BASE + 0x000)
 #define PRS_SWLEVEL		MMIO32(PRS_BASE + 0x004)
@@ -359,5 +362,4 @@ void prs_set_signal(enum prs_ch ch, uint32_t sig);
 
 END_DECLS
 
-#endif
-
+/**@}*/
