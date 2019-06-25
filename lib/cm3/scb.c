@@ -1,3 +1,23 @@
+/** @defgroup CM3_scb_file SCB
+ *
+ * @ingroup CM3_files
+ *
+ * @brief <b>libopencm3 Cortex-M System Control Block</b>
+ *
+ * The System Control Block (SCB) is a section of the System Control Space
+ * which provides status information and control features for the processor core.
+ * It allows, amongst other:
+ * * software reset control
+ * * exception management and grouping
+ * * fault information
+ * * power management
+ * * debug status information
+ *
+ * @see ARMv7m Architecture Reference Manual (Chapter B3.2.1 About the SCB)
+ *
+ * LGPL License Terms @ref lgpl_license
+ * @{
+ */
 /*
  * This file is part of the libopencm3 project.
  *
@@ -45,3 +65,5 @@ void scb_set_priority_grouping(uint32_t prigroup)
 	SCB_AIRCR = SCB_AIRCR_VECTKEY | prigroup;
 }
 #endif
+
+/**@}*/
