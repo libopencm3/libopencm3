@@ -52,6 +52,7 @@ OBJS += prs_common.o
 OBJS += rmu_common.o
 OBJS += rtc_common.o
 OBJS += timer_common.o
+OBJS += usart_common.o
 OBJS += wdog_common.o
 
 OBJS += usb.o usb_control.o usb_standard.o usb_msc.o
