@@ -38,6 +38,8 @@
 
 #include <libopencm3/stm32/f7/pwr.h>
 
+/**@{*/
+
 /* --- RCC registers ------------------------------------------------------- */
 
 #define RCC_CR					MMIO32(RCC_BASE + 0x00)
@@ -957,5 +959,7 @@ uint32_t rcc_system_clock_source(void);
 void rcc_clock_setup_hse(const struct rcc_clock_scale *clock, uint32_t hse_mhz);
 void rcc_clock_setup_hsi(const struct rcc_clock_scale *clock);
 END_DECLS
+
+/**@}*/
 
 #endif
