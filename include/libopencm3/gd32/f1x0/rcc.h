@@ -128,13 +128,18 @@
 #define RCC_CFGR_SW_SHIFT			0
 #define RCC_CFGR_SW				(3 << RCC_CFGR_SW_SHIFT)
 
-/* USBPRE: USB prescaler (RCC_CFGR[23:22]) */
+/** @defgroup rcc_cfgr_usbpre USBPRE: USB prescaler (RCC_CFGR[23:22])
+ * @{
+ */
 #define RCC_CFGR_USBPRE_PLL_CLK_DIV1_5		0x0
 #define RCC_CFGR_USBPRE_PLL_CLK_NODIV		0x1
 #define RCC_CFGR_USBPRE_PLL_CLK_DIV2_5		0x2
 #define RCC_CFGR_USBPRE_PLL_CLK_DIV2		0x3
+/**@}*/
 
-/* PLLMUL: PLL multiplication factor */
+/** @defgroup rcc_cfgr_pmf PLLMUL: PLL multiplication factor
+ * @{
+ */
 #define RCC_CFGR_PLLMUL_PLL_CLK_MUL2		0x0
 #define RCC_CFGR_PLLMUL_PLL_CLK_MUL3		0x1
 #define RCC_CFGR_PLLMUL_PLL_CLK_MUL4		0x2
@@ -150,37 +155,54 @@
 #define RCC_CFGR_PLLMUL_PLL_CLK_MUL14		0xc
 #define RCC_CFGR_PLLMUL_PLL_CLK_MUL15		0xd
 #define RCC_CFGR_PLLMUL_PLL_CLK_MUL16		0xe
+/**@}*/
 
-/* PLLXTPRE: HSE divider for PLL entry */
+/** @defgroup rcc_cfgr_hsepre PLLXTPRE: HSE divider for PLL entry
+ * @{
+ */
 #define RCC_CFGR_PLLXTPRE_HSE_CLK		0x0
 #define RCC_CFGR_PLLXTPRE_HSE_CLK_DIV2		0x1
+/**@}*/
 
-/* PLLSRC: PLL entry clock source */
+/** @defgroup rcc_cfgr_pcs PLLSRC: PLL entry clock source
+ * @{
+ */
 #define RCC_CFGR_PLLSRC_HSI_CLK_DIV2		0x0
 #define RCC_CFGR_PLLSRC_HSE_CLK			0x1
+/**@}*/
 
-/* ADCPRE: ADC prescaler */
-/****************************************************************************/
+/** @defgroup rcc_cfgr_adcpre ADCPRE: ADC prescaler
+ * @{
+ */
 #define RCC_CFGR_ADCPRE_PCLK2_DIV2		0x0
 #define RCC_CFGR_ADCPRE_PCLK2_DIV4		0x1
 #define RCC_CFGR_ADCPRE_PCLK2_DIV6		0x2
 #define RCC_CFGR_ADCPRE_PCLK2_DIV8		0x3
+/**@}*/
 
-/* PPRE2: APB high-speed prescaler (APB2) */
+/** @defgroup rcc_cfgr_apb2pre PPRE2: APB high-speed prescaler (APB2)
+ * @{
+ */
 #define RCC_CFGR_PPRE2_HCLK_NODIV		0x0
 #define RCC_CFGR_PPRE2_HCLK_DIV2		0x4
 #define RCC_CFGR_PPRE2_HCLK_DIV4		0x5
 #define RCC_CFGR_PPRE2_HCLK_DIV8		0x6
 #define RCC_CFGR_PPRE2_HCLK_DIV16		0x7
+/**@}*/
 
-/* PPRE1: APB low-speed prescaler (APB1) */
+/** @defgroup rcc_cfgr_apb1pre PPRE1: APB low-speed prescaler (APB1)
+ * @{
+ */
 #define RCC_CFGR_PPRE1_HCLK_NODIV		0x0
 #define RCC_CFGR_PPRE1_HCLK_DIV2		0x4
 #define RCC_CFGR_PPRE1_HCLK_DIV4		0x5
 #define RCC_CFGR_PPRE1_HCLK_DIV8		0x6
 #define RCC_CFGR_PPRE1_HCLK_DIV16		0x7
+/**@}*/
 
-/* HPRE: AHB prescaler */
+/** @defgroup rcc_cfgr_ahbpre HPRE: AHB prescaler
+ * @{
+ */
 #define RCC_CFGR_HPRE_SYSCLK_NODIV		0x0
 #define RCC_CFGR_HPRE_SYSCLK_DIV2		0x8
 #define RCC_CFGR_HPRE_SYSCLK_DIV4		0x9
@@ -190,16 +212,20 @@
 #define RCC_CFGR_HPRE_SYSCLK_DIV128		0xd
 #define RCC_CFGR_HPRE_SYSCLK_DIV256		0xe
 #define RCC_CFGR_HPRE_SYSCLK_DIV512		0xf
+/**@}*/
 
 /* SWS: System clock switch status */
 #define RCC_CFGR_SWS_SYSCLKSEL_HSICLK		0x0
 #define RCC_CFGR_SWS_SYSCLKSEL_HSECLK		0x1
 #define RCC_CFGR_SWS_SYSCLKSEL_PLLCLK		0x2
 
-/* SW: System clock switch */
+/** @defgroup rcc_cfgr_scs SW: System clock switch
+ * @{
+ */
 #define RCC_CFGR_SW_SYSCLKSEL_HSICLK		0x0
 #define RCC_CFGR_SW_SYSCLKSEL_HSECLK		0x1
 #define RCC_CFGR_SW_SYSCLKSEL_PLLCLK		0x2
+/**@}*/
 
 /* --- RCC_CIR values ------------------------------------------------------ */
 
@@ -233,8 +259,8 @@
 #define RCC_CIR_LSERDYF				(1 << 1)
 #define RCC_CIR_LSIRDYF				(1 << 0)
 
-/* --- RCC_APB2RSTR values ------------------------------------------------- */
-
+/** @defgroup rcc_apb2rstr_rst RCC_APB2RSTR reset values values
+@{*/
 #define RCC_APB2RSTR_TIM17RST			(1 << 18)
 #define RCC_APB2RSTR_TIM16RST			(1 << 17)
 #define RCC_APB2RSTR_TIM15RST			(1 << 16)
@@ -243,9 +269,10 @@
 #define RCC_APB2RSTR_TIM1RST			(1 << 11)
 #define RCC_APB2RSTR_ADCRST			(1 << 9)
 #define RCC_APB2RSTR_SYSCFGRST			(1 << 0)
+/**@}*/
 
-/* --- RCC_APB1RSTR values ------------------------------------------------- */
-
+/** @defgroup rcc_apb1rstr_rst RCC_APB1RSTR reset values values
+@{*/
 #define RCC_APB1RSTR_CECRST			(1 << 30)
 #define RCC_APB1RSTR_DACRST			(1 << 29)
 #define RCC_APB1RSTR_PWRRST			(1 << 28)
@@ -260,9 +287,10 @@
 #define RCC_APB1RSTR_TIM6RST			(1 << 4)
 #define RCC_APB1RSTR_TIM3RST			(1 << 1)
 #define RCC_APB1RSTR_TIM2RST			(1 << 0)
+/**@}*/
 
-/* --- RCC_AHBENR values --------------------------------------------------- */
-
+/** @defgroup rcc_ahbenr_en RCC_AHBENR enable values
+@{*/
 #define RCC_AHBENR_TSCEN			(1 << 24)
 #define RCC_AHBENR_GPIOFEN			(1 << 22)
 #define RCC_AHBENR_GPIOEEN			(1 << 21)
@@ -274,9 +302,10 @@
 #define RCC_AHBENR_FLTFEN			(1 << 4)
 #define RCC_AHBENR_SRAMEN			(1 << 2)
 #define RCC_AHBENR_DMAEN			(1 << 0)
+/**@}*/
 
-/* --- RCC_APB2ENR values -------------------------------------------------- */
-
+/** @defgroup rcc_apb2enr_en RCC_APB2ENR enable values
+@{*/
 #define RCC_APB2ENR_TIM17EN			(1 << 18)
 #define RCC_APB2ENR_TIM16EN			(1 << 17)
 #define RCC_APB2ENR_TIM15EN			(1 << 16)
@@ -285,9 +314,10 @@
 #define RCC_APB2ENR_TIM1EN			(1 << 11)
 #define RCC_APB2ENR_ADCEN			(1 << 9)
 #define RCC_APB2ENR_SYSCFGCOMPEN		(1 << 0)
+/**@}*/
 
-/* --- RCC_APB1ENR values -------------------------------------------------- */
-
+/** @defgroup rcc_apb1enr_en RCC_APB1ENR enable values
+@{*/
 #define RCC_APB1ENR_CECEN			(1 << 30)
 #define RCC_APB1ENR_DACEN			(1 << 29)
 #define RCC_APB1ENR_PWREN			(1 << 28)
@@ -302,6 +332,7 @@
 #define RCC_APB1ENR_TIM6EN			(1 << 4)
 #define RCC_APB1ENR_TIM3EN			(1 << 1)
 #define RCC_APB1ENR_TIM2EN			(1 << 0)
+/**@}*/
 
 /* --- RCC_BDCR values ----------------------------------------------------- */
 
@@ -324,10 +355,11 @@
 #define RCC_CSR_LSIRDY				(1 << 1)
 #define RCC_CSR_LSION				(1 << 0)
 
-/* --- RCC_AHBRSTR values -------------------------------------------------- */
-
+/** @defgroup rcc_ahbrstr_rst RCC_AHBRSTR reset values values
+@{*/
 #define RCC_AHBRSTR_ETHMACRST			(1 << 14)
 #define RCC_AHBRSTR_OTGFSRST			(1 << 12)
+/**@}*/
 
 /* --- RCC_CFGR2 values ---------------------------------------------------- */
 

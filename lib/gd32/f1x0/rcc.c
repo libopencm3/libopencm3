@@ -106,7 +106,7 @@ const struct rcc_clock_scale rcc_hse8_configs[] = {
 Clear the interrupt flag that was set when a clock oscillator became ready to
 use.
 
-@param[in] osc enum ::osc_t. Oscillator ID
+@param[in] osc Oscillator ID
 */
 
 void rcc_osc_ready_int_clear(enum rcc_osc osc)
@@ -133,7 +133,7 @@ void rcc_osc_ready_int_clear(enum rcc_osc osc)
 /*---------------------------------------------------------------------------*/
 /** @brief RCC Enable the Oscillator Ready Interrupt
 
-@param[in] osc enum ::osc_t. Oscillator ID
+@param[in] osc Oscillator ID
 */
 
 void rcc_osc_ready_int_enable(enum rcc_osc osc)
@@ -160,7 +160,7 @@ void rcc_osc_ready_int_enable(enum rcc_osc osc)
 /*---------------------------------------------------------------------------*/
 /** @brief RCC Disable the Oscillator Ready Interrupt
 
-@param[in] osc enum ::osc_t. Oscillator ID
+@param[in] osc Oscillator ID
 */
 
 void rcc_osc_ready_int_disable(enum rcc_osc osc)
@@ -187,7 +187,7 @@ void rcc_osc_ready_int_disable(enum rcc_osc osc)
 /*---------------------------------------------------------------------------*/
 /** @brief RCC Read the Oscillator Ready Interrupt Flag
 
-@param[in] osc enum ::osc_t. Oscillator ID
+@param[in] osc Oscillator ID
 @returns int. Boolean value for flag set.
 */
 
@@ -238,7 +238,7 @@ int rcc_css_int_flag(void)
 /*---------------------------------------------------------------------------*/
 /** @brief RCC Wait for Oscillator Ready.
 
-@param[in] osc enum ::osc_t. Oscillator ID
+@param[in] osc Oscillator ID
 */
 
 void rcc_wait_for_osc_ready(enum rcc_osc osc)
@@ -274,7 +274,7 @@ status flag is available to indicate when the oscillator becomes ready (see
 backup domain write protection has been removed (see @ref
 pwr_disable_backup_domain_write_protect).
 
-@param[in] osc enum ::osc_t. Oscillator ID
+@param[in] osc Oscillator ID
 */
 
 void rcc_osc_on(enum rcc_osc osc)
@@ -309,7 +309,7 @@ backup domain write protection has been removed (see
 @ref pwr_disable_backup_domain_write_protect) or the backup domain has been
 (see reset @ref rcc_backupdomain_reset).
 
-@param[in] osc enum ::osc_t. Oscillator ID
+@param[in] osc Oscillator ID
 */
 
 void rcc_osc_off(enum rcc_osc osc)
@@ -356,7 +356,7 @@ void rcc_css_disable(void)
 /*---------------------------------------------------------------------------*/
 /** @brief RCC Set the Source for the System Clock.
 
-@param[in] clk Unsigned int32. System Clock Selection @ref rcc_cfgr_scs
+@param[in] clk System Clock Selection @ref rcc_cfgr_scs
 */
 
 void rcc_set_sysclk_source(uint32_t clk)
@@ -370,7 +370,7 @@ void rcc_set_sysclk_source(uint32_t clk)
 
 @note This only has effect when the PLL is disabled.
 
-@param[in] mul Unsigned int32. PLL multiplication factor @ref rcc_cfgr_pmf
+@param[in] mul PLL multiplication factor @ref rcc_cfgr_pmf
 */
 
 void rcc_set_pll_multiplication_factor(uint32_t mul)
@@ -385,7 +385,7 @@ void rcc_set_pll_multiplication_factor(uint32_t mul)
 
 @note This only has effect when the PLL is disabled.
 
-@param[in] pllsrc Unsigned int32. PLL clock source @ref rcc_cfgr_pcs
+@param[in] pllsrc PLL clock source @ref rcc_cfgr_pcs
 */
 
 void rcc_set_pll_source(uint32_t pllsrc)
@@ -399,7 +399,7 @@ void rcc_set_pll_source(uint32_t pllsrc)
 
 @note This only has effect when the PLL is disabled.
 
-@param[in] pllxtpre Unsigned int32. HSE division factor @ref rcc_cfgr_hsepre
+@param[in] pllxtpre HSE division factor @ref rcc_cfgr_hsepre
 */
 
 void rcc_set_pllxtpre(uint32_t pllxtpre)
@@ -432,7 +432,7 @@ void rcc_enable_rtc_clock(void)
 /*---------------------------------------------------------------------------*/
 /** @brief RCC Set the Source for the RTC clock
 
-@param[in] clock_source ::rcc_osc. RTC clock source. Only HSE/128, LSE and LSI.
+@param[in] clock_source RTC clock source. Only HSE/128, LSE and LSI.
 */
 
 void rcc_set_rtc_clock_source(enum rcc_osc clock_source)
@@ -481,7 +481,7 @@ void rcc_set_rtc_clock_source(enum rcc_osc clock_source)
 
 The ADC's have a common clock prescale setting.
 
-@param[in] adcpre uint32_t. Prescale divider taken from @ref rcc_cfgr_adcpre
+@param[in] adcpre Prescale divider taken from @ref rcc_cfgr_adcpre
 */
 
 void rcc_set_adcpre(uint32_t adcpre)
@@ -493,7 +493,7 @@ void rcc_set_adcpre(uint32_t adcpre)
 /*---------------------------------------------------------------------------*/
 /** @brief RCC Set the APB2 Prescale Factor.
 
-@param[in] ppre2 Unsigned int32. APB2 prescale factor @ref rcc_cfgr_apb2pre
+@param[in] ppre2 APB2 prescale factor @ref rcc_cfgr_apb2pre
 */
 
 void rcc_set_ppre2(uint32_t ppre2)
@@ -507,7 +507,7 @@ void rcc_set_ppre2(uint32_t ppre2)
 
 @note The APB1 clock frequency must not exceed 36MHz.
 
-@param[in] ppre1 Unsigned int32. APB1 prescale factor @ref rcc_cfgr_apb1pre
+@param[in] ppre1 APB1 prescale factor @ref rcc_cfgr_apb1pre
 */
 
 void rcc_set_ppre1(uint32_t ppre1)
@@ -520,7 +520,7 @@ void rcc_set_ppre1(uint32_t ppre1)
 /*---------------------------------------------------------------------------*/
 /** @brief RCC Set the AHB Prescale Factor.
 
-@param[in] hpre Unsigned int32. AHB prescale factor @ref rcc_cfgr_ahbpre
+@param[in] hpre AHB prescale factor @ref rcc_cfgr_ahbpre
 */
 
 void rcc_set_hpre(uint32_t hpre)
@@ -538,7 +538,7 @@ The prescale factor can be set to 1 (no prescale) for use when the PLL clock is
 
 @note This bit cannot be reset while the USB clock is enabled.
 
-@param[in] usbpre Unsigned int32. USB prescale factor @ref rcc_cfgr_usbpre
+@param[in] usbpre USB prescale factor @ref rcc_cfgr_usbpre
 */
 
 void rcc_set_usbpre(uint32_t usbpre)
