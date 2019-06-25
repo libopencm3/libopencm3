@@ -1,3 +1,5 @@
+/** @addtogroup letimer_defines
+ */
 /*
  * This file is part of the libopencm3 project.
  *
@@ -17,11 +19,12 @@
  * along with this library.  If not, see <http://www.gnu.org/licenses/>.
  */
 
-#ifndef LIBOPENCM3_EFM32_LETIMER_H
-#define LIBOPENCM3_EFM32_LETIMER_H
+#pragma once
 
 #include <libopencm3/efm32/memorymap.h>
 #include <libopencm3/cm3/common.h>
+
+/**@{*/
 
 #define LETIMER_CTRL(base)		((base) + 0x000)
 #define LETIMER_CMD(base)		((base) + 0x004)
@@ -161,5 +164,4 @@
 #define LETIMER0_SYNCBUSY		LETIMER_SYNCBUSY(LETIMER0)
 #define LETIMER0_ROUTE			LETIMER_ROUTE(LETIMER0)
 
-#endif
-
+/**@}*/

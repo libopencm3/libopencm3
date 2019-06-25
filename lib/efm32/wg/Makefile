@@ -46,6 +46,7 @@ OBJS += dma_common.o
 OBJS += emu_common.o
 OBJS += gpio_common.o
 OBJS += i2c_common.o
+OBJS += letimer_common.o
 OBJS += prs_common.o
 OBJS += timer_common.o
 
