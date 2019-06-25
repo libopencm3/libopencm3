@@ -18,7 +18,7 @@
  * You should have received a copy of the GNU Lesser General Public License
  * along with this library.  If not, see <http://www.gnu.org/licenses/>.
  */
-/** @defgroup CM3_nvic_defines NVIC Defines
+/** @defgroup CM3_nvic_defines Cortex-M NVIC Defines
  *
  * @brief <b>libopencm3 Cortex Nested Vectored Interrupt Controller</b>
  *

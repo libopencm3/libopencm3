@@ -17,7 +17,7 @@
  * along with this library.  If not, see <http://www.gnu.org/licenses/>.
  */
 
-/** @defgroup CM3_mpu_defines MPU Defines
+/** @defgroup CM3_mpu_defines Cortex-M MPU Defines
  *
  * @brief <b>libopencm3 Cortex Memory Protection Unit</b>
  *

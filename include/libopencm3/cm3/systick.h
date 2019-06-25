@@ -17,7 +17,7 @@
  * You should have received a copy of the GNU Lesser General Public License
  * along with this library.  If not, see <http://www.gnu.org/licenses/>.
  */
-/** @defgroup CM3_systick_defines SysTick Defines
+/** @defgroup CM3_systick_defines Cortex-M SysTick Defines
  *
  * @brief <b>libopencm3 Defined Constants and Types for the Cortex SysTick </b>
  *
