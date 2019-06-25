@@ -1,3 +1,5 @@
+/** @addtogroup rtc_defines
+ */
 /*
  * This file is part of the libopencm3 project.
  *
@@ -17,11 +19,12 @@
  * along with this library.  If not, see <http://www.gnu.org/licenses/>.
  */
 
-#ifndef LIBOPENCM3_EFM32_RTC_H
-#define LIBOPENCM3_EFM32_RTC_H
+#pragma once
 
 #include <libopencm3/efm32/memorymap.h>
 #include <libopencm3/cm3/common.h>
+
+/**@{*/
 
 #define RTC_CTRL		(RTC_BASE + 0x000)
 #define RTC_CNT			(RTC_BASE + 0x004)
@@ -67,5 +70,4 @@
 #define RTC_SYNCBUSY_COMP0		(1 << 1)
 #define RTC_SYNCBUSY_CTRL		(1 << 0)
 
-#endif
-
+/**@}*/

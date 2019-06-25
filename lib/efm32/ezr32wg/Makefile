@@ -50,6 +50,7 @@ OBJS += letimer_common.o
 OBJS += msc_common.o
 OBJS += prs_common.o
 OBJS += rmu_common.o
+OBJS += rtc_common.o
 OBJS += timer_common.o
 OBJS += wdog_common.o
 
