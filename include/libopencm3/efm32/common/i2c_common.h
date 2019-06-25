@@ -1,3 +1,5 @@
+/** @addtogroup i2c_defines
+ */
 /*
  * This file is part of the libopencm3 project.
  *
@@ -17,11 +19,12 @@
  * along with this library.  If not, see <http://www.gnu.org/licenses/>.
  */
 
-#ifndef LIBOPENCM3_EFM32_I2C_H
-#define LIBOPENCM3_EFM32_I2C_H
+#pragma once
 
 #include <libopencm3/efm32/memorymap.h>
 #include <libopencm3/cm3/common.h>
+
+/**@{*/
 
 #define I2C_CTRL(base)		MMIO32((base) + 0x000)
 #define I2C_CMD(base)		MMIO32((base) + 0x004)
@@ -265,4 +268,4 @@
 #define I2C1_IEN		I2C_IEN(I2C1)
 #define I2C1_ROUTE		I2C_ROUTE(I2C1)
 
-#endif
+/**@}*/
