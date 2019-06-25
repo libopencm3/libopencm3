@@ -1,3 +1,5 @@
+/** @addtogroup timer_defines
+ */
 /*
  * This file is part of the libopencm3 project.
  *
@@ -17,11 +19,12 @@
  * along with this library.  If not, see <http://www.gnu.org/licenses/>.
  */
 
-#ifndef LIBOPENCM3_EFM32_TIMER_H
-#define LIBOPENCM3_EFM32_TIMER_H
+#pragma once
 
 #include <libopencm3/efm32/memorymap.h>
 #include <libopencm3/cm3/common.h>
+
+/**@{*/
 
 #define TIMER_CTRL(base)		MMIO32((base) + 0x000)
 #define TIMER_CMD(base)			MMIO32((base) + 0x004)
@@ -606,5 +609,4 @@ void timer_set_top(uint32_t timer, uint32_t top);
 
 END_DECLS
 
-#endif
-
+/**@}*/
