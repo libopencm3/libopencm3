@@ -49,6 +49,7 @@ OBJS += i2c_common.o
 OBJS += letimer_common.o
 OBJS += msc_common.o
 OBJS += prs_common.o
+OBJS += rmu_common.o
 OBJS += timer_common.o
 
 OBJS += usb.o usb_control.o usb_standard.o usb_msc.o
