@@ -43,6 +43,7 @@ OBJS += burtc_common.o
 OBJS += cmu_common.o
 OBJS += dac_common.o
 OBJS += dma_common.o
+OBJS += emu_common.o
 OBJS += gpio_common.o
 OBJS += prs_common.o
 OBJS += timer_common.o

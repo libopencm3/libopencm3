@@ -1,3 +1,5 @@
+/** @addtogroup emu_defines
+ */
 /*
  * This file is part of the libopencm3 project.
  *
@@ -17,11 +19,12 @@
  * along with this library.  If not, see <http://www.gnu.org/licenses/>.
  */
 
-#ifndef LIBOPENCM3_EFM32_EMU_H
-#define LIBOPENCM3_EFM32_EMU_H
+#pragma once
 
 #include <libopencm3/efm32/memorymap.h>
 #include <libopencm3/cm3/common.h>
+
+/**@{*/
 
 #define EMU_CTRL			MMIO32(EMU_BASE + 0x000)
 #define EMU_LOCK			MMIO32(EMU_BASE + 0x008)
@@ -185,5 +188,4 @@
 	(((v) << EMU_BUBODUNREGCAL_THRES_SHIFT) & \
 	 EMU_BUBODUNREGCAL_THRES_MASK)
 
-#endif
-
+/**@}*/
