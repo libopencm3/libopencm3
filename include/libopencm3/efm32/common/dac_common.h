@@ -1,3 +1,5 @@
+/** @addtogroup dac_defines
+ */
 /*
  * This file is part of the libopencm3 project.
  *
@@ -17,12 +19,13 @@
  * along with this library.  If not, see <http://www.gnu.org/licenses/>.
  */
 
-#ifndef LIBOPENCM3_EFM32_DAC_H
-#define LIBOPENCM3_EFM32_DAC_H
+#pragma once
 
 #include <libopencm3/efm32/memorymap.h>
 #include <libopencm3/cm3/common.h>
 #include <libopencm3/efm32/prs.h>
+
+/**@{*/
 
 #define DAC_CTRL(base)		MMIO32((base) + 0x00)
 #define DAC_STATUS(base)	MMIO32((base) + 0x04)
@@ -508,5 +511,4 @@ void dac_disable_channel(uint32_t dac_base, enum dac_ch ch);
 
 END_DECLS
 
-#endif
-
+/**@}*/
