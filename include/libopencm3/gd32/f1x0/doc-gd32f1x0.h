@@ -11,7 +11,7 @@ LGPL License Terms @ref lgpl_license
  * APIs for device peripherals
  */
 
-/** @defgroup GD32F1x0xx GD32F1x0xx
+/** @defgroup GD32F1x0 GD32F1x0xx
 Libraries for GigaDevices GD32F1x0xx series.
 
 @version 1.0.0
@@ -19,7 +19,7 @@ Libraries for GigaDevices GD32F1x0xx series.
 LGPL License Terms @ref lgpl_license
 */
 
-/** @defgroup GD32F1x0xx_defines GD32F1x0xx Defines
+/** @defgroup GD32F1x0_defines GD32F1x0xx Defines
 
 @brief Defined Constants and Types for the GD32F1x0xx series
 
