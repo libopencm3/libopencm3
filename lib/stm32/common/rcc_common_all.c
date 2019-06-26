@@ -237,8 +237,7 @@ void rcc_osc_bypass_enable(enum rcc_osc osc)
  * effect.
  * @note The LSE clock is in the backup domain and cannot have bypass removed
  * until the backup domain write protection has been removed (see @ref
- * pwr_disable_backup_domain_write_protect) or the backup domain has been reset
- * (see @ref rcc_backupdomain_reset).
+ * pwr_disable_backup_domain_write_protect) or the backup domain has been reset.
  * @param[in] osc Oscillator ID. Only HSE and LSE have effect.
  */
 void rcc_osc_bypass_disable(enum rcc_osc osc)
