@@ -1,6 +1,6 @@
-/** @defgroup GD32F1x0-rcc-file RCC
+/** @defgroup rcc_file RCC peripheral API
 
-@ingroup GD32F1x0
+@ingroup peripheral_apis
 
 @brief <b>libopencm3 GD32F1x0 Reset and Clock Control</b>
 
