@@ -108,6 +108,9 @@ Control</b>
 
 #define RCC_CFGR_PLLMUL_SHIFT			18
 #define RCC_CFGR_PLLMUL				(0x0F << RCC_CFGR_PLLMUL_SHIFT)
+/** @defgroup rcc_cfgr_pmf PLLMUL: PLL multiplication factor
+ * @{
+ */
 #define RCC_CFGR_PLLMUL_MUL2			(0x00 << RCC_CFGR_PLLMUL_SHIFT)
 #define RCC_CFGR_PLLMUL_MUL3			(0x01 << RCC_CFGR_PLLMUL_SHIFT)
 #define RCC_CFGR_PLLMUL_MUL4			(0x02 << RCC_CFGR_PLLMUL_SHIFT)
@@ -123,14 +126,23 @@ Control</b>
 #define RCC_CFGR_PLLMUL_MUL14			(0x0C << RCC_CFGR_PLLMUL_SHIFT)
 #define RCC_CFGR_PLLMUL_MUL15			(0x0D << RCC_CFGR_PLLMUL_SHIFT)
 #define RCC_CFGR_PLLMUL_MUL16			(0x0E << RCC_CFGR_PLLMUL_SHIFT)
+/**@}*/
 
 #define RCC_CFGR_PLLXTPRE			(1<<17)
+/** @defgroup rcc_cfgr_hsepre PLLXTPRE: HSE divider for PLL source
+ * @{
+ */
 #define RCC_CFGR_PLLXTPRE_HSE_CLK		0x0
 #define RCC_CFGR_PLLXTPRE_HSE_CLK_DIV2		0x1
+/**@}*/
 
 #define RCC_CFGR_PLLSRC				(1<<16)
+/** @defgroup rcc_cfgr_pcs PLLSRC: PLL Clock source
+ * @{
+ */
 #define RCC_CFGR_PLLSRC_HSI_CLK_DIV2		0x0
 #define RCC_CFGR_PLLSRC_HSE_CLK			0x1
+/**@}*/
 
 #define RCC_CFGR_PLLSRC0			(1<<15)
 #define RCC_CFGR_ADCPRE				(1<<14)
