@@ -7,7 +7,7 @@
 @version 1.0.0
 
 @author @htmlonly &copy; @endhtmlonly 2015
-Daniele Lacamera <root at danielinux dot net>
+Daniele Lacamera \<root at danielinux dot net\>
 
 @date 21 November 2015
 
