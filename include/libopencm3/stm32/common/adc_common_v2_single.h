@@ -48,22 +48,27 @@ specific memorymap.h header before including this header file.*/
 
 /* ----- ADC registers values -----------------------------------------------*/
 /* ADC_CFGR1 values */
+/** @addtogroup adc_cfgr1
+@{*/
 /** Wait conversion mode */
 #define ADC_CFGR1_WAIT		(1<<14)
 /** Auto off mode */
 #define ADC_CFGR1_AUTOFF		(1 << 15)
 
-/* EXTSEL[2:0]: External trigger selection for regular group */
 #define ADC_CFGR1_EXTSEL_SHIFT		6
 #define ADC_CFGR1_EXTSEL		(0x7 << ADC_CFGR1_EXTSEL_SHIFT)
+/** EXTSEL[2:0]: External trigger selection for regular group */
 #define ADC_CFGR1_EXTSEL_VAL(x)		((x) << ADC_CFGR1_EXTSEL_SHIFT)
 
+/** SCANDIR: Scan Sequence Direction: Upwards Scan (0), Downwards(1) */
 #define ADC_CFGR1_SCANDIR		(1 << 2)
+/**@}*/
 
 /* ADC_CHSELR Values --------------------------------------------------------*/
-
+/** @addtogroup adc_chselr
+@{*/
 #define ADC_CHSELR_CHSEL(x)		(1 << (x))
-
+/**@}*/
 
 /* --- Function prototypes ------------------------------------------------- */
 
