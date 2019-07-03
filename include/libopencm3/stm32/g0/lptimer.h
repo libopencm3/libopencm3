@@ -39,6 +39,29 @@
 #define LPTIM2				LPTIM2_BASE
 /**@}*/
 
+/** LPTIM_CFGR2 LPTIM configuration register 2 */
+#define LPTIM_CFGR2(tim_base)			MMIO32((tim_base) + 0x24)
+
+/** @addtogroup lptim_cr
+@{*/
+/** COUNTRST Counter reset **/
+#define LPTIM_CR_COUNTRST		(1 << 3)
+/** RSTARE Reset after read enable **/
+#define LPTIM_CR_RSTARE		(1 << 4)
+/**@}*/
+
+/** @defgroup lptim_cfgr2 LPTIM_CFGR2 Configuration Register 2
+@{*/
+
+#define LPTIM_CFGR2_IN2SEL_SHIFT	4
+#define LPTIM_CFGR2_IN2SEL_MASK		0x03
+
+#define LPTIM_CFGR2_IN1SEL_SHIFT	0
+#define LPTIM_CFGR2_IN1SEL_MASK		0x03
+
+/**@}*/
+
+
 BEGIN_DECLS
 
 END_DECLS
