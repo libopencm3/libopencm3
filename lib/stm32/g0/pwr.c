@@ -3,8 +3,6 @@
  *
  * @author @htmlonly &copy; @endhtmlonly 2019 Guillaume Revaillot <g.revaillot@gmail.com>
  *
- * @ingroup peripheral_apis
- *
  * @brief <b>libopencm3 STM32G0xx Power Control</b>
  *
  * @version 1.0.0
