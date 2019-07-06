@@ -16,6 +16,8 @@
 #	include "../stm32/l1/vector_nvic.c"
 #elif defined(STM32L4)
 #	include "../stm32/l4/vector_nvic.c"
+#elif defined(STM32L4PLUS)
+#	include "../stm32/l4plus/vector_nvic.c"
 #elif defined(STM32G0)
 #	include "../stm32/g0/vector_nvic.c"
 
