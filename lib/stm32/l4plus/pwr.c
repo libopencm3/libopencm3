@@ -38,19 +38,29 @@
 
 void pwr_set_vos_scale(enum pwr_vos_scale scale)
 {
-	uint32_t reg32;
+	uint32_t reg_cr1;
+	uint32_t reg_cr5;
 
-	reg32 = PWR_CR1;
-	reg32 &= ~(PWR_CR1_VOS_MASK << PWR_CR1_VOS_SHIFT);
+	reg_cr1 = PWR_CR1;
+	reg_cr1 &= ~(PWR_CR1_VOS_MASK << PWR_CR1_VOS_SHIFT);
+
+	reg_cr5 = PWR_CR5;
+
 	switch (scale) {
 	case PWR_SCALE1:
-		reg32 |= (PWR_CR1_VOS_RANGE_1 << PWR_CR1_VOS_SHIFT);
+		reg_cr1 |= (PWR_CR1_VOS_RANGE_1 << PWR_CR1_VOS_SHIFT);
+		reg_cr5 |= PWR_CR5_R1MODE;
+		break;
+	case PWR_SCALE1BOOST:
+		reg_cr1 |= (PWR_CR1_VOS_RANGE_1 << PWR_CR1_VOS_SHIFT);
+		reg_cr5 &= ~PWR_CR5_R1MODE;
 		break;
 	case PWR_SCALE2:
-		reg32 |= (PWR_CR1_VOS_RANGE_2 << PWR_CR1_VOS_SHIFT);
+		reg_cr1 |= (PWR_CR1_VOS_RANGE_2 << PWR_CR1_VOS_SHIFT);
 		break;
 	}
-	PWR_CR1 = reg32;
+	PWR_CR1 = reg_cr1;
+	PWR_CR5 = reg_cr5;
 }
 
 /**@}*/

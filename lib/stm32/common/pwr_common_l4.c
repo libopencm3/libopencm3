@@ -36,21 +36,23 @@
 /**@{*/
 #include <libopencm3/stm32/pwr.h>
 
-void pwr_set_vos_scale(enum pwr_vos_scale scale)
+/** Disable Backup Domain Write Protection
+ *
+ * This allows backup domain registers to be changed. These registers are write
+ * protected after a reset.
+ */
+void pwr_disable_backup_domain_write_protect(void)
 {
-	uint32_t reg32;
+	PWR_CR1 |= PWR_CR1_DBP;
+}
 
-	reg32 = PWR_CR1;
-	reg32 &= ~(PWR_CR1_VOS_MASK << PWR_CR1_VOS_SHIFT);
-	switch (scale) {
-	case PWR_SCALE1:
-		reg32 |= (PWR_CR1_VOS_RANGE_1 << PWR_CR1_VOS_SHIFT);
-		break;
-	case PWR_SCALE2:
-		reg32 |= (PWR_CR1_VOS_RANGE_2 << PWR_CR1_VOS_SHIFT);
-		break;
-	}
-	PWR_CR1 = reg32;
+/** Re-enable Backup Domain Write Protection
+ *
+ * This protects backup domain registers from inadvertent change.
+ */
+void pwr_enable_backup_domain_write_protect(void)
+{
+	PWR_CR1 &= ~PWR_CR1_DBP;
 }
 
 /**@}*/
