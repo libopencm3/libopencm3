@@ -1,9 +1,9 @@
 /** @defgroup flash_defines FLASH Defines
  *
- * @brief <b>Defined Constants and Types for the STM32L4xx Flash Control</b>
+ * @brief <b>Defined Constants and Types for the STM32L4Rxx/STM32L4Sxx Flash Control</b>
  *
- * @ingroup STM32L4xx_defines
- * 
+ * @ingroup STM32L4PLUSxx_defines
+ *
  * LGPL License Terms @ref lgpl_license
  */
 
