@@ -1,5 +1,3 @@
-/* This provides unification of code over STM32 subfamilies */
-
 /*
  * This file is part of the libopencm3 project.
  *
@@ -17,18 +15,9 @@
  * along with this library.  If not, see <http://www.gnu.org/licenses/>.
  */
 
-#include <libopencm3/cm3/common.h>
-#include <libopencm3/stm32/memorymap.h>
+#ifndef LIBOPENCM3_RNG_H
+#define LIBOPENCM3_RNG_H
 
-#if defined(STM32F0)
-#       include <libopencm3/stm32/common/crs_common_all.h>
-#elif defined(STM32L0)
-#       include <libopencm3/stm32/common/crs_common_all.h>
-#elif defined(STM32L4)
-#       include <libopencm3/stm32/common/crs_common_all.h>
-#elif defined(STM32L4PLUS)
-#       include <libopencm3/stm32/common/crs_common_all.h>
-#else
-#       error "stm32 family not defined or not supported for this peripheral"
+#include <libopencm3/stm32/common/rng_common_v1.h>
+
 #endif
-

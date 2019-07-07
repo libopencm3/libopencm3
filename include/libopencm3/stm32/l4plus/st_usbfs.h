@@ -1,5 +1,3 @@
-/* This provides unification of code over STM32 subfamilies */
-
 /*
  * This file is part of the libopencm3 project.
  *
@@ -16,27 +14,14 @@
  * You should have received a copy of the GNU Lesser General Public License
  * along with this library.  If not, see <http://www.gnu.org/licenses/>.
  */
+/* THIS FILE SHOULD NOT BE INCLUDED DIRECTLY !
+ * Use top-level <libopencm3/stm32/st_usbfs.h>
+ */
 
-#include <libopencm3/cm3/common.h>
-#include <libopencm3/stm32/memorymap.h>
-
-#if defined(STM32F0)
-#       include <libopencm3/stm32/f0/rtc.h>
-#elif defined(STM32F1)
-#       include <libopencm3/stm32/f1/rtc.h>
-#elif defined(STM32F2)
-#       include <libopencm3/stm32/f2/rtc.h>
-#elif defined(STM32F4)
-#       include <libopencm3/stm32/f4/rtc.h>
-#elif defined(STM32L0)
-#       include <libopencm3/stm32/l0/rtc.h>
-#elif defined(STM32L1)
-#       include <libopencm3/stm32/l1/rtc.h>
-#elif defined(STM32L4)
-#       include <libopencm3/stm32/l4/rtc.h>
-#elif defined(STM32L4PLUS)
-#       include <libopencm3/stm32/l4plus/rtc.h>
+#ifndef LIBOPENCM3_ST_USBFS_H
+#	error Do not include directly !
 #else
-#       error "stm32 family not defined."
-#endif
 
+#include <libopencm3/stm32/common/st_usbfs_v2.h>
+
+#endif

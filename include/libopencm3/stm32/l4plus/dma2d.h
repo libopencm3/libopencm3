@@ -1,5 +1,12 @@
-/* This provides unification of code over STM32 subfamilies */
-
+/** @defgroup dma2d_defines DMA2D Defines
+ *
+ * @brief <b>Defined Constants and Types for the STM32L4Rxx/STM32L4Sxx DMA2D
+ * Peripheral</b>
+ *
+ * @ingroup STM32L4PLUSxx_defines
+ *
+ * LGPL License Terms @ref lgpl_license
+ */
 /*
  * This file is part of the libopencm3 project.
  *
@@ -17,18 +24,9 @@
  * along with this library.  If not, see <http://www.gnu.org/licenses/>.
  */
 
-#include <libopencm3/cm3/common.h>
-#include <libopencm3/stm32/memorymap.h>
+#ifndef LIBOPENCM3_DMA2D_H
+#define LIBOPENCM3_DMA2D_H
 
-#if defined(STM32F0)
-#       include <libopencm3/stm32/common/crs_common_all.h>
-#elif defined(STM32L0)
-#       include <libopencm3/stm32/common/crs_common_all.h>
-#elif defined(STM32L4)
-#       include <libopencm3/stm32/common/crs_common_all.h>
-#elif defined(STM32L4PLUS)
-#       include <libopencm3/stm32/common/crs_common_all.h>
-#else
-#       error "stm32 family not defined or not supported for this peripheral"
-#endif
+#include <libopencm3/stm32/common/dma2d_common_f47.h>
 
+#endif /* LIBOPENCM3_DMA2D_H */

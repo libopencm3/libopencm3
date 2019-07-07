@@ -24,6 +24,8 @@
 #       include <libopencm3/stm32/f4/dma2d.h>
 #elif defined(STM32F7)
 #       include <libopencm3/stm32/f7/dma2d.h>
+#elif defined(STM32L4PLUS)
+#       include <libopencm3/stm32/l4plus/dma2d.h>
 #else
 #       error "dma2d.h not available for this family."
 #endif

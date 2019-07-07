@@ -1,7 +1,18 @@
-/* This provides unification of code over STM32 subfamilies */
-
+/** @defgroup lptimer_defines LPTIM Defines
+ *
+ * @ingroup STM32L4xx_defines
+ *
+ * @brief <b>libopencm3 Defined Constants and Types for the STM32L4Rxx/STM32L4Sxx
+ * Low Power Timer</b>
+ *
+ * @version 1.0.0
+ *
+ * LGPL License Terms @ref lgpl_license
+ *  */
 /*
  * This file is part of the libopencm3 project.
+ *
+ * Copyright (C) 2019 Guillaume Revaillot <g.revaillot@gmail.com>
  *
  * This library is free software: you can redistribute it and/or modify
  * it under the terms of the GNU Lesser General Public License as published by
@@ -17,18 +28,21 @@
  * along with this library.  If not, see <http://www.gnu.org/licenses/>.
  */
 
-#include <libopencm3/cm3/common.h>
-#include <libopencm3/stm32/memorymap.h>
+#ifndef LIBOPENCM3_LPTIMER_H
+#define LIBOPENCM3_LPTIMER_H
+/**@{*/
 
-#if defined(STM32F0)
-#       include <libopencm3/stm32/common/crs_common_all.h>
-#elif defined(STM32L0)
-#       include <libopencm3/stm32/common/crs_common_all.h>
-#elif defined(STM32L4)
-#       include <libopencm3/stm32/common/crs_common_all.h>
-#elif defined(STM32L4PLUS)
-#       include <libopencm3/stm32/common/crs_common_all.h>
-#else
-#       error "stm32 family not defined or not supported for this peripheral"
+#include <libopencm3/stm32/common/lptimer_common_all.h>
+
+/** @defgroup lptim_reg_base Low Power Timer register base addresses
+@{*/
+#define LPTIM1				LPTIM1_BASE
+#define LPTIM2				LPTIM2_BASE
+/**@}*/
+
+BEGIN_DECLS
+
+END_DECLS
+
+/**@}*/
 #endif
-
