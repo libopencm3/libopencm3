@@ -1,10 +1,10 @@
 /** @defgroup adc_defines ADC Defines
  *
- * @brief <b>Defined Constants and Types for the STM32L4xx Analog to Digital
+ * @brief <b>Defined Constants and Types for the STM32L4Rxx/STM32L4Sxx Analog to Digital
  * Converter</b>
  *
- * @ingroup STM32L4xx_defines
- * 
+ * @ingroup STM32L4PLUSxx_defines
+ *
  * LGPL License Terms @ref lgpl_license
  */
 
@@ -31,3 +31,4 @@
 #include <libopencm3/stm32/common/adc_common_l4.h>
 
 #endif
+
