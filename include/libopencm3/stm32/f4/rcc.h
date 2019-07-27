@@ -756,18 +756,6 @@
 #define RCC_CKGATENR_AHB2APB1_CKEN		(1<<0)
 /*@}*/
 
-/* PLLSAI1 helper macros */
-static inline void rcc_pllsai_enable(void)
-{
-	RCC_CR |= RCC_CR_PLLSAION;
-}
-
-static inline bool rcc_pllsai_ready(void)
-{
-	return (RCC_CR & RCC_CR_PLLSAIRDY) != 0;
-}
-
-
 /* --- Variable definitions ------------------------------------------------ */
 extern uint32_t rcc_ahb_frequency;
 extern uint32_t rcc_apb1_frequency;
