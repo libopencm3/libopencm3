@@ -1080,6 +1080,7 @@ void rcc_osc_on(enum rcc_osc osc);
 void rcc_osc_off(enum rcc_osc osc);
 void rcc_css_enable(void);
 void rcc_css_disable(void);
+void rcc_plli2s_config(uint16_t n, uint8_t r);
 void rcc_pllsai_config(uint16_t n, uint16_t p, uint16_t q, uint16_t r);
 void rcc_pllsai_postscalers(uint8_t q, uint8_t r);
 void rcc_set_sysclk_source(uint32_t clk);
