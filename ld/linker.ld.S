@@ -132,6 +132,10 @@ SECTIONS
 		. = ALIGN(4);
 		_ebss = .;
 	} >ram
+	.heap : {
+		. = ALIGN(4);
+		_heap_start = .;
+	} >ram
 
 #if defined(_CCM)
 	.ccm : {
