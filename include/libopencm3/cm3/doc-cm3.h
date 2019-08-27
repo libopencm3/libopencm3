@@ -21,6 +21,6 @@ LGPL License Terms @ref lgpl_license
 */
 
 /** @defgroup CM3_files Cortex Core Peripheral APIs
- * APIs for Coretex Core peripherals
+ * APIs for Cortex Core peripherals
  */
 
