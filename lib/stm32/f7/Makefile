@@ -24,7 +24,7 @@ SRCLIBDIR	?= ../..
 CC		= $(PREFIX)gcc
 AR		= $(PREFIX)ar
 
-# STM32F7 only supports single precision FPU
+# We only support single precision FPU. Some STM32F7 parts have DP FPU.
 FP_FLAGS	?= -mfloat-abi=hard -mfpu=fpv5-sp-d16
 
 TGT_CFLAGS	= -Os \
