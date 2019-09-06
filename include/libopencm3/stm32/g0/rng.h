@@ -2,7 +2,7 @@
  *
  * @ingroup STM32G0xx_defines
  *
- * @brief <b>Defined Constants and Types for the STM32G0xx EXTI Control</b>
+ * @brief <b>Defined Constants and Types for the STM32G0xx RNG Control</b>
  *
  * @version 1.0.0
  *
