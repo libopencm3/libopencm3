@@ -1,10 +1,16 @@
 /** @addtogroup gpio_file GPIO peripheral API
  * @ingroup peripheral_apis
+ * LGPL License Terms @ref lgpl_license
+ * @author @htmlonly &copy; @endhtmlonly 2019
+ * Icenowy Zheng <icenowy@aosc.io>
+ * @author @htmlonly &copy; @endhtmlonly 2019
+ * Caleb Szalacinski <contact@skiboy.net>
  */
 /*
  * This file is part of the libopencm3 project.
  *
  * Copyright (C) 2019 Icenowy Zheng <icenowy@aosc.io>
+ * Copyright (C) 2019 Caleb Szalacinski <contact@skiboy.net>
  *
  * This library is free software: you can redistribute it and/or modify
  * it under the terms of the GNU Lesser General Public License as published by
@@ -19,10 +25,9 @@
  * You should have received a copy of the GNU Lesser General Public License
  * along with this library.  If not, see <http://www.gnu.org/licenses/>.
  */
-
-#include <libopencm3/swm050/gpio.h>
-
 /**@{*/
+#include <libopencm3/swm050/gpio.h>
+#include <libopencm3/cm3/nvic.h>
 
 /*---------------------------------------------------------------------------*/
 /** @brief Set a Group of Pins
@@ -36,7 +41,7 @@ atomic pin setting.
 */
 void gpio_set(uint16_t gpios)
 {
-	GPIO_DATA |= gpios;
+	ADATA |= gpios;
 }
 
 /*---------------------------------------------------------------------------*/
@@ -51,7 +56,7 @@ atomic pin setting.
 */
 void gpio_clear(uint16_t gpios)
 {
-	GPIO_DATA &= ~gpios;
+	ADATA &= ~gpios;
 }
 
 /*---------------------------------------------------------------------------*/
@@ -65,7 +70,7 @@ void gpio_clear(uint16_t gpios)
 */
 uint16_t gpio_get(uint16_t gpios)
 {
-	return GPIO_EXT & gpios;
+	return AEXT & gpios;
 }
 
 /*---------------------------------------------------------------------------*/
@@ -79,8 +84,8 @@ Toggle one or more pins of GPIO. The non-toggled pins are not affected.
 */
 void gpio_toggle(uint16_t gpios)
 {
-	uint32_t curr_status = GPIO_DATA & gpios;
-	GPIO_DATA = (GPIO_DATA & (~gpios)) | (~curr_status);
+	uint32_t curr_status = ADATA & gpios;
+	ADATA = (ADATA & (~gpios)) | (~curr_status);
 }
 
 /*---------------------------------------------------------------------------*/
@@ -94,7 +99,7 @@ Set the direction of one or more pins of GPIO to input.
 */
 void gpio_input(uint16_t gpios)
 {
-	GPIO_DIR &= ~gpios;
+	ADIR &= ~gpios;
 }
 
 /*---------------------------------------------------------------------------*/
@@ -108,7 +113,7 @@ Set the direction of one or more pins of GPIO to output.
 */
 void gpio_output(uint16_t gpios)
 {
-	GPIO_DIR |= gpios;
+	ADIR |= gpios;
 }
 
 /*---------------------------------------------------------------------------*/
@@ -124,16 +129,16 @@ Select the alternative function of one or more pins of GPIO.
 void gpio_sel_af(uint16_t gpios, bool af_en)
 {
 	if (gpios & GPIO0) {
-		GPIO_SEL = (GPIO_SEL & (~0x3)) | (af_en ? 0x1 : 0x0);
+		PORTA_SEL = (PORTA_SEL & (~0x3)) | (af_en ? 0x1 : 0x0);
 	}
 	if (gpios & GPIO1) {
-		GPIO_SEL = (GPIO_SEL & (~0xc)) | (af_en ? 0x4 : 0x0);
+		PORTA_SEL = (PORTA_SEL & (~0xc)) | (af_en ? 0x4 : 0x0);
 	}
 	if (gpios & GPIO2) {
-		GPIO_SEL = (GPIO_SEL & (~0x30)) | (af_en ? 0x10 : 0x0);
+		PORTA_SEL = (PORTA_SEL & (~0x30)) | (af_en ? 0x10 : 0x0);
 	}
 	if (gpios & GPIO7) {
-		GPIO_SEL = (GPIO_SEL & (~0xc000)) | (af_en ? 0x4000 : 0x0);
+		PORTA_SEL = (PORTA_SEL & (~0xc000)) | (af_en ? 0x4000 : 0x0);
 	}
 }
 
@@ -149,11 +154,7 @@ Enable or disable the internal pull-up of one or more pins of GPIO.
 */
 void gpio_pullup(uint16_t gpios, bool en)
 {
-	if (en) {
-		GPIO_PULLUP |= gpios;
-	} else {
-		GPIO_PULLUP &= ~gpios;
-	}
+	PORTA_PULLUP = en ? (PORTA_PULLUP | gpios) : (PORTA_PULLUP & ~gpios);
 }
 
 /*---------------------------------------------------------------------------*/
@@ -167,15 +168,10 @@ the input function of pins decreases the power usage of the MCU.
 	     them.
 @param[in] en true to enable input function.
 */
-void gpio_in_en(uint16_t gpios, bool en)
+void gpio_input_en(uint16_t gpios, bool en)
 {
-	if (en) {
-		GPIO_INEN &= ~gpios;
-	} else {
-		GPIO_INEN |= gpios;
-	}
+	PORTA_INEN = en ? (PORTA_INEN & ~gpios) : (PORTA_INEN | gpios);
 }
-
 
 /*---------------------------------------------------------------------------*/
 /** @brief Select the SWD function of GPIO 1/2
@@ -187,11 +183,129 @@ is enabled, GPIO and AF of the SWD pins will be both unavailable.
 */
 void gpio_sel_swd(bool en)
 {
-	if (en) {
-		SWD_SEL = 1;
-	} else {
-		SWD_SEL = 0;
+	SWD_SEL = en;
+}
+
+/*---------------------------------------------------------------------------*/
+/** @brief Sets the pins as external interrupts, rather than normal GPIO
+
+Enable interrupts on the selected pins.  If you want to quickly
+switch on and off interrupts, use gpio_int_mask() after calling this.
+
+@param[in] gpios Pin identifiers @ref gpio_pin_id
+	     If multiple pins are to be changed, use bitwise OR '|' to separate
+	     them.
+*/
+void gpio_int_en(uint16_t gpios)
+{
+	for (uint8_t i = 0; 0 <= 9; ++i) {
+		if (gpios & (1 << i)) {
+			nvic_enable_irq(NVIC_GPIOA0_IRQ + i);
+		}
 	}
+	INTEN_A |= gpios;
+	gpio_int_mask(gpios, GPIO_UNMASKED);
+}
+
+
+/*---------------------------------------------------------------------------*/
+/** @brief Sets bits in the interrupt mask
+
+When interrupts are masked, it prevents them from being received, which is a
+quicker way to turn on and off GPIO interrupts (after calling gpio_int_en()).
+
+@param[in] gpios Pin identifiers @ref gpio_pin_id
+	     If multiple pins are to be changed, use bitwise OR '|' to separate
+	     them.
+	     
+@param[in] gpios Pin mask selection @ref gpio_int_masked
+	     Whether to mask or unmask pins.
+*/
+void gpio_int_mask(uint16_t gpios, bool masked)
+{
+	INTMASK_A = masked ? (INTMASK_A | gpios) : (INTMASK_A & ~gpios);
+}
+
+
+/*---------------------------------------------------------------------------*/
+/** @brief Sets whether the pins are edge triggered or level triggered
+
+Sets whether the pins are edge triggered or level triggered.  Edge-triggered
+interrupt bits must be cleared by software.
+
+@param[in] gpios Pin identifiers @ref gpio_pin_id
+	     If multiple pins are to be changed, use bitwise OR '|' to separate
+	     them.
+
+@param[in] type Trigger Type @ref gpio_trig_type
+	     Level or edge triggered
+*/
+void gpio_int_type(uint16_t gpios, bool type)
+{
+	INTLEVEL_A = type ? (INTLEVEL_A | gpios) : (INTLEVEL_A & ~gpios);
+}
+
+
+/*---------------------------------------------------------------------------*/
+/** @brief Sets the interrupt trigger polarity
+
+Sets whether the interrupt is triggered by a high or low level/edge.
+
+@param[in] gpios Pin identifiers @ref gpio_pin_id
+	     If multiple pins are to be changed, use bitwise OR '|' to separate
+	     them.
+
+@param[in] pol Polarity @ref gpio_pol 
+	     High or low level/edge
+*/
+void gpio_int_pol(uint16_t gpios, bool pol)
+{
+	INTPOLARITY_A = pol ? (INTPOLARITY_A | gpios) : (INTPOLARITY_A & ~gpios);
+}
+
+
+/*---------------------------------------------------------------------------*/
+/** @brief Gets the masked interrupt status
+
+Returns the pin interrupt status masked with the mask set
+in @ref gpio_int_mask().
+
+@return The masked pin interrupt status as a bitfield. The bit position of the
+        pin value returned corresponds to the pin number.
+*/
+uint16_t gpio_int_stat(void)
+{
+	return INTSTAT_A;
+}
+
+
+/*---------------------------------------------------------------------------*/
+/** @brief Gets the raw unmasked interrupt status
+
+Returns the raw unmasked interrupt status.
+
+@return The unmasked pin interrupt status as a bitfield. The bit position of
+        the pin value returned corresponds to the pin number.
+*/
+uint16_t gpio_int_raw_stat(void)
+{
+	return RAWINTSTAT_A;
+}
+
+
+/*---------------------------------------------------------------------------*/
+/** @brief Clear the specified pin interrupts
+
+Clears the specified pin interrupts. Edge-triggered interrupts must be cleared
+by software.
+
+@param[in] gpios Pin identifiers @ref gpio_pin_id
+	     If multiple pins are to be changed, use bitwise OR '|' to separate
+	     them.
+*/
+void gpio_int_clear(uint16_t gpios)
+{
+	INTEOI_A |= gpios;
 }
 
 /**@}*/
