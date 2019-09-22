@@ -113,6 +113,30 @@
 /** @defgroup syscfg_cfgr2 CFGR2 SYSCFG configuration register 2
 @{*/
 
+/** SYSCFG_CFGR2_PB2_CDEN PB2 clamping diode enable */
+#define SYSCFG_CFGR2_PB2_CDEN		(1 << 23)
+
+/** SYSCFG_CFGR2_PB1_CDEN PB1 clamping diode enable */
+#define SYSCFG_CFGR2_PB1_CDEN		(1 << 22)
+
+/** SYSCFG_CFGR2_PB0_CDEN PB0 clamping diode enable */
+#define SYSCFG_CFGR2_PB0_CDEN		(1 << 21)
+
+/** SYSCFG_CFGR2_PA13_CDEN PA13 clamping diode enable */
+#define SYSCFG_CFGR2_PA13_CDEN		(1 << 20)
+
+/** SYSCFG_CFGR2_PA6_CDEN PA6 clamping diode enable */
+#define SYSCFG_CFGR2_PA6_CDEN		(1 << 19)
+
+/** SYSCFG_CFGR2_PA5_CDEN PA5 clamping diode enable */
+#define SYSCFG_CFGR2_PA5_CDEN		(1 << 18)
+
+/** SYSCFG_CFGR2_PA3_CDEN PA3 clamping diode enable */
+#define SYSCFG_CFGR2_PA3_CDEN		(1 << 17)
+
+/** SYSCFG_CFGR2_PA1_CDEN PA1 clamping diode enable */
+#define SYSCFG_CFGR2_PA1_CDEN		(1 << 16)
+
 /** SYSCFG_CFGR2_SRAM_PEF SRAM parity error flag */
 #define SYSCFG_CFGR2_SRAM_PEF		(1 << 8)
 
