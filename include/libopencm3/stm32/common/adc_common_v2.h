@@ -187,13 +187,13 @@ specific memorymap.h header before including this header file.*/
 #define ADC_TR1_LT_MASK			0xFFF
 #define ADC_TR1_LT			(0xFFF << ADC_TR1_LT_SHIFT)
 /** TR1_LT: analog watchdog 1 threshold low */
-#define ADC_TR1_LT_VAL(x)		((x) << ADC_TR1_LT_SHIFT)
+#define ADC_TR1_LT_VAL(x)		(((x) & ADC_TR1_LT_MASK) << ADC_TR1_LT_SHIFT)
 
 #define ADC_TR1_HT_SHIFT		16
 #define ADC_TR1_HT_MASK			0xFFF
 #define ADC_TR1_HT			(0xFFF << ADC_TR1_HT_SHIFT)
 /** TR1_HT: analog watchdog 1 threshold high */
-#define ADC_TR1_HT_VAL(x)		((x) << ADC_TR1_HT_SHIFT)
+#define ADC_TR1_HT_VAL(x)		(((x) & ADC_TR1_HT_MASK) << ADC_TR1_HT_SHIFT)
 
 /**@}*/
 
