@@ -36,7 +36,7 @@ not get locked out of the MCU.
 */
 void pwr_sleep(void)
 {
-	SYS_CFG_2 |= BIT4;
+	SYSCTL_SYS_CFG_2 |= BIT4;
 }
 
 /*---------------------------------------------------------------------------*/
@@ -50,6 +50,6 @@ stop execution.  Included for completeness.
 */
 void pwr_stop(void)
 {
-	SYS_CFG_2 = 0x30;
+	SYSCTL_SYS_CFG_2 = 0x30;
 }
 /**@}*/

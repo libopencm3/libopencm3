@@ -44,35 +44,35 @@
 #define GPIO7				(1 << 7)
 #define GPIO8				(1 << 8)
 #define GPIO9				(1 << 9)
-#define GPIO_ALL			(0x3ff)
-/*@}*/
+#define GPIO_ALL			0x3ff
+/**@}*/
 
 /* GPIO direction definitions */
 /** @defgroup gpio_dir GPIO Pin Direction
 @{*/
-#define GPIO_INPUT			(0x0)
-#define GPIO_OUTPUT			(0x1)
-/*@}*/
+#define GPIO_INPUT			0x0
+#define GPIO_OUTPUT			0x1
+/**@}*/
 
 /* GPIO polarity definitions */
 /** @defgroup gpio_pol GPIO Polarity
 @{*/
-#define GPIO_LOW			(0x0)
-#define GPIO_HIGH			(0x1)
+#define GPIO_POL_LOW			0x0
+#define GPIO_POL_HIGH			0x1
 /*@}*/
 
 /* GPIO interrupt trigger definitions */
 /** @defgroup gpio_trig_type GPIO Interrupt Trigger Type
 @{*/
-#define GPIO_LEVEL			(0x0)
-#define GPIO_EDGE			(0x1)
+#define GPIO_TRIG_LEVEL			0x0
+#define GPIO_TRIG_EDGE			0x1
 /*@}*/
 
 /* GPIO interrupt mask definitions */
 /** @defgroup gpio_int_masked GPIO Interrupt Mask
 @{*/
-#define GPIO_UNMASKED			(0x0)
-#define GPIO_MASKED			(0x1)
+#define GPIO_UNMASKED			0x0
+#define GPIO_MASKED			0x1
 /*@}*/
 
 /* GPIO Registers */

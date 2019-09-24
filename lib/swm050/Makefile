@@ -33,8 +33,10 @@ TGT_CFLAGS      += $(DEBUG_FLAGS)
 TGT_CFLAGS	+= $(STANDARD_FLAGS)
 ARFLAGS		= rcs
 
-OBJS += gpio.o clk.o flash.o pwr.o
-
+OBJS += clk.o
+OBJS += flash.o
+OBJS += gpio.o
+OBJS += pwr.o
 VPATH += ../cm3
 
 include ../Makefile.include

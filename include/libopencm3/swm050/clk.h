@@ -35,24 +35,19 @@
 
 @{*/
 #define DEFAULT_BOOT_FREQ	(9000000U)
-#define CYCLES_PER_US		(sclk_freq/1000000)
-#define CYCLES_PER_MS		(sclk_freq/1000)
-#define M36			(36000000U)
-#define M18			(18000000U)
 /*@}*/
 
 /* Clock speed definitions */
 /** @defgroup clk_speed Base Clock Speeds
 @{*/
-#define CLK_36MHZ		(0x1)
-#define CLK_18MHZ		(0x0)
+#define CLK_36MHZ		0x1
+#define CLK_18MHZ		0x0
 /*@}*/
 
 BEGIN_DECLS
 
-uint32_t clk_speed(bool mhz, uint16_t div);
-uint32_t clk_init(bool mhz, uint16_t div);
-//void clk_en(bool en);
+void clk_speed(bool mhz, uint16_t div);
+void clk_init(bool mhz, uint16_t div);
 
 END_DECLS
 

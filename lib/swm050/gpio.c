@@ -198,13 +198,7 @@ switch on and off interrupts, use gpio_int_mask() after calling this.
 */
 void gpio_int_en(uint16_t gpios)
 {
-	for (uint8_t i = 0; 0 <= 9; ++i) {
-		if (gpios & (1 << i)) {
-			nvic_enable_irq(NVIC_GPIOA0_IRQ + i);
-		}
-	}
 	INTEN_A |= gpios;
-	gpio_int_mask(gpios, GPIO_UNMASKED);
 }
 
 

@@ -35,15 +35,15 @@
  * @note System configuration registers
  * @{*/
 /** Clock dividers for TIMERSE and SCLK */
-#define SYS_CFG_0			MMIO32(SYSCTL_BASE + 0x0)
+#define SYSCTL_SYS_CFG_0		MMIO32(SYSCTL_BASE + 0x0)
 /** TIMERSE0, TIMERSE1, and WDT enable */
-#define SYS_CFG_1			MMIO32(SYSCTL_BASE + 0x4)
+#define SYSCTL_SYS_CFG_1		MMIO32(SYSCTL_BASE + 0x4)
 /** SCLK multiplier (18Mhz and 36Mhz) */
-#define SYS_DBLF			MMIO32(SYSCTL_BASE + 0x8)
+#define SYSCTL_SYS_DBLF			MMIO32(SYSCTL_BASE + 0x8)
 /** MOS Disconnect (Synwit says that this subregister is unused), Sleep Mode,
     and Internal Oscillator Disconnect.  Oscillator Disconnect should probably
     not be used on the SWM050, because it has no external oscillator support */
-#define SYS_CFG_2			MMIO32(SYSCTL_BASE + 0xC)
+#define SYSCTL_SYS_CFG_2		MMIO32(SYSCTL_BASE + 0xC)
 /*@}*/
 
 #endif

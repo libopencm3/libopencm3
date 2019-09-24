@@ -45,30 +45,21 @@ Change system clock speed.
              treated by the register as a 1, which would likely be unexpected.
              A value of 0 would also normally be treated as a 2, which would
              also be unexpected behavior.
-
-@return The current clock value in Hz.
-
 */
-uint32_t clk_speed(bool mhz, uint16_t div)
+void clk_speed(bool mhz, uint16_t div)
 {
-	uint32_t sclk_tmp;
 	if (mhz) {
-		SYS_DBLF |= BIT0;
-		sclk_tmp = M36;
+		SYSCTL_SYS_DBLF |= BIT0;
 	} else {
-		SYS_DBLF &= ~BIT0;
-		sclk_tmp = M18;
+		SYSCTL_SYS_DBLF &= ~BIT0;
 	}
 	
 	if (div <= 1) {
-		SYS_CFG_0 |= BIT0;
+		SYSCTL_SYS_CFG_0 |= BIT0;
 	} else {
 		uint32_t div_masked = (div & ~0xFFFFFC01);
-		SYS_CFG_0 = (SYS_CFG_0 & 0xFFFFFC00) | div_masked;
-		sclk_tmp /= div_masked;
+		SYSCTL_SYS_CFG_0 = (SYSCTL_SYS_CFG_0 & 0xFFFFFC00) | div_masked;
 	}
-
-	return sclk_tmp;
 }
 
 
@@ -84,11 +75,8 @@ anything
 
 @param[in] div Clock divider
 	     Passes value to div in @ref clk_setup
-
-@return The current clock value in Hz.
-
 */
-uint32_t clk_init(bool mhz, uint16_t div)
+void clk_init(bool mhz, uint16_t div)
 {
 	clk_speed(CLK_18MHZ, 1);
 
@@ -99,19 +87,9 @@ uint32_t clk_init(bool mhz, uint16_t div)
 	/* clk_speed() doesn't need to be called
 	   a second time ifthe user wants 18Mhz. */
 	if ((mhz == CLK_18MHZ) && (div <= 1)) {
-		return M18;
+		return;
 	}	
 
-	return clk_speed(mhz, div);
+	clk_speed(mhz, div);
 }
-
-/* Function should not be used on the SWM050, but can be used
-         on other Synwit ARM MCUs that support external oscillators.
-	 Disables the internal oscillator. */
-/*
-void clk_en(bool en)
-{
-	SYS_CFG_2 = en ? (SYS_CFG_2 & ~BIT0) : (SYS_CFG_2 | BIT0);
-}
-*/
 /**@}*/
