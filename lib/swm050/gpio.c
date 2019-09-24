@@ -41,7 +41,7 @@ atomic pin setting.
 */
 void gpio_set(uint16_t gpios)
 {
-	ADATA |= gpios;
+	GPIO_ADATA |= gpios;
 }
 
 /*---------------------------------------------------------------------------*/
@@ -56,7 +56,7 @@ atomic pin setting.
 */
 void gpio_clear(uint16_t gpios)
 {
-	ADATA &= ~gpios;
+	GPIO_ADATA &= ~gpios;
 }
 
 /*---------------------------------------------------------------------------*/
@@ -70,7 +70,7 @@ void gpio_clear(uint16_t gpios)
 */
 uint16_t gpio_get(uint16_t gpios)
 {
-	return AEXT & gpios;
+	return GPIO_AEXT & gpios;
 }
 
 /*---------------------------------------------------------------------------*/
@@ -84,8 +84,8 @@ Toggle one or more pins of GPIO. The non-toggled pins are not affected.
 */
 void gpio_toggle(uint16_t gpios)
 {
-	uint32_t curr_status = ADATA & gpios;
-	ADATA = (ADATA & (~gpios)) | (~curr_status);
+	uint32_t curr_status = GPIO_ADATA & gpios;
+	GPIO_ADATA = (GPIO_ADATA & (~gpios)) | (~curr_status);
 }
 
 /*---------------------------------------------------------------------------*/
@@ -99,7 +99,7 @@ Set the direction of one or more pins of GPIO to input.
 */
 void gpio_input(uint16_t gpios)
 {
-	ADIR &= ~gpios;
+	GPIO_ADIR &= ~gpios;
 }
 
 /*---------------------------------------------------------------------------*/
@@ -113,7 +113,7 @@ Set the direction of one or more pins of GPIO to output.
 */
 void gpio_output(uint16_t gpios)
 {
-	ADIR |= gpios;
+	GPIO_ADIR |= gpios;
 }
 
 /*---------------------------------------------------------------------------*/
@@ -162,6 +162,8 @@ void gpio_pullup(uint16_t gpios, bool en)
 
 Enable or disable the input function of one or more pins of GPIO. Disabling
 the input function of pins decreases the power usage of the MCU.
+This used to be called gpio_in_en, but was changed to distinguish it from
+gpio_int_en().
 
 @param[in] gpios Pin identifiers @ref gpio_pin_id
 	     If multiple pins are to be changed, use bitwise OR '|' to separate
@@ -198,7 +200,7 @@ switch on and off interrupts, use gpio_int_mask() after calling this.
 */
 void gpio_int_en(uint16_t gpios)
 {
-	INTEN_A |= gpios;
+	GPIO_INTEN_A |= gpios;
 }
 
 
@@ -217,7 +219,7 @@ quicker way to turn on and off GPIO interrupts (after calling gpio_int_en()).
 */
 void gpio_int_mask(uint16_t gpios, bool masked)
 {
-	INTMASK_A = masked ? (INTMASK_A | gpios) : (INTMASK_A & ~gpios);
+	GPIO_INTMASK_A = masked ? (GPIO_INTMASK_A | gpios) : (GPIO_INTMASK_A & ~gpios);
 }
 
 
@@ -236,7 +238,7 @@ interrupt bits must be cleared by software.
 */
 void gpio_int_type(uint16_t gpios, bool type)
 {
-	INTLEVEL_A = type ? (INTLEVEL_A | gpios) : (INTLEVEL_A & ~gpios);
+	GPIO_INTLEVEL_A = type ? (GPIO_INTLEVEL_A | gpios) : (GPIO_INTLEVEL_A & ~gpios);
 }
 
 
@@ -254,7 +256,7 @@ Sets whether the interrupt is triggered by a high or low level/edge.
 */
 void gpio_int_pol(uint16_t gpios, bool pol)
 {
-	INTPOLARITY_A = pol ? (INTPOLARITY_A | gpios) : (INTPOLARITY_A & ~gpios);
+	GPIO_INTPOLARITY_A = pol ? (GPIO_INTPOLARITY_A | gpios) : (GPIO_INTPOLARITY_A & ~gpios);
 }
 
 
@@ -269,7 +271,7 @@ in @ref gpio_int_mask().
 */
 uint16_t gpio_int_stat(void)
 {
-	return INTSTAT_A;
+	return GPIO_INTSTAT_A;
 }
 
 
@@ -283,7 +285,7 @@ Returns the raw unmasked interrupt status.
 */
 uint16_t gpio_int_raw_stat(void)
 {
-	return RAWINTSTAT_A;
+	return GPIO_RAWINTSTAT_A;
 }
 
 
@@ -299,7 +301,7 @@ by software.
 */
 void gpio_int_clear(uint16_t gpios)
 {
-	INTEOI_A |= gpios;
+	GPIO_INTEOI_A |= gpios;
 }
 
 /**@}*/

@@ -79,25 +79,25 @@
 /** @defgroup gpio_registers GPIO Registers
 @{*/
 /** Data register */
-#define ADATA				MMIO32(GPIO_BASE + 0x0)
+#define GPIO_ADATA			MMIO32(GPIO_BASE + 0x0)
 /** Direction register */
-#define ADIR				MMIO32(GPIO_BASE + 0x4)
+#define GPIO_ADIR			MMIO32(GPIO_BASE + 0x4)
 /** Interrupt enable register */
-#define INTEN_A				MMIO32(GPIO_BASE + 0x30)
+#define GPIO_INTEN_A			MMIO32(GPIO_BASE + 0x30)
 /** Interrupt mask register */
-#define INTMASK_A			MMIO32(GPIO_BASE + 0x34)
+#define GPIO_INTMASK_A			MMIO32(GPIO_BASE + 0x34)
 /** Interrupt trigger mode register */
-#define INTLEVEL_A			MMIO32(GPIO_BASE + 0x38)
+#define GPIO_INTLEVEL_A			MMIO32(GPIO_BASE + 0x38)
 /** Interrupt polarity register */
-#define INTPOLARITY_A			MMIO32(GPIO_BASE + 0x3c)
+#define GPIO_INTPOLARITY_A		MMIO32(GPIO_BASE + 0x3c)
 /** Interrupt status after masking */
-#define INTSTAT_A			MMIO32(GPIO_BASE + 0x40)
+#define GPIO_INTSTAT_A			MMIO32(GPIO_BASE + 0x40)
 /** Interrupt status before masking */
-#define RAWINTSTAT_A			MMIO32(GPIO_BASE + 0x44)
+#define GPIO_RAWINTSTAT_A		MMIO32(GPIO_BASE + 0x44)
 /** Interrupt clear register */
-#define INTEOI_A			MMIO32(GPIO_BASE + 0x48)
+#define GPIO_INTEOI_A			MMIO32(GPIO_BASE + 0x48)
 /** External register (wat) */
-#define AEXT				MMIO32(GPIO_BASE + 0x4c)
+#define GPIO_AEXT			MMIO32(GPIO_BASE + 0x4c)
 /*@}*/
 
 /* SYSCON Registers */

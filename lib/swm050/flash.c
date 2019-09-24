@@ -25,6 +25,7 @@
 /**@{*/
 #include <libopencm3/swm050/flash.h>
 
+/* Internal function pointers to the ROM flash API */
 #define IAP_WR	(void *)(0x1000AB)
 #define IAP_E	(void *)(0x100127)
 
