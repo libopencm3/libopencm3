@@ -516,10 +516,10 @@ void adc_disable_analog_watchdog(uint32_t adc)
 /** @brief ADC Set Analog Watchdog Upper Threshold
  *
  * @param[in] adc Unsigned int32. ADC base address (@ref adc_reg_base)
- * @param[in] threshold Unsigned int8. Upper threshold value
+ * @param[in] threshold. Upper threshold value
  */
 
-void adc_set_watchdog_high_threshold(uint32_t adc, uint8_t threshold)
+void adc_set_watchdog_high_threshold(uint32_t adc, uint16_t threshold)
 {
 	ADC_TR1(adc) = (ADC_TR1(adc) & ~ADC_TR1_HT) | ADC_TR1_HT_VAL(threshold);
 }
@@ -528,10 +528,10 @@ void adc_set_watchdog_high_threshold(uint32_t adc, uint8_t threshold)
 /** @brief ADC Set Analog Watchdog Lower Threshold
  *
  * @param[in] adc Unsigned int32. ADC base address (@ref adc_reg_base)
- * @param[in] threshold Unsigned int8. Lower threshold value
+ * @param[in] threshold. Lower threshold value
  */
 
-void adc_set_watchdog_low_threshold(uint32_t adc, uint8_t threshold)
+void adc_set_watchdog_low_threshold(uint32_t adc, uint16_t threshold)
 {
 	ADC_TR1(adc) = (ADC_TR1(adc) & ~ADC_TR1_LT) | ADC_TR1_LT_VAL(threshold);
 }
