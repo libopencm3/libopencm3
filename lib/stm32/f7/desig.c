@@ -17,6 +17,7 @@
  * along with this library.  If not, see <http://www.gnu.org/licenses/>.
  */
 
+#include <libopencm3/cm3/assert.h>
 #include <libopencm3/stm32/dbgmcu.h>
 #include <libopencm3/stm32/desig.h>
 
@@ -38,7 +39,7 @@ uint16_t desig_get_flash_size(void)
 
   if (!flash_size_base) {
     /* We don't know the address for this device. Hang here to help debugging. */
-    for(;;);
+    cm3_assert_not_reached();
   }
 
   return *flash_size_base;
@@ -62,7 +63,7 @@ void desig_get_unique_id(uint32_t *result)
 
   if (!uid_base) {
     /* We don't know the address for this device. Hang here to help debugging. */
-    for(;;);
+    cm3_assert_not_reached();
   }
 
   result[0] = uid_base[2];
