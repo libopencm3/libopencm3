@@ -26,13 +26,14 @@
 #include <libopencm3/swm050/clk.h>
 #include <libopencm3/swm050/sysctl.h>
 
-
 /*---------------------------------------------------------------------------*/
-/** @brief Change the system clock multiplier and divider
+/** @brief Setup and change the system clock multiplier and divider
 
-Change system clock speed.
+Change system clock speed and wait for the clock to stabilize.  The clock only
+needs time to stabilize on the first invocation of this function. This should be
+run at startup if you want to have a stable clock before doing anything.  
 
-@param[in] mhz Base clock speed @ref clk_speed
+@param[in] mhz Base clock speed @ref clk_speeds
 	     The base clock speed, before the clock divider
 
 @param[in] div Clock divider
@@ -46,50 +47,25 @@ Change system clock speed.
              A value of 0 would also normally be treated as a 2, which would
              also be unexpected behavior.
 */
-void clk_speed(bool mhz, uint16_t div)
+void clk_speed(enum clk_speeds mhz, uint16_t div)
 {
-	if (mhz) {
-		SYSCTL_SYS_DBLF |= BIT0;
-	} else {
-		SYSCTL_SYS_DBLF &= ~BIT0;
-	}
+	static bool first_run = true;
 	
-	if (div <= 1) {
-		SYSCTL_SYS_CFG_0 |= BIT0;
-	} else {
-		uint32_t div_masked = (div & ~0xFFFFFC01);
-		SYSCTL_SYS_CFG_0 = (SYSCTL_SYS_CFG_0 & 0xFFFFFC00) | div_masked;
+	if (first_run) {
+		first_run = false;
+		clk_speed(CLK_18MHZ, 1);
+
+		for (uint16_t i = 0; i < 10000; ++i) {
+			__asm__("nop");
+		}
+
+		/* The speed doesn't need to be changed
+		   a second time if the user wants 18Mhz. */
+		if (((mhz == CLK_18MHZ) && (div <= 1)) || ((mhz == CLK_36MHZ) && (div == 2))) {
+			return;
+		}
 	}
-}
-
-
-/*---------------------------------------------------------------------------*/
-/** @brief Setup the internal oscillator and system clock
-
-Change system clock speed and wait for the clock to stabilize.
-This should be run at startup if you want to have a stable clock before doing
-anything 
-
-@param[in] mhz Base clock speed @ref clk_speed
-	     Passes value to mhz in @ref clk_setupr
-
-@param[in] div Clock divider
-	     Passes value to div in @ref clk_setup
-*/
-void clk_init(bool mhz, uint16_t div)
-{
-	clk_speed(CLK_18MHZ, 1);
-
-	for (uint16_t i = 0; i < 10000; ++i) {
-		__asm__("nop");
-	}
-
-	/* clk_speed() doesn't need to be called
-	   a second time ifthe user wants 18Mhz. */
-	if ((mhz == CLK_18MHZ) && (div <= 1)) {
-		return;
-	}	
-
-	clk_speed(mhz, div);
+	SYSCTL_SYS_DBLF = mhz ? (SYSCTL_SYS_DBLF | BIT0) : (SYSCTL_SYS_DBLF & ~BIT0);
+	SYSCTL_SYS_CFG_0 = (div <= 1) ? (SYSCTL_SYS_CFG_0 | BIT0) : ((SYSCTL_SYS_CFG_0 & CLK_MASK) | (div & ~(CLK_MASK | 0x1)));
 }
 /**@}*/

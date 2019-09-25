@@ -30,24 +30,24 @@
 #include <libopencm3/cm3/common.h>
 #include <libopencm3/swm050/memorymap.h>
 
-/* Various Clock Defines */
-/** @defgroup clk_misc_defs Various Clock Defines
-
+/* Clock speed definitions */
+/** @defgroup clk_speeds Base Clock Speeds
 @{*/
-#define DEFAULT_BOOT_FREQ	(9000000U)
+enum clk_speeds {
+	CLK_18MHZ,
+	CLK_36MHZ
+};
 /*@}*/
 
-/* Clock speed definitions */
-/** @defgroup clk_speed Base Clock Speeds
+/* Clock divider mask */
+/** @defgroup clk_mask Mask used to set the clock divider
 @{*/
-#define CLK_36MHZ		0x1
-#define CLK_18MHZ		0x0
+#define CLK_MASK 0xFFFFFC00
 /*@}*/
 
 BEGIN_DECLS
 
-void clk_speed(bool mhz, uint16_t div);
-void clk_init(bool mhz, uint16_t div);
+void clk_speed(enum clk_speeds mhz, uint16_t div);
 
 END_DECLS
 
