@@ -50,29 +50,37 @@
 /* GPIO direction definitions */
 /** @defgroup gpio_dir GPIO Pin Direction
 @{*/
-#define GPIO_INPUT			0x0
-#define GPIO_OUTPUT			0x1
+enum gpio_dir {
+	GPIO_INPUT,
+	GPIO_OUTPUT
+};
 /**@}*/
 
 /* GPIO polarity definitions */
 /** @defgroup gpio_pol GPIO Polarity
 @{*/
-#define GPIO_POL_LOW			0x0
-#define GPIO_POL_HIGH			0x1
+enum gpio_pol {
+	GPIO_POL_LOW,
+	GPIO_POL_HIGH
+};
 /*@}*/
 
 /* GPIO interrupt trigger definitions */
 /** @defgroup gpio_trig_type GPIO Interrupt Trigger Type
 @{*/
-#define GPIO_TRIG_LEVEL			0x0
-#define GPIO_TRIG_EDGE			0x1
+enum gpio_trig_type {
+	GPIO_TRIG_LEVEL,
+	GPIO_TRIG_EDGE
+};
 /*@}*/
 
 /* GPIO interrupt mask definitions */
 /** @defgroup gpio_int_masked GPIO Interrupt Mask
 @{*/
-#define GPIO_UNMASKED			0x0
-#define GPIO_MASKED			0x1
+enum gpio_int_masked {
+	GPIO_UNMASKED,
+	GPIO_MASKED
+};
 /*@}*/
 
 /* GPIO Registers */
@@ -100,20 +108,6 @@
 #define GPIO_AEXT			MMIO32(GPIO_BASE + 0x4c)
 /*@}*/
 
-/* SYSCON Registers */
-/** @defgroup syscon_register SYSCON Registers
- * @note These registers are really part of the SYSCON system control space
- * @{*/
-/** SWD Enable register */
-#define SWD_SEL				MMIO32(SYSTEM_CON_BASE + 0x30)
-/** GPIO Alternate function selection register */
-#define PORTA_SEL			MMIO32(SYSTEM_CON_BASE + 0x80)
-/** GPIO Pull up register */
-#define PORTA_PULLUP			MMIO32(SYSTEM_CON_BASE + 0x90)
-/** GPIO Input enable register */
-#define PORTA_INEN			MMIO32(SYSTEM_CON_BASE + 0xe0)
-/*@}*/
-
 BEGIN_DECLS
 
 void gpio_set(uint16_t gpios);
@@ -123,18 +117,13 @@ void gpio_toggle(uint16_t gpios);
 
 void gpio_input(uint16_t gpios);
 void gpio_output(uint16_t gpios);
-void gpio_sel_af(uint16_t gpios, bool af_en);
-void gpio_pullup(uint16_t gpios, bool en);
-void gpio_input_en(uint16_t gpios, bool en);
 
-void gpio_sel_swd(bool en);
-
-void gpio_int_en(uint16_t gpios);
-void gpio_int_mask(uint16_t gpios, bool masked);
-void gpio_int_type(uint16_t gpios, bool level);
-void gpio_int_pol(uint16_t gpios, bool pol);
-uint16_t gpio_int_stat(void);
-uint16_t gpio_int_raw_stat(void);
+void gpio_irq_enable(uint16_t gpios, bool en);
+void gpio_int_mask(uint16_t gpios, enum gpio_int_masked masked);
+void gpio_int_type(uint16_t gpios, enum gpio_trig_type type);
+void gpio_int_pol(uint16_t gpios, enum gpio_pol pol);
+uint16_t gpio_int_status(void);
+uint16_t gpio_int_raw_status(void);
 void gpio_int_clear(uint16_t gpios);
 
 END_DECLS

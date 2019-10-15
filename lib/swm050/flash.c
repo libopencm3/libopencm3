@@ -39,14 +39,14 @@ Writes words to the 0.5k user flash area.
 Must be performed only when the system clock is 18Mhz.
 
 @param[in] dest Destination address
-             The memory area to copy to.
-	     From 0x00 - 0x1FC, as long as it is word-aligned
+	The memory area to copy to.
+	From 0x00 - 0x1FC, as long as it is word-aligned
 
 @param[in] src Source address
-             The memory area to copy from.
+	The memory area to copy from.
 
 @param[in] cnt Number of words to write
-             From 1-128 as long as (dest + (cnt * 4)) < 0x200
+	From 1-128 as long as (dest + (cnt * 4)) < 0x200
 
 @return 1 if successful, 0 if error
 
@@ -63,14 +63,14 @@ Reads words from the 0.5k user flash area.
 Must be performed only when the system clock is 18Mhz.
 
 @param[in] src Source address
-             The memory area to copy from.
-             From 0x00 - 0x1FC, as long as it is word-aligned
+	The memory area to copy from.
+	From 0x00 - 0x1FC, as long as it is word-aligned
 
 @param[out] dest Destination address
-	     The memory area to copy to.
+	The memory area to copy to.
 
 @param[in] cnt Number of words to read
-             From 1 - 128 as long as (src + (cnt * 4)) < 0x200
+	From 1 - 128 as long as (src + (cnt * 4)) < 0x200
 
 @return 1 if successful, 0 if error
 

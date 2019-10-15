@@ -36,20 +36,6 @@ not get locked out of the MCU.
 */
 void pwr_sleep(void)
 {
-	SYSCTL_SYS_CFG_2 |= BIT4;
-}
-
-/*---------------------------------------------------------------------------*/
-/** @brief Stop the entire MCU
-
-Completely stops the MCU.  No SWD, nothing.  No documentation exists for this.
-Please use pwr_sleep() if you want to save power.  If you absolutely need to use
-this, please make sure that you give yourself enough time to connect via SWD and
-stop execution.  Included for completeness.
-
-*/
-void pwr_stop(void)
-{
-	SYSCTL_SYS_CFG_2 = 0x30;
+	SYSCTL_SYS_CFG_2 |= (1<<4);
 }
 /**@}*/
