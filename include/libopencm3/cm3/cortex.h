@@ -91,6 +91,7 @@ static inline bool cm_is_masked_interrupts(void)
 	return result;
 }
 
+#if defined(__ARM_ARCH_7M__) || defined(__ARM_ARCH_7EM__)
 /*---------------------------------------------------------------------------*/
 /** @brief Cortex M Check if Fault interrupt is masked
  *
@@ -105,6 +106,7 @@ static inline bool cm_is_masked_faults(void)
 	__asm__ volatile ("MRS %0, FAULTMASK"  : "=r" (result));
 	return result;
 }
+#endif
 
 /*---------------------------------------------------------------------------*/
 /** @brief Cortex M Mask interrupts
@@ -126,6 +128,7 @@ static inline uint32_t cm_mask_interrupts(uint32_t mask)
 	return old;
 }
 
+#if defined(__ARM_ARCH_7M__) || defined(__ARM_ARCH_7EM__)
 /*---------------------------------------------------------------------------*/
 /** @brief Cortex M Mask HardFault interrupt
  *
@@ -145,6 +148,7 @@ static inline uint32_t cm_mask_faults(uint32_t mask)
 	__asm__ __volatile__ ("MSR FAULTMASK, %0" : : "r" (mask));
 	return old;
 }
+#endif
 
 /**@}*/
 
