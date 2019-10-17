@@ -1,4 +1,5 @@
-/** @addtogroup pwr_file Power/Sleep API
+/** @defgroup pwr_file Power/Sleep API
+ * @brief SWM050 Power API.
  * @ingroup peripheral_apis
  * LGPL License Terms @ref lgpl_license
  * @author @htmlonly &copy; @endhtmlonly 2019

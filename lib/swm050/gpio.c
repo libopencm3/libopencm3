@@ -1,4 +1,5 @@
-/** @addtogroup gpio_file GPIO peripheral API
+/** @defgroup gpio_file GPIO peripheral API
+ * @brief SWM050 GPIO API.
  * @ingroup peripheral_apis
  * LGPL License Terms @ref lgpl_license
  * @author @htmlonly &copy; @endhtmlonly 2019

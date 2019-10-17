@@ -1,5 +1,6 @@
-/** @addtogroup clk_file Clock peripheral API
+/** @defgroup clk_file Clock peripheral API
  * @ingroup peripheral_apis
+ * @brief SWM050 Clock API.
  * LGPL License Terms @ref lgpl_license
  * @author @htmlonly &copy; @endhtmlonly 2019
  * Caleb Szalacinski <contact@skiboy.net>

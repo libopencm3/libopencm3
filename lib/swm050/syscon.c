@@ -1,5 +1,6 @@
-/** @addtogroup syscon_file SYSCON peripheral API
+/** @defgroup syscon_file SYSCON peripheral API
  * @ingroup peripheral_apis
+ * @brief SWM050 SYSCON API.
  * LGPL License Terms @ref lgpl_license
  * @author @htmlonly &copy; @endhtmlonly 2019
  * Icenowy Zheng <icenowy@aosc.io>

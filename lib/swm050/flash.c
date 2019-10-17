@@ -1,5 +1,6 @@
-/** @addtogroup flash_file Flash peripheral API
+/** @defgroup flash_file Flash peripheral API
  * @ingroup peripheral_apis
+ * @brief SWM050 Flash API.
  * LGPL License Terms @ref lgpl_license
  * @author @htmlonly &copy; @endhtmlonly 2019
  * Caleb Szalacinski <contact@skiboy.net>
