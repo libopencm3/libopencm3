@@ -48,9 +48,9 @@
 #define ITM_TCR				MMIO32(ITM_BASE + 0xE80)
 
 /* CoreSight Lock Status Register for this peripheral */
-#define ITM_LSR			MMIO32(ITM_BASE + 0xFB4)
+#define ITM_LSR			MMIO32(ITM_BASE + CORESIGHT_LSR_OFFSET)
 /* CoreSight Lock Access Register for this peripheral */
-#define ITM_LAR			MMIO32(ITM_BASE + 0xFB0)
+#define ITM_LAR			MMIO32(ITM_BASE + CORESIGHT_LAR_OFFSET)
 
 /* TODO: PID, CID */
 

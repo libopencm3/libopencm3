@@ -55,9 +55,9 @@
 #define TPIU_DEVID			MMIO32(TPIU_BASE + 0xFC8)
 
 /* CoreSight Lock Status Register for this peripheral */
-#define TPIU_LSR			MMIO32(TPIU_BASE + 0xFB4)
+#define TPIU_LSR			MMIO32(TPIU_BASE + CORESIGHT_LSR_OFFSET)
 /* CoreSight Lock Access Register for this peripheral */
-#define TPIU_LAR			MMIO32(TPIU_BASE + 0xFB0)
+#define TPIU_LAR			MMIO32(TPIU_BASE + CORESIGHT_LAR_OFFSET)
 
 /* TODO: PID, CID */
 

@@ -52,6 +52,12 @@
 #define DWT_MASK(n)			MMIO32(DWT_BASE + 0x24 + (n) * 16)
 #define DWT_FUNCTION(n)			MMIO32(DWT_BASE + 0x28 + (n) * 16)
 
+/* CoreSight Lock Status Register for this peripheral */
+#define DWT_LSR			MMIO32(DWT_BASE + CORESIGHT_LSR_OFFSET)
+/* CoreSight Lock Access Register for this peripheral */
+#define DWT_LAR			MMIO32(DWT_BASE + CORESIGHT_LAR_OFFSET)
+
+
 /*****************************************************************************/
 /* Register values                                                           */
 /*****************************************************************************/
