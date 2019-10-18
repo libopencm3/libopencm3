@@ -24,6 +24,11 @@
 /**
  * @defgroup cm_scb Cortex-M System Control Block
  * @ingroup CM3_defines
+ *
+ * The System Control Block is a section of the System Control Space.
+ * Other members of the SCS are, for instance, DWT, ITM, SYSTICKK.
+ * The exact details of the SCB are defined in the "Architecture Reference
+ * Manual" for either ARMv7-M or ARMV6-m.
  * @{
  */
 #include <libopencm3/cm3/memorymap.h>
