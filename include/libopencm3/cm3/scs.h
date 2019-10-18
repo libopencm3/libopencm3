@@ -50,17 +50,6 @@
  * @{
  */
 
-/** System Handler Priority 8 bits Registers, SHPR1/2/3.
- * Note: 12 8bit Registers
- * Note: 3 32bit Registers on CM0, requires word access
- */
-#if defined(__ARM_ARCH_6M__)
-#define SCS_SHPR32(ipr_id)		MMIO32(SCS_BASE + 0xD18 + ((ipr_id) * 4))
-#else
-#define SCS_SHPR(ipr_id)		MMIO8(SCS_BASE + 0xD18 + (ipr_id))
-#endif
-
-
 /**
  * Debug Halting Control and Status Register (DHCSR).
  *

@@ -44,7 +44,7 @@
 /**@{*/
 
 #include <libopencm3/cm3/nvic.h>
-#include <libopencm3/cm3/scs.h>
+#include <libopencm3/cm3/scb.h>
 
 /*---------------------------------------------------------------------------*/
 /** @brief NVIC Enable Interrupt
@@ -161,10 +161,10 @@ void nvic_set_priority(uint8_t irqn, uint8_t priority)
 		irqn = (irqn & 0xF) - 4;
 		uint8_t shift = (irqn & 0x3) << 3;
 		uint8_t reg = irqn >> 2;
-		SCS_SHPR32(reg) = ((SCS_SHPR32(reg) & ~(0xFFUL << shift)) |
+		SCB_SHPR32(reg) = ((SCB_SHPR32(reg) & ~(0xFFUL << shift)) |
 				((uint32_t) priority) << shift);
 #else
-		SCS_SHPR((irqn & 0xF) - 4) = priority;
+		SCB_SHPR((irqn & 0xF) - 4) = priority;
 #endif
 	} else {
 		/* Device specific interrupts */
