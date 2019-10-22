@@ -190,8 +190,8 @@ stm32l01??3* stm32l0 ROM=8K RAM=2K
 stm32l0[12]??4* stm32l0 ROM=16K RAM=2K
 stm32l03??4* stm32l0 ROM=16K RAM=8K
 stm32l0???6* stm32l0 ROM=32K RAM=8K
-stm32l0[56]??8* stm32l0 ROM=64K RAM=8K
 stm32l0[78]??8* stm32l0 ROM=64K RAM=20K
+stm32l0???8* stm32l0 ROM=64K RAM=8K
 stm32l0???b* stm32l0 ROM=128K RAM=20K
 stm32l0???z* stm32l0 ROM=192K RAM=20K
 
