@@ -22,7 +22,9 @@ $(warning no DEVICE specified for linker script generator)
 endif
 
 LDSCRIPT	= generated.$(DEVICE).ld
+ifeq ($(DEVICES_DATA),)
 DEVICES_DATA = $(OPENCM3_DIR)/ld/devices.data
+endif
 
 genlink_family		:=$(shell $(OPENCM3_DIR)/scripts/genlink.py $(DEVICES_DATA) $(DEVICE) FAMILY)
 genlink_subfamily	:=$(shell $(OPENCM3_DIR)/scripts/genlink.py $(DEVICES_DATA) $(DEVICE) SUBFAMILY)
