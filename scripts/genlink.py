@@ -33,7 +33,7 @@ mode = sys.argv[3].upper()
 
 device = {
     'info': {},
-    'defs': [],
+    'defs': {},
     'family': [],
 }
 
@@ -73,7 +73,8 @@ with open(data_file_path, 'r') as data_file:
                 device['info'][k.lower()] = v
                 continue
 
-            device['defs'].append((k, v))
+            if k not in device['defs']:
+                device['defs'][k] = v
 
         # if parent is +, there's more data for this pattern
         if parent == '+':
@@ -102,8 +103,8 @@ if mode in ('CPPFLAGS', 'DEFS'):
 
 # defines
 if mode == 'DEFS':
-    if len(device['defs']) > 0:
-        defs = ' '.join('-D_%s=%s' % d for d in device['defs'])
+    if device['defs']:
+        defs = ' '.join('-D_{}={}'.format(k, v)for k, v in device['defs'].items())
         sys.stdout.write(' ' + defs)
 
 # device family
