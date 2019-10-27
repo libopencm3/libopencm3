@@ -31,6 +31,14 @@
 #include <libopencm3/cm3/common.h>
 #include <libopencm3/swm050/memorymap.h>
 
+/** @defgroup sysctl_bit_defs SYSCTL register bit definitions
+@{*/
+#define SYSCTL_SYS_CFG_2_SLEEP			(1 << 4)
+#define SYSCTL_SYS_CFG_1_TIMERSE0		(1 << 6)
+#define SYSCTL_SYS_CFG_1_TIMERSE1		(1 << 17)
+#define SYSCTL_SYS_CFG_1_WDT			(1 << 4)
+/**@}*/
+
 /** @defgroup sysctl_register SYSCTL Registers
  * @note System configuration registers
  * @{*/

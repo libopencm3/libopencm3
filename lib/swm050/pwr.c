@@ -37,6 +37,6 @@ not get locked out of the MCU.
 */
 void pwr_sleep(void)
 {
-	SYSCTL_SYS_CFG_2 |= (1<<4);
+	SYSCTL_SYS_CFG_2 |= SYSCTL_SYS_CFG_2_SLEEP;
 }
 /**@}*/
