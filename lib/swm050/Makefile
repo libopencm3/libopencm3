@@ -38,6 +38,7 @@ OBJS += flash.o
 OBJS += gpio.o
 OBJS += pwr.o
 OBJS += syscon.o
+OBJS += wdt.o
 VPATH += ../cm3
 
 include ../Makefile.include
