@@ -154,7 +154,7 @@ specific memorymap.h header before including this header file.*/
 /** Month tens in BCD format shift */
 #define RTC_DR_MT_SHIFT   (12)
 /** Month tens in BCD format mask */
-#define RTC_DR_MT_MASK    (1<<12)
+#define RTC_DR_MT_MASK    (1)
 /** Month units in BCD format shift */
 #define RTC_DR_MU_SHIFT   (8)
 /** Month units in BCD format mask */
