@@ -1622,6 +1622,38 @@ uint32_t timer_get_counter(uint32_t timer_peripheral)
 }
 
 /*---------------------------------------------------------------------------*/
+/** @brief Timer Get Input Capture Value
+
+This is a convenience function to get the CCR register value
+
+@param[in] timer_peripheral Unsigned int32. Timer register address base @ref
+		tim_reg_base (TIM9 .. TIM14 not yet supported here).
+@param[in] ic_id enum ::tim_ic_id OC channel designators
+		TIM_ICx where x=1..4
+@param[in] value Unsigned int32. Compare value.
+@returns Unsigned int32. Captured value.
+*/
+
+uint32_t timer_get_ic_value(uint32_t timer_peripheral, enum tim_ic_id ic_id)
+{
+	switch (ic_id) {
+	case TIM_IC1:
+		return TIM_CCR1(timer_peripheral);
+		break;
+	case TIM_IC2:
+		return TIM_CCR2(timer_peripheral);
+		break;
+	case TIM_IC3:
+		return TIM_CCR3(timer_peripheral);
+		break;
+	case TIM_IC4:
+		return TIM_CCR4(timer_peripheral);
+		break;
+	}
+}
+
+
+/*---------------------------------------------------------------------------*/
 /** @brief Set Counter
 
 Set the value of a timer's counter register contents.

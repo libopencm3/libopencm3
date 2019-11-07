@@ -1246,6 +1246,7 @@ void timer_set_break_lock(uint32_t timer_peripheral, uint32_t lock);
 void timer_set_deadtime(uint32_t timer_peripheral, uint32_t deadtime);
 void timer_generate_event(uint32_t timer_peripheral, uint32_t event);
 uint32_t timer_get_counter(uint32_t timer_peripheral);
+uint32_t timer_get_ic_value(uint32_t timer_peripheral, enum tim_ic_id ic_id);
 void timer_set_counter(uint32_t timer_peripheral, uint32_t count);
 
 void timer_ic_set_filter(uint32_t timer, enum tim_ic_id ic,
