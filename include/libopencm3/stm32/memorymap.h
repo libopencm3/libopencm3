@@ -38,6 +38,8 @@
 #	include <libopencm3/stm32/l1/memorymap.h>
 #elif defined(STM32L4)
 #	include <libopencm3/stm32/l4/memorymap.h>
+#elif defined(STM32L4PLUS)
+#	include <libopencm3/stm32/l4plus/memorymap.h>
 #elif defined(STM32G0)
 #	include <libopencm3/stm32/g0/memorymap.h>
 #elif defined(GD32F1X0)

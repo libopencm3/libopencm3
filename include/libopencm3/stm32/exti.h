@@ -40,6 +40,8 @@
 #       include <libopencm3/stm32/l1/exti.h>
 #elif defined(STM32L4)
 #       include <libopencm3/stm32/l4/exti.h>
+#elif defined(STM32L4PLUS)
+#       include <libopencm3/stm32/l4plus/exti.h>
 #elif defined(STM32G0)
 #       include <libopencm3/stm32/g0/exti.h>
 #else

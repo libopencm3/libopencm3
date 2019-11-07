@@ -24,6 +24,8 @@
 #       include <libopencm3/stm32/f4/ltdc.h>
 #elif defined(STM32F7)
 #       include <libopencm3/stm32/f7/ltdc.h>
+#elif defined(STM32L4PLUS)
+#       include <libopencm3/stm32/l4plus/ltdc.h>
 #else
-#       error "LCD-TFT only defined for STM32F4"
+#       error "LCD-TFT not defined for this family"
 #endif
