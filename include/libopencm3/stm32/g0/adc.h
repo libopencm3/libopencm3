@@ -234,7 +234,7 @@
 
 /**@}*/
 
-/** @addtogroup adc_chselr CHSELR ADC Channel Selection register
+/** @addtogroup adc_chselr
 @{*/
 
 /** ADC_CHSELR_MAX_CHANNELS Maximum number of channel in regular sequence */
