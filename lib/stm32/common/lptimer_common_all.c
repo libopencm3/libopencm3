@@ -176,7 +176,7 @@ void lptimer_set_prescaler(uint32_t lptimer_peripheral, uint32_t prescaler)
 /** @brief Enable lptimer External Trigger
  *
  * @param[in] lptimer_peripheral lptimer base address (@ref lptim_reg_base)
- * @param[in] trigger Trigger selector (@ref lptim_cfgr_trigsel)
+ * @param[in] trigen Enable Trigger
  */
 void lptimer_enable_trigger(uint32_t lptimer_peripheral, uint32_t trigen)
 {
@@ -190,7 +190,7 @@ void lptimer_enable_trigger(uint32_t lptimer_peripheral, uint32_t trigen)
  * Select timer external trigger source.
  *
  * @param[in] lptimer_peripheral lptimer base address (@ref lptim_reg_base)
- * @param[in] trigger Trigger selector (@ref lptim_cfgr_trigsel)
+ * @param[in] trigger_source Trigger selector (@ref lptim_cfgr_trigsel)
  */
 void lptimer_select_trigger_source(uint32_t lptimer_peripheral, uint32_t trigger_source)
 {
