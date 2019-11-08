@@ -68,7 +68,7 @@ specific memorymap.h header before including this header file.*/
 /**@}*/
 
 /* ADC_CHSELR Values --------------------------------------------------------*/
-/** @addtogroup adc_chselr
+/** @defgroup adc_chselr CHSELR ADC Channel Selection register
 @{*/
 #define ADC_CHSELR_CHSEL(x)		(1 << (x))
 /**@}*/
