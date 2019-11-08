@@ -35,6 +35,8 @@ specific memorymap.h header before including this header file.*/
 #ifndef LIBOPENCM3_ADC_COMMON_V2_H
 #define LIBOPENCM3_ADC_COMMON_V2_H
 
+/** @defgroup adc_registers ADC registers
+@{*/
 /* ----- ADC registers  -----------------------------------------------------*/
 /** ADC interrupt and status register */
 #define ADC_ISR(adc)		MMIO32((adc) + 0x00)
@@ -56,6 +58,7 @@ specific memorymap.h header before including this header file.*/
 
 /** Common Configuration register */
 #define ADC_CCR(adc)		MMIO32((adc) + 0x300 + 0x8)
+/**@}*/
 
 /* --- Register values -------------------------------------------------------*/
 

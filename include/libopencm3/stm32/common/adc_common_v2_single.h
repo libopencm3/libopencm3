@@ -42,9 +42,12 @@ specific memorymap.h header before including this header file.*/
 #ifndef LIBOPENCM3_ADC_COMMON_V2_SINGLE_H
 #define LIBOPENCM3_ADC_COMMON_V2_SINGLE_H
 
+/** @addtogroup adc_registers
+ *@{*/
 /* ----- ADC registers  -----------------------------------------------------*/
 /** Channel Select Register */
 #define ADC_CHSELR(adc)		MMIO32((adc) + 0x28)
+/**@}*/
 
 /* ----- ADC registers values -----------------------------------------------*/
 /* ADC_CFGR1 values */
