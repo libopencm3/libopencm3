@@ -47,6 +47,8 @@
 #define ADC_CHANNEL_VBAT	14
 /**@}*/
 
+/** @addtogroup adc_registers
+ *@{*/
 /* ----- ADC registers  -----------------------------------------------------*/
 /** ADC_AWD1TR Watchdog 1 Threshold register */
 #define ADC_AWD1TR(adc)		MMIO32((adc) + 0x20)
@@ -65,6 +67,7 @@
 
 /** ADC_OR Option register */
 #define ADC_OR(adc)			MMIO32((adc) + 0xD0)
+/**@}*/
 
 /* --- Register values -------------------------------------------------------*/
 

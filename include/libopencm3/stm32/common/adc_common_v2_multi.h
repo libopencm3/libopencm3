@@ -42,6 +42,8 @@ specific memorymap.h header before including this header file.*/
  * or only a much "simpler" version as found on (so far) f0 and l0.
  */
 
+/** @addtogroup adc_registers
+ *@{*/
 /* ----- ADC registers  -----------------------------------------------------*/
 /* Sample Time Register 2 */
 #define ADC_SMPR2(adc)		MMIO32((adc) + 0x18)
@@ -84,6 +86,7 @@ specific memorymap.h header before including this header file.*/
 /* ADC common (shared) registers */
 #define ADC_CSR(adc)		MMIO32((adc) + 0x300 + 0x0)
 #define ADC_CDR(adc)		MMIO32((adc) + 0x300 + 0xc)
+/**@}*/
 
 /* --- Register values ------------------------------------------------------*/
 /* ADC_ISR Values -----------------------------------------------------------*/
