@@ -226,6 +226,9 @@ struct usb_endpoint_descriptor {
 /* USB bEndpointAddress helper macros */
 #define USB_ENDPOINT_ADDR_OUT(x) (x)
 #define USB_ENDPOINT_ADDR_IN(x) (0x80 | (x))
+#define USB_ENDPOINT_DIR_OUT (0<<7)
+#define USB_ENDPOINT_DIR_IN (1<<7)
+#define USB_ENDPOINT_ADDR_GEN(direction, number) (direction | (number && 0xF))
 
 /* USB Endpoint Descriptor bmAttributes bit definitions - Table 9-13 */
 /* bits 1..0 : transfer type */
