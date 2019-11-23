@@ -79,8 +79,32 @@ static const struct usb_device_descriptor dev = {
 	.bNumConfigurations = 2,
 };
 
-static const struct usb_endpoint_descriptor endp_bulk[] = {
-	{
+static const struct {
+	struct usb_config_descriptor config;
+	struct usb_interface_descriptor iface;
+	struct usb_endpoint_descriptor sink_endp;
+	struct usb_endpoint_descriptor source_endp;
+} __attribute__((packed)) config_sourcesink = {
+	.config = {
+		.bLength = USB_DT_CONFIGURATION_SIZE,
+		.bDescriptorType = USB_DT_CONFIGURATION,
+		.wTotalLength = sizeof(config_sourcesink),
+		.bNumInterfaces = 1,
+		.bConfigurationValue = GZ_CFG_SOURCESINK,
+		.iConfiguration = 4, /* string index */
+		.bmAttributes = 0x80,
+		.bMaxPower = 0x32,
+	},
+	.iface = {
+		.bLength = USB_DT_INTERFACE_SIZE,
+		.bDescriptorType = USB_DT_INTERFACE,
+		.bInterfaceNumber = 0,
+		.bAlternateSetting = 0,
+		.bNumEndpoints = 2,
+		.bInterfaceClass = USB_CLASS_VENDOR,
+		.iInterface = 0,
+	},
+	.sink_endp = {
 		.bLength = USB_DT_ENDPOINT_SIZE,
 		.bDescriptorType = USB_DT_ENDPOINT,
 		.bEndpointAddress = 0x01,
@@ -88,7 +112,7 @@ static const struct usb_endpoint_descriptor endp_bulk[] = {
 		.wMaxPacketSize = BULK_EP_MAXPACKET,
 		.bInterval = 1,
 	},
-	{
+	.source_endp = {
 		.bLength = USB_DT_ENDPOINT_SIZE,
 		.bDescriptorType = USB_DT_ENDPOINT,
 		.bEndpointAddress = 0x81,
@@ -96,7 +120,52 @@ static const struct usb_endpoint_descriptor endp_bulk[] = {
 		.wMaxPacketSize = BULK_EP_MAXPACKET,
 		.bInterval = 1,
 	},
-	{
+};
+
+static const struct {
+	struct usb_config_descriptor config;
+	struct usb_interface_descriptor iface;
+	struct usb_endpoint_descriptor sink_endp;
+	struct usb_endpoint_descriptor source_endp;
+	struct usb_endpoint_descriptor loopback_sink_endp;
+	struct usb_endpoint_descriptor loopback_source_endp;
+} __attribute__((packed)) config_loopback = {
+	.config = {
+		.bLength = USB_DT_CONFIGURATION_SIZE,
+		.bDescriptorType = USB_DT_CONFIGURATION,
+		.wTotalLength = sizeof(config_loopback),
+		.bNumInterfaces = 1,
+		.bConfigurationValue = GZ_CFG_LOOPBACK,
+		.iConfiguration = 5, /* string index */
+		.bmAttributes = 0x80,
+		.bMaxPower = 0x32,
+	},
+	.iface = {
+		.bLength = USB_DT_INTERFACE_SIZE,
+		.bDescriptorType = USB_DT_INTERFACE,
+		.bInterfaceNumber = 0, /* still 0, as it's a different config...? */
+		.bAlternateSetting = 0,
+		.bNumEndpoints = 4,
+		.bInterfaceClass = USB_CLASS_VENDOR,
+		.iInterface = 0,
+	},
+	.sink_endp = {
+		.bLength = USB_DT_ENDPOINT_SIZE,
+		.bDescriptorType = USB_DT_ENDPOINT,
+		.bEndpointAddress = 0x01,
+		.bmAttributes = USB_ENDPOINT_ATTR_BULK,
+		.wMaxPacketSize = BULK_EP_MAXPACKET,
+		.bInterval = 1,
+	},
+	.source_endp = {
+		.bLength = USB_DT_ENDPOINT_SIZE,
+		.bDescriptorType = USB_DT_ENDPOINT,
+		.bEndpointAddress = 0x81,
+		.bmAttributes = USB_ENDPOINT_ATTR_BULK,
+		.wMaxPacketSize = BULK_EP_MAXPACKET,
+		.bInterval = 1,
+	},
+	.loopback_sink_endp = {
 		.bLength = USB_DT_ENDPOINT_SIZE,
 		.bDescriptorType = USB_DT_ENDPOINT,
 		.bEndpointAddress = 0x2,
@@ -104,7 +173,7 @@ static const struct usb_endpoint_descriptor endp_bulk[] = {
 		.wMaxPacketSize = BULK_EP_MAXPACKET,
 		.bInterval = 1,
 	},
-	{
+	.loopback_source_endp = {
 		.bLength = USB_DT_ENDPOINT_SIZE,
 		.bDescriptorType = USB_DT_ENDPOINT,
 		.bEndpointAddress = 0x82,
@@ -114,69 +183,9 @@ static const struct usb_endpoint_descriptor endp_bulk[] = {
 	},
 };
 
-static const struct usb_interface_descriptor iface_sourcesink[] = {
-	{
-		.bLength = USB_DT_INTERFACE_SIZE,
-		.bDescriptorType = USB_DT_INTERFACE,
-		.bInterfaceNumber = 0,
-		.bAlternateSetting = 0,
-		.bNumEndpoints = 2,
-		.bInterfaceClass = USB_CLASS_VENDOR,
-		.iInterface = 0,
-		.endpoint = endp_bulk,
-	}
-};
-
-static const struct usb_interface_descriptor iface_loopback[] = {
-	{
-		.bLength = USB_DT_INTERFACE_SIZE,
-		.bDescriptorType = USB_DT_INTERFACE,
-		.bInterfaceNumber = 0, /* still 0, as it's a different config...? */
-		.bAlternateSetting = 0,
-		.bNumEndpoints = 4,
-		.bInterfaceClass = USB_CLASS_VENDOR,
-		.iInterface = 0,
-		.endpoint = endp_bulk,
-	}
-};
-
-static const struct usb_interface ifaces_sourcesink[] = {
-	{
-		.num_altsetting = 1,
-		.altsetting = iface_sourcesink,
-	}
-};
-
-static const struct usb_interface ifaces_loopback[] = {
-	{
-		.num_altsetting = 1,
-		.altsetting = iface_loopback,
-	}
-};
-
-static const struct usb_config_descriptor config[] = {
-	{
-		.bLength = USB_DT_CONFIGURATION_SIZE,
-		.bDescriptorType = USB_DT_CONFIGURATION,
-		.wTotalLength = 0,
-		.bNumInterfaces = 1,
-		.bConfigurationValue = GZ_CFG_SOURCESINK,
-		.iConfiguration = 4, /* string index */
-		.bmAttributes = 0x80,
-		.bMaxPower = 0x32,
-		.interface = ifaces_sourcesink,
-	},
-	{
-		.bLength = USB_DT_CONFIGURATION_SIZE,
-		.bDescriptorType = USB_DT_CONFIGURATION,
-		.wTotalLength = 0,
-		.bNumInterfaces = 1,
-		.bConfigurationValue = GZ_CFG_LOOPBACK,
-		.iConfiguration = 5, /* string index */
-		.bmAttributes = 0x80,
-		.bMaxPower = 0x32,
-		.interface = ifaces_loopback,
-	}
+static const struct usb_config_descriptor *configs[] = {
+	&config_sourcesink.config,
+	&config_loopback.config
 };
 
 static char serial[] = "0123456789.0123456789.0123456789";
@@ -391,7 +400,7 @@ usbd_device *gadget0_init(const usbd_driver *driver, const char *userserial)
 	if (userserial) {
 		usb_strings[2] = userserial;
 	}
-	our_dev = usbd_init(driver, &dev, config,
+	our_dev = usbd_init(driver, &dev, configs,
 		usb_strings, 5,
 		usbd_control_buffer, sizeof(usbd_control_buffer));
 
