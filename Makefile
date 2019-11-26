@@ -54,16 +54,14 @@ all: build
 
 build: lib
 
-%.genhdr:
-	@printf "  GENHDR  $*\n";
-	$(Q)./scripts/irq2nvic_h ./$*;
-
 %.cleanhdr:
 	@printf "  CLNHDR  $*\n";
 	$(Q)./scripts/irq2nvic_h --remove ./$*
 
 LIB_DIRS:=$(wildcard $(addprefix lib/,$(TARGETS)))
-$(LIB_DIRS): $(IRQ_DEFN_FILES:=.genhdr)
+
+$(LIB_DIRS): export TARGET = $(patsubst lib/%,%,$@)
+$(LIB_DIRS):
 	$(Q)$(RM) .stamp_failure_$(subst /,_,$@)
 	@printf "  BUILD   $@\n";
 	$(Q)$(MAKE) --directory=$@ PREFIX="$(PREFIX)" || \
