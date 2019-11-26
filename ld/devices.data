@@ -468,6 +468,15 @@ vf610 vf6xx RAM=256K RAM1=256K RAM_OFF=0x1f000000 RAM1_OFF=0x3f040000
 swm050* END ROM=8K RAM=1K ROM_OFF=0x00000000 RAM_OFF=0x20000000 CPU=cortex-m0 FPU=soft
 
 ################################################################################
+# Qorvo PAC55xx Cortex-M4 based chips
+
+pac5523 pac55xx ROM=128K RAM=32K
+pac5524 pac55xx ROM=128K RAM=32K
+pac5527 pac55xx ROM=128K RAM=32K
+pac5532 pac55xx ROM=128K RAM=32K
+pac5556 pac55xx ROM=128K RAM=32K
+
+################################################################################
 ################################################################################
 ################################################################################
 # the STM32 family groups
@@ -564,3 +573,8 @@ rm46l END ROM_OFF=0x00000000 RAM_OFF=0x08000000 RAM1_OFF=0x08400000
 # VF6xx families
 
 vf6xx END CPU=cortex-m4 FPU=hard-fpv4-sp-d16
+
+################################################################################
+# PAC55xx families
+
+pac55xx END ROM_OFF=0x00000000 RAM_OFF=0x20000000 CPU=cortex-m4 FPU=hard-fpv4-sp-d16
