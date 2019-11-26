@@ -64,6 +64,10 @@
 #elif defined(VF6XX)
 #	include "../vf6xx/vector_nvic.c"
 
+#elif defined(PAC55XX)
+#       include "../pac55xx/vector_nvic.c"
+
+
 #elif defined(LM3S) || defined(LM4F)
 /* Yes, we use the same interrupt table for both LM3S and LM4F */
 #	include "../lm3s/vector_nvic.c"

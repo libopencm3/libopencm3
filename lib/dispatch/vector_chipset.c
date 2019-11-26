@@ -16,6 +16,8 @@
 #	include "../efm32/wg/vector_chipset.c"
 #elif defined(EZR32WG)
 #	include "../efm32/ezr32wg/vector_chipset.c"
+#elif defined(PAC55XX)
+#	include "../pac55xx/vector_chipset.c"
 #else
 
 static void pre_main(void) {}
