@@ -1,3 +1,13 @@
+/** @defgroup pwr_defines PWR Defines
+
+@brief <b>Defined Constants and Types for the STM32H7xx Power Control</b>
+
+@ingroup STM32H7xx_defines
+
+@version 1.0.0
+
+LGPL License Terms @ref lgpl_license
+ */
 /*
  * This file is part of the libopencm3 project.
  *
@@ -23,7 +33,6 @@
 /**@{*/
 
 /** @defgroup pwr_registers PWR Registers
- * @ingroup STM32H_pwr_defines
 @{*/
 /** Power control register. */
 #define PWR_CR1         MMIO32(POWER_CONTROL_BASE + 0x00)

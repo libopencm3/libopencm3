@@ -1,10 +1,10 @@
 /** @defgroup flash_defines FLASH Defines
- *
+ * @brief <b>Defined Constants and Types for the STM32H7xx Flash
+ * controller</b>
  * @ingroup STM32H7xx_defines
  *
  * @author @htmlonly &copy; @endhtmlonly 2019
  * Brian Viele <vielster@allocor.tech>
- *
  */
 /*
  * This file is part of the libopencm3 project.

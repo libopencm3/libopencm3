@@ -1,3 +1,9 @@
+/** @defgroup spi_defines SPI Defines
+@brief <b>Defined Constants and Types for the STM32H7xx SPI</b>
+@ingroup STM32H7xx_defines
+@version 1.0.0
+LGPL License Terms @ref lgpl_license
+ */
 /*
  * This file is part of the libopencm3 project.
  *
