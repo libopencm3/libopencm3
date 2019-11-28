@@ -9,7 +9,8 @@ various ARM Cortex-M microcontrollers.
 
 Currently (at least partly) supported microcontrollers:
 
- - ST STM32F0xx/F1xx/F2xx/F30x/F37x/F4xx/F7xx/L0xx/L1xx/L4xx series
+ - ST STM32 F0xx/F1xx/F2xx/F30x/F37x/F4xx/F7xx/H7xx series
+ - ST STM32 G0xx L0xx L1xx L4xx series
  - Atmel SAM3A/3N/3S/3U/3X series, as well as SAMDxx and friends
  - NXP LPC1311/13/17/42/43
  - Stellaris LM3S series (discontinued, without replacement)
