@@ -35,9 +35,9 @@
 /** @defgroup wdt_modes Watchdog mode
 @{*/
 enum wdt_modes {
-	/* On timeout, reset the system */
+	/** On timeout, reset the system */
 	WDT_MODE_RESET,
-	/* On timeout, generate an interrupt.  If another timeout occurs without
+	/** On timeout, generate an interrupt.  If another timeout (time2) occurs without
 	   the interrupt being cleared, reset the system. */
 	WDT_MODE_INT
 };
