@@ -52,7 +52,7 @@ LGPL License Terms @ref lgpl_license
 #define USB_HID_DT_HID 0x21
 #define USB_HID_DT_REPORT 0x22
 #define USB_HID_DT_PHYSICAL 0x23
-// old names without USB_HID_ prefix
+/* old names without USB_HID_ prefix */
 #define USB_DT_HID USB_HID_DT_HID
 #define USB_DT_REPORT USB_HID_DT_REPORT
 
