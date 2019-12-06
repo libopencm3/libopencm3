@@ -61,7 +61,7 @@ OBJS += usb.o usb_control.o usb_standard.o usb_msc.o
 OBJS += usb_dwc_common.o usb_f107.o
 OBJS += st_usbfs_core.o st_usbfs_v1.o
 
-VPATH += ../../usb:../:../../cm3:../common:../../ethernet:../../stm32
+VPATH += ../f3_common:../../usb:../:../../cm3:../common:../../ethernet:../../stm32
 
 include ../../Makefile.include
 
