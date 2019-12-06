@@ -35,7 +35,7 @@ LGPL License Terms @ref lgpl_license
 #define RCC_CR                    MMIO32(RCC_BASE + 0x000)
 #define RCC_CFGR                  MMIO32(RCC_BASE + 0x010)
 
-/** @addtogroup rcc_cr_values RCC_CR_VALUES
+/** @defgroup rcc_cr_values RCC_CR_VALUES
  * @ingroup rcc_registers
 @{*/
 #define RCC_CR_PLL3AIRDY          (1 << 29)
@@ -64,9 +64,18 @@ LGPL License Terms @ref lgpl_license
 #define RCC_CR_HSION              (1 << 0)
 /**@}*/
 
-/** @addtogroup rcc_rstr_values RCC_RSTR_VALUES
+/** @defgroup rcc_rstr_values RCC_RSTR_VALUES
  * @ingroup rcc_registers
 @{*/
+#define RCC_PLLCKSELR             MMIO32(RCC_BASE + 0x028)
+#define RCC_PLLCFGR               MMIO32(RCC_BASE + 0x02C)
+#define RCC_PLL1DIVR              MMIO32(RCC_BASE + 0x030)
+#define RCC_PLL1FRACR             MMIO32(RCC_BASE + 0x034)
+#define RCC_PLL2DIVR              MMIO32(RCC_BASE + 0x038)
+#define RCC_PLL2FRACR             MMIO32(RCC_BASE + 0x03C)
+#define RCC_PLL3DIVR              MMIO32(RCC_BASE + 0x040)
+#define RCC_PLL3FRACR             MMIO32(RCC_BASE + 0x044)
+// #define RCC_D2CCIP1R              MMIO32(RCC_BASE + 0x050)
 #define RCC_AHB1RSTR              MMIO32(RCC_BASE + 0x080)
 #define RCC_AHB2RSTR              MMIO32(RCC_BASE + 0x084)
 #define RCC_AHB3RSTR              MMIO32(RCC_BASE + 0x07C)
@@ -102,7 +111,7 @@ LGPL License Terms @ref lgpl_license
 #define RCC_DCKCFGR2              MMIO32(RCC_BASE + 0x90)
 /**@}*/
 
-/** @addtogroup rcc_cfgr_values RCC_CFGR_VALUES
+/** @defgroup rcc_cfgr_values RCC_CFGR_VALUES
  * @ingroup rcc_registers
 @{*/
 /* MCO2: Microcontroller clock output 2 */
@@ -159,7 +168,7 @@ LGPL License Terms @ref lgpl_license
 /**@}*/
 
 
-/** @addtogroup rcc_bdcr_values RCC_BDCR_VALUES
+/** @defgroup rcc_bdcr_values RCC_BDCR_VALUES
  * @ingroup rcc_registers
 @{*/
 #define RCC_BDCR_BDRST            (1 << 16)
@@ -181,12 +190,19 @@ LGPL License Terms @ref lgpl_license
 #define RCC_BDCR_LSEON            (1 << 0)
 /**@}*/
 
-/** @addtogroup rcc_bdcr_values RCC_CSR_VALUES
+/** @defgroup rcc_bdcr_values RCC_CSR_VALUES
  * @ingroup rcc_registers
 @{*/
 #define RCC_CSR_LSIRDY            (1 << 1)
 #define RCC_CSR_LSION             (1 << 0)
 /**@}*/
+
+/** @defgroup rcc_bdcr_values RCC_CSR_VALUES
+ * @ingroup rcc_registers
+@{*/
+#define RCC_D2CCIP1R_SPI123SEL_PER      0x4
+#define RCC_D2CCIP1R_SPI123SEL_SHIFT    12
+
 
 extern uint32_t rcc_ahb_frequency;
 extern uint32_t rcc_apb1_frequency;
