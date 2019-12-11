@@ -722,7 +722,7 @@ void rcc_clock_setup_pll(const struct rcc_clock_scale *clock)
 	}
 
 	/* Set the VOS scale mode */
-	rcc_peripheral_enable_clock(&RCC_APB1ENR, RCC_PWR);
+	rcc_periph_clock_enable(RCC_PWR);
 	pwr_set_vos_scale(clock->voltage_scale);
 
 	/*
