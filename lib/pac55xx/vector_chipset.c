@@ -18,8 +18,7 @@
  */
 
 /* Standard Cortex-M4F initialization of FPU. */
-static void pre_main(void)
-{
+static void pre_main(void) {
 	/* Enable FPU */
 	SCB_CPACR |= SCB_CPACR_FULL * (SCB_CPACR_CP10 | SCB_CPACR_CP11);
 }
