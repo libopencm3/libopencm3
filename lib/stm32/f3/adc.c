@@ -46,7 +46,7 @@
  *
  * @code
  * gpio_mode_setup(GPIOA, GPIO_MODE_ANALOG, GPIO_PUPD_NONE, GPIO1);
- * rcc_peripheral_enable_clock(&RCC_APB2ENR, RCC_APB2ENR_ADC1EN);
+ * rcc_periph_clock_enable(RCC_ADC1);
  * adc_set_clk_prescale(RCC_CFGR_ADCPRE_BY2);
  * adc_disable_scan_mode(ADC1);
  * adc_set_single_conversion_mode(ADC1);

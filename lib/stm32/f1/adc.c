@@ -51,10 +51,9 @@ and ADC, reset ADC and set the prescaler divider. Set dual mode to independent
 (default). Enable triggering for a software trigger.
 
 @code
-	rcc_peripheral_enable_clock(&RCC_APB2ENR, RCC_APB2ENR_ADC1EN);
+	rcc_periph_clock_enable(RCC_ADC1);
 	adc_power_off(ADC1);
-	rcc_peripheral_reset(&RCC_APB2RSTR, RCC_APB2RSTR_ADC1RST);
-	rcc_peripheral_clear_reset(&RCC_APB2RSTR, RCC_APB2RSTR_ADC1RST);
+	rcc_periph_reset_pulse(RST_ADC1);
 	rcc_set_adcpre(RCC_CFGR_ADCPRE_PCLK2_DIV2);
 	adc_set_dual_mode(ADC_CR1_DUALMOD_IND);
 	adc_disable_scan_mode(ADC1);

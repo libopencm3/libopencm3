@@ -62,7 +62,7 @@ sent out.
 @code
 	gpio_set_mode(GPIOA, GPIO_MODE_OUTPUT_50_MHZ,
 		      GPIO_CNF_OUTPUT_ALTFN_PUSHPULL, GPIO4);
-	rcc_peripheral_enable_clock(&RCC_APB1ENR, RCC_APB1ENR_DACEN);
+	rcc_periph_clock_enable(RCC_DAC);
 	dac_disable(CHANNEL_1);
 	dac_set_waveform_characteristics(DAC_CR_MAMP1_8);
 	dac_set_waveform_generation(DAC_CR_WAVE1_NOISE);
