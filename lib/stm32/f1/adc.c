@@ -89,20 +89,6 @@ LGPL License Terms @ref lgpl_license
  * along with this library.  If not, see <http://www.gnu.org/licenses/>.
  */
 
-/*
- * Basic ADC handling API.
- *
- * Examples:
- *  rcc_peripheral_enable_clock(&RCC_APB2ENR, ADC1EN);
- *  rcc_peripheral_disable_clock(&RCC_APB2ENR, ADC1EN);
- *  rcc_peripheral_reset(&RCC_APB2RSTR, ADC1RST);
- *  rcc_peripheral_clear_reset(&RCC_APB2RSTR, ADC1RST);
- *
- *  rcc_set_adc_clk(ADC_PRE_PLCK2_DIV2);
- *  adc_set_dual_mode(ADC1, TODO);
- *  reg16 = adc_read(ADC1, ADC_CH_0);
- */
-
 /**@{*/
 
 #include <libopencm3/stm32/adc.h>
