@@ -45,7 +45,7 @@ OBJS += spi.o
 OBJS += pwr.o rcc.o
 OBJS += rcc_common_all.o
 OBJS += timer_common_all.o
-OBJS += usart.o usart_common_all.o usart_common_v2.o
+OBJS += usart_common_all.o usart_common_v2.o usart_common_fifos.o
 
 VPATH += ../../usb:../:../../cm3:../common
 
