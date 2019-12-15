@@ -628,7 +628,7 @@ void rcc_clock_setup_in_hsi_out_64mhz(void)
 	rcc_set_sysclk_source(RCC_CFGR_SW_SYSCLKSEL_HSICLK);
 
 	/*
-	 * Set prescalers for AHB, ADC, ABP1, ABP2.
+	 * Set prescalers for AHB, ADC, APB1, APB2.
 	 * Do this before touching the PLL (TODO: why?).
 	 */
 	rcc_set_hpre(RCC_CFGR_HPRE_SYSCLK_NODIV);   /* Set. 64MHz Max. 72MHz */
@@ -681,7 +681,7 @@ void rcc_clock_setup_in_hsi_out_48mhz(void)
 	rcc_set_sysclk_source(RCC_CFGR_SW_SYSCLKSEL_HSICLK);
 
 	/*
-	 * Set prescalers for AHB, ADC, ABP1, ABP2.
+	 * Set prescalers for AHB, ADC, APB1, APB2.
 	 * Do this before touching the PLL (TODO: why?).
 	 */
 	rcc_set_hpre(RCC_CFGR_HPRE_SYSCLK_NODIV);	/*Set.48MHz Max.72MHz */
@@ -735,7 +735,7 @@ void rcc_clock_setup_in_hsi_out_24mhz(void)
 	rcc_set_sysclk_source(RCC_CFGR_SW_SYSCLKSEL_HSICLK);
 
 	/*
-	 * Set prescalers for AHB, ADC, ABP1, ABP2.
+	 * Set prescalers for AHB, ADC, APB1, APB2.
 	 * Do this before touching the PLL (TODO: why?).
 	 */
 	rcc_set_hpre(RCC_CFGR_HPRE_SYSCLK_NODIV); /* Set. 24MHz Max. 24MHz */
@@ -793,7 +793,7 @@ void rcc_clock_setup_in_hse_8mhz_out_24mhz(void)
 	rcc_set_sysclk_source(RCC_CFGR_SW_SYSCLKSEL_HSECLK);
 
 	/*
-	 * Set prescalers for AHB, ADC, ABP1, ABP2.
+	 * Set prescalers for AHB, ADC, APB1, APB2.
 	 * Do this before touching the PLL (TODO: why?).
 	 */
 	rcc_set_hpre(RCC_CFGR_HPRE_SYSCLK_NODIV);    /* Set. 24MHz Max. 72MHz */
@@ -857,7 +857,7 @@ void rcc_clock_setup_in_hse_8mhz_out_72mhz(void)
 	rcc_set_sysclk_source(RCC_CFGR_SW_SYSCLKSEL_HSECLK);
 
 	/*
-	 * Set prescalers for AHB, ADC, ABP1, ABP2.
+	 * Set prescalers for AHB, ADC, APB1, APB2.
 	 * Do this before touching the PLL (TODO: why?).
 	 */
 	rcc_set_hpre(RCC_CFGR_HPRE_SYSCLK_NODIV);    /* Set. 72MHz Max. 72MHz */
@@ -921,7 +921,7 @@ void rcc_clock_setup_in_hse_12mhz_out_72mhz(void)
 	rcc_set_sysclk_source(RCC_CFGR_SW_SYSCLKSEL_HSECLK);
 
 	/*
-	 * Set prescalers for AHB, ADC, ABP1, ABP2.
+	 * Set prescalers for AHB, ADC, APB1, APB2.
 	 * Do this before touching the PLL (TODO: why?).
 	 */
 	rcc_set_hpre(RCC_CFGR_HPRE_SYSCLK_NODIV);    /* Set. 72MHz Max. 72MHz */
@@ -985,7 +985,7 @@ void rcc_clock_setup_in_hse_16mhz_out_72mhz(void)
 	rcc_set_sysclk_source(RCC_CFGR_SW_SYSCLKSEL_HSECLK);
 
 	/*
-	 * Set prescalers for AHB, ADC, ABP1, ABP2.
+	 * Set prescalers for AHB, ADC, APB1, APB2.
 	 * Do this before touching the PLL (TODO: why?).
 	 */
 	rcc_set_hpre(RCC_CFGR_HPRE_SYSCLK_NODIV);    /* Set. 72MHz Max. 72MHz */
@@ -1050,7 +1050,7 @@ void rcc_clock_setup_in_hse_25mhz_out_72mhz(void)
 	flash_set_ws(FLASH_ACR_LATENCY_2WS);
 
 	/*
-	 * Set prescalers for AHB, ADC, ABP1, ABP2.
+	 * Set prescalers for AHB, ADC, APB1, APB2.
 	 * Do this before touching the PLL (TODO: why?).
 	 */
 	rcc_set_hpre(RCC_CFGR_HPRE_SYSCLK_NODIV);    /* Set. 72MHz Max. 72MHz */
