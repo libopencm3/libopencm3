@@ -714,6 +714,7 @@ void rcc_clock_setup_in_hsi_out_48mhz(void);
 void rcc_clock_setup_in_hsi_out_24mhz(void);
 void rcc_clock_setup_in_hse_8mhz_out_24mhz(void);
 void rcc_clock_setup_in_hse_8mhz_out_72mhz(void);
+void rcc_clock_setup_in_hse_8mhz_out_72mhz_adc_12mhz(void);
 void rcc_clock_setup_in_hse_12mhz_out_72mhz(void);
 void rcc_clock_setup_in_hse_16mhz_out_72mhz(void);
 void rcc_clock_setup_in_hse_25mhz_out_72mhz(void);
