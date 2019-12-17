@@ -31,6 +31,8 @@
  * involved, each one controlling the enabling of clocks associated with the
  * AHB, APB1 and APB2 respectively. Several peripherals could be enabled
  * simultaneously <em>only if they are controlled by the same register</em>.
+ * @sa rcc_periph_clock_enable for a less error prone version, if you only
+ * need to enable a single peripheral.
  *
  * @param[in] *reg Unsigned int32. Pointer to a Clock Enable Register
  *			 (either RCC_AHBENR, RCC_APB1ENR or RCC_APB2ENR)
@@ -53,6 +55,8 @@ void rcc_peripheral_enable_clock(volatile uint32_t *reg, uint32_t en)
  * involved, each one controlling the enabling of clocks associated with
  * the AHB, APB1 and APB2 respectively. Several peripherals could be disabled
  * simultaneously <em>only if they are controlled by the same register</em>.
+ * @sa rcc_periph_clock_disable for a less error prone version, if you only
+ * need to disable a single peripheral.
  *
  * @param[in] *reg Unsigned int32. Pointer to a Clock Enable Register
  *			 (either RCC_AHBENR, RCC_APB1ENR or RCC_APB2ENR)
@@ -74,6 +78,9 @@ void rcc_peripheral_disable_clock(volatile uint32_t *reg, uint32_t en)
  * controlling reset of peripherals associated with the AHB, APB1 and APB2
  * respectively. Several peripherals could be reset simultaneously <em>only if
  * they are controlled by the same register</em>.
+ * @sa rcc_periph_reset_hold for a less error prone version, if you only
+ * need to reset a single peripheral.
+ * @sa rcc_periph_reset_pulse if you are only going to toggle reset anyway.
  *
  * @param[in] *reg Unsigned int32. Pointer to a Reset Register
  *			 (either RCC_AHBENR, RCC_APB1ENR or RCC_APB2ENR)
@@ -94,6 +101,9 @@ void rcc_peripheral_reset(volatile uint32_t *reg, uint32_t reset)
  * involved, each one controlling reset of peripherals associated with the AHB,
  * APB1 and APB2 respectively. Several peripherals could have the reset removed
  * simultaneously <em>only if they are controlled by the same register</em>.
+ * @sa rcc_periph_reset_release for a less error prone version, if you only
+ * need to unreset a single peripheral.
+ * @sa rcc_periph_reset_pulse if you are only going to toggle reset anyway.
  *
  * @param[in] *reg Unsigned int32. Pointer to a Reset Register
  *			 (either RCC_AHBENR, RCC_APB1ENR or RCC_APB2ENR)

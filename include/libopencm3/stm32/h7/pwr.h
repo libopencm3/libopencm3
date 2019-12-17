@@ -55,6 +55,8 @@ LGPL License Terms @ref lgpl_license
 /** Wakeup Domain Power Control register. */
 #define PWR_WKUPCR      MMIO32(POWER_CONTROL_BASE + 0x20)
 
+/** SYSCFG Register for configuring regulator "overdrive" */
+
 /*@}*/
 
 /** VOS[15:14]: Regulator voltage scaling output selection */
@@ -62,24 +64,70 @@ LGPL License Terms @ref lgpl_license
 #define PWR_CR1_SVOS_SCALE_3      (0x3)
 #define PWR_CR1_SVOS_SCALE_4      (0x2)
 #define PWR_CR1_SVOS_SCALE_5      (0x1)
-#define PWR_CR1_SVOS_MASK         (0x3)
+
+#define PWR_CR1_SVOS_MASK         ((0x3) << PWR_CR1_SVOS_SHIFT)
 
 /** DBP[8]: Disable backup domain write protection. */
 #define PWR_CR1_DBP               (1 << 8)
 
-/** PVDO: PVD output */
-#define PWR_CSR1_PVDO             (1 << 4)
+/** CSR1 Register Bits */
+#define PWR_CSR1_AVDO             BIT16
+#define PWR_CSR1_ACTVOS_SHIFT     14
+#define PWR_CSR1_ACTVOSRDY        BIT13
+#define PWR_CSR1_PVDO             BIT24
+
+/** CR3 Register Bits */
+#define PWR_CR3_USB33RDY          BIT26
+#define PWR_CR3_USBREGEN          BIT25
+#define PWR_CR3_USB33DEN          BIT24
+#define PWR_CR3_VBRS              BIT9
+#define PWR_CR3_VBE               BIT8
+#define PWR_CR3_SCUEN             BIT2
+#define PWR_CR3_LDOEN             BIT1
+#define PWR_CR3_BYPASS            BIT0
+
+/** D3CR Register Bits */
+#define PWR_D3CR_VOS_SHIFT        14
+#define PWR_D3CR_VOSRDY           BIT13
+
+#define PWR_D3CR_VOS_SCALE_3      (0x3)
+#define PWR_D3CR_VOS_SCALE_2      (0x2)
+#define PWR_D3CR_VOS_SCALE_1      (0x1)
+#define PWR_D3CR_VOS_MASK         ((0x03) << PWR_D3CR_VOS_SHIFT)
 
 /* --- Function prototypes ------------------------------------------------- */
 enum pwr_svos_scale {
-  PWR_SCALE3 = PWR_CR1_SVOS_SCALE_3 << PWR_CR1_SVOS_SHIFT,
-  PWR_SCALE4 = PWR_CR1_SVOS_SCALE_4 << PWR_CR1_SVOS_SHIFT,
-  PWR_SCALE5 = PWR_CR1_SVOS_SCALE_5 << PWR_CR1_SVOS_SHIFT,
+  PWR_SVOS_SCALE3 = PWR_CR1_SVOS_SCALE_3 << PWR_CR1_SVOS_SHIFT,
+  PWR_SVOS_SCALE4 = PWR_CR1_SVOS_SCALE_4 << PWR_CR1_SVOS_SHIFT,
+  PWR_SVOS_SCALE5 = PWR_CR1_SVOS_SCALE_5 << PWR_CR1_SVOS_SHIFT,
+};
+
+enum pwr_vos_scale {
+  PWR_VOS_SCALE_0 = 0,    /* Note: This state requires SYSCFG ODEN set. */
+  PWR_VOS_SCALE_1 = (PWR_D3CR_VOS_SCALE_1 << PWR_D3CR_VOS_SHIFT),
+  PWR_VOS_SCALE_2 = (PWR_D3CR_VOS_SCALE_2 << PWR_D3CR_VOS_SHIFT),
+  PWR_VOS_SCALE_3 = (PWR_D3CR_VOS_SCALE_3 << PWR_D3CR_VOS_SHIFT)
 };
 
 BEGIN_DECLS
 
+/** @defgroup pwr_peripheral_api PWR Peripheral API
+ * @ingroup peripheral_apis
+@{*/
+
+/** Set power subsystem to utilize the LDO for CPU. */
+void pwr_set_mode_ldo(void);
+
+/** Set the voltage scaling/strength for the internal LDO when in Stop mode.
+ * @param[in] scale  Voltage scale value to set.
+ */
 void pwr_set_svos_scale(enum pwr_svos_scale scale);
+
+/** Set the voltage scaling/strength for the internal LDO while running.
+ * @param[in] scale  Voltage scale value to set.
+ */
+void pwr_set_vos_scale(enum pwr_vos_scale scale);
+
 
 END_DECLS
 

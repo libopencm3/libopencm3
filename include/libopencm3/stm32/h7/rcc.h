@@ -27,55 +27,35 @@ LGPL License Terms @ref lgpl_license
 #ifndef LIBOPENCM3_RCC_H
 #define LIBOPENCM3_RCC_H
 
+#include <libopencm3/cm3/common.h>
 #include <libopencm3/stm32/h7/pwr.h>
 
 /**@{*/
 
-/* --- RCC registers ------------------------------------------------------- */
+
+/** @defgroup rcc_regisers RCC Registers
+ * @ingroup rcc_defines
+@{*/
 #define RCC_CR                    MMIO32(RCC_BASE + 0x000)
+#define RCC_ICSCR                 MMIO32(RCC_BASE + 0x004)  /* Y-devices only */
+#define RCC_HSICFGR               MMIO32(RCC_BASE + 0x004)  /* V-devices only */
+#define RCC_CRRCR                 MMIO32(RCC_BASE + 0x008)
+#define RCC_CSICFGR               MMIO32(RCC_BASE + 0x00C)  /* V-devices only */
 #define RCC_CFGR                  MMIO32(RCC_BASE + 0x010)
-
-/** @defgroup rcc_cr_values RCC_CR_VALUES
- * @ingroup rcc_registers
-@{*/
-#define RCC_CR_PLL3AIRDY          (1 << 29)
-#define RCC_CR_PLL3AION           (1 << 28)
-#define RCC_CR_PLL2RDY            (1 << 27)
-#define RCC_CR_PLL2ON             (1 << 26)
-#define RCC_CR_PLL1RDY            (1 << 25)
-#define RCC_CR_PLL1ON             (1 << 24)
-#define RCC_CR_HSECSSON           (1 << 19)
-#define RCC_CR_HSEBYP             (1 << 18)
-#define RCC_CR_HSERDY             (1 << 17)
-#define RCC_CR_HSEON              (1 << 16)
-#define RCC_CR_D2CKRDY            (1 << 15)
-#define RCC_CR_D1CKRDY            (1 << 14)
-#define RCC_CR_HSI48RDY           (1 << 13)
-#define RCC_CR_HSI48ON            (1 << 12)
-#define RCC_CR_CSIKERON           (1 << 9)
-#define RCC_CR_CSIRDY             (1 << 8)
-#define RCC_CR_CSION              (1 << 7)
-#define RCC_CR_HSIDIVF            (1 << 5)
-#define RCC_CR_HSIDIV_MASK        (0x03)
-#define RCC_CR_HSIDIV_SHIFT       3
-#define RCC_CR_HSIDIV(n)          (((n) & RCC_CR_HSIDIV_MASK) << RCC_CR_HSIDIV_MASK)
-#define RCC_CR_HSIRDY             (1 << 2)
-#define RCC_CR_HSIKERON           (1 << 1)
-#define RCC_CR_HSION              (1 << 0)
-/**@}*/
-
-/** @defgroup rcc_rstr_values RCC_RSTR_VALUES
- * @ingroup rcc_registers
-@{*/
+#define RCC_D1CFGR                MMIO32(RCC_BASE + 0x018)
+#define RCC_D2CFGR                MMIO32(RCC_BASE + 0x01C)
+#define RCC_D3CFGR                MMIO32(RCC_BASE + 0x020)
 #define RCC_PLLCKSELR             MMIO32(RCC_BASE + 0x028)
 #define RCC_PLLCFGR               MMIO32(RCC_BASE + 0x02C)
+#define RCC_PLLDIVR(n)            MMIO32(RCC_BASE + 0x030 + (0x08 * (n)))
+#define RCC_PLLFRACR(n)           MMIO32(RCC_BASE + 0x030 + (0x08 * (n)))
 #define RCC_PLL1DIVR              MMIO32(RCC_BASE + 0x030)
 #define RCC_PLL1FRACR             MMIO32(RCC_BASE + 0x034)
 #define RCC_PLL2DIVR              MMIO32(RCC_BASE + 0x038)
 #define RCC_PLL2FRACR             MMIO32(RCC_BASE + 0x03C)
 #define RCC_PLL3DIVR              MMIO32(RCC_BASE + 0x040)
 #define RCC_PLL3FRACR             MMIO32(RCC_BASE + 0x044)
-// #define RCC_D2CCIP1R              MMIO32(RCC_BASE + 0x050)
+#define RCC_D2CCIP1R              MMIO32(RCC_BASE + 0x050)
 #define RCC_AHB1RSTR              MMIO32(RCC_BASE + 0x080)
 #define RCC_AHB2RSTR              MMIO32(RCC_BASE + 0x084)
 #define RCC_AHB3RSTR              MMIO32(RCC_BASE + 0x07C)
@@ -111,7 +91,37 @@ LGPL License Terms @ref lgpl_license
 #define RCC_DCKCFGR2              MMIO32(RCC_BASE + 0x90)
 /**@}*/
 
-/** @defgroup rcc_cfgr_values RCC_CFGR_VALUES
+/** @defgroup rcc_cr_values RCC_CR Values
+ * @ingroup rcc_registers
+@{*/
+#define RCC_CR_PLL3AIRDY          BIT29
+#define RCC_CR_PLL3AION           BIT29
+#define RCC_CR_PLL2RDY            BIT27
+#define RCC_CR_PLL2ON             BIT26
+#define RCC_CR_PLL1RDY            BIT25
+#define RCC_CR_PLL1ON             BIT24
+#define RCC_CR_HSECSSON           BIT19
+#define RCC_CR_HSEBYP             BIT18
+#define RCC_CR_HSERDY             BIT17
+#define RCC_CR_HSEON              BIT16
+#define RCC_CR_D2CKRDY            BIT15
+#define RCC_CR_D1CKRDY            BIT14
+#define RCC_CR_HSI48RDY           BIT13
+#define RCC_CR_HSI48ON            BIT12
+#define RCC_CR_CSIKERON           BIT9
+#define RCC_CR_CSIRDY             BIT8
+#define RCC_CR_CSION              BIT7
+#define RCC_CR_HSIDIVF            BIT5
+#define RCC_CR_HSIDIV_MASK        (0x03)
+#define RCC_CR_HSIDIV_SHIFT       3
+#define RCC_CR_HSIDIV(n)          (((n) & RCC_CR_HSIDIV_MASK) << RCC_CR_HSIDIV_MASK)
+#define RCC_CR_HSIRDY             BIT2
+#define RCC_CR_HSIKERON           BIT1
+#define RCC_CR_HSION              BIT0
+/**@}*/
+
+
+/** @defgroup rcc_cfgr_values RCC_CFGR Values
  * @ingroup rcc_registers
 @{*/
 /* MCO2: Microcontroller clock output 2 */
@@ -167,8 +177,133 @@ LGPL License Terms @ref lgpl_license
 #define RCC_CFGR_SW_PLL1          0x3
 /**@}*/
 
+/** @defgroup rcc_d1cfgr_values RCC_D1CFGR Values
+ * @ingroup rcc_registers
+ * @{*/
+#define RCC_D1CFGR_D1CPRE_BYP       0x0
+#define RCC_D1CFGR_D1CPRE_DIV2      0x8
+#define RCC_D1CFGR_D1CPRE_DIV4      0x9
+#define RCC_D1CFGR_D1CPRE_DIV8      0xA
+#define RCC_D1CFGR_D1CPRE_DIV16     0xB
+#define RCC_D1CFGR_D1CPRE_DIV64     0xC
+#define RCC_D1CFGR_D1CPRE_DIV128    0xD
+#define RCC_D1CFGR_D1CPRE_DIV256    0xE
+#define RCC_D1CFGR_D1CPRE_DIV512    0xF
+#define RCC_D1CFGR_D1PPRE_BYP       0x0
+#define RCC_D1CFGR_D1PPRE_DIV2      0x4
+#define RCC_D1CFGR_D1PPRE_DIV4      0x5
+#define RCC_D1CFGR_D1PPRE_DIV8      0x6
+#define RCC_D1CFGR_D1PPRE_DIV16     0x7
+#define RCC_D1CFGR_D1HPRE_BYP       0x0
+#define RCC_D1CFGR_D1HPRE_DIV2      0x8
+#define RCC_D1CFGR_D1HPRE_DIV4      0x9
+#define RCC_D1CFGR_D1HPRE_DIV8      0xA
+#define RCC_D1CFGR_D1HPRE_DIV16     0xB
+#define RCC_D1CFGR_D1HPRE_DIV64     0xC
+#define RCC_D1CFGR_D1HPRE_DIV128    0xD
+#define RCC_D1CFGR_D1HPRE_DIV256    0xE
+#define RCC_D1CFGR_D1HPRE_DIV512    0xF
 
-/** @defgroup rcc_bdcr_values RCC_BDCR_VALUES
+#define RCC_D1CFGR_D1CPRE_SHIFT     8
+#define RCC_D1CFGR_D1PPRE_SHIFT     4
+#define RCC_D1CFGR_RSVD_BITMASK     (0xfffff080)
+/**@}*/
+
+/** @defgroup rcc_d2cfgr_values RCC_D2CFGR Values
+ * @ingroup rcc_registers
+ * @{*/
+#define RCC_D2CFGR_D2PPRE_BYP       0x0
+#define RCC_D2CFGR_D2PPRE_DIV2      0x4
+#define RCC_D2CFGR_D2PPRE_DIV4      0x5
+#define RCC_D2CFGR_D2PPRE_DIV8      0x6
+#define RCC_D2CFGR_D2PPRE_DIV16     0x7
+
+#define RCC_D2CFGR_D2PPRE2_SHIFT    8
+#define RCC_D2CFGR_D2PPRE1_SHIFT    4
+#define RCC_D2CFGR_RSVD_BITMASK     (0xfffff88f)
+/**@}*/
+
+/** @defgroup rcc_d3cfgr_values RCC_D3CFGR Values
+ * @ingroup rcc_registers
+ * @{*/
+#define RCC_D3CFGR_D3PPRE_BYP       0x0
+#define RCC_D3CFGR_D3PPRE_DIV2      0x4
+#define RCC_D3CFGR_D3PPRE_DIV4      0x5
+#define RCC_D3CFGR_D3PPRE_DIV8      0x6
+#define RCC_D3CFGR_D3PPRE_DIV16     0x7
+#define RCC_D3CFGR_D3PPRE_SHIFT     4
+#define RCC_D3CFGR_RSVD_BITMASK     (0xffffff8f)
+/**@}*/
+
+/** @defgroup rcc_pllckselr_values RCC_PLLCKSELR Values
+ * @ingroup rcc_registers
+ * @{*/
+#define RCC_PLLCKSELR_PLLSRC_HSI    0x0
+#define RCC_PLLCKSELR_PLLSRC_CSI    0x1
+#define RCC_PLLCKSELR_PLLSRC_HSE    0x2
+#define RCC_PLLCKSELR_PLLSRC_NONE   0x3
+#define RCC_PLLCKSELR_DIVM_DIS      0
+#define RCC_PLLCKSELR_DIVM_BYP      1
+#define RCC_PLLCKSELR_DIVM_MASK     0x3f
+
+#define RCC_PLLCKSELR_DIVM3_SHIFT   20
+#define RCC_PLLCKSELR_DIVM2_SHIFT   12
+#define RCC_PLLCKSELR_DIVM1_SHIFT   4
+
+#define RCC_PLLCKSELR_DIVM3(n)      ((n) << RCC_PLLCKSELR_DIVM3_SHIFT)
+#define RCC_PLLCKSELR_DIVM2(n)      ((n) << RCC_PLLCKSELR_DIVM2_SHIFT)
+#define RCC_PLLCKSELR_DIVM1(n)      ((n) << RCC_PLLCKSELR_DIVM1_SHIFT)
+/**@}*/
+
+/** @defgroup rcc_pllcfgr_values RCC_PLLCFGR Values
+ * @ingroup rcc_registers
+ * @{*/
+#define RCC_PLLCFGR_PLLRGE_1_2MHZ   0
+#define RCC_PLLCFGR_PLLRGE_2_4MHZ   1
+#define RCC_PLLCFGR_PLLRGE_4_8MHZ   2
+#define RCC_PLLCFGR_PLLRGE_8_16MHZ  3
+
+#define RCC_PLLCFGR_DIVR3EN         BIT24
+#define RCC_PLLCFGR_DIVQ3EN         BIT23
+#define RCC_PLLCFGR_DIVP3EN         BIT22
+#define RCC_PLLCFGR_DIVR2EN         BIT21
+#define RCC_PLLCFGR_DIVQ2EN         BIT20
+#define RCC_PLLCFGR_DIVP2EN         BIT19
+#define RCC_PLLCFGR_DIVR1EN         BIT18
+#define RCC_PLLCFGR_DIVQ1EN         BIT17
+#define RCC_PLLCFGR_DIVP1EN         BIT16
+#define RCC_PLLCFGR_PLL3RGE_SHIFT   10
+#define RCC_PLLCFGR_PLL3VCO_WIDE    0       /* 192 - 836MHz base output. */
+#define RCC_PLLCFGR_PLL3VCO_MED     BIT9    /* 150 - 420MHz base output. */
+#define RCC_PLLCFGR_PLL3FRACEN      BIT8
+#define RCC_PLLCFGR_PLL2RGE_SHIFT   6
+#define RCC_PLLCFGR_PLL2VCO_WIDE    0       /* 192 - 836MHz base output. */
+#define RCC_PLLCFGR_PLL2VCO_MED     BIT5    /* 150 - 420MHz base output. */
+#define RCC_PLLCFGR_PLL2FRACEN      BIT4
+#define RCC_PLLCFGR_PLL1RGE_SHIFT   2
+#define RCC_PLLCFGR_PLL1VCO_WIDE    0       /* 192 - 836MHz base output. */
+#define RCC_PLLCFGR_PLL1VCO_MED     BIT1    /* 150 - 420MHz base output. */
+#define RCC_PLLCFGR_PLL1FRACEN      BIT0
+#define RCC_PLLCFGR_RSVD_BITMASK    (0xfe00f000)
+/**@}*/
+
+/** @defgroup rcc_plldivr_values RCC_PLLnDIVR Values
+ * @ingroup rcc_registers
+ * @{*/
+#define RCC_PLLNDIVR_DIVR_SHIFT     24
+#define RCC_PLLNDIVR_DIVQ_SHIFT     16
+#define RCC_PLLNDIVR_DIVP_SHIFT     9
+#define RCC_PLLNDIVR_DIVN_SHIFT     0
+
+/* Need to preserve reserved bits, so give easy mask shortcut. */
+#define RCC_PLLNDIVR_RSVD_BITMASK   (0x80800100)
+#define RCC_PLLNDIVR_DIVR(n)        (((n) - 1) << RCC_PLLNDIVR_DIVR_SHIFT)
+#define RCC_PLLNDIVR_DIVQ(n)        (((n) - 1) << RCC_PLLNDIVR_DIVQ_SHIFT)
+#define RCC_PLLNDIVR_DIVP(n)        (((n) - 1) << RCC_PLLNDIVR_DIVP_SHIFT)
+#define RCC_PLLNDIVR_DIVN(n)        (((n) - 1) << RCC_PLLNDIVR_DIVN_SHIFT)
+/**@}*/
+
+/** @defgroup rcc_bdcr_values RCC_BDCR Values
  * @ingroup rcc_registers
 @{*/
 #define RCC_BDCR_BDRST            (1 << 16)
@@ -190,7 +325,7 @@ LGPL License Terms @ref lgpl_license
 #define RCC_BDCR_LSEON            (1 << 0)
 /**@}*/
 
-/** @defgroup rcc_bdcr_values RCC_CSR_VALUES
+/** @defgroup rcc_bdcr_values RCC_CSR Values.
  * @ingroup rcc_registers
 @{*/
 #define RCC_CSR_LSIRDY            (1 << 1)
@@ -203,10 +338,56 @@ LGPL License Terms @ref lgpl_license
 #define RCC_D2CCIP1R_SPI123SEL_PER      0x4
 #define RCC_D2CCIP1R_SPI123SEL_SHIFT    12
 
+#define HSI_BASE_FREQUENCY              64000000UL
 
 extern uint32_t rcc_ahb_frequency;
 extern uint32_t rcc_apb1_frequency;
 extern uint32_t rcc_apb2_frequency;
+
+/** Enumerations for clocks in the clock tree to allow user to get the current configuration of the
+ *  clocks from the RCC module. These clock sources will each be tracked through the settings.
+ */
+enum rcc_clock_source {
+  RCC_CPUCLK,
+  RCC_SYSCLK,
+  RCC_SYSTICKCLK,
+  RCC_AXICLK,
+  RCC_HCLK3,
+  RCC_AHBCLK,           /* AHB1,2,4 all share base HCLK. */
+  RCC_APB1CLK,          /* APB1 and PCLK1 are aliases. */
+  RCC_PCLK1,
+  RCC_APB1TIMERCLK,     /* Timer clocks run double APB.  */
+  RCC_APB2CLK,
+  RCC_PCLK2,
+  RCC_APB2TIMERCLK,     /* Timer clocks run double APB.  */
+  RCC_APB3CLK,
+  RCC_PCLK3,
+  RCC_APB4CLK,
+  RCC_PCLK4,
+  RCC_FDCAN1CLK,        /* FDCAN controllers share a kernel clock */
+  RCC_FDCAN2CLK,
+  RCC_I2C1CLK,          /* I2C 1/2/3 share a kernel clock. */
+  RCC_I2C2CLK,
+  RCC_I2C3CLK,
+  RCC_I2C4CLK,          /* I2C 4 has its own kernel clock. */
+  RCC_QSPICLK,          /* QSPI has its own kernel clock. */
+  RCC_SDMMC1CLK,        /* SDMMC modules share a kernel clock. */
+  RCC_SDMMC2CLK,
+  RCC_SPI1CLK,          /* SPI 1/2/3 share a kernel clock. */
+  RCC_SPI2CLK,
+  RCC_SPI3CLK,
+  RCC_SPI4CLK,          /* SPI 4/5 share kernel clock. */
+  RCC_SPI5CLK,
+  RCC_SPI6CLK,          /* SPI6 has its own kernel clock. */
+  RCC_USART1CLK,        /* USART 1/6 share kernel clock. */
+  RCC_USART6CLK,
+  RCC_USART2CLK,        /* USART 2/3/4/5/6/8 share kernel clock. */
+  RCC_USART3CLK,
+  RCC_USART4CLK,
+  RCC_USART5CLK,
+  RCC_USART7CLK,
+  RCC_USART8CLK,
+};
 
 enum rcc_osc {
   RCC_PLL,
@@ -447,7 +628,14 @@ enum rcc_periph_rst {
 #undef _REG_BIT
 
 #include <libopencm3/stm32/common/rcc_common_all.h>
-
 /**@}*/
+
+BEGIN_DECLS
+
+void rcc_clock_setup_pll(const struct rcc_pll_config *config);
+uint32_t rcc_get_clock(enum rcc_clock_source);
+
+
+END_DECLS
 
 #endif
