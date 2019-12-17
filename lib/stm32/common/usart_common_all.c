@@ -45,11 +45,15 @@ rcc_clock_setup-* functions in RCC).
 Note: For LPUART, baudrates over 2**24 (~16.7 Mbaud) may overflow
 the calculation and are therefore not supported by this function.
 
+Note: This is not compatible with the complex clock tree implemented by the H7
+series of parts, and is defined separately for those modules.
+
 @param[in] usart unsigned 32 bit. USART block register address base @ref
 usart_reg_base
 @param[in] baud unsigned 32 bit. Baud rate specified in Hz.
 */
 
+#ifndef STM32H7
 void usart_set_baudrate(uint32_t usart, uint32_t baud)
 {
 	uint32_t clock = rcc_apb1_frequency;
@@ -83,6 +87,7 @@ void usart_set_baudrate(uint32_t usart, uint32_t baud)
 
 	USART_BRR(usart) = (clock + baud / 2) / baud;
 }
+#endif  /* !STM32H7 */
 
 /*---------------------------------------------------------------------------*/
 /** @brief USART Set Word Length.
