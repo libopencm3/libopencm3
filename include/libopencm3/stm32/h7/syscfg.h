@@ -45,7 +45,7 @@
 #define SYSCFG_CCSR				MMIO32(SYSCFG_BASE + 0x20)
 #define SYSCFG_CCVR				MMIO32(SYSCFG_BASE + 0x24)
 #define SYSCFG_CCCR				MMIO32(SYSCFG_BASE + 0x28)
-#define SYSCFG_PWRCR			MMIO32(SYSCFG_BASE + 0x2C)
+#define SYSCFG_PWRCR				MMIO32(SYSCFG_BASE + 0x2C)
 #define SYSCFG_PKGR				MMIO32(SYSCFG_BASE + 0x124)
 #define SYSCFG_UR0				MMIO32(SYSCFG_BASE + 0x300)
 #define SYSCFG_UR2				MMIO32(SYSCFG_BASE + 0x308)
@@ -69,7 +69,7 @@
 /** @defgroup syscfg_pwrcr PWRCR SYSCFG configuration register
  * @ingroup syscfg_registers
  * @{*/
-#define SYSCFG_PWRCR_ODEN		BIT0
+#define SYSCFG_PWRCR_ODEN			BIT0
 /**@}*/
 
 

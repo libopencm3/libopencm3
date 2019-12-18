@@ -55,7 +55,10 @@ LGPL License Terms @ref lgpl_license
 #define RCC_PLL2FRACR             MMIO32(RCC_BASE + 0x03C)
 #define RCC_PLL3DIVR              MMIO32(RCC_BASE + 0x040)
 #define RCC_PLL3FRACR             MMIO32(RCC_BASE + 0x044)
+#define RCC_D1CCIPR               MMIO32(RCC_BASE + 0x04C)
 #define RCC_D2CCIP1R              MMIO32(RCC_BASE + 0x050)
+#define RCC_D2CCIP2R              MMIO32(RCC_BASE + 0x054)
+#define RCC_D3CCIPR               MMIO32(RCC_BASE + 0x058)
 #define RCC_AHB1RSTR              MMIO32(RCC_BASE + 0x080)
 #define RCC_AHB2RSTR              MMIO32(RCC_BASE + 0x084)
 #define RCC_AHB3RSTR              MMIO32(RCC_BASE + 0x07C)
@@ -332,17 +335,85 @@ LGPL License Terms @ref lgpl_license
 #define RCC_CSR_LSION             (1 << 0)
 /**@}*/
 
-/** @defgroup rcc_bdcr_values RCC_CSR_VALUES
+/** @defgroup rcc_d1ccipr_values RCC_D1CCIP1R Values
  * @ingroup rcc_registers
-@{*/
-#define RCC_D2CCIP1R_SPI123SEL_PER      0x4
+ * @{*/
+#define RCC_D2CCIPR_CKPERSEL_SHIFT     28
+
+#define RCC_D2CCIPR_CKPERSEL_HSI       0
+#define RCC_D2CCIPR_CKPERSEL_CSI       1
+#define RCC_D2CCIPR_CKPERSEL_HSE       2
+#define RCC_D2CCIPR_CKPERSEL_DISABLE   3
+#define RCC_D2CCIPR_CKPERSEL_MASK      3
+/**@}*/
+
+/** @defgroup rcc_d2ccip1r_values RCC_D2CCIP1R Values
+ * @ingroup rcc_registers
+ * @{*/
+#define RCC_D2CCIP1R_SWPSEL_SHIFT       31
+#define RCC_D2CCIP1R_FDCANSEL_SHIFT     28
+#define RCC_D2CCIP1R_DFSDM1SEL_SHIFT    24
+#define RCC_D2CCIP1R_SPDIFSEL_SHIFT     20
+#define RCC_D2CCIP1R_SPI45SEL_SHIFT     16
 #define RCC_D2CCIP1R_SPI123SEL_SHIFT    12
+#define RCC_D2CCIP1R_SAI23SEL_SHIFT     6
+
+#define RCC_D2CCIP1R_SWPSEL_PCLK        0x0
+#define RCC_D2CCIP1R_SWPSEL_HSI         0x1
+#define RCC_D2CCIP1R_FDCANSEL_HSE       0x0
+#define RCC_D2CCIP1R_FDCANSEL_PLL1Q     0x1
+#define RCC_D2CCIP1R_FDCANSEL_PLL2Q     0x2
+#define RCC_D2CCIP1R_FDCANSEL_MASK      0x3
+#define RCC_D2CCIP1R_DFSDM1SEL_PCLK2    0x0
+#define RCC_D2CCIP1R_DFSDM1SEL_SYSCLK   0x1
+#define RCC_D2CCIP1R_SPDIFSEL_PLL1Q     0x0
+#define RCC_D2CCIP1R_SPDIFSEL_PLL2R     0x1
+#define RCC_D2CCIP1R_SPDIFSEL_PLL3R     0x2
+#define RCC_D2CCIP1R_SPDIFSEL_HSI       0x3
+#define RCC_D2CCIP1R_SPI45SEL_APB4      0x0
+#define RCC_D2CCIP1R_SPI45SEL_PLL2Q     0x1
+#define RCC_D2CCIP1R_SPI45SEL_PLL3Q     0x2
+#define RCC_D2CCIP1R_SPI45SEL_HSI       0x3
+#define RCC_D2CCIP1R_SPI45SEL_CSI       0x4
+#define RCC_D2CCIP1R_SPI45SEL_HSE       0x5
+#define RCC_D2CCIP1R_SPI45SEL_MASK      0x7
+#define RCC_D2CCIP1R_SPI123SEL_PLL1Q    0x0
+#define RCC_D2CCIP1R_SPI123SEL_PLL2P    0x1
+#define RCC_D2CCIP1R_SPI123SEL_PLL3P    0x2
+#define RCC_D2CCIP1R_SPI123SEL_I2SCKIN  0x3
+#define RCC_D2CCIP1R_SPI123SEL_PERCK    0x4
+#define RCC_D2CCIP1R_SPI123SEL_MASK     0x7
+#define RCC_D2CCIP1R_SAISEL_PLL1Q       0x0
+#define RCC_D2CCIP1R_SAISEL_PLL2P       0x1
+#define RCC_D2CCIP1R_SAISEL_PLL3P       0x2
+#define RCC_D2CCIP1R_SAISEL_I2SCKIN     0x3
+#define RCC_D2CCIP1R_SAISEL_PERCK       0x4
+#define RCC_D2CCIP1R_SAISEL_MASK        0x7
+/**@}*/
+
+/** @defgroup rcc_d2ccip2r_values RCC_D2CCIP2R Values
+ * @ingroup rcc_registers
+ * @{*/
+#define RCC_D2CCIP2R_LPTIM1SEL_SHIFT        28
+#define RCC_D2CCIP2R_CECSEL_SHIFT           22
+#define RCC_D2CCIP2R_USBSEL_SHIFT           20
+#define RCC_D2CCIP2R_I2C123SEL_SHIFT        12
+#define RCC_D2CCIP2R_RNGSEL_SHIFT           8
+#define RCC_D2CCIP2R_USART16SEL_SHIFT       3
+#define RCC_D2CCIP2R_USART234578SEL_SHIFT   0
+
+#define RCC_D2CCIP2R_USART16SEL_PCLK2       0
+#define RCC_D2CCIP2R_USART234578SEL_PCLK1   0
+#define RCC_D2CCIP2R_USARTSEL_PLL2Q         1
+#define RCC_D2CCIP2R_USARTSEL_PLL3Q         2
+#define RCC_D2CCIP2R_USARTSEL_HSI           3
+#define RCC_D2CCIP2R_USARTSEL_CSI           4
+#define RCC_D2CCIP2R_USARTSEL_LSE           5
+#define RCC_D2CCIP2R_USARTSEL_MASK          7
+/**@}*/
+
 
 #define HSI_BASE_FREQUENCY              64000000UL
-
-extern uint32_t rcc_ahb_frequency;
-extern uint32_t rcc_apb1_frequency;
-extern uint32_t rcc_apb2_frequency;
 
 /** Enumerations for clocks in the clock tree to allow user to get the current configuration of the
  *  clocks from the RCC module. These clock sources will each be tracked through the settings.
@@ -350,29 +421,20 @@ extern uint32_t rcc_apb2_frequency;
 enum rcc_clock_source {
   RCC_CPUCLK,
   RCC_SYSCLK,
+  RCC_PERCLK,
   RCC_SYSTICKCLK,
-  RCC_AXICLK,
   RCC_HCLK3,
   RCC_AHBCLK,           /* AHB1,2,4 all share base HCLK. */
   RCC_APB1CLK,          /* APB1 and PCLK1 are aliases. */
   RCC_PCLK1,
-  RCC_APB1TIMERCLK,     /* Timer clocks run double APB.  */
   RCC_APB2CLK,
   RCC_PCLK2,
-  RCC_APB2TIMERCLK,     /* Timer clocks run double APB.  */
   RCC_APB3CLK,
   RCC_PCLK3,
   RCC_APB4CLK,
   RCC_PCLK4,
   RCC_FDCAN1CLK,        /* FDCAN controllers share a kernel clock */
   RCC_FDCAN2CLK,
-  RCC_I2C1CLK,          /* I2C 1/2/3 share a kernel clock. */
-  RCC_I2C2CLK,
-  RCC_I2C3CLK,
-  RCC_I2C4CLK,          /* I2C 4 has its own kernel clock. */
-  RCC_QSPICLK,          /* QSPI has its own kernel clock. */
-  RCC_SDMMC1CLK,        /* SDMMC modules share a kernel clock. */
-  RCC_SDMMC2CLK,
   RCC_SPI1CLK,          /* SPI 1/2/3 share a kernel clock. */
   RCC_SPI2CLK,
   RCC_SPI3CLK,
@@ -393,8 +455,101 @@ enum rcc_osc {
   RCC_PLL,
   RCC_HSE,
   RCC_HSI,
-  RCC_LSE,
-  RCC_LSI
+  RCC_LSE
+};
+
+enum rcc_sysclk_mux {
+  RCC_SYSCLK_PLL,
+  RCC_SYSCLK_HSE,
+  RCC_SYSCLK_HSI,
+};
+
+enum rcc_pll_mux {
+  RCC_PLL_HSI = RCC_PLLCKSELR_PLLSRC_HSI,
+  RCC_PLL_HSE = RCC_PLLCKSELR_PLLSRC_HSE
+};
+
+enum rcc_d1cpre {
+  RCC_D1CPRE_BYP = RCC_D1CFGR_D1CPRE_BYP << RCC_D1CFGR_D1CPRE_SHIFT,
+  RCC_D1CPRE_DIV2 = RCC_D1CFGR_D1CPRE_DIV2 << RCC_D1CFGR_D1CPRE_SHIFT,
+  RCC_D1CPRE_DIV4 = RCC_D1CFGR_D1CPRE_DIV4 << RCC_D1CFGR_D1CPRE_SHIFT,
+  RCC_D1CPRE_DIV8 = RCC_D1CFGR_D1CPRE_DIV8 << RCC_D1CFGR_D1CPRE_SHIFT,
+  RCC_D1CPRE_DIV16 = RCC_D1CFGR_D1CPRE_DIV16 << RCC_D1CFGR_D1CPRE_SHIFT,
+  RCC_D1CPRE_DIV64 = RCC_D1CFGR_D1CPRE_DIV64 << RCC_D1CFGR_D1CPRE_SHIFT,
+  RCC_D1CPRE_DIV128 = RCC_D1CFGR_D1CPRE_DIV128 << RCC_D1CFGR_D1CPRE_SHIFT,
+  RCC_D1CPRE_DIV256 = RCC_D1CFGR_D1CPRE_DIV256 << RCC_D1CFGR_D1CPRE_SHIFT,
+  RCC_D1CPRE_DIV512 = RCC_D1CFGR_D1CPRE_DIV512 << RCC_D1CFGR_D1CPRE_SHIFT,
+};
+
+enum rcc_d1ppre {
+  RCC_D1PPRE_BYP = RCC_D1CFGR_D1PPRE_BYP << RCC_D1CFGR_D1PPRE_SHIFT,
+  RCC_D1PPRE_DIV2 = RCC_D1CFGR_D1PPRE_DIV2 << RCC_D1CFGR_D1PPRE_SHIFT,
+  RCC_D1PPRE_DIV4 = RCC_D1CFGR_D1PPRE_DIV4 << RCC_D1CFGR_D1PPRE_SHIFT,
+  RCC_D1PPRE_DIV8 = RCC_D1CFGR_D1PPRE_DIV8 << RCC_D1CFGR_D1PPRE_SHIFT,
+  RCC_D1PPRE_DIV16 = RCC_D1CFGR_D1PPRE_DIV16 << RCC_D1CFGR_D1PPRE_SHIFT,
+};
+
+enum rcc_d1hpre {
+  RCC_D1HPRE_BYP = RCC_D1CFGR_D1HPRE_BYP,
+  RCC_D1HPRE_DIV2 = RCC_D1CFGR_D1HPRE_DIV2,
+  RCC_D1HPRE_DIV4 = RCC_D1CFGR_D1HPRE_DIV4,
+  RCC_D1HPRE_DIV8 = RCC_D1CFGR_D1HPRE_DIV8,
+  RCC_D1HPRE_DIV16 = RCC_D1CFGR_D1HPRE_DIV16,
+  RCC_D1HPRE_DIV64 = RCC_D1CFGR_D1HPRE_DIV64,
+  RCC_D1HPRE_DIV128 = RCC_D1CFGR_D1HPRE_DIV128,
+  RCC_D1HPRE_DIV256 = RCC_D1CFGR_D1HPRE_DIV256,
+  RCC_D1HPRE_DIV512 = RCC_D1CFGR_D1HPRE_DIV512,
+};
+
+enum rcc_d2ppre1 {
+  RCC_D2PPRE1_BYP = RCC_D2CFGR_D2PPRE_BYP << RCC_D2CFGR_D2PPRE1_SHIFT,
+  RCC_D2PPRE1_DIV2 = RCC_D2CFGR_D2PPRE_DIV2 << RCC_D2CFGR_D2PPRE1_SHIFT,
+  RCC_D2PPRE1_DIV4 = RCC_D2CFGR_D2PPRE_DIV4 << RCC_D2CFGR_D2PPRE1_SHIFT,
+  RCC_D2PPRE1_DIV8 = RCC_D2CFGR_D2PPRE_DIV8 << RCC_D2CFGR_D2PPRE1_SHIFT,
+  RCC_D2PPRE1_DIV16 = RCC_D2CFGR_D2PPRE_DIV16 << RCC_D2CFGR_D2PPRE1_SHIFT,
+};
+
+enum rcc_d2ppre2 {
+  RCC_D2PPRE2_BYP = RCC_D2CFGR_D2PPRE_BYP << RCC_D2CFGR_D2PPRE2_SHIFT,
+  RCC_D2PPRE2_DIV2 = RCC_D2CFGR_D2PPRE_DIV2 << RCC_D2CFGR_D2PPRE2_SHIFT,
+  RCC_D2PPRE2_DIV4 = RCC_D2CFGR_D2PPRE_DIV4 << RCC_D2CFGR_D2PPRE2_SHIFT,
+  RCC_D2PPRE2_DIV8 = RCC_D2CFGR_D2PPRE_DIV8 << RCC_D2CFGR_D2PPRE2_SHIFT,
+  RCC_D2PPRE2_DIV16 = RCC_D2CFGR_D2PPRE_DIV16 << RCC_D2CFGR_D2PPRE2_SHIFT,
+};
+
+enum rcc_d3ppre {
+  RCC_D3PPRE_BYP = RCC_D3CFGR_D3PPRE_BYP << RCC_D3CFGR_D3PPRE_SHIFT,
+  RCC_D3PPRE_DIV2 = RCC_D3CFGR_D3PPRE_DIV2 << RCC_D3CFGR_D3PPRE_SHIFT,
+  RCC_D3PPRE_DIV4 = RCC_D3CFGR_D3PPRE_DIV4 << RCC_D3CFGR_D3PPRE_SHIFT,
+  RCC_D3PPRE_DIV8 = RCC_D3CFGR_D3PPRE_DIV8 << RCC_D3CFGR_D3PPRE_SHIFT,
+  RCC_D3PPRE_DIV16 = RCC_D3CFGR_D3PPRE_DIV16 << RCC_D3CFGR_D3PPRE_SHIFT,
+};
+
+/** PLL Configuration structure. */
+struct rcc_pll_config {
+  uint32_t hse_frequency;         /**< User configured external crystal frequency. */
+  enum rcc_sysclk_mux sysclk_mux; /**< SYSCLK source input selection. */
+  enum rcc_pll_mux pll_mux;       /**< PLL source input selection. */
+  struct {
+    uint8_t divm;                 /**< Pre-divider value for each PLL. 0-64 integers. */
+    uint16_t divn;                /**< Multiplier, 0-512 integer. */
+    uint8_t divp;                 /**< Post divider for PLLP clock. */
+    uint8_t divq;                 /**< Post divider for PLLQ clock. */
+    uint8_t divr;                 /**< Post divider for PLLR clock. */
+  } pll[3];                      /**< Array of 3x PLLs. */
+  struct {
+    enum rcc_d1cpre core_prescale;    /**< Core prescaler for domain 1. */
+    enum rcc_d1hpre hclk3_prescale;   /**< HCLK3 prescaler for domain 1. */
+    enum rcc_d1ppre pclk3_prescale;   /**< APB3 Peripheral prescaler for domain 1. */
+  } domain1;
+  struct {
+    enum rcc_d2ppre1 pclk1_prescale;  /**< APB1 Peripheral prescaler for domain 2. */
+    enum rcc_d2ppre2 pclk2_prescale;  /**< APB2 Peripheral prescaler for domain 2. */
+  } domain2;
+  struct {
+    enum rcc_d3ppre pclk4_prescale;   /**< APB4 Peripheral prescaler for domain 3. */
+  } domain3;
+
 };
 
 #define _REG_BIT(base, bit)       (((base) << 5) + (bit))
@@ -626,16 +781,64 @@ enum rcc_periph_rst {
 };
 
 #undef _REG_BIT
-
-#include <libopencm3/stm32/common/rcc_common_all.h>
 /**@}*/
+
+
+/** @defgroup rcc_file RCC peripheral API
+ *
+ * @ingroup peripheral_apis
+ */
+#include <libopencm3/stm32/common/rcc_common_all.h>
 
 BEGIN_DECLS
 
+/**
+ * Setup the base PLLs and clock domains for the STM32H7. This function will
+ * utilize the users input parameters to configure all 3 PLLs, as well as the
+ * core clock domains (namely SYSCLK, CPU, HCLK, AHB, PCLK1-4) with the
+ * specified dividers. Given the dividers, the RCC module will track the
+ * the configured frequency for each of these clock domains.
+ *
+ *   Note: If clock sources, configs, divider, etc. are modified outside of
+ *         this module, the frequency tracking may be undefined.
+ *   Note: Clock tree is fairly complex, see RM0433 Section 7
+ *         for details.
+ * @param[in] config  Input config structure defining desired setup.
+ */
 void rcc_clock_setup_pll(const struct rcc_pll_config *config);
-uint32_t rcc_get_clock(enum rcc_clock_source);
+
+/**
+ * Get the clock rate (in hz) of the specified clock source. There are
+ * numerous clock sources and configurations on the H7, so rates for each
+ * configured peripheral clock are aimed to be discoverd/calculated by this
+ * module such that the user does not need to know how the MCU is configured
+ * in order to utilize a peripheral clock.
+ * @param[in] source  Clock source desired to be fetched.
+ * @return Clock rate in Hz for the specified clock. 0 if undefined or error.
+ */
+uint32_t rcc_get_clock(enum rcc_clock_source source);
+
+/**
+ * Set the clock select for the FDCAN devices.
+ * @param[in] source  Clock source to configure FDCAN kernel clock for.
+ *                    RCC_D2CCIP1R_FDCANSEL_XXX selections above.
+ */
+void rcc_set_fdcan_clksel(uint8_t fdcansel);
+/**
+ * Set the clock select for the SPI 1/2/3 devices.
+ * @param[in] source  Clock source desired to be fetched. Choose from
+ *                    RCC_D2CCIP1R_SPI123_XXX selections above.
+ */
+void rcc_set_spi123_clksel(uint8_t clksel);
+/**
+ * Set the clock select for the SPI 4/5 devices.
+ * @param[in] source  Clock source desired to be fetched. Choose from
+ *                    RCC_D2CCIP1R_SPI45_XXX selections above.
+ */
+void rcc_set_spi45_clksel(uint8_t clksel);
 
 
 END_DECLS
+/**@}*/
 
 #endif

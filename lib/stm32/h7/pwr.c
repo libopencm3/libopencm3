@@ -13,8 +13,7 @@
 /*
  * This file is part of the libopencm3 project.
  *
- * Copyright (C) 2011 Stephen Caudle <scaudle@doceme.com>
- * Copyright (C) 2017 Matthew Lai <m@matthewlai.ca>
+ * Copyright (C) 2019 Brian Viele <vielster@allocor.tech>
  *
  * This library is free software: you can redistribute it and/or modify
  * it under the terms of the GNU Lesser General Public License as published by
@@ -44,12 +43,12 @@ void pwr_set_mode_ldo(void) {
 void pwr_set_svos_scale(enum pwr_svos_scale scale)
 {
 	uint32_t pwr_cr1_reg = PWR_CR1;
-	pwr_cr1_reg = (pwr_cr1_reg & ~PWR_CR1_SVOS_MASK) | scale;
-	PWR_CR1 = pwr_cr1_reg;
+	pwr_cr1_reg = (pwr_cr1_reg & ~(PWR_CR1_SVOS_MASK  << PWR_CR1_SVOS_SHIFT));
+	PWR_CR1 = pwr_cr1_reg | scale;
 }
 
 void pwr_set_vos_scale(enum pwr_vos_scale scale) {
-	uint32_t d3cr_masked = PWR_D3CR & ~PWR_D3CR_VOS_MASK;
+	uint32_t d3cr_masked = PWR_D3CR & ~(PWR_D3CR_VOS_MASK << PWR_D3CR_VOS_SHIFT);
 	if (scale == PWR_VOS_SCALE_0) {
 		PWR_D3CR = d3cr_masked | PWR_VOS_SCALE_1;
 		SYSCFG_PWRCR |= SYSCFG_PWRCR_ODEN;

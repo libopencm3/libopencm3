@@ -65,7 +65,7 @@ LGPL License Terms @ref lgpl_license
 #define PWR_CR1_SVOS_SCALE_4      (0x2)
 #define PWR_CR1_SVOS_SCALE_5      (0x1)
 
-#define PWR_CR1_SVOS_MASK         ((0x3) << PWR_CR1_SVOS_SHIFT)
+#define PWR_CR1_SVOS_MASK         (0x3)
 
 /** DBP[8]: Disable backup domain write protection. */
 #define PWR_CR1_DBP               (1 << 8)
@@ -93,7 +93,7 @@ LGPL License Terms @ref lgpl_license
 #define PWR_D3CR_VOS_SCALE_3      (0x3)
 #define PWR_D3CR_VOS_SCALE_2      (0x2)
 #define PWR_D3CR_VOS_SCALE_1      (0x1)
-#define PWR_D3CR_VOS_MASK         ((0x03) << PWR_D3CR_VOS_SHIFT)
+#define PWR_D3CR_VOS_MASK         (0x03)
 
 /* --- Function prototypes ------------------------------------------------- */
 enum pwr_svos_scale {
