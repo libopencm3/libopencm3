@@ -35,7 +35,15 @@ static struct {
 		uint16_t r_mhz;
 	} pll[3];
 	uint16_t hse_khz;			/* This can't exceed 50MHz */
-} rcc_clock_tree;
+} rcc_clock_tree = {
+	.sysclk_mhz = HSI_BASE_FREQUENCY / HZ_PER_MHZ,
+	.cpu_mhz = HSI_BASE_FREQUENCY / HZ_PER_MHZ,
+	.hclk_mhz = HSI_BASE_FREQUENCY / HZ_PER_MHZ,
+	.per.pclk1_mhz = HSI_BASE_FREQUENCY / HZ_PER_MHZ,
+	.per.pclk2_mhz = HSI_BASE_FREQUENCY / HZ_PER_MHZ,
+	.per.pclk3_mhz = HSI_BASE_FREQUENCY / HZ_PER_MHZ,
+	.per.pclk4_mhz = HSI_BASE_FREQUENCY / HZ_PER_MHZ
+};
 
 static void rcc_set_and_enable_plls(const struct rcc_pll_config *config) {
 	/* It is assumed that this function is entered with PLLs disabled and not
