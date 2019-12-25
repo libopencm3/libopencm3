@@ -44,6 +44,7 @@ OBJS += uart.o
 OBJS += vector.o
 
 OBJS += usb.o usb_control.o usb_standard.o usb_msc.o
+OBJS += usb_hid.o
 OBJS += usb_lm4f.o
 
 VPATH += ../usb:../cm3

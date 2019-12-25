@@ -54,6 +54,7 @@ OBJS += timer_common_all.o
 OBJS += usart_common_all.o usart_common_v2.o
 
 OBJS += usb.o usb_control.o usb_standard.o usb_msc.o
+OBJS += usb_hid.o
 OBJS += st_usbfs_core.o st_usbfs_v2.o
 
 VPATH += ../../usb:../:../../cm3:../common

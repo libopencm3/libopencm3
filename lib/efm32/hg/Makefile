@@ -43,6 +43,7 @@ OBJS += gpio_common.o
 OBJS += timer_common.o
 
 OBJS += usb.o usb_control.o usb_standard.o usb_msc.o
+OBJS += usb_hid.o
 OBJS += usb_dwc_common.o usb_efm32hg.o
 
 VPATH += ../../usb:../:../../cm3:../common
