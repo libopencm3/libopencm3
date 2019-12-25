@@ -322,4 +322,5 @@
 #define SYSCFG_ITLINE31_RNG		(1 << 0)
 /**@}*/
 
+/**@}*/
 #endif
