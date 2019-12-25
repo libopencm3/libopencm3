@@ -1,4 +1,4 @@
-/** @file
+/**
  * @ingroup PAC55xx_gpio
  * @brief <b>PAC55xxxx General-Purpose Input/Output (GPIO)</b>
  * @author @htmlonly &copy; @endhtmlonly 2019 Brian Viele <vielster@allocor.tech>
