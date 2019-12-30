@@ -1,13 +1,12 @@
-/** @defgroup exti_file EXTI peripheral API
+/** @addtogroup exti_file EXTI peripheral API
  * @ingroup peripheral_apis
  *
  * @author @htmlonly &copy; @endhtmlonly 2019 Guillaume Revaillot <g.revaillot@gmail.com>
  *
  * @date 10 January 2019
- * 
+ *
  * LGPL License Terms @ref lgpl_license
  */
-
 /*
  * This file is part of the libopencm3 project.
  *
