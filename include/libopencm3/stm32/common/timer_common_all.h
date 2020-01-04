@@ -502,7 +502,7 @@ specific memorymap.h header before including this header file.*/
 #define TIM_SMCR_ETPS_ETRP_DIV_2	(0x1 << 12)
 #define TIM_SMCR_ETPS_ETRP_DIV_4	(0x2 << 12)
 #define TIM_SMCR_ETPS_ETRP_DIV_8	(0x3 << 12)
-#define TIM_SMCR_ETPS_MASK		(0X3 << 12)
+#define TIM_SMCR_ETPS_MASK		(0x3 << 12)
 
 /* ETF[3:0]: External trigger filter */
 #define TIM_SMCR_ETF_OFF		(0x0 << 8)
