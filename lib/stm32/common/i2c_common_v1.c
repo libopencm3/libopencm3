@@ -471,9 +471,10 @@ static void i2c_write7_v1(uint32_t i2c, int addr, uint8_t *data, size_t n)
 
 	i2c_send_start(i2c);
 
-	/* Wait for master mode selected */
-	while (!((I2C_SR1(i2c) & I2C_SR1_SB)
-		& (I2C_SR2(i2c) & (I2C_SR2_MSL | I2C_SR2_BUSY))));
+	/* Wait for the end of the start condition, master mode selected, and BUSY bit set */
+	while ( !( (I2C_SR1(i2c) & I2C_SR1_SB)
+		&& (I2C_SR2(i2c) & I2C_SR2_MSL)
+		&& (I2C_SR2(i2c) & I2C_SR2_BUSY) ));
 
 	i2c_send_7bit_address(i2c, addr, I2C_WRITE);
 
@@ -494,9 +495,10 @@ static void i2c_read7_v1(uint32_t i2c, int addr, uint8_t *res, size_t n)
 	i2c_send_start(i2c);
 	i2c_enable_ack(i2c);
 
-	/* Wait for master mode selected */
-	while (!((I2C_SR1(i2c) & I2C_SR1_SB)
-		& (I2C_SR2(i2c) & (I2C_SR2_MSL | I2C_SR2_BUSY))));
+	/* Wait for the end of the start condition, master mode selected, and BUSY bit set */
+	while ( !( (I2C_SR1(i2c) & I2C_SR1_SB)
+		&& (I2C_SR2(i2c) & I2C_SR2_MSL)
+		&& (I2C_SR2(i2c) & I2C_SR2_BUSY) ));
 
 	i2c_send_7bit_address(i2c, addr, I2C_READ);
 
