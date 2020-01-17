@@ -174,8 +174,8 @@
 * @brief Read protection level
 @{*/
 #define FLASH_OPTR_RDP_LEVEL_0		0xAA
-#define FLASH_OPTR_RDP_LEVEL_1		0xBB
-#define FLASH_OPTR_RDP_LEVEL_2		0xCC /* or any other value. */
+#define FLASH_OPTR_RDP_LEVEL_1		0xBB /* or any other value. */
+#define FLASH_OPTR_RDP_LEVEL_2		0xCC
 /**@}*/
 
 BEGIN_DECLS

@@ -153,7 +153,7 @@ void usart_disable_halfduplex(uint32_t usart)
 /** @brief USART Set receiver timeout value
 
  Sets the receive timeout value in terms of number of bit duration.
- The RTOF @ref usart_isr_rtof is set if, after the last received character,
+ The @ref USART_ISR_RTOF is set if, after the last received character,
  no new start bit is detected for more than the receive timeout value.
 
  @note The timeout value can also be written when USART is enabled.
@@ -201,7 +201,7 @@ void usart_disable_rx_timeout(uint32_t usart)
 /** @brief USART enable receive timeout interrupt
 
  An interrupt is generated when the RTOF Flag is set
- in the ISR @ref usart_isr register.
+ in the @ref USART_ISR register.
 
  @note If the USART does not support the Receiver timeout feature,
  this bit is reserved and forced by hardware to ‘0’.
@@ -293,7 +293,7 @@ void usart_wait_recv_ready(uint32_t usart)
  *
  * @param[in] usart unsigned 32 bit. USART block register address base @ref
  * usart_reg_base
- * @param[in] flag Unsigned int32. Status register flag  @ref usart_sr_flags.
+ * @param[in] flag Unsigned int32. Status register flag  @ref usart_isr_values.
  * @returns boolean: flag set.
  */
 

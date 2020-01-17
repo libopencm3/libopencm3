@@ -19,7 +19,7 @@ Libraries for ST Microelectronics STM32H7xx series.
 LGPL License Terms @ref lgpl_license
 */
 
-/** @defgroup STM32H7xx_defines STM32FHxx Defines
+/** @defgroup STM32H7xx_defines STM32Hxx Defines
 
 @brief Defined Constants and Types for the STM32H7xx series
 

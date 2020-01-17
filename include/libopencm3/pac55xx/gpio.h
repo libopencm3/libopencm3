@@ -1,6 +1,5 @@
-/** @file
- *
- *  GPIO definitions for the Qorvo PAC55xx series of microcontrollers.
+/**
+ * @brief GPIO definitions for the Qorvo PAC55xx series of microcontrollers.
  *
  *  @addtogroup PAC55xx_gpio GPIO
  *  @ingroup PAC55xx_defines
@@ -36,9 +35,10 @@
 #include <libopencm3/pac55xx/ccs.h>
 #include <libopencm3/pac55xx/memorymap.h>
 
+/**@{*/
+
 /** GPIO port base addresses (for convenience)
  * @defgroup gpio_port_id GPIO Port IDs
- * @ingroup PAC55xx_gpio
  * @{*/
 #define GPIOA GPIOA_BASE
 #define GPIOB GPIOB_BASE
@@ -51,7 +51,6 @@
 
 /** GPIO number definitions (for convenience)
  * @defgroup gpio_pin_id GPIO Pin Identifiers
- * @ingroup PAC55xx_gpio
  * @{*/
 #define GPIO_MAX_PIN (7U)
 #define GPIO0 BIT0
@@ -67,7 +66,6 @@
 
 /** GPIO Mode Register Definitions
  * @defgroup gpio_mode_regs GPIO MODE register mapping.
- * @ingroup PAC55xx_gpio
  * @{*/
 /* Enum definitions for at least minimal type safety. */
 typedef enum {
@@ -92,7 +90,6 @@ typedef enum {
 /** GPIO Output Mask Register Definitions. This register may be used to lock the output value of
  * a pin as changes to masked pins will have no effect.
  * @defgroup gpio_outmask_regs GPIO OUTMASK register mapping.
- * @ingroup PAC55xx_gpio
  * @{*/
 #define GPIO_OUTMASKR(base) MMIO32((base) + 0x04)
 #define GPIOA_OUTMASKR GPIO_OUTMASKR(GPIOA)
@@ -106,7 +103,6 @@ typedef enum {
 
 /** GPIO Output Register Definitions.
  * @defgroup gpio_out_regs GPIO OUT register mapping.
- * @ingroup PAC55xx_gpio
  * @{*/
 #define GPIO_OUTR(base) MMIO32((base) + 0x08)
 #define GPIOA_OUTR GPIO_OUTR(GPIOA)
@@ -119,8 +115,7 @@ typedef enum {
 /**@}*/
 
 /** GPIO Input Register Definitions.
- * @defgroup gpio_out_regs GPIO IN register mapping.
- * @ingroup PAC55xx_gpio
+ * @defgroup gpio_in_regs GPIO IN register mapping.
  * @{*/
 #define GPIO_INR(base) MMIO32((base) + 0x0C)
 #define GPIOA_INR GPIO_INR(GPIOA)
@@ -134,7 +129,6 @@ typedef enum {
 
 /** GPIO Interrupt Enable Register Definitions.
  * @defgroup gpio_inten_regs GPIO INTEN register mapping.
- * @ingroup PAC55xx_gpio
  * @{*/
 #define GPIO_INTENR(base) MMIO32((base) + 0x10)
 #define GPIOA_INTENR GPIO_INTENR(GPIOA)
@@ -148,7 +142,6 @@ typedef enum {
 
 /** GPIO Interrupt Flag Register Definitions.
  * @defgroup gpio_intflag_regs GPIO INTFLAG register mapping.
- * @ingroup PAC55xx_gpio
  * @{*/
 #define GPIO_INTFLAGR(base) MMIO32((base) + 0x14)
 #define GPIOA_INTFLAGR GPIO_INTFLAGR(GPIOA)
@@ -162,7 +155,6 @@ typedef enum {
 
 /** GPIO Interrupt Clear Register Definitions.
  * @defgroup gpio_intclear_regs GPIO INTCLEAR register mapping.
- * @ingroup PAC55xx_gpio
  * @{*/
 #define GPIO_INTCLEARR(base) MMIO32((base) + 0x1C)
 #define GPIOA_INTCLEARR GPIO_INTCLEARR(GPIOA)
@@ -176,7 +168,6 @@ typedef enum {
 
 /** GPIO Interrupt Type Register Definitions.
  * @defgroup gpio_inttype_regs GPIO INTTYPE register mapping.
- * @ingroup PAC55xx_gpio
  * @{*/
 #define GPIO_INTTYPE_EDGE 0U
 #define GPIO_INTTYPE_LEVEL 1U
@@ -192,7 +183,6 @@ typedef enum {
 
 /** GPIO Interrupt Config Register Definitions.
  * @defgroup gpio_intcfg_regs GPIO INTCFG register mapping.
- * @ingroup PAC55xx_gpio
  * @{*/
 #define GPIO_INTCFG_FALLING_LOW 0U
 #define GPIO_INTCFG_RISING_HIGH 1U
@@ -208,7 +198,6 @@ typedef enum {
 
 /** GPIO Interrupt Edge Both Definitions. This overrides the config if set.
  * @defgroup gpio_intedgeboth_regs GPIO INTEDGEBOTH register mapping.
- * @ingroup PAC55xx_gpio
  * @{*/
 #define GPIO_INTEDGEBOTHR(base) MMIO32((base) + 0x28)
 #define GPIOA_INTEDGEBOTHR GPIO_INTEDGEBOTHR(GPIOA)
@@ -222,7 +211,6 @@ typedef enum {
 
 /** GPIO Clock Synchronization Settings. When set, this enables 3-clock synchronizer on pins.
  * @defgroup gpio_clksync_regs GPIO CLKSYNC register mapping.
- * @ingroup PAC55xx_gpio
  * @{*/
 #define GPIO_CLKSYNCR(base) MMIO32((base) + 0x2C)
 #define GPIOA_CLKSYNCR GPIO_CLKSYNCR(GPIOA)
@@ -236,7 +224,6 @@ typedef enum {
 
 /** GPIO Set Register. This register can be used for atomic setting of outputs.
  * @defgroup gpio_doset_regs GPIO DOSET register mapping.
- * @ingroup PAC55xx_gpio
  * @{*/
 #define GPIO_DOSETR(base) MMIO32((base) + 0x30)
 #define GPIOA_DOSETR GPIO_DOSETR(GPIOA)
@@ -250,7 +237,6 @@ typedef enum {
 
 /** GPIO Set Register. This register can be used for atomic setting of outputs.
  * @defgroup gpio_doclear_regs GPIO DOCLEAR register mapping.
- * @ingroup PAC55xx_gpio
  * @{*/
 #define GPIO_DOCLEARR(base) MMIO32((base) + 0x34)
 #define GPIOA_DOCLEARR GPIO_DOCLEARR(GPIOA)
@@ -262,6 +248,8 @@ typedef enum {
 #define GPIOG_DOCLEARR GPIO_DOCLEARR(GPIOG)
 /**@}*/
 
+/**@}*/
+
 BEGIN_DECLS
 /** GPIO Application Programming Interface.
  * @defgroup gpio_api GPIO Peripheral API
@@ -269,10 +257,10 @@ BEGIN_DECLS
 @{*/
 /**
  * Set the IO mode and pull-up/down configuration for the pins.
- * @param gpioport[in]  Port to configure the alternate function on.
- * @param mode[in]  IO Mode to configure (analog, input, output).
- * @param pull_up_down[in]  Pull configuration (up/down/none) to set for the pins..
- * @param gpios[in]  Pins to set with the mode and pull config specified.
+ * @param[in] gpioport  Port to configure the alternate function on.
+ * @param[in] mode  IO Mode to configure (analog, input, output).
+ * @param[in] pull_up_down  Pull configuration (up/down/none) to set for the pins..
+ * @param[in] gpios  Pins to set with the mode and pull config specified.
  */
 void gpio_mode_setup(uint32_t gpioport, gpio_mode_t mode,
 		     ccs_pull_updown_t pull_up_down, uint16_t gpios);
@@ -297,32 +285,32 @@ void gpio_set(uint32_t gpioport, uint16_t gpios);
 void gpio_clear(uint32_t gpioport, uint16_t gpios);
 /**
  * Return a masked bitfield of the port specified.
- * @param gpioport[in]  Port to read the bits from.
- * @param gpios[in]  bitfield mask to apply to the port read.
+ * @param[in] gpioport  Port to read the bits from.
+ * @param[in] gpios  bitfield mask to apply to the port read.
  * @return masked bitfield of the port.
  */
 uint16_t gpio_get(uint32_t gpioport, uint16_t gpios);
 /**
  * Set the function of the pin for this port. This will modify the pinmux,
- * @param gpioport[in]  Port to configure the alternate function on.
- * @param muxsel[in]  Mux select mode to configure on the port and pins.
- * @param gpios[in]  Pins to set with the function specified.
+ * @param[in] gpioport  Port to configure the alternate function on.
+ * @param[in] muxsel  Mux select mode to configure on the port and pins.
+ * @param[in] gpios  Pins to set with the function specified.
  */
 void gpio_set_af(uint32_t gpioport, ccs_muxsel_func_t muxsel, uint16_t gpios);
 
 /**
  * Set special output options for the gpio pin. For this MCU, this is only the drive strength.
- * @param gpioport[in]  Port to configure the alternate function on.
- * @param strength[in]  Drive strength (DS_XXMA from ccs.h).
- * @param gpios[in]  Pins to set with the drive strength specified.
+ * @param[in] gpioport  Port to configure the alternate function on.
+ * @param[in] strength  Drive strength (DS_XXMA from ccs.h).
+ * @param[in] gpios  Pins to set with the drive strength specified.
  */
 void gpio_set_output_options(uint32_t gpioport, ccs_drive_strength_t strength,
 			     uint16_t gpios);
 /**
  * Set input schmidt trigger for glitch rejection on the input pin.
- * @param gpioport[in]  Port to configure the alternate function on.
- * @param enable[in]  True to enable, false to disable the schmidt trigger.
- * @param gpios[in]  Pins to set with the schmidt trigger setting specified.
+ * @param[in] gpioport  Port to configure the alternate function on.
+ * @param[in] enable  True to enable, false to disable the schmidt trigger.
+ * @param[in] gpios  Pins to set with the schmidt trigger setting specified.
  */
 void gpio_set_schmidt_trigger(uint32_t gpioport, bool enable, uint16_t gpios);
 /**@}*/

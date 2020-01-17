@@ -1,7 +1,5 @@
-/** @file
- * @defgroup memorymap
- *
- * Peripheral Memory Map for the PAC55xx series of microcontrolelrs.
+/**
+ * @defgroup memorymap Peripheral Memory Map
  *
  * @ingroup PAC55xx_defines
  * @author Brian Viele <vielster@allocor.tech>
@@ -27,10 +25,9 @@
 #ifndef INCLUDE_LIBOPENCM3_PAC55XX_MEMORYMAP_H_
 #define INCLUDE_LIBOPENCM3_PAC55XX_MEMORYMAP_H_
 
-/* Memory and Peripheral memory Mapping */
+/**@{*/
 
 /** @defgroup address_memory Address Memory Map.
-@ingroup memorymap
 @{*/
 #define FLASH_BASE (0x00000000UL)
 #define INFO1_FLASH_BASE (0x00100000UL)
@@ -40,7 +37,6 @@
 #define PERIPH_BASE (0x40000000UL)
 /**@}*/
 /** @defgroup peripheral_addresses Core Peripheral Memory Map.
-@ingroup memorymap
 @{*/
 #define ADC_BASE (PERIPH_BASE + 0x00000)
 #define I2C_BASE (PERIPH_BASE + 0x10000)
@@ -58,7 +54,6 @@
 #define SYS_PERIPH_BASE (PERIPH_BASE + 0xD0000)
 /**@}*/
 /** @defgroup system_peripheral_addresses System Peripheral Memory Map.
-@ingroup memorymap
 @{*/
 #define MEMCTL_BASE (SYS_PERIPH_BASE + 0x0000)
 #define SCC_BASE (SYS_PERIPH_BASE + 0x0400)
@@ -72,6 +67,7 @@
 #define GPIOE_BASE (SYS_PERIPH_BASE + 0x2400)
 #define GPIOF_BASE (SYS_PERIPH_BASE + 0x2800)
 #define GPIOG_BASE (SYS_PERIPH_BASE + 0x2C00)
+/**@}*/
 /**@}*/
 
 #endif /* INCLUDE_LIBOPENCM3_PAC55XX_MEMORYMAP_H_ */

@@ -30,49 +30,9 @@
 #define LIBOPENCM3_EXTI_H
 
 #include <libopencm3/stm32/common/exti_common_all.h>
-
-/* --- EXTI registers ------------------------------------------------------ */
-#define EXTI_RTSR1			MMIO32(EXTI_BASE + 0x00)
-#define EXTI_RTSR			EXTI_RTSR1
-
-#define EXTI_FTSR1			MMIO32(EXTI_BASE + 0x04)
-#define EXTI_FTSR			EXTI_FTSR1
-
-#define EXTI_SWIER1			MMIO32(EXTI_BASE + 0x08)
-#define EXTI_RPR1			MMIO32(EXTI_BASE + 0x0c)
-#define EXTI_FPR1			MMIO32(EXTI_BASE + 0x10)
-
-#define EXTI_EXTICR(i)		MMIO32(EXTI_BASE + 0x60 + (i)*4)
-#define EXTI_EXTICR1		MMIO32(EXTI_BASE + 0x60)
-#define EXTI_EXTICR2		MMIO32(EXTI_BASE + 0x64)
-#define EXTI_EXTICR3		MMIO32(EXTI_BASE + 0x68)
-#define EXTI_EXTICR4		MMIO32(EXTI_BASE + 0x6c)
-
-#define EXTI_IMR1			MMIO32(EXTI_BASE + 0x80)
-#define EXTI_IMR			EXTI_IMR1
-
-#define EXTI_EMR1			MMIO32(EXTI_BASE + 0x84)
-#define EXTI_EMR			EXTI_EMR1
-
-#define EXTI_IMR2			MMIO32(EXTI_BASE + 0x90)
-#define EXTI_EMR2			MMIO32(EXTI_BASE + 0x94)
-
-/* --- EXTI_EXTICR Values -------------------------------------------------*/
-
-#define EXTI_EXTICR_FIELDSIZE		8
-#define EXTI_EXTICR_GPIOA		0
-#define EXTI_EXTICR_GPIOB		1
-#define EXTI_EXTICR_GPIOC		2
-#define EXTI_EXTICR_GPIOD		3
-#define EXTI_EXTICR_GPIOF		5
+#include <libopencm3/stm32/common/exti_common_v2.h>
 
 BEGIN_DECLS
-
-uint32_t exti_get_rising_flag_status(uint32_t exti);
-uint32_t exti_get_falling_flag_status(uint32_t exti);
-
-void exti_reset_rising_request(uint32_t extis);
-void exti_reset_falling_request(uint32_t extis);
 
 END_DECLS
 

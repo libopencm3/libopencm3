@@ -160,6 +160,9 @@ void flash_erase_page(uint32_t page)
 
 	/* page and bank are contiguous bits */
 	FLASH_CR &= ~((FLASH_CR_PNB_MASK << FLASH_CR_PNB_SHIFT) | FLASH_CR_BKER);
+	if (page > 255)	{
+		FLASH_CR |= FLASH_CR_BKER;
+	}
 	FLASH_CR |= page << FLASH_CR_PNB_SHIFT;
 	FLASH_CR |= FLASH_CR_PER;
 	FLASH_CR |= FLASH_CR_START;

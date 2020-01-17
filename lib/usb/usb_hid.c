@@ -1,13 +1,3 @@
-/** @defgroup rng_defines RNG Defines
- *
- * @ingroup STM32G0xx_defines
- *
- * @brief <b>Defined Constants and Types for the STM32G0xx RNG Control</b>
- *
- * @version 1.0.0
- *
- * LGPL License Terms @ref lgpl_license
- *  */
 /*
  * This file is part of the libopencm3 project.
  *
@@ -25,16 +15,6 @@
  * along with this library.  If not, see <http://www.gnu.org/licenses/>.
  */
 
-/**@{*/
-#ifndef LIBOPENCM3_RNG_H
-#define LIBOPENCM3_RNG_H
+#include <libopencm3/usb/hid.h>
 
-#include <libopencm3/stm32/common/rng_common_v1.h>
-
-/* --- RNG_CR values ------------------------------------------------------- */
-
-/** Clock error detection : CED = 0 : Detection Enabled */
-#define RNG_CR_CED		(1 << 5)
-
-#endif
-/**@}*/
+/* This stub exists just to trick doxygen. */

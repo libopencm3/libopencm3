@@ -439,7 +439,7 @@ void rcc_clock_setup_msi(const struct rcc_clock_scale *clock)
 	rcc_set_sysclk_source(RCC_CFGR_SW_SYSCLKSEL_MSICLK);
 
 	/*
-	 * Set prescalers for AHB, ADC, ABP1, ABP2.
+	 * Set prescalers for AHB, ADC, APB1, APB2.
 	 * Do this before touching the PLL (TODO: why?).
 	 */
 	rcc_set_hpre(clock->hpre);
@@ -520,7 +520,7 @@ void rcc_clock_setup_pll(const struct rcc_clock_scale *clock)
 	}
 
 	/*
-	 * Set prescalers for AHB, ADC, ABP1, ABP2.
+	 * Set prescalers for AHB, ADC, APB1, APB2.
 	 * Do this before touching the PLL (TODO: why?).
 	 */
 	rcc_set_hpre(clock->hpre);

@@ -1,6 +1,5 @@
-/** @file
- *
- *  Clock Control and System Defines for the Qorvo PAC55xx series of microcontrollers.
+/**
+ * @brief Clock Control and System Defines for the Qorvo PAC55xx series of microcontrollers.
  *
  *  @defgroup system_defines Clock Config and System Defines
  *  @ingroup PAC55xx_defines
@@ -32,9 +31,10 @@
 
 #include <libopencm3/cm3/common.h>
 
+/**@{*/
+
 /** Clock Control Registers
  * @defgroup clock_config_regs Clock Config Registers.
- * @ingroup system_defines
  * @{*/
 #define CCSCTL MMIO32(SCC_BASE)
 #define CCSPLLCTL MMIO32(SCC_BASE + 0x04)
@@ -43,7 +43,6 @@
 
 /** Port Pin Config Addresses
  * @defgroup port_pin_addresses Port Pinmux Register Base.
- * @ingroup system_defines
  * @{*/
 #define CCS_PORTA (SCC_BASE + 0x0C)
 #define CCS_PORTB (SCC_BASE + 0x10)
@@ -56,7 +55,6 @@
 
 /** Port Pin Mux Select Registers
  * @defgroup pmux_sel_regs PMUXSEL register mapping.
- * @ingroup system_defines
  * @{*/
 #define CCS_MUXSELR(base) MMIO32(base)
 #define CCS_PAMUXSELR CCS_MUXSELR(CCS_PORTA)
@@ -82,7 +80,6 @@ typedef enum {
 
 /** Port Pull-Up/Down Enable Registers.
  * @defgroup pden_regs PUEN PDEN register mapping.
- * @ingroup system_defines
  * @{*/
 #define CCS_PUENR(base) MMIO32(base + 0x1C)
 #define CCS_PAPUENR CCS_PUENR(CCS_PORTA)
@@ -100,7 +97,7 @@ typedef enum {
 #define CCS_PEPDENR CCS_PDENR(CCS_PORTE)
 #define CCS_PFPDENR CCS_PDENR(CCS_PORTF)
 #define CCS_PGPDENR CCS_PDENR(CCS_PORTG)
-/* Pull Up/Down enum for type specificity. */
+/** Pull Up/Down enum for type specificity. */
 typedef enum {
 	CCS_IO_PULL_NONE = 0,
 	CCS_IO_PULL_UP = 1,
@@ -110,7 +107,6 @@ typedef enum {
 
 /** Port Drive Strength Enable Registers.
  * @defgroup dsr_regs DSR register mapping.
- * @ingroup system_defines
  * @{*/
 #define CCS_DSR(base) MMIO32(base + 0x54)
 #define CCS_PADSR CCS_DSR(CCS_PORTA)
@@ -125,7 +121,7 @@ typedef enum {
 #define CCS_DSR_DS_VAL(pin, ds) (((ds)&CCS_DSR_MASK) << ((pin)*4))
 #define CCS_DSR_SCHMIDT_PIN(pin) (BIT0 << (((pin)*4) + 3))
 
-/* Drive strength enumeration for type specificity. */
+/** Drive strength enumeration for type specificity. */
 typedef enum {
 	CCS_DSR_DS_6MA = 0x00,
 	CCS_DSR_DS_8MA = 0x01,
@@ -136,6 +132,7 @@ typedef enum {
 	CCS_DSR_DS_22MA = 0x06,
 	CCS_DSR_DS_25MA = 0x07,
 } ccs_drive_strength_t;
+/**@}*/
 /**@}*/
 
 #endif /* INCLUDE_LIBOPENCM3_PAC55XX_CCS_H_ */

@@ -44,6 +44,20 @@ void rng_enable(void)
     RNG_CR |= RNG_CR_RNGEN;
 }
 
+/** Enable the Random Number Generator error interrupt.
+*/
+void rng_interrupt_enable(void)
+{
+    RNG_CR |= RNG_CR_IE;
+}
+
+/** Disable the Random Number Generator error interrupt.
+*/
+void rng_interrupt_disable(void)
+{
+    RNG_CR &= ~RNG_CR_IE;
+}
+
 /** Randomizes a number (non-blocking).
  * Can fail if a clock error or seed error is detected. Consult the Reference
  * Manual, but "try again", potentially after resetting the peripheral
@@ -53,13 +67,13 @@ void rng_enable(void)
  */
 bool rng_get_random(uint32_t *rand_nr)
 {
-        /* data ready */
-        if (!(RNG_SR & RNG_SR_DRDY)) {
+        /* Check for errors */
+        if (RNG_SR & (RNG_SR_CECS | RNG_SR_SECS)) {
                 return false;
         }
 
-        /* Check for errors */
-        if (RNG_SR & (RNG_SR_CECS | RNG_SR_SECS)) {
+        /* data ready */
+        if (!(RNG_SR & RNG_SR_DRDY)) {
                 return false;
         }
 
@@ -73,6 +87,9 @@ bool rng_get_random(uint32_t *rand_nr)
  * Get a random number and block until it works.
  * Unless you have a clock problem, this should always return "promptly"
  * If you have a clock problem, you will wait here forever!
+ * Check device RM for clock requirements (usually fRNGCLK > fHCLK/16 or 
+ * fRNGCLK > fHCLK/32
+
  * @returns a random 32bit number
  */
 uint32_t rng_get_random_blocking(void)
@@ -80,10 +97,20 @@ uint32_t rng_get_random_blocking(void)
         uint32_t rv;
         bool done;
         do {
-                if (RNG_SR & RNG_SR_SECS) {
-                        rng_disable();
-                        rng_enable();
+
+                if (RNG_SR & RNG_SR_SEIS) {
+                        RNG_SR = RNG_SR & ~RNG_SR_SEIS;
+                        for (int i = 12; i != 0; i--) {
+                                rv = RNG_DR;
+                        }
+                        RNG_CR &= ~RNG_CR_RNGEN;
+                        RNG_CR |= RNG_CR_RNGEN;
                 }
+
+                if (RNG_SR & RNG_SR_CEIS) {
+                        RNG_SR = RNG_SR & ~RNG_SR_CEIS;
+                }
+
                 done = rng_get_random(&rv);
         } while (!done);
 
