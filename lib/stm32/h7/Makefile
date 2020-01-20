@@ -38,6 +38,7 @@ TGT_CFLAGS	+= $(STANDARD_FLAGS)
 ARFLAGS		= rcs
 
 OBJS += dac_common_all.o
+OBJS += fdcan_common.o
 OBJS += flash_common_all.o flash_common_f.o flash_common_f24.o
 OBJS += fmc_common_f47.o
 OBJS += gpio_common_all.o gpio_common_f0234.o
@@ -46,7 +47,8 @@ OBJS += pwr.o rcc.o
 OBJS += rcc_common_all.o
 OBJS += timer_common_all.o
 OBJS += usart_common_all.o usart_common_v2.o usart_common_fifos.o
+OBJS += can_bit_timing.o
 
-VPATH += ../../usb:../:../../cm3:../common
+VPATH += ../../usb:../../can:../:../../cm3:../common
 
 include ../../Makefile.include
