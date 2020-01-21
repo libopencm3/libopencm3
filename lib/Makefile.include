@@ -34,7 +34,8 @@ all: $(SRCLIBDIR)/$(LIBNAME).a
 
 $(SRCLIBDIR)/$(LIBNAME).a: $(OBJS)
 	@printf "  AR      $(LIBNAME).a\n"
-	$(Q)$(AR) $(ARFLAGS) "$@" $(OBJS)
+	#$(Q)$(AR) $(ARFLAGS) "$@" $(OBJS)
+	$(Q)$(AR) $(ARFLAGS) $(LIBNAME).a $(OBJS)
 
 %.o: %.c
 	@printf "  CC      $(<F)\n"
