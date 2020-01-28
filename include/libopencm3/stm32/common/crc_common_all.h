@@ -94,16 +94,20 @@ BEGIN_DECLS
 void crc_reset(void);
 
 /**
- * Add a word to the CRC calculator and return the result.
- * @param data new word to add to the CRC calculator
- * @return final CRC calculator value
+ * Writes a data word to the register, the write operation stalling until
+ * the computation is complete.
+ * @param[in] data new word to add to the CRC calculator
+ * @returns int32 Computed CRC result
  */
 uint32_t crc_calculate(uint32_t data);
 
 /**
- * Add a block of data to the CRC calculator and return the final result
- * @param datap pointer to the start of a block of 32bit data words
- * @param size length of data, in 32bit increments
+ * Add a block of data to the CRC calculator and return the final result.
+ * Writes data words consecutively to the register, the write operation
+ * stalling until the computation of each word is complete, then
+ * returns the final result
+ * @param[in] datap pointer to an array of 32 bit data words.
+ * @param[in] size length of data, in 32bit increments
  * @return final CRC calculator value
  */
 uint32_t crc_calculate_block(uint32_t *datap, int size);
