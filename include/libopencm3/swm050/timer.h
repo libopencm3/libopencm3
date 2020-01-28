@@ -30,126 +30,75 @@
 #include <libopencm3/cm3/common.h>
 #include <libopencm3/swm050/memorymap.h>
 
-/* Timer select */
 /** @defgroup timer_select Timer Select
 @{*/
 #define TIMER_SE0	TIMER_SE0_BASE
 #define TIMER_SE1	TIMER_SE1_BASE
 /*@}*/
 
-/* Timer level definitions */
-/** @defgroup timer_level Timer Level
-@{*/
+/** Timer Level */
 enum timer_level {
 	TIMER_LEVEL_LOW,
 	TIMER_LEVEL_HIGH
 };
-/*@}*/
 
-/* Timer edge mode definitions */
-/** @defgroup timer_edge_modes Timer Edge Modes
-@{*/
+/** Timer Edge Modes */
 enum timer_edge_modes {
-	/* Trigger on rising edge */
+	/** Trigger on rising edge */
 	TIMER_EDGE_RISING,
-	/* Trigger on falling edge */
+	/** Trigger on falling edge */
 	TIMER_EDGE_FALLING
 };
-/*@}*/
 
-/* Timer operation mode definitions */
-/** @defgroup timer_operation_modes Timer Operation Modes
-@{*/
+/** Timer Operation Modes */
 enum timer_operation_modes {
 	TIMER_MODE_COUNTER,
 	TIMER_MODE_PWM,
 	TIMER_MODE_PULSE_CAPTURE,
 	TIMER_MODE_DUTY_CYCLE_CAPTURE
 };
-/*@}*/
 
-/* Timer clock source definitions */
-/** @defgroup timer_clk_src Timer Clock Source
-@{*/
+/** Timer Clock Source */
 enum timer_clk_src {
 	TIMER_CLK_INTERNAL,
 	TIMER_CLK_EXTERNAL
 };
-/*@}*/
 
-/* Timer interrupt mask definitions */
-/** @defgroup timer_int_masked Timer Interrupt Mask
-@{*/
+/** Timer Interrupt Mask */
 enum timer_int_masked {
 	TIMER_UNMASKED,
 	TIMER_MASKED
 };
-/*@}*/
 
-/* Timer loop mode definitions */
-/** @defgroup timer_loop_modes Timer Loop Modes
-@{*/
+/** Timer Loop Modes */
 enum timer_loop_modes {
 	TIMER_LOOP_MODE,
 	TIMER_SINGLE_MODE
 };
-/*@}*/
 
-/* Timer output mode definitions */
-/** @defgroup timer_output_modes Timer Output Modes
-@{*/
+/** Timer Output Modes */
 enum timer_output_modes {
 	TIMER_OUTPUT_NONE,
 	TIMER_OUTPUT_INVERT,
 	TIMER_OUTPUT_HIGH,
 	TIMER_OUTPUT_LOW
 };
-/*@}*/
 
-/* Timer PWM period definitions */
-/** @defgroup timer_pwm_period Timer PWM Periods
-@{*/
+/** Timer PWM Periods */
 enum timer_pwm_period {
 	TIMER_PERIOD_0,
 	TIMER_PERIOD_1
 };
-/*@}*/
 
-/* Timer clock divider mask */
-/** @defgroup timer_div_mask Timer Clock Divider Mask
-@{*/
+/** Timer Clock Divider Mask */
 #define TIMER_DIV_MASK			(0x3F << 16)
-/*@}*/
 
-/* Timer operation mode mask */
-/** @defgroup timer_operation_mask Timer Operation Mode Mask
-@{*/
+/** Timer Operation Mode Mask */
 #define TIMER_OPER_MODE_MASK		(0x3 << 4)
-/*@}*/
 
-/* Timer output mode mask */
-/** @defgroup timer_output_mask Timer Output Mode Mask
-@{*/
+/** Timer Output Mode Mask */
 #define TIMER_OUTP_MODE_MASK		(0x3 << 12)
-/*@}*/
 
-/* Timer subregisters */
-/** @defgroup timer_subregisters Timer Subregisters
-@{*/
-#define TIMER_CTRL_EN		1
-/** Clock source selection */
-#define TIMER_CTRL_OSCMOD	(1 << 8)
-/** Valid edge selection */
-#define TIMER_CTRL_TMOD		(1 << 16)
-/** Loop mode selection */
-#define TIMER_CTRL_LMOD		(1 << 28)
-/** Interrupt mask */
-#define TIMER_INTCTL_INTMSK	(1 << 1)
-/** Interrupt enable */
-#define TIMER_INTCTL_INTEN	1
-/*@}*/
-
-/* Timer registers */
 /** @defgroup timer_registers Timer Registers
 @{*/
 /** Timer control register */
@@ -175,6 +124,21 @@ enum timer_pwm_period {
 #define TIMER_INTMSKSTAT(x)		MMIO32(x + 0x8C)
 /** Interrupt overflow; 1 if interrupt occurs again without being cleared */
 #define TIMER_INTFLAG(x)		MMIO32(x + 0x90)
+/*@}*/
+
+/** @defgroup timer_reg_values Timer Register Values
+@{*/
+#define TIMER_CTRL_EN		1
+/** Clock source selection */
+#define TIMER_CTRL_OSCMOD	(1 << 8)
+/** Valid edge selection */
+#define TIMER_CTRL_TMOD		(1 << 16)
+/** Loop mode selection */
+#define TIMER_CTRL_LMOD		(1 << 28)
+/** Interrupt mask */
+#define TIMER_INTCTL_INTMSK	(1 << 1)
+/** Interrupt enable */
+#define TIMER_INTCTL_INTEN	1
 /*@}*/
 
 BEGIN_DECLS

@@ -78,6 +78,7 @@ static void timer_setup_internal(uint32_t timer,
  * @param clk_src Passed to @ref timer_clock_source()
  * @param output_mode Passed to @ref timer_output_mode()
  * @param output_level Passed to @ref timer_output_level()
+ * @param target Passed to @ref timer_counter_target_value()
  */
 void timer_counter_setup(uint32_t timer,
 			 bool timer_int_en,
@@ -104,9 +105,7 @@ void timer_counter_setup(uint32_t timer,
  * @param timer Select timer @ref timer_select
  * @param timer_int_en Passed to @ref timer_int_enable()
  * @param edge_mode Passed to @ref timer_edge_mode()
- * @param loop_mode Passed to @ref timer_loop_mode()
  * @param clk_src Passed to @ref timer_clock_source()
- * @param output_mode Passed to @ref timer_output_mode()
  * @param output_level Passed to @ref timer_output_level()
  * @param period0 Passed to @ref timer_pwm_target_value()
  * @param period1 Passed to @ref timer_pwm_target_value()
