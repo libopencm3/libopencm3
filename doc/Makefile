@@ -14,6 +14,7 @@ TARGETS ?= stm32/f0 stm32/f1 stm32/f2 stm32/f3 stm32/f4 stm32/f7 stm32/h7 \
 		   msp432/e4 \
 		   lpc13xx lpc17xx lpc43xx \
 		   sam/3a sam/3n sam/3s sam/3u sam/3x \
+		   sam/d sam/4l \
 		   vf6xx \
 		   swm050 \
    		   pac55xx
