@@ -233,8 +233,8 @@ void timer_clock_enable(uint32_t timer, bool en)
  */
 void timer_operation_mode(uint32_t timer, enum timer_operation_modes mode)
 {
-	mode = (mode << 4);
-	TIMER_CTRL(timer) = (~TIMER_OPER_MODE_MASK & TIMER_CTRL(timer)) | mode;
+	uint32_t reg = TIMER_CTRL(timer) & ~(TIMER_CTRL_OUTMOD_MASK << TIMER_CTRL_OUTMOD_SHIFT);
+	TIMER_CTRL(timer) = reg | (mode << TIMER_CTRL_OUTMOD_SHIFT);
 }
 
 /**
@@ -251,8 +251,8 @@ void timer_operation_mode(uint32_t timer, enum timer_operation_modes mode)
  */
 void timer_output_mode(uint32_t timer, enum timer_output_modes mode)
 {
-	mode = (mode << 12);
-	TIMER_CTRL(timer) = (~TIMER_OUTP_MODE_MASK & TIMER_CTRL(timer)) | mode;
+	uint32_t reg = TIMER_CTRL(timer) & ~(TIMER_CTRL_WMOD_MASK << TIMER_CTRL_WMOD_SHIFT);
+	TIMER_CTRL(timer) = reg | (mode << TIMER_CTRL_WMOD_SHIFT);
 }
 
 /**

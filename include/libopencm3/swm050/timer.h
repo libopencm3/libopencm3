@@ -93,12 +93,6 @@ enum timer_pwm_period {
 /** Timer Clock Divider Mask */
 #define TIMER_DIV_MASK			(0x3F << 16)
 
-/** Timer Operation Mode Mask */
-#define TIMER_OPER_MODE_MASK		(0x3 << 4)
-
-/** Timer Output Mode Mask */
-#define TIMER_OUTP_MODE_MASK		(0x3 << 12)
-
 /** @defgroup timer_registers Timer Registers
 @{*/
 /** Timer control register */
@@ -135,6 +129,12 @@ enum timer_pwm_period {
 #define TIMER_CTRL_TMOD		(1 << 16)
 /** Loop mode selection */
 #define TIMER_CTRL_LMOD		(1 << 28)
+/** Timer Output Mode Mask */
+#define TIMER_CTRL_OUTMOD_MASK	0x3
+#define TIMER_CTRL_OUTMOD_SHIFT	12
+/** Timer Operation Mode Mask */
+#define TIMER_CTRL_WMOD_MASK	0x3
+#define TIMER_CTRL_WMOD_SHIFT	4
 /** Interrupt mask */
 #define TIMER_INTCTL_INTMSK	(1 << 1)
 /** Interrupt enable */
