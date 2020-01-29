@@ -187,7 +187,7 @@ void timer_clock_div(uint8_t div)
 	/* If the value is 0 or 1, make it odd, meaning no divide. */
 	/* Otherwise, drop div to the closest even value. */
 	div = (div <= 1) ? 1 : (div & ~0x1);
-	SYSCTL_SYS_CFG_1 = (~TIMER_DIV_MASK & SYSCTL_SYS_CFG_1) | (div << 16);
+	SYSCTL_SYS_CFG_0 = (~TIMER_DIV_MASK & SYSCTL_SYS_CFG_0) | (div << 16);
 }
 
 /**
