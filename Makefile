@@ -22,10 +22,6 @@ PREFIX		?= arm-none-eabi-
 STYLECHECK      := scripts/checkpatch.pl
 STYLECHECKFLAGS := --no-tree -f --terse --mailback
 
-space:=
-space+=
-SRCLIBDIR:= $(subst $(space),\$(space),$(realpath lib))
-
 TARGETS ?=	stm32/f0 stm32/f1 stm32/f2 stm32/f3 stm32/f4 stm32/f7 \
 		stm32/l0 stm32/l1 stm32/l4 \
 		stm32/g0 \
@@ -70,7 +66,7 @@ LIB_DIRS:=$(wildcard $(addprefix lib/,$(TARGETS)))
 $(LIB_DIRS): $(IRQ_DEFN_FILES:=.genhdr)
 	$(Q)$(RM) .stamp_failure_$(subst /,_,$@)
 	@printf "  BUILD   $@\n";
-	$(Q)$(MAKE) --directory=$@ SRCLIBDIR="$(SRCLIBDIR)" PREFIX="$(PREFIX)" || \
+	$(Q)$(MAKE) --directory=$@ PREFIX="$(PREFIX)" || \
 		echo "Failure building: $@: code: $$?" > .stamp_failure_$(subst /,_,$@)
 
 lib: $(LIB_DIRS)
@@ -88,7 +84,7 @@ clean: $(IRQ_DEFN_FILES:=.cleanhdr) $(LIB_DIRS:=.clean) $(EXAMPLE_DIRS:=.clean) 
 %.clean:
 	$(Q)if [ -d $* ]; then \
 		printf "  CLEAN   $*\n"; \
-		$(MAKE) -C $* clean SRCLIBDIR="$(SRCLIBDIR)" || exit $?; \
+		$(MAKE) -C $* clean || exit $?; \
 	fi;
 	$(Q)$(RM) .stamp_failure_*;
 
