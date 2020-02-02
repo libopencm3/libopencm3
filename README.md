@@ -18,6 +18,7 @@ Currently (at least partly) supported microcontrollers:
  - EFM32 Gecko series (only core support)
  - Freescale Vybrid VF6xx
  - Qorvo (formerly ActiveSemi) PAC55XX
+ - Synwit SWM050
 
 The library is written completely from scratch based on the vendor datasheets,
 programming manuals, and application notes. The code is meant to be used

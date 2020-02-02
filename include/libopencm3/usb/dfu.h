@@ -38,6 +38,8 @@ LGPL License Terms @ref lgpl_license
 #ifndef __DFU_H
 #define __DFU_H
 
+#define USB_CLASS_DFU 0xFE
+
 enum dfu_req {
 	DFU_DETACH,
 	DFU_DNLOAD,
