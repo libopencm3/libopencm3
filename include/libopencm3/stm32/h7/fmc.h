@@ -33,6 +33,13 @@
 /* --- Convenience macros -------------------------------------------------- */
 #define FSMC_BASE				FMC_BASE
 
+/** FMCEN: Global FMC controller Enable. Note: Don't care in BCR2..4 */
+#define FSMC_BCR_FMCEN	BIT31
+/** WFDIS: Global Write FIFO Disable. Note: Don't care in BCR2..4 */
+#define FSMC_BCR_WFDIS	BIT21
+/** WFDIS: Global Continuous Clock Enable. Note: Don't care in BCR2..4 */
+#define FSMC_BCR_CCLKEN	BIT20
+
 #endif
 
 /**@}*/
