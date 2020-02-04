@@ -497,7 +497,7 @@ lpc13 lpc13xx
 lpc13u lpc13xx USBRAM_OFF=0x20004000
 
 lpc17[56]x lpc17xx RAM1_OFF=0x2007C000 RAM2_OFF=0x20080000
-lpc17[78]x lpc17xx RAM1_OFF=0x20000000 RAM2_OFF=0x20040000
+lpc17[78]x lpc17xx RAM1_OFF=0x20000000 RAM2_OFF=0x20004000
 
 lpc43xx_m0 lpc43xx CPU=cortex-m0 FPU=soft
 lpc43xx_m4 lpc43xx CPU=cortex-m4 FPU=hard-fp4-sp-d16
