@@ -111,4 +111,26 @@
 #define BIT30 (1<<30)
 #define BIT31 (1<<31)
 
+/* Generic bit mask manipulation */
+/** Set a \p field inside of \p reg_ with bits_. Assumes that the field name can
+ * expand into two definitions _MASK and _SHIFT where the mask is applied before
+ * the shift.
+ * @param reg_   Starting value of register
+ * @param field_ Prefix of field to set in \p reg_
+ * @param bits_	 Value to set in \p field_
+ * @returns The new register value.
+ */
+#define CM3_SET_MASK(reg_, field_, bits_)                    \
+	((((reg_) & (~(field_##_MASK << field_##_SHIFT)))) | \
+	 (((bits_) & field_##_MASK) << field_##_SHIFT))
+
+/** Obtain a \p field inside of \p reg_. Assumes that the field name can expand
+ * into two definitions _MASK and _SHIFT where the shift is applied before the
+ * mask.
+ * @param reg_   Current value of register
+ * @param field_ Prefix of field to extract from \p reg_
+ * @returns Value of the field inside the register.
+ */
+#define CM3_GET_MASK(reg_, field_) (((reg_) >> field_##_SHIFT) & field_##_MASK)
+
 #endif
