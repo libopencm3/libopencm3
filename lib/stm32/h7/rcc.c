@@ -12,9 +12,6 @@
 #include <libopencm3/stm32/pwr.h>
 #include <libopencm3/stm32/flash.h>
 
-#define PLL1_INDEX			0
-#define PLL2_INDEX			1
-#define PLL3_INDEX			2
 #define HZ_PER_MHZ		 	1000000UL
 #define HZ_PER_KHZ			1000UL
 
@@ -33,40 +30,40 @@ static struct {
 		uint16_t p_mhz;
 		uint16_t q_mhz;
 		uint16_t r_mhz;
-	} pll[3];
+	} pll[4];					/* Note: PLL0 unimplemented. */
 	uint16_t hse_khz;			/* This can't exceed 50MHz */
 } rcc_clock_tree = {
-	.sysclk_mhz = HSI_BASE_FREQUENCY / HZ_PER_MHZ,
-	.cpu_mhz = HSI_BASE_FREQUENCY / HZ_PER_MHZ,
-	.hclk_mhz = HSI_BASE_FREQUENCY / HZ_PER_MHZ,
-	.per.pclk1_mhz = HSI_BASE_FREQUENCY / HZ_PER_MHZ,
-	.per.pclk2_mhz = HSI_BASE_FREQUENCY / HZ_PER_MHZ,
-	.per.pclk3_mhz = HSI_BASE_FREQUENCY / HZ_PER_MHZ,
-	.per.pclk4_mhz = HSI_BASE_FREQUENCY / HZ_PER_MHZ
+	.sysclk_mhz = RCC_HSI_BASE_FREQUENCY / HZ_PER_MHZ,
+	.cpu_mhz = RCC_HSI_BASE_FREQUENCY / HZ_PER_MHZ,
+	.hclk_mhz = RCC_HSI_BASE_FREQUENCY / HZ_PER_MHZ,
+	.per.pclk1_mhz = RCC_HSI_BASE_FREQUENCY / HZ_PER_MHZ,
+	.per.pclk2_mhz = RCC_HSI_BASE_FREQUENCY / HZ_PER_MHZ,
+	.per.pclk3_mhz = RCC_HSI_BASE_FREQUENCY / HZ_PER_MHZ,
+	.per.pclk4_mhz = RCC_HSI_BASE_FREQUENCY / HZ_PER_MHZ
 };
 
 static void rcc_set_and_enable_plls(const struct rcc_pll_config *config) {
 	/* It is assumed that this function is entered with PLLs disabled and not
 	 * running. Setup PLL1/2/3 with configurations specified in the config. */
-	RCC_PLLCKSELR = RCC_PLLCKSELR_DIVM1(config->pll[PLL1_INDEX].divm) |
-					RCC_PLLCKSELR_DIVM2(config->pll[PLL2_INDEX].divm) |
-					RCC_PLLCKSELR_DIVM3(config->pll[PLL3_INDEX].divm) |
+	RCC_PLLCKSELR = RCC_PLLCKSELR_DIVM1(config->pll[1].divm) |
+					RCC_PLLCKSELR_DIVM2(config->pll[2].divm) |
+					RCC_PLLCKSELR_DIVM3(config->pll[3].divm) |
 					config->pll_mux;
 
-	RCC_PLLCFGR &= RCC_PLLCFGR_RSVD_BITMASK;
-	for (size_t i = PLL1_INDEX; i <= PLL3_INDEX; i++) {
+	RCC_PLLCFGR = 0;
+	for (size_t i = 1; i <= 3; i++) {
 		/* Only concern ourselves with the PLL if the input clock is enabled. */
 		if (config->pll[i].divm == 0) {
 			continue;
 		}
 
 		/* Let's write all of the dividers as specified. */
-		RCC_PLLDIVR(i) &= RCC_PLLNDIVR_RSVD_BITMASK;
+		RCC_PLLDIVR(i)  = 0;
 		RCC_PLLDIVR(i) |= RCC_PLLNDIVR_DIVN(config->pll[i].divn);
 
 		/* Setup the PLL config values for this PLL. */
 		uint8_t vco_addshift = 4 * i; 		/* Values spaced by 4 for PLL 1/2/3 */
-		uint32_t clk = (config->pll_mux == RCC_PLL_HSI) ? HSI_BASE_FREQUENCY
+		uint32_t clk = (config->pll_mux == RCC_PLL_HSI) ? RCC_HSI_BASE_FREQUENCY
 			: config->hse_frequency;
 		/* Set the PLL input frequency range. */
 		uint32_t pll_clk_mhz = (clk / config->pll[i].divm) / HZ_PER_MHZ;
@@ -133,7 +130,7 @@ static uint16_t rcc_prediv_3bit_log_div(uint16_t clk_mhz, uint32_t div_val) {
 }
 
 static void rcc_clock_setup_domain1(const struct rcc_pll_config *config) {
-	RCC_D1CFGR &= RCC_D1CFGR_RSVD_BITMASK;
+	RCC_D1CFGR = 0;
 	RCC_D1CFGR |= config->domain1.core_prescale | config->domain1.hclk3_prescale |
 		config->domain1.pclk3_prescale;
 
@@ -149,7 +146,7 @@ static void rcc_clock_setup_domain1(const struct rcc_pll_config *config) {
 }
 
 static void rcc_clock_setup_domain2(const struct rcc_pll_config *config) {
-	RCC_D2CFGR &= RCC_D2CFGR_RSVD_BITMASK;
+	RCC_D2CFGR  = 0;
 	RCC_D2CFGR |= config->domain2.pclk1_prescale | config->domain2.pclk2_prescale;
 
 	/* Update our clock values in our tree based on the config values. */
@@ -160,7 +157,7 @@ static void rcc_clock_setup_domain2(const struct rcc_pll_config *config) {
 }
 
 static void rcc_clock_setup_domain3(const struct rcc_pll_config *config) {
-	RCC_D3CFGR &= RCC_D3CFGR_RSVD_BITMASK;
+	RCC_D3CFGR &= 0;
 	RCC_D3CFGR |= config->domain3.pclk4_prescale;
 
 	/* Update our clock values in our tree based on the config values. */
@@ -187,11 +184,11 @@ void rcc_clock_setup_pll(const struct rcc_pll_config *config) {
 
 	/* Populate our base sysclk settings for use with domain clocks. */
 	if (config->sysclk_mux == RCC_SYSCLK_PLL) {
-		rcc_clock_tree.sysclk_mhz = rcc_clock_tree.pll[PLL1_INDEX].p_mhz;
+		rcc_clock_tree.sysclk_mhz = rcc_clock_tree.pll[1].p_mhz;
 	} else if (config->sysclk_mux == RCC_SYSCLK_HSE) {
 		rcc_clock_tree.sysclk_mhz = config->hse_frequency / HZ_PER_MHZ;
 	} else {
-		rcc_clock_tree.sysclk_mhz = HSI_BASE_FREQUENCY / HZ_PER_MHZ;
+		rcc_clock_tree.sysclk_mhz = RCC_HSI_BASE_FREQUENCY / HZ_PER_MHZ;
 	}
 
 	/* PLL's are set, now we need to get everything switched over the correct domains. */
@@ -233,10 +230,10 @@ uint32_t rcc_get_clock(enum rcc_clock_source source) {
 		case RCC_APB4CLK:
 			return rcc_clock_tree.per.pclk4_mhz * HZ_PER_MHZ;
 		case RCC_PERCLK:
-			clksel = (RCC_D1CCIPR >> RCC_D2CCIPR_CKPERSEL_SHIFT) & RCC_D2CCIPR_CKPERSEL_MASK;
-			if (clksel == RCC_D2CCIPR_CKPERSEL_HSI) {
-				return HSI_BASE_FREQUENCY;
-			} else if (clksel == RCC_D2CCIPR_CKPERSEL_HSE) {
+			clksel = (RCC_D1CCIPR >> RCC_D1CCIPR_CKPERSEL_SHIFT) & RCC_D1CCIPR_CKPERSEL_MASK;
+			if (clksel == RCC_D1CCIPR_CKPERSEL_HSI) {
+				return RCC_HSI_BASE_FREQUENCY;
+			} else if (clksel == RCC_D1CCIPR_CKPERSEL_HSE) {
 				return rcc_clock_tree.hse_khz * HZ_PER_KHZ;
 			} else {
 				return 0U;
@@ -247,9 +244,9 @@ uint32_t rcc_get_clock(enum rcc_clock_source source) {
 			if (clksel == RCC_D2CCIP1R_FDCANSEL_HSE) {
 				return rcc_clock_tree.hse_khz * HZ_PER_KHZ;
 			} else if (clksel == RCC_D2CCIP1R_FDCANSEL_PLL1Q) {
-				return rcc_clock_tree.pll[PLL1_INDEX].q_mhz * HZ_PER_MHZ;
+				return rcc_clock_tree.pll[1].q_mhz * HZ_PER_MHZ;
 			} else if (clksel == RCC_D2CCIP1R_FDCANSEL_PLL2Q) {
-				return rcc_clock_tree.pll[PLL2_INDEX].q_mhz * HZ_PER_MHZ;
+				return rcc_clock_tree.pll[2].q_mhz * HZ_PER_MHZ;
 			} else {
 				return 0U;
 			}
@@ -258,11 +255,11 @@ uint32_t rcc_get_clock(enum rcc_clock_source source) {
 		case RCC_SPI3CLK:
 			clksel = (RCC_D2CCIP1R >> RCC_D2CCIP1R_SPI123SEL_SHIFT) & RCC_D2CCIP1R_SPI123SEL_MASK;
 			if (clksel == RCC_D2CCIP1R_SPI123SEL_PLL1Q) {
-				return rcc_clock_tree.pll[PLL1_INDEX].q_mhz * HZ_PER_MHZ;
+				return rcc_clock_tree.pll[1].q_mhz * HZ_PER_MHZ;
 			} else if (clksel == RCC_D2CCIP1R_SPI123SEL_PLL2P) {
-				return rcc_clock_tree.pll[PLL2_INDEX].p_mhz * HZ_PER_MHZ;
+				return rcc_clock_tree.pll[2].p_mhz * HZ_PER_MHZ;
 			} else if (clksel == RCC_D2CCIP1R_SPI123SEL_PLL3P) {
-				return rcc_clock_tree.pll[PLL3_INDEX].p_mhz * HZ_PER_MHZ;
+				return rcc_clock_tree.pll[3].p_mhz * HZ_PER_MHZ;
 			} else if (clksel == RCC_D2CCIP1R_SPI123SEL_PERCK) {
 				return rcc_get_clock(RCC_PERCLK);
 			} else {
@@ -274,11 +271,11 @@ uint32_t rcc_get_clock(enum rcc_clock_source source) {
 			if (clksel == RCC_D2CCIP1R_SPI45SEL_APB4){
 				return rcc_get_clock(RCC_PCLK1);
 			} else if (clksel == RCC_D2CCIP1R_SPI45SEL_PLL2Q){
-				return rcc_clock_tree.pll[PLL2_INDEX].q_mhz * HZ_PER_MHZ;
+				return rcc_clock_tree.pll[2].q_mhz * HZ_PER_MHZ;
 			} else if (clksel == RCC_D2CCIP1R_SPI45SEL_PLL3Q){
-				return rcc_clock_tree.pll[PLL3_INDEX].q_mhz * HZ_PER_MHZ;
+				return rcc_clock_tree.pll[3].q_mhz * HZ_PER_MHZ;
 			} else if (clksel == RCC_D2CCIP1R_SPI45SEL_HSI){
-				return HSI_BASE_FREQUENCY;
+				return RCC_HSI_BASE_FREQUENCY;
 			} else if (clksel == RCC_D2CCIP1R_SPI45SEL_HSE) {
 				return rcc_clock_tree.hse_khz * HZ_PER_KHZ;
 			} else {
@@ -290,11 +287,11 @@ uint32_t rcc_get_clock(enum rcc_clock_source source) {
 			if (clksel == RCC_D2CCIP2R_USART16SEL_PCLK2) {
 				return rcc_get_clock(RCC_PCLK2);
 			} else if (clksel == RCC_D2CCIP2R_USARTSEL_PLL2Q) {
-				return rcc_clock_tree.pll[PLL2_INDEX].q_mhz * HZ_PER_MHZ;
+				return rcc_clock_tree.pll[2].q_mhz * HZ_PER_MHZ;
 			} else if (clksel == RCC_D2CCIP2R_USARTSEL_PLL3Q) {
-				return rcc_clock_tree.pll[PLL3_INDEX].q_mhz * HZ_PER_MHZ;
+				return rcc_clock_tree.pll[3].q_mhz * HZ_PER_MHZ;
 			} else if (clksel == RCC_D2CCIP2R_USARTSEL_HSI) {
-				return HSI_BASE_FREQUENCY;
+				return RCC_HSI_BASE_FREQUENCY;
 			} else {
 				return 0U;
 			}
@@ -308,11 +305,11 @@ uint32_t rcc_get_clock(enum rcc_clock_source source) {
 			if (clksel == RCC_D2CCIP2R_USART234578SEL_PCLK1) {
 				return rcc_get_clock(RCC_PCLK1);
 			} else if (clksel == RCC_D2CCIP2R_USARTSEL_PLL2Q) {
-				return rcc_clock_tree.pll[PLL2_INDEX].q_mhz * HZ_PER_MHZ;
+				return rcc_clock_tree.pll[2].q_mhz * HZ_PER_MHZ;
 			} else if (clksel == RCC_D2CCIP2R_USARTSEL_PLL3Q) {
-				return rcc_clock_tree.pll[PLL3_INDEX].q_mhz * HZ_PER_MHZ;
+				return rcc_clock_tree.pll[3].q_mhz * HZ_PER_MHZ;
 			} else if (clksel == RCC_D2CCIP2R_USARTSEL_HSI) {
-				return HSI_BASE_FREQUENCY;
+				return RCC_HSI_BASE_FREQUENCY;
 			} else {
 				return 0U;
 			}

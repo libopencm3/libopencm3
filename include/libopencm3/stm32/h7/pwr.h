@@ -55,8 +55,6 @@ LGPL License Terms @ref lgpl_license
 /** Wakeup Domain Power Control register. */
 #define PWR_WKUPCR      MMIO32(POWER_CONTROL_BASE + 0x20)
 
-/** SYSCFG Register for configuring regulator "overdrive" */
-
 /*@}*/
 
 /** VOS[15:14]: Regulator voltage scaling output selection */
@@ -74,7 +72,7 @@ LGPL License Terms @ref lgpl_license
 #define PWR_CSR1_AVDO             BIT16
 #define PWR_CSR1_ACTVOS_SHIFT     14
 #define PWR_CSR1_ACTVOSRDY        BIT13
-#define PWR_CSR1_PVDO             BIT24
+#define PWR_CSR1_PVDO             BIT4
 
 /** CR3 Register Bits */
 #define PWR_CR3_USB33RDY          BIT26

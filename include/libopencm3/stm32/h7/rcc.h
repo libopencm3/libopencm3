@@ -32,7 +32,6 @@ LGPL License Terms @ref lgpl_license
 
 /**@{*/
 
-
 /** @defgroup rcc_regisers RCC Registers
  * @ingroup rcc_defines
 @{*/
@@ -47,14 +46,15 @@ LGPL License Terms @ref lgpl_license
 #define RCC_D3CFGR                MMIO32(RCC_BASE + 0x020)
 #define RCC_PLLCKSELR             MMIO32(RCC_BASE + 0x028)
 #define RCC_PLLCFGR               MMIO32(RCC_BASE + 0x02C)
-#define RCC_PLLDIVR(n)            MMIO32(RCC_BASE + 0x030 + (0x08 * (n)))
-#define RCC_PLLFRACR(n)           MMIO32(RCC_BASE + 0x030 + (0x08 * (n)))
-#define RCC_PLL1DIVR              MMIO32(RCC_BASE + 0x030)
-#define RCC_PLL1FRACR             MMIO32(RCC_BASE + 0x034)
-#define RCC_PLL2DIVR              MMIO32(RCC_BASE + 0x038)
-#define RCC_PLL2FRACR             MMIO32(RCC_BASE + 0x03C)
-#define RCC_PLL3DIVR              MMIO32(RCC_BASE + 0x040)
-#define RCC_PLL3FRACR             MMIO32(RCC_BASE + 0x044)
+/* PLLs are 1-based, so reference macros to 1..3, using index 0 will give undefined behavior. */
+#define RCC_PLLDIVR(n)            MMIO32(RCC_BASE + 0x030 + (0x08 * ((n) - 1)))
+#define RCC_PLLFRACR(n)           MMIO32(RCC_BASE + 0x030 + (0x08 * ((n) - 1)))
+#define RCC_PLL1DIVR              RCC_PLLDIVR(1)
+#define RCC_PLL1FRACR             RCC_PLLFRACR(1)
+#define RCC_PLL2DIVR              RCC_PLLDIVR(2)
+#define RCC_PLL2FRACR             RCC_PLLFRACR(2)
+#define RCC_PLL3DIVR              RCC_PLLDIVR(3)
+#define RCC_PLL3FRACR             RCC_PLLFRACR(3)
 #define RCC_D1CCIPR               MMIO32(RCC_BASE + 0x04C)
 #define RCC_D2CCIP1R              MMIO32(RCC_BASE + 0x050)
 #define RCC_D2CCIP2R              MMIO32(RCC_BASE + 0x054)
@@ -97,8 +97,8 @@ LGPL License Terms @ref lgpl_license
 /** @defgroup rcc_cr_values RCC_CR Values
  * @ingroup rcc_registers
 @{*/
-#define RCC_CR_PLL3AIRDY          BIT29
-#define RCC_CR_PLL3AION           BIT29
+#define RCC_CR_PLL3RDY            BIT29
+#define RCC_CR_PLL3ON             BIT28
 #define RCC_CR_PLL2RDY            BIT27
 #define RCC_CR_PLL2ON             BIT26
 #define RCC_CR_PLL1RDY            BIT25
@@ -209,7 +209,6 @@ LGPL License Terms @ref lgpl_license
 
 #define RCC_D1CFGR_D1CPRE_SHIFT     8
 #define RCC_D1CFGR_D1PPRE_SHIFT     4
-#define RCC_D1CFGR_RSVD_BITMASK     (0xfffff080)
 /**@}*/
 
 /** @defgroup rcc_d2cfgr_values RCC_D2CFGR Values
@@ -223,7 +222,6 @@ LGPL License Terms @ref lgpl_license
 
 #define RCC_D2CFGR_D2PPRE2_SHIFT    8
 #define RCC_D2CFGR_D2PPRE1_SHIFT    4
-#define RCC_D2CFGR_RSVD_BITMASK     (0xfffff88f)
 /**@}*/
 
 /** @defgroup rcc_d3cfgr_values RCC_D3CFGR Values
@@ -235,7 +233,6 @@ LGPL License Terms @ref lgpl_license
 #define RCC_D3CFGR_D3PPRE_DIV8      0x6
 #define RCC_D3CFGR_D3PPRE_DIV16     0x7
 #define RCC_D3CFGR_D3PPRE_SHIFT     4
-#define RCC_D3CFGR_RSVD_BITMASK     (0xffffff8f)
 /**@}*/
 
 /** @defgroup rcc_pllckselr_values RCC_PLLCKSELR Values
@@ -287,7 +284,6 @@ LGPL License Terms @ref lgpl_license
 #define RCC_PLLCFGR_PLL1VCO_WIDE    0       /* 192 - 836MHz base output. */
 #define RCC_PLLCFGR_PLL1VCO_MED     BIT1    /* 150 - 420MHz base output. */
 #define RCC_PLLCFGR_PLL1FRACEN      BIT0
-#define RCC_PLLCFGR_RSVD_BITMASK    (0xfe00f000)
 /**@}*/
 
 /** @defgroup rcc_plldivr_values RCC_PLLnDIVR Values
@@ -299,7 +295,6 @@ LGPL License Terms @ref lgpl_license
 #define RCC_PLLNDIVR_DIVN_SHIFT     0
 
 /* Need to preserve reserved bits, so give easy mask shortcut. */
-#define RCC_PLLNDIVR_RSVD_BITMASK   (0x80800100)
 #define RCC_PLLNDIVR_DIVR(n)        (((n) - 1) << RCC_PLLNDIVR_DIVR_SHIFT)
 #define RCC_PLLNDIVR_DIVQ(n)        (((n) - 1) << RCC_PLLNDIVR_DIVQ_SHIFT)
 #define RCC_PLLNDIVR_DIVP(n)        (((n) - 1) << RCC_PLLNDIVR_DIVP_SHIFT)
@@ -338,13 +333,12 @@ LGPL License Terms @ref lgpl_license
 /** @defgroup rcc_d1ccipr_values RCC_D1CCIP1R Values
  * @ingroup rcc_registers
  * @{*/
-#define RCC_D2CCIPR_CKPERSEL_SHIFT     28
-
-#define RCC_D2CCIPR_CKPERSEL_HSI       0
-#define RCC_D2CCIPR_CKPERSEL_CSI       1
-#define RCC_D2CCIPR_CKPERSEL_HSE       2
-#define RCC_D2CCIPR_CKPERSEL_DISABLE   3
-#define RCC_D2CCIPR_CKPERSEL_MASK      3
+#define RCC_D1CCIPR_CKPERSEL_SHIFT     28
+#define RCC_D1CCIPR_CKPERSEL_HSI       0
+#define RCC_D1CCIPR_CKPERSEL_CSI       1
+#define RCC_D1CCIPR_CKPERSEL_HSE       2
+#define RCC_D1CCIPR_CKPERSEL_DISABLE   3
+#define RCC_D1CCIPR_CKPERSEL_MASK      3
 /**@}*/
 
 /** @defgroup rcc_d2ccip1r_values RCC_D2CCIP1R Values
@@ -413,7 +407,7 @@ LGPL License Terms @ref lgpl_license
 /**@}*/
 
 
-#define HSI_BASE_FREQUENCY              64000000UL
+#define RCC_HSI_BASE_FREQUENCY              64000000UL
 
 /** Enumerations for clocks in the clock tree to allow user to get the current configuration of the
  *  clocks from the RCC module. These clock sources will each be tracked through the settings.
@@ -469,62 +463,6 @@ enum rcc_pll_mux {
   RCC_PLL_HSE = RCC_PLLCKSELR_PLLSRC_HSE
 };
 
-enum rcc_d1cpre {
-  RCC_D1CPRE_BYP = RCC_D1CFGR_D1CPRE_BYP << RCC_D1CFGR_D1CPRE_SHIFT,
-  RCC_D1CPRE_DIV2 = RCC_D1CFGR_D1CPRE_DIV2 << RCC_D1CFGR_D1CPRE_SHIFT,
-  RCC_D1CPRE_DIV4 = RCC_D1CFGR_D1CPRE_DIV4 << RCC_D1CFGR_D1CPRE_SHIFT,
-  RCC_D1CPRE_DIV8 = RCC_D1CFGR_D1CPRE_DIV8 << RCC_D1CFGR_D1CPRE_SHIFT,
-  RCC_D1CPRE_DIV16 = RCC_D1CFGR_D1CPRE_DIV16 << RCC_D1CFGR_D1CPRE_SHIFT,
-  RCC_D1CPRE_DIV64 = RCC_D1CFGR_D1CPRE_DIV64 << RCC_D1CFGR_D1CPRE_SHIFT,
-  RCC_D1CPRE_DIV128 = RCC_D1CFGR_D1CPRE_DIV128 << RCC_D1CFGR_D1CPRE_SHIFT,
-  RCC_D1CPRE_DIV256 = RCC_D1CFGR_D1CPRE_DIV256 << RCC_D1CFGR_D1CPRE_SHIFT,
-  RCC_D1CPRE_DIV512 = RCC_D1CFGR_D1CPRE_DIV512 << RCC_D1CFGR_D1CPRE_SHIFT,
-};
-
-enum rcc_d1ppre {
-  RCC_D1PPRE_BYP = RCC_D1CFGR_D1PPRE_BYP << RCC_D1CFGR_D1PPRE_SHIFT,
-  RCC_D1PPRE_DIV2 = RCC_D1CFGR_D1PPRE_DIV2 << RCC_D1CFGR_D1PPRE_SHIFT,
-  RCC_D1PPRE_DIV4 = RCC_D1CFGR_D1PPRE_DIV4 << RCC_D1CFGR_D1PPRE_SHIFT,
-  RCC_D1PPRE_DIV8 = RCC_D1CFGR_D1PPRE_DIV8 << RCC_D1CFGR_D1PPRE_SHIFT,
-  RCC_D1PPRE_DIV16 = RCC_D1CFGR_D1PPRE_DIV16 << RCC_D1CFGR_D1PPRE_SHIFT,
-};
-
-enum rcc_d1hpre {
-  RCC_D1HPRE_BYP = RCC_D1CFGR_D1HPRE_BYP,
-  RCC_D1HPRE_DIV2 = RCC_D1CFGR_D1HPRE_DIV2,
-  RCC_D1HPRE_DIV4 = RCC_D1CFGR_D1HPRE_DIV4,
-  RCC_D1HPRE_DIV8 = RCC_D1CFGR_D1HPRE_DIV8,
-  RCC_D1HPRE_DIV16 = RCC_D1CFGR_D1HPRE_DIV16,
-  RCC_D1HPRE_DIV64 = RCC_D1CFGR_D1HPRE_DIV64,
-  RCC_D1HPRE_DIV128 = RCC_D1CFGR_D1HPRE_DIV128,
-  RCC_D1HPRE_DIV256 = RCC_D1CFGR_D1HPRE_DIV256,
-  RCC_D1HPRE_DIV512 = RCC_D1CFGR_D1HPRE_DIV512,
-};
-
-enum rcc_d2ppre1 {
-  RCC_D2PPRE1_BYP = RCC_D2CFGR_D2PPRE_BYP << RCC_D2CFGR_D2PPRE1_SHIFT,
-  RCC_D2PPRE1_DIV2 = RCC_D2CFGR_D2PPRE_DIV2 << RCC_D2CFGR_D2PPRE1_SHIFT,
-  RCC_D2PPRE1_DIV4 = RCC_D2CFGR_D2PPRE_DIV4 << RCC_D2CFGR_D2PPRE1_SHIFT,
-  RCC_D2PPRE1_DIV8 = RCC_D2CFGR_D2PPRE_DIV8 << RCC_D2CFGR_D2PPRE1_SHIFT,
-  RCC_D2PPRE1_DIV16 = RCC_D2CFGR_D2PPRE_DIV16 << RCC_D2CFGR_D2PPRE1_SHIFT,
-};
-
-enum rcc_d2ppre2 {
-  RCC_D2PPRE2_BYP = RCC_D2CFGR_D2PPRE_BYP << RCC_D2CFGR_D2PPRE2_SHIFT,
-  RCC_D2PPRE2_DIV2 = RCC_D2CFGR_D2PPRE_DIV2 << RCC_D2CFGR_D2PPRE2_SHIFT,
-  RCC_D2PPRE2_DIV4 = RCC_D2CFGR_D2PPRE_DIV4 << RCC_D2CFGR_D2PPRE2_SHIFT,
-  RCC_D2PPRE2_DIV8 = RCC_D2CFGR_D2PPRE_DIV8 << RCC_D2CFGR_D2PPRE2_SHIFT,
-  RCC_D2PPRE2_DIV16 = RCC_D2CFGR_D2PPRE_DIV16 << RCC_D2CFGR_D2PPRE2_SHIFT,
-};
-
-enum rcc_d3ppre {
-  RCC_D3PPRE_BYP = RCC_D3CFGR_D3PPRE_BYP << RCC_D3CFGR_D3PPRE_SHIFT,
-  RCC_D3PPRE_DIV2 = RCC_D3CFGR_D3PPRE_DIV2 << RCC_D3CFGR_D3PPRE_SHIFT,
-  RCC_D3PPRE_DIV4 = RCC_D3CFGR_D3PPRE_DIV4 << RCC_D3CFGR_D3PPRE_SHIFT,
-  RCC_D3PPRE_DIV8 = RCC_D3CFGR_D3PPRE_DIV8 << RCC_D3CFGR_D3PPRE_SHIFT,
-  RCC_D3PPRE_DIV16 = RCC_D3CFGR_D3PPRE_DIV16 << RCC_D3CFGR_D3PPRE_SHIFT,
-};
-
 /** PLL Configuration structure. */
 struct rcc_pll_config {
   uint32_t hse_frequency;         /**< User configured external crystal frequency. */
@@ -536,20 +474,19 @@ struct rcc_pll_config {
     uint8_t divp;                 /**< Post divider for PLLP clock. */
     uint8_t divq;                 /**< Post divider for PLLQ clock. */
     uint8_t divr;                 /**< Post divider for PLLR clock. */
-  } pll[3];                      /**< Array of 3x PLLs. */
+  } pll[4];                       /**< Array of 4x PLLs, PLL0 is unimplemented */
   struct {
-    enum rcc_d1cpre core_prescale;    /**< Core prescaler for domain 1. */
-    enum rcc_d1hpre hclk3_prescale;   /**< HCLK3 prescaler for domain 1. */
-    enum rcc_d1ppre pclk3_prescale;   /**< APB3 Peripheral prescaler for domain 1. */
+    uint32_t core_prescale;       /**< Core prescaler for domain 1. */
+    uint32_t hclk3_prescale;      /**< HCLK3 prescaler for domain 1. */
+    uint32_t pclk3_prescale;      /**< APB3 Peripheral prescaler for domain 1. */
   } domain1;
   struct {
-    enum rcc_d2ppre1 pclk1_prescale;  /**< APB1 Peripheral prescaler for domain 2. */
-    enum rcc_d2ppre2 pclk2_prescale;  /**< APB2 Peripheral prescaler for domain 2. */
+    uint32_t pclk1_prescale;      /**< APB1 Peripheral prescaler for domain 2. */
+    uint32_t pclk2_prescale;      /**< APB2 Peripheral prescaler for domain 2. */
   } domain2;
   struct {
-    enum rcc_d3ppre pclk4_prescale;   /**< APB4 Peripheral prescaler for domain 3. */
+    uint32_t pclk4_prescale;      /**< APB4 Peripheral prescaler for domain 3. */
   } domain3;
-
 };
 
 #define _REG_BIT(base, bit)       (((base) << 5) + (bit))

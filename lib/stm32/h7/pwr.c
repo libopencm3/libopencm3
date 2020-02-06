@@ -48,7 +48,10 @@ void pwr_set_svos_scale(enum pwr_svos_scale scale)
 }
 
 void pwr_set_vos_scale(enum pwr_vos_scale scale) {
+	rcc_periph_clock_enable(RCC_SYSCFG);  /* Ensure we can access ODEN. */
 	uint32_t d3cr_masked = PWR_D3CR & ~(PWR_D3CR_VOS_MASK << PWR_D3CR_VOS_SHIFT);
+
+	/* Per the manual, VOS0 is implemented as VOS1 + ODEN. Handle this case. */
 	if (scale == PWR_VOS_SCALE_0) {
 		PWR_D3CR = d3cr_masked | PWR_VOS_SCALE_1;
 		SYSCFG_PWRCR |= SYSCFG_PWRCR_ODEN;
