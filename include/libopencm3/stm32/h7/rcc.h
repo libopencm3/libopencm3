@@ -209,6 +209,9 @@ LGPL License Terms @ref lgpl_license
 
 #define RCC_D1CFGR_D1CPRE_SHIFT     8
 #define RCC_D1CFGR_D1PPRE_SHIFT     4
+#define RCC_D1CFGR_D1CPRE(cpre)     (cpre << RCC_D1CFGR_D1CPRE_SHIFT)
+#define RCC_D1CFGR_D1PPRE(ppre)     (ppre << RCC_D1CFGR_D1PPRE_SHIFT)
+#define RCC_D1CFGR_D1HPRE(hpre)     (hpre)
 /**@}*/
 
 /** @defgroup rcc_d2cfgr_values RCC_D2CFGR Values
@@ -222,6 +225,8 @@ LGPL License Terms @ref lgpl_license
 
 #define RCC_D2CFGR_D2PPRE2_SHIFT    8
 #define RCC_D2CFGR_D2PPRE1_SHIFT    4
+#define RCC_D2CFGR_D2PPRE2(ppre)    (ppre << RCC_D2CFGR_D2PPRE2_SHIFT)
+#define RCC_D2CFGR_D2PPRE1(ppre)    (ppre << RCC_D2CFGR_D2PPRE1_SHIFT)
 /**@}*/
 
 /** @defgroup rcc_d3cfgr_values RCC_D3CFGR Values
@@ -233,6 +238,7 @@ LGPL License Terms @ref lgpl_license
 #define RCC_D3CFGR_D3PPRE_DIV8      0x6
 #define RCC_D3CFGR_D3PPRE_DIV16     0x7
 #define RCC_D3CFGR_D3PPRE_SHIFT     4
+#define RCC_D3CFGR_D3PPRE(ppre)     (ppre << RCC_D3CFGR_D3PPRE_SHIFT)
 /**@}*/
 
 /** @defgroup rcc_pllckselr_values RCC_PLLCKSELR Values
@@ -465,28 +471,22 @@ enum rcc_pll_mux {
 
 /** PLL Configuration structure. */
 struct rcc_pll_config {
-  uint32_t hse_frequency;         /**< User configured external crystal frequency. */
-  enum rcc_sysclk_mux sysclk_mux; /**< SYSCLK source input selection. */
-  enum rcc_pll_mux pll_mux;       /**< PLL source input selection. */
-  struct {
-    uint8_t divm;                 /**< Pre-divider value for each PLL. 0-64 integers. */
-    uint16_t divn;                /**< Multiplier, 0-512 integer. */
-    uint8_t divp;                 /**< Post divider for PLLP clock. */
-    uint8_t divq;                 /**< Post divider for PLLQ clock. */
-    uint8_t divr;                 /**< Post divider for PLLR clock. */
-  } pll[4];                       /**< Array of 4x PLLs, PLL0 is unimplemented */
-  struct {
-    uint32_t core_prescale;       /**< Core prescaler for domain 1. */
-    uint32_t hclk3_prescale;      /**< HCLK3 prescaler for domain 1. */
-    uint32_t pclk3_prescale;      /**< APB3 Peripheral prescaler for domain 1. */
-  } domain1;
-  struct {
-    uint32_t pclk1_prescale;      /**< APB1 Peripheral prescaler for domain 2. */
-    uint32_t pclk2_prescale;      /**< APB2 Peripheral prescaler for domain 2. */
-  } domain2;
-  struct {
-    uint32_t pclk4_prescale;      /**< APB4 Peripheral prescaler for domain 3. */
-  } domain3;
+  uint32_t hse_frequency;           /**< User configured external crystal frequency. */
+  enum rcc_sysclk_mux sysclk_mux;   /**< SYSCLK source input selection. */
+  enum rcc_pll_mux pll_mux;         /**< PLL source input selection. */
+  struct pll_config {
+    uint8_t divm;                   /**< Pre-divider value for each PLL. 0-64 integers. */
+    uint16_t divn;                  /**< Multiplier, 0-512 integer. */
+    uint8_t divp;                   /**< Post divider for PLLP clock. */
+    uint8_t divq;                   /**< Post divider for PLLQ clock. */
+    uint8_t divr;                   /**< Post divider for PLLR clock. */
+  } pll1, pll2, pll3;               /**< PLL1-PLL3 configurations. */
+  uint32_t d1cfg_core_prescale;     /**< Core prescaler for domain 1. */
+  uint32_t d1cfg_hclk3_prescale;    /**< HCLK3 prescaler for domain 1. */
+  uint32_t d1cfg_pclk3_prescale;    /**< APB3 Peripheral prescaler for domain 1. */
+  uint32_t d2cfg_pclk1_prescale;    /**< APB1 Peripheral prescaler for domain 2. */
+  uint32_t d2cfg_pclk2_prescale;    /**< APB2 Peripheral prescaler for domain 2. */
+  uint32_t d3cfg_pclk4_prescale;    /**< APB4 Peripheral prescaler for domain 3. */
 };
 
 #define _REG_BIT(base, bit)       (((base) << 5) + (bit))
