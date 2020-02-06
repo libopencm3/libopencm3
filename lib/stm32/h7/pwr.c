@@ -13,6 +13,8 @@
 /*
  * This file is part of the libopencm3 project.
  *
+ * Copyright (C) 2011 Stephen Caudle <scaudle@doceme.com>
+ * Copyright (C) 2017 Matthew Lai <m@matthewlai.ca>
  * Copyright (C) 2019 Brian Viele <vielster@allocor.tech>
  *
  * This library is free software: you can redistribute it and/or modify

@@ -61,9 +61,9 @@ void usart_set_baudrate(uint32_t usart, uint32_t baud)
 	 */
 	uint32_t clock;
 	if (usart == USART1 || usart == USART6) {
-		clock = rcc_get_clock(RCC_USART1CLK);
+		clock = rcc_get_clock_freq(RCC_USART1CLK);
 	} else {
-		clock = rcc_get_clock(RCC_USART2CLK);
+		clock = rcc_get_clock_freq(RCC_USART2CLK);
 	}
 #else
 	uint32_t clock = rcc_apb1_frequency;

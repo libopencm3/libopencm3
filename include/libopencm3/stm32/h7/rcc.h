@@ -753,7 +753,7 @@ void rcc_clock_setup_pll(const struct rcc_pll_config *config);
  * @param[in] source  Clock source desired to be fetched.
  * @return Clock rate in Hz for the specified clock. 0 if undefined or error.
  */
-uint32_t rcc_get_clock(enum rcc_clock_source source);
+uint32_t rcc_get_clock_freq(enum rcc_clock_source source);
 
 /**
  * Set the clock select for the FDCAN devices.

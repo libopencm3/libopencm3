@@ -66,7 +66,6 @@ static void rcc_configure_pll(uint32_t clkin, const struct pll_config *config, i
 
 	/* Set the PLL input frequency range. */
 	uint32_t pll_clk_mhz = (clkin / config->divm) / HZ_PER_MHZ;
-	if (pll_clk_mhz <= 2) {}	/* Do nothing, already masked to 0x00. */
 	if (pll_clk_mhz > 2 && pll_clk_mhz <= 4) {
 		RCC_PLLCFGR |= (RCC_PLLCFGR_PLLRGE_2_4MHZ << RCC_PLLCFGR_PLL1RGE_SHIFT) << vco_addshift;
 	} else if (pll_clk_mhz > 4 && pll_clk_mhz <= 8) {
@@ -221,7 +220,7 @@ void rcc_clock_setup_pll(const struct rcc_pll_config *config) {
 	}
 }
 
-uint32_t rcc_get_clock(enum rcc_clock_source source) {
+uint32_t rcc_get_clock_freq(enum rcc_clock_source source) {
 	uint32_t clksel;
 	switch (source) {
 		case RCC_SYSCLK:
@@ -276,7 +275,7 @@ uint32_t rcc_get_clock(enum rcc_clock_source source) {
 			} else if (clksel == RCC_D2CCIP1R_SPI123SEL_PLL3P) {
 				return rcc_clock_tree.pll3.p_mhz * HZ_PER_MHZ;
 			} else if (clksel == RCC_D2CCIP1R_SPI123SEL_PERCK) {
-				return rcc_get_clock(RCC_PERCLK);
+				return rcc_get_clock_freq(RCC_PERCLK);
 			} else {
 				return 0U;
 			}
@@ -284,7 +283,7 @@ uint32_t rcc_get_clock(enum rcc_clock_source source) {
 		case RCC_SPI5CLK:
 			clksel = (RCC_D2CCIP1R >> RCC_D2CCIP1R_SPI45SEL_SHIFT) & RCC_D2CCIP1R_SPI45SEL_MASK;
 			if (clksel == RCC_D2CCIP1R_SPI45SEL_APB4){
-				return rcc_get_clock(RCC_PCLK1);
+				return rcc_get_clock_freq(RCC_PCLK1);
 			} else if (clksel == RCC_D2CCIP1R_SPI45SEL_PLL2Q){
 				return rcc_clock_tree.pll2.q_mhz * HZ_PER_MHZ;
 			} else if (clksel == RCC_D2CCIP1R_SPI45SEL_PLL3Q){
@@ -300,7 +299,7 @@ uint32_t rcc_get_clock(enum rcc_clock_source source) {
 		case RCC_USART6CLK:
 			clksel = (RCC_D2CCIP2R >> RCC_D2CCIP2R_USART16SEL_SHIFT) & RCC_D2CCIP2R_USARTSEL_MASK;
 			if (clksel == RCC_D2CCIP2R_USART16SEL_PCLK2) {
-				return rcc_get_clock(RCC_PCLK2);
+				return rcc_get_clock_freq(RCC_PCLK2);
 			} else if (clksel == RCC_D2CCIP2R_USARTSEL_PLL2Q) {
 				return rcc_clock_tree.pll2.q_mhz * HZ_PER_MHZ;
 			} else if (clksel == RCC_D2CCIP2R_USARTSEL_PLL3Q) {
@@ -318,7 +317,7 @@ uint32_t rcc_get_clock(enum rcc_clock_source source) {
 		case RCC_USART8CLK:
 			clksel = (RCC_D2CCIP2R >> RCC_D2CCIP2R_USART234578SEL_SHIFT) & RCC_D2CCIP2R_USARTSEL_MASK;
 			if (clksel == RCC_D2CCIP2R_USART234578SEL_PCLK1) {
-				return rcc_get_clock(RCC_PCLK1);
+				return rcc_get_clock_freq(RCC_PCLK1);
 			} else if (clksel == RCC_D2CCIP2R_USARTSEL_PLL2Q) {
 				return rcc_clock_tree.pll2.q_mhz * HZ_PER_MHZ;
 			} else if (clksel == RCC_D2CCIP2R_USARTSEL_PLL3Q) {
