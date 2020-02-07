@@ -1,5 +1,20 @@
+/**
+ * @brief <b>libopencm3 STM32H7xx Custom USART functions</b>
+ *
+ * @version 1.0.0
+ *
+ * @date 7 February, 2020
+ *
+ * This source file is to augment some of the standard USART function with special
+ * implementations required for use in the STM32H7. This mainly includes elements
+ * related to clocks.
+ *
+ * LGPL License Terms @ref lgpl_license
+ */
 /*
  * This file is part of the libopencm3 project.
+ *
+ * Copyright (C) 2020 Brian Viele <vielster@allocor.tech>
  *
  * This library is free software: you can redistribute it and/or modify
  * it under the terms of the GNU Lesser General Public License as published by
@@ -14,55 +29,29 @@
  * You should have received a copy of the GNU Lesser General Public License
  * along with this library.  If not, see <http://www.gnu.org/licenses/>.
  */
+/*---------------------------------------------------------------------------*/
 
+#include <libopencm3/stm32/rcc.h>
 #include <libopencm3/stm32/usart.h>
 
-void usart_enable_fifos(uint32_t usart) {
-	USART_CR1(usart) |= USART_CR1_FIFOEN;
-}
+/** @brief USART Set Baudrate.
 
-void usart_disable_fifos(uint32_t usart) {
-	USART_CR1(usart) &= ~USART_CR1_FIFOEN;
-}
+For the STM32H7, the clock tree is somewhat complicated. The USART modules
+are grouped USART 2/3/4/5/7/8, USART 1/6. the RCC module reports each clock,
+but for simplicity, use the first from grooup.
 
-void usart_enable_tx_fifo_empty_interrupt(uint32_t usart) {
-	USART_CR1(usart) |= USART_CR1_TXFEIE;
-}
+@param[in] usart unsigned 32 bit. USART block register address base @ref
+usart_reg_base
+@param[in] baud unsigned 32 bit. Baud rate specified in Hz.
+*/
 
-void usart_disable_tx_fifo_empty_interrupt(uint32_t usart) {
-	USART_CR1(usart) &= ~USART_CR1_TXFEIE;
-}
-
-void usart_enable_tx_fifo_threshold_interrupt(uint32_t usart) {
-	USART_CR3(usart) |= USART_CR3_TXFTIE;
-}
-
-void usart_disable_tx_fifo_threshold_interrupt(uint32_t usart) {
-	USART_CR3(usart) &= ~USART_CR3_TXFTIE;
-}
-
-void usart_set_tx_fifo_threshold(uint32_t usart, usart_fifo_threshold_t threshold) {
-	uint32_t cr3 = USART_CR3(usart) & (USART_FIFO_THRESH_MASK << USART_CR3_TXFTCFG_SHIFT);
-	USART_CR3(usart) = cr3 | (threshold << USART_CR3_TXFTCFG_SHIFT);
-}
-
-void usart_enable_rx_fifo_full_interrupt(uint32_t usart) {
-	USART_CR1(usart) |= USART_CR1_RXFFIE;
-}
-
-void usart_disable_rx_fifo_full_interrupt(uint32_t usart) {
-	USART_CR1(usart) &= ~USART_CR1_RXFFIE;
-}
-
-void usart_enable_rx_fifo_threshold_interrupt(uint32_t usart) {
-	USART_CR3(usart) |= USART_CR3_RXFTIE;
-}
-
-void usart_disable_rx_fifo_threshold_interrupt(uint32_t usart) {
-	USART_CR3(usart) &= ~USART_CR3_RXFTIE;
-}
-
-void usart_set_rx_fifo_threshold(uint32_t usart, usart_fifo_threshold_t threshold) {
-	uint32_t cr3 = USART_CR3(usart) & (USART_FIFO_THRESH_MASK << USART_CR3_RXFTCFG_SHIFT);
-	USART_CR3(usart) = cr3 | (threshold << USART_CR3_RXFTCFG_SHIFT);
+void usart_set_baudrate(uint32_t usart, uint32_t baud)
+{
+	uint32_t clock;
+	if (usart == USART1 || usart == USART6) {
+	        clock = rcc_get_clock_freq(RCC_USART1CLK);
+	} else {
+	        clock = rcc_get_clock_freq(RCC_USART2CLK);
+	}
+	USART_BRR(usart) = (clock + baud / 2) / baud;
 }

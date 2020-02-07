@@ -231,16 +231,12 @@ uint32_t rcc_get_clock_freq(enum rcc_clock_source source) {
 		case RCC_AHBCLK:
 		case RCC_HCLK3:
 			return rcc_clock_tree.hclk_mhz * HZ_PER_MHZ;
-		case RCC_PCLK1:
 		case RCC_APB1CLK:
 			return rcc_clock_tree.per.pclk1_mhz * HZ_PER_MHZ;
-		case RCC_PCLK2:
 		case RCC_APB2CLK:
 			return rcc_clock_tree.per.pclk2_mhz * HZ_PER_MHZ;
-		case RCC_PCLK3:
 		case RCC_APB3CLK:
 			return rcc_clock_tree.per.pclk3_mhz * HZ_PER_MHZ;
-		case RCC_PCLK4:
 		case RCC_APB4CLK:
 			return rcc_clock_tree.per.pclk4_mhz * HZ_PER_MHZ;
 		case RCC_PERCLK:
@@ -283,7 +279,7 @@ uint32_t rcc_get_clock_freq(enum rcc_clock_source source) {
 		case RCC_SPI5CLK:
 			clksel = (RCC_D2CCIP1R >> RCC_D2CCIP1R_SPI45SEL_SHIFT) & RCC_D2CCIP1R_SPI45SEL_MASK;
 			if (clksel == RCC_D2CCIP1R_SPI45SEL_APB4){
-				return rcc_get_clock_freq(RCC_PCLK1);
+				return rcc_get_clock_freq(RCC_APB1CLK);
 			} else if (clksel == RCC_D2CCIP1R_SPI45SEL_PLL2Q){
 				return rcc_clock_tree.pll2.q_mhz * HZ_PER_MHZ;
 			} else if (clksel == RCC_D2CCIP1R_SPI45SEL_PLL3Q){
@@ -299,7 +295,7 @@ uint32_t rcc_get_clock_freq(enum rcc_clock_source source) {
 		case RCC_USART6CLK:
 			clksel = (RCC_D2CCIP2R >> RCC_D2CCIP2R_USART16SEL_SHIFT) & RCC_D2CCIP2R_USARTSEL_MASK;
 			if (clksel == RCC_D2CCIP2R_USART16SEL_PCLK2) {
-				return rcc_get_clock_freq(RCC_PCLK2);
+				return rcc_get_clock_freq(RCC_APB2CLK);
 			} else if (clksel == RCC_D2CCIP2R_USARTSEL_PLL2Q) {
 				return rcc_clock_tree.pll2.q_mhz * HZ_PER_MHZ;
 			} else if (clksel == RCC_D2CCIP2R_USARTSEL_PLL3Q) {
@@ -317,7 +313,7 @@ uint32_t rcc_get_clock_freq(enum rcc_clock_source source) {
 		case RCC_USART8CLK:
 			clksel = (RCC_D2CCIP2R >> RCC_D2CCIP2R_USART234578SEL_SHIFT) & RCC_D2CCIP2R_USARTSEL_MASK;
 			if (clksel == RCC_D2CCIP2R_USART234578SEL_PCLK1) {
-				return rcc_get_clock_freq(RCC_PCLK1);
+				return rcc_get_clock_freq(RCC_APB1CLK);
 			} else if (clksel == RCC_D2CCIP2R_USARTSEL_PLL2Q) {
 				return rcc_clock_tree.pll2.q_mhz * HZ_PER_MHZ;
 			} else if (clksel == RCC_D2CCIP2R_USARTSEL_PLL3Q) {

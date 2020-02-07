@@ -425,14 +425,10 @@ enum rcc_clock_source {
   RCC_SYSTICKCLK,
   RCC_HCLK3,
   RCC_AHBCLK,           /* AHB1,2,4 all share base HCLK. */
-  RCC_APB1CLK,          /* APB1 and PCLK1 are aliases. */
-  RCC_PCLK1,
-  RCC_APB2CLK,
-  RCC_PCLK2,
-  RCC_APB3CLK,
-  RCC_PCLK3,
-  RCC_APB4CLK,
-  RCC_PCLK4,
+  RCC_APB1CLK,          /* Note: APB1 and PCLK1 in manual */
+  RCC_APB2CLK,          /* Note: APB2 and PCLK2 in manual */
+  RCC_APB3CLK,          /* Note: APB3 and PCLK3 in manual */
+  RCC_APB4CLK,          /* Note: APB4 and PCLK4 in manual */
   RCC_FDCAN1CLK,        /* FDCAN controllers share a kernel clock */
   RCC_FDCAN2CLK,
   RCC_SPI1CLK,          /* SPI 1/2/3 share a kernel clock. */
