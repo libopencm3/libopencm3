@@ -52,32 +52,17 @@ usart_reg_base
 
 void usart_set_baudrate(uint32_t usart, uint32_t baud)
 {
-
-#if defined STM32H7
-	/*
-	 * For the STM32H7, the clock tree is somewhat complicated. The USART
-	 * modules are grouped USART 2/3/4/5/7/8, USART 1/6. the RCC module
-	 * reports each clock, but for simplicity, use the first from grooup.
-	 */
-	uint32_t clock;
-	if (usart == USART1 || usart == USART6) {
-		clock = rcc_get_clock_freq(RCC_USART1CLK);
-	} else {
-		clock = rcc_get_clock_freq(RCC_USART2CLK);
-	}
-#else
 	uint32_t clock = rcc_apb1_frequency;
 
 #if defined USART1
 	if ((usart == USART1)
 #if defined USART6
 		|| (usart == USART6)
-#endif  /* USART6 */
+#endif
 		) {
 		clock = rcc_apb2_frequency;
 	}
-#endif  /* USART1 */
-#endif  /* !STM32H7 */
+#endif
 
 	/*
 	 * Yes it is as simple as that. The reference manual is

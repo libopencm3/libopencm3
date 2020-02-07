@@ -455,7 +455,8 @@ enum rcc_osc {
   RCC_PLL,
   RCC_HSE,
   RCC_HSI,
-  RCC_LSE
+  RCC_LSE,
+  RCC_LSI
 };
 
 enum rcc_sysclk_mux {
