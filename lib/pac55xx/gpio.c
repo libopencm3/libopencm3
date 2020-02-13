@@ -110,10 +110,9 @@ void gpio_set_af(uint32_t gpioport, ccs_muxsel_func_t muxsel, uint16_t gpios) {
 	int ffs = __builtin_ffs(gpios);
 	while (ffs) {
 		const int pin = ffs - 1;
-		const int shift = pin * 4;
 
-		reg &= CCS_MUXSELR_MASK << shift;
-		reg |= muxsel << shift;
+		reg &= ~CCS_MUXSELR_MASK_PIN(pin);
+		reg |= CCS_MUXSELR_VAL(pin, muxsel);
 
 		/* Set the pinmux configurations for the pull-up / pull-down. */
 		gpios ^= (1 << pin); /* Clear the bit we just serviced. */

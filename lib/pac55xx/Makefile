@@ -36,6 +36,7 @@ TGT_CFLAGS  += $(STANDARD_FLAGS)
 ARFLAGS		= rcs
 
 OBJS += gpio.o
+OBJS += can.o
 
 VPATH += ../cm3
 
