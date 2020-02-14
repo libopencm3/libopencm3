@@ -402,8 +402,10 @@ uint32_t adc_read_regular(uint32_t adc);
 uint32_t adc_read_injected(uint32_t adc, uint8_t reg);
 void adc_set_continuous_conversion_mode(uint32_t adc);
 void adc_set_single_conversion_mode(uint32_t adc);
-void adc_set_regular_sequence(uint32_t adc, uint8_t length, uint8_t channel[]);
-void adc_set_injected_sequence(uint32_t adc, uint8_t length, uint8_t channel[]);
+void adc_set_regular_sequence(uint32_t adc, uint8_t length,
+			      const uint8_t channel[]);
+void adc_set_injected_sequence(uint32_t adc, uint8_t length,
+			       const uint8_t channel[]);
 void adc_set_injected_offset(uint32_t adc, uint8_t reg, uint32_t offset);
 void adc_set_watchdog_high_threshold(uint32_t adc, uint16_t threshold);
 void adc_set_watchdog_low_threshold(uint32_t adc, uint16_t threshold);

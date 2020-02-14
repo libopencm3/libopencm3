@@ -535,7 +535,8 @@ void adc_disable_external_trigger_regular(uint32_t adc);
 void adc_disable_external_trigger_injected(uint32_t adc);
 void adc_set_watchdog_high_threshold(uint32_t adc, uint16_t threshold);
 void adc_set_watchdog_low_threshold(uint32_t adc, uint16_t threshold);
-void adc_set_injected_sequence(uint32_t adc, uint8_t length, uint8_t channel[]);
+void adc_set_injected_sequence(uint32_t adc, uint8_t length,
+			       const uint8_t channel[]);
 bool adc_eoc_injected(uint32_t adc);
 bool adc_eos_injected(uint32_t adc);
 uint32_t adc_read_injected(uint32_t adc, uint8_t reg);

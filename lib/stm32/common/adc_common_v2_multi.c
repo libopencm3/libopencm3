@@ -97,7 +97,8 @@ void adc_set_sample_time_on_all_channels(uint32_t adc, uint8_t time)
  * @param[in] length Number of channels in the group, range 0..16
  * @param[in] channel Set of channels in sequence, range @ref adc_channel
  */
-void adc_set_regular_sequence(uint32_t adc, uint8_t length, uint8_t channel[])
+void adc_set_regular_sequence(uint32_t adc, uint8_t length,
+			      const uint8_t channel[])
 {
 	uint32_t reg32_1 = 0, reg32_2 = 0, reg32_3 = 0, reg32_4 = 0;
 	uint8_t i = 0;
@@ -108,17 +109,18 @@ void adc_set_regular_sequence(uint32_t adc, uint8_t length, uint8_t channel[])
 	}
 
 	for (i = 1; i <= length; i++) {
+		uint8_t ch = channel[i - 1] & 0x1F;
 		if (i <= 4) {
-			reg32_1 |= (channel[i - 1] << (i * 6));
+			reg32_1 |= (ch << (i * 6));
 		}
 		if ((i > 4) & (i <= 9)) {
-			reg32_2 |= (channel[i - 1] << ((i - 4 - 1) * 6));
+			reg32_2 |= (ch << ((i - 4 - 1) * 6));
 		}
 		if ((i > 9) & (i <= 14)) {
-			reg32_3 |= (channel[i - 1] << ((i - 9 - 1) * 6));
+			reg32_3 |= (ch << ((i - 9 - 1) * 6));
 		}
 		if ((i > 14) & (i <= 16)) {
-			reg32_4 |= (channel[i - 1] << ((i - 14 - 1) * 6));
+			reg32_4 |= (ch << ((i - 14 - 1) * 6));
 		}
 	}
 	reg32_1 |= ((length - 1) << ADC_SQR1_L_SHIFT);

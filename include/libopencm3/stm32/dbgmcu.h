@@ -37,6 +37,24 @@
 #define DBGMCU_IDCODE_DEV_ID_MASK	0x00000fff
 #define DBGMCU_IDCODE_REV_ID_MASK	0xffff0000
 
+/** Known MCUs */
+enum dbgmcu_idcode_dev_id {
+	DBGMCU_IDCODE_DEV_ID_STM32H742 = 0x450,
+	DBGMCU_IDCODE_DEV_ID_STM32H743 = 0x450,
+	DBGMCU_IDCODE_DEV_ID_STM32H750 = 0x450,
+	DBGMCU_IDCODE_DEV_ID_STM32H753 = 0x450,
+};
+
+/** Known device revisions */
+enum dbgmu_idcode_rev_id {
+#if defined(STM32H7)
+	DBGMCU_IDCODE_REV_ID_Z = 0x1001 << 16,
+	DBGMCU_IDCODE_REV_ID_Y = 0x1003 << 16,
+	DBGMCU_IDCODE_REV_ID_X = 0x2001 << 16,
+	DBGMCU_IDCODE_REV_ID_V = 0x2003 << 16,
+#endif
+};
+
 /* --- DBGMCU_CR values ---------------------------------------------------- */
 
 /* Bit 31: Reserved. */
