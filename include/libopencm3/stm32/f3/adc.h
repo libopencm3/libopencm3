@@ -486,7 +486,44 @@
 #define ADC_CCR_DELAY_SHIFT		8
 
 /* DUAL[4:0]: Dual ADC mode selection */
-#define ADC_CCR_DUAL_SHIFT		0
+/****************************************************************************/
+/** @defgroup adc_multi_mode ADC Multi mode selection
+@ingroup adc_defines
+
+@{*/
+
+/** All ADCs independent */
+#define ADC_CCR_DUAL_INDEPENDENT	(0x00 << 0)
+
+/* Dual modes: (ADC1 master + ADC2 slave or ADC3 master + ADC4 slave) */
+/**
+ * Dual modes combined regular simultaneous +
+ * injected simultaneous mode.
+ */
+#define ADC_CCR_DUAL_REG_SIMUL_AND_INJECTED_SIMUL		(0x01 << 0)
+/**
+ * Dual mode Combined regular simultaneous +
+ * alternate trigger mode.
+ */
+#define ADC_CCR_DUAL_REG_SIMUL_AND_ALTERNATE_TRIG		(0x02 << 0)
+/**
+ * Dual mode Combined interleaved mode +
+ * injected simultaneous mode.
+ */
+#define ADC_CCR_DUAL_REG_INTERLEAVED_AND_INJECTED_SIMUL	(0x03 << 0)
+
+/** Dual mode Injected simultaneous mode only. */
+#define ADC_CCR_DUAL_INJECTED_SIMUL				(0x05 << 0)
+/** Dual mode Regular simultaneous mode only. */
+#define ADC_CCR_DUAL_REGULAR_SIMUL				(0x06 << 0)
+/** Dual mode Interleaved mode only. */
+#define ADC_CCR_DUAL_INTERLEAVED				(0x07 << 0)
+/** Dual mode Alternate trigger mode only. */
+#define ADC_CCR_DUAL_ALTERNATE_TRIG				(0x09 << 0)
+/**@}*/
+
+#define ADC_CCR_DUAL_MASK		(0x1f << 0)
+#define ADC_CCR_SHIFT			0
 
 
 /*---------------- ADC_CDR values -----------------*/
