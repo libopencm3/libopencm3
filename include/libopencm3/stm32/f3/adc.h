@@ -483,6 +483,25 @@
 #define ADC_CCR_DMACFG			(1 << 13)
 
 /* DELAY: Delay between 2 sampling phases */
+/****************************************************************************/
+/** @defgroup adc_delay ADC Delay between 2 sampling phases
+@ingroup adc_defines
+
+@{*/
+#define ADC_CCR_DELAY_1ADCCLK		(0x0 << 8)
+#define ADC_CCR_DELAY_2ADCCLK		(0x1 << 8)
+#define ADC_CCR_DELAY_3ADCCLK		(0x2 << 8)
+#define ADC_CCR_DELAY_4ADCCLK		(0x3 << 8)
+#define ADC_CCR_DELAY_5ADCCLK		(0x4 << 8)
+#define ADC_CCR_DELAY_6ADCCLK		(0x5 << 8)
+#define ADC_CCR_DELAY_7ADCCLK		(0x6 << 8)
+#define ADC_CCR_DELAY_8ADCCLK		(0x7 << 8)
+#define ADC_CCR_DELAY_9ADCCLK		(0x8 << 8)
+#define ADC_CCR_DELAY_10ADCCLK		(0x9 << 8)
+#define ADC_CCR_DELAY_11ADCCLK		(0xa << 8)
+#define ADC_CCR_DELAY_12ADCCLK		(0xb << 8)
+/**@}*/
+#define ADC_CCR_DELAY_MASK		(0xf << 8)
 #define ADC_CCR_DELAY_SHIFT		8
 
 /* DUAL[4:0]: Dual ADC mode selection */
@@ -542,6 +561,7 @@ uint32_t adc_read_injected(uint32_t adc, uint8_t reg);
 void adc_set_injected_offset(uint32_t adc, uint8_t reg, uint32_t offset);
 
 void adc_set_clk_prescale(uint32_t adc, uint32_t prescaler);
+void adc_set_multi_mode_sampling_phase_delay(uint32_t adc, uint32_t delay);
 void adc_set_multi_mode(uint32_t adc, uint32_t mode);
 void adc_enable_external_trigger_regular(uint32_t adc, uint32_t trigger,
 					 uint32_t polarity);

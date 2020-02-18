@@ -597,6 +597,35 @@ void adc_set_clk_prescale(uint32_t adc, uint32_t prescale)
 }
 
 /*---------------------------------------------------------------------------*/
+/** @brief Set Delay between 2 sampling phases in Dual Mode
+ *
+ * This delay is used in dual interleaved mode.
+ *
+ * Actual delay depends of the resolution ADC.
+
+ * The delay is capped to a maximum value which depends of the ADC resolution:
+ * - 12 bit: ADC_CCR_DELAY_12ADCCLK
+ * - 10 bit: ADC_CCR_DELAY_10ADCCLK
+ * -  8 bit: ADC_CCR_DELAY_8ADCCLK
+ * -  6 bit: ADC_CCR_DELAY_6ADCCLK
+ *
+ * E.g.: setting a delay ADC_CCR_DELAY_7ADCCLK to an ADC configured with
+ * a 6-bit resolution will result to an actual 6 * Tadc clock delay
+ *
+ * These bits can only be written when ADCs are disabled
+ *
+ *
+ * @param adc peripheral of choice @ref adc_reg_base
+ * @param[in] delay Unsigned int32. Delay between sampling phase  @ref
+ * adc_delay
+ */
+void adc_set_multi_mode_sampling_phase_delay(uint32_t adc, uint32_t delay)
+{
+	uint32_t reg32 = ((ADC_CCR(adc) & ~ADC_CCR_DELAY_MASK) | delay);
+	ADC_CCR(adc) = reg32;
+}
+
+/*---------------------------------------------------------------------------*/
 /** @brief ADC Set Dual/Triple Mode
  *
  * The multiple mode uses ADC1 as master, ADC2 and optionally ADC3 in a slave
