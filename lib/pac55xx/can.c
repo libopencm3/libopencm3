@@ -33,6 +33,7 @@
 #include <libopencm3/pac55xx/can.h>
 #include <libopencm3/cm3/common.h>
 
+/**@{*/
 
 /*---------------------------------------------------------------------------*/
 /** @brief CAN Enable
@@ -513,3 +514,5 @@ int can_receive(uint32_t canport, uint32_t *id, bool *ext, bool *rtr,
   CAN_ISR_ACKNOWLEDGE(canport, CAN_ISR_RI);
   return 1;
 }
+
+/**@}*/
