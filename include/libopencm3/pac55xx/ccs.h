@@ -65,6 +65,9 @@
 #define CCS_PFMUXSELR CCS_MUXSELR(CCS_PORTF)
 #define CCS_PGMUXSELR CCS_MUXSELR(CCS_PORTG)
 #define CCS_MUXSELR_MASK 0x7
+#define CCS_MUXSELR_MASK_PIN(pin) (CCS_MUXSELR_MASK << ((pin) * 4))
+#define CCS_MUXSELR_VAL(pin, muxsel) (((muxsel) & CCS_MUXSELR_MASK) << ((pin) * 4))
+
 /* Enum type for port function setting for type specificity. */
 typedef enum {
 	CCS_MUXSEL_GPIO = 0,
@@ -117,7 +120,7 @@ typedef enum {
 #define CCS_PFDSR CCS_DSR(CCS_PORTF)
 #define CCS_PGDSR CCS_DSR(CCS_PORTG)
 #define CCS_DSR_MASK 0x7
-#define CCS_DSR_MASK_PIN(pin) (CCS_DSR_MASK << ((pin)) * 4)
+#define CCS_DSR_MASK_PIN(pin) (CCS_DSR_MASK << ((pin) * 4))
 #define CCS_DSR_DS_VAL(pin, ds) (((ds)&CCS_DSR_MASK) << ((pin)*4))
 #define CCS_DSR_SCHMIDT_PIN(pin) (BIT0 << (((pin)*4) + 3))
 
