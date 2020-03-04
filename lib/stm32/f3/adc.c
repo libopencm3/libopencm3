@@ -597,7 +597,7 @@ void adc_set_clk_prescale(uint32_t adc, uint32_t prescale)
 }
 
 /*---------------------------------------------------------------------------*/
-/** @brief ADC Set Dual Mode
+/** @brief ADC set multi mode
  *
  * The multiple mode can uses these arrangement:
  * - ADC1 as master and ADC2 as slave
@@ -608,12 +608,11 @@ void adc_set_clk_prescale(uint32_t adc, uint32_t prescale)
  * The various modes possible are described in the reference manual.
  *
  * @param adc peripheral of choice @ref adc_reg_base
- * @param[in] mode Unsigned int32. Multiple mode selection from @ref
- * adc_multi_mode
+ * @param[in] mode Multiple mode selection from @ref adc_multi_mode
  */
 void adc_set_multi_mode(uint32_t adc, uint32_t mode)
 {
-	ADC_CCR(adc) &= ~ADC_CCR_DUAL_MASK;
+	ADC_CCR(adc) &= ~(ADC_CCR_DUAL_MASK << ADC_CCR_DUAL_SHIFT);
 	ADC_CCR(adc) |= (mode << ADC_CCR_DUAL_SHIFT);
 }
 

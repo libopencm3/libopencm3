@@ -522,7 +522,7 @@
 #define ADC_CCR_DUAL_ALTERNATE_TRIG			0x9
 /**@}*/
 
-#define ADC_CCR_DUAL_MASK		(0x1f << 0)
+#define ADC_CCR_DUAL_MASK		(0x1f)
 #define ADC_CCR_DUAL_SHIFT		0
 
 
