@@ -415,9 +415,8 @@ LGPL License Terms @ref lgpl_license
 
 #define RCC_HSI_BASE_FREQUENCY              64000000UL
 
-/** Enumerations for clocks in the clock tree to allow user to get the current configuration of the
- *  clocks from the RCC module. These clock sources will each be tracked through the settings.
- */
+/** Enumerations for core system/bus clocks for user/driver/system access to base bus clocks
+  * not directly associated with a peripheral. */
 enum rcc_clock_source {
   RCC_CPUCLK,
   RCC_SYSCLK,
@@ -439,22 +438,11 @@ enum rcc_osc {
   RCC_LSI
 };
 
-enum rcc_sysclk_mux {
-  RCC_SYSCLK_PLL,
-  RCC_SYSCLK_HSE,
-  RCC_SYSCLK_HSI,
-};
-
-enum rcc_pll_mux {
-  RCC_PLL_HSI = RCC_PLLCKSELR_PLLSRC_HSI,
-  RCC_PLL_HSE = RCC_PLLCKSELR_PLLSRC_HSE
-};
-
 /** PLL Configuration structure. */
 struct rcc_pll_config {
-  uint32_t hse_frequency;           /**< User configured external crystal frequency. */
-  enum rcc_sysclk_mux sysclk_mux;   /**< SYSCLK source input selection. */
-  enum rcc_pll_mux pll_mux;         /**< PLL source input selection. */
+  enum rcc_osc sysclock_source;     /**< SYSCLK source input selection. */
+  uint8_t pll_source;               /**< RCC_PLLCKSELR_PLLSRC_xxx value. */
+  uint32_t hse_frequency;           /**< User specified HSE frequency, 0 if none. */
   struct pll_config {
     uint8_t divm;                   /**< Pre-divider value for each PLL. 0-64 integers. */
     uint16_t divn;                  /**< Multiplier, 0-512 integer. */
@@ -462,12 +450,14 @@ struct rcc_pll_config {
     uint8_t divq;                   /**< Post divider for PLLQ clock. */
     uint8_t divr;                   /**< Post divider for PLLR clock. */
   } pll1, pll2, pll3;               /**< PLL1-PLL3 configurations. */
-  uint32_t d1cfg_core_prescale;     /**< Core prescaler for domain 1. */
-  uint32_t d1cfg_hclk3_prescale;    /**< HCLK3 prescaler for domain 1. */
-  uint32_t d1cfg_pclk3_prescale;    /**< APB3 Peripheral prescaler for domain 1. */
-  uint32_t d2cfg_pclk1_prescale;    /**< APB1 Peripheral prescaler for domain 2. */
-  uint32_t d2cfg_pclk2_prescale;    /**< APB2 Peripheral prescaler for domain 2. */
-  uint32_t d3cfg_pclk4_prescale;    /**< APB4 Peripheral prescaler for domain 3. */
+  uint8_t core_pre;                 /**< Core prescaler  note: domain 1. */
+  uint8_t hpre;                     /**< HCLK3 prescaler note: domain 1. */
+  uint8_t ppre1;                    /**< APB1 Peripheral prescaler note: domain 2. */
+  uint8_t ppre2;                    /**< APB2 Peripheral prescaler note: domain 2. */
+  uint8_t ppre3;                    /**< APB3 Peripheral prescaler note: domain 1. */
+  uint8_t ppre4;                    /**< APB4 Peripheral prescaler note: domain 3. */
+  uint8_t flash_waitstates;         /**< Latency Value to set for flahs. */
+  enum pwr_vos_scale voltage_scale; /**< LDO Voltage scale used for this frequency. */
 };
 
 #define _REG_BIT(base, bit)       (((base) << 5) + (bit))

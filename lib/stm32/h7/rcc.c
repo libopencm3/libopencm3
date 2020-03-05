@@ -110,10 +110,10 @@ static void rcc_set_and_enable_plls(const struct rcc_pll_config *config) {
 	RCC_PLLCKSELR = RCC_PLLCKSELR_DIVM1(config->pll1.divm) |
 					RCC_PLLCKSELR_DIVM2(config->pll2.divm) |
 					RCC_PLLCKSELR_DIVM3(config->pll3.divm) |
-					config->pll_mux;
+					config->pll_source;
 
-	uint32_t clkin = (config->pll_mux == RCC_PLL_HSI) ? RCC_HSI_BASE_FREQUENCY
-		: config->hse_frequency;
+	uint32_t clkin = (config->pll_source == RCC_PLLCKSELR_PLLSRC_HSI)
+		? RCC_HSI_BASE_FREQUENCY : config->hse_frequency;
 
 	RCC_PLLCFGR = 0;
 	rcc_configure_pll(clkin, &config->pll1, 1);
@@ -145,38 +145,37 @@ static uint16_t rcc_prediv_3bit_log_div(uint16_t clk_mhz, uint32_t div_val) {
 
 static void rcc_clock_setup_domain1(const struct rcc_pll_config *config) {
 	RCC_D1CFGR = 0;
-	RCC_D1CFGR |= config->d1cfg_core_prescale | config->d1cfg_hclk3_prescale |
-		config->d1cfg_pclk3_prescale;
+	RCC_D1CFGR |= RCC_D1CFGR_D1CPRE(config->core_pre)  |
+		RCC_D1CFGR_D1HPRE(config->hpre) | RCC_D1CFGR_D1PPRE(config->ppre3);
 
 	/* Update our clock values in our tree based on the config values. */
-	rcc_clock_tree.cpu_mhz =  rcc_prediv_log_skip32_div(rcc_clock_tree.sysclk_mhz,
-		config->d1cfg_core_prescale >> RCC_D1CFGR_D1CPRE_SHIFT);
-
-	rcc_clock_tree.hclk_mhz = rcc_prediv_log_skip32_div(rcc_clock_tree.cpu_mhz,
-		config->d1cfg_hclk3_prescale);
-
-	rcc_clock_tree.per.pclk3_mhz = rcc_prediv_3bit_log_div(rcc_clock_tree.hclk_mhz,
-		config->d1cfg_pclk3_prescale >> RCC_D1CFGR_D1PPRE_SHIFT);
+	rcc_clock_tree.cpu_mhz =
+		rcc_prediv_log_skip32_div(rcc_clock_tree.sysclk_mhz, config->core_pre);
+	rcc_clock_tree.hclk_mhz =
+		rcc_prediv_log_skip32_div(rcc_clock_tree.cpu_mhz, config->hpre);
+	rcc_clock_tree.per.pclk3_mhz =
+		rcc_prediv_3bit_log_div(rcc_clock_tree.hclk_mhz, config->ppre3);
 }
 
 static void rcc_clock_setup_domain2(const struct rcc_pll_config *config) {
 	RCC_D2CFGR  = 0;
-	RCC_D2CFGR |= config->d2cfg_pclk1_prescale | config->d2cfg_pclk2_prescale;
+	RCC_D2CFGR |= RCC_D2CFGR_D2PPRE1(config->ppre1) |
+		RCC_D2CFGR_D2PPRE2(config->ppre2);
 
 	/* Update our clock values in our tree based on the config values. */
-	rcc_clock_tree.per.pclk2_mhz = rcc_prediv_3bit_log_div(rcc_clock_tree.hclk_mhz,
-		config->d2cfg_pclk2_prescale >> RCC_D2CFGR_D2PPRE2_SHIFT);
-	rcc_clock_tree.per.pclk1_mhz = rcc_prediv_3bit_log_div(rcc_clock_tree.hclk_mhz,
-		config->d2cfg_pclk1_prescale >> RCC_D2CFGR_D2PPRE1_SHIFT);
+	rcc_clock_tree.per.pclk2_mhz =
+		rcc_prediv_3bit_log_div(rcc_clock_tree.hclk_mhz, config->ppre2);
+	rcc_clock_tree.per.pclk1_mhz =
+		rcc_prediv_3bit_log_div(rcc_clock_tree.hclk_mhz, config->ppre1);
 }
 
 static void rcc_clock_setup_domain3(const struct rcc_pll_config *config) {
 	RCC_D3CFGR &= 0;
-	RCC_D3CFGR |= config->d3cfg_pclk4_prescale;
+	RCC_D3CFGR |= RCC_D3CFGR_D3PPRE(config->ppre4);
 
 	/* Update our clock values in our tree based on the config values. */
-	rcc_clock_tree.per.pclk4_mhz = rcc_prediv_3bit_log_div(rcc_clock_tree.hclk_mhz,
-		config->d3cfg_pclk4_prescale >> RCC_D3CFGR_D3PPRE_SHIFT);
+	rcc_clock_tree.per.pclk4_mhz =
+		rcc_prediv_3bit_log_div(rcc_clock_tree.hclk_mhz, config->ppre4);
 }
 
 void rcc_clock_setup_pll(const struct rcc_pll_config *config) {
@@ -185,6 +184,18 @@ void rcc_clock_setup_pll(const struct rcc_pll_config *config) {
 	RCC_CFGR &= ~(RCC_CFGR_SW_MASK << RCC_CFGR_SW_SHIFT);
 	while (((RCC_CFGR >> RCC_CFGR_SWS_SHIFT) & RCC_CFGR_SWS_MASK) != RCC_CFGR_SWS_HSI);
 	RCC_CR = RCC_CR_HSION;
+
+	/* Now that we're safely running on HSI, let's setup the LDO. */
+	pwr_set_mode_ldo();
+	pwr_set_vos_scale(config->voltage_scale);
+
+	/* Set flash waitstates. Enable flash prefetch if we have at least 1WS */
+	flash_set_ws(config->flash_waitstates);
+	if (config->flash_waitstates > FLASH_ACR_LATENCY_0WS) {
+		flash_prefetch_enable();
+	} else {
+		flash_prefetch_disable();
+	}
 
 	/* User has specified an external oscillator, make sure we turn it on. */
 	if (config->hse_frequency > 0) {
@@ -197,9 +208,9 @@ void rcc_clock_setup_pll(const struct rcc_pll_config *config) {
 	rcc_set_and_enable_plls(config);
 
 	/* Populate our base sysclk settings for use with domain clocks. */
-	if (config->sysclk_mux == RCC_SYSCLK_PLL) {
+	if (config->sysclock_source == RCC_PLL) {
 		rcc_clock_tree.sysclk_mhz = rcc_clock_tree.pll1.p_mhz;
-	} else if (config->sysclk_mux == RCC_SYSCLK_HSE) {
+	} else if (config->sysclock_source == RCC_HSE) {
 		rcc_clock_tree.sysclk_mhz = config->hse_frequency / HZ_PER_MHZ;
 	} else {
 		rcc_clock_tree.sysclk_mhz = RCC_HSI_BASE_FREQUENCY / HZ_PER_MHZ;
