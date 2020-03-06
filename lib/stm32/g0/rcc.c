@@ -437,7 +437,7 @@ void rcc_set_mcopre(uint32_t mcopre)
  * @param clock rcc_clock_scale with desired parameters
  */
 void rcc_clock_setup(const struct rcc_clock_scale *clock)
-{	
+{
 	if (clock->sysclock_source == RCC_PLL) {
 		enum rcc_osc pll_source;
 
@@ -545,6 +545,69 @@ void rcc_set_peripheral_clk_sel(uint32_t periph, uint32_t sel)
 
 	uint32_t reg32 = RCC_CCIPR & ~(mask << shift);
 	RCC_CCIPR = reg32 | (sel << shift);
+}
+
+static uint32_t rcc_get_clksel_freq(uint8_t shift) {
+	uint8_t clksel = (RCC_CCIPR >> shift) & RCC_CCIPR_USART1SEL_MASK;
+	uint8_t hpre = (RCC_CFGR >> RCC_CFGR_HPRE_SHIFT) & RCC_CFGR_HPRE_MASK;
+	switch (clksel) {
+		case RCC_CCIPR_USART1SEL_PCLK:
+			return rcc_apb1_frequency;
+		case RCC_CCIPR_USART1SEL_SYSCLK:
+			return rcc_ahb_frequency * rcc_get_div_from_hpre(hpre);
+		case RCC_CCIPR_USART1SEL_HSI16:
+			return 16000000U;
+	}
+	cm3_assert_not_reached();
+}
+
+/*---------------------------------------------------------------------------*/
+/** @brief Get the peripheral clock speed for the USART at base specified.
+ * @param usart  Base address of USART to get clock frequency for.
+ */
+uint32_t rcc_get_usart_clk_freq(uint32_t usart)
+{
+	if (usart == USART1_BASE) {
+		return rcc_get_clksel_freq(RCC_CCIPR_USART1SEL_SHIFT);
+	} else if (usart == USART2_BASE) {
+		return rcc_get_clksel_freq(RCC_CCIPR_USART2SEL_SHIFT);
+	} else if (usart == LPUART1_BASE) {
+		return rcc_get_clksel_freq(RCC_CCIPR_LPUART1SEL_SHIFT);
+	} else {
+		return rcc_apb1_frequency;
+	}
+}
+
+/*---------------------------------------------------------------------------*/
+/** @brief Get the peripheral clock speed for the Timer at base specified.
+ * @param timer  Base address of TIM to get clock frequency for.
+ */
+uint32_t rcc_get_timer_clk_freq(uint32_t timer __attribute__((unused)))
+{
+	uint8_t ppre = (RCC_CFGR >> RCC_CFGR_PPRE_SHIFT) & RCC_CFGR_PPRE_MASK;
+	return (ppre == RCC_CFGR_PPRE_NODIV) ? rcc_apb1_frequency
+		: 2 * rcc_apb1_frequency;
+}
+
+/*---------------------------------------------------------------------------*/
+/** @brief Get the peripheral clock speed for the I2C device at base specified.
+ * @param i2c  Base address of I2C to get clock frequency for.
+ */
+uint32_t rcc_get_i2c_clk_freq(uint32_t i2c __attribute__((unused)))
+{
+	if (i2c == I2C1_BASE) {
+		return rcc_get_clksel_freq(RCC_CCIPR_I2C1SEL_SHIFT);
+	} else {
+		return rcc_apb1_frequency;
+	}
+}
+
+/*---------------------------------------------------------------------------*/
+/** @brief Get the peripheral clock speed for the SPI device at base specified.
+ * @param spi  Base address of SPI device to get clock frequency for (e.g. SPI1_BASE).
+ */
+uint32_t rcc_get_spi_clk_freq(uint32_t spi __attribute__((unused))) {
+	return rcc_apb1_frequency;
 }
 
 /**@}*/

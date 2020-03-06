@@ -646,6 +646,10 @@
 #define RCC_DCKCFGR2_UART2SEL_SHIFT		2
 #define RCC_DCKCFGR2_UART1SEL_MASK		0x3
 #define RCC_DCKCFGR2_UART1SEL_SHIFT		0
+#define RCC_DCKCFGR2_UARTxSEL_PCLK		0
+#define RCC_DCKCFGR2_UARTxSEL_SYSCLK		1
+#define RCC_DCKCFGR2_UARTxSEL_HSI		2
+
 
 extern uint32_t rcc_ahb_frequency;
 extern uint32_t rcc_apb1_frequency;
@@ -986,6 +990,11 @@ void rcc_set_main_pll_hse(uint32_t pllm, uint32_t plln, uint32_t pllp,
 uint32_t rcc_system_clock_source(void);
 void rcc_clock_setup_hse(const struct rcc_clock_scale *clock, uint32_t hse_mhz);
 void rcc_clock_setup_hsi(const struct rcc_clock_scale *clock);
+uint32_t rcc_get_usart_clk_freq(uint32_t usart);
+uint32_t rcc_get_timer_clk_freq(uint32_t timer);
+uint32_t rcc_get_i2c_clk_freq(uint32_t i2c);
+uint32_t rcc_get_spi_clk_freq(uint32_t spi);
+
 END_DECLS
 
 /**@}*/

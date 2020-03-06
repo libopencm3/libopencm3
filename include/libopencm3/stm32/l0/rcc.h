@@ -709,11 +709,14 @@ void rcc_clock_setup_pll(const struct rcc_clock_scale *clock);
 void rcc_set_msi_range(uint32_t msi_range);
 
 void rcc_set_peripheral_clk_sel(uint32_t periph, uint32_t sel);
-
 void rcc_set_lptim1_sel(uint32_t lptim1_sel);
 void rcc_set_lpuart1_sel(uint32_t lpupart1_sel);
 void rcc_set_usart1_sel(uint32_t usart1_sel);
 void rcc_set_usart2_sel(uint32_t usart2_sel);
+uint32_t rcc_get_usart_clk_freq(uint32_t usart);
+uint32_t rcc_get_timer_clk_freq(uint32_t timer);
+uint32_t rcc_get_i2c_clk_freq(uint32_t i2c);
+uint32_t rcc_get_spi_clk_freq(uint32_t spi);
 
 END_DECLS
 

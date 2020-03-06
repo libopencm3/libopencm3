@@ -270,6 +270,18 @@ void rcc_osc_bypass_disable(enum rcc_osc osc)
 	}
 }
 
+/* This is a helper to calculate dividers that go 2/4/8/16/64/128/256/512.
+ * These dividers also use the top bit as an "enable". This is tyipcally
+ * used for AHB and other system clock prescaler. */
+uint16_t rcc_get_div_from_hpre(uint8_t div_val) {
+	if (div_val < 0x8) {
+		return 1;
+	} else if (div_val <= 0x0b /* DIV16 */) {
+		return (1U << (div_val - 7));
+	} else {
+		return (1U << (div_val - 6));
+	}
+}
 /**@}*/
 
 #undef _RCC_REG

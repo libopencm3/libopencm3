@@ -1289,5 +1289,45 @@ void rcc_backupdomain_reset(void)
 	RCC_BDCR &= ~RCC_BDCR_BDRST;
 }
 
+/*---------------------------------------------------------------------------*/
+/** @brief Get the peripheral clock speed for the USART at base specified.
+ * @param usart  Base address of USART to get clock frequency for.
+ */
+uint32_t rcc_get_usart_clk_freq(uint32_t usart)
+{
+	if (usart == USART1_BASE) {
+		return rcc_apb2_frequency;
+	} else {
+		return rcc_apb1_frequency;
+	}
+}
+
+/*---------------------------------------------------------------------------*/
+/** @brief Get the peripheral clock speed for the Timer at base specified.
+ * @param timer  Base address of TIM to get clock frequency for.
+ */
+uint32_t rcc_get_timer_clk_freq(uint32_t timer)
+{
+	/* Handle APB1 timer clocks. */
+	if (timer >= TIM2_BASE && timer <= TIM14_BASE) {
+		uint8_t ppre1 = (RCC_CFGR >> RCC_CFGR_PPRE1_SHIFT) & RCC_CFGR_PPRE1_MASK;
+		return (ppre1 == RCC_CFGR_PPRE1_HCLK_NODIV) ? rcc_apb1_frequency
+			: 2 * rcc_apb1_frequency;
+	} else {
+		uint8_t ppre2 = (RCC_CFGR >> RCC_CFGR_PPRE2_SHIFT) & RCC_CFGR_PPRE2_MASK;
+		return (ppre2 == RCC_CFGR_PPRE2_HCLK_NODIV) ? rcc_apb2_frequency
+			: 2 * rcc_apb2_frequency;
+	}
+	cm3_assert_not_reached();
+}
+
+/*---------------------------------------------------------------------------*/
+/** @brief Get the peripheral clock speed for the I2C device at base specified.
+ * @param i2c  Base address of I2C to get clock frequency for.
+ */
+uint32_t rcc_get_i2c_clk_freq(uint32_t i2c __attribute__((unused)))
+{
+	return rcc_apb1_frequency;
+}
 /**@}*/
 

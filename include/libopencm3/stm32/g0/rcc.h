@@ -251,7 +251,7 @@
 #define RCC_PLLCFGR_PLLM_SHIFT		0x4
 #define RCC_PLLCFGR_PLLM_MASK		0x7
 /** @defgroup rcc_pllcfgr_pllm PLLM
- * @brief Division factor M [1..8] for PLL input clock. Input frequency must be between 4mhz and 16mhz. 
+ * @brief Division factor M [1..8] for PLL input clock. Input frequency must be between 4mhz and 16mhz.
 @{*/
 #define RCC_PLLCFGR_PLLM_DIV(x)		((x)-1)
 /**@}*/
@@ -629,7 +629,7 @@ extern uint32_t rcc_apb1_frequency;
 #define rcc_apb2_frequency rcc_apb1_frequency
 
 /* --- Function prototypes ------------------------------------------------- */
- 
+
 #define _REG_BIT(offset, bit)            (((offset) << 5) + (bit))
 
 enum rcc_osc {
@@ -778,7 +778,7 @@ enum rcc_periph_rst {
 
 struct rcc_clock_scale {
 	enum rcc_osc sysclock_source;
-		
+
 	/* PLL as sysclock source cfg */
 	uint8_t pll_source;
 	uint8_t pll_div;
@@ -841,6 +841,10 @@ void rcc_clock_setup(const struct rcc_clock_scale *clock);
 
 void rcc_set_rng_clk_div(uint32_t rng_div);
 void rcc_set_peripheral_clk_sel(uint32_t periph, uint32_t sel);
+uint32_t rcc_get_usart_clk_freq(uint32_t usart);
+uint32_t rcc_get_timer_clk_freq(uint32_t timer);
+uint32_t rcc_get_i2c_clk_freq(uint32_t i2c);
+uint32_t rcc_get_spi_clk_freq(uint32_t spi);
 
 END_DECLS
 
