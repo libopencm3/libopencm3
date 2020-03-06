@@ -484,4 +484,78 @@ void rcc_clock_setup_hsi(const struct rcc_clock_scale *clock)
 	rcc_apb2_frequency = clock->apb2_frequency;
 }
 
+static uint32_t rcc_usart_i2c_clksel_freq(uint32_t apb_clk, uint8_t shift) {
+	uint8_t clksel = (RCC_DCKCFGR2 >> shift) & RCC_DCKCFGR2_UART1SEL_MASK;
+	uint8_t hpre = (RCC_CFGR >> RCC_CFGR_HPRE_SHIFT) & RCC_CFGR_HPRE_MASK;
+	switch (clksel) {
+		case RCC_DCKCFGR2_UARTxSEL_PCLK:
+			return apb_clk;
+		case RCC_DCKCFGR2_UARTxSEL_SYSCLK:
+			return rcc_ahb_frequency * rcc_get_div_from_hpre(hpre);
+		case RCC_DCKCFGR2_UARTxSEL_HSI:
+			return 16000000U;
+		default:
+			cm3_assert_not_reached();
+	}
+}
+
+/*---------------------------------------------------------------------------*/
+/** @brief Get the peripheral clock speed for the specified clock
+ * @param periph peripheral of desire, eg XXX_BASE
+ * @param sel peripheral clock source
+ */
+uint32_t rcc_get_peripheral_clk_freq(uint32_t periph)
+{
+	/* Handle APB1 timer clocks. */
+	if (periph >= TIM2_BASE && periph <= TIM14_BASE) {
+		uint8_t ppre1 = (RCC_CFGR >> RCC_CFGR_PPRE1_SHIFT) & RCC_CFGR_PPRE1_MASK;
+		return (ppre1 == RCC_CFGR_PPRE_DIV_NONE) ? rcc_apb1_frequency
+			: 2 * rcc_apb1_frequency;
+	}
+	/* Handle APB2 timer clocks. */
+	if ((periph >= TIM1_BASE && periph <= TIM8_BASE) ||
+		 (periph >= TIM9_BASE && periph <= TIM11_BASE)) {
+		uint8_t ppre2 = (RCC_CFGR >> RCC_CFGR_PPRE2_SHIFT) & RCC_CFGR_PPRE2_MASK;
+		return (ppre2 == RCC_CFGR_PPRE_DIV_NONE) ? rcc_apb2_frequency
+			: 2 * rcc_apb2_frequency;
+	}
+
+	/* Handle values with selectable clocks. */
+	switch (periph) {
+		case USART1_BASE:
+			return rcc_usart_i2c_clksel_freq(rcc_apb2_frequency, RCC_DCKCFGR2_UART1SEL_SHIFT);
+		case USART2_BASE:
+			return rcc_usart_i2c_clksel_freq(rcc_apb1_frequency, RCC_DCKCFGR2_UART2SEL_SHIFT);
+		case USART3_BASE:
+			return rcc_usart_i2c_clksel_freq(rcc_apb1_frequency, RCC_DCKCFGR2_UART3SEL_SHIFT);
+		case UART4_BASE:
+			return rcc_usart_i2c_clksel_freq(rcc_apb1_frequency, RCC_DCKCFGR2_UART4SEL_SHIFT);
+		case UART5_BASE:
+			return rcc_usart_i2c_clksel_freq(rcc_apb1_frequency, RCC_DCKCFGR2_UART5SEL_SHIFT);
+		case USART6_BASE:
+			return rcc_usart_i2c_clksel_freq(rcc_apb2_frequency, RCC_DCKCFGR2_USART6SEL_SHIFT);
+		case UART7_BASE:
+			return rcc_usart_i2c_clksel_freq(rcc_apb1_frequency, RCC_DCKCFGR2_UART7SEL_SHIFT);
+		case UART8_BASE:
+			return rcc_usart_i2c_clksel_freq(rcc_apb1_frequency, RCC_DCKCFGR2_UART8SEL_SHIFT);
+		case I2C1_BASE:
+			return rcc_usart_i2c_clksel_freq(rcc_apb1_frequency, RCC_DCKCFGR2_I2C1SEL_SHIFT);
+		case I2C2_BASE:
+			return rcc_usart_i2c_clksel_freq(rcc_apb1_frequency, RCC_DCKCFGR2_I2C2SEL_SHIFT);
+		case I2C3_BASE:
+			return rcc_usart_i2c_clksel_freq(rcc_apb1_frequency, RCC_DCKCFGR2_I2C3SEL_SHIFT);
+		case I2C4_BASE:
+			return rcc_usart_i2c_clksel_freq(rcc_apb1_frequency, RCC_DCKCFGR2_I2C4SEL_SHIFT);
+	}
+
+	/* Handle remaining APB1 peripherals. */
+	if (periph >= PERIPH_BASE_APB1 && periph < PERIPH_BASE_APB2) {
+		return rcc_apb1_frequency;
+	}
+	/* Handle remaining APB2 peripherals. */
+	if (periph >= PERIPH_BASE_APB2 && periph < PERIPH_BASE_AHB1) {
+		return rcc_apb2_frequency;
+	}
+	cm3_assert_not_reached();
+}
 /**@}*/

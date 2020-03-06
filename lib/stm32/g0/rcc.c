@@ -437,7 +437,7 @@ void rcc_set_mcopre(uint32_t mcopre)
  * @param clock rcc_clock_scale with desired parameters
  */
 void rcc_clock_setup(const struct rcc_clock_scale *clock)
-{	
+{
 	if (clock->sysclock_source == RCC_PLL) {
 		enum rcc_osc pll_source;
 
@@ -547,4 +547,54 @@ void rcc_set_peripheral_clk_sel(uint32_t periph, uint32_t sel)
 	RCC_CCIPR = reg32 | (sel << shift);
 }
 
+static uint32_t rcc_get_clksel_freq(uint8_t shift) {
+	uint8_t clksel = (RCC_CCIPR >> shift) & RCC_CCIPR_USART1SEL_MASK;
+	uint8_t hpre = (RCC_CFGR >> RCC_CFGR_HPRE_SHIFT) & RCC_CFGR_HPRE_MASK;
+	switch (clksel) {
+		case RCC_CCIPR_USART1SEL_PCLK:
+			return rcc_apb1_frequency;
+		case RCC_CCIPR_USART1SEL_SYSCLK:
+			return rcc_ahb_frequency * rcc_get_div_from_hpre(hpre);
+		case RCC_CCIPR_USART1SEL_HSI16:
+			return 16000000U;
+		default:
+			cm3_assert_not_reached();
+	}
+}
+
+/*---------------------------------------------------------------------------*/
+/** @brief Get the peripheral clock speed for the specified clock
+ * @param periph peripheral of desire, eg XXX_BASE
+ * @param sel peripheral clock source
+ */
+uint32_t rcc_get_peripheral_clk_freq(uint32_t periph)
+{
+	/* Handle APB1 timer clocks. */
+	if (periph == TIM1_BASE ||
+		(periph >= TIM2_BASE && periph <= TIM14_BASE) ||
+		(periph >= TIM15_BASE && periph <= TIM17_BASE)) {
+		uint8_t ppre = (RCC_CFGR >> RCC_CFGR_PPRE_SHIFT) & RCC_CFGR_PPRE_MASK;
+		return (ppre == RCC_CFGR_PPRE_NODIV) ? rcc_apb1_frequency
+			: 2 * rcc_apb1_frequency;
+	}
+	/* Handle values with selectable clocks. */
+	if (periph == USART1_BASE) {
+		return rcc_get_clksel_freq(RCC_CCIPR_USART1SEL_SHIFT);
+	}
+	if (periph == USART2_BASE) {
+		return rcc_get_clksel_freq(RCC_CCIPR_USART2SEL_SHIFT);
+	}
+	if (periph == LPUART1_BASE) {
+		return rcc_get_clksel_freq(RCC_CCIPR_LPUART1SEL_SHIFT);
+	}
+	if (periph == I2C1_BASE) {
+		return rcc_get_clksel_freq(RCC_CCIPR_I2C1SEL_SHIFT);
+	}
+
+	/* Handle remaining APB1 clocks. */
+	if (periph >= PERIPH_BASE_APB && periph < PERIPH_BASE_AHB) {
+		return rcc_apb1_frequency;
+	}
+	cm3_assert_not_reached();
+}
 /**@}*/

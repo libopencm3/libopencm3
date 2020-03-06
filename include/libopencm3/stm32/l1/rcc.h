@@ -632,6 +632,7 @@ void rcc_clock_setup_msi(const struct rcc_clock_scale *clock);
 void rcc_clock_setup_hsi(const struct rcc_clock_scale *clock);
 void rcc_clock_setup_pll(const struct rcc_clock_scale *clock);
 void rcc_backupdomain_reset(void);
+uint32_t rcc_get_peripheral_clk_freq(uint32_t periph);
 
 END_DECLS
 

@@ -625,5 +625,59 @@ void rcc_clock_setup_in_hsi48_out_48mhz(void)
 	rcc_apb1_frequency = 48000000;
 	rcc_ahb_frequency = 48000000;
 }
+
+static uint32_t rcc_get_usart_clksel_freq(uint8_t shift) {
+	uint8_t clksel = (RCC_CFGR3 >> shift) & RCC_CFGR3_USARTxSW_MASK;
+	uint8_t hpre = (RCC_CFGR >> RCC_CFGR_HPRE_SHIFT) & RCC_CFGR_HPRE_MASK;
+	switch (clksel) {
+		case RCC_CFGR3_USART1SW_PCLK:
+			return rcc_apb1_frequency;
+		case RCC_CFGR3_USART1SW_SYSCLK:
+			return rcc_ahb_frequency * rcc_get_div_from_hpre(hpre);
+		case RCC_CFGR3_USART1SW_HSI:
+			return 8000000U;
+		default:
+			cm3_assert_not_reached();
+	}
+}
+
+/*---------------------------------------------------------------------------*/
+/** @brief Get the peripheral clock speed for the specified clock
+ * @param periph peripheral of desire, eg XXX_BASE
+ * @param sel peripheral clock source
+ */
+uint32_t rcc_get_peripheral_clk_freq(uint32_t periph)
+{
+	/* Handle timer clocks. */
+	if ((periph >= TIM2_BASE && periph <= TIM14_BASE) || periph == TIM1_BASE ||
+		(periph >= TIM15_BASE && periph <= TIM17_BASE)) {
+		uint8_t ppre = (RCC_CFGR >> RCC_CFGR_PPRE_SHIFT) & RCC_CFGR_PPRE_MASK;
+		return (ppre == RCC_CFGR_PPRE_NODIV) ? rcc_apb1_frequency
+			: 2 * rcc_apb1_frequency;
+	}
+
+	if (periph == USART1_BASE) {
+		return rcc_get_usart_clksel_freq(RCC_CFGR3_USART1SW_SHIFT);
+	}
+	if (periph == USART2_BASE)
+		return rcc_get_usart_clksel_freq(RCC_CFGR3_USART2SW_SHIFT);
+	if (periph == USART3_BASE) {
+		return rcc_get_usart_clksel_freq(RCC_CFGR3_USART3SW_SHIFT);
+	}
+	if (periph == I2C1_BASE) {
+		if (RCC_CFGR3 & RCC_CFGR3_I2C1SW) {
+			uint8_t hpre = (RCC_CFGR >> RCC_CFGR_HPRE_SHIFT) & RCC_CFGR_HPRE_MASK;
+			return rcc_ahb_frequency * rcc_get_div_from_hpre(hpre);
+		} else {
+			return 8000000U;
+		}
+	}
+
+	/* Handle remaining APB1 peripherals. */
+	if (periph >= PERIPH_BASE_APB && periph < PERIPH_BASE_AHB1) {
+		return rcc_apb1_frequency;
+	}
+	cm3_assert_not_reached();
+}
 /**@}*/
 

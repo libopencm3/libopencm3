@@ -700,6 +700,7 @@ void rcc_clock_setup_pll(const struct rcc_clock_scale *clock);
 void rcc_set_msi_range(uint32_t msi_range);
 
 void rcc_set_peripheral_clk_sel(uint32_t periph, uint32_t sel);
+uint32_t rcc_get_peripheral_clk_freq(uint32_t periph);
 
 void rcc_set_lptim1_sel(uint32_t lptim1_sel);
 void rcc_set_lpuart1_sel(uint32_t lpupart1_sel);

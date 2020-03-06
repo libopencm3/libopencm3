@@ -1097,6 +1097,7 @@ void rcc_set_main_pll_hse(uint32_t pllm, uint32_t plln, uint32_t pllp,
 uint32_t rcc_system_clock_source(void);
 void rcc_clock_setup_pll(const struct rcc_clock_scale *clock);
 void __attribute__((deprecated("Use rcc_clock_setup_pll as direct replacement"))) rcc_clock_setup_hse_3v3(const struct rcc_clock_scale *clock);
+uint32_t rcc_get_peripheral_clk_freq(uint32_t periph);
 
 END_DECLS
 

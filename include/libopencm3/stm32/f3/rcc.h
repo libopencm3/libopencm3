@@ -413,6 +413,9 @@
 #define RCC_CFGR3_UART1SW_LSE			0x2
 #define RCC_CFGR3_UART1SW_HSI			0x3
 
+/* Shared mask for UART clock source. */
+#define RCC_CFGR3_UARTxSW_MASK			0x3
+
 
 /* --- Variable definitions ------------------------------------------------ */
 extern uint32_t rcc_ahb_frequency;
@@ -632,6 +635,7 @@ uint32_t rcc_get_i2c_clocks(void);
 void rcc_usb_prescale_1_5(void);
 void rcc_usb_prescale_1(void);
 void rcc_adc_prescale(uint32_t prescale1, uint32_t prescale2);
+uint32_t rcc_get_peripheral_clk_freq(uint32_t periph);
 
 END_DECLS
 

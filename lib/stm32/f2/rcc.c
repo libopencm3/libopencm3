@@ -389,4 +389,34 @@ void rcc_backupdomain_reset(void)
 	RCC_BDCR &= ~RCC_BDCR_BDRST;
 }
 
+/*---------------------------------------------------------------------------*/
+/** @brief Get the peripheral clock speed for the specified clock
+ * @param periph peripheral of desire, eg XXX_BASE
+ * @param sel peripheral clock source
+ */
+uint32_t rcc_get_peripheral_clk_freq(uint32_t periph)
+{
+	/* Handle APB1 timer clocks. */
+	if (periph >= TIM2_BASE && periph <= TIM14_BASE) {
+		uint8_t ppre1 = (RCC_CFGR >> RCC_CFGR_PPRE1_SHIFT) & RCC_CFGR_PPRE_MASK;
+		return (ppre1 == RCC_CFGR_PPRE_DIV_NONE) ? rcc_apb1_frequency
+			: 2 * rcc_apb1_frequency;
+	}
+	/* Handle APB2 timer clocks. */
+	if (periph == TIM1_BASE || periph == TIM8_BASE ||
+		(periph >= TIM9_BASE && periph <= TIM11_BASE)) {
+		uint8_t ppre2 = (RCC_CFGR >> RCC_CFGR_PPRE2_SHIFT) & RCC_CFGR_PPRE_MASK;
+		return (ppre2 == RCC_CFGR_PPRE_DIV_NONE) ? rcc_apb2_frequency
+			: 2 * rcc_apb2_frequency;
+	}
+	/* Handle remaining APB1 peripherals. */
+	if (periph >= PERIPH_BASE_APB1 && periph < PERIPH_BASE_APB2) {
+		return rcc_apb1_frequency;
+	}
+	/* Handle remaining APB2 peripherals. */
+	if (periph >= PERIPH_BASE_APB2 && periph < PERIPH_BASE_AHB1) {
+		return rcc_apb2_frequency;
+	}
+	cm3_assert_not_reached();
+}
 /**@}*/

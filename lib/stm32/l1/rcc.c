@@ -39,6 +39,7 @@ system clock. Not all possible configurations are included.
  */
 /**@{*/
 
+#include <libopencm3/cm3/assert.h>
 #include <libopencm3/stm32/rcc.h>
 #include <libopencm3/stm32/flash.h>
 #include <libopencm3/stm32/pwr.h>
@@ -555,4 +556,38 @@ void rcc_clock_setup_pll(const struct rcc_clock_scale *clock)
 	rcc_apb2_frequency = clock->apb2_frequency;
 }
 
+/*---------------------------------------------------------------------------*/
+/** @brief Get the peripheral clock speed for the specified clock
+ * @param periph peripheral of desire, eg XXX_BASE
+ * @param sel peripheral clock source
+ */
+uint32_t rcc_get_peripheral_clk_freq(uint32_t periph)
+{
+	/* Handle APB1 timers, and apply multiplier if necessary. */
+	if (periph >= TIM2_BASE && periph <= TIM7_BASE) {
+		uint8_t ppre1 = (RCC_CFGR >> RCC_CFGR_PPRE1_SHIFT) & RCC_CFGR_PPRE1_MASK;
+		return (ppre1 == RCC_CFGR_PPRE1_HCLK_NODIV) ? rcc_apb1_frequency
+			: 2 * rcc_apb1_frequency;
+	}
+
+	/* Handle APB2 timers, and apply multiplier if necessary. */
+	if (periph >= TIM9_BASE && periph <= TIM11_BASE) {
+		uint8_t ppre2 = (RCC_CFGR >> RCC_CFGR_PPRE2_SHIFT) & RCC_CFGR_PPRE2_MASK;
+		return (ppre2 == RCC_CFGR_PPRE2_HCLK_NODIV) ? rcc_apb2_frequency
+			: 2 * rcc_apb2_frequency;
+	}
+
+	/* Handle all APB1 perihperals. */
+	if (periph >= PERIPH_BASE_APB1 && periph < PERIPH_BASE_APB2) {
+		return rcc_apb1_frequency;
+	}
+
+	/* Handle remaining APB2 perihperals. */
+	if (periph >= PERIPH_BASE_APB2 && periph < PERIPH_BASE_AHB) {
+		return rcc_apb2_frequency;
+	}
+
+	/* Bad address or unsupported device not yet supported in clock tree. */
+	cm3_assert_not_reached();
+}
 /**@}*/

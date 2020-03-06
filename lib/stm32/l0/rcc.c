@@ -495,6 +495,76 @@ void rcc_set_peripheral_clk_sel(uint32_t periph, uint32_t sel)
 	RCC_CCIPR = reg32 | (sel << shift);
 }
 
+
+/* Helper to calculate the frequency of a clksel based clock. */
+static uint32_t rcc_uart_i2c_clksel_freq_hz(uint32_t apb_clk, uint8_t shift) {
+	uint8_t clksel = (RCC_CCIPR >> shift) & RCC_CCIPR_I2C1SEL_MASK;
+	uint8_t hpre = (RCC_CFGR >> RCC_CFGR_HPRE_SHIFT) & RCC_CFGR_HPRE_MASK;
+	switch (clksel) {
+		case RCC_CCIPR_USART1SEL_APB:
+			return apb_clk;
+		case RCC_CCIPR_USART1SEL_SYS:
+			return rcc_ahb_frequency * rcc_get_div_from_hpre(hpre);
+			break;
+		case RCC_CCIPR_USART1SEL_HSI16:
+			return 16000000U;
+			break;
+		default:
+			cm3_assert_not_reached();
+	}
+}
+
+/*---------------------------------------------------------------------------*/
+/** @brief Get the peripheral clock speed for the specified clock
+ * @param periph peripheral of desire, eg XXX_BASE
+ * @param sel peripheral clock source
+ */
+uint32_t rcc_get_peripheral_clk_freq(uint32_t periph)
+{
+	/* Get clock settings based on base address.
+	 * 	Note: Clock mappings can be inferred from RCC_APB1ENR and RCC_APB2ENR. */
+	switch (periph) {
+		/* List all CLKSEL devices here. They will update shift/mask for calc below. */
+		case I2C1_BASE:
+			return rcc_uart_i2c_clksel_freq_hz(rcc_apb1_frequency, RCC_CCIPR_I2C1SEL_SHIFT);
+		case I2C3_BASE:
+			return rcc_uart_i2c_clksel_freq_hz(rcc_apb1_frequency, RCC_CCIPR_I2C3SEL_SHIFT);
+		case LPUART1_BASE:
+			return rcc_uart_i2c_clksel_freq_hz(rcc_apb1_frequency, RCC_CCIPR_LPUART1SEL_SHIFT);
+		case USART1_BASE:
+			return rcc_uart_i2c_clksel_freq_hz(rcc_apb2_frequency, RCC_CCIPR_USART1SEL_SHIFT);
+		case USART2_BASE:
+			return rcc_uart_i2c_clksel_freq_hz(rcc_apb1_frequency, RCC_CCIPR_USART2SEL_SHIFT);
+	}
+	/* Handle APB1 timers, and apply multiplier if necessary. */
+	if (periph >= TIM2_BASE && periph <= TIM7_BASE) {
+		uint8_t ppre1 = (RCC_CFGR >> RCC_CFGR_PPRE1_SHIFT) & RCC_CFGR_PPRE1_MASK;
+		return (ppre1 == RCC_CFGR_PPRE1_NODIV) ? rcc_apb1_frequency
+			: 2 * rcc_apb1_frequency;
+	}
+
+	/* Handle APB2 timers, and apply multiplier if necessary. */
+	if (periph == TIM21_BASE || periph == TIM22_BASE) {
+		uint8_t ppre2 = (RCC_CFGR >> RCC_CFGR_PPRE2_SHIFT) & RCC_CFGR_PPRE2_MASK;
+		return (ppre2 == RCC_CFGR_PPRE2_NODIV) ? rcc_apb2_frequency
+			: 2 * rcc_apb2_frequency;
+	}
+
+	/* Handle all APB1 perihperals. */
+	if (periph >= PERIPH_BASE_APB1 && periph < PERIPH_BASE_APB2) {
+		return rcc_apb1_frequency;
+	}
+
+	/* Handle remaining APB2 perihperals. */
+	if (periph >= PERIPH_BASE_APB2 && periph < PERIPH_BASE_AHB) {
+		return rcc_apb2_frequency;
+	}
+
+	/* Bad address or unsupported device not yet supported in clock tree. */
+	cm3_assert_not_reached();
+}
+
+
 /** @brief RCC Setup PLL and use it as Sysclk source.
  *
  * @param[in] clock full struct with desired parameters
