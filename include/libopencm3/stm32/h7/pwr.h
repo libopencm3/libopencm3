@@ -93,7 +93,6 @@ LGPL License Terms @ref lgpl_license
 #define PWR_D3CR_VOS_SCALE_1      (0x1)
 #define PWR_D3CR_VOS_MASK         (0x03)
 
-/* --- Function prototypes ------------------------------------------------- */
 enum pwr_svos_scale {
   PWR_SVOS_SCALE3 = PWR_CR1_SVOS_SCALE_3 << PWR_CR1_SVOS_SHIFT,
   PWR_SVOS_SCALE4 = PWR_CR1_SVOS_SCALE_4 << PWR_CR1_SVOS_SHIFT,
@@ -125,6 +124,7 @@ void pwr_set_svos_scale(enum pwr_svos_scale scale);
  * @param[in] scale  Voltage scale value to set.
  */
 void pwr_set_vos_scale(enum pwr_vos_scale scale);
+/**@}*/
 
 
 END_DECLS
