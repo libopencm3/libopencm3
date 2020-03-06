@@ -155,11 +155,9 @@ void adc_disable_analog_watchdog_injected(uint32_t adc)
  * whole group has been converted, the next trigger will restart conversion of
  * the subgroup at the beginning of the whole group.
  *
- * @param[in] adc Unsigned int32. ADC block register address base @ref
- * adc_reg_base @param[in] length Unsigned int8. Number of channels in the
- * group @ref adc_cr1_discnum
+ * @param[in] adc ADC block register address base @ref adc_reg_base
+ * @param[in] length Number of channels in the group @ref adc_cr1_discnum
  */
-
 void adc_enable_discontinuous_mode_regular(uint32_t adc, uint8_t length)
 {
 	if ((length-1) > 7) {
@@ -410,14 +408,11 @@ void adc_start_conversion_injected(uint32_t adc)
 }
 
 
-/*---------------------------------------------------------------------------*/
-/** @brief ADC Set Analog Watchdog Upper Threshold
- *
- * @param[in] adc Unsigned int32. ADC block register address base
+/** ADC Set Analog Watchdog Upper Threshold.
+ * @param[in] adc ADC block register address base
  * @ref adc_reg_base
- * @param[in] threshold. Upper threshold value
+ * @param[in] threshold Upper threshold value
  */
-
 void adc_set_watchdog_high_threshold(uint32_t adc, uint16_t threshold)
 {
 	uint32_t reg32 = 0;
@@ -431,14 +426,11 @@ void adc_set_watchdog_high_threshold(uint32_t adc, uint16_t threshold)
 	ADC_TR3(adc) = (ADC_TR3(adc) & mask) | reg32;
 }
 
-/*---------------------------------------------------------------------------*/
-/** @brief ADC Set Analog Watchdog Lower Threshold
- *
- * @param[in] adc Unsigned int32. ADC block register address base
+/** ADC Set Analog Watchdog Lower Threshold.
+ * @param[in] adc ADC block register address base
  * @ref adc_reg_base
- * @param[in] threshold. Lower threshold value
+ * @param[in] threshold Lower threshold value
  */
-
 void adc_set_watchdog_low_threshold(uint32_t adc, uint16_t threshold)
 {
 	uint32_t reg32 = 0;
