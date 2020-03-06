@@ -484,4 +484,91 @@ void rcc_clock_setup_hsi(const struct rcc_clock_scale *clock)
 	rcc_apb2_frequency = clock->apb2_frequency;
 }
 
+static uint32_t rcc_usart_i2c_clksel_freq(uint32_t apb_clk, uint8_t shift) {
+	uint8_t clksel = (RCC_DCKCFGR2 >> shift) & RCC_DCKCFGR2_UART1SEL_MASK;
+	uint8_t hpre = (RCC_CFGR >> RCC_CFGR_HPRE_SHIFT) & RCC_CFGR_HPRE_MASK;
+	switch (clksel) {
+		case RCC_DCKCFGR2_UARTxSEL_PCLK:
+			return apb_clk;
+		case RCC_DCKCFGR2_UARTxSEL_SYSCLK:
+			return rcc_ahb_frequency * rcc_get_div_from_hpre(hpre);
+		case RCC_DCKCFGR2_UARTxSEL_HSI:
+			return 16000000U;
+		default:
+			cm3_assert_not_reached();
+	}
+}
+
+/*---------------------------------------------------------------------------*/
+/** @brief Get the peripheral clock speed for the USART at base specified.
+ * @param usart  Base address of USART to get clock frequency for.
+ */
+uint32_t rcc_get_usart_clk_freq(uint32_t usart)
+{
+	/* F7 is highly configurable, every USART can be configured in DCKCFGR2. */
+	if (usart == USART1_BASE) {
+		return rcc_usart_i2c_clksel_freq(rcc_apb2_frequency, RCC_DCKCFGR2_UART1SEL_SHIFT);
+	} else if (usart == USART2_BASE) {
+		return rcc_usart_i2c_clksel_freq(rcc_apb1_frequency, RCC_DCKCFGR2_UART2SEL_SHIFT);
+	} else if (usart == USART3_BASE) {
+		return rcc_usart_i2c_clksel_freq(rcc_apb1_frequency, RCC_DCKCFGR2_UART3SEL_SHIFT);
+	} else if (usart == UART4_BASE) {
+		return rcc_usart_i2c_clksel_freq(rcc_apb1_frequency, RCC_DCKCFGR2_UART4SEL_SHIFT);
+	} else if (usart == UART5_BASE) {
+		return rcc_usart_i2c_clksel_freq(rcc_apb1_frequency, RCC_DCKCFGR2_UART5SEL_SHIFT);
+	} else if (usart == USART6_BASE) {
+		return rcc_usart_i2c_clksel_freq(rcc_apb2_frequency, RCC_DCKCFGR2_USART6SEL_SHIFT);
+	} else if (usart == UART7_BASE) {
+		return rcc_usart_i2c_clksel_freq(rcc_apb1_frequency, RCC_DCKCFGR2_UART7SEL_SHIFT);
+	} else {  /* UART8 */
+		return rcc_usart_i2c_clksel_freq(rcc_apb1_frequency, RCC_DCKCFGR2_UART8SEL_SHIFT);
+	}
+}
+
+/*---------------------------------------------------------------------------*/
+/** @brief Get the peripheral clock speed for the Timer at base specified.
+ * @param timer  Base address of TIM to get clock frequency for.
+ */
+uint32_t rcc_get_timer_clk_freq(uint32_t timer)
+{
+	/* Handle APB1 timer clocks. */
+	if (timer >= TIM2_BASE && timer <= TIM14_BASE) {
+		uint8_t ppre1 = (RCC_CFGR >> RCC_CFGR_PPRE1_SHIFT) & RCC_CFGR_PPRE1_MASK;
+		return (ppre1 == RCC_CFGR_PPRE_DIV_NONE) ? rcc_apb1_frequency
+			: 2 * rcc_apb1_frequency;
+	} else {
+		uint8_t ppre2 = (RCC_CFGR >> RCC_CFGR_PPRE2_SHIFT) & RCC_CFGR_PPRE2_MASK;
+		return (ppre2 == RCC_CFGR_PPRE_DIV_NONE) ? rcc_apb2_frequency
+			: 2 * rcc_apb2_frequency;
+	}
+}
+
+/*---------------------------------------------------------------------------*/
+/** @brief Get the peripheral clock speed for the I2C device at base specified.
+ * @param i2c  Base address of I2C to get clock frequency for.
+ */
+uint32_t rcc_get_i2c_clk_freq(uint32_t i2c __attribute__((unused)))
+{
+	if (i2c == I2C1_BASE) {
+		return rcc_usart_i2c_clksel_freq(rcc_apb1_frequency, RCC_DCKCFGR2_I2C1SEL_SHIFT);
+	} else if (i2c == I2C2_BASE) {
+		return rcc_usart_i2c_clksel_freq(rcc_apb1_frequency, RCC_DCKCFGR2_I2C2SEL_SHIFT);
+	} else if (i2c == I2C3_BASE) {
+		return rcc_usart_i2c_clksel_freq(rcc_apb1_frequency, RCC_DCKCFGR2_I2C3SEL_SHIFT);
+	} else {  /* I2C4 */
+		return rcc_usart_i2c_clksel_freq(rcc_apb1_frequency, RCC_DCKCFGR2_I2C4SEL_SHIFT);
+	}
+}
+
+/*---------------------------------------------------------------------------*/
+/** @brief Get the peripheral clock speed for the SPI device at base specified.
+ * @param spi  Base address of SPI device to get clock frequency for (e.g. SPI1_BASE).
+ */
+uint32_t rcc_get_spi_clk_freq(uint32_t spi) {
+	if (spi == SPI2_BASE || spi == SPI3_BASE) {
+		return rcc_apb1_frequency;
+	} else {
+		return rcc_apb2_frequency;
+	}
+}
 /**@}*/

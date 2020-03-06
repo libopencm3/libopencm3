@@ -265,87 +265,101 @@ uint32_t rcc_get_bus_clk_freq(enum rcc_clock_source source) {
 	}
 }
 
-uint32_t rcc_get_peripheral_clk_freq(uint32_t periph) {
-	uint32_t clksel;
-	switch (periph) {
-		case FDCAN1_BASE:
-		case FDCAN2_BASE:
-			clksel = (RCC_D2CCIP1R >> RCC_D2CCIP1R_FDCANSEL_SHIFT) & RCC_D2CCIP1R_FDCANSEL_MASK;
-			if (clksel == RCC_D2CCIP1R_FDCANSEL_HSE) {
-				return rcc_clock_tree.hse_khz * HZ_PER_KHZ;
-			} else if (clksel == RCC_D2CCIP1R_FDCANSEL_PLL1Q) {
-				return rcc_clock_tree.pll1.q_mhz * HZ_PER_MHZ;
-			} else if (clksel == RCC_D2CCIP1R_FDCANSEL_PLL2Q) {
-				return rcc_clock_tree.pll2.q_mhz * HZ_PER_MHZ;
-			} else {
-				return 0U;
-			}
-		case SPI1_BASE:
-		case SPI2_BASE:
-		case SPI3_BASE:
-			clksel = (RCC_D2CCIP1R >> RCC_D2CCIP1R_SPI123SEL_SHIFT) & RCC_D2CCIP1R_SPI123SEL_MASK;
-			if (clksel == RCC_D2CCIP1R_SPI123SEL_PLL1Q) {
-				return rcc_clock_tree.pll1.q_mhz * HZ_PER_MHZ;
-			} else if (clksel == RCC_D2CCIP1R_SPI123SEL_PLL2P) {
-				return rcc_clock_tree.pll2.p_mhz * HZ_PER_MHZ;
-			} else if (clksel == RCC_D2CCIP1R_SPI123SEL_PLL3P) {
-				return rcc_clock_tree.pll3.p_mhz * HZ_PER_MHZ;
-			} else if (clksel == RCC_D2CCIP1R_SPI123SEL_PERCK) {
-				return rcc_get_bus_clk_freq(RCC_PERCLK);
-			} else {
-				return 0U;
-			}
-		case SPI4_BASE:
-		case SPI5_BASE:
-			clksel = (RCC_D2CCIP1R >> RCC_D2CCIP1R_SPI45SEL_SHIFT) & RCC_D2CCIP1R_SPI45SEL_MASK;
-			if (clksel == RCC_D2CCIP1R_SPI45SEL_APB4){
-				return rcc_get_bus_clk_freq(RCC_APB1CLK);
-			} else if (clksel == RCC_D2CCIP1R_SPI45SEL_PLL2Q){
-				return rcc_clock_tree.pll2.q_mhz * HZ_PER_MHZ;
-			} else if (clksel == RCC_D2CCIP1R_SPI45SEL_PLL3Q){
-				return rcc_clock_tree.pll3.q_mhz * HZ_PER_MHZ;
-			} else if (clksel == RCC_D2CCIP1R_SPI45SEL_HSI){
-				return RCC_HSI_BASE_FREQUENCY;
-			} else if (clksel == RCC_D2CCIP1R_SPI45SEL_HSE) {
-				return rcc_clock_tree.hse_khz * HZ_PER_KHZ;
-			} else {
-				return 0U;
-			}
-		case USART1_BASE:
-		case USART6_BASE:
-			clksel = (RCC_D2CCIP2R >> RCC_D2CCIP2R_USART16SEL_SHIFT) & RCC_D2CCIP2R_USARTSEL_MASK;
-			if (clksel == RCC_D2CCIP2R_USART16SEL_PCLK2) {
-				return rcc_get_bus_clk_freq(RCC_APB2CLK);
-			} else if (clksel == RCC_D2CCIP2R_USARTSEL_PLL2Q) {
-				return rcc_clock_tree.pll2.q_mhz * HZ_PER_MHZ;
-			} else if (clksel == RCC_D2CCIP2R_USARTSEL_PLL3Q) {
-				return rcc_clock_tree.pll3.q_mhz * HZ_PER_MHZ;
-			} else if (clksel == RCC_D2CCIP2R_USARTSEL_HSI) {
-				return RCC_HSI_BASE_FREQUENCY;
-			} else {
-				return 0U;
-			}
-		case USART2_BASE:
-		case USART3_BASE:
-		case UART4_BASE:
-		case UART5_BASE:
-		case UART7_BASE:
-		case UART8_BASE:
-			clksel = (RCC_D2CCIP2R >> RCC_D2CCIP2R_USART234578SEL_SHIFT) & RCC_D2CCIP2R_USARTSEL_MASK;
-			if (clksel == RCC_D2CCIP2R_USART234578SEL_PCLK1) {
-				return rcc_get_bus_clk_freq(RCC_APB1CLK);
-			} else if (clksel == RCC_D2CCIP2R_USARTSEL_PLL2Q) {
-				return rcc_clock_tree.pll2.q_mhz * HZ_PER_MHZ;
-			} else if (clksel == RCC_D2CCIP2R_USARTSEL_PLL3Q) {
-				return rcc_clock_tree.pll3.q_mhz * HZ_PER_MHZ;
-			} else if (clksel == RCC_D2CCIP2R_USARTSEL_HSI) {
-				return RCC_HSI_BASE_FREQUENCY;
-			} else {
-				return 0U;
-			}
-		default:
-			cm3_assert_not_reached();
-			return 0;
+uint32_t rcc_get_usart_clk_freq(uint32_t usart)
+{
+	uint32_t clksel, pclk;
+	if (usart == USART1_BASE || usart == USART6_BASE) {
+		pclk = rcc_clock_tree.per.pclk2_mhz * HZ_PER_MHZ;;
+		clksel = (RCC_D2CCIP2R >> RCC_D2CCIP2R_USART16SEL_SHIFT) & RCC_D2CCIP2R_USARTSEL_MASK;
+	} else {
+		pclk = rcc_clock_tree.per.pclk1_mhz * HZ_PER_MHZ;
+		clksel = (RCC_D2CCIP2R >> RCC_D2CCIP2R_USART234578SEL_SHIFT) & RCC_D2CCIP2R_USARTSEL_MASK;
+	}
+
+	/* Based on extracted clksel value, return the clock. */
+	if (clksel == RCC_D2CCIP2R_USARTSEL_PCLK) {
+		return pclk;
+	} else if (clksel == RCC_D2CCIP2R_USARTSEL_PLL2Q) {
+		return rcc_clock_tree.pll2.q_mhz * HZ_PER_MHZ;
+	} else if (clksel == RCC_D2CCIP2R_USARTSEL_PLL3Q) {
+		return rcc_clock_tree.pll3.q_mhz * HZ_PER_MHZ;
+	} else if (clksel == RCC_D2CCIP2R_USARTSEL_HSI) {
+		return RCC_HSI_BASE_FREQUENCY;
+	} else {
+		return 0U;
+	}
+}
+
+uint32_t rcc_get_timer_clk_freq(uint32_t timer __attribute__((unused)))
+{
+	if (timer >= LPTIM2_BASE && timer <= LPTIM5_BASE) {
+		/* TODO: Read LPTIMxSEL values from D3CCIPR to determine clock source. */
+		return rcc_clock_tree.per.pclk4_mhz * HZ_PER_MHZ;
+	} else if (timer >= TIM1_BASE && timer <= HRTIM_BASE) {
+		return rcc_clock_tree.per.pclk2_mhz * HZ_PER_MHZ;
+	} else {
+		return rcc_clock_tree.per.pclk1_mhz * HZ_PER_MHZ;
+	}
+}
+
+uint32_t rcc_get_i2c_clk_freq(uint32_t i2c)
+{
+	if (i2c == I2C4_BASE) {
+		/* TODO: Read I2C4SEL from D3CCIPR to determine clock source. */
+		return rcc_clock_tree.per.pclk3_mhz * HZ_PER_MHZ;
+	} else {
+		/* TODO: Read I2C123SEL from D2CCIP2R to determine clock source. */
+		return rcc_clock_tree.per.pclk1_mhz * HZ_PER_MHZ;
+	}
+}
+
+uint32_t rcc_get_spi_clk_freq(uint32_t spi)
+{
+	if (spi == SPI4_BASE || spi == SPI5_BASE) {
+		uint32_t clksel =
+			(RCC_D2CCIP1R >> RCC_D2CCIP1R_SPI45SEL_SHIFT) & RCC_D2CCIP1R_SPI45SEL_MASK;
+		if (clksel == RCC_D2CCIP1R_SPI45SEL_APB4){
+			return rcc_clock_tree.per.pclk2_mhz * HZ_PER_MHZ;
+		} else if (clksel == RCC_D2CCIP1R_SPI45SEL_PLL2Q){
+			return rcc_clock_tree.pll2.q_mhz * HZ_PER_MHZ;
+		} else if (clksel == RCC_D2CCIP1R_SPI45SEL_PLL3Q){
+			return rcc_clock_tree.pll3.q_mhz * HZ_PER_MHZ;
+		} else if (clksel == RCC_D2CCIP1R_SPI45SEL_HSI){
+			return RCC_HSI_BASE_FREQUENCY;
+		} else if (clksel == RCC_D2CCIP1R_SPI45SEL_HSE) {
+			return rcc_clock_tree.hse_khz * HZ_PER_KHZ;
+		} else {
+			return 0U;
+		}
+	} else {
+		uint32_t clksel =
+			(RCC_D2CCIP1R >> RCC_D2CCIP1R_SPI123SEL_SHIFT) & RCC_D2CCIP1R_SPI123SEL_MASK;
+		if (clksel == RCC_D2CCIP1R_SPI123SEL_PLL1Q) {
+			return rcc_clock_tree.pll1.q_mhz * HZ_PER_MHZ;
+		} else if (clksel == RCC_D2CCIP1R_SPI123SEL_PLL2P) {
+			return rcc_clock_tree.pll2.p_mhz * HZ_PER_MHZ;
+		} else if (clksel == RCC_D2CCIP1R_SPI123SEL_PLL3P) {
+			return rcc_clock_tree.pll3.p_mhz * HZ_PER_MHZ;
+		} else if (clksel == RCC_D2CCIP1R_SPI123SEL_PERCK) {
+			return rcc_get_bus_clk_freq(RCC_PERCLK);
+		} else {
+			return 0U;
+		}
+	}
+}
+
+uint32_t rcc_get_fdcan_clk_freq(uint32_t fdcan __attribute__((unused)))
+{
+	uint32_t clksel =
+		(RCC_D2CCIP1R >> RCC_D2CCIP1R_FDCANSEL_SHIFT) & RCC_D2CCIP1R_FDCANSEL_MASK;
+	if (clksel == RCC_D2CCIP1R_FDCANSEL_HSE) {
+		return rcc_clock_tree.hse_khz * HZ_PER_KHZ;
+	} else if (clksel == RCC_D2CCIP1R_FDCANSEL_PLL1Q) {
+		return rcc_clock_tree.pll1.q_mhz * HZ_PER_MHZ;
+	} else if (clksel == RCC_D2CCIP1R_FDCANSEL_PLL2Q) {
+		return rcc_clock_tree.pll2.q_mhz * HZ_PER_MHZ;
+	} else {
+		return 0U;
 	}
 }
 

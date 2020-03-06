@@ -149,6 +149,7 @@ Control</b>
 
 #define RCC_CFGR_PPRE_SHIFT			8
 #define RCC_CFGR_PPRE				(7 << RCC_CFGR_PPRE_SHIFT)
+#define RCC_CFGR_PPRE_MASK			0x7
 /** @defgroup rcc_cfgr_apb1pre RCC_CFGR APB prescale Factors
 @{*/
 #define RCC_CFGR_PPRE_NODIV			(0 << RCC_CFGR_PPRE_SHIFT)
@@ -160,6 +161,7 @@ Control</b>
 
 #define RCC_CFGR_HPRE_SHIFT			4
 #define RCC_CFGR_HPRE				(0xf << RCC_CFGR_HPRE_SHIFT)
+#define RCC_CFGR_HPRE_MASK			0xf
 /** @defgroup rcc_cfgr_ahbpre RCC_CFGR AHB prescale Factors
 @{*/
 #define RCC_CFGR_HPRE_NODIV			(0x0 << RCC_CFGR_HPRE_SHIFT)
@@ -383,6 +385,12 @@ Control</b>
 /**@}*/
 
 /* --- RCC_CFGR3 values ---------------------------------------------------- */
+#define RCC_CFGR3_USART3SW_SHIFT		18
+#define RCC_CFGR3_USART3SW			(3 << RCC_CFGR3_USART2SW_SHIFT)
+#define RCC_CFGR3_USART3SW_PCLK			(0 << RCC_CFGR3_USART2SW_SHIFT)
+#define RCC_CFGR3_USART3SW_SYSCLK		(1 << RCC_CFGR3_USART2SW_SHIFT)
+#define RCC_CFGR3_USART3SW_LSE			(2 << RCC_CFGR3_USART2SW_SHIFT)
+#define RCC_CFGR3_USART3SW_HSI			(3 << RCC_CFGR3_USART2SW_SHIFT)
 
 #define RCC_CFGR3_USART2SW_SHIFT		16
 #define RCC_CFGR3_USART2SW			(3 << RCC_CFGR3_USART2SW_SHIFT)
@@ -402,6 +410,8 @@ Control</b>
 #define RCC_CFGR3_USART1SW_SYSCLK		(1 << RCC_CFGR3_USART1SW_SHIFT)
 #define RCC_CFGR3_USART1SW_LSE			(2 << RCC_CFGR3_USART1SW_SHIFT)
 #define RCC_CFGR3_USART1SW_HSI			(3 << RCC_CFGR3_USART1SW_SHIFT)
+
+#define RCC_CFGR3_USARTxSW_MASK			3
 
 /* --- RCC_CFGR3 values ---------------------------------------------------- */
 
@@ -579,6 +589,10 @@ enum rcc_osc rcc_usb_clock_source(void);
 void rcc_clock_setup_in_hse_8mhz_out_48mhz(void);
 void rcc_clock_setup_in_hsi_out_48mhz(void);
 void rcc_clock_setup_in_hsi48_out_48mhz(void);
+uint32_t rcc_get_usart_clk_freq(uint32_t usart);
+uint32_t rcc_get_timer_clk_freq(uint32_t timer);
+uint32_t rcc_get_i2c_clk_freq(uint32_t i2c);
+uint32_t rcc_get_spi_clk_freq(uint32_t spi);
 
 END_DECLS
 

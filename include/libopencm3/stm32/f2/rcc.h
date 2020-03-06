@@ -150,6 +150,7 @@
 #define RCC_CFGR_PPRE_DIV_4			0x5
 #define RCC_CFGR_PPRE_DIV_8			0x6
 #define RCC_CFGR_PPRE_DIV_16			0x7
+#define RCC_CFGR_PPRE_MASK                	0x7
 
 /* HPRE: AHB high-speed prescaler */
 #define RCC_CFGR_HPRE_SHIFT			4
@@ -819,6 +820,10 @@ void rcc_set_main_pll_hse(uint32_t pllm, uint32_t plln, uint32_t pllp,
 uint32_t rcc_system_clock_source(void);
 void rcc_clock_setup_hse_3v3(const struct rcc_clock_scale *clock);
 void rcc_backupdomain_reset(void);
+uint32_t rcc_get_usart_clk_freq(uint32_t usart);
+uint32_t rcc_get_timer_clk_freq(uint32_t timer);
+uint32_t rcc_get_i2c_clk_freq(uint32_t i2c);
+uint32_t rcc_get_spi_clk_freq(uint32_t spi);
 
 END_DECLS
 

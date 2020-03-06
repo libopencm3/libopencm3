@@ -404,6 +404,7 @@ LGPL License Terms @ref lgpl_license
  * @{*/
 #define RCC_D2CCIP2R_USART16SEL_PCLK2       0
 #define RCC_D2CCIP2R_USART234578SEL_PCLK1   0
+#define RCC_D2CCIP2R_USARTSEL_PCLK          0
 #define RCC_D2CCIP2R_USARTSEL_PLL2Q         1
 #define RCC_D2CCIP2R_USARTSEL_PLL3Q         2
 #define RCC_D2CCIP2R_USARTSEL_HSI           3
@@ -727,13 +728,34 @@ void rcc_clock_setup_pll(const struct rcc_pll_config *config);
 uint32_t rcc_get_bus_clk_freq(enum rcc_clock_source source);
 
 /**
- * Get the clock rate (in Hz) of the specified peripheral. This will pull the
- * proper sources out of the clock tree and calculate the clock for the
- * peripheral for return to the user, based on current settings.
- * @param[in] periph  Peripheral base address to get the clock rate for.
- * @return Clock rate in Hz for the specified peripheral. 0 if undefined or error.
+ * Get the peripheral clock speed for the USART at base specified.
+ * @param usart  Base address of USART to get clock frequency for (e.g. USART1_BASE).
  */
-uint32_t rcc_get_peripheral_clk_freq(uint32_t periph);
+uint32_t rcc_get_usart_clk_freq(uint32_t usart);
+
+/**
+ * Get the peripheral clock speed for the Timer at base specified.
+ * @param timer  Base address of TIMER to get clock frequency for (e.g. TIM1_BASE).
+ */
+uint32_t rcc_get_timer_clk_freq(uint32_t timer);
+
+/**
+ * Get the peripheral clock speed for the I2C device at base specified.
+ * @param i2c  Base address of I2C to get clock frequency for (e.g. I2C1_BASE).
+ */
+uint32_t rcc_get_i2c_clk_freq(uint32_t i2c);
+
+/**
+ * Get the peripheral clock speed for the SPI device at base specified.
+ * @param spi  Base address of SPI device to get clock frequency for (e.g. SPI1_BASE).
+ */
+uint32_t rcc_get_spi_clk_freq(uint32_t spi);
+
+/**
+ * Get the peripheral clock speed for the FDCAN device at base specified.
+ * @param fdcan  Base address of FDCAN to get clock frequency for (e.g. FDCAN1_BASE).
+ */
+uint32_t rcc_get_fdcan_clk_freq(uint32_t fdcan);
 
 /**
  * Set the clksel value for the specified peripheral. This code will determine
