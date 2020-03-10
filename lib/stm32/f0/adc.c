@@ -78,7 +78,7 @@ void adc_disable_discontinuous_mode(uint32_t adc)
  *  next channel in the list is prepared to convert on next trigger edge.
  *
  *  @note This mode can be emulated by ADC_MODE_GROUPED with group size
- *  of 1. @par
+ *  of 1.
  *
  * @li @c ADC_MODE_SCAN:        T(0123)[EOSEQ] T(0123)[EOSEQ] T(0123)[EOSEQ]
  *
@@ -86,7 +86,7 @@ void adc_disable_discontinuous_mode(uint32_t adc)
  *  storing results sequentially.
  *
  *  @note The DMA must be configured properly for more than single channel to
- *  convert. @par
+ *  convert.
  *
  * @li @c ADC_MODE_SCAN_INFINITE: T(0123[EOSEQ]0123[EOSEQ]0123[EOSEQ]...)
  *
@@ -102,11 +102,9 @@ void adc_disable_discontinuous_mode(uint32_t adc)
  *  and on the next trigger it wraps to the beginning.
  *
  *  @note The DMA must be configured properly to operate on more than single
- *  channel conversion groups.@par
+ *  channel conversion groups.
  *
  * @warning not all families supports all modes of operation of ADC.
- *
- * @par
  *
  */
 
@@ -114,7 +112,6 @@ void adc_disable_discontinuous_mode(uint32_t adc)
 /** @brief ADC Set conversion operation mode
  *
  * @note on SEQUENTIAL mode, the trigger event is necessary to start conversion.
- * @par
  *
  * @param[in] adc Unsigned int32. ADC base address (@ref adc_reg_base)
  * @param[in] opmode ADC operation mode
@@ -516,7 +513,7 @@ void adc_disable_analog_watchdog(uint32_t adc)
 /** @brief ADC Set Analog Watchdog Upper Threshold
  *
  * @param[in] adc Unsigned int32. ADC base address (@ref adc_reg_base)
- * @param[in] threshold. Upper threshold value
+ * @param[in] threshold Upper threshold value
  */
 
 void adc_set_watchdog_high_threshold(uint32_t adc, uint16_t threshold)
@@ -528,7 +525,7 @@ void adc_set_watchdog_high_threshold(uint32_t adc, uint16_t threshold)
 /** @brief ADC Set Analog Watchdog Lower Threshold
  *
  * @param[in] adc Unsigned int32. ADC base address (@ref adc_reg_base)
- * @param[in] threshold. Lower threshold value
+ * @param[in] threshold Lower threshold value
  */
 
 void adc_set_watchdog_low_threshold(uint32_t adc, uint16_t threshold)

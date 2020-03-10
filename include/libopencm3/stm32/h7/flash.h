@@ -32,7 +32,7 @@
 
 /**@{*/
 
-/** @addtogroup flash_acr_values FLASH_ACR_VALUES
+/** @addtogroup flash_acr_values FLASH_ACR values
  * @ingroup flash_registers
 @{*/
 #define FLASH_ACR_WRHF_VOS1_70MHZ     (0 << FLASH_ACR_WRHIGHFREQ_SHIFT)

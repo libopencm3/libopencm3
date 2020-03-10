@@ -53,7 +53,7 @@
 
 /* --- FLASH_ACR values ---------------------------------------------------- */
 
-/** @addtogroup flash_acr_values FLASH_ACR_VALUES
+/** @addtogroup flash_acr_values FLASH_ACR values
  * @ingroup flash_registers
 @{*/
 #define FLASH_ACR_ARTRST		(1 << 11)

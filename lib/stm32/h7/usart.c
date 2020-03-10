@@ -47,11 +47,6 @@ usart_reg_base
 
 void usart_set_baudrate(uint32_t usart, uint32_t baud)
 {
-	uint32_t clock;
-	if (usart == USART1 || usart == USART6) {
-	        clock = rcc_get_clock_freq(RCC_USART1CLK);
-	} else {
-	        clock = rcc_get_clock_freq(RCC_USART2CLK);
-	}
+    uint32_t clock = rcc_get_peripheral_clk_freq(usart);
 	USART_BRR(usart) = (clock + baud / 2) / baud;
 }

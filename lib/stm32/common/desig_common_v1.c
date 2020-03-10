@@ -1,7 +1,7 @@
-/* This provides unification of code over STM32 subfamilies */
-
 /*
  * This file is part of the libopencm3 project.
+ *
+ * Copyright (C) 2012 Karl Palsson <karlp@ŧweak.net.au>
  *
  * This library is free software: you can redistribute it and/or modify
  * it under the terms of the GNU Lesser General Public License as published by
@@ -17,13 +17,16 @@
  * along with this library.  If not, see <http://www.gnu.org/licenses/>.
  */
 
-#include <libopencm3/cm3/common.h>
-#include <libopencm3/stm32/memorymap.h>
+#include <libopencm3/stm32/desig.h>
 
-#if defined(STM32F4)
-#       include <libopencm3/stm32/f4/ltdc.h>
-#elif defined(STM32F7)
-#       include <libopencm3/stm32/f7/ltdc.h>
-#else
-#       error "LCD-TFT not defined for this family"
-#endif
+uint16_t desig_get_flash_size(void)
+{
+  return *((uint32_t*)DESIG_FLASH_SIZE_BASE);
+}
+
+void desig_get_unique_id(uint32_t *result)
+{
+  *result++ = DESIG_UNIQUE_ID2;
+  *result++ = DESIG_UNIQUE_ID1;
+  *result = DESIG_UNIQUE_ID0;
+}

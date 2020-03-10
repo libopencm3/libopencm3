@@ -32,8 +32,7 @@ LGPL License Terms @ref lgpl_license
 
 /**@{*/
 
-/** @defgroup rcc_regisers RCC Registers
- * @ingroup rcc_defines
+/** @defgroup rcc_registers RCC Registers
 @{*/
 #define RCC_CR                    MMIO32(RCC_BASE + 0x000)
 #define RCC_ICSCR                 MMIO32(RCC_BASE + 0x004)  /* Y-devices only */
@@ -329,7 +328,7 @@ LGPL License Terms @ref lgpl_license
 #define RCC_BDCR_LSEON            (1 << 0)
 /**@}*/
 
-/** @defgroup rcc_bdcr_values RCC_CSR Values.
+/** @defgroup rcc_csr_values RCC_CSR Values.
  * @ingroup rcc_registers
 @{*/
 #define RCC_CSR_LSIRDY            (1 << 1)
@@ -339,31 +338,34 @@ LGPL License Terms @ref lgpl_license
 /** @defgroup rcc_d1ccipr_values RCC_D1CCIP1R Values
  * @ingroup rcc_registers
  * @{*/
-#define RCC_D1CCIPR_CKPERSEL_SHIFT     28
 #define RCC_D1CCIPR_CKPERSEL_HSI       0
 #define RCC_D1CCIPR_CKPERSEL_CSI       1
 #define RCC_D1CCIPR_CKPERSEL_HSE       2
 #define RCC_D1CCIPR_CKPERSEL_DISABLE   3
-#define RCC_D1CCIPR_CKPERSEL_MASK      3
 /**@}*/
+#define RCC_D1CCIPR_CKPERSEL_SHIFT     28
+#define RCC_D1CCIPR_CKPERSEL_MASK      3
+
+#define RCC_D2CCIP1R_SWPSEL_SHIFT       31
+#define RCC_D2CCIP1R_FDCANSEL_SHIFT     28
+#define RCC_D2CCIP1R_FDCANSEL_MASK      0x3
+#define RCC_D2CCIP1R_DFSDM1SEL_SHIFT    24
+#define RCC_D2CCIP1R_SPDIFSEL_SHIFT     20
+#define RCC_D2CCIP1R_SPI45SEL_SHIFT     16
+#define RCC_D2CCIP1R_SPI45SEL_MASK      0x7
+#define RCC_D2CCIP1R_SPI123SEL_SHIFT    12
+#define RCC_D2CCIP1R_SPI123SEL_MASK     0x7
+#define RCC_D2CCIP1R_SAI23SEL_SHIFT     6
+#define RCC_D2CCIP1R_SAISEL_MASK        0x7
 
 /** @defgroup rcc_d2ccip1r_values RCC_D2CCIP1R Values
  * @ingroup rcc_registers
  * @{*/
-#define RCC_D2CCIP1R_SWPSEL_SHIFT       31
-#define RCC_D2CCIP1R_FDCANSEL_SHIFT     28
-#define RCC_D2CCIP1R_DFSDM1SEL_SHIFT    24
-#define RCC_D2CCIP1R_SPDIFSEL_SHIFT     20
-#define RCC_D2CCIP1R_SPI45SEL_SHIFT     16
-#define RCC_D2CCIP1R_SPI123SEL_SHIFT    12
-#define RCC_D2CCIP1R_SAI23SEL_SHIFT     6
-
 #define RCC_D2CCIP1R_SWPSEL_PCLK        0x0
 #define RCC_D2CCIP1R_SWPSEL_HSI         0x1
 #define RCC_D2CCIP1R_FDCANSEL_HSE       0x0
 #define RCC_D2CCIP1R_FDCANSEL_PLL1Q     0x1
 #define RCC_D2CCIP1R_FDCANSEL_PLL2Q     0x2
-#define RCC_D2CCIP1R_FDCANSEL_MASK      0x3
 #define RCC_D2CCIP1R_DFSDM1SEL_PCLK2    0x0
 #define RCC_D2CCIP1R_DFSDM1SEL_SYSCLK   0x1
 #define RCC_D2CCIP1R_SPDIFSEL_PLL1Q     0x0
@@ -376,24 +378,18 @@ LGPL License Terms @ref lgpl_license
 #define RCC_D2CCIP1R_SPI45SEL_HSI       0x3
 #define RCC_D2CCIP1R_SPI45SEL_CSI       0x4
 #define RCC_D2CCIP1R_SPI45SEL_HSE       0x5
-#define RCC_D2CCIP1R_SPI45SEL_MASK      0x7
 #define RCC_D2CCIP1R_SPI123SEL_PLL1Q    0x0
 #define RCC_D2CCIP1R_SPI123SEL_PLL2P    0x1
 #define RCC_D2CCIP1R_SPI123SEL_PLL3P    0x2
 #define RCC_D2CCIP1R_SPI123SEL_I2SCKIN  0x3
 #define RCC_D2CCIP1R_SPI123SEL_PERCK    0x4
-#define RCC_D2CCIP1R_SPI123SEL_MASK     0x7
 #define RCC_D2CCIP1R_SAISEL_PLL1Q       0x0
 #define RCC_D2CCIP1R_SAISEL_PLL2P       0x1
 #define RCC_D2CCIP1R_SAISEL_PLL3P       0x2
 #define RCC_D2CCIP1R_SAISEL_I2SCKIN     0x3
 #define RCC_D2CCIP1R_SAISEL_PERCK       0x4
-#define RCC_D2CCIP1R_SAISEL_MASK        0x7
 /**@}*/
 
-/** @defgroup rcc_d2ccip2r_values RCC_D2CCIP2R Values
- * @ingroup rcc_registers
- * @{*/
 #define RCC_D2CCIP2R_LPTIM1SEL_SHIFT        28
 #define RCC_D2CCIP2R_CECSEL_SHIFT           22
 #define RCC_D2CCIP2R_USBSEL_SHIFT           20
@@ -401,7 +397,11 @@ LGPL License Terms @ref lgpl_license
 #define RCC_D2CCIP2R_RNGSEL_SHIFT           8
 #define RCC_D2CCIP2R_USART16SEL_SHIFT       3
 #define RCC_D2CCIP2R_USART234578SEL_SHIFT   0
+#define RCC_D2CCIP2R_USARTSEL_MASK          7
 
+/** @defgroup rcc_d2ccip2r_values RCC_D2CCIP2R Values
+ * @ingroup rcc_registers
+ * @{*/
 #define RCC_D2CCIP2R_USART16SEL_PCLK2       0
 #define RCC_D2CCIP2R_USART234578SEL_PCLK1   0
 #define RCC_D2CCIP2R_USARTSEL_PLL2Q         1
@@ -409,15 +409,13 @@ LGPL License Terms @ref lgpl_license
 #define RCC_D2CCIP2R_USARTSEL_HSI           3
 #define RCC_D2CCIP2R_USARTSEL_CSI           4
 #define RCC_D2CCIP2R_USARTSEL_LSE           5
-#define RCC_D2CCIP2R_USARTSEL_MASK          7
 /**@}*/
 
 
 #define RCC_HSI_BASE_FREQUENCY              64000000UL
 
-/** Enumerations for clocks in the clock tree to allow user to get the current configuration of the
- *  clocks from the RCC module. These clock sources will each be tracked through the settings.
- */
+/** Enumerations for core system/bus clocks for user/driver/system access to base bus clocks
+  * not directly associated with a peripheral. */
 enum rcc_clock_source {
   RCC_CPUCLK,
   RCC_SYSCLK,
@@ -429,22 +427,6 @@ enum rcc_clock_source {
   RCC_APB2CLK,          /* Note: APB2 and PCLK2 in manual */
   RCC_APB3CLK,          /* Note: APB3 and PCLK3 in manual */
   RCC_APB4CLK,          /* Note: APB4 and PCLK4 in manual */
-  RCC_FDCAN1CLK,        /* FDCAN controllers share a kernel clock */
-  RCC_FDCAN2CLK,
-  RCC_SPI1CLK,          /* SPI 1/2/3 share a kernel clock. */
-  RCC_SPI2CLK,
-  RCC_SPI3CLK,
-  RCC_SPI4CLK,          /* SPI 4/5 share kernel clock. */
-  RCC_SPI5CLK,
-  RCC_SPI6CLK,          /* SPI6 has its own kernel clock. */
-  RCC_USART1CLK,        /* USART 1/6 share kernel clock. */
-  RCC_USART6CLK,
-  RCC_USART2CLK,        /* USART 2/3/4/5/6/8 share kernel clock. */
-  RCC_USART3CLK,
-  RCC_USART4CLK,
-  RCC_USART5CLK,
-  RCC_USART7CLK,
-  RCC_USART8CLK,
 };
 
 enum rcc_osc {
@@ -455,22 +437,11 @@ enum rcc_osc {
   RCC_LSI
 };
 
-enum rcc_sysclk_mux {
-  RCC_SYSCLK_PLL,
-  RCC_SYSCLK_HSE,
-  RCC_SYSCLK_HSI,
-};
-
-enum rcc_pll_mux {
-  RCC_PLL_HSI = RCC_PLLCKSELR_PLLSRC_HSI,
-  RCC_PLL_HSE = RCC_PLLCKSELR_PLLSRC_HSE
-};
-
 /** PLL Configuration structure. */
 struct rcc_pll_config {
-  uint32_t hse_frequency;           /**< User configured external crystal frequency. */
-  enum rcc_sysclk_mux sysclk_mux;   /**< SYSCLK source input selection. */
-  enum rcc_pll_mux pll_mux;         /**< PLL source input selection. */
+  enum rcc_osc sysclock_source;     /**< SYSCLK source input selection. */
+  uint8_t pll_source;               /**< RCC_PLLCKSELR_PLLSRC_xxx value. */
+  uint32_t hse_frequency;           /**< User specified HSE frequency, 0 if none. */
   struct pll_config {
     uint8_t divm;                   /**< Pre-divider value for each PLL. 0-64 integers. */
     uint16_t divn;                  /**< Multiplier, 0-512 integer. */
@@ -478,12 +449,14 @@ struct rcc_pll_config {
     uint8_t divq;                   /**< Post divider for PLLQ clock. */
     uint8_t divr;                   /**< Post divider for PLLR clock. */
   } pll1, pll2, pll3;               /**< PLL1-PLL3 configurations. */
-  uint32_t d1cfg_core_prescale;     /**< Core prescaler for domain 1. */
-  uint32_t d1cfg_hclk3_prescale;    /**< HCLK3 prescaler for domain 1. */
-  uint32_t d1cfg_pclk3_prescale;    /**< APB3 Peripheral prescaler for domain 1. */
-  uint32_t d2cfg_pclk1_prescale;    /**< APB1 Peripheral prescaler for domain 2. */
-  uint32_t d2cfg_pclk2_prescale;    /**< APB2 Peripheral prescaler for domain 2. */
-  uint32_t d3cfg_pclk4_prescale;    /**< APB4 Peripheral prescaler for domain 3. */
+  uint8_t core_pre;                 /**< Core prescaler  note: domain 1. */
+  uint8_t hpre;                     /**< HCLK3 prescaler note: domain 1. */
+  uint8_t ppre1;                    /**< APB1 Peripheral prescaler note: domain 2. */
+  uint8_t ppre2;                    /**< APB2 Peripheral prescaler note: domain 2. */
+  uint8_t ppre3;                    /**< APB3 Peripheral prescaler note: domain 1. */
+  uint8_t ppre4;                    /**< APB4 Peripheral prescaler note: domain 3. */
+  uint8_t flash_waitstates;         /**< Latency Value to set for flahs. */
+  enum pwr_vos_scale voltage_scale; /**< LDO Voltage scale used for this frequency. */
 };
 
 #define _REG_BIT(base, bit)       (((base) << 5) + (bit))
@@ -721,6 +694,7 @@ enum rcc_periph_rst {
 /** @defgroup rcc_file RCC peripheral API
  *
  * @ingroup peripheral_apis
+ * @{
  */
 #include <libopencm3/stm32/common/rcc_common_all.h>
 
@@ -742,7 +716,7 @@ BEGIN_DECLS
 void rcc_clock_setup_pll(const struct rcc_pll_config *config);
 
 /**
- * Get the clock rate (in hz) of the specified clock source. There are
+ * Get the clock rate (in Hz) of the specified clock source. There are
  * numerous clock sources and configurations on the H7, so rates for each
  * configured peripheral clock are aimed to be discoverd/calculated by this
  * module such that the user does not need to know how the MCU is configured
@@ -750,29 +724,59 @@ void rcc_clock_setup_pll(const struct rcc_pll_config *config);
  * @param[in] source  Clock source desired to be fetched.
  * @return Clock rate in Hz for the specified clock. 0 if undefined or error.
  */
-uint32_t rcc_get_clock_freq(enum rcc_clock_source source);
+uint32_t rcc_get_bus_clk_freq(enum rcc_clock_source source);
+
+/**
+ * Get the clock rate (in Hz) of the specified peripheral. This will pull the
+ * proper sources out of the clock tree and calculate the clock for the
+ * peripheral for return to the user, based on current settings.
+ * @param[in] periph  Peripheral base address to get the clock rate for.
+ * @return Clock rate in Hz for the specified peripheral. 0 if undefined or error.
+ */
+uint32_t rcc_get_peripheral_clk_freq(uint32_t periph);
+
+/**
+ * Set the clksel value for the specified peripheral. This code will determine
+ * the appropriate register, shift and mask values to apply to the selection to
+ * and set the values appropriately.
+ *
+ * Peripheral specific clksels functions are also available,
+ * eg rcc_set_<periph>_clksel. These provide the same functionality, you only
+ * need one of them. for instance @ref rcc_set_fdcan_clksel or
+ * @ref rcc_set_spi123_clksel
+ * @param[in] periph Base address of the peripheral to set the clock sel for
+ * @param[in] clksel Raw, unshifted selection value for the clock, depending
+ * on peripheral, see @ref rcc_d1ccipr_values or @ref rcc_d2ccip1r_values or
+ * @ref rcc_d2ccip2r_values
+ */
+void rcc_set_peripheral_clk_sel(uint32_t periph, uint32_t clksel);
 
 /**
  * Set the clock select for the FDCAN devices.
- * @param[in] source  Clock source to configure FDCAN kernel clock for.
- *                    RCC_D2CCIP1R_FDCANSEL_XXX selections above.
+ * @param[in] clksel  Clock source to configure for, @ref rcc_d2ccip1r_values
+ * appropriate for the FDCAN peripherals, eg RCC_D2CCIP1R_FDCANSEL_XXX
+ * @sa rcc_set_peripheral_clk_sel for equivalent generic functionality
  */
-void rcc_set_fdcan_clksel(uint8_t fdcansel);
+void rcc_set_fdcan_clksel(uint8_t clksel);
+
 /**
  * Set the clock select for the SPI 1/2/3 devices.
- * @param[in] source  Clock source desired to be fetched. Choose from
- *                    RCC_D2CCIP1R_SPI123_XXX selections above.
+ * @param[in] clksel  Clock source to configure for, @ref rcc_d2ccip1r_values
+ * appropriate for the SPI1/2/3 peripherals, eg RCC_D2CCIP1R_SPI123_XXX
+ * @sa rcc_set_peripheral_clk_sel for equivalent generic functionality
  */
 void rcc_set_spi123_clksel(uint8_t clksel);
+
 /**
  * Set the clock select for the SPI 4/5 devices.
- * @param[in] source  Clock source desired to be fetched. Choose from
- *                    RCC_D2CCIP1R_SPI45_XXX selections above.
+ * @param[in] clksel  Clock source to configure for. @ref rcc_d2ccip1r_values
+ * @sa rcc_set_peripheral_clk_sel for equivalent generic functionality
  */
 void rcc_set_spi45_clksel(uint8_t clksel);
 
 
 END_DECLS
+/**@}*/
 /**@}*/
 
 #endif

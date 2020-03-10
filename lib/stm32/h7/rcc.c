@@ -110,10 +110,10 @@ static void rcc_set_and_enable_plls(const struct rcc_pll_config *config) {
 	RCC_PLLCKSELR = RCC_PLLCKSELR_DIVM1(config->pll1.divm) |
 					RCC_PLLCKSELR_DIVM2(config->pll2.divm) |
 					RCC_PLLCKSELR_DIVM3(config->pll3.divm) |
-					config->pll_mux;
+					config->pll_source;
 
-	uint32_t clkin = (config->pll_mux == RCC_PLL_HSI) ? RCC_HSI_BASE_FREQUENCY
-		: config->hse_frequency;
+	uint32_t clkin = (config->pll_source == RCC_PLLCKSELR_PLLSRC_HSI)
+		? RCC_HSI_BASE_FREQUENCY : config->hse_frequency;
 
 	RCC_PLLCFGR = 0;
 	rcc_configure_pll(clkin, &config->pll1, 1);
@@ -145,38 +145,37 @@ static uint16_t rcc_prediv_3bit_log_div(uint16_t clk_mhz, uint32_t div_val) {
 
 static void rcc_clock_setup_domain1(const struct rcc_pll_config *config) {
 	RCC_D1CFGR = 0;
-	RCC_D1CFGR |= config->d1cfg_core_prescale | config->d1cfg_hclk3_prescale |
-		config->d1cfg_pclk3_prescale;
+	RCC_D1CFGR |= RCC_D1CFGR_D1CPRE(config->core_pre)  |
+		RCC_D1CFGR_D1HPRE(config->hpre) | RCC_D1CFGR_D1PPRE(config->ppre3);
 
 	/* Update our clock values in our tree based on the config values. */
-	rcc_clock_tree.cpu_mhz =  rcc_prediv_log_skip32_div(rcc_clock_tree.sysclk_mhz,
-		config->d1cfg_core_prescale >> RCC_D1CFGR_D1CPRE_SHIFT);
-
-	rcc_clock_tree.hclk_mhz = rcc_prediv_log_skip32_div(rcc_clock_tree.cpu_mhz,
-		config->d1cfg_hclk3_prescale);
-
-	rcc_clock_tree.per.pclk3_mhz = rcc_prediv_3bit_log_div(rcc_clock_tree.hclk_mhz,
-		config->d1cfg_pclk3_prescale >> RCC_D1CFGR_D1PPRE_SHIFT);
+	rcc_clock_tree.cpu_mhz =
+		rcc_prediv_log_skip32_div(rcc_clock_tree.sysclk_mhz, config->core_pre);
+	rcc_clock_tree.hclk_mhz =
+		rcc_prediv_log_skip32_div(rcc_clock_tree.cpu_mhz, config->hpre);
+	rcc_clock_tree.per.pclk3_mhz =
+		rcc_prediv_3bit_log_div(rcc_clock_tree.hclk_mhz, config->ppre3);
 }
 
 static void rcc_clock_setup_domain2(const struct rcc_pll_config *config) {
 	RCC_D2CFGR  = 0;
-	RCC_D2CFGR |= config->d2cfg_pclk1_prescale | config->d2cfg_pclk2_prescale;
+	RCC_D2CFGR |= RCC_D2CFGR_D2PPRE1(config->ppre1) |
+		RCC_D2CFGR_D2PPRE2(config->ppre2);
 
 	/* Update our clock values in our tree based on the config values. */
-	rcc_clock_tree.per.pclk2_mhz = rcc_prediv_3bit_log_div(rcc_clock_tree.hclk_mhz,
-		config->d2cfg_pclk2_prescale >> RCC_D2CFGR_D2PPRE2_SHIFT);
-	rcc_clock_tree.per.pclk1_mhz = rcc_prediv_3bit_log_div(rcc_clock_tree.hclk_mhz,
-		config->d2cfg_pclk1_prescale >> RCC_D2CFGR_D2PPRE1_SHIFT);
+	rcc_clock_tree.per.pclk2_mhz =
+		rcc_prediv_3bit_log_div(rcc_clock_tree.hclk_mhz, config->ppre2);
+	rcc_clock_tree.per.pclk1_mhz =
+		rcc_prediv_3bit_log_div(rcc_clock_tree.hclk_mhz, config->ppre1);
 }
 
 static void rcc_clock_setup_domain3(const struct rcc_pll_config *config) {
 	RCC_D3CFGR &= 0;
-	RCC_D3CFGR |= config->d3cfg_pclk4_prescale;
+	RCC_D3CFGR |= RCC_D3CFGR_D3PPRE(config->ppre4);
 
 	/* Update our clock values in our tree based on the config values. */
-	rcc_clock_tree.per.pclk4_mhz = rcc_prediv_3bit_log_div(rcc_clock_tree.hclk_mhz,
-		config->d3cfg_pclk4_prescale >> RCC_D3CFGR_D3PPRE_SHIFT);
+	rcc_clock_tree.per.pclk4_mhz =
+		rcc_prediv_3bit_log_div(rcc_clock_tree.hclk_mhz, config->ppre4);
 }
 
 void rcc_clock_setup_pll(const struct rcc_pll_config *config) {
@@ -185,6 +184,18 @@ void rcc_clock_setup_pll(const struct rcc_pll_config *config) {
 	RCC_CFGR &= ~(RCC_CFGR_SW_MASK << RCC_CFGR_SW_SHIFT);
 	while (((RCC_CFGR >> RCC_CFGR_SWS_SHIFT) & RCC_CFGR_SWS_MASK) != RCC_CFGR_SWS_HSI);
 	RCC_CR = RCC_CR_HSION;
+
+	/* Now that we're safely running on HSI, let's setup the LDO. */
+	pwr_set_mode_ldo();
+	pwr_set_vos_scale(config->voltage_scale);
+
+	/* Set flash waitstates. Enable flash prefetch if we have at least 1WS */
+	flash_set_ws(config->flash_waitstates);
+	if (config->flash_waitstates > FLASH_ACR_LATENCY_0WS) {
+		flash_prefetch_enable();
+	} else {
+		flash_prefetch_disable();
+	}
 
 	/* User has specified an external oscillator, make sure we turn it on. */
 	if (config->hse_frequency > 0) {
@@ -197,9 +208,9 @@ void rcc_clock_setup_pll(const struct rcc_pll_config *config) {
 	rcc_set_and_enable_plls(config);
 
 	/* Populate our base sysclk settings for use with domain clocks. */
-	if (config->sysclk_mux == RCC_SYSCLK_PLL) {
+	if (config->sysclock_source == RCC_PLL) {
 		rcc_clock_tree.sysclk_mhz = rcc_clock_tree.pll1.p_mhz;
-	} else if (config->sysclk_mux == RCC_SYSCLK_HSE) {
+	} else if (config->sysclock_source == RCC_HSE) {
 		rcc_clock_tree.sysclk_mhz = config->hse_frequency / HZ_PER_MHZ;
 	} else {
 		rcc_clock_tree.sysclk_mhz = RCC_HSI_BASE_FREQUENCY / HZ_PER_MHZ;
@@ -220,7 +231,7 @@ void rcc_clock_setup_pll(const struct rcc_pll_config *config) {
 	}
 }
 
-uint32_t rcc_get_clock_freq(enum rcc_clock_source source) {
+uint32_t rcc_get_bus_clk_freq(enum rcc_clock_source source) {
 	uint32_t clksel;
 	switch (source) {
 		case RCC_SYSCLK:
@@ -248,8 +259,17 @@ uint32_t rcc_get_clock_freq(enum rcc_clock_source source) {
 			} else {
 				return 0U;
 			}
-		case RCC_FDCAN1CLK:
-		case RCC_FDCAN2CLK:
+		default:
+			cm3_assert_not_reached();
+			return 0U;
+	}
+}
+
+uint32_t rcc_get_peripheral_clk_freq(uint32_t periph) {
+	uint32_t clksel;
+	switch (periph) {
+		case FDCAN1_BASE:
+		case FDCAN2_BASE:
 			clksel = (RCC_D2CCIP1R >> RCC_D2CCIP1R_FDCANSEL_SHIFT) & RCC_D2CCIP1R_FDCANSEL_MASK;
 			if (clksel == RCC_D2CCIP1R_FDCANSEL_HSE) {
 				return rcc_clock_tree.hse_khz * HZ_PER_KHZ;
@@ -260,9 +280,9 @@ uint32_t rcc_get_clock_freq(enum rcc_clock_source source) {
 			} else {
 				return 0U;
 			}
-		case RCC_SPI1CLK:
-		case RCC_SPI2CLK:
-		case RCC_SPI3CLK:
+		case SPI1_BASE:
+		case SPI2_BASE:
+		case SPI3_BASE:
 			clksel = (RCC_D2CCIP1R >> RCC_D2CCIP1R_SPI123SEL_SHIFT) & RCC_D2CCIP1R_SPI123SEL_MASK;
 			if (clksel == RCC_D2CCIP1R_SPI123SEL_PLL1Q) {
 				return rcc_clock_tree.pll1.q_mhz * HZ_PER_MHZ;
@@ -271,15 +291,15 @@ uint32_t rcc_get_clock_freq(enum rcc_clock_source source) {
 			} else if (clksel == RCC_D2CCIP1R_SPI123SEL_PLL3P) {
 				return rcc_clock_tree.pll3.p_mhz * HZ_PER_MHZ;
 			} else if (clksel == RCC_D2CCIP1R_SPI123SEL_PERCK) {
-				return rcc_get_clock_freq(RCC_PERCLK);
+				return rcc_get_bus_clk_freq(RCC_PERCLK);
 			} else {
 				return 0U;
 			}
-		case RCC_SPI4CLK:
-		case RCC_SPI5CLK:
+		case SPI4_BASE:
+		case SPI5_BASE:
 			clksel = (RCC_D2CCIP1R >> RCC_D2CCIP1R_SPI45SEL_SHIFT) & RCC_D2CCIP1R_SPI45SEL_MASK;
 			if (clksel == RCC_D2CCIP1R_SPI45SEL_APB4){
-				return rcc_get_clock_freq(RCC_APB1CLK);
+				return rcc_get_bus_clk_freq(RCC_APB1CLK);
 			} else if (clksel == RCC_D2CCIP1R_SPI45SEL_PLL2Q){
 				return rcc_clock_tree.pll2.q_mhz * HZ_PER_MHZ;
 			} else if (clksel == RCC_D2CCIP1R_SPI45SEL_PLL3Q){
@@ -291,11 +311,11 @@ uint32_t rcc_get_clock_freq(enum rcc_clock_source source) {
 			} else {
 				return 0U;
 			}
-		case RCC_USART1CLK:
-		case RCC_USART6CLK:
+		case USART1_BASE:
+		case USART6_BASE:
 			clksel = (RCC_D2CCIP2R >> RCC_D2CCIP2R_USART16SEL_SHIFT) & RCC_D2CCIP2R_USARTSEL_MASK;
 			if (clksel == RCC_D2CCIP2R_USART16SEL_PCLK2) {
-				return rcc_get_clock_freq(RCC_APB2CLK);
+				return rcc_get_bus_clk_freq(RCC_APB2CLK);
 			} else if (clksel == RCC_D2CCIP2R_USARTSEL_PLL2Q) {
 				return rcc_clock_tree.pll2.q_mhz * HZ_PER_MHZ;
 			} else if (clksel == RCC_D2CCIP2R_USARTSEL_PLL3Q) {
@@ -305,15 +325,15 @@ uint32_t rcc_get_clock_freq(enum rcc_clock_source source) {
 			} else {
 				return 0U;
 			}
-		case RCC_USART2CLK:
-		case RCC_USART3CLK:
-		case RCC_USART4CLK:
-		case RCC_USART5CLK:
-		case RCC_USART7CLK:
-		case RCC_USART8CLK:
+		case USART2_BASE:
+		case USART3_BASE:
+		case UART4_BASE:
+		case UART5_BASE:
+		case UART7_BASE:
+		case UART8_BASE:
 			clksel = (RCC_D2CCIP2R >> RCC_D2CCIP2R_USART234578SEL_SHIFT) & RCC_D2CCIP2R_USARTSEL_MASK;
 			if (clksel == RCC_D2CCIP2R_USART234578SEL_PCLK1) {
-				return rcc_get_clock_freq(RCC_APB1CLK);
+				return rcc_get_bus_clk_freq(RCC_APB1CLK);
 			} else if (clksel == RCC_D2CCIP2R_USARTSEL_PLL2Q) {
 				return rcc_clock_tree.pll2.q_mhz * HZ_PER_MHZ;
 			} else if (clksel == RCC_D2CCIP2R_USARTSEL_PLL3Q) {
@@ -324,8 +344,61 @@ uint32_t rcc_get_clock_freq(enum rcc_clock_source source) {
 				return 0U;
 			}
 		default:
-			return 0U;
+			cm3_assert_not_reached();
+			return 0;
 	}
+}
+
+void rcc_set_peripheral_clk_sel(uint32_t periph, uint32_t sel) {
+	volatile uint32_t *reg;
+	uint32_t mask;
+	uint32_t val;
+
+	switch (periph) {
+		case FDCAN1_BASE:
+		case FDCAN2_BASE:
+			reg = &RCC_D2CCIP1R;
+			mask = RCC_D2CCIP1R_FDCANSEL_MASK << RCC_D2CCIP1R_FDCANSEL_SHIFT;
+			val = sel << RCC_D2CCIP1R_FDCANSEL_SHIFT;
+			break;
+		case SPI1_BASE:
+		case SPI2_BASE:
+		case SPI3_BASE:
+			reg = &RCC_D2CCIP2R;
+			mask = RCC_D2CCIP1R_SPI123SEL_MASK << RCC_D2CCIP1R_SPI123SEL_SHIFT;
+			val = sel << RCC_D2CCIP1R_SPI123SEL_SHIFT;
+			break;
+		case SPI4_BASE:
+		case SPI5_BASE:
+			reg = &RCC_D2CCIP1R;
+			mask = RCC_D2CCIP1R_SPI45SEL_MASK << RCC_D2CCIP1R_SPI45SEL_SHIFT;
+			val = sel << RCC_D2CCIP1R_SPI45SEL_SHIFT;
+			break;
+		case USART1_BASE:
+		case USART6_BASE:
+			reg = &RCC_D2CCIP2R;
+			mask = RCC_D2CCIP2R_USARTSEL_MASK << RCC_D2CCIP2R_USART16SEL_SHIFT;
+			val = sel << RCC_D2CCIP2R_USART16SEL_SHIFT;
+			break;
+		case USART2_BASE:
+		case USART3_BASE:
+		case UART4_BASE:
+		case UART5_BASE:
+		case UART7_BASE:
+		case UART8_BASE:
+			reg = &RCC_D2CCIP2R;
+			mask = RCC_D2CCIP2R_USARTSEL_MASK << RCC_D2CCIP2R_USART234578SEL_SHIFT;
+			val = sel << RCC_D2CCIP2R_USART234578SEL_SHIFT;
+			break;
+
+		default:
+			cm3_assert_not_reached();
+			return;
+	}
+
+	// Update the register value by masking and oring in new values.
+	uint32_t regval = (*reg & mask) | val;
+	*reg = regval;
 }
 
 void rcc_set_fdcan_clksel(uint8_t clksel) {
@@ -342,4 +415,3 @@ void rcc_set_spi45_clksel(uint8_t clksel) {
 	RCC_D2CCIP1R &= ~(RCC_D2CCIP1R_SPI45SEL_MASK << RCC_D2CCIP1R_SPI45SEL_SHIFT);
 	RCC_D2CCIP1R |= clksel << RCC_D2CCIP1R_SPI45SEL_SHIFT;
 }
-

@@ -61,12 +61,9 @@
 #define FLASH_OPTCR1			MMIO32(FLASH_MEM_INTERFACE_BASE + 0x18)
 /*@}*/
 
-/** @defgroup flash_acr_values FLASH_ACR values
- * @ingroup flash_registers
- * @brief Access Control register values
+/** @defgroup flash_latency FLASH Wait States
+@ingroup flash_defines
 @{*/
-#define FLASH_ACR_LATENCY_SHIFT		0
-#define FLASH_ACR_LATENCY_MASK		0x0f
 #define FLASH_ACR_LATENCY(w)		((w) & FLASH_ACR_LATENCY_MASK)
 #define FLASH_ACR_LATENCY_0WS          0x00
 #define FLASH_ACR_LATENCY_1WS          0x01
@@ -76,8 +73,16 @@
 #define FLASH_ACR_LATENCY_5WS          0x05
 #define FLASH_ACR_LATENCY_6WS          0x06
 #define FLASH_ACR_LATENCY_7WS          0x07
-#define FLASH_ACR_PRFTEN		(1 << 8)
 /*@}*/
+#define FLASH_ACR_LATENCY_SHIFT		0
+#define FLASH_ACR_LATENCY_MASK		0x0f
+
+/** @defgroup flash_acr_values FLASH_ACR values
+ * @ingroup flash_registers
+ * @brief Access Control register values
+ * @{*/
+#define FLASH_ACR_PRFTEN		(1 << 8)
+/**@}*/
 
 /* --- FLASH_SR values ----------------------------------------------------- */
 

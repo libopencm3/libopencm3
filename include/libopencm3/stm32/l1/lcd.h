@@ -12,7 +12,7 @@
  * @date 2 March 2014
  *
  * LGPL License Terms @ref lgpl_license
- *  */
+ */
 
 /*
  * This file is part of the libopencm3 project.
@@ -38,21 +38,17 @@
 #include <libopencm3/stm32/memorymap.h>
 #include <libopencm3/cm3/common.h>
 
-/* --- LCD registers ------------------------------------------------------ */
-/****************************************************************************/
-/** @defgroup lcd_reg_base LCD register base addresses
-@ingroup lcd_defines
-*/
-/* @{ */
-/* Control register */
+/** @defgroup lcd_registers LCD registers
+ * @{ */
+/** Control register */
 #define LCD_CR			MMIO32(LCD_BASE + 0x00)
-/* Frame control register */
+/** Frame control register */
 #define LCD_FCR			MMIO32(LCD_BASE + 0x04)
-/* Status register */
+/** Status register */
 #define LCD_SR			MMIO32(LCD_BASE + 0x08)
-/* Clear register */
+/** Clear register */
 #define LCD_CLR			MMIO32(LCD_BASE + 0x0C)
-/* @} */
+/**@}*/
 
 /* --- LCD display memory ------------------------------------------------- */
 /* Base address of display memory */

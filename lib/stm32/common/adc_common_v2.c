@@ -409,4 +409,22 @@ void adc_disable_dma_circular_mode(uint32_t adc)
 	ADC_CFGR1(adc) &= ~ADC_CFGR1_DMACFG;
 }
 
+/** Enable Delayed Conversion Mode.
+ *
+ * @param[in] adc ADC block register address base @ref adc_reg_base
+ */
+void adc_enable_delayed_conversion_mode(uint32_t adc)
+{
+	ADC_CFGR1(adc) |= ADC_CFGR1_AUTDLY;
+}
+
+/** Enable Delayed Conversion Mode.
+ *
+ * @param[in] adc ADC block register address base @ref adc_reg_base
+ */
+void adc_disable_delayed_conversion_mode(uint32_t adc)
+{
+	ADC_CFGR1(adc) &= ~ADC_CFGR1_AUTDLY;
+}
+
 /**@}*/
