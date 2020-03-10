@@ -88,9 +88,9 @@ LGPL License Terms @ref lgpl_license
 #define PWR_D3CR_VOS_SHIFT        14
 #define PWR_D3CR_VOSRDY           BIT13
 
-#define PWR_D3CR_VOS_SCALE_3      (0x3)
+#define PWR_D3CR_VOS_SCALE_3      (0x1)
 #define PWR_D3CR_VOS_SCALE_2      (0x2)
-#define PWR_D3CR_VOS_SCALE_1      (0x1)
+#define PWR_D3CR_VOS_SCALE_1      (0x3)
 #define PWR_D3CR_VOS_MASK         (0x03)
 
 /* --- Function prototypes ------------------------------------------------- */
