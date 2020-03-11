@@ -571,7 +571,8 @@ the newly defined group.
 @param[in] channel Unsigned int8[]. Set of channels in sequence, integers 0..31.
  */
 
-void adc_set_regular_sequence(uint32_t adc, uint8_t length, uint8_t channel[])
+void adc_set_regular_sequence(uint32_t adc, uint8_t length,
+			      const uint8_t channel[])
 {
 	uint32_t fifth6 = 0;
 	uint32_t fourth6 = 0;

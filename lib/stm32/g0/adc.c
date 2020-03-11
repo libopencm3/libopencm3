@@ -124,7 +124,8 @@ void adc_set_selection_sample_time(uint32_t adc, uint8_t selection, uint8_t time
  * @param[in] length Number of channels in the group, range 0..18
  * @param[in] channel Set of channels in sequence (0..18 or @ref adc_channel)
  */
-void adc_set_regular_sequence(uint32_t adc, uint8_t length, uint8_t channel[])
+void adc_set_regular_sequence(uint32_t adc, uint8_t length,
+			      const uint8_t channel[])
 {
 	uint32_t reg32 = 0;
 	bool stepup = false, stepdn = false;

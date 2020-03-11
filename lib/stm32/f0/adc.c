@@ -328,7 +328,8 @@ void adc_set_clk_source(uint32_t adc, uint32_t source)
  * 0..18.
  */
 
-void adc_set_regular_sequence(uint32_t adc, uint8_t length, uint8_t channel[])
+void adc_set_regular_sequence(uint32_t adc, uint8_t length,
+			      const uint8_t channel[])
 {
 	uint32_t reg32 = 0;
 	uint8_t i = 0;

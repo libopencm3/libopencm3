@@ -205,8 +205,8 @@ void adc_set_single_conversion_mode(uint32_t adc)
 
 /** @brief ADC Set Resolution
  *
- * ADC Resolution can be reduced from 12 bits to 10, 8 or 6 bits for a
- * corresponding reduction in conversion time.
+ * ADC Resolution can be reduced for a corresponding reduction in conversion
+ * time.
  *
  * @param[in] adc Unsigned int32. ADC base address (@ref adc_reg_base)
  * @param[in] resolution Unsigned int16. Resolution value (@ref adc_api_res)
@@ -216,13 +216,39 @@ void adc_set_resolution(uint32_t adc, uint16_t resolution)
 	ADC_CFGR1(adc) = (ADC_CFGR1(adc) & ~ADC_CFGR1_RES_MASK) | resolution;
 }
 
-/** @brief ADC Set the Data as Left Aligned
+/** @brief ADC Set the Data as Left Aligned assuming no sign extension.
  *
  * @param[in] adc Unsigned int32. ADC base address (@ref adc_reg_base)
  */
 void adc_set_left_aligned(uint32_t adc)
 {
+#ifndef ADC_CFGR2_LSHIFT_VAL
 	ADC_CFGR1(adc) |= ADC_CFGR1_ALIGN;
+#else
+	uint8_t resbits = 8;
+
+	switch (ADC_CFGR1(adc) & ADC_CFGR1_RES_MASK) {
+	case ADC_CFGR1_RES_16_BIT:
+		resbits = 16;
+		break;
+	case ADC_CFGR1_RES_14_BIT:
+		resbits = 14;
+		break;
+	case ADC_CFGR1_RES_12_BIT:
+		resbits = 12;
+		break;
+	case ADC_CFGR1_RES_10_BIT:
+		resbits = 10;
+		break;
+	case ADC_CFGR1_Y_RES_8_BIT:
+	case ADC_CFGR1_V_RES_8_BIT:
+		resbits = 8;
+		break;
+	}
+
+	ADC_CFGR2(adc) &= ~(ADC_CFGR2_LSHIFT_MASK | ADC_CFGR2_TROSM_MASK);
+	ADC_CFGR2(adc) |= ADC_CFGR2_LSHIFT_VAL(32 - resbits);
+#endif
 }
 
 /** @brief ADC Set the Data as Right Aligned
@@ -231,7 +257,11 @@ void adc_set_left_aligned(uint32_t adc)
  */
 void adc_set_right_aligned(uint32_t adc)
 {
+#ifndef ADC_CFGR2_LSHIFT_VAL
 	ADC_CFGR1(adc) &= ~ADC_CFGR1_ALIGN;
+#else
+	ADC_CFGR2(adc) &= ~(ADC_CFGR2_LSHIFT_MASK | ADC_CFGR2_TROSM_MASK);
+#endif
 }
 
 /** @brief ADC Enable DMA Transfers
@@ -240,7 +270,14 @@ void adc_set_right_aligned(uint32_t adc)
  */
 void adc_enable_dma(uint32_t adc)
 {
+#ifdef ADC_CFGR1_DMAEN
 	ADC_CFGR1(adc) |= ADC_CFGR1_DMAEN;
+#elif defined(ADC_CFGR1_DMNGT_MASK)
+	ADC_CFGR1(adc) &= ~ADC_CFGR1_DMNGT_MASK;
+	ADC_CFGR1(adc) |= ADC_CFGR1_DMNGT_DMA_CIRC;
+#else
+#error Do not know how to configure DMA
+#endif
 }
 
 /** @brief ADC Disable DMA Transfers
@@ -249,7 +286,14 @@ void adc_enable_dma(uint32_t adc)
  */
 void adc_disable_dma(uint32_t adc)
 {
+#ifdef ADC_CFGR1_DMAEN
 	ADC_CFGR1(adc) &= ~ADC_CFGR1_DMAEN;
+#elif defined(ADC_CFGR1_DMNGT_MASK)
+	ADC_CFGR1(adc) &= ~ADC_CFGR1_DMNGT_MASK;
+	ADC_CFGR1(adc) |= ADC_CFGR1_DMNGT_DMA_NONE;
+#else
+#error Do not know how to configure DMA
+#endif
 }
 
 /** @brief ADC Enable the Overrun Interrupt
@@ -391,13 +435,20 @@ void adc_start_conversion_regular(uint32_t adc)
 
 /** @brief Enable circular mode for DMA transfers
  *
- * For this to work it needs to be ebabled on the DMA side as well.
+ * For this to work it needs to be enabled on the DMA side as well.
  *
  * @param[in] adc Unsigned int32. ADC base address (@ref adc_reg_base)
  */
 void adc_enable_dma_circular_mode(uint32_t adc)
 {
+#ifdef ADC_CFGR1_DMACFG
 	ADC_CFGR1(adc) |= ADC_CFGR1_DMACFG;
+#elif defined(ADC_CFGR1_DMNGT_MASK)
+	ADC_CFGR1(adc) &= ~ADC_CFGR1_DMNGT_MASK;
+	ADC_CFGR1(adc) |= ADC_CFGR1_DMNGT_DMA_CIRC;
+#else
+#error Do not know how to configure DMA
+#endif
 }
 
 /** @brief Disable circular mode for DMA transfers
@@ -406,7 +457,14 @@ void adc_enable_dma_circular_mode(uint32_t adc)
  */
 void adc_disable_dma_circular_mode(uint32_t adc)
 {
+#ifdef ADC_CFGR1_DMACFG
 	ADC_CFGR1(adc) &= ~ADC_CFGR1_DMACFG;
+#elif defined(ADC_CFGR1_DMNGT_MASK)
+	ADC_CFGR1(adc) &= ~ADC_CFGR1_DMNGT_MASK;
+	ADC_CFGR1(adc) |= ADC_CFGR1_DMNGT_DMA_ONCE;
+#else
+#error Do not know how to configure DMA
+#endif
 }
 
 /** Enable Delayed Conversion Mode.

@@ -98,7 +98,8 @@
 #define USB2_OTG_FS_BASE    0x40080000U
 #define USB1_OTG_HS_BASE    0x40040000U
 #define ETHERNET_MAC_BASE   0x40028000U
-#define ADC1_ADC2_BASE      0x40022000U
+#define ADC1_BASE           0x40022000U
+#define ADC2_BASE           (ADC1_BASE + 0x100U)
 #define DMAMUX1_BASE        0x40020800U
 #define DMA2_BASE           0x40020400U
 #define DMA1_BASE           0x40020000U
@@ -153,5 +154,8 @@
 #define TIM4_BASE           0x40000800U
 #define TIM3_BASE           0x40000400U
 #define TIM2_BASE           0x40000000U
+
+/* APB-D Peripherals */
+#define DBGMCU_BASE         0x5C001000
 
 #endif

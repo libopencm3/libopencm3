@@ -50,11 +50,13 @@ specific memorymap.h header before including this header file.*/
 #define ADC_CFGR2(adc)			MMIO32((adc) + 0x10)
 /** Sample Time Register 1 */
 #define ADC_SMPR1(adc)			MMIO32((adc) + 0x14)
+#ifndef STM32H7
 /** Watchdog Threshold Register 1*/
 #define ADC_TR1(adc)			MMIO32((adc) + 0x20)
+#endif /* STM32H7 */
 /** Regular Data Register */
 #define ADC_DR(adc)			MMIO32((adc) + 0x40)
-/* CALFACT for all but f0 :(*/
+/* CALFACT for all but f0 :( */
 
 /** Common Configuration register */
 #define ADC_CCR(adc)		MMIO32((adc) + 0x300 + 0x8)
@@ -150,6 +152,7 @@ specific memorymap.h header before including this header file.*/
 #define ADC_CFGR1_EXTEN_BOTH_EDGES	(0x3 << 10)
 /**@}*/
 
+#ifndef STM32H7
 /** ALIGN: Data alignment */
 #define ADC_CFGR1_ALIGN		(1 << 5)
 
@@ -167,6 +170,7 @@ specific memorymap.h header before including this header file.*/
 
 /** DMAEN: Direct memory access enable */
 #define ADC_CFGR1_DMAEN		(1 << 0)
+#endif /* STM32H7 */
 
 /**@}*/
 
@@ -230,7 +234,8 @@ bool adc_is_calibrating(uint32_t adc);
 void adc_calibrate(uint32_t adc);
 void adc_set_continuous_conversion_mode(uint32_t adc);
 void adc_set_single_conversion_mode(uint32_t adc);
-void adc_set_regular_sequence(uint32_t adc, uint8_t length, uint8_t channel[]);
+void adc_set_regular_sequence(uint32_t adc, uint8_t length,
+			      const uint8_t channel[]);
 void adc_set_sample_time_on_all_channels(uint32_t adc, uint8_t time);
 void adc_enable_temperature_sensor(void);
 void adc_disable_temperature_sensor(void);
