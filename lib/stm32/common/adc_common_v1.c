@@ -628,7 +628,8 @@ conversion is reset and conversion begins again with the newly defined group.
 @param[in] channel Unsigned int8[]. Set of channels in sequence, integers 0..18
 */
 
-void adc_set_injected_sequence(uint32_t adc, uint8_t length, uint8_t channel[])
+void adc_set_injected_sequence(uint32_t adc, uint8_t length,
+			       const uint8_t channel[])
 {
 	uint32_t reg32 = 0;
 	uint8_t i = 0;

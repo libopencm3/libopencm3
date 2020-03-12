@@ -458,7 +458,8 @@ void adc_set_watchdog_low_threshold(uint32_t adc, uint16_t threshold)
  * 0..18
  */
 
-void adc_set_injected_sequence(uint32_t adc, uint8_t length, uint8_t channel[])
+void adc_set_injected_sequence(uint32_t adc, uint8_t length,
+			       const uint8_t channel[])
 {
 	uint32_t reg32 = 0;
 	uint8_t i = 0;
