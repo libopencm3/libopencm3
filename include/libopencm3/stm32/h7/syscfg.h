@@ -37,6 +37,7 @@
 /**@defgroup syscfg_registers SYSCFG Registers
 ￼  @{*/
 #define SYSCFG_PMCR				MMIO32(SYSCFG_BASE + 0x04)
+#define SYSCFG_EXTICR(i)			MMIO32(SYSCFG_BASE + 0x08 + (i)*4)
 #define SYSCFG_EXTICR1			MMIO32(SYSCFG_BASE + 0x08)
 #define SYSCFG_EXTICR2			MMIO32(SYSCFG_BASE + 0x0C)
 #define SYSCFG_EXTICR3			MMIO32(SYSCFG_BASE + 0x10)
@@ -48,7 +49,11 @@
 #define SYSCFG_PWRCR				MMIO32(SYSCFG_BASE + 0x2C)
 #define SYSCFG_PKGR				MMIO32(SYSCFG_BASE + 0x124)
 #define SYSCFG_UR(n)      MMIO32(SYSCFG_BASE + 0x300 + (4 * (n)))
+
+#define SYSCFG_EXTICR_FIELDSIZE		4
 /**@}*/
+
+
 
 /** @defgroup syscfg_pwrcr PWRCR SYSCFG configuration register
  * @ingroup syscfg_registers
