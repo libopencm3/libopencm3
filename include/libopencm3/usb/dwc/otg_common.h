@@ -253,6 +253,9 @@
 #define OTG_DCFG_DAD		0x07F0
 #define OTG_DCFG_PFIVL		0x1800
 
+/* OTG device status register (OTG_DSTS) */
+#define OTG_DSTS_SUSPSTS	(1 << 0)
+
 /* OTG Device IN Endpoint Common Interrupt Mask Register (OTG_DIEPMSK) */
 /* Bits 31:10 - Reserved */
 #define OTG_DIEPMSK_BIM		(1 << 9)
