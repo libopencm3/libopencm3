@@ -389,6 +389,46 @@ void spi_enable_rx_dma(uint32_t spi);
 void spi_disable_rx_dma(uint32_t spi);
 void spi_set_standard_mode(uint32_t spi, uint8_t mode);
 
+/**
+ * I2S wire protocol standards
+ */
+enum i2s_standards
+{
+	i2s_standard_philips = SPI_I2SCFGR_I2SSTD_I2S_PHILIPS,
+	i2s_standard_msbjustified = SPI_I2SCFGR_I2SSTD_MSB_JUSTIFIED,
+	i2s_standard_lsbjustified = SPI_I2SCFGR_I2SSTD_LSB_JUSTIFIED,
+	i2s_standard_pcm = SPI_I2SCFGR_I2SSTD_PCM
+};
+
+/**
+ * Selection of possible channel and data widths
+ */
+enum i2s_dataformats
+{
+	i2s_dataframe_ch16_data16 = 0 | SPI_I2SCFGR_DATLEN_16BIT << SPI_I2SCFGR_DATLEN_LSB,
+	i2s_dataframe_ch32_data16 = 1 | SPI_I2SCFGR_DATLEN_16BIT << SPI_I2SCFGR_DATLEN_LSB,
+	i2s_dataframe_ch32_data24 = 1 | SPI_I2SCFGR_DATLEN_24BIT << SPI_I2SCFGR_DATLEN_LSB,
+	i2s_dataframe_ch32_data32 = 1 | SPI_I2SCFGR_DATLEN_32BIT << SPI_I2SCFGR_DATLEN_LSB,
+};
+
+/**
+ * I2S transmission modes
+ */
+enum i2s_modes{
+	i2s_mode_slave_transmit = SPI_I2SCFGR_I2SCFG_SLAVE_TRANSMIT,
+	i2s_mode_slave_receive  = SPI_I2SCFGR_I2SCFG_SLAVE_RECEIVE,
+	i2s_mode_master_transmit =SPI_I2SCFGR_I2SCFG_MASTER_TRANSMIT,
+	i2s_mode_master_receive  =SPI_I2SCFGR_I2SCFG_MASTER_RECEIVE
+};
+
+void i2s_enable(uint32_t spi);
+void i2s_disable(uint32_t spi);
+void i2s_set_standard(uint32_t spi, enum i2s_standards);
+void i2s_set_dataformat(uint32_t spi, enum i2s_dataformats);
+void i2s_set_mode(uint32_t spi, enum i2s_modes);
+void i2s_masterclock_enable(uint32_t spi);
+void i2s_set_clockdiv(uint32_t spi, uint32_t i2sdiv, uint8_t odd);
+
 END_DECLS
 
 /**@}*/

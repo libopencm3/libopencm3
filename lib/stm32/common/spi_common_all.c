@@ -725,4 +725,104 @@ void spi_set_standard_mode(uint32_t spi, uint8_t mode)
 	SPI_CR1(spi) = reg32 | mode;
 }
 
+
+/*---------------------------------------------------------------------------*/
+/** @brief I2S Enable the SPI/I2S hardware
+ * @param[in] spi Unsigned int32. SPI peripheral identifier @ref spi_reg_base.
+ */
+void i2s_enable(uint32_t spi)
+{
+	SPI_I2SCFGR(spi) |= SPI_I2SCFGR_I2SMOD;
+	SPI_I2SCFGR(spi) |= SPI_I2SCFGR_I2SE;
+}
+
+/** @brief I2S Disable the SPI/I2S hardware
+ * @param[in] spi Unsigned int32. SPI peripheral identifier @ref spi_reg_base.
+ */
+void i2s_disable(uint32_t spi)
+{
+	SPI_I2SCFGR(spi) &= ~SPI_I2SCFGR_I2SE;
+}
+
+/** @brief Select I2S standard.
+ *
+ * Select the I2S standard to use: Philips, MSB or LSB justified
+ * or PCM.
+ * I2S must be disabled when calling this function.
+ * @param[in] spi Unsigned int32. SPI peripheral identifier @ref spi_reg_base.
+ * @param[in] std i2s_standard to select. @ref i2s_standards
+ */
+void i2s_set_standard(uint32_t spi, enum i2s_standards std)
+{
+	/* Clear and write the two I2SSTD bits in I2SCFGR */
+	uint32_t reg = SPI_I2SCFGR(spi);
+	reg &= ~(0x3<<SPI_I2SCFGR_I2SSTD_LSB);
+	reg |= std << SPI_I2SCFGR_I2SSTD_LSB;
+	SPI_I2SCFGR(spi) = reg;
+}
+
+/** @brief Set I2S dataformat.
+ *
+ * This selects the channel and data lenghts.
+ * Allowed values are 16, 24 or 32 for data length.
+ * For 16 bit data only, a channel lenght of 16 or 32 can be selected.
+ * Selecting 24 and 32 bit makes the channel 32bit
+ * I2S must be disabled when calling this function.
+ * @param[in] spi Unsigned int32. SPI peripheral identifier @ref spi_reg_base.
+ * @param[in] format i2s_dataformats to select. @ref i2s_dataformats
+ */
+void i2s_set_dataformat(uint32_t spi, enum i2s_dataformats format)
+{
+	/* Clear and write the three lowest bits.
+	 * Here we expect the enum to have correct bitpattern!*/
+	uint32_t reg = SPI_I2SCFGR(spi);
+	reg &= ~0x7;
+	reg |= format;
+	SPI_I2SCFGR(spi) = reg;
+}
+
+/** @brief Enable generating master clock
+ * 
+ * @param[in] spi Unsigned int32. SPI peripheral identifier @ref spi_reg_base.
+ */
+void i2s_masterclock_enable(uint32_t spi)
+{
+	SPI_I2SPR(spi) |= SPI_I2SPR_MCKOE;
+}
+
+/** @brief Set I2S prescaler clock divisor
+ * The divisor defines the audio sampling frequency together with the
+ * input I2S input clock (set by @ref rcc_clock_setup_pll).
+ * The sampling frequency equation is given in the chip reference manual
+ * as (when master clock output is enabled):
+ * Fs = I2Sclk / (256*((2*I2SDIV + ODD) * 8)
+ * or (when master clock is not enabled)
+ * Fs = I2Sclk / (32*((2*I2SDIV + ODD))  for a 16 bit channel
+ * Fs = I2Sclk / (64*((2*I2SDIV + ODD))  for a 32 bit channel
+ *
+ * @param[in] spi Unsigned int32. SPI peripheral identifier @ref spi_reg_base.
+ * @param[in] i2sdiv the I2SDIV value
+ */
+void i2s_set_clockdiv(uint32_t spi, uint32_t i2sdiv, uint8_t odd )
+{
+	SPI_I2SPR(spi) &= 0xfe00;
+	SPI_I2SPR(spi) |= i2sdiv;
+	SPI_I2SPR(spi) |= (!!odd)<<8;
+}
+
+
+/** @brief Set the I2S mode.
+ * I.e. master/slave receive/transmit.
+ *
+ * @param[in] spi Unsigned int32. SPI peripheral identifier @ref spi_reg_base.
+ * @param[in] mode @ref i2s_modes
+ */
+void i2s_set_mode(uint32_t spi, enum i2s_modes mode)
+{
+	uint16_t reg = SPI_I2SCFGR(spi);
+	reg &= ~(0x3 << SPI_I2SCFGR_I2SCFG_LSB);
+	reg |= mode << SPI_I2SCFGR_I2SCFG_LSB;
+	SPI_I2SCFGR(spi) = reg;
+}
+
 /**@}*/
