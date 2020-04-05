@@ -80,9 +80,9 @@
 @{*/
 
 /** FLASH_KEYR_KEY1 Flash key 1 **/
-#define FLASH_KEYR_KEY1			((uint32_t)0x08192a3b)
+#define FLASH_KEYR_KEY1			((uint32_t)0x45670123)
 /** FLASH_KEYR_KEY2 Flash key 2 **/
-#define FLASH_KEYR_KEY2			((uint32_t)0x4c5d6e7f)
+#define FLASH_KEYR_KEY2			((uint32_t)0xcdef89ab)
 
 /**@}*/
 
@@ -90,9 +90,9 @@
 @{*/
 
 /** FLASH_OPTKEYR_KEY1 Option key 1 **/
-#define FLASH_OPTKEYR_KEY1		FLASH_KEYR_KEY1
+#define FLASH_OPTKEYR_KEY1		((uint32_t)0x08192a3b)
 /** FLASH_OPTKEYR_KEY2 Option key 2 **/
-#define FLASH_OPTKEYR_KEY2		FLASH_KEYR_KEY2
+#define FLASH_OPTKEYR_KEY2		((uint32_t)0x4c5d6e7f)
 
 /**@}*/
 
