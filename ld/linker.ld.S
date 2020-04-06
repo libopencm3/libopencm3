@@ -32,6 +32,9 @@ MEMORY
 	/* RAM is always used */
 	ram (rwx) : ORIGIN = _RAM_OFF, LENGTH = _RAM
 
+#if defined(_ISR)
+	isr (rx) : ORIGIN = _ISR_OFF, LENGTH = _ISR
+#endif
 #if defined(_ROM)
 	rom (rx) : ORIGIN = _ROM_OFF, LENGTH = _ROM
 #endif
@@ -70,8 +73,16 @@ MEMORY
 /* Define sections. */
 SECTIONS
 {
+#if defined (_ISR)
+	.vectors : {
+		. = ALIGN(4);
+		KEEP(*(.vectors)) /* Vector table */
+	} >isr
+#endif
 	.text : {
+#if !defined (_ISR)
 		*(.vectors)	/* Vector table */
+#endif
 		*(.text*)	/* Program code */
 		. = ALIGN(4);
 		*(.rodata*)	/* Read-only data */
