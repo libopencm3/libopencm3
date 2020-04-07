@@ -427,7 +427,7 @@ void i2s_set_standard(uint32_t spi, enum i2s_standards);
 void i2s_set_dataformat(uint32_t spi, enum i2s_dataformats);
 void i2s_set_mode(uint32_t spi, enum i2s_modes);
 void i2s_masterclock_enable(uint32_t spi);
-void i2s_set_clockdiv(uint32_t spi, uint32_t i2sdiv, uint8_t odd);
+void i2s_set_clockdiv(uint32_t spi, uint32_t i2sdiv, bool odd);
 
 END_DECLS
 

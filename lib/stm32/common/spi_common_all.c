@@ -801,13 +801,14 @@ void i2s_masterclock_enable(uint32_t spi)
  * Fs = I2Sclk / (64*((2*I2SDIV + ODD))  for a 32 bit channel
  *
  * @param[in] spi Unsigned int32. SPI peripheral identifier @ref spi_reg_base.
- * @param[in] i2sdiv the I2SDIV value
+ * @param[in] i2sdiv integer value in the equation above. Valid range is 2-255, inclusive.
+ * @param[in] odd the ODD bit value in equation above.
  */
-void i2s_set_clockdiv(uint32_t spi, uint32_t i2sdiv, uint8_t odd )
+void i2s_set_clockdiv(uint32_t spi, uint32_t i2sdiv, bool odd)
 {
 	SPI_I2SPR(spi) &= 0xfe00;
 	SPI_I2SPR(spi) |= i2sdiv;
-	SPI_I2SPR(spi) |= (!!odd)<<8;
+	SPI_I2SPR(spi) |= odd<<8;
 }
 
 
