@@ -99,6 +99,11 @@ specific memorymap.h header before including this header file.*/
 #define I2C1_TRISE			I2C_TRISE(I2C1)
 #define I2C2_TRISE			I2C_TRISE(I2C2)
 
+/* FLTR register (I2Cx_FLTR) (noise filter) */
+#define I2C_FLTR(i2c_base)		MMIO32((i2c_base) + 0x24)
+#define I2C1_FLTR			I2C_FLTR(I2C1)
+#define I2C2_FLTR			I2C_FLTR(I2C2)
+
 /* Not all parts have i2c3 */
 #ifdef I2C3_BASE
 #define I2C3_CR1			I2C_CR1(I2C3)
@@ -110,6 +115,7 @@ specific memorymap.h header before including this header file.*/
 #define I2C3_SR2			I2C_SR2(I2C3)
 #define I2C3_CCR			I2C_CCR(I2C3)
 #define I2C3_TRISE			I2C_TRISE(I2C3)
+#define I2C3_FLTR			I2C_FLTR(I2C3)
 #endif
 
 /* --- I2Cx_CR1 values ----------------------------------------------------- */
@@ -364,6 +370,23 @@ specific memorymap.h header before including this header file.*/
  * Bits [5:0]:
  * TRISE[5:0]: Maximum rise time in Fast/Standard mode (master mode)
  */
+
+/* --- I2Cx_FLTR values ----------------------------------------------------- */
+
+/*
+ * Bits [3:0] DNF - Digital noise filter
+ * These bits configure a digital noise filter on SDA and SCL pins.
+ * Value sets minimum pulse width needed to trigger i2c operations.
+ * 0 disables, 1 - 15 set minimum width to 'n' * TPCLK1
+ */
+#define	I2C_FLTR_DNF_MASK	0xf
+#define I2C_FLTR_DNF_SHIFT	0
+
+/*
+ * Bit 4 - Analog Noise filter disable
+ * Turns off the built in analog noise filter.
+ */
+#define I2C_FLTR_ANOFF		(1<<4)
 
 /* --- I2C constant definitions -------------------------------------------- */
 
