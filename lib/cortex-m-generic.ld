@@ -33,7 +33,7 @@ INCLUDE cortex-m-generic.ld
 
 */
 
-/* Enforce emmition of the vector table. */
+/* Enforce visibility of the vector table. */
 EXTERN (vector_table)
 
 /* Define the entry point of the output file. */
