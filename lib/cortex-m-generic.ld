@@ -43,15 +43,15 @@ ENTRY(reset_handler)
 SECTIONS
 {
 	.text : {
-		*(.vectors)	/* Vector table */
-		*(.text*)	/* Program code */
+		*(.vectors)	/* Vector table. */
+		*(.text*)	/* Program code. */
 		. = ALIGN(4);
-		*(.rodata*)	/* Read-only data */
+		*(.rodata*)	/* Read-only data. */
 		. = ALIGN(4);
 	} >rom
 
 	/* C++ Static constructors/destructors, also used for __attribute__
-	 * ((constructor)) and the likes */
+	 * ((constructor)) and the likes. */
 	.preinit_array : {
 		. = ALIGN(4);
 		__preinit_array_start = .;
@@ -73,10 +73,8 @@ SECTIONS
 		__fini_array_end = .;
 	} >rom
 
-	/*
-	 * Another section used by C++ stuff, appears when using newlib with
-	 * 64bit (long long) printf support
-	 */
+	/* Another section used by C++ stuff, appears when using newlib with
+	 * 64bit (long long) printf support. */
 	.ARM.extab : {
 		*(.ARM.extab*)
 	} >rom
@@ -91,28 +89,27 @@ SECTIONS
 
 	.data : {
 		_data = .;
-		*(.data*)	/* Read-write initialized data */
+		*(.data*)	/* Read-write initialized data. */
 		. = ALIGN(4);
 		_edata = .;
 	} >ram AT >rom
 	_data_loadaddr = LOADADDR(.data);
 
 	.bss : {
-		*(.bss*)	/* Read-write zero initialized data */
+		*(.bss*)	/* Read-write zero initialized data. */
 		*(COMMON)
 		. = ALIGN(4);
 		_ebss = .;
 	} >ram
 
-	/*
-	 * The .eh_frame section appears to be used for C++ exception handling.
-	 * You may need to fix this if you're using C++.
-	 */
+	/* The .eh_frame section appears to be used for C++ exception handling.
+	 * You may need to fix this if you're using C++. */
 	/DISCARD/ : { *(.eh_frame) }
 
 	. = ALIGN(4);
 	end = .;
 }
 
+/* Point to the very end of the RAM. */
 PROVIDE(_stack = ORIGIN(ram) + LENGTH(ram));
 
