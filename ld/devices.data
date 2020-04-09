@@ -248,6 +248,14 @@ stm32g0[78][01]?b* stm32g0 ROM=128K RAM=36K
 stm32g0[BC]1?c* stm32g0 ROM=256K RAM=128K
 stm32g0[BC]1?e* stm32g0 ROM=512K RAM=128K
 
+stm32g4?1?6* stm32g4 ROM=32K RAM=32K
+stm32g4?1?8* stm32g4 ROM=64K RAM=32K
+stm32g4?1?b* stm32g4 ROM=128K RAM=32K
+stm32g4?1?c* stm32g4 ROM=256K RAM=112K
+stm32g4?[34]?b* stm32g4 ROM=128K RAM=128K
+stm32g4?[34]?c* stm32g4 ROM=256K RAM=128K
+stm32g4?[34]?e* stm32g4 ROM=512K RAM=128K
+
 ################################################################################
 # the SAM3 chips
 

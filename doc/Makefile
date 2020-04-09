@@ -6,7 +6,7 @@
 # setup TARGETS if not set for legacy and ease of debug.
 TARGETS ?= stm32/f0 stm32/f1 stm32/f2 stm32/f3 stm32/f4 stm32/f7 stm32/h7 \
 		   stm32/l0 stm32/l1 stm32/l4 \
-		   stm32/g0 \
+		   stm32/g0 stm32/g4 \
 		   gd32/f1x0 \
 		   efm32/g efm32/gg efm32/hg efm32/lg efm32/tg \
 		   efm32/wg efm32/ezr32wg \
