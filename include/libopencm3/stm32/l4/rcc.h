@@ -681,7 +681,8 @@ Twelve frequency ranges are available: 100 kHz, 200 kHz, 400 kHz, 800 kHz,
 #define RCC_BDCR_RTCSEL_SHIFT		8
 #define RCC_BDCR_RTCSEL_MASK		0x3
 
-#define RCC_BDCR_LSECSSD			(1 << 7)
+#define RCC_BDCR_LSESYSDIS			(1 << 7)
+#define RCC_BDCR_LSECSSD			(1 << 6)
 #define RCC_BDCR_LSECSSON			(1 << 5)
 
 #define RCC_BDCR_LSEDRV_LOW		0
