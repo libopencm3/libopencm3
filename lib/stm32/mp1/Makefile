@@ -38,6 +38,7 @@ TGT_CFLAGS	+= $(STANDARD_FLAGS)
 ARFLAGS		= rcs
 
 OBJS += gpio_common_all.o gpio_common_f0234.o
+OBJS += rcc.o
 
 VPATH += ../../usb:../:../../cm3:../common
 VPATH += ../../ethernet
