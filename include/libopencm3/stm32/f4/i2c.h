@@ -31,17 +31,20 @@ LGPL License Terms @ref lgpl_license
 #ifndef LIBOPENCM3_I2C_H
 #define LIBOPENCM3_I2C_H
 
+#include <libopencm3/stm32/f4/memorymap.h>
 #include <libopencm3/stm32/common/i2c_common_v1.h>
+
+/**
+@ingroup i2c_defines
+@{*/
 
 /* FLTR register (I2Cx_FLTR) (noise filter) */
 #define I2C_FLTR(i2c_base)		MMIO32((i2c_base) + 0x24)
 #define I2C1_FLTR			I2C_FLTR(I2C1)
 #define I2C2_FLTR			I2C_FLTR(I2C2)
-
-/* In case ST makes an F4 without an I2C3 */ 
-#ifdef I2C3_BASE
 #define I2C3_FLTR			I2C_FLTR(I2C3)
-#endif
+
+/**@}*/
 
 /* --- I2Cx_FLTR values ----------------------------------------------------- */
 
