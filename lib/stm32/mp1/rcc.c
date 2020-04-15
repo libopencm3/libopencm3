@@ -41,7 +41,8 @@
  * @sa rcc_periph_clock_enable for a less error prone version, if you only
  * need to enable a single peripheral.
  *
- * @param[in] *reg Unsigned int32. Pointer to a Clock Enable Register
+ * @param[in] *reg Unsigned int32. Pointer to a Clock Enable Register:
+ *   (RCC_MC_*ENSETR)
  *
  * @param[in] en Unsigned int32. Logical OR of all enables to be set
  */
@@ -60,13 +61,52 @@ void rcc_peripheral_enable_clock(volatile uint32_t *reg, uint32_t en)
  * @sa rcc_periph_clock_disable for a less error prone version, if you only
  * need to disable a single peripheral.
  *
- * @param[in] *reg Unsigned int32. Pointer to a Clock Enable Register
+ * @param[in] *reg Unsigned int32. Pointer to a Clock Enable Register:
+ *   (RCC_MC_*ENCLRR)
  * @param[in] en Unsigned int32. Logical OR of all enables to be used for
  * disabling.
  */
 void rcc_peripheral_disable_clock(volatile uint32_t *reg, uint32_t en)
 {
 	*reg = en;
+}
+
+/*---------------------------------------------------------------------------*/
+/** @brief RCC Reset Peripherals.
+ *
+ * Reset particular peripherals. Several peripherals could be reset
+ * simultaneously <em>only if they are controlled by the same register</em>.
+ * @sa rcc_periph_reset_hold for a less error prone version, if you only
+ * need to reset a single peripheral.
+ * @sa rcc_periph_reset_pulse if you are only going to toggle reset anyway.
+ *
+ * @param[in] *reg Unsigned int32. Pointer to a Set Reset Register
+ *   (RCC_*RSTSETR)
+ * @param[in] reset Unsigned int32. Logical OR of all resets.
+ */
+void rcc_peripheral_reset(volatile uint32_t *reg, uint32_t reset)
+{
+	*reg = reset;
+}
+
+/*---------------------------------------------------------------------------*/
+/** @brief RCC Remove Reset on Peripherals.
+ *
+ * Remove the reset on particular peripherals. Several peripherals could have
+ * the reset removed simultaneously <em>only if they are controlled by the same
+ * register</em>.
+ * @sa rcc_periph_reset_release for a less error prone version, if you only
+ * need to unreset a single peripheral.
+ * @sa rcc_periph_reset_pulse if you are only going to toggle reset anyway.
+ *
+ * @param[in] *reg Unsigned int32. Pointer to a Clear Reset Register
+ *   (RCC_*RSTCLRR)
+ * @param[in] clear_reset Unsigned int32. Logical OR of all resets to be
+ * removed.
+ */
+void rcc_peripheral_clear_reset(volatile uint32_t *reg, uint32_t clear_reset)
+{
+	*reg = clear_reset;
 }
 
 /*---------------------------------------------------------------------------*/
@@ -97,6 +137,53 @@ void rcc_periph_clock_disable(enum rcc_periph_clken clken)
 {
 	_RCC_CLR_REG(clken) = _RCC_BIT(clken);
 }
+
+/*---------------------------------------------------------------------------*/
+/** @brief Reset Peripheral, pulsed
+ *
+ * Reset particular peripheral, and restore to working state.
+ *
+ * @param[in] rst rcc_periph_rst Peripheral reset
+ *
+ * For available constants, see #rcc_periph_rst (RST_UART1 for example)
+ */
+
+void rcc_periph_reset_pulse(enum rcc_periph_rst rst)
+{
+	_RCC_SET_REG(rst) = _RCC_BIT(rst);
+	_RCC_CLR_REG(rst) = _RCC_BIT(rst);
+}
+
+/*---------------------------------------------------------------------------*/
+/** @brief Reset Peripheral, hold
+ *
+ * Reset particular peripheral, and hold in reset state.
+ *
+ * @param[in] rst rcc_periph_rst Peripheral reset
+ *
+ * For available constants, see #rcc_periph_rst (RST_UART1 for example)
+ */
+
+void rcc_periph_reset_hold(enum rcc_periph_rst rst)
+{
+	_RCC_SET_REG(rst) = _RCC_BIT(rst);
+}
+
+/*---------------------------------------------------------------------------*/
+/** @brief Reset Peripheral, release
+ *
+ * Restore peripheral from reset state to working state.
+ *
+ * @param[in] rst rcc_periph_rst Peripheral reset
+ *
+ * For available constants, see #rcc_periph_rst (RST_UART1 for example)
+ */
+
+void rcc_periph_reset_release(enum rcc_periph_rst rst)
+{
+	_RCC_CLR_REG(rst) = _RCC_BIT(rst);
+}
+
 
 bool rcc_is_osc_ready(enum rcc_osc osc)
 {
