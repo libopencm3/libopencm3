@@ -402,16 +402,85 @@ LGPL License Terms @ref lgpl_license
 #define RCC_VERR               MMIO32(RCC_BASE + 0xFF4)
 #define RCC_IDR                MMIO32(RCC_BASE + 0xFF8)
 #define RCC_SIDR               MMIO32(RCC_BASE + 0xFFC)
-
 /**@}*/
 
+/** @defgroup rcc_ocrdyr_values RCC_OCRDYR Values
+ * @ingroup rcc_registers
+@{*/
+#define RCC_OCRDYR_HSIRDY    BIT0
+#define RCC_OCRDYR_HSIDIVRDY BIT2
+#define RCC_OCRDYR_CSIRDY    BIT4
+#define RCC_OCRDYR_HSERDY    BIT4
+#define RCC_OCRDYR_MPUCKRDY  BIT23
+#define RCC_OCRDYR_AXICKRDY  BIT24
+#define RCC_OCRDYR_CKREST    BIT25
+/**@}*/
+
+/** @defgroup rcc_bdcr_values RCC_BDCR Values
+ * @ingroup rcc_registers
+@{*/
+#define RCC_BDCR_LSEON           BIT0
+#define RCC_BDCR_LSEBYP          BIT1
+#define RCC_BDCR_LSERDY          BIT2
+#define RCC_BDCR_DIGBYP          BIT3
+#define RCC_BDCR_LSEDRV_SHIFT    4
+#define RCC_BDCR_LSEDRV_MASK     (0x03)
+#define RCC_BDCR_LSEDRV_LOW      0
+#define RCC_BDCR_LSEDRV_MEDLOW   1
+#define RCC_BDCR_LSEDRV_MEDHIGH  2
+#define RCC_BDCR_LSEDRV_HIGH     3
+#define RCC_BDCR_LSECSSON        BIT8
+#define RCC_BDCR_LSECSSD         BIT9
+#define RCC_BDCR_RTCSRC_SHIFT    16
+#define RCC_BDCR_RTCSRC_MASK     (0x03)
+#define RCC_BDCR_RTCSRC_NOCLK    0
+#define RCC_BDCR_RTCSRC_LSE      1
+#define RCC_BDCR_RTCSRC_LSI      2
+#define RCC_BDCR_RTCSRC_HSE      3
+#define RCC_BDCR_RTCCKEN         BIT20
+#define RCC_BDCR_VSWRST          BIT31
+/**@}*/
+
+/** @defgroup rcc_rdlsicr_values RCC_RDLSICR Values
+ * @ingroup rcc_registers
+@{*/
+#define RCC_RDLSICR_LSION       BIT0
+#define RCC_RDLSICR_LSIRDY      BIT1
+#define RCC_RDLSICR_MRD_SHIFT   16
+#define RCC_RDLSICR_MRD_MASK    (0x1f)
+#define RCC_RDLSICR_EADLY_SHIFT 24
+#define RCC_RDLSICR_EADLY_MASK  (0x07)
+#define RCC_RDLSICR_EADLY_10MS  0
+#define RCC_RDLSICR_EADLY_NONE  1
+#define RCC_RDLSICR_EADLY_100US 2
+#define RCC_RDLSICR_EADLY_200US 3
+#define RCC_RDLSICR_EADLY_500US 4
+#define RCC_RDLSICR_EADLY_1MS   5
+#define RCC_RDLSICR_EADLY_2MS   6
+#define RCC_RDLSICR_EADLY_5MS   7
+/**@}*/
+
+/** @defgroup rcc_pllxcr_values RCC_PLLxCR Values
+ * @ingroup rcc_registers
+@{*/
+#define RCC_PLLCR_PLLON     BIT0
+#define RCC_PLLCR_PLLRDY    BIT1
+#define RCC_PLLCR_SSCG_CTRL BIT2 /* Available only in PLL1 and PLL2 */
+#define RCC_PLLCR_DIVPEN    BIT4
+#define RCC_PLLCR_DIVQEN    BIT5
+#define RCC_PLLCR_DIVREN    BIT6
+/**@}*/
 
 enum rcc_osc {
-	RCC_PLL,
+	RCC_PLL1,
+	RCC_PLL2,
+	RCC_PLL3,
+	RCC_PLL4,
 	RCC_HSE,
 	RCC_HSI,
 	RCC_LSE,
 	RCC_LSI,
+	RCC_CSI,
 };
 
 #define RCC_OFFSET_MASK 0xFFF

@@ -98,3 +98,33 @@ void rcc_periph_clock_disable(enum rcc_periph_clken clken)
 	_RCC_CLR_REG(clken) = _RCC_BIT(clken);
 }
 
+bool rcc_is_osc_ready(enum rcc_osc osc)
+{
+	switch(osc) {
+	case RCC_PLL1:
+		return RCC_PLL1CR & RCC_PLLCR_PLLRDY;
+	case RCC_PLL2:
+		return RCC_PLL2CR & RCC_PLLCR_PLLRDY;
+	case RCC_PLL3:
+		return RCC_PLL3CR & RCC_PLLCR_PLLRDY;
+	case RCC_PLL4:
+		return RCC_PLL4CR & RCC_PLLCR_PLLRDY;
+	case RCC_HSE:
+		return RCC_OCRDYR & RCC_OCRDYR_HSERDY;
+	case RCC_HSI:
+		return RCC_OCRDYR & RCC_OCRDYR_HSIRDY;
+	case RCC_LSE:
+		return RCC_BDCR & RCC_BDCR_LSERDY;
+	case RCC_LSI:
+		return RCC_RDLSICR & RCC_RDLSICR_LSIRDY;
+	case RCC_CSI:
+		return RCC_OCRDYR & RCC_OCRDYR_CSIRDY;
+	}
+	return false;
+}
+
+void rcc_wait_for_osc_ready(enum rcc_osc osc)
+{
+	while (!rcc_is_osc_ready(osc));
+}
+
