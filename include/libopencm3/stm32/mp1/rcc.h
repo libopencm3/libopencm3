@@ -471,6 +471,35 @@ LGPL License Terms @ref lgpl_license
 #define RCC_PLLCR_DIVREN    BIT6
 /**@}*/
 
+/** @defgroup rcc_uart35ckselr_values RCC_UART35CKSELR Values
+ * @ingroup rcc_registers
+@{*/
+#define RCC_UART35CKSELR_UART35SRC_SHIFT 0
+#define RCC_UART35CKSELR_UART35SRC_MASK  (0x07)
+#define RCC_UART35CKSELR_UART35SRC_PCLK1  0
+#define RCC_UART35CKSELR_UART35SRC_PLL4_Q 1
+#define RCC_UART35CKSELR_UART35SRC_HSI    2
+#define RCC_UART35CKSELR_UART35SRC_CSI    3
+#define RCC_UART35CKSELR_UART35SRC_HSE    4
+/**@}*/
+
+/** @defgroup rcc_hsicfgr_values RCC_HSICFGR Values
+ * @ingroup rcc_registers
+@{*/
+#define RCC_HSICFGR_HSIDIV_SHIFT 0
+#define RCC_HSICFGR_HSIDIV_MASK  (0x03)
+#define RCC_HSICFGR_HSIDIV_64MHZ 0
+#define RCC_HSICFGR_HSIDIV_32MHZ 1
+#define RCC_HSICFGR_HSIDIV_16MHZ 2
+#define RCC_HSICFGR_HSIDIV_8MHZ  3
+#define RCC_HSICFGR_HSITRIM_SHIFT 8
+#define RCC_HSICFGR_HSITRIM_MASK  (0x7f)
+#define RCC_HSICFGR_HSICAL_SHIFT 16
+#define RCC_HSICFGR_HSICAL_MASK  (0x3ff)
+
+/**@}*/
+
+
 extern uint32_t rcc_apb1_frequency;
 extern uint32_t rcc_apb2_frequency;
 
