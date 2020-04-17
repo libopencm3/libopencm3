@@ -21,6 +21,11 @@
 
 #include <libopencm3/stm32/rcc.h>
 
+/* FIXME: Dummy values to get usart_set_baudrate to work, while waiting for PR
+ * #1191 to be merged in */
+uint32_t rcc_apb1_frequency = 64000000;
+uint32_t rcc_apb2_frequency = 64000000;
+
 /* MP1 family uses two registers to set and clear enable/reset bits.
  * Use clear register address when defined in the rcc_periph_clken/rst enum.
  * Otherwise, keep on using the same address for set and reset.

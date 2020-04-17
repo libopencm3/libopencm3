@@ -471,6 +471,9 @@ LGPL License Terms @ref lgpl_license
 #define RCC_PLLCR_DIVREN    BIT6
 /**@}*/
 
+extern uint32_t rcc_apb1_frequency;
+extern uint32_t rcc_apb2_frequency;
+
 enum rcc_osc {
 	RCC_PLL1,
 	RCC_PLL2,
