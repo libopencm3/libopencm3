@@ -220,3 +220,12 @@ void rcc_wait_for_osc_ready(enum rcc_osc osc)
 	while (!rcc_is_osc_ready(osc));
 }
 
+void rcc_set_spi45_clksel(uint8_t clksel)
+{
+	uint32_t reg = RCC_SPI45CKSELR;
+	reg &= ~(RCCSPI45CKSELR_SPI45SRC_MASK << RCCSPI45CKSELR_SPI45SRC_SHIFT);
+	reg |= ((clksel & RCCSPI45CKSELR_SPI45SRC_MASK) << RCCSPI45CKSELR_SPI45SRC_SHIFT);
+
+	RCC_SPI45CKSELR = reg;
+}
+

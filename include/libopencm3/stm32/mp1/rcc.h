@@ -221,7 +221,7 @@ LGPL License Terms @ref lgpl_license
 #define RCC_SAI4CKSELR        MMIO32(RCC_BASE + 0x8d4)
 #define RCC_SPI2S1CKSELR      MMIO32(RCC_BASE + 0x8d8)
 #define RCC_SPI2S23CKSELR     MMIO32(RCC_BASE + 0x8dc)
-#define RCC_SPIR5CKSELR       MMIO32(RCC_BASE + 0x8e0)
+#define RCC_SPI45CKSELR       MMIO32(RCC_BASE + 0x8e0)
 #define RCC_UART6CKSELR       MMIO32(RCC_BASE + 0x8e4)
 #define RCC_UART24CKSELR      MMIO32(RCC_BASE + 0x8e8)
 #define RCC_UART35CKSELR      MMIO32(RCC_BASE + 0x8ec)
@@ -496,9 +496,19 @@ LGPL License Terms @ref lgpl_license
 #define RCC_HSICFGR_HSITRIM_MASK  (0x7f)
 #define RCC_HSICFGR_HSICAL_SHIFT 16
 #define RCC_HSICFGR_HSICAL_MASK  (0x3ff)
-
 /**@}*/
 
+/** @defgroup rcc_spi45ckselr_values RCC_SPI45CKSELR Values
+ * @ingroup rcc_registers
+@{*/
+#define RCCSPI45CKSELR_SPI45SRC_MASK    0x7
+#define RCCSPI45CKSELR_SPI45SRC_SHIFT   0
+#define RCCSPI45CKSELR_SPI45SRC_PCLK2   0
+#define RCCSPI45CKSELR_SPI45SRC_PLL4_Q  1
+#define RCCSPI45CKSELR_SPI45SRC_HSI     2
+#define RCCSPI45CKSELR_SPI45SRC_CSI     3
+#define RCCSPI45CKSELR_SPI45SRC_HSE     4
+/**@}*/
 
 extern uint32_t rcc_apb1_frequency;
 extern uint32_t rcc_apb2_frequency;
@@ -784,4 +794,21 @@ enum rcc_periph_rst {
 #undef _REG_BIT
 
 #include <libopencm3/stm32/common/rcc_common_all.h>
+
+/** @defgroup rcc_file RCC peripheral API
+ *
+ * @ingroup peripheral_apis
+ * @{
+ */
+BEGIN_DECLS
+/**
+ * Set the clock select for the SPI 4/5 devices.
+ * @param[in] clksel  Clock source to configure for. @ref rcc_d2ccip1r_values
+ * @sa rcc_set_peripheral_clk_sel for equivalent generic functionality
+ */
+void rcc_set_spi45_clksel(uint8_t clksel);
+
+END_DECLS
+/**@}*/
+
 #endif
