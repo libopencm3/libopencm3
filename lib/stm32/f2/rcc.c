@@ -367,6 +367,16 @@ void rcc_clock_setup_hse_3v3(const struct rcc_clock_scale *clock)
 	rcc_wait_for_osc_ready(RCC_PLL);
 
 	/* Configure flash settings. */
+	if (clock->flash_config & FLASH_ACR_DCEN) {
+		flash_dcache_enable();
+	} else {
+		flash_dcache_disable();
+	}
+	if (clock->flash_config & FLASH_ACR_ICEN) {
+		flash_icache_enable();
+	} else {
+		flash_icache_disable();
+	}
 	flash_set_ws(clock->flash_config);
 
 	/* Select PLL as SYSCLK source. */
