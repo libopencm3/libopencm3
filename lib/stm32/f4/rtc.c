@@ -36,28 +36,28 @@
 
 /**@{*/
 
-typedef struct
+struct bcd_s
 {
   uint8_t tens;
   uint8_t units;
-} bcd_s;
+};
 
-static bcd_s rtc_dec_to_bcd(uint8_t dec)
+static struct bcd_s rtc_dec_to_bcd(uint8_t dec)
 {
-  bcd_s bcd;
+  struct bcd_s bcd;
   bcd.tens = dec / 10;
   bcd.units = dec - bcd.tens * 10;
   return bcd;
 }
 
-static uint8_t rtc_bcd_to_dec(bcd_s bcd)
+static uint8_t rtc_bcd_to_dec(struct bcd_s bcd)
 {
   return((uint8_t)(bcd.tens * 10 + bcd.units));
 }
 
 static uint32_t rtc_set_hour(uint8_t val)
 {
-  bcd_s bcd;
+  struct bcd_s bcd;
   bcd = rtc_dec_to_bcd(val);
   uint32_t tmp = 0;
   tmp |= ((bcd.tens & RTC_TR_HT_MASK) << RTC_TR_HT_SHIFT);
@@ -67,7 +67,7 @@ static uint32_t rtc_set_hour(uint8_t val)
 
 static uint32_t rtc_set_minute(uint8_t val)
 {
-  bcd_s bcd;
+  struct bcd_s bcd;
   bcd = rtc_dec_to_bcd(val);
   uint32_t tmp = 0;
   tmp |= ((bcd.tens & RTC_TR_MNT_MASK) << RTC_TR_MNT_SHIFT);
@@ -77,7 +77,7 @@ static uint32_t rtc_set_minute(uint8_t val)
 
 static uint32_t rtc_set_second(uint8_t val)
 {
-  bcd_s bcd;
+  struct bcd_s bcd;
   bcd = rtc_dec_to_bcd(val);
   uint32_t tmp = 0;
   tmp |= ((bcd.tens & RTC_TR_ST_MASK) << RTC_TR_ST_SHIFT);
@@ -90,7 +90,7 @@ static uint32_t rtc_set_second(uint8_t val)
  */
 static uint32_t rtc_set_year(uint16_t val)
 {
-  bcd_s bcd;
+  struct bcd_s bcd;
   bcd = rtc_dec_to_bcd((uint8_t)(val - 1970));
   uint32_t tmp = 0;
   tmp |= ((bcd.tens & RTC_DR_YT_MASK) << RTC_DR_YT_SHIFT);
@@ -107,7 +107,7 @@ static uint32_t rtc_set_week_day(uint8_t val)
 
 static uint32_t rtc_set_month(uint8_t val)
 {
-  bcd_s bcd;
+  struct bcd_s bcd;
   bcd = rtc_dec_to_bcd(val);
   uint32_t tmp = 0;
   tmp |= ((bcd.tens & RTC_DR_MT_MASK) << RTC_DR_MT_SHIFT);
@@ -117,7 +117,7 @@ static uint32_t rtc_set_month(uint8_t val)
 
 static uint32_t rtc_set_day(uint8_t val)
 {
-  bcd_s bcd;
+  struct bcd_s bcd;
   bcd = rtc_dec_to_bcd(val);
   uint32_t tmp = 0;
   tmp |= ((bcd.tens & RTC_DR_DT_MASK) << RTC_DR_DT_SHIFT);
@@ -128,7 +128,7 @@ static uint32_t rtc_set_day(uint8_t val)
 static uint8_t rtc_get_hour(void)
 {
   uint8_t val;
-  bcd_s bcd;
+  struct bcd_s bcd;
   bcd.tens = ((RTC_TR & (RTC_TR_HT_MASK << RTC_TR_HT_SHIFT)) >> 20);
   bcd.units = ((RTC_TR & (RTC_TR_HU_MASK << RTC_TR_HU_SHIFT)) >> 16);
   val = rtc_bcd_to_dec(bcd);
@@ -138,7 +138,7 @@ static uint8_t rtc_get_hour(void)
 static uint8_t rtc_get_minute(void)
 {
   uint8_t val;
-  bcd_s bcd;
+  struct bcd_s bcd;
   bcd.tens = ((RTC_TR & (RTC_TR_MNT_MASK << RTC_TR_MNT_SHIFT)) >> 12);
   bcd.units = ((RTC_TR & (RTC_TR_MNU_MASK << RTC_TR_MNU_SHIFT)) >> 8);
   val = rtc_bcd_to_dec(bcd);
@@ -148,7 +148,7 @@ static uint8_t rtc_get_minute(void)
 static uint8_t rtc_get_second(void)
 {
   uint8_t val;
-  bcd_s bcd;
+  struct bcd_s bcd;
   bcd.tens = ((RTC_TR & (RTC_TR_ST_MASK << RTC_TR_ST_SHIFT)) >> 4);
   bcd.units = ((RTC_TR & (RTC_TR_SU_MASK << RTC_TR_SU_SHIFT)) >> 0);
   val = rtc_bcd_to_dec(bcd);
@@ -161,7 +161,7 @@ static uint8_t rtc_get_second(void)
 static uint16_t rtc_get_year(void)
 {
   uint16_t val;
-  bcd_s bcd;
+  struct bcd_s bcd;
   bcd.tens = ((RTC_DR & (RTC_DR_YT_MASK << RTC_DR_YT_SHIFT)) >> 20);
   bcd.units = ((RTC_DR & (RTC_DR_YU_MASK << RTC_DR_YU_SHIFT)) >> 16);
   val = rtc_bcd_to_dec(bcd) + 1970;
@@ -178,7 +178,7 @@ static uint8_t rtc_get_week_day(void)
 static uint8_t rtc_get_month(void)
 {
   uint8_t val;
-  bcd_s bcd;
+  struct bcd_s bcd;
   bcd.tens = ((RTC_DR & (RTC_DR_MT_MASK << RTC_DR_MT_SHIFT)) >> 12);
   bcd.units = ((RTC_DR & (RTC_DR_MU_MASK << RTC_DR_MU_SHIFT)) >> 8);
   val = rtc_bcd_to_dec(bcd);
@@ -188,7 +188,7 @@ static uint8_t rtc_get_month(void)
 static uint8_t rtc_get_day(void)
 {
   uint8_t val;
-  bcd_s bcd;
+  struct bcd_s bcd;
   bcd.tens = ((RTC_DR & (RTC_DR_DT_MASK << RTC_DR_DT_SHIFT)) >> 4);
   bcd.units = ((RTC_DR & (RTC_DR_DU_MASK << RTC_DR_DU_SHIFT)) >> 0);
   val = rtc_bcd_to_dec(bcd);
@@ -218,7 +218,7 @@ void rtc_calendar_config(void)
 /** @brief Set calendar on the RTC register
     @warning This function uses a time structure like in standard C
 */
-void rtc_calendar_set(time_s time)
+void rtc_calendar_set(struct time_s time)
 {
   pwr_disable_backup_domain_write_protect();
   rtc_unlock();
@@ -255,9 +255,9 @@ void rtc_calendar_set(time_s time)
     @warning This function uses a time structure like in standard C
 
 */
-time_s rtc_calendar_get(void)
+struct time_s rtc_calendar_get(void)
 {
-  time_s tmp;
+  struct time_s tmp;
 
   while(RTC_CR & RTC_CR_BYPSHAD);
   tmp.hour     = rtc_get_hour();

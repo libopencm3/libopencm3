@@ -35,7 +35,7 @@ LGPL License Terms @ref lgpl_license
 
 BEGIN_DECLS
 
-typedef struct
+struct time_s
 {
   uint8_t  hour;     /* hour : 0-23 */
   uint8_t  minute;   /* minute : 0-59 */
@@ -44,15 +44,15 @@ typedef struct
   uint8_t  month;    /* month : January = 1 ... December = 12 */
   uint8_t  day;      /* day of the month : 1-31 */
   uint8_t  week_day; /* day of the week : Monday = 1 ... Sunday = 7 */
-} time_s;
+};
 
 void rtc_enable_wakeup_timer(void);
 void rtc_disable_wakeup_timer(void);
 void rtc_enable_wakeup_timer_interrupt(void);
 void rtc_disable_wakeup_timer_interrupt(void);
 void rtc_calendar_config(void);
-void rtc_calendar_set(time_s time);
-time_s rtc_calendar_get(void);
+void rtc_calendar_set(struct time_s time);
+struct time_s rtc_calendar_get(void);
 
 END_DECLS
 
