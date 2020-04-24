@@ -262,6 +262,14 @@ uint32_t spi_read(uint32_t spi)
 	return SPI2S_RXDR(spi);
 }
 
+uint8_t spi_read8(uint32_t spi)
+{
+	/* Wait for transfer finished. */
+	while (!(SPI2S_SR(spi) & SPI2S_SR_RXP));
+
+	return SPI2S_RXDR8(spi);
+}
+
 /*---------------------------------------------------------------------------*/
 /** @brief SPI Data Write and Read Exchange.
 
