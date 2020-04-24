@@ -206,8 +206,8 @@ void rtc_calendar_config(void)
   /* Enable LSE for using calendar */
   RCC_BDCR |= RCC_BDCR_LSEON;
   RCC_BDCR |= RCC_BDCR_RTCEN;
-  RCC_BDCR |= (1<<8); //RTCSEL at 0b01
-  RCC_BDCR &= ~(1<<9); //RTCSEL at 0b01
+  RCC_BDCR |= (1<<8); /* RTCSEL at 0b01 */
+  RCC_BDCR &= ~(1<<9); /* RTCSEL at 0b01 */
 
   while(!(RCC_BDCR & RCC_BDCR_LSERDY));
 
@@ -240,14 +240,14 @@ void rtc_calendar_set(struct time_s time)
                     rtc_set_day(time.day);
   RTC_DR = reg_dr;
 
-  RTC_CR &= ~RTC_CR_FMT; // 24-hour format
+  RTC_CR &= ~RTC_CR_FMT; /* 24-hour format */
 
   /* Exit Initialization sequence */
   RTC_ISR &= ~RTC_ISR_INIT;
   rtc_lock();
   pwr_enable_backup_domain_write_protect();
 
-  while(!(RTC_ISR & RTC_ISR_RSF)); // Wait for allowing read date and time register
+  while(!(RTC_ISR & RTC_ISR_RSF)); /* Wait for allowing read date and time register */
 }
 
 /*---------------------------------------------------------------------------*/
