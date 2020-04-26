@@ -228,15 +228,15 @@ void rtc_calendar_set(struct time_s time)
 
   /* Set Time Register */
   /* Be careful : TR register must be setting in one time */
-  uint32_t reg_tr = rtc_set_hour(time.hour)      + \
-                    rtc_set_minute(time.minute)  + \
+  uint32_t reg_tr = rtc_set_hour(time.hour)      +
+                    rtc_set_minute(time.minute)  +
                     rtc_set_second(time.second);
   RTC_TR = reg_tr;
   /* Set Date Register */
   /* Be careful : DR register must be setting in one time */
-  uint32_t reg_dr = rtc_set_year(time.year)          + \
-                    rtc_set_month(time.month)        + \
-                    rtc_set_week_day(time.week_day)  + \
+  uint32_t reg_dr = rtc_set_year(time.year)          +
+                    rtc_set_month(time.month)        +
+                    rtc_set_week_day(time.week_day)  +
                     rtc_set_day(time.day);
   RTC_DR = reg_dr;
 
