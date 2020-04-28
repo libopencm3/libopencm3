@@ -261,88 +261,15 @@ BEGIN_DECLS
 void gpio_mode_setup(uint32_t gpioport, enum gpio_mode mode, uint32_t gpios);
 void gpio_set_af(uint32_t gpioport, uint8_t af, uint32_t gpios);
 
-/* Let's keep these ones inlined. GPIO control should be fast */
 /** @ingroup gpio_control
  * @{ */
 
-/** @brief Set a group of Pins (atomic)
- *
- * Set a group of Pins for the given port. this is an atomic operation.
- *
- * @param[in] gpioport port register address base @ref port_reg_base
- * @param[in] gpios @ref gpio_defines. Any combinaison of pins may be
- *          specified by OR'ing then together.
- */
-static inline void gpio_set(uint32_t gpioport, uint32_t gpios)
-{
-	PORT_OUTSET(gpioport) = gpios;
-}
-
-/** @brief Clear a group of Pins (atomic)
- *
- * Clear a group of Pins for the given port. this is an atomic operation.
- *
- * @param[in] gpioport port register address base @ref port_reg_base
- * @param[in] gpios @ref gpio_defines. Any combinaison of pins may be
- *          specified by OR'ing then together.
- */
-static inline void gpio_clear(uint32_t gpioport, uint32_t gpios)
-{
-	PORT_OUTCLR(gpioport) = gpios;
-}
-
-/** @brief Read level of a group of Pins (atomic)
- *
- * Read the level of a group of Pins for the given port. this is an atomic operation.
- *
- * @param[in] gpioport port register address base @ref port_reg_base
- * @param[in] gpios @ref gpio_defines. Any combinaison of pins may be
- *          specified by OR'ing then together.
- */
-static inline uint32_t gpio_get(uint32_t gpioport, uint32_t gpios)
-{
-	return PORT_IN(gpioport) & gpios;
-}
-
-/** @brief Toggle level of a group of Pins (atomic)
- *
- * Toggle one or more pins  of the givent port. this is an atomic operation.
- *
- * @param[in] gpioport port register address base @ref port_reg_base
- * @param[in] gpios @ref gpio_defines. Any combinaison of pins may be
- *          specified by OR'ing then together.
- */
-static inline void gpio_toggle(uint32_t gpioport, uint32_t gpios)
-{
-	PORT_OUTTGL(gpioport) = gpios;
-}
-
-/** @brief Read level for all pins from a port (atomic)
- *
- * Read the level of all pins of the given port. this is an atomic operation.
- *
- * @param[in] port register address base @ref port_reg_base
- *
- * @return The level of all pins on the port.
- */
-static inline uint32_t port_read(uint32_t port)
-{
-	return PORT_IN(port);
-}
-
-/*
- * \brief Set level for all pins from a port (atomic)
- *
- * Set the level of all pins of the given port. this is an atomic operation.
- *
- * @param[in] port register address base @ref port_reg_base
- * @param[in] data @ref gpio_defines. Any combinaison of pins
- *           may be specified by OR'ing then together.
- */
-static inline void port_write(uint32_t port, uint32_t data)
-{
-	PORT_OUT(port) = data;
-}
+void gpio_set(uint32_t gpioport, uint32_t gpios);
+void gpio_clear(uint32_t gpioport, uint32_t gpios);
+uint32_t gpio_get(uint32_t gpioport, uint32_t gpios);
+void gpio_toggle(uint32_t gpioport, uint32_t gpios);
+uint32_t port_read(uint32_t port);
+void port_write(uint32_t port, uint32_t data);
 
 END_DECLS
 
