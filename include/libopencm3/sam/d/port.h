@@ -241,24 +241,35 @@ enum port_mux {
 /* --- Convenience enums --------------------------------------------------- */
 
 /* GPIO mode definitions (for convenience) */
-/** @defgroup gpio_mode GPIO mode configuration
-@ingroup gpio_mode
+/** @defgroup gpio_direction GPIO Pin direction
+@ingroup gpio_defines
+@li Input
+@li Output
+@li InOut
 @{*/
-enum gpio_mode {
-	GPIO_MODE_OUTPUT,
-	GPIO_MODE_INOUT,
-	GPIO_MODE_INPUT_FLOAT,
-	GPIO_MODE_INPUT_PULLDOWN,
-	GPIO_MODE_INPUT_PULLUP,
-	GPIO_MODE_AF
-};
+#define GPIO_MODE_INPUT		0x00
+#define GPIO_MODE_OUTPUT	0x01
+#define GPIO_MODE_INOUT		0x02
+/**@}*/
+
+/** @defgroup gpio_cnf GPIO mode configuration
+@ingroup gpio_defines
+@li Float
+@li PullDown
+@li PullUp
+@li Alternate Function
+@{*/
+#define GPIO_CNF_FLOAT		0x00
+#define GPIO_CNF_PULLDOWN	0x01
+#define GPIO_CNF_PULLUP		0x02
+#define GPIO_CNF_AF			0x03
 /**@}*/
 
 /* --- Function prototypes ------------------------------------------------- */
 
 BEGIN_DECLS
 
-void gpio_mode_setup(uint32_t gpioport, enum gpio_mode mode, uint32_t gpios);
+void gpio_mode_setup(uint32_t gpioport, uint8_t mode, uint8_t cnf, uint32_t gpios);
 void gpio_set_af(uint32_t gpioport, uint8_t af, uint32_t gpios);
 
 /** @ingroup gpio_control

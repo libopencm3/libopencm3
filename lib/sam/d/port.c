@@ -38,22 +38,23 @@
  * Configure a group of Pins for the given port.
  *
  * @param[in] gpioport port register address base @ref port_reg_base
- * @param[in] mode configuration mode @ref gpio_mode
+ * @param[in] mode direction @ref gpio_direction
+ * @param[in] cnf configuration mode @ref gpio_cnf
  * @param[in] gpios Any combinaison of pins may be
  * 			specified by OR'ing then together.
  */
 
-void gpio_mode_setup(uint32_t gpioport, enum gpio_mode mode, uint32_t gpios)
+void gpio_mode_setup(uint32_t gpioport, uint8_t mode, uint8_t cnf, uint32_t gpios)
 {
 	uint32_t reg = PORT_WRCONFIG_WRPINCFG;
 	/* enable pull */
-	if (mode == GPIO_MODE_INPUT_PULLDOWN || mode == GPIO_MODE_INPUT_PULLUP)
+	if (cnf == GPIO_CNF_PULLDOWN || cnf == GPIO_CNF_PULLUP)
 		reg |= PORT_WRCONFIG_PULLEN;
 	/* enable input buffer */
 	if (mode != GPIO_MODE_OUTPUT)
 		reg |= PORT_WRCONFIG_INEN;
 	/* set pmuxen */
-	if (mode == GPIO_MODE_AF)
+	if (cnf == GPIO_CNF_AF)
 		reg |= PORT_WRCONFIG_PMUXEN;
 
 	/* PORTx_WRCONFIG allows to configure pins [31:16] or [15:0] */
@@ -64,22 +65,18 @@ void gpio_mode_setup(uint32_t gpioport, enum gpio_mode mode, uint32_t gpios)
 		PORT_WRCONFIG_PINMASK(gpios >> 16);
 
 	/* configure port direction for selected gpios */
-	switch (mode) {
-		case GPIO_MODE_INOUT:
-		case GPIO_MODE_OUTPUT:
-			PORT_DIRSET(gpioport) = gpios;
-			break;
-		case GPIO_MODE_INPUT_PULLDOWN:
-		case GPIO_MODE_INPUT_PULLUP:
-		case GPIO_MODE_INPUT_FLOAT:
-			PORT_DIRCLR(gpioport) = gpios;
-			break;
-	}
+	/* DIR is always 0 when PULL */
+	if (cnf == GPIO_CNF_PULLDOWN || cnf == GPIO_CNF_PULLUP)
+		PORT_DIRCLR(gpioport) = gpios;
+	else if (mode == GPIO_MODE_INPUT)
+		PORT_DIRCLR(gpioport) = gpios;
+	else
+		PORT_DIRSET(gpioport) = gpios;
 
 	/* PULL UP/DOWN is configured through OUT */
-	if (mode == GPIO_MODE_INPUT_PULLDOWN)
+	if (cnf == GPIO_CNF_PULLDOWN)
 		PORT_OUTCLR(gpioport) = gpios;
-	else if (mode == GPIO_MODE_INPUT_PULLUP)
+	else if (cnf == GPIO_CNF_PULLUP)
 		PORT_OUTSET(gpioport) = gpios;
 }
 
