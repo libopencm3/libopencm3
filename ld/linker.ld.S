@@ -182,11 +182,9 @@ SECTIONS
 	} >nfcram
 #endif
 
-	/*
-	 * The .eh_frame section appears to be used for C++ exception handling.
-	 * You may need to fix this if you're using C++.
-	 */
+#ifndef _EH_FRAME
 	/DISCARD/ : { *(.eh_frame) }
+#endif
 
 	. = ALIGN(4);
 	end = .;
