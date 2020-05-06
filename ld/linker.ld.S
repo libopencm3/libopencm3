@@ -35,6 +35,9 @@ MEMORY
 #if defined(_ISR)
 	isr (rx) : ORIGIN = _ISR_OFF, LENGTH = _ISR
 #endif
+#if defined(_SHM)
+	shm (rw) : ORIGIN = _SHM_OFF, LENGTH = _SHM
+#endif
 #if defined(_ROM)
 	rom (rx) : ORIGIN = _ROM_OFF, LENGTH = _ROM
 #endif
