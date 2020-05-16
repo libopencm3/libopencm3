@@ -12,7 +12,6 @@
  */
 
 
-//TODO check
 /*
  * STM32F7 DCMI Defines
  * Copyright (C) 2020, Smolyaninov Nikolay <smolin35@gmail.org>
