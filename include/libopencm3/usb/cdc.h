@@ -38,6 +38,8 @@ LGPL License Terms @ref lgpl_license
 #ifndef __CDC_H
 #define __CDC_H
 
+#include <stdint.h>
+
 /* Definitions of Communications Device Class from
  * "Universal Serial Bus Class Definitions for Communications Devices
  * Revision 1.2"
