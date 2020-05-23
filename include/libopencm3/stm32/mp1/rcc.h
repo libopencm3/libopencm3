@@ -510,6 +510,18 @@ LGPL License Terms @ref lgpl_license
 #define RCCSPI45CKSELR_SPI45SRC_HSE     4
 /**@}*/
 
+/** @defgroup rcc_i2c35ckselr_values RCC_I2C35CKSELR Values
+ * @ingroup rcc_registers
+@{*/
+#define RCC_I2C35CKSELR_I2C35SRC_MASK    0x7
+#define RCC_I2C35CKSELR_I2C35SRC_SHIFT   0
+#define RCC_I2C35CKSELR_I2C35SRC_PCLK1   0
+#define RCC_I2C35CKSELR_I2C35SRC_PLL4_R  1
+#define RCC_I2C35CKSELR_I2C35SRC_HSI     2
+#define RCC_I2C35CKSELR_I2C35SRC_CSI     3
+/**@}*/
+
+
 extern uint32_t rcc_apb1_frequency;
 extern uint32_t rcc_apb2_frequency;
 
@@ -803,10 +815,15 @@ enum rcc_periph_rst {
 BEGIN_DECLS
 /**
  * Set the clock select for the SPI 4/5 devices.
- * @param[in] clksel  Clock source to configure for. @ref rcc_d2ccip1r_values
- * @sa rcc_set_peripheral_clk_sel for equivalent generic functionality
+ * @param[in] clksel  Clock source to configure for. @ref rcc_spi45ckselr_values
  */
 void rcc_set_spi45_clksel(uint8_t clksel);
+
+/**
+ * Set the clock select for the I2C 3/5 devices.
+ * @param[in] clksel  Clock source to configure for. @ref rcc_i2c35ckselr_values
+ */
+void rcc_set_i2c35_clksel(uint8_t clksel);
 
 END_DECLS
 /**@}*/
