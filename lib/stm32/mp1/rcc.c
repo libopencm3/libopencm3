@@ -229,6 +229,15 @@ void rcc_set_spi45_clksel(uint8_t clksel)
 	RCC_SPI45CKSELR = reg;
 }
 
+void rcc_set_i2c12_clksel(uint8_t clksel)
+{
+	uint32_t reg = RCC_I2C12CKSELR;
+	reg &= ~(RCC_I2C12CKSELR_I2C12SRC_MASK << RCC_I2C12CKSELR_I2C12SRC_SHIFT);
+	reg |= ((clksel & RCC_I2C12CKSELR_I2C12SRC_MASK) << RCC_I2C12CKSELR_I2C12SRC_SHIFT);
+
+	RCC_I2C12CKSELR = reg;
+}
+
 void rcc_set_i2c35_clksel(uint8_t clksel)
 {
 	uint32_t reg = RCC_I2C35CKSELR;

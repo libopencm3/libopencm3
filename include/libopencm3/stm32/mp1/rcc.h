@@ -510,6 +510,17 @@ LGPL License Terms @ref lgpl_license
 #define RCC_SPI45CKSELR_SPI45SRC_HSE     4
 /**@}*/
 
+/** @defgroup rcc_i2c12ckselr_values RCC_I2C12CKSELR Values
+ * @ingroup rcc_registers
+@{*/
+#define RCC_I2C12CKSELR_I2C12SRC_MASK    0x7
+#define RCC_I2C12CKSELR_I2C12SRC_SHIFT   0
+#define RCC_I2C12CKSELR_I2C12SRC_PCLK1   0
+#define RCC_I2C12CKSELR_I2C12SRC_PLL4_R  1
+#define RCC_I2C12CKSELR_I2C12SRC_HSI     2
+#define RCC_I2C12CKSELR_I2C12SRC_CSI     3
+/**@}*/
+
 /** @defgroup rcc_i2c35ckselr_values RCC_I2C35CKSELR Values
  * @ingroup rcc_registers
 @{*/
@@ -818,6 +829,12 @@ BEGIN_DECLS
  * @param[in] clksel  Clock source to configure for. @ref rcc_spi45ckselr_values
  */
 void rcc_set_spi45_clksel(uint8_t clksel);
+
+/**
+ * Set the clock select for the I2C 3/5 devices.
+ * @param[in] clksel  Clock source to configure for. @ref rcc_i2c35ckselr_values
+ */
+void rcc_set_i2c12_clksel(uint8_t clksel);
 
 /**
  * Set the clock select for the I2C 3/5 devices.
