@@ -216,6 +216,7 @@ void spi_write(uint32_t spi, uint32_t data)
 
 void spi_write8(uint32_t spi, uint8_t data)
 {
+	SPI2S_IFCR(spi) = SPI2S_IFCR_TXTFC;
 	SPI2S_TXDR8(spi) = data;
 	SPI2S_CR1(spi) |= SPI2S_CR1_CSTART;
 }
