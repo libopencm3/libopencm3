@@ -294,9 +294,12 @@ uint32_t spi_read(uint32_t spi);
 uint32_t spi_xfer(uint32_t spi, uint32_t data);
 void spi_set_data_size(uint32_t spi, uint16_t data_s);
 int spi_set_transfer_size(uint32_t spi, uint16_t tsize, uint16_t tser);
+void spi_set_fifo_thresh_lvl(uint32_t spi, uint8_t n);
 void spi_set_interdata_idleness(uint32_t spi, uint8_t midi);
 void spi_set_communication_mode(uint32_t spi, uint8_t comm);
 void spi_clear_flags(uint32_t spi, uint32_t flags);
+void spi_enable_interrupts(uint32_t spi, uint32_t flags);
+void spi_disable_interrupts(uint32_t spi, uint32_t flags);
 END_DECLS
 
 /** @cond */

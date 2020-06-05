@@ -326,6 +326,21 @@ int spi_set_transfer_size(uint32_t spi, uint16_t tsize, uint16_t tser)
 	return 0;
 }
 
+/** @brief SPI Set the number of data frames in a SPI packet for the TxFifo
+
+Set the number of data frames in a single SPI data packet, that number of space must be available in TxFifo for TXP to be set.
+
+@param[in] spi Unsigned int32. SPI peripheral identifier @ref spi_reg_base.
+@param[in] n Unsigned int8. Number of data in spi transfer.
+*/
+void spi_set_fifo_thresh_lvl(uint32_t spi, uint8_t n)
+{
+	uint32_t reg32 = SPI_CFG1(spi);
+	reg32 &= ~(SPI_CFG1_FTHLV_MASK << SPI_CFG1_FTHLV_SHIFT);
+	reg32 |= (((n - 1) & SPI_CFG1_FTHLV_MASK) << SPI_CFG1_FTHLV_SHIFT);
+	SPI_CFG1(spi) = reg32;
+}
+
 /*---------------------------------------------------------------------------*/
 /** @brief SPI Master Inter-Data Idleness
 
@@ -365,5 +380,26 @@ void spi_set_communication_mode(uint32_t spi, uint8_t comm)
 void spi_clear_flags(uint32_t spi, uint32_t flags)
 {
 	SPI2S_IFCR(spi) = flags;
+}
+
+/*---------------------------------------------------------------------------*/
+/** @brief SPI Enable interrupts
+
+@param[in] spi Unsigned int32. SPI peripheral identifier @ref spi_reg_base.
+@param[in] flag Unsigned int32. Bitwise OR of interrupts to enable @ref spi2s_ier_values
+*/
+void spi_enable_interrupts(uint32_t spi, uint32_t flags)
+{
+	SPI2S_IER(spi) |= flags;
+}
+/*---------------------------------------------------------------------------*/
+/** @brief SPI Disalbe interrupts
+
+@param[in] spi Unsigned int32. SPI peripheral identifier @ref spi_reg_base.
+@param[in] flag Unsigned int32. Bitwise OR of interrupts to disable @ref spi2s_ier_values
+*/
+void spi_disable_interrupts(uint32_t spi, uint32_t flags)
+{
+	SPI2S_IER(spi) &= ~flags;
 }
 /**@}*/
