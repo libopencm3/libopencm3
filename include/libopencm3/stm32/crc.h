@@ -38,6 +38,10 @@
 #       include <libopencm3/stm32/l1/crc.h>
 #elif defined(STM32L4)
 #       include <libopencm3/stm32/l4/crc.h>
+#elif defined(STM32L5)
+#       include <libopencm3/stm32/l5/crc.h>
+#elif defined(STM32L5_SECURE)
+#       include <libopencm3/stm32/l5_secure/crc.h>
 #elif defined(STM32G0)
 #       include <libopencm3/stm32/g0/crc.h>
 #else

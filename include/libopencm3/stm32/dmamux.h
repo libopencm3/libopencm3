@@ -22,6 +22,10 @@
 
 #if defined(STM32G0)
 #       include <libopencm3/stm32/g0/dmamux.h>
+#elif defined (STM32L5)
+#		include <libopencm3/stm32/l5/dmamux.h>
+#elif defined (STM32L5_SECURE)
+#		include <libopencm3/stm32/l5_secure/dmamux.h>
 #else
 #       error "stm32 family not defined."
 #endif

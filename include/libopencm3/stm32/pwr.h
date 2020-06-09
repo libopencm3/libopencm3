@@ -38,6 +38,10 @@
 #       include <libopencm3/stm32/l0/pwr.h>
 #elif defined(STM32L4)
 #       include <libopencm3/stm32/l4/pwr.h>
+#elif defined(STM32L5)
+#       include <libopencm3/stm32/l5/pwr.h>
+#elif defined(STM32L5_SECURE)
+#       include <libopencm3/stm32/l5_secure/pwr.h>
 #elif defined(STM32G0)
 #       include <libopencm3/stm32/g0/pwr.h>
 #elif defined(STM32H7)

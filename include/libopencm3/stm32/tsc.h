@@ -22,6 +22,10 @@
 
 #if defined(STM32F0)
 #       include <libopencm3/stm32/f0/tsc.h>
+#elif defined(STM32L5)
+#       include <libopencm3/stm32/l5/tsc.h>
+#elif defined(STM32L5_SECURE)
+#       include <libopencm3/stm32/l5_secure/tsc.h>
 #else
 #       error "stm32 family not defined."
 #endif
