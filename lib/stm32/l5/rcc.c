@@ -39,9 +39,9 @@
 #include <libopencm3/stm32/rcc.h>
 
 /* Set the default clock frequencies after reset. */
-uint32_t rcc_ahb_frequency = 4000000;
-uint32_t rcc_apb1_frequency = 4000000;
-uint32_t rcc_apb2_frequency = 4000000;
+uint32_t rcc_ahb_frequency = 110e6;//4000000;
+uint32_t rcc_apb1_frequency = 110e6;//4000000;
+uint32_t rcc_apb2_frequency = 110e6;//4000000;
 
 void rcc_osc_ready_int_clear(enum rcc_osc osc)
 {
@@ -163,28 +163,28 @@ int rcc_css_int_flag(void)
 	return ((RCC_CIFR & RCC_CIFR_CSSF) != 0);
 }
 
-bool rcc_is_osc_ready(enum rcc_osc osc)
-{
-	switch (osc) {
-	case RCC_PLL:
-		return RCC_CR & RCC_CR_PLLRDY;
-	case RCC_HSE:
-		return RCC_CR & RCC_CR_HSERDY;
-	case RCC_HSI16:
-		return RCC_CR & RCC_CR_HSIRDY;
-	case RCC_MSI:
-		return RCC_CR & RCC_CR_MSIRDY;
-	case RCC_LSE:
-		return RCC_BDCR & RCC_BDCR_LSERDY;
-	case RCC_LSI:
-		return RCC_CSR & RCC_CSR_LSIRDY;
-	case RCC_HSI48:
-		return RCC_CRRCR & RCC_CRRCR_HSI48RDY;
-	}
-	return false;
-}
+		bool rcc_is_osc_ready(enum rcc_osc osc)
+		{
+			switch (osc) {
+			case RCC_PLL:
+				return RCC_CR & RCC_CR_PLLRDY;
+			case RCC_HSE:
+				return RCC_CR & RCC_CR_HSERDY;
+			case RCC_HSI16:
+				return RCC_CR & RCC_CR_HSIRDY;
+			case RCC_MSI:
+				return RCC_CR & RCC_CR_MSIRDY;
+			case RCC_LSE:
+				return RCC_BDCR & RCC_BDCR_LSERDY;
+			case RCC_LSI:
+				return RCC_CSR & RCC_CSR_LSIRDY;
+			case RCC_HSI48:
+				return RCC_CRRCR & RCC_CRRCR_HSI48RDY;
+			}
+			return false;
+		}
 
-void rcc_wait_for_osc_ready(enum rcc_osc osc)
+		void rcc_wait_for_osc_ready(enum rcc_osc osc)
 {
 	while (!rcc_is_osc_ready(osc));
 }
@@ -394,8 +394,8 @@ void rcc_pll_output_enable(uint32_t pllout)
  */
 void rcc_set_clock48_source(uint32_t clksel)
 {
-	RCC_CCIPR &= ~(RCC_CCIPR_CLK48SEL_MASK << RCC_CCIPR_CLK48SEL_SHIFT);
-	RCC_CCIPR |= (clksel << RCC_CCIPR_CLK48SEL_SHIFT);
+	RCC_CCIPR1 &= ~(RCC_CCIPR1_CLK48SEL_MASK << RCC_CCIPR1_CLK48SEL_SHIFT);
+	RCC_CCIPR1 |= (clksel << RCC_CCIPR1_CLK48SEL_SHIFT);
 }
 
 

@@ -1,4 +1,15 @@
-/* This provides unification of code over STM32 subfamilies */
+/** @defgroup hash_defines HASH Defines
+
+@ingroup STM32F4xx_defines
+
+@brief Defined Constants and Types for the STM32F4xx HASH Controller
+
+@version 1.0.0
+
+@date 31 May 2013
+
+LGPL License Terms @ref lgpl_license
+ */
 
 /*
  * This file is part of the libopencm3 project.
@@ -17,18 +28,9 @@
  * along with this library.  If not, see <http://www.gnu.org/licenses/>.
  */
 
-#include <libopencm3/cm3/common.h>
-#include <libopencm3/stm32/memorymap.h>
+#ifndef LIBOPENCM3_HASH_H
+#define LIBOPENCM3_HASH_H
 
-#if defined(STM32F0)
-#       include <libopencm3/stm32/common/crs_common_all.h>
-#elif defined(STM32L0)
-#       include <libopencm3/stm32/common/crs_common_all.h>
-#elif defined(STM32L4)
-#       include <libopencm3/stm32/common/crs_common_all.h>
-#elif defined(STM32L5)
-#       include <libopencm3/stm32/common/crs_common_all.h>
-#else
-#       error "stm32 family not defined or not supported for this peripheral"
+#include <libopencm3/stm32/common/hash_common_f24.h>
+
 #endif
-

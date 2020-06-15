@@ -85,7 +85,7 @@ specific memorymap.h header before including this header file.*/
 
 /* --- PWR_CR2 values ------------------------------------------------------- */
 
-#define PWR_CR2_USV		(1 << 10)
+#define PWR_CR2_USV			(1 << 10)
 #define PWR_CR2_IOSV		(1 << 9)
 #define PWR_CR2_PVME4		(1 << 7)
 #define PWR_CR2_PVME3		(1 << 6)
