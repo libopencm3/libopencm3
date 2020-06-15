@@ -23,6 +23,7 @@
 #include <libopencm3/stm32/tools.h>
 #include <libopencm3/stm32/st_usbfs.h>
 #include <libopencm3/usb/usbd.h>
+#include <libopencm3/stm32/pwr.h>
 #include "../usb/usb_private.h"
 #include "common/st_usbfs_core.h"
 
@@ -30,13 +31,22 @@
 static usbd_device *st_usbfs_v2_usbd_init(void)
 {
 	rcc_periph_clock_enable(RCC_USB);
-	SET_REG(USB_CNTR_REG, 0);
+
+	/* Reset USB device */
+	SET_REG(USB_CNTR_REG, 0x01);
+
+	/* Clear Registers */
 	SET_REG(USB_BTABLE_REG, 0);
 	SET_REG(USB_ISTR_REG, 0);
+	SET_REG(USB_CNTR_REG, 0);
+
 
 	/* Enable RESET, SUSPEND, RESUME and CTR interrupts. */
-	SET_REG(USB_CNTR_REG, USB_CNTR_RESETM | USB_CNTR_CTRM |
-		USB_CNTR_SUSPM | USB_CNTR_WKUPM);
+	SET_REG(USB_CNTR_REG, USB_CNTR_RESETM | USB_CNTR_CTRM | USB_CNTR_SUSPM 
+		| USB_CNTR_WKUPM | USB_CNTR_ERRM | USB_CNTR_SOFM 
+		| USB_CNTR_RESETM | USB_CNTR_ESOFM);
+
+	/* Start USB Device */
 	SET_REG(USB_BCDR_REG, USB_BCDR_DPPU);
 	return &st_usbfs_dev;
 }
