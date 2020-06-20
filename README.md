@@ -38,12 +38,13 @@ of the microcontrollers are supported, yet.
 
 _TIP_: Include this repository as a Git submodule in your project to make sure
      your users get the right version of the library to compile your project.
-     For how that can be done refer to the libopencm3-examples repository.
+     For how that can be done refer to the
+     [libopencm3-template](https://github.com/libopencm3/libopencm3-template) repository.
 
 Prerequisites
 -------------
 
-Building requires Python (Some code is generated).
+Building requires Python (some code is generated).
 
 **For Ubuntu/Fedora:**
 
@@ -73,7 +74,7 @@ Other toolchains _should_ work, but they have not been nearly as well tested.
 Toolchains targeting Linux, such as "gcc-arm-linux-gnu" or the like are
 _not_ appropriate.
 
-_NOTE_ We recommend that you use gcc-arm-embedded version 4.8 2014q3 or newer
+_NOTE_: We recommend that you use gcc-arm-embedded version 4.8 2014q3 or newer
 to build all platforms covered by libopencm3 successfully.
 
 Building
@@ -194,5 +195,4 @@ Website
 -------
 
  * http://libopencm3.org
- * http://sourceforge.net/projects/libopencm3/
 
