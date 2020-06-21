@@ -48,13 +48,13 @@ static void __attribute__((naked, noreturn)) start(void)
 	funcp_t *fp;
 
 	/* Initialize stack pointer. Stack must not be used before this. */
-	__asm__ ("add sp, sp, %0" : : "r"(_stack));
+	__asm__ ("la sp, %0" : : "i"(&_stack));
 
 	/* Set interrupt vector table. */
-	__asm__ ("csrs 0x307, %0" : : "rK"((void *)&vector_table - 0xc));
+	__asm__ ("csrs 0x307, %0" : : "rK"((uint32_t)&vector_table - 0xc));
 
 	/* Set trap handler and enable ECLIC. */
-	__asm__ ("csrs mtvec, %0" : : "rK"((uint32_t)blocking_handler | 0x03));
+	__asm__ ("csrs mtvec, %0" : : "rK"((uint32_t)&blocking_handler | 0x03));
 
 	for (src = &_data_loadaddr, dest = &_data;
 		dest < &_edata;
@@ -96,7 +96,8 @@ static void __attribute__((naked, noreturn)) start(void)
 void __attribute__((naked, no_instrument_function,
 		    noreturn, section(".reset"))) reset_handler(void)
 {
-	start();
+	/* Position independent jump to start() */
+	__asm__ ("lui a0, %%hi(%0); jr %%lo(%0)(a0)" : : "i"(&start));
 }
 
 void __attribute__((interrupt, aligned(64))) blocking_handler(void)

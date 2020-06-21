@@ -44,6 +44,8 @@
 #       include <libopencm3/stm32/g4/spi.h>
 #elif defined(STM32H7)
 #       include <libopencm3/stm32/h7/spi.h>
+#elif defined(GD32VF103)
+#	include <libopencm3/gd32v/f103/spi.h>
 #else
 #       error "stm32 family not defined."
 #endif

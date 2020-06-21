@@ -46,6 +46,8 @@
 #       include <libopencm3/stm32/h7/flash.h>
 #elif defined(GD32F1X0)
 #       include <libopencm3/gd32/f1x0/flash.h>
+#elif defined(GD32VF103)
+#	include <libopencm3/gd32v/f103/flash.h>
 #else
 #       error "stm32 family not defined."
 #endif

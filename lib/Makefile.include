@@ -23,7 +23,13 @@ ifneq ($(V),1)
 Q := @
 endif
 
-PREFIX ?= arm-none-eabi-
+ARM_PREFIX ?= arm-none-eabi-
+RISCV_PREFIX ?= riscv-nuclei-elf-
+ifeq ($(ARCH),riscv)
+PREFIX ?= $(RISCV_PREFIX)
+else
+PREFIX ?= $(ARM_PREFIX)
+endif
 
 # common objects
 ifneq ($(ARCH),riscv)
