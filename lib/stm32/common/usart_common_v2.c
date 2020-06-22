@@ -312,7 +312,7 @@ bool usart_get_flag(uint32_t usart, uint32_t flag)
  */
 void usart_clear_flag(uint32_t usart, uint32_t flag)
 {
-	USART_ISR(usart) &= ~flag;
+	USART_ICR(usart) |= flag;
 }
 
 /**@}*/
