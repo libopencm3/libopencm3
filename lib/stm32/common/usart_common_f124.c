@@ -110,5 +110,17 @@ bool usart_get_flag(uint32_t usart, uint32_t flag)
 	return ((USART_SR(usart) & flag) != 0);
 }
 
+/*---------------------------------------------------------------------------*/
+/**
+ * @brief USART Clear a Status Flag.
+ * 
+ * @param[in] usart unsigned 32 bit. USART block register address base @ref
+usart_reg_base
+ * @param[in] flag Unsigned int32. Status register flag  @ref usart_sr_flags.
+ */
+void usart_clear_flag(uint32_t usart, uint32_t flag)
+{
+	USART_SR(usart) &= ~flag;
+}
 
 /**@}*/
