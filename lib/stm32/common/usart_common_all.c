@@ -368,7 +368,7 @@ void usart_enable_tx_complete_interrupt(uint32_t usart)
  * @param[in] usart usart unsigned 32 bit. USART block register address base @ref
 usart_reg_base
  */
-void usart_enable_tx_complete_interrupt(uint32_t usart)
+void usart_disable_tx_complete_interrupt(uint32_t usart)
 {
 	USART_CR1(usart) &= ~USART_CR1_TCIE;
 }
