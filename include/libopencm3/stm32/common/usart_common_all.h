@@ -120,6 +120,8 @@ void usart_enable_rx_interrupt(uint32_t usart);
 void usart_disable_rx_interrupt(uint32_t usart);
 void usart_enable_tx_interrupt(uint32_t usart);
 void usart_disable_tx_interrupt(uint32_t usart);
+void usart_enable_tx_complete_interrupt(uint32_t usart);
+void usart_disable_tx_complete_interrupt(uint32_t usart);
 void usart_enable_error_interrupt(uint32_t usart);
 void usart_disable_error_interrupt(uint32_t usart);
 bool usart_get_flag(uint32_t usart, uint32_t flag);
