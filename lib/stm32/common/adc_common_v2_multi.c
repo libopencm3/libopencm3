@@ -111,13 +111,13 @@ void adc_set_regular_sequence(uint32_t adc, uint8_t length, uint8_t channel[])
 		if (i <= 4) {
 			reg32_1 |= (channel[i - 1] << (i * 6));
 		}
-		if ((i > 4) & (i <= 9)) {
+		if ((i > 4) && (i <= 9)) {
 			reg32_2 |= (channel[i - 1] << ((i - 4 - 1) * 6));
 		}
-		if ((i > 9) & (i <= 14)) {
+		if ((i > 9) && (i <= 14)) {
 			reg32_3 |= (channel[i - 1] << ((i - 9 - 1) * 6));
 		}
-		if ((i > 14) & (i <= 16)) {
+		if ((i > 14) && (i <= 16)) {
 			reg32_4 |= (channel[i - 1] << ((i - 14 - 1) * 6));
 		}
 	}
