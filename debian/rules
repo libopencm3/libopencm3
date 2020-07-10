@@ -1,0 +1,21 @@
+#!/usr/bin/make -f
+
+# DH_VERBOSE=1
+
+%:
+	dh  $@
+
+# libopencm3's build system uses the variable PREFIX different from usual
+# build systems (usually, it'd be /usr; here, it is arm-none-eabi), and use
+# DESTDIR for what is usually ${DESTDIR}/${PREFIX}. there are no generated
+# files that get their paths hardcoded, so ${PREFIX} alone is not needed
+# anyway.
+LIBOPENCM3OPTS=DESTDIR=$(CURDIR)/debian/libopencm3/usr/
+
+override_dh_auto_build:
+	# we're not compiling in a debian sense -- and the normal flags make
+	# things break
+	CFLAGS= CPPFLAGS= LDFLAGS= $(MAKE) $(LIBOPENCM3OPTS)
+
+override_dh_auto_install:
+	$(MAKE) $(LIBOPENCM3OPTS) install

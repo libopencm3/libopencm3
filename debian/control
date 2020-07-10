@@ -1,0 +1,21 @@
+Source: libopencm3
+Priority: optional
+Maintainer: Christian M. Amsüss <chrysn@fsfe.org>
+Build-Depends: debhelper (>= 9),
+               gcc-arm-none-eabi,
+               arm-none-eabi-libc,
+               binutils-multiarch,
+Standards-Version: 3.9.3
+Section: fixme
+Homepage: http://www.libopencm3.org/
+
+Package: libopencm3
+Section: fixme
+Architecture: all
+Depends: ${misc:Depends}
+Description: firmware library for ARM Cortex-M3 microcontrollers
+ The libopencm3 library provides the base code for running software without an
+ operating system on ARM Cortex-M3 microcontrollers, and contains both system
+ initialization routines and periphery implementation.
+ .
+ It supports the STM32, TX03, SAM3U and LPC1000 families of chips.
