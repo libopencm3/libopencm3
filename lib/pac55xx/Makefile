@@ -41,7 +41,7 @@ OBJS += gpio.o
 OBJS += memctl.o
 OBJS += usart.o
 
-VPATH += ../cm3
+vpath %.c ../cm3
 
 
 include ../Makefile.include

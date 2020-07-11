@@ -33,7 +33,8 @@ OBJS		=
 
 OBJS += port.o
 
-VPATH += ../../cm3:../common
+vpath %.c ../../cm3
+vpath %.c ../common
 
 include ../../Makefile.include
 

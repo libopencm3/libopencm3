@@ -25,7 +25,7 @@ CFILES = main-$(BOARD).c
 CFILES += usb-gadget0.c
 CFILES += delay_efm32.c
 
-VPATH += $(SHARED_DIR)
+vpath %.c $(SHARED_DIR)
 
 INCLUDES += $(patsubst %,-I%, . $(SHARED_DIR))
 
