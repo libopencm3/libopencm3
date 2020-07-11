@@ -47,7 +47,7 @@ else ifeq ($(genlink_fpu),hard-fpv4-sp-d16)
 ARCH_FLAGS	+= -mfloat-abi=hard -mfpu=fpv4-sp-d16
 else ifeq ($(genlink_fpu),hard-fpv5-sp-d16)
 ARCH_FLAGS      += -mfloat-abi=hard -mfpu=fpv5-sp-d16
-else
+else ifneq ($(genlink_fpu),none)
 $(warning No match for the FPU flags)
 endif
 
