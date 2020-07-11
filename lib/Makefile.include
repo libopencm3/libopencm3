@@ -23,6 +23,8 @@ ifneq ($(V),1)
 Q := @
 endif
 
+PREFIX ?= arm-none-eabi-
+
 # common objects
 OBJS += vector.o systick.o scb.o nvic.o assert.o sync.o dwt.o
 
