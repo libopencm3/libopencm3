@@ -508,11 +508,8 @@ The prescale factor can be set to 1 (no prescale) for use when the PLL clock is
 
 void rcc_set_usbpre(uint32_t usbpre)
 {
-	if (usbpre) {
-		RCC_CFGR |= RCC_CFGR_USBPRE;
-	} else {
-		RCC_CFGR &= ~RCC_CFGR_USBPRE;
-	}
+	RCC_CFGR = (RCC_CFGR & ~RCC_CFGR_USBPRE) |
+			(usbpre << RCC_CFGR_USBPRE_SHIFT);
 }
 
 /*---------------------------------------------------------------------------*/

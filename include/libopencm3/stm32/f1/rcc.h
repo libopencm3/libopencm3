@@ -42,8 +42,9 @@
 
 /* --- RCC_CFGR values ----------------------------------------------------- */
 
-#define RCC_CFGR_OTGFSPRE			(1 << 22) /* Connectivity line */
-#define RCC_CFGR_USBPRE				(1 << 22) /* LD,MD, HD, XL */
+#define RCC_CFGR_USBPRE_SHIFT			22
+#define RCC_CFGR_OTGFSPRE			(1 << RCC_CFGR_USBPRE_SHIFT) /* Connectivity line */
+#define RCC_CFGR_USBPRE				(1 << RCC_CFGR_USBPRE_SHIFT) /* LD,MD, HD, XL */
 
 #define RCC_CFGR_PLLMUL_SHIFT			18
 #define RCC_CFGR_PLLMUL				(0xF << RCC_CFGR_PLLMUL_SHIFT)
