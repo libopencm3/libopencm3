@@ -501,7 +501,7 @@ void rcc_set_rtc_clock_source(enum rcc_osc clock_source)
 /*---------------------------------------------------------------------------*/
 /** @brief ADC Setup the A/D Clock
 
-The ADC's have a common clock prescale setting.
+The ADCs have a common clock prescale setting.
 
 @param[in] adcpre uint32_t. Prescale divider taken from @ref rcc_cfgr_adcpre
 */
@@ -637,10 +637,10 @@ void rcc_clock_setup_in_hsi_out_64mhz(void)
 	rcc_set_ppre2(RCC_CFGR_PPRE2_HCLK_NODIV);   /* Set. 64MHz Max. 72MHz */
 
 	/*
-	 * Sysclk is running with 64MHz -> 2 waitstates.
-	 * 0WS from 0-24MHz
-	 * 1WS from 24-48MHz
-	 * 2WS from 48-72MHz
+	 * SYSCLK will run at 64MHz -> 2 waitstates.
+	 * 0WS if 0MHz < SYSCLK <= 24MHz
+	 * 1WS if 24MHz < SYSCLK <= 48MHz
+	 * 2WS if 48MHz < SYSCLK <= 72MHz
 	 */
 	flash_set_ws(FLASH_ACR_LATENCY_2WS);
 
@@ -684,17 +684,17 @@ void rcc_clock_setup_in_hsi_out_48mhz(void)
 	 * Set prescalers for AHB, ADC, APB1, APB2.
 	 * Do this before touching the PLL (TODO: why?).
 	 */
-	rcc_set_hpre(RCC_CFGR_HPRE_SYSCLK_NODIV);	/*Set.48MHz Max.72MHz */
-	rcc_set_adcpre(RCC_CFGR_ADCPRE_PCLK2_DIV8);	/*Set. 6MHz Max.14MHz */
-	rcc_set_ppre1(RCC_CFGR_PPRE1_HCLK_DIV2);	/*Set.24MHz Max.36MHz */
-	rcc_set_ppre2(RCC_CFGR_PPRE2_HCLK_NODIV);	/*Set.48MHz Max.72MHz */
-	rcc_set_usbpre(RCC_CFGR_USBPRE_PLL_CLK_NODIV);  /*Set.48MHz Max.48MHz */
+	rcc_set_hpre(RCC_CFGR_HPRE_SYSCLK_NODIV);      /*Set. 48MHz Max. 72MHz */
+	rcc_set_adcpre(RCC_CFGR_ADCPRE_PCLK2_DIV8);    /*Set.  6MHz Max. 14MHz */
+	rcc_set_ppre1(RCC_CFGR_PPRE1_HCLK_DIV2);       /*Set. 24MHz Max. 36MHz */
+	rcc_set_ppre2(RCC_CFGR_PPRE2_HCLK_NODIV);      /*Set. 48MHz Max. 72MHz */
+	rcc_set_usbpre(RCC_CFGR_USBPRE_PLL_CLK_NODIV); /*Set. 48MHz Max. 48MHz */
 
 	/*
-	 * Sysclk runs with 48MHz -> 1 waitstates.
-	 * 0WS from 0-24MHz
-	 * 1WS from 24-48MHz
-	 * 2WS from 48-72MHz
+	 * SYSCLK will run at 48MHz -> 1 waitstates.
+	 * 0WS if 0MHz < SYSCLK <= 24MHz
+	 * 1WS if 24MHz < SYSCLK <= 48MHz
+	 * 2WS if 48MHz < SYSCLK <= 72MHz
 	 */
 	flash_set_ws(FLASH_ACR_LATENCY_1WS);
 
@@ -738,16 +738,16 @@ void rcc_clock_setup_in_hsi_out_24mhz(void)
 	 * Set prescalers for AHB, ADC, APB1, APB2.
 	 * Do this before touching the PLL (TODO: why?).
 	 */
-	rcc_set_hpre(RCC_CFGR_HPRE_SYSCLK_NODIV); /* Set. 24MHz Max. 24MHz */
+	rcc_set_hpre(RCC_CFGR_HPRE_SYSCLK_NODIV);   /* Set. 24MHz Max. 24MHz */
 	rcc_set_adcpre(RCC_CFGR_ADCPRE_PCLK2_DIV2); /* Set. 12MHz Max. 12MHz */
-	rcc_set_ppre1(RCC_CFGR_PPRE1_HCLK_NODIV); /* Set. 24MHz Max. 24MHz */
-	rcc_set_ppre2(RCC_CFGR_PPRE2_HCLK_NODIV); /* Set. 24MHz Max. 24MHz */
+	rcc_set_ppre1(RCC_CFGR_PPRE1_HCLK_NODIV);   /* Set. 24MHz Max. 24MHz */
+	rcc_set_ppre2(RCC_CFGR_PPRE2_HCLK_NODIV);   /* Set. 24MHz Max. 24MHz */
 
 	/*
-	 * Sysclk is (will be) running with 24MHz -> 0 waitstates.
-	 * 0WS from 0-24MHz
-	 * 1WS from 24-48MHz
-	 * 2WS from 48-72MHz
+	 * SYSCLK will run at 24MHz -> 0 waitstates.
+	 * 0WS if 0MHz < SYSCLK <= 24MHz
+	 * 1WS if 24MHz < SYSCLK <= 48MHz
+	 * 2WS if 48MHz < SYSCLK <= 72MHz
 	 */
 	flash_set_ws(FLASH_ACR_LATENCY_0WS);
 
@@ -802,10 +802,10 @@ void rcc_clock_setup_in_hse_8mhz_out_24mhz(void)
 	rcc_set_ppre2(RCC_CFGR_PPRE2_HCLK_NODIV);    /* Set. 24MHz Max. 72MHz */
 
 	/*
-	 * Sysclk runs with 24MHz -> 0 waitstates.
-	 * 0WS from 0-24MHz
-	 * 1WS from 24-48MHz
-	 * 2WS from 48-72MHz
+	 * SYSCLK will run at 24MHz -> 0 waitstates.
+	 * 0WS if 0MHz < SYSCLK <= 24MHz
+	 * 1WS if 24MHz < SYSCLK <= 48MHz
+	 * 2WS if 48MHz < SYSCLK <= 72MHz
 	 */
 	flash_set_ws(FLASH_ACR_LATENCY_0WS);
 
@@ -866,10 +866,10 @@ void rcc_clock_setup_in_hse_8mhz_out_72mhz(void)
 	rcc_set_ppre2(RCC_CFGR_PPRE2_HCLK_NODIV);    /* Set. 72MHz Max. 72MHz */
 
 	/*
-	 * Sysclk runs with 72MHz -> 2 waitstates.
-	 * 0WS from 0-24MHz
-	 * 1WS from 24-48MHz
-	 * 2WS from 48-72MHz
+	 * SYSCLK will run at 72MHz -> 2 waitstates.
+	 * 0WS if 0MHz < SYSCLK <= 24MHz
+	 * 1WS if 24MHz < SYSCLK <= 48MHz
+	 * 2WS if 48MHz < SYSCLK <= 72MHz
 	 */
 	flash_set_ws(FLASH_ACR_LATENCY_2WS);
 
@@ -915,7 +915,7 @@ void rcc_clock_setup_in_hse_12mhz_out_72mhz(void)
 	/* Select HSI as SYSCLK source. */
 	rcc_set_sysclk_source(RCC_CFGR_SW_SYSCLKSEL_HSICLK);
 
-	/* Enable external high-speed oscillator 16MHz. */
+	/* Enable external high-speed oscillator 12MHz. */
 	rcc_osc_on(RCC_HSE);
 	rcc_wait_for_osc_ready(RCC_HSE);
 	rcc_set_sysclk_source(RCC_CFGR_SW_SYSCLKSEL_HSECLK);
@@ -930,20 +930,20 @@ void rcc_clock_setup_in_hse_12mhz_out_72mhz(void)
 	rcc_set_ppre2(RCC_CFGR_PPRE2_HCLK_NODIV);    /* Set. 72MHz Max. 72MHz */
 
 	/*
-	 * Sysclk runs with 72MHz -> 2 waitstates.
-	 * 0WS from 0-24MHz
-	 * 1WS from 24-48MHz
-	 * 2WS from 48-72MHz
+	 * SYSCLK will run at 72MHz -> 2 waitstates.
+	 * 0WS if 0MHz < SYSCLK <= 24MHz
+	 * 1WS if 24MHz < SYSCLK <= 48MHz
+	 * 2WS if 48MHz < SYSCLK <= 72MHz
 	 */
 	flash_set_ws(FLASH_ACR_LATENCY_2WS);
 
 	/*
-	 * Set the PLL multiplication factor to 9.
+	 * Set the PLL multiplication factor to 6.
 	 * 12MHz (external) * 6 (multiplier) / 1 (PLLXTPRE_HSE_CLK) = 72MHz
 	 */
 	rcc_set_pll_multiplication_factor(RCC_CFGR_PLLMUL_PLL_CLK_MUL6);
 
-	/* Select HSI as PLL source. */
+	/* Select HSE as PLL source. */
 	rcc_set_pll_source(RCC_CFGR_PLLSRC_HSE_CLK);
 
 	/*
@@ -994,10 +994,10 @@ void rcc_clock_setup_in_hse_16mhz_out_72mhz(void)
 	rcc_set_ppre2(RCC_CFGR_PPRE2_HCLK_NODIV);    /* Set. 72MHz Max. 72MHz */
 
 	/*
-	 * Sysclk runs with 72MHz -> 2 waitstates.
-	 * 0WS from 0-24MHz
-	 * 1WS from 24-48MHz
-	 * 2WS from 48-72MHz
+	 * SYSCLK will run at 72MHz -> 2 waitstates.
+	 * 0WS if 0MHz < SYSCLK <= 24MHz
+	 * 1WS if 24MHz < SYSCLK <= 48MHz
+	 * 2WS if 48MHz < SYSCLK <= 72MHz
 	 */
 	flash_set_ws(FLASH_ACR_LATENCY_2WS);
 
@@ -1007,7 +1007,7 @@ void rcc_clock_setup_in_hse_16mhz_out_72mhz(void)
 	 */
 	rcc_set_pll_multiplication_factor(RCC_CFGR_PLLMUL_PLL_CLK_MUL9);
 
-	/* Select HSI as PLL source. */
+	/* Select HSE as PLL source. */
 	rcc_set_pll_source(RCC_CFGR_PLLSRC_HSE_CLK);
 
 	/*
@@ -1042,10 +1042,10 @@ void rcc_clock_setup_in_hse_25mhz_out_72mhz(void)
 	rcc_set_sysclk_source(RCC_CFGR_SW_SYSCLKSEL_HSECLK);
 
 	/*
-	 * Sysclk runs with 72MHz -> 2 waitstates.
-	 * 0WS from 0-24MHz
-	 * 1WS from 24-48MHz
-	 * 2WS from 48-72MHz
+	 * SYSCLK will run at 72MHz -> 2 waitstates.
+	 * 0WS if 0MHz < SYSCLK <= 24MHz
+	 * 1WS if 24MHz < SYSCLK <= 48MHz
+	 * 2WS if 48MHz < SYSCLK <= 72MHz
 	 */
 	flash_set_ws(FLASH_ACR_LATENCY_2WS);
 
@@ -1058,7 +1058,7 @@ void rcc_clock_setup_in_hse_25mhz_out_72mhz(void)
 	rcc_set_ppre1(RCC_CFGR_PPRE1_HCLK_DIV2);     /* Set. 36MHz Max. 36MHz */
 	rcc_set_ppre2(RCC_CFGR_PPRE2_HCLK_NODIV);    /* Set. 72MHz Max. 72MHz */
 
-	/* Set pll2 prediv and multiplier */
+	/* Set PLL2 prediv and multiplier */
 	rcc_set_prediv2(RCC_CFGR2_PREDIV2_DIV5);
 	rcc_set_pll2_multiplication_factor(RCC_CFGR2_PLL2MUL_PLL2_CLK_MUL8);
 
@@ -1066,7 +1066,7 @@ void rcc_clock_setup_in_hse_25mhz_out_72mhz(void)
 	rcc_osc_on(RCC_PLL2);
 	rcc_wait_for_osc_ready(RCC_PLL2);
 
-	/* Set pll1 prediv/multiplier, prediv1 src, and usb predivider */
+	/* Set PLL1 prediv/multiplier, prediv1 src, and usb predivider */
 	rcc_set_pllxtpre(RCC_CFGR_PLLXTPRE_HSE_CLK);
 	rcc_set_prediv1_source(RCC_CFGR2_PREDIV1SRC_PLL2_CLK);
 	rcc_set_prediv1(RCC_CFGR2_PREDIV_DIV5);
@@ -1074,7 +1074,7 @@ void rcc_clock_setup_in_hse_25mhz_out_72mhz(void)
 	rcc_set_pll_source(RCC_CFGR_PLLSRC_PREDIV1_CLK);
 	rcc_set_usbpre(RCC_CFGR_USBPRE_PLL_VCO_CLK_DIV3);
 
-	/* enable PLL1 and wait for it to stabilize */
+	/* Enable PLL1 and wait for it to stabilize */
 	rcc_osc_on(RCC_PLL);
 	rcc_wait_for_osc_ready(RCC_PLL);
 
