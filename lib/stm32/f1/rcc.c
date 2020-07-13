@@ -636,16 +636,11 @@ void rcc_clock_setup_in_hsi_out_64mhz(void)
 	rcc_set_ppre1(RCC_CFGR_PPRE1_HCLK_DIV2);    /* Set. 32MHz Max. 36MHz */
 	rcc_set_ppre2(RCC_CFGR_PPRE2_HCLK_NODIV);   /* Set. 64MHz Max. 72MHz */
 
-	/*
-	 * SYSCLK will run at 64MHz -> 2 waitstates.
-	 * 0WS if 0MHz < SYSCLK <= 24MHz
-	 * 1WS if 24MHz < SYSCLK <= 48MHz
-	 * 2WS if 48MHz < SYSCLK <= 72MHz
-	 */
+	/* SYSCLK will run at 64MHz -> 2 waitstates. */
 	flash_set_ws(FLASH_ACR_LATENCY_2WS);
 
 	/*
-	 * Set the PLL multiplication factor to 16.
+	 * Set the PLL multiplication factor.
 	 * 8MHz (internal) * 16 (multiplier) / 2 (PLLSRC_HSI_CLK_DIV2) = 64MHz
 	 */
 	rcc_set_pll_multiplication_factor(RCC_CFGR_PLLMUL_PLL_CLK_MUL16);
@@ -690,16 +685,11 @@ void rcc_clock_setup_in_hsi_out_48mhz(void)
 	rcc_set_ppre2(RCC_CFGR_PPRE2_HCLK_NODIV);      /*Set. 48MHz Max. 72MHz */
 	rcc_set_usbpre(RCC_CFGR_USBPRE_PLL_CLK_NODIV); /*Set. 48MHz Max. 48MHz */
 
-	/*
-	 * SYSCLK will run at 48MHz -> 1 waitstates.
-	 * 0WS if 0MHz < SYSCLK <= 24MHz
-	 * 1WS if 24MHz < SYSCLK <= 48MHz
-	 * 2WS if 48MHz < SYSCLK <= 72MHz
-	 */
+	/* SYSCLK will run at 48MHz -> 1 waitstates. */
 	flash_set_ws(FLASH_ACR_LATENCY_1WS);
 
 	/*
-	 * Set the PLL multiplication factor to 12.
+	 * Set the PLL multiplication factor.
 	 * 8MHz (internal) * 12 (multiplier) / 2 (PLLSRC_HSI_CLK_DIV2) = 48MHz
 	 */
 	rcc_set_pll_multiplication_factor(RCC_CFGR_PLLMUL_PLL_CLK_MUL12);
@@ -743,16 +733,11 @@ void rcc_clock_setup_in_hsi_out_24mhz(void)
 	rcc_set_ppre1(RCC_CFGR_PPRE1_HCLK_NODIV);   /* Set. 24MHz Max. 24MHz */
 	rcc_set_ppre2(RCC_CFGR_PPRE2_HCLK_NODIV);   /* Set. 24MHz Max. 24MHz */
 
-	/*
-	 * SYSCLK will run at 24MHz -> 0 waitstates.
-	 * 0WS if 0MHz < SYSCLK <= 24MHz
-	 * 1WS if 24MHz < SYSCLK <= 48MHz
-	 * 2WS if 48MHz < SYSCLK <= 72MHz
-	 */
+	/* SYSCLK will run at 24MHz -> 0 waitstates. */
 	flash_set_ws(FLASH_ACR_LATENCY_0WS);
 
 	/*
-	 * Set the PLL multiplication factor to 6.
+	 * Set the PLL multiplication factor.
 	 * 8MHz (internal) * 6 (multiplier) / 2 (PLLSRC_HSI_CLK_DIV2) = 24MHz
 	 */
 	rcc_set_pll_multiplication_factor(RCC_CFGR_PLLMUL_PLL_CLK_MUL6);
@@ -787,7 +772,7 @@ void rcc_clock_setup_in_hse_8mhz_out_24mhz(void)
 	/* Select HSI as SYSCLK source. */
 	rcc_set_sysclk_source(RCC_CFGR_SW_SYSCLKSEL_HSICLK);
 
-	/* Enable external high-speed oscillator 8MHz. */
+	/* Enable external high-speed oscillator. */
 	rcc_osc_on(RCC_HSE);
 	rcc_wait_for_osc_ready(RCC_HSE);
 	rcc_set_sysclk_source(RCC_CFGR_SW_SYSCLKSEL_HSECLK);
@@ -801,16 +786,11 @@ void rcc_clock_setup_in_hse_8mhz_out_24mhz(void)
 	rcc_set_ppre1(RCC_CFGR_PPRE1_HCLK_NODIV);    /* Set. 24MHz Max. 36MHz */
 	rcc_set_ppre2(RCC_CFGR_PPRE2_HCLK_NODIV);    /* Set. 24MHz Max. 72MHz */
 
-	/*
-	 * SYSCLK will run at 24MHz -> 0 waitstates.
-	 * 0WS if 0MHz < SYSCLK <= 24MHz
-	 * 1WS if 24MHz < SYSCLK <= 48MHz
-	 * 2WS if 48MHz < SYSCLK <= 72MHz
-	 */
+	/* SYSCLK will run at 24MHz -> 0 waitstates. */
 	flash_set_ws(FLASH_ACR_LATENCY_0WS);
 
 	/*
-	 * Set the PLL multiplication factor to 3.
+	 * Set the PLL multiplication factor.
 	 * 8MHz (external) * 3 (multiplier) = 24MHz
 	 */
 	rcc_set_pll_multiplication_factor(RCC_CFGR_PLLMUL_PLL_CLK_MUL3);
@@ -851,7 +831,7 @@ void rcc_clock_setup_in_hse_8mhz_out_72mhz(void)
 	/* Select HSI as SYSCLK source. */
 	rcc_set_sysclk_source(RCC_CFGR_SW_SYSCLKSEL_HSICLK);
 
-	/* Enable external high-speed oscillator 8MHz. */
+	/* Enable external high-speed oscillator. */
 	rcc_osc_on(RCC_HSE);
 	rcc_wait_for_osc_ready(RCC_HSE);
 	rcc_set_sysclk_source(RCC_CFGR_SW_SYSCLKSEL_HSECLK);
@@ -865,16 +845,11 @@ void rcc_clock_setup_in_hse_8mhz_out_72mhz(void)
 	rcc_set_ppre1(RCC_CFGR_PPRE1_HCLK_DIV2);     /* Set. 36MHz Max. 36MHz */
 	rcc_set_ppre2(RCC_CFGR_PPRE2_HCLK_NODIV);    /* Set. 72MHz Max. 72MHz */
 
-	/*
-	 * SYSCLK will run at 72MHz -> 2 waitstates.
-	 * 0WS if 0MHz < SYSCLK <= 24MHz
-	 * 1WS if 24MHz < SYSCLK <= 48MHz
-	 * 2WS if 48MHz < SYSCLK <= 72MHz
-	 */
+	/* SYSCLK will run at 72MHz -> 2 waitstates. */
 	flash_set_ws(FLASH_ACR_LATENCY_2WS);
 
 	/*
-	 * Set the PLL multiplication factor to 9.
+	 * Set the PLL multiplication factor.
 	 * 8MHz (external) * 9 (multiplier) = 72MHz
 	 */
 	rcc_set_pll_multiplication_factor(RCC_CFGR_PLLMUL_PLL_CLK_MUL9);
@@ -915,7 +890,7 @@ void rcc_clock_setup_in_hse_12mhz_out_72mhz(void)
 	/* Select HSI as SYSCLK source. */
 	rcc_set_sysclk_source(RCC_CFGR_SW_SYSCLKSEL_HSICLK);
 
-	/* Enable external high-speed oscillator 12MHz. */
+	/* Enable external high-speed oscillator. */
 	rcc_osc_on(RCC_HSE);
 	rcc_wait_for_osc_ready(RCC_HSE);
 	rcc_set_sysclk_source(RCC_CFGR_SW_SYSCLKSEL_HSECLK);
@@ -929,16 +904,11 @@ void rcc_clock_setup_in_hse_12mhz_out_72mhz(void)
 	rcc_set_ppre1(RCC_CFGR_PPRE1_HCLK_DIV2);     /* Set. 36MHz Max. 36MHz */
 	rcc_set_ppre2(RCC_CFGR_PPRE2_HCLK_NODIV);    /* Set. 72MHz Max. 72MHz */
 
-	/*
-	 * SYSCLK will run at 72MHz -> 2 waitstates.
-	 * 0WS if 0MHz < SYSCLK <= 24MHz
-	 * 1WS if 24MHz < SYSCLK <= 48MHz
-	 * 2WS if 48MHz < SYSCLK <= 72MHz
-	 */
+	/* SYSCLK will run at 72MHz -> 2 waitstates. */
 	flash_set_ws(FLASH_ACR_LATENCY_2WS);
 
 	/*
-	 * Set the PLL multiplication factor to 6.
+	 * Set the PLL multiplication factor.
 	 * 12MHz (external) * 6 (multiplier) / 1 (PLLXTPRE_HSE_CLK) = 72MHz
 	 */
 	rcc_set_pll_multiplication_factor(RCC_CFGR_PLLMUL_PLL_CLK_MUL6);
@@ -993,16 +963,11 @@ void rcc_clock_setup_in_hse_16mhz_out_72mhz(void)
 	rcc_set_ppre1(RCC_CFGR_PPRE1_HCLK_DIV2);     /* Set. 36MHz Max. 36MHz */
 	rcc_set_ppre2(RCC_CFGR_PPRE2_HCLK_NODIV);    /* Set. 72MHz Max. 72MHz */
 
-	/*
-	 * SYSCLK will run at 72MHz -> 2 waitstates.
-	 * 0WS if 0MHz < SYSCLK <= 24MHz
-	 * 1WS if 24MHz < SYSCLK <= 48MHz
-	 * 2WS if 48MHz < SYSCLK <= 72MHz
-	 */
+	/* SYSCLK will run at 72MHz -> 2 waitstates. */
 	flash_set_ws(FLASH_ACR_LATENCY_2WS);
 
 	/*
-	 * Set the PLL multiplication factor to 9.
+	 * Set the PLL multiplication factor.
 	 * 16MHz (external) * 9 (multiplier) / 2 (PLLXTPRE_HSE_CLK_DIV2) = 72MHz
 	 */
 	rcc_set_pll_multiplication_factor(RCC_CFGR_PLLMUL_PLL_CLK_MUL9);
@@ -1036,17 +1001,12 @@ void rcc_clock_setup_in_hse_16mhz_out_72mhz(void)
 
 void rcc_clock_setup_in_hse_25mhz_out_72mhz(void)
 {
-	/* Enable external high-speed oscillator 25MHz. */
+	/* Enable external high-speed oscillator. */
 	rcc_osc_on(RCC_HSE);
 	rcc_wait_for_osc_ready(RCC_HSE);
 	rcc_set_sysclk_source(RCC_CFGR_SW_SYSCLKSEL_HSECLK);
 
-	/*
-	 * SYSCLK will run at 72MHz -> 2 waitstates.
-	 * 0WS if 0MHz < SYSCLK <= 24MHz
-	 * 1WS if 24MHz < SYSCLK <= 48MHz
-	 * 2WS if 48MHz < SYSCLK <= 72MHz
-	 */
+	/* SYSCLK will run at 72MHz -> 2 waitstates. */
 	flash_set_ws(FLASH_ACR_LATENCY_2WS);
 
 	/*
