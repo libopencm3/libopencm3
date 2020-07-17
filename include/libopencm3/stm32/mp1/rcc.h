@@ -460,6 +460,25 @@ LGPL License Terms @ref lgpl_license
 #define RCC_RDLSICR_EADLY_5MS   7
 /**@}*/
 
+/** @defgroup rcc_rck3selr_values RCC_RCK3SELR Values
+ * @ingroup rcc_registers
+@{*/
+#define RCC_RCK3SELR_PLL3SRC_SHIFT 0
+#define RCC_RCK3SELR_PLL3SRC_MASK  (0x3)
+#define RCC_RCK3SELR_PLL3SRC_HSI   0
+#define RCC_RCK3SELR_PLL3SRC_HSE   1
+#define RCC_RCK3SELR_PLL3SRC_CSI   2
+#define RCC_RCK3SELR_PLL3SRC_NONE  3
+#define RCC_RCK3SELR_PLL3SRCRDY    BIT31
+/**@}*/
+
+/** @defgroup rcc_timg1prer_values RCC_TIMG1PRER Values
+ * @ingroup rcc_registers
+@{*/
+#define RCC_TIMG1PRER_TIMG1PRE    BIT0
+#define RCC_TIMG1PRER_TIMG1PRERDY BIT31
+/**@}*/
+
 /** @defgroup rcc_pllxcr_values RCC_PLLxCR Values
  * @ingroup rcc_registers
 @{*/
@@ -469,6 +488,38 @@ LGPL License Terms @ref lgpl_license
 #define RCC_PLLCR_DIVPEN    BIT4
 #define RCC_PLLCR_DIVQEN    BIT5
 #define RCC_PLLCR_DIVREN    BIT6
+/**@}*/
+
+/** @defgroup rcc_pllxcfgr1_values RCC_PLLxCFGR1 Values
+ * @ingroup rcc_registers
+@{*/
+#define RCC_PLLCFGR1_DIVN_SHIFT     0
+#define RCC_PLLCFGR1_DIVN_MASK      (0x1ff)
+#define RCC_PLLCFGR1_DIVM_SHIFT     16
+#define RCC_PLLCFGR1_DIVM_MASK      (0x3f)
+#define RCC_PLLCFGR1_IFRGE_SHIFT    24
+#define RCC_PLLCFGR1_IFRGE_MASK     (0x3)
+#define RCC_PLLCFGR1_IFRGE_4_8_MHZ  0
+#define RCC_PLLCFGR1_IFRGE_8_16_MHZ 1
+/**@}*/
+
+/** @defgroup rcc_pllxcfgr2_values RCC_PLLxCFGR2 Values
+ * @ingroup rcc_registers
+@{*/
+#define RCC_PLLCFGR2_DIVP_SHIFT     0
+#define RCC_PLLCFGR2_DIVP_MASK      (0x3f)
+#define RCC_PLLCFGR2_DIVQ_SHIFT     8
+#define RCC_PLLCFGR2_DIVQ_MASK      (0x3f)
+#define RCC_PLLCFGR2_DIVR_SHIFT     16
+#define RCC_PLLCFGR2_DIVR_MASK      (0x3f)
+/**@}*/
+
+/** @defgroup rcc_pllxfracr_values RCC_PLLxFRACR Values
+ * @ingroup rcc_registers
+@{*/
+#define RCC_PLLFRACR_FRACV_SHIFT 3
+#define RCC_PLLFRACR_FRACV_MASK  (0x1fff)
+#define RCC_PLLFRACR_FRACLE      BIT16
 /**@}*/
 
 /** @defgroup rcc_uart35ckselr_values RCC_UART35CKSELR Values
@@ -496,6 +547,49 @@ LGPL License Terms @ref lgpl_license
 #define RCC_HSICFGR_HSITRIM_MASK  (0x7f)
 #define RCC_HSICFGR_HSICAL_SHIFT 16
 #define RCC_HSICFGR_HSICAL_MASK  (0x3ff)
+/**@}*/
+
+/** @defgroup rcc_mssckselr_values RCC_MSSCKSELR Values
+ * @ingroup rcc_registers
+@{*/
+#define RCC_MSSCKSELR_MCUSSRC_SHIFT 0
+#define RCC_MSSCKSELR_MCUSSRC_MASK  (0x3)
+#define RCC_MSSCKSELR_MCUSSRC_HSI   0
+#define RCC_MSSCKSELR_MCUSSRC_HSE   1
+#define RCC_MSSCKSELR_MCUSSRC_CSI   2
+#define RCC_MSSCKSELR_MCUSSRC_PLL3  3
+#define RCC_MSSCKSELR_MCUSSRCRDY    BIT31
+/**@}*/
+
+/** @defgroup rcc_mcudivr_values RCC_MCUDIVR Values
+ * @ingroup rcc_registers
+@{*/
+#define RCC_MCUDIVR_MCUDIV_SHIFT    0
+#define RCC_MCUDIVR_MCUDIV_MASK     (0xf)
+#define RCC_MCUDIVR_MCUDIV_NONE     0
+#define RCC_MCUDIVR_MCUDIV_2        1
+#define RCC_MCUDIVR_MCUDIV_4        2
+#define RCC_MCUDIVR_MCUDIV_8        3
+#define RCC_MCUDIVR_MCUDIV_16       4
+#define RCC_MCUDIVR_MCUDIV_32       5
+#define RCC_MCUDIVR_MCUDIV_64       6
+#define RCC_MCUDIVR_MCUDIV_128      7
+#define RCC_MCUDIVR_MCUDIV_256      8
+#define RCC_MCUDIVR_MCUDIV_512      9
+#define RCC_MCUDIVR_MCUDIVRDY       BIT31
+/**@}*/
+
+/** @defgroup rcc_apb1divr_values RCC_APB1DIVR Values
+ * @ingroup rcc_registers
+@{*/
+#define RCC_APB1DIVR_APB1DIV_SHIFT    0
+#define RCC_APB1DIVR_APB1DIV_MASK     (0x7)
+#define RCC_APB1DIVR_APB1DIV_NONE     0
+#define RCC_APB1DIVR_APB1DIV_2        1
+#define RCC_APB1DIVR_APB1DIV_4        2
+#define RCC_APB1DIVR_APB1DIV_8        3
+#define RCC_APB1DIVR_APB1DIV_16       4
+#define RCC_APB1DIVR_APB1DIVRDY       BIT31
 /**@}*/
 
 /** @defgroup rcc_spi45ckselr_values RCC_SPI45CKSELR Values
