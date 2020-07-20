@@ -549,6 +549,37 @@ LGPL License Terms @ref lgpl_license
 #define RCC_HSICFGR_HSICAL_MASK  (0x3ff)
 /**@}*/
 
+/** @defgroup rcc_mco1cfgr_values RCC_MCO1CFGR Values
+ * @ingroup rcc_registers
+@{*/
+#define RCC_MCO1CFGR_MCO1SEL_SHIFT 0
+#define RCC_MCO1CFGR_MCO1SEL_MASK  (0x7)
+#define RCC_MCO1CFGR_MCO1SEL_HSI   0
+#define RCC_MCO1CFGR_MCO1SEL_HSE   1
+#define RCC_MCO1CFGR_MCO1SEL_CSI   2
+#define RCC_MCO1CFGR_MCO1SEL_LSI   3
+#define RCC_MCO1CFGR_MCO1SEL_LSE   4
+#define RCC_MCO1CFGR_MCO1DIV_SHIFT 4
+#define RCC_MCO1CFGR_MCO1DIV_MASK  (0xf)
+#define RCC_MCO1CFGR_MCO1ON        BIT12
+/**@}*/
+
+/** @defgroup rcc_mco2cfgr_values RCC_MCO2CFGR Values
+ * @ingroup rcc_registers
+@{*/
+#define RCC_MCO2CFGR_MCO2SEL_SHIFT 0
+#define RCC_MCO2CFGR_MCO2SEL_MASK  (0x7)
+#define RCC_MCO2CFGR_MCO2SEL_MPU   0
+#define RCC_MCO2CFGR_MCO2SEL_AXI   1
+#define RCC_MCO2CFGR_MCO2SEL_MCU   2
+#define RCC_MCO2CFGR_MCO2SEL_PLL4  3
+#define RCC_MCO2CFGR_MCO2SEL_HSE   4
+#define RCC_MCO2CFGR_MCO2SEL_HSI   5
+#define RCC_MCO2CFGR_MCO2DIV_SHIFT 4
+#define RCC_MCO2CFGR_MCO2DIV_MASK  (0xf)
+#define RCC_MCO2CFGR_MCO2ON        BIT12
+/**@}*/
+
 /** @defgroup rcc_mssckselr_values RCC_MSSCKSELR Values
  * @ingroup rcc_registers
 @{*/
