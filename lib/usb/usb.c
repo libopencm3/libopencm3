@@ -107,9 +107,48 @@ void _usbd_reset(usbd_device *usbd_dev)
 }
 
 /* Functions to wrap the low-level driver */
+
+/**
+ * Event service routine to be used in a polled environment.
+ * 
+ * It will poll for pending USB events and appropriately dispatch
+ * to handlers when an interrupt is found
+ *
+ * @param the usb device handle returned from @ref usbd_init
+ */
 void usbd_poll(usbd_device *usbd_dev)
 {
 	usbd_dev->driver->poll(usbd_dev);
+}
+
+/**
+ * Primary USB interrupt service routine (ISR).
+ * 
+ * This function is to be used in an interrupt environment where
+ * the interrupt is registered in an ISR, and then the result is dispatched
+ * to a secondary ISR where the handlers for the pending events are called
+ * in a non-ISR context.
+ *
+ * @param dev the usb device handle returned from @ref usbd_init
+ * @param int_stat Pointer to location where to save interrupt status
+ */
+void usbd_primary_isr(usbd_device *usbd_dev, uint32_t* int_stat)
+{
+	usbd_dev->driver->primary_isr(usbd_dev, int_stat);
+}
+
+/**
+ * Secondary USB interrupt service routine (ISR).
+ * 
+ * This function should be called with the dispatched interrupt status
+ * from the primary ISR. 
+ *
+ * @param dev the usb device handle returned from @ref usbd_init
+ * @param int_stat interrupt status from @ref usbd_primary_isr
+ */
+void usbd_secondary_isr(usbd_device *usbd_dev, uint32_t int_stat)
+{
+	usbd_dev->driver->secondary_isr(usbd_dev, int_stat);
 }
 
 __attribute__((weak)) void usbd_disconnect(usbd_device *usbd_dev,

@@ -166,7 +166,40 @@ extern void usbd_register_set_altsetting_callback(usbd_device *usbd_dev,
 					usbd_set_altsetting_callback callback);
 
 /* Functions to be provided by the hardware abstraction layer */
+
+/**
+ * Event service routine to be used in a polled environment.
+ * 
+ * It will poll for pending USB events and appropriately dispatch
+ * to handlers when an interrupt is found
+ *
+ * @param the usb device handle returned from @ref usbd_init
+ */
 extern void usbd_poll(usbd_device *usbd_dev);
+
+/**
+ * Primary USB interrupt service routine (ISR).
+ * 
+ * This function is to be used in an interrupt environment where
+ * the interrupt is registered in an ISR, and then the result is dispatched
+ * to a secondary ISR where the handlers for the pending events are called
+ * in a non-ISR context.
+ *
+ * @param dev the usb device handle returned from @ref usbd_init
+ * @param int_stat Pointer to location where to save interrupt status
+ */
+extern void usbd_primary_isr(usbd_device *usbd_dev, uint32_t* int_stat);
+
+/**
+ * Secondary USB interrupt service routine (ISR).
+ * 
+ * This function should be called with the dispatched interrupt status
+ * from the primary ISR. 
+ *
+ * @param dev the usb device handle returned from @ref usbd_init
+ * @param int_stat interrupt status from @ref usbd_primary_isr
+ */
+extern void usbd_secondary_isr(usbd_device *usbd_dev, uint32_t int_stat);
 
 /** Disconnect, if supported by the driver
  *

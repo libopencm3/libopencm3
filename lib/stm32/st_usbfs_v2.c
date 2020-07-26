@@ -108,4 +108,6 @@ const struct _usbd_driver st_usbfs_v2_usb_driver = {
 	.ep_read_packet = st_usbfs_ep_read_packet,
 	.disconnect = st_usbfs_v2_disconnect,
 	.poll = st_usbfs_poll,
+	.primary_isr = st_usbfs_primary_isr,
+	.secondary_isr = st_usbfs_secondary_isr,
 };
