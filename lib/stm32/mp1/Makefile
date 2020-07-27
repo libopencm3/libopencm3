@@ -44,6 +44,7 @@ OBJS += spi_common_v3.o
 OBJS += i2c_common_v2.o
 OBJS += timer_common_all.o timer_common_f0234.o
 OBJS += ipcc.o
+OBJS += exti_common_all.o exti_common_v2.o
 
 VPATH += ../../usb:../:../../cm3:../common
 VPATH += ../../ethernet
