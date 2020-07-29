@@ -35,6 +35,7 @@ TGT_CFLAGS      += $(DEBUG_FLAGS)
 TGT_CFLAGS	+= $(STANDARD_FLAGS)
 ARFLAGS		= rcs
 
+OBJS += dmamux.o
 OBJS += flash.o flash_common_all.o flash_common_f.o flash_common_idcache.o
 OBJS += gpio_common_all.o gpio_common_f0234.o
 OBJS += pwr.o
