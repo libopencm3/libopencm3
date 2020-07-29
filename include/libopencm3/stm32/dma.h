@@ -40,6 +40,8 @@
 #       include <libopencm3/stm32/l4/dma.h>
 #elif defined(STM32G0)
 #       include <libopencm3/stm32/g0/dma.h>
+#elif defined(STM32G4)
+#       include <libopencm3/stm32/g4/dma.h>
 #else
 #       error "stm32 family not defined."
 #endif
