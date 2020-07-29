@@ -35,6 +35,7 @@ TGT_CFLAGS      += $(DEBUG_FLAGS)
 TGT_CFLAGS	+= $(STANDARD_FLAGS)
 ARFLAGS		= rcs
 
+OBJS += adc.o adc_common_v2.o adc_common_v2_multi.o
 OBJS += dma_common_l1f013.o
 OBJS += dmamux.o
 OBJS += flash.o flash_common_all.o flash_common_f.o flash_common_idcache.o
