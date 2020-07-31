@@ -1,3 +1,5 @@
+/** @addtogroup usb_defines
+ */
 /*
  * This file is part of the libopencm3 project.
  *
@@ -17,11 +19,12 @@
  * along with this library.  If not, see <http://www.gnu.org/licenses/>.
  */
 
-#ifndef LIBOPENCM3_EFM32_USB_H
-#define LIBOPENCM3_EFM32_USB_H
+#pragma once
 
 #include <libopencm3/cm3/common.h>
 #include <libopencm3/usb/usbd.h>
+
+/**@{*/
 
 #define USB_CTRL			MMIO32(USB_BASE + 0x000)
 #define USB_STATUS			MMIO32(USB_BASE + 0x004)
@@ -365,5 +368,4 @@
 /* Bits 18:7 - Reserved */
 #define USB_DIEP0TSIZ_XFRSIZ_MASK	(0x7f << 0)
 
-#endif
-
+/**@}*/

@@ -20,10 +20,8 @@
 LIBNAME		= libopencm3_sam3n
 SRCLIBDIR	?= ../..
 
-PREFIX		?= arm-none-eabi
-
-CC		= $(PREFIX)-gcc
-AR		= $(PREFIX)-ar
+CC		= $(PREFIX)gcc
+AR		= $(PREFIX)ar
 TGT_CFLAGS	= -Os -Wall -Wextra -I../../../include -fno-common \
 		  -mcpu=cortex-m3 -mthumb $(FP_FLAGS) -Wstrict-prototypes \
 		  -ffunction-sections -fdata-sections -MD -DSAM3N
@@ -31,7 +29,10 @@ TGT_CFLAGS      += $(DEBUG_FLAGS)
 TGT_CFLAGS	+= $(STANDARD_FLAGS)
 # ARFLAGS	= rcsv
 ARFLAGS		= rcs
-OBJS		= gpio_common_all.o gpio_common_3n3s.o pmc.o usart_common_all.o usart_common_3.o
+
+OBJS += gpio_common_all.o gpio_common_3n3s.o
+OBJS += pmc.o
+OBJS += usart_common_all.o usart_common_3.o
 
 VPATH += ../../cm3:../common
 

@@ -1,3 +1,12 @@
+/** @defgroup adc_defines ADC Defines
+ *
+ * @brief <b>Defined Constants and Types for the EFM32WG Analog to Digital
+ * Converter</b>
+ *
+ * @ingroup EFM32WG_defines
+ *
+ * LGPL License Terms @ref lgpl_license
+ */
 /*
  * This file is part of the libopencm3 project.
  *
@@ -17,9 +26,6 @@
  * along with this library.  If not, see <http://www.gnu.org/licenses/>.
  */
 
-#ifndef LIBOPENCM3_EFM32_WG_ADC_H
-#define LIBOPENCM3_EFM32_WG_ADC_H
+#pragma once
 
 #include <libopencm3/efm32/common/adc_common.h>
-
-#endif

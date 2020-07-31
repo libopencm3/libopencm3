@@ -29,55 +29,6 @@
 
 #include <libopencm3/stm32/flash.h>
 
-/*---------------------------------------------------------------------------*/
-/** @brief Enable the FLASH Prefetch Buffer
-
-This buffer is used for instruction fetches and is enabled by default after
-reset.
-
-Note carefully the restrictions under which the prefetch buffer may be
-enabled or disabled. Prefetch is only available when 64-bit
-access is enabled.
-*/
-
-void flash_prefetch_enable(void)
-{
-	FLASH_ACR |= FLASH_ACR_PRFTEN;
-}
-
-/*---------------------------------------------------------------------------*/
-/** @brief Disable the FLASH Prefetch Buffer
-
-Note carefully the restrictions under which the prefetch buffer may be
-set to disabled. See the reference and programming manuals for details.
-*/
-
-void flash_prefetch_disable(void)
-{
-	FLASH_ACR &= ~FLASH_ACR_PRFTEN;
-}
-
-/*---------------------------------------------------------------------------*/
-/** @brief Set the Number of Wait States
-
-Used to match the system clock to the FLASH memory access time. See the
-programming manual for more information on clock speed and voltage ranges. The
-latency must be changed to the appropriate value <b>before</b> any increase in
-clock speed, or <b>after</b> any decrease in clock speed. A latency setting of
-zero only applies if 64-bit mode is not used.
-
-@param[in] ws values from @ref flash_latency.
-*/
-
-void flash_set_ws(uint32_t ws)
-{
-	uint32_t reg32;
-
-	reg32 = FLASH_ACR;
-	reg32 &= ~(1 << 0);
-	reg32 |= ws;
-	FLASH_ACR = reg32;
-}
 
 /**
  * Unlock primary access to the flash control/erase block
@@ -113,18 +64,6 @@ void flash_lock_progmem(void)
 	FLASH_PECR |= FLASH_PECR_PRGLOCK;
 }
 
-/**
- * Unlock option bytes.
- * Writes the magic sequence to unlock the option bytes,
- * you must have already unlocked access to this register!
- * @sa flash_unlock_pecr
- */
-void flash_unlock_option_bytes(void)
-{
-	FLASH_OPTKEYR = FLASH_OPTKEYR_OPTKEY1;
-	FLASH_OPTKEYR = FLASH_OPTKEYR_OPTKEY2;
-}
-
 void flash_lock_option_bytes(void)
 {
 	FLASH_PECR |= FLASH_PECR_OPTLOCK;
@@ -148,6 +87,14 @@ void flash_lock(void)
 	flash_lock_option_bytes();
 	flash_lock_progmem();
 	flash_lock_pecr();
+}
+
+/** @brief Unlock RUN_PD bit from FLASH_ACR register.
+ */
+void flash_unlock_acr(void)
+{
+	FLASH_PDKEYR = FLASH_PDKEYR_PDKEY1;
+	FLASH_PDKEYR = FLASH_PDKEYR_PDKEY2;
 }
 
 /** @brief Write a word to eeprom

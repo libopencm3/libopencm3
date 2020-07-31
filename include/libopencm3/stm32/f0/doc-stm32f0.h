@@ -1,4 +1,4 @@
-/** @mainpage libopencm3 STM32F0
+/** @page libopencm3 STM32F0
  *
  * @version 1.0.0
  *

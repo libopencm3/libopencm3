@@ -1,3 +1,5 @@
+/** @addtogroup burtc_defines
+ */
 /*
  * This file is part of the libopencm3 project.
  *
@@ -17,11 +19,12 @@
  * along with this library.  If not, see <http://www.gnu.org/licenses/>.
  */
 
-#ifndef LIBOPENCM3_EFM32_BURTC_H
-#define LIBOPENCM3_EFM32_BURTC_H
+#pragma once
 
 #include <libopencm3/efm32/memorymap.h>
 #include <libopencm3/cm3/common.h>
+
+/**@{*/
 
 #define BURTC_CTRL	MMIO32(BURTC_BASE + 0x000)
 #define BURTC_LPMODE	MMIO32(BURTC_BASE + 0x004)
@@ -166,5 +169,5 @@
 #define BURTC_SYNCBUSY_COMP0		(1 << 1)
 #define BURTC_SYNCBUSY_LPMODE		(1 << 0)
 
-#endif
+/**@}*/
 

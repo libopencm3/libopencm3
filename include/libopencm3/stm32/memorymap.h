@@ -38,6 +38,14 @@
 #	include <libopencm3/stm32/l1/memorymap.h>
 #elif defined(STM32L4)
 #	include <libopencm3/stm32/l4/memorymap.h>
+#elif defined(STM32G0)
+#	include <libopencm3/stm32/g0/memorymap.h>
+#elif defined(STM32G4)
+#	include <libopencm3/stm32/g4/memorymap.h>
+#elif defined(STM32H7)
+#       include <libopencm3/stm32/h7/memorymap.h>
+#elif defined(GD32F1X0)
+#       include <libopencm3/gd32/f1x0/memorymap.h>
 #else
 #	error "stm32 family not defined."
 #endif

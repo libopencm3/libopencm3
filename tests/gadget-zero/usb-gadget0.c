@@ -91,11 +91,27 @@ static const struct usb_endpoint_descriptor endp_bulk[] = {
 	{
 		.bLength = USB_DT_ENDPOINT_SIZE,
 		.bDescriptorType = USB_DT_ENDPOINT,
+		.bEndpointAddress = 0x81,
+		.bmAttributes = USB_ENDPOINT_ATTR_BULK,
+		.wMaxPacketSize = BULK_EP_MAXPACKET,
+		.bInterval = 1,
+	},
+	{
+		.bLength = USB_DT_ENDPOINT_SIZE,
+		.bDescriptorType = USB_DT_ENDPOINT,
+		.bEndpointAddress = 0x2,
+		.bmAttributes = USB_ENDPOINT_ATTR_BULK,
+		.wMaxPacketSize = BULK_EP_MAXPACKET,
+		.bInterval = 1,
+	},
+	{
+		.bLength = USB_DT_ENDPOINT_SIZE,
+		.bDescriptorType = USB_DT_ENDPOINT,
 		.bEndpointAddress = 0x82,
 		.bmAttributes = USB_ENDPOINT_ATTR_BULK,
 		.wMaxPacketSize = BULK_EP_MAXPACKET,
 		.bInterval = 1,
-	}
+	},
 };
 
 static const struct usb_interface_descriptor iface_sourcesink[] = {
@@ -117,7 +133,7 @@ static const struct usb_interface_descriptor iface_loopback[] = {
 		.bDescriptorType = USB_DT_INTERFACE,
 		.bInterfaceNumber = 0, /* still 0, as it's a different config...? */
 		.bAlternateSetting = 0,
-		.bNumEndpoints = 2,
+		.bNumEndpoints = 4,
 		.bInterfaceClass = USB_CLASS_VENDOR,
 		.iInterface = 0,
 		.endpoint = endp_bulk,
@@ -239,18 +255,20 @@ static void gadget0_ss_in_cb(usbd_device *usbd_dev, uint8_t ep)
 	/*assert(x == sizeof(buf));*/
 }
 
-static void gadget0_rx_cb_loopback(usbd_device *usbd_dev, uint8_t ep)
+static void gadget0_in_cb_loopback(usbd_device *usbd_dev, uint8_t ep)
 {
 	(void) usbd_dev;
-	ER_DPRINTF("loop rx %x\n", ep);
-	/* TODO - unimplemented - consult linux source on proper behaviour */
+	ER_DPRINTF("loop IN %x\n", ep);
+	/* Nothing to do here, basically just indicates they read us. */
 }
 
-static void gadget0_tx_cb_loopback(usbd_device *usbd_dev, uint8_t ep)
+static void gadget0_out_cb_loopback(usbd_device *usbd_dev, uint8_t ep)
 {
-	(void) usbd_dev;
-	ER_DPRINTF("loop tx %x\n", ep);
-	/* TODO - unimplemented - consult linux source on proper behaviour */
+	uint8_t buf[BULK_EP_MAXPACKET];
+	/* Copy data we received on OUT ep back to the paired IN ep */
+	int x = usbd_ep_read_packet(usbd_dev, ep, buf, BULK_EP_MAXPACKET);
+	int y = usbd_ep_write_packet(usbd_dev, 0x80 | ep, buf, x);
+	ER_DPRINTF("loop OUT %x got %d => %d\n", ep, x, y);
 }
 
 static enum usbd_request_return_codes gadget0_control_request(usbd_device *usbd_dev,
@@ -262,7 +280,6 @@ static enum usbd_request_return_codes gadget0_control_request(usbd_device *usbd_
 	(void) usbd_dev;
 	(void) complete;
 	(void) buf;
-	(void) len;
 	ER_DPRINTF("ctrl breq: %x, bmRT: %x, windex :%x, wlen: %x, wval :%x\n",
 		req->bRequest, req->bmRequestType, req->wIndex, req->wLength,
 		req->wValue);
@@ -274,9 +291,31 @@ static enum usbd_request_return_codes gadget0_control_request(usbd_device *usbd_
 		state.pattern = req->wValue;
 		return USBD_REQ_HANDLED;
 	case INTEL_COMPLIANCE_WRITE:
+		/* accept correctly formed ctrl writes */
+		if (req->bmRequestType != (USB_REQ_TYPE_VENDOR|USB_REQ_TYPE_INTERFACE)) {
+			return USBD_REQ_NOTSUPP;
+		}
+		if (req->wValue || req->wIndex) {
+			return USBD_REQ_NOTSUPP;
+		}
+		if (req->wLength > sizeof(usbd_control_buffer)) {
+			return USBD_REQ_NOTSUPP;
+		}
+		/* ok, mark it as accepted. */
+		return USBD_REQ_HANDLED;
 	case INTEL_COMPLIANCE_READ:
-		ER_DPRINTF("unimplemented!");
-		return USBD_REQ_NOTSUPP;
+		if (req->bmRequestType != (USB_REQ_TYPE_IN|USB_REQ_TYPE_VENDOR|USB_REQ_TYPE_INTERFACE)) {
+			return USBD_REQ_NOTSUPP;
+		}
+		if (req->wValue || req->wIndex) {
+			return USBD_REQ_NOTSUPP;
+		}
+		if (req->wLength > sizeof(usbd_control_buffer)) {
+			return USBD_REQ_NOTSUPP;
+		}
+		/* ok, return what they left there earlier */
+		*len = req->wLength;
+		return USBD_REQ_HANDLED;
 	case GZ_REQ_SET_UNALIGNED:
 		state.test_unaligned = 1;
 		return USBD_REQ_HANDLED;
@@ -298,6 +337,9 @@ static enum usbd_request_return_codes gadget0_control_request(usbd_device *usbd_
 			*len = req->wValue;
 		}
 		return USBD_REQ_HANDLED;
+	default:
+		ER_DPRINTF("Unhandled request!\n");
+		return USBD_REQ_NOTSUPP;
 	}
 	return USBD_REQ_NEXT_CALLBACK;
 }
@@ -310,7 +352,7 @@ static void gadget0_set_config(usbd_device *usbd_dev, uint16_t wValue)
 		state.test_unaligned = 0;
 		usbd_ep_setup(usbd_dev, 0x01, USB_ENDPOINT_ATTR_BULK, BULK_EP_MAXPACKET,
 			gadget0_ss_out_cb);
-		usbd_ep_setup(usbd_dev, 0x82, USB_ENDPOINT_ATTR_BULK, BULK_EP_MAXPACKET,
+		usbd_ep_setup(usbd_dev, 0x81, USB_ENDPOINT_ATTR_BULK, BULK_EP_MAXPACKET,
 			gadget0_ss_in_cb);
 		usbd_register_control_callback(
 			usbd_dev,
@@ -318,13 +360,23 @@ static void gadget0_set_config(usbd_device *usbd_dev, uint16_t wValue)
 			USB_REQ_TYPE_TYPE | USB_REQ_TYPE_RECIPIENT,
 			gadget0_control_request);
 		/* Prime source for IN data. */
-		gadget0_ss_in_cb(usbd_dev, 0x82);
+		gadget0_ss_in_cb(usbd_dev, 0x81);
 		break;
 	case GZ_CFG_LOOPBACK:
+		/*
+		 * The ordering here is important, as it defines the addresses
+		 * locality. We want to have both out endpoints in sequentially,
+		 * so we can test for overrunning our memory space, if that's a
+		 * concern on the usb peripheral.
+		 */
 		usbd_ep_setup(usbd_dev, 0x01, USB_ENDPOINT_ATTR_BULK, BULK_EP_MAXPACKET,
-			gadget0_rx_cb_loopback);
+			gadget0_out_cb_loopback);
+		usbd_ep_setup(usbd_dev, 0x02, USB_ENDPOINT_ATTR_BULK, BULK_EP_MAXPACKET,
+			gadget0_out_cb_loopback);
+		usbd_ep_setup(usbd_dev, 0x81, USB_ENDPOINT_ATTR_BULK, BULK_EP_MAXPACKET,
+			gadget0_in_cb_loopback);
 		usbd_ep_setup(usbd_dev, 0x82, USB_ENDPOINT_ATTR_BULK, BULK_EP_MAXPACKET,
-			gadget0_tx_cb_loopback);
+			gadget0_in_cb_loopback);
 		break;
 	default:
 		ER_DPRINTF("set configuration unknown: %d\n", wValue);

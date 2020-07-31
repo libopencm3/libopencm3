@@ -1,6 +1,6 @@
-/** @defgroup rcc_file RCC
+/** @defgroup rcc_file RCC peripheral API
  *
- * @ingroup STM32L4xx
+ * @ingroup peripheral_apis
  *
  * @section rcc_l4_api_ex Reset and Clock Control API.
  *
@@ -367,6 +367,71 @@ void rcc_set_msi_range_standby(uint32_t msi_range)
 	reg &= ~(RCC_CSR_MSIRANGE_MASK << RCC_CSR_MSIRANGE_SHIFT);
 	reg |= msi_range << RCC_CSR_MSIRANGE_SHIFT;
 	RCC_CSR = reg;
+}
+
+/** Enable PLL Output
+ *
+ *	- P (RCC_PLLCFGR_PLLPEN)
+ *	- Q (RCC_PLLCFGR_PLLQEN)
+ *	- R (RCC_PLLCFGR_PLLREN)
+ *
+ * @param pllout One or more of the definitions above
+ */
+void rcc_pll_output_enable(uint32_t pllout)
+{
+	RCC_PLLCFGR |= pllout;
+}
+
+/** Set clock source for 48MHz clock
+ *
+ * The 48 MHz clock is derived from one of the four following sources:
+ *	- main PLL VCO (RCC_CCIPR_CLK48SEL_PLL)
+ *	- PLLSAI1 VCO (RCC_CCIPR_CLK48SEL_PLLSAI1Q)
+ *	- MSI clock (RCC_CCIPR_CLK48SEL_MSI)
+ *	- HSI48 internal oscillator (RCC_CCIPR_CLK48SEL_HSI48)
+ *
+ * @param clksel One of the definitions above
+ */
+void rcc_set_clock48_source(uint32_t clksel)
+{
+	RCC_CCIPR &= ~(RCC_CCIPR_CLK48SEL_MASK << RCC_CCIPR_CLK48SEL_SHIFT);
+	RCC_CCIPR |= (clksel << RCC_CCIPR_CLK48SEL_SHIFT);
+}
+
+
+/** Enable the RTC clock */
+void rcc_enable_rtc_clock(void)
+{
+	RCC_BDCR |= RCC_BDCR_RTCEN;
+}
+
+/** Disable the RTC clock */
+void rcc_disable_rtc_clock(void)
+{
+	RCC_BDCR &= ~RCC_BDCR_RTCEN;
+}
+
+/** Set the source for the RTC clock
+ * @param[in] clk ::rcc_osc. RTC clock source. Only HSE/32, LSE and LSI.
+ */
+void rcc_set_rtc_clock_source(enum rcc_osc clk)
+{
+	RCC_BDCR &= ~(RCC_BDCR_RTCSEL_MASK << RCC_BDCR_RTCSEL_SHIFT);
+
+	switch (clk) {
+	case RCC_HSE:
+		RCC_BDCR |= (RCC_BDCR_RTCSEL_HSEDIV32 << RCC_BDCR_RTCSEL_SHIFT);
+		break;
+	case RCC_LSE:
+		RCC_BDCR |= (RCC_BDCR_RTCSEL_LSE << RCC_BDCR_RTCSEL_SHIFT);
+		break;
+	case RCC_LSI:
+		RCC_BDCR |= (RCC_BDCR_RTCSEL_LSI << RCC_BDCR_RTCSEL_SHIFT);
+		break;
+	default:
+		/* none selected */
+		break;
+	}
 }
 
 /**@}*/

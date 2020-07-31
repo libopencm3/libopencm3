@@ -108,6 +108,9 @@ Control</b>
 
 #define RCC_CFGR_PLLMUL_SHIFT			18
 #define RCC_CFGR_PLLMUL				(0x0F << RCC_CFGR_PLLMUL_SHIFT)
+/** @defgroup rcc_cfgr_pmf PLLMUL: PLL multiplication factor
+ * @{
+ */
 #define RCC_CFGR_PLLMUL_MUL2			(0x00 << RCC_CFGR_PLLMUL_SHIFT)
 #define RCC_CFGR_PLLMUL_MUL3			(0x01 << RCC_CFGR_PLLMUL_SHIFT)
 #define RCC_CFGR_PLLMUL_MUL4			(0x02 << RCC_CFGR_PLLMUL_SHIFT)
@@ -123,28 +126,42 @@ Control</b>
 #define RCC_CFGR_PLLMUL_MUL14			(0x0C << RCC_CFGR_PLLMUL_SHIFT)
 #define RCC_CFGR_PLLMUL_MUL15			(0x0D << RCC_CFGR_PLLMUL_SHIFT)
 #define RCC_CFGR_PLLMUL_MUL16			(0x0E << RCC_CFGR_PLLMUL_SHIFT)
+/**@}*/
 
 #define RCC_CFGR_PLLXTPRE			(1<<17)
+/** @defgroup rcc_cfgr_hsepre PLLXTPRE: HSE divider for PLL source
+ * @{
+ */
 #define RCC_CFGR_PLLXTPRE_HSE_CLK		0x0
 #define RCC_CFGR_PLLXTPRE_HSE_CLK_DIV2		0x1
+/**@}*/
 
 #define RCC_CFGR_PLLSRC				(1<<16)
+/** @defgroup rcc_cfgr_pcs PLLSRC: PLL Clock source
+ * @{
+ */
 #define RCC_CFGR_PLLSRC_HSI_CLK_DIV2		0x0
 #define RCC_CFGR_PLLSRC_HSE_CLK			0x1
+/**@}*/
 
 #define RCC_CFGR_PLLSRC0			(1<<15)
 #define RCC_CFGR_ADCPRE				(1<<14)
 
 #define RCC_CFGR_PPRE_SHIFT			8
 #define RCC_CFGR_PPRE				(7 << RCC_CFGR_PPRE_SHIFT)
+/** @defgroup rcc_cfgr_apb1pre RCC_CFGR APB prescale Factors
+@{*/
 #define RCC_CFGR_PPRE_NODIV			(0 << RCC_CFGR_PPRE_SHIFT)
 #define RCC_CFGR_PPRE_DIV2			(4 << RCC_CFGR_PPRE_SHIFT)
 #define RCC_CFGR_PPRE_DIV4			(5 << RCC_CFGR_PPRE_SHIFT)
 #define RCC_CFGR_PPRE_DIV8			(6 << RCC_CFGR_PPRE_SHIFT)
 #define RCC_CFGR_PPRE_DIV16			(7 << RCC_CFGR_PPRE_SHIFT)
+/**@}*/
 
 #define RCC_CFGR_HPRE_SHIFT			4
 #define RCC_CFGR_HPRE				(0xf << RCC_CFGR_HPRE_SHIFT)
+/** @defgroup rcc_cfgr_ahbpre RCC_CFGR AHB prescale Factors
+@{*/
 #define RCC_CFGR_HPRE_NODIV			(0x0 << RCC_CFGR_HPRE_SHIFT)
 #define RCC_CFGR_HPRE_DIV2			(0x8 << RCC_CFGR_HPRE_SHIFT)
 #define RCC_CFGR_HPRE_DIV4			(0x9 << RCC_CFGR_HPRE_SHIFT)
@@ -154,6 +171,7 @@ Control</b>
 #define RCC_CFGR_HPRE_DIV128			(0xd << RCC_CFGR_HPRE_SHIFT)
 #define RCC_CFGR_HPRE_DIV256			(0xe << RCC_CFGR_HPRE_SHIFT)
 #define RCC_CFGR_HPRE_DIV512			(0xf << RCC_CFGR_HPRE_SHIFT)
+/**@}*/
 
 #define RCC_CFGR_SWS_SHIFT			2
 #define RCC_CFGR_SWS				(3 << RCC_CFGR_SWS_SHIFT)
@@ -195,8 +213,8 @@ Control</b>
 #define RCC_CIR_LSERDYF				(1 << 1)
 #define RCC_CIR_LSIRDYF				(1 << 0)
 
-/* --- RCC_APB2RSTR values ------------------------------------------------- */
-
+/** @defgroup rcc_apb2rstr_rst RCC_APB2RSTR reset values
+@{*/
 #define RCC_APB2RSTR_DBGMCURST			(1 << 22)
 #define RCC_APB2RSTR_TIM17RST			(1 << 18)
 #define RCC_APB2RSTR_TIM16RST			(1 << 17)
@@ -205,10 +223,15 @@ Control</b>
 #define RCC_APB2RSTR_SPI1RST			(1 << 12)
 #define RCC_APB2RSTR_TIM1RST			(1 << 11)
 #define RCC_APB2RSTR_ADCRST			(1 << 9)
+#define RCC_APB2RSTR_USART8RST			(1 << 7)
+#define RCC_APB2RSTR_USART7RST			(1 << 6)
+#define RCC_APB2RSTR_USART6RST			(1 << 5)
 #define RCC_APB2RSTR_SYSCFGRST			(1 << 0)
+/**@}*/
 
-/* --- RCC_APB1RSTR values ------------------------------------------------- */
 
+/** @defgroup rcc_apb1rstr_rst RCC_APB1RSTR reset values
+@{*/
 #define RCC_APB1RSTR_CECRST			(1 << 30)
 #define RCC_APB1RSTR_DACRST			(1 << 29)
 #define RCC_APB1RSTR_PWRRST			(1 << 28)
@@ -217,6 +240,7 @@ Control</b>
 #define RCC_APB1RSTR_USBRST			(1 << 23)
 #define RCC_APB1RSTR_I2C2RST			(1 << 22)
 #define RCC_APB1RSTR_I2C1RST			(1 << 21)
+#define RCC_APB1RSTR_USART5RST			(1 << 20)
 #define RCC_APB1RSTR_USART4RST			(1 << 19)
 #define RCC_APB1RSTR_USART3RST			(1 << 18)
 #define RCC_APB1RSTR_USART2RST			(1 << 17)
@@ -227,9 +251,10 @@ Control</b>
 #define RCC_APB1RSTR_TIM6RST			(1 << 4)
 #define RCC_APB1RSTR_TIM3RST			(1 << 1)
 #define RCC_APB1RSTR_TIM2RST			(1 << 0)
+/**@}*/
 
-/* --- RCC_AHBENR values --------------------------------------------------- */
-
+/** @defgroup rcc_ahbenr_en RCC_APHBENR enable values
+@{*/
 #define RCC_AHBENR_TSCEN			(1 << 24)
 #define RCC_AHBENR_GPIOFEN			(1 << 22)
 #define RCC_AHBENR_GPIOEEN			(1 << 21)
@@ -240,10 +265,13 @@ Control</b>
 #define RCC_AHBENR_CRCEN			(1 << 6)
 #define RCC_AHBENR_FLTFEN			(1 << 4)
 #define RCC_AHBENR_SRAMEN			(1 << 2)
-#define RCC_AHBENR_DMAEN			(1 << 0)
+#define RCC_AHBENR_DMA2EN			(1 << 1)
+#define RCC_AHBENR_DMA1EN			(1 << 0)
+#define RCC_AHBENR_DMAEN			RCC_AHBENR_DMA1EN /* compatibility alias */
+/**@}*/
 
-/* --- RCC_APB2ENR values -------------------------------------------------- */
-
+/** @defgroup rcc_apb2enr_en RCC_APPB2ENR enable values
+@{*/
 #define RCC_APB2ENR_DBGMCUEN			(1 << 22)
 #define RCC_APB2ENR_TIM17EN			(1 << 18)
 #define RCC_APB2ENR_TIM16EN			(1 << 17)
@@ -252,10 +280,14 @@ Control</b>
 #define RCC_APB2ENR_SPI1EN			(1 << 12)
 #define RCC_APB2ENR_TIM1EN			(1 << 11)
 #define RCC_APB2ENR_ADCEN			(1 << 9)
+#define RCC_APB2ENR_USART8EN			(1 << 7)
+#define RCC_APB2ENR_USART7EN			(1 << 6)
+#define RCC_APB2ENR_USART6EN			(1 << 5)
 #define RCC_APB2ENR_SYSCFGCOMPEN		(1 << 0)
+/**@}*/
 
-/* --- RCC_APB1ENR values -------------------------------------------------- */
-
+/** @defgroup rcc_apb1enr_en RCC_APB1ENR enable values
+@{*/
 #define RCC_APB1ENR_CECEN			(1 << 30)
 #define RCC_APB1ENR_DACEN			(1 << 29)
 #define RCC_APB1ENR_PWREN			(1 << 28)
@@ -264,6 +296,7 @@ Control</b>
 #define RCC_APB1ENR_USBEN			(1 << 23)
 #define RCC_APB1ENR_I2C2EN			(1 << 22)
 #define RCC_APB1ENR_I2C1EN			(1 << 21)
+#define RCC_APB1ENR_USART5EN			(1 << 20)
 #define RCC_APB1ENR_USART4EN			(1 << 19)
 #define RCC_APB1ENR_USART3EN			(1 << 18)
 #define RCC_APB1ENR_USART2EN			(1 << 17)
@@ -274,6 +307,7 @@ Control</b>
 #define RCC_APB1ENR_TIM6EN			(1 << 4)
 #define RCC_APB1ENR_TIM3EN			(1 << 1)
 #define RCC_APB1ENR_TIM2EN			(1 << 0)
+/**@}*/
 
 /* --- RCC_BDCR values ----------------------------------------------------- */
 
@@ -312,8 +346,8 @@ Control</b>
 #define RCC_CSR_LSIRDY				(1 << 1)
 #define RCC_CSR_LSION				(1 << 0)
 
-/* --- RCC_AHBRSTR values -------------------------------------------------- */
-
+/** @defgroup rcc_ahbrstr_rst RCC_AHBRSTR reset values
+@{*/
 #define RCC_AHBRSTR_TSCRST			(1 << 24)
 #define RCC_AHBRSTR_IOPFRST			(1 << 22)
 #define RCC_AHBRSTR_IOPERST			(1 << 21)
@@ -321,6 +355,7 @@ Control</b>
 #define RCC_AHBRSTR_IOPCRST			(1 << 19)
 #define RCC_AHBRSTR_IOPBRST			(1 << 18)
 #define RCC_AHBRSTR_IOPARST			(1 << 17)
+/**@}*/
 
 
 /* --- RCC_CFGR2 values ---------------------------------------------------- */
@@ -418,6 +453,9 @@ enum rcc_periph_clken {
 
 	/* APB2 peripherals */
 	RCC_SYSCFG_COMP	= _REG_BIT(0x18, 0),
+	RCC_USART6	= _REG_BIT(0x18, 5),
+	RCC_USART7	= _REG_BIT(0x18, 6),
+	RCC_USART8	= _REG_BIT(0x18, 7),
 	RCC_ADC		= _REG_BIT(0x18, 9),
 	RCC_ADC1	= _REG_BIT(0x18, 9), /* Compatibility alias */
 	RCC_TIM1	= _REG_BIT(0x18, 11),
@@ -439,6 +477,7 @@ enum rcc_periph_clken {
 	RCC_USART2	= _REG_BIT(0x1C, 17),
 	RCC_USART3	= _REG_BIT(0x1C, 18),
 	RCC_USART4	= _REG_BIT(0x1C, 19),
+	RCC_USART5	= _REG_BIT(0x1C, 20),
 	RCC_I2C1	= _REG_BIT(0x1C, 21),
 	RCC_I2C2	= _REG_BIT(0x1C, 22),
 	RCC_USB		= _REG_BIT(0x1C, 23),

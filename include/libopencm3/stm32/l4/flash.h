@@ -41,6 +41,10 @@
 #ifndef LIBOPENCM3_FLASH_H
 #define LIBOPENCM3_FLASH_H
 
+#include <libopencm3/stm32/common/flash_common_all.h>
+#include <libopencm3/stm32/common/flash_common_f.h>
+#include <libopencm3/stm32/common/flash_common_idcache.h>
+
 /* --- FLASH registers ----------------------------------------------------- */
 
 #define FLASH_ACR		MMIO32(FLASH_MEM_INTERFACE_BASE + 0x00)
@@ -64,10 +68,6 @@
 
 #define FLASH_ACR_SLEEP_PD		(1 << 14)
 #define FLASH_ACR_RUN_PD		(1 << 13)
-#define FLASH_ACR_DCRST			(1 << 12)
-#define FLASH_ACR_ICRST			(1 << 11)
-#define FLASH_ACR_DCEN			(1 << 10)
-#define FLASH_ACR_ICEN			(1 << 9)
 #define FLASH_ACR_PRFTEN		(1 << 8)
 
 #define FLASH_ACR_LATENCY_SHIFT		0
@@ -222,31 +222,16 @@
 
 BEGIN_DECLS
 
-void flash_set_ws(uint32_t ws);
-void flash_unlock(void);
-void flash_lock(void);
-void flash_clear_pgperr_flag(void);
-void flash_clear_eop_flag(void);
-void flash_clear_bsy_flag(void);
-void flash_wait_for_last_operation(void);
-void flash_dcache_enable(void);
-void flash_dcache_disable(void);
-void flash_icache_enable(void);
-void flash_icache_disable(void);
-void flash_prefetch_enable(void);
-void flash_prefetch_disable(void);
-void flash_dcache_reset(void);
-void flash_icache_reset(void);
+void flash_clear_progerr_flag(void);
 void flash_clear_pgserr_flag(void);
+void flash_clear_size_flag(void);
 void flash_clear_pgaerr_flag(void);
 void flash_clear_wrperr_flag(void);
-void flash_clear_status_flags(void);
-void flash_unlock_option_bytes(void);
 void flash_lock_option_bytes(void);
-void flash_program_word(uint32_t address, uint32_t data);
+void flash_program_double_word(uint32_t address, uint64_t data);
 void flash_program(uint32_t address, uint8_t *data, uint32_t len);
-void flash_erase_sector(uint8_t sector);
-void flash_erase_all_sectors(void);
+void flash_erase_page(uint32_t page);
+void flash_erase_all_pages(void);
 void flash_program_option_bytes(uint32_t data);
 
 END_DECLS

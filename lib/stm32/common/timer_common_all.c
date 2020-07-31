@@ -1,4 +1,5 @@
-/** @addtogroup timer_file
+/** @addtogroup timer_file TIMER peripheral API
+@ingroup peripheral_apis
 
 @author @htmlonly &copy; @endhtmlonly 2010
 Edward Cheeseman <evbuilder@users.sourceforge.org>

@@ -1,6 +1,6 @@
-/** @defgroup rtc_file RTC
+/** @defgroup rtc_file RTC peripheral API
  *
- * @ingroup STM32F1xx
+ * @ingroup peripheral_apis
  *
  * @brief <b>libopencm3 STM32F1xx RTC</b>
  *
@@ -241,7 +241,7 @@ uint32_t rtc_get_alarm_val(void)
 /*---------------------------------------------------------------------------*/
 /** @brief RTC set the Counter
 
-@param[in] uint32_t counter_val: 32 bit time setting for the counter.
+@param[in] counter_val 32 bit time setting for the counter.
 */
 
 void rtc_set_counter_val(uint32_t counter_val)

@@ -39,8 +39,6 @@ specific memorymap.h header before including this header file.*/
 /* Timer register base addresses (for convenience) */
 /****************************************************************************/
 /** @defgroup tim_reg_base Timer register base addresses
-@ingroup timer_defines
-
 @{*/
 #define TIM1				TIM1_BASE
 #define TIM2				TIM2_BASE
@@ -80,6 +78,12 @@ specific memorymap.h header before including this header file.*/
 #endif
 #if defined(TIM17_BASE)
 # define TIM17				TIM17_BASE
+#endif
+#if defined(TIM21_BASE)
+# define TIM21				TIM21_BASE
+#endif
+#if defined(TIM22_BASE)
+# define TIM22				TIM22_BASE
 #endif
 /**@}*/
 
@@ -388,8 +392,6 @@ specific memorymap.h header before including this header file.*/
 
 /****************************************************************************/
 /** @defgroup tim_x_cr1_cdr TIMx_CR1 CKD[1:0] Clock Division Ratio
-@ingroup timer_defines
-
 @{*/
 /* CKD[1:0]: Clock division */
 #define TIM_CR1_CKD_CK_INT		(0x0 << 8)
@@ -404,8 +406,6 @@ specific memorymap.h header before including this header file.*/
 /* CMS[1:0]: Center-aligned mode selection */
 /****************************************************************************/
 /** @defgroup tim_x_cr1_cms TIMx_CR1 CMS[1:0]: Center-aligned Mode Selection
-@ingroup timer_defines
-
 @{*/
 #define TIM_CR1_CMS_EDGE		(0x0 << 5)
 #define TIM_CR1_CMS_CENTER_1		(0x1 << 5)
@@ -417,8 +417,6 @@ specific memorymap.h header before including this header file.*/
 /* DIR: Direction */
 /****************************************************************************/
 /** @defgroup tim_x_cr1_dir TIMx_CR1 DIR: Direction
-@ingroup timer_defines
-
 @{*/
 #define TIM_CR1_DIR_UP			(0 << 4)
 #define TIM_CR1_DIR_DOWN		(1 << 4)
@@ -440,8 +438,6 @@ specific memorymap.h header before including this header file.*/
 
 /****************************************************************************/
 /** @defgroup tim_x_cr2_ois TIMx_CR2_OIS: Force Output Idle State Control Values
-@ingroup timer_defines
-
 @{*/
 /* OIS4:*//** Output idle state 4 (OC4 output) */
 #define TIM_CR2_OIS4			(1 << 14)
@@ -472,8 +468,6 @@ specific memorymap.h header before including this header file.*/
 /* MMS[2:0]: Master mode selection */
 /****************************************************************************/
 /** @defgroup tim_mastermode TIMx_CR2 MMS[6:4]: Master Mode Selection
-@ingroup timer_defines
-
 @{*/
 #define TIM_CR2_MMS_RESET		(0x0 << 4)
 #define TIM_CR2_MMS_ENABLE		(0x1 << 4)
@@ -533,9 +527,7 @@ specific memorymap.h header before including this header file.*/
 #define TIM_SMCR_MSM			(1 << 7)
 
 /* TS[2:0]: Trigger selection */
-/** @defgroup tim_ts TS Trigger selection
-@ingroup timer_defines
-
+/** @defgroup tim_ts TIMx_SMCR TS Trigger selection
 @{*/
 /** Internal Trigger 0 (ITR0) */
 #define TIM_SMCR_TS_ITR0		(0x0 << 4)
@@ -557,9 +549,7 @@ specific memorymap.h header before including this header file.*/
 /**@}*/
 
 /* SMS[2:0]: Slave mode selection */
-/** @defgroup tim_sms SMS Slave mode selection
-@ingroup timer_defines
-
+/** @defgroup tim_sms TIMx_SMCR SMS Slave mode selection
 @{*/
 /** Slave mode disabled */
 #define TIM_SMCR_SMS_OFF		(0x0 << 0)
@@ -593,8 +583,6 @@ depending on the level of the complementary input. */
 
 /****************************************************************************/
 /** @defgroup tim_irq_enable TIMx_DIER Timer DMA and Interrupt Enable Values
-@ingroup timer_defines
-
 @{*/
 /* TDE:*//** Trigger DMA request enable */
 #define TIM_DIER_TDE			(1 << 14)
@@ -645,8 +633,6 @@ depending on the level of the complementary input. */
 /* --- TIMx_SR values ------------------------------------------------------ */
 /****************************************************************************/
 /** @defgroup tim_sr_values TIMx_SR Timer Status Register Flags
-@ingroup timer_defines
-
 @{*/
 
 /* CC4OF:*//** Capture/compare 4 overcapture flag */
@@ -690,8 +676,6 @@ depending on the level of the complementary input. */
 
 /****************************************************************************/
 /** @defgroup tim_event_gen TIMx_EGR Timer Event Generator Values
-@ingroup timer_defines
-
 @{*/
 
 /* BG:*//** Break generation */
@@ -1053,8 +1037,6 @@ depending on the level of the complementary input. */
 /* LOCK[1:0]: Lock configuration */
 /****************************************************************************/
 /** @defgroup tim_lock TIM_BDTR_LOCK Timer Lock Values
-@ingroup timer_defines
-
 @{*/
 #define TIM_BDTR_LOCK_OFF		(0x0 << 8)
 #define TIM_BDTR_LOCK_LEVEL_1		(0x1 << 8)

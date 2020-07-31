@@ -18,18 +18,21 @@
 LIBNAME		= libopencm3_sam4l
 SRCLIBDIR	?= ../..
 
-PREFIX		?= arm-none-eabi
 FP_FLAGS ?= -msoft-float
-
-CC		= $(PREFIX)-gcc
-AR		= $(PREFIX)-ar
+CC		= $(PREFIX)gcc
+AR		= $(PREFIX)ar
 TGT_CFLAGS	= -Os -Wall -Wextra -I../../../include -fno-common \
 		  -mcpu=cortex-m4 -mthumb $(FP_FLAGS) -Wstrict-prototypes \
 		  -ffunction-sections -fdata-sections -MD -DSAM4L
 TGT_CFLAGS      += $(DEBUG_FLAGS)
 # ARFLAGS	= rcsv
 ARFLAGS		= rcs
-OBJS		= adcife.o gpio.o scif.o pm.o usart_common_all.o usart.o
+
+OBJS += adcife.o
+OBJS += gpio.o
+OBJS += pm.o
+OBJS += scif.o
+OBJS += usart_common_all.o usart.o
 
 VPATH += ../../usb:../../cm3:../common
 

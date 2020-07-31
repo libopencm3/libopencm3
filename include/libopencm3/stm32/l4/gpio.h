@@ -72,8 +72,8 @@
 @{*/
 #define GPIO_OSPEED_LOW		0x0
 #define GPIO_OSPEED_MED		0x1
-#define GPIO_OSPEED_FAST	0x2
-#define GPIO_OSPEED_HIGH	0x3
+#define GPIO_OSPEED_HIGH	0x2
+#define GPIO_OSPEED_VERYHIGH	0x3
 /**@}*/
 
 /*****************************************************************************/

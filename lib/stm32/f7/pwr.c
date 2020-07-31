@@ -1,6 +1,6 @@
-/** @defgroup pwr_file PWR
+/** @defgroup pwr_file PWR peripheral API
  *
- * @ingroup STM32F7xx
+ * @ingroup peripheral_apis
  *
  * @brief <b>libopencm3 STM32F7xx Power Control</b>
  *
@@ -38,6 +38,8 @@
 
 #include <libopencm3/stm32/pwr.h>
 
+/**@{*/
+
 void pwr_set_vos_scale(enum pwr_vos_scale scale)
 {
 	PWR_CR1 &= ~PWR_CR1_VOS_MASK;
@@ -64,3 +66,5 @@ void pwr_disable_overdrive(void)
 	PWR_CR1 &= ~(PWR_CR1_ODEN | PWR_CR1_ODSWEN);
 	while (!(PWR_CSR1 & PWR_CSR1_ODSWRDY));
 }
+
+/**@}*/

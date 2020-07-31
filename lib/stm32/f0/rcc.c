@@ -1,6 +1,6 @@
-/** @defgroup STM32F0xx-rcc-file RCC
+/** @defgroup rcc_file RCC peripheral API
  *
- * @ingroup STM32F0xx
+ * @ingroup peripheral_apis
  *
  * @brief <b>libopencm3 STM32F0xx Reset and Clock Control</b>
  *
@@ -51,7 +51,7 @@ uint32_t rcc_apb1_frequency = 8000000; /* 8MHz after reset */
  * Clear the interrupt flag that was set when a clock oscillator became ready
  * to use.
  *
- * @param[in] osc enum ::osc_t. Oscillator ID
+ * @param osc Oscillator ID
  */
 
 void rcc_osc_ready_int_clear(enum rcc_osc osc)
@@ -84,7 +84,7 @@ void rcc_osc_ready_int_clear(enum rcc_osc osc)
 /*---------------------------------------------------------------------------*/
 /** @brief RCC Enable the Oscillator Ready Interrupt
  *
- * @param[in] osc enum ::osc_t. Oscillator ID
+ * @param osc Oscillator ID
  */
 
 void rcc_osc_ready_int_enable(enum rcc_osc osc)
@@ -117,7 +117,7 @@ void rcc_osc_ready_int_enable(enum rcc_osc osc)
 /*---------------------------------------------------------------------------*/
 /** @brief RCC Disable the Oscillator Ready Interrupt
  *
- * @param[in] osc enum ::osc_t. Oscillator ID
+ * @param osc Oscillator ID
  */
 
 void rcc_osc_ready_int_disable(enum rcc_osc osc)
@@ -150,7 +150,7 @@ void rcc_osc_ready_int_disable(enum rcc_osc osc)
 /*---------------------------------------------------------------------------*/
 /** @brief RCC Read the Oscillator Ready Interrupt Flag
  *
- * @param[in] osc enum ::osc_t. Oscillator ID
+ * @param osc Oscillator ID
  * @returns int. Boolean value for flag set.
  */
 
@@ -238,7 +238,7 @@ void rcc_wait_for_osc_ready(enum rcc_osc osc)
  * becomes ready (see @ref rcc_osc_ready_int_flag and @ref
  * rcc_wait_for_osc_ready).
  *
- * @param[in] osc enum ::osc_t. Oscillator ID
+ * @param osc Oscillator ID
  */
 
 void rcc_osc_on(enum rcc_osc osc)
@@ -276,7 +276,7 @@ void rcc_osc_on(enum rcc_osc osc)
  * @note An oscillator cannot be turned off if it is selected as the system
  * clock.
  *
- * @param[in] osc enum ::osc_t. Oscillator ID
+ * @param osc Oscillator ID
  */
 
 void rcc_osc_off(enum rcc_osc osc)
@@ -327,7 +327,7 @@ void rcc_css_disable(void)
 /*---------------------------------------------------------------------------*/
 /** @brief RCC Set the Source for the System Clock.
  *
- * @param[in] osc enum ::osc_t. Oscillator ID. Only HSE, LSE and PLL have
+ * @param clk Oscillator ID. Only HSE, LSE and PLL have
  * effect.
  */
 
@@ -357,7 +357,7 @@ void rcc_set_sysclk_source(enum rcc_osc clk)
 /*---------------------------------------------------------------------------*/
 /** @brief RCC Set the Source for the USB Clock.
  *
- * @param[in] osc enum ::osc_t. Oscillator ID. Only HSI48 or PLL have
+ * @param clk Oscillator ID. Only HSI48 or PLL have
  * effect.
  */
 void rcc_set_usbclk_source(enum rcc_osc clk)
@@ -402,7 +402,7 @@ void rcc_disable_rtc_clock(void)
 /*---------------------------------------------------------------------------*/
 /** @brief RCC Set the Source for the RTC clock
 
-@param[in] clock_source ::rcc_osc. RTC clock source. Only HSE/32, LSE and LSI.
+@param[in] clk RTC clock source. Only HSE/32, LSE and LSI.
 */
 
 void rcc_set_rtc_clock_source(enum rcc_osc clk)
@@ -467,7 +467,7 @@ void rcc_set_pllxtpre(uint32_t pllxtpre)
 /*---------------------------------------------------------------------------*/
 /** @brief RCC Set the APB Prescale Factor.
  *
- * @param[in] ppre1 Unsigned int32. APB prescale factor @ref rcc_cfgr_apb1pre
+ * @param[in] ppre Unsigned int32. APB prescale factor @ref rcc_cfgr_apb1pre
  */
 
 void rcc_set_ppre(uint32_t ppre)
@@ -501,7 +501,7 @@ void rcc_set_prediv(uint32_t prediv)
 /*---------------------------------------------------------------------------*/
 /** @brief RCC Get the System Clock Source.
  *
- * @returns ::osc_t System clock source:
+ * @returns current system clock source
  */
 
 enum rcc_osc rcc_system_clock_source(void)
@@ -543,7 +543,7 @@ uint32_t rcc_get_i2c_clocks(void)
 /*---------------------------------------------------------------------------*/
 /** @brief RCC Get the USB Clock Source.
  *
- * @returns ::osc_t USB clock source:
+ * @returns Currently selected USB clock source
  */
 
 enum rcc_osc rcc_usb_clock_source(void)

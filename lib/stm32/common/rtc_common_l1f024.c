@@ -1,4 +1,5 @@
-/** @addtogroup rtc_file
+/** @addtogroup rtc_file RTC peripheral API
+@ingroup peripheral_apis
 
 @author @htmlonly &copy; @endhtmlonly 2012 Karl Palsson <karlp@tweak.net.au>
 
@@ -106,6 +107,7 @@ void rtc_set_wakeup_time(uint16_t wkup_time, uint8_t rtc_cr_wucksel)
 	 *    down-counting.
 	 */
 	RTC_WUTR = wkup_time;
+	RTC_CR &= ~(RTC_CR_WUCLKSEL_MASK << RTC_CR_WUCLKSEL_SHIFT);
 	RTC_CR |= (rtc_cr_wucksel << RTC_CR_WUCLKSEL_SHIFT);
 	RTC_CR |= RTC_CR_WUTE;
 }

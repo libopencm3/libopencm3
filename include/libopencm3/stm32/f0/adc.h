@@ -175,6 +175,7 @@ void adc_clear_watchdog_flag(uint32_t adc);
 void adc_enable_eoc_sequence_interrupt(uint32_t adc);
 void adc_disable_eoc_sequence_interrupt(uint32_t adc);
 bool adc_get_eoc_sequence_flag(uint32_t adc);
+void adc_clear_eoc_sequence_flag(uint32_t adc);
 
 /* Basic configuration */
 void adc_set_clk_source(uint32_t adc, uint32_t source);
@@ -189,8 +190,8 @@ void adc_calibrate_wait_finish(uint32_t adc)
 void adc_enable_analog_watchdog_on_all_channels(uint32_t adc);
 void adc_enable_analog_watchdog_on_selected_channel(uint32_t adc, uint8_t chan);
 void adc_disable_analog_watchdog(uint32_t adc);
-void adc_set_watchdog_high_threshold(uint32_t adc, uint8_t threshold);
-void adc_set_watchdog_low_threshold(uint32_t adc, uint8_t threshold);
+void adc_set_watchdog_high_threshold(uint32_t adc, uint16_t threshold);
+void adc_set_watchdog_low_threshold(uint32_t adc, uint16_t threshold);
 
 END_DECLS
 

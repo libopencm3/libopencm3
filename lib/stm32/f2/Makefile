@@ -20,10 +20,8 @@
 LIBNAME		= libopencm3_stm32f2
 SRCLIBDIR	?= ../..
 
-PREFIX		?= arm-none-eabi
-
-CC		= $(PREFIX)-gcc
-AR		= $(PREFIX)-ar
+CC		= $(PREFIX)gcc
+AR		= $(PREFIX)ar
 TGT_CFLAGS	= -Os \
 		  -Wall -Wextra -Wimplicit-function-declaration \
 		  -Wredundant-decls -Wmissing-prototypes -Wstrict-prototypes \
@@ -36,20 +34,27 @@ TGT_CFLAGS	+= $(STANDARD_FLAGS)
 # ARFLAGS	= rcsv
 ARFLAGS		= rcs
 
-OBJS		= gpio.o rcc.o desig.o
+OBJS += crc_common_all.o
+OBJS += crypto_common_f24.o
+OBJS += dac_common_all.o
+OBJS += desig_common_all.o desig_common_v1.o
+OBJS += dma_common_f24.o
+OBJS += exti_common_all.o
+OBJS += flash.o flash_common_all.o flash_common_f.o flash_common_f24.o flash_common_idcache.o
+OBJS += gpio_common_all.o gpio_common_f0234.o
+OBJS += hash_common_f24.o
+OBJS += i2c_common_v1.o
+OBJS += iwdg_common_all.o
+OBJS += rcc.o rcc_common_all.o
+OBJS += rng_common_v1.o
+OBJS += rtc_common_l1f024.o
+OBJS += spi_common_all.o spi_common_v1.o spi_common_v1_frf.o
+OBJS += timer_common_all.o timer_common_f0234.o timer_common_f24.o
+OBJS += usart_common_all.o usart_common_f124.o
 
-OBJS            += crc_common_all.o dac_common_all.o dma_common_f24.o \
-                   gpio_common_all.o gpio_common_f0234.o i2c_common_v1.o \
-                   iwdg_common_all.o rtc_common_l1f024.o \
-                   timer_common_all.o timer_common_f0234.o \
-		   timer_common_f24.o usart_common_all.o usart_common_f124.o \
-		   flash_common_f234.o flash_common_f24.o hash_common_f24.o \
-		   crypto_common_f24.o exti_common_all.o rcc_common_all.o
-OBJS		+= rng_common_v1.o
-OBJS            += spi_common_all.o spi_common_v1.o spi_common_v1_frf.o
-
-OBJS            += usb.o usb_standard.o usb_control.o usb_dwc_common.o \
-                   usb_f107.o usb_f207.o usb_msc.o
+OBJS += usb.o usb_standard.o usb_control.o usb_msc.o
+OBJS += usb_hid.o
+OBJS += usb_dwc_common.o usb_f107.o usb_f207.o
 
 VPATH += ../../usb:../:../../cm3:../common
 

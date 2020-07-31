@@ -43,6 +43,8 @@
 
 /**@{*/
 
+#include <libopencm3/stm32/common/flash_common_all.h>
+#include <libopencm3/stm32/common/flash_common_f.h>
 #include <libopencm3/stm32/common/flash_common_f01.h>
 
 /* --- FLASH_OPTION bytes ------------------------------------------------- */
@@ -111,7 +113,6 @@ void flash_lock_upper(void);
 void flash_clear_pgerr_flag_upper(void);
 void flash_clear_eop_flag_upper(void);
 void flash_clear_wrprterr_flag_upper(void);
-void flash_clear_bsy_flag_upper(void);
 
 END_DECLS
 

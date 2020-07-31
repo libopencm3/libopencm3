@@ -1,3 +1,5 @@
+/** @addtogroup i2c_defines
+ */
 /*
  * This file is part of the libopencm3 project.
  *
@@ -17,11 +19,12 @@
  * along with this library.  If not, see <http://www.gnu.org/licenses/>.
  */
 
-#ifndef LIBOPENCM3_EFM32_I2C_H
-#define LIBOPENCM3_EFM32_I2C_H
+#pragma once
 
 #include <libopencm3/efm32/memorymap.h>
 #include <libopencm3/cm3/common.h>
+
+/**@{*/
 
 #define I2C_CTRL(base)		MMIO32((base) + 0x000)
 #define I2C_CMD(base)		MMIO32((base) + 0x004)
@@ -231,39 +234,38 @@
 
 /* I2C0 */
 #define I2C0			I2C0_BASE
-#define I2C0_CTRL		I2C_CTRL(base)
-#define I2C0_CMD		I2C_CMD(base)
-#define I2C0_STATE		I2C_STATE(base)
-#define I2C0_STATUS		I2C_STATUS(base)
-#define I2C0_CLKDIV		I2C_CLKDIV(base)
-#define I2C0_SADDR		I2C_SADDR(base)
-#define I2C0_SADDRMASK		I2C_SADDRMASK(base)
-#define I2C0_RXDATA		I2C_RXDATA(base)
-#define I2C0_RXDATAP		I2C_RXDATAP(base)
-#define I2C0_TXDATA		I2C_TXDATA(base)
-#define I2C0_IF			I2C_IF(base)
-#define I2C0_IFS		I2C_IFS(base)
-#define I2C0_IFC		I2C_IFC(base)
-#define I2C0_IEN		I2C_IEN(base)
-#define I2C0_ROUTE		I2C_ROUTE(base)
+#define I2C0_CTRL		I2C_CTRL(I2C0)
+#define I2C0_CMD		I2C_CMD(I2C0)
+#define I2C0_STATE		I2C_STATE(I2C0)
+#define I2C0_STATUS		I2C_STATUS(I2C0)
+#define I2C0_CLKDIV		I2C_CLKDIV(I2C0)
+#define I2C0_SADDR		I2C_SADDR(I2C0)
+#define I2C0_SADDRMASK		I2C_SADDRMASK(I2C0)
+#define I2C0_RXDATA		I2C_RXDATA(I2C0)
+#define I2C0_RXDATAP		I2C_RXDATAP(I2C0)
+#define I2C0_TXDATA		I2C_TXDATA(I2C0)
+#define I2C0_IF			I2C_IF(I2C0)
+#define I2C0_IFS		I2C_IFS(I2C0)
+#define I2C0_IFC		I2C_IFC(I2C0)
+#define I2C0_IEN		I2C_IEN(I2C0)
+#define I2C0_ROUTE		I2C_ROUTE(I2C0)
 
 /* I2C1 */
 #define I2C1			I2C1_BASE
-#define I2C1_CTRL		I2C_CTRL(base)
-#define I2C1_CMD		I2C_CMD(base)
-#define I2C1_STATE		I2C_STATE(base)
-#define I2C1_STATUS		I2C_STATUS(base)
-#define I2C1_CLKDIV		I2C_CLKDIV(base)
-#define I2C1_SADDR		I2C_SADDR(base)
-#define I2C1_SADDRMASK		I2C_SADDRMASK(base)
-#define I2C1_RXDATA		I2C_RXDATA(base)
-#define I2C1_RXDATAP		I2C_RXDATAP(base)
-#define I2C1_TXDATA		I2C_TXDATA(base)
-#define I2C1_IF			I2C_IF(base)
-#define I2C1_IFS		I2C_IFS(base)
-#define I2C1_IFC		I2C_IFC(base)
-#define I2C1_IEN		I2C_IEN(base)
-#define I2C1_ROUTE		I2C_ROUTE(base)
+#define I2C1_CTRL		I2C_CTRL(I2C1)
+#define I2C1_CMD		I2C_CMD(I2C1)
+#define I2C1_STATE		I2C_STATE(I2C1)
+#define I2C1_STATUS		I2C_STATUS(I2C1)
+#define I2C1_CLKDIV		I2C_CLKDIV(I2C1)
+#define I2C1_SADDR		I2C_SADDR(I2C1)
+#define I2C1_SADDRMASK		I2C_SADDRMASK(I2C1)
+#define I2C1_RXDATA		I2C_RXDATA(I2C1)
+#define I2C1_RXDATAP		I2C_RXDATAP(I2C1)
+#define I2C1_TXDATA		I2C_TXDATA(I2C1)
+#define I2C1_IF			I2C_IF(I2C1)
+#define I2C1_IFS		I2C_IFS(I2C1)
+#define I2C1_IFC		I2C_IFC(I2C1)
+#define I2C1_IEN		I2C_IEN(I2C1)
+#define I2C1_ROUTE		I2C_ROUTE(I2C1)
 
-#endif
-
+/**@}*/

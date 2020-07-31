@@ -36,7 +36,7 @@
 /** @brief Initialize GPIO pins
  *
  * @param[in] port uint32_t: GPIO Port base address
- * @param[in] pin uint32_t
+ * @param[in] pins uint32_t bitfield of pins to initialize
  * @param[in] flags enum gpio_flags
  */
 void gpio_init(uint32_t port, uint32_t pins, enum gpio_flags flags)

@@ -1,4 +1,4 @@
-/** @mainpage libopencm3 VF6xx
+/** @page libopencm3 VF6xx
  *
  * @version 1.0.0
  *

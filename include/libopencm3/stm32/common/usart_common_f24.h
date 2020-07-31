@@ -38,9 +38,14 @@ specific memorymap.h header before including this header file.*/
 
 /* --- Convenience macros -------------------------------------------------- */
 
+/** @addtogroup usart_reg_base USART register base addresses
+ * Holds all the U(S)ART peripherals supported.
+ * @{
+ */
 #define USART6				USART6_BASE
 #define UART7				UART7_BASE
 #define UART8				UART8_BASE
+/**@}*/
 
 /* --- USART registers ----------------------------------------------------- */
 

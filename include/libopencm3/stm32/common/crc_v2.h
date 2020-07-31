@@ -27,11 +27,7 @@
  The order of header inclusion is important. crc.h includes the device
  specific memorymap.h header before including this header file.*/
 
-/** @cond */
-#ifdef LIBOPENCM3_CRC_H
-/** @endcond */
-#ifndef LIBOPENCM3_CRC_V2_H
-#define LIBOPENCM3_CRC_V2_H
+#pragma once
 
 /**@{*/
 
@@ -45,6 +41,8 @@
 /* Register definitions                                                      */
 /*****************************************************************************/
 
+/** @addtogroup crc_registers CRC Registers
+@{*/
 /** CRC_DR Data register 8bit wide access */
 #define CRC_DR8 					MMIO8(CRC_BASE + 0x00)
 /** CRC_DR Data register 16bit wide access */
@@ -55,6 +53,7 @@
 
 /** CRC_POL CRC Polynomial */
 #define CRC_POL						MMIO32(CRC_BASE + 0x14)
+/**@}*/
 
 /*****************************************************************************/
 /* Register values                                                           */
@@ -65,29 +64,31 @@
 
 #define CRC_CR_REV_IN_SHIFT			5
 #define CRC_CR_REV_IN				(3 << CRC_CR_REV_IN_SHIFT)
+/** @defgroup crc_rev_in CRC Reverse input options
+ @{*/
 #define CRC_CR_REV_IN_NONE			(0 << CRC_CR_REV_IN_SHIFT)
 #define CRC_CR_REV_IN_BYTE			(1 << CRC_CR_REV_IN_SHIFT)
 #define CRC_CR_REV_IN_HALF			(2 << CRC_CR_REV_IN_SHIFT)
 #define CRC_CR_REV_IN_WORD			(3 << CRC_CR_REV_IN_SHIFT)
+/**@}*/
 
 #define CRC_CR_POLYSIZE_SHIFT		3
-#define CRC_CR_POLYSIZE				(3 << CRC_CR_POLYSIZE_SHIFT)
+#define CRC_CR_POLYSIZE    (3 << CRC_CR_POLYSIZE_SHIFT)
+/**
+ * @defgroup crc_polysize CRC Polynomial size
+ * @{
+ */
 #define CRC_CR_POLYSIZE_32	    	(0 << CRC_CR_POLYSIZE_SHIFT)
 #define CRC_CR_POLYSIZE_16	    	(1 << CRC_CR_POLYSIZE_SHIFT)
 #define CRC_CR_POLYSIZE_8	    	(2 << CRC_CR_POLYSIZE_SHIFT)
 #define CRC_CR_POLYSIZE_7   		(3 << CRC_CR_POLYSIZE_SHIFT)
-
-/* Default polynomial */
-#define CRC_POL_DEFAULT				0x04C11DB7
 /**@}*/
 
-/*****************************************************************************/
-/* API definitions                                                           */
-/*****************************************************************************/
+/**@}*/
 
-/*****************************************************************************/
-/* API Functions                                                             */
-/*****************************************************************************/
+/** Default polynomial */
+#define CRC_POL_DEFAULT				0x04C11DB7
+
 
 BEGIN_DECLS
 
@@ -103,11 +104,4 @@ void crc_set_initial(uint32_t initial);
 END_DECLS
 
 /**@}*/
-
-#endif
-/** @cond */
-#else
-#warning "crc_v2.h should not be included explicitly, only via crc.h"
-#endif
-/** @endcond */
 

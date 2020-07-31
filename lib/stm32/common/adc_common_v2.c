@@ -155,7 +155,7 @@ void adc_power_off(uint32_t adc)
  */
 void adc_calibrate_async(uint32_t adc)
 {
-	ADC_CR(adc) = ADC_CR_ADCAL;
+	ADC_CR(adc) |= ADC_CR_ADCAL;
 }
 
 /**
@@ -387,6 +387,44 @@ void adc_start_conversion_regular(uint32_t adc)
 {
 	/* Start conversion on regular channels. */
 	ADC_CR(adc) |= ADC_CR_ADSTART;
+}
+
+/** @brief Enable circular mode for DMA transfers
+ *
+ * For this to work it needs to be ebabled on the DMA side as well.
+ *
+ * @param[in] adc Unsigned int32. ADC base address (@ref adc_reg_base)
+ */
+void adc_enable_dma_circular_mode(uint32_t adc)
+{
+	ADC_CFGR1(adc) |= ADC_CFGR1_DMACFG;
+}
+
+/** @brief Disable circular mode for DMA transfers
+ *
+ * @param[in] adc Unsigned int32. ADC base address (@ref adc_reg_base)
+ */
+void adc_disable_dma_circular_mode(uint32_t adc)
+{
+	ADC_CFGR1(adc) &= ~ADC_CFGR1_DMACFG;
+}
+
+/** Enable Delayed Conversion Mode.
+ *
+ * @param[in] adc ADC block register address base @ref adc_reg_base
+ */
+void adc_enable_delayed_conversion_mode(uint32_t adc)
+{
+	ADC_CFGR1(adc) |= ADC_CFGR1_AUTDLY;
+}
+
+/** Enable Delayed Conversion Mode.
+ *
+ * @param[in] adc ADC block register address base @ref adc_reg_base
+ */
+void adc_disable_delayed_conversion_mode(uint32_t adc)
+{
+	ADC_CFGR1(adc) &= ~ADC_CFGR1_AUTDLY;
 }
 
 /**@}*/

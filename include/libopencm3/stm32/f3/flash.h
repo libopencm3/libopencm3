@@ -32,25 +32,48 @@
 #define LIBOPENCM3_FLASH_H
 /**@{*/
 
-#include <libopencm3/stm32/common/flash_common_f234.h>
+#include <libopencm3/stm32/common/flash_common_all.h>
+#include <libopencm3/stm32/common/flash_common_f.h>
 
-/* --- FLASH registers ----------------------------------------------------- */
-
+/** @defgroup flash_registers Flash Registers
+ * @ingroup flash_defines
+@{*/
+/** Flash Access Control register */
+#define FLASH_ACR			MMIO32(FLASH_MEM_INTERFACE_BASE + 0x00)
+/** Flash Key register */
+#define FLASH_KEYR			MMIO32(FLASH_MEM_INTERFACE_BASE + 0x04)
+/** Flash Option bytes key register */
+#define FLASH_OPTKEYR			MMIO32(FLASH_MEM_INTERFACE_BASE + 0x08)
+/** Flash Status register*/
+#define FLASH_SR			MMIO32(FLASH_MEM_INTERFACE_BASE + 0x0C)
+/** Flash Control register */
+#define FLASH_CR			MMIO32(FLASH_MEM_INTERFACE_BASE + 0x10)
+/** Flash Address register */
 #define FLASH_AR			MMIO32(FLASH_MEM_INTERFACE_BASE + 0x14)
+/** Flash Option Byte register */
 #define FLASH_OBR			MMIO32(FLASH_MEM_INTERFACE_BASE + 0x1C)
+/** Flash Write Protection register */
 #define FLASH_WRPR			MMIO32(FLASH_MEM_INTERFACE_BASE + 0x20)
+/*@}*/
 
 /* --- FLASH_ACR values ---------------------------------------------------- */
 
 #define FLASH_ACR_PRFTBS		(1 << 5)
 #define FLASH_ACR_PRFTBE		(1 << 4)
+/** Compatibility alias */
+#define FLASH_ACR_PRFTEN		FLASH_ACR_PRFTBE
 #define FLASH_ACR_HLFCYA		(1 << 3)
+#define FLASH_ACR_LATENCY_SHIFT		0
+#define FLASH_ACR_LATENCY_MASK		0x0f
+/** @defgroup flash_latency FLASH Wait States @{*/
+#define FLASH_ACR_LATENCY(w)		((w) & FLASH_ACR_LATENCY_MASK)
+/**@}*/
 
 /* --- FLASH_SR values ----------------------------------------------------- */
 
 #define FLASH_SR_BSY			(1 << 0)
 #define FLASH_SR_ERLYBSY		(1 << 1)
-#define FLASH_SR_PGPERR			(1 << 2)
+#define FLASH_SR_PGERR			(1 << 2)
 #define FLASH_SR_WRPRTERR		(1 << 4)
 #define FLASH_SR_EOP			(1 << 5)
 
@@ -68,10 +91,19 @@
 #define FLASH_CR_PER			(1 << 1)
 #define FLASH_CR_PG			(1 << 0)
 
+/* F3 uses the same keys for option bytes */
+#define FLASH_KEYR_KEY1			((uint32_t)0x45670123)
+#define FLASH_KEYR_KEY2			((uint32_t)0xcdef89ab)
+#define FLASH_OPTKEYR_KEY1		FLASH_KEYR_KEY1
+#define FLASH_OPTKEYR_KEY2		FLASH_KEYR_KEY2
+
 BEGIN_DECLS
 
-void flash_prefetch_enable(void);
-void flash_prefetch_disable(void);
+void flash_clear_pgerr_flag(void);
+void flash_clear_wrprterr_flag(void);
+void flash_program_half_word(uint32_t address, uint16_t data);
+void flash_erase_page(uint32_t page_address);
+void flash_erase_all_pages(void);
 
 END_DECLS
 

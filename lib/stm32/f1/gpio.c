@@ -1,6 +1,4 @@
-/** @defgroup gpio_file GPIO
-
-@ingroup STM32F1xx
+/** @addtogroup gpio_file
 
 @brief <b>libopencm3 STM32F1xx General Purpose I/O</b>
 
@@ -159,9 +157,9 @@ available in place of some of the SWJ signals. Full SWJ capability is obtained
 by setting this to zero. The value of this must be specified for every call to
 this function as its current value cannot be ascertained from the hardware.
 
-@param[in] swjdisable Unsigned int8. Disable parts of the SWJ capability @ref
+@param[in] swjdisable Disable parts of the SWJ capability @ref
 afio_swj_disable.
-@param[in] maps Unsigned int32. Bitwise OR of map enable controls you wish to
+@param[in] maps Bitwise OR of map enable controls you wish to
 enable from @ref afio_remap, @ref afio_remap_can1, @ref afio_remap_tim3,
 @ref afio_remap_tim2, @ref afio_remap_tim1, @ref afio_remap_usart3. For
 connectivity line devices only @ref afio_remap_cld are also available.

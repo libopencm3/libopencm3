@@ -1,3 +1,29 @@
+/** @defgroup CM3_dwt_file DWT
+ *
+ * @ingroup CM3_files
+ *
+ * @brief <b>libopencm3 Cortex-M Data Watchpoint and Trace unit</b>
+ *
+ * The DWT provides
+ * * Comparators, that support
+ *   * watch points
+ *   * data tracing
+ *   * signalling to ETM
+ *   * PC value tracing
+ *   * cycle count matching
+ * * extra PC sampling
+ *   * Sampling as a result of a clock count
+ *   * external access for sampling
+ * * exception trace
+ * * performance profiling counters.
+ *
+ * Which of these features are available is unfortunately implementation defined.
+ *
+ * @see ARMv7m Architecture Reference Manual (Chapter ARMv7-M Debug)
+ *
+ * LGPL License Terms @ref lgpl_license
+ * @{
+ */
 /*
  * This file is part of the libopencm3 project.
  *
@@ -75,3 +101,5 @@ uint32_t dwt_read_cycle_counter(void)
 	}
 #endif /* defined(__ARM_ARCH_7M__) || defined(__ARM_ARCH_7EM__) */
 }
+
+/**@}*/

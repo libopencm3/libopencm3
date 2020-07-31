@@ -37,6 +37,8 @@
 #include <libopencm3/stm32/common/adc_common_v2.h>
 #include <libopencm3/stm32/common/adc_common_v2_multi.h>
 
+/**@{*/
+
 /** @defgroup adc_reg_base ADC register base addresses
 @ingroup STM32xx_adc_defines
 @{*/
@@ -484,6 +486,43 @@
 #define ADC_CCR_DELAY_SHIFT		8
 
 /* DUAL[4:0]: Dual ADC mode selection */
+/****************************************************************************/
+/** @defgroup adc_multi_mode ADC Multi mode selection
+@ingroup adc_defines
+
+@{*/
+
+/** All ADCs independent */
+#define ADC_CCR_DUAL_INDEPENDENT			0x0
+
+/* Dual modes: (ADC1 master + ADC2 slave or ADC3 master + ADC4 slave) */
+/**
+ * Dual modes combined regular simultaneous +
+ * injected simultaneous mode.
+ */
+#define ADC_CCR_DUAL_REG_SIMUL_AND_INJECTED_SIMUL	0x1
+/**
+ * Dual mode Combined regular simultaneous +
+ * alternate trigger mode.
+ */
+#define ADC_CCR_DUAL_REG_SIMUL_AND_ALTERNATE_TRIG	0x2
+/**
+ * Dual mode Combined interleaved mode +
+ * injected simultaneous mode.
+ */
+#define ADC_CCR_DUAL_REG_INTERLEAVED_AND_INJECTED_SIMUL	0x3
+
+/** Dual mode Injected simultaneous mode only. */
+#define ADC_CCR_DUAL_INJECTED_SIMUL			0x5
+/** Dual mode Regular simultaneous mode only. */
+#define ADC_CCR_DUAL_REGULAR_SIMUL			0x6
+/** Dual mode Interleaved mode only. */
+#define ADC_CCR_DUAL_INTERLEAVED			0x7
+/** Dual mode Alternate trigger mode only. */
+#define ADC_CCR_DUAL_ALTERNATE_TRIG			0x9
+/**@}*/
+
+#define ADC_CCR_DUAL_MASK		(0x1f)
 #define ADC_CCR_DUAL_SHIFT		0
 
 
@@ -531,8 +570,8 @@ void adc_disable_eos_interrupt(uint32_t adc);
 void adc_start_conversion_injected(uint32_t adc);
 void adc_disable_external_trigger_regular(uint32_t adc);
 void adc_disable_external_trigger_injected(uint32_t adc);
-void adc_set_watchdog_high_threshold(uint32_t adc, uint8_t threshold);
-void adc_set_watchdog_low_threshold(uint32_t adc, uint8_t threshold);
+void adc_set_watchdog_high_threshold(uint32_t adc, uint16_t threshold);
+void adc_set_watchdog_low_threshold(uint32_t adc, uint16_t threshold);
 void adc_set_injected_sequence(uint32_t adc, uint8_t length, uint8_t channel[]);
 bool adc_eoc_injected(uint32_t adc);
 bool adc_eos_injected(uint32_t adc);
@@ -551,5 +590,6 @@ bool adc_awd(uint32_t adc);
 
 END_DECLS
 
+/**@}*/
 
 #endif

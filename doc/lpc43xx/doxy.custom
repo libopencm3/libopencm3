@@ -1,0 +1,3 @@
+# Empty file to satisfy doxygen include.
+# this directory is for shared code between m3 and m4 cores of lpc43xx
+# So needs no predefined arch macros

@@ -1,4 +1,4 @@
-/** @mainpage libopencm3 EFM32 Wonder Gecko
+/** @page libopencm3 EZR32 Wonder Gecko
 
 @version 1.0.0
 
@@ -19,7 +19,11 @@ Libraries for Silicon Laboratories EZR32 Wonder Gecko series.
 LGPL License Terms @ref lgpl_license
 */
 
-/** @defgroup EZR32LG_defines EZR32 Wonder Gecko Defines
+/** @defgroup peripheral_apis Peripheral APIs
+ * APIs for device peripherals
+ */
+
+/** @defgroup EZR32WG_defines EZR32 Wonder Gecko Defines
 
 @brief Defined Constants and Types for the Silicon Laboratories EZR32
 Wonder Gecko series

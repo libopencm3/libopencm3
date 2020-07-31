@@ -1,3 +1,13 @@
+/** @defgroup exti_defines EXTI Defines
+ *
+ * @ingroup STM32L4xx_defines
+ *
+ * @brief <b>Defined Constants and Types for the STM32L4xx EXTI Control</b>
+ *
+ * @version 1.0.0
+ *
+ * LGPL License Terms @ref lgpl_license
+ **/
 /*
  * This file is part of the libopencm3 project.
  *
@@ -19,5 +29,6 @@
 #define LIBOPENCM3_EXTI_H
 
 #include <libopencm3/stm32/common/exti_common_all.h>
+#include <libopencm3/stm32/common/exti_common_v1.h>
 
 #endif

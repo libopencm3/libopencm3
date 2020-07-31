@@ -1,0 +1,21 @@
+{
+    "irqs": [
+        "timer_se0",
+        "timer_se1",
+        "wdt",
+        "cp",
+	"gpioa0",
+	"gpioa1",
+	"gpioa2",
+	"gpioa3",
+	"gpioa4",
+	"gpioa5",
+	"gpioa6",
+	"gpioa7",
+	"gpioa8",
+	"gpioa9"
+    ],
+    "partname_humanreadable": "SWM050 series",
+    "partname_doxygen": "SWM050",
+    "includeguard": "LIBOPENCM3_SWM050_NVIC_H"
+}

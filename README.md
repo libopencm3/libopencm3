@@ -9,13 +9,16 @@ various ARM Cortex-M microcontrollers.
 
 Currently (at least partly) supported microcontrollers:
 
- - ST STM32F0xx/F1xx/F2xx/F30x/F37x/F4xx/F7xx/L0xx/L1xx/L4xx series
+ - ST STM32 F0xx/F1xx/F2xx/F30x/F37x/F4xx/F7xx/H7xx series
+ - ST STM32 G0xx G4xx L0xx L1xx L4xx series
  - Atmel SAM3A/3N/3S/3U/3X series, as well as SAMDxx and friends
  - NXP LPC1311/13/17/42/43
  - Stellaris LM3S series (discontinued, without replacement)
  - TI (Tiva) LM4F series (continuing as TM4F, pin and peripheral compatible)
  - EFM32 Gecko series (only core support)
  - Freescale Vybrid VF6xx
+ - Qorvo (formerly ActiveSemi) PAC55XX
+ - Synwit SWM050
 
 The library is written completely from scratch based on the vendor datasheets,
 programming manuals, and application notes. The code is meant to be used
@@ -134,12 +137,21 @@ of them in the libopencm3-examples repository:
 
 https://github.com/libopencm3/libopencm3-examples
 
+If you just wish to test your toolchain and build environment, a collection of
+mini blink projects is available too.  This covers _many_ more boards, but, as
+the name suggests, only demonstrates blinking LEDs.
+
+
+https://github.com/libopencm3/libopencm3-miniblink
+
 Installation
 ------------
 
-Simply pass -I and -L flags to your own project.  See the libopencm3-examples
-repository for an example of using this library as a Git submodule, the most
-popular method of use.
+Simply pass -I and -L flags to your own project.  See the
+[libopencm3-template](https://github.com/libopencm3/libopencm3-template)
+repository for a template repository using this library as a Git submodule,
+the most popular method of use.  The libopencm3-examples is another
+example of this.
 
 It is strongly advised that you do not attempt to install this library to any
 path inside your toolchain itself.  While this means you don't have to include

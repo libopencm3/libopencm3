@@ -1,6 +1,6 @@
-/** @defgroup flash_file FLASH
+/** @defgroup flash_file FLASH peripheral API
  *
- * @ingroup STM32F3xx
+ * @ingroup peripheral_apis
  *
  * @brief <b>libopencm3 STM32F3xx FLASH</b>
  *
@@ -46,38 +46,72 @@
 
 #include <libopencm3/stm32/flash.h>
 
+void flash_wait_for_last_operation(void)
+{
+	while ((FLASH_SR & FLASH_SR_BSY) == FLASH_SR_BSY);
+}
+
+void flash_clear_pgerr_flag(void)
+{
+	FLASH_SR |= FLASH_SR_PGERR;
+}
+
+void flash_clear_wrprterr_flag(void)
+{
+	FLASH_SR |= FLASH_SR_WRPRTERR;
+}
+
 /*---------------------------------------------------------------------------*/
+
 /** @brief Clear All Status Flags
 
 Clears program error, end of operation, busy flags.
-*/
+ */
 
 void flash_clear_status_flags(void)
 {
-	flash_clear_pgperr_flag();
+	flash_clear_pgerr_flag();
+	flash_clear_wrprterr_flag();
 	flash_clear_eop_flag();
-	flash_clear_bsy_flag();
 }
 
-/**
- * Enable the FLASH Prefetch Buffer
- * This buffer is used for instruction fetches and is enabled by default after
- * reset.
- */
-void flash_prefetch_enable(void)
+void flash_program_half_word(uint32_t address, uint16_t data)
 {
-	FLASH_ACR |= FLASH_ACR_PRFTBE;
+	flash_wait_for_last_operation();
+
+	FLASH_CR |= FLASH_CR_PG;
+
+	MMIO16(address) = data;
+
+	flash_wait_for_last_operation();
+
+	FLASH_CR &= ~FLASH_CR_PG;
 }
 
-/**
- * Disable the FLASH Prefetch Buffer
- * This buffer is used for instruction fetches and is enabled by default after
- * reset.
- */
-void flash_prefetch_disable(void)
+void flash_erase_page(uint32_t page_address)
 {
-	FLASH_ACR &= ~FLASH_ACR_PRFTBE;
+	flash_wait_for_last_operation();
+
+	FLASH_CR |= FLASH_CR_PER;
+	FLASH_AR = page_address;
+	FLASH_CR |= FLASH_CR_STRT;
+
+	flash_wait_for_last_operation();
+
+	FLASH_CR &= ~FLASH_CR_PER;
 }
+
+void flash_erase_all_pages(void)
+{
+	flash_wait_for_last_operation();
+
+	FLASH_CR |= FLASH_CR_MER;
+	FLASH_CR |= FLASH_CR_STRT;
+
+	flash_wait_for_last_operation();
+	FLASH_CR &= ~FLASH_CR_MER;
+}
+
 
 /**@}*/
 

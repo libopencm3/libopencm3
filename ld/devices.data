@@ -117,15 +117,35 @@ stm32f2[01][57]?e* stm32f2 ROM=512K RAM=128K
 stm32f20[57]?f* stm32f2 ROM=768K RAM=128K
 stm32f2[01][57]?g* stm32f2 ROM=1024K RAM=128K
 
-stm32f302?b* stm32f3ccm ROM=128K RAM=24K CCM=8K
-stm32f302?c* stm32f3ccm ROM=256K RAM=32K CCM=8K
-stm32f302?8* stm32f3 ROM=64K RAM=16K
+stm32f30[12]?6* stm32f3 ROM=32K RAM=16K
+stm32f30[12]?8* stm32f3 ROM=64K RAM=16K
+stm32f302?b* stm32f3 ROM=128K RAM=32K
+stm32f302?c* stm32f3 ROM=256K RAM=40K
+stm32f302?d* stm32f3 ROM=384K RAM=64K
+stm32f302?e* stm32f3 ROM=512K RAM=64K
+stm32f303?6* stm32f3ccm ROM=32K RAM=12K CCM=4K
+stm32f303?8* stm32f3ccm ROM=64K RAM=12K CCM=4K
 stm32f303?b* stm32f3ccm ROM=128K RAM=32K CCM=8K
 stm32f3[01]3?c* stm32f3ccm ROM=256K RAM=40K CCM=8K
+stm32f3[01]3?d* stm32f3ccm ROM=384K RAM=64K CCM=16K
+stm32f3[01]3?e* stm32f3ccm ROM=512K RAM=64K CCM=16K
+
+stm32f334?3* stm32f3ccm ROM=16K RAM=12K CCM=4K
+stm32f334?6* stm32f3ccm ROM=32K RAM=12K CCM=4K
+stm32f334?8* stm32f3ccm ROM=64K RAM=12K CCM=4K
+
+stm32f318?8* stm32f3 ROM=64K RAM=16K
+stm32f328?8* stm32f3ccm ROM=64K RAM=12K CCM=4K
+stm32f358?c* stm32f3ccm ROM=256K RAM=40K CCM=8K
+stm32f378?c* stm32f3 ROM=256K RAM=32K
+stm32f398?e* stm32f3ccm ROM=512K RAM=64K CCM=16K
+
 stm32f373?8* stm32f3 ROM=64K RAM=16K
 stm32f373?b* stm32f3 ROM=128K RAM=24K
 stm32f373?c* stm32f3 ROM=256K RAM=32K
-stm32f3[78]3?8* stm32f3 ROM=256K RAM=32K
+stm32f3[78]3?8* stm32f3 ROM=64K RAM=16K
+stm32f3[78]3?b* stm32f3 ROM=128K RAM=24K
+stm32f3[78]3?c* stm32f3 ROM=256K RAM=32K
 
 stm32f401?b* stm32f4 ROM=128K RAM=64K
 stm32f401?c* stm32f4 ROM=256K RAM=64K
@@ -133,14 +153,22 @@ stm32f401?d* stm32f4 ROM=384K RAM=96K
 stm32f401?e* stm32f4 ROM=512K RAM=96K
 stm32f4[01][57]?e* stm32f4ccm ROM=512K RAM=128K CCM=64K
 stm32f4[01][57]?g* stm32f4ccm ROM=1024K RAM=128K CCM=64K
-stm32f411re stm32f4 ROM=512K RAM=128K
+stm32f410?8* stm32f4 ROM=64K RAM=32K
+stm32f410?b* stm32f4 ROM=128K RAM=32K
+stm32f411?c* stm32f4 ROM=256K RAM=128K
+stm32f411?e* stm32f4 ROM=512K RAM=128K
+stm32f412?e* stm32f4 ROM=512K RAM=256K
+stm32f412?g* stm32f4 ROM=1024K RAM=256K
+stm32f4[12]3?g* stm32f4ccm ROM=1024K RAM=256K CCM=64K
+stm32f4[12]3?h* stm32f4ccm ROM=1536K RAM=256K CCM=64K
+stm32f4[23][79]?e* stm32f4ccm ROM=512K RAM=192K CCM=64K
 stm32f4[23][79]?g* stm32f4ccm ROM=1024K RAM=192K CCM=64K
 stm32f4[23][79]?i* stm32f4ccm ROM=2048K RAM=192K CCM=64K
 stm32f446?c* stm32f4 ROM=256K RAM=128K
 stm32f446?e* stm32f4 ROM=512K RAM=128K
-stm32f4[67]9?i* stm32f4ccm ROM=2048K RAM=320K CCM=64K
-stm32f4[67]9?g* stm32f4ccm ROM=1024K RAM=320K CCM=64K
 stm32f4[67]9?e* stm32f4ccm ROM=512K RAM=320K CCM=64K
+stm32f4[67]9?g* stm32f4ccm ROM=1024K RAM=320K CCM=64K
+stm32f4[67]9?i* stm32f4ccm ROM=2048K RAM=320K CCM=64K
 
 # on F7 CCM is in some datasheets named as DTCM
 stm32f7[23][23]?c* stm32f7ccm ROM=256K RAM=192K CCM=64K
@@ -155,26 +183,35 @@ stm32f7[67]7?g* stm32f7ccm ROM=1024K RAM=384K CCM=128K
 stm32f7[67]7?i* stm32f7ccm ROM=2048K RAM=384K CCM=128K
 stm32f769?g* stm32f7ccm ROM=1024K RAM=384K CCM=128K
 stm32f7[67][89]?i* stm32f7ccm ROM=2048K RAM=384K CCM=128K
+stm32f750* stm32f7ccm ROM=64K RAM=256K CCM=64K
+stm32f730* stm32f7ccm ROM=64K RAM=192K CCM=64K
 
 stm32l01??3* stm32l0 ROM=8K RAM=2K
 stm32l0[12]??4* stm32l0 ROM=16K RAM=2K
 stm32l03??4* stm32l0 ROM=16K RAM=8K
 stm32l0???6* stm32l0 ROM=32K RAM=8K
-stm32l0[56]??8* stm32l0 ROM=64K RAM=8K
 stm32l0[78]??8* stm32l0 ROM=64K RAM=20K
+stm32l0???8* stm32l0 ROM=64K RAM=8K
 stm32l0???b* stm32l0 ROM=128K RAM=20K
 stm32l0???z* stm32l0 ROM=192K RAM=20K
 
-stm32l100?6* stm32l1 ROM=32K RAM=4K
-stm32l100?8* stm32l1 ROM=64K RAM=8K
-stm32l100?b* stm32l1 ROM=128K RAM=10K
-stm32l100?c* stm32l1 ROM=256K RAM=16K
+stm32l100?6* stm32l1eep ROM=32K RAM=4K EEP=2K
+stm32l100?8* stm32l1eep ROM=64K RAM=8K EEP=2K
+stm32l100?b*_a stm32l1eep ROM=128K RAM=16K EEP=2K
+stm32l100?b* stm32l1eep ROM=128K RAM=10K EEP=2K
+stm32l100?c* stm32l1eep ROM=256K RAM=16K EEP=4K
+stm32l15[12]?6*_a stm32l1eep ROM=32K RAM=16K EEP=4K
 stm32l15[12]?6* stm32l1eep ROM=32K RAM=10K EEP=4K
+stm32l15[12]?8*_a stm32l1eep ROM=64K RAM=32K EEP=4K
 stm32l15[12]?8* stm32l1eep ROM=64K RAM=10K EEP=4K
+stm32l15[12]?b*_a stm32l1eep ROM=128K RAM=32K EEP=4K
 stm32l15[12]?b* stm32l1eep ROM=128K RAM=16K EEP=4K
 stm32l15[12]?c* stm32l1eep ROM=256K RAM=32K EEP=8K
+stm32l15[12]?d*_x stm32l1eep ROM=384K RAM=80K EEP=16K
 stm32l15[12]?d* stm32l1eep ROM=384K RAM=48K EEP=12K
+stm32l15[12]?e* stm32l1eep ROM=512K RAM=80K EEP=16K
 stm32l162?c* stm32l1eep ROM=256K RAM=32K EEP=8K
+stm32l162?d*_x stm32l1eep ROM=384K RAM=80K EEP=16K
 stm32l162?d* stm32l1eep ROM=384K RAM=48K EEP=12K
 
 stm32l43??b* stm32l4 ROM=128K RAM=48K RAM2=16K
@@ -196,13 +233,29 @@ stm32l496?e* stm32l4 ROM=512K RAM=256K RAM2=64K
 stm32l496?g* stm32l4 ROM=1024K RAM=256K RAM2=64K
 stm32l4a6?g* stm32l4 ROM=1024K RAM=256K RAM2=64K
 
-
 stm32ts60 stm32t ROM=32K RAM=10K
 
 stm32w108c8 stm32w ROM=64K RAM=8K
 stm32w108?b stm32w ROM=128K RAM=8K
 stm32w108cz stm32w ROM=192K RAM=12K
 stm32w108cc stm32w ROM=256K RAM=16K
+
+stm32g0[43]1?4* stm32g0 ROM=16K RAM=8K
+stm32g0[43][01]?6* stm32g0 ROM=32K RAM=8K
+stm32g0[43][01]?8* stm32g0 ROM=64K RAM=8K
+stm32g0[78]1?8* stm32g0 ROM=64K RAM=36K
+stm32g0[78][01]?b* stm32g0 ROM=128K RAM=36K
+stm32g0[BC]1?c* stm32g0 ROM=256K RAM=128K
+stm32g0[BC]1?e* stm32g0 ROM=512K RAM=128K
+
+stm32g4?1?6* stm32g4ccm ROM=32K RAM=22K CCM=10K
+stm32g4?1?8* stm32g4ccm ROM=64K RAM=22K CCM=10K
+stm32g4?1?b* stm32g4ccm ROM=128K RAM=22K CCM=10K
+stm32g4?1?c* stm32g4ccm ROM=256K RAM=96K CCM=16K
+stm32g4?1?e* stm32g4ccm ROM=512K RAM=96K CCM=16K
+stm32g4?[34]?b* stm32g4ccm ROM=128K RAM=96K CCM=32K
+stm32g4?[34]?c* stm32g4ccm ROM=256K RAM=96K CCM=32K
+stm32g4?[34]?e* stm32g4ccm ROM=512K RAM=96K CCM=32K
 
 ################################################################################
 # the SAM3 chips
@@ -419,6 +472,20 @@ rm46l852* rm46l ROM=1280K RAM=192K
 vf610 vf6xx RAM=256K RAM1=256K RAM_OFF=0x1f000000 RAM1_OFF=0x3f040000
 
 ################################################################################
+# SWM050 chips
+
+swm050* END ROM=8K RAM=1K ROM_OFF=0x00000000 RAM_OFF=0x20000000 CPU=cortex-m0 FPU=soft
+
+################################################################################
+# Qorvo PAC55xx Cortex-M4 based chips
+
+pac5523 pac55xx ROM=128K RAM=32K
+pac5524 pac55xx ROM=128K RAM=32K
+pac5527 pac55xx ROM=128K RAM=32K
+pac5532 pac55xx ROM=128K RAM=32K
+pac5556 pac55xx ROM=128K RAM=32K
+
+################################################################################
 ################################################################################
 ################################################################################
 # the STM32 family groups
@@ -426,6 +493,7 @@ vf610 vf6xx RAM=256K RAM1=256K RAM_OFF=0x1f000000 RAM1_OFF=0x3f040000
 stm32f3ccm stm32f3 CCM_OFF=0x10000000
 stm32f4ccm stm32f4 CCM_OFF=0x10000000
 stm32f7ccm stm32f7 CCM_OFF=0x20000000
+stm32g4ccm stm32g4 CCM_OFF=0x10000000
 stm32l1eep stm32l1 EEP_OFF=0x08080000
 
 ################################################################################
@@ -439,7 +507,7 @@ lpc13 lpc13xx
 lpc13u lpc13xx USBRAM_OFF=0x20004000
 
 lpc17[56]x lpc17xx RAM1_OFF=0x2007C000 RAM2_OFF=0x20080000
-lpc17[78]x lpc17xx RAM1_OFF=0x20000000 RAM2_OFF=0x20040000
+lpc17[78]x lpc17xx RAM1_OFF=0x20000000 RAM2_OFF=0x20004000
 
 lpc43xx_m0 lpc43xx CPU=cortex-m0 FPU=soft
 lpc43xx_m4 lpc43xx CPU=cortex-m4 FPU=hard-fp4-sp-d16
@@ -459,6 +527,8 @@ stm32f7 END ROM_OFF=0x08000000 RAM_OFF=0x20010000 CPU=cortex-m7 FPU=hard-fpv5-sp
 stm32l0 END ROM_OFF=0x08000000 RAM_OFF=0x20000000 CPU=cortex-m0plus FPU=soft
 stm32l1 END ROM_OFF=0x08000000 RAM_OFF=0x20000000 CPU=cortex-m3 FPU=soft
 stm32l4 END ROM_OFF=0x08000000 RAM_OFF=0x20000000 RAM2_OFF=0x10000000 RAM3_OFF=0x20040000 CPU=cortex-m4 FPU=hard-fpv4-sp-d16
+stm32g0 END ROM_OFF=0x08000000 RAM_OFF=0x20000000 CPU=cortex-m0plus FPU=soft
+stm32g4 END ROM_OFF=0x08000000 RAM_OFF=0x20000000 CPU=cortex-m4 FPU=hard-fpv4-sp-d16
 stm32w END ROM_OFF=0x08000000 RAM_OFF=0x20000000 CPU=cortex-m3 FPU=soft
 stm32t END ROM_OFF=0x08000000 RAM_OFF=0x20000000 CPU=cortex-m3 FPU=soft
 
@@ -514,3 +584,8 @@ rm46l END ROM_OFF=0x00000000 RAM_OFF=0x08000000 RAM1_OFF=0x08400000
 # VF6xx families
 
 vf6xx END CPU=cortex-m4 FPU=hard-fpv4-sp-d16
+
+################################################################################
+# PAC55xx families
+
+pac55xx END ROM_OFF=0x00000000 RAM_OFF=0x20000000 CPU=cortex-m4 FPU=hard-fpv4-sp-d16

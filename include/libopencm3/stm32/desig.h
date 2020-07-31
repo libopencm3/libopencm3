@@ -25,9 +25,6 @@
 
 /* --- Device Electronic Signature -------------------------------- */
 
-/* Flash size register */
-#define DESIG_FLASH_SIZE		MMIO16(DESIG_FLASH_SIZE_BASE + 0x00)
-
 BEGIN_DECLS
 
 /**
@@ -52,11 +49,19 @@ void desig_get_unique_id(uint32_t *result);
 void desig_get_unique_id_as_string(char *string,
 				   unsigned int string_len);
 
-/** 
- * Returns the same serial number that the factory DFU 
- * bootloader reports (via USB descriptors). 
- * @param string memory region to write the result to. This is 
- *        expected to be a 13-byte buffer.
+/**
+ * Generate the same serial number from the unique id registers as
+ * the DFU bootloader.
+ *
+ * This document: http://www.usb.org/developers/docs/devclass_docs/usbmassbulk_10.pdf
+ * says that the serial number has to be at least 12 digits long and that
+ * the last 12 digits need to be unique. It also stipulates that the valid
+ * character set is that of upper-case hexadecimal digits.
+ * The onboard DFU bootloader produces a 12-digit serial based on the
+ * 96-bit unique ID. Show the serial with ```dfu-util -l``` while the
+ * MCU is in DFU mode.
+ * @see https://my.st.com/52d187b7 for the algorithim used.
+ * @param string pointer to store serial in, must be at least 13 bytes
  */
 void desig_get_unique_id_as_dfu(char *string);
 

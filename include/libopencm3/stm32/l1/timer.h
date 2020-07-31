@@ -37,6 +37,8 @@ LGPL License Terms @ref lgpl_license
 
 #include <libopencm3/stm32/common/timer_common_all.h>
 
+/**@{*/
+
 /*
  * TIM2 and TIM5 are now 32bit and the following registers are now 32-bit wide:
  * CNT, ARR, CCR1, CCR2, CCR3, CCR4
@@ -51,25 +53,20 @@ LGPL License Terms @ref lgpl_license
 
 /* ITR1_RMP */
 /****************************************************************************/
-/** @defgroup tim2_opt_trigger_remap TIM2_OR Timer 2 Option Register Internal
-Trigger 1 Remap
-@ingroup timer_defines
-
+/** @defgroup tim2_opt_trigger_remap TIM2_OR Timer 2 Internal Trigger 1 Remap
 @{*/
 /** Internal Trigger 1 remapped to timer 10 output compare */
 #define TIM2_OR_ITR1_RMP_TIM10_OC	(0x0 << 0)
 /** Internal Trigger 1 remapped to timer 5 TGO */
 #define TIM2_OR_ITR1_RMP_TIM5_TGO	(0x1 << 0)
 /**@}*/
-#define TIM3_OR_ITR1_RMP_MASK		(0x1 << 0)
+#define TIM2_OR_ITR1_RMP_MASK		(0x1 << 0)
 
 /* --- TIMx_OR values ---------------------------------------------------- */
 
 /* ITR2_RMP */
 /****************************************************************************/
-/** @defgroup tim3_opt_trigger_remap TIM3_OR Timer 3 Option Register Internal Trigger 2 Remap
-@ingroup timer_defines
-
+/** @defgroup tim3_opt_trigger_remap TIM3_OR Timer 3 Internal Trigger 2 Remap
 @{*/
 /** Internal Trigger 1 remapped to timer 11 output compare */
 #define TIM3_OR_ITR2_RMP_TIM8_TRGOU	(0x0 << 0)
@@ -85,5 +82,7 @@ BEGIN_DECLS
 void timer_set_option(uint32_t timer_peripheral, uint32_t option);
 
 END_DECLS
+
+/**@}*/
 
 #endif

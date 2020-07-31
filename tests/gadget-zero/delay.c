@@ -33,7 +33,7 @@ void delay_setup(void)
 	/* set up a microsecond free running timer for ... things... */
 	rcc_periph_clock_enable(RCC_TIM6);
 	/* microsecond counter */
-	timer_set_prescaler(TIM6, rcc_apb1_frequency / 1e6 - 1);
+	timer_set_prescaler(TIM6, rcc_apb1_frequency / 1000000 - 1);
 	timer_set_period(TIM6, 0xffff);
 	timer_one_shot_mode(TIM6);
 }

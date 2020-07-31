@@ -46,14 +46,14 @@
  *
  * @code
  * gpio_mode_setup(GPIOA, GPIO_MODE_ANALOG, GPIO_PUPD_NONE, GPIO1);
- * rcc_peripheral_enable_clock(&RCC_APB2ENR, RCC_APB2ENR_ADC1EN);
+ * rcc_periph_clock_enable(RCC_ADC1);
  * adc_set_clk_prescale(RCC_CFGR_ADCPRE_BY2);
  * adc_disable_scan_mode(ADC1);
  * adc_set_single_conversion_mode(ADC1);
  * adc_set_sample_time(ADC1, ADC_CHANNEL0, ADC_SMPR1_SMP_1DOT5CYC);
  * uint8_t channels[] = ADC_CHANNEL0;
  * adc_set_regular_sequence(ADC1, 1, channels);
- * adc_set_multi_mode(ADC_CCR_MULTI_INDEPENDENT);
+ * adc_set_multi_mode(ADC_CCR_DUAL_INDEPENDENT);
  * adc_power_on(ADC1);
  * adc_start_conversion_regular(ADC1);
  * while (! adc_eoc(ADC1));
@@ -155,11 +155,9 @@ void adc_disable_analog_watchdog_injected(uint32_t adc)
  * whole group has been converted, the next trigger will restart conversion of
  * the subgroup at the beginning of the whole group.
  *
- * @param[in] adc Unsigned int32. ADC block register address base @ref
- * adc_reg_base @param[in] length Unsigned int8. Number of channels in the
- * group @ref adc_cr1_discnum
+ * @param[in] adc ADC block register address base @ref adc_reg_base
+ * @param[in] length Number of channels in the group @ref adc_cr1_discnum
  */
-
 void adc_enable_discontinuous_mode_regular(uint32_t adc, uint8_t length)
 {
 	if ((length-1) > 7) {
@@ -282,14 +280,10 @@ void adc_enable_analog_watchdog_on_all_channels(uint32_t adc)
 void adc_enable_analog_watchdog_on_selected_channel(uint32_t adc,
 						    uint8_t channel)
 {
-	uint32_t reg32;
+	ADC_CFGR1(adc) = (ADC_CFGR1(adc) & ~ADC_CFGR1_AWD1CH) |
+			  ADC_CFGR1_AWD1CH_VAL(channel);
 
-	reg32 = (ADC_CFGR1(adc) & ~ADC_CFGR1_AWD1CH); /* Clear bit [4:0]. */
-	if (channel < 18) {
-		reg32 |= channel;
-	}
-	ADC_CFGR1(adc) = reg32;
-	ADC_CFGR1(adc) |= ADC_CFGR1_AWD1SGL;
+	ADC_CFGR1(adc) |= ADC_CFGR1_AWD1EN | ADC_CFGR1_AWD1SGL;
 }
 
 
@@ -414,42 +408,39 @@ void adc_start_conversion_injected(uint32_t adc)
 }
 
 
-/*---------------------------------------------------------------------------*/
-/** @brief ADC Set Analog Watchdog Upper Threshold
- *
- * @param[in] adc Unsigned int32. ADC block register address base
+/** ADC Set Analog Watchdog Upper Threshold.
+ * @param[in] adc ADC block register address base
  * @ref adc_reg_base
- * @param[in] threshold Unsigned int8. Upper threshold value
+ * @param[in] threshold Upper threshold value
  */
-
-void adc_set_watchdog_high_threshold(uint32_t adc, uint8_t threshold)
+void adc_set_watchdog_high_threshold(uint32_t adc, uint16_t threshold)
 {
 	uint32_t reg32 = 0;
+	uint32_t mask = 0xf000ffff;
 
 	reg32 |= (threshold << 16);
-	reg32 &= ~0xff00ffff; /* Clear all bits above 8. */
-	ADC_TR1(adc) = reg32;
-	ADC_TR2(adc) = reg32;
-	ADC_TR3(adc) = reg32;
+	reg32 &= ~mask; /* clear masked bits. */
+
+	ADC_TR1(adc) = (ADC_TR1(adc) & mask) | reg32;
+	ADC_TR2(adc) = (ADC_TR2(adc) & mask) | reg32;
+	ADC_TR3(adc) = (ADC_TR3(adc) & mask) | reg32;
 }
 
-/*---------------------------------------------------------------------------*/
-/** @brief ADC Set Analog Watchdog Lower Threshold
- *
- * @param[in] adc Unsigned int32. ADC block register address base
+/** ADC Set Analog Watchdog Lower Threshold.
+ * @param[in] adc ADC block register address base
  * @ref adc_reg_base
- * @param[in] threshold Unsigned int8. Lower threshold value
+ * @param[in] threshold Lower threshold value
  */
-
-void adc_set_watchdog_low_threshold(uint32_t adc, uint8_t threshold)
+void adc_set_watchdog_low_threshold(uint32_t adc, uint16_t threshold)
 {
 	uint32_t reg32 = 0;
-
+	uint32_t mask = 0xfffff000;
 	reg32 = (uint32_t)threshold;
-	reg32 &= ~0xffffff00; /* Clear all bits above 8. */
-	ADC_TR1(adc) = reg32;
-	ADC_TR2(adc) = reg32;
-	ADC_TR3(adc) = reg32;
+	reg32 &= ~mask; /* clear masked bits. */
+
+	ADC_TR1(adc) = (ADC_TR1(adc) & mask) | reg32;
+	ADC_TR2(adc) = (ADC_TR2(adc) & mask) | reg32;
+	ADC_TR3(adc) = (ADC_TR3(adc) & mask) | reg32;
 }
 
 
@@ -587,10 +578,10 @@ void adc_set_injected_offset(uint32_t adc, uint8_t reg, uint32_t offset)
  *
  * The ADC clock taken from the APB2 clock can be scaled down by 2, 4, 6 or 8.
  *
+ * @param adc peripheral of choice @ref adc_reg_base
  * @param[in] prescale Unsigned int32. Prescale value for ADC Clock @ref
  * adc_ccr_adcpre
-*/
-
+ */
 void adc_set_clk_prescale(uint32_t adc, uint32_t prescale)
 {
 	uint32_t reg32 = ((ADC_CCR(adc) & ~ADC_CCR_CKMODE_MASK) | prescale);
@@ -598,20 +589,23 @@ void adc_set_clk_prescale(uint32_t adc, uint32_t prescale)
 }
 
 /*---------------------------------------------------------------------------*/
-/** @brief ADC Set Dual/Triple Mode
+/** @brief ADC set multi mode
  *
- * The multiple mode uses ADC1 as master, ADC2 and optionally ADC3 in a slave
- * arrangement. This setting is applied to ADC1 only.
+ * The multiple mode can uses these arrangement:
+ * - ADC1 as master and ADC2 as slave
+ * - ADC3 as master and ADC4 as slave
+ *
+ * This setting is applied to ADC master only (ADC1 or ADC3).
  *
  * The various modes possible are described in the reference manual.
  *
- * @param[in] mode Unsigned int32. Multiple mode selection from @ref
- * adc_multi_mode
-*/
-
+ * @param adc peripheral of choice @ref adc_reg_base
+ * @param[in] mode Multiple mode selection from @ref adc_multi_mode
+ */
 void adc_set_multi_mode(uint32_t adc, uint32_t mode)
 {
-	ADC_CCR(adc) |= mode;
+	ADC_CCR(adc) &= ~(ADC_CCR_DUAL_MASK << ADC_CCR_DUAL_SHIFT);
+	ADC_CCR(adc) |= (mode << ADC_CCR_DUAL_SHIFT);
 }
 
 /*---------------------------------------------------------------------------*/

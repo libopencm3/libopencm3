@@ -40,25 +40,53 @@
 #define LIBOPENCM3_FLASH_COMMON_F24_H
 /**@{*/
 
-#include <libopencm3/stm32/common/flash_common_f234.h>
+#include <libopencm3/stm32/common/flash_common_idcache.h>
 
-/* --- FLASH registers ----------------------------------------------------- */
-
+/** @defgroup flash_registers Flash Registers
+ * @ingroup flash_defines
+@{*/
+/** Flash Access Control register */
+#define FLASH_ACR			MMIO32(FLASH_MEM_INTERFACE_BASE + 0x00)
+/** Flash Key register */
+#define FLASH_KEYR			MMIO32(FLASH_MEM_INTERFACE_BASE + 0x04)
+/** Flash Option bytes key register */
+#define FLASH_OPTKEYR			MMIO32(FLASH_MEM_INTERFACE_BASE + 0x08)
+/** Flash Status register*/
+#define FLASH_SR			MMIO32(FLASH_MEM_INTERFACE_BASE + 0x0C)
+/** Flash Control register */
+#define FLASH_CR			MMIO32(FLASH_MEM_INTERFACE_BASE + 0x10)
+/** Flash Option Control register */
 #define FLASH_OPTCR			MMIO32(FLASH_MEM_INTERFACE_BASE + 0x14)
+/** Flash Option Control register 1 (bank 2) */
 #define FLASH_OPTCR1			MMIO32(FLASH_MEM_INTERFACE_BASE + 0x18)
+/*@}*/
 
-/* --- FLASH_ACR values ---------------------------------------------------- */
+/** @defgroup flash_latency FLASH Wait States
+@ingroup flash_defines
+@{*/
+#define FLASH_ACR_LATENCY(w)		((w) & FLASH_ACR_LATENCY_MASK)
+#define FLASH_ACR_LATENCY_0WS          0x00
+#define FLASH_ACR_LATENCY_1WS          0x01
+#define FLASH_ACR_LATENCY_2WS          0x02
+#define FLASH_ACR_LATENCY_3WS          0x03
+#define FLASH_ACR_LATENCY_4WS          0x04
+#define FLASH_ACR_LATENCY_5WS          0x05
+#define FLASH_ACR_LATENCY_6WS          0x06
+#define FLASH_ACR_LATENCY_7WS          0x07
+/*@}*/
+#define FLASH_ACR_LATENCY_SHIFT		0
+#define FLASH_ACR_LATENCY_MASK		0x0f
 
-#define FLASH_ACR_DCRST			(1 << 12)
-#define FLASH_ACR_ICRST			(1 << 11)
-#define FLASH_ACR_DCEN			(1 << 10)
-#define FLASH_ACR_ICEN			(1 << 9)
+/** @defgroup flash_acr_values FLASH_ACR values
+ * @ingroup flash_registers
+ * @brief Access Control register values
+ * @{*/
 #define FLASH_ACR_PRFTEN		(1 << 8)
+/**@}*/
 
 /* --- FLASH_SR values ----------------------------------------------------- */
 
 #define FLASH_SR_BSY			(1 << 16)
-#define FLASH_SR_PGSERR			(1 << 7)
 #define FLASH_SR_PGPERR			(1 << 6)
 #define FLASH_SR_PGAERR			(1 << 5)
 #define FLASH_SR_WRPERR			(1 << 4)
@@ -94,7 +122,6 @@
 /* FLASH_OBR[15:8]: RDP */
 #define FLASH_OPTCR_NRST_STDBY		(1 << 7)
 #define FLASH_OPTCR_NRST_STOP		(1 << 6)
-#define FLASH_OPTCR_WDG_SW		(1 << 5)
 #define FLASH_OPTCR_OPTSTRT		(1 << 1)
 #define FLASH_OPTCR_OPTLOCK		(1 << 0)
 #define FLASH_OPTCR_BOR_LEVEL_3		(0x00 << 2)
@@ -108,6 +135,9 @@
 
 /* --- FLASH Keys -----------------------------------------------------------*/
 
+#define FLASH_KEYR_KEY1			((uint32_t)0x45670123)
+#define FLASH_KEYR_KEY2			((uint32_t)0xcdef89ab)
+
 #define FLASH_OPTKEYR_KEY1		((uint32_t)0x08192a3b)
 #define FLASH_OPTKEYR_KEY2		((uint32_t)0x4c5d6e7f)
 
@@ -115,19 +145,10 @@
 
 BEGIN_DECLS
 
-void flash_unlock_option_bytes(void);
 void flash_lock_option_bytes(void);
-void flash_clear_pgserr_flag(void);
+void flash_clear_pgperr_flag(void);
 void flash_clear_wrperr_flag(void);
 void flash_clear_pgaerr_flag(void);
-void flash_dcache_enable(void);
-void flash_dcache_disable(void);
-void flash_icache_enable(void);
-void flash_icache_disable(void);
-void flash_prefetch_enable(void);
-void flash_prefetch_disable(void);
-void flash_dcache_reset(void);
-void flash_icache_reset(void);
 void flash_erase_all_sectors(uint32_t program_size);
 void flash_erase_sector(uint8_t sector, uint32_t program_size);
 void flash_program_double_word(uint32_t address, uint64_t data);

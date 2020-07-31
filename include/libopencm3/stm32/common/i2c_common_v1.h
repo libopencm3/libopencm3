@@ -47,6 +47,9 @@ specific memorymap.h header before including this header file.*/
 @{*/
 #define I2C1				I2C1_BASE
 #define I2C2				I2C2_BASE
+#ifdef I2C3_BASE
+#define I2C3				I2C3_BASE
+#endif
 /**@}*/
 
 /* --- I2C registers ------------------------------------------------------- */
@@ -95,6 +98,19 @@ specific memorymap.h header before including this header file.*/
 #define I2C_TRISE(i2c_base)		MMIO32((i2c_base) + 0x20)
 #define I2C1_TRISE			I2C_TRISE(I2C1)
 #define I2C2_TRISE			I2C_TRISE(I2C2)
+
+/* Not all parts have i2c3 */
+#ifdef I2C3_BASE
+#define I2C3_CR1			I2C_CR1(I2C3)
+#define I2C3_CR2			I2C_CR2(I2C3)
+#define I2C3_OAR1			I2C_OAR1(I2C3)
+#define I2C3_OAR2			I2C_OAR2(I2C3)
+#define I2C3_DR				I2C_DR(I2C3)
+#define I2C3_SR1			I2C_SR1(I2C3)
+#define I2C3_SR2			I2C_SR2(I2C3)
+#define I2C3_CCR			I2C_CCR(I2C3)
+#define I2C3_TRISE			I2C_TRISE(I2C3)
+#endif
 
 /* --- I2Cx_CR1 values ----------------------------------------------------- */
 

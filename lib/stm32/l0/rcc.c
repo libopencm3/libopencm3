@@ -1,6 +1,6 @@
-/** @defgroup STM32L0xx-rcc-file RCC
+/** @defgroup rcc_file RCC peripheral API
  *
- * @ingroup STM32L0xx
+ * @ingroup peripheral_apis
  *
  * @brief <b>libopencm3 STM32L0xx Reset and Clock Control</b>
  *
@@ -105,7 +105,7 @@ void rcc_osc_off(enum rcc_osc osc)
  * Clear the interrupt flag that was set when a clock oscillator became ready
  * to use.
  *
- * @param[in] osc enum ::osc_t. Oscillator ID
+ * @param[in] osc Oscillator ID
  */
 void rcc_osc_ready_int_clear(enum rcc_osc osc)
 {
@@ -137,7 +137,7 @@ void rcc_osc_ready_int_clear(enum rcc_osc osc)
 /*---------------------------------------------------------------------------*/
 /** @brief RCC Enable the Oscillator Ready Interrupt
  *
- * @param[in] osc enum ::osc_t. Oscillator ID
+ * @param[in] osc Oscillator ID
  */
 void rcc_osc_ready_int_enable(enum rcc_osc osc)
 {
@@ -169,7 +169,7 @@ void rcc_osc_ready_int_enable(enum rcc_osc osc)
 /*---------------------------------------------------------------------------*/
 /** @brief RCC Disable the Oscillator Ready Interrupt
  *
- * @param[in] osc enum ::osc_t. Oscillator ID
+ * @param[in] osc Oscillator ID
  */
 void rcc_osc_ready_int_disable(enum rcc_osc osc)
 {
@@ -201,7 +201,7 @@ void rcc_osc_ready_int_disable(enum rcc_osc osc)
 /*---------------------------------------------------------------------------*/
 /** @brief RCC Read the Oscillator Ready Interrupt Flag
  *
- * @param[in] osc enum ::osc_t. Oscillator ID
+ * @param[in] osc Oscillator ID
  * @returns int. Boolean value for flag set.
  */
 int rcc_osc_ready_int_flag(enum rcc_osc osc)
@@ -279,8 +279,7 @@ void rcc_set_hsi48_source_pll(void)
 /*---------------------------------------------------------------------------*/
 /** @brief RCC Set the Source for the System Clock.
  *
- * @param[in] osc enum ::osc_t. Oscillator ID. Only HSE, HSI16, MSI and PLL have
- * effect.
+ * @param[in] osc Oscillator ID. Only HSE, HSI16, MSI and PLL have effect.
  */
 
 void rcc_set_sysclk_source(enum rcc_osc osc)
@@ -310,7 +309,7 @@ void rcc_set_sysclk_source(enum rcc_osc osc)
  *
  * @note This only has effect when the PLL is disabled.
  *
- * @param[in] mul Unsigned int32. PLL multiplication factor @ref rcc_cfgr_pmf
+ * @param[in] factor PLL multiplication factor @ref rcc_cfgr_pmf
  */
 
 void rcc_set_pll_multiplier(uint32_t factor)
@@ -326,7 +325,7 @@ void rcc_set_pll_multiplier(uint32_t factor)
  *
  * @note This only has effect when the PLL is disabled.
  *
- * @param[in] mul Unsigned int32. PLL multiplication factor @ref rcc_cfgr_pdf
+ * @param[in] factor PLL multiplication factor @ref rcc_cfgr_pdf
  */
 
 void rcc_set_pll_divider(uint32_t factor)
@@ -354,7 +353,7 @@ void rcc_set_pll_source(uint32_t pllsrc)
  *
  * @note The APB1 clock frequency must not exceed 32MHz.
  *
- * @param[in] ppre1 Unsigned int32. APB prescale factor @ref rcc_cfgr_apb1pre
+ * @param[in] ppre APB prescale factor @ref rcc_cfgr_apb1pre
  */
 
 void rcc_set_ppre1(uint32_t ppre)
@@ -369,7 +368,7 @@ void rcc_set_ppre1(uint32_t ppre)
  *
  * @note The APB2 clock frequency must not exceed 32MHz.
  *
- * @param[in] ppre1 Unsigned int32. APB prescale factor @ref rcc_cfgr_apb2pre
+ * @param[in] ppre APB prescale factor @ref rcc_cfgr_apb2pre
  */
 
 void rcc_set_ppre2(uint32_t ppre)
@@ -391,9 +390,115 @@ void rcc_set_hpre(uint32_t hpre)
 	RCC_CFGR = reg | (hpre << RCC_CFGR_HPRE_SHIFT);
 }
 
-/**
- * Set up sysclock with PLL from HSI16
- * @param clock full struct with desired parameters
+/*---------------------------------------------------------------------------*/
+/** @brief Set the range of the MSI oscillator
+*
+ * @param msi_range desired range @ref rcc_icscr_msirange
+ */
+void rcc_set_msi_range(uint32_t msi_range)
+{
+	uint32_t reg32 = RCC_ICSCR & ~(RCC_ICSCR_MSIRANGE_MASK << RCC_ICSCR_MSIRANGE_SHIFT);
+	RCC_ICSCR = reg32 | (msi_range << RCC_ICSCR_MSIRANGE_SHIFT);
+}
+
+/*---------------------------------------------------------------------------*/
+/** @brief Set the LPTIM1 clock source
+*
+ * @param lptim1_sel peripheral clock source @ref rcc_ccpipr_lptim1sel
+ */
+void rcc_set_lptim1_sel(uint32_t lptim1_sel)
+{
+	RCC_CCIPR &= ~(RCC_CCIPR_LPTIM1SEL_MASK << RCC_CCIPR_LPTIM1SEL_SHIFT);
+	RCC_CCIPR |= (lptim1_sel << RCC_CCIPR_LPTIM1SEL_SHIFT);
+}
+
+
+/*---------------------------------------------------------------------------*/
+/** @brief Set the LPUART1 clock source
+*
+ * @param lpuart1_sel periphral clock source @ref rcc_ccpipr_lpuart1sel
+ */
+void rcc_set_lpuart1_sel(uint32_t lpuart1_sel)
+{
+	RCC_CCIPR &= ~(RCC_CCIPR_LPUART1SEL_MASK << RCC_CCIPR_LPTIM1SEL_SHIFT);
+	RCC_CCIPR |= (lpuart1_sel << RCC_CCIPR_LPTIM1SEL_SHIFT);
+}
+
+/*---------------------------------------------------------------------------*/
+/** @brief Set the USART1 clock source
+*
+ * @param usart1_sel periphral clock source @ref rcc_ccpipr_usart1sel
+ */
+void rcc_set_usart1_sel(uint32_t usart1_sel)
+{
+	RCC_CCIPR &= ~(RCC_CCIPR_USART1SEL_MASK << RCC_CCIPR_USART1SEL_SHIFT);
+	RCC_CCIPR |= (usart1_sel << RCC_CCIPR_USART1SEL_SHIFT);
+}
+
+/*---------------------------------------------------------------------------*/
+/** @brief Set the USART2 clock source
+*
+ * @param usart2_sel periphral clock source @ref rcc_ccpipr_usartxsel
+ */
+void rcc_set_usart2_sel(uint32_t usart2_sel)
+{
+	RCC_CCIPR &= ~(RCC_CCIPR_USART2SEL_MASK << RCC_CCIPR_USART2SEL_SHIFT);
+	RCC_CCIPR |= (usart2_sel << RCC_CCIPR_USART2SEL_SHIFT);
+}
+
+/*---------------------------------------------------------------------------*/
+/** @brief Set the peripheral clock source
+ * @param periph peripheral of desire, eg XXX_BASE
+ * @param sel peripheral clock source
+ */
+void rcc_set_peripheral_clk_sel(uint32_t periph, uint32_t sel)
+{
+	uint8_t shift;
+	uint32_t mask;
+
+	switch (periph) {
+		case LPTIM1_BASE:
+			shift = RCC_CCIPR_LPTIM1SEL_SHIFT;
+			mask = RCC_CCIPR_LPTIM1SEL_MASK;
+			break;
+
+		case I2C3_BASE:
+			shift = RCC_CCIPR_I2C3SEL_SHIFT;
+			mask = RCC_CCIPR_I2C3SEL_MASK;
+			break;
+
+		case I2C1_BASE:
+			shift = RCC_CCIPR_I2C1SEL_SHIFT;
+			mask = RCC_CCIPR_I2C1SEL_MASK;
+			break;
+
+		case LPUART1_BASE:
+			shift = RCC_CCIPR_LPUART1SEL_SHIFT;
+			mask = RCC_CCIPR_LPUART1SEL_MASK;
+			break;
+
+		case USART2_BASE:
+			shift = RCC_CCIPR_USART2SEL_SHIFT;
+			mask = RCC_CCIPR_USART2SEL_MASK;
+			break;
+
+		case USART1_BASE:
+			shift = RCC_CCIPR_USART1SEL_SHIFT;
+			mask = RCC_CCIPR_USART1SEL_MASK;
+			break;
+
+		default:
+			return;
+	}
+
+	uint32_t reg32 = RCC_CCIPR & ~(mask << shift);
+	RCC_CCIPR = reg32 | (sel << shift);
+}
+
+/** @brief RCC Setup PLL and use it as Sysclk source.
+ *
+ * @param[in] clock full struct with desired parameters
+ *
  */
 void rcc_clock_setup_pll(const struct rcc_clock_scale *clock)
 {
@@ -422,6 +527,7 @@ void rcc_clock_setup_pll(const struct rcc_clock_scale *clock)
 	/* Set up the PLL */
 	rcc_set_pll_multiplier(clock->pll_mul);
 	rcc_set_pll_divider(clock->pll_div);
+	rcc_set_pll_source(clock->pll_source);
 
 	rcc_osc_on(RCC_PLL);
 	rcc_wait_for_osc_ready(RCC_PLL);

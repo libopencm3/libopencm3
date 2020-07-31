@@ -39,28 +39,12 @@
 	do { } while (0)
 #endif
 
-const struct rcc_clock_scale this_clock_config = {
-	/* 72MHZ from 8MHZ external clock from stlink MCO */
-	.pllsrc = RCC_CFGR_PLLSRC_HSE_PREDIV,
-	.pllmul = RCC_CFGR_PLLMUL_MUL9,
-	.plldiv = RCC_CFGR2_PREDIV_NODIV,
-	.usbdiv1 = false,
-	.flash_waitstates = 2,
-	.hpre = RCC_CFGR_HPRE_DIV_NONE,
-	.ppre1 = RCC_CFGR_PPRE1_DIV_2,
-	.ppre2 = RCC_CFGR_PPRE2_DIV_NONE,
-	.ahb_frequency = 72e6,
-	.apb1_frequency = 32e6,
-	.apb2_frequency = 72e6,
-};
-
-
 int main(void)
 {
 	rcc_periph_clock_enable(RCC_GPIOE);
 	gpio_mode_setup(GPIOE, GPIO_MODE_OUTPUT, GPIO_PUPD_NONE, GPIO11|GPIO12);
 	gpio_set(GPIOE, GPIO12);
-	rcc_clock_setup_pll(&this_clock_config);
+	rcc_clock_setup_pll(&rcc_hse8mhz_configs[RCC_CLOCK_HSE8_72MHZ]);
 
 	rcc_periph_clock_enable(RCC_GPIOA);
 	/*
@@ -84,9 +68,7 @@ int main(void)
 	gpio_clear(GPIOE, GPIO12);
 	static int i = 0;
 	while (1) {
-		gpio_toggle(GPIOE, GPIO12);
 		gadget0_run(usbd_dev);
-		ER_DPRINTF("loop %d\n", i++);
 	}
 
 }

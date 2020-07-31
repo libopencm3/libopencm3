@@ -21,10 +21,8 @@
 LIBNAME		= libopencm3_stm32f7
 SRCLIBDIR	?= ../..
 
-PREFIX		?= arm-none-eabi
-
-CC		= $(PREFIX)-gcc
-AR		= $(PREFIX)-ar
+CC		= $(PREFIX)gcc
+AR		= $(PREFIX)ar
 
 # STM32F7 only supports single precision FPU
 FP_FLAGS	?= -mfloat-abi=hard -mfpu=fpv5-sp-d16
@@ -42,38 +40,33 @@ TGT_CFLAGS	+= $(STANDARD_FLAGS)
 
 ARFLAGS		= rcs
 
-OBJS		= flash.o pwr.o rcc.o 
-OBJS		+= gpio.o gpio_common_all.o gpio_common_f0234.o
+OBJS += adc_common_v1.o adc_common_v1_multi.o adc_common_f47.o
+OBJS += can.o
+OBJS += crc_common_all.o crc_v2.o
+OBJS += dac_common_all.o
+OBJS += desig_common_all.o desig.o
+OBJS += dma_common_f24.o
+OBJS += dma2d_common_f47.o
+OBJS += dsi_common_f47.o
+OBJS += exti_common_all.o
+OBJS += flash_common_all.o flash_common_f.o flash_common_f24.o flash.o
+OBJS += fmc_common_f47.o
+OBJS += gpio_common_all.o gpio_common_f0234.o
+OBJS += i2c_common_v2.o
+OBJS += iwdg_common_all.o
+OBJS += lptimer_common_all.o
+OBJS += ltdc_common_f47.o
+OBJS += pwr.o rcc.o
+OBJS += rcc_common_all.o
+OBJS += rng_common_v1.o
+OBJS += spi_common_all.o spi_common_v2.o
+OBJS += timer_common_all.o
+OBJS += usart_common_all.o usart_common_v2.o
 
-OBJS		+= rcc_common_all.o
-
-OBJS		+= rng_common_v1.o
-
-OBJS		+= usart_common_all.o usart_common_v2.o
+# Ethernet
+OBJS += mac.o phy.o mac_stm32fxx7.o phy_ksz80x1.o
 
 VPATH += ../../usb:../:../../cm3:../common
 VPATH += ../../ethernet
 
-###############################################################################
-# Checking CPU support in the toolchain
-###############################################################################
-# TODO: This check and silent skip of build should be removed, when it will be
-# sure that first compatible toolchain (g-a-e 4.8 2014q3) will be sufficiently
-# penetrated in majority of user stations.
-define MISSING_CPU
-Your toolchain doesn't support -mcpu=cortex-m7.
-Please use gcc-arm-embedded 4.8 2014q3 or newer. Skipping this sub-library.
-endef
-
-ifneq ($(shell $(CC) --help=target | grep -q '\<cortex-m7\>'; echo $$?),0)
-  $(warning $(MISSING_CPU))
-
-all clean:
-	@true
-
-$(SRCLIBDIR)/$(LIBNAME).a:
-	@true
-
-else
-  include ../../Makefile.include
-endif
+include ../../Makefile.include

@@ -1,6 +1,6 @@
-/** @defgroup pwr_file PWR
+/** @defgroup pwr_file PWR peripheral API
  *
- * @ingroup STM32L4xx
+ * @ingroup peripheral_apis
  *
  * @brief <b>libopencm3 STM32L4xx Power Control</b>
  *
@@ -52,4 +52,24 @@ void pwr_set_vos_scale(enum pwr_vos_scale scale)
 	}
 	PWR_CR1 = reg32;
 }
+
+/** Disable Backup Domain Write Protection
+ *
+ * This allows backup domain registers to be changed. These registers are write
+ * protected after a reset.
+ */
+void pwr_disable_backup_domain_write_protect(void)
+{
+	PWR_CR1 |= PWR_CR1_DBP;
+}
+
+/** Re-enable Backup Domain Write Protection
+ *
+ * This protects backup domain registers from inadvertent change.
+ */
+void pwr_enable_backup_domain_write_protect(void)
+{
+	PWR_CR1 &= ~PWR_CR1_DBP;
+}
+
 /**@}*/

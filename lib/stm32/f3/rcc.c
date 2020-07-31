@@ -1,6 +1,6 @@
-/** @defgroup rcc_file RCC
+/** @defgroup rcc_file RCC peripheral API
  *
- * @ingroup STM32F3xx
+ * @ingroup peripheral_apis
  *
  * @brief <b>libopencm3 STM32F3xx Reset and Clock Control</b>
  *
@@ -80,7 +80,7 @@ const struct rcc_clock_scale rcc_hse8mhz_configs[] = {
 		.ppre1 = RCC_CFGR_PPRE1_DIV_2,
 		.ppre2 = RCC_CFGR_PPRE2_DIV_NONE,
 		.ahb_frequency = 72e6,
-		.apb1_frequency = 32e6,
+		.apb1_frequency = 36e6,
 		.apb2_frequency = 72e6,
 	}
 };
@@ -418,7 +418,7 @@ void __attribute__((deprecated)) rcc_clock_setup_hsi(const struct rcc_clock_scal
 	rcc_osc_on(RCC_PLL);
 	rcc_wait_for_osc_ready(RCC_PLL);
 	/*
-	 * Set prescalers for AHB, ADC, ABP1, ABP2.
+	 * Set prescalers for AHB, ADC, APB1, APB2.
 	 * Do this before touching the PLL (TODO: why?).
 	 */
 	rcc_set_hpre(clock->hpre);

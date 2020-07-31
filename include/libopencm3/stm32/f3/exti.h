@@ -38,6 +38,7 @@
 /**@{*/
 
 #include <libopencm3/stm32/common/exti_common_all.h>
+#include <libopencm3/stm32/common/exti_common_v1.h>
 
 /* --- EXTI registers ------------------------------------------------------ */
 #define EXTI_IMR2			MMIO32(EXTI_BASE + 0x18)

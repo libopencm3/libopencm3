@@ -20,6 +20,15 @@
 #	include <libopencm3/stm32/l1/nvic.h>
 #elif defined(STM32L4)
 #	include <libopencm3/stm32/l4/nvic.h>
+#elif defined(STM32G0)
+#	include <libopencm3/stm32/g0/nvic.h>
+#elif defined(STM32G4)
+#	include <libopencm3/stm32/g4/nvic.h>
+#elif defined(STM32H7)
+#	include <libopencm3/stm32/h7/nvic.h>
+
+#elif defined(GD32F1X0)
+#	include <libopencm3/gd32/f1x0/nvic.h>
 
 #elif defined(EFM32TG)
 #	include <libopencm3/efm32/tg/nvic.h>
@@ -64,8 +73,17 @@
 /* Yes, we use the same interrupt table for both LM3S and LM4F */
 #	include <libopencm3/lm3s/nvic.h>
 
+#elif defined(MSP432E4)
+#   include <libopencm3/msp432/e4/nvic.h>
+
 #elif defined(VF6XX)
 #	include <libopencm3/vf6xx/nvic.h>
+
+#elif defined(SWM050)
+#       include <libopencm3/swm050/nvic.h>
+
+#elif defined(PAC55XX)
+#       include <libopencm3/pac55xx/nvic.h>
 
 #else
 #	warning"no interrupts defined for chipset; NVIC_IRQ_COUNT = 0"

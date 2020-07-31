@@ -1,12 +1,5 @@
-/* This file is used for documentation purposes. It does not need
-to be compiled. All source code is in the common area.
-If there is any device specific code required it can be included here,
-in which case this file must be added to the compile list. */
-
-/** @defgroup timer_file Timers
-
-@ingroup STM32F1xx
-
+/** @defgroup timer_file TIMER peripheral API
+@ingroup peripheral_apis
 @brief <b>libopencm3 STM32F1xx Timers</b>
 
 @version 1.0.0
@@ -37,6 +30,8 @@ in which case this file must be added to the compile list. */
 
 #include <libopencm3/stm32/timer.h>
 
+/**@{*/
+
 /*---------------------------------------------------------------------------*/
 /** @brief Set Input Polarity
 
@@ -55,3 +50,4 @@ void timer_ic_set_polarity(uint32_t timer_peripheral, enum tim_ic_id ic,
 	}
 }
 
+/**@}*/

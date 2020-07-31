@@ -1,3 +1,6 @@
+/** @addtogroup exti_file EXTI peripheral API
+ * @ingroup peripheral_apis
+ */
 /*
  * This file is part of the libopencm3 project.
  *
@@ -17,7 +20,7 @@
  * You should have received a copy of the GNU Lesser General Public License
  * along with this library.  If not, see <http://www.gnu.org/licenses/>.
  *
- * This provides the code for the "next gen" EXTI block provided in F2/F4/L1
+ * This provides the code for the "next gen" EXTI block provided in F2/F4/F7/L1
  * devices.  (differences only in the source selection)
  */
 /**@{*/
@@ -25,8 +28,17 @@
 
 #include <libopencm3/stm32/exti.h>
 #include <libopencm3/stm32/gpio.h>
-#if !defined(AFIO_BASE)
-#       include <libopencm3/stm32/syscfg.h>
+
+#if defined(EXTI_EXTICR)
+	#define EXTICR_SELECTION_FIELDSIZE	EXTI_EXTICR_FIELDSIZE
+	#define EXTICR_SELECTION_REG(x)	EXTI_EXTICR(x)
+#elif defined(AFIO_EXTICR)
+	#define EXTICR_SELECTION_FIELDSIZE	AFIO_EXTICR_FIELDSIZE
+	#define EXTICR_SELECTION_REG(x)	AFIO_EXTICR(x)
+#else
+	#include <libopencm3/stm32/syscfg.h>
+	#define EXTICR_SELECTION_FIELDSIZE	SYSCFG_EXTICR_FIELDSIZE
+	#define EXTICR_SELECTION_REG(x)	SYSCFG_EXTICR(x)
 #endif
 
 void exti_set_trigger(uint32_t extis, enum exti_trigger_type trig)
@@ -71,7 +83,12 @@ void exti_disable_request(uint32_t extis)
  */
 void exti_reset_request(uint32_t extis)
 {
+#if defined(EXTI_RPR1) && defined(EXTI_FPR1)
+	EXTI_RPR1 = extis;
+	EXTI_FPR1 = extis;
+#else
 	EXTI_PR = extis;
+#endif
 }
 
 /*
@@ -79,7 +96,11 @@ void exti_reset_request(uint32_t extis)
  * */
 uint32_t exti_get_flag_status(uint32_t exti)
 {
+#if defined(EXTI_RPR1) && defined(EXTI_FPR1)
+	return (EXTI_RPR1 & exti) | (EXTI_FPR1 & exti);
+#else
 	return EXTI_PR & exti;
+#endif
 }
 
 /*
@@ -96,7 +117,7 @@ void exti_select_source(uint32_t exti, uint32_t gpioport)
 			continue;
 		}
 
-		uint32_t bits = 0, mask = 0x0F;
+		uint32_t bits = 0;
 
 		switch (gpioport) {
 		case GPIOA:
@@ -148,16 +169,11 @@ void exti_select_source(uint32_t exti, uint32_t gpioport)
 #endif
 		}
 
-		uint8_t shift = (uint8_t)(4 * (line % 4));
+		uint8_t shift = (uint8_t)(EXTICR_SELECTION_FIELDSIZE * (line % 4));
+		uint32_t mask = ((1 << EXTICR_SELECTION_FIELDSIZE) - 1) << shift;
 		uint32_t reg = line / 4;
-		bits <<= shift;
-		mask <<= shift;
 
-#if defined(AFIO_BASE)
-		AFIO_EXTICR(reg) = (AFIO_EXTICR(reg) & ~mask) | bits;
-#else
-		SYSCFG_EXTICR(reg) = (SYSCFG_EXTICR(reg) & ~mask) | bits;
-#endif
+		EXTICR_SELECTION_REG(reg) = (EXTICR_SELECTION_REG(reg) & ~mask) | (bits << shift);
 	};
 }
 /**@}*/

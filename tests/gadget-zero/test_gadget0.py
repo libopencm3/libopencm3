@@ -1,7 +1,9 @@
 import array
 import datetime
+import random
 import usb.core
 import usb.util as uu
+import random
 import sys
 
 import unittest
@@ -24,6 +26,8 @@ GZ_REQ_SET_ALIGNED=3
 GZ_REQ_SET_UNALIGNED=4
 GZ_REQ_WRITE_LOOPBACK_BUFFER=10
 GZ_REQ_READ_LOOPBACK_BUFFER=11
+GZ_REQ_INTEL_WRITE=0x5b
+GZ_REQ_INTEL_READ=0x5c
 
 class find_by_serial(object):
     def __init__(self, serial):
@@ -81,6 +85,41 @@ class TestGadget0(unittest.TestCase):
         except usb.core.USBError as e:
             # Note, this might not be as portable as we'd like.
             self.assertIn("Pipe", e.strerror)
+
+class TestIntelCompliance(unittest.TestCase):
+    """
+    Part of intel's usb 2.0 compliance is writing and reading back control transfers
+    """
+    def setUp(self):
+        self.dev = usb.core.find(idVendor=VENDOR_ID, idProduct=PRODUCT_ID, custom_match=find_by_serial(DUT_SERIAL))
+        self.assertIsNotNone(self.dev, "Couldn't find locm3 gadget0 device")
+
+        self.cfg = uu.find_descriptor(self.dev, bConfigurationValue=2)
+        self.assertIsNotNone(self.cfg, "Config 2 should exist")
+        self.dev.set_configuration(self.cfg)
+
+    def tearDown(self):
+        uu.dispose_resources(self.dev)
+
+    def inner_t(self, mylen):
+        data = [random.randrange(255) for x in range(mylen)]
+        written = self.dev.ctrl_transfer(uu.CTRL_OUT | uu.CTRL_RECIPIENT_INTERFACE | uu.CTRL_TYPE_VENDOR, GZ_REQ_INTEL_WRITE, 0, 0, data)
+        self.assertEqual(written, len(data), "Should have written all bytes plz")
+        # now. in _theory_ I should be able to make a bulk transfer here and have it not "interfere"
+        # fixme - try this out?
+        read = self.dev.ctrl_transfer(uu.CTRL_IN | uu.CTRL_RECIPIENT_INTERFACE | uu.CTRL_TYPE_VENDOR, GZ_REQ_INTEL_READ, 0, 0, mylen)
+        self.assertEqual(mylen, len(read))
+        expected = array.array('B', [x for x in data])
+        self.assertEqual(expected, read, "should have read back what we wrote")
+
+    def test_ctrl_loopbacks(self):
+        self.inner_t(0)
+        self.inner_t(10)
+        self.inner_t(63)
+        self.inner_t(64)
+        self.inner_t(65)
+        self.inner_t(140)
+        self.inner_t(183)
 
 
 class TestConfigSourceSink(unittest.TestCase):
@@ -179,6 +218,78 @@ class TestConfigSourceSink(unittest.TestCase):
         except usb.core.USBError as e:
             # Note, this might not be as portable as we'd like.
             self.assertIn("Pipe", e.strerror)
+
+
+class TestConfigLoopBack(unittest.TestCase):
+    """
+    We could inherit, but it doesn't save much, and this saves me from remembering how to call super.
+    """
+
+    def setUp(self):
+        self.dev = usb.core.find(idVendor=VENDOR_ID, idProduct=PRODUCT_ID, custom_match=find_by_serial(DUT_SERIAL))
+        self.assertIsNotNone(self.dev, "Couldn't find locm3 gadget0 device")
+
+        self.cfg = uu.find_descriptor(self.dev, bConfigurationValue=3)
+        self.assertIsNotNone(self.cfg, "Config 3 should exist")
+        self.dev.set_configuration(self.cfg)
+        self.intf = self.cfg[(0, 0)]
+        # heh, kinda gross...
+        self.eps_out = [ep for ep in self.intf if uu.endpoint_direction(ep.bEndpointAddress) == uu.ENDPOINT_OUT]
+        self.eps_in = [ep for ep in self.intf if uu.endpoint_direction(ep.bEndpointAddress) == uu.ENDPOINT_IN]
+
+    def tearDown(self):
+        uu.dispose_resources(self.dev)
+
+    def _inner_basic(self, ep_out, ep_in, data):
+        written = self.dev.write(ep_out, data)
+        self.assertEqual(written, len(data), "Should have written all bytes plz")
+        read = self.dev.read(ep_in, len(data))
+        self.assertEqual(len(data), len(read))
+        expected = array.array('B', [x for x in data])
+        self.assertEqual(expected, read, "should have read back what we wrote")
+
+
+    def test_simple_loop(self):
+        """Plain simple loopback, does it work at all"""
+        eout = self.eps_out[0]
+        ein = self.eps_in[0]
+        data = [random.randrange(255) for _ in range(eout.wMaxPacketSize)]
+        self._inner_basic(eout, ein, data)
+
+    def test_dual_loop(self):
+        """Testing that we don't mix our data up, just plain and simple"""
+        dlen = self.eps_out[0].wMaxPacketSize
+        data = [
+            [0xaa for _ in range(dlen)],
+            [0xbb for _ in range(dlen)],
+        ]
+        for epo, epi, data in zip(self.eps_out, self.eps_in, data):
+            self._inner_basic(epo, epi, data)
+
+    def test_dual_loop_back_to_back(self):
+        """
+        write to both, _before_ we read back...
+        This can expose problems with buffer management
+        """
+        dlen = self.eps_out[0].wMaxPacketSize
+        data = [
+            [0xaa for _ in range(dlen)],
+            [0xbb for _ in range(dlen)],
+        ]
+        written = [
+            self.dev.write(self.eps_out[0], data[0]),
+            self.dev.write(self.eps_out[1], data[1]),
+        ]
+        read = [
+            self.dev.read(self.eps_in[0], dlen),
+            self.dev.read(self.eps_in[1], dlen),
+        ]
+
+        for w, r, dat in zip(written, read, data):
+            self.assertEqual(w, len(dat), "Should have written all bytes plz")
+            self.assertEqual(len(dat), len(r), "Should have read back same size")
+            expected = array.array('B', [x for x in dat])
+            self.assertEqual(expected, r, "should have read back what we wrote")
 
 
 @unittest.skip("Perf tests only on demand (comment this line!)")

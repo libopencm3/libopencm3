@@ -38,6 +38,8 @@
 
 #include <libopencm3/stm32/f7/pwr.h>
 
+/**@{*/
+
 /* --- RCC registers ------------------------------------------------------- */
 
 #define RCC_CR					MMIO32(RCC_BASE + 0x00)
@@ -208,8 +210,10 @@
 #define RCC_CIR_LSERDYF				(1 << 1)
 #define RCC_CIR_LSIRDYF				(1 << 0)
 
-/* --- RCC_AHB1RSTR values ------------------------------------------------- */
-
+/** @defgroup rcc_ahbrstr_rst RCC_AHBxRSTR reset values (full set)
+@{*/
+/** @defgroup rcc_ahb1rstr_rst RCC_AHB1RSTR reset values
+@{*/
 #define RCC_AHB1RSTR_OTGHSRST			(1 << 29)
 #define RCC_AHB1RSTR_ETHMACRST			(1 << 25)
 #define RCC_AHB1RSTR_DMA2DRST			(1 << 23)
@@ -227,22 +231,26 @@
 #define RCC_AHB1RSTR_GPIOCRST			(1 << 2)
 #define RCC_AHB1RSTR_GPIOBRST			(1 << 1)
 #define RCC_AHB1RSTR_GPIOARST			(1 << 0)
+/**@}*/
 
-/* --- RCC_AHB2RSTR values ------------------------------------------------- */
-
+/** @defgroup rcc_ahb2rstr_rst RCC_AHB2RSTR reset values
+@{*/
 #define RCC_AHB2RSTR_OTGFSRST			(1 << 7)
 #define RCC_AHB2RSTR_RNGRST			(1 << 6)
 #define RCC_AHB2RSTR_HASHRST			(1 << 5)
 #define RCC_AHB2RSTR_CRYPRST			(1 << 4)
 #define RCC_AHB2RSTR_DCMIRST			(1 << 0)
+/**@}*/
 
-/* --- RCC_AHB3RSTR values ------------------------------------------------- */
-
+/** @defgroup rcc_ahb3rstr_rst RCC_AHB3RSTR reset values
+@{*/
 #define RCC_AHB3RSTR_QSPIRST			(1 << 1)
 #define RCC_AHB3RSTR_FSMCRST			(1 << 0)
+/**@}*/
+/**@}*/
 
-/* --- RCC_APB1RSTR values ------------------------------------------------- */
-
+/** @defgroup rcc_apb1rstr_rst RCC_APB1RSTR reset values
+@{*/
 #define RCC_APB1RSTR_UART8RST			(1 << 31)
 #define RCC_APB1RSTR_UART7RST			(1 << 30)
 #define RCC_APB1RSTR_DACRST			(1 << 29)
@@ -272,9 +280,10 @@
 #define RCC_APB1RSTR_TIM4RST			(1 << 2)
 #define RCC_APB1RSTR_TIM3RST			(1 << 1)
 #define RCC_APB1RSTR_TIM2RST			(1 << 0)
+/**@}*/
 
-/* --- RCC_APB2RSTR values ------------------------------------------------- */
-
+/** @defgroup rcc_apb2rstr_rst RCC_APB2RSTR reset values
+@{*/
 #define RCC_APB2RSTR_LTDCRST			(1 << 26)
 #define RCC_APB2RSTR_SAI2RST			(1 << 23)
 #define RCC_APB2RSTR_SAI1RST			(1 << 22)
@@ -292,9 +301,12 @@
 #define RCC_APB2RSTR_USART1RST			(1 << 4)
 #define RCC_APB2RSTR_TIM8RST			(1 << 1)
 #define RCC_APB2RSTR_TIM1RST			(1 << 0)
+/**@}*/
 
-/* --- RCC_AHB1ENR values ------------------------------------------------- */
-
+/** @defgroup rcc_ahbenr_en RCC_AHBxENR enable values (full set)
+@{*/
+/** @defgroup rcc_ahb1enr_en RCC_AHB1ENR enable values
+@{*/
 #define RCC_AHB1ENR_OTGHSULPIEN			(1 << 30)
 #define RCC_AHB1ENR_OTGHSEN			(1 << 29)
 #define RCC_AHB1ENR_ETHMACPTPEN			(1 << 28)
@@ -318,22 +330,26 @@
 #define RCC_AHB1ENR_GPIOCEN			(1 << 2)
 #define RCC_AHB1ENR_GPIOBEN			(1 << 1)
 #define RCC_AHB1ENR_GPIOAEN			(1 << 0)
+/**@}*/
 
-/* --- RCC_AHB2ENR values ------------------------------------------------- */
-
+/** @defgroup rcc_ahb2enr_en RCC_AHB2ENR enable values
+@{*/
 #define RCC_AHB2ENR_OTGFSEN			(1 << 7)
 #define RCC_AHB2ENR_RNGEN			(1 << 6)
 #define RCC_AHB2ENR_HASHEN			(1 << 5)
 #define RCC_AHB2ENR_CRYPEN			(1 << 4)
 #define RCC_AHB2ENR_DCMIEN			(1 << 0)
+/**@}*/
 
-/* --- RCC_AHB3ENR values ------------------------------------------------- */
-
+/** @defgroup rcc_ahb3enr_en RCC_AHB3ENR enable values
+@{*/
 #define RCC_AHB3ENR_QSPIEN			(1 << 1)
 #define RCC_AHB3ENR_FMCEN			(1 << 0)
+/**@}*/
+/**@}*/
 
-/* --- RCC_APB1ENR values ------------------------------------------------- */
-
+/** @defgroup rcc_apb1enr_en RCC_APB1ENR enable values
+@{*/
 #define RCC_APB1ENR_UART8EN			(1 << 31)
 #define RCC_APB1ENR_UART7EN			(1 << 30)
 #define RCC_APB1ENR_DACEN			(1 << 29)
@@ -363,9 +379,10 @@
 #define RCC_APB1ENR_TIM4EN			(1 << 2)
 #define RCC_APB1ENR_TIM3EN			(1 << 1)
 #define RCC_APB1ENR_TIM2EN			(1 << 0)
+/**@}*/
 
-/* --- RCC_APB2ENR values ------------------------------------------------- */
-
+/** @defgroup rcc_apb2enr_en RCC_APB2ENR enable values
+@{*/
 #define RCC_APB2ENR_LTDCEN			(1 << 26)
 #define RCC_APB2ENR_SAI2EN			(1 << 23)
 #define RCC_APB2ENR_SAI1EN			(1 << 22)
@@ -385,6 +402,7 @@
 #define RCC_APB2ENR_USART1EN			(1 << 4)
 #define RCC_APB2ENR_TIM8EN			(1 << 1)
 #define RCC_APB2ENR_TIM1EN			(1 << 0)
+/**@}*/
 
 /* --- RCC_AHB1LPENR values ------------------------------------------------- */
 
@@ -708,8 +726,8 @@ enum rcc_periph_clken {
 	RCC_CEC		= _REG_BIT(0x40, 27),
 	RCC_PWR		= _REG_BIT(0x40, 28),
 	RCC_DAC		= _REG_BIT(0x40, 29),
-	RCC_SPI7	= _REG_BIT(0x40, 30),
-	RCC_SPI8	= _REG_BIT(0x40, 31),
+	RCC_UART7	= _REG_BIT(0x40, 30),
+	RCC_UART8	= _REG_BIT(0x40, 31),
 
 	/* APB2 peripherals */
 	RCC_TIM1	= _REG_BIT(0x44, 0),
@@ -941,5 +959,7 @@ uint32_t rcc_system_clock_source(void);
 void rcc_clock_setup_hse(const struct rcc_clock_scale *clock, uint32_t hse_mhz);
 void rcc_clock_setup_hsi(const struct rcc_clock_scale *clock);
 END_DECLS
+
+/**@}*/
 
 #endif

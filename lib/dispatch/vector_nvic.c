@@ -16,6 +16,15 @@
 #	include "../stm32/l1/vector_nvic.c"
 #elif defined(STM32L4)
 #	include "../stm32/l4/vector_nvic.c"
+#elif defined(STM32G0)
+#	include "../stm32/g0/vector_nvic.c"
+#elif defined(STM32G4)
+#	include "../stm32/g4/vector_nvic.c"
+#elif defined(STM32H7)
+#	include "../stm32/h7/vector_nvic.c"
+
+#elif defined(GD32F1X0)
+#	include "../gd32/f1x0/vector_nvic.c"
 
 #elif defined(EFM32TG)
 #	include "../efm32/tg/vector_nvic.c"
@@ -59,9 +68,19 @@
 #elif defined(VF6XX)
 #	include "../vf6xx/vector_nvic.c"
 
+#elif defined(PAC55XX)
+#       include "../pac55xx/vector_nvic.c"
+
+
 #elif defined(LM3S) || defined(LM4F)
 /* Yes, we use the same interrupt table for both LM3S and LM4F */
 #	include "../lm3s/vector_nvic.c"
+
+#elif defined(MSP432E4)
+#       include "../msp432/e4/vector_nvic.c"
+
+#elif defined(SWM050)
+#       include "../swm050/vector_nvic.c"
 
 #else
 #	warning "no interrupts defined for chipset;"\

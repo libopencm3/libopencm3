@@ -1,3 +1,6 @@
+/** @addtogroup gpio_file GPIO peripheral API
+ * @ingroup peripheral_apis
+ */
 /*
  * This file is part of the libopencm3 project.
  *
@@ -18,6 +21,8 @@
  */
 
 #include <libopencm3/efm32/gpio.h>
+
+/**@{*/
 
 /**
  * Enable GPIO registers lock.
@@ -173,3 +178,5 @@ void gpio_port_config_lock(uint32_t gpio_port, uint16_t gpios)
 {
 	GPIO_P_PINLOCKN(gpio_port) = ~gpios;
 }
+
+/**@}*/

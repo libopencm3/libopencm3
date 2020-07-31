@@ -1,3 +1,11 @@
+/** @defgroup gpio_defines GPIO Defines
+ *
+ * @brief <b>Defined Constants and Types for the EFM32HG GPIO module</b>
+ *
+ * @ingroup EFM32HG_defines
+ *
+ * LGPL License Terms @ref lgpl_license
+ */
 /*
  * This file is part of the libopencm3 project.
  *
@@ -15,9 +23,6 @@
  * along with this library.  If not, see <http://www.gnu.org/licenses/>.
  */
 
-#ifndef LIBOPENCM3_GPIO_H
-#define LIBOPENCM3_GPIO_H
+#pragma once
 
 #include <libopencm3/efm32/common/gpio_common_hglg.h>
-
-#endif

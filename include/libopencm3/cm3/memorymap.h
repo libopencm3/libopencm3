@@ -82,4 +82,22 @@
 #define ID_BASE                         (SCS_BASE + 0x0FD0)
 #endif
 
+/**
+ * @defgroup coresight_registers Coresight Registers
+ * @{
+ * CoreSight Lock Status Registers and Lock Access Registers are
+ * documented for the DWT, ITM, FPB and TPIU peripherals
+ */
+#define CORESIGHT_LSR_OFFSET	0xfb4
+#define CORESIGHT_LAR_OFFSET	0xfb0
+
+/** CoreSight Lock Status Register lock status bit */
+#define CORESIGHT_LSR_SLK		(1<<1)
+/** CoreSight Lock Status Register lock availability bit */
+#define CORESIGHT_LSR_SLI		(1<<0)
+/** CoreSight Lock Access key, common for all */
+#define CORESIGHT_LAR_KEY		0xC5ACCE55
+
+/**@}*/
+
 #endif

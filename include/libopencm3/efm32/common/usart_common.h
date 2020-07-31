@@ -1,3 +1,5 @@
+/** @addtogroup usart_defines
+ */
 /*
  * This file is part of the libopencm3 project.
  *
@@ -17,11 +19,12 @@
  * along with this library.  If not, see <http://www.gnu.org/licenses/>.
  */
 
-#ifndef LIBOPENCM3_EFM32_USART_H
-#define LIBOPENCM3_EFM32_USART_H
+#pragma once
 
 #include <libopencm3/efm32/memorymap.h>
 #include <libopencm3/cm3/common.h>
+
+/**@{*/
 
 #define USART_CTRL(base)		MMIO32((base) + 0x000)
 #define USART_FRAME(base)		MMIO32((base) + 0x004)
@@ -508,5 +511,4 @@
 #define USART2_INPUT			USART_INPUT(USART2)
 #define USART2_I2SCTRL			USART_I2SCTRL(USART2)
 
-#endif
-
+/**@}*/

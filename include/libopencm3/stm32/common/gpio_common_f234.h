@@ -51,6 +51,8 @@ specific memorymap.h header before including this header file.*/
 #define GPIOD				GPIO_PORT_D_BASE
 #define GPIOE				GPIO_PORT_E_BASE
 #define GPIOF				GPIO_PORT_F_BASE
+#define GPIOG				GPIO_PORT_G_BASE
+#define GPIOH				GPIO_PORT_H_BASE
 
 /**@}*/
 
@@ -64,6 +66,8 @@ specific memorymap.h header before including this header file.*/
 #define GPIOD_MODER			GPIO_MODER(GPIOD)
 #define GPIOE_MODER			GPIO_MODER(GPIOE)
 #define GPIOF_MODER			GPIO_MODER(GPIOF)
+#define GPIOG_MODER			GPIO_MODER(GPIOG)
+#define GPIOH_MODER			GPIO_MODER(GPIOH)
 
 /* Port output type register (GPIOx_OTYPER) */
 #define GPIO_OTYPER(port)		MMIO32((port) + 0x04)
@@ -73,6 +77,8 @@ specific memorymap.h header before including this header file.*/
 #define GPIOD_OTYPER			GPIO_OTYPER(GPIOD)
 #define GPIOE_OTYPER			GPIO_OTYPER(GPIOE)
 #define GPIOF_OTYPER			GPIO_OTYPER(GPIOF)
+#define GPIOG_OTYPER			GPIO_OTYPER(GPIOG)
+#define GPIOH_OTYPER			GPIO_OTYPER(GPIOH)
 
 /* Port output speed register (GPIOx_OSPEEDR) */
 #define GPIO_OSPEEDR(port)		MMIO32((port) + 0x08)
@@ -82,6 +88,8 @@ specific memorymap.h header before including this header file.*/
 #define GPIOD_OSPEEDR			GPIO_OSPEEDR(GPIOD)
 #define GPIOE_OSPEEDR			GPIO_OSPEEDR(GPIOE)
 #define GPIOF_OSPEEDR			GPIO_OSPEEDR(GPIOF)
+#define GPIOG_OSPEEDR			GPIO_OSPEEDR(GPIOG)
+#define GPIOH_OSPEEDR			GPIO_OSPEEDR(GPIOH)
 
 /* Port pull-up/pull-down register (GPIOx_PUPDR) */
 #define GPIO_PUPDR(port)		MMIO32((port) + 0x0c)
@@ -91,6 +99,8 @@ specific memorymap.h header before including this header file.*/
 #define GPIOD_PUPDR			GPIO_PUPDR(GPIOD)
 #define GPIOE_PUPDR			GPIO_PUPDR(GPIOE)
 #define GPIOF_PUPDR			GPIO_PUPDR(GPIOF)
+#define GPIOG_PUPDR			GPIO_PUPDR(GPIOG)
+#define GPIOH_PUPDR			GPIO_PUPDR(GPIOH)
 
 /* Port input data register (GPIOx_IDR) */
 #define GPIO_IDR(port)			MMIO32((port) + 0x10)
@@ -100,6 +110,8 @@ specific memorymap.h header before including this header file.*/
 #define GPIOD_IDR			GPIO_IDR(GPIOD)
 #define GPIOE_IDR			GPIO_IDR(GPIOE)
 #define GPIOF_IDR			GPIO_IDR(GPIOF)
+#define GPIOG_IDR			GPIO_IDR(GPIOG)
+#define GPIOH_IDR			GPIO_IDR(GPIOH)
 
 /* Port output data register (GPIOx_ODR) */
 #define GPIO_ODR(port)			MMIO32((port) + 0x14)
@@ -109,6 +121,8 @@ specific memorymap.h header before including this header file.*/
 #define GPIOD_ODR			GPIO_ODR(GPIOD)
 #define GPIOE_ODR			GPIO_ODR(GPIOE)
 #define GPIOF_ODR			GPIO_ODR(GPIOF)
+#define GPIOG_ODR			GPIO_ODR(GPIOG)
+#define GPIOH_ODR			GPIO_ODR(GPIOH)
 
 /* Port bit set/reset register (GPIOx_BSRR) */
 #define GPIO_BSRR(port)			MMIO32((port) + 0x18)
@@ -118,6 +132,8 @@ specific memorymap.h header before including this header file.*/
 #define GPIOD_BSRR			GPIO_BSRR(GPIOD)
 #define GPIOE_BSRR			GPIO_BSRR(GPIOE)
 #define GPIOF_BSRR			GPIO_BSRR(GPIOF)
+#define GPIOG_BSRR			GPIO_BSRR(GPIOG)
+#define GPIOH_BSRR			GPIO_BSRR(GPIOH)
 
 /* Port configuration lock register (GPIOx_LCKR) */
 #define GPIO_LCKR(port)			MMIO32((port) + 0x1c)
@@ -127,6 +143,8 @@ specific memorymap.h header before including this header file.*/
 #define GPIOD_LCKR			GPIO_LCKR(GPIOD)
 #define GPIOE_LCKR			GPIO_LCKR(GPIOE)
 #define GPIOF_LCKR			GPIO_LCKR(GPIOF)
+#define GPIOG_LCKR			GPIO_LCKR(GPIOG)
+#define GPIOH_LCKR			GPIO_LCKR(GPIOH)
 
 /* Alternate function low register (GPIOx_AFRL) */
 #define GPIO_AFRL(port)			MMIO32((port) + 0x20)
@@ -136,6 +154,8 @@ specific memorymap.h header before including this header file.*/
 #define GPIOD_AFRL			GPIO_AFRL(GPIOD)
 #define GPIOE_AFRL			GPIO_AFRL(GPIOE)
 #define GPIOF_AFRL			GPIO_AFRL(GPIOF)
+#define GPIOG_AFRL			GPIO_AFRL(GPIOG)
+#define GPIOH_AFRL			GPIO_AFRL(GPIOH)
 
 /* Alternate function high register (GPIOx_AFRH) */
 #define GPIO_AFRH(port)			MMIO32((port) + 0x24)
@@ -145,6 +165,8 @@ specific memorymap.h header before including this header file.*/
 #define GPIOD_AFRH			GPIO_AFRH(GPIOD)
 #define GPIOE_AFRH			GPIO_AFRH(GPIOE)
 #define GPIOF_AFRH			GPIO_AFRH(GPIOF)
+#define GPIOG_AFRH			GPIO_AFRH(GPIOG)
+#define GPIOH_AFRH			GPIO_AFRH(GPIOH)
 
 /* --- GPIOx_MODER values -------------------------------------------------- */
 

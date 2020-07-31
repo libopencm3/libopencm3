@@ -1,7 +1,18 @@
+/** @defgroup rcc_file RCC peripheral API
+ *
+ * @ingroup peripheral_apis
+ * This library supports the Reset and Clock Control System in the STM32 series
+ * of ARM Cortex Microcontrollers by ST Microelectronics.
+ *
+ * LGPL License Terms @ref lgpl_license
+ */
+
 #include <libopencm3/cm3/assert.h>
 #include <libopencm3/stm32/rcc.h>
 #include <libopencm3/stm32/pwr.h>
 #include <libopencm3/stm32/flash.h>
+
+/**@{*/
 
 uint32_t rcc_ahb_frequency = 16000000;
 uint32_t rcc_apb1_frequency = 16000000;
@@ -385,13 +396,17 @@ void rcc_clock_setup_hse(const struct rcc_clock_scale *clock, uint32_t hse_mhz)
 	}
 
 	/*
-	 * Set prescalers for AHB, ADC, ABP1, ABP2.
+	 * Set prescalers for AHB, ADC, APB1, APB2.
 	 * Do this before touching the PLL (TODO: why?).
 	 */
 	rcc_set_hpre(clock->hpre);
 	rcc_set_ppre1(clock->ppre1);
 	rcc_set_ppre2(clock->ppre2);
 
+	/* Disable PLL oscillator before changing its configuration. */
+	rcc_osc_off(RCC_PLL);
+
+	/* Configure the PLL oscillator. */
 	rcc_set_main_pll_hse(pllm, clock->plln,
 			     clock->pllp, clock->pllq);
 
@@ -438,7 +453,7 @@ void rcc_clock_setup_hsi(const struct rcc_clock_scale *clock)
 	}
 
 	/*
-	 * Set prescalers for AHB, ADC, ABP1, ABP2.
+	 * Set prescalers for AHB, ADC, APB1, APB2.
 	 * Do this before touching the PLL (TODO: why?).
 	 */
 	rcc_set_hpre(clock->hpre);
@@ -468,3 +483,5 @@ void rcc_clock_setup_hsi(const struct rcc_clock_scale *clock)
 	rcc_apb1_frequency = clock->apb1_frequency;
 	rcc_apb2_frequency = clock->apb2_frequency;
 }
+
+/**@}*/

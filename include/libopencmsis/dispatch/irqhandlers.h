@@ -16,6 +16,11 @@
 #	include <libopencmsis/stm32/l1/irqhandlers.h>
 #elif defined(STM32L4)
 #	include <libopencmsis/stm32/l4/irqhandlers.h>
+#elif defined(STM32G0)
+#	include <libopencmsis/stm32/l4/irqhandlers.h>
+
+#elif defined(GD32F1X0)
+#	include <libopencmsis/gd32/f1x0/irqhandlers.h>
 
 #elif defined(EFM32TG)
 #	include <libopencmsis/efm32/efm32tg/irqhandlers.h>
@@ -54,6 +59,8 @@
 /* Yes, we use the same interrupt table for both LM3S and LM4F */
 #	include <libopencmsis/lm3s/irqhandlers.h>
 
+#elif defined(SWM050)
+#	include <libopencmsis/swm050/irqhandlers.h>
 #else
 #	warning"no chipset defined; user interrupts are not redirected"
 

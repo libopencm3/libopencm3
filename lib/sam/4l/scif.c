@@ -76,7 +76,6 @@ int scif_osc_enable(enum osc_mode mode, uint32_t freq, enum osc_startup startup)
  *	Note that the PLLMUL field should always be greater than 1 or the
  *	behavior of the PLL will be undefined.
  * @param[in] pll_opt uint8_t: PLL Options.
- * @param[in] pll_opt uint8_t: PLL Options.
  *
  * @returns zero upon success.
  */

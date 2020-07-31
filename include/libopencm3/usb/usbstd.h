@@ -68,6 +68,7 @@ struct usb_setup_data {
 /* bit 7 : direction */
 #define USB_REQ_TYPE_DIRECTION			0x80
 #define USB_REQ_TYPE_IN				0x80
+#define USB_REQ_TYPE_OUT			0x0
 /* bits 6..5 : type */
 #define USB_REQ_TYPE_TYPE			0x60
 #define USB_REQ_TYPE_STANDARD			0x00

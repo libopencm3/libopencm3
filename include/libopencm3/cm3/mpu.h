@@ -17,7 +17,7 @@
  * along with this library.  If not, see <http://www.gnu.org/licenses/>.
  */
 
-/** @defgroup CM3_mpu_defines MPU Defines
+/** @defgroup CM3_mpu_defines Cortex-M MPU Defines
  *
  * @brief <b>libopencm3 Cortex Memory Protection Unit</b>
  *
@@ -45,7 +45,7 @@
  * @ingroup CM3_mpu_defines
  *
  *@{*/
-/** MPU_TYPE is alays available, even if the MPU is not implemented */
+/** MPU_TYPE is always available, even if the MPU is not implemented */
 #define MPU_TYPE			MMIO32(MPU_BASE + 0x00)
 #define MPU_CTRL			MMIO32(MPU_BASE + 0x04)
 #define MPU_RNR				MMIO32(MPU_BASE + 0x08)

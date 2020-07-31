@@ -1,6 +1,6 @@
-/** @defgroup flash_file FLASH
+/** @defgroup flash_file FLASH peripheral API
  *
- * @ingroup STM32L4xx
+ * @ingroup peripheral_apis
  *
  * @brief <b>libopencm3 STM32L4xx FLASH</b>
  *
@@ -42,94 +42,6 @@
 
 #include <libopencm3/stm32/flash.h>
 
-/** @brief Enable the FLASH Prefetch Buffer
-
-This buffer is used for instruction fetches and is enabled by default after
-reset.
-
-Note carefully the clock restrictions under which the prefetch buffer may be
-enabled or disabled. Changes are normally made while the clock is running in
-the power-on low frequency mode before being set to a higher speed mode.
-See the reference manual for details.
-*/
-void flash_prefetch_enable(void)
-{
-	FLASH_ACR |= FLASH_ACR_PRFTEN;
-}
-
-/** @brief Disable the FLASH Prefetch Buffer
-
-Note carefully the clock restrictions under which the prefetch buffer may be
-set to disabled. See the reference manual for details.
-*/
-void flash_prefetch_disable(void)
-{
-	FLASH_ACR &= ~FLASH_ACR_PRFTEN;
-}
-
-/** @brief Set the Number of Wait States
-
-Used to match the system clock to the FLASH memory access time. See the
-programming manual for more information on clock speed ranges. The latency must
-be changed to the appropriate value <b>before</b> any increase in clock
-speed, or <b>after</b> any decrease in clock speed.
-
-@param[in] ws values from @ref flash_latency.
-*/
-void flash_set_ws(uint32_t ws)
-{
-	uint32_t reg32;
-
-	reg32 = FLASH_ACR;
-	reg32 &= ~(FLASH_ACR_LATENCY_MASK << FLASH_ACR_LATENCY_SHIFT);
-	reg32 |= (ws << FLASH_ACR_LATENCY_SHIFT);
-	FLASH_ACR = reg32;
-}
-
-/** @brief Unlock the Flash Program and Erase Controller
- * This enables write access to the Flash memory. It is locked by default on
- * reset.
- */
-void flash_unlock(void)
-{
-	/* Clear the unlock sequence state. */
-	FLASH_CR |= FLASH_CR_LOCK;
-
-	/* Authorize the FPEC access. */
-	FLASH_KEYR = FLASH_KEYR_KEY1;
-	FLASH_KEYR = FLASH_KEYR_KEY2;
-}
-
-/** @brief Lock the Flash Program and Erase Controller
- * Used to prevent spurious writes to FLASH.
- */
-void flash_lock(void)
-{
-	FLASH_CR |= FLASH_CR_LOCK;
-}
-
-/** @brief Clear the Programming Error Status Flag
- */
-void flash_clear_pgperr_flag(void)
-{
-	FLASH_SR |= FLASH_SR_PROGERR;
-}
-
-/** @brief Clear the End of Operation Status Flag
- */
-void flash_clear_eop_flag(void)
-{
-	FLASH_SR |= FLASH_SR_EOP;
-}
-
-/** @brief Clear the Busy Status Flag
- */
-void flash_clear_bsy_flag(void)
-{
-	FLASH_SR &= ~FLASH_SR_BSY;
-}
-
-
 /** @brief Wait until Last Operation has Ended
  * This loops indefinitely until an operation (write or erase) has completed
  * by testing the busy flag.
@@ -139,57 +51,18 @@ void flash_wait_for_last_operation(void)
 	while ((FLASH_SR & FLASH_SR_BSY) == FLASH_SR_BSY);
 }
 
-/** @brief Enable the Data Cache
- */
-void flash_dcache_enable(void)
-{
-	FLASH_ACR |= FLASH_ACR_DCEN;
-}
-
-/** @brief Disable the Data Cache
- */
-void flash_dcache_disable(void)
-{
-	FLASH_ACR &= ~FLASH_ACR_DCEN;
-}
-
-/** @brief Enable the Instruction Cache
- */
-void flash_icache_enable(void)
-{
-	FLASH_ACR |= FLASH_ACR_ICEN;
-}
-
-/** @brief Disable the Instruction Cache
- */
-void flash_icache_disable(void)
-{
-	FLASH_ACR &= ~FLASH_ACR_ICEN;
-}
-
-
-/** @brief Reset the Data Cache
- * The data cache must be disabled for this to have effect.
- */
-void flash_dcache_reset(void)
-{
-	FLASH_ACR |= FLASH_ACR_DCRST;
-}
-
-/** @brief Reset the Instruction Cache
- * The instruction cache must be disabled for this to have effect.
- */
-void flash_icache_reset(void)
-{
-	FLASH_ACR |= FLASH_ACR_ICRST;
-}
-
 /** @brief Clear the Programming Sequence Error Flag
  * This flag is set when incorrect programming configuration has been made.
  */
 void flash_clear_pgserr_flag(void)
 {
 	FLASH_SR |= FLASH_SR_PGSERR;
+}
+
+/** Clear programming size error flag */
+void flash_clear_size_flag(void)
+{
+	FLASH_SR |= FLASH_SR_SIZERR;
 }
 
 /** @brief Clear the Programming Alignment Error Flag
@@ -206,31 +79,24 @@ void flash_clear_wrperr_flag(void)
 	FLASH_SR |= FLASH_SR_WRPERR;
 }
 
+/** @brief Clear the Programming Error Status Flag
+ */
+void flash_clear_progerr_flag(void)
+{
+	FLASH_SR |= FLASH_SR_PROGERR;
+}
+
 /** @brief Clear All Status Flags
  * Program error, end of operation, write protect error, busy.
  */
 void flash_clear_status_flags(void)
 {
 	flash_clear_pgserr_flag();
+	flash_clear_size_flag();
 	flash_clear_pgaerr_flag();
 	flash_clear_wrperr_flag();
-	flash_clear_pgperr_flag();
+	flash_clear_progerr_flag();
 	flash_clear_eop_flag();
-	flash_clear_bsy_flag();
-}
-
-/** @brief Unlock the Option Byte Access
- * This enables write access to the option bytes. It is locked by default on
- * reset.
- */
-void flash_unlock_option_bytes(void)
-{
-	/* Clear the unlock state. */
-	FLASH_CR |= FLASH_CR_OPTLOCK;
-
-	/* Unlock option bytes. */
-	FLASH_OPTKEYR = FLASH_OPTKEYR_KEY1;
-	FLASH_OPTKEYR = FLASH_OPTKEYR_KEY2;
 }
 
 /** @brief Lock the Option Byte Access
@@ -242,15 +108,16 @@ void flash_lock_option_bytes(void)
 	FLASH_CR |= FLASH_CR_OPTLOCK;
 }
 
-/** @brief Program a 32 bit Word to FLASH
- * This performs all operations necessary to program a 32 bit word to FLASH
- * memory. The program error flag should be checked separately for the event
- * that memory was not properly erased.
+/** @brief Program a 64 bit word to FLASH
+ *
+ * This performs all operations necessary to program a 64 bit word to FLASH memory.
+ * The program error flag should be checked separately for the event that memory
+ * was not properly erased.
  *
  * @param[in] address Starting address in Flash.
- * @param[in] data word to write
+ * @param[in] data Double word to write
  */
-void flash_program_word(uint32_t address, uint32_t data)
+void flash_program_double_word(uint32_t address, uint64_t data)
 {
 	/* Ensure that all flash operations are complete. */
 	flash_wait_for_last_operation();
@@ -258,8 +125,9 @@ void flash_program_word(uint32_t address, uint32_t data)
 	/* Enable writes to flash. */
 	FLASH_CR |= FLASH_CR_PG;
 
-	/* Program the word. */
-	MMIO32(address) = data;
+	/* Program the each word separately. */
+	MMIO32(address) = (uint32_t)data;
+	MMIO32(address+4) = (uint32_t)(data >> 32);
 
 	/* Wait for the write to complete. */
 	flash_wait_for_last_operation();
@@ -274,45 +142,40 @@ void flash_program_word(uint32_t address, uint32_t data)
  * memory was not properly erased.
  * @param[in] address Starting address in Flash.
  * @param[in] data Pointer to start of data block.
- * @param[in] len Length of data block.
+ * @param[in] len Length of data block in bytes (multiple of 8).
  */
 void flash_program(uint32_t address, uint8_t *data, uint32_t len)
 {
-	/* TODO: Use dword and word size program operations where possible for
-	 * turbo speed.
-	 */
-	uint32_t i;
-	for (i = 0; i < len; i++) {
-		flash_program_word(address+i, data[i]);
+	for (uint32_t i = 0; i < len; i += 8) {
+		flash_program_double_word(address+i, *(uint64_t*)(data + i));
 	}
 }
 
-/** @brief Erase a Sector of FLASH
- * This performs all operations necessary to erase a sector in FLASH memory.
- * The page should be checked to ensure that it was properly erased. A sector
- * must first be fully erased before attempting to program it.
- * See the reference manual or the FLASH programming manual for details.
- * @param[in] sector (0 - 11 for some parts, 0-23 on others)
+/** @brief Erase a page of FLASH
+ * @param[in] page (0 - 255 for bank 1, 256-511 for bank 2)
  */
-void flash_erase_sector(uint8_t sector)
+void flash_erase_page(uint32_t page)
 {
 	flash_wait_for_last_operation();
 
-	FLASH_CR &= ~(FLASH_CR_PNB_MASK << FLASH_CR_PNB_SHIFT);
-	FLASH_CR |= (sector & FLASH_CR_PNB_MASK) << FLASH_CR_PNB_SHIFT;
+	/* page and bank are contiguous bits */
+	FLASH_CR &= ~((FLASH_CR_PNB_MASK << FLASH_CR_PNB_SHIFT) | FLASH_CR_BKER);
+	if (page > 255)	{
+		FLASH_CR |= FLASH_CR_BKER;
+	}
+	FLASH_CR |= page << FLASH_CR_PNB_SHIFT;
 	FLASH_CR |= FLASH_CR_PER;
 	FLASH_CR |= FLASH_CR_START;
 
 	flash_wait_for_last_operation();
 	FLASH_CR &= ~FLASH_CR_PER;
-	FLASH_CR &= ~(FLASH_CR_PNB_MASK << FLASH_CR_PNB_SHIFT);
 }
 
 /** @brief Erase All FLASH
  * This performs all operations necessary to erase all sectors in the FLASH
  * memory.
  */
-void flash_erase_all_sectors(void)
+void flash_erase_all_pages(void)
 {
 	flash_wait_for_last_operation();
 
@@ -336,8 +199,8 @@ void flash_program_option_bytes(uint32_t data)
 		flash_unlock_option_bytes();
 	}
 
-	FLASH_OPTR = data & ~0x3;
-	FLASH_OPTR |= FLASH_CR_OPTSTRT;
+	FLASH_OPTR = data;
+	FLASH_CR |= FLASH_CR_OPTSTRT;
 	flash_wait_for_last_operation();
 }
 /**@}*/

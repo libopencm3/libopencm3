@@ -91,6 +91,7 @@ static inline bool cm_is_masked_interrupts(void)
 	return result;
 }
 
+#if defined(__ARM_ARCH_7M__) || defined(__ARM_ARCH_7EM__)
 /*---------------------------------------------------------------------------*/
 /** @brief Cortex M Check if Fault interrupt is masked
  *
@@ -105,6 +106,7 @@ static inline bool cm_is_masked_faults(void)
 	__asm__ volatile ("MRS %0, FAULTMASK"  : "=r" (result));
 	return result;
 }
+#endif
 
 /*---------------------------------------------------------------------------*/
 /** @brief Cortex M Mask interrupts
@@ -126,6 +128,7 @@ static inline uint32_t cm_mask_interrupts(uint32_t mask)
 	return old;
 }
 
+#if defined(__ARM_ARCH_7M__) || defined(__ARM_ARCH_7EM__)
 /*---------------------------------------------------------------------------*/
 /** @brief Cortex M Mask HardFault interrupt
  *
@@ -145,6 +148,7 @@ static inline uint32_t cm_mask_faults(uint32_t mask)
 	__asm__ __volatile__ ("MSR FAULTMASK, %0" : : "r" (mask));
 	return old;
 }
+#endif
 
 /**@}*/
 
@@ -186,7 +190,7 @@ static inline uint32_t __cm_atomic_set(uint32_t *val)
  * @note It is safe to use this block inside normal code and in interrupt
  * routine.
  *
- * @example 1: Basic usage of atomic block
+ * Basic usage of atomic block
  *
  * @code
  * uint64_t value;		// This value is used somewhere in interrupt
@@ -198,7 +202,7 @@ static inline uint32_t __cm_atomic_set(uint32_t *val)
  * }					// interrupts is restored automatically
  * @endcode
  *
- * @example 2: Use of return inside block:
+ * Use of return inside block
  *
  * @code
  * uint64_t value;		// This value is used somewhere in interrupt
@@ -237,7 +241,7 @@ static inline uint32_t __cm_atomic_set(uint32_t *val)
  * @note It is safe to use this block inside normal code and in interrupt
  * routine.
  *
- * @example 1: Basic usage of atomic context
+ * Basic usage of atomic context
  *
  * @code
  * uint64_t value;		// This value is used somewhere in interrupt
@@ -253,7 +257,7 @@ static inline uint32_t __cm_atomic_set(uint32_t *val)
  * }					// interrupts is restored automatically
  * @endcode
  *
- * @example 2: Usage of atomic context inside atomic reader fcn.
+ * Usage of atomic context inside atomic reader fcn.
  *
  * @code
  * uint64_t value;		// This value is used somewhere in interrupt

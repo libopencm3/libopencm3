@@ -320,16 +320,19 @@ Twelve frequency ranges are available: 100 kHz, 200 kHz, 400 kHz, 800 kHz,
 #define RCC_CICR_LSERDYC			(1 << 1)
 #define RCC_CICR_LSIRDYC			(1 << 0)
 
-/* --- RCC_AHB1RSTR values ------------------------------------------------- */
-
+/** @defgroup rcc_ahbrstr_rst RCC_AHBxRSTR reset values (full set)
+@{*/
+/** @defgroup rcc_ahb1rstr_rst RCC_AHB1RSTR reset values
+@{*/
 #define RCC_AHB1RSTR_TSCRST			(1 << 16)
 #define RCC_AHB1RSTR_CRCRST			(1 << 12)
 #define RCC_AHB1RSTR_FLASHRST			(1 << 8)
 #define RCC_AHB1RSTR_DMA2RST			(1 << 1)
 #define RCC_AHB1RSTR_DMA1RST			(1 << 0)
+/**@}*/
 
-/* --- RCC_AHB2RSTR values ------------------------------------------------- */
-
+/** @defgroup rcc_ahb2rstr_rst RCC_AHB2RSTR reset values
+@{*/
 #define RCC_AHB2RSTR_RNGRST			(1 << 18)
 #define RCC_AHB2RSTR_AESRST			(1 << 16)
 #define RCC_AHB2RSTR_ADCRST			(1 << 13)
@@ -343,13 +346,19 @@ Twelve frequency ranges are available: 100 kHz, 200 kHz, 400 kHz, 800 kHz,
 #define RCC_AHB2RSTR_GPIOBRST			(1 << 1)
 #define RCC_AHB2RSTR_GPIOARST			(1 << 0)
 
-/* --- RCC_AHB3RSTR values ------------------------------------------------- */
+/**@}*/
 
+/** @defgroup rcc_ahb3rstr_rst RCC_AHB3RSTR reset values
+@{*/
 #define RCC_AHB3RSTR_QSPIRST			(1 << 8)
 #define RCC_AHB3RSTR_FMCRST			(1 << 0)
+/**@}*/
+/**@}*/
 
-/* --- RCC_APB1RSTR1 values ------------------------------------------------- */
-
+/** @defgroup rcc_apb1rstr_rst RCC_APB1RSTRx reset values (full set)
+@{*/
+/** @defgroup rcc_apb1rstr1_rst RCC_APB1RSTR1 reset values
+@{*/
 #define RCC_APB1RSTR1_LPTIM1RST			(1 << 31)
 #define RCC_APB1RSTR1_OPAMPRST			(1 << 30)
 #define RCC_APB1RSTR1_DAC1RST			(1 << 29)
@@ -371,15 +380,18 @@ Twelve frequency ranges are available: 100 kHz, 200 kHz, 400 kHz, 800 kHz,
 #define RCC_APB1RSTR1_TIM4RST			(1 << 2)
 #define RCC_APB1RSTR1_TIM3RST			(1 << 1)
 #define RCC_APB1RSTR1_TIM2RST			(1 << 0)
+/**@}*/
 
-/* --- RCC_APB1RSTR2 values ------------------------------------------------- */
-
+/** @defgroup rcc_apb1rstr2_rst RCC_APB1RSTR2 reset values
+@{*/
 #define RCC_APB1RSTR2_LPTIM2RST			(1 << 5)
 #define RCC_APB1RSTR2_SWPMI1RST			(1 << 2)
 #define RCC_APB1RSTR2_LPUART1RST		(1 << 0)
+/**@}*/
+/**@}*/
 
-/* --- RCC_APB2RSTR values ------------------------------------------------- */
-
+/** @defgroup rcc_apb2rstr_rst RCC_APB2RSTR reset values
+@{*/
 #define RCC_APB2RSTR_DFSDMRST			(1 << 24)
 #define RCC_APB2RSTR_SAI2RST			(1 << 22)
 #define RCC_APB2RSTR_SAI1RST			(1 << 21)
@@ -393,9 +405,12 @@ Twelve frequency ranges are available: 100 kHz, 200 kHz, 400 kHz, 800 kHz,
 #define RCC_APB2RSTR_SDMMC1RST			(1 << 10)
 /* Suspect FW_RST at bit 7 to match APB2_ENR ... */
 #define RCC_APB2RSTR_SYSCFGRST			(1 << 0)
+/**@}*/
 
 /* --- RCC_AHB1ENR values --------------------------------------------------- */
 
+/** @defgroup rcc_ahbenr_en RCC_AHBxENR enable values (full set)
+ *@{*/
 /** @defgroup rcc_ahb1enr_en RCC_AHB1ENR enable values
 @ingroup STM32L4xx_rcc_defines
 
@@ -437,9 +452,12 @@ Twelve frequency ranges are available: 100 kHz, 200 kHz, 400 kHz, 800 kHz,
 #define RCC_AHB3ENR_FMCEN			(1 << 0)
 /*@}*/
 
+/**@}*/
 
 /* --- RCC_APB1ENR1 values -------------------------------------------------- */
 
+/** @defgroup rcc_apb1enr_en RCC_APB1ENRx enable values (full set)
+ *@{*/
 /** @defgroup rcc_apb1enr1_en RCC_APB1ENR1 enable values
 @ingroup STM32L4xx_rcc_defines
 
@@ -476,6 +494,7 @@ Twelve frequency ranges are available: 100 kHz, 200 kHz, 400 kHz, 800 kHz,
 #define RCC_APB1ENR2_LPTIM2EN			(1 << 5)
 #define RCC_APB1ENR2_SWPMI1EN			(1 << 2)
 #define RCC_APB1ENR2_LPUART1EN			(1 << 0)
+/*@}*/
 /*@}*/
 
 /* --- RCC_APB2ENR values -------------------------------------------------- */
@@ -662,7 +681,8 @@ Twelve frequency ranges are available: 100 kHz, 200 kHz, 400 kHz, 800 kHz,
 #define RCC_BDCR_RTCSEL_SHIFT		8
 #define RCC_BDCR_RTCSEL_MASK		0x3
 
-#define RCC_BDCR_LSECSSD			(1 << 7)
+#define RCC_BDCR_LSESYSDIS			(1 << 7)
+#define RCC_BDCR_LSECSSD			(1 << 6)
 #define RCC_BDCR_LSECSSON			(1 << 5)
 
 #define RCC_BDCR_LSEDRV_LOW		0
@@ -962,6 +982,11 @@ void rcc_set_main_pll(uint32_t source, uint32_t pllm, uint32_t plln, uint32_t pl
 uint32_t rcc_system_clock_source(void);
 void rcc_set_msi_range(uint32_t msi_range);
 void rcc_set_msi_range_standby(uint32_t msi_range);
+void rcc_pll_output_enable(uint32_t pllout);
+void rcc_set_clock48_source(uint32_t clksel);
+void rcc_enable_rtc_clock(void);
+void rcc_disable_rtc_clock(void);
+void rcc_set_rtc_clock_source(enum rcc_osc clk);
 
 END_DECLS
 

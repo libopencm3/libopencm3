@@ -1,3 +1,10 @@
+/** @addtogroup prs_file PRS peripheral API
+ * @ingroup peripheral_apis
+ * @brief EFM32 Peripheral Reflex System (PRS).
+ * The Peripheral Reflex System (PRS) system is a network which allows the
+ * different peripheral modules to communicate directly with each other
+ * without involving the CPU.
+ */
 /*
  * This file is part of the libopencm3 project.
  *
@@ -18,6 +25,8 @@
  */
 
 #include <libopencm3/efm32/prs.h>
+
+/**@{*/
 
 /**
  * Enable PRS output to GPIO.
@@ -138,3 +147,5 @@ void prs_set_signal(enum prs_ch ch, uint32_t signal)
 	PRS_CHx_CTRL(ch) = (PRS_CHx_CTRL(ch) & ~PRS_CH_CTRL_SIGSEL_MASK)
 			   | signal;
 }
+
+/**@}*/

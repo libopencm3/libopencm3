@@ -34,4 +34,3 @@ LGPL License Terms @ref lgpl_license
 #include <libopencm3/stm32/common/dac_common_all.h>
 
 #endif
-

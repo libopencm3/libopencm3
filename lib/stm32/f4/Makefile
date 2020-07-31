@@ -22,10 +22,8 @@ LIBNAME		= libopencm3_stm32f4
 SRCLIBDIR	?= ../..
 
 FP_FLAGS	?= -mfloat-abi=hard -mfpu=fpv4-sp-d16
-PREFIX	        ?= arm-none-eabi
-
-CC		= $(PREFIX)-gcc
-AR		= $(PREFIX)-ar
+CC		= $(PREFIX)gcc
+AR		= $(PREFIX)ar
 TGT_CFLAGS	= -Os \
 		  -Wall -Wextra -Wimplicit-function-declaration \
 		  -Wredundant-decls -Wmissing-prototypes -Wstrict-prototypes \
@@ -39,26 +37,38 @@ TGT_CFLAGS	+= $(STANDARD_FLAGS)
 # ARFLAGS	= rcsv
 ARFLAGS		= rcs
 
-OBJS		= adc.o adc_common_v1.o can.o desig.o gpio.o pwr.o rcc.o \
-		  rtc.o crypto.o
+OBJS += adc_common_v1.o adc_common_v1_multi.o adc_common_f47.o
+OBJS += can.o
+OBJS += crc_common_all.o
+OBJS += crypto_common_f24.o crypto.o
+OBJS += dac_common_all.o
+OBJS += desig_common_all.o desig_common_v1.o
+OBJS += dma_common_f24.o
+OBJS += dma2d_common_f47.o
+OBJS += dsi_common_f47.o
+OBJS += exti_common_all.o
+OBJS += flash.o flash_common_all.o flash_common_f.o flash_common_f24.o
+OBJS += flash_common_idcache.o
+OBJS += fmc_common_f47.o
+OBJS += gpio_common_all.o gpio_common_f0234.o
+OBJS += hash_common_f24.o
+OBJS += i2c_common_v1.o
+OBJS += iwdg_common_all.o
+OBJS += lptimer_common_all.o
+OBJS += ltdc_common_f47.o
+OBJS += pwr_common_v1.o pwr.o
+OBJS += rcc_common_all.o rcc.o
+OBJS += rng_common_v1.o
+OBJS += rtc_common_l1f024.o rtc.o
+OBJS += spi_common_all.o spi_common_v1.o spi_common_v1_frf.o
+OBJS += timer_common_all.o timer_common_f0234.o timer_common_f24.o
+OBJS += usart_common_all.o usart_common_f124.o
 
-OBJS            += crc_common_all.o dac_common_all.o dma_common_f24.o \
-                   gpio_common_all.o gpio_common_f0234.o i2c_common_v1.o \
-                   iwdg_common_all.o pwr_common_v1.o rtc_common_l1f024.o \
-                   timer_common_all.o \
-                   timer_common_f0234.o timer_common_f24.o usart_common_all.o \
-		   usart_common_f124.o flash_common_f234.o flash_common_f24.o \
-		   hash_common_f24.o crypto_common_f24.o exti_common_all.o \
-		   rcc_common_all.o
-OBJS		+= rng_common_v1.o
-OBJS		+= spi_common_all.o spi_common_v1.o spi_common_v1_frf.o
+OBJS += usb.o usb_standard.o usb_control.o usb_msc.o
+OBJS += usb_hid.o
+OBJS += usb_dwc_common.o usb_f107.o usb_f207.o
 
-OBJS            += usb.o usb_standard.o usb_control.o usb_dwc_common.o \
-		   usb_f107.o usb_f207.o usb_msc.o
-
-OBJS		+= mac.o phy.o mac_stm32fxx7.o phy_ksz80x1.o fmc.o
-
-OBJS		+= ltdc.o 
+OBJS += mac.o phy.o mac_stm32fxx7.o phy_ksz80x1.o
 
 VPATH += ../../usb:../:../../cm3:../common
 VPATH += ../../ethernet

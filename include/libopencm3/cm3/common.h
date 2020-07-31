@@ -20,15 +20,16 @@
 #ifndef LIBOPENCM3_CM3_COMMON_H
 #define LIBOPENCM3_CM3_COMMON_H
 
-#include <stdint.h>
-#include <stdbool.h>
-
-/* This must be placed around external function declaration for C++
- * support. */
 #ifdef __cplusplus
+/* Declarations need wrapping for C++ */
 # define BEGIN_DECLS extern "C" {
 # define END_DECLS }
+#elif defined(__ASSEMBLER__)
+/* skipping for assembly */
+#define BEGIN_DECLS .if 0
+#define END_DECLS .endif
 #else
+/* And nothing for C */
 # define BEGIN_DECLS
 # define END_DECLS
 #endif
@@ -46,6 +47,22 @@
 #endif
 
 
+#if defined (__ASSEMBLER__)
+#define MMIO8(addr)	(addr)
+#define MMIO16(addr)	(addr)
+#define MMIO32(addr)	(addr)
+#define MMIO64(addr)	(addr)
+
+#define BBIO_SRAM(addr, bit) \
+	(((addr) & 0x0FFFFF) * 32 + 0x22000000 + (bit) * 4)
+
+#define BBIO_PERIPH(addr, bit) \
+	(((addr) & 0x0FFFFF) * 32 + 0x42000000 + (bit) * 4)
+#else
+
+#include <stdint.h>
+#include <stdbool.h>
+
 /* Generic memory-mapped I/O accessor functions */
 #define MMIO8(addr)		(*(volatile uint8_t *)(addr))
 #define MMIO16(addr)		(*(volatile uint16_t *)(addr))
@@ -58,6 +75,7 @@
 
 #define BBIO_PERIPH(addr, bit) \
 	MMIO32((((uint32_t)addr) & 0x0FFFFF) * 32 + 0x42000000 + (bit) * 4)
+#endif
 
 /* Generic bit definition */
 #define BIT0  (1<<0)

@@ -1,3 +1,6 @@
+/** @addtogroup cmu_file CMU peripheral API
+ * @ingroup peripheral_apis
+ */
 /*
  * This file is part of the libopencm3 project.
  *
@@ -19,6 +22,8 @@
  */
 
 #include <libopencm3/efm32/cmu.h>
+
+/**@{*/
 
 /**
  * Enable CMU registers lock.
@@ -54,7 +59,7 @@ bool cmu_get_lock_flag(void)
  *
  * Enable the clock on particular peripheral.
  *
- * @param[in] periph enum cmu_periph_clken Peripheral Name
+ * @param[in] clken Peripheral Name
  *
  * For available constants, see @a enum::cmu_periph_clken (CMU_LEUART1 for
  * example)
@@ -69,7 +74,7 @@ void cmu_periph_clock_enable(enum cmu_periph_clken clken)
  * @brief Disable Peripheral Clock in running mode.
  * Disable the clock on particular peripheral.
  *
- * @param[in] periph enum cmu_periph_clken Peripheral Name
+ * @param[in] clken Peripheral Name
  *
  * For available constants, see @a enum::cmu_periph_clken (CMU_LEUART1 for
  * example)
@@ -105,6 +110,9 @@ void cmu_osc_on(enum cmu_osc osc)
 	case AUXHFRCO:
 		CMU_OSCENCMD = CMU_OSCENCMD_AUXHFRCOEN;
 		break;
+	default:
+		/* not applicable */
+		break;
 	}
 }
 
@@ -132,6 +140,9 @@ void cmu_osc_off(enum cmu_osc osc)
 		break;
 	case AUXHFRCO:
 		CMU_OSCENCMD = CMU_OSCENCMD_AUXHFRCODIS;
+		break;
+	default:
+		/* not applicable */
 		break;
 	}
 }
@@ -163,6 +174,9 @@ bool cmu_osc_ready_flag(enum cmu_osc osc)
 	case AUXHFRCO:
 		return (CMU_STATUS & CMU_STATUS_AUXHFRCORDY) != 0;
 		break;
+	default:
+		/* not applicable */
+		break;
 	}
 
 	return false;
@@ -193,6 +207,9 @@ void cmu_wait_for_osc_ready(enum cmu_osc osc)
 	case AUXHFRCO:
 		while ((CMU_STATUS & CMU_STATUS_AUXHFRCORDY) == 0);
 		break;
+	default:
+		/* not applicable */
+		break;
 	}
 }
 
@@ -218,6 +235,9 @@ void cmu_set_hfclk_source(enum cmu_osc osc)
 	case LFRCO:
 		CMU_CMD = CMU_CMD_HFCLKSEL_LFRCO;
 		break;
+	case USHFRCODIV2:
+		CMU_CMD = CMU_CMD_HFCLKSEL_USHFRCODIV2;
+		break;
 	default:
 		/* not applicable */
 		return;
@@ -239,6 +259,8 @@ enum cmu_osc cmu_get_hfclk_source(void)
 		return HFXO;
 	} else if (status & CMU_STATUS_HFRCOSEL) {
 		return HFRCO;
+	} else if (status & CMU_STATUS_USHFRCODIV2SEL) {
+		return USHFRCODIV2;
 	}
 
 	/* never reached */
@@ -247,7 +269,7 @@ enum cmu_osc cmu_get_hfclk_source(void)
 
 /**
  * Set USBCLK clock source
- * @retval enum cmu_osc Oscillator name
+ * @param osc Oscillator name
  */
 void cmu_set_usbclk_source(enum cmu_osc osc)
 {
@@ -288,3 +310,5 @@ void cmu_wait_for_usbclk_selected(enum cmu_osc osc)
 		return;
 	}
 }
+
+/**@}*/

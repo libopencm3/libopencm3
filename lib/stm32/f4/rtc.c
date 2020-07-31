@@ -1,6 +1,6 @@
-/** @defgroup rtc_file RTC
+/** @defgroup rtc_file RTC peripheral API
  *
- * @ingroup STM32F4xx
+ * @ingroup peripheral_apis
  *
  * @brief <b>libopencm3 STM32F4xx RTC</b>
  *
@@ -32,6 +32,7 @@
 #include <libopencm3/cm3/nvic.h>
 #include <libopencm3/stm32/rtc.h>
 
+/**@{*/
 
 /*---------------------------------------------------------------------------*/
 /** @brief Enable the wakeup timer
@@ -95,3 +96,5 @@ void rtc_disable_wakeup_timer_interrupt(void)
 	/* 3. Disable RTC wakeup timer event. */
 	RTC_CR &= ~RTC_CR_WUTIE;
 }
+
+/**@}*/

@@ -93,9 +93,17 @@
         "dma2d",
         "sai2",
         "quadspi",
+        "lp_timer1",
+        "hdmi_cec",
         "i2c4_ev",
         "i2c4_er",
-        "spdifrx"
+        "spdifrx",
+        "dsihost",
+        "dfsdm1_flt0",
+        "dfsdm1_flt1",
+        "dfsdm1_flt2",
+        "dfsdm1_flt3",
+        "sdmmc2"
     ],
     "partname_humanreadable": "STM32 F7 series",
     "partname_doxygen": "STM32F7",

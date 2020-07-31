@@ -1,3 +1,6 @@
+/** @addtogroup timer_file TIMER peripheral API
+ * @ingroup peripheral_apis
+ */
 /*
  * This file is part of the libopencm3 project.
  *
@@ -18,6 +21,8 @@
  */
 
 #include <libopencm3/efm32/timer.h>
+
+/**@{*/
 
 #define HAS_DEAD_TIME_INSERTION(timer) (timer == TIMER0)
 
@@ -60,3 +65,5 @@ void timer_set_top(uint32_t timer, uint32_t top)
 {
 	TIMER_TOP(timer) = top;
 }
+
+/**@}*/

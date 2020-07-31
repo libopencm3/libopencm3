@@ -588,16 +588,16 @@ void adc_set_regular_sequence(uint32_t adc, uint8_t length, uint8_t channel[])
 		if (i <= 6) {
 			first6 |= (channel[i - 1] << ((i - 1) * 5));
 		}
-		if ((i > 6) & (i <= 12)) {
+		if ((i > 6) && (i <= 12)) {
 			second6 |= (channel[i - 1] << ((i - 6 - 1) * 5));
 		}
-		if ((i > 12) & (i <= 18)) {
+		if ((i > 12) && (i <= 18)) {
 			third6 |= (channel[i - 1] << ((i - 12 - 1) * 5));
 		}
-		if ((i > 18) & (i <= 24)) {
+		if ((i > 18) && (i <= 24)) {
 			fourth6 |= (channel[i - 1] << ((i - 18 - 1) * 5));
 		}
-		if ((i > 24) & (i <= 28)) {
+		if ((i > 24) && (i <= 28)) {
 			fifth6 |= (channel[i - 1] << ((i - 24 - 1) * 5));
 		}
 	}
@@ -748,6 +748,32 @@ void adc_disable_dma(uint32_t adc)
 	ADC_CR2(adc) &= ~ADC_CR2_DMA;
 }
 
+/*---------------------------------------------------------------------------*/
+/** @brief Read a Status Flag.
 
+@param[in] adc Unsigned int32. ADC register address base @ref adc_reg_base
+@param[in] flag Unsigned int32. Status register flag  @ref adc_sr_values.
+@returns boolean: flag set.
+*/
+
+bool adc_get_flag(uint32_t adc, uint32_t flag)
+{
+	return ADC_SR(adc) & flag;
+}
+
+/*---------------------------------------------------------------------------*/
+/** @brief Clear a Status Flag.
+
+@param[in] adc Unsigned int32. ADC register address base @ref adc_reg_base
+@param[in] flag Unsigned int32. Status register flag  @ref adc_sr_values.
+*/
+
+void adc_clear_flag(uint32_t adc, uint32_t flag)
+{
+	/* All defined bits are 'r' or 'rc_w0' */
+	ADC_SR(adc) = ~flag;
+}
+
+/*---------------------------------------------------------------------------*/
 
 /**@}*/

@@ -29,23 +29,6 @@ LGPL License Terms @ref lgpl_license
 
 /**@{*/
 
-/*---------------------------------------------------------------------------*/
-/** @brief ADC Power On
-
-If the ADC is in power-down mode then it is powered up. The application needs
-to wait a time of about 3 microseconds for stabilization before using the ADC.
-If the ADC is already on this function call will have no effect.
- * NOTE Common with F4 and F2
-
-@param[in] adc Unsigned int32. ADC block register address base @ref adc_reg_base
-*/
-
-void adc_power_on(uint32_t adc)
-{
-	ADC_CR2(adc) |= ADC_CR2_ADON;
-}
-
-
 /*----------------------------------------------------------------------------*/
 
 /** @brief ADC Set the Sample Time for a Single Channel
@@ -100,97 +83,6 @@ void adc_set_sample_time_on_all_channels(uint32_t adc, uint8_t time)
 	ADC_SMPR1(adc) = reg32;
 	ADC_SMPR2(adc) = reg32;
 	ADC_SMPR3(adc) = reg32;
-}
-
-/*----------------------------------------------------------------------------*/
-/** @brief ADC Enable The Temperature Sensor
-
-This enables both the sensor and the reference voltage measurements on channels
-16 and 17.
-
-*/
-void adc_enable_temperature_sensor()
-{
-	ADC_CCR |= ADC_CCR_TSVREFE;
-}
-
-/*----------------------------------------------------------------------------*/
-/** @brief ADC Disable The Temperature Sensor
-
-Disabling this will reduce power consumption from the sensor and the reference
-voltage measurements.
-
-*/
-void adc_disable_temperature_sensor()
-{
-	ADC_CCR &= ~ADC_CCR_TSVREFE;
-}
-
-/*----------------------------------------------------------------------------*/
-/** @brief ADC Disable an External Trigger for Regular Channels
-
-@param[in] adc Unsigned int32. ADC block register address base @ref adc_reg_base
-*/
-
-void adc_disable_external_trigger_regular(uint32_t adc)
-{
-	ADC_CR2(adc) &= ~ADC_CR2_EXTEN_MASK;
-}
-
-/*----------------------------------------------------------------------------*/
-/** @brief ADC Disable an External Trigger for Injected Channels
-
-@param[in] adc Unsigned int32. ADC block base address @ref adc_reg_base.
-*/
-
-void adc_disable_external_trigger_injected(uint32_t adc)
-{
-	ADC_CR2(adc) &= ~ADC_CR2_JEXTEN_MASK;
-}
-
-/*---------------------------------------------------------------------------*/
-/** @brief ADC Enable an External Trigger for Regular Channels
-
-This enables an external trigger for set of defined regular channels, and sets
-the polarity of the trigger event: rising or falling edge or both. Note that if
-the trigger polarity is zero, triggering is disabled.
-
-@param[in] adc Unsigned int32. ADC block register address base @ref adc_reg_base
-@param[in] trigger Unsigned int32. Trigger identifier @ref adc_trigger_regular
-@param[in] polarity Unsigned int32. Trigger polarity @ref
-adc_trigger_polarity_regular
-*/
-
-void adc_enable_external_trigger_regular(uint32_t adc, uint32_t trigger,
-					 uint32_t polarity)
-{
-	uint32_t reg32 = ADC_CR2(adc);
-
-	reg32 &= ~(ADC_CR2_EXTSEL_MASK | ADC_CR2_EXTEN_MASK);
-	reg32 |= (trigger | polarity);
-	ADC_CR2(adc) = reg32;
-}
-
-/*---------------------------------------------------------------------------*/
-/** @brief ADC Enable an External Trigger for Injected Channels
-
-This enables an external trigger for set of defined injected channels, and sets
-the polarity of the trigger event: rising or falling edge or both.
-
-@param[in] adc Unsigned int32. ADC block register address base @ref adc_reg_base
-@param[in] trigger Unsigned int8. Trigger identifier @ref adc_trigger_injected
-@param[in] polarity Unsigned int32. Trigger polarity @ref
-adc_trigger_polarity_injected
-*/
-
-void adc_enable_external_trigger_injected(uint32_t adc, uint32_t trigger,
-					  uint32_t polarity)
-{
-	uint32_t reg32 = ADC_CR2(adc);
-
-	reg32 &= ~(ADC_CR2_JEXTSEL_MASK | ADC_CR2_JEXTEN_MASK);
-	reg32 |= (trigger | polarity);
-	ADC_CR2(adc) = reg32;
 }
 
 /**@}*/

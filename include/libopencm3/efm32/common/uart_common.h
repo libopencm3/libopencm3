@@ -1,3 +1,26 @@
+/** @addtogroup uart_defines
+ *
+ * @brief UART registers are mostly equivalent to USART registers.
+ *
+ * USART and UART registers are equivalent except [in UART registers]:
+ *
+ *  * USART_CTRL: SYNC, CSMA, SMSDELAY, SSSEARLY, CSINV, CPOL and CPHA
+ *	(Synchronous operation not available)
+ *  * USART_STATUS: MASTEREN (Synchronous operation not available)
+ *  * USART_CTRL: MSBF (transmission LSB first only)
+ *  * USART_CTRL: AUTOCS (chip-select not available)
+ *  * USART_CTRL: SCMODE (SmartCard mode not available)
+ *  * USART_FRAME: DATABITS (limited framesize. 8-9 databits only)
+ *  * USART_IRCTRL: IREN (IrDA not available)
+ *   (except DATABITS, all the above are 0)
+ *
+ * full text: (p495, "d0183_Rev1.10" EFM32LG-RM)
+ *  - "18.3 Functional Description",
+ *  - "18.4 Register Description"
+ *  - "18.5 Register Map"
+ *
+ * use USART macro's to manipulate UART registers.
+ */
 /*
  * This file is part of the libopencm3 project.
  *
@@ -17,31 +40,12 @@
  * along with this library.  If not, see <http://www.gnu.org/licenses/>.
  */
 
-#ifndef LIBOPENCM3_EFM32_UART_H
-#define LIBOPENCM3_EFM32_UART_H
+#pragma once
 
-/**
- * USART and UART registers are equivalent except [in UART registers]:
- *
- *  USART_CTRL: SYNC, CSMA, SMSDELAY, SSSEARLY, CSINV, CPOL and CPHA [1]
- *  USART_STATUS: MASTEREN [1]
- *   [1] Synchronous operation not available.
- *  USART_CTRL: MSBF (transmission LSB first only)
- *  USART_CTRL: AUTOCS (chip-select not available)
- *  USART_CTRL: SCMODE (SmartCard mode not available)
- *  USART_FRAME: DATABITS (limited framsize. 8-9 databits only)
- *  USART_IRCTRL: IREN (IrDA not available)
- *   (except DATABITS, all the above are 0)
- *
- * full text: (p495, "d0183_Rev1.10" EFM32LG-RM)
- *  - "18.3 Functional Description",
- *  - "18.4 Register Description"
- *  - "18.5 Register Map"
- *
- * use USART macro's to manipulate UART registers.
- */
 #include <libopencm3/efm32/memorymap.h>
-#include <libopencm3/efm32/lg/usart.h>
+#include <libopencm3/efm32/usart.h>
+
+/**@{*/
 
 /* UART0 */
 #define UART0				UART0_BASE
@@ -97,4 +101,4 @@
 #define UART1_INPUT			USART_INPUT(UART1)
 #define UART1_I2SCTRL		USART_I2SCTRL(UART1)
 
-#endif
+/**@}*/

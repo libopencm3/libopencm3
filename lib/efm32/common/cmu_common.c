@@ -1,3 +1,6 @@
+/** @addtogroup cmu_file CMU peripheral API
+ * @ingroup peripheral_apis
+ */
 /*
  * This file is part of the libopencm3 project.
  *
@@ -19,6 +22,8 @@
 
 #include <libopencm3/efm32/cmu.h>
 #include <libopencm3/efm32/msc.h>
+
+/**@{*/
 
 /**
  * Enable CMU registers lock.
@@ -54,7 +59,7 @@ bool cmu_get_lock_flag(void)
  *
  * Enable the clock on particular peripheral.
  *
- * @param[in] periph enum cmu_periph_clken Peripheral Name
+ * @param[in] clken Peripheral Name
  *
  * For available constants, see @a enum::cmu_periph_clken (CMU_LEUART1 for
  * example)
@@ -69,7 +74,7 @@ void cmu_periph_clock_enable(enum cmu_periph_clken clken)
  * @brief Disable Peripheral Clock in running mode.
  * Disable the clock on particular peripheral.
  *
- * @param[in] periph enum cmu_periph_clken Peripheral Name
+ * @param[in] clken Peripheral Name
  *
  * For available constants, see @a enum::cmu_periph_clken (CMU_LEUART1 for
  * example)
@@ -270,3 +275,5 @@ void cmu_clock_setup_in_hfxo_out_48mhz(void)
 	/* wait till HFXO not selected */
 	while (cmu_get_hfclk_source() != HFXO);
 }
+
+/**@}*/

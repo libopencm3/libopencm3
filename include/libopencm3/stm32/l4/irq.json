@@ -81,7 +81,16 @@
         "lcd",
         "aes",
         "rng",
-        "fpu"
+        "fpu",
+        "hash_crs",
+        "i2c4_ev",
+        "i2c4_er",
+        "dcmi",
+        "can2_tx",
+        "can2_rx0",
+        "can2_rx1",
+        "can2_sce",
+        "dma2d"
     ],
     "partname_humanreadable": "STM32 L4 series",
     "partname_doxygen": "STM32L4",

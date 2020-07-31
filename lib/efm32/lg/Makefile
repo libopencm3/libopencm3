@@ -23,10 +23,8 @@ LIBNAME		= libopencm3_efm32lg
 SRCLIBDIR	?= ../..
 FAMILY		= EFM32LG
 
-PREFIX		?= arm-none-eabi
-#PREFIX		?= arm-elf
-CC		= $(PREFIX)-gcc
-AR		= $(PREFIX)-ar
+CC		= $(PREFIX)gcc
+AR		= $(PREFIX)ar
 TGT_CFLAGS	= -Os \
 		  -Wall -Wextra -Wimplicit-function-declaration \
 		  -Wredundant-decls -Wmissing-prototypes -Wstrict-prototypes \
@@ -38,14 +36,28 @@ TGT_CFLAGS      += $(DEBUG_FLAGS)
 TGT_CFLAGS	+= $(STANDARD_FLAGS)
 # ARFLAGS	= rcsv
 ARFLAGS		= rcs
-OBJS		=
 
-OBJS		= gpio_common.o cmu_common.o prs_common.o
-OBJS		+= adc_common.o dma_common.o timer_common.o
-OBJS		+= dac_common.o
+OBJS += acmp_common.o
+OBJS += adc_common.o
+OBJS += burtc_common.o
+OBJS += cmu_common.o
+OBJS += dac_common.o
+OBJS += dma_common.o
+OBJS += emu_common.o
+OBJS += gpio_common.o
+OBJS += i2c_common.o
+OBJS += letimer_common.o
+OBJS += msc_common.o
+OBJS += prs_common.o
+OBJS += rmu_common.o
+OBJS += rtc_common.o
+OBJS += timer_common.o
+OBJS += usart_common.o
+OBJS += wdog_common.o
 
-OBJS            += usb.o usb_control.o usb_standard.o usb_msc.o
-OBJS            += usb_efm32.o
+OBJS += usb.o usb_control.o usb_standard.o usb_msc.o
+OBJS += usb_hid.o
+OBJS += usb_efm32.o
 
 VPATH += ../../usb:../:../../cm3:../common
 

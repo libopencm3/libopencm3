@@ -32,7 +32,7 @@ extern funcp_t __preinit_array_start, __preinit_array_end;
 extern funcp_t __init_array_start, __init_array_end;
 extern funcp_t __fini_array_start, __fini_array_end;
 
-void main(void);
+int main(void);
 void blocking_handler(void);
 void null_handler(void);
 
@@ -59,7 +59,7 @@ vector_table_t vector_table = {
 	}
 };
 
-void __attribute__ ((weak, naked)) reset_handler(void)
+void __attribute__ ((weak)) reset_handler(void)
 {
 	volatile unsigned *src, *dest;
 	funcp_t *fp;
@@ -90,7 +90,7 @@ void __attribute__ ((weak, naked)) reset_handler(void)
 	}
 
 	/* Call the application's entry point. */
-	main();
+	(void)main();
 
 	/* Destructors. */
 	for (fp = &__fini_array_start; fp < &__fini_array_end; fp++) {

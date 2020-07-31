@@ -7,6 +7,8 @@
 *.a
 *.elf
 lib/*.ld
+# (except this one!)
+!lib/cortex-m-generic.ld
 *.stylecheck
 *.swp
 \#*
@@ -23,16 +25,32 @@ latex/
 # These are generated
 include/libopencm3/**/nvic.h
 include/libopencm3/**/**/nvic.h
+# (not these three though...)
+!include/libopencm3/cm3/nvic.h
+!include/libopencm3/dispatch/nvic.h
+!include/libopencm3/lm4f/nvic.h
 lib/**/vector_nvic.c
 lib/**/**/vector_nvic.c
-doxy.sourcelist
+# (not this one either)
+!lib/dispatch/vector_nvic.c
+DoxygenLayout.xml
+doc/*/Doxyfile
+doc/*/DoxygenLayout_*.xml
+# (annnd, not these two templates either)
+!doc/templates/DoxygenLayout_Device.xml
+!doc/templates/DoxygenLayout_Root.xml
+doc/*/doxy.sourcelist
 include/libopencmsis/efm32/
+include/libopencmsis/gd32/
 include/libopencmsis/lm3s/
 include/libopencmsis/lpc13xx/
 include/libopencmsis/lpc17xx/
 include/libopencmsis/lpc43xx/
+include/libopencmsis/msp432/
+include/libopencmsis/pac55xx/
 include/libopencmsis/sam/
 include/libopencmsis/stm32/
+include/libopencmsis/swm050/
 include/libopencmsis/vf6xx/
 
 # Editor/IDE config files
@@ -40,6 +58,11 @@ nbproject/
 .idea/
 .project
 locm3.sublime-workspace
+.cproject
+.settings
 
 # cscope databases
 cscope.out
+
+# build droppings
+.stamp_failure*

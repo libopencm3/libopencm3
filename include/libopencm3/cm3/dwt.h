@@ -23,16 +23,60 @@
 #include <libopencm3/cm3/common.h>
 #include <libopencm3/cm3/memorymap.h>
 
+/**
+ * @defgroup cm_dwt Cortex-M Data Watch and Trace unit.
+ * @ingroup CM3_defines
+ * System Control Space (SCS) =>  Data Watchpoint and Trace (DWT).
+ * See "ARMv7-M Architecture Reference Manual"
+ * and "ARMv6-M Architecture Reference Manual"
+ * The DWT is an optional debug unit that provides watchpoints, data tracing,
+ * and system profiling for the processor.
+ * @{
+ */
+
 /*****************************************************************************/
 /* Register definitions                                                      */
 /*****************************************************************************/
 
+/** DWT Control register
+ * Purpose Provides configuration and status information for the DWT block, and
+ * used to control features of the block
+ * Usage constraints: There are no usage constraints.
+ * Configurations Always implemented.
+ */
 #define DWT_CTRL			MMIO32(DWT_BASE + 0x00)
 
 /* Those defined only on ARMv7 and above */
 #if defined(__ARM_ARCH_7M__) || defined(__ARM_ARCH_7EM__)
 
+/**
+ * DWT_CYCCNT register
+ * Cycle Count Register (Shows or sets the value of the processor cycle
+ * counter, CYCCNT)
+ * When enabled, CYCCNT increments on each processor clock cycle. On overflow,
+ * CYCCNT wraps to zero.
+ *
+ * Purpose Shows or sets the value of the processor cycle counter, CYCCNT.
+ * Usage constraints: The DWT unit suspends CYCCNT counting when the processor
+ * is in Debug state.
+ * Configurations Implemented: only when DWT_CTRL.NOCYCCNT is RAZ, see Control
+ * register, DWT_CTRL.
+ * When DWT_CTRL.NOCYCCNT is RAO no cycle counter is implemented and this
+ * register is UNK/SBZP.
+*/
 #define DWT_CYCCNT			MMIO32(DWT_BASE + 0x04)
+
+/** DWT_CPICNT register
+ * Purpose Counts additional cycles required to execute multi-cycle
+ * instructions and instruction fetch stalls.
+ * Usage constraints: The counter initializes to 0 when software enables its
+ * counter overflow event by
+ * setting the DWT_CTRL.CPIEVTENA bit to 1.
+ * Configurations Implemented: only when DWT_CTRL.NOPRFCNT is RAZ, see Control
+ * register, DWT_CTRL.
+ * If DWT_CTRL.NOPRFCNT is RAO, indicating that the implementation does not
+ * include the profiling counters, this register is UNK/SBZP.
+ */
 #define DWT_CPICNT			MMIO32(DWT_BASE + 0x08)
 #define DWT_EXCCNT			MMIO32(DWT_BASE + 0x0C)
 #define DWT_SLEEPCNT			MMIO32(DWT_BASE + 0x10)
@@ -45,6 +89,12 @@
 #define DWT_COMP(n)			MMIO32(DWT_BASE + 0x20 + (n) * 16)
 #define DWT_MASK(n)			MMIO32(DWT_BASE + 0x24 + (n) * 16)
 #define DWT_FUNCTION(n)			MMIO32(DWT_BASE + 0x28 + (n) * 16)
+
+/* CoreSight Lock Status Register for this peripheral */
+#define DWT_LSR			MMIO32(DWT_BASE + CORESIGHT_LSR_OFFSET)
+/* CoreSight Lock Access Register for this peripheral */
+#define DWT_LAR			MMIO32(DWT_BASE + CORESIGHT_LAR_OFFSET)
+
 
 /*****************************************************************************/
 /* Register values                                                           */
@@ -87,6 +137,11 @@
 #define DWT_CTRL_POSTPRESET_SHIFT	1
 #define DWT_CTRL_POSTPRESET		(0x0F << DWT_CTRL_POSTPRESET_SHIFT)
 
+/**
+ * CYCCNTENA Enables the Cycle counter.
+ * 0 = Disabled, 1 = Enabled
+ * This bit is UNK/SBZP if the NOCYCCNT bit is RAO.
+ */
 #define DWT_CTRL_CYCCNTENA		(1 << 0)
 
 #endif /* defined(__ARM_ARCH_7M__) || defined(__ARM_ARCH_7EM__) */
@@ -148,5 +203,7 @@ bool dwt_enable_cycle_counter(void);
 uint32_t dwt_read_cycle_counter(void);
 
 END_DECLS
+
+/**@}*/
 
 #endif /* LIBOPENCM3_CM3_DWT_H */

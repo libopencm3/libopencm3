@@ -1,3 +1,6 @@
+/** @addtogroup dma_file DMA peripheral API
+ * @ingroup peripheral_apis
+ */
 /*
  * This file is part of the libopencm3 project.
  *
@@ -18,6 +21,8 @@
  */
 
 #include <libopencm3/efm32/dma.h>
+
+/**@{*/
 
 #define CHANNEL_SUPPORT_LOOP(ch) (((ch) == DMA_CH0) || ((ch) == DMA_CH1))
 
@@ -563,8 +568,8 @@ static inline uint32_t dma_calc_end_from_start(uint32_t start, uint8_t inc,
  *            descriptor
  * @param[in] ch Channel (use DMA_CHx)
  * @param[in] src_start Source data start address
- * @param[in] this function use dma_desc_set_count() and dma_desc_set_src_inc()
- *            set value to calculate the src data end address from @a src_start
+ * this function uses @ref dma_calc_end_from_start to calculate the
+ * src data end address from @a src_start
  * @note dma_desc_set_count() should be called first.
  * @note dma_desc_set_src_inc() should be called first.
  */
@@ -586,9 +591,8 @@ void dma_desc_set_src_address(uint32_t desc_base, enum dma_ch ch,
  *            descriptor
  * @param[in] ch Channel (use DMA_CHx)
  * @param[in] dest_start Destination data start address
- * @param[in] this function use dma_desc_set_count() and
- *            dma_desc_set_dest_inc() set value to calculate the dest data end
- *            address from @a dest_start
+ * this function uses @ref dma_calc_end_from_start to calculate the
+ * dest data end address from @a dest_start
  * @note dma_desc_set_count() should be called first.
  * @note dma_desc_set_dest_inc() should be called first.
  */
@@ -619,3 +623,5 @@ void dma_desc_set_mode(uint32_t desc_base, enum dma_ch ch, enum dma_mode mode)
 	cfg |= DMA_DESC_CH_CFG_CYCLE_CTRL(mode);
 	DMA_DESC_CHx_CFG(desc_base, ch) = cfg;
 }
+
+/**@}*/
