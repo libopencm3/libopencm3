@@ -37,6 +37,16 @@ LGPL License Terms @ref lgpl_license
 
 #define I2C3				I2C3_BASE
 
+/* Filter register 1 (I2Cx_FLTR) */
+#define I2C_FLTR(i2c_base)	MMIO16((i2c_base) + 0x24)
+#define I2C1_FLTR			I2C_FLTR(I2C1)
+#define I2C2_FLTR			I2C_FLTR(I2C2)
+#define I2C3_FLTR			I2C_FLTR(I2C3)
+
+#define I2C_FLTR_ANOFF		(1 << 4)
+#define I2C_FLTR_DNF_SHIFT	(0)
+#define I2C_FLTR_DNF_MASK	(0xf)
+
 /**@}*/
 
 #endif
