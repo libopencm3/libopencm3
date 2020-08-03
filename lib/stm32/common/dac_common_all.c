@@ -1,7 +1,8 @@
 /** @addtogroup dac_file DAC peripheral API
  * @ingroup peripheral_apis
 
-@author @htmlonly &copy; @endhtmlonly 2012 Ken Sarkies ksarkies@internode.on.net
+@author @htmlonly &copy; @endhtmlonly 2012 Ken Sarkies <ksarkies@internode.on.net>
+@author @htmlonly &copy; @endhtmlonly 2020 Ben Brewer <ben.brewer@codethink.co.uk>
 
 This library supports the Digital to Analog Conversion System in the
 STM32 series of ARM Cortex Microcontrollers by ST Microelectronics.
@@ -63,15 +64,16 @@ sent out.
 	gpio_set_mode(GPIOA, GPIO_MODE_OUTPUT_50_MHZ,
 		      GPIO_CNF_OUTPUT_ALTFN_PUSHPULL, GPIO4);
 	rcc_periph_clock_enable(RCC_DAC);
-	dac_disable(CHANNEL_1);
-	dac_set_waveform_characteristics(DAC_CR_MAMP1_8);
-	dac_set_waveform_generation(DAC_CR_WAVE1_NOISE);
-	dac_enable(CHANNEL_1);
-	dac_set_trigger_source(DAC_CR_TSEL1_SW);
-	dac_load_data_buffer_single(0, RIGHT12, CHANNEL_1);
+	dac_disable(DAC1, DAC_CHANNEL1);
+	dac_set_waveform_characteristics(DAC1, DAC_CR_MAMP1_8);
+	dac_set_waveform_generation(DAC1, DAC_CR_WAVE1_NOISE);
+	dac_enable(DAC1, DAC_CHANNEL1);
+	dac_set_trigger_source(DAC1, DAC_CR_TSEL1_SW);
+	dac_load_data_buffer_single(DAC1, 0, DAC_ALIGN_RIGHT12, DAC_CHANNEL1);
 	....
-	dac_software_trigger(CHANNEL_1);
-	dac_load_data_buffer_single(value, RIGHT12, CHANNEL_1);
+	dac_software_trigger(DAC1, DAC_CHANNEL1);
+	dac_load_data_buffer_single(DAC1, value,
+	                            DAC_ALIGN_RIGHT12, DAC_CHANNEL1);
 @endcode
 
 @section dac_api_dma_ex Simultaneous Dual DAC with DMA.
@@ -89,10 +91,10 @@ Both DAC channels are enabled, and both triggers are set to the same timer
 	dma_set_peripheral_address(DMA2,DMA_CHANNEL3,(uint32_t) &DAC_DHR8RD);
 	dma_enable_channel(DMA2,DMA_CHANNEL3);
 	...
-	dac_trigger_enable(CHANNEL_D);
-	dac_set_trigger_source(DAC_CR_TSEL1_T2 | DAC_CR_TSEL2_T2);
-	dac_dma_enable(CHANNEL_1);
-	dac_enable(CHANNEL_D);
+	dac_trigger_enable(DAC1, DAC_CHANNEL_BOTH);
+	dac_set_trigger_source(DAC1, DAC_CR_TSEL1_T2 | DAC_CR_TSEL2_T2);
+	dac_dma_enable(DAC1, DAC_CHANNEL1);
+	dac_enable(DAC1, DAC_CHANNEL_BOTH);
 @endcode
 
 LGPL License Terms @ref lgpl_license
@@ -102,6 +104,7 @@ LGPL License Terms @ref lgpl_license
  * This file is part of the libopencm3 project.
  *
  * Copyright (C) 2012 Ken Sarkies
+ * Copyright (C) 2020 Ben Brewer
  *
  * This library is free software: you can redistribute it and/or modify
  * it under the terms of the GNU Lesser General Public License as published by
@@ -121,9 +124,6 @@ LGPL License Terms @ref lgpl_license
 
 #include <libopencm3/stm32/dac.h>
 
-#define MASK8 0xFF
-#define MASK12 0xFFF
-
 /*---------------------------------------------------------------------------*/
 /** @brief DAC Channel Enable.
 
@@ -131,20 +131,21 @@ Enable a digital to analog converter channel. After setting this enable, the
 DAC requires a t<sub>wakeup</sub> time typically around 10 microseconds before
 it actually wakes up.
 
-@param[in] dac_channel enum ::data_channel.
+@param[in] dac uint32_t the base address of the DAC.
+@param[in] channel uint8_t with DAC mask.
 */
 
-void dac_enable(data_channel dac_channel)
+void dac_enable(uint32_t dac, int channel)
 {
-	switch (dac_channel) {
-	case CHANNEL_1:
-		DAC_CR |= DAC_CR_EN1;
+	switch (channel) {
+	case DAC_CHANNEL1:
+		DAC_CR(dac) |= DAC_CR_EN1;
 		break;
-	case CHANNEL_2:
-		DAC_CR |= DAC_CR_EN2;
+	case DAC_CHANNEL2:
+		DAC_CR(dac) |= DAC_CR_EN2;
 		break;
-	case CHANNEL_D:
-		DAC_CR |= (DAC_CR_EN1 | DAC_CR_EN2);
+	case DAC_CHANNEL_BOTH:
+		DAC_CR(dac) |= (DAC_CR_EN1 | DAC_CR_EN2);
 		break;
 	}
 }
@@ -154,73 +155,27 @@ void dac_enable(data_channel dac_channel)
 
 Disable a digital to analog converter channel.
 
-@param[in] dac_channel enum ::data_channel.
+@param[in] dac uint32_t the base address of the DAC.
+@param[in] channel uint8_t with DAC mask.
 */
 
-void dac_disable(data_channel dac_channel)
+void dac_disable(uint32_t dac, int channel)
 {
-	switch (dac_channel) {
-	case CHANNEL_1:
-		DAC_CR &= ~DAC_CR_EN1;
+	switch (channel) {
+	case DAC_CHANNEL1:
+		DAC_CR(dac) &= ~DAC_CR_EN1;
 		break;
-	case CHANNEL_2:
-		DAC_CR &= ~DAC_CR_EN2;
+	case DAC_CHANNEL2:
+		DAC_CR(dac) &= ~DAC_CR_EN2;
 		break;
-	case CHANNEL_D:
-		DAC_CR &= ~(DAC_CR_EN1 | DAC_CR_EN2);
+	case DAC_CHANNEL_BOTH:
+		DAC_CR(dac) &= ~(DAC_CR_EN1 | DAC_CR_EN2);
+		break;
+	default:
 		break;
 	}
 }
 
-/*---------------------------------------------------------------------------*/
-/** @brief DAC Channel Output Buffer Enable.
-
-Enable a digital to analog converter channel output drive buffer. This is an
-optional amplifying buffer that provides additional drive for the output
-signal. The buffer is enabled by default after a reset and needs to be
-explicitly disabled if required.
-
-@param[in] dac_channel enum ::data_channel.
-*/
-
-void dac_buffer_enable(data_channel dac_channel)
-{
-	switch (dac_channel) {
-	case CHANNEL_1:
-		DAC_CR &= ~DAC_CR_BOFF1;
-		break;
-	case CHANNEL_2:
-		DAC_CR &= ~DAC_CR_BOFF2;
-		break;
-	case CHANNEL_D:
-		DAC_CR &= ~(DAC_CR_BOFF1 | DAC_CR_BOFF2);
-		break;
-	}
-}
-/*---------------------------------------------------------------------------*/
-/** @brief DAC Channel Output Buffer Disable.
-
-Disable a digital to analog converter channel output drive buffer. Disabling
-this will reduce power consumption slightly and will increase the output
-impedance of the DAC.  The buffers are enabled by default after a reset.
-
-@param[in] dac_channel enum ::data_channel.
-*/
-
-void dac_buffer_disable(data_channel dac_channel)
-{
-	switch (dac_channel) {
-	case CHANNEL_1:
-		DAC_CR |= DAC_CR_BOFF1;
-		break;
-	case CHANNEL_2:
-		DAC_CR |= DAC_CR_BOFF2;
-		break;
-	case CHANNEL_D:
-		DAC_CR |= (DAC_CR_BOFF1 | DAC_CR_BOFF2);
-		break;
-	}
-}
 /*---------------------------------------------------------------------------*/
 /** @brief DAC Channel DMA Enable.
 
@@ -228,20 +183,23 @@ Enable a digital to analog converter channel DMA mode (connected to DMA2 channel
 3 for DAC channel 1 and DMA2 channel 4 for DAC channel 2). A DMA request is
 generated following an external trigger.
 
-@param[in] dac_channel enum ::data_channel.
+@param[in] dac uint32_t the base address of the DAC.
+@param[in] channel uint8_t with DAC mask.
 */
 
-void dac_dma_enable(data_channel dac_channel)
+void dac_dma_enable(uint32_t dac, int channel)
 {
-	switch (dac_channel) {
-	case CHANNEL_1:
-		DAC_CR |= DAC_CR_DMAEN1;
+	switch (channel) {
+	case DAC_CHANNEL1:
+		DAC_CR(dac) |= DAC_CR_DMAEN1;
 		break;
-	case CHANNEL_2:
-		DAC_CR |= DAC_CR_DMAEN2;
+	case DAC_CHANNEL2:
+		DAC_CR(dac) |= DAC_CR_DMAEN2;
 		break;
-	case CHANNEL_D:
-		DAC_CR |= (DAC_CR_DMAEN1 | DAC_CR_DMAEN2);
+	case DAC_CHANNEL_BOTH:
+		DAC_CR(dac) |= (DAC_CR_DMAEN1 | DAC_CR_DMAEN2);
+		break;
+	default:
 		break;
 	}
 }
@@ -251,20 +209,23 @@ void dac_dma_enable(data_channel dac_channel)
 
 Disable a digital to analog converter channel DMA mode.
 
-@param[in] dac_channel enum ::data_channel.
+@param[in] dac uint32_t the base address of the DAC.
+@param[in] channel uint8_t with DAC mask.
 */
 
-void dac_dma_disable(data_channel dac_channel)
+void dac_dma_disable(uint32_t dac, int channel)
 {
-	switch (dac_channel) {
-	case CHANNEL_1:
-		DAC_CR &= ~DAC_CR_DMAEN1;
+	switch (channel) {
+	case DAC_CHANNEL1:
+		DAC_CR(dac) &= ~DAC_CR_DMAEN1;
 		break;
-	case CHANNEL_2:
-		DAC_CR &= ~DAC_CR_DMAEN2;
+	case DAC_CHANNEL2:
+		DAC_CR(dac) &= ~DAC_CR_DMAEN2;
 		break;
-	case CHANNEL_D:
-		DAC_CR &= ~(DAC_CR_DMAEN1 | DAC_CR_DMAEN2);
+	case DAC_CHANNEL_BOTH:
+		DAC_CR(dac) &= ~(DAC_CR_DMAEN1 | DAC_CR_DMAEN2);
+		break;
+	default:
 		break;
 	}
 }
@@ -277,20 +238,23 @@ an external trigger to initiate register transfers from the buffer register to
 the DAC output register, followed by a DMA transfer to the buffer register if
 DMA is enabled.  The trigger source must also be selected.
 
-@param[in] dac_channel enum ::data_channel.
+@param[in] dac uint32_t the base address of the DAC.
+@param[in] channel uint8_t with DAC mask.
 */
 
-void dac_trigger_enable(data_channel dac_channel)
+void dac_trigger_enable(uint32_t dac, int channel)
 {
-	switch (dac_channel) {
-	case CHANNEL_1:
-		DAC_CR |= DAC_CR_TEN1;
+	switch (channel) {
+	case DAC_CHANNEL1:
+		DAC_CR(dac) |= DAC_CR_TEN1;
 		break;
-	case CHANNEL_2:
-		DAC_CR |= DAC_CR_TEN2;
+	case DAC_CHANNEL2:
+		DAC_CR(dac) |= DAC_CR_TEN2;
 		break;
-	case CHANNEL_D:
-		DAC_CR |= (DAC_CR_TEN1 | DAC_CR_TEN2);
+	case DAC_CHANNEL_BOTH:
+		DAC_CR(dac) |= (DAC_CR_TEN1 | DAC_CR_TEN2);
+		break;
+	default:
 		break;
 	}
 }
@@ -300,20 +264,23 @@ void dac_trigger_enable(data_channel dac_channel)
 
 Disable a digital to analog converter channel external trigger.
 
-@param[in] dac_channel enum ::data_channel.
+@param[in] dac uint32_t the base address of the DAC.
+@param[in] channel uint8_t with DAC mask.
 */
 
-void dac_trigger_disable(data_channel dac_channel)
+void dac_trigger_disable(uint32_t dac, int channel)
 {
-	switch (dac_channel) {
-	case CHANNEL_1:
-		DAC_CR &= ~DAC_CR_TEN1;
+	switch (channel) {
+	case DAC_CHANNEL1:
+		DAC_CR(dac) &= ~DAC_CR_TEN1;
 		break;
-	case CHANNEL_2:
-		DAC_CR &= ~DAC_CR_TEN2;
+	case DAC_CHANNEL2:
+		DAC_CR(dac) &= ~DAC_CR_TEN2;
 		break;
-	case CHANNEL_D:
-		DAC_CR &= ~(DAC_CR_TEN1 | DAC_CR_TEN2);
+	case DAC_CHANNEL_BOTH:
+		DAC_CR(dac) &= ~(DAC_CR_TEN1 | DAC_CR_TEN2);
+		break;
+	default:
 		break;
 	}
 }
@@ -324,14 +291,15 @@ void dac_trigger_disable(data_channel dac_channel)
 Sets the digital to analog converter trigger source, which can be taken from
 various timers, an external trigger or a software trigger.
 
-@param[in] dac_trig_src uint32_t. Taken from @ref dac_trig2_sel or @ref
+@param[in] dac uint32_t the base address of the DAC.
+@param[in] source uint32_t. Taken from @ref dac_trig2_sel or @ref
 dac_trig1_sel or a logical OR of one of each of these to set both channels
 simultaneously.
 */
 
-void dac_set_trigger_source(uint32_t dac_trig_src)
+void dac_set_trigger_source(uint32_t dac, uint32_t source)
 {
-	DAC_CR |= dac_trig_src;
+	DAC_CR(dac) |= source;
 }
 
 /*---------------------------------------------------------------------------*/
@@ -343,14 +311,14 @@ existing output values in the DAC output registers.
 
 @note The DAC trigger must be enabled for this to work.
 
-@param[in] dac_wave_ens uint32_t. Taken from @ref dac_wave1_en or @ref
+@param[in] wave enum ::dac_wave. Taken from @ref dac_wave1_en or @ref
 dac_wave2_en or a logical OR of one of each of these to set both channels
 simultaneously.
 */
 
-void dac_set_waveform_generation(uint32_t dac_wave_ens)
+void dac_set_waveform_generation(uint32_t dac, enum dac_wave wave)
 {
-	DAC_CR |= dac_wave_ens;
+	DAC_CR(dac) |= wave;
 }
 
 /*---------------------------------------------------------------------------*/
@@ -358,20 +326,24 @@ void dac_set_waveform_generation(uint32_t dac_wave_ens)
 
 Disable a digital to analog converter channel superimposed waveform generation.
 
-@param[in] dac_channel enum ::data_channel.
+@param[in] dac uint32_t the base address of the DAC.
+@param[in] channel uint8_t with DAC mask.
 */
 
-void dac_disable_waveform_generation(data_channel dac_channel)
+void dac_disable_waveform_generation(uint32_t dac, int channel)
 {
-	switch (dac_channel) {
-	case CHANNEL_1:
-		DAC_CR &= ~DAC_CR_WAVE1_DIS;
+	switch (channel) {
+	case DAC_CHANNEL1:
+		DAC_CR(dac) &= ~(DAC_CR_WAVE1_MASK << DAC_CR_WAVE1_SHIFT);
 		break;
-	case CHANNEL_2:
-		DAC_CR &= ~DAC_CR_WAVE2_DIS;
+	case DAC_CHANNEL2:
+		DAC_CR(dac) &= ~(DAC_CR_WAVE2_MASK << DAC_CR_WAVE2_SHIFT);
 		break;
-	case CHANNEL_D:
-		DAC_CR &= ~(DAC_CR_WAVE1_DIS | DAC_CR_WAVE2_DIS);
+	case DAC_CHANNEL_BOTH:
+		DAC_CR(dac) &= ~(DAC_CR_WAVE1_MASK << DAC_CR_WAVE1_SHIFT)
+				| ~(DAC_CR_WAVE2_MASK << DAC_CR_WAVE2_SHIFT);
+		break;
+	default:
 		break;
 	}
 }
@@ -392,13 +364,14 @@ the signal output.
 become read-only.
 @note The DAC trigger must be enabled for this to work.
 
-@param[in] dac_mamp uint32_t. Taken from @ref dac_mamp2 or @ref dac_mamp1 or a
+@param[in] dac uint32_t the base address of the DAC.
+@param[in] mamp uint8_t. Taken from @ref dac_mamp2 or @ref dac_mamp1 or a
 logical OR of one of each of these to set both channels simultaneously.
 */
 
-void dac_set_waveform_characteristics(uint32_t dac_mamp)
+void dac_set_waveform_characteristics(uint32_t dac, uint8_t mamp)
 {
-	DAC_CR |= dac_mamp;
+	DAC_CR(dac) |= mamp;
 }
 
 /*---------------------------------------------------------------------------*/
@@ -410,36 +383,42 @@ data to be converted on a channel. The data can be aligned as follows:
 @li right-aligned 12 bit data in bits 0-11
 @li left aligned 12 bit data in bits 4-15
 
-@param[in] dac_data uint16_t with appropriate alignment.
-@param[in] dac_data_format enum ::data_align. Alignment and size.
-@param[in] dac_channel enum ::data_channel.
+@param[in] dac uint32_t the base address of the DAC.
+@param[in] data uint16_t with appropriate alignment.
+@param[in] align enum ::dac_align. Alignment and size.
+@param[in] channel uint8_t with DAC mask.
 */
 
-void dac_load_data_buffer_single(uint16_t dac_data, data_align dac_data_format,
-		data_channel dac_channel)
+void dac_load_data_buffer_single(uint32_t dac, uint16_t data,
+		enum dac_align align,
+		int channel)
 {
-	if (dac_channel == CHANNEL_1) {
-		switch (dac_data_format) {
-		case RIGHT8:
-			DAC_DHR8R1 = dac_data;
+	if (channel == DAC_CHANNEL1) {
+		switch (align) {
+		case DAC_ALIGN_RIGHT8:
+			DAC_DHR8R1(dac) = data;
 			break;
-		case RIGHT12:
-			DAC_DHR12R1 = dac_data;
+		case DAC_ALIGN_RIGHT12:
+			DAC_DHR12R1(dac) = data;
 			break;
-		case LEFT12:
-			DAC_DHR12L1 = dac_data;
+		case DAC_ALIGN_LEFT12:
+			DAC_DHR12L1(dac) = data;
+			break;
+		default:
 			break;
 		}
-	} else if (dac_channel == CHANNEL_2) {
-		switch (dac_data_format) {
-		case RIGHT8:
-			DAC_DHR8R2 = dac_data;
+	} else if (channel == DAC_CHANNEL2) {
+		switch (align) {
+		case DAC_ALIGN_RIGHT8:
+			DAC_DHR8R2(dac) = data;
 			break;
-		case RIGHT12:
-			DAC_DHR12R2 = dac_data;
+		case DAC_ALIGN_RIGHT12:
+			DAC_DHR12R2(dac) = data;
 			break;
-		case LEFT12:
-			DAC_DHR12L2 = dac_data;
+		case DAC_ALIGN_LEFT12:
+			DAC_DHR12L2(dac) = data;
+			break;
+		default:
 			break;
 		}
 	}
@@ -453,26 +432,30 @@ Loads the appropriate digital to analog converter dual data register with 12 or
 simultaneous or independent analog output. The data in both channels are aligned
 identically.
 
-@param[in] dac_data1 uint16_t for channel 1 with appropriate alignment.
-@param[in] dac_data2 uint16_t for channel 2 with appropriate alignment.
-@param[in] dac_data_format enum ::data_align. Right or left aligned, and 8 or
+@param[in] dac uint32_t the base address of the DAC.
+@param[in] data1 uint16_t for channel 1 with appropriate alignment.
+@param[in] data2 uint16_t for channel 2 with appropriate alignment.
+@param[in] align enum ::dac_align. Right or left aligned, and 8 or
 12 bit.
 */
 
-void dac_load_data_buffer_dual(uint16_t dac_data1, uint16_t dac_data2,
-		data_align dac_data_format)
+void dac_load_data_buffer_dual(uint32_t dac,
+		uint16_t data1, uint16_t data2,
+		enum dac_align align)
 {
-	switch (dac_data_format) {
-	case RIGHT8:
-		DAC_DHR8RD = ((dac_data1 & MASK8) | ((dac_data2 & MASK8) << 8));
+	switch (align) {
+	case DAC_ALIGN_RIGHT8:
+		DAC_DHR8RD(dac) = ((data1 & 0xFF) | ((data2 & 0xFF) << 8));
 		break;
-	case RIGHT12:
-		DAC_DHR12RD = ((dac_data1 & MASK12) |
-				((dac_data2 & MASK12) << 16));
+	case DAC_ALIGN_RIGHT12:
+		DAC_DHR12RD(dac) = ((data1 & 0xFFF) |
+				((data2 & 0xFFF) << 16));
 		break;
-	case LEFT12:
-		DAC_DHR12LD = ((dac_data1 & MASK12) |
-				((dac_data2 & MASK12) << 16));
+	case DAC_ALIGN_LEFT12:
+		DAC_DHR12LD(dac) = ((data1 & 0xFFF) |
+				((data2 & 0xFFF) << 16));
+		break;
+	default:
 		break;
 	}
 }
@@ -483,20 +466,23 @@ void dac_load_data_buffer_dual(uint16_t dac_data1, uint16_t dac_data2,
 If the trigger source is set to be a software trigger, cause a trigger to occur.
 The trigger is cleared by hardware after conversion.
 
-@param[in] dac_channel enum ::data_channel.
+@param[in] dac uint32_t the base address of the DAC.
+@param[in] channel uint8_t with DAC mask.
 */
 
-void dac_software_trigger(data_channel dac_channel)
+void dac_software_trigger(uint32_t dac, int channel)
 {
-	switch (dac_channel) {
-	case CHANNEL_1:
-		DAC_SWTRIGR |= DAC_SWTRIGR_SWTRIG1;
+	switch (channel) {
+	case DAC_CHANNEL1:
+		DAC_SWTRIGR(dac) |= DAC_SWTRIGR_SWTRIG1;
 		break;
-	case CHANNEL_2:
-		DAC_SWTRIGR |= DAC_SWTRIGR_SWTRIG2;
+	case DAC_CHANNEL2:
+		DAC_SWTRIGR(dac) |= DAC_SWTRIGR_SWTRIG2;
 		break;
-	case CHANNEL_D:
-		DAC_SWTRIGR |= (DAC_SWTRIGR_SWTRIG1 | DAC_SWTRIGR_SWTRIG2);
+	case DAC_CHANNEL_BOTH:
+		DAC_SWTRIGR(dac) |= (DAC_SWTRIGR_SWTRIG1 | DAC_SWTRIGR_SWTRIG2);
+		break;
+	default:
 		break;
 	}
 }

@@ -1,12 +1,12 @@
 /** @defgroup dac_defines DAC Defines
 
-@brief <b>Defined Constants and Types for the STM32L1xx DAC</b>
+@brief <b>Defined Constants and Types for the STM32G4xx DAC</b>
 
-@ingroup STM32L1xx_defines
+@ingroup STM32G4xx_defines
 
 @version 1.0.0
 
-@date 5 December 2012
+@date 3 August 2020
 
 LGPL License Terms @ref lgpl_license
  */
@@ -31,13 +31,16 @@ LGPL License Terms @ref lgpl_license
 #ifndef LIBOPENCM3_DAC_H
 #define LIBOPENCM3_DAC_H
 
-#include <libopencm3/stm32/common/dac_common_v1.h>
+#include <libopencm3/stm32/common/dac_common_v2.h>
 
 /*****************************************************************************/
 /* Module definitions                                                        */
 /*****************************************************************************/
 
-#define DAC1				DAC_BASE
+#define DAC1				DAC1_BASE
+#define DAC2				DAC2_BASE
+#define DAC3				DAC3_BASE
+#define DAC4				DAC4_BASE
+#define DAC5				DAC5_BASE
 
 #endif
-

@@ -37,7 +37,7 @@ TGT_CFLAGS	+= $(STANDARD_FLAGS)
 
 ARFLAGS		= rcs
 
-OBJS += dac_common_all.o
+OBJS += dac_common_all.o dac_common_v2.o
 OBJS += exti_common_all.o
 OBJS += flash_common_all.o flash_common_f.o flash_common_f24.o
 OBJS += fmc_common_f47.o
