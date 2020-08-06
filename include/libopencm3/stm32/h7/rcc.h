@@ -394,6 +394,7 @@ LGPL License Terms @ref lgpl_license
 #define RCC_D2CCIP2R_CECSEL_SHIFT           22
 #define RCC_D2CCIP2R_USBSEL_SHIFT           20
 #define RCC_D2CCIP2R_I2C123SEL_SHIFT        12
+#define RCC_D2CCIP2R_RNGSEL_MASK            0x3
 #define RCC_D2CCIP2R_RNGSEL_SHIFT           8
 #define RCC_D2CCIP2R_USART16SEL_SHIFT       3
 #define RCC_D2CCIP2R_USART234578SEL_SHIFT   0
@@ -402,6 +403,10 @@ LGPL License Terms @ref lgpl_license
 /** @defgroup rcc_d2ccip2r_values RCC_D2CCIP2R Values
  * @ingroup rcc_registers
  * @{*/
+#define RCC_D2CCIP2R_RNGSEL_HSI48           0
+#define RCC_D2CCIP2R_RNGSEL_PLL1Q           1
+#define RCC_D2CCIP2R_RNGSEL_LSE             2
+#define RCC_D2CCIP2R_RNGSEL_LSI             3
 #define RCC_D2CCIP2R_USART16SEL_PCLK2       0
 #define RCC_D2CCIP2R_USART234578SEL_PCLK1   0
 #define RCC_D2CCIP2R_USARTSEL_PLL2Q         1
@@ -774,6 +779,12 @@ void rcc_set_spi123_clksel(uint8_t clksel);
  */
 void rcc_set_spi45_clksel(uint8_t clksel);
 
+/**
+ * Set the clock select for the RNG device.
+ * @param[in] clksel  Clock source to configure for. @ref rcc_d2ccip2r_values
+ * @sa rcc_set_peripheral_clk_sel for equivalent generic functionality
+ */
+void rcc_set_rng_clksel(uint8_t clksel);
 
 END_DECLS
 /**@}*/
