@@ -31,6 +31,7 @@ LGPL License Terms @ref lgpl_license
 #ifndef LIBOPENCM3_DAC_H
 #define LIBOPENCM3_DAC_H
 
+#define DAC_HAS_MODE_REG
 #include <libopencm3/stm32/common/dac_common_all.h>
 
 #endif

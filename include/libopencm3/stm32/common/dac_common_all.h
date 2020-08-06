@@ -77,6 +77,13 @@ specific memorymap.h header before including this header file.*/
 /* DAC channel2 data output register (DAC_DOR2) */
 #define DAC_DOR2			MMIO32(DAC_BASE + 0x30)
 
+#ifdef DAC_HAS_MODE_REG
+/* DACs that have a mode register (e.g. H7) have extra triggers and the contents
+ * of the CR register shift around slightly.
+ */
+#define DAC_MCR MMIO32(DAC_BASE + 0x3C)
+#endif
+
 /** DAC status register.
  * @note not available on F1
  */
@@ -156,7 +163,12 @@ Unmask bits [(n-1)..0] of LFSR/Triangle Amplitude equal to (2**(n)-1
  * Note: T3 == T8; T5 == T15; not both present on one device
  * Note: this is *not* valid for the STM32L1 family
  */
+#ifndef DAC_HAS_MODE_REG
 #define DAC_CR_TSEL2_SHIFT		19
+#else
+#define DAC_CR_TSEL2_SHIFT		18
+#endif
+
 /** @defgroup dac_trig2_sel DAC Channel 2 Trigger Source Selection
 @ingroup dac_defines
 
@@ -188,11 +200,14 @@ Unmask bits [(n-1)..0] of LFSR/Triangle Amplitude equal to (2**(n)-1
 #define DAC_CR_TSEL2_SW			(0x7 << DAC_CR_TSEL2_SHIFT)
 /**@}*/
 
+#ifndef DAC_HAS_MODE_REG
 /* TEN2: DAC channel2 trigger enable */
 #define DAC_CR_TEN2			(1 << 18)
-
 /* BOFF2: DAC channel2 output buffer disable */
 #define DAC_CR_BOFF2			(1 << 17)
+#else
+#define DAC_CR_TEN2			(1 << 17)
+#endif
 
 /* EN2: DAC channel2 enable */
 #define DAC_CR_EN2			(1 << 16)
@@ -270,7 +285,12 @@ Unmask bits [(n-1)..0] of LFSR/Triangle Amplitude equal to (2**(n+1)-1
  * Note: T3 == T8; T5 == T15; not both present on one device
  * Note: this is *not* valid for the STM32L1 family
  */
+#ifndef DAC_HAS_MODE_REG
 #define DAC_CR_TSEL1_SHIFT		3
+#else
+#define DAC_CR_TSEL1_SHIFT		2
+#endif
+
 /** @defgroup dac_trig1_sel DAC Channel 1 Trigger Source Selection
 @ingroup dac_defines
 
@@ -302,11 +322,15 @@ Unmask bits [(n-1)..0] of LFSR/Triangle Amplitude equal to (2**(n+1)-1
 #define DAC_CR_TSEL1_SW			(0x7 << DAC_CR_TSEL1_SHIFT)
 /**@}*/
 
+#ifndef DAC_HAS_MODE_REG
 /* TEN1: DAC channel1 trigger enable */
 #define DAC_CR_TEN1			(1 << 2)
-
 /* BOFF1: DAC channel1 output buffer disable */
 #define DAC_CR_BOFF1			(1 << 1)
+#else
+/* TEN1: DAC channel1 trigger enable */
+#define DAC_CR_TEN1			(1 << 1)
+#endif
 
 /* EN1: DAC channel1 enable */
 #define DAC_CR_EN1			(1 << 0)
@@ -400,6 +424,37 @@ typedef enum {
 	RIGHT8, RIGHT12, LEFT12
 } data_align;
 
+/* --- DAC_MCR  values ----------------------------------------------------- */
+#ifdef DAC_HAS_MODE_REG
+enum dac_mcr {
+  /** Channel connected to external pin with buffer enabled. */
+  DAC_MCR_MODE_NORM_EXT_BUFFERED	= 0x0,
+  /** Channel connected to external pin and internal peripheral with buffer
+   * enabled. */
+  DAC_MCR_MODE_NORM_EXT_ON_CHIP_BUFFERED= 0x1,
+  /** Channel connected to external pin with buffer disabled. */
+  DAC_MCR_MODE_NORM_EXT			= 0x2,
+  /** Channel connected to internal peripherals with buffer disabled. */
+  DAC_MCR_MODE_NORM_ON_CHIP		= 0x3,
+  /** Channel is sampling and holding, connected to the external pin, with
+   * buffer enabled. */
+  DAC_MCR_MODE_SH_EXT_BUFFERED		= 0x4,
+  /** Channel is sampling and holding, connected to both external pin and
+   * internal peripheral, with buffer enabled. */
+  DAC_MCR_MODE_SH_EXT_ON_CHIP_BUFFERED	= 0x5,
+  /** Channel is sampling and holding, connected to both external pin and
+   * internal peripheral, with buffer disabled. */
+  DAC_MCR_MODE_SH_EXT_ON_CHIP		= 0x6,
+  /** Channel is sampling and holding, connected to internal peripheral, with
+   * buffer disabled. */
+  DAC_MCR_MODE_SH_ON_CHIP		= 0x7,
+  DAC_MCR_MODE_MASK			= 0x7
+};
+
+#define DAC_MCR_MODE_CH1_SHIFT		0
+#define DAC_MCR_MODE_CH2_SHIFT		16
+#endif
+
 /* --- Function prototypes ------------------------------------------------- */
 
 BEGIN_DECLS
@@ -421,6 +476,10 @@ void dac_load_data_buffer_single(uint16_t dac_data, data_align dac_data_format,
 void dac_load_data_buffer_dual(uint16_t dac_data1, uint16_t dac_data2,
 			       data_align dac_data_format);
 void dac_software_trigger(data_channel dac_channel);
+
+#ifdef DAC_HAS_MODE_REG
+void dac_set_mode(data_channel dac_channel, enum dac_mcr mode);
+#endif
 
 END_DECLS
 
