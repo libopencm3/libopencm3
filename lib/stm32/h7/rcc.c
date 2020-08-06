@@ -361,6 +361,11 @@ void rcc_set_peripheral_clk_sel(uint32_t periph, uint32_t sel) {
 			mask = RCC_D2CCIP1R_FDCANSEL_MASK << RCC_D2CCIP1R_FDCANSEL_SHIFT;
 			val = sel << RCC_D2CCIP1R_FDCANSEL_SHIFT;
 			break;
+		case RNG_BASE:
+		  reg = &RCC_D2CCIP2R;
+		  mask = RCC_D2CCIP2R_RNGSEL_MASK << RCC_D2CCIP2R_RNGSEL_SHIFT;
+		  val = sel << RCC_D2CCIP2R_RNGSEL_SHIFT;
+		  break;
 		case SPI1_BASE:
 		case SPI2_BASE:
 		case SPI3_BASE:
@@ -404,6 +409,11 @@ void rcc_set_peripheral_clk_sel(uint32_t periph, uint32_t sel) {
 void rcc_set_fdcan_clksel(uint8_t clksel) {
 	RCC_D2CCIP1R &= ~(RCC_D2CCIP1R_FDCANSEL_MASK << RCC_D2CCIP1R_FDCANSEL_SHIFT);
 	RCC_D2CCIP1R |= clksel << RCC_D2CCIP1R_FDCANSEL_SHIFT;
+}
+
+void rcc_set_rng_clksel(uint8_t clksel) {
+	RCC_D2CCIP2R &= ~(RCC_D2CCIP2R_RNGSEL_MASK << RCC_D2CCIP2R_RNGSEL_SHIFT);
+	RCC_D2CCIP2R |= clksel << RCC_D2CCIP2R_RNGSEL_SHIFT;
 }
 
 void rcc_set_spi123_clksel(uint8_t clksel) {
