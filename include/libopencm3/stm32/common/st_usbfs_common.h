@@ -160,6 +160,7 @@ LGPL License Terms @ref lgpl_license
 
 #define USB_EP_SETUP		0x0800 /* Setup transaction completed */
 #define USB_EP_TYPE		0x0600 /* Endpoint type */
+#define USB_EP_TYPE_OFFSET	9      /* Endpoint type offset */
 #define USB_EP_KIND		0x0100 /* Endpoint kind.
 				* When set and type=bulk    -> double buffer
 				* When set and type=control -> status out
@@ -242,6 +243,9 @@ LGPL License Terms @ref lgpl_license
 		(USB_EP_NTOGGLE_MSK & \
 		(~USB_EP_TYPE))) | TYPE)
 
+#define USB_GET_EP_TYPE(EP) \
+	((GET_REG(USB_EP_REG(EP)) & USB_EP_TYPE) >> USB_EP_TYPE_OFFSET)
+
 #define USB_SET_EP_KIND(EP) \
 	SET_REG(USB_EP_REG(EP), \
 		(GET_REG(USB_EP_REG(EP)) & \
@@ -273,6 +277,55 @@ LGPL License Terms @ref lgpl_license
 		GET_REG(USB_EP_REG(EP)) & \
 		(USB_EP_NTOGGLE_MSK | USB_EP_RX_DTOG))
 
+/* Macros for toggling DTOG bits */
+#define USB_TGL_EP_TX_DTOG(EP) \
+	SET_REG(USB_EP_REG(EP), \
+		(GET_REG(USB_EP_REG(EP)) & \
+		(USB_EP_NTOGGLE_MSK & \
+		(~USB_EP_TX_DTOG))) | USB_EP_TX_DTOG)
+
+#define USB_TGL_EP_RX_DTOG(EP) \
+	SET_REG(USB_EP_REG(EP), \
+		(GET_REG(USB_EP_REG(EP)) & \
+		(USB_EP_NTOGGLE_MSK & \
+		(~USB_EP_RX_DTOG))) | USB_EP_RX_DTOG)
+
+/* Macros for double buffered bulk endpoints */
+#define SW_BUF_TX	USB_EP_RX_DTOG
+#define SW_BUF_RX	USB_EP_TX_DTOG
+#define HW_BUF_TX	USB_EP_TX_DTOG
+#define HW_BUF_RX	USB_EP_RX_DTOG
+
+#define USB_GET_EP_SW_BUF_TX(EP)	(*USB_EP_REG(EP) & SW_BUF_TX)
+#define USB_GET_EP_SW_BUF_RX(EP)	(*USB_EP_REG(EP) & SW_BUF_RX)
+#define USB_GET_EP_HW_BUF_TX(EP)	(*USB_EP_REG(EP) & HW_BUF_TX)
+#define USB_GET_EP_HW_BUF_RX(EP)	(*USB_EP_REG(EP) & HW_BUF_RX)
+
+#define USB_TGL_EP_TX_SW_BUF(EP)	USB_TGL_EP_RX_DTOG(EP)
+#define USB_TGL_EP_RX_SW_BUF(EP)	USB_TGL_EP_TX_DTOG(EP)
+
+#define USB_TGL_EP_TX_HW_BUF(EP)	USB_TGL_EP_TX_DTOG(EP)
+#define USB_TGL_EP_RX_HW_BUF(EP)	USB_TGL_EP_RX_DTOG(EP)
+
+#define USB_GET_EP_TX_BUFF_0(EP)	USB_GET_EP_TX_BUFF(EP)
+#define USB_GET_EP_TX_BUFF_1(EP)	USB_GET_EP_RX_BUFF(EP)
+#define USB_GET_EP_RX_BUFF_0(EP)	USB_GET_EP_TX_BUFF(EP)
+#define USB_GET_EP_RX_BUFF_1(EP)	USB_GET_EP_RX_BUFF(EP)
+
+#define USB_GET_EP_TX_COUNT_0(EP)	USB_GET_EP_TX_COUNT(EP)
+#define USB_GET_EP_TX_COUNT_1(EP)	USB_GET_EP_RX_COUNT(EP)
+#define USB_GET_EP_RX_COUNT_0(EP)	USB_GET_EP_TX_COUNT(EP)
+#define USB_GET_EP_RX_COUNT_1(EP)	USB_GET_EP_RX_COUNT(EP)
+
+#define USB_SET_EP_TX_COUNT_0(EP, LEN)	USB_SET_EP_TX_COUNT(EP, LEN)
+#define USB_SET_EP_TX_COUNT_1(EP, LEN)	USB_SET_EP_RX_COUNT(EP, LEN)
+#define USB_SET_EP_RX_COUNT_0(EP, LEN)	USB_SET_EP_TX_COUNT(EP, LEN)
+#define USB_SET_EP_RX_COUNT_1(EP, LEN)	USB_SET_EP_RX_COUNT(EP, LEN)
+
+#define USB_SET_EP_TX_ADDR_0(EP, ADDR)	USB_SET_EP_TX_ADDR(EP, ADDR)
+#define USB_SET_EP_TX_ADDR_1(EP, ADDR)	USB_SET_EP_RX_ADDR(EP, ADDR)
+#define USB_SET_EP_RX_ADDR_0(EP, ADDR)	USB_SET_EP_TX_ADDR(EP, ADDR)
+#define USB_SET_EP_RX_ADDR_1(EP, ADDR)	USB_SET_EP_RX_ADDR(EP, ADDR)
 
 /* --- USB BTABLE registers ------------------------------------------------ */
 
