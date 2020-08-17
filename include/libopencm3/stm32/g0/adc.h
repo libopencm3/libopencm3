@@ -121,6 +121,14 @@
 /** @addtogroup adc_cfgr1
 @{*/
 
+/** ALIGN: Data alignment */
+#define ADC_CFGR1_ALIGN				(1 << 5)
+
+/* EXTSEL[2:0]: External trigger selection for regular group */
+#define ADC_CFGR1_EXTSEL_SHIFT			6
+#define ADC_CFGR1_EXTSEL			(0x7 << ADC_CFGR1_EXTSEL_SHIFT)
+#define ADC_CFGR1_EXTSEL_VAL(x)			((x) << ADC_CFGR1_EXTSEL_SHIFT)
+
 /** CHSELRMOD: Mode Selection of the ADC_CHSELR register */
 #define ADC_CFGR1_CHSELRMOD			(1 << 21)
 

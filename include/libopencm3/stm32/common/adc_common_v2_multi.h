@@ -143,11 +143,6 @@ specific memorymap.h header before including this header file.*/
 #define ADC_CFGR1_DISCNUM_MASK  (0x7 << ADC_CFGR1_DISCNUM_SHIFT)
 #define ADC_CFGR1_DISCNUM_VAL(x)	(((x) - 1) << ADC_CFGR1_DISCNUM_SHIFT)
 
-/* EXTSEL[3:0]: External trigger selection for regular group */
-#define ADC_CFGR1_EXTSEL_SHIFT		6
-#define ADC_CFGR1_EXTSEL_MASK		(0xf << ADC_CFGR1_EXTSEL_SHIFT)
-#define ADC_CFGR1_EXTSEL_VAL(x)		((x) << ADC_CFGR1_EXTSEL_SHIFT)
-
 /* ADC_SQRx Values: Regular Sequence ordering------------------------------- */
 
 #define ADC_SQR1_L_SHIFT		0
