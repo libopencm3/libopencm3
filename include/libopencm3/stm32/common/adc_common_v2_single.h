@@ -58,11 +58,6 @@ specific memorymap.h header before including this header file.*/
 /** Auto off mode */
 #define ADC_CFGR1_AUTOFF		(1 << 15)
 
-#define ADC_CFGR1_EXTSEL_SHIFT		6
-#define ADC_CFGR1_EXTSEL		(0x7 << ADC_CFGR1_EXTSEL_SHIFT)
-/** EXTSEL[2:0]: External trigger selection for regular group */
-#define ADC_CFGR1_EXTSEL_VAL(x)		((x) << ADC_CFGR1_EXTSEL_SHIFT)
-
 /** SCANDIR: Scan Sequence Direction: Upwards Scan (0), Downwards(1) */
 #define ADC_CFGR1_SCANDIR		(1 << 2)
 /**@}*/
