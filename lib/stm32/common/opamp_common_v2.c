@@ -1,4 +1,6 @@
-/* This provides unification of code over STM32 subfamilies */
+/** @addtogroup opamp_file OPAMP peripheral API
+ * @ingroup peripheral_apis
+ */
 
 /*
  * This file is part of the libopencm3 project.
@@ -17,13 +19,34 @@
  * along with this library.  If not, see <http://www.gnu.org/licenses/>.
  */
 
-#include <libopencm3/cm3/common.h>
-#include <libopencm3/stm32/memorymap.h>
+/**@{*/
 
-#if defined(STM32F3)
-#       include <libopencm3/stm32/f3/opamp.h>
-#elif defined(STM32G4)
-#       include <libopencm3/stm32/g4/opamp.h>
-#else
-#       error "stm32 family not defined."
-#endif
+#include <libopencm3/stm32/opamp.h>
+
+bool opamp_read_calout(uint32_t base)
+{
+	return (OPAMP_CSR(base) >> OPAMP_CSR_CALOUT_SHIFT) &
+			OPAMP_CSR_CALOUT_MASK;
+}
+
+void opamp_high_speed_mode_enable(uint32_t base)
+{
+	OPAMP_CSR(base) |= OPAMP_CSR_OPAHSM;
+}
+
+void opamp_high_speed_mode_disable(uint32_t base)
+{
+	OPAMP_CSR(base) &= ~OPAMP_CSR_OPAHSM;
+}
+
+void opamp_output_set_internal(uint32_t base)
+{
+	OPAMP_CSR(base) |= OPAMP_CSR_OPAINTOEN;
+}
+
+void opamp_output_set_external(uint32_t base)
+{
+	OPAMP_CSR(base) &= ~OPAMP_CSR_OPAINTOEN;
+}
+
+/*@}*/
