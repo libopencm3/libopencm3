@@ -1,8 +1,4 @@
 /*
- * STM32F4 Quad SPI defines
- *
- * Copyright (C) 2016, Chuck McManis <cmcmanis@mcmanis.com>
- *
  * This file is part of the libopencm3 project.
  *
  * This library is free software: you can redistribute it and/or modify
@@ -17,7 +13,6 @@
  *
  * You should have received a copy of the GNU Lesser General Public License
  * along with this library.  If not, see <http://www.gnu.org/licenses/>.
- *
  */
 
 #ifndef LIBOPENCM3_QUADSPI_H
@@ -26,6 +21,7 @@
 #include <libopencm3/stm32/memorymap.h>
 #include <libopencm3/stm32/common/quadspi_common_v1.h>
 
-#define QUADSPI_CR_DMAEN    (1 << 2)
+/** Enable free running clock mode, for testing */
+#define QUADSPI_CCR_FRCM    (1 << 29)
 
 #endif  /* LIBOPENCM3_QUADSPI_H */
