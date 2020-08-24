@@ -142,6 +142,17 @@ static void st_usbfs_double_ep_setup(usbd_device *usb_dev, uint8_t addr,
 		USB_SET_EP_TX_ADDR_1(addr, usb_dev->pm_top);
 		USB_SET_EP_RX_STAT(addr, USB_EP_RX_STAT_DISABLED);
 		usb_dev->pm_top += max_size;
+
+		/*
+		 * This buffer needs a size initialising as though it were an RX
+		 * buffer, otherwise it seems to use a very large value for this
+		 * count on first usage (instead of the count written to it).
+		 *
+		 * The size written here doesn't actually matter. So long as one
+		 * is written at this step it will then use the correct size in
+		 * the future.
+		 */
+		USB_SET_EP_TX_COUNT_1(addr, max_size);
 	}
 
 	if (!dir) {
