@@ -510,8 +510,8 @@ def run_ci_test(dut):
     # Avoids the import for non-CI users!
     import xmlrunner
     print("Running (CI) tests for DUT: ", dut)
-    with open("TEST-%s.xml" % dut, 'wb') as output:
-        unittest.main(exit=False, argv=[__file__], testRunner=xmlrunner.XMLTestRunner(output=output))
+    #with open("TEST-%s.xml" % dut, 'wb') as output:
+    unittest.main(exit=False, argv=[__file__], testRunner=xmlrunner.XMLTestRunner(output="tests/test-%s" % dut))
 
 def run_user_test(dut):
     print("Running (user) tests for DUT: ", dut)
@@ -524,9 +524,7 @@ def get_parser():
     parser.add_argument("-l", "--list", help="List all detected matching devices, but don't run any tests", action="store_true")
     return parser
 
-print("about to do... something? either main, or fall off")
 if __name__ == "__main__":
-    print("running our own main")
     p = get_parser()
     opts = p.parse_args()
     runner = run_user_test
@@ -544,5 +542,4 @@ if __name__ == "__main__":
                 print("Detected %s on bus:port-address: %s:%s-%s" % (DUT_SERIAL, dev.bus, '.'.join(map(str,dev.port_numbers)), dev.address))
             else:
                 runner(DUT_SERIAL)
-print("fell off the end of the file")
 
