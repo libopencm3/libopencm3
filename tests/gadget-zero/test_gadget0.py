@@ -509,12 +509,12 @@ class TestUnaligned(unittest.TestCase):
 def run_ci_test(dut):
     # Avoids the import for non-CI users!
     import xmlrunner
-    print("Running tests for DUT: ", dut)
+    print("Running (CI) tests for DUT: ", dut)
     with open("TEST-%s.xml" % dut, 'wb') as output:
-        unittest.main(exit=False, testRunner=xmlrunner.XMLTestRunner(output=output))
+        unittest.main(exit=False, argv=[__file__], testRunner=xmlrunner.XMLTestRunner(output=output))
 
 def run_user_test(dut):
-    print("Running tests for DUT: ", dut)
+    print("Running (user) tests for DUT: ", dut)
     unittest.main(exit=False, argv=[__file__])
 
 def get_parser():
