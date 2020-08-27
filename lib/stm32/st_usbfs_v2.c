@@ -25,9 +25,10 @@
 #include <libopencm3/usb/usbd.h>
 #include "../usb/usb_private.h"
 #include "common/st_usbfs_core.h"
+#include "common/st_usbfs_v2.h"
 
 /** Initialize the USB device controller hardware of the STM32. */
-static usbd_device *st_usbfs_v2_usbd_init(void)
+usbd_device *st_usbfs_v2_usbd_init(void)
 {
 	rcc_periph_clock_enable(RCC_USB);
 	SET_REG(USB_CNTR_REG, 0);
@@ -85,7 +86,7 @@ void st_usbfs_copy_from_pm(void *buf, const volatile void *vPM, uint16_t len)
 	}
 }
 
-static void st_usbfs_v2_disconnect(usbd_device *usbd_dev, bool disconnected)
+void st_usbfs_v2_disconnect(usbd_device *usbd_dev, bool disconnected)
 {
 	(void)usbd_dev;
 	uint16_t reg = GET_REG(USB_BCDR_REG);
