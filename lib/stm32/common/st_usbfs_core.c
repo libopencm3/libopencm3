@@ -38,14 +38,16 @@ void st_usbfs_set_address(usbd_device *dev, uint8_t addr)
 }
 
 /**
- * Set the receive buffer size for a given USB endpoint.
+ * Calculate the receive buffer size for a given USB endpoint.
  *
  * @param dev the usb device handle returned from @ref usbd_init
  * @param ep Index of endpoint to configure.
  * @param size Size in bytes of the RX buffer. Legal sizes : {2,4,6...62}; {64,96,128...992}.
- * @returns (uint16) Actual size set
+ * @param out_size Set to the size which should be written to EP_RX_COUNT
+ * @returns (uint16) Actual size of the receive buffer
  */
-uint16_t st_usbfs_set_ep_rx_bufsize(usbd_device *dev, uint8_t ep, uint32_t size)
+uint16_t st_usbfs_calc_ep_rx_bufsize(usbd_device *dev, uint32_t size,
+		uint32_t *out_size)
 {
 	uint16_t realsize;
 	(void)dev;
@@ -73,7 +75,28 @@ uint16_t st_usbfs_set_ep_rx_bufsize(usbd_device *dev, uint8_t ep, uint32_t size)
 		realsize = size << 1;
 	}
 	/* write to the BL_SIZE and NUM_BLOCK fields */
-	USB_SET_EP_RX_COUNT(ep, size << 10);
+	*out_size = size << 10;
+
+	return realsize;
+}
+
+/**
+ * Set the receive buffer size for a given USB endpoint.
+ *
+ * @param dev the usb device handle returned from @ref usbd_init
+ * @param ep Index of endpoint to configure.
+ * @param size Size in bytes of the RX buffer. Legal sizes : {2,4,6...62}; {64,96,128...992}.
+ * @returns (uint16) Actual size set
+ */
+uint16_t st_usbfs_set_ep_rx_bufsize(usbd_device *dev, uint8_t ep, uint32_t size)
+{
+	uint16_t realsize;
+	uint32_t reg_size;
+	(void)dev;
+
+	realsize = st_usbfs_calc_ep_rx_bufsize(dev, size, &reg_size);
+	USB_SET_EP_RX_COUNT(ep, reg_size);
+
 	return realsize;
 }
 

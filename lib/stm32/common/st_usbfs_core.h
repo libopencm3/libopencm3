@@ -33,6 +33,8 @@
 #define USBD_PM_TOP 0x40
 
 void st_usbfs_set_address(usbd_device *dev, uint8_t addr);
+uint16_t st_usbfs_calc_ep_rx_bufsize(usbd_device *dev, uint32_t size,
+		uint32_t *out_size);
 uint16_t st_usbfs_set_ep_rx_bufsize(usbd_device *dev, uint8_t ep, uint32_t size);
 
 void st_usbfs_ep_setup(usbd_device *usbd_dev, uint8_t addr,
