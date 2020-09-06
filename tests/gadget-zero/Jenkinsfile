@@ -12,7 +12,8 @@ pipeline {
             steps {
 		sh "echo karl we are building $pr_from_sha"
 		step([$class: 'GitHubSetCommitStatusBuilder'])
-		checkout([$class: 'GitSCM', branches: [[name: $pr_from_sha]], userRemoteConfigs: [[url: $pr_from_git_url]]])
+		//checkout([$class: 'GitSCM', branches: [[name: $pr_from_sha]], userRemoteConfigs: [[url: $pr_from_git_url]]])
+		git branch: "$pr_from_sha", url: "$pr_from_url"
             }
         }
 	stage('build') {
