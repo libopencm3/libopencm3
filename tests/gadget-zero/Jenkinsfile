@@ -7,7 +7,7 @@ pipeline {
     }
 
     stages {
-	# TODO - set build status to pneding....
+	// TODO - set build status to pneding....
         stage('checkout') {
             steps {
 		step([$class: 'GitHubSetCommitStatusBuilder'])
