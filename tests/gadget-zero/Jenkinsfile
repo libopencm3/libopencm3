@@ -10,6 +10,7 @@ pipeline {
 	// TODO - set build status to pneding....
         stage('checkout') {
             steps {
+		sh "echo karl we are building $pr_from_sha"
 		step([$class: 'GitHubSetCommitStatusBuilder'])
 		checkout([$class: 'GitSCM', branches: [[name: $pr_from_sha]], userRemoteConfigs: [[url: $pr_from_git_url]]])
             }
