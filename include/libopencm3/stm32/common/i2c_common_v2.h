@@ -49,6 +49,9 @@ specific memorymap.h header before including this header file.*/
 #ifdef I2C4_BASE
 #define I2C4				I2C4_BASE
 #endif
+#ifdef I2C5_BASE
+#define I2C5				I2C5_BASE
+#endif
 /**@}*/
 
 /* --- I2C registers ------------------------------------------------------- */
@@ -225,6 +228,7 @@ specific memorymap.h header before including this header file.*/
 /* --- I2Cx_OAR1 values ---------------------------------------------------- */
 
 /* OA1EN: Own Address 1 enable */
+#define I2C_OAR1_OA1EN				(1	 << 15)
 #define I2C_OAR1_OA1EN_DISABLE		(0x0 << 15)
 #define I2C_OAR1_OA1EN_ENABLE		(0x1 << 15)
 
