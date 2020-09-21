@@ -178,7 +178,7 @@ static void st_usbfs_double_ep_setup(usbd_device *usb_dev, uint8_t addr,
 	}
 }
 
-const struct _usbd_driver st_usbfs_double_usb_driver = {
+const struct _usbd_driver st_usbfs_v2_double_usb_driver = {
 	.init = st_usbfs_v2_usbd_init,
 	.set_address = st_usbfs_set_address,
 	.ep_setup = st_usbfs_double_ep_setup,
