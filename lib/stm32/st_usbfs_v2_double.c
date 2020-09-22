@@ -36,6 +36,9 @@ static uint8_t first_double_run;
 static uint16_t st_usbfs_double_ep_write_packet(usbd_device *dev, uint8_t addr,
 		const void *buf, uint16_t len)
 {
+	int sw_buf, hw_buf;
+	uint32_t stat_tx;
+
 	addr &= 0x7F;
 
 	/* only bulk endpoints can be double buffered. Otherwise fall back to
@@ -44,29 +47,27 @@ static uint16_t st_usbfs_double_ep_write_packet(usbd_device *dev, uint8_t addr,
 		return st_usbfs_ep_write_packet(dev, addr, buf, len);
 	}
 
-	if (USB_GET_EP_SW_BUF_TX(addr)) {
+	/* if hardware is waiting to send or currently sending, the endpoint will
+	   have valid status. In that case we can't copy into that buffer */
+	stat_tx = USB_GET_EP_TX_STAT(addr);
+	sw_buf = USB_GET_EP_SW_BUF_TX(addr) != 0;
+	hw_buf = USB_GET_EP_HW_BUF_TX(addr) != 0;
+	if (stat_tx == USB_EP_TX_STAT_VALID && sw_buf == hw_buf) {
+		return 0;
+	}
+
+	if (sw_buf) {
 		/* buffer 1 */
 		st_usbfs_copy_to_pm(USB_GET_EP_TX_BUFF_1(addr), buf, len);
 		USB_SET_EP_TX_COUNT_1(addr, len);
 
 		USB_TGL_EP_TX_SW_BUF(addr);
-
-		/*
-		 * Block until hardware is done sending the previous buffer.
-		 * If we don't wait then this function could be called again
-		 * and will st_usbfs_copy_to_pm into that buffer before it is
-		 * all sent.
-		 */
-		while(!USB_GET_EP_HW_BUF_TX(addr));
 	} else {
 		/* buffer 0 */
 		st_usbfs_copy_to_pm(USB_GET_EP_TX_BUFF_0(addr), buf, len);
 		USB_SET_EP_TX_COUNT_0(addr, len);
 
 		USB_TGL_EP_TX_SW_BUF(addr);
-
-		/* block until hardware is done sending the previous buffer */
-		while(USB_GET_EP_HW_BUF_TX(addr));
 	}
 
 	/* the double buffering flow control only kicks in after the first send */

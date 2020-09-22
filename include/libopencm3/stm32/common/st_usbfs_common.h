@@ -219,6 +219,10 @@ LGPL License Terms @ref lgpl_license
 	TOG_SET_REG_BIT_MSK_AND_SET(USB_EP_REG(EP), \
 		USB_EP_TX_STAT_TOG_MSK, STAT, USB_EP_RX_CTR | USB_EP_TX_CTR)
 
+#define USB_GET_EP_RX_STAT(EP) *USB_EP_REG(EP) & USB_EP_RX_STAT
+
+#define USB_GET_EP_TX_STAT(EP) *USB_EP_REG(EP) & USB_EP_TX_STAT
+
 /*
  * Macros for clearing and setting USB endpoint register bits that do
  * not use the toggle mechanism.
