@@ -62,7 +62,7 @@ int main(void)
 	gpio_set_af(GPIOA, GPIO_AF14, GPIO11|GPIO12);
 
 	usbd_device *usbd_dev = gadget0_init(&st_usbfs_v1_usb_driver,
-					     "stm32f3-disco");
+					     "stm32f3-disco", true);
 
 	ER_DPRINTF("bootup complete\n");
 	gpio_clear(GPIOE, GPIO12);

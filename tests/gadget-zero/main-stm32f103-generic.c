@@ -59,7 +59,7 @@ int main(void)
 
 
 	usbd_device *usbd_dev = gadget0_init(&st_usbfs_v1_usb_driver,
-					     "stm32f103-generic");
+					     "stm32f103-generic", true);
 
 	ER_DPRINTF("bootup complete\n");
 	gpio_clear(GPIOC, GPIO13);

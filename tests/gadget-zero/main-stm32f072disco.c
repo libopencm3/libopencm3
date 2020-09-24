@@ -54,7 +54,7 @@ int main(void)
 	gpio_set(GPIOC, GPIO7);
 
 	usbd_device *usbd_dev = gadget0_init(&st_usbfs_v2_usb_driver,
-					     "stm32f072disco");
+					     "stm32f072disco", true);
 
 	ER_DPRINTF("bootup complete\n");
 	gpio_clear(GPIOC, GPIO7);

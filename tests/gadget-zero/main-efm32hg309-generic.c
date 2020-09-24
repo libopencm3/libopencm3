@@ -47,7 +47,7 @@ void trace_send_blocking8(int stimulus_port, char c)
 int main(void)
 {
 	usbd_device *usbd_dev = gadget0_init(&efm32hg_usb_driver,
-			"efm32hg309-generic");
+			"efm32hg309-generic", true);
 
 	ER_DPRINTF("bootup complete\n");
 

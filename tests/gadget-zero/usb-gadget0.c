@@ -79,11 +79,17 @@ static const struct usb_device_descriptor dev = {
 	.bNumConfigurations = 2,
 };
 
-static const struct usb_endpoint_descriptor endp_bulk[] = {
+enum endp_bulk_indices {
+	OUT_0,
+	IN_0,
+	OUT_1,
+	IN_1
+};
+
+static struct usb_endpoint_descriptor endp_bulk[] = {
 	{
 		.bLength = USB_DT_ENDPOINT_SIZE,
 		.bDescriptorType = USB_DT_ENDPOINT,
-		.bEndpointAddress = 0x01,
 		.bmAttributes = USB_ENDPOINT_ATTR_BULK,
 		.wMaxPacketSize = BULK_EP_MAXPACKET,
 		.bInterval = 1,
@@ -91,7 +97,6 @@ static const struct usb_endpoint_descriptor endp_bulk[] = {
 	{
 		.bLength = USB_DT_ENDPOINT_SIZE,
 		.bDescriptorType = USB_DT_ENDPOINT,
-		.bEndpointAddress = 0x81,
 		.bmAttributes = USB_ENDPOINT_ATTR_BULK,
 		.wMaxPacketSize = BULK_EP_MAXPACKET,
 		.bInterval = 1,
@@ -99,7 +104,6 @@ static const struct usb_endpoint_descriptor endp_bulk[] = {
 	{
 		.bLength = USB_DT_ENDPOINT_SIZE,
 		.bDescriptorType = USB_DT_ENDPOINT,
-		.bEndpointAddress = 0x2,
 		.bmAttributes = USB_ENDPOINT_ATTR_BULK,
 		.wMaxPacketSize = BULK_EP_MAXPACKET,
 		.bInterval = 1,
@@ -107,7 +111,6 @@ static const struct usb_endpoint_descriptor endp_bulk[] = {
 	{
 		.bLength = USB_DT_ENDPOINT_SIZE,
 		.bDescriptorType = USB_DT_ENDPOINT,
-		.bEndpointAddress = 0x82,
 		.bmAttributes = USB_ENDPOINT_ATTR_BULK,
 		.wMaxPacketSize = BULK_EP_MAXPACKET,
 		.bInterval = 1,
@@ -203,6 +206,20 @@ static struct {
 	.test_unaligned = 0,
 };
 
+static int ep_out_to_in(uint8_t out_ep, uint8_t *in_ep)
+{
+	if (endp_bulk[OUT_0].bEndpointAddress == out_ep) {
+		*in_ep = endp_bulk[IN_0].bEndpointAddress;
+		return 0;
+	} else if (endp_bulk[OUT_1].bEndpointAddress == out_ep) {
+		*in_ep = endp_bulk[IN_1].bEndpointAddress;
+		return 0;
+	} else {
+		/* endpoint not found! */
+		return -1;
+	}
+}
+
 static void gadget0_ss_out_cb(usbd_device *usbd_dev, uint8_t ep)
 {
 	(void) ep;
@@ -265,9 +282,13 @@ static void gadget0_in_cb_loopback(usbd_device *usbd_dev, uint8_t ep)
 static void gadget0_out_cb_loopback(usbd_device *usbd_dev, uint8_t ep)
 {
 	uint8_t buf[BULK_EP_MAXPACKET];
+	uint8_t in_ep;
 	/* Copy data we received on OUT ep back to the paired IN ep */
 	int x = usbd_ep_read_packet(usbd_dev, ep, buf, BULK_EP_MAXPACKET);
-	int y = usbd_ep_write_packet(usbd_dev, 0x80 | ep, buf, x);
+	int y = -1;
+	if (ep_out_to_in(ep, &in_ep) == 0) {
+		y = usbd_ep_write_packet(usbd_dev, in_ep, buf, x);
+	}
 	ER_DPRINTF("loop OUT %x got %d => %d\n", ep, x, y);
 }
 
@@ -350,9 +371,11 @@ static void gadget0_set_config(usbd_device *usbd_dev, uint16_t wValue)
 	switch (wValue) {
 	case GZ_CFG_SOURCESINK:
 		state.test_unaligned = 0;
-		usbd_ep_setup(usbd_dev, 0x01, USB_ENDPOINT_ATTR_BULK, BULK_EP_MAXPACKET,
+		usbd_ep_setup(usbd_dev, endp_bulk[OUT_0].bEndpointAddress,
+			USB_ENDPOINT_ATTR_BULK, BULK_EP_MAXPACKET,
 			gadget0_ss_out_cb);
-		usbd_ep_setup(usbd_dev, 0x81, USB_ENDPOINT_ATTR_BULK, BULK_EP_MAXPACKET,
+		usbd_ep_setup(usbd_dev, endp_bulk[IN_0].bEndpointAddress,
+			USB_ENDPOINT_ATTR_BULK, BULK_EP_MAXPACKET,
 			gadget0_ss_in_cb);
 		usbd_register_control_callback(
 			usbd_dev,
@@ -360,7 +383,7 @@ static void gadget0_set_config(usbd_device *usbd_dev, uint16_t wValue)
 			USB_REQ_TYPE_TYPE | USB_REQ_TYPE_RECIPIENT,
 			gadget0_control_request);
 		/* Prime source for IN data. */
-		gadget0_ss_in_cb(usbd_dev, 0x81);
+		gadget0_ss_in_cb(usbd_dev, endp_bulk[IN_0].bEndpointAddress);
 		break;
 	case GZ_CFG_LOOPBACK:
 		/*
@@ -369,13 +392,17 @@ static void gadget0_set_config(usbd_device *usbd_dev, uint16_t wValue)
 		 * so we can test for overrunning our memory space, if that's a
 		 * concern on the usb peripheral.
 		 */
-		usbd_ep_setup(usbd_dev, 0x01, USB_ENDPOINT_ATTR_BULK, BULK_EP_MAXPACKET,
+		usbd_ep_setup(usbd_dev, endp_bulk[OUT_0].bEndpointAddress,
+			USB_ENDPOINT_ATTR_BULK, BULK_EP_MAXPACKET,
 			gadget0_out_cb_loopback);
-		usbd_ep_setup(usbd_dev, 0x02, USB_ENDPOINT_ATTR_BULK, BULK_EP_MAXPACKET,
+		usbd_ep_setup(usbd_dev, endp_bulk[OUT_1].bEndpointAddress,
+			USB_ENDPOINT_ATTR_BULK, BULK_EP_MAXPACKET,
 			gadget0_out_cb_loopback);
-		usbd_ep_setup(usbd_dev, 0x81, USB_ENDPOINT_ATTR_BULK, BULK_EP_MAXPACKET,
+		usbd_ep_setup(usbd_dev, endp_bulk[IN_0].bEndpointAddress,
+			USB_ENDPOINT_ATTR_BULK, BULK_EP_MAXPACKET,
 			gadget0_in_cb_loopback);
-		usbd_ep_setup(usbd_dev, 0x82, USB_ENDPOINT_ATTR_BULK, BULK_EP_MAXPACKET,
+		usbd_ep_setup(usbd_dev, endp_bulk[IN_1].bEndpointAddress,
+			USB_ENDPOINT_ATTR_BULK, BULK_EP_MAXPACKET,
 			gadget0_in_cb_loopback);
 		break;
 	default:
@@ -383,7 +410,8 @@ static void gadget0_set_config(usbd_device *usbd_dev, uint16_t wValue)
 	}
 }
 
-usbd_device *gadget0_init(const usbd_driver *driver, const char *userserial)
+usbd_device *gadget0_init(const usbd_driver *driver, const char *userserial,
+		bool bidirectional_endpoints)
 {
 #ifdef ER_DEBUG
 	setbuf(stdout, NULL);
@@ -391,6 +419,19 @@ usbd_device *gadget0_init(const usbd_driver *driver, const char *userserial)
 	if (userserial) {
 		usb_strings[2] = userserial;
 	}
+
+	if (bidirectional_endpoints) {
+		endp_bulk[IN_0].bEndpointAddress = 0x81;
+		endp_bulk[IN_1].bEndpointAddress = 0x82;
+		endp_bulk[OUT_0].bEndpointAddress = 0x01;
+		endp_bulk[OUT_1].bEndpointAddress = 0x02;
+	} else {
+		endp_bulk[IN_0].bEndpointAddress = 0x81;
+		endp_bulk[IN_1].bEndpointAddress = 0x82;
+		endp_bulk[OUT_0].bEndpointAddress = 0x03;
+		endp_bulk[OUT_1].bEndpointAddress = 0x04;
+	}
+
 	our_dev = usbd_init(driver, &dev, config,
 		usb_strings, 5,
 		usbd_control_buffer, sizeof(usbd_control_buffer));

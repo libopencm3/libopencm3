@@ -67,7 +67,7 @@ int main(void)
 	SYSCFG_PMC |= SYSCFG_PMC_USB_PU;
 
 	usbd_device *usbd_dev = gadget0_init(&st_usbfs_v1_usb_driver,
-					     "stm32l1-generic");
+					     "stm32l1-generic", true);
 
 	ER_DPRINTF("bootup complete\n");
 	gpio_clear(GPIOB, GPIO8);

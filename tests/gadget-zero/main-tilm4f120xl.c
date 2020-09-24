@@ -57,7 +57,8 @@ int main(void)
 	gpio_mode_setup(GPIOF, GPIO_MODE_OUTPUT, GPIO_PUPD_NONE, GPIO2);
 	gpio_set_output_config(GPIOF, GPIO_OTYPE_PP, GPIO_DRIVE_2MA, GPIO2);
 
-	usbd_device *usbd_dev = gadget0_init(&lm4f_usb_driver, "tilm4f120xl");
+	usbd_device *usbd_dev = gadget0_init(&lm4f_usb_driver, "tilm4f120xl",
+			true);
 
 	ER_DPRINTF("bootup complete\n");
 	while (1) {

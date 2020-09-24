@@ -47,7 +47,8 @@ int main(void)
 	gpio_mode_setup(GPIOD, GPIO_MODE_OUTPUT,
 			GPIO_PUPD_NONE, GPIO12 | GPIO13 | GPIO14 | GPIO15);
 
-	usbd_device *usbd_dev = gadget0_init(&otgfs_usb_driver, "stm32f4disco");
+	usbd_device *usbd_dev = gadget0_init(&otgfs_usb_driver, "stm32f4disco",
+			true);
 
 	ER_DPRINTF("bootup complete\n");
 	while (1) {

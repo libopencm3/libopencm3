@@ -28,9 +28,12 @@
  * @param userserial if non-null, will become the serial number.
  *	You should provide this to help the test code find something particular
  *	to the hardware.
+ * @param bidirectional_endpoints controls whether bidirectional endpoints are
+ *        used
  * @return the usbd_device created.
 */
-usbd_device *gadget0_init(const usbd_driver *driver, const char *userserial);
+usbd_device *gadget0_init(const usbd_driver *driver, const char *userserial,
+		bool bidirectional_endpoints);
 
 /**
  * Call this forever.
