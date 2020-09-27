@@ -14,7 +14,7 @@ pipeline {
                 step([
                     $class: "GitHubCommitStatusSetter",
                     commitShaSource: [$class: "ManuallyEnteredShaSource", sha: "$pr_from_sha"],
-                    reposSource: [$class: "ManuallyEnteredRepositorySource", url: "$pr_from_git_url"],
+                    reposSource: [$class: "ManuallyEnteredRepositorySource", url: "https://github.com/libopencm3/libopencm3"],
                     contextSource: [$class: "DefaultCommitContextSource"],
                     statusResultSource: [ $class: "DefaultStatusResultSource"]
                 ]);
@@ -76,7 +76,7 @@ pipeline {
             step([
                 $class: "GitHubCommitStatusSetter",
                 commitShaSource: [$class: "ManuallyEnteredShaSource", sha: "$pr_from_sha"],
-                reposSource: [$class: "ManuallyEnteredRepositorySource", url: "$pr_from_git_url"],
+                    reposSource: [$class: "ManuallyEnteredRepositorySource", url: "https://github.com/libopencm3/libopencm3"],
                 contextSource: [$class: "DefaultCommitContextSource"],
                 statusResultSource: [ $class: "DefaultStatusResultSource"]
             ]);
