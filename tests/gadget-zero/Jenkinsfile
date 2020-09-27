@@ -30,15 +30,15 @@ pipeline {
         		''' 
             }
         }
-    	stage('build') {
-    		steps {
-    		    sh '''
-    		    . .env3/bin/activate
-    		    make -j5 V=s
-    		    make -C tests/gadget-zero all V=s
-    		    '''
-    		}
-    	}
+        stage('build') {
+            steps {
+                sh '''
+                    . .env3/bin/activate
+                    make -j3 V=1
+                    make -C tests/gadget-zero all V=s
+                '''
+            }
+        }
         stage('Testprepare') {
             steps {
         		sh label: 'gadget0', script: '''
