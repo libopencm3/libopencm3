@@ -72,14 +72,13 @@ pipeline {
     }
     post {
     	always {
-    		junit 'tests/gadget-zero/tests/*/TEST-*.xml'
-            step([
-                $class: "GitHubCommitStatusSetter",
+            step([$class: "GitHubCommitStatusSetter",
                 commitShaSource: [$class: "ManuallyEnteredShaSource", sha: "$pr_from_sha"],
-                    reposSource: [$class: "ManuallyEnteredRepositorySource", url: "https://github.com/libopencm3/libopencm3"],
+                reposSource: [$class: "ManuallyEnteredRepositorySource", url: "https://github.com/libopencm3/libopencm3"],
                 contextSource: [$class: "DefaultCommitContextSource"],
                 statusResultSource: [ $class: "DefaultStatusResultSource"]
             ]);
+            junit 'tests/gadget-zero/tests/*/TEST-*.xml'
     	}
     } 
 }
