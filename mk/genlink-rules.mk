@@ -17,6 +17,6 @@
 ## along with this library.  If not, see <http://www.gnu.org/licenses/>.
 ##
 
-$(LDSCRIPT): $(OPENCM3_DIR)/ld/linker.ld.S $(OPENCM3_DIR)/ld/devices.data
+$(LDSCRIPT): $(OPENCM3_DIR)/ld/linker.ld.S $(DEVICES_DATA)
 	@printf "  GENLNK  $(DEVICE)\n"
 	$(Q)$(CPP) $(ARCH_FLAGS) $(shell $(OPENCM3_DIR)/scripts/genlink.py $(DEVICES_DATA) $(DEVICE) DEFS) -P -E $< -o $@
