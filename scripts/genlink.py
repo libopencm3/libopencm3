@@ -116,6 +116,11 @@ elif mode == 'SUBFAMILY':
     if len(device['family']) > 1:
         sys.stdout.write(device['family'][1])
 
+# library name suffix for device
+elif mode == 'LIBNAME':
+    libname = dict(device['defs']).get('LIBNAME', device['family'][0])
+    sys.stdout.write(libname)
+
 # device info
 else:
     info = mode.lower()
