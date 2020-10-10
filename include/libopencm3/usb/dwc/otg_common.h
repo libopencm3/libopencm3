@@ -99,6 +99,8 @@
 #define OTG_GOTGCTL_HSHNPEN		(1 << 10)
 #define OTG_GOTGCTL_HNPRQ		(1 << 9)
 #define OTG_GOTGCTL_HNGSCS		(1 << 8)
+#define OTG_GOTGCTL_BVALOVAL	(1 << 7)
+#define OTG_GOTGCTL_BVALOEN		(1 << 6)
 #define OTG_GOTGCTL_SRQ			(1 << 1)
 #define OTG_GOTGCTL_SRQSCS		(1 << 0)
 
