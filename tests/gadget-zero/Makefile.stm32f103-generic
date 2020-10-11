@@ -32,12 +32,9 @@ INCLUDES += $(patsubst %,-I%, . $(SHARED_DIR))
 OPENCM3_DIR=../../
 
 ### This section can go to an arch shared rules eventually...
-LDSCRIPT = ../../lib/stm32/f1/stm32f103x8.ld
-OPENCM3_LIB = opencm3_stm32f1
-OPENCM3_DEFS = -DSTM32F1
-ARCH_FLAGS = -mthumb -mcpu=cortex-m3
-#OOCD_INTERFACE = jlink
-#OOCD_TARGET = stm32f1x
-OOCD_FILE = openocd.stm32f103-generic.cfg
+DEVICE=stm32f103x8
+OOCD_FILE = openocd.$(BOARD).cfg
 
+include $(OPENCM3_DIR)/mk/genlink-config.mk
+include $(OPENCM3_DIR)/mk/genlink-rules.mk
 include ../rules.mk

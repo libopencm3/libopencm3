@@ -36,7 +36,5 @@ DEVICE=lm4f120xl
 OOCD_FILE = openocd.$(BOARD).cfg
 
 include $(OPENCM3_DIR)/mk/genlink-config.mk
-#include $(OPENCM3_DIR)/mk/gcc-config.mk
 include $(OPENCM3_DIR)/mk/genlink-rules.mk
 include ../rules.mk
-#include $(OPENCM3_DIR)/mk/gcc-rules.mk

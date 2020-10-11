@@ -32,13 +32,9 @@ INCLUDES += $(patsubst %,-I%, . $(SHARED_DIR))
 OPENCM3_DIR=../..
 
 ### This section can go to an arch shared rules eventually...
-LDSCRIPT = ../../lib/stm32/f4/stm32f405x6.ld
-OPENCM3_LIB = opencm3_stm32f4
-OPENCM3_DEFS = -DSTM32F4
-FP_FLAGS ?= -mfloat-abi=hard -mfpu=fpv4-sp-d16
-ARCH_FLAGS = -mthumb -mcpu=cortex-m4 $(FP_FLAGS)
-#OOCD_INTERFACE = stlink-v2
-#OOCD_TARGET = stm32f4x
-OOCD_FILE = openocd.stm32f4disco.cfg
+DEVICE=stm32f405re
+OOCD_FILE = openocd.$(BOARD).cfg
 
+include $(OPENCM3_DIR)/mk/genlink-config.mk
+include $(OPENCM3_DIR)/mk/genlink-rules.mk
 include ../rules.mk

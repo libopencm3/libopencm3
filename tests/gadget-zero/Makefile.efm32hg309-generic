@@ -32,13 +32,9 @@ INCLUDES += $(patsubst %,-I%, . $(SHARED_DIR))
 OPENCM3_DIR=../..
 
 ### This section can go to an arch shared rules eventually...
-LDSCRIPT = ../../lib/efm32/hg/efm32hg309f64.ld
-OPENCM3_LIB = opencm3_efm32hg
-OPENCM3_DEFS = -DEFM32HG
-FP_FLAGS ?= -mfloat-abi=soft
-ARCH_FLAGS = -mthumb -mcpu=cortex-m0plus $(FP_FLAGS)
-#OOCD_INTERFACE = stlink-v2-1
-#OOCD_TARGET = efm32
-OOCD_FILE = openocd.efm32hg309-generic.cfg
+DEVICE=efm32hg309f64
+OOCD_FILE = openocd.$(BOARD).cfg
 
+include $(OPENCM3_DIR)/mk/genlink-config.mk
+include $(OPENCM3_DIR)/mk/genlink-rules.mk
 include ../rules.mk
