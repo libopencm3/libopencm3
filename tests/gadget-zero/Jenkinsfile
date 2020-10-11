@@ -34,7 +34,7 @@ pipeline {
             steps {
                 sh '''
                     . .env3/bin/activate
-                    make -j3 V=1
+                    make V=1
                     make -C tests/gadget-zero all V=s
                 '''
             }
