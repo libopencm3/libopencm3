@@ -181,55 +181,50 @@ specific memorymap.h header before including this header file.*/
 
 /* Note: Bits [7:6] are reserved, and forced to 0 by hardware. */
 
-/* FREQ[5:0]: Peripheral clock frequency (valid values: 2-36 MHz, 2-42 MHz for
- * STM32F4 respectively) */
-/****************************************************************************/
-/** @defgroup i2c_clock I2C clock frequency settings
-@ingroup i2c_defines
+enum i2c_cr2_freq_values  {
+	I2C_CR2_FREQ_2MHZ __attribute__ ((deprecated("Replace with 2 directly"))) = 2,
+	I2C_CR2_FREQ_3MHZ __attribute__ ((deprecated("Replace with 3 directly"))),
+	I2C_CR2_FREQ_4MHZ __attribute__ ((deprecated("Replace with 4 directly"))),
+	I2C_CR2_FREQ_5MHZ __attribute__ ((deprecated("Replace with 5 directly"))),
+	I2C_CR2_FREQ_6MHZ __attribute__ ((deprecated("Replace with 6 directly"))),
+	I2C_CR2_FREQ_7MHZ __attribute__ ((deprecated("Replace with 7 directly"))),
+	I2C_CR2_FREQ_8MHZ __attribute__ ((deprecated("Replace with 8 directly"))),
+	I2C_CR2_FREQ_9MHZ __attribute__ ((deprecated("Replace with 9 directly"))),
+	I2C_CR2_FREQ_10MHZ __attribute__ ((deprecated("Replace with 10 directly"))),
+	I2C_CR2_FREQ_11MHZ __attribute__ ((deprecated("Replace with 11 directly"))),
+	I2C_CR2_FREQ_12MHZ __attribute__ ((deprecated("Replace with 12 directly"))),
+	I2C_CR2_FREQ_13MHZ __attribute__ ((deprecated("Replace with 13 directly"))),
+	I2C_CR2_FREQ_14MHZ __attribute__ ((deprecated("Replace with 14 directly"))),
+	I2C_CR2_FREQ_15MHZ __attribute__ ((deprecated("Replace with 15 directly"))),
+	I2C_CR2_FREQ_16MHZ __attribute__ ((deprecated("Replace with 16 directly"))),
+	I2C_CR2_FREQ_17MHZ __attribute__ ((deprecated("Replace with 17 directly"))),
+	I2C_CR2_FREQ_18MHZ __attribute__ ((deprecated("Replace with 18 directly"))),
+	I2C_CR2_FREQ_19MHZ __attribute__ ((deprecated("Replace with 19 directly"))),
+	I2C_CR2_FREQ_20MHZ __attribute__ ((deprecated("Replace with 20 directly"))),
+	I2C_CR2_FREQ_21MHZ __attribute__ ((deprecated("Replace with 21 directly"))),
+	I2C_CR2_FREQ_22MHZ __attribute__ ((deprecated("Replace with 22 directly"))),
+	I2C_CR2_FREQ_23MHZ __attribute__ ((deprecated("Replace with 23 directly"))),
+	I2C_CR2_FREQ_24MHZ __attribute__ ((deprecated("Replace with 24 directly"))),
+	I2C_CR2_FREQ_25MHZ __attribute__ ((deprecated("Replace with 25 directly"))),
+	I2C_CR2_FREQ_26MHZ __attribute__ ((deprecated("Replace with 26 directly"))),
+	I2C_CR2_FREQ_27MHZ __attribute__ ((deprecated("Replace with 27 directly"))),
+	I2C_CR2_FREQ_28MHZ __attribute__ ((deprecated("Replace with 28 directly"))),
+	I2C_CR2_FREQ_29MHZ __attribute__ ((deprecated("Replace with 29 directly"))),
+	I2C_CR2_FREQ_30MHZ __attribute__ ((deprecated("Replace with 30 directly"))),
+	I2C_CR2_FREQ_31MHZ __attribute__ ((deprecated("Replace with 31 directly"))),
+	I2C_CR2_FREQ_32MHZ __attribute__ ((deprecated("Replace with 32 directly"))),
+	I2C_CR2_FREQ_33MHZ __attribute__ ((deprecated("Replace with 33 directly"))),
+	I2C_CR2_FREQ_34MHZ __attribute__ ((deprecated("Replace with 34 directly"))),
+	I2C_CR2_FREQ_35MHZ __attribute__ ((deprecated("Replace with 35 directly"))),
+	I2C_CR2_FREQ_36MHZ __attribute__ ((deprecated("Replace with 36 directly"))),
+	I2C_CR2_FREQ_37MHZ __attribute__ ((deprecated("Replace with 37 directly"))),
+	I2C_CR2_FREQ_38MHZ __attribute__ ((deprecated("Replace with 38 directly"))),
+	I2C_CR2_FREQ_39MHZ __attribute__ ((deprecated("Replace with 39 directly"))),
+	I2C_CR2_FREQ_40MHZ __attribute__ ((deprecated("Replace with 40 directly"))),
+	I2C_CR2_FREQ_41MHZ __attribute__ ((deprecated("Replace with 41 directly"))),
+	I2C_CR2_FREQ_42MHZ __attribute__ ((deprecated("Replace with 42 directly"))),
+} __attribute__ ((deprecated("Replace _nMHZ with n directly")));
 
-@{*/
-#define I2C_CR2_FREQ_2MHZ		0x02
-#define I2C_CR2_FREQ_3MHZ		0x03
-#define I2C_CR2_FREQ_4MHZ		0x04
-#define I2C_CR2_FREQ_5MHZ		0x05
-#define I2C_CR2_FREQ_6MHZ		0x06
-#define I2C_CR2_FREQ_7MHZ		0x07
-#define I2C_CR2_FREQ_8MHZ		0x08
-#define I2C_CR2_FREQ_9MHZ		0x09
-#define I2C_CR2_FREQ_10MHZ		0x0a
-#define I2C_CR2_FREQ_11MHZ		0x0b
-#define I2C_CR2_FREQ_12MHZ		0x0c
-#define I2C_CR2_FREQ_13MHZ		0x0d
-#define I2C_CR2_FREQ_14MHZ		0x0e
-#define I2C_CR2_FREQ_15MHZ		0x0f
-#define I2C_CR2_FREQ_16MHZ		0x10
-#define I2C_CR2_FREQ_17MHZ		0x11
-#define I2C_CR2_FREQ_18MHZ		0x12
-#define I2C_CR2_FREQ_19MHZ		0x13
-#define I2C_CR2_FREQ_20MHZ		0x14
-#define I2C_CR2_FREQ_21MHZ		0x15
-#define I2C_CR2_FREQ_22MHZ		0x16
-#define I2C_CR2_FREQ_23MHZ		0x17
-#define I2C_CR2_FREQ_24MHZ		0x18
-#define I2C_CR2_FREQ_25MHZ		0x19
-#define I2C_CR2_FREQ_26MHZ		0x1a
-#define I2C_CR2_FREQ_27MHZ		0x1b
-#define I2C_CR2_FREQ_28MHZ		0x1c
-#define I2C_CR2_FREQ_29MHZ		0x1d
-#define I2C_CR2_FREQ_30MHZ		0x1e
-#define I2C_CR2_FREQ_31MHZ		0x1f
-#define I2C_CR2_FREQ_32MHZ		0x20
-#define I2C_CR2_FREQ_33MHZ		0x21
-#define I2C_CR2_FREQ_34MHZ		0x22
-#define I2C_CR2_FREQ_35MHZ		0x23
-#define I2C_CR2_FREQ_36MHZ		0x24
-#define I2C_CR2_FREQ_37MHZ		0x25
-#define I2C_CR2_FREQ_38MHZ		0x26
-#define I2C_CR2_FREQ_39MHZ		0x27
-#define I2C_CR2_FREQ_40MHZ		0x28
-#define I2C_CR2_FREQ_41MHZ		0x29
-#define I2C_CR2_FREQ_42MHZ		0x2a
-/**@}*/
 
 /* --- I2Cx_OAR1 values ---------------------------------------------------- */
 
