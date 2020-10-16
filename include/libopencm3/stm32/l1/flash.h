@@ -56,7 +56,7 @@
 /* --- FLASH_SR values ----------------------------------------------------- */
 #define FLASH_SR_OPTVERRUSR		(1 << 12)
 
-/* --- Function prototypes ------------------------------------------------- */
+#define FLASH_HALF_PAGE_SIZE	32
 
 BEGIN_DECLS
 

@@ -120,6 +120,19 @@ void flash_unlock_progmem(void);
 void flash_lock_progmem(void);
 void flash_lock_option_bytes(void);
 void flash_unlock_acr(void);
+/** Erase a page in flash.
+ * @param page_address For L1, must be first word in page, L0 doesn't care
+ * Takes 1 tprog. Flash must already be unlocked!
+ */
+void flash_erase_page(uint32_t page_address);
+
+/**
+ * Write a half page from buf to dst.
+ * This function _must_ be in ram! (See the Ref Man for more details)
+ * @param dst where to write to, expected to be aligned and erased.
+ * @param buf the half page to write, size required depends on target
+ */
+void flash_program_half_page(uint32_t *dst, void *buf);
 
 void eeprom_program_word(uint32_t address, uint32_t data);
 void eeprom_program_words(uint32_t address, uint32_t *data, int length_in_words);

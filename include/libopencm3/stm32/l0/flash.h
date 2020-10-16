@@ -55,6 +55,8 @@
 /* --- FLASH_OPTR values ----------------------------------------------------- */
 #define FLASH_OPTR_NBOOT1		(1 << 31)
 
+#define FLASH_HALF_PAGE_SIZE	16
+
 BEGIN_DECLS
 
 END_DECLS
