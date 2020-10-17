@@ -165,6 +165,9 @@ extern int usbd_register_set_config_callback(usbd_device *usbd_dev,
 extern void usbd_register_set_altsetting_callback(usbd_device *usbd_dev,
 					usbd_set_altsetting_callback callback);
 
+/** Registers a non-contiguous string descriptor */
+extern void usbd_register_extra_string(usbd_device *usbd_dev, int index, const char* string);
+
 /* Functions to be provided by the hardware abstraction layer */
 extern void usbd_poll(usbd_device *usbd_dev);
 
