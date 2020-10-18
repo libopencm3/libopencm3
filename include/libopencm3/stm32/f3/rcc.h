@@ -124,40 +124,35 @@
 #define RCC_CFGR_PLLMUL_MUL15		0xD
 #define RCC_CFGR_PLLMUL_MUL16		0xE
 
-/* PPRE2: APB high-speed prescaler (APB2) */
 #define RCC_CFGR_PPRE2_SHIFT			11
 #define RCC_CFGR_PPRE2_MASK			0x7
-/* 0XX: HCLK not divided */
-#define RCC_CFGR_PPRE2_DIV_NONE			0x0
-
-#define RCC_CFGR_PPRE2_DIV_2			0x4
-#define RCC_CFGR_PPRE2_DIV_4			0x5
-#define RCC_CFGR_PPRE2_DIV_8			0x6
-#define RCC_CFGR_PPRE2_DIV_16			0x7
-
-/* PPRE1:APB Low-speed prescaler (APB1) */
 #define RCC_CFGR_PPRE1_SHIFT			8
 #define RCC_CFGR_PPRE1_MASK			0x7
-/* 0XX: HCLK not divided */
-#define RCC_CFGR_PPRE1_DIV_NONE			0x0
-#define RCC_CFGR_PPRE1_DIV_2			0x4
-#define RCC_CFGR_PPRE1_DIV_4			0x5
-#define RCC_CFGR_PPRE1_DIV_8			0x6
-#define RCC_CFGR_PPRE1_DIV_16			0x7
+/** @defgroup rcc_cfgr_apbxpre RCC_CFGR APBx prescale factors
+ * These can be used for both APB1 and APB2 prescaling
+ * @{
+ */
+#define RCC_CFGR_PPRE_NODIV			0x0
+#define RCC_CFGR_PPRE_DIV2			0x4
+#define RCC_CFGR_PPRE_DIV4			0x5
+#define RCC_CFGR_PPRE_DIV8			0x6
+#define RCC_CFGR_PPRE_DIV16			0x7
+/**@}*/
 
-/* HPRE: HLCK prescaler */
 #define RCC_CFGR_HPRE_SHIFT			4
 #define RCC_CFGR_HPRE_MASK			0xf
-/* 0XXX: SYSCLK not divided */
-#define RCC_CFGR_HPRE_DIV_NONE			0x0
-#define RCC_CFGR_HPRE_DIV_2			0x8
-#define RCC_CFGR_HPRE_DIV_4			0x9
-#define RCC_CFGR_HPRE_DIV_8			0xA
-#define RCC_CFGR_HPRE_DIV_16			0xB
-#define RCC_CFGR_HPRE_DIV_64			0xC
-#define RCC_CFGR_HPRE_DIV_128			0xD
-#define RCC_CFGR_HPRE_DIV_256			0xE
-#define RCC_CFGR_HPRE_DIV_512			0xF
+/** @defgroup rcc_cfgr_ahbpre RCC_CFGR AHB prescale factors
+@{*/
+#define RCC_CFGR_HPRE_NODIV			0x0
+#define RCC_CFGR_HPRE_DIV2			0x8
+#define RCC_CFGR_HPRE_DIV4			0x9
+#define RCC_CFGR_HPRE_DIV8			0xA
+#define RCC_CFGR_HPRE_DIV16			0xB
+#define RCC_CFGR_HPRE_DIV64			0xC
+#define RCC_CFGR_HPRE_DIV128			0xD
+#define RCC_CFGR_HPRE_DIV256			0xE
+#define RCC_CFGR_HPRE_DIV512			0xF
+/**@}*/
 
 /* SWS: System clock switch status */
 #define RCC_CFGR_SWS_SHIFT			2
@@ -171,6 +166,34 @@
 #define RCC_CFGR_SW_HSI				0x0
 #define RCC_CFGR_SW_HSE				0x1
 #define RCC_CFGR_SW_PLL				0x2
+
+/** Older compatible definitions to ease migration
+ * @defgroup rcc_cfgr_deprecated RCC_CFGR Deprecated dividers
+ * @deprecated Use _CFGR_xPRE_DIVn form instead, across all families
+ * @{
+ */
+#define RCC_CFGR_PPRE2_DIV_NONE			0x0
+#define RCC_CFGR_PPRE2_DIV_2			0x4
+#define RCC_CFGR_PPRE2_DIV_4			0x5
+#define RCC_CFGR_PPRE2_DIV_8			0x6
+#define RCC_CFGR_PPRE2_DIV_16			0x7
+
+#define RCC_CFGR_PPRE1_DIV_NONE			0x0
+#define RCC_CFGR_PPRE1_DIV_2			0x4
+#define RCC_CFGR_PPRE1_DIV_4			0x5
+#define RCC_CFGR_PPRE1_DIV_8			0x6
+#define RCC_CFGR_PPRE1_DIV_16			0x7
+
+#define RCC_CFGR_HPRE_DIV_NONE			0x0
+#define RCC_CFGR_HPRE_DIV_2			0x8
+#define RCC_CFGR_HPRE_DIV_4			0x9
+#define RCC_CFGR_HPRE_DIV_8			0xA
+#define RCC_CFGR_HPRE_DIV_16			0xB
+#define RCC_CFGR_HPRE_DIV_64			0xC
+#define RCC_CFGR_HPRE_DIV_128			0xD
+#define RCC_CFGR_HPRE_DIV_256			0xE
+#define RCC_CFGR_HPRE_DIV_512			0xF
+/**@}*/
 
 /* --- RCC_CIR values ------------------------------------------------------ */
 

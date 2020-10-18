@@ -174,29 +174,20 @@
 #define RCC_CFGR_STOPWUCK_MSI		(0<<15)
 #define RCC_CFGR_STOPWUCK_HSI16		(1<<15)
 
-/* PPRE2: APB high-speed prescaler (APB2) */
-/** @defgroup rcc_cfgr_apb2pre RCC_CFGR APB2 prescale Factors
-@{*/
-#define RCC_CFGR_PPRE2_NODIV		0x0
-#define RCC_CFGR_PPRE2_DIV2		0x4
-#define RCC_CFGR_PPRE2_DIV4		0x5
-#define RCC_CFGR_PPRE2_DIV8		0x6
-#define RCC_CFGR_PPRE2_DIV16		0x7
+#define RCC_CFGR_PPRE2_SHIFT			11
+#define RCC_CFGR_PPRE2_MASK			0x7
+#define RCC_CFGR_PPRE1_SHIFT			8
+#define RCC_CFGR_PPRE1_MASK			0x7
+/** @defgroup rcc_cfgr_apbxpre RCC_CFGR APBx prescale factors
+ * These can be used for both APB1 and APB2 prescaling
+ * @{
+ */
+#define RCC_CFGR_PPRE_NODIV			0x0
+#define RCC_CFGR_PPRE_DIV2			0x4
+#define RCC_CFGR_PPRE_DIV4			0x5
+#define RCC_CFGR_PPRE_DIV8			0x6
+#define RCC_CFGR_PPRE_DIV16			0x7
 /**@}*/
-#define RCC_CFGR_PPRE2_MASK		0x7
-#define RCC_CFGR_PPRE2_SHIFT		11
-
-/* PPRE1: APB low-speed prescaler (APB1) */
-/** @defgroup rcc_cfgr_apb1pre RCC_CFGR APB1 prescale Factors
-@{*/
-#define RCC_CFGR_PPRE1_NODIV		0x0
-#define RCC_CFGR_PPRE1_DIV2		0x4
-#define RCC_CFGR_PPRE1_DIV4		0x5
-#define RCC_CFGR_PPRE1_DIV8		0x6
-#define RCC_CFGR_PPRE1_DIV16		0x7
-/**@}*/
-#define RCC_CFGR_PPRE1_MASK		0x7
-#define RCC_CFGR_PPRE1_SHIFT		8
 
 /* HPRE: AHB prescaler */
 /** @defgroup rcc_cfgr_ahbpre RCC_CFGR AHB prescale Factors
@@ -229,6 +220,24 @@
 #define RCC_CFGR_SW_PLL				0x3
 #define RCC_CFGR_SW_MASK			0x3
 #define RCC_CFGR_SW_SHIFT			0
+
+/** Older compatible definitions to ease migration
+ * @defgroup rcc_cfgr_deprecated RCC_CFGR Deprecated dividers
+ * @deprecated Use _CFGR_xPRE_DIVn form instead, across all families
+ * @{
+ */
+#define RCC_CFGR_PPRE2_NODIV		0x0
+#define RCC_CFGR_PPRE2_DIV2		0x4
+#define RCC_CFGR_PPRE2_DIV4		0x5
+#define RCC_CFGR_PPRE2_DIV8		0x6
+#define RCC_CFGR_PPRE2_DIV16		0x7
+
+#define RCC_CFGR_PPRE1_NODIV		0x0
+#define RCC_CFGR_PPRE1_DIV2		0x4
+#define RCC_CFGR_PPRE1_DIV4		0x5
+#define RCC_CFGR_PPRE1_DIV8		0x6
+#define RCC_CFGR_PPRE1_DIV16		0x7
+/**@}*/
 
 /* --- RCC_CIER - Clock interrupt enable register */
 
