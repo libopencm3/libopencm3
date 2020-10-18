@@ -631,10 +631,10 @@ void rcc_clock_setup_in_hsi_out_64mhz(void)
 	 * Set prescalers for AHB, ADC, APB1, APB2.
 	 * Do this before touching the PLL (TODO: why?).
 	 */
-	rcc_set_hpre(RCC_CFGR_HPRE_SYSCLK_NODIV);   /* Set. 64MHz Max. 72MHz */
-	rcc_set_adcpre(RCC_CFGR_ADCPRE_PCLK2_DIV8); /* Set.  8MHz Max. 14MHz */
-	rcc_set_ppre1(RCC_CFGR_PPRE1_HCLK_DIV2);    /* Set. 32MHz Max. 36MHz */
-	rcc_set_ppre2(RCC_CFGR_PPRE2_HCLK_NODIV);   /* Set. 64MHz Max. 72MHz */
+	rcc_set_hpre(RCC_CFGR_HPRE_NODIV);   /* Set. 64MHz Max. 72MHz */
+	rcc_set_adcpre(RCC_CFGR_ADCPRE_DIV8); /* Set.  8MHz Max. 14MHz */
+	rcc_set_ppre1(RCC_CFGR_PPRE_DIV2);    /* Set. 32MHz Max. 36MHz */
+	rcc_set_ppre2(RCC_CFGR_PPRE_NODIV);   /* Set. 64MHz Max. 72MHz */
 
 	/*
 	 * Sysclk is running with 64MHz -> 2 waitstates.
@@ -684,10 +684,10 @@ void rcc_clock_setup_in_hsi_out_48mhz(void)
 	 * Set prescalers for AHB, ADC, APB1, APB2.
 	 * Do this before touching the PLL (TODO: why?).
 	 */
-	rcc_set_hpre(RCC_CFGR_HPRE_SYSCLK_NODIV);	/*Set.48MHz Max.72MHz */
-	rcc_set_adcpre(RCC_CFGR_ADCPRE_PCLK2_DIV8);	/*Set. 6MHz Max.14MHz */
-	rcc_set_ppre1(RCC_CFGR_PPRE1_HCLK_DIV2);	/*Set.24MHz Max.36MHz */
-	rcc_set_ppre2(RCC_CFGR_PPRE2_HCLK_NODIV);	/*Set.48MHz Max.72MHz */
+	rcc_set_hpre(RCC_CFGR_HPRE_NODIV);	/*Set.48MHz Max.72MHz */
+	rcc_set_adcpre(RCC_CFGR_ADCPRE_DIV8);	/*Set. 6MHz Max.14MHz */
+	rcc_set_ppre1(RCC_CFGR_PPRE_DIV2);	/*Set.24MHz Max.36MHz */
+	rcc_set_ppre2(RCC_CFGR_PPRE_NODIV);	/*Set.48MHz Max.72MHz */
 	rcc_set_usbpre(RCC_CFGR_USBPRE_PLL_CLK_NODIV);  /*Set.48MHz Max.48MHz */
 
 	/*
@@ -738,10 +738,10 @@ void rcc_clock_setup_in_hsi_out_24mhz(void)
 	 * Set prescalers for AHB, ADC, APB1, APB2.
 	 * Do this before touching the PLL (TODO: why?).
 	 */
-	rcc_set_hpre(RCC_CFGR_HPRE_SYSCLK_NODIV); /* Set. 24MHz Max. 24MHz */
-	rcc_set_adcpre(RCC_CFGR_ADCPRE_PCLK2_DIV2); /* Set. 12MHz Max. 12MHz */
-	rcc_set_ppre1(RCC_CFGR_PPRE1_HCLK_NODIV); /* Set. 24MHz Max. 24MHz */
-	rcc_set_ppre2(RCC_CFGR_PPRE2_HCLK_NODIV); /* Set. 24MHz Max. 24MHz */
+	rcc_set_hpre(RCC_CFGR_HPRE_NODIV); /* Set. 24MHz Max. 24MHz */
+	rcc_set_adcpre(RCC_CFGR_ADCPRE_DIV2); /* Set. 12MHz Max. 12MHz */
+	rcc_set_ppre1(RCC_CFGR_PPRE_NODIV); /* Set. 24MHz Max. 24MHz */
+	rcc_set_ppre2(RCC_CFGR_PPRE_NODIV); /* Set. 24MHz Max. 24MHz */
 
 	/*
 	 * Sysclk is (will be) running with 24MHz -> 0 waitstates.
@@ -796,10 +796,10 @@ void rcc_clock_setup_in_hse_8mhz_out_24mhz(void)
 	 * Set prescalers for AHB, ADC, APB1, APB2.
 	 * Do this before touching the PLL (TODO: why?).
 	 */
-	rcc_set_hpre(RCC_CFGR_HPRE_SYSCLK_NODIV);    /* Set. 24MHz Max. 72MHz */
-	rcc_set_adcpre(RCC_CFGR_ADCPRE_PCLK2_DIV2);  /* Set. 12MHz Max. 14MHz */
-	rcc_set_ppre1(RCC_CFGR_PPRE1_HCLK_NODIV);    /* Set. 24MHz Max. 36MHz */
-	rcc_set_ppre2(RCC_CFGR_PPRE2_HCLK_NODIV);    /* Set. 24MHz Max. 72MHz */
+	rcc_set_hpre(RCC_CFGR_HPRE_NODIV);    /* Set. 24MHz Max. 72MHz */
+	rcc_set_adcpre(RCC_CFGR_ADCPRE_DIV2);  /* Set. 12MHz Max. 14MHz */
+	rcc_set_ppre1(RCC_CFGR_PPRE_NODIV);    /* Set. 24MHz Max. 36MHz */
+	rcc_set_ppre2(RCC_CFGR_PPRE_NODIV);    /* Set. 24MHz Max. 72MHz */
 
 	/*
 	 * Sysclk runs with 24MHz -> 0 waitstates.
@@ -860,10 +860,10 @@ void rcc_clock_setup_in_hse_8mhz_out_72mhz(void)
 	 * Set prescalers for AHB, ADC, APB1, APB2.
 	 * Do this before touching the PLL (TODO: why?).
 	 */
-	rcc_set_hpre(RCC_CFGR_HPRE_SYSCLK_NODIV);    /* Set. 72MHz Max. 72MHz */
-	rcc_set_adcpre(RCC_CFGR_ADCPRE_PCLK2_DIV8);  /* Set.  9MHz Max. 14MHz */
-	rcc_set_ppre1(RCC_CFGR_PPRE1_HCLK_DIV2);     /* Set. 36MHz Max. 36MHz */
-	rcc_set_ppre2(RCC_CFGR_PPRE2_HCLK_NODIV);    /* Set. 72MHz Max. 72MHz */
+	rcc_set_hpre(RCC_CFGR_HPRE_NODIV);    /* Set. 72MHz Max. 72MHz */
+	rcc_set_adcpre(RCC_CFGR_ADCPRE_DIV8);  /* Set.  9MHz Max. 14MHz */
+	rcc_set_ppre1(RCC_CFGR_PPRE_DIV2);     /* Set. 36MHz Max. 36MHz */
+	rcc_set_ppre2(RCC_CFGR_PPRE_NODIV);    /* Set. 72MHz Max. 72MHz */
 
 	/*
 	 * Sysclk runs with 72MHz -> 2 waitstates.
@@ -924,10 +924,10 @@ void rcc_clock_setup_in_hse_12mhz_out_72mhz(void)
 	 * Set prescalers for AHB, ADC, APB1, APB2.
 	 * Do this before touching the PLL (TODO: why?).
 	 */
-	rcc_set_hpre(RCC_CFGR_HPRE_SYSCLK_NODIV);    /* Set. 72MHz Max. 72MHz */
-	rcc_set_adcpre(RCC_CFGR_ADCPRE_PCLK2_DIV6);  /* Set. 12MHz Max. 14MHz */
-	rcc_set_ppre1(RCC_CFGR_PPRE1_HCLK_DIV2);     /* Set. 36MHz Max. 36MHz */
-	rcc_set_ppre2(RCC_CFGR_PPRE2_HCLK_NODIV);    /* Set. 72MHz Max. 72MHz */
+	rcc_set_hpre(RCC_CFGR_HPRE_NODIV);    /* Set. 72MHz Max. 72MHz */
+	rcc_set_adcpre(RCC_CFGR_ADCPRE_DIV6);  /* Set. 12MHz Max. 14MHz */
+	rcc_set_ppre1(RCC_CFGR_PPRE_DIV2);     /* Set. 36MHz Max. 36MHz */
+	rcc_set_ppre2(RCC_CFGR_PPRE_NODIV);    /* Set. 72MHz Max. 72MHz */
 
 	/*
 	 * Sysclk runs with 72MHz -> 2 waitstates.
@@ -988,10 +988,10 @@ void rcc_clock_setup_in_hse_16mhz_out_72mhz(void)
 	 * Set prescalers for AHB, ADC, APB1, APB2.
 	 * Do this before touching the PLL (TODO: why?).
 	 */
-	rcc_set_hpre(RCC_CFGR_HPRE_SYSCLK_NODIV);    /* Set. 72MHz Max. 72MHz */
-	rcc_set_adcpre(RCC_CFGR_ADCPRE_PCLK2_DIV6);  /* Set. 12MHz Max. 14MHz */
-	rcc_set_ppre1(RCC_CFGR_PPRE1_HCLK_DIV2);     /* Set. 36MHz Max. 36MHz */
-	rcc_set_ppre2(RCC_CFGR_PPRE2_HCLK_NODIV);    /* Set. 72MHz Max. 72MHz */
+	rcc_set_hpre(RCC_CFGR_HPRE_NODIV);    /* Set. 72MHz Max. 72MHz */
+	rcc_set_adcpre(RCC_CFGR_ADCPRE_DIV6);  /* Set. 12MHz Max. 14MHz */
+	rcc_set_ppre1(RCC_CFGR_PPRE_DIV2);     /* Set. 36MHz Max. 36MHz */
+	rcc_set_ppre2(RCC_CFGR_PPRE_NODIV);    /* Set. 72MHz Max. 72MHz */
 
 	/*
 	 * Sysclk runs with 72MHz -> 2 waitstates.
@@ -1053,10 +1053,10 @@ void rcc_clock_setup_in_hse_25mhz_out_72mhz(void)
 	 * Set prescalers for AHB, ADC, APB1, APB2.
 	 * Do this before touching the PLL (TODO: why?).
 	 */
-	rcc_set_hpre(RCC_CFGR_HPRE_SYSCLK_NODIV);    /* Set. 72MHz Max. 72MHz */
-	rcc_set_adcpre(RCC_CFGR_ADCPRE_PCLK2_DIV6);  /* Set. 12MHz Max. 14MHz */
-	rcc_set_ppre1(RCC_CFGR_PPRE1_HCLK_DIV2);     /* Set. 36MHz Max. 36MHz */
-	rcc_set_ppre2(RCC_CFGR_PPRE2_HCLK_NODIV);    /* Set. 72MHz Max. 72MHz */
+	rcc_set_hpre(RCC_CFGR_HPRE_NODIV);    /* Set. 72MHz Max. 72MHz */
+	rcc_set_adcpre(RCC_CFGR_ADCPRE_DIV6);  /* Set. 12MHz Max. 14MHz */
+	rcc_set_ppre1(RCC_CFGR_PPRE_DIV2);     /* Set. 36MHz Max. 36MHz */
+	rcc_set_ppre2(RCC_CFGR_PPRE_NODIV);    /* Set. 72MHz Max. 72MHz */
 
 	/* Set pll2 prediv and multiplier */
 	rcc_set_prediv2(RCC_CFGR2_PREDIV2_DIV5);

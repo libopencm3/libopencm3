@@ -54,9 +54,9 @@ const struct rcc_clock_scale rcc_hse_8mhz_3v3[RCC_CLOCK_3V3_END] = {
 		.plln = 240,
 		.pllp = 2,
 		.pllq = 5,
-		.hpre = RCC_CFGR_HPRE_DIV_NONE,
-		.ppre1 = RCC_CFGR_PPRE_DIV_4,
-		.ppre2 = RCC_CFGR_PPRE_DIV_2,
+		.hpre = RCC_CFGR_HPRE_NODIV,
+		.ppre1 = RCC_CFGR_PPRE_DIV4,
+		.ppre2 = RCC_CFGR_PPRE_DIV2,
 		.flash_config = FLASH_ACR_DCEN | FLASH_ACR_ICEN |
 				FLASH_ACR_LATENCY_3WS,
 		.apb1_frequency = 30000000,
