@@ -106,6 +106,7 @@
 #define GPIO_PORT_H_BASE		(PERIPH_BASE_AHB2 + 0x1c00)
 /* Still AHB2, good job ST */
 #define OTG_FS_BASE			(0x50000000U + 0x00000)
+#define USB_OTG_FS_BASE     OTG_FS_BASE
 #define ADC1_BASE			(0x50000000U + 0x40000)
 #define AES_BASE			(0x50000000U + 0x60000)
 #define RNG_BASE			(0x50000000U + 0x60800)
