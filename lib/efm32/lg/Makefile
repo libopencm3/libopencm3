@@ -56,7 +56,7 @@ OBJS += usart_common.o
 OBJS += wdog_common.o
 
 OBJS += usb.o usb_control.o usb_standard.o usb_msc.o
-OBJS += usb_hid.o
+OBJS += usb_hid.o usb_dfu.o
 OBJS += usb_efm32.o
 
 VPATH += ../../usb:../:../../cm3:../common
