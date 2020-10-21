@@ -968,6 +968,8 @@ BEGIN_DECLS
 
 void gpio_set_mode(uint32_t gpioport, uint8_t mode, uint8_t cnf,
 		   uint16_t gpios);
+void gpio_get_mode(uint32_t gpioport, uint8_t *mode, uint8_t *cnf,
+	           uint16_t gpio);
 void gpio_set_eventout(uint8_t evoutport, uint8_t evoutpin);
 void gpio_primary_remap(uint32_t swjenable, uint32_t maps);
 void gpio_secondary_remap(uint32_t maps);
