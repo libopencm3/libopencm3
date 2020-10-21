@@ -233,18 +233,19 @@
 /**@}*/
 
 /* SWS: System clock switch status */
-#define RCC_CFGR_SWS_SYSCLKSEL_HSICLK		0x0
-#define RCC_CFGR_SWS_SYSCLKSEL_HSECLK		0x1
-#define RCC_CFGR_SWS_SYSCLKSEL_PLLCLK		0x2
+#define RCC_CFGR_SWS_HSI			0
+#define RCC_CFGR_SWS_HSE			1
+#define RCC_CFGR_SWS_PLL			2
 
 /* SW: System clock switch */
 /** @defgroup rcc_cfgr_scs RCC_CFGR System Clock Selection
 @ingroup STM32F1xx_rcc_defines
 
 @{*/
-#define RCC_CFGR_SW_SYSCLKSEL_HSICLK		0x0
-#define RCC_CFGR_SW_SYSCLKSEL_HSECLK		0x1
-#define RCC_CFGR_SW_SYSCLKSEL_PLLCLK		0x2
+#define RCC_CFGR_SW_HSI				0
+#define RCC_CFGR_SW_HSE				1
+#define RCC_CFGR_SW_PLL				2
+
 /**@}*/
 
 /* --- RCC_CIR values ------------------------------------------------------ */
@@ -419,7 +420,12 @@
 
 #define RCC_BDCR_BDRST				(1 << 16)
 #define RCC_BDCR_RTCEN				(1 << 15)
-/* RCC_BDCR[9:8]: RTCSEL */
+#define RCC_BDCR_RTCSEL_SHIFT			8
+#define RCC_BDCR_RTCSEL				(3 << RCC_BDCR_RTCSEL_SHIFT)
+#define RCC_BDCR_RTCSEL_NOCLK			(0 << RCC_BDCR_RTCSEL_SHIFT)
+#define RCC_BDCR_RTCSEL_LSE			(1 << RCC_BDCR_RTCSEL_SHIFT)
+#define RCC_BDCR_RTCSEL_LSI			(2 << RCC_BDCR_RTCSEL_SHIFT)
+#define RCC_BDCR_RTCSEL_HSE			(3 << RCC_BDCR_RTCSEL_SHIFT)
 #define RCC_BDCR_LSEBYP				(1 << 2)
 #define RCC_BDCR_LSERDY				(1 << 1)
 #define RCC_BDCR_LSEON				(1 << 0)
@@ -675,6 +681,9 @@ enum rcc_periph_rst {
 	RST_PWR		= _REG_BIT(0x10, 28),/*VNC*/
 	RST_DAC		= _REG_BIT(0x10, 29),/*VNC*/
 	RST_CEC		= _REG_BIT(0x10, 30),/*V--*/
+
+	/* Advanced peripherals */
+	RST_BACKUPDOMAIN = _REG_BIT(0x20, 16),/* BDCR[16] */
 };
 
 #include <libopencm3/stm32/common/rcc_common_all.h>
@@ -691,7 +700,7 @@ void rcc_osc_on(enum rcc_osc osc);
 void rcc_osc_off(enum rcc_osc osc);
 void rcc_css_enable(void);
 void rcc_css_disable(void);
-void rcc_set_sysclk_source(uint32_t clk);
+void rcc_set_sysclk_source(enum rcc_osc clk);
 void rcc_set_pll_multiplication_factor(uint32_t mul);
 void rcc_set_pll2_multiplication_factor(uint32_t mul);
 void rcc_set_pll3_multiplication_factor(uint32_t mul);
@@ -699,6 +708,7 @@ void rcc_set_pll_source(uint32_t pllsrc);
 void rcc_set_pllxtpre(uint32_t pllxtpre);
 uint32_t rcc_rtc_clock_enabled_flag(void);
 void rcc_enable_rtc_clock(void);
+void rcc_disable_rtc_clock(void);
 void rcc_set_rtc_clock_source(enum rcc_osc clock_source);
 void rcc_set_adcpre(uint32_t adcpre);
 void rcc_set_ppre2(uint32_t ppre2);
@@ -708,7 +718,7 @@ void rcc_set_usbpre(uint32_t usbpre);
 void rcc_set_prediv1(uint32_t prediv);
 void rcc_set_prediv2(uint32_t prediv);
 void rcc_set_prediv1_source(uint32_t rccsrc);
-uint32_t rcc_system_clock_source(void);
+enum rcc_osc rcc_system_clock_source(void);
 void rcc_clock_setup_in_hsi_out_64mhz(void);
 void rcc_clock_setup_in_hsi_out_48mhz(void);
 void rcc_clock_setup_in_hsi_out_24mhz(void);
@@ -717,7 +727,6 @@ void rcc_clock_setup_in_hse_8mhz_out_72mhz(void);
 void rcc_clock_setup_in_hse_12mhz_out_72mhz(void);
 void rcc_clock_setup_in_hse_16mhz_out_72mhz(void);
 void rcc_clock_setup_in_hse_25mhz_out_72mhz(void);
-void rcc_backupdomain_reset(void);
 
 END_DECLS
 

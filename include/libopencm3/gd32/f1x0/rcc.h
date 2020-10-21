@@ -215,16 +215,16 @@
 /**@}*/
 
 /* SWS: System clock switch status */
-#define RCC_CFGR_SWS_SYSCLKSEL_HSICLK		0x0
-#define RCC_CFGR_SWS_SYSCLKSEL_HSECLK		0x1
-#define RCC_CFGR_SWS_SYSCLKSEL_PLLCLK		0x2
+#define RCC_CFGR_SWS_HSI			0
+#define RCC_CFGR_SWS_HSE			1
+#define RCC_CFGR_SWS_PLL			2
 
 /** @defgroup rcc_cfgr_scs SW: System clock switch
  * @{
  */
-#define RCC_CFGR_SW_SYSCLKSEL_HSICLK		0x0
-#define RCC_CFGR_SW_SYSCLKSEL_HSECLK		0x1
-#define RCC_CFGR_SW_SYSCLKSEL_PLLCLK		0x2
+#define RCC_CFGR_SW_HSI				0
+#define RCC_CFGR_SW_HSE				1
+#define RCC_CFGR_SW_PLL				2
 /**@}*/
 
 /* --- RCC_CIR values ------------------------------------------------------ */
@@ -338,7 +338,12 @@
 
 #define RCC_BDCR_BDRST				(1 << 16)
 #define RCC_BDCR_RTCEN				(1 << 15)
-/* RCC_BDCR[9:8]: RTCSEL */
+#define RCC_BDCR_RTCSEL_SHIFT			8
+#define RCC_BDCR_RTCSEL				(3 << RCC_BDCR_RTCSEL_SHIFT)
+#define RCC_BDCR_RTCSEL_NOCLK			(0 << RCC_BDCR_RTCSEL_SHIFT)
+#define RCC_BDCR_RTCSEL_LSE			(1 << RCC_BDCR_RTCSEL_SHIFT)
+#define RCC_BDCR_RTCSEL_LSI			(2 << RCC_BDCR_RTCSEL_SHIFT)
+#define RCC_BDCR_RTCSEL_HSE			(3 << RCC_BDCR_RTCSEL_SHIFT)
 #define RCC_BDCR_LSEBYP				(1 << 2)
 #define RCC_BDCR_LSERDY				(1 << 1)
 #define RCC_BDCR_LSEON				(1 << 0)
@@ -393,6 +398,16 @@
 #define RCC_CFGR3_ADCSW				(1 << 8)
 #define RCC_CFGR3_CECSW				(1 << 6)
 
+/* --- RCC_CR2 values ------------------------------------------------------ */
+
+#define RCC_CR2_HSI14CAL_SHIFT			8
+#define RCC_CR2_HSI14CAL			(0xFF << RCC_CR2_HSI14CAL_SHIFT)
+#define RCC_CR2_HSI14TRIM_SHIFT			3
+#define RCC_CR2_HSI14TRIM			(31 << RCC_CR2_HSI14TRIM_SHIFT)
+#define RCC_CR2_HSI14DIS			(1 << 2)
+#define RCC_CR2_HSI14RDY			(1 << 1)
+#define RCC_CR2_HSI14ON				(1 << 0)
+
 /* --- Variable definitions ------------------------------------------------ */
 extern uint32_t rcc_ahb_frequency;
 extern uint32_t rcc_apb1_frequency;
@@ -429,7 +444,7 @@ extern const struct rcc_clock_scale rcc_hsi_configs[RCC_CLOCK_HSI_END];
 extern const struct rcc_clock_scale rcc_hse8_configs[RCC_CLOCK_HSE8_END];
 
 enum rcc_osc {
-	RCC_PLL, RCC_HSE, RCC_HSI, RCC_LSE, RCC_LSI
+	RCC_PLL, RCC_HSE, RCC_HSI, RCC_LSE, RCC_LSI, RCC_HSI14
 };
 
 #define _REG_BIT(base, bit)		(((base) << 5) + (bit))
@@ -534,12 +549,13 @@ void rcc_osc_on(enum rcc_osc osc);
 void rcc_osc_off(enum rcc_osc osc);
 void rcc_css_enable(void);
 void rcc_css_disable(void);
-void rcc_set_sysclk_source(uint32_t clk);
+void rcc_set_sysclk_source(enum rcc_osc clk);
 void rcc_set_pll_multiplication_factor(uint32_t mul);
 void rcc_set_pll_source(uint32_t pllsrc);
 void rcc_set_pllxtpre(uint32_t pllxtpre);
 uint32_t rcc_rtc_clock_enabled_flag(void);
 void rcc_enable_rtc_clock(void);
+void rcc_disable_rtc_clock(void);
 void rcc_set_rtc_clock_source(enum rcc_osc clock_source);
 void rcc_set_adcpre(uint32_t adcpre);
 void rcc_set_ppre2(uint32_t ppre1);
@@ -547,9 +563,8 @@ void rcc_set_ppre1(uint32_t ppre1);
 void rcc_set_hpre(uint32_t hpre);
 void rcc_set_usbpre(uint32_t usbpre);
 void rcc_set_prediv(uint32_t prediv);
-uint32_t rcc_system_clock_source(void);
+enum rcc_osc rcc_system_clock_source(void);
 void rcc_clock_setup_pll(const struct rcc_clock_scale *clock);
-void rcc_backupdomain_reset(void);
 
 END_DECLS
 

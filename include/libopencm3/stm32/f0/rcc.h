@@ -111,21 +111,21 @@ Control</b>
 /** @defgroup rcc_cfgr_pmf PLLMUL: PLL multiplication factor
  * @{
  */
-#define RCC_CFGR_PLLMUL_MUL2			(0x00 << RCC_CFGR_PLLMUL_SHIFT)
-#define RCC_CFGR_PLLMUL_MUL3			(0x01 << RCC_CFGR_PLLMUL_SHIFT)
-#define RCC_CFGR_PLLMUL_MUL4			(0x02 << RCC_CFGR_PLLMUL_SHIFT)
-#define RCC_CFGR_PLLMUL_MUL5			(0x03 << RCC_CFGR_PLLMUL_SHIFT)
-#define RCC_CFGR_PLLMUL_MUL6			(0x04 << RCC_CFGR_PLLMUL_SHIFT)
-#define RCC_CFGR_PLLMUL_MUL7			(0x05 << RCC_CFGR_PLLMUL_SHIFT)
-#define RCC_CFGR_PLLMUL_MUL8			(0x06 << RCC_CFGR_PLLMUL_SHIFT)
-#define RCC_CFGR_PLLMUL_MUL9			(0x07 << RCC_CFGR_PLLMUL_SHIFT)
-#define RCC_CFGR_PLLMUL_MUL10			(0x08 << RCC_CFGR_PLLMUL_SHIFT)
-#define RCC_CFGR_PLLMUL_MUL11			(0x09 << RCC_CFGR_PLLMUL_SHIFT)
-#define RCC_CFGR_PLLMUL_MUL12			(0x0A << RCC_CFGR_PLLMUL_SHIFT)
-#define RCC_CFGR_PLLMUL_MUL13			(0x0B << RCC_CFGR_PLLMUL_SHIFT)
-#define RCC_CFGR_PLLMUL_MUL14			(0x0C << RCC_CFGR_PLLMUL_SHIFT)
-#define RCC_CFGR_PLLMUL_MUL15			(0x0D << RCC_CFGR_PLLMUL_SHIFT)
-#define RCC_CFGR_PLLMUL_MUL16			(0x0E << RCC_CFGR_PLLMUL_SHIFT)
+#define RCC_CFGR_PLLMUL_MUL2			0x00
+#define RCC_CFGR_PLLMUL_MUL3			0x01
+#define RCC_CFGR_PLLMUL_MUL4			0x02
+#define RCC_CFGR_PLLMUL_MUL5			0x03
+#define RCC_CFGR_PLLMUL_MUL6			0x04
+#define RCC_CFGR_PLLMUL_MUL7			0x05
+#define RCC_CFGR_PLLMUL_MUL8			0x06
+#define RCC_CFGR_PLLMUL_MUL9			0x07
+#define RCC_CFGR_PLLMUL_MUL10			0x08
+#define RCC_CFGR_PLLMUL_MUL11			0x09
+#define RCC_CFGR_PLLMUL_MUL12			0x0A
+#define RCC_CFGR_PLLMUL_MUL13			0x0B
+#define RCC_CFGR_PLLMUL_MUL14			0x0C
+#define RCC_CFGR_PLLMUL_MUL15			0x0D
+#define RCC_CFGR_PLLMUL_MUL16			0x0E
 /**@}*/
 
 #define RCC_CFGR_PLLXTPRE			(1<<17)
@@ -175,17 +175,17 @@ Control</b>
 
 #define RCC_CFGR_SWS_SHIFT			2
 #define RCC_CFGR_SWS				(3 << RCC_CFGR_SWS_SHIFT)
-#define RCC_CFGR_SWS_HSI			(0 << RCC_CFGR_SWS_SHIFT)
-#define RCC_CFGR_SWS_HSE			(1 << RCC_CFGR_SWS_SHIFT)
-#define RCC_CFGR_SWS_PLL			(2 << RCC_CFGR_SWS_SHIFT)
-#define RCC_CFGR_SWS_HSI48			(3 << RCC_CFGR_SWS_SHIFT)
+#define RCC_CFGR_SWS_HSI			0
+#define RCC_CFGR_SWS_HSE			1
+#define RCC_CFGR_SWS_PLL			2
+#define RCC_CFGR_SWS_HSI48			3
 
 #define RCC_CFGR_SW_SHIFT			0
 #define RCC_CFGR_SW				(3 << RCC_CFGR_SW_SHIFT)
-#define RCC_CFGR_SW_HSI				(0 << RCC_CFGR_SW_SHIFT)
-#define RCC_CFGR_SW_HSE				(1 << RCC_CFGR_SW_SHIFT)
-#define RCC_CFGR_SW_PLL				(2 << RCC_CFGR_SW_SHIFT)
-#define RCC_CFGR_SW_HSI48			(3 << RCC_CFGR_SW_SHIFT)
+#define RCC_CFGR_SW_HSI				0
+#define RCC_CFGR_SW_HSE				1
+#define RCC_CFGR_SW_PLL				2
+#define RCC_CFGR_SW_HSI48			3
 
 /* --- RCC_CIR values ------------------------------------------------------ */
 
@@ -422,6 +422,7 @@ Control</b>
 /*****************************************************************************/
 
 /* --- Variable definitions ------------------------------------------------ */
+
 extern uint32_t rcc_ahb_frequency;
 extern uint32_t rcc_apb1_frequency;
 /** F0 doens't _realllly_ have apb2, but it has a bunch of things
@@ -563,6 +564,7 @@ int rcc_css_int_flag(void);
 void rcc_set_sysclk_source(enum rcc_osc clk);
 void rcc_set_usbclk_source(enum rcc_osc clk);
 void rcc_set_rtc_clock_source(enum rcc_osc clk);
+uint32_t rcc_rtc_clock_enabled_flag(void);
 void rcc_enable_rtc_clock(void);
 void rcc_disable_rtc_clock(void);
 void rcc_set_pll_multiplication_factor(uint32_t mul);
