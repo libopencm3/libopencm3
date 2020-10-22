@@ -228,6 +228,11 @@ void _usbd_control_setup(usbd_device *usbd_dev, uint8_t ea)
 
 	usbd_ep_nak_set(usbd_dev, 0, 1);
 
+	if (usbd_ep_read_packet(usbd_dev, 0, req, 8) != 8) {
+		stall_transaction(usbd_dev);
+		return;
+	}
+
 	if (req->wLength == 0) {
 		usb_control_setup_read(usbd_dev, req);
 	} else if (req->bmRequestType & 0x80) {
