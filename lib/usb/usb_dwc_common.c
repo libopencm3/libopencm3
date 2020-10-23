@@ -63,7 +63,7 @@ void dwc_ep_setup(usbd_device *const usbd_dev, const uint8_t addr, const uint8_t
 		}
 
 		REBASE(OTG_DIEPTSIZ0) = (max_size & OTG_DIEPSIZ0_XFRSIZ_MASK);
-		REBASE(OTG_DIEPCTL0) |= OTG_DIEPCTL0_EPENA | OTG_DIEPCTL0_SNAK;
+		REBASE(OTG_DIEPCTL0) |= OTG_DIEPCTL0_SNAK | OTG_DIEPCTL0_USBAEP;
 #endif
 
 		/* Configure OUT part. */
@@ -104,7 +104,7 @@ void dwc_ep_setup(usbd_device *const usbd_dev, const uint8_t addr, const uint8_t
 			(type << OTG_DIEPCTLX_EPTYP_SHIFT) | OTG_DIEPCTLX_SD0PID | (ep << OTG_DIEPCTLX_TXFNUM_SHIFT);
 #else
 		REBASE(OTG_DIEPTSIZ(ep)) = max_size & OTG_DIEPSIZ0_XFRSIZ_MASK;
-		REBASE(OTG_DIEPCTL(ep)) |= OTG_DIEPCTL0_EPENA | OTG_DIEPCTL0_SNAK | (type << OTG_DIEPCTLX_EPTYP_SHIFT) |
+		REBASE(OTG_DIEPCTL(ep)) |= OTG_DIEPCTL0_SNAK | (type << OTG_DIEPCTLX_EPTYP_SHIFT) |
 			OTG_DIEPCTL0_USBAEP | OTG_DIEPCTLX_SD0PID | (ep << OTG_DIEPCTLX_TXFNUM_SHIFT) |
 			(max_size & OTG_DIEPCTLX_MPSIZ_MASK);
 #endif
