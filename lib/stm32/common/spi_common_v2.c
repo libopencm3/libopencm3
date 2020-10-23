@@ -56,6 +56,35 @@ LSB first.
 
 /**@{*/
 
+
+inline static void delay_tics(uint32_t ticks){
+	
+	volatile uint8_t i;
+	for (i = 0 ; i < ticks; i++){
+	}
+	
+}
+
+///for stm32g4 durty hack
+inline static uint16_t  spi_xfer8_4_template(uint32_t spi, uint16_t data ){
+	
+	uint16_t data_ex;
+	
+	spi_set_data_size(spi, SPI_CR2_DS_4BIT);
+	
+	
+	data_ex = spi_xfer(spi,  data);
+	while (spi_is_busy(spi));
+	
+	
+	delay_tics(0x0f);
+	
+	spi_set_data_size(spi, SPI_CR2_DS_16BIT);
+	
+	return data_ex;
+	
+}
+
 /*---------------------------------------------------------------------------*/
 /** @brief Configure the SPI as Master.
 
@@ -109,6 +138,42 @@ uint8_t spi_read8(uint32_t spi)
 
 	return SPI_DR8(spi);
 }
+
+
+/**
+ * Transfer 4 bits for stm32g4 durty hack
+ * @param spi Unsigned int32. SPI peripheral identifier @ref spi_reg_base.
+ * @param data data for tranfer
+ * @return returns readed data
+ */
+uint8_t  spi_xfer4(uint32_t spi, uint8_t data ){
+	
+	return spi_xfer8_4_template(spi, data << 8 );
+	
+}
+
+
+/**
+ * Transfer 8 bits for stm32g4 durty hack
+ * @param spi Unsigned int32. SPI peripheral identifier @ref spi_reg_base.
+ * @param data data for tranfer
+ * @return returns readed data
+ */
+uint8_t  spi_xfer8(uint32_t spi, uint8_t data ){
+	
+	uint16_t data_ex;
+	
+	data_ex = spi_xfer8_4_template(spi, (data << 8) | (data >> 4)  );
+	
+	return  (data_ex >> 8)  | (data_ex << 4) ;
+}
+
+
+uint8_t spi_is_busy(uint32_t spi){
+	
+	return SPI_SR(spi) & SPI_SR_BSY;
+}
+
 
 /*---------------------------------------------------------------------------*/
 /** @brief SPI Set CRC length to 8 bits

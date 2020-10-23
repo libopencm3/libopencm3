@@ -111,4 +111,25 @@ void pwr_disable_boost(void)
 	PWR_CR5 |= PWR_CR5_R1MODE;
 }
 
+void pwr_enable_ucp_dead_battery(void)
+{
+	PWR_CR3 &= ~PWR_CR3_UCPD1_DBDIS;
+}
+
+/**
+  * @brief Disable the USB Type-C dead battery pull-down behavior
+  *        on UCPDx_CC1 and UCPDx_CC2 pins
+  * @note After exiting reset, the USB Type-C dead battery behavior will be enabled,
+  *       which may have a pull-down effect on CC1 and CC2 pins.
+  *       It is recommended to disable it in all cases, either to stop this pull-down
+  *       or to hand over control to the UCPD (which should therefore be
+  *       initialized before doing the disable).
+  * @retval None
+  */
+void pwr_disable_ucp_dead_battery(void)
+{
+	PWR_CR3 |=  PWR_CR3_UCPD1_DBDIS;
+}
+
+
 /**@}*/

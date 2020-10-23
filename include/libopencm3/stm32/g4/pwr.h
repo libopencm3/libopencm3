@@ -189,6 +189,9 @@ void pwr_disable_power_voltage_detect(void);
 void pwr_enable_boost(void);
 void pwr_disable_boost(void);
 
+void pwr_enable_ucp_dead_battery(void);
+void pwr_disable_ucp_dead_battery(void);
+
 END_DECLS
 
 #endif

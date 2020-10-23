@@ -43,7 +43,7 @@ void opamp_disable(uint32_t base)
 
 void opamp_lock(uint32_t base)
 {
-	OPAMP_CSR(base) |= OPAMP_CSR_LOCK;
+	OPAMP_CSR(base) |= (uint32_t)OPAMP_CSR_LOCK;
 }
 
 bool opamp_read_outcal(uint32_t base)

@@ -121,6 +121,11 @@ void spi_i2s_mode_spi_mode(uint32_t spi);
 void spi_send8(uint32_t spi, uint8_t data);
 uint8_t spi_read8(uint32_t spi);
 
+uint8_t  spi_xfer8(uint32_t spi, uint8_t data );
+uint8_t  spi_xfer4(uint32_t spi, uint8_t data );
+
+uint8_t spi_is_busy(uint32_t spi);
+
 END_DECLS
 
 /** @cond */

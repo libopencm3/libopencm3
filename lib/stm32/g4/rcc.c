@@ -54,7 +54,7 @@ const struct rcc_clock_scale rcc_hsi_configs[RCC_CLOCK_3V3_END] = {
 	{ /* 24MHz */
 		.pllm = 2,
 		.plln = 12,
-		.pllp = 0,
+		.pllp = 4,
 		.pllq = 2,
 		.pllr = 4,
 		.pll_source = RCC_PLLCFGR_PLLSRC_HSI16,
@@ -72,7 +72,7 @@ const struct rcc_clock_scale rcc_hsi_configs[RCC_CLOCK_3V3_END] = {
 	{ /* 48MHz */
 		.pllm = 2,
 		.plln = 12,
-		.pllp = 0,
+		.pllp = 2,
 		.pllq = 2,
 		.pllr = 2,
 		.pll_source = RCC_PLLCFGR_PLLSRC_HSI16,
@@ -90,7 +90,7 @@ const struct rcc_clock_scale rcc_hsi_configs[RCC_CLOCK_3V3_END] = {
 	{ /* 96MHz */
 		.pllm = 2,
 		.plln = 24,
-		.pllp = 0,
+		.pllp = 2,
 		.pllq = 4,
 		.pllr = 2,
 		.pll_source = RCC_PLLCFGR_PLLSRC_HSI16,
@@ -105,10 +105,28 @@ const struct rcc_clock_scale rcc_hsi_configs[RCC_CLOCK_3V3_END] = {
 		.apb1_frequency = 96e6,
 		.apb2_frequency = 96e6,
 	},
+	{ /* 144MHz */
+		.pllm = 2,
+		.plln = 36,
+		.pllp = 2,
+		.pllq = 6, 
+		.pllr = 2,
+		.pll_source = RCC_PLLCFGR_PLLSRC_HSI16,
+		.hpre = RCC_CFGR_HPRE_NODIV,
+		.ppre1 = RCC_CFGR_PPREx_NODIV,
+		.ppre2 = RCC_CFGR_PPREx_NODIV,
+		.vos_scale = PWR_SCALE1,
+		.boost = true,
+		.flash_config = FLASH_ACR_DCEN | FLASH_ACR_ICEN,
+		.flash_waitstates = 4,
+		.ahb_frequency  = 144e6,
+		.apb1_frequency = 144e6,
+		.apb2_frequency = 144e6,
+	},
 	{ /* 170MHz */
 		.pllm = 4,
 		.plln = 85,
-		.pllp = 0,
+		.pllp = 2,
 		.pllq = 0, /* USB requires CRS at this speed. */
 		.pllr = 2,
 		.pll_source = RCC_PLLCFGR_PLLSRC_HSI16,
@@ -129,7 +147,7 @@ const struct rcc_clock_scale rcc_hse_8mhz_3v3[RCC_CLOCK_3V3_END] = {
 	{ /* 24MHz */
 		.pllm = 1,
 		.plln = 12,
-		.pllp = 0,
+		.pllp = 4,
 		.pllq = 2,
 		.pllr = 4,
 		.pll_source = RCC_PLLCFGR_PLLSRC_HSE,
@@ -147,7 +165,7 @@ const struct rcc_clock_scale rcc_hse_8mhz_3v3[RCC_CLOCK_3V3_END] = {
 	{ /* 48MHz */
 		.pllm = 1,
 		.plln = 12,
-		.pllp = 0,
+		.pllp = 2,
 		.pllq = 2,
 		.pllr = 2,
 		.pll_source = RCC_PLLCFGR_PLLSRC_HSE,
@@ -161,11 +179,11 @@ const struct rcc_clock_scale rcc_hse_8mhz_3v3[RCC_CLOCK_3V3_END] = {
 		.ahb_frequency  = 48e6,
 		.apb1_frequency = 48e6,
 		.apb2_frequency = 48e6,
-	},
+	},	
 	{ /* 96MHz */
 		.pllm = 1,
 		.plln = 24,
-		.pllp = 0,
+		.pllp = 2,
 		.pllq = 4,
 		.pllr = 2,
 		.pll_source = RCC_PLLCFGR_PLLSRC_HSE,
@@ -180,10 +198,28 @@ const struct rcc_clock_scale rcc_hse_8mhz_3v3[RCC_CLOCK_3V3_END] = {
 		.apb1_frequency = 96e6,
 		.apb2_frequency = 96e6,
 	},
+	{ /* 144MHz */
+		.pllm = 1,
+		.plln = 36,
+		.pllp = 2,
+		.pllq = 6,
+		.pllr = 2,
+		.pll_source = RCC_PLLCFGR_PLLSRC_HSE,
+		.hpre = RCC_CFGR_HPRE_NODIV,
+		.ppre1 = RCC_CFGR_PPREx_NODIV,
+		.ppre2 = RCC_CFGR_PPREx_NODIV,
+		.vos_scale = PWR_SCALE1,
+		.boost = true,
+		.flash_config = FLASH_ACR_DCEN | FLASH_ACR_ICEN,
+		.flash_waitstates = 4,
+		.ahb_frequency  = 144e6,
+		.apb1_frequency = 144e6,
+		.apb2_frequency = 144e6,
+	},
 	{ /* 170MHz */
 		.pllm = 2,
 		.plln = 85,
-		.pllp = 0,
+		.pllp = 2,
 		.pllq = 0, /* USB requires CRS at this speed. */
 		.pllr = 2,
 		.pll_source = RCC_PLLCFGR_PLLSRC_HSE,
@@ -205,7 +241,7 @@ const struct rcc_clock_scale rcc_hse_12mhz_3v3[RCC_CLOCK_3V3_END] = {
 	{ /* 24MHz */
 		.pllm = 2,
 		.plln = 16,
-		.pllp = 0,
+		.pllp = 4,
 		.pllq = 2,
 		.pllr = 4,
 		.pll_source = RCC_PLLCFGR_PLLSRC_HSE,
@@ -223,7 +259,7 @@ const struct rcc_clock_scale rcc_hse_12mhz_3v3[RCC_CLOCK_3V3_END] = {
 	{ /* 48MHz */
 		.pllm = 2,
 		.plln = 16,
-		.pllp = 0,
+		.pllp = 2,
 		.pllq = 2,
 		.pllr = 2,
 		.pll_source = RCC_PLLCFGR_PLLSRC_HSE,
@@ -241,7 +277,7 @@ const struct rcc_clock_scale rcc_hse_12mhz_3v3[RCC_CLOCK_3V3_END] = {
 	{ /* 96MHz */
 		.pllm = 2,
 		.plln = 32,
-		.pllp = 0,
+		.pllp = 2,
 		.pllq = 4,
 		.pllr = 2,
 		.pll_source = RCC_PLLCFGR_PLLSRC_HSE,
@@ -256,10 +292,28 @@ const struct rcc_clock_scale rcc_hse_12mhz_3v3[RCC_CLOCK_3V3_END] = {
 		.apb1_frequency = 96e6,
 		.apb2_frequency = 96e6,
 	},
+	{ /* 144MHz */
+		.pllm = 2,
+		.plln = 48,
+		.pllp = 2,
+		.pllq = 6,
+		.pllr = 2,
+		.pll_source = RCC_PLLCFGR_PLLSRC_HSE,
+		.hpre = RCC_CFGR_HPRE_NODIV,
+		.ppre1 = RCC_CFGR_PPREx_NODIV,
+		.ppre2 = RCC_CFGR_PPREx_NODIV,
+		.vos_scale = PWR_SCALE1,
+		.boost = true,
+		.flash_config = FLASH_ACR_DCEN | FLASH_ACR_ICEN,
+		.flash_waitstates = 4,
+		.ahb_frequency  = 144e6,
+		.apb1_frequency = 144e6,
+		.apb2_frequency = 144e6,
+	},
 	{ /* 170MHz */
 		.pllm = 3,
 		.plln = 85,
-		.pllp = 0,
+		.pllp = 2,
 		.pllq = 0, /* USB requires CRS at this speed. */
 		.pllr = 2,
 		.pll_source = RCC_PLLCFGR_PLLSRC_HSE,
@@ -280,7 +334,7 @@ const struct rcc_clock_scale rcc_hse_16mhz_3v3[RCC_CLOCK_3V3_END] = {
 	{ /* 24MHz */
 		.pllm = 2,
 		.plln = 12,
-		.pllp = 0,
+		.pllp = 4,
 		.pllq = 2,
 		.pllr = 4,
 		.pll_source = RCC_PLLCFGR_PLLSRC_HSE,
@@ -298,7 +352,7 @@ const struct rcc_clock_scale rcc_hse_16mhz_3v3[RCC_CLOCK_3V3_END] = {
 	{ /* 48MHz */
 		.pllm = 2,
 		.plln = 12,
-		.pllp = 0,
+		.pllp = 2,
 		.pllq = 2,
 		.pllr = 2,
 		.pll_source = RCC_PLLCFGR_PLLSRC_HSE,
@@ -316,7 +370,7 @@ const struct rcc_clock_scale rcc_hse_16mhz_3v3[RCC_CLOCK_3V3_END] = {
 	{ /* 96MHz */
 		.pllm = 2,
 		.plln = 24,
-		.pllp = 0,
+		.pllp = 2,
 		.pllq = 4,
 		.pllr = 2,
 		.pll_source = RCC_PLLCFGR_PLLSRC_HSE,
@@ -331,10 +385,28 @@ const struct rcc_clock_scale rcc_hse_16mhz_3v3[RCC_CLOCK_3V3_END] = {
 		.apb1_frequency = 96e6,
 		.apb2_frequency = 96e6,
 	},
+	{ /* 144MHz */
+		.pllm = 2,
+		.plln = 36,
+		.pllp = 2,
+		.pllq = 6, 
+		.pllr = 2,
+		.pll_source = RCC_PLLCFGR_PLLSRC_HSE,
+		.hpre = RCC_CFGR_HPRE_NODIV,
+		.ppre1 = RCC_CFGR_PPREx_NODIV,
+		.ppre2 = RCC_CFGR_PPREx_NODIV,
+		.vos_scale = PWR_SCALE1,
+		.boost = true,
+		.flash_config = FLASH_ACR_DCEN | FLASH_ACR_ICEN,
+		.flash_waitstates = 4,
+		.ahb_frequency  = 144e6,
+		.apb1_frequency = 144e6,
+		.apb2_frequency = 144e6,
+	},
 	{ /* 170MHz */
 		.pllm = 4,
 		.plln = 85,
-		.pllp = 0,
+		.pllp = 2,
 		.pllq = 0, /* USB requires CRS at this speed. */
 		.pllr = 2,
 		.pll_source = RCC_PLLCFGR_PLLSRC_HSE,
@@ -351,7 +423,98 @@ const struct rcc_clock_scale rcc_hse_16mhz_3v3[RCC_CLOCK_3V3_END] = {
 	},
 };
 
-
+const struct rcc_clock_scale rcc_hse_24mhz_3v3[RCC_CLOCK_3V3_END] = {
+	{ /* 24MHz */
+		.pllm = 2,
+		.plln = 8,
+		.pllp = 2,
+		.pllq = 2,
+		.pllr = 2,
+		.pll_source = RCC_PLLCFGR_PLLSRC_HSE,
+		.hpre = RCC_CFGR_HPRE_DIV2,
+		.ppre1 = RCC_CFGR_PPREx_NODIV,
+		.ppre2 = RCC_CFGR_PPREx_NODIV,
+		.vos_scale = PWR_SCALE2,
+		.boost = false,
+		.flash_config = FLASH_ACR_DCEN | FLASH_ACR_ICEN,
+		.flash_waitstates = 1,
+		.ahb_frequency  = 24e6,
+		.apb1_frequency = 24e6,
+		.apb2_frequency = 24e6,
+	},
+	{ /* 48MHz */
+		.pllm = 2,
+		.plln = 8,
+		.pllp = 2,
+		.pllq = 2,
+		.pllr = 2,
+		.pll_source = RCC_PLLCFGR_PLLSRC_HSE,
+		.hpre = RCC_CFGR_HPRE_NODIV,
+		.ppre1 = RCC_CFGR_PPREx_NODIV,
+		.ppre2 = RCC_CFGR_PPREx_NODIV,
+		.vos_scale = PWR_SCALE1,
+		.boost = false,
+		.flash_config = FLASH_ACR_DCEN | FLASH_ACR_ICEN,
+		.flash_waitstates = 1,
+		.ahb_frequency  = 48e6,
+		.apb1_frequency = 48e6,
+		.apb2_frequency = 48e6,
+	},
+	{ /* 96MHz */
+		.pllm = 2,
+		.plln = 16,
+		.pllp = 2,
+		.pllq = 4,
+		.pllr = 2,
+		.pll_source = RCC_PLLCFGR_PLLSRC_HSE,
+		.hpre = RCC_CFGR_HPRE_NODIV,
+		.ppre1 = RCC_CFGR_PPREx_NODIV,
+		.ppre2 = RCC_CFGR_PPREx_NODIV,
+		.vos_scale = PWR_SCALE1,
+		.boost = false,
+		.flash_config = FLASH_ACR_DCEN | FLASH_ACR_ICEN,
+		.flash_waitstates = 3,
+		.ahb_frequency  = 96e6,
+		.apb1_frequency = 96e6,
+		.apb2_frequency = 96e6,
+	},
+	{ /* 144MHz */
+		.pllm = 2,
+		.plln = 24,
+		.pllp = 2,
+		.pllq = 6, 
+		.pllr = 2,
+		.pll_source = RCC_PLLCFGR_PLLSRC_HSE,
+		.hpre = RCC_CFGR_HPRE_NODIV,
+		.ppre1 = RCC_CFGR_PPREx_NODIV,
+		.ppre2 = RCC_CFGR_PPREx_NODIV,
+		.vos_scale = PWR_SCALE1,
+		.boost = true,
+		.flash_config = FLASH_ACR_DCEN | FLASH_ACR_ICEN,
+		.flash_waitstates = 4,
+		.ahb_frequency  = 144e6,
+		.apb1_frequency = 144e6,
+		.apb2_frequency = 144e6,
+	},
+	{ /* 170MHz */
+		.pllm = 6,
+		.plln = 85,
+		.pllp = 2,
+		.pllq = 0, /* USB requires CRS at this speed. */
+		.pllr = 2,
+		.pll_source = RCC_PLLCFGR_PLLSRC_HSE,
+		.hpre = RCC_CFGR_HPRE_NODIV,
+		.ppre1 = RCC_CFGR_PPREx_NODIV,
+		.ppre2 = RCC_CFGR_PPREx_NODIV,
+		.vos_scale = PWR_SCALE1,
+		.boost = true,
+		.flash_config = FLASH_ACR_DCEN | FLASH_ACR_ICEN,
+		.flash_waitstates = 4,
+		.ahb_frequency  = 170e6,
+		.apb1_frequency = 170e6,
+		.apb2_frequency = 170e6,
+	},
+};
 
 void rcc_osc_ready_int_clear(enum rcc_osc osc)
 {
@@ -743,6 +906,12 @@ void rcc_clock_setup_hse_3v3(const struct rcc_clock_scale *clock)
 	rcc_clock_setup_pll(clock);
 }
 
+void set_ccipr_clock_source(enum rcc_ccipr_peripheral_shift peripheral_shift, uint8_t  clksel){
+	
+	RCC_CCIPR &= ~(RCC_CCIPR_MASK << peripheral_shift);
+	RCC_CCIPR |= (clksel << peripheral_shift);
+}
+
 /** Set clock source for 48MHz clock
  *
  * The 48 MHz clock is derived from one of the four following sources:
@@ -753,10 +922,85 @@ void rcc_clock_setup_hse_3v3(const struct rcc_clock_scale *clock)
  *
  * @param clksel One of the definitions above
  */
-void rcc_set_clock48_source(uint32_t clksel)
+void rcc_set_clock48_source(enum rcc_ccipr_clk48 clksel)
 {
-	RCC_CCIPR &= ~(RCC_CCIPR_SEL_MASK << RCC_CCIPR_CLK48_SHIFT);
-	RCC_CCIPR |= (clksel << RCC_CCIPR_CLK48_SHIFT);
+	set_ccipr_clock_source(RCC_CCIPR_CLK48_SHIFT, clksel);
+	
 }
+
+
+void rcc_set_adc345_source(enum rcc_ccipr_adc clksel){
+	
+	set_ccipr_clock_source(RCC_CCIPR_ADC345_SHIFT, clksel);
+	
+}
+
+
+void rcc_set_adc12_source(enum rcc_ccipr_adc clksel){
+	
+	set_ccipr_clock_source(RCC_CCIPR_ADC12_SHIFT, clksel);
+	
+}
+
+
+void rcc_set_fdcan_source(enum rcc_ccipr_adc clksel){
+	
+	set_ccipr_clock_source(RCC_CCIPR_FDCAN_SHIFT, clksel);
+	
+}
+
+
+void rcc_set_i2s23_source(enum rcc_ccipr_adc clksel){
+	
+	set_ccipr_clock_source(RCC_CCIPR_I2S23_SHIFT, clksel);
+	
+}
+
+void rcc_set_sai1_source(enum rcc_ccipr_adc clksel){
+	
+	set_ccipr_clock_source(RCC_CCIPR_SAI1_SHIFT, clksel);
+	
+}
+
+void rcc_set_lptim1_source(enum rcc_ccipr_adc clksel){
+	
+	set_ccipr_clock_source(RCC_CCIPR_LPTIM1_SHIFT, clksel);
+	
+}
+
+void rcc_set_i2c3_source(enum rcc_ccipr_adc clksel){
+	
+	set_ccipr_clock_source(RCC_CCIPR_I2C3_SHIFT, clksel);
+	
+}
+
+void rcc_set_i2c2_source(enum rcc_ccipr_adc clksel){
+	
+	set_ccipr_clock_source(RCC_CCIPR_I2C2_SHIFT, clksel);
+	
+}
+
+void rcc_set_i2c1_source(enum rcc_ccipr_adc clksel){
+	
+	set_ccipr_clock_source(RCC_CCIPR_I2C1_SHIFT, clksel);
+	
+}
+
+void rcc_set_lpuart1_source(enum rcc_ccipr_adc clksel){
+	
+	set_ccipr_clock_source(RCC_CCIPR_LPUART1_SHIFT, clksel);
+	
+}
+
+void rcc_set_lpuart5_source(enum rcc_ccipr_adc clksel){
+	
+	set_ccipr_clock_source(RCC_CCIPR_LPUART5_SHIFT, clksel);
+	
+}
+
+
+
+
+
 
 /**@}*/

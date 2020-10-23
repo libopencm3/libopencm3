@@ -586,88 +586,101 @@
 /** @defgroup rcc_ccipr_values RCC_CCIPR - Peripherals independent clock config register
  * @{
  */
-/* all fields are 2 bits */
-#define RCC_CCIPR_SEL_MASK		0x3
 
-#define RCC_CCIPR_ADC345_NONE		0
-#define RCC_CCIPR_ADC345_PLLP		1
-#define RCC_CCIPR_ADC345_SYS		2
-#define RCC_CCIPR_ADC345_SHIFT		30
+#define RCC_CCIPR_MASK	0x3
+ 
+enum rcc_ccipr_peripheral_shift {
+	RCC_CCIPR_ADC345_SHIFT			= 30,
+	RCC_CCIPR_ADC12_SHIFT			= 28,
+	RCC_CCIPR_CLK48_SHIFT			= 26,
+	RCC_CCIPR_FDCAN_SHIFT			= 24,
+	RCC_CCIPR_I2S23_SHIFT			= 22,
+	RCC_CCIPR_SAI1_SHIFT			= 20,
+	RCC_CCIPR_LPTIM1_SHIFT			= 18,
+	RCC_CCIPR_I2C3_SHIFT			= 16,
+	RCC_CCIPR_I2C2_SHIFT			= 14,
+	RCC_CCIPR_I2C1_SHIFT			= 12,
+	RCC_CCIPR_LPUART1_SHIFT			= 10,
+	RCC_CCIPR_LPUART5_SHIFT			= 8,
+	RCC_CCIPR_UART4_SHIFT			= 6,
+	RCC_CCIPR_UART3_SHIFT			= 4,
+	RCC_CCIPR_UART2_SHIFT			= 2,
+	RCC_CCIPR_UART1_SHIFT			= 0,
+};
 
-#define RCC_CCIPR_ADC12_NONE		0
-#define RCC_CCIPR_ADC12_PLLP		1
-#define RCC_CCIPR_ADC12_SYS		2
-#define RCC_CCIPR_ADC12_SHIFT		28
+enum rcc_ccipr_adc {
+	RCC_CCIPR_ADCx_NOCLK			= 0x0,
+	RCC_CCIPR_ADCx_PLL_P			= 0x1,
+	RCC_CCIPR_ADCx_SYSCLK			= 0x2,
+};
+	
+enum rcc_ccipr_clk48 {
+	RCC_CCIPR_CLK48_HSI48			= 0x0,
+	RCC_CCIPR_CLK48_PLL_Q			= 0x2,
+};
+	
+enum rcc_ccipr_fdcan {
+	RCC_CCIPR_FDCAN_HSE				= 0x0,
+	RCC_CCIPR_FDCAN_PLL_Q			= 0x1,
+	RCC_CCIPR_FDCAN_PCLK			= 0x2,
+};
+	
+enum rcc_ccipr_i2s {
+	RCC_CCIPR_I2S2x_SYSCLK			= 0x0,
+	RCC_CCIPR_I2S2x_PLL_Q			= 0x1,
+	RCC_CCIPR_I2S2x_PIN_CKIN		= 0x2,
+	RCC_CCIPR_I2S2x_HSI16			= 0x3,
+};
+	
+enum rcc_ccipr_sai {
+	RCC_CCIPR_SAIx_SYS				= 0x0,
+	RCC_CCIPR_SAIx_PLL_Q			= 0x1,
+	RCC_CCIPR_SAIx_PIN_CLIN			= 0x2,
+	RCC_CCIPR_SAIx_HSI16			= 0x3,
+};
+	
+enum rcc_ccipr_lptim {
+	RCC_CCIPR_LPTIMx_PCLK			= 0x0,
+	RCC_CCIPR_LPTIMx_LSI			= 0x1,
+	RCC_CCIPR_LPTIMx_HSI16			= 0x2,
+	RCC_CCIPR_LPTIMx_LSE			= 0x3,
+};
+	
+enum rcc_ccipr_i2c {
+	RCC_CCIPR_I2Cx_PCLK				= 0x0,
+	RCC_CCIPR_I2Cx_SYSCLK			= 0x1,
+	RCC_CCIPR_I2Cx_HSI16			= 0x2,
+};
+	
+enum rcc_ccipr_uart {
+	RCC_CCIPR_xUARTx_PCLK			= 0x0,
+	RCC_CCIPR_xUARTx_SYSCLK			= 0x1,
+	RCC_CCIPR_xUARTx_HSI16			= 0x2,
+	RCC_CCIPR_xUARTx_LSE			= 0x3,
+}; 
+ 
 
-#define RCC_CCIPR_CLK48_HSI48		0
-#define RCC_CCIPR_CLK48_PLLQ		2
-#define RCC_CCIPR_CLK48_SHIFT		26
-
-#define RCC_CCIPR_FDCAN_HSE		0
-#define RCC_CCIPR_FDCAN_PLLQ		1
-#define RCC_CCIPR_FDCAN_PCLK		2
-#define RCC_CCIPR_FDCAN_SHIFT		24
-
-#define RCC_CCIPR_I2S23_SYS		0
-#define RCC_CCIPR_I2S23_PLLQ		1
-#define RCC_CCIPR_I2S23_EXT		2
-#define RCC_CCIPR_I2S23_SHI16		3
-#define RCC_CCIPR_I2S23_SHIFT		22
-
-#define RCC_CCIPR_SAI1_SYS		0
-#define RCC_CCIPR_SAI1_PLLQ		1
-#define RCC_CCIPR_SAI1_EXT		2
-#define RCC_CCIPR_SAI1_HSI16		3
-#define RCC_CCIPR_SAI1_SHIFT		20
-
-#define RCC_CCIPR_LPTIM1_PCLK		0
-#define RCC_CCIPR_LPTIM1_LSI		1
-#define RCC_CCIPR_LPTIM1_HSI16		2
-#define RCC_CCIPR_LPTIM1_LSE		3
-#define RCC_CCIPR_LPTIM1SEL_SHIFT	18
-
-#define RCC_CCIPR_I2Cx_PCLK		0
-#define RCC_CCIPR_I2Cx_SYS		1
-#define RCC_CCIPR_I2Cx_HSI16		2
-#define RCC_CCIPR_I2C3_SHIFT		16
-#define RCC_CCIPR_I2C2_SHIFT		14
-#define RCC_CCIPR_I2C1_SHIFT		12
-
-#define RCC_CCIPR_LPUART1_PCLK		0
-#define RCC_CCIPR_LPUART1_SYS		1
-#define RCC_CCIPR_LPUART1_HSI16		2
-#define RCC_CCIPR_LPUART1_LSE		3
-#define RCC_CCIPR_LPUART1SEL_SHIFT	10
-
-#define RCC_CCIPR_USARTx_PCLK		0
-#define RCC_CCIPR_USARTx_SYS		1
-#define RCC_CCIPR_USARTx_HSI16		2
-#define RCC_CCIPR_USARTx_LSE		3
-#define RCC_CCIPR_UARTx_PCLK		RCC_CCIPR_USARTx_PCLK
-#define RCC_CCIPR_UARTx_SYS		RCC_CCIPR_USARTx_SYS
-#define RCC_CCIPR_UARTx_HSI16		RCC_CCIPR_USARTx_HSI16
-#define RCC_CCIPR_UARTx_LSE		RCC_CCIPR_USARTx_LSE
-#define RCC_CCIPR_UART5_SHIFT		8
-#define RCC_CCIPR_UART4_SHIFT		6
-#define RCC_CCIPR_USART3_SHIFT		4
-#define RCC_CCIPR_USART2_SHIFT		2
-#define RCC_CCIPR_USART1_SHIFT		0
 /**@}*/
 
 /** defgroup rcc_ccipr2_values RCC_CCIPR2 -  Peripherals independent clock config register 2
  * @{
  */
-#define RCC_CCIPR2_SEL_MASK		0x3
 
-#define RCC_CCIPR2_QSPI_SYS		0
-#define RCC_CCIPR2_QSPI_HSI16		1
-#define RCC_CCIPR2_QSPI_PLLQ		2
-#define RCC_CCIPR2_QSPI_SHIFT		20
+#define RCC_CCIPR2_MASK	0x3
+ 
+enum rcc_ccipr2_shift {
+	
+	RCC_CCIPR2_QSPI_SHIFT			= 20,
+	RCC_CCIPR2_I2C4_SHIFT			= 0,
+};
 
-#define RCC_CCIPR2_I2C4_PCLK		0
-#define RCC_CCIPR2_I2C4_SYS		1
-#define RCC_CCIPR2_I2C4_HSI16		2
-#define RCC_CCIPR2_I2C4_SHIFT		0
+enum rcc_ccipr_qspi {
+	RCC_CCIPR_QSPI_SYSCLK			= 0x0,
+	RCC_CCIPR_QSPI_HSI16			= 0x1,
+	RCC_CCIPR_QSPI_PLL_Q			= 0x2,
+};
+ 
+
 /**@}*/
 
 /** @defgroup rcc_bdcr_values RCC_BDCR - Backup domain control register
@@ -755,6 +768,7 @@ enum rcc_clock_3v3 {
 	RCC_CLOCK_3V3_24MHZ,
 	RCC_CLOCK_3V3_48MHZ,
 	RCC_CLOCK_3V3_96MHZ,
+	RCC_CLOCK_3V3_144MHZ,
 	RCC_CLOCK_3V3_170MHZ,
 	RCC_CLOCK_3V3_END
 };
@@ -784,12 +798,12 @@ extern const struct rcc_clock_scale rcc_hse_12mhz_3v3[RCC_CLOCK_3V3_END];
 extern const struct rcc_clock_scale rcc_hse_16mhz_3v3[RCC_CLOCK_3V3_END];
 
 enum rcc_osc {
-	RCC_HSI48,
-	RCC_PLL,
-	RCC_HSE,
-	RCC_HSI16,
-	RCC_LSE,
-	RCC_LSI
+		RCC_HSI48,
+		RCC_PLL,
+		RCC_HSE,
+		RCC_HSI16,
+		RCC_LSE,
+		RCC_LSI
 };
 
 #define _REG_BIT(base, bit)		(((base) << 5) + (bit))
@@ -1055,7 +1069,24 @@ void rcc_set_main_pll(uint32_t pllsrc, uint32_t pllm, uint32_t plln,
 uint32_t rcc_system_clock_source(void);
 void rcc_clock_setup_pll(const struct rcc_clock_scale *clock);
 void __attribute__((deprecated("Use rcc_clock_setup_pll as direct replacement"))) rcc_clock_setup_hse_3v3(const struct rcc_clock_scale *clock);
-void rcc_set_clock48_source(uint32_t clksel);
+
+void set_ccipr_clock_source(enum rcc_ccipr_peripheral_shift peripheral_shift, uint8_t  clksel);
+
+void rcc_set_clock48_source(enum rcc_ccipr_clk48 clksel);
+void rcc_set_adc345_source(enum rcc_ccipr_adc clksel);
+void rcc_set_adc12_source(enum rcc_ccipr_adc clksel);
+void rcc_set_fdcan_source(enum rcc_ccipr_adc clksel);
+void rcc_set_i2s23_source(enum rcc_ccipr_adc clksel);
+void rcc_set_sai1_source(enum rcc_ccipr_adc clksel);
+void rcc_set_lptim1_source(enum rcc_ccipr_adc clksel);
+void rcc_set_i2c3_source(enum rcc_ccipr_adc clksel);
+void rcc_set_i2c2_source(enum rcc_ccipr_adc clksel);
+void rcc_set_i2c1_source(enum rcc_ccipr_adc clksel);
+void rcc_set_lpuart1_source(enum rcc_ccipr_adc clksel);
+void rcc_set_lpuart5_source(enum rcc_ccipr_adc clksel);
+
+
+
 
 END_DECLS
 
