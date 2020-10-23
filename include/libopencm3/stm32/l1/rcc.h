@@ -430,7 +430,7 @@
 #define RCC_CSR_RTCSEL_NONE			(0x0)
 #define RCC_CSR_RTCSEL_LSE			(0x1)
 #define RCC_CSR_RTCSEL_LSI			(0x2)
-#define RCC_CSR_RTCSEL_HSI			(0x3)
+#define RCC_CSR_RTCSEL_HSE			(0x3)
 #define RCC_CSR_LSECSSD				(1 << 12)
 #define RCC_CSR_LSECSSON			(1 << 11)
 #define RCC_CSR_LSEBYP				(1 << 10)
