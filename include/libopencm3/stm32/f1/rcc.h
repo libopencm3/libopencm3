@@ -773,14 +773,14 @@ void rcc_set_prediv1(uint32_t prediv);
 void rcc_set_prediv2(uint32_t prediv);
 void rcc_set_prediv1_source(uint32_t rccsrc);
 uint32_t rcc_system_clock_source(void);
-void rcc_clock_setup_in_hsi_out_64mhz(void);
-void rcc_clock_setup_in_hsi_out_48mhz(void);
-void rcc_clock_setup_in_hsi_out_24mhz(void);
-void rcc_clock_setup_in_hse_8mhz_out_24mhz(void);
-void rcc_clock_setup_in_hse_8mhz_out_72mhz(void);
-void rcc_clock_setup_in_hse_12mhz_out_72mhz(void);
-void rcc_clock_setup_in_hse_16mhz_out_72mhz(void);
-void rcc_clock_setup_in_hse_25mhz_out_72mhz(void);
+void rcc_clock_setup_in_hsi_out_64mhz(void) LIBOPENCM3_DEPRECATED("use rcc_clock_setup_pll(&rcc_hsi_configs[RCC_CLOCK_HSI_64MHZ])");
+void rcc_clock_setup_in_hsi_out_48mhz(void) LIBOPENCM3_DEPRECATED("use rcc_clock_setup_pll(&rcc_hsi_configs[RCC_CLOCK_HSI_48MHZ])");
+void rcc_clock_setup_in_hsi_out_24mhz(void) LIBOPENCM3_DEPRECATED("use rcc_clock_setup_pll(&rcc_hsi_configs[RCC_CLOCK_HSI_24MHZ])");
+void rcc_clock_setup_in_hse_8mhz_out_24mhz(void) LIBOPENCM3_DEPRECATED("use rcc_clock_setup_pll(&rcc_hse_configs[RCC_CLOCK_HSE8_24MHZ])");
+void rcc_clock_setup_in_hse_8mhz_out_72mhz(void) LIBOPENCM3_DEPRECATED("use rcc_clock_setup_pll(&rcc_hse_configs[RCC_CLOCK_HSE8_72MHZ])");
+void rcc_clock_setup_in_hse_12mhz_out_72mhz(void) LIBOPENCM3_DEPRECATED("use rcc_clock_setup_pll(&rcc_hse_configs[RCC_CLOCK_HSE12_72MHZ])");
+void rcc_clock_setup_in_hse_16mhz_out_72mhz(void) LIBOPENCM3_DEPRECATED("use rcc_clock_setup_pll(&rcc_hse_configs[RCC_CLOCK_HSE16_72MHZ])");
+void rcc_clock_setup_in_hse_25mhz_out_72mhz(void) LIBOPENCM3_DEPRECATED("use rcc_clock_setup_pll(&rcc_hse_configs[RCC_CLOCK_HSE25_72MHZ])");
 
 /**
  * Switch sysclock to PLL with the given parameters.
