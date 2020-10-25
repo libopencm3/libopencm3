@@ -704,6 +704,45 @@ enum rcc_periph_rst {
 
 #include <libopencm3/stm32/common/rcc_common_all.h>
 
+enum rcc_clock_hsi {
+	RCC_CLOCK_HSI_24MHZ,
+	RCC_CLOCK_HSI_48MHZ,
+	RCC_CLOCK_HSI_64MHZ,
+	RCC_CLOCK_HSI_END
+};
+
+enum rcc_clock_hse {
+	RCC_CLOCK_HSE12_72MHZ,
+	RCC_CLOCK_HSE16_72MHZ,
+	RCC_CLOCK_HSE25_72MHZ,
+	RCC_CLOCK_HSE8_24MHZ,
+	RCC_CLOCK_HSE8_72MHZ,
+	RCC_CLOCK_HSE_END
+};
+
+/* Union of all options for f100 through to f107 */
+struct rcc_clock_scale {
+	uint8_t pll_mul;
+	uint8_t pll_source;
+	uint8_t hpre;
+	uint8_t ppre1;
+	uint8_t ppre2;
+	uint8_t adcpre;
+	uint8_t flash_waitstates;
+	uint8_t prediv1; /* aka xtpre, only one bit on smaller parts */
+	uint8_t prediv1_source;
+	uint8_t prediv2;
+	uint8_t pll2_mul;
+	uint8_t pll3_mul;
+	uint8_t usbpre;
+	uint32_t ahb_frequency;
+	uint32_t apb1_frequency;
+	uint32_t apb2_frequency;
+};
+
+extern const struct rcc_clock_scale rcc_hsi_configs[RCC_CLOCK_HSI_END];
+extern const struct rcc_clock_scale rcc_hse_configs[RCC_CLOCK_HSE_END];
+
 BEGIN_DECLS
 
 void rcc_osc_ready_int_clear(enum rcc_osc osc);
@@ -742,6 +781,14 @@ void rcc_clock_setup_in_hse_8mhz_out_72mhz(void);
 void rcc_clock_setup_in_hse_12mhz_out_72mhz(void);
 void rcc_clock_setup_in_hse_16mhz_out_72mhz(void);
 void rcc_clock_setup_in_hse_25mhz_out_72mhz(void);
+
+/**
+ * Switch sysclock to PLL with the given parameters.
+ * This should be usable from any point in time, but only if you have used
+ * library functions to manage clocks.
+ * @param clock full struct with desired parameters
+ */
+void rcc_clock_setup_pll(const struct rcc_clock_scale *clock);
 void rcc_backupdomain_reset(void);
 
 END_DECLS
