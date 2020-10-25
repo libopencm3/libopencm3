@@ -212,8 +212,6 @@ static void usb_control_setup_write(usbd_device *usbd_dev,
 	} else {
 		usbd_dev->control_state.state = LAST_DATA_OUT;
 	}
-
-	usbd_ep_nak_set(usbd_dev, 0, 0);
 }
 
 /* Do not appear to belong to the API, so are omitted from docs */
@@ -225,8 +223,6 @@ void _usbd_control_setup(usbd_device *usbd_dev, uint8_t ea)
 	(void)ea;
 
 	usbd_dev->control_state.complete = NULL;
-
-	usbd_ep_nak_set(usbd_dev, 0, 1);
 
 	if (usbd_ep_read_packet(usbd_dev, 0, req, 8) != 8) {
 		stall_transaction(usbd_dev);
@@ -299,7 +295,6 @@ void _usbd_control_in(usbd_device *usbd_dev, uint8_t ea)
 		break;
 	case LAST_DATA_IN:
 		usbd_dev->control_state.state = STATUS_OUT;
-		usbd_ep_nak_set(usbd_dev, 0, 0);
 		break;
 	case STATUS_IN:
 		if (usbd_dev->control_state.complete) {

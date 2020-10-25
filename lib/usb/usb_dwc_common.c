@@ -393,6 +393,16 @@ void dwc_poll(usbd_device *usbd_dev)
 		if (usbd_dev->user_callback_ctr[ep][type]) {
 			usbd_dev->user_callback_ctr[ep][type] (usbd_dev, ep);
 		}
+		/* Cores with ID 0x2000 require to have NAK cleared early.
+		 * Otherwise they never reach the "OUT transfer completed"
+		 * / "SETUP transaction completed" state.
+		 * If NAK is cleared early on cores with ID 0x1200, they drop
+		 * data.
+		 */
+		if (REBASE(OTG_CID) >= OTG_CID_CNAK_EARLY) {
+			REBASE(OTG_DOEPCTL(ep)) |= usbd_dev->force_nak[ep] ?
+					OTG_DOEPCTL0_SNAK : OTG_DOEPCTL0_CNAK;
+		}
 
 		/* Discard unread packet data. */
 		for (i = 0; i < usbd_dev->rxbcnt; i += 4) {
