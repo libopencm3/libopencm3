@@ -9,7 +9,7 @@
  *
  * @author @htmlonly &copy; @endhtmlonly 2013 Frantisek Burian <BuFran@seznam.cz>
  *
- * @date 16 November 2020
+ * @date 1 September 2013
  *
  * LGPL License Terms @ref lgpl_license
  */
@@ -58,10 +58,7 @@
 #define ETH_MACVLANTR			MMIO32(ETHERNET_BASE + 0x1C)
 #define ETH_MACRWUFFR			MMIO32(ETHERNET_BASE + 0x28)
 #define ETH_MACPMTCSR			MMIO32(ETHERNET_BASE + 0x2C)
-/* Following registers not available on F1 */
-#if !defined(STM32F1)
-	#define ETH_MACDBGR			MMIO32(ETHERNET_BASE + 0x34)
-#endif
+#define ETH_MACDBGR			MMIO32(ETHERNET_BASE + 0x34) /* Not on STM32F1 */
 #define ETH_MACSR			MMIO32(ETHERNET_BASE + 0x38)
 #define ETH_MACIMR			MMIO32(ETHERNET_BASE + 0x3C)
 
@@ -93,11 +90,8 @@
 #define ETH_PTPTSAR			MMIO32(ETHERNET_BASE + 0x718)
 #define ETH_PTPTTHR			MMIO32(ETHERNET_BASE + 0x71C)
 #define ETH_PTPTTLR			MMIO32(ETHERNET_BASE + 0x720)
-/* Following registers not available on F1 */
-#if !defined(STM32F1)
-	#define ETH_PTPTSSR			MMIO32(ETHERNET_BASE + 0x728)
-	#define ETH_PTPPPSCR		MMIO32(ETHERNET_BASE + 0x72C)
-#endif
+#define ETH_PTPTSSR			MMIO32(ETHERNET_BASE + 0x728) /* Not on STM32F1 */
+#define ETH_PTPPPSCR		MMIO32(ETHERNET_BASE + 0x72C) /* Not on STM32F1 */
 
 /* Ethernet DMA registers */
 #define ETH_DMABMR			MMIO32(ETHERNET_BASE + 0x1000)
@@ -109,10 +103,7 @@
 #define ETH_DMAOMR			MMIO32(ETHERNET_BASE + 0x1018)
 #define ETH_DMAIER			MMIO32(ETHERNET_BASE + 0x101C)
 #define ETH_DMAMFBOCR			MMIO32(ETHERNET_BASE + 0x1020)
-/* Following registers not available on F1 */
-#if !defined(STM32F1)
-	#define ETH_DMARSWTR		MMIO32(ETHERNET_BASE + 0x1024)
-#endif
+#define ETH_DMARSWTR		MMIO32(ETHERNET_BASE + 0x1024) /* Not on STM32F1 */
 #define ETH_DMACHTDR			MMIO32(ETHERNET_BASE + 0x1048)
 #define ETH_DMACHRDR			MMIO32(ETHERNET_BASE + 0x104C)
 #define ETH_DMACHTBAR			MMIO32(ETHERNET_BASE + 0x1050)
@@ -163,10 +154,7 @@
 
 #define ETH_MACCR_JD			(1<<22)
 #define ETH_MACCR_WD			(1<<23)
-/* Following registers not available on F1 */
-#if !defined(STM32F1)
-	#define ETH_MACCR_CSTF			(1<<25)
-#endif
+#define ETH_MACCR_CSTF			(1<<25) /* Not on STM32F1 */
 
 /*---------------------------------------------------------------------------*/
 /* MACFFR -------------------------------------------------------------------*/
@@ -259,48 +247,47 @@
 /*---------------------------------------------------------------------------*/
 /* MACDBGR -------------------------------------------------------------------*/
 
-/* Following registers not available on F1 */
-#if !defined(STM32F1)
-	#define ETH_MACDBGR_MMRPEA		(1<<0)
-	#define ETH_MACDBGR_MSFRWCS		(3<<1)
-	#define ETH_MACDBGR_RFWRA		(1<<4)
+/* Not on STM32F1 */
+#define ETH_MACDBGR_MMRPEA		(1<<0)
+#define ETH_MACDBGR_MSFRWCS		(3<<1)
+#define ETH_MACDBGR_RFWRA		(1<<4)
 
-	#define ETH_MACDBGR_RFRCS_SHIFT		5
-	#define ETH_MACDBGR_RFRCS		(3<<ETH_MACDBGR_RFRCS_SHIFT)
-	#define ETH_MACDBGR_RFRCS_IDLE		(0<<ETH_MACDBGR_RFRCS_SHIFT)
-	#define ETH_MACDBGR_RFRCS_RDATA		(1<<ETH_MACDBGR_RFRCS_SHIFT)
-	#define ETH_MACDBGR_RFRCS_RSTAT		(2<<ETH_MACDBGR_RFRCS_SHIFT)
-	#define ETH_MACDBGR_RFRCS_FLUSH		(3<<ETH_MACDBGR_RFRCS_SHIFT)
+#define ETH_MACDBGR_RFRCS_SHIFT		5
+#define ETH_MACDBGR_RFRCS		(3<<ETH_MACDBGR_RFRCS_SHIFT)
+#define ETH_MACDBGR_RFRCS_IDLE		(0<<ETH_MACDBGR_RFRCS_SHIFT)
+#define ETH_MACDBGR_RFRCS_RDATA		(1<<ETH_MACDBGR_RFRCS_SHIFT)
+#define ETH_MACDBGR_RFRCS_RSTAT		(2<<ETH_MACDBGR_RFRCS_SHIFT)
+#define ETH_MACDBGR_RFRCS_FLUSH		(3<<ETH_MACDBGR_RFRCS_SHIFT)
 
-	#define ETH_MACDBGR_RFFL_SHIFT		8
-	#define ETH_MACDBGR_RFFL		(3<<ETH_MACDBGR_RFFL_SHIFT)
-	#define ETH_MACDBGR_RFFL_EMPTY		(0<<ETH_MACDBGR_RFFL_SHIFT)
-	#define ETH_MACDBGR_RFFL_BELOW		(1<<ETH_MACDBGR_RFFL_SHIFT)
-	#define ETH_MACDBGR_RFFL_ABOVE		(2<<ETH_MACDBGR_RFFL_SHIFT)
-	#define ETH_MACDBGR_RFFL_FULL		(3<<ETH_MACDBGR_RFFL_SHIFT)
+#define ETH_MACDBGR_RFFL_SHIFT		8
+#define ETH_MACDBGR_RFFL		(3<<ETH_MACDBGR_RFFL_SHIFT)
+#define ETH_MACDBGR_RFFL_EMPTY		(0<<ETH_MACDBGR_RFFL_SHIFT)
+#define ETH_MACDBGR_RFFL_BELOW		(1<<ETH_MACDBGR_RFFL_SHIFT)
+#define ETH_MACDBGR_RFFL_ABOVE		(2<<ETH_MACDBGR_RFFL_SHIFT)
+#define ETH_MACDBGR_RFFL_FULL		(3<<ETH_MACDBGR_RFFL_SHIFT)
 
-	#define ETH_MACDBGR_MMTEA		(1<<16)
+#define ETH_MACDBGR_MMTEA		(1<<16)
 
-	#define ETH_MACDBGR_MTFCS_SHIFT		17
-	#define ETH_MACDBGR_MTFCS		(3 << ETH_MACDBGR_MTFCS_SHIFT)
-	#define ETH_MACDBGR_MTFCS_IDLE		(0 << ETH_MACDBGR_MTFCS_SHIFT)
-	#define ETH_MACDBGR_MTFCS_WAIT		(1 << ETH_MACDBGR_MTFCS_SHIFT)
-	#define ETH_MACDBGR_MTFCS_PAUSE		(2 << ETH_MACDBGR_MTFCS_SHIFT)
-	#define ETH_MACDBGR_MTFCS_TRANSFER	(3 << ETH_MACDBGR_MTFCS_SHIFT)
+#define ETH_MACDBGR_MTFCS_SHIFT		17
+#define ETH_MACDBGR_MTFCS		(3 << ETH_MACDBGR_MTFCS_SHIFT)
+#define ETH_MACDBGR_MTFCS_IDLE		(0 << ETH_MACDBGR_MTFCS_SHIFT)
+#define ETH_MACDBGR_MTFCS_WAIT		(1 << ETH_MACDBGR_MTFCS_SHIFT)
+#define ETH_MACDBGR_MTFCS_PAUSE		(2 << ETH_MACDBGR_MTFCS_SHIFT)
+#define ETH_MACDBGR_MTFCS_TRANSFER	(3 << ETH_MACDBGR_MTFCS_SHIFT)
 
-	#define ETH_MACDBGR_MTP			(1<<19)
+#define ETH_MACDBGR_MTP			(1<<19)
 
-	#define ETH_MACDBGR_TFRS_SHIFT		20
-	#define ETH_MACDBGR_TFRS		(3<<ETH_MACDBGR_TFRS_SHIFT)
-	#define ETH_MACDBGR_TFRS_IDLE		(0<<ETH_MACDBGR_TFRS_SHIFT)
-	#define ETH_MACDBGR_TFRS_READ		(1<<ETH_MACDBGR_TFRS_SHIFT)
-	#define ETH_MACDBGR_TFRS_WAIT		(2<<ETH_MACDBGR_TFRS_SHIFT)
-	#define ETH_MACDBGR_TFRS_FLUSH		(3<<ETH_MACDBGR_TFRS_SHIFT)
+#define ETH_MACDBGR_TFRS_SHIFT		20
+#define ETH_MACDBGR_TFRS		(3<<ETH_MACDBGR_TFRS_SHIFT)
+#define ETH_MACDBGR_TFRS_IDLE		(0<<ETH_MACDBGR_TFRS_SHIFT)
+#define ETH_MACDBGR_TFRS_READ		(1<<ETH_MACDBGR_TFRS_SHIFT)
+#define ETH_MACDBGR_TFRS_WAIT		(2<<ETH_MACDBGR_TFRS_SHIFT)
+#define ETH_MACDBGR_TFRS_FLUSH		(3<<ETH_MACDBGR_TFRS_SHIFT)
 
-	#define ETH_MACDBGR_TFWA		(1<<22)
-	#define ETH_MACDBGR_TFNE		(1<<24)
-	#define ETH_MACDBGR_TFF			(1<<25)
-#endif
+#define ETH_MACDBGR_TFWA		(1<<22)
+#define ETH_MACDBGR_TFNE		(1<<24)
+#define ETH_MACDBGR_TFF			(1<<25)
+
 
 /*---------------------------------------------------------------------------*/
 /* MACSR --------------------------------------------------------------------*/
@@ -346,11 +333,9 @@
 #define ETH_MMCCR_CSR			(1<<1)
 #define ETH_MMCCR_ROR			(1<<2)
 #define ETH_MMCCR_MCF			(1<<3)
-/* Following registers not available on F1 */
-#if !defined(STM32F1)
-	#define ETH_MMCCR_MCP			(1<<4)
-	#define ETH_MMCCR_MCFHP			(1<<5)
-#endif
+#define ETH_MMCCR_MCP			(1<<4) /* Not on STM32F1 */
+#define ETH_MMCCR_MCFHP			(1<<5) /* Not on STM32F1 */
+
 
 /*---------------------------------------------------------------------------*/
 /* MMCRIR -------------------------------------------------------------------*/
@@ -390,26 +375,24 @@
 #define ETH_PTPTSCR_TSITE		(1<<4)
 #define ETH_PTPTSCR_TTSARU		(1<<5)
 
-/* Following registers not available on F1 */
-#if !defined(STM32F1)
-	#define ETH_PTPTSCR_TSSARFE		(1<<8)
-	#define ETH_PTPTSCR_TSSSR		(1<<9)
-	#define ETH_PTPTSCR_TSPTPPSV2E		(1<<10)
-	#define ETH_PTPTSCR_TSSPTPOEFE		(1<<11)
-	#define ETH_PTPTSCR_TSSIPV6FE		(1<<12)
-	#define ETH_PTPTSCR_TSSIPV4FE		(1<<13)
-	#define ETH_PTPTSCR_TSSEME		(1<<14)
-	#define ETH_PTPTSCR_TSSMRME		(1<<15)
+/* Not on STM32F1 */
+#define ETH_PTPTSCR_TSSARFE		(1<<8)
+#define ETH_PTPTSCR_TSSSR		(1<<9)
+#define ETH_PTPTSCR_TSPTPPSV2E		(1<<10)
+#define ETH_PTPTSCR_TSSPTPOEFE		(1<<11)
+#define ETH_PTPTSCR_TSSIPV6FE		(1<<12)
+#define ETH_PTPTSCR_TSSIPV4FE		(1<<13)
+#define ETH_PTPTSCR_TSSEME		(1<<14)
+#define ETH_PTPTSCR_TSSMRME		(1<<15)
 
-	#define ETH_PTPTSCR_TSCNT_SHIFT		16
-	#define ETH_PTPTSCR_TSCNT		(3 << ETH_PTPTSCR_TSCNT_SHIFT)
-	#define ETH_PTPTSCR_TSCNT_ORD		(0 << ETH_PTPTSCR_TSCNT_SHIFT)
-	#define ETH_PTPTSCR_TSCNT_BOUND		(1 << ETH_PTPTSCR_TSCNT_SHIFT)
-	#define ETH_PTPTSCR_TSCNT_ETETC		(2 << ETH_PTPTSCR_TSCNT_SHIFT)
-	#define ETH_PTPTSCR_TSCNT_PTPTC		(3 << ETH_PTPTSCR_TSCNT_SHIFT)
+#define ETH_PTPTSCR_TSCNT_SHIFT		16
+#define ETH_PTPTSCR_TSCNT		(3 << ETH_PTPTSCR_TSCNT_SHIFT)
+#define ETH_PTPTSCR_TSCNT_ORD		(0 << ETH_PTPTSCR_TSCNT_SHIFT)
+#define ETH_PTPTSCR_TSCNT_BOUND		(1 << ETH_PTPTSCR_TSCNT_SHIFT)
+#define ETH_PTPTSCR_TSCNT_ETETC		(2 << ETH_PTPTSCR_TSCNT_SHIFT)
+#define ETH_PTPTSCR_TSCNT_PTPTC		(3 << ETH_PTPTSCR_TSCNT_SHIFT)
 
-	#define ETH_PTPTSCR_TSPFFMAE		(1<<18)
-#endif
+#define ETH_PTPTSCR_TSPFFMAE		(1<<18)
 
 
 /*---------------------------------------------------------------------------*/
@@ -432,35 +415,33 @@
 /*---------------------------------------------------------------------------*/
 /* PTPTSSR ------------------------------------------------------------------*/
 
-/* Following registers not available on F1 */
-#if !defined(STM32F1)
-	#define ETH_PTPTSSR_TSSO		(1<<0)
-	#define ETH_PTPTSSR_TSTTR		(1<<1)
-#endif
+/* Not on STM32F1 */
+#define ETH_PTPTSSR_TSSO		(1<<0)
+#define ETH_PTPTSSR_TSTTR		(1<<1)
+
 
 /*---------------------------------------------------------------------------*/
 /* PTPPPSCR -----------------------------------------------------------------*/
 
-/* Following registers not available on F1 */
-#if !defined(STM32F1)
-	#define ETH_PTPPPSCR_PPSFREQ				(0x0F<<0)
-	#define ETH_PTPPPSCR_PPSFREQ_1HZ			(0x00<<0)
-	#define ETH_PTPPPSCR_PPSFREQ_2HZ			(0x01<<0)
-	#define ETH_PTPPPSCR_PPSFREQ_4HZ			(0x02<<0)
-	#define ETH_PTPPPSCR_PPSFREQ_8HZ			(0x03<<0)
-	#define ETH_PTPPPSCR_PPSFREQ_16HZ			(0x04<<0)
-	#define ETH_PTPPPSCR_PPSFREQ_32HZ			(0x05<<0)
-	#define ETH_PTPPPSCR_PPSFREQ_64HZ			(0x06<<0)
-	#define ETH_PTPPPSCR_PPSFREQ_128HZ			(0x07<<0)
-	#define ETH_PTPPPSCR_PPSFREQ_256HZ			(0x08<<0)
-	#define ETH_PTPPPSCR_PPSFREQ_512HZ			(0x09<<0)
-	#define ETH_PTPPPSCR_PPSFREQ_1024HZ			(0x0A<<0)
-	#define ETH_PTPPPSCR_PPSFREQ_2048HZ			(0x0B<<0)
-	#define ETH_PTPPPSCR_PPSFREQ_4096HZ			(0x0C<<0)
-	#define ETH_PTPPPSCR_PPSFREQ_8192HZ			(0x0D<<0)
-	#define ETH_PTPPPSCR_PPSFREQ_16384HZ		(0x0E<<0)
-	#define ETH_PTPPPSCR_PPSFREQ_32768HZ		(0x0F<<0)
-#endif
+/* Not on STM32F1 */
+#define ETH_PTPPPSCR_PPSFREQ				(0x0F<<0)
+#define ETH_PTPPPSCR_PPSFREQ_1HZ			(0x00<<0)
+#define ETH_PTPPPSCR_PPSFREQ_2HZ			(0x01<<0)
+#define ETH_PTPPPSCR_PPSFREQ_4HZ			(0x02<<0)
+#define ETH_PTPPPSCR_PPSFREQ_8HZ			(0x03<<0)
+#define ETH_PTPPPSCR_PPSFREQ_16HZ			(0x04<<0)
+#define ETH_PTPPPSCR_PPSFREQ_32HZ			(0x05<<0)
+#define ETH_PTPPPSCR_PPSFREQ_64HZ			(0x06<<0)
+#define ETH_PTPPPSCR_PPSFREQ_128HZ			(0x07<<0)
+#define ETH_PTPPPSCR_PPSFREQ_256HZ			(0x08<<0)
+#define ETH_PTPPPSCR_PPSFREQ_512HZ			(0x09<<0)
+#define ETH_PTPPPSCR_PPSFREQ_1024HZ			(0x0A<<0)
+#define ETH_PTPPPSCR_PPSFREQ_2048HZ			(0x0B<<0)
+#define ETH_PTPPPSCR_PPSFREQ_4096HZ			(0x0C<<0)
+#define ETH_PTPPPSCR_PPSFREQ_8192HZ			(0x0D<<0)
+#define ETH_PTPPPSCR_PPSFREQ_16384HZ		(0x0E<<0)
+#define ETH_PTPPPSCR_PPSFREQ_32768HZ		(0x0F<<0)
+
 
 /*---------------------------------------------------------------------------*/
 /* DMABMR -------------------------------------------------------------------*/
@@ -491,10 +472,7 @@
 #define ETH_DMABMR_USP			(1<<23)
 #define ETH_DMABMR_FPM			(1<<24)
 #define ETH_DMABMR_AAB			(1<<25)
-/* Following registers not available on F1 */
-#if !defined(STM32F1)
-	#define ETH_DMABMR_MB			(1<<26)
-#endif
+#define ETH_DMABMR_MB			(1<<26) /* Not on STM32F1 */
 
 /*---------------------------------------------------------------------------*/
 /* DMASR --------------------------------------------------------------------*/
@@ -605,10 +583,9 @@
 /*---------------------------------------------------------------------------*/
 /* DMARSWTR -----------------------------------------------------------------*/
 
-/* Following registers not available on F1 */
-#if !defined(STM32F1)
-	#define ETH_DMARSWTR_RSWTC		0xFF
-#endif
+/* Not on STM32F1 */
+#define ETH_DMARSWTR_RSWTC		0xFF
+
 
 /*---------------------------------------------------------------------------*/
 /*---------------------------------------------------------------------------*/
