@@ -1,4 +1,4 @@
-#!/usr/bin/python
+#!/usr/bin/env python2
 #
 # Compute and insert the vector table checksum required for booting the
 # LPC43xx and some other NXP ARM microcontrollers.
