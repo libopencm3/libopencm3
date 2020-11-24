@@ -1,4 +1,4 @@
-#!/usr/bin/env python
+#!/usr/bin/env python3
 
 import sys
 import yaml
@@ -18,8 +18,8 @@ def convert_file(fname):
         register = registers[register_name]
         fields = register['fields']
         if field_name in fields:
-            raise RuntimeError('Duplicate field name "%s" in register "%s"' %
-                    field_name, register_name)
+            raise RuntimeError('Duplicate field name "%s" in register "%s"'
+                               % (field_name, register_name))
         else:
             fields[field_name] = {
                 'lsb': int(lsb),

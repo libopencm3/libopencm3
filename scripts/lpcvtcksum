@@ -1,4 +1,4 @@
-#!/usr/bin/python
+#!/usr/bin/env python3
 #
 # Compute and insert the vector table checksum required for booting the
 # LPC43xx and some other NXP ARM microcontrollers.
@@ -29,12 +29,10 @@ rawvectors = binfile.read(32)
 vectors = list(struct.unpack('<IIIIIIII', rawvectors))
 
 # compute vector table checksum
-sum = 0
-for i in range(7):
-	sum += vectors[i]
-vectors[7] = 1 + (0xffffffff ^ (0xffffffff & sum))
+vectors_sum = sum(vectors[:7])
+vectors[7] = 1 + (0xffffffff ^ (0xffffffff & vectors_sum))
 
-print "computed vector table checksum: 0x%08x" % vectors[7]
+print("computed vector table checksum: 0x%08x" % vectors[7])
 
 rawremainder = binfile.read()
 remainder = list(struct.unpack('B' * len(rawremainder), rawremainder))

@@ -55,12 +55,12 @@ Building requires Python (some code is generated).
  Download and install:
 
  - msys - http://sourceforge.net/projects/mingw/files/MSYS/Base/msys-core/msys-1.0.11/MSYS-1.0.11.exe
- - Python - http://www.python.org/ftp/python/2.7/python-2.7.msi (any 2.7 release)
+ - Python - https://www.python.org/downloads/windows/ (any release)
  - arm-none-eabi/arm-elf toolchain (for example this one https://launchpad.net/gcc-arm-embedded)
 
-Run msys shell and set the path without standard Windows paths, so Windows programs such as 'find' won't interfere:
+Run msys shell and set the path without standard Windows paths (adjusting to your version of Python), so Windows programs such as 'find' won't interfere:
 
-    export PATH="/c//Python27:/c/ARMToolchain/bin:/usr/local/bin:/usr/bin:/bin"
+    export PATH="/c//Program Files/Python 3.9:/c/ARMToolchain/bin:/usr/local/bin:/usr/bin:/bin"
 
 After that you can navigate to the folder where you've extracted libopencm3 and build it.
 

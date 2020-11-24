@@ -1,4 +1,4 @@
-#!/usr/bin/env python
+#!/usr/bin/env python3
 
 import sys
 import yaml
@@ -7,7 +7,7 @@ registers = yaml.load(open(sys.argv[1], 'r'))
 
 for register_name, register in registers.iteritems():
     print('/* --- %s values %s */' % (register_name, '-' * (50 - len(register_name))))
-    print
+    print()
     fields = register['fields']
     #for field_name, field in sorted(fields.items(), lambda x, y: cmp(x[1]['lsb'], y[1]['lsb'])):
     for field_name, field in fields.items():
@@ -22,4 +22,4 @@ for register_name, register in registers.iteritems():
         print('#define %s_%s(x) ((x) << %s_%s_SHIFT)' % (
             register_name, field_name, register_name, field_name,
         ))
-        print
+        print()

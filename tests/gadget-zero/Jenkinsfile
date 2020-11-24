@@ -64,7 +64,7 @@ pipeline {
         		. .env3/bin/activate
         		cd tests/gadget-zero
         		rm -rf tests
-        		python test_gadget0.py -X
+        		python3 test_gadget0.py -X
         		for x in tests/*; do TT=$(basename \$x); sed -i "s/testcase\\ classname=\\"/testcase\\ classname=\\"\${TT}./g" \$x/TEST-*; done
         		'''
             }

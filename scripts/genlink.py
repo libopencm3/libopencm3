@@ -1,4 +1,4 @@
-#!/usr/bin/env python
+#!/usr/bin/env python3
 # This python program generates parameters for the linker script generator feature.
 
 # This file is part of the libopencm3 project.
@@ -17,7 +17,6 @@
 #
 # You should have received a copy of the GNU Lesser General Public License
 # along with this library. If not, see <http://www.gnu.org/licenses/>.
-from __future__ import print_function
 import fnmatch
 import sys
 import re
