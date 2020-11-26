@@ -29,12 +29,19 @@ code to a microcontroller can be done using the OpenOCD ARM JTAG software.
 Status and API
 --------------
 
-The libopencm3 project is currently work in progress. Not all subsystems
-of the microcontrollers are supported, yet.
+The libopencm3 project is (and presumably, always will be) a work in progress.
+Not all subsystems of all microcontrollers are supported, yet, though some parts
+have more complete support than others.
 
-**IMPORTANT**: The API of the library is _NOT_ yet considered stable! Please do
-           not rely on it, yet! Changes to function names, macro names, etc.
-           can happen at any time without prior notice!
+Prior to version 0.8.0, the api was largely in flux.  Attempts were made to provide
+backwards compatibility, but this was not always considered critical.
+
+From 0.8.0 to 1.0, we'll atempt to follow semver, but **EXPECT CHANGES**, as we
+attempt to clear up old APIs and remove deprecated functions.  The 0.8.0 tag was
+placed to provide the "old stable" point before all the new code started landing.
+
+From 1.0, expect to follow semver, with functions (and defines!) being deprecated for
+a release before being removed.
 
 _TIP_: Include this repository as a Git submodule in your project to make sure
      your users get the right version of the library to compile your project.
