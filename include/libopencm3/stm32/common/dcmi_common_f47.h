@@ -47,7 +47,6 @@
 #define DCMI_CR				MMIO32(DCMI_BASE + 0x0U)
 /**
  * @defgroup dcmi_cr_values DCMI_CR Values
- * @ingroup dcmi_defines
  * @{
  */
 #define DCMI_CR_EN			(1 << 14)
@@ -71,7 +70,6 @@
 #define DCMI_SR				MMIO32(DCMI_BASE + 0x04U)
 /**
  * @defgroup dcmi_sr_values DCMI_SR Values
- * @ingroup dcmi_defines
  * @{
  */
 #define DCMI_SR_FNE			(1 << 2)
@@ -89,7 +87,6 @@
 #define DCMI_RIS			MMIO32(DCMI_BASE + 0x08U)
 /**
  * @defgroup dcmi_ris_values DCMI_RIS Values
- * @ingroup dcmi_defines
  * @{
  */
 #define DCMI_RIS_LINE			(1 << 4)
@@ -108,7 +105,6 @@
 #define DCMI_IER			MMIO32(DCMI_BASE + 0x0CU)
 /**
  * @defgroup dcmi_ier_values DCMI_IER Values
- * @ingroup dcmi_defines
  * @{
  */
 #define DCMI_IER_LINE			(1 << 4)
@@ -129,7 +125,6 @@
 #define DCMI_MIS			MMIO32(DCMI_BASE + 0x10U)
 /**
  * @defgroup dcmi_mis_values DCMI_MIS Values
- * @ingroup dcmi_defines
  * @{
  */
 #define DCMI_MIS_LINE			(1 << 4)
@@ -148,7 +143,6 @@
 #define DCMI_ICR			MMIO32(DCMI_BASE + 0x14U)
 /**
  * @defgroup dcmi_icr_values DCMI_ICR Values
- * @ingroup dcmi_defines
  * @{
  */
 #define DCMI_ICR_LINE			(1 << 4)
@@ -164,7 +158,6 @@
 #define DCMI_ESCR			MMIO32(DCMI_BASE + 0x18U)
 /**
  * @defgroup dcmi_escr_values DCMI_ESCR Values
- * @ingroup dcmi_defines
  * @{
  */
 #define DCMI_ESCR_FEC_SHIFT		24
@@ -184,7 +177,6 @@
 #define DCMI_ESUR			MMIO32(DCMI_BASE + 0x1CU)
 /**
  * @defgroup dcmi_esur_values DCMI_ESUR Values
- * @ingroup dcmi_defines
  * @{
  */
 #define DCMI_ESUR_FEU_SHIFT		24
@@ -203,7 +195,6 @@
 #define DCMI_CWSTRT			MMIO32(DCMI_BASE + 0x20U)
 /**
  * @defgroup dcmi_cwstrt_values DCMI_CWSTRT Values
- * @ingroup dcmi_defines
  * @{
  */
 #define DCMI_CWSTRT_VST_SHIFT		16
@@ -218,7 +209,6 @@
 #define DCMI_CWSIZE			MMIO32(DCMI_BASE + 0x24U)
 /**
  * @defgroup dcmi_cwsize_values DCMI_CWSIZE Values
- * @ingroup dcmi_defines
  * @{
  */
 #define DCMI_CWSIZE_VLINE_SHIFT		16
