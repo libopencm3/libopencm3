@@ -40,6 +40,11 @@ From 0.8.0 to 1.0, we'll atempt to follow semver, but **EXPECT CHANGES**, as we
 attempt to clear up old APIs and remove deprecated functions.  The 0.8.0 tag was
 placed to provide the "old stable" point before all the new code started landing.
 
+_preview_ code often lands in the "wildwest-N" branches that appear and disappear
+in the repository.  Pull requests marked as "merged-dev" will be in this branch,
+and will be closed when they merge to master.  This is useful for bigger
+interdependent patch sets, and also allows review of merge conflicts in public.
+
 From 1.0, expect to follow semver, with functions (and defines!) being deprecated for
 a release before being removed.
 
