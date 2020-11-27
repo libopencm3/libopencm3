@@ -13,7 +13,6 @@
 
 
 /*
- * STM32F7 DCMI Defines
  * Copyright (C) 2020, Smolyaninov Nikolay <smolin35@gmail.org>
  *
  * This file is part of the libopencm3 project.

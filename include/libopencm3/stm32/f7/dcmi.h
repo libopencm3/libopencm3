@@ -13,7 +13,6 @@
 
 
 /*
- * STM32F7 DCMI Defines
  * Copyright (C) 2020, Smolyaninov Nikolay <smolin35@gmail.org>
  *
  * This file is part of the libopencm3 project.
@@ -37,8 +36,6 @@
 #define LIBOPENCM3_DCMI_H
 
 #include <libopencm3/stm32/common/dcmi_common_f47.h>
-
-/**@{*/
 
 /**
  * @defgroup dcmi_cr_values DCMI_CR Values

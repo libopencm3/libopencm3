@@ -34,15 +34,12 @@
  * along with this library.  If not, see <http://www.gnu.org/licenses/>.
  */
 
-/**@{*/
-/** @cond */
-#ifndef LIBOPENCM3_STM32_COMMON_DCMI_COMMON_F47_H_
-/** @endcond */
-#define LIBOPENCM3_STM32_COMMON_DCMI_COMMON_F47_H_
-
+#pragma once
 
 #include <libopencm3/cm3/common.h>
 #include <libopencm3/stm32/memorymap.h>
+
+/**@{*/
 
 /**
  * DCMI control register 1
@@ -239,8 +236,4 @@
  */
 #define DCMI_DR				MMIO32(DCMI_BASE + 0x28U)
 
-/** @cond */
-#endif /* LIBOPENCM3_STM32_COMMON_DCMI_COMMON_F47_H_ */
-/** @endcond */
 /**@}*/
-
