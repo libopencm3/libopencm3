@@ -2,6 +2,10 @@
 # Karl Palsson <karlp@tweak.net.au> Sept 2017
 # Parse .d files for a given target, and generate a doxygen config file 
 # stub that is to be "@INCLUDE = <xxx>" into a doxygen template file.
+[ $# -eq 2 ] || {
+	printf "Usage: $0 <libdir> <outputdir>\n"
+	exit 1
+}
 
 DDIR=$1
 ODIR=$2
