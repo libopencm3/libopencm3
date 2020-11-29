@@ -29,7 +29,12 @@
 #define LIBOPENCM3_EXTI_COMMON_ALL_H
 /**@{*/
 
+
 /* EXTI number definitions */
+
+/** @defgroup exti_values Extended interrupts number values
+@ingroup exti_defines
+@{*/
 #define EXTI0				(1 << 0)
 #define EXTI1				(1 << 1)
 #define EXTI2				(1 << 2)
@@ -69,22 +74,38 @@
 #define EXTI35				(1 << 3)
 #define EXTI36				(1 << 4)
 #define EXTI37				(1 << 5)
+#define EXTI40				(1 << 8)
+#define EXTI41				(1 << 9)
+#define EXTI42				(1 << 10)
+#define EXTI43				(1 << 11)
+/**@}*/
+
 
 /* Trigger types */
+
+/** @defgroup exti_trigger_values Extended interrupts trigger values
+@ingroup exti_defines
+@{*/
 enum exti_trigger_type {
 	EXTI_TRIGGER_RISING,
 	EXTI_TRIGGER_FALLING,
 	EXTI_TRIGGER_BOTH,
 };
+/**@}*/
 
 BEGIN_DECLS
 
 void exti_set_trigger(uint32_t extis, enum exti_trigger_type trig);
+void exti_set_trigger2(uint32_t extis, enum exti_trigger_type trig);
 void exti_enable_request(uint32_t extis);
+void exti_enable_request2(uint32_t extis);
 void exti_disable_request(uint32_t extis);
+void exti_disable_request2(uint32_t extis);
 void exti_reset_request(uint32_t extis);
+void exti_reset_request2(uint32_t extis);
 void exti_select_source(uint32_t exti, uint32_t gpioport);
 uint32_t exti_get_flag_status(uint32_t exti);
+uint32_t exti_get_flag_status2(uint32_t exti);
 
 END_DECLS
 /**@}*/

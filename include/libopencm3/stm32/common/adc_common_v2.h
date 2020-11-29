@@ -150,9 +150,6 @@ specific memorymap.h header before including this header file.*/
 #define ADC_CFGR1_EXTEN_BOTH_EDGES	(0x3 << 10)
 /**@}*/
 
-/** ALIGN: Data alignment */
-#define ADC_CFGR1_ALIGN		(1 << 5)
-
 #define ADC_CFGR1_RES_MASK	(0x3 << 3)
 /** @defgroup adc_cfgr1_res RES: Data resolution
 @{*/

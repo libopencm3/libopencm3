@@ -49,6 +49,9 @@ specific memorymap.h header before including this header file.*/
 #ifdef I2C4_BASE
 #define I2C4				I2C4_BASE
 #endif
+#ifdef I2C5_BASE
+#define I2C5				I2C5_BASE
+#endif
 /**@}*/
 
 /* --- I2C registers ------------------------------------------------------- */
@@ -225,6 +228,7 @@ specific memorymap.h header before including this header file.*/
 /* --- I2Cx_OAR1 values ---------------------------------------------------- */
 
 /* OA1EN: Own Address 1 enable */
+#define I2C_OAR1_OA1EN				(1	 << 15)
 #define I2C_OAR1_OA1EN_DISABLE		(0x0 << 15)
 #define I2C_OAR1_OA1EN_ENABLE		(0x1 << 15)
 
@@ -444,7 +448,7 @@ void i2c_enable_rxdma(uint32_t i2c);
 void i2c_disable_rxdma(uint32_t i2c);
 void i2c_enable_txdma(uint32_t i2c);
 void i2c_disable_txdma(uint32_t i2c);
-void i2c_transfer7(uint32_t i2c, uint8_t addr, uint8_t *w, size_t wn, uint8_t *r, size_t rn);
+uint8_t i2c_transfer7(uint32_t i2c, uint8_t addr, uint8_t *w, size_t wn, uint8_t *r, size_t rn);
 void i2c_set_speed(uint32_t i2c, enum i2c_speeds speed, uint32_t clock_megahz);
 
 END_DECLS

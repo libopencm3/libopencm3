@@ -194,6 +194,21 @@
 #define UART5_TDR			USART_TDR(UART5_BASE)
 #endif
 
+/** USART prescaler register (USART_PRESC) */
+#define USART_PRESC(usart_base)		MMIO32((usart_base) + 0x2C)
+#define USART1_PRESC			USART_PRESC(USART1_BASE)
+#define USART2_PRESC			USART_PRESC(USART2_BASE)
+#define USART3_PRESC			USART_PRESC(USART3_BASE)
+#if defined(USART4_BASE)
+#define USART4_PRESC			USART_PRESC(USART4_BASE)
+#endif
+#if defined(UART4_BASE)
+#define UART4_PRESC			USART_PRESC(UART4_BASE)
+#endif
+#if defined(UART5_BASE)
+#define UART5_PRESC			USART_PRESC(UART5_BASE)
+#endif
+
 /**@}*/
 
 /** @defgroup usart_convenience_flags U(S)ART convenience Flags
@@ -315,6 +330,19 @@
 #define USART_CR2_ABRMOD_FRAME_0x55	(0x3 << USART_CR2_ABRMOD_SHIFT)
 /**@}*/
 
+#define USART_CR2_STOP_MASK	3
+#define USART_CR2_STOP_SHIFT	12
+/** ABRMOD[1:0]: Auto baud rate mode
+ * @defgroup usart_cr2_abrmod Auto baud rate mode
+ * @ingroup usart_defines
+ * @{
+ */
+#define USART_CR2_STOP_1BIT	(0x0 << USART_CR2_STOP_SHIFT)
+#define USART_CR2_STOP_05BIT	(0x1 << USART_CR2_STOP_SHIFT)
+#define USART_CR2_STOP_2BIT	(0x2 << USART_CR2_STOP_SHIFT)
+#define USART_CR2_STOP_15BIT	(0x3 << USART_CR2_STOP_SHIFT)
+/**@}*/
+
 /** RTOEN: Receiver timeout enable */
 #define USART_CR2_RTOEN			(1 << 23)
 
@@ -360,12 +388,19 @@
 /** ADDM7:7-bit Address Detection/4-bit Address Detection */
 #define USART_CR2_ADDM7			(1 << 4)
 
+/** DIS_NSS: When the DIS_NSS bit is set, the NSS pin input is ignored */
+#define USART_CR2_DIS_NSS			(1 << 3)
+
+/** SLVEN: Synchronous Slave mode enable */
+#define USART_CR2_DIS_SLVEN			(1 << 0)
+
 /**@}*/
 
 /*------------------------------------------------*/
 /** @defgroup usart_cr3_values USART_CR3 Values
 @ingroup usart_defines
 @{*/
+
 /** WUFIE: Wakeup from Stop mode interrupt enable */
 #define USART_CR3_WUFIE			(1 << 22)
 
@@ -488,6 +523,7 @@
  * @{
  */
 
+
 /** REACK: Receive enable acknowledge flag */
 #define USART_ISR_REACK		            (1 << 22)
 
@@ -568,6 +604,9 @@
 /** CMCF: Character match clear flag */
 #define USART_ICR_CMCF			    (1 << 17)
 
+/** Bit 13 UDRCF:SPI slave underrun clear flag */
+#define USART_ICR_UDRCF			    (1 << 13)
+
 /** EOBCF: End of timeout clear flag */
 #define USART_ICR_EOBCF			    (1 << 12)
 
@@ -579,6 +618,9 @@
 
 /** LBDCF: LIN break detection clear flag */
 #define USART_ICR_LBDCF			    (1 << 8)
+
+/** TCBGTCF: Transmission complete before Guard time clear flag */
+#define USART_ICR_TCBGTCF		    (1 << 7)
 
 /** TCCF: Transmission complete clear flag */
 #define USART_ICR_TCCF			    (1 << 6)

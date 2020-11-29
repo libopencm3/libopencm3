@@ -41,8 +41,35 @@
 	#define EXTICR_SELECTION_REG(x)	SYSCFG_EXTICR(x)
 #endif
 
+
+/*---------------------------------------------------------------------------*/
+/** @brief Set trigger  [31:0] extended interrupts.
+
+Set trigger values   extended [31:0] interrupts
+
+@param[in] extis extended interrupt number [31:0]  @ref exti_values.
+@param[in] trig extended interrupt front type @ref exti_trigger_values.
+*/
+
 void exti_set_trigger(uint32_t extis, enum exti_trigger_type trig)
 {
+
+#if defined(EXTI_RTSR1) && defined(EXTI_FTSR1)
+	switch (trig) {
+	case EXTI_TRIGGER_RISING:
+		EXTI_RTSR1 |= extis;
+		EXTI_FTSR1 &= ~extis;
+		break;
+	case EXTI_TRIGGER_FALLING:
+		EXTI_RTSR1 &= ~extis;
+		EXTI_FTSR1 |= extis;
+		break;
+	case EXTI_TRIGGER_BOTH:
+		EXTI_RTSR1 |= extis;
+		EXTI_FTSR1 |= extis;
+		break;
+	}
+#else
 	switch (trig) {
 	case EXTI_TRIGGER_RISING:
 		EXTI_RTSR |= extis;
@@ -57,58 +84,256 @@ void exti_set_trigger(uint32_t extis, enum exti_trigger_type trig)
 		EXTI_FTSR |= extis;
 		break;
 	}
+#endif
+	
 }
+
+
+/*---------------------------------------------------------------------------*/
+/** @brief Set trigger for [63:32] extended interrupts.
+
+Set trigger values  extended [63:32] interrupts
+
+@param[in] extis extended interrupt number [63:32]  @ref exti_values.
+@param[in] trig extended interrupt front type @ref exti_trigger_values.
+*/
+
+void exti_set_trigger2(uint32_t extis, enum exti_trigger_type trig)
+{
+	
+#if defined(EXTI_RTSR2) && defined(EXTI_FTSR2)
+	switch (trig) {
+	case EXTI_TRIGGER_RISING:
+		EXTI_RTSR2 |= extis;
+		EXTI_FTSR2 &= ~extis;
+		break;
+	case EXTI_TRIGGER_FALLING:
+		EXTI_RTSR2 &= ~extis;
+		EXTI_FTSR2 |= extis;
+		break;
+	case EXTI_TRIGGER_BOTH:
+		EXTI_RTSR2 |= extis;
+		EXTI_FTSR2 |= extis;
+		break;
+	}
+#else
+	exti_set_trigger(extis, trig);
+#endif
+
+}
+
+
+
+/*---------------------------------------------------------------------------*/
+/** @brief Enable request [31:0] extended interrupts.
+
+Enable request  extended [31:0] interrupts (unmask Interrupt and Event request from Line x [31:0] )
+
+@param[in] extis extended interrupt number [31:0]  @ref exti_values.
+*/
 
 void exti_enable_request(uint32_t extis)
 {
+	
+#if defined(EXTI_IMR1) && defined(EXTI_EMR1)
+	/* Enable interrupts. */
+	EXTI_IMR1 |= extis;
+
+	/* Enable events. */
+	EXTI_EMR1 |= extis;
+#else
 	/* Enable interrupts. */
 	EXTI_IMR |= extis;
 
 	/* Enable events. */
 	EXTI_EMR |= extis;
+#endif
+	
 }
+
+
+
+/*---------------------------------------------------------------------------*/
+/** @brief Enable request [63:32] extended interrupts.
+
+Enable request  extended [63:32] interrupts (unmask Interrupt and Event request from Line x [63:32] )
+
+@param[in] extis extended interrupt number [63:32]  @ref exti_values.
+*/
+
+void exti_enable_request2(uint32_t extis)
+{
+	
+#if defined(EXTI_IMR2) && defined(EXTI_EMR2)
+	/* Enable interrupts. */
+	EXTI_IMR2 |= extis;
+
+	/* Enable events. */
+	EXTI_EMR2 |= extis;
+#else
+	exti_enable_request(extis);
+#endif
+	
+}
+
+
+
+
+/*---------------------------------------------------------------------------*/
+/** @brief Disable request [31:0] extended interrupts.
+
+Disable request  extended [31:0] interrupts (unmask Interrupt request from Line x [31:0] )
+
+@param[in] extis extended interrupt number [31:0]  @ref exti_values.
+*/
 
 void exti_disable_request(uint32_t extis)
 {
+	
+#if defined(EXTI_IMR1) && defined(EXTI_EMR1)
+	/* Disable interrupts. */
+	EXTI_IMR1 &= ~extis;
+
+	/* Disable events. */
+	EXTI_EMR1 &= ~extis;
+#else
 	/* Disable interrupts. */
 	EXTI_IMR &= ~extis;
 
 	/* Disable events. */
 	EXTI_EMR &= ~extis;
+#endif
 }
 
-/*
- * Reset the interrupt request by writing a 1 to the corresponding
- * pending bit register.
- */
+
+
+/*---------------------------------------------------------------------------*/
+/** @brief Disable request [63:32] extended interrupts.
+
+Disable request  extended [63:32] interrupts (unmask Interrupt request from Line x [63:32] )
+
+@param[in] extis extended interrupt number [63:32]  @ref exti_values.
+*/
+
+void exti_disable_request2(uint32_t extis)
+{
+	
+#if defined(EXTI_IMR2) && defined(EXTI_EMR2)
+	/* Disable interrupts. */
+	EXTI_IMR2 &= ~extis;
+
+	/* Disable events. */
+	EXTI_EMR2 &= ~extis;
+#else
+	exti_disable_request(extis);
+#endif 
+
+}
+
+
+
+/*---------------------------------------------------------------------------*/
+/** @brief Reset the interrupt request [31:0] extended interrupts.
+
+Reset the interrupt request by writing a 1 to the corresponding pending bit register.
+
+@param[in] extis extended interrupt number [31:0]  @ref exti_values.
+*/ 
+ 
 void exti_reset_request(uint32_t extis)
 {
 #if defined(EXTI_RPR1) && defined(EXTI_FPR1)
 	EXTI_RPR1 = extis;
 	EXTI_FPR1 = extis;
 #else
-	EXTI_PR = extis;
+
+	#if defined(EXTI_PR1) 
+		EXTI_PR1 = extis;
+	#else
+		EXTI_PR = extis;
+	#endif
+	
 #endif
 }
 
-/*
- * Check the flag of a given EXTI interrupt.
- * */
+
+
+/*---------------------------------------------------------------------------*/
+/** @brief Reset the interrupt request [63:32] extended interrupts.
+
+Reset the interrupt request by writing a 1 to the corresponding pending bit register.
+
+@param[in] extis extended interrupt number [63:32]  @ref exti_values.
+*/ 
+ 
+void exti_reset_request2(uint32_t extis)
+{
+
+#if defined(EXTI_PR2) 
+	EXTI_PR2 = extis;
+#else
+	exti_reset_request(extis);
+#endif
+
+}
+
+
+
+/*---------------------------------------------------------------------------*/
+/** @brief Check the flag of a given [31:0] extended interrupts.
+
+Check the flag of a given EXTI interrupt.
+
+@param[in] extis extended interrupt number [31:0]  @ref exti_values.
+*/  
+ 
 uint32_t exti_get_flag_status(uint32_t exti)
 {
 #if defined(EXTI_RPR1) && defined(EXTI_FPR1)
 	return (EXTI_RPR1 & exti) | (EXTI_FPR1 & exti);
 #else
-	return EXTI_PR & exti;
+	#if defined(EXTI_PR1)
+		return EXTI_PR1 & exti;
+	#else
+		return EXTI_PR & exti;
+	#endif
 #endif
 }
 
-/*
- * Remap an external interrupt line to the corresponding pin on the
- * specified GPIO port.
- *
- * TODO: This could be rewritten in fewer lines of code.
- */
+
+
+/*---------------------------------------------------------------------------*/
+/** @brief Check the flag of a given [63:32] extended interrupts.
+
+Check the flag of a given EXTI interrupt.
+
+@param[in] extis extended interrupt number [63:32]  @ref exti_values.
+*/  
+ 
+uint32_t exti_get_flag_status2(uint32_t exti)
+{
+
+#if defined(EXTI_PR2)
+	return EXTI_PR2 & exti;
+#else
+	return exti_get_flag_status(exti);
+#endif
+
+}
+
+
+ 
+/*---------------------------------------------------------------------------*/
+/** @brief Select extended interrupts source.
+
+Remap an external interrupt line to the corresponding pin on the specified GPIO port.
+
+TODO: This could be rewritten in fewer lines of code.
+
+@param[in] extis extended interrupt number  @ref exti_values.
+@param[in] gpioport gpio extended interrupt port  @ref gpio_port_id.
+*/  
+  
 void exti_select_source(uint32_t exti, uint32_t gpioport)
 {
 	uint32_t line;

@@ -35,6 +35,8 @@
 #       include <libopencm3/stm32/l1/st_usbfs.h>
 #elif defined(STM32L4)
 #       include <libopencm3/stm32/l4/st_usbfs.h>
+#elif defined(STM32G4)
+#       include <libopencm3/stm32/g4/st_usbfs.h>
 #else
 #       error "STM32 family not defined or not supported."
 #endif
