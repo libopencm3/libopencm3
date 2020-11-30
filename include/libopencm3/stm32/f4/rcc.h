@@ -780,7 +780,17 @@ struct rcc_clock_scale {
 	uint8_t pllq;
 	uint8_t pllr;
 	uint8_t pll_source;
-	uint32_t flash_config;
+	union {
+		uint32_t flash_config __attribute((deprecated));
+		struct {
+			uint32_t flash_waitstates:3;
+			uint32_t :6;
+			uint32_t icache_enable:1;
+			uint32_t dcache_enable:1;
+			uint32_t icache_reset:1;
+			uint32_t dcache_reset:1;
+		};
+	};
 	uint8_t hpre;
 	uint8_t ppre1;
 	uint8_t ppre2;

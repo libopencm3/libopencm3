@@ -61,8 +61,9 @@ const struct rcc_clock_scale rcc_hsi_configs[RCC_CLOCK_3V3_END] = {
 		.ppre1 = RCC_CFGR_PPRE_DIV_2,
 		.ppre2 = RCC_CFGR_PPRE_DIV_NONE,
 		.voltage_scale = PWR_SCALE1,
-		.flash_config = FLASH_ACR_DCEN | FLASH_ACR_ICEN |
-				FLASH_ACR_LATENCY_2WS,
+		.flash_waitstates = FLASH_ACR_LATENCY_2WS,
+		.dcache_enable = 1,
+		.icache_enable = 1,
 		.ahb_frequency  = 84000000,
 		.apb1_frequency = 42000000,
 		.apb2_frequency = 84000000,
@@ -78,8 +79,9 @@ const struct rcc_clock_scale rcc_hsi_configs[RCC_CLOCK_3V3_END] = {
 		.ppre1 = RCC_CFGR_PPRE_DIV_4,
 		.ppre2 = RCC_CFGR_PPRE_DIV_2,
 		.voltage_scale = PWR_SCALE1,
-		.flash_config = FLASH_ACR_DCEN | FLASH_ACR_ICEN |
-				FLASH_ACR_LATENCY_5WS,
+		.flash_waitstates = FLASH_ACR_LATENCY_5WS,
+		.dcache_enable = 1,
+		.icache_enable = 1,
 		.ahb_frequency  = 168000000,
 		.apb1_frequency = 42000000,
 		.apb2_frequency = 84000000,
@@ -95,8 +97,9 @@ const struct rcc_clock_scale rcc_hsi_configs[RCC_CLOCK_3V3_END] = {
 		.ppre1 = RCC_CFGR_PPRE_DIV_4,
 		.ppre2 = RCC_CFGR_PPRE_DIV_2,
 		.voltage_scale = PWR_SCALE1,
-		.flash_config = FLASH_ACR_DCEN | FLASH_ACR_ICEN |
-				FLASH_ACR_LATENCY_5WS,
+		.flash_waitstates = FLASH_ACR_LATENCY_5WS,
+		.dcache_enable = 1,
+		.icache_enable = 1,
 		.ahb_frequency  = 180000000,
 		.apb1_frequency = 45000000,
 		.apb2_frequency = 90000000,
@@ -115,8 +118,9 @@ const struct rcc_clock_scale rcc_hse_8mhz_3v3[RCC_CLOCK_3V3_END] = {
 		.ppre1 = RCC_CFGR_PPRE_DIV_2,
 		.ppre2 = RCC_CFGR_PPRE_DIV_NONE,
 		.voltage_scale = PWR_SCALE1,
-		.flash_config = FLASH_ACR_DCEN | FLASH_ACR_ICEN |
-				FLASH_ACR_LATENCY_2WS,
+		.flash_waitstates = FLASH_ACR_LATENCY_2WS,
+		.dcache_enable = 1,
+		.icache_enable = 1,
 		.ahb_frequency  = 84000000,
 		.apb1_frequency = 42000000,
 		.apb2_frequency = 84000000,
@@ -132,8 +136,9 @@ const struct rcc_clock_scale rcc_hse_8mhz_3v3[RCC_CLOCK_3V3_END] = {
 		.ppre1 = RCC_CFGR_PPRE_DIV_4,
 		.ppre2 = RCC_CFGR_PPRE_DIV_2,
 		.voltage_scale = PWR_SCALE1,
-		.flash_config = FLASH_ACR_DCEN | FLASH_ACR_ICEN |
-				FLASH_ACR_LATENCY_5WS,
+		.flash_waitstates = FLASH_ACR_LATENCY_5WS,
+		.dcache_enable = 1,
+		.icache_enable = 1,
 		.ahb_frequency  = 168000000,
 		.apb1_frequency = 42000000,
 		.apb2_frequency = 84000000,
@@ -149,8 +154,9 @@ const struct rcc_clock_scale rcc_hse_8mhz_3v3[RCC_CLOCK_3V3_END] = {
 		.ppre1 = RCC_CFGR_PPRE_DIV_4,
 		.ppre2 = RCC_CFGR_PPRE_DIV_2,
 		.voltage_scale = PWR_SCALE1,
-		.flash_config = FLASH_ACR_DCEN | FLASH_ACR_ICEN |
-				FLASH_ACR_LATENCY_5WS,
+		.flash_waitstates = FLASH_ACR_LATENCY_5WS,
+		.dcache_enable = 1,
+		.icache_enable = 1,
 		.ahb_frequency  = 180000000,
 		.apb1_frequency = 45000000,
 		.apb2_frequency = 90000000,
@@ -169,8 +175,9 @@ const struct rcc_clock_scale rcc_hse_12mhz_3v3[RCC_CLOCK_3V3_END] = {
 		.ppre1 = RCC_CFGR_PPRE_DIV_2,
 		.ppre2 = RCC_CFGR_PPRE_DIV_NONE,
 		.voltage_scale = PWR_SCALE1,
-		.flash_config = FLASH_ACR_DCEN | FLASH_ACR_ICEN |
-				FLASH_ACR_LATENCY_2WS,
+		.flash_waitstates = FLASH_ACR_LATENCY_2WS,
+		.dcache_enable = 1,
+		.icache_enable = 1,
 		.ahb_frequency  = 84000000,
 		.apb1_frequency = 42000000,
 		.apb2_frequency = 84000000,
@@ -186,8 +193,9 @@ const struct rcc_clock_scale rcc_hse_12mhz_3v3[RCC_CLOCK_3V3_END] = {
 		.ppre1 = RCC_CFGR_PPRE_DIV_4,
 		.ppre2 = RCC_CFGR_PPRE_DIV_2,
 		.voltage_scale = PWR_SCALE1,
-		.flash_config = FLASH_ACR_DCEN | FLASH_ACR_ICEN |
-				FLASH_ACR_LATENCY_5WS,
+		.flash_waitstates = FLASH_ACR_LATENCY_5WS,
+		.dcache_enable = 1,
+		.icache_enable = 1,
 		.ahb_frequency  = 168000000,
 		.apb1_frequency = 42000000,
 		.apb2_frequency = 84000000,
@@ -203,8 +211,9 @@ const struct rcc_clock_scale rcc_hse_12mhz_3v3[RCC_CLOCK_3V3_END] = {
 		.ppre1 = RCC_CFGR_PPRE_DIV_4,
 		.ppre2 = RCC_CFGR_PPRE_DIV_2,
 		.voltage_scale = PWR_SCALE1,
-		.flash_config = FLASH_ACR_DCEN | FLASH_ACR_ICEN |
-				FLASH_ACR_LATENCY_5WS,
+		.flash_waitstates = FLASH_ACR_LATENCY_5WS,
+		.dcache_enable = 1,
+		.icache_enable = 1,
 		.ahb_frequency  = 180000000,
 		.apb1_frequency = 45000000,
 		.apb2_frequency = 90000000,
@@ -223,8 +232,9 @@ const struct rcc_clock_scale rcc_hse_16mhz_3v3[RCC_CLOCK_3V3_END] = {
 		.ppre1 = RCC_CFGR_PPRE_DIV_2,
 		.ppre2 = RCC_CFGR_PPRE_DIV_NONE,
 		.voltage_scale = PWR_SCALE1,
-		.flash_config = FLASH_ACR_DCEN | FLASH_ACR_ICEN |
-				FLASH_ACR_LATENCY_2WS,
+		.flash_waitstates = FLASH_ACR_LATENCY_2WS,
+		.dcache_enable = 1,
+		.icache_enable = 1,
 		.ahb_frequency  = 84000000,
 		.apb1_frequency = 42000000,
 		.apb2_frequency = 84000000,
@@ -240,8 +250,9 @@ const struct rcc_clock_scale rcc_hse_16mhz_3v3[RCC_CLOCK_3V3_END] = {
 		.ppre1 = RCC_CFGR_PPRE_DIV_4,
 		.ppre2 = RCC_CFGR_PPRE_DIV_2,
 		.voltage_scale = PWR_SCALE1,
-		.flash_config = FLASH_ACR_DCEN | FLASH_ACR_ICEN |
-				FLASH_ACR_LATENCY_5WS,
+		.flash_waitstates = FLASH_ACR_LATENCY_5WS,
+		.dcache_enable = 1,
+		.icache_enable = 1,
 		.ahb_frequency  = 168000000,
 		.apb1_frequency = 42000000,
 		.apb2_frequency = 84000000,
@@ -257,8 +268,9 @@ const struct rcc_clock_scale rcc_hse_16mhz_3v3[RCC_CLOCK_3V3_END] = {
 		.ppre1 = RCC_CFGR_PPRE_DIV_4,
 		.ppre2 = RCC_CFGR_PPRE_DIV_2,
 		.voltage_scale = PWR_SCALE1,
-		.flash_config = FLASH_ACR_DCEN | FLASH_ACR_ICEN |
-				FLASH_ACR_LATENCY_5WS,
+		.flash_waitstates = FLASH_ACR_LATENCY_5WS,
+		.dcache_enable = 1,
+		.icache_enable = 1,
 		.ahb_frequency  = 180000000,
 		.apb1_frequency = 45000000,
 		.apb2_frequency = 90000000,
@@ -277,8 +289,9 @@ const struct rcc_clock_scale rcc_hse_25mhz_3v3[RCC_CLOCK_3V3_END] = {
 		.ppre1 = RCC_CFGR_PPRE_DIV_2,
 		.ppre2 = RCC_CFGR_PPRE_DIV_NONE,
 		.voltage_scale = PWR_SCALE1,
-		.flash_config = FLASH_ACR_DCEN | FLASH_ACR_ICEN |
-				FLASH_ACR_LATENCY_2WS,
+		.flash_waitstates = FLASH_ACR_LATENCY_2WS,
+		.dcache_enable = 1,
+		.icache_enable = 1,
 		.ahb_frequency  = 84000000,
 		.apb1_frequency = 42000000,
 		.apb2_frequency = 84000000,
@@ -294,8 +307,9 @@ const struct rcc_clock_scale rcc_hse_25mhz_3v3[RCC_CLOCK_3V3_END] = {
 		.ppre1 = RCC_CFGR_PPRE_DIV_4,
 		.ppre2 = RCC_CFGR_PPRE_DIV_2,
 		.voltage_scale = PWR_SCALE1,
-		.flash_config = FLASH_ACR_DCEN | FLASH_ACR_ICEN |
-				FLASH_ACR_LATENCY_5WS,
+		.flash_waitstates = FLASH_ACR_LATENCY_5WS,
+		.dcache_enable = 1,
+		.icache_enable = 1,
 		.ahb_frequency  = 168000000,
 		.apb1_frequency = 42000000,
 		.apb2_frequency = 84000000,
@@ -311,8 +325,9 @@ const struct rcc_clock_scale rcc_hse_25mhz_3v3[RCC_CLOCK_3V3_END] = {
 		.ppre1 = RCC_CFGR_PPRE_DIV_4,
 		.ppre2 = RCC_CFGR_PPRE_DIV_2,
 		.voltage_scale = PWR_SCALE1,
-		.flash_config = FLASH_ACR_DCEN | FLASH_ACR_ICEN |
-				FLASH_ACR_LATENCY_5WS,
+		.flash_waitstates = FLASH_ACR_LATENCY_5WS,
+		.dcache_enable = 1,
+		.icache_enable = 1,
 		.ahb_frequency  = 180000000,
 		.apb1_frequency = 45000000,
 		.apb2_frequency = 90000000,
@@ -750,17 +765,17 @@ void rcc_clock_setup_pll(const struct rcc_clock_scale *clock)
 	rcc_wait_for_osc_ready(RCC_PLL);
 
 	/* Configure flash settings. */
-	if (clock->flash_config & FLASH_ACR_DCEN) {
+	if (clock->dcache_enable) {
 		flash_dcache_enable();
 	} else {
 		flash_dcache_disable();
 	}
-	if (clock->flash_config & FLASH_ACR_ICEN) {
+	if (clock->icache_enable) {
 		flash_icache_enable();
 	} else {
 		flash_icache_disable();
 	}
-	flash_set_ws(clock->flash_config);
+	flash_set_ws(clock->flash_waitstates);
 
 	/* Select PLL as SYSCLK source. */
 	rcc_set_sysclk_source(RCC_CFGR_SW_PLL);
