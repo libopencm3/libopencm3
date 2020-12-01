@@ -45,8 +45,12 @@ OBJS += pwr.o
 OBJS += rcc.o rcc_common_all.o
 OBJS += timer_common_all.o timer_common_f0234.o
 
-OBJS += usb.o usb_control.o usb_standard.o usb_msc.o
+OBJS += usb.o usb_control.o usb_standard.o
+OBJS += usb_audio.o
+OBJS += usb_cdc.o
 OBJS += usb_hid.o
+OBJS += usb_midi.o
+OBJS += usb_msc.o
 OBJS += st_usbfs_core.o st_usbfs_v2.o
 
 VPATH += ../../usb:../:../../cm3:../common
