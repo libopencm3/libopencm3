@@ -32,13 +32,5 @@ LGPL License Terms @ref lgpl_license
  * along with this library.  If not, see <http://www.gnu.org/licenses/>.
  */
 
-#ifndef LIBOPENCM3_TIMER_H
-#define LIBOPENCM3_TIMER_H
-
+#pragma once
 #include <libopencm3/stm32/common/timer_common_all.h>
-
-BEGIN_DECLS
-
-END_DECLS
-
-#endif

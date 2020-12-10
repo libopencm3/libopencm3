@@ -25,11 +25,7 @@
  * along with this library.  If not, see <http://www.gnu.org/licenses/>.
  */
 
-/** @cond */
-#if defined(LIBOPENCM3_DMAMUX_H)
-/** @endcond */
-#ifndef LIBOPENCM3_DMAMUX_COMMON_ALL_H
-#define LIBOPENCM3_DMAMUX_COMMON_ALL_H
+#pragma once
 
 /**@{*/
 
@@ -205,10 +201,3 @@ void dmamux_clear_request_generator_trigger_overrun_interrupt(uint32_t dmamux, u
 END_DECLS
 
 /**@}*/
-
-#endif
-/** @cond */
-#else
-#warning "dmamux_common_all.h should not be included explicitly, only via dmamux.h"
-#endif
-/** @endcond */

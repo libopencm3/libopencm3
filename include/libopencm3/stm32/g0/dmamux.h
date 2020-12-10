@@ -29,8 +29,7 @@
  * along with this library.  If not, see <http://www.gnu.org/licenses/>.
  */
 
-#ifndef LIBOPENCM3_DMAMUX_H
-#define LIBOPENCM3_DMAMUX_H
+#pragma once
 /**@{*/
 
 #include <libopencm3/stm32/common/dmamux_common_all.h>
@@ -169,4 +168,3 @@
 /**@}*/
 
 /**@}*/
-#endif
