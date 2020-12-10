@@ -9,6 +9,15 @@
  * @author @htmlonly &copy; @endhtmlonly 2010
  * Mark Butler <mbutler@physics.otago.ac.nz>
  *
+ * Differences between F7 and F4:
+ * 1. 	icache and dcache are now combined into a unified ART cache. The CPU has
+ * 	its own d/i-caches, but those are unrelated to this. They are on the
+ *	AXIM bus.
+ * 4. 	FLASH_SR_PGSERR (programming sequence error) is now FLASH_SR_ERSERR (
+ *	erase sequence error).
+ * 6. 	There are now two watchdogs - IWDG (independent watchdog) and WWDG (
+ * 	window watchdog).
+ *
  */
 /*
  * This file is part of the libopencm3 project.
@@ -37,17 +46,6 @@
 #include <libopencm3/stm32/common/flash_common_all.h>
 #include <libopencm3/stm32/common/flash_common_f.h>
 #include <libopencm3/stm32/common/flash_common_f24.h>
-
-/*
- * Differences between F7 and F4:
- * 1. 	icache and dcache are now combined into a unified ART cache. The CPU has
- * 	its own d/i-caches, but those are unrelated to this. They are on the
- *	AXIM bus.
- * 4. 	FLASH_SR_PGSERR (programming sequence error) is now FLASH_SR_ERSERR (
- *	erase sequence error).
- * 6. 	There are now two watchdogs - IWDG (independent watchdog) and WWDG (
- * 	window watchdog).
- */
 
 /**@{*/
 
