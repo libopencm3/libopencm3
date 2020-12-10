@@ -1,8 +1,14 @@
 /** @addtogroup rtc_defines
-
-@author @htmlonly &copy; @endhtmlonly 2012 Karl Palsson <karlp@tweak.net.au>
-
-*/
+ * @author @htmlonly &copy; @endhtmlonly 2012 Karl Palsson <karlp@tweak.net.au>
+ *
+ * @brief This covers the "version 2" RTC peripheral.
+ *
+ * This is completely different
+ * to the v1 RTC periph on the F1 series devices.  It has BCD counters, with
+ * automatic leapyear corrections and daylight savings support.
+ * This peripheral is used on the F0, F2, F3, F4 and L1 devices, though some
+ * only support a subset.
+ */
 /*
  * This file is part of the libopencm3 project.
  *
@@ -20,14 +26,6 @@
  *
  * You should have received a copy of the GNU Lesser General Public License
  * along with this library.  If not, see <http://www.gnu.org/licenses/>.
- */
-
-/*
- * This covers the "version 2" RTC peripheral.  This is completely different
- * to the v1 RTC periph on the F1 series devices.  It has BCD counters, with
- * automatic leapyear corrections and daylight savings support.
- * This peripheral is used on the F0, F2, F3, F4 and L1 devices, though some
- * only support a subset.
  */
 
 /* THIS FILE SHOULD NOT BE INCLUDED DIRECTLY, BUT ONLY VIA RTC.H
