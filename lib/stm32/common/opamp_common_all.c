@@ -109,4 +109,4 @@ void opamp_vm_select(uint32_t base, uint32_t vm)
 	OPAMP_CSR(base) |= vm << OPAMP_CSR_VM_SEL_SHIFT;
 }
 
-/*@}*/
+/**@}*/

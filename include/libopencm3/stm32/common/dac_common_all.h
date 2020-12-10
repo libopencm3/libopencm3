@@ -388,7 +388,7 @@ Unmask bits [(n-1)..0] of LFSR/Triangle Amplitude equal to (2**(n+1)-1
 
 /** DAC channel 2 DMA underrun flag */
 #define DAC_SR_DMAUDR2		(1 << 29)
-/*@}*/
+/**@}*/
 
 /** DAC channel identifier */
 typedef enum {

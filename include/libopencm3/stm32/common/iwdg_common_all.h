@@ -97,7 +97,7 @@ specific memorymap.h header before including this header file.*/
 
 /** PVU: Watchdog prescaler value update */
 #define IWDG_SR_PVU			(1 << 0)
-/*@}*/
+/**@}*/
 
 /* --- IWDG function prototypes---------------------------------------------- */
 

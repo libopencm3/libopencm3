@@ -26,8 +26,8 @@ LGPL License Terms @ref lgpl_license
  * along with this library.  If not, see <http://www.gnu.org/licenses/>.
  */
 
-#ifndef LIBOPENCM3_DMAMUX_H
-#define LIBOPENCM3_DMAMUX_H
+#pragma once
+
 /**@{*/
 
 #include <libopencm3/stm32/common/dmamux_common_all.h>
@@ -63,6 +63,7 @@ LGPL License Terms @ref lgpl_license
 #define DMAMUX_CxCR_SYNC_ID_DMAMUX_CH2_EVT   18
 #define DMAMUX_CxCR_SYNC_ID_DMAMUX_CH3_EVT   19
 #define DMAMUX_CxCR_SYNC_ID_LPTIM1_OUT       20
+/**@}*/
 
 
 /** @defgroup dmamux_cxcr_dmareq_id DMAREQID DMA request line selected
@@ -213,4 +214,3 @@ LGPL License Terms @ref lgpl_license
 /**@}*/
 
 /**@}*/
-#endif

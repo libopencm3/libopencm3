@@ -331,7 +331,7 @@
 #define RCC_AHBENR_GPIOCEN			(1 << 2)
 #define RCC_AHBENR_GPIOBEN			(1 << 1)
 #define RCC_AHBENR_GPIOAEN			(1 << 0)
-/*@}*/
+/**@}*/
 
 /* --- RCC_APB2ENR values -------------------------------------------------- */
 
@@ -346,7 +346,7 @@
 #define RCC_APB2ENR_TIM10EN			(1 << 3)
 #define RCC_APB2ENR_TIM9EN			(1 << 2)
 #define RCC_APB2ENR_SYSCFGEN			(1 << 0)
-/*@}*/
+/**@}*/
 
 /* --- RCC_APB1ENR values -------------------------------------------------- */
 
@@ -370,7 +370,7 @@
 #define RCC_APB1ENR_TIM4EN			(1 << 2)
 #define RCC_APB1ENR_TIM3EN			(1 << 1)
 #define RCC_APB1ENR_TIM2EN			(1 << 0)
-/*@}*/
+/**@}*/
 
 /* --- RCC_AHBLPENR -------------------------------------------------------- */
 #define RCC_AHBLPENR_DMA1LPEN			(1 << 24)

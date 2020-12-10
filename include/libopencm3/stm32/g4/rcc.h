@@ -177,7 +177,7 @@
 #define RCC_CFGR_HPRE_DIV128		0xd
 #define RCC_CFGR_HPRE_DIV256		0xe
 #define RCC_CFGR_HPRE_DIV512		0xf
-/*@}*/
+/**@}*/
 #define RCC_CFGR_HPRE_MASK		0xf
 #define RCC_CFGR_HPRE_SHIFT		4
 
@@ -207,6 +207,7 @@
 #define RCC_PLLCFGR_PLLR_DIV4		1
 #define RCC_PLLCFGR_PLLR_DIV6		2
 #define RCC_PLLCFGR_PLLR_DIV8		3
+/**@}*/
 #define RCC_PLLCFGR_PLLR_SHIFT		25
 #define RCC_PLLCFGR_PLLR_MASK		0x3
 
@@ -446,15 +447,15 @@
 #define RCC_APB1ENR1_TIM4EN			(1 << 2)
 #define RCC_APB1ENR1_TIM3EN			(1 << 1)
 #define RCC_APB1ENR1_TIM2EN			(1 << 0)
-/*@}*/
+/**@}*/
 
 /** @defgroup rcc_apb1enr2_en RCC_APB1ENR2 enable values
  *@{*/
 #define RCC_APB1ENR2_UCPD1EN			(1 << 8)
 #define RCC_APB1ENR2_I2C4EN			(1 << 1)
 #define RCC_APB1ENR2_LPUART1EN			(1 << 0)
-/*@}*/
-/*@}*/
+/**@}*/
+/**@}*/
 
 /** @defgroup rcc_apb2enr_en RCC_APB2ENR enable values
  *@{*/

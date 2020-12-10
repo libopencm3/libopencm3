@@ -49,4 +49,4 @@ void opamp_output_set_external(uint32_t base)
 	OPAMP_CSR(base) &= ~OPAMP_CSR_OPAINTOEN;
 }
 
-/*@}*/
+/**@}*/

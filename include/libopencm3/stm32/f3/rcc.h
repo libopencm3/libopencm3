@@ -281,7 +281,7 @@
 #define RCC_AHBENR_SRAMEN			(1 << 2)
 #define RCC_AHBENR_DMA2EN			(1 << 1)
 #define RCC_AHBENR_DMA1EN			(1 << 0)
-/*@}*/
+/**@}*/
 
 /** @defgroup rcc_apb2enr_en RCC_APB2ENR enable values
 @{*/

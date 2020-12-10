@@ -49,4 +49,4 @@ void flash_unlock_option_bytes(void)
 	FLASH_OPTKEYR = FLASH_OPTKEYR_KEY2;
 }
 
-/*@}*/
+/**@}*/

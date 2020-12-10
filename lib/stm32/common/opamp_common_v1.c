@@ -53,4 +53,4 @@ void opamp_vms_select(uint32_t base, uint32_t vms)
 	OPAMP_CSR(base) |= vms << OPAMP_CSR_VMS_SEL_SHIFT;
 }
 
-/*@}*/
+/**@}*/
