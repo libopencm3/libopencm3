@@ -97,10 +97,6 @@ void flash_unlock_acr(void)
 	FLASH_PDKEYR = FLASH_PDKEYR_PDKEY2;
 }
 
-/**
- * Erase a page in ram.
- * @param page_address must be first word in page for L1, any address in page for L0
- */
 void flash_erase_page(uint32_t page_address)
 {
 	FLASH_PECR |= FLASH_PECR_ERASE | FLASH_PECR_PROG;

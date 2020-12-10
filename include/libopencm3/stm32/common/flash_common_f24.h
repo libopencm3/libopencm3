@@ -59,7 +59,7 @@
 #define FLASH_OPTCR			MMIO32(FLASH_MEM_INTERFACE_BASE + 0x14)
 /** Flash Option Control register 1 (bank 2) */
 #define FLASH_OPTCR1			MMIO32(FLASH_MEM_INTERFACE_BASE + 0x18)
-/*@}*/
+/**@}*/
 
 /** @defgroup flash_latency FLASH Wait States
 @ingroup flash_defines
@@ -73,7 +73,7 @@
 #define FLASH_ACR_LATENCY_5WS          0x05
 #define FLASH_ACR_LATENCY_6WS          0x06
 #define FLASH_ACR_LATENCY_7WS          0x07
-/*@}*/
+/**@}*/
 #define FLASH_ACR_LATENCY_SHIFT		0
 #define FLASH_ACR_LATENCY_MASK		0x0f
 

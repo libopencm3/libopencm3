@@ -59,7 +59,7 @@
 #define FLASH_ACR_ARTRST		(1 << 11)
 #define FLASH_ACR_ARTEN			(1 << 9)
 #define FLASH_ACR_PRFTEN		(1 << 8)
-/*@}*/
+/**@}*/
 
 #define FLASH_SR_ERSERR			(1 << 7)
 

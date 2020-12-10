@@ -1,6 +1,6 @@
 /** @defgroup crs_defines CRS Defines
  *
- * @brief <b>Defined Constants and Types for the Clock Recovery System.</b>
+ * @brief <b>Defined Constants and Types for the Clock Recovery System</b>
  *
  * @ingroup STM32L4xx_defines
  *
