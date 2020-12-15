@@ -376,6 +376,29 @@ void usart_disable_tx_complete_interrupt(uint32_t usart)
 	USART_CR1(usart) &= ~USART_CR1_TCIE;
 }
 
+/** @brief USART Idle Interrupt Enable.
+
+@param[in] usart unsigned 32 bit. USART block register address base @ref
+usart_reg_base
+*/
+
+void usart_enable_idle_interrupt(uint32_t usart)
+{
+	USART_CR1(usart) |= USART_CR1_IDLEIE;
+}
+
+/*---------------------------------------------------------------------------*/
+/** @brief USART Idle Interrupt Disable.
+
+@param[in] usart unsigned 32 bit. USART block register address base @ref
+usart_reg_base
+*/
+
+void usart_disable_idle_interrupt(uint32_t usart)
+{
+	USART_CR1(usart) &= ~USART_CR1_IDLEIE;
+}
+
 /*---------------------------------------------------------------------------*/
 /** @brief USART Error Interrupt Enable.
 
