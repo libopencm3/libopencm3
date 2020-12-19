@@ -373,7 +373,7 @@
 /** IC set to enable instruction cache */
 #define SCB_CCR_IC					(1 << 17)
 /** DC set to enable data cache */
-#define SCB_CCR_DC					(1 << 17)
+#define SCB_CCR_DC					(1 << 16)
 #endif
 
 /**@}*/
@@ -503,19 +503,19 @@
 /* --- SCB_CTR values ------------------------------------------------------ */
 /* FORMAT: implemented CTR format */
 #define SCB_CTR_FORMAT_SHIFT	29
-#define SCB_CTR_FORMAT_MASK		(0x7 << SCB_CTR_FORMAT_SHIFT)
+#define SCB_CTR_FORMAT_MASK		0x7
 /* CWG: Cache Write-back Granule */
 #define SCB_CTR_CWG_SHIFT		24
-#define SCB_CTR_CWG_MASK		(0xf << SCB_CTR_CWG_SHIFT)
+#define SCB_CTR_CWG_MASK		0xf
 /* ERG: Exclusives Reservation Granule */
 #define SCB_CTR_ERG_SHIFT		20
-#define SCB_CTR_ERG_MASK		(0xf << SCB_CTR_ERG_SHIFT)
+#define SCB_CTR_ERG_MASK		0xf
 /* DMINLINE: log2 of number of words in smallest cache line of all data caches */
 #define SCB_CTR_DMINLINE_SHIFT	16
-#define SCB_CTR_DMINLINE_MASK	(0x1f << SCB_CTR_DMINLINE_SHIFT)
+#define SCB_CTR_DMINLINE_MASK	0x1f
 /* IMINLINE: log2 of number of words in smallest cache line of all instruction caches */
 #define SCB_CTR_IMINLINE_SHIFT	0
-#define SCB_CTR_IMINLINE_MASK	(0xf << SCB_CTR_IMINLINE_SHIFT)
+#define SCB_CTR_IMINLINE_MASK	0xf
 
 #endif
 
