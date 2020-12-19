@@ -149,6 +149,51 @@
 #define SCB_MVFR1				MMIO32(SCB_BASE + 0x244)
 #endif
 
+/* Those defined only on ARMv7EM and above */
+#if defined(__ARM_ARCH_7EM__)
+/** CLIDR: Cache Level ID Register */
+#define SCB_CLIDR				MMIO32(SCB_BASE + 0x78)
+
+/** CTR: Cache Type Register */
+#define SCB_CTR				MMIO32(SCB_BASE + 0x7C)
+
+/** CCSIDR: Cache Size ID Registers */
+#define SCB_CCSIDR				MMIO32(SCB_BASE + 0x80)
+
+/** CSSELR: Cache Size Selection Register */
+#define SCB_CCSELR				MMIO32(SCB_BASE + 0x84)
+
+/** ICIALLU: I-cache invalidate all to Point of Unification */
+#define SCB_ICIALLU				MMIO32(SCB_BASE + 0x250)
+
+/** ICIMVAU: I-cache invalidate by MVA to Point of Unification */
+#define SCB_ICIMVAU				MMIO32(SCB_BASE + 0x258)
+
+/** DCIMVAC: D-cache invalidate by MVA to Point of Coherency */
+#define SCB_DCIMVAC				MMIO32(SCB_BASE + 0x25C)
+
+/** DCISW: D-cache invalidate by set-way */
+#define SCB_DCISW				MMIO32(SCB_BASE + 0x260)
+
+/** DCCMVAU: D-cache clean by MVA to Point of Unification */
+#define SCB_DCCMVAU				MMIO32(SCB_BASE + 0x264)
+
+/** DCCMVAC: D-cache clean by MVA to Point of Coherency */
+#define SCB_DCCMVAC				MMIO32(SCB_BASE + 0x268)
+
+/** DCISW: D-cache clean by set-way */
+#define SCB_DCCSW				MMIO32(SCB_BASE + 0x26C)
+
+/** DCCIMVAC: D-cache clean and invalidate by MVA to Point of Coherency */
+#define SCB_DCCIMVAC			MMIO32(SCB_BASE + 0x270)
+
+/** DCCISW: D-cache clean and invalidate by set-way */
+#define SCB_DCCISW				MMIO32(SCB_BASE + 0x274)
+
+/** BPIALL: Branch predictor invalidate all */
+#define SCB_BPIALL				MMIO32(SCB_BASE + 0x278)
+#endif
+
 /**@}*/
 
 /* --- SCB values ---------------------------------------------------------- */
@@ -320,6 +365,17 @@
 /** NONBASETHRDENA set to allow non base priority threads */
 #define SCB_CCR_NONBASETHRDENA			(1 << 0)
 #endif
+
+/* Those defined only on ARMv7EM and above */
+#if defined(__ARM_ARCH_7EM__)
+/** BP set to enable branch predictor */
+#define SCB_CCR_BP					(1 << 18)
+/** IC set to enable instruction cache */
+#define SCB_CCR_IC					(1 << 17)
+/** DC set to enable data cache */
+#define SCB_CCR_DC					(1 << 16)
+#endif
+
 /**@}*/
 
 /* These numbers are designed to be used with the SCB_SHPR() macro */
@@ -442,6 +498,26 @@
 /* --- SCB_BFAR values ----------------------------------------------------- */
 
 /* BFAR [31:0]: Bus fault address */
+
+#if defined(__ARM_ARCH_7EM__)
+/* --- SCB_CTR values ------------------------------------------------------ */
+/* FORMAT: implemented CTR format */
+#define SCB_CTR_FORMAT_SHIFT	29
+#define SCB_CTR_FORMAT_MASK		0x7
+/* CWG: Cache Write-back Granule */
+#define SCB_CTR_CWG_SHIFT		24
+#define SCB_CTR_CWG_MASK		0xf
+/* ERG: Exclusives Reservation Granule */
+#define SCB_CTR_ERG_SHIFT		20
+#define SCB_CTR_ERG_MASK		0xf
+/* DMINLINE: log2 of number of words in smallest cache line of all data caches */
+#define SCB_CTR_DMINLINE_SHIFT	16
+#define SCB_CTR_DMINLINE_MASK	0x1f
+/* IMINLINE: log2 of number of words in smallest cache line of all instruction caches */
+#define SCB_CTR_IMINLINE_SHIFT	0
+#define SCB_CTR_IMINLINE_MASK	0xf
+
+#endif
 
 /* --- SCB_CPACR values ---------------------------------------------------- */
 
