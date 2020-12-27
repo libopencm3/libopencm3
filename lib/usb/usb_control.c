@@ -50,25 +50,6 @@ static void stall_transaction(usbd_device *usbd_dev)
 	usbd_dev->control_state.state = IDLE;
 }
 
-/**
- * If we're replying with _some_ data, but less than the host is expecting,
- * then we normally just do a short transfer.  But if it's short, but a
- * multiple of the endpoint max packet size, we need an explicit ZLP.
- * @param len how much data we want to transfer
- * @param wLength how much the host asked for
- * @param ep_size
- * @return
- */
-static bool needs_zlp(uint16_t len, uint16_t wLength, uint8_t ep_size)
-{
-	if (len < wLength) {
-		if (len && (len % ep_size == 0)) {
-			return true;
-		}
-	}
-	return false;
-}
-
 /* Register application callback function for handling USB control requests. */
 int usbd_register_control_callback(usbd_device *usbd_dev, uint8_t type,
 				   uint8_t type_mask,
@@ -109,10 +90,18 @@ static void usb_control_send_chunk(usbd_device *usbd_dev)
 				     usbd_dev->control_state.ctrl_buf,
 				     usbd_dev->control_state.ctrl_len);
 
-		usbd_dev->control_state.state =
-			usbd_dev->control_state.needs_zlp ?
-			DATA_IN : LAST_DATA_IN;
-		usbd_dev->control_state.needs_zlp = false;
+		/*
+		 * Short transfer which are a multiple of transfer size need
+		 * a ZLP (zero-length packet).
+		 */
+		if (usbd_dev->control_state.may_need_zlp &&
+		    (usbd_dev->control_state.ctrl_len ==
+		     usbd_dev->desc->bMaxPacketSize0))
+			usbd_dev->control_state.state = DATA_IN;
+		else
+			usbd_dev->control_state.state = LAST_DATA_IN;
+
+		usbd_dev->control_state.may_need_zlp = false;
 		usbd_dev->control_state.ctrl_len = 0;
 		usbd_dev->control_state.ctrl_buf = NULL;
 	}
@@ -178,10 +167,15 @@ static void usb_control_setup_read(usbd_device *usbd_dev,
 
 	if (usb_control_request_dispatch(usbd_dev, req)) {
 		if (req->wLength) {
-			usbd_dev->control_state.needs_zlp =
-				needs_zlp(usbd_dev->control_state.ctrl_len,
-					req->wLength,
-					usbd_dev->desc->bMaxPacketSize0);
+			/*
+			 * If we're replying with _some_ data, but less than the
+			 * host is expecting, then we may need to do a zlp
+			 * if its a multiple of max packet size.
+			 */
+			usbd_dev->control_state.may_need_zlp =
+				usbd_dev->control_state.ctrl_len &&
+				usbd_dev->control_state.ctrl_len < req->wLength;
+
 			/* Go to data out stage if handled. */
 			usb_control_send_chunk(usbd_dev);
 		} else {
