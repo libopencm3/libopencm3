@@ -96,10 +96,11 @@ static void usb_control_send_chunk(usbd_device *usbd_dev)
 		 */
 		if (usbd_dev->control_state.may_need_zlp &&
 		    (usbd_dev->control_state.ctrl_len ==
-		     usbd_dev->desc->bMaxPacketSize0))
+		     usbd_dev->desc->bMaxPacketSize0)) {
 			usbd_dev->control_state.state = DATA_IN;
-		else
+		} else {
 			usbd_dev->control_state.state = LAST_DATA_IN;
+		}
 
 		usbd_dev->control_state.may_need_zlp = false;
 		usbd_dev->control_state.ctrl_len = 0;
