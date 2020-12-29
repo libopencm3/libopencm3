@@ -124,5 +124,7 @@ genlinktests.clean:
 		printf "  TEST FAIL : $*\n";		\
 	fi;
 
+list-targets:
+	@echo $(TARGETS)
 
-.PHONY: build lib $(LIB_DIRS) doc clean generatedheaders cleanheaders stylecheck genlinktests genlinktests.clean
+.PHONY: build lib $(LIB_DIRS) doc clean generatedheaders cleanheaders stylecheck genlinktests genlinktests.clean list-targets

@@ -103,6 +103,14 @@ For a more verbose build you can use
 
     $ make V=1
 
+You can reduce the build time by specifying a particular MCU series
+
+    $ make TARGETS='stm32/f1 stm32/f4'
+
+Supported targets can be listed using:
+
+    $ make list-targets
+
 Fine-tuning the build
 ---------------------
 
