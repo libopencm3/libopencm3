@@ -124,13 +124,13 @@ them as environment variables, for example:
    If the Cortex-M core supports a hard float ABI, it will be compiled with
    the best floating-point support by default. In cases where this is not desired, the
    behavior can be specified by setting `FP_FLAGS`.
-   
+
    Currently, M4F cores default to `-mfloat-abi=hard -mfpu=fpv4-sp-d16`, and
    M7 cores defaults to double precision `-mfloat-abi=hard -mfpu=fpv5-d16` if available,
    and single precision `-mfloat-abi=hard -mfpu=fpv5-sp-d16` otherwise.
    Other architectures use no FP flags, in otherwords, traditional softfp.
-   
-   You may find which FP_FLAGS you can use in a particular architecture in the readme.txt 
+
+   You may find which FP_FLAGS you can use in a particular architecture in the readme.txt
    file shipped with the gcc-arm-embedded package.
 
    Examples:
