@@ -464,7 +464,7 @@ void i2c_clear_dma_last_transfer(uint32_t i2c)
 	I2C_CR2(i2c) &= ~I2C_CR2_LAST;
 }
 
-static void i2c_write7_v1(uint32_t i2c, int addr, uint8_t *data, size_t n)
+static void i2c_write7_v1(uint32_t i2c, int addr, const uint8_t *data, size_t n)
 {
 	while ((I2C_SR2(i2c) & I2C_SR2_BUSY)) {
 	}
@@ -531,7 +531,7 @@ static void i2c_read7_v1(uint32_t i2c, int addr, uint8_t *res, size_t n)
  * @param r destination buffer to read into
  * @param rn number of bytes to read (r should be at least this long)
  */
-void i2c_transfer7(uint32_t i2c, uint8_t addr, uint8_t *w, size_t wn, uint8_t *r, size_t rn) {
+void i2c_transfer7(uint32_t i2c, uint8_t addr, const uint8_t *w, size_t wn, uint8_t *r, size_t rn) {
 	if (wn) {
 		i2c_write7_v1(i2c, addr, w, wn);
 	}
