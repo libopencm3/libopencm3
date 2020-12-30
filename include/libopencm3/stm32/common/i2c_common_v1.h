@@ -415,7 +415,7 @@ void i2c_enable_dma(uint32_t i2c);
 void i2c_disable_dma(uint32_t i2c);
 void i2c_set_dma_last_transfer(uint32_t i2c);
 void i2c_clear_dma_last_transfer(uint32_t i2c);
-void i2c_transfer7(uint32_t i2c, uint8_t addr, uint8_t *w, size_t wn, uint8_t *r, size_t rn);
+void i2c_transfer7(uint32_t i2c, uint8_t addr, const uint8_t *w, size_t wn, uint8_t *r, size_t rn);
 void i2c_set_speed(uint32_t i2c, enum i2c_speeds speed, uint32_t clock_megahz);
 
 END_DECLS
