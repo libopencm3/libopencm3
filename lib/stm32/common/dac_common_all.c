@@ -182,7 +182,7 @@ explicitly disabled if required.
 
 @param[in] dac_channel enum ::data_channel.
 */
-
+#ifndef DAC_HAS_MODE_REG
 void dac_buffer_enable(data_channel dac_channel)
 {
 	switch (dac_channel) {
@@ -197,6 +197,13 @@ void dac_buffer_enable(data_channel dac_channel)
 		break;
 	}
 }
+#else
+void dac_buffer_enable(data_channel dac_channel)
+{
+  dac_set_mode(dac_channel, DAC_MCR_MODE_NORM_EXT_BUFFERED);
+}
+#endif
+
 /*---------------------------------------------------------------------------*/
 /** @brief DAC Channel Output Buffer Disable.
 
@@ -206,7 +213,7 @@ impedance of the DAC.  The buffers are enabled by default after a reset.
 
 @param[in] dac_channel enum ::data_channel.
 */
-
+#ifndef DAC_HAS_MODE_REG
 void dac_buffer_disable(data_channel dac_channel)
 {
 	switch (dac_channel) {
@@ -221,6 +228,13 @@ void dac_buffer_disable(data_channel dac_channel)
 		break;
 	}
 }
+#else
+void dac_buffer_disable(data_channel dac_channel)
+{
+  dac_set_mode(dac_channel, DAC_MCR_MODE_NORM_EXT);
+}
+#endif
+
 /*---------------------------------------------------------------------------*/
 /** @brief DAC Channel DMA Enable.
 
@@ -500,5 +514,36 @@ void dac_software_trigger(data_channel dac_channel)
 		break;
 	}
 }
+
+/*---------------------------------------------------------------------------*/
+#ifdef DAC_HAS_MODE_REG
+/** @brief DAC Channel Mode Set.
+
+Set the mode of the DAC to enable/disable the sample and hold functionality for
+low power operation, the buffer functionality as a tradeoff between power and
+impedance, and if the signal should be routed internally, externally, or both.
+
+@param[in] dac_channel enum ::data_channel.
+@param[in] mode enum ::dac_mcr
+*/
+void dac_set_mode(data_channel dac_channel, enum dac_mcr mode)
+{
+  uint32_t reg = DAC_MCR;
+  uint32_t val = 0;
+  uint32_t mask = 0;
+
+  if (dac_channel == CHANNEL_1 || dac_channel == CHANNEL_D) {
+    val  |= mode << DAC_MCR_MODE_CH1_SHIFT;
+    mask |= DAC_MCR_MODE_MASK << DAC_MCR_MODE_CH1_SHIFT;
+  }
+  if (dac_channel == CHANNEL_2 || dac_channel == CHANNEL_D) {
+    val  |= mode << DAC_MCR_MODE_CH2_SHIFT;
+    mask |= DAC_MCR_MODE_MASK << DAC_MCR_MODE_CH2_SHIFT;
+  }
+  reg &= ~mask;
+  reg |= val;
+  DAC_MCR = reg;
+}
+#endif
 /**@}*/
 
