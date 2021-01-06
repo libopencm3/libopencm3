@@ -66,26 +66,17 @@ MEMORY
 #if defined(_NFCRAM)
 	nfcram (rw) : ORIGIN _NFCRAM_OFF, LENGTH = _NFCRAM
 #endif
-#if defined(_ROMALIAS)
-	romalias (rx) : ORIGIN = _ROMALIAS_OFF, LENGTH = _ROMALIAS
-#endif
 }
 
 /* Define sections. */
 SECTIONS
 {
+	.text : {
 #ifdef GD32VF103
-	.reset : {
 		*(.reset)
 		. = 0x000000c;
-		*(.vectors)	/* Vector table */
-	} >romalias AT >rom
 #endif
-
-	.text : {
-#ifndef GD32VF103
 		*(.vectors)	/* Vector table */
-#endif
 		*(.text*)	/* Program code */
 		. = ALIGN(4);
 		*(.rodata*)	/* Read-only data */
