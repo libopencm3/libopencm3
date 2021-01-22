@@ -1629,15 +1629,15 @@ This is a convenience function to get the CCR register value
 
 @param[in] timer_peripheral Unsigned int32. Timer register address base @ref
 		tim_reg_base (TIM9 .. TIM14 not yet supported here).
-@param[in] ic_id enum ::tim_ic_id OC channel designators
+@param[in] ic_id enum ::tim_ic_id IC channel designators
 		TIM_ICx where x=1..4
-@param[in] value Unsigned int32. Compare value.
 @returns Unsigned int32. Captured value.
 */
 
 uint32_t timer_get_ic_value(uint32_t timer_peripheral, enum tim_ic_id ic_id)
 {
 	switch (ic_id) {
+	default:
 	case TIM_IC1:
 		return TIM_CCR1(timer_peripheral);
 		break;
