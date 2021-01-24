@@ -347,12 +347,16 @@ become read-only.
 @note The DAC trigger must be enabled for this to work.
 
 @param[in] dac the base address of the DAC. @ref dac_reg_base
-@param[in] mamp uint8_t. Taken from @ref dac_mamp2 or @ref dac_mamp1 or a
-logical OR of one of each of these to set both channels simultaneously.
+@param[in] mamp1 mask of bits to use for channel 1
+@param[in] mamp2 mask of bits to use for channel 2
 */
-void dac_set_waveform_characteristics(uint32_t dac, uint8_t mamp)
+void dac_set_waveform_characteristics(uint32_t dac, uint8_t mamp1, uint8_t mamp2)
 {
-	DAC_CR(dac) |= mamp;
+	uint32_t reg = DAC_CR(dac);
+	reg &= ~(DAC_CR_MAMPx_MASK << DAC_CR_MAMP1_SHIFT |
+		DAC_CR_MAMPx_MASK << DAC_CR_MAMP2_SHIFT);
+	reg |= mamp1 << DAC_CR_MAMP1_SHIFT | mamp2 << DAC_CR_MAMP2_SHIFT;
+	DAC_CR(dac) = reg;
 }
 
 /** @brief Load DAC Data Register.
