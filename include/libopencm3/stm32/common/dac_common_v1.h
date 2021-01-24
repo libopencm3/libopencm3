@@ -38,9 +38,11 @@ specific memorymap.h header before including this header file.*/
 
 #include <libopencm3/stm32/common/dac_common_all.h>
 
-/* --- DAC_CR values ------------------------------------------------------- */
+/**@addtogroup dac_cr_values
+ * @{
+ */
 
-/* TSEL2[2:0]: DAC channel2 trigger selection */
+/** TSEL2[2:0]: DAC channel2 trigger selection */
 #define DAC_CR_TSEL2_SHIFT		19
 /** @defgroup dac_trig2_sel DAC Channel 2 Trigger Source Selection
 @ingroup dac_defines
@@ -118,6 +120,7 @@ specific memorymap.h header before including this header file.*/
 /* BOFF1: DAC channel1 output buffer disable */
 #define DAC_CR_BOFF1			(1 << 1)
 
+/**@}*/
 
 /* --- Function prototypes ------------------------------------------------- */
 

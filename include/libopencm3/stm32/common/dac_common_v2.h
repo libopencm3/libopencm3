@@ -38,38 +38,42 @@ specific memorymap.h header before including this header file.*/
 
 #include <libopencm3/stm32/common/dac_common_all.h>
 
-/* --- DAC registers ------------------------------------------------------- */
+/**@addtogroup dac_registers
+ @{*/
 
-/* DAC calibration control register (DAC_CCR) */
+/** DAC calibration control register (DAC_CCR) */
 #define DAC_CCR(dac)			MMIO32((dac) + 0x38)
 
-/* DAC mode control register (DAC_MCR) */
+/** DAC mode control register (DAC_MCR) */
 #define DAC_MCR(dac)			MMIO32((dac) + 0x3C)
 
-/* DAC channel1 sample and hold sample time register (DAC_SHSR1) */
+/** DAC channel1 sample and hold sample time register (DAC_SHSR1) */
 #define DAC_SHSR1(dac)			MMIO32((dac) + 0x40)
 
-/* DAC channel2 sample and hold sample time register (DAC_SHSR2) */
+/** DAC channel2 sample and hold sample time register (DAC_SHSR2) */
 #define DAC_SHSR2(dac)			MMIO32((dac) + 0x44)
 
-/* DAC sample and hold time register (DAC_SHHR) */
+/** DAC sample and hold time register (DAC_SHHR) */
 #define DAC_SHHR(dac)			MMIO32((dac) + 0x48)
 
-/* DAC sample and hold refresh time register (DAC_SHRR) */
+/** DAC sample and hold refresh time register (DAC_SHRR) */
 #define DAC_SHRR(dac)			MMIO32((dac) + 0x4C)
 
-/* DAC channel1 sawtooth register (DAC_STR1) */
+/** DAC channel1 sawtooth register (DAC_STR1) */
 #define DAC_STR1(dac)			MMIO32((dac) + 0x58)
 
-/* DAC channel2 sawtooth register (DAC_STR2) */
+/** DAC channel2 sawtooth register (DAC_STR2) */
 #define DAC_STR2(dac)			MMIO32((dac) + 0x5C)
 
-/* DAC sawtooth mode register (DAC_STMODR) */
+/** DAC sawtooth mode register (DAC_STMODR) */
 #define DAC_STMODR(dac)			MMIO32((dac) + 0x60)
+/**@}*/
 
-/* --- DAC_CR values ------------------------------------------------------- */
+/**@addtogroup dac_cr_values
+ * @{
+ */
 
-/* CEN2: DAC channel2 calibration enable */
+/** CEN2: DAC channel2 calibration enable */
 #define DAC_CR_CEN2			(1 << 30)
 
 /* TSEL2[3:0]: DAC channel2 trigger selection */
@@ -162,19 +166,24 @@ specific memorymap.h header before including this header file.*/
 #define DAC_CR_TSEL1_HR3		(0xF << DAC_CR_TSEL1_SHIFT)
 /**@}*/
 
-/* TEN1: DAC channel1 trigger enable */
+/** TEN1: DAC channel1 trigger enable */
 #define DAC_CR_TEN1			(1 << 1)
+/**@}*/
 
 
-/* --- DAC_SWTRIGR values -------------------------------------------------- */
-
-/* SWTRIG2: DAC channel2 software trigger B */
+/** @addtogroup dac_swtrigr_values
+ * @{
+ */
+/** SWTRIG2: DAC channel2 software trigger B */
 #define DAC_SWTRIGR_SWTRIGB2		(1 << 17)
 
-/* SWTRIG1: DAC channel1 software trigger B */
+/** SWTRIG1: DAC channel1 software trigger B */
 #define DAC_SWTRIGR_SWTRIGB1		(1 << 16)
+/**@}*/
 
-
+/** @addtogroup dac_dorx_values
+ * @{
+ */
 /* --- DAC_DOR1 values ----------------------------------------------------- */
 #define DAC_DOR1_DACC1DORB_SHIFT	16
 #define DAC_DOR1_DACC1DORB_MASK		0xFFF
@@ -183,41 +192,46 @@ specific memorymap.h header before including this header file.*/
 /* --- DAC_DOR2 values ----------------------------------------------------- */
 #define DAC_DOR2_DACC2DORB_SHIFT	16
 #define DAC_DOR2_DACC2DORB_MASK		0xFFF
+/**@}*/
 
-/* --- DAC_SR values ----------------------------------------------------- */
-
-/* DAC channel2 busy writing sample time flag */
+/** @addtogroup dac_sr_values
+ * @{
+ */
+/** DAC channel2 busy writing sample time flag */
 #define DAC_SR_BWST2			(1 << 31)
 
-/* DAC channel2 calibration offset status */
+/** DAC channel2 calibration offset status */
 #define DAC_SR_CAL_FLAG2		(1 << 30)
 
 /** DAC channel2 DMA underrun flag */
 #define DAC_SR_DMAUDR2			(1 << 29)
 
-/* DAC channel2 output register status bit */
+/** DAC channel2 output register status bit */
 #define DAC_SR_DORSTAT2			(1 << 28)
 
-/* DAC channel2 ready status bit */
+/** DAC channel2 ready status bit */
 #define DAC_SR_DAC2RDY			(1 << 27)
 
-/* DAC channel1 busy writing sample time flag */
+/** DAC channel1 busy writing sample time flag */
 #define DAC_SR_BWST1			(1 << 15)
 
-/* DAC channel1 calibration offset status */
+/** DAC channel1 calibration offset status */
 #define DAC_SR_CAL_FLAG1		(1 << 14)
 
 /** DAC channel1 DMA underrun flag */
 #define DAC_SR_DMAUDR1			(1 << 13)
 
-/* DAC channel1 output register status bit */
+/** DAC channel1 output register status bit */
 #define DAC_SR_DORSTAT1			(1 << 12)
 
-/* DAC channel1 ready status bit */
+/** DAC channel1 ready status bit */
 #define DAC_SR_DAC1RDY			(1 << 11)
+/**@}*/
 
-/* --- DAC_CCR values ----------------------------------------------------- */
 
+/**@defgroup dac_ccr_values DAC_CCR values
+ * @{
+ */
 /* DAC channel2 offset trimming value */
 #define DAC_CCR_OTRIM2_SHIFT		16
 #define DAC_CCR_OTRIM2_MASK		0x1F
@@ -225,16 +239,20 @@ specific memorymap.h header before including this header file.*/
 /* DAC channel1 offset trimming value */
 #define DAC_CCR_OTRIM1_SHIFT		0
 #define DAC_CCR_OTRIM1_MASK		0x1F
+/**@}*/
 
 /* --- DAC_MCR values ----------------------------------------------------- */
 
-/* Enable signed format for DAC channel2 */
+/**@defgroup dac_mcr_values DAC_MCR values
+ * @{
+ */
+/** Enable signed format for DAC channel2 */
 #define DAC_MCR_SINFORMAT2		(1 << 25)
 
-/* DAC channel2 DMA double data mode */
+/** DAC channel2 DMA double data mode */
 #define DAC_MCR_DMADOUBLE2		(1 << 24)
 
-/* MODE2[2:0]: DAC channel2 mode */
+/** MODE2[2:0]: DAC channel2 mode */
 #define DAC_MCR_MODE2_SHIFT		16
 /** @defgroup dac_mode2_sel DAC Channel 2 Mode Selection
 @ingroup dac_defines
@@ -277,10 +295,10 @@ specific memorymap.h header before including this header file.*/
 #define DAC_MCR_HFSEL_AHB160		(0x2 << DAC_MCR_HFSEL_SHIFT)
 /**@}*/
 
-/* Enable signed format for DAC channel1 */
+/** Enable signed format for DAC channel1 */
 #define DAC_MCR_SINFORMAT1		(1 << 9)
 
-/* DAC channel1 DMA double data mode */
+/** DAC channel1 DMA double data mode */
 #define DAC_MCR_DMADOUBLE1		(1 << 8)
 
 /* MODE1[2:0]: DAC channel1 mode */
@@ -310,6 +328,7 @@ specific memorymap.h header before including this header file.*/
 #define DAC_MCR_MODE1_PERIPHERAL	(0x1 << DAC_MCR_MODE1_SHIFT)
 #define DAC_MCR_MODE1_UNBUFFERED	(0x2 << DAC_MCR_MODE1_SHIFT)
 #define DAC_MCR_MODE1_SAMPLEHOLD	(0x4 << DAC_MCR_MODE1_SHIFT)
+/**@}*/
 
 /* --- DAC_SHSR1 values ----------------------------------------------------- */
 
