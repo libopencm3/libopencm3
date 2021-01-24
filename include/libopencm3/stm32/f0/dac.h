@@ -41,20 +41,6 @@
 
 #define DAC1				DAC_BASE
 
-/*****************************************************************************/
-/* Register values                                                           */
-/*****************************************************************************/
 
-/* DAC_CR Values ------------------------------------------------------------*/
-
-#define DAC_CR_TSEL1			(7 << DAC_CR_TSEL1_SHIFT)
-#define DAC_CR_TSEL1_TIM6_TRGO		(0 << DAC_CR_TSEL1_SHIFT)
-#define DAC_CR_TSEL1_TIM8_TRGO		(1 << DAC_CR_TSEL1_SHIFT)
-#define DAC_CR_TSEL1_TIM7_TRGO		(2 << DAC_CR_TSEL1_SHIFT)
-#define DAC_CR_TSEL1_TIM5_TRGO		(3 << DAC_CR_TSEL1_SHIFT)
-#define DAC_CR_TSEL1_TIM2_TRGO		(4 << DAC_CR_TSEL1_SHIFT)
-#define DAC_CR_TSEL1_TIM4_TRGO		(5 << DAC_CR_TSEL1_SHIFT)
-#define DAC_CR_TSEL1_EXT_9		(6 << DAC_CR_TSEL1_SHIFT)
-#define DAC_CR_TSEL1_SWTRG		(7 << DAC_CR_TSEL1_SHIFT)
 
 #endif
