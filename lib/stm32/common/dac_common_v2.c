@@ -96,7 +96,7 @@ during application operation.
 become read-only.
 
 @param[in] dac the base address of the DAC. @ref dac_reg_base
-@param[in] mamp uint32_t. Taken from @ref dac_mode2_sel or @ref dac_mode1_sel or
+@param[in] mode Taken from @ref dac_mode2_sel or @ref dac_mode1_sel or
 a logical OR of one of each of these to set both channels simultaneously.
 */
 void dac_set_mode(uint32_t dac, uint32_t mode)
