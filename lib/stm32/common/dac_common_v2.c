@@ -29,7 +29,6 @@ LGPL License Terms @ref lgpl_license
 
 #include <libopencm3/stm32/dac.h>
 
-/*---------------------------------------------------------------------------*/
 /** @brief DAC Channel Output Buffer Enable.
 
 Enable a digital to analog converter channel output drive buffer. This is an
@@ -37,10 +36,9 @@ optional amplifying buffer that provides additional drive for the output
 signal. The buffer is enabled by default after a reset and needs to be
 explicitly disabled if required.
 
-@param[in] dac uint32_t the base address of the DAC.
-@param[in] channel uint8_t with DAC mask.
+@param[in] dac the base address of the DAC. @ref dac_reg_base
+@param[in] channel with DAC mask. @ref dac_channel_id
 */
-
 void dac_buffer_enable(uint32_t dac, int channel)
 {
 	switch (channel) {
@@ -59,17 +57,15 @@ void dac_buffer_enable(uint32_t dac, int channel)
 	}
 }
 
-/*---------------------------------------------------------------------------*/
 /** @brief DAC Channel Output Buffer Disable.
 
 Disable a digital to analog converter channel output drive buffer. Disabling
 this will reduce power consumption slightly and will increase the output
 impedance of the DAC.  The buffers are enabled by default after a reset.
 
-@param[in] dac uint32_t the base address of the DAC.
-@param[in] channel uint8_t with DAC mask.
+@param[in] dac the base address of the DAC. @ref dac_reg_base
+@param[in] channel with DAC mask. @ref dac_channel_id
 */
-
 void dac_buffer_disable(uint32_t dac, int channel)
 {
 	switch (channel) {
@@ -88,7 +84,6 @@ void dac_buffer_disable(uint32_t dac, int channel)
 	}
 }
 
-/*---------------------------------------------------------------------------*/
 /** @brief DAC Channel Output Mode.
 
 Each DAC channel can be configured in Normal mode or Sample and hold mode. The
@@ -100,23 +95,20 @@ during application operation.
 @note This must be called before enabling the DAC as the settings will then
 become read-only.
 
-@param[in] dac uint32_t the base address of the DAC.
+@param[in] dac the base address of the DAC. @ref dac_reg_base
 @param[in] mamp uint32_t. Taken from @ref dac_mode2_sel or @ref dac_mode1_sel or
 a logical OR of one of each of these to set both channels simultaneously.
 */
-
 void dac_set_mode(uint32_t dac, uint32_t mode)
 {
 	DAC_MCR(dac) |= mode;
 }
 
-/*---------------------------------------------------------------------------*/
 /** @brief Check if DAC channel is ready to receive data.
 
-@param[in] dac uint32_t the base address of the DAC.
-@param[in] channel uint8_t with DAC mask.
+@param[in] dac the base address of the DAC. @ref dac_reg_base
+@param[in] channel with DAC mask. @ref dac_channel_id
 */
-
 bool dac_is_ready(uint32_t dac, int channel)
 {
 	uint32_t mask = 0;
@@ -130,28 +122,24 @@ bool dac_is_ready(uint32_t dac, int channel)
 	return (DAC_SR(dac) & mask) != 0;
 }
 
-/*---------------------------------------------------------------------------*/
 /** @brief Wait until DAC channel is ready to receive data.
 
-@param[in] dac uint32_t the base address of the DAC.
-@param[in] channel uint8_t with DAC mask.
+@param[in] dac the base address of the DAC. @ref dac_reg_base
+@param[in] channel with DAC mask. @ref dac_channel_id
 */
-
 void dac_wait_on_ready(uint32_t dac, int channel)
 {
 	while (!dac_is_ready(dac, channel));
 }
 
-/*---------------------------------------------------------------------------*/
 /** @brief High frequency interface mode selection.
 
 If the AHB frequency of the DAC is above 80MHz then this value needs setting
 to an appropriate value.
 
-@param[in] dac uint32_t the base address of the DAC.
+@param[in] dac the base address of the DAC. @ref dac_reg_base
 @param[in] hfsel uint32_t with appropriate HFSEL mask.
 */
-
 void dac_set_high_frequency_mode(uint32_t dac, uint32_t hfsel)
 {
 	uint32_t reg32 = DAC_MCR(dac);

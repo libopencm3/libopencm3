@@ -29,7 +29,6 @@ LGPL License Terms @ref lgpl_license
 
 #include <libopencm3/stm32/dac.h>
 
-/*---------------------------------------------------------------------------*/
 /** @brief DAC Channel Output Buffer Enable.
 
 Enable a digital to analog converter channel output drive buffer. This is an
@@ -37,10 +36,9 @@ optional amplifying buffer that provides additional drive for the output
 signal. The buffer is enabled by default after a reset and needs to be
 explicitly disabled if required.
 
-@param[in] dac uint32_t the base address of the DAC.
-@param[in] channel uint8_t with DAC mask.
+@param[in] dac the base address of the DAC. @ref dac_reg_base
+@param[in] channel with DAC mask. @ref dac_channel_id
 */
-
 void dac_buffer_enable(uint32_t dac, int channel)
 {
 	switch (channel) {
@@ -56,17 +54,15 @@ void dac_buffer_enable(uint32_t dac, int channel)
 	}
 }
 
-/*---------------------------------------------------------------------------*/
 /** @brief DAC Channel Output Buffer Disable.
 
 Disable a digital to analog converter channel output drive buffer. Disabling
 this will reduce power consumption slightly and will increase the output
 impedance of the DAC.  The buffers are enabled by default after a reset.
 
-@param[in] dac uint32_t the base address of the DAC.
-@param[in] channel uint8_t with DAC mask.
+@param[in] dac the base address of the DAC. @ref dac_reg_base
+@param[in] channel with DAC mask. @ref dac_channel_id
 */
-
 void dac_buffer_disable(uint32_t dac, int channel)
 {
 	switch (channel) {

@@ -1,5 +1,6 @@
 /** @addtogroup dac_file DAC peripheral API
  * @ingroup peripheral_apis
+ * @brief Digital to Analog Converter
 
 @author @htmlonly &copy; @endhtmlonly 2012 Ken Sarkies <ksarkies@internode.on.net>
 @author @htmlonly &copy; @endhtmlonly 2020 Ben Brewer <ben.brewer@codethink.co.uk>
@@ -124,17 +125,15 @@ LGPL License Terms @ref lgpl_license
 
 #include <libopencm3/stm32/dac.h>
 
-/*---------------------------------------------------------------------------*/
 /** @brief DAC Channel Enable.
 
 Enable a digital to analog converter channel. After setting this enable, the
 DAC requires a t<sub>wakeup</sub> time typically around 10 microseconds before
 it actually wakes up.
 
-@param[in] dac uint32_t the base address of the DAC.
-@param[in] channel uint8_t with DAC mask.
+@param[in] dac the base address of the DAC @ref dac_reg_base
+@param[in] channel with DAC mask. @ref dac_channel_id
 */
-
 void dac_enable(uint32_t dac, int channel)
 {
 	switch (channel) {
@@ -150,15 +149,13 @@ void dac_enable(uint32_t dac, int channel)
 	}
 }
 
-/*---------------------------------------------------------------------------*/
 /** @brief DAC Channel Disable.
 
 Disable a digital to analog converter channel.
 
-@param[in] dac uint32_t the base address of the DAC.
-@param[in] channel uint8_t with DAC mask.
+@param[in] dac the base address of the DAC @ref dac_reg_base
+@param[in] channel with DAC mask @ref dac_channel_id
 */
-
 void dac_disable(uint32_t dac, int channel)
 {
 	switch (channel) {
@@ -176,17 +173,15 @@ void dac_disable(uint32_t dac, int channel)
 	}
 }
 
-/*---------------------------------------------------------------------------*/
 /** @brief DAC Channel DMA Enable.
 
 Enable a digital to analog converter channel DMA mode (connected to DMA2 channel
 3 for DAC channel 1 and DMA2 channel 4 for DAC channel 2). A DMA request is
 generated following an external trigger.
 
-@param[in] dac uint32_t the base address of the DAC.
-@param[in] channel uint8_t with DAC mask.
+@param[in] dac the base address of the DAC. @ref dac_reg_base
+@param[in] channel with DAC mask. @ref dac_channel_id
 */
-
 void dac_dma_enable(uint32_t dac, int channel)
 {
 	switch (channel) {
@@ -204,15 +199,13 @@ void dac_dma_enable(uint32_t dac, int channel)
 	}
 }
 
-/*---------------------------------------------------------------------------*/
 /** @brief DAC Channel DMA Disable.
 
 Disable a digital to analog converter channel DMA mode.
 
-@param[in] dac uint32_t the base address of the DAC.
-@param[in] channel uint8_t with DAC mask.
+@param[in] dac the base address of the DAC. @ref dac_reg_base
+@param[in] channel with DAC mask. @ref dac_channel_id
 */
-
 void dac_dma_disable(uint32_t dac, int channel)
 {
 	switch (channel) {
@@ -230,7 +223,6 @@ void dac_dma_disable(uint32_t dac, int channel)
 	}
 }
 
-/*---------------------------------------------------------------------------*/
 /** @brief DAC Channel Trigger Enable.
 
 Enable a digital to analog converter channel external trigger mode. This allows
@@ -238,10 +230,9 @@ an external trigger to initiate register transfers from the buffer register to
 the DAC output register, followed by a DMA transfer to the buffer register if
 DMA is enabled.  The trigger source must also be selected.
 
-@param[in] dac uint32_t the base address of the DAC.
-@param[in] channel uint8_t with DAC mask.
+@param[in] dac the base address of the DAC. @ref dac_reg_base
+@param[in] channel with DAC mask. @ref dac_channel_id
 */
-
 void dac_trigger_enable(uint32_t dac, int channel)
 {
 	switch (channel) {
@@ -259,15 +250,13 @@ void dac_trigger_enable(uint32_t dac, int channel)
 	}
 }
 
-/*---------------------------------------------------------------------------*/
 /** @brief DAC Channel Trigger Disable.
 
 Disable a digital to analog converter channel external trigger.
 
-@param[in] dac uint32_t the base address of the DAC.
-@param[in] channel uint8_t with DAC mask.
+@param[in] dac the base address of the DAC. @ref dac_reg_base
+@param[in] channel with DAC mask. @ref dac_channel_id
 */
-
 void dac_trigger_disable(uint32_t dac, int channel)
 {
 	switch (channel) {
@@ -285,24 +274,21 @@ void dac_trigger_disable(uint32_t dac, int channel)
 	}
 }
 
-/*---------------------------------------------------------------------------*/
 /** @brief Set DAC Channel Trigger Source.
 
 Sets the digital to analog converter trigger source, which can be taken from
 various timers, an external trigger or a software trigger.
 
-@param[in] dac uint32_t the base address of the DAC.
-@param[in] source uint32_t. Taken from @ref dac_trig2_sel or @ref
+@param[in] dac the base address of the DAC. @ref dac_reg_base
+@param[in] source Taken from @ref dac_trig2_sel or @ref
 dac_trig1_sel or a logical OR of one of each of these to set both channels
 simultaneously.
 */
-
 void dac_set_trigger_source(uint32_t dac, uint32_t source)
 {
 	DAC_CR(dac) |= source;
 }
 
-/*---------------------------------------------------------------------------*/
 /** @brief Enable and Set DAC Channel Waveform Generation.
 
 Enable the digital to analog converter waveform generation as either
@@ -310,26 +296,23 @@ pseudo-random noise or triangular wave. These signals are superimposed on
 existing output values in the DAC output registers.
 
 @note The DAC trigger must be enabled for this to work.
-
+@param[in] dac the base address of the DAC. @ref dac_reg_base
 @param[in] wave enum ::dac_wave. Taken from @ref dac_wave1_en or @ref
 dac_wave2_en or a logical OR of one of each of these to set both channels
 simultaneously.
 */
-
 void dac_set_waveform_generation(uint32_t dac, enum dac_wave wave)
 {
 	DAC_CR(dac) |= wave;
 }
 
-/*---------------------------------------------------------------------------*/
 /** @brief Disable DAC Channel Waveform Generation.
 
 Disable a digital to analog converter channel superimposed waveform generation.
 
-@param[in] dac uint32_t the base address of the DAC.
-@param[in] channel uint8_t with DAC mask.
+@param[in] dac the base address of the DAC. @ref dac_reg_base
+@param[in] channel with DAC mask. @ref dac_channel_id
 */
-
 void dac_disable_waveform_generation(uint32_t dac, int channel)
 {
 	switch (channel) {
@@ -348,7 +331,6 @@ void dac_disable_waveform_generation(uint32_t dac, int channel)
 	}
 }
 
-/*---------------------------------------------------------------------------*/
 /** @brief Set DAC Channel LFSR Mask or Triangle Wave Amplitude.
 
 Sets the digital to analog converter superimposed waveform generation
@@ -364,17 +346,15 @@ the signal output.
 become read-only.
 @note The DAC trigger must be enabled for this to work.
 
-@param[in] dac uint32_t the base address of the DAC.
+@param[in] dac the base address of the DAC. @ref dac_reg_base
 @param[in] mamp uint8_t. Taken from @ref dac_mamp2 or @ref dac_mamp1 or a
 logical OR of one of each of these to set both channels simultaneously.
 */
-
 void dac_set_waveform_characteristics(uint32_t dac, uint8_t mamp)
 {
 	DAC_CR(dac) |= mamp;
 }
 
-/*---------------------------------------------------------------------------*/
 /** @brief Load DAC Data Register.
 
 Loads the appropriate digital to analog converter data register with 12 or 8 bit
@@ -383,12 +363,11 @@ data to be converted on a channel. The data can be aligned as follows:
 @li right-aligned 12 bit data in bits 0-11
 @li left aligned 12 bit data in bits 4-15
 
-@param[in] dac uint32_t the base address of the DAC.
+@param[in] dac the base address of the DAC. @ref dac_reg_base
 @param[in] data uint16_t with appropriate alignment.
 @param[in] align enum ::dac_align. Alignment and size.
 @param[in] channel uint8_t with DAC mask.
 */
-
 void dac_load_data_buffer_single(uint32_t dac, uint16_t data,
 		enum dac_align align,
 		int channel)
@@ -424,7 +403,6 @@ void dac_load_data_buffer_single(uint32_t dac, uint16_t data,
 	}
 }
 
-/*---------------------------------------------------------------------------*/
 /** @brief Load DAC Dual Data Register.
 
 Loads the appropriate digital to analog converter dual data register with 12 or
@@ -432,13 +410,12 @@ Loads the appropriate digital to analog converter dual data register with 12 or
 simultaneous or independent analog output. The data in both channels are aligned
 identically.
 
-@param[in] dac uint32_t the base address of the DAC.
+@param[in] dac the base address of the DAC. @ref dac_reg_base
 @param[in] data1 uint16_t for channel 1 with appropriate alignment.
 @param[in] data2 uint16_t for channel 2 with appropriate alignment.
 @param[in] align enum ::dac_align. Right or left aligned, and 8 or
 12 bit.
 */
-
 void dac_load_data_buffer_dual(uint32_t dac,
 		uint16_t data1, uint16_t data2,
 		enum dac_align align)
@@ -460,16 +437,14 @@ void dac_load_data_buffer_dual(uint32_t dac,
 	}
 }
 
-/*---------------------------------------------------------------------------*/
 /** @brief Trigger the DAC by a Software Trigger.
 
 If the trigger source is set to be a software trigger, cause a trigger to occur.
 The trigger is cleared by hardware after conversion.
 
-@param[in] dac uint32_t the base address of the DAC.
-@param[in] channel uint8_t with DAC mask.
+@param[in] dac the base address of the DAC. @ref dac_reg_base
+@param[in] channel with DAC mask. @ref dac_channel_id
 */
-
 void dac_software_trigger(uint32_t dac, int channel)
 {
 	switch (channel) {
