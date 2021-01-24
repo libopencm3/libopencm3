@@ -85,11 +85,11 @@ Both DAC channels are enabled, and both triggers are set to the same timer
 1 only to ensure that only one DMA request is generated.
 
 @code
-	dma_set_memory_size(DMA2,DMA_CHANNEL3,DMA_CCR_MSIZE_16BIT);
-	dma_set_peripheral_size(DMA2,DMA_CHANNEL3,DMA_CCR_PSIZE_16BIT);
-	dma_set_read_from_memory(DMA2,DMA_CHANNEL3);
-	dma_set_peripheral_address(DMA2,DMA_CHANNEL3,(uint32_t) &DAC_DHR8RD);
-	dma_enable_channel(DMA2,DMA_CHANNEL3);
+	dma_set_memory_size(DMA2, DMA_CHANNEL3, DMA_CCR_MSIZE_16BIT);
+	dma_set_peripheral_size(DMA2, DMA_CHANNEL3, DMA_CCR_PSIZE_16BIT);
+	dma_set_read_from_memory(DMA2, DMA_CHANNEL3);
+	dma_set_peripheral_address(DMA2, DMA_CHANNEL3,(uint32_t) &DAC_DHR8RD);
+	dma_enable_channel(DMA2, DMA_CHANNEL3);
 	...
 	dac_trigger_enable(DAC1, DAC_CHANNEL_BOTH);
 	dac_set_trigger_source(DAC1, DAC_CR_TSEL1_T2 | DAC_CR_TSEL2_T2);
