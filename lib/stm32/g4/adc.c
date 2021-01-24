@@ -1,6 +1,5 @@
-/** @defgroup adc_file ADC
- *
- * @ingroup STM32G4xx
+/** @addtogroup adc_file ADC peripheral API
+ * @ingroup peripheral_apis
  *
  * @brief <b>libopencm3 STM32G4xx ADC</b>
  *
