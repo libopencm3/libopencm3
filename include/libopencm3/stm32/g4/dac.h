@@ -33,14 +33,17 @@ LGPL License Terms @ref lgpl_license
 
 #include <libopencm3/stm32/common/dac_common_v2.h>
 
-/*****************************************************************************/
-/* Module definitions                                                        */
-/*****************************************************************************/
+/**@{*/
 
+/** @defgroup dac_reg_base DAC register base addresses
+@{*/
 #define DAC1				DAC1_BASE
 #define DAC2				DAC2_BASE
 #define DAC3				DAC3_BASE
 #define DAC4				DAC4_BASE
 #define DAC5				DAC5_BASE
+/**@}*/
+
+/**@}*/
 
 #endif
