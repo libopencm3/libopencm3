@@ -347,12 +347,31 @@ become read-only.
 @note The DAC trigger must be enabled for this to work.
 
 @param[in] dac the base address of the DAC. @ref dac_reg_base
-@param[in] mamp uint8_t. Taken from @ref dac_mamp2 or @ref dac_mamp1 or a
-logical OR of one of each of these to set both channels simultaneously.
+@param[in] channel one or both, select from @ref dac_channel_id
+@param[in] mamp amplitude of mixed waveform, bit width @ref DAC_CR_MAMPx_MASK
 */
-void dac_set_waveform_characteristics(uint32_t dac, uint8_t mamp)
+void dac_set_waveform_characteristics(uint32_t dac, int channel, int mamp)
 {
-	DAC_CR(dac) |= mamp;
+	uint32_t reg = DAC_CR(dac);
+	switch(channel) {
+	case DAC_CHANNEL1:
+		reg &= ~(DAC_CR_MAMPx_MASK << DAC_CR_MAMP1_SHIFT);
+		reg |= mamp << DAC_CR_MAMP1_SHIFT;
+		break;
+	case DAC_CHANNEL2:
+		reg &= ~(DAC_CR_MAMPx_MASK << DAC_CR_MAMP2_SHIFT);
+		reg |= mamp << DAC_CR_MAMP2_SHIFT;
+		break;
+	case DAC_CHANNEL_BOTH:
+		reg &= ~(DAC_CR_MAMPx_MASK << DAC_CR_MAMP1_SHIFT)
+			| ~(DAC_CR_MAMPx_MASK << DAC_CR_MAMP2_SHIFT);
+		reg |= mamp << DAC_CR_MAMP1_SHIFT;
+		reg |= mamp << DAC_CR_MAMP2_SHIFT;
+		break;
+	default:
+		break;
+	}
+	DAC_CR(dac) = reg;
 }
 
 /** @brief Load DAC Data Register.

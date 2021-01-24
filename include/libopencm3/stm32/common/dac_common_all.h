@@ -100,7 +100,7 @@ specific memorymap.h header before including this header file.*/
 /** DMAEN2: DAC channel2 DMA enable */
 #define DAC_CR_DMAEN2			(1 << 28)
 
-/** MAMP2[3:0]: DAC channel2 mask/amplitude selector */
+/** MAMP2[3:0]: DAC channel2 mask/amplitude selector field position */
 #define DAC_CR_MAMP2_SHIFT		24
 
 /** WAVE2[1:0]: DAC channel2 noise/triangle wave generation enable */
@@ -118,8 +118,10 @@ specific memorymap.h header before including this header file.*/
 /** DMAEN1: DAC channel1 DMA enable */
 #define DAC_CR_DMAEN1			(1 << 12)
 
-/** MAMP1[3:0]: DAC channel1 mask/amplitude selector */
+/** MAMP1[3:0]: DAC channel1 mask/amplitude selector field position */
 #define DAC_CR_MAMP1_SHIFT		8
+/** MAMP Mask/Amplitude selector field size */
+#define DAC_CR_MAMPx_MASK		0xf
 
 /** WAVEn[1:0]: DAC channel1 noise/triangle wave generation enable */
 #define DAC_CR_WAVE1_SHIFT		6
@@ -257,7 +259,7 @@ void dac_trigger_disable(uint32_t dac, int channel);
 void dac_set_trigger_source(uint32_t dac, uint32_t source);
 void dac_set_waveform_generation(uint32_t dac, enum dac_wave wave);
 void dac_disable_waveform_generation(uint32_t dac, int channel);
-void dac_set_waveform_characteristics(uint32_t dac, uint8_t mamp);
+void dac_set_waveform_characteristics(uint32_t dac, int channel, int mamp);
 void dac_load_data_buffer_single(uint32_t dac, uint16_t data,
                                  enum dac_align align, int channel);
 void dac_load_data_buffer_dual(uint32_t dac, uint16_t data1, uint16_t data2,
