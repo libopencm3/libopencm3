@@ -485,7 +485,7 @@ specific memorymap.h header before including this header file.*/
 
 /* STINCTRIGSEL1[3:0]: DAC channel1 sawtooth increment trigger selection */
 #define DAC_STMODR_STINCTRIGSEL1_SHIFT	8
-/** @defgroup dac_sawtooth2_inc DAC Channel 1 Sawtooth Increment Trigger
+/** @defgroup dac_sawtooth1_inc DAC Channel 1 Sawtooth Increment Trigger
 @ingroup dac_defines
 
 @li SW: SWTRIGB2
@@ -527,7 +527,7 @@ specific memorymap.h header before including this header file.*/
 
 /* STRSTTRIGSEL1[3:0]: DAC channel1 sawtooth reset trigger selection */
 #define DAC_STMODR_STRSTTRIGSEL1_SHIFT	0
-/** @defgroup dac_sawtooth2_rst DAC Channel 1 Sawtooth Reset Trigger
+/** @defgroup dac_sawtooth1_rst DAC Channel 1 Sawtooth Reset Trigger
 @ingroup dac_defines
 
 @li SW: SWTRIGB2
