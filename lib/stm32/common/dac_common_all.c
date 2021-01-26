@@ -66,8 +66,8 @@ sent out.
 		      GPIO_CNF_OUTPUT_ALTFN_PUSHPULL, GPIO4);
 	rcc_periph_clock_enable(RCC_DAC);
 	dac_disable(DAC1, DAC_CHANNEL1);
-	dac_set_waveform_characteristics(DAC1, DAC_CR_MAMP1_8);
-	dac_set_waveform_generation(DAC1, DAC_CR_WAVE1_NOISE);
+	dac_set_waveform_characteristics(DAC1, DAC_CHANNEL1, DAC_CR_MAMP1_8);
+	dac_set_waveform_generation(DAC1, DAC_CHANNEL1, DAC_CR_WAVE1_NOISE);
 	dac_enable(DAC1, DAC_CHANNEL1);
 	dac_set_trigger_source(DAC1, DAC_CR_TSEL1_SW);
 	dac_load_data_buffer_single(DAC1, 0, DAC_ALIGN_RIGHT12, DAC_CHANNEL1);
@@ -289,46 +289,49 @@ void dac_set_trigger_source(uint32_t dac, uint32_t source)
 	DAC_CR(dac) |= source;
 }
 
-/** @brief Enable and Set DAC Channel Waveform Generation.
-
-Enable the digital to analog converter waveform generation as either
-pseudo-random noise or triangular wave. These signals are superimposed on
-existing output values in the DAC output registers.
-
-@note The DAC trigger must be enabled for this to work.
-@param[in] dac the base address of the DAC. @ref dac_reg_base
-@param[in] wave enum ::dac_wave. Taken from @ref dac_wave1_en or @ref
-dac_wave2_en or a logical OR of one of each of these to set both channels
-simultaneously.
-*/
-void dac_set_waveform_generation(uint32_t dac, enum dac_wave wave)
+/**
+ * Set DAC Channel Waveform Generation mode for one or both channels.
+ * These signals are superimposed on existing output values in the
+ * DAC output registers. Waveform can be disabled, noise, triangular,
+ * or sawtooth, depending on family.
+ * @note The DAC trigger must be enabled for this to work.
+ * @param[in] dac the base address of the DAC. @ref dac_reg_base
+ * @param[in] channel one or both, @ref dac_channel_id
+ * @param[in] wave enum ::dac_wave. mode for channel
+ */
+void dac_set_waveform_generation(uint32_t dac, int channel, enum dac_wave wave)
 {
-	DAC_CR(dac) |= wave;
-}
-
-/** @brief Disable DAC Channel Waveform Generation.
-
-Disable a digital to analog converter channel superimposed waveform generation.
-
-@param[in] dac the base address of the DAC. @ref dac_reg_base
-@param[in] channel with DAC mask. @ref dac_channel_id
-*/
-void dac_disable_waveform_generation(uint32_t dac, int channel)
-{
-	switch (channel) {
+	uint32_t reg = DAC_CR(dac);
+	switch(channel) {
 	case DAC_CHANNEL1:
-		DAC_CR(dac) &= ~(DAC_CR_WAVE1_MASK << DAC_CR_WAVE1_SHIFT);
+		reg &= ~(DAC_CR_WAVEx_MASK << DAC_CR_WAVE1_SHIFT);
+		reg |= wave << DAC_CR_WAVE1_SHIFT;
 		break;
 	case DAC_CHANNEL2:
-		DAC_CR(dac) &= ~(DAC_CR_WAVE2_MASK << DAC_CR_WAVE2_SHIFT);
+		reg &= ~(DAC_CR_WAVEx_MASK << DAC_CR_WAVE2_SHIFT);
+		reg |= wave << DAC_CR_WAVE2_SHIFT;
 		break;
 	case DAC_CHANNEL_BOTH:
-		DAC_CR(dac) &= ~(DAC_CR_WAVE1_MASK << DAC_CR_WAVE1_SHIFT)
-				| ~(DAC_CR_WAVE2_MASK << DAC_CR_WAVE2_SHIFT);
+		reg &= ~(DAC_CR_WAVEx_MASK << DAC_CR_WAVE1_SHIFT)
+			| ~(DAC_CR_WAVEx_MASK << DAC_CR_WAVE2_SHIFT);
+		reg |= wave << DAC_CR_WAVE1_SHIFT;
+		reg |= wave << DAC_CR_WAVE2_SHIFT;
 		break;
 	default:
 		break;
 	}
+	DAC_CR(dac) = reg;
+}
+
+/**
+ * Disable DAC Channel Waveform Generation.
+ * @note this is equivalent to @ref dac_set_waveform_generation (dac, channel, DAC_WAVE_DISABLE)
+ * @param[in] dac the base address of the DAC. @ref dac_reg_base
+ * @param[in] channel with DAC mask. @ref dac_channel_id
+ */
+void dac_disable_waveform_generation(uint32_t dac, int channel)
+{
+	dac_set_waveform_generation(dac, channel, DAC_WAVE_DISABLE);
 }
 
 /** @brief Set DAC Channel LFSR Mask or Triangle Wave Amplitude.
