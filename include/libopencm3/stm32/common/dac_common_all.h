@@ -225,6 +225,7 @@ specific memorymap.h header before including this header file.*/
 /* --- Function prototypes ------------------------------------------------- */
 
 /** @defgroup dac_channel_id DAC Channel Identifier
+ * @note Not all parts have two channels, notably, some of the smaller F0's
  * @{
  */
 #define DAC_CHANNEL1		(1 << 0)
