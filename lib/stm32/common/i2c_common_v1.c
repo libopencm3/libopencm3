@@ -225,8 +225,9 @@ that this is <b> not </b> the I2C bus clock. This is set in conjunction with
 the Clock Control register to generate the Master bus clock, see @ref
 i2c_set_ccr
 
-@param[in] i2c Unsigned int32. I2C register base address @ref i2c_reg_base.
-@param[in] freq Unsigned int8. Clock Frequency Setting @ref i2c_clock.
+@param[in] i2c I2C register base address @ref i2c_reg_base
+@param[in] freq Clock Frequency Setting in MHz, valid range depends on part,+
+  normally 2Mhz->Max APB speed.
 */
 
 void i2c_set_clock_frequency(uint32_t i2c, uint8_t freq)
