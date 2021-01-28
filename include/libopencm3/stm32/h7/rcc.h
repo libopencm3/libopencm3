@@ -810,6 +810,5 @@ void rcc_set_rng_clksel(uint8_t clksel);
 
 END_DECLS
 /**@}*/
-/**@}*/
 
 #endif

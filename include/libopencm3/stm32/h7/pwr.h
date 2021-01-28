@@ -27,9 +27,7 @@ LGPL License Terms @ref lgpl_license
  * along with this library.  If not, see <http://www.gnu.org/licenses/>.
  */
 
-#ifndef LIBOPENCM3_PWR_H
-#define LIBOPENCM3_PWR_H
-
+#pragma once
 /**@{*/
 
 /** @defgroup pwr_registers PWR Registers
@@ -55,7 +53,7 @@ LGPL License Terms @ref lgpl_license
 /** Wakeup Domain Power Control register. */
 #define PWR_WKUPCR      MMIO32(POWER_CONTROL_BASE + 0x20)
 
-/*@}*/
+/**@}*/
 
 /** VOS[15:14]: Regulator voltage scaling output selection */
 #define PWR_CR1_SVOS_SHIFT        14
@@ -130,5 +128,3 @@ void pwr_set_vos_scale(enum pwr_vos_scale scale);
 END_DECLS
 
 /**@}*/
-
-#endif
