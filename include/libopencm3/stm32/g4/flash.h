@@ -73,6 +73,10 @@
 #define FLASH_ACR_DBG_SWEN		(1 << 18)
 #define FLASH_ACR_SLEEP_PD		(1 << 14)
 #define FLASH_ACR_RUN_PD		(1 << 13)
+#define FLASH_ACR_DCRST			(1 << 12)
+#define FLASH_ACR_ICRST			(1 << 11)
+#define FLASH_ACR_DCEN			(1 << 10)
+#define FLASH_ACR_ICEN			(1 << 9)
 #define FLASH_ACR_PRFTEN		(1 << 8)
 
 #define FLASH_ACR_LATENCY_SHIFT		0
