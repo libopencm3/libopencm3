@@ -1,34 +1,55 @@
-/*
- * This file is part of the libopencm3 project.
- *
- * Copyright (C) 2016, Chuck McManis <cmcmanis@mcmanis.com>
- *
- * This library is free software: you can redistribute it and/or modify
- * it under the terms of the GNU Lesser General Public License as published by
- * the Free Software Foundation, either version 3 of the License, or
- * (at your option) any later version.
- *
- * This library is distributed in the hope that it will be useful,
- * but WITHOUT ANY WARRANTY; without even the implied warranty of
- * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
- * GNU Lesser General Public License for more details.
- *
- * You should have received a copy of the GNU Lesser General Public License
- * along with this library.  If not, see <http://www.gnu.org/licenses/>.
+/** @addtogroup quadspi_defines
+ * @author Chuck McManis <cmcmanis@mcmanis.com> 2016
+ * @copyright SPDX: LGPL-3.0-or-later
+ * @{
  */
 
-/* THIS FILE SHOULD NOT BE INCLUDED DIRECTLY, BUT ONLY VIA quadspi.h
-The order of header inclusion is important. quadspi.h includes the device
-specific memorymap.h header before including this header file.*/
+#pragma once
 
-/** @cond */
-#ifdef LIBOPENCM3_QUADSPI_H
-/** @endcond */
-#ifndef LIBOPENCM3_QUADSPI_COMMON_V1_H
-#define LIBOPENCM3_QUADSPI_COMMON_V1_H
-
-/* QUADSPI Control register */
+/** @addtogroup quadspi_registers QuadSPI Registers
+ * @{
+ */
+/** QUADSPI Control register */
 #define QUADSPI_CR      MMIO32(QUADSPI_BASE + 0x0U)
+
+/** QUADSPI Device Configuration */
+#define QUADSPI_DCR     MMIO32(QUADSPI_BASE + 0x4U)
+
+/** QUADSPI Status Register */
+#define QUADSPI_SR      MMIO32(QUADSPI_BASE + 0x8U)
+
+/** QUADSPI Flag Clear Register */
+#define QUADSPI_FCR     MMIO32(QUADSPI_BASE + 0xCU)
+
+/** QUADSPI Data Length Register */
+#define QUADSPI_DLR     MMIO32(QUADSPI_BASE + 0x10U)
+
+/** QUADSPI Communication Configuration Register */
+#define QUADSPI_CCR     MMIO32(QUADSPI_BASE + 0x14U)
+
+/** QUADSPI address register */
+#define QUADSPI_AR      MMIO32(QUADSPI_BASE + 0x18U)
+
+/** QUADSPI alternate bytes register */
+#define QUADSPI_ABR     MMIO32(QUADSPI_BASE + 0x1CU)
+
+/** QUADSPI data register */
+#define QUADSPI_DR      MMIO32(QUADSPI_BASE + 0x20U)
+/** BYTE addressable version for fetching bytes from the interface */
+#define QUADSPI_BYTE_DR     MMIO8(QUADSPI_BASE + 0x20U)
+
+/** QUADSPI polling status */
+#define QUADSPI_PSMKR     MMIO32(QUADSPI_BASE + 0x24U)
+
+/** QUADSPI polling status match */
+#define QUADSPI_PSMAR     MMIO32(QUADSPI_BASE + 0x28U)
+
+/** QUADSPI polling interval register */
+#define QUADSPI_PIR     MMIO32(QUADSPI_BASE + 0x2CU)
+
+/** QUADSPI low power timeout */
+#define QUADSPI_LPTR      MMIO32(QUADSPI_BASE + 0x30U
+/**@}*/
 
 #define QUADSPI_CR_PRESCALE_MASK  0xff
 #define QUADSPI_CR_PRESCALE_SHIFT 24
@@ -53,9 +74,6 @@ specific memorymap.h header before including this header file.*/
 #define QUADSPI_CR_ABORT    (1 << 1)
 #define QUADSPI_CR_EN     (1 << 0)
 
-/* QUADSPI Device Configuration */
-#define QUADSPI_DCR     MMIO32(QUADSPI_BASE + 0x4U)
-
 /* bits 31:21 reserved */
 #define QUADSPI_DCR_FSIZE_MASK    0x1f
 #define QUADSPI_DCR_FSIZE_SHIFT   16
@@ -64,9 +82,6 @@ specific memorymap.h header before including this header file.*/
 #define QUADSPI_DCR_CSHT_SHIFT    8
 /* bits 7:1 reserved */
 #define QUADSPI_DCR_CKMODE    (1 << 0)
-
-/* QUADSPI Status Register */
-#define QUADSPI_SR      MMIO32(QUADSPI_BASE + 0x8U)
 
 /* bits 31:14 reserved */
 #define QUADSPI_SR_FLEVEL_MASK    0x3f
@@ -80,21 +95,12 @@ specific memorymap.h header before including this header file.*/
 #define QUADSPI_SR_TCF      (1 << 1)
 #define QUADSPI_SR_TEF      (1 << 0)
 
-/* QUADSPI Flag Clear Register */
-#define QUADSPI_FCR     MMIO32(QUADSPI_BASE + 0xCU)
-
 /* bits 31:5 reserved */
 #define QUADSPI_FCR_CTOF    (1 << 4)
 #define QUADSPI_FCR_CSMF    (1 << 3)
 /* bit 2 reserved */
 #define QUADSPI_FCR_CTCF    (1 << 1)
 #define QUADSPI_FCR_CTEF    (1 << 0)
-
-/* QUADSPI Data Length Register */
-#define QUADSPI_DLR     MMIO32(QUADSPI_BASE + 0x10U)
-
-/* QUADSPI Communication Configuration Register */
-#define QUADSPI_CCR     MMIO32(QUADSPI_BASE + 0x14U)
 
 #define QUADSPI_CCR_DDRM    (1 << 31)
 #define QUADSPI_CCR_DHHC    (1 << 30)
@@ -138,33 +144,32 @@ specific memorymap.h header before including this header file.*/
 #define QUADSPI_CCR_FMODE_APOLL   2
 #define QUADSPI_CCR_FMODE_MEMMAP  3
 
+/**@}*/
 
-/* QUADSPI address register */
-#define QUADSPI_AR      MMIO32(QUADSPI_BASE + 0x18U)
 
-/* QUADSPI alternate bytes register */
-#define QUADSPI_ABR     MMIO32(QUADSPI_BASE + 0x1CU)
+/**
+ * @defgroup quadspi_file QuadSPI peripheral API
+ * @brief APIs for the specialized SPI Flash peripheral
+ * @ingroup peripheral_apis
+ * @copyright SPDX: LGPL-3.0-or-later
+ *
+ * The QUADSPI is a specialized communication interface targeting single,
+ * dual or quad SPI Flash memories
+ * @{
+ */
 
-/* QUADSPI data register */
-#define QUADSPI_DR      MMIO32(QUADSPI_BASE + 0x20U)
-/* BYTE addressable version for fetching bytes from the interface */
-#define QUADSPI_BYTE_DR     MMIO8(QUADSPI_BASE + 0x20U)
+BEGIN_DECLS
 
-/* QUADSPI polling status */
-#define QUADSPI_PSMKR     MMIO32(QUADSPI_BASE + 0x24U)
+/**
+ * Enable the quadspi peripheral.
+ */
+void quadspi_enable(void);
 
-/* QUADSPI polling status match */
-#define QUADSPI_PSMAR     MMIO32(QUADSPI_BASE + 0x28U)
+/**
+ * Disable the quadspi peripheral.
+ */
+void quadspi_disable(void);
 
-/* QUADSPI polling interval register */
-#define QUADSPI_PIR     MMIO32(QUADSPI_BASE + 0x2CU)
+END_DECLS
 
-/* QUADSPI low power timeout */
-#define QUADSPI_LPTR      MMIO32(QUADSPI_BASE + 0x30U
-
-#endif
-/** @cond */
-#else
-#warning "quadspi_common_v1.h should not be included directly, only via quadspi.h"
-#endif
-/** @endcond */
+/**@}*/

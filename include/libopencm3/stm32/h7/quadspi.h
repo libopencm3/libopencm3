@@ -1,22 +1,11 @@
-/*
- * This file is part of the libopencm3 project.
- *
- * This library is free software: you can redistribute it and/or modify
- * it under the terms of the GNU Lesser General Public License as published by
- * the Free Software Foundation, either version 3 of the License, or
- * (at your option) any later version.
- *
- * This library is distributed in the hope that it will be useful,
- * but WITHOUT ANY WARRANTY; without even the implied warranty of
- * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
- * GNU Lesser General Public License for more details.
- *
- * You should have received a copy of the GNU Lesser General Public License
- * along with this library.  If not, see <http://www.gnu.org/licenses/>.
+/** @defgroup quadspi_defines QuadSPI Defines
+ * @brief Defined constants and types for the STM32H7 QuadSPI peripheral
+ * @ingroup STM32H7xx_defines
+ * @copyright SPDX: LGPL-3.0-or-later
+ * @{
  */
 
-#ifndef LIBOPENCM3_QUADSPI_H
-#define LIBOPENCM3_QUADSPI_H
+#pragma once
 
 #include <libopencm3/stm32/memorymap.h>
 #include <libopencm3/stm32/common/quadspi_common_v1.h>
@@ -24,4 +13,4 @@
 /** Enable free running clock mode, for testing */
 #define QUADSPI_CCR_FRCM    (1 << 29)
 
-#endif  /* LIBOPENCM3_QUADSPI_H */
+/**@}*/
