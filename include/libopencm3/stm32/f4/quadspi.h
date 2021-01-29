@@ -1,8 +1,6 @@
 /*
  * STM32F4 Quad SPI defines
  *
- * Copyright (C) 2016, Chuck McManis <cmcmanis@mcmanis.com>
- *
  * This file is part of the libopencm3 project.
  *
  * This library is free software: you can redistribute it and/or modify
