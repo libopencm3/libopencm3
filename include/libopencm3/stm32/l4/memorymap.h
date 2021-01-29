@@ -110,6 +110,9 @@
 #define AES_BASE			(0x50000000U + 0x60000)
 #define RNG_BASE			(0x50000000U + 0x60800)
 
+#define FMC_BASE		(0xa0000000U)
+#define QUADSPI_BASE		(0xa0001000U)
+
 /* Private peripherals */
 #define DBGMCU_BASE			(PPBI_BASE + 0x00042000)
 
