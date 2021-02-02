@@ -5,7 +5,7 @@ README
 [![Gitter channel](https://badges.gitter.im/libopencm3/discuss.svg)](https://gitter.im/libopencm3/discuss)
 
 The libopencm3 project aims to create an open-source firmware library for
-various ARM Cortex-M microcontrollers.
+various 32-bit microcontrollers:
 
 Currently (at least partly) supported microcontrollers:
 
@@ -19,12 +19,17 @@ Currently (at least partly) supported microcontrollers:
  - Freescale Vybrid VF6xx
  - Qorvo (formerly ActiveSemi) PAC55XX
  - Synwit SWM050
+ - GigaDevices GF32F1x0 and GD32VF103 (RISC-V)
 
 The library is written completely from scratch based on the vendor datasheets,
 programming manuals, and application notes. The code is meant to be used
-with a GCC toolchain for ARM (arm-elf or arm-none-eabi), flashing of the
-code to a microcontroller can be done using the OpenOCD ARM JTAG software.
+with a GCC toolchain and flashing of the code to a microcontroller can be done
+using the OpenOCD JTAG software.
 
+_NOTE_: Vast majority of supported devices uses ARM Cortex-M core and the
+rest of this document assumes such a chip. The
+[GD32VF103 documentation](lib/gd32v/f103/README.md) provides information
+specific to the chip that uses a RISC-V core.
 
 Status and API
 --------------

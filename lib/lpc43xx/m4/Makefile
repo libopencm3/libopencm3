@@ -45,6 +45,7 @@ OBJ_LPC43XX     = gpio.o scu.o i2c.o ssp.o uart.o timer.o
 #LPC43xx M4 specific file + Generic LPC43xx M4/M0 files
 OBJS		= $(OBJ_LPC43XX) ipc.o
 
-VPATH += ../:../../cm3
+vpath %.c ../
+vpath %.c ../../cm3
 
 include ../../Makefile.include

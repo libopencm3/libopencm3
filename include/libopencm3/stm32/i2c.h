@@ -40,6 +40,8 @@
 #       include <libopencm3/stm32/l4/i2c.h>
 #elif defined(STM32G0)
 #       include <libopencm3/stm32/g0/i2c.h>
+#elif defined(GD32VF103)
+#	include <libopencm3/gd32v/f103/i2c.h>
 #else
 #       error "stm32 family not defined."
 #endif

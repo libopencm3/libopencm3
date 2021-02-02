@@ -40,7 +40,7 @@ template_nvic_h = '''\
 #ifndef {includeguard}
 #define {includeguard}
 
-#include <libopencm3/cm3/nvic.h>
+#include <{nvic_include}>
 
 /** @defgroup CM3_nvic_defines_irqs User interrupts for {partname_humanreadable}
     @ingroup CM3_nvic_defines
@@ -126,6 +126,8 @@ def convert(infile, outfile_nvic, outfile_vectornvic, outfile_cmsis):
     data['vectortableinitialization'] = ', \\\n    '.join('[NVIC_%s_IRQ] = %s_isr'%(name.upper(), name.lower()) for name in irqnames)
     data['cmsisbends'] = "\n".join("#define %s_IRQHandler %s_isr"%(name.upper(), name.lower()) for name in irqnames)
     data['sourcefile'] = infile.name
+    if not 'nvic_include' in data:
+        data['nvic_include'] = 'libopencm3/cm3/nvic.h'
 
     outfile_nvic.write(template_nvic_h.format(**data))
     outfile_vectornvic.write(template_vector_nvic_c.format(**data))

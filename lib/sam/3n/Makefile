@@ -34,7 +34,8 @@ OBJS += gpio_common_all.o gpio_common_3n3s.o
 OBJS += pmc.o
 OBJS += usart_common_all.o usart_common_3.o
 
-VPATH += ../../cm3:../common
+vpath %.c ../../cm3
+vpath %.c ../common
 
 include ../../Makefile.include
 

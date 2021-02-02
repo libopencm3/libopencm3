@@ -48,6 +48,7 @@ OBJS += usb_hid.o
 OBJS += usb_audio.o usb_cdc.o usb_midi.o
 OBJS += usb_lm4f.o
 
-VPATH += ../usb:../cm3
+vpath %.c ../usb
+vpath %.c ../cm3
 
 include ../Makefile.include

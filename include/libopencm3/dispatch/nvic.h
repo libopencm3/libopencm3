@@ -1,5 +1,5 @@
-#ifndef LIBOPENCM3_NVIC_H
-#error You should not be including this file directly, but <libopencm3/cm3/nvic.h>
+#if !defined(LIBOPENCM3_NVIC_H) && !defined(LIBOPENCM3_ECLIC_H)
+#error You should not be including this file directly, but <libopencm3/cm3/nvic.h> or <libopencm3/gd32v/eclic.h>
 #endif
 
 #if defined(STM32F0)
@@ -29,6 +29,8 @@
 
 #elif defined(GD32F1X0)
 #	include <libopencm3/gd32/f1x0/nvic.h>
+#elif defined(GD32VF103)
+#	include <libopencm3/gd32v/f103/nvic.h>
 
 #elif defined(EFM32TG)
 #	include <libopencm3/efm32/tg/nvic.h>

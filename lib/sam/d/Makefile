@@ -31,7 +31,8 @@ TGT_CFLAGS	+= $(STANDARD_FLAGS)
 ARFLAGS		= rcs
 OBJS		= 
 
-VPATH += ../../cm3:../common
+vpath %.c ../../cm3
+vpath %.c ../common
 
 include ../../Makefile.include
 

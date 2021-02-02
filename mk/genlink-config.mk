@@ -32,7 +32,11 @@ genlink_cppflags	:=$(shell $(OPENCM3_DIR)/scripts/genlink.py $(DEVICES_DATA) $(D
 
 CPPFLAGS	+= $(genlink_cppflags)
 
+ifeq ($(genlink_cpu),bumblebee)
+ARCH_FLAGS	:=-march=rv32imac -mabi=ilp32 -mcmodel=medlow
+else
 ARCH_FLAGS	:=-mcpu=$(genlink_cpu)
+endif
 ifeq ($(genlink_cpu),$(filter $(genlink_cpu),cortex-m0 cortex-m0plus cortex-m3 cortex-m4 cortex-m7))
 ARCH_FLAGS    +=-mthumb
 endif
@@ -43,7 +47,7 @@ else ifeq ($(genlink_fpu),hard-fpv4-sp-d16)
 ARCH_FLAGS	+= -mfloat-abi=hard -mfpu=fpv4-sp-d16
 else ifeq ($(genlink_fpu),hard-fpv5-sp-d16)
 ARCH_FLAGS      += -mfloat-abi=hard -mfpu=fpv5-sp-d16
-else
+else ifneq ($(genlink_fpu),none)
 $(warning No match for the FPU flags)
 endif
 

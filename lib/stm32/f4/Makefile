@@ -73,7 +73,10 @@ OBJS += usb_dwc_common.o usb_f107.o usb_f207.o
 
 OBJS += mac.o phy.o mac_stm32fxx7.o phy_ksz80x1.o
 
-VPATH += ../../usb:../:../../cm3:../common
-VPATH += ../../ethernet
+vpath %.c ../../usb
+vpath %.c ../
+vpath %.c ../../cm3
+vpath %.c ../common
+vpath %.c ../../ethernet
 
 include ../../Makefile.include

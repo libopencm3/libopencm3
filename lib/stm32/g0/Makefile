@@ -51,6 +51,8 @@ OBJS += spi_common_all.o spi_common_v2.o
 OBJS += timer_common_all.o
 OBJS += usart_common_all.o usart_common_v2.o
 
-VPATH +=../:../../cm3:../common
+vpath %.c ../
+vpath %.c ../../cm3
+vpath %.c ../common
 
 include ../../Makefile.include
