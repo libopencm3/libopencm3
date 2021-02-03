@@ -18,8 +18,12 @@
 
 /* --- Convenience macros ------------------------------------------------ */
 
+/**@defgroup port_reg_base Port Base registers
+ * @{
+ */
 #define PORTA				(PORT_BASE + 0)
 #define PORTB				(PORT_BASE + 0x80)
+/**@}*/
 
 /* GPIO number definitions (for convenience) */
 /** @defgroup gpio_pin_id GPIO Pin Identifiers

@@ -17,8 +17,8 @@
  * @param[in] gpioport port register address base @ref port_reg_base
  * @param[in] mode direction @ref gpio_direction
  * @param[in] cnf configuration mode @ref gpio_cnf
- * @param[in] gpios Any combinaison of pins may be
- * 			specified by OR'ing then together.
+ * @param[in] gpios @ref gpio_pin_id. Any combination of pins
+ *           may be specified by OR'ing then together.
  */
 void gpio_mode_setup(uint32_t gpioport, uint8_t mode, uint8_t cnf, uint32_t gpios)
 {
@@ -67,8 +67,8 @@ void gpio_mode_setup(uint32_t gpioport, uint8_t mode, uint8_t cnf, uint32_t gpio
  *
  * @param[in] gpioport port register address base @ref port_reg_base
  * @param[in] af pmux configuration @ref gpio_mux
- * @param[in] gpios Any combinaison of pins may be
- * 			specified by OR'ing then together.
+ * @param[in] gpios @ref gpio_pin_id. Any combination of pins
+ *           may be specified by OR'ing then together.
  */
 void gpio_set_af(uint32_t gpioport, uint8_t af, uint32_t gpios)
 {
@@ -89,7 +89,7 @@ void gpio_set_af(uint32_t gpioport, uint8_t af, uint32_t gpios)
  * Set a group of Pins for the given port.
  *
  * @param[in] gpioport port register address base @ref port_reg_base
- * @param[in] gpios @ref gpio_defines. Any combinaison of pins may be
+ * @param[in] gpios @ref gpio_pin_id. Any combination of pins may be
  *          specified by OR'ing then together.
  */
 void gpio_set(uint32_t gpioport, uint32_t gpios)
@@ -102,7 +102,7 @@ void gpio_set(uint32_t gpioport, uint32_t gpios)
  * Clear a group of Pins for the given port.
  *
  * @param[in] gpioport port register address base @ref port_reg_base
- * @param[in] gpios @ref gpio_defines. Any combinaison of pins may be
+ * @param[in] gpios @ref gpio_pin_id. Any combination of pins may be
  *          specified by OR'ing then together.
  */
 void gpio_clear(uint32_t gpioport, uint32_t gpios)
@@ -115,7 +115,7 @@ void gpio_clear(uint32_t gpioport, uint32_t gpios)
  * Read the level of a group of Pins for the given port.
  *
  * @param[in] gpioport port register address base @ref port_reg_base
- * @param[in] gpios @ref gpio_defines. Any combinaison of pins may be
+ * @param[in] gpios @ref gpio_pin_id. Any combination of pins may be
  *          specified by OR'ing then together.
  */
 uint32_t gpio_get(uint32_t gpioport, uint32_t gpios)
@@ -128,7 +128,7 @@ uint32_t gpio_get(uint32_t gpioport, uint32_t gpios)
  * Toggle one or more pins  of the givent port.
  *
  * @param[in] gpioport port register address base @ref port_reg_base
- * @param[in] gpios @ref gpio_defines. Any combinaison of pins may be
+ * @param[in] gpios @ref gpio_pin_id. Any combination of pins may be
  *          specified by OR'ing then together.
  */
 void gpio_toggle(uint32_t gpioport, uint32_t gpios)
@@ -154,7 +154,7 @@ uint32_t port_read(uint32_t port)
  * Set the level of all pins of the given port.
  *
  * @param[in] port register address base @ref port_reg_base
- * @param[in] data @ref gpio_defines. Any combinaison of pins
+ * @param[in] data @ref gpio_pin_id. Any combination of pins
  *           may be specified by OR'ing then together.
  */
 void port_write(uint32_t port, uint32_t data)
