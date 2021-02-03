@@ -154,4 +154,7 @@
 #define TIM3_BASE           0x40000400U
 #define TIM2_BASE           0x40000000U
 
+/* Debug/Trace Peripherals */
+#define DBGMCU_BASE         0x5C001000U
+
 #endif
