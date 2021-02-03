@@ -24,14 +24,17 @@ void gpio_mode_setup(uint32_t gpioport, uint8_t mode, uint8_t cnf, uint32_t gpio
 {
 	uint32_t reg = PORT_WRCONFIG_WRPINCFG;
 	/* enable pull */
-	if (cnf == GPIO_CNF_PULLDOWN || cnf == GPIO_CNF_PULLUP)
+	if (cnf == GPIO_CNF_PULLDOWN || cnf == GPIO_CNF_PULLUP) {
 		reg |= PORT_WRCONFIG_PULLEN;
+	}
 	/* enable input buffer */
-	if (mode != GPIO_MODE_OUTPUT)
+	if (mode != GPIO_MODE_OUTPUT) {
 		reg |= PORT_WRCONFIG_INEN;
+	}
 	/* set pmuxen */
-	if (cnf == GPIO_CNF_AF)
+	if (cnf == GPIO_CNF_AF) {
 		reg |= PORT_WRCONFIG_PMUXEN;
+	}
 
 	/* PORTx_WRCONFIG allows to configure pins [31:16] or [15:0] */
 	/* write low pins */
@@ -42,18 +45,20 @@ void gpio_mode_setup(uint32_t gpioport, uint8_t mode, uint8_t cnf, uint32_t gpio
 
 	/* configure port direction for selected gpios */
 	/* DIR is always 0 when PULL */
-	if (cnf == GPIO_CNF_PULLDOWN || cnf == GPIO_CNF_PULLUP)
+	if (cnf == GPIO_CNF_PULLDOWN || cnf == GPIO_CNF_PULLUP) {
 		PORT_DIRCLR(gpioport) = gpios;
-	else if (mode == GPIO_MODE_INPUT)
+	} else if (mode == GPIO_MODE_INPUT) {
 		PORT_DIRCLR(gpioport) = gpios;
-	else
+	} else {
 		PORT_DIRSET(gpioport) = gpios;
+	}
 
 	/* PULL UP/DOWN is configured through OUT */
-	if (cnf == GPIO_CNF_PULLDOWN)
+	if (cnf == GPIO_CNF_PULLDOWN) {
 		PORT_OUTCLR(gpioport) = gpios;
-	else if (cnf == GPIO_CNF_PULLUP)
+	} else if (cnf == GPIO_CNF_PULLUP) {
 		PORT_OUTSET(gpioport) = gpios;
+	}
 }
 
 /** @brief Alternate function GPIO pins
