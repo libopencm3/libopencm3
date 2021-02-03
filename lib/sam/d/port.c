@@ -1,32 +1,9 @@
-/** @defgroup gpio_defines
- *
- * @ingroup SAMD
- *
+/** @addtogroup port_file IO Port API
+ * @ingroup peripheral_apis
  * @brief <b>Access functions for the SAMD I/O Controller</b>
- *
  * @date 10 April 2020
- *
- * LGPL License Terms @ref lgpl_license
- *
- */
-
-/*
- * This file is part of the libopencm3 project.
- *
- * Copyright (C) 2020 Gwenhael Goavec-Merou <gwenhael.goavec-merou@trabucayre.com>
- *
- * This library is free software: you can redistribute it and/or modify
- * it under the terms of the GNU Lesser General Public License as published by
- * the Free Software Foundation, either version 3 of the License, or
- * (at your option) any later version.
- *
- * This library is distributed in the hope that it will be useful,
- * but WITHOUT ANY WARRANTY; without even the implied warranty of
- * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
- * GNU Lesser General Public License for more details.
- *
- * You should have received a copy of the GNU Lesser General Public License
- * along with this library.  If not, see <http://www.gnu.org/licenses/>.
+ * @copyright SPDX: LGPL-3.0-or-later
+ * @author 2020 Gwenhael Goavec-Merou <gwenhael.goavec-merou@trabucayre.com>
  */
 
 /**@{*/
@@ -43,7 +20,6 @@
  * @param[in] gpios Any combinaison of pins may be
  * 			specified by OR'ing then together.
  */
-
 void gpio_mode_setup(uint32_t gpioport, uint8_t mode, uint8_t cnf, uint32_t gpios)
 {
 	uint32_t reg = PORT_WRCONFIG_WRPINCFG;
