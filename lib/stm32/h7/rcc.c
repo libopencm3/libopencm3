@@ -185,8 +185,8 @@ void rcc_clock_setup_pll(const struct rcc_pll_config *config) {
 	while (((RCC_CFGR >> RCC_CFGR_SWS_SHIFT) & RCC_CFGR_SWS_MASK) != RCC_CFGR_SWS_HSI);
 	RCC_CR = RCC_CR_HSION;
 
-	/* Now that we're safely running on HSI, let's setup the LDO. */
-	pwr_set_mode_ldo();
+	/* Now that we're safely running on HSI, let's setup the power system for scaling. */
+	pwr_set_mode(config->power_mode, config->smps_level);
 	pwr_set_vos_scale(config->voltage_scale);
 
 	/* Set flash waitstates. Enable flash prefetch if we have at least 1WS */
