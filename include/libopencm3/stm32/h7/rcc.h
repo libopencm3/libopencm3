@@ -182,29 +182,37 @@ LGPL License Terms @ref lgpl_license
 /** @defgroup rcc_d1cfgr_values RCC_D1CFGR Values
  * @ingroup rcc_registers
  * @{*/
-#define RCC_D1CFGR_D1CPRE_BYP       0x0
-#define RCC_D1CFGR_D1CPRE_DIV2      0x8
-#define RCC_D1CFGR_D1CPRE_DIV4      0x9
-#define RCC_D1CFGR_D1CPRE_DIV8      0xA
-#define RCC_D1CFGR_D1CPRE_DIV16     0xB
-#define RCC_D1CFGR_D1CPRE_DIV64     0xC
-#define RCC_D1CFGR_D1CPRE_DIV128    0xD
-#define RCC_D1CFGR_D1CPRE_DIV256    0xE
-#define RCC_D1CFGR_D1CPRE_DIV512    0xF
-#define RCC_D1CFGR_D1PPRE_BYP       0x0
-#define RCC_D1CFGR_D1PPRE_DIV2      0x4
-#define RCC_D1CFGR_D1PPRE_DIV4      0x5
-#define RCC_D1CFGR_D1PPRE_DIV8      0x6
-#define RCC_D1CFGR_D1PPRE_DIV16     0x7
-#define RCC_D1CFGR_D1HPRE_BYP       0x0
-#define RCC_D1CFGR_D1HPRE_DIV2      0x8
-#define RCC_D1CFGR_D1HPRE_DIV4      0x9
-#define RCC_D1CFGR_D1HPRE_DIV8      0xA
-#define RCC_D1CFGR_D1HPRE_DIV16     0xB
-#define RCC_D1CFGR_D1HPRE_DIV64     0xC
-#define RCC_D1CFGR_D1HPRE_DIV128    0xD
-#define RCC_D1CFGR_D1HPRE_DIV256    0xE
-#define RCC_D1CFGR_D1HPRE_DIV512    0xF
+enum rcc_core_pre {
+  RCC_D1CFGR_D1CPRE_BYP    = 0x0,
+  RCC_D1CFGR_D1CPRE_DIV2   = 0x8,
+  RCC_D1CFGR_D1CPRE_DIV4   = 0x9,
+  RCC_D1CFGR_D1CPRE_DIV8   = 0xA,
+  RCC_D1CFGR_D1CPRE_DIV16  = 0xB,
+  RCC_D1CFGR_D1CPRE_DIV64  = 0xC,
+  RCC_D1CFGR_D1CPRE_DIV128 = 0xD,
+  RCC_D1CFGR_D1CPRE_DIV256 = 0xE,
+  RCC_D1CFGR_D1CPRE_DIV512 = 0xF,
+};
+
+enum rcc_domain1_ppre {
+  RCC_D1CFGR_D1PPRE_BYP   = 0x0,
+  RCC_D1CFGR_D1PPRE_DIV2  = 0x4,
+  RCC_D1CFGR_D1PPRE_DIV4  = 0x5,
+  RCC_D1CFGR_D1PPRE_DIV8  = 0x6,
+  RCC_D1CFGR_D1PPRE_DIV16 = 0x7,
+};
+
+enum rcc_domain1_hpre {
+  RCC_D1CFGR_D1HPRE_BYP    = 0x0,
+  RCC_D1CFGR_D1HPRE_DIV2   = 0x8,
+  RCC_D1CFGR_D1HPRE_DIV4   = 0x9,
+  RCC_D1CFGR_D1HPRE_DIV8   = 0xA,
+  RCC_D1CFGR_D1HPRE_DIV16  = 0xB,
+  RCC_D1CFGR_D1HPRE_DIV64  = 0xC,
+  RCC_D1CFGR_D1HPRE_DIV128 = 0xD,
+  RCC_D1CFGR_D1HPRE_DIV256 = 0xE,
+  RCC_D1CFGR_D1HPRE_DIV512 = 0xF,
+};
 
 #define RCC_D1CFGR_D1CPRE_SHIFT     8
 #define RCC_D1CFGR_D1PPRE_SHIFT     4
@@ -216,11 +224,13 @@ LGPL License Terms @ref lgpl_license
 /** @defgroup rcc_d2cfgr_values RCC_D2CFGR Values
  * @ingroup rcc_registers
  * @{*/
-#define RCC_D2CFGR_D2PPRE_BYP       0x0
-#define RCC_D2CFGR_D2PPRE_DIV2      0x4
-#define RCC_D2CFGR_D2PPRE_DIV4      0x5
-#define RCC_D2CFGR_D2PPRE_DIV8      0x6
-#define RCC_D2CFGR_D2PPRE_DIV16     0x7
+enum rcc_domain2_ppre {
+  RCC_D2CFGR_D2PPRE_BYP   = 0x0,
+  RCC_D2CFGR_D2PPRE_DIV2  = 0x4,
+  RCC_D2CFGR_D2PPRE_DIV4  = 0x5,
+  RCC_D2CFGR_D2PPRE_DIV8  = 0x6,
+  RCC_D2CFGR_D2PPRE_DIV16 = 0x7,
+};
 
 #define RCC_D2CFGR_D2PPRE2_SHIFT    8
 #define RCC_D2CFGR_D2PPRE1_SHIFT    4
@@ -231,11 +241,14 @@ LGPL License Terms @ref lgpl_license
 /** @defgroup rcc_d3cfgr_values RCC_D3CFGR Values
  * @ingroup rcc_registers
  * @{*/
-#define RCC_D3CFGR_D3PPRE_BYP       0x0
-#define RCC_D3CFGR_D3PPRE_DIV2      0x4
-#define RCC_D3CFGR_D3PPRE_DIV4      0x5
-#define RCC_D3CFGR_D3PPRE_DIV8      0x6
-#define RCC_D3CFGR_D3PPRE_DIV16     0x7
+enum rcc_domain3_ppre {
+  RCC_D3CFGR_D3PPRE_BYP   = 0x0,
+  RCC_D3CFGR_D3PPRE_DIV2  = 0x4,
+  RCC_D3CFGR_D3PPRE_DIV4  = 0x5,
+  RCC_D3CFGR_D3PPRE_DIV8  = 0x6,
+  RCC_D3CFGR_D3PPRE_DIV16 = 0x7,
+};
+
 #define RCC_D3CFGR_D3PPRE_SHIFT     4
 #define RCC_D3CFGR_D3PPRE(ppre)     (ppre << RCC_D3CFGR_D3PPRE_SHIFT)
 /**@}*/
@@ -455,13 +468,13 @@ struct rcc_pll_config {
     uint8_t divq;                   /**< Post divider for PLLQ clock. */
     uint8_t divr;                   /**< Post divider for PLLR clock. */
   } pll1, pll2, pll3;               /**< PLL1-PLL3 configurations. */
-  uint8_t core_pre;                 /**< Core prescaler  note: domain 1. */
-  uint8_t hpre;                     /**< HCLK3 prescaler note: domain 1. */
-  uint8_t ppre1;                    /**< APB1 Peripheral prescaler note: domain 2. */
-  uint8_t ppre2;                    /**< APB2 Peripheral prescaler note: domain 2. */
-  uint8_t ppre3;                    /**< APB3 Peripheral prescaler note: domain 1. */
-  uint8_t ppre4;                    /**< APB4 Peripheral prescaler note: domain 3. */
-  uint8_t flash_waitstates;         /**< Latency Value to set for flahs. */
+  enum rcc_core_pre core_pre;       /**< Core prescaler. */
+  enum rcc_domain1_hpre hpre;       /**< HCLK3 prescaler. */
+  enum rcc_domain2_ppre ppre1;      /**< APB1 Peripheral prescaler. */
+  enum rcc_domain2_ppre ppre2;      /**< APB2 Peripheral prescaler. */
+  enum rcc_domain1_ppre ppre3;      /**< APB3 Peripheral prescaler. */
+  enum rcc_domain3_ppre ppre4;      /**< APB4 Peripheral prescaler. */
+  uint8_t flash_waitstates;         /**< Latency Value to set for flash. FLASH_ACR_LATENCY_xWS value. */
   enum pwr_vos_scale voltage_scale; /**< LDO/SMPS Voltage scale used for this frequency. */
   enum pwr_sys_mode power_mode;     /**< LDO/SMPS configuration for device. */
   uint8_t smps_level;               /**< If using SMPS, voltage level to set. */
