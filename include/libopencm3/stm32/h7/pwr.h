@@ -140,16 +140,18 @@ LGPL License Terms @ref lgpl_license
 /** V BAT charging enable */
 #define PWR_CR3_VBE               BIT8
 
-/** SMPS step-down converter voltage output level selection
+/** @defgroup pwr_cr3_smpslevel SMPS step-down converter voltage output level selection
  *  This setting is used when both the LDO and SMPS step-down converter are enabled with SMPSEN and
  *  LDOEN enabled or when SMPSEXTHP is enabled. In this case SMPSLEVEL must be written with
  *  a value different than 00 to reach the appropriate voltage, based on VOS or external supply.
+ * @{
  */
-#define PWR_CR3_SMPSLEVEL_SHIFT   4
-#define PWR_CR3_SMPSLEVEL_MASK    0x3
 #define PWR_CR3_SMPSLEVEL_VOS     0x0
 #define PWR_CR3_SMPSLEVEL_1P8V    0x1
 #define PWR_CR3_SMPSLEVEL_2P5V    0x2
+/**@}*/
+#define PWR_CR3_SMPSLEVEL_SHIFT   4
+#define PWR_CR3_SMPSLEVEL_MASK    0x3
 
 /** SMPS step-down converter external power delivery selection */
 #define PWR_CR3_SMPSEXTHP         BIT3
@@ -215,15 +217,16 @@ void pwr_set_mode_ldo(void);
 void pwr_set_mode_scu_ldo(void);
 
 /** Set power subsystem to utilize the SMPS run through the LDO for CPU.
- *  @param[in] supply_external  Supply is powering external circuits, enable high power mode.
- *  @param[in] smps_level  Voltage level from available PWR_CR3_SMPSLEVEL_XXX settings (1.8V/2.5V)
- *  @param[in] use_ldo  Set this value to true if the internal LDO should be enabled.
+ * @param[in] supply_external  Supply is powering external circuits, enable high power mode.
+ * @param[in] smps_level  Voltage level from @ref pwr_cr3_smpslevel (1.8V/2.5V)
+ * @param[in] use_ldo  Set this value to true if the internal LDO should be enabled.
  */
 void pwr_set_mode_smps_ldo(bool supply_external, uint32_t smps_level, bool use_ldo);
 
 /** Set power system based on "System Supply Configurations" table in reference manual.
- *  @param[in] mode  Mode mapping to a mode in the system configuration. Note special SCU modes.
- *  @param[in] smps_level  Optional, only needed if using an EXT_SMPS or SMPS_LDO mode.
+ * @param[in] mode  Mode mapping to a mode in the system configuration. Note special SCU modes.
+ * @param[in] smps_level  Optional, only needed if using an EXT_SMPS or SMPS_LDO mode.
+ * Provide zero if unused, otherwise @ref pwr_cr3_smpslevel.
  */
 void pwr_set_mode(enum pwr_sys_mode mode, uint8_t smps_level);
 
