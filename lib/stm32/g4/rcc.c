@@ -763,4 +763,110 @@ void rcc_set_clock48_source(uint32_t clksel)
 	RCC_CCIPR |= (clksel << RCC_CCIPR_CLK48_SHIFT);
 }
 
+/** @brief Select clock fed into specific peripheral.
+ *
+ * This allows to select, which clock will drive certain peripherals
+ * if those can be driven by more than on possible clock source.
+ * @param periph identification of peripheral by the means of its base address (use xxx_BASE defines)
+ * @param sel clock source selected to drive given peripheral (use RCC_CCIPR_<device>_<source> defines)
+ * @note Mind the fact that clock domains for certain devices are bound
+ * together. This means that e.g. ADC1_BASE and ADC2_BASE will both work
+ * as an input to rcc_set_peripheral_clk_sel, but both will set same clock
+ * input.
+ */
+void rcc_set_peripheral_clk_sel(uint32_t periph, uint32_t sel)
+{
+	uint8_t shift;
+	uint32_t mask = RCC_CCIPR_SEL_MASK;
+
+	switch(periph)
+	{
+		case USART1_BASE:
+			shift = RCC_CCIPR_USART1_SHIFT;
+			break;
+
+		case USART2_BASE:
+			shift = RCC_CCIPR_USART2_SHIFT;
+			break;
+
+		case USART3_BASE:
+			shift = RCC_CCIPR_USART3_SHIFT;
+			break;
+
+		case UART4_BASE:
+			shift = RCC_CCIPR_UART4_SHIFT;
+			break;
+
+		case UART5_BASE:
+			shift = RCC_CCIPR_UART5_SHIFT;
+			break;
+
+		case LPUART1_BASE:
+			shift = RCC_CCIPR_LPUART1SEL_SHIFT;
+			break;
+
+		case I2C1_BASE:
+			shift = RCC_CCIPR_I2C1_SHIFT;
+			break;
+
+		case I2C2_BASE:
+			shift = RCC_CCIPR_I2C2_SHIFT;
+			break;
+
+		case I2C3_BASE:
+			shift = RCC_CCIPR_I2C3_SHIFT;
+			break;
+
+		case LPTIM1_BASE:
+			shift = RCC_CCIPR_LPTIM1SEL_SHIFT;
+			break;
+
+		case SAI1_BASE:
+			shift = RCC_CCIPR_SAI1_SHIFT;
+			break;
+
+		/* TODO: what exactly is I2S23 clock? */
+		case SPI2_BASE:
+			// fall through
+		case SPI3_BASE:
+			shift = RCC_CCIPR_I2S23_SHIFT;
+			break;
+
+		case FDCAN1_BASE:
+			// fall through
+		case FDCAN2_BASE:
+			// fall through
+		case FDCAN3_BASE:
+			shift = RCC_CCIPR_FDCAN_SHIFT;
+			break;
+
+		case USB_DEV_FS_BASE:
+			// fall through
+		case RNG_BASE:
+			shift = RCC_CCIPR_CLK48_SHIFT;
+			break;
+
+		case ADC1_BASE:
+			// fall through
+		case ADC2_BASE:
+			shift = RCC_CCIPR_ADC12_SHIFT;
+			break;
+
+		case ADC3_BASE:
+			// fall through
+		case ADC4_BASE:
+			// fall through
+		case ADC5_BASE:
+			shift = RCC_CCIPR_ADC345_SHIFT;
+			break;
+
+		default:
+			cm3_assert_not_reached();
+			return;
+	}
+
+	uint32_t reg32 = RCC_CCIPR & ~(mask << shift);
+	RCC_CCIPR = reg32 | ((sel & mask) << shift);
+}
+
 /**@}*/
