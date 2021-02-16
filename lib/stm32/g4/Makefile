@@ -56,6 +56,7 @@ OBJS += usb_hid.o
 OBJS += usb_midi.o
 OBJS += usb_msc.o
 OBJS += st_usbfs_core.o st_usbfs_v2.o
+OBJS += fdcan.o
 
 VPATH += ../../usb:../:../../cm3:../common
 VPATH += ../../ethernet
