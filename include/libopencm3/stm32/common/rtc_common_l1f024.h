@@ -330,7 +330,7 @@ specific memorymap.h header before including this header file.*/
 /**@}*/
 
 /* RTC shift control register (RTC_SHIFTR) ---------------------- */
-#define RTC_SHIFTR_ADD1S          (31)
+#define RTC_SHIFTR_ADD1S          (1<<31)
 
 #define RTC_SHIFTR_SUBFS_SHIFT    (0)
 #define RTC_SHIFTR_SUBFS_MASK     (0x7fff)
