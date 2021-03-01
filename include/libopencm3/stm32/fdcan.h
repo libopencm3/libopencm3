@@ -125,19 +125,13 @@ LGPL License Terms @ref lgpl_license
 #define FDCAN_DBTP_DSJW_SHIFT			0
 #define FDCAN_DBTP_DSJW_MASK			(0xF << FDCAN_DBTP_DSJW_SHIFT)
 
-#define FDCAN_DBTP_DSJW_TQ(tq)			((tq) << FDCAN_DBTP_DSJW_SHIFT)
-
 /* DTSEG2[3:0]: Data time segment after sample point */
 #define FDCAN_DBTP_DTSEG2_SHIFT			4
 #define FDCAN_DBTP_DTSEG2_MASK			(0xF << FDCAN_DBTP_DTSEG2_SHIFT)
 
-#define FDCAN_DBTP_DTSEG2_TQ(tq)		((tq) << FDCAN_DBTP_DTSEG2_SHIFT)
-
 /* DTSEG1[4:0]: Data time segment before sample point */
 #define FDCAN_DBTP_DTSEG1_SHIFT			8
 #define FDCAN_DBTP_DTSEG1_MASK			(0x1F << FDCAN_DBTP_DTSEG1_SHIFT)
-
-#define FDCAN_DBTP_DTSEG1_TQ(tq)		((tq) << FDCAN_DBTP_DTSEG1_SHIFT)
 
 /* DBRP[4:0]: Data bit rate prescaler */
 #define FDCAN_DBTP_DBRP_SHIFT			16
@@ -179,25 +173,23 @@ LGPL License Terms @ref lgpl_license
 #define FDCAN_CCCR_NISO					(1 << 15)
 /**@}*/
 
+/* Timeout for FDCAN_CCCR register INIT bit to accept set value.
+ * This timeout is required because FDCAN uses two different clocks
+ * feeding two different portions of block. There can be slight delay
+ * based on how clocks are set up. While amount of FDCAN_clk /
+ * FDCAN_pclk combinations is high and clock speeds may vary a lot,
+ * following value has been choosen as sane default. You are free to
+ * use any timeout value you want.
+ */
+#define FDCAN_CCCR_INIT_TIMEOUT		0x0000FFFF
+
 /* NTSEG2[6:0]: Nominal timing segment after sample point length */
 #define FDCAN_NBTP_NTSEG2_SHIFT			0
 #define FDCAN_NBTP_NTSEG2_MASK			(0x7F << FDCAN_NBTP_NTSEG2_SHIFT)
 
-/** Obtain value for use as TSEG2 for normal speed.
- * @param ts amount of tq
- * @returns value suitable for use with fdcan_init
- */
-#define FDCAN_NBTP_NTSEG2_TQ(tq)		((tq) << FDCAN_NBTP_NTSEG2_SHIFT)
-
 /* NTSEG1[7:0]: Nominal timing segment before sample point length */
 #define FDCAN_NBTP_NTSEG1_SHIFT			8
 #define FDCAN_NBTP_NTSEG1_MASK			(0xFF << FDCAN_NBTP_NTSEG1_SHIFT)
-
-/** Obtain value for use as TSEG1 for normal speed.
- * @param ts amount of tq
- * @returns value suitable for use with fdcan_init
- */
-#define FDCAN_NBTP_NTSEG1_TQ(tq)		((tq) << FDCAN_NBTP_NTSEG1_SHIFT)
 
 /* NBRP[8:0]: Norminal timing bit rate prescaler */
 #define FDCAN_NBTP_NBRP_SHIFT			16
@@ -206,12 +198,6 @@ LGPL License Terms @ref lgpl_license
 /* NSJW[6:0]: Norminal timing resynchronization jumb width*/
 #define FDCAN_NBTP_NSJW_SHIFT			25
 #define FDCAN_NBTP_NSJW_MASK			(0x7F << FDCAN_NBTP_NSJW_SHIFT)
-
-/** Obtain value for use as TSJW for normal speed.
- * @param ts amount of tq
- * @returns value suitable for use with fdcan_init
- */
-#define FDCAN_NBTP_NSJW_TQ(tq)			((tq) << FDCAN_NBTP_NSJW_SHIFT)
 
 /* TSS[1:0]: Timestamp select */
 #define FDCAN_TSCC_TSS_SHIFT			0
@@ -734,28 +720,28 @@ struct fdcan_message_ram {
 
 /* --- FD-CAN error returns ------------------------------------------------- */
 
-/** @defgroup fdcan_errors FDCAN error return values
- * @{
+/** FDCAN error return values
  */
-/** No error. Operation finished successfully */
-#define FDCAN_E_OK						0
+enum fdcan_error {
+	/** No error. Operation finished successfully */
+	FDCAN_E_OK,
 
-/** Value provided was out of range */
-#define FDCAN_E_OUTOFRANGE				-1
+	/** Value provided was out of range */
+	FDCAN_E_OUTOFRANGE,
 
-/** Timeout waiting for FDCAN block to accept INIT bit change */
-#define FDCAN_E_TIMEOUT					-2
+	/** Timeout waiting for FDCAN block to accept INIT bit change */
+	FDCAN_E_TIMEOUT,
 
-/** Value provided was invalid (FIFO index, FDCAN block base address, length, etc.) */
-#define FDCAN_E_INVALID					-3
+	/** Value provided was invalid (FIFO index, FDCAN block base address, length, etc.) */
+	FDCAN_E_INVALID,
 
-/** Device is busy: Transmit buffer is full, unable to queue additional message or device
- * is outside of INIT mode and cannot perform desired operation. */
-#define FDCAN_E_BUSY					-4
+	/** Device is busy: Transmit buffer is full, unable to queue additional message or device
+	 * is outside of INIT mode and cannot perform desired operation. */
+	FDCAN_E_BUSY,
 
-/** Receive buffer is empty, unable to read any new message */
-#define FDCAN_E_NOTAVAIL				-5
-/**@}*/
+	/** Receive buffer is empty, unable to read any new message */
+	FDCAN_E_NOTAVAIL
+};
 
 /**@}*/
 
@@ -763,21 +749,26 @@ struct fdcan_message_ram {
 
 BEGIN_DECLS
 
-int fdcan_init(uint32_t canport, bool brs_enable, bool fd_op_enable,
-		bool auto_retr_disable, bool rx_fifo_locked, bool tx_queue_mode,
-		uint32_t n_sjw, uint32_t n_ts1, uint32_t n_ts2, uint32_t n_br_presc,
-		uint32_t f_sjw, uint32_t f_ts1, uint32_t f_ts2, uint32_t f_br_presc,
-		bool loopback, bool silent);
+int fdcan_init(uint32_t canport, uint32_t timeout);
 
-int fdcan_start(uint32_t canport);
+void fdcan_set_can(uint32_t canport, bool auto_retry_disable, bool rx_fifo_locked,
+		bool tx_queue_mode,	bool silent, uint32_t n_sjw, uint32_t n_ts1, uint32_t n_ts2,
+		uint32_t n_br_presc);
 
-int fdcan_filter_init(uint32_t canport, uint8_t std_filt, uint8_t ext_filt);
+void fdcan_set_fdcan(uint32_t canport, bool brs_enable, bool fd_op_enable,
+		uint32_t f_sjw, uint32_t f_ts1, uint32_t f_ts2, uint32_t f_br_presc);
 
-int fdcan_std_filter_set(uint32_t canport, uint32_t nr,
+void fdcan_set_test(uint32_t canport, bool testing, bool loopback);
+
+void fdcan_filter_init(uint32_t canport, uint8_t std_filt, uint8_t ext_filt);
+
+int fdcan_start(uint32_t canport, uint32_t timeout);
+
+void fdcan_set_std_filter(uint32_t canport, uint32_t nr,
 		uint8_t id_list_mode, uint32_t id1, uint32_t id2,
 		uint8_t action);
 
-int fdcan_ext_filter_set(uint32_t canport, uint32_t nr,
+void fdcan_set_ext_filter(uint32_t canport, uint32_t nr,
 		uint8_t id_list_mode, uint32_t id1, uint32_t id2,
 		uint8_t action);
 
