@@ -40,6 +40,7 @@ OBJS += crs_common_all.o
 OBJS += dac_common_all.o dac_common_v2.o
 OBJS += dma_common_l1f013.o
 OBJS += dmamux.o
+OBJS += fdcan.o
 OBJS += flash.o flash_common_all.o flash_common_f.o flash_common_idcache.o
 OBJS += gpio_common_all.o gpio_common_f0234.o
 OBJS += opamp_common_all.o opamp_common_v2.o
@@ -56,7 +57,6 @@ OBJS += usb_hid.o
 OBJS += usb_midi.o
 OBJS += usb_msc.o
 OBJS += st_usbfs_core.o st_usbfs_v2.o
-OBJS += fdcan.o
 
 VPATH += ../../usb:../:../../cm3:../common
 VPATH += ../../ethernet
