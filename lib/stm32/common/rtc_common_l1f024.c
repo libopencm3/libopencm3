@@ -122,4 +122,189 @@ void rtc_clear_wakeup_flag(void)
 	RTC_ISR &= ~RTC_ISR_WUTF;
 }
 
+/*---------------------------------------------------------------------------*/
+/** @brief Sets the initialization flag
+
+@details Requires unlocking backup domain write protection (PWR_CR_DBP)
+*/
+void rtc_set_init_flag(void)
+{
+	RTC_ISR |= RTC_ISR_INIT;
+}
+
+/*---------------------------------------------------------------------------*/
+/** @brief Clears (resets) the initialization flag
+
+@details Requires unlocking backup domain write protection (PWR_CR_DBP)
+*/
+void rtc_clear_init_flag(void)
+{
+	RTC_ISR &= ~RTC_ISR_INIT;
+}
+
+/*---------------------------------------------------------------------------*/
+/** @brief Returns if the RTC_ISR init flag RTC_ISR_INITF is set
+
+@details Requires unlocking backup domain write protection (PWR_CR_DBP)
+*/
+bool rtc_init_flag_is_ready(void)
+{
+	return (RTC_ISR & RTC_ISR_INITF);
+}
+
+/*---------------------------------------------------------------------------*/
+/** @brief Waits infinitely for initialization flag to be set in RTC_ISR
+
+@details Requires unlocking backup domain write protection (PWR_CR_DBP)
+*/
+void rtc_wait_for_init_ready(void)
+{
+	while (!rtc_init_flag_is_ready());
+}
+
+/*---------------------------------------------------------------------------*/
+/** @brief Sets the bypass shadow bit in RTC_CR
+
+@details Requires unlocking backup domain write protection (PWR_CR_DBP)
+*/
+void rtc_enable_bypass_shadow_register(void)
+{
+	RTC_CR |= RTC_CR_BYPSHAD;
+}
+
+/*---------------------------------------------------------------------------*/
+/** @brief Clears the bypass shadow bit in RTC_CR
+
+@details Requires unlocking backup domain write protection (PWR_CR_DBP)
+*/
+void rtc_disable_bypass_shadow_register(void)
+{
+	RTC_CR &= ~RTC_CR_BYPSHAD;
+}
+
+/*---------------------------------------------------------------------------*/
+/** @brief Sets the RTC hour format (24h or 12h)
+
+@details Requires unlocking backup domain write protection (PWR_CR_DBP)
+*/
+void rtc_set_hour_format(enum rtc_fmt fmt)
+{
+	switch (fmt) {
+	case RTC_CR_FMT_24H:
+		RTC_CR &= ~RTC_CR_FMT;
+		break;
+	case RTC_CR_FMT_12H:
+		RTC_CR |= RTC_CR_FMT;
+		break;
+	}
+}
+
+/*---------------------------------------------------------------------------*/
+/** @brief Sets the RTC BCD calendar year value (tens and ones)
+
+@details Requires unlocking the RTC write-protection (RTC_WPR)
+*/
+void rtc_calendar_set_year(uint8_t year_tens, uint8_t year_units)
+{
+	RTC_DR = ((year_tens & RTC_DR_YT_MASK) << RTC_DR_YT_SHIFT) |
+		(RTC_DR & ~(RTC_DR_YT_MASK << RTC_DR_YT_SHIFT));
+	RTC_DR = ((year_units & RTC_DR_YU_MASK) << RTC_DR_YU_SHIFT) |
+		(RTC_DR & ~(RTC_DR_YU_MASK << RTC_DR_YU_SHIFT));
+}
+
+/*---------------------------------------------------------------------------*/
+/** @brief Sets the RTC BCD calendar weekday
+
+@details Requires unlocking the RTC write-protection (RTC_WPR)
+*/
+void rtc_calendar_set_weekday(enum rtc_wdu weekday)
+{
+	RTC_DR = ((weekday & RTC_DR_WDU_MASK) << RTC_DR_WDU_SHIFT) |
+		(RTC_DR & ~(RTC_DR_WDU_MASK << RTC_DR_WDU_SHIFT));
+}
+
+/*---------------------------------------------------------------------------*/
+/** @brief Sets the RTC BCD calendar month value (tens and ones)
+
+@details Requires unlocking the RTC write-protection (RTC_WPR)
+*/
+void rtc_calendar_set_month(uint8_t month_tens, uint8_t month_units)
+{
+	RTC_DR = ((month_tens & RTC_DR_MT_MASK) << RTC_DR_MT_SHIFT) |
+		(RTC_DR & ~(RTC_DR_MT_MASK << RTC_DR_MT_SHIFT));
+	RTC_DR = ((month_units & RTC_DR_MU_MASK) << RTC_DR_MU_SHIFT) |
+		(RTC_DR & ~(RTC_DR_MU_MASK << RTC_DR_MU_SHIFT));
+}
+
+/*---------------------------------------------------------------------------*/
+/** @brief Sets the RTC BCD calendar day value (tens and ones)
+
+@details Requires unlocking the RTC write-protection (RTC_WPR)
+*/
+void rtc_calendar_set_day(uint8_t day_tens, uint8_t day_units)
+{
+	RTC_DR = ((day_tens & RTC_DR_DT_MASK) << RTC_DR_DT_SHIFT) |
+		(RTC_DR & ~(RTC_DR_DT_MASK << RTC_DR_DT_SHIFT));
+	RTC_DR = ((day_units & RTC_DR_DU_MASK) << RTC_DR_DU_SHIFT) |
+		(RTC_DR & ~(RTC_DR_DU_MASK << RTC_DR_DU_SHIFT));
+}
+
+/*---------------------------------------------------------------------------*/
+/** @brief Sets RTC time to use AM or 24-hour format
+
+@details Requires unlocking the RTC write-protection (RTC_WPR)
+*/
+void rtc_time_set_am_notation(void)
+{
+	RTC_TR &= ~RTC_TR_PM;
+}
+
+/*---------------------------------------------------------------------------*/
+/** @brief Sets the RTC time to use AM/PM or 12-hour format
+
+@details Requires unlocking the RTC write-protection (RTC_WPR)
+*/
+void rtc_time_set_pm_notation(void)
+{
+	RTC_TR |= RTC_TR_PM;
+}
+
+/*---------------------------------------------------------------------------*/
+/** @brief Sets the RTC BCD time hour value (tens and ones)
+
+@details Requires unlocking the RTC write-protection (RTC_WPR)
+*/
+void rtc_time_set_hour(uint8_t hour_tens, uint8_t hour_units)
+{
+	RTC_TR = ((hour_tens & RTC_TR_HT_MASK) << RTC_TR_HT_SHIFT) |
+		(RTC_TR & ~(RTC_TR_HT_MASK << RTC_TR_HT_SHIFT));
+	RTC_TR = ((hour_units & RTC_TR_HU_MASK) << RTC_TR_HU_SHIFT) |
+		(RTC_TR & ~(RTC_TR_HU_MASK << RTC_TR_HU_SHIFT));
+}
+
+/*---------------------------------------------------------------------------*/
+/** @brief Sets the RTC BCD time minute value (tens and ones)
+
+@details Requires unlocking the RTC write-protection (RTC_WPR)
+*/
+void rtc_time_set_minute(uint8_t min_tens, uint8_t min_units)
+{
+	RTC_TR = ((min_tens & RTC_TR_MNT_MASK) << RTC_TR_MNT_SHIFT) |
+		(RTC_TR & ~(RTC_TR_MNT_MASK << RTC_TR_MNT_SHIFT));
+	RTC_TR = ((min_units & RTC_TR_MNU_MASK) << RTC_TR_MNU_SHIFT) |
+		(RTC_TR & ~(RTC_TR_MNU_MASK << RTC_TR_MNU_SHIFT));
+}
+
+/*---------------------------------------------------------------------------*/
+/** @brief Sets the RTC BCD time second value (tens and ones)
+
+@details Requires unlocking the RTC write-protection (RTC_WPR)
+*/
+void rtc_time_set_second(uint8_t sec_tens, uint8_t sec_units)
+{
+	RTC_TR = ((sec_tens & RTC_TR_ST_MASK) << RTC_TR_ST_SHIFT) |
+		(RTC_TR & ~(RTC_TR_ST_MASK << RTC_TR_ST_SHIFT));
+	RTC_TR = ((sec_units & RTC_TR_SU_MASK) << RTC_TR_SU_SHIFT) |
+		(RTC_TR & ~(RTC_TR_SU_MASK << RTC_TR_SU_SHIFT));
+}
 /**@}*/
