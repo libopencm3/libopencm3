@@ -28,6 +28,11 @@
 
 #include <libopencm3/stm32/rtc.h>
 
+static uint8_t _rtc_dec_to_bcd(uint8_t dec)
+{
+	return ((dec / 10) << 4) | (dec % 10);
+}
+
 /*---------------------------------------------------------------------------*/
 /** @brief Set RTC prescalars.
 
@@ -183,33 +188,36 @@ void rtc_disable_bypass_shadow_register(void)
 }
 
 /*---------------------------------------------------------------------------*/
-/** @brief Sets the RTC hour format (24h or 12h)
+/** @brief Sets the RTC control register hour format to AM (24h)
 
 @details Requires unlocking backup domain write protection (PWR_CR_DBP)
 */
-void rtc_set_hour_format(enum rtc_fmt fmt)
+void rtc_set_am_format(void)
 {
-	switch (fmt) {
-	case RTC_CR_FMT_24H:
-		RTC_CR &= ~RTC_CR_FMT;
-		break;
-	case RTC_CR_FMT_12H:
-		RTC_CR |= RTC_CR_FMT;
-		break;
-	}
+	RTC_CR &= ~RTC_CR_FMT;
 }
 
 /*---------------------------------------------------------------------------*/
-/** @brief Sets the RTC BCD calendar year value (tens and ones)
+/** @brief Sets the RTC control register hour format to PM (12h)
+
+@details Requires unlocking backup domain write protection (PWR_CR_DBP)
+*/
+void rtc_set_pm_format(void)
+{
+	RTC_CR |= RTC_CR_FMT;
+}
+
+/*---------------------------------------------------------------------------*/
+/** @brief Sets the RTC BCD calendar year value
 
 @details Requires unlocking the RTC write-protection (RTC_WPR)
 */
-void rtc_calendar_set_year(uint8_t year_tens, uint8_t year_units)
+void rtc_calendar_set_year(uint8_t year)
 {
-	RTC_DR = ((year_tens & RTC_DR_YT_MASK) << RTC_DR_YT_SHIFT) |
-		(RTC_DR & ~(RTC_DR_YT_MASK << RTC_DR_YT_SHIFT));
-	RTC_DR = ((year_units & RTC_DR_YU_MASK) << RTC_DR_YU_SHIFT) |
-		(RTC_DR & ~(RTC_DR_YU_MASK << RTC_DR_YU_SHIFT));
+	uint8_t bcd_year = _rtc_dec_to_bcd(year);
+	RTC_DR &= ~(RTC_DR_YT_MASK << RTC_DR_YT_SHIFT | RTC_DR_YU_MASK << RTC_DR_YU_SHIFT);
+	RTC_DR |= (((bcd_year >> 4) & RTC_DR_YT_MASK) << RTC_DR_YT_SHIFT) |
+		((bcd_year & RTC_DR_YU_MASK) << RTC_DR_YU_SHIFT);
 }
 
 /*---------------------------------------------------------------------------*/
@@ -217,94 +225,82 @@ void rtc_calendar_set_year(uint8_t year_tens, uint8_t year_units)
 
 @details Requires unlocking the RTC write-protection (RTC_WPR)
 */
-void rtc_calendar_set_weekday(enum rtc_wdu weekday)
+void rtc_calendar_set_weekday(enum rtc_weekday rtc_dr_wdu)
 {
-	RTC_DR = ((weekday & RTC_DR_WDU_MASK) << RTC_DR_WDU_SHIFT) |
-		(RTC_DR & ~(RTC_DR_WDU_MASK << RTC_DR_WDU_SHIFT));
+	RTC_DR &= ~(RTC_DR_WDU_MASK << RTC_DR_WDU_SHIFT);
+	RTC_DR |= (rtc_dr_wdu << RTC_DR_WDU_SHIFT);
 }
 
 /*---------------------------------------------------------------------------*/
-/** @brief Sets the RTC BCD calendar month value (tens and ones)
+/** @brief Sets the RTC BCD calendar month value
 
 @details Requires unlocking the RTC write-protection (RTC_WPR)
 */
-void rtc_calendar_set_month(uint8_t month_tens, uint8_t month_units)
+void rtc_calendar_set_month(uint8_t month)
 {
-	RTC_DR = ((month_tens & RTC_DR_MT_MASK) << RTC_DR_MT_SHIFT) |
-		(RTC_DR & ~(RTC_DR_MT_MASK << RTC_DR_MT_SHIFT));
-	RTC_DR = ((month_units & RTC_DR_MU_MASK) << RTC_DR_MU_SHIFT) |
-		(RTC_DR & ~(RTC_DR_MU_MASK << RTC_DR_MU_SHIFT));
+	uint8_t bcd_month = _rtc_dec_to_bcd(month);
+	RTC_DR &= ~(RTC_DR_MT_MASK << RTC_DR_MT_SHIFT | RTC_DR_MU_MASK << RTC_DR_MU_SHIFT);
+	RTC_DR |= (((bcd_month >> 4) & RTC_DR_MT_MASK) << RTC_DR_MT_SHIFT) |
+		((bcd_month & RTC_DR_MU_MASK) << RTC_DR_MU_SHIFT);
 }
 
 /*---------------------------------------------------------------------------*/
-/** @brief Sets the RTC BCD calendar day value (tens and ones)
+/** @brief Sets the RTC BCD calendar day value
 
 @details Requires unlocking the RTC write-protection (RTC_WPR)
 */
-void rtc_calendar_set_day(uint8_t day_tens, uint8_t day_units)
+void rtc_calendar_set_day(uint8_t day)
 {
-	RTC_DR = ((day_tens & RTC_DR_DT_MASK) << RTC_DR_DT_SHIFT) |
-		(RTC_DR & ~(RTC_DR_DT_MASK << RTC_DR_DT_SHIFT));
-	RTC_DR = ((day_units & RTC_DR_DU_MASK) << RTC_DR_DU_SHIFT) |
-		(RTC_DR & ~(RTC_DR_DU_MASK << RTC_DR_DU_SHIFT));
+	uint8_t bcd_day = _rtc_dec_to_bcd(day);
+	RTC_DR &= ~(RTC_DR_DT_MASK << RTC_DR_DT_SHIFT | RTC_DR_DU_MASK << RTC_DR_DU_SHIFT);
+	RTC_DR |= (((bcd_day >> 4) & RTC_DR_DT_MASK) << RTC_DR_DT_SHIFT) |
+		((bcd_day & RTC_DR_DU_MASK) << RTC_DR_DU_SHIFT);
 }
 
 /*---------------------------------------------------------------------------*/
-/** @brief Sets RTC time to use AM or 24-hour format
+/** @brief Sets the RTC BCD time hour value
 
 @details Requires unlocking the RTC write-protection (RTC_WPR)
+
+Pass true to am_notation to use 24-hour input time; pass false to am_notation
+to use 12-hour (AM/PM) input time
 */
-void rtc_time_set_am_notation(void)
+void rtc_time_set_hour(uint8_t hour, bool am_notation)
 {
-	RTC_TR &= ~RTC_TR_PM;
+	if (am_notation)
+		RTC_TR &= ~(RTC_TR_PM);
+	else
+		RTC_TR |= RTC_TR_PM;
+
+	uint8_t bcd_hour = _rtc_dec_to_bcd(hour);
+	RTC_TR &= ~(RTC_TR_HT_MASK << RTC_TR_HT_SHIFT | RTC_TR_HU_MASK << RTC_TR_HU_SHIFT);
+	RTC_TR |= (((bcd_hour >> 4) & RTC_TR_HT_MASK) << RTC_TR_HT_SHIFT) |
+		((bcd_hour & RTC_TR_HU_MASK) << RTC_TR_HU_SHIFT);
 }
 
 /*---------------------------------------------------------------------------*/
-/** @brief Sets the RTC time to use AM/PM or 12-hour format
+/** @brief Sets the RTC BCD time minute value
 
 @details Requires unlocking the RTC write-protection (RTC_WPR)
 */
-void rtc_time_set_pm_notation(void)
+void rtc_time_set_minute(uint8_t minute)
 {
-	RTC_TR |= RTC_TR_PM;
+	uint8_t bcd_minute = _rtc_dec_to_bcd(minute);
+	RTC_TR &= ~(RTC_TR_MNT_MASK << RTC_TR_MNT_SHIFT | RTC_TR_MNU_MASK << RTC_TR_MNU_SHIFT);
+	RTC_TR |= (((bcd_minute >> 4) & RTC_TR_MNT_MASK) << RTC_TR_MNT_SHIFT) |
+		((bcd_minute & RTC_TR_MNU_MASK) << RTC_TR_MNU_SHIFT);
 }
 
 /*---------------------------------------------------------------------------*/
-/** @brief Sets the RTC BCD time hour value (tens and ones)
+/** @brief Sets the RTC BCD time second value
 
 @details Requires unlocking the RTC write-protection (RTC_WPR)
 */
-void rtc_time_set_hour(uint8_t hour_tens, uint8_t hour_units)
+void rtc_time_set_second(uint8_t second)
 {
-	RTC_TR = ((hour_tens & RTC_TR_HT_MASK) << RTC_TR_HT_SHIFT) |
-		(RTC_TR & ~(RTC_TR_HT_MASK << RTC_TR_HT_SHIFT));
-	RTC_TR = ((hour_units & RTC_TR_HU_MASK) << RTC_TR_HU_SHIFT) |
-		(RTC_TR & ~(RTC_TR_HU_MASK << RTC_TR_HU_SHIFT));
-}
-
-/*---------------------------------------------------------------------------*/
-/** @brief Sets the RTC BCD time minute value (tens and ones)
-
-@details Requires unlocking the RTC write-protection (RTC_WPR)
-*/
-void rtc_time_set_minute(uint8_t min_tens, uint8_t min_units)
-{
-	RTC_TR = ((min_tens & RTC_TR_MNT_MASK) << RTC_TR_MNT_SHIFT) |
-		(RTC_TR & ~(RTC_TR_MNT_MASK << RTC_TR_MNT_SHIFT));
-	RTC_TR = ((min_units & RTC_TR_MNU_MASK) << RTC_TR_MNU_SHIFT) |
-		(RTC_TR & ~(RTC_TR_MNU_MASK << RTC_TR_MNU_SHIFT));
-}
-
-/*---------------------------------------------------------------------------*/
-/** @brief Sets the RTC BCD time second value (tens and ones)
-
-@details Requires unlocking the RTC write-protection (RTC_WPR)
-*/
-void rtc_time_set_second(uint8_t sec_tens, uint8_t sec_units)
-{
-	RTC_TR = ((sec_tens & RTC_TR_ST_MASK) << RTC_TR_ST_SHIFT) |
-		(RTC_TR & ~(RTC_TR_ST_MASK << RTC_TR_ST_SHIFT));
-	RTC_TR = ((sec_units & RTC_TR_SU_MASK) << RTC_TR_SU_SHIFT) |
-		(RTC_TR & ~(RTC_TR_SU_MASK << RTC_TR_SU_SHIFT));
+	uint8_t bcd_second = _rtc_dec_to_bcd(second);
+	RTC_TR &= ~(RTC_TR_ST_MASK << RTC_TR_ST_SHIFT | RTC_TR_SU_MASK << RTC_TR_SU_SHIFT);
+	RTC_TR |= (((bcd_second >> 4) & RTC_TR_ST_MASK) << RTC_TR_ST_SHIFT) |
+		((bcd_second & RTC_TR_SU_MASK) << RTC_TR_SU_SHIFT);
 }
 /**@}*/

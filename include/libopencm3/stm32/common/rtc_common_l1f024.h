@@ -426,12 +426,7 @@ specific memorymap.h header before including this header file.*/
 #define RTC_ALRMXSSR_SS_SHIFT     (0)
 #define RTC_ALARXSSR_SS_MASK      (0x7fff)
 
-enum rtc_fmt {
-	RTC_CR_FMT_24H = 0x0,
-	RTC_CR_FMT_12H,
-};
-
-enum rtc_wdu {
+enum rtc_weekday {
 	RTC_DR_WDU_MON = 0x01,
 	RTC_DR_WDU_TUE,
 	RTC_DR_WDU_WED,
@@ -456,16 +451,15 @@ void rtc_wait_for_init_ready(void);
 void rtc_set_bypass_shadow_register(void);
 void rtc_enable_bypass_shadow_register(void);
 void rtc_disable_bypass_shadow_register(void);
-void rtc_set_hour_format(enum rtc_fmt fmt);
-void rtc_calendar_set_year(uint8_t year_tens, uint8_t year_units);
-void rtc_calendar_set_weekday(enum rtc_wdu weekday);
-void rtc_calendar_set_month(uint8_t month_tens, uint8_t month_units);
-void rtc_calendar_set_day(uint8_t day_tens, uint8_t day_units);
-void rtc_time_set_am_notation(void);
-void rtc_time_set_pm_notation(void);
-void rtc_time_set_hour(uint8_t hour_tens, uint8_t hour_units);
-void rtc_time_set_minute(uint8_t min_tens, uint8_t min_units);
-void rtc_time_set_second(uint8_t sec_tens, uint8_t sec_units);
+void rtc_set_am_format(void);
+void rtc_set_pm_format(void);
+void rtc_calendar_set_year(uint8_t year);
+void rtc_calendar_set_weekday(enum rtc_weekday rtc_dr_wdu);
+void rtc_calendar_set_month(uint8_t month);
+void rtc_calendar_set_day(uint8_t day);
+void rtc_time_set_hour(uint8_t hour, bool am_notation);
+void rtc_time_set_minute(uint8_t minute);
+void rtc_time_set_second(uint8_t second);
 
 END_DECLS
 /**@}*/

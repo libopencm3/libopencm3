@@ -1093,7 +1093,7 @@ enum rcc_periph_rst {
 	RST_LTDC	= _REG_BIT(0x24, 26),/* F42x, F43x */
 	RST_DSI		= _REG_BIT(0x24, 27),/* F42x, F43x */
 
-	/* Advanced peripherals */
+	/* RTC domain control */
 	RST_BDCR	= _REG_BIT(0x70, 16),/* BDCR[16] */
 };
 
