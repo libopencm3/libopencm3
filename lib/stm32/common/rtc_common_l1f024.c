@@ -211,6 +211,9 @@ void rtc_set_pm_format(void)
 /** @brief Sets the RTC BCD calendar year value
 
 @details Requires unlocking the RTC write-protection (RTC_WPR)
+
+The year value should only be the abbreviated year tens, meaning if 2021 is
+desired pass in only 21.
 */
 void rtc_calendar_set_year(uint8_t year)
 {
