@@ -264,6 +264,9 @@ void rtc_calendar_set_day(uint8_t day)
 /** @brief Sets the RTC BCD calendar value
 
 @details Requires unlocking the RTC write-protection (RTC_WPR)
+
+The year value should only be the abbreviated year tens, meaning if 2021 is
+desired pass in only 21.
 */
 void rtc_calendar_set_date(uint8_t year, uint8_t month, uint8_t day, enum rtc_weekday rtc_dr_wdu)
 {
