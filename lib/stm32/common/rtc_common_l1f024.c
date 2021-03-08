@@ -265,12 +265,12 @@ void rtc_calendar_set_day(uint8_t day)
 
 @details Requires unlocking the RTC write-protection (RTC_WPR)
 
-Pass true to am_notation to use 24-hour input time; pass false to am_notation
-to use 12-hour (AM/PM) input time
+Pass true to use_am_notation to use 24-hour input time; pass false to
+use_am_notation to use 12-hour (AM/PM) input time
 */
-void rtc_time_set_hour(uint8_t hour, bool am_notation)
+void rtc_time_set_hour(uint8_t hour, bool use_am_notation)
 {
-	if (am_notation)
+	if (use_am_notation)
 		RTC_TR &= ~(RTC_TR_PM);
 	else
 		RTC_TR |= RTC_TR_PM;

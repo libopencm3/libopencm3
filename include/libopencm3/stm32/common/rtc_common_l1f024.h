@@ -457,7 +457,7 @@ void rtc_calendar_set_year(uint8_t year);
 void rtc_calendar_set_weekday(enum rtc_weekday rtc_dr_wdu);
 void rtc_calendar_set_month(uint8_t month);
 void rtc_calendar_set_day(uint8_t day);
-void rtc_time_set_hour(uint8_t hour, bool am_notation);
+void rtc_time_set_hour(uint8_t hour, bool use_am_notation);
 void rtc_time_set_minute(uint8_t minute);
 void rtc_time_set_second(uint8_t second);
 
