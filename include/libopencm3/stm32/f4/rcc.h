@@ -1092,6 +1092,9 @@ enum rcc_periph_rst {
 	RST_SAI1RST	= _REG_BIT(0x24, 22),/* F42x, F43x */
 	RST_LTDC	= _REG_BIT(0x24, 26),/* F42x, F43x */
 	RST_DSI		= _REG_BIT(0x24, 27),/* F42x, F43x */
+
+	/* Backup domain control */
+	RST_BDCR	= _REG_BIT(0x70, 16),/* BDCR[16] */
 };
 
 #undef _REG_BIT
