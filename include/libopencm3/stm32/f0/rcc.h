@@ -538,7 +538,7 @@ enum rcc_periph_rst {
 	RST_DAC1	= _REG_BIT(0x10, 29), /* Compatibility alias */
 	RST_CEC		= _REG_BIT(0x10, 30),
 
-	/* RTC domain control */
+	/* Backup domain control */
 	RST_BDCR	= _REG_BIT(0x20, 16),/* BDCR[16] */
 
 	/* AHB peripherals */
