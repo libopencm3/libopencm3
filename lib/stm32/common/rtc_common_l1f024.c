@@ -261,6 +261,19 @@ void rtc_calendar_set_day(uint8_t day)
 }
 
 /*---------------------------------------------------------------------------*/
+/** @brief Sets the RTC BCD calendar value
+
+@details Requires unlocking the RTC write-protection (RTC_WPR)
+*/
+void rtc_calendar_set_date(uint8_t year, uint8_t month, uint8_t day, enum rtc_weekday rtc_dr_wdu)
+{
+	rtc_calendar_set_year(year);
+	rtc_calendar_set_month(month);
+	rtc_calendar_set_weekday(rtc_dr_wdu);
+	rtc_calendar_set_day(day);
+}
+
+/*---------------------------------------------------------------------------*/
 /** @brief Sets the RTC BCD time hour value
 
 @details Requires unlocking the RTC write-protection (RTC_WPR)
@@ -305,5 +318,17 @@ void rtc_time_set_second(uint8_t second)
 	RTC_TR &= ~(RTC_TR_ST_MASK << RTC_TR_ST_SHIFT | RTC_TR_SU_MASK << RTC_TR_SU_SHIFT);
 	RTC_TR |= (((bcd_second >> 4) & RTC_TR_ST_MASK) << RTC_TR_ST_SHIFT) |
 		((bcd_second & RTC_TR_SU_MASK) << RTC_TR_SU_SHIFT);
+}
+
+/*---------------------------------------------------------------------------*/
+/** @brief Sets the RTC BCD time
+
+@details Requires unlocking the RTC write-protection (RTC_WPR)
+*/
+void rtc_time_set_time(uint8_t hour, uint8_t minute, uint8_t second, bool use_am_notation)
+{
+	rtc_time_set_hour(hour, use_am_notation);
+	rtc_time_set_minute(minute);
+	rtc_time_set_second(second);
 }
 /**@}*/
