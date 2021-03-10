@@ -286,10 +286,11 @@ use_am_notation to use 12-hour (AM/PM) input time
 */
 void rtc_time_set_hour(uint8_t hour, bool use_am_notation)
 {
-	if (use_am_notation)
+	if (use_am_notation) {
 		RTC_TR &= ~(RTC_TR_PM);
-	else
+	} else {
 		RTC_TR |= RTC_TR_PM;
+	}
 
 	uint8_t bcd_hour = _rtc_dec_to_bcd(hour);
 	RTC_TR &= ~(RTC_TR_HT_MASK << RTC_TR_HT_SHIFT | RTC_TR_HU_MASK << RTC_TR_HU_SHIFT);
