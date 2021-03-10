@@ -79,10 +79,23 @@ LGPL License Terms @ref lgpl_license
 #define FDCAN_RXGFC(can_base)			MMIO32(can_base + 0x0080)
 #define FDCAN_XIDAM(can_base)			MMIO32(can_base + 0x0084)
 #define FDCAN_HPMS(can_base)			MMIO32(can_base + 0x0088)
-#define FDCAN_RXF0S(can_base)			MMIO32(can_base + 0x0090)
-#define FDCAN_RXF0A(can_base)			MMIO32(can_base + 0x0094)
-#define FDCAN_RXF1S(can_base)			MMIO32(can_base + 0x0098)
-#define FDCAN_RXF1A(can_base)			MMIO32(can_base + 0x009C)
+
+/** Generic access to Rx FIFO status registers.
+ * @param can_base FDCAN block base address @ref fdcan_block
+ * @param fifo_id ID of FIFO, 0 or 1
+ */
+#define FDCAN_RXFIS(can_base, fifo_id)	MMIO32(can_base + 0x0090 + (8 * fifo_id))
+#define FDCAN_RXF0S(can_base)			FDCAN_RXFIS(can_base, 0)
+#define FDCAN_RXF1S(can_base)			FDCAN_RXFIS(can_base, 1)
+
+/** Generic access to Rx FIFO acknowledge registers.
+ * @param can_base FDCAN block base address @ref fdcan_block
+ * @param fifo_id ID of FIFO, 0 or 1
+ */
+#define FDCAN_RXFIA(can_base, fifo_id)	MMIO32(can_base + 0x0094 + (8 * fifo_id))
+#define FDCAN_RXF0A(can_base)			FDCAN_RXFIA(can_base, 0)
+#define FDCAN_RXF1A(can_base)			FDCAN_RXFIA(can_base, 1)
+
 #define FDCAN_TXBC(can_base)			MMIO32(can_base + 0x00C0)
 #define FDCAN_TXFQS(can_base)			MMIO32(can_base + 0x00C4)
 #define FDCAN_TXBRP(can_base)			MMIO32(can_base + 0x00C8)
@@ -98,61 +111,61 @@ LGPL License Terms @ref lgpl_license
 
 /* DAY[7:0]: FDCAN core revision date */
 #define FDCAN_CREL_DAY_SHIFT			0
-#define FDCAN_CREL_DAY_MASK				(0xFF << FDCAN_CREL_DAY_SHIFT)
+#define FDCAN_CREL_DAY_MASK				0xFF
 
 /* MON[7:0]: FDCAN core revision month */
 #define FDCAN_CREL_MON_SHIFT			8
-#define FDCAN_CREL_MON_MASK				(0xFF << FDCAN_CREL_MON_SHIFT)
+#define FDCAN_CREL_MON_MASK				0xFF
 
 /* YEAR[3:0]: FDCAN core revision year */
 #define FDCAN_CREL_YEAR_SHIFT			16
-#define FDCAN_CREL_YEAR_MASK			(0xF << FDCAN_CREL_YEAR_SHIFT)
+#define FDCAN_CREL_YEAR_MASK			0xF
 
 /* SUBSTEP[3:0]: FDCAN core release sub stepping */
 #define FDCAN_CREL_SUBSTEP_SHIFT		20
-#define FDCAN_CREL_SUBSTEP_MASK			(0xF << FDCAN_CREL_SUBSTEP_SHIFT)
+#define FDCAN_CREL_SUBSTEP_MASK			0xF
 
 /* STEP[3:0]: FDCAN core release stepping */
 #define FDCAN_CREL_STEP_SHIFT			24
-#define FDCAN_CREL_STEP_MASK			(0xF << FDCAN_CREL_STEP_SHIFT)
+#define FDCAN_CREL_STEP_MASK			0xF
 
 /* REL[3:0]: FDCAN core release number */
 #define FDCAN_CREL_REL_SHIFT			28
-#define FDCAN_CREL_REL_MASK				(0xF << FDCAN_CREL_REL_SHIFT)
+#define FDCAN_CREL_REL_MASK				0xF
 
 
 /* DSJW[3:0]: Synchronization jump width */
 #define FDCAN_DBTP_DSJW_SHIFT			0
-#define FDCAN_DBTP_DSJW_MASK			(0xF << FDCAN_DBTP_DSJW_SHIFT)
+#define FDCAN_DBTP_DSJW_MASK			0xF
 
 /* DTSEG2[3:0]: Data time segment after sample point */
 #define FDCAN_DBTP_DTSEG2_SHIFT			4
-#define FDCAN_DBTP_DTSEG2_MASK			(0xF << FDCAN_DBTP_DTSEG2_SHIFT)
+#define FDCAN_DBTP_DTSEG2_MASK			0xF
 
 /* DTSEG1[4:0]: Data time segment before sample point */
 #define FDCAN_DBTP_DTSEG1_SHIFT			8
-#define FDCAN_DBTP_DTSEG1_MASK			(0x1F << FDCAN_DBTP_DTSEG1_SHIFT)
+#define FDCAN_DBTP_DTSEG1_MASK			0x1F
 
 /* DBRP[4:0]: Data bit rate prescaler */
 #define FDCAN_DBTP_DBRP_SHIFT			16
-#define FDCAN_DBTP_DBRP_MASK			(0x1F << FDCAN_DBTP_DBRP_SHIFT)
+#define FDCAN_DBTP_DBRP_MASK			0x1F
 
 #define FDCAN_DBTP_TDC					(1 << 23)
 
 #define FDCAN_TEST_LBCK					(1 << 4)
 /* TX[1:0]: Control of transmit pin */
 #define FDCAN_TEST_TX_SHIFT				5
-#define FDCAN_TEST_TX_MASK				(0x3 << FDCAN_TEST_TX_SHIFT)
+#define FDCAN_TEST_TX_MASK				0x3
 
 #define FDCAN_TEST_RX					(1 << 7)
 
 /* WDC[7:0]: RAM watchdog configuration */
 #define FDCAN_RWD_WDC_SHIFT				0
-#define FDCAN_RWD_WDC_MASK				(0xFF << FDCAN_RWD_WDC_SHIFT)
+#define FDCAN_RWD_WDC_MASK				0xFF
 
 /* WDV[7:0]: RAM watchdog actual value */
 #define FDCAN_RWD_WDV_SHIFT				7
-#define FDCAN_RWD_WDV_MASK				(0xFF << FDCAN_RWD_WDV_SHIFT)
+#define FDCAN_RWD_WDV_MASK				0xFF
 
 /** @defgroup fdcan_cccr FDCAN CC control register bits
  * @{
@@ -173,7 +186,8 @@ LGPL License Terms @ref lgpl_license
 #define FDCAN_CCCR_NISO					(1 << 15)
 /**@}*/
 
-/* Timeout for FDCAN_CCCR register INIT bit to accept set value.
+/** Timeout for FDCAN_CCCR register INIT bit to accept set value.
+ *
  * This timeout is required because FDCAN uses two different clocks
  * feeding two different portions of block. There can be slight delay
  * based on how clocks are set up. While amount of FDCAN_clk /
@@ -185,74 +199,74 @@ LGPL License Terms @ref lgpl_license
 
 /* NTSEG2[6:0]: Nominal timing segment after sample point length */
 #define FDCAN_NBTP_NTSEG2_SHIFT			0
-#define FDCAN_NBTP_NTSEG2_MASK			(0x7F << FDCAN_NBTP_NTSEG2_SHIFT)
+#define FDCAN_NBTP_NTSEG2_MASK			0x7F
 
 /* NTSEG1[7:0]: Nominal timing segment before sample point length */
 #define FDCAN_NBTP_NTSEG1_SHIFT			8
-#define FDCAN_NBTP_NTSEG1_MASK			(0xFF << FDCAN_NBTP_NTSEG1_SHIFT)
+#define FDCAN_NBTP_NTSEG1_MASK			0xFF
 
 /* NBRP[8:0]: Norminal timing bit rate prescaler */
 #define FDCAN_NBTP_NBRP_SHIFT			16
-#define FDCAN_NBTP_NBRP_MASK			(0x1FF << FDCAN_NBTP_NBRP_SHIFT)
+#define FDCAN_NBTP_NBRP_MASK			0x1FF
 
 /* NSJW[6:0]: Norminal timing resynchronization jumb width*/
 #define FDCAN_NBTP_NSJW_SHIFT			25
-#define FDCAN_NBTP_NSJW_MASK			(0x7F << FDCAN_NBTP_NSJW_SHIFT)
+#define FDCAN_NBTP_NSJW_MASK			0x7F
 
 /* TSS[1:0]: Timestamp select */
 #define FDCAN_TSCC_TSS_SHIFT			0
-#define FDCAN_TSCC_TSS_MASK				(0x3 << FDCAN_TSCC_TSS_SHIFT)
+#define FDCAN_TSCC_TSS_MASK				0x3
 
 /* TCP[3:0]: Timestamp counter prescaler */
 #define FDCAN_TSCC_TCP_SHIFT			16
-#define FDCAN_TSCC_TCP_MASK				(0xF << FDCAN_TSCC_TCP_SHIFT)
+#define FDCAN_TSCC_TCP_MASK				0xF
 
 
 /* TSC[15:0]: Timestamp counter value */
 #define FDCAN_TSCV_TSC_SHIFT			0
-#define FDCAN_TSCV_TSC_MASK				(0xFFFF << FDCAN_TSCV_TSC_SHIFT)
+#define FDCAN_TSCV_TSC_MASK				0xFFFF
 
 #define FDCAN_TOCC_ETOC					(1 << 0)
 /* TOS[1:0]: Timeout select */
 #define FDCAN_TOCC_TOS_SHIFT			1
-#define FDCAN_TOCC_TOS_MASK				(0x3 << FDCAN_TOCC_TOS_SHIFT)
+#define FDCAN_TOCC_TOS_MASK				0x3
 
 /* TOP[15:0]: Timeout period */
 #define FDCAN_TOCC_TOP_SHIFT			16
-#define FDCAN_TOCC_TOP_MASK				(0xFFFF << FDCAN_TOCC_TOP_SHIFT)
+#define FDCAN_TOCC_TOP_MASK				0xFFFF
 
 /* TOC[15:0]: Timeout counter */
 #define FDCAN_TOCV_TOC_SHIFT			0
-#define FDCAN_TOCV_TOC_MASK				(0xFFFF << FDCAN_TOCV_TOC_SHIFT)
+#define FDCAN_TOCV_TOC_MASK				0xFFFF
 
 /* TEC[7:0]: Transmit error counter */
 #define FDCAN_ECR_TEC_SHIFT				0
-#define FDCAN_ECR_TEC_MASK				(0xFF << FDCAN_ECR_TEC_SHIFT)
+#define FDCAN_ECR_TEC_MASK				0xFF
 
 /* REC[6:0]: Receive error counter */
 #define FDCAN_ECR_REC_SHIFT				8
-#define FDCAN_ECR_REC_MASK				(0x7F << FDCAN_ECR_REC_SHIFT)
+#define FDCAN_ECR_REC_MASK				0x7F
 
 #define FDCAN_ECR_RP					(1 << 15)
 /* CEL[7:0]: CAN error logging */
 #define FDCAN_ECR_CEL_SHIFT				16
-#define FDCAN_ECR_CEL_MASK				(0xFF << FDCAN_ECR_CEL_SHIFT)
+#define FDCAN_ECR_CEL_MASK				0xFF
 
 
 /* LEC[2:0]: Last error code */
 #define FDCAN_PSR_LEC_SHIFT				0
-#define FDCAN_PSR_LEC_MASK				(0x7 << FDCAN_PSR_LEC_SHIFT)
+#define FDCAN_PSR_LEC_MASK				0x7
 
 /* ACT[1:0]: CAN block activity */
 #define FDCAN_PSR_ACT_SHIFT				3
-#define FDCAN_PSR_ACT_MASK				(0x3 << FDCAN_PSR_ACT_SHIFT)
+#define FDCAN_PSR_ACT_MASK				0x3
 
 #define FDCAN_PSR_EP					(1 << 5)
 #define FDCAN_PSR_EW					(1 << 6)
 #define FDCAN_PSR_BO					(1 << 7)
 /* DLEC[2:0]: Last error code in data section */
 #define FDCAN_PSR_DLEC_SHIFT			8
-#define FDCAN_PSR_DLEC_MASK				(0x7 << FDCAN_PSR_DLEC_SHIFT)
+#define FDCAN_PSR_DLEC_MASK				0x7
 
 #define FDCAN_PSR_RESI					(1 << 11)
 
@@ -263,15 +277,15 @@ LGPL License Terms @ref lgpl_license
 
 /* TDCV[6:0]: Transmitter delay compensation value */
 #define FDCAN_PSR_TDCV_SHIFT			16
-#define FDCAN_PSR_TDCV_MASK				(0x7F << FDCAN_PSR_TDCV_SHIFT)
+#define FDCAN_PSR_TDCV_MASK				0x7F
 
 /* TDCF[6:0]: Transmitter delay compensation filter window length */
 #define FDCAN_TDCR_TDCF_SHIFT			0
-#define FDCAN_TDCR_TDCF_MASK			(0x7F << FDCAN_TDCR_TDCF_SHIFT)
+#define FDCAN_TDCR_TDCF_MASK			0x7F
 
 /* TDCO[6:0]: Transmitter delay compensation offset */
 #define FDCAN_TDCR_TDCO_SHIFT			8
-#define FDCAN_TDCR_TDCO_MASK			(0x7F << FDCAN_TDCR_TDCO_SHIFT)
+#define FDCAN_TDCR_TDCO_MASK			0x7F
 
 /** @defgroup fdcan_ir FDCAN interrupt register flags
  * @{
@@ -350,95 +364,112 @@ LGPL License Terms @ref lgpl_license
 #define FDCAN_RXGFC_RRFS				(1 << 1)
 /* ANFE[1:0]: Accept non-matching frames w/ extended ID */
 #define FDCAN_RXGFC_ANFE_SHIFT			2
-#define FDCAN_RXGFC_ANFE_MASK			(0x3 << FDCAN_RXGFC_ANFE_SHIFT)
+#define FDCAN_RXGFC_ANFE_MASK			0x3
 
 /* ANFS[1:0]: Accept non-matching frames w/ standard ID */
 #define FDCAN_RXGFC_ANFS_SHIFT			4
-#define FDCAN_RXGFC_ANFS_MASK			(0x3 << FDCAN_RXGFC_ANFS_SHIFT)
+#define FDCAN_RXGFC_ANFS_MASK			0x3
 
 #define FDCAN_RXGFC_F1OM				(1 << 8)
 #define FDCAN_RXGFC_F0OM				(1 << 9)
 /* LSS[4:0]: List size of standard ID filters */
 #define FDCAN_RXGFC_LSS_SHIFT			16
-#define FDCAN_RXGFC_LSS_MASK			(0x1F << FDCAN_RXGFC_LSS_SHIFT)
+#define FDCAN_RXGFC_LSS_MASK			0x1F
 
 /* LSE[3:0]: List size of extended ID filters */
 #define FDCAN_RXGFC_LSE_SHIFT			24
-#define FDCAN_RXGFC_LSE_MASK			(0xF << FDCAN_RXGFC_LSE_SHIFT)
+#define FDCAN_RXGFC_LSE_MASK			0xF
 
 
 /* EIDM[28:0]: Extended ID mask for filtering */
 #define FDCAN_XIDAM_EIDM_SHIFT			0
-#define FDCAN_XIDAM_EIDM_MASK			(0x1FFFFFFF << FDCAN_XIDAM_EIDM_SHIFT)
+#define FDCAN_XIDAM_EIDM_MASK			0x1FFFFFFF
 
 
 /* BIDX[2:0]: Buffer index */
 #define FDCAN_HPMS_BIDX_SHIFT			0
-#define FDCAN_HPMS_BIDX_MASK			(0x7 << FDCAN_HPMS_BIDX_SHIFT)
+#define FDCAN_HPMS_BIDX_MASK			0x7
 
 /* MSI[1:0]: Message storage indicator */
 #define FDCAN_HPMS_MSI_SHIFT			6
-#define FDCAN_HPMS_MSI_MASK				(0x3 << FDCAN_HPMS_MSI_SHIFT)
+#define FDCAN_HPMS_MSI_MASK				0x3
 
 /* FIDX[4:0]: Filter index */
 #define FDCAN_HPMS_FIDX_SHIFT			8
-#define FDCAN_HPMS_FIDX_MASK			(0x1F << FDCAN_HPMS_FIDX_SHIFT)
+#define FDCAN_HPMS_FIDX_MASK			0x1F
 
 #define FDCAN_HPMS_FLS					(1 << 15)
 
+/* Fill level of Rx FIFOs */
+#define FDCAN_RXFIFO_FL_SHIFT			0
+#define FDCAN_RXFIFO_FL_MASK			0xF
+
+/* Get index of Rx FIFOs */
+#define FDCAN_RXFIFO_GI_SHIFT			8
+#define FDCAN_RXFIFO_GI_MASK			0x3
+
+/* Put index of Rx FIFOs */
+#define FDCAN_RXFIFO_PI_SHIFT			16
+#define FDCAN_RXFIFO_PI_MASK			0x3
+
+#define FDCAN_RXFIFO_FF					(1 << 24)
+#define FDCAN_RXFIFO_RFL				(1 << 25)
+
 /* F0FL[3:0]: Fill level of Rx FIFO 0 */
-#define FDCAN_RXF0S_F0FL_SHIFT			0
-#define FDCAN_RXF0S_F0FL_MASK			(0xF << FDCAN_RXF0S_F0FL_SHIFT)
+#define FDCAN_RXF0S_F0FL_SHIFT			FDCAN_RXFIFO_FL_SHIFT
+#define FDCAN_RXF0S_F0FL_MASK			FDCAN_RXFIFO_FL_MASK
 
 /* F0GI[1:0]: Get index of Rx FIFO 0 */
-#define FDCAN_RXF0S_F0GI_SHIFT			8
-#define FDCAN_RXF0S_F0GI_MASK			(0x3 << FDCAN_RXF0S_F0GI_SHIFT)
+#define FDCAN_RXF0S_F0GI_SHIFT			FDCAN_RXFIFO_GI_SHIFT
+#define FDCAN_RXF0S_F0GI_MASK			FDCAN_RXFIFO_FI_MASK
 
 /* F0PI[1:0]: Put index of Rx FIFO 0 */
-#define FDCAN_RXF0S_F0PI_SHIFT			16
-#define FDCAN_RXF0S_F0PI_MASK			(0x3 << FDCAN_RXF0S_F0PI_SHIFT)
+#define FDCAN_RXF0S_F0PI_SHIFT			FDCAN_RXFIFO_PI_SHIFT
+#define FDCAN_RXF0S_F0PI_MASK			FDCAN_RXFIFO_PI_MASK
 
-#define FDCAN_RXF0S_F0F					(1 << 24)
-#define FDCAN_RXF0S_RF0L				(1 << 25)
+#define FDCAN_RXF0S_F0F					FDCAN_RXFIFO_FF
+#define FDCAN_RXF0S_RF0L				FDCAN_RXFIFO_RFL
+
+/* Rx FIFOs acknowledge index */
+#define FDCAN_RXFIFO_AI_SHIFT			0
+#define FDCAN_RXFIFO_AI_MASK			0x7
 
 /* R0AI[2:0]: Rx FIFO 0 acknowledge index */
-#define FDCAN_RXF0A_R0AI_SHIFT			0
-#define FDCAN_RXF0A_R0AI_MASK			(0x7 << FDCAN_RXF0A_R0AI_SHIFT)
+#define FDCAN_RXF0A_R0AI_SHIFT			FDCAN_RXFIFO_AI_SHIFT
+#define FDCAN_RXF0A_R0AI_MASK			FDCAN_RXFIFO_AI_MASK
 
+/* F1FL[3:1]: Fill level of Rx FIFO 1 */
+#define FDCAN_RXF1S_F1FL_SHIFT			FDCAN_RXFIFO_FL_SHIFT
+#define FDCAN_RXF1S_F1FL_MASK			FDCAN_RXFIFO_FL_MASK
 
-/* F1FL[3:0]: Fill level of Rx FIFO 1 */
-#define FDCAN_RXF1S_F1FL_SHIFT			0
-#define FDCAN_RXF1S_F1FL_MASK			(0xF << FDCAN_RXF1S_F1FL_SHIFT)
+/* F1GI[1:1]: Get index of Rx FIFO 1 */
+#define FDCAN_RXF1S_F1GI_SHIFT			FDCAN_RXFIFO_GI_SHIFT
+#define FDCAN_RXF1S_F1GI_MASK			FDCAN_RXFIFO_FI_MASK
 
-/* F1GI[1:0]: Get index of Rx FIFO 1 */
-#define FDCAN_RXF1S_F1GI_SHIFT			8
-#define FDCAN_RXF1S_F1GI_MASK			(0x3 << FDCAN_RXF1S_F1GI_SHIFT)
+/* F1PI[1:1]: Put index of Rx FIFO 1 */
+#define FDCAN_RXF1S_F1PI_SHIFT			FDCAN_RXFIFO_PI_SHIFT
+#define FDCAN_RXF1S_F1PI_MASK			FDCAN_RXFIFO_PI_MASK
 
-/* F1PI[1:0]: Put index of Rx FIFO 1 */
-#define FDCAN_RXF1S_F1PI_SHIFT			16
-#define FDCAN_RXF1S_F1PI_MASK			(0x3 << FDCAN_RXF1S_F1PI_SHIFT)
-
-#define FDCAN_RXF1S_F1F					(1 << 24)
-#define FDCAN_RXF1S_RF1L				(1 << 25)
+#define FDCAN_RXF1S_F1F					FDCAN_RXFIFO_FF
+#define FDCAN_RXF1S_RF1L				FDCAN_RXFIFO_RFL
 
 /* R1AI[2:0]: Rx FIFO 1 acknowledge index */
-#define FDCAN_RXF1A_R1AI_SHIFT			0
-#define FDCAN_RXF1A_R1AI_MASK			(0x7 << FDCAN_RXF1A_R1AI_SHIFT)
-
+#define FDCAN_RXF1A_R1AI_SHIFT			FDCAN_RXFIFO_AI_SHIFT
+#define FDCAN_RXF1A_R1AI_MASK			FDCAN_RXFIFO_AI_MASK
 
 #define FDCAN_TXBC_TFQM					(1 << 24)
 
 /* TFFL[2:0]: Tx FIFO free level */
 #define FDCAN_TXFQS_TFFL_SHIFT			0
-#define FDCAN_TXFQS_TFFL_MASK			(0x7 << FDCAN_TXFQS_TFFL_SHIFT)
+#define FDCAN_TXFQS_TFFL_MASK			0x7
 
 /* TFGI[1:0]: Tx FIFO get index */
 #define FDCAN_TXFQS_TFGI_SHIFT			0
-#define FDCAN_TXFQS_TFGI_MASK			(0x3 << FDCAN_TXFQS_TFGI_SHIFT)
+#define FDCAN_TXFQS_TFGI_MASK			0x3
 
 /* TFQPI[1:0]: Tx FIFO put index */
 #define FDCAN_TXFQS_TFQPI_SHIFT			0
-#define FDCAN_TXFQS_TFQPI_MASK			(0x3 << FDCAN_TXFQS_TFQPI_SHIFT)
+#define FDCAN_TXFQS_TFQPI_MASK			0x3
 
 #define FDCAN_TXFQS_TFQF				(1 << 0)
 
@@ -483,6 +514,9 @@ LGPL License Terms @ref lgpl_license
 /**@}*/
 
 /** @defgroup fdcan_txbtie FDCAN_TXBTIE Transmit interrupt enable bits
+ *
+ * Each bit enables or disables transmit interrupt for transmit buffer
+ * slot.
  * @{
  */
 #define FDCAN_TXBTIE_TIE0				(1 << 0)
@@ -491,6 +525,9 @@ LGPL License Terms @ref lgpl_license
 /**@}*/
 
 /** @defgroup fdcan_txbcie FDCAN_TXBCIE Transmit cancelled interrupt enable bits
+ *
+ * Each bit enables or disables transmit cancelled interrupt for transmit buffer
+ * slot. 
  * @{
  */
 #define FDCAN_TXBCIE_CFIE0				(1 << 0)
@@ -500,27 +537,27 @@ LGPL License Terms @ref lgpl_license
 
 /* EFFL[2:0]: Event FIFO fill level*/
 #define FDCAN_TXEFS_EFFL_SHIFT			0
-#define FDCAN_TXEFS_EFFL_MASK			(0x7 << FDCAN_TXEFS_EFFL_SHIFT)
+#define FDCAN_TXEFS_EFFL_MASK			0x7
 
 /* EFG[1:0]: Event FIFO get index */
 #define FDCAN_TXEFS_EFGI_SHIFT			8
-#define FDCAN_TXEFS_EFGI_MASK			(0x3 << FDCAN_TXEFS_EFGI_SHIFT)
+#define FDCAN_TXEFS_EFGI_MASK			0x3
 
 /* EFPI[1:0]: Event FIFO put index */
 #define FDCAN_TXEFS_EFPI_SHIFT			16
-#define FDCAN_TXEFS_EFPI_MASK			(0x3 << FDCAN_TXEFS_EFPI_SHIFT)
+#define FDCAN_TXEFS_EFPI_MASK			0x3
 
 #define FDCAN_TXEFS_EFF					(1 << 24)
 #define FDCAN_TXEFS_TEF					(1 << 25)
 
 /* EFAI[1:0]: Event FIFO acknowledge index */
 #define FDCAN_TXEFA_EFAI_SHIFT			0
-#define FDCAN_TXEFA_EFAI_MASK			(0x3 << FDCAN_TXEFA_EFAI_SHIFT)
+#define FDCAN_TXEFA_EFAI_MASK			0x3
 
 
 /* PDIV[3:0]: Input clock divider */
 #define FDCAN_CKDIV_PDIV_SHIFT			0
-#define FDCAN_CKDIV_PDIV_MASK			(0xF << FDCAN_CKDIV_PDIV_SHIFT)
+#define FDCAN_CKDIV_PDIV_MASK			0xF
 
 /* --- FD-CAN memory block defines------------------------------------------ */
 
@@ -534,30 +571,59 @@ struct fdcan_standard_filter {
 };
 
 #define FDCAN_SFT_SHIFT					30
-#define FDCAN_SFT_MASK					(0x3 << FDCAN_SFT_SHIFT)
+#define FDCAN_SFT_MASK					0x3
 
 /** @defgroup fdcan_sft Standard ID filter match type
+ *
+ * Matching strategy for standard ID filters.
  * @{
  */
-#define FDCAN_SFT_RANGE					(0x0 << FDCAN_SFT_SHIFT)
-#define FDCAN_SFT_DUAL					(0x1 << FDCAN_SFT_SHIFT)
-#define FDCAN_SFT_ID_MASK				(0x2 << FDCAN_SFT_SHIFT)
-#define FDCAN_SFT_DISABLE				(0x3 << FDCAN_SFT_SHIFT)
+/** Filter matches all messages in range from id1 to id2. */
+#define FDCAN_SFT_RANGE					0x0
+
+/** Filter matches messages with id1 or id2 */
+#define FDCAN_SFT_DUAL					0x1
+
+/** Filter matches messages which match id1 after being unmasked
+ * using id2. */
+#define FDCAN_SFT_ID_MASK				0x2
+
+/** Disable this filter. */
+#define FDCAN_SFT_DISABLE				0x3
 /**@}*/
 
 #define FDCAN_SFEC_SHIFT				27
-#define FDCAN_SFEC_MASK					(0x7 << FDCAN_SFEC_SHIFT)
+#define FDCAN_SFEC_MASK					0x7
 
 /** @defgroup fdcan_sfec Standard ID filter action
+ *
+ * Defines possible actions for standard ID filters. All actions except
+ * of @ref FDCAN_SFEC_PRIO cause filter matching to terminate immediately
+ * with desired outcome. FDCAN_SFEC_PRIO sets priority flag for message
+ * and continues processing remaining filters.
  * @{
  */
-#define FDCAN_SFEC_DISABLE				(0x0 << FDCAN_SFEC_SHIFT)
-#define FDCAN_SFEC_FIFO0				(0x1 << FDCAN_SFEC_SHIFT)
-#define FDCAN_SFEC_FIFO1				(0x2 << FDCAN_SFEC_SHIFT)
-#define FDCAN_SFEC_REJECT				(0x3 << FDCAN_SFEC_SHIFT)
-#define FDCAN_SFEC_PRIO					(0x4 << FDCAN_SFEC_SHIFT)
-#define FDCAN_SFEC_PRIO_FIFO0			(0x5 << FDCAN_SFEC_SHIFT)
-#define FDCAN_SFEC_PRIO_FIFO1			(0x6 << FDCAN_SFEC_SHIFT)
+
+/** Filter is disabled. No matchin occurrs. */
+#define FDCAN_SFEC_DISABLE				0x0
+
+/** Put message into FIFO0 */
+#define FDCAN_SFEC_FIFO0				0x1
+
+/** Put message into FIFO1 */
+#define FDCAN_SFEC_FIFO1				0x2
+
+/** Reject message */
+#define FDCAN_SFEC_REJECT				0x3
+
+/** Treat message as priority message (and continue processing further rules) */
+#define FDCAN_SFEC_PRIO					0x4
+
+/** Treat message as priority and put it into FIFO0 */
+#define FDCAN_SFEC_PRIO_FIFO0			0x5
+
+/** Treat message as priority and put it into FIFO1 */
+#define FDCAN_SFEC_PRIO_FIFO1			0x6
 /**@}*/
 
 /** Amount of standard filters allocated in Message RAM
@@ -569,10 +635,10 @@ struct fdcan_standard_filter {
 /* SFEC = 0x7 is unused */
 
 #define FDCAN_SFID1_SHIFT				16
-#define FDCAN_SFID1_MASK				(0x7FF << FDCAN_SFID1_SHIFT)
+#define FDCAN_SFID1_MASK				0x7FF
 
 #define FDCAN_SFID2_SHIFT				0
-#define FDCAN_SFID2_MASK				(0x7FF << FDCAN_SFID2_SHIFT)
+#define FDCAN_SFID2_MASK				0x7FF
 
 /** Structure describing extended ID filters.
  * Extended ID filter is composed of two 32bit values.
@@ -586,37 +652,68 @@ struct fdcan_extended_filter {
 };
 
 #define FDCAN_EFEC_SHIFT				29
-#define FDCAN_EFEC_MASK					(0x7 << FDCAN_EFEC_SHIFT)
+#define FDCAN_EFEC_MASK					0x7
 
-/** @defgroup fdcan_eft Extended ID filter action
+/** @defgroup fdcan_efec Extended ID filter action
+ *
+ * These are possible actions, extended filter can have. If filter is
+ * disabled, then no matching is performed. All other actions except of
+ * @ref FDCAN_EFEC_PRIO cause matching to terminate with required outcome.
+ * FDCAN_EFEC_PRIO marks message as priority and continues matching.
  * @{
  */
-#define FDCAN_EFEC_DISABLE				(0x0 << FDCAN_EFEC_SHIFT)
-#define FDCAN_EFEC_FIFO0				(0x1 << FDCAN_EFEC_SHIFT)
-#define FDCAN_EFEC_FIFO1				(0x2 << FDCAN_EFEC_SHIFT)
-#define FDCAN_EFEC_REJECT				(0x3 << FDCAN_EFEC_SHIFT)
-#define FDCAN_EFEC_PRIO					(0x4 << FDCAN_EFEC_SHIFT)
-#define FDCAN_EFEC_PRIO_FIFO0			(0x5 << FDCAN_EFEC_SHIFT)
-#define FDCAN_EFEC_PRIO_FIFO1			(0x6 << FDCAN_EFEC_SHIFT)
+
+/** Disable this filter. */
+#define FDCAN_EFEC_DISABLE				0x0
+
+/** Put message into FIFO0 */
+#define FDCAN_EFEC_FIFO0				0x1
+
+/** Put message into FIFO1 */
+#define FDCAN_EFEC_FIFO1				0x2
+
+/** Reject message */
+#define FDCAN_EFEC_REJECT				0x3
+
+/** Treat message as priority message (and continue processing further rules) */
+#define FDCAN_EFEC_PRIO					0x4
+
+/** Treat message as priority and put it into FIFO0 */
+#define FDCAN_EFEC_PRIO_FIFO0			0x5
+
+/** Treat message as priority and put it into FIFO1 */
+#define FDCAN_EFEC_PRIO_FIFO1			0x6
 /**@}*/
 
 #define FDCAN_EFID1_SHIFT				0
-#define FDCAN_EFID1_MASK				(0x1FFFFFFF << FDCAN_EFID1_SHIFT)
+#define FDCAN_EFID1_MASK				0x1FFFFFFF
 
 #define FDCAN_EFT_SHIFT					30
-#define FDCAN_EFT_MASK					(0x3 << FDCAN_EFT_SHIFT)
+#define FDCAN_EFT_MASK					0x3
 
 /** @defgroup fdcan_eft Extended ID filter match type
+ *
+ * Matching strategy for extended ID filters.
  * @{
  */
-#define FDCAN_EFT_RANGE					(0x0 << FDCAN_EFT_SHIFT)
-#define FDCAN_EFT_DUAL					(0x1 << FDCAN_EFT_SHIFT)
-#define FDCAN_EFT_ID_MASK				(0x2 << FDCAN_EFT_SHIFT)
-#define FDCAN_EFT_RANGE_NOXIDAM			(0x3 << FDCAN_EFT_SHIFT)
+/** Filter matches all messages in range from id1 to id2. */
+#define FDCAN_EFT_RANGE					0x0
+
+/** Filter matches messages with id1 or id2 */
+#define FDCAN_EFT_DUAL					0x1
+
+/** Filter matches messages which match id1 after being unmasked
+ * using id2. */
+#define FDCAN_EFT_ID_MASK				0x2
+
+/** Similar to @ref FDCAN_EFT_RANGE except of ignoring global mask 
+ * set using @ref FDCAN_XIDAM register.
+ */
+#define FDCAN_EFT_RANGE_NOXIDAM			0x3
 /**@}*/
 
 #define FDCAN_EFID2_SHIFT				0
-#define FDCAN_EFID2_MASK				(0x1FFFFFFF << FDCAN_EFID2_SHIFT)
+#define FDCAN_EFID2_MASK				0x1FFFFFFF
 
 /** Amount of extended filters allocated in Message RAM
  * This number may vary between devices. 8 is value valid
@@ -632,9 +729,9 @@ struct fdcan_extended_filter {
 struct fdcan_rx_fifo_element {
 	/** Aggregate of message identifier and flags. */
 	uint32_t identifier_flags;
-	/**< Aggregate of filter match ID, transfer format, DLC and timestamp */
+	/** Aggregate of filter match ID, transfer format, DLC and timestamp */
 	uint32_t filt_fmt_dlc_ts;
-	/**< Message payload data */
+	/** Message payload data */
 	uint32_t data[64 / sizeof(uint32_t)];
 };
 
@@ -643,10 +740,10 @@ struct fdcan_rx_fifo_element {
  * This area of memory can only be accessed in 32bit quantities
  */
 struct fdcan_tx_event_element {
-	/**< Aggregate of message identifier and flags. */
+	/** Aggregate of message identifier and flags. */
 	uint32_t identifier_flags;
 
-	/**< Aggregate of event ID, transfer format, DLC and timestamp */
+	/** Aggregate of event ID, transfer format, DLC and timestamp */
 	uint32_t evt_fmt_dlc_ts;
 };
 
@@ -656,16 +753,16 @@ struct fdcan_tx_event_element {
  * This area of memory can only be accessed in 32bit quantities
  */
 struct fdcan_tx_buffer_element {
-	/**< Aggregate of message identifier and flags. */
+	/** Aggregate of message identifier and flags. */
 	uint32_t identifier_flags;
 
-	/**< Aggregate of event ID, transfer format and DLC */
+	/** Aggregate of event ID, transfer format and DLC */
 	uint32_t evt_fmt_dlc_res;
-	/**< Message payload data */
+	/** Message payload data */
 	uint32_t data[64 / sizeof(uint32_t)];
 };
 
-/** @defgroup fdcan_fifo FIFO / buffer flags
+/** @defgroup fdcan_fifo_flags FIFO / buffer flags
  * @{
  */
 #define FDCAN_FIFO_ESI					(1 << 31)
@@ -677,23 +774,23 @@ struct fdcan_tx_buffer_element {
 /**@}*/
 
 #define FDCAN_FIFO_EID_SHIFT			0
-#define FDCAN_FIFO_EID_MASK				(0x1FFFFFFF << FDCAN_FIFO_EID_SHIFT)
+#define FDCAN_FIFO_EID_MASK				0x1FFFFFFF
 
 #define FDCAN_FIFO_SID_SHIFT			18
-#define FDCAN_FIFO_SID_MASK				(0x7FF << FDCAN_FIFO_SID_SHIFT)
+#define FDCAN_FIFO_SID_MASK				0x7FF
 
 #define FDCAN_FIFO_DLC_SHIFT			16
-#define FDCAN_FIFO_DLC_MASK				(0xF << FDCAN_FIFO_DLC_SHIFT)
+#define FDCAN_FIFO_DLC_MASK				0xF
 
 #define FDCAN_FIFO_MM_SHIFT				24
-#define FDCAN_FIFO_MM_MASK				(0xFF << FDCAN_FIFO_MM_SHIFT)
+#define FDCAN_FIFO_MM_MASK				0xFF
 
 #define FDCAN_FIFO_ANMF					(1 << 31)
 #define FDCAN_FIFO_FIDX_SHIFT			24
-#define FDCAN_FIFO_FIDX_MASK			(0x7F << FDCAN_FIFO_FIDX_SHIFT)
+#define FDCAN_FIFO_FIDX_MASK			0x7F
 
 #define FDCAN_FIFO_RXTS_SHIFT			0
-#define FDCAN_FIFO_RXTS_MASK			(0xFFFF << FDCAN_FIFO_RXTS_SHIFT)
+#define FDCAN_FIFO_RXTS_MASK			0xFFFF
 
 /** Message RAM layout for one FDCAN block.
  * There are as many memory blocks as there are FDCAN blocks
@@ -752,7 +849,7 @@ BEGIN_DECLS
 int fdcan_init(uint32_t canport, uint32_t timeout);
 
 void fdcan_set_can(uint32_t canport, bool auto_retry_disable, bool rx_fifo_locked,
-		bool tx_queue_mode,	bool silent, uint32_t n_sjw, uint32_t n_ts1, uint32_t n_ts2,
+		bool tx_queue_mode, bool silent, uint32_t n_sjw, uint32_t n_ts1, uint32_t n_ts2,
 		uint32_t n_br_presc);
 
 void fdcan_set_fdcan(uint32_t canport, bool brs_enable, bool fd_op_enable,
@@ -760,9 +857,11 @@ void fdcan_set_fdcan(uint32_t canport, bool brs_enable, bool fd_op_enable,
 
 void fdcan_set_test(uint32_t canport, bool testing, bool loopback);
 
-void fdcan_filter_init(uint32_t canport, uint8_t std_filt, uint8_t ext_filt);
+void fdcan_init_filter(uint32_t canport, uint8_t std_filt, uint8_t ext_filt);
 
 int fdcan_start(uint32_t canport, uint32_t timeout);
+
+int fdcan_get_init_state(uint32_t canport);
 
 void fdcan_set_std_filter(uint32_t canport, uint32_t nr,
 		uint8_t id_list_mode, uint32_t id1, uint32_t id2,
@@ -782,7 +881,7 @@ int fdcan_receive(uint32_t canport, uint8_t fifo, bool release, uint32_t *id,
 		bool *ext, bool *rtr, uint8_t *fmi, uint8_t *length,
 		uint8_t *data, uint16_t *timestamp);
 
-int fdcan_fifo_release(uint32_t canport, uint8_t fifo);
+void fdcan_release_fifo(uint32_t canport, uint8_t fifo);
 
 bool fdcan_available_tx(uint32_t canport);
 bool fdcan_available_rx(uint32_t canport, uint8_t fifo);
