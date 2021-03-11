@@ -769,7 +769,7 @@ bool fdcan_available_rx(uint32_t canport, uint8_t fifo)
 	unsigned pending_frames;
 
 	pending_frames = (FDCAN_RXFIS(canport, fifo) >> FDCAN_RXFIFO_FL_SHIFT)
-		& FDCAN_RXFIFO_FL_SHIFT;
+		& FDCAN_RXFIFO_FL_MASK;
 
 	return (pending_frames != 0);
 }
