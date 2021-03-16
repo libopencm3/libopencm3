@@ -120,6 +120,113 @@ knob.
 #include <libopencm3/stm32/rcc.h>
 
 /*---------------------------------------------------------------------------*/
+/** @brief Timer Reset.
+
+The Timer peripheral and all its associated configuration registers are placed
+in the reset condition. The reset is effected via the RCC peripheral reset
+system.
+
+@param[in] timer_peripheral Unsigned int32. Timer register address base @ref
+tim_reg_base
+*/
+void timer_reset(uint32_t timer_peripheral)
+{
+	switch (timer_peripheral) {
+#if defined(TIM1_BASE)
+	case TIM1:
+		rcc_periph_reset_pulse(RST_TIM1);
+		break;
+#endif
+	case TIM2:
+		rcc_periph_reset_pulse(RST_TIM2);
+		break;
+	case TIM3:
+		rcc_periph_reset_pulse(RST_TIM3);
+		break;
+#if defined(TIM4_BASE)
+	case TIM4:
+		rcc_periph_reset_pulse(RST_TIM4);
+		break;
+#endif
+#if defined(TIM5_BASE)
+	case TIM5:
+		rcc_periph_reset_pulse(RST_TIM5);
+		break;
+#endif
+	case TIM6:
+		rcc_periph_reset_pulse(RST_TIM6);
+		break;
+#if defined(TIM7_BASE)
+	case TIM7:
+		rcc_periph_reset_pulse(RST_TIM7);
+		break;
+#endif
+#if defined(TIM8_BASE)
+	case TIM8:
+		rcc_periph_reset_pulse(RST_TIM8);
+		break;
+#endif
+#if defined(TIM9_BASE)
+	case TIM9:
+		rcc_periph_reset_pulse(RST_TIM9);
+		break;
+#endif
+#if defined(TIM10_BASE)
+	case TIM10:
+		rcc_periph_reset_pulse(RST_TIM10);
+		break;
+#endif
+#if defined(TIM11_BASE)
+	case TIM11:
+		rcc_periph_reset_pulse(RST_TIM11);
+		break;
+#endif
+#if defined(TIM12_BASE)
+	case TIM12:
+		rcc_periph_reset_pulse(RST_TIM12);
+		break;
+#endif
+#if defined(TIM13_BASE)
+	case TIM13:
+		rcc_periph_reset_pulse(RST_TIM13);
+		break;
+#endif
+#if defined(TIM14_BASE)
+	case TIM14:
+		rcc_periph_reset_pulse(RST_TIM14);
+		break;
+#endif
+#if defined(TIM15_BASE)
+	case TIM15:
+		rcc_periph_reset_pulse(RST_TIM15);
+		break;
+#endif
+#if defined(TIM16_BASE)
+	case TIM16:
+		rcc_periph_reset_pulse(RST_TIM16);
+		break;
+#endif
+#if defined(TIM17_BASE)
+	case TIM17:
+		rcc_periph_reset_pulse(RST_TIM17);
+		break;
+#endif
+#if defined(TIM21_BASE)
+	case TIM21:
+		rcc_periph_reset_pulse(RST_TIM21);
+		break;
+#endif
+#if defined(TIM22_BASE)
+	case TIM22:
+		rcc_periph_reset_pulse(RST_TIM22);
+		break;
+#endif
+	default:
+		break;
+	}
+}
+
+/*---------------------------------------------------------------------------*/
 /** @brief Enable Interrupts for a Timer
 
 @param[in] timer_peripheral Unsigned int32. Timer register address base @ref
