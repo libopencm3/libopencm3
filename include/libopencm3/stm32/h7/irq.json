@@ -22,7 +22,7 @@
         "fdcan1_it0",
         "fdcan2_it0",
         "fdcan1_it1",
-        "fdcan2_it2",
+        "fdcan2_it1",
         "exti9_5",
         "tim1_brk_tim9",
         "tim1_up_tim10",
