@@ -1,17 +1,7 @@
-/** @defgroup fdcan_defines FDCAN Defines
-
-@ingroup STM32G_defines
-
-@brief <b>libopencm3 Defined Constants and Types for STM32 FD-CAN</b>
-
-@author @htmlonly &copy @endhtmlonly 2021 Eduard Drusa <ventyl8 at netkosice dot sk>
-
-LGPL License Terms @ref lgpl_license
-*/
 /*
  * This file is part of the libopencm3 project.
  *
- * Copyright (C) 2021 Eduard Drusa <ventyl86@netkosice.sk>
+ * Copyright (C) 2021 Eduard Drusa <ventyl86 at netkosice dot sk>
  *
  * This library is free software: you can redistribute it and/or modify
  * it under the terms of the GNU Lesser General Public License as published by
@@ -27,26 +17,21 @@ LGPL License Terms @ref lgpl_license
  * along with this library.  If not, see <http://www.gnu.org/licenses/>.
  */
 
-
-
 #ifndef LIBOPENCM3_FDCAN_H
 #define LIBOPENCM3_FDCAN_H
 
 #include <libopencm3/stm32/memorymap.h>
 #include <libopencm3/cm3/common.h>
 
-/** @{ */
+#if defined(STM32G4)
+#	include <libopencm3/stm32/g4/fdcan.h>
+#elif defined(STM32H7)
+#	include <libopencm3/stm32/h7/fdcan.h>
+#endif
 
-/* FDCAN block base addresses. Used in functions to identify FDCAN block being manipulated. */
-
-/** @defgroup fdcan_block FDCAN block base addresses
+/** @addtogroup fdcan_defines
  * @{
  */
-#define CAN1							FDCAN1_BASE
-#define CAN2							FDCAN2_BASE
-#define CAN3							FDCAN3_BASE
-/**@}*/
-
 
 /** @defgroup fdcan_fifo Named constants for FIFOs
  * @{
@@ -55,6 +40,7 @@ LGPL License Terms @ref lgpl_license
 #define FDCAN_FIFO1						1
 /**@}*/
 
+#define FDCAN_BLOCK_ID(can_base)		(((can_base) - CAN1)/(CAN2 - CAN1))
 
 /** @defgroup FDCAN registers file in each FDCAN block. */
 
@@ -76,38 +62,29 @@ LGPL License Terms @ref lgpl_license
 #define FDCAN_IE(can_base)				MMIO32(can_base + 0x0054)
 #define FDCAN_ILS(can_base)				MMIO32(can_base + 0x0058)
 #define FDCAN_ILE(can_base)				MMIO32(can_base + 0x005C)
-#define FDCAN_RXGFC(can_base)			MMIO32(can_base + 0x0080)
-#define FDCAN_XIDAM(can_base)			MMIO32(can_base + 0x0084)
-#define FDCAN_HPMS(can_base)			MMIO32(can_base + 0x0088)
+
 
 /** Generic access to Rx FIFO status registers.
  * @param can_base FDCAN block base address @ref fdcan_block
  * @param fifo_id ID of FIFO, 0 or 1
  */
-#define FDCAN_RXFIS(can_base, fifo_id)	MMIO32(can_base + 0x0090 + (8 * fifo_id))
+#define FDCAN_RXFIS(can_base, fifo_id)	\
+	MMIO32(can_base + FDCAN_RXFIS_BASE + (FDCAN_RXFI_OFFSET * fifo_id))
+
 #define FDCAN_RXF0S(can_base)			FDCAN_RXFIS(can_base, 0)
 #define FDCAN_RXF1S(can_base)			FDCAN_RXFIS(can_base, 1)
+
 
 /** Generic access to Rx FIFO acknowledge registers.
  * @param can_base FDCAN block base address @ref fdcan_block
  * @param fifo_id ID of FIFO, 0 or 1
  */
-#define FDCAN_RXFIA(can_base, fifo_id)	MMIO32(can_base + 0x0094 + (8 * fifo_id))
+#define FDCAN_RXFIA(can_base, fifo_id)	MMIO32(can_base + 0x0094 + (FDCAN_RXFI_OFFSET * fifo_id))
 #define FDCAN_RXF0A(can_base)			FDCAN_RXFIA(can_base, 0)
 #define FDCAN_RXF1A(can_base)			FDCAN_RXFIA(can_base, 1)
 
 #define FDCAN_TXBC(can_base)			MMIO32(can_base + 0x00C0)
 #define FDCAN_TXFQS(can_base)			MMIO32(can_base + 0x00C4)
-#define FDCAN_TXBRP(can_base)			MMIO32(can_base + 0x00C8)
-#define FDCAN_TXBAR(can_base)			MMIO32(can_base + 0x00CC)
-#define FDCAN_TXBCR(can_base)			MMIO32(can_base + 0x00D0)
-#define FDCAN_TXBTO(can_base)			MMIO32(can_base + 0x00D4)
-#define FDCAN_TXBCF(can_base)			MMIO32(can_base + 0x00D8)
-#define FDCAN_TXBTIE(can_base)			MMIO32(can_base + 0x00DC)
-#define FDCAN_TXBCIE(can_base)			MMIO32(can_base + 0x00E0)
-#define FDCAN_TXEFS(can_base)			MMIO32(can_base + 0x00E4)
-#define FDCAN_TXEFA(can_base)			MMIO32(can_base + 0x00E8)
-#define FDCAN_CKDIV(can_base)			MMIO32(can_base + 0x0100)
 
 /* DAY[7:0]: FDCAN core revision date */
 #define FDCAN_CREL_DAY_SHIFT			0
@@ -360,26 +337,6 @@ LGPL License Terms @ref lgpl_license
 #define FDCAN_ILE_INT0					(1 << 0)
 #define FDCAN_ILE_INT1					(1 << 1)
 
-#define FDCAN_RXGFC_RRFE				(1 << 0)
-#define FDCAN_RXGFC_RRFS				(1 << 1)
-/* ANFE[1:0]: Accept non-matching frames w/ extended ID */
-#define FDCAN_RXGFC_ANFE_SHIFT			2
-#define FDCAN_RXGFC_ANFE_MASK			0x3
-
-/* ANFS[1:0]: Accept non-matching frames w/ standard ID */
-#define FDCAN_RXGFC_ANFS_SHIFT			4
-#define FDCAN_RXGFC_ANFS_MASK			0x3
-
-#define FDCAN_RXGFC_F1OM				(1 << 8)
-#define FDCAN_RXGFC_F0OM				(1 << 9)
-/* LSS[4:0]: List size of standard ID filters */
-#define FDCAN_RXGFC_LSS_SHIFT			16
-#define FDCAN_RXGFC_LSS_MASK			0x1F
-
-/* LSE[3:0]: List size of extended ID filters */
-#define FDCAN_RXGFC_LSE_SHIFT			24
-#define FDCAN_RXGFC_LSE_MASK			0xF
-
 
 /* EIDM[28:0]: Extended ID mask for filtering */
 #define FDCAN_XIDAM_EIDM_SHIFT			0
@@ -402,15 +359,12 @@ LGPL License Terms @ref lgpl_license
 
 /* Fill level of Rx FIFOs */
 #define FDCAN_RXFIFO_FL_SHIFT			0
-#define FDCAN_RXFIFO_FL_MASK			0xF
 
 /* Get index of Rx FIFOs */
 #define FDCAN_RXFIFO_GI_SHIFT			8
-#define FDCAN_RXFIFO_GI_MASK			0x3
 
 /* Put index of Rx FIFOs */
 #define FDCAN_RXFIFO_PI_SHIFT			16
-#define FDCAN_RXFIFO_PI_MASK			0x3
 
 #define FDCAN_RXFIFO_FF					(1 << 24)
 #define FDCAN_RXFIFO_RFL				(1 << 25)
@@ -432,7 +386,6 @@ LGPL License Terms @ref lgpl_license
 
 /* Rx FIFOs acknowledge index */
 #define FDCAN_RXFIFO_AI_SHIFT			0
-#define FDCAN_RXFIFO_AI_MASK			0x7
 
 /* R0AI[2:0]: Rx FIFO 0 acknowledge index */
 #define FDCAN_RXF0A_R0AI_SHIFT			FDCAN_RXFIFO_AI_SHIFT
@@ -461,17 +414,14 @@ LGPL License Terms @ref lgpl_license
 
 /* TFFL[2:0]: Tx FIFO free level */
 #define FDCAN_TXFQS_TFFL_SHIFT			0
-#define FDCAN_TXFQS_TFFL_MASK			0x7
 
 /* TFGI[1:0]: Tx FIFO get index */
-#define FDCAN_TXFQS_TFGI_SHIFT			0
-#define FDCAN_TXFQS_TFGI_MASK			0x3
+#define FDCAN_TXFQS_TFGI_SHIFT			8
 
 /* TFQPI[1:0]: Tx FIFO put index */
-#define FDCAN_TXFQS_TFQPI_SHIFT			0
-#define FDCAN_TXFQS_TFQPI_MASK			0x3
+#define FDCAN_TXFQS_TFQPI_SHIFT			16
 
-#define FDCAN_TXFQS_TFQF				(1 << 0)
+#define FDCAN_TXFQS_TFQF				(1 << 21)
 
 /** @defgroup fdcan_txbrp FDCAN_TXBRP Transmit request pending bits
  * @{
@@ -527,7 +477,7 @@ LGPL License Terms @ref lgpl_license
 /** @defgroup fdcan_txbcie FDCAN_TXBCIE Transmit cancelled interrupt enable bits
  *
  * Each bit enables or disables transmit cancelled interrupt for transmit buffer
- * slot. 
+ * slot.
  * @{
  */
 #define FDCAN_TXBCIE_CFIE0				(1 << 0)
@@ -537,15 +487,12 @@ LGPL License Terms @ref lgpl_license
 
 /* EFFL[2:0]: Event FIFO fill level*/
 #define FDCAN_TXEFS_EFFL_SHIFT			0
-#define FDCAN_TXEFS_EFFL_MASK			0x7
 
 /* EFG[1:0]: Event FIFO get index */
 #define FDCAN_TXEFS_EFGI_SHIFT			8
-#define FDCAN_TXEFS_EFGI_MASK			0x3
 
 /* EFPI[1:0]: Event FIFO put index */
 #define FDCAN_TXEFS_EFPI_SHIFT			16
-#define FDCAN_TXEFS_EFPI_MASK			0x3
 
 #define FDCAN_TXEFS_EFF					(1 << 24)
 #define FDCAN_TXEFS_TEF					(1 << 25)
@@ -554,10 +501,6 @@ LGPL License Terms @ref lgpl_license
 #define FDCAN_TXEFA_EFAI_SHIFT			0
 #define FDCAN_TXEFA_EFAI_MASK			0x3
 
-
-/* PDIV[3:0]: Input clock divider */
-#define FDCAN_CKDIV_PDIV_SHIFT			0
-#define FDCAN_CKDIV_PDIV_MASK			0xF
 
 /* --- FD-CAN memory block defines------------------------------------------ */
 
@@ -625,12 +568,6 @@ struct fdcan_standard_filter {
 /** Treat message as priority and put it into FIFO1 */
 #define FDCAN_SFEC_PRIO_FIFO1			0x6
 /**@}*/
-
-/** Amount of standard filters allocated in Message RAM
- * This number may vary between devices. 28 is value valid
- * for STM32G4
- **/
-#define FDCAN_SFT_MAX_NR				28
 
 /* SFEC = 0x7 is unused */
 
@@ -706,7 +643,7 @@ struct fdcan_extended_filter {
  * using id2. */
 #define FDCAN_EFT_ID_MASK				0x2
 
-/** Similar to @ref FDCAN_EFT_RANGE except of ignoring global mask 
+/** Similar to @ref FDCAN_EFT_RANGE except of ignoring global mask
  * set using @ref FDCAN_XIDAM register.
  */
 #define FDCAN_EFT_RANGE_NOXIDAM			0x3
@@ -714,12 +651,6 @@ struct fdcan_extended_filter {
 
 #define FDCAN_EFID2_SHIFT				0
 #define FDCAN_EFID2_MASK				0x1FFFFFFF
-
-/** Amount of extended filters allocated in Message RAM
- * This number may vary between devices. 8 is value valid
- * for STM32G4
- **/
-#define FDCAN_EFT_MAX_NR				8
 
 /** Structure describing receive FIFO element.
  * Receive FIFO element consists of 2 32bit values for header
@@ -792,6 +723,7 @@ struct fdcan_tx_buffer_element {
 #define FDCAN_FIFO_RXTS_SHIFT			0
 #define FDCAN_FIFO_RXTS_MASK			0xFFFF
 
+#if 0
 /** Message RAM layout for one FDCAN block.
  * There are as many memory blocks as there are FDCAN blocks
  */
@@ -813,7 +745,7 @@ struct fdcan_message_ram {
 	 */
 	struct fdcan_tx_buffer_element tx_buffer[3];
 };
-
+#endif
 
 /* --- FD-CAN error returns ------------------------------------------------- */
 
@@ -885,6 +817,19 @@ void fdcan_release_fifo(uint32_t canport, uint8_t fifo);
 
 bool fdcan_available_tx(uint32_t canport);
 bool fdcan_available_rx(uint32_t canport, uint8_t fifo);
+
+int fdcan_cccr_init_cfg(uint32_t canport, bool set, uint32_t timeout);
+struct fdcan_standard_filter *fdcan_get_flssa_addr(uint32_t canport);
+struct fdcan_extended_filter *fdcan_get_flesa_addr(uint32_t canport);
+
+struct fdcan_rx_fifo_element *fdcan_get_rxfifo_addr(uint32_t canport,
+		unsigned fifo_id, unsigned element_id);
+
+struct fdcan_tx_event_element *fdcan_get_txevt_addr(uint32_t canport);
+struct fdcan_tx_buffer_element *fdcan_get_txbuf_addr(uint32_t canport, unsigned element_id);
+void fdcan_set_fifo_locked_mode(uint32_t canport, bool locked);
+uint32_t fdcan_length_to_dlc(uint8_t length);
+uint8_t fdcan_dlc_to_length(uint32_t dlc);
 
 END_DECLS
 

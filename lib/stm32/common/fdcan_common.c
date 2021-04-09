@@ -1,22 +1,3 @@
-/** @defgroup fdcan_file FDCAN peripheral API
- *
- * @ingroup peripheral_apis
- *
- * @brief <b>libopencm3 STM32 FDCAN</b>
- *
- * @version 1.0.0
- *
- * @author @htmlonly &copy; @endhtmlonly 2021 Eduard Drusa <ventyl86 at netkosice dot sk>
- *
- * Devices can have up to three FDCAN peripherals residing in one FDCAN block. The peripherals
- * support both CAN 2.0 A and B standard and Bosch FDCAN standard. FDCAN frame format and
- * bitrate switching is supported. The peripheral has several filters for incoming messages that
- * can be distributed between two FIFOs and three transmit mailboxes. For transmitted messages
- * it is possible to opt for event notification once message is transmitted.
- *
- * LGPL License Terms @ref lgpl_license
-*/
-
 /*
  * This file is part of the libopencm3 project.
  *
@@ -53,11 +34,11 @@
  * @param [in] canport FDCAN block base address. See @ref fdcan_block.
  * @param [in] set new value of INIT, true means set
  * @param [in] timeout Amount of busyloop cycles, function will wait for FDCAN
- * 		to switch it's state. If set to 0, then function returns immediately.
+ *		to switch it's state. If set to 0, then function returns immediately.
  * @returns FDCAN_E_OK on success, FDCAN_E_TIMEOUT if INIT bit value
  * didn't change before timeout has expired.
  */
-static int fdcan_cccr_init_cfg(uint32_t canport, bool set, uint32_t timeout)
+int fdcan_cccr_init_cfg(uint32_t canport, bool set, uint32_t timeout)
 {
 	uint32_t expected;
 	uint32_t wait_ack;
@@ -135,43 +116,71 @@ static void fdcan_get_fill_rxfifo(uint32_t canport, uint8_t fifo_id, unsigned *g
 		& FDCAN_RXFIFO_FL_MASK;
 }
 
-/** Obtain address of FDCAN Message RAM for certain FDCAN block.
+/** Returns standard filter start address in message RAM
  *
- * @param [in] canport identification of FDCAN block. See @ref fdcan_block.
- * @return Address of Message RAM for given FDCAN block or null pointer
- * if FDCAN block identification is invalid.
+ * @param [in] canport FDCAN block base address. See @ref fdcan_block.
+ * @returns Base address of standard filter configuration block.
  */
-static struct fdcan_message_ram *fdcan_get_msgram_addr(uint32_t canport)
+struct fdcan_standard_filter *fdcan_get_flssa_addr(uint32_t canport)
 {
-	/* This piece of code may look wrong, after one examines
-	 * STM32G4 datasheet and/or g4/memorymap.h. There are three
-	 * memory regions defined for FDCANx_RAM_BASE. They are 0x400
-	 * bytes apart as per chapter 2.2.2 of [RM0440].
-	 *
-	 * It turns out, that these addresses are not in line with what
-	 * is specified later in chapter 44.3.3 of [RM0440]. There it is
-	 * stated, that message RAMs are packed and in case of multiple
-	 * FDCAN blocks, message RAM for n-th FDCAN starts at address
-	 * end of (n-1)-th block + 4 (explicitly, offset 0x354).
-	 *
-	 * It turns out, that this statement is also false! In fact FDCAN
-	 * message RAMs are packed tightly and n-th block starts immediately
-	 * after (n-1)-th block ends. Thus offset is going to be computed
-	 * using formula:
-	 *
-	 * FDCAN1_RAM_BASE + (block_id * sizeof(struct fdcan_message_ram))
-	 */
-	if (canport == CAN1) {
-		return (struct fdcan_message_ram *) (FDCAN1_RAM_BASE + 0);
-	} else if (canport == CAN2) {
-		return (struct fdcan_message_ram *)
-			(FDCAN1_RAM_BASE + sizeof(struct fdcan_message_ram));
-	} else if (canport == CAN3) {
-		return (struct fdcan_message_ram *)
-			(FDCAN1_RAM_BASE + (2 * sizeof(struct fdcan_message_ram)));
-	}
+	struct fdcan_standard_filter *lfssa = (struct fdcan_standard_filter *)
+		(CAN_MSG_BASE + FDCAN_LFSSA_OFFSET(canport));
+	return lfssa;
+}
 
-	return NULL;
+/** Returns extended filter start address in message RAM
+ *
+ * @param [in] canport FDCAN block base address. See @ref fdcan_block.
+ * @returns Base address of extended filter configuration block.
+ */
+struct fdcan_extended_filter *fdcan_get_flesa_addr(uint32_t canport)
+{
+	struct fdcan_extended_filter *lfesa = (struct fdcan_extended_filter *)
+		(CAN_MSG_BASE + FDCAN_LFESA_OFFSET(canport));
+	return lfesa;
+}
+
+/** Returns FIFO start address in message RAM
+ *
+ * @param [in] canport FDCAN block base address. See @ref fdcan_block.
+ * @param [in] fifo_id ID of FIFO whose address is requested
+ * @returns Base address of FIFO block.
+ */
+struct fdcan_rx_fifo_element *fdcan_get_rxfifo_addr(uint32_t canport,
+		unsigned fifo_id, unsigned element_id)
+{
+	struct fdcan_rx_fifo_element *rxfifo = (struct fdcan_rx_fifo_element *)
+		(CAN_MSG_BASE + FDCAN_RXFIFO_OFFSET(canport, fifo_id)
+		 + (element_id * fdcan_get_fifo_element_size(canport, fifo_id))
+		 );
+	return rxfifo;
+}
+
+/** Returns transmit event start address in message RAM
+ *
+ * @param [in] canport FDCAN block base address. See @ref fdcan_block.
+ * @returns Base address of transmit event block.
+ */
+struct fdcan_tx_event_element *fdcan_get_txevt_addr(uint32_t canport)
+{
+	struct fdcan_tx_event_element *rxfifo = (struct fdcan_tx_event_element *)
+		(CAN_MSG_BASE + FDCAN_TXEVT_OFFSET(canport));
+	return rxfifo;
+}
+
+/** Returns transmit buffer start address in message RAM
+ *
+ * @param [in] canport FDCAN block base address. See @ref fdcan_block.
+ * @returns Base address of transmit buffer block.
+ */
+struct fdcan_tx_buffer_element *fdcan_get_txbuf_addr(uint32_t canport, unsigned element_id)
+{
+	struct fdcan_tx_buffer_element *rxfifo = (struct fdcan_tx_buffer_element *)
+		(CAN_MSG_BASE + FDCAN_TXBUF_OFFSET(canport)
+		 + (element_id * fdcan_get_txbuf_element_size(canport))
+		 );
+
+	return rxfifo;
 }
 
 /** Converts frame length to DLC value.
@@ -183,7 +192,7 @@ static struct fdcan_message_ram *fdcan_get_msgram_addr(uint32_t canport)
  * @returns DLC value representing lengths or 0xFF if length cannot
  * be encoded into DLC format (applies only to FDCAN frame lengths)
  */
-static uint32_t fdcan_length_to_dlc(uint8_t length)
+uint32_t fdcan_length_to_dlc(uint8_t length)
 {
 	if (length <= 8) {
 		return length;
@@ -207,7 +216,7 @@ static uint32_t fdcan_length_to_dlc(uint8_t length)
  * @param [in] dlc DLC value
  * @returns data payload length in bytes
  */
-static uint8_t fdcan_dlc_to_length(uint32_t dlc)
+uint8_t fdcan_dlc_to_length(uint32_t dlc)
 {
 	if (dlc <= 8) {
 		return dlc;
@@ -237,13 +246,13 @@ static uint8_t fdcan_dlc_to_length(uint32_t dlc)
  * * @ref fdcan_init_filter
  * * @ref fdcan_set_test
  *
- * You can check if FDCAN block is in INIT mode or it is started using 
+ * You can check if FDCAN block is in INIT mode or it is started using
  * @ref fdcan_get_init_state.
  *
  * @param[in] canport CAN register base address. See @ref fdcan_block.
  * @param [in] timeout Amount of empty busy loops, which routine should wait for FDCAN
- *				confirming that it entered INIT mode. If set to 0, function will return
- *				immediately.
+ *				confirming that it entered INIT mode. If set to 0, function will
+ *				return immediately.
  * @returns Operation error status. See @ref fdcan_error.
  */
 int fdcan_init(uint32_t canport, uint32_t timeout)
@@ -309,16 +318,11 @@ void fdcan_set_can(uint32_t canport, bool auto_retry_disable, bool rx_fifo_locke
 		FDCAN_CCCR(canport) &= ~FDCAN_CCCR_MON;
 	}
 
-	if (rx_fifo_locked) {
-		FDCAN_RXGFC(canport) &= ~(FDCAN_RXGFC_F1OM | FDCAN_RXGFC_F0OM);
-	} else {
-		FDCAN_RXGFC(canport) |= FDCAN_RXGFC_F1OM | FDCAN_RXGFC_F0OM;
-	}
-
+	fdcan_set_fifo_locked_mode(canport, rx_fifo_locked);
 }
 
 /** Set FDCAN block parameters for FDCAN transmission
- * 
+ *
  * Enables and configures parameters related to FDCAN transmission. This function
  * allows configuration of bitrate switching, FDCAN frame format and fast mode
  * timing. This function can only be called if FDCAN block is in INIT mode.
@@ -381,36 +385,6 @@ void fdcan_set_test(uint32_t canport, bool testing, bool loopback)
 	}
 }
 
-/** Enable FDCAN operation after FDCAN block has been set up.
- *
- * This function will disable FDCAN configuration effectively
- * allowing FDCAN to sync up with the bus. After calling this function
- * it is not possible to reconfigure amount of filter rules, yet
- * it is possible to configure rules themselves. FDCAN block operation
- * state can be checked using @ref fdcan_get_init_state.
- *
- * @param [in] canport FDCAN block base address. See @ref fdcan_block.
- * @param [in] timeout Amount of empty busy loops, which routine should wait for FDCAN
- *				confirming that it left INIT mode. If set to 0, function will return
- *				immediately.
- * @returns Operation error status. See @ref fdcan_error.
- * @note If this function returns with timeout, it usually means that
- * FDCAN_clk is not set up properly.
- */
-int fdcan_start(uint32_t canport, uint32_t timeout)
-{
-	/* Error here usually means, that FDCAN_clk is not set up
-	 * correctly, or at all. This usually can't be seen above
-	 * when INIT is set to 1, because default value for INIT is
-	 * 1 as long as one has FDCAN_pclk configured properly.
-	 **/
-	if (fdcan_cccr_init_cfg(canport, false, timeout) != 0) {
-		return FDCAN_E_TIMEOUT;
-	}
-
-	return FDCAN_E_OK;
-}
-
 /** Return current FDCAN block operation state.
  *
  * This function effectively returns value of FDCAN_CCCR's INIT bit.
@@ -422,59 +396,6 @@ int fdcan_get_init_state(uint32_t canport)
 	return ((FDCAN_CCCR(canport) & FDCAN_CCCR_INIT) == FDCAN_CCCR_INIT);
 }
 
-/** Configure amount of filters and initialize filtering block.
- *
- * This function allows to configure global amount of filters present.
- * FDCAN block will only ever check as many filters as this function configures.
- * Function will also clear all filter blocks to zero values. This function
- * can be only called after @ref fdcan_init has already been called and
- * @ref fdcan_start has not been called yet as registers holding filter
- * count are write-protected unless FDCAN block is in INIT mode. It is possible 
- * to reconfigure filters (@ref fdcan_set_std_filter and @ref fdcan_set_ext_filter)
- * after FDCAN block has already been started.
- *
- * @param [in] canport FDCAN block base address. See @ref fdcan_block.
- * @param [in] std_filt requested amount of standard ID filter rules (0-28)
- * @param [in] ext_filt requested amount of extended ID filter rules (0-8)
- */
-void fdcan_init_filter(uint32_t canport, uint8_t std_filt, uint8_t ext_filt)
-{
-	struct fdcan_message_ram *ram = fdcan_get_msgram_addr(canport);
-
-	/* Only perform initialization of message RAM if there are
-	 * any filters required
-	 */
-	if (std_filt > 0) {
-		FDCAN_RXGFC(canport) =
-			(FDCAN_RXGFC(canport) & ~(FDCAN_RXGFC_LSS_MASK << FDCAN_RXGFC_LSS_SHIFT))
-			| (std_filt << FDCAN_RXGFC_LSS_SHIFT);
-
-
-		for (int q = 0; q < FDCAN_SFT_MAX_NR; ++q) {
-			ram->lfssa[q].type_id1_conf_id2 = 0;
-		}
-	} else {
-		/* Reset filter count to zero */
-		FDCAN_RXGFC(canport) =
-			(FDCAN_RXGFC(canport) & ~(FDCAN_RXGFC_LSS_MASK << FDCAN_RXGFC_LSS_SHIFT));
-	}
-
-	if (ext_filt > 0) {
-		FDCAN_RXGFC(canport) =
-			(FDCAN_RXGFC(canport) & ~(FDCAN_RXGFC_LSE_MASK << FDCAN_RXGFC_LSE_SHIFT))
-			| (ext_filt << FDCAN_RXGFC_LSE_SHIFT);
-
-		for (int q = 0; q < FDCAN_EFT_MAX_NR; ++q) {
-			ram->lfesa[q].conf_id1 = 0;
-			ram->lfesa[q].type_id2 = 0;
-		}
-	} else {
-		/* Reset filter count to zero */
-		FDCAN_RXGFC(canport) =
-			(FDCAN_RXGFC(canport) & ~(FDCAN_RXGFC_LSE_MASK << FDCAN_RXGFC_LSE_SHIFT));
-	}
-}
-
 /** Configure filter rule for standard ID frames.
  *
  * Sets up filter rule for frames having standard ID. Each FDCAN block can
@@ -483,20 +404,20 @@ void fdcan_init_filter(uint32_t canport, uint8_t std_filt, uint8_t ext_filt)
  *
  * @param [in] canport FDCAN block base address. See @ref fdcan_block.
  * @param [in] nr number of filter to be configured
- * @param [in] id_list_mode Mode in which id1 and id2 are used to match the rule. 
- * 				See @ref fdcan_sft.
+ * @param [in] id_list_mode Mode in which id1 and id2 are used to match the rule.
+ *				See @ref fdcan_sft.
  * @param [in] id1 standard ID for matching. Used as exact value, lower bound or bit
  *				pattern depending on matching mode selected
  * @param [in] id2 standard ID or bitmask. Used as exact value, upper bound or bit mask
  *				depending on matching mode selected
- * @param [in] action Action performed if filtering rule matches frame ID. 
- * 				See @ref fdcan_sfec.
+ * @param [in] action Action performed if filtering rule matches frame ID.
+ *				See @ref fdcan_sfec.
  */
 void fdcan_set_std_filter(uint32_t canport, uint32_t nr,
 			uint8_t id_list_mode, uint32_t id1, uint32_t id2,
 			uint8_t action)
 {
-	struct fdcan_message_ram *ram = fdcan_get_msgram_addr(canport);
+	struct fdcan_standard_filter *lfssa = fdcan_get_flssa_addr(canport);
 
 	/* id_list_mode and action are passed unguarded. Simply use
 	 * defines and it will be OK. id1 and id2 are masked for
@@ -506,7 +427,7 @@ void fdcan_set_std_filter(uint32_t canport, uint32_t nr,
 	 * overflow into flags. This tends to be extremely time
 	 * consuming to debug.
 	 */
-	ram->lfssa[nr].type_id1_conf_id2 =
+	lfssa[nr].type_id1_conf_id2 =
 		(id_list_mode << FDCAN_SFT_SHIFT)
 		| (action << FDCAN_SFEC_SHIFT)
 		| ((id1 & FDCAN_SFID1_MASK) << FDCAN_SFID1_SHIFT)
@@ -524,25 +445,25 @@ void fdcan_set_std_filter(uint32_t canport, uint32_t nr,
  * @param [in] canport FDCAN block base address. See @ref fdcan_block.
  * @param [in] nr number of filter to be configured
  * @param [in] id_list_mode mode in which id1 and id2 are used to match the rule.
- * 				See @ref fdcan_eft.
+ *				See @ref fdcan_eft.
  * @param [in] id1 extended ID for matching. Used as exact value, lower bound or bit
  *				pattern depending on matching mode selected
  * @param [in] id2 extended ID or bitmask. Used as exact value, upper bound or bit mask
  *				depending on matching mode selected
  * @param [in] action Action performed if filtering rule matches frame ID.
- * 				See @ref fdcan_efec.
+ *				See @ref fdcan_efec.
  */
 void fdcan_set_ext_filter(uint32_t canport, uint32_t nr,
 			uint8_t id_list_mode, uint32_t id1, uint32_t id2,
 			uint8_t action)
 {
-	struct fdcan_message_ram *ram = fdcan_get_msgram_addr(canport);
+	struct fdcan_extended_filter *lfesa = fdcan_get_flesa_addr(canport);
 
-	ram->lfesa[nr].conf_id1 =
+	lfesa[nr].conf_id1 =
 		(action << FDCAN_EFEC_SHIFT)
 		| ((id1 & FDCAN_EFID1_MASK) << FDCAN_EFID1_SHIFT);
 
-	ram->lfesa[nr].type_id2 =
+	lfesa[nr].type_id2 =
 		(id_list_mode << FDCAN_EFT_SHIFT)
 		| ((id2 & FDCAN_EFID2_MASK) << FDCAN_EFID2_SHIFT);
 }
@@ -572,7 +493,7 @@ int fdcan_transmit(uint32_t canport, uint32_t id, bool ext, bool rtr,
 		return mailbox;
 	}
 
-	struct fdcan_message_ram *ram = fdcan_get_msgram_addr(canport);
+	struct fdcan_tx_buffer_element *tx_buffer = fdcan_get_txbuf_addr(canport, mailbox);
 
 	/* Early check: if FDCAN message lentgh is > 8, it must be
 	 * a multiple of 4 *and* fdcan format must be enabled.
@@ -584,15 +505,15 @@ int fdcan_transmit(uint32_t canport, uint32_t id, bool ext, bool rtr,
 	}
 
 	if (ext) {
-		ram->tx_buffer[mailbox].identifier_flags = FDCAN_FIFO_XTD
+		tx_buffer->identifier_flags = FDCAN_FIFO_XTD
 			| ((id & FDCAN_FIFO_EID_MASK) << FDCAN_FIFO_EID_SHIFT);
 	} else {
-		ram->tx_buffer[mailbox].identifier_flags =
+		tx_buffer->identifier_flags =
 			(id & FDCAN_FIFO_SID_MASK) << FDCAN_FIFO_SID_SHIFT;
 	}
 
 	if (rtr) {
-		ram->tx_buffer[mailbox].identifier_flags |= FDCAN_FIFO_RTR;
+		tx_buffer->identifier_flags |= FDCAN_FIFO_RTR;
 	}
 
 	if (fdcan_fmt) {
@@ -603,11 +524,11 @@ int fdcan_transmit(uint32_t canport, uint32_t id, bool ext, bool rtr,
 		flags |= FDCAN_FIFO_BRS;
 	}
 
-	ram->tx_buffer[mailbox].evt_fmt_dlc_res =
+	tx_buffer->evt_fmt_dlc_res =
 		(dlc << FDCAN_FIFO_DLC_SHIFT) | flags;
 
 	for (int q = 0; q < length; q += 4) {
-		ram->tx_buffer[mailbox].data[q / 4] = *((uint32_t *) &data[q]);
+		tx_buffer->data[q / 4] = *((uint32_t *) &data[q]);
 	}
 
 	FDCAN_TXBAR(canport) |= 1 << mailbox;
@@ -640,52 +561,49 @@ int fdcan_receive(uint32_t canport, uint8_t fifo_id, bool release, uint32_t *id,
 		 bool *ext, bool *rtr, uint8_t *fmi, uint8_t *length,
 		 uint8_t *data, uint16_t *timestamp)
 {
-	const struct fdcan_message_ram *ram = fdcan_get_msgram_addr(canport);
-
-	const struct fdcan_rx_fifo_element *fifo;
-
 	unsigned pending_frames, get_index, dlc, len;
 
 	fdcan_get_fill_rxfifo(canport, fifo_id, &get_index, &pending_frames);
-
-	fifo = ram->rx_fifo[fifo_id];
 
 	if (pending_frames == 0) {
 		return FDCAN_E_NOTAVAIL;
 	}
 
-	dlc = (fifo[get_index].filt_fmt_dlc_ts >> FDCAN_FIFO_DLC_SHIFT)
+	const struct fdcan_rx_fifo_element *fifo = fdcan_get_rxfifo_addr(canport,
+			fifo_id, get_index);
+
+	dlc = (fifo->filt_fmt_dlc_ts >> FDCAN_FIFO_DLC_SHIFT)
 		& FDCAN_FIFO_DLC_MASK;
 
 	len = fdcan_dlc_to_length(dlc);
 
 	*length = len;
-	if ((fifo[get_index].identifier_flags & FDCAN_FIFO_XTD) == FDCAN_FIFO_XTD) {
+	if ((fifo->identifier_flags & FDCAN_FIFO_XTD) == FDCAN_FIFO_XTD) {
 		*ext = true;
-		*id = (fifo[get_index].identifier_flags >> FDCAN_FIFO_EID_SHIFT)
+		*id = (fifo->identifier_flags >> FDCAN_FIFO_EID_SHIFT)
 			& FDCAN_FIFO_EID_MASK;
 	} else {
 		*ext = false;
-		*id = (fifo[get_index].identifier_flags >> FDCAN_FIFO_SID_SHIFT)
+		*id = (fifo->identifier_flags >> FDCAN_FIFO_SID_SHIFT)
 			& FDCAN_FIFO_SID_MASK;
 	}
 
 	if (timestamp) {
-		*timestamp = (uint16_t) (fifo[get_index].filt_fmt_dlc_ts >> FDCAN_FIFO_RXTS_SHIFT)
+		*timestamp = (uint16_t) (fifo->filt_fmt_dlc_ts >> FDCAN_FIFO_RXTS_SHIFT)
 			& FDCAN_FIFO_RXTS_MASK;
 	}
 
 	if (fmi) {
-		*fmi = (uint8_t) (fifo[get_index].filt_fmt_dlc_ts >> FDCAN_FIFO_MM_SHIFT)
+		*fmi = (uint8_t) (fifo->filt_fmt_dlc_ts >> FDCAN_FIFO_MM_SHIFT)
 			& FDCAN_FIFO_MM_MASK;
 	}
 
 	if (rtr) {
-		*rtr = ((fifo[get_index].identifier_flags & FDCAN_FIFO_RTR) == FDCAN_FIFO_RTR);
+		*rtr = ((fifo->identifier_flags & FDCAN_FIFO_RTR) == FDCAN_FIFO_RTR);
 	}
 
 	for (unsigned int q = 0; q < len; q += 4) {
-		*((uint32_t *) &data[q]) = fifo[get_index].data[q / 4];
+		*((uint32_t *) &data[q]) = fifo->data[q / 4];
 	}
 
 	if (release) {
