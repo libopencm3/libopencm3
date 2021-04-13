@@ -17,8 +17,7 @@
  * along with this library.  If not, see <http://www.gnu.org/licenses/>.
  */
 
-#ifndef LIBOPENCM3_FDCAN_H
-#define LIBOPENCM3_FDCAN_H
+#pragma once
 
 #include <libopencm3/stm32/memorymap.h>
 #include <libopencm3/cm3/common.h>
@@ -723,30 +722,6 @@ struct fdcan_tx_buffer_element {
 #define FDCAN_FIFO_RXTS_SHIFT			0
 #define FDCAN_FIFO_RXTS_MASK			0xFFFF
 
-#if 0
-/** Message RAM layout for one FDCAN block.
- * There are as many memory blocks as there are FDCAN blocks
- */
-struct fdcan_message_ram {
-	/* List of standard ID filters */
-	struct fdcan_standard_filter lfssa[FDCAN_SFT_MAX_NR];
-
-	/* List of extended ID filters */
-	struct fdcan_extended_filter lfesa[FDCAN_EFT_MAX_NR];
-
-	/* Buffer area for two receive FIFOs each having space for three messages */
-	struct fdcan_rx_fifo_element rx_fifo[2][3];
-
-	/* Buffer area for transmit event buffers */
-	struct fdcan_tx_event_element tx_event[3];
-
-	/* Buffer area for transmitted messages. May act either as FIFO or as queue
-	 * depending on configuration
-	 */
-	struct fdcan_tx_buffer_element tx_buffer[3];
-};
-#endif
-
 /* --- FD-CAN error returns ------------------------------------------------- */
 
 /** FDCAN error return values
@@ -833,5 +808,3 @@ uint8_t fdcan_dlc_to_length(uint32_t dlc);
 
 END_DECLS
 
-
-#endif

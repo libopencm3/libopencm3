@@ -25,8 +25,7 @@ LGPL License Terms @ref lgpl_license
  * along with this library.  If not, see <http://www.gnu.org/licenses/>.
  */
 
-#ifndef LIBOPENCM3_STM32G4_FDCAN_H
-#define LIBOPENCM3_STM32G4_FDCAN_H
+#pragma once
 
 /** @{ */
 
@@ -130,5 +129,4 @@ unsigned fdcan_get_txbuf_element_size(uint32_t canport);
 
 END_DECLS
 
-#endif
 
