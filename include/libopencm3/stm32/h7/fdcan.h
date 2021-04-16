@@ -104,49 +104,49 @@ LGPL License Terms @ref lgpl_license
 #define FDCAN_GFC_RRFE					(1 << 0)
 #define FDCAN_GFC_RRFS					(1 << 1)
 
-/* ANFE[1:0]: Accept non-matching frames w/ extended ID */
+/** ANFE[1:0]: Accept non-matching frames w/ extended ID */
 #define FDCAN_GFC_ANFE_SHIFT			2
 #define FDCAN_GFC_ANFE_MASK				0x3
 
-/* ANFS[1:0]: Accept non-matching frames w/ standard ID */
+/** ANFS[1:0]: Accept non-matching frames w/ standard ID */
 #define FDCAN_GFC_ANFS_SHIFT			4
 #define FDCAN_GFC_ANFS_MASK				0x3
 
 #define FDCAN_FXS_MASK					0xFF
 #define FDCAN_FXS_SHIFT					16
 
-/* Position of start address of relocatable object within register */
+/** Position of start address of relocatable object within register */
 #define FDCAN_FXSA_MASK					0x3FFF
 #define FDCAN_FXSA_SHIFT				2
 
-/* LSS[7:0]: List size of standard ID filters */
+/** LSS[7:0]: List size of standard ID filters */
 #define FDCAN_SIDFC_LSS_MASK			FDCAN_FXS_MASK
 #define FDCAN_SIDFC_LSS_SHIFT			FDCAN_FXS_SHIFT
 
-/* LFSSA[13:0]: Filter List standard start address */
+/** LFSSA[13:0]: Filter List standard start address */
 #define FDCAN_SIDFC_FLSSA_MASK			FDCAN_FXSA_MASK
 #define FDCAN_SIDFC_FLSSA_SHIFT			FDCAN_FXSA_SHIFT
 
-/* LSE[7:0]: List size of extended ID filters */
+/** LSE[7:0]: List size of extended ID filters */
 #define FDCAN_XIDFC_LSE_MASK			FDCAN_FXS_MASK
 #define FDCAN_XIDFC_LSE_SHIFT			FDCAN_FXS_SHIFT
 
-/* LFSSA[7:0]: Filter List extended start address */
+/** LFSSA[7:0]: Filter List extended start address */
 #define FDCAN_XIDFC_FLESA_MASK			FDCAN_FXSA_MASK
 #define FDCAN_XIDFC_FLESA_SHIFT			FDCAN_FXSA_SHIFT
 
-/* TFQS[5:0]: Tx FIFO/Queue size */
+/** TFQS[5:0]: Tx FIFO/Queue size */
 #define FDCAN_TXBC_TFQS_MASK			0x3F
 #define FDCAN_TXBC_TFQS_SHIFT			24
 
-/* TBSA[7:0]: Transmit buffer start address */
+/** TBSA[7:0]: Transmit buffer start address */
 #define FDCAN_TXBC_TBSA_MASK			FDCAN_FXSA_MASK
 #define FDCAN_TXBC_TBSA_SHIFT			FDCAN_FXSA_SHIFT
 
 #define FDCAN_TXEFC_EFS_MASK			0x3F
 #define FDCAN_TXEFC_EFS_SHIFT			16
 
-/* EFSA[7:0]: (Transmit) event FIFO start address */
+/** EFSA[7:0]: (Transmit) event FIFO start address */
 #define FDCAN_TXEFC_EFSA_MASK			FDCAN_FXSA_MASK
 #define FDCAN_TXEFC_EFSA_SHIFT			FDCAN_FXSA_SHIFT
 
@@ -164,45 +164,45 @@ LGPL License Terms @ref lgpl_license
 
 #define FDCAN_RXF0C_F0OM				FDCAN_RXFIC_FIOM
 
-/* F0WM[6:0]: FIFO0 watermark mode */
+/** F0WM[6:0]: FIFO0 watermark mode */
 #define FDCAN_RXF0C_F0WM_MASK			FDCAN_RXFIC_FIWM_MASK
 #define FDCAN_RXF0C_F0WM_SHIFT			FDCAN_RXFIC_FIWM_SHIFT
 
-/* F0S[6:0]: FIFO0 size */
+/** F0S[6:0]: FIFO0 size */
 #define FDCAN_RXF0C_F0S_MASK			FDCAN_RXFIC_FIS_MASK
 #define FDCAN_RXF0C_F0S_SHIFT			FDCAN_RXFIC_FIS_SHIFT
 
-/* F0SA[13:0]: FIFO0 start address */
+/** F0SA[13:0]: FIFO0 start address */
 #define FDCAN_RXF0C_F0SA_MASK			FDCAN_RXFIC_FISA_MASK
 #define FDCAN_RXF0C_F0SA_SHIFT			FDCAN_RXFIC_FISA_SHIFT
 
 #define FDCAN_RXF1C_F1OM				FDCAN_RXFIC_FIOM
 
-/* F1WM[6:0]: FIFO1 watermark mode */
+/** F1WM[6:0]: FIFO1 watermark mode */
 #define FDCAN_RXF1C_F1WM_MASK			FDCAN_RXFIC_FIWM_MASK
 #define FDCAN_RXF1C_F1WM_SHIFT			FDCAN_RXFIC_FIWM_SHIFT
 
-/* F1S[6:0]: FIFO1 size */
+/** F1S[6:0]: FIFO1 size */
 #define FDCAN_RXF1C_F1S_MASK			FDCAN_RXFIC_FIS_MASK
 #define FDCAN_RXF1C_F1S_SHIFT			FDCAN_RXFIC_FIS_SHIFT
 
-/* F1SA[13:0]: FIFO1 start address */
+/** F1SA[13:0]: FIFO1 start address */
 #define FDCAN_RXF1C_F1SA_MASK			FDCAN_RXFIC_FISA_MASK
 #define FDCAN_RXF1C_F1SA_SHIFT			FDCAN_RXFIC_FISA_SHIFT
 
-/* RBDS[3:0]: RX buffer data field size */
+/** RBDS[3:0]: RX buffer data field size */
 #define FDCAN_RXESC_RBDS_MASK			0x7
 #define FDCAN_RXESC_RBDS_SHIFT			8
 
-/* F0DS[3:0]: FIFO0 data field size */
+/** F0DS[3:0]: FIFO0 data field size */
 #define FDCAN_RXESC_F0DS_MASK			0x7
 #define FDCAN_RXESC_F0DS_SHIFT			0
 
-/* F1DS[3:0]: FIFO1 data field size */
+/** F1DS[3:0]: FIFO1 data field size */
 #define FDCAN_RXESC_F1DS_MASK			0x7
 #define FDCAN_RXESC_F1DS_SHIFT			4
 
-/* TBDS[3:0]: TX buffer data field size */
+/** TBDS[3:0]: TX buffer data field size */
 #define FDCAN_TXESC_TBDS_MASK			0x7
 #define FDCAN_TXESC_TBDS_SHIFT			0
 
@@ -220,7 +220,7 @@ LGPL License Terms @ref lgpl_license
 #define FDCAN_TXEFS_EFGI_MASK			0x1F
 #define FDCAN_TXEFS_EFPI_MASK			0x1F
 
-/* PDIV[3:0]: Input clock divider */
+/** CDIV[3:0]: Input clock divider */
 #define FDCAN_CCU_CCFG_CDIV_SHIFT		16
 #define FDCAN_CCU_CCFG_CDIV_MASK		0xF
 
@@ -248,10 +248,9 @@ void fdcan_init_ext_filter_ram(uint32_t canport, uint32_t flesa, uint8_t lse);
 void fdcan_init_fifo_ram(uint32_t canport, unsigned fifo_id, uint32_t fxsa, uint8_t fxs);
 void fdcan_init_tx_event_ram(uint32_t canport, uint32_t tesa, uint8_t tes);
 void fdcan_init_tx_buffer_ram(uint32_t canport, uint32_t tbsa, uint8_t tbs);
-unsigned fdcan_get_fifo_element_size(uint32_t canport, unsigned fifo_id);
-unsigned fdcan_get_txbuf_element_size(uint32_t canport);
 int fdcan_set_rx_element_size(uint32_t canport, uint8_t rxbuf, uint8_t rxfifo0, uint8_t rxfifo1);
 int fdcan_set_tx_element_size(uint32_t canport, uint8_t txbuf);
 
 END_DECLS
 
+/**@}*/

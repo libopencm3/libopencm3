@@ -85,61 +85,61 @@
 #define FDCAN_TXBC(can_base)			MMIO32(can_base + 0x00C0)
 #define FDCAN_TXFQS(can_base)			MMIO32(can_base + 0x00C4)
 
-/* DAY[7:0]: FDCAN core revision date */
+/** DAY[7:0]: FDCAN core revision date */
 #define FDCAN_CREL_DAY_SHIFT			0
 #define FDCAN_CREL_DAY_MASK				0xFF
 
-/* MON[7:0]: FDCAN core revision month */
+/** MON[7:0]: FDCAN core revision month */
 #define FDCAN_CREL_MON_SHIFT			8
 #define FDCAN_CREL_MON_MASK				0xFF
 
-/* YEAR[3:0]: FDCAN core revision year */
+/** YEAR[3:0]: FDCAN core revision year */
 #define FDCAN_CREL_YEAR_SHIFT			16
 #define FDCAN_CREL_YEAR_MASK			0xF
 
-/* SUBSTEP[3:0]: FDCAN core release sub stepping */
+/** SUBSTEP[3:0]: FDCAN core release sub stepping */
 #define FDCAN_CREL_SUBSTEP_SHIFT		20
 #define FDCAN_CREL_SUBSTEP_MASK			0xF
 
-/* STEP[3:0]: FDCAN core release stepping */
+/** STEP[3:0]: FDCAN core release stepping */
 #define FDCAN_CREL_STEP_SHIFT			24
 #define FDCAN_CREL_STEP_MASK			0xF
 
-/* REL[3:0]: FDCAN core release number */
+/** REL[3:0]: FDCAN core release number */
 #define FDCAN_CREL_REL_SHIFT			28
 #define FDCAN_CREL_REL_MASK				0xF
 
 
-/* DSJW[3:0]: Synchronization jump width */
+/** DSJW[3:0]: Synchronization jump width */
 #define FDCAN_DBTP_DSJW_SHIFT			0
 #define FDCAN_DBTP_DSJW_MASK			0xF
 
-/* DTSEG2[3:0]: Data time segment after sample point */
+/** DTSEG2[3:0]: Data time segment after sample point */
 #define FDCAN_DBTP_DTSEG2_SHIFT			4
 #define FDCAN_DBTP_DTSEG2_MASK			0xF
 
-/* DTSEG1[4:0]: Data time segment before sample point */
+/** DTSEG1[4:0]: Data time segment before sample point */
 #define FDCAN_DBTP_DTSEG1_SHIFT			8
 #define FDCAN_DBTP_DTSEG1_MASK			0x1F
 
-/* DBRP[4:0]: Data bit rate prescaler */
+/** DBRP[4:0]: Data bit rate prescaler */
 #define FDCAN_DBTP_DBRP_SHIFT			16
 #define FDCAN_DBTP_DBRP_MASK			0x1F
 
 #define FDCAN_DBTP_TDC					(1 << 23)
 
 #define FDCAN_TEST_LBCK					(1 << 4)
-/* TX[1:0]: Control of transmit pin */
+/** TX[1:0]: Control of transmit pin */
 #define FDCAN_TEST_TX_SHIFT				5
 #define FDCAN_TEST_TX_MASK				0x3
 
 #define FDCAN_TEST_RX					(1 << 7)
 
-/* WDC[7:0]: RAM watchdog configuration */
+/** WDC[7:0]: RAM watchdog configuration */
 #define FDCAN_RWD_WDC_SHIFT				0
 #define FDCAN_RWD_WDC_MASK				0xFF
 
-/* WDV[7:0]: RAM watchdog actual value */
+/** WDV[7:0]: RAM watchdog actual value */
 #define FDCAN_RWD_WDV_SHIFT				7
 #define FDCAN_RWD_WDV_MASK				0xFF
 
@@ -173,74 +173,74 @@
  */
 #define FDCAN_CCCR_INIT_TIMEOUT		0x0000FFFF
 
-/* NTSEG2[6:0]: Nominal timing segment after sample point length */
+/** NTSEG2[6:0]: Nominal timing segment after sample point length */
 #define FDCAN_NBTP_NTSEG2_SHIFT			0
 #define FDCAN_NBTP_NTSEG2_MASK			0x7F
 
-/* NTSEG1[7:0]: Nominal timing segment before sample point length */
+/** NTSEG1[7:0]: Nominal timing segment before sample point length */
 #define FDCAN_NBTP_NTSEG1_SHIFT			8
 #define FDCAN_NBTP_NTSEG1_MASK			0xFF
 
-/* NBRP[8:0]: Norminal timing bit rate prescaler */
+/** NBRP[8:0]: Norminal timing bit rate prescaler */
 #define FDCAN_NBTP_NBRP_SHIFT			16
 #define FDCAN_NBTP_NBRP_MASK			0x1FF
 
-/* NSJW[6:0]: Norminal timing resynchronization jumb width*/
+/** NSJW[6:0]: Norminal timing resynchronization jumb width*/
 #define FDCAN_NBTP_NSJW_SHIFT			25
 #define FDCAN_NBTP_NSJW_MASK			0x7F
 
-/* TSS[1:0]: Timestamp select */
+/** TSS[1:0]: Timestamp select */
 #define FDCAN_TSCC_TSS_SHIFT			0
 #define FDCAN_TSCC_TSS_MASK				0x3
 
-/* TCP[3:0]: Timestamp counter prescaler */
+/** TCP[3:0]: Timestamp counter prescaler */
 #define FDCAN_TSCC_TCP_SHIFT			16
 #define FDCAN_TSCC_TCP_MASK				0xF
 
 
-/* TSC[15:0]: Timestamp counter value */
+/** TSC[15:0]: Timestamp counter value */
 #define FDCAN_TSCV_TSC_SHIFT			0
 #define FDCAN_TSCV_TSC_MASK				0xFFFF
 
 #define FDCAN_TOCC_ETOC					(1 << 0)
-/* TOS[1:0]: Timeout select */
+/** TOS[1:0]: Timeout select */
 #define FDCAN_TOCC_TOS_SHIFT			1
 #define FDCAN_TOCC_TOS_MASK				0x3
 
-/* TOP[15:0]: Timeout period */
+/** TOP[15:0]: Timeout period */
 #define FDCAN_TOCC_TOP_SHIFT			16
 #define FDCAN_TOCC_TOP_MASK				0xFFFF
 
-/* TOC[15:0]: Timeout counter */
+/** TOC[15:0]: Timeout counter */
 #define FDCAN_TOCV_TOC_SHIFT			0
 #define FDCAN_TOCV_TOC_MASK				0xFFFF
 
-/* TEC[7:0]: Transmit error counter */
+/** TEC[7:0]: Transmit error counter */
 #define FDCAN_ECR_TEC_SHIFT				0
 #define FDCAN_ECR_TEC_MASK				0xFF
 
-/* REC[6:0]: Receive error counter */
+/** REC[6:0]: Receive error counter */
 #define FDCAN_ECR_REC_SHIFT				8
 #define FDCAN_ECR_REC_MASK				0x7F
 
 #define FDCAN_ECR_RP					(1 << 15)
-/* CEL[7:0]: CAN error logging */
+/** CEL[7:0]: CAN error logging */
 #define FDCAN_ECR_CEL_SHIFT				16
 #define FDCAN_ECR_CEL_MASK				0xFF
 
 
-/* LEC[2:0]: Last error code */
+/** LEC[2:0]: Last error code */
 #define FDCAN_PSR_LEC_SHIFT				0
 #define FDCAN_PSR_LEC_MASK				0x7
 
-/* ACT[1:0]: CAN block activity */
+/** ACT[1:0]: CAN block activity */
 #define FDCAN_PSR_ACT_SHIFT				3
 #define FDCAN_PSR_ACT_MASK				0x3
 
 #define FDCAN_PSR_EP					(1 << 5)
 #define FDCAN_PSR_EW					(1 << 6)
 #define FDCAN_PSR_BO					(1 << 7)
-/* DLEC[2:0]: Last error code in data section */
+/** DLEC[2:0]: Last error code in data section */
 #define FDCAN_PSR_DLEC_SHIFT			8
 #define FDCAN_PSR_DLEC_MASK				0x7
 
@@ -251,15 +251,15 @@
 #define FDCAN_PSR_REDL					(1 << 13)
 #define FDCAN_PSR_PXE					(1 << 14)
 
-/* TDCV[6:0]: Transmitter delay compensation value */
+/** TDCV[6:0]: Transmitter delay compensation value */
 #define FDCAN_PSR_TDCV_SHIFT			16
 #define FDCAN_PSR_TDCV_MASK				0x7F
 
-/* TDCF[6:0]: Transmitter delay compensation filter window length */
+/** TDCF[6:0]: Transmitter delay compensation filter window length */
 #define FDCAN_TDCR_TDCF_SHIFT			0
 #define FDCAN_TDCR_TDCF_MASK			0x7F
 
-/* TDCO[6:0]: Transmitter delay compensation offset */
+/** TDCO[6:0]: Transmitter delay compensation offset */
 #define FDCAN_TDCR_TDCO_SHIFT			8
 #define FDCAN_TDCR_TDCO_MASK			0x7F
 
@@ -337,87 +337,87 @@
 #define FDCAN_ILE_INT1					(1 << 1)
 
 
-/* EIDM[28:0]: Extended ID mask for filtering */
+/** EIDM[28:0]: Extended ID mask for filtering */
 #define FDCAN_XIDAM_EIDM_SHIFT			0
 #define FDCAN_XIDAM_EIDM_MASK			0x1FFFFFFF
 
 
-/* BIDX[2:0]: Buffer index */
+/** BIDX[2:0]: Buffer index */
 #define FDCAN_HPMS_BIDX_SHIFT			0
 #define FDCAN_HPMS_BIDX_MASK			0x7
 
-/* MSI[1:0]: Message storage indicator */
+/** MSI[1:0]: Message storage indicator */
 #define FDCAN_HPMS_MSI_SHIFT			6
 #define FDCAN_HPMS_MSI_MASK				0x3
 
-/* FIDX[4:0]: Filter index */
+/** FIDX[4:0]: Filter index */
 #define FDCAN_HPMS_FIDX_SHIFT			8
 #define FDCAN_HPMS_FIDX_MASK			0x1F
 
 #define FDCAN_HPMS_FLS					(1 << 15)
 
-/* Fill level of Rx FIFOs */
+/** Fill level of Rx FIFOs */
 #define FDCAN_RXFIFO_FL_SHIFT			0
 
-/* Get index of Rx FIFOs */
+/** Get index of Rx FIFOs */
 #define FDCAN_RXFIFO_GI_SHIFT			8
 
-/* Put index of Rx FIFOs */
+/** Put index of Rx FIFOs */
 #define FDCAN_RXFIFO_PI_SHIFT			16
 
 #define FDCAN_RXFIFO_FF					(1 << 24)
 #define FDCAN_RXFIFO_RFL				(1 << 25)
 
-/* F0FL[3:0]: Fill level of Rx FIFO 0 */
+/** F0FL[3:0]: Fill level of Rx FIFO 0 */
 #define FDCAN_RXF0S_F0FL_SHIFT			FDCAN_RXFIFO_FL_SHIFT
 #define FDCAN_RXF0S_F0FL_MASK			FDCAN_RXFIFO_FL_MASK
 
-/* F0GI[1:0]: Get index of Rx FIFO 0 */
+/** F0GI[1:0]: Get index of Rx FIFO 0 */
 #define FDCAN_RXF0S_F0GI_SHIFT			FDCAN_RXFIFO_GI_SHIFT
 #define FDCAN_RXF0S_F0GI_MASK			FDCAN_RXFIFO_GI_MASK
 
-/* F0PI[1:0]: Put index of Rx FIFO 0 */
+/** F0PI[1:0]: Put index of Rx FIFO 0 */
 #define FDCAN_RXF0S_F0PI_SHIFT			FDCAN_RXFIFO_PI_SHIFT
 #define FDCAN_RXF0S_F0PI_MASK			FDCAN_RXFIFO_PI_MASK
 
 #define FDCAN_RXF0S_F0F					FDCAN_RXFIFO_FF
 #define FDCAN_RXF0S_RF0L				FDCAN_RXFIFO_RFL
 
-/* Rx FIFOs acknowledge index */
+/** Rx FIFOs acknowledge index */
 #define FDCAN_RXFIFO_AI_SHIFT			0
 
-/* R0AI[2:0]: Rx FIFO 0 acknowledge index */
+/** R0AI[2:0]: Rx FIFO 0 acknowledge index */
 #define FDCAN_RXF0A_R0AI_SHIFT			FDCAN_RXFIFO_AI_SHIFT
 #define FDCAN_RXF0A_R0AI_MASK			FDCAN_RXFIFO_AI_MASK
 
-/* F1FL[3:1]: Fill level of Rx FIFO 1 */
+/** F1FL[3:1]: Fill level of Rx FIFO 1 */
 #define FDCAN_RXF1S_F1FL_SHIFT			FDCAN_RXFIFO_FL_SHIFT
 #define FDCAN_RXF1S_F1FL_MASK			FDCAN_RXFIFO_FL_MASK
 
-/* F1GI[1:1]: Get index of Rx FIFO 1 */
+/** F1GI[1:1]: Get index of Rx FIFO 1 */
 #define FDCAN_RXF1S_F1GI_SHIFT			FDCAN_RXFIFO_GI_SHIFT
 #define FDCAN_RXF1S_F1GI_MASK			FDCAN_RXFIFO_GI_MASK
 
-/* F1PI[1:1]: Put index of Rx FIFO 1 */
+/** F1PI[1:1]: Put index of Rx FIFO 1 */
 #define FDCAN_RXF1S_F1PI_SHIFT			FDCAN_RXFIFO_PI_SHIFT
 #define FDCAN_RXF1S_F1PI_MASK			FDCAN_RXFIFO_PI_MASK
 
 #define FDCAN_RXF1S_F1F					FDCAN_RXFIFO_FF
 #define FDCAN_RXF1S_RF1L				FDCAN_RXFIFO_RFL
 
-/* R1AI[2:0]: Rx FIFO 1 acknowledge index */
+/** R1AI[2:0]: Rx FIFO 1 acknowledge index */
 #define FDCAN_RXF1A_R1AI_SHIFT			FDCAN_RXFIFO_AI_SHIFT
 #define FDCAN_RXF1A_R1AI_MASK			FDCAN_RXFIFO_AI_MASK
 
 #define FDCAN_TXBC_TFQM					(1 << 24)
 
-/* TFFL[2:0]: Tx FIFO free level */
+/** TFFL[2:0]: Tx FIFO free level */
 #define FDCAN_TXFQS_TFFL_SHIFT			0
 
-/* TFGI[1:0]: Tx FIFO get index */
+/** TFGI[1:0]: Tx FIFO get index */
 #define FDCAN_TXFQS_TFGI_SHIFT			8
 
-/* TFQPI[1:0]: Tx FIFO put index */
+/** TFQPI[1:0]: Tx FIFO put index */
 #define FDCAN_TXFQS_TFQPI_SHIFT			16
 
 #define FDCAN_TXFQS_TFQF				(1 << 21)
@@ -484,19 +484,19 @@
 #define FDCAN_TXBCIE_CFIE2				(1 << 2)
 /**@}*/
 
-/* EFFL[2:0]: Event FIFO fill level*/
+/** EFFL[2:0]: Event FIFO fill level*/
 #define FDCAN_TXEFS_EFFL_SHIFT			0
 
-/* EFG[1:0]: Event FIFO get index */
+/** EFG[1:0]: Event FIFO get index */
 #define FDCAN_TXEFS_EFGI_SHIFT			8
 
-/* EFPI[1:0]: Event FIFO put index */
+/** EFPI[1:0]: Event FIFO put index */
 #define FDCAN_TXEFS_EFPI_SHIFT			16
 
 #define FDCAN_TXEFS_EFF					(1 << 24)
 #define FDCAN_TXEFS_TEF					(1 << 25)
 
-/* EFAI[1:0]: Event FIFO acknowledge index */
+/** EFAI[1:0]: Event FIFO acknowledge index */
 #define FDCAN_TXEFA_EFAI_SHIFT			0
 #define FDCAN_TXEFA_EFAI_MASK			0x3
 
@@ -722,7 +722,6 @@ struct fdcan_tx_buffer_element {
 #define FDCAN_FIFO_RXTS_SHIFT			0
 #define FDCAN_FIFO_RXTS_MASK			0xFFFF
 
-/* --- FD-CAN error returns ------------------------------------------------- */
 
 /** FDCAN error return values
  */
@@ -749,7 +748,6 @@ enum fdcan_error {
 
 /**@}*/
 
-/* --- FD-CAN functions ----------------------------------------------------- */
 
 BEGIN_DECLS
 
@@ -799,9 +797,11 @@ struct fdcan_extended_filter *fdcan_get_flesa_addr(uint32_t canport);
 
 struct fdcan_rx_fifo_element *fdcan_get_rxfifo_addr(uint32_t canport,
 		unsigned fifo_id, unsigned element_id);
+unsigned fdcan_get_fifo_element_size(uint32_t canport, unsigned fifo_id);
 
 struct fdcan_tx_event_element *fdcan_get_txevt_addr(uint32_t canport);
 struct fdcan_tx_buffer_element *fdcan_get_txbuf_addr(uint32_t canport, unsigned element_id);
+unsigned fdcan_get_txbuf_element_size(uint32_t canport);
 void fdcan_set_fifo_locked_mode(uint32_t canport, bool locked);
 uint32_t fdcan_length_to_dlc(uint8_t length);
 uint8_t fdcan_dlc_to_length(uint32_t dlc);

@@ -140,11 +140,12 @@ struct fdcan_extended_filter *fdcan_get_flesa_addr(uint32_t canport)
 	return lfesa;
 }
 
-/** Returns FIFO start address in message RAM
+/** Returns a pointer to an RX FIFO element in message RAM
  *
  * @param [in] canport FDCAN block base address. See @ref fdcan_block.
  * @param [in] fifo_id ID of FIFO whose address is requested
- * @returns Base address of FIFO block.
+ * @param [in] element_id the element number in the fifo we're requesting
+ * @returns a pointer to the individual element in the message ram
  */
 struct fdcan_rx_fifo_element *fdcan_get_rxfifo_addr(uint32_t canport,
 		unsigned fifo_id, unsigned element_id)
@@ -168,10 +169,11 @@ struct fdcan_tx_event_element *fdcan_get_txevt_addr(uint32_t canport)
 	return rxfifo;
 }
 
-/** Returns transmit buffer start address in message RAM
+/** Returns a pointer to an TX FIFO element in message RAM
  *
  * @param [in] canport FDCAN block base address. See @ref fdcan_block.
- * @returns Base address of transmit buffer block.
+ * @param [in] element_id the element number in the fifo we're requesting
+ * @returns a pointer to the individual element in the message ram
  */
 struct fdcan_tx_buffer_element *fdcan_get_txbuf_addr(uint32_t canport, unsigned element_id)
 {

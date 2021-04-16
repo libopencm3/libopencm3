@@ -63,21 +63,21 @@ LGPL License Terms @ref lgpl_license
 
 #define FDCAN_RXGFC_RRFE				(1 << 0)
 #define FDCAN_RXGFC_RRFS				(1 << 1)
-/* ANFE[1:0]: Accept non-matching frames w/ extended ID */
+/** ANFE[1:0]: Accept non-matching frames w/ extended ID */
 #define FDCAN_RXGFC_ANFE_SHIFT			2
 #define FDCAN_RXGFC_ANFE_MASK			0x3
 
-/* ANFS[1:0]: Accept non-matching frames w/ standard ID */
+/** ANFS[1:0]: Accept non-matching frames w/ standard ID */
 #define FDCAN_RXGFC_ANFS_SHIFT			4
 #define FDCAN_RXGFC_ANFS_MASK			0x3
 
 #define FDCAN_RXGFC_F1OM				(1 << 8)
 #define FDCAN_RXGFC_F0OM				(1 << 9)
-/* LSS[4:0]: List size of standard ID filters */
+/** LSS[4:0]: List size of standard ID filters */
 #define FDCAN_RXGFC_LSS_SHIFT			16
 #define FDCAN_RXGFC_LSS_MASK			0x1F
 
-/* LSE[3:0]: List size of extended ID filters */
+/** LSE[3:0]: List size of extended ID filters */
 #define FDCAN_RXGFC_LSE_SHIFT			24
 #define FDCAN_RXGFC_LSE_MASK			0xF
 
@@ -124,9 +124,6 @@ LGPL License Terms @ref lgpl_license
 
 BEGIN_DECLS
 
-unsigned fdcan_get_fifo_element_size(uint32_t canport, unsigned fifo_id);
-unsigned fdcan_get_txbuf_element_size(uint32_t canport);
-
 END_DECLS
 
-
+/**@}*/

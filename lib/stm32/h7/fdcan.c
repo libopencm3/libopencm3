@@ -89,7 +89,6 @@ unsigned fdcan_get_fifo_element_size(uint32_t canport, unsigned fifo_id)
  * size.
  *
  * @param [in] canport FDCAN block base address. See @ref fdcan_block.
- * @param [in] fifo_id ID of FIFO whole length is queried.
  * @returns Length of FIFO entry length covering frame header and frame payload.
  */
 unsigned fdcan_get_txbuf_element_size(uint32_t canport)
@@ -139,7 +138,7 @@ void fdcan_init_ext_filter_ram(uint32_t canport, uint32_t flesa, uint8_t lse)
  * @param [in] canport FDCAN block base address. See @ref fdcan_block.
  * @param [in] fifo_id ID of fifo being configured
  * @param [in] fxsa FIFO block start address offset in message RAM
- * @param [in] fxs amount of entries allocated in FIFO
+ * @param [in] fxs number of elements to assign
  */
 void fdcan_init_fifo_ram(uint32_t canport, unsigned fifo_id, uint32_t fxsa, uint8_t fxs)
 {
@@ -158,9 +157,8 @@ void fdcan_init_fifo_ram(uint32_t canport, unsigned fifo_id, uint32_t fxsa, uint
  * base address within CAN message RAM. Note, that there are no limitations
  * nor checking on address provided.
  * @param [in] canport FDCAN block base address. See @ref fdcan_block.
- * @param [in] fifo_id ID of fifo being configured
- * @param [in] fxsa FIFO block start address offset in message RAM
- * @param [in] fxs amount of entries allocated in FIFO
+ * @param [in] tesa block start address offset in message RAM
+ * @param [in] tes number of elements to assign
  */
 void fdcan_init_tx_event_ram(uint32_t canport, uint32_t tesa, uint8_t tes)
 {
@@ -179,9 +177,8 @@ void fdcan_init_tx_event_ram(uint32_t canport, uint32_t tesa, uint8_t tes)
  * base address within CAN message RAM. Note, that there are no limitations
  * nor checking on address provided.
  * @param [in] canport FDCAN block base address. See @ref fdcan_block.
- * @param [in] fifo_id ID of fifo being configured
- * @param [in] fxsa FIFO block start address offset in message RAM
- * @param [in] fxs amount of entries allocated in FIFO
+ * @param [in] tbsa block start address offset in message RAM
+ * @param [in] tbs number of elements to assign
  */
 void fdcan_init_tx_buffer_ram(uint32_t canport, uint32_t tbsa, uint8_t tbs)
 {
@@ -471,3 +468,4 @@ void fdcan_set_fifo_locked_mode(uint32_t canport, bool locked)
 	}
 }
 
+/**@}*/

@@ -70,7 +70,6 @@ unsigned fdcan_get_fifo_element_size(uint32_t canport, unsigned fifo_id)
  * as G4 has transmit buffer entries of fixed length.
  *
  * @param [in] canport FDCAN block base address. See @ref fdcan_block. Unused.
- * @param [in] fifo_id ID of FIFO whole length is queried. Unused.
  * @returns Length of FIFO entry length covering frame header and frame payload.
  */
 unsigned fdcan_get_txbuf_element_size(uint32_t canport)
