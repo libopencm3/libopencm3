@@ -113,6 +113,7 @@ void flash_lock_upper(void);
 void flash_clear_pgerr_flag_upper(void);
 void flash_clear_eop_flag_upper(void);
 void flash_clear_wrprterr_flag_upper(void);
+uint32_t flash_get_page_size(void);
 
 END_DECLS
 

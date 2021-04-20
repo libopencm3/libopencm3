@@ -299,5 +299,27 @@ void flash_erase_all_pages(void)
 	FLASH_CR2 &= ~FLASH_CR_MER;
 }
 
+/** @brief Get size in bytes of one flash page
+*/
+uint32_t flash_get_page_size(void)
+{
+	uint32_t idcode = MMIO32(DBGMCU_BASE) & 0x7FF;
+	uint32_t page_size = 0;
+	
+	switch (idcode)
+	{
+		case 0x412:
+		case 0x410:
+			page_size = 1024;
+			break;
+		case 0x414:
+		case 0x418:
+		case 0x430:
+			page_size = 2048;
+			break;
+	}
+	
+	return page_size;
+}
 /**@}*/
 
