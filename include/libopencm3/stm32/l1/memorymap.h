@@ -26,6 +26,7 @@
 /* --- STM32 specific peripheral definitions ------------------------------- */
 
 /* Memory map for all busses */
+#define FLASH_BASE			(0x08000000U)
 #define PERIPH_BASE			(0x40000000U)
 #define INFO_BASE			(0x1ff00000U)
 #define PERIPH_BASE_APB1		(PERIPH_BASE + 0x00000)

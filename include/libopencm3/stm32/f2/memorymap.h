@@ -25,6 +25,7 @@
 /* --- STM32F20x specific peripheral definitions --------------------------- */
 
 /* Memory map for all busses */
+#define FLASH_BASE			(0x08000000U)
 #define PERIPH_BASE			(0x40000000U)
 #define PERIPH_BASE_APB1		(PERIPH_BASE + 0x00000)
 #define PERIPH_BASE_APB2		(PERIPH_BASE + 0x10000)

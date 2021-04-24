@@ -23,6 +23,7 @@
 /* --- STM32 specific peripheral definitions ------------------------------- */
 
 /* Memory map for all busses */
+#define FLASH_BASE			(0x08000000U)
 #define PERIPH_BASE			(0x40000000U)
 #define FMC1_BANK_BASE			(0x60000000U)
 #define FMC3_BANK_BASE			(0x80000000U)
