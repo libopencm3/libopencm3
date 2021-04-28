@@ -46,6 +46,7 @@
 #define GPIOB_BRR			GPIO_BRR(GPIOB)
 #define GPIOC_BRR			GPIO_BRR(GPIOC)
 #define GPIOD_BRR			GPIO_BRR(GPIOD)
+#define GPIOE_BRR			GPIO_BRR(GPIOE)
 #define GPIOH_BRR			GPIO_BRR(GPIOH)
 
 /*****************************************************************************/
