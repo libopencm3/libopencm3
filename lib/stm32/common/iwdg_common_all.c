@@ -108,6 +108,9 @@ void iwdg_set_period_ms(uint32_t period)
 	while (iwdg_reload_busy());
 	IWDG_KR = IWDG_KR_UNLOCK;
 	IWDG_RLR = count & COUNT_MASK;
+	
+	/* Refresh counter after configuration is complete */
+	iwdg_reset();
 }
 
 /*---------------------------------------------------------------------------*/
