@@ -120,7 +120,7 @@ void spi_send8(uint32_t spi, uint8_t data)
 uint8_t spi_read8(uint32_t spi)
 {
 	/* Wait for transfer finished. */
-//	while (!(SPI_SR(spi) & SPI_SR_RXP));
+	while (!(SPI_SR(spi) & SPI_SR_RXP));
 
 	return SPI_RXDR8(spi);
 }

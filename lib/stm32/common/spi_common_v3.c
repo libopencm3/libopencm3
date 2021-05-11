@@ -315,15 +315,20 @@ void spi_disable_crc(uint32_t spi)
  */
 void spi_set_transfer_size(uint32_t spi, uint16_t size)
 {
-	if (SPI_CR1(spi) & SPI_CR1_CSTART)
+	/* This code works and I don't have a clue why */
+	if (SPI_SR(spi) & SPI_SR_EOT)
 	{
-		while ((SPI_SR(spi) & SPI_SR_EOT) == 0);
-		SPI_IFCR(spi) |= SPI_IFCR_EOTC;
+		SPI_IFCR(spi) = SPI_IFCR_EOTC;
 	}
 	SPI_CR2(spi) = (SPI_CR2(spi) & ~(SPI_CR2_TSIZE_MASK << SPI_CR2_TSIZE_SHIFT))
 		| (size << SPI_CR2_TSIZE_SHIFT);
 
 	SPI_CR1(spi) |= SPI_CR1_CSTART;
+}
+
+void spi_wait_for_transfer_finished(uint32_t spi)
+{
+	while ((SPI_SR(spi) & SPI_SR_EOT) == 0);
 }
 
 /*---------------------------------------------------------------------------*/

@@ -306,6 +306,7 @@ void spi_disable_tx_dma(uint32_t spi);
 void spi_enable_rx_dma(uint32_t spi);
 void spi_disable_rx_dma(uint32_t spi);
 void spi_set_standard_mode(uint32_t spi, uint8_t mode);
+void spi_wait_for_transfer_finished(uint32_t spi);
 
 int spi_init_master(uint32_t spi, uint32_t br, bool cpol, bool cpha, 
 		bool lsbfirst);
