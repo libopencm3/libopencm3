@@ -609,7 +609,7 @@ int fdcan_receive(uint32_t canport, uint8_t fifo_id, bool release, uint32_t *id,
 	}
 
 	if (release) {
-		FDCAN_RXFIA(canport, fifo_id) |= get_index << FDCAN_RXFIFO_AI_SHIFT;
+		FDCAN_RXFIA(canport, fifo_id) = get_index << FDCAN_RXFIFO_AI_SHIFT;
 	}
 
 	return FDCAN_E_OK;
