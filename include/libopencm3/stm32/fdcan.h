@@ -78,7 +78,9 @@
  * @param can_base FDCAN block base address @ref fdcan_block
  * @param fifo_id ID of FIFO, 0 or 1
  */
-#define FDCAN_RXFIA(can_base, fifo_id)	MMIO32(can_base + 0x0094 + (FDCAN_RXFI_OFFSET * fifo_id))
+#define FDCAN_RXFIA(can_base, fifo_id)	\
+	MMIO32(can_base + FDCAN_RXFIA_BASE + (FDCAN_RXFI_OFFSET * fifo_id))
+
 #define FDCAN_RXF0A(can_base)			FDCAN_RXFIA(can_base, 0)
 #define FDCAN_RXF1A(can_base)			FDCAN_RXFIA(can_base, 1)
 
@@ -725,26 +727,24 @@ struct fdcan_tx_buffer_element {
 
 /** FDCAN error return values
  */
-enum fdcan_error {
 	/** No error. Operation finished successfully */
-	FDCAN_E_OK,
+#define FDCAN_E_OK 						0
 
 	/** Value provided was out of range */
-	FDCAN_E_OUTOFRANGE,
+#define FDCAN_E_OUTOFRANGE				-1
 
 	/** Timeout waiting for FDCAN block to accept INIT bit change */
-	FDCAN_E_TIMEOUT,
+#define FDCAN_E_TIMEOUT					-2
 
 	/** Value provided was invalid (FIFO index, FDCAN block base address, length, etc.) */
-	FDCAN_E_INVALID,
+#define FDCAN_E_INVALID					-3
 
 	/** Device is busy: Transmit buffer is full, unable to queue additional message or device
 	 * is outside of INIT mode and cannot perform desired operation. */
-	FDCAN_E_BUSY,
+#define FDCAN_E_BUSY					-4
 
 	/** Receive buffer is empty, unable to read any new message */
-	FDCAN_E_NOTAVAIL
-};
+#define FDCAN_E_NOTAVAIL				-5
 
 /**@}*/
 

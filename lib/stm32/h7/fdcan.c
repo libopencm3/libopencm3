@@ -79,7 +79,7 @@ unsigned fdcan_get_fifo_element_size(uint32_t canport, unsigned fifo_id)
 	}
 
 	/* Mask is unshifted and at this point, element_size is unshifted too */
-	return 8 + fdcan_dlc_to_length((element_size & FDCAN_RXESC_F0DS_MASK) | 0x7);
+	return 8 + fdcan_dlc_to_length((element_size & FDCAN_RXESC_F0DS_MASK) | 0x8);
 }
 
 /** Returns actual size of transmit entry in transmit queue/FIFO for given CAN port.
@@ -95,7 +95,7 @@ unsigned fdcan_get_txbuf_element_size(uint32_t canport)
 {
 	unsigned element_size;
 	element_size = (FDCAN_TXESC(canport) >> FDCAN_TXESC_TBDS_SHIFT) & FDCAN_TXESC_TBDS_MASK;
-	return 8 + fdcan_dlc_to_length((element_size & FDCAN_TXESC_TBDS_MASK) | 0x7);
+	return 8 + fdcan_dlc_to_length((element_size & FDCAN_TXESC_TBDS_MASK) | 0x8);
 }
 
 /** Initialize allocation of standard filter block in CAN message RAM.
