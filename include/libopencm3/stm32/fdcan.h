@@ -78,7 +78,9 @@
  * @param can_base FDCAN block base address @ref fdcan_block
  * @param fifo_id ID of FIFO, 0 or 1
  */
-#define FDCAN_RXFIA(can_base, fifo_id)	MMIO32(can_base + 0x0094 + (FDCAN_RXFI_OFFSET * fifo_id))
+#define FDCAN_RXFIA(can_base, fifo_id)	\
+	MMIO32(can_base + FDCAN_RXFIA_BASE + (FDCAN_RXFI_OFFSET * fifo_id))
+
 #define FDCAN_RXF0A(can_base)			FDCAN_RXFIA(can_base, 0)
 #define FDCAN_RXF1A(can_base)			FDCAN_RXFIA(can_base, 1)
 
