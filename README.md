@@ -191,7 +191,7 @@ Community
 ---------
 
  * Our [![Gitter channel](https://badges.gitter.im/libopencm3/discuss.svg)](https://gitter.im/libopencm3/discuss)
- * Our IRC channel on the freenode IRC network is called #libopencm3
+ * Our IRC channel on the libera.chat IRC network is called #libopencm3
 
 Mailing lists
 -------------
