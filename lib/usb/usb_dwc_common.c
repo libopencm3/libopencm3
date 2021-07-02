@@ -358,11 +358,6 @@ void dwc_poll(usbd_device *usbd_dev)
 		uint32_t rxstsp = REBASE(OTG_GRXSTSP);
 		uint32_t pktsts = rxstsp & OTG_GRXSTSP_PKTSTS_MASK;
 		uint8_t ep = rxstsp & OTG_GRXSTSP_EPNUM_MASK;
-
-		if (pktsts == OTG_GRXSTSP_PKTSTS_SETUP_COMP) {
-			usbd_dev->user_callback_ctr[ep][USB_TRANSACTION_SETUP] (usbd_dev, ep);
-		}
-
 		if (pktsts == OTG_GRXSTSP_PKTSTS_OUT_COMP
 			|| pktsts == OTG_GRXSTSP_PKTSTS_SETUP_COMP)  {
 			REBASE(OTG_DOEPTSIZ(ep)) = usbd_dev->doeptsiz[ep];
@@ -395,10 +390,18 @@ void dwc_poll(usbd_device *usbd_dev)
 		/* Save packet size for dwc_ep_read_packet(). */
 		usbd_dev->rxbcnt = (rxstsp & OTG_GRXSTSP_BCNT_MASK) >> 4;
 
-		if (type == USB_TRANSACTION_SETUP) {
-			dwc_ep_read_packet(usbd_dev, ep, &usbd_dev->control_state.req, 8);
-		} else if (usbd_dev->user_callback_ctr[ep][type]) {
+		if (usbd_dev->user_callback_ctr[ep][type]) {
 			usbd_dev->user_callback_ctr[ep][type] (usbd_dev, ep);
+		}
+		/* Cores with ID 0x2000 require to have NAK cleared early.
+		 * Otherwise they never reach the "OUT transfer completed"
+		 * / "SETUP transaction completed" state.
+		 * If NAK is cleared early on cores with ID 0x1200, they drop
+		 * data.
+		 */
+		if (REBASE(OTG_CID) >= OTG_CID_CNAK_EARLY) {
+			REBASE(OTG_DOEPCTL(ep)) |= usbd_dev->force_nak[ep] ?
+					OTG_DOEPCTL0_SNAK : OTG_DOEPCTL0_CNAK;
 		}
 
 		/* Discard unread packet data. */
