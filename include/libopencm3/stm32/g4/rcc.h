@@ -1031,6 +1031,7 @@ uint32_t rcc_system_clock_source(void);
 void rcc_clock_setup_pll(const struct rcc_clock_scale *clock);
 void __attribute__((deprecated("Use rcc_clock_setup_pll as direct replacement"))) rcc_clock_setup_hse_3v3(const struct rcc_clock_scale *clock);
 void rcc_set_clock48_source(uint32_t clksel);
+void rcc_set_peripheral_clk_sel(uint32_t periph, uint32_t sel);
 
 END_DECLS
 
