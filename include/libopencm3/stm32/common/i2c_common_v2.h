@@ -49,6 +49,9 @@ specific memorymap.h header before including this header file.*/
 #ifdef I2C4_BASE
 #define I2C4				I2C4_BASE
 #endif
+#ifdef I2C5_BASE
+#define I2C5				I2C5_BASE
+#endif
 /**@}*/
 
 /* --- I2C registers ------------------------------------------------------- */

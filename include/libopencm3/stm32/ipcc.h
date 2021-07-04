@@ -20,28 +20,8 @@
 #include <libopencm3/cm3/common.h>
 #include <libopencm3/stm32/memorymap.h>
 
-#if defined(STM32F0)
-#       include <libopencm3/stm32/f0/i2c.h>
-#elif defined(STM32F1)
-#       include <libopencm3/stm32/f1/i2c.h>
-#elif defined(STM32F2)
-#       include <libopencm3/stm32/f2/i2c.h>
-#elif defined(STM32F3)
-#       include <libopencm3/stm32/f3/i2c.h>
-#elif defined(STM32F4)
-#       include <libopencm3/stm32/f4/i2c.h>
-#elif defined(STM32F7)
-#       include <libopencm3/stm32/f7/i2c.h>
-#elif defined(STM32L0)
-#       include <libopencm3/stm32/l0/i2c.h>
-#elif defined(STM32L1)
-#       include <libopencm3/stm32/l1/i2c.h>
-#elif defined(STM32L4)
-#       include <libopencm3/stm32/l4/i2c.h>
-#elif defined(STM32G0)
-#       include <libopencm3/stm32/g0/i2c.h>
-#elif defined(STM32MP1)
-#       include <libopencm3/stm32/mp1/i2c.h>
+#if defined(STM32MP1)
+#       include <libopencm3/stm32/mp1/ipcc.h>
 #else
 #       error "stm32 family not defined."
 #endif
