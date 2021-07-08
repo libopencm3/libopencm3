@@ -301,6 +301,18 @@ bool i2c_nack(uint32_t i2c)
 	return (I2C_ISR(i2c) & I2C_ISR_NACKF);
 }
 
+/*---------------------------------------------------------------------------*/
+/** @brief I2C Clear Nack Flag.
+ *
+ * Clear the "Not Acknowledge received" flag in the I2C config register
+ *
+ * @param[in] i2c Unsigned int32. I2C register base address @ref i2c_reg_base.
+ */
+void i2c_clear_nack(uint32_t i2c)
+{
+	I2C_ICR(i2c) |= I2C_ICR_NACKCF;
+}
+
 bool i2c_busy(uint32_t i2c)
 {
 	return (I2C_ISR(i2c) & I2C_ISR_BUSY);
