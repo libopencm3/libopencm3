@@ -33,6 +33,11 @@ static uint8_t _rtc_dec_to_bcd(uint8_t dec)
 	return ((dec / 10) << 4) | (dec % 10);
 }
 
+static uint8_t _rtc_bcd_to_dec(uint8_t bcd) 
+{ 
+	return ((bcd >> 4) * 10) + (bcd & 0x0f); 
+}
+
 /*---------------------------------------------------------------------------*/
 /** @brief Set RTC prescalars.
 
@@ -334,5 +339,65 @@ void rtc_time_set_time(uint8_t hour, uint8_t minute, uint8_t second, bool use_am
 	rtc_time_set_hour(hour, use_am_notation);
 	rtc_time_set_minute(minute);
 	rtc_time_set_second(second);
+}
+
+/*---------------------------------------------------------------------------*/
+/** @brief Gets the RTC DEC time hour value
+
+@details Requires unlocking the RTC write-protection (RTC_WPR)
+*/
+uint8_t rtc_time_get_hour(void)
+{
+    return _rtc_bcd_to_dec((RTC_TSTR >> RTC_TSTR_HU_SHIFT) & (RTC_TSTR_HU_MASK | (RTC_TSTR_HT_MASK << 4)));
+}
+
+/*---------------------------------------------------------------------------*/
+/** @brief Gets the RTC DEC time minute value
+
+@details Requires unlocking the RTC write-protection (RTC_WPR)
+*/
+uint8_t rtc_time_get_minute(void)
+{
+    return _rtc_bcd_to_dec((RTC_TSTR >> RTC_TSTR_MNU_SHIFT) & (RTC_TSTR_MNU_MASK | (RTC_TSTR_MNT_MASK << 4)));
+}
+
+/*---------------------------------------------------------------------------*/
+/** @brief Gets the RTC DEC time second value
+
+@details Requires unlocking the RTC write-protection (RTC_WPR)
+*/
+uint8_t rtc_time_get_second(void)
+{
+    return _rtc_bcd_to_dec((RTC_TSTR >> RTC_TSTR_SU_SHIFT) & (RTC_TSTR_SU_MASK | (RTC_TSTR_ST_MASK << 4)));
+}
+
+/*---------------------------------------------------------------------------*/
+/** @brief Gets the RTC DEC calendar year value
+
+@details Requires unlocking the RTC write-protection (RTC_WPR)
+*/
+uint8_t rtc_calendar_get_year(void)
+{
+    return _rtc_bcd_to_dec((RTC_DR >> RTC_DR_YU_SHIFT) & (RTC_DR_YU_MASK | (RTC_DR_YT_MASK << 4)));
+}
+
+/*---------------------------------------------------------------------------*/
+/** @brief Gets the RTC DEC calendar month value
+
+@details Requires unlocking the RTC write-protection (RTC_WPR)
+*/
+uint8_t rtc_calendar_get_month(void)
+{
+    return _rtc_bcd_to_dec((RTC_DR >> RTC_DR_MU_SHIFT) & (RTC_DR_MU_MASK | (RTC_DR_MT_MASK << 4)));
+}
+
+/*---------------------------------------------------------------------------*/
+/** @brief Gets the RTC DEC calendar day value
+
+@details Requires unlocking the RTC write-protection (RTC_WPR)
+*/
+uint8_t rtc_calendar_get_day(void)
+{
+    return _rtc_bcd_to_dec((RTC_DR >> RTC_DR_DU_SHIFT) & (RTC_DR_DU_MASK | (RTC_DR_DT_MASK << 4)));
 }
 /**@}*/
