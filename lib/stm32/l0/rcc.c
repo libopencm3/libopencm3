@@ -233,6 +233,31 @@ int rcc_osc_ready_int_flag(enum rcc_osc osc)
 	cm3_assert_not_reached();
 }
 
+/*---------------------------------------------------------------------------*/
+/** @brief RCC Enable the HSI16 /4 divider
+ */
+void rcc_hsi16_div_on(void)
+{
+    RCC_CR |= RCC_CR_HSI16DIVEN;
+}
+
+/*---------------------------------------------------------------------------*/
+/** @brief RCC Disable the HSI16 /4 divider
+ */
+void rcc_hsi16_div_off(void)
+{
+    RCC_CR &= ~RCC_CR_HSI16DIVEN;
+}
+
+/*---------------------------------------------------------------------------*/
+/** @brief RCC Get the current state of the HSI16 /4 divider
+ *
+ * @returns bool. True if divider is enabled.
+ */
+bool rcc_is_hsi16_div_enabled(void)
+{
+    return RCC_CR & RCC_CR_HSI16DIVF;
+}
 
 bool rcc_is_osc_ready(enum rcc_osc osc)
 {
