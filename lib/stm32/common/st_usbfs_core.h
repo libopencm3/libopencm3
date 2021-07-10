@@ -48,7 +48,39 @@ uint16_t st_usbfs_ep_write_packet(usbd_device *usbd_dev, uint8_t addr,
 				  const void *buf, uint16_t len);
 uint16_t st_usbfs_ep_read_packet(usbd_device *usbd_dev, uint8_t addr,
 				 void *buf, uint16_t len);
+/**
+ * Event service routine to be used in a polled environment.
+ * 
+ * It will poll for pending USB events and appropriately dispatch
+ * to handlers when an interrupt is found
+ *
+ * @param the usb device handle returned from @ref usbd_init
+ */
 void st_usbfs_poll(usbd_device *usbd_dev);
+
+/**
+ * Primary USB interrupt service routine (ISR).
+ * 
+ * This function is to be used in an interrupt environment where
+ * the interrupt is registered in an ISR, and then the result is dispatched
+ * to a secondary ISR where the handlers for the pending events are called
+ * in a non-ISR context.
+ *
+ * @param usbd_dev the usb device handle returned from @ref usbd_init
+ * @param int_stat Pointer to location where to save interrupt status
+ */
+void st_usbfs_primary_isr(usbd_device *usbd_dev, uint32_t* int_stat);
+
+/**
+ * Secondary USB interrupt service routine (ISR).
+ * 
+ * This function should be called with the dispatched interrupt status
+ * from the primary ISR. 
+ *
+ * @param usbd_dev the usb device handle returned from @ref usbd_init
+ * @param int_stat interrupt status from @ref usbd_primary_isr
+ */
+void st_usbfs_secondary_isr(usbd_device *usbd_dev, uint32_t int_stat);
 
 /* These must be implemented by the device specific driver */
 

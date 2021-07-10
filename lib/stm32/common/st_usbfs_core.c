@@ -26,6 +26,13 @@
 #include "../../usb/usb_private.h"
 #include "st_usbfs_core.h"
 
+#define SET_INT_STAT_ISTR(__int_stat, __istr)	(__int_stat | ((__istr & 0xffff)) << 0)
+#define SET_INT_STAT_EP(__int_stat, __ep)	(__int_stat | ((__ep & 0xff) << 16))
+#define SET_INT_STAT_TYPE(__int_stat, __type)	(__int_stat | ((__type & 0xff) << 24))
+#define GET_INT_STAT_ISTR(__int_stat)		(__int_stat & 0xffff)
+#define GET_INT_STAT_EP(__int_stat)		((__int_stat >> 16) & 0xff)
+#define GET_INT_STAT_TYPE(__int_stat)		((__int_stat >> 24) & 0xff)
+
 /* TODO - can't these be inside the impls, not globals from the core? */
 uint8_t st_usbfs_force_nak[8];
 struct _usbd_device st_usbfs_dev;
@@ -224,7 +231,6 @@ uint16_t st_usbfs_ep_read_packet(usbd_device *dev, uint8_t addr,
 
 	len = MIN(USB_GET_EP_RX_COUNT(addr) & 0x3ff, len);
 	st_usbfs_copy_from_pm(buf, USB_GET_EP_RX_BUFF(addr), len);
-	USB_CLR_EP_RX_CTR(addr);
 
 	if (!st_usbfs_force_nak[addr]) {
 		USB_SET_EP_RX_STAT(addr, USB_EP_RX_STAT_VALID);
@@ -233,14 +239,41 @@ uint16_t st_usbfs_ep_read_packet(usbd_device *dev, uint8_t addr,
 	return len;
 }
 
-void st_usbfs_poll(usbd_device *dev)
+/**
+ * Event service routine to be used in a polled environment.
+ * 
+ * It will poll for pending USB events and appropriately dispatch
+ * to handlers when an interrupt is found
+ *
+ * @param usbd_dev the usb device handle returned from @ref usbd_init
+ */
+void st_usbfs_poll(usbd_device *usbd_dev)
 {
+	uint32_t int_stat;
+	st_usbfs_primary_isr(usbd_dev, &int_stat);
+	st_usbfs_secondary_isr(usbd_dev, int_stat);
+}
+
+
+/**
+ * Primary USB interrupt service routine (ISR).
+ * 
+ * This function is to be used in an interrupt environment where
+ * the interrupt is registered in an ISR, and then the result is dispatched
+ * to a secondary ISR where the handlers for the pending events are called
+ * in a non-ISR context.
+ *
+ * @param usbd_dev the usb device handle returned from @ref usbd_init
+ * @param int_stat Pointer to location where to save interrupt status
+ */
+void st_usbfs_primary_isr(usbd_device *usbd_dev, uint32_t* int_stat)
+{
+	(void)usbd_dev;
 	uint16_t istr = *USB_ISTR_REG;
+	*int_stat = SET_INT_STAT_ISTR(0, istr);
 
 	if (istr & USB_ISTR_RESET) {
 		USB_CLR_ISTR_RESET();
-		dev->pm_top = USBD_PM_TOP;
-		_usbd_reset(dev);
 		return;
 	}
 
@@ -252,46 +285,93 @@ void st_usbfs_poll(usbd_device *dev)
 			/* OUT or SETUP? */
 			if (*USB_EP_REG(ep) & USB_EP_SETUP) {
 				type = USB_TRANSACTION_SETUP;
-				st_usbfs_ep_read_packet(dev, ep, &dev->control_state.req, 8);
 			} else {
 				type = USB_TRANSACTION_OUT;
 			}
+			/* Type determined. It's now ok to clear RX_CTR. 
+			 * "To protect the interrupt service routine from the changes 
+			 * in SETUP bits due to next incoming tokens, this bit is kept 
+			 * frozen while CTR_RX bit is at 1; its state changes when 
+			 * CTR_RX is at 0"
+			 */
+			USB_CLR_EP_RX_CTR(ep);
 		} else {
 			type = USB_TRANSACTION_IN;
 			USB_CLR_EP_TX_CTR(ep);
 		}
-
-		if (dev->user_callback_ctr[ep][type]) {
-			dev->user_callback_ctr[ep][type] (dev, ep);
-		} else {
-			USB_CLR_EP_RX_CTR(ep);
-		}
+		*int_stat = SET_INT_STAT_EP(*int_stat, ep);
+		*int_stat = SET_INT_STAT_TYPE(*int_stat, type);
 	}
 
 	if (istr & USB_ISTR_SUSP) {
 		USB_CLR_ISTR_SUSP();
-		if (dev->user_callback_suspend) {
-			dev->user_callback_suspend();
-		}
 	}
 
 	if (istr & USB_ISTR_WKUP) {
 		USB_CLR_ISTR_WKUP();
-		if (dev->user_callback_resume) {
-			dev->user_callback_resume();
-		}
 	}
 
 	if (istr & USB_ISTR_SOF) {
 		USB_CLR_ISTR_SOF();
-		if (dev->user_callback_sof) {
-			dev->user_callback_sof();
-		}
 	}
 
-	if (dev->user_callback_sof) {
+	/* Enable/disable SOF ints depending on if there 
+	 * is a SOF callback or not
+	 */
+	if (usbd_dev->user_callback_sof) {
 		*USB_CNTR_REG |= USB_CNTR_SOFM;
 	} else {
 		*USB_CNTR_REG &= ~USB_CNTR_SOFM;
+	}
+}
+
+/**
+ * Secondary USB interrupt service routine (ISR).
+ * 
+ * This function should be called with the dispatched interrupt status
+ * from the primary ISR. 
+ *
+ * @param usbd_dev the usb device handle returned from @ref usbd_init
+ * @param int_stat interrupt status from @ref usbd_primary_isr
+ */
+void st_usbfs_secondary_isr(usbd_device *usbd_dev, uint32_t int_stat)
+{
+	uint16_t istr = GET_INT_STAT_ISTR(int_stat);
+
+	if (istr & USB_ISTR_RESET) {
+		usbd_dev->pm_top = USBD_PM_TOP;
+		_usbd_reset(usbd_dev);
+		return;
+	}
+
+	if (istr & USB_ISTR_CTR) {
+		uint8_t ep   = GET_INT_STAT_EP(int_stat);
+		uint8_t type = GET_INT_STAT_TYPE(int_stat);
+
+		if (type == USB_TRANSACTION_SETUP) {
+			st_usbfs_ep_read_packet(usbd_dev, ep, &usbd_dev->control_state.req, 8);
+		}
+		
+		if (usbd_dev->user_callback_ctr[ep][type]) {
+			usbd_dev->user_callback_ctr[ep][type] (usbd_dev, ep);
+		}
+	}
+
+	if (istr & USB_ISTR_SUSP) {
+		if (usbd_dev->user_callback_suspend) {
+			usbd_dev->user_callback_suspend();
+		}
+	}
+
+	if (istr & USB_ISTR_WKUP) {
+		if (usbd_dev->user_callback_resume) {
+			usbd_dev->user_callback_resume();
+		}
+	}
+
+	if (istr & USB_ISTR_SOF) {
+		if (usbd_dev->user_callback_sof) {
+			usbd_dev->user_callback_sof();
+		}
 	}
 }
