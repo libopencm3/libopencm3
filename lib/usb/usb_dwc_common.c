@@ -350,6 +350,14 @@ void dwc_poll(usbd_device *usbd_dev)
 
 			REBASE(OTG_DIEPINT(i)) = OTG_DIEPINTX_XFRC;
 		}
+
+		/*
+		 * On some controllers the STUP interrupt flag seems to inhibit
+		 * the internal state machine from entering the setup completed
+		 * state again. Thus it must be cleared.
+		 */
+		REBASE(OTG_DOEPINT(i)) = OTG_DOEPINTX_STUP;
+
 	}
 
 	/* Note: RX and TX handled differently in this device. */
