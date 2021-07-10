@@ -916,7 +916,16 @@ Line Devices only
 /**  TIM9 remapping */
 #define AFIO_MAPR2_TIM9_REMAP			(1 << 5)
 
-/** TIM1_DMA channel 1/2 remapping */
+/** TIM1_DMA channel remapping */
+/* 
+0: 
+    TIM1_CH1 DMA - DMA1 Channel 2 
+    TIM1_CH2 DMA - DMA1 CHannel 3
+1:
+    TIM1_CH1 DMA - DMA1 Channel 6 
+    TIM1_CH2 DMA - DMA1 Channel 6 
+
+*/
 #define AFIO_MAPR2_TIM1_DMA_REMAP		(1 << 4)
 
 /** CEC remapping (PB8 vs PB10) */
@@ -925,11 +934,11 @@ Line Devices only
 /** TIM17 remapping (PB9 vs PB7) */
 #define AFIO_MAPR2_TIM17_REMAP			(1 << 2)
 
-/** TIM16 remapping (PB8 vs PB6) */
+/** TIM16 remapping (PB8 vs PA6) */
 #define AFIO_MAPR2_TIM16_REMAP			(1 << 1)
 
-/** TIM15 remapping channels 1/2 */
-#define AFIO_MAPR1_TIM16_REMAP			(1 << 0)
+/** TIM15 remapping (PA2, PA3 vs PB14, PB15) */
+#define AFIO_MAPR2_TIM15_REMAP			(1 << 0)
 
 /**@}*/
 
