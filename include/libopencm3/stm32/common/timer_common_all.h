@@ -1166,6 +1166,7 @@ void timer_disable_preload(uint32_t timer_peripheral);
 void timer_set_alignment(uint32_t timer_peripheral, uint32_t alignment);
 void timer_direction_up(uint32_t timer_peripheral);
 void timer_direction_down(uint32_t timer_peripheral);
+bool timer_get_direction(uint32_t timer_peripheral);
 void timer_one_shot_mode(uint32_t timer_peripheral);
 void timer_continuous_mode(uint32_t timer_peripheral);
 void timer_update_on_any(uint32_t timer_peripheral);
