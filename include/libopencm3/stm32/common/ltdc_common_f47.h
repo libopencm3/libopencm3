@@ -109,9 +109,15 @@
 #define LTDC_L1CLUTWR              LTDC_LxCLUTWR(LTDC_LAYER_1)
 #define LTDC_L2CLUTWR              LTDC_LxCLUTWR(LTDC_LAYER_2)
 
+/* LTDC layer base addresses (for API parameters) */
+/** @defgroup ltdc_layer_num LTDC Layer Number
+@ingroup STM32F4xx_ltdc_defines
 
+@{*/
 #define LTDC_LAYER_1 1
 #define LTDC_LAYER_2 2
+/**@}*/
+
 
 /* --- LTDC_SSCR values ---------------------------------------------------- */
 
@@ -500,7 +506,8 @@ void ltdc_set_tft_sync_timings(
 void ltdc_setup_windowing(
 		uint8_t  layer_number,
 		uint16_t h_back_porch,  uint16_t v_back_porch,
-		uint16_t active_width,  uint16_t active_height
+		uint16_t h_sync, uint16_t v_sync,
+		uint16_t width,  uint16_t height
 );
 
 
