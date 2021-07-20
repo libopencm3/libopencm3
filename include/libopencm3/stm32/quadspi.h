@@ -30,6 +30,8 @@
 #       include <libopencm3/stm32/h7/quadspi.h>
 #elif defined(STM32L4)
 #       include <libopencm3/stm32/l4/quadspi.h>
+#elif defined(STM32L5)
+#       include <libopencm3/stm32/l5/quadspi.h>
 #else
 #       error "quadspi.h not available for this family."
 #endif

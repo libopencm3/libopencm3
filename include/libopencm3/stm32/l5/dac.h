@@ -1,4 +1,15 @@
-/* This provides unification of code over STM32 subfamilies */
+/** @defgroup dac_defines DAC Defines
+
+@brief <b>Defined Constants and Types for the STM32L4xx DAC</b>
+
+@ingroup STM32L4xx_defines
+
+@version 1.0.0
+
+@date 8 June 2019
+
+LGPL License Terms @ref lgpl_license
+ */
 
 /*
  * This file is part of the libopencm3 project.
@@ -17,25 +28,19 @@
  * along with this library.  If not, see <http://www.gnu.org/licenses/>.
  */
 
-#include <libopencm3/cm3/common.h>
-#include <libopencm3/stm32/memorymap.h>
+#ifndef LIBOPENCM3_DAC_H
+#define LIBOPENCM3_DAC_H
 
-#if defined(STM32F2)
-#       include <libopencm3/stm32/f2/rng.h>
-#elif defined(STM32F4)
-#       include <libopencm3/stm32/f4/rng.h>
-#elif defined(STM32F7)
-#       include <libopencm3/stm32/f7/rng.h>
-#elif defined(STM32H7)
-#       include <libopencm3/stm32/h7/rng.h>
-#elif defined(STM32L0)
-#       include <libopencm3/stm32/l0/rng.h>
-#elif defined(STM32L4)
-#       include <libopencm3/stm32/l4/rng.h>
-#elif defined(STM32L5)
-#       include <libopencm3/stm32/l5/rng.h>
-#elif defined(STM32G0)
-#       include <libopencm3/stm32/g0/rng.h>
-#else
-#       error "stm32 family not defined."
+#include <libopencm3/stm32/common/dac_common_v1.h>
+
+/**@{*/
+
+/** @defgroup dac_reg_base DAC register base addresses
+@{*/
+#define DAC1				DAC_BASE
+/**@}*/
+
+/**@}*/
+
 #endif
+

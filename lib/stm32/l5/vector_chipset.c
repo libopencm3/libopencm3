@@ -1,7 +1,8 @@
-/* This provides unification of code over STM32 subfamilies */
-
 /*
  * This file is part of the libopencm3 project.
+ *
+ * Copyright (C) 2010 Piotr Esden-Tempski <piotr@esden.net>
+ * Copyright (C) 2011 Fergus Noble <fergusnoble@gmail.com>
  *
  * This library is free software: you can redistribute it and/or modify
  * it under the terms of the GNU Lesser General Public License as published by
@@ -17,20 +18,10 @@
  * along with this library.  If not, see <http://www.gnu.org/licenses/>.
  */
 
-#include <libopencm3/cm3/common.h>
-#include <libopencm3/stm32/memorymap.h>
+#include <libopencm3/cm3/scb.h>
 
-#if defined(STM32F0)
-#       include <libopencm3/stm32/f0/crs.h>
-#elif defined(STM32L0)
-#       include <libopencm3/stm32/l0/crs.h>
-#elif defined(STM32L4)
-#       include <libopencm3/stm32/l4/crs.h>
-#elif defined(STM32L5)
-#       include <libopencm3/stm32/l5/crs.h>
-#elif defined(STM32G4)
-#       include <libopencm3/stm32/g4/crs.h>
-#else
-#       error "stm32 family not defined or not supported for this peripheral"
-#endif
-
+static void pre_main(void)
+{
+	/* Enable access to Floating-Point coprocessor. */
+	SCB_CPACR |= SCB_CPACR_FULL * (SCB_CPACR_CP10 | SCB_CPACR_CP11);
+}

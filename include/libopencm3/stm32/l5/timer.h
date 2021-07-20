@@ -1,7 +1,22 @@
-/* This provides unification of code over STM32 subfamilies */
+/** @defgroup timer_defines Timer Defines
+
+@brief <b>libopencm3 Defined Constants and Types for the STM32L4xx Timers</b>
+
+@ingroup STM32L4xx_defines
+
+@version 1.0.0
+
+@date 30 November 2015
+
+@author @htmlonly &copy; @endhtmlonly 2015 Karl Palsson <karlp@tweak.net.au>
+
+LGPL License Terms @ref lgpl_license
+*/
 
 /*
  * This file is part of the libopencm3 project.
+ *
+ * Copyright (C) 2015 Karl Palsson <karlp@tweak.net.au>
  *
  * This library is free software: you can redistribute it and/or modify
  * it under the terms of the GNU Lesser General Public License as published by
@@ -17,20 +32,5 @@
  * along with this library.  If not, see <http://www.gnu.org/licenses/>.
  */
 
-#include <libopencm3/cm3/common.h>
-#include <libopencm3/stm32/memorymap.h>
-
-#if defined(STM32F0)
-#       include <libopencm3/stm32/f0/crs.h>
-#elif defined(STM32L0)
-#       include <libopencm3/stm32/l0/crs.h>
-#elif defined(STM32L4)
-#       include <libopencm3/stm32/l4/crs.h>
-#elif defined(STM32L5)
-#       include <libopencm3/stm32/l5/crs.h>
-#elif defined(STM32G4)
-#       include <libopencm3/stm32/g4/crs.h>
-#else
-#       error "stm32 family not defined or not supported for this peripheral"
-#endif
-
+#pragma once
+#include <libopencm3/stm32/common/timer_common_all.h>
