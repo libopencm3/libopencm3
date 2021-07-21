@@ -1,15 +1,14 @@
 /** @defgroup dma_defines DMA Defines
  *
- * @ingroup STM32L4xx_defines
+ * @ingroup STM32G4xx_defines
  *
- * @brief Defined Constants and Types for the STM32L4xx DMA Controller
+ * @brief <b>Defined Constants and Types for the STM32G4xx DMA Controller</b>
  *
  * @version 1.0.0
  *
- * @date 15 December 2017
+ * @date 9 July 2020
  *
  * LGPL License Terms @ref lgpl_license
- *
  */
 
 /*
@@ -33,6 +32,8 @@
 #define LIBOPENCM3_DMA_H
 
 #include <libopencm3/stm32/common/dma_common_l1f013.h>
-#include <libopencm3/stm32/common/dma_common_csel.h>
+
+#define DMA_CHANNEL8			8
 
 #endif
+
