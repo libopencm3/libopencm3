@@ -20,7 +20,7 @@
 LIBNAME		= libopencm3_stm32l5
 SRCLIBDIR	?= ../..
 
-FP_FLAGS	?= -mfloat-abi=hard -mfpu=fpv4-sp-d16
+FP_FLAGS	?= -mfloat-abi=hard -mfpu=fpv5-sp-d16
 CC		= $(PREFIX)gcc
 AR		= $(PREFIX)ar
 TGT_CFLAGS	= -Os \
@@ -28,7 +28,7 @@ TGT_CFLAGS	= -Os \
 		  -Wredundant-decls -Wmissing-prototypes -Wstrict-prototypes \
 		  -Wundef -Wshadow \
 		  -I../../../include -fno-common \
-		  -mcpu=cortex-m4 -mthumb $(FP_FLAGS) \
+		  -mcpu=cortex-m33 -mthumb $(FP_FLAGS) \
 		  -Wstrict-prototypes \
 		  -ffunction-sections -fdata-sections -MD -DSTM32L5
 TGT_CFLAGS      += $(DEBUG_FLAGS)
