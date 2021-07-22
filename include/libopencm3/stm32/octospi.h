@@ -20,17 +20,9 @@
 #include <libopencm3/cm3/common.h>
 #include <libopencm3/stm32/memorymap.h>
 
-#if defined(STM32F4)
-#       include <libopencm3/stm32/f4/quadspi.h>
-#elif defined(STM32F7)
-#       include <libopencm3/stm32/f7/quadspi.h>
-#elif defined(STM32G4)
-#       include <libopencm3/stm32/g4/quadspi.h>
-#elif defined(STM32H7)
-#       include <libopencm3/stm32/h7/quadspi.h>
-#elif defined(STM32L4)
-#       include <libopencm3/stm32/l4/quadspi.h>
+#if defined(STM32L5)
+#       include <libopencm3/stm32/l5/octospi.h>
 #else
-#       error "quadspi.h not available for this family."
+#       error "octospi.h not available for this family."
 #endif
 
