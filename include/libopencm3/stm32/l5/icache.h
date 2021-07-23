@@ -104,9 +104,9 @@ void icache_enable(void);
 /** Disable the Instruction Cache */
 void icache_disable(void);
 
-/** Reset the Instruction Cache.
+/** Invalidate the Instruction Cache.
  * The instruction cache must be disabled for this to have effect.
  */
-void icache_reset(void);
+void icache_invalidate(void);
 
 #endif

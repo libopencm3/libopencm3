@@ -17,21 +17,21 @@
 
 /**@{*/
 
-#include <libopencm3/stm32/l5/icache.h>
+#include <libopencm3/stm32/icache.h>
 
-void flash_icache_enable(void)
+void icache_enable(void)
 {
 	while (ICACHE_SR & ICACHE_SR_BUSYF)
 		;
 	ICACHE_CR |= ICACHE_CR_EN;
 }
 
-void flash_icache_disable(void)
+void icache_disable(void)
 {
 	ICACHE_CR &= ~ICACHE_CR_EN;
 }
 
-void flash_icache_reset(void)
+void icache_invalidate(void)
 {
 	ICACHE_CR |= ICACHE_CR_CACHEINV;
 	
