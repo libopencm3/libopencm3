@@ -33,4 +33,7 @@
 
 #include <libopencm3/stm32/common/spi_common_v2.h>
 
+/* Need special functions since errdata states there is an issue with the busy
+ * flag when SPI is disabled. */
+
 #endif

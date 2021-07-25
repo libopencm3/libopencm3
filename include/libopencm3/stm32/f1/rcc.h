@@ -186,34 +186,25 @@
 @ingroup STM32F1xx_rcc_defines
 
 @{*/
-#define RCC_CFGR_ADCPRE_PCLK2_DIV2		0x0
-#define RCC_CFGR_ADCPRE_PCLK2_DIV4		0x1
-#define RCC_CFGR_ADCPRE_PCLK2_DIV6		0x2
-#define RCC_CFGR_ADCPRE_PCLK2_DIV8		0x3
+#define RCC_CFGR_ADCPRE_DIV2		0x0
+#define RCC_CFGR_ADCPRE_DIV4		0x1
+#define RCC_CFGR_ADCPRE_DIV6		0x2
+#define RCC_CFGR_ADCPRE_DIV8		0x3
 /**@}*/
 
-/* PPRE2: APB high-speed prescaler (APB2) */
-/** @defgroup rcc_cfgr_apb2pre RCC_CFGR APB2 prescale Factors
-@ingroup STM32F1xx_rcc_defines
-
-@{*/
-#define RCC_CFGR_PPRE2_HCLK_NODIV		0x0
-#define RCC_CFGR_PPRE2_HCLK_DIV2		0x4
-#define RCC_CFGR_PPRE2_HCLK_DIV4		0x5
-#define RCC_CFGR_PPRE2_HCLK_DIV8		0x6
-#define RCC_CFGR_PPRE2_HCLK_DIV16		0x7
-/**@}*/
-
-/* PPRE1: APB low-speed prescaler (APB1) */
-/** @defgroup rcc_cfgr_apb1pre RCC_CFGR APB1 prescale Factors
-@ingroup STM32F1xx_rcc_defines
-
-@{*/
-#define RCC_CFGR_PPRE1_HCLK_NODIV		0x0
-#define RCC_CFGR_PPRE1_HCLK_DIV2		0x4
-#define RCC_CFGR_PPRE1_HCLK_DIV4		0x5
-#define RCC_CFGR_PPRE1_HCLK_DIV8		0x6
-#define RCC_CFGR_PPRE1_HCLK_DIV16		0x7
+#define RCC_CFGR_PPRE2_SHIFT			11
+#define RCC_CFGR_PPRE2_MASK			0x7
+#define RCC_CFGR_PPRE1_SHIFT			8
+#define RCC_CFGR_PPRE1_MASK			0x7
+/** @defgroup rcc_cfgr_apbxpre RCC_CFGR APBx prescale factors
+ * These can be used for both APB1 and APB2 prescaling
+ * @{
+ */
+#define RCC_CFGR_PPRE_NODIV			0x0
+#define RCC_CFGR_PPRE_DIV2			0x4
+#define RCC_CFGR_PPRE_DIV4			0x5
+#define RCC_CFGR_PPRE_DIV8			0x6
+#define RCC_CFGR_PPRE_DIV16			0x7
 /**@}*/
 
 /* HPRE: AHB prescaler */
@@ -221,15 +212,15 @@
 @ingroup STM32F1xx_rcc_defines
 
 @{*/
-#define RCC_CFGR_HPRE_SYSCLK_NODIV		0x0
-#define RCC_CFGR_HPRE_SYSCLK_DIV2		0x8
-#define RCC_CFGR_HPRE_SYSCLK_DIV4		0x9
-#define RCC_CFGR_HPRE_SYSCLK_DIV8		0xa
-#define RCC_CFGR_HPRE_SYSCLK_DIV16		0xb
-#define RCC_CFGR_HPRE_SYSCLK_DIV64		0xc
-#define RCC_CFGR_HPRE_SYSCLK_DIV128		0xd
-#define RCC_CFGR_HPRE_SYSCLK_DIV256		0xe
-#define RCC_CFGR_HPRE_SYSCLK_DIV512		0xf
+#define RCC_CFGR_HPRE_NODIV		0x0
+#define RCC_CFGR_HPRE_DIV2		0x8
+#define RCC_CFGR_HPRE_DIV4		0x9
+#define RCC_CFGR_HPRE_DIV8		0xa
+#define RCC_CFGR_HPRE_DIV16		0xb
+#define RCC_CFGR_HPRE_DIV64		0xc
+#define RCC_CFGR_HPRE_DIV128		0xd
+#define RCC_CFGR_HPRE_DIV256		0xe
+#define RCC_CFGR_HPRE_DIV512		0xf
 /**@}*/
 
 /* SWS: System clock switch status */
@@ -246,6 +237,40 @@
 #define RCC_CFGR_SW_SYSCLKSEL_HSECLK		0x1
 #define RCC_CFGR_SW_SYSCLKSEL_PLLCLK		0x2
 /**@}*/
+
+/** Older compatible definitions to ease migration
+ * @defgroup rcc_cfgr_deprecated RCC_CFGR Deprecated dividers
+ * @deprecated Use _CFGR_xPRE_DIVn form instead, across all families
+ * @{
+ */
+#define RCC_CFGR_ADCPRE_PCLK2_DIV2		0x0
+#define RCC_CFGR_ADCPRE_PCLK2_DIV4		0x1
+#define RCC_CFGR_ADCPRE_PCLK2_DIV6		0x2
+#define RCC_CFGR_ADCPRE_PCLK2_DIV8		0x3
+
+#define RCC_CFGR_PPRE2_HCLK_NODIV		0x0
+#define RCC_CFGR_PPRE2_HCLK_DIV2		0x4
+#define RCC_CFGR_PPRE2_HCLK_DIV4		0x5
+#define RCC_CFGR_PPRE2_HCLK_DIV8		0x6
+#define RCC_CFGR_PPRE2_HCLK_DIV16		0x7
+
+#define RCC_CFGR_PPRE1_HCLK_NODIV		0x0
+#define RCC_CFGR_PPRE1_HCLK_DIV2		0x4
+#define RCC_CFGR_PPRE1_HCLK_DIV4		0x5
+#define RCC_CFGR_PPRE1_HCLK_DIV8		0x6
+#define RCC_CFGR_PPRE1_HCLK_DIV16		0x7
+
+#define RCC_CFGR_HPRE_SYSCLK_NODIV		0x0
+#define RCC_CFGR_HPRE_SYSCLK_DIV2		0x8
+#define RCC_CFGR_HPRE_SYSCLK_DIV4		0x9
+#define RCC_CFGR_HPRE_SYSCLK_DIV8		0xa
+#define RCC_CFGR_HPRE_SYSCLK_DIV16		0xb
+#define RCC_CFGR_HPRE_SYSCLK_DIV64		0xc
+#define RCC_CFGR_HPRE_SYSCLK_DIV128		0xd
+#define RCC_CFGR_HPRE_SYSCLK_DIV256		0xe
+#define RCC_CFGR_HPRE_SYSCLK_DIV512		0xf
+
+/** @}*/
 
 /* --- RCC_CIR values ------------------------------------------------------ */
 
@@ -679,6 +704,45 @@ enum rcc_periph_rst {
 
 #include <libopencm3/stm32/common/rcc_common_all.h>
 
+enum rcc_clock_hsi {
+	RCC_CLOCK_HSI_24MHZ,
+	RCC_CLOCK_HSI_48MHZ,
+	RCC_CLOCK_HSI_64MHZ,
+	RCC_CLOCK_HSI_END
+};
+
+enum rcc_clock_hse {
+	RCC_CLOCK_HSE12_72MHZ,
+	RCC_CLOCK_HSE16_72MHZ,
+	RCC_CLOCK_HSE25_72MHZ,
+	RCC_CLOCK_HSE8_24MHZ,
+	RCC_CLOCK_HSE8_72MHZ,
+	RCC_CLOCK_HSE_END
+};
+
+/* Union of all options for f100 through to f107 */
+struct rcc_clock_scale {
+	uint8_t pll_mul;
+	uint8_t pll_source;
+	uint8_t hpre;
+	uint8_t ppre1;
+	uint8_t ppre2;
+	uint8_t adcpre;
+	uint8_t flash_waitstates;
+	uint8_t prediv1; /* aka xtpre, only one bit on smaller parts */
+	uint8_t prediv1_source;
+	uint8_t prediv2;
+	uint8_t pll2_mul;
+	uint8_t pll3_mul;
+	uint8_t usbpre;
+	uint32_t ahb_frequency;
+	uint32_t apb1_frequency;
+	uint32_t apb2_frequency;
+};
+
+extern const struct rcc_clock_scale rcc_hsi_configs[RCC_CLOCK_HSI_END];
+extern const struct rcc_clock_scale rcc_hse_configs[RCC_CLOCK_HSE_END];
+
 BEGIN_DECLS
 
 void rcc_osc_ready_int_clear(enum rcc_osc osc);
@@ -709,16 +773,27 @@ void rcc_set_prediv1(uint32_t prediv);
 void rcc_set_prediv2(uint32_t prediv);
 void rcc_set_prediv1_source(uint32_t rccsrc);
 uint32_t rcc_system_clock_source(void);
-void rcc_clock_setup_in_hsi_out_64mhz(void);
-void rcc_clock_setup_in_hsi_out_48mhz(void);
-void rcc_clock_setup_in_hsi_out_24mhz(void);
-void rcc_clock_setup_in_hse_8mhz_out_24mhz(void);
-void rcc_clock_setup_in_hse_8mhz_out_72mhz(void);
-void rcc_clock_setup_in_hse_12mhz_out_72mhz(void);
-void rcc_clock_setup_in_hse_16mhz_out_72mhz(void);
-void rcc_clock_setup_in_hse_25mhz_out_72mhz(void);
-void rcc_backupdomain_reset(void);
+void rcc_clock_setup_in_hsi_out_64mhz(void) LIBOPENCM3_DEPRECATED("use rcc_clock_setup_pll(&rcc_hsi_configs[RCC_CLOCK_HSI_64MHZ])");
+void rcc_clock_setup_in_hsi_out_48mhz(void) LIBOPENCM3_DEPRECATED("use rcc_clock_setup_pll(&rcc_hsi_configs[RCC_CLOCK_HSI_48MHZ])");
+void rcc_clock_setup_in_hsi_out_24mhz(void) LIBOPENCM3_DEPRECATED("use rcc_clock_setup_pll(&rcc_hsi_configs[RCC_CLOCK_HSI_24MHZ])");
+void rcc_clock_setup_in_hse_8mhz_out_24mhz(void) LIBOPENCM3_DEPRECATED("use rcc_clock_setup_pll(&rcc_hse_configs[RCC_CLOCK_HSE8_24MHZ])");
+void rcc_clock_setup_in_hse_8mhz_out_72mhz(void) LIBOPENCM3_DEPRECATED("use rcc_clock_setup_pll(&rcc_hse_configs[RCC_CLOCK_HSE8_72MHZ])");
+void rcc_clock_setup_in_hse_12mhz_out_72mhz(void) LIBOPENCM3_DEPRECATED("use rcc_clock_setup_pll(&rcc_hse_configs[RCC_CLOCK_HSE12_72MHZ])");
+void rcc_clock_setup_in_hse_16mhz_out_72mhz(void) LIBOPENCM3_DEPRECATED("use rcc_clock_setup_pll(&rcc_hse_configs[RCC_CLOCK_HSE16_72MHZ])");
+void rcc_clock_setup_in_hse_25mhz_out_72mhz(void) LIBOPENCM3_DEPRECATED("use rcc_clock_setup_pll(&rcc_hse_configs[RCC_CLOCK_HSE25_72MHZ])");
 
+/**
+ * Switch sysclock to PLL with the given parameters.
+ * This should be usable from any point in time, but only if you have used
+ * library functions to manage clocks.
+ * @param clock full struct with desired parameters
+ */
+void rcc_clock_setup_pll(const struct rcc_clock_scale *clock);
+void rcc_backupdomain_reset(void);
+uint32_t rcc_get_usart_clk_freq(uint32_t usart);
+uint32_t rcc_get_timer_clk_freq(uint32_t timer);
+uint32_t rcc_get_i2c_clk_freq(uint32_t i2c);
+uint32_t rcc_get_spi_clk_freq(uint32_t spi);
 END_DECLS
 
 #endif

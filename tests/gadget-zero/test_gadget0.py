@@ -1,3 +1,14 @@
+#!/usr/bin/env python3
+"""
+Tests for the libopencm3 USB stack.  Uses pyusb to make a variety of transfers, both legal and illegal to
+exercise as many paths of the stack as possible for consistency and functionality.
+
+By default, will attempt to run the test suite against any detected compatible firmware, based on a fixed
+VID:PID pair defined in the firmware.  Can also be told to test just a single device
+
+Requires pyusb.  unittest-xml-reporting also required for xUnit reports
+"""
+import argparse
 import array
 import datetime
 import random
@@ -13,8 +24,9 @@ PRODUCT_ID=0xcafe
 
 # you only need to worry about these if you are trying to explicitly test
 # a single target.  Normally, the test will autofind the attached target
+DUT_SERIAL=None
 #DUT_SERIAL = "stm32f429i-disco"
-DUT_SERIAL = "stm32f4disco"
+#DUT_SERIAL = "stm32f4disco"
 #DUT_SERIAL = "stm32f103-generic"
 #DUT_SERIAL = "stm32l1-generic"
 #DUT_SERIAL = "stm32f072disco"
@@ -494,15 +506,40 @@ class TestUnaligned(unittest.TestCase):
         self.do_readwrite()
 
 
+def run_ci_test(dut):
+    # Avoids the import for non-CI users!
+    import xmlrunner
+    print("Running (CI) tests for DUT: ", dut)
+    #with open("TEST-%s.xml" % dut, 'wb') as output:
+    unittest.main(exit=False, argv=[__file__], testRunner=xmlrunner.XMLTestRunner(output="tests/test-%s" % dut))
+
+def run_user_test(dut):
+    print("Running (user) tests for DUT: ", dut)
+    unittest.main(exit=False, argv=[__file__])
+
+def get_parser():
+    parser = argparse.ArgumentParser(description=__doc__, formatter_class=argparse.ArgumentDefaultsHelpFormatter)
+    parser.add_argument("-d", "--dut", help="Specify a particular DUT serial to test")
+    parser.add_argument("-X", "--xunit", help="Write xml 'junit' style outputs, intended for CI use", action="store_true")
+    parser.add_argument("-l", "--list", help="List all detected matching devices, but don't run any tests", action="store_true")
+    return parser
+
 if __name__ == "__main__":
-    if len(sys.argv) > 1:
-        DUT_SERIAL = sys.argv.pop()
-        print("Running tests for DUT: ", DUT_SERIAL)
-        unittest.main()
+    p = get_parser()
+    opts = p.parse_args()
+    runner = run_user_test
+    if opts.xunit:
+        runner = run_ci_test
+
+    if opts.dut:
+        runner(opts.dut)
     else:
         # scan for available and try them all!
         devs = usb.core.find(idVendor=VENDOR_ID, idProduct=PRODUCT_ID, find_all=True)
         for dev in devs:
             DUT_SERIAL = dev.serial_number
-            print("Running tests for DUT: ", DUT_SERIAL)
-            unittest.main(exit=False)
+            if opts.list:
+                print("Detected %s on bus:port-address: %s:%s-%s" % (DUT_SERIAL, dev.bus, '.'.join(map(str,dev.port_numbers)), dev.address))
+            else:
+                runner(DUT_SERIAL)
+

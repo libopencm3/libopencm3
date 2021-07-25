@@ -23,6 +23,7 @@
 /* --- STM32H7 specific peripheral definitions ----------------------------- */
 
 /* Memory map for all busses */
+#define FLASH_BASE          0x08000000U
 #define PERIPH_BASE         0x40000000U
 #define PERIPH_BASE_APB1    0x40000000U
 #define PERIPH_BASE_APB2    0x40010000U
@@ -153,5 +154,8 @@
 #define TIM4_BASE           0x40000800U
 #define TIM3_BASE           0x40000400U
 #define TIM2_BASE           0x40000000U
+
+/* Debug/Trace Peripherals */
+#define DBGMCU_BASE         0x5C001000U
 
 #endif

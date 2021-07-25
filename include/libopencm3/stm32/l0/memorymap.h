@@ -23,6 +23,7 @@
 /* --- STM32 specific peripheral definitions ------------------------------- */
 
 /* Memory map for all busses */
+#define FLASH_BASE			(0x08000000U)
 #define PERIPH_BASE			(0x40000000U)
 #define IOPORT_BASE			(0x50000000U)
 #define INFO_BASE			(0x1ff80000U)
@@ -44,6 +45,8 @@
 #define SPI2_BASE			(PERIPH_BASE_APB1 + 0x3800)
 #define USART2_BASE			(PERIPH_BASE_APB1 + 0x4400)
 #define LPUART1_BASE			(PERIPH_BASE_APB1 + 0x4800)
+#define USART4_BASE			(PERIPH_BASE_APB1 + 0x4c00)
+#define USART5_BASE			(PERIPH_BASE_APB1 + 0x5000)
 #define I2C1_BASE			(PERIPH_BASE_APB1 + 0x5400)
 #define I2C2_BASE			(PERIPH_BASE_APB1 + 0x5800)
 #define USB_DEV_FS_BASE			(PERIPH_BASE_APB1 + 0x5c00)
@@ -79,6 +82,7 @@
 #define GPIO_PORT_B_BASE		(IOPORT_BASE + 0x00400)
 #define GPIO_PORT_C_BASE		(IOPORT_BASE + 0x00800)
 #define GPIO_PORT_D_BASE		(IOPORT_BASE + 0x00c00)
+#define GPIO_PORT_E_BASE		(IOPORT_BASE + 0x01000)
 #define GPIO_PORT_H_BASE		(IOPORT_BASE + 0x01C00)
 
 /* Device Electronic Signature */

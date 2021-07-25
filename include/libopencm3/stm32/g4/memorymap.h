@@ -20,6 +20,8 @@
 
 #include <libopencm3/cm3/memorymap.h>
 
+#define FLASH_BASE			(0x08000000U)
+#define PERIPH_BASE			(0x40000000U)
 #define INFO_BASE			(0x1fff0000U)
 #define PERIPH_BASE_APB1		(0x40000000U)
 #define PERIPH_BASE_APB2		(0x40010000U)
@@ -105,10 +107,10 @@
 
 /* AHB2 */
 #define ADC1_BASE			(PERIPH_BASE_AHB2 + 0x0000)
-#define ADC2_BASE			ADC1_BASE
+#define ADC2_BASE			(ADC1_BASE + 0x0100)
 #define ADC3_BASE			(PERIPH_BASE_AHB2 + 0x0400)
-#define ADC4_BASE			ADC3_BASE
-#define ADC5_BASE			ADC3_BASE
+#define ADC4_BASE			(ADC3_BASE + 0x0100)
+#define ADC5_BASE			(ADC3_BASE + 0x0200)
 #define DAC1_BASE			(PERIPH_BASE_AHB2 + 0x0800)
 #define DAC2_BASE			(PERIPH_BASE_AHB2 + 0x0c00)
 #define DAC3_BASE			(PERIPH_BASE_AHB2 + 0x1000)

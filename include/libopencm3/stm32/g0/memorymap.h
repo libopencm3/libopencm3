@@ -20,6 +20,7 @@
 
 #include <libopencm3/cm3/memorymap.h>
 
+#define FLASH_BASE			(0x08000000U)
 #define PERIPH_BASE			(0x40000000U)
 #define IOPORT_BASE			(0x50000000U)
 #define INFO_BASE			(0x1fff7500U)

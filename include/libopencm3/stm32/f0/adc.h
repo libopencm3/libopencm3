@@ -71,6 +71,16 @@
 /* Register values                                                           */
 /*****************************************************************************/
 
+/* ADC_CFGR1 Values ---------------------------------------------------------*/
+
+/** ALIGN: Data alignment */
+#define ADC_CFGR1_ALIGN			(1 << 5)
+
+/* EXTSEL[2:0]: External trigger selection for regular group */
+#define ADC_CFGR1_EXTSEL_SHIFT		6
+#define ADC_CFGR1_EXTSEL		(0x7 << ADC_CFGR1_EXTSEL_SHIFT)
+#define ADC_CFGR1_EXTSEL_VAL(x)		((x) << ADC_CFGR1_EXTSEL_SHIFT)
+
 /* ADC_CFGR2 Values ---------------------------------------------------------*/
 
 #define ADC_CFGR2_CKMODE_SHIFT		30

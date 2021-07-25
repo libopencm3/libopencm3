@@ -89,9 +89,16 @@ SECTIONS
 	. = ALIGN(4);
 	_etext = .;
 
+	/* ram, but not cleared on reset, eg boot/app comms */
+	.noinit (NOLOAD) : {
+		*(.noinit*)
+	} >ram
+	. = ALIGN(4);
+
 	.data : {
 		_data = .;
 		*(.data*)	/* Read-write initialized data */
+		*(.ramtext*)    /* "text" functions to run in ram */
 		. = ALIGN(4);
 		_edata = .;
 	} >ram AT >rom

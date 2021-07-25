@@ -1,10 +1,4 @@
-/** @defgroup CRS_defines CRS Defines
- *
- * @brief <b>STM32 Clock Recovery System: Defined Constants and Types</b>
- *
- * @ingroup STM32_defines
- *
- * @version 1.0.0
+/** @addtogroup crs_defines
  *
  * @date 5 Feb 2014
  *

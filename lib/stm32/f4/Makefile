@@ -41,7 +41,8 @@ OBJS += adc_common_v1.o adc_common_v1_multi.o adc_common_f47.o
 OBJS += can.o
 OBJS += crc_common_all.o
 OBJS += crypto_common_f24.o crypto.o
-OBJS += dac_common_all.o
+OBJS += dac_common_all.o dac_common_v1.o
+OBJS += dcmi_common_f47.o
 OBJS += desig_common_all.o desig_common_v1.o
 OBJS += dma_common_f24.o
 OBJS += dma2d_common_f47.o
@@ -63,9 +64,11 @@ OBJS += rtc_common_l1f024.o rtc.o
 OBJS += spi_common_all.o spi_common_v1.o spi_common_v1_frf.o
 OBJS += timer_common_all.o timer_common_f0234.o timer_common_f24.o
 OBJS += usart_common_all.o usart_common_f124.o
+OBJS += quadspi_common_v1.o
 
 OBJS += usb.o usb_standard.o usb_control.o usb_msc.o
 OBJS += usb_hid.o
+OBJS += usb_audio.o usb_cdc.o usb_midi.o
 OBJS += usb_dwc_common.o usb_f107.o usb_f207.o
 
 OBJS += mac.o phy.o mac_stm32fxx7.o phy_ksz80x1.o

@@ -128,7 +128,7 @@ Twelve frequency ranges are available: 100 kHz, 200 kHz, 400 kHz, 800 kHz,
 #define RCC_CR_MSIRANGE_24MHZ			9
 #define RCC_CR_MSIRANGE_32MHZ			10
 #define RCC_CR_MSIRANGE_48MHZ			11
-/*@}*/
+/**@}*/
 #define RCC_CR_MSIRGSEL				(1 << 3)
 #define RCC_CR_MSIPLLEN				(1 << 2)
 #define RCC_CR_MSIRDY				(1 << 1)
@@ -255,7 +255,7 @@ Twelve frequency ranges are available: 100 kHz, 200 kHz, 400 kHz, 800 kHz,
 @{*/
 #define RCC_PLLCFGR_PLLN_SHIFT		0x8
 #define RCC_PLLCFGR_PLLN_MASK		0x7f
-/*@}*/
+/**@}*/
 
 /** @defgroup rcc_pllcfgr_pllm RCC_PLLCFGR PLLM values
 @ingroup STM32L4xx_rcc_defines
@@ -264,7 +264,7 @@ Twelve frequency ranges are available: 100 kHz, 200 kHz, 400 kHz, 800 kHz,
 #define RCC_PLLCFGR_PLLM_SHIFT		0x4
 #define RCC_PLLCFGR_PLLM_MASK		0x7
 #define RCC_PLLCFGR_PLLM(x)		((x)-1)
-/*@}*/
+/**@}*/
 
 #define RCC_PLLCFGR_PLLSRC_SHIFT	0
 #define RCC_PLLCFGR_PLLSRC_MASK		0x3
@@ -420,7 +420,7 @@ Twelve frequency ranges are available: 100 kHz, 200 kHz, 400 kHz, 800 kHz,
 #define RCC_AHB1ENR_FLASHEN			(1 << 8)
 #define RCC_AHB1ENR_DMA2EN			(1 << 1)
 #define RCC_AHB1ENR_DMA1EN			(1 << 0)
-/*@}*/
+/**@}*/
 
 /* --- RCC_AHB2ENR values --------------------------------------------------- */
 
@@ -440,7 +440,7 @@ Twelve frequency ranges are available: 100 kHz, 200 kHz, 400 kHz, 800 kHz,
 #define RCC_AHB2ENR_GPIOCEN			(1 << 2)
 #define RCC_AHB2ENR_GPIOBEN			(1 << 1)
 #define RCC_AHB2ENR_GPIOAEN			(1 << 0)
-/*@}*/
+/**@}*/
 
 /* --- RCC_AHB3ENR values --------------------------------------------------- */
 
@@ -450,7 +450,7 @@ Twelve frequency ranges are available: 100 kHz, 200 kHz, 400 kHz, 800 kHz,
 @{*/
 #define RCC_AHB3ENR_QSPIEN			(1 << 8)
 #define RCC_AHB3ENR_FMCEN			(1 << 0)
-/*@}*/
+/**@}*/
 
 /**@}*/
 
@@ -483,7 +483,7 @@ Twelve frequency ranges are available: 100 kHz, 200 kHz, 400 kHz, 800 kHz,
 #define RCC_APB1ENR1_TIM4EN			(1 << 2)
 #define RCC_APB1ENR1_TIM3EN			(1 << 1)
 #define RCC_APB1ENR1_TIM2EN			(1 << 0)
-/*@}*/
+/**@}*/
 
 /* --- RCC_APB1ENR2 values -------------------------------------------------- */
 
@@ -494,8 +494,8 @@ Twelve frequency ranges are available: 100 kHz, 200 kHz, 400 kHz, 800 kHz,
 #define RCC_APB1ENR2_LPTIM2EN			(1 << 5)
 #define RCC_APB1ENR2_SWPMI1EN			(1 << 2)
 #define RCC_APB1ENR2_LPUART1EN			(1 << 0)
-/*@}*/
-/*@}*/
+/**@}*/
+/**@}*/
 
 /* --- RCC_APB2ENR values -------------------------------------------------- */
 
@@ -516,7 +516,7 @@ Twelve frequency ranges are available: 100 kHz, 200 kHz, 400 kHz, 800 kHz,
 #define RCC_APB2ENR_SDMMC1EN			(1 << 10)
 #define RCC_APB2ENR_FWEN			(1 << 7)
 #define RCC_APB2ENR_SYSCFGEN			(1 << 0)
-/*@}*/
+/**@}*/
 
 /* --- RCC_AHB1SMENR - AHB1 periph clock in sleep mode --------------------- */
 
@@ -722,7 +722,7 @@ Twelve frequency ranges are available: 100 kHz, 200 kHz, 400 kHz, 800 kHz,
 #define RCC_CSR_MSIRANGE_2MHZ			5
 #define RCC_CSR_MSIRANGE_4MHZ			6
 #define RCC_CSR_MSIRANGE_8MHZ			7
-/*@}*/
+/**@}*/
 
 #define RCC_CSR_LSIRDY				(1 << 1)
 #define RCC_CSR_LSION				(1 << 0)
@@ -987,6 +987,10 @@ void rcc_set_clock48_source(uint32_t clksel);
 void rcc_enable_rtc_clock(void);
 void rcc_disable_rtc_clock(void);
 void rcc_set_rtc_clock_source(enum rcc_osc clk);
+uint32_t rcc_get_usart_clk_freq(uint32_t usart);
+uint32_t rcc_get_timer_clk_freq(uint32_t timer);
+uint32_t rcc_get_i2c_clk_freq(uint32_t i2c);
+uint32_t rcc_get_spi_clk_freq(uint32_t spi);
 
 END_DECLS
 

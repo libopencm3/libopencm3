@@ -27,12 +27,7 @@
 The order of header inclusion is important. crc.h includes the device
 specific memorymap.h header before including this header file.*/
 
-/** @cond */
-#ifdef LIBOPENCM3_CRC_H
-/** @endcond */
-#ifndef LIBOPENCM3_CRC_COMMON_ALL_H
-#define LIBOPENCM3_CRC_COMMON_ALL_H
-
+#pragma once
 /**@{*/
 
 /*****************************************************************************/
@@ -53,7 +48,7 @@ specific memorymap.h header before including this header file.*/
 
 /** CRC_CR Control register */
 #define CRC_CR				MMIO32(CRC_BASE + 0x08)
-/*@}*/
+/**@}*/
 
 /*****************************************************************************/
 /* Register values                                                           */
@@ -76,17 +71,8 @@ specific memorymap.h header before including this header file.*/
 #define CRC_CR_RESET			(1 << 0)
 /**@}*/
 
-/*****************************************************************************/
-/* API definitions                                                           */
-/*****************************************************************************/
-
-/*****************************************************************************/
-/* API Functions                                                             */
-/*****************************************************************************/
-
 BEGIN_DECLS
 
-/* TODO */
 
 /**
  * Reset the CRC calculator to initial values.
@@ -115,11 +101,3 @@ uint32_t crc_calculate_block(uint32_t *datap, int size);
 END_DECLS
 
 /**@}*/
-
-#endif
-/** @cond */
-#else
-#warning "crc_common_all.h should not be included explicitly, only via crc.h"
-#endif
-/** @endcond */
-

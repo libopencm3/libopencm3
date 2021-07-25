@@ -896,40 +896,38 @@ Line Devices only
 /** The NADV is disconnected from its allocated pin */
 #define AFIO_MAPR2_FSMC_NADV_DISCONNECT			(1 << 10)
 
-/* TIM14_REMAP: */
-/**  TIM14 remapping */
+/**  TIM14 CH1 remapping (Clear: PA7 vs Set: PF9 */
 #define AFIO_MAPR2_TIM14_REMAP			(1 << 9)
 
-/* TIM13_REMAP: */
-/**  TIM13 remapping */
+/**  TIM13 CH1 remapping (Clear: PA6 vs Set: PF8 */
 #define AFIO_MAPR2_TIM13_REMAP			(1 << 8)
 
-/* TIM11_REMAP: */
-/**  TIM11 remapping */
+/**  TIM11 CH1 remapping (Clear: PB7 vs Set: PF7 */
 #define AFIO_MAPR2_TIM11_REMAP			(1 << 7)
 
-/* TIM10_REMAP: */
-/**  TIM10 remapping */
+/**  TIM10 CH1 remapping (Clear: PB8 vs Set: PF6 */
 #define AFIO_MAPR2_TIM10_REMAP			(1 << 6)
 
-/* TIM9_REMAP: */
-/**  TIM9 remapping */
+/**  TIM9 Ch1/2 remapping (Clear: PA2,PA3 vs Set: PE5,PE6 */
 #define AFIO_MAPR2_TIM9_REMAP			(1 << 5)
 
-/** TIM1_DMA channel 1/2 remapping */
+/** TIM1_DMA channel remapping
+ * Clear: CH1->DMA1-ch2, CH2->DM1-ch3
+ * Set: CH1->DMA1-ch6, CH2->DMA1-ch6
+ */
 #define AFIO_MAPR2_TIM1_DMA_REMAP		(1 << 4)
 
-/** CEC remapping (PB8 vs PB10) */
+/** CEC remapping (Clear: PB8 vs Set: PB10) */
 #define AFIO_MAPR2_CEC_REMAP			(1 << 3)
 
-/** TIM17 remapping (PB9 vs PB7) */
+/** TIM17 remapping (Clear: PB9 vs Set: PB7) */
 #define AFIO_MAPR2_TIM17_REMAP			(1 << 2)
 
-/** TIM16 remapping (PB8 vs PB6) */
+/** TIM16 remapping (Clear: PB8 vs Set: PA6) */
 #define AFIO_MAPR2_TIM16_REMAP			(1 << 1)
 
-/** TIM15 remapping channels 1/2 */
-#define AFIO_MAPR1_TIM16_REMAP			(1 << 0)
+/** TIM15 remapping (Clear: PA2, PA3 vs Set: PB14, PB15) */
+#define AFIO_MAPR2_TIM15_REMAP			(1 << 0)
 
 /**@}*/
 

@@ -50,7 +50,7 @@ LGPL License Terms @ref lgpl_license
 
 /** Power control/status register 2 (PWR_CSR2) */
 #define PWR_CSR2			MMIO32(POWER_CONTROL_BASE + 0x0c)
-/*@}*/
+/**@}*/
 
 /** @defgroup pwr_cr1_defines PWR_CR1 values
  * @ingroup STM32F_pwr_defines
@@ -134,7 +134,7 @@ LGPL License Terms @ref lgpl_license
 
 /** LPDS: Low-power deepsleep */
 #define PWR_CR1_LPDS			(1 << 0)
-/*@}*/
+/**@}*/
 
 /** @defgroup pwr_csr1_defines PWR_CSR1 values
  * @ingroup STM32F_pwr_defines
@@ -185,7 +185,7 @@ LGPL License Terms @ref lgpl_license
 
 /** WUIF: Wakeup internal flag */
 #define PWR_CSR1_WUIF			(1 << 0)
-/*@}*/
+/**@}*/
 
 /** @defgroup pwr_cr2_defines PWR_CR2 values
  * @ingroup STM32F_pwr_defines
@@ -230,7 +230,7 @@ LGPL License Terms @ref lgpl_license
 
 /** CWUPF1: Clear Wakeup Pin flag for PA0 */
 #define PWR_CR2_CWUPF1			(1 << 0)
-/*@}*/
+/**@}*/
 
 /** @defgroup pwr_csr2_defines PWR_CSR2 values
  * @ingroup STM32F_pwr_defines
@@ -275,7 +275,7 @@ LGPL License Terms @ref lgpl_license
 
 /** WUPF1: Wakeup Pin flag for PA0 */
 #define PWR_CSR2_WUPF1			(1 << 0)
-/*@}*/
+/**@}*/
 /* --- Function prototypes ------------------------------------------------- */
 
 enum pwr_vos_scale {

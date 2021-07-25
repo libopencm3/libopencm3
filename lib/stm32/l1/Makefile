@@ -36,7 +36,7 @@ ARFLAGS		= rcs
 OBJS += adc.o adc_common_v1.o adc_common_v1_multi.o
 OBJS += flash.o
 OBJS += crc_common_all.o
-OBJS += dac_common_all.o
+OBJS += dac_common_all.o dac_common_v1.o
 OBJS += desig_common_all.o desig.o
 OBJS += dma_common_l1f013.o
 OBJS += exti_common_all.o
@@ -54,6 +54,7 @@ OBJS += usart_common_all.o usart_common_f124.o
 
 OBJS += usb.o usb_control.o usb_standard.o usb_msc.o
 OBJS += usb_hid.o
+OBJS += usb_audio.o usb_cdc.o usb_midi.o
 OBJS += st_usbfs_core.o st_usbfs_v1.o
 
 VPATH += ../../usb:../:../../cm3:../common

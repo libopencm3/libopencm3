@@ -38,6 +38,8 @@ LGPL License Terms @ref lgpl_license
 #ifndef LIBOPENCM3_USB_MIDI_H
 #define LIBOPENCM3_USB_MIDI_H
 
+#include <stdint.h>
+
 /*
  * Definitions from the USB_MIDI_ or usb_midi_ namespace come from:
  * "Universal Serial Bus Class Definitions for MIDI Devices, Revision 1.0"

@@ -57,9 +57,9 @@ const struct rcc_clock_scale rcc_hsi_configs[RCC_CLOCK_3V3_END] = {
 		.pllq = 7,
 		.pllr = 0,
 		.pll_source = RCC_CFGR_PLLSRC_HSI_CLK,
-		.hpre = RCC_CFGR_HPRE_DIV_NONE,
-		.ppre1 = RCC_CFGR_PPRE_DIV_2,
-		.ppre2 = RCC_CFGR_PPRE_DIV_NONE,
+		.hpre = RCC_CFGR_HPRE_NODIV,
+		.ppre1 = RCC_CFGR_PPRE_DIV2,
+		.ppre2 = RCC_CFGR_PPRE_NODIV,
 		.voltage_scale = PWR_SCALE1,
 		.flash_config = FLASH_ACR_DCEN | FLASH_ACR_ICEN |
 				FLASH_ACR_LATENCY_2WS,
@@ -74,9 +74,9 @@ const struct rcc_clock_scale rcc_hsi_configs[RCC_CLOCK_3V3_END] = {
 		.pllq = 7,
 		.pllr = 0,
 		.pll_source = RCC_CFGR_PLLSRC_HSI_CLK,
-		.hpre = RCC_CFGR_HPRE_DIV_NONE,
-		.ppre1 = RCC_CFGR_PPRE_DIV_4,
-		.ppre2 = RCC_CFGR_PPRE_DIV_2,
+		.hpre = RCC_CFGR_HPRE_NODIV,
+		.ppre1 = RCC_CFGR_PPRE_DIV4,
+		.ppre2 = RCC_CFGR_PPRE_DIV2,
 		.voltage_scale = PWR_SCALE1,
 		.flash_config = FLASH_ACR_DCEN | FLASH_ACR_ICEN |
 				FLASH_ACR_LATENCY_5WS,
@@ -91,9 +91,9 @@ const struct rcc_clock_scale rcc_hsi_configs[RCC_CLOCK_3V3_END] = {
 		.pllq = 8,
 		.pllr = 0,
 		.pll_source = RCC_CFGR_PLLSRC_HSI_CLK,
-		.hpre = RCC_CFGR_HPRE_DIV_NONE,
-		.ppre1 = RCC_CFGR_PPRE_DIV_4,
-		.ppre2 = RCC_CFGR_PPRE_DIV_2,
+		.hpre = RCC_CFGR_HPRE_NODIV,
+		.ppre1 = RCC_CFGR_PPRE_DIV4,
+		.ppre2 = RCC_CFGR_PPRE_DIV2,
 		.voltage_scale = PWR_SCALE1,
 		.flash_config = FLASH_ACR_DCEN | FLASH_ACR_ICEN |
 				FLASH_ACR_LATENCY_5WS,
@@ -111,9 +111,9 @@ const struct rcc_clock_scale rcc_hse_8mhz_3v3[RCC_CLOCK_3V3_END] = {
 		.pllq = 7,
 		.pllr = 0,
 		.pll_source = RCC_CFGR_PLLSRC_HSE_CLK,
-		.hpre = RCC_CFGR_HPRE_DIV_NONE,
-		.ppre1 = RCC_CFGR_PPRE_DIV_2,
-		.ppre2 = RCC_CFGR_PPRE_DIV_NONE,
+		.hpre = RCC_CFGR_HPRE_NODIV,
+		.ppre1 = RCC_CFGR_PPRE_DIV2,
+		.ppre2 = RCC_CFGR_PPRE_NODIV,
 		.voltage_scale = PWR_SCALE1,
 		.flash_config = FLASH_ACR_DCEN | FLASH_ACR_ICEN |
 				FLASH_ACR_LATENCY_2WS,
@@ -128,9 +128,9 @@ const struct rcc_clock_scale rcc_hse_8mhz_3v3[RCC_CLOCK_3V3_END] = {
 		.pllq = 7,
 		.pllr = 0,
 		.pll_source = RCC_CFGR_PLLSRC_HSE_CLK,
-		.hpre = RCC_CFGR_HPRE_DIV_NONE,
-		.ppre1 = RCC_CFGR_PPRE_DIV_4,
-		.ppre2 = RCC_CFGR_PPRE_DIV_2,
+		.hpre = RCC_CFGR_HPRE_NODIV,
+		.ppre1 = RCC_CFGR_PPRE_DIV4,
+		.ppre2 = RCC_CFGR_PPRE_DIV2,
 		.voltage_scale = PWR_SCALE1,
 		.flash_config = FLASH_ACR_DCEN | FLASH_ACR_ICEN |
 				FLASH_ACR_LATENCY_5WS,
@@ -145,9 +145,9 @@ const struct rcc_clock_scale rcc_hse_8mhz_3v3[RCC_CLOCK_3V3_END] = {
 		.pllq = 8,
 		.pllr = 0,
 		.pll_source = RCC_CFGR_PLLSRC_HSE_CLK,
-		.hpre = RCC_CFGR_HPRE_DIV_NONE,
-		.ppre1 = RCC_CFGR_PPRE_DIV_4,
-		.ppre2 = RCC_CFGR_PPRE_DIV_2,
+		.hpre = RCC_CFGR_HPRE_NODIV,
+		.ppre1 = RCC_CFGR_PPRE_DIV4,
+		.ppre2 = RCC_CFGR_PPRE_DIV2,
 		.voltage_scale = PWR_SCALE1,
 		.flash_config = FLASH_ACR_DCEN | FLASH_ACR_ICEN |
 				FLASH_ACR_LATENCY_5WS,
@@ -165,9 +165,9 @@ const struct rcc_clock_scale rcc_hse_12mhz_3v3[RCC_CLOCK_3V3_END] = {
 		.pllq = 7,
 		.pllr = 0,
 		.pll_source = RCC_CFGR_PLLSRC_HSE_CLK,
-		.hpre = RCC_CFGR_HPRE_DIV_NONE,
-		.ppre1 = RCC_CFGR_PPRE_DIV_2,
-		.ppre2 = RCC_CFGR_PPRE_DIV_NONE,
+		.hpre = RCC_CFGR_HPRE_NODIV,
+		.ppre1 = RCC_CFGR_PPRE_DIV2,
+		.ppre2 = RCC_CFGR_PPRE_NODIV,
 		.voltage_scale = PWR_SCALE1,
 		.flash_config = FLASH_ACR_DCEN | FLASH_ACR_ICEN |
 				FLASH_ACR_LATENCY_2WS,
@@ -182,9 +182,9 @@ const struct rcc_clock_scale rcc_hse_12mhz_3v3[RCC_CLOCK_3V3_END] = {
 		.pllq = 7,
 		.pllr = 0,
 		.pll_source = RCC_CFGR_PLLSRC_HSE_CLK,
-		.hpre = RCC_CFGR_HPRE_DIV_NONE,
-		.ppre1 = RCC_CFGR_PPRE_DIV_4,
-		.ppre2 = RCC_CFGR_PPRE_DIV_2,
+		.hpre = RCC_CFGR_HPRE_NODIV,
+		.ppre1 = RCC_CFGR_PPRE_DIV4,
+		.ppre2 = RCC_CFGR_PPRE_DIV2,
 		.voltage_scale = PWR_SCALE1,
 		.flash_config = FLASH_ACR_DCEN | FLASH_ACR_ICEN |
 				FLASH_ACR_LATENCY_5WS,
@@ -199,9 +199,9 @@ const struct rcc_clock_scale rcc_hse_12mhz_3v3[RCC_CLOCK_3V3_END] = {
 		.pllq = 8,
 		.pllr = 0,
 		.pll_source = RCC_CFGR_PLLSRC_HSE_CLK,
-		.hpre = RCC_CFGR_HPRE_DIV_NONE,
-		.ppre1 = RCC_CFGR_PPRE_DIV_4,
-		.ppre2 = RCC_CFGR_PPRE_DIV_2,
+		.hpre = RCC_CFGR_HPRE_NODIV,
+		.ppre1 = RCC_CFGR_PPRE_DIV4,
+		.ppre2 = RCC_CFGR_PPRE_DIV2,
 		.voltage_scale = PWR_SCALE1,
 		.flash_config = FLASH_ACR_DCEN | FLASH_ACR_ICEN |
 				FLASH_ACR_LATENCY_5WS,
@@ -219,9 +219,9 @@ const struct rcc_clock_scale rcc_hse_16mhz_3v3[RCC_CLOCK_3V3_END] = {
 		.pllq = 7,
 		.pllr = 0,
 		.pll_source = RCC_CFGR_PLLSRC_HSE_CLK,
-		.hpre = RCC_CFGR_HPRE_DIV_NONE,
-		.ppre1 = RCC_CFGR_PPRE_DIV_2,
-		.ppre2 = RCC_CFGR_PPRE_DIV_NONE,
+		.hpre = RCC_CFGR_HPRE_NODIV,
+		.ppre1 = RCC_CFGR_PPRE_DIV2,
+		.ppre2 = RCC_CFGR_PPRE_NODIV,
 		.voltage_scale = PWR_SCALE1,
 		.flash_config = FLASH_ACR_DCEN | FLASH_ACR_ICEN |
 				FLASH_ACR_LATENCY_2WS,
@@ -236,9 +236,9 @@ const struct rcc_clock_scale rcc_hse_16mhz_3v3[RCC_CLOCK_3V3_END] = {
 		.pllq = 7,
 		.pllr = 0,
 		.pll_source = RCC_CFGR_PLLSRC_HSE_CLK,
-		.hpre = RCC_CFGR_HPRE_DIV_NONE,
-		.ppre1 = RCC_CFGR_PPRE_DIV_4,
-		.ppre2 = RCC_CFGR_PPRE_DIV_2,
+		.hpre = RCC_CFGR_HPRE_NODIV,
+		.ppre1 = RCC_CFGR_PPRE_DIV4,
+		.ppre2 = RCC_CFGR_PPRE_DIV2,
 		.voltage_scale = PWR_SCALE1,
 		.flash_config = FLASH_ACR_DCEN | FLASH_ACR_ICEN |
 				FLASH_ACR_LATENCY_5WS,
@@ -253,9 +253,9 @@ const struct rcc_clock_scale rcc_hse_16mhz_3v3[RCC_CLOCK_3V3_END] = {
 		.pllq = 8,
 		.pllr = 0,
 		.pll_source = RCC_CFGR_PLLSRC_HSE_CLK,
-		.hpre = RCC_CFGR_HPRE_DIV_NONE,
-		.ppre1 = RCC_CFGR_PPRE_DIV_4,
-		.ppre2 = RCC_CFGR_PPRE_DIV_2,
+		.hpre = RCC_CFGR_HPRE_NODIV,
+		.ppre1 = RCC_CFGR_PPRE_DIV4,
+		.ppre2 = RCC_CFGR_PPRE_DIV2,
 		.voltage_scale = PWR_SCALE1,
 		.flash_config = FLASH_ACR_DCEN | FLASH_ACR_ICEN |
 				FLASH_ACR_LATENCY_5WS,
@@ -273,9 +273,9 @@ const struct rcc_clock_scale rcc_hse_25mhz_3v3[RCC_CLOCK_3V3_END] = {
 		.pllq = 7,
 		.pllr = 0,
 		.pll_source = RCC_CFGR_PLLSRC_HSE_CLK,
-		.hpre = RCC_CFGR_HPRE_DIV_NONE,
-		.ppre1 = RCC_CFGR_PPRE_DIV_2,
-		.ppre2 = RCC_CFGR_PPRE_DIV_NONE,
+		.hpre = RCC_CFGR_HPRE_NODIV,
+		.ppre1 = RCC_CFGR_PPRE_DIV2,
+		.ppre2 = RCC_CFGR_PPRE_NODIV,
 		.voltage_scale = PWR_SCALE1,
 		.flash_config = FLASH_ACR_DCEN | FLASH_ACR_ICEN |
 				FLASH_ACR_LATENCY_2WS,
@@ -290,9 +290,9 @@ const struct rcc_clock_scale rcc_hse_25mhz_3v3[RCC_CLOCK_3V3_END] = {
 		.pllq = 7,
 		.pllr = 0,
 		.pll_source = RCC_CFGR_PLLSRC_HSE_CLK,
-		.hpre = RCC_CFGR_HPRE_DIV_NONE,
-		.ppre1 = RCC_CFGR_PPRE_DIV_4,
-		.ppre2 = RCC_CFGR_PPRE_DIV_2,
+		.hpre = RCC_CFGR_HPRE_NODIV,
+		.ppre1 = RCC_CFGR_PPRE_DIV4,
+		.ppre2 = RCC_CFGR_PPRE_DIV2,
 		.voltage_scale = PWR_SCALE1,
 		.flash_config = FLASH_ACR_DCEN | FLASH_ACR_ICEN |
 				FLASH_ACR_LATENCY_5WS,
@@ -307,9 +307,9 @@ const struct rcc_clock_scale rcc_hse_25mhz_3v3[RCC_CLOCK_3V3_END] = {
 		.pllq = 8,
 		.pllr = 0,
 		.pll_source = RCC_CFGR_PLLSRC_HSE_CLK,
-		.hpre = RCC_CFGR_HPRE_DIV_NONE,
-		.ppre1 = RCC_CFGR_PPRE_DIV_4,
-		.ppre2 = RCC_CFGR_PPRE_DIV_2,
+		.hpre = RCC_CFGR_HPRE_NODIV,
+		.ppre1 = RCC_CFGR_PPRE_DIV4,
+		.ppre2 = RCC_CFGR_PPRE_DIV2,
 		.voltage_scale = PWR_SCALE1,
 		.flash_config = FLASH_ACR_DCEN | FLASH_ACR_ICEN |
 				FLASH_ACR_LATENCY_5WS,
@@ -791,4 +791,56 @@ void rcc_clock_setup_hse_3v3(const struct rcc_clock_scale *clock)
 	rcc_clock_setup_pll(clock);
 }
 
+/*---------------------------------------------------------------------------*/
+/** @brief Get the peripheral clock speed for the USART at base specified.
+ * @param usart  Base address of USART to get clock frequency for.
+ */
+uint32_t rcc_get_usart_clk_freq(uint32_t usart)
+{
+	/* Handle values with selectable clocks. */
+	if (usart == USART1_BASE || usart == USART6_BASE) {
+		return rcc_apb2_frequency;
+	} else {
+		return rcc_apb1_frequency;
+	}
+}
+
+/*---------------------------------------------------------------------------*/
+/** @brief Get the peripheral clock speed for the Timer at base specified.
+ * @param timer  Base address of TIM to get clock frequency for.
+ */
+uint32_t rcc_get_timer_clk_freq(uint32_t timer)
+{
+	/* Handle APB1 timer clocks. */
+	if (timer >= TIM2_BASE && timer <= TIM14_BASE) {
+		uint8_t ppre1 = (RCC_CFGR >> RCC_CFGR_PPRE1_SHIFT) & RCC_CFGR_PPRE1_MASK;
+		return (ppre1 == RCC_CFGR_PPRE_DIV_NONE) ? rcc_apb1_frequency
+			: 2 * rcc_apb1_frequency;
+	} else {
+		uint8_t ppre2 = (RCC_CFGR >> RCC_CFGR_PPRE2_SHIFT) & RCC_CFGR_PPRE2_MASK;
+		return (ppre2 == RCC_CFGR_PPRE_DIV_NONE) ? rcc_apb2_frequency
+			: 2 * rcc_apb2_frequency;
+	}
+}
+
+/*---------------------------------------------------------------------------*/
+/** @brief Get the peripheral clock speed for the I2C device at base specified.
+ * @param i2c  Base address of I2C to get clock frequency for.
+ */
+uint32_t rcc_get_i2c_clk_freq(uint32_t i2c __attribute__((unused)))
+{
+	return rcc_apb1_frequency;
+}
+
+/*---------------------------------------------------------------------------*/
+/** @brief Get the peripheral clock speed for the SPI device at base specified.
+ * @param spi  Base address of SPI device to get clock frequency for (e.g. SPI1_BASE).
+ */
+uint32_t rcc_get_spi_clk_freq(uint32_t spi) {
+	if (spi == SPI2_BASE || spi == SPI3_BASE) {
+		return rcc_apb1_frequency;
+	} else {
+		return rcc_apb2_frequency;
+	}
+}
 /**@}*/

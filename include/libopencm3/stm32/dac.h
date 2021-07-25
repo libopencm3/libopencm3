@@ -40,6 +40,10 @@
 #       include <libopencm3/stm32/l5/dac.h>
 #elif defined(STM32L5_SECURE)
 #       include <libopencm3/stm32/l5_secure/dac.h>
+#elif defined(STM32G0)
+#       include <libopencm3/stm32/g0/dac.h>
+#elif defined(STM32G4)
+#	include <libopencm3/stm32/g4/dac.h>
 #elif defined(STM32H7)
 #       include <libopencm3/stm32/h7/dac.h>
 #else

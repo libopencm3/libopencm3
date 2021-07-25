@@ -13,5 +13,5 @@ addons:
 notifications:
   irc:
     channels:
-      - "chat.freenode.net#libopencm3"
+      - "irc.libera.chat#libopencm3"
     use_notice: true

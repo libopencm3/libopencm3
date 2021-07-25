@@ -97,6 +97,32 @@ void flash_unlock_acr(void)
 	FLASH_PDKEYR = FLASH_PDKEYR_PDKEY2;
 }
 
+void flash_erase_page(uint32_t page_address)
+{
+	FLASH_PECR |= FLASH_PECR_ERASE | FLASH_PECR_PROG;
+	MMIO32(page_address) = 0;
+	while ((FLASH_SR & FLASH_SR_BSY) == FLASH_SR_BSY);
+	FLASH_PECR &= ~(FLASH_PECR_ERASE | FLASH_PECR_PROG);
+}
+
+/* Must be run from RAM (per ref manual), and because it's in ram, more
+ * than 64MB away from flash address space, must be a long_call. */
+__attribute__ ((long_call, section (".ramtext")))
+void flash_program_half_page(uint32_t *dst, void *buf)
+{
+        uint32_t *src = buf;
+
+        /* Enable half page writes to program memory */
+        FLASH_PECR |= FLASH_PECR_FPRG | FLASH_PECR_PROG;
+        while ((FLASH_SR & FLASH_SR_BSY) == FLASH_SR_BSY);
+        for (int i = 0; i < FLASH_HALF_PAGE_SIZE; i++) {
+                *dst++ = *src++;
+        }
+        while ((FLASH_SR & FLASH_SR_BSY) == FLASH_SR_BSY);
+        FLASH_PECR &= ~(FLASH_PECR_FPRG | FLASH_PECR_PROG);
+}
+
+
 /** @brief Write a word to eeprom
  *
  * @param address assumed to be in the eeprom space, no checking

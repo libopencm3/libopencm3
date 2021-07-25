@@ -44,6 +44,8 @@
 #       include <libopencm3/stm32/l5_secure/flash.h>
 #elif defined(STM32G0)
 #       include <libopencm3/stm32/g0/flash.h>
+#elif defined(STM32G4)
+#       include <libopencm3/stm32/g4/flash.h>
 #elif defined(STM32H7)
 #       include <libopencm3/stm32/h7/flash.h>
 #elif defined(GD32F1X0)

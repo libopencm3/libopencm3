@@ -161,7 +161,7 @@
 
 /* Backup data register 42 (BKP_DR42) */
 #define BKP_DR42			MMIO32(BACKUP_REGS_BASE + 0xBC)
-/*@}*/
+/**@}*/
 
 /** @defgroup BKP_RTCCR_Values BKP_RTCCR Values
  * @ingroup bkp_defines
@@ -177,7 +177,7 @@
 
 /** CAL[6:0]: Calibration value */
 #define BKP_RTCCR_CAL_LSB		0
-/*@}*/
+/**@}*/
 
 /** @defgroup BKP_CR_Values BKP_CR Values
  * @ingroup bkp_defines
@@ -187,7 +187,7 @@
 
 /** TPE: TAMPER pin enable */
 #define BKP_CR_TPE			(1 << 0)
-/*@}*/
+/**@}*/
 
 /** @defgroup BKP_CSR_Values BKP_CSR Values
  * @ingroup bkp_defines
@@ -206,6 +206,6 @@
 
 /** CTE: Clear tamper event */
 #define BKP_CSR_CTE			(1 << 0)
-/*@}*/
+/**@}*/
 
 #endif

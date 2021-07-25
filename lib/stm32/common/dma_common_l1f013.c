@@ -1,5 +1,6 @@
-/** @addtogroup dma_file DMA peripheral API
+/** @defgroup dma_file DMA peripheral API
 @ingroup peripheral_apis
+@brief DMA library for the multi channel controller found in F0/1/3 & L/G parts.
 
 @author @htmlonly &copy; @endhtmlonly 2010 Thomas Otto <tommi@viadmin.org>
 

@@ -32,13 +32,9 @@ INCLUDES += $(patsubst %,-I%, . $(SHARED_DIR))
 OPENCM3_DIR=../..
 
 ### This section can go to an arch shared rules eventually...
-LDSCRIPT = ../../lib/stm32/l0/stm32l0xx8.ld
-OPENCM3_LIB = opencm3_stm32l0
-OPENCM3_DEFS = -DSTM32L0
-#FP_FLAGS ?= -mfloat-abi=hard -mfpu=fpv4-sp-d16
-ARCH_FLAGS = -mthumb -mcpu=cortex-m0plus $(FP_FLAGS)
-#OOCD_INTERFACE = stlink-v2-1
-#OOCD_TARGET = stm32l0
-OOCD_FILE = openocd.stm32l053disco.cfg
+DEVICE=stm32l053x8
+OOCD_FILE = openocd.$(BOARD).cfg
 
+include $(OPENCM3_DIR)/mk/genlink-config.mk
+include $(OPENCM3_DIR)/mk/genlink-rules.mk
 include ../rules.mk

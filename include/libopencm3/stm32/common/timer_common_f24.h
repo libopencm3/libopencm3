@@ -27,12 +27,7 @@
 The order of header inclusion is important. timer.h includes the device
 specific memorymap.h header before including this header file.*/
 
-/** @cond */
-#ifdef LIBOPENCM3_TIMER_H
-/** @endcond */
-#ifndef LIBOPENCM3_TIMER_COMMON_F24_H
-#define LIBOPENCM3_TIMER_COMMON_F24_H
-
+#pragma once
 #include <libopencm3/stm32/common/timer_common_all.h>
 
 /*
@@ -104,11 +99,3 @@ void timer_ic_set_polarity(uint32_t timer, enum tim_ic_id ic,
 			   enum tim_ic_pol pol);
 
 END_DECLS
-
-#endif
-/** @cond */
-#else
-#warning "timer_common_f24.h should not be included directly, only via timer.h"
-#endif
-/** @endcond */
-

@@ -179,7 +179,21 @@ usb_standard_get_descriptor(usbd_device *usbd_dev,
 				      sizeof(sd->wData[0]);
 
 			*len = MIN(*len, sd->bLength);
-		} else {
+		} else if (descr_idx == usbd_dev->extra_string_idx) {
+			/* This string is returned as UTF16, hence the
+			 * multiplication
+			 */
+			sd->bLength = strlen(usbd_dev->extra_string) * 2 +
+				      sizeof(sd->bLength) +
+				      sizeof(sd->bDescriptorType);
+
+			*len = MIN(*len, sd->bLength);
+
+			for (i = 0; i < (*len / 2) - 1; i++) {
+				sd->wData[i] =
+					usbd_dev->extra_string[i];
+			}
+        } else {
 			array_idx = descr_idx - 1;
 
 			if (!usbd_dev->strings) {

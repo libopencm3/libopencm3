@@ -20,7 +20,7 @@
 LIBNAME		= libopencm3_stm32l5
 SRCLIBDIR	?= ../..
 
-FP_FLAGS	?= -mfloat-abi=soft
+FP_FLAGS	?= -mfloat-abi=hard -mfpu=fpv5-sp-d16
 CC		= $(PREFIX)gcc
 AR		= $(PREFIX)ar
 TGT_CFLAGS	= -Os \
@@ -36,11 +36,10 @@ TGT_CFLAGS	+= $(STANDARD_FLAGS)
 ARFLAGS		= rcs
 
 OBJS += adc.o adc_common_v2.o adc_common_v2_multi.o
-#OBJS += can.o
+OBJS += fdcan.o
 OBJS += crc_common_all.o crc_v2.o
 OBJS += crs_common_all.o
-#OBJS += crypto_common_f24.o crypto.o
-OBJS += dac_common_all.o
+OBJS += dac_common_all.o dac_common_v1.o
 OBJS += dma_common_l1f013.o dma_common_csel.o
 OBJS += dmamux.o
 OBJS += exti_common_all.o
@@ -49,13 +48,14 @@ OBJS += fmc_common_f47.o
 OBJS += gpio_common_all.o gpio_common_f0234.o
 OBJS += hash_common_l5.o
 OBJS += i2c_common_v2.o
+OBJS += icache.o
 OBJS += iwdg_common_all.o
 OBJS += lptimer_common_all.o
 OBJS += pka.o
 OBJS += pwr.o
 OBJS += rcc.o rcc_common_all.o
 OBJS += rng_common_v1.o
-#OBJS += rtc_common_l1f024.o
+OBJS += rtc.o
 OBJS += spi_common_all.o spi_common_v2.o
 OBJS += timer_common_all.o
 OBJS += usart_common_all.o usart_common_v2.o

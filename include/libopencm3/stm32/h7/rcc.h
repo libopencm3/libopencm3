@@ -394,6 +394,7 @@ LGPL License Terms @ref lgpl_license
 #define RCC_D2CCIP2R_CECSEL_SHIFT           22
 #define RCC_D2CCIP2R_USBSEL_SHIFT           20
 #define RCC_D2CCIP2R_I2C123SEL_SHIFT        12
+#define RCC_D2CCIP2R_RNGSEL_MASK            0x3
 #define RCC_D2CCIP2R_RNGSEL_SHIFT           8
 #define RCC_D2CCIP2R_USART16SEL_SHIFT       3
 #define RCC_D2CCIP2R_USART234578SEL_SHIFT   0
@@ -402,8 +403,13 @@ LGPL License Terms @ref lgpl_license
 /** @defgroup rcc_d2ccip2r_values RCC_D2CCIP2R Values
  * @ingroup rcc_registers
  * @{*/
+#define RCC_D2CCIP2R_RNGSEL_HSI48           0
+#define RCC_D2CCIP2R_RNGSEL_PLL1Q           1
+#define RCC_D2CCIP2R_RNGSEL_LSE             2
+#define RCC_D2CCIP2R_RNGSEL_LSI             3
 #define RCC_D2CCIP2R_USART16SEL_PCLK2       0
 #define RCC_D2CCIP2R_USART234578SEL_PCLK1   0
+#define RCC_D2CCIP2R_USARTSEL_PCLK          0
 #define RCC_D2CCIP2R_USARTSEL_PLL2Q         1
 #define RCC_D2CCIP2R_USARTSEL_PLL3Q         2
 #define RCC_D2CCIP2R_USARTSEL_HSI           3
@@ -456,7 +462,9 @@ struct rcc_pll_config {
   uint8_t ppre3;                    /**< APB3 Peripheral prescaler note: domain 1. */
   uint8_t ppre4;                    /**< APB4 Peripheral prescaler note: domain 3. */
   uint8_t flash_waitstates;         /**< Latency Value to set for flahs. */
-  enum pwr_vos_scale voltage_scale; /**< LDO Voltage scale used for this frequency. */
+  enum pwr_vos_scale voltage_scale; /**< LDO/SMPS Voltage scale used for this frequency. */
+  enum pwr_sys_mode power_mode;     /**< LDO/SMPS configuration for device. */
+  uint8_t smps_level;               /**< If using SMPS, voltage level to set. */
 };
 
 #define _REG_BIT(base, bit)       (((base) << 5) + (bit))
@@ -727,13 +735,34 @@ void rcc_clock_setup_pll(const struct rcc_pll_config *config);
 uint32_t rcc_get_bus_clk_freq(enum rcc_clock_source source);
 
 /**
- * Get the clock rate (in Hz) of the specified peripheral. This will pull the
- * proper sources out of the clock tree and calculate the clock for the
- * peripheral for return to the user, based on current settings.
- * @param[in] periph  Peripheral base address to get the clock rate for.
- * @return Clock rate in Hz for the specified peripheral. 0 if undefined or error.
+ * Get the peripheral clock speed for the USART at base specified.
+ * @param usart  Base address of USART to get clock frequency for (e.g. USART1_BASE).
  */
-uint32_t rcc_get_peripheral_clk_freq(uint32_t periph);
+uint32_t rcc_get_usart_clk_freq(uint32_t usart);
+
+/**
+ * Get the peripheral clock speed for the Timer at base specified.
+ * @param timer  Base address of TIMER to get clock frequency for (e.g. TIM1_BASE).
+ */
+uint32_t rcc_get_timer_clk_freq(uint32_t timer);
+
+/**
+ * Get the peripheral clock speed for the I2C device at base specified.
+ * @param i2c  Base address of I2C to get clock frequency for (e.g. I2C1_BASE).
+ */
+uint32_t rcc_get_i2c_clk_freq(uint32_t i2c);
+
+/**
+ * Get the peripheral clock speed for the SPI device at base specified.
+ * @param spi  Base address of SPI device to get clock frequency for (e.g. SPI1_BASE).
+ */
+uint32_t rcc_get_spi_clk_freq(uint32_t spi);
+
+/**
+ * Get the peripheral clock speed for the FDCAN device at base specified.
+ * @param fdcan  Base address of FDCAN to get clock frequency for (e.g. FDCAN1_BASE).
+ */
+uint32_t rcc_get_fdcan_clk_freq(uint32_t fdcan);
 
 /**
  * Set the clksel value for the specified peripheral. This code will determine
@@ -774,9 +803,14 @@ void rcc_set_spi123_clksel(uint8_t clksel);
  */
 void rcc_set_spi45_clksel(uint8_t clksel);
 
+/**
+ * Set the clock select for the RNG device.
+ * @param[in] clksel  Clock source to configure for. @ref rcc_d2ccip2r_values
+ * @sa rcc_set_peripheral_clk_sel for equivalent generic functionality
+ */
+void rcc_set_rng_clksel(uint8_t clksel);
 
 END_DECLS
-/**@}*/
 /**@}*/
 
 #endif

@@ -54,6 +54,8 @@ usbd_device *usbd_init(const usbd_driver *driver,
 	usbd_dev->config = conf;
 	usbd_dev->strings = strings;
 	usbd_dev->num_strings = num_strings;
+	usbd_dev->extra_string_idx = 0;
+	usbd_dev->extra_string = NULL;
 	usbd_dev->ctrl_buf = control_buffer;
 	usbd_dev->ctrl_buf_len = control_buffer_size;
 
@@ -92,6 +94,20 @@ void usbd_register_resume_callback(usbd_device *usbd_dev,
 void usbd_register_sof_callback(usbd_device *usbd_dev, void (*callback)(void))
 {
 	usbd_dev->user_callback_sof = callback;
+}
+
+void usbd_register_extra_string(usbd_device *usbd_dev, int index, const char* string)
+{
+    /*
+	 * Note: string index 0 is reserved for LANGID requests and cannot
+	 *       be overwritten using this functionality.
+	 */
+	if (string != NULL && index > 0) {
+		usbd_dev->extra_string_idx = index;
+		usbd_dev->extra_string = string;
+	} else {
+		usbd_dev->extra_string_idx = 0;
+	}
 }
 
 void _usbd_reset(usbd_device *usbd_dev)

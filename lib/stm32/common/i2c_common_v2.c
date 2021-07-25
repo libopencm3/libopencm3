@@ -395,7 +395,7 @@ void i2c_disable_txdma(uint32_t i2c)
  * @param r destination buffer to read into
  * @param rn number of bytes to read (r should be at least this long)
  */
-void i2c_transfer7(uint32_t i2c, uint8_t addr, uint8_t *w, size_t wn, uint8_t *r, size_t rn)
+void i2c_transfer7(uint32_t i2c, uint8_t addr, const uint8_t *w, size_t wn, uint8_t *r, size_t rn)
 {
 	/*  waiting for busy is unnecessary. read the RM */
 	if (wn) {

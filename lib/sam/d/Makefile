@@ -31,6 +31,8 @@ TGT_CFLAGS	+= $(STANDARD_FLAGS)
 ARFLAGS		= rcs
 OBJS		= 
 
+OBJS += port.o
+
 VPATH += ../../cm3:../common
 
 include ../../Makefile.include

@@ -22,6 +22,8 @@
 
 #if defined(STM32F4)
 #       include <libopencm3/stm32/f4/dcmi.h>
+#elif defined(STM32F7)
+#       include <libopencm3/stm32/f7/dcmi.h>
 #else
 #       error "stm32 family not defined."
 #endif

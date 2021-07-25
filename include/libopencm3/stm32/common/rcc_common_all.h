@@ -67,6 +67,13 @@ bool rcc_is_osc_ready(enum rcc_osc osc);
  */
 void rcc_wait_for_osc_ready(enum rcc_osc osc);
 
+/**
+ * This will return the divisor 1/2/4/8/16/64/128/256/512 which is set as a
+ * 4-bit value, typically used for hpre and other prescalers.
+ * @param div_val  Masked and shifted divider value from register (e.g. RCC_CFGR)
+ */
+uint16_t rcc_get_div_from_hpre(uint8_t div_val);
+
 END_DECLS
 /**@}*/
 

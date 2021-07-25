@@ -27,6 +27,7 @@
 /* --- STM32F3 specific peripheral definitions ----------------------------- */
 
 /* Memory map for all busses */
+#define FLASH_BASE			(0x08000000U)
 #define PERIPH_BASE			(0x40000000U)
 #define PERIPH_BASE_APB1		(PERIPH_BASE + 0x00000)
 #define PERIPH_BASE_APB2		(PERIPH_BASE + 0x10000)
@@ -63,8 +64,9 @@
 /* PERIPH_BASE_APB1 + 0x6800 (0x4000 6800 - 0x4000 6BFF): Reserved */
 /* PERIPH_BASE_APB1 + 0x6C00 (0x4000 6C00 - 0x4000 6FFF): Reserved */
 #define POWER_CONTROL_BASE		(PERIPH_BASE_APB1 + 0x7000)
-#define DAC_BASE			(PERIPH_BASE_APB1 + 0x7400)
+#define DAC1_BASE			(PERIPH_BASE_APB1 + 0x7400)
 #define I2C3_BASE			(PERIPH_BASE_APB1 + 0x7800)
+#define DAC2_BASE			(PERIPH_BASE_APB1 + 0x9800)
 /* PERIPH_BASE_APB1 + 0x7800 (0x4000 7800 - 0x4000 7FFF): Reserved */
 
 

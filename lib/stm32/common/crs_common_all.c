@@ -1,8 +1,7 @@
-/** @defgroup crs_file CRS
+/** @addtogroup crs_file CRS peripheral API
+ * @ingroup peripheral_apis
  *
- * @ingroup STM32xx
- *
- * @brief <b>libopencm3 STM32 Clock Recovery Subsystem</b>
+ * @brief <b>(USB) STM32 Clock Recovery Subsystem</b>
  *
  * @version 1.0.0
  *
@@ -27,6 +26,8 @@
  * You should have received a copy of the GNU Lesser General Public License
  * along with this library.  If not, see <http://www.gnu.org/licenses/>.
  */
+/**@{*/
+
 
 #include <libopencm3/stm32/crs.h>
 #include <libopencm3/stm32/rcc.h>
@@ -46,3 +47,4 @@ void crs_autotrim_usb_enable(void)
 	CRS_CR |= CRS_CR_CEN;
 }
 
+/**@}*/

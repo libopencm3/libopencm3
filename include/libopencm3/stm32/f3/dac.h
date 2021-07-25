@@ -31,7 +31,18 @@
 #ifndef LIBOPENCM3_DAC_H
 #define LIBOPENCM3_DAC_H
 
-#include <libopencm3/stm32/common/dac_common_all.h>
+#include <libopencm3/stm32/common/dac_common_v1.h>
+
+/**@{*/
+
+/** @defgroup dac_reg_base DAC register base addresses
+@ingroup STM32xx_dac_defines
+@{*/
+#define DAC1		DAC1_BASE
+#define DAC2		DAC2_BASE
+/**@}*/
+
+/**@}*/
 
 #endif
 

@@ -23,6 +23,7 @@
 /* --- STM32F7 specific peripheral definitions ----------------------------- */
 
 /* Memory map for all busses */
+#define FLASH_BASE			(0x08000000U)
 #define PERIPH_BASE			(0x40000000U)
 #define PERIPH_BASE_APB1		(PERIPH_BASE + 0x00000)
 #define PERIPH_BASE_APB2		(PERIPH_BASE + 0x10000)
@@ -146,7 +147,8 @@
 #define FMC3_BASE			(PERIPH_BASE_AHB3 + 0x20000000U)
 #define QSPI_BASE			(PERIPH_BASE_AHB3 + 0x30000000U)
 #define FMCC_BASE			(PERIPH_BASE_AHB3 + 0x40000000U)
-#define QSPIC_BASE			(PERIPH_BASE_AHB3 + 0x40001000U)
+#define QUADSPI_BASE			(PERIPH_BASE_AHB3 + 0x40001000U)
+#define QSPIC_BASE			QUADSPI_BASE /* Deprecated compat */
 #define FMC5_BASE			(PERIPH_BASE_AHB3 + 0x60000000U)
 #define FMC6_BASE			(PERIPH_BASE_AHB3 + 0x70000000U)
 

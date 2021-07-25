@@ -1,0 +1,84 @@
+
+pipeline {
+    agent {label 'locm3-usb'}
+    parameters {
+	    string(name:'pr_from_git_url', description:'the git url we are going to clone the pr from')
+	    string(name:'pr_from_sha', description:'what we are going to build')
+    }
+
+    stages {
+        stage('checkout') {
+            steps {
+                sh "echo karl we are building $pr_from_sha"
+                checkout([$class: 'GitSCM', branches: [[name: "$pr_from_sha"]], userRemoteConfigs: [[url: "$pr_from_git_url"]]])
+                step([
+                    $class: "GitHubCommitStatusSetter",
+                    commitShaSource: [$class: "ManuallyEnteredShaSource", sha: "$pr_from_sha"],
+                    reposSource: [$class: "ManuallyEnteredRepositorySource", url: "https://github.com/libopencm3/libopencm3"],
+                    contextSource: [$class: "DefaultCommitContextSource"],
+                    statusResultSource: [ $class: "DefaultStatusResultSource"]
+                ]);
+            }
+        }
+        stage('prepare') {
+            steps {
+        		sh label: 'preparing python', script: '''
+        		[ -f .env3 ] || python3 -m venv .env3
+        		. .env3/bin/activate
+        		pip install pyusb
+        		pip install unittest-xml-reporting
+        		''' 
+            }
+        }
+        stage('build') {
+            steps {
+                sh '''
+                    . .env3/bin/activate
+                    make V=1
+                    make -C tests/gadget-zero all V=s
+                '''
+            }
+        }
+        stage('Testprepare') {
+            steps {
+        		sh label: 'gadget0', script: '''
+        		cd tests/gadget-zero
+        		echo "hla_serial 53FF6E066765505136472567" > openocd.stm32f3-disco.local.cfg
+        		echo "hla_serial 57FF6B064967485630481087" > openocd.stm32f4disco.local.cfg
+        		'''
+            }
+        }
+    	stage('flashin') {
+    		steps {
+        		dir('tests/gadget-zero') {
+        			sh '''
+        			make -f Makefile.stm32f3-disco flash V=1
+        			make -f Makefile.stm32f4disco flash V=1
+        			'''
+        		}
+    		}
+    	}
+        stage('run-test') {
+            steps {
+                sh '''
+        		. .env3/bin/activate
+        		cd tests/gadget-zero
+        		rm -rf tests
+        		python test_gadget0.py -X
+        		for x in tests/*; do TT=$(basename \$x); sed -i "s/testcase\\ classname=\\"/testcase\\ classname=\\"\${TT}./g" \$x/TEST-*; done
+        		'''
+            }
+        }
+    }
+    post {
+    	always {
+            step([$class: "GitHubCommitStatusSetter",
+                commitShaSource: [$class: "ManuallyEnteredShaSource", sha: "$pr_from_sha"],
+                reposSource: [$class: "ManuallyEnteredRepositorySource", url: "https://github.com/libopencm3/libopencm3"],
+                contextSource: [$class: "DefaultCommitContextSource"],
+                statusResultSource: [ $class: "DefaultStatusResultSource"]
+            ]);
+            junit 'tests/gadget-zero/tests/*/TEST-*.xml'
+    	}
+    } 
+}

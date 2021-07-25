@@ -32,9 +32,7 @@ LGPL License Terms @ref lgpl_license
  * along with this library.  If not, see <http://www.gnu.org/licenses/>.
  */
 
-#ifndef LIBOPENCM3_TIMER_H
-#define LIBOPENCM3_TIMER_H
-
+#pragma once
 #include <libopencm3/stm32/common/timer_common_all.h>
 
 /**@{*/
@@ -95,9 +93,5 @@ LGPL License Terms @ref lgpl_license
 #define TIM22_OR_TI1_RMP_GPIO		(0 << TIM22_OR_TI1_RMP_SHIFT)
 #define TIM22_OR_TI1_RMP_COMP2_OUT	(1 << TIM22_OR_TI1_RMP_SHIFT)
 #define TIM22_OR_TI1_RMP_COMP1_OUT	(2 << TIM22_OR_TI1_RMP_SHIFT)
-
-/**@}*/
-
-#endif
 
 /**@}*/

@@ -44,14 +44,20 @@ Output Compare mode to PWM and enable the output of channel 1. Note that for
 the advanced timers the break functionality must be enabled before the signal
 will appear at the output, even though break is not being used. This is in
 addition to the normal output enable. Enable the alternate function clock (APB2
-only) and port A clock. Set ports A8 and A9 (timer 1 channel 1 compare outputs)
-to alternate function push-pull outputs where the PWM output will appear.
+only) and port A clock. Set port A8 (timer 1 channel 1 compare output) to
+alternate function push-pull output where the PWM output will appear.
 
 @code
-	rcc_periph_clock_enable(RCC_GPIOA);
 	rcc_periph_clock_enable(RCC_TIM1);
-	gpio_set_output_options(GPIOA, GPIO_OTYPE_PP,
-				GPIO_OSPEED_50MHZ, GPIO8 | GPIO9);
+	rcc_periph_clock_enable(RCC_GPIOA);
+
+	// for F1....
+	gpio_set_output_options(GPIOA, GPIO_OTYPE_PP, GPIO_OSPEED_50MHZ, GPIO8);
+	// For anyone else
+	rcc_periph_clock_enable(RCC_AFIO);
+	gpio_set_mode(GPIOA, GPIO_MODE_OUTPUT_50_MHZ, GPIO_CNF_OUTPUT_ALTFN_PUSHPULL, GPIO8);
+	// End of family specific
+
 	rcc_periph_clock_enable(RCC_TIM1);
 	timer_set_mode(TIM1, TIM_CR1_CKD_CK_INT, TIM_CR1_CMS_CENTER_1,
 		       TIM_CR1_DIR_UP);

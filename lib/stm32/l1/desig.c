@@ -23,15 +23,20 @@
 
 uint16_t desig_get_flash_size(void)
 {
+	uint32_t v;
 	uint32_t device_id = DBGMCU_IDCODE & DBGMCU_IDCODE_DEV_ID_MASK;
 	switch (device_id) {
 	case 0x416:
-	case 0x429:
 		return *(uint32_t*)DESIG_FLASH_SIZE_BASE_CAT12;
+	case 0x429:
+		v = *(uint32_t*)DESIG_FLASH_SIZE_BASE_CAT12;
+		return v & 0xff;
 	case 0x427:
-	case 0x436:
 	case 0x437:
 		return *(uint32_t*)DESIG_FLASH_SIZE_BASE_CAT3456;
+	case 0x436:
+		v = *(uint32_t*)DESIG_FLASH_SIZE_BASE_CAT3456;
+		return v ? 256 : 384;
 	}
 
 	cm3_assert_not_reached();

@@ -28,6 +28,11 @@
 
 #include <libopencm3/stm32/rtc.h>
 
+static uint8_t _rtc_dec_to_bcd(uint8_t dec)
+{
+	return ((dec / 10) << 4) | (dec % 10);
+}
+
 /*---------------------------------------------------------------------------*/
 /** @brief Set RTC prescalars.
 
@@ -122,4 +127,212 @@ void rtc_clear_wakeup_flag(void)
 	RTC_ISR &= ~RTC_ISR_WUTF;
 }
 
+/*---------------------------------------------------------------------------*/
+/** @brief Sets the initialization flag
+
+@details Requires unlocking backup domain write protection (PWR_CR_DBP)
+*/
+void rtc_set_init_flag(void)
+{
+	RTC_ISR |= RTC_ISR_INIT;
+}
+
+/*---------------------------------------------------------------------------*/
+/** @brief Clears (resets) the initialization flag
+
+@details Requires unlocking backup domain write protection (PWR_CR_DBP)
+*/
+void rtc_clear_init_flag(void)
+{
+	RTC_ISR &= ~RTC_ISR_INIT;
+}
+
+/*---------------------------------------------------------------------------*/
+/** @brief Returns if the RTC_ISR init flag RTC_ISR_INITF is set
+
+@details Requires unlocking backup domain write protection (PWR_CR_DBP)
+*/
+bool rtc_init_flag_is_ready(void)
+{
+	return (RTC_ISR & RTC_ISR_INITF);
+}
+
+/*---------------------------------------------------------------------------*/
+/** @brief Waits infinitely for initialization flag to be set in RTC_ISR
+
+@details Requires unlocking backup domain write protection (PWR_CR_DBP)
+*/
+void rtc_wait_for_init_ready(void)
+{
+	while (!rtc_init_flag_is_ready());
+}
+
+/*---------------------------------------------------------------------------*/
+/** @brief Sets the bypass shadow bit in RTC_CR
+
+@details Requires unlocking backup domain write protection (PWR_CR_DBP)
+*/
+void rtc_enable_bypass_shadow_register(void)
+{
+	RTC_CR |= RTC_CR_BYPSHAD;
+}
+
+/*---------------------------------------------------------------------------*/
+/** @brief Clears the bypass shadow bit in RTC_CR
+
+@details Requires unlocking backup domain write protection (PWR_CR_DBP)
+*/
+void rtc_disable_bypass_shadow_register(void)
+{
+	RTC_CR &= ~RTC_CR_BYPSHAD;
+}
+
+/*---------------------------------------------------------------------------*/
+/** @brief Sets the RTC control register hour format to AM (24h)
+
+@details Requires unlocking backup domain write protection (PWR_CR_DBP)
+*/
+void rtc_set_am_format(void)
+{
+	RTC_CR &= ~RTC_CR_FMT;
+}
+
+/*---------------------------------------------------------------------------*/
+/** @brief Sets the RTC control register hour format to PM (12h)
+
+@details Requires unlocking backup domain write protection (PWR_CR_DBP)
+*/
+void rtc_set_pm_format(void)
+{
+	RTC_CR |= RTC_CR_FMT;
+}
+
+/*---------------------------------------------------------------------------*/
+/** @brief Sets the RTC BCD calendar year value
+
+@details Requires unlocking the RTC write-protection (RTC_WPR)
+
+The year value should only be the abbreviated year tens, meaning if 2021 is
+desired pass in only 21.
+*/
+void rtc_calendar_set_year(uint8_t year)
+{
+	uint8_t bcd_year = _rtc_dec_to_bcd(year);
+	RTC_DR &= ~(RTC_DR_YT_MASK << RTC_DR_YT_SHIFT | RTC_DR_YU_MASK << RTC_DR_YU_SHIFT);
+	RTC_DR |= (((bcd_year >> 4) & RTC_DR_YT_MASK) << RTC_DR_YT_SHIFT) |
+		((bcd_year & RTC_DR_YU_MASK) << RTC_DR_YU_SHIFT);
+}
+
+/*---------------------------------------------------------------------------*/
+/** @brief Sets the RTC BCD calendar weekday
+
+@details Requires unlocking the RTC write-protection (RTC_WPR)
+*/
+void rtc_calendar_set_weekday(enum rtc_weekday rtc_dr_wdu)
+{
+	RTC_DR &= ~(RTC_DR_WDU_MASK << RTC_DR_WDU_SHIFT);
+	RTC_DR |= (rtc_dr_wdu << RTC_DR_WDU_SHIFT);
+}
+
+/*---------------------------------------------------------------------------*/
+/** @brief Sets the RTC BCD calendar month value
+
+@details Requires unlocking the RTC write-protection (RTC_WPR)
+*/
+void rtc_calendar_set_month(uint8_t month)
+{
+	uint8_t bcd_month = _rtc_dec_to_bcd(month);
+	RTC_DR &= ~(RTC_DR_MT_MASK << RTC_DR_MT_SHIFT | RTC_DR_MU_MASK << RTC_DR_MU_SHIFT);
+	RTC_DR |= (((bcd_month >> 4) & RTC_DR_MT_MASK) << RTC_DR_MT_SHIFT) |
+		((bcd_month & RTC_DR_MU_MASK) << RTC_DR_MU_SHIFT);
+}
+
+/*---------------------------------------------------------------------------*/
+/** @brief Sets the RTC BCD calendar day value
+
+@details Requires unlocking the RTC write-protection (RTC_WPR)
+*/
+void rtc_calendar_set_day(uint8_t day)
+{
+	uint8_t bcd_day = _rtc_dec_to_bcd(day);
+	RTC_DR &= ~(RTC_DR_DT_MASK << RTC_DR_DT_SHIFT | RTC_DR_DU_MASK << RTC_DR_DU_SHIFT);
+	RTC_DR |= (((bcd_day >> 4) & RTC_DR_DT_MASK) << RTC_DR_DT_SHIFT) |
+		((bcd_day & RTC_DR_DU_MASK) << RTC_DR_DU_SHIFT);
+}
+
+/*---------------------------------------------------------------------------*/
+/** @brief Sets the RTC BCD calendar value
+
+@details Requires unlocking the RTC write-protection (RTC_WPR)
+
+The year value should only be the abbreviated year tens, meaning if 2021 is
+desired pass in only 21.
+*/
+void rtc_calendar_set_date(uint8_t year, uint8_t month, uint8_t day, enum rtc_weekday rtc_dr_wdu)
+{
+	rtc_calendar_set_year(year);
+	rtc_calendar_set_month(month);
+	rtc_calendar_set_weekday(rtc_dr_wdu);
+	rtc_calendar_set_day(day);
+}
+
+/*---------------------------------------------------------------------------*/
+/** @brief Sets the RTC BCD time hour value
+
+@details Requires unlocking the RTC write-protection (RTC_WPR)
+
+Pass true to use_am_notation to use 24-hour input time; pass false to
+use_am_notation to use 12-hour (AM/PM) input time
+*/
+void rtc_time_set_hour(uint8_t hour, bool use_am_notation)
+{
+	if (use_am_notation) {
+		RTC_TR &= ~(RTC_TR_PM);
+	} else {
+		RTC_TR |= RTC_TR_PM;
+	}
+
+	uint8_t bcd_hour = _rtc_dec_to_bcd(hour);
+	RTC_TR &= ~(RTC_TR_HT_MASK << RTC_TR_HT_SHIFT | RTC_TR_HU_MASK << RTC_TR_HU_SHIFT);
+	RTC_TR |= (((bcd_hour >> 4) & RTC_TR_HT_MASK) << RTC_TR_HT_SHIFT) |
+		((bcd_hour & RTC_TR_HU_MASK) << RTC_TR_HU_SHIFT);
+}
+
+/*---------------------------------------------------------------------------*/
+/** @brief Sets the RTC BCD time minute value
+
+@details Requires unlocking the RTC write-protection (RTC_WPR)
+*/
+void rtc_time_set_minute(uint8_t minute)
+{
+	uint8_t bcd_minute = _rtc_dec_to_bcd(minute);
+	RTC_TR &= ~(RTC_TR_MNT_MASK << RTC_TR_MNT_SHIFT | RTC_TR_MNU_MASK << RTC_TR_MNU_SHIFT);
+	RTC_TR |= (((bcd_minute >> 4) & RTC_TR_MNT_MASK) << RTC_TR_MNT_SHIFT) |
+		((bcd_minute & RTC_TR_MNU_MASK) << RTC_TR_MNU_SHIFT);
+}
+
+/*---------------------------------------------------------------------------*/
+/** @brief Sets the RTC BCD time second value
+
+@details Requires unlocking the RTC write-protection (RTC_WPR)
+*/
+void rtc_time_set_second(uint8_t second)
+{
+	uint8_t bcd_second = _rtc_dec_to_bcd(second);
+	RTC_TR &= ~(RTC_TR_ST_MASK << RTC_TR_ST_SHIFT | RTC_TR_SU_MASK << RTC_TR_SU_SHIFT);
+	RTC_TR |= (((bcd_second >> 4) & RTC_TR_ST_MASK) << RTC_TR_ST_SHIFT) |
+		((bcd_second & RTC_TR_SU_MASK) << RTC_TR_SU_SHIFT);
+}
+
+/*---------------------------------------------------------------------------*/
+/** @brief Sets the RTC BCD time
+
+@details Requires unlocking the RTC write-protection (RTC_WPR)
+*/
+void rtc_time_set_time(uint8_t hour, uint8_t minute, uint8_t second, bool use_am_notation)
+{
+	rtc_time_set_hour(hour, use_am_notation);
+	rtc_time_set_minute(minute);
+	rtc_time_set_second(second);
+}
 /**@}*/

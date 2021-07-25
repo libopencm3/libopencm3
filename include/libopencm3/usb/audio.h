@@ -40,6 +40,8 @@ LGPL License Terms @ref lgpl_license
 #ifndef LIBOPENCM3_USB_AUDIO_H
 #define LIBOPENCM3_USB_AUDIO_H
 
+#include <stdint.h>
+
 /*
  * Definitions from the USB_AUDIO_ or usb_audio_ namespace come from:
  * "Universal Serial Bus Class Definitions for Audio Devices, Revision 1.0"
