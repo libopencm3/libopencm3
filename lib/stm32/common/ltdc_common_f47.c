@@ -67,20 +67,25 @@ void ltdc_set_tft_sync_timings(uint16_t sync_width,    uint16_t sync_height,
 	LTDC_TWCR = (w << 16) | (h << 0);
 }
 
-void ltdc_setup_windowing(uint8_t  layer_number,
-			  uint16_t h_back_porch, uint16_t v_back_porch,
-			  uint16_t active_width, uint16_t active_height)
-{
-	active_width  += h_back_porch - 1;
-	active_height += v_back_porch - 1;
-	/*assert((h_back_porch & 0xfff == h_back_porch) &&
-		 (v_back_porch  & 0xfff == v_back_porch) &&
-		 (active_width & 0xfff == active_width) &&
-		 (active_height & 0xfff == active_height));*/
-	LTDC_LxWHPCR(layer_number) = (active_width  << 16) |
-				     (h_back_porch << 0);
-	LTDC_LxWVPCR(layer_number) = (active_height << 16) |
-				     (v_back_porch << 0);
+/*---------------------------------------------------------------------------*/
+/** @brief LTDC Windowing Setup
+@param[in] layer_number unsigned int8. @ref ltdc_layer_num
+@param[in] h_back_porch unsigned int16. Horizontal Back Porch
+@param[in] v_back_porch unsigned int16. Vertical Back Porch
+@param[in] h_sync unsigned int16. Horizontal Sync
+@param[in] v_sync unsigned int16. Vertical Sync
+@param[in] width unsigned int16. Width of the screen (e.g. LCD is 320x240, width
+would be 320)
+@param[in] height unsigned int16. Height of the screen (e.g. LCD is 320x240,
+height would be 240)
+*/
+void ltdc_setup_windowing(uint8_t layer_number, uint16_t h_back_porch,
+			uint16_t v_back_porch, uint16_t h_sync,
+			uint16_t v_sync, uint16_t width, uint16_t height) {
+	LTDC_LxWHPCR(layer_number) = (h_back_porch + width + h_sync - 1) << LTDC_LxWHPCR_WHSPPOS_SHIFT |
+		(h_sync + h_back_porch) << LTDC_LxWHPCR_WHSTPOS_SHIFT;
+	LTDC_LxWVPCR(layer_number) = (v_back_porch + height + v_sync - 1) << LTDC_LxWVPCR_WVSPPOS_SHIFT |
+		(v_back_porch + v_sync) << LTDC_LxWVPCR_WVSTPOS_SHIFT;
 }
 
 /**@}*/

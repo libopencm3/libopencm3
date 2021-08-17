@@ -52,10 +52,10 @@ alternate function push-pull output where the PWM output will appear.
 	rcc_periph_clock_enable(RCC_GPIOA);
 
 	// for F1....
-	gpio_set_output_options(GPIOA, GPIO_OTYPE_PP, GPIO_OSPEED_50MHZ, GPIO8);
-	// For anyone else
 	rcc_periph_clock_enable(RCC_AFIO);
 	gpio_set_mode(GPIOA, GPIO_MODE_OUTPUT_50_MHZ, GPIO_CNF_OUTPUT_ALTFN_PUSHPULL, GPIO8);
+	// For anyone else
+	gpio_set_output_options(GPIOA, GPIO_OTYPE_PP, GPIO_OSPEED_50MHZ, GPIO8);
 	// End of family specific
 
 	rcc_periph_clock_enable(RCC_TIM1);
