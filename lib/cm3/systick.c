@@ -126,6 +126,19 @@ void systick_set_clocksource(uint8_t clocksource)
 }
 
 /*---------------------------------------------------------------------------*/
+/** @brief Get the SysTick Clock Source.
+ *
+ * The clock source can be either the AHB clock or the same clock divided by 8.
+ *
+ * @returns clocksource uint8_t. Clock source from @ref systick_clksource.
+ */
+
+uint8_t systick_get_clocksource(void)
+{
+	return STK_CSR & STK_CSR_CLKSOURCE;
+}
+
+/*---------------------------------------------------------------------------*/
 /** @brief Enable SysTick Interrupt.
  *
  */
