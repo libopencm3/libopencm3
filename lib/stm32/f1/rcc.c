@@ -720,8 +720,8 @@ void rcc_set_prediv1_source(uint32_t rccsrc)
 /** @brief RCC Get the System Clock Source.
 
 @returns Unsigned int32. System clock source:
-@li 00 indicates HSE
-@li 01 indicates LSE
+@li 00 indicates HSI
+@li 01 indicates HSE
 @li 02 indicates PLL
 */
 
