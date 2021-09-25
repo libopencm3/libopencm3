@@ -796,6 +796,7 @@ extern uint32_t rcc_apb2_frequency;
 
 enum rcc_clock_3v3 {
 	RCC_CLOCK_3V3_84MHZ,
+	RCC_CLOCK_3V3_96MHZ,
 	RCC_CLOCK_3V3_168MHZ,
 	RCC_CLOCK_3V3_180MHZ,
 	RCC_CLOCK_3V3_END
