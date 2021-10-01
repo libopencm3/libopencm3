@@ -301,6 +301,16 @@ bool i2c_nack(uint32_t i2c)
 	return (I2C_ISR(i2c) & I2C_ISR_NACKF);
 }
 
+void i2c_clear_nack(uint32_t i2c)
+{
+	I2C_ICR(i2c) |= I2C_ICR_NACKCF;
+}
+
+bool i2c_stop_detected(uint32_t i2c)
+{
+	return (I2C_ISR(i2c) & I2C_ISR_STOPF);
+}
+
 bool i2c_busy(uint32_t i2c)
 {
 	return (I2C_ISR(i2c) & I2C_ISR_BUSY);
@@ -415,7 +425,16 @@ void i2c_transfer7(uint32_t i2c, uint8_t addr, const uint8_t *w, size_t wn, uint
 				if (i2c_transmit_int_status(i2c)) {
 					wait = false;
 				}
-				while (i2c_nack(i2c)); /* FIXME Some error */
+				if (i2c_stop_detected(i2c)) {
+					/* Clear potential stop detection */
+					i2c_clear_stop(i2c);
+				}
+				if (i2c_nack(i2c)) {
+					/* Stop transaction on nack */
+					i2c_clear_nack(i2c);
+					i2c_send_stop(i2c);
+					return;
+				}
 			}
 			i2c_send_data(i2c, *w++);
 		}
