@@ -60,6 +60,17 @@
 #define SCSI_READ_10				0x28
 
 
+/* Vital product data inquiry page codes */
+#define VPD_PAGE_CODE_SUPPORTED_VPD_PAGES			0x00
+#define VPD_PAGE_CODE_UNIT_SERIAL_NUMBER			0x80
+#define VPD_PAGE_CODE_DEVICE_IDENTIFICATION			0x83
+#define VPD_PAGE_CODE_SOFTWARE_INTERFACE_IDENTIFICATION		0x84
+#define VPD_PAGE_CODE_MANAGEMENT_NETWORK_ADDRESSES		0x85
+#define VPD_PAGE_CODE_EXTENDED_INQUIRY_DATA			0x86
+#define VPD_PAGE_CODE_MODE_PAGE_POLICY				0x87
+#define VPD_PAGE_CODE_SCSI_PORTS				0x88
+
+
 /* Required SCSI Commands */
 
 /* Optional SCSI Commands */
@@ -106,7 +117,8 @@ enum sbc_asc {
 	SBC_ASC_WRITE_PROTECTED			= 0x27,
 	SBC_ASC_NOT_READY_TO_READY_CHANGE	= 0x28,
 	SBC_ASC_FORMAT_ERROR			= 0x31,
-	SBC_ASC_MEDIUM_NOT_PRESENT		= 0x3A
+	SBC_ASC_MEDIUM_NOT_PRESENT		= 0x3A,
+	SBC_ASC_MEDIA_LOAD_OR_EJECT_FAILED	= 0x53
 };
 
 enum sbc_ascq {
@@ -181,12 +193,16 @@ struct _usbd_mass_storage {
 	const char *product_id;
 	const char *product_revision_level;
 	uint32_t block_count;
+	uint8_t medium_eject_locked;
+	uint8_t medium_loaded;
 
 	int (*read_block)(uint32_t lba, uint8_t *copy_to);
 	int (*write_block)(uint32_t lba, const uint8_t *copy_from);
 
 	void (*lock)(void);
 	void (*unlock)(void);
+
+	void (*power_condition_changed)(uint8_t power_condition, uint8_t load_eject);
 
 	struct usb_msc_trans trans;
 	struct sbc_sense_info sense;
@@ -229,6 +245,32 @@ static const uint8_t _spc3_request_sense[18] = {
 	0x00,	/* Byte 15: SKSV = 0, SenseKeySpecific[0] = 0 */
 	0x00,	/* Byte 16: SenseKeySpecific[0] = 0 */
 	0x00	/* Byte 17: SenseKeySpecific[0] = 0 */
+};
+
+static const uint8_t _spc3_vpd_supported_vpd_pages[7] = {
+	0x00,	/* Byte 0: Peripheral Qualifier = 0, Peripheral Device Type = 0 */
+	VPD_PAGE_CODE_SUPPORTED_VPD_PAGES,	/* Byte 1: Page code */
+	0x00,	/* Byte 2: Reserved */
+	0x03,	/* Byte 3: Page Length (n-3): 3 */
+		/* Byte 4 - Byte 6: Supported pages */
+	VPD_PAGE_CODE_SUPPORTED_VPD_PAGES,
+	VPD_PAGE_CODE_UNIT_SERIAL_NUMBER,
+	VPD_PAGE_CODE_DEVICE_IDENTIFICATION
+};
+
+static const uint8_t _spc3_vpd_unit_serial_number[5] = {
+	0x00,	/* Byte 0: Peripheral Qualifier = 0, Peripheral Device Type = 0 */
+	VPD_PAGE_CODE_UNIT_SERIAL_NUMBER,	/* Byte 1: Page code */
+	0x00,	/* Byte 2: Reserved */
+	0x01,	/* Byte 3: Page Length (n-3): 1 */
+	0x20	/* Byte 4: ASCII space - serial number not available */
+};
+
+static const uint8_t _spc3_vpd_device_identification[4] = {
+	0x00,	/* Byte 0: Peripheral Qualifier = 0, Peripheral Device Type = 0 */
+	VPD_PAGE_CODE_DEVICE_IDENTIFICATION,	/* Byte 1: Page code */
+	0x00,	/* Byte 3 - Byte 4: Page Length (n-3): 0 */
+	0x00
 };
 
 /*-- SCSI Layer --------------------------------------------------------------*/
@@ -360,6 +402,108 @@ static void scsi_read_capacity(usbd_mass_storage *ms,
 	}
 }
 
+static void scsi_read_format_capacities(usbd_mass_storage *ms, struct usb_msc_trans *trans, enum trans_event event)
+{
+	if (EVENT_CBW_VALID == event) {
+		trans->msd_buf[0] = 0x00;		// Reserved
+		trans->msd_buf[1] = 0x00;		// Reserved
+		trans->msd_buf[2] = 0x00;		// Reserved
+
+		trans->msd_buf[3] = 0x08;		// Capacity List Length
+
+		trans->msd_buf[4] = ms->block_count >> 24;		// Number of blocks (MSB)
+		trans->msd_buf[5] = 0xff & (ms->block_count >> 16);
+		trans->msd_buf[6] = 0xff & (ms->block_count >> 8);
+		trans->msd_buf[7] = 0xff & ms->block_count;		// Number of blocks (LSB)
+
+		trans->msd_buf[8] = 0x02;		// Descriptor Tpye: Formatted media
+		trans->msd_buf[9] = 0x00;		// Block Length (MSB)
+		trans->msd_buf[10] = 0x02;
+		trans->msd_buf[11] = 0x00;		// Block Length (LSB)
+
+		trans->bytes_to_write = 12;
+		set_sbc_status_good(ms);
+	}
+}
+
+static void scsi_start_stop_unit(usbd_mass_storage *ms,
+				 struct usb_msc_trans *trans,
+				 enum trans_event event)
+{
+	if (EVENT_CBW_VALID == event) {
+		uint8_t *buf;
+		uint8_t power_condition;
+
+		buf = get_cbw_buf(trans);
+		power_condition = (buf[4] & 0xf0) >> 4;
+
+		switch (power_condition) {
+			case 0x00:
+			{
+				uint8_t load_eject = (buf[4] & 2) != 0x00;
+
+				if (load_eject &&
+				    (ms->medium_eject_locked == USB_MSC_SPC_2_MEDIUM_EJECT_LOCKED_REMOTE ||
+                                     ms->medium_eject_locked == USB_MSC_SPC_2_MEDIUM_EJECT_LOCKED_BOTH)) {
+					set_sbc_status(ms,
+						       SBC_SENSE_KEY_ILLEGAL_REQUEST,
+						       SBC_ASC_MEDIA_LOAD_OR_EJECT_FAILED,
+						       SBC_ASCQ_NA);
+					trans->csw.csw.bCSWStatus = CSW_STATUS_FAILED;
+				} else {
+					if ((buf[4] & 1) != 0) {
+						if (ms->power_condition_changed) {
+							ms->power_condition_changed(USB_MSC_SBC_2_POWER_CONDITION_START,
+										    load_eject);
+						}
+					} else {
+						if (ms->power_condition_changed) {
+							ms->power_condition_changed(USB_MSC_SBC_2_POWER_CONDITION_STOP,
+										    load_eject);
+						}
+					}
+
+					set_sbc_status_good(ms);
+				}
+				break;
+			}
+			case 0x01:
+			case 0x02:
+			case 0x03:
+			case 0x05:
+			case 0x07:
+			case 0x0A:
+			case 0x0B:
+				if (ms->power_condition_changed) {
+					ms->power_condition_changed(power_condition,
+								    false);
+				}
+				set_sbc_status_good(ms);
+				break;
+			default:
+				set_sbc_status(ms, SBC_SENSE_KEY_ILLEGAL_REQUEST,
+					       SBC_ASC_INVALID_COMMAND_OPERATION_CODE,
+					       SBC_ASCQ_NA);
+				trans->csw.csw.bCSWStatus = CSW_STATUS_FAILED;
+				break;
+		}
+	}
+}
+
+static void scsi_prevent_allow_medium_removal(usbd_mass_storage *ms,
+					      struct usb_msc_trans *trans,
+					      enum trans_event event)
+{
+	if (EVENT_CBW_VALID == event) {
+		uint8_t *buf;
+
+		buf = get_cbw_buf(trans);
+		ms->medium_eject_locked = buf[4] & 0x03;
+
+		set_sbc_status_good(ms);
+	}
+}
+
 static void scsi_format_unit(usbd_mass_storage *ms,
 			     struct usb_msc_trans *trans,
 			     enum trans_event event)
@@ -470,8 +614,40 @@ static void scsi_inquiry(usbd_mass_storage *ms,
 
 			set_sbc_status_good(ms);
 		} else {
-			/* TODO: Add VPD 0x83 support */
-			/* TODO: Add VPD 0x00 support */
+			const uint8_t page_code = buf[2];
+			switch (page_code) {
+				case VPD_PAGE_CODE_SUPPORTED_VPD_PAGES:
+					trans->bytes_to_write = sizeof(_spc3_vpd_supported_vpd_pages);
+					memcpy(trans->msd_buf, _spc3_vpd_supported_vpd_pages, sizeof(_spc3_vpd_supported_vpd_pages));
+					trans->csw.csw.dCSWDataResidue = sizeof(_spc3_vpd_supported_vpd_pages);
+
+					set_sbc_status_good(ms);
+					break;
+
+				case VPD_PAGE_CODE_UNIT_SERIAL_NUMBER:
+					trans->bytes_to_write = sizeof(_spc3_vpd_unit_serial_number);
+					memcpy(trans->msd_buf, _spc3_vpd_unit_serial_number, sizeof(_spc3_vpd_unit_serial_number));
+					trans->csw.csw.dCSWDataResidue = sizeof(_spc3_vpd_unit_serial_number);
+
+					set_sbc_status_good(ms);
+					break;
+
+				case VPD_PAGE_CODE_DEVICE_IDENTIFICATION:
+					trans->bytes_to_write = sizeof(_spc3_vpd_device_identification);
+					memcpy(trans->msd_buf, _spc3_vpd_device_identification, sizeof(_spc3_vpd_device_identification));
+					trans->csw.csw.dCSWDataResidue = sizeof(_spc3_vpd_device_identification);
+
+					set_sbc_status_good(ms);
+					break;
+
+				default:
+					trans->csw.csw.bCSWStatus = CSW_STATUS_FAILED;
+					set_sbc_status(ms,
+						       SBC_SENSE_KEY_ILLEGAL_REQUEST,
+						       SBC_ASC_INVALID_FIELD_IN_CDB,
+						       SBC_ASCQ_NA);
+					break;
+			}
 		}
 	}
 }
@@ -495,8 +671,17 @@ static void scsi_command(usbd_mass_storage *ms,
 
 	switch (trans->cbw.cbw.CBWCB[0]) {
 	case SCSI_TEST_UNIT_READY:
+		/* Send the current state. */
+			if (ms->medium_loaded) {
+				set_sbc_status_good(ms);
+			} else {
+				set_sbc_status(ms, SBC_SENSE_KEY_NOT_READY,
+									SBC_ASC_MEDIUM_NOT_PRESENT,
+									SBC_ASCQ_NA);
+				trans->csw.csw.bCSWStatus = CSW_STATUS_FAILED;
+			}
+		break;
 	case SCSI_SEND_DIAGNOSTIC:
-		/* Do nothing, just send the success. */
 		set_sbc_status_good(ms);
 		break;
 	case SCSI_FORMAT_UNIT:
@@ -525,6 +710,15 @@ static void scsi_command(usbd_mass_storage *ms,
 		break;
 	case SCSI_WRITE_10:
 		scsi_write_10(ms, trans, event);
+		break;
+	case SCSI_READ_FORMAT_CAPACITIES:
+		scsi_read_format_capacities(ms, trans, event);
+		break;
+	case SCSI_START_STOP_UNIT:
+		scsi_start_stop_unit(ms, trans, event);
+		break;
+	case SCSI_PREVENT_ALLOW_MEDIUM_REMOVAL:
+		scsi_prevent_allow_medium_removal(ms, trans, event);
 		break;
 	default:
 		set_sbc_status(ms, SBC_SENSE_KEY_ILLEGAL_REQUEST,
@@ -593,20 +787,22 @@ static void msc_data_rx_cb(usbd_device *usbd_dev, uint8_t ep)
 				}
 				trans->current_block++;
 			}
-		}
+			// correction on PR #409
+			if (trans->current_block == trans->block_count) {
+				if (false == trans->csw_valid) {
+					scsi_command(ms, trans, EVENT_NEED_STATUS);
+					trans->csw_valid = true;
+				}
 
-		/* Fix "writes aren't acknowledged" bug on Linux (PR #409) */
-		if (false == trans->csw_valid) {
-			scsi_command(ms, trans, EVENT_NEED_STATUS);
-			trans->csw_valid = true;
-		}
-		left = sizeof(struct usb_msc_csw) - trans->csw_sent;
-		if (0 < left) {
-			max_len = MIN(ms->ep_out_size, left);
-			p = &trans->csw.buf[trans->csw_sent];
-			len = usbd_ep_write_packet(usbd_dev, ms->ep_in, p,
-						   max_len);
-			trans->csw_sent += len;
+				left = sizeof(struct usb_msc_csw) - trans->csw_sent;
+				if (0 < left) {
+					max_len = MIN(ms->ep_out_size, left);
+					p = &trans->csw.buf[trans->csw_sent];
+					len = usbd_ep_write_packet(usbd_dev, ms->ep_in, p,
+										max_len);
+					trans->csw_sent += len;
+				}
+			}
 		}
 
 	} else if (trans->byte_count < trans->bytes_to_write) {
@@ -633,22 +829,6 @@ static void msc_data_rx_cb(usbd_device *usbd_dev, uint8_t ep)
 		len = usbd_ep_write_packet(usbd_dev, ms->ep_in, p, max_len);
 		trans->byte_count += len;
 	} else {
-		if (0 < trans->block_count) {
-			if (trans->current_block == trans->block_count) {
-				uint32_t lba;
-
-				lba = trans->lba_start + trans->current_block;
-				if (0 != (*ms->write_block)(lba,
-							    trans->msd_buf)) {
-					/* Error */
-				}
-
-				trans->current_block = 0;
-				if (NULL != ms->unlock) {
-					(*ms->unlock)();
-				}
-			}
-		}
 		if (false == trans->csw_valid) {
 			scsi_command(ms, trans, EVENT_NEED_STATUS);
 			trans->csw_valid = true;
@@ -819,10 +999,13 @@ usbd_mass_storage *usb_msc_init(usbd_device *usbd_dev,
 	_mass_storage.product_id = product_id;
 	_mass_storage.product_revision_level = product_revision_level;
 	_mass_storage.block_count = block_count - 1;
+	_mass_storage.medium_eject_locked = USB_MSC_SPC_2_MEDIUM_EJECT_LOCKED_NONE;
+	_mass_storage.medium_loaded = !0;
 	_mass_storage.read_block = read_block;
 	_mass_storage.write_block = write_block;
 	_mass_storage.lock = NULL;
 	_mass_storage.unlock = NULL;
+	_mass_storage.power_condition_changed = NULL;
 
 	_mass_storage.trans.lba_start = 0xffffffff;
 	_mass_storage.trans.block_count = 0;
@@ -839,6 +1022,55 @@ usbd_mass_storage *usb_msc_init(usbd_device *usbd_dev,
 	usbd_register_set_config_callback(usbd_dev, msc_set_config);
 
 	return &_mass_storage;
+}
+
+/** @brief Returns the medium eject locked state.
+
+ @param[in] msc_dev The mass storage devive handle returned by usb_msc_init.
+
+ @return Current eject lock state.
+ */
+uint8_t usb_msc_get_medium_eject_locked(usbd_mass_storage *msc_dev)
+{
+   return msc_dev->medium_eject_locked;
+}
+
+/** @brief Updates the medium loaded state.
+
+ @param[in] is_loaded 0 if the device no longer has a medium available,
+			anything else to signal that a medium is present.
+ */
+void usb_msc_set_medium_loaded(usbd_mass_storage *msc_dev,
+			       uint8_t is_loaded)
+{
+	msc_dev->medium_loaded = is_loaded != 0;
+}
+
+/** @brief Get the medium loaded state.
+
+ @param[in] msc_dev The mass storage devive handle returned by usb_msc_init.
+
+ @return 0 signals the device is marked as not having a medium loaded,
+	 any other value signals that the medium is loaded.
+ */
+uint8_t usb_msc_get_medium_loaded(usbd_mass_storage *msc_dev)
+{
+	return msc_dev->medium_loaded;
+}
+
+/** @brief Registers a callback for SCSI power condition changes.
+ 
+ @param[in] msc_dev The mass storage devive handle returned by usb_msc_init.
+ @param[in] power_condition_changed The function called when the host requests 
+				    power condition changes.
+ 
+ @return Pointer to the usbd_mass_storage struct.
+ */
+void usb_msc_register_power_condition_callback(usbd_mass_storage *msc_dev,
+					       void (*power_condition_changed)(uint8_t power_condition,
+									       uint8_t load_eject))
+{
+	msc_dev->power_condition_changed = power_condition_changed;
 }
 
 /** @} */
