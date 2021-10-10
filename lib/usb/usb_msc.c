@@ -841,6 +841,25 @@ static void msc_data_rx_cb(usbd_device *usbd_dev, uint8_t ep)
 			len = usbd_ep_write_packet(usbd_dev, ms->ep_in, p,
 						   max_len);
 			trans->csw_sent += len;
+		} else if (sizeof(struct usb_msc_csw) == trans->csw_sent) {
+			/* fix for the rare occasion where host is starting a new transaction 
+			 * before we had a chance to end the previous transaction (msc_data_tx_cb)
+			 * this may happen if CTR_TX and CTR_RX interrupts are pending simultaneously 
+			 * due to delays in usbd_polling
+			 * if we are here, we can safely assume that CTR_TX will be pending on the IN endpoint, 
+			 * because host wouldn't start a new transaction if it hadn't ACK'd the previous CSW
+			 * but there is currently no target independent way to check the endpoint register directly in opencm3.
+			 */
+			/* End of transaction */
+			trans->lba_start = 0xffffffff;
+			trans->block_count = 0;
+			trans->current_block = 0;
+			trans->cbw_cnt = 0;
+			trans->bytes_to_read = 0;
+			trans->bytes_to_write = 0;
+			trans->byte_count = 0;
+			trans->csw_sent = 0;
+			trans->csw_valid = false;
 		}
 	}
 }
