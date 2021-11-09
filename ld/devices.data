@@ -287,11 +287,16 @@ sam3x8c* sam3x ROM=512K RAM=64K RAM1=32K
 sam3x8e* sam3xnfc ROM=512K RAM=64K RAM1=32K
 
 samd09?13* samd ROM=8K RAM=4K
+samd09?14* samd ROM=16K RAM=4K
 
 samd10?13* samd ROM=8K RAM=4K
-samd10?14* samd ROM=16K RAM=4K
+samd1[01]?14* samd ROM=16K RAM=4K
 
-samd21?18* samd ROM=256K RAM=32K
+samd2[01]?14* samd ROM=16K RAM=2K
+samd2[01]?15* samd ROM=32K RAM=4K
+samd2[01]?16* samd ROM=64K RAM=8K
+samd2[01]?17* samd ROM=128K RAM=16K
+samd2[01]?18* samd ROM=256K RAM=32K
 
 ################################################################################
 # the SAM4 chips
