@@ -49,7 +49,16 @@ LGPL License Terms @ref lgpl_license
 #define PWR_CR_VOS_SHIFT			14
 #define PWR_CR_VOS_MASK			0x3
 
-/* Bits [13:10]: Reserved */
+/* ADCDC1: Masks extra flash accesses by prefetch (see AN4073) */
+#define PWR_CR_ADCDC1			(1 << 13)
+
+/* Bit 12: Reserved */
+
+/* Bit 11: Main regulator Low Voltage in Deep Sleep */
+#define PWR_CR_MRLVDS			(1 << 11)
+
+/* Bit 10: Low-power regulator Low Voltage in Deep Sleep */
+#define PWR_CR_LPLVDS			(1 << 10)
 
 /* FPDS: Flash power down in stop mode */
 #define PWR_CR_FPDS			(1 << 9)
