@@ -40,44 +40,38 @@ LGPL License Terms @ref lgpl_license
  * This file extends the common STM32 version with definitions only
  * applicable to the STM32F4 series of devices.
  */
+/** @addtogroup pwr_defines
+ * @{*/
 
 /* --- PWR_CR values ------------------------------------------------------- */
 
-/* Bits [31:16]: Reserved */
-
-/* VOS: Regulator voltage scaling output selection */
+/** VOS: Regulator voltage scaling output selection */
 #define PWR_CR_VOS_SHIFT			14
 #define PWR_CR_VOS_MASK			0x3
 
-/* ADCDC1: Masks extra flash accesses by prefetch (see AN4073) */
+/** ADCDC1: Masks extra flash accesses by prefetch (see AN4073) */
 #define PWR_CR_ADCDC1			(1 << 13)
 
-/* Bit 12: Reserved */
-
-/* Bit 11: Main regulator Low Voltage in Deep Sleep */
+/** MRLVDS/MRUDS: Main regulator Low Voltage / Under drive in Deep Sleep */
 #define PWR_CR_MRLVDS			(1 << 11)
+#define PWR_CR_MRUDS			PWR_CR_MRLVDS
 
-/* Bit 10: Low-power regulator Low Voltage in Deep Sleep */
+/** LPLVDS/LPUDS: Low-power regulator Low Voltage / Under drive in Deep Sleep */
 #define PWR_CR_LPLVDS			(1 << 10)
+#define PWR_CR_LPUDS			PWR_CR_LPLVDS
 
-/* FPDS: Flash power down in stop mode */
+/** FPDS: Flash power down in stop mode */
 #define PWR_CR_FPDS			(1 << 9)
 
 /* --- PWR_CSR values ------------------------------------------------------ */
 
-/* Bits [31:15]: Reserved */
-
-/* VOSRDY: Regulator voltage scaling output selection ready bit */
+/** VOSRDY: Regulator voltage scaling output selection ready bit */
 #define PWR_CSR_VOSRDY			(1 << 14)
 
-/* Bits [13:10]: Reserved */
-
-/* BRE: Backup regulator enable */
+/** BRE: Backup regulator enable */
 #define PWR_CSR_BRE			(1 << 9)
 
-/* Bits [7:4]: Reserved */
-
-/* BRR: Backup regulator ready */
+/** BRR: Backup regulator ready */
 #define PWR_CSR_BRR			(1 << 3)
 
 /* --- Function prototypes ------------------------------------------------- */
@@ -93,5 +87,7 @@ BEGIN_DECLS
 void pwr_set_vos_scale(enum pwr_vos_scale scale);
 
 END_DECLS
+
+/**@}*/
 
 #endif
