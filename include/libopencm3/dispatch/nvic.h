@@ -76,6 +76,12 @@
 #elif defined(MSP432E4)
 #   include <libopencm3/msp432/e4/nvic.h>
 
+#elif defined(NRF51)
+#	include <libopencm3/nrf/51/nvic.h>
+
+#elif defined(NRF52)
+#	include <libopencm3/nrf/52/nvic.h>
+
 #elif defined(VF6XX)
 #	include <libopencm3/vf6xx/nvic.h>
 
