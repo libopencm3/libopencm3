@@ -1,0 +1,33 @@
+{
+    "irqs": [
+        "power_clock",
+        "radio",
+        "uart0",
+        "spi0_twi0",
+        "spi1_twi1",
+        "reserved0",
+        "gpiote",
+        "adc",
+        "timer0",
+        "timer1",
+        "timer2",
+        "rtc0",
+        "temp",
+        "rng",
+        "ecb",
+        "ccm_aar",
+        "wdt",
+        "rtc1",
+        "qdec",
+        "lpcomp",
+        "swi0",
+        "swi1",
+        "swi2",
+        "swi3",
+        "swi4",
+        "swi5"
+    ],
+    "partname_humanreadable": "Nordic Semi NRF51 series",
+    "partname_doxygen": "NRF51",
+    "includeguard": "LIBOPENCM3_NRF51_NVIC_H"
+}

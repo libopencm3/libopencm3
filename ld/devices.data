@@ -497,6 +497,20 @@ pac5532 pac55xx ROM=128K RAM=32K
 pac5556 pac55xx ROM=128K RAM=32K
 
 ################################################################################
+# nRF52xx Cortex-M4 based chips
+nrf52805* nrf52sf ROM=192k RAM=24K
+nrf52810* nrf52sf ROM=192k RAM=24K
+nrf52811* nrf52sf ROM=192k RAM=24K
+nrf52820* nrf52sf ROM=256k RAM=32K
+
+nrf52832qfaa nrf52fp ROM=512K RAM=64K
+nrf52832qfab nrf52fp ROM=256K RAM=32K
+nrf52832ciaa nrf52fp ROM=512K RAM=64K
+
+nrf52833* nrf52fp ROM=512K RAM=128K
+nrf52840* nrf52fp ROM=1024K RAM=256K
+
+################################################################################
 ################################################################################
 ################################################################################
 # the STM32 family groups
@@ -600,3 +614,13 @@ vf6xx END CPU=cortex-m4 FPU=hard-fpv4-sp-d16
 # PAC55xx families
 
 pac55xx END ROM_OFF=0x00000000 RAM_OFF=0x20000000 CPU=cortex-m4 FPU=hard-fpv4-sp-d16
+
+################################################################################
+# nRF52xx families
+#
+nrf52sf nrf52 FPU=soft
+nrf52fp nrf52 FPU=hard-fpv4-sp-d16
+
+nrf52 END ROM_OFF=0x00000000 RAM_OFF=0x20000000 CPU=cortex-m4
+
+

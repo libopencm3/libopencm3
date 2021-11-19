@@ -50,6 +50,11 @@
 #elif defined(LPC43XX_M0)
 #	include "../lpc43xx/m0/vector_nvic.c"
 
+#elif defined(NRF51)
+#	include "../nrf/51/vector_nvic.c"
+#elif defined(NRF52)
+#	include "../nrf/52/vector_nvic.c"
+
 #elif defined(SAM3A)
 #	include "../sam/3a/vector_nvic.c"
 #elif defined(SAM3N)
