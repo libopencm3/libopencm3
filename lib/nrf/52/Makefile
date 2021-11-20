@@ -39,7 +39,6 @@ OBJS		= ../common/gpio.o \
 			  ../common/radio.o \
 			  ../common/timer.o \
 			  ../common/i2c.o \
-			  ../common/ostick.o
 
 VPATH += ../../cm3
 
