@@ -15,8 +15,7 @@
  * along with this library.  If not, see <http://www.gnu.org/licenses/>.
  */
 
-#ifndef NRF_RADIO_H
-#define NRF_RADIO_H
+#pragma once
 
 #if defined(NRF51)
 #	include <libopencm3/nrf/51/radio.h>
@@ -26,4 +25,3 @@
 #	error "Processor family not defined."
 #endif
 
-#endif

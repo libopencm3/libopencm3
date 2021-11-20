@@ -15,8 +15,7 @@
  * along with this library.  If not, see <http://www.gnu.org/licenses/>.
  */
 
-#ifndef NRF51_TIMER_H
-#define NRF51_TIMER_H
+#pragma once
 
 #include <libopencm3/cm3/common.h>
 #include <libopencm3/nrf/memorymap.h>
@@ -24,4 +23,3 @@
 #include <libopencm3/nrf/common/timer.h>
 
 
-#endif  /* NRF51_TIMER_H */

@@ -15,8 +15,7 @@
  * along with this library.  If not, see <http://www.gnu.org/licenses/>.
  */
 
-#ifndef NRF_FICR_H
-#define NRF_FICR_H
+#pragma once
 
 
 #if defined(NRF51)
@@ -27,4 +26,3 @@
 #	error "Processor family not defined."
 #endif
 
-#endif

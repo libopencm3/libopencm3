@@ -15,8 +15,7 @@
  * along with this library.  If not, see <http://www.gnu.org/licenses/>.
  */
 
-#ifndef NRF_COMMON_I2C_H
-#define NRF_COMMON_I2C_H
+#pragma once
 
 #include <libopencm3/cm3/common.h>
 #include <libopencm3/nrf/memorymap.h>
@@ -170,4 +169,3 @@ void i2c_resume(uint32_t i2c);
 
 END_DECLS
 
-#endif  /* NRF_I2C_H */

@@ -15,8 +15,7 @@
  * along with this library.  If not, see <http://www.gnu.org/licenses/>.
  */
 
-#ifndef NRF_COMMON_CLOCK_H
-#define NRF_COMMON_CLOCK_H
+#pragma once
 
 #include <stdbool.h>
 
@@ -84,4 +83,3 @@ void clock_set_lfclk_src(enum clock_lfclk_src lfclk_src);
 
 END_DECLS
 
-#endif  /* NRF_CLOCK_H */

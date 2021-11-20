@@ -15,8 +15,7 @@
  * along with this library.  If not, see <http://www.gnu.org/licenses/>.
  */
 
-#ifndef NRF_TIMER_H
-#define NRF_TIMER_H
+#pragma once
 
 #if defined(NRF51)
 #	include <libopencm3/nrf/51/timer.h>
@@ -24,7 +23,5 @@
 #	include <libopencm3/nrf/52/timer.h>
 #else
 #	error "Processor family not defined."
-#endif
-
 #endif
 

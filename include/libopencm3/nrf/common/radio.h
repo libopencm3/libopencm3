@@ -15,8 +15,7 @@
  * along with this library.  If not, see <http://www.gnu.org/licenses/>.
  */
 
-#ifndef NRF_COMMON_RADIO_H
-#define NRF_COMMON_RADIO_H
+#pragma once
 
 #include <libopencm3/cm3/common.h>
 #include <libopencm3/nrf/memorymap.h>
@@ -305,4 +304,3 @@ void radio_set_crc_skipaddr(bool is_skip_addr);
 END_DECLS
 
 
-#endif  /* NRF_RADIO_H */

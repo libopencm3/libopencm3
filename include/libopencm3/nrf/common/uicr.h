@@ -15,8 +15,7 @@
  * along with this library.  If not, see <http://www.gnu.org/licenses/>.
  */
 
-#ifndef NRF_COMMON_UICR_H
-#define NRF_COMMON_UICR_H
+#pragma once
 
 #include <libopencm3/cm3/common.h>
 #include <libopencm3/nrf/memorymap.h>
@@ -39,4 +38,3 @@
 #define UICR_CUSTOMER(n)			MMIO32(UICR_BASE + 0x080 + 0x4 * (n))
 
 
-#endif  /* NRF_UICR_H */

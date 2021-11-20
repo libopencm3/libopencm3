@@ -15,8 +15,7 @@
  * along with this library.  If not, see <http://www.gnu.org/licenses/>.
  */
 
-#ifndef NRF51_FICR_H
-#define NRF51_FICR_H
+#pragma once
 
 #include <libopencm3/cm3/common.h>
 #include <libopencm3/nrf/memorymap.h>
@@ -43,4 +42,3 @@
 #define FICR_OVERRIDEEN_NRF_1MBIT           (1 << 0)
 #define FICR_OVERRIDEEN_BLE_1MBIT           (1 << 3)
 
-#endif  /* NRF51_FICR_H */

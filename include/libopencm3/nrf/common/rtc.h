@@ -15,8 +15,7 @@
  * along with this library.  If not, see <http://www.gnu.org/licenses/>.
  */
 
-#ifndef NRF_COMMON_RTC_H
-#define NRF_COMMON_RTC_H
+#pragma once
 
 #include <libopencm3/cm3/common.h>
 #include <libopencm3/nrf/memorymap.h>
@@ -140,4 +139,3 @@ void rtc_set_compare(uint32_t rtc, uint8_t cmp, uint32_t value);
 
 END_DECLS
 
-#endif  /* NRF_RTC_H */

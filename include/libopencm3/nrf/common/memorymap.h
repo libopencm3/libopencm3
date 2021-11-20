@@ -15,8 +15,7 @@
  * along with this library.  If not, see <http://www.gnu.org/licenses/>.
  */
 
-#ifndef NRF_COMMON_MEMORYMAP_H
-#define NRF_COMMON_MEMORYMAP_H
+#pragma once
 
 #include <libopencm3/cm3/common.h>
 
@@ -103,4 +102,3 @@
 
 #define NVMC_BASE			(APB_BASE + 0x1E000)
 
-#endif

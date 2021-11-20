@@ -15,8 +15,7 @@
  * along with this library.  If not, see <http://www.gnu.org/licenses/>.
  */
 
-#ifndef NRF_COMMON_POWER_H
-#define NRF_COMMON_POWER_H
+#pragma once
 
 #include <libopencm3/cm3/common.h>
 #include <libopencm3/nrf/memorymap.h>
@@ -91,4 +90,3 @@ enum power_pofcon_threshold {
 	POWER_POFCON_THRESHOLD_V27,
 };
 
-#endif  /* NRF_POWER_H */

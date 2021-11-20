@@ -15,8 +15,7 @@
  * along with this library.  If not, see <http://www.gnu.org/licenses/>.
  */
 
-#ifndef NRF51_CLOCK_H
-#define NRF51_CLOCK_H
+#pragma once
 
 #include <stdbool.h>
 
@@ -40,4 +39,3 @@ void clock_set_xtal_freq(enum clock_xtal_freq freq);
 
 END_DECLS
 
-#endif  /* NRF51_CLOCK_H */

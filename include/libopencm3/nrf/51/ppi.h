@@ -15,11 +15,9 @@
  * along with this library.  If not, see <http://www.gnu.org/licenses/>.
  */
 
-#ifndef NRF51_PPI_H
-#define NRF51_PPI_H
+#pragma once
 
 #include <libopencm3/cm3/common.h>
 #include <libopencm3/nrf/memorymap.h>
 #include <libopencm3/nrf/common/ppi.h>
 
-#endif  /* NRF51_PPI_H */

@@ -15,10 +15,8 @@
  * along with this library.  If not, see <http://www.gnu.org/licenses/>.
  */
 
-#ifndef NRF52_GPIO_H
-#define NRF52_GPIO_H
+#pragma once
 
 #include <libopencm3/nrf/common/gpio.h>
 
 
-#endif	/* LIBUCMX_GPIO_H */

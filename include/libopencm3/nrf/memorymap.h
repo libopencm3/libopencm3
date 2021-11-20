@@ -15,8 +15,7 @@
  * along with this library.  If not, see <http://www.gnu.org/licenses/>.
  */
 
-#ifndef NRF_MEMORYMAP_H
-#define NRF_MEMORYMAP_H
+#pragma once
 
 #if defined(NRF51)
 #	include <libopencm3/nrf/51/memorymap.h>
@@ -24,7 +23,5 @@
 #	include <libopencm3/nrf/52/memorymap.h>
 #else
 #	error "Processor family not defined."
-#endif
-
 #endif
 

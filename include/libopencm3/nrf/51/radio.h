@@ -15,8 +15,7 @@
  * along with this library.  If not, see <http://www.gnu.org/licenses/>.
  */
 
-#ifndef NRF51_RADIO_H
-#define NRF51_RADIO_H
+#pragma once
 
 #include <libopencm3/cm3/common.h>
 #include <libopencm3/nrf/memorymap.h>
@@ -36,4 +35,3 @@ void radio_set_mode(enum radio_mode mode);
 
 END_DECLS
 
-#endif  /* NRF51_RADIO_H */

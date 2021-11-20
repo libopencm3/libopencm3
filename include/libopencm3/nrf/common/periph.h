@@ -15,8 +15,7 @@
  * along with this library.  If not, see <http://www.gnu.org/licenses/>.
  */
 
-#ifndef NRF_COMMON_PERIPH_H
-#define NRF_COMMON_PERIPH_H
+#pragma once
 
 #include <libopencm3/cm3/common.h>
 #include <libopencm3/cm3/nvic.h>
@@ -151,4 +150,3 @@
     periph_clear_event(event);\
 } while (0)
 
-#endif  /* NRF_PERIPH_H */

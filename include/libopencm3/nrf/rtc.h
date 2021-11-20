@@ -15,8 +15,7 @@
  * along with this library.  If not, see <http://www.gnu.org/licenses/>.
  */
 
-#ifndef NRF_RTC_H
-#define NRF_RTC_H
+#pragma once
 
 #if defined(NRF51)
 #	include <libopencm3/nrf/51/rtc.h>
@@ -26,4 +25,3 @@
 #	error "Processor family not defined."
 #endif
 
-#endif

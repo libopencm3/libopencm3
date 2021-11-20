@@ -15,8 +15,7 @@
  * along with this library.  If not, see <http://www.gnu.org/licenses/>.
  */
 
-#ifndef NRF_COMMON_TIMER_H
-#define NRF_COMMON_TIMER_H
+#pragma once
 
 #include <libopencm3/cm3/common.h>
 #include <libopencm3/nrf/memorymap.h>
@@ -210,4 +209,3 @@ uint32_t timer_get_freq(uint32_t timer);
 
 END_DECLS
 
-#endif  /* NRF_TIMER_H */

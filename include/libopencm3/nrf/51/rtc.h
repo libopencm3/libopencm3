@@ -15,8 +15,7 @@
  * along with this library.  If not, see <http://www.gnu.org/licenses/>.
  */
 
-#ifndef NRF51_RTC_H
-#define NRF51_RTC_H
+#pragma once
 
 #include <libopencm3/cm3/common.h>
 #include <libopencm3/nrf/memorymap.h>
@@ -24,4 +23,3 @@
 
 #include <libopencm3/nrf/common/rtc.h>
 
-#endif  /* NRF51_RTC_H */

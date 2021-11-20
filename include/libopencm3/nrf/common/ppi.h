@@ -15,8 +15,7 @@
  * along with this library.  If not, see <http://www.gnu.org/licenses/>.
  */
 
-#ifndef NRF_COMMON_PPI_H
-#define NRF_COMMON_PPI_H
+#pragma once
 
 #include <libopencm3/cm3/common.h>
 #include <libopencm3/nrf/memorymap.h>
@@ -142,4 +141,3 @@ void ppi_remove_channel(uint32_t* chan_map, uint8_t chan_num);
 
 END_DECLS
 
-#endif  /* NRF_PPI_H */

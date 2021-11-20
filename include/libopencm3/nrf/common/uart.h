@@ -15,8 +15,7 @@
  * along with this library.  If not, see <http://www.gnu.org/licenses/>.
  */
 
-#ifndef NRF_COMMON_UART_H
-#define NRF_COMMON_UART_H
+#pragma once
 
 #include <libopencm3/cm3/common.h>
 #include <libopencm3/nrf/memorymap.h>
@@ -156,4 +155,3 @@ void uart_set_pins(uint32_t uart, uint32_t rx, uint32_t tx, uint32_t cts, uint32
 
 END_DECLS
 
-#endif  /* NRF_UART_H */

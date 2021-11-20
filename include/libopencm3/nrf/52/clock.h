@@ -15,8 +15,7 @@
  * along with this library.  If not, see <http://www.gnu.org/licenses/>.
  */
 
-#ifndef NRF52_CLOCK_H
-#define NRF52_CLOCK_H
+#pragma once
 
 #include <stdbool.h>
 
@@ -29,4 +28,3 @@
 
 #define CLOCK_PCLK              32000000
 
-#endif  /* NRF52_CLOCK_H */

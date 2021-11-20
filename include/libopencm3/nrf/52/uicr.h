@@ -15,12 +15,10 @@
  * along with this library.  If not, see <http://www.gnu.org/licenses/>.
  */
 
-#ifndef NRF52_UICR_H
-#define NRF52_UICR_H
+#pragma once
 
 #include <libopencm3/cm3/common.h>
 #include <libopencm3/nrf/memorymap.h>
 #include <libopencm3/nrf/common/uicr.h>
 
 
-#endif  /* NRF52_UICR_H */
