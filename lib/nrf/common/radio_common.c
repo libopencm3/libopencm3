@@ -228,50 +228,16 @@ void radio_set_packet_ptr(uint8_t* packet_ptr)
     RADIO_PACKETPTR = (uint32_t)packet_ptr;
 }
 
-/* @brief Enable shortcuts
- *
- * @param[in] shorts uint16_t shortcuts to enable.
- */
-void radio_enable_shorts(uint16_t shorts)
-{
-    periph_enable_shorts(RADIO_BASE, shorts);
-}
-
-/* @brief Disable shortcuts
- *
- * @param[in] shorts uint16_t shortcuts to disable.
- */
-void radio_disable_shorts(uint16_t shorts)
-{
-    periph_disable_shorts(RADIO_BASE, shorts);
-}
-
-/* @brief Clear all shortcuts */
-void radio_clear_shorts(void)
-{
-    periph_clear_shorts(RADIO_BASE);
-}
-
 /* @brief Enable radio Transmitter */
 void radio_enable_tx(void)
 {
-    periph_trigger_task(RADIO_TASK_TXEN);
+    PERIPH_TRIGGER_TASK(RADIO_TASK_TXEN);
 }
 
 /* @brief Enable radio Receiver */
 void radio_enable_rx(void)
 {
-    periph_trigger_task(RADIO_TASK_RXEN);
+    PERIPH_TRIGGER_TASK(RADIO_TASK_RXEN);
 }
 
-/* @brief Enable interrupts by mask */
-void radio_enable_interrupts(uint32_t interrupts)
-{
-    periph_enable_interrupts(RADIO_BASE, interrupts);
-}
 
-/* @brief Disable interrupts by mask */
-void radio_disable_interrupts(uint32_t interrupts)
-{
-    periph_disable_interrupts(RADIO_BASE, interrupts);
-}

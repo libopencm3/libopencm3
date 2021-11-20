@@ -261,15 +261,15 @@ enum radio_txpower {
 };
 
 enum radio_state {
-	DISABLED,
-	RXRU,
-	RXIDLE,
-	RX,
-	RXDISABLE,
-	TXRU = 9,
-	TXIDLE,
-	TX,
-	TXDISABLE,
+	RADIO_STATE_DISABLED,
+	RADIO_STATE_RXRU,
+	RADIO_STATE_RXIDLE,
+	RADIO_STATE_RX,
+	RADIO_STATE_RXDISABLE,
+	RADIO_STATE_TXRU = 9,
+	RADIO_STATE_TXIDLE,
+	RADIO_STATE_TX,
+	RADIO_STATE_TXDISABLE,
 };
 
 BEGIN_DECLS
@@ -296,8 +296,6 @@ void radio_disable_shorts(uint16_t shorts);
 void radio_clear_shorts(void);
 void radio_enable_tx(void);
 void radio_enable_rx(void);
-void radio_enable_interrupts(uint32_t interrupts);
-void radio_disable_interrupts(uint32_t interrupts);
 void radio_set_maxlen(uint8_t maxlen);
 void radio_set_crc_skipaddr(bool is_skip_addr);
 

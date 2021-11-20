@@ -125,9 +125,6 @@
 
 BEGIN_DECLS
 
-#define rtc_enable_interrupt			periph_enable_interrupts
-#define rtc_disable_interrupt			periph_disable_interrupts
-
 void rtc_set_prescaler(uint32_t rtc, uint16_t presc);
 uint32_t rtc_get_counter(uint32_t rtc);
 void rtc_enable_events(uint32_t rtc, uint32_t mask);

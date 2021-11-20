@@ -38,7 +38,8 @@ uint32_t timer_get_ticks(uint32_t timer)
   uint32_t ticks;
   uint32_t cc;
 
-  cc = TIMER0_CC0;
+  // TODO: Check WTF is this doing? */
+  cc = TIMER_CC(0, 0);
   TIMER_TASK_CAPTURE(timer, 0) = 1;
   ticks = TIMER_CC(timer, 0);
   TIMER_CC(timer, 0) = cc;
@@ -71,7 +72,7 @@ void timer_set_bitmode(uint32_t timer, enum timer_bitmode bitmode)
  */
 void timer_start(uint32_t timer)
 {
-    periph_trigger_task(TIMER_TASK_START(timer));
+    PERIPH_TRIGGER_TASK(TIMER_TASK_START(timer));
 }
 
 /** @brief Stop the timer
@@ -80,7 +81,7 @@ void timer_start(uint32_t timer)
  */
 void timer_stop(uint32_t timer)
 {
-    periph_trigger_task(TIMER_TASK_STOP(timer));
+    PERIPH_TRIGGER_TASK(TIMER_TASK_STOP(timer));
 }
 
 /** @brief Clear the timer
@@ -89,7 +90,7 @@ void timer_stop(uint32_t timer)
  */
 void timer_clear(uint32_t timer)
 {
-    periph_trigger_task(TIMER_TASK_CLEAR(timer));
+    PERIPH_TRIGGER_TASK(TIMER_TASK_CLEAR(timer));
 }
 
 /** @brief Set prescaler value

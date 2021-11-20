@@ -70,9 +70,9 @@
 #define PERIPH_NVMC_ID             (0x1e)
 #define PERIPH_PPI_ID              (0x1f)
 
-#define periph_base_from_id(periph_id)       (ABP_BASE + 0x1000 * (periph_id))
-#define periph_id_from_base(base)            (((base) - APB_BASE) >> 12)
-#define periph_base_from_reg(reg)            (((uint32_t)&reg) & 0xfffff000)
+#define PERIPH_BASE_FROM_ID(periph_id)       (ABP_BASE + 0x1000 * (periph_id))
+#define PERIPH_ID_FROM_BASE(base)            (((base) - APB_BASE) >> 12)
+#define PERIPH_BASE_FROM_REG(reg)            (((uint32_t)& (reg)) & 0xfffff000)
 
 /*
  * Tasks are used to trigger actions in a peripheral, for example, to start a
@@ -99,7 +99,7 @@
 /** Starting address of all the events in the peripheral. */
 #define PERIPH_EVENT_OFFSET        (0x100)
 
-#define periph_trigger_task(task)  (task) = (1)
+#define PERIPH_TRIGGER_TASK(task)  (task) = (1)
 
 /* All peripherals on the APB bus support interrupts. A peripheral only
  * occupies one interrupt, and the interrupt number follows the peripheral ID,
@@ -107,46 +107,7 @@
  * the Nested Vector Interrupt Controller (NVIC).
  */
 
-#define periph_enable_irq(base)    nvic_enable_irq(periph_id_from_base(base))
-#define periph_disable_irq(base)   nvic_disable_irq(periph_id_from_base(base))
+#define PERIPH_ENABLE_IRQ(base)    nvic_enable_irq(periph_id_from_base(base))
+#define PERIPH_DISABLE_IRQ(base)   nvic_disable_irq(periph_id_from_base(base))
 
-/* Common regisgers. Not all peripherals have these registers, but when they
- * are present, they are at this offset.
- */
-#define PERIPH_SHORTS_OFFSET       (0x200)
-#define PERIPH_INTEN_OFFSET        (0x300)
-#define PERIPH_INTENSET_OFFSET     (0x304)
-#define PERIPH_INTENCLR_OFFSET     (0x308)
-
-#define periph_shorts(base)        MMIO32((base) + PERIPH_SHORTS_OFFSET)
-#define periph_inten(base)         MMIO32((base) + PERIPH_INTEN_OFFSET)
-#define periph_intenset(base)      MMIO32((base) + PERIPH_INTENSET_OFFSET)
-#define periph_intenclr(base)      MMIO32((base) + PERIPH_INTENCLR_OFFSET)
-
-#define periph_enable_shorts(base, shorts)    periph_shorts(base) |= (shorts)
-#define periph_disable_shorts(base, shorts)   periph_shorts(base) &= (~(shorts))
-#define periph_clear_shorts(base)             periph_shorts(base) = (0)
-
-#define periph_enable_interrupts(base, mask)     periph_intenset(base) |= (mask)
-#define periph_disable_interrupts(base, mask)    periph_intenclr(base) = (mask)
-#define periph_clear_interrupts(base)            periph_intenclr(base) = (0xffffffff)
-
-/* Each event implemented in the peripheral is associated with a specific bit
- * position in the INTEN, INTENSET and INTENCLR registers. The correct bit
- * position can be derived from the event's address. The event on address 0x100
- * is associated with bit 0 in the INTEN register, the event at address 0x104
- * is associated with bit 1, and so on. The event at address 0x17C is
- * identified with bit 31 in the INTEN register. This pattern effectively
- * limits the maximum number of events in a peripheral to 32.
- */
-#define periph_event_inten_bit(event)            ((((uint32_t)&event) & 0xff) >> 2)
-
-#define periph_enable_event_interrupt(event)     periph_enable_interrupts(periph_base_from_reg(event), periph_event_inten_bit(event))
-#define periph_disable_event_interrupt(event)    periph_disable_interrupts(periph_base_from_reg(event), periph_event_inten_bit(event))
-#define periph_clear_event(event)                (event) = (0)
-
-#define periph_wait_event(event) do {\
-    while(!event);\
-    periph_clear_event(event);\
-} while (0)
 

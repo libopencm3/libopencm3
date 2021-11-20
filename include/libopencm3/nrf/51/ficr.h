@@ -21,6 +21,19 @@
 #include <libopencm3/nrf/memorymap.h>
 #include <libopencm3/nrf/common/ficr.h>
 
+/* Deprecated */
+#define FICR_CLENR0         MMIO32(FICR_BASE + 0x028)
+/* Deprecated */
+#define FICR_PPFC           MMIO32(FICR_BASE + 0x02C)
+
+#define FICR_NUMRAMBLOCK    MMIO32(FICR_BASE + 0x034)
+#define FICR_SIZERAMBLOCKS  MMIO32(FICR_BASE + 0x038)
+
+/* Deprecated */
+#define FICR_SIZERAMBLOCK(n)    MMIO32(FICR_BASE + 0x038 + 0x4 * (n))
+
+#define FICR_CONFIGID           MMIO32(FICR_BASE + 0x05C)
+
 #define FICR_OVERRIDEEN         MMIO32(FICR_BASE + 0x0AC)
 
 /* Override values for Nordic Semi proprietary NRF 1Mbit mode */

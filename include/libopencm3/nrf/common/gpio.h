@@ -34,7 +34,6 @@
 
 #define GPIO_PIN_CNF(N)     MMIO32(GPIO_BASE + 0x700 + 0x4 * (N))
 
-#define GPIOPINN(n)         (1 << (n))
 
 /** @defgroup gpio_cnf GPIO Pin Configuration
 @ingroup gpio_defines
@@ -74,13 +73,13 @@ If mode specifies output, configuration can be
 /**@}*/
 
 
-#define PIN_CNF_DRIVE_SHIFT         (8)
-#define PIN_CNF_DRIVE_MASK          (7 << PIN_CNF_DRIVE_SHIFT)
-#define PIN_CNF_DRIVE_MASKED(V)     (((V) << PIN_CNF_DRIVE_SHIFT) & PIN_CNF_DRIVE_MASK)
+#define GPIO_CNF_DRIVE_SHIFT         (8)
+#define GPIO_CNF_DRIVE_MASK          (7 << GPIO_CNF_DRIVE_SHIFT)
+#define GPIO_CNF_DRIVE_MASKED(V)     (((V) << GPIO_CNF_DRIVE_SHIFT) & GPIO_CNF_DRIVE_MASK)
 
-#define PIN_CNF_SENSE_SHIFT         (16)
-#define PIN_CNF_SENSE_MASK          (3 << PIN_CNF_SENSE_SHIFT)
-#define PIN_CNF_SENSE_MASKED(V)     (((V) << PIN_CNF_SENSE_SHIFT) & PIN_CNF_SENSE_MASK)
+#define GPIO_CNF_SENSE_SHIFT         (16)
+#define GPIO_CNF_SENSE_MASK          (3 << GPIO_CNF_SENSE_SHIFT)
+#define GPIO_CNF_SENSE_MASKED(V)     (((V) << GPIO_CNF_SENSE_SHIFT) & GPIO_CNF_SENSE_MASK)
 
 /* GPIO Tasks and Events (GPIOTE) */
 #define GPIO_TASK_OUT(n)        MMIO32(GPIOTE_BASE + 0x4 * (n))
@@ -198,11 +197,6 @@ If mode specifies output, configuration can be
 #define GPIO30          (1 << 30)
 #define GPIO31          (1 << 31)
 #define GPIO_ALL        0xffffffff
-#define GPIO2PIN(b) ({ \
-    int i = 0;\
-    while( !((b >> i++) & 0x01) );\
-    i-1; \
-})
 /**@}*/
 
 BEGIN_DECLS

@@ -52,7 +52,7 @@ void i2c_disable(uint32_t i2c)
  */
 void i2c_start_tx(uint32_t i2c, uint8_t data)
 {
-    periph_trigger_task(I2C_TASK_STARTTX(i2c));
+    PERIPH_TRIGGER_TASK(I2C_TASK_STARTTX(i2c));
     I2C_TXD(i2c) = data;
 }
 
@@ -62,7 +62,7 @@ void i2c_start_tx(uint32_t i2c, uint8_t data)
  */
 void i2c_start_rx(uint32_t i2c)
 {
-    periph_trigger_task(I2C_TASK_STARTRX(i2c));
+    PERIPH_TRIGGER_TASK(I2C_TASK_STARTRX(i2c));
 }
 
 /** @brief Signal stop on I2C line.
@@ -71,7 +71,7 @@ void i2c_start_rx(uint32_t i2c)
  */
 void i2c_send_stop(uint32_t i2c)
 {
-    periph_trigger_task(I2C_TASK_STOP(i2c));
+    PERIPH_TRIGGER_TASK(I2C_TASK_STOP(i2c));
 }
 
 /** @brief Select Fast (400kHz) mode.
@@ -104,26 +104,6 @@ void i2c_set_standard_mode(uint32_t i2c)
 void i2c_set_frequency(uint32_t i2c, uint32_t freq)
 {
     I2C_FREQUENCY(i2c) = freq;
-}
-
-/** @brief Enable interrupts.
- *
- * @param[in] i2c uint32_t i2c peripheral base.
- * @param[in] interrupts uint32_t interrupts mask.
- */
-void i2c_enable_interrupts(uint32_t i2c, uint32_t interrupts)
-{
-    periph_enable_interrupts(i2c, interrupts);
-}
-
-/** @brief Disable interrupts.
- *
- * @param[in] i2c uint32_t i2c peripheral base.
- * @param[in] interrupts uint32_t interrupts mask.
- */
-void i2c_disable_interrupts(uint32_t i2c, uint32_t interrupts)
-{
-    periph_disable_interrupts(i2c, interrupts);
 }
 
 /** @brief Write Data to TXD register to be sent.
@@ -170,30 +150,6 @@ void i2c_set_address(uint32_t i2c, uint8_t addr)
     I2C_ADDRESS(i2c) = addr;
 }
 
-/** @brief Enable shortcuts.
- *
- * @param[in] i2c uint32_t i2c peripheral base.
- * @param[in] shorts uint32_t Shortcuts to enable.
- */
-void i2c_enable_shorts(uint32_t i2c, uint32_t shorts)
-{
-    periph_enable_shorts(i2c, shorts);
-}
-
-/** @brief Disable shortcuts.
- *
- * Because this peripheral only supports two mutually exclusive
- * shortcuts, the second argument is ignored and all shortcuts are
- * cleared.
- *
- * @param[in] i2c uint32_t i2c peripheral base.
- * @param[in] shorts uint32_t Shortcuts to disable.
- */
-void i2c_disable_shorts(uint32_t i2c, uint32_t shorts)
-{
-    periph_disable_shorts(i2c, shorts);
-}
-
 /** @brief Resume I2C transaction.
  *
  * This function is unusual, but required to implement
@@ -203,7 +159,7 @@ void i2c_disable_shorts(uint32_t i2c, uint32_t shorts)
  */
 void i2c_resume(uint32_t i2c)
 {
-    periph_trigger_task(I2C_TASK_RESUME(i2c));
+    PERIPH_TRIGGER_TASK(I2C_TASK_RESUME(i2c));
 }
 
 

@@ -34,7 +34,7 @@
  */
 void clock_start_lfclk(bool wait)
 {
-    periph_trigger_task(CLOCK_TASK_LFCLKSTART);
+    PERIPH_TRIGGER_TASK(CLOCK_TASK_LFCLKSTART);
     if (wait) {
         while(!(CLOCK_LFCLKSTAT & CLOCK_LFCLKSTAT_STATE));
     }
@@ -43,7 +43,7 @@ void clock_start_lfclk(bool wait)
 /** @brief Stop Low Frequency Clock */
 void clock_stop_lfclk()
 {
-    periph_trigger_task(CLOCK_TASK_LFCLKSTOP);
+    PERIPH_TRIGGER_TASK(CLOCK_TASK_LFCLKSTOP);
 }
 
 /** @brief Start High Frequency Crystal Oscillator.
@@ -54,7 +54,7 @@ void clock_stop_lfclk()
  */
 void clock_start_hfclk(bool wait)
 {
-    periph_trigger_task(CLOCK_TASK_HFCLKSTART);
+    PERIPH_TRIGGER_TASK(CLOCK_TASK_HFCLKSTART);
     if (wait) {
         while(!(CLOCK_HFCLKSTAT & CLOCK_HFCLKSTAT_STATE));
     }
@@ -63,7 +63,7 @@ void clock_start_hfclk(bool wait)
 /** @brief Stop High Frequency Crystal Oscillator */
 void clock_stop_hfclk()
 {
-    periph_trigger_task(CLOCK_TASK_HFCLKSTOP);
+    PERIPH_TRIGGER_TASK(CLOCK_TASK_HFCLKSTOP);
 }
 
 /** @brief Low Frequency Clock Source.

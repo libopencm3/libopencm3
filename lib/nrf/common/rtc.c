@@ -74,7 +74,7 @@ void rtc_disable_events(uint32_t rtc, uint32_t mask)
  */
 void rtc_start(uint32_t rtc)
 {
-    periph_trigger_task(RTC_TASK_START(rtc));
+    PERIPH_TRIGGER_TASK(RTC_TASK_START(rtc));
 }
 
 /** @brief Stop the RTC
@@ -83,7 +83,7 @@ void rtc_start(uint32_t rtc)
  */
 void rtc_stop(uint32_t rtc)
 {
-    periph_trigger_task(RTC_TASK_STOP(rtc));
+    PERIPH_TRIGGER_TASK(RTC_TASK_STOP(rtc));
 }
 
 /** @brief Clear the RTC
@@ -92,7 +92,7 @@ void rtc_stop(uint32_t rtc)
  */
 void rtc_clear(uint32_t rtc)
 {
-    periph_trigger_task(RTC_TASK_CLEAR(rtc));
+    PERIPH_TRIGGER_TASK(RTC_TASK_CLEAR(rtc));
 }
 
 /** @brief Set compare register

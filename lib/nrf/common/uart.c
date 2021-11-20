@@ -74,13 +74,20 @@ void uart_configure(uint32_t uart,
     uart_set_baudrate(uart, br);
 }
 
+/* Approximation of log2. As used here, works correctly only
+ * for single bit set, which should be the case here.
+ */
+#define _LOG2(x)		(31 - __builtin_clz((uint32_t) (x)))
+
 void uart_set_pins(uint32_t uart, uint32_t rx, uint32_t tx, uint32_t cts, uint32_t rts)
 {
-    UART_PSELTXD(uart) = UART_PSEL_VAL(GPIO2PIN(tx));
-    UART_PSELRXD(uart) = UART_PSEL_VAL(GPIO2PIN(rx));
-    UART_PSELRTS(uart) = UART_PSEL_VAL(GPIO2PIN(rts));
-    UART_PSELCTS(uart) = UART_PSEL_VAL(GPIO2PIN(cts));
+    UART_PSELTXD(uart) = UART_PSEL_VAL(_LOG2(tx));
+    UART_PSELRXD(uart) = UART_PSEL_VAL(_LOG2(rx));
+    UART_PSELRTS(uart) = UART_PSEL_VAL(_LOG2(rts));
+    UART_PSELCTS(uart) = UART_PSEL_VAL(_LOG2(cts));
 }
+
+#undef _LOG2
 
 void uart_set_baudrate(uint32_t uart, enum uart_baud br)
 {
@@ -98,7 +105,7 @@ void uart_set_flow_control(uint32_t uart, int flow)
 }
 
 void uart_start_tx(uint32_t uart) {
-    periph_trigger_task(UART_TASK_STARTTX((uart)));
+    PERIPH_TRIGGER_TASK(UART_TASK_STARTTX((uart)));
 }
 
 void uart_send(uint32_t uart, uint16_t byte) {
@@ -106,11 +113,11 @@ void uart_send(uint32_t uart, uint16_t byte) {
 }
 
 void uart_stop_tx(uint32_t uart) {
-    periph_trigger_task(UART_TASK_STOPTX((uart)));
+    PERIPH_TRIGGER_TASK(UART_TASK_STOPTX((uart)));
 }
 
 void uart_start_rx(uint32_t uart) {
-    periph_trigger_task(UART_TASK_STARTRX((uart)));
+    PERIPH_TRIGGER_TASK(UART_TASK_STARTRX((uart)));
 }
 
 uint16_t uart_recv(uint32_t uart) {
@@ -118,5 +125,5 @@ uint16_t uart_recv(uint32_t uart) {
 }
 
 void uart_stop_rx(uint32_t uart) {
-    periph_trigger_task(UART_TASK_STOPRX((uart)));
+    PERIPH_TRIGGER_TASK(UART_TASK_STOPRX((uart)));
 }

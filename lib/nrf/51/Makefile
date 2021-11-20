@@ -18,30 +18,31 @@
 LIBNAME		= libopencm3_nrf51
 SRCLIBDIR	?= ../..
 
-PREFIX		?= arm-none-eabi
-FP_FLAGS ?= -msoft-float
-
 CC		= $(PREFIX)gcc
 AR		= $(PREFIX)ar
+
+FP_FLAGS ?= -msoft-float
+
 TGT_CFLAGS	= -Os -Wall -Wextra -I../../../include -fno-common \
 		  -mcpu=cortex-m0 -mthumb $(FP_FLAGS) \
 		  -Wredundant-decls -Wmissing-prototypes -Wstrict-prototypes \
 		  -ffunction-sections -fdata-sections -MD -DNRF51
-TGT_CFLAGS      += $(DEBUG_FLAGS)
+
+TGT_CFLAGS += $(DEBUG_FLAGS)
+TGT_CFLAGS += $(STANDARD_FLAGS)
 # ARFLAGS	= rcsv
 ARFLAGS		= rcs
-OBJS		= ../common/gpio.o \
-			  ../common/rtc.o \
-			  ../common/clock.o \
-			  ./clock.o \
-			  ../common/ppi.o \
-			  ../common/uart.o \
-			  ../common/radio.o \
-			  ./radio.o \
-			  ../common/timer.o \
-			  ../common/i2c.o \
 
-VPATH += ../../cm3
+OBJS += clock_common.o clock.o
+OBJS += gpio.o
+OBJS += i2c.o
+OBJS += ppi.o
+OBJS += rtc.o
+OBJS += radio_common.o ./radio.o
+OBJS += timer.o
+OBJS += uart.o
+
+VPATH += ../../cm3:../common
 
 include ../../Makefile.include
 
