@@ -489,17 +489,17 @@ pac5556 pac55xx ROM=128K RAM=32K
 
 ################################################################################
 # nRF52xx Cortex-M4 based chips
-nrf52805* nrf52805 ROM=192k RAM=24K
-nrf52810* nrf52810 ROM=192k RAM=24K
-nrf52811* nrf52811 ROM=192k RAM=24K
-nrf52820* nrf52820 ROM=256k RAM=32K
+nrf52805* nrf52sf ROM=192k RAM=24K
+nrf52810* nrf52sf ROM=192k RAM=24K
+nrf52811* nrf52sf ROM=192k RAM=24K
+nrf52820* nrf52sf ROM=256k RAM=32K
 
-nrf52832qfaa nrf52832 ROM=512K RAM=64K
-nrf52832qfab nrf52832 ROM=256K RAM=32K
-nrf52832ciaa nrf52832 ROM=512K RAM=64K
+nrf52832qfaa nrf52fp ROM=512K RAM=64K
+nrf52832qfab nrf52fp ROM=256K RAM=32K
+nrf52832ciaa nrf52fp ROM=512K RAM=64K
 
-nrf52833* nrf52833 ROM=512K RAM=128K
-nrf52840* nrf52840 ROM=1024K RAM=256K
+nrf52833* nrf52fp ROM=512K RAM=128K
+nrf52840* nrf52fp ROM=1024K RAM=256K
 
 ################################################################################
 ################################################################################
@@ -609,14 +609,9 @@ pac55xx END ROM_OFF=0x00000000 RAM_OFF=0x20000000 CPU=cortex-m4 FPU=hard-fpv4-sp
 ################################################################################
 # nRF52xx families
 #
-nrf52805 nrf52 FPU=soft
-nrf52810 nrf52 FPU=soft
-nrf52811 nrf52 FPU=soft
-nrf52820 nrf52 FPU=soft
-
-nrf52832 nrf52fp FPU=hard-fpv4-sp-d16
-nrf52833 nrf52fp FPU=hard-fpv4-sp-d16
-nrf52840 nrf52fp FPU=hard-fpv4-sp-d16
+nrf52sf nrf52 FPU=soft
+nrf52fp nrf52 FPU=hard-fpv4-sp-d16
 
 nrf52 END ROM_OFF=0x00000000 RAM_OFF=0x20000000 CPU=cortex-m4
-nrf52fp END ROM_OFF=0x00000000 RAM_OFF=0x20000000 CPU=cortex-m4
+
+

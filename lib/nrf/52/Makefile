@@ -18,7 +18,7 @@
 ## along with this library.  If not, see <http://www.gnu.org/licenses/>.
 ##
 
-LIBNAME		= libopencm3_nrf52fp
+LIBNAME		= libopencm3_nrf52
 SRCLIBDIR	?= ../..
 
 CC		= $(PREFIX)gcc
