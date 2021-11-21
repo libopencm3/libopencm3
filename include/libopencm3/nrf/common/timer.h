@@ -30,15 +30,10 @@
 /* Tasks */
 
 #define TIMER_TASK_START(T)			MMIO32((T) + 0x000)
-
 #define TIMER_TASK_STOP(T)			MMIO32((T) + 0x004)
-
 #define TIMER_TASK_COUNT(T)			MMIO32((T) + 0x008)
-
 #define TIMER_TASK_CLEAR(T)			MMIO32((T) + 0x00C)
-
 #define TIMER_TASK_SHUTDOWN(T)			MMIO32((T) + 0x010)
-
 #define TIMER_TASK_CAPTURE(T, C)			MMIO32((T) + 0x040 + (uint32_t)(0x4 * (C)))
 
 
@@ -51,15 +46,10 @@
 /* Registers */
 
 #define TIMER_SHORTS(T)			periph_shorts(T)
-
 #define TIMER_INTENSET(T)			periph_intenset(T)
-
 #define TIMER_INTENCLR(T)			periph_intenclr(T)
-
 #define TIMER_MODE(T)			MMIO32((T) + 0x504)
-
 #define TIMER_BITMODE(T)			MMIO32((T) + 0x508)
-
 #define TIMER_PRESCALER(T)			MMIO32((T) + 0x510)
 #define TIMER_PRESCALER_MASK			(0xf)
 
