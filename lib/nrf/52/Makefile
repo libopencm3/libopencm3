@@ -24,7 +24,6 @@ SRCLIBDIR	?= ../..
 CC		= $(PREFIX)gcc
 AR		= $(PREFIX)ar
 
-#FP_FLAGS ?= -msoft-float
 FP_FLAGS ?= -mfloat-abi=hard -mfpu=fpv4-sp-d16
 
 TGT_CFLAGS	= -Os -Wall -Wextra -I../../../include -fno-common \
