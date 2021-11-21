@@ -1,3 +1,10 @@
+/** @addtogroup clock_defines
+ *
+ * @author @htmlonly &copy; @endhtmlonly 2016 Maxim Sloyko <maxims@google.com>
+ * @author @htmlonly &copy; @endhtmlonly 2021 Eduard Drusa <ventyl86 at netkosice dot sk>
+ *
+ **/
+
 /*
  * This file is part of the libopencm3 project.
  *
@@ -24,6 +31,7 @@
 
 #include <libopencm3/cm3/common.h>
 #include <libopencm3/nrf/memorymap.h>
+/**@{*/
 
 /* Clock tasks */
 #define CLOCK_TASK_HFCLKSTART       MMIO32(CLOCK_BASE + 0x000)
@@ -75,6 +83,7 @@ enum clock_lfclk_src {
     CLOCK_LFCLK_SRC_XTAL,
     CLOCK_LFCLK_SRC_SYNTH,
 };
+/**@}*/
 
 BEGIN_DECLS
 
@@ -85,4 +94,5 @@ void clock_stop_hfclk(void);
 void clock_set_lfclk_src(enum clock_lfclk_src lfclk_src);
 
 END_DECLS
+
 

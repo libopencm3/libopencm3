@@ -1,10 +1,11 @@
-/** @addtogroup clock_defines
+/** @addtogroup clock_file CLOCK peripheral API 
  *
- * @brief <b>Access functions for the NRF51 Clock Controller </b>
- * @ingroup NRF51_defines
+ * @brief <b>Access functions for the Clock Controller</b>
+ *
+ * @ingroup peripheral_apis
  * LGPL License Terms @ref lgpl_license
- * @author @htmlonly &copy; @endhtmlonly 2016
- * Maxim Sloyko <maxims@google.com>
+ * @author @htmlonly &copy; @endhtmlonly 2016 Maxim Sloyko <maxims@google.com>
+ * @author @htmlonly &copy; @endhtmlonly 2021 Eduard Drusa <ventyl86 at netkosice dot sk>
  *
  */
 
@@ -30,6 +31,7 @@
 
 #include <libopencm3/nrf/clock.h>
 #include <libopencm3/nrf/periph.h>
+/**@{*/
 
 /** @brief Start Low Frequency Clock
  *
@@ -77,3 +79,5 @@ void clock_set_lfclk_src(enum clock_lfclk_src lfclk_src)
 {
     CLOCK_LFCLKSRC = lfclk_src;
 }
+/**@}*/
+

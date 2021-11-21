@@ -1,3 +1,10 @@
+/** @addtogroup gpio_defines
+ *
+ * @author @htmlonly &copy; @endhtmlonly 2016 Maxim Sloyko <maxims@google.com>
+ * @author @htmlonly &copy; @endhtmlonly 2021 Eduard Drusa <ventyl86 at netkosice dot sk>
+ *
+ **/
+
 /*
  * This file is part of the libopencm3 project.
  *
@@ -22,6 +29,7 @@
 
 #include <libopencm3/cm3/common.h>
 #include <libopencm3/nrf/memorymap.h>
+/**@{*/
 
 #define GPIO                (GPIO_BASE)
 
@@ -202,6 +210,7 @@ If mode specifies output, configuration can be
 #define GPIO_ALL        0xffffffff
 /**@}*/
 
+/**@}*/
 BEGIN_DECLS
 
 void gpio_set(uint32_t gpioport, uint32_t gpios);

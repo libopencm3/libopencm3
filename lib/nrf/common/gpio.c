@@ -1,7 +1,8 @@
-/** @addtogroup gpio_defines
+/** @addtogroup gpio_file GPIO peripheral API
  *
- * @brief <b>Access functions for the NRF51 I/O Controller</b>
- * @ingroup NRF51_defines
+ * @brief <b>Access functions for the I/O Controller</b>
+ *
+ * @ingroup peripheral_apis
  * LGPL License Terms @ref lgpl_license
  * @author @htmlonly &copy; @endhtmlonly 2016
  * Maxim Sloyko <maxims@google.com>
@@ -27,6 +28,8 @@
  * You should have received a copy of the GNU Lesser General Public License
  * along with this library.  If not, see <http://www.gnu.org/licenses/>.
  */
+
+/** @{ */
 
 #include <libopencm3/nrf/gpio.h>
 
@@ -157,3 +160,5 @@ void gpio_clear_interrupts(void)
 {
     GPIO_INTENCLR = 0xffffffff;
 }
+
+/** @} */

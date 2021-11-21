@@ -1,3 +1,10 @@
+/** @addtogroup ficr_defines
+ *
+ * @author @htmlonly &copy; @endhtmlonly 2016 Maxim Sloyko <maxims@google.com>
+ * @author @htmlonly &copy; @endhtmlonly 2021 Eduard Drusa <ventyl86 at netkosice dot sk>
+ *
+ **/
+
 /*
  * This file is part of the libopencm3 project.
  *
@@ -22,6 +29,7 @@
 
 #include <libopencm3/cm3/common.h>
 #include <libopencm3/nrf/memorymap.h>
+/**@{*/
 
 /* Factory Information Configuration Register */
 
@@ -39,4 +47,6 @@
 #define FICR_DEVICEADDR0            MMIO32(FICR_BASE + 0x0A4)
 #define FICR_DEVICEADDR1            MMIO32(FICR_BASE + 0x0A8)
 
+
+/**@}*/
 

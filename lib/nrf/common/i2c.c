@@ -1,7 +1,8 @@
-/** @addtogroup i2c_defines
+/** @addtogroup i2c_file I2C peripheral API
  *
- * @brief <b>Access functions for the NRF51 I2C </b>
- * @ingroup NRF51_defines
+ * @brief <b>Access functions for the I2C Controller</b>
+ *
+ * @ingroup peripheral_apis
  * LGPL License Terms @ref lgpl_license
  * @author @htmlonly &copy; @endhtmlonly 2016
  * Maxim Sloyko <maxims@google.com>
@@ -29,6 +30,8 @@
  */
 
 #include <libopencm3/nrf/i2c.h>
+
+/**@{*/
 
 /** @brief Enable I2C peripheral
  *
@@ -166,3 +169,4 @@ void i2c_resume(uint32_t i2c)
 }
 
 
+/**@}*/

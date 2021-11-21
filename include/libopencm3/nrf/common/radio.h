@@ -1,3 +1,10 @@
+/** @addtogroup radio_defines
+ *
+ * @author @htmlonly &copy; @endhtmlonly 2016 Maxim Sloyko <maxims@google.com>
+ * @author @htmlonly &copy; @endhtmlonly 2021 Eduard Drusa <ventyl86 at netkosice dot sk>
+ *
+ **/
+
 /*
  * This file is part of the libopencm3 project.
  *
@@ -23,6 +30,7 @@
 #include <libopencm3/cm3/common.h>
 #include <libopencm3/nrf/memorymap.h>
 #include <libopencm3/nrf/periph.h>
+/**@{*/
 
 /* 2.4 GHz Radio */
 
@@ -275,6 +283,8 @@ enum radio_state {
 	RADIO_STATE_TXDISABLE,
 };
 
+/**@}*/
+
 BEGIN_DECLS
 
 void radio_configure_ble(void);
@@ -303,5 +313,6 @@ void radio_set_maxlen(uint8_t maxlen);
 void radio_set_crc_skipaddr(bool is_skip_addr);
 
 END_DECLS
+
 
 

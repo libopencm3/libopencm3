@@ -1,3 +1,15 @@
+/** @defgroup power_defines POWER Defines
+ *
+ * @brief <b>Defined Constants and Types for the NRF52xx Power control</b>
+ *
+ * @ingroup NRF52xx_defines
+ *
+ * @version 1.0.0
+ *
+ * @date Nov 2021
+ *
+ *LGPL License Terms @ref lgpl_license
+ */
 /*
  * This file is part of the libopencm3 project.
  *

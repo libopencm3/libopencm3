@@ -1,3 +1,10 @@
+/** @addtogroup uicr_defines
+ *
+ * @author @htmlonly &copy; @endhtmlonly 2016 Maxim Sloyko <maxims@google.com>
+ * @author @htmlonly &copy; @endhtmlonly 2021 Eduard Drusa <ventyl86 at netkosice dot sk>
+ *
+ **/
+
 /*
  * This file is part of the libopencm3 project.
  *

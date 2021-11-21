@@ -1,3 +1,10 @@
+/** @addtogroup i2c_defines
+ *
+ * @author @htmlonly &copy; @endhtmlonly 2016 Maxim Sloyko <maxims@google.com>
+ * @author @htmlonly &copy; @endhtmlonly 2021 Eduard Drusa <ventyl86 at netkosice dot sk>
+ *
+ **/
+
 /*
  * This file is part of the libopencm3 project.
  *
@@ -23,6 +30,7 @@
 #include <libopencm3/cm3/common.h>
 #include <libopencm3/nrf/memorymap.h>
 #include <libopencm3/nrf/periph.h>
+/**@{*/
 
 /* I2C bus */
 
@@ -84,6 +92,7 @@
 /* Compatibility defines */
 #define i2c0_isr            twi0_isr
 #define i2c1_isr            twi1_isr
+/**@}*/
 
 BEGIN_DECLS
 
@@ -102,4 +111,5 @@ void i2c_set_address(uint32_t i2c, uint8_t addr);
 void i2c_resume(uint32_t i2c);
 
 END_DECLS
+
 

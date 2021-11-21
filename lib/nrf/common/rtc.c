@@ -1,7 +1,8 @@
-/** @addtogroup rtc_defines
+/** @addtogroup rtc_file RTC peripheral API
  *
- * @brief <b>Access functions for the NRF51 Real Time Counter Controller </b>
- * @ingroup NRF51_defines
+ * @brief <b>Access functions for the Real Time Counter Controller </b>
+ *
+ * @ingroup peripheral_apis
  * LGPL License Terms @ref lgpl_license
  * @author @htmlonly &copy; @endhtmlonly 2016
  * Maxim Sloyko <maxims@google.com>
@@ -29,6 +30,7 @@
  */
 
 #include <libopencm3/nrf/rtc.h>
+/**@{*/
 
 /** @brief RTC set Prescaler value.
  *
@@ -109,3 +111,5 @@ void rtc_set_compare(uint32_t rtc, uint8_t cmp, uint32_t value)
     if (cmp < 4)
         RTC_CC(rtc, cmp) = value;
 }
+/**@}*/
+

@@ -1,3 +1,10 @@
+/** @addtogroup uicr_defines
+ *
+ * @author @htmlonly &copy; @endhtmlonly 2016 Maxim Sloyko <maxims@google.com>
+ * @author @htmlonly &copy; @endhtmlonly 2021 Eduard Drusa <ventyl86 at netkosice dot sk>
+ *
+ **/
+
 /*
  * This file is part of the libopencm3 project.
  *
@@ -23,6 +30,7 @@
 #include <libopencm3/cm3/common.h>
 #include <libopencm3/nrf/memorymap.h>
 
+/**@{*/
 /* User Information Configuration Register */
 
 #define UICR_CLENR0			MMIO32(UICR_BASE + 0x000)
@@ -40,4 +48,6 @@
 /* Reserved for customer n = 0..31 */
 #define UICR_CUSTOMER(n)			MMIO32(UICR_BASE + 0x080 + 0x4 * (n))
 
+
+/**@}*/
 

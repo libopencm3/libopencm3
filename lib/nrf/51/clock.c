@@ -1,7 +1,8 @@
-/** @addtogroup clock_defines
+/** @addtogroup clock_file CLOCK peripheral API
  *
  * @brief <b>Access functions for the NRF51 Clock Controller </b>
- * @ingroup NRF51_defines
+ *
+ * @ingroup peripheral_apis
  * LGPL License Terms @ref lgpl_license
  * @author @htmlonly &copy; @endhtmlonly 2016
  * Roel Postelmans
@@ -27,6 +28,7 @@
 
 #include <libopencm3/nrf/clock.h>
 #include <libopencm3/nrf/periph.h>
+/**@{*/
 
 /** @brief Select nominal frequency of external crystal for HFCLK.
  *
@@ -39,3 +41,5 @@ void clock_set_xtal_freq(enum clock_xtal_freq freq)
 {
     CLOCK_XTALFREQ = freq;
 }
+/**@}*/
+

@@ -1,7 +1,7 @@
-/** @addtogroup radio_defines
+/** @addtogroup radio_file RADIO peripheral API
  *
  * @brief <b>Access functions for the NRF51 2.4 GHz Radio </b>
- * @ingroup NRF51_defines
+ * @ingroup peripheral_apis
  * LGPL License Terms @ref lgpl_license
  * @author @htmlonly &copy; @endhtmlonly 2016
  * Maxim Sloyko <maxims@google.com>
@@ -28,6 +28,7 @@
 #include <libopencm3/nrf/ficr.h>
 #include <libopencm3/nrf/radio.h>
 
+/**@{*/
 
 /** @brief Set radio mode.
  *
@@ -60,3 +61,5 @@ void radio_set_mode(enum radio_mode mode)
 
     RADIO_MODE = mode;
 }
+/**@}*/
+

@@ -1,7 +1,8 @@
-/** @addtogroup uart_defines
+/** @addtogroup uart_file UART peripheral API
  *
- * @brief <b>Access functions for the NRF51 UART </b>
- * @ingroup NRF51_defines
+ * @brief <b>Access functions for the UART controller</b>
+ *
+ * @ingroup peripheral_apis
  * LGPL License Terms @ref lgpl_license
  * @author @htmlonly &copy; @endhtmlonly 2016
  * Maxim Sloyko <maxims@google.com>
@@ -30,6 +31,7 @@
 
 #include <libopencm3/nrf/uart.h>
 #include <libopencm3/nrf/gpio.h>
+/**@{*/
 
 /** @brief Enable the peripheral
  *
@@ -130,3 +132,5 @@ uint16_t uart_recv(uint32_t uart) {
 void uart_stop_rx(uint32_t uart) {
     PERIPH_TRIGGER_TASK(UART_TASK_STOPRX((uart)));
 }
+/**@}*/
+

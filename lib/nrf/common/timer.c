@@ -1,7 +1,8 @@
-/** @addtogroup timer_defines
+/** @addtogroup timer_file TIMER peripheral API
  *
- * @brief <b>Access functions for the NRF51 Timer/Counter </b>
- * @ingroup NRF51_defines
+ * @brief <b>Access functions for the Timer/Counter </b>
+ *
+ * @ingroup peripheral_apis
  * LGPL License Terms @ref lgpl_license
  * @author @htmlonly &copy; @endhtmlonly 2016
  * Maxim Sloyko <maxims@google.com>
@@ -30,6 +31,7 @@
 
 #include <libopencm3/nrf/timer.h>
 #include <libopencm3/nrf/clock.h>
+/**@{*/
 
 /** @brief Get timer ticks
  *
@@ -141,3 +143,5 @@ uint32_t timer_get_freq(uint32_t timer)
 uint32_t timer_get_cc(uint32_t timer, uint8_t compare_num) {
     return TIMER_CC(timer, compare_num);
 }
+/**@}*/
+

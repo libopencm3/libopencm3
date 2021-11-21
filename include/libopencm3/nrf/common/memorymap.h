@@ -57,9 +57,7 @@
 #define ADC_BASE			(APB_BASE + 0x7000)
 
 #define TIMER0_BASE			(APB_BASE + 0x8000)
-
 #define TIMER1_BASE			(APB_BASE + 0x9000)
-
 #define TIMER2_BASE			(APB_BASE + 0xA000)
 
 #define RTC0_BASE			(APB_BASE + 0xB000)

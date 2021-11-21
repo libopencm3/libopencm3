@@ -1,7 +1,8 @@
-/** @addtogroup ppi_defines
+/** @addtogroup ppi_file PPI peripheral API
  *
- * @brief <b>Access functions for the NRF51 Programmable Peripheral Interconnect </b>
- * @ingroup NRF51_defines
+ * @brief <b>Access functions for the Programmable Peripheral Interconnect </b>
+ *
+ * @ingroup peripheral_apis
  * LGPL License Terms @ref lgpl_license
  * @author @htmlonly &copy; @endhtmlonly 2016
  * Maxim Sloyko <maxims@google.com>
@@ -31,6 +32,7 @@
 #include <stdint.h>
 
 #include <libopencm3/nrf/ppi.h>
+/**@{*/
 
 /** @brief Configure PPI Channel.
  *
@@ -139,3 +141,5 @@ void ppi_remove_channel(uint32_t* chan_map, uint8_t chan_num)
     ppi_disable_channels(PPI_CH(chan_num));
     *chan_map &= ~(PPI_CH(chan_num));
 }
+/**@}*/
+

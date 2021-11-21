@@ -1,3 +1,10 @@
+/** @addtogroup uart_defines
+ *
+ * @author @htmlonly &copy; @endhtmlonly 2016 Maxim Sloyko <maxims@google.com>
+ * @author @htmlonly &copy; @endhtmlonly 2021 Eduard Drusa <ventyl86 at netkosice dot sk>
+ *
+ **/
+
 /*
  * This file is part of the libopencm3 project.
  *
@@ -24,9 +31,16 @@
 #include <libopencm3/nrf/memorymap.h>
 #include <libopencm3/nrf/periph.h>
 
+/**@{*/
+
 /* Universal Asynchronous Receiver/Transmitter */
 
+/** @addtogroup uart_block UART instance
+ * @{
+ */
 #define UART0     UART0_BASE
+
+/**@}*/
 
 /* Tasks */
 
@@ -157,4 +171,6 @@ uint16_t uart_recv(uint32_t uart);
 void uart_set_pins(uint32_t uart, uint32_t rx, uint32_t tx, uint32_t cts, uint32_t rts);
 
 END_DECLS
+
+/**@}*/
 

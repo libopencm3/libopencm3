@@ -1,3 +1,10 @@
+/** @addtogroup ppi_defines
+ *
+ * @author @htmlonly &copy; @endhtmlonly 2016 Maxim Sloyko <maxims@google.com>
+ * @author @htmlonly &copy; @endhtmlonly 2021 Eduard Drusa <ventyl86 at netkosice dot sk>
+ *
+ **/
+
 /*
  * This file is part of the libopencm3 project.
  *
@@ -22,6 +29,7 @@
 
 #include <libopencm3/cm3/common.h>
 #include <libopencm3/nrf/memorymap.h>
+/**@{*/
 
 /* Programmable Peripheral Interconnect */
 
@@ -127,6 +135,7 @@
 
 /* RTC0->EVENTS_COMPARE[0] -- TIMER0->TASKS_START */
 #define PPI_CH_RTC0CC0_TMR0START			PPI_CH31
+/**@}*/
 
 BEGIN_DECLS
 
@@ -143,4 +152,5 @@ uint8_t ppi_add_channel(uint32_t* chan_map, uint32_t eep, uint32_t tep, bool ena
 void ppi_remove_channel(uint32_t* chan_map, uint8_t chan_num);
 
 END_DECLS
+
 

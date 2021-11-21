@@ -1,3 +1,15 @@
+/** @defgroup timer_defines TIMER Defines
+ *
+ * @brief <b>Defined Constants and Types for the NRF52xx Timer</b>
+ *
+ * @ingroup NRF52xx_defines
+ *
+ * @version 1.0.0
+ *
+ * @date Nov 2021
+ *
+ *LGPL License Terms @ref lgpl_license
+ */
 /*
  * This file is part of the libopencm3 project.
  *
@@ -25,7 +37,11 @@
 #include <libopencm3/nrf/periph.h>
 #include <libopencm3/nrf/common/timer.h>
 
+/**@{*/
 /* Timer/Counter */
+/** @addtogroup timer_block TIMER instances
+ * @{
+ */
 #define TIMER4			TIMER4_BASE
 #define TIMER3			TIMER3_BASE
 
@@ -107,4 +123,5 @@
 #define TIMER3_CC2			TIMER_CC(TIMER3, 2)
 #define TIMER3_CC3			TIMER_CC(TIMER3, 3)
 
+/**@}*/
 

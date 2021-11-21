@@ -1,3 +1,10 @@
+/** @addtogroup rtc_defines
+ *
+ * @author @htmlonly &copy; @endhtmlonly 2016 Maxim Sloyko <maxims@google.com>
+ * @author @htmlonly &copy; @endhtmlonly 2021 Eduard Drusa <ventyl86 at netkosice dot sk>
+ *
+ **/
+
 /*
  * This file is part of the libopencm3 project.
  *
@@ -23,6 +30,7 @@
 #include <libopencm3/cm3/common.h>
 #include <libopencm3/nrf/memorymap.h>
 #include <libopencm3/nrf/periph.h>
+/**@{*/
 
 /* Only two RTCs on this device. */
 #define RTC0			RTC0_BASE
@@ -63,6 +71,8 @@
 #define RTC_INTEN_COMPARE2			(1 << 18)
 #define RTC_INTEN_COMPARE3			(1 << 19)
 
+/**@}*/
+
 BEGIN_DECLS
 
 void rtc_set_prescaler(uint32_t rtc, uint16_t presc);
@@ -75,4 +85,5 @@ void rtc_clear(uint32_t rtc);
 void rtc_set_compare(uint32_t rtc, uint8_t cmp, uint32_t value);
 
 END_DECLS
+
 
