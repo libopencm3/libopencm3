@@ -9,7 +9,10 @@
  */
 
 /*
- * This file is part of the unicore-mx project.
+ * This file is part of the libopencm3 project.
+ *
+ * Copyright (C) 2017-2018 Unicore MX project<dev(at)lists(dot)unicore-mx(dot)org>
+ * Copyright (C) 2021 Eduard Drusa <ventyl86(at)netkosice(dot)sk>
  *
  * This library is free software: you can redistribute it and/or modify
  * it under the terms of the GNU Lesser General Public License as published by
