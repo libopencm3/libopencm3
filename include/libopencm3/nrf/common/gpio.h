@@ -31,7 +31,13 @@
 #include <libopencm3/nrf/memorymap.h>
 /**@{*/
 
+/** @addtogroup gpio_port_id GPIO ports
+ * @{
+ */
+/** GPIO port */
 #define GPIO                (GPIO_BASE)
+
+/**@}*/
 
 #define GPIO_OUT            MMIO32(GPIO_BASE + 0x504)
 #define GPIO_OUTSET         MMIO32(GPIO_BASE + 0x508)

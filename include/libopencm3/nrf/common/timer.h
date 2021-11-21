@@ -61,9 +61,9 @@
 
 /* Registers */
 
-#define TIMER_SHORTS(T)			periph_shorts(T)
-#define TIMER_INTENSET(T)			periph_intenset(T)
-#define TIMER_INTENCLR(T)			periph_intenclr(T)
+#define TIMER_SHORTS(T)			_PERIPH_SHORTS(T)
+#define TIMER_INTENSET(T)			_PERIPH_INTENSET(T)
+#define TIMER_INTENCLR(T)			_PERIPH_INTENCLR(T)
 #define TIMER_MODE(T)			MMIO32((T) + 0x504)
 #define TIMER_BITMODE(T)			MMIO32((T) + 0x508)
 #define TIMER_PRESCALER(T)			MMIO32((T) + 0x510)
@@ -76,23 +76,15 @@
 
 /* Register Contents */
 
-#define TIMER_SHORTS_COMPARE0_CLEAR			(1 << 0)
-#define TIMER_SHORTS_COMPARE1_CLEAR			(1 << 1)
-#define TIMER_SHORTS_COMPARE2_CLEAR			(1 << 2)
-#define TIMER_SHORTS_COMPARE3_CLEAR			(1 << 3)
+/** @addtogroup timer_shorts Timer event -> task shortcuts
+ * @{
+ */
+
 #define TIMER_SHORTS_COMPARE_CLEAR(C)			(1 << (C))
-
-#define TIMER_SHORTS_COMPARE0_STOP			(1 << 8)
-#define TIMER_SHORTS_COMPARE1_STOP			(1 << 9)
-#define TIMER_SHORTS_COMPARE2_STOP			(1 << 10)
-#define TIMER_SHORTS_COMPARE3_STOP			(1 << 11)
 #define TIMER_SHORTS_COMPARE_STOP(C)			(1 << (8 + (C)))
+/**@}*/
 
-#define TIMER_INTEN_COMPARE0			(1 << 16)
-#define TIMER_INTEN_COMPARE1			(1 << 17)
-#define TIMER_INTEN_COMPARE2			(1 << 18)
-#define TIMER_INTEN_COMPARE3			(1 << 19)
-#define TIMER_INTEN_COMPARE(C)			(1 << (16 + (C)))
+#define TIMER_INTEN_COMPARE(C)					(1 << (16 + (C)))
 
 #define TIMER_MODE_SELECT			(1 << 0)
 

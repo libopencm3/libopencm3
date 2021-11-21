@@ -50,12 +50,6 @@
 #define UART_TASK_STOPTX(uart)   MMIO32((uart) + 0x00C)
 #define UART_TASK_SUSPEND(uart)  MMIO32((uart) + 0x01C)
 
-#define UART0_TASK_STARTRX       UART_TASK_STARTRX(UART0)
-#define UART0_TASK_STOPRX        UART_TASK_STOPRX(UART0)
-#define UART0_TASK_STARTTX       UART_TASK_STARTTX(UART0)
-#define UART0_TASK_STOPTX        UART_TASK_STOPTX(UART0)
-#define UART0_TASK_SUSPEND       UART_TASK_SUSPEND(UART0)
-
 /* Events */
 
 #define UART_EVENT_CTS(uart)     MMIO32((uart) + 0x100)
@@ -65,18 +59,11 @@
 #define UART_EVENT_ERROR(uart)   MMIO32((uart) + 0x124)
 #define UART_EVENT_RXTO(uart)    MMIO32((uart) + 0x144)
 
-#define UART0_EVENT_CTS          UART_EVENT_CTS(UART0)
-#define UART0_EVENT_NCTS         UART_EVENT_NCTS(UART0)
-#define UART0_EVENT_RXDRDY       UART_EVENT_RXDRDY(UART0)
-#define UART0_EVENT_TXDRDY       UART_EVENT_TXDRDY(UART0)
-#define UART0_EVENT_ERROR        UART_EVENT_ERROR(UART0)
-#define UART0_EVENT_RXTO         UART_EVENT_RXTO(UART0)
-
 /* Registers */
 
-#define UART_INTEN(uart)         periph_inten(uart)
-#define UART_INTENSET(uart)      periph_intenset(uart)
-#define UART_INTENCLR(uart)      periph_intenclr(uart)
+#define UART_INTEN(uart)         _PERIPH_INTEN(uart)
+#define UART_INTENSET(uart)      _PERIPH_INTENSET(uart)
+#define UART_INTENCLR(uart)      _PERIPH_INTENCLR(uart)
 #define UART_ERRORSRC(uart)      MMIO32((uart) + 0x480)
 #define UART_ENABLE(uart)        MMIO32((uart) + 0x500)
 #define UART_PSELRTS(uart)       MMIO32((uart) + 0x508)
@@ -90,12 +77,17 @@
 
 /* Register Contents */
 
+/** @addtogroup uart_inten UART interrupt sources
+ * @{
+ */
 #define UART_INTEN_CTS           (1 << 0)
 #define UART_INTEN_NCTS          (1 << 1)
 #define UART_INTEN_RXDRDY        (1 << 2)
 #define UART_INTEN_TXDRDY        (1 << 7)
 #define UART_INTEN_ERROR         (1 << 9)
 #define UART_INTEN_RXTO          (1 << 17)
+
+/**@}*/
 
 #define UART_ERRORSRC_OVERRUN    (1 << 0)
 #define UART_ERRORSRC_PARITY     (1 << 1)
@@ -133,10 +125,6 @@ enum uart_baud {
 
 
 BEGIN_DECLS
-
-#define uart_enable_interrupts      periph_enable_interrupts
-#define uart_disable_interrupts     periph_disable_interrupts
-#define uart_clear_events           periph_clear_event
 
 void uart_enable(uint32_t uart);
 void uart_disable(uint32_t uart);

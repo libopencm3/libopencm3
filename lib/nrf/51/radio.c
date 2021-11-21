@@ -34,7 +34,7 @@
  *
  * @details The function also performs all required overrides for BLE and NRF mode.
  *
- * @param[in] fmode enum radio_mode the new mode.
+ * @param[in] mode the new mode.
  * */
 void radio_set_mode(enum radio_mode mode)
 {
@@ -54,9 +54,9 @@ void radio_set_mode(enum radio_mode mode)
             RADIO_OVERRIDE(i) = *override_pos;
         }
 
-        RADIO_OVERRIDE4 |= RADIO_OVERRIDE4_ENABLE;
+        RADIO_OVERRIDE(4) |= RADIO_OVERRIDE4_ENABLE;
     } else {
-        RADIO_OVERRIDE4 &= ~RADIO_OVERRIDE4_ENABLE;
+        RADIO_OVERRIDE(4) &= ~RADIO_OVERRIDE4_ENABLE;
     }
 
     RADIO_MODE = mode;

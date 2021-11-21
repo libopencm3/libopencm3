@@ -136,9 +136,9 @@ uint8_t i2c_get_data(uint32_t i2c)
  *
  * This needs to be configured when no transaction is in progress.
  *
- * @param[in] i2c uint32_t i2c peripheral base.
- * @param[in] i2c scl_pin SCL pin (0-31).
- * @param[in] i2c sda_pin SDA pin (0-31).
+ * @param[in] i2c i2c peripheral base.
+ * @param[in] scl_pin SCL pin (0-31).
+ * @param[in] sda_pin SDA pin (0-31).
  */
 void i2c_select_pins(uint32_t i2c, uint8_t scl_pin, uint8_t sda_pin)
 {

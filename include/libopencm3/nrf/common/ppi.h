@@ -38,16 +38,6 @@
 #define PPI_TASK_CHG_EN(n)			MMIO32(PPI_BASE + 0x8 * (n))
 #define PPI_TASK_CHG_DIS(n)			MMIO32(PPI_BASE + 0x8 * (n) + 0x4)
 
-#define PPI_TASK_CHG_EN0			PPI_TASK_CHG_EN(0)
-#define PPI_TASK_CHG_EN1			PPI_TASK_CHG_EN(1)
-#define PPI_TASK_CHG_EN2			PPI_TASK_CHG_EN(2)
-#define PPI_TASK_CHG_EN3			PPI_TASK_CHG_EN(3)
-
-#define PPI_TASK_CHG_DIS0			PPI_TASK_CHG_DIS(0)
-#define PPI_TASK_CHG_DIS1			PPI_TASK_CHG_DIS(1)
-#define PPI_TASK_CHG_DIS2			PPI_TASK_CHG_DIS(2)
-#define PPI_TASK_CHG_DIS3			PPI_TASK_CHG_DIS(3)
-
 /* Registers */
 
 #define PPI_CHEN			MMIO32(PPI_BASE + 0x500)
@@ -61,12 +51,11 @@
 
 /* Channel Groups */
 #define PPI_CHG(n)			MMIO32(PPI_BASE + 0x800 + 0x4 * (n))
-#define PPI_CHG0			PPI_CHG(0)
-#define PPI_CHG1			PPI_CHG(1)
-#define PPI_CHG2			PPI_CHG(2)
-#define PPI_CHG3			PPI_CHG(3)
 
 #define PPI_CH(n)			(1 << (n))
+/** @addtogroup PPI Channel identifiers
+ * @{
+ */
 #define PPI_CH0			(1 << 0)
 #define PPI_CH1			(1 << 1)
 #define PPI_CH2			(1 << 2)
@@ -96,6 +85,8 @@
 #define PPI_CH29			(1 << 29)
 #define PPI_CH30			(1 << 30)
 #define PPI_CH31			(1 << 31)
+
+/**@}*/
 
 #define PPI_MAX_PROG_CHANNEL			(15)
 

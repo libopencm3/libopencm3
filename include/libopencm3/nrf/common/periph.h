@@ -113,4 +113,25 @@
 #define PERIPH_ENABLE_IRQ(base)    nvic_enable_irq(periph_id_from_base(base))
 #define PERIPH_DISABLE_IRQ(base)   nvic_disable_irq(periph_id_from_base(base))
 
+/* Common regisgers. Not all peripherals have these registers, but when they
+ * are present, they are at this offset.
+ */
+#define PERIPH_SHORTS_OFFSET       (0x200)
+#define PERIPH_INTEN_OFFSET        (0x300)
+#define PERIPH_INTENSET_OFFSET     (0x304)
+#define PERIPH_INTENCLR_OFFSET     (0x308)
+
+#define _PERIPH_SHORTS(base)        MMIO32((base) + PERIPH_SHORTS_OFFSET)
+#define _PERIPH_INTEN(base)         MMIO32((base) + PERIPH_INTEN_OFFSET)
+#define _PERIPH_INTENSET(base)      MMIO32((base) + PERIPH_INTENSET_OFFSET)
+#define _PERIPH_INTENCLR(base)      MMIO32((base) + PERIPH_INTENCLR_OFFSET)
+
+#define periph_enable_shorts(base, shorts)    periph_shorts(base) |= (shorts)
+#define periph_disable_shorts(base, shorts)   periph_shorts(base) &= (~(shorts))
+#define periph_clear_shorts(base)             periph_shorts(base) = (0)
+
+#define periph_enable_interrupts(base, mask)     periph_intenset(base) |= (mask)
+#define periph_disable_interrupts(base, mask)    periph_intenclr(base) = (mask)
+#define periph_clear_interrupts(base)            periph_intenclr(base) = (0xffffffff)
+
 

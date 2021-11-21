@@ -36,7 +36,7 @@
 /** @brief Get timer ticks
  *
  * @param[in] timer uint32_t timer base
- * @param[out] ticks uint32_t: current ticks value
+ * @returns current ticks value
  */
 uint32_t timer_get_ticks(uint32_t timer)
 {
@@ -112,7 +112,7 @@ void timer_set_prescaler(uint32_t timer, uint8_t presc)
  *
  * @param[in] timer uint32_t timer base
  * @param[in] compare_num uint8_t compare number (0-3)
- * @param[in] compare_num uint32_t compare value
+ * @param[in] compare_val uint32_t compare value
  */
 void timer_set_compare(uint32_t timer, uint8_t compare_num, uint32_t compare_val)
 {
@@ -126,8 +126,7 @@ void timer_set_compare(uint32_t timer, uint8_t compare_num, uint32_t compare_val
 /** @brief Get the timer tick frequency
  *
  * @param[in] timer uint32_t timer base
- * @param[in] us uint32_t time in useconds
- * @param[out] uint32_t frequency of ticking
+ * @returns frequency of ticking
  */
 uint32_t timer_get_freq(uint32_t timer)
 {
@@ -138,7 +137,7 @@ uint32_t timer_get_freq(uint32_t timer)
  *
  * @param[in] timer uint32_t timer base
  * @param[in] compare_num uint8_t compare number (0-3)
- * @param[out] uint32_t compare register value
+ * @returns compare register value
  */
 uint32_t timer_get_cc(uint32_t timer, uint8_t compare_num) {
     return TIMER_CC(timer, compare_num);

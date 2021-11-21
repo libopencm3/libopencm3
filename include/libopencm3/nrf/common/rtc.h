@@ -33,8 +33,13 @@
 /**@{*/
 
 /* Only two RTCs on this device. */
+/** @addtogroup rtc_block RTC instances
+ * @{
+ */
 #define RTC0			RTC0_BASE
 #define RTC1			RTC1_BASE
+
+/**@}*/
 
 /* Tasks */
 #define RTC_TASK_START(rtc)			MMIO32((rtc) + 0x000)
@@ -48,29 +53,20 @@
 #define RTC_EVENT_COMPARE(rtc, i)			MMIO32((rtc) + 0x140 + 0x4 * (i))
 
 /* Registers */
-#define RTC_INTEN(rtc)			periph_inten(rtc)
-#define RTC_INTENSET(rtc)			periph_intenset(rtc)
-#define RTC_INTENCLR(rtc)			periph_intenclr(rtc)
-#define RTC_EVTEN(rtc)			MMIO32((rtc) + 0x340)
+#define RTC_INTEN(rtc)				_PERIPH_INTEN(rtc)
+#define RTC_INTENSET(rtc)			_PERIPH_INTENSET(rtc)
+#define RTC_INTENCLR(rtc)			_PERIPH_INTENCLR(rtc)
+#define RTC_EVTEN(rtc)				MMIO32((rtc) + 0x340)
 #define RTC_EVTENSET(rtc)			MMIO32((rtc) + 0x344)
 #define RTC_EVTENCLR(rtc)			MMIO32((rtc) + 0x348)
 #define RTC_COUNTER(rtc)			MMIO32((rtc) + 0x504)
 #define RTC_PRESCALER(rtc)			MMIO32((rtc) + 0x508)
 #define RTC_CC(rtc, i)		MMIO32((rtc) + 0x540 + 0x4 * (i))
-#define RTC_CC0(rtc)			MMIO32((rtc) + 0x540)
-#define RTC_CC1(rtc)			MMIO32((rtc) + 0x544)
-#define RTC_CC2(rtc)			MMIO32((rtc) + 0x548)
-#define RTC_CC3(rtc)			MMIO32((rtc) + 0x54C)
 
 /* Register Contents */
 #define RTC_INTEN_TICK			(1 << 0)
 #define RTC_INTEN_OVRFLW			(1 << 1)
 #define RTC_INTEN_COMPARE(n)			(1 << (16 + (n)))
-#define RTC_INTEN_COMPARE0			(1 << 16)
-#define RTC_INTEN_COMPARE1			(1 << 17)
-#define RTC_INTEN_COMPARE2			(1 << 18)
-#define RTC_INTEN_COMPARE3			(1 << 19)
-
 /**@}*/
 
 BEGIN_DECLS

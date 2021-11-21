@@ -61,7 +61,7 @@ void uart_disable(uint32_t uart)
  * @param[in] rx_pin uint8_t RX pin number
  * @param[in] rts_pin uint8_t RTS pin number
  * @param[in] cts_pin uint8_t CTS pin number
- * @param[in] baud enum uart_baud baud rate
+ * @param[in] br enum uart_baud baud rate
  * @param[in] enable_parity bool If true, enable parity bit
  */
 void uart_configure(uint32_t uart,

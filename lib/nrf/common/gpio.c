@@ -123,9 +123,9 @@ void gpio_configure_task(uint8_t task_num,
 
 /** @brief Configure Event in GPIO TE Module
  *
- * @param[in] event_num uint8_t Event number (0-3)
- * @param[in] pin_num uint8_t GPIO Pin number (0-31)
- * @param[in] uint8_t Operation to perform when task is triggered.
+ * @param[in] event_num Event number (0-3)
+ * @param[in] pin_num GPIO Pin number (0-31)
+ * @param[in] polarity Operation to perform when task is triggered.
  */
 void gpio_configure_event(uint8_t event_num, uint8_t pin_num, uint8_t polarity)
 {
@@ -154,7 +154,6 @@ void gpio_disable_interrupts(uint32_t mask)
 
 /** @brief Disable all GPIO interrupts
  *
- * @param[in] mask uint32_t which interrupts to disable.
  */
 void gpio_clear_interrupts(void)
 {

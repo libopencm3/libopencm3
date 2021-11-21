@@ -33,9 +33,14 @@
 /**@{*/
 
 /* I2C bus */
+/** @addtogroup i2c_block I2C instances
+ * @{
+ */
 
 #define I2C0            I2C0_BASE
 #define I2C1            I2C1_BASE
+
+/**@}*/
 
 /* Tasks */
 
@@ -68,14 +73,24 @@
 
 /* Register Contents */
 
+/** @addtogroup i2c_shorts I2C event -> task shortcuts
+ * @{
+ */
 #define I2C_SHORTS_BB_SUSPEND      (1 << 0)
 #define I2C_SHORTS_BB_STOP         (1 << 1)
 
+/**@}*/
+
+/** @addtogroup i2c_interrupts I2C interrupts
+ * @{
+ */
 #define I2C_INTEN_STOPPED          (1 << 1)
 #define I2C_INTEN_RXDREADY         (1 << 2)
 #define I2C_INTEN_TXDSENT          (1 << 7)
 #define I2C_INTEN_ERROR            (1 << 9)
 #define I2C_INTEN_BB               (1 << 14)
+
+/**@}*/
 
 #define I2C_ERRORSRC_OVERRUN       (1 << 0)
 #define I2C_ERRORSRC_ANACK         (1 << 1)

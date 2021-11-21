@@ -96,7 +96,7 @@ void ppi_disable_group(uint8_t group)
  *
  * This is the alternative API, which requires the caller to store the mask of used channels.
  *
- * @param[in/out] chan_map uint32_t* The mask of channels that are already in use.
+ * @param chan_map uint32_t* The mask of channels that are already in use.
  *  For the first call initialize with zero and pass in.
  * @param[in] eep uint32_t Event endpoint.
  * @param[in] tep uint32_t Task endpoint.
@@ -132,7 +132,7 @@ uint8_t ppi_add_channel(uint32_t* chan_map, uint32_t eep, uint32_t tep, bool ena
  *
  * This is the alternative API, which requires the caller to store the mask of used channels.
  *
- * @param[in/out] chan_map uint32_t* The mask of channels that are already in use.
+ * @param chan_map uint32_t* The mask of channels that are already in use.
  *  For the first call initialize with zero and pass in.
  * @param[in] chan_num uint8_t the number of the channel to remove from the map.
  */

@@ -59,9 +59,9 @@
 
 /* Registers */
 
-#define RADIO_SHORTS			periph_shorts(RADIO_BASE)
-#define RADIO_INTENSET			periph_intenset(RADIO_BASE)
-#define RADIO_INTENCLR			periph_intenclr(RADIO_BASE)
+#define RADIO_SHORTS			_PERIPH_SHORTS(RADIO_BASE)
+#define RADIO_INTENSET			_PERIPH_INTENSET(RADIO_BASE)
+#define RADIO_INTENCLR			_PERIPH_INTENCLR(RADIO_BASE)
 #define RADIO_CRCSTATUS			MMIO32(RADIO_BASE + 0x400)
 #define RADIO_RXMATCH			MMIO32(RADIO_BASE + 0x408)
 #define RADIO_RXCRC			MMIO32(RADIO_BASE + 0x40C)
@@ -90,40 +90,19 @@
 
 /* Device Address Base segment */
 #define RADIO_DAB(n)			MMIO32(RADIO_BASE + 0x600 + 0x4 * (n))
-#define RADIO_DAB0			RADIO_DAB(0)
-#define RADIO_DAB1			RADIO_DAB(1)
-#define RADIO_DAB2			RADIO_DAB(2)
-#define RADIO_DAB3			RADIO_DAB(3)
-#define RADIO_DAB4			RADIO_DAB(4)
-#define RADIO_DAB5			RADIO_DAB(5)
-#define RADIO_DAB6			RADIO_DAB(6)
-#define RADIO_DAB7			RADIO_DAB(7)
-
 /* Device Address Prefix segment */
 #define RADIO_DAP(n)			MMIO32(RADIO_BASE + 0x620 + 0x4 * (n))
-#define RADIO_DAP0			RADIO_DAP(0)
-#define RADIO_DAP1			RADIO_DAP(1)
-#define RADIO_DAP2			RADIO_DAP(2)
-#define RADIO_DAP3			RADIO_DAP(3)
-#define RADIO_DAP4			RADIO_DAP(4)
-#define RADIO_DAP5			RADIO_DAP(5)
-#define RADIO_DAP6			RADIO_DAP(6)
-#define RADIO_DAP7			RADIO_DAP(7)
-
 #define RADIO_DACNF			MMIO32(RADIO_BASE + 0x640)
 
 /* Override Registers */
 #define RADIO_OVERRIDE(n)			MMIO32(RADIO_BASE + 0x724 + 0x4 * (n))
-#define RADIO_OVERRIDE0			RADIO_OVERRIDE(0)
-#define RADIO_OVERRIDE1			RADIO_OVERRIDE(1)
-#define RADIO_OVERRIDE2			RADIO_OVERRIDE(2)
-#define RADIO_OVERRIDE3			RADIO_OVERRIDE(3)
-#define RADIO_OVERRIDE4			RADIO_OVERRIDE(4)
-
 #define RADIO_POWER			MMIO32(RADIO_BASE + 0xFFC)
 
 /* Register Details */
 
+/** @addtogroup radio_shorts Radio event -> task shortcuts
+ * @{
+ */
 #define RADIO_SHORTS_READY_START			(1 << 0)
 #define RADIO_SHORTS_END_DISABLE			(1 << 1)
 #define RADIO_SHORTS_DISABLED_TXEN			(1 << 2)
@@ -133,6 +112,11 @@
 #define RADIO_SHORTS_ADDRESS_BCSTART			(1 << 6)
 #define RADIO_SHORTS_DISABLED_RSSISTOP			(1 << 8)
 
+/**@}*/
+
+/** @addtogroup radio_inten Radio interrupts
+ * @{
+ */
 #define RADIO_INTEN_READY			(1 << 0)
 #define RADIO_INTEN_ADDRESS			(1 << 1)
 #define RADIO_INTEN_PAYLOAD			(1 << 2)
@@ -142,6 +126,8 @@
 #define RADIO_INTEN_DEVMISS			(1 << 6)
 #define RADIO_INTEN_RSSIEND			(1 << 7)
 #define RADIO_INTEN_BCMATCH			(1 << 10)
+
+/**@}*/
 
 #define RADIO_PCNF0_LFLEN_SHIFT			(0)
 #define RADIO_PCNF0_LFLEN_MASK			(0xf << RADIO_PCNF0_LFLEN_SHIFT)
