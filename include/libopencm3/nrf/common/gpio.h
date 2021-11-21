@@ -175,6 +175,11 @@ If mode specifies output, configuration can be
 #define GPIO_TE_OUTINIT_LOW        (1)
 #define GPIO_TE_OUTINIT_HIGH       GPIO_TE_CONFIG_OUTINIT
 
+/* GPIO number definitions (for convenience) */
+/** @defgroup gpio_pin_id GPIO Pin Identifiers
+@ingroup gpio_defines
+
+@{*/
 #define GPIO0           (1 << 0)
 #define GPIO1           (1 << 1)
 #define GPIO2           (1 << 2)
@@ -231,4 +236,5 @@ void gpio_disable_interrupts(uint32_t mask);
 void gpio_clear_interrupts(void);
 
 END_DECLS
+
 

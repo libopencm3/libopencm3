@@ -88,20 +88,6 @@
 #define UART_BAUDRATE(uart)      MMIO32((uart) + 0x524)
 #define UART_CONFIG(uart)        MMIO32((uart) + 0x56C)
 
-#define UART0_INTEN              UART_INTEN(UART0)
-#define UART0_INTENSET           UART_INTENSET(UART0)
-#define UART0_INTENCLR           UART_INTENCLR(UART0)
-#define UART0_ERRORSRC           UART_ERRORSRC(UART0)
-#define UART0_ENABLE             UART_ENABLE(UART0)
-#define UART0_PSELRTS            UART_PSELRTS(UART0)
-#define UART0_PSELTXD            UART_PSELTXD(UART0)
-#define UART0_PSELCTS            UART_PSELCTS(UART0)
-#define UART0_PSELRXD            UART_PSELRXD(UART0)
-#define UART0_RXD                UART_RXD(UART0)
-#define UART0_TXD                UART_TXD(UART0)
-#define UART0_BAUDRATE           UART_BAUDRATE(UART0)
-#define UART0_CONFIG             UART_CONFIG(UART0)
-
 /* Register Contents */
 
 #define UART_INTEN_CTS           (1 << 0)
