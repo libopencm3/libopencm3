@@ -79,7 +79,7 @@
 #elif defined(NRF51)
 #	include <libopencm3/nrf/51/nvic.h>
 
-#elif defined(NRF52)
+#elif defined(NRF52) || defined(NRF52FP)
 #	include <libopencm3/nrf/52/nvic.h>
 
 #elif defined(VF6XX)
