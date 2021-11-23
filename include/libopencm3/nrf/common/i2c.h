@@ -52,10 +52,11 @@
 /* Events */
 
 #define I2C_EVENT_STOPPED(i2c)     MMIO32((i2c) + 0x104)
-#define I2C_EVENT_RXREADY(i2c)     MMIO32((i2c) + 0x108)
+#define I2C_EVENT_RXDREADY(i2c)    MMIO32((i2c) + 0x108)
 #define I2C_EVENT_TXDSENT(i2c)     MMIO32((i2c) + 0x11c)
 #define I2C_EVENT_ERROR(i2c)       MMIO32((i2c) + 0x124)
 #define I2C_EVENT_BB(i2c)          MMIO32((i2c) + 0x138)
+#define I2C_EVENT_SUSPENDED(i2c)   MMIO32((i2c) + 0x148)
 /* Registers */
 
 #define I2C_SHORTS(i2c)            MMIO32((i2c) + 0x200)
