@@ -132,17 +132,22 @@ If mode specifies output, configuration can be
 
 #define GPIO_INTEN_PORT         (1 << 31)
 
+/* TODO: clean this up */
+
 #define GPIO_TE_CONFIG_MODE_SHIFT           (0)
 #define GPIO_TE_CONFIG_MODE_MASK            (3 << GPIO_TE_CONFIG_MODE_SHIFT)
-#define GPIO_TE_CONFIG_MODE_MASKED(V)       (((V) << GPIO_TE_CONFIG_MODE_SHIFT) & GPIO_TE_CONFIG_MODE_MASK)
+#define GPIO_TE_CONFIG_MODE_MASKED(V)       (((V) << GPIO_TE_CONFIG_MODE_SHIFT) \
+		& GPIO_TE_CONFIG_MODE_MASK)
 
 #define GPIO_TE_CONFIG_PSEL_SHIFT           (8)
 #define GPIO_TE_CONFIG_PSEL_MASK            (0x1f << GPIO_TE_CONFIG_PSEL_SHIFT)
-#define GPIO_TE_CONFIG_PSEL_MASKED(V)       (((V) << GPIO_TE_CONFIG_PSEL_SHIFT) & GPIO_TE_CONFIG_PSEL_MASK)
+#define GPIO_TE_CONFIG_PSEL_MASKED(V)       (((V) << GPIO_TE_CONFIG_PSEL_SHIFT) \
+		& GPIO_TE_CONFIG_PSEL_MASK)
 
 #define GPIO_TE_CONFIG_POLARITY_SHIFT           (16)
 #define GPIO_TE_CONFIG_POLARITY_MASK            (3 << GPIO_TE_CONFIG_POLARITY_SHIFT)
-#define GPIO_TE_CONFIG_POLARITY_MASKED(V)       (((V) << GPIO_TE_CONFIG_POLARITY_SHIFT) & GPIO_TE_CONFIG_POLARITY_MASK)
+#define GPIO_TE_CONFIG_POLARITY_MASKED(V)       (((V) << GPIO_TE_CONFIG_POLARITY_SHIFT) \
+		& GPIO_TE_CONFIG_POLARITY_MASK)
 
 #define GPIO_TE_CONFIG_OUTINIT          (1 << 20)
 
@@ -230,10 +235,10 @@ uint32_t gpio_get(uint32_t gpioport, uint32_t gpios);
 void gpio_toggle(uint32_t gpioport, uint32_t gpios);
 
 void gpio_mode_setup(uint32_t gpioport, uint8_t mode, uint32_t cnf,
-           uint32_t gpios);
+		uint32_t gpios);
 
 void gpio_configure_task(uint8_t task_num,
-        uint8_t pin_num, uint8_t polarity, uint8_t init);
+		uint8_t pin_num, uint8_t polarity, uint8_t init);
 
 void gpio_configure_event(uint8_t event_num, uint8_t pin_num, uint8_t polarity);
 

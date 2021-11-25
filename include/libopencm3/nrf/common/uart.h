@@ -105,22 +105,22 @@
 
 
 enum uart_baud {
-    UART_BAUD_1200 = 0x0004F000,
-    UART_BAUD_2400 = 0x0009D000,
-    UART_BAUD_4800 = 0x0013B000,
-    UART_BAUD_9600 = 0x00275000,
-    UART_BAUD_14400 = 0x003B0000,
-    UART_BAUD_19200 = 0x004EA000,
-    UART_BAUD_28800 = 0x0075F000,
-    UART_BAUD_38400 = 0x009D5000,
-    UART_BAUD_57600 = 0x00EBF000,
-    UART_BAUD_76800 = 0x013A9000,
-    UART_BAUD_115200 = 0x01D7E000,
-    UART_BAUD_230400 = 0x03AFB000,
-    UART_BAUD_250000 = 0x04000000,
-    UART_BAUD_460800 = 0x075F7000,
-    UART_BAUD_921600 = 0x0EBEDFA4,
-    UART_BAUD_1M = 0x10000000,
+	UART_BAUD_1200 = 0x0004F000,
+	UART_BAUD_2400 = 0x0009D000,
+	UART_BAUD_4800 = 0x0013B000,
+	UART_BAUD_9600 = 0x00275000,
+	UART_BAUD_14400 = 0x003B0000,
+	UART_BAUD_19200 = 0x004EA000,
+	UART_BAUD_28800 = 0x0075F000,
+	UART_BAUD_38400 = 0x009D5000,
+	UART_BAUD_57600 = 0x00EBF000,
+	UART_BAUD_76800 = 0x013A9000,
+	UART_BAUD_115200 = 0x01D7E000,
+	UART_BAUD_230400 = 0x03AFB000,
+	UART_BAUD_250000 = 0x04000000,
+	UART_BAUD_460800 = 0x075F7000,
+	UART_BAUD_921600 = 0x0EBEDFA4,
+	UART_BAUD_1M = 0x10000000,
 };
 
 
@@ -129,8 +129,8 @@ BEGIN_DECLS
 void uart_enable(uint32_t uart);
 void uart_disable(uint32_t uart);
 void uart_configure(uint32_t uart,
-    uint32_t txd, uint32_t rxd, uint32_t rts, uint32_t cts,
-    enum uart_baud br, bool enable_parity);
+uint32_t txd, uint32_t rxd, uint32_t rts, uint32_t cts,
+enum uart_baud br, bool enable_parity);
 void uart_set_baudrate(uint32_t uart, enum uart_baud br);
 void uart_set_parity(uint32_t uart, int parity);
 void uart_set_flow_control(uint32_t uart, int flow);

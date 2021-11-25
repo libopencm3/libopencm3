@@ -139,8 +139,8 @@ void ppi_enable_group(uint8_t group);
 void ppi_disable_group(uint8_t group);
 
 /* Simpler API, that requires the client to store channel map. */
-uint8_t ppi_add_channel(uint32_t* chan_map, uint32_t eep, uint32_t tep, bool enable);
-void ppi_remove_channel(uint32_t* chan_map, uint8_t chan_num);
+uint8_t ppi_add_channel(uint32_t *chan_map, uint32_t eep, uint32_t tep, bool enable);
+void ppi_remove_channel(uint32_t *chan_map, uint8_t chan_num);
 
 END_DECLS
 

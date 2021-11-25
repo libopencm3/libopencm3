@@ -79,9 +79,9 @@
 #define CLOCK_LFCLKSTAT_STATE       (1 << 16)
 
 enum clock_lfclk_src {
-    CLOCK_LFCLK_SRC_RC,
-    CLOCK_LFCLK_SRC_XTAL,
-    CLOCK_LFCLK_SRC_SYNTH,
+	CLOCK_LFCLK_SRC_RC,
+	CLOCK_LFCLK_SRC_XTAL,
+	CLOCK_LFCLK_SRC_SYNTH,
 };
 /**@}*/
 

@@ -44,8 +44,8 @@
 #define CLOCK_PCLK              16000000
 
 enum clock_xtal_freq {
-    CLOCK_XTAL_FREQ_32MHZ,
-    CLOCK_XTAL_FREQ_16MHZ = 0xff,
+	CLOCK_XTAL_FREQ_32MHZ,
+	CLOCK_XTAL_FREQ_16MHZ = 0xff,
 };
 
 BEGIN_DECLS

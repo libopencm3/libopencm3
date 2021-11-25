@@ -38,28 +38,28 @@
  * */
 void radio_set_mode(enum radio_mode mode)
 {
-    volatile uint32_t* override_pos = 0;
-    if ((RADIO_MODE_BLE_1MBIT == mode)
-            && (FICR_OVERRIDEEN & ~FICR_OVERRIDEEN_BLE_1MBIT)) {
-        /* Need to use Override */
-        override_pos = &FICR_BLE_1MBIT0;
-    } else if ((RADIO_MODE_NRF_1MBIT == mode)
-            && (FICR_OVERRIDEEN & ~FICR_OVERRIDEEN_NRF_1MBIT)) {
-        override_pos = &FICR_NRF_1MBIT0;
-    }
+	uint32_t *override_pos = 0;
+	if ((RADIO_MODE_BLE_1MBIT == mode)
+			&& (FICR_OVERRIDEEN & ~FICR_OVERRIDEEN_BLE_1MBIT)) {
+		/* Need to use Override */
+		override_pos = &FICR_BLE_1MBIT0;
+	} else if ((RADIO_MODE_NRF_1MBIT == mode)
+			&& (FICR_OVERRIDEEN & ~FICR_OVERRIDEEN_NRF_1MBIT)) {
+		override_pos = &FICR_NRF_1MBIT0;
+	}
 
-    if (override_pos) {
-        uint8_t i;
-        for (i = 0; i <= 4; ++i, ++override_pos) {
-            RADIO_OVERRIDE(i) = *override_pos;
-        }
+	if (override_pos) {
+		uint8_t i;
+		for (i = 0; i <= 4; ++i, ++override_pos) {
+			RADIO_OVERRIDE(i) = *override_pos;
+		}
 
-        RADIO_OVERRIDE(4) |= RADIO_OVERRIDE4_ENABLE;
-    } else {
-        RADIO_OVERRIDE(4) &= ~RADIO_OVERRIDE4_ENABLE;
-    }
+		RADIO_OVERRIDE(4) |= RADIO_OVERRIDE4_ENABLE;
+	} else {
+		RADIO_OVERRIDE(4) &= ~RADIO_OVERRIDE4_ENABLE;
+	}
 
-    RADIO_MODE = mode;
+	RADIO_MODE = mode;
 }
 /**@}*/
 

@@ -39,7 +39,7 @@
  * */
 void clock_set_xtal_freq(enum clock_xtal_freq freq)
 {
-    CLOCK_XTALFREQ = freq;
+	CLOCK_XTALFREQ = freq;
 }
 /**@}*/
 

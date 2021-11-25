@@ -75,7 +75,7 @@
 
 #define PERIPH_BASE_FROM_ID(periph_id)       (ABP_BASE + 0x1000 * (periph_id))
 #define PERIPH_ID_FROM_BASE(base)            (((base) - APB_BASE) >> 12)
-#define PERIPH_BASE_FROM_REG(reg)            (((uint32_t)& (reg)) & 0xfffff000)
+#define PERIPH_BASE_FROM_REG(reg)            (((uint32_t) &(reg)) & 0xfffff000)
 
 /*
  * Tasks are used to trigger actions in a peripheral, for example, to start a
@@ -126,6 +126,7 @@
 #define _PERIPH_INTENSET(base)      MMIO32((base) + PERIPH_INTENSET_OFFSET)
 #define _PERIPH_INTENCLR(base)      MMIO32((base) + PERIPH_INTENCLR_OFFSET)
 
+/* TODO: convert these to functions */
 #define periph_enable_shorts(base, shorts)    periph_shorts(base) |= (shorts)
 #define periph_disable_shorts(base, shorts)   periph_shorts(base) &= (~(shorts))
 #define periph_clear_shorts(base)             periph_shorts(base) = (0)
