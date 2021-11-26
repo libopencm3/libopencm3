@@ -22,11 +22,11 @@
  *
  * This library is distributed in the hope that it will be useful,
  * but WITHOUT ANY WARRANTY; without even the implied warranty of
- * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
+ * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.	See the
  * GNU Lesser General Public License for more details.
  *
  * You should have received a copy of the GNU Lesser General Public License
- * along with this library.  If not, see <http://www.gnu.org/licenses/>.
+ * along with this library.	If not, see <http://www.gnu.org/licenses/>.
  */
 
 #include <libopencm3/nrf/timer.h>
@@ -40,15 +40,15 @@
  */
 uint32_t timer_get_ticks(uint32_t timer)
 {
-  uint32_t ticks;
-  uint32_t cc;
+	uint32_t ticks;
+	uint32_t cc;
 
-  // TODO: Check WTF is this doing? */
-  cc = TIMER_CC(0, 0);
-  TIMER_TASK_CAPTURE(timer, 0) = 1;
-  ticks = TIMER_CC(timer, 0);
-  TIMER_CC(timer, 0) = cc;
-  return ticks;
+	/* TODO: Check WTF is this doing? */
+	cc = TIMER_CC(0, 0);
+	TIMER_TASK_CAPTURE(timer, 0) = 1;
+	ticks = TIMER_CC(timer, 0);
+	TIMER_CC(timer, 0) = cc;
+	return ticks;
 }
 
 /** @brief Set timer mode (counter/timer)
@@ -58,7 +58,7 @@ uint32_t timer_get_ticks(uint32_t timer)
  */
 void timer_set_mode(uint32_t timer, enum timer_mode mode)
 {
-    TIMER_MODE(timer) = mode;
+	TIMER_MODE(timer) = mode;
 }
 
 /** @brief Set timer bit mode (width)
@@ -68,7 +68,7 @@ void timer_set_mode(uint32_t timer, enum timer_mode mode)
  */
 void timer_set_bitmode(uint32_t timer, enum timer_bitmode bitmode)
 {
-    TIMER_BITMODE(timer) = bitmode;
+	TIMER_BITMODE(timer) = bitmode;
 }
 
 /** @brief Start the timer
@@ -77,7 +77,7 @@ void timer_set_bitmode(uint32_t timer, enum timer_bitmode bitmode)
  */
 void timer_start(uint32_t timer)
 {
-    PERIPH_TRIGGER_TASK(TIMER_TASK_START(timer));
+	PERIPH_TRIGGER_TASK(TIMER_TASK_START(timer));
 }
 
 /** @brief Stop the timer
@@ -86,7 +86,7 @@ void timer_start(uint32_t timer)
  */
 void timer_stop(uint32_t timer)
 {
-    PERIPH_TRIGGER_TASK(TIMER_TASK_STOP(timer));
+	PERIPH_TRIGGER_TASK(TIMER_TASK_STOP(timer));
 }
 
 /** @brief Clear the timer
@@ -95,7 +95,7 @@ void timer_stop(uint32_t timer)
  */
 void timer_clear(uint32_t timer)
 {
-    PERIPH_TRIGGER_TASK(TIMER_TASK_CLEAR(timer));
+	PERIPH_TRIGGER_TASK(TIMER_TASK_CLEAR(timer));
 }
 
 /** @brief Set prescaler value
@@ -105,7 +105,7 @@ void timer_clear(uint32_t timer)
  */
 void timer_set_prescaler(uint32_t timer, uint8_t presc)
 {
-    TIMER_PRESCALER(timer) = presc & TIMER_PRESCALER_MASK;
+	TIMER_PRESCALER(timer) = presc & TIMER_PRESCALER_MASK;
 }
 
 /** @brief Set compare register
@@ -116,11 +116,11 @@ void timer_set_prescaler(uint32_t timer, uint8_t presc)
  */
 void timer_set_compare(uint32_t timer, uint8_t compare_num, uint32_t compare_val)
 {
-    if (compare_num > 3) {
-        return;
-    }
+	if (compare_num > 3) {
+		return;
+	}
 
-    TIMER_CC(timer, compare_num) = compare_val;
+	TIMER_CC(timer, compare_num) = compare_val;
 }
 
 /** @brief Get the timer tick frequency
@@ -130,7 +130,7 @@ void timer_set_compare(uint32_t timer, uint8_t compare_num, uint32_t compare_val
  */
 uint32_t timer_get_freq(uint32_t timer)
 {
-    return CLOCK_PCLK/(1<<TIMER_PRESCALER(timer));
+	return CLOCK_PCLK/(1<<TIMER_PRESCALER(timer));
 }
 
 /** @brief Get compare register
@@ -139,8 +139,9 @@ uint32_t timer_get_freq(uint32_t timer)
  * @param[in] compare_num uint8_t compare number (0-3)
  * @returns compare register value
  */
-uint32_t timer_get_cc(uint32_t timer, uint8_t compare_num) {
-    return TIMER_CC(timer, compare_num);
+uint32_t timer_get_cc(uint32_t timer, uint8_t compare_num)
+{
+	return TIMER_CC(timer, compare_num);
 }
 /**@}*/
 

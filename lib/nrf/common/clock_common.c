@@ -1,4 +1,4 @@
-/** @addtogroup clock_file CLOCK peripheral API 
+/** @addtogroup clock_file CLOCK peripheral API
  *
  * @brief <b>Access functions for the Clock Controller</b>
  *
@@ -39,16 +39,16 @@
  */
 void clock_start_lfclk(bool wait)
 {
-    PERIPH_TRIGGER_TASK(CLOCK_TASK_LFCLKSTART);
-    if (wait) {
-        while(!(CLOCK_LFCLKSTAT & CLOCK_LFCLKSTAT_STATE));
-    }
+	PERIPH_TRIGGER_TASK(CLOCK_TASK_LFCLKSTART);
+	if (wait) {
+		while (!(CLOCK_LFCLKSTAT & CLOCK_LFCLKSTAT_STATE));
+	}
 }
 
 /** @brief Stop Low Frequency Clock */
 void clock_stop_lfclk()
 {
-    PERIPH_TRIGGER_TASK(CLOCK_TASK_LFCLKSTOP);
+	PERIPH_TRIGGER_TASK(CLOCK_TASK_LFCLKSTOP);
 }
 
 /** @brief Start High Frequency Crystal Oscillator.
@@ -59,16 +59,16 @@ void clock_stop_lfclk()
  */
 void clock_start_hfclk(bool wait)
 {
-    PERIPH_TRIGGER_TASK(CLOCK_TASK_HFCLKSTART);
-    if (wait) {
-        while(!(CLOCK_HFCLKSTAT & CLOCK_HFCLKSTAT_STATE));
-    }
+	PERIPH_TRIGGER_TASK(CLOCK_TASK_HFCLKSTART);
+	if (wait) {
+		while (!(CLOCK_HFCLKSTAT & CLOCK_HFCLKSTAT_STATE));
+	}
 }
 
 /** @brief Stop High Frequency Crystal Oscillator */
 void clock_stop_hfclk()
 {
-    PERIPH_TRIGGER_TASK(CLOCK_TASK_HFCLKSTOP);
+	PERIPH_TRIGGER_TASK(CLOCK_TASK_HFCLKSTOP);
 }
 
 /** @brief Low Frequency Clock Source.
@@ -77,7 +77,7 @@ void clock_stop_hfclk()
  */
 void clock_set_lfclk_src(enum clock_lfclk_src lfclk_src)
 {
-    CLOCK_LFCLKSRC = lfclk_src;
+	CLOCK_LFCLKSRC = lfclk_src;
 }
 /**@}*/
 

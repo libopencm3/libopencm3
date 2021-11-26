@@ -42,8 +42,8 @@
  */
 void ppi_configure_channel(uint8_t chan_num, uint32_t eep, uint32_t tep)
 {
-    PPI_CH_EEP(chan_num) = eep;
-    PPI_CH_TEP(chan_num) = tep;
+	PPI_CH_EEP(chan_num) = eep;
+	PPI_CH_TEP(chan_num) = tep;
 }
 
 /** @brief Enable PPI channels, given the channels mask.
@@ -52,7 +52,7 @@ void ppi_configure_channel(uint8_t chan_num, uint32_t eep, uint32_t tep)
  */
 void ppi_enable_channels(uint32_t channels)
 {
-    PPI_CHENSET = channels;
+	PPI_CHENSET = channels;
 }
 
 /** @brief Disable PPI channels, given the channels mask.
@@ -61,7 +61,7 @@ void ppi_enable_channels(uint32_t channels)
  */
 void ppi_disable_channels(uint32_t channels)
 {
-    PPI_CHENCLR = channels;
+	PPI_CHENCLR = channels;
 }
 
 /** @brief Set channels group, given channels mask.
@@ -71,7 +71,7 @@ void ppi_disable_channels(uint32_t channels)
  */
 void ppi_set_group(uint8_t group, uint32_t channels)
 {
-    PPI_CHG(group) = channels;
+	PPI_CHG(group) = channels;
 }
 
 /** @brief Enable previously configured group of channels.
@@ -80,7 +80,7 @@ void ppi_set_group(uint8_t group, uint32_t channels)
  */
 void ppi_enable_group(uint8_t group)
 {
-    PPI_TASK_CHG_EN(group) = 1;
+	PPI_TASK_CHG_EN(group) = 1;
 }
 
 /** @brief Disable previously configured group of channels.
@@ -89,7 +89,7 @@ void ppi_enable_group(uint8_t group)
  */
 void ppi_disable_group(uint8_t group)
 {
-    PPI_TASK_CHG_DIS(group) = 1;
+	PPI_TASK_CHG_DIS(group) = 1;
 }
 
 /** @brief Configure new channel.
@@ -103,29 +103,29 @@ void ppi_disable_group(uint8_t group)
  * @param enable bool If true, enable the channel immediately.
  * @return The number of the new channel. If there are no channels available, returns 0xff.
  */
-uint8_t ppi_add_channel(uint32_t* chan_map, uint32_t eep, uint32_t tep, bool enable)
+uint8_t ppi_add_channel(uint32_t *chan_map, uint32_t eep, uint32_t tep, bool enable)
 {
-    /* Find a free channel */
-    uint8_t i;
-    uint32_t chan_bit;
-    for (i = 0, chan_bit = 1; i <= PPI_MAX_PROG_CHANNEL; ++i, chan_bit <<= 1) {
-        if (!(chan_bit & *chan_map)) {
-            *chan_map |= chan_bit;
-            break;
-        }
-    }
+	/* Find a free channel */
+	uint8_t i;
+	uint32_t chan_bit;
+	for (i = 0, chan_bit = 1; i <= PPI_MAX_PROG_CHANNEL; ++i, chan_bit <<= 1) {
+		if (!(chan_bit & *chan_map)) {
+			*chan_map |= chan_bit;
+			break;
+		}
+	}
 
-    /* If all channels are taken, return error. */
-    if (i > PPI_MAX_PROG_CHANNEL) {
-        return 0xff;
-    }
+	/* If all channels are taken, return error. */
+	if (i > PPI_MAX_PROG_CHANNEL) {
+		return 0xff;
+	}
 
-    ppi_configure_channel(i, eep, tep);
-    if (enable) {
-        ppi_enable_channels(chan_bit);
-    }
+	ppi_configure_channel(i, eep, tep);
+	if (enable) {
+		ppi_enable_channels(chan_bit);
+	}
 
-    return i;
+	return i;
 }
 
 /** @brief Disable channel and remove it from the map of used channels.
@@ -136,10 +136,10 @@ uint8_t ppi_add_channel(uint32_t* chan_map, uint32_t eep, uint32_t tep, bool ena
  *  For the first call initialize with zero and pass in.
  * @param[in] chan_num uint8_t the number of the channel to remove from the map.
  */
-void ppi_remove_channel(uint32_t* chan_map, uint8_t chan_num)
+void ppi_remove_channel(uint32_t *chan_map, uint8_t chan_num)
 {
-    ppi_disable_channels(PPI_CH(chan_num));
-    *chan_map &= ~(PPI_CH(chan_num));
+	ppi_disable_channels(PPI_CH(chan_num));
+	*chan_map &= ~(PPI_CH(chan_num));
 }
 /**@}*/
 

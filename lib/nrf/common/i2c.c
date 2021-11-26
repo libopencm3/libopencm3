@@ -39,7 +39,7 @@
  */
 void i2c_enable(uint32_t i2c)
 {
-    I2C_ENABLE(i2c) = I2C_ENABLE_VALUE;
+	I2C_ENABLE(i2c) = I2C_ENABLE_VALUE;
 }
 
 /** @brief Disable I2C peripheral
@@ -48,7 +48,7 @@ void i2c_enable(uint32_t i2c)
  */
 void i2c_disable(uint32_t i2c)
 {
-    I2C_ENABLE(i2c) = 0;
+	I2C_ENABLE(i2c) = 0;
 }
 
 /** @brief Start I2C transmission.
@@ -58,8 +58,8 @@ void i2c_disable(uint32_t i2c)
  */
 void i2c_start_tx(uint32_t i2c, uint8_t data)
 {
-    PERIPH_TRIGGER_TASK(I2C_TASK_STARTTX(i2c));
-    I2C_TXD(i2c) = data;
+	PERIPH_TRIGGER_TASK(I2C_TASK_STARTTX(i2c));
+	I2C_TXD(i2c) = data;
 }
 
 /** @brief Start I2C reception.
@@ -68,7 +68,7 @@ void i2c_start_tx(uint32_t i2c, uint8_t data)
  */
 void i2c_start_rx(uint32_t i2c)
 {
-    PERIPH_TRIGGER_TASK(I2C_TASK_STARTRX(i2c));
+	PERIPH_TRIGGER_TASK(I2C_TASK_STARTRX(i2c));
 }
 
 /** @brief Signal stop on I2C line.
@@ -77,7 +77,7 @@ void i2c_start_rx(uint32_t i2c)
  */
 void i2c_send_stop(uint32_t i2c)
 {
-    PERIPH_TRIGGER_TASK(I2C_TASK_STOP(i2c));
+	PERIPH_TRIGGER_TASK(I2C_TASK_STOP(i2c));
 }
 
 /** @brief Select Fast (400kHz) mode.
@@ -86,7 +86,7 @@ void i2c_send_stop(uint32_t i2c)
  */
 void i2c_set_fast_mode(uint32_t i2c)
 {
-    I2C_FREQUENCY(i2c) = I2C_FREQUENCY_400K;
+	I2C_FREQUENCY(i2c) = I2C_FREQUENCY_400K;
 }
 
 /** @brief Select Standard (100kHz) mode.
@@ -95,7 +95,7 @@ void i2c_set_fast_mode(uint32_t i2c)
  */
 void i2c_set_standard_mode(uint32_t i2c)
 {
-    I2C_FREQUENCY(i2c) = I2C_FREQUENCY_100K;
+	I2C_FREQUENCY(i2c) = I2C_FREQUENCY_100K;
 }
 
 /** @brief Set I2C frequency.
@@ -105,11 +105,11 @@ void i2c_set_standard_mode(uint32_t i2c)
  *
  * @param[in] i2c uint32_t i2c peripheral base.
  * @param[in] freq uint32_t frequency constant. See defines for details
- *     and note that this is not actually a frequency in Hz or kHz.
+ *	 and note that this is not actually a frequency in Hz or kHz.
  */
 void i2c_set_frequency(uint32_t i2c, uint32_t freq)
 {
-    I2C_FREQUENCY(i2c) = freq;
+	I2C_FREQUENCY(i2c) = freq;
 }
 
 /** @brief Write Data to TXD register to be sent.
@@ -119,7 +119,7 @@ void i2c_set_frequency(uint32_t i2c, uint32_t freq)
  */
 void i2c_send_data(uint32_t i2c, uint8_t data)
 {
-    I2C_TXD(i2c) = data;
+	I2C_TXD(i2c) = data;
 }
 
 /** @brief Read Data from RXD register.
@@ -129,7 +129,7 @@ void i2c_send_data(uint32_t i2c, uint8_t data)
  */
 uint8_t i2c_get_data(uint32_t i2c)
 {
-    return (uint8_t)I2C_RXD(i2c);
+	return (uint8_t)I2C_RXD(i2c);
 }
 
 /** @brief Select GPIO pins to be used by this peripheral.
@@ -142,8 +142,8 @@ uint8_t i2c_get_data(uint32_t i2c)
  */
 void i2c_select_pins(uint32_t i2c, uint8_t scl_pin, uint8_t sda_pin)
 {
-    I2C_PSELSCL(i2c) = scl_pin;
-    I2C_PSELSDA(i2c) = sda_pin;
+	I2C_PSELSCL(i2c) = scl_pin;
+	I2C_PSELSDA(i2c) = sda_pin;
 }
 
 /** @brief Set 7bit I2C address of the device you wish to communicate with.
@@ -153,7 +153,7 @@ void i2c_select_pins(uint32_t i2c, uint8_t scl_pin, uint8_t sda_pin)
  */
 void i2c_set_address(uint32_t i2c, uint8_t addr)
 {
-    I2C_ADDRESS(i2c) = addr;
+	I2C_ADDRESS(i2c) = addr;
 }
 
 /** @brief Resume I2C transaction.
@@ -165,7 +165,7 @@ void i2c_set_address(uint32_t i2c, uint8_t addr)
  */
 void i2c_resume(uint32_t i2c)
 {
-    PERIPH_TRIGGER_TASK(I2C_TASK_RESUME(i2c));
+	PERIPH_TRIGGER_TASK(I2C_TASK_RESUME(i2c));
 }
 
 

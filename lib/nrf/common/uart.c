@@ -39,7 +39,7 @@
  */
 void uart_enable(uint32_t uart)
 {
-    UART_ENABLE(uart) = UART_ENABLE_ENABLED;
+	UART_ENABLE(uart) = UART_ENABLE_ENABLED;
 }
 
 /** @brief Disable the peripheral
@@ -48,7 +48,7 @@ void uart_enable(uint32_t uart)
  */
 void uart_disable(uint32_t uart)
 {
-    UART_ENABLE(uart) = UART_ENABLE_DISABLED;
+	UART_ENABLE(uart) = UART_ENABLE_DISABLED;
 }
 
 /** @brief Configure UART parameters in single call
@@ -65,18 +65,18 @@ void uart_disable(uint32_t uart)
  * @param[in] enable_parity bool If true, enable parity bit
  */
 void uart_configure(uint32_t uart,
-        uint32_t tx_pin, uint32_t rx_pin, uint32_t rts_pin, uint32_t cts_pin,
-        enum uart_baud br, bool enable_parity)
+		uint32_t tx_pin, uint32_t rx_pin, uint32_t rts_pin, uint32_t cts_pin,
+		enum uart_baud br, bool enable_parity)
 {
-    uart_set_pins(uart, rx_pin, tx_pin, cts_pin, rts_pin);
+	uart_set_pins(uart, rx_pin, tx_pin, cts_pin, rts_pin);
 
-    uint32_t reg_config = enable_parity ? UART_CONFIG_PARITY : 0;
-    if (rts_pin <= UART_MAX_PIN || cts_pin <= UART_MAX_PIN) {
-        reg_config |= UART_CONFIG_HWFC;
-    }
+	uint32_t reg_config = enable_parity ? UART_CONFIG_PARITY : 0;
+	if (rts_pin <= UART_MAX_PIN || cts_pin <= UART_MAX_PIN) {
+		reg_config |= UART_CONFIG_HWFC;
+	}
 
-    UART_CONFIG(uart) = reg_config;
-    uart_set_baudrate(uart, br);
+	UART_CONFIG(uart) = reg_config;
+	uart_set_baudrate(uart, br);
 }
 
 /* Approximation of log2. As used here, works correctly only
@@ -86,51 +86,57 @@ void uart_configure(uint32_t uart,
 
 void uart_set_pins(uint32_t uart, uint32_t rx, uint32_t tx, uint32_t cts, uint32_t rts)
 {
-    UART_PSELTXD(uart) = UART_PSEL_VAL(_LOG2(tx));
-    UART_PSELRXD(uart) = UART_PSEL_VAL(_LOG2(rx));
-    UART_PSELRTS(uart) = UART_PSEL_VAL(_LOG2(rts));
-    UART_PSELCTS(uart) = UART_PSEL_VAL(_LOG2(cts));
+	UART_PSELTXD(uart) = UART_PSEL_VAL(_LOG2(tx));
+	UART_PSELRXD(uart) = UART_PSEL_VAL(_LOG2(rx));
+	UART_PSELRTS(uart) = UART_PSEL_VAL(_LOG2(rts));
+	UART_PSELCTS(uart) = UART_PSEL_VAL(_LOG2(cts));
 }
 
 #undef _LOG2
 
 void uart_set_baudrate(uint32_t uart, enum uart_baud br)
 {
-    UART_BAUDRATE(uart) = br;
+	UART_BAUDRATE(uart) = br;
 }
 
 void uart_set_parity(uint32_t uart, int parity)
 {
-    UART_CONFIG(uart) |= parity ? UART_CONFIG_PARITY : 0;
+	UART_CONFIG(uart) |= parity ? UART_CONFIG_PARITY : 0;
 }
 
 void uart_set_flow_control(uint32_t uart, int flow)
 {
-    UART_CONFIG(uart) |= flow ? UART_CONFIG_HWFC : 0;
+	UART_CONFIG(uart) |= flow ? UART_CONFIG_HWFC : 0;
 }
 
-void uart_start_tx(uint32_t uart) {
-    PERIPH_TRIGGER_TASK(UART_TASK_STARTTX((uart)));
+void uart_start_tx(uint32_t uart)
+{
+	PERIPH_TRIGGER_TASK(UART_TASK_STARTTX((uart)));
 }
 
-void uart_send(uint32_t uart, uint16_t byte) {
-    UART_TXD((uart)) = byte;
+void uart_send(uint32_t uart, uint16_t byte)
+{
+	UART_TXD((uart)) = byte;
 }
 
-void uart_stop_tx(uint32_t uart) {
-    PERIPH_TRIGGER_TASK(UART_TASK_STOPTX((uart)));
+void uart_stop_tx(uint32_t uart)
+{
+	PERIPH_TRIGGER_TASK(UART_TASK_STOPTX((uart)));
 }
 
-void uart_start_rx(uint32_t uart) {
-    PERIPH_TRIGGER_TASK(UART_TASK_STARTRX((uart)));
+void uart_start_rx(uint32_t uart)
+{
+	PERIPH_TRIGGER_TASK(UART_TASK_STARTRX((uart)));
 }
 
-uint16_t uart_recv(uint32_t uart) {
-    return UART_RXD(uart);
+uint16_t uart_recv(uint32_t uart)
+{
+	return UART_RXD(uart);
 }
 
-void uart_stop_rx(uint32_t uart) {
-    PERIPH_TRIGGER_TASK(UART_TASK_STOPRX((uart)));
+void uart_stop_rx(uint32_t uart)
+{
+	PERIPH_TRIGGER_TASK(UART_TASK_STOPRX((uart)));
 }
 /**@}*/
 
