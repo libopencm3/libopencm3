@@ -176,7 +176,7 @@ void gpio_configure_event(uint8_t event_num, uint8_t pin_num, uint8_t polarity)
 {
 	GPIO_TE_CONFIG(event_num) = (GPIO_TE_MODE_EVENT << GPIO_TE_CONFIG_MODE_SHIFT)
 		| (pin_num << GPIO_TE_CONFIG_PSEL_SHIFT)
-		| (polarity << GPIO_TE_CONFIG_POLARITY_SHIFT)
+		| (polarity << GPIO_TE_CONFIG_POLARITY_SHIFT);
 }
 
 /** @brief Enable GPIO interrupts

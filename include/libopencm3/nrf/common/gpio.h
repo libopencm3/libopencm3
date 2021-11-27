@@ -223,7 +223,7 @@ void gpio_set_options(uint32_t gpioport, uint32_t drive, uint32_t sense,
 		uint32_t gpios);
 
 void gpio_configure_task(uint8_t task_num,
-		uint8_t pin_num, uint8_t polarity, uint8_t init);
+		uint8_t pin_num, uint8_t polarity, uint32_t init);
 
 void gpio_configure_event(uint8_t event_num, uint8_t pin_num, uint8_t polarity);
 

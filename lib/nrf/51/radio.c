@@ -38,7 +38,8 @@
  * */
 void radio_set_mode(enum radio_mode mode)
 {
-	uint32_t *override_pos = 0;
+	/* This is alias to memory register, thus volatile */
+	volatile uint32_t *override_pos = 0;
 	if ((RADIO_MODE_BLE_1MBIT == mode)
 			&& (FICR_OVERRIDEEN & ~FICR_OVERRIDEEN_BLE_1MBIT)) {
 		/* Need to use Override */
