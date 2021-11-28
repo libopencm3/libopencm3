@@ -38,11 +38,33 @@
 /**@{*/
 #include <libopencm3/cm3/assert.h>
 #include <libopencm3/stm32/rcc.h>
+#include <libopencm3/stm32/flash.h>
+#include <libopencm3/stm32/pwr.h>
 
 /* Set the default clock frequencies after reset. */
 uint32_t rcc_ahb_frequency = 4000000;
 uint32_t rcc_apb1_frequency = 4000000;
 uint32_t rcc_apb2_frequency = 4000000;
+
+const struct rcc_clock_scale rcc_hsi16_configs[RCC_CLOCK_CONFIG_END] = {
+	{ /* 80MHz PLL from HSI16 VR1 */
+		.pllm = 4,
+		.plln = 40,
+		.pllp = RCC_PLLCFGR_PLLP_DIV7,
+		.pllq = RCC_PLLCFGR_PLLQ_DIV6,
+		.pllr = RCC_PLLCFGR_PLLR_DIV2,
+		.pll_source = RCC_PLLCFGR_PLLSRC_HSI16,
+		.hpre = RCC_CFGR_HPRE_NODIV,
+		.ppre1 = RCC_CFGR_PPRE_NODIV,
+		.ppre2 = RCC_CFGR_PPRE_NODIV,
+		.voltage_scale = PWR_SCALE1,
+		.flash_config = FLASH_ACR_DCEN | FLASH_ACR_ICEN |
+		FLASH_ACR_LATENCY_4WS,
+		.ahb_frequency  = 80000000,
+		.apb1_frequency = 80000000,
+		.apb2_frequency = 80000000,
+	},
+};
 
 void rcc_osc_ready_int_clear(enum rcc_osc osc)
 {
@@ -342,6 +364,82 @@ uint32_t rcc_system_clock_source(void)
 }
 
 /**
+ * Setup clocks to run from PLL.
+ *
+ * The arguments provide the pll source, multipliers, dividers, all that's
+ * needed to establish a system clock.
+ *
+ * @param clock clock information structure.
+ */
+void rcc_clock_setup_pll(const struct rcc_clock_scale *clock)
+{
+	/* Enable internal high-speed oscillator (HSI16). */
+	rcc_osc_on(RCC_HSI16);
+	rcc_wait_for_osc_ready(RCC_HSI16);
+
+	/* Select HSI16 as SYSCLK source. */
+	rcc_set_sysclk_source(RCC_PLLCFGR_PLLSRC_HSI16);
+
+	/* Enable external high-speed oscillator (HSE). */
+	if (clock->pll_source == RCC_PLLCFGR_PLLSRC_HSE) {
+		rcc_osc_on(RCC_HSE);
+		rcc_wait_for_osc_ready(RCC_HSE);
+	}
+
+	/* Set the VOS scale mode */
+	rcc_periph_clock_enable(RCC_PWR);
+	pwr_set_vos_scale(clock->voltage_scale);
+
+	/*
+	* Set prescalers for AHB, ADC, APB1, APB2.
+	* Do this before touching the PLL (TODO: why?).
+	*/
+	rcc_set_hpre(clock->hpre);
+	rcc_set_ppre1(clock->ppre1);
+	rcc_set_ppre2(clock->ppre2);
+
+	/* Disable PLL oscillator before changing its configuration. */
+	rcc_osc_off(RCC_PLL);
+
+	/* Configure the PLL oscillator. */
+	rcc_set_main_pll(clock->pll_source, clock->pllm, clock->plln,
+			clock->pllp, clock->pllq,  clock->pllr);
+
+	/* Enable PLL oscillator and wait for it to stabilize. */
+	rcc_osc_on(RCC_PLL);
+	rcc_wait_for_osc_ready(RCC_PLL);
+
+	/* Configure flash settings. */
+	if (clock->flash_config & FLASH_ACR_DCEN) {
+		flash_dcache_enable();
+	} else {
+		flash_dcache_disable();
+	}
+	if (clock->flash_config & FLASH_ACR_ICEN) {
+		flash_icache_enable();
+	} else {
+		flash_icache_disable();
+	}
+	flash_set_ws(clock->flash_config);
+
+	/* Select PLL as SYSCLK source. */
+	rcc_set_sysclk_source(RCC_CFGR_SW_PLL);
+
+	/* Wait for PLL clock to be selected. */
+	rcc_wait_for_sysclk_status(RCC_PLL);
+
+	/* Set the peripheral clock frequencies used. */
+	rcc_ahb_frequency  = clock->ahb_frequency;
+	rcc_apb1_frequency = clock->apb1_frequency;
+	rcc_apb2_frequency = clock->apb2_frequency;
+
+	/* Disable internal high-speed oscillator. */
+	if (clock->pll_source == RCC_PLLCFGR_PLLSRC_HSE) {
+		rcc_osc_off(RCC_HSI16);
+	}
+}
+
+/**
  * Set the msi run time range.
  * Can only be called when MSI is either OFF, or when MSI is on _and_
  * ready. (RCC_CR_MSIRDY bit).  @sa rcc_set_msi_range_standby
@@ -497,11 +595,11 @@ uint32_t rcc_get_timer_clk_freq(uint32_t timer)
 		}
 	} else if (timer >= TIM2_BASE && timer <= TIM7_BASE) {
 		uint8_t ppre1 = (RCC_CFGR >> RCC_CFGR_PPRE1_SHIFT) & RCC_CFGR_PPRE1_MASK;
-		return (ppre1 == RCC_CFGR_PPRE1_NODIV) ? rcc_apb1_frequency
+		return (ppre1 == RCC_CFGR_PPRE_NODIV) ? rcc_apb1_frequency
 			: 2 * rcc_apb1_frequency;
 	} else {
 		uint8_t ppre2 = (RCC_CFGR >> RCC_CFGR_PPRE2_SHIFT) & RCC_CFGR_PPRE2_MASK;
-		return (ppre2 == RCC_CFGR_PPRE2_NODIV) ? rcc_apb2_frequency
+		return (ppre2 == RCC_CFGR_PPRE_NODIV) ? rcc_apb2_frequency
 			: 2 * rcc_apb2_frequency;
 	}
 	cm3_assert_not_reached();
