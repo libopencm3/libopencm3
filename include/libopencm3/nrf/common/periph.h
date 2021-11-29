@@ -135,4 +135,14 @@
 #define periph_disable_interrupts(base, mask)    periph_intenclr(base) = (mask)
 #define periph_clear_interrupts(base)            periph_intenclr(base) = (0xffffffff)
 
+/** Mark the signal as not connected to any pin. */
+#define GPIO_UNCONNECTED		0xFFFFFFFFU
+
+/** This is an approximation of log2. As used here, works correctly
+ * only for single bit set, which should be the case when used to.
+ * convert above GPIOxy macros to pin numbers as needed for PSEL
+ * registers of peripherals.
+ */
+#define __GPIO2PIN(x)			(31 - __builtin_clz((uint32_t) (x)))
+
 

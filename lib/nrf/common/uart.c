@@ -79,17 +79,46 @@ void uart_configure(uint32_t uart,
 	uart_set_baudrate(uart, br);
 }
 
-/* Approximation of log2. As used here, works correctly only
- * for single bit set, which should be the case here.
- */
-#define _LOG2(x)		(31 - __builtin_clz((uint32_t) (x)))
+/** @brief Select GPIO pins to be used by this peripheral.
+ *
+ * This needs to be configured while UART peripheral is disabled.
+ *
+ * @param[in] uart uart peripheral base.
+ * @param[in] rx RX pin. Use GPIO defines in @ref gpio_pin_id or GPIO_UNCONNECTED
+ * if signal shall not be connected to any pin.
+ * @param[in] tx TX pin. Use GPIO defines in @ref gpio_pin_id or GPIO_UNCONNECTED
+ * if signal shall not be connected to any pin.
+ * @param[in] cts CTS pin. Use GPIO defines in @ref gpio_pin_id or GPIO_UNCONNECTED
+ * if signal shall not be connected to any pin.
+ * @param[in] rts RTS pin. Use GPIO defines in @ref gpio_pin_id or GPIO_UNCONNECTED
+ * if signal shall not be connected to any pin.
 
+ */
 void uart_set_pins(uint32_t uart, uint32_t rx, uint32_t tx, uint32_t cts, uint32_t rts)
 {
-	UART_PSELTXD(uart) = UART_PSEL_VAL(_LOG2(tx));
-	UART_PSELRXD(uart) = UART_PSEL_VAL(_LOG2(rx));
-	UART_PSELRTS(uart) = UART_PSEL_VAL(_LOG2(rts));
-	UART_PSELCTS(uart) = UART_PSEL_VAL(_LOG2(cts));
+	if (rx != GPIO_UNCONNECTED) {
+		UART_PSELRXD(uart) = __GPIO2PIN(rx);
+	} else {
+		UART_PSELRXD(uart) = rx;
+	}
+
+	if (tx != GPIO_UNCONNECTED) {
+		UART_PSELTXD(uart) = __GPIO2PIN(tx);
+	} else {
+		UART_PSELTXD(uart) = tx;
+	}
+
+	if (cts != GPIO_UNCONNECTED) {
+		UART_PSELCTS(uart) = __GPIO2PIN(cts);
+	} else {
+		UART_PSELCTS(uart) = cts;
+	}
+
+	if (rts != GPIO_UNCONNECTED) {
+		UART_PSELRTS(uart) = __GPIO2PIN(rts);
+	} else {
+		UART_PSELRTS(uart) = rts;
+	}
 }
 
 #undef _LOG2

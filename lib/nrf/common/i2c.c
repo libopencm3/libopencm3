@@ -137,13 +137,25 @@ uint8_t i2c_get_data(uint32_t i2c)
  * This needs to be configured when no transaction is in progress.
  *
  * @param[in] i2c i2c peripheral base.
- * @param[in] scl_pin SCL pin (0-31).
- * @param[in] sda_pin SDA pin (0-31).
+ * @param[in] scl_pin SCL pin. Use GPIO defines in @ref gpio_pin_id or GPIO_UNCONNECTED
+ * if signal shall not be connected to any pin.
+ * @param[in] sda_pin SDA pin. Use GPIO defines in @ref gpio_pin_id or GPIO_UNCONNECTED
+ * if signal shall not be connected to any pin.
+
  */
-void i2c_select_pins(uint32_t i2c, uint8_t scl_pin, uint8_t sda_pin)
+void i2c_select_pins(uint32_t i2c, uint32_t scl_pin, uint32_t sda_pin)
 {
-	I2C_PSELSCL(i2c) = scl_pin;
-	I2C_PSELSDA(i2c) = sda_pin;
+	if (scl_pin != GPIO_UNCONNECTED) {
+		I2C_PSELSCL(i2c) = __GPIO2PIN(scl_pin);
+	} else {
+		I2C_PSELSCL(i2c) = scl_pin;
+	}
+
+	if (sda_pin != GPIO_UNCONNECTED) {
+		I2C_PSELSDA(i2c) = __GPIO2PIN(sda_pin);
+	} else {
+		I2C_PSELSDA(i2c) = sda_pin;
+	}
 }
 
 /** @brief Set 7bit I2C address of the device you wish to communicate with.
