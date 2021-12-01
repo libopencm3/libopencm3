@@ -478,7 +478,7 @@
 #define USART_RQR_SBKRQ		            (1 << 1)
 
 /** ABRRQ: Auto baud rate request */
-#define USART_RQR_ABKRQ		            (1 << 0)
+#define USART_RQR_ABRRQ		            (1 << 0)
 
 /**@}*/
 
