@@ -34,7 +34,9 @@ OBJS += pm.o
 OBJS += scif.o
 OBJS += usart_common_all.o usart.o
 
-VPATH += ../../usb:../../cm3:../common
+vpath %.c ../../usb
+vpath %.c ../../cm3
+vpath %.c ../common
 
 include ../../Makefile.include
 

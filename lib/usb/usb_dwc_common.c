@@ -213,12 +213,13 @@ uint16_t dwc_ep_write_packet(usbd_device *usbd_dev, uint8_t addr,
 				     OTG_DIEPCTL0_CNAK;
 
 	/* Copy buffer to endpoint FIFO, note - memcpy does not work.
-	 * ARMv7M supports non-word-aligned accesses, ARMv6M does not. */
-#if defined(__ARM_ARCH_7M__) || defined(__ARM_ARCH_7EM__)
+	 * ARMv7M and RISC-V support non-word-aligned accesses, ARMv6M
+	 * does not. */
+#if defined(__ARM_ARCH_7M__) || defined(__ARM_ARCH_7EM__) || defined(__riscv)
 	for (i = len; i > 0; i -= 4) {
 		REBASE(OTG_FIFO(addr)) = *buf32++;
 	}
-#endif /* defined(__ARM_ARCH_7M__) || defined(__ARM_ARCH_7EM__) */
+#endif /* defined(__ARM_ARCH_7M__) || defined(__ARM_ARCH_7EM__) || defined(__riscv) */
 
 #if defined(__ARM_ARCH_6M__)
 	/* Take care of word-aligned and non-word-aligned buffers */
@@ -255,13 +256,14 @@ uint16_t dwc_ep_read_packet(usbd_device *usbd_dev, uint8_t addr,
 	(void) addr;
 	len = MIN(len, usbd_dev->rxbcnt);
 
-	/* ARMv7M supports non-word-aligned accesses, ARMv6M does not. */
-#if defined(__ARM_ARCH_7M__) || defined(__ARM_ARCH_7EM__)
+	/* ARMv7M and RISC-V support non-word-aligned accesses, ARMv6M
+	 * does not. */
+#if defined(__ARM_ARCH_7M__) || defined(__ARM_ARCH_7EM__) || defined(__riscv)
 	for (i = len; i >= 4; i -= 4) {
 		*buf32++ = REBASE(OTG_FIFO(0));
 		usbd_dev->rxbcnt -= 4;
 	}
-#endif /* defined(__ARM_ARCH_7M__) || defined(__ARM_ARCH_7EM__) */
+#endif /* defined(__ARM_ARCH_7M__) || defined(__ARM_ARCH_7EM__) || defined(__riscv) */
 
 #if defined(__ARM_ARCH_6M__)
 	/* Take care of word-aligned and non-word-aligned buffers */

@@ -40,6 +40,6 @@ OBJS += gpio.o
 OBJS += iomuxc.o
 OBJS += uart.o
 
-VPATH += ../cm3
+vpath %.c ../cm3
 
 include ../Makefile.include

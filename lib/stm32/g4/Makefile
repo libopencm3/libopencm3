@@ -58,7 +58,10 @@ OBJS += usb_midi.o
 OBJS += usb_msc.o
 OBJS += st_usbfs_core.o st_usbfs_v2.o
 
-VPATH += ../../usb:../:../../cm3:../common
-VPATH += ../../ethernet
+vpath %.c ../../usb
+vpath %.c ../
+vpath %.c ../../cm3
+vpath %.c ../common
+vpath %.c ../../ethernet
 
 include ../../Makefile.include

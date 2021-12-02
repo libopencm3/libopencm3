@@ -3,6 +3,7 @@
  *
  * Copyright (C) 2009 Uwe Hermann <uwe@hermann-uwe.de>
  * Copyright (C) 2013 Frantisek Burian <BuFran@seznam.cz>
+ * Copyright (C) 2020 Lubomir Rintel <lkundrak@v3.sk>
  *
  * This library is free software: you can redistribute it and/or modify
  * it under the terms of the GNU Lesser General Public License as published by
@@ -71,10 +72,16 @@ MEMORY
 SECTIONS
 {
 	.text : {
+#ifdef GD32VF103
+		*(.reset)
+		. = 0x000000c;
+#endif
 		*(.vectors)	/* Vector table */
 		*(.text*)	/* Program code */
 		. = ALIGN(4);
 		*(.rodata*)	/* Read-only data */
+		. = ALIGN(4);
+		*(.srodata*)	/* Small read-only data */
 		. = ALIGN(4);
 	} >rom
 
@@ -129,12 +136,15 @@ SECTIONS
 		*(.data*)	/* Read-write initialized data */
 		*(.ramtext*)	/* "text" functions to run in ram */
 		. = ALIGN(4);
+		*(.sdata*)	/* Small-write initialized data */
+		. = ALIGN(4);
 		_edata = .;
 	} >ram AT >rom
 	_data_loadaddr = LOADADDR(.data);
 
 	.bss : {
 		*(.bss*)	/* Read-write zero initialized data */
+		*(.sbss*)	/* Small read-write zero initialized data */
 		*(COMMON)
 		. = ALIGN(4);
 		_ebss = .;

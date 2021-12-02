@@ -40,6 +40,6 @@ OBJS += rcc.o
 OBJS += usart.o
 OBJS += vector.o
 
-VPATH += ../cm3
+vpath %.c ../cm3
 
 include ../Makefile.include

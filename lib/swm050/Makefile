@@ -40,6 +40,6 @@ OBJS += pwr.o
 OBJS += syscon.o
 OBJS += timer.o
 OBJS += wdt.o
-VPATH += ../cm3
+vpath %.c ../cm3
 
 include ../Makefile.include

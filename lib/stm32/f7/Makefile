@@ -76,7 +76,10 @@ OBJS += usb_midi.o
 OBJS += usb_msc.o
 OBJS += usb_dwc_common.o usb_f107.o usb_f207.o
 
-VPATH += ../../usb:../:../../cm3:../common
-VPATH += ../../ethernet
+vpath %.c ../../usb
+vpath %.c ../
+vpath %.c ../../cm3
+vpath %.c ../common
+vpath %.c ../../ethernet
 
 include ../../Makefile.include

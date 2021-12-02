@@ -51,6 +51,9 @@ OBJS += timer_common_all.o
 OBJS += usart_common_v2.o usart_common_fifos.o
 OBJS += quadspi_common_v1.o
 
-VPATH += ../../usb:../:../../cm3:../common
+vpath %.c ../../usb
+vpath %.c ../
+vpath %.c ../../cm3
+vpath %.c ../common
 
 include ../../Makefile.include

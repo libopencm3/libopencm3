@@ -37,6 +37,9 @@ OBJS += flash.o flash_common_all.o flash_common_f.o flash_common_f01.o
 OBJS += gpio_common_all.o gpio_common_f0234.o
 OBJS += rcc.o rcc_common_all.o
 
-VPATH += ../:../../cm3:../common:../../stm32/common
+vpath %.c ../
+vpath %.c ../../cm3
+vpath %.c ../common
+vpath %.c ../../stm32/common
 
 include ../../Makefile.include

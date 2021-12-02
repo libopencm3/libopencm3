@@ -41,6 +41,8 @@ ARFLAGS		= rcs
 OBJS += gpio.o
 OBJS += systemcontrol.o
 
-VPATH += ../:../../cm3:../common
+vpath %.c ../
+vpath %.c ../../cm3
+vpath %.c ../common
 
 include ../../Makefile.include

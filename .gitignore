@@ -7,8 +7,9 @@
 *.a
 *.elf
 lib/*.ld
-# (except this one!)
+# (except these two!)
 !lib/cortex-m-generic.ld
+!lib/gd32v-generic.ld
 *.stylecheck
 *.swp
 \#*
@@ -42,6 +43,7 @@ doc/*/DoxygenLayout_*.xml
 doc/*/doxy.sourcelist
 include/libopencmsis/efm32/
 include/libopencmsis/gd32/
+include/libopencmsis/gd32v/
 include/libopencmsis/lm3s/
 include/libopencmsis/lpc13xx/
 include/libopencmsis/lpc17xx/
