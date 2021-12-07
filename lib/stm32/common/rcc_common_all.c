@@ -38,7 +38,7 @@
  *			 (either RCC_AHBENR, RCC_APB1ENR or RCC_APB2ENR)
  *
  * @param[in] en Unsigned int32. Logical OR of all enables to be set
- * @li If register is RCC_AHBER, from @ref rcc_ahbenr_en
+ * @li If register is RCC_AHBENR, from @ref rcc_ahbenr_en
  * @li If register is RCC_APB1ENR, from @ref rcc_apb1enr_en
  * @li If register is RCC_APB2ENR, from @ref rcc_apb2enr_en
  */
@@ -51,7 +51,7 @@ void rcc_peripheral_enable_clock(volatile uint32_t *reg, uint32_t en)
 /*---------------------------------------------------------------------------*/
 /** @brief RCC Disable Peripheral Clocks.
  *
- * Enable the clock on particular peripherals. There are three registers
+ * Disable the clock on particular peripherals. There are three registers
  * involved, each one controlling the enabling of clocks associated with
  * the AHB, APB1 and APB2 respectively. Several peripherals could be disabled
  * simultaneously <em>only if they are controlled by the same register</em>.
@@ -62,7 +62,7 @@ void rcc_peripheral_enable_clock(volatile uint32_t *reg, uint32_t en)
  *			 (either RCC_AHBENR, RCC_APB1ENR or RCC_APB2ENR)
  * @param[in] en Unsigned int32. Logical OR of all enables to be used for
  * disabling.
- * @li If register is RCC_AHBER, from @ref rcc_ahbenr_en
+ * @li If register is RCC_AHBENR, from @ref rcc_ahbenr_en
  * @li If register is RCC_APB1ENR, from @ref rcc_apb1enr_en
  * @li If register is RCC_APB2ENR, from @ref rcc_apb2enr_en
  */
