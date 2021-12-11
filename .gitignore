@@ -47,6 +47,7 @@ include/libopencmsis/lpc13xx/
 include/libopencmsis/lpc17xx/
 include/libopencmsis/lpc43xx/
 include/libopencmsis/msp432/
+include/libopencmsis/nrf/
 include/libopencmsis/pac55xx/
 include/libopencmsis/sam/
 include/libopencmsis/stm32/
