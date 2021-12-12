@@ -130,13 +130,13 @@ LGPL License Terms @ref lgpl_license
 /** TIM20 counter stopped when core is halted
  * @note Available only in STM32F303xD/E and STM32F398xE
  */
-#define DBGMCU_APB1_FZ_TIM20_STOP	(1 << 5)
+#define DBGMCU_APB2_FZ_TIM20_STOP	(1 << 5)
 /** TIM17 counter stopped when core is halted */
-#define DBGMCU_APB1_FZ_TIM17_STOP	(1 << 4)
+#define DBGMCU_APB2_FZ_TIM17_STOP	(1 << 4)
 /** TIM16 counter stopped when core is halted */
-#define DBGMCU_APB1_FZ_TIM16_STOP	(1 << 3)
+#define DBGMCU_APB2_FZ_TIM16_STOP	(1 << 3)
 /** TIM15 counter stopped when core is halted */
-#define DBGMCU_APB1_FZ_TIM15_STOP	(1 << 2)
+#define DBGMCU_APB2_FZ_TIM15_STOP	(1 << 2)
 /** TIM8 counter stopped when core is halted
  * @note Only in STM32F303xB/C/D/E, STM32F358xC and STM32F398xE devices
  */

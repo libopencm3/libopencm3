@@ -44,7 +44,7 @@ LGPL License Terms @ref lgpl_license
 /** Debug MCU APB freeze register 1
  * @note Only 32-bit access are supported.
  */
-#define DBGMCU_APB_FZ2			MMIO32(DBGMCU_BASE + 0x08)
+#define DBGMCU_APB_FZ1			MMIO32(DBGMCU_BASE + 0x08)
 
 /** Debug MCU APB freeze register 2
  * @note Only 32-bit access are supported.

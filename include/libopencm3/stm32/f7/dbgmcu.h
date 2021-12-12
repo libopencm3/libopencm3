@@ -131,11 +131,11 @@ LGPL License Terms @ref lgpl_license
 /** @defgroup dbgmcu_apb2_fz_values Debug MCU APB2 freeze register (DBGMCU_APB2_FZ) values
  * @{*/
 /** TIM11 counter stopped when core is halted */
-#define DBGMCU_APB2_FZ_TIM11_STOP			(1 << 18)
+#define DBGMCU_APB2_FZ_TIM11_STOP	(1 << 18)
 /** TIM10 counter stopped when core is halted */
-#define DBGMCU_APB2_FZ_TIM10_STOP			(1 << 17)
+#define DBGMCU_APB2_FZ_TIM10_STOP	(1 << 17)
 /** TIM9 counter stopped when core is halted */
-#define DBGMCU_APB2_FZ_TIM9_STOP			(1 << 16)
+#define DBGMCU_APB2_FZ_TIM9_STOP	(1 << 16)
 /** TIM8 counter stopped when core is halted */
 #define DBGMCU_APB2_FZ_TIM8_STOP	(1 << 1)
 /** TIM1 counter stopped when core is halted */
