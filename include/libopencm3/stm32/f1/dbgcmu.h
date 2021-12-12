@@ -1,7 +1,6 @@
 /** @defgroup dbgmcu_defines DBGMCU Defines
 
-@brief <b>libopencm3 Defined Constants and Types for the STM32F1xx DBGMCU
-Generator </b>
+@brief <b>Defined Constants and Types for the STM32F1xx DBGMCU Component</b>
 
 @ingroup STM32F1xx_defines
 
@@ -49,60 +48,60 @@ LGPL License Terms @ref lgpl_license
 /** @addtogroup dbgmcu_cr_values
  * @{*/
 /** Debug Sleep mode */
-#define DBGMCU_CR_SLEEP			0x00000001
+#define DBGMCU_CR_SLEEP			(1 << 0)
 /** Debug Stop mode */
-#define DBGMCU_CR_STOP			0x00000002
+#define DBGMCU_CR_STOP			(1 << 1)
 /** Debug Standby mode */
-#define DBGMCU_CR_STANDBY		0x00000004
+#define DBGMCU_CR_STANDBY		(1 << 2)
 
-/** Trace pin assignment control */
-#define DBGMCU_CR_TRACE_IOEN		0x00000020
-#define DBGMCU_CR_TRACE_MODE_MASK	0x000000C0
-#define DBGMCU_CR_TRACE_MODE_ASYNC	0x00000000
-#define DBGMCU_CR_TRACE_MODE_SYNC_1	0x00000040
-#define DBGMCU_CR_TRACE_MODE_SYNC_2	0x00000080
-#define DBGMCU_CR_TRACE_MODE_SYNC_4	0x000000C0
+#define DBGMCU_CR_TRACE_IOEN		(1 << 5)
+#define DBGMCU_CR_TRACE_MODE_MASK	0x3
+#define DBGMCU_CR_TRACE_MODE_SHIFT	6
+#define DBGMCU_CR_TRACE_MODE_ASYNC	(0 << DBGMCU_CR_TRACE_MODE_SHIFT)
+#define DBGMCU_CR_TRACE_MODE_SYNC_1	(1 << DBGMCU_CR_TRACE_MODE_SHIFT)
+#define DBGMCU_CR_TRACE_MODE_SYNC_2	(2 << DBGMCU_CR_TRACE_MODE_SHIFT)
+#define DBGMCU_CR_TRACE_MODE_SYNC_4	(3 << DBGMCU_CR_TRACE_MODE_SHIFT)
 
 /** Debug independent watchdog stopped when core is halted */
-#define DBGMCU_CR_IWDG_STOP		0x00000100
+#define DBGMCU_CR_IWDG_STOP		(1 << 8)
 /** Debug window watchdog stopped when core is halted */
-#define DBGMCU_CR_WWDG_STOP		0x00000200
+#define DBGMCU_CR_WWDG_STOP		(1 << 9)
 /** TIM1 counter stopped when core is halted */
-#define DBGMCU_CR_TIM1_STOP		0x00000400
+#define DBGMCU_CR_TIM1_STOP		(1 << 10)
 /** TIM2 counter stopped when core is halted */
-#define DBGMCU_CR_TIM2_STOP		0x00000800
+#define DBGMCU_CR_TIM2_STOP		(1 << 11)
 /** TIM3 counter stopped when core is halted */
-#define DBGMCU_CR_TIM3_STOP		0x00001000
+#define DBGMCU_CR_TIM3_STOP		(1 << 12)
 /** TIM4 counter stopped when core is halted */
-#define DBGMCU_CR_TIM4_STOP		0x00002000
+#define DBGMCU_CR_TIM4_STOP		(1 << 13)
 /** Debug CAN1 stopped when Core is halted */
-#define DBGMCU_CR_CAN1_STOP		0x00004000
+#define DBGMCU_CR_CAN1_STOP		(1 << 14)
 /** SMBUS timeout mode stopped when Core is halted */
-#define DBGMCU_CR_I2C1_SMBUS_TIMEOUT	0x00008000
+#define DBGMCU_CR_I2C1_SMBUS_TIMEOUT	(1 << 15)
 /** SMBUS timeout mode stopped when Core is halted */
-#define DBGMCU_CR_I2C2_SMBUS_TIMEOUT	0x00010000
+#define DBGMCU_CR_I2C2_SMBUS_TIMEOUT	(1 << 16)
 /** TIM8 counter stopped when core is halted */
-#define DBGMCU_CR_TIM8_STOP		0x00020000
+#define DBGMCU_CR_TIM8_STOP		(1 << 17)
 /** TIM5 counter stopped when core is halted */
-#define DBGMCU_CR_TIM5_STOP		0x00040000
+#define DBGMCU_CR_TIM5_STOP		(1 << 18)
 /** TIM6 counter stopped when core is halted */
-#define DBGMCU_CR_TIM6_STOP		0x00080000
+#define DBGMCU_CR_TIM6_STOP		(1 << 19)
 /** TIM7 counter stopped when core is halted */
-#define DBGMCU_CR_TIM7_STOP		0x00100000
+#define DBGMCU_CR_TIM7_STOP		(1 << 20)
 /** Debug CAN2 stopped when core is halted */
-#define DBGMCU_CR_CAN2_STOP		0x00200000
+#define DBGMCU_CR_CAN2_STOP		(1 << 21)
 /** TIM12 counter stopped when core is halted */
-#define DBG_TIM12_STOP			0x02000000
+#define DBG_TIM12_STOP			(1 << 25)
 /** TIM13 counter stopped when core is halted */
-#define DBG_TIM13_STOP			0x04000000
+#define DBG_TIM13_STOP			(1 << 26)
 /** TIM14 counter stopped when core is halted */
-#define DBG_TIM14_STOP			0x08000000
+#define DBG_TIM14_STOP			(1 << 27)
 /** TIM9 counter stopped when core is halted */
-#define DBG_TIM9_STOP			0x10000000
+#define DBG_TIM9_STOP			(1 << 28)
 /** TIM10 counter stopped when core is halted */
-#define DBG_TIM10_STOP			0x20000000
+#define DBG_TIM10_STOP			(1 << 29)
 /** TIM11 counter stopped when core is halted */
-#define DBG_TIM11_STOP			0x40000000
+#define DBG_TIM11_STOP			(1 << 30)
 /**@}*/
 
 #endif

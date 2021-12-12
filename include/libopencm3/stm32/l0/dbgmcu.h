@@ -1,12 +1,12 @@
 /** @defgroup dbgmcu_defines DBGMCU Defines
 
-@brief <b>Defined Constants and Types for the STM32L1xx DBGMCU Component</b>
+@brief <b>Defined Constants and Types for the STM32L0xx DBGMCU Component</b>
 
-@ingroup STM32L1xx_defines
+@ingroup STM32L0xx_defines
 
 @version 1.0.0
 
-@date 11 December 2021
+@date 12 December 2021
 
 LGPL License Terms @ref lgpl_license
  */
@@ -54,9 +54,7 @@ LGPL License Terms @ref lgpl_license
 
 /* --- DBGMCU_CR values ----------------------------------------------------- */
 
-/* Bits [31:8]: Reserved, must be kept at reset value. */
-
-/* Bits [4:3]: Reserved, must be kept at reset value. */
+/* Bits [31:3]: Reserved, must be kept at reset value. */
 
 /** @addtogroup dbgmcu_cr_values
  * @{*/
@@ -66,47 +64,36 @@ LGPL License Terms @ref lgpl_license
 #define DBGMCU_CR_STOP			(1 << 1)
 /** Debug Standby mode */
 #define DBGMCU_CR_STANDBY		(1 << 2)
-
-#define DBGMCU_CR_TRACE_IOEN		(1 << 5)
-#define DBGMCU_CR_TRACE_MODE_MASK	0x3
-#define DBGMCU_CR_TRACE_MODE_SHIFT	6
-#define DBGMCU_CR_TRACE_MODE_ASYNC	(0 << DBGMCU_CR_TRACE_MODE_SHIFT)
-#define DBGMCU_CR_TRACE_MODE_SYNC_1	(1 << DBGMCU_CR_TRACE_MODE_SHIFT)
-#define DBGMCU_CR_TRACE_MODE_SYNC_2	(2 << DBGMCU_CR_TRACE_MODE_SHIFT)
-#define DBGMCU_CR_TRACE_MODE_SYNC_4	(3 << DBGMCU_CR_TRACE_MODE_SHIFT)
 /**@}*/
 
 /* --- DBGMCU_APB1_FZ values ------------------------------------------------ */
 
-/* Bits [31:23]: Reserved, must be kept at reset value. */
+/* Bits [29:22]: Reserved, must be kept at reset value. */
 
 /* Bits [20:13]: Reserved, must be kept at reset value. */
 
 /* Bits [9:6]: Reserved, must be kept at reset value. */
 
+/* Bits [3:2]: Reserved, must be kept at reset value. */
+
 /** @defgroup dbgmcu_apb1_fz_values Debug MCU APB1 freeze register (DBGMCU_APB1_FZ) values
  * @{*/
-/** SMBUS timeout mode stopped when core is halted */
-#define DBGMCU_APB1_FZ_I2C2_SMBUS_TIMEOUT	(1 << 22)
-/** SMBUS timeout mode stopped when core is halted */
-#define DBGMCU_APB1_FZ_I2C1_SMBUS_TIMEOUT	(1 << 21)
+/** LPTIM1 counter stopped when core is halted */
+#define DBGMCU_APB1_FZ_LPTIMER_STOP	(1 << 31)
+/** I2C3 SMBUS timeout mode stopped when core is halted */
+#define DBGMCU_APB1_FZ_I2C3_STOP	(1 << 30)
+/** I2C1 SMBUS timeout mode stopped when core is halted */
+#define DBGMCU_APB1_FZ_I2C1_STOP	(1 << 21)
 /** Debug independent watchdog stopped when core is halted */
 #define DBGMCU_APB1_FZ_IWDG_STOP	(1 << 12)
 /** Debug window watchdog stopped when core is halted */
 #define DBGMCU_APB1_FZ_WWDG_STOP	(1 << 11)
-/** Debug RTC stopped when core is halted
- * @note This bit is available only in Cat.2, Cat.3, Cat.4, Cat.5 and Cat.6
- *       devices.
- */
+/** Debug RTC stopped when core is halted */
 #define DBGMCU_APB1_FZ_RTC_STOP		(1 << 10)
 /** TIM7 counter stopped when core is halted */
 #define DBGMCU_APB1_FZ_TIM7_STOP	(1 << 5)
 /** TIM6 counter stopped when core is halted */
 #define DBGMCU_APB1_FZ_TIM6_STOP	(1 << 4)
-/** TIM5 counter stopped when core is halted */
-#define DBGMCU_APB1_FZ_TIM5_STOP	(1 << 3)
-/** TIM4 counter stopped when core is halted */
-#define DBGMCU_APB1_FZ_TIM4_STOP	(1 << 2)
 /** TIM3 counter stopped when core is halted */
 #define DBGMCU_APB1_FZ_TIM3_STOP	(1 << 1)
 /** TIM2 counter stopped when core is halted */
@@ -115,18 +102,18 @@ LGPL License Terms @ref lgpl_license
 
 /* --- DBGMCU_APB2_FZ values ------------------------------------------------ */
 
-/* Bits [31:5]: Reserved, must be kept at reset value. */
+/* Bits [31:6]: Reserved, must be kept at reset value. */
+
+/* Bits [4:3]: Reserved, must be kept at reset value. */
 
 /* Bits [1:0]: Reserved, must be kept at reset value. */
 
 /** @defgroup dbgmcu_apb2_fz_values Debug MCU APB2 freeze register (DBGMCU_APB2_FZ) values
  * @{*/
-/** TIM11 counter stopped when core is halted */
-#define DBGMCU_APB2_FZ_TIM11_STOP	(1 << 4)
-/** TIM10 counter stopped when core is halted */
-#define DBGMCU_APB2_FZ_TIM10_STOP	(1 << 3)
-/** TIM9 counter stopped when core is halted */
-#define DBGMCU_APB2_FZ_TIM9_STOP	(1 << 2)
+/** TIM22 counter stopped when core is halted */
+#define DBGMCU_APB2_FZ_TIM22_STOP	(1 << 5)
+/** TIM21 counter stopped when core is halted */
+#define DBGMCU_APB2_FZ_TIM21_STOP	(1 << 2)
 /**@}*/
 
 #endif
