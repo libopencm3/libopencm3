@@ -112,8 +112,8 @@ specific memorymap.h header before including this header file.*/
 /* --- PWR_CR3 values ------------------------------------------------------- */
 
 #define PWR_CR3_EIWUL		(1 << 15)
-#define PWR_CR3_UCPD1_DBDIS	(1 << 15)
-#define PWR_CR3_UCPD1_STDBY	(1 << 15)
+#define PWR_CR3_UCPD1_DBDIS	(1 << 14)
+#define PWR_CR3_UCPD1_STDBY	(1 << 13)
 #define PWR_CR3_APC		(1 << 10)
 #define PWR_CR3_RRS		(1 << 8)
 #define PWR_CR3_EWUP5		(1 << 4)
