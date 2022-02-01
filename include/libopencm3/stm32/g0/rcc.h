@@ -487,7 +487,7 @@
 /**@}*/
 
 #define RCC_CCIPR_TIM1SEL_MASK		0x1
-#define RCC_CCIPR_TIM1SEL_SHIFT		20
+#define RCC_CCIPR_TIM1SEL_SHIFT		22
 /** @defgroup rcc_ccipr_tim1sel TIM1SEL
 @{*/
 #define RCC_CCIPR_TIM1SEL_TIMPCLK		0
