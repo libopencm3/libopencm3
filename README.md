@@ -26,6 +26,24 @@ programming manuals, and application notes. The code is meant to be used
 with a GCC toolchain for ARM (arm-elf or arm-none-eabi), flashing of the
 code to a microcontroller can be done using the OpenOCD ARM JTAG software.
 
+This Fork
+------------
+
+This fork exists so the current git master version of this library
+can easily be used within the [PlatformIO IDE](https://platformio.org/). This fork is continously
+kept up-to-date using [a GitHub App called "Pull"](https://github.com/apps/pull).
+A few files differ from the upstream repository:
+ - `README.md` is the file you are currently reading,
+ it has the paragraph your currently reading added to it.
+ - `/.github/pull.yml` contains the configuration for the GitHub App "Pull".
+ - `package.json` is the only reason this fork is easier to be used within PlatformIO than the upstream rerpository. This file makes it possible to use the library as a `platform_package`.
+
+**Usage with PlatformIO**
+see [this part of the PlatformIO documentation](https://docs.platformio.org/en/latest/projectconf/section_env_platform.html#platform-packages).
+In short: add this paragraph to your `platformio.ini`:
+
+    platform_packages =
+   framework-libopencm3@https://github.com/qosch/libopencm3.git
 
 Status and API
 --------------
