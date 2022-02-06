@@ -39,11 +39,13 @@ A few files differ from the upstream repository:
  - `package.json` is the only reason this fork is easier to be used within PlatformIO than the upstream rerpository. This file makes it possible to use the library as a `platform_package`.
 
 **Usage with PlatformIO**
+
 see [this part of the PlatformIO documentation](https://docs.platformio.org/en/latest/projectconf/section_env_platform.html#platform-packages).
+
 In short: add this paragraph to your `platformio.ini`:
 
     platform_packages =
-   framework-libopencm3@https://github.com/qosch/libopencm3.git
+    framework-libopencm3@https://github.com/qosch/libopencm3.git
 
 Status and API
 --------------
