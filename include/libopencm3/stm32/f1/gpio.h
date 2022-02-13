@@ -397,15 +397,21 @@ LGPL License Terms @ref lgpl_license
 #define GPIO_BANK_USART2_RE_CK		GPIOD		/* PD7 */
 
 /* USART1 GPIO */
+#define GPIO_USART1_CTS			GPIO11		/* PA11 */
+#define GPIO_USART1_RTS			GPIO12		/* PA12 */
 #define GPIO_USART1_TX			GPIO9		/* PA9 */
 #define GPIO_USART1_RX			GPIO10		/* PA10 */
+#define GPIO_USART1_CK			GPIO8		/* PA8 */
 
 #define GPIO_USART1_RE_TX		GPIO6		/* PB6 */
 #define GPIO_USART1_RE_RX		GPIO7		/* PB7 */
 
 /* USART1 BANK */
+#define GPIO_BANK_USART1_CTS		GPIOA		/* PA11 */
+#define GPIO_BANK_USART1_RTS		GPIOA		/* PA12 */
 #define GPIO_BANK_USART1_TX		GPIOA		/* PA9 */
 #define GPIO_BANK_USART1_RX		GPIOA		/* PA10 */
+#define GPIO_BANK_USART1_CK		GPIOA		/* PA8 */
 
 #define GPIO_BANK_USART1_RE_TX		GPIOB		/* PB6 */
 #define GPIO_BANK_USART1_RE_RX		GPIOB		/* PB7 */
