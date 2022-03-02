@@ -67,7 +67,7 @@ Variables to tell gcc about project dependencies and input files
 ----------------------------------------------------------------
 
 LDSCRIPT	Linker script file name (can be generated or fixed)
-LIBDEPS		Array of library filenames that shoud be rebuilt if needed
+LIBDEPS		Array of library filenames that should be rebuilt if needed
 LDLIBS		Array of libraries to be linked with (array of -l<libname>)
 OBJS		Array of object files to be built
 
