@@ -90,6 +90,7 @@
 #define RCC_BDCR			MMIO32(RCC_BASE + 0x90)
 #define RCC_CSR				MMIO32(RCC_BASE + 0x94)
 #define RCC_CRRCR			MMIO32(RCC_BASE + 0x98)
+#define RCC_CCIPR2			MMIO32(RCC_BASE + 0x9C)
 
 /* --- RCC_CR values ------------------------------------------------------- */
 
@@ -636,6 +637,7 @@ Twelve frequency ranges are available: 100 kHz, 200 kHz, 400 kHz, 800 kHz,
 #define RCC_CCIPR_I2CxSEL_SYS		1
 #define RCC_CCIPR_I2CxSEL_HSI16		2
 #define RCC_CCIPR_I2CxSEL_MASK		0x3
+#define RCC_CCIPR_I2C4SEL_SHIFT		0
 #define RCC_CCIPR_I2C3SEL_SHIFT		16
 #define RCC_CCIPR_I2C2SEL_SHIFT		14
 #define RCC_CCIPR_I2C1SEL_SHIFT		12
@@ -662,13 +664,6 @@ Twelve frequency ranges are available: 100 kHz, 200 kHz, 400 kHz, 800 kHz,
 #define RCC_CCIPR_USART3SEL_SHIFT	4
 #define RCC_CCIPR_USART2SEL_SHIFT	2
 #define RCC_CCIPR_USART1SEL_SHIFT	0
-
-#define RCC_CCIPR_USART1SEL_APB		0
-#define RCC_CCIPR_USART1SEL_SYS		1
-#define RCC_CCIPR_USART1SEL_HSI16	2
-#define RCC_CCIPR_USART1SEL_LSE		3
-#define RCC_CCIPR_USART1SEL_SHIFT	0
-#define RCC_CCIPR_USART1SEL_MASK	0x3
 
 /* --- RCC_BDCR - Backup domain control register --------------------------- */
 
