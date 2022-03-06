@@ -698,7 +698,7 @@ struct fdcan_tx_buffer_element {
  * @{
  */
 #define FDCAN_FIFO_ESI					(1 << 31)
-#define FDCAN_FIFO_XTD					(1 << 20)
+#define FDCAN_FIFO_XTD					(1 << 30)
 #define FDCAN_FIFO_RTR					(1 << 29)
 #define FDCAN_FIFO_EFC					(1 << 23)
 #define FDCAN_FIFO_FDF					(1 << 21)
