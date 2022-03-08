@@ -1324,9 +1324,9 @@
  * @li CLOCK_DEEP_SLEEP - Deep-Sleep Mode
  */
 enum msp432_clock_mode {
-    CLOCK_RUN = 0x600,
-    CLOCK_SLEEP = 0x700,
-    CLOCK_DEEP_SLEEP = 0x800
+	CLOCK_RUN = 0x600,
+	CLOCK_SLEEP = 0x700,
+	CLOCK_DEEP_SLEEP = 0x800
 };
 
 /**
@@ -1339,8 +1339,8 @@ enum msp432_clock_mode {
  * is powered and receives a clock regardless of the value of power mode.
  */
 enum msp432_power_mode {
-    POWER_DISABLE = false,
-    POWER_ENABLE = true
+	POWER_DISABLE = false,
+	POWER_ENABLE = true
 };
 
 #define _REG_BIT(base, bit)     (((base) << 5) + (bit))
@@ -1354,95 +1354,95 @@ enum msp432_power_mode {
  */
 enum msp432_periph {
 
-    PERIPH_WD0 = _REG_BIT(0x00, 0),
-    PERIPH_WD1,
+	PERIPH_WD0 = _REG_BIT(0x00, 0),
+	PERIPH_WD1,
 
-    PERIPH_TIMER0 = _REG_BIT(0x04, 0),
-    PERIPH_TIMER1,
-    PERIPH_TIMER2,
-    PERIPH_TIMER3,
-    PERIPH_TIMER4,
-    PERIPH_TIMER5,
-    PERIPH_TIMER6,
-    PERIPH_TIMER7,
+	PERIPH_TIMER0 = _REG_BIT(0x04, 0),
+	PERIPH_TIMER1,
+	PERIPH_TIMER2,
+	PERIPH_TIMER3,
+	PERIPH_TIMER4,
+	PERIPH_TIMER5,
+	PERIPH_TIMER6,
+	PERIPH_TIMER7,
 
-    PERIPH_GPIOA = _REG_BIT(0x08, 0),
-    PERIPH_GPIOB,
-    PERIPH_GPIOC,
-    PERIPH_GPIOD,
-    PERIPH_GPIOE,
-    PERIPH_GPIOF,
-    PERIPH_GPIOG,
-    PERIPH_GPIOH,
-    PERIPH_GPIOJ,
-    PERIPH_GPIOK,
-    PERIPH_GPIOL,
-    PERIPH_GPIOM,
-    PERIPH_GPION,
-    PERIPH_GPIOP,
-    PERIPH_GPIOQ,
-    PERIPH_GPIOR,
-    PERIPH_GPIOS,
-    PERIPH_GPIOT,
+	PERIPH_GPIOA = _REG_BIT(0x08, 0),
+	PERIPH_GPIOB,
+	PERIPH_GPIOC,
+	PERIPH_GPIOD,
+	PERIPH_GPIOE,
+	PERIPH_GPIOF,
+	PERIPH_GPIOG,
+	PERIPH_GPIOH,
+	PERIPH_GPIOJ,
+	PERIPH_GPIOK,
+	PERIPH_GPIOL,
+	PERIPH_GPIOM,
+	PERIPH_GPION,
+	PERIPH_GPIOP,
+	PERIPH_GPIOQ,
+	PERIPH_GPIOR,
+	PERIPH_GPIOS,
+	PERIPH_GPIOT,
 
-    PERIPH_DMA = _REG_BIT(0x0C, 0),
+	PERIPH_DMA = _REG_BIT(0x0C, 0),
 
-    PERIPH_EPI = _REG_BIT(0x10, 0),
+	PERIPH_EPI = _REG_BIT(0x10, 0),
 
-    PERIPH_HIB = _REG_BIT(0x14, 0),
+	PERIPH_HIB = _REG_BIT(0x14, 0),
 
-    PERIPH_UART0 = _REG_BIT(0x18, 0),
-    PERIPH_UART1,
-    PERIPH_UART2,
-    PERIPH_UART3,
-    PERIPH_UART4,
-    PERIPH_UART5,
-    PERIPH_UART6,
-    PERIPH_UART7,
+	PERIPH_UART0 = _REG_BIT(0x18, 0),
+	PERIPH_UART1,
+	PERIPH_UART2,
+	PERIPH_UART3,
+	PERIPH_UART4,
+	PERIPH_UART5,
+	PERIPH_UART6,
+	PERIPH_UART7,
 
-    PERIPH_SSI0 = _REG_BIT(0x1C, 0),
-    PERIPH_SSI1,
-    PERIPH_SSI2,
-    PERIPH_SSI3,
+	PERIPH_SSI0 = _REG_BIT(0x1C, 0),
+	PERIPH_SSI1,
+	PERIPH_SSI2,
+	PERIPH_SSI3,
 
-    PERIPH_I2C0 = _REG_BIT(0x20, 0),
-    PERIPH_I2C1,
-    PERIPH_I2C2,
-    PERIPH_I2C3,
-    PERIPH_I2C4,
-    PERIPH_I2C5,
-    PERIPH_I2C6,
-    PERIPH_I2C7,
-    PERIPH_I2C8,
-    PERIPH_I2C9,
+	PERIPH_I2C0 = _REG_BIT(0x20, 0),
+	PERIPH_I2C1,
+	PERIPH_I2C2,
+	PERIPH_I2C3,
+	PERIPH_I2C4,
+	PERIPH_I2C5,
+	PERIPH_I2C6,
+	PERIPH_I2C7,
+	PERIPH_I2C8,
+	PERIPH_I2C9,
 
-    PERIPH_USB0 = _REG_BIT(0x28, 0),
+	PERIPH_USB0 = _REG_BIT(0x28, 0),
 
-    PERIPH_EPHY = _REG_BIT(0x30, 0),
+	PERIPH_EPHY = _REG_BIT(0x30, 0),
 
-    PERIPH_CAN0 = _REG_BIT(0x34, 0),
-    PERIPH_CAN1,
+	PERIPH_CAN0 = _REG_BIT(0x34, 0),
+	PERIPH_CAN1,
 
-    PERIPH_ADC0 = _REG_BIT(0x38, 0),
-    PERIPH_ADC1,
+	PERIPH_ADC0 = _REG_BIT(0x38, 0),
+	PERIPH_ADC1,
 
-    PERIPH_ACMP = _REG_BIT(0x3C, 0),
+	PERIPH_ACMP = _REG_BIT(0x3C, 0),
 
-    PERIPH_PWM = _REG_BIT(0x40, 0),
+	PERIPH_PWM = _REG_BIT(0x40, 0),
 
-    PERIPH_QEI = _REG_BIT(0x44, 0),
+	PERIPH_QEI = _REG_BIT(0x44, 0),
 
-    PERIPH_EEPROM = _REG_BIT(0x58, 0),
+	PERIPH_EEPROM = _REG_BIT(0x58, 0),
 
-    PERIPH_CCM = _REG_BIT(0x74, 0),
+	PERIPH_CCM = _REG_BIT(0x74, 0),
 
-    PERIPH_LCD = _REG_BIT(0x90, 0),
+	PERIPH_LCD = _REG_BIT(0x90, 0),
 
-    PERIPH_OWIRE = _REG_BIT(0x98, 0),
+	PERIPH_OWIRE = _REG_BIT(0x98, 0),
 
-    PERIPH_EMAC = _REG_BIT(0x9C, 0),
+	PERIPH_EMAC = _REG_BIT(0x9C, 0),
 
-    PERIPH_PRB = _REG_BIT(0xA0, 0)
+	PERIPH_PRB = _REG_BIT(0xA0, 0)
 };
 
 #undef _REG_BIT
@@ -1452,9 +1452,9 @@ enum msp432_periph {
 BEGIN_DECLS
 
 void sysctl_periph_clock_enable(enum msp432_clock_mode clock_mode,
-                                enum msp432_periph periph);
+				enum msp432_periph periph);
 void sysctl_periph_clock_disable(enum msp432_clock_mode clock_mode,
-                                 enum msp432_periph periph);
+				enum msp432_periph periph);
 
 void sysctl_periph_reset(enum msp432_periph periph);
 void sysctl_periph_clear_reset(enum msp432_periph periph);
@@ -1462,7 +1462,7 @@ void sysctl_periph_clear_reset(enum msp432_periph periph);
 bool sysctl_periph_is_present(enum msp432_periph periph);
 bool sysctl_periph_is_ready(enum msp432_periph periph);
 void sysctl_periph_set_power_state(enum msp432_power_mode power_mode,
-                                   enum msp432_periph periph);
+				enum msp432_periph periph);
 
 END_DECLS
 
