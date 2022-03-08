@@ -1,7 +1,7 @@
 /** @defgroup lptimer_defines LPTIM Defines
  *
  * @ingroup STM32L0xx_defines
- * 
+ *
  * @brief <b>libopencm3 Defined Constants and Types for the STM32L0xx Low Power Timer</b>
  *
  * @version 1.0.0
