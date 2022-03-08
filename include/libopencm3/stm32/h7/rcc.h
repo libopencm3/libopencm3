@@ -423,276 +423,276 @@ LGPL License Terms @ref lgpl_license
 /** Enumerations for core system/bus clocks for user/driver/system access to base bus clocks
   * not directly associated with a peripheral. */
 enum rcc_clock_source {
-  RCC_CPUCLK,
-  RCC_SYSCLK,
-  RCC_PERCLK,
-  RCC_SYSTICKCLK,
-  RCC_HCLK3,
-  RCC_AHBCLK,           /* AHB1,2,4 all share base HCLK. */
-  RCC_APB1CLK,          /* Note: APB1 and PCLK1 in manual */
-  RCC_APB2CLK,          /* Note: APB2 and PCLK2 in manual */
-  RCC_APB3CLK,          /* Note: APB3 and PCLK3 in manual */
-  RCC_APB4CLK,          /* Note: APB4 and PCLK4 in manual */
+	RCC_CPUCLK,
+	RCC_SYSCLK,
+	RCC_PERCLK,
+	RCC_SYSTICKCLK,
+	RCC_HCLK3,
+	RCC_AHBCLK,           /* AHB1,2,4 all share base HCLK. */
+	RCC_APB1CLK,          /* Note: APB1 and PCLK1 in manual */
+	RCC_APB2CLK,          /* Note: APB2 and PCLK2 in manual */
+	RCC_APB3CLK,          /* Note: APB3 and PCLK3 in manual */
+	RCC_APB4CLK,          /* Note: APB4 and PCLK4 in manual */
 };
 
 enum rcc_osc {
-  RCC_PLL,
-  RCC_HSE,
-  RCC_HSI,
-  RCC_LSE,
-  RCC_LSI
+	RCC_PLL,
+	RCC_HSE,
+	RCC_HSI,
+	RCC_LSE,
+	RCC_LSI
 };
 
 /** PLL Configuration structure. */
 struct rcc_pll_config {
-  enum rcc_osc sysclock_source;     /**< SYSCLK source input selection. */
-  uint8_t pll_source;               /**< RCC_PLLCKSELR_PLLSRC_xxx value. */
-  uint32_t hse_frequency;           /**< User specified HSE frequency, 0 if none. */
-  struct pll_config {
-    uint8_t divm;                   /**< Pre-divider value for each PLL. 0-64 integers. */
-    uint16_t divn;                  /**< Multiplier, 0-512 integer. */
-    uint8_t divp;                   /**< Post divider for PLLP clock. */
-    uint8_t divq;                   /**< Post divider for PLLQ clock. */
-    uint8_t divr;                   /**< Post divider for PLLR clock. */
-  } pll1, pll2, pll3;               /**< PLL1-PLL3 configurations. */
-  uint8_t core_pre;                 /**< Core prescaler  note: domain 1. */
-  uint8_t hpre;                     /**< HCLK3 prescaler note: domain 1. */
-  uint8_t ppre1;                    /**< APB1 Peripheral prescaler note: domain 2. */
-  uint8_t ppre2;                    /**< APB2 Peripheral prescaler note: domain 2. */
-  uint8_t ppre3;                    /**< APB3 Peripheral prescaler note: domain 1. */
-  uint8_t ppre4;                    /**< APB4 Peripheral prescaler note: domain 3. */
-  uint8_t flash_waitstates;         /**< Latency Value to set for flahs. */
-  enum pwr_vos_scale voltage_scale; /**< LDO/SMPS Voltage scale used for this frequency. */
-  enum pwr_sys_mode power_mode;     /**< LDO/SMPS configuration for device. */
-  uint8_t smps_level;               /**< If using SMPS, voltage level to set. */
+	enum rcc_osc sysclock_source;     /**< SYSCLK source input selection. */
+	uint8_t pll_source;               /**< RCC_PLLCKSELR_PLLSRC_xxx value. */
+	uint32_t hse_frequency;           /**< User specified HSE frequency, 0 if none. */
+	struct pll_config {
+		uint8_t divm;                   /**< Pre-divider value for each PLL. 0-64 integers. */
+		uint16_t divn;                  /**< Multiplier, 0-512 integer. */
+		uint8_t divp;                   /**< Post divider for PLLP clock. */
+		uint8_t divq;                   /**< Post divider for PLLQ clock. */
+		uint8_t divr;                   /**< Post divider for PLLR clock. */
+	} pll1, pll2, pll3;               /**< PLL1-PLL3 configurations. */
+	uint8_t core_pre;                 /**< Core prescaler  note: domain 1. */
+	uint8_t hpre;                     /**< HCLK3 prescaler note: domain 1. */
+	uint8_t ppre1;                    /**< APB1 Peripheral prescaler note: domain 2. */
+	uint8_t ppre2;                    /**< APB2 Peripheral prescaler note: domain 2. */
+	uint8_t ppre3;                    /**< APB3 Peripheral prescaler note: domain 1. */
+	uint8_t ppre4;                    /**< APB4 Peripheral prescaler note: domain 3. */
+	uint8_t flash_waitstates;         /**< Latency Value to set for flahs. */
+	enum pwr_vos_scale voltage_scale; /**< LDO/SMPS Voltage scale used for this frequency. */
+	enum pwr_sys_mode power_mode;     /**< LDO/SMPS configuration for device. */
+	uint8_t smps_level;               /**< If using SMPS, voltage level to set. */
 };
 
 #define _REG_BIT(base, bit)       (((base) << 5) + (bit))
 
 enum rcc_periph_clken {
-   /* AHB1 peripherals */
-  RCC_DMA1        = _REG_BIT(0xD8, 0),
-  RCC_DMA2        = _REG_BIT(0xD8, 1),
-  RCC_ADC12       = _REG_BIT(0xD8, 5),
-  RCC_ETH1MAC     = _REG_BIT(0xD8, 15),
-  RCC_ETH1TX      = _REG_BIT(0xD8, 16),
-  RCC_ETH1RX      = _REG_BIT(0xD8, 17),
-  RCC_USB2OTGHSULPIEN = _REG_BIT(0xD8, 18),
-  RCC_USB1OTGHSEN = _REG_BIT(0xD8, 25),
-  RCC_USB1OTGHSULPIEN = _REG_BIT(0xD8, 26),
-  RCC_USB2OTGHSEN = _REG_BIT(0xD8, 27),
+	/* AHB1 peripherals */
+	RCC_DMA1        = _REG_BIT(0xD8, 0),
+	RCC_DMA2        = _REG_BIT(0xD8, 1),
+	RCC_ADC12       = _REG_BIT(0xD8, 5),
+	RCC_ETH1MAC     = _REG_BIT(0xD8, 15),
+	RCC_ETH1TX      = _REG_BIT(0xD8, 16),
+	RCC_ETH1RX      = _REG_BIT(0xD8, 17),
+	RCC_USB2OTGHSULPIEN = _REG_BIT(0xD8, 18),
+	RCC_USB1OTGHSEN = _REG_BIT(0xD8, 25),
+	RCC_USB1OTGHSULPIEN = _REG_BIT(0xD8, 26),
+	RCC_USB2OTGHSEN = _REG_BIT(0xD8, 27),
 
-  /* AHB2 peripherals */
-  RCC_DCMI        = _REG_BIT(0xDC, 0),
-  RCC_CRYP        = _REG_BIT(0xDC, 4),
-  RCC_HASH        = _REG_BIT(0xDC, 5),
-  RCC_RNG         = _REG_BIT(0xDC, 6),
-  RCC_SDMMC2      = _REG_BIT(0xDC, 9),
-  RCC_SRAM1       = _REG_BIT(0xDC, 29),
-  RCC_SRAM2       = _REG_BIT(0xDC, 30),
-  RCC_SRAM3       = _REG_BIT(0xDC, 31),
+	/* AHB2 peripherals */
+	RCC_DCMI        = _REG_BIT(0xDC, 0),
+	RCC_CRYP        = _REG_BIT(0xDC, 4),
+	RCC_HASH        = _REG_BIT(0xDC, 5),
+	RCC_RNG         = _REG_BIT(0xDC, 6),
+	RCC_SDMMC2      = _REG_BIT(0xDC, 9),
+	RCC_SRAM1       = _REG_BIT(0xDC, 29),
+	RCC_SRAM2       = _REG_BIT(0xDC, 30),
+	RCC_SRAM3       = _REG_BIT(0xDC, 31),
 
-  /* AHB3 peripherals */
-  RCC_MDMA        = _REG_BIT(0xD4, 0),
-  RCC_DMA2D       = _REG_BIT(0xD4, 4),
-  RCC_JPGDEC      = _REG_BIT(0xD4, 5),
-  RCC_FMC         = _REG_BIT(0xD4, 12),
-  RCC_QSPI        = _REG_BIT(0xD4, 14),
-  RCC_SDMMC1      = _REG_BIT(0xD4, 16),
+	/* AHB3 peripherals */
+	RCC_MDMA        = _REG_BIT(0xD4, 0),
+	RCC_DMA2D       = _REG_BIT(0xD4, 4),
+	RCC_JPGDEC      = _REG_BIT(0xD4, 5),
+	RCC_FMC         = _REG_BIT(0xD4, 12),
+	RCC_QSPI        = _REG_BIT(0xD4, 14),
+	RCC_SDMMC1      = _REG_BIT(0xD4, 16),
 
-  /* AHB4 peripherals*/
-  RCC_GPIOA       = _REG_BIT(0xE0, 0),
-  RCC_GPIOB       = _REG_BIT(0xE0, 1),
-  RCC_GPIOC       = _REG_BIT(0xE0, 2),
-  RCC_GPIOD       = _REG_BIT(0xE0, 3),
-  RCC_GPIOE       = _REG_BIT(0xE0, 4),
-  RCC_GPIOF       = _REG_BIT(0xE0, 5),
-  RCC_GPIOG       = _REG_BIT(0xE0, 6),
-  RCC_GPIOH       = _REG_BIT(0xE0, 7),
-  RCC_GPIOI       = _REG_BIT(0xE0, 8),
-  RCC_GPIOJ       = _REG_BIT(0xE0, 9),
-  RCC_GPIOK       = _REG_BIT(0xE0, 10),
-  RCC_CRC         = _REG_BIT(0xE0, 19),
-  RCC_BDMA        = _REG_BIT(0xE0, 21),
-  RCC_ADC3        = _REG_BIT(0xE0, 24),
-  RCC_HSEM        = _REG_BIT(0xE0, 25),
-  RCC_BKPSRAM     = _REG_BIT(0xE0, 28),
+	/* AHB4 peripherals*/
+	RCC_GPIOA       = _REG_BIT(0xE0, 0),
+	RCC_GPIOB       = _REG_BIT(0xE0, 1),
+	RCC_GPIOC       = _REG_BIT(0xE0, 2),
+	RCC_GPIOD       = _REG_BIT(0xE0, 3),
+	RCC_GPIOE       = _REG_BIT(0xE0, 4),
+	RCC_GPIOF       = _REG_BIT(0xE0, 5),
+	RCC_GPIOG       = _REG_BIT(0xE0, 6),
+	RCC_GPIOH       = _REG_BIT(0xE0, 7),
+	RCC_GPIOI       = _REG_BIT(0xE0, 8),
+	RCC_GPIOJ       = _REG_BIT(0xE0, 9),
+	RCC_GPIOK       = _REG_BIT(0xE0, 10),
+	RCC_CRC         = _REG_BIT(0xE0, 19),
+	RCC_BDMA        = _REG_BIT(0xE0, 21),
+	RCC_ADC3        = _REG_BIT(0xE0, 24),
+	RCC_HSEM        = _REG_BIT(0xE0, 25),
+	RCC_BKPSRAM     = _REG_BIT(0xE0, 28),
 
-  /* APB1L peripherals*/
-  RCC_TIM2        = _REG_BIT(0xE8, 0),
-  RCC_TIM3        = _REG_BIT(0xE8, 1),
-  RCC_TIM4        = _REG_BIT(0xE8, 2),
-  RCC_TIM5        = _REG_BIT(0xE8, 3),
-  RCC_TIM6        = _REG_BIT(0xE8, 4),
-  RCC_TIM7        = _REG_BIT(0xE8, 5),
-  RCC_TIM12       = _REG_BIT(0xE8, 6),
-  RCC_TIM13       = _REG_BIT(0xE8, 7),
-  RCC_TIM14       = _REG_BIT(0xE8, 8),
-  RCC_LPTIM1      = _REG_BIT(0xE8, 9),
-  RCC_SPI2        = _REG_BIT(0xE8, 14),
-  RCC_SPI3        = _REG_BIT(0xE8, 15),
-  RCC_SPDIFRX     = _REG_BIT(0xE8, 16),
-  RCC_USART2      = _REG_BIT(0xE8, 17),
-  RCC_USART3      = _REG_BIT(0xE8, 18),
-  RCC_UART4       = _REG_BIT(0xE8, 19),
-  RCC_UART5       = _REG_BIT(0xE8, 20),
-  RCC_I2C1        = _REG_BIT(0xE8, 21),
-  RCC_I2C2        = _REG_BIT(0xE8, 22),
-  RCC_I2C3        = _REG_BIT(0xE8, 23),
-  RCC_CEC         = _REG_BIT(0xE8, 27),
-  RCC_DAC         = _REG_BIT(0xE8, 29),
-  RCC_UART7       = _REG_BIT(0xE8, 30),
-  RCC_UART8       = _REG_BIT(0xE8, 31),
+	/* APB1L peripherals*/
+	RCC_TIM2        = _REG_BIT(0xE8, 0),
+	RCC_TIM3        = _REG_BIT(0xE8, 1),
+	RCC_TIM4        = _REG_BIT(0xE8, 2),
+	RCC_TIM5        = _REG_BIT(0xE8, 3),
+	RCC_TIM6        = _REG_BIT(0xE8, 4),
+	RCC_TIM7        = _REG_BIT(0xE8, 5),
+	RCC_TIM12       = _REG_BIT(0xE8, 6),
+	RCC_TIM13       = _REG_BIT(0xE8, 7),
+	RCC_TIM14       = _REG_BIT(0xE8, 8),
+	RCC_LPTIM1      = _REG_BIT(0xE8, 9),
+	RCC_SPI2        = _REG_BIT(0xE8, 14),
+	RCC_SPI3        = _REG_BIT(0xE8, 15),
+	RCC_SPDIFRX     = _REG_BIT(0xE8, 16),
+	RCC_USART2      = _REG_BIT(0xE8, 17),
+	RCC_USART3      = _REG_BIT(0xE8, 18),
+	RCC_UART4       = _REG_BIT(0xE8, 19),
+	RCC_UART5       = _REG_BIT(0xE8, 20),
+	RCC_I2C1        = _REG_BIT(0xE8, 21),
+	RCC_I2C2        = _REG_BIT(0xE8, 22),
+	RCC_I2C3        = _REG_BIT(0xE8, 23),
+	RCC_CEC         = _REG_BIT(0xE8, 27),
+	RCC_DAC         = _REG_BIT(0xE8, 29),
+	RCC_UART7       = _REG_BIT(0xE8, 30),
+	RCC_UART8       = _REG_BIT(0xE8, 31),
 
-  /* APB1H peripherals*/
-  RCC_CRS         = _REG_BIT(0xEC, 1),
-  RCC_SWP         = _REG_BIT(0xEC, 2),
-  RCC_OPAMP       = _REG_BIT(0xEC, 4),
-  RCC_MDIO        = _REG_BIT(0xEC, 5),
-  RCC_FDCAN       = _REG_BIT(0xEC, 8),
+	/* APB1H peripherals*/
+	RCC_CRS         = _REG_BIT(0xEC, 1),
+	RCC_SWP         = _REG_BIT(0xEC, 2),
+	RCC_OPAMP       = _REG_BIT(0xEC, 4),
+	RCC_MDIO        = _REG_BIT(0xEC, 5),
+	RCC_FDCAN       = _REG_BIT(0xEC, 8),
 
-  /* APB2 peripherals */
-  RCC_TIM1        = _REG_BIT(0xF0, 0),
-  RCC_TIM8        = _REG_BIT(0xF0, 1),
-  RCC_USART1      = _REG_BIT(0xF0, 4),
-  RCC_USART6      = _REG_BIT(0xF0, 5),
-  RCC_SPI1        = _REG_BIT(0xF0, 12),
-  RCC_SPI4        = _REG_BIT(0xF0, 13),
-  RCC_TIM15       = _REG_BIT(0xF0, 16),
-  RCC_TIM16       = _REG_BIT(0xF0, 17),
-  RCC_TIM17       = _REG_BIT(0xF0, 18),
-  RCC_SPI5        = _REG_BIT(0xF0, 20),
-  RCC_SAI1        = _REG_BIT(0xF0, 22),
-  RCC_SAI2        = _REG_BIT(0xF0, 23),
-  RCC_SAI3        = _REG_BIT(0xF0, 24),
-  RCC_DFSDM       = _REG_BIT(0xF0, 28),
-  RCC_HRTIM       = _REG_BIT(0xF0, 29),
+	/* APB2 peripherals */
+	RCC_TIM1        = _REG_BIT(0xF0, 0),
+	RCC_TIM8        = _REG_BIT(0xF0, 1),
+	RCC_USART1      = _REG_BIT(0xF0, 4),
+	RCC_USART6      = _REG_BIT(0xF0, 5),
+	RCC_SPI1        = _REG_BIT(0xF0, 12),
+	RCC_SPI4        = _REG_BIT(0xF0, 13),
+	RCC_TIM15       = _REG_BIT(0xF0, 16),
+	RCC_TIM16       = _REG_BIT(0xF0, 17),
+	RCC_TIM17       = _REG_BIT(0xF0, 18),
+	RCC_SPI5        = _REG_BIT(0xF0, 20),
+	RCC_SAI1        = _REG_BIT(0xF0, 22),
+	RCC_SAI2        = _REG_BIT(0xF0, 23),
+	RCC_SAI3        = _REG_BIT(0xF0, 24),
+	RCC_DFSDM       = _REG_BIT(0xF0, 28),
+	RCC_HRTIM       = _REG_BIT(0xF0, 29),
 
-  /* APB3 peripherals */
-  RCC_LTDCEN      = _REG_BIT(0xE4, 3),
-  RCC_WWDG1EN     = _REG_BIT(0xE4, 6),
+	/* APB3 peripherals */
+	RCC_LTDCEN      = _REG_BIT(0xE4, 3),
+	RCC_WWDG1EN     = _REG_BIT(0xE4, 6),
 
-  /* APB4 peripherals */
-  RCC_SYSCFG      = _REG_BIT(0xF4, 1),
-  RCC_LPUART1     = _REG_BIT(0xF4, 3),
-  RCC_SPI6        = _REG_BIT(0xF4, 5),
-  RCC_I2C4        = _REG_BIT(0xF4, 7),
-  RCC_LPTIM2      = _REG_BIT(0xF4, 9),
-  RCC_LPTIM3      = _REG_BIT(0xF4, 10),
-  RCC_LPTIM4      = _REG_BIT(0xF4, 11),
-  RCC_LPTIM5      = _REG_BIT(0xF4, 12),
-  RCC_COMP12      = _REG_BIT(0xF4, 14),
-  RCC_VREF        = _REG_BIT(0xF4, 15),
-  RCC_RTCAPB      = _REG_BIT(0xF4, 16),
-  RCC_SAI4        = _REG_BIT(0xF4, 21),
+	/* APB4 peripherals */
+	RCC_SYSCFG      = _REG_BIT(0xF4, 1),
+	RCC_LPUART1     = _REG_BIT(0xF4, 3),
+	RCC_SPI6        = _REG_BIT(0xF4, 5),
+	RCC_I2C4        = _REG_BIT(0xF4, 7),
+	RCC_LPTIM2      = _REG_BIT(0xF4, 9),
+	RCC_LPTIM3      = _REG_BIT(0xF4, 10),
+	RCC_LPTIM4      = _REG_BIT(0xF4, 11),
+	RCC_LPTIM5      = _REG_BIT(0xF4, 12),
+	RCC_COMP12      = _REG_BIT(0xF4, 14),
+	RCC_VREF        = _REG_BIT(0xF4, 15),
+	RCC_RTCAPB      = _REG_BIT(0xF4, 16),
+	RCC_SAI4        = _REG_BIT(0xF4, 21),
 };
 
 enum rcc_periph_rst {
-   /* AHB1 peripherals */
-  RST_DMA1        = _REG_BIT(0x80, 0),
-  RST_DMA2        = _REG_BIT(0x80, 1),
-  RST_ADC12       = _REG_BIT(0x80, 5),
-  RST_ETH1MAC     = _REG_BIT(0x80, 15),
-  RST_USB1OTGRST  = _REG_BIT(0x80, 25),
-  RST_USB2OTGRST  = _REG_BIT(0x80, 27),
+	/* AHB1 peripherals */
+	RST_DMA1        = _REG_BIT(0x80, 0),
+	RST_DMA2        = _REG_BIT(0x80, 1),
+	RST_ADC12       = _REG_BIT(0x80, 5),
+	RST_ETH1MAC     = _REG_BIT(0x80, 15),
+	RST_USB1OTGRST  = _REG_BIT(0x80, 25),
+	RST_USB2OTGRST  = _REG_BIT(0x80, 27),
 
-  /* AHB2 peripherals */
-  RST_DCMI        = _REG_BIT(0xDC, 0),
-  RST_CRYP        = _REG_BIT(0xDC, 4),
-  RST_HASH        = _REG_BIT(0xDC, 5),
-  RST_RNG         = _REG_BIT(0xDC, 6),
-  RST_SDMMC2      = _REG_BIT(0xDC, 9),
+	/* AHB2 peripherals */
+	RST_DCMI        = _REG_BIT(0xDC, 0),
+	RST_CRYP        = _REG_BIT(0xDC, 4),
+	RST_HASH        = _REG_BIT(0xDC, 5),
+	RST_RNG         = _REG_BIT(0xDC, 6),
+	RST_SDMMC2      = _REG_BIT(0xDC, 9),
 
-  /* AHB3 peripherals */
-  RST_MDMA        = _REG_BIT(0x7C, 0),
-  RST_DMA2D       = _REG_BIT(0x7C, 4),
-  RST_JPGDEC      = _REG_BIT(0x7C, 5),
-  RST_FMC         = _REG_BIT(0x7C, 12),
-  RST_QSPI        = _REG_BIT(0x7C, 14),
-  RST_SDMMC1      = _REG_BIT(0x7C, 16),
+	/* AHB3 peripherals */
+	RST_MDMA        = _REG_BIT(0x7C, 0),
+	RST_DMA2D       = _REG_BIT(0x7C, 4),
+	RST_JPGDEC      = _REG_BIT(0x7C, 5),
+	RST_FMC         = _REG_BIT(0x7C, 12),
+	RST_QSPI        = _REG_BIT(0x7C, 14),
+	RST_SDMMC1      = _REG_BIT(0x7C, 16),
 
-  /* AHB4 peripherals*/
-  RST_GPIOA       = _REG_BIT(0x88, 0),
-  RST_GPIOB       = _REG_BIT(0x88, 1),
-  RST_GPIOC       = _REG_BIT(0x88, 2),
-  RST_GPIOD       = _REG_BIT(0x88, 3),
-  RST_GPIOE       = _REG_BIT(0x88, 4),
-  RST_GPIOF       = _REG_BIT(0x88, 5),
-  RST_GPIOG       = _REG_BIT(0x88, 6),
-  RST_GPIOH       = _REG_BIT(0x88, 7),
-  RST_GPIOI       = _REG_BIT(0x88, 8),
-  RST_GPIOJ       = _REG_BIT(0x88, 9),
-  RST_GPIOK       = _REG_BIT(0x88, 10),
-  RST_CRC         = _REG_BIT(0x88, 19),
-  RST_BDMA        = _REG_BIT(0x88, 21),
-  RST_ADC3        = _REG_BIT(0x88, 24),
-  RST_HSEM        = _REG_BIT(0x88, 25),
+	/* AHB4 peripherals*/
+	RST_GPIOA       = _REG_BIT(0x88, 0),
+	RST_GPIOB       = _REG_BIT(0x88, 1),
+	RST_GPIOC       = _REG_BIT(0x88, 2),
+	RST_GPIOD       = _REG_BIT(0x88, 3),
+	RST_GPIOE       = _REG_BIT(0x88, 4),
+	RST_GPIOF       = _REG_BIT(0x88, 5),
+	RST_GPIOG       = _REG_BIT(0x88, 6),
+	RST_GPIOH       = _REG_BIT(0x88, 7),
+	RST_GPIOI       = _REG_BIT(0x88, 8),
+	RST_GPIOJ       = _REG_BIT(0x88, 9),
+	RST_GPIOK       = _REG_BIT(0x88, 10),
+	RST_CRC         = _REG_BIT(0x88, 19),
+	RST_BDMA        = _REG_BIT(0x88, 21),
+	RST_ADC3        = _REG_BIT(0x88, 24),
+	RST_HSEM        = _REG_BIT(0x88, 25),
 
-  /* APB1L peripherals*/
-  RST_TIM2        = _REG_BIT(0x90, 0),
-  RST_TIM3        = _REG_BIT(0x90, 1),
-  RST_TIM4        = _REG_BIT(0x90, 2),
-  RST_TIM5        = _REG_BIT(0x90, 3),
-  RST_TIM6        = _REG_BIT(0x90, 4),
-  RST_TIM7        = _REG_BIT(0x90, 5),
-  RST_TIM12       = _REG_BIT(0x90, 6),
-  RST_TIM13       = _REG_BIT(0x90, 7),
-  RST_TIM14       = _REG_BIT(0x90, 8),
-  RST_LPTIM1      = _REG_BIT(0x90, 9),
-  RST_SPI2        = _REG_BIT(0x90, 14),
-  RST_SPI3        = _REG_BIT(0x90, 15),
-  RST_SPDIFRX     = _REG_BIT(0x90, 16),
-  RST_USART2      = _REG_BIT(0x90, 17),
-  RST_USART3      = _REG_BIT(0x90, 18),
-  RST_UART4       = _REG_BIT(0x90, 19),
-  RST_UART5       = _REG_BIT(0x90, 20),
-  RST_I2C1        = _REG_BIT(0x90, 21),
-  RST_I2C2        = _REG_BIT(0x90, 22),
-  RST_I2C3        = _REG_BIT(0x90, 23),
-  RST_CEC         = _REG_BIT(0x90, 27),
-  RST_DAC         = _REG_BIT(0x90, 29),
-  RST_UART7       = _REG_BIT(0x90, 30),
-  RST_UART8       = _REG_BIT(0x90, 31),
+	/* APB1L peripherals*/
+	RST_TIM2        = _REG_BIT(0x90, 0),
+	RST_TIM3        = _REG_BIT(0x90, 1),
+	RST_TIM4        = _REG_BIT(0x90, 2),
+	RST_TIM5        = _REG_BIT(0x90, 3),
+	RST_TIM6        = _REG_BIT(0x90, 4),
+	RST_TIM7        = _REG_BIT(0x90, 5),
+	RST_TIM12       = _REG_BIT(0x90, 6),
+	RST_TIM13       = _REG_BIT(0x90, 7),
+	RST_TIM14       = _REG_BIT(0x90, 8),
+	RST_LPTIM1      = _REG_BIT(0x90, 9),
+	RST_SPI2        = _REG_BIT(0x90, 14),
+	RST_SPI3        = _REG_BIT(0x90, 15),
+	RST_SPDIFRX     = _REG_BIT(0x90, 16),
+	RST_USART2      = _REG_BIT(0x90, 17),
+	RST_USART3      = _REG_BIT(0x90, 18),
+	RST_UART4       = _REG_BIT(0x90, 19),
+	RST_UART5       = _REG_BIT(0x90, 20),
+	RST_I2C1        = _REG_BIT(0x90, 21),
+	RST_I2C2        = _REG_BIT(0x90, 22),
+	RST_I2C3        = _REG_BIT(0x90, 23),
+	RST_CEC         = _REG_BIT(0x90, 27),
+	RST_DAC         = _REG_BIT(0x90, 29),
+	RST_UART7       = _REG_BIT(0x90, 30),
+	RST_UART8       = _REG_BIT(0x90, 31),
 
-  /* APB1H peripherals*/
-  RST_CRS         = _REG_BIT(0x94, 1),
-  RST_SWP         = _REG_BIT(0x94, 2),
-  RST_OPAMP       = _REG_BIT(0x94, 4),
-  RST_MDIO        = _REG_BIT(0x94, 5),
-  RST_FDCAN       = _REG_BIT(0x94, 8),
+	/* APB1H peripherals*/
+	RST_CRS         = _REG_BIT(0x94, 1),
+	RST_SWP         = _REG_BIT(0x94, 2),
+	RST_OPAMP       = _REG_BIT(0x94, 4),
+	RST_MDIO        = _REG_BIT(0x94, 5),
+	RST_FDCAN       = _REG_BIT(0x94, 8),
 
-  /* APB2 peripherals */
-  RST_TIM1        = _REG_BIT(0x98, 0),
-  RST_TIM8        = _REG_BIT(0x98, 1),
-  RST_USART1      = _REG_BIT(0x98, 4),
-  RST_USART6      = _REG_BIT(0x98, 5),
-  RST_SPI1        = _REG_BIT(0x98, 12),
-  RST_SPI4        = _REG_BIT(0x98, 13),
-  RST_TIM15       = _REG_BIT(0x98, 16),
-  RST_TIM16       = _REG_BIT(0x98, 17),
-  RST_TIM17       = _REG_BIT(0x98, 18),
-  RST_SPI5        = _REG_BIT(0x98, 20),
-  RST_SAI1        = _REG_BIT(0x98, 22),
-  RST_SAI2        = _REG_BIT(0x98, 23),
-  RST_SAI3        = _REG_BIT(0x98, 24),
-  RST_DFSDM       = _REG_BIT(0x98, 28),
-  RST_HRTIM       = _REG_BIT(0x98, 29),
+	/* APB2 peripherals */
+	RST_TIM1        = _REG_BIT(0x98, 0),
+	RST_TIM8        = _REG_BIT(0x98, 1),
+	RST_USART1      = _REG_BIT(0x98, 4),
+	RST_USART6      = _REG_BIT(0x98, 5),
+	RST_SPI1        = _REG_BIT(0x98, 12),
+	RST_SPI4        = _REG_BIT(0x98, 13),
+	RST_TIM15       = _REG_BIT(0x98, 16),
+	RST_TIM16       = _REG_BIT(0x98, 17),
+	RST_TIM17       = _REG_BIT(0x98, 18),
+	RST_SPI5        = _REG_BIT(0x98, 20),
+	RST_SAI1        = _REG_BIT(0x98, 22),
+	RST_SAI2        = _REG_BIT(0x98, 23),
+	RST_SAI3        = _REG_BIT(0x98, 24),
+	RST_DFSDM       = _REG_BIT(0x98, 28),
+	RST_HRTIM       = _REG_BIT(0x98, 29),
 
-  /* APB3 peripherals */
-  RST_LTDCRST     = _REG_BIT(0x8C, 3),
+	/* APB3 peripherals */
+	RST_LTDCRST     = _REG_BIT(0x8C, 3),
 
-  /* APB4 peripherals */
-  RST_SYSCFG      = _REG_BIT(0x9C, 1),
-  RST_LPUART1     = _REG_BIT(0x9C, 3),
-  RST_SPI6        = _REG_BIT(0x9C, 5),
-  RST_I2C4        = _REG_BIT(0x9C, 7),
-  RST_LPTIM2      = _REG_BIT(0x9C, 9),
-  RST_LPTIM3      = _REG_BIT(0x9C, 10),
-  RST_LPTIM4      = _REG_BIT(0x9C, 11),
-  RST_LPTIM5      = _REG_BIT(0x9C, 12),
-  RST_COMP12      = _REG_BIT(0x9C, 14),
-  RST_VREF        = _REG_BIT(0x9C, 15),
-  RST_SAI4        = _REG_BIT(0x9C, 21),
+	/* APB4 peripherals */
+	RST_SYSCFG      = _REG_BIT(0x9C, 1),
+	RST_LPUART1     = _REG_BIT(0x9C, 3),
+	RST_SPI6        = _REG_BIT(0x9C, 5),
+	RST_I2C4        = _REG_BIT(0x9C, 7),
+	RST_LPTIM2      = _REG_BIT(0x9C, 9),
+	RST_LPTIM3      = _REG_BIT(0x9C, 10),
+	RST_LPTIM4      = _REG_BIT(0x9C, 11),
+	RST_LPTIM5      = _REG_BIT(0x9C, 12),
+	RST_COMP12      = _REG_BIT(0x9C, 14),
+	RST_VREF        = _REG_BIT(0x9C, 15),
+	RST_SAI4        = _REG_BIT(0x9C, 21),
 };
 
 #undef _REG_BIT
