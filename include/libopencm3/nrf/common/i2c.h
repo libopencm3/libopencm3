@@ -75,9 +75,16 @@
 /* Register Contents */
 
 /** @addtogroup i2c_shorts I2C event -> task shortcuts
+ * The effect of activated shortcut is, that upon I2C event
+ * triggering, the hardware will automatically start chosen
+ * task without intervention of the software.
  * @{
  */
+
+/** On byte boundary, activate suspend task. */
 #define I2C_SHORTS_BB_SUSPEND      (1 << 0)
+
+/** On byte boundary, activate stop task. */
 #define I2C_SHORTS_BB_STOP         (1 << 1)
 
 /**@}*/
@@ -97,11 +104,37 @@
 #define I2C_ERRORSRC_ANACK         (1 << 1)
 #define I2C_ERRORSRC_DNACK         (1 << 2)
 
-#define I2C_ENABLE_VALUE           (5)
+/** @addtogroup i2c_mode I2C peripheral mode 
+ * @{
+ */
+/** NRF51 legacy mode. 
+ * On NRF51, this is the only mode available.
+ * On NRF52, this mode does not support EasyDMA.
+ */
+#define I2C_MODE_LEGACY           (5)
+/**@}*/
 
+/** @addtogroup i2c_freq_const I2C frequency constants
+ * @{
+ */
+
+/** 100kHz */
 #define I2C_FREQUENCY_100K         (0x01980000)
+/** 250kHz */
 #define I2C_FREQUENCY_250K         (0x04000000)
+/** 390kHz
+ * @note: This value is not documented in datasheet. It provides
+ * ~390kHz clock with correct timing.
+ */
+#define I2C_FREQUENCY_390K         (0x06200000)
+/** 400kHz
+ * @note: According to datasheet, there is HW bug which prevents
+ * MCU from generating correct timings, therefore it might be
+ * unusable. Use @ref I2C_FREQUENCY_390K instead, if this affects
+ * you.
+ */
 #define I2C_FREQUENCY_400K         (0x06680000)
+/**@}*/
 
 #define I2C_PSEL_OFF               (0xffffffff)
 
@@ -109,9 +142,9 @@
 
 BEGIN_DECLS
 
-void i2c_enable(uint32_t i2c);
+void i2c_enable(uint32_t i2c, uint32_t mode);
 void i2c_disable(uint32_t i2c);
-void i2c_start_tx(uint32_t i2c, uint8_t data);
+void i2c_start_tx(uint32_t i2c);
 void i2c_start_rx(uint32_t i2c);
 void i2c_send_stop(uint32_t i2c);
 void i2c_set_fast_mode(uint32_t i2c);
@@ -122,6 +155,7 @@ uint8_t i2c_get_data(uint32_t i2c);
 void i2c_select_pins(uint32_t i2c, uint32_t scl_pin, uint32_t sda_pin);
 void i2c_set_address(uint32_t i2c, uint8_t addr);
 void i2c_resume(uint32_t i2c);
+void i2c_set_shorts(uint32_t i2c, uint32_t shorts);
 
 END_DECLS
 
