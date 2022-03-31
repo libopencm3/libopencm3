@@ -6,6 +6,8 @@
  * LGPL License Terms @ref lgpl_license
  * @author @htmlonly &copy; @endhtmlonly 2016
  * Maxim Sloyko <maxims@google.com>
+ * @author @htmlonly &copy; @endhtmlonly 2021 - 2022
+ * Eduard Drusa <ventyl86(at)netkosice(dot)sk>
  *
  */
 
@@ -36,10 +38,11 @@
 /** @brief Enable I2C peripheral
  *
  * @param[in] i2c uint32_t i2c peripheral base
+ * @param[in] mode i2c peripheral mode @ref i2c_mode
  */
-void i2c_enable(uint32_t i2c)
+void i2c_enable(uint32_t i2c, uint32_t mode)
 {
-	I2C_ENABLE(i2c) = I2C_ENABLE_VALUE;
+	I2C_ENABLE(i2c) = mode;
 }
 
 /** @brief Disable I2C peripheral
@@ -53,13 +56,14 @@ void i2c_disable(uint32_t i2c)
 
 /** @brief Start I2C transmission.
  *
+ * Starts STARTTX task, which generates start condition on I2C bus and
+ * transmits address previously configured by @ref i2c_set_address.
+ *
  * @param[in] i2c uint32_t i2c peripheral base.
- * @param[in] data uint8_t the first byte to send.
  */
-void i2c_start_tx(uint32_t i2c, uint8_t data)
+void i2c_start_tx(uint32_t i2c)
 {
-	PERIPH_TRIGGER_TASK(I2C_TASK_STARTTX(i2c));
-	I2C_TXD(i2c) = data;
+	I2C_TASK_STARTTX(i2c) = 1;
 }
 
 /** @brief Start I2C reception.
@@ -68,7 +72,7 @@ void i2c_start_tx(uint32_t i2c, uint8_t data)
  */
 void i2c_start_rx(uint32_t i2c)
 {
-	PERIPH_TRIGGER_TASK(I2C_TASK_STARTRX(i2c));
+	I2C_TASK_STARTRX(i2c) = 1;
 }
 
 /** @brief Signal stop on I2C line.
@@ -77,7 +81,7 @@ void i2c_start_rx(uint32_t i2c)
  */
 void i2c_send_stop(uint32_t i2c)
 {
-	PERIPH_TRIGGER_TASK(I2C_TASK_STOP(i2c));
+	I2C_TASK_STOP(i2c) = 1;
 }
 
 /** @brief Select Fast (400kHz) mode.
@@ -134,14 +138,16 @@ uint8_t i2c_get_data(uint32_t i2c)
 
 /** @brief Select GPIO pins to be used by this peripheral.
  *
+ * Configures GPIO pins assigned to SCL and SDA signals. These pins are only occupied
+ * by I2C peripheral whenever it is enabled using @ref i2c_enable. It is possible to
+ * ignore any given signal and not map it to pin by using special value of 
+ * @ref GPIO_UNCONNECTED instead of @ref gpio_pin_id values.
+ *
  * This needs to be configured when no transaction is in progress.
  *
  * @param[in] i2c i2c peripheral base.
- * @param[in] scl_pin SCL pin. Use GPIO defines in @ref gpio_pin_id or GPIO_UNCONNECTED
- * if signal shall not be connected to any pin.
- * @param[in] sda_pin SDA pin. Use GPIO defines in @ref gpio_pin_id or GPIO_UNCONNECTED
- * if signal shall not be connected to any pin.
-
+ * @param[in] scl_pin GPIO pin used for SCL signal
+ * @param[in] sda_pin GPIO pin used for SDA signal
  */
 void i2c_select_pins(uint32_t i2c, uint32_t scl_pin, uint32_t sda_pin)
 {
@@ -180,5 +186,14 @@ void i2c_resume(uint32_t i2c)
 	PERIPH_TRIGGER_TASK(I2C_TASK_RESUME(i2c));
 }
 
-
+/** Configure event -> task shortcuts
+ *
+ * Sets new shortcut configuration for I2C peripheral.
+ * @param[in] i2c i2c peripheral base.
+ * @param[in] shorts shortcut activation configuration
+ */
+void i2c_set_shorts(uint32_t i2c, uint32_t shorts)
+{
+	I2C_SHORTS(i2c) = shorts;
+}
 /**@}*/

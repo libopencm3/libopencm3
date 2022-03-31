@@ -97,7 +97,11 @@
 #define I2C_ERRORSRC_ANACK         (1 << 1)
 #define I2C_ERRORSRC_DNACK         (1 << 2)
 
-#define I2C_ENABLE_VALUE           (5)
+/** @addtogroup i2c_mode I2C peripheral mode 
+ * @{
+ */
+#define I2C_MODE_LEGACY           (5)
+/**@}*/
 
 #define I2C_FREQUENCY_100K         (0x01980000)
 #define I2C_FREQUENCY_250K         (0x04000000)
@@ -109,9 +113,9 @@
 
 BEGIN_DECLS
 
-void i2c_enable(uint32_t i2c);
+void i2c_enable(uint32_t i2c, uint32_t mode);
 void i2c_disable(uint32_t i2c);
-void i2c_start_tx(uint32_t i2c, uint8_t data);
+void i2c_start_tx(uint32_t i2c);
 void i2c_start_rx(uint32_t i2c);
 void i2c_send_stop(uint32_t i2c);
 void i2c_set_fast_mode(uint32_t i2c);
@@ -122,6 +126,7 @@ uint8_t i2c_get_data(uint32_t i2c);
 void i2c_select_pins(uint32_t i2c, uint32_t scl_pin, uint32_t sda_pin);
 void i2c_set_address(uint32_t i2c, uint8_t addr);
 void i2c_resume(uint32_t i2c);
+void i2c_set_shorts(uint32_t i2c, uint32_t shorts);
 
 END_DECLS
 

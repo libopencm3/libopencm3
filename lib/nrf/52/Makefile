@@ -37,7 +37,7 @@ ARFLAGS		= rcs
  
 OBJS += clock_common.o
 OBJS += gpio.o
-OBJS += i2c.o
+OBJS += i2c.o i2c_common.o
 OBJS += ppi.o
 OBJS += radio_common.o
 OBJS += rtc.o
