@@ -56,10 +56,20 @@
 /** @addtogroup i2c_shorts
  * @{
  */
+
+/** On start of last byte transmission, activate start of reception task */
 #define I2C_SHORTS_LASTTX_STARTRX	(1 << 7)
+
+/** On start of last byte transmission, activate suspend task */
 #define I2C_SHORTS_LASTTX_SUSPEND	(1 << 8)
+
+/** On start of last byte transmission, activate stop task */
 #define I2C_SHORTS_LASTTX_STOP		(1 << 9)
+
+/** On start of last byte reception, activate start of transmission task */
 #define I2C_SHORTS_LASTRX_STARTTX	(1 << 10)
+
+/** On start of last byte reception, activate stop task */
 #define I2C_SHORTS_LASTRX_STOP		(1 << 12)
 /** @} */
 
@@ -77,6 +87,8 @@
 /** @addtogroup i2c_mode I2C peripheral mode 
  * @{
  */
+
+/** NRF52 I2C Master mode with EasyDMA support */
 #define I2C_MODE_MASTER           (6)
 /**@}*/
 

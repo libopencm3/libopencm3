@@ -75,9 +75,16 @@
 /* Register Contents */
 
 /** @addtogroup i2c_shorts I2C event -> task shortcuts
+ * Shortcut, which is activated causes that if certain event
+ * occurrs, chosen task is automatically acitvated by the
+ * hardware.
  * @{
  */
+
+/** On byte boundary, activate suspend task. */
 #define I2C_SHORTS_BB_SUSPEND      (1 << 0)
+
+/** On byte boundary, activate stop task. */
 #define I2C_SHORTS_BB_STOP         (1 << 1)
 
 /**@}*/
@@ -100,12 +107,34 @@
 /** @addtogroup i2c_mode I2C peripheral mode 
  * @{
  */
+/** NRF51 legacy mode. 
+ * On NRF51, this is the only mode available.
+ * On NRF52, this mode does not support EasyDMA.
+ */
 #define I2C_MODE_LEGACY           (5)
 /**@}*/
 
+/** @addtogroup i2c_freq_const I2C frequency constants
+ * @{
+ */
+
+/** 100kHz */
 #define I2C_FREQUENCY_100K         (0x01980000)
+/** 250kHz */
 #define I2C_FREQUENCY_250K         (0x04000000)
+/** 390kHz
+ * @note: This value is not documented in datasheet. It provides
+ * ~390kHz clock with correct timing.
+ */
+#define I2C_FREQUENCY_390K         (0x06200000)
+/** 400kHz
+ * @note: According to datasheet, there is HW bug which prevents
+ * MCU from generating correct timings, therefore it might be
+ * unusable. Use @ref I2C_FREQUENCY_390K instead, if this affects
+ * you.
+ */
 #define I2C_FREQUENCY_400K         (0x06680000)
+/**@}*/
 
 #define I2C_PSEL_OFF               (0xffffffff)
 

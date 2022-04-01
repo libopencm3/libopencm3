@@ -26,8 +26,11 @@
 
 /** Configure I2C transmit buffer properties
  *
+ * Configures transmit buffer for EasyDMA transaction. This API
+ * is only available if @ref I2C_MODE_MASTER mode is activated.
+ *
  * Configures linear TX buffer for EasyDMA transmission.
- * @param[in] i2c i2c peripheral base address
+ * @param[in] i2c i2c peripheral base, see @ref i2c_block
  * @param[in] buffer address of buffer start
  * @param[in] len length of data in the buffer
  */
@@ -40,8 +43,11 @@ void i2c_set_tx_buffer(uint32_t i2c, const uint8_t *buffer, uint8_t len)
 
 /** Configure I2C receive buffer properties
  *
+ * Configures receive buffer for EasyDMA transaction. This API
+ * is only available if @ref I2C_MODE_MASTER mode is activated.
+ *
  * Configures linear RX buffer for EasyDMA transmission.
- * @param[in] i2c i2c peripheral base address
+ * @param[in] i2c i2c peripheral base, see @ref i2c_block
  * @param[in] buffer address of buffer start
  * @param[in] len length of the buffer
  */
