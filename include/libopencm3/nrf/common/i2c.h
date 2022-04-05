@@ -75,9 +75,9 @@
 /* Register Contents */
 
 /** @addtogroup i2c_shorts I2C event -> task shortcuts
- * Shortcut, which is activated causes that if certain event
- * occurrs, chosen task is automatically acitvated by the
- * hardware.
+ * The effect of activated shortcut is, that upon I2C event
+ * triggering, the hardware will automatically start chosen
+ * task without intervention of the software.
  * @{
  */
 
