@@ -129,7 +129,7 @@ void st_usbfs_ep_setup(usbd_device *dev, uint8_t addr, uint8_t type,
 		}
 		USB_CLR_EP_TX_DTOG(addr);
 		if (type == USB_ENDPOINT_ATTR_ISOCHRONOUS)
-			USB_SET_EP_TX_STAT(addr, USB_EP_TX_STAT_VALID); // or DISABLED?
+			USB_SET_EP_TX_STAT(addr, USB_EP_TX_STAT_VALID);
 		else
 			USB_SET_EP_TX_STAT(addr, USB_EP_TX_STAT_NAK);
 	}
@@ -245,11 +245,11 @@ uint16_t st_usbfs_ep_write_packet(usbd_device *dev, uint8_t addr,
 		/* Isochronous endpoints always use double buffering.
 		 * Additionally, TX_STAT check doesn't make sense for them. */
 		if (GET_REG(USB_EP_REG(addr)) & USB_EP_TX_DTOG) {
-			// buffer 1 is in use by the peripheral
+			/* buffer 1 is in use by the peripheral */
 			usb_buf = USB_GET_EP_TX_0_BUFF(addr);
 			USB_SET_EP_TX_0_COUNT(addr, len);
 		} else {
-			// buffer 0 is in use by the peripheral
+			/* buffer 0 is in use by the peripheral */
 			usb_buf = USB_GET_EP_TX_1_BUFF(addr);
 			USB_SET_EP_TX_1_COUNT(addr, len);
 		}
@@ -280,11 +280,11 @@ uint16_t st_usbfs_ep_read_packet(usbd_device *dev, uint8_t addr,
 		/* Isochronous endpoints always use double buffering.
 		 * Additionally, RX_STAT check doesn't make sense for them. */
 		if (GET_REG(USB_EP_REG(addr)) & USB_EP_RX_DTOG) {
-			// buffer 1 is in use by the peripheral
+			/* buffer 1 is in use by the peripheral */
 			usb_buf = USB_GET_EP_RX_0_BUFF(addr);
 			usb_len = USB_GET_EP_RX_0_COUNT(addr) & 0x3ff;
 		} else {
-			// buffer 0 is in use by the peripheral
+			/* buffer 0 is in use by the peripheral */
 			usb_buf = USB_GET_EP_RX_1_BUFF(addr);
 			usb_len = USB_GET_EP_RX_1_COUNT(addr) & 0x3ff;
 		}
