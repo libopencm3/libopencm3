@@ -128,10 +128,11 @@ void st_usbfs_ep_setup(usbd_device *dev, uint8_t addr, uint8_t type,
 			    (void *)callback;
 		}
 		USB_CLR_EP_TX_DTOG(addr);
-		if (type == USB_ENDPOINT_ATTR_ISOCHRONOUS)
+		if (type == USB_ENDPOINT_ATTR_ISOCHRONOUS) {
 			USB_SET_EP_TX_STAT(addr, USB_EP_TX_STAT_VALID);
-		else
+		} else {
 			USB_SET_EP_TX_STAT(addr, USB_EP_TX_STAT_NAK);
+		}
 	}
 
 	if (!dir) {
