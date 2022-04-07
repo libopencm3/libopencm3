@@ -185,7 +185,7 @@ SECTIONS
 	.ram5 : {
 		*(.ram5*)
 		. = ALIGN(4);
-	} >ram4
+	} >ram5
 #endif
 
 #if defined(_XSRAM)
