@@ -489,9 +489,6 @@ lm4f???c4* lm4f ROM=64K RAM=24K
 lm4f???e5* lm4f ROM=128K RAM=32K
 lm4f???h5* lm4f ROM=256K RAM=32K
 
-# (Wrong) legacy definition for EK-LM4F120XL board with an LM4F120H5QR
-lm4f120xl lm4f ROM=128K RAM=32K
-
 tm4c123?c3* tm4c123x ROM=32K RAM=12K
 tm4c123?d5* tm4c123x ROM=64K RAM=24K
 tm4c123?e6* tm4c123x ROM=128K RAM=32K
