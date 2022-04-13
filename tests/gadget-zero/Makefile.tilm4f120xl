@@ -32,7 +32,7 @@ INCLUDES += $(patsubst %,-I%, . $(SHARED_DIR))
 OPENCM3_DIR=../..
 
 ### This section can go to an arch shared rules eventually...
-DEVICE=lm4f120xl
+DEVICE=LM4F120H5QR
 OOCD_FILE = openocd.$(BOARD).cfg
 
 include $(OPENCM3_DIR)/mk/genlink-config.mk
