@@ -42,7 +42,7 @@
 /** Ring Oscillator Frequency */
 #define CCS_ROSC_FREQ       (16000000U)
 /** Internally generated and trimmed 4MHz clock */
-#define CCS_CLKREF_FREQ     ( 4000000U)
+#define CCS_CLKREF_FREQ     (4000000U)
 /** Maximum external clock frequency */
 #define CCS_EXTCLK_MAX_FREQ (20000000U)
 /**@}*/
