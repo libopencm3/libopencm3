@@ -28,7 +28,7 @@ Alexandru Gagniuc <mr.nuke.me@gmail.com>
 
  * \brief <b>libopencm3 LM4F Clock control API</b>
  *
- * The LM$F clock API provides functionality for manipulating the system clock,
+ * The LM4F clock API provides functionality for manipulating the system clock,
  * oscillator, and PLL. Functions are provided for fine-grained control of clock
  * control registers, while also providing higher level functionality to easily
  * configure the main system clock source.
