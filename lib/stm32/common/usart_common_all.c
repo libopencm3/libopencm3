@@ -327,6 +327,18 @@ void usart_disable_rx_interrupt(uint32_t usart)
 }
 
 /*---------------------------------------------------------------------------*/
+/** @brief USART Receiver Interrupt Enabled.
+
+@param[in] usart unsigned 32 bit. USART block register address base @ref
+        usart_reg_base
+* @returns boolean: interrupt enabled.
+*/
+
+bool usart_rx_interrupt_enabled(uint32_t usart) {
+    return ((USART_CR1(usart) & USART_CR1_RXNEIE) != 0);
+}
+
+/*---------------------------------------------------------------------------*/
 /** @brief USART Transmitter Interrupt Enable.
 
 @param[in] usart unsigned 32 bit. USART block register address base @ref
@@ -348,6 +360,18 @@ usart_reg_base
 void usart_disable_tx_interrupt(uint32_t usart)
 {
 	USART_CR1(usart) &= ~USART_CR1_TXEIE;
+}
+
+/*---------------------------------------------------------------------------*/
+/** @brief USART Transmitter Interrupt Enabled.
+
+@param[in] usart unsigned 32 bit. USART block register address base @ref
+        usart_reg_base
+* @returns boolean: interrupt enabled.
+*/
+
+bool usart_tx_interrupt_enabled(uint32_t usart) {
+  return ((USART_CR1(usart) & USART_CR1_TXEIE) != 0);
 }
 
 /*---------------------------------------------------------------------------*/
@@ -376,6 +400,18 @@ void usart_disable_tx_complete_interrupt(uint32_t usart)
 	USART_CR1(usart) &= ~USART_CR1_TCIE;
 }
 
+/*---------------------------------------------------------------------------*/
+/** @brief USART Transmission Complete Interrupt Enabled.
+
+@param[in] usart unsigned 32 bit. USART block register address base @ref
+        usart_reg_base
+* @returns boolean: interrupt enabled.
+*/
+
+bool usart_tx_complete_interrupt_enabled(uint32_t usart) {
+  return ((USART_CR1(usart) & USART_CR1_TCIE) != 0);
+}
+
 /** @brief USART Idle Interrupt Enable.
 
 @param[in] usart unsigned 32 bit. USART block register address base @ref
@@ -400,6 +436,18 @@ void usart_disable_idle_interrupt(uint32_t usart)
 }
 
 /*---------------------------------------------------------------------------*/
+/** @brief USART Idle Interrupt Enabled.
+
+@param[in] usart unsigned 32 bit. USART block register address base @ref
+        usart_reg_base
+* @returns boolean: interrupt enabled.
+*/
+
+bool usart_idle_interrupt_enabled(uint32_t usart) {
+  return ((USART_CR1(usart) & USART_CR1_IDLEIE) != 0);
+}
+
+/*---------------------------------------------------------------------------*/
 /** @brief USART Error Interrupt Enable.
 
 @param[in] usart unsigned 32 bit. USART block register address base @ref
@@ -421,6 +469,18 @@ usart_reg_base
 void usart_disable_error_interrupt(uint32_t usart)
 {
 	USART_CR3(usart) &= ~USART_CR3_EIE;
+}
+
+/*---------------------------------------------------------------------------*/
+/** @brief USART Error Interrupt Enabled.
+
+@param[in] usart unsigned 32 bit. USART block register address base @ref
+        usart_reg_base
+* @returns boolean: interrupt enabled.
+*/
+
+bool usart_error_interrupt_enabled(uint32_t usart) {
+  return ((USART_CR3(usart) & USART_CR3_EIE) != 0);
 }
 
 /**@}*/
