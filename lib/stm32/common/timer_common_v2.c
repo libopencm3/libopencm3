@@ -40,7 +40,7 @@ void timer_set_master_mode(uint32_t timer_peripheral, uint32_t mode)
 	uint32_t reg32 = (mode << TIM_CR2_MMS_BIT3_SHIFT);
 	reg32 |= (mode << TIM_CR2_MMS_SHIFT);
 	reg32 &= TIM_CR2_MMS_MASK;
-	reg32 |= TIM_CR2(timer_peripheral) & ~TIM_CR2_MMS_MASK
+	reg32 |= TIM_CR2(timer_peripheral) & ~ TIM_CR2_MMS_MASK;
 	TIM_CR2(timer_peripheral) = reg32;
 }
 
@@ -57,6 +57,6 @@ ADCs or DACs.
 void timer_set_master_mode_2(uint32_t timer_peripheral, uint32_t mode)
 {
 	uint32_t reg32 = mode << TIM_CR2_MMS2_SHIFT;
-	reg32 &= TIM_CR2(timer_peripheral) & ~TIM_CR2_MMS2_MASK
+	reg32 &= TIM_CR2(timer_peripheral) & ~ TIM_CR2_MMS2_MASK;
 	TIM_CR2(timer_peripheral) = reg32;
 }

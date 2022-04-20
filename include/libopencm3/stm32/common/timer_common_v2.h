@@ -21,7 +21,7 @@
  */
 
 #pragma once
-#include <libopencm3/stm32/common/timer_common_all.h>
+#include <libopencm3/stm32/common/timer_common_f24.h>
 
 /* --- TIMx_CR2 values ----------------------------------------------------- */
 
@@ -54,15 +54,8 @@
 
 BEGIN_DECLS
 
-void timer_set_master_mode_2(uint32_t timer_peripheral, uint32_t mode)
+void timer_set_master_mode_2(uint32_t timer_peripheral, uint32_t mode);
 
 END_DECLS
-
-#endif
-/** @cond */
-#else
-#warning "timer_common_v2.h should not be included explicitly, only via timer.h"
-#endif
-/** @endcond */
 
 /**@}*/
