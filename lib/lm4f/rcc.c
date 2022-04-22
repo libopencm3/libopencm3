@@ -28,7 +28,7 @@ Alexandru Gagniuc <mr.nuke.me@gmail.com>
 
  * \brief <b>libopencm3 LM4F Clock control API</b>
  *
- * The LM$F clock API provides functionaliity for manipulating the system clock,
+ * The LM4F clock API provides functionality for manipulating the system clock,
  * oscillator, and PLL. Functions are provided for fine-grained control of clock
  * control registers, while also providing higher level functionality to easily
  * configure the main system clock source.
@@ -98,7 +98,7 @@ Alexandru Gagniuc <mr.nuke.me@gmail.com>
  * @endcode
  *
  * If write access is desired (i.e. when changing the system clock via the
- * fine-grained mechanisms), then include the following  line in your code:
+ * fine-grained mechanisms), then include the following line in your code:
  * @code
  *	extern uint32_t lm4f_rcc_sysclk_freq;
  * @endcode
@@ -419,7 +419,7 @@ static uint32_t xtal_to_freq(enum xtal_t xtal)
  * \brief Configure the system clock source
  *
  * Sets up the system clock, including configuring the oscillator source, and
- * PLL to acheve the desired system clock frequency. Where applicable, The LM4F
+ * PLL to achieve the desired system clock frequency. Where applicable, The LM4F
  * clock API uses the new RCC2 register to configure clock parameters.
  *
  * Enables the main oscillator if the clock source is OSCSRC_MOSC. If the main

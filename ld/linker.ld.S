@@ -148,64 +148,82 @@ SECTIONS
 
 #if defined(_CCM)
 	.ccm : {
+		_ccm = .;
 		*(.ccmram*)
 		. = ALIGN(4);
+		_eccm = .;
 	} >ccm
 #endif
 
 #if defined(_RAM1)
 	.ram1 : {
+		_ram1 = .;
 		*(.ram1*)
 		. = ALIGN(4);
+		_eram1 = .;
 	} >ram1
 #endif
 
 #if defined(_RAM2)
 	.ram2 : {
+		_ram2 = .;
 		*(.ram2*)
 		. = ALIGN(4);
+		_eram2 = .;
 	} >ram2
 #endif
 
 #if defined(_RAM3)
 	.ram3 : {
+		_ram3 = .;
 		*(.ram3*)
 		. = ALIGN(4);
+		_eram3 = .;
 	} >ram3
 #endif
 
 #if defined(_RAM4)
 	.ram4 : {
+		_ram4 = .;
 		*(.ram4*)
 		. = ALIGN(4);
+		_eram4 = .;
 	} >ram4
 #endif
 
 #if defined(_RAM5)
 	.ram5 : {
+		_ram5 = .;
 		*(.ram5*)
 		. = ALIGN(4);
-	} >ram4
+		_eram5 = .;
+	} >ram5
 #endif
 
 #if defined(_XSRAM)
 	.xsram : {
+		_xsram = .;
 		*(.xsram*)
 		. = ALIGN(4);
+		_exsram = .;
 	} >xsram
 #endif
 
 #if defined(_XDRAM)
 	.xdram : {
+		_xdram = .;
 		*(.xdram*)
 		. = ALIGN(4);
+		_exdram = .;
 	} >xdram
 #endif
 
 #if defined(_NFCRAM)
 	.nfcram : {
+		_nfcram = .;
 		*(.nfcram*)
 		. = ALIGN(4);
+		_enfcram = .;
 	} >nfcram
 #endif
 

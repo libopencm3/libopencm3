@@ -435,9 +435,10 @@ void rcc_set_rtc_clock_source(enum rcc_osc clk)
 	}
 }
 
-/* Helper to calculate the frequency of a UART/I2C based on the apb and clksel value. */
-static uint32_t rcc_uart_i2c_clksel_freq_hz(uint32_t apb_clk, uint8_t shift) {
-	uint8_t clksel = (RCC_CCIPR >> shift) & RCC_CCIPR_USARTxSEL_MASK;
+/* Helper to calculate the frequency of a UART/I2C based on the apb and clksel value.
+ * For I2C, clock selection 0b11 is reserved while it specifies LSE for UARTs. */
+static uint32_t rcc_uart_i2c_clksel_freq_hz(uint32_t apb_clk, uint8_t shift, uint32_t clock_reg) {
+	uint8_t clksel = (clock_reg >> shift) & RCC_CCIPR_USARTxSEL_MASK;
 	uint8_t hpre = (RCC_CFGR >> RCC_CFGR_HPRE_SHIFT) & RCC_CFGR_HPRE_MASK;
 	switch (clksel) {
 		case RCC_CCIPR_USARTxSEL_APB:
@@ -446,6 +447,8 @@ static uint32_t rcc_uart_i2c_clksel_freq_hz(uint32_t apb_clk, uint8_t shift) {
 			return rcc_ahb_frequency * rcc_get_div_from_hpre(hpre);
 		case RCC_CCIPR_USARTxSEL_HSI16:
 			return 16000000U;
+		case RCC_CCIPR_USARTxSEL_LSE:
+			return 32768U;
 	}
 	cm3_assert_not_reached();
 }
@@ -458,17 +461,17 @@ uint32_t rcc_get_usart_clk_freq(uint32_t usart)
 {
 	/* Handle values with selectable clocks. */
 	if (usart == LPUART1_BASE) {
-		return rcc_uart_i2c_clksel_freq_hz(rcc_apb2_frequency, RCC_CCIPR_LPUART1SEL_SHIFT);
+		return rcc_uart_i2c_clksel_freq_hz(rcc_apb1_frequency, RCC_CCIPR_LPUART1SEL_SHIFT, RCC_CCIPR);
 	} else if (usart == USART1_BASE) {
-		return rcc_uart_i2c_clksel_freq_hz(rcc_apb1_frequency, RCC_CCIPR_USART1SEL_SHIFT);
+		return rcc_uart_i2c_clksel_freq_hz(rcc_apb2_frequency, RCC_CCIPR_USART1SEL_SHIFT, RCC_CCIPR);
 	} else if (usart == USART2_BASE) {
-		return rcc_uart_i2c_clksel_freq_hz(rcc_apb1_frequency, RCC_CCIPR_USART2SEL_SHIFT);
+		return rcc_uart_i2c_clksel_freq_hz(rcc_apb1_frequency, RCC_CCIPR_USART2SEL_SHIFT, RCC_CCIPR);
 	} else if (usart == USART3_BASE) {
-		return rcc_uart_i2c_clksel_freq_hz(rcc_apb1_frequency, RCC_CCIPR_USART3SEL_SHIFT);
+		return rcc_uart_i2c_clksel_freq_hz(rcc_apb1_frequency, RCC_CCIPR_USART3SEL_SHIFT, RCC_CCIPR);
 	} else if (usart == UART4_BASE) {
-		return rcc_uart_i2c_clksel_freq_hz(rcc_apb1_frequency, RCC_CCIPR_UART4SEL_SHIFT);
+		return rcc_uart_i2c_clksel_freq_hz(rcc_apb1_frequency, RCC_CCIPR_UART4SEL_SHIFT, RCC_CCIPR);
 	} else {  /* USART5 */
-		return rcc_uart_i2c_clksel_freq_hz(rcc_apb1_frequency, RCC_CCIPR_UART5SEL_SHIFT);
+		return rcc_uart_i2c_clksel_freq_hz(rcc_apb1_frequency, RCC_CCIPR_UART5SEL_SHIFT, RCC_CCIPR);
 	}
 }
 
@@ -479,7 +482,20 @@ uint32_t rcc_get_usart_clk_freq(uint32_t usart)
 uint32_t rcc_get_timer_clk_freq(uint32_t timer)
 {
 	/* Handle APB1 timers, and apply multiplier if necessary. */
-	if (timer >= TIM2_BASE && timer <= TIM7_BASE) {
+	if (timer == LPTIM1_BASE || timer == LPTIM2_BASE) {
+		int shift = (timer == LPTIM1_BASE) ? RCC_CCIPR_LPTIM1SEL_SHIFT : RCC_CCIPR_LPTIM2SEL_SHIFT;
+		uint8_t clksel = (RCC_CCIPR >> shift) & RCC_CCIPR_LPTIMxSEL_MASK;
+		switch (clksel) {
+			case RCC_CCIPR_LPTIMxSEL_APB:
+				return rcc_apb1_frequency;
+			case RCC_CCIPR_LPTIMxSEL_LSI:
+				return 32000U;
+			case RCC_CCIPR_LPTIMxSEL_HSI16:
+				return 16000000U;
+			case RCC_CCIPR_LPTIMxSEL_LSE:
+				return 32768U;
+		}
+	} else if (timer >= TIM2_BASE && timer <= TIM7_BASE) {
 		uint8_t ppre1 = (RCC_CFGR >> RCC_CFGR_PPRE1_SHIFT) & RCC_CFGR_PPRE1_MASK;
 		return (ppre1 == RCC_CFGR_PPRE1_NODIV) ? rcc_apb1_frequency
 			: 2 * rcc_apb1_frequency;
@@ -488,6 +504,7 @@ uint32_t rcc_get_timer_clk_freq(uint32_t timer)
 		return (ppre2 == RCC_CFGR_PPRE2_NODIV) ? rcc_apb2_frequency
 			: 2 * rcc_apb2_frequency;
 	}
+	cm3_assert_not_reached();
 }
 
 /*---------------------------------------------------------------------------*/
@@ -497,11 +514,13 @@ uint32_t rcc_get_timer_clk_freq(uint32_t timer)
 uint32_t rcc_get_i2c_clk_freq(uint32_t i2c)
 {
 	if (i2c == I2C1_BASE) {
-		return rcc_uart_i2c_clksel_freq_hz(rcc_apb1_frequency, RCC_CCIPR_I2C1SEL_SHIFT);
+		return rcc_uart_i2c_clksel_freq_hz(rcc_apb1_frequency, RCC_CCIPR_I2C1SEL_SHIFT, RCC_CCIPR);
 	} else if (i2c == I2C2_BASE) {
-		return rcc_uart_i2c_clksel_freq_hz(rcc_apb1_frequency, RCC_CCIPR_I2C2SEL_SHIFT);
-	} else {  /* I2C3 */
-		return rcc_uart_i2c_clksel_freq_hz(rcc_apb1_frequency, RCC_CCIPR_I2C3SEL_SHIFT);
+		return rcc_uart_i2c_clksel_freq_hz(rcc_apb1_frequency, RCC_CCIPR_I2C2SEL_SHIFT, RCC_CCIPR);
+	} else if (i2c == I2C3_BASE) {
+		return rcc_uart_i2c_clksel_freq_hz(rcc_apb1_frequency, RCC_CCIPR_I2C3SEL_SHIFT, RCC_CCIPR);
+	} else {  /* I2C4 */
+		return rcc_uart_i2c_clksel_freq_hz(rcc_apb1_frequency, RCC_CCIPR_I2C4SEL_SHIFT, RCC_CCIPR2);
 	}
 }
 
