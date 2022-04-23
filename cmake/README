@@ -1,0 +1,60 @@
+-------------------------------------------------------------------------------
+README
+-------------------------------------------------------------------------------
+
+This directory contains CMake support module, that can be used in your project. 
+
+Module provides ability to use find_package() CMake command to gather compiler
+definitions, linker options, Libopencm3 library name and it's path. Additionally
+it generates linker script suitable for your MCU.
+
+Typical invocation:
+>>>>>>
+list(APPEND CMAKE_MODULE_PATH <path_to_libopencm3>/cmake)
+set(DEVICE <full_name_of_your_mcu>)
+find_package(Libopencm3 REQUIRED)
+<<<<<<
+
+While Libopencm3 is a multi-target library and provides support for various
+devices, it is mandatory to provide identification of your MCU before calling
+find_package(). You have to set variable DEVICE to contain full name of your
+MCU. This module will then configure all variables and/or targets properly.
+
+If device is recognized, it is actual supported MCU and compiled library for
+given MCU family is found, then above call will succeed. You can then use
+Libopencm3 with your binaries and/or libraries.
+
+There are two ways of using Libopencm3. You can explicitly reference variables 
+defined by this module:
+
+>>>>>>
+
+add_definitions(${Libopencm3_DEFINITIONS})
+add_link_options(${Libopencm3_LINK_OPTIONS})
+link_directories(${Libopencm3_LIBRARY_DIRS})
+include_directories(${Libopencm3_INCLUDE_DIRS})
+
+add_executable(foo foo.bar)
+target_link_library(foo ${Libopencm3_LIBRARY})
+
+<<<<<<
+
+Or you can use imported target, which is automatically created:
+
+>>>>>>
+
+add_executable(foo foo.bar)
+target_link_library(foo Libopencm3::Libopencm3)
+
+<<<<<<
+
+Note that in latter case, it is not necessary to add compiler definitions,
+linker options, include and link directories manually. They will be added
+automatically if you link your target against Libopencm3.
+
+This module automatically generates linker script based on Libopencm3 template
+and compiler/linker options. This linker file is generated into your binary
+output directory. Its full path is available in variable
+`Libopencm3_LINKER_SCRIPT`. Note that if you use either imported target or
+variable `Libopencm3_LINK_OPTIONS`, this linker script is automatically used by
+your target(s).
