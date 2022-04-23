@@ -58,3 +58,41 @@ output directory. Its full path is available in variable
 `Libopencm3_LINKER_SCRIPT`. Note that if you use either imported target or
 variable `Libopencm3_LINK_OPTIONS`, this linker script is automatically used by
 your target(s).
+
+Advanced use
+------------
+
+Libopencm3 package provides several components user can choose from:
+
+* hal - If this component is chosen, then Libopencm3 package will provide
+  imported target for linking purposes and variables containing compiler and
+  linker directives, include and link paths.
+* ld - If this component is chosen, then Libopencm3 package will try to generate
+  linker script. This will be stored in your binary output directory.
+
+The default behavior, if no components are given is to search for both hal and
+ld component. If any of them is not found, then package search fails. 
+
+If both hal and ld components are specified, then linker script generated is 
+automatically used as linker script by imported target and linker options 
+variable. If you need to modify this linker script before being used, then you
+can use following:
+
+>>>>>>
+
+find_package(Libopencm3 REQUIRED COMPONENTS hal)
+find_package(Libopencm3 REQUIRED COMPONENTS ld)
+
+# Libopencm3_LINKER_SCRIPT now contains path to linker script, but is not
+# referenced automatically. You can modify it programmatically generating new
+# linker script here and then reference it from imported target.
+
+set_properties(TARGET Libopencm3::Libopencm3
+	APPEND PROPERTY INTERFACE_LINK_OPTIONS -T${path_to_your_linker_script}
+	)
+
+# or use it globally
+
+add_link_options(-T${path_to_your_linker_script})
+
+<<<<<<
