@@ -1864,6 +1864,23 @@ void timer_slave_set_trigger(uint32_t timer_peripheral, uint8_t trigger)
 	TIM_SMCR(timer_peripheral) |= trigger;
 }
 
+/*---------------------------------------------------------------------------*/
+/** @brief Set External Clock Mode 2
+
+@param[in] timer_peripheral Unsigned int32. Timer register address base
+@param[in] state ::tim_ecm2_state. External Clock Mode 2 state
+*/
+
+void timer_slave_set_extclockmode2(uint32_t timer_peripheral,
+            enum tim_ecm2_state state)
+{
+	if (state) {
+		TIM_SMCR(timer_peripheral) |= TIM_SMCR_ECE;
+	} else {
+		TIM_SMCR(timer_peripheral) &= ~TIM_SMCR_ECE;
+	}
+}
+
 /* TODO Timer DMA burst */
 
 /**@}*/
