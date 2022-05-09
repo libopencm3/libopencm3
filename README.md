@@ -26,6 +26,7 @@ programming manuals, and application notes. The code is meant to be used
 with a GCC toolchain for ARM (arm-elf or arm-none-eabi), flashing of the
 code to a microcontroller can be done using the OpenOCD ARM JTAG software.
 
+
 Status and API
 --------------
 
