@@ -58,7 +58,7 @@ specific memorymap.h header before including this header file.*/
 #define ADC_SQR4(adc)		MMIO32((adc) + 0x3C)
 
 /* Injected Sequence Register (ADCx_JSQR, x=1..4) JSQR */
-#define ADC_JSQR(adc)		MMIO32((adc) + 0x30)
+#define ADC_JSQR(adc)		MMIO32((adc) + 0x4c)
 
 /* Offset Register x (ADCx_OFRy, x=1..4) (y=1..4) OFRy */
 #define ADC_OFR1(adc)		MMIO32((adc) + 0x60)
