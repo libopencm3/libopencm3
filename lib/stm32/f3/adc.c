@@ -474,7 +474,7 @@ void adc_set_injected_sequence(uint32_t adc, uint8_t length, uint8_t channel[],
 	}
 
 	for (i = 0; i < length; i++) {
-		reg32 |= ADC_JSQR_JSQ_VAL(i, channel[length - i - 1]);
+		reg32 |= ADC_JSQR_JSQ_VAL(i, channel[i]);
 	}
 
 	reg32 |= ADC_JSQR_JL_VAL(length);
