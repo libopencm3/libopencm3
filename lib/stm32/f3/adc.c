@@ -456,9 +456,14 @@ void adc_set_watchdog_low_threshold(uint32_t adc, uint16_t threshold)
  * @param[in] length Unsigned int8. Number of channels in the group.
  * @param[in] channel Unsigned int8[]. Set of channels in sequence, integers
  * 0..18
+ * @param[in] trigger Unsigned int8. Trigger identifier
+ * @ref adc_trigger_injected
+ * @param[in] polarity Unsigned int32. Trigger polarity
+ * @ref adc_trigger_polarity_injected
  */
 
-void adc_set_injected_sequence(uint32_t adc, uint8_t length, uint8_t channel[])
+void adc_set_injected_sequence(uint32_t adc, uint8_t length, uint8_t channel[],
+	uint32_t trigger, uint32_t polarity)
 {
 	uint32_t reg32 = 0;
 	uint8_t i = 0;
@@ -473,6 +478,10 @@ void adc_set_injected_sequence(uint32_t adc, uint8_t length, uint8_t channel[])
 	}
 
 	reg32 |= ADC_JSQR_JL_VAL(length);
+
+	/* Setup external trigger & polarity. */
+	reg32 &= ~(ADC_JSQR_JEXTSEL_MASK | ADC_JSQR_JEXTEN_MASK);
+	reg32 |= (trigger | polarity);
 
 	ADC_JSQR(adc) = reg32;
 }
