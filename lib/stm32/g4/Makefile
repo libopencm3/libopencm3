@@ -37,6 +37,7 @@ ARFLAGS		= rcs
 
 OBJS += adc.o adc_common_v2.o adc_common_v2_multi.o
 OBJS += crs_common_all.o
+OBJS += cordic_common_v1.o
 OBJS += dac_common_all.o dac_common_v2.o
 OBJS += dma_common_l1f013.o
 OBJS += dmamux.o
