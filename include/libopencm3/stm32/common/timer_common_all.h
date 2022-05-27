@@ -464,15 +464,15 @@ specific memorymap.h header before including this header file.*/
 /****************************************************************************/
 /** @defgroup tim_mastermode TIMx_CR2 MMS[6:4]: Master Mode Selection
 @{*/
-#define TIM_CR2_MMS_RESET		(0x0 << 4)
-#define TIM_CR2_MMS_ENABLE		(0x1 << 4)
-#define TIM_CR2_MMS_UPDATE		(0x2 << 4)
-#define TIM_CR2_MMS_COMPARE_PULSE	(0x3 << 4)
-#define TIM_CR2_MMS_COMPARE_OC1REF	(0x4 << 4)
-#define TIM_CR2_MMS_COMPARE_OC2REF	(0x5 << 4)
-#define TIM_CR2_MMS_COMPARE_OC3REF	(0x6 << 4)
-#define TIM_CR2_MMS_COMPARE_OC4REF	(0x7 << 4)
-#define TIM_CR2_MMS_MASK		(0x7 << 4)
+#define TIM_CR2_MMS_RESET		(0x0)
+#define TIM_CR2_MMS_ENABLE		(0x1)
+#define TIM_CR2_MMS_UPDATE		(0x2)
+#define TIM_CR2_MMS_COMPARE_PULSE	(0x3)
+#define TIM_CR2_MMS_COMPARE_OC1REF	(0x4)
+#define TIM_CR2_MMS_COMPARE_OC2REF	(0x5)
+#define TIM_CR2_MMS_COMPARE_OC3REF	(0x6)
+#define TIM_CR2_MMS_COMPARE_OC4REF	(0x7)
+#define TIM_CR2_MMS_MASK		(0x7)
 /**@}*/
 
 /* CCDS: Capture/compare DMA selection */

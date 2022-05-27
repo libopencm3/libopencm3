@@ -28,4 +28,4 @@
  */
 
 #pragma once
-#include <libopencm3/stm32/common/timer_common_f24.h>
+#include <libopencm3/stm32/common/timer_common_v2.h>
