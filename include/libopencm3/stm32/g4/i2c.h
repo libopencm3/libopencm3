@@ -2,7 +2,7 @@
  *
  * @ingroup STM32G4xx_defines
  *
- * @brief <b>Defined Constants and Types for the STM32G0xx I2C</b>
+ * @brief <b>Defined Constants and Types for the STM32G4xx I2C</b>
  *
  * @version 1.0.0
  *
