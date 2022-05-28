@@ -1,13 +1,4 @@
-/** @defgroup cordic_defines CORDIC Defines
- *
- * @brief <b>Defined Constants and Types for the STM32G0xx CORDIC</b>
- *
- * @ingroup STM32G0xx_defines
- *
- * @version 1.0.0
- *
- * LGPL License Terms @ref lgpl_license
- */
+/* This provides unification of code over STM32 subfamilies */
 
 /*
  * This file is part of the libopencm3 project.
@@ -26,9 +17,13 @@
  * along with this library.  If not, see <http://www.gnu.org/licenses/>.
  */
 
-#ifndef LIBOPENCM3_CORDIC_H
-#define LIBOPENCM3_CORDIC_H
+#include <libopencm3/cm3/common.h>
+#include <libopencm3/stm32/memorymap.h>
 
-#include <libopencm3/stm32/common/cordic_common_v1.h>
-
+#if defined(STM32G4)
+#       include <libopencm3/stm32/g4/cordic.h>
+#elif defined(STM32U5)
+#       include <libopencm3/stm32/u5/cordic.h>
+#else
+#       error "stm32 family not defined."
 #endif
