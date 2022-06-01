@@ -49,34 +49,41 @@ specific memorymap.h header before including this header file.*/
 /* ----- Register values ----- */
 
 /* ----- CORDIC_CSR Values ----- */
-/** @defgroup cordic_csr ISR ADC interrupt status register
+/** @defgroup cordic_csr CSR CORDIC control/status register
 @{*/
+/** RRDY: result ready flag */
 #define CORDIC_CSR_RRDY                 (0x1 << 31)
-
+/** ARGSIZE: Width of input data */
 #define CORDIC_CSR_ARGSIZE              (0x1 << 22)
-
+/** RESSIZE: Width of result data */
 #define CORDIC_CSR_RESSIZE              (0x1 << 21)
-
+/** NARGS: Number of input data writes */
 #define CORDIC_CSR_NARGS                (0x1 << 20)
-
+/** NRES: Number of result data reads */
 #define CORDIC_CSR_NRES                 (0x1 << 19)
-
+/** DMAWEN: DMA write enable */
 #define CORDIC_CSR_DMAWEN               (0x1 << 18)
+/** DMAREN: DMA write enable */
 #define CORDIC_CSR_DMAREN               (0x1 << 17)
+/** DMAREN: Interrupt enable */
 #define CORDIC_CSR_IEN                  (0x1 << 16)
 
+/** @defgroup cordic_csr_scale SCALE: Scaling factor
+@{*/
+#define CORDIC_CSR_SCALE_1              (0x0)
+#define CORDIC_CSR_SCALE_2              (0x1)
+#define CORDIC_CSR_SCALE_4              (0x2)
+#define CORDIC_CSR_SCALE_8              (0x3)
+#define CORDIC_CSR_SCALE_16             (0x4)
+#define CORDIC_CSR_SCALE_32             (0x5)
+#define CORDIC_CSR_SCALE_64             (0x6)
+#define CORDIC_CSR_SCALE_128            (0x7)
+/**@}*/
 #define CORDIC_CSR_SCALE_SHIFT          (8)
 #define CORDIC_CSR_SCALE_MASK           (0x7 << CORDIC_CSR_SCALE_SHIFT)
-#define CORDIC_CSR_SCALE_1              (0x1)
-#define CORDIC_CSR_SCALE_2              (0x2)
-#define CORDIC_CSR_SCALE_4              (0x3)
-#define CORDIC_CSR_SCALE_8              (0x4)
-#define CORDIC_CSR_SCALE_16             (0x5)
-#define CORDIC_CSR_SCALE_32             (0x6)
-#define CORDIC_CSR_SCALE_64             (0x7)
 
-#define CORDIC_CSR_PRECISION_SHIFT      (4)
-#define CORDIC_CSR_PRECISION_MASK       (0xF << CORDIC_CSR_PRECISION_SHIFT)
+/** @defgroup cordic_csr_precision PRECISION: Precision of CORDIC operation (number of iterations)
+@{*/
 #define CORDIC_CSR_PRECISION_04_ITER    (0x1)
 #define CORDIC_CSR_PRECISION_08_ITER    (0x2)
 #define CORDIC_CSR_PRECISION_12_ITER    (0x3)
@@ -92,9 +99,12 @@ specific memorymap.h header before including this header file.*/
 #define CORDIC_CSR_PRECISION_52_ITER    (0xD)
 #define CORDIC_CSR_PRECISION_56_ITER    (0xE)
 #define CORDIC_CSR_PRECISION_60_ITER    (0xF)
+/**@}*/
+#define CORDIC_CSR_PRECISION_SHIFT      (4)
+#define CORDIC_CSR_PRECISION_MASK       (0xF << CORDIC_CSR_PRECISION_SHIFT)
 
-#define CORDIC_CSR_FUNC_SHIFT           (0)
-#define CORDIC_CSR_FUNC_MASK            (0xF << CORDIC_CSR_FUNC_SHIFT)
+/** @defgroup cordic_csr_function FUNCTION: CORDIC operation to be performed
+@{*/
 #define CORDIC_CSR_FUNC_COS             (0x0)
 #define CORDIC_CSR_FUNC_SIN             (0x1)
 #define CORDIC_CSR_FUNC_PHASE           (0x2)
@@ -105,7 +115,11 @@ specific memorymap.h header before including this header file.*/
 #define CORDIC_CSR_FUNC_ATANH           (0x7)
 #define CORDIC_CSR_FUNC_COSINE          (0x8)
 #define CORDIC_CSR_FUNC_SQRT            (0x9)
+/**@}*/
+#define CORDIC_CSR_FUNC_SHIFT           (0)
+#define CORDIC_CSR_FUNC_MASK            (0xF << CORDIC_CSR_FUNC_SHIFT)
 
+/**@}*/
 
 /* --- Function prototypes ------------------------------------------------- */
 
@@ -116,14 +130,14 @@ void cordic_set_32bit_argument_data_width(void);
 void cordic_set_16bit_argument_data_width(void);
 void cordic_set_32bit_result_data_width(void);
 void cordic_set_16bit_result_data_width(void);
-void cordic_set_argument_number_1(void);
-void cordic_set_argument_number_2(void);
-void cordic_set_result_number_1(void);
-void cordic_set_result_number_2(void);
+void cordic_set_number_of_arguments_1(void);
+void cordic_set_number_of_arguments_2(void);
+void cordic_set_number_of_results_1(void);
+void cordic_set_number_of_results_2(void);
 void cordic_enable_dma_write(void);
 void cordic_enable_dma_read(void);
 void cordic_enable_interrupt(void);
-void cordic_set_scaling_factor(uint8_t scale);
+void cordic_set_scaling_factor(uint8_t n);
 void cordic_set_precision(uint8_t precision);
 void cordic_set_function(uint8_t function);
 void cordic_write_16bit_argument(uint16_t argument);
@@ -133,21 +147,9 @@ uint16_t cordic_read_16bit_result(void);
 void cordic_read_16bit_results(uint16_t *result1, uint16_t *result2);
 uint32_t cordic_read_32bit_result(void);
 int16_t cordic_cos_16bit(int16_t x);
-//int32_t cordic_cos_32bit(int32_t x);
-//int16_t cordic_sin_16bit(int16_t x);
-//int32_t cordic_sin_32bit(int32_t x);
-//void cordic_sin_cos_16bit(int16_t x);
-//void cordic_sin_cos_32bit(int32_t x);
-//int16_t cordic_atan2_16bit(int16_t x, int16_t y);
-//int32_t cordic_atan2_32bit(int32_t x, int32_t y);
-//uint16_t cordic_magnitude_16bit(int16_t x, int16_t y);
-//uint32_t cordic_magnitude_32bit(int32_t x, int32_t y);
-//int16_t cordic_atan_16bit(int16_t x, uint8_t scale);
-//int32_t cordic_atan_32bit(int32_t x, uint8_t scale);
-//int16_t cordic_cosh_16bit(int16_t x);
-//int32_t cordic_cosh_32bit(int32_t x);
-//int16_t cordic_sinh_16bit(int16_t x);
-//int32_t cordic_sinh_32bit(int32_t x);
+int32_t cordic_cos_32bit(int32_t x);
+int16_t cordic_sin_16bit(int16_t x);
+int32_t cordic_sin_32bit(int32_t x);
 END_DECLS
 
 #endif

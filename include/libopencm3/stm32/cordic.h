@@ -20,10 +20,10 @@
 #include <libopencm3/cm3/common.h>
 #include <libopencm3/stm32/memorymap.h>
 
-#if defined(STM32G4)
+#if defined(STM32G0)
+#       include <libopencm3/stm32/g0/cordic.h>
+#elif defined(STM32G4)
 #       include <libopencm3/stm32/g4/cordic.h>
-#elif defined(STM32U5)
-#       include <libopencm3/stm32/u5/cordic.h>
 #else
 #       error "stm32 family not defined."
 #endif
