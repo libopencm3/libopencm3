@@ -280,7 +280,7 @@ uint32_t cordic_read_32bit_result(void) {
  */
 int16_t cordic_cos_16bit(int16_t x) {
         cordic_set_function(CORDIC_CSR_FUNC_COS);
-        cordic_set_precision(CORDIC_CSR_PRECISION_20_ITER);
+        cordic_set_precision(CORDIC_CSR_PRECISION_ITER_20);
         cordic_set_argument_width_16bit();
         cordic_set_result_width_16bit();
         cordic_set_number_of_arguments_1();
@@ -308,7 +308,7 @@ int16_t cordic_cos_16bit(int16_t x) {
  */
 int32_t cordic_cos_32bit(int32_t x) {
         cordic_set_function(CORDIC_CSR_FUNC_COS);
-        cordic_set_precision(CORDIC_CSR_PRECISION_28_ITER);
+        cordic_set_precision(CORDIC_CSR_PRECISION_ITER_28);
         cordic_set_argument_width_32bit();
         cordic_set_result_width_32bit();
         cordic_set_number_of_arguments_1();
@@ -334,7 +334,7 @@ int32_t cordic_cos_32bit(int32_t x) {
  */
 int16_t cordic_sin_16bit(int16_t x) {
         cordic_set_function(CORDIC_CSR_FUNC_SIN);
-        cordic_set_precision(CORDIC_CSR_PRECISION_20_ITER);
+        cordic_set_precision(CORDIC_CSR_PRECISION_ITER_20);
         cordic_set_argument_width_16bit();
         cordic_set_result_width_16bit();
         cordic_set_number_of_arguments_1();
@@ -362,7 +362,7 @@ int16_t cordic_sin_16bit(int16_t x) {
  */
 int32_t cordic_sin_32bit(int32_t x) {
         cordic_set_function(CORDIC_CSR_FUNC_SIN);
-        cordic_set_precision(CORDIC_CSR_PRECISION_28_ITER);
+        cordic_set_precision(CORDIC_CSR_PRECISION_ITER_28);
         cordic_set_argument_width_32bit();
         cordic_set_result_width_32bit();
         cordic_set_number_of_arguments_1();
