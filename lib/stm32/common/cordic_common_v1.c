@@ -290,7 +290,7 @@ int16_t cordic_cos_16bit(int16_t x) {
 
         /* this while loop can be omitted but that will stall the
         processor while it waits for the CORDIC_RDATA register  */
-        while(!cordic_get_result_ready_flag());
+        while(!cordic_is_result_ready());
 
         return cordic_read_16bit_result();
 }
