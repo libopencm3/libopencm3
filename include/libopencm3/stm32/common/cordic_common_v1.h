@@ -25,8 +25,8 @@
 
 /**@{*/
 
-/* THIS FILE SHOULD NOT BE INCLUDED DIRECTLY, BUT ONLY VIA ADC.H
-The order of header inclusion is important. adc.h includes the device
+/* THIS FILE SHOULD NOT BE INCLUDED DIRECTLY, BUT ONLY VIA CORDIC.H
+The order of header inclusion is important. cordic.h includes the device
 specific memorymap.h header before including this header file.*/
 
 /** @cond */
@@ -84,21 +84,21 @@ specific memorymap.h header before including this header file.*/
 
 /** @defgroup cordic_csr_precision PRECISION: Precision of CORDIC operation (number of iterations)
 @{*/
-#define CORDIC_CSR_PRECISION_04_ITER    (0x1)
-#define CORDIC_CSR_PRECISION_08_ITER    (0x2)
-#define CORDIC_CSR_PRECISION_12_ITER    (0x3)
-#define CORDIC_CSR_PRECISION_16_ITER    (0x4)
-#define CORDIC_CSR_PRECISION_20_ITER    (0x5)
-#define CORDIC_CSR_PRECISION_24_ITER    (0x6)
-#define CORDIC_CSR_PRECISION_28_ITER    (0x7)
-#define CORDIC_CSR_PRECISION_32_ITER    (0x8)
-#define CORDIC_CSR_PRECISION_36_ITER    (0x9)
-#define CORDIC_CSR_PRECISION_40_ITER    (0xA)
-#define CORDIC_CSR_PRECISION_44_ITER    (0xB)
-#define CORDIC_CSR_PRECISION_48_ITER    (0xC)
-#define CORDIC_CSR_PRECISION_52_ITER    (0xD)
-#define CORDIC_CSR_PRECISION_56_ITER    (0xE)
-#define CORDIC_CSR_PRECISION_60_ITER    (0xF)
+#define CORDIC_CSR_PRECISION_ITER_04    (0x1)
+#define CORDIC_CSR_PRECISION_ITER_08    (0x2)
+#define CORDIC_CSR_PRECISION_ITER_12    (0x3)
+#define CORDIC_CSR_PRECISION_ITER_16    (0x4)
+#define CORDIC_CSR_PRECISION_ITER_20    (0x5)
+#define CORDIC_CSR_PRECISION_ITER_24    (0x6)
+#define CORDIC_CSR_PRECISION_ITER_28    (0x7)
+#define CORDIC_CSR_PRECISION_ITER_32    (0x8)
+#define CORDIC_CSR_PRECISION_ITER_36    (0x9)
+#define CORDIC_CSR_PRECISION_ITER_40    (0xA)
+#define CORDIC_CSR_PRECISION_ITER_44    (0xB)
+#define CORDIC_CSR_PRECISION_ITER_48    (0xC)
+#define CORDIC_CSR_PRECISION_ITER_52    (0xD)
+#define CORDIC_CSR_PRECISION_ITER_56    (0xE)
+#define CORDIC_CSR_PRECISION_ITER_60    (0xF)
 /**@}*/
 #define CORDIC_CSR_PRECISION_SHIFT      (4)
 #define CORDIC_CSR_PRECISION_MASK       (0xF << CORDIC_CSR_PRECISION_SHIFT)
@@ -125,11 +125,11 @@ specific memorymap.h header before including this header file.*/
 
 BEGIN_DECLS
 
-bool cordic_get_result_ready_flag(void);
-void cordic_set_32bit_argument_data_width(void);
-void cordic_set_16bit_argument_data_width(void);
-void cordic_set_32bit_result_data_width(void);
-void cordic_set_16bit_result_data_width(void);
+bool cordic_is_result_ready(void);
+void cordic_set_argument_width_32bit(void);
+void cordic_set_argument_width_16bit(void);
+void cordic_set_result_width_32bit(void);
+void cordic_set_result_width_16bit(void);
 void cordic_set_number_of_arguments_1(void);
 void cordic_set_number_of_arguments_2(void);
 void cordic_set_number_of_results_1(void);
