@@ -1,3 +1,8 @@
+/**
+ * @addtogroup pio_defines
+ * @{
+ */
+
 /*
  * This file is part of the libopencm3 project.
  *
@@ -22,7 +27,9 @@
 The order of header inclusion is important. pio.h includes the device
 specific memorymap.h header before including this header file.*/
 
+/** @cond */
 #if defined(LIBOPENCM3_PIO_H)
+/** @endcond */
 
 #ifndef LIBOPENCM3_PIO_COMMON_ALL_H
 #define LIBOPENCM3_PIO_COMMON_ALL_H
@@ -43,126 +50,128 @@ specific memorymap.h header before including this header file.*/
 
 /* --- PIO registers ----------------------------------------------------- */
 
-/* PIO Enable Register */
+/** PIO Enable Register */
 #define PIO_PER(port)			MMIO32((port) + 0x0000)
 
-/* PIO Disable Register */
+/** PIO Disable Register */
 #define PIO_PDR(port)			MMIO32((port) + 0x0004)
 
-/* PIO Status Register */
+/** PIO Status Register */
 #define PIO_PSR(port)			MMIO32((port) + 0x0008)
 
-/* Output Enable Register */
+/** Output Enable Register */
 #define PIO_OER(port)			MMIO32((port) + 0x0010)
 
-/* Output Disable Register */
+/** Output Disable Register */
 #define PIO_ODR(port)			MMIO32((port) + 0x0014)
 
-/* Output Status Register */
+/** Output Status Register */
 #define PIO_OSR(port)			MMIO32((port) + 0x0018)
 
-/* Glitch Input Filter Enable Register */
+/** Glitch Input Filter Enable Register */
 #define PIO_IFER(port)			MMIO32((port) + 0x0020)
 
-/* Glitch Input Filter Disable Register */
+/** Glitch Input Filter Disable Register */
 #define PIO_IFDR(port)			MMIO32((port) + 0x0024)
 
-/* Glitch Input Filter Status Register */
+/** Glitch Input Filter Status Register */
 #define PIO_IFSR(port)			MMIO32((port) + 0x0028)
 
-/* Set Output Data Register */
+/** Set Output Data Register */
 #define PIO_SODR(port)			MMIO32((port) + 0x0030)
 
-/* Clear Output Data Register */
+/** Clear Output Data Register */
 #define PIO_CODR(port)			MMIO32((port) + 0x0034)
 
-/* Output Data Status Register */
+/** Output Data Status Register */
 #define PIO_ODSR(port)			MMIO32((port) + 0x0038)
 
-/* Pin Data Status Register */
+/** Pin Data Status Register */
 #define PIO_PDSR(port)			MMIO32((port) + 0x003C)
 
-/* Interrupt Enable Register */
+/** Interrupt Enable Register */
 #define PIO_IER(port)			MMIO32((port) + 0x0040)
 
-/* Interrupt Disable Register */
+/** Interrupt Disable Register */
 #define PIO_IDR(port)			MMIO32((port) + 0x0044)
 
-/* Interrupt Mask Register */
+/** Interrupt Mask Register */
 #define PIO_IMR(port)			MMIO32((port) + 0x0048)
 
-/* Interrupt Status Register */
+/** Interrupt Status Register */
 #define PIO_ISR(port)			MMIO32((port) + 0x004C)
 
-/* Multi-driver Enable Register */
+/** Multi-driver Enable Register */
 #define PIO_MDER(port)			MMIO32((port) + 0x0050)
 
-/* Multi-driver Disable Register */
+/** Multi-driver Disable Register */
 #define PIO_MDDR(port)			MMIO32((port) + 0x0054)
 
-/* Multi-driver Status Register */
+/** Multi-driver Status Register */
 #define PIO_MDSR(port)			MMIO32((port) + 0x0058)
 
-/* Pull-up Disable Register */
+/** Pull-up Disable Register */
 #define PIO_PUDR(port)			MMIO32((port) + 0x0060)
 
-/* Pull-up Enable Register */
+/** Pull-up Enable Register */
 #define PIO_PUER(port)			MMIO32((port) + 0x0064)
 
-/* Pad Pull-up Status Register */
+/** Pad Pull-up Status Register */
 #define PIO_PUSR(port)			MMIO32((port) + 0x0068)
 
-/* Slow Clock Divider Debouncing Register */
+/** Slow Clock Divider Debouncing Register */
 #define PIO_SCDR(port)			MMIO32((port) + 0x008C)
 
-/* Output Write Enable */
+/** Output Write Enable */
 #define PIO_OWER(port)			MMIO32((port) + 0x00A0)
 
-/* Output Write Disable */
+/** Output Write Disable */
 #define PIO_OWDR(port)			MMIO32((port) + 0x00A4)
 
-/* Output Write Status Register */
+/** Output Write Status Register */
 #define PIO_OWSR(port)			MMIO32((port) + 0x00A8)
 
-/* Additional Interrupt Modes Enable Register */
+/** Additional Interrupt Modes Enable Register */
 #define PIO_AIMER(port)			MMIO32((port) + 0x00B0)
 
-/* Additional Interrupt Modes Disables Register */
+/** Additional Interrupt Modes Disables Register */
 #define PIO_AIMDR(port)			MMIO32((port) + 0x00B4)
 
-/* Additional Interrupt Modes Mask Register */
+/** Additional Interrupt Modes Mask Register */
 #define PIO_AIMMR(port)			MMIO32((port) + 0x00B8)
 
-/* Edge Select Register */
+/** Edge Select Register */
 #define PIO_ESR(port)			MMIO32((port) + 0x00C0)
 
-/* Level Select Register */
+/** Level Select Register */
 #define PIO_LSR(port)			MMIO32((port) + 0x00C4)
 
-/* Edge/Level Status Register */
+/** Edge/Level Status Register */
 #define PIO_ELSR(port)			MMIO32((port) + 0x00C8)
 
-/* Falling Edge/Low Level Select Register */
+/** Falling Edge/Low Level Select Register */
 #define PIO_FELLSR(port)		MMIO32((port) + 0x00D0)
 
-/* Rising Edge/High Level Select Register */
+/** Rising Edge/High Level Select Register */
 #define PIO_REHLSR(port)		MMIO32((port) + 0x00D4)
 
-/* Fall/Rise - Low/High Status Register */
+/** Fall/Rise - Low/High Status Register */
 #define PIO_FRLHSR(port)		MMIO32((port) + 0x00D8)
 
-/* Lock Status */
+/** Lock Status */
 #define PIO_LOCKSR(port)		MMIO32((port) + 0x00E0)
 
-/* Write Protect Mode Register */
+/** Write Protect Mode Register */
 #define PIO_WPMR(port)			MMIO32((port) + 0x00E4)
 
-/* Write Protect Status Register */
+/** Write Protect Status Register */
 #define PIO_WPSR(port)			MMIO32((port) + 0x00E8)
 
 
 #endif
 
+/** @cond */
 #else
 #warning "pio_common_all.h should not be included explicitly, only via pio.h"
 #endif
+/** @endcond */
