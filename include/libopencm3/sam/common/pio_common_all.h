@@ -175,3 +175,5 @@ specific memorymap.h header before including this header file.*/
 #warning "pio_common_all.h should not be included explicitly, only via pio.h"
 #endif
 /** @endcond */
+
+/** @} */
