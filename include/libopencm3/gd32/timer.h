@@ -3,6 +3,8 @@
 /*
  * This file is part of the libopencm3 project.
  *
+ * Copyright (C) 2009 Piotr Esden-Tempski <piotr@esden.net>
+ *
  * This library is free software: you can redistribute it and/or modify
  * it under the terms of the GNU Lesser General Public License as published by
  * the Free Software Foundation, either version 3 of the License, or
@@ -21,7 +23,7 @@
 #include <libopencm3/gd32/memorymap.h>
 
 #if defined(GD32F1X0)
-#       include <libopencm3/gd32/f1x0/flash.h>
+#       include <libopencm3/gd32/f1x0/timer.h>
 #else
 #       error "gd32 family not defined."
 #endif

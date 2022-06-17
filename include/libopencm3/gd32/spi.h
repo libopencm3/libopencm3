@@ -1,4 +1,4 @@
-/* This provides unification of code over STM32 subfamilies */
+/* This provides unification of code over GD32 subfamilies */
 
 /*
  * This file is part of the libopencm3 project.
@@ -21,7 +21,7 @@
 #include <libopencm3/gd32/memorymap.h>
 
 #if defined(GD32F1X0)
-#       include <libopencm3/gd32/f1x0/flash.h>
+#       include <libopencm3/gd32/f1x0/spi.h>
 #else
 #       error "gd32 family not defined."
 #endif

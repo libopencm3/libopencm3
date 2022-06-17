@@ -1,4 +1,6 @@
-/* This provides unification of code over STM32 subfamilies */
+/** @addtogroup flash_file FLASH peripheral API
+ * @ingroup peripheral_apis
+ */
 
 /*
  * This file is part of the libopencm3 project.
@@ -17,12 +19,34 @@
  * along with this library.  If not, see <http://www.gnu.org/licenses/>.
  */
 
-#include <libopencm3/cm3/common.h>
-#include <libopencm3/gd32/memorymap.h>
+/**@{*/
 
-#if defined(GD32F1X0)
-#       include <libopencm3/gd32/f1x0/flash.h>
-#else
-#       error "gd32 family not defined."
-#endif
+#include <libopencm3/gd32/flash.h>
 
+void flash_prefetch_enable(void)
+{
+	FLASH_ACR |= FLASH_ACR_PRFTEN;
+}
+
+void flash_prefetch_disable(void)
+{
+	FLASH_ACR &= ~FLASH_ACR_PRFTEN;
+}
+
+void flash_set_ws(uint32_t ws)
+{
+	uint32_t reg32;
+
+	reg32 = FLASH_ACR;
+	reg32 &= ~(FLASH_ACR_LATENCY_MASK << FLASH_ACR_LATENCY_SHIFT);
+	reg32 |= (ws << FLASH_ACR_LATENCY_SHIFT);
+	FLASH_ACR = reg32;
+}
+
+void flash_unlock_option_bytes(void)
+{
+	FLASH_OPTKEYR = FLASH_OPTKEYR_KEY1;
+	FLASH_OPTKEYR = FLASH_OPTKEYR_KEY2;
+}
+
+/**@}*/

@@ -1,4 +1,6 @@
-/* This provides unification of code over STM32 subfamilies */
+/** @addtogroup flash_file
+ *
+ */
 
 /*
  * This file is part of the libopencm3 project.
@@ -17,12 +19,28 @@
  * along with this library.  If not, see <http://www.gnu.org/licenses/>.
  */
 
-#include <libopencm3/cm3/common.h>
-#include <libopencm3/gd32/memorymap.h>
+/**@{*/
 
-#if defined(GD32F1X0)
-#       include <libopencm3/gd32/f1x0/flash.h>
-#else
-#       error "gd32 family not defined."
-#endif
+#include <libopencm3/stm32/flash.h>
+#include <libopencm3/stm32/common/flash_common_f.h>
 
+
+void flash_unlock(void)
+{
+	/* Authorize the FPEC access. */
+	FLASH_KEYR = FLASH_KEYR_KEY1;
+	FLASH_KEYR = FLASH_KEYR_KEY2;
+}
+
+void flash_lock(void)
+{
+	FLASH_CR |= FLASH_CR_LOCK;
+}
+
+/* The bit number for EOP moves sometimes, but it's always a write 1 to clear */
+void flash_clear_eop_flag(void)
+{
+	FLASH_SR |= FLASH_SR_EOP;
+}
+
+/**@}*/

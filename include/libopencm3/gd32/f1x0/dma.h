@@ -1,4 +1,15 @@
-/* This provides unification of code over STM32 subfamilies */
+/** @defgroup dma_defines DMA Defines
+ *
+ * @ingroup STM32F0xx_defines
+ *
+ * @brief Defined Constants and Types for the STM32F0xx DMA Controller
+ *
+ * @version 1.0.0
+ *
+ * @date 10 July 2013
+ *
+ * LGPL License Terms @ref lgpl_license
+ */
 
 /*
  * This file is part of the libopencm3 project.
@@ -17,12 +28,10 @@
  * along with this library.  If not, see <http://www.gnu.org/licenses/>.
  */
 
-#include <libopencm3/cm3/common.h>
-#include <libopencm3/gd32/memorymap.h>
+#ifndef LIBOPENCM3_DMA_H
+#define LIBOPENCM3_DMA_H
 
-#if defined(GD32F1X0)
-#       include <libopencm3/gd32/f1x0/flash.h>
-#else
-#       error "gd32 family not defined."
+#include <libopencm3/gd32/common/dma_common_f1.h>
+
 #endif
 

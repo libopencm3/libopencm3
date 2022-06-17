@@ -44,8 +44,8 @@
  * Holds all the U(S)ART peripherals supported.
  * @{
  */
-#define USART0				USART1_BASE
-#define USART1				USART2_BASE
+#define USART0				USART0_BASE
+#define USART1				USART1_BASE
 /**@}*/
 
 /*****************************************************************************/

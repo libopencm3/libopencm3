@@ -1,7 +1,19 @@
-/* This provides unification of code over STM32 subfamilies */
-
+/** @defgroup timer_defines Timers Defines
+ *
+ * @brief <b>Defined Constants and Types for the STM32F0xx Timers</b>
+ *
+ * @ingroup STM32F0xx_defines
+ *
+ * @version 1.0.0
+ *
+ * @date 11 July 2013
+ *
+ * LGPL License Terms @ref lgpl_license
+ */
 /*
  * This file is part of the libopencm3 project.
+ *
+ * Copyright (C) 2013 Frantisek Burian <BuFran@seznam.cz>
  *
  * This library is free software: you can redistribute it and/or modify
  * it under the terms of the GNU Lesser General Public License as published by
@@ -17,12 +29,6 @@
  * along with this library.  If not, see <http://www.gnu.org/licenses/>.
  */
 
-#include <libopencm3/cm3/common.h>
-#include <libopencm3/gd32/memorymap.h>
+#pragma once
 
-#if defined(GD32F1X0)
-#       include <libopencm3/gd32/f1x0/flash.h>
-#else
-#       error "gd32 family not defined."
-#endif
-
+#include <libopencm3/gd32/common/timer_common_all.h>

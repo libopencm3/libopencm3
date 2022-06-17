@@ -254,10 +254,10 @@ void rcc_wait_for_osc_ready(enum rcc_osc osc)
 		while ((RCC_CR & RCC_CR_HSIRDY) == 0);
 		break;
 	case RCC_LSE:
-		while ((RCC_BDCR & RCC_BDCR_LSERDY) == 0);
+		while ((RCC_BDCR & RCC_BDCTL_LXTALSTB) == 0);
 		break;
 	case RCC_LSI:
-		while ((RCC_CSR & RCC_CSR_LSIRDY) == 0);
+		while ((RCC_CSR & RCC_CIR_LSIRDYC) == 0);
 		break;
 	}
 }
@@ -290,10 +290,10 @@ void rcc_osc_on(enum rcc_osc osc)
 		RCC_CR |= RCC_CR_HSION;
 		break;
 	case RCC_LSE:
-		RCC_BDCR |= RCC_BDCR_LSEON;
+		RCC_BDCR |= RCC_BDCTL_LXTALEN;
 		break;
 	case RCC_LSI:
-		RCC_CSR |= RCC_CSR_LSION;
+		RCC_CSR |= RCC_RSTSCK_LSION;
 		break;
 	}
 }
@@ -325,10 +325,10 @@ void rcc_osc_off(enum rcc_osc osc)
 		RCC_CR &= ~RCC_CR_HSION;
 		break;
 	case RCC_LSE:
-		RCC_BDCR &= ~RCC_BDCR_LSEON;
+		RCC_BDCR &= ~RCC_BDCTL_LXTALEN;
 		break;
 	case RCC_LSI:
-		RCC_CSR &= ~RCC_CSR_LSION;
+		RCC_CSR &= ~RCC_RSTSCK_LSION;
 		break;
 	}
 }
@@ -416,7 +416,7 @@ void rcc_set_pllxtpre(uint32_t pllxtpre)
 
 uint32_t rcc_rtc_clock_enabled_flag(void)
 {
-	return RCC_BDCR & RCC_BDCR_RTCEN;
+	return RCC_BDCR & RCC_BDCTL_RTCEN;
 }
 
 /*---------------------------------------------------------------------------*/
@@ -426,7 +426,7 @@ uint32_t rcc_rtc_clock_enabled_flag(void)
 
 void rcc_enable_rtc_clock(void)
 {
-	RCC_BDCR |= RCC_BDCR_RTCEN;
+	RCC_BDCR |= RCC_BDCTL_RTCEN;
 }
 
 /*---------------------------------------------------------------------------*/
@@ -442,8 +442,8 @@ void rcc_set_rtc_clock_source(enum rcc_osc clock_source)
 	switch (clock_source) {
 	case RCC_LSE:
 		/* Turn the LSE on and wait while it stabilises. */
-		RCC_BDCR |= RCC_BDCR_LSEON;
-		while ((reg32 = (RCC_BDCR & RCC_BDCR_LSERDY)) == 0);
+		RCC_BDCR |= RCC_BDCTL_LXTALEN;
+		while ((reg32 = (RCC_BDCR & RCC_BDCTL_LXTALEN)) == 0);
 
 		/* Choose LSE as the RTC clock source. */
 		RCC_BDCR &= ~((1 << 8) | (1 << 9));
@@ -451,8 +451,8 @@ void rcc_set_rtc_clock_source(enum rcc_osc clock_source)
 		break;
 	case RCC_LSI:
 		/* Turn the LSI on and wait while it stabilises. */
-		RCC_CSR |= RCC_CSR_LSION;
-		while ((reg32 = (RCC_CSR & RCC_CSR_LSIRDY)) == 0);
+		RCC_CSR |= RCC_RSTSCK_LSION;
+		while ((reg32 = (RCC_CSR & RCC_RSTSCK_LSIRDY)) == 0);
 
 		/* Choose LSI as the RTC clock source. */
 		RCC_BDCR &= ~((1 << 8) | (1 << 9));
@@ -644,10 +644,10 @@ data.
 void rcc_backupdomain_reset(void)
 {
 	/* Set the backup domain software reset. */
-	RCC_BDCR |= RCC_BDCR_BDRST;
+	RCC_BDCR |= RCC_BDCTL_BKPRST;
 
 	/* Clear the backup domain software reset. */
-	RCC_BDCR &= ~RCC_BDCR_BDRST;
+	RCC_BDCR &= ~RCC_BDCTL_BKPRST;
 }
 
 /**@}*/

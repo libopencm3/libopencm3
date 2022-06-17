@@ -21,7 +21,7 @@
 #include <libopencm3/gd32/memorymap.h>
 
 #if defined(GD32F1X0)
-#       include <libopencm3/gd32/f1x0/flash.h>
+#       include <libopencm3/gd32/f1x0/dma.h>
 #else
 #       error "gd32 family not defined."
 #endif

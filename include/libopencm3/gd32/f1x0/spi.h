@@ -1,4 +1,15 @@
-/* This provides unification of code over STM32 subfamilies */
+/** @defgroup spi_defines SPI Defines
+ *
+ * @brief <b>Defined Constants and Types for the GD32F1x0 SPI</b>
+ *
+ * @ingroup GD32F1x0_defines
+ *
+ * @version 1.0.0
+ *
+ * @date 14 June 2022
+ *
+ * LGPL License Terms @ref lgpl_license
+ */
 
 /*
  * This file is part of the libopencm3 project.
@@ -17,12 +28,9 @@
  * along with this library.  If not, see <http://www.gnu.org/licenses/>.
  */
 
-#include <libopencm3/cm3/common.h>
-#include <libopencm3/gd32/memorymap.h>
+#ifndef LIBOPENCM3_SPI_H
+#define LIBOPENCM3_SPI_H
 
-#if defined(GD32F1X0)
-#       include <libopencm3/gd32/f1x0/flash.h>
-#else
-#       error "gd32 family not defined."
+#include <libopencm3/gd32/common/spi_common_v2.h>
+
 #endif
-

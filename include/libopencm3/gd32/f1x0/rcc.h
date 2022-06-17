@@ -43,20 +43,20 @@
 
 /* --- RCC registers ------------------------------------------------------- */
 
-#define RCC_CR					MMIO32(RCC_BASE + 0x00)
-#define RCC_CFGR				MMIO32(RCC_BASE + 0x04)
-#define RCC_CIR					MMIO32(RCC_BASE + 0x08)
-#define RCC_APB2RSTR				MMIO32(RCC_BASE + 0x0c)
-#define RCC_APB1RSTR				MMIO32(RCC_BASE + 0x10)
-#define RCC_AHBENR				MMIO32(RCC_BASE + 0x14)
-#define RCC_APB2ENR				MMIO32(RCC_BASE + 0x18)
-#define RCC_APB1ENR				MMIO32(RCC_BASE + 0x1c)
-#define RCC_BDCR				MMIO32(RCC_BASE + 0x20)
-#define RCC_CSR					MMIO32(RCC_BASE + 0x24)
-#define RCC_AHBRSTR				MMIO32(RCC_BASE + 0x28)
-#define RCC_CFGR2				MMIO32(RCC_BASE + 0x2c)
-#define RCC_CFGR3				MMIO32(RCC_BASE + 0x30)
-#define RCC_CR2					MMIO32(RCC_BASE + 0x34)
+#define RCC_CR					MMIO32(RCU_BASE + 0x00)
+#define RCC_CFGR				MMIO32(RCU_BASE + 0x04)
+#define RCC_CIR					MMIO32(RCU_BASE + 0x08)
+#define RCC_APB2RSTR				MMIO32(RCU_BASE + 0x0c)
+#define RCC_APB1RSTR				MMIO32(RCU_BASE + 0x10)
+#define RCC_AHBENR				MMIO32(RCU_BASE + 0x14)
+#define RCC_APB2ENR				MMIO32(RCU_BASE + 0x18)
+#define RCC_APB1ENR				MMIO32(RCU_BASE + 0x1c)
+#define RCC_BDCR				MMIO32(RCU_BASE + 0x20)
+#define RCC_CSR					MMIO32(RCU_BASE + 0x24)
+#define RCC_AHBRSTR				MMIO32(RCU_BASE + 0x28)
+#define RCC_CFGR2				MMIO32(RCU_BASE + 0x2c)
+#define RCC_CFGR3				MMIO32(RCU_BASE + 0x30)
+#define RCC_CR2					MMIO32(RCU_BASE + 0x34)
 
 
 /* --- RCC_CR values ------------------------------------------------------- */
@@ -289,37 +289,37 @@
 
 /** @defgroup rcc_apb2rstr_rst RCC_APB2RSTR reset values values
 @{*/
-#define RCC_APB2RSTR_TIM17RST			(1 << 18)
-#define RCC_APB2RSTR_TIM16RST			(1 << 17)
-#define RCC_APB2RSTR_TIM15RST			(1 << 16)
-#define RCC_APB2RSTR_USART1RST			(1 << 14)
-#define RCC_APB2RSTR_SPI1RST			(1 << 12)
-#define RCC_APB2RSTR_TIM1RST			(1 << 11)
+#define RCC_APB2RSTR_TIM16RST			(1 << 18)
+#define RCC_APB2RSTR_TIM15RST			(1 << 17)
+#define RCC_APB2RSTR_TIM14RST			(1 << 16)
+#define RCC_APB2RSTR_USART0RST			(1 << 14)
+#define RCC_APB2RSTR_SPI0RST			(1 << 12)
+#define RCC_APB2RSTR_TIM0RST			(1 << 11)
 #define RCC_APB2RSTR_ADCRST			(1 << 9)
-#define RCC_APB2RSTR_SYSCFGRST			(1 << 0)
+#define RCC_APB2RSTR_CFGCMPRST			(1 << 0)
 /**@}*/
 
 /** @defgroup rcc_apb1rstr_rst RCC_APB1RSTR reset values values
 @{*/
 #define RCC_APB1RSTR_CECRST			(1 << 30)
 #define RCC_APB1RSTR_DACRST			(1 << 29)
-#define RCC_APB1RSTR_PWRRST			(1 << 28)
+#define RCC_APB1RSTR_PMURST			(1 << 28)
 #define RCC_APB1RSTR_USBRST			(1 << 23)
-#define RCC_APB1RSTR_I2C2RST			(1 << 22)
-#define RCC_APB1RSTR_I2C1RST			(1 << 21)
-#define RCC_APB1RSTR_USART2RST			(1 << 17)
-#define RCC_APB1RSTR_SPI3RST			(1 << 15)
-#define RCC_APB1RSTR_SPI2RST			(1 << 14)
-#define RCC_APB1RSTR_WWDGRST			(1 << 11)
-#define RCC_APB1RSTR_TIM14RST			(1 << 8)
-#define RCC_APB1RSTR_TIM6RST			(1 << 4)
-#define RCC_APB1RSTR_TIM3RST			(1 << 1)
-#define RCC_APB1RSTR_TIM2RST			(1 << 0)
+#define RCC_APB1RSTR_I2C1RST			(1 << 22)
+#define RCC_APB1RSTR_I2C0RST			(1 << 21)
+#define RCC_APB1RSTR_USART1RST			(1 << 17)
+#define RCC_APB1RSTR_SPI2RST			(1 << 15)
+#define RCC_APB1RSTR_SPI1RST			(1 << 14)
+#define RCC_APB1RSTR_WWDGTRST			(1 << 11)
+#define RCC_APB1RSTR_TIM13RST			(1 << 8)
+#define RCC_APB1RSTR_TIM5RST			(1 << 4)
+#define RCC_APB1RSTR_TIM2RST			(1 << 1)
+#define RCC_APB1RSTR_TIM1RST			(1 << 0)
 /**@}*/
 
 /** @defgroup rcc_ahbenr_en RCC_AHBENR enable values
 @{*/
-#define RCC_AHBENR_TSCEN			(1 << 24)
+#define RCC_AHBENR_TSIEN			(1 << 24)
 #define RCC_AHBENR_GPIOFEN			(1 << 22)
 #define RCC_AHBENR_GPIOEEN			(1 << 21)
 #define RCC_AHBENR_GPIODEN			(1 << 20)
@@ -327,61 +327,61 @@
 #define RCC_AHBENR_GPIOBEN			(1 << 18)
 #define RCC_AHBENR_GPIOAEN			(1 << 17)
 #define RCC_AHBENR_CRCEN			(1 << 6)
-#define RCC_AHBENR_FLTFEN			(1 << 4)
-#define RCC_AHBENR_SRAMEN			(1 << 2)
+#define RCC_AHBENR_FMCSPEN			(1 << 4)
+#define RCC_AHBENR_SRAMSPEN			(1 << 2)
 #define RCC_AHBENR_DMAEN			(1 << 0)
 /**@}*/
 
 /** @defgroup rcc_apb2enr_en RCC_APB2ENR enable values
 @{*/
-#define RCC_APB2ENR_TIM17EN			(1 << 18)
-#define RCC_APB2ENR_TIM16EN			(1 << 17)
-#define RCC_APB2ENR_TIM15EN			(1 << 16)
-#define RCC_APB2ENR_USART1EN			(1 << 14)
-#define RCC_APB2ENR_SPI1EN			(1 << 12)
-#define RCC_APB2ENR_TIM1EN			(1 << 11)
+#define RCC_APB2ENR_TIM16EN			(1 << 18)
+#define RCC_APB2ENR_TIM15EN			(1 << 17)
+#define RCC_APB2ENR_TIM14EN			(1 << 16)
+#define RCC_APB2ENR_USART0EN			(1 << 14)
+#define RCC_APB2ENR_SPI0EN			(1 << 12)
+#define RCC_APB2ENR_TIM0EN			(1 << 11)
 #define RCC_APB2ENR_ADCEN			(1 << 9)
-#define RCC_APB2ENR_SYSCFGCOMPEN		(1 << 0)
+#define RCC_APB2ENR_CFGCMPEN			(1 << 0)
 /**@}*/
 
 /** @defgroup rcc_apb1enr_en RCC_APB1ENR enable values
 @{*/
 #define RCC_APB1ENR_CECEN			(1 << 30)
 #define RCC_APB1ENR_DACEN			(1 << 29)
-#define RCC_APB1ENR_PWREN			(1 << 28)
-#define RCC_APB1ENR_USBEN			(1 << 23)
-#define RCC_APB1ENR_I2C2EN			(1 << 22)
-#define RCC_APB1ENR_I2C1EN			(1 << 21)
-#define RCC_APB1ENR_USART2EN			(1 << 17)
-#define RCC_APB1ENR_SPI3EN			(1 << 15)
-#define RCC_APB1ENR_SPI2EN			(1 << 14)
-#define RCC_APB1ENR_WWDGEN			(1 << 11)
-#define RCC_APB1ENR_TIM14EN			(1 << 8)
-#define RCC_APB1ENR_TIM6EN			(1 << 4)
-#define RCC_APB1ENR_TIM3EN			(1 << 1)
-#define RCC_APB1ENR_TIM2EN			(1 << 0)
+#define RCC_APB1ENR_PMUEN			(1 << 28)
+#define RCC_APB1ENR_USBDEN			(1 << 23)
+#define RCC_APB1ENR_I2C1EN			(1 << 22)
+#define RCC_APB1ENR_I2C0EN			(1 << 21)
+#define RCC_APB1ENR_USART1EN			(1 << 17)
+#define RCC_APB1ENR_SPI2EN			(1 << 15)
+#define RCC_APB1ENR_SPI1EN			(1 << 14)
+#define RCC_APB1ENR_WWDGTEN			(1 << 11)
+#define RCC_APB1ENR_TIM13EN			(1 << 8)
+#define RCC_APB1ENR_TIM5EN			(1 << 4)
+#define RCC_APB1ENR_TIM2EN			(1 << 1)
+#define RCC_APB1ENR_TIM1EN			(1 << 0)
 /**@}*/
 
-/* --- RCC_BDCR values ----------------------------------------------------- */
+/* --- RCC_BDCTL values ----------------------------------------------------- */
 
-#define RCC_BDCR_BDRST				(1 << 16)
-#define RCC_BDCR_RTCEN				(1 << 15)
-/* RCC_BDCR[9:8]: RTCSEL */
-#define RCC_BDCR_LSEBYP				(1 << 2)
-#define RCC_BDCR_LSERDY				(1 << 1)
-#define RCC_BDCR_LSEON				(1 << 0)
+#define RCC_BDCTL_BKPRST			(1 << 16)
+#define RCC_BDCTL_RTCEN				(1 << 15)
+/* RCC_BDCTL[9:8]: RTCSEL */
+#define RCC_BDCTL_LXTALBPS			(1 << 2)
+#define RCC_BDCTL_LXTALSTB			(1 << 1)
+#define RCC_BDCTL_LXTALEN			(1 << 0)
 
-/* --- RCC_CSR values ------------------------------------------------------ */
+/* --- RCC_RSTSCK values ------------------------------------------------------ */
 
-#define RCC_CSR_LPWRRSTF			(1 << 31)
-#define RCC_CSR_WWDGRSTF			(1 << 30)
-#define RCC_CSR_IWDGRSTF			(1 << 29)
-#define RCC_CSR_SFTRSTF				(1 << 28)
-#define RCC_CSR_PORRSTF				(1 << 27)
-#define RCC_CSR_PINRSTF				(1 << 26)
-#define RCC_CSR_RMVF				(1 << 24)
-#define RCC_CSR_LSIRDY				(1 << 1)
-#define RCC_CSR_LSION				(1 << 0)
+#define RCC_RSTSCK_LPRSTF			(1 << 31)
+#define RCC_RSTSCK_WWDGTRSTF			(1 << 30)
+#define RCC_RSTSCK_FWDGTRSTF			(1 << 29)
+#define RCC_RSTSCK_SWRSTF				(1 << 28)
+#define RCC_RSTSCK_PORRSTF				(1 << 27)
+#define RCC_RSTSCK_EPRSTF				(1 << 26)
+#define RCC_RSTSCK_RSTFCVF				(1 << 24)
+#define RCC_RSTSCK_LSIRDY				(1 << 1)
+#define RCC_RSTSCK_LSION				(1 << 0)
 
 /** @defgroup rcc_ahbrstr_rst RCC_AHBRSTR reset values values
 @{*/
@@ -484,7 +484,7 @@ enum rcc_periph_clken {
 	RCC_SYSCFG_COMP	= _REG_BIT(0x18, 0),
 	RCC_ADC		= _REG_BIT(0x18, 9),
 	RCC_TIM1	= _REG_BIT(0x18, 11),
-	RCC_SPI1	= _REG_BIT(0x18, 12),
+	RCC_SPI0	= _REG_BIT(0x18, 12),
 	RCC_USART0	= _REG_BIT(0x18, 14),
 	RCC_TIM15	= _REG_BIT(0x18, 16),
 	RCC_TIM16	= _REG_BIT(0x18, 17),
@@ -496,8 +496,8 @@ enum rcc_periph_clken {
 	RCC_TIM6	= _REG_BIT(0x1C, 4),
 	RCC_TIM14	= _REG_BIT(0x1C, 8),
 	RCC_WWDG	= _REG_BIT(0x1C, 11),
-	RCC_SPI2	= _REG_BIT(0x1C, 14),
-	RCC_SPI3	= _REG_BIT(0x1C, 15),
+	RCC_SPI1	= _REG_BIT(0x1C, 14),
+	RCC_SPI2	= _REG_BIT(0x1C, 15),
 	RCC_USART1	= _REG_BIT(0x1C, 17),
 	RCC_I2C1	= _REG_BIT(0x1C, 21),
 	RCC_I2C2	= _REG_BIT(0x1C, 22),
@@ -525,7 +525,7 @@ enum rcc_periph_rst {
 	RST_SYSCFG	= _REG_BIT(0x0C, 0),
 	RST_ADC		= _REG_BIT(0x0C, 9),
 	RST_TIM1	= _REG_BIT(0x0C, 11),
-	RST_SPI1	= _REG_BIT(0x0C, 12),
+	RST_SPI0	= _REG_BIT(0x0C, 12),
 	RST_USART1	= _REG_BIT(0x0C, 14),
 	RST_TIM15	= _REG_BIT(0x0C, 16),
 	RST_TIM16	= _REG_BIT(0x0C, 17),
@@ -537,8 +537,8 @@ enum rcc_periph_rst {
 	RST_TIM6	= _REG_BIT(0x10, 4),
 	RST_TIM14	= _REG_BIT(0x10, 8),
 	RST_WWDG	= _REG_BIT(0x10, 11),
-	RST_SPI2	= _REG_BIT(0x10, 14),
-	RST_SPI3	= _REG_BIT(0x10, 15),
+	RST_SPI1	= _REG_BIT(0x10, 14),
+	RST_SPI2	= _REG_BIT(0x10, 15),
 	RST_USART2	= _REG_BIT(0x10, 17),
 	RST_I2C1	= _REG_BIT(0x10, 21),
 	RST_I2C2	= _REG_BIT(0x10, 22),
