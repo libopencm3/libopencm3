@@ -1,3 +1,12 @@
+/**
+ * @defgroup pmc_defines PMC Defines
+ * @ingroup SAM3A_defines
+ *
+ * @brief Defined Constants and Types for the SAM3A Power Management Controller
+ *
+ * @{
+ */
+
 /*
  * This file is part of the libopencm3 project.
  *
@@ -28,37 +37,52 @@
 
 /* --- Power Management Controller (PMC) registers ------------------------- */
 
-/* Peripheral Control Register */
+/** Peripheral Control Register */
 #define PMC_PCR				MMIO32(PMC_BASE + 0x010C)
 
 
 /* --- Register contents --------------------------------------------------- */
 
+/**
+ * @addtogroup pmc_mckr PMC Master Clock Register (PMC_MCKR)
+ * @{
+ */
 
-/* --- PMC Master Clock Register (PMC_MCKR) -------------------------------- */
-
-/* PLLA Divide by 2 */
+/** PLLA Divide by 2 */
 #define PMC_MCKR_PLLADIV2		(0x01 << 12)
+/** @} */
 
+/**
+ * @addtogroup pmc_pcr PMC Peripheral Control Register (PMC_PCR)
+ * @{
+ */
 
-/* --- PMC Peripheral Control Register (PMC_PCR) --------------------------- */
-
-/* Enable */
+/** Enable */
 #define PMC_PCR_EN			(0x01 << 28)
 
-/* Divisor Value */
+/**
+ * Divisor Value
+ * @{
+ */
 #define PMC_PCR_DIV_SHIFT		16
 #define PMC_PCR_DIV_MASK		(0x03 << PMC_PCR_DIV_SHIFT)
 #define PMC_PCR_DIV_PERIPH_DIV_MCK	(0x00 << PMC_PCR_DIV_SHIFT)
 #define PMC_PCR_DIV_PERIPH_DIV2_MCK	(0x01 << PMC_PCR_DIV_SHIFT)
 #define PMC_PCR_DIV_PERIPH_DIV4_MCK	(0x02 << PMC_PCR_DIV_SHIFT)
+/** @} */
 
-/* Command */
+/** Command */
 #define PMC_PCR_CMD			(0x01 << 12)
 
-/* Peripheral ID */
+/**
+ * Peripheral ID
+ * @{
+ */
 #define PMC_PCR_PID_SHIFT		0
 #define PMC_PCR_PID_MASK		(0x3F << PMC_PCR_PID_SHIFT)
-
+/** @} */
+/** @} */
 
 #endif
+
+/** @} */
