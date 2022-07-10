@@ -33,6 +33,10 @@
 #include <libopencm3/cm3/common.h>
 
 /* --- Power Management Controller (PMC) registers ----------------------- */
+/**
+ * @defgroup pmc_registers Power Management Controller (PMC) registers
+ * @{
+ */
 
 /** System Clock Enable Register */
 #define PMC_SCER			MMIO32(PMC_BASE + 0x0000)
@@ -91,59 +95,63 @@
 /** Write Protect Status Register */
 #define PMC_WPSR			MMIO32(PMC_BASE + 0x00E8)
 
+/** @} */
 
 /* --- Register contents --------------------------------------------------- */
 
 /**
- * @addtogroup pmc_scer PMC System Clock Enable Register (PMC_SCER)
+ * @defgroup pmc_scer PMC System Clock Enable Register (PMC_SCER)
  * @{
  */
 
 /**
- * Programmable Clock Output Enable
+ * @defgroup pmc_scer_pck Programmable Clock Output Enable
  * @{
  */
 #define PMC_SCER_PCK0			(0x01 << 8)
 #define PMC_SCER_PCK1			(0x01 << 9)
 #define PMC_SCER_PCK2			(0x01 << 10)
 /** @} */
+
 /** @} */
 
 /**
- * @addtogroup pmc_scdr PMC System Clock Disable Register (PMC_SCDR)
+ * @defgroup pmc_scdr PMC System Clock Disable Register (PMC_SCDR)
  * @{
  */
 
 /**
- * Programmable Clock Output Disable
+ * @defgroup pmc_scdr_pck Programmable Clock Output Disable
  * @{
  */
 #define PMC_SCDR_PCK0			(0x01 << 8)
 #define PMC_SCDR_PCK1			(0x01 << 9)
 #define PMC_SCDR_PCK2			(0x01 << 10)
 /** @} */
+
 /** @} */
 
 /**
- * @addtogroup pmc_scsr PMC System Clock Status Register (PMC_SCSR)
+ * @defgroup pmc_scsr PMC System Clock Status Register (PMC_SCSR)
  * @{
  */
 
 /**
- * Programmable Clock Output Status
+ * @defgroup pmc_scsr_pck Programmable Clock Output Status
  * @{
  */
 #define PMC_SCSR_PCK0			(0x01 << 8)
 #define PMC_SCSR_PCK1			(0x01 << 9)
 #define PMC_SCSR_PCK2			(0x01 << 10)
 /** @} */
+
 /** @} */
 
 /* for bit definitions for PMC System Clock Enable/Disable/Status Register see
  * periph.h TODO */
 
 /**
- * @addtogroup pmc_ckgr_mor PMC Clock Generator Main Oscillator Register (CKGR_MOR)
+ * @defgroup pmc_ckgr_mor PMC Clock Generator Main Oscillator Register (CKGR_MOR)
  * @{
  */
 
@@ -157,7 +165,7 @@
 #define CKGR_MOR_KEY			(0x37 << 16)
 
 /**
- * Main Crystal Oscillator Start-up Time
+ * @defgroup pmc_ckgr_mosc_xtst Main Crystal Oscillator Start-up Time
  * @{
  */
 #define CKGR_MOR_MOSCXTST_SHIFT		8
@@ -165,17 +173,11 @@
 /** @} */
 
 /**
- * Main On-Chip RC Oscillator Frequency Selection
+ * @defgroup pmc_ckgr_mosc_rcf Main On-Chip RC Oscillator Frequency Selection
  * @{
  */
 #define CKGR_MOR_MOSCRCF_SHIFT		4
 #define CKGR_MOR_MOSCRCF_MASK		(0x07 << CKGR_MOR_MOSCRCF_SHIFT)
-/** @} */
-
-/**
- * Main On-Chip RC Oscillator selectable frequencies
- * @{
- */
 #define CKGR_MOR_MOSCRCF_4MHZ		(0 << CKGR_MOR_MOSCRCF_SHIFT)
 #define CKGR_MOR_MOSCRCF_8MHZ		(1 << CKGR_MOR_MOSCRCF_SHIFT)
 #define CKGR_MOR_MOSCRCF_12MHZ		(2 << CKGR_MOR_MOSCRCF_SHIFT)
@@ -192,7 +194,7 @@
 /** @} */
 
 /**
- * @addtogroup pmc_ckgr_mcfr PMC Clock Generator Main Clock Frequency Register (CKGR_MCFR)
+ * @defgroup pmc_ckgr_mcfr PMC Clock Generator Main Clock Frequency Register (CKGR_MCFR)
  * @{
  */
 
@@ -200,16 +202,17 @@
 #define CKGR_MCFR_MAINFRDY		(0x01 << 16)
 
 /**
- * Main Clock Frequency
+ * @defgroup pmc_ckgr_mcfr_mainf Main Clock Frequency
  * @{
  */
 #define CKGR_MCFR_MAINF_SHIFT		0
 #define CKGR_MCFR_MAINF_MASK		(0xFFFF << CKGR_MCFR_MAINF_SHIFT)
 /** @} */
+
 /** @} */
 
 /**
- * @addtogroup pmc_ckgr_pllar PMC Clock Generator PLLA Register (CKGR_PLLAR)
+ * @defgroup pmc_ckgr_pllar PMC Clock Generator PLLA Register (CKGR_PLLAR)
  * @{
  */
 
@@ -217,7 +220,7 @@
 #define CKGR_PLLAR_ONE			(0x01 << 29)
 
 /**
- * PLLA Multiplier
+ * @defgroup pmc_ckgr_pllar_mula PLLA Multiplier
  * @{
  */
 #define CKGR_PLLAR_MULA_SHIFT		16
@@ -225,7 +228,7 @@
 /** @} */
 
 /**
- * PLLA Counter
+ * @defgroup pmc_ckgr_pllar_pllacount PLLA Counter
  * @{
  */
 #define CKGR_PLLAR_PLLACOUNT_SHIFT	8
@@ -233,22 +236,22 @@
 /** @} */
 
 /**
- * Divider
+ * @defgroup pmc_ckgr_pllar_diva Divider
  * @{
  */
 #define CKGR_PLLAR_DIVA_SHIFT		0
 #define CKGR_PLLAR_DIVA_MASK		(0xFF << CKGR_PLLAR_DIVA_SHIFT)
 /** @} */
+
 /** @} */
 
-
 /**
- * @addtogroup pmc_mckr PMC Master Clock Register (PMC_MCKR)
+ * @defgroup pmc_mckr PMC Master Clock Register (PMC_MCKR)
  * @{
  */
 
 /**
- * Processor Clock Prescaler
+ * @defgroup pmc_mckr_pres Processor Clock Prescaler
  * @{
  */
 #define PMC_MCKR_PRES_SHIFT		4
@@ -264,7 +267,7 @@
 /** @} */
 
 /**
- * Master Clock Source Selection
+ * @defgroup pmc_mckr_css Master Clock Source Selection
  * @{
  */
 #define PMC_MCKR_CSS_SHIFT		0
@@ -273,15 +276,16 @@
 #define PMC_MCKR_CSS_MAIN_CLK		(1 << PMC_MCKR_CSS_SHIFT)
 #define PMC_MCKR_CSS_PLLA_CLK		(2 << PMC_MCKR_CSS_SHIFT)
 /** @} */
+
 /** @} */
 
 /**
- * @addtogroup pmc_pck0 PMC Programmable Clock Register 0 (PMC_PCK0)
+ * @defgroup pmc_pck0 PMC Programmable Clock Register 0 (PMC_PCK0)
  * @{
  */
 
 /**
- * Programmable Clock Prescaler
+ * @defgroup pmc_pck0_pres Programmable Clock Prescaler
  * @{
  */
 #define PMC_PCK0_PRES_SHIFT		4
@@ -296,7 +300,7 @@
 /** @} */
 
 /**
- * Master Clock Source Selection
+ * @defgroup pmc_pck0_css Master Clock Source Selection
  * @{
  */
 #define PMC_PCK0_CSS_SHIFT		0
@@ -306,15 +310,16 @@
 #define PMC_PCK0_CSS_PLLA_CLK		(2 << PMC_PCK0_CSS_SHIFT)
 #define PMC_PCK0_CSS_MCK		(4 << PMC_PCK0_CSS_SHIFT)
 /** @} */
+
 /** @} */
 
 /**
- * @addtogroup pmc_pck1 PMC Programmable Clock Register 1 (PMC_PCK1)
+ * @defgroup pmc_pck1 PMC Programmable Clock Register 1 (PMC_PCK1)
  * @{
  */
 
 /**
- * @name Programmable Clock Prescaler
+ * @defgroup pmc_pck1_pres Programmable Clock Prescaler
  * @{
  */
 #define PMC_PCK1_PRES_SHIFT		4
@@ -329,7 +334,7 @@
 /** @} */
 
 /**
- * @name Master Clock Source Selection
+ * @defgroup pmc_pck1_css Master Clock Source Selection
  * @{
  */
 #define PMC_PCK1_CSS_SHIFT		0
@@ -339,15 +344,16 @@
 #define PMC_PCK1_CSS_PLLA_CLK		(2 << PMC_PCK1_CSS_SHIFT)
 #define PMC_PCK1_CSS_MCK		(4 << PMC_PCK1_CSS_SHIFT)
 /** @} */
+
 /** @} */
 
 /**
- * @addtogroup pmc_pck2 PMC Programmable Clock Register 2 (PMC_PCK2)
+ * @defgroup pmc_pck2 PMC Programmable Clock Register 2 (PMC_PCK2)
  * @{
  */
 
 /**
- * Programmable Clock Prescaler
+ * @defgroup pmc_pck2_pres Programmable Clock Prescaler
  * @{
  */
 #define PMC_PCK2_PRES_SHIFT		4
@@ -362,7 +368,7 @@
 /** @} */
 
 /**
- * Master Clock Source Selection
+ * @defgroup pmc_pck2_css Master Clock Source Selection
  * @{
  */
 #define PMC_PCK2_CSS_SHIFT		0
@@ -372,10 +378,11 @@
 #define PMC_PCK2_CSS_PLLA_CLK		(2 << PMC_PCK2_CSS_SHIFT)
 #define PMC_PCK2_CSS_MCK		(4 << PMC_PCK2_CSS_SHIFT)
 /** @} */
+
 /** @} */
 
 /**
- * @addtogroup pmc_ier PMC Interrupt Enable Register (PMC_IER)
+ * @defgroup pmc_ier PMC Interrupt Enable Register (PMC_IER)
  * @{
  */
 
@@ -408,7 +415,7 @@
 /** @} */
 
 /**
- * @addtogroup pmc_idr PMC Interrupt Disable Register (PMC_IDR)
+ * @defgroup pmc_idr PMC Interrupt Disable Register (PMC_IDR)
  * @{
  */
 
@@ -441,7 +448,7 @@
 /** @} */
 
 /**
- * @addtogroup pmc_sr PMC Status Register (PMC_SR)
+ * @defgroup pmc_sr PMC Status Register (PMC_SR)
  * @{
  */
 
@@ -483,7 +490,7 @@
 /** @} */
 
 /**
- * @addtogroup pmc_imr PMC Interrupt Mask Register (PMC_IMR)
+ * @defgroup pmc_imr PMC Interrupt Mask Register (PMC_IMR)
  * @{
  */
 
@@ -516,7 +523,7 @@
 /** @} */
 
 /**
- * @addtogroup pmc_fsmr PMC Fast Startup Mode Register (PMC_FSMR)
+ * @defgroup pmc_fsmr PMC Fast Startup Mode Register (PMC_FSMR)
  * @{
  */
 
@@ -533,7 +540,7 @@
 #define PMC_FSMR_RTTAL			(0x01 << 16)
 
 /**
- * Fast Startup Input Enable 0 to 15
+ * @defgroup pmc_fsmr_fstt Fast Startup Input Enable 0 to 15
  * @{
  */
 #define PMC_FSMR_FSTT15			(0x01 << 15)
@@ -553,15 +560,16 @@
 #define PMC_FSMR_FSTT1			(0x01 << 1)
 #define PMC_FSMR_FSTT0			(0x01 << 0)
 /** @} */
+
 /** @} */
 
 /**
- * @addtogroup pmc_fspr PMC Fast Startup Polarity Register (PMC_FSPR)
+ * @defgroup pmc_fspr PMC Fast Startup Polarity Register (PMC_FSPR)
  * @{
  */
 
 /**
- * Fast Startup Input Polarity x
+ * @defgroup pmc_fspr_fstp Fast Startup Input Polarity x
  * @{
  */
 #define PMC_FSPR_FSTP15			(0x01 << 15)
@@ -581,10 +589,11 @@
 #define PMC_FSPR_FSTP1			(0x01 << 1)
 #define PMC_FSPR_FSTP0			(0x01 << 0)
 /** @} */
+
 /** @} */
 
 /**
- * @addtogroup pmc_focr PMC Fault Output Clear Register (PMC_FOCR)
+ * @defgroup pmc_focr PMC Fault Output Clear Register (PMC_FOCR)
  * @{
  */
 
@@ -593,12 +602,12 @@
 /** @} */
 
 /**
- * @addtogroup pmc_wpmr PMC Write Protect Mode Register (PMC_WPMR)
+ * @defgroup pmc_wpmr PMC Write Protect Mode Register (PMC_WPMR)
  * @{
  */
 
 /**
- * Write Protect Key
+ * @defgroup pmc_wpmr_wpkey Write Protect Key
  * @{
  */
 #define PMC_WPMR_WPKEY_SHIFT		8
@@ -610,12 +619,12 @@
 /** @} */
 
 /**
- * @addtogroup pmc_wpsr PMC Write Protect Status Register (PMC_WPSR)
+ * @defgroup pmc_wpsr PMC Write Protect Status Register (PMC_WPSR)
  * @{
  */
 
 /**
- * Write Protect Violation Source
+ * @defgroup pmc_wpsr_wpvsrc Write Protect Violation Source
  * @{
  */
 #define PMC_WPSR_WPVSRC_SHIFT		8

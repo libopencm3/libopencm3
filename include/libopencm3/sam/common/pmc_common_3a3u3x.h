@@ -32,20 +32,25 @@
 
 
 /* --- Power Management Controller (PMC) registers ----------------------- */
+/**
+ * @addtogroup pmc_registers
+ * @{
+ */
 
 /** UTMI Clock Register */
 #define CKGR_UCKR			MMIO32(PMC_BASE + 0x001C)
 
+/** @} */
 
 /* --- Register contents --------------------------------------------------- */
 
 /**
- * @addtogroup pmc_ckgr_uckr PMC UTMI Clock Configuration Register (CKGR_UCKR)
+ * @defgroup pmc_ckgr_uckr PMC UTMI Clock Configuration Register (CKGR_UCKR)
  * @{
  */
 
 /**
- * UTMI PLL Start-up Time
+ * @defgroup pmc_ckgr_uckr_upllcount UTMI PLL Start-up Time
  * @{
  */
 #define CKGR_UCKR_UPLLCOUNT_SHIFT	20
@@ -57,7 +62,7 @@
 /** @} */
 
 /**
- * @addtogroup pmc_mckr PMC Master Clock Register (PMC_MCKR)
+ * @addtogroup pmc_mckr
  * @{
  */
 
@@ -69,7 +74,7 @@
 /** @} */
 
 /**
- * @addtogroup pmc_pck0 PMC Programmable Clock Register 0 (PMC_PCK0)
+ * @addtogroup pmc_pck0
  * @{
  */
 
@@ -78,7 +83,7 @@
 /** @} */
 
 /**
- * @addtogroup pmc_pck1 PMC Programmable Clock Register 1 (PMC_PCK1)
+ * @addtogroup pmc_pck1
  * @{ */
 
 /** Master Clock Source Selection */
@@ -86,7 +91,7 @@
 /** @} */
 
 /**
- * @addtogroup pmc_pck2 PMC Programmable Clock Register 2 (PMC_PCK2)
+ * @addtogroup pmc_pck2
  * @{
  */
 
@@ -95,7 +100,7 @@
 /** @} */
 
 /**
- * @addtogroup pmc_ier PMC Interrupt Enable Register (PMC_IER)
+ * @addtogroup pmc_ier
  * @{
  */
 
@@ -104,7 +109,7 @@
 /** @} */
 
 /**
- * @addtogroup pmc_idr PMC Interrupt Disable Register (PMC_IDR)
+ * @addtogroup pmc_idr
  * @{
  */
 
@@ -113,7 +118,7 @@
 /** @} */
 
 /**
- * @addtogroup pmc_sr PMC Status Register (PMC_SR)
+ * @addtogroup pmc_sr
  * @{
  */
 
@@ -122,7 +127,7 @@
 /** @} */
 
 /**
- * @addtogroup pmc_imr PMC Interrupt Mask Register (PMC_IMR)
+ * @addtogroup pmc_imr
  * @{
  */
 

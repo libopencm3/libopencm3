@@ -32,6 +32,10 @@
 
 
 /* --- Power Management Controller (PMC) registers ----------------------- */
+/**
+ * @addtogroup pmc_registers
+ * @{
+ */
 
 /** Peripheral Clock Enable Register 0 */
 #define PMC_PCER0			MMIO32(PMC_BASE + 0x0010)
@@ -54,16 +58,17 @@
 /** Peripheral Clock Status Register 1 */
 #define PMC_PCSR1			MMIO32(PMC_BASE + 0x0108)
 
+/** @} */
 
 /* --- Register contents --------------------------------------------------- */
 
 /**
- * @addtogroup pmc_usb PMC USB Clock Register (PMC_USB)
+ * @defgroup pmc_usb PMC USB Clock Register (PMC_USB)
  * @{
  */
 
 /**
- * Divider for USB Clock
+ * @defgroup pmc_usb_usbdiv Divider for USB Clock
  * @{
  */
 #define PMC_USB_USBDIV_SHIFT		8

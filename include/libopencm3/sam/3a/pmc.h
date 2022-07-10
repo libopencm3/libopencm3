@@ -37,9 +37,15 @@
 
 /* --- Power Management Controller (PMC) registers ------------------------- */
 
+/**
+ * @addtogroup pmc_registers
+ * @{
+ */
+
 /** Peripheral Control Register */
 #define PMC_PCR				MMIO32(PMC_BASE + 0x010C)
 
+/** @} */
 
 /* --- Register contents --------------------------------------------------- */
 
@@ -50,10 +56,11 @@
 
 /** PLLA Divide by 2 */
 #define PMC_MCKR_PLLADIV2		(0x01 << 12)
+
 /** @} */
 
 /**
- * @addtogroup pmc_pcr PMC Peripheral Control Register (PMC_PCR)
+ * @defgroup pmc_pcr PMC Peripheral Control Register (PMC_PCR)
  * @{
  */
 
@@ -61,7 +68,7 @@
 #define PMC_PCR_EN			(0x01 << 28)
 
 /**
- * Divisor Value
+ * @defgroup pmc_pcr_div Divisor Value
  * @{
  */
 #define PMC_PCR_DIV_SHIFT		16
@@ -75,12 +82,13 @@
 #define PMC_PCR_CMD			(0x01 << 12)
 
 /**
- * Peripheral ID
+ * @defgroup pmc_pcr_pid Peripheral ID
  * @{
  */
 #define PMC_PCR_PID_SHIFT		0
 #define PMC_PCR_PID_MASK		(0x3F << PMC_PCR_PID_SHIFT)
 /** @} */
+
 /** @} */
 
 #endif
