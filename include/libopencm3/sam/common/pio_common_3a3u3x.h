@@ -36,6 +36,10 @@ specific memorymap.h header before including this header file.*/
 #include <libopencm3/sam/common/pio_common_all.h>
 
 /* --- PIO registers ----------------------------------------------------- */
+/**
+ * @addtogroup pio_registers
+ * @{
+ */
 
 /** Peripheral AB Select Register */
 #define PIO_ABSR(port)			MMIO32((port) + 0x0070)
@@ -49,6 +53,7 @@ specific memorymap.h header before including this header file.*/
 /** Glitch or Debouncing Input Filter Clock Selection Status Register */
 #define PIO_IFDGSR(port)		MMIO32((port) + 0x0088)
 
+/** @} */
 
 #endif
 

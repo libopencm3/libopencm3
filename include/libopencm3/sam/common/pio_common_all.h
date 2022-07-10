@@ -37,8 +37,11 @@ specific memorymap.h header before including this header file.*/
 #include <libopencm3/cm3/common.h>
 
 /* --- Convenience macros ------------------------------------------------ */
+/**
+ * @defgroup pio_reg_base GPIO port base addresses (for convenience)
+ * @{
+ */
 
-/* GPIO port base addresses (for convenience) */
 #define PIOA				PIOA_BASE
 #define PIOB				PIOB_BASE
 #define PIOC				PIOC_BASE
@@ -48,7 +51,14 @@ specific memorymap.h header before including this header file.*/
 #define PIOG				PIOG_BASE
 #define PIOH				PIOH_BASE
 
+/** @} */
+
 /* --- PIO registers ----------------------------------------------------- */
+
+/**
+ * @defgroup pio_registers PIO Registers
+ * @{
+ */
 
 /** PIO Enable Register */
 #define PIO_PER(port)			MMIO32((port) + 0x0000)
@@ -167,6 +177,7 @@ specific memorymap.h header before including this header file.*/
 /** Write Protect Status Register */
 #define PIO_WPSR(port)			MMIO32((port) + 0x00E8)
 
+/** @} */
 
 #endif
 
