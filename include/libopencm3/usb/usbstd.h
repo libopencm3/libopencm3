@@ -62,6 +62,8 @@ struct usb_setup_data {
 } __attribute__((packed));
 
 /* Class Definition */
+#define USB_CLASS_PER_INTERFACE			0x00
+#define USB_CLASS_APPLICATION_SPECIFIC		0xFE
 #define USB_CLASS_VENDOR			0xFF
 
 /* bmRequestType bit definitions */
