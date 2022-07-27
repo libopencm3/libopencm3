@@ -463,14 +463,21 @@ void rtc_time_set_minute(uint8_t minute);
 void rtc_time_set_second(uint8_t second);
 void rtc_time_set_time(uint8_t hour, uint8_t minute, uint8_t second, bool use_am_notation);
 
+uint8_t rtc_time_get_hour(void);
+uint8_t rtc_time_get_minute(void);
+uint8_t rtc_time_get_second(void);
+uint8_t rtc_calendar_get_year(void);
+uint8_t rtc_calendar_get_month(void);
+uint8_t rtc_calendar_get_day(void);
+
 END_DECLS
 /**@}*/
 
-#endif  /* RTC2_H */
+#    endif /* RTC2_H */
 /** @cond */
 #else
 #warning "rtc_common_l1f024.h should not be included explicitly, only via rtc.h"
 #endif
-/** @endcond */
+    /** @endcond */
 
 
