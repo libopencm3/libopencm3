@@ -30,6 +30,7 @@
 #include <libopencm3/efm32/cmu.h>
 #include <libopencm3/efm32/usb.h>
 #include <libopencm3/usb/usbd.h>
+#include <libopencm3/usb/bos.h>
 #include "usb_private.h"
 
 /**@{*/

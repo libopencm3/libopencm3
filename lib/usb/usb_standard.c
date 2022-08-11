@@ -37,6 +37,7 @@ LGPL License Terms @ref lgpl_license
 
 #include <string.h>
 #include <libopencm3/usb/usbd.h>
+#include <libopencm3/usb/bos.h>
 #include "usb_private.h"
 
 int usbd_register_set_config_callback(usbd_device *usbd_dev,
