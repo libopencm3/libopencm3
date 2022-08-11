@@ -41,6 +41,8 @@ LGPL License Terms @ref lgpl_license
 #include <libopencm3/usb/usbd.h>
 #include <libopencm3/usb/bos.h>
 
+BEGIN_DECLS
+
 enum microsoft_req {
 	MICROSOFT_GET_DESCRIPTOR_SET = 7,
 	MICROSOFT_SET_ALTERNATE_ENUM = 8,
@@ -88,17 +90,49 @@ typedef struct __attribute__((packed)) microsoft_os_descriptor_set_information {
 
 #define MICROSOFT_OS_DESCRIPTOR_SET_INFORMATION_SIZE sizeof(microsoft_os_descriptor_set_information)
 
-typedef struct __attribute__((packed)) microsoft_os_descriptor_set_header {
+typedef struct microsoft_os_descriptor_function_subset_header {
+	uint16_t wLength;
+	uint16_t wDescriptorType;
+	uint8_t bFirstInterface;
+	uint8_t bReserved;
+	uint16_t wTotalLength;
+} microsoft_os_descriptor_function_subset_header;
+
+#define MICROSOFT_OS_DESCRIPTOR_FUNCTION_SUBSET_HEADER_SIZE 8U
+
+typedef struct microsoft_os_descriptor_config_subset_header {
+	uint16_t wLength;
+	uint16_t wDescriptorType;
+	uint8_t bConfigurationValue;
+	uint8_t bReserved;
+	uint16_t wTotalLength;
+
+	/* Descriptor ends here.  The following are used internally: */
+	const microsoft_os_descriptor_function_subset_header *function_subset_headers;
+	uint8_t num_function_subset_headers;
+} microsoft_os_descriptor_config_subset_header;
+
+#define MICROSOFT_OS_DESCRIPTOR_CONFIG_SUBSET_HEADER_SIZE 8U
+
+typedef struct microsoft_os_descriptor_set_header {
 	uint16_t wLength;
 	uint16_t wDescriptorType;
 	uint32_t dwWindowsVersion;
 	uint16_t wTotalLength;
+
+	/* Descriptor ends here.  The following are used internally: */
+	uint8_t vendor_code;
+	uint8_t num_config_subset_headers;
+	const microsoft_os_descriptor_config_subset_header *config_subset_headers;
+
 } microsoft_os_descriptor_set_header;
 
 #define MICROSOFT_OS_DESCRIPTOR_SET_HEADER_SIZE 10U
 
 extern void microsoft_os_register_descriptor_sets(usbd_device *dev,
 	const microsoft_os_descriptor_set_header *sets, uint8_t num_sets);
+
+END_DECLS
 
 #endif
 
