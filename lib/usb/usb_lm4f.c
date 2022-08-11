@@ -103,6 +103,7 @@
 #include <libopencm3/lm4f/usb.h>
 #include <libopencm3/lm4f/rcc.h>
 #include <libopencm3/usb/usbd.h>
+#include <libopencm3/usb/bos.h>
 #include "../../lib/usb/usb_private.h"
 
 #include <stdbool.h>

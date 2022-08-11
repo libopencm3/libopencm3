@@ -47,6 +47,7 @@ LGPL License Terms @ref lgpl_license
 struct _usbd_device {
 	const struct usb_device_descriptor *desc;
 	const struct usb_config_descriptor *config;
+	const usb_bos_descriptor *bos;
 	const char * const *strings;
 	int num_strings;
 
@@ -164,4 +165,3 @@ struct _usbd_driver {
 };
 
 #endif
-

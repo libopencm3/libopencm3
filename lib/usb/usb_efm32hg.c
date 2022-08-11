@@ -34,6 +34,7 @@
 #include <libopencm3/efm32/cmu.h>
 #include <libopencm3/efm32/usb.h>
 #include <libopencm3/usb/usbd.h>
+#include <libopencm3/usb/bos.h>
 #include <libopencm3/usb/dwc/otg_fs.h>
 #include "usb_private.h"
 #include "usb_dwc_common.h"
