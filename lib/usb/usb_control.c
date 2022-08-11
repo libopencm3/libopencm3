@@ -163,6 +163,21 @@ usb_control_request_dispatch(usbd_device *usbd_dev,
 		}
 	}
 
+	/* If we have a BOS and Microsoft OS-specific request handling
+	 * regsitered, try it. See MS_OS_2_0_desc.docx pg10 for more. */
+	if (usbd_dev->bos && usbd_dev->microsoft_os_req_callback &&
+	    (req->bmRequestType & (USB_REQ_TYPE_TYPE | USB_REQ_TYPE_RECIPIENT)) ==
+	    (USB_REQ_TYPE_VENDOR | USB_REQ_TYPE_DEVICE)) {
+		const enum usbd_request_return_codes result = usbd_dev->microsoft_os_req_callback(
+				  usbd_dev, req,
+				  &(usbd_dev->control_state.ctrl_buf),
+				  &(usbd_dev->control_state.ctrl_len));
+		if (result == USBD_REQ_HANDLED ||
+		    result == USBD_REQ_NOTSUPP) {
+			return result;
+		}
+	}
+
 	/* Try standard request if not already handled. */
 	return _usbd_standard_request(usbd_dev, req,
 				      &(usbd_dev->control_state.ctrl_buf),
