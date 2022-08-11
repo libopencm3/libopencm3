@@ -38,6 +38,7 @@ LGPL License Terms @ref lgpl_license
 #ifndef __MICROSOFT_H
 #define __MICROSOFT_H
 
+#include <libopencm3/usb/usbd.h>
 #include <libopencm3/usb/bos.h>
 
 enum microsoft_req {
@@ -95,6 +96,9 @@ typedef struct __attribute__((packed)) microsoft_os_descriptor_set_header {
 } microsoft_os_descriptor_set_header;
 
 #define MICROSOFT_OS_DESCRIPTOR_SET_HEADER_SIZE 10U
+
+extern void microsoft_os_register_descriptor_sets(usbd_device *dev,
+	const microsoft_os_descriptor_set_header *sets, uint8_t num_sets);
 
 #endif
 
