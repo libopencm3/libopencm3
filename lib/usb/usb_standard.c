@@ -171,6 +171,7 @@ static uint16_t build_bos_descriptor(usbd_device *usbd_dev, uint8_t *const buf, 
 	memcpy(buf, bos, count);
 	len -= count;
 	uint16_t total = count;
+	uint16_t total_length = bos->bLength;
 	size_t offset = 0;
 
 	for (uint8_t i = 0; i < bos->bNumDeviceCaps; ++i) {
@@ -181,6 +182,7 @@ static uint16_t build_bos_descriptor(usbd_device *usbd_dev, uint8_t *const buf, 
 		switch (dev_cap->bDevCapabilityType) {
 		case USB_DCT_PLATFORM:
 			count = build_devcap_platform((const usb_platform_device_capability_descriptor *)dev_cap, buf + total, len);
+			total_length += dev_cap->bLength;
 			offset += sizeof(usb_platform_device_capability_descriptor) + MICROSOFT_OS_DESCRIPTOR_SET_INFORMATION_SIZE;
 			break;
 		default:
@@ -190,10 +192,9 @@ static uint16_t build_bos_descriptor(usbd_device *usbd_dev, uint8_t *const buf, 
 			return 0;
 		len -= count;
 		total += count;
-		if (!count && !len)
-			return 0;
 	}
 
+	((usb_bos_descriptor *)buf)->wTotalLength = total_length;
 	return total;
 }
 
