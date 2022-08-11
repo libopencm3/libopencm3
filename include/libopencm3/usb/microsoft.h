@@ -78,7 +78,7 @@ enum microsoft_registry_types {
 
 #define MICROSOFT_WINDOWS_VERSION_WINBLUE 0x06030000
 
-typedef struct microsoft_os_descriptor_set_information {
+typedef struct __attribute__((packed)) microsoft_os_descriptor_set_information {
 	uint32_t dwWindowsVersion;
 	uint16_t wMSOSDescriptorSetTotalLength;
 	uint8_t bMS_VendorCode;
@@ -86,6 +86,15 @@ typedef struct microsoft_os_descriptor_set_information {
 } microsoft_os_descriptor_set_information;
 
 #define MICROSOFT_OS_DESCRIPTOR_SET_INFORMATION_SIZE sizeof(microsoft_os_descriptor_set_information)
+
+typedef struct __attribute__((packed)) microsoft_os_descriptor_set_header {
+	uint16_t wLength;
+	uint16_t wDescriptorType;
+	uint32_t dwWindowsVersion;
+	uint16_t wTotalLength;
+} microsoft_os_descriptor_set_header;
+
+#define MICROSOFT_OS_DESCRIPTOR_SET_HEADER_SIZE 10U
 
 #endif
 
