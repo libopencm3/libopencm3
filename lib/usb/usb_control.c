@@ -143,17 +143,16 @@ static enum usbd_request_return_codes
 usb_control_request_dispatch(usbd_device *usbd_dev,
 			     struct usb_setup_data *req)
 {
-	int i, result = 0;
 	struct user_control_callback *cb = usbd_dev->user_control_callback;
 
 	/* Call user command hook function. */
-	for (i = 0; i < MAX_USER_CONTROL_CALLBACK; i++) {
+	for (size_t i = 0; i < MAX_USER_CONTROL_CALLBACK; i++) {
 		if (cb[i].cb == NULL) {
 			break;
 		}
 
 		if ((req->bmRequestType & cb[i].type_mask) == cb[i].type) {
-			result = cb[i].cb(usbd_dev, req,
+			const enum usbd_request_return_codes result = cb[i].cb(usbd_dev, req,
 					  &(usbd_dev->control_state.ctrl_buf),
 					  &(usbd_dev->control_state.ctrl_len),
 					  &(usbd_dev->control_state.complete));
