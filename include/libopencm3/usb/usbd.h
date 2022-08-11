@@ -125,6 +125,10 @@ typedef enum usbd_request_return_codes (*usbd_control_callback)(
 typedef void (*usbd_set_config_callback)(usbd_device *usbd_dev,
 					 uint16_t wValue);
 
+typedef enum usbd_request_return_codes (*usbd_microsoft_os_req_callback)(
+		usbd_device *usbd_dev,
+		struct usb_setup_data *req, uint8_t **buf, uint16_t *len);
+
 typedef void (*usbd_set_altsetting_callback)(usbd_device *usbd_dev,
 					     uint16_t wIndex, uint16_t wValue);
 
@@ -240,4 +244,3 @@ END_DECLS
 #endif
 
 /**@}*/
-
