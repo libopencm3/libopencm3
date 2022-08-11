@@ -87,6 +87,8 @@ typedef struct __attribute__((packed)) usb_bos_uuid {
 	uint8_t e[6];
 } usb_bos_uuid;
 
+#define USB_BOS_UUID_SIZE sizeof(usb_bos_uuid)
+
 typedef struct usb_device_capability_descriptor {
 	uint8_t bLength;
 	uint8_t bDescriptorType;
@@ -125,6 +127,8 @@ typedef struct __attribute__((packed)) usb_platform_device_capability_descriptor
 	usb_bos_uuid PlatformCapabilityUUID;
 
 	/* Descriptor ends here.  The following are used internally: */
+	/* This is a type-erased struct of the platform-specific capability data */
+	const void *CapabilityData;
 } usb_platform_device_capability_descriptor;
 
 #define USB_DCT_PLATFORM_SIZE 20U
