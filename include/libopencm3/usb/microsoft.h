@@ -76,6 +76,17 @@ enum microsoft_registry_types {
 	{0x65U, 0x9dU, 0x9eU, 0x64U, 0x8aU, 0x9fU}, \
 }
 
+#define MICROSOFT_WINDOWS_VERSION_WINBLUE 0x06030000
+
+typedef struct microsoft_os_descriptor_set_information {
+	uint32_t dwWindowsVersion;
+	uint16_t wMSOSDescriptorSetTotalLength;
+	uint8_t bMS_VendorCode;
+	uint8_t bAltEnumCode;
+} microsoft_os_descriptor_set_information;
+
+#define MICROSOFT_OS_DESCRIPTOR_SET_INFORMATION_SIZE sizeof(microsoft_os_descriptor_set_information)
+
 #endif
 
 /**@}*/

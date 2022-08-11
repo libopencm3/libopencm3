@@ -38,7 +38,11 @@ LGPL License Terms @ref lgpl_license
 #include <string.h>
 #include <libopencm3/usb/usbd.h>
 #include <libopencm3/usb/bos.h>
+#include <libopencm3/usb/microsoft.h>
 #include "usb_private.h"
+
+static const usb_bos_uuid microsoft_os_descriptor_platform_capability_id =
+	MICROSOFT_OS_DESCRIPTOR_PLATFORM_CAPABILITY_ID;
 
 int usbd_register_set_config_callback(usbd_device *usbd_dev,
 				       usbd_set_config_callback callback)
@@ -149,8 +153,14 @@ static uint16_t build_devcap_platform(const usb_platform_device_capability_descr
 	len -= count;
 	const uint16_t total = count;
 
+	if (!memcmp(&plat->PlatformCapabilityUUID, &microsoft_os_descriptor_platform_capability_id, USB_BOS_UUID_SIZE)) {
+		const microsoft_os_descriptor_set_information *info = plat->CapabilityData;
+		count = MIN(len, MICROSOFT_OS_DESCRIPTOR_SET_INFORMATION_SIZE);
+		memcpy(buf + total, info, count);
+		return total + count;
+	}
 
-	return total;
+	return 0;
 }
 
 /* This can return 0 to indicate an error in the descriptor */
