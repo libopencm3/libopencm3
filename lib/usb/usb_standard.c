@@ -140,6 +140,53 @@ static uint16_t build_config_descriptor(usbd_device *usbd_dev,
 	return total;
 }
 
+/* This can return 0 to indicate an error in the descriptor */
+static uint16_t build_devcap_platform(const usb_platform_device_capability_descriptor *const plat,
+					uint8_t *const buf, uint16_t len)
+{
+	uint16_t count = MIN(len, USB_DCT_PLATFORM_SIZE);
+	memcpy(buf, plat, count);
+	len -= count;
+	const uint16_t total = count;
+
+
+	return total;
+}
+
+/* This can return 0 to indicate an error in the descriptor */
+static uint16_t build_bos_descriptor(usbd_device *usbd_dev, uint8_t *const buf, uint16_t len)
+{
+	const usb_bos_descriptor *const bos = usbd_dev->bos;
+	uint16_t count = MIN(len, bos->bLength);
+	memcpy(buf, bos, count);
+	len -= count;
+	uint16_t total = count;
+	size_t offset = 0;
+
+	for (uint8_t i = 0; i < bos->bNumDeviceCaps; ++i) {
+		const usb_device_capability_descriptor *const dev_cap =
+			(const usb_device_capability_descriptor *)
+				(((const uint8_t *)bos->device_capability_descriptors) + offset);
+
+		switch (dev_cap->bDevCapabilityType) {
+		case USB_DCT_PLATFORM:
+			count = build_devcap_platform((const usb_platform_device_capability_descriptor *)dev_cap, buf + total, len);
+			offset += sizeof(usb_platform_device_capability_descriptor) + MICROSOFT_OS_DESCRIPTOR_SET_INFORMATION_SIZE;
+			break;
+		default:
+			return 0;
+		}
+		if (!count && len)
+			return 0;
+		len -= count;
+		total += count;
+		if (!count && !len)
+			return 0;
+	}
+
+	return total;
+}
+
 static int usb_descriptor_type(uint16_t wValue)
 {
 	return wValue >> 8;
@@ -169,6 +216,12 @@ usb_standard_get_descriptor(usbd_device *usbd_dev,
 		*buf = usbd_dev->ctrl_buf;
 		*len = build_config_descriptor(usbd_dev, descr_idx, *buf, *len);
 		return USBD_REQ_HANDLED;
+	case USB_DT_BOS:
+		if (!usbd_dev->bos || descr_idx != 0)
+			return USBD_REQ_NOTSUPP;
+		*buf = usbd_dev->ctrl_buf;
+		*len = build_bos_descriptor(usbd_dev, *buf, *len);
+		return *len ? USBD_REQ_HANDLED : USBD_REQ_NOTSUPP;
 	case USB_DT_STRING:
 		sd = (struct usb_string_descriptor *)usbd_dev->ctrl_buf;
 
@@ -634,4 +687,3 @@ _usbd_standard_request(usbd_device *usbd_dev, struct usb_setup_data *req,
 		return USBD_REQ_NOTSUPP;
 	}
 }
-

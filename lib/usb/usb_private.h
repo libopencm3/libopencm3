@@ -78,6 +78,8 @@ struct _usbd_device {
 		bool needs_zlp;
 	} control_state;
 
+	usbd_microsoft_os_req_callback microsoft_os_req_callback;
+
 	struct user_control_callback {
 		usbd_control_callback cb;
 		uint8_t type;
