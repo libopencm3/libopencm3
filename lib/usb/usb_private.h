@@ -79,6 +79,8 @@ struct _usbd_device {
 	} control_state;
 
 	usbd_microsoft_os_req_callback microsoft_os_req_callback;
+	const void *microsoft_os_descriptor_sets;
+	uint8_t num_microsoft_os_descriptor_sets;
 
 	struct user_control_callback {
 		usbd_control_callback cb;
