@@ -22,12 +22,68 @@
 #include <libopencm3/usb/microsoft.h>
 #include "usb_private.h"
 
+#define MICROSOFT_OS_FEATURE_REGISTRY_PROPERTY_DESCRIPTOR_SIZE_CHUNK1 8U
+#define MICROSOFT_OS_FEATURE_REGISTRY_PROPERTY_DESCRIPTOR_SIZE_CHUNK2 2U
+
 static uint16_t build_function_subset(const microsoft_os_descriptor_function_subset_header *const subset,
 	uint8_t *const buf, uint16_t len)
 {
 	uint16_t count = MIN(len, subset->wLength);
 	memcpy(buf, subset, count);
+	uint16_t total = count;
 	uint16_t total_length = subset->wLength;
+	size_t offset = 0;
+
+	for (uint8_t i = 0; i < subset->num_feature_descriptors; ++i) {
+		const microsoft_os_feature_descriptor *const feature =
+			(const microsoft_os_feature_descriptor *)(((const uint8_t *)subset->feature_descriptors) + offset);
+
+		switch (feature->wDescriptorType) {
+		case MICROSOFT_OS_FEATURE_COMPATIBLE_ID:
+		case MICROSOFT_OS_FEATURE_MIN_RESUME_TIME:
+		case MICROSOFT_OS_FEATURE_MODEL_ID:
+		case MICROSOFT_OS_FEATURE_CCGP_DEVICE:
+		case MICROSOFT_OS_FEATURE_VENDOR_REVISION:
+			count = MIN(len, feature->wLength);
+			memcpy(buf + total, feature, count);
+			total_length += feature->wLength;
+			offset += feature->wLength;
+			break;
+		case MICROSOFT_OS_FEATURE_REG_PROPERTY: {
+			const microsoft_os_feature_registry_property_descriptor *const registry_property =
+				(const microsoft_os_feature_registry_property_descriptor *)feature;
+			uint16_t *descriptor_length = (uint16_t *)(buf + total);
+			/* Copy in the first chunk of the descriptor */
+			count = MIN(len, MICROSOFT_OS_FEATURE_REGISTRY_PROPERTY_DESCRIPTOR_SIZE_CHUNK1);
+			memcpy(buf + total, registry_property, count);
+			len -= count;
+			total += count;
+			/* Copy in the property name */
+			count = MIN(len, registry_property->wPropertyNameLength);
+			memcpy(buf + total, registry_property->PropertyName, count);
+			len -= count;
+			total += count;
+			/* Copy in the second chunk of the descriptor */
+			count = MIN(len, MICROSOFT_OS_FEATURE_REGISTRY_PROPERTY_DESCRIPTOR_SIZE_CHUNK2);
+			memcpy(buf + total, &registry_property->wPropertyDataLength, count);
+			len -= count;
+			total += count;
+			/* Copy in the property data */
+			count = MIN(len, registry_property->wPropertyDataLength);
+			memcpy(buf + total, registry_property->PropertyData, count);
+			/* Compute the total length of this descriptor and update total_length + offset */
+			*descriptor_length = MICROSOFT_OS_FEATURE_REGISTRY_PROPERTY_DESCRIPTOR_SIZE_BASE +
+				registry_property->wPropertyNameLength + registry_property->wPropertyDataLength;
+			total_length += *descriptor_length;
+			offset += sizeof(microsoft_os_feature_registry_property_descriptor);
+			break;
+		}
+		default:
+			return 0;
+		}
+		len -= count;
+		total += count;
+	}
 
 	((microsoft_os_descriptor_function_subset_header *)buf)->wTotalLength = total_length;
 	return total_length;
