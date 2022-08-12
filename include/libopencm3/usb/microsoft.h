@@ -43,6 +43,8 @@ LGPL License Terms @ref lgpl_license
 
 BEGIN_DECLS
 
+typedef uint16_t usb_char16_t;
+
 enum microsoft_req {
 	MICROSOFT_GET_DESCRIPTOR_SET = 7,
 	MICROSOFT_SET_ALTERNATE_ENUM = 8,
@@ -81,6 +83,9 @@ enum microsoft_registry_types {
 
 #define MICROSOFT_WINDOWS_VERSION_WINBLUE 0x06030000
 
+#define MICROSOFT_OS_COMPATIBLE_ID_NONE {'\0', '\0', '\0', '\0', '\0', '\0', '\0', '\0'}
+#define MICROSOFT_OS_COMPATIBLE_ID_WINUSB {'W', 'I', 'N', 'U', 'S', 'B', '\0', '\0'}
+
 typedef struct __attribute__((packed)) microsoft_os_descriptor_set_information {
 	uint32_t dwWindowsVersion;
 	uint16_t wMSOSDescriptorSetTotalLength;
@@ -90,12 +95,68 @@ typedef struct __attribute__((packed)) microsoft_os_descriptor_set_information {
 
 #define MICROSOFT_OS_DESCRIPTOR_SET_INFORMATION_SIZE sizeof(microsoft_os_descriptor_set_information)
 
+typedef struct microsoft_os_feature_descriptor {
+	uint16_t wLength;
+	uint16_t wDescriptorType;
+} microsoft_os_feature_descriptor;
+
+typedef struct microsoft_os_feature_compatible_id_descriptor {
+	microsoft_os_feature_descriptor header;
+	char compatible_id[8];
+	char sub_compatible_id[8];
+} microsoft_os_feature_compatible_id_descriptor;
+
+#define MICROSOFT_OS_FEATURE_COMPATIBLE_ID_DESCRIPTOR_SIZE sizeof(microsoft_os_feature_compatible_id_descriptor)
+
+typedef struct microsoft_os_feature_registry_property_descriptor {
+	microsoft_os_feature_descriptor header;
+	uint16_t wPropertyDataType;
+	uint16_t wPropertyNameLength;
+	const usb_char16_t *PropertyName;
+	uint16_t wPropertyDataLength;
+	const void *PropertyData;
+} microsoft_os_feature_registry_property_descriptor;
+
+#define MICROSOFT_OS_FEATURE_REGISTRY_PROPERTY_DESCRIPTOR_SIZE_BASE 10U
+
+typedef struct microsoft_os_feature_min_recovery_time_descriptor {
+	microsoft_os_feature_descriptor header;
+	uint8_t bResumeRecoveryTime;
+	uint8_t bResumeSignalingTime;
+} microsoft_os_feature_min_recovery_time_descriptor;
+
+#define MICROSOFT_OS_FEATURE_MIN_RECOVERY_TIME_DESCRIPTOR_SIZE \
+	sizeof(microsoft_os_feature_min_recovery_time_descriptor)
+
+typedef struct microsoft_os_feature_model_id_descriptor {
+	microsoft_os_feature_descriptor header;
+	usb_bos_uuid ModelID;
+} microsoft_os_feature_model_id_descriptor;
+
+#define MICROSOFT_OS_FEATURE_MODEL_ID_DESCRIPTOR_SIZE sizeof(microsoft_os_feature_model_id_descriptor)
+
+typedef struct microsoft_os_feature_descriptor microsoft_os_feature_ccgp_device_descriptor;
+
+#define MICROSOFT_OS_FEATURE_CCGP_DEVICE_DESCRIPTOR_SIZE sizeof(microsoft_os_feature_ccgp_device_descriptor)
+
+typedef struct microsoft_os_feature_vendor_revision_descriptor {
+	microsoft_os_feature_descriptor header;
+	uint16_t VendorRevision;
+} microsoft_os_feature_vendor_revision_descriptor;
+
+#define MICROSOFT_OS_FEATURE_VENDOR_REVISION_DESCRIPTOR_SIZE sizeof(microsoft_os_feature_vendor_revision_descriptor)
+
 typedef struct microsoft_os_descriptor_function_subset_header {
 	uint16_t wLength;
 	uint16_t wDescriptorType;
 	uint8_t bFirstInterface;
 	uint8_t bReserved;
 	uint16_t wTotalLength;
+
+	/* Descriptor ends here.  The following are used internally: */
+	/* This is a type-erased struct of the various feature descriptors */
+	const void *feature_descriptors;
+	uint8_t num_feature_descriptors;
 } microsoft_os_descriptor_function_subset_header;
 
 #define MICROSOFT_OS_DESCRIPTOR_FUNCTION_SUBSET_HEADER_SIZE 8U
