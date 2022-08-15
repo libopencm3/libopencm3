@@ -171,6 +171,22 @@ void usart_set_parity(uint32_t usart, uint32_t parity)
 }
 
 /*---------------------------------------------------------------------------*/
+/** @brief USART Get Parity.
+
+The stop bits are specified as 0.5, 1, 1.5 or 2.
+
+@param[in] usart unsigned 32 bit. USART block register address base @ref
+usart_reg_base
+@returns unsigned 32 bit Parity @ref usart_cr2_stopbits.
+*/
+
+uint32_t usart_get_parity(uint32_t usart)
+{
+	const uint32_t reg32 = USART_CR1(usart);
+	return reg32 & USART_PARITY_MASK;
+}
+
+/*---------------------------------------------------------------------------*/
 /** @brief USART Set Rx/Tx Mode.
 
 The mode can be selected as Rx only, Tx only or Rx+Tx.
