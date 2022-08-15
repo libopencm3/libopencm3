@@ -104,6 +104,7 @@ uint32_t usart_get_databits(uint32_t usart);
 void usart_set_stopbits(uint32_t usart, uint32_t stopbits);
 uint32_t usart_get_stopbits(uint32_t usart);
 void usart_set_parity(uint32_t usart, uint32_t parity);
+uint32_t usart_get_parity(uint32_t usart);
 void usart_set_mode(uint32_t usart, uint32_t mode);
 void usart_set_flow_control(uint32_t usart, uint32_t flowcontrol);
 void usart_enable(uint32_t usart);
