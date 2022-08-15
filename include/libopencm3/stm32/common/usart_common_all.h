@@ -140,4 +140,3 @@ END_DECLS
 #endif
 /** @endcond */
 /**@}*/
-
