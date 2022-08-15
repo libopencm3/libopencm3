@@ -100,6 +100,7 @@ BEGIN_DECLS
 
 void usart_set_baudrate(uint32_t usart, uint32_t baud);
 void usart_set_databits(uint32_t usart, uint32_t bits);
+uint32_t usart_get_databits(uint32_t usart);
 void usart_set_stopbits(uint32_t usart, uint32_t stopbits);
 void usart_set_parity(uint32_t usart, uint32_t parity);
 void usart_set_mode(uint32_t usart, uint32_t mode);

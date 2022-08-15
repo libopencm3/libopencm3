@@ -106,6 +106,27 @@ void usart_set_databits(uint32_t usart, uint32_t bits)
 }
 
 /*---------------------------------------------------------------------------*/
+/** @brief USART Get Word Length.
+
+The word length is set to 8 or 9 bits. Note that the last bit will be a parity
+bit if parity is enabled, in which case the data length will be 7 or 8 bits
+respectively.
+
+@param[in] usart unsigned 32 bit. USART block register address base @ref
+usart_reg_base
+@returns unsigned 32 bit Word length in bits 8 or 9.
+*/
+
+uint32_t usart_get_databits(uint32_t usart)
+{
+	const uint32_t reg32 = USART_CR1(usart) & USART_CR1_M;
+	if (reg32)
+		return 9;
+	else
+		return 8;
+}
+
+/*---------------------------------------------------------------------------*/
 /** @brief USART Set Stop Bit(s).
 
 The stop bits are specified as 0.5, 1, 1.5 or 2.
