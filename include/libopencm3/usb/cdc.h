@@ -118,7 +118,7 @@ struct usb_cdc_acm_descriptor {
 /* Table 13: Class-Specific Request Codes for PSTN subclasses */
 /* ... */
 #define USB_CDC_REQ_SET_LINE_CODING		0x20
-/* ... */
+#define USB_CDC_REQ_GET_LINE_CODING		0x21
 #define USB_CDC_REQ_SET_CONTROL_LINE_STATE	0x22
 /* ... */
 
@@ -161,4 +161,3 @@ struct usb_cdc_notification {
 #endif
 
 /**@}*/
-
