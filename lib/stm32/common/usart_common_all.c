@@ -136,6 +136,22 @@ void usart_set_stopbits(uint32_t usart, uint32_t stopbits)
 }
 
 /*---------------------------------------------------------------------------*/
+/** @brief USART Get Stop Bit(s).
+
+The stop bits are specified as 0.5, 1, 1.5 or 2.
+
+@param[in] usart unsigned 32 bit. USART block register address base @ref
+usart_reg_base
+@returns unsigned 32 bit Stop bits @ref usart_cr2_stopbits.
+*/
+
+uint32_t usart_get_stopbits(uint32_t usart)
+{
+	const uint32_t reg32 = USART_CR2(usart);
+	return reg32 & USART_CR2_STOPBITS_MASK;
+}
+
+/*---------------------------------------------------------------------------*/
 /** @brief USART Set Parity.
 
 The parity bit can be selected as none, even or odd.
