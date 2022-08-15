@@ -396,7 +396,7 @@ void usart_disable_tx_interrupt(uint32_t usart)
 /*---------------------------------------------------------------------------*/
 /**
  * @brief USART Transmission Complete Interrupt Enable
- * 
+ *
  * @param[in] usart unsigned 32 bit. USART block register address base @ref
 usart_reg_base
  */
@@ -409,7 +409,7 @@ void usart_enable_tx_complete_interrupt(uint32_t usart)
 /*---------------------------------------------------------------------------*/
 /**
  * @brief USART Transmission Complete Interrupt Disable
- * 
+ *
  * @param[in] usart unsigned 32 bit. USART block register address base @ref
 usart_reg_base
  */
@@ -467,4 +467,3 @@ void usart_disable_error_interrupt(uint32_t usart)
 }
 
 /**@}*/
-
