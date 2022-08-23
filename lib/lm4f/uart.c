@@ -138,16 +138,16 @@ void uart_set_baudrate(uint32_t uart, uint32_t baud)
  */
 void uart_set_databits(uint32_t uart, uint8_t databits)
 {
-	uint32_t reg32, bitint32_t;
+	uint32_t reg32, bits32;
 
 	/* This has the same effect as using UART_LCRH_WLEN_5/6/7/8 directly */
-	bitint32_t = (databits - 5) << 5;
+	bits32 = (databits - 5) << 5;
 
 	/* TODO: What about 9 data bits? */
 
 	reg32 = UART_LCRH(uart);
 	reg32 &= ~UART_LCRH_WLEN_MASK;
-	reg32 |= bitint32_t;
+	reg32 |= bits32;
 	UART_LCRH(uart) = reg32;
 }
 
