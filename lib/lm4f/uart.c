@@ -214,6 +214,26 @@ void uart_set_parity(uint32_t uart, enum uart_parity parity)
 	UART_LCRH(uart) = reg32;
 }
 
+enum uart_parity uart_get_parity(uint32_t uart)
+{
+	const uint32_t reg32 = UART_LCRH(uart);
+	/* Check if parity is even enabled */
+	if (!(reg32 & UART_LCRH_PEN))
+		return UART_PARITY_NONE;
+	/* Check for sticky modes */
+	if (reg32 & UART_LCRH_SPS) {
+		if (reg32 & UART_LCRH_EPS) {
+			return UART_PARITY_STICK_0;
+		}
+		return UART_PARITY_STICK_1;
+	} else {
+		if (reg32 & UART_LCRH_EPS) {
+			return UART_PARITY_EVEN;
+		}
+		return UART_PARITY_ODD;
+	}
+}
+
 /**
  * \brief Set the flow control scheme
  *
