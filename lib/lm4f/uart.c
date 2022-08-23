@@ -151,6 +151,12 @@ void uart_set_databits(uint32_t uart, uint8_t databits)
 	UART_LCRH(uart) = reg32;
 }
 
+uint8_t uart_get_databits(uint32_t uart)
+{
+	const uint8_t bits = (UART_LCRH(uart) & UART_LCRH_WLEN_MASK) >> 5;
+	return bits + 5;
+}
+
 /**
  * \brief Set UART stopbits
  *
