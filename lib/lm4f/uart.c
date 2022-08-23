@@ -172,6 +172,13 @@ void uart_set_stopbits(uint32_t uart, uint8_t stopbits)
 	}
 }
 
+uint8_t uart_get_stopbits(uint32_t uart)
+{
+	if (UART_LCRH(uart) & UART_LCRH_STP2)
+		return 2;
+	return 1;
+}
+
 /**
  * \brief Set UART parity
  *
