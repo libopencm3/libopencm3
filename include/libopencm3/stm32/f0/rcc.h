@@ -609,6 +609,7 @@ void rcc_set_i2c_clock_sysclk(uint32_t i2c);
 uint32_t rcc_get_i2c_clocks(void);
 enum rcc_osc rcc_usb_clock_source(void);
 void rcc_clock_setup_in_hse_8mhz_out_48mhz(void);
+void rcc_clock_setup_in_hse_16mhz_out_48mhz(void);
 void rcc_clock_setup_in_hsi_out_48mhz(void);
 void rcc_clock_setup_in_hsi48_out_48mhz(void);
 uint32_t rcc_get_usart_clk_freq(uint32_t usart);
