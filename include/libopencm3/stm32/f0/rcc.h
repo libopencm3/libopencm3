@@ -552,6 +552,34 @@ enum rcc_periph_rst {
 
 #include <libopencm3/stm32/common/rcc_common_all.h>
 
+enum rcc_clock_hse {
+	RCC_CLOCK_HSE16_48MHZ,
+	RCC_CLOCK_HSE8_24MHZ,
+	RCC_CLOCK_HSE8_48MHZ,
+	RCC_CLOCK_HSE_END
+};
+
+enum rcc_clock_hsi {
+	RCC_CLOCK_HSI_48MHZ,
+	RCC_CLOCK_HSI48_48MHZ,
+	RCC_CLOCK_HSI_END
+};
+
+/* Union of all options for f0xx */
+struct rcc_clock_scale {
+	uint8_t pll_mul;
+	uint8_t pll_source;
+	uint8_t hpre;
+	uint8_t ppre;
+	uint8_t flash_waitstates;
+	uint32_t ahb_frequency;
+	uint32_t apb1_frequency;
+	enum rcc_osc sysclk_source;
+};
+
+extern const struct rcc_clock_scale rcc_hsi_configs[RCC_CLOCK_HSI_END];
+extern const struct rcc_clock_scale rcc_hse_configs[RCC_CLOCK_HSE_END];
+
 BEGIN_DECLS
 
 void rcc_osc_ready_int_clear(enum rcc_osc osc);
@@ -587,6 +615,14 @@ uint32_t rcc_get_usart_clk_freq(uint32_t usart);
 uint32_t rcc_get_timer_clk_freq(uint32_t timer);
 uint32_t rcc_get_i2c_clk_freq(uint32_t i2c);
 uint32_t rcc_get_spi_clk_freq(uint32_t spi);
+
+/**
+ * Switch sysclock to PLL with the given parameters.
+ * This should be usable from any point in time, but only if you have used
+ * library functions to manage clocks.
+ * @param clock full struct with desired parameters
+ */
+void rcc_clock_setup_pll(const struct rcc_clock_scale *clock);
 
 END_DECLS
 
