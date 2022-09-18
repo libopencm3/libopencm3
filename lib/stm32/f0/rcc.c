@@ -433,7 +433,8 @@ void rcc_set_rtc_clock_source(enum rcc_osc clk)
 
 void rcc_set_pll_multiplication_factor(uint32_t mul)
 {
-	RCC_CFGR = (RCC_CFGR & ~RCC_CFGR_PLLMUL) | mul;
+	RCC_CFGR = (RCC_CFGR & ~RCC_CFGR_PLLMUL) |
+			(mul << RCC_CFGR_PLLMUL_SHIFT);
 }
 
 /*---------------------------------------------------------------------------*/
