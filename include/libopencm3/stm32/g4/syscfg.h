@@ -7,6 +7,7 @@
  * @version 1.0.0
  *
  * LGPL License Terms @ref lgpl_license
+ * @{
  *  
  */
 
@@ -27,14 +28,16 @@
  * along with this library.  If not, see <http://www.gnu.org/licenses/>.
  */
 
-#ifndef LIBOPENCM3_SYSCFG_H
-#define LIBOPENCM3_SYSCFG_H
+#pragma once
+
+/** @defgroup syscfg_registers SYSCFG registers
+@{*/
 
 #define SYSCFG_MEMRM			MMIO32(SYSCFG_BASE + 0x00)
 
 #define SYSCFG_PMC			MMIO32(SYSCFG_BASE + 0x04)
 
-/* External interrupt configuration registers [0..3] (SYSCFG_EXTICR[1..4]) */
+/** External interrupt configuration registers [0..3] (SYSCFG_EXTICR[1..4]) */
 #define SYSCFG_EXTICR(i)		MMIO32(SYSCFG_BASE + 0x08 + (i)*4)
 #define SYSCFG_EXTICR1			SYSCFG_EXTICR(0)
 #define SYSCFG_EXTICR2			SYSCFG_EXTICR(1)
@@ -42,9 +45,8 @@
 #define SYSCFG_EXTICR4			SYSCFG_EXTICR(3)
 
 #define SYSCFG_SWPR			MMIO32(SYSCFG_BASE + 0x20)
-
-/* --- SYSCFG_EXTICR Values -------------------------------------------------*/
+/**@}*/
 
 #define SYSCFG_EXTICR_FIELDSIZE		4
 
-#endif
+/**@}*/
