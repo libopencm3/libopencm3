@@ -1872,7 +1872,7 @@ void timer_slave_set_trigger(uint32_t timer_peripheral, uint8_t trigger)
 */
 
 void timer_slave_set_extclockmode2(uint32_t timer_peripheral,
-            enum tim_ecm2_state state)
+				   enum tim_ecm2_state state)
 {
 	if (state) {
 		TIM_SMCR(timer_peripheral) |= TIM_SMCR_ECE;
