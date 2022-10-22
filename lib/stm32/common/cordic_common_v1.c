@@ -145,6 +145,16 @@ void cordic_enable_dma_write(void) {
         CORDIC_CSR |= CORDIC_CSR_DMAWEN;
 }
 
+/** @brief Disable DMA for writes to CORDIC_WDATA
+ *
+ * When disabled, the peripheral will not generate DMA requests
+ * when new arguments can be loaded into the CORDIC_WDATA register.
+ *
+ */
+void cordic_disable_dma_write(void) {
+        CORDIC_CSR &= ~CORDIC_CSR_DMAWEN;
+}
+
 /** @brief Enable DMA for read from CORDIC_RDATA
  *
  * When enabled, the peripheral will continue to generate DMA requests 
@@ -153,6 +163,16 @@ void cordic_enable_dma_write(void) {
  */
 void cordic_enable_dma_read(void) {
         CORDIC_CSR |= CORDIC_CSR_DMAREN;
+}
+
+/** @brief Disable DMA for read from CORDIC_RDATA
+ *
+ * When disabled, the peripheral will not generate DMA requests 
+ * when new results can be read from the CORDIC_RDATA register.
+ *
+ */
+void cordic_disable_dma_read(void) {
+        CORDIC_CSR &= ~CORDIC_CSR_DMAREN;
 }
 
 /** @brief Enable interrupt when result is ready
@@ -267,6 +287,66 @@ uint32_t cordic_read_32bit_result(void) {
         return CORDIC_RDATA;
 }
 
+/** @brief Configure cordic for 16 bit cosine
+ *
+ * Configures cordic peripheral to perform 16 bit cosine operation without triggering it
+ *
+ */
+void cordic_configure_for_cos_16bit(void) {
+        cordic_set_function(CORDIC_CSR_FUNC_COS);
+        cordic_set_precision(CORDIC_CSR_PRECISION_ITER_20);
+        cordic_set_argument_width_16bit();
+        cordic_set_result_width_16bit();
+        cordic_set_number_of_arguments_1();
+        cordic_set_number_of_results_1();
+        /* scale is not applicable for cos */
+}
+
+/** @brief Configure cordic for 32 bit cosine
+ *
+ * Configures cordic peripheral to perform 32 bit cosine operation without triggering it
+ *
+ */
+void cordic_configure_for_cos_32bit(void) {
+        cordic_set_function(CORDIC_CSR_FUNC_COS);
+        cordic_set_precision(CORDIC_CSR_PRECISION_ITER_28);
+        cordic_set_argument_width_32bit();
+        cordic_set_result_width_32bit();
+        cordic_set_number_of_arguments_1();
+        cordic_set_number_of_results_1();
+        /* scale is not applicable for cos  */
+}
+
+/** @brief Configure cordic for 16 bit sine
+ *
+ * Configures cordic peripheral to perform 16 bit sine operation without triggering it
+ *
+ */
+void cordic_configure_for_sin_16bit(void) {
+        cordic_set_function(CORDIC_CSR_FUNC_SIN);
+        cordic_set_precision(CORDIC_CSR_PRECISION_ITER_20);
+        cordic_set_argument_width_16bit();
+        cordic_set_result_width_16bit();
+        cordic_set_number_of_arguments_1();
+        cordic_set_number_of_results_1();
+        /* scale is not applicable for sin  */
+}
+
+/** @brief Configure cordic for 32 bit sine
+ *
+ * Configures cordic peripheral to perform 32 bit sine operation without triggering it
+ *
+ */
+void cordic_configure_for_sin_32bit(void) {
+        cordic_set_function(CORDIC_CSR_FUNC_SIN);
+        cordic_set_precision(CORDIC_CSR_PRECISION_ITER_28);
+        cordic_set_argument_width_32bit();
+        cordic_set_result_width_32bit();
+        cordic_set_number_of_arguments_1();
+        cordic_set_number_of_results_1();
+        /* scale is not applicable for sin  */
+}
+
 /** @brief Compute 16 bit cosine using CORDIC (blocking)
  *
  * Convenience function to calculate 32767*cos(x/32767*pi).
@@ -279,13 +359,7 @@ uint32_t cordic_read_32bit_result(void) {
  *
  */
 int16_t cordic_cos_16bit(int16_t x) {
-        cordic_set_function(CORDIC_CSR_FUNC_COS);
-        cordic_set_precision(CORDIC_CSR_PRECISION_ITER_20);
-        cordic_set_argument_width_16bit();
-        cordic_set_result_width_16bit();
-        cordic_set_number_of_arguments_1();
-        cordic_set_number_of_results_1();
-        /* scale is not applicable for cos */
+        cordic_configure_for_cos_16bit();
         cordic_write_16bit_arguments((uint16_t) x, 0x7FFF);
 
         /* this while loop can be omitted but that will stall the
@@ -293,6 +367,19 @@ int16_t cordic_cos_16bit(int16_t x) {
         while(!cordic_is_result_ready());
 
         return cordic_read_16bit_result();
+}
+
+/** @brief Compute 16 bit cosine using CORDIC (non blocking)
+ *
+ * Convenience function to calculate 32767*cos(x/32767*pi). 
+ * Result can be obtained from result register using cordic_read_16bit_result().
+ * 
+ * @param[in] x argument
+ *
+ */
+void cordic_cos_16bit_async(int16_t x) {
+        cordic_configure_for_cos_16bit();
+        cordic_write_16bit_arguments((uint16_t) x, 0x7FFF);
 }
 
 /** @brief Compute 32 bit cosine using CORDIC (blocking)
@@ -307,18 +394,25 @@ int16_t cordic_cos_16bit(int16_t x) {
  *
  */
 int32_t cordic_cos_32bit(int32_t x) {
-        cordic_set_function(CORDIC_CSR_FUNC_COS);
-        cordic_set_precision(CORDIC_CSR_PRECISION_ITER_28);
-        cordic_set_argument_width_32bit();
-        cordic_set_result_width_32bit();
-        cordic_set_number_of_arguments_1();
-        cordic_set_number_of_results_1();
-        /* scale is not applicable for cos  */
+        cordic_configure_for_cos_32bit();
         cordic_write_32bit_argument((uint32_t) x);
 
         while(!cordic_is_result_ready());
 
         return cordic_read_32bit_result();
+}
+
+/** @brief Compute 32 bit cosine using CORDIC (non blocking)
+ *
+ * Convenience function to calculate 2147483647*cos(x/2147483647*pi). 
+ * Result can be obtained from result register using cordic_read_32bit_result().
+ * 
+ * @param[in] x argument
+ *
+ */
+void cordic_cos_32bit_async(int32_t x) {
+        cordic_configure_for_cos_32bit();
+        cordic_write_32bit_argument((uint32_t) x);
 }
 
 /** @brief Compute 16 bit sine using CORDIC (blocking)
@@ -333,13 +427,7 @@ int32_t cordic_cos_32bit(int32_t x) {
  *
  */
 int16_t cordic_sin_16bit(int16_t x) {
-        cordic_set_function(CORDIC_CSR_FUNC_SIN);
-        cordic_set_precision(CORDIC_CSR_PRECISION_ITER_20);
-        cordic_set_argument_width_16bit();
-        cordic_set_result_width_16bit();
-        cordic_set_number_of_arguments_1();
-        cordic_set_number_of_results_1();
-        /* scale is not applicable for sin  */
+        cordic_configure_for_sin_16bit();
         cordic_write_16bit_arguments((uint16_t) x, 0x7FFF);
 
         /* this while loop can be omitted but that will stall the
@@ -347,6 +435,19 @@ int16_t cordic_sin_16bit(int16_t x) {
         while(!cordic_is_result_ready());
 
         return cordic_read_16bit_result();
+}
+
+/** @brief Compute 16 bit sine using CORDIC (non blocking)
+ *
+ * Convenience function to calculate 32767*sin(x/32767*pi). 
+ * Result can be obtained from result register using cordic_read_16bit_result().
+ * 
+ * @param[in] x argument
+ *
+ */
+void cordic_sin_16bit_async(int16_t x) {
+        cordic_configure_for_sin_16bit();
+        cordic_write_16bit_arguments((uint16_t) x, 0x7FFF);
 }
 
 /** @brief Compute 32 bit sine using CORDIC (blocking)
@@ -361,16 +462,25 @@ int16_t cordic_sin_16bit(int16_t x) {
  *
  */
 int32_t cordic_sin_32bit(int32_t x) {
-        cordic_set_function(CORDIC_CSR_FUNC_SIN);
-        cordic_set_precision(CORDIC_CSR_PRECISION_ITER_28);
-        cordic_set_argument_width_32bit();
-        cordic_set_result_width_32bit();
-        cordic_set_number_of_arguments_1();
-        cordic_set_number_of_results_1();
-        /* scale is not applicable for sin  */
+        cordic_configure_for_sin_32bit();
         cordic_write_32bit_argument((uint32_t) x);
 
+        /* this while loop can be omitted but that will stall the
+        processor while it waits for the CORDIC_RDATA register */
         while(!cordic_is_result_ready());
 
         return cordic_read_32bit_result();
+}
+
+/** @brief Compute 32 bit sine using CORDIC (non blocking)
+ *
+ * Convenience function to calculate 2147483647*sin(x/2147483647*pi). 
+ * Result can be obtained from result register using cordic_read_32bit_result().
+ * 
+ * @param[in] x argument
+ *
+ */
+void cordic_sin_32bit_async(int32_t x) {
+        cordic_configure_for_sin_32bit();
+        cordic_write_32bit_argument((uint32_t) x);
 }

@@ -135,7 +135,9 @@ void cordic_set_number_of_arguments_2(void);
 void cordic_set_number_of_results_1(void);
 void cordic_set_number_of_results_2(void);
 void cordic_enable_dma_write(void);
+void cordic_disable_dma_write(void);
 void cordic_enable_dma_read(void);
+void cordic_disable_dma_read(void);
 void cordic_enable_interrupt(void);
 void cordic_set_scaling_factor(uint8_t n);
 void cordic_set_precision(uint8_t precision);
@@ -146,10 +148,18 @@ void cordic_write_32bit_argument(uint32_t argument);
 uint16_t cordic_read_16bit_result(void);
 void cordic_read_16bit_results(uint16_t *result1, uint16_t *result2);
 uint32_t cordic_read_32bit_result(void);
+void cordic_configure_for_cos_16bit(void);
+void cordic_configure_for_cos_32bit(void);
+void cordic_configure_for_sin_16bit(void);
+void cordic_configure_for_sin_32bit(void);
 int16_t cordic_cos_16bit(int16_t x);
 int32_t cordic_cos_32bit(int32_t x);
 int16_t cordic_sin_16bit(int16_t x);
 int32_t cordic_sin_32bit(int32_t x);
+void cordic_cos_16bit_async(int16_t x);
+void cordic_cos_32bit_async(int32_t x);
+void cordic_sin_16bit_async(int16_t x);
+void cordic_sin_32bit_async(int32_t x);
 END_DECLS
 
 #endif
