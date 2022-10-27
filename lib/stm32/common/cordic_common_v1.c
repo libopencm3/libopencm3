@@ -1,6 +1,7 @@
 /** @addtogroup cordic_file CORDIC peripheral API
 @ingroup peripheral_apis
 
+@brief HW accelerated maths trig/hyperbolic operations.
 @author @htmlonly &copy; @endhtmlonly
 2022 Oskar H. Maier <ohma@posteo.de>
 
