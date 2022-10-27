@@ -160,24 +160,24 @@ void adc_set_regular_sequence(uint32_t adc, uint8_t length, uint8_t channel[])
 
 	/* Setup scandir, if needed, waiting for configuration be applied.. */
 	if (stepdn && (!(ADC_CFGR1(adc) & ADC_CFGR1_SCANDIR))) {
-		ADC_ISR(adc) &= ~ADC_ISR_CCRDY;
+		ADC_ISR(adc) = ADC_ISR_CCRDY;
 		ADC_CFGR1(adc) |= ADC_CFGR1_SCANDIR;
 		while (!(ADC_ISR(adc) & ADC_ISR_CCRDY));
 	} else if (stepup && ((ADC_CFGR1(adc) & ADC_CFGR1_SCANDIR))) {
-		ADC_ISR(adc) &= ~ADC_ISR_CCRDY;
+		ADC_ISR(adc) = ADC_ISR_CCRDY;
 		ADC_CFGR1(adc) &= ~ADC_CFGR1_SCANDIR;
 		while (!(ADC_ISR(adc) & ADC_ISR_CCRDY));
 	}
 
 	/* Setup ADC in simple, not configurable, mode, if needed. */
 	if ((ADC_CFGR1(adc) & ADC_CFGR1_CHSELRMOD)) {
-		ADC_ISR(adc) &= ~ADC_ISR_CCRDY;
+		ADC_ISR(adc) = ADC_ISR_CCRDY;
 		ADC_CFGR1(adc) &= ~ADC_CFGR1_CHSELRMOD;
 		while (!(ADC_ISR(adc) & ADC_ISR_CCRDY));
 	}
 
 	if (ADC_CHSELR(adc) != reg32) {
-		ADC_ISR(adc) &= ~ADC_ISR_CCRDY;
+		ADC_ISR(adc) = ADC_ISR_CCRDY;
 		ADC_CHSELR(adc) = reg32;
 		while (!(ADC_ISR(adc) & ADC_ISR_CCRDY));
 	}
