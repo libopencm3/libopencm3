@@ -32,7 +32,7 @@ TGT_CFLAGS      += $(DEBUG_FLAGS)
 TGT_CFLAGS	+= $(STANDARD_FLAGS)
 ARFLAGS		= rcs
 
-OBJS		+=
+OBJS		+= rcc.o rcc_common_all.o
 
 vpath %.c	../../stm32/f1:../../stm32/common
 VPATH 		+= ../../usb:../../cm3:../../ethernet
