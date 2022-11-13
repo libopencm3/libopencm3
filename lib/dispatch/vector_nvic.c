@@ -23,6 +23,9 @@
 #elif defined(STM32H7)
 #	include "../stm32/h7/vector_nvic.c"
 
+#elif defined(AT32F40X)
+#	include "../at32/f40x/vector_nvic.c"
+
 #elif defined(GD32F1X0)
 #	include "../gd32/f1x0/vector_nvic.c"
 

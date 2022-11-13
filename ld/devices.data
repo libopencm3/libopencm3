@@ -274,6 +274,14 @@ stm32h75[357]?i* stm32h7xxxi RAM=512K RAM2=128K RAM3=128K RAM4=32K RAM5=64K CCM=
 stm32h750?b* stm32h7xxxb RAM=512K RAM2=128K RAM3=128K RAM4=32K RAM5=64K CCM=128K
 
 ################################################################################
+# the AT32 chips
+at32f40[37]??c* at32f40x ROM=256K RAM=96K
+at32f40[37]??e* at32f40x ROM=512K RAM=96K
+at32f40[37]??g* at32f40x ROM=1024K RAM=96K
+at32f405??b* at32f40x ROM=128K RAM=96K
+at32f405??c* at32f40x ROM=256K RAM=96K
+
+################################################################################
 # the SAM3 chips
 
 sam3a4* sam3a ROM=256K RAM=32K RAM1=32K
@@ -598,6 +606,10 @@ stm32g4 END ROM_OFF=0x08000000 RAM_OFF=0x20000000 CPU=cortex-m4 FPU=hard-fpv4-sp
 stm32h7 END ROM_OFF=0x08000000 ROM2_OFF=0x08100000 RAM_OFF=0x24000000 RAM2_OFF=0x30000000 RAM3_OFF=0x30020000 RAM4_OFF=0x30040000 RAM5_OFF=0x38000000 CCM_OFF=0x20000000 CPU=cortex-m7 FPU=hard-fpv5-d16
 stm32w END ROM_OFF=0x08000000 RAM_OFF=0x20000000 CPU=cortex-m3 FPU=soft
 stm32t END ROM_OFF=0x08000000 RAM_OFF=0x20000000 CPU=cortex-m3 FPU=soft
+
+################################################################################
+# the AT32 families
+at32f40x END ROM_OFF=0x08000000 RAM_OFF=0x20000000 CPU=cortex-m4 FPU=hard-fpv4-sp-d16
 
 ################################################################################
 # the SAM3 families
