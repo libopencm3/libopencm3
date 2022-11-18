@@ -130,7 +130,6 @@ void rcc_peripheral_clear_reset(volatile uint32_t *reg, uint32_t clear_reset)
  *
  * For available constants, see #rcc_periph_clken (RCC_UART1 for example)
  */
-
 void rcc_periph_clock_enable(enum rcc_periph_clken clken)
 {
 	_RCC_REG(clken) |= _RCC_BIT(clken);
