@@ -24,7 +24,6 @@
 
 #include <libopencm3/stm32/rcc.h>
 
-/*---------------------------------------------------------------------------*/
 /** @brief RCC Enable Peripheral Clocks.
  *
  * Enable the clock on particular peripherals. There are three registers
@@ -42,13 +41,11 @@
  * @li If register is RCC_APB1ENR, from @ref rcc_apb1enr_en
  * @li If register is RCC_APB2ENR, from @ref rcc_apb2enr_en
  */
-
 void rcc_peripheral_enable_clock(volatile uint32_t *reg, uint32_t en)
 {
 	*reg |= en;
 }
 
-/*---------------------------------------------------------------------------*/
 /** @brief RCC Disable Peripheral Clocks.
  *
  * Disable the clock on particular peripherals. There are three registers
@@ -71,7 +68,6 @@ void rcc_peripheral_disable_clock(volatile uint32_t *reg, uint32_t en)
 	*reg &= ~en;
 }
 
-/*---------------------------------------------------------------------------*/
 /** @brief RCC Reset Peripherals.
  *
  * Reset particular peripherals. There are three registers involved, each one
@@ -94,7 +90,6 @@ void rcc_peripheral_reset(volatile uint32_t *reg, uint32_t reset)
 	*reg |= reset;
 }
 
-/*---------------------------------------------------------------------------*/
 /** @brief RCC Remove Reset on Peripherals.
  *
  * Remove the reset on particular peripherals. There are three registers
@@ -121,7 +116,6 @@ void rcc_peripheral_clear_reset(volatile uint32_t *reg, uint32_t clear_reset)
 #define _RCC_REG(i)		MMIO32(RCC_BASE + ((i) >> 5))
 #define _RCC_BIT(i)		(1 << ((i) & 0x1f))
 
-/*---------------------------------------------------------------------------*/
 /** @brief Enable Peripheral Clock in running mode.
  *
  * Enable the clock on particular peripheral.
@@ -130,13 +124,11 @@ void rcc_peripheral_clear_reset(volatile uint32_t *reg, uint32_t clear_reset)
  *
  * For available constants, see #rcc_periph_clken (RCC_UART1 for example)
  */
-
 void rcc_periph_clock_enable(enum rcc_periph_clken clken)
 {
 	_RCC_REG(clken) |= _RCC_BIT(clken);
 }
 
-/*---------------------------------------------------------------------------*/
 /** @brief Disable Peripheral Clock in running mode.
  * Disable the clock on particular peripheral.
  *
@@ -144,13 +136,11 @@ void rcc_periph_clock_enable(enum rcc_periph_clken clken)
  *
  * For available constants, see #rcc_periph_clken (RCC_UART1 for example)
  */
-
 void rcc_periph_clock_disable(enum rcc_periph_clken clken)
 {
 	_RCC_REG(clken) &= ~_RCC_BIT(clken);
 }
 
-/*---------------------------------------------------------------------------*/
 /** @brief Reset Peripheral, pulsed
  *
  * Reset particular peripheral, and restore to working state.
@@ -159,14 +149,12 @@ void rcc_periph_clock_disable(enum rcc_periph_clken clken)
  *
  * For available constants, see #rcc_periph_rst (RST_UART1 for example)
  */
-
 void rcc_periph_reset_pulse(enum rcc_periph_rst rst)
 {
 	_RCC_REG(rst) |= _RCC_BIT(rst);
 	_RCC_REG(rst) &= ~_RCC_BIT(rst);
 }
 
-/*---------------------------------------------------------------------------*/
 /** @brief Reset Peripheral, hold
  *
  * Reset particular peripheral, and hold in reset state.
@@ -175,13 +163,11 @@ void rcc_periph_reset_pulse(enum rcc_periph_rst rst)
  *
  * For available constants, see #rcc_periph_rst (RST_UART1 for example)
  */
-
 void rcc_periph_reset_hold(enum rcc_periph_rst rst)
 {
 	_RCC_REG(rst) |= _RCC_BIT(rst);
 }
 
-/*---------------------------------------------------------------------------*/
 /** @brief Reset Peripheral, release
  *
  * Restore peripheral from reset state to working state.
@@ -190,7 +176,6 @@ void rcc_periph_reset_hold(enum rcc_periph_rst rst)
  *
  * For available constants, see #rcc_periph_rst (RST_UART1 for example)
  */
-
 void rcc_periph_reset_release(enum rcc_periph_rst rst)
 {
 	_RCC_REG(rst) &= ~_RCC_BIT(rst);
@@ -203,7 +188,6 @@ void rcc_periph_reset_release(enum rcc_periph_rst rst)
  *
  * @param[in] mcosrc the unshifted source bits
  */
-
 void rcc_set_mco(uint32_t mcosrc)
 {
 	RCC_CFGR = (RCC_CFGR & ~(RCC_CFGR_MCO_MASK << RCC_CFGR_MCO_SHIFT)) |
