@@ -32,12 +32,23 @@ TGT_CFLAGS      += $(DEBUG_FLAGS)
 TGT_CFLAGS	+= $(STANDARD_FLAGS)
 ARFLAGS		= rcs
 
+OBJS		+= adc.o adc_common_v1.o
+OBJS		+= can.o
+OBJS		+= dac_common_all.o dac_common_v1.o
+OBJS		+= desig_common_all.o desig_common_v1.o
 OBJS		+= dma.o dma_common_l1f013.o
+OBJS		+= exti_common_all.o
 OBJS		+= gpio.o gpio_common_all.o
+OBJS		+= i2c_common_v1.o
+OBJS		+= iwdg_common_all.o
+OBJS		+= pwr_common_v1.o
 OBJS		+= rcc.o rcc_common_all.o
+OBJS		+= rtc.o
+OBJS		+= spi_common_all.o spi_common_v1.o
 OBJS		+= timer.o timer_common_all.o
+OBJS		+= usart_common_all.o usart_common_f124.o
 
-vpath %.c	../../stm32/f1:../../stm32/common
+vpath %.c	../../stm32/f1:../../stm32/common:../../stm32
 VPATH 		+= ../../usb:../../cm3:../../ethernet
 
 include ../../Makefile.include

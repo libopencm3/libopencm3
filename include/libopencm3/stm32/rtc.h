@@ -38,6 +38,8 @@
 #       include <libopencm3/stm32/l4/rtc.h>
 #elif defined(STM32H7)
 #       include <libopencm3/stm32/h7/rtc.h>
+#elif defined(AT32F40X)
+#       include <libopencm3/at32/f40x/rtc.h>
 #else
 #       error "stm32 family not defined."
 #endif
