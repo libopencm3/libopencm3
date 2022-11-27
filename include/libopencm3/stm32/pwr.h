@@ -44,6 +44,8 @@
 #       include <libopencm3/stm32/g4/pwr.h>
 #elif defined(STM32H7)
 #       include <libopencm3/stm32/h7/pwr.h>
+#elif defined(AT32F40X)
+#       include <libopencm3/at32/f40x/pwr.h>
 #else
 #       error "stm32 family not defined."
 #endif

@@ -42,6 +42,8 @@
 #       include <libopencm3/stm32/g0/i2c.h>
 #elif defined(STM32G4)
 #       include <libopencm3/stm32/g4/i2c.h>
+#elif defined(AT32F40X)
+#       include <libopencm3/at32/f40x/i2c.h>
 #else
 #       error "stm32 family not defined."
 #endif
