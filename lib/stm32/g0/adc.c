@@ -69,7 +69,7 @@ void adc_set_sample_time_on_all_channels(uint32_t adc, uint8_t time)
 
 	reg32 = ADC_SMPR1(adc);
 	/* set all channels on ADC_SMPR_SMPSEL_SMP1 first @ref adc_smpr_smpsel sample time selection, and clear its value */
-	reg32 &= ~((ADC_SMPR_SMPSEL_MASK << ADC_SMPR_SMP1_SHIFT) | (ADC_SMPR_SMP1_MASK << ADC_SMPR_SMP1_SHIFT));
+	reg32 &= ~((ADC_SMPR_SMPSEL_MASK << ADC_SMPR_SMPSEL_SHIFT) | (ADC_SMPR_SMP1_MASK << ADC_SMPR_SMP1_SHIFT));
 	/* setup ADC_SMPR_SMPSEL_SMP1 sample time */
 	reg32 |= (time << ADC_SMPR_SMP1_SHIFT);
 	ADC_SMPR1(adc) = reg32;
