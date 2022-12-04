@@ -48,6 +48,11 @@ OBJS		+= spi_common_all.o spi_common_v1.o
 OBJS		+= timer.o timer_common_all.o
 OBJS		+= usart_common_all.o usart_common_f124.o
 
+OBJS		+= usb.o usb_control.o usb_standard.o usb_msc.o
+OBJS		+= usb_hid.o
+OBJS		+= usb_audio.o usb_cdc.o usb_midi.o
+OBJS		+= st_usbfs_core.o st_usbfs_v1.o
+
 vpath %.c	../../stm32/f1:../../stm32/common:../../stm32
 VPATH 		+= ../../usb:../../cm3:../../ethernet
 
