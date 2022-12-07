@@ -745,6 +745,41 @@ void rcc_backupdomain_reset(void)
 }
 
 /*---------------------------------------------------------------------------*/
+/** @brief Select alternate USBFS packet buffer
+*/
+
+void rcc_usb_alt_pma_enable(void)
+{
+	RCC_CFGR3 |= RCC_CFGR3_USBBUFSZ;
+}
+
+/*---------------------------------------------------------------------------*/
+/** @brief Select primary USBFS packet buffer
+*/
+
+void rcc_usb_alt_pma_disable(void)
+{
+	RCC_CFGR3 &= ~RCC_CFGR3_USBBUFSZ;
+}
+
+/*---------------------------------------------------------------------------*/
+/** @brief Select alternate USBFS interrupt vector
+*/
+
+void rcc_usb_alt_isr_enable(void)
+{
+	RCC_CFGR6 |= RCC_CFGR6_USBFS_INTMAP;
+}
+
+/** @brief Select primary USBFS interrupt vectors
+*/
+
+void rcc_usb_alt_isr_disable(void)
+{
+	RCC_CFGR6 &= ~RCC_CFGR6_USBFS_INTMAP;
+}
+
+/*---------------------------------------------------------------------------*/
 /** @brief Get the peripheral clock speed for the USART at base specified.
  * @param usart Base address of USART to get clock frequency for.
  */
