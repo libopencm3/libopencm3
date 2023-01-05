@@ -41,6 +41,8 @@ ifeq ($(genlink_fpu),soft)
 ARCH_FLAGS	+= -msoft-float
 else ifeq ($(genlink_fpu),hard-fpv4-sp-d16)
 ARCH_FLAGS	+= -mfloat-abi=hard -mfpu=fpv4-sp-d16
+else ifeq ($(genlink_fpu),hard-fpv5-d16)
+ARCH_FLAGS      += -mfloat-abi=hard -mfpu=fpv5-d16
 else ifeq ($(genlink_fpu),hard-fpv5-sp-d16)
 ARCH_FLAGS      += -mfloat-abi=hard -mfpu=fpv5-sp-d16
 else
