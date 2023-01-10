@@ -32,14 +32,16 @@ static struct {
 		uint16_t r_mhz;
 	} pll1, pll2, pll3;
 	uint16_t hse_khz;			/* This can't exceed 50MHz */
-} rcc_clock_tree = {
-	.sysclk_mhz = RCC_HSI_BASE_FREQUENCY / HZ_PER_MHZ,
-	.cpu_mhz = RCC_HSI_BASE_FREQUENCY / HZ_PER_MHZ,
-	.hclk_mhz = RCC_HSI_BASE_FREQUENCY / HZ_PER_MHZ,
-	.per.pclk1_mhz = RCC_HSI_BASE_FREQUENCY / HZ_PER_MHZ,
-	.per.pclk2_mhz = RCC_HSI_BASE_FREQUENCY / HZ_PER_MHZ,
-	.per.pclk3_mhz = RCC_HSI_BASE_FREQUENCY / HZ_PER_MHZ,
-	.per.pclk4_mhz = RCC_HSI_BASE_FREQUENCY / HZ_PER_MHZ
+} rcc_clock_tree;
+
+void rcc_init(void) {
+	rcc_clock_tree.sysclk_mhz = RCC_HSI_BASE_FREQUENCY / HZ_PER_MHZ;
+	rcc_clock_tree.cpu_mhz = RCC_HSI_BASE_FREQUENCY / HZ_PER_MHZ;
+	rcc_clock_tree.hclk_mhz = RCC_HSI_BASE_FREQUENCY / HZ_PER_MHZ;
+	rcc_clock_tree.per.pclk1_mhz = RCC_HSI_BASE_FREQUENCY / HZ_PER_MHZ;
+	rcc_clock_tree.per.pclk2_mhz = RCC_HSI_BASE_FREQUENCY / HZ_PER_MHZ;
+	rcc_clock_tree.per.pclk3_mhz = RCC_HSI_BASE_FREQUENCY / HZ_PER_MHZ;
+	rcc_clock_tree.per.pclk4_mhz = RCC_HSI_BASE_FREQUENCY / HZ_PER_MHZ;
 };
 
 static void rcc_configure_pll(uint32_t clkin, const struct pll_config *config, int pll_num) {

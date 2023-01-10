@@ -708,6 +708,8 @@ enum rcc_periph_rst {
 
 BEGIN_DECLS
 
+void rcc_init(void);
+
 /**
  * Setup the base PLLs and clock domains for the STM32H7. This function will
  * utilize the users input parameters to configure all 3 PLLs, as well as the
