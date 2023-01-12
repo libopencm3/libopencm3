@@ -52,7 +52,7 @@ usart_reg_base
 
 void usart_set_baudrate(uint32_t usart, uint32_t baud)
 {
-	uint32_t clock = rcc_apb1_frequency;
+	uint32_t clock = rcc_get_usart_clk_freq(usart);
 
 #if defined USART1
 	if ((usart == USART1)
