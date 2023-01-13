@@ -443,38 +443,48 @@
 #define RCC_CCIPR_LPTIM1SEL_SHIFT	18
 #define RCC_CCIPR_LPTIM1SEL_MASK	0x3
 
-#define RCC_CCIPR_I2C3SEL_APB		0
-#define RCC_CCIPR_I2C3SEL_SYS		1
-#define RCC_CCIPR_I2C3SEL_HSI16		2
+/** @defgroup rcc_ccipr_i2c_clksel I2C Clock source selections
+ * @{
+ */
+#define RCC_CCIPR_I2CxSEL_PCLK		0
+#define RCC_CCIPR_I2CxSEL_SYSCLK	1
+#define RCC_CCIPR_I2CxSEL_HSI		2
+/**@}*/
+#define RCC_CCIPR_I2CxSEL_MASK		0x3
+
+/** @defgroup rcc_ccipr_i2c_choices I2C for clock source selecting
+ * @note This is only used internally.
+ * @{
+ */
 #define RCC_CCIPR_I2C3SEL_SHIFT		16
-#define RCC_CCIPR_I2C3SEL_MASK		0x3
-
-#define RCC_CCIPR_I2C1SEL_APB		0
-#define RCC_CCIPR_I2C1SEL_SYS		1
-#define RCC_CCIPR_I2C1SEL_HSI16		2
 #define RCC_CCIPR_I2C1SEL_SHIFT		12
-#define RCC_CCIPR_I2C1SEL_MASK		0x3
+/**@}*/
 
-#define RCC_CCIPR_LPUART1SEL_APB	0
-#define RCC_CCIPR_LPUART1SEL_SYS	1
-#define RCC_CCIPR_LPUART1SEL_HSI16	2
-#define RCC_CCIPR_LPUART1SEL_LSE	3
+/** @defgroup rcc_ccipr_uart_clksel UART Clock source selections
+ * @{
+ */
+#define RCC_CCIPR_USARTxSEL_PCLK		0
+#define RCC_CCIPR_USARTxSEL_SYSCLK		1
+#define RCC_CCIPR_USARTxSEL_HSI			2
+#define RCC_CCIPR_USARTxSEL_LSE			3
+/**@}*/
+
+#define RCC_CCIPR_LPUARTxSEL_PCLK		RCC_CCIPR_USARTxSEL_PCLK
+#define RCC_CCIPR_LPUARTxSEL_SYSCK		RCC_CCIPR_USARTxSEL_SYSCLK
+#define RCC_CCIPR_LPUARTxSEL_HSI		RCC_CCIPR_USARTxSEL_HSI
+#define RCC_CCIPR_LPUARTxSEL_LSE		RCC_CCIPR_USARTxSEL_LSE
+
+#define RCC_CCIPR_LPUARTxSEL_MASK		0x3
+#define RCC_CCIPR_USARTxSEL_MASK		RCC_CCIPR_LPUARTxSEL_MASK
+
+/** @defgroup rcc_ccipr_uart_choices UART for clock source selecting
+ * @note This is only used internally.
+ * @{
+ */
 #define RCC_CCIPR_LPUART1SEL_SHIFT	10
-#define RCC_CCIPR_LPUART1SEL_MASK	0x3
-
-#define RCC_CCIPR_USART2SEL_APB		0
-#define RCC_CCIPR_USART2SEL_SYS		1
-#define RCC_CCIPR_USART2SEL_HSI16	2
-#define RCC_CCIPR_USART2SEL_LSE		3
 #define RCC_CCIPR_USART2SEL_SHIFT	2
-#define RCC_CCIPR_USART2SEL_MASK	0x3
-
-#define RCC_CCIPR_USART1SEL_APB		0
-#define RCC_CCIPR_USART1SEL_SYS		1
-#define RCC_CCIPR_USART1SEL_HSI16	2
-#define RCC_CCIPR_USART1SEL_LSE		3
 #define RCC_CCIPR_USART1SEL_SHIFT	0
-#define RCC_CCIPR_USART1SEL_MASK	0x3
+/**@}*/
 
 /* --- RCC_CSRT - Control/Status register */
 

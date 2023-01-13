@@ -537,23 +537,25 @@
 #define RCC_CCIPR_I2S1SEL_I2S_CKIN		3
 /**@}*/
 
-#define RCC_CCIPR_I2C1SEL_MASK		0x3
+#define RCC_CCIPR_I2CxSEL_MASK		0x3
 #define RCC_CCIPR_I2C1SEL_SHIFT		12
+#define RCC_CCIPR_I2C2SEL_SHIFT		14
 /** @defgroup rcc_ccipr_i2c1sel I2C1SEL I2C1 Clock source selection
 @{*/
-#define RCC_CCIPR_I2C1SEL_PCLK			0
-#define RCC_CCIPR_I2C1SEL_SYSCLK		1
-#define RCC_CCIPR_I2C1SEL_HSI16			2
+#define RCC_CCIPR_I2CxSEL_PCLK			0
+#define RCC_CCIPR_I2CxSEL_SYSCLK		1
+#define RCC_CCIPR_I2CxSEL_HSI16			2
 /**@}*/
 
-#define RCC_CCIPR_LPUART1SEL_MASK		0x3
+#define RCC_CCIPR_LPUARTxSEL_MASK		0x3
 #define RCC_CCIPR_LPUART1SEL_SHIFT		10
-/** @defgroup rcc_ccipr_lpuart1sel LPUART1SEL LPUART1 Clock source selection
+#define RCC_CCIPR_LPUART2SEL_SHIFT		8
+/** @defgroup rcc_ccipr_lpuartxsel LPUARTxSEL LPUART1 Clock source selection
 @{*/
-#define RCC_CCIPR_LPUART1SEL_PCLK			0
-#define RCC_CCIPR_LPUART1SEL_SYSCLK			1
-#define RCC_CCIPR_LPUART1SEL_HSI16			2
-#define RCC_CCIPR_LPUART1SEL_LSE			3
+#define RCC_CCIPR_LPUARTxSEL_PCLK			0
+#define RCC_CCIPR_LPUARTxSEL_SYSCLK			1
+#define RCC_CCIPR_LPUARTxSEL_HSI16			2
+#define RCC_CCIPR_LPUARTxSEL_LSE			3
 /**@}*/
 
 #define RCC_CCIPR_CECSEL_MASK			0x1
@@ -564,25 +566,18 @@
 #define RCC_CCIPR_CECSEL_LSE			1
 /**@}*/
 
-#define RCC_CCIPR_USART2SEL_MASK		0x3
+#define RCC_CCIPR_USARTxSEL_MASK		RCC_CCIPR_LPUARTxSEL_MASK
+#define RCC_CCIPR_USART3SEL_SHIFT		4
 #define RCC_CCIPR_USART2SEL_SHIFT		2
-/** @defgroup rcc_ccipr_usart2sel USART2SEL USART2 Clock source selection
+#define RCC_CCIPR_USART1SEL_SHIFT		0
+/** @defgroup rcc_ccipr_usartxsel USARTxSEL USARTx Clock source selection
 @{*/
-#define RCC_CCIPR_USART2SEL_PCLK		0
-#define RCC_CCIPR_USART2SEL_SYSCLK		1
-#define RCC_CCIPR_USART2SEL_HSI16		2
-#define RCC_CCIPR_USART2SEL_LSE			3
+#define RCC_CCIPR_USARTxSEL_PCLK		RCC_CCIPR_LPUARTxSEL_PCLK
+#define RCC_CCIPR_USARTxSEL_SYSCLK		RCC_CCIPR_LPUARTxSEL_SYSCLK
+#define RCC_CCIPR_USARTxSEL_HSI16		RCC_CCIPR_LPUARTxSEL_HSI16
+#define RCC_CCIPR_USARTxSEL_LSE			RCC_CCIPR_LPUARTxSEL_LSE
 /**@}*/
 
-#define RCC_CCIPR_USART1SEL_MASK		0x3
-#define RCC_CCIPR_USART1SEL_SHIFT		0
-/** @defgroup rcc_ccipr_usart1sel USART1SEL USART1 Clock source selection
-@{*/
-#define RCC_CCIPR_USART1SEL_PCLK		0
-#define RCC_CCIPR_USART1SEL_SYSCLK		1
-#define RCC_CCIPR_USART1SEL_HSI16		2
-#define RCC_CCIPR_USART1SEL_LSE			3
-/**@}*/
 /**@}*/
 
 /** @defgroup rcc_bdcr BDCR Backup Domain Control Register

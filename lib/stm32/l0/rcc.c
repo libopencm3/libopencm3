@@ -420,7 +420,7 @@ void rcc_set_lptim1_sel(uint32_t lptim1_sel)
  */
 void rcc_set_lpuart1_sel(uint32_t lpuart1_sel)
 {
-	RCC_CCIPR &= ~(RCC_CCIPR_LPUART1SEL_MASK << RCC_CCIPR_LPTIM1SEL_SHIFT);
+	RCC_CCIPR &= ~(RCC_CCIPR_LPUARTxSEL_MASK << RCC_CCIPR_LPTIM1SEL_SHIFT);
 	RCC_CCIPR |= (lpuart1_sel << RCC_CCIPR_LPTIM1SEL_SHIFT);
 }
 
@@ -431,7 +431,7 @@ void rcc_set_lpuart1_sel(uint32_t lpuart1_sel)
  */
 void rcc_set_usart1_sel(uint32_t usart1_sel)
 {
-	RCC_CCIPR &= ~(RCC_CCIPR_USART1SEL_MASK << RCC_CCIPR_USART1SEL_SHIFT);
+	RCC_CCIPR &= ~(RCC_CCIPR_USARTxSEL_MASK << RCC_CCIPR_USART1SEL_SHIFT);
 	RCC_CCIPR |= (usart1_sel << RCC_CCIPR_USART1SEL_SHIFT);
 }
 
@@ -442,7 +442,7 @@ void rcc_set_usart1_sel(uint32_t usart1_sel)
  */
 void rcc_set_usart2_sel(uint32_t usart2_sel)
 {
-	RCC_CCIPR &= ~(RCC_CCIPR_USART2SEL_MASK << RCC_CCIPR_USART2SEL_SHIFT);
+	RCC_CCIPR &= ~(RCC_CCIPR_USARTxSEL_MASK << RCC_CCIPR_USART2SEL_SHIFT);
 	RCC_CCIPR |= (usart2_sel << RCC_CCIPR_USART2SEL_SHIFT);
 }
 
@@ -464,27 +464,27 @@ void rcc_set_peripheral_clk_sel(uint32_t periph, uint32_t sel)
 
 		case I2C3_BASE:
 			shift = RCC_CCIPR_I2C3SEL_SHIFT;
-			mask = RCC_CCIPR_I2C3SEL_MASK;
+			mask = RCC_CCIPR_I2CxSEL_MASK;
 			break;
 
 		case I2C1_BASE:
 			shift = RCC_CCIPR_I2C1SEL_SHIFT;
-			mask = RCC_CCIPR_I2C1SEL_MASK;
+			mask = RCC_CCIPR_I2CxSEL_MASK;
 			break;
 
 		case LPUART1_BASE:
 			shift = RCC_CCIPR_LPUART1SEL_SHIFT;
-			mask = RCC_CCIPR_LPUART1SEL_MASK;
+			mask = RCC_CCIPR_LPUARTxSEL_MASK;
 			break;
 
 		case USART2_BASE:
 			shift = RCC_CCIPR_USART2SEL_SHIFT;
-			mask = RCC_CCIPR_USART2SEL_MASK;
+			mask = RCC_CCIPR_USARTxSEL_MASK;
 			break;
 
 		case USART1_BASE:
 			shift = RCC_CCIPR_USART1SEL_SHIFT;
-			mask = RCC_CCIPR_USART1SEL_MASK;
+			mask = RCC_CCIPR_USARTxSEL_MASK;
 			break;
 
 		default:
@@ -498,14 +498,14 @@ void rcc_set_peripheral_clk_sel(uint32_t periph, uint32_t sel)
 
 /* Helper to calculate the frequency of a clksel based clock. */
 static uint32_t rcc_uart_i2c_clksel_freq_hz(uint32_t apb_clk, uint8_t shift) {
-	uint8_t clksel = (RCC_CCIPR >> shift) & RCC_CCIPR_I2C1SEL_MASK;
+	uint8_t clksel = (RCC_CCIPR >> shift) & RCC_CCIPR_I2CxSEL_MASK;
 	uint8_t hpre = (RCC_CFGR >> RCC_CFGR_HPRE_SHIFT) & RCC_CFGR_HPRE_MASK;
 	switch (clksel) {
-		case RCC_CCIPR_USART1SEL_APB:
+		case RCC_CCIPR_USARTxSEL_PCLK:
 			return apb_clk;
-		case RCC_CCIPR_USART1SEL_SYS:
+		case RCC_CCIPR_USARTxSEL_SYSCLK:
 			return rcc_ahb_frequency * rcc_get_div_from_hpre(hpre);
-		case RCC_CCIPR_USART1SEL_HSI16:
+		case RCC_CCIPR_USARTxSEL_HSI:
 			return 16000000U;
 	}
 	cm3_assert_not_reached();
@@ -520,9 +520,9 @@ uint32_t rcc_get_usart_clk_freq(uint32_t usart)
 	if (usart == LPUART1_BASE) {
 		return rcc_uart_i2c_clksel_freq_hz(rcc_apb1_frequency, RCC_CCIPR_LPUART1SEL_SHIFT);
 	} else if (usart == USART1_BASE) {
-			return rcc_uart_i2c_clksel_freq_hz(rcc_apb2_frequency, RCC_CCIPR_USART1SEL_SHIFT);
+		return rcc_uart_i2c_clksel_freq_hz(rcc_apb2_frequency, RCC_CCIPR_USART1SEL_SHIFT);
 	} else {
-			return rcc_uart_i2c_clksel_freq_hz(rcc_apb1_frequency, RCC_CCIPR_USART2SEL_SHIFT);
+		return rcc_uart_i2c_clksel_freq_hz(rcc_apb1_frequency, RCC_CCIPR_USART2SEL_SHIFT);
 	}
 }
 

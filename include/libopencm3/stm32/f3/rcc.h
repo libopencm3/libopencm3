@@ -405,36 +405,25 @@
 #define RCC_CFGR3_TIM1SW			(1 << 8)
 #define RCC_CFGR3_I2C2SW			(1 << 5)
 #define RCC_CFGR3_I2C1SW			(1 << 4)
-/* UART5SW: UART5 clock source selection */
+/** @defgroup rcc_cfgr3_uart_choices UART for clock sour selecting
+ * @{
+ */
 #define RCC_CFGR3_UART5SW_SHIFT			22
-#define RCC_CFGR3_UART5SW_PCLK			0x0
-#define RCC_CFGR3_UART5SW_SYSCLK		0x1
-#define RCC_CFGR3_UART5SW_LSE			0x2
-#define RCC_CFGR3_UART5SW_HSI			0x3
-/* UART4SW: UART4 clock source selection */
 #define RCC_CFGR3_UART4SW_SHIFT			20
-#define RCC_CFGR3_UART4SW_PCLK			0x0
-#define RCC_CFGR3_UART4SW_SYSCLK		0x1
-#define RCC_CFGR3_UART4SW_LSE			0x2
-#define RCC_CFGR3_UART4SW_HSI			0x3
-/* UART3SW: UART3 clock source selection */
 #define RCC_CFGR3_UART3SW_SHIFT			18
-#define RCC_CFGR3_UART3SW_PCLK			0x0
-#define RCC_CFGR3_UART3SW_SYSCLK		0x1
-#define RCC_CFGR3_UART3SW_LSE			0x2
-#define RCC_CFGR3_UART3SW_HSI			0x3
-/* UART2SW: UART2 clock source selection */
 #define RCC_CFGR3_UART2SW_SHIFT			16
-#define RCC_CFGR3_UART2SW_PCLK			0x0
-#define RCC_CFGR3_UART2SW_SYSCLK		0x1
-#define RCC_CFGR3_UART2SW_LSE			0x2
-#define RCC_CFGR3_UART2SW_HSI			0x3
-/* UART1SW: UART1 clock source selection */
 #define RCC_CFGR3_UART1SW_SHIFT			0
-#define RCC_CFGR3_UART1SW_PCLK			0x0
-#define RCC_CFGR3_UART1SW_SYSCLK		0x1
-#define RCC_CFGR3_UART1SW_LSE			0x2
-#define RCC_CFGR3_UART1SW_HSI			0x3
+/**@}*/
+
+/** @defgroup rcc_cfgr3_uart_clksel UART Clock source selections
+ * @note This is only used internally.
+ * @{
+ */
+#define RCC_CFGR3_UARTxSW_PCLK			0x0
+#define RCC_CFGR3_UARTxSW_SYSCLK		0x1
+#define RCC_CFGR3_UARTxSW_LSE			0x2
+#define RCC_CFGR3_UARTxSW_HSI			0x3
+/**@}*/
 
 /* Shared mask for UART clock source. */
 #define RCC_CFGR3_UARTxSW_MASK			0x3

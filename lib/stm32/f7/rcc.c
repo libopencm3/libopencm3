@@ -485,18 +485,20 @@ void rcc_clock_setup_hsi(const struct rcc_clock_scale *clock)
 }
 
 static uint32_t rcc_usart_i2c_clksel_freq(uint32_t apb_clk, uint8_t shift) {
-	uint8_t clksel = (RCC_DCKCFGR2 >> shift) & RCC_DCKCFGR2_UART1SEL_MASK;
+	uint8_t clksel = (RCC_DCKCFGR2 >> shift) & RCC_DCKCFGR2_UARTxSEL_MASK;
 	uint8_t hpre = (RCC_CFGR >> RCC_CFGR_HPRE_SHIFT) & RCC_CFGR_HPRE_MASK;
 	switch (clksel) {
-		case RCC_DCKCFGR2_UARTxSEL_PCLK:
-			return apb_clk;
-		case RCC_DCKCFGR2_UARTxSEL_SYSCLK:
-			return rcc_ahb_frequency * rcc_get_div_from_hpre(hpre);
-		case RCC_DCKCFGR2_UARTxSEL_HSI:
-			return 16000000U;
-		default:
-			cm3_assert_not_reached();
+	case RCC_DCKCFGR2_UARTxSEL_PCLK:
+		return apb_clk;
+	case RCC_DCKCFGR2_UARTxSEL_SYSCLK:
+		return rcc_ahb_frequency * rcc_get_div_from_hpre(hpre);
+	/* This case is only valid for uarts, not for i2c! */
+	case RCC_DCKCFGR2_UARTxSEL_LSE:
+		return 32768;
+	case RCC_DCKCFGR2_UARTxSEL_HSI:
+		return 16000000U;
 	}
+	cm3_assert_not_reached();
 }
 
 /*---------------------------------------------------------------------------*/
