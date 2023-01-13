@@ -56,53 +56,6 @@ LSB first.
 
 /**@{*/
 
-/*---------------------------------------------------------------------------*/
-/** @brief SPI Reset.
-
-The SPI peripheral and all its associated configuration registers are placed in
-the reset condition. The reset is effected via the RCC peripheral reset system.
-
-@param[in] spi_peripheral Unsigned int32. SPI peripheral identifier @ref
-spi_reg_base.
-*/
-
-void spi_reset(uint32_t spi_peripheral)
-{	switch (spi_peripheral) {
-#if defined(SPI1_BASE)
-	case SPI1_BASE:
-		rcc_periph_reset_pulse(RST_SPI1);
-		break;
-#endif
-#if defined(SPI2_BASE)
-	case SPI2_BASE:
-		rcc_periph_reset_pulse(RST_SPI2);
-		break;
-#endif
-#if defined(SPI3_BASE)
-	case SPI3_BASE:
-		rcc_periph_reset_pulse(RST_SPI3);
-		break;
-#endif
-#if defined(SPI4_BASE)
-	case SPI4_BASE:
-		rcc_periph_reset_pulse(RST_SPI4);
-		break;
-#endif
-#if defined(SPI5_BASE)
-	case SPI5_BASE:
-		rcc_periph_reset_pulse(RST_SPI5);
-		break;
-#endif
-#if defined(SPI6_BASE)
-	case SPI6_BASE:
-		rcc_periph_reset_pulse(RST_SPI6);
-		break;
-#endif
-	default:
-		break;
-	}
-}
-
 /* TODO: Error handling? */
 /*---------------------------------------------------------------------------*/
 /** @brief SPI Enable.
