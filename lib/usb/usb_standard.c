@@ -193,7 +193,7 @@ usb_standard_get_descriptor(usbd_device *usbd_dev,
 				sd->wData[i] =
 					usbd_dev->extra_string[i];
 			}
-        } else {
+		} else {
 			array_idx = descr_idx - 1;
 
 			if (!usbd_dev->strings) {
