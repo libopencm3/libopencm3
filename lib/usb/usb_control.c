@@ -156,8 +156,7 @@ usb_control_request_dispatch(usbd_device *usbd_dev,
 					  &(usbd_dev->control_state.ctrl_buf),
 					  &(usbd_dev->control_state.ctrl_len),
 					  &(usbd_dev->control_state.complete));
-			if (result == USBD_REQ_HANDLED ||
-			    result == USBD_REQ_NOTSUPP) {
+			if (result != USBD_REQ_NEXT_CALLBACK) {
 				return result;
 			}
 		}
