@@ -459,25 +459,25 @@
 #define ADC_CSR_ADRDY_MST		(1 << 0)
 
 
-/*-------- ADC_CCR values ------------*/
+/** @addtogroup adc_ccr
+@{*/
 
-/* Bits 21:18 PRESC[21:18]: ADC Prescaler */
 #define ADC_CCR_PRESC_MASK		(0xf)
 #define ADC_CCR_PRESC_SHIFT		(18)
 /** @defgroup adc_ccr_presc ADC clock prescaler
  *@{*/
-#define ADC_CCR_PRESC_NODIV		(0x0 << ADC_CCR_PRESC_SHIFT)
-#define ADC_CCR_PRESC_DIV1		(0x1 << ADC_CCR_PRESC_SHIFT)
-#define ADC_CCR_PRESC_DIV2		(0x2 << ADC_CCR_PRESC_SHIFT)
-#define ADC_CCR_PRESC_DIV6		(0x3 << ADC_CCR_PRESC_SHIFT)
-#define ADC_CCR_PRESC_DIV8		(0x4 << ADC_CCR_PRESC_SHIFT)
-#define ADC_CCR_PRESC_DIV10		(0x5 << ADC_CCR_PRESC_SHIFT)
-#define ADC_CCR_PRESC_DIV12		(0x6 << ADC_CCR_PRESC_SHIFT)
-#define ADC_CCR_PRESC_DIV16		(0x7 << ADC_CCR_PRESC_SHIFT)
-#define ADC_CCR_PRESC_DIV32		(0x8 << ADC_CCR_PRESC_SHIFT)
-#define ADC_CCR_PRESC_DIV64		(0x9 << ADC_CCR_PRESC_SHIFT)
-#define ADC_CCR_PRESC_DIV128		(0x10 << ADC_CCR_PRESC_SHIFT)
-#define ADC_CCR_PRESC_DIV256		(0x11 << ADC_CCR_PRESC_SHIFT)
+#define ADC_CCR_PRESC_NODIV		(0x0)
+#define ADC_CCR_PRESC_DIV2		(0x1)
+#define ADC_CCR_PRESC_DIV4		(0x2)
+#define ADC_CCR_PRESC_DIV6		(0x3)
+#define ADC_CCR_PRESC_DIV8		(0x4)
+#define ADC_CCR_PRESC_DIV10		(0x5)
+#define ADC_CCR_PRESC_DIV12		(0x6)
+#define ADC_CCR_PRESC_DIV16		(0x7)
+#define ADC_CCR_PRESC_DIV32		(0x8)
+#define ADC_CCR_PRESC_DIV64		(0x9)
+#define ADC_CCR_PRESC_DIV128		(0xa)
+#define ADC_CCR_PRESC_DIV256		(0xb)
 /**@}*/
 
 /* CKMODE[1:0]: ADC clock mode */
@@ -499,6 +499,8 @@
 
 /* DELAY: Delay between 2 sampling phases */
 #define ADC_CCR_DELAY_SHIFT		8
+
+/**@}*/
 
 /* DUAL[4:0]: Dual ADC mode selection */
 /****************************************************************************/
@@ -594,7 +596,7 @@ bool adc_eos_injected(uint32_t adc);
 uint32_t adc_read_injected(uint32_t adc, uint8_t reg);
 void adc_set_injected_offset(uint32_t adc, uint8_t reg, uint32_t offset);
 void adc_set_clk_source(uint32_t adc, uint32_t source);
-void adc_set_clk_prescale(uint32_t adc, uint32_t prescaler);
+void adc_set_clk_prescale(uint32_t adc, uint32_t prescale);
 void adc_set_multi_mode(uint32_t adc, uint32_t mode);
 void adc_enable_external_trigger_regular(uint32_t adc, uint32_t trigger,
 					 uint32_t polarity);

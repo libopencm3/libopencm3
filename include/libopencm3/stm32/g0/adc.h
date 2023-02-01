@@ -95,8 +95,8 @@
 /** @defgroup adc_ccr_presc ADC clock prescaler
  *@{*/
 #define ADC_CCR_PRESC_NODIV		(0x0)
-#define ADC_CCR_PRESC_DIV1		(0x1)
-#define ADC_CCR_PRESC_DIV2		(0x2)
+#define ADC_CCR_PRESC_DIV2		(0x1)
+#define ADC_CCR_PRESC_DIV4		(0x2)
 #define ADC_CCR_PRESC_DIV6		(0x3)
 #define ADC_CCR_PRESC_DIV8		(0x4)
 #define ADC_CCR_PRESC_DIV10		(0x5)
@@ -104,8 +104,8 @@
 #define ADC_CCR_PRESC_DIV16		(0x7)
 #define ADC_CCR_PRESC_DIV32		(0x8)
 #define ADC_CCR_PRESC_DIV64		(0x9)
-#define ADC_CCR_PRESC_DIV128	(0x10)
-#define ADC_CCR_PRESC_DIV256	(0x11)
+#define ADC_CCR_PRESC_DIV128	(0xa)
+#define ADC_CCR_PRESC_DIV256	(0xb)
 /**@}*/
 
 /**@}*/
