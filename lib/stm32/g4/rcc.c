@@ -759,8 +759,8 @@ void rcc_clock_setup_hse_3v3(const struct rcc_clock_scale *clock)
  */
 void rcc_set_clock48_source(uint32_t clksel)
 {
-	RCC_CCIPR &= ~(RCC_CCIPR_SEL_MASK << RCC_CCIPR_CLK48_SHIFT);
-	RCC_CCIPR |= (clksel << RCC_CCIPR_CLK48_SHIFT);
+	RCC_CCIPR &= ~(RCC_CCIPR_SEL_MASK << RCC_CCIPR_CLK48SEL_SHIFT);
+	RCC_CCIPR |= (clksel << RCC_CCIPR_CLK48SEL_SHIFT);
 }
 
 /**@}*/
