@@ -64,9 +64,6 @@
 
 /** ADC_CALFACT Calibration factor register */
 #define ADC_CALFACT(adc)	MMIO32((adc) + 0xB4)
-
-/** ADC_OR Option register */
-#define ADC_OR(adc)			MMIO32((adc) + 0xD0)
 /**@}*/
 
 /* --- Register values -------------------------------------------------------*/
