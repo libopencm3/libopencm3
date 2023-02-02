@@ -1,8 +1,7 @@
-/** @defgroup comp_file COMP
+/** @addtogroup comp_file COMP peripheral API
+ * @ingroup peripheral_apis
  *
- * @ingroup STM32F0xx
- *
- * @brief <b>libopencm3 STM32F0xx COMP</b>
+ * @brief <b>STM32F0xx comparator peripheral</b>
  *
  * @version 1.0.0
  *
