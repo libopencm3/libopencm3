@@ -78,8 +78,7 @@
 
 /* EXTSEL[2:0]: External trigger selection for regular group */
 #define ADC_CFGR1_EXTSEL_SHIFT		6
-#define ADC_CFGR1_EXTSEL		(0x7 << ADC_CFGR1_EXTSEL_SHIFT)
-#define ADC_CFGR1_EXTSEL_VAL(x)		((x) << ADC_CFGR1_EXTSEL_SHIFT)
+#define ADC_CFGR1_EXTSEL_MASK		0x7
 /** @defgroup adc_cfgr1_extsel ADC external trigger selection values
  *@{*/
 #define ADC_CFGR1_EXTSEL_TIM1_TRGO	0x0
