@@ -2,7 +2,7 @@
  *
  * @ingroup peripheral_apis
  *
- * @brief <b>libopencm3 STM32F05x FLASH</b>
+ * @brief <b>libopencm3 STM32F0xx FLASH</b>
  *
  * @version 1.0.0
  *
@@ -11,8 +11,8 @@
  *
  * @date 14 January 2014
  *
- * For the STM32F05x, accessing FLASH memory is described in
- * section 3 of the STM32F05x Reference Manual.
+ * For the STM32F0xx, accessing FLASH memory is described in
+ * section 3 of the STM32F0xx Reference Manual.
  *
  * FLASH memory may be used for data storage as well as code, and may be
  * programmatically modified. Note that for firmware upload the STM32F1xx
