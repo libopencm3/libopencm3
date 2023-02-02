@@ -784,7 +784,7 @@ enum rcc_periph_clken {
 	RCC_SAI1EN	= _REG_BIT(0x44, 22),
 	RCC_SAI2EN	= _REG_BIT(0x44, 23),
 	RCC_LTDC	= _REG_BIT(0x44, 26),
-
+	RCC_OTGPHYC	= _REG_BIT(0x44, 31),
 
 	/* BDCR */
 	RCC_RTC		= _REG_BIT(0x70, 15),
