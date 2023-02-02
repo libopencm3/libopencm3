@@ -125,6 +125,17 @@
 #define ADC_CFGR1_EXTSEL_SHIFT			6
 #define ADC_CFGR1_EXTSEL			(0x7 << ADC_CFGR1_EXTSEL_SHIFT)
 #define ADC_CFGR1_EXTSEL_VAL(x)			((x) << ADC_CFGR1_EXTSEL_SHIFT)
+/** @defgroup adc_cfgr1_extsel ADC external trigger selection values
+ *@{*/
+#define ADC_CFGR1_EXTSEL_TIM1_TRGO2	0x0
+#define ADC_CFGR1_EXTSEL_TIM1_CC4	0x1
+#define ADC_CFGR1_EXTSEL_TIM2_TRGO	0x2
+#define ADC_CFGR1_EXTSEL_TIM3_TRGO	0x3
+#define ADC_CFGR1_EXTSEL_TIM15_TRGO	0x4
+#define ADC_CFGR1_EXTSEL_TIM6_TRGO	0x5
+#define ADC_CFGR1_EXTSEL_TIM4_TRGO	0x6
+#define ADC_CFGR1_EXTSEL_EXTI11		0x7
+/**@}*/
 
 /** CHSELRMOD: Mode Selection of the ADC_CHSELR register */
 #define ADC_CFGR1_CHSELRMOD			(1 << 21)
