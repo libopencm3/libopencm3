@@ -1032,6 +1032,11 @@ uint32_t rcc_system_clock_source(void);
 void rcc_clock_setup_pll(const struct rcc_clock_scale *clock);
 void __attribute__((deprecated("Use rcc_clock_setup_pll as direct replacement"))) rcc_clock_setup_hse_3v3(const struct rcc_clock_scale *clock);
 void rcc_set_clock48_source(uint32_t clksel);
+/**
+ * Get the peripheral clock speed for the specified (LP)UxART
+ * @param usart Base address of USART to get clock frequency for.
+ */
+uint32_t rcc_get_usart_clk_freq(uint32_t usart);
 
 END_DECLS
 
