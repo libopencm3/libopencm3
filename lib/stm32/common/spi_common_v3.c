@@ -37,7 +37,7 @@ LSB first.
 /*
  * This file is part of the libopencm3 project.
  *
- * Copyright (C) 2009 Uwe Hermann <uwe@hermann-uwe.de>
+ * Copyright (C) 2023 Sebastien Lorquet <sebastien@lorquet.fr>
  *
  * This library is free software: you can redistribute it and/or modify
  * it under the terms of the GNU Lesser General Public License as published by
@@ -101,9 +101,9 @@ prevents the BSY flag from becoming unreliable.
 
 void spi_clean_disable(uint32_t spi)
 {
-    /* Suspend SPI */
-    SPI_CR1(spi) |= SPI_CR1_CSUSP;
-    while(!(SPI_SR(spi) & SPI_SR_SUSP));
+	/* Suspend SPI */
+	SPI_CR1(spi) |= SPI_CR1_CSUSP;
+	while(!(SPI_SR(spi) & SPI_SR_SUSP));
 
 	SPI_CR1(spi) &= ~SPI_CR1_SPE; /* Disable SPI. */
 }
@@ -135,8 +135,8 @@ finished.
 
 void spi_send(uint32_t spi, uint32_t data)
 {
-    /* Start a transaction */
-    SPI_CR1(spi) |= SPI_CR1_CSTART;
+	/* Start a transaction */
+	SPI_CR1(spi) |= SPI_CR1_CSTART;
 
 	/* Wait for room to write in fifo. */
 	while (!(SPI_SR(spi) & SPI_SR_TXP));
@@ -158,8 +158,8 @@ finished.
 
 void spi_send16(uint32_t spi, uint16_t data)
 {
-    /* Start a transaction */
-    SPI_CR1(spi) |= SPI_CR1_CSTART;
+	/* Start a transaction */
+	SPI_CR1(spi) |= SPI_CR1_CSTART;
 
 	/* Wait for room to write in fifo. */
 	while (!(SPI_SR(spi) & SPI_SR_TXP));
@@ -180,8 +180,8 @@ finished.
 
 void spi_send8(uint32_t spi, uint8_t data)
 {
-    /* Start a transaction */
-    SPI_CR1(spi) |= SPI_CR1_CSTART;
+	/* Start a transaction */
+	SPI_CR1(spi) |= SPI_CR1_CSTART;
 
 	/* Wait for room to write in fifo. */
 	while (!(SPI_SR(spi) & SPI_SR_TXP));
@@ -201,10 +201,10 @@ Data is read from the SPI interface after the incoming transfer has finished.
 
 uint32_t spi_read(uint32_t spi)
 {
-    uint32_t ret;
+	uint32_t ret;
 
-    /* Start a transaction */
-    SPI_CR1(spi) |= SPI_CR1_CSTART;
+	/* Start a transaction */
+	SPI_CR1(spi) |= SPI_CR1_CSTART;
 
 	/* Wait for data available in fifo. */
 	while (!(SPI_SR(spi) & SPI_SR_RXP));
@@ -212,7 +212,7 @@ uint32_t spi_read(uint32_t spi)
 	/* Read the data. */
 	ret = SPI_RXDR(spi);
 
-    return ret;
+	return ret;
 }
 
 /*---------------------------------------------------------------------------*/
@@ -226,10 +226,10 @@ Data is read from the SPI interface after the incoming transfer has finished.
 
 uint16_t spi_read16(uint32_t spi)
 {
-    uint16_t ret;
+	uint16_t ret;
 
-    /* Start a transaction */
-    SPI_CR1(spi) |= SPI_CR1_CSTART;
+	/* Start a transaction */
+	SPI_CR1(spi) |= SPI_CR1_CSTART;
 
 	/* Wait for data available in fifo. */
 	while (!(SPI_SR(spi) & SPI_SR_RXP));
@@ -237,7 +237,7 @@ uint16_t spi_read16(uint32_t spi)
 	/* Read the data. */
 	ret = SPI_RXDR16(spi);
 
-    return ret;
+	return ret;
 }
 
 /*---------------------------------------------------------------------------*/
@@ -251,10 +251,10 @@ Data is read from the SPI interface after the incoming transfer has finished.
 
 uint8_t spi_read8(uint32_t spi)
 {
-    uint8_t ret;
+	uint8_t ret;
 
-    /* Start a transaction */
-    SPI_CR1(spi) |= SPI_CR1_CSTART;
+	/* Start a transaction */
+	SPI_CR1(spi) |= SPI_CR1_CSTART;
 
 	/* Wait for data available in fifo. */
 	while (!(SPI_SR(spi) & SPI_SR_RXP));
@@ -262,7 +262,7 @@ uint8_t spi_read8(uint32_t spi)
 	/* Read the data. */
 	ret = SPI_RXDR8(spi);
 
-    return ret;
+	return ret;
 }
 
 
@@ -279,10 +279,10 @@ transfer has finished.
 
 uint32_t spi_xfer(uint32_t spi, uint32_t data)
 {
-    uint32_t ret;
+	uint32_t ret;
 
-    /* Start a transaction */
-    SPI_CR1(spi) |= SPI_CR1_CSTART;
+	/* Start a transaction */
+	SPI_CR1(spi) |= SPI_CR1_CSTART;
 
 	/* Wait for room to write in fifo. */
 	while (!(SPI_SR(spi) & SPI_SR_TXP));
@@ -295,7 +295,7 @@ uint32_t spi_xfer(uint32_t spi, uint32_t data)
 	/* Read the data. */
 	ret = SPI_RXDR(spi);
 
-    return ret;
+	return ret;
 }
 
 /*---------------------------------------------------------------------------*/
@@ -311,10 +311,10 @@ transfer has finished.
 
 uint16_t spi_xfer16(uint32_t spi, uint16_t data)
 {
-    uint16_t ret;
+	uint16_t ret;
 
-    /* Start a transaction */
-    SPI_CR1(spi) |= SPI_CR1_CSTART;
+	/* Start a transaction */
+	SPI_CR1(spi) |= SPI_CR1_CSTART;
 
 	/* Wait for room to write in fifo. */
 	while (!(SPI_SR(spi) & SPI_SR_TXP));
@@ -327,7 +327,7 @@ uint16_t spi_xfer16(uint32_t spi, uint16_t data)
 	/* Read the data. */
 	ret = SPI_RXDR16(spi);
 
-    return ret;
+	return ret;
 }
 
 /*---------------------------------------------------------------------------*/
@@ -343,10 +343,10 @@ transfer has finished.
 
 uint8_t spi_xfer8(uint32_t spi, uint8_t data)
 {
-    uint8_t ret;
+	uint8_t ret;
 
-    /* make sure data will be transmitted at next fifo write */
-    SPI_CR1(spi) |= SPI_CR1_CSTART;
+	/* make sure data will be transmitted at next fifo write */
+	SPI_CR1(spi) |= SPI_CR1_CSTART;
 
 	/* Wait for room to write in fifo. */
 	while (!(SPI_SR(spi) & SPI_SR_TXP));
@@ -359,7 +359,7 @@ uint8_t spi_xfer8(uint32_t spi, uint8_t data)
 	/* Read the data. */
 	ret = SPI_RXDR8(spi);
 
-    return ret;
+	return ret;
 }
 
 /*---------------------------------------------------------------------------*/
@@ -371,9 +371,9 @@ uint8_t spi_xfer8(uint32_t spi, uint8_t data)
 void spi_set_full_duplex_mode(uint32_t spi)
 {
 	uint32_t reg32 = SPI_CFG2(spi);
-    reg32 &= ~(SPI_CFG2_COMM_MASK << SPI_CFG2_COMM_SHIFT);
+	reg32 &= ~(SPI_CFG2_COMM_MASK << SPI_CFG2_COMM_SHIFT);
 	reg32 |=  (SPI_CFG2_COMM_FULL_DUPLEX << SPI_CFG2_COMM_SHIFT);
-    SPI_CFG2(spi) = reg32;
+	SPI_CFG2(spi) = reg32;
 }
 
 /*---------------------------------------------------------------------------*/
@@ -385,9 +385,9 @@ void spi_set_full_duplex_mode(uint32_t spi)
 void spi_set_receive_only_mode(uint32_t spi)
 {
 	uint32_t reg32 = SPI_CFG2(spi);
-    reg32 &= ~(SPI_CFG2_COMM_MASK << SPI_CFG2_COMM_SHIFT);
-    reg32 |=  (SPI_CFG2_COMM_SIMPLEX_RX << SPI_CFG2_COMM_SHIFT);
-    SPI_CFG2(spi) = reg32;
+	reg32 &= ~(SPI_CFG2_COMM_MASK << SPI_CFG2_COMM_SHIFT);
+	reg32 |=  (SPI_CFG2_COMM_SIMPLEX_RX << SPI_CFG2_COMM_SHIFT);
+	SPI_CFG2(spi) = reg32;
 }
 
 /*---------------------------------------------------------------------------*/
@@ -398,12 +398,12 @@ void spi_set_receive_only_mode(uint32_t spi)
 
 void spi_set_transmit_only_mode(uint32_t spi)
 {
-    uint32_t reg32 = SPI_CFG2(spi);
+	uint32_t reg32 = SPI_CFG2(spi);
 
-    reg32 &= ~(SPI_CFG2_COMM_MASK << SPI_CFG2_COMM_SHIFT);
-    reg32 |=  (SPI_CFG2_COMM_SIMPLEX_TX << SPI_CFG2_COMM_SHIFT);
+	reg32 &= ~(SPI_CFG2_COMM_MASK << SPI_CFG2_COMM_SHIFT);
+	reg32 |=  (SPI_CFG2_COMM_SIMPLEX_TX << SPI_CFG2_COMM_SHIFT);
 
-    SPI_CFG2(spi) = reg32;
+	SPI_CFG2(spi) = reg32;
 }
 
 /*---------------------------------------------------------------------------*/
@@ -414,12 +414,12 @@ void spi_set_transmit_only_mode(uint32_t spi)
 
 void spi_set_half_duplex_mode(uint32_t spi)
 {
-    uint32_t reg32 = SPI_CFG2(spi);
+	uint32_t reg32 = SPI_CFG2(spi);
 
-    reg32 &= ~(SPI_CFG2_COMM_MASK << SPI_CFG2_COMM_SHIFT);
-    reg32 |=  (SPI_CFG2_COMM_HALF_DUPLEX << SPI_CFG2_COMM_SHIFT);
+	reg32 &= ~(SPI_CFG2_COMM_MASK << SPI_CFG2_COMM_SHIFT);
+	reg32 |=  (SPI_CFG2_COMM_HALF_DUPLEX << SPI_CFG2_COMM_SHIFT);
 
-    SPI_CFG2(spi) = reg32;
+	SPI_CFG2(spi) = reg32;
 }
 
 
@@ -463,12 +463,12 @@ void spi_disable_crc(uint32_t spi)
  */
 void spi_set_transfer_size(uint32_t spi, uint16_t size)
 {
-    uint32_t reg32;
+	uint32_t reg32;
 
 	reg32 = SPI_CR2(spi);
-    reg32 &= ~(SPI_CR2_TSIZE_MASK << SPI_CR2_TSIZE_SHIFT);
-    reg32 |=  (size << SPI_CR2_TSIZE_SHIFT);
-    SPI_CR2(spi) = reg32;
+	reg32 &= ~(SPI_CR2_TSIZE_MASK << SPI_CR2_TSIZE_SHIFT);
+	reg32 |=  (size << SPI_CR2_TSIZE_SHIFT);
+	SPI_CR2(spi) = reg32;
 }
 
 /*---------------------------------------------------------------------------*/
@@ -504,7 +504,7 @@ void spi_enable_software_slave_management(uint32_t spi)
 	SPI_CFG2(spi) |= SPI_CFG2_SSM;
 	/* allow slave select to be an input */
 	//SPI_CFG2(spi) |= SPI_CFG2_SSOE;
-    spi_set_nss_high(spi); //required to allow the master to work
+	spi_set_nss_high(spi); //required to allow the master to work
 }
 
 /*---------------------------------------------------------------------------*/
@@ -819,13 +819,13 @@ void spi_set_standard_mode(uint32_t spi, uint8_t mode)
 		return;
 	}
 
-    reg32 = SPI_CFG2(spi) & ~(SPI_CFG2_CPOL | SPI_CFG2_CPHA);
+	reg32 = SPI_CFG2(spi) & ~(SPI_CFG2_CPOL | SPI_CFG2_CPHA);
 	if(mode & 1) {
-        SPI_CFG2(spi) = reg32 | SPI_CFG2_CPHA;
-    }
-    if(mode & 2) {
-        SPI_CFG2(spi) = reg32 | SPI_CFG2_CPOL;
-    }
+		SPI_CFG2(spi) = reg32 | SPI_CFG2_CPHA;
+	}
+	if(mode & 2) {
+		SPI_CFG2(spi) = reg32 | SPI_CFG2_CPOL;
+	}
 }
 
 /*---------------------------------------------------------------------------*/
@@ -849,7 +849,7 @@ int spi_init_master(uint32_t spi, uint8_t clkdiv, bool cpol, bool cpha,
 		    bool lsbfirst, bool keepgpio)
 {
 
-    /* First disable SPI to access regs*/
+	/* First disable SPI to access regs*/
 	SPI_CR1(spi) &= ~SPI_CR1_SPE;
 
 
@@ -873,13 +873,13 @@ int spi_init_master(uint32_t spi, uint8_t clkdiv, bool cpol, bool cpha,
 		SPI_CFG2(spi) &= ~SPI_CFG2_LSBFRST;
 	}
 
-    if (keepgpio) {
-	    SPI_CFG1(spi) |= SPI_CFG2_AFCNTR; /* Keep GPIO control between config changes */
-    } else {
-	    SPI_CFG1(spi) &= ~SPI_CFG2_AFCNTR; /* Release GPIO control between config changes */
-    }
+	if (keepgpio) {
+		SPI_CFG1(spi) |= SPI_CFG2_AFCNTR; /* Keep GPIO control between config changes */
+	} else {
+		SPI_CFG1(spi) &= ~SPI_CFG2_AFCNTR; /* Release GPIO control between config changes */
+	}
 
-    spi_set_baudrate_prescaler(spi, clkdiv);
+	spi_set_baudrate_prescaler(spi, clkdiv);
 
 	SPI_CFG2(spi) |= SPI_CFG2_SSM; /* default to software slave select */
 
@@ -896,10 +896,10 @@ int spi_init_master(uint32_t spi, uint8_t clkdiv, bool cpol, bool cpha,
 
 void spi_set_crcl_8bit(uint32_t spi)
 {
-    uint32_t reg32 = SPI_CFG1(spi);
-    reg32 &= ~(SPI_CFG1_CRCSIZE_MASK << SPI_CFG1_CRCSIZE_SHIFT);
+	uint32_t reg32 = SPI_CFG1(spi);
+	reg32 &= ~(SPI_CFG1_CRCSIZE_MASK << SPI_CFG1_CRCSIZE_SHIFT);
 	reg32 |=  (SPI_CFG1_CRCSIZE_8BIT << SPI_CFG1_CRCSIZE_SHIFT);
-    SPI_CFG1(spi) = reg32;
+	SPI_CFG1(spi) = reg32;
 }
 
 /*---------------------------------------------------------------------------*/
@@ -910,10 +910,10 @@ void spi_set_crcl_8bit(uint32_t spi)
 
 void spi_set_crcl_16bit(uint32_t spi)
 {
-    uint32_t reg32 = SPI_CFG1(spi);
-    reg32 &= ~(SPI_CFG1_CRCSIZE_MASK << SPI_CFG1_CRCSIZE_SHIFT);
-    reg32 |=  (SPI_CFG1_CRCSIZE_16BIT << SPI_CFG1_CRCSIZE_SHIFT);
-    SPI_CFG1(spi) = reg32;
+	uint32_t reg32 = SPI_CFG1(spi);
+	reg32 &= ~(SPI_CFG1_CRCSIZE_MASK << SPI_CFG1_CRCSIZE_SHIFT);
+	reg32 |=  (SPI_CFG1_CRCSIZE_16BIT << SPI_CFG1_CRCSIZE_SHIFT);
+	SPI_CFG1(spi) = reg32;
 }
 
 /*---------------------------------------------------------------------------*/
@@ -926,9 +926,9 @@ void spi_set_crcl_16bit(uint32_t spi)
 void spi_set_data_size(uint32_t spi, uint16_t data_s)
 {
 	uint32_t reg32 = SPI_CFG1(spi);
-    reg32 &= ~(SPI_CFG1_DSIZE_MASK << SPI_CFG1_DSIZE_SHIFT);
-    reg32 |=  ((data_s-1) << SPI_CFG1_DSIZE_SHIFT);
-    SPI_CFG1(spi) = reg32;
+	reg32 &= ~(SPI_CFG1_DSIZE_MASK << SPI_CFG1_DSIZE_SHIFT);
+	reg32 |=  ((data_s-1) << SPI_CFG1_DSIZE_SHIFT);
+	SPI_CFG1(spi) = reg32;
 }
 
 /*---------------------------------------------------------------------------*/
@@ -940,9 +940,9 @@ void spi_set_data_size(uint32_t spi, uint16_t data_s)
 void spi_fifo_packet_size_1data(uint32_t spi)
 {
 	uint32_t reg32 = SPI_CFG1(spi);
-    reg32 &= ~(SPI_CFG1_FTHLV_MASK << SPI_CFG1_FTHLV_SHIFT);
-    reg32 |=  (0 << SPI_CFG1_FTHLV_SHIFT);
-    SPI_CFG1(spi) = reg32;
+	reg32 &= ~(SPI_CFG1_FTHLV_MASK << SPI_CFG1_FTHLV_SHIFT);
+	reg32 |=  (0 << SPI_CFG1_FTHLV_SHIFT);
+	SPI_CFG1(spi) = reg32;
 }
 
 /*---------------------------------------------------------------------------*/
@@ -953,11 +953,10 @@ void spi_fifo_packet_size_1data(uint32_t spi)
 
 void spi_fifo_packet_size_2data(uint32_t spi)
 {
-    uint32_t reg32 = SPI_CFG1(spi);
-    reg32 &= ~(SPI_CFG1_FTHLV_MASK << SPI_CFG1_FTHLV_SHIFT);
-    reg32 |=  (1 << SPI_CFG1_FTHLV_SHIFT);
-    SPI_CFG1(spi) = reg32;
+	uint32_t reg32 = SPI_CFG1(spi);
+	reg32 &= ~(SPI_CFG1_FTHLV_MASK << SPI_CFG1_FTHLV_SHIFT);
+	reg32 |=  (1 << SPI_CFG1_FTHLV_SHIFT);
+	SPI_CFG1(spi) = reg32;
 }
-
 
 /**@}*/

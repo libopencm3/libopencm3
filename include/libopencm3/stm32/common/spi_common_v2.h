@@ -31,10 +31,10 @@ specific memorymap.h header before including this header file.*/
 
 #include <libopencm3/stm32/common/spi_common_v12.h>
 
-#define SPI_DR8(spi_base)	MMIO8((spi_base) + 0x0c)
-#define SPI1_DR8		SPI_DR8(SPI1_BASE)
-#define SPI2_DR8		SPI_DR8(SPI2_BASE)
-#define SPI3_DR8		SPI_DR8(SPI3_BASE)
+#define SPI_DR8(spi_base)		MMIO8((spi_base) + 0x0c)
+#define SPI1_DR8			SPI_DR8(SPI1_BASE)
+#define SPI2_DR8			SPI_DR8(SPI2_BASE)
+#define SPI3_DR8			SPI_DR8(SPI3_BASE)
 
 /* CRCL: CRC Length */
 /****************************************************************************/
@@ -43,10 +43,10 @@ specific memorymap.h header before including this header file.*/
  *
  * @{*/
 
-#define SPI_CR1_CRCL_8BIT	(0 << 11)
-#define SPI_CR1_CRCL_16BIT	(1 << 11)
+#define SPI_CR1_CRCL_8BIT		(0 << 11)
+#define SPI_CR1_CRCL_16BIT		(1 << 11)
 /**@}*/
-#define SPI_CR1_CRCL		(1 << 11)
+#define SPI_CR1_CRCL			(1 << 11)
 
 /* --- SPI_CR2 values ------------------------------------------------------ */
 
@@ -61,7 +61,7 @@ specific memorymap.h header before including this header file.*/
 
 /* FRF: Frame format */
 /* Note: Not used in I2S mode. */
-#define SPI_CR2_FRF				(1 << 4)
+#define SPI_CR2_FRF			(1 << 4)
 #define SPI_CR2_FRF_MOTOROLA_MODE	(0 << 4)
 #define SPI_CR2_FRF_TI_MODE		(1 << 4)
 

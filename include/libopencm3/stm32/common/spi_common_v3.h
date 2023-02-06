@@ -42,13 +42,12 @@ specific memorymap.h header before including this header file.*/
 #define SPI_IER(spi_base)			MMIO32((spi_base) + 0x10)
 #define SPI_SR(spi_base)			MMIO32((spi_base) + 0x14)
 #define SPI_IFCR(spi_base)			MMIO32((spi_base) + 0x18)
-#define SPI_TXDR(spi_base)			MMIO32((spi_base) + 0x20)
 
+#define SPI_TXDR(spi_base)			MMIO32((spi_base) + 0x20)
 #define SPI_TXDR8(spi_base)			MMIO8((spi_base) + 0x20)
 #define SPI_TXDR16(spi_base)			MMIO16((spi_base) + 0x20)
 
 #define SPI_RXDR(spi_base)			MMIO32((spi_base) + 0x30)
-
 #define SPI_RXDR8(spi_base)			MMIO8((spi_base) + 0x30)
 #define SPI_RXDR16(spi_base)			MMIO16((spi_base) + 0x30)
 
