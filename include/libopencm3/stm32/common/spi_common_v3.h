@@ -45,12 +45,12 @@ specific memorymap.h header before including this header file.*/
 #define SPI_TXDR(spi_base)			MMIO32((spi_base) + 0x20)
 
 #define SPI_TXDR8(spi_base)			MMIO8((spi_base) + 0x20)
-#define SPI_TXDR16(spi_base)		MMIO16((spi_base) + 0x20)
+#define SPI_TXDR16(spi_base)			MMIO16((spi_base) + 0x20)
 
 #define SPI_RXDR(spi_base)			MMIO32((spi_base) + 0x30)
 
 #define SPI_RXDR8(spi_base)			MMIO8((spi_base) + 0x30)
-#define SPI_RXDR16(spi_base)		MMIO16((spi_base) + 0x30)
+#define SPI_RXDR16(spi_base)			MMIO16((spi_base) + 0x30)
 
 #define SPI_CRCPOLY(spi_base)			MMIO32((spi_base) + 0x40)
 #define SPI_TXCRC(spi_base)			MMIO32((spi_base) + 0x44)
@@ -60,48 +60,48 @@ specific memorymap.h header before including this header file.*/
 
 /* --- SPI_CR1 values ------------------------------------------------------- */
 
-#define SPI_CR1_IOLOCK						(1 << 16)
-#define SPI_CR1_TCRCINI						(1 << 15)
-#define SPI_CR1_RCRCINI						(1 << 14)
-#define SPI_CR1_CRC33_17						(1 << 13)
-#define SPI_CR1_SSI						(1 << 12)
-#define SPI_CR1_HDDIR						(1 << 11)
-#define SPI_CR1_CSUSP						(1 << 10)
-#define SPI_CR1_CSTART						(1 << 9)
-#define SPI_CR1_MASRX						(1 << 8)
-#define SPI_CR1_SPE						(1 << 0)
+#define SPI_CR1_IOLOCK				(1 << 16)
+#define SPI_CR1_TCRCINI				(1 << 15)
+#define SPI_CR1_RCRCINI				(1 << 14)
+#define SPI_CR1_CRC33_17			(1 << 13)
+#define SPI_CR1_SSI				(1 << 12)
+#define SPI_CR1_HDDIR				(1 << 11)
+#define SPI_CR1_CSUSP				(1 << 10)
+#define SPI_CR1_CSTART				(1 << 9)
+#define SPI_CR1_MASRX				(1 << 8)
+#define SPI_CR1_SPE				(1 << 0)
 
 /* --- SPI_CR2 values ------------------------------------------------------- */
 
-#define SPI_CR2_TSER_MASK						0xFFFF
-#define SPI_CR2_TSER_SHIFT						16
+#define SPI_CR2_TSER_MASK			0xFFFF
+#define SPI_CR2_TSER_SHIFT			16
 
-#define SPI_CR2_TSIZE_MASK						0xFFFF
-#define SPI_CR2_TSIZE_SHIFT						0
+#define SPI_CR2_TSIZE_MASK			0xFFFF
+#define SPI_CR2_TSIZE_SHIFT			0
 
 /* --- SPI_CFG1 values ------------------------------------------------------ */
 
-#define SPI_CFG1_MBR_MASK						0x7
-#define SPI_CFG1_MBR_SHIFT						28
+#define SPI_CFG1_MBR_MASK			0x7
+#define SPI_CFG1_MBR_SHIFT			28
 
 /****************************************************************************/
 /** @defgroup spi_br_pre SPI peripheral baud rate prescale values
 @ingroup spi_defines
 
 @{*/
-#define SPI_CFG1_MBR_CLK_DIV_2		0x0
-#define SPI_CFG1_MBR_CLK_DIV_4		0x1
-#define SPI_CFG1_MBR_CLK_DIV_8		0x2
-#define SPI_CFG1_MBR_CLK_DIV_16		0x3
-#define SPI_CFG1_MBR_CLK_DIV_32		0x4
-#define SPI_CFG1_MBR_CLK_DIV_64		0x5
-#define SPI_CFG1_MBR_CLK_DIV_128	0x6
-#define SPI_CFG1_MBR_CLK_DIV_256	0x7
+#define SPI_CFG1_MBR_CLK_DIV_2			0x0
+#define SPI_CFG1_MBR_CLK_DIV_4			0x1
+#define SPI_CFG1_MBR_CLK_DIV_8			0x2
+#define SPI_CFG1_MBR_CLK_DIV_16			0x3
+#define SPI_CFG1_MBR_CLK_DIV_32			0x4
+#define SPI_CFG1_MBR_CLK_DIV_64			0x5
+#define SPI_CFG1_MBR_CLK_DIV_128		0x6
+#define SPI_CFG1_MBR_CLK_DIV_256		0x7
 /**@}*/
 
-#define SPI_CFG1_CRCEN						(1 << 22)
-#define SPI_CFG1_CRCSIZE_MASK						0x1F
-#define SPI_CFG1_CRCSIZE_SHIFT						16
+#define SPI_CFG1_CRCEN				(1 << 22)
+#define SPI_CFG1_CRCSIZE_MASK			0x1F
+#define SPI_CFG1_CRCSIZE_SHIFT			16
 
 #define SPI_CFG1_CRCSIZE_4BIT			0x3
 #define SPI_CFG1_CRCSIZE_5BIT			0x4
@@ -117,20 +117,20 @@ specific memorymap.h header before including this header file.*/
 #define SPI_CFG1_CRCSIZE_15BIT			0xE
 #define SPI_CFG1_CRCSIZE_16BIT			0xF
 
-#define SPI_CFG1_TXDMAEN						(1 << 15)
-#define SPI_CFG1_RXDMAEN						(1 << 14)
+#define SPI_CFG1_TXDMAEN			(1 << 15)
+#define SPI_CFG1_RXDMAEN			(1 << 14)
 
-#define SPI_CFG1_UDRDET_MASK						0x3
-#define SPI_CFG1_UDRDET_SHIFT						11
+#define SPI_CFG1_UDRDET_MASK			0x3
+#define SPI_CFG1_UDRDET_SHIFT			11
 
-#define SPI_CFG1_UDRCFG_MASK						0x3
-#define SPI_CFG1_UDRCFG_SHIFT						9
+#define SPI_CFG1_UDRCFG_MASK			0x3
+#define SPI_CFG1_UDRCFG_SHIFT			9
 
-#define SPI_CFG1_FTHLV_MASK						0xF
-#define SPI_CFG1_FTHLV_SHIFT						5
+#define SPI_CFG1_FTHLV_MASK			0xF
+#define SPI_CFG1_FTHLV_SHIFT			5
 
-#define SPI_CFG1_DSIZE_MASK						0x1F
-#define SPI_CFG1_DSIZE_SHIFT						0
+#define SPI_CFG1_DSIZE_MASK			0x1F
+#define SPI_CFG1_DSIZE_SHIFT			0
 
 #define SPI_CFG1_DSIZE_4BIT			0x3
 #define SPI_CFG1_DSIZE_5BIT			0x4
@@ -138,127 +138,124 @@ specific memorymap.h header before including this header file.*/
 #define SPI_CFG1_DSIZE_7BIT			0x6
 #define SPI_CFG1_DSIZE_8BIT			0x7
 #define SPI_CFG1_DSIZE_9BIT			0x8
-#define SPI_CFG1_DSIZE_10BIT		0x9
-#define SPI_CFG1_DSIZE_11BIT		0xA
-#define SPI_CFG1_DSIZE_12BIT		0xB
-#define SPI_CFG1_DSIZE_13BIT		0xC
-#define SPI_CFG1_DSIZE_14BIT		0xD
-#define SPI_CFG1_DSIZE_15BIT		0xE
-#define SPI_CFG1_DSIZE_16BIT		0xF
+#define SPI_CFG1_DSIZE_10BIT			0x9
+#define SPI_CFG1_DSIZE_11BIT			0xA
+#define SPI_CFG1_DSIZE_12BIT			0xB
+#define SPI_CFG1_DSIZE_13BIT			0xC
+#define SPI_CFG1_DSIZE_14BIT			0xD
+#define SPI_CFG1_DSIZE_15BIT			0xE
+#define SPI_CFG1_DSIZE_16BIT			0xF
 
 /* --- SPI_CFG2 values ------------------------------------------------------ */
 
-#define SPI_CFG2_AFCNTR						(1 << 31)
-#define SPI_CFG2_SSOM						(1 << 30)
-#define SPI_CFG2_SSOE						(1 << 29)
-#define SPI_CFG2_SSIOP						(1 << 28)
+#define SPI_CFG2_AFCNTR				(1 << 31)
+#define SPI_CFG2_SSOM				(1 << 30)
+#define SPI_CFG2_SSOE				(1 << 29)
+#define SPI_CFG2_SSIOP				(1 << 28)
 
-#define SPI_CFG2_SSM						(1 << 26)
-#define SPI_CFG2_CPOL						(1 << 25)
-#define SPI_CFG2_CPHA						(1 << 24)
-#define SPI_CFG2_LSBFRST						(1 << 23)
-#define SPI_CFG2_MASTER						(1 << 22)
+#define SPI_CFG2_SSM				(1 << 26)
+#define SPI_CFG2_CPOL				(1 << 25)
+#define SPI_CFG2_CPHA				(1 << 24)
+#define SPI_CFG2_LSBFRST			(1 << 23)
+#define SPI_CFG2_MASTER				(1 << 22)
 
-#define SPI_CFG2_SP_MASK						0x7
-#define SPI_CFG2_SP_SHIFT						19
+#define SPI_CFG2_SP_MASK			0x7
+#define SPI_CFG2_SP_SHIFT			19
 
-#define SPI_CFG2_COMM_MASK						0x3
-#define SPI_CFG2_COMM_SHIFT						17
+#define SPI_CFG2_COMM_MASK			0x3
+#define SPI_CFG2_COMM_SHIFT			17
 
-#define SPI_CFG2_COMM_FULL_DUPLEX				0
-#define SPI_CFG2_COMM_SIMPLEX_TX				1
-#define SPI_CFG2_COMM_SIMPLEX_RX				2
-#define SPI_CFG2_COMM_HALF_DUPLEX				3
+#define SPI_CFG2_COMM_FULL_DUPLEX		0
+#define SPI_CFG2_COMM_SIMPLEX_TX		1
+#define SPI_CFG2_COMM_SIMPLEX_RX		2
+#define SPI_CFG2_COMM_HALF_DUPLEX		3
 
-#define SPI_CFG2_IOSWP						(1 << 15)
+#define SPI_CFG2_IOSWP				(1 << 15)
 
-#define SPI_CFG2_MIDI_MASK						0xF
-#define SPI_CFG2_MIDI_SHIFT						4
+#define SPI_CFG2_MIDI_MASK			0xF
+#define SPI_CFG2_MIDI_SHIFT			4
 
-#define SPI_CFG2_MSSI_MASK						0xF
-#define SPI_CFG2_MSSI_SHIFT						0
+#define SPI_CFG2_MSSI_MASK			0xF
+#define SPI_CFG2_MSSI_SHIFT			0
 
 /* --- SPI_IER values ------------------------------------------------------ */
 
-#define SPI_IER_TSERFIE						(1 << 10)
-#define SPI_IER_MODFIE						(1 << 9)
-#define SPI_IER_TIFREIE						(1 << 8)
-#define SPI_IER_CRCEIE						(1 << 7)
-#define SPI_IER_OVRIE						(1 << 6)
-#define SPI_IER_UDRIE						(1 << 5)
-#define SPI_IER_TXTFIE						(1 << 4)
-#define SPI_IER_EOTIE						(1 << 3)
-#define SPI_IER_DXPIE						(1 << 2)
-#define SPI_IER_TXPIE						(1 << 1)
-#define SPI_IER_RXPIE						(1 << 0)
+#define SPI_IER_TSERFIE				(1 << 10)
+#define SPI_IER_MODFIE				(1 << 9)
+#define SPI_IER_TIFREIE				(1 << 8)
+#define SPI_IER_CRCEIE				(1 << 7)
+#define SPI_IER_OVRIE				(1 << 6)
+#define SPI_IER_UDRIE				(1 << 5)
+#define SPI_IER_TXTFIE				(1 << 4)
+#define SPI_IER_EOTIE				(1 << 3)
+#define SPI_IER_DXPIE				(1 << 2)
+#define SPI_IER_TXPIE				(1 << 1)
+#define SPI_IER_RXPIE				(1 << 0)
 
 /* --- SPI_SR values ------------------------------------------------------- */
 
-#define SPI_SR_CTSIZE_MASK						0xFFFF
-#define SPI_SR_CTSIZE_SHIFT						16
+#define SPI_SR_CTSIZE_MASK			0xFFFF
+#define SPI_SR_CTSIZE_SHIFT			16
 
-#define SPI_SR_RXWNE						(1 << 15)
+#define SPI_SR_RXWNE				(1 << 15)
 
-#define SPI_SR_RXPLVL_MASK						0x3
-#define SPI_SR_RXPLVL_SHIFT						13
+#define SPI_SR_RXPLVL_MASK			0x3
+#define SPI_SR_RXPLVL_SHIFT			13
 
-#define SPI_SR_TXC						(1 << 12)
-#define SPI_SR_SUSP						(1 << 11)
-#define SPI_SR_TSERF						(1 << 10)
-#define SPI_SR_MODF						(1 << 9)
-#define SPI_SR_TIFRE						(1 << 8)
-#define SPI_SR_CRCE						(1 << 7)
-#define SPI_SR_OVR						(1 << 6)
-#define SPI_SR_UDR						(1 << 5)
-#define SPI_SR_TXTF						(1 << 4)
-#define SPI_SR_EOT						(1 << 3)
-#define SPI_SR_DXP						(1 << 2)
-#define SPI_SR_TXP						(1 << 1)
-#define SPI_SR_RXP						(1 << 0)
+#define SPI_SR_TXC				(1 << 12)
+#define SPI_SR_SUSP				(1 << 11)
+#define SPI_SR_TSERF				(1 << 10)
+#define SPI_SR_MODF				(1 << 9)
+#define SPI_SR_TIFRE				(1 << 8)
+#define SPI_SR_CRCE				(1 << 7)
+#define SPI_SR_OVR				(1 << 6)
+#define SPI_SR_UDR				(1 << 5)
+#define SPI_SR_TXTF				(1 << 4)
+#define SPI_SR_EOT				(1 << 3)
+#define SPI_SR_DXP				(1 << 2)
+#define SPI_SR_TXP				(1 << 1)
+#define SPI_SR_RXP				(1 << 0)
 
 /* --- SPI_IFCR values ----------------------------------------------------- */
 
-#define SPI_IFCR_SUSPC						(1 << 11)
-#define SPI_IFCR_TSERFC						(1 << 10)
-#define SPI_IFCR_MODFC						(1 << 9)
-#define SPI_IFCR_TIFREC						(1 << 8)
-#define SPI_IFCR_CRCEC						(1 << 7)
-#define SPI_IFCR_OVRC						(1 << 6)
-#define SPI_IFCR_UDRC						(1 << 5)
-#define SPI_IFCR_TXTFC						(1 << 4)
-#define SPI_IFCR_EOTC						(1 << 3)
+#define SPI_IFCR_SUSPC				(1 << 11)
+#define SPI_IFCR_TSERFC				(1 << 10)
+#define SPI_IFCR_MODFC				(1 << 9)
+#define SPI_IFCR_TIFREC				(1 << 8)
+#define SPI_IFCR_CRCEC				(1 << 7)
+#define SPI_IFCR_OVRC				(1 << 6)
+#define SPI_IFCR_UDRC				(1 << 5)
+#define SPI_IFCR_TXTFC				(1 << 4)
+#define SPI_IFCR_EOTC				(1 << 3)
 
 /* --- SPI_I2SCFGR values -------------------------------------------------- */
 
-#define SPI_I2SCFGR_MCKOE						(1 << 25)
-#define SPI_I2SCFGR_ODD						(1 << 24)
+#define SPI_I2SCFGR_MCKOE			(1 << 25)
+#define SPI_I2SCFGR_ODD				(1 << 24)
 
-#define SPI_I2SCFGR_I2SDIV_MASK						0xFF
-#define SPI_I2SCFGR_IS2DIV_SHIFT						16
+#define SPI_I2SCFGR_I2SDIV_MASK			0xFF
+#define SPI_I2SCFGR_IS2DIV_SHIFT		16
 
-#define SPI_I2SCFGR_DATFMT						(1 << 14)
-#define SPI_I2SCFGR_WSINV						(1 << 13)
-#define SPI_I2SCFGR_FIXCH						(1 << 12)
-#define SPI_I2SCFGR_CKPOL						(1 << 11)
-#define SPI_I2SCFGR_CHLEN						(1 << 10)
+#define SPI_I2SCFGR_DATFMT			(1 << 14)
+#define SPI_I2SCFGR_WSINV			(1 << 13)
+#define SPI_I2SCFGR_FIXCH			(1 << 12)
+#define SPI_I2SCFGR_CKPOL			(1 << 11)
+#define SPI_I2SCFGR_CHLEN			(1 << 10)
 
-#define SPI_I2SCFGR_DATLEN_MASK						0x3
-#define SPI_I2SCFGR_DATLEN_SHIFT						8
+#define SPI_I2SCFGR_DATLEN_MASK			0x3
+#define SPI_I2SCFGR_DATLEN_SHIFT		8
 
-#define SPI_I2SCFGR_PCMSYNC						(1 << 7)
+#define SPI_I2SCFGR_PCMSYNC			(1 << 7)
 
-#define SPI_I2SCFGR_I2SSTD_MASK						0x3
-#define SPI_I2SCFGR_I2SSTD_SHIFT						4
+#define SPI_I2SCFGR_I2SSTD_MASK			0x3
+#define SPI_I2SCFGR_I2SSTD_SHIFT		4
 
-#define SPI_I2SCFGR_I2SCFG_MASK						0x7
-#define SPI_I2SCFGR_I2SCFG_SHIFT						1
+#define SPI_I2SCFGR_I2SCFG_MASK			0x7
+#define SPI_I2SCFGR_I2SCFG_SHIFT		1
 
-#define SPI_I2SCFGR_I2SMOD						(1 << 0)
+#define SPI_I2SCFGR_I2SMOD			(1 << 0)
 
-#define SPI_DR8(spi_base)	MMIO8((spi_base) + 0x0c)
-#define SPI1_DR8		SPI_DR8(SPI1_BASE)
-#define SPI2_DR8		SPI_DR8(SPI2_BASE)
-#define SPI3_DR8		SPI_DR8(SPI3_BASE)
+#define SPI_DR8(spi_base)			MMIO8((spi_base) + 0x0c)
 
 /* CRCL: CRC Length */
 /****************************************************************************/
@@ -267,27 +264,27 @@ specific memorymap.h header before including this header file.*/
  *
  * @{*/
 
-#define SPI_CR1_CRCL_8BIT	(0 << 11)
-#define SPI_CR1_CRCL_16BIT	(1 << 11)
+#define SPI_CR1_CRCL_8BIT			(0 << 11)
+#define SPI_CR1_CRCL_16BIT			(1 << 11)
 /**@}*/
-#define SPI_CR1_CRCL		(1 << 11)
+#define SPI_CR1_CRCL				(1 << 11)
 
 /* --- SPI_CR2 values ------------------------------------------------------ */
 
 /* LDMA_TX: Last DMA transfer for transmission */
-#define SPI_CR2_LDMA_TX			(1 << 14)
+#define SPI_CR2_LDMA_TX				(1 << 14)
 
 /* LDMA_RX: Last DMA transfer for reception */
-#define SPI_CR2_LDMA_RX			(1 << 13)
+#define SPI_CR2_LDMA_RX				(1 << 13)
 
 /* FRXTH: FIFO reception threshold */
-#define SPI_CR2_FRXTH			(1 << 12)
+#define SPI_CR2_FRXTH				(1 << 12)
 
 /* FRF: Frame format */
 /* Note: Not used in I2S mode. */
 #define SPI_CR2_FRF				(1 << 4)
-#define SPI_CR2_FRF_MOTOROLA_MODE	(0 << 4)
-#define SPI_CR2_FRF_TI_MODE		(1 << 4)
+#define SPI_CR2_FRF_MOTOROLA_MODE		(0 << 4)
+#define SPI_CR2_FRF_TI_MODE			(1 << 4)
 
 /* DS: Data size */
 /****************************************************************************/
@@ -295,41 +292,41 @@ specific memorymap.h header before including this header file.*/
  * @ingroup spi_defines
  *
  * @{*/
-#define SPI_CR2_DS_4BIT			(0x3 << 8)
-#define SPI_CR2_DS_5BIT			(0x4 << 8)
-#define SPI_CR2_DS_6BIT			(0x5 << 8)
-#define SPI_CR2_DS_7BIT			(0x6 << 8)
-#define SPI_CR2_DS_8BIT			(0x7 << 8)
-#define SPI_CR2_DS_9BIT			(0x8 << 8)
-#define SPI_CR2_DS_10BIT		(0x9 << 8)
-#define SPI_CR2_DS_11BIT		(0xA << 8)
-#define SPI_CR2_DS_12BIT		(0xB << 8)
-#define SPI_CR2_DS_13BIT		(0xC << 8)
-#define SPI_CR2_DS_14BIT		(0xD << 8)
-#define SPI_CR2_DS_15BIT		(0xE << 8)
-#define SPI_CR2_DS_16BIT		(0xF << 8)
+#define SPI_CR2_DS_4BIT				(0x3 << 8)
+#define SPI_CR2_DS_5BIT				(0x4 << 8)
+#define SPI_CR2_DS_6BIT				(0x5 << 8)
+#define SPI_CR2_DS_7BIT				(0x6 << 8)
+#define SPI_CR2_DS_8BIT				(0x7 << 8)
+#define SPI_CR2_DS_9BIT				(0x8 << 8)
+#define SPI_CR2_DS_10BIT			(0x9 << 8)
+#define SPI_CR2_DS_11BIT			(0xA << 8)
+#define SPI_CR2_DS_12BIT			(0xB << 8)
+#define SPI_CR2_DS_13BIT			(0xC << 8)
+#define SPI_CR2_DS_14BIT			(0xD << 8)
+#define SPI_CR2_DS_15BIT			(0xE << 8)
+#define SPI_CR2_DS_16BIT			(0xF << 8)
 /**@}*/
-#define SPI_CR2_DS_MASK			(0xF << 8)
+#define SPI_CR2_DS_MASK				(0xF << 8)
 
 /* NSSP: NSS pulse management */
-#define SPI_CR2_NSSP			(1 << 3)
+#define SPI_CR2_NSSP				(1 << 3)
 
 /* --- SPI_SR values ------------------------------------------------------- */
 
 /* FTLVL[1:0]: FIFO Transmission Level */
-#define SPI_SR_FTLVL_FIFO_EMPTY		(0x0 << 11)
-#define SPI_SR_FTLVL_QUARTER_FIFO	(0x1 << 11)
-#define SPI_SR_FTLVL_HALF_FIFO		(0x2 << 11)
-#define SPI_SR_FTLVL_FIFO_FULL		(0x3 << 11)
+#define SPI_SR_FTLVL_FIFO_EMPTY			(0x0 << 11)
+#define SPI_SR_FTLVL_QUARTER_FIFO		(0x1 << 11)
+#define SPI_SR_FTLVL_HALF_FIFO			(0x2 << 11)
+#define SPI_SR_FTLVL_FIFO_FULL			(0x3 << 11)
 
 /* FRLVL[1:0]: FIFO Reception Level */
-#define SPI_SR_FRLVL_FIFO_EMPTY		(0x0 << 9)
-#define SPI_SR_FRLVL_QUARTER_FIFO	(0x1 << 9)
-#define SPI_SR_FRLVL_HALF_FIFO		(0x2 << 9)
-#define SPI_SR_FRLVL_FIFO_FULL		(0x3 << 9)
+#define SPI_SR_FRLVL_FIFO_EMPTY			(0x0 << 9)
+#define SPI_SR_FRLVL_QUARTER_FIFO		(0x1 << 9)
+#define SPI_SR_FRLVL_HALF_FIFO			(0x2 << 9)
+#define SPI_SR_FRLVL_FIFO_FULL			(0x3 << 9)
 
 /* FRE : TI frame format error */
-#define SPI_SR_FRE			(1 << 8)
+#define SPI_SR_FRE				(1 << 8)
 
 /* --- Function prototypes ------------------------------------------------- */
 
