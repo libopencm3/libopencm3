@@ -29,7 +29,7 @@ specific memorymap.h header before including this header file.*/
 
 /**@{*/
 
-#include <libopencm3/stm32/common/spi_common_all.h>
+#include <libopencm3/stm32/common/spi_common_v12.h>
 
 #define SPI_DR8(spi_base)	MMIO8((spi_base) + 0x0c)
 #define SPI1_DR8		SPI_DR8(SPI1_BASE)

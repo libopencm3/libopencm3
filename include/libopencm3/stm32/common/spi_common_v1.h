@@ -33,7 +33,7 @@ specific memorymap.h header before including this header file.*/
 
 /**@{*/
 
-#include <libopencm3/stm32/common/spi_common_all.h>
+#include <libopencm3/stm32/common/spi_common_v12.h>
 
 /* DFF: Data frame format */
 /****************************************************************************/
