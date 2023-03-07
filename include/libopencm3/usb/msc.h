@@ -41,6 +41,7 @@ LGPL License Terms @ref lgpl_license
 #define __MSC_H
 
 #include <stdint.h>
+#include <libopencm3/usb/usbd.h>
 
 typedef struct _usbd_mass_storage usbd_mass_storage;
 
