@@ -66,6 +66,29 @@
 #define ADC_CALFACT(adc)	MMIO32((adc) + 0xB4)
 /**@}*/
 
+/* --- Register definitions -------------------------------------------------------*/
+
+#define ADC_SMPR(adc)		ADC_SMPR1(adc)
+#define ADC_TR(adc)		ADC_TR1(adc)
+
+#define ADC1_ISR		ADC_ISR(ADC1)
+#define ADC1_IER		ADC_IER(ADC1)
+#define ADC1_CR			ADC_CR(ADC1)
+#define ADC1_CFGR1		ADC_CFGR1(ADC1)
+#define ADC1_CFGR2		ADC_CFGR2(ADC1)
+#define ADC1_SMPR		ADC_SMPR(ADC1)
+#define ADC1_TR			ADC_TR(ADC1)
+#define ADC1_CHSELR		ADC_CHSELR(ADC1)
+#define ADC1_DR			ADC_DR(ADC1)
+#define ADC1_CCR		ADC_CCR(ADC1)
+
+#define ADC1_AWD1TR		ADC_AWD1TR(ADC1)
+#define ADC1_AWD2TR		ADC_AWD2TR(ADC1)
+#define ADC1_AWD3TR		ADC_AWD3TR(ADC1)
+#define ADC1_AWD2CR		ADC_AWD2CR(ADC1)
+#define ADC1_AWD3CR		ADC_AWD3CR(ADC1)
+#define ADC1_CALFACT		ADC_CALFACT(ADC1)
+
 /* --- Register values -------------------------------------------------------*/
 
 /** @addtogroup adc_isr
@@ -123,8 +146,7 @@
 
 /* EXTSEL[2:0]: External trigger selection for regular group */
 #define ADC_CFGR1_EXTSEL_SHIFT			6
-#define ADC_CFGR1_EXTSEL			(0x7 << ADC_CFGR1_EXTSEL_SHIFT)
-#define ADC_CFGR1_EXTSEL_VAL(x)			((x) << ADC_CFGR1_EXTSEL_SHIFT)
+#define ADC_CFGR1_EXTSEL_MASK			0x7
 /** @defgroup adc_cfgr1_extsel ADC external trigger selection values
  *@{*/
 #define ADC_CFGR1_EXTSEL_TIM1_TRGO2	0x0
@@ -163,10 +185,6 @@
 
 #define ADC_CFGR2_OVSS_SHIFT		(5)
 #define ADC_CFGR2_OVSS_MASK			(0xf)
-/** @defgroup adc_cfgr2_ovss ADC Oversampling shift
- *@{*/
-#define ADC_CFGR2_OVSS_BITS(bits)	(bits)
-/**@}*/
 
 #define ADC_CFGR2_OVSR_SHIFT		(2)
 #define ADC_CFGR2_OVSR_MASK			(0x7)
@@ -193,8 +211,7 @@
 /* SMP1 ADC Channel Sample Time selection */
 #define ADC_SMPR_SMPSEL_SHIFT			0x8
 #define ADC_SMPR_SMPSEL_MASK			0x7ffff
-#define ADC_SMPR_SMPSEL_CHANNEL_SHIFT(channel)	((channel) + ADC_SMPR_SMPSEL_SHIFT)
-#define ADC_SMPR_SMPSEL_CHANNEL_MASK			(1)
+#define ADC_SMPR_SMPSEL(x)			(1 << ((x) + ADC_SMPR_SMPSEL_SHIFT))
 /** @defgroup adc_smpr_smpsel ADC Sample Time selection
 @{*/
 #define ADC_SMPR_SMPSEL_SMP1	0x0
@@ -228,12 +245,10 @@
 @{*/
 
 #define ADC_AWDTR1_LT_SHIFT		0
-#define ADC_AWDTR1_LT			(0xFFF << ADC_TR1_LT_SHIFT)
-#define ADC_AWDTR1_LT_VAL(x)		((x) << ADC_TR1_LT_SHIFT)
+#define ADC_AWDTR1_LT_MASK		0xfff
 
 #define ADC_AWDTR1_HT_SHIFT		16
-#define ADC_AWDTR1_HT			(0xFFF << ADC_TR1_HT_SHIFT)
-#define ADC_AWDTR1_HT_VAL(x)		((x) << ADC_TR1_HT_SHIFT)
+#define ADC_AWDTR1_HT_MASK		0xfff
 
 /**@}*/
 
@@ -241,12 +256,10 @@
 @{*/
 
 #define ADC_AWDTR2_LT_SHIFT		0
-#define ADC_AWDTR2_LT			(0xFFF << ADC_TR2_LT_SHIFT)
-#define ADC_AWDTR2_LT_VAL(x)		((x) << ADC_TR2_LT_SHIFT)
+#define ADC_AWDTR2_LT_MASK		0xfff
 
 #define ADC_AWDTR2_HT_SHIFT		16
-#define ADC_AWDTR2_HT			(0xFFF << ADC_TR2_HT_SHIFT)
-#define ADC_AWDTR2_HT_VAL(x)		((x) << ADC_TR2_HT_SHIFT)
+#define ADC_AWDTR2_HT_MASK		0xfff
 
 /**@}*/
 
@@ -258,8 +271,8 @@
 
 /** ADC_CHSELR_MAX_SQ_CHANNELS Maximum number of sequences in fully configurable mode */
 #define ADC_CHSELR_MAX_SQS		8
-/** ADC_CHSELR_SQS_MAX_CHANNEL Maximum channel number in a fully configuralbe sequence */
-#define ADC_CHSELR_SQS_MAX_CHANNEL		14
+/** ADC_CHSELR_SQS_MAX_CHANNELS Maximum channel number in a fully configuralbe sequence */
+#define ADC_CHSELR_SQS_MAX_CHANNELS	14
 
 #define ADC_CHSELR_SQx_MASK		0xf
 #define ADC_CHSELR_SQx_SHIFT(seqnum)  (4 * ((seqnum)-1))
@@ -268,20 +281,18 @@
 #define ADC_CHSELR_SQx(seqnum, value)	((value) << ADC_CHSELR_SQx_SHIFT(seqnum))
 
 /** ADC_CHSELR_SQx_EOS End of Sequence */
-#define ADC_CHSELR_SQx_EOS		0xf
+#define ADC_CHSELR_SQx_EOS(seqnum)	ADC_CHSELR_SQx(seqnum, 0xf)
 
 /**@}*/
 
-/** @defgroup adc_awdtr2 AWDTR2 ADC watchdog threshold register 2
+/** @defgroup adc_awdtr3 AWDTR3 ADC watchdog threshold register 3
 @{*/
 
 #define ADC_AWDTR3_LT_SHIFT		0
-#define ADC_AWDTR3_LT			(0xFFF << ADC_TR3_LT_SHIFT)
-#define ADC_AWDTR3_LT_VAL(x)		((x) << ADC_TR3_LT_SHIFT)
+#define ADC_AWDTR3_LT_MASK		0xfff
 
 #define ADC_AWDTR3_HT_SHIFT		16
-#define ADC_AWDTR3_HT			(0xFFF << ADC_TR3_HT_SHIFT)
-#define ADC_AWDTR3_HT_VAL(x)		((x) << ADC_TR3_HT_SHIFT)
+#define ADC_AWDTR3_HT_MASK		0xfff
 
 /**@}*/
 

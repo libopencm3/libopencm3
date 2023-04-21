@@ -86,8 +86,11 @@ void adc_set_channel_sample_time_selection(uint32_t adc, uint8_t channel, uint8_
 	uint32_t reg32;
 
 	reg32 = ADC_SMPR1(adc);
-	reg32 &= ~(ADC_SMPR_SMPSEL_CHANNEL_MASK << ADC_SMPR_SMPSEL_CHANNEL_SHIFT(channel));
-	reg32 |= (selection << ADC_SMPR_SMPSEL_CHANNEL_SHIFT(channel));
+	if (selection) {
+		reg32 |= ADC_SMPR_SMPSEL(channel);
+	} else {
+		reg32 &= ~ADC_SMPR_SMPSEL(channel);
+	}
 	ADC_SMPR1(adc) = reg32;
 }
 

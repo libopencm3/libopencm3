@@ -56,6 +56,24 @@
 /* Calibration Factors */
 #define ADC_CALFACT(adc)	MMIO32((adc) + 0xB4)
 
+/* Register definitions */
+
+#define ADC_SMPR(adc)		ADC_SMPR1(adc)
+#define ADC_TR(adc)		ADC_TR1(adc)
+
+#define ADC1_ISR		ADC_ISR(ADC1)
+#define ADC1_IER		ADC_IER(ADC1)
+#define ADC1_CR			ADC_CR(ADC1)
+#define ADC1_CFGR1		ADC_CFGR1(ADC1)
+#define ADC1_CFGR2		ADC_CFGR2(ADC1)
+#define ADC1_SMPR		ADC_SMPR(ADC1)
+#define ADC1_TR			ADC_TR(ADC1)
+#define ADC1_CHSELR		ADC_CHSELR(ADC1)
+#define ADC1_DR			ADC_DR(ADC1)
+#define ADC1_CCR		ADC_CCR(ADC1)
+
+#define ADC1_CALFACT		ADC_CALFACT(ADC1)
+
 /* Register values */
 /* ADC_CFGR1 Values ---------------------------------------------------------*/
 
@@ -64,9 +82,7 @@
 
 /* EXTSEL[2:0]: External trigger selection for regular group */
 #define ADC_CFGR1_EXTSEL_SHIFT		6
-#define ADC_CFGR1_EXTSEL		(0x7 << ADC_CFGR1_EXTSEL_SHIFT)
-#define ADC_CFGR1_EXTSEL_VAL(x)		((x) << ADC_CFGR1_EXTSEL_SHIFT)
-
+#define ADC_CFGR1_EXTSEL_MASK		0x7
 /** @defgroup adc_cfgr1_extsel ADC external trigger selection values
  *@{*/
 #define ADC_CFGR1_EXTSEL_TIM6_TRGO	0x0
@@ -83,11 +99,14 @@
 /* ADC_CFGR2 Values ---------------------------------------------------------*/
 
 #define ADC_CFGR2_CKMODE_SHIFT		30
-#define ADC_CFGR2_CKMODE		(3 << ADC_CFGR2_CKMODE_SHIFT)
-#define ADC_CFGR2_CKMODE_CK_ADC		(0 << ADC_CFGR2_CKMODE_SHIFT)
-#define ADC_CFGR2_CKMODE_PCLK_DIV2	(1 << ADC_CFGR2_CKMODE_SHIFT)
-#define ADC_CFGR2_CKMODE_PCLK_DIV4	(2 << ADC_CFGR2_CKMODE_SHIFT)
-#define ADC_CFGR2_CKMODE_PCLK		(3 << ADC_CFGR2_CKMODE_SHIFT)
+#define ADC_CFGR2_CKMODE_MASK		0x3
+
+#define ADC_CFGR2_CKMODE_CK_ADC		0x0
+#define ADC_CFGR2_CKMODE_PCLK_DIV2	0x1
+#define ADC_CFGR2_CKMODE_PCLK_DIV4	0x2
+#define ADC_CFGR2_CKMODE_PCLK		0x3
+
+/* ADC_SMPR Values ----------------------------------------------------------*/
 
 /** @defgroup adc_sample_rg ADC Sample Time Selection for All Channels
 @ingroup adc_defines

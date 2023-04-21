@@ -52,17 +52,16 @@
 /* Register definitions                                                      */
 /*****************************************************************************/
 
+#define ADC_SMPR(adc)			ADC_SMPR1(adc)
+#define ADC_TR(adc)			ADC_TR1(adc)
+
 #define ADC1_ISR			ADC_ISR(ADC)
 #define ADC1_IER			ADC_IER(ADC)
 #define ADC1_CR				ADC_CR(ADC)
 #define ADC1_CFGR1			ADC_CFGR1(ADC)
 #define ADC1_CFGR2			ADC_CFGR2(ADC)
-#define ADC1_SMPR1			ADC_SMPR1(ADC)
-#define ADC_SMPR(adc)			ADC_SMPR1(adc)  /* Compatibility */
-#define ADC1_SMPR			ADC_SMPR1(ADC) /* Compatibility */
-#define ADC1_TR1			ADC_TR1(ADC)
-#define ADC_TR(adc)			ADC_TR1(adc) /* Compatibility */
-#define ADC1_TR				ADC1_TR(ADC) /* Compatibility */
+#define ADC1_SMPR			ADC_SMPR(ADC)
+#define ADC1_TR				ADC_TR(ADC)
 #define ADC1_CHSELR			ADC_CHSELR(ADC)
 #define ADC1_DR				ADC_DR(ADC)
 #define ADC1_CCR			ADC_CCR(ADC)
@@ -91,23 +90,25 @@
 /* ADC_CFGR2 Values ---------------------------------------------------------*/
 
 #define ADC_CFGR2_CKMODE_SHIFT		30
-#define ADC_CFGR2_CKMODE		(3 << ADC_CFGR2_CKMODE_SHIFT)
-#define ADC_CFGR2_CKMODE_CK_ADC		(0 << ADC_CFGR2_CKMODE_SHIFT)
-#define ADC_CFGR2_CKMODE_PCLK_DIV2	(1 << ADC_CFGR2_CKMODE_SHIFT)
-#define ADC_CFGR2_CKMODE_PCLK_DIV4	(2 << ADC_CFGR2_CKMODE_SHIFT)
+#define ADC_CFGR2_CKMODE_MASK		0x3
+
+#define ADC_CFGR2_CKMODE_CK_ADC		0x0
+#define ADC_CFGR2_CKMODE_PCLK_DIV2	0x1
+#define ADC_CFGR2_CKMODE_PCLK_DIV4	0x2
 
 /* ADC_SMPR Values ----------------------------------------------------------*/
 
 #define ADC_SMPR_SMP_SHIFT		0
-#define ADC_SMPR_SMP			(7 << ADC_SMPR_SMP_SHIFT)
-#define ADC_SMPR_SMP_001DOT5		(0 << ADC_SMPR_SMP_SHIFT)
-#define ADC_SMPR_SMP_007DOT5		(1 << ADC_SMPR_SMP_SHIFT)
-#define ADC_SMPR_SMP_013DOT5		(2 << ADC_SMPR_SMP_SHIFT)
-#define ADC_SMPR_SMP_028DOT5		(3 << ADC_SMPR_SMP_SHIFT)
-#define ADC_SMPR_SMP_041DOT5		(4 << ADC_SMPR_SMP_SHIFT)
-#define ADC_SMPR_SMP_055DOT5		(5 << ADC_SMPR_SMP_SHIFT)
-#define ADC_SMPR_SMP_071DOT5		(6 << ADC_SMPR_SMP_SHIFT)
-#define ADC_SMPR_SMP_239DOT5		(7 << ADC_SMPR_SMP_SHIFT)
+#define ADC_SMPR_SMP_MASK		0x7
+
+#define ADC_SMPR_SMP_001DOT5		0x0
+#define ADC_SMPR_SMP_007DOT5		0x1
+#define ADC_SMPR_SMP_013DOT5		0x2
+#define ADC_SMPR_SMP_028DOT5		0x3
+#define ADC_SMPR_SMP_041DOT5		0x4
+#define ADC_SMPR_SMP_055DOT5		0x5
+#define ADC_SMPR_SMP_071DOT5		0x6
+#define ADC_SMPR_SMP_239DOT5		0x7
 
 
 /*****************************************************************************/

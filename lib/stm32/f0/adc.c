@@ -162,11 +162,10 @@ void adc_set_operation_mode(uint32_t adc, enum adc_opmode opmode)
 void adc_enable_external_trigger_regular(uint32_t adc, uint32_t trigger,
 				 uint32_t polarity)
 {
-	uint32_t reg = ADC_CFGR1(adc);
-	reg &= ~(ADC_CFGR1_EXTSEL_MASK << ADC_CFGR1_EXTSEL_SHIFT);
-	reg &= ~(ADC_CFGR1_EXTEN_MASK);
-	reg |= polarity | (trigger << ADC_CFGR1_EXTSEL_SHIFT);
-	ADC_CFGR1(adc) = reg;
+	uint32_t reg32 = ADC_CFGR1(adc);
+	reg32 &= ~((ADC_CFGR1_EXTSEL_MASK << ADC_CFGR1_EXTSEL_SHIFT) | ADC_CFGR1_EXTEN_MASK);
+	reg32 |= (trigger << ADC_CFGR1_EXTSEL_SHIFT) | polarity;
+	ADC_CFGR1(adc) = reg32;
 }
 
 /*---------------------------------------------------------------------------*/
@@ -308,7 +307,9 @@ void adc_clear_eoc_sequence_flag(uint32_t adc)
 
 void adc_set_clk_source(uint32_t adc, uint32_t source)
 {
-	ADC_CFGR2(adc) = ((ADC_CFGR2(adc) & ~ADC_CFGR2_CKMODE) | source);
+	uint32_t reg32 = ADC_CFGR2(adc);
+	reg32 &= ~(ADC_CFGR2_CKMODE_MASK << ADC_CFGR2_CKMODE_SHIFT);
+	ADC_CFGR2(adc) = reg32 | (source << ADC_CFGR2_CKMODE_SHIFT);
 }
 
 /*---------------------------------------------------------------------------*/
@@ -374,7 +375,9 @@ void adc_set_regular_sequence(uint32_t adc, uint8_t length, uint8_t channel[])
 
 void adc_set_sample_time_on_all_channels(uint32_t adc, uint8_t time)
 {
-	ADC_SMPR(adc) = time & ADC_SMPR_SMP;
+	uint32_t reg32 = ADC_SMPR(adc);
+	reg32 &= ~(ADC_SMPR_SMP_MASK << ADC_SMPR_SMP_SHIFT);
+	ADC_SMPR(adc) = reg32 | (time << ADC_SMPR_SMP_SHIFT);
 }
 
 /*---------------------------------------------------------------------------*/
