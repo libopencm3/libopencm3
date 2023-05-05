@@ -30,28 +30,28 @@
 /**@{*/
 
 #define DMAMUX_CxCR(dmamux_base, dma_channel)	MMIO32((dmamux_base) + 0x04 * ((dma_channel) - 1))
-#define DMAMUX1_CxCR(dma_channel)				DMAMUX_CxCR(DMAMUX1, (dma_channel))
-#define DMAMUX2_CxCR(dma_channel)				DMAMUX_CxCR(DMAMUX2, (dma_channel))
+#define DMAMUX1_CxCR(dma_channel)		DMAMUX_CxCR(DMAMUX1, (dma_channel))
+#define DMAMUX2_CxCR(dma_channel)		DMAMUX_CxCR(DMAMUX2, (dma_channel))
 
-#define DMAMUX_CSR(dmamux_base)				MMIO32((dmamux_base) + 0x80)
-#define DMAMUX1_CSR(dmamux_base)			DMAMUX_CSR(DMAMUX1)
-#define DMAMUX2_CSR(dmamux_base)			DMAMUX_CSR(DMAMUX2)
+#define DMAMUX_CSR(dmamux_base)			MMIO32((dmamux_base) + 0x80)
+#define DMAMUX1_CSR				DMAMUX_CSR(DMAMUX1)
+#define DMAMUX2_CSR				DMAMUX_CSR(DMAMUX2)
 
-#define DMAMUX_CFR(dmamux_base)				MMIO32((dmamux_base) + 0x84)
-#define DMAMUX1_CFR(dmamux_base)			DMAMUX_CFR(DMAMUX1)
-#define DMAMUX2_CFR(dmamux_base)			DMAMUX_CFR(DMAMUX2)
+#define DMAMUX_CFR(dmamux_base)			MMIO32((dmamux_base) + 0x84)
+#define DMAMUX1_CFR				DMAMUX_CFR(DMAMUX1)
+#define DMAMUX2_CFR				DMAMUX_CFR(DMAMUX2)
 
 #define DMAMUX_RGxCR(dmamux_base, rg_channel)	MMIO32((dmamux_base) + 0x100 + 0x04 * ((rg_channel) - 1))
-#define DMAMUX1_RGxCR(dmamux_base, rg_channel)	DMAMUX_RGxCR(DMAMUX1, (rg_channel))
-#define DMAMUX2_RGxCR(dmamux_base, rg_channel)	DMAMUX_RGxCR(DMAMUX2, (rg_channel))
+#define DMAMUX1_RGxCR(rg_channel)		DMAMUX_RGxCR(DMAMUX1, (rg_channel))
+#define DMAMUX2_RGxCR(rg_channel)		DMAMUX_RGxCR(DMAMUX2, (rg_channel))
 
-#define DMAMUX_RGSR(dmamux_base)			MMIO32((dmamux_base) + 0x140)
-#define DMAMUX1_RGSR(dmamux_base)			DMAMUX_RSGR(DMAMUX1)
-#define DMAMUX2_RGSR(dmamux_base)			DMAMUX_RSGR(DMAMUX2)
+#define DMAMUX_RGSR(dmamux_base)		MMIO32((dmamux_base) + 0x140)
+#define DMAMUX1_RGSR				DMAMUX_RSGR(DMAMUX1)
+#define DMAMUX2_RGSR				DMAMUX_RSGR(DMAMUX2)
 
-#define DMAMUX_RGCFR(dmamux_base)			MMIO32((dmamux_base) + 0x144)
-#define DMAMUX1_RGCFR(dmamux_base)			DMAMUX_RGCFR(DMAMUX1)
-#define DMAMUX2_RGCFR(dmamux_base)			DMAMUX_RGCFR(DMAMUX2)
+#define DMAMUX_RGCFR(dmamux_base)		MMIO32((dmamux_base) + 0x144)
+#define DMAMUX1_RGCFR				DMAMUX_RGCFR(DMAMUX1)
+#define DMAMUX2_RGCFR				DMAMUX_RGCFR(DMAMUX2)
 
 /** @defgroup dmamux_cxcr CxCR DMA request line multiplexer channel x control register
 @{*/

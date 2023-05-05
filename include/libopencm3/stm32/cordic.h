@@ -1,20 +1,7 @@
-/** @defgroup crc_defines CRC Defines
- *
- * @brief <b>Defined Constants and Types for the STM32Fxx CRC
- * Generator </b>
- *
- * @ingroup STM32F0xx_defines
- *
- * @version 1.0.0
- *
- * @date 29 Jun 2013
- *
- *LGPL License Terms @ref lgpl_license
- */
+/* This provides unification of code over STM32 subfamilies */
+
 /*
  * This file is part of the libopencm3 project.
- *
- * Copyright (C) 2010 Thomas Otto <tommi@viadmin.org>
  *
  * This library is free software: you can redistribute it and/or modify
  * it under the terms of the GNU Lesser General Public License as published by
@@ -30,9 +17,13 @@
  * along with this library.  If not, see <http://www.gnu.org/licenses/>.
  */
 
-#ifndef LIBOPENCM3_CRC_H
-#define LIBOPENCM3_CRC_H
+#include <libopencm3/cm3/common.h>
+#include <libopencm3/stm32/memorymap.h>
 
-#include <libopencm3/stm32/common/crc_v2.h>
-
+#if defined(STM32G4)
+#       include <libopencm3/stm32/g4/cordic.h>
+#elif defined(STM32U5)
+#       include <libopencm3/stm32/u5/cordic.h>
+#else
+#       error "stm32 family not defined."
 #endif

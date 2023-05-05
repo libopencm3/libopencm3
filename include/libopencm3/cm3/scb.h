@@ -549,7 +549,7 @@ struct scb_exception_stack_frame {
 
 #define SCB_GET_EXCEPTION_STACK_FRAME(f)				\
 	do {								\
-		asm volatile ("mov %[frameptr], sp"			\
+		__asm__ volatile ("mov %[frameptr], sp"			\
 			      : [frameptr]"=r" (f));			\
 	} while (0)
 

@@ -498,12 +498,14 @@ static uint32_t rcc_get_usart_clksel_freq(uint32_t apb_clk, uint8_t shift) {
 	uint8_t clksel = (RCC_CFGR3 >> shift) & RCC_CFGR3_UARTxSW_MASK;
 	uint8_t hpre = (RCC_CFGR >> RCC_CFGR_HPRE_SHIFT) & RCC_CFGR_HPRE_MASK;
 	switch (clksel) {
-		case RCC_CFGR3_UART1SW_PCLK:
-			return apb_clk;
-		case RCC_CFGR3_UART1SW_SYSCLK:
-			return rcc_ahb_frequency * rcc_get_div_from_hpre(hpre);
-		case RCC_CFGR3_UART1SW_HSI:
-			return 8000000U;
+	case RCC_CFGR3_UARTxSW_PCLK:
+		return apb_clk;
+	case RCC_CFGR3_UARTxSW_SYSCLK:
+		return rcc_ahb_frequency * rcc_get_div_from_hpre(hpre);
+	case RCC_CFGR3_UARTxSW_LSE:
+		return 32768;
+	case RCC_CFGR3_UARTxSW_HSI:
+		return 8000000U;
 	}
 	cm3_assert_not_reached();
 }

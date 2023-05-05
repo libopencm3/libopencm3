@@ -444,8 +444,11 @@ BEGIN_DECLS
 
 void uart_set_baudrate(uint32_t uart, uint32_t baud);
 void uart_set_databits(uint32_t uart, uint8_t databits);
+uint8_t uart_get_databits(uint32_t uart);
 void uart_set_stopbits(uint32_t uart, uint8_t stopbits);
+uint8_t uart_get_stopbits(uint32_t uart);
 void uart_set_parity(uint32_t uart, enum uart_parity parity);
+enum uart_parity uart_get_parity(uint32_t uart);
 void uart_set_mode(uint32_t uart, uint32_t mode);
 void uart_set_flow_control(uint32_t uart, enum uart_flowctl flow);
 void uart_enable(uint32_t uart);

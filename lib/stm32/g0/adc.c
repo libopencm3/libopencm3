@@ -69,7 +69,7 @@ void adc_set_sample_time_on_all_channels(uint32_t adc, uint8_t time)
 
 	reg32 = ADC_SMPR1(adc);
 	/* set all channels on ADC_SMPR_SMPSEL_SMP1 first @ref adc_smpr_smpsel sample time selection, and clear its value */
-	reg32 &= ~((ADC_SMPR_SMPSEL_MASK << ADC_SMPR_SMP1_SHIFT) | (ADC_SMPR_SMP1_MASK << ADC_SMPR_SMP1_SHIFT));
+	reg32 &= ~((ADC_SMPR_SMPSEL_MASK << ADC_SMPR_SMPSEL_SHIFT) | (ADC_SMPR_SMP1_MASK << ADC_SMPR_SMP1_SHIFT));
 	/* setup ADC_SMPR_SMPSEL_SMP1 sample time */
 	reg32 |= (time << ADC_SMPR_SMP1_SHIFT);
 	ADC_SMPR1(adc) = reg32;
@@ -160,24 +160,24 @@ void adc_set_regular_sequence(uint32_t adc, uint8_t length, uint8_t channel[])
 
 	/* Setup scandir, if needed, waiting for configuration be applied.. */
 	if (stepdn && (!(ADC_CFGR1(adc) & ADC_CFGR1_SCANDIR))) {
-		ADC_ISR(adc) &= ~ADC_ISR_CCRDY;
+		ADC_ISR(adc) = ADC_ISR_CCRDY;
 		ADC_CFGR1(adc) |= ADC_CFGR1_SCANDIR;
 		while (!(ADC_ISR(adc) & ADC_ISR_CCRDY));
 	} else if (stepup && ((ADC_CFGR1(adc) & ADC_CFGR1_SCANDIR))) {
-		ADC_ISR(adc) &= ~ADC_ISR_CCRDY;
+		ADC_ISR(adc) = ADC_ISR_CCRDY;
 		ADC_CFGR1(adc) &= ~ADC_CFGR1_SCANDIR;
 		while (!(ADC_ISR(adc) & ADC_ISR_CCRDY));
 	}
 
 	/* Setup ADC in simple, not configurable, mode, if needed. */
 	if ((ADC_CFGR1(adc) & ADC_CFGR1_CHSELRMOD)) {
-		ADC_ISR(adc) &= ~ADC_ISR_CCRDY;
+		ADC_ISR(adc) = ADC_ISR_CCRDY;
 		ADC_CFGR1(adc) &= ~ADC_CFGR1_CHSELRMOD;
 		while (!(ADC_ISR(adc) & ADC_ISR_CCRDY));
 	}
 
 	if (ADC_CHSELR(adc) != reg32) {
-		ADC_ISR(adc) &= ~ADC_ISR_CCRDY;
+		ADC_ISR(adc) = ADC_ISR_CCRDY;
 		ADC_CHSELR(adc) = reg32;
 		while (!(ADC_ISR(adc) & ADC_ISR_CCRDY));
 	}

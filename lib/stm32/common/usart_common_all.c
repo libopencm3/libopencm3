@@ -52,17 +52,7 @@ usart_reg_base
 
 void usart_set_baudrate(uint32_t usart, uint32_t baud)
 {
-	uint32_t clock = rcc_apb1_frequency;
-
-#if defined USART1
-	if ((usart == USART1)
-#if defined USART6
-		|| (usart == USART6)
-#endif
-		) {
-		clock = rcc_apb2_frequency;
-	}
-#endif
+	uint32_t clock = rcc_get_usart_clk_freq(usart);
 
 	/*
 	 * Yes it is as simple as that. The reference manual is
@@ -106,6 +96,27 @@ void usart_set_databits(uint32_t usart, uint32_t bits)
 }
 
 /*---------------------------------------------------------------------------*/
+/** @brief USART Get Word Length.
+
+The word length is set to 8 or 9 bits. Note that the last bit will be a parity
+bit if parity is enabled, in which case the data length will be 7 or 8 bits
+respectively.
+
+@param[in] usart unsigned 32 bit. USART block register address base @ref
+usart_reg_base
+@returns unsigned 32 bit Word length in bits 8 or 9.
+*/
+
+uint32_t usart_get_databits(uint32_t usart)
+{
+	const uint32_t reg32 = USART_CR1(usart) & USART_CR1_M;
+	if (reg32)
+		return 9;
+	else
+		return 8;
+}
+
+/*---------------------------------------------------------------------------*/
 /** @brief USART Set Stop Bit(s).
 
 The stop bits are specified as 0.5, 1, 1.5 or 2.
@@ -125,6 +136,22 @@ void usart_set_stopbits(uint32_t usart, uint32_t stopbits)
 }
 
 /*---------------------------------------------------------------------------*/
+/** @brief USART Get Stop Bit(s).
+
+The stop bits are specified as 0.5, 1, 1.5 or 2.
+
+@param[in] usart unsigned 32 bit. USART block register address base @ref
+usart_reg_base
+@returns unsigned 32 bit Stop bits @ref usart_cr2_stopbits.
+*/
+
+uint32_t usart_get_stopbits(uint32_t usart)
+{
+	const uint32_t reg32 = USART_CR2(usart);
+	return reg32 & USART_CR2_STOPBITS_MASK;
+}
+
+/*---------------------------------------------------------------------------*/
 /** @brief USART Set Parity.
 
 The parity bit can be selected as none, even or odd.
@@ -141,6 +168,22 @@ void usart_set_parity(uint32_t usart, uint32_t parity)
 	reg32 = USART_CR1(usart);
 	reg32 = (reg32 & ~USART_PARITY_MASK) | parity;
 	USART_CR1(usart) = reg32;
+}
+
+/*---------------------------------------------------------------------------*/
+/** @brief USART Get Parity.
+
+The stop bits are specified as 0.5, 1, 1.5 or 2.
+
+@param[in] usart unsigned 32 bit. USART block register address base @ref
+usart_reg_base
+@returns unsigned 32 bit Parity @ref usart_cr2_stopbits.
+*/
+
+uint32_t usart_get_parity(uint32_t usart)
+{
+	const uint32_t reg32 = USART_CR1(usart);
+	return reg32 & USART_PARITY_MASK;
 }
 
 /*---------------------------------------------------------------------------*/
@@ -353,7 +396,7 @@ void usart_disable_tx_interrupt(uint32_t usart)
 /*---------------------------------------------------------------------------*/
 /**
  * @brief USART Transmission Complete Interrupt Enable
- * 
+ *
  * @param[in] usart unsigned 32 bit. USART block register address base @ref
 usart_reg_base
  */
@@ -366,7 +409,7 @@ void usart_enable_tx_complete_interrupt(uint32_t usart)
 /*---------------------------------------------------------------------------*/
 /**
  * @brief USART Transmission Complete Interrupt Disable
- * 
+ *
  * @param[in] usart unsigned 32 bit. USART block register address base @ref
 usart_reg_base
  */
@@ -424,4 +467,3 @@ void usart_disable_error_interrupt(uint32_t usart)
 }
 
 /**@}*/
-

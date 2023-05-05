@@ -25,14 +25,18 @@
 BEGIN_DECLS
 
 /**
- * This buffer is used for instruction fetches and is enabled by default after
- * reset.
+ * This buffer is used for instruction fetches and may or may not be
+ * enabled by default, depending on platform. (F1: yes, most others: no)
  * 
  * Note carefully the clock restrictions under which the prefetch buffer may be
  * enabled or disabled. Changes are normally made while the clock is running in
  * the power-on low frequency mode before being set to a higher speed mode.
  *
- * See the reference manual for details.
+ * Note carefully that prefetch may also results in increased consumption
+ * and can only improve performance on "mostly linear" workloads where there
+ * is at least one flash wait state.
+ *
+ * See the reference manual for your particular target for more details.
  */
 void flash_prefetch_enable(void);
 

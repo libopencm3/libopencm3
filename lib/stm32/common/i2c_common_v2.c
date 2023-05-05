@@ -25,42 +25,6 @@
 /**@{*/
 
 /*---------------------------------------------------------------------------*/
-/** @brief I2C Reset.
- *
- * The I2C peripheral and all its associated configuration registers are placed
- * in the reset condition. The reset is effected via the RCC peripheral reset
- * system.
- *
- * @param[in] i2c Unsigned int32. I2C peripheral identifier @ref i2c_reg_base.
- */
-
-void i2c_reset(uint32_t i2c)
-{
-	switch (i2c) {
-	case I2C1:
-		rcc_periph_reset_pulse(RST_I2C1);
-		break;
-#if defined(I2C2_BASE)
-	case I2C2:
-		rcc_periph_reset_pulse(RST_I2C2);
-		break;
-#endif
-#if defined(I2C3_BASE)
-	case I2C3:
-		rcc_periph_reset_pulse(RST_I2C3);
-		break;
-#endif
-#if defined(I2C4_BASE)
-	case I2C4:
-		rcc_periph_reset_pulse(RST_I2C4);
-		break;
-#endif
-	default:
-		break;
-	}
-}
-
-/*---------------------------------------------------------------------------*/
 /** @brief I2C Peripheral Enable.
  *
  * @param[in] i2c Unsigned int32. I2C register base address @ref i2c_reg_base.

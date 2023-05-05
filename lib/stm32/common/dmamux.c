@@ -231,7 +231,7 @@ Reset Request Generator Channel Configuration and interrupt flags.
 */
 void dmamux_reset_request_generator_channel(uint32_t dmamux, uint8_t rg_channel)
 {
-	DMAMUX_CxCR(dmamux, rg_channel) = 0;
+	DMAMUX_RGxCR(dmamux, rg_channel) = 0;
 	dmamux_clear_request_generator_trigger_overrun_interrupt(dmamux, rg_channel);
 }
 

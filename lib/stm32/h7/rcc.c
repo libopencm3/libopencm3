@@ -277,17 +277,21 @@ uint32_t rcc_get_usart_clk_freq(uint32_t usart)
 	}
 
 	/* Based on extracted clksel value, return the clock. */
-	if (clksel == RCC_D2CCIP2R_USARTSEL_PCLK) {
+	switch(clksel) {
+	case RCC_D2CCIP2R_USARTSEL_PCLK:
 		return pclk;
-	} else if (clksel == RCC_D2CCIP2R_USARTSEL_PLL2Q) {
+	case RCC_D2CCIP2R_USARTSEL_PLL2Q:
 		return rcc_clock_tree.pll2.q_mhz * HZ_PER_MHZ;
-	} else if (clksel == RCC_D2CCIP2R_USARTSEL_PLL3Q) {
+	case RCC_D2CCIP2R_USARTSEL_PLL3Q:
 		return rcc_clock_tree.pll3.q_mhz * HZ_PER_MHZ;
-	} else if (clksel == RCC_D2CCIP2R_USARTSEL_HSI) {
+	case RCC_D2CCIP2R_USARTSEL_HSI:
 		return RCC_HSI_BASE_FREQUENCY;
-	} else {
-		return 0U;
+	case RCC_D2CCIP2R_USARTSEL_CSI:
+		return 4000000;
+	case RCC_D2CCIP2R_USARTSEL_LSE:
+		return 32768;
 	}
+	cm3_assert_not_reached();
 }
 
 uint32_t rcc_get_timer_clk_freq(uint32_t timer __attribute__((unused)))

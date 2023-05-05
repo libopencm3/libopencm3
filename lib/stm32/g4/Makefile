@@ -36,7 +36,9 @@ TGT_CFLAGS	+= $(STANDARD_FLAGS)
 ARFLAGS		= rcs
 
 OBJS += adc.o adc_common_v2.o adc_common_v2_multi.o
+OBJS += cordic_common_v1.o
 OBJS += crs_common_all.o
+OBJS += crc_common_all.o crc_v2.o
 OBJS += dac_common_all.o dac_common_v2.o
 OBJS += dma_common_l1f013.o
 OBJS += dmamux.o
@@ -51,6 +53,7 @@ OBJS += rng_common_v1.o
 OBJS += spi_common_all.o spi_common_v2.o
 OBJS += timer_common_all.o timer_common_f0234.o
 OBJS += quadspi_common_v1.o
+OBJS += usart_common_v2.o usart_common_all.o
 
 OBJS += usb.o usb_control.o usb_standard.o
 OBJS += usb_audio.o

@@ -540,13 +540,14 @@ void adc_set_clk_source(uint32_t adc, uint32_t source)
  * The ADC clock taken from the APB2 clock can be scaled down by 2, 4, 6 or 8.
  *
  * @param adc peripheral of choice @ref adc_reg_base
- * @param[in] prescale Unsigned int32. Prescale value for ADC Clock @ref
- * adc_ccr_adcpre
+ * @param[in] prescale Prescale value for ADC Clock @ref adc_ccr_presc
  */
-void adc_set_clk_prescale(uint32_t adc, uint32_t ckmode)
+void adc_set_clk_prescale(uint32_t adc, uint32_t prescale)
 {
-	uint32_t reg32 = ((ADC_CCR(adc) & ~ADC_CCR_CKMODE_MASK) | ckmode);
-	ADC_CCR(adc) = reg32;
+	uint32_t reg32 = ADC_CCR(adc);
+
+	reg32  &= ~(ADC_CCR_PRESC_MASK << ADC_CCR_PRESC_SHIFT);
+	ADC_CCR(adc) = (reg32 | (prescale << ADC_CCR_PRESC_SHIFT));
 }
 
 /*---------------------------------------------------------------------------*/

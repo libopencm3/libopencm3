@@ -155,18 +155,18 @@ void adc_set_operation_mode(uint32_t adc, enum adc_opmode opmode)
  * sets the polarity of the trigger event: rising or falling edge or both. Note
  * that if the trigger polarity is zero, triggering is disabled.
  *
- * @param[in] adc Unsigned int32. ADC base address (@ref adc_reg_base)
- * @param[in] trigger Unsigned int32. Trigger identifier
- * @ref adc_trigger_regular
- * @param[in] polarity Unsigned int32. Trigger polarity @ref
- * adc_trigger_polarity_regular
+ * @param[in] adc peripheral of choice (@ref adc_reg_base)
+ * @param[in] trigger external trigger @ref adc_cfgr1_extsel
+ * @param[in] polarity Trigger polarity @ref adc_cfgr1_exten
  */
-
 void adc_enable_external_trigger_regular(uint32_t adc, uint32_t trigger,
 				 uint32_t polarity)
 {
-	ADC_CFGR1(adc) = (ADC_CFGR1(adc) & ~ADC_CFGR1_EXTSEL) | trigger;
-	ADC_CFGR1(adc) = (ADC_CFGR1(adc) & ~ADC_CFGR1_EXTEN_MASK) | polarity;
+	uint32_t reg = ADC_CFGR1(adc);
+	reg &= ~(ADC_CFGR1_EXTSEL_MASK << ADC_CFGR1_EXTSEL_SHIFT);
+	reg &= ~(ADC_CFGR1_EXTEN_MASK);
+	reg |= polarity | (trigger << ADC_CFGR1_EXTSEL_SHIFT);
+	ADC_CFGR1(adc) = reg;
 }
 
 /*---------------------------------------------------------------------------*/

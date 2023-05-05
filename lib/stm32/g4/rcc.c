@@ -759,8 +759,43 @@ void rcc_clock_setup_hse_3v3(const struct rcc_clock_scale *clock)
  */
 void rcc_set_clock48_source(uint32_t clksel)
 {
-	RCC_CCIPR &= ~(RCC_CCIPR_SEL_MASK << RCC_CCIPR_CLK48_SHIFT);
-	RCC_CCIPR |= (clksel << RCC_CCIPR_CLK48_SHIFT);
+	RCC_CCIPR &= ~(RCC_CCIPR_SEL_MASK << RCC_CCIPR_CLK48SEL_SHIFT);
+	RCC_CCIPR |= (clksel << RCC_CCIPR_CLK48SEL_SHIFT);
+}
+
+static uint32_t rcc_get_clksel_freq(uint8_t shift) {
+	uint8_t clksel = (RCC_CCIPR >> shift) & RCC_CCIPR_SEL_MASK;
+	uint8_t hpre = (RCC_CFGR >> RCC_CFGR_HPRE_SHIFT) & RCC_CFGR_HPRE_MASK;
+	switch (clksel) {
+	case RCC_CCIPR_USARTxSEL_PCLK:
+		return rcc_apb1_frequency;
+	case RCC_CCIPR_USARTxSEL_SYSCLK:
+		return rcc_ahb_frequency * rcc_get_div_from_hpre(hpre);
+	case RCC_CCIPR_USARTxSEL_LSE:
+		return 32768;
+	case RCC_CCIPR_USARTxSEL_HSI16:
+		return 16000000U;
+	}
+	cm3_assert_not_reached();
+}
+
+
+uint32_t rcc_get_usart_clk_freq(uint32_t usart)
+{
+	if (usart == USART1_BASE) {
+		return rcc_get_clksel_freq(RCC_CCIPR_USART1SEL_SHIFT);
+	} else if (usart == USART2_BASE) {
+		return rcc_get_clksel_freq(RCC_CCIPR_USART2SEL_SHIFT);
+	} else if (usart == USART3_BASE) {
+		return rcc_get_clksel_freq(RCC_CCIPR_USART3SEL_SHIFT);
+	} else if (usart == UART4_BASE) {
+		return rcc_get_clksel_freq(RCC_CCIPR_UART4SEL_SHIFT);
+	} else if (usart == UART5_BASE) {
+		return rcc_get_clksel_freq(RCC_CCIPR_UART5SEL_SHIFT);
+	} else if (usart == LPUART1_BASE) {
+		return rcc_get_clksel_freq(RCC_CCIPR_LPUART1SEL_SHIFT);
+	}
+	cm3_assert_not_reached();
 }
 
 /**@}*/

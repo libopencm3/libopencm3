@@ -138,17 +138,23 @@ void uart_set_baudrate(uint32_t uart, uint32_t baud)
  */
 void uart_set_databits(uint32_t uart, uint8_t databits)
 {
-	uint32_t reg32, bitint32_t;
+	uint32_t reg32, bits32;
 
 	/* This has the same effect as using UART_LCRH_WLEN_5/6/7/8 directly */
-	bitint32_t = (databits - 5) << 5;
+	bits32 = (databits - 5) << 5;
 
 	/* TODO: What about 9 data bits? */
 
 	reg32 = UART_LCRH(uart);
 	reg32 &= ~UART_LCRH_WLEN_MASK;
-	reg32 |= bitint32_t;
+	reg32 |= bits32;
 	UART_LCRH(uart) = reg32;
+}
+
+uint8_t uart_get_databits(uint32_t uart)
+{
+	const uint8_t bits = (UART_LCRH(uart) & UART_LCRH_WLEN_MASK) >> 5;
+	return bits + 5;
 }
 
 /**
@@ -164,6 +170,13 @@ void uart_set_stopbits(uint32_t uart, uint8_t stopbits)
 	} else {
 		UART_LCRH(uart) &= ~UART_LCRH_STP2;
 	}
+}
+
+uint8_t uart_get_stopbits(uint32_t uart)
+{
+	if (UART_LCRH(uart) & UART_LCRH_STP2)
+		return 2;
+	return 1;
 }
 
 /**
@@ -199,6 +212,26 @@ void uart_set_parity(uint32_t uart, enum uart_parity parity)
 	}
 
 	UART_LCRH(uart) = reg32;
+}
+
+enum uart_parity uart_get_parity(uint32_t uart)
+{
+	const uint32_t reg32 = UART_LCRH(uart);
+	/* Check if parity is even enabled */
+	if (!(reg32 & UART_LCRH_PEN))
+		return UART_PARITY_NONE;
+	/* Check for sticky modes */
+	if (reg32 & UART_LCRH_SPS) {
+		if (reg32 & UART_LCRH_EPS) {
+			return UART_PARITY_STICK_0;
+		}
+		return UART_PARITY_STICK_1;
+	} else {
+		if (reg32 & UART_LCRH_EPS) {
+			return UART_PARITY_EVEN;
+		}
+		return UART_PARITY_ODD;
+	}
 }
 
 /**

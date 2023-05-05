@@ -1,22 +1,18 @@
-/** @defgroup rtc_defines RTC Defines
+/** @defgroup syscfg_defines SYSCFG Defines
  *
- * @brief <b>Defined Constants and Types for the STM32F3xx Real Time Clock </b>
+ * @ingroup STM32G4xx_defines
  *
- * @ingroup STM32F3xx_defines
- *
- * @author @htmlonly &copy; @endhtmlonly 2014
- * Ken Sarkies <ksarkies@internode.on.net>
+ * @brief Defined Constants and Types for the STM32G4xx Sysconfig
  *
  * @version 1.0.0
  *
- * @date 13 January 2014
- *
  * LGPL License Terms @ref lgpl_license
+ * @{
+ *  
  */
+
 /*
  * This file is part of the libopencm3 project.
- *
- * Copyright (C) 2014 Ken Sarkies <ksarkies@internode.on.net>
  *
  * This library is free software: you can redistribute it and/or modify
  * it under the terms of the GNU Lesser General Public License as published by
@@ -32,9 +28,25 @@
  * along with this library.  If not, see <http://www.gnu.org/licenses/>.
  */
 
-#ifndef LIBOPENCM3_RTC_H
-#define LIBOPENCM3_RTC_H
+#pragma once
 
-#include <libopencm3/stm32/common/rtc_common_l1f024.h>
+/** @defgroup syscfg_registers SYSCFG registers
+@{*/
 
-#endif
+#define SYSCFG_MEMRM			MMIO32(SYSCFG_BASE + 0x00)
+
+#define SYSCFG_PMC			MMIO32(SYSCFG_BASE + 0x04)
+
+/** External interrupt configuration registers [0..3] (SYSCFG_EXTICR[1..4]) */
+#define SYSCFG_EXTICR(i)		MMIO32(SYSCFG_BASE + 0x08 + (i)*4)
+#define SYSCFG_EXTICR1			SYSCFG_EXTICR(0)
+#define SYSCFG_EXTICR2			SYSCFG_EXTICR(1)
+#define SYSCFG_EXTICR3			SYSCFG_EXTICR(2)
+#define SYSCFG_EXTICR4			SYSCFG_EXTICR(3)
+
+#define SYSCFG_SWPR			MMIO32(SYSCFG_BASE + 0x20)
+/**@}*/
+
+#define SYSCFG_EXTICR_FIELDSIZE		4
+
+/**@}*/

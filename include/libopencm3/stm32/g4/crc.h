@@ -1,20 +1,15 @@
 /** @defgroup crc_defines CRC Defines
  *
- * @brief <b>Defined Constants and Types for the STM32Fxx CRC
- * Generator </b>
+ * @brief <b>Defined Constants and Types for the STM32G4xx CRC Generator </b>
  *
- * @ingroup STM32F0xx_defines
+ * @ingroup STM32G4xx_defines
  *
  * @version 1.0.0
  *
- * @date 29 Jun 2013
- *
- *LGPL License Terms @ref lgpl_license
+ * LGPL License Terms @ref lgpl_license
  */
 /*
  * This file is part of the libopencm3 project.
- *
- * Copyright (C) 2010 Thomas Otto <tommi@viadmin.org>
  *
  * This library is free software: you can redistribute it and/or modify
  * it under the terms of the GNU Lesser General Public License as published by

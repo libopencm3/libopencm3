@@ -385,7 +385,6 @@ enum i2c_speeds {
 
 BEGIN_DECLS
 
-void i2c_reset(uint32_t i2c);
 void i2c_peripheral_enable(uint32_t i2c);
 void i2c_peripheral_disable(uint32_t i2c);
 void i2c_send_start(uint32_t i2c);

@@ -344,7 +344,6 @@ specific memorymap.h header before including this header file.*/
 
 BEGIN_DECLS
 
-void spi_reset(uint32_t spi_peripheral);
 void spi_enable(uint32_t spi);
 void spi_disable(uint32_t spi);
 uint16_t spi_clean_disable(uint32_t spi);

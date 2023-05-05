@@ -541,7 +541,7 @@ static uint32_t rcc_uart_i2c_clksel_freq_hz(uint32_t apb_clk, uint8_t shift, uin
 	switch (clksel) {
 		case RCC_CCIPR_USARTxSEL_APB:
 			return apb_clk;
-		case RCC_CCIPR_USARTxSEL_SYS:
+		case RCC_CCIPR_USARTxSEL_SYSCLK:
 			return rcc_ahb_frequency * rcc_get_div_from_hpre(hpre);
 		case RCC_CCIPR_USARTxSEL_HSI16:
 			return 16000000U;

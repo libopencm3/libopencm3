@@ -52,7 +52,6 @@
  *
  * @param[in] value uint32_t. 24 bit reload value.
  */
-
 void systick_set_reload(uint32_t value)
 {
 	STK_RVR = (value & STK_RVR_RELOAD);

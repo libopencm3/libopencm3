@@ -40,6 +40,9 @@ LGPL License Terms @ref lgpl_license
 #ifndef __MSC_H
 #define __MSC_H
 
+#include <stdint.h>
+#include <libopencm3/usb/usbd.h>
+
 typedef struct _usbd_mass_storage usbd_mass_storage;
 
 /* Definitions of Mass Storage Class from:

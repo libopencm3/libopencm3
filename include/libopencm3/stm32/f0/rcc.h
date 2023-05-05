@@ -385,35 +385,29 @@ Control</b>
 /**@}*/
 
 /* --- RCC_CFGR3 values ---------------------------------------------------- */
+/** @defgroup rcc_cfgr3_uart_choices UART for clock source selecting
+ * @note This is only used internally.
+ * @{
+ */
 #define RCC_CFGR3_USART3SW_SHIFT		18
-#define RCC_CFGR3_USART3SW			(3 << RCC_CFGR3_USART2SW_SHIFT)
-#define RCC_CFGR3_USART3SW_PCLK			(0 << RCC_CFGR3_USART2SW_SHIFT)
-#define RCC_CFGR3_USART3SW_SYSCLK		(1 << RCC_CFGR3_USART2SW_SHIFT)
-#define RCC_CFGR3_USART3SW_LSE			(2 << RCC_CFGR3_USART2SW_SHIFT)
-#define RCC_CFGR3_USART3SW_HSI			(3 << RCC_CFGR3_USART2SW_SHIFT)
-
 #define RCC_CFGR3_USART2SW_SHIFT		16
-#define RCC_CFGR3_USART2SW			(3 << RCC_CFGR3_USART2SW_SHIFT)
-#define RCC_CFGR3_USART2SW_PCLK			(0 << RCC_CFGR3_USART2SW_SHIFT)
-#define RCC_CFGR3_USART2SW_SYSCLK		(1 << RCC_CFGR3_USART2SW_SHIFT)
-#define RCC_CFGR3_USART2SW_LSE			(2 << RCC_CFGR3_USART2SW_SHIFT)
-#define RCC_CFGR3_USART2SW_HSI			(3 << RCC_CFGR3_USART2SW_SHIFT)
+#define RCC_CFGR3_USART1SW_SHIFT		0
+/**@}*/
+
+/** @defgroup rcc_cfgr3_uart_clksel UART Clock source selections
+ * @{
+ */
+#define RCC_CFGR3_USARTxSW_PCLK			0x0
+#define RCC_CFGR3_USARTxSW_SYSCLK		0x1
+#define RCC_CFGR3_USARTxSW_LSE			0x2
+#define RCC_CFGR3_USARTxSW_HSI			0x3
+/**@}*/
+#define RCC_CFGR3_USARTxSW_MASK			0x3
 
 #define RCC_CFGR3_ADCSW				(1 << 8)
 #define RCC_CFGR3_USBSW				(1 << 7)
 #define RCC_CFGR3_CECSW				(1 << 6)
 #define RCC_CFGR3_I2C1SW			(1 << 4)
-
-#define RCC_CFGR3_USART1SW_SHIFT		0
-#define RCC_CFGR3_USART1SW			(3 << RCC_CFGR3_USART1SW_SHIFT)
-#define RCC_CFGR3_USART1SW_PCLK			(0 << RCC_CFGR3_USART1SW_SHIFT)
-#define RCC_CFGR3_USART1SW_SYSCLK		(1 << RCC_CFGR3_USART1SW_SHIFT)
-#define RCC_CFGR3_USART1SW_LSE			(2 << RCC_CFGR3_USART1SW_SHIFT)
-#define RCC_CFGR3_USART1SW_HSI			(3 << RCC_CFGR3_USART1SW_SHIFT)
-
-#define RCC_CFGR3_USARTxSW_MASK			3
-
-/* --- RCC_CFGR3 values ---------------------------------------------------- */
 
 #define RCC_CR2_HSI48CAL_SHIFT			24
 #define RCC_CR2_HSI48CAL			(0xFF << RCC_CR2_HSI48CAL_SHIFT)
