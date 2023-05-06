@@ -281,6 +281,12 @@ at32f40[37]??g* at32f40x ROM=1024K RAM=96K
 at32f405??b* at32f40x ROM=128K RAM=96K
 at32f405??c* at32f40x ROM=256K RAM=96K
 
+at32f421?4* at32f42x ROM=16K RAM=8K
+at32f421?6* at32f42x ROM=32K RAM=16K
+at32f421?8* at32f42x ROM=64K RAM=16K
+at32f425?6* at32f42x ROM=32K RAM=20K
+at32f425?8* at32f42x ROM=64K RAM=20K
+
 ################################################################################
 # the SAM3 chips
 
@@ -610,6 +616,7 @@ stm32t END ROM_OFF=0x08000000 RAM_OFF=0x20000000 CPU=cortex-m3 FPU=soft
 ################################################################################
 # the AT32 families
 at32f40x END ROM_OFF=0x08000000 RAM_OFF=0x20000000 CPU=cortex-m4 FPU=hard-fpv4-sp-d16
+at32f42x END ROM_OFF=0x08000000 RAM_OFF=0x20000000 CPU=cortex-m4 FPU=soft
 
 ################################################################################
 # the SAM3 families
