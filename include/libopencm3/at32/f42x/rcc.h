@@ -647,6 +647,7 @@ struct rcc_clock_scale {
 	uint8_t ppre2;
 	uint8_t adcpre;
 	uint8_t hse_xtpre;
+	uint8_t flash_waitstates;
 	uint32_t ahb_frequency;
 	uint32_t apb1_frequency;
 	uint32_t apb2_frequency;

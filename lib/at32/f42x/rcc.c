@@ -36,6 +36,7 @@ system clock. Not all possible configurations are included.
 
 #include <libopencm3/cm3/assert.h>
 #include <libopencm3/stm32/rcc.h>
+#include <libopencm3/stm32/flash.h>
 
 /** Set the default clock frequencies */
 uint32_t rcc_apb1_frequency = 8000000;
@@ -50,6 +51,7 @@ const struct rcc_clock_scale rcc_hse_configs[RCC_CLOCK_HSE_END] = {
 		.ppre1 = RCC_CFGR_PPRE_NODIV,
 		.ppre2 = RCC_CFGR_PPRE_NODIV,
 		.adcpre = RCC_CFGR_ADCPRE_DIV2,
+		.flash_waitstates = FLASH_ACR_LATENCY_032_064MHZ,
 		.ahb_frequency = 48000000,
 		.apb1_frequency = 48000000,
 		.apb2_frequency = 48000000,
@@ -61,6 +63,7 @@ const struct rcc_clock_scale rcc_hse_configs[RCC_CLOCK_HSE_END] = {
 		.ppre1 = RCC_CFGR_PPRE_NODIV,
 		.ppre2 = RCC_CFGR_PPRE_NODIV,
 		.adcpre = RCC_CFGR_ADCPRE_DIV4,
+		.flash_waitstates = FLASH_ACR_LATENCY_064_096MHZ,
 		.ahb_frequency = 72000000,
 		.apb1_frequency = 72000000,
 		.apb2_frequency = 72000000,
@@ -72,6 +75,7 @@ const struct rcc_clock_scale rcc_hse_configs[RCC_CLOCK_HSE_END] = {
 		.ppre1 = RCC_CFGR_PPRE_NODIV,
 		.ppre2 = RCC_CFGR_PPRE_NODIV,
 		.adcpre = RCC_CFGR_ADCPRE_DIV4,
+		.flash_waitstates = FLASH_ACR_LATENCY_064_096MHZ,
 		.ahb_frequency	= 96000000,
 		.apb1_frequency = 96000000,
 		.apb2_frequency = 96000000,
@@ -83,6 +87,7 @@ const struct rcc_clock_scale rcc_hse_configs[RCC_CLOCK_HSE_END] = {
 		.ppre1 = RCC_CFGR_PPRE_NODIV,
 		.ppre2 = RCC_CFGR_PPRE_NODIV,
 		.adcpre = RCC_CFGR_ADCPRE_DIV6,
+		.flash_waitstates = FLASH_ACR_LATENCY_096_120MHZ,
 		.ahb_frequency	= 120000000,
 		.apb1_frequency = 120000000,
 		.apb2_frequency = 120000000,
@@ -97,6 +102,7 @@ const struct rcc_clock_scale rcc_hsi_configs[RCC_CLOCK_HSI_END] = {
 		.ppre1 = RCC_CFGR_PPRE_NODIV,
 		.ppre2 = RCC_CFGR_PPRE_NODIV,
 		.adcpre = RCC_CFGR_ADCPRE_DIV2,
+		.flash_waitstates = FLASH_ACR_LATENCY_032_064MHZ,
 		.ahb_frequency = 48000000,
 		.apb1_frequency = 48000000,
 		.apb2_frequency = 48000000,
@@ -108,6 +114,7 @@ const struct rcc_clock_scale rcc_hsi_configs[RCC_CLOCK_HSI_END] = {
 		.ppre1 = RCC_CFGR_PPRE_NODIV,
 		.ppre2 = RCC_CFGR_PPRE_NODIV,
 		.adcpre = RCC_CFGR_ADCPRE_DIV4,
+		.flash_waitstates = FLASH_ACR_LATENCY_064_096MHZ,
 		.ahb_frequency = 72000000,
 		.apb1_frequency = 72000000,
 		.apb2_frequency = 72000000,
@@ -119,6 +126,7 @@ const struct rcc_clock_scale rcc_hsi_configs[RCC_CLOCK_HSI_END] = {
 		.ppre1 = RCC_CFGR_PPRE_NODIV,
 		.ppre2 = RCC_CFGR_PPRE_NODIV,
 		.adcpre = RCC_CFGR_ADCPRE_DIV4,
+		.flash_waitstates = FLASH_ACR_LATENCY_064_096MHZ,
 		.ahb_frequency	= 96000000,
 		.apb1_frequency = 96000000,
 		.apb2_frequency = 96000000,
@@ -175,6 +183,7 @@ void rcc_clock_setup_pll(const struct rcc_clock_scale *clock)
 	rcc_set_ppre1(clock->ppre1);
 	rcc_set_ppre2(clock->ppre2);
 	rcc_set_adcpre(clock->adcpre);
+	flash_set_ws(clock->flash_waitstates);
 
 	if (clock->pll_mode) {
 		/* TODO MNP-style pll */
