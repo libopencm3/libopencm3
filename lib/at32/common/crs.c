@@ -1,13 +1,10 @@
-/** @addtogroup crs_file
-
-@brief <b>(USB) AT32F40x Clock Recovery Subsystem</b>
-
-@version 1.0.0
-
-@date 7 Dec 2022
-
-LGPL License Terms @ref lgpl_license
-*/
+/** @defgroup crs_file CRS Peripheral API
+ *
+ *  @ingroup peripheral_apis
+ *
+ *  @brief AT32F40x Clock Recovery Subsystem
+ *
+ */
 
 /*
  * This file is part of the libopencm3 project.
