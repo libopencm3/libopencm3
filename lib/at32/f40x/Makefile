@@ -46,7 +46,7 @@ OBJS		+= pwr_common_v1.o
 OBJS		+= rcc.o rcc_common_at32.o rcc_common_all.o
 OBJS		+= rtc.o
 OBJS		+= spi_common_all.o spi_common_v1.o
-OBJS		+= timer.o timer_common_all.o
+OBJS		+= timer_common_at32.o timer_common_all.o
 OBJS		+= usart_common_all.o usart_common_f124.o
 
 OBJS		+= usb.o usb_control.o usb_standard.o usb_msc.o
