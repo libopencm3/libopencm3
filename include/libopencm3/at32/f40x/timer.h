@@ -1,15 +1,14 @@
-/** @defgroup timer_defines Timer Defines
-
-@brief <b>libopencm3 Defined Constants and Types for the AT32F40x Timers</b>
-
-@ingroup AT32F40x_defines
-
-@version 1.0.0
-
-@date 25 November 2022
-
-LGPL License Terms @ref lgpl_license
-*/
+/** @defgroup timer_defines TIMER Defines
+ *
+ * @brief <b>Defined Constants and Types for the AT32F40x Timers</b>
+ *
+ * @ingroup AT32F40x_defines
+ *
+ * @version 1.0.0
+ *
+ * @date 25 November 2022
+ *
+ */
 
 /*
  * This file is part of the libopencm3 project.
@@ -28,26 +27,11 @@ LGPL License Terms @ref lgpl_license
  * along with this library.  If not, see <http://www.gnu.org/licenses/>.
  */
 
-#pragma once
+/**@{*/
 
-#include <libopencm3/stm32/common/timer_common_all.h>
+#ifndef LIBOPENCM3_TIMER_H
+#define LIBOPENCM3_TIMER_H
 
-/* --- TIMx_CR1 values (continued) ----------------------------------------- */
-#define TIM_CR1_PMEN			(1 << 10)
+#include <libopencm3/at32/common/timer_common_at32.h>
 
-/** Input Capture input polarity */
-enum tim_ic_pol {
-	TIM_IC_RISING,
-	TIM_IC_FALLING,
-};
-
-/* --- Function prototypes ------------------------------------------------- */
-
-BEGIN_DECLS
-
-void timer_enable_plus_mode(uint32_t timer);
-void timer_disable_plus_mode(uint32_t timer);
-void timer_ic_set_polarity(uint32_t timer,
-			   enum tim_ic_id ic,
-			   enum tim_ic_pol pol);
-END_DECLS
+#endif
