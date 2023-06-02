@@ -34,6 +34,8 @@
 #       include <libopencm3/stm32/u5/crs.h>
 #elif defined(AT32F40X)
 #       include <libopencm3/at32/f40x/crs.h>
+#elif defined(AT32F42X)
+#       include <libopencm3/at32/f42x/crs.h>
 #else
 #       error "stm32 family not defined or not supported for this peripheral"
 #endif
