@@ -44,6 +44,8 @@
 #       include <libopencm3/stm32/g4/dma.h>
 #elif defined(AT32F40X)
 #	include <libopencm3/at32/f40x/dma.h>
+#elif defined(AT32F42X)
+#	include <libopencm3/at32/f42x/dma.h>
 #else
 #       error "stm32 family not defined."
 #endif
