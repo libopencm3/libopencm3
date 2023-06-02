@@ -47,6 +47,11 @@ OBJS		+= spi_common_all.o spi_common_v1.o spi_common_v1_frf.o
 OBJS		+= timer_common_at32.o timer_common_all.o
 OBJS		+= usart_common_all.o usart_common_f124.o
 
+OBJS		+= usb.o usb_control.o usb_standard.o usb_msc.o
+OBJS		+= usb_hid.o
+OBJS		+= usb_audio.o usb_cdc.o usb_midi.o
+OBJS		+= usb_dwc_common.o usb_at32.o
+
 gpio_common_f0234.o:	TGT_CFLAGS	+= -DGPIO_SET_OUTPUT_OPTIONS
 
 vpath %.c	../../stm32/common:../../stm32
