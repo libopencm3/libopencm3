@@ -136,30 +136,53 @@ const struct rcc_clock_scale rcc_hsi_configs[RCC_CLOCK_HSI_END] = {
 /*---------------------------------------------------------------------------*/
 /** @brief RCC Set the PLL input frequency range.
 
-@note This only has effect when the PLL is in integer division mode.
+@note This only has effect when the PLL is disabled.
 
 @param[in] range PLL input frequency range @ref rcc_pllcfgr_range
 */
 
 void rcc_set_pll_input_range(uint32_t range)
 {
-	RCC_PLLCFGR = (RCC_PLLCFGR & ~RCC_PLLCFGR_RANGE_MASK) |
+	RCC_PLLCFGR = (RCC_PLLCFGR & ~(RCC_PLLCFGR_PLLEN |
+				       RCC_PLLCFGR_RANGE_MASK)) |
 		(range << RCC_PLLCFGR_RANGE_SHIFT);
 }
 
 /*---------------------------------------------------------------------------*/
-/** @brief RCC Set the PLL Multiplication Factor.
+/** @brief RCC Setup the PLL in integer mode.
 
 @note This only has effect when the PLL is disabled.
 
+@param[in] range PLL input frequency range @ref rcc_pllcfgr_range
 @param[in] mul PLL multiplication factor @ref rcc_cfgr_pmf
 */
 
-void rcc_set_pll_multiplication_factor(uint32_t mul)
+void rcc_set_pll_int(uint32_t range, uint32_t mul)
 {
-	RCC_CFGR = (RCC_CFGR & ~RCC_CFGR_PLLMUL) |
-		((mul & 0x70) << (RCC_CFGR_PLLMULHI_SHIFT - 4)) |
-		((mul & 0x0f) << RCC_CFGR_PLLMUL_SHIFT);
+	rcc_set_pll_input_range(range);
+	rcc_set_pll_multiplication_factor(mul);
+}
+
+/*---------------------------------------------------------------------------*/
+/** @brief RCC Setup the PLL in fractional mode.
+
+@note This only has effect when the PLL is disabled.
+
+@param pllm Divider for the PLL input clock
+@param plln PLL multiplication factor for VCO
+@param pllp PLL post divider for main system clock
+*/
+
+void rcc_set_pll_fraq(uint32_t pllm, uint32_t plln, uint32_t pllp)
+{
+	pllp = 0x7 & (31 - __builtin_clz(pllp));
+	RCC_PLLCFGR = (RCC_CFGR & ~(RCC_PLLCFGR_PLLM_MASK |
+				    RCC_PLLCFGR_PLLN_MASK |
+				    RCC_PLLCFGR_PLLP_MASK)) |
+		RCC_PLLCFGR_PLLEN |
+                (pllm << RCC_PLLCFGR_PLLM_SHIFT) |
+                (plln << RCC_PLLCFGR_PLLN_SHIFT) |
+                (pllp << RCC_PLLCFGR_PLLP_SHIFT);
 }
 
 /*---------------------------------------------------------------------------*/
@@ -186,10 +209,9 @@ void rcc_clock_setup_pll(const struct rcc_clock_scale *clock)
 	flash_set_ws(clock->flash_waitstates);
 
 	if (clock->pll_mode) {
-		/* TODO MNP-style pll */
+		rcc_set_pll_fraq(clock->pllm, clock->plln, clock->pllp);
 	} else {
-		rcc_set_pll_input_range(clock->pll_range);
-		rcc_set_pll_multiplication_factor(clock->pll_mul);
+		rcc_set_pll_int(clock->pll_range, clock->pll_mul);
 	}
 
 	rcc_set_pll_source(clock->pll_source);
