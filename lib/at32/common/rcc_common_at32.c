@@ -301,6 +301,21 @@ void rcc_set_pll_source(uint32_t pllsrc)
 }
 
 /*---------------------------------------------------------------------------*/
+/** @brief RCC Set the PLL Multiplication Factor.
+
+@note This only has effect when the PLL is disabled.
+
+@param[in] mul PLL multiplication factor @ref rcc_cfgr_pmf
+*/
+
+void rcc_set_pll_multiplication_factor(uint32_t mul)
+{
+	RCC_CFGR = (RCC_CFGR & ~RCC_CFGR_PLLMUL) |
+		((mul & 0x70) << (RCC_CFGR_PLLMULHI_SHIFT - 4)) |
+		((mul & 0x0f) << RCC_CFGR_PLLMUL_SHIFT);
+}
+
+/*---------------------------------------------------------------------------*/
 /** @brief RCC HSE Frequency Divider.
 
 @param[in] xtpre Puts HSE clock thru divider before PLL @ref rcc_cfgr_pllxtpre
@@ -409,8 +424,6 @@ void rcc_set_ppre2(uint32_t ppre2)
 
 /*---------------------------------------------------------------------------*/
 /** @brief RCC Set the APB1 Prescale Factor.
-
-@note The APB1 clock frequency must not exceed 36MHz.
 
 @param[in] ppre1 APB1 prescale factor @ref rcc_cfgr_apb1pre
 */

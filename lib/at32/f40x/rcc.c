@@ -137,21 +137,6 @@ const struct rcc_clock_scale rcc_hsi_configs[RCC_CLOCK_HSI_END] = {
 };
 
 /*---------------------------------------------------------------------------*/
-/** @brief RCC Set the PLL Multiplication Factor.
-
-@note This only has effect when the PLL is disabled.
-
-@param[in] mul PLL multiplication factor @ref rcc_cfgr_pmf
-*/
-
-void rcc_set_pll_multiplication_factor(uint32_t mul)
-{
-	RCC_CFGR = (RCC_CFGR & ~RCC_CFGR_PLLMUL) |
-		((mul & 0x70) << (RCC_CFGR_PLLMULHI_SHIFT - 4)) |
-		((mul & 0x0f) << RCC_CFGR_PLLMUL_SHIFT);
-}
-
-/*---------------------------------------------------------------------------*/
 /** @brief RCC Set the HSE Frequency Divider used as PLL Clock Source.
 
 @param[in] prediv HSE prescale factor @ref rcc_cfgr5_hse_div
