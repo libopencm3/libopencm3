@@ -88,6 +88,7 @@ const struct rcc_clock_scale rcc_hsi_configs[RCC_CLOCK_HSI_END] = {
 		.pll_mul = RCC_CFGR_PLLMUL_MUL12,
 		.hpre = RCC_CFGR_HPRE_NODIV,
 		.ppre = RCC_CFGR_PPRE_NODIV,
+		.flash_waitstates = 1,
 		.ahb_frequency  = 48e6,
 		.apb1_frequency = 48e6,
 		.sysclk_source = RCC_HSI,
@@ -96,6 +97,7 @@ const struct rcc_clock_scale rcc_hsi_configs[RCC_CLOCK_HSI_END] = {
 		/* hsi48 to 48Mhz */
 		.hpre = RCC_CFGR_HPRE_NODIV,
 		.ppre = RCC_CFGR_PPRE_NODIV,
+		.flash_waitstates = 1,
 		.ahb_frequency  = 48e6,
 		.apb1_frequency = 48e6,
 		.sysclk_source = RCC_HSI48,
