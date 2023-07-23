@@ -639,11 +639,11 @@ void rcc_set_main_pll(uint32_t pllsrc, uint32_t pllm, uint32_t plln,
 	RCC_PLLCFGR = ((pllsrc & RCC_PLLCFGR_PLLSRC_MASK) << RCC_PLLCFGR_PLLSRC_SHIFT) |
 		((pllm & RCC_PLLCFGR_PLLM_MASK) << RCC_PLLCFGR_PLLM_SHIFT) |
 		((plln & RCC_PLLCFGR_PLLN_MASK) << RCC_PLLCFGR_PLLN_SHIFT) |
-		(pllpen ? RCC_PLLCFGR_PLLPEN : 0 ) |
+		(pllpen ? RCC_PLLCFGR_PLLPEN : 0) |
 		(pllp ? RCC_PLLCFGR_PLLP_DIV17 : RCC_PLLCFGR_PLLP_DIV7) |
-		(pllqen ? RCC_PLLCFGR_PLLQEN : 0 ) |
+		(pllqen ? RCC_PLLCFGR_PLLQEN : 0) |
 		((pllq & RCC_PLLCFGR_PLLQ_MASK) << RCC_PLLCFGR_PLLQ_SHIFT) |
-		(pllren ? RCC_PLLCFGR_PLLREN : 0 ) |
+		(pllren ? RCC_PLLCFGR_PLLREN : 0) |
 		((pllr & RCC_PLLCFGR_PLLR_MASK) << RCC_PLLCFGR_PLLR_SHIFT) |
 		((pllpdiv & RCC_PLLCFGR_PLLPDIV_MASK) << RCC_PLLCFGR_PLLPDIV_SHIFT);
 }
@@ -763,7 +763,8 @@ void rcc_set_clock48_source(uint32_t clksel)
 	RCC_CCIPR |= (clksel << RCC_CCIPR_CLK48SEL_SHIFT);
 }
 
-static uint32_t rcc_get_clksel_freq(uint8_t shift) {
+static uint32_t rcc_get_clksel_freq(uint8_t shift)
+{
 	uint8_t clksel = (RCC_CCIPR >> shift) & RCC_CCIPR_SEL_MASK;
 	uint8_t hpre = (RCC_CFGR >> RCC_CFGR_HPRE_SHIFT) & RCC_CFGR_HPRE_MASK;
 	switch (clksel) {
