@@ -398,7 +398,7 @@ enum afio_mux {
 	AFIO_GMUX_TIM4_D12	= AFIOMUX(12, 0xf, 1),	/*!< D[12-15] */
 
 	AFIO_GMUX_TIM3_A6	= AFIOMUX(8, 0xf, 0),	/*!< A[6-7] B[0-1] */
-	AFIO_GMUX_TIM3_B4	= AFIOMUX(8, 0xf, 1),	/*!< B[4-5] B[0-1] */
+	AFIO_GMUX_TIM3_B4	= AFIOMUX(8, 0xf, 2),	/*!< B[4-5] B[0-1] */
 
 	AFIO_GMUX_TIM2_ITR1_TIM8= AFIOMUX(6, 3, 0),	/*!< TIM8TRGO->TIM2ITR1 */
 	AFIO_GMUX_TIM2_ITR1_PTP	= AFIOMUX(6, 3, 2),	/*!< EMAC_PTP->TIM2ITR1 */
