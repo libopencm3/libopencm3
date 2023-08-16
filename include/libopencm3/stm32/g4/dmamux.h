@@ -188,29 +188,29 @@ LGPL License Terms @ref lgpl_license
 
 /* --- DMAMUX_RGxCR values ----------------------------------- */
 
-/** @defgroup dmamux_rgxcr_sig_id SIGID DMA request trigger input selected
+/** @defgroup dmamux_rgxcr_sig_id SIG_ID DMA request trigger input selected
 @{*/
-#define DMAMUX_CxCR_SYNC_ID_EXTI_LINE0       0
-#define DMAMUX_CxCR_SYNC_ID_EXTI_LINE1       1
-#define DMAMUX_CxCR_SYNC_ID_EXTI_LINE2       2
-#define DMAMUX_CxCR_SYNC_ID_EXTI_LINE3       3
-#define DMAMUX_CxCR_SYNC_ID_EXTI_LINE4       4
-#define DMAMUX_CxCR_SYNC_ID_EXTI_LINE5       5
-#define DMAMUX_CxCR_SYNC_ID_EXTI_LINE6       6
-#define DMAMUX_CxCR_SYNC_ID_EXTI_LINE7       7
-#define DMAMUX_CxCR_SYNC_ID_EXTI_LINE8       8
-#define DMAMUX_CxCR_SYNC_ID_EXTI_LINE9       9
-#define DMAMUX_CxCR_SYNC_ID_EXTI_LINE10      10
-#define DMAMUX_CxCR_SYNC_ID_EXTI_LINE11      11
-#define DMAMUX_CxCR_SYNC_ID_EXTI_LINE12      12
-#define DMAMUX_CxCR_SYNC_ID_EXTI_LINE13      13
-#define DMAMUX_CxCR_SYNC_ID_EXTI_LINE14      14
-#define DMAMUX_CxCR_SYNC_ID_EXTI_LINE15      15
-#define DMAMUX_CxCR_SYNC_ID_DMAMUX_CH0_EVT   16
-#define DMAMUX_CxCR_SYNC_ID_DMAMUX_CH1_EVT   17
-#define DMAMUX_CxCR_SYNC_ID_DMAMUX_CH2_EVT   18
-#define DMAMUX_CxCR_SYNC_ID_DMAMUX_CH3_EVT   19
-#define DMAMUX_CxCR_SYNC_ID_LPTIM1_OUT       20
+#define DMAMUX_RGxCR_SIG_ID_EXTI_LINE0       0
+#define DMAMUX_RGxCR_SIG_ID_EXTI_LINE1       1
+#define DMAMUX_RGxCR_SIG_ID_EXTI_LINE2       2
+#define DMAMUX_RGxCR_SIG_ID_EXTI_LINE3       3
+#define DMAMUX_RGxCR_SIG_ID_EXTI_LINE4       4
+#define DMAMUX_RGxCR_SIG_ID_EXTI_LINE5       5
+#define DMAMUX_RGxCR_SIG_ID_EXTI_LINE6       6
+#define DMAMUX_RGxCR_SIG_ID_EXTI_LINE7       7
+#define DMAMUX_RGxCR_SIG_ID_EXTI_LINE8       8
+#define DMAMUX_RGxCR_SIG_ID_EXTI_LINE9       9
+#define DMAMUX_RGxCR_SIG_ID_EXTI_LINE10      10
+#define DMAMUX_RGxCR_SIG_ID_EXTI_LINE11      11
+#define DMAMUX_RGxCR_SIG_ID_EXTI_LINE12      12
+#define DMAMUX_RGxCR_SIG_ID_EXTI_LINE13      13
+#define DMAMUX_RGxCR_SIG_ID_EXTI_LINE14      14
+#define DMAMUX_RGxCR_SIG_ID_EXTI_LINE15      15
+#define DMAMUX_RGxCR_SIG_ID_DMAMUX_CH0_EVT   16
+#define DMAMUX_RGxCR_SIG_ID_DMAMUX_CH1_EVT   17
+#define DMAMUX_RGxCR_SIG_ID_DMAMUX_CH2_EVT   18
+#define DMAMUX_RGxCR_SIG_ID_DMAMUX_CH3_EVT   19
+#define DMAMUX_RGxCR_SIG_ID_LPTIM1_OUT       20
 /**@}*/
 
 /**@}*/
