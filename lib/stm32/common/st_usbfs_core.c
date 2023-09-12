@@ -102,7 +102,6 @@ void st_usbfs_ep_setup(usbd_device *dev, uint8_t addr, uint8_t type,
 			dev->user_callback_ctr[addr][USB_TRANSACTION_IN] =
 			    (void *)callback;
 		}
-		USB_CLR_EP_TX_DTOG(addr);
 		USB_SET_EP_TX_STAT(addr, USB_EP_TX_STAT_NAK);
 		dev->pm_top += max_size;
 	}
@@ -115,7 +114,6 @@ void st_usbfs_ep_setup(usbd_device *dev, uint8_t addr, uint8_t type,
 			dev->user_callback_ctr[addr][USB_TRANSACTION_OUT] =
 			    (void *)callback;
 		}
-		USB_CLR_EP_RX_DTOG(addr);
 		USB_SET_EP_RX_STAT(addr, USB_EP_RX_STAT_VALID);
 		dev->pm_top += realsize;
 	}
