@@ -32,9 +32,9 @@
 
 /**@{*/
 
+#include <string.h>
+#include <libopencmsis/core_cm3.h>
 #include <libopencm3/stm32/crypto.h>
-
-#define CRYP_CR_ALGOMODE_MASK	((1 << 19) | CRYP_CR_ALGOMODE)
 
 /**
  * @brief Wait, if the Controller is busy
@@ -47,37 +47,66 @@ void crypto_wait_busy(void)
 /**
  * @brief Set key value to the controller
  * @param[in] keysize enum crypto_keysize Specified size of the key.
- * @param[in] key uint64_t[] Key value (array of 4 items)
+ * @param[in] key uint8_t* Key value (array of 16 bytes (KEY_SIZE_128BIT) |
+ *                                    array of 24 bytes (KEY_SIZE_192BIT) |
+ *                                    array of 32 bytes (KEY_SIZE_256BIT))
  */
-void crypto_set_key(enum crypto_keysize keysize, uint64_t key[])
+void crypto_set_key(enum crypto_keysize keysize, uint8_t *key)
 {
 	int i;
+	int j;
 
 	crypto_wait_busy();
 
-	CRYP_CR = (CRYP_CR & ~CRYP_CR_KEYSIZE) |
-		  (keysize << CRYP_CR_KEYSIZE_SHIFT);
+	CRYP_CR = (CRYP_CR & ~CRYP_CR_KEYSIZE) | (keysize << CRYP_CR_KEYSIZE_SHIFT);
 
-	for (i = 0; i < 4; i++) {
-		CRYP_KR(i) = key[i];
+	uint32_t *key_32bit_pointer = (uint32_t*)key;
+
+	uint32_t swaped_key[CRYP_KR_COUNT];
+	memset(swaped_key, 0, sizeof(swaped_key));
+
+	switch(keysize)
+	{
+		case CRYPTO_KEY_128BIT:
+			for(i = KEY_128BIT_OFFSET, j = 0; i < CRYP_KR_COUNT; i++, j++) {
+				swaped_key[i] = __REV(key_32bit_pointer[j]);
+			}
+			break;
+		case CRYPTO_KEY_192BIT:
+			for(i = KEY_192BIT_OFFSET, j = 0; i < CRYP_KR_COUNT; i++, j++) {
+				swaped_key[i] = __REV(key_32bit_pointer[j]);
+			}
+			break;
+		case CRYPTO_KEY_256BIT:
+			for(i = KEY_256BIT_OFFSET, j = 0; i < CRYP_KR_COUNT; i++, j++) {
+				swaped_key[i] = __REV(key_32bit_pointer[j]);
+			}
+			break;
+	}
+
+
+	for (i = 0; i < CRYP_KR_COUNT; i++) {
+		CRYP_KR(i) = swaped_key[i];
 	}
 }
 
 /**
  * @brief Set Initialization Vector
  *
- * @param[in] iv uint64_t[] Initialization vector (array of 4 items)
+ * @param[in] iv uint8_t* Initialization vector (array of 16 items)
 
  * @note Cryptographic controller must be in disabled state
  */
-void crypto_set_iv(uint64_t iv[])
+void crypto_set_iv(uint8_t *iv)
 {
 	int i;
 
 	crypto_wait_busy();
 
-	for (i = 0; i < 4; i++) {
-		CRYP_IVR(i) = iv[i];
+	uint32_t *iv_32bit_pointer = (uint32_t*)iv;
+
+	for (i = 0; i < CRYP_IVR_COUNT; i++) {
+		CRYP_IVR(i) = __REV(iv_32bit_pointer[i]);
 	}
 }
 
@@ -88,8 +117,7 @@ void crypto_set_iv(uint64_t iv[])
  */
 void crypto_set_datatype(enum crypto_datatype datatype)
 {
-	CRYP_CR = (CRYP_CR & ~CRYP_CR_DATATYPE) |
-		  (datatype << CRYP_CR_DATATYPE_SHIFT);
+	CRYP_CR = (CRYP_CR & ~CRYP_CR_DATATYPE) | (datatype << CRYP_CR_DATATYPE_SHIFT);
 }
 
 /**
@@ -99,12 +127,10 @@ void crypto_set_datatype(enum crypto_datatype datatype)
  */
 void crypto_set_algorithm(enum crypto_mode mode)
 {
-	mode &= ~CRYP_CR_ALGOMODE_MASK;
-
 	if ((mode == DECRYPT_AES_ECB) || (mode == DECRYPT_AES_CBC)) {
 		/* Unroll keys for the AES encoder for the user automatically */
 
-		CRYP_CR = (CRYP_CR & ~CRYP_CR_ALGOMODE_MASK) |
+		CRYP_CR = (CRYP_CR & ~CRYP_CR_ALGOMODE) |
 		    CRYP_CR_ALGOMODE_AES_PREP;
 
 		crypto_start();
@@ -112,7 +138,8 @@ void crypto_set_algorithm(enum crypto_mode mode)
 		/* module switches to DISABLE automatically */
 	}
 	/* set algo mode */
-	CRYP_CR = (CRYP_CR & ~CRYP_CR_ALGOMODE_MASK) | mode;
+	CRYP_CR = (CRYP_CR & ~CRYP_CR_ALGODIR);
+	CRYP_CR = (CRYP_CR & ~CRYP_CR_ALGOMODE) | mode;
 
 	/* flush buffers */
 	CRYP_CR |= CRYP_CR_FFLUSH;
@@ -129,7 +156,6 @@ void crypto_start(void)
 /**
  * @brief Disable the cryptographic controller and stop processing
  */
-
 void crypto_stop(void)
 {
 	CRYP_CR &= ~CRYP_CR_CRYPEN;
