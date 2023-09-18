@@ -308,8 +308,8 @@ usb_standard_set_interface(usbd_device *usbd_dev,
 				return USBD_REQ_HANDLED;
 			}
 		}
-		ptr += ptr[0];
 		totalLen -= ptr[0];
+		ptr += ptr[0];
 	}
 
 	return USBD_REQ_NOTSUPP;
