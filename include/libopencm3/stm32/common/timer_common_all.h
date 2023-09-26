@@ -1192,6 +1192,10 @@ void timer_enable_oc_clear(uint32_t timer_peripheral, enum tim_oc_id oc_id);
 void timer_disable_oc_clear(uint32_t timer_peripheral, enum tim_oc_id oc_id);
 void timer_set_oc_fast_mode(uint32_t timer_peripheral, enum tim_oc_id oc_id);
 void timer_set_oc_slow_mode(uint32_t timer_peripheral, enum tim_oc_id oc_id);
+void timer_set_oc1_mode(uint32_t timer_peripheral, enum tim_oc_mode oc_mode);
+void timer_set_oc2_mode(uint32_t timer_peripheral, enum tim_oc_mode oc_mode);
+void timer_set_oc3_mode(uint32_t timer_peripheral, enum tim_oc_mode oc_mode);
+void timer_set_oc4_mode(uint32_t timer_peripheral, enum tim_oc_mode oc_mode);
 void timer_set_oc_mode(uint32_t timer_peripheral, enum tim_oc_id oc_id,
 		       enum tim_oc_mode oc_mode);
 void timer_enable_oc_preload(uint32_t timer_peripheral, enum tim_oc_id oc_id);
