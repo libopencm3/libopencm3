@@ -830,6 +830,40 @@ void timer_set_oc_slow_mode(uint32_t timer_peripheral, enum tim_oc_id oc_id)
 	}
 }
 
+void timer_set_oc1_mode(uint32_t timer_peripheral, enum tim_oc_mode oc_mode)
+{
+	TIM_CCMR1(timer_peripheral) &= ~TIM_CCMR1_CC1S_MASK;
+	TIM_CCMR1(timer_peripheral) |= TIM_CCMR1_CC1S_OUT;
+	TIM_CCMR1(timer_peripheral) &= ~TIM_CCMR1_OC1M_MASK;
+	switch (oc_mode) {
+	case TIM_OCM_FROZEN:
+		TIM_CCMR1(timer_peripheral) |= TIM_CCMR1_OC1M_FROZEN;
+		break;
+	case TIM_OCM_ACTIVE:
+		TIM_CCMR1(timer_peripheral) |= TIM_CCMR1_OC1M_ACTIVE;
+		break;
+	case TIM_OCM_INACTIVE:
+		TIM_CCMR1(timer_peripheral) |= TIM_CCMR1_OC1M_INACTIVE;
+		break;
+	case TIM_OCM_TOGGLE:
+		TIM_CCMR1(timer_peripheral) |= TIM_CCMR1_OC1M_TOGGLE;
+		break;
+	case TIM_OCM_FORCE_LOW:
+		TIM_CCMR1(timer_peripheral) |= TIM_CCMR1_OC1M_FORCE_LOW;
+		break;
+	case TIM_OCM_FORCE_HIGH:
+		TIM_CCMR1(timer_peripheral) |=
+			TIM_CCMR1_OC1M_FORCE_HIGH;
+		break;
+	case TIM_OCM_PWM1:
+		TIM_CCMR1(timer_peripheral) |= TIM_CCMR1_OC1M_PWM1;
+		break;
+	case TIM_OCM_PWM2:
+		TIM_CCMR1(timer_peripheral) |= TIM_CCMR1_OC1M_PWM2;
+		break;
+	}
+}
+
 /*---------------------------------------------------------------------------*/
 /** @brief Timer Set Output Compare Mode
 
@@ -862,36 +896,7 @@ void timer_set_oc_mode(uint32_t timer_peripheral, enum tim_oc_id oc_id,
 {
 	switch (oc_id) {
 	case TIM_OC1:
-		TIM_CCMR1(timer_peripheral) &= ~TIM_CCMR1_CC1S_MASK;
-		TIM_CCMR1(timer_peripheral) |= TIM_CCMR1_CC1S_OUT;
-		TIM_CCMR1(timer_peripheral) &= ~TIM_CCMR1_OC1M_MASK;
-		switch (oc_mode) {
-		case TIM_OCM_FROZEN:
-			TIM_CCMR1(timer_peripheral) |= TIM_CCMR1_OC1M_FROZEN;
-			break;
-		case TIM_OCM_ACTIVE:
-			TIM_CCMR1(timer_peripheral) |= TIM_CCMR1_OC1M_ACTIVE;
-			break;
-		case TIM_OCM_INACTIVE:
-			TIM_CCMR1(timer_peripheral) |= TIM_CCMR1_OC1M_INACTIVE;
-			break;
-		case TIM_OCM_TOGGLE:
-			TIM_CCMR1(timer_peripheral) |= TIM_CCMR1_OC1M_TOGGLE;
-			break;
-		case TIM_OCM_FORCE_LOW:
-			TIM_CCMR1(timer_peripheral) |= TIM_CCMR1_OC1M_FORCE_LOW;
-			break;
-		case TIM_OCM_FORCE_HIGH:
-			TIM_CCMR1(timer_peripheral) |=
-			    TIM_CCMR1_OC1M_FORCE_HIGH;
-			break;
-		case TIM_OCM_PWM1:
-			TIM_CCMR1(timer_peripheral) |= TIM_CCMR1_OC1M_PWM1;
-			break;
-		case TIM_OCM_PWM2:
-			TIM_CCMR1(timer_peripheral) |= TIM_CCMR1_OC1M_PWM2;
-			break;
-		}
+		timer_set_oc1_mode(timer_peripheral, oc_mode);
 		break;
 	case TIM_OC2:
 		TIM_CCMR1(timer_peripheral) &= ~TIM_CCMR1_CC2S_MASK;
