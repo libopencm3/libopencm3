@@ -25,6 +25,7 @@ LDSCRIPT	= generated.$(DEVICE).ld
 DEVICES_DATA = $(OPENCM3_DIR)/ld/devices.data
 
 genlink_family		:=$(shell $(OPENCM3_DIR)/scripts/genlink.py $(DEVICES_DATA) $(DEVICE) FAMILY)
+genlink_libname		:=$(shell $(OPENCM3_DIR)/scripts/genlink.py $(DEVICES_DATA) $(DEVICE) LIBNAME)
 genlink_subfamily	:=$(shell $(OPENCM3_DIR)/scripts/genlink.py $(DEVICES_DATA) $(DEVICE) SUBFAMILY)
 genlink_cpu		:=$(shell $(OPENCM3_DIR)/scripts/genlink.py $(DEVICES_DATA) $(DEVICE) CPU)
 genlink_fpu		:=$(shell $(OPENCM3_DIR)/scripts/genlink.py $(DEVICES_DATA) $(DEVICE) FPU)
@@ -54,18 +55,7 @@ ifeq ($(genlink_family),)
 $(warning $(DEVICE) not found in $(DEVICES_DATA))
 endif
 
-# only append to LDFLAGS if the library file exists to not break builds
-# where those are provided by different means
-ifneq (,$(wildcard $(OPENCM3_DIR)/lib/libopencm3_$(genlink_family).a))
-LIBNAME = opencm3_$(genlink_family)
-else
-ifneq (,$(wildcard $(OPENCM3_DIR)/lib/libopencm3_$(genlink_subfamily).a))
-LIBNAME = opencm3_$(genlink_subfamily)
-else
-$(warning $(OPENCM3_DIR)/lib/libopencm3_$(genlink_family).a library variant for the selected device does not exist.)
-endif
-endif
-
+LIBNAME ?= opencm3_$(genlink_libname)
 LDLIBS += -l$(LIBNAME)
 LIBDEPS += $(OPENCM3_DIR)/lib/lib$(LIBNAME).a
 
