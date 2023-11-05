@@ -90,9 +90,9 @@ static void st_usbfs_v2_disconnect(usbd_device *usbd_dev, bool disconnected)
 	(void)usbd_dev;
 	uint16_t reg = GET_REG(USB_BCDR_REG);
 	if (disconnected) {
-		SET_REG(USB_BCDR_REG, reg | USB_BCDR_DPPU);
-	} else {
 		SET_REG(USB_BCDR_REG, reg & ~USB_BCDR_DPPU);
+	} else {
+		SET_REG(USB_BCDR_REG, reg | USB_BCDR_DPPU);
 	}
 }
 
