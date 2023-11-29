@@ -28,22 +28,51 @@
 # OR TORT (INCLUDING NEGLIGENCE OR OTHERWISE) ARISING IN ANY WAY OUT OF THE USE
 # OF THIS SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
 
-common_includes = include_directories('.')
+lm4f_cm3 = declare_dependency(
+	sources: cm3_sources,
+	dependencies: lm3s_vector_nvic,
+)
 
-target_paths = {
-	'stm32f0': 'stm32/f0',
-	'stm32f1': 'stm32/f1',
-	'stm32f3': 'stm32/f3',
-	'stm32f4': 'stm32/f4',
-	'stm32f7': 'stm32/f7',
-	'lm4f': 'lm3s',
-}
+# Sources specific to the LM4F (Tiva-C) series
+liblm4f_sources = files(
+	'gpio.c',
+	'rcc.c',
+	'systemcontrol.c',
+	'uart.c',
+)
 
-if target_platform != 'all'
-	target_path = target_paths.get(target_platform, target_platform)
-	subdir(f'libopencm3/@target_path@')
-else
-	foreach target_name, target_path : target_paths
-		subdir(f'libopencm3/@target_path@')
-	endforeach
-endif
+liblm4f_compile_args = [
+	'-mfloat-abi=hard',
+	'-mfpu=fpv4-sp-d16',
+	'-mcpu=cortex-m4',
+	'-mthumb',
+	'-DLM4F',
+]
+
+# Build a static library for the target platform
+liblm4f = static_library(
+	'opencm3_lm4f',
+	[
+		liblm4f_sources,
+		usb_lm4f_sources,
+	],
+	c_args: liblm4f_compile_args,
+	include_directories: common_includes,
+	dependencies: [
+		lm4f_cm3,
+		usb_common,
+	],
+	pic: false,
+)
+
+# Make the dependency available to use
+libopencm3_lm4f = declare_dependency(
+	compile_args: liblm4f_compile_args,
+	include_directories: common_includes,
+	link_with: liblm4f,
+	link_args: [
+		f'-L@locm3_ld_script_path@',
+	],
+)
+
+meson.override_dependency('opencm3_lm4f', libopencm3_lm4f)
