@@ -34,6 +34,7 @@ target_paths = {
 	'stm32f0': 'stm32/f0',
 	'stm32f1': 'stm32/f1',
 	'stm32f3': 'stm32/f3',
+	'stm32f4': 'stm32/f4',
 }
 
 if target_platform != 'all'
