@@ -52,4 +52,10 @@ subdirs = {
 }
 
 # Bring in the proper target subdir for the requested target platform
-subdir(subdirs[target_platform])
+if target_platform != 'all'
+	subdir(subdirs[target_platform])
+else
+	foreach subdir_name, subdir_path : subdirs
+		subdir(subdir_path)
+	endforeach
+endif
