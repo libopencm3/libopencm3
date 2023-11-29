@@ -36,6 +36,6 @@ subdir('cm3')
 locm3_ld_script_path = meson.current_source_dir()
 
 # Now take the platform target and map it to a suitable target family
-if target_platform.startswith('stm32')
+if target_platform.startswith('stm32') or target_platform == 'all'
 	subdir('stm32')
 endif

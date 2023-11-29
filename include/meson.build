@@ -34,9 +34,11 @@ target_paths = {
 	'stm32f1': 'stm32/f1'
 }
 
-target_path = target_paths[target_platform]
-subdir(f'libopencm3/@target_path@')
-
-target_vector_nvic = declare_dependency(
-	sources: target_nvic_header,
-)
+if target_platform != 'all'
+	target_path = target_paths[target_platform]
+	subdir(f'libopencm3/@target_path@')
+else
+	foreach target_name, target_path : target_paths
+		subdir(f'libopencm3/@target_path@')
+	endforeach
+endif
