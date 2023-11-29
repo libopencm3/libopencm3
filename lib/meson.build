@@ -39,3 +39,6 @@ locm3_ld_script_path = meson.current_source_dir()
 if target_platform.startswith('stm32') or target_platform == 'all'
 	subdir('stm32')
 endif
+if target_platform == 'lm4f' or target_platform == 'all'
+	subdir('lm4f')
+endif
