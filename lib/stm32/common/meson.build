@@ -56,10 +56,11 @@ libstm32_dac_v2_sources = [
 	files('dac_common_v2.c'),
 ]
 libstm32_dcmi_f47_sources = files('dcmi_common_f47.c')
-libstm32_desig_v1_sources = files(
-	'desig_common_all.c',
-	'desig_common_v1.c'
-)
+libstm32_desig_sources = files('desig_common_all.c')
+libstm32_desig_v1_sources = [
+	libstm32_desig_sources,
+	files('desig_common_v1.c'),
+]
 libstm32_dma_sources = files('dma_common_l1f013.c')
 libstm32_dma_f24_sources = files('dma_common_f24.c')
 libstm32_dma_csel_sources = [
@@ -108,6 +109,7 @@ libstm32_pwr_v1_sources = files('pwr_common_v1.c')
 libstm32_pwr_v2_sources = files('pwr_common_v2.c')
 libstm32_qspi_v1_sources = files('quadspi_common_v1.c')
 libstm32_rcc_sources = files('rcc_common_all.c')
+libstm32_rng_v1_sources = files('rng_common_v1.c')
 libstm32_rtc_l1f024_sources = files('rtc_common_l1f024.c')
 libstm32_spi_sources = files('spi_common_all.c')
 libstm32_spi_v1_sources = [
