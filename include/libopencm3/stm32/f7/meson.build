@@ -28,21 +28,19 @@
 # OR TORT (INCLUDING NEGLIGENCE OR OTHERWISE) ARISING IN ANY WAY OUT OF THE USE
 # OF THIS SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
 
-common_includes = include_directories('.')
+stm32f7_nvic_header = custom_target(
+	'nvic.h',
+	command: [irq2nvic, '@INPUT@'],
+	input: 'irq.json',
+	# We only name one of the 3 output files due to how this all works.
+	# This script will write:
+	# - include/libopencm3/stm32/f7/nvic.h
+	# - lib/stm32/f7/vector_nvic.c
+	# - include/libopencmsis/stm32/f7/irqhandlers.h
+	output: 'nvic.h',
+	install: false,
+)
 
-target_paths = {
-	'stm32f0': 'stm32/f0',
-	'stm32f1': 'stm32/f1',
-	'stm32f3': 'stm32/f3',
-	'stm32f4': 'stm32/f4',
-	'stm32f7': 'stm32/f7',
-}
-
-if target_platform != 'all'
-	target_path = target_paths[target_platform]
-	subdir(f'libopencm3/@target_path@')
-else
-	foreach target_name, target_path : target_paths
-		subdir(f'libopencm3/@target_path@')
-	endforeach
-endif
+stm32f7_vector_nvic = declare_dependency(
+	sources: stm32f7_nvic_header,
+)

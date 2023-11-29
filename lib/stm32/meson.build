@@ -52,6 +52,7 @@ subdirs = {
 	'stm32f1': 'f1',
 	'stm32f3': 'f3',
 	'stm32f4': 'f4',
+	'stm32f7': 'f7',
 }
 
 # Bring in the proper target subdir for the requested target platform
