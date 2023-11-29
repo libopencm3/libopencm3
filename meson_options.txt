@@ -1,0 +1,8 @@
+option(
+	'target',
+	type: 'combo',
+	choices: [
+		'stm32f1'
+	],
+	description: 'The hardware platform you wish to target'
+)
