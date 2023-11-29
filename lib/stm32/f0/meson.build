@@ -28,18 +28,71 @@
 # OR TORT (INCLUDING NEGLIGENCE OR OTHERWISE) ARISING IN ANY WAY OUT OF THE USE
 # OF THIS SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
 
-common_includes = include_directories('.')
+stm32f0_cm3 = declare_dependency(
+	sources: cm3_sources,
+	include_directories: cm3_includes,
+	dependencies: stm32f0_vector_nvic,
+)
 
-target_paths = {
-	'stm32f0': 'stm32/f0',
-	'stm32f1': 'stm32/f1',
-}
+# Sources specific to the F0 series
+libstm32f0_sources = files(
+	'adc.c',
+	'comparator.c',
+	'flash.c',
+	#'i2c.c', # XXX: This source is unused for some reason
+	'rcc.c',
+	#'syscfg.c', # XXX: This source is unused for some reason
+)
 
-if target_platform != 'all'
-	target_path = target_paths[target_platform]
-	subdir(f'libopencm3/@target_path@')
-else
-	foreach target_name, target_path : target_paths
-		subdir(f'libopencm3/@target_path@')
-	endforeach
-endif
+libstm32f0_compile_args = [
+	'-mcpu=cortex-m0',
+	'-mthumb',
+	'-DSTM32F0',
+]
+
+# Build a static library for the target platform
+libstm32f0 = static_library(
+	'opencm3_stm32f0',
+	[
+		libstm32f0_sources,
+		libstm32_adc_v2_sources,
+		libstm32_crc_v2_sources,
+		libstm32_crs_sources,
+		libstm32_dac_v1_sources,
+		libstm32_desig_v1_sources,
+		libstm32_dma_csel_sources,
+		libstm32_exti_sources,
+		libstm32_flash_f01_sources,
+		libstm32_gpio_f0234_sources,
+		libstm32_iwdg_sources,
+		libstm32_i2c_v2_sources,
+		libstm32_pwr_v1_sources,
+		libstm32_rcc_sources,
+		libstm32_rtc_l1f024_sources,
+		libstm32_spi_v2_sources,
+		libstm32_timer_f0234_sources,
+		libstm32_usart_v2_sources,
+		libstm32_can_sources,
+	],
+	c_args: libstm32f0_compile_args,
+	include_directories: common_includes,
+	implicit_include_directories: false,
+	dependencies: [
+		stm32f0_cm3,
+		usb_common,
+		libstm32_usb_fs_v2,
+	],
+	pic: false,
+)
+
+# Make the dependency available to use
+opencm3_stm32f0 = declare_dependency(
+	compile_args: libstm32f0_compile_args,
+	include_directories: common_includes,
+	link_with: libstm32f0,
+	link_args: [
+		f'-L@locm3_ld_script_path@',
+	],
+)
+
+meson.override_dependency('opencm3_stm32f0', opencm3_stm32f0)
