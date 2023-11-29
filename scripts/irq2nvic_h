@@ -1,19 +1,19 @@
 #!/usr/bin/env python3
 
 # This file is part of the libopencm3 project.
-# 
+#
 # Copyright (C) 2012 chrysn <chrysn@fsfe.org>
-# 
+#
 # This library is free software: you can redistribute it and/or modify
 # it under the terms of the GNU Lesser General Public License as published by
 # the Free Software Foundation, either version 3 of the License, or
 # (at your option) any later version.
-# 
+#
 # This library is distributed in the hope that it will be useful,
 # but WITHOUT ANY WARRANTY; without even the implied warranty of
 # MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
 # GNU Lesser General Public License for more details.
-# 
+#
 # You should have received a copy of the GNU Lesser General Public License
 # along with this library. If not, see <http://www.gnu.org/licenses/>.
 
@@ -30,6 +30,8 @@ import sys
 import os
 import os.path
 import json
+from pathlib import Path
+from typing import List
 
 template_nvic_h = '''\
 /* This file is part of the libopencm3 project.
@@ -77,7 +79,6 @@ template_vector_nvic_c = '''\
  * This part needs to get included in the compilation unit where
  * blocking_handler gets defined due to the way #pragma works.
  */
-
 
 /** @defgroup CM3_nvic_isrdecls_{partname_doxygen} User interrupt service routines (ISR) defaults for {partname_humanreadable}
     @ingroup CM3_nvic_isrdecls
@@ -131,47 +132,75 @@ def convert(infile, outfile_nvic, outfile_vectornvic, outfile_cmsis):
     outfile_vectornvic.write(template_vector_nvic_c.format(**data))
     outfile_cmsis.write(template_cmsis_h.format(**data))
 
-def makeparentdir(filename):
+def makeparentdir(filename: Path):
     try:
-        os.makedirs(os.path.dirname(filename))
+        filename.parent.mkdir(parents = True)
     except OSError:
         # where is my 'mkdir -p'?
         pass
 
-def needs_update(infiles, outfiles):
-    timestamp = lambda filename: os.stat(filename).st_mtime
-    return any(not os.path.exists(o) for o in outfiles) or max(map(timestamp, infiles)) > min(map(timestamp, outfiles))
+def needs_update(infiles: List[Path], outfiles: List[Path]):
+    timestamp = lambda filename: filename.stat().st_mtime
+    return any(not o.exists() for o in outfiles) or max(map(timestamp, infiles)) > min(map(timestamp, outfiles))
 
 def main():
+    # If the tool's been invoked in remove mode, set up for that
     if sys.argv[1] == '--remove':
         remove = True
         del sys.argv[1]
     else:
         remove = False
-    infile = sys.argv[1]
-    if not infile.startswith('./include/libopencm3/') or not infile.endswith('/irq.json'):
+
+    # If the tool's been invoked with the output directory explicitly noted, use that for cwd
+    if sys.argv[1] == '--builddir':
+        cwd = Path(sys.argv[2])
+        del sys.argv[1:3]
+    else:
+        cwd = Path.cwd()
+
+    # Check to make sure infile refers to a valid irq.json in the tree
+    libopencm3_root = Path(__file__).parent.parent.resolve()
+    infile = Path(sys.argv[1]).resolve()
+    root_path = libopencm3_root.parts
+    infile_path = infile.parts[:len(root_path)]
+    # Check that the file is a irq.json and it exists
+    if root_path != infile_path or infile.name != 'irq.json' or not infile.exists():
         raise ValueError("Argument must match ./include/libopencm3/**/irq.json")
-    nvic_h = infile.replace('irq.json', 'nvic.h')
-    vector_nvic_c = infile.replace('./include/libopencm3/', './lib/').replace('irq.json', 'vector_nvic.c')
-    cmsis = infile.replace('irq.json', 'irqhandlers.h').replace('/libopencm3/', '/libopencmsis/')
+    # Now construct the paths to the new files
+    # Start by chopping off the 'irq.json' component
+    path_parts = infile.parts[:-1]
+    # Now iterate backwards till we find the index of 'include' before that
+    include_index = len(path_parts) - 1
+    while include_index > 0 and path_parts[include_index] != 'include':
+        include_index -= 1
+    # Having found the right start index, chop out the target name from the parts and construct a path segment
+    target = Path(*path_parts[include_index + 2:])
+    # Build the paths for all the output files
+    nvic_h = cwd / 'include' / 'libopencm3' / target / 'nvic.h'
+    vector_nvic_c = cwd / 'lib' / target / 'vector_nvic.c'
+    cmsis = cwd / 'include' / 'libopencmsis' / target / 'irqhandlers.h'
 
     if remove:
-        if os.path.exists(nvic_h):
-            os.unlink(nvic_h)
-        if os.path.exists(vector_nvic_c):
-            os.unlink(vector_nvic_c)
-        if os.path.exists(cmsis):
-            os.unlink(cmsis)
+        if nvic_h.exists():
+            nvic_h.unlink()
+        if vector_nvic_c.exists():
+            vector_nvic_c.unlink()
+        if cmsis.exists():
+            cmsis.unlink()
         sys.exit(0)
 
-    if not needs_update([__file__, infile], [nvic_h, vector_nvic_c]):
+    if not needs_update([Path(__file__), infile], [nvic_h, vector_nvic_c]):
         sys.exit(0)
 
     makeparentdir(nvic_h)
     makeparentdir(vector_nvic_c)
     makeparentdir(cmsis)
 
-    convert(open(infile), open(nvic_h, 'w'), open(vector_nvic_c, 'w'), open(cmsis, 'w'))
+    convert(infile.open('r'), nvic_h.open('w'), vector_nvic_c.open('w'), cmsis.open('w'))
 
 if __name__ == "__main__":
-    main()
+    try:
+        main()
+    except ValueError as error:
+        print(error, file = sys.stderr)
+        sys.exit(1)
