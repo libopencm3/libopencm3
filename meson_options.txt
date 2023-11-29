@@ -5,6 +5,7 @@ option(
 		'all',
 		'stm32f0',
 		'stm32f1',
+		'stm32f3',
 	],
 	value: 'all',
 	description: 'The hardware platform you wish to target'

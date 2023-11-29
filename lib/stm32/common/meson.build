@@ -29,7 +29,15 @@
 # OF THIS SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
 
 libstm32_adc_v1_sources = files('adc_common_v1.c')
+libstm32_adc_v1_multi_sources = [
+	libstm32_adc_v1_sources,
+	files('adc_common_v1_multi.c'),
+]
 libstm32_adc_v2_sources = files('adc_common_v2.c')
+libstm32_adc_v2_multi_sources = [
+	libstm32_adc_v2_sources,
+	files('adc_common_v2_multi.c'),
+]
 libstm32_crc_v1_sources = files('crc_common_all.c')
 libstm32_crc_v2_sources = [
 	libstm32_crc_v1_sources,
@@ -72,7 +80,17 @@ libstm32_gpio_f0234_sources = [
 libstm32_iwdg_sources = files('iwdg_common_all.c')
 libstm32_i2c_v1_sources = files('i2c_common_v1.c')
 libstm32_i2c_v2_sources = files('i2c_common_v2.c')
+libstm32_opamp_sources = files('opamp_common_all.c')
+libstm32_opamp_v1_sources = [
+	libstm32_opamp_sources,
+	files('opamp_common_v1.c'),
+]
+libstm32_opamp_v2_sources = [
+	libstm32_opamp_sources,
+	files('opamp_common_v2.c'),
+]
 libstm32_pwr_v1_sources = files('pwr_common_v1.c')
+libstm32_pwr_v2_sources = files('pwr_common_v2.c')
 libstm32_rcc_sources = files('rcc_common_all.c')
 libstm32_rtc_l1f024_sources = files('rtc_common_l1f024.c')
 libstm32_spi_sources = files('spi_common_all.c')
