@@ -38,12 +38,14 @@ libstm32_adc_v2_multi_sources = [
 	libstm32_adc_v2_sources,
 	files('adc_common_v2_multi.c'),
 ]
+libstm32_adc_f47_sources = files('adc_common_f47.c')
 libstm32_crc_v1_sources = files('crc_common_all.c')
 libstm32_crc_v2_sources = [
 	libstm32_crc_v1_sources,
 	files('crc_v2.c'),
 ]
 libstm32_crs_sources = files('crs_common_all.c')
+libstm32_crypto_f24_sources = files('crypto_common_f24.c')
 libstm32_dac_sources = files('dac_common_all.c')
 libstm32_dac_v1_sources = [
 	libstm32_dac_sources,
@@ -53,15 +55,19 @@ libstm32_dac_v2_sources = [
 	libstm32_dac_sources,
 	files('dac_common_v2.c'),
 ]
+libstm32_dcmi_f47_sources = files('dcmi_common_f47.c')
 libstm32_desig_v1_sources = files(
 	'desig_common_all.c',
 	'desig_common_v1.c'
 )
 libstm32_dma_sources = files('dma_common_l1f013.c')
+libstm32_dma_f24_sources = files('dma_common_f24.c')
 libstm32_dma_csel_sources = [
 	libstm32_dma_sources,
 	files('dma_common_csel.c'),
 ]
+libstm32_dma2d_f47_sources = files('dma2d_common_f47.c')
+libstm32_dsi_f47_sources = files('dsi_common_f47.c')
 libstm32_exti_sources = files('exti_common_all.c')
 libstm32_flash_sources = files('flash_common_all.c')
 libstm32_flash_f_sources = [
@@ -72,14 +78,23 @@ libstm32_flash_f01_sources = [
 	libstm32_flash_f_sources,
 	files('flash_common_f01.c'),
 ]
+libstm32_flash_f24_sources = [
+	libstm32_flash_f_sources,
+	files('flash_common_f24.c'),
+]
+libstm32_flash_idcache_sources = files('flash_common_idcache.c')
+libstm32_fmc_f47_sources = files('fmc_common_f47.c')
 libstm32_gpio_sources = files('gpio_common_all.c')
 libstm32_gpio_f0234_sources = [
 	libstm32_gpio_sources,
 	files('gpio_common_f0234.c'),
 ]
+libstm32_hash_f24_sources = files('hash_common_f24.c')
 libstm32_iwdg_sources = files('iwdg_common_all.c')
 libstm32_i2c_v1_sources = files('i2c_common_v1.c')
 libstm32_i2c_v2_sources = files('i2c_common_v2.c')
+libstm32_lptimer_sources = files('lptimer_common_all.c')
+libstm32_ltdc_f47_sources = files('ltdc_common_f47.c')
 libstm32_opamp_sources = files('opamp_common_all.c')
 libstm32_opamp_v1_sources = [
 	libstm32_opamp_sources,
@@ -91,12 +106,17 @@ libstm32_opamp_v2_sources = [
 ]
 libstm32_pwr_v1_sources = files('pwr_common_v1.c')
 libstm32_pwr_v2_sources = files('pwr_common_v2.c')
+libstm32_qspi_v1_sources = files('quadspi_common_v1.c')
 libstm32_rcc_sources = files('rcc_common_all.c')
 libstm32_rtc_l1f024_sources = files('rtc_common_l1f024.c')
 libstm32_spi_sources = files('spi_common_all.c')
 libstm32_spi_v1_sources = [
 	libstm32_spi_sources,
 	files('spi_common_v1.c'),
+]
+libstm32_spi_v1_frf_sources = [
+	libstm32_spi_v1_sources,
+	files('spi_common_v1_frf.c'),
 ]
 libstm32_spi_v2_sources = [
 	libstm32_spi_sources,
@@ -106,6 +126,10 @@ libstm32_timer_sources = files('timer_common_all.c')
 libstm32_timer_f0234_sources = [
 	libstm32_timer_sources,
 	files('timer_common_f0234.c'),
+]
+libstm32_timer_f24_sources = [
+	libstm32_timer_f0234_sources,
+	files('timer_common_f24.c'),
 ]
 libstm32_usart_sources = files('usart_common_all.c')
 libstm32_usart_f124_sources = [
