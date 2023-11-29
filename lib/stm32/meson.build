@@ -48,6 +48,7 @@ libstm32_usb_fs_v2 = declare_dependency(
 
 # Mapping of target platform names to subdirs
 subdirs = {
+	'stm32f0': 'f0',
 	'stm32f1': 'f1',
 }
 

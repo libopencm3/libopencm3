@@ -29,17 +29,31 @@
 # OF THIS SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
 
 libstm32_adc_v1_sources = files('adc_common_v1.c')
+libstm32_adc_v2_sources = files('adc_common_v2.c')
 libstm32_crc_v1_sources = files('crc_common_all.c')
+libstm32_crc_v2_sources = [
+	libstm32_crc_v1_sources,
+	files('crc_v2.c'),
+]
+libstm32_crs_sources = files('crs_common_all.c')
 libstm32_dac_sources = files('dac_common_all.c')
 libstm32_dac_v1_sources = [
 	libstm32_dac_sources,
 	files('dac_common_v1.c'),
+]
+libstm32_dac_v2_sources = [
+	libstm32_dac_sources,
+	files('dac_common_v2.c'),
 ]
 libstm32_desig_v1_sources = files(
 	'desig_common_all.c',
 	'desig_common_v1.c'
 )
 libstm32_dma_sources = files('dma_common_l1f013.c')
+libstm32_dma_csel_sources = [
+	libstm32_dma_sources,
+	files('dma_common_csel.c'),
+]
 libstm32_exti_sources = files('exti_common_all.c')
 libstm32_flash_sources = files('flash_common_all.c')
 libstm32_flash_f_sources = [
@@ -51,20 +65,38 @@ libstm32_flash_f01_sources = [
 	files('flash_common_f01.c'),
 ]
 libstm32_gpio_sources = files('gpio_common_all.c')
+libstm32_gpio_f0234_sources = [
+	libstm32_gpio_sources,
+	files('gpio_common_f0234.c'),
+]
 libstm32_iwdg_sources = files('iwdg_common_all.c')
 libstm32_i2c_v1_sources = files('i2c_common_v1.c')
+libstm32_i2c_v2_sources = files('i2c_common_v2.c')
 libstm32_pwr_v1_sources = files('pwr_common_v1.c')
 libstm32_rcc_sources = files('rcc_common_all.c')
+libstm32_rtc_l1f024_sources = files('rtc_common_l1f024.c')
 libstm32_spi_sources = files('spi_common_all.c')
 libstm32_spi_v1_sources = [
 	libstm32_spi_sources,
 	files('spi_common_v1.c'),
 ]
+libstm32_spi_v2_sources = [
+	libstm32_spi_sources,
+	files('spi_common_v2.c'),
+]
 libstm32_timer_sources = files('timer_common_all.c')
+libstm32_timer_f0234_sources = [
+	libstm32_timer_sources,
+	files('timer_common_f0234.c'),
+]
 libstm32_usart_sources = files('usart_common_all.c')
 libstm32_usart_f124_sources = [
 	libstm32_usart_sources,
 	files('usart_common_f124.c'),
+]
+libstm32_usart_v2_sources = [
+	libstm32_usart_sources,
+	files('usart_common_v2.c'),
 ]
 
 libstm32_usb_fs_sources = files('st_usbfs_core.c')
