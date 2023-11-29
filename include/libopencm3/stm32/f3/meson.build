@@ -28,36 +28,19 @@
 # OR TORT (INCLUDING NEGLIGENCE OR OTHERWISE) ARISING IN ANY WAY OUT OF THE USE
 # OF THIS SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
 
-# Bring in all the common STM32 definitions
-subdir('common')
-
-# Sources specific to STM32 parts
-libstm32_can_sources = files('can.c')
-# Sources for the USB FS peripherals
-libstm32_usb_fs_v1_sources = files('st_usbfs_v1.c')
-libstm32_usb_fs_v2_sources = files('st_usbfs_v2.c')
-
-# Define a dependency for each generation of USB FS peripheral
-libstm32_usb_fs_v1 = declare_dependency(
-	sources: [libstm32_usb_fs_sources, libstm32_usb_fs_v1_sources]
+stm32f3_nvic_header = custom_target(
+	'nvic.h',
+	command: [irq2nvic, '@INPUT@'],
+	input: 'irq.json',
+	# We only name one of the 3 output files due to how this all works.
+	# This script will write:
+	# - include/libopencm3/stm32/f3/nvic.h
+	# - lib/stm32/f3/vector_nvic.c
+	# - include/libopencmsis/stm32/f3/irqhandlers.h
+	output: 'nvic.h',
+	install: false,
 )
 
-libstm32_usb_fs_v2 = declare_dependency(
-	sources: [libstm32_usb_fs_sources, libstm32_usb_fs_v2_sources]
+stm32f3_vector_nvic = declare_dependency(
+	sources: stm32f3_nvic_header,
 )
-
-# Mapping of target platform names to subdirs
-subdirs = {
-	'stm32f0': 'f0',
-	'stm32f1': 'f1',
-	'stm32f3': 'f3',
-}
-
-# Bring in the proper target subdir for the requested target platform
-if target_platform != 'all'
-	subdir(subdirs[target_platform])
-else
-	foreach subdir_name, subdir_path : subdirs
-		subdir(subdir_path)
-	endforeach
-endif
