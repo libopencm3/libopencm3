@@ -265,7 +265,7 @@
 #define ADC_JSQR_JSQ2_LSB		14
 #define ADC_JSQR_JSQ1_LSB		8
 
-#define ADC_JSQR_JSQ_VAL(n, val)	((val) << (((n) - 1) * 6 + 8))
+#define ADC_JSQR_JSQ_VAL(n, val)	((val) << (((n)) * 6 + 8))
 #define ADC_JSQR_JL_VAL(val)		(((val) - 1) << ADC_JSQR_JL_SHIFT)
 
 /* Bits 30:26 JSQ4[4:0]: 4th conversion in the injected sequence */
@@ -582,7 +582,8 @@ void adc_disable_external_trigger_regular(uint32_t adc);
 void adc_disable_external_trigger_injected(uint32_t adc);
 void adc_set_watchdog_high_threshold(uint32_t adc, uint16_t threshold);
 void adc_set_watchdog_low_threshold(uint32_t adc, uint16_t threshold);
-void adc_set_injected_sequence(uint32_t adc, uint8_t length, uint8_t channel[]);
+void adc_set_injected_sequence(uint32_t adc, uint8_t length, uint8_t channel[],
+					uint32_t trigger, uint32_t polarity);
 bool adc_eoc_injected(uint32_t adc);
 bool adc_eos_injected(uint32_t adc);
 uint32_t adc_read_injected(uint32_t adc, uint8_t reg);
