@@ -28,7 +28,7 @@ TGT_CFLAGS	= -Os -Wall -Wextra -I../../../include -fno-common \
 TGT_CFLAGS      += $(DEBUG_FLAGS)
 TGT_CFLAGS	+= $(STANDARD_FLAGS)
 # ARFLAGS	= rcsv
-ARFLAGS		= rcs
+ARFLAGS		= rcsD
 
 OBJS += gpio_common_all.o gpio_common_3n3s.o
 OBJS += pmc.o

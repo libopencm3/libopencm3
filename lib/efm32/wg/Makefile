@@ -35,7 +35,7 @@ TGT_CFLAGS	= -Os \
 		  -ffunction-sections -fdata-sections -MD -D$(FAMILY)
 TGT_CFLAGS      += $(DEBUG_FLAGS)
 # ARFLAGS	= rcsv
-ARFLAGS		= rcs
+ARFLAGS		= rcsD
 
 OBJS += acmp_common.o
 OBJS += adc_common.o

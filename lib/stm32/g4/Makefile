@@ -33,7 +33,7 @@ TGT_CFLAGS	= -Os \
 		  -ffunction-sections -fdata-sections -MD -DSTM32G4
 TGT_CFLAGS      += $(DEBUG_FLAGS)
 TGT_CFLAGS	+= $(STANDARD_FLAGS)
-ARFLAGS		= rcs
+ARFLAGS		= rcsD
 
 OBJS += adc.o adc_common_v2.o adc_common_v2_multi.o
 OBJS += cordic_common_v1.o

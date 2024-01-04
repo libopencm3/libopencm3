@@ -31,7 +31,7 @@ TGT_CFLAGS	= -Os \
 		  -ffunction-sections -fdata-sections -MD -DGD32F1X0
 TGT_CFLAGS      += $(DEBUG_FLAGS)
 # ARFLAGS	= rcsv
-ARFLAGS		= rcs
+ARFLAGS		= rcsD
 
 OBJS += flash.o flash_common_all.o flash_common_f.o flash_common_f01.o
 OBJS += gpio_common_all.o gpio_common_f0234.o
