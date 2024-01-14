@@ -263,8 +263,7 @@ static void lm4f_ep_setup(usbd_device *usbd_dev, uint8_t addr, uint8_t type,
 		USB_TXFIFOSZ = reg8;
 		USB_TXFIFOADD = ((usbd_dev->fifo_mem_top) >> 3);
 		if (callback) {
-			usbd_dev->user_callback_ctr[ep][USB_TRANSACTION_IN] =
-			(void *)callback;
+			usbd_dev->user_callback_ctr[ep][USB_TRANSACTION_IN] = callback;
 		}
 		if (type == USB_ENDPOINT_ATTR_ISOCHRONOUS) {
 			USB_TXCSRH(ep) |= USB_TXCSRH_ISO;
@@ -276,8 +275,7 @@ static void lm4f_ep_setup(usbd_device *usbd_dev, uint8_t addr, uint8_t type,
 		USB_RXFIFOSZ = reg8;
 		USB_RXFIFOADD = ((usbd_dev->fifo_mem_top) >> 3);
 		if (callback) {
-			usbd_dev->user_callback_ctr[ep][USB_TRANSACTION_OUT] =
-			(void *)callback;
+			usbd_dev->user_callback_ctr[ep][USB_TRANSACTION_OUT] = callback;
 		}
 		if (type == USB_ENDPOINT_ATTR_ISOCHRONOUS) {
 			USB_RXCSRH(ep) |= USB_RXCSRH_ISO;
