@@ -93,8 +93,7 @@ void dwc_ep_setup(usbd_device *usbd_dev, uint8_t addr, uint8_t type,
 		    | (addr << 22) | max_size;
 
 		if (callback) {
-			usbd_dev->user_callback_ctr[addr][USB_TRANSACTION_IN] =
-			    (void *)callback;
+			usbd_dev->user_callback_ctr[addr][USB_TRANSACTION_IN] = callback;
 		}
 	}
 
@@ -107,8 +106,7 @@ void dwc_ep_setup(usbd_device *usbd_dev, uint8_t addr, uint8_t type,
 		    OTG_DOEPCTLX_SD0PID | (type << 18) | max_size;
 
 		if (callback) {
-			usbd_dev->user_callback_ctr[addr][USB_TRANSACTION_OUT] =
-			    (void *)callback;
+			usbd_dev->user_callback_ctr[addr][USB_TRANSACTION_OUT] = callback;
 		}
 	}
 }
