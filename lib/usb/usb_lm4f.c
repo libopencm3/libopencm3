@@ -375,15 +375,16 @@ static uint16_t lm4f_ep_write_packet(usbd_device *usbd_dev, uint8_t addr,
 	 * the reads are downgraded to 8-bit in hardware. We lose a bit of
 	 * performance, but we don't crash.
 	 */
+	const uint8_t *const data = (const uint8_t *)buf;
 	for (i = 0; i < (len & ~0x3); i += 4) {
-		USB_FIFO32(ep) = *((uint32_t *)(buf + i));
+		USB_FIFO32(ep) = *((uint32_t *)(data + i));
 	}
 	if (len & 0x2) {
-		USB_FIFO16(ep) = *((uint16_t *)(buf + i));
+		USB_FIFO16(ep) = *((uint16_t *)(data + i));
 		i += 2;
 	}
 	if (len & 0x1) {
-		USB_FIFO8(ep)  = *((uint8_t *)(buf + i));
+		USB_FIFO8(ep) = *((uint8_t *)(data + i));
 		i += 1;
 	}
 
@@ -423,15 +424,16 @@ static uint16_t lm4f_ep_read_packet(usbd_device *usbd_dev, uint8_t addr,
 	 * the writes are downgraded to 8-bit in hardware. We lose a bit of
 	 * performance, but we don't crash.
 	 */
+	uint8_t *const data = (uint8_t *)buf;
 	for (len = 0; len < (rlen & ~0x3); len += 4) {
-		*((uint32_t *)(buf + len)) = USB_FIFO32(ep);
+		*((uint32_t *)(data + len)) = USB_FIFO32(ep);
 	}
 	if (rlen & 0x2) {
-		*((uint16_t *)(buf + len)) = USB_FIFO16(ep);
+		*((uint16_t *)(data + len)) = USB_FIFO16(ep);
 		len += 2;
 	}
 	if (rlen & 0x1) {
-		*((uint8_t *)(buf + len)) = USB_FIFO8(ep);
+		*((uint8_t *)(data + len)) = USB_FIFO8(ep);
 	}
 
 	if (ep == 0) {
