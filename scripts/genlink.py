@@ -24,7 +24,7 @@ import re
 import os
 
 
-def get_device_data(data_file_path, device_id):
+def get_device_data(data_file_path, device_id, exit_on_fail=True):
     device = {
         'info': {},
         'defs': [],
@@ -88,7 +88,10 @@ def get_device_data(data_file_path, device_id):
 
     # device was not found
     if len(device['family']) == 0:
-        sys.exit(1)
+        if exit_on_fail:
+            sys.exit(1)
+        else:
+            return None
 
     return device
 
