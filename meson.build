@@ -82,7 +82,7 @@ extended_warnings = [
 	'-Wstringop-overflow',
 	'-Wunknown-pragmas',
 	'-Wunsafe-loop-optimizations',
-	'-Wunsuffixed-float-constant',
+	'-Wunsuffixed-float-constants',
 	'-Wunused-const-variable=2',
 	'-Wunused-local-typedefs',
 	'-Wunused',
