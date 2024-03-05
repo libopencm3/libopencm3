@@ -26,7 +26,7 @@
         "exti9_5",
         "tim1_brk_tim15",
         "tim1_up_tim16",
-        "tim1_trg_tim17",
+        "tim1_trg_com_tim17",
         "tim1_cc",
         "tim2",
         "tim3",
