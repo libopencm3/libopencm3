@@ -179,7 +179,14 @@ specific memorymap.h header before including this header file.*/
 /* ITERREN: Error interrupt enable */
 #define I2C_CR2_ITERREN			(1 << 8)
 
-/* Note: Bits [7:6] are reserved, and forced to 0 by hardware. */
+/*
+ * Note: on applicable STM32 MCUs bits [7:6] are reserved
+ * and forced to 0 by hardware, although some clones make
+ * use of full [7:0] bit range.
+ */
+#ifndef I2C_CR2_FREQ_MASK
+#define I2C_CR2_FREQ_MASK		0x3f
+#endif
 
 enum i2c_cr2_freq_values  {
 	I2C_CR2_FREQ_2MHZ __attribute__ ((deprecated("Replace with 2 directly"))) = 2,
