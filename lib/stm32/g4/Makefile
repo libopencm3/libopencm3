@@ -43,6 +43,7 @@ OBJS += dac_common_all.o dac_common_v2.o
 OBJS += desig_common_all.o desig_common_v1.o
 OBJS += dma_common_l1f013.o
 OBJS += dmamux.o
+OBJS += exti_common_all.o
 OBJS += fdcan.o fdcan_common.o
 OBJS += flash.o flash_common_all.o flash_common_f.o flash_common_idcache.o
 OBJS += gpio_common_all.o gpio_common_f0234.o
