@@ -357,7 +357,80 @@ const struct rcc_clock_scale rcc_hse_16mhz_3v3[RCC_CLOCK_3V3_END] = {
 	},
 };
 
-
+const struct rcc_clock_scale rcc_hse_24mhz_3v3[RCC_CLOCK_3V3_END] = {
+	{ /* 24MHz */
+		.pllm = 2,
+		.plln = 8,
+		.pllp = 0,
+		.pllq = 2,
+		.pllr = 4,
+		.pll_source = RCC_PLLCFGR_PLLSRC_HSE,
+		.hpre = RCC_CFGR_HPRE_NODIV,
+		.ppre1 = RCC_CFGR_PPREx_NODIV,
+		.ppre2 = RCC_CFGR_PPREx_NODIV,
+		.vos_scale = PWR_SCALE2,
+		.boost = false,
+		.flash_config = FLASH_ACR_DCEN | FLASH_ACR_ICEN,
+		.flash_waitstates = 1,
+		.ahb_frequency  = 24e6,
+		.apb1_frequency = 24e6,
+		.apb2_frequency = 24e6,
+	},
+	{ /* 48MHz */
+		.pllm = 2,
+		.plln = 8,
+		.pllp = 0,
+		.pllq = 2,
+		.pllr = 2,
+		.pll_source = RCC_PLLCFGR_PLLSRC_HSE,
+		.hpre = RCC_CFGR_HPRE_NODIV,
+		.ppre1 = RCC_CFGR_PPREx_NODIV,
+		.ppre2 = RCC_CFGR_PPREx_NODIV,
+		.vos_scale = PWR_SCALE1,
+		.boost = false,
+		.flash_config = FLASH_ACR_DCEN | FLASH_ACR_ICEN,
+		.flash_waitstates = 1,
+		.ahb_frequency  = 48e6,
+		.apb1_frequency = 48e6,
+		.apb2_frequency = 48e6,
+	},
+	{ /* 96MHz */
+		.pllm = 2,
+		.plln = 16,
+		.pllp = 0,
+		.pllq = 4,
+		.pllr = 2,
+		.pll_source = RCC_PLLCFGR_PLLSRC_HSE,
+		.hpre = RCC_CFGR_HPRE_NODIV,
+		.ppre1 = RCC_CFGR_PPREx_NODIV,
+		.ppre2 = RCC_CFGR_PPREx_NODIV,
+		.vos_scale = PWR_SCALE1,
+		.boost = false,
+		.flash_config = FLASH_ACR_DCEN | FLASH_ACR_ICEN,
+		.flash_waitstates = 3,
+		.ahb_frequency  = 96e6,
+		.apb1_frequency = 96e6,
+		.apb2_frequency = 96e6,
+	},
+	{ /* 170MHz */
+		.pllm = 6,
+		.plln = 85,
+		.pllp = 0,
+		.pllq = 0, /* USB requires CRS at this speed. */
+		.pllr = 2,
+		.pll_source = RCC_PLLCFGR_PLLSRC_HSE,
+		.hpre = RCC_CFGR_HPRE_NODIV,
+		.ppre1 = RCC_CFGR_PPREx_NODIV,
+		.ppre2 = RCC_CFGR_PPREx_NODIV,
+		.vos_scale = PWR_SCALE1,
+		.boost = true,
+		.flash_config = FLASH_ACR_DCEN | FLASH_ACR_ICEN,
+		.flash_waitstates = 4,
+		.ahb_frequency  = 170e6,
+		.apb1_frequency = 170e6,
+		.apb2_frequency = 170e6,
+	},
+};
 
 void rcc_osc_ready_int_clear(enum rcc_osc osc)
 {
@@ -639,11 +712,11 @@ void rcc_set_main_pll(uint32_t pllsrc, uint32_t pllm, uint32_t plln,
 	RCC_PLLCFGR = ((pllsrc & RCC_PLLCFGR_PLLSRC_MASK) << RCC_PLLCFGR_PLLSRC_SHIFT) |
 		((pllm & RCC_PLLCFGR_PLLM_MASK) << RCC_PLLCFGR_PLLM_SHIFT) |
 		((plln & RCC_PLLCFGR_PLLN_MASK) << RCC_PLLCFGR_PLLN_SHIFT) |
-		(pllpen ? RCC_PLLCFGR_PLLPEN : 0 ) |
+		(pllpen ? RCC_PLLCFGR_PLLPEN : 0) |
 		(pllp ? RCC_PLLCFGR_PLLP_DIV17 : RCC_PLLCFGR_PLLP_DIV7) |
-		(pllqen ? RCC_PLLCFGR_PLLQEN : 0 ) |
+		(pllqen ? RCC_PLLCFGR_PLLQEN : 0) |
 		((pllq & RCC_PLLCFGR_PLLQ_MASK) << RCC_PLLCFGR_PLLQ_SHIFT) |
-		(pllren ? RCC_PLLCFGR_PLLREN : 0 ) |
+		(pllren ? RCC_PLLCFGR_PLLREN : 0) |
 		((pllr & RCC_PLLCFGR_PLLR_MASK) << RCC_PLLCFGR_PLLR_SHIFT) |
 		((pllpdiv & RCC_PLLCFGR_PLLPDIV_MASK) << RCC_PLLCFGR_PLLPDIV_SHIFT);
 }
@@ -763,7 +836,8 @@ void rcc_set_clock48_source(uint32_t clksel)
 	RCC_CCIPR |= (clksel << RCC_CCIPR_CLK48SEL_SHIFT);
 }
 
-static uint32_t rcc_get_clksel_freq(uint8_t shift) {
+static uint32_t rcc_get_clksel_freq(uint8_t shift)
+{
 	uint8_t clksel = (RCC_CCIPR >> shift) & RCC_CCIPR_SEL_MASK;
 	uint8_t hpre = (RCC_CFGR >> RCC_CFGR_HPRE_SHIFT) & RCC_CFGR_HPRE_MASK;
 	switch (clksel) {
