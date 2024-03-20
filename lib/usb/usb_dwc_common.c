@@ -20,6 +20,7 @@
 #include <string.h>
 #include <libopencm3/cm3/common.h>
 #include <libopencm3/usb/usbd.h>
+#include <libopencm3/usb/bos.h>
 #include <libopencm3/usb/dwc/otg_common.h>
 #include "usb_private.h"
 #include "usb_dwc_common.h"
