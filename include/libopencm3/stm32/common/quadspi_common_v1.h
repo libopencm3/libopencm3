@@ -48,7 +48,7 @@
 #define QUADSPI_PIR     MMIO32(QUADSPI_BASE + 0x2CU)
 
 /** QUADSPI low power timeout */
-#define QUADSPI_LPTR      MMIO32(QUADSPI_BASE + 0x30U
+#define QUADSPI_LPTR      MMIO32(QUADSPI_BASE + 0x30U)
 /**@}*/
 
 #define QUADSPI_CR_PRESCALE_MASK  0xff
