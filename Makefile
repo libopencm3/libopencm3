@@ -45,6 +45,9 @@ Q := @
 MAKEFLAGS += --no-print-directory
 endif
 
+# Define the make command
+MAKE := make
+
 # Avoid the use of shell find, for windows compatibility
 IRQ_DEFN_FILES  := $(foreach TARGET,$(TARGETS),$(wildcard include/libopencm3/$(TARGET)/irq.json))
 NVIC_H := $(IRQ_DEFN_FILES:%/irq.json=%/nvic.h)
