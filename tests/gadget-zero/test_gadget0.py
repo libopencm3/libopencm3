@@ -98,6 +98,31 @@ class TestGadget0(unittest.TestCase):
             # Note, this might not be as portable as we'd like.
             self.assertIn("Pipe", e.strerror)
 
+    def test_get_invalid_device_config_descriptor_index(self):
+        """
+        Test device rejects requests for invalid configuration descriptor index.
+        Allows USB20CV test suite to pass:
+        https://github.com/libopencm3/libopencm3/pull/1155
+        """
+        with self.assertRaises(usb.core.USBError):
+            self.dev.ctrl_transfer(
+                # bmRequestType
+                #   Direction: Device-to-host
+                #   Type: Standard
+                #   Recipient: Device
+                0x80,
+                # bRequest
+                #   GET DESCRIPTOR
+                0x06,
+                wValue=(
+                    0x0200 +  # Descriptor Type: CONFIGURATION
+                    0x0023  # Descriptor Index: INVALID
+                ),
+                wIndex=0,
+                data_or_wLength = 1024,
+            )
+
+
 class TestIntelCompliance(unittest.TestCase):
     """
     Part of intel's usb 2.0 compliance is writing and reading back control transfers
