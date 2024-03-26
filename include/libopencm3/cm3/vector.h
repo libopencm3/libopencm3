@@ -52,7 +52,12 @@ typedef struct {
 	vector_table_entry_t memory_manage_fault; /* not in CM0 */
 	vector_table_entry_t bus_fault;           /* not in CM0 */
 	vector_table_entry_t usage_fault;         /* not in CM0 */
+#ifdef STM32L5
+	vector_table_entry_t secure_fault;
+	vector_table_entry_t reserved_x0020[3];
+#else
 	vector_table_entry_t reserved_x001c[4];
+#endif
 	vector_table_entry_t sv_call;
 	vector_table_entry_t debug_monitor;       /* not in CM0 */
 	vector_table_entry_t reserved_x0034;
