@@ -1,6 +1,6 @@
 # This file is part of the libopencm3 project.
 #
-# Copyright (C) 2023-2024 1BitSquared <info@1bitsquared.com>
+# Copyright (C) 2024 1BitSquared <info@1bitsquared.com>
 # Written by Rachel Mant <git@dragonmux.network>
 #
 # Redistribution and use in source and binary forms, with or without
@@ -28,23 +28,70 @@
 # OR TORT (INCLUDING NEGLIGENCE OR OTHERWISE) ARISING IN ANY WAY OUT OF THE USE
 # OF THIS SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
 
-common_includes = include_directories('.')
+stm32h7_cm3 = declare_dependency(
+	sources: cm3_sources,
+	include_directories: cm3_includes,
+	dependencies: stm32h7_vector_nvic,
+)
 
-target_paths = {
-	'stm32f0': 'stm32/f0',
-	'stm32f1': 'stm32/f1',
-	'stm32f3': 'stm32/f3',
-	'stm32f4': 'stm32/f4',
-	'stm32f7': 'stm32/f7',
-	'stm32h7': 'stm32/h7',
-	'lm4f': 'lm3s',
-}
+# Sources specific to the H7 series
+libstm32h7_sources = files(
+	'fdcan.c',
+	'flash.c',
+	'pwr.c',
+	'rcc.c',
+	#'vector_chipset.c', # This source is included by lib/dispatch/vector_chipset.c
+)
 
-if target_platform != 'all'
-	target_path = target_paths.get(target_platform, target_platform)
-	subdir(f'libopencm3/@target_path@')
-else
-	foreach target_name, target_path : target_paths
-		subdir(f'libopencm3/@target_path@')
-	endforeach
-endif
+libstm32h7_compile_args = [
+	'-mfloat-abi=hard',
+	'-mfpu=fpv5-d16',
+	'-mcpu=cortex-m7',
+	'-mthumb',
+	'-DSTM32H7',
+]
+
+# Build a static library for the target platform
+libstm32h7 = static_library(
+	'opencm3_stm32h7',
+	[
+		libstm32h7_sources,
+		libstm32_crc_v2_sources,
+		libstm32_crs_sources,
+		libstm32_dac_v2_sources,
+		libstm32_dma_f24_sources,
+		libstm32_dmamux_sources,
+		libstm32_exti_sources,
+		libstm32_fdcan_sources,
+		libstm32_fmc_f47_sources,
+		libstm32_gpio_f0234_sources,
+		libstm32_qspi_v1_sources,
+		libstm32_rcc_sources,
+		libstm32_rng_v1_sources,
+		libstm32_spi_v2_sources,
+		libstm32_timer_sources,
+		libstm32_usart_v2_sources,
+		libstm32_usart_fifos_sources,
+	],
+	c_args: libstm32h7_compile_args,
+	include_directories: common_includes,
+	implicit_include_directories: false,
+	dependencies: [
+		stm32h7_cm3,
+		usb_common,
+		usb_stm32_dwc,
+	],
+	pic: false,
+)
+
+# Make the dependency available to use
+libopencm3_stm32h7 = declare_dependency(
+	compile_args: libstm32h7_compile_args,
+	include_directories: common_includes,
+	link_with: libstm32h7,
+	link_args: [
+		f'-L@locm3_ld_script_path@',
+	],
+)
+
+meson.override_dependency('opencm3_stm32h7', libopencm3_stm32h7)
