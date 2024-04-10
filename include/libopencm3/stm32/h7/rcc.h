@@ -461,7 +461,7 @@ struct rcc_pll_config {
 	uint8_t ppre2;                    /**< APB2 Peripheral prescaler note: domain 2. */
 	uint8_t ppre3;                    /**< APB3 Peripheral prescaler note: domain 1. */
 	uint8_t ppre4;                    /**< APB4 Peripheral prescaler note: domain 3. */
-	uint8_t flash_waitstates;         /**< Latency Value to set for flahs. */
+	uint8_t flash_waitstates;         /**< Latency Value to set for Flash. */
 	enum pwr_vos_scale voltage_scale; /**< LDO/SMPS Voltage scale used for this frequency. */
 	enum pwr_sys_mode power_mode;     /**< LDO/SMPS configuration for device. */
 	uint8_t smps_level;               /**< If using SMPS, voltage level to set. */
