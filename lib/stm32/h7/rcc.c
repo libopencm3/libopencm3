@@ -399,6 +399,8 @@ void rcc_set_peripheral_clk_sel(uint32_t periph, uint32_t sel) {
 			break;
 		case USART1_BASE:
 		case USART6_BASE:
+		case UART9_BASE:
+		case USART10_BASE:
 			reg = &RCC_D2CCIP2R;
 			mask = RCC_D2CCIP2R_USARTSEL_MASK << RCC_D2CCIP2R_USART16SEL_SHIFT;
 			val = sel << RCC_D2CCIP2R_USART16SEL_SHIFT;
