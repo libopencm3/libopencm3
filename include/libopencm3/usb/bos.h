@@ -133,7 +133,11 @@ typedef struct __attribute__((packed)) usb_platform_device_capability_descriptor
 
 #define USB_DCT_PLATFORM_SIZE 20U
 
-extern void usbd_register_bos_descriptor(usbd_device *usbd_dev, const usb_bos_descriptor *bos);
+BEGIN_DECLS
+
+void usbd_register_bos_descriptor(usbd_device *usbd_dev, const usb_bos_descriptor *bos);
+
+END_DECLS
 
 #endif
 
