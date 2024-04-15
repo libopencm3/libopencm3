@@ -189,13 +189,8 @@ void rcc_clock_setup_pll(const struct rcc_pll_config *config) {
 	pwr_set_mode(config->power_mode, config->smps_level);
 	pwr_set_vos_scale(config->voltage_scale);
 
-	/* Set flash waitstates. Enable flash prefetch if we have at least 1WS */
+	/* Set flash waitstates. H7 doesn't support prefetch, so nothing to do WRT this. */
 	flash_set_ws(config->flash_waitstates);
-	if (config->flash_waitstates > FLASH_ACR_LATENCY_0WS) {
-		flash_prefetch_enable();
-	} else {
-		flash_prefetch_disable();
-	}
 
 	/* User has specified an external oscillator, make sure we turn it on. */
 	if (config->hse_frequency > 0) {
