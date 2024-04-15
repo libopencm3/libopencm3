@@ -407,15 +407,16 @@ LGPL License Terms @ref lgpl_license
 #define RCC_D2CCIP1R_SAISEL_PERCK       0x4
 /**@}*/
 
-#define RCC_D2CCIP2R_LPTIM1SEL_SHIFT        28
-#define RCC_D2CCIP2R_CECSEL_SHIFT           22
-#define RCC_D2CCIP2R_USBSEL_SHIFT           20
-#define RCC_D2CCIP2R_I2C123SEL_SHIFT        12
-#define RCC_D2CCIP2R_RNGSEL_MASK            0x3
-#define RCC_D2CCIP2R_RNGSEL_SHIFT           8
-#define RCC_D2CCIP2R_USART16SEL_SHIFT       3
-#define RCC_D2CCIP2R_USART234578SEL_SHIFT   0
-#define RCC_D2CCIP2R_USARTSEL_MASK          7
+#define RCC_D2CCIP2R_LPTIM1SEL_SHIFT        28U
+#define RCC_D2CCIP2R_CECSEL_SHIFT           22U
+#define RCC_D2CCIP2R_USBSEL_MASK            0x3U
+#define RCC_D2CCIP2R_USBSEL_SHIFT           20U
+#define RCC_D2CCIP2R_I2C123SEL_SHIFT        12U
+#define RCC_D2CCIP2R_RNGSEL_MASK            0x3U
+#define RCC_D2CCIP2R_RNGSEL_SHIFT           8U
+#define RCC_D2CCIP2R_USART16SEL_SHIFT       3U
+#define RCC_D2CCIP2R_USART234578SEL_SHIFT   0U
+#define RCC_D2CCIP2R_USARTSEL_MASK          7U
 
 /** @defgroup rcc_d2ccip2r_values RCC_D2CCIP2R Values
  * @ingroup rcc_registers
