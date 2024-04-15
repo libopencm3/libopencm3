@@ -771,6 +771,13 @@ BEGIN_DECLS
 void rcc_clock_setup_pll(const struct rcc_pll_config *config);
 
 /**
+ * Setup and bring up the HSI48 for use by the USB controller.
+ *
+ * Note: Should be used with the CRS for stability
+ */
+void rcc_clock_setup_hsi48(void);
+
+/**
  * Get the clock rate (in Hz) of the specified clock source. There are
  * numerous clock sources and configurations on the H7, so rates for each
  * configured peripheral clock are aimed to be discoverd/calculated by this
