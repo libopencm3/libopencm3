@@ -67,6 +67,7 @@ LGPL License Terms @ref lgpl_license
 #define RCC_APB2RSTR              MMIO32(RCC_BASE + 0x098)
 #define RCC_APB3RSTR              MMIO32(RCC_BASE + 0x08C)
 #define RCC_APB4RSTR              MMIO32(RCC_BASE + 0x09C)
+#define RCC_RSR                   MMIO32(RCC_BASE + 0x0D0)
 #define RCC_AHB1ENR               MMIO32(RCC_BASE + 0x0D8)
 #define RCC_AHB2ENR               MMIO32(RCC_BASE + 0x0DC)
 #define RCC_AHB3ENR               MMIO32(RCC_BASE + 0x0D4)
@@ -304,6 +305,22 @@ LGPL License Terms @ref lgpl_license
 #define RCC_PLLNDIVR_DIVQ(n)        (((n) - 1) << RCC_PLLNDIVR_DIVQ_SHIFT)
 #define RCC_PLLNDIVR_DIVP(n)        (((n) - 1) << RCC_PLLNDIVR_DIVP_SHIFT)
 #define RCC_PLLNDIVR_DIVN(n)        (((n) - 1) << RCC_PLLNDIVR_DIVN_SHIFT)
+/**@}*/
+
+/** @defgroup rcc_rsr_values RCC_RSR Values
+ * @ingroup rcc_registers
+@{*/
+#define RCC_RSR_RMVF              (1U << 16U)
+#define RCC_RSR_CPURSTF           (1U << 17U)
+#define RCC_RSR_D1RSTF            (1U << 19U)
+#define RCC_RSR_D2RSTF            (1U << 20U)
+#define RCC_RSR_BORRESTF          (1U << 21U)
+#define RCC_RSR_PINRSTF           (1U << 22U)
+#define RCC_RSR_PORRSTF           (1U << 23U)
+#define RCC_RSR_SFTRSTF           (1U << 24U)
+#define RCC_RSR_IWDG1RSTF         (1U << 26U)
+#define RCC_RSR_WWDG1RSTF         (1U << 28U)
+#define RCC_RSR_LPWRRSTF          (1U << 30U)
 /**@}*/
 
 /** @defgroup rcc_bdcr_values RCC_BDCR Values
