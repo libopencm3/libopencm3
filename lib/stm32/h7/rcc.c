@@ -221,9 +221,16 @@ void rcc_clock_setup_pll(const struct rcc_pll_config *config) {
 	/* Domains dividers are all configured, now we can switchover to PLL. */
 	RCC_CFGR |= RCC_CFGR_SW_PLL1;
 	uint32_t cfgr_sws = ((RCC_CFGR >> RCC_CFGR_SWS_SHIFT) & RCC_CFGR_SWS_MASK);
-	while(cfgr_sws != RCC_CFGR_SWS_PLL1) {
+	while (cfgr_sws != RCC_CFGR_SWS_PLL1) {
 		cfgr_sws = ((RCC_CFGR >> RCC_CFGR_SWS_SHIFT) & RCC_CFGR_SWS_MASK);
 	}
+}
+
+void rcc_clock_setup_hsi48(void)
+{
+	RCC_CR |= RCC_CR_HSI48ON;
+	while (!(RCC_CR & RCC_CR_HSI48RDY))
+		continue;
 }
 
 uint32_t rcc_get_bus_clk_freq(enum rcc_clock_source source) {
