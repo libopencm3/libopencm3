@@ -417,6 +417,12 @@ void rcc_set_peripheral_clk_sel(uint32_t periph, uint32_t sel) {
 			mask = RCC_D2CCIP2R_USARTSEL_MASK << RCC_D2CCIP2R_USART234578SEL_SHIFT;
 			val = sel << RCC_D2CCIP2R_USART234578SEL_SHIFT;
 			break;
+		case USB1_OTG_HS_BASE:
+		case USB2_OTG_FS_BASE:
+			reg = &RCC_D2CCIP2R;
+			mask = RCC_D2CCIP2R_USBSEL_MASK << RCC_D2CCIP2R_USBSEL_SHIFT;
+			val = sel << RCC_D2CCIP2R_USBSEL_SHIFT;
+			break;
 
 		default:
 			cm3_assert_not_reached();
