@@ -31,6 +31,13 @@
 #define dev_base_address (usbd_dev->driver->base_address)
 #define REBASE(x)        MMIO32((x) + (dev_base_address))
 
+/* The max number of endpoints is core-dependant - for the F4 it's 4, for the H7 it's 8 */
+#if defined(STM32H7)
+#define DWC_ENDPOINT_COUNT 8U
+#else
+#define DWC_ENDPOINT_COUNT 4U
+#endif
+
 void dwc_set_address(usbd_device *usbd_dev, uint8_t addr)
 {
 	REBASE(OTG_DCFG) = (REBASE(OTG_DCFG) & ~OTG_DCFG_DAD) | (addr << 4);
@@ -95,9 +102,7 @@ void dwc_ep_setup(usbd_device *usbd_dev, uint8_t addr, uint8_t type,
 		if (callback) {
 			usbd_dev->user_callback_ctr[addr][USB_TRANSACTION_IN] = callback;
 		}
-	}
-
-	if (!dir) {
+	} else {
 		usbd_dev->doeptsiz[addr] = OTG_DIEPSIZ0_PKTCNT |
 				 (max_size & OTG_DIEPSIZ0_XFRSIZ_MASK);
 		REBASE(OTG_DOEPTSIZ(addr)) = usbd_dev->doeptsiz[addr];
@@ -113,12 +118,11 @@ void dwc_ep_setup(usbd_device *usbd_dev, uint8_t addr, uint8_t type,
 
 void dwc_endpoints_reset(usbd_device *usbd_dev)
 {
-	int i;
 	/* The core resets the endpoints automatically on reset. */
 	usbd_dev->fifo_mem_top = usbd_dev->fifo_mem_top_ep0;
 
 	/* Disable any currently active endpoints */
-	for (i = 1; i < 4; i++) {
+	for (size_t i = 1; i < DWC_ENDPOINT_COUNT; i++) {
 		if (REBASE(OTG_DOEPCTL(i)) & OTG_DOEPCTL0_EPENA) {
 			REBASE(OTG_DOEPCTL(i)) |= OTG_DOEPCTL0_EPDIS;
 		}
@@ -324,7 +328,6 @@ void dwc_poll(usbd_device *usbd_dev)
 {
 	/* Read interrupt status register. */
 	uint32_t intsts = REBASE(OTG_GINTSTS);
-	int i;
 
 	if (intsts & OTG_GINTSTS_ENUMDNE) {
 		/* Handle USB RESET condition. */
@@ -338,7 +341,7 @@ void dwc_poll(usbd_device *usbd_dev)
 	 * There is no global interrupt flag for transmit complete.
 	 * The XFRC bit must be checked in each OTG_DIEPINT(x).
 	 */
-	for (i = 0; i < 4; i++) { /* Iterate over endpoints. */
+	for (size_t i = 0; i < DWC_ENDPOINT_COUNT; i++) { /* Iterate over endpoints. */
 		if (REBASE(OTG_DIEPINT(i)) & OTG_DIEPINTX_XFRC) {
 			/* Transfer complete. */
 			if (usbd_dev->user_callback_ctr[i]
@@ -401,7 +404,7 @@ void dwc_poll(usbd_device *usbd_dev)
 		}
 
 		/* Discard unread packet data. */
-		for (i = 0; i < usbd_dev->rxbcnt; i += 4) {
+		for (size_t i = 0; i < usbd_dev->rxbcnt; i += 4) {
 			/* There is only one receive FIFO, so use OTG_FIFO(0) */
 			(void)REBASE(OTG_FIFO(0));
 		}
