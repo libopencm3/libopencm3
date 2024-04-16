@@ -227,6 +227,11 @@
 #define OTG_GCCFG_SOFOUTEN		(1U << 20U)
 #define OTG_GCCFG_VBUSBSEN		(1U << 19U)
 #define OTG_GCCFG_VBUSASEN		(1U << 18U)
+/** Only on cores >= 0x2300 */
+#define OTG_GCCFG_SDEN          (1U << 20U)
+#define OTG_GCCFG_PDEN          (1U << 19U)
+#define OTG_GCCFG_DCDEN         (1U << 18U)
+#define OTG_GCCFG_BCDEN         (1U << 17U)
 /* Bit 17 - Reserved */
 #define OTG_GCCFG_PWRDWN		(1U << 16U)
 /* Bits 15:0 - Reserved */
