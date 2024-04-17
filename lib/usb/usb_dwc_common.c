@@ -31,13 +31,6 @@
 #define dev_base_address (usbd_dev->driver->base_address)
 #define REBASE(x)        MMIO32((x) + (dev_base_address))
 
-/* The max number of endpoints is core-dependant - for the F4 it's 4, for the H7 it's 8 */
-#if defined(STM32H7)
-#define DWC_ENDPOINT_COUNT 8U
-#else
-#define DWC_ENDPOINT_COUNT 4U
-#endif
-
 void dwc_set_address(usbd_device *usbd_dev, uint8_t addr)
 {
 	REBASE(OTG_DCFG) = (REBASE(OTG_DCFG) & ~OTG_DCFG_DAD) | (addr << 4);
@@ -122,7 +115,7 @@ void dwc_endpoints_reset(usbd_device *usbd_dev)
 	usbd_dev->fifo_mem_top = usbd_dev->fifo_mem_top_ep0;
 
 	/* Disable any currently active endpoints */
-	for (size_t i = 1; i < DWC_ENDPOINT_COUNT; i++) {
+	for (size_t i = 1; i < ENDPOINT_COUNT; i++) {
 		if (REBASE(OTG_DOEPCTL(i)) & OTG_DOEPCTL0_EPENA) {
 			REBASE(OTG_DOEPCTL(i)) |= OTG_DOEPCTL0_EPDIS;
 		}
@@ -340,8 +333,10 @@ void dwc_poll(usbd_device *usbd_dev)
 	/*
 	 * There is no global interrupt flag for transmit complete.
 	 * The XFRC bit must be checked in each OTG_DIEPINT(x).
+	 *
+	 * Iterate over the IN endpoints, triggering any post-transmit actions.
 	 */
-	for (size_t i = 0; i < DWC_ENDPOINT_COUNT; i++) { /* Iterate over endpoints. */
+	for (size_t i = 0; i < ENDPOINT_COUNT; i++) {
 		if (REBASE(OTG_DIEPINT(i)) & OTG_DIEPINTX_XFRC) {
 			/* Transfer complete. */
 			if (usbd_dev->user_callback_ctr[i]
