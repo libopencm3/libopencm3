@@ -346,6 +346,12 @@ void dwc_poll(usbd_device *usbd_dev)
 		_usbd_reset(usbd_dev);
 		return;
 	}
+	if (intsts & OTG_GINTSTS_USBRST) {
+		/* Handle the /other/ USB Reset condition */
+		REBASE(OTG_GINTSTS) = OTG_GINTSTS_USBRST | OTG_GINTSTS_RSTDET;
+		dwc_endpoints_reset(usbd_dev);
+		return;
+	}
 
 	/*
 	 * There is no global interrupt flag for transmit complete.
@@ -374,45 +380,36 @@ void dwc_poll(usbd_device *usbd_dev)
 		uint8_t ep = rxstsp & OTG_GRXSTSP_EPNUM_MASK;
 
 		if (pktsts == OTG_GRXSTSP_PKTSTS_SETUP_COMP) {
-			usbd_dev->user_callback_ctr[ep][USB_TRANSACTION_SETUP] (usbd_dev, ep);
+			usbd_dev->user_callback_ctr[ep][USB_TRANSACTION_SETUP](usbd_dev, ep);
 		}
 
-		if (pktsts == OTG_GRXSTSP_PKTSTS_OUT_COMP
-			|| pktsts == OTG_GRXSTSP_PKTSTS_SETUP_COMP)  {
+		if (pktsts == OTG_GRXSTSP_PKTSTS_OUT_COMP || pktsts == OTG_GRXSTSP_PKTSTS_SETUP_COMP)  {
 			REBASE(OTG_DOEPTSIZ(ep)) = usbd_dev->doeptsiz[ep];
 			REBASE(OTG_DOEPCTL(ep)) |= OTG_DOEPCTL0_EPENA |
-				(usbd_dev->force_nak[ep] ?
-				 OTG_DOEPCTL0_SNAK : OTG_DOEPCTL0_CNAK);
+				(usbd_dev->force_nak[ep] ? OTG_DOEPCTL0_SNAK : OTG_DOEPCTL0_CNAK);
 			return;
 		}
 
-		if ((pktsts != OTG_GRXSTSP_PKTSTS_OUT) &&
-		    (pktsts != OTG_GRXSTSP_PKTSTS_SETUP)) {
+		if (pktsts != OTG_GRXSTSP_PKTSTS_OUT && pktsts != OTG_GRXSTSP_PKTSTS_SETUP) {
 			return;
 		}
 
-		uint8_t type;
-		if (pktsts == OTG_GRXSTSP_PKTSTS_SETUP) {
-			type = USB_TRANSACTION_SETUP;
-		} else {
-			type = USB_TRANSACTION_OUT;
-		}
+		const uint8_t type = pktsts == OTG_GRXSTSP_PKTSTS_SETUP ? USB_TRANSACTION_SETUP : USB_TRANSACTION_OUT;
 
-		if (type == USB_TRANSACTION_SETUP
-			&& (REBASE(OTG_DIEPTSIZ(ep)) & OTG_DIEPSIZ0_PKTCNT)) {
+		if (type == USB_TRANSACTION_SETUP && (REBASE(OTG_DIEPTSIZ(ep)) & OTG_DIEPSIZ0_PKTCNT)) {
 			/* SETUP received but there is still something stuck
-			 * in the transmit fifo.  Flush it.
-			 */
+			* in the transmit fifo.  Flush it.
+			*/
 			dwc_flush_txfifo(usbd_dev, ep);
 		}
 
 		/* Save packet size for dwc_ep_read_packet(). */
-		usbd_dev->rxbcnt = (rxstsp & OTG_GRXSTSP_BCNT_MASK) >> 4;
+		usbd_dev->rxbcnt = (rxstsp & OTG_GRXSTSP_BCNT_MASK) >> 4U;
 
 		if (type == USB_TRANSACTION_SETUP) {
 			dwc_ep_read_packet(usbd_dev, ep, &usbd_dev->control_state.req, 8);
 		} else if (usbd_dev->user_callback_ctr[ep][type]) {
-			usbd_dev->user_callback_ctr[ep][type] (usbd_dev, ep);
+			usbd_dev->user_callback_ctr[ep][type](usbd_dev, ep);
 		}
 
 		/* Discard unread packet data. */
@@ -445,11 +442,13 @@ void dwc_poll(usbd_device *usbd_dev)
 		REBASE(OTG_GINTSTS) = OTG_GINTSTS_SOF;
 	}
 
+#if !defined(STM32H7)
 	if (usbd_dev->user_callback_sof) {
 		REBASE(OTG_GINTMSK) |= OTG_GINTMSK_SOFM;
 	} else {
 		REBASE(OTG_GINTMSK) &= ~OTG_GINTMSK_SOFM;
 	}
+#endif
 }
 
 void dwc_disconnect(usbd_device *usbd_dev, bool disconnected)
