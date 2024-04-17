@@ -285,7 +285,7 @@
 #define OTG_DOEPMSK_OPEM	(1U << 8U)
 /* Bit 7 - Reserved */
 #define OTG_DOEPMSK_B2BSTUP	(1U << 6U)
-/* Bit 5 - Reserved */
+#define OTG_DOEPMSK_STSPHSRXM (1U << 5U)
 #define OTG_DOEPMSK_OTEPDM	(1U << 4U)
 #define OTG_DOEPMSK_STUPM	(1U << 3U)
 /* Bit 2 - Reserved */
