@@ -206,47 +206,62 @@ void dwc_ep_nak_set(usbd_device *usbd_dev, uint8_t addr, uint8_t nak)
 uint16_t dwc_ep_write_packet(usbd_device *usbd_dev, uint8_t addr,
 			      const void *buf, uint16_t len)
 {
-	const uint32_t *buf32 = buf;
-#if defined(__ARM_ARCH_6M__)
-	const uint8_t *buf8 = buf;
-	uint32_t word32;
-#endif /* defined(__ARM_ARCH_6M__) */
-	int i;
-
 	addr &= 0x7F;
 
 	/* Return if endpoint is already enabled. */
+#if defined(STM32H7)
+	if (REBASE(OTG_DIEPCTL(addr)) & OTG_DIEPCTL0_EPENA) {
+		return 0;
+	}
+
+	/* Enable endpoint for transmission. */
+	REBASE(OTG_DIEPTSIZ(addr)) = OTG_DIEPSIZ0_PKTCNT | (len & OTG_DIEPSIZ0_XFRSIZ_MASK);
+	REBASE(OTG_DIEPCTL(addr)) |= OTG_DIEPCTL0_EPENA | OTG_DIEPCTL0_CNAK;
+
+	const uint8_t *buf8 = buf;
+	/* Figure out where to copy the data to */
+	volatile uint32_t *const fifo = (volatile uint32_t *)(usbd_dev->driver->base_address + OTG_FIFO(addr));
+	/* Copy the data into the FIFO for this endpoint */
+	for (size_t offset = 0; offset < len; offset += 4) {
+		uint32_t data = 0;
+		const size_t amount = MIN(len - offset, 4U);
+		memcpy(&data, buf8 + offset, amount);
+		fifo[offset >> 2U] = data;
+	}
+#else
 	if (REBASE(OTG_DIEPTSIZ(addr)) & OTG_DIEPSIZ0_PKTCNT) {
 		return 0;
 	}
 
 	/* Enable endpoint for transmission. */
-	REBASE(OTG_DIEPTSIZ(addr)) = OTG_DIEPSIZ0_PKTCNT | len;
-	REBASE(OTG_DIEPCTL(addr)) |= OTG_DIEPCTL0_EPENA |
-				     OTG_DIEPCTL0_CNAK;
+	REBASE(OTG_DIEPTSIZ(addr)) = OTG_DIEPSIZ0_PKTCNT | (len & OTG_DIEPSIZ0_XFRSIZ_MASK);
+	REBASE(OTG_DIEPCTL(addr)) |= OTG_DIEPCTL0_EPENA | OTG_DIEPCTL0_CNAK;
 
+	const uint32_t *buf32 = buf;
 	/* Copy buffer to endpoint FIFO, note - memcpy does not work.
 	 * ARMv7M supports non-word-aligned accesses, ARMv6M does not. */
 #if defined(__ARM_ARCH_7M__) || defined(__ARM_ARCH_7EM__)
-	for (i = len; i > 0; i -= 4) {
+	for (size_t i = 0; i < len; i += 4) {
 		REBASE(OTG_FIFO(addr)) = *buf32++;
 	}
 #endif /* defined(__ARM_ARCH_7M__) || defined(__ARM_ARCH_7EM__) */
 
 #if defined(__ARM_ARCH_6M__)
+	const uint8_t *buf8 = buf;
 	/* Take care of word-aligned and non-word-aligned buffers */
-	if (((uint32_t)buf8 & 0x3) == 0) {
-		for (i = len; i > 0; i -= 4) {
+	if (((uintptr_t)buf8 & 0x3) == 0) {
+		for (size_t i = 0; i < len; i += 4) {
 			REBASE(OTG_FIFO(addr)) = *buf32++;
 		}
 	} else {
-		for (i = len; i > 0; i -= 4) {
-			memcpy(&word32, buf8, 4);
+		for (size_t i = 0; i < len; i += 4) {
+			uint32_t word32;
+			memcpy(&word32, buf8 + i, 4);
 			REBASE(OTG_FIFO(addr)) = word32;
-			buf8 += 4;
 		}
 	}
 #endif /* defined(__ARM_ARCH_6M__) */
+#endif
 
 	return len;
 }
