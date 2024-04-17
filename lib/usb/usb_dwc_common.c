@@ -49,6 +49,12 @@ void dwc_ep_setup(usbd_device *usbd_dev, uint8_t addr, uint8_t type,
 
 	if (addr == 0) { /* For the default control endpoint */
 		/* Configure IN part. */
+#if defined(STM32H7)
+		/* Do not initially arm the IN endpoint - we've got nothing to send the host at first */
+		REBASE(OTG_DIEPTSIZ(0)) = 0;
+		REBASE(OTG_DIEPCTL(0)) = (max_size & OTG_DIEPCTL0_MPSIZ_MASK) | OTG_DIEPCTL0_SNAK |
+			OTG_DIEPCTL0_USBAEP;
+#else
 		if (max_size >= 64) {
 			REBASE(OTG_DIEPCTL0) = OTG_DIEPCTL0_MPSIZ_64;
 		} else if (max_size >= 32) {
@@ -61,19 +67,30 @@ void dwc_ep_setup(usbd_device *usbd_dev, uint8_t addr, uint8_t type,
 
 		REBASE(OTG_DIEPTSIZ0) =
 			(max_size & OTG_DIEPSIZ0_XFRSIZ_MASK);
-		REBASE(OTG_DIEPCTL0) |=
-			OTG_DIEPCTL0_EPENA | OTG_DIEPCTL0_SNAK;
+		REBASE(OTG_DIEPCTL0) |= OTG_DIEPCTL0_EPENA | OTG_DIEPCTL0_SNAK;
+#endif
 
 		/* Configure OUT part. */
-		usbd_dev->doeptsiz[0] = OTG_DIEPSIZ0_STUPCNT_1 |
-			OTG_DIEPSIZ0_PKTCNT |
+		usbd_dev->doeptsiz[0] = OTG_DIEPSIZ0_STUPCNT_1 | OTG_DIEPSIZ0_PKTCNT |
 			(max_size & OTG_DIEPSIZ0_XFRSIZ_MASK);
 		REBASE(OTG_DOEPTSIZ(0)) = usbd_dev->doeptsiz[0];
-		REBASE(OTG_DOEPCTL(0)) |=
-		    OTG_DOEPCTL0_EPENA | OTG_DIEPCTL0_SNAK;
+#if defined(STM32H7)
+		/* However, *do* arm the OUT endpoint so we can receive the first SETUP packet */
+		if (max_size >= 64) {
+			REBASE(OTG_DOEPCTL(0)) = OTG_DOEPCTL0_MPSIZ_64;
+		} else if (max_size >= 32) {
+			REBASE(OTG_DOEPCTL(0)) = OTG_DOEPCTL0_MPSIZ_32;
+		} else if (max_size >= 16) {
+			REBASE(OTG_DOEPCTL(0)) = OTG_DOEPCTL0_MPSIZ_16;
+		} else {
+			REBASE(OTG_DOEPCTL(0)) = OTG_DOEPCTL0_MPSIZ_8;
+		}
+		REBASE(OTG_DOEPCTL(0)) |= OTG_DOEPCTL0_EPENA | OTG_DOEPCTL0_CNAK | OTG_DOEPCTL0_USBAEP;
+#else
+		REBASE(OTG_DOEPCTL0) |= OTG_DOEPCTL0_EPENA | OTG_DIEPCTL0_SNAK;
+#endif
 
-		REBASE(OTG_GNPTXFSIZ) = ((max_size / 4) << 16) |
-					 usbd_dev->driver->rx_fifo_size;
+		REBASE(OTG_GNPTXFSIZ) = ((max_size / 4) << 16) | usbd_dev->driver->rx_fifo_size;
 		usbd_dev->fifo_mem_top += max_size / 4;
 		usbd_dev->fifo_mem_top_ep0 = usbd_dev->fifo_mem_top;
 
@@ -88,9 +105,9 @@ void dwc_ep_setup(usbd_device *usbd_dev, uint8_t addr, uint8_t type,
 		REBASE(OTG_DIEPTSIZ(addr)) =
 		    (max_size & OTG_DIEPSIZ0_XFRSIZ_MASK);
 		REBASE(OTG_DIEPCTL(addr)) |=
-		    OTG_DIEPCTL0_EPENA | OTG_DIEPCTL0_SNAK | (type << 18)
-		    | OTG_DIEPCTL0_USBAEP | OTG_DIEPCTLX_SD0PID
-		    | (addr << 22) | max_size;
+		    OTG_DIEPCTL0_EPENA | OTG_DIEPCTL0_SNAK | (type << 18) |
+		    OTG_DIEPCTL0_USBAEP | OTG_DIEPCTLX_SD0PID |
+		    (addr << 22) | max_size;
 
 		if (callback) {
 			usbd_dev->user_callback_ctr[addr][USB_TRANSACTION_IN] = callback;
@@ -125,8 +142,8 @@ void dwc_endpoints_reset(usbd_device *usbd_dev)
 	}
 
 	/* Flush all tx/rx fifos */
-	REBASE(OTG_GRSTCTL) = OTG_GRSTCTL_TXFFLSH | OTG_GRSTCTL_TXFNUM_ALL
-			      | OTG_GRSTCTL_RXFFLSH;
+	REBASE(OTG_GRSTCTL) = OTG_GRSTCTL_TXFFLSH | OTG_GRSTCTL_TXFNUM_ALL |
+		OTG_GRSTCTL_RXFFLSH;
 }
 
 void dwc_ep_stall_set(usbd_device *usbd_dev, uint8_t addr, uint8_t stall)

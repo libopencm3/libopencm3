@@ -302,11 +302,15 @@
 /* Bit 16 - Reserved */
 #define OTG_DIEPCTL0_USBAEP		(1U << 15U)
 /* Bits 14:2 - Reserved */
+#if defined STM32H7
+#define OTG_DIEPCTL0_MPSIZ_MASK     (0x000007ffU)
+#else
 #define OTG_DIEPCTL0_MPSIZ_MASK		(0x3U << 0U)
 #define OTG_DIEPCTL0_MPSIZ_64		(0x0U << 0U)
 #define OTG_DIEPCTL0_MPSIZ_32		(0x1U << 0U)
 #define OTG_DIEPCTL0_MPSIZ_16		(0x2U << 0U)
 #define OTG_DIEPCTL0_MPSIZ_8		(0x3U << 0U)
+#endif
 
 /* OTG Device Control OUT Endpoint 0 Control Register (OTG_DOEPCTL0) */
 #define OTG_DOEPCTL0_EPENA		(1U << 31U)
