@@ -147,7 +147,8 @@
 #define OTG_GINTSTS_PTXFE		(1U << 26U)
 #define OTG_GINTSTS_HCINT		(1U << 25U)
 #define OTG_GINTSTS_HPRTINT		(1U << 24U)
-/* Bits 23:22 - Reserved */
+#define OTG_GINTSTS_RSTDET		(1U << 23U)
+/* Bit 22 - Reserved */
 #define OTG_GINTSTS_IPXFR		(1U << 21U)
 #define OTG_GINTSTS_INCOMPISOOUT	(1U << 21U)
 #define OTG_GINTSTS_IISOIXFR		(1U << 20U)
