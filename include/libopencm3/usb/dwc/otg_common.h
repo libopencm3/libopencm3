@@ -293,19 +293,19 @@
 #define OTG_DOEPMSK_XFRCM	(1U << 0U)
 
 /* OTG Device IN Endpoint 0 Control Register (OTG_DIEPCTL0) */
-#define OTG_DIEPCTL0_EPENA		(1U << 31U)
-#define OTG_DIEPCTL0_EPDIS		(1U << 30U)
+#define OTG_DIEPCTL0_EPENA			(1U << 31U)
+#define OTG_DIEPCTL0_EPDIS			(1U << 30U)
 /* Bits 29:28 - Reserved */
-#define OTG_DIEPCTLX_SD0PID		(1U << 28U)
-#define OTG_DIEPCTL0_SNAK		(1U << 27U)
-#define OTG_DIEPCTL0_CNAK		(1U << 26U)
+#define OTG_DIEPCTLX_SD0PID			(1U << 28U)
+#define OTG_DIEPCTL0_SNAK			(1U << 27U)
+#define OTG_DIEPCTL0_CNAK			(1U << 26U)
 #define OTG_DIEPCTL0_TXFNUM_MASK	(0xfU << 22U)
-#define OTG_DIEPCTL0_STALL		(1U << 21U)
+#define OTG_DIEPCTL0_STALL			(1U << 21U)
 /* Bit 20 - Reserved */
 #define OTG_DIEPCTL0_EPTYP_MASK		(0x3U << 18U)
-#define OTG_DIEPCTL0_NAKSTS		(1U << 17U)
+#define OTG_DIEPCTL0_NAKSTS			(1U << 17U)
 /* Bit 16 - Reserved */
-#define OTG_DIEPCTL0_USBAEP		(1U << 15U)
+#define OTG_DIEPCTL0_USBAEP			(1U << 15U)
 /* Bits 14:2 - Reserved */
 #define OTG_DIEPCTL0_MPSIZ_MASK		(0x3U << 0U)
 #define OTG_DIEPCTL0_MPSIZ_64		(0x0U << 0U)
@@ -313,69 +313,93 @@
 #define OTG_DIEPCTL0_MPSIZ_16		(0x2U << 0U)
 #define OTG_DIEPCTL0_MPSIZ_8		(0x3U << 0U)
 
-/* OTG Device IN Endpoint X Control Register (OTG_DOEPCTLX) */
+/* OTG Device IN Endpoint X Control Register (OTG_DIEPCTLX) */
 #define OTG_DIEPCTLX_EPTYP_SHIFT	18U
 #define OTG_DIEPCTLX_TXFNUM_SHIFT	22U
 #define OTG_DIEPCTLX_MPSIZ_MASK     (0x000007ffU)
 
 /* OTG Device OUT Endpoint 0 Control Register (OTG_DOEPCTL0) */
-#define OTG_DOEPCTL0_EPENA		(1U << 31U)
-#define OTG_DOEPCTL0_EPDIS		(1U << 30U)
+#define OTG_DOEPCTL0_EPENA			(1U << 31U)
+#define OTG_DOEPCTL0_EPDIS			(1U << 30U)
 /* Bits 29:28 - Reserved */
-#define OTG_DOEPCTLX_SD0PID		(1U << 28U)
-#define OTG_DOEPCTL0_SNAK		(1U << 27U)
-#define OTG_DOEPCTL0_CNAK		(1U << 26U)
+#define OTG_DOEPCTL0_SNAK			(1U << 27U)
+#define OTG_DOEPCTL0_CNAK			(1U << 26U)
 /* Bits 25:22 - Reserved */
-#define OTG_DOEPCTL0_STALL		(1U << 21U)
-#define OTG_DOEPCTL0_SNPM		(1U << 20U)
-#define OTG_DOEPCTL0_EPTYP_MASK	(0x3U << 18U)
-#define OTG_DOEPCTL0_NAKSTS		(1U << 17U)
+#define OTG_DOEPCTL0_STALL			(1U << 21U)
+#define OTG_DOEPCTL0_SNPM			(1U << 20U)
+#define OTG_DOEPCTL0_EPTYP_MASK		(0x3U << 18U)
+#define OTG_DOEPCTL0_NAKSTS			(1U << 17U)
 /* Bit 16 - Reserved */
-#define OTG_DOEPCTL0_USBAEP		(1U << 15U)
+#define OTG_DOEPCTL0_USBAEP			(1U << 15U)
 /* Bits 14:2 - Reserved */
-#define OTG_DOEPCTL0_MPSIZ_MASK	(0x3U << 0U)
-#define OTG_DOEPCTL0_MPSIZ_64	(0x0U << 0U)
-#define OTG_DOEPCTL0_MPSIZ_32	(0x1U << 0U)
-#define OTG_DOEPCTL0_MPSIZ_16	(0x2U << 0U)
-#define OTG_DOEPCTL0_MPSIZ_8	(0x3U << 0U)
+#define OTG_DOEPCTL0_MPSIZ_MASK		(0x3U << 0U)
+#define OTG_DOEPCTL0_MPSIZ_64		(0x0U << 0U)
+#define OTG_DOEPCTL0_MPSIZ_32		(0x1U << 0U)
+#define OTG_DOEPCTL0_MPSIZ_16		(0x2U << 0U)
+#define OTG_DOEPCTL0_MPSIZ_8		(0x3U << 0U)
 
 /* OTG Device OUT Endpoint X Control Register (OTG_DOEPCTLX) */
-#define OTG_DOEPCTLX_MPSIZ_MASK	(0x000007ffU)
+#define OTG_DOEPCTLX_SD1PID			(1U << 29U)
+#define OTG_DOEPCTLX_SD0PID			(1U << 28U)
+#define OTG_DIEPCTLX_EPTYP_SHIFT	18U
+#define OTG_DOEPCTLX_MPSIZ_MASK		(0x000007ffU)
 
 /* OTG Device IN Endpoint Interrupt Register (OTG_DIEPINTx) */
 /* Bits 31:8 - Reserved */
-#define OTG_DIEPINTX_TXFE		(1U << 7U)
-#define OTG_DIEPINTX_INEPNE		(1U << 6U)
+#define OTG_DIEPINTX_TXFE			(1U << 7U)
+#define OTG_DIEPINTX_INEPNE			(1U << 6U)
 /* Bit 5 - Reserved */
-#define OTG_DIEPINTX_ITTXFE		(1U << 4U)
-#define OTG_DIEPINTX_TOC		(1U << 3U)
+#define OTG_DIEPINTX_ITTXFE			(1U << 4U)
+#define OTG_DIEPINTX_TOC			(1U << 3U)
 /* Bit 2 - Reserved */
-#define OTG_DIEPINTX_EPDISD		(1U << 1U)
-#define OTG_DIEPINTX_XFRC		(1U << 0U)
+#define OTG_DIEPINTX_EPDISD			(1U << 1U)
+#define OTG_DIEPINTX_XFRC			(1U << 0U)
 
 /* OTG Device IN Endpoint Interrupt Register (OTG_DOEPINTx) */
 /* Bits 31:7 - Reserved */
 #define OTG_DOEPINTX_B2BSTUP		(1U << 6U)
 /* Bit 5 - Reserved */
 #define OTG_DOEPINTX_OTEPDIS		(1U << 4U)
-#define OTG_DOEPINTX_STUP		(1U << 3U)
+#define OTG_DOEPINTX_STUP			(1U << 3U)
 /* Bit 2 - Reserved */
-#define OTG_DOEPINTX_EPDISD		(1U << 1U)
-#define OTG_DOEPINTX_XFRC		(1U << 0U)
+#define OTG_DOEPINTX_EPDISD			(1U << 1U)
+#define OTG_DOEPINTX_XFRC			(1U << 0U)
 
-/* OTG Device OUT Endpoint 0 Transfer Size Register (OTG_DOEPTSIZ0) */
-/* Bit 31 - Reserved */
-#define OTG_DIEPSIZ0_STUPCNT_1		(0x1U << 29U)
-#define OTG_DIEPSIZ0_STUPCNT_2		(0x2U << 29U)
-#define OTG_DIEPSIZ0_STUPCNT_3		(0x3U << 29U)
-#define OTG_DIEPSIZ0_STUPCNT_MASK	(0x3U << 29U)
-/* Bits 28:20 - Reserved */
-#define OTG_DIEPSIZ0_PKTCNT		(1U << 19U)
+/* OTG Device IN Endpoint 0 Transfer Size Register (OTG_DIEPTSIZ0) */
+/* Bits 31:21 - Reserved */
+#define OTG_DIEPSIZ0_PKTCNT			(1U << 19U)
 /* Bits 18:7 - Reserved */
 #define OTG_DIEPSIZ0_XFRSIZ_MASK	(0x0000007fU)
 
-/* OTG Device OUT Endpoint X Transfer Size Register (OTG_DOEPTSIZX) */
+/* OTG Device IN Endpoint X Transfer Size Register (OTG_DIEPTSIZX) */
+/* Bit 31 - Reserved */
+#define OTG_DIEPSIZX_MCNT_1			(0x1U << 29U)
+#define OTG_DIEPSIZX_MCNT_2			(0x2U << 29U)
+#define OTG_DIEPSIZX_MCNT_3			(0x3U << 29U)
+#define OTG_DIEPSIZX_MCNT_MASK		(0x3U << 29U)
+#define OTG_DIEPSIZX_PKTCNT_MASK	(0x1ff80000U)
+#define OTG_DIEPSIZX_PKTCNT_SHIFT	(19U)
+#define OTG_DIEPSIZX_PKTCNT(x)		(((x) << OTG_DIEPSIZX_PKTCNT_SHIFT) & OTG_DIEPSIZX_PKTCNT_MASK)
 #define OTG_DIEPSIZX_XFRSIZ_MASK	(0x0007ffffU)
+
+/* OTG Device OUT Endpoint 0 Transfer Size Register (OTG_DOEPTSIZ0) */
+/* Bit 31 - Reserved */
+#define OTG_DOEPSIZ0_STUPCNT_1		(0x1U << 29U)
+#define OTG_DOEPSIZ0_STUPCNT_2		(0x2U << 29U)
+#define OTG_DOEPSIZ0_STUPCNT_3		(0x3U << 29U)
+#define OTG_DOEPSIZ0_STUPCNT_MASK	(0x3U << 29U)
+/* Bits 28:20 - Reserved */
+#define OTG_DOEPSIZ0_PKTCNT			(1U << 19U)
+/* Bits 18:7 - Reserved */
+#define OTG_DOEPSIZ0_XFRSIZ_MASK	(0x0000007fU)
+
+/* OTG Device OUT Endpoint X Transfer Size Register (OTG_DOEPTSIZX) */
+/* Bit 31 - Reserved */
+/* Bit 30:29 - RXDPID */
+#define OTG_DOEPSIZX_PKTCNT_MASK	(0x1ff80000U)
+#define OTG_DOEPSIZX_PKTCNT_SHIFT	(19U)
+#define OTG_DOEPSIZX_PKTCNT(x)		(((x) << OTG_DIEPSIZX_PKTCNT_SHIFT) & OTG_DIEPSIZX_PKTCNT_MASK)
+#define OTG_DOEPSIZX_XFRSIZ_MASK	(0x0007ffffU)
 
 
 /* Host-mode CSRs */
