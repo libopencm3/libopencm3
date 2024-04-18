@@ -253,20 +253,30 @@ uint16_t dwc_ep_write_packet(usbd_device *usbd_dev, uint8_t addr, const void *bu
 
 uint16_t dwc_ep_read_packet(usbd_device *usbd_dev, uint8_t addr, void *buf, uint16_t len)
 {
-	int i;
-	uint32_t *buf32 = buf;
-#if defined(__ARM_ARCH_6M__)
-	uint8_t *buf8 = buf;
-	uint32_t word32;
-#endif /* defined(__ARM_ARCH_6M__) */
-	uint32_t extra;
-
 	/* We do not need to know the endpoint address since there is only one
 	 * receive FIFO for all endpoints.
 	 */
 	(void)addr;
+#if defined(STM32H7)
+	const size_t count = MIN(len, usbd_dev->rxbcnt);
+
+	uint8_t *const buf8 = buf;
+	/* Figure out where to copy the data from */
+	const volatile uint32_t *const fifo = (const volatile uint32_t *)(usbd_dev->driver->base_address + OTG_FIFO(0));
+	/* Copy the data out of the FIFO for this endpoint */
+	for (size_t offset = 0; offset < count; offset += 4) {
+		const uint32_t data = fifo[offset >> 2U];
+		const size_t amount = MIN(count - offset, 4U);
+		memcpy(buf8 + offset, &data, amount);
+	}
+
+	usbd_dev->rxbcnt -= count;
+	return count;
+#else
 	len = MIN(len, usbd_dev->rxbcnt);
 
+	int i = 0;
+	uint32_t *buf32 = buf;
 	/* ARMv7M supports non-word-aligned accesses, ARMv6M does not. */
 #if defined(__ARM_ARCH_7M__) || defined(__ARM_ARCH_7EM__)
 	for (i = len; i >= 4; i -= 4) {
@@ -276,6 +286,7 @@ uint16_t dwc_ep_read_packet(usbd_device *usbd_dev, uint8_t addr, void *buf, uint
 #endif /* defined(__ARM_ARCH_7M__) || defined(__ARM_ARCH_7EM__) */
 
 #if defined(__ARM_ARCH_6M__)
+	uint8_t *buf8 = buf;
 	/* Take care of word-aligned and non-word-aligned buffers */
 	if (((uint32_t)buf8 & 0x3) == 0) {
 		for (i = len; i >= 4; i -= 4) {
@@ -284,7 +295,7 @@ uint16_t dwc_ep_read_packet(usbd_device *usbd_dev, uint8_t addr, void *buf, uint
 		}
 	} else {
 		for (i = len; i >= 4; i -= 4) {
-			word32 = REBASE(OTG_FIFO(0));
+			const uint32_t word32 = REBASE(OTG_FIFO(0));
 			memcpy(buf8, &word32, 4);
 			usbd_dev->rxbcnt -= 4;
 			buf8 += 4;
@@ -295,7 +306,7 @@ uint16_t dwc_ep_read_packet(usbd_device *usbd_dev, uint8_t addr, void *buf, uint
 #endif /* defined(__ARM_ARCH_6M__) */
 
 	if (i) {
-		extra = REBASE(OTG_FIFO(0));
+		const uint32_t extra = REBASE(OTG_FIFO(0));
 		/* we read 4 bytes from the fifo, so update rxbcnt */
 		if (usbd_dev->rxbcnt < 4) {
 			/* Be careful not to underflow (rxbcnt is unsigned) */
@@ -307,6 +318,7 @@ uint16_t dwc_ep_read_packet(usbd_device *usbd_dev, uint8_t addr, void *buf, uint
 	}
 
 	return len;
+#endif
 }
 
 static void dwc_flush_txfifo(usbd_device *usbd_dev, int ep)
@@ -410,10 +422,21 @@ void dwc_poll(usbd_device *usbd_dev)
 		}
 
 		/* Discard unread packet data. */
+#if defined(STM32H7)
+		const size_t total_length = (rxstsp & OTG_GRXSTSP_BCNT_MASK) >> 4U;
+		const size_t consumed = total_length - usbd_dev->rxbcnt;
+		const volatile uint32_t *const fifo = (const volatile uint32_t *)(usbd_dev->driver->base_address + OTG_FIFO(0));
+		for (size_t offset = consumed; offset < total_length; offset += 4) {
+			(void)fifo[offset >> 2U];
+		}
+
+		REBASE(OTG_DOEPINT(ep)) = OTG_DOEPINTX_XFRC;
+#else
 		for (size_t i = 0; i < usbd_dev->rxbcnt; i += 4) {
 			/* There is only one receive FIFO, so use OTG_FIFO(0) */
 			(void)REBASE(OTG_FIFO(0));
 		}
+#endif
 
 		usbd_dev->rxbcnt = 0;
 	}
