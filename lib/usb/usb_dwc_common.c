@@ -134,46 +134,46 @@ void dwc_endpoints_reset(usbd_device *usbd_dev)
 	REBASE(OTG_GRSTCTL) = OTG_GRSTCTL_TXFFLSH | OTG_GRSTCTL_TXFNUM_ALL | OTG_GRSTCTL_RXFFLSH;
 }
 
-void dwc_ep_stall_set(usbd_device *usbd_dev, uint8_t addr, uint8_t stall)
+void dwc_ep_stall_set(usbd_device *const usbd_dev, const uint8_t addr, const uint8_t stall)
 {
-	if (addr == 0) {
+	const uint8_t ep = addr & 0x7FU;
+	if (ep == 0) {
 		if (stall) {
-			REBASE(OTG_DIEPCTL(addr)) |= OTG_DIEPCTL0_STALL;
+			REBASE(OTG_DIEPCTL(ep)) |= OTG_DIEPCTL0_STALL;
 		} else {
-			REBASE(OTG_DIEPCTL(addr)) &= ~OTG_DIEPCTL0_STALL;
+			REBASE(OTG_DIEPCTL(ep)) &= ~OTG_DIEPCTL0_STALL;
 		}
 	}
 
-	if (addr & 0x80) {
-		addr &= 0x7F;
-
+	if (addr & 0x80U) {
 		if (stall) {
-			REBASE(OTG_DIEPCTL(addr)) |= OTG_DIEPCTL0_STALL;
+			REBASE(OTG_DIEPCTL(ep)) |= OTG_DIEPCTL0_STALL;
 		} else {
-			REBASE(OTG_DIEPCTL(addr)) &= ~OTG_DIEPCTL0_STALL;
-			REBASE(OTG_DIEPCTL(addr)) |= OTG_DIEPCTLX_SD0PID;
+			REBASE(OTG_DIEPCTL(ep)) &= ~OTG_DIEPCTL0_STALL;
+			REBASE(OTG_DIEPCTL(ep)) |= OTG_DIEPCTLX_SD0PID;
 		}
 	} else {
 		if (stall) {
-			REBASE(OTG_DOEPCTL(addr)) |= OTG_DOEPCTL0_STALL;
+			REBASE(OTG_DOEPCTL(ep)) |= OTG_DOEPCTL0_STALL;
 		} else {
-			REBASE(OTG_DOEPCTL(addr)) &= ~OTG_DOEPCTL0_STALL;
-			REBASE(OTG_DOEPCTL(addr)) |= OTG_DOEPCTLX_SD0PID;
+			REBASE(OTG_DOEPCTL(ep)) &= ~OTG_DOEPCTL0_STALL;
+			REBASE(OTG_DOEPCTL(ep)) |= OTG_DOEPCTLX_SD0PID;
 		}
 	}
 }
 
-uint8_t dwc_ep_stall_get(usbd_device *usbd_dev, uint8_t addr)
+uint8_t dwc_ep_stall_get(usbd_device *const usbd_dev, const uint8_t addr)
 {
+	const uint8_t ep = addr & 0x7FU;
 	/* Return non-zero if STALL set. */
 	if (addr & 0x80U) {
-		return (REBASE(OTG_DIEPCTL(addr & 0x7fU)) & OTG_DIEPCTL0_STALL) ? 1U : 0U;
+		return (REBASE(OTG_DIEPCTL(ep)) & OTG_DIEPCTL0_STALL) ? 1U : 0U;
 	} else {
-		return (REBASE(OTG_DOEPCTL(addr)) & OTG_DOEPCTL0_STALL) ? 1U : 0U;
+		return (REBASE(OTG_DOEPCTL(ep)) & OTG_DOEPCTL0_STALL) ? 1U : 0U;
 	}
 }
 
-void dwc_ep_nak_set(usbd_device *usbd_dev, uint8_t addr, uint8_t nak)
+void dwc_ep_nak_set(usbd_device *const usbd_dev, const uint8_t addr, const uint8_t nak)
 {
 	/* It does not make sense to force NAK on IN endpoints. */
 	if (addr & 0x80U) {
@@ -189,23 +189,23 @@ void dwc_ep_nak_set(usbd_device *usbd_dev, uint8_t addr, uint8_t nak)
 	}
 }
 
-uint16_t dwc_ep_write_packet(usbd_device *usbd_dev, uint8_t addr, const void *buf, uint16_t len)
+uint16_t dwc_ep_write_packet(usbd_device *const usbd_dev, const uint8_t addr, const void *buf, const uint16_t len)
 {
-	addr &= 0x7F;
+	const uint8_t ep = addr & 0x7FU;
 
 	/* Return if endpoint is already enabled. */
 #if defined(STM32H7)
-	if (REBASE(OTG_DIEPCTL(addr)) & OTG_DIEPCTL0_EPENA) {
+	if (REBASE(OTG_DIEPCTL(ep)) & OTG_DIEPCTL0_EPENA) {
 		return 0;
 	}
 
 	/* Enable endpoint for transmission. */
-	REBASE(OTG_DIEPTSIZ(addr)) = OTG_DIEPSIZ0_PKTCNT | (len & OTG_DIEPSIZ0_XFRSIZ_MASK);
-	REBASE(OTG_DIEPCTL(addr)) |= OTG_DIEPCTL0_EPENA | OTG_DIEPCTL0_CNAK;
+	REBASE(OTG_DIEPTSIZ(ep)) = OTG_DIEPSIZ0_PKTCNT | (len & OTG_DIEPSIZX_XFRSIZ_MASK);
+	REBASE(OTG_DIEPCTL(ep)) |= OTG_DIEPCTL0_EPENA | OTG_DIEPCTL0_CNAK;
 
 	const uint8_t *const buf8 = buf;
 	/* Figure out where to copy the data to */
-	volatile uint32_t *const fifo = (volatile uint32_t *)(usbd_dev->driver->base_address + OTG_FIFO(addr));
+	volatile uint32_t *const fifo = (volatile uint32_t *)(usbd_dev->driver->base_address + OTG_FIFO(ep));
 	/* Copy the data into the FIFO for this endpoint */
 	for (size_t offset = 0; offset < len; offset += 4) {
 		uint32_t data = 0;
@@ -214,20 +214,20 @@ uint16_t dwc_ep_write_packet(usbd_device *usbd_dev, uint8_t addr, const void *bu
 		fifo[offset >> 2U] = data;
 	}
 #else
-	if (REBASE(OTG_DIEPTSIZ(addr)) & OTG_DIEPSIZ0_PKTCNT) {
+	if (REBASE(OTG_DIEPTSIZ(ep)) & OTG_DIEPSIZ0_PKTCNT) {
 		return 0;
 	}
 
 	/* Enable endpoint for transmission. */
-	REBASE(OTG_DIEPTSIZ(addr)) = OTG_DIEPSIZ0_PKTCNT | (len & OTG_DIEPSIZ0_XFRSIZ_MASK);
-	REBASE(OTG_DIEPCTL(addr)) |= OTG_DIEPCTL0_EPENA | OTG_DIEPCTL0_CNAK;
+	REBASE(OTG_DIEPTSIZ(ep)) = OTG_DIEPSIZ0_PKTCNT | (len & OTG_DIEPSIZ0_XFRSIZ_MASK);
+	REBASE(OTG_DIEPCTL(ep)) |= OTG_DIEPCTL0_EPENA | OTG_DIEPCTL0_CNAK;
 
 	const uint32_t *buf32 = buf;
 	/* Copy buffer to endpoint FIFO, note - memcpy does not work.
 	 * ARMv7M supports non-word-aligned accesses, ARMv6M does not. */
 #if defined(__ARM_ARCH_7M__) || defined(__ARM_ARCH_7EM__)
 	for (size_t i = 0; i < len; i += 4) {
-		REBASE(OTG_FIFO(addr)) = *buf32++;
+		REBASE(OTG_FIFO(ep)) = *buf32++;
 	}
 #endif /* defined(__ARM_ARCH_7M__) || defined(__ARM_ARCH_7EM__) */
 
@@ -236,13 +236,13 @@ uint16_t dwc_ep_write_packet(usbd_device *usbd_dev, uint8_t addr, const void *bu
 	/* Take care of word-aligned and non-word-aligned buffers */
 	if (((uintptr_t)buf8 & 0x3) == 0) {
 		for (size_t i = 0; i < len; i += 4) {
-			REBASE(OTG_FIFO(addr)) = *buf32++;
+			REBASE(OTG_FIFO(ep)) = *buf32++;
 		}
 	} else {
 		for (size_t i = 0; i < len; i += 4) {
 			uint32_t word32;
 			memcpy(&word32, buf8 + i, 4);
-			REBASE(OTG_FIFO(addr)) = word32;
+			REBASE(OTG_FIFO(ep)) = word32;
 		}
 	}
 #endif /* defined(__ARM_ARCH_6M__) */
