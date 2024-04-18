@@ -245,6 +245,9 @@ void pwr_set_svos_scale(enum pwr_svos_scale scale);
  * @param[in] scale  Voltage scale value to set.
  */
 void pwr_set_vos_scale(enum pwr_vos_scale scale);
+
+/** Enable and bring up the VDD33USB power supply for the USB controller */
+void pwr_enable_usb33(void);
 /**@}*/
 
 
