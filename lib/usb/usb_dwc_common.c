@@ -166,17 +166,17 @@ void dwc_ep_stall_set(usbd_device *usbd_dev, uint8_t addr, uint8_t stall)
 uint8_t dwc_ep_stall_get(usbd_device *usbd_dev, uint8_t addr)
 {
 	/* Return non-zero if STALL set. */
-	if (addr & 0x80) {
-		return (REBASE(OTG_DIEPCTL(addr & 0x7f)) & OTG_DIEPCTL0_STALL) ? 1 : 0;
+	if (addr & 0x80U) {
+		return (REBASE(OTG_DIEPCTL(addr & 0x7fU)) & OTG_DIEPCTL0_STALL) ? 1U : 0U;
 	} else {
-		return (REBASE(OTG_DOEPCTL(addr)) & OTG_DOEPCTL0_STALL) ? 1 : 0;
+		return (REBASE(OTG_DOEPCTL(addr)) & OTG_DOEPCTL0_STALL) ? 1U : 0U;
 	}
 }
 
 void dwc_ep_nak_set(usbd_device *usbd_dev, uint8_t addr, uint8_t nak)
 {
 	/* It does not make sense to force NAK on IN endpoints. */
-	if (addr & 0x80) {
+	if (addr & 0x80U) {
 		return;
 	}
 
@@ -203,7 +203,7 @@ uint16_t dwc_ep_write_packet(usbd_device *usbd_dev, uint8_t addr, const void *bu
 	REBASE(OTG_DIEPTSIZ(addr)) = OTG_DIEPSIZ0_PKTCNT | (len & OTG_DIEPSIZ0_XFRSIZ_MASK);
 	REBASE(OTG_DIEPCTL(addr)) |= OTG_DIEPCTL0_EPENA | OTG_DIEPCTL0_CNAK;
 
-	const uint8_t *buf8 = buf;
+	const uint8_t *const buf8 = buf;
 	/* Figure out where to copy the data to */
 	volatile uint32_t *const fifo = (volatile uint32_t *)(usbd_dev->driver->base_address + OTG_FIFO(addr));
 	/* Copy the data into the FIFO for this endpoint */
