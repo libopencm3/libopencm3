@@ -214,7 +214,7 @@ uint16_t dwc_ep_write_packet(usbd_device *const usbd_dev, const uint8_t addr, co
 	if (ep == 0U) {
 		REBASE(OTG_DIEPTSIZ(ep)) = OTG_DIEPSIZ0_PKTCNT | (len & OTG_DIEPSIZ0_XFRSIZ_MASK);
 	} else {
-		REBASE(OTG_DIEPTSIZ(ep)) = OTG_DIEPSIZ0_PKTCNT | (len & OTG_DIEPSIZX_XFRSIZ_MASK);
+		REBASE(OTG_DIEPTSIZ(ep)) = OTG_DIEPSIZX_PKTCNT(1) | (len & OTG_DIEPSIZX_XFRSIZ_MASK);
 	}
 	REBASE(OTG_DIEPCTL(ep)) |= OTG_DIEPCTL0_EPENA | OTG_DIEPCTL0_CNAK;
 
@@ -415,7 +415,9 @@ void dwc_poll(usbd_device *usbd_dev)
 
 		if (pktsts == OTG_GRXSTSP_PKTSTS_OUT_COMP || pktsts == OTG_GRXSTSP_PKTSTS_SETUP_COMP) {
 #if defined(STM32H7)
-			REBASE(OTG_DOEPINT(ep)) = OTG_DOEPINTX_STUP;
+			if (pktsts == OTG_GRXSTSP_PKTSTS_SETUP_COMP) {
+				REBASE(OTG_DOEPINT(ep)) = OTG_DOEPINTX_STUP;
+			}
 #endif
 			REBASE(OTG_DOEPTSIZ(ep)) = usbd_dev->doeptsiz[ep];
 			REBASE(OTG_DOEPCTL(ep)) |=
