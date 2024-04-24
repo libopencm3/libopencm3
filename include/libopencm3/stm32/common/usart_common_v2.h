@@ -440,6 +440,9 @@
 
 /**@}*/
 
+#define USART_BRR_UPPER_MASK (0x0000fff0U)
+#define USART_BRR_LOWER_MASK (0x0000000fU)
+
 /** @defgroup usart_gtpr_values USART_GTPR Values
  * @ingroup usart_defines
  * @{
