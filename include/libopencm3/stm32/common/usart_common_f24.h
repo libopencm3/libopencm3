@@ -94,10 +94,11 @@ specific memorymap.h header before including this header file.*/
 /* ONEBIT: One sample bit method enable */
 #define USART_CR3_ONEBIT		(1 << 11)
 
+#define USART_BRR_UPPER_MASK (0x0000fff0U)
+#define USART_BRR_LOWER_MASK (0x0000000fU)
 #endif
 /** @cond */
 #else
 #warning "usart_common_f24.h should not be included directly, only via usart.h"
 #endif
 /** @endcond */
-
