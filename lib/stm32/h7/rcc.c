@@ -65,7 +65,8 @@ static void rcc_configure_pll(uint32_t clkin, const struct pll_config *config, i
 	uint8_t vco_addshift = 4 * (pll_num - 1); 		/* Values spaced by 4 for PLL 1/2/3 */
 
 	/* Set the PLL input frequency range. */
-	uint32_t pll_clk_mhz = (clkin / config->divm) / HZ_PER_MHZ;
+	uint32_t pll_clk = clkin / config->divm;
+	uint32_t pll_clk_mhz = pll_clk / HZ_PER_MHZ;
 	if (pll_clk_mhz > 2 && pll_clk_mhz <= 4) {
 		RCC_PLLCFGR |= (RCC_PLLCFGR_PLLRGE_2_4MHZ << RCC_PLLCFGR_PLL1RGE_SHIFT) << vco_addshift;
 	} else if (pll_clk_mhz > 4 && pll_clk_mhz <= 8) {
@@ -75,7 +76,7 @@ static void rcc_configure_pll(uint32_t clkin, const struct pll_config *config, i
 	}
 
 	/* Set the VCO output frequency range. */
-	uint32_t pll_vco_clk_mhz = (pll_clk_mhz * config->divn);
+	uint32_t pll_vco_clk_mhz = (pll_clk * config->divn) / HZ_PER_MHZ;
 	if (pll_vco_clk_mhz <= 420) {
 		RCC_PLLCFGR |= (RCC_PLLCFGR_PLL1VCO_MED << vco_addshift);
 	}
