@@ -17,29 +17,29 @@
 
 /* Local private copy of the clock configuration for providing user with clock tree data. */
 static struct {
-	uint16_t sysclk_mhz;
-	uint16_t cpu_mhz;
-	uint16_t hclk_mhz;
+	uint32_t sysclk;
+	uint32_t cpu;
+	uint32_t hclk;
 	struct {
-		uint16_t pclk1_mhz;		/* APB1 clock. */
-		uint16_t pclk2_mhz;		/* APB2 clock. */
-		uint16_t pclk3_mhz;		/* APB3 clock. */
-		uint16_t pclk4_mhz;		/* APB4 clock. */
+		uint32_t pclk1;			/* APB1 clock. */
+		uint32_t pclk2;			/* APB2 clock. */
+		uint32_t pclk3;			/* APB3 clock. */
+		uint32_t pclk4;			/* APB4 clock. */
 	} per;
 	struct pll_clocks {			/* Each PLL output set of data. */
-		uint16_t p_mhz;
-		uint16_t q_mhz;
-		uint16_t r_mhz;
+		uint32_t p;
+		uint32_t q;
+		uint32_t r;
 	} pll1, pll2, pll3;
 	uint16_t hse_khz;			/* This can't exceed 50MHz */
 } rcc_clock_tree = {
-	.sysclk_mhz = RCC_HSI_BASE_FREQUENCY / HZ_PER_MHZ,
-	.cpu_mhz = RCC_HSI_BASE_FREQUENCY / HZ_PER_MHZ,
-	.hclk_mhz = RCC_HSI_BASE_FREQUENCY / HZ_PER_MHZ,
-	.per.pclk1_mhz = RCC_HSI_BASE_FREQUENCY / HZ_PER_MHZ,
-	.per.pclk2_mhz = RCC_HSI_BASE_FREQUENCY / HZ_PER_MHZ,
-	.per.pclk3_mhz = RCC_HSI_BASE_FREQUENCY / HZ_PER_MHZ,
-	.per.pclk4_mhz = RCC_HSI_BASE_FREQUENCY / HZ_PER_MHZ
+	.sysclk = RCC_HSI_BASE_FREQUENCY,
+	.cpu = RCC_HSI_BASE_FREQUENCY,
+	.hclk = RCC_HSI_BASE_FREQUENCY,
+	.per.pclk1 = RCC_HSI_BASE_FREQUENCY,
+	.per.pclk2 = RCC_HSI_BASE_FREQUENCY,
+	.per.pclk3 = RCC_HSI_BASE_FREQUENCY,
+	.per.pclk4 = RCC_HSI_BASE_FREQUENCY
 };
 
 static void rcc_configure_pll(uint32_t clkin, const struct pll_config *config, int pll_num) {
@@ -66,18 +66,17 @@ static void rcc_configure_pll(uint32_t clkin, const struct pll_config *config, i
 
 	/* Set the PLL input frequency range. */
 	uint32_t pll_clk = clkin / config->divm;
-	uint32_t pll_clk_mhz = pll_clk / HZ_PER_MHZ;
-	if (pll_clk_mhz > 2 && pll_clk_mhz <= 4) {
+	if (pll_clk > (2 * HZ_PER_MHZ) && pll_clk <= (4 * HZ_PER_MHZ)) {
 		RCC_PLLCFGR |= (RCC_PLLCFGR_PLLRGE_2_4MHZ << RCC_PLLCFGR_PLL1RGE_SHIFT) << vco_addshift;
-	} else if (pll_clk_mhz > 4 && pll_clk_mhz <= 8) {
+	} else if (pll_clk > (4 * HZ_PER_MHZ) && pll_clk <= (8 * HZ_PER_MHZ)) {
 		RCC_PLLCFGR |= (RCC_PLLCFGR_PLLRGE_4_8MHZ << RCC_PLLCFGR_PLL1RGE_SHIFT) << vco_addshift;
-	} else if (pll_clk_mhz > 8) {
+	} else if (pll_clk > (8 * HZ_PER_MHZ)) {
 		RCC_PLLCFGR |= (RCC_PLLCFGR_PLLRGE_8_16MHZ << RCC_PLLCFGR_PLL1RGE_SHIFT) << vco_addshift;
 	}
 
 	/* Set the VCO output frequency range. */
-	uint32_t pll_vco_clk_mhz = (pll_clk * config->divn) / HZ_PER_MHZ;
-	if (pll_vco_clk_mhz <= 420) {
+	uint32_t pll_vco_clk = pll_clk * config->divn;
+	if (pll_vco_clk <= (420 * HZ_PER_MHZ)) {
 		RCC_PLLCFGR |= (RCC_PLLCFGR_PLL1VCO_MED << vco_addshift);
 	}
 
@@ -86,17 +85,17 @@ static void rcc_configure_pll(uint32_t clkin, const struct pll_config *config, i
 	if (config->divp > 0) {
 		RCC_PLLDIVR(pll_num) |= RCC_PLLNDIVR_DIVP(config->divp);
 		RCC_PLLCFGR |= (RCC_PLLCFGR_DIVP1EN << diven_addshift);
-		pll_tree_ptr->p_mhz = pll_vco_clk_mhz / config->divp;
+		pll_tree_ptr->p = pll_vco_clk / config->divp;
 	}
 	if (config->divq > 0) {
 		RCC_PLLDIVR(pll_num) |= RCC_PLLNDIVR_DIVQ(config->divq);
 		RCC_PLLCFGR |= (RCC_PLLCFGR_DIVQ1EN << diven_addshift);
-		pll_tree_ptr->q_mhz = pll_vco_clk_mhz / config->divq;
+		pll_tree_ptr->q = pll_vco_clk / config->divq;
 	}
 	if (config->divr > 0) {
 		RCC_PLLDIVR(pll_num) |= RCC_PLLNDIVR_DIVR(config->divr);
 		RCC_PLLCFGR |= (RCC_PLLCFGR_DIVR1EN << diven_addshift);
-		pll_tree_ptr->r_mhz = pll_vco_clk_mhz / config->divr;
+		pll_tree_ptr->r = pll_vco_clk / config->divr;
 	}
 
 	/* Attempt to enable and lock PLL. */
@@ -113,8 +112,8 @@ static void rcc_set_and_enable_plls(const struct rcc_pll_config *config) {
 					RCC_PLLCKSELR_DIVM3(config->pll3.divm) |
 					config->pll_source;
 
-	uint32_t clkin = (config->pll_source == RCC_PLLCKSELR_PLLSRC_HSI)
-		? RCC_HSI_BASE_FREQUENCY : config->hse_frequency;
+	uint32_t clkin = config->pll_source == RCC_PLLCKSELR_PLLSRC_HSI ?
+		RCC_HSI_BASE_FREQUENCY : config->hse_frequency;
 
 	RCC_PLLCFGR = 0;
 	rcc_configure_pll(clkin, &config->pll1, 1);
@@ -124,23 +123,23 @@ static void rcc_set_and_enable_plls(const struct rcc_pll_config *config) {
 
 /* This is a helper to calculate dividers that go 2/4/8/16/64/128/256/512.
  * These dividers also use the top bit as an "enable". */
-static uint16_t rcc_prediv_log_skip32_div(uint16_t clk_mhz, uint32_t div_val) {
+static uint32_t rcc_prediv_log_skip32_div(uint32_t clk, uint32_t div_val) {
 	if (div_val < 0x8) {
-		return clk_mhz;
+		return clk;
 	} else if (div_val <= RCC_D1CFGR_D1CPRE_DIV16) {
-		return clk_mhz >> (div_val - 7);
+		return clk >> (div_val - 7);
 	} else {
-		return clk_mhz >> (div_val - 6);
+		return clk >> (div_val - 6);
 	}
 }
 
 /* This is a helper to help calculate simple 3-bit log dividers with top bit
  * used as enable bit. */
-static uint16_t rcc_prediv_3bit_log_div(uint16_t clk_mhz, uint32_t div_val) {
+static uint32_t rcc_prediv_3bit_log_div(uint32_t clk, uint32_t div_val) {
 	if (div_val < 0x4) {
-		return clk_mhz;
+		return clk;
 	} else {
-		return clk_mhz >> (div_val - 3);
+		return clk >> (div_val - 3);
 	}
 }
 
@@ -150,12 +149,12 @@ static void rcc_clock_setup_domain1(const struct rcc_pll_config *config) {
 		RCC_D1CFGR_D1HPRE(config->hpre) | RCC_D1CFGR_D1PPRE(config->ppre3);
 
 	/* Update our clock values in our tree based on the config values. */
-	rcc_clock_tree.cpu_mhz =
-		rcc_prediv_log_skip32_div(rcc_clock_tree.sysclk_mhz, config->core_pre);
-	rcc_clock_tree.hclk_mhz =
-		rcc_prediv_log_skip32_div(rcc_clock_tree.cpu_mhz, config->hpre);
-	rcc_clock_tree.per.pclk3_mhz =
-		rcc_prediv_3bit_log_div(rcc_clock_tree.hclk_mhz, config->ppre3);
+	rcc_clock_tree.cpu =
+		rcc_prediv_log_skip32_div(rcc_clock_tree.sysclk, config->core_pre);
+	rcc_clock_tree.hclk =
+		rcc_prediv_log_skip32_div(rcc_clock_tree.cpu, config->hpre);
+	rcc_clock_tree.per.pclk3 =
+		rcc_prediv_3bit_log_div(rcc_clock_tree.hclk, config->ppre3);
 }
 
 static void rcc_clock_setup_domain2(const struct rcc_pll_config *config) {
@@ -164,10 +163,10 @@ static void rcc_clock_setup_domain2(const struct rcc_pll_config *config) {
 		RCC_D2CFGR_D2PPRE2(config->ppre2);
 
 	/* Update our clock values in our tree based on the config values. */
-	rcc_clock_tree.per.pclk2_mhz =
-		rcc_prediv_3bit_log_div(rcc_clock_tree.hclk_mhz, config->ppre2);
-	rcc_clock_tree.per.pclk1_mhz =
-		rcc_prediv_3bit_log_div(rcc_clock_tree.hclk_mhz, config->ppre1);
+	rcc_clock_tree.per.pclk2 =
+		rcc_prediv_3bit_log_div(rcc_clock_tree.hclk, config->ppre2);
+	rcc_clock_tree.per.pclk1 =
+		rcc_prediv_3bit_log_div(rcc_clock_tree.hclk, config->ppre1);
 }
 
 static void rcc_clock_setup_domain3(const struct rcc_pll_config *config) {
@@ -175,8 +174,8 @@ static void rcc_clock_setup_domain3(const struct rcc_pll_config *config) {
 	RCC_D3CFGR |= RCC_D3CFGR_D3PPRE(config->ppre4);
 
 	/* Update our clock values in our tree based on the config values. */
-	rcc_clock_tree.per.pclk4_mhz =
-		rcc_prediv_3bit_log_div(rcc_clock_tree.hclk_mhz, config->ppre4);
+	rcc_clock_tree.per.pclk4 =
+		rcc_prediv_3bit_log_div(rcc_clock_tree.hclk, config->ppre4);
 }
 
 void rcc_clock_setup_pll(const struct rcc_pll_config *config) {
@@ -205,11 +204,11 @@ void rcc_clock_setup_pll(const struct rcc_pll_config *config) {
 
 	/* Populate our base sysclk settings for use with domain clocks. */
 	if (config->sysclock_source == RCC_PLL) {
-		rcc_clock_tree.sysclk_mhz = rcc_clock_tree.pll1.p_mhz;
+		rcc_clock_tree.sysclk = rcc_clock_tree.pll1.p;
 	} else if (config->sysclock_source == RCC_HSE) {
-		rcc_clock_tree.sysclk_mhz = config->hse_frequency / HZ_PER_MHZ;
+		rcc_clock_tree.sysclk = config->hse_frequency;
 	} else {
-		rcc_clock_tree.sysclk_mhz = RCC_HSI_BASE_FREQUENCY / HZ_PER_MHZ;
+		rcc_clock_tree.sysclk = RCC_HSI_BASE_FREQUENCY;
 	}
 
 	/* PLL's are set, now we need to get everything switched over the correct domains. */
@@ -238,21 +237,21 @@ uint32_t rcc_get_bus_clk_freq(enum rcc_clock_source source) {
 	uint32_t clksel;
 	switch (source) {
 		case RCC_SYSCLK:
-			return rcc_clock_tree.sysclk_mhz * HZ_PER_MHZ;
+			return rcc_clock_tree.sysclk;
 		case RCC_CPUCLK:
 		case RCC_SYSTICKCLK:
-			return rcc_clock_tree.cpu_mhz * HZ_PER_MHZ;
+			return rcc_clock_tree.cpu;
 		case RCC_AHBCLK:
 		case RCC_HCLK3:
-			return rcc_clock_tree.hclk_mhz * HZ_PER_MHZ;
+			return rcc_clock_tree.hclk;
 		case RCC_APB1CLK:
-			return rcc_clock_tree.per.pclk1_mhz * HZ_PER_MHZ;
+			return rcc_clock_tree.per.pclk1;
 		case RCC_APB2CLK:
-			return rcc_clock_tree.per.pclk2_mhz * HZ_PER_MHZ;
+			return rcc_clock_tree.per.pclk2;
 		case RCC_APB3CLK:
-			return rcc_clock_tree.per.pclk3_mhz * HZ_PER_MHZ;
+			return rcc_clock_tree.per.pclk3;
 		case RCC_APB4CLK:
-			return rcc_clock_tree.per.pclk4_mhz * HZ_PER_MHZ;
+			return rcc_clock_tree.per.pclk4;
 		case RCC_PERCLK:
 			clksel = (RCC_D1CCIPR >> RCC_D1CCIPR_CKPERSEL_SHIFT) & RCC_D1CCIPR_CKPERSEL_MASK;
 			if (clksel == RCC_D1CCIPR_CKPERSEL_HSI) {
@@ -272,10 +271,10 @@ uint32_t rcc_get_usart_clk_freq(uint32_t usart)
 {
 	uint32_t clksel, pclk;
 	if (usart == USART1_BASE || usart == USART6_BASE || usart == UART9_BASE || usart == USART10_BASE) {
-		pclk = rcc_clock_tree.per.pclk2_mhz * HZ_PER_MHZ;;
+		pclk = rcc_clock_tree.per.pclk2;
 		clksel = (RCC_D2CCIP2R >> RCC_D2CCIP2R_USART16910SEL_SHIFT) & RCC_D2CCIP2R_USARTSEL_MASK;
 	} else {
-		pclk = rcc_clock_tree.per.pclk1_mhz * HZ_PER_MHZ;
+		pclk = rcc_clock_tree.per.pclk1;
 		clksel = (RCC_D2CCIP2R >> RCC_D2CCIP2R_USART234578SEL_SHIFT) & RCC_D2CCIP2R_USARTSEL_MASK;
 	}
 
@@ -284,9 +283,9 @@ uint32_t rcc_get_usart_clk_freq(uint32_t usart)
 	case RCC_D2CCIP2R_USARTSEL_PCLK:
 		return pclk;
 	case RCC_D2CCIP2R_USARTSEL_PLL2Q:
-		return rcc_clock_tree.pll2.q_mhz * HZ_PER_MHZ;
+		return rcc_clock_tree.pll2.q;
 	case RCC_D2CCIP2R_USARTSEL_PLL3Q:
-		return rcc_clock_tree.pll3.q_mhz * HZ_PER_MHZ;
+		return rcc_clock_tree.pll3.q;
 	case RCC_D2CCIP2R_USARTSEL_HSI:
 		return RCC_HSI_BASE_FREQUENCY;
 	case RCC_D2CCIP2R_USARTSEL_CSI:
@@ -301,11 +300,11 @@ uint32_t rcc_get_timer_clk_freq(uint32_t timer __attribute__((unused)))
 {
 	if (timer >= LPTIM2_BASE && timer <= LPTIM5_BASE) {
 		/* TODO: Read LPTIMxSEL values from D3CCIPR to determine clock source. */
-		return rcc_clock_tree.per.pclk4_mhz * HZ_PER_MHZ;
+		return rcc_clock_tree.per.pclk4;
 	} else if (timer >= TIM1_BASE && timer <= HRTIM_BASE) {
-		return rcc_clock_tree.per.pclk2_mhz * HZ_PER_MHZ;
+		return rcc_clock_tree.per.pclk2;
 	} else {
-		return rcc_clock_tree.per.pclk1_mhz * HZ_PER_MHZ;
+		return rcc_clock_tree.per.pclk1;
 	}
 }
 
@@ -313,10 +312,10 @@ uint32_t rcc_get_i2c_clk_freq(uint32_t i2c)
 {
 	if (i2c == I2C4_BASE) {
 		/* TODO: Read I2C4SEL from D3CCIPR to determine clock source. */
-		return rcc_clock_tree.per.pclk3_mhz * HZ_PER_MHZ;
+		return rcc_clock_tree.per.pclk3;
 	} else {
 		/* TODO: Read I2C123SEL from D2CCIP2R to determine clock source. */
-		return rcc_clock_tree.per.pclk1_mhz * HZ_PER_MHZ;
+		return rcc_clock_tree.per.pclk1;
 	}
 }
 
@@ -326,11 +325,11 @@ uint32_t rcc_get_spi_clk_freq(uint32_t spi)
 		uint32_t clksel =
 			(RCC_D2CCIP1R >> RCC_D2CCIP1R_SPI45SEL_SHIFT) & RCC_D2CCIP1R_SPI45SEL_MASK;
 		if (clksel == RCC_D2CCIP1R_SPI45SEL_APB4){
-			return rcc_clock_tree.per.pclk2_mhz * HZ_PER_MHZ;
+			return rcc_clock_tree.per.pclk2;
 		} else if (clksel == RCC_D2CCIP1R_SPI45SEL_PLL2Q){
-			return rcc_clock_tree.pll2.q_mhz * HZ_PER_MHZ;
+			return rcc_clock_tree.pll2.q;
 		} else if (clksel == RCC_D2CCIP1R_SPI45SEL_PLL3Q){
-			return rcc_clock_tree.pll3.q_mhz * HZ_PER_MHZ;
+			return rcc_clock_tree.pll3.q;
 		} else if (clksel == RCC_D2CCIP1R_SPI45SEL_HSI){
 			return RCC_HSI_BASE_FREQUENCY;
 		} else if (clksel == RCC_D2CCIP1R_SPI45SEL_HSE) {
@@ -342,11 +341,11 @@ uint32_t rcc_get_spi_clk_freq(uint32_t spi)
 		uint32_t clksel =
 			(RCC_D2CCIP1R >> RCC_D2CCIP1R_SPI123SEL_SHIFT) & RCC_D2CCIP1R_SPI123SEL_MASK;
 		if (clksel == RCC_D2CCIP1R_SPI123SEL_PLL1Q) {
-			return rcc_clock_tree.pll1.q_mhz * HZ_PER_MHZ;
+			return rcc_clock_tree.pll1.q;
 		} else if (clksel == RCC_D2CCIP1R_SPI123SEL_PLL2P) {
-			return rcc_clock_tree.pll2.p_mhz * HZ_PER_MHZ;
+			return rcc_clock_tree.pll2.p;
 		} else if (clksel == RCC_D2CCIP1R_SPI123SEL_PLL3P) {
-			return rcc_clock_tree.pll3.p_mhz * HZ_PER_MHZ;
+			return rcc_clock_tree.pll3.p;
 		} else if (clksel == RCC_D2CCIP1R_SPI123SEL_PERCK) {
 			return rcc_get_bus_clk_freq(RCC_PERCLK);
 		} else {
@@ -362,9 +361,9 @@ uint32_t rcc_get_fdcan_clk_freq(uint32_t fdcan __attribute__((unused)))
 	if (clksel == RCC_D2CCIP1R_FDCANSEL_HSE) {
 		return rcc_clock_tree.hse_khz * HZ_PER_KHZ;
 	} else if (clksel == RCC_D2CCIP1R_FDCANSEL_PLL1Q) {
-		return rcc_clock_tree.pll1.q_mhz * HZ_PER_MHZ;
+		return rcc_clock_tree.pll1.q;
 	} else if (clksel == RCC_D2CCIP1R_FDCANSEL_PLL2Q) {
-		return rcc_clock_tree.pll2.q_mhz * HZ_PER_MHZ;
+		return rcc_clock_tree.pll2.q;
 	} else {
 		return 0U;
 	}
