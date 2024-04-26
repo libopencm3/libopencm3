@@ -272,7 +272,7 @@ uint32_t rcc_get_usart_clk_freq(uint32_t usart)
 	uint32_t clksel, pclk;
 	if (usart == USART1_BASE || usart == USART6_BASE) {
 		pclk = rcc_clock_tree.per.pclk2_mhz * HZ_PER_MHZ;;
-		clksel = (RCC_D2CCIP2R >> RCC_D2CCIP2R_USART16SEL_SHIFT) & RCC_D2CCIP2R_USARTSEL_MASK;
+		clksel = (RCC_D2CCIP2R >> RCC_D2CCIP2R_USART16910SEL_SHIFT) & RCC_D2CCIP2R_USARTSEL_MASK;
 	} else {
 		pclk = rcc_clock_tree.per.pclk1_mhz * HZ_PER_MHZ;
 		clksel = (RCC_D2CCIP2R >> RCC_D2CCIP2R_USART234578SEL_SHIFT) & RCC_D2CCIP2R_USARTSEL_MASK;
@@ -404,8 +404,8 @@ void rcc_set_peripheral_clk_sel(uint32_t periph, uint32_t sel) {
 		case UART9_BASE:
 		case USART10_BASE:
 			reg = &RCC_D2CCIP2R;
-			mask = RCC_D2CCIP2R_USARTSEL_MASK << RCC_D2CCIP2R_USART16SEL_SHIFT;
-			val = sel << RCC_D2CCIP2R_USART16SEL_SHIFT;
+			mask = RCC_D2CCIP2R_USARTSEL_MASK << RCC_D2CCIP2R_USART16910SEL_SHIFT;
+			val = sel << RCC_D2CCIP2R_USART16910SEL_SHIFT;
 			break;
 		case USART2_BASE:
 		case USART3_BASE:
