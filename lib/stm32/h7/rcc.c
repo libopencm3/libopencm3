@@ -271,7 +271,7 @@ uint32_t rcc_get_bus_clk_freq(enum rcc_clock_source source) {
 uint32_t rcc_get_usart_clk_freq(uint32_t usart)
 {
 	uint32_t clksel, pclk;
-	if (usart == USART1_BASE || usart == USART6_BASE) {
+	if (usart == USART1_BASE || usart == USART6_BASE || usart == UART9_BASE || usart == USART10_BASE) {
 		pclk = rcc_clock_tree.per.pclk2_mhz * HZ_PER_MHZ;;
 		clksel = (RCC_D2CCIP2R >> RCC_D2CCIP2R_USART16910SEL_SHIFT) & RCC_D2CCIP2R_USARTSEL_MASK;
 	} else {
@@ -431,7 +431,7 @@ void rcc_set_peripheral_clk_sel(uint32_t periph, uint32_t sel) {
 	}
 
 	// Update the register value by masking and oring in new values.
-	uint32_t regval = (*reg & mask) | val;
+	uint32_t regval = (*reg & ~mask) | val;
 	*reg = regval;
 }
 
