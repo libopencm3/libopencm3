@@ -128,87 +128,87 @@ LGPL License Terms @ref lgpl_license
  * @ingroup rcc_registers
 @{*/
 /* MCO2: Microcontroller clock output 2 */
-#define RCC_CFGR_MCO2_MASK        0x7
-#define RCC_CFGR_MCO2_SHIFT       29
-#define RCC_CFGR_MCO2_SYSCLK      0x0
-#define RCC_CFGR_MCO2_PLL2        0x1
-#define RCC_CFGR_MCO2_HSE         0x2
-#define RCC_CFGR_MCO2_PLL1        0x3
-#define RCC_CFGR_MCO2_CSI         0x4
-#define RCC_CFGR_MCO2_LSI         0x5
+#define RCC_CFGR_MCO2_MASK        0x7U
+#define RCC_CFGR_MCO2_SHIFT       29U
+#define RCC_CFGR_MCO2_SYSCLK      0x0U
+#define RCC_CFGR_MCO2_PLL2        0x1U
+#define RCC_CFGR_MCO2_HSE         0x2U
+#define RCC_CFGR_MCO2_PLL1        0x3U
+#define RCC_CFGR_MCO2_CSI         0x4U
+#define RCC_CFGR_MCO2_LSI         0x5U
 
 /* MCO1/2PRE: MCO Prescalers */
-#define RCC_CFGR_MCOPRE_MASK      0xf
-#define RCC_CFGR_MCO2PRE_SHIFT    25
-#define RCC_CFGR_MCO1PRE_SHIFT    18
-#define RCC_CFGR_MCOPRE_DIV_NONE  0x0
-#define RCC_CFGR_MCOPRE_DIV_BYP   0x1
-#define RCC_CFGR_MCOPRE_DIV_2     0x2
-#define RCC_CFGR_MCOPRE_DIV_3     0x3
-#define RCC_CFGR_MCOPRE_DIV_4     0x4
+#define RCC_CFGR_MCOPRE_MASK      0xfU
+#define RCC_CFGR_MCO2PRE_SHIFT    25U
+#define RCC_CFGR_MCO1PRE_SHIFT    18U
+#define RCC_CFGR_MCOPRE_DIV_NONE  0x0U
+#define RCC_CFGR_MCOPRE_DIV_BYP   0x1U
+#define RCC_CFGR_MCOPRE_DIV_2     0x2U
+#define RCC_CFGR_MCOPRE_DIV_3     0x3U
+#define RCC_CFGR_MCOPRE_DIV_4     0x4U
 /* Note: MCOPRE_DIV can go from 1 - 15  */
 
 /* MCO1: Microcontroller clock output 1 */
-#define RCC_CFGR_MCO1_MASK        0x7
-#define RCC_CFGR_MCO1_SHIFT       22
-#define RCC_CFGR_MCO1_HSI         0x0
-#define RCC_CFGR_MCO1_LSE         0x1
-#define RCC_CFGR_MCO1_HSE         0x2
-#define RCC_CFGR_MCO1_PLL1        0x3
-#define RCC_CFGR_MCO1_HSI48       0x4
+#define RCC_CFGR_MCO1_MASK        0x7U
+#define RCC_CFGR_MCO1_SHIFT       22U
+#define RCC_CFGR_MCO1_HSI         0x0U
+#define RCC_CFGR_MCO1_LSE         0x1U
+#define RCC_CFGR_MCO1_HSE         0x2U
+#define RCC_CFGR_MCO1_PLL1        0x3U
+#define RCC_CFGR_MCO1_HSI48       0x4U
 #define RCC_CFGR_MCO_SHIFT        RCC_CFGR_MCO1_SHIFT
 #define RCC_CFGR_MCO_MASK         RCC_CFGR_MCO1_MASK
 
 /* RTCPRE: HSE division factor for RTC clock */
-#define RCC_CFGR_RTCPRE_SHIFT     8
-#define RCC_CFGR_RTCPRE_MASK      0x3f
+#define RCC_CFGR_RTCPRE_SHIFT     8U
+#define RCC_CFGR_RTCPRE_MASK      0x3fU
 
 /* SWS: System clock switch status */
-#define RCC_CFGR_SWS_SHIFT        3
-#define RCC_CFGR_SWS_MASK         0x7
-#define RCC_CFGR_SWS_HSI          0x0
-#define RCC_CFGR_SWS_CSI          0x1
-#define RCC_CFGR_SWS_HSE          0x2
-#define RCC_CFGR_SWS_PLL1         0x3
+#define RCC_CFGR_SWS_SHIFT        3U
+#define RCC_CFGR_SWS_MASK         0x7U
+#define RCC_CFGR_SWS_HSI          0x0U
+#define RCC_CFGR_SWS_CSI          0x1U
+#define RCC_CFGR_SWS_HSE          0x2U
+#define RCC_CFGR_SWS_PLL1         0x3U
 
 /* SW: System clock switch */
-#define RCC_CFGR_SW_SHIFT         0
-#define RCC_CFGR_SW_MASK          0x7
-#define RCC_CFGR_SW_HSI           0x0
-#define RCC_CFGR_SW_CSI           0x1
-#define RCC_CFGR_SW_HSE           0x2
-#define RCC_CFGR_SW_PLL1          0x3
+#define RCC_CFGR_SW_SHIFT         0U
+#define RCC_CFGR_SW_MASK          0x7U
+#define RCC_CFGR_SW_HSI           0x0U
+#define RCC_CFGR_SW_CSI           0x1U
+#define RCC_CFGR_SW_HSE           0x2U
+#define RCC_CFGR_SW_PLL1          0x3U
 /**@}*/
 
 /** @defgroup rcc_d1cfgr_values RCC_D1CFGR Values
  * @ingroup rcc_registers
  * @{*/
-#define RCC_D1CFGR_D1CPRE_BYP       0x0
-#define RCC_D1CFGR_D1CPRE_DIV2      0x8
-#define RCC_D1CFGR_D1CPRE_DIV4      0x9
-#define RCC_D1CFGR_D1CPRE_DIV8      0xA
-#define RCC_D1CFGR_D1CPRE_DIV16     0xB
-#define RCC_D1CFGR_D1CPRE_DIV64     0xC
-#define RCC_D1CFGR_D1CPRE_DIV128    0xD
-#define RCC_D1CFGR_D1CPRE_DIV256    0xE
-#define RCC_D1CFGR_D1CPRE_DIV512    0xF
-#define RCC_D1CFGR_D1PPRE_BYP       0x0
-#define RCC_D1CFGR_D1PPRE_DIV2      0x4
-#define RCC_D1CFGR_D1PPRE_DIV4      0x5
-#define RCC_D1CFGR_D1PPRE_DIV8      0x6
-#define RCC_D1CFGR_D1PPRE_DIV16     0x7
-#define RCC_D1CFGR_D1HPRE_BYP       0x0
-#define RCC_D1CFGR_D1HPRE_DIV2      0x8
-#define RCC_D1CFGR_D1HPRE_DIV4      0x9
-#define RCC_D1CFGR_D1HPRE_DIV8      0xA
-#define RCC_D1CFGR_D1HPRE_DIV16     0xB
-#define RCC_D1CFGR_D1HPRE_DIV64     0xC
-#define RCC_D1CFGR_D1HPRE_DIV128    0xD
-#define RCC_D1CFGR_D1HPRE_DIV256    0xE
-#define RCC_D1CFGR_D1HPRE_DIV512    0xF
+#define RCC_D1CFGR_D1CPRE_BYP       0x0U
+#define RCC_D1CFGR_D1CPRE_DIV2      0x8U
+#define RCC_D1CFGR_D1CPRE_DIV4      0x9U
+#define RCC_D1CFGR_D1CPRE_DIV8      0xAU
+#define RCC_D1CFGR_D1CPRE_DIV16     0xBU
+#define RCC_D1CFGR_D1CPRE_DIV64     0xCU
+#define RCC_D1CFGR_D1CPRE_DIV128    0xDU
+#define RCC_D1CFGR_D1CPRE_DIV256    0xEU
+#define RCC_D1CFGR_D1CPRE_DIV512    0xFU
+#define RCC_D1CFGR_D1PPRE_BYP       0x0U
+#define RCC_D1CFGR_D1PPRE_DIV2      0x4U
+#define RCC_D1CFGR_D1PPRE_DIV4      0x5U
+#define RCC_D1CFGR_D1PPRE_DIV8      0x6U
+#define RCC_D1CFGR_D1PPRE_DIV16     0x7U
+#define RCC_D1CFGR_D1HPRE_BYP       0x0U
+#define RCC_D1CFGR_D1HPRE_DIV2      0x8U
+#define RCC_D1CFGR_D1HPRE_DIV4      0x9U
+#define RCC_D1CFGR_D1HPRE_DIV8      0xAU
+#define RCC_D1CFGR_D1HPRE_DIV16     0xBU
+#define RCC_D1CFGR_D1HPRE_DIV64     0xCU
+#define RCC_D1CFGR_D1HPRE_DIV128    0xDU
+#define RCC_D1CFGR_D1HPRE_DIV256    0xEU
+#define RCC_D1CFGR_D1HPRE_DIV512    0xFU
 
-#define RCC_D1CFGR_D1CPRE_SHIFT     8
-#define RCC_D1CFGR_D1PPRE_SHIFT     4
+#define RCC_D1CFGR_D1CPRE_SHIFT     8U
+#define RCC_D1CFGR_D1PPRE_SHIFT     4U
 #define RCC_D1CFGR_D1CPRE(cpre)     (cpre << RCC_D1CFGR_D1CPRE_SHIFT)
 #define RCC_D1CFGR_D1PPRE(ppre)     (ppre << RCC_D1CFGR_D1PPRE_SHIFT)
 #define RCC_D1CFGR_D1HPRE(hpre)     (hpre)
@@ -217,14 +217,14 @@ LGPL License Terms @ref lgpl_license
 /** @defgroup rcc_d2cfgr_values RCC_D2CFGR Values
  * @ingroup rcc_registers
  * @{*/
-#define RCC_D2CFGR_D2PPRE_BYP       0x0
-#define RCC_D2CFGR_D2PPRE_DIV2      0x4
-#define RCC_D2CFGR_D2PPRE_DIV4      0x5
-#define RCC_D2CFGR_D2PPRE_DIV8      0x6
-#define RCC_D2CFGR_D2PPRE_DIV16     0x7
+#define RCC_D2CFGR_D2PPRE_BYP       0x0U
+#define RCC_D2CFGR_D2PPRE_DIV2      0x4U
+#define RCC_D2CFGR_D2PPRE_DIV4      0x5U
+#define RCC_D2CFGR_D2PPRE_DIV8      0x6U
+#define RCC_D2CFGR_D2PPRE_DIV16     0x7U
 
-#define RCC_D2CFGR_D2PPRE2_SHIFT    8
-#define RCC_D2CFGR_D2PPRE1_SHIFT    4
+#define RCC_D2CFGR_D2PPRE2_SHIFT    8U
+#define RCC_D2CFGR_D2PPRE1_SHIFT    4U
 #define RCC_D2CFGR_D2PPRE2(ppre)    (ppre << RCC_D2CFGR_D2PPRE2_SHIFT)
 #define RCC_D2CFGR_D2PPRE1(ppre)    (ppre << RCC_D2CFGR_D2PPRE1_SHIFT)
 /**@}*/
@@ -232,29 +232,29 @@ LGPL License Terms @ref lgpl_license
 /** @defgroup rcc_d3cfgr_values RCC_D3CFGR Values
  * @ingroup rcc_registers
  * @{*/
-#define RCC_D3CFGR_D3PPRE_BYP       0x0
-#define RCC_D3CFGR_D3PPRE_DIV2      0x4
-#define RCC_D3CFGR_D3PPRE_DIV4      0x5
-#define RCC_D3CFGR_D3PPRE_DIV8      0x6
-#define RCC_D3CFGR_D3PPRE_DIV16     0x7
-#define RCC_D3CFGR_D3PPRE_SHIFT     4
+#define RCC_D3CFGR_D3PPRE_BYP       0x0U
+#define RCC_D3CFGR_D3PPRE_DIV2      0x4U
+#define RCC_D3CFGR_D3PPRE_DIV4      0x5U
+#define RCC_D3CFGR_D3PPRE_DIV8      0x6U
+#define RCC_D3CFGR_D3PPRE_DIV16     0x7U
+#define RCC_D3CFGR_D3PPRE_SHIFT     4U
 #define RCC_D3CFGR_D3PPRE(ppre)     (ppre << RCC_D3CFGR_D3PPRE_SHIFT)
 /**@}*/
 
 /** @defgroup rcc_pllckselr_values RCC_PLLCKSELR Values
  * @ingroup rcc_registers
  * @{*/
-#define RCC_PLLCKSELR_PLLSRC_HSI    0x0
-#define RCC_PLLCKSELR_PLLSRC_CSI    0x1
-#define RCC_PLLCKSELR_PLLSRC_HSE    0x2
-#define RCC_PLLCKSELR_PLLSRC_NONE   0x3
-#define RCC_PLLCKSELR_DIVM_DIS      0
-#define RCC_PLLCKSELR_DIVM_BYP      1
-#define RCC_PLLCKSELR_DIVM_MASK     0x3f
+#define RCC_PLLCKSELR_PLLSRC_HSI    0x0U
+#define RCC_PLLCKSELR_PLLSRC_CSI    0x1U
+#define RCC_PLLCKSELR_PLLSRC_HSE    0x2U
+#define RCC_PLLCKSELR_PLLSRC_NONE   0x3U
+#define RCC_PLLCKSELR_DIVM_DIS      0U
+#define RCC_PLLCKSELR_DIVM_BYP      1U
+#define RCC_PLLCKSELR_DIVM_MASK     0x3fU
 
-#define RCC_PLLCKSELR_DIVM3_SHIFT   20
-#define RCC_PLLCKSELR_DIVM2_SHIFT   12
-#define RCC_PLLCKSELR_DIVM1_SHIFT   4
+#define RCC_PLLCKSELR_DIVM3_SHIFT   20U
+#define RCC_PLLCKSELR_DIVM2_SHIFT   12U
+#define RCC_PLLCKSELR_DIVM1_SHIFT   4U
 
 #define RCC_PLLCKSELR_DIVM3(n)      ((n) << RCC_PLLCKSELR_DIVM3_SHIFT)
 #define RCC_PLLCKSELR_DIVM2(n)      ((n) << RCC_PLLCKSELR_DIVM2_SHIFT)
@@ -264,10 +264,10 @@ LGPL License Terms @ref lgpl_license
 /** @defgroup rcc_pllcfgr_values RCC_PLLCFGR Values
  * @ingroup rcc_registers
  * @{*/
-#define RCC_PLLCFGR_PLLRGE_1_2MHZ   0
-#define RCC_PLLCFGR_PLLRGE_2_4MHZ   1
-#define RCC_PLLCFGR_PLLRGE_4_8MHZ   2
-#define RCC_PLLCFGR_PLLRGE_8_16MHZ  3
+#define RCC_PLLCFGR_PLLRGE_1_2MHZ   0U
+#define RCC_PLLCFGR_PLLRGE_2_4MHZ   1U
+#define RCC_PLLCFGR_PLLRGE_4_8MHZ   2U
+#define RCC_PLLCFGR_PLLRGE_8_16MHZ  3U
 
 #define RCC_PLLCFGR_DIVR3EN         BIT24
 #define RCC_PLLCFGR_DIVQ3EN         BIT23
@@ -278,16 +278,16 @@ LGPL License Terms @ref lgpl_license
 #define RCC_PLLCFGR_DIVR1EN         BIT18
 #define RCC_PLLCFGR_DIVQ1EN         BIT17
 #define RCC_PLLCFGR_DIVP1EN         BIT16
-#define RCC_PLLCFGR_PLL3RGE_SHIFT   10
-#define RCC_PLLCFGR_PLL3VCO_WIDE    0       /* 192 - 836MHz base output. */
+#define RCC_PLLCFGR_PLL3RGE_SHIFT   10U
+#define RCC_PLLCFGR_PLL3VCO_WIDE    0U      /* 192 - 836MHz base output. */
 #define RCC_PLLCFGR_PLL3VCO_MED     BIT9    /* 150 - 420MHz base output. */
 #define RCC_PLLCFGR_PLL3FRACEN      BIT8
-#define RCC_PLLCFGR_PLL2RGE_SHIFT   6
-#define RCC_PLLCFGR_PLL2VCO_WIDE    0       /* 192 - 836MHz base output. */
+#define RCC_PLLCFGR_PLL2RGE_SHIFT   6U
+#define RCC_PLLCFGR_PLL2VCO_WIDE    0U      /* 192 - 836MHz base output. */
 #define RCC_PLLCFGR_PLL2VCO_MED     BIT5    /* 150 - 420MHz base output. */
 #define RCC_PLLCFGR_PLL2FRACEN      BIT4
-#define RCC_PLLCFGR_PLL1RGE_SHIFT   2
-#define RCC_PLLCFGR_PLL1VCO_WIDE    0       /* 192 - 836MHz base output. */
+#define RCC_PLLCFGR_PLL1RGE_SHIFT   2U
+#define RCC_PLLCFGR_PLL1VCO_WIDE    0U      /* 192 - 836MHz base output. */
 #define RCC_PLLCFGR_PLL1VCO_MED     BIT1    /* 150 - 420MHz base output. */
 #define RCC_PLLCFGR_PLL1FRACEN      BIT0
 /**@}*/
@@ -295,16 +295,16 @@ LGPL License Terms @ref lgpl_license
 /** @defgroup rcc_plldivr_values RCC_PLLnDIVR Values
  * @ingroup rcc_registers
  * @{*/
-#define RCC_PLLNDIVR_DIVR_SHIFT     24
-#define RCC_PLLNDIVR_DIVQ_SHIFT     16
-#define RCC_PLLNDIVR_DIVP_SHIFT     9
-#define RCC_PLLNDIVR_DIVN_SHIFT     0
+#define RCC_PLLNDIVR_DIVR_SHIFT     24U
+#define RCC_PLLNDIVR_DIVQ_SHIFT     16U
+#define RCC_PLLNDIVR_DIVP_SHIFT     9U
+#define RCC_PLLNDIVR_DIVN_SHIFT     0U
 
 /* Need to preserve reserved bits, so give easy mask shortcut. */
-#define RCC_PLLNDIVR_DIVR(n)        (((n) - 1) << RCC_PLLNDIVR_DIVR_SHIFT)
-#define RCC_PLLNDIVR_DIVQ(n)        (((n) - 1) << RCC_PLLNDIVR_DIVQ_SHIFT)
-#define RCC_PLLNDIVR_DIVP(n)        (((n) - 1) << RCC_PLLNDIVR_DIVP_SHIFT)
-#define RCC_PLLNDIVR_DIVN(n)        (((n) - 1) << RCC_PLLNDIVR_DIVN_SHIFT)
+#define RCC_PLLNDIVR_DIVR(n)        (((n) - 1U) << RCC_PLLNDIVR_DIVR_SHIFT)
+#define RCC_PLLNDIVR_DIVQ(n)        (((n) - 1U) << RCC_PLLNDIVR_DIVQ_SHIFT)
+#define RCC_PLLNDIVR_DIVP(n)        (((n) - 1U) << RCC_PLLNDIVR_DIVP_SHIFT)
+#define RCC_PLLNDIVR_DIVN(n)        (((n) - 1U) << RCC_PLLNDIVR_DIVN_SHIFT)
 /**@}*/
 
 /** @defgroup rcc_rsr_values RCC_RSR Values
@@ -326,85 +326,85 @@ LGPL License Terms @ref lgpl_license
 /** @defgroup rcc_bdcr_values RCC_BDCR Values
  * @ingroup rcc_registers
 @{*/
-#define RCC_BDCR_BDRST            (1 << 16)
-#define RCC_BDCR_RTCEN            (1 << 15)
-#define RCC_BDCR_RTCSEL_MASK      0x3
-#define RCC_BDCR_RTCSEL_SHIFT     8
-#define RCC_BDCR_RTCSEL_NONE      0
-#define RCC_BDCR_RTCSEL_LSE       1
-#define RCC_BDCR_RTCSEL_LSI       2
-#define RCC_BDCR_RTCSEL_HSE       3
-#define RCC_BDCR_LSEDRV_MASK      0x3
-#define RCC_BDCR_LSEDRV_SHIFT     3
-#define RCC_BDCR_LSEDRV_LOW       0
-#define RCC_BDCR_LSEDRV_MEDH      1 /* good job st */
-#define RCC_BDCR_LSEDRV_MEDL      2
-#define RCC_BDCR_LSEDRV_HIGH      3
-#define RCC_BDCR_LSEBYP           (1 << 2)
-#define RCC_BDCR_LSERDY           (1 << 1)
-#define RCC_BDCR_LSEON            (1 << 0)
+#define RCC_BDCR_BDRST            (1U << 16U)
+#define RCC_BDCR_RTCEN            (1U << 15U)
+#define RCC_BDCR_RTCSEL_MASK      0x3U
+#define RCC_BDCR_RTCSEL_SHIFT     8U
+#define RCC_BDCR_RTCSEL_NONE      0U
+#define RCC_BDCR_RTCSEL_LSE       1U
+#define RCC_BDCR_RTCSEL_LSI       2U
+#define RCC_BDCR_RTCSEL_HSE       3U
+#define RCC_BDCR_LSEDRV_MASK      0x3U
+#define RCC_BDCR_LSEDRV_SHIFT     3U
+#define RCC_BDCR_LSEDRV_LOW       0U
+#define RCC_BDCR_LSEDRV_MEDH      1U /* good job st */
+#define RCC_BDCR_LSEDRV_MEDL      2U
+#define RCC_BDCR_LSEDRV_HIGH      3U
+#define RCC_BDCR_LSEBYP           (1U << 2U)
+#define RCC_BDCR_LSERDY           (1U << 1U)
+#define RCC_BDCR_LSEON            (1U << 0U)
 /**@}*/
 
 /** @defgroup rcc_csr_values RCC_CSR Values.
  * @ingroup rcc_registers
 @{*/
-#define RCC_CSR_LSIRDY            (1 << 1)
-#define RCC_CSR_LSION             (1 << 0)
+#define RCC_CSR_LSIRDY            (1U << 1U)
+#define RCC_CSR_LSION             (1U << 0U)
 /**@}*/
 
 /** @defgroup rcc_d1ccipr_values RCC_D1CCIP1R Values
  * @ingroup rcc_registers
  * @{*/
-#define RCC_D1CCIPR_CKPERSEL_HSI       0
-#define RCC_D1CCIPR_CKPERSEL_CSI       1
-#define RCC_D1CCIPR_CKPERSEL_HSE       2
-#define RCC_D1CCIPR_CKPERSEL_DISABLE   3
+#define RCC_D1CCIPR_CKPERSEL_HSI       0U
+#define RCC_D1CCIPR_CKPERSEL_CSI       1U
+#define RCC_D1CCIPR_CKPERSEL_HSE       2U
+#define RCC_D1CCIPR_CKPERSEL_DISABLE   3U
 /**@}*/
-#define RCC_D1CCIPR_CKPERSEL_SHIFT     28
-#define RCC_D1CCIPR_CKPERSEL_MASK      3
+#define RCC_D1CCIPR_CKPERSEL_SHIFT     28U
+#define RCC_D1CCIPR_CKPERSEL_MASK      3U
 
-#define RCC_D2CCIP1R_SWPSEL_SHIFT       31
-#define RCC_D2CCIP1R_FDCANSEL_SHIFT     28
-#define RCC_D2CCIP1R_FDCANSEL_MASK      0x3
-#define RCC_D2CCIP1R_DFSDM1SEL_SHIFT    24
-#define RCC_D2CCIP1R_SPDIFSEL_SHIFT     20
-#define RCC_D2CCIP1R_SPI45SEL_SHIFT     16
-#define RCC_D2CCIP1R_SPI45SEL_MASK      0x7
-#define RCC_D2CCIP1R_SPI123SEL_SHIFT    12
-#define RCC_D2CCIP1R_SPI123SEL_MASK     0x7
-#define RCC_D2CCIP1R_SAI23SEL_SHIFT     6
-#define RCC_D2CCIP1R_SAISEL_MASK        0x7
+#define RCC_D2CCIP1R_SWPSEL_SHIFT       31U
+#define RCC_D2CCIP1R_FDCANSEL_SHIFT     28U
+#define RCC_D2CCIP1R_FDCANSEL_MASK      0x3U
+#define RCC_D2CCIP1R_DFSDM1SEL_SHIFT    24U
+#define RCC_D2CCIP1R_SPDIFSEL_SHIFT     20U
+#define RCC_D2CCIP1R_SPI45SEL_SHIFT     16U
+#define RCC_D2CCIP1R_SPI45SEL_MASK      0x7U
+#define RCC_D2CCIP1R_SPI123SEL_SHIFT    12U
+#define RCC_D2CCIP1R_SPI123SEL_MASK     0x7U
+#define RCC_D2CCIP1R_SAI23SEL_SHIFT     6U
+#define RCC_D2CCIP1R_SAISEL_MASK        0x7U
 
 /** @defgroup rcc_d2ccip1r_values RCC_D2CCIP1R Values
  * @ingroup rcc_registers
  * @{*/
-#define RCC_D2CCIP1R_SWPSEL_PCLK        0x0
-#define RCC_D2CCIP1R_SWPSEL_HSI         0x1
-#define RCC_D2CCIP1R_FDCANSEL_HSE       0x0
-#define RCC_D2CCIP1R_FDCANSEL_PLL1Q     0x1
-#define RCC_D2CCIP1R_FDCANSEL_PLL2Q     0x2
-#define RCC_D2CCIP1R_DFSDM1SEL_PCLK2    0x0
-#define RCC_D2CCIP1R_DFSDM1SEL_SYSCLK   0x1
-#define RCC_D2CCIP1R_SPDIFSEL_PLL1Q     0x0
-#define RCC_D2CCIP1R_SPDIFSEL_PLL2R     0x1
-#define RCC_D2CCIP1R_SPDIFSEL_PLL3R     0x2
-#define RCC_D2CCIP1R_SPDIFSEL_HSI       0x3
-#define RCC_D2CCIP1R_SPI45SEL_APB4      0x0
-#define RCC_D2CCIP1R_SPI45SEL_PLL2Q     0x1
-#define RCC_D2CCIP1R_SPI45SEL_PLL3Q     0x2
-#define RCC_D2CCIP1R_SPI45SEL_HSI       0x3
-#define RCC_D2CCIP1R_SPI45SEL_CSI       0x4
-#define RCC_D2CCIP1R_SPI45SEL_HSE       0x5
-#define RCC_D2CCIP1R_SPI123SEL_PLL1Q    0x0
-#define RCC_D2CCIP1R_SPI123SEL_PLL2P    0x1
-#define RCC_D2CCIP1R_SPI123SEL_PLL3P    0x2
-#define RCC_D2CCIP1R_SPI123SEL_I2SCKIN  0x3
-#define RCC_D2CCIP1R_SPI123SEL_PERCK    0x4
-#define RCC_D2CCIP1R_SAISEL_PLL1Q       0x0
-#define RCC_D2CCIP1R_SAISEL_PLL2P       0x1
-#define RCC_D2CCIP1R_SAISEL_PLL3P       0x2
-#define RCC_D2CCIP1R_SAISEL_I2SCKIN     0x3
-#define RCC_D2CCIP1R_SAISEL_PERCK       0x4
+#define RCC_D2CCIP1R_SWPSEL_PCLK        0x0U
+#define RCC_D2CCIP1R_SWPSEL_HSI         0x1U
+#define RCC_D2CCIP1R_FDCANSEL_HSE       0x0U
+#define RCC_D2CCIP1R_FDCANSEL_PLL1Q     0x1U
+#define RCC_D2CCIP1R_FDCANSEL_PLL2Q     0x2U
+#define RCC_D2CCIP1R_DFSDM1SEL_PCLK2    0x0U
+#define RCC_D2CCIP1R_DFSDM1SEL_SYSCLK   0x1U
+#define RCC_D2CCIP1R_SPDIFSEL_PLL1Q     0x0U
+#define RCC_D2CCIP1R_SPDIFSEL_PLL2R     0x1U
+#define RCC_D2CCIP1R_SPDIFSEL_PLL3R     0x2U
+#define RCC_D2CCIP1R_SPDIFSEL_HSI       0x3U
+#define RCC_D2CCIP1R_SPI45SEL_APB4      0x0U
+#define RCC_D2CCIP1R_SPI45SEL_PLL2Q     0x1U
+#define RCC_D2CCIP1R_SPI45SEL_PLL3Q     0x2U
+#define RCC_D2CCIP1R_SPI45SEL_HSI       0x3U
+#define RCC_D2CCIP1R_SPI45SEL_CSI       0x4U
+#define RCC_D2CCIP1R_SPI45SEL_HSE       0x5U
+#define RCC_D2CCIP1R_SPI123SEL_PLL1Q    0x0U
+#define RCC_D2CCIP1R_SPI123SEL_PLL2P    0x1U
+#define RCC_D2CCIP1R_SPI123SEL_PLL3P    0x2U
+#define RCC_D2CCIP1R_SPI123SEL_I2SCKIN  0x3U
+#define RCC_D2CCIP1R_SPI123SEL_PERCK    0x4U
+#define RCC_D2CCIP1R_SAISEL_PLL1Q       0x0U
+#define RCC_D2CCIP1R_SAISEL_PLL2P       0x1U
+#define RCC_D2CCIP1R_SAISEL_PLL3P       0x2U
+#define RCC_D2CCIP1R_SAISEL_I2SCKIN     0x3U
+#define RCC_D2CCIP1R_SAISEL_PERCK       0x4U
 /**@}*/
 
 #define RCC_D2CCIP2R_LPTIM1SEL_SHIFT        28U
@@ -421,18 +421,18 @@ LGPL License Terms @ref lgpl_license
 /** @defgroup rcc_d2ccip2r_values RCC_D2CCIP2R Values
  * @ingroup rcc_registers
  * @{*/
-#define RCC_D2CCIP2R_RNGSEL_HSI48           0
-#define RCC_D2CCIP2R_RNGSEL_PLL1Q           1
-#define RCC_D2CCIP2R_RNGSEL_LSE             2
-#define RCC_D2CCIP2R_RNGSEL_LSI             3
-#define RCC_D2CCIP2R_USART16SEL_PCLK2       0
-#define RCC_D2CCIP2R_USART234578SEL_PCLK1   0
-#define RCC_D2CCIP2R_USARTSEL_PCLK          0
-#define RCC_D2CCIP2R_USARTSEL_PLL2Q         1
-#define RCC_D2CCIP2R_USARTSEL_PLL3Q         2
-#define RCC_D2CCIP2R_USARTSEL_HSI           3
-#define RCC_D2CCIP2R_USARTSEL_CSI           4
-#define RCC_D2CCIP2R_USARTSEL_LSE           5
+#define RCC_D2CCIP2R_RNGSEL_HSI48           0U
+#define RCC_D2CCIP2R_RNGSEL_PLL1Q           1U
+#define RCC_D2CCIP2R_RNGSEL_LSE             2U
+#define RCC_D2CCIP2R_RNGSEL_LSI             3U
+#define RCC_D2CCIP2R_USART16SEL_PCLK2       0U
+#define RCC_D2CCIP2R_USART234578SEL_PCLK1   0U
+#define RCC_D2CCIP2R_USARTSEL_PCLK          0U
+#define RCC_D2CCIP2R_USARTSEL_PLL2Q         1U
+#define RCC_D2CCIP2R_USARTSEL_PLL3Q         2U
+#define RCC_D2CCIP2R_USARTSEL_HSI           3U
+#define RCC_D2CCIP2R_USARTSEL_CSI           4U
+#define RCC_D2CCIP2R_USARTSEL_LSE           5U
 /**@}*/
 
 
