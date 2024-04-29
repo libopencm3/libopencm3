@@ -89,6 +89,16 @@ specific memorymap.h header before including this header file.*/
 /* OVER8: Oversampling mode */
 #define USART_CR1_OVER8			(1 << 15)
 
+/* CR1_OVER8 values */
+/****************************************************************************/
+/** @defgroup usart_cr1_oversampling USART Oversampling Mode Selection
+@ingroup STM32F_usart_defines
+
+@{*/
+#define USART_OVERSAMPLING_8  USART_CR1_OVER8
+#define USART_OVERSAMPLING_16 0U
+/**@}*/
+
 /* --- USART_CR3 values ---------------------------------------------------- */
 
 /* ONEBIT: One sample bit method enable */
@@ -96,6 +106,12 @@ specific memorymap.h header before including this header file.*/
 
 #define USART_BRR_UPPER_MASK (0x0000fff0U)
 #define USART_BRR_LOWER_MASK (0x0000000fU)
+
+BEGIN_DECLS
+
+void usart_set_oversampling(uint32_t usart, uint32_t mode);
+
+END_DECLS
 #endif
 /** @cond */
 #else
