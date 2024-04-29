@@ -42,7 +42,7 @@ static struct {
 	.per.pclk4 = RCC_HSI_BASE_FREQUENCY
 };
 
-static void rcc_configure_pll(uint32_t clkin, const struct pll_config *config, int pll_num) {
+static void rcc_configure_pll(uint32_t clkin, const struct pll_config *config, size_t pll_num) {
 	/* Only concern ourselves with the PLL if the input clock is enabled. */
 	if (config->divm == 0 || pll_num < 1 || pll_num > 3) {
 		return;
@@ -62,11 +62,13 @@ static void rcc_configure_pll(uint32_t clkin, const struct pll_config *config, i
 	RCC_PLLDIVR(pll_num) |= RCC_PLLNDIVR_DIVN(config->divn);
 
 	/* Setup the PLL config values for this PLL. */
-	uint8_t vco_addshift = 4 * (pll_num - 1); 		/* Values spaced by 4 for PLL 1/2/3 */
+	uint8_t vco_addshift = 4U * (pll_num - 1U); /* Values spaced by 4 for PLL 1/2/3 */
 
 	/* Set the PLL input frequency range. */
 	uint32_t pll_clk = clkin / config->divm;
-	if (pll_clk > (2 * HZ_PER_MHZ) && pll_clk <= (4 * HZ_PER_MHZ)) {
+	if (pll_clk >= (1 * HZ_PER_MHZ) && pll_clk <= (2 * HZ_PER_MHZ)) {
+		RCC_PLLCFGR |= (RCC_PLLCFGR_PLL1VCO_MED << vco_addshift);
+	} else if (pll_clk > (2 * HZ_PER_MHZ) && pll_clk <= (4 * HZ_PER_MHZ)) {
 		RCC_PLLCFGR |= (RCC_PLLCFGR_PLLRGE_2_4MHZ << RCC_PLLCFGR_PLL1RGE_SHIFT) << vco_addshift;
 	} else if (pll_clk > (4 * HZ_PER_MHZ) && pll_clk <= (8 * HZ_PER_MHZ)) {
 		RCC_PLLCFGR |= (RCC_PLLCFGR_PLLRGE_4_8MHZ << RCC_PLLCFGR_PLL1RGE_SHIFT) << vco_addshift;
@@ -74,13 +76,8 @@ static void rcc_configure_pll(uint32_t clkin, const struct pll_config *config, i
 		RCC_PLLCFGR |= (RCC_PLLCFGR_PLLRGE_8_16MHZ << RCC_PLLCFGR_PLL1RGE_SHIFT) << vco_addshift;
 	}
 
-	/* Set the VCO output frequency range. */
-	uint32_t pll_vco_clk = pll_clk * config->divn;
-	if (pll_vco_clk <= (420 * HZ_PER_MHZ)) {
-		RCC_PLLCFGR |= (RCC_PLLCFGR_PLL1VCO_MED << vco_addshift);
-	}
-
 	/* Setup the enable bits for the PLL outputs. */
+	uint32_t pll_vco_clk = pll_clk * config->divn;
 	uint8_t diven_addshift = 3 * (pll_num - 1);		/* Values spaced by 3 for PLL1/2/3 */
 	if (config->divp > 0) {
 		RCC_PLLDIVR(pll_num) |= RCC_PLLNDIVR_DIVP(config->divp);
