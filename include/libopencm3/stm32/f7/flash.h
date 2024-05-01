@@ -54,35 +54,35 @@
 /** @addtogroup flash_acr_values FLASH_ACR values
  * @ingroup flash_registers
 @{*/
-#define FLASH_ACR_ARTRST		(1 << 11)
-#define FLASH_ACR_ARTEN			(1 << 9)
-#define FLASH_ACR_PRFTEN		(1 << 8)
+#define FLASH_ACR_ARTRST		(1U << 11U)
+#define FLASH_ACR_ARTEN			(1U << 9U)
+#define FLASH_ACR_PRFTEN		(1U << 8U)
 /**@}*/
 
-#define FLASH_SR_ERSERR			(1 << 7)
+#define FLASH_SR_ERSERR			(1U << 7U)
 
 /* --- FLASH_OPTCR values -------------------------------------------------- */
 
-#define FLASH_OPTCR_IWDG_STOP		(1 << 31)
-#define FLASH_OPTCR_IWDG_STDBY		(1 << 30)
+#define FLASH_OPTCR_IWDG_STOP		(1U << 31U)
+#define FLASH_OPTCR_IWDG_STDBY		(1U << 30U)
 
-#define FLASH_OPTCR_NWRP_SHIFT		16
-#define FLASH_OPTCR_NWRP_MASK		0xff
+#define FLASH_OPTCR_NWRP_SHIFT		16U
+#define FLASH_OPTCR_NWRP_MASK		0xffU
 
-#define FLASH_OPTCR_RDP_SHIFT		8
-#define FLASH_OPTCR_RDP_MASK		0xff
+#define FLASH_OPTCR_RDP_SHIFT		8U
+#define FLASH_OPTCR_RDP_MASK		0xffU
 
-#define FLASH_OPTCR_IWDG_SW		(1 << 5)
-#define FLASH_OPTCR_WWDG_SW		(1 << 4)
+#define FLASH_OPTCR_IWDG_SW		(1U << 5U)
+#define FLASH_OPTCR_WWDG_SW		(1U << 4U)
 
-#define FLASH_OPTCR_OPTSTRT		(1 << 1)
-#define FLASH_OPTCR_OPTLOCK		(1 << 0)
+#define FLASH_OPTCR_OPTSTRT		(1U << 1U)
+#define FLASH_OPTCR_OPTLOCK		(1U << 0U)
 
 /* --- FLASH_OPTCR1 values ------------------------------------------------- */
-#define FLASH_OPTCR1_BOOT_ADD1_MASK	0xffff
-#define FLASH_OPTCR1_BOOT_ADD1_SHIFT	16
-#define FLASH_OPTCR1_BOOT_ADD0_MASK	0xffff
-#define FLASH_OPTCR1_BOOT_ADD0_SHIFT	0
+#define FLASH_OPTCR1_BOOT_ADD1_MASK	0xffffU
+#define FLASH_OPTCR1_BOOT_ADD1_SHIFT	16U
+#define FLASH_OPTCR1_BOOT_ADD0_MASK	0xffffU
+#define FLASH_OPTCR1_BOOT_ADD0_SHIFT	0U
 
 /* --- Function prototypes ------------------------------------------------- */
 
@@ -96,4 +96,3 @@ END_DECLS
 /**@}*/
 
 #endif
-
