@@ -42,7 +42,8 @@ static struct {
 	.per.pclk4 = RCC_HSI_BASE_FREQUENCY
 };
 
-static void rcc_configure_pll(uint32_t clkin, const struct pll_config *config, size_t pll_num) {
+static void rcc_configure_pll(uint32_t clkin, const struct pll_config *config, size_t pll_num)
+{
 	/* Only concern ourselves with the PLL if the input clock is enabled. */
 	if (config->divm == 0 || pll_num < 1 || pll_num > 3) {
 		return;
@@ -101,7 +102,8 @@ static void rcc_configure_pll(uint32_t clkin, const struct pll_config *config, s
 	while (!(RCC_CR & (RCC_CR_PLL1RDY << cr_addshift)));
 }
 
-static void rcc_set_and_enable_plls(const struct rcc_pll_config *config) {
+static void rcc_set_and_enable_plls(const struct rcc_pll_config *config)
+{
 	/* It is assumed that this function is entered with PLLs disabled and not
 	 * running. Setup PLL1/2/3 with configurations specified in the config. */
 	RCC_PLLCKSELR = RCC_PLLCKSELR_DIVM1(config->pll1.divm) |
@@ -120,7 +122,8 @@ static void rcc_set_and_enable_plls(const struct rcc_pll_config *config) {
 
 /* This is a helper to calculate dividers that go 2/4/8/16/64/128/256/512.
  * These dividers also use the top bit as an "enable". */
-static uint32_t rcc_prediv_log_skip32_div(uint32_t clk, uint32_t div_val) {
+static uint32_t rcc_prediv_log_skip32_div(uint32_t clk, uint32_t div_val)
+{
 	if (div_val < 0x8) {
 		return clk;
 	} else if (div_val <= RCC_D1CFGR_D1CPRE_DIV16) {
@@ -132,7 +135,8 @@ static uint32_t rcc_prediv_log_skip32_div(uint32_t clk, uint32_t div_val) {
 
 /* This is a helper to help calculate simple 3-bit log dividers with top bit
  * used as enable bit. */
-static uint32_t rcc_prediv_3bit_log_div(uint32_t clk, uint32_t div_val) {
+static uint32_t rcc_prediv_3bit_log_div(uint32_t clk, uint32_t div_val)
+{
 	if (div_val < 0x4) {
 		return clk;
 	} else {
@@ -140,7 +144,8 @@ static uint32_t rcc_prediv_3bit_log_div(uint32_t clk, uint32_t div_val) {
 	}
 }
 
-static void rcc_clock_setup_domain1(const struct rcc_pll_config *config) {
+static void rcc_clock_setup_domain1(const struct rcc_pll_config *config)
+{
 	RCC_D1CFGR = 0;
 	RCC_D1CFGR |= RCC_D1CFGR_D1CPRE(config->core_pre)  |
 		RCC_D1CFGR_D1HPRE(config->hpre) | RCC_D1CFGR_D1PPRE(config->ppre3);
@@ -154,7 +159,8 @@ static void rcc_clock_setup_domain1(const struct rcc_pll_config *config) {
 		rcc_prediv_3bit_log_div(rcc_clock_tree.hclk, config->ppre3);
 }
 
-static void rcc_clock_setup_domain2(const struct rcc_pll_config *config) {
+static void rcc_clock_setup_domain2(const struct rcc_pll_config *config)
+{
 	RCC_D2CFGR  = 0;
 	RCC_D2CFGR |= RCC_D2CFGR_D2PPRE1(config->ppre1) |
 		RCC_D2CFGR_D2PPRE2(config->ppre2);
@@ -166,7 +172,8 @@ static void rcc_clock_setup_domain2(const struct rcc_pll_config *config) {
 		rcc_prediv_3bit_log_div(rcc_clock_tree.hclk, config->ppre1);
 }
 
-static void rcc_clock_setup_domain3(const struct rcc_pll_config *config) {
+static void rcc_clock_setup_domain3(const struct rcc_pll_config *config)
+{
 	RCC_D3CFGR &= 0;
 	RCC_D3CFGR |= RCC_D3CFGR_D3PPRE(config->ppre4);
 
@@ -175,7 +182,8 @@ static void rcc_clock_setup_domain3(const struct rcc_pll_config *config) {
 		rcc_prediv_3bit_log_div(rcc_clock_tree.hclk, config->ppre4);
 }
 
-void rcc_clock_setup_pll(const struct rcc_pll_config *config) {
+void rcc_clock_setup_pll(const struct rcc_pll_config *config)
+{
 	/* First, set system clock to utilize HSI, then disable all but HSI. */
 	RCC_CR |= RCC_CR_HSION;
 	RCC_CFGR &= ~(RCC_CFGR_SW_MASK << RCC_CFGR_SW_SHIFT);
@@ -237,7 +245,8 @@ void rcc_clock_setup_lsi(void)
 		continue;
 }
 
-uint32_t rcc_get_bus_clk_freq(enum rcc_clock_source source) {
+uint32_t rcc_get_bus_clk_freq(enum rcc_clock_source source)
+{
 	uint32_t clksel;
 	switch (source) {
 		case RCC_SYSCLK:
@@ -373,7 +382,8 @@ uint32_t rcc_get_fdcan_clk_freq(uint32_t fdcan __attribute__((unused)))
 	}
 }
 
-void rcc_set_peripheral_clk_sel(uint32_t periph, uint32_t sel) {
+void rcc_set_peripheral_clk_sel(uint32_t periph, uint32_t sel)
+{
 	volatile uint32_t *reg;
 	uint32_t mask;
 	uint32_t val;
@@ -438,22 +448,26 @@ void rcc_set_peripheral_clk_sel(uint32_t periph, uint32_t sel) {
 	*reg = regval;
 }
 
-void rcc_set_fdcan_clksel(uint8_t clksel) {
+void rcc_set_fdcan_clksel(uint8_t clksel)
+{
 	RCC_D2CCIP1R &= ~(RCC_D2CCIP1R_FDCANSEL_MASK << RCC_D2CCIP1R_FDCANSEL_SHIFT);
 	RCC_D2CCIP1R |= clksel << RCC_D2CCIP1R_FDCANSEL_SHIFT;
 }
 
-void rcc_set_rng_clksel(uint8_t clksel) {
+void rcc_set_rng_clksel(uint8_t clksel)
+{
 	RCC_D2CCIP2R &= ~(RCC_D2CCIP2R_RNGSEL_MASK << RCC_D2CCIP2R_RNGSEL_SHIFT);
 	RCC_D2CCIP2R |= clksel << RCC_D2CCIP2R_RNGSEL_SHIFT;
 }
 
-void rcc_set_spi123_clksel(uint8_t clksel) {
+void rcc_set_spi123_clksel(uint8_t clksel)
+{
 	RCC_D2CCIP1R &= ~(RCC_D2CCIP1R_SPI123SEL_MASK << RCC_D2CCIP1R_SPI123SEL_SHIFT);
 	RCC_D2CCIP1R |= clksel << RCC_D2CCIP1R_SPI123SEL_SHIFT;
 }
 
-void rcc_set_spi45_clksel(uint8_t clksel) {
+void rcc_set_spi45_clksel(uint8_t clksel)
+{
 	RCC_D2CCIP1R &= ~(RCC_D2CCIP1R_SPI45SEL_MASK << RCC_D2CCIP1R_SPI45SEL_SHIFT);
 	RCC_D2CCIP1R |= clksel << RCC_D2CCIP1R_SPI45SEL_SHIFT;
 }
