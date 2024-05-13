@@ -161,6 +161,17 @@ LGPL License Terms @ref lgpl_license
 #define PWR_CR3_LDOEN             BIT1
 #define PWR_CR3_BYPASS            BIT0
 
+/** CPUCR Register Bits */
+#define PWR_CPUCR_PDDS_D1         (1U << 0U)
+#define PWR_CPUCR_PDDS_D2         (1U << 1U)
+#define PWR_CPUCR_PDDS_D3         (1U << 2U)
+#define PWR_CPUCR_STOPF           (1U << 5U)
+#define PWR_CPUCR_SBF             (1U << 6U)
+#define PWR_CPUCR_SBF_D1          (1U << 7U)
+#define PWR_CPUCR_SBF_D2          (1U << 8U)
+#define PWR_CPUCR_CSSF            (1U << 9U)
+#define PWR_CPUCR_RUN_D3          (1U << 11U)
+
 /** D3CR Register Bits */
 #define PWR_D3CR_VOSRDY           BIT13
 #define PWR_D3CR_VOS_SHIFT        14
