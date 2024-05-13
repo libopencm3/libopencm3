@@ -448,6 +448,19 @@ void rcc_set_peripheral_clk_sel(uint32_t periph, uint32_t sel)
 	*reg = regval;
 }
 
+void rcc_rtc_clock_enable(uint32_t clksel)
+{
+	// Make this function a no-op if the RTC has already been set up
+	if (RCC_BDCR & (RCC_BDCR_RTCSEL_MASK << RCC_BDCR_RTCSEL_SHIFT))
+		return;
+	// Start operations by disabling the write protections for the BDCR
+	PWR_CR1 |= PWR_CR1_DBP;
+	// Now configure the clock bits and bring the RTC up
+	RCC_BDCR |= (clksel << RCC_BDCR_RTCSEL_SHIFT) | RCC_BDCR_RTCEN;
+	// Protect the BDCR again as we don't need to poke it further
+	PWR_CR1 &= ~PWR_CR1_DBP;
+}
+
 void rcc_set_fdcan_clksel(uint8_t clksel)
 {
 	RCC_D2CCIP1R &= ~(RCC_D2CCIP1R_FDCANSEL_MASK << RCC_D2CCIP1R_FDCANSEL_SHIFT);
