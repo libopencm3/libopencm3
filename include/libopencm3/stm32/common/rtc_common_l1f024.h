@@ -96,6 +96,8 @@ specific memorymap.h header before including this header file.*/
 #define RTC_ALRMASSR    MMIO32(RTC_BASE + 0x44)
 #define RTC_ALRMBSSR    MMIO32(RTC_BASE + 0x48)
 
+#define RTC_OR          MMIO32(RTC_BASE + 0x4c)
+
 #define RTC_BKP_BASE    (RTC_BASE + 0x50)
 /** RTC backup registers (RTC_BKPxR) */
 #define RTC_BKPXR(reg)  MMIO32(RTC_BKP_BASE + (4 * (reg)))
@@ -472,5 +474,3 @@ END_DECLS
 #warning "rtc_common_l1f024.h should not be included explicitly, only via rtc.h"
 #endif
 /** @endcond */
-
-
