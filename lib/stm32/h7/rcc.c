@@ -230,6 +230,13 @@ void rcc_clock_setup_hsi48(void)
 		continue;
 }
 
+void rcc_clock_setup_lsi(void)
+{
+	RCC_CSR |= RCC_CSR_LSION;
+	while (!(RCC_CSR & RCC_CSR_LSIRDY))
+		continue;
+}
+
 uint32_t rcc_get_bus_clk_freq(enum rcc_clock_source source) {
 	uint32_t clksel;
 	switch (source) {

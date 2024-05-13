@@ -779,6 +779,11 @@ void rcc_clock_setup_pll(const struct rcc_pll_config *config);
 void rcc_clock_setup_hsi48(void);
 
 /**
+ * Setup and bring up the LSI.
+ */
+void rcc_clock_setup_lsi(void);
+
+/**
  * Get the clock rate (in Hz) of the specified clock source. There are
  * numerous clock sources and configurations on the H7, so rates for each
  * configured peripheral clock are aimed to be discoverd/calculated by this
