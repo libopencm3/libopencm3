@@ -421,6 +421,10 @@ LGPL License Terms @ref lgpl_license
 /** @defgroup rcc_d2ccip2r_values RCC_D2CCIP2R Values
  * @ingroup rcc_registers
  * @{*/
+#define RCC_D2CCIP2R_USBSEL_DISABLED        0U
+#define RCC_D2CCIP2R_USBSEL_PLL1Q           1U
+#define RCC_D2CCIP2R_USBSEL_PLL3Q           2U
+#define RCC_D2CCIP2R_USBSEL_HSI48           3U
 #define RCC_D2CCIP2R_RNGSEL_HSI48           0U
 #define RCC_D2CCIP2R_RNGSEL_PLL1Q           1U
 #define RCC_D2CCIP2R_RNGSEL_LSE             2U
@@ -434,7 +438,6 @@ LGPL License Terms @ref lgpl_license
 #define RCC_D2CCIP2R_USARTSEL_CSI           4U
 #define RCC_D2CCIP2R_USARTSEL_LSE           5U
 /**@}*/
-
 
 #define RCC_HSI_BASE_FREQUENCY              64000000UL
 
@@ -600,7 +603,7 @@ enum rcc_periph_clken {
 
 	/* APB3 peripherals */
 	RCC_LTDC        = _REG_BIT(0xE4, 3),
-	RCC_WWDG1      = _REG_BIT(0xE4, 6),
+	RCC_WWDG1       = _REG_BIT(0xE4, 6),
 
 	/* APB4 peripherals */
 	RCC_SYSCFG      = _REG_BIT(0xF4, 1),
