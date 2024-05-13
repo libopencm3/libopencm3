@@ -844,6 +844,15 @@ uint32_t rcc_get_fdcan_clk_freq(uint32_t fdcan);
 void rcc_set_peripheral_clk_sel(uint32_t periph, uint32_t clksel);
 
 /**
+ * Set the clksel value for the RTC and bring it up
+ *
+ * NB: This function may only be called on real POR or after BDRST, it will
+ * internally turn into a no-op if it detects the RTC clock source has already
+ * been defined to protect from misconfiguration
+ */
+void rcc_rtc_clock_enable(uint32_t clksel);
+
+/**
  * Set the clock select for the FDCAN devices.
  * @param[in] clksel  Clock source to configure for, @ref rcc_d2ccip1r_values
  * appropriate for the FDCAN peripherals, eg RCC_D2CCIP1R_FDCANSEL_XXX
