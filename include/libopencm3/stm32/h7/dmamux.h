@@ -90,6 +90,7 @@ LGPL License Terms @ref lgpl_license
 
 /** @defgroup dmamux_cxcr_dmareq_id DMAREQID DMA request line selected
 @{*/
+#define DMAMUX1_CxCR_DMAREQ_ID_NULL             0
 #define DMAMUX1_CxCR_DMAREQ_ID_DMAMUX1_REQ_GEN0 1
 #define DMAMUX1_CxCR_DMAREQ_ID_DMAMUX1_REQ_GEN1 2
 #define DMAMUX1_CxCR_DMAREQ_ID_DMAMUX1_REQ_GEN2 3
