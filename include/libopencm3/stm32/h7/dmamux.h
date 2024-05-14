@@ -44,22 +44,22 @@ LGPL License Terms @ref lgpl_license
 @ingroup STM32H7xx_dma_defines
 
 @{*/
-#define DMADMUX1_CHANNEL0                       0
-#define DMADMUX1_CHANNEL1                       1
-#define DMADMUX1_CHANNEL2                       2
-#define DMADMUX1_CHANNEL3                       3
-#define DMADMUX1_CHANNEL4                       4
-#define DMADMUX1_CHANNEL5                       5
-#define DMADMUX1_CHANNEL6                       6
-#define DMADMUX1_CHANNEL7                       7
-#define DMADMUX1_CHANNEL8                       8
-#define DMADMUX1_CHANNEL9                       9
-#define DMADMUX1_CHANNEL10                      10
-#define DMADMUX1_CHANNEL11                      11
-#define DMADMUX1_CHANNEL12                      12
-#define DMADMUX1_CHANNEL13                      13
-#define DMADMUX1_CHANNEL14                      14
-#define DMADMUX1_CHANNEL15                      15
+#define DMAMUX1_CHANNEL0                       1
+#define DMAMUX1_CHANNEL1                       2
+#define DMAMUX1_CHANNEL2                       3
+#define DMAMUX1_CHANNEL3                       4
+#define DMAMUX1_CHANNEL4                       5
+#define DMAMUX1_CHANNEL5                       6
+#define DMAMUX1_CHANNEL6                       7
+#define DMAMUX1_CHANNEL7                       8
+#define DMAMUX1_CHANNEL8                       9
+#define DMAMUX1_CHANNEL9                       10
+#define DMAMUX1_CHANNEL10                      11
+#define DMAMUX1_CHANNEL11                      12
+#define DMAMUX1_CHANNEL12                      13
+#define DMAMUX1_CHANNEL13                      14
+#define DMAMUX1_CHANNEL14                      15
+#define DMAMUX1_CHANNEL15                      16
 /**@}*/
 
 /** @defgroup dmamux_rg_channel DMAMUX Request Generator Channel Number
