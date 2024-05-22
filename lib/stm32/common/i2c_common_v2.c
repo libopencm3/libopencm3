@@ -358,9 +358,14 @@ void i2c_disable_txdma(uint32_t i2c)
  * @param wn length of w
  * @param r destination buffer to read into
  * @param rn number of bytes to read (r should be at least this long)
+ * @param out_error_flags if not NULL will indicate what went wrong. Check I2C_TRANSFER_xxx
  */
-void i2c_transfer7(uint32_t i2c, uint8_t addr, const uint8_t *w, size_t wn, uint8_t *r, size_t rn)
+bool i2c_transfer7(uint32_t i2c, uint8_t addr, const uint8_t *w, size_t wn, uint8_t *r, size_t rn, uint8_t *out_error_flags)
 {
+	if(out_error_flags)
+	{
+		*out_error_flags = 0;
+	}
 	/*  waiting for busy is unnecessary. read the RM */
 	if (wn) {
 		i2c_set_7bit_address(i2c, addr);
@@ -374,12 +379,18 @@ void i2c_transfer7(uint32_t i2c, uint8_t addr, const uint8_t *w, size_t wn, uint
 		i2c_send_start(i2c);
 
 		while (wn--) {
-			bool wait = true;
-			while (wait) {
-				if (i2c_transmit_int_status(i2c)) {
-					wait = false;
+			while(!i2c_transmit_int_status(i2c))
+			{
+				if(!i2c_nack(i2c))
+				{
+					continue;
 				}
-				while (i2c_nack(i2c)); /* FIXME Some error */
+				if(out_flags)
+				{
+					*out_flags |= I2C_TRANSFER_NACK_ON_WRITE;
+				}
+				/* TODO maybe in some architectures we need to do something here ? */
+				return false;
 			}
 			i2c_send_data(i2c, *w++);
 		}
@@ -406,6 +417,7 @@ void i2c_transfer7(uint32_t i2c, uint8_t addr, const uint8_t *w, size_t wn, uint
 			r[i] = i2c_get_data(i2c);
 		}
 	}
+	return true;
 }
 
 

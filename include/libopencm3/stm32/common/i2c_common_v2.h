@@ -33,6 +33,7 @@ specific memorymap.h header before including this header file.*/
 
 #include <stddef.h>
 #include <stdint.h>
+#include <stdbool.h>
 
 /* --- Convenience macros -------------------------------------------------- */
 
@@ -443,7 +444,10 @@ void i2c_enable_rxdma(uint32_t i2c);
 void i2c_disable_rxdma(uint32_t i2c);
 void i2c_enable_txdma(uint32_t i2c);
 void i2c_disable_txdma(uint32_t i2c);
-void i2c_transfer7(uint32_t i2c, uint8_t addr, const uint8_t *w, size_t wn, uint8_t *r, size_t rn);
+
+#define I2C_TRANSFER_NACK_ON_WRITE (1 << 0)
+
+bool i2c_transfer7(uint32_t i2c, uint8_t addr, const uint8_t *w, size_t wn, uint8_t *r, size_t rn, uint8_t* out_error_flags);
 void i2c_set_speed(uint32_t i2c, enum i2c_speeds speed, uint32_t clock_megahz);
 
 END_DECLS
