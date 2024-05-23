@@ -206,6 +206,8 @@ bool flash_is_busy(enum flash_bank bank);
 void flash_clear_eop_flag(enum flash_bank bank);
 /** Clear all status flags. */
 void flash_clear_status_flags(enum flash_bank bank);
+/** Get back the status flags for a bank. */
+uint32_t flash_get_status_flags(enum flash_bank bank);
 /** Wait until Last Operation has Ended.
  * This loops indefinitely until an operation (write or erase) has completed by
  * testing for EOP and nothing being left in the queue.
