@@ -115,6 +115,12 @@ void flash_clear_status_flags(const enum flash_bank bank)
 	REBASE(FLASH_CCR) = FLASH_SR_ERROR_MASK | FLASH_SR_EOP;
 }
 
+uint32_t flash_get_status_flags(enum flash_bank bank)
+{
+	const uintptr_t bank_base_address = flash_bank_address(bank);
+	return REBASE(FLASH_SR) & FLASH_SR_ERROR_MASK;
+}
+
 bool flash_wait_for_last_operation(const enum flash_bank bank)
 {
 	const uintptr_t bank_base_address = flash_bank_address(bank);
