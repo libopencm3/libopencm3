@@ -302,5 +302,17 @@ bool usart_get_flag(uint32_t usart, uint32_t flag)
 	return ((USART_ISR(usart) & flag) != 0);
 }
 
+/*---------------------------------------------------------------------------*/
+/** @brief USART Interrupt Flag clear
+ *
+ * @param[in] usart unsigned 32 bit. USART block register address base @ref
+ * usart_reg_base
+ * @param flag unsigned 32 bit. Interrupt clear flag @ref usart_isr_values
+ */
+
+void usart_clear_interrupt_flag(uint32_t usart, uint32_t flag) {
+  USART_ICR(usart) |= flag;
+}
+
 
 /**@}*/
