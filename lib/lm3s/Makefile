@@ -34,11 +34,9 @@ TGT_CFLAGS	+= $(STANDARD_FLAGS)
 # ARFLAGS	= rcsv
 ARFLAGS		= rcs
 
-OBJS += assert.o
 OBJS += gpio.o
 OBJS += rcc.o
 OBJS += usart.o
-OBJS += vector.o
 
 VPATH += ../cm3
 
