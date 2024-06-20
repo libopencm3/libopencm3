@@ -36,6 +36,28 @@
 
 #include <libopencm3/stm32/common/st_usbfs_common.h>
 
+/* --- USB interrupt status register masks / bits -------------------------- */
+
+#define USB_ISTR_RCWBITS	(USB_ISTR_CTR | \
+					USB_ISTR_PMAOVR | \
+					USB_ISTR_ERR | \
+					USB_ISTR_WKUP | \
+					USB_ISTR_SUSP | \
+					USB_ISTR_RESET | \
+					USB_ISTR_SOF | \
+					USB_ISTR_ESOF)		/* these bits are all "rc_w0" : writing 1 is safe */
+
+/* --- USB interrupt status register manipulators -------------------------- */
+
+/* Note: CTR and DIR are read only! */
+#define USB_CLR_ISTR_PMAOVR()	SET_REG(USB_ISTR_REG, USB_ISTR_RCWBITS & (~USB_ISTR_PMAOVR))
+#define USB_CLR_ISTR_ERR()	SET_REG(USB_ISTR_REG, USB_ISTR_RCWBITS & (~USB_ISTR_ERR))
+#define USB_CLR_ISTR_WKUP()	SET_REG(USB_ISTR_REG, USB_ISTR_RCWBITS & (~USB_ISTR_WKUP))
+#define USB_CLR_ISTR_SUSP()	SET_REG(USB_ISTR_REG, USB_ISTR_RCWBITS & (~USB_ISTR_SUSP))
+#define USB_CLR_ISTR_RESET()	SET_REG(USB_ISTR_REG, USB_ISTR_RCWBITS & (~USB_ISTR_RESET))
+#define USB_CLR_ISTR_SOF()	SET_REG(USB_ISTR_REG, USB_ISTR_RCWBITS & (~USB_ISTR_SOF))
+#define USB_CLR_ISTR_ESOF()	SET_REG(USB_ISTR_REG, USB_ISTR_RCWBITS & (~USB_ISTR_ESOF))
+
 /* --- USB BTABLE Registers ------------------------------------------------ */
 
 #define USB_EP_TX_ADDR(EP) \
