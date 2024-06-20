@@ -24,7 +24,11 @@
 #       include <libopencm3/stm32/f2/hash.h>
 #elif defined(STM32F4)
 #       include <libopencm3/stm32/f4/hash.h>
+#elif defined(STM32L5)
+#       include <libopencm3/stm32/l5/hash.h>
+#elif defined(STM32L5_SECURE)
+#       include <libopencm3/stm32/l5_secure/hash.h>
 #else
 #       error "hash processor is supported only" \
-	"in stm32f21, stm32f41 and stm32f43 families."
+	"in stm32f21, stm32f41, stm32f43 and stm32l5 families."
 #endif
