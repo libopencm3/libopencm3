@@ -47,7 +47,7 @@ LGPL License Terms @ref lgpl_license
 #define RCC_PLLCFGR               MMIO32(RCC_BASE + 0x02C)
 /* PLLs are 1-based, so reference macros to 1..3, using index 0 will give undefined behavior. */
 #define RCC_PLLDIVR(n)            MMIO32(RCC_BASE + 0x030 + (0x08 * ((n) - 1)))
-#define RCC_PLLFRACR(n)           MMIO32(RCC_BASE + 0x030 + (0x08 * ((n) - 1)))
+#define RCC_PLLFRACR(n)           MMIO32(RCC_BASE + 0x034 + (0x08 * ((n) - 1)))
 #define RCC_PLL1DIVR              RCC_PLLDIVR(1)
 #define RCC_PLL1FRACR             RCC_PLLFRACR(1)
 #define RCC_PLL2DIVR              RCC_PLLDIVR(2)
