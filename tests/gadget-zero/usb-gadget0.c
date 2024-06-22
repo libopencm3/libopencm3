@@ -26,6 +26,7 @@
 #include <stdlib.h>
 #include <string.h>
 #include <libopencm3/usb/usbd.h>
+#include <libopencm3/usb/microsoft.h>
 
 #include "trace.h"
 #include "delay.h"
@@ -56,6 +57,8 @@
 #define GZ_CFG_LOOPBACK		3
 
 #define BULK_EP_MAXPACKET	64
+
+#define MICROSOFT_DESCRIPTOR_SETS 1U
 
 static const struct usb_device_descriptor dev = {
 	.bLength = USB_DT_DEVICE_SIZE,
@@ -177,6 +180,94 @@ static const struct usb_config_descriptor config[] = {
 		.bMaxPower = 0x32,
 		.interface = ifaces_loopback,
 	}
+};
+
+static const struct {
+	microsoft_os_feature_compatible_id_descriptor driver_binding;
+} microsoft_os_features = {
+	.driver_binding =
+		{
+			.header =
+				{
+					.wLength = MICROSOFT_OS_FEATURE_COMPATIBLE_ID_DESCRIPTOR_SIZE,
+					.wDescriptorType = MICROSOFT_OS_FEATURE_COMPATIBLE_ID,
+				},
+			.compatible_id = MICROSOFT_OS_COMPATIBLE_ID_WINUSB,
+			.sub_compatible_id = MICROSOFT_OS_COMPATIBLE_ID_NONE,
+		},
+};
+
+static const microsoft_os_descriptor_function_subset_header microsoft_os_descriptor_function_subsets[] = {
+	{
+		.wLength = MICROSOFT_OS_DESCRIPTOR_FUNCTION_SUBSET_HEADER_SIZE,
+		.wDescriptorType = MICROSOFT_OS_SUBSET_HEADER_FUNCTION,
+		.bFirstInterface = 0,
+		.bReserved = 0,
+		.wTotalLength = 0,
+
+		.feature_descriptors = &microsoft_os_features,
+		.num_feature_descriptors = 1,
+	},
+};
+
+static const microsoft_os_descriptor_config_subset_header microsoft_os_descriptor_config_subset = {
+	.wLength = MICROSOFT_OS_DESCRIPTOR_CONFIG_SUBSET_HEADER_SIZE,
+	.wDescriptorType = MICROSOFT_OS_SUBSET_HEADER_CONFIGURATION,
+	.bConfigurationValue = 1,
+	.bReserved = 0,
+	.wTotalLength = 0,
+
+	.function_subset_headers = microsoft_os_descriptor_function_subsets,
+	.num_function_subset_headers = ARRAY_LENGTH(microsoft_os_descriptor_function_subsets),
+};
+
+static const microsoft_os_descriptor_set_header microsoft_os_descriptor_sets[MICROSOFT_DESCRIPTOR_SETS] = {
+	{
+		.wLength = MICROSOFT_OS_DESCRIPTOR_SET_HEADER_SIZE,
+		.wDescriptorType = MICROSOFT_OS_SET_HEADER,
+		.dwWindowsVersion = MICROSOFT_WINDOWS_VERSION_WINBLUE,
+		.wTotalLength = 0,
+
+		.vendor_code = 1,
+		.num_config_subset_headers = 1,
+		.config_subset_headers = &microsoft_os_descriptor_config_subset,
+	},
+};
+
+static const microsoft_os_descriptor_set_information microsoft_os_descriptor_set_info = {
+	.dwWindowsVersion = MICROSOFT_WINDOWS_VERSION_WINBLUE,
+	.wMSOSDescriptorSetTotalLength =
+		MICROSOFT_OS_DESCRIPTOR_SET_HEADER_SIZE + MICROSOFT_OS_DESCRIPTOR_CONFIG_SUBSET_HEADER_SIZE +
+		MICROSOFT_OS_DESCRIPTOR_FUNCTION_SUBSET_HEADER_SIZE + MICROSOFT_OS_FEATURE_COMPATIBLE_ID_DESCRIPTOR_SIZE,
+	.bMS_VendorCode = 1,
+	.bAltEnumCode = 0,
+};
+
+static const struct {
+	usb_platform_device_capability_descriptor platform_descriptor;
+} __attribute__((packed)) device_capability_descriptors = {
+	.platform_descriptor =
+		{
+			.device_capability_descriptor =
+				{
+					.bLength = USB_DCT_PLATFORM_SIZE + MICROSOFT_OS_DESCRIPTOR_SET_INFORMATION_SIZE,
+					.bDescriptorType = USB_DT_DEVICE_CAPABILITY,
+					.bDevCapabilityType = USB_DCT_PLATFORM,
+				},
+			.bReserved = 0,
+			.PlatformCapabilityUUID = MICROSOFT_OS_DESCRIPTOR_PLATFORM_CAPABILITY_ID,
+
+			.CapabilityData = &microsoft_os_descriptor_set_info,
+		},
+};
+
+static const usb_bos_descriptor bos = {
+	.bLength = USB_DT_BOS_SIZE,
+	.bDescriptorType = USB_DT_BOS,
+	.wTotalLength = 0,
+	.bNumDeviceCaps = 1,
+
+	.device_capability_descriptors = &device_capability_descriptors,
 };
 
 static char serial[] = "0123456789.0123456789.0123456789";
@@ -392,9 +483,11 @@ usbd_device *gadget0_init(const usbd_driver *driver, const char *userserial)
 		usb_strings[2] = userserial;
 	}
 	our_dev = usbd_init(driver, &dev, config,
-		usb_strings, 5,
+		usb_strings, ARRAY_LENGTH(usb_strings),
 		usbd_control_buffer, sizeof(usbd_control_buffer));
 
+	usbd_register_bos_descriptor(our_dev, &bos);
+	microsoft_os_register_descriptor_sets(our_dev, microsoft_os_descriptor_sets, MICROSOFT_DESCRIPTOR_SETS);
 	usbd_register_set_config_callback(our_dev, gadget0_set_config);
 	delay_setup();
 
