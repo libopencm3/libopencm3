@@ -48,7 +48,10 @@
 #define OTG_DIEPDMA(x)		(0x914 + 0x20*(x))
 #define OTG_DOEPDMA(x)		(0xB14 + 0x20*(x))
 
-
+/* USB PHY controller registers */
+#define OTG_PHYC_PLL1	0x000
+#define OTG_PHYC_TUNE	0x00C
+#define OTG_PHYC_LDO	0x018
 
 /***********************************************************************/
 
@@ -122,6 +125,11 @@
 /* Data FIFO */
 #define OTG_HS_FIFO(x)			(&MMIO32(USB_OTG_HS_BASE + OTG_FIFO(x)))
 
+/* USB PHY controller registers */
+#define OTG_HS_PHYC_PLL1	MMIO32(USBPHYC_BASE + OTG_PHYC_PLL1)
+#define OTG_HS_PHYC_TUNE	MMIO32(USBPHYC_BASE + OTG_PHYC_TUNE)
+#define OTG_HS_PHYC_LDO		MMIO32(USBPHYC_BASE + OTG_PHYC_LDO)
+
 /* Device-mode CSRs*/
 /* OTG device each endpoint interrupt register (OTG_DEACHINT) */
 /* Bits 31:18 - Reserved */
@@ -169,5 +177,62 @@
 #define OTG_HCSPLT_XACTPOS_END		(0x1 << 14)
 #define OTG_HCSPLT_HUBADDR_MASK		(0x7f << 7)
 #define OTG_HCSPLT_PORTADDR_MASK	(0x7f << 0)
+
+/* USBPHYC PLL1 register */
+#define OTG_PHYC_PLL1_SEL_25MHZ		(0x5 << 1)
+#define OTG_PHYC_PLL1_SEL_24MHZ		(0x4 << 1)
+#define OTG_PHYC_PLL1_SEL_16MHZ		(0x3 << 1)
+#define OTG_PHYC_PLL1_SEL_12_5MHZ	(0x1 << 1)
+#define OTG_PHYC_PLL1_SEL_12MHZ		(0x0 << 1)
+#define OTG_PHYC_PLL1_ENABLE		(1 << 0)
+
+/* USBPHYC tuning control register */
+#define OTG_PHYC_TUNE_SQLBYP				(1 << 23)
+#define OTG_PHYC_TUNE_SHTCCTCTLPROT			(1 << 22)
+#define OTG_PHYC_TUNE_HSRXOFF_NEG_5MV		(0x3 << 20)
+#define OTG_PHYC_TUNE_HSRXOFF_POS_10MV		(0x2 << 20)
+#define OTG_PHYC_TUNE_HSRXOFF_POS_5MV		(0x1 << 20)
+#define OTG_PHYC_TUNE_HSRXOFF_OFF			(0x0 << 20)
+#define OTG_PHYC_TUNE_HSFALLPREEM			(1 << 19)
+#define OTG_PHYC_TUNE_STAGSEL				(1 << 18)
+#define OTG_PHYC_TUNE_HDRXGNEQEN			(1 << 17)
+#define OTG_PHYC_TUNE_SQLCHCTL_POS_14MV		(0x3 << 15)
+#define OTG_PHYC_TUNE_SQLCHCTL_POS_7MV		(0x2 << 15)
+#define OTG_PHYC_TUNE_SQLCHCTL_NEG_5MV		(0x1 << 15)
+#define OTG_PHYC_TUNE_SQLCHCTL_OFF			(0x0 << 15)
+#define OTG_PHYC_TUNE_HSDRVCHKZTRM_6OHM		(0x3 << 13)
+#define OTG_PHYC_TUNE_HSDRVCHKZTRM_4OHM		(0x2 << 13)
+#define OTG_PHYC_TUNE_HSDRVCHKZTRM_2OHM		(0x1 << 13)
+#define OTG_PHYC_TUNE_HSDRVCHKZTRM_OFF		(0x0 << 13)
+#define OTG_PHYC_TUNE_HSDRVCHKITRM_23_348MA	(0xF << 9)
+#define OTG_PHYC_TUNE_HSDRVCHKITRM_23_052MA	(0xE << 9)
+#define OTG_PHYC_TUNE_HSDRVCHKITRM_22_755MA	(0xD << 9)
+#define OTG_PHYC_TUNE_HSDRVCHKITRM_22_458MA	(0xC << 9)
+#define OTG_PHYC_TUNE_HSDRVCHKITRM_22_115MA	(0xB << 9)
+#define OTG_PHYC_TUNE_HSDRVCHKITRM_21_820MA	(0xA << 9)
+#define OTG_PHYC_TUNE_HSDRVCHKITRM_21_525MA	(0x9 << 9)
+#define OTG_PHYC_TUNE_HSDRVCHKITRM_21_230MA	(0x8 << 9)
+#define OTG_PHYC_TUNE_HSDRVCHKITRM_20_935MA	(0x7 << 9)
+#define OTG_PHYC_TUNE_HSDRVCHKITRM_20_640MA	(0x6 << 9)
+#define OTG_PHYC_TUNE_HSDRVCHKITRM_20_345MA	(0x5 << 9)
+#define OTG_PHYC_TUNE_HSDRVCHKITRM_20_050MA	(0x4 << 9)
+#define OTG_PHYC_TUNE_HSDRVCHKITRM_19_755MA	(0x3 << 9)
+#define OTG_PHYC_TUNE_HSDRVCHKITRM_19_460MA	(0x2 << 9)
+#define OTG_PHYC_TUNE_HSDRVCHKITRM_19_165MA	(0x1 << 9)
+#define OTG_PHYC_TUNE_HSDRVCHKITRM_18_870MA	(0x0 << 9)
+#define OTG_PHYC_TUNE_HSDRVRFRED			(1 << 8)
+#define OTG_PHYC_TUNE_FSDRVRFADJ			(1 << 7)
+#define OTG_PHYC_TUNE_HSDRVCURINCR			(1 << 6)
+#define OTG_PHYC_TUNE_HSDRVDCLEV			(1 << 5)
+#define OTG_PHYC_TUNE_HSDRVDCCUR			(1 << 4)
+#define OTG_PHYC_TUNE_HSDRVSLEW				(1 << 3)
+#define OTG_PHYC_TUNE_LFSCAPEN				(1 << 2)
+#define OTG_PHYC_TUNE_INCURRINT				(1 << 1)
+#define OTG_PHYC_TUNE_INCURREN				(1 << 0)
+
+/* USBPHYC LDO control and status register */
+#define OTG_PHYC_LDO_DISABLE	(1 << 2)
+#define OTG_PHYC_LDO_STATUS		(1 << 1)
+#define OTG_PHYC_LDO_USED		(1 << 0)
 
 #endif
