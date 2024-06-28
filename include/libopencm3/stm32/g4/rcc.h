@@ -766,6 +766,7 @@ extern const struct rcc_clock_scale rcc_hsi_configs[RCC_CLOCK_3V3_END];
 extern const struct rcc_clock_scale rcc_hse_8mhz_3v3[RCC_CLOCK_3V3_END];
 extern const struct rcc_clock_scale rcc_hse_12mhz_3v3[RCC_CLOCK_3V3_END];
 extern const struct rcc_clock_scale rcc_hse_16mhz_3v3[RCC_CLOCK_3V3_END];
+extern const struct rcc_clock_scale rcc_hse_24mhz_3v3[RCC_CLOCK_3V3_END];
 
 enum rcc_osc {
 	RCC_HSI48,
