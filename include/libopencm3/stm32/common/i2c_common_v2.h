@@ -114,7 +114,17 @@ specific memorymap.h header before including this header file.*/
 #define I2C3_CR2			I2C_CR2(I2C3)
 #define I2C3_OAR1			I2C_OAR1(I2C3)
 #define I2C3_OAR2			I2C_OAR2(I2C3)
+
+#if defined(STM32G4) 
+/* NOTE: this implementation works for the G4 but might not work for other models. */
+/* TODO: check for possible implementation with other models */
+#define I2C3_RXDR			I2C_RXDR(I2C3)
+#define I2C3_TXDR			I2C_TXDR(I2C3)
+#else
+/* NOTE: might be required by other models (possibly (haven't checked tho)) */
 #define I2C3_DR				I2C_DR(I2C3)
+#endif
+
 #define I2C3_SR1			I2C_SR1(I2C3)
 #define I2C3_SR2			I2C_SR2(I2C3)
 #define I2C3_CCR			I2C_CCR(I2C3)
@@ -455,4 +465,3 @@ END_DECLS
 #endif
 /** @endcond */
 /**@}*/
-
