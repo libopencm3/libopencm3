@@ -31,7 +31,7 @@ TGT_CFLAGS	= -Os \
 		  -ffunction-sections -fdata-sections -MD -DSWM050
 TGT_CFLAGS      += $(DEBUG_FLAGS)
 TGT_CFLAGS	+= $(STANDARD_FLAGS)
-ARFLAGS		= rcs
+ARFLAGS		= rcsD
 
 OBJS += clk.o
 OBJS += flash.o

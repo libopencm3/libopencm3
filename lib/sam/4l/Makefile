@@ -26,7 +26,7 @@ TGT_CFLAGS	= -Os -Wall -Wextra -I../../../include -fno-common \
 		  -ffunction-sections -fdata-sections -MD -DSAM4L
 TGT_CFLAGS      += $(DEBUG_FLAGS)
 # ARFLAGS	= rcsv
-ARFLAGS		= rcs
+ARFLAGS		= rcsD
 
 OBJS += adcife.o
 OBJS += gpio.o
