@@ -40,8 +40,10 @@
 #       include <libopencm3/stm32/l1/exti.h>
 #elif defined(STM32L4)
 #       include <libopencm3/stm32/l4/exti.h>
-#elif defined(STM32G0) || defined(STM32G4) // NOTE: The G4 did not have an implementation for the EXTI, but the one from the G0 also works. ( checked on a STM32G491 )
+#elif defined(STM32G0)
 #       include <libopencm3/stm32/g0/exti.h>
+#elif defined(STM32G4)
+#       include <libopencm3/stm32/g4/exti.h>
 #elif defined(STM32H7)
 #       include <libopencm3/stm32/h7/exti.h>
 #else
