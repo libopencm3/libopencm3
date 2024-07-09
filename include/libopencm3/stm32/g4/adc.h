@@ -221,6 +221,7 @@
 
 /*------- ADC_JSQR values ---------*/
 
+#define ADC_JSQR_JL_MASK	(0x3 << 0)
 #define ADC_JSQR_JL_LSB			0
 #define ADC_JSQR_JL_SHIFT		0
 #define ADC_JSQR_JSQ4_LSB		27
