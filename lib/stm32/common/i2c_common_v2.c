@@ -245,6 +245,11 @@ void i2c_set_bytes_to_transfer(uint32_t i2c, uint32_t n_bytes)
 		       (n_bytes << I2C_CR2_NBYTES_SHIFT);
 }
 
+uint8_t i2c_get_bytes_to_transfer(uint32_t i2c)
+{
+    return ((I2C_CR2(i2c) & I2C_CR2_NBYTES_MASK) >> I2C_CR2_NBYTES_SHIFT);
+}
+
 bool i2c_is_start(uint32_t i2c)
 {
 	return (I2C_CR2(i2c) & I2C_CR2_START);
