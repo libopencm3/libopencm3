@@ -48,6 +48,7 @@
 #include <libopencm3/stm32/rcc.h>
 #include <libopencm3/stm32/pwr.h>
 #include <libopencm3/stm32/flash.h>
+#include <libopencm3/stm32/i2c.h>
 
 /**@{*/
 
@@ -796,6 +797,64 @@ uint32_t rcc_get_usart_clk_freq(uint32_t usart)
 		return rcc_get_clksel_freq(RCC_CCIPR_LPUART1SEL_SHIFT);
 	}
 	cm3_assert_not_reached();
+}
+
+
+void rcc_set_i2c_clock_hsi(uint32_t i2c)
+{
+	if (i2c == I2C1) {
+		RCC_CCIPR &= ~(RCC_CCIPR_SEL_MASK << RCC_CCIPR_I2C1SEL_SHIFT);
+		RCC_CCIPR |=  (RCC_CCIPR_I2CxSEL_HSI16 << RCC_CCIPR_I2C1SEL_SHIFT);
+	}
+	if (i2c == I2C2) {
+		RCC_CCIPR &= ~(RCC_CCIPR_SEL_MASK << RCC_CCIPR_I2C2SEL_SHIFT);
+		RCC_CCIPR |=  (RCC_CCIPR_I2CxSEL_HSI16 << RCC_CCIPR_I2C2SEL_SHIFT);
+	}
+	if (i2c == I2C3) {
+		RCC_CCIPR &= ~(RCC_CCIPR_SEL_MASK << RCC_CCIPR_I2C3SEL_SHIFT);
+		RCC_CCIPR |=  (RCC_CCIPR_I2CxSEL_HSI16 << RCC_CCIPR_I2C3SEL_SHIFT);
+	}
+}
+
+void rcc_set_i2c_clock_sysclk(uint32_t i2c)
+{
+	if (i2c == I2C1) {
+		RCC_CCIPR &= ~(RCC_CCIPR_SEL_MASK << RCC_CCIPR_I2C1SEL_SHIFT);
+		RCC_CCIPR |=  (RCC_CCIPR_I2CxSEL_SYSCLK << RCC_CCIPR_I2C1SEL_SHIFT);
+	}
+	if (i2c == I2C2) {
+		RCC_CCIPR &= ~(RCC_CCIPR_SEL_MASK << RCC_CCIPR_I2C2SEL_SHIFT);
+		RCC_CCIPR |=  (RCC_CCIPR_I2CxSEL_SYSCLK << RCC_CCIPR_I2C2SEL_SHIFT);
+	}
+	if (i2c == I2C3) {
+		RCC_CCIPR &= ~(RCC_CCIPR_SEL_MASK << RCC_CCIPR_I2C3SEL_SHIFT);
+		RCC_CCIPR |=  (RCC_CCIPR_I2CxSEL_SYSCLK << RCC_CCIPR_I2C3SEL_SHIFT);
+	}
+}
+
+void rcc_set_i2c_clock_pclk(uint32_t i2c)
+{
+	if (i2c == I2C1) {
+		RCC_CCIPR &= ~(RCC_CCIPR_SEL_MASK << RCC_CCIPR_I2C1SEL_SHIFT);
+		RCC_CCIPR |=  (RCC_CCIPR_I2CxSEL_PCLK << RCC_CCIPR_I2C1SEL_SHIFT);
+	}
+	if (i2c == I2C2) {
+		RCC_CCIPR &= ~(RCC_CCIPR_SEL_MASK << RCC_CCIPR_I2C2SEL_SHIFT);
+		RCC_CCIPR |=  (RCC_CCIPR_I2CxSEL_PCLK << RCC_CCIPR_I2C2SEL_SHIFT);
+	}
+	if (i2c == I2C3) {
+		RCC_CCIPR &= ~(RCC_CCIPR_SEL_MASK << RCC_CCIPR_I2C3SEL_SHIFT);
+		RCC_CCIPR |=  (RCC_CCIPR_I2CxSEL_PCLK << RCC_CCIPR_I2C3SEL_SHIFT);
+	}
+}
+
+uint32_t rcc_get_i2c_clocks(void)
+{
+	return RCC_CCIPR & (
+            (RCC_CCIPR_SEL_MASK << RCC_CCIPR_I2C1SEL_SHIFT) | 
+            (RCC_CCIPR_SEL_MASK << RCC_CCIPR_I2C2SEL_SHIFT) | 
+            (RCC_CCIPR_SEL_MASK << RCC_CCIPR_I2C3SEL_SHIFT)
+        );
 }
 
 /**@}*/
