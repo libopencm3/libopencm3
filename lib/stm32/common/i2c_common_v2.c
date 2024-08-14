@@ -270,6 +270,11 @@ bool i2c_nack(uint32_t i2c)
 	return (I2C_ISR(i2c) & I2C_ISR_NACKF);
 }
 
+void i2c_clear_nack(uint32_t i2c)
+{
+    return I2C_ICR(i2c) |= I2C_ICR_NACKCF;
+}
+
 bool i2c_busy(uint32_t i2c)
 {
 	return (I2C_ISR(i2c) & I2C_ISR_BUSY);
@@ -425,6 +430,7 @@ void i2c_transfer7(uint32_t i2c, uint8_t addr, const uint8_t *w, size_t wn, uint
 void i2c_set_speed(uint32_t i2c, enum i2c_speeds speed, uint32_t clock_megahz)
 {
 	int prescaler;
+	int multiplier = 1;
 	switch(speed) {
 	case i2c_speed_fmp_1m:
 		/* FIXME - add support for this mode! */
@@ -443,11 +449,15 @@ void i2c_set_speed(uint32_t i2c, enum i2c_speeds speed, uint32_t clock_megahz)
 	case i2c_speed_sm_100k:
 		/* target 4Mhz input, so tpresc = 250ns */
 		prescaler = (clock_megahz / 4) - 1;
+        if (prescaler > 15) { // It's true for 72 MHz and more but impossible by RM
+		    prescaler = (clock_megahz / 8) - 1;
+            multiplier = 2; // bigger value is not allowed
+        }
 		i2c_set_prescaler(i2c, prescaler);
-		i2c_set_scl_low_period(i2c, 20-1); // 5usecs
-		i2c_set_scl_high_period(i2c, 16-1); // 4usecs
-		i2c_set_data_hold_time(i2c, 2); // 0.5usecs
-		i2c_set_data_setup_time(i2c, 5-1); // 1.25usecs
+		i2c_set_scl_low_period(i2c, multiplier*20-1); // 5usecs
+		i2c_set_scl_high_period(i2c, multiplier*16-1); // 4usecs
+		i2c_set_data_hold_time(i2c, multiplier*2); // 0.5usecs
+		i2c_set_data_setup_time(i2c, multiplier*5-1); // 1.25usecs
 		break;
 	}
 }
