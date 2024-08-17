@@ -95,6 +95,43 @@ void usart_set_baudrate(uint32_t usart, uint32_t baud)
 }
 
 /*---------------------------------------------------------------------------*/
+/** @brief USART Get Baudrate.
+
+Note: For LPUART, baudrates over 2**24 (~16.7 Mbaud) may overflow
+the calculation and are therefore not supported by this function.
+
+@param[in] usart unsigned 32 bit. USART block register address base @ref usart_reg_base
+@returns baud unsigned 32 bit. Baud rate specified in Hz.
+*/
+
+uint32_t usart_get_baudrate(uint32_t usart)
+{
+	uint32_t clock = rcc_get_usart_clk_freq(usart);
+	const uint32_t reg_brr = USART_BRR(usart);
+
+#ifdef LPUART1
+	if (usart == LPUART1) {
+		return (clock / reg_brr) * 256
+			+ ((clock % reg_brr) * 256) / reg_brr;
+	}
+#endif
+
+#ifdef USART_CR1_OVER8
+	if (USART_CR1(usart) & USART_CR1_OVER8) {
+		/* Need to shift BRR[2:0] up before using the simple formula of 2*clock/BRR (Q12.4) */
+		const uint16_t div_mantissa = reg_brr & USART_BRR_UPPER_MASK;
+		const uint16_t div_fractional = (reg_brr & USART_BRR_LOWER_MASK) << 1U;
+		const uint16_t div_over8 = div_mantissa + div_fractional;
+		return (2U * clock) / div_over8;
+	} else {
+		return clock / reg_brr;
+	}
+#else
+	return clock / reg_brr;
+#endif
+}
+
+/*---------------------------------------------------------------------------*/
 /** @brief USART Set Word Length.
 
 The word length is set to 8 or 9 bits. Note that the last bit will be a parity
