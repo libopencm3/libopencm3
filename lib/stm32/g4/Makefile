@@ -39,6 +39,7 @@ OBJS += adc.o adc_common_v2.o adc_common_v2_multi.o
 OBJS += cordic_common_v1.o
 OBJS += crs_common_all.o
 OBJS += crc_common_all.o crc_v2.o
+OBJS += exti_common_all.o
 OBJS += dac_common_all.o dac_common_v2.o
 OBJS += desig_common_all.o desig_common_v1.o
 OBJS += dma_common_l1f013.o
