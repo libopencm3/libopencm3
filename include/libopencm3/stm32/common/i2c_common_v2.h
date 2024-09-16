@@ -435,6 +435,8 @@ void i2c_enable_autoend(uint32_t i2c);
 void i2c_disable_autoend(uint32_t i2c);
 bool i2c_nack(uint32_t i2c);
 void i2c_clear_nack(uint32_t i2c);
+void i2c_arlo(uint32_t i2c);
+void i2c_clear_arlo(uint32_t i2c);
 bool i2c_busy(uint32_t i2c);
 bool i2c_transmit_int_status(uint32_t i2c);
 bool i2c_transfer_complete(uint32_t i2c);

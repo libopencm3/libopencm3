@@ -275,6 +275,16 @@ void i2c_clear_nack(uint32_t i2c)
     return I2C_ICR(i2c) |= I2C_ICR_NACKCF;
 }
 
+void i2c_arlo(uint32_t i2c)
+{
+    return (I2C_ISR(i2c) & I2C_ICR_ARLOCF);
+}
+
+void i2c_clear_arlo(uint32_t i2c)
+{
+    return I2C_ICR(i2c) |= I2C_ICR_ARLOCF;
+}
+
 bool i2c_busy(uint32_t i2c)
 {
 	return (I2C_ISR(i2c) & I2C_ISR_BUSY);
