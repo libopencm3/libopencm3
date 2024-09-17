@@ -13,6 +13,7 @@ import array
 import datetime
 import random
 import usb.core
+import usb.control
 import usb.util as uu
 import random
 import sys
@@ -40,6 +41,25 @@ GZ_REQ_WRITE_LOOPBACK_BUFFER=10
 GZ_REQ_READ_LOOPBACK_BUFFER=11
 GZ_REQ_INTEL_WRITE=0x5b
 GZ_REQ_INTEL_READ=0x5c
+
+DESC_TYPE_BOS = 0x0F
+DESC_TYPE_DEVICE_CAPABILITY = 0x10
+
+DEVCAP_TYPE_PLATFORM = 5
+
+MICROSOFT_OS_GET_DESCRIPTOR_SET = 7
+
+MICROSOFT_OS_SET_HEADER = 0
+MICROSOFT_OS_SUBSET_HEADER_CONFIGURATION = 1
+MICROSOFT_OS_SUBSET_HEADER_FUNCTION = 2
+MICROSOFT_OS_FEATURE_COMPATIBLE_ID = 3
+MICROSOFT_OS_FEATURE_REG_PROPERTY = 4
+MICROSOFT_OS_FEATURE_MIN_RESUME_TIME = 5
+MICROSOFT_OS_FEATURE_MODEL_ID = 6
+MICROSOFT_OS_FEATURE_CCGP_DEVICE = 7
+MICROSOFT_OS_FEATURE_VENDOR_REVISION = 8
+
+MICROSOFT_WINDOWS_VERSION_WINBLUE = 0x06030000
 
 class find_by_serial(object):
     def __init__(self, serial):
@@ -259,7 +279,6 @@ class TestConfigLoopBack(unittest.TestCase):
         self.assertEqual(len(data), len(read))
         expected = array.array('B', [x for x in data])
         self.assertEqual(expected, read, "should have read back what we wrote")
-
 
     def test_simple_loop(self):
         """Plain simple loopback, does it work at all"""
@@ -506,6 +525,159 @@ class TestUnaligned(unittest.TestCase):
         self.do_readwrite()
 
 
+class TestBOSDescriptor(unittest.TestCase):
+    """
+    Make sure the stack correctly handles a request for the BOS descriptor, and discards invalid BOS requests
+    """
+
+    def setUp(self):
+        self.dev : usb.core.Device = usb.core.find(idVendor=VENDOR_ID, idProduct=PRODUCT_ID, custom_match=find_by_serial(DUT_SERIAL))
+        self.assertIsNotNone(self.dev, "Couldn't find locm3 gadget0 device")
+
+    def tearDown(self):
+        uu.dispose_resources(self.dev)
+
+    def test_partial_request(self):
+        bos : bytes = usb.control.get_descriptor(self.dev, 5, DESC_TYPE_BOS, 0).tobytes()
+        self.assertEqual(len(bos), 5)
+        # Check the BOS descriptor returned is valid
+        self.assertEqual(bos[0], 5)
+        self.assertEqual(bos[1], DESC_TYPE_BOS)
+        self.assertEqual(bos[4], 1)
+
+        bos_total_length = bos[2] + (bos[3] << 8)
+        self.assertNotEqual(bos_total_length, 0)
+        self.assertEqual(bos_total_length, 33)
+
+    def test_complete_request(self):
+        bos : bytes = usb.control.get_descriptor(self.dev, 33, DESC_TYPE_BOS, 0).tobytes()
+        self.assertEqual(len(bos), 33)
+        # Check the BOS descriptor returned is valid
+        self.assertEqual(bos[0], 5)
+        self.assertEqual(bos[1], DESC_TYPE_BOS)
+        self.assertEqual(bos[4], 1)
+
+        # This BOS descriptor is followed by a platform capability descriptor
+        platform_capability = bos[5:]
+        self.assertEqual(platform_capability[0], 28)
+        self.assertEqual(platform_capability[1], DESC_TYPE_DEVICE_CAPABILITY)
+        self.assertEqual(platform_capability[2], DEVCAP_TYPE_PLATFORM)
+        self.assertEqual(platform_capability[3], 0)
+
+        # Make sure it's a Microsoft OS 2.0 Descriptors platform capability
+        self.assertEqual(platform_capability[4:20].hex(), 'df60ddd88945c74c9cd2659d9e648a9f')
+
+        # The PCD is followed by a Microsoft OS Descriptor Set Info descriptor
+        descriptor_set_info = platform_capability[20:]
+        windows_version = (descriptor_set_info[0] | (descriptor_set_info[1] << 8) |
+            (descriptor_set_info[2] << 16) | (descriptor_set_info[3] << 24))
+        self.assertEqual(windows_version, MICROSOFT_WINDOWS_VERSION_WINBLUE)
+        total_length = descriptor_set_info[4] | (descriptor_set_info[5] << 8)
+        self.assertNotEqual(total_length, 0)
+        self.assertEqual(descriptor_set_info[6], 1)
+        self.assertEqual(descriptor_set_info[7], 0)
+
+    def test_invalid_request(self):
+        try:
+            usb.control.get_descriptor(self.dev, 5, DESC_TYPE_BOS, 1)
+            self.fail("get_descriptor() for an invalid BOS request suceeded")
+        except usb.core.USBError as e:
+            # Make sure we got a pipe error (EP0 STALL)
+            # Why libusb returns stalls as this and makes them fatal is.. a subject for a different place..
+            self.assertEqual(e.errno, 32)
+
+
+class TestMicrosoftOSDescriptors(unittest.TestCase):
+    """
+    Make sure the Microsoft OS descriptor handling works per
+    https://docs.microsoft.com/en-us/windows-hardware/drivers/usbcon/microsoft-os-2-0-descriptors-specification
+    """
+
+    def setUp(self):
+        self.dev : usb.core.Device = usb.core.find(idVendor=VENDOR_ID, idProduct=PRODUCT_ID, custom_match=find_by_serial(DUT_SERIAL))
+        self.assertIsNotNone(self.dev, "Couldn't find locm3 gadget0 device")
+
+    def tearDown(self):
+        uu.dispose_resources(self.dev)
+
+    def get_microsoft_os_descriptor(self, *, vendor_id, byte_count) -> bytes:
+        return self.dev.ctrl_transfer(
+            bmRequestType=uu.build_request_type(uu.CTRL_IN, uu.CTRL_TYPE_VENDOR, uu.CTRL_RECIPIENT_DEVICE),
+            bRequest=vendor_id,
+            wValue=0,
+            wIndex=MICROSOFT_OS_GET_DESCRIPTOR_SET,
+            data_or_wLength=byte_count
+        ).tobytes()
+
+    @staticmethod
+    def read_le16(data : bytes):
+        return data[0] | (data[1] << 8)
+
+    @staticmethod
+    def read_le32(data : bytes):
+        return data[0] | (data[1] << 8) | (data[2] << 16) | (data[3] << 24)
+
+    def test_partial_request(self):
+        # This is the Vendor Code from the BOS above (descriptor_set_info[6])
+        descriptor_set = self.get_microsoft_os_descriptor(vendor_id=1, byte_count=10)
+        self.assertEqual(len(descriptor_set), 10)
+        # Check that the set descriptor returned is valid
+        self.assertEqual(self.read_le16(descriptor_set[0:2]), 10)
+        self.assertEqual(self.read_le16(descriptor_set[2:4]), MICROSOFT_OS_SET_HEADER)
+        self.assertEqual(self.read_le32(descriptor_set[4:8]), MICROSOFT_WINDOWS_VERSION_WINBLUE)
+        self.assertEqual(self.read_le16(descriptor_set[8:10]), 46)
+
+    def test_complete_request(self):
+        # This is the Vendor Code from the BOS above (descriptor_set_info[6])
+        descriptor_set = self.get_microsoft_os_descriptor(vendor_id=1, byte_count=46)
+        self.assertEqual(len(descriptor_set), 46)
+        # Check that the set descriptor returned is valid
+        self.assertEqual(self.read_le16(descriptor_set[0:2]), 10)
+        self.assertEqual(self.read_le16(descriptor_set[2:4]), MICROSOFT_OS_SET_HEADER)
+        self.assertEqual(self.read_le32(descriptor_set[4:8]), MICROSOFT_WINDOWS_VERSION_WINBLUE)
+        self.assertEqual(self.read_le16(descriptor_set[8:10]), 46)
+
+        # Check that the config subset descriptor returned is valid
+        config_subset = descriptor_set[10:]
+        self.assertEqual(self.read_le16(config_subset[0:2]), 8)
+        self.assertEqual(self.read_le16(config_subset[2:4]), MICROSOFT_OS_SUBSET_HEADER_CONFIGURATION)
+        self.assertEqual(config_subset[4], 1) # bConfigurationValue
+        self.assertEqual(config_subset[5], 0)
+        self.assertEqual(self.read_le16(config_subset[6:8]), 36)
+
+        # Check that the function subset descriptor returned is valid
+        function_subset = config_subset[8:]
+        self.assertEqual(self.read_le16(function_subset[0:2]), 8)
+        self.assertEqual(self.read_le16(function_subset[2:4]), MICROSOFT_OS_SUBSET_HEADER_FUNCTION)
+        self.assertEqual(function_subset[4], 0) # bFirstInterface
+        self.assertEqual(function_subset[5], 0)
+        self.assertEqual(self.read_le16(function_subset[6:8]), 28)
+
+        # Check that the feature descriptor is a Compatible ID descriptor and valid
+        feature = function_subset[8:]
+        self.assertEqual(self.read_le16(feature[0:2]), 20)
+        self.assertEqual(self.read_le16(feature[2:4]), MICROSOFT_OS_FEATURE_COMPATIBLE_ID)
+        self.assertEqual(feature[4:12], b'WINUSB\x00\x00')
+        self.assertEqual(feature[12:20], b'\x00' * 8)
+
+    def test_invalid_request(self):
+        try:
+            self.get_microsoft_os_descriptor(vendor_id=0, byte_count=10)
+            self.fail("get_microsoft_os_descriptor() for an invalid descriptor set request suceeded")
+        except usb.core.USBError as e:
+            # Make sure we got a pipe error (EP0 STALL)
+            # Why libusb returns stalls as this and makes them fatal is.. a subject for a different place..
+            self.assertEqual(e.errno, 32)
+
+        try:
+            self.get_microsoft_os_descriptor(vendor_id=2, byte_count=0)
+            self.fail("get_microsoft_os_descriptor() for an invalid descriptor set request suceeded")
+        except usb.core.USBError as e:
+            # Make sure we got a pipe error (EP0 STALL)
+            # Why libusb returns stalls as this and makes them fatal is.. a subject for a different place..
+            self.assertEqual(e.errno, 32)
+
+
 def run_ci_test(dut):
     # Avoids the import for non-CI users!
     import xmlrunner
@@ -542,4 +714,3 @@ if __name__ == "__main__":
                 print("Detected %s on bus:port-address: %s:%s-%s" % (DUT_SERIAL, dev.bus, '.'.join(map(str,dev.port_numbers)), dev.address))
             else:
                 runner(DUT_SERIAL)
-
