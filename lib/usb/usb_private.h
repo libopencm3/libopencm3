@@ -43,6 +43,13 @@ LGPL License Terms @ref lgpl_license
 
 #define MIN(a, b) ((a) < (b) ? (a) : (b))
 
+/* The max number of endpoints is core-dependant - for the F4 it's 4, for the H7 it's 8 */
+#if defined(STM32H7)
+#define ENDPOINT_COUNT 8U
+#else
+#define ENDPOINT_COUNT 4U
+#endif
+
 /** Internal collection of device information. */
 struct _usbd_device {
 	const struct usb_device_descriptor *desc;
@@ -100,12 +107,12 @@ struct _usbd_device {
 
 	uint16_t fifo_mem_top;
 	uint16_t fifo_mem_top_ep0;
-	uint8_t force_nak[4];
+	uint8_t force_nak[ENDPOINT_COUNT];
 	/*
 	 * We keep a backup copy of the out endpoint size registers to restore
 	 * them after a transaction.
 	 */
-	uint32_t doeptsiz[4];
+	uint32_t doeptsiz[ENDPOINT_COUNT];
 	/*
 	 * Received packet size for each endpoint. This is assigned in
 	 * stm32f107_poll() which reads the packet status push register GRXSTSP

@@ -46,6 +46,8 @@
 #define USART6          USART6_BASE
 #define UART7           UART7_BASE
 #define UART8           UART8_BASE
+#define UART9           UART9_BASE
+#define USART10         USART10_BASE
 /**@}*/
 
 BEGIN_DECLS
@@ -55,4 +57,3 @@ END_DECLS
 /**@}*/
 
 #endif
-

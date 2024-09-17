@@ -292,6 +292,16 @@
 #define USART_CR1_UE			(1 << 0)
 /**@}*/
 
+/* CR1_OVER8 values */
+/****************************************************************************/
+/** @defgroup usart_cr1_oversampling USART Oversampling Mode Selection
+@ingroup STM32F_usart_defines
+
+@{*/
+#define USART_OVERSAMPLING_8  USART_CR1_OVER8
+#define USART_OVERSAMPLING_16 0U
+/**@}*/
+
 /*------------------------------------------------*/
 /** @defgroup usart_cr2_values USART_CR2 Values
 @ingroup usart_defines
@@ -429,6 +439,9 @@
 #define USART_CR3_EIE			(1 << 0)
 
 /**@}*/
+
+#define USART_BRR_UPPER_MASK (0x0000fff0U)
+#define USART_BRR_LOWER_MASK (0x0000000fU)
 
 /** @defgroup usart_gtpr_values USART_GTPR Values
  * @ingroup usart_defines
@@ -629,5 +642,8 @@ void usart_enable_rx_timeout(uint32_t usart);
 void usart_disable_rx_timeout(uint32_t usart);
 void usart_enable_rx_timeout_interrupt(uint32_t usart);
 void usart_disable_rx_timeout_interrupt(uint32_t usart);
+
+void usart_enable_diver_enable(uint32_t usart, bool invert);
+void usart_set_oversampling(uint32_t usart, uint32_t mode);
 
 END_DECLS

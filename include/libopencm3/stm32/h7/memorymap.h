@@ -23,139 +23,180 @@
 /* --- STM32H7 specific peripheral definitions ----------------------------- */
 
 /* Memory map for all busses */
-#define FLASH_BASE          0x08000000U
-#define PERIPH_BASE         0x40000000U
-#define PERIPH_BASE_APB1    0x40000000U
-#define PERIPH_BASE_APB2    0x40010000U
-#define PERIPH_BASE_APB3    0x50000000U
-#define PERIPH_BASE_AHB1    0x40020000U
-#define PERIPH_BASE_AHB2    0x48020000U
-#define PERIPH_BASE_AHB3    0x51000000U
-#define PERIPH_BASE_AHB4    0x58000000U
+#define FLASH_BASE          (0x08000000U)
+#define PERIPH_BASE         (0x40000000U)
+#define SYSTEM_MEM_BASE     (0x1ff00000U)
+#define PERIPH_BASE_APB1    (PERIPH_BASE + 0x00000000U)
+#define PERIPH_BASE_APB2    (PERIPH_BASE + 0x00010000U)
+#define PERIPH_BASE_APB3    (PERIPH_BASE + 0x10000000U)
+#define PERIPH_BASE_APB4    (PERIPH_BASE + 0x18000000U)
+#define PERIPH_BASE_AHB1    (PERIPH_BASE + 0x00020000U)
+#define PERIPH_BASE_AHB2    (PERIPH_BASE + 0x08020000U)
+#define PERIPH_BASE_AHB3    (PERIPH_BASE + 0x11000000U)
+#define PERIPH_BASE_AHB4    (PERIPH_BASE + 0x18020000U)
 
 /* Table 8: Register boundary addresses */
 
 /* AHB4 Peripherals */
-#define GPIO_PORT_A_BASE    0x58020000U
-#define GPIO_PORT_B_BASE    0x58020400U
-#define GPIO_PORT_C_BASE    0x58020800U
-#define GPIO_PORT_D_BASE    0x58020C00U
-#define GPIO_PORT_E_BASE    0x58021000U
-#define GPIO_PORT_F_BASE    0x58021400U
-#define GPIO_PORT_G_BASE    0x58021800U
-#define GPIO_PORT_H_BASE    0x58021C00U
-#define GPIO_PORT_I_BASE    0x58022000U
-#define GPIO_PORT_J_BASE    0x58022400U
-#define GPIO_PORT_K_BASE    0x58022800U
-#define RCC_BASE            0x58024400U
-#define POWER_CONTROL_BASE  0x58024800U
-#define CRC_BASE            0x58024C00U
-#define BDMA_BASE           0x58025400U
-#define DMAMUX2_BASE        0x58025800U
-#define ADC3_BASE           0x58026000U
-#define HSEM_BASE           0x58026400U
+#define GPIO_PORT_A_BASE    (PERIPH_BASE_AHB4 + 0x0000U)
+#define GPIO_PORT_B_BASE    (PERIPH_BASE_AHB4 + 0x0400U)
+#define GPIO_PORT_C_BASE    (PERIPH_BASE_AHB4 + 0x0800U)
+#define GPIO_PORT_D_BASE    (PERIPH_BASE_AHB4 + 0x0C00U)
+#define GPIO_PORT_E_BASE    (PERIPH_BASE_AHB4 + 0x1000U)
+#define GPIO_PORT_F_BASE    (PERIPH_BASE_AHB4 + 0x1400U)
+#define GPIO_PORT_G_BASE    (PERIPH_BASE_AHB4 + 0x1800U)
+#define GPIO_PORT_H_BASE    (PERIPH_BASE_AHB4 + 0x1C00U)
+#define GPIO_PORT_I_BASE    (PERIPH_BASE_AHB4 + 0x2000U)
+#define GPIO_PORT_J_BASE    (PERIPH_BASE_AHB4 + 0x2400U)
+#define GPIO_PORT_K_BASE    (PERIPH_BASE_AHB4 + 0x2800U)
+#define RCC_BASE            (PERIPH_BASE_AHB4 + 0x4400U)
+#define POWER_CONTROL_BASE  (PERIPH_BASE_AHB4 + 0x4800U)
+#define CRC_BASE            (PERIPH_BASE_AHB4 + 0x4C00U)
+#define BDMA_BASE           (PERIPH_BASE_AHB4 + 0x5400U)
+#define DMAMUX2_BASE        (PERIPH_BASE_AHB4 + 0x5800U)
+#define ADC3_BASE           (PERIPH_BASE_AHB4 + 0x6000U)
+#define HSEM_BASE           (PERIPH_BASE_AHB4 + 0x6400U)
 
 /* APB4 Peripherals */
-#define SAI4_BASE           0x58005400U
-#define IWDG1_BASE          0x58004800U
-#define RTC_BASE            0x58004000U
-#define VREF_BASE           0x58003C00U
-#define COMP1_BASE          0x58003800U
-#define LPTIM5_BASE         0x58003000U
-#define LPTIM4_BASE         0x58002C00U
-#define LPTIM3_BASE         0x58002800U
-#define LPTIM2_BASE         0x58002400U
-#define I2C4_BASE           0x58001C00U
-#define SPI6_BASE           0x58001400U
-#define LPUART1_BASE        0x58000C00U
-#define SYSCFG_BASE         0x58000400U
-#define EXTI_BASE           0x58000000U
+#define EXTI_BASE           (PERIPH_BASE_APB4 + 0x0000U)
+#define SYSCFG_BASE         (PERIPH_BASE_APB4 + 0x0400U)
+#define LPUART1_BASE        (PERIPH_BASE_APB4 + 0x0C00U)
+#define SPI6_BASE           (PERIPH_BASE_APB4 + 0x1400U)
+#define I2S6_BASE           (PERIPH_BASE_APB4 + 0x1400U)
+#define I2C4_BASE           (PERIPH_BASE_APB4 + 0x1C00U)
+#define LPTIM2_BASE         (PERIPH_BASE_APB4 + 0x2400U)
+#define LPTIM3_BASE         (PERIPH_BASE_APB4 + 0x2800U)
+#define LPTIM4_BASE         (PERIPH_BASE_APB4 + 0x2C00U)
+#define LPTIM5_BASE         (PERIPH_BASE_APB4 + 0x3000U)
+#define COMP1_BASE          (PERIPH_BASE_APB4 + 0x3800U)
+#define COMP2_BASE          (PERIPH_BASE_APB4 + 0x3800U)
+#define VREF_BASE           (PERIPH_BASE_APB4 + 0x3C00U)
+#define RTC_BASE            (PERIPH_BASE_APB4 + 0x4000U)
+#define IWDG1_BASE          (PERIPH_BASE_APB4 + 0x4800U)
+#define SAI4_BASE           (PERIPH_BASE_APB4 + 0x5400U)
+#define DTS_BASE            (PERIPH_BASE_APB4 + 0x6800U)
 
 /* AHB3 Peripherals */
-#define DELAY_SDMMC1_BASE   0x52008000U
-#define SDMMC1_BASE         0x52007000U
-#define DELAY_QSPI_BASE     0x52006000U
-#define QUADSPI_BASE        0x52005000U
-#define FMC_BASE            0x52004000U
-#define JPEG_BASE           0x52003000U
-#define FLASH_MEM_INTERFACE_BASE  0x52002000U
-#define CHROMART_BASE       0x52001000U
-#define MDMA_BASE           0x52000000U
-#define GPV_BASE            0x51000000U
+#define GPV_BASE            (PERIPH_BASE_AHB3 + 0x00000000U)
+#define MDMA_BASE           (PERIPH_BASE_AHB3 + 0x01000000U)
+#define CHROMART_BASE       (PERIPH_BASE_AHB3 + 0x01001000U)
+#define FLASH_MEM_INTERFACE_BASE (PERIPH_BASE_AHB3 + 0x01002000U)
+#define JPEG_BASE           (PERIPH_BASE_AHB3 + 0x01003000U)
+#define FMC_BASE            (PERIPH_BASE_AHB3 + 0x01004000U)
+#define QUADSPI1_BASE       (PERIPH_BASE_AHB3 + 0x01005000U)
+#define DELAY_QSPI1_BASE    (PERIPH_BASE_AHB3 + 0x01006000U)
+#define SDMMC1_BASE         (PERIPH_BASE_AHB3 + 0x01007000U)
+#define DELAY_SDMMC1_BASE   (PERIPH_BASE_AHB3 + 0x01008000U)
+#define RAMECC_D1_BASE      (PERIPH_BASE_AHB3 + 0x01009000U)
+#define QUADSPI2_BASE       (PERIPH_BASE_AHB3 + 0x0100A000U)
+#define DELAY_QSPI2_BASE    (PERIPH_BASE_AHB3 + 0x0100B000U)
+#define QSPI_IO_BASE        (PERIPH_BASE_AHB3 + 0x0100B400U)
+#define OTFDEC1_BASE        (PERIPH_BASE_AHB3 + 0x0100B800U)
+#define OTFDEC2_BASE        (PERIPH_BASE_AHB3 + 0x0100BC00U)
 
 /* APB3 Peripherals */
-#define WWDG1_BASE          0x50003000U
-#define LTDC_BASE           0x50001000U
+#define LTDC_BASE           (PERIPH_BASE_APB3 + 0x1000U)
+#define WWDG1_BASE          (PERIPH_BASE_APB3 + 0x3000U)
 
 /* AHB2 Peripherals */
-#define DELAY_SDMMC2_BASE   0x48022800U
-#define SDMMC2_BASE         0x48022400U
-#define RNG_BASE            0x48021800U
-#define HASH_BASE           0x48021400U
-#define CRYPTO_BASE         0x48021000U
-#define DCMI_BASE           0x48020000U
+#define DCMI_BASE           (PERIPH_BASE_AHB2 + 0x0000U)
+#define PSSI_BASE           (PERIPH_BASE_AHB2 + 0x0400U)
+#define CRYPTO_BASE         (PERIPH_BASE_AHB2 + 0x1000U)
+#define HASH_BASE           (PERIPH_BASE_AHB2 + 0x1400U)
+#define RNG_BASE            (PERIPH_BASE_AHB2 + 0x1800U)
+#define SDMMC2_BASE         (PERIPH_BASE_AHB2 + 0x2400U)
+#define DELAY_SDMMC2_BASE   (PERIPH_BASE_AHB2 + 0x2800U)
+#define RAMECC_D2_BASE      (PERIPH_BASE_AHB2 + 0x3000U)
+#define FMAC_BASE           (PERIPH_BASE_AHB2 + 0x4000U)
+#define CORDIC_BASE         (PERIPH_BASE_AHB2 + 0x4400U)
 
 /* AHB1 Peripherals */
-#define USB2_OTG_FS_BASE    0x40080000U
-#define USB1_OTG_HS_BASE    0x40040000U
-#define ETHERNET_MAC_BASE   0x40028000U
-#define ADC1_ADC2_BASE      0x40022000U
-#define DMAMUX1_BASE        0x40020800U
-#define DMA2_BASE           0x40020400U
-#define DMA1_BASE           0x40020000U
+#define DMA1_BASE           (PERIPH_BASE_AHB1 + 0x0000U)
+#define DMA2_BASE           (PERIPH_BASE_AHB1 + 0x0400U)
+#define DMAMUX1_BASE        (PERIPH_BASE_AHB1 + 0x0800U)
+#define ADC1_ADC2_BASE      (PERIPH_BASE_AHB1 + 0x2000U)
+#define ETHERNET_MAC_BASE   (PERIPH_BASE_AHB1 + 0x8000U)
+#define USB1_OTG_HS_BASE    (PERIPH_BASE_AHB1 + 0x00020000U)
+#define USB2_OTG_FS_BASE    (PERIPH_BASE_AHB1 + 0x00060000U)
 
 /* APB2 Peripherals */
-#define HRTIM_BASE          0x40017400U
-#define DFSDM1_BASE         0x40017000U
-#define SAI3_BASE           0x40016000U
-#define SAI2_BASE           0x40015C00U
-#define SAI1_BASE           0x40015800U
-#define SPI5_BASE           0x40015000U
-#define TIM17_BASE          0x40014800U
-#define TIM16_BASE          0x40014400U
-#define TIM15_BASE          0x40014000U
-#define SPI4_BASE           0x40013400U
-#define SPI1_BASE           0x40013000U
-#define USART6_BASE         0x40011400U
-#define USART1_BASE         0x40011000U
-#define TIM8_BASE           0x40010400U
-#define TIM1_BASE           0x40010000U
+#define TIM1_BASE           (PERIPH_BASE_APB2 + 0x0000U)
+#define TIM8_BASE           (PERIPH_BASE_APB2 + 0x0400U)
+#define USART1_BASE         (PERIPH_BASE_APB2 + 0x1000U)
+#define USART6_BASE         (PERIPH_BASE_APB2 + 0x1400U)
+#define UART9_BASE          (PERIPH_BASE_APB2 + 0x1800U)
+#define USART10_BASE        (PERIPH_BASE_APB2 + 0x1C00U)
+#define SPI1_BASE           (PERIPH_BASE_APB2 + 0x3000U)
+#define I2S1_BASE           (PERIPH_BASE_APB2 + 0x3000U)
+#define SPI4_BASE           (PERIPH_BASE_APB2 + 0x3400U)
+#define TIM15_BASE          (PERIPH_BASE_APB2 + 0x4000U)
+#define TIM16_BASE          (PERIPH_BASE_APB2 + 0x4400U)
+#define TIM17_BASE          (PERIPH_BASE_APB2 + 0x4800U)
+#define SPI5_BASE           (PERIPH_BASE_APB2 + 0x5000U)
+#define SAI1_BASE           (PERIPH_BASE_APB2 + 0x5800U)
+#define SAI2_BASE           (PERIPH_BASE_APB2 + 0x5C00U)
+#define SAI3_BASE           (PERIPH_BASE_APB2 + 0x6000U)
+#define DFSDM2_BASE         (PERIPH_BASE_APB2 + 0x7000U)
+#define HRTIM_BASE          (PERIPH_BASE_APB2 + 0x7400U)
+#define DFSDM1_BASE         (PERIPH_BASE_APB2 + 0x7800U)
 
 /* APB1 Peripherals */
-#define CAN_MSG_BASE        0x4000AC00U
-#define CAN_CCU_BASE        0x4000A800U
-#define FDCAN2_BASE         0x4000A400U
-#define FDCAN1_BASE         0x4000A000U
-#define MDIOS_BASE          0x40009400U
-#define OPAMP_BASE          0x40009000U
-#define SWPMI_BASE          0x40008800U
-#define CRS_BASE            0x40008400U
-#define UART8_BASE          0x40007C00U
-#define UART7_BASE          0x40007800U
-#define DAC_BASE            0x40007400U
-#define HDMI_CEC_BASE       0x40006C00U
-#define I2C3_BASE           0x40005C00U
-#define I2C2_BASE           0x40005800U
-#define I2C1_BASE           0x40005400U
-#define UART5_BASE          0x40005000U
-#define UART4_BASE          0x40004C00U
-#define USART3_BASE         0x40004800U
-#define USART2_BASE         0x40004400U
-#define SPDIFRX1_BASE       0x40004000U
-#define SPI3_BASE           0x40003C00U
-#define SPI2_BASE           0x40003800U
-#define LPTIM1_BASE         0x40002400U
-#define TIM14_BASE          0x40002000U
-#define TIM13_BASE          0x40001C00U
-#define TIM12_BASE          0x40001800U
-#define TIM7_BASE           0x40001400U
-#define TIM6_BASE           0x40001000U
-#define TIM5_BASE           0x40000C00U
-#define TIM4_BASE           0x40000800U
-#define TIM3_BASE           0x40000400U
-#define TIM2_BASE           0x40000000U
+#define TIM2_BASE           (PERIPH_BASE_APB1 + 0x0000U)
+#define TIM3_BASE           (PERIPH_BASE_APB1 + 0x0400U)
+#define TIM4_BASE           (PERIPH_BASE_APB1 + 0x0800U)
+#define TIM5_BASE           (PERIPH_BASE_APB1 + 0x0C00U)
+#define TIM6_BASE           (PERIPH_BASE_APB1 + 0x1000U)
+#define TIM7_BASE           (PERIPH_BASE_APB1 + 0x1400U)
+#define TIM12_BASE          (PERIPH_BASE_APB1 + 0x1800U)
+#define TIM13_BASE          (PERIPH_BASE_APB1 + 0x1C00U)
+#define TIM14_BASE          (PERIPH_BASE_APB1 + 0x2000U)
+#define LPTIM1_BASE         (PERIPH_BASE_APB1 + 0x2400U)
+#define SPI2_BASE           (PERIPH_BASE_APB1 + 0x3800U)
+#define I2S2_BASE           (PERIPH_BASE_APB1 + 0x3800U)
+#define SPI3_BASE           (PERIPH_BASE_APB1 + 0x3C00U)
+#define I2S3_BASE           (PERIPH_BASE_APB1 + 0x3C00U)
+#define SPDIFRX1_BASE       (PERIPH_BASE_APB1 + 0x4000U)
+#define USART2_BASE         (PERIPH_BASE_APB1 + 0x4400U)
+#define USART3_BASE         (PERIPH_BASE_APB1 + 0x4800U)
+#define UART4_BASE          (PERIPH_BASE_APB1 + 0x4C00U)
+#define UART5_BASE          (PERIPH_BASE_APB1 + 0x5000U)
+#define I2C1_BASE           (PERIPH_BASE_APB1 + 0x5400U)
+#define I2C2_BASE           (PERIPH_BASE_APB1 + 0x5800U)
+#define I2C3_BASE           (PERIPH_BASE_APB1 + 0x5C00U)
+#define I2C5_BASE           (PERIPH_BASE_APB1 + 0x6400U)
+#define HDMI_CEC_BASE       (PERIPH_BASE_APB1 + 0x6C00U)
+#define DAC1_DAC2_BASE      (PERIPH_BASE_APB1 + 0x7400U)
+#define UART7_BASE          (PERIPH_BASE_APB1 + 0x7800U)
+#define UART8_BASE          (PERIPH_BASE_APB1 + 0x7C00U)
+#define CRS_BASE            (PERIPH_BASE_APB1 + 0x8400U)
+#define SWPMI_BASE          (PERIPH_BASE_APB1 + 0x8800U)
+#define OPAMP_BASE          (PERIPH_BASE_APB1 + 0x9000U)
+#define MDIOS_BASE          (PERIPH_BASE_APB1 + 0x9400U)
+#define FDCAN1_BASE         (PERIPH_BASE_APB1 + 0xA000U)
+#define FDCAN2_BASE         (PERIPH_BASE_APB1 + 0xA400U)
+#define CAN_CCU_BASE        (PERIPH_BASE_APB1 + 0xA800U)
+#define CAN_MSG_BASE        (PERIPH_BASE_APB1 + 0xAC00U)
+#define FDCAN3_BASE         (PERIPH_BASE_APB1 + 0xD400U)
+#define TIM23_BASE          (PERIPH_BASE_APB1 + 0xE000U)
+#define TIM24_BASE          (PERIPH_BASE_APB1 + 0xE400U)
 
 /* Debug/Trace Peripherals */
 #define DBGMCU_BASE         0x5C001000U
 
-#endif
+/* Device Electronic Signature */
+#define DESIG_FLASH_SIZE_BASE (SYSTEM_MEM_BASE + 0x1E880U)
+#define DESIG_UNIQUE_ID_BASE  (SYSTEM_MEM_BASE + 0x1E800U)
+#define DESIG_UNIQUE_ID0		MMIO32(DESIG_UNIQUE_ID_BASE)
+#define DESIG_UNIQUE_ID1		MMIO32(DESIG_UNIQUE_ID_BASE + 4)
+#define DESIG_UNIQUE_ID2		MMIO32(DESIG_UNIQUE_ID_BASE + 8)
+
+/* These aren't strictly memory map, but they need to be visible everywhere like the memory map */
+
+/* Device variant constants */
+enum device_variant {
+	STM32H72x = 0x483U, /* RM0468 */
+	STM32H74x = 0x450U, /* RM0433, RM0399 */
+	STM32H7Bx = 0x480U, /* RM0455 */
+};
+
+#endif /*LIBOPENCM3_MEMORYMAP_H*/
