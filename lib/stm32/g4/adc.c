@@ -406,8 +406,9 @@ void adc_set_watchdog_low_threshold(uint32_t adc, uint16_t threshold)
 
 void adc_set_injected_sequence(uint32_t adc, uint8_t length, uint8_t channel[])
 {
-	uint32_t reg32 = 0;
+	uint32_t reg32;
 	uint8_t i = 0;
+	reg32 = (ADC_JSQR_JEXTEN_MASK | ADC_JSQR_JEXTSEL_MASK | ADC_JSQR_JL_MASK) & ADC_JSQR(adc);
 
 	/* Maximum sequence length is 4 channels. Minimum sequence is 1.*/
 	if ((length - 1) > 3) {
