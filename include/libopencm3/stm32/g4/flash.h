@@ -143,7 +143,7 @@
 #define FLASH_OPTR_SRAM_RST		(1 << 25)
 #define FLASH_OPTR_SRAM_PE		(1 << 24)
 #define FLASH_OPTR_nBOOT1		(1 << 23)
-#define FLASH_OPTR_DUALBANK		(1 << 21)
+#define FLASH_OPTR_DUALBANK		(1 << 22)
 #define FLASH_OPTR_BFB2			(1 << 20)
 #define FLASH_OPTR_WWDG_SW		(1 << 19)
 #define FLASH_OPTR_IWDG_STDBY		(1 << 18)
