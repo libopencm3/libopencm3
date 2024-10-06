@@ -56,6 +56,10 @@ void exti_set_trigger(uint32_t extis, enum exti_trigger_type trig)
 		EXTI_RTSR |= extis;
 		EXTI_FTSR |= extis;
 		break;
+	case EXTI_TRIGGER_NONE:
+		EXTI_RTSR &= ~extis;
+		EXTI_FTSR &= ~extis;
+		break;
 	}
 }
 
