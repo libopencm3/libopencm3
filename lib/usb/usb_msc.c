@@ -203,7 +203,8 @@ static const uint8_t _spc3_inquiry_response[36] = {
 	0x02,	/* Byte 3: Obsolete = 0, NormACA = 0, HiSup = 0, Response Data Format = 2 */
 	0x20,	/* Byte 4: Additional Length (n-4) = 31 + 4 */
 	0x00,	/* Byte 5: SCCS = 0, ACC = 0, TPGS = 0, 3PC = 0, Reserved = 0, Protect = 0 */
-	0x00,	/* Byte 6: BQue = 0, EncServ = 0, VS = 0, MultiP = 0, MChngr = 0, Obsolete = 0, Addr16 = 0 */
+	0x00,	/* Byte 6: BQue = 0, EncServ = 0, VS = 0, MultiP = 0, MChngr = 0, Obsolete = 0,
+			   Addr16 = 0 */
 	0x00,	/* Byte 7: Obsolete = 0, Wbus16 = 0, Sync = 0, Linked = 0, CmdQue = 0, VS = 0 */
 		/* Byte 8 - Byte 15: Vendor Identification */
 	0x20, 0x20, 0x20, 0x20, 0x20, 0x20, 0x20, 0x20,
