@@ -142,7 +142,7 @@
         "gfxtim",
         "jpeg"
     ],
-    "partname_humanreadable": "STM32 u5 series",
+    "partname_humanreadable": "STM32 U5 series",
     "partname_doxygen": "STM32U5",
     "includeguard": "LIBOPENCM3_STM32_U5_NVIC_H"
 }
