@@ -16,6 +16,8 @@
 #	include <libopencmsis/stm32/l1/irqhandlers.h>
 #elif defined(STM32L4)
 #	include <libopencmsis/stm32/l4/irqhandlers.h>
+#elif defined(STM32U5)
+#	include <libopencmsis/stm32/u5/irqhandlers.h>
 #elif defined(STM32G0)
 #	include <libopencmsis/stm32/g0/irqhandlers.h>
 #elif defined(STM32G4)
