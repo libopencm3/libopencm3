@@ -302,5 +302,29 @@ bool usart_get_flag(uint32_t usart, uint32_t flag)
 	return ((USART_ISR(usart) & flag) != 0);
 }
 
+/** @brief USART Enable the Driver Enable signal out of the RTS pin
+ *
+ * @param[in] usart unsigned 32 bit. USART block register address base @ref
+ * usart_reg_base
+ */
+void usart_enable_diver_enable(uint32_t usart, bool invert)
+{
+	uint32_t reg = USART_CR3(usart);
+	if (invert) {
+		reg |= USART_CR3_DEP;
+	} else {
+		reg &= ~USART_CR3_DEP;
+	}
+	reg |= USART_CR3_DEM;
+	USART_CR3(usart) = reg;
+}
+
+void usart_set_oversampling(uint32_t usart, uint32_t mode)
+{
+	if (mode)
+		USART_CR1(usart) |= USART_CR1_OVER8;
+	else
+		USART_CR1(usart) &= ~USART_CR1_OVER8;
+}
 
 /**@}*/

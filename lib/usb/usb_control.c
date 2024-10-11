@@ -219,27 +219,25 @@ static void usb_control_setup_write(usbd_device *usbd_dev,
 /* Do not appear to belong to the API, so are omitted from docs */
 /**@}*/
 
-void _usbd_control_setup(usbd_device *usbd_dev, uint8_t ea)
+void _usbd_control_setup(usbd_device *usbd_dev, uint8_t ep)
 {
 	struct usb_setup_data *req = &usbd_dev->control_state.req;
-	(void)ea;
+	(void)ep;
 
 	usbd_dev->control_state.complete = NULL;
 
 	usbd_ep_nak_set(usbd_dev, 0, 1);
 
-	if (req->wLength == 0) {
-		usb_control_setup_read(usbd_dev, req);
-	} else if (req->bmRequestType & 0x80) {
+	if (req->wLength == 0 || (req->bmRequestType & USB_REQ_TYPE_DIRECTION) == USB_REQ_TYPE_IN) {
 		usb_control_setup_read(usbd_dev, req);
 	} else {
 		usb_control_setup_write(usbd_dev, req);
 	}
 }
 
-void _usbd_control_out(usbd_device *usbd_dev, uint8_t ea)
+void _usbd_control_out(usbd_device *usbd_dev, uint8_t ep)
 {
-	(void)ea;
+	(void)ep;
 
 	switch (usbd_dev->control_state.state) {
 	case DATA_OUT:

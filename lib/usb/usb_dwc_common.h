@@ -17,8 +17,12 @@
  * along with this library.  If not, see <http://www.gnu.org/licenses/>.
  */
 
-#ifndef __USB_DWC_COMMON_H_
-#define __USB_DWC_COMMON_H_
+#ifndef USB_DWC_COMMON_H
+#define USB_DWC_COMMON_H
+
+#include <libopencm3/cm3/common.h>
+
+BEGIN_DECLS
 
 void dwc_set_address(usbd_device *usbd_dev, uint8_t addr);
 void dwc_ep_setup(usbd_device *usbd_dev, uint8_t addr, uint8_t type,
@@ -35,5 +39,6 @@ uint16_t dwc_ep_read_packet(usbd_device *usbd_dev, uint8_t addr,
 void dwc_poll(usbd_device *usbd_dev);
 void dwc_disconnect(usbd_device *usbd_dev, bool disconnected);
 
+END_DECLS
 
-#endif /* __USB_DWC_COMMON_H_ */
+#endif /* USB_DWC_COMMON_H */
