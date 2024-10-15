@@ -358,6 +358,36 @@ void rcc_set_peripheral_clk_sel(uint32_t periph, uint32_t sel) {
 		shift = RCC_CCIPR2_USART6SEL_SHIFT;
 		mask = RCC_CCIPR_USARTxSEL_MASK;
 		break;
+	case I2C1_BASE:
+		reg32 = &RCC_CCIPR1;
+		shift = RCC_CCIPR1_I2C1SEL_SHIFT;
+		mask = RCC_CCIPR_I2CxSEL_MASK;
+		break;
+	case I2C2_BASE:
+		reg32 = &RCC_CCIPR1;
+		shift = RCC_CCIPR1_I2C2SEL_SHIFT;
+		mask = RCC_CCIPR_I2CxSEL_MASK;
+		break;
+	case I2C3_BASE:
+		reg32 = &RCC_CCIPR3;
+		shift = RCC_CCIPR3_I2C3SEL_SHIFT;
+		mask = RCC_CCIPR_I2CxSEL_MASK;
+		break;
+	case I2C4_BASE:
+		reg32 = &RCC_CCIPR1;
+		shift = RCC_CCIPR1_I2C4SEL_SHIFT;
+		mask = RCC_CCIPR_I2CxSEL_MASK;
+		break;
+	case I2C5_BASE:
+		reg32 = &RCC_CCIPR2;
+		shift = RCC_CCIPR2_I2C5SEL_SHIFT;
+		mask = RCC_CCIPR_I2CxSEL_MASK;
+		break;
+	case I2C6_BASE:
+		reg32 = &RCC_CCIPR2;
+		shift = RCC_CCIPR2_I2C6SEL_SHIFT;
+		mask = RCC_CCIPR_I2CxSEL_MASK;
+		break;
 	default:
 		cm3_assert_not_reached();
 		break;
