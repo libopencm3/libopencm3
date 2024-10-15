@@ -65,6 +65,7 @@ extern const struct rcc_clock_scale rcc_hsi16mhz_configs;
 #define RCC_CFGR3	MMIO32(RCC_BASE + 0x24)
 #define RCC_CCIPR1  MMIO32(RCC_BASE + 0xE0)
 #define RCC_CCIPR2  MMIO32(RCC_BASE + 0xE4)
+#define RCC_CCIPR3  MMIO32(RCC_BASE + 0xE8)
 
 
 
@@ -161,9 +162,20 @@ extern const struct rcc_clock_scale rcc_hsi16mhz_configs;
 #define RCC_BDCR			MMIO32(RCC_BASE + 0xF0)
 #define RCC_BDCR_LSEBYP		(1 << 2)
 
-/* --- RCC_CCIPR1 values ---------------------------------------------------- */
-
 #define RCC_CCIPR_USARTxSEL_MASK	0x3
+#define RCC_CCIPR_I2CxSEL_MASK		0x3
+
+#define RCC_CCIPR_USARTxSEL_PCLKx	0x0
+#define RCC_CCIPR_USARTxSEL_SYSCLK	0x1
+#define RCC_CCIPR_USARTxSEL_HSI16	0x2
+#define RCC_CCIPR_USARTxSEL_LSE		0x3
+
+#define RCC_CCIPR_I2CxSEL_PCLKx		0x0
+#define RCC_CCIPR_I2CxSEL_SYSCLK	0x1
+#define RCC_CCIPR_I2CxSEL_HSI16		0x2
+#define RCC_CCIPR_I2CxSEL_LSE		0x3
+
+/* --- RCC_CCIPR1 values ---------------------------------------------------- */
 
 #define RCC_CCIPR1_USART5SEL_SHIFT	8
 #define RCC_CCIPR1_USART4SEL_SHIFT	6
@@ -171,15 +183,20 @@ extern const struct rcc_clock_scale rcc_hsi16mhz_configs;
 #define RCC_CCIPR1_USART2SEL_SHIFT	2
 #define RCC_CCIPR1_USART1SEL_SHIFT	0
 
-#define RCC_CCIPR_USARTxSEL_PCLKx	0x0
-#define RCC_CCIPR_USARTxSEL_SYSCLK	0x1
-#define RCC_CCIPR_USARTxSEL_HSI16	0x2
-#define RCC_CCIPR_USARTxSEL_LSE		0x3
+#define RCC_CCIPR1_I2C4SEL_SHIFT	14
+#define RCC_CCIPR1_I2C2SEL_SHIFT	12
+#define RCC_CCIPR1_I2C1SEL_SHIFT	10
 
 /* --- RCC_CCIPR2 values ---------------------------------------------------- */
 
+#define RCC_CCIPR2_I2C6SEL_SHIFT	26
+#define RCC_CCIPR2_I2C5SEL_SHIFT	24
+
 #define RCC_CCIPR2_USART6SEL_SHIFT	16
 
+/* --- RCC_CCIPR3 values ---------------------------------------------------- */
+
+#define RCC_CCIPR3_I2C3SEL_SHIFT	6
 /*****************************************************************************/
 /* API definitions                                                           */
 /*****************************************************************************/
