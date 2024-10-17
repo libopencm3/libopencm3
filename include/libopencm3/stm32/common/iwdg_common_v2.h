@@ -47,6 +47,10 @@ specific memorymap.h header before including this header file.*/
 /** Window Register (IWDG_WINR) */
 #define IWDG_WINR				MMIO32(IWDG_BASE + 0x10)
 
+
+/** Early wake-up register (IWDG_EWCR) */
+#define IWDG_EWCR				MMIO32(IWDG_BASE + 0x14)
+
 /*****************************************************************************/
 /* Register values                                                           */
 /*****************************************************************************/
