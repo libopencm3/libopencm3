@@ -694,7 +694,7 @@ So this function returns the real frequency of the QuadSPI interface
 @param[in] bus_freq Unsigned int32. Desired QuadSPI clock frequenty in Hz.
 @return Unsigned uint32: Read QuadSPI frequency.
 */
-uint32_t quadspi_set_bus_freq(uint32_t ahb_frequency, uint32_t bus_freq);
+uint32_t quadspi_set_bus_frequency(uint32_t ahb_frequency, uint32_t bus_frequency);
 
 /**
 @brief Write data to the QuadSPI interface

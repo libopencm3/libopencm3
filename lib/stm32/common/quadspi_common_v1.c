@@ -238,13 +238,13 @@ uint32_t quadspi_read_word(void)
 	return (uint32_t) QUADSPI_DR;
 }
 
-uint32_t quadspi_set_bus_freq(uint32_t ahb_frequency, uint32_t bus_freq)
+uint32_t quadspi_set_bus_frequency(uint32_t ahb_frequency, uint32_t bus_frequency)
 {
-	uint32_t real_bus_freq = -1;
+	uint32_t real_bus_frequency = -1;
 	uint32_t prescaler;
 
 	if (!quadspi_is_busy()) {
-		prescaler = ahb_frequency / bus_freq;
+		prescaler = ahb_frequency / bus_frequency;
 
 		/* QuadSPI bus freq = ahb_frequency / (prescaler +1) */
 		if (prescaler) {
@@ -259,9 +259,9 @@ uint32_t quadspi_set_bus_freq(uint32_t ahb_frequency, uint32_t bus_freq)
 			prescaler++;
 		}
 
-		real_bus_freq = ahb_frequency / (prescaler);
+		real_bus_frequency = ahb_frequency / (prescaler);
 	}
-	return real_bus_freq;
+	return real_bus_frequency;
 }
 
 uint32_t quadspi_write(struct quadspi_command *command, const void *buffer, uint32_t buffer_size)
