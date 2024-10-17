@@ -208,9 +208,9 @@
 @defgroup quadspi_cr_fsel_dfm QUADSPI flash selection
 @{*/
 /** Use FLASH 1 */
-#define QUADSPI_FLASH_SEL_1       2
+#define QUADSPI_FLASH_SEL_1       0
 /** Use FLASH 2 */
-#define QUADSPI_FLASH_SEL_2       3
+#define QUADSPI_FLASH_SEL_2       2
 /** Use Dual-flash mode */
 #define QUADSPI_FLASH_SEL_DUAL    1
 /**@}*/
