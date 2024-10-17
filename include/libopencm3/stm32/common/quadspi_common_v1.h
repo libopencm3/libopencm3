@@ -78,6 +78,8 @@
 #define QUADSPI_CR_FTHRES_SHIFT   8
 #define QUADSPI_CR_FSEL     (1 << 7)
 #define QUADSPI_CR_DFM      (1 << 6)
+#define QUADPSI_CR_DFM_FSEL_MASK  0x3
+#define QUADSPI_CR_DFM_FSEL_SHIFT 6
 /* bit 5 reserved */
 #define QUADSPI_CR_SSHIFT   (1 << 4)
 #define QUADSPI_CR_TCEN     (1 << 3)
@@ -202,10 +204,16 @@
 #define QUADSPI_CCR_FMODE_MEMMAP  3
 /**@}*/
 
-/* Select flash memory */
+/**
+@defgroup quadspi_cr_fsel_dfm QUADSPI flash selection
+@{*/
+/** Use FLASH 1 */
 #define QUADSPI_FLASH_SEL_1       2
+/** Use FLASH 2 */
 #define QUADSPI_FLASH_SEL_2       3
+/** Use Dual-flash mode */
 #define QUADSPI_FLASH_SEL_DUAL    1
+/**@}*/
 
 /**
 @defgroup quadspi_ckmode QUADSPI_DCR_CKMODE values
@@ -242,6 +250,86 @@
 /**@}*/
 /**@}*/
 
+/**
+@defgroup quadspi_highlevel_types QuadSPI datatypes for high-level functions
+@ingroup quadspi_highlevel_functions
+@{*/
+/**
+@brief QuadSPI instruction data type.
+@{*/
+struct quadspi_instruction {
+    /** Operation mode @see quadspi_ccr_mode */
+    uint32_t mode;
+    /** QuadSPI instruction to be send. */
+    uint8_t instruction;
+};
+/**@}*/
+/**
+@brief QuadSPI address type
+
+An address can be optional or one to four bytes long.
+The address is send after the instruction
+@{*/
+struct quadspi_address {
+    /** Operation mode @see quadspi_ccr_mode */
+    uint32_t mode;
+    /** Number of address bytes @see quadspi_ccr_size */
+    uint32_t size;
+    /** address to be send. */
+    uint32_t address;
+};
+/**@}*/
+
+/**
+@brief QUADSPI alternate bytes type
+
+The alternate bytes can be optional or one to four bytes long.
+The alternate bytes are send after the address bytes
+*/
+struct quadspi_alternative_bytes {
+    /** Operation mode @see quadspi_ccr_mode */
+    uint32_t mode;
+    /** Number of alternate bytes @see quadspi_ccr_size */
+    uint32_t size;
+    /** alternate byte(s) to be send. */
+    uint32_t value;
+};
+
+/**
+@brief  QUADSPI dummy cycles type
+
+The dummy cycles can be 0..31 clocks.
+The dummy cycles are send after the alternative bytes
+*/
+struct quadspi_dummy_cycles {
+    /** Operation mode @see quadspi_ccr_mode */
+    uint32_t mode;
+    /** Number of dummy cycles (0..31) */
+    uint8_t cycles;
+};
+
+/**
+@brief QUADSPI command type
+
+A command consists of
+- a QuadSPI instruction
+- an address. The address can be 0..4 bytes long and is optional.
+- alternative bytes The alternative bytes can be 0..4 bytes long and are optional.
+- dummy clocks The dummy clocks can be 0..31 clocks long and are optional.
+- data A command does not necessarily have to send / receive data.
+*/
+struct quadspi_command {
+    /** The configuration and instruction to be send. */
+    struct quadspi_instruction instruction;
+    /** The configuration and address to be send. */
+    struct quadspi_address address;
+    /** The configuration and alternative bytes to be send. */
+    struct quadspi_alternative_bytes alternative_bytes;
+    /** The configuration and number of dummy clocks to be send. */
+    struct quadspi_dummy_cycles dummy_cycles;
+};
+
+/**@}*/
 
 /**
  * @defgroup quadspi_file QuadSPI peripheral API
@@ -256,6 +344,10 @@
 
 BEGIN_DECLS
 
+/**
+@defgroup quadspi_reg_functions QuadSPI functions for register manipulation.
+@brief Low-level functions for register manipulation
+@{*/
 /**
  * Enable the quadspi peripheral.
  */
@@ -295,6 +387,15 @@ As described in RM0385 the real prescaler ist the value+1.
 @param[in] prescaler Unsigned int8. Clock prescaler (value+1)
 */
 void quadspi_set_prescaler(uint8_t prescaler);
+
+/**
+@brief Flash memory selection
+
+Select the FLASH 1, FLASH 2 or Dual-flash mode.
+
+@param[in] Unsigned int32. @ref quadspi_cr_fsel_dfm
+*/
+void quadspi_select_flash(uint32_t flash);
 
 /**
 @brief Enable interrupts for QUADSPI
@@ -461,25 +562,25 @@ the number of CLK cycles (0..31).
 void quadspi_set_dummy_cycles(uint32_t cycles);
 
 /**
-@brief Set the alternate-byte size
+@brief Set the alternative-bytes size
 
-This defines the alternate byte size
+This defines the alternative bytes size
 
-@param[in] size Unsigned int32. Number of alternate bytes to be sent. @ref quadspi_ccr_size
+@param[in] size Unsigned int32. Number of alternative bytes to be sent. @ref quadspi_ccr_size
  */
-void quadspi_set_alternate_byte_size(uint32_t size);
+void quadspi_set_alternative_bytes_size(uint32_t size);
 
 
 /**
-@brief set the alternate-byte mode
+@brief set the alternative-bytes mode
 
-This defines the alternate-byte phase mode of operation.
+This defines the alternative-bytes phase mode of operation.
 
-@param[in] mode Unsigned int32. Set the alternate byte phases mode to
+@param[in] mode Unsigned int32. Set the alternative bytes phases mode to
 No data, 1-line, 2-lines, 4-lines.
 @ref quadspi_rcc_fmode
 */
-void quadspi_set_alternate_byte_mode(uint32_t mode);
+void quadspi_set_alternative_bytes_mode(uint32_t mode);
 
 /**
 @brief Set the address size
@@ -528,11 +629,11 @@ void quadspi_send_instruction(uint8_t instruction);
 void quadspi_set_address(uint32_t address);
 
 /**
-@brief Set the alternate-byte to be send.
+@brief Set the alternative-bytes to be send.
 
-@param[in] data Unsigned int32. Alternate-byte value
+@param[in] data Unsigned int32. Alternative-bytes value
 */
-void quadspi_set_alternate_byte(uint32_t data);
+void quadspi_set_alternative_bytes(uint32_t data);
 
 /**
 @brief Write one data-byte to the data register
@@ -575,7 +676,47 @@ uint16_t quadspi_read_halfword(void);
 @return uint32_t four bytes of data
 */
 uint32_t quadspi_read_word(void);
+/**@}*/
 
+
+/**
+@defgroup quadspi_highlevel_functions QuadSPI high level functions.
+@brief High-level functions for QuadSPI
+@{*/
+
+/**
+@brief Set the QuadSPI bus frequency.
+
+As the QuadSPI frequency is derrived from the AHB frequency, not all frequencies can be set.
+So this function returns the real frequency of the QuadSPI interface
+
+@param[in] ahb_frequency Unsigned int32. Input clock frequency into the QuadSPI interface in Hz.
+@param[in] bus_freq Unsigned int32. Desired QuadSPI clock frequenty in Hz.
+@return Unsigned uint32: Read QuadSPI frequency.
+*/
+uint32_t quadspi_set_bus_freq(uint32_t ahb_frequency, uint32_t bus_freq);
+
+/**
+@brief Write data to the QuadSPI interface
+
+@param[in] command struct quadspi_command*. Pointer to the command struct.
+@param[in] buffer void*. Pointer to buffer to be send.
+@param[in] buffer_size Unsigned int32. Size of buffer / Number of bytes to send.
+@return uint32_t: -1: No datat could be send. !=-1: Number of bytes sent.
+*/
+uint32_t quadspi_write(struct quadspi_command *command, const void *buffer, uint32_t buffer_size);
+
+/**
+@brief Read data from the QuadSPI interface
+
+@param[in] command struct quadspi_command*. Pointer to the command struct.
+@param[out] buffer void*. Pointer to buffer store data.
+@param[in] buffer_size Unsigned int32. Size of buffer / Number of bytes to read.
+@return uint32_t: -1: No datat could be read. !=-1: Number of bytes read.
+*/
+uint32_t quadspi_read(struct quadspi_command *command, void *buffer, uint32_t buffer_size);
+
+/**@}*/
 END_DECLS
 
 /**@}*/
