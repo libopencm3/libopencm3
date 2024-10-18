@@ -16,5 +16,6 @@
  */
 
 #include <libopencm3/usb/hid.h>
+#include <libopencm3/usb/hid_usage_tables.h>
 
 /* This stub exists just to trick doxygen. */
