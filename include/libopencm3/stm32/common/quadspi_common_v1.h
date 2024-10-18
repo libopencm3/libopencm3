@@ -219,7 +219,7 @@
 @defgroup quadspi_ckmode QUADSPI_DCR_CKMODE values
 @{*/
 #define QUADSPI_DCR_CKMOD_MODE0    0
-#define QUADSPI_DCR_CDMOD_MODE3    QUADSPI_DCR_CKMODE
+#define QUADSPI_DCR_CKMOD_MODE3    QUADSPI_DCR_CKMODE
 /**@}*/
 
 /**
@@ -296,19 +296,6 @@ struct quadspi_alternative_bytes {
 };
 
 /**
-@brief  QUADSPI dummy cycles type
-
-The dummy cycles can be 0..31 clocks.
-The dummy cycles are send after the alternative bytes
-*/
-struct quadspi_dummy_cycles {
-    /** Operation mode @see quadspi_ccr_mode */
-    uint32_t mode;
-    /** Number of dummy cycles (0..31) */
-    uint8_t cycles;
-};
-
-/**
 @brief QUADSPI command type
 
 A command consists of
@@ -326,7 +313,9 @@ struct quadspi_command {
     /** The configuration and alternative bytes to be send. */
     struct quadspi_alternative_bytes alternative_bytes;
     /** The configuration and number of dummy clocks to be send. */
-    struct quadspi_dummy_cycles dummy_cycles;
+    uint32_t dummy_cycles;
+    /** The data phase's mode of operation */
+    uint32_t data_mode;
 };
 
 /**@}*/
@@ -387,6 +376,13 @@ As described in RM0385 the real prescaler ist the value+1.
 @param[in] prescaler Unsigned int8. Clock prescaler (value+1)
 */
 void quadspi_set_prescaler(uint8_t prescaler);
+
+/**
+@brief Set the FIFO threshold level
+
+@param[in] Unsigned int32. Number of bytes-1 (0..31) that will cause the FIFO threshold flag.
+*/
+void quadspi_set_threshold_level(uint32_t level);
 
 /**
 @brief Flash memory selection

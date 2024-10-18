@@ -47,7 +47,7 @@ void quadspi_abort(void)
 
 	/* Wait for abort is finished. Descriped in Section 14.3.14 on RM0385 Rev 8*/
 	while ((QUADSPI_CR & QUADSPI_CR_ABORT)) {
-		;
+		__asm__ volatile("nop");
 	}
 	quadspi_wait_while_busy();
 }
@@ -60,10 +60,18 @@ void quadspi_set_prescaler(uint8_t prescaler)
 	QUADSPI_CR = reg_value;
 }
 
+void quadspi_set_threshold_level(uint32_t level)
+{
+	uint32_t reg_value = QUADSPI_CR;
+	reg_value &= ~(QUADSPI_CR_FTHRES_MASK << QUADSPI_CR_FTHRES_SHIFT);
+	reg_value |= (level & QUADSPI_CR_FTHRES_MASK) << QUADSPI_CR_FTHRES_SHIFT;
+	QUADSPI_CR = reg_value;
+}
+
 void quadspi_select_flash(uint32_t flash)
 {
 	uint32_t reg_value = QUADSPI_CR;
-	reg_value &= (QUADPSI_CR_DFM_FSEL_MASK << QUADSPI_CR_DFM_FSEL_SHIFT);
+	reg_value &= ~(QUADPSI_CR_DFM_FSEL_MASK << QUADSPI_CR_DFM_FSEL_SHIFT);
 	reg_value |= ((flash & QUADPSI_CR_DFM_FSEL_MASK) << QUADSPI_CR_DFM_FSEL_SHIFT);
 	QUADSPI_CR = reg_value;
 }
@@ -76,6 +84,31 @@ void quadspi_enable_irq(uint32_t irq)
 void quadspi_disable_irq(uint32_t irq)
 {
 	QUADSPI_CR &= ~irq;
+}
+
+void quadspi_set_clock_mode(uint32_t mode)
+{
+	uint32_t reg_val = QUADSPI_DCR;
+	reg_val &= ~(QUADSPI_DCR_CKMODE);
+	reg_val |= (mode & QUADSPI_DCR_CKMODE);
+	QUADSPI_DCR = reg_val;
+}
+
+void quadspi_set_cs_high_time(uint32_t cycles)
+{
+	uint32_t reg_val = QUADSPI_DCR;
+	reg_val &= ~(QUADSPI_DCR_CSHT_MASK << QUADSPI_DCR_CSHT_SHIFT);
+	reg_val |= (cycles & QUADSPI_DCR_CSHT_MASK) << QUADSPI_DCR_CSHT_SHIFT;
+	QUADSPI_DCR = reg_val;
+}
+
+
+void quadspi_set_flash_size(uint32_t flash_size)
+{
+	uint32_t reg_val = QUADSPI_DCR;
+	reg_val &= ~(QUADSPI_DCR_FSIZE_MASK << QUADSPI_DCR_FSIZE_SHIFT);
+	reg_val |= (flash_size & QUADSPI_DCR_FSIZE_MASK) << QUADSPI_DCR_FSIZE_SHIFT;
+	QUADSPI_DCR = reg_val;
 }
 
 bool quadspi_get_flag(uint32_t flag)
@@ -95,7 +128,7 @@ void quadspi_clear_flag(uint32_t flag)
 
 void quadspi_set_data_length(uint32_t data_length)
 {
-	QUADSPI_FCR = data_length;
+	QUADSPI_DLR = data_length;
 }
 
 void quadspi_set_double_datarate_mode(bool set)
@@ -281,7 +314,6 @@ uint32_t quadspi_write(struct quadspi_command *command, const void *buffer, uint
 		quadspi_set_instruction_mode(command->instruction.mode);
 		quadspi_set_address_mode(command->address.mode);
 		quadspi_set_alternative_bytes_mode(command->alternative_bytes.mode);
-		quadspi_set_dummy_cycles(command->dummy_cycles.mode);
 
 		/* 3. Step: Load alternative bytes, dummy cycles and address, if used. */
 		if (command->alternative_bytes.mode != QUADSPI_CCR_MODE_NONE) {
@@ -289,8 +321,8 @@ uint32_t quadspi_write(struct quadspi_command *command, const void *buffer, uint
 			quadspi_set_alternative_bytes(command->alternative_bytes.value);
 		}
 
-		if (command->dummy_cycles.mode != QUADSPI_CCR_MODE_NONE) {
-			quadspi_set_dummy_cycles(command->dummy_cycles.cycles);
+		if (command->dummy_cycles) {
+			quadspi_set_dummy_cycles(command->dummy_cycles);
 		}
 
 		if (command->address.mode != QUADSPI_CCR_MODE_NONE) {
@@ -319,51 +351,61 @@ uint32_t quadspi_write(struct quadspi_command *command, const void *buffer, uint
 uint32_t quadspi_read(struct quadspi_command *command, void *buffer, uint32_t buffer_size)
 {
 	uint32_t result = (uint32_t) -1;
+	volatile uint32_t *data_reg = (volatile uint32_t *)&QUADSPI_DR;
+	uint8_t *byte_buffer = (uint8_t *) buffer;
+
 	/* Check parameter.
 		Do only something if:
 		* Pointer to command is not a NULL-pointer and
 		* Pointer to buffer is not NULL when buffer_size >0
 	 */
 	if ((command != NULL) && ((buffer != NULL) || (buffer_size == 0))) {
-		while (quadspi_is_busy());
-		/* 1. Step: Set QUADSPI-mode to indirect read mode */
-		quadspi_set_funcion_mode(QUADSPI_CCR_FMODE_IREAD);
+		uint32_t reg_val = 0; //QUADSPI_CCR;
 
-		/* 2. Step: Configure modes so that the interface knows wich part to send. */
-		quadspi_set_instruction_mode(command->instruction.mode);
-		quadspi_set_address_mode(command->address.mode);
-		quadspi_set_alternative_bytes_mode(command->alternative_bytes.mode);
-		quadspi_set_dummy_cycles(command->dummy_cycles.mode);
-
-		/* 3. Step: Load alternative bytes, dummy cycles and address, if used. */
-		if (command->alternative_bytes.mode != QUADSPI_CCR_MODE_NONE) {
-			quadspi_set_alternative_bytes_size(command->alternative_bytes.size);
-			quadspi_set_alternative_bytes(command->alternative_bytes.value);
-		}
-
-		if (command->dummy_cycles.mode != QUADSPI_CCR_MODE_NONE) {
-			quadspi_set_dummy_cycles(command->dummy_cycles.cycles);
+		if (command->instruction.mode != QUADSPI_CCR_MODE_NONE) {
+			reg_val |= (command->instruction.mode & QUADSPI_CCR_IMODE_MASK) << QUADSPI_CCR_IMODE_SHIFT;
+			reg_val |= (command->instruction.instruction & QUADSPI_CCR_INST_MASK) << QUADSPI_CCR_INST_SHIFT;
 		}
 
 		if (command->address.mode != QUADSPI_CCR_MODE_NONE) {
-			quadspi_set_address_size(command->address.size);
-			quadspi_set_address(command->address.address);
+			reg_val |= (command->address.mode & QUADSPI_CCR_ADMODE_MASK) << QUADSPI_CCR_ADMODE_SHIFT;
+			reg_val |= (command->address.size & QUADSPI_CCR_ADSIZE_MASK) << QUADSPI_CCR_ADSIZE_SHIFT;
 		}
 
-		/* 4. Step: Load instruction */
-		if (command->instruction.mode != QUADSPI_CCR_MODE_NONE) {
-			quadspi_send_instruction(command->instruction.instruction);
+		if (command->alternative_bytes.mode != QUADSPI_CCR_MODE_NONE) {
+			reg_val |= (command->alternative_bytes.mode & QUADSPI_CCR_ABMODE_MASK) << QUADSPI_CCR_ABMODE_SHIFT;
+			reg_val |= (command->alternative_bytes.size & QUADSPI_CCR_ABSIZE_MASK) << QUADSPI_CCR_ABSIZE_SHIFT;
+			quadspi_set_alternative_bytes(command->alternative_bytes.value);
+		}
+
+		if (command->dummy_cycles) {
+			reg_val |= (command->dummy_cycles & QUADSPI_CCR_DCYC_MASK) << QUADSPI_CCR_DCYC_SHIFT;
+		}
+
+		if ((buffer_size) && (command->data_mode != QUADSPI_CCR_MODE_NONE)) {
+			reg_val |= (command->data_mode & QUADSPI_CCR_DMODE_MASK) << QUADSPI_CCR_DMODE_SHIFT;
+			quadspi_set_data_length(buffer_size - 1);
+		}
+
+		reg_val |= QUADSPI_CCR_FMODE_IREAD << QUADSPI_CCR_FMODE_SHIFT;
+		
+		QUADSPI_CCR = reg_val;
+
+		if (command->address.mode != QUADSPI_CCR_MODE_NONE) {
+			QUADSPI_AR = command->address.address;
 		}
 
 		/* 5. Step: Read data */
 		if (buffer_size) {
+			//quadspi_set_data_length(buffer_size);
 			for (result = 0; result < buffer_size; result++) {
-				while (quadspi_is_busy());
-				*((uint8_t *)buffer++) = quadspi_read_byte();
+				uint32_t flags;
+				do {
+					flags = QUADSPI_SR & (QUADSPI_SR_FTF | QUADSPI_SR_TCF);
+				} while (!flags);
+				*(byte_buffer++) = *((volatile uint8_t *) data_reg);
 			}
-			result--;
 		}
 	}
-
 	return result;
 }
