@@ -35,6 +35,7 @@ TGT_CFLAGS	+= $(STANDARD_FLAGS)
 
 ARFLAGS		= rcs
 
+OBJS += exti_common_all.o
 OBJS += iwdg_common_all.o
 OBJS += i2c_common_v2.o
 OBJS += usart_common_all.o usart_common_v2.o
