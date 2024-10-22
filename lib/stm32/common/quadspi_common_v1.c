@@ -301,14 +301,14 @@ uint32_t quadspi_write(struct quadspi_command *command, const void *buffer, uint
 	uint32_t result = (uint32_t) -1;
 	volatile uint32_t *data_reg = (volatile uint32_t *)&QUADSPI_DR;
 	uint8_t *byte_buffer = (uint8_t *) buffer;
-	
+
 	/* Check parameter.
 		Do only something if:
 		* Pointer to command is not a NULL-pointer and
 		* Pointer to buffer is not NULL when buffer_size >0
 	 */
 	if ((command != NULL) && ((buffer != NULL) || (buffer_size == 0))) {
-		uint32_t ccr = 0; //QUADSPI_CCR;
+		uint32_t ccr = 0;
 		/* Step 1: Prepare QUADSPI_CCR-register */
 		if (command->instruction.mode != QUADSPI_CCR_MODE_NONE) {
 			ccr = quadspi_prepare_instruction_mode(ccr, command->instruction.mode);
@@ -321,8 +321,12 @@ uint32_t quadspi_write(struct quadspi_command *command, const void *buffer, uint
 		}
 
 		if (command->alternative_bytes.mode != QUADSPI_CCR_MODE_NONE) {
-			ccr = quadspi_prepare_alternative_bytes_mode(ccr, command->alternative_bytes.mode);
-			ccr = quadspi_prepare_alternative_bytes_size(ccr, command->alternative_bytes.size);
+			ccr = quadspi_prepare_alternative_bytes_mode(
+				ccr,
+			command->alternative_bytes.mode);
+			ccr = quadspi_prepare_alternative_bytes_size(
+				ccr,
+			command->alternative_bytes.size);
 			quadspi_set_alternative_bytes(command->alternative_bytes.value);
 		}
 
@@ -335,7 +339,7 @@ uint32_t quadspi_write(struct quadspi_command *command, const void *buffer, uint
 			quadspi_set_data_length(buffer_size - 1);
 		}
 		ccr = quadspi_prepare_funcion_mode(ccr, QUADSPI_CCR_FMODE_IREAD);
-		
+
 		/* Step 2: Write QUADSPI_CCR-register */
 		quadspi_write_ccr(ccr);
 
@@ -370,7 +374,7 @@ uint32_t quadspi_read(struct quadspi_command *command, void *buffer, uint32_t bu
 		* Pointer to buffer is not NULL when buffer_size >0
 	 */
 	if ((command != NULL) && ((buffer != NULL) || (buffer_size == 0))) {
-		uint32_t ccr = 0; //QUADSPI_CCR;
+		uint32_t ccr = 0;
 		/* Step 1: Prepare QUADSPI_CCR-register */
 		if (command->instruction.mode != QUADSPI_CCR_MODE_NONE) {
 			ccr = quadspi_prepare_instruction_mode(ccr, command->instruction.mode);
@@ -383,8 +387,12 @@ uint32_t quadspi_read(struct quadspi_command *command, void *buffer, uint32_t bu
 		}
 
 		if (command->alternative_bytes.mode != QUADSPI_CCR_MODE_NONE) {
-			ccr = quadspi_prepare_alternative_bytes_mode(ccr, command->alternative_bytes.mode);
-			ccr = quadspi_prepare_alternative_bytes_size(ccr, command->alternative_bytes.size);
+			ccr = quadspi_prepare_alternative_bytes_mode(
+				ccr,
+			command->alternative_bytes.mode);
+			ccr = quadspi_prepare_alternative_bytes_size(
+				ccr,
+			command->alternative_bytes.size);
 			quadspi_set_alternative_bytes(command->alternative_bytes.value);
 		}
 
@@ -397,7 +405,7 @@ uint32_t quadspi_read(struct quadspi_command *command, void *buffer, uint32_t bu
 			quadspi_set_data_length(buffer_size - 1);
 		}
 		ccr = quadspi_prepare_funcion_mode(ccr, QUADSPI_CCR_FMODE_IREAD);
-		
+
 		/* Step 2: Write QUADSPI_CCR-register */
 		quadspi_write_ccr(ccr);
 
@@ -408,7 +416,6 @@ uint32_t quadspi_read(struct quadspi_command *command, void *buffer, uint32_t bu
 
 		/* Step 4: Read data */
 		if (buffer_size) {
-			//quadspi_set_data_length(buffer_size);
 			for (result = 0; result < buffer_size; result++) {
 				uint32_t flags;
 				do {
