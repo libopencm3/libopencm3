@@ -131,104 +131,103 @@ void quadspi_set_data_length(uint32_t data_length)
 	QUADSPI_DLR = data_length;
 }
 
-void quadspi_set_double_datarate_mode(bool set)
+uint32_t quadspi_prepare_double_datarate_mode(uint32_t ccr, bool set)
 {
 
 	if (set == QUADSPI_CCR_DDRM_ENABLE)	{
-		QUADSPI_CCR |= QUADSPI_CCR_DDRM;
+		ccr |= QUADSPI_CCR_DDRM;
 	} else {
-		QUADSPI_CCR &= ~QUADSPI_CCR_DDRM;
+		ccr &= ~QUADSPI_CCR_DDRM;
 	}
+	return ccr;
 }
 
-void quadspi_set_ddr_hold(bool set)
+uint32_t quadspi_prepare_ddr_hold(uint32_t ccr, bool set)
 {
 	if (set == QUADSPI_CCR_DHHC_1_4_CLK) {
-		QUADSPI_CCR |= QUADSPI_CCR_DHHC;
+		ccr |= QUADSPI_CCR_DHHC;
 	} else {
-		QUADSPI_CCR &= ~QUADSPI_CCR_DHHC;
+		ccr &= ~QUADSPI_CCR_DHHC;
 	}
+	return ccr;
 }
 
-void quadspi_set_instruction_only_once_mode(bool set)
+uint32_t quadspi_prepare_instruction_only_once_mode(uint32_t ccr, bool set)
 {
 	if (set == QUADSPI_CCR_SIOO_ONCE) {
-		QUADSPI_CCR |= QUADSPI_CCR_SIOO;
+		ccr |= QUADSPI_CCR_SIOO;
 	} else {
-		QUADSPI_CCR &= ~QUADSPI_CCR_SIOO;
+		ccr &= ~QUADSPI_CCR_SIOO;
 	}
+	return ccr;
 }
 
-void quadspi_set_funcion_mode(uint32_t mode)
+uint32_t quadspi_prepare_funcion_mode(uint32_t ccr, uint32_t mode)
 {
-	uint32_t reg_val = QUADSPI_CCR;
-	reg_val &= ~(QUADSPI_CCR_FMODE_MASK << QUADSPI_CCR_FMODE_SHIFT);
-	reg_val |= (mode & QUADSPI_CCR_FMODE_MASK) << QUADSPI_CCR_FMODE_SHIFT;
-	QUADSPI_CCR = reg_val;
+	ccr &= ~(QUADSPI_CCR_FMODE_MASK << QUADSPI_CCR_FMODE_SHIFT);
+	ccr |= (mode & QUADSPI_CCR_FMODE_MASK) << QUADSPI_CCR_FMODE_SHIFT;
+	return ccr;
 }
 
-void quadspi_set_data_mode(uint32_t mode)
+uint32_t quadspi_prepare_data_mode(uint32_t ccr, uint32_t mode)
 {
-	uint32_t reg_val = QUADSPI_CCR;
-	reg_val &= ~(QUADSPI_CCR_DMODE_MASK << QUADSPI_CCR_DMODE_SHIFT);
-	reg_val |= (mode & QUADSPI_CCR_DMODE_MASK) << QUADSPI_CCR_DMODE_SHIFT;
-	QUADSPI_CCR = reg_val;
+	ccr &= ~(QUADSPI_CCR_DMODE_MASK << QUADSPI_CCR_DMODE_SHIFT);
+	ccr |= (mode & QUADSPI_CCR_DMODE_MASK) << QUADSPI_CCR_DMODE_SHIFT;
+	return ccr;
 }
 
-void quadspi_set_dummy_cycles(uint32_t cycles)
+uint32_t quadspi_prepare_dummy_cycles(uint32_t ccr, uint32_t cycles)
 {
-	uint32_t reg_val = QUADSPI_CCR;
-	reg_val &= ~(QUADSPI_CCR_DCYC_MASK << QUADSPI_CCR_DCYC_SHIFT);
-	reg_val |= (cycles & QUADSPI_CCR_DCYC_MASK) << QUADSPI_CCR_DCYC_SHIFT;
-	QUADSPI_CCR = reg_val;
+	ccr &= ~(QUADSPI_CCR_DCYC_MASK << QUADSPI_CCR_DCYC_SHIFT);
+	ccr |= (cycles & QUADSPI_CCR_DCYC_MASK) << QUADSPI_CCR_DCYC_SHIFT;
+	return ccr;
 }
 
-void quadspi_set_alternative_bytes_size(uint32_t size)
+uint32_t quadspi_prepare_alternative_bytes_size(uint32_t ccr, uint32_t size)
 {
-	uint32_t reg_val = QUADSPI_CCR;
-	reg_val &= ~(QUADSPI_CCR_ABSIZE_MASK << QUADSPI_CCR_ABSIZE_SHIFT);
-	reg_val |= (size & QUADSPI_CCR_ABSIZE_MASK) << QUADSPI_CCR_ABSIZE_SHIFT;
-	QUADSPI_CCR = reg_val;
+	ccr &= ~(QUADSPI_CCR_ABSIZE_MASK << QUADSPI_CCR_ABSIZE_SHIFT);
+	ccr |= (size & QUADSPI_CCR_ABSIZE_MASK) << QUADSPI_CCR_ABSIZE_SHIFT;
+	return ccr;
 }
 
-void quadspi_set_alternative_bytes_mode(uint32_t mode)
+uint32_t quadspi_prepare_alternative_bytes_mode(uint32_t ccr, uint32_t mode)
 {
-	uint32_t reg_val = QUADSPI_CCR;
-	reg_val &= ~(QUADSPI_CCR_ABMODE_MASK << QUADSPI_CCR_ABMODE_SHIFT);
-	reg_val |= (mode & QUADSPI_CCR_ABMODE_MASK) << QUADSPI_CCR_ABMODE_SHIFT;
-	QUADSPI_CCR = reg_val;
+	ccr &= ~(QUADSPI_CCR_ABMODE_MASK << QUADSPI_CCR_ABMODE_SHIFT);
+	ccr |= (mode & QUADSPI_CCR_ABMODE_MASK) << QUADSPI_CCR_ABMODE_SHIFT;
+	return ccr;
 }
 
-void quadspi_set_address_size(uint32_t size)
+uint32_t quadspi_prepare_address_size(uint32_t ccr, uint32_t size)
 {
-	uint32_t reg_val = QUADSPI_CCR;
-	reg_val &= ~(QUADSPI_CCR_ADSIZE_MASK << QUADSPI_CCR_ADSIZE_SHIFT);
-	reg_val |= (size & QUADSPI_CCR_ADSIZE_MASK) << QUADSPI_CCR_ADSIZE_SHIFT;
-	QUADSPI_CCR = reg_val;
+	ccr &= ~(QUADSPI_CCR_ADSIZE_MASK << QUADSPI_CCR_ADSIZE_SHIFT);
+	ccr |= (size & QUADSPI_CCR_ADSIZE_MASK) << QUADSPI_CCR_ADSIZE_SHIFT;
+	return ccr;
 }
 
-void quadspi_set_address_mode(uint32_t mode)
+uint32_t quadspi_prepare_address_mode(uint32_t ccr, uint32_t mode)
 {
-	uint32_t reg_val = QUADSPI_CCR;
-	reg_val &= ~(QUADSPI_CCR_ADMODE_MASK << QUADSPI_CCR_ADMODE_SHIFT);
-	reg_val |= (mode & QUADSPI_CCR_ADMODE_MASK) << QUADSPI_CCR_ADMODE_SHIFT;
-	QUADSPI_CCR = reg_val;
+	ccr &= ~(QUADSPI_CCR_ADMODE_MASK << QUADSPI_CCR_ADMODE_SHIFT);
+	ccr |= (mode & QUADSPI_CCR_ADMODE_MASK) << QUADSPI_CCR_ADMODE_SHIFT;
+	return ccr;
 }
 
-void quadspi_set_instruction_mode(uint32_t mode)
+uint32_t quadspi_prepare_instruction_mode(uint32_t ccr, uint32_t mode)
 {
-	uint32_t reg_val = QUADSPI_CCR;
-	reg_val &= ~(QUADSPI_CCR_IMODE_MASK << QUADSPI_CCR_IMODE_SHIFT);
-	reg_val |= (mode & QUADSPI_CCR_IMODE_MASK) << QUADSPI_CCR_IMODE_SHIFT;
-	QUADSPI_CCR = reg_val;
+	ccr &= ~(QUADSPI_CCR_IMODE_MASK << QUADSPI_CCR_IMODE_SHIFT);
+	ccr |= (mode & QUADSPI_CCR_IMODE_MASK) << QUADSPI_CCR_IMODE_SHIFT;
+	return ccr;
 }
 
-void quadspi_send_instruction(uint8_t instruction)
+uint32_t quadspi_prepare_instruction(uint32_t ccr, uint8_t instruction)
 {
-	uint32_t reg_val = QUADSPI_CCR;
-	reg_val &= ~(QUADSPI_CCR_INST_MASK << QUADSPI_CCR_INST_SHIFT);
-	reg_val |= (instruction & QUADSPI_CCR_INST_MASK) << QUADSPI_CCR_INST_SHIFT;
-	QUADSPI_CCR = reg_val;
+	ccr &= ~(QUADSPI_CCR_INST_MASK << QUADSPI_CCR_INST_SHIFT);
+	ccr |= (instruction & QUADSPI_CCR_INST_MASK) << QUADSPI_CCR_INST_SHIFT;
+	return ccr;
+}
+
+void quadspi_write_ccr(uint32_t value)
+{
+	QUADSPI_CCR = value;
 }
 
 void quadspi_set_address(uint32_t address)

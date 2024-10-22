@@ -494,9 +494,16 @@ void quadspi_set_data_length(uint32_t data_length);
 
 Set the DDR mode for the address, alternate byte and data phase.
 
+As a write to the QUADSPI_CCR-register might start a transmission, we do not directly manipulate
+the values / bits in this register. Instead, we use a variable to set all the requirements for
+this register and then write the complete register at once.
+
+@param[in] ccr Unsigned int32. Previous value of the QUADSPI_CCR-register
 @param[in] set Boolean. @ref quadspi_ccr_ddrm
+
+@return uint32_t: result of the shadowed QUADSPI_CCR-register.
 */
-void quadspi_set_double_datarate_mode(bool set);
+uint32_t quadspi_prepare_double_datarate_mode(uint32_t ccr, bool set);
 
 /**
 @brief Set the double-data-rate-hold mode
@@ -505,9 +512,16 @@ Delay the data output by 1/4 of the QUADSPI output clock cycle in DDR mode.
 
 This bit is only active in DDR mode enabled.
 
+As a write to the QUADSPI_CCR-register might start a transmission, we do not directly manipulate
+the values / bits in this register. Instead, we use a variable to set all the requirements for
+this register and then write the complete register at once.
+
+@param[in] ccr Unsigned int32. Previous value of the QUADSPI_CCR-register
 @param[in] set Boolean. @ref quadspi_ccr_dhhc
- */
-void quadspi_set_ddr_hold(bool set);
+
+@return uint32_t: result of the shadowed QUADSPI_CCR-register.
+*/
+uint32_t quadspi_prepare_ddr_hold(uint32_t ccr, bool set);
 
 /**
 @brief Set the send instruction only once mode
@@ -522,19 +536,33 @@ QUADSPI_CCR. Subsequent command sequences skip the instruction phase, until ther
 a write to QUADSPI_CCR.
 SIOO has no effect when IMODE = 00 (no instruction).
 
+As a write to the QUADSPI_CCR-register might start a transmission, we do not directly manipulate
+the values / bits in this register. Instead, we use a variable to set all the requirements for
+this register and then write the complete register at once.
+
+@param[in] ccr Unsigned int32. Previous value of the QUADSPI_CCR-register
 @param[in] set Boolean. @ref quadspi_ccr_sioo
+
+@return uint32_t: result of the shadowed QUADSPI_CCR-register.
 */
-void quadspi_set_instruction_only_once_mode(bool set);
+uint32_t quadspi_prepare_instruction_only_once_mode(uint32_t ccr, bool set);
 
 /**
 @brief Set the functional mode
 
 Defines the QUADSPI functional mode of operation.
 
+As a write to the QUADSPI_CCR-register might start a transmission, we do not directly manipulate
+the values / bits in this register. Instead, we use a variable to set all the requirements for
+this register and then write the complete register at once.
+
+@param[in] ccr Unsigned int32. Previous value of the QUADSPI_CCR-register
 @param[in] mode Unsigned int32. Set the function mode to indirect read/write, automatic polling
 or memory-mapped mode. @ref quadspi_rcc_fmode
+
+@return uint32_t: result of the shadowed QUADSPI_CCR-register.
 */
-void quadspi_set_funcion_mode(uint32_t mode);
+uint32_t quadspi_prepare_funcion_mode(uint32_t ccr, uint32_t mode);
 
 
 /**
@@ -542,10 +570,17 @@ void quadspi_set_funcion_mode(uint32_t mode);
 
 Set the QUADSPI data phase's mode of operation.
 
+As a write to the QUADSPI_CCR-register might start a transmission, we do not directly manipulate
+the values / bits in this register. Instead, we use a variable to set all the requirements for
+this register and then write the complete register at once.
+
+@param[in] ccr Unsigned int32. Previous value of the QUADSPI_CCR-register
 @param[in] mode Unsigned int32. Set the data phases's mode to No data, 1-line, 2-lines, 4-lines.
 @ref quadspi_rcc_fmode
+
+@return uint32_t: result of the shadowed QUADSPI_CCR-register.
 */
-void quadspi_set_data_mode(uint32_t mode);
+uint32_t quadspi_prepare_data_mode(uint32_t ccr, uint32_t mode);
 
 /**
 @brief Set the number of dummy cycles
@@ -553,18 +588,32 @@ void quadspi_set_data_mode(uint32_t mode);
 Defines the duration of the dummy phase. In both SDR and DDR modes, it specifies
 the number of CLK cycles (0..31).
 
+As a write to the QUADSPI_CCR-register might start a transmission, we do not directly manipulate
+the values / bits in this register. Instead, we use a variable to set all the requirements for
+this register and then write the complete register at once.
+
+@param[in] ccr Unsigned int32. Previous value of the QUADSPI_CCR-register
 @param[in] cycles Unsinged int32. Number of dummy CLK cycles (0..31).
+
+@return uint32_t: result of the shadowed QUADSPI_CCR-register.
 */
-void quadspi_set_dummy_cycles(uint32_t cycles);
+uint32_t quadspi_prepare_dummy_cycles(uint32_t ccr, uint32_t cycles);
 
 /**
 @brief Set the alternative-bytes size
 
 This defines the alternative bytes size
 
+As a write to the QUADSPI_CCR-register might start a transmission, we do not directly manipulate
+the values / bits in this register. Instead, we use a variable to set all the requirements for
+this register and then write the complete register at once.
+
+@param[in] ccr Unsigned int32. Previous value of the QUADSPI_CCR-register
 @param[in] size Unsigned int32. Number of alternative bytes to be sent. @ref quadspi_ccr_size
- */
-void quadspi_set_alternative_bytes_size(uint32_t size);
+
+@return uint32_t: result of the shadowed QUADSPI_CCR-register.
+*/
+uint32_t quadspi_prepare_alternative_bytes_size(uint32_t ccr, uint32_t size);
 
 
 /**
@@ -572,51 +621,109 @@ void quadspi_set_alternative_bytes_size(uint32_t size);
 
 This defines the alternative-bytes phase mode of operation.
 
+As a write to the QUADSPI_CCR-register might start a transmission, we do not directly manipulate
+the values / bits in this register. Instead, we use a variable to set all the requirements for
+this register and then write the complete register at once.
+
+@param[in] ccr Unsigned int32. Previous value of the QUADSPI_CCR-register
 @param[in] mode Unsigned int32. Set the alternative bytes phases mode to
 No data, 1-line, 2-lines, 4-lines.
 @ref quadspi_rcc_fmode
+
+@return uint32_t: result of the shadowed QUADSPI_CCR-register.
 */
-void quadspi_set_alternative_bytes_mode(uint32_t mode);
+uint32_t quadspi_prepare_alternative_bytes_mode(uint32_t ccr, uint32_t mode);
 
 /**
 @brief Set the address size
 
 This defines the address size
 
+As a write to the QUADSPI_CCR-register might start a transmission, we do not directly manipulate
+the values / bits in this register. Instead, we use a variable to set all the requirements for
+this register and then write the complete register at once.
+
+@param[in] ccr Unsigned int32. Previous value of the QUADSPI_CCR-register
 @param[in] size Unsigned int32. Number of address bytes to be sent. @ref quadspi_ccr_size
- */
-void quadspi_set_address_size(uint32_t size);
+
+@return uint32_t: result of the shadowed QUADSPI_CCR-register.
+*/
+uint32_t quadspi_prepare_address_size(uint32_t ccr, uint32_t size);
 
 /**
 @brief set the address mode
 
 This defines the address phase mode of operation.
 
+As a write to the QUADSPI_CCR-register might start a transmission, we do not directly manipulate
+the values / bits in this register. Instead, we use a variable to set all the requirements for
+this register and then write the complete register at once.
+
+@param[in] ccr Unsigned int32. Previous value of the QUADSPI_CCR-register
 @param[in] mode Unsigned int32. Set the address phases mode to No data, 1-line, 2-lines, 4-lines.
 @ref quadspi_rcc_fmode
+
+@return uint32_t: result of the shadowed QUADSPI_CCR-register.
 */
-void quadspi_set_address_mode(uint32_t mode);
+uint32_t quadspi_prepare_address_mode(uint32_t ccr, uint32_t mode);
 
 /**
 @brief set the instruction mode
 
 This defines the instruction phase mode of operation.
 
+As a write to the QUADSPI_CCR-register might start a transmission, we do not directly manipulate
+the values / bits in this register. Instead, we use a variable to set all the requirements for
+this register and then write the complete register at once.
+
+@param[in] ccr Unsigned int32. Previous value of the QUADSPI_CCR-register
 @param[in] mode Unsigned int32. Set the instruction phases mode to
 No data, 1-line, 2-lines, 4-lines.
 @ref quadspi_rcc_fmode
+
+@return uint32_t: result of the shadowed QUADSPI_CCR-register.
 */
-void quadspi_set_instruction_mode(uint32_t mode);
+uint32_t quadspi_prepare_instruction_mode(uint32_t ccr, uint32_t mode);
 
 /**
-@brief Send instruction
+@brief Set the instruction
 
 Instruction to be send to the external SPI device.
 
-@param[in] instruction Unsigned int8. Instruction to be send.
-*/
-void quadspi_send_instruction(uint8_t instruction);
+As a write to the QUADSPI_CCR-register might start a transmission, we do not directly manipulate
+the values / bits in this register. Instead, we use a variable to set all the requirements for
+this register and then write the complete register at once.
 
+@param[in] ccr Unsigned int32. Previous value of the QUADSPI_CCR-register
+@param[in] instruction Unsigned int8. Instruction to be send.
+
+@return uint32_t: result of the shadowed QUADSPI_CCR-register.
+*/
+uint32_t quadspi_prepare_instruction(uint32_t ccr, uint8_t instruction);
+
+/**
+@brief Write the QUADSPI_CCR-register
+
+As a write to the QUADSPI_CCR-register might start a transmission, we do not directly manipulate
+the values / bits in this register. Instead, we use the quadspi_prepare_xxx-function for setting
+the values / bits.
+
+@see uint32_t quadspi_prepare_double_datarate_mode(uint32_t ccr, bool set)
+@see quadspi_prepare_ddr_hold(uint32_t ccr, bool set)
+@see quadspi_prepare_instruction_only_once_mode(uint32_t ccr, bool set)
+@see quadspi_prepare_funcion_mode(uint32_t ccr, uint32_t mode)
+@see quadspi_prepare_data_mode(uint32_t ccr, uint32_t mode)
+@see quadspi_prepare_dummy_cycles(uint32_t ccr, uint32_t cycles)
+@see quadspi_prepare_alternative_bytes_size(uint32_t ccr, uint32_t size)
+@see quadspi_prepare_alternative_bytes_mode(uint32_t ccr, uint32_t mode)
+@see quadspi_prepare_address_size(uint32_t ccr, uint32_t size)
+@see quadspi_prepare_address_mode(uint32_t ccr, uint32_t mode)
+@see quadspi_prepare_instruction_mode(uint32_t ccr, uint32_t mode)
+@see quadspi_prepare_instruction(uint32_t ccr, uint8_t instruction)
+
+@param value Unsigned int32. Value to be set.
+*/
+void quadspi_write_ccr(uint32_t value);
 /**
 @brief Set the address to be send to the external FLASH memory
 
