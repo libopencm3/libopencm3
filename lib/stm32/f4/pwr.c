@@ -46,4 +46,18 @@ void pwr_set_vos_scale(enum pwr_vos_scale scale)
 	PWR_CR = reg32;
 }
 
+void pwr_enable_overdrive(void)
+{
+	PWR_CR |= PWR_CR_ODEN;
+	while (!(PWR_CSR & PWR_CSR_ODRDY));
+	PWR_CR |= PWR_CR_ODSWEN;
+	while (!(PWR_CSR & PWR_CSR_ODSWRDY));
+}
+
+void pwr_disable_overdrive(void)
+{
+	PWR_CR &= ~(PWR_CR_ODEN | PWR_CR_ODSWEN);
+	while (!(PWR_CSR & PWR_CSR_ODSWRDY));
+}
+
 /**@}*/

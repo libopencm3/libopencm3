@@ -45,6 +45,23 @@ LGPL License Terms @ref lgpl_license
 
 /* --- PWR_CR values ------------------------------------------------------- */
 
+/** UDEN[19:18]: Under-drive enable in stop mode */
+#define PWR_CR_UDEN_LSB			18
+/** @defgroup pwr_uden Under-drive enable in stop mode
+@ingroup STM32F_pwr_defines
+
+@{*/
+#define PWR_CR_UDEN_DISABLED		(0x0 << PWR_CR1_UDEN_LSB)
+#define PWR_CR_UDEN_ENABLED		(0x3 << PWR_CR1_UDEN_LSB)
+/**@}*/
+#define PWR_CR_UDEN_MASK		(0x3 << PWR_CR1_UDEN_LSB)
+
+/** ODSWEN: Over-drive switching enabled */
+#define PWR_CR_ODSWEN			(1 << 17)
+
+/** ODEN: Over-drive enable */
+#define PWR_CR_ODEN			(1 << 16)
+
 /** VOS: Regulator voltage scaling output selection */
 #define PWR_CR_VOS_SHIFT			14
 #define PWR_CR_VOS_MASK			0x3
@@ -64,6 +81,12 @@ LGPL License Terms @ref lgpl_license
 #define PWR_CR_FPDS			(1 << 9)
 
 /* --- PWR_CSR values ------------------------------------------------------ */
+
+/** ODSWRDY: Over-drive mode switching ready */
+#define PWR_CSR_ODSWRDY			(1 << 17)
+
+/** ODRDY: Over-drive mode ready */
+#define PWR_CSR_ODRDY			(1 << 16)
 
 /** VOSRDY: Regulator voltage scaling output selection ready bit */
 #define PWR_CSR_VOSRDY			(1 << 14)
@@ -85,6 +108,8 @@ enum pwr_vos_scale {
 BEGIN_DECLS
 
 void pwr_set_vos_scale(enum pwr_vos_scale scale);
+void pwr_enable_overdrive(void);
+void pwr_disable_overdrive(void);
 
 END_DECLS
 
