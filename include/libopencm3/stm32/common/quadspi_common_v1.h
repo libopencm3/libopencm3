@@ -11,111 +11,111 @@
  * @{
  */
 /** QUADSPI Control register */
-#define QUADSPI_CR      MMIO32(QUADSPI_BASE + 0x0U)
+#define QUADSPI_CR MMIO32(QUADSPI_BASE + 0x0U)
 
 /** QUADSPI Device Configuration */
-#define QUADSPI_DCR     MMIO32(QUADSPI_BASE + 0x4U)
+#define QUADSPI_DCR MMIO32(QUADSPI_BASE + 0x4U)
 
 /** QUADSPI Status Register */
-#define QUADSPI_SR      MMIO32(QUADSPI_BASE + 0x8U)
+#define QUADSPI_SR MMIO32(QUADSPI_BASE + 0x8U)
 
 /** QUADSPI Flag Clear Register */
-#define QUADSPI_FCR     MMIO32(QUADSPI_BASE + 0xCU)
+#define QUADSPI_FCR MMIO32(QUADSPI_BASE + 0xCU)
 
 /** QUADSPI Data Length Register */
-#define QUADSPI_DLR     MMIO32(QUADSPI_BASE + 0x10U)
+#define QUADSPI_DLR MMIO32(QUADSPI_BASE + 0x10U)
 
 /** QUADSPI Communication Configuration Register */
-#define QUADSPI_CCR     MMIO32(QUADSPI_BASE + 0x14U)
+#define QUADSPI_CCR MMIO32(QUADSPI_BASE + 0x14U)
 
 /** QUADSPI address register */
-#define QUADSPI_AR      MMIO32(QUADSPI_BASE + 0x18U)
+#define QUADSPI_AR MMIO32(QUADSPI_BASE + 0x18U)
 
 /** QUADSPI alternate bytes register */
-#define QUADSPI_ABR     MMIO32(QUADSPI_BASE + 0x1CU)
+#define QUADSPI_ABR MMIO32(QUADSPI_BASE + 0x1CU)
 
 /** QUADSPI data register */
-#define QUADSPI_DR      MMIO32(QUADSPI_BASE + 0x20U)
+#define QUADSPI_DR MMIO32(QUADSPI_BASE + 0x20U)
 /** BYTE addressable version for fetching bytes from the interface */
-#define QUADSPI_BYTE_DR     MMIO8(QUADSPI_BASE + 0x20U)
+#define QUADSPI_BYTE_DR MMIO8(QUADSPI_BASE + 0x20U)
 
 /** QUADSPI polling status */
-#define QUADSPI_PSMKR     MMIO32(QUADSPI_BASE + 0x24U)
+#define QUADSPI_PSMKR MMIO32(QUADSPI_BASE + 0x24U)
 
 /** QUADSPI polling status match */
-#define QUADSPI_PSMAR     MMIO32(QUADSPI_BASE + 0x28U)
+#define QUADSPI_PSMAR MMIO32(QUADSPI_BASE + 0x28U)
 
 /** QUADSPI polling interval register */
-#define QUADSPI_PIR     MMIO32(QUADSPI_BASE + 0x2CU)
+#define QUADSPI_PIR MMIO32(QUADSPI_BASE + 0x2CU)
 
 /** QUADSPI low power timeout */
-#define QUADSPI_LPTR      MMIO32(QUADSPI_BASE + 0x30U)
+#define QUADSPI_LPTR MMIO32(QUADSPI_BASE + 0x30U)
 /**@}*/
 
-#define QUADSPI_CR_PRESCALE_MASK  0xff
+#define QUADSPI_CR_PRESCALE_MASK 0xff
 #define QUADSPI_CR_PRESCALE_SHIFT 24
-#define QUADSPI_CR_PMM      (1 << 23)
-#define QUADSPI_CR_APMS     (1 << 22)
+#define QUADSPI_CR_PMM (1 << 23)
+#define QUADSPI_CR_APMS (1 << 22)
 /* bit 21 is reserved */
 
 /**
 @defgroup quadspi_irq_enable QUADSPI_CR interrupt enable values
 @{*/
 /* TOIE:*/ /** Timeout interrupt enable */
-#define QUADSPI_CR_TOIE     (1 << 20)
+#define QUADSPI_CR_TOIE (1 << 20)
 /* SMIE:*/ /** Status match interrupt enable */
-#define QUADSPI_CR_SMIE     (1 << 19)
+#define QUADSPI_CR_SMIE (1 << 19)
 /* FTIE:*/ /** FIFO threshold interrupt enable */
-#define QUADSPI_CR_FTIE     (1 << 18)
+#define QUADSPI_CR_FTIE (1 << 18)
 /* TCIE:*/ /** Transfer complete interrupt enable */
-#define QUADSPI_CR_TCIE     (1 << 17)
+#define QUADSPI_CR_TCIE (1 << 17)
 /* TEIE*/ /** Transfer error interrupt enable */
-#define QUADSPI_CR_TEIE     (1 << 16)
+#define QUADSPI_CR_TEIE (1 << 16)
 /**@}*/
 
 /* bits 15:13 reserved */
-#define QUADSPI_CR_FTHRES_MASK    0x1f
-#define QUADSPI_CR_FTHRES_SHIFT   8
-#define QUADSPI_CR_FSEL     (1 << 7)
-#define QUADSPI_CR_DFM      (1 << 6)
-#define QUADPSI_CR_DFM_FSEL_MASK  0x3
+#define QUADSPI_CR_FTHRES_MASK 0x1f
+#define QUADSPI_CR_FTHRES_SHIFT 8
+#define QUADSPI_CR_FSEL (1 << 7)
+#define QUADSPI_CR_DFM (1 << 6)
+#define QUADPSI_CR_DFM_FSEL_MASK 0x3
 #define QUADSPI_CR_DFM_FSEL_SHIFT 6
 /* bit 5 reserved */
-#define QUADSPI_CR_SSHIFT   (1 << 4)
-#define QUADSPI_CR_TCEN     (1 << 3)
+#define QUADSPI_CR_SSHIFT (1 << 4)
+#define QUADSPI_CR_TCEN (1 << 3)
 /* bit 2 reserved on h7, DMAEN on f4 */
-#define QUADSPI_CR_ABORT    (1 << 1)
-#define QUADSPI_CR_EN     (1 << 0)
+#define QUADSPI_CR_ABORT (1 << 1)
+#define QUADSPI_CR_EN (1 << 0)
 
 /* bits 31:21 reserved */
-#define QUADSPI_DCR_FSIZE_MASK    0x1f
-#define QUADSPI_DCR_FSIZE_SHIFT   16
+#define QUADSPI_DCR_FSIZE_MASK 0x1f
+#define QUADSPI_DCR_FSIZE_SHIFT 16
 /* bits 15:11 reserved */
-#define QUADSPI_DCR_CSHT_MASK   0x7
-#define QUADSPI_DCR_CSHT_SHIFT    8
+#define QUADSPI_DCR_CSHT_MASK 0x7
+#define QUADSPI_DCR_CSHT_SHIFT 8
 /* bits 7:1 reserved */
-#define QUADSPI_DCR_CKMODE    (1 << 0)
+#define QUADSPI_DCR_CKMODE (1 << 0)
 
 /* bits 31:14 reserved */
-#define QUADSPI_SR_FLEVEL_MASK    0x3f
-#define QUADSPI_SR_FLEVEL_SHIFT   8
+#define QUADSPI_SR_FLEVEL_MASK 0x3f
+#define QUADSPI_SR_FLEVEL_SHIFT 8
 
 /* bits 7:6 reserved */
 /**
 @defgroup quadspi_sr_values QUADSPI status register values
 @{*/
 /* BUSY:*/ /** Busy flag*/
-#define QUADSPI_SR_BUSY     (1 << 5)
+#define QUADSPI_SR_BUSY (1 << 5)
 /* TOF:*/ /** Timeout flag*/
-#define QUADSPI_SR_TOF      (1 << 4)
+#define QUADSPI_SR_TOF (1 << 4)
 /* SMF:*/ /** Status match flag */
-#define QUADSPI_SR_SMF      (1 << 3)
+#define QUADSPI_SR_SMF (1 << 3)
 /* FTF:*/ /** FIFO threshold flag */
-#define QUADSPI_SR_FTF      (1 << 2)
+#define QUADSPI_SR_FTF (1 << 2)
 /* TCF:*/ /** Transfer complete flag */
-#define QUADSPI_SR_TCF      (1 << 1)
+#define QUADSPI_SR_TCF (1 << 1)
 /* TEF:*/ /** Transfer error flag */
-#define QUADSPI_SR_TEF      (1 << 0)
+#define QUADSPI_SR_TEF (1 << 0)
 /**@}*/
 
 /**
@@ -123,57 +123,57 @@
 @{*/
 /* bits 31:5 reserved */
 /* CTOF:*/ /** Clear timeout flag */
-#define QUADSPI_FCR_CTOF    (1 << 4)
+#define QUADSPI_FCR_CTOF (1 << 4)
 /* CSMF:*/ /** Clear status match flag */
-#define QUADSPI_FCR_CSMF    (1 << 3)
+#define QUADSPI_FCR_CSMF (1 << 3)
 /* bit 2 reserved */
 /* CTCF:*/ /** Clear transfer complete flag */
-#define QUADSPI_FCR_CTCF    (1 << 1)
+#define QUADSPI_FCR_CTCF (1 << 1)
 /* CTEF:*/ /** Clear transfer error flag */
-#define QUADSPI_FCR_CTEF    (1 << 0)
+#define QUADSPI_FCR_CTEF (1 << 0)
 /**@}*/
-#define QUADSPI_CCR_DDRM    (1 << 31)
-#define QUADSPI_CCR_DHHC    (1 << 30)
+#define QUADSPI_CCR_DDRM (1 << 31)
+#define QUADSPI_CCR_DHHC (1 << 30)
 /* bit 29 reserved on F4, FRCM on H7 */
-#define QUADSPI_CCR_SIOO    (1 << 28)
-#define QUADSPI_CCR_FMODE_MASK    0x3
-#define QUADSPI_CCR_FMODE_SHIFT   26
-#define QUADSPI_CCR_DMODE_MASK    0x3
-#define QUADSPI_CCR_DMODE_SHIFT   24
+#define QUADSPI_CCR_SIOO (1 << 28)
+#define QUADSPI_CCR_FMODE_MASK 0x3
+#define QUADSPI_CCR_FMODE_SHIFT 26
+#define QUADSPI_CCR_DMODE_MASK 0x3
+#define QUADSPI_CCR_DMODE_SHIFT 24
 /* bit 23 reserved */
-#define QUADSPI_CCR_DCYC_MASK   0x1f
-#define QUADSPI_CCR_DCYC_SHIFT    18
+#define QUADSPI_CCR_DCYC_MASK 0x1f
+#define QUADSPI_CCR_DCYC_SHIFT 18
 
-#define QUADSPI_CCR_ABSIZE_MASK   0x3
-#define QUADSPI_CCR_ABSIZE_SHIFT  16
+#define QUADSPI_CCR_ABSIZE_MASK 0x3
+#define QUADSPI_CCR_ABSIZE_SHIFT 16
 
-#define QUADSPI_CCR_ABMODE_MASK   0x3
-#define QUADSPI_CCR_ABMODE_SHIFT  14
+#define QUADSPI_CCR_ABMODE_MASK 0x3
+#define QUADSPI_CCR_ABMODE_SHIFT 14
 
-#define QUADSPI_CCR_ADSIZE_MASK   0x3
-#define QUADSPI_CCR_ADSIZE_SHIFT  12
+#define QUADSPI_CCR_ADSIZE_MASK 0x3
+#define QUADSPI_CCR_ADSIZE_SHIFT 12
 
-#define QUADSPI_CCR_ADMODE_MASK   0x3
-#define QUADSPI_CCR_ADMODE_SHIFT  10
+#define QUADSPI_CCR_ADMODE_MASK 0x3
+#define QUADSPI_CCR_ADMODE_SHIFT 10
 
-#define QUADSPI_CCR_IMODE_MASK    0x3
-#define QUADSPI_CCR_IMODE_SHIFT   8
+#define QUADSPI_CCR_IMODE_MASK 0x3
+#define QUADSPI_CCR_IMODE_SHIFT 8
 
-#define QUADSPI_CCR_INST_MASK   0xff
-#define QUADSPI_CCR_INST_SHIFT    0
+#define QUADSPI_CCR_INST_MASK 0xff
+#define QUADSPI_CCR_INST_SHIFT 0
 
 /* MODE values */
 /**
 @defgroup quadspi_ccr_mode QUADSPI_CCR_MODE values
 @{*/
 /** No data */
-#define QUADSPI_CCR_MODE_NONE   0
+#define QUADSPI_CCR_MODE_NONE 0
 /** Use one line for communication */
-#define QUADSPI_CCR_MODE_1LINE    1
+#define QUADSPI_CCR_MODE_1LINE 1
 /** Use two lines for communication */
-#define QUADSPI_CCR_MODE_2LINE    2
+#define QUADSPI_CCR_MODE_2LINE 2
 /** Use four lines for communication */
-#define QUADSPI_CCR_MODE_4LINE    3
+#define QUADSPI_CCR_MODE_4LINE 3
 /**@}*/
 
 /* SIZE values */
@@ -181,13 +181,13 @@
 @defgroup quadspi_ccr_size QUADSPI_CCR_SIZE values
 @{*/
 /** Size is 8Bit (1 Byte) */
-#define QUADSPI_CCR_SIZE_8BIT   0
+#define QUADSPI_CCR_SIZE_8BIT 0
 /** Size is 16Bit (2 Byte) */
-#define QUADSPI_CCR_SIZE_16BIT  1
+#define QUADSPI_CCR_SIZE_16BIT 1
 /** Size is 24Bit (3 Byte) */
-#define QUADSPI_CCR_SIZE_24BIT  2
+#define QUADSPI_CCR_SIZE_24BIT 2
 /** Size is 32Bit (4 Byte) */
-#define QUADSPI_CCR_SIZE_32BIT  3
+#define QUADSPI_CCR_SIZE_32BIT 3
 /**@}*/
 
 /* FMODE values */
@@ -195,58 +195,58 @@
 @defgroup quadspi_ccr_fmode QUADSPI_CCR_FMODE values
 @{*/
 /** Indirection write mode */
-#define QUADSPI_CCR_FMODE_IWRITE  0
+#define QUADSPI_CCR_FMODE_IWRITE 0
 /** Indirection read mode */
-#define QUADSPI_CCR_FMODE_IREAD   1
+#define QUADSPI_CCR_FMODE_IREAD 1
 /** Automatic polling mode */
-#define QUADSPI_CCR_FMODE_APOLL   2
+#define QUADSPI_CCR_FMODE_APOLL 2
 /** Memory-mapped mode */
-#define QUADSPI_CCR_FMODE_MEMMAP  3
+#define QUADSPI_CCR_FMODE_MEMMAP 3
 /**@}*/
 
 /**
 @defgroup quadspi_cr_fsel_dfm QUADSPI flash selection
 @{*/
 /** Use FLASH 1 */
-#define QUADSPI_FLASH_SEL_1       0
+#define QUADSPI_FLASH_SEL_1 0
 /** Use FLASH 2 */
-#define QUADSPI_FLASH_SEL_2       2
+#define QUADSPI_FLASH_SEL_2 2
 /** Use Dual-flash mode */
-#define QUADSPI_FLASH_SEL_DUAL    1
+#define QUADSPI_FLASH_SEL_DUAL 1
 /**@}*/
 
 /**
 @defgroup quadspi_ckmode QUADSPI_DCR_CKMODE values
 @{*/
-#define QUADSPI_DCR_CKMOD_MODE0    0
-#define QUADSPI_DCR_CKMOD_MODE3    QUADSPI_DCR_CKMODE
+#define QUADSPI_DCR_CKMOD_MODE0 0
+#define QUADSPI_DCR_CKMOD_MODE3 QUADSPI_DCR_CKMODE
 /**@}*/
 
 /**
 @defgroup quadspi_ccr_ddrm QUADSPI_CCR_DDRM values
 @{*/
 /** Disable the double-data-rate mode */
-#define QUADSPI_CCR_DDRM_DISABLE    0
+#define QUADSPI_CCR_DDRM_DISABLE 0
 /** Enable the double-data-rate mode */
-#define QUADSPI_CCR_DDRM_ENABLE     1
+#define QUADSPI_CCR_DDRM_ENABLE 1
 /**@}*/
 
 /**
 @defgroup quadspi_ccr_dhhc QUADSPI_CCR_DHHC values
 @{*/
 /** Delay the data output using analog delay */
-#define QUADSPI_CCR_DHHC_ANALOG     0
+#define QUADSPI_CCR_DHHC_ANALOG 0
 /** Delay the data output by 1/4 of a QUADSPI output clock cycle */
-#define QUADSPI_CCR_DHHC_1_4_CLK    1
+#define QUADSPI_CCR_DHHC_1_4_CLK 1
 /**@}*/
 
 /**
 @defgroup quadspi_ccr_sioo QUADSPI_CCR_SIOO values
 @{*/
 /** Send instruction on every transaction */
-#define QUADSPI_CCR_SIOO_EVERY      0
+#define QUADSPI_CCR_SIOO_EVERY 0
 /** Send instruction only for the first command */
-#define QUADSPI_CCR_SIOO_ONCE       1
+#define QUADSPI_CCR_SIOO_ONCE 1
 /**@}*/
 /**@}*/
 
@@ -257,7 +257,8 @@
 /**
 @brief QuadSPI instruction data type.
 @{*/
-struct quadspi_instruction {
+struct quadspi_instruction
+{
     /** Operation mode @see quadspi_ccr_mode */
     uint32_t mode;
     /** QuadSPI instruction to be send. */
@@ -270,7 +271,8 @@ struct quadspi_instruction {
 An address can be optional or one to four bytes long.
 The address is send after the instruction
 @{*/
-struct quadspi_address {
+struct quadspi_address
+{
     /** Operation mode @see quadspi_ccr_mode */
     uint32_t mode;
     /** Number of address bytes @see quadspi_ccr_size */
@@ -286,7 +288,8 @@ struct quadspi_address {
 The alternate bytes can be optional or one to four bytes long.
 The alternate bytes are send after the address bytes
 */
-struct quadspi_alternative_bytes {
+struct quadspi_alternative_bytes
+{
     /** Operation mode @see quadspi_ccr_mode */
     uint32_t mode;
     /** Number of alternate bytes @see quadspi_ccr_size */
@@ -305,7 +308,8 @@ A command consists of
 - dummy clocks The dummy clocks can be 0..31 clocks long and are optional.
 - data A command does not necessarily have to send / receive data.
 */
-struct quadspi_command {
+struct quadspi_command
+{
     /** The configuration and instruction to be send. */
     struct quadspi_instruction instruction;
     /** The configuration and address to be send. */
@@ -448,7 +452,6 @@ of both FLASH memories together.
  */
 void quadspi_set_flash_size(uint32_t flash_size);
 
-
 /**
 @brief Read status flag.
 
@@ -474,7 +477,6 @@ uint8_t quadspi_get_fifo_level(void);
 @param[in] flag Unsigned int32. Flag to be cleared. @ref qspi_fcr_values
 */
 void quadspi_clear_flag(uint32_t flag);
-
 
 /**
 @brief Set the number of bytes to be transfered.
@@ -564,7 +566,6 @@ or memory-mapped mode. @ref quadspi_rcc_fmode
 */
 uint32_t quadspi_prepare_funcion_mode(uint32_t ccr, uint32_t mode);
 
-
 /**
 @brief Set the data phase's mode
 
@@ -614,7 +615,6 @@ this register and then write the complete register at once.
 @return uint32_t: result of the shadowed QUADSPI_CCR-register.
 */
 uint32_t quadspi_prepare_alternative_bytes_size(uint32_t ccr, uint32_t size);
-
 
 /**
 @brief set the alternative-bytes mode
@@ -781,7 +781,6 @@ uint16_t quadspi_read_halfword(void);
 uint32_t quadspi_read_word(void);
 /**@}*/
 
-
 /**
 @defgroup quadspi_highlevel_functions QuadSPI high level functions.
 @brief High-level functions for QuadSPI
@@ -805,9 +804,10 @@ uint32_t quadspi_set_bus_frequency(uint32_t ahb_frequency, uint32_t bus_frequenc
 @param[in] command struct quadspi_command*. Pointer to the command struct.
 @param[in] buffer void*. Pointer to buffer to be send.
 @param[in] buffer_size Unsigned int32. Size of buffer / Number of bytes to send.
+@param[in] retries Unsigned int32: Number of retries until the send buffer is ready.
 @return uint32_t: -1: No datat could be send. !=-1: Number of bytes sent.
 */
-uint32_t quadspi_write(struct quadspi_command *command, const void *buffer, uint32_t buffer_size);
+uint32_t quadspi_write(struct quadspi_command *command, const void *buffer, uint32_t buffer_size, uint32_t retries);
 
 /**
 @brief Read data from the QuadSPI interface
@@ -815,9 +815,10 @@ uint32_t quadspi_write(struct quadspi_command *command, const void *buffer, uint
 @param[in] command struct quadspi_command*. Pointer to the command struct.
 @param[out] buffer void*. Pointer to buffer store data.
 @param[in] buffer_size Unsigned int32. Size of buffer / Number of bytes to read.
+@param[in] retries Unsigned int32: Number of retries until the read buffer is ready.
 @return uint32_t: -1: No datat could be read. !=-1: Number of bytes read.
 */
-uint32_t quadspi_read(struct quadspi_command *command, void *buffer, uint32_t buffer_size);
+uint32_t quadspi_read(struct quadspi_command *command, void *buffer, uint32_t buffer_size, uint32_t retries);
 
 /**@}*/
 END_DECLS
