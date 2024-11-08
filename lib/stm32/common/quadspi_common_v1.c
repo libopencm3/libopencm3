@@ -357,7 +357,7 @@ uint32_t quadspi_write(struct quadspi_command *command, const void *buffer, uint
 			ccr = quadspi_prepare_data_mode(ccr, command->data_mode);
 			quadspi_set_data_length(buffer_size - 1);
 		}
-		ccr = quadspi_prepare_funcion_mode(ccr, QUADSPI_CCR_FMODE_IREAD);
+		ccr = quadspi_prepare_funcion_mode(ccr, QUADSPI_CCR_FMODE_IWRITE);
 
 		/* Step 2: Write QUADSPI_CCR-register */
 		quadspi_write_ccr(ccr);
