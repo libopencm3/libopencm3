@@ -26,8 +26,6 @@
 #       include <libopencm3/stm32/f1/rtc.h>
 #elif defined(STM32F2)
 #       include <libopencm3/stm32/f2/rtc.h>
-#elif defined(STM32F3)
-#       include <libopencm3/stm32/f3/rtc.h>
 #elif defined(STM32F4)
 #       include <libopencm3/stm32/f4/rtc.h>
 #elif defined(STM32L0)
@@ -36,6 +34,10 @@
 #       include <libopencm3/stm32/l1/rtc.h>
 #elif defined(STM32L4)
 #       include <libopencm3/stm32/l4/rtc.h>
+#elif defined(STM32L5)
+#		include <libopencm3/stm32/l5/rtc.h>
+#elif defined(STM32L5_SECURE)
+#		include <libopencm3/stm32/l5_secure/rtc.h>
 #else
 #       error "stm32 family not defined."
 #endif
