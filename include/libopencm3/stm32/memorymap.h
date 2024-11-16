@@ -48,6 +48,8 @@
 #	include <libopencm3/at32/f40x/memorymap.h>
 #elif defined(AT32F42X)
 #	include <libopencm3/at32/f42x/memorymap.h>
+#elif defined(AT32F43X)
+#	include <libopencm3/at32/f43x/memorymap.h>
 #elif defined(GD32F1X0)
 #       include <libopencm3/gd32/f1x0/memorymap.h>
 #else
