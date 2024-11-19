@@ -144,7 +144,7 @@ const struct rcc_clock_scale rcc_hsi_configs[RCC_CLOCK_HSI_END] = {
 void rcc_set_pll_input_range(uint32_t range)
 {
 	RCC_PLLCFGR = (RCC_PLLCFGR & ~(RCC_PLLCFGR_PLLEN |
-				       RCC_PLLCFGR_RANGE_MASK)) |
+				       RCC_PLLCFGR_RANGE)) |
 		(range << RCC_PLLCFGR_RANGE_SHIFT);
 }
 
@@ -176,9 +176,9 @@ void rcc_set_pll_int(uint32_t range, uint32_t mul)
 void rcc_set_pll_fraq(uint32_t pllm, uint32_t plln, uint32_t pllp)
 {
 	pllp = 0x7 & (31 - __builtin_clz(pllp));
-	RCC_PLLCFGR = (RCC_PLLCFGR & ~(RCC_PLLCFGR_PLLM_MASK |
-				       RCC_PLLCFGR_PLLN_MASK |
-				       RCC_PLLCFGR_PLLP_MASK)) |
+	RCC_PLLCFGR = (RCC_PLLCFGR & ~(RCC_PLLCFGR_PLLM |
+				       RCC_PLLCFGR_PLLN |
+				       RCC_PLLCFGR_PLLP)) |
 		RCC_PLLCFGR_PLLEN |
                 (pllm << RCC_PLLCFGR_PLLM_SHIFT) |
                 (plln << RCC_PLLCFGR_PLLN_SHIFT) |
