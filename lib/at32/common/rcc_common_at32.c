@@ -584,11 +584,11 @@ uint32_t rcc_get_timer_clk_freq(uint32_t timer)
 {
 	/* Handle APB1 timer clocks. */
 	if (timer >= TIM2_BASE && timer <= TIM14_BASE) {
-		uint8_t ppre1 = (RCC_CFGR >> RCC_CFGR_PPRE1_SHIFT) & RCC_CFGR_PPRE1_MASK;
+		uint8_t ppre1 = (RCC_CFGR & RCC_CFGR_PPRE1) >> RCC_CFGR_PPRE1_SHIFT;
 		return (ppre1 == RCC_CFGR_PPRE_NODIV) ? rcc_apb1_frequency
 			: 2 * rcc_apb1_frequency;
 	} else {
-		uint8_t ppre2 = (RCC_CFGR >> RCC_CFGR_PPRE2_SHIFT) & RCC_CFGR_PPRE2_MASK;
+		uint8_t ppre2 = (RCC_CFGR & RCC_CFGR_PPRE2) >> RCC_CFGR_PPRE2_SHIFT;
 		return (ppre2 == RCC_CFGR_PPRE_NODIV) ? rcc_apb2_frequency
 			: 2 * rcc_apb2_frequency;
 	}
