@@ -297,7 +297,7 @@ void rcc_set_sysclk_source(uint32_t clk)
 void rcc_set_pll_source(uint32_t pllsrc)
 {
 	RCC_CFGR = (RCC_CFGR & ~RCC_CFGR_PLLSRC) |
-		(pllsrc << 16);
+		(pllsrc ? RCC_CFGR_PLLSRC : 0);
 }
 
 /*---------------------------------------------------------------------------*/
