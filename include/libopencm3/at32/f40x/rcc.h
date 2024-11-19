@@ -244,10 +244,6 @@
 #define RCC_CFGR_ADCPRE_DIV16			0x7
 /**@}*/
 
-#define RCC_CFGR_PPRE2_SHIFT			11
-#define RCC_CFGR_PPRE2_MASK			0x7
-#define RCC_CFGR_PPRE1_SHIFT			8
-#define RCC_CFGR_PPRE1_MASK			0x7
 /** @defgroup rcc_cfgr_apbxpre RCC_CFGR APBx prescale factors
  * These can be used for both APB1 and APB2 prescaling
  * @{
