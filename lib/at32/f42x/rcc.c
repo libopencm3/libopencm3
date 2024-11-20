@@ -176,9 +176,9 @@ void rcc_set_pll_int(uint32_t range, uint32_t mul)
 void rcc_set_pll_fraq(uint32_t pllm, uint32_t plln, uint32_t pllp)
 {
 	pllp = 0x7 & (31 - __builtin_clz(pllp));
-	RCC_PLLCFGR = (RCC_CFGR & ~(RCC_PLLCFGR_PLLM_MASK |
-				    RCC_PLLCFGR_PLLN_MASK |
-				    RCC_PLLCFGR_PLLP_MASK)) |
+	RCC_PLLCFGR = (RCC_PLLCFGR & ~(RCC_PLLCFGR_PLLM_MASK |
+				       RCC_PLLCFGR_PLLN_MASK |
+				       RCC_PLLCFGR_PLLP_MASK)) |
 		RCC_PLLCFGR_PLLEN |
                 (pllm << RCC_PLLCFGR_PLLM_SHIFT) |
                 (plln << RCC_PLLCFGR_PLLN_SHIFT) |
