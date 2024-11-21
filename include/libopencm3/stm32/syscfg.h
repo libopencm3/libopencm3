@@ -44,6 +44,8 @@
 #       include <libopencm3/stm32/h7/syscfg.h>
 #elif defined(AT32F42X)
 #       include <libopencm3/at32/f42x/syscfg.h>
+#elif defined(AT32F43X)
+#       include <libopencm3/at32/f43x/syscfg.h>
 #else
 #       error "stm32 family not defined."
 #endif
