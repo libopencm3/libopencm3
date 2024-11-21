@@ -176,6 +176,9 @@ void sys_tick_handler(void);
 void mem_manage_handler(void);
 void bus_fault_handler(void);
 void usage_fault_handler(void);
+#ifdef STM32L5
+void secure_fault_handler(void);
+#endif
 void debug_monitor_handler(void);
 #endif
 
