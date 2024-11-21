@@ -1,3 +1,8 @@
+/**
+ * @addtogroup gpio_defines
+ * @{
+ */
+
 /*
  * This file is part of the libopencm3 project.
  *
@@ -22,7 +27,9 @@
 The order of header inclusion is important. gpio.h includes the device
 specific memorymap.h header before including this header file.*/
 
+/** @cond */
 #if defined(LIBOPENCM3_GPIO_H)
+/** @endcond */
 
 #ifndef LIBOPENCM3_GPIO_COMMON_3A3U3X_H
 #define LIBOPENCM3_GPIO_COMMON_3A3U3X_H
@@ -30,7 +37,8 @@ specific memorymap.h header before including this header file.*/
 #include <libopencm3/sam/common/gpio_common_all.h>
 
 
-/* flags may be or'd together, but only contain one of
+/**
+ * flags may be or'd together, but only contain one of
  * GPOUTPUT, PERIPHA and PERIPHB */
 enum gpio_flags {
 	GPIO_FLAG_GPINPUT = 0,
@@ -47,6 +55,10 @@ void gpio_init(uint32_t gpioport, uint32_t pins, enum gpio_flags flags);
 
 #endif
 
+/** @cond */
 #else
 #warning "gpio_common_3a3u3x.h should not be included explicitly, only via gpio.h"
 #endif
+/** @endcond */
+
+/** @} */
