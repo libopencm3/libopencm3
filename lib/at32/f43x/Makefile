@@ -32,7 +32,10 @@ TGT_CFLAGS      += $(DEBUG_FLAGS)
 TGT_CFLAGS	+= $(STANDARD_FLAGS)
 ARFLAGS		= rcs
 
+OBJS		+= gpio_common_all.o gpio_common_f0234.o gpio_common_at32.o
 OBJS		+= rcc.o rcc_common_at32.o rcc_common_all.o
+
+gpio_common_f0234.o:	TGT_CFLAGS	+= -DGPIO_SET_OUTPUT_OPTIONS
 
 vpath %.c	../../stm32/common:../../stm32
 VPATH 		+= ../common:../../usb:../../cm3:../../ethernet
