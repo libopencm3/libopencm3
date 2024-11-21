@@ -94,6 +94,7 @@ int spi_init_master(uint32_t spi, uint32_t br, uint32_t cpol, uint32_t cpha,
 	return 0; /* TODO */
 }
 
+/*---------------------------------------------------------------------------*/
 void spi_send8(uint32_t spi, uint8_t data)
 {
 	/* Wait for transfer finished. */
@@ -102,6 +103,7 @@ void spi_send8(uint32_t spi, uint8_t data)
 	SPI_DR8(spi) = data;
 }
 
+/*---------------------------------------------------------------------------*/
 uint8_t spi_read8(uint32_t spi)
 {
 	/* Wait for transfer finished. */
