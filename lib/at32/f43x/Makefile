@@ -32,6 +32,7 @@ TGT_CFLAGS      += $(DEBUG_FLAGS)
 TGT_CFLAGS	+= $(STANDARD_FLAGS)
 ARFLAGS		= rcs
 
+OBJS		+= dma.o dma_common_l1f013.o
 OBJS		+= gpio_common_all.o gpio_common_f0234.o gpio_common_at32.o
 OBJS		+= rcc.o rcc_common_at32.o rcc_common_all.o
 
