@@ -32,14 +32,25 @@ TGT_CFLAGS      += $(DEBUG_FLAGS)
 TGT_CFLAGS	+= $(STANDARD_FLAGS)
 ARFLAGS		= rcs
 
+OBJS		+= adc_common_v1.o adc_common_v1_multi.o adc_common_f47.o
+OBJS		+= crs.o
+OBJS		+= desig_common_all.o desig_common_v1.o
 OBJS		+= dma.o dma_common_l1f013.o
 OBJS		+= dmamux.o
+OBJS		+= exti_common_all.o
 OBJS		+= gpio_common_all.o gpio_common_f0234.o gpio_common_at32.o
+OBJS		+= i2c_common_v2.o
+OBJS		+= iwdg_common_all.o
+OBJS		+= pwr_common_v1.o
 OBJS		+= rcc.o rcc_common_at32.o rcc_common_all.o
+OBJS		+= rtc_common_l1f024.o rtc.o
+OBJS		+= spi_common_all.o spi_common_v1.o spi_common_v1_frf.o
+OBJS		+= timer_common_at32.o timer_common_all.o
+OBJS		+= usart_common_all.o usart_common_f124.o
 
 gpio_common_f0234.o:	TGT_CFLAGS	+= -DGPIO_SET_OUTPUT_OPTIONS
 
-vpath %.c	../../stm32/common:../../stm32
+vpath %.c	../../stm32/common:../../stm32:../../stm32/f4
 VPATH 		+= ../common:../../usb:../../cm3:../../ethernet
 
 include ../../Makefile.include

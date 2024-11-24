@@ -1,4 +1,16 @@
-/* This provides unification of code over STM32 subfamilies */
+/** @defgroup iwdg_defines IWDG Defines
+
+@brief <b>Defined Constants and Types for the AT32F43x Independent Watchdog
+Timer</b>
+
+@ingroup AT32F43x_defines
+
+@version 1.0.0
+
+@date 16 November 2024
+
+LGPL License Terms @ref lgpl_license
+ */
 
 /*
  * This file is part of the libopencm3 project.
@@ -17,24 +29,9 @@
  * along with this library.  If not, see <http://www.gnu.org/licenses/>.
  */
 
-#include <libopencm3/cm3/common.h>
-#include <libopencm3/stm32/memorymap.h>
+#ifndef LIBOPENCM3_IWDG_H
+#define LIBOPENCM3_IWDG_H
 
-#if defined(STM32F0)
-#       include <libopencm3/stm32/f0/crs.h>
-#elif defined(STM32L0)
-#       include <libopencm3/stm32/l0/crs.h>
-#elif defined(STM32L4)
-#       include <libopencm3/stm32/l4/crs.h>
-#elif defined(STM32G4)
-#       include <libopencm3/stm32/g4/crs.h>
-#elif defined(AT32F40X)
-#       include <libopencm3/at32/f40x/crs.h>
-#elif defined(AT32F42X)
-#       include <libopencm3/at32/f42x/crs.h>
-#elif defined(AT32F43X)
-#       include <libopencm3/at32/f43x/crs.h>
-#else
-#       error "stm32 family not defined or not supported for this peripheral"
+#include <libopencm3/stm32/common/iwdg_common_all.h>
+
 #endif
-
