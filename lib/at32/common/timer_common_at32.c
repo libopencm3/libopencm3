@@ -75,4 +75,22 @@ void timer_ic_set_polarity(uint32_t timer_peripheral, enum tim_ic_id ic,
 	}
 }
 
+/*---------------------------------------------------------------------------*/
+/** @brief Configure Timer DMA burst parameters
+
+@param[in] timer_peripheral Unsigned int32. Timer register address base
+@param[in] offset Target register offset of first DMA beat.
+@param[in] nbeats Number of DMA beats.
+*/
+
+void timer_set_dma_burst(uint32_t timer_peripheral, uint32_t offset,
+			 uint32_t nbeats)
+{
+	TIM_DCR(timer_peripheral) =
+		(TIM_DCR(timer_peripheral) &
+		 ~(TIM_BDTR_DBL_MASK | TIM_BDTR_DBA_MASK)) |
+		(((nbeats - 1) << TIM_BDTR_DBL_SHIFT) & TIM_BDTR_DBL_MASK) |
+		(((offset >> 2) << TIM_BDTR_DBA_SHIFT) & TIM_BDTR_DBA_MASK);
+}
+
 /**@}*/
