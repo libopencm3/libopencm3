@@ -38,6 +38,12 @@ enum tim_ic_pol {
 	TIM_IC_FALLING,
 };
 
+/* --- TIMx_DCR values (continued) ----------------------------------------- */
+#define TIM_DCR_DBL_SHIFT		8
+#define TIM_DCR_DBL_MASK		(0x1f << TIM_DCR_DBL_SHIFT)
+#define TIM_DCR_DBA_SHIFT		0
+#define TIM_DCR_DBA_MASK		(0x1f << TIM_DCR_DBA_SHIFT)
+
 /* --- Function prototypes ------------------------------------------------- */
 
 BEGIN_DECLS
@@ -47,6 +53,9 @@ void timer_disable_plus_mode(uint32_t timer);
 void timer_ic_set_polarity(uint32_t timer,
 			   enum tim_ic_id ic,
 			   enum tim_ic_pol pol);
+void timer_set_dma_burst(uint32_t timer_peripheral, uint32_t offset,
+			 uint32_t nbeats);
+
 END_DECLS
 
 /**@}*/
