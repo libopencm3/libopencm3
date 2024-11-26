@@ -30,7 +30,7 @@
 /* Memory map is required for USB_OTG_FS_BASE address */
 #if defined(STM32F1) || defined(STM32F2) || defined(STM32F4) || defined(STM32F7) || defined(STM32L4)
 #	include <libopencm3/stm32/memorymap.h>
-#elif defined(AT32F42X)
+#elif defined(AT32F42X) || defined(AT32F43X)
 #	include <libopencm3/stm32/memorymap.h>
 #elif defined(EFM32HG)
 #	include <libopencm3/efm32/memorymap.h>
