@@ -95,7 +95,7 @@ LGPL License Terms @ref lgpl_license
 @{*/
 #define	DMAMUX_CxCR_SPOL_NO_EVENT		0
 #define	DMAMUX_CxCR_SPOL_RISING_EDGE		1
-#define	DMAMUX_CxCR_SPOL_FALLING_EDEG		2
+#define	DMAMUX_CxCR_SPOL_FALLING_EDGE		2
 #define	DMAMUX_CxCR_SPOL_BOTH_EDGES		3
 /**@}*/
 
@@ -264,7 +264,7 @@ LGPL License Terms @ref lgpl_license
 @{*/
 #define	DMAMUX_RGxCR_GPOL_NO_EVENT		0
 #define	DMAMUX_RGxCR_GPOL_RISING_EDGE		1
-#define	DMAMUX_RGxCR_GPOL_FALLING_EDEG		2
+#define	DMAMUX_RGxCR_GPOL_FALLING_EDGE		2
 #define	DMAMUX_RGxCR_GPOL_BOTH_EDGES		3
 /**@}*/
 
