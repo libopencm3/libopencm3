@@ -566,10 +566,8 @@ uint32_t rcc_get_usart_clk_freq(uint32_t usart)
 		return rcc_uart_i2c_clksel_freq_hz(rcc_apb1_frequency, RCC_CCIPR_USART2SEL_SHIFT, RCC_CCIPR);
 	} else if (usart == USART3_BASE) {
 		return rcc_uart_i2c_clksel_freq_hz(rcc_apb1_frequency, RCC_CCIPR_USART3SEL_SHIFT, RCC_CCIPR);
-	} else if (usart == UART4_BASE) {
+	} else { /* USART4 */
 		return rcc_uart_i2c_clksel_freq_hz(rcc_apb1_frequency, RCC_CCIPR_UART4SEL_SHIFT, RCC_CCIPR);
-	} else {  /* USART5 */
-		return rcc_uart_i2c_clksel_freq_hz(rcc_apb1_frequency, RCC_CCIPR_UART5SEL_SHIFT, RCC_CCIPR);
 	}
 }
 

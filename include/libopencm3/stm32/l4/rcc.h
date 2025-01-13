@@ -52,7 +52,6 @@
 /** PLL Configuration register */
 #define RCC_PLLCFGR			MMIO32(RCC_BASE + 0x0c)
 #define RCC_PLLSAI1_CFGR		MMIO32(RCC_BASE + 0x10)
-#define RCC_PLLSAI2_CFGR		MMIO32(RCC_BASE + 0x14)
 /** Clock interrupt enable register */
 #define RCC_CIER			MMIO32(RCC_BASE + 0x18)
 /** Clock interrupt flag resiger */
@@ -108,8 +107,6 @@
  * @ingroup rcc_registers
  * @brief Clock Control register values
  @{*/
-#define RCC_CR_PLLSAI2RDY			(1 << 29)
-#define RCC_CR_PLLSAI2ON			(1 << 28)
 #define RCC_CR_PLLSAI1RDY			(1 << 27)
 #define RCC_CR_PLLSAI1ON			(1 << 26)
 #define RCC_CR_PLLRDY				(1 << 25)
@@ -155,6 +152,10 @@ Twelve frequency ranges are available: 100 kHz, 200 kHz, 400 kHz, 800 kHz,
 
 #define RCC_CRRCR_HSI48ON             (1 << 0)
 #define RCC_CRRCR_HSI48RDY            (1 << 1)
+
+/* --- RCC_CCIPR2 values ---------------------------------------------------- */
+
+#define RCC_CCIPR2_I2C4SEL		(1 << 0)
 
 /* --- RCC_ICSCR values ---------------------------------------------------- */
 
@@ -291,15 +292,12 @@ Twelve frequency ranges are available: 100 kHz, 200 kHz, 400 kHz, 800 kHz,
 
 /* --- RCC_PLLSAI1CFGR ----------------------------------------------------- */
 /* TODO */
-/* --- RCC_PLLSAI2CFGR ----------------------------------------------------- */
-/* TODO */
 
 /* --- RCC_CIER - Clock interrupt enable register -------------------------- */
 
 #define RCC_CIER_HSI48RDYIE			(1 << 10)
 #define RCC_CIER_LSE_CSSIE			(1 << 9)
 /* OSC ready interrupt enable bits */
-#define RCC_CIER_PLLSAI2RDYIE			(1 << 7)
 #define RCC_CIER_PLLSAI1RDYIE			(1 << 6)
 #define RCC_CIER_PLLRDYIE			(1 << 5)
 #define RCC_CIER_HSERDYIE			(1 << 4)
@@ -313,7 +311,6 @@ Twelve frequency ranges are available: 100 kHz, 200 kHz, 400 kHz, 800 kHz,
 #define RCC_CIFR_HSI48RDYF			(1 << 10)
 #define RCC_CIFR_LSECSSF			(1 << 9)
 #define RCC_CIFR_CSSF				(1 << 8)
-#define RCC_CIFR_PLLSAI2RDYF			(1 << 7)
 #define RCC_CIFR_PLLSAI1RDYF			(1 << 6)
 #define RCC_CIFR_PLLRDYF			(1 << 5)
 #define RCC_CIFR_HSERDYF			(1 << 4)
@@ -327,7 +324,6 @@ Twelve frequency ranges are available: 100 kHz, 200 kHz, 400 kHz, 800 kHz,
 #define RCC_CICR_HSI48RDYC			(1 << 10)
 #define RCC_CICR_LSECSSC			(1 << 9)
 #define RCC_CICR_CSSC				(1 << 8)
-#define RCC_CICR_PLLSAI2RDYC			(1 << 7)
 #define RCC_CICR_PLLSAI1RDYC			(1 << 6)
 #define RCC_CICR_PLLRDYC			(1 << 5)
 #define RCC_CICR_HSERDYC			(1 << 4)
@@ -354,8 +350,6 @@ Twelve frequency ranges are available: 100 kHz, 200 kHz, 400 kHz, 800 kHz,
 #define RCC_AHB2RSTR_ADCRST			(1 << 13)
 #define RCC_AHB2RSTR_OTGFSRST			(1 << 12)
 #define RCC_AHB2RSTR_GPIOHRST			(1 << 7)
-#define RCC_AHB2RSTR_GPIOGRST			(1 << 6)
-#define RCC_AHB2RSTR_GPIOFRST			(1 << 5)
 #define RCC_AHB2RSTR_GPIOERST			(1 << 4)
 #define RCC_AHB2RSTR_GPIODRST			(1 << 3)
 #define RCC_AHB2RSTR_GPIOCRST			(1 << 2)
@@ -367,7 +361,6 @@ Twelve frequency ranges are available: 100 kHz, 200 kHz, 400 kHz, 800 kHz,
 /** @defgroup rcc_ahb3rstr_rst RCC_AHB3RSTR reset values
 @{*/
 #define RCC_AHB3RSTR_QSPIRST			(1 << 8)
-#define RCC_AHB3RSTR_FMCRST			(1 << 0)
 /**@}*/
 /**@}*/
 
@@ -379,12 +372,12 @@ Twelve frequency ranges are available: 100 kHz, 200 kHz, 400 kHz, 800 kHz,
 #define RCC_APB1RSTR1_OPAMPRST			(1 << 30)
 #define RCC_APB1RSTR1_DAC1RST			(1 << 29)
 #define RCC_APB1RSTR1_PWRRST			(1 << 28)
-#define RCC_APB1RSTR1_CAN2RST			(1 << 26)
+#define RCC_APB1RSTR1_USBRST			(1 << 26)
 #define RCC_APB1RSTR1_CAN1RST			(1 << 25)
+#define RCC_APB1RSTR1_CRSRST			(1 << 24)
 #define RCC_APB1RSTR1_I2C3RST			(1 << 23)
 #define RCC_APB1RSTR1_I2C2RST			(1 << 22)
 #define RCC_APB1RSTR1_I2C1RST			(1 << 21)
-#define RCC_APB1RSTR1_UART5RST			(1 << 20)
 #define RCC_APB1RSTR1_UART4RST			(1 << 19)
 #define RCC_APB1RSTR1_USART3RST			(1 << 18)
 #define RCC_APB1RSTR1_USART2RST			(1 << 17)
@@ -393,8 +386,6 @@ Twelve frequency ranges are available: 100 kHz, 200 kHz, 400 kHz, 800 kHz,
 #define RCC_APB1RSTR1_LCDRST			(1 << 9)
 #define RCC_APB1RSTR1_TIM7RST			(1 << 5)
 #define RCC_APB1RSTR1_TIM6RST			(1 << 4)
-#define RCC_APB1RSTR1_TIM5RST			(1 << 3)
-#define RCC_APB1RSTR1_TIM4RST			(1 << 2)
 #define RCC_APB1RSTR1_TIM3RST			(1 << 1)
 #define RCC_APB1RSTR1_TIM2RST			(1 << 0)
 /**@}*/
@@ -403,6 +394,7 @@ Twelve frequency ranges are available: 100 kHz, 200 kHz, 400 kHz, 800 kHz,
 @{*/
 #define RCC_APB1RSTR2_LPTIM2RST			(1 << 5)
 #define RCC_APB1RSTR2_SWPMI1RST			(1 << 2)
+#define RCC_APB1RSTR2_I2C4RST			(1 << 1)
 #define RCC_APB1RSTR2_LPUART1RST		(1 << 0)
 /**@}*/
 /**@}*/
@@ -410,13 +402,10 @@ Twelve frequency ranges are available: 100 kHz, 200 kHz, 400 kHz, 800 kHz,
 /** @defgroup rcc_apb2rstr_rst RCC_APB2RSTR reset values
 @{*/
 #define RCC_APB2RSTR_DFSDMRST			(1 << 24)
-#define RCC_APB2RSTR_SAI2RST			(1 << 22)
 #define RCC_APB2RSTR_SAI1RST			(1 << 21)
-#define RCC_APB2RSTR_TIM17RST			(1 << 18)
 #define RCC_APB2RSTR_TIM16RST			(1 << 17)
 #define RCC_APB2RSTR_TIM15RST			(1 << 16)
 #define RCC_APB2RSTR_USART1RST			(1 << 14)
-#define RCC_APB2RSTR_TIM8RST			(1 << 13)
 #define RCC_APB2RSTR_SPI1RST			(1 << 12)
 #define RCC_APB2RSTR_TIM1RST			(1 << 11)
 #define RCC_APB2RSTR_SDMMC1RST			(1 << 10)
@@ -450,8 +439,6 @@ Twelve frequency ranges are available: 100 kHz, 200 kHz, 400 kHz, 800 kHz,
 #define RCC_AHB2ENR_ADCEN			(1 << 13)
 #define RCC_AHB2ENR_OTGFSEN			(1 << 12)
 #define RCC_AHB2ENR_GPIOHEN			(1 << 7)
-#define RCC_AHB2ENR_GPIOGEN			(1 << 6)
-#define RCC_AHB2ENR_GPIOFEN			(1 << 5)
 #define RCC_AHB2ENR_GPIOEEN			(1 << 4)
 #define RCC_AHB2ENR_GPIODEN			(1 << 3)
 #define RCC_AHB2ENR_GPIOCEN			(1 << 2)
@@ -466,7 +453,6 @@ Twelve frequency ranges are available: 100 kHz, 200 kHz, 400 kHz, 800 kHz,
 
 @{*/
 #define RCC_AHB3ENR_QSPIEN			(1 << 8)
-#define RCC_AHB3ENR_FMCEN			(1 << 0)
 /**@}*/
 
 /**@}*/
@@ -483,22 +469,22 @@ Twelve frequency ranges are available: 100 kHz, 200 kHz, 400 kHz, 800 kHz,
 #define RCC_APB1ENR1_OPAMPEN			(1 << 30)
 #define RCC_APB1ENR1_DAC1EN			(1 << 29)
 #define RCC_APB1ENR1_PWREN			(1 << 28)
-#define RCC_APB1ENR1_CAN2EN			(1 << 26)
+#define RCC_APB1ENR1_USBEN			(1 << 26)
 #define RCC_APB1ENR1_CAN1EN			(1 << 25)
+#define RCC_APB1ENR1_CRSEN			(1 << 24)
 #define RCC_APB1ENR1_I2C3EN			(1 << 23)
 #define RCC_APB1ENR1_I2C2EN			(1 << 22)
 #define RCC_APB1ENR1_I2C1EN			(1 << 21)
-#define RCC_APB1ENR1_UART5EN			(1 << 20)
 #define RCC_APB1ENR1_UART4EN			(1 << 19)
 #define RCC_APB1ENR1_USART3EN			(1 << 18)
 #define RCC_APB1ENR1_USART2EN			(1 << 17)
 #define RCC_APB1ENR1_SPI3EN			(1 << 15)
 #define RCC_APB1ENR1_SPI2EN			(1 << 14)
+#define RCC_APB1ENR1_WWDGEN			(1 << 11)
+#define RCC_APB1ENR1_RTCAPBEN			(1 << 10)
 #define RCC_APB1ENR1_LCDEN			(1 << 9)
 #define RCC_APB1ENR1_TIM7EN			(1 << 5)
 #define RCC_APB1ENR1_TIM6EN			(1 << 4)
-#define RCC_APB1ENR1_TIM5EN			(1 << 3)
-#define RCC_APB1ENR1_TIM4EN			(1 << 2)
 #define RCC_APB1ENR1_TIM3EN			(1 << 1)
 #define RCC_APB1ENR1_TIM2EN			(1 << 0)
 /**@}*/
@@ -511,6 +497,7 @@ Twelve frequency ranges are available: 100 kHz, 200 kHz, 400 kHz, 800 kHz,
 @{*/
 #define RCC_APB1ENR2_LPTIM2EN			(1 << 5)
 #define RCC_APB1ENR2_SWPMI1EN			(1 << 2)
+#define RCC_APB1ENR2_I2C4EN				(1 << 1)
 #define RCC_APB1ENR2_LPUART1EN			(1 << 0)
 /**@}*/
 /**@}*/
@@ -522,13 +509,10 @@ Twelve frequency ranges are available: 100 kHz, 200 kHz, 400 kHz, 800 kHz,
 
 @{*/
 #define RCC_APB2ENR_DFSDMEN			(1 << 24)
-#define RCC_APB2ENR_SAI2EN			(1 << 22)
 #define RCC_APB2ENR_SAI1EN			(1 << 21)
-#define RCC_APB2ENR_TIM17EN			(1 << 18)
 #define RCC_APB2ENR_TIM16EN			(1 << 17)
 #define RCC_APB2ENR_TIM15EN			(1 << 16)
 #define RCC_APB2ENR_USART1EN			(1 << 14)
-#define RCC_APB2ENR_TIM8EN			(1 << 13)
 #define RCC_APB2ENR_SPI1EN			(1 << 12)
 #define RCC_APB2ENR_TIM1EN			(1 << 11)
 #define RCC_APB2ENR_SDMMC1EN			(1 << 10)
@@ -553,8 +537,6 @@ Twelve frequency ranges are available: 100 kHz, 200 kHz, 400 kHz, 800 kHz,
 #define RCC_AHB2SMENR_OTGFSSMEN			(1 << 12)
 #define RCC_AHB2SMENR_SRAM2SMEN			(1 << 9)
 #define RCC_AHB2SMENR_GPIOHSMEN			(1 << 7)
-#define RCC_AHB2SMENR_GPIOGSMEN			(1 << 6)
-#define RCC_AHB2SMENR_GPIOFSMEN			(1 << 5)
 #define RCC_AHB2SMENR_GPIOESMEN			(1 << 4)
 #define RCC_AHB2SMENR_GPIODSMEN			(1 << 3)
 #define RCC_AHB2SMENR_GPIOCSMEN			(1 << 2)
@@ -564,7 +546,6 @@ Twelve frequency ranges are available: 100 kHz, 200 kHz, 400 kHz, 800 kHz,
 /* --- RCC_AHB3SMENR - AHB3 periph clock in sleep mode --------------------- */
 
 #define RCC_AHB3SMENR_QSPISMEN			(1 << 8)
-#define RCC_AHB3SMENR_FMCSMEN			(1 << 0)
 
 /* --- RCC_APB1SMENR1 - APB1 periph clock in sleep mode -------------------- */
 
@@ -572,23 +553,22 @@ Twelve frequency ranges are available: 100 kHz, 200 kHz, 400 kHz, 800 kHz,
 #define RCC_APB1SMENR1_OPAMPSMEN		(1 << 30)
 #define RCC_APB1SMENR1_DAC1SMEN			(1 << 29)
 #define RCC_APB1SMENR1_PWRSMEN			(1 << 28)
-#define RCC_APB1SMENR1_CAN2SMEN			(1 << 26)
+#define RCC_APB1SMENR1_USBSMEN			(1 << 26)
 #define RCC_APB1SMENR1_CAN1SMEN			(1 << 25)
+#define RCC_APB1SMENR1_CRSSMEN			(1 << 24)
 #define RCC_APB1SMENR1_I2C3SMEN			(1 << 23)
 #define RCC_APB1SMENR1_I2C2SMEN			(1 << 22)
 #define RCC_APB1SMENR1_I2C1SMEN			(1 << 21)
-#define RCC_APB1SMENR1_UART5SMEN		(1 << 20)
 #define RCC_APB1SMENR1_UART4SMEN		(1 << 19)
 #define RCC_APB1SMENR1_USART3SMEN		(1 << 18)
 #define RCC_APB1SMENR1_USART2SMEN		(1 << 17)
 #define RCC_APB1SMENR1_SPI3SMEN			(1 << 15)
 #define RCC_APB1SMENR1_SPI2SMEN			(1 << 14)
 #define RCC_APB1SMENR1_WWDGSMEN			(1 << 11)
+#define RCC_APB1SMENR1_RTCAPBSMEN		(1 << 10)
 #define RCC_APB1SMENR1_LCDSMEN			(1 << 9)
 #define RCC_APB1SMENR1_TIM7SMEN			(1 << 5)
 #define RCC_APB1SMENR1_TIM6SMEN			(1 << 4)
-#define RCC_APB1SMENR1_TIM5SMEN			(1 << 3)
-#define RCC_APB1SMENR1_TIM4SMEN			(1 << 2)
 #define RCC_APB1SMENR1_TIM3SMEN			(1 << 1)
 #define RCC_APB1SMENR1_TIM2SMEN			(1 << 0)
 
@@ -596,18 +576,16 @@ Twelve frequency ranges are available: 100 kHz, 200 kHz, 400 kHz, 800 kHz,
 
 #define RCC_APB1SMENR2_LPTIM2SMEN		(1 << 5)
 #define RCC_APB1SMENR2_SWPMI1SMEN		(1 << 2)
+#define RCC_APB1SMENR2_I2C4SMEN			(1 << 1)
 #define RCC_APB1SMENR2_LPUART1SMEN		(1 << 0)
 
 /* --- RCC_APB2SMENR - APB2 periph clock in sleep mode --------------------- */
 
 #define RCC_APB2SMENR_DFSDMSMEN			(1 << 24)
-#define RCC_APB2SMENR_SAI2SMEN			(1 << 22)
 #define RCC_APB2SMENR_SAI1SMEN			(1 << 21)
-#define RCC_APB2SMENR_TIM17SMEN			(1 << 18)
 #define RCC_APB2SMENR_TIM16SMEN			(1 << 17)
 #define RCC_APB2SMENR_TIM15SMEN			(1 << 16)
 #define RCC_APB2SMENR_USART1SMEN		(1 << 14)
-#define RCC_APB2SMENR_TIM8SMEN			(1 << 13)
 #define RCC_APB2SMENR_SPI1SMEN			(1 << 12)
 #define RCC_APB2SMENR_TIM1SMEN			(1 << 11)
 #define RCC_APB2SMENR_SDMMC1SMEN		(1 << 10)
@@ -620,7 +598,6 @@ Twelve frequency ranges are available: 100 kHz, 200 kHz, 400 kHz, 800 kHz,
 
 #define RCC_CCIPR_ADCSEL_NONE		0
 #define RCC_CCIPR_ADCSEL_PLLSAI1R	1
-#define RCC_CCIPR_ADCSEL_PLLSAI2R	2
 #define RCC_CCIPR_ADCSEL_SYSCLK		3
 #define RCC_CCIPR_ADCSEL_MASK		0x3
 #define RCC_CCIPR_ADCSEL_SHIFT		28
@@ -632,12 +609,10 @@ Twelve frequency ranges are available: 100 kHz, 200 kHz, 400 kHz, 800 kHz,
 #define RCC_CCIPR_CLK48SEL_MASK		0x3
 #define RCC_CCIPR_CLK48SEL_SHIFT	26
 
-#define RCC_CCIPR_SAIxSEL_PLLSAI1P	0
-#define RCC_CCIPR_SAIxSEL_PLLSAI2P	1
-#define RCC_CCIPR_SAIxSEL_PLL		2
-#define RCC_CCIPR_SAIxSEL_EXT		3
-#define RCC_CCIPR_SAIxSEL_MASK		0x3
-#define RCC_CCIPR_SAI2SEL_SHIFT		24
+#define RCC_CCIPR_SAI1SEL_PLLSAI1P	0
+#define RCC_CCIPR_SAI1SEL_PLL		2
+#define RCC_CCIPR_SAI1SEL_EXT		3
+#define RCC_CCIPR_SAI1SEL_MASK		0x3
 #define RCC_CCIPR_SAI1SEL_SHIFT		22
 
 #define RCC_CCIPR_LPTIMxSEL_APB		0
@@ -674,7 +649,6 @@ Twelve frequency ranges are available: 100 kHz, 200 kHz, 400 kHz, 800 kHz,
 #define RCC_CCIPR_UARTxSEL_HSI16	RCC_CCIPR_USARTxSEL_HSI16
 #define RCC_CCIPR_UARTxSEL_LSE		RCC_CCIPR_USARTxSEL_LSE
 #define RCC_CCIPR_UARTxSEL_MASK		RCC_CCIPR_USARTxSEL_MASK
-#define RCC_CCIPR_UART5SEL_SHIFT	8
 #define RCC_CCIPR_UART4SEL_SHIFT	6
 #define RCC_CCIPR_USART3SEL_SHIFT	4
 #define RCC_CCIPR_USART2SEL_SHIFT	2
@@ -737,6 +711,7 @@ Twelve frequency ranges are available: 100 kHz, 200 kHz, 400 kHz, 800 kHz,
 #define RCC_CSR_MSIRANGE_8MHZ			7
 /**@}*/
 
+#define RCC_CSR_LSIPREDIV			(1 << 4)
 #define RCC_CSR_LSIRDY				(1 << 1)
 #define RCC_CSR_LSION				(1 << 0)
 
@@ -797,8 +772,6 @@ enum rcc_periph_clken {
 	RCC_ADC1 = _REG_BIT(RCC_AHB2ENR_OFFSET, 13), /* Compatibility */
 	RCC_OTGFS = _REG_BIT(RCC_AHB2ENR_OFFSET, 12),
 	RCC_GPIOH = _REG_BIT(RCC_AHB2ENR_OFFSET, 7),
-	RCC_GPIOG = _REG_BIT(RCC_AHB2ENR_OFFSET, 6),
-	RCC_GPIOF = _REG_BIT(RCC_AHB2ENR_OFFSET, 5),
 	RCC_GPIOE = _REG_BIT(RCC_AHB2ENR_OFFSET, 4),
 	RCC_GPIOD = _REG_BIT(RCC_AHB2ENR_OFFSET, 3),
 	RCC_GPIOC = _REG_BIT(RCC_AHB2ENR_OFFSET, 2),
@@ -807,7 +780,6 @@ enum rcc_periph_clken {
 
 	/* AHB3 peripherals */
 	RCC_QSPI = _REG_BIT(RCC_AHB3ENR_OFFSET, 8),
-	RCC_FMC = _REG_BIT(RCC_AHB3ENR_OFFSET, 0),
 
 	/* APB1 peripherals */
 	RCC_LPTIM1 = _REG_BIT(RCC_APB1ENR1_OFFSET, 31),
@@ -815,13 +787,11 @@ enum rcc_periph_clken {
 	RCC_DAC1 = _REG_BIT(RCC_APB1ENR1_OFFSET, 29),
 	RCC_PWR = _REG_BIT(RCC_APB1ENR1_OFFSET, 28),
 	RCC_USB = _REG_BIT(RCC_APB1ENR1_OFFSET, 26),
-	RCC_CAN2 = _REG_BIT(RCC_APB1ENR1_OFFSET, 26),
 	RCC_CAN1 = _REG_BIT(RCC_APB1ENR1_OFFSET, 25),
 	RCC_CRS = _REG_BIT(RCC_APB1ENR1_OFFSET, 24),
 	RCC_I2C3 = _REG_BIT(RCC_APB1ENR1_OFFSET, 23),
 	RCC_I2C2 = _REG_BIT(RCC_APB1ENR1_OFFSET, 22),
 	RCC_I2C1 = _REG_BIT(RCC_APB1ENR1_OFFSET, 21),
-	RCC_UART5 = _REG_BIT(RCC_APB1ENR1_OFFSET, 20),
 	RCC_UART4 = _REG_BIT(RCC_APB1ENR1_OFFSET, 19),
 	RCC_USART3 = _REG_BIT(RCC_APB1ENR1_OFFSET, 18),
 	RCC_USART2 = _REG_BIT(RCC_APB1ENR1_OFFSET, 17),
@@ -830,8 +800,6 @@ enum rcc_periph_clken {
 	RCC_LCD = _REG_BIT(RCC_APB1ENR1_OFFSET, 9),
 	RCC_TIM7 = _REG_BIT(RCC_APB1ENR1_OFFSET, 5),
 	RCC_TIM6 = _REG_BIT(RCC_APB1ENR1_OFFSET, 4),
-	RCC_TIM5 = _REG_BIT(RCC_APB1ENR1_OFFSET, 3),
-	RCC_TIM4 = _REG_BIT(RCC_APB1ENR1_OFFSET, 2),
 	RCC_TIM3 = _REG_BIT(RCC_APB1ENR1_OFFSET, 1),
 	RCC_TIM2 = _REG_BIT(RCC_APB1ENR1_OFFSET, 0),
 	/* apb1-2 */
@@ -841,9 +809,7 @@ enum rcc_periph_clken {
 
 	/* APB2 peripherals */
 	RCC_DFSDM = _REG_BIT(RCC_APB2ENR_OFFSET, 24),
-	RCC_SAI2 = _REG_BIT(RCC_APB2ENR_OFFSET, 22),
 	RCC_SAI1 = _REG_BIT(RCC_APB2ENR_OFFSET, 21),
-	RCC_TIM17 = _REG_BIT(RCC_APB2ENR_OFFSET, 18),
 	RCC_TIM16 = _REG_BIT(RCC_APB2ENR_OFFSET, 17),
 	RCC_TIM15 = _REG_BIT(RCC_APB2ENR_OFFSET, 16),
 	RCC_USART1 = _REG_BIT(RCC_APB2ENR_OFFSET, 14),
@@ -868,10 +834,7 @@ enum rcc_periph_clken {
 	SCC_ADC = _REG_BIT(RCC_AHB2SMENR_OFFSET, 13),
 	SCC_ADC1 = _REG_BIT(RCC_AHB2SMENR_OFFSET, 13), /* Compatibility */
 	SCC_OTGFS = _REG_BIT(RCC_AHB2SMENR_OFFSET, 12),
-	SCC_SRAM2 = _REG_BIT(RCC_AHB2SMENR_OFFSET, 9),
 	SCC_GPIOH = _REG_BIT(RCC_AHB2SMENR_OFFSET, 7),
-	SCC_GPIOG = _REG_BIT(RCC_AHB2SMENR_OFFSET, 6),
-	SCC_GPIOF = _REG_BIT(RCC_AHB2SMENR_OFFSET, 5),
 	SCC_GPIOE = _REG_BIT(RCC_AHB2SMENR_OFFSET, 4),
 	SCC_GPIOD = _REG_BIT(RCC_AHB2SMENR_OFFSET, 3),
 	SCC_GPIOC = _REG_BIT(RCC_AHB2SMENR_OFFSET, 2),
@@ -880,7 +843,6 @@ enum rcc_periph_clken {
 
 	/* AHB3 peripherals in sleep mode */
 	SCC_QSPI = _REG_BIT(RCC_AHB3SMENR_OFFSET, 8),
-	SCC_FMC = _REG_BIT(RCC_AHB3SMENR_OFFSET, 0),
 
 	/* APB1 peripherals in sleep mode */
 	SCC_LPTIM1 = _REG_BIT(RCC_APB1ENR1_OFFSET, 31),
@@ -902,8 +864,6 @@ enum rcc_periph_clken {
 	SCC_LCD = _REG_BIT(RCC_APB1ENR1_OFFSET, 9),
 	SCC_TIM7 = _REG_BIT(RCC_APB1ENR1_OFFSET, 5),
 	SCC_TIM6 = _REG_BIT(RCC_APB1ENR1_OFFSET, 4),
-	SCC_TIM5 = _REG_BIT(RCC_APB1ENR1_OFFSET, 3),
-	SCC_TIM4 = _REG_BIT(RCC_APB1ENR1_OFFSET, 2),
 	SCC_TIM3 = _REG_BIT(RCC_APB1ENR1_OFFSET, 1),
 	SCC_TIM2 = _REG_BIT(RCC_APB1ENR1_OFFSET, 0),
 	/* apb1-2 */
@@ -913,9 +873,7 @@ enum rcc_periph_clken {
 
 	/* APB2 peripherals in sleep mode */
 	SCC_DFSDM = _REG_BIT(RCC_APB2ENR_OFFSET, 24),
-	SCC_SAI2 = _REG_BIT(RCC_APB2ENR_OFFSET, 22),
 	SCC_SAI1 = _REG_BIT(RCC_APB2ENR_OFFSET, 21),
-	SCC_TIM17 = _REG_BIT(RCC_APB2ENR_OFFSET, 18),
 	SCC_TIM16 = _REG_BIT(RCC_APB2ENR_OFFSET, 17),
 	SCC_TIM15 = _REG_BIT(RCC_APB2ENR_OFFSET, 16),
 	SCC_USART1 = _REG_BIT(RCC_APB2ENR_OFFSET, 14),
@@ -941,8 +899,6 @@ enum rcc_periph_rst {
 	RST_ADC1 = _REG_BIT(RCC_AHB2RSTR_OFFSET, 13), /* Compatibility */
 	RST_OTGFS = _REG_BIT(RCC_AHB2RSTR_OFFSET, 12),
 	RST_GPIOH = _REG_BIT(RCC_AHB2RSTR_OFFSET, 7),
-	RST_GPIOG = _REG_BIT(RCC_AHB2RSTR_OFFSET, 6),
-	RST_GPIOF = _REG_BIT(RCC_AHB2RSTR_OFFSET, 5),
 	RST_GPIOE = _REG_BIT(RCC_AHB2RSTR_OFFSET, 4),
 	RST_GPIOD = _REG_BIT(RCC_AHB2RSTR_OFFSET, 3),
 	RST_GPIOC = _REG_BIT(RCC_AHB2RSTR_OFFSET, 2),
@@ -951,7 +907,6 @@ enum rcc_periph_rst {
 
 	/* AHB3 peripherals */
 	RST_QSPI = _REG_BIT(RCC_AHB3RSTR_OFFSET, 8),
-	RST_FMC = _REG_BIT(RCC_AHB3RSTR_OFFSET, 0),
 
 	/* APB1 peripherals */
 	RST_LPTIM1 = _REG_BIT(RCC_APB1RSTR1_OFFSET, 31),
@@ -959,7 +914,6 @@ enum rcc_periph_rst {
 	RST_DAC1 = _REG_BIT(RCC_APB1RSTR1_OFFSET, 29),
 	RST_PWR = _REG_BIT(RCC_APB1RSTR1_OFFSET, 28),
 	RST_USB = _REG_BIT(RCC_APB1RSTR1_OFFSET, 26),
-	RST_CAN2 = _REG_BIT(RCC_APB1RSTR1_OFFSET, 26),
 	RST_CAN1 = _REG_BIT(RCC_APB1RSTR1_OFFSET, 25),
 	RST_CRS = _REG_BIT(RCC_APB1RSTR1_OFFSET, 24),
 	RST_I2C3 = _REG_BIT(RCC_APB1RSTR1_OFFSET, 23),
@@ -974,8 +928,6 @@ enum rcc_periph_rst {
 	RST_LCD = _REG_BIT(RCC_APB1RSTR1_OFFSET, 9),
 	RST_TIM7 = _REG_BIT(RCC_APB1RSTR1_OFFSET, 5),
 	RST_TIM6 = _REG_BIT(RCC_APB1RSTR1_OFFSET, 4),
-	RST_TIM5 = _REG_BIT(RCC_APB1RSTR1_OFFSET, 3),
-	RST_TIM4 = _REG_BIT(RCC_APB1RSTR1_OFFSET, 2),
 	RST_TIM3 = _REG_BIT(RCC_APB1RSTR1_OFFSET, 1),
 	RST_TIM2 = _REG_BIT(RCC_APB1RSTR1_OFFSET, 0),
 	/* apb1-2 */
@@ -985,9 +937,7 @@ enum rcc_periph_rst {
 
 	/* APB2 peripherals */
 	RST_DFSDM = _REG_BIT(RCC_APB2RSTR_OFFSET, 24),
-	RST_SAI2 = _REG_BIT(RCC_APB2RSTR_OFFSET, 22),
 	RST_SAI1 = _REG_BIT(RCC_APB2RSTR_OFFSET, 21),
-	RST_TIM17 = _REG_BIT(RCC_APB2RSTR_OFFSET, 18),
 	RST_TIM16 = _REG_BIT(RCC_APB2RSTR_OFFSET, 17),
 	RST_TIM15 = _REG_BIT(RCC_APB2RSTR_OFFSET, 16),
 	RST_USART1 = _REG_BIT(RCC_APB2RSTR_OFFSET, 14),
