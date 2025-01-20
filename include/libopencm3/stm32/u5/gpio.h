@@ -1,13 +1,18 @@
-/** @addtogroup iwdg_defines
-
- @author @htmlonly &copy; @endhtmlonly 2018 Guillame Revaillot <revaillot@archos.com>
-
+/** @defgroup gpio_defines GPIO Defines
+ *
+ * @brief <b>Defined Constants and Types for the STM32F0xx General Purpose I/O</b>
+ *
+ * @ingroup STM32F0xx_defines
+ *
+ * @version 1.0.0
+ *
+ * @date 1 July 2012
+ *
+ * LGPL License Terms @ref lgpl_license
  */
+
 /*
  * This file is part of the libopencm3 project.
- *
- * Copyright (C) 2018 Guillaume Revaillot <revaillot@archos.com>
- * Copyright (C) 2010 Thomas Otto <tommi@viadmin.org>
  *
  * This library is free software: you can redistribute it and/or modify
  * it under the terms of the GNU Lesser General Public License as published by
@@ -23,18 +28,10 @@
  * along with this library.  If not, see <http://www.gnu.org/licenses/>.
  */
 
-/* THIS FILE SHOULD NOT BE INCLUDED DIRECTLY, BUT ONLY VIA IWDG.H
-The order of header inclusion is important. iwdg.h includes the device
-specific memorymap.h header before including this header file.*/
+#ifndef LIBOPENCM3_GPIO_H
+#define LIBOPENCM3_GPIO_H
 
-/** @cond */
-#ifdef LIBOPENCM3_IWDG_H
-/** @endcond */
-#pragma once
-
-/**@{*/
-
-#include <libopencm3/stm32/common/iwdg_common_all.h>
+#include <libopencm3/stm32/common/gpio_common_f234.h>
 
 /*****************************************************************************/
 /* Module definitions                                                        */
@@ -44,22 +41,9 @@ specific memorymap.h header before including this header file.*/
 /* Register definitions                                                      */
 /*****************************************************************************/
 
-/** Window Register (IWDG_WINR) */
-#define IWDG_WINR				MMIO32(IWDG_BASE + 0x10)
-
-
-/** Early wake-up register (IWDG_EWCR) */
-#define IWDG_EWCR				MMIO32(IWDG_BASE + 0x14)
-
 /*****************************************************************************/
 /* Register values                                                           */
 /*****************************************************************************/
-
-/** @addtogroup iwdg_sr_values
-@{*/
-/** WVU: Watchdog counter window value update */
-#define IWDG_SR_WVU			(1 << 2)
-/**@}*/
 
 /*****************************************************************************/
 /* API definitions                                                           */
@@ -69,16 +53,8 @@ specific memorymap.h header before including this header file.*/
 /* API Functions                                                             */
 /*****************************************************************************/
 
-
 BEGIN_DECLS
 
 END_DECLS
 
-/**@}*/
-
-/** @cond */
-#else
-#warning "iwdg_common_v2.h should not be included explicitly, only via iwdg.h"
 #endif
-/** @endcond */
-

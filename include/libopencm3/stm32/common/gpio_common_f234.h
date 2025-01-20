@@ -270,7 +270,7 @@ specific memorymap.h header before including this header file.*/
 BEGIN_DECLS
 
 /*
- * Note: The F2 and F4 series have a completely new GPIO peripheral with
+ * Note: The F2, U5 and F4 series have a completely new GPIO peripheral with
  * different configuration options. Here we implement a different API partly to
  * more closely match the peripheral capabilities and also to deliberately
  * break compatibility with old F1 code so there is no confusion with similar
