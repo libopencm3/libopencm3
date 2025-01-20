@@ -785,8 +785,9 @@ uint32_t rcc_system_clock_source(void)
  * needed to establish a system clock.
  *
  * @param clock clock information structure.
+ * @param overdrive boolean to request OverDrive.
  */
-void rcc_clock_setup_pll(const struct rcc_clock_scale *clock)
+void rcc_clock_setup_pll_x(const struct rcc_clock_scale *clock, int overdrive)
 {
 	/* Enable internal high-speed oscillator (HSI). */
 	rcc_osc_on(RCC_HSI);
@@ -804,6 +805,11 @@ void rcc_clock_setup_pll(const struct rcc_clock_scale *clock)
 	/* Set the VOS scale mode */
 	rcc_periph_clock_enable(RCC_PWR);
 	pwr_set_vos_scale(clock->voltage_scale);
+
+	/* Enable overDrive if requested */
+	if (overdrive) {
+		pwr_enable_overdrive();
+	}
 
 	/*
 	 * Set prescalers for AHB, ADC, APB1, APB2.
@@ -857,6 +863,19 @@ void rcc_clock_setup_pll(const struct rcc_clock_scale *clock)
 	if (clock->pll_source == RCC_CFGR_PLLSRC_HSE_CLK) {
 		rcc_osc_off(RCC_HSI);
 	}
+}
+
+/**
+ * Setup clocks to run from PLL.
+ *
+ * The arguments provide the pll source, multipliers, dividers, all that's
+ * needed to establish a system clock. OverDrive cannot be enabled.
+ *
+ * @param clock clock information structure.
+ */
+void rcc_clock_setup_pll(const struct rcc_clock_scale *clock)
+{
+	rcc_clock_setup_pll_x(clock, 0);
 }
 
 /**
