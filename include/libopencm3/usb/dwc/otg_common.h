@@ -221,6 +221,7 @@
 
 /* Bits 31:22 - Reserved */
 /** Only on cores < 0x2000 */
+#define OTG_GCCFG_PHYHSEN       (1 << 23)
 #define OTG_GCCFG_NOVBUSSENS	(1 << 21)
 /** Only on cores >= 0x2000 */
 #define OTG_GCCFG_VBDEN			(1 << 21)
