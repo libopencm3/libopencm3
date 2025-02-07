@@ -37,7 +37,7 @@ TGT_CFLAGS	= -O2 \
 TGT_CFLAGS      += $(DEBUG_FLAGS)
 TGT_CFLAGS	+= $(STANDARD_FLAGS)
 
-ARFLAGS		= rcs
+ARFLAGS		= rcsD
 
 # LPC43xx common files for M4 / M0
 OBJ_LPC43XX     = gpio.o scu.o i2c.o ssp.o uart.o timer.o
