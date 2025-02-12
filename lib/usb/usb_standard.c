@@ -114,7 +114,7 @@ static uint16_t build_config_descriptor(usbd_device *usbd_dev,
 			for (k = 0; k < iface->bNumEndpoints; k++) {
 				const struct usb_endpoint_descriptor *ep =
 				    &iface->endpoint[k];
-				memcpy(buf, ep, count = MIN(len, ep->bLength));
+				memcpy(buf, ep, count = MIN(USB_DT_ENDPOINT_SIZE, MIN(len, ep->bLength)));
 				buf += count;
 				len -= count;
 				total += count;
