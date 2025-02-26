@@ -66,8 +66,7 @@ usbd_device *usbd_init(const usbd_driver *driver,
 	usbd_dev->user_callback_ctr[0][USB_TRANSACTION_IN] =
 	    _usbd_control_in;
 
-	int i;
-	for (i = 0; i < MAX_USER_SET_CONFIG_CALLBACK; i++) {
+	for (size_t i = 0; i < MAX_USER_SET_CONFIG_CALLBACK; i++) {
 		usbd_dev->user_callback_set_config[i] = NULL;
 	}
 

@@ -1,5 +1,14 @@
-/** @addtogroup flash_file FLASH peripheral API
- * @ingroup peripheral_apis
+/** @defgroup rtc_defines RTC Defines
+
+@brief <b>Defined Constants and Types for the STM32H7xx RTC</b>
+
+@ingroup STM32H7xx_defines
+
+@version 1.0.0
+
+@date 18 December 2017
+
+LGPL License Terms @ref lgpl_license
  */
 
 /*
@@ -19,36 +28,9 @@
  * along with this library.  If not, see <http://www.gnu.org/licenses/>.
  */
 
-/**@{*/
+#ifndef LIBOPENCM3_RTC_H
+#define LIBOPENCM3_RTC_H
 
-#include <libopencm3/stm32/flash.h>
+#include <libopencm3/stm32/common/rtc_common_l1f024.h>
 
-#if !defined(STM32H7)
-void flash_prefetch_enable(void)
-{
-	FLASH_ACR |= FLASH_ACR_PRFTEN;
-}
-
-void flash_prefetch_disable(void)
-{
-	FLASH_ACR &= ~FLASH_ACR_PRFTEN;
-}
 #endif
-
-void flash_set_ws(uint32_t ws)
-{
-	uint32_t reg32;
-
-	reg32 = FLASH_ACR;
-	reg32 &= ~(FLASH_ACR_LATENCY_MASK << FLASH_ACR_LATENCY_SHIFT);
-	reg32 |= (ws << FLASH_ACR_LATENCY_SHIFT);
-	FLASH_ACR = reg32;
-}
-
-void flash_unlock_option_bytes(void)
-{
-	FLASH_OPTKEYR = FLASH_OPTKEYR_KEY1;
-	FLASH_OPTKEYR = FLASH_OPTKEYR_KEY2;
-}
-
-/**@}*/

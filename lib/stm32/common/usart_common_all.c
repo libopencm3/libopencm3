@@ -71,7 +71,27 @@ void usart_set_baudrate(uint32_t usart, uint32_t baud)
 	}
 #endif
 
+#ifdef USART_CR1_OVER8
+	if (USART_CR1(usart) & USART_CR1_OVER8) {
+		/*
+		 * When using 8x oversampling instead of 16x, the calculation works slightly differently.
+		 * We do the same main calculation as for 16x, but with the clock rate effectively doubled.
+		 * This keeps accuracy up and gives us the best possible divider. However, to set BRR,
+		 * we have to do some shenanigans - specifically, USARTDIV[15:4] = BRR[15:4], but
+		 * UARTDIV[3:0] = BRR[2:0] << 1 and we are required to keep BRR[3] as 0.
+		 */
+		const uint32_t divider = ((2 * clock) + (baud / 2)) / baud;
+		USART_BRR(usart) = (divider & USART_BRR_UPPER_MASK) | ((divider & USART_BRR_LOWER_MASK) >> 1U);
+	} else {
+		/*
+		 * Modified version of the formula from the datasheets that tries to improve
+		 * the accuracy of the calculated dividers by introducing a rounding factor
+		 */
+		USART_BRR(usart) = (clock + baud / 2) / baud;
+	}
+#else
 	USART_BRR(usart) = (clock + baud / 2) / baud;
+#endif
 }
 
 /*---------------------------------------------------------------------------*/

@@ -24,7 +24,8 @@
 #       include <libopencm3/stm32/g0/dmamux.h>
 #elif defined(STM32G4)
 #       include <libopencm3/stm32/g4/dmamux.h>
+#elif defined(STM32H7)
+#       include <libopencm3/stm32/h7/dmamux.h>
 #else
 #       error "stm32 family not defined."
 #endif
-

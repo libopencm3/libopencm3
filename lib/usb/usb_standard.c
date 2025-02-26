@@ -240,12 +240,11 @@ usb_standard_set_address(usbd_device *usbd_dev,
 			 struct usb_setup_data *req, uint8_t **buf,
 			 uint16_t *len)
 {
-	(void)req;
 	(void)buf;
 	(void)len;
 
 	/* The actual address is only latched at the STATUS IN stage. */
-	if ((req->bmRequestType != 0) || (req->wValue >= 128)) {
+	if (req->bmRequestType != 0 || req->wValue >= 128) {
 		return USBD_REQ_NOTSUPP;
 	}
 
@@ -271,7 +270,6 @@ usb_standard_set_configuration(usbd_device *usbd_dev,
 	int found_index = -1;
 	const struct usb_config_descriptor *cfg;
 
-	(void)req;
 	(void)buf;
 	(void)len;
 

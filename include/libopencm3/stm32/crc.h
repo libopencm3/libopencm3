@@ -42,7 +42,8 @@
 #       include <libopencm3/stm32/g0/crc.h>
 #elif defined(STM32G4)
 #       include <libopencm3/stm32/g4/crc.h>
+#elif defined(STM32H7)
+#       include <libopencm3/stm32/h7/crc.h>
 #else
 #       error "stm32 family not defined."
 #endif
-
