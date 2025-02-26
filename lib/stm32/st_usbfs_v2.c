@@ -68,20 +68,22 @@ void st_usbfs_copy_from_pm(void *buf, const volatile void *vPM, uint16_t len)
 	uint8_t odd = len & 1;
 	len >>= 1;
 
-	if (((uintptr_t) buf) & 0x01) {
+	if (((uintptr_t)buf) & 0x01) {
+		uint8_t *dest = (uint8_t *)buf;
 		for (; len; PM++, len--) {
 			uint16_t value = *PM;
-			*(uint8_t *) buf++ = value;
-			*(uint8_t *) buf++ = value >> 8;
+			*(uint8_t *)dest++ = value;
+			*(uint8_t *)dest++ = value >> 8;
 		}
 	} else {
-		for (; len; PM++, buf += 2, len--) {
-			*(uint16_t *) buf = *PM;
+		uint16_t *dest = (uint16_t *)buf;
+		for (; len; PM++, dest++, len--) {
+			*dest = *PM;
 		}
 	}
 
 	if (odd) {
-		*(uint8_t *) buf = *(uint8_t *) PM;
+		*(uint8_t *)buf = *(uint8_t *)PM;
 	}
 }
 
