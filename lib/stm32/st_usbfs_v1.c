@@ -22,6 +22,7 @@
 #include <libopencm3/stm32/tools.h>
 #include <libopencm3/stm32/st_usbfs.h>
 #include <libopencm3/usb/usbd.h>
+#include <libopencm3/usb/bos.h>
 #include "../usb/usb_private.h"
 #include "common/st_usbfs_core.h"
 

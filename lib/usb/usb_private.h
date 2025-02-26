@@ -47,6 +47,7 @@ LGPL License Terms @ref lgpl_license
 struct _usbd_device {
 	const struct usb_device_descriptor *desc;
 	const struct usb_config_descriptor *config;
+	const usb_bos_descriptor *bos;
 	const char * const *strings;
 	int num_strings;
 
@@ -76,6 +77,10 @@ struct _usbd_device {
 		usbd_control_complete_callback complete;
 		bool needs_zlp;
 	} control_state;
+
+	usbd_microsoft_os_req_callback microsoft_os_req_callback;
+	const void *microsoft_os_descriptor_sets;
+	uint8_t num_microsoft_os_descriptor_sets;
 
 	struct user_control_callback {
 		usbd_control_callback cb;
@@ -164,4 +169,3 @@ struct _usbd_driver {
 };
 
 #endif
-
