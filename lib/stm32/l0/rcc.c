@@ -420,8 +420,8 @@ void rcc_set_lptim1_sel(uint32_t lptim1_sel)
  */
 void rcc_set_lpuart1_sel(uint32_t lpuart1_sel)
 {
-	RCC_CCIPR &= ~(RCC_CCIPR_LPUARTxSEL_MASK << RCC_CCIPR_LPTIM1SEL_SHIFT);
-	RCC_CCIPR |= (lpuart1_sel << RCC_CCIPR_LPTIM1SEL_SHIFT);
+	RCC_CCIPR &= ~(RCC_CCIPR_LPUARTxSEL_MASK << RCC_CCIPR_LPUART1SEL_SHIFT);
+	RCC_CCIPR |= (lpuart1_sel << RCC_CCIPR_LPUART1SEL_SHIFT);
 }
 
 /*---------------------------------------------------------------------------*/
