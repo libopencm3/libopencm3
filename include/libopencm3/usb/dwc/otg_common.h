@@ -233,6 +233,7 @@
 
 /* OTG FS Product ID register (OTG_CID) */
 #define OTG_CID_HAS_VBDEN	0x00002000
+#define OTG_CID_CNAK_EARLY	0x00002000
 
 /* Device-mode CSRs */
 /* OTG device control register (OTG_DCTL) */

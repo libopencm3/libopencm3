@@ -503,9 +503,6 @@ static void lm4f_poll(usbd_device *usbd_dev)
 				usbd_dev->control_state.state != LAST_DATA_OUT)
 				? USB_TRANSACTION_SETUP :
 				  USB_TRANSACTION_OUT;
-			if (type == USB_TRANSACTION_SETUP) {
-				lm4f_ep_read_packet(usbd_dev, 0, &usbd_dev->control_state.req, 8);
-			}
 			if (usbd_dev->user_callback_ctr[0][type]) {
 				usbd_dev->
 					user_callback_ctr[0][type](usbd_dev, 0);

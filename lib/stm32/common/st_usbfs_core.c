@@ -252,7 +252,6 @@ void st_usbfs_poll(usbd_device *dev)
 			/* OUT or SETUP? */
 			if (*USB_EP_REG(ep) & USB_EP_SETUP) {
 				type = USB_TRANSACTION_SETUP;
-				st_usbfs_ep_read_packet(dev, ep, &dev->control_state.req, 8);
 			} else {
 				type = USB_TRANSACTION_OUT;
 			}
