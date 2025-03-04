@@ -74,7 +74,7 @@ OBJS += usb_cdc.o
 OBJS += usb_hid.o
 OBJS += usb_midi.o
 OBJS += usb_msc.o
-OBJS += usb_dwc_common.o usb_f107.o usb_f207.o
+OBJS += usb_dwc_common.o usb_f107.o usb_f207.o usb_f723.o
 
 VPATH += ../../usb:../:../../cm3:../common
 VPATH += ../../ethernet
