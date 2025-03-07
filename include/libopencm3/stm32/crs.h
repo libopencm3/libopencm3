@@ -26,6 +26,8 @@
 #       include <libopencm3/stm32/l0/crs.h>
 #elif defined(STM32L4)
 #       include <libopencm3/stm32/l4/crs.h>
+#elif defined(STM32L5)
+#       include <libopencm3/stm32/l5/crs.h>
 #elif defined(STM32G4)
 #       include <libopencm3/stm32/g4/crs.h>
 #else

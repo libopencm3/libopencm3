@@ -48,6 +48,9 @@ vector_table_t vector_table = {
 	.memory_manage_fault = mem_manage_handler,
 	.bus_fault = bus_fault_handler,
 	.usage_fault = usage_fault_handler,
+#ifdef STM32L5
+	.secure_fault = secure_fault_handler,
+#endif
 	.debug_monitor = debug_monitor_handler,
 #endif
 
@@ -120,6 +123,9 @@ void null_handler(void)
 #pragma weak mem_manage_handler = blocking_handler
 #pragma weak bus_fault_handler = blocking_handler
 #pragma weak usage_fault_handler = blocking_handler
+#ifdef STM32L5
+#pragma weak secure_fault_handler = blocking_handler
+#endif
 #pragma weak debug_monitor_handler = null_handler
 #endif
 

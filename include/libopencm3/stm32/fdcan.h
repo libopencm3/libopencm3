@@ -24,6 +24,8 @@
 
 #if defined(STM32G4)
 #	include <libopencm3/stm32/g4/fdcan.h>
+#elif defined(STM32L5)
+#	include <libopencm3/stm32/l5/fdcan.h>
 #elif defined(STM32H7)
 #	include <libopencm3/stm32/h7/fdcan.h>
 #endif
