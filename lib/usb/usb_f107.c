@@ -17,6 +17,12 @@
  * along with this library.  If not, see <http://www.gnu.org/licenses/>.
  */
 
+/*
+ * USB full-speed driver and peripheral initialization for STM32
+ * F1, F2 and F4 series with a OTG full-speed USB peripheral.
+ * The code support USB device mode only.
+ */
+
 #include <string.h>
 #include <libopencm3/cm3/common.h>
 #include <libopencm3/stm32/tools.h>
@@ -63,11 +69,14 @@ static usbd_device *stm32f107_usbd_init(void)
 	while (OTG_FS_GRSTCTL & OTG_GRSTCTL_CSRST);
 
 	if (OTG_FS_CID >= OTG_CID_HAS_VBDEN) {
-		/* Enable VBUS detection in device mode and power up the PHY. */
-		OTG_FS_GCCFG |= OTG_GCCFG_VBDEN | OTG_GCCFG_PWRDWN;
+		/* Disable VBUS sensing and power up the PHY. */
+		OTG_FS_GCCFG |= OTG_GCCFG_PWRDWN;
+		OTG_FS_GCCFG &= ~OTG_GCCFG_VBDEN;
+		OTG_FS_GOTGCTL |= OTG_GOTGCTL_BVALOEN| OTG_GOTGCTL_BVALOVAL;
 	} else {
-		/* Enable VBUS sensing in device mode and power up the PHY. */
-		OTG_FS_GCCFG |= OTG_GCCFG_VBUSBSEN | OTG_GCCFG_PWRDWN;
+		/* Disable VBUS sensing and power up the PHY. */
+		OTG_FS_GCCFG |= OTG_GCCFG_NOVBUSSENS | OTG_GCCFG_PWRDWN;
+		OTG_FS_GCCFG &= ~(OTG_GCCFG_VBUSBSEN | OTG_GCCFG_VBUSASEN);
 	}
 	/* Explicitly enable DP pullup (not all cores do this by default) */
 	OTG_FS_DCTL &= ~OTG_DCTL_SDIS;
