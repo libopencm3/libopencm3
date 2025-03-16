@@ -121,14 +121,20 @@ void usart_enable_tx_dma(uint32_t usart);
 void usart_disable_tx_dma(uint32_t usart);
 void usart_enable_rx_interrupt(uint32_t usart);
 void usart_disable_rx_interrupt(uint32_t usart);
+bool usart_rx_interrupt_enabled(uint32_t usart);
 void usart_enable_tx_interrupt(uint32_t usart);
 void usart_disable_tx_interrupt(uint32_t usart);
+bool usart_tx_interrupt_enabled(uint32_t usart);
 void usart_enable_tx_complete_interrupt(uint32_t usart);
 void usart_disable_tx_complete_interrupt(uint32_t usart);
+bool usart_tx_complete_interrupt_enabled(uint32_t usart);
 void usart_enable_idle_interrupt(uint32_t usart);
 void usart_disable_idle_interrupt(uint32_t usart);
+bool usart_idle_interrupt_enabled(uint32_t usart);
 void usart_enable_error_interrupt(uint32_t usart);
 void usart_disable_error_interrupt(uint32_t usart);
+bool usart_error_interrupt_enabled(uint32_t usart);
+void usart_clear_interrupt_flag(uint32_t usart, uint32_t flag);
 bool usart_get_flag(uint32_t usart, uint32_t flag);
 
 END_DECLS
