@@ -43,10 +43,25 @@ LGPL License Terms @ref lgpl_license
 
 #define MIN(a, b) ((a) < (b) ? (a) : (b))
 
+/**
+ * Maximum number of interface for memory to allocate.
+ * The allocated memory is used keep track of the SET_INTERFACE setting
+ * If the value is 0, no memory is allocated
+ *
+ * @note If a value could not be stored
+ *  (due to no memory allocated OR allocate memory not enought to store the value),
+ * then the following behavour apply:
+ *  - SET_INTEFACE for other than alternate-setting = 0 will always result in STALL.
+ *  - GET_INTEFACE will always result in STALL
+ */
+#if !defined(USBD_INTERFACE_MAX)
+# define USBD_INTERFACE_MAX 8
+#endif
+
 /** Internal collection of device information. */
 struct _usbd_device {
 	const struct usb_device_descriptor *desc;
-	const struct usb_config_descriptor *config;
+	const struct usb_config_descriptor **config;
 	const char * const *strings;
 	int num_strings;
 
@@ -57,6 +72,8 @@ struct _usbd_device {
 	uint8_t current_config;
 
 	uint16_t pm_top;    /**< Top of allocated endpoint buffer memory */
+
+	const struct usb_interface_descriptor *current_iface[USBD_INTERFACE_MAX];
 
 	/* User callback functions for various USB events */
 	void (*user_callback_reset)(void);
