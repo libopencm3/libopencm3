@@ -405,5 +405,5 @@ void gadget0_run(usbd_device *usbd_dev)
 {
 	usbd_poll(usbd_dev);
 	/* This should be more than allowable! */
-	delay_us(100);
+	delay_us(50);
 }
