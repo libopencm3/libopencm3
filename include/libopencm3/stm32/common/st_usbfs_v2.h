@@ -56,6 +56,27 @@
 /* --- USB interrupt status register masks / bits -------------------------- */
 
 #define USB_ISTR_L1REQ		(1 << 7)
+#define USB_ISTR_RCWBITS	(USB_ISTR_CTR | \
+					USB_ISTR_PMAOVR | \
+					USB_ISTR_ERR | \
+					USB_ISTR_WKUP | \
+					USB_ISTR_SUSP | \
+					USB_ISTR_RESET | \
+					USB_ISTR_SOF | \
+					USB_ISTR_ESOF | \
+					USB_ISTR_L1REQ)		/* these bits are all "rc_w0" : writing 1 is safe */
+
+/* --- USB interrupt status register manipulators -------------------------- */
+
+/* Note: CTR and DIR are read only! */
+#define USB_CLR_ISTR_PMAOVR()	SET_REG(USB_ISTR_REG, USB_ISTR_RCWBITS & (~USB_ISTR_PMAOVR))
+#define USB_CLR_ISTR_ERR()	SET_REG(USB_ISTR_REG, USB_ISTR_RCWBITS & (~USB_ISTR_ERR))
+#define USB_CLR_ISTR_WKUP()	SET_REG(USB_ISTR_REG, USB_ISTR_RCWBITS & (~USB_ISTR_WKUP))
+#define USB_CLR_ISTR_SUSP()	SET_REG(USB_ISTR_REG, USB_ISTR_RCWBITS & (~USB_ISTR_SUSP))
+#define USB_CLR_ISTR_RESET()	SET_REG(USB_ISTR_REG, USB_ISTR_RCWBITS & (~USB_ISTR_RESET))
+#define USB_CLR_ISTR_SOF()	SET_REG(USB_ISTR_REG, USB_ISTR_RCWBITS & (~USB_ISTR_SOF))
+#define USB_CLR_ISTR_ESOF()	SET_REG(USB_ISTR_REG, USB_ISTR_RCWBITS & (~USB_ISTR_ESOF))
+#define USB_CLR_ISTR_L1REQ()	SET_REG(USB_ISTR_REG, USB_ISTR_RCWBITS & (~USB_ISTR_L1REQ))
 
 /* --- LPM control and status register USB_LPMCSR Values --------------------*/
 
