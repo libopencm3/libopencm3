@@ -29,6 +29,10 @@
 #       include <libopencm3/stm32/f7/fmc.h>
 #elif defined(STM32H7)
 #       include <libopencm3/stm32/h7/fmc.h>
+#elif   defined(STM32L5)
+#       include <libopencm3/stm32/l5/fmc.h>
+#elif   defined(STM32L5_SECURE)
+#       include <libopencm3/stm32/l5_secure/fmc.h>
 #endif
 
 /* --- Convenience macros -------------------------------------------------- */
