@@ -78,6 +78,7 @@ specific memorymap.h header before including this header file.*/
 #define SPI1_DR				SPI_DR(SPI1_BASE)
 #define SPI2_DR				SPI_DR(SPI2_BASE)
 #define SPI3_DR				SPI_DR(SPI3_BASE)
+#define SPI4_DR				SPI_DR(SPI4_BASE)
 
 /* CRC polynomial register (SPIx_CRCPR) */
 /* Note: Not used in I2S mode. */
