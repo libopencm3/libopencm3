@@ -71,6 +71,7 @@ specific memorymap.h header before including this header file.*/
 #define SPI1_SR				SPI_SR(SPI1_BASE)
 #define SPI2_SR				SPI_SR(SPI2_BASE)
 #define SPI3_SR				SPI_SR(SPI3_BASE)
+#define SPI4_SR				SPI_SR(SPI4_BASE)
 
 /* Data register (SPIx_DR) */
 #define SPI_DR(spi_base)		MMIO32((spi_base) + 0x0c)
