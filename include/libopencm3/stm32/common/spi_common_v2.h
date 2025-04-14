@@ -98,11 +98,15 @@ specific memorymap.h header before including this header file.*/
 #define SPI_SR_FTLVL_HALF_FIFO		(0x2 << 11)
 #define SPI_SR_FTLVL_FIFO_FULL		(0x3 << 11)
 
+#define SPI_SR_FTLVL_MASK		(0x3 << 11)
+
 /* FRLVL[1:0]: FIFO Reception Level */
 #define SPI_SR_FRLVL_FIFO_EMPTY		(0x0 << 9)
 #define SPI_SR_FRLVL_QUARTER_FIFO	(0x1 << 9)
 #define SPI_SR_FRLVL_HALF_FIFO		(0x2 << 9)
 #define SPI_SR_FRLVL_FIFO_FULL		(0x3 << 9)
+
+#define SPI_SR_FRLVL_MASK		(0x3 << 9)
 
 /* FRE : TI frame format error */
 #define SPI_SR_FRE			(1 << 8)
