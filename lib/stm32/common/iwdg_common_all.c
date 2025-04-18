@@ -102,11 +102,11 @@ void iwdg_set_period_ms(uint32_t period)
 		prescale = PRESCALER_MAX;
 	}
 
-	while (iwdg_prescaler_busy());
+	IWDG_KR = IWDG_KR_START;
 	IWDG_KR = IWDG_KR_UNLOCK;
+	while (iwdg_prescaler_busy());
 	IWDG_PR = prescale;
 	while (iwdg_reload_busy());
-	IWDG_KR = IWDG_KR_UNLOCK;
 	IWDG_RLR = count & COUNT_MASK;
 	
 	/* Refresh counter after configuration is complete */
