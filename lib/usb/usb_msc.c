@@ -2,7 +2,7 @@
  * This file is part of the libopencm3 project.
  *
  * Copyright (C) 2013 Weston Schmidt <weston_schmidt@alumni.purdue.edu>
- * Copyright (C) 2013 Pavol Rusnak <stick@gk2.sk>
+ * Copyright (C) 2013 Pavol Rusnak <pavol@rusnak.io>
  *
  * This library is free software: you can redistribute it and/or modify
  * it under the terms of the GNU Lesser General Public License as published by
