@@ -1,7 +1,8 @@
 # This file is part of the libopencm3 project.
 #
-# Copyright (C) 2023-2024 1BitSquared <info@1bitsquared.com>
+# Copyright (C) 2023 1BitSquared <info@1bitsquared.com>
 # Written by Rachel Mant <git@dragonmux.network>
+# Modified by Kat Mitchell <kat@northernpaws.io>
 #
 # Redistribution and use in source and binary forms, with or without
 # modification, are permitted provided that the following conditions are met:
@@ -28,24 +29,19 @@
 # OR TORT (INCLUDING NEGLIGENCE OR OTHERWISE) ARISING IN ANY WAY OUT OF THE USE
 # OF THIS SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
 
-common_includes = include_directories('.')
+stm32l4_nvic_header = custom_target(
+	'nvic.h',
+	command: [irq2nvic, '@INPUT@'],
+	input: 'irq.json',
+	# We only name one of the 3 output files due to how this all works.
+	# This script will write:
+	# - include/libopencm3/stm32/l4/nvic.h
+	# - lib/stm32/l4/vector_nvic.c
+	# - include/libopencmsis/stm32/l4/irqhandlers.h
+	output: 'nvic.h',
+	install: false,
+)
 
-target_paths = {
-	'stm32f0': 'stm32/f0',
-	'stm32f1': 'stm32/f1',
-	'stm32f3': 'stm32/f3',
-	'stm32f4': 'stm32/f4',
-	'stm32f7': 'stm32/f7',
-	'stm32h7': 'stm32/h7',
-	'stm32l4': 'stm32/l4',
-	'lm4f': 'lm3s',
-}
-
-if target_platform != 'all'
-	target_path = target_paths.get(target_platform, target_platform)
-	subdir(f'libopencm3/@target_path@')
-else
-	foreach target_name, target_path : target_paths
-		subdir(f'libopencm3/@target_path@')
-	endforeach
-endif
+stm32l4_vector_nvic = declare_dependency(
+	sources: stm32l4_nvic_header,
+)
