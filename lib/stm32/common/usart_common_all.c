@@ -63,8 +63,8 @@ void usart_set_baudrate(uint32_t usart, uint32_t baud)
 	 * Note: We round() the value rather than floor()ing it, for more
 	 * accurate divisor selection.
 	 */
-#ifdef LPUART1
-	if (usart == LPUART1) {
+#ifdef LPUART1_BASE
+	if (usart == LPUART1_BASE) {
 		USART_BRR(usart) = (clock / baud) * 256
 			+ ((clock % baud) * 256 + baud / 2) / baud;
 		return;
