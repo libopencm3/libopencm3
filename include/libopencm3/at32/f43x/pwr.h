@@ -33,4 +33,31 @@ LGPL License Terms @ref lgpl_license
 
 #include <libopencm3/stm32/common/pwr_common_v1.h>
 
+/* --- PWR registers (continued) ------------------------------------------- */
+
+/** LDO output voltage select register (PWC_LDOOV) */
+#define PWR_LDO		MMIO32(POWER_CONTROL_BASE + 0x10)
+/* LDOOVSEL	[ 2: 0] */
+#define PWR_LDO_OV	7
+
+#define	PWR_LDO_OV_12V	0
+#define	PWR_LDO_OV_13V	1
+#define	PWR_LDO_OV_11V	4
+#define	PWR_LDO_OV_10V	5
+
+
+/* --- PWR function prototypes ------------------------------------------- */
+
+enum pwr_vos_scale {
+	PWR_SCALE1	= PWR_LDO_OV_11V,
+	PWR_SCALE2	= PWR_LDO_OV_12V,
+	PWR_SCALE3	= PWR_LDO_OV_13V
+};
+
+BEGIN_DECLS
+
+void pwr_set_vos_scale(enum pwr_vos_scale scale);
+
+END_DECLS
+
 #endif

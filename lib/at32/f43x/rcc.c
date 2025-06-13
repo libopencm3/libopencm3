@@ -51,6 +51,7 @@ const struct rcc_clock_scale rcc_hse_configs[RCC_CLOCK_HSE_END] = {
 		.hpre = RCC_CFGR_HPRE_NODIV,
 		.ppre1 = RCC_CFGR_PPRE_NODIV,
 		.ppre2 = RCC_CFGR_PPRE_NODIV,
+		.voltage_scale = PWR_SCALE1,
 		.ahb_frequency = 84000000,
 		.apb1_frequency = 84000000,
 		.apb2_frequency = 84000000,
@@ -63,6 +64,7 @@ const struct rcc_clock_scale rcc_hse_configs[RCC_CLOCK_HSE_END] = {
 		.hpre = RCC_CFGR_HPRE_NODIV,
 		.ppre1 = RCC_CFGR_PPRE_NODIV,
 		.ppre2 = RCC_CFGR_PPRE_NODIV,
+		.voltage_scale = PWR_SCALE1,
 		.ahb_frequency	= 96000000,
 		.apb1_frequency = 96000000,
 		.apb2_frequency = 96000000,
@@ -75,6 +77,7 @@ const struct rcc_clock_scale rcc_hse_configs[RCC_CLOCK_HSE_END] = {
 		.hpre = RCC_CFGR_HPRE_NODIV,
 		.ppre1 = RCC_CFGR_PPRE_DIV2,
 		.ppre2 = RCC_CFGR_PPRE_DIV2,
+		.voltage_scale = PWR_SCALE1,
 		.ahb_frequency	= 168000000,
 		.apb1_frequency = 84000000,
 		.apb2_frequency = 84000000,
@@ -87,6 +90,7 @@ const struct rcc_clock_scale rcc_hse_configs[RCC_CLOCK_HSE_END] = {
 		.hpre = RCC_CFGR_HPRE_NODIV,
 		.ppre1 = RCC_CFGR_PPRE_DIV2,
 		.ppre2 = RCC_CFGR_PPRE_DIV2,
+		.voltage_scale = PWR_SCALE2,
 		.ahb_frequency	= 192000000,
 		.apb1_frequency = 96000000,
 		.apb2_frequency = 96000000,
@@ -99,6 +103,7 @@ const struct rcc_clock_scale rcc_hse_configs[RCC_CLOCK_HSE_END] = {
 		.hpre = RCC_CFGR_HPRE_NODIV,
 		.ppre1 = RCC_CFGR_PPRE_DIV2,
 		.ppre2 = RCC_CFGR_PPRE_DIV2,
+		.voltage_scale = PWR_SCALE2,
 		.ahb_frequency	= 240000000,
 		.apb1_frequency = 120000000,
 		.apb2_frequency = 120000000,
@@ -111,6 +116,7 @@ const struct rcc_clock_scale rcc_hse_configs[RCC_CLOCK_HSE_END] = {
 		.hpre = RCC_CFGR_HPRE_NODIV,
 		.ppre1 = RCC_CFGR_PPRE_DIV2,
 		.ppre2 = RCC_CFGR_PPRE_DIV2,
+		.voltage_scale = PWR_SCALE3,
 		.ahb_frequency	= 288000000,
 		.apb1_frequency = 144000000,
 		.apb2_frequency = 144000000,
@@ -126,6 +132,7 @@ const struct rcc_clock_scale rcc_hsi_configs[RCC_CLOCK_HSI_END] = {
 		.hpre = RCC_CFGR_HPRE_NODIV,
 		.ppre1 = RCC_CFGR_PPRE_NODIV,
 		.ppre2 = RCC_CFGR_PPRE_NODIV,
+		.voltage_scale = PWR_SCALE1,
 		.ahb_frequency = 84000000,
 		.apb1_frequency = 84000000,
 		.apb2_frequency = 84000000,
@@ -138,6 +145,7 @@ const struct rcc_clock_scale rcc_hsi_configs[RCC_CLOCK_HSI_END] = {
 		.hpre = RCC_CFGR_HPRE_NODIV,
 		.ppre1 = RCC_CFGR_PPRE_NODIV,
 		.ppre2 = RCC_CFGR_PPRE_NODIV,
+		.voltage_scale = PWR_SCALE1,
 		.ahb_frequency	= 96000000,
 		.apb1_frequency = 96000000,
 		.apb2_frequency = 96000000,
@@ -150,6 +158,7 @@ const struct rcc_clock_scale rcc_hsi_configs[RCC_CLOCK_HSI_END] = {
 		.hpre = RCC_CFGR_HPRE_NODIV,
 		.ppre1 = RCC_CFGR_PPRE_DIV2,
 		.ppre2 = RCC_CFGR_PPRE_DIV2,
+		.voltage_scale = PWR_SCALE1,
 		.ahb_frequency	= 168000000,
 		.apb1_frequency = 84000000,
 		.apb2_frequency = 84000000,
@@ -162,6 +171,7 @@ const struct rcc_clock_scale rcc_hsi_configs[RCC_CLOCK_HSI_END] = {
 		.hpre = RCC_CFGR_HPRE_NODIV,
 		.ppre1 = RCC_CFGR_PPRE_DIV2,
 		.ppre2 = RCC_CFGR_PPRE_DIV2,
+		.voltage_scale = PWR_SCALE2,
 		.ahb_frequency	= 192000000,
 		.apb1_frequency = 96000000,
 		.apb2_frequency = 96000000,
@@ -242,6 +252,9 @@ void rcc_clock_setup_pll(const struct rcc_clock_scale *clock)
 		rcc_osc_on(RCC_HSI);
 		rcc_wait_for_osc_ready(RCC_HSI);
 	}
+
+	rcc_periph_clock_enable(RCC_PWR);
+	pwr_set_vos_scale(clock->voltage_scale);
 
 	rcc_set_hpre(clock->hpre);
 	rcc_set_ppre1(clock->ppre1);
