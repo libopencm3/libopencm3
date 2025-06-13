@@ -49,7 +49,6 @@ const struct _usbd_driver at32_otgfs_driver = {
 static usbd_device *at32_otgfs_init(void)
 {
 	rcc_periph_clock_enable(RCC_OTGFS);
-	OTG_FS_GUSBCFG |= OTG_GUSBCFG_PHYSEL;
 
 	/* Wait for AHB idle. */
 	while (!(OTG_FS_GRSTCTL & OTG_GRSTCTL_AHBIDL));
