@@ -59,6 +59,8 @@ static usbd_device *at32_otgfs_init(void)
 
 	/* Force peripheral only mode. */
 	OTG_FS_GUSBCFG |= OTG_GUSBCFG_FDMOD | OTG_GUSBCFG_TRDT_MASK;
+	/* required with AHB >= 192Mhz, no idea why exactly */
+	for (unsigned i=16; i; i--) __asm__ volatile ("nop");
 
 	/* Power up PHY */
 	OTG_FS_GCCFG |= OTG_GCCFG_PWRDWN | OTG_GCCFG_NOVBUSSENS;
