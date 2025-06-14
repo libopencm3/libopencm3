@@ -42,7 +42,7 @@
         "usart3",
         "exti15_10",
         "rtc_alarm",
-        "usb_fs_wkup",
+        "otg_fs1_wkup",
         "tim8_brk_tim12",
         "tim8_up_tim13",
         "tim8_trg_com_tim14",
