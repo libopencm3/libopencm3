@@ -145,6 +145,50 @@ void spi_set_data_size(uint32_t spi, uint16_t data_s)
 }
 
 /*---------------------------------------------------------------------------*/
+/** @brief SPI Set the Last DMA transfer bit (LDMA_TX) for an even-length transmission
+
+@param[in] spi Unsigned int32. SPI peripheral identifier @ref spi_reg_base.
+*/
+
+void spi_set_ldmatx_even(uint32_t spi)
+{
+	SPI_CR2(spi) &= ~SPI_CR2_LDMA_TX;
+}
+
+/*---------------------------------------------------------------------------*/
+/** @brief SPI Set the Last DMA transfer bit (LDMA_TX) for an odd-length transmission
+
+@param[in] spi Unsigned int32. SPI peripheral identifier @ref spi_reg_base.
+*/
+
+void spi_set_ldmatx_odd(uint32_t spi)
+{
+	SPI_CR2(spi) |= SPI_CR2_LDMA_TX;
+}
+
+/*---------------------------------------------------------------------------*/
+/** @brief SPI Set the Last DMA reception bit (LDMA_RX) for an even-length reception
+
+@param[in] spi Unsigned int32. SPI peripheral identifier @ref spi_reg_base.
+*/
+
+void spi_set_ldmarx_even(uint32_t spi)
+{
+	SPI_CR2(spi) &= ~SPI_CR2_LDMA_RX;
+}
+
+/*---------------------------------------------------------------------------*/
+/** @brief SPI Set the Last DMA reception bit (LDMA_RX) for an odd-length reception
+
+@param[in] spi Unsigned int32. SPI peripheral identifier @ref spi_reg_base.
+*/
+
+void spi_set_ldmarx_odd(uint32_t spi)
+{
+	SPI_CR2(spi) |= SPI_CR2_LDMA_RX;
+}
+
+/*---------------------------------------------------------------------------*/
 /** @brief SPI Set reception threshold to 8 bits
 
 @param[in] spi Unsigned int32. SPI peripheral identifier @ref spi_reg_base.
