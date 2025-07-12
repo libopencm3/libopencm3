@@ -1,0 +1,42 @@
+name: Build Check
+
+on:
+  push:
+    branches: [ main, master, develop ]
+  pull_request:
+    branches: [ main, master, develop ]
+
+jobs:
+  build:
+    runs-on: ubuntu-latest
+    
+    steps:
+    - name: Checkout code
+      uses: actions/checkout@v4
+      
+    - name: Install ARM toolchain
+      run: |
+        sudo apt-get update
+        sudo apt-get install -y gcc-arm-none-eabi
+        
+    - name: Verify toolchain installation
+      run: |
+        arm-none-eabi-gcc --version
+        arm-none-eabi-ld --version
+        
+    - name: Build libopencm3
+      run: |
+        make -j$(nproc)
+        
+    - name: Run style check
+      run: |
+        make stylecheck
+        
+    - name: Run linker tests
+      run: |
+        make genlinktests
+        
+    - name: Check for build artifacts
+      run: |
+        find lib -name "*.a" | head -10
+        echo "Build completed successfully!"

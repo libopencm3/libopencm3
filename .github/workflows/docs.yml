@@ -1,0 +1,37 @@
+name: Documentation
+
+on:
+  push:
+    branches: [ main, master, develop ]
+  pull_request:
+    branches: [ main, master, develop ]
+
+jobs:
+  docs:
+    runs-on: ubuntu-latest
+    
+    steps:
+    - name: Checkout code
+      uses: actions/checkout@v4
+      
+    - name: Install dependencies
+      run: |
+        sudo apt-get update
+        sudo apt-get install -y doxygen graphviz python3
+        
+    - name: Check Doxygen version
+      run: |
+        doxygen --version
+        
+    - name: Build documentation
+      run: |
+        cd doc
+        make html
+        
+    - name: Upload documentation artifacts
+      uses: actions/upload-artifact@v4
+      if: always()
+      with:
+        name: documentation
+        path: doc/html/
+        retention-days: 30
