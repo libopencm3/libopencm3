@@ -1,6 +1,5 @@
 README
 ======
-[![Build Status](https://travis-ci.org/libopencm3/libopencm3.svg?branch=master)](https://travis-ci.org/libopencm3/libopencm3)
 
 [![Discord](https://img.shields.io/discord/613131135903596547?logo=discord)](https://discord.gg/P7FYThy)
 
