@@ -1,0 +1,109 @@
+name: Comprehensive CI
+
+on:
+  push:
+    branches: [ main, master, develop ]
+  pull_request:
+    branches: [ main, master, develop ]
+  schedule:
+    # Run weekly on Sundays at 02:00 UTC
+    - cron: '0 2 * * 0'
+
+jobs:
+  build-matrix:
+    strategy:
+      matrix:
+        os: [ubuntu-20.04, ubuntu-22.04, ubuntu-latest]
+        include:
+          - os: ubuntu-20.04
+            toolchain-package: gcc-arm-none-eabi
+          - os: ubuntu-22.04  
+            toolchain-package: gcc-arm-none-eabi
+          - os: ubuntu-latest
+            toolchain-package: gcc-arm-none-eabi
+            
+    runs-on: ${{ matrix.os }}
+    
+    steps:
+    - name: Checkout code
+      uses: actions/checkout@v4
+      
+    - name: Install dependencies
+      run: |
+        sudo apt-get update
+        sudo apt-get install -y ${{ matrix.toolchain-package }} make python3
+        
+    - name: Display toolchain info
+      run: |
+        echo "=== Toolchain Information ==="
+        arm-none-eabi-gcc --version
+        arm-none-eabi-ld --version
+        arm-none-eabi-ar --version
+        echo "=== Environment ==="
+        uname -a
+        cat /etc/os-release
+        
+    - name: Build all targets
+      run: |
+        echo "Building libopencm3 with $(nproc) parallel jobs..."
+        make -j$(nproc) V=1
+        
+    - name: Verify build artifacts
+      run: |
+        echo "=== Build Artifacts ==="
+        find lib -name "*.a" | wc -l
+        echo "Generated library files:"
+        find lib -name "*.a" | head -20
+        
+    - name: Run style checks
+      run: |
+        echo "=== Style Check ==="
+        make stylecheck
+        
+    - name: Run linker tests
+      run: |
+        echo "=== Linker Tests ==="
+        make genlinktests
+        
+    - name: Test clean build
+      run: |
+        echo "=== Clean Build Test ==="
+        make clean
+        make -j$(nproc)
+        
+  build-specific-targets:
+    runs-on: ubuntu-latest
+    strategy:
+      matrix:
+        target: 
+          - stm32/f1
+          - stm32/f4
+          - stm32/f7
+          - stm32/l4
+          - lpc43xx/m4
+          - sam/3x
+          
+    steps:
+    - name: Checkout code
+      uses: actions/checkout@v4
+      
+    - name: Install ARM toolchain
+      run: |
+        sudo apt-get update
+        sudo apt-get install -y gcc-arm-none-eabi
+        
+    - name: Generate IRQ headers
+      run: |
+        # Generate required IRQ headers first
+        make include/libopencm3/${{ matrix.target }}/nvic.h || true
+        
+    - name: Build specific target
+      run: |
+        echo "Building target: ${{ matrix.target }}"
+        make lib/${{ matrix.target }}
+        
+    - name: Verify target build
+      run: |
+        echo "=== Target ${{ matrix.target }} Build Result ==="
+        find lib/${{ matrix.target }} -name "*.a" -ls || echo "No .a files found"
+        find lib/${{ matrix.target }} -name "*.o" | wc -l || echo "No .o files found"

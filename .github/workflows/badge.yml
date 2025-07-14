@@ -1,0 +1,22 @@
+name: Status Badge Update
+
+on:
+  workflow_run:
+    workflows: ["Build Check", "Comprehensive CI"]
+    types: [completed]
+
+jobs:
+  update-badge:
+    runs-on: ubuntu-latest
+    if: github.event.workflow_run.conclusion == 'success'
+    
+    steps:
+    - name: Create success badge
+      run: |
+        echo "Build passing on Linux" > badge_status.txt
+        
+    - name: Upload badge status
+      uses: actions/upload-artifact@v4
+      with:
+        name: build-status
+        path: badge_status.txt
