@@ -27,8 +27,8 @@
  */
 
 /* Those defined only on ARMv7 and above */
-#if !defined(__ARM_ARCH_7M__) && !defined(__ARM_ARCH_7EM__)
-#error "Instrumentation Trace Macrocell not available in CM0"
+#if !defined(__ARM_ARCH_7M__) && !defined(__ARM_ARCH_7EM__) && !defined(__ARM_ARCH_8M_MAIN__)
+#error "Instrumentation Trace Macrocell not available in CM0 or CM23"
 #endif
 
 /* --- ITM registers ------------------------------------------------------- */
