@@ -41,7 +41,7 @@ OBJS += iwdg_common_all.o
 OBJS += i2c_common_v2.o
 OBJS += usart_common_all.o usart_common_v2.o
 OBJS += gpio_common_all.o gpio_common_f0234.o
-OBJS += rcc.o rcc_common_all.o
+OBJS += rcc.o rcc_common_all.o crs_common_all.o
 
 OBJS += usb.o usb_standard.o usb_control.o usb_msc.o
 OBJS += usb_hid.o usb_bos.o usb_microsoft.o
