@@ -240,7 +240,7 @@ uint16_t dwc_ep_write_packet(usbd_device *const usbd_dev, const uint8_t addr, co
 	const uint32_t *buf32 = buf;
 	/* Copy buffer to endpoint FIFO, note - memcpy does not work.
 	 * ARMv7M supports non-word-aligned accesses, ARMv6M does not. */
-#if defined(__ARM_ARCH_7M__) || defined(__ARM_ARCH_7EM__)
+#if defined(__ARM_ARCH_7M__) || defined(__ARM_ARCH_7EM__) || defined(__ARM_ARCH_8M_MAIN__)
 	for (size_t i = 0; i < len; i += 4) {
 		REBASE(OTG_FIFO(ep)) = *buf32++;
 	}
@@ -293,7 +293,7 @@ uint16_t dwc_ep_read_packet(usbd_device *usbd_dev, uint8_t addr, void *buf, uint
 	int i = 0;
 	uint32_t *buf32 = buf;
 	/* ARMv7M supports non-word-aligned accesses, ARMv6M does not. */
-#if defined(__ARM_ARCH_7M__) || defined(__ARM_ARCH_7EM__)
+#if defined(__ARM_ARCH_7M__) || defined(__ARM_ARCH_7EM__) || defined(__ARM_ARCH_8M_MAIN__)
 	for (i = len; i >= 4; i -= 4) {
 		*buf32++ = REBASE(OTG_FIFO(0));
 		usbd_dev->rxbcnt -= 4;
