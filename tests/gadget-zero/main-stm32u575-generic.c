@@ -34,6 +34,18 @@
 	do { } while (0)
 #endif
 
+#define OTG_GOTGCTL_BVALOVAL		(1U << 7U)
+#define OTG_GOTGCTL_BVALOEN		(1U << 6U)
+
+// #include <libopencm3/stm32/u5/pwr.h>
+#define PWR_SVMCR		MMIO32(PWR_BASE + 0x10)
+#define PWR_SVMSR		MMIO32(PWR_BASE + 0x3C)
+
+#define PWR_SVMCR_USV		(1U << 28U)
+#define PWR_SVMCR_UVMEN		(1U << 24U)
+
+#define PWR_SVMSR_VDDUSBRDY		(1U << 24U)
+
 int main(void)
 {
 	rcc_clock_setup_hsi(&rcc_hsi16mhz_configs);
@@ -41,7 +53,7 @@ int main(void)
 	while (!rcc_is_osc_ready(RCC_HSI48));
 	crs_autotrim_usb_enable();
 	rcc_periph_clock_enable(RCC_GPIOA);
-	rcc_periph_clock_enable(RCC_OTGFS);
+	//rcc_periph_clock_enable(RCC_OTGFS);
 
 	gpio_mode_setup(GPIOA, GPIO_MODE_AF, GPIO_PUPD_NONE, GPIO11 | GPIO12);
 	gpio_set_af(GPIOA, GPIO_AF10, GPIO11 | GPIO12);
@@ -51,9 +63,20 @@ int main(void)
 	gpio_mode_setup(GPIOC, GPIO_MODE_OUTPUT, GPIO_PUPD_NONE, GPIO13);
 	gpio_set(GPIOC, GPIO13);
 
+	/* Remove Vddusb power isolation */
+	rcc_periph_clock_enable(RCC_PWR);
+	PWR_SVMCR |= PWR_SVMCR_USV;
+	uint32_t pwr_svmsr = PWR_SVMSR;
+	(void) (pwr_svmsr & PWR_SVMSR_VDDUSBRDY);
+
 	usbd_device *usbd_dev = gadget0_init(&otgfs_usb_driver, "stm32u575-generic");
-	/* Disable Vbus detection */
-	OTG_FS_GCCFG &= ~(OTG_GCCFG_VBDEN);
+	/* Disable Vbus detection and override B-session valid */
+	uint32_t core_id = OTG_FS_CID;
+	if (core_id >= 0x2000) {
+		OTG_FS_GCCFG &= ~(OTG_GCCFG_VBDEN);
+		OTG_FS_GOTGCTL |= (OTG_GOTGCTL_BVALOEN | OTG_GOTGCTL_BVALOVAL);
+		(void) (OTG_FS_GOTGCTL & OTG_GOTGCTL_BSVLD);
+	}
 
 	ER_DPRINTF("bootup complete\n");
 	gpio_clear(GPIOC, GPIO13);
