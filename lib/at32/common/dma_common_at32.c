@@ -69,7 +69,7 @@ void dma_set_channel_request(uint32_t dma, uint8_t channel,
 			     enum dma_request_id request)
 {
 	uint32_t shift = DMA_CSELR_CxS_SHIFT(channel);
-	uint32_t mask = DMA_CSELR_CxS_MASK << shift;
+	uint32_t mask = ~(DMA_CSELR_CxS_MASK << shift);
 	uint32_t val = request << shift;
 
 	switch(channel) {
