@@ -529,6 +529,12 @@
 #define RCC_BDCR_BDRST				(1 << 16)
 #define RCC_BDCR_RTCEN				(1 << 15)
 /* RCC_BDCR[9:8]: RTCSEL */
+#define RCC_BDCR_RTCSEL_SHIFT			8
+#define RCC_BDCR_RTCSEL_MASK			0x3
+#define RCC_BDCR_RTCSEL_NONE			0
+#define RCC_BDCR_RTCSEL_LSE			1
+#define RCC_BDCR_RTCSEL_LSI			2
+#define RCC_BDCR_RTCSEL_HSE			3
 #define RCC_BDCR_LSEBYP				(1 << 2)
 #define RCC_BDCR_LSERDY				(1 << 1)
 #define RCC_BDCR_LSEON				(1 << 0)
