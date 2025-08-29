@@ -572,6 +572,41 @@ uint32_t rcc_get_spi_clk_freq(uint32_t spi) {
 	}
 }
 
+/** @brief RCC Setup for given clock and use it as Sysclk source.
+ *
+ * @param[in] clock full struct with desired parameters
+ *
+ */
+void rcc_clock_setup(const struct rcc_clock_scale *clock)
+{
+	/* Turn on the appropriate source */
+	if (clock->pll_source == RCC_CFGR_PLLSRC_HSE_CLK) {
+		rcc_osc_on(RCC_HSE);
+		rcc_wait_for_osc_ready(RCC_HSE);
+	} else {
+		rcc_osc_on(RCC_HSI16);
+		rcc_wait_for_osc_ready(RCC_HSI16);
+	}
+
+	rcc_set_hpre(clock->hpre);
+	rcc_set_ppre1(clock->ppre1);
+	rcc_set_ppre2(clock->ppre2);
+
+	rcc_periph_clock_enable(RCC_PWR);
+	pwr_set_vos_scale(clock->voltage_scale);
+
+	flash_prefetch_enable();
+	flash_set_ws(clock->flash_waitstates);
+
+	rcc_set_sysclk_source(clock->pll_source);
+
+	/* Set the peripheral clock frequencies used. */
+	rcc_ahb_frequency = clock->ahb_frequency;
+	rcc_apb1_frequency = clock->apb1_frequency;
+	rcc_apb2_frequency = clock->apb2_frequency;
+}
+
+/**@}*/
 /** @brief RCC Setup PLL and use it as Sysclk source.
  *
  * @param[in] clock full struct with desired parameters
