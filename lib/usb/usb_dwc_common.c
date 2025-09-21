@@ -414,7 +414,7 @@ void dwc_poll(usbd_device *usbd_dev)
 		}
 
 		if (pktsts == OTG_GRXSTSP_PKTSTS_OUT_COMP || pktsts == OTG_GRXSTSP_PKTSTS_SETUP_COMP) {
-#if defined(STM32H7)
+#if defined(STM32H7) || defined(STM32U5)
 			if (pktsts == OTG_GRXSTSP_PKTSTS_SETUP_COMP) {
 				REBASE(OTG_DOEPINT(ep)) = OTG_DOEPINTX_STUP;
 			}
