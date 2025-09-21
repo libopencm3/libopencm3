@@ -21,6 +21,7 @@
 #include <libopencm3/stm32/gpio.h>
 #include <libopencm3/stm32/rcc.h>
 #include <libopencm3/stm32/crs.h>
+#include <libopencm3/stm32/pwr.h>
 #include <libopencm3/usb/dwc/otg_fs.h>
 
 #include <stdio.h>
@@ -38,6 +39,7 @@
 #define OTG_GOTGCTL_BVALOVAL		(1U << 7U)
 #define OTG_GOTGCTL_BVALOEN		(1U << 6U)
 
+#ifndef PWR_SVMCR_USV
 // #include <libopencm3/stm32/u5/pwr.h>
 #define PWR_SVMCR		MMIO32(PWR_BASE + 0x10)
 #define PWR_SVMSR		MMIO32(PWR_BASE + 0x3C)
@@ -46,6 +48,7 @@
 #define PWR_SVMCR_UVMEN		(1U << 24U)
 
 #define PWR_SVMSR_VDDUSBRDY		(1U << 24U)
+#endif
 
 int main(void)
 {
@@ -66,9 +69,13 @@ int main(void)
 
 	/* Remove Vddusb power isolation */
 	rcc_periph_clock_enable(RCC_PWR);
+#if 0
 	PWR_SVMCR |= PWR_SVMCR_USV;
 	uint32_t pwr_svmsr = PWR_SVMSR;
 	(void) (pwr_svmsr & PWR_SVMSR_VDDUSBRDY);
+#else
+	pwr_enable_vddusb();
+#endif
 
 	usbd_device *usbd_dev = gadget0_init(&otgfs_usb_driver, "stm32u575-generic");
 	/* Disable Vbus detection and override B-session valid */
