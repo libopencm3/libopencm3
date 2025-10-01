@@ -1029,6 +1029,7 @@ void rcc_set_clock48_source(uint32_t clksel);
 void rcc_enable_rtc_clock(void);
 void rcc_disable_rtc_clock(void);
 void rcc_set_rtc_clock_source(enum rcc_osc clk);
+void rcc_set_peripheral_clk_sel(uint32_t periph, uint32_t sel);
 uint32_t rcc_get_usart_clk_freq(uint32_t usart);
 uint32_t rcc_get_timer_clk_freq(uint32_t timer);
 uint32_t rcc_get_i2c_clk_freq(uint32_t i2c);
