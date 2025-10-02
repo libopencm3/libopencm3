@@ -53,16 +53,16 @@ for element in tree.iter(tag=ElementTree.Comment):
 
 			if (args.target != None):
 				if (device == args.target):
-					tab.set("type", "modules")
+					tab.set("type", "topics")
 				else:
 					tab.set("type", "user")
-					tab.set("url", "../../" + device + "/html/modules.html")
+					tab.set("url", "../../" + device + "/html/topics.html")
 			else:
 				tab.set("type", "user")
-				tab.set("url", "../" + device + "/html/modules.html")
+				tab.set("url", "../" + device + "/html/topics.html")
 
 			parent_map[element].insert(idx, tab)
-			idx = idx+1;
+			idx = idx+1
 		parent_map[element].remove(element)
 
 tree.write(args.out)
