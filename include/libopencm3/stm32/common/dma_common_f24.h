@@ -152,7 +152,7 @@ specific memorymap.h header before including this header file.*/
 #define DMA2_S7NDTR			DMA2_SNDTR(7)
 
 /* DMA Stream x peripheral address register (DMA_SxPAR) */
-#define DMA_SPAR(port, n)		(*(volatile void **)\
+#define DMA_SPAR(port, n)		(*(volatile void * volatile *) \
 					 (DMA_STREAM((port), (n)) + 0x08))
 #define DMA1_SPAR(n)			DMA_SPAR(DMA1, (n))
 #define DMA2_SPAR(n)			DMA_SPAR(DMA2, (n))
@@ -176,7 +176,7 @@ specific memorymap.h header before including this header file.*/
 #define DMA2_S7PAR			DMA2_SPAR(7)
 
 /* DMA Stream x memory address 0 register (DMA_SxM0AR) */
-#define DMA_SM0AR(port, n)		(*(volatile void **) \
+#define DMA_SM0AR(port, n)		(*(volatile void * volatile *) \
 					 (DMA_STREAM((port), (n)) + 0x0c))
 #define DMA1_SM0AR(n)			DMA_SM0AR(DMA1, (n))
 #define DMA2_SM0AR(n)			DMA_SM0AR(DMA2, (n))
@@ -200,7 +200,7 @@ specific memorymap.h header before including this header file.*/
 #define DMA2_S7M0AR			DMA2_SM0AR(7)
 
 /* DMA Stream x memory address 1 register (DMA_SxM1AR) */
-#define DMA_SM1AR(port, n)		(*(volatile void **)\
+#define DMA_SM1AR(port, n)		(*(volatile void * volatile *) \
 					 (DMA_STREAM((port), (n)) + 0x10))
 #define DMA1_SM1AR(n)			DMA_SM1AR(DMA1, (n))
 #define DMA2_SM1AR(n)			DMA_SM1AR(DMA2, (n))
