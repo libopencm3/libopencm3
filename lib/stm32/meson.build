@@ -1,6 +1,6 @@
 # This file is part of the libopencm3 project.
 #
-# Copyright (C) 2023-2024 1BitSquared <info@1bitsquared.com>
+# Copyright (C) 2023-2025 1BitSquared <info@1bitsquared.com>
 # Written by Rachel Mant <git@dragonmux.network>
 #
 # Redistribution and use in source and binary forms, with or without
@@ -55,6 +55,7 @@ subdirs = {
 	'stm32f7': 'f7',
 	'stm32h7': 'h7',
 	'stm32l4': 'l4',
+	'stm32u5': 'u5',
 }
 
 # Bring in the proper target subdir for the requested target platform
