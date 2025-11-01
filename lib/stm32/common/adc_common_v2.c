@@ -94,7 +94,8 @@ bool adc_is_power_on(uint32_t adc)
 void adc_power_on(uint32_t adc)
 {
 	adc_power_on_async(adc);
-	while (!adc_is_power_on(adc));
+	while (!adc_is_power_on(adc))
+		continue;
 }
 
 /**

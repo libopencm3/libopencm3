@@ -35,6 +35,7 @@ TGT_CFLAGS	+= $(STANDARD_FLAGS)
 
 ARFLAGS		= rcs
 
+OBJS += adc_common_v2.o adc_common_v2_multi.o adc.o
 OBJS += timer_common_all.o
 OBJS += exti_common_all.o
 OBJS += iwdg_common_all.o
@@ -52,4 +53,3 @@ OBJS += usb_dwc_common.o usb_f107.o usb_f207.o
 VPATH += ../../usb:../:../../cm3:../common
 
 include ../../Makefile.include
-

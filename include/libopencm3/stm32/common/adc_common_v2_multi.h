@@ -47,10 +47,12 @@ specific memorymap.h header before including this header file.*/
 /* ----- ADC registers  -----------------------------------------------------*/
 /* Sample Time Register 2 */
 #define ADC_SMPR2(adc)		MMIO32((adc) + 0x18U)
+#ifndef STM32U5
 /* Watchdog Threshold Register 2 */
 #define ADC_TR2(adc)		MMIO32((adc) + 0x24U)
 /* Watchdog Threshold Register 3 */
 #define ADC_TR3(adc)		MMIO32((adc) + 0x28U)
+#endif
 /* Regular Sequence Register x (ADCx_SQRy, x=1..4, y=1..4) SQRy */
 #define ADC_SQR1(adc)		MMIO32((adc) + 0x30U)
 #define ADC_SQR2(adc)		MMIO32((adc) + 0x34U)
@@ -77,15 +79,28 @@ specific memorymap.h header before including this header file.*/
 /* Analog Watchdog 3 Configuration Register (ADCx_AWD3CR, x=1..4) AWD3CR */
 #define ADC_AWD3CR(adc)		MMIO32((adc) + 0xa4U)
 
+#ifndef STM32U5
 /* Differential Mode Selection Register 2 (ADCx_DIFSEL, x=1..4) DIFSEL */
 #define ADC_DIFSEL(adc)		MMIO32((adc) + 0xb0U)
 
 /* Calibration Factors (ADCx_CALFACT, x=1..4) CALFACT */
 #define ADC_CALFACT(adc)	MMIO32((adc) + 0xb4U)
+#else
+/* Differential Mode Selection Register 2 (ADCx_DIFSEL, x=1..4) DIFSEL */
+#define ADC_DIFSEL(adc)		MMIO32((adc) + 0xc0U)
+
+/* Calibration Factors (ADCx_CALFACT, x=1..4) CALFACT */
+#define ADC_CALFACT(adc)	MMIO32((adc) + 0xc4U)
+/* Calibration Factors (ADCx_CALFACT, x=1..4) CALFACT */
+#define ADC_CALFACT2(adc)	MMIO32((adc) + 0xc8U)
+#endif
 
 /* ADC common (shared) registers */
-#define ADC_CSR(adc)		MMIO32((adc) + 0x300U + 0x0U)
-#define ADC_CDR(adc)		MMIO32((adc) + 0x300U + 0xcU)
+#define ADC_CSR(adc)		MMIO32((adc) + 0x300U + 0x00U)
+#define ADC_CDR(adc)		MMIO32((adc) + 0x300U + 0x0cU)
+#ifdef STM32U5
+#define ADC_CDR2(adc)		MMIO32((adc) + 0x300U + 0x10U)
+#endif
 /**@}*/
 
 /* --- Register values ------------------------------------------------------*/

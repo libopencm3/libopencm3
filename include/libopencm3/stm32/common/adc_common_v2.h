@@ -50,8 +50,10 @@ specific memorymap.h header before including this header file.*/
 #define ADC_CFGR2(adc)			MMIO32((adc) + 0x10U)
 /** Sample Time Register 1 */
 #define ADC_SMPR1(adc)			MMIO32((adc) + 0x14U)
+#ifndef STM32U5
 /** Watchdog Threshold Register 1*/
 #define ADC_TR1(adc)			MMIO32((adc) + 0x20U)
+#endif
 /** Regular Data Register */
 #define ADC_DR(adc)			MMIO32((adc) + 0x40U)
 /* CALFACT for all but f0 :(*/
