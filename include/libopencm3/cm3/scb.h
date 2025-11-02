@@ -554,6 +554,10 @@ struct scb_exception_stack_frame {
 	} while (0)
 
 void scb_reset_system(void) __attribute__((noreturn));
+void scb_set_sleepdeep(void);
+void scb_clear_sleepdeep(void);
+void scb_set_sleeponexit(void);
+void scb_clear_sleeponexit(void);
 
 /* Those defined only on ARMv7 and above */
 #if defined(__ARM_ARCH_7M__) || defined(__ARM_ARCH_7EM__)

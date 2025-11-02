@@ -102,11 +102,11 @@ void iwdg_set_period_ms(uint32_t period)
 		prescale = PRESCALER_MAX;
 	}
 
-	while (iwdg_prescaler_busy());
+	IWDG_KR = IWDG_KR_START;
 	IWDG_KR = IWDG_KR_UNLOCK;
+	while (iwdg_prescaler_busy());
 	IWDG_PR = prescale;
 	while (iwdg_reload_busy());
-	IWDG_KR = IWDG_KR_UNLOCK;
 	IWDG_RLR = count & COUNT_MASK;
 	
 	/* Refresh counter after configuration is complete */
@@ -150,3 +150,42 @@ void iwdg_reset(void)
 }
 /**@}*/
 
+
+/*---------------------------------------------------------------------------*/
+/** @brief IWDG enable early wake-up
+
+The watchdog timer will generate IRQ when reaches Early wakeup window value.
+The early interrupt is generated when the IWDCNT is lower or equal to EWIT
+register.
+ */
+void iwdg_enable_early_wakeup(uint16_t wakeup_ms) {
+	IWDG_KR = IWDG_KR_UNLOCK;
+    // IWDG_EWCR |= IWDG_EWCR_EWIE;
+	wakeup_ms &= IWDG_EWCR_EWIT_MASK;
+	wakeup_ms <<= IWDG_EWCR_EWIT_SHIFT;
+	IWDG_EWCR = IWDG_EWCR_EWIE | wakeup_ms;
+}
+/**@}*/
+
+/*---------------------------------------------------------------------------*/
+/** @brief Disables the watchdog early wake-up
+
+Disable watchdog early wake-up IRQ
+ */
+void iwdg_disable_early_wakeup(void) {
+	IWDG_KR = IWDG_KR_UNLOCK;
+    IWDG_EWCR &= ~IWDG_EWCR_EWIE;
+}
+/**@}*/
+
+/*---------------------------------------------------------------------------*/
+/** @brief Acknowledge early wake-up
+
+The software must write a 1 into this bit in order to acknowledge the early
+wake-up interrupt and to clear the EWIF flag.
+ */
+void iwdg_ack_early_wakeup(void) {
+	IWDG_KR = IWDG_KR_UNLOCK;
+    IWDG_EWCR |= IWDG_EWCR_EWIC;
+}
+/**@}*/

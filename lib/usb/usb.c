@@ -37,6 +37,7 @@ LGPL License Terms @ref lgpl_license
 
 #include <string.h>
 #include <libopencm3/usb/usbd.h>
+#include <libopencm3/usb/bos.h>
 #include "usb_private.h"
 
 usbd_device *usbd_init(const usbd_driver *driver,
@@ -66,8 +67,7 @@ usbd_device *usbd_init(const usbd_driver *driver,
 	usbd_dev->user_callback_ctr[0][USB_TRANSACTION_IN] =
 	    _usbd_control_in;
 
-	int i;
-	for (i = 0; i < MAX_USER_SET_CONFIG_CALLBACK; i++) {
+	for (size_t i = 0; i < MAX_USER_SET_CONFIG_CALLBACK; i++) {
 		usbd_dev->user_callback_set_config[i] = NULL;
 	}
 
@@ -108,6 +108,11 @@ void usbd_register_extra_string(usbd_device *usbd_dev, int index, const char* st
 	} else {
 		usbd_dev->extra_string_idx = 0;
 	}
+}
+
+void usbd_register_bos_descriptor(usbd_device *const usbd_dev, const usb_bos_descriptor *const bos)
+{
+	usbd_dev->bos = bos;
 }
 
 void _usbd_reset(usbd_device *usbd_dev)
@@ -171,4 +176,3 @@ void usbd_ep_nak_set(usbd_device *usbd_dev, uint8_t addr, uint8_t nak)
 }
 
 /**@}*/
-

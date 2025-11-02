@@ -26,7 +26,7 @@
 #define PPBI_BASE                       (0xE0000000U)
 
 /* Those defined only on ARMv7 and above */
-#if defined(__ARM_ARCH_7M__) || defined(__ARM_ARCH_7EM__)
+#if defined(__ARM_ARCH_7M__) || defined(__ARM_ARCH_7EM__) || defined(__ARM_ARCH_8M_MAIN__)
 /* ITM: Instrumentation Trace Macrocell */
 #define ITM_BASE                        (PPBI_BASE + 0x0000)
 

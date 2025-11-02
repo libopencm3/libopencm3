@@ -103,6 +103,7 @@
 #include <libopencm3/lm4f/usb.h>
 #include <libopencm3/lm4f/rcc.h>
 #include <libopencm3/usb/usbd.h>
+#include <libopencm3/usb/bos.h>
 #include "../../lib/usb/usb_private.h"
 
 #include <stdbool.h>
@@ -263,8 +264,7 @@ static void lm4f_ep_setup(usbd_device *usbd_dev, uint8_t addr, uint8_t type,
 		USB_TXFIFOSZ = reg8;
 		USB_TXFIFOADD = ((usbd_dev->fifo_mem_top) >> 3);
 		if (callback) {
-			usbd_dev->user_callback_ctr[ep][USB_TRANSACTION_IN] =
-			(void *)callback;
+			usbd_dev->user_callback_ctr[ep][USB_TRANSACTION_IN] = callback;
 		}
 		if (type == USB_ENDPOINT_ATTR_ISOCHRONOUS) {
 			USB_TXCSRH(ep) |= USB_TXCSRH_ISO;
@@ -276,8 +276,7 @@ static void lm4f_ep_setup(usbd_device *usbd_dev, uint8_t addr, uint8_t type,
 		USB_RXFIFOSZ = reg8;
 		USB_RXFIFOADD = ((usbd_dev->fifo_mem_top) >> 3);
 		if (callback) {
-			usbd_dev->user_callback_ctr[ep][USB_TRANSACTION_OUT] =
-			(void *)callback;
+			usbd_dev->user_callback_ctr[ep][USB_TRANSACTION_OUT] = callback;
 		}
 		if (type == USB_ENDPOINT_ATTR_ISOCHRONOUS) {
 			USB_RXCSRH(ep) |= USB_RXCSRH_ISO;
@@ -377,15 +376,16 @@ static uint16_t lm4f_ep_write_packet(usbd_device *usbd_dev, uint8_t addr,
 	 * the reads are downgraded to 8-bit in hardware. We lose a bit of
 	 * performance, but we don't crash.
 	 */
+	const uint8_t *const data = (const uint8_t *)buf;
 	for (i = 0; i < (len & ~0x3); i += 4) {
-		USB_FIFO32(ep) = *((uint32_t *)(buf + i));
+		USB_FIFO32(ep) = *((uint32_t *)(data + i));
 	}
 	if (len & 0x2) {
-		USB_FIFO16(ep) = *((uint16_t *)(buf + i));
+		USB_FIFO16(ep) = *((uint16_t *)(data + i));
 		i += 2;
 	}
 	if (len & 0x1) {
-		USB_FIFO8(ep)  = *((uint8_t *)(buf + i));
+		USB_FIFO8(ep) = *((uint8_t *)(data + i));
 		i += 1;
 	}
 
@@ -425,15 +425,16 @@ static uint16_t lm4f_ep_read_packet(usbd_device *usbd_dev, uint8_t addr,
 	 * the writes are downgraded to 8-bit in hardware. We lose a bit of
 	 * performance, but we don't crash.
 	 */
+	uint8_t *const data = (uint8_t *)buf;
 	for (len = 0; len < (rlen & ~0x3); len += 4) {
-		*((uint32_t *)(buf + len)) = USB_FIFO32(ep);
+		*((uint32_t *)(data + len)) = USB_FIFO32(ep);
 	}
 	if (rlen & 0x2) {
-		*((uint16_t *)(buf + len)) = USB_FIFO16(ep);
+		*((uint16_t *)(data + len)) = USB_FIFO16(ep);
 		len += 2;
 	}
 	if (rlen & 0x1) {
-		*((uint8_t *)(buf + len)) = USB_FIFO8(ep);
+		*((uint8_t *)(data + len)) = USB_FIFO8(ep);
 	}
 
 	if (ep == 0) {

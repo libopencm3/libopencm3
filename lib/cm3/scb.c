@@ -58,6 +58,26 @@ void scb_reset_system(void)
 	while (1);
 }
 
+void scb_set_sleepdeep(void)
+{
+	SCB_SCR |= SCB_SCR_SLEEPDEEP;
+}
+
+void scb_clear_sleepdeep(void)
+{
+	SCB_SCR &= ~SCB_SCR_SLEEPDEEP;
+}
+
+void scb_set_sleeponexit(void)
+{
+	SCB_SCR |= SCB_SCR_SLEEPONEXIT;
+}
+
+void scb_clear_sleeponexit(void)
+{
+	SCB_SCR &= ~SCB_SCR_SLEEPONEXIT;
+}
+
 /* Those are defined only on CM3 or CM4 */
 #if defined(__ARM_ARCH_7M__) || defined(__ARM_ARCH_7EM__)
 void scb_set_priority_grouping(uint32_t prigroup)

@@ -31,6 +31,7 @@
 
 #include <libopencm3/stm32/common/usart_common_all.h>
 #include <libopencm3/stm32/common/usart_common_v2.h>
+#include <libopencm3/stm32/common/usart_common_fifos.h>
 
 /**@{*/
 
@@ -43,6 +44,7 @@
 #define USART3				USART3_BASE
 #define UART4				UART4_BASE
 #define UART5				UART5_BASE
+#define LPUART1				LPUART1_BASE
 /**@}*/
 
 BEGIN_DECLS

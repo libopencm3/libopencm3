@@ -717,14 +717,14 @@
 /** Enumerations for core system/bus clocks for user/driver/system access to base bus clocks
   * not directly associated with a peripheral. */
 enum rcc_clock_source {
-  RCC_CPUCLK,
-  RCC_SYSCLK,
-  RCC_PERCLK,
-  RCC_SYSTICKCLK,
-  RCC_HCLK3,
-  RCC_AHBCLK,           /* AHB1,2,4 all share base HCLK. */
-  RCC_APB1CLK,          /* Note: APB1 and PCLK1 in manual */
-  RCC_APB2CLK,          /* Note: APB2 and PCLK2 in manual */
+	RCC_CPUCLK,
+	RCC_SYSCLK,
+	RCC_PERCLK,
+	RCC_SYSTICKCLK,
+	RCC_HCLK3,
+	RCC_AHBCLK,		/* AHB1,2,4 all share base HCLK. */
+	RCC_APB1CLK,		/* Note: APB1 and PCLK1 in manual */
+	RCC_APB2CLK,		/* Note: APB2 and PCLK2 in manual */
 };
 
 /* --- Variable definitions ------------------------------------------------ */
@@ -766,6 +766,7 @@ extern const struct rcc_clock_scale rcc_hsi_configs[RCC_CLOCK_3V3_END];
 extern const struct rcc_clock_scale rcc_hse_8mhz_3v3[RCC_CLOCK_3V3_END];
 extern const struct rcc_clock_scale rcc_hse_12mhz_3v3[RCC_CLOCK_3V3_END];
 extern const struct rcc_clock_scale rcc_hse_16mhz_3v3[RCC_CLOCK_3V3_END];
+extern const struct rcc_clock_scale rcc_hse_24mhz_3v3[RCC_CLOCK_3V3_END];
 
 enum rcc_osc {
 	RCC_HSI48,
@@ -1030,7 +1031,8 @@ void rcc_set_main_pll(uint32_t pllsrc, uint32_t pllm, uint32_t plln,
 		      uint32_t pllp, uint32_t pllq, uint32_t pllr);
 uint32_t rcc_system_clock_source(void);
 void rcc_clock_setup_pll(const struct rcc_clock_scale *clock);
-void __attribute__((deprecated("Use rcc_clock_setup_pll as direct replacement"))) rcc_clock_setup_hse_3v3(const struct rcc_clock_scale *clock);
+void __attribute__((deprecated("Use rcc_clock_setup_pll as direct replacement")))
+	rcc_clock_setup_hse_3v3(const struct rcc_clock_scale *clock);
 void rcc_set_clock48_source(uint32_t clksel);
 /**
  * Get the peripheral clock speed for the specified (LP)UxART

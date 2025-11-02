@@ -1,0 +1,16 @@
+option(
+	'target',
+	type: 'combo',
+	choices: [
+		'all',
+		'stm32f0',
+		'stm32f1',
+		'stm32f3',
+		'stm32f4',
+		'stm32f7',
+		'stm32l4',
+		'lm4f',
+	],
+	value: 'all',
+	description: 'The hardware platform you wish to target'
+)

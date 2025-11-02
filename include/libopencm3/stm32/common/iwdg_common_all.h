@@ -48,6 +48,9 @@ specific memorymap.h header before including this header file.*/
 /** Status register (IWDG_SR) */
 #define IWDG_SR				MMIO32(IWDG_BASE + 0x0c)
 
+/** Early wake-up interrupt register (IWDG_EWCR) */
+#define IWDG_EWCR           MMIO32(IWDG_BASE + 0x14)
+
 /* --- IWDG_KR values ------------------------------------------------------ */
 
 /* Bits [31:16]: Reserved. */
@@ -83,6 +86,14 @@ specific memorymap.h header before including this header file.*/
 /* Double definition: 0x06 and 0x07 both mean DIV256 as per datasheet. */
 /* #define IWDG_PR_DIV256			0x7 */
 
+/* --- IWDG_EWCR values ----------------------------------------------------- */
+
+#define IWDG_EWCR_EWIT_SHIFT    0x0
+#define IWDG_EWCR_EWIT_MASK     (0xFFF << IWDG_EWCR_EWIT_SHIFT)
+#define IWDG_EWCR_EWIC          (1 << 14)
+#define IWDG_EWCR_EWIE          (1 << 15)
+
+
 /* --- IWDG_RLR values ----------------------------------------------------- */
 
 /* Bits [31:12]: Reserved. */
@@ -108,6 +119,9 @@ void iwdg_set_period_ms(uint32_t period);
 bool iwdg_reload_busy(void);
 bool iwdg_prescaler_busy(void);
 void iwdg_reset(void);
+void iwdg_enable_early_wakeup(uint16_t wakeup_ms);
+void iwdg_disable_early_wakeup(void);
+void iwdg_ack_early_wakeup(void);
 
 END_DECLS
 

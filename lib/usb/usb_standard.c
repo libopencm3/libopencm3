@@ -37,7 +37,12 @@ LGPL License Terms @ref lgpl_license
 
 #include <string.h>
 #include <libopencm3/usb/usbd.h>
+#include <libopencm3/usb/bos.h>
+#include <libopencm3/usb/microsoft.h>
 #include "usb_private.h"
+
+static const usb_bos_uuid microsoft_os_descriptor_platform_capability_id =
+	MICROSOFT_OS_DESCRIPTOR_PLATFORM_CAPABILITY_ID;
 
 int usbd_register_set_config_callback(usbd_device *usbd_dev,
 				       usbd_set_config_callback callback)
@@ -139,6 +144,60 @@ static uint16_t build_config_descriptor(usbd_device *usbd_dev,
 	return total;
 }
 
+/* This can return 0 to indicate an error in the descriptor */
+static uint16_t build_devcap_platform(const usb_platform_device_capability_descriptor *const plat,
+					uint8_t *const buf, uint16_t len)
+{
+	uint16_t count = MIN(len, USB_DCT_PLATFORM_SIZE);
+	memcpy(buf, plat, count);
+	len -= count;
+	const uint16_t total = count;
+
+	if (!memcmp(&plat->PlatformCapabilityUUID, &microsoft_os_descriptor_platform_capability_id, USB_BOS_UUID_SIZE)) {
+		const microsoft_os_descriptor_set_information *info = plat->CapabilityData;
+		count = MIN(len, MICROSOFT_OS_DESCRIPTOR_SET_INFORMATION_SIZE);
+		memcpy(buf + total, info, count);
+		return total + count;
+	}
+
+	return 0;
+}
+
+/* This can return 0 to indicate an error in the descriptor */
+static uint16_t build_bos_descriptor(usbd_device *usbd_dev, uint8_t *const buf, uint16_t len)
+{
+	const usb_bos_descriptor *const bos = usbd_dev->bos;
+	uint16_t count = MIN(len, bos->bLength);
+	memcpy(buf, bos, count);
+	len -= count;
+	uint16_t total = count;
+	uint16_t total_length = bos->bLength;
+	size_t offset = 0;
+
+	for (uint8_t i = 0; i < bos->bNumDeviceCaps; ++i) {
+		const usb_device_capability_descriptor *const dev_cap =
+			(const usb_device_capability_descriptor *)
+				(((const uint8_t *)bos->device_capability_descriptors) + offset);
+
+		switch (dev_cap->bDevCapabilityType) {
+		case USB_DCT_PLATFORM:
+			count = build_devcap_platform((const usb_platform_device_capability_descriptor *)dev_cap, buf + total, len);
+			total_length += dev_cap->bLength;
+			offset += sizeof(usb_platform_device_capability_descriptor) + MICROSOFT_OS_DESCRIPTOR_SET_INFORMATION_SIZE;
+			break;
+		default:
+			return 0;
+		}
+		if (!count && len)
+			return 0;
+		len -= count;
+		total += count;
+	}
+
+	((usb_bos_descriptor *)buf)->wTotalLength = total_length;
+	return total;
+}
+
 static int usb_descriptor_type(uint16_t wValue)
 {
 	return wValue >> 8;
@@ -168,6 +227,12 @@ usb_standard_get_descriptor(usbd_device *usbd_dev,
 		*buf = usbd_dev->ctrl_buf;
 		*len = build_config_descriptor(usbd_dev, descr_idx, *buf, *len);
 		return USBD_REQ_HANDLED;
+	case USB_DT_BOS:
+		if (!usbd_dev->bos || descr_idx != 0)
+			return USBD_REQ_NOTSUPP;
+		*buf = usbd_dev->ctrl_buf;
+		*len = build_bos_descriptor(usbd_dev, *buf, *len);
+		return *len ? USBD_REQ_HANDLED : USBD_REQ_NOTSUPP;
 	case USB_DT_STRING:
 		sd = (struct usb_string_descriptor *)usbd_dev->ctrl_buf;
 
@@ -240,12 +305,11 @@ usb_standard_set_address(usbd_device *usbd_dev,
 			 struct usb_setup_data *req, uint8_t **buf,
 			 uint16_t *len)
 {
-	(void)req;
 	(void)buf;
 	(void)len;
 
 	/* The actual address is only latched at the STATUS IN stage. */
-	if ((req->bmRequestType != 0) || (req->wValue >= 128)) {
+	if (req->bmRequestType != 0 || req->wValue >= 128) {
 		return USBD_REQ_NOTSUPP;
 	}
 
@@ -271,7 +335,6 @@ usb_standard_set_configuration(usbd_device *usbd_dev,
 	int found_index = -1;
 	const struct usb_config_descriptor *cfg;
 
-	(void)req;
 	(void)buf;
 	(void)len;
 
@@ -633,4 +696,3 @@ _usbd_standard_request(usbd_device *usbd_dev, struct usb_setup_data *req,
 		return USBD_REQ_NOTSUPP;
 	}
 }
-
