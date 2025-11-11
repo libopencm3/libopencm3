@@ -466,15 +466,6 @@
 
 /*-------- ADC_CCR values ------------*/
 
-/* VBATEN: VBAT enable */
-#define ADC_CCR_VBATEN			(1 << 24)
-
-/* TSEN: Temperature sensor enable */
-#define ADC_CCR_TSEN			(1 << 23)
-
-/* VREFEN: VREFINT enable */
-#define ADC_CCR_VREFEN			(1 << 22)
-
 /* CKMODE[1:0]: ADC clock mode */
 #define ADC_CCR_CKMODE_CKX		(0x0 << 16)
 #define ADC_CCR_CKMODE_DIV1		(0x1 << 16)
