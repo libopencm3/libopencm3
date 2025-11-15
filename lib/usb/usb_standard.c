@@ -224,6 +224,8 @@ usb_standard_get_descriptor(usbd_device *usbd_dev,
 		*len = MIN(*len, usbd_dev->desc->bLength);
 		return USBD_REQ_HANDLED;
 	case USB_DT_CONFIGURATION:
+		if(descr_idx >= usbd_dev->desc->bNumConfigurations)
+			return USBD_REQ_NOTSUPP;
 		*buf = usbd_dev->ctrl_buf;
 		*len = build_config_descriptor(usbd_dev, descr_idx, *buf, *len);
 		return USBD_REQ_HANDLED;
