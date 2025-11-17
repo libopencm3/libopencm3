@@ -933,49 +933,49 @@ depending on the level of the complementary input. */
 /* --- TIMx_CCER values ---------------------------------------------------- */
 
 /* CC4NP: Capture/compare 4 complementary output polarity */
-#define TIM_CCER_CC4NP			(1 << 15)
+#define TIM_CCER_CC4NP			(1U << 15U)
 
 /* CC4P: Capture/compare 4 output polarity */
-#define TIM_CCER_CC4P			(1 << 13)
+#define TIM_CCER_CC4P			(1U << 13U)
 
 /* CC4E: Capture/compare 4 output enable */
-#define TIM_CCER_CC4E			(1 << 12)
+#define TIM_CCER_CC4E			(1U << 12U)
 
 /* CC3NP: Capture/compare 3 complementary output polarity */
-#define TIM_CCER_CC3NP			(1 << 11)
+#define TIM_CCER_CC3NP			(1U << 11U)
 
 /* CC3NE: Capture/compare 3 complementary output enable */
-#define TIM_CCER_CC3NE			(1 << 10)
+#define TIM_CCER_CC3NE			(1U << 10U)
 
 /* CC3P: Capture/compare 3 output polarity */
-#define TIM_CCER_CC3P			(1 << 9)
+#define TIM_CCER_CC3P			(1U << 9U)
 
 /* CC3E: Capture/compare 3 output enable */
-#define TIM_CCER_CC3E			(1 << 8)
+#define TIM_CCER_CC3E			(1U << 8U)
 
 /* CC2NP: Capture/compare 2 complementary output polarity */
-#define TIM_CCER_CC2NP			(1 << 7)
+#define TIM_CCER_CC2NP			(1U << 7U)
 
 /* CC2NE: Capture/compare 2 complementary output enable */
-#define TIM_CCER_CC2NE			(1 << 6)
+#define TIM_CCER_CC2NE			(1U << 6U)
 
 /* CC2P: Capture/compare 2 output polarity */
-#define TIM_CCER_CC2P			(1 << 5)
+#define TIM_CCER_CC2P			(1U << 5U)
 
 /* CC2E: Capture/compare 2 output enable */
-#define TIM_CCER_CC2E			(1 << 4)
+#define TIM_CCER_CC2E			(1U << 4U)
 
 /* CC1NP: Capture/compare 1 complementary output polarity */
-#define TIM_CCER_CC1NP			(1 << 3)
+#define TIM_CCER_CC1NP			(1U << 3U)
 
 /* CC1NE: Capture/compare 1 complementary output enable */
-#define TIM_CCER_CC1NE			(1 << 2)
+#define TIM_CCER_CC1NE			(1U << 2U)
 
 /* CC1P: Capture/compare 1 output polarity */
-#define TIM_CCER_CC1P			(1 << 1)
+#define TIM_CCER_CC1P			(1U << 1U)
 
 /* CC1E: Capture/compare 1 output enable */
-#define TIM_CCER_CC1E			(1 << 0)
+#define TIM_CCER_CC1E			(1U << 0U)
 
 /* --- TIMx_CNT values ----------------------------------------------------- */
 
@@ -1081,12 +1081,12 @@ enum tim_oc_mode {
 };
 
 /** Input Capture channel designators */
-enum tim_ic_id {
+typedef enum tim_ic_id {
 	TIM_IC1,
 	TIM_IC2,
 	TIM_IC3,
 	TIM_IC4,
-};
+} tim_ic_id_e;
 
 /** Input Capture input filter. The frequency used to sample the
 input and the number of events needed to validate an output transition.

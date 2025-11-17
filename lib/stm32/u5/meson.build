@@ -40,6 +40,7 @@ libstm32u5_sources = files(
 	'adc.c',
 	'pwr.c',
 	'rcc.c',
+	'timer.c',
 )
 
 libstm32u5_compile_args = [

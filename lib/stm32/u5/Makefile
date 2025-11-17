@@ -43,7 +43,7 @@ OBJS += iwdg_common_all.o
 OBJS += i2c_common_v2.o
 OBJS += pwr.o
 OBJS += rcc.o rcc_common_all.o crs_common_all.o
-OBJS += timer_common_all.o
+OBJS += timer_common_all.o timer.o
 OBJS += usart_common_all.o usart_common_v2.o
 
 OBJS += usb.o usb_standard.o usb_control.o usb_msc.o

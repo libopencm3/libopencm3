@@ -33,4 +33,57 @@ LGPL License Terms @ref lgpl_license
  */
 
 #pragma once
+
 #include <libopencm3/stm32/common/timer_common_all.h>
+
+/* Timer input selection register (TIMx_TISEL) */
+#define TIM_TISEL(tim_base) MMIO32((tim_base) + 0x5cU)
+#define TIM2_TISEL          TIM_TISEL(TIM2)
+#define TIM3_TISEL          TIM_TISEL(TIM3)
+#define TIM4_TISEL          TIM_TISEL(TIM4)
+#define TIM5_TISEL          TIM_TISEL(TIM5)
+
+/* --- TIMx_TISEL values --------------------------------------------------- */
+#define TIM_TISEL_TI1SEL_MASK  (0xfU << 0U)
+#define TIM_TISEL_TI1SEL_SHIFT 0U
+#define TIM_TISEL_TI2SEL_MASK  (0xfU << 8U)
+#define TIM_TISEL_TI2SEL_SHIFT 8U
+#define TIM_TISEL_TI3SEL_MASK  (0xfU << 16U)
+#define TIM_TISEL_TI3SEL_SHIFT 16U
+#define TIM_TISEL_TI4SEL_MASK  (0xfU << 24U)
+#define TIM_TISEL_TI4SEL_SHIFT 24U
+
+/** Input Capture input polarity */
+typedef enum tim_ic_pol {
+	TIM_IC_RISING,
+	TIM_IC_FALLING,
+} tim_ic_pol_e;
+
+/** Input Capture input selection */
+typedef enum tim_ic_sel {
+	TIM_IC_SEL_IN0,
+	TIM_IC_SEL_IN1,
+	TIM_IC_SEL_IN2,
+	TIM_IC_SEL_IN3,
+	TIM_IC_SEL_IN4,
+	TIM_IC_SEL_IN5,
+	TIM_IC_SEL_IN6,
+	TIM_IC_SEL_IN7,
+	TIM_IC_SEL_IN8,
+	TIM_IC_SEL_IN9,
+	TIM_IC_SEL_IN10,
+	TIM_IC_SEL_IN11,
+	TIM_IC_SEL_IN12,
+	TIM_IC_SEL_IN13,
+	TIM_IC_SEL_IN14,
+	TIM_IC_SEL_IN15,
+} tim_ic_sel_e;
+
+/* --- Function prototypes ------------------------------------------------- */
+
+BEGIN_DECLS
+
+void timer_ic_set_polarity(uintptr_t timer, tim_ic_id_e ic, tim_ic_pol_e pol);
+void timer_ic_input_selection(uintptr_t timer, tim_ic_id_e ic, tim_ic_sel_e sel);
+
+END_DECLS
