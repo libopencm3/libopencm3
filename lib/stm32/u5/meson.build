@@ -40,6 +40,7 @@ libstm32u5_sources = files(
 	'adc.c',
 	'pwr.c',
 	'rcc.c',
+	'spi.c',
 	'timer.c',
 )
 
