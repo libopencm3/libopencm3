@@ -46,124 +46,124 @@ specific memorymap.h header before including this header file.*/
  *@{*/
 /* ----- ADC registers  -----------------------------------------------------*/
 /* Sample Time Register 2 */
-#define ADC_SMPR2(adc)		MMIO32((adc) + 0x18)
+#define ADC_SMPR2(adc)		MMIO32((adc) + 0x18U)
 /* Watchdog Threshold Register 2 */
-#define ADC_TR2(adc)		MMIO32((adc) + 0x24)
+#define ADC_TR2(adc)		MMIO32((adc) + 0x24U)
 /* Watchdog Threshold Register 3 */
-#define ADC_TR3(adc)		MMIO32((adc) + 0x28)
+#define ADC_TR3(adc)		MMIO32((adc) + 0x28U)
 /* Regular Sequence Register x (ADCx_SQRy, x=1..4, y=1..4) SQRy */
-#define ADC_SQR1(adc)		MMIO32((adc) + 0x30)
-#define ADC_SQR2(adc)		MMIO32((adc) + 0x34)
-#define ADC_SQR3(adc)		MMIO32((adc) + 0x38)
-#define ADC_SQR4(adc)		MMIO32((adc) + 0x3C)
+#define ADC_SQR1(adc)		MMIO32((adc) + 0x30U)
+#define ADC_SQR2(adc)		MMIO32((adc) + 0x34U)
+#define ADC_SQR3(adc)		MMIO32((adc) + 0x38U)
+#define ADC_SQR4(adc)		MMIO32((adc) + 0x3cU)
 
 /* Injected Sequence Register (ADCx_JSQR, x=1..4) JSQR */
-#define ADC_JSQR(adc)		MMIO32((adc) + 0x4c)
+#define ADC_JSQR(adc)		MMIO32((adc) + 0x4cU)
 
 /* Offset Register x (ADCx_OFRy, x=1..4) (y=1..4) OFRy */
-#define ADC_OFR1(adc)		MMIO32((adc) + 0x60)
-#define ADC_OFR2(adc)		MMIO32((adc) + 0x64)
-#define ADC_OFR3(adc)		MMIO32((adc) + 0x68)
-#define ADC_OFR4(adc)		MMIO32((adc) + 0x6C)
+#define ADC_OFR1(adc)		MMIO32((adc) + 0x60U)
+#define ADC_OFR2(adc)		MMIO32((adc) + 0x64U)
+#define ADC_OFR3(adc)		MMIO32((adc) + 0x68U)
+#define ADC_OFR4(adc)		MMIO32((adc) + 0x6cU)
 
 /* Injected Data Register y (ADCx_JDRy, x=1..4, y= 1..4) JDRy */
-#define ADC_JDR1(adc)		MMIO32((adc) + 0x80)
-#define ADC_JDR2(adc)		MMIO32((adc) + 0x84)
-#define ADC_JDR3(adc)		MMIO32((adc) + 0x88)
-#define ADC_JDR4(adc)		MMIO32((adc) + 0x8C)
+#define ADC_JDR1(adc)		MMIO32((adc) + 0x80U)
+#define ADC_JDR2(adc)		MMIO32((adc) + 0x84U)
+#define ADC_JDR3(adc)		MMIO32((adc) + 0x88U)
+#define ADC_JDR4(adc)		MMIO32((adc) + 0x8cU)
 
 /* Analog Watchdog 2 Configuration Register (ADCx_AWD2CR, x=1..4) AWD2CR */
-#define ADC_AWD2CR(adc)		MMIO32((adc) + 0xA0)
+#define ADC_AWD2CR(adc)		MMIO32((adc) + 0xa0U)
 /* Analog Watchdog 3 Configuration Register (ADCx_AWD3CR, x=1..4) AWD3CR */
-#define ADC_AWD3CR(adc)		MMIO32((adc) + 0xA4)
+#define ADC_AWD3CR(adc)		MMIO32((adc) + 0xa4U)
 
 /* Differential Mode Selection Register 2 (ADCx_DIFSEL, x=1..4) DIFSEL */
-#define ADC_DIFSEL(adc)		MMIO32((adc) + 0xB0)
+#define ADC_DIFSEL(adc)		MMIO32((adc) + 0xb0U)
 
 /* Calibration Factors (ADCx_CALFACT, x=1..4) CALFACT */
-#define ADC_CALFACT(adc)	MMIO32((adc) + 0xB4)
+#define ADC_CALFACT(adc)	MMIO32((adc) + 0xb4U)
 
 /* ADC common (shared) registers */
-#define ADC_CSR(adc)		MMIO32((adc) + 0x300 + 0x0)
-#define ADC_CDR(adc)		MMIO32((adc) + 0x300 + 0xc)
+#define ADC_CSR(adc)		MMIO32((adc) + 0x300U + 0x0U)
+#define ADC_CDR(adc)		MMIO32((adc) + 0x300U + 0xcU)
 /**@}*/
 
 /* --- Register values ------------------------------------------------------*/
 /* ADC_ISR Values -----------------------------------------------------------*/
 
 /* QOVF: Injected context queue overflow */
-#define ADC_ISR_JQOVF		(1 << 10)
+#define ADC_ISR_JQOVF		(1U << 10U)
 /* AWD3: Analog watchdog 3 flag */
-#define ADC_ISR_AWD3		(1 << 9)
+#define ADC_ISR_AWD3		(1U << 9U)
 /* AWD2: Analog watchdog 2 flag */
-#define ADC_ISR_AWD2		(1 << 8)
+#define ADC_ISR_AWD2		(1U << 8U)
 /* JEOS: Injected channel end of sequence flag */
-#define ADC_ISR_JEOS		(1 << 6)
+#define ADC_ISR_JEOS		(1U << 6U)
 /* JEOC: Injected channel end of conversion flag */
-#define ADC_ISR_JEOC		(1 << 5)
+#define ADC_ISR_JEOC		(1U << 5U)
 
 /* ADC_IER Values -----------------------------------------------------------*/
 
 /* JQOVFIE: Injected context queue overflow interrupt enable */
-#define ADC_IER_JQOVFIE		(1 << 10)
+#define ADC_IER_JQOVFIE		(1U << 10U)
 /* AWD3IE: Analog watchdog 3 interrupt enable */
-#define ADC_IER_AWD3IE		(1 << 9)
+#define ADC_IER_AWD3IE		(1U << 9U)
 /* AWD2IE: Analog watchdog 2 interrupt enable */
-#define ADC_IER_AWD2IE		(1 << 8)
+#define ADC_IER_AWD2IE		(1U << 8U)
 /* JEOSIE: End of injected sequence of conversions interrupt enable */
-#define ADC_IER_JEOSIE		(1 << 6)
+#define ADC_IER_JEOSIE		(1U << 6U)
 /* JEOCIE: End of injected conversion interrupt enable */
-#define ADC_IER_JEOCIE		(1 << 5)
+#define ADC_IER_JEOCIE		(1U << 5U)
 
 /* ADC_CR Values ------------------------------------------------------------*/
 
 /* ADCALDIF: Differential mode for calibration */
-#define ADC_CR_ADCALDIF		(1 << 30)
+#define ADC_CR_ADCALDIF		(1U << 30U)
 /* JADSTP: ADC stop of injected conversion command */
-#define ADC_CR_JADSTP		(1 << 5)
+#define ADC_CR_JADSTP		(1U << 5U)
 /* JADSTART: ADC start of injected conversion */
-#define ADC_CR_JADSTART		(1 << 3)
+#define ADC_CR_JADSTART		(1U << 3U)
 
 /* ADC_CFGR1 Values ---------------------------------------------------------*/
 
 /* JAUTO: Autoamtic injected group conversion */
-#define ADC_CFGR1_JAUTO		(1 << 25)
+#define ADC_CFGR1_JAUTO		(1U << 25U)
 
 /* JAWD1EN: Analog watchdog 1 enable on injected channels */
-#define ADC_CFGR1_JAWD1EN	(1 << 24)
+#define ADC_CFGR1_JAWD1EN	(1U << 24U)
 
 /* JQM: JSQR queue mode */
-#define ADC_CFGR1_JQM		(1 << 21)
+#define ADC_CFGR1_JQM		(1U << 21U)
 
 /* JDISCEN: Discontinuous mode on injected channels */
-#define ADC_CFGR1_JDISCEN	(1 << 20)
+#define ADC_CFGR1_JDISCEN	(1U << 20U)
 
 /* DISCNUM[2:0]: Discontinuous mode channel count */
-#define ADC_CFGR1_DISCNUM_SHIFT	17
-#define ADC_CFGR1_DISCNUM_MASK  (0x7 << ADC_CFGR1_DISCNUM_SHIFT)
-#define ADC_CFGR1_DISCNUM_VAL(x)	(((x) - 1) << ADC_CFGR1_DISCNUM_SHIFT)
+#define ADC_CFGR1_DISCNUM_SHIFT	17U
+#define ADC_CFGR1_DISCNUM_MASK  (0x7U << ADC_CFGR1_DISCNUM_SHIFT)
+#define ADC_CFGR1_DISCNUM_VAL(x)	(((x) - 1U) << ADC_CFGR1_DISCNUM_SHIFT)
 
 /* ADC_SQRx Values: Regular Sequence ordering------------------------------- */
 
-#define ADC_SQR1_L_SHIFT		0
-#define ADC_SQR1_L_MASK			0xf
-#define ADC_SQRx_SQx_MASK		0x1f
-#define ADC_SQR1_SQ1_SHIFT		6
-#define ADC_SQR1_SQ2_SHIFT		12
-#define ADC_SQR1_SQ3_SHIFT		18
-#define ADC_SQR1_SQ4_SHIFT		24
-#define ADC_SQR2_SQ5_SHIFT		0
-#define ADC_SQR2_SQ6_SHIFT		6
-#define ADC_SQR2_SQ7_SHIFT		12
-#define ADC_SQR2_SQ8_SHIFT		18
-#define ADC_SQR2_SQ9_SHIFT		24
-#define ADC_SQR3_SQ10_SHIFT		0
-#define ADC_SQR3_SQ11_SHIFT		6
-#define ADC_SQR3_SQ12_SHIFT		12
-#define ADC_SQR3_SQ13_SHIFT		18
-#define ADC_SQR3_SQ14_SHIFT		24
-#define ADC_SQR4_SQ15_SHIFT		0
-#define ADC_SQR4_SQ16_SHIFT		6
+#define ADC_SQR1_L_SHIFT		0U
+#define ADC_SQR1_L_MASK			0xfU
+#define ADC_SQRx_SQx_MASK		0x1fU
+#define ADC_SQR1_SQ1_SHIFT		6U
+#define ADC_SQR1_SQ2_SHIFT		12U
+#define ADC_SQR1_SQ3_SHIFT		18U
+#define ADC_SQR1_SQ4_SHIFT		24U
+#define ADC_SQR2_SQ5_SHIFT		0U
+#define ADC_SQR2_SQ6_SHIFT		6U
+#define ADC_SQR2_SQ7_SHIFT		12U
+#define ADC_SQR2_SQ8_SHIFT		18U
+#define ADC_SQR2_SQ9_SHIFT		24U
+#define ADC_SQR3_SQ10_SHIFT		0U
+#define ADC_SQR3_SQ11_SHIFT		6U
+#define ADC_SQR3_SQ12_SHIFT		12U
+#define ADC_SQR3_SQ13_SHIFT		18U
+#define ADC_SQR3_SQ14_SHIFT		24U
+#define ADC_SQR4_SQ15_SHIFT		0U
+#define ADC_SQR4_SQ16_SHIFT		6U
 
 /* --- Function prototypes ------------------------------------------------- */
 
