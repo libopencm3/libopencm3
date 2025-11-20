@@ -227,7 +227,7 @@ bool adc_is_calibrating(uint32_t adc);
 void adc_calibrate(uint32_t adc);
 void adc_set_continuous_conversion_mode(uint32_t adc);
 void adc_set_single_conversion_mode(uint32_t adc);
-void adc_set_regular_sequence(uint32_t adc, uint8_t length, uint8_t channel[]);
+void adc_set_regular_sequence(uint32_t adc, uint8_t length, const uint8_t channel[]);
 void adc_set_sample_time_on_all_channels(uint32_t adc, uint8_t time);
 void adc_enable_temperature_sensor(void);
 void adc_disable_temperature_sensor(void);
