@@ -64,10 +64,12 @@
 #include <stdbool.h>
 
 /* Generic memory-mapped I/O accessor functions */
+// NOLINTBEGIN(performance-no-int-to-ptr,clang-diagnostic-int-to-pointer-cast)
 #define MMIO8(addr)		(*(volatile uint8_t *)(addr))
 #define MMIO16(addr)		(*(volatile uint16_t *)(addr))
 #define MMIO32(addr)		(*(volatile uint32_t *)(addr))
 #define MMIO64(addr)		(*(volatile uint64_t *)(addr))
+// NOLINTEND(performance-no-int-to-ptr,clang-diagnostic-int-to-pointer-cast)
 
 /* Generic bit-band I/O accessor functions */
 #define BBIO_SRAM(addr, bit) \
