@@ -31,6 +31,8 @@ LGPL License Terms @ref lgpl_license
 #pragma once
 /**@{*/
 
+/* --- PWR registers ------------------------------------------------------- */
+
 /** @defgroup pwr_registers PWR Registers
 @{*/
 /** Power control register 1 */
@@ -161,20 +163,86 @@ LGPL License Terms @ref lgpl_license
 
 /**@}*/
 
-/** SVMC Register Bits */
+/* --- PWR_CR3 values ------------------------------------------------------ */
+
+/* FSTEN: Fast soft start */
+#define PWR_CR3_FSTEN (1U << 2U)
+
+/* REGSEL: Regulator selection */
+#define PWR_CR3_REGSEL_LDO  (0U << 1U)
+#define PWR_CR3_REGSEL_SMPS (1U << 1U)
+
+/* --- PWR_VOSR values ----------------------------------------------------- */
+
+/** BOOSTEN: EPOD booster enable */
+#define PWR_VOSR_BOOSTEN (1U << 18U)
+
+/** VOS[17:16]: Voltage scaling range selection */
+#define PWR_VOSR_VOS_SHIFT   16U
+#define PWR_VOSR_VOS_MASK    0x3U
+#define PWR_VOSR_VOS_SCALE_1 0x3U
+#define PWR_VOSR_VOS_SCALE_2 0x2U
+#define PWR_VOSR_VOS_SCALE_3 0x1U
+#define PWR_VOSR_VOS_SCALE_4 0x0U
+
+/** VOSRDY: Ready bit for Vcore voltage scaling ouptut selection */
+#define PWR_VOSR_VOSRDY (1U << 15U)
+
+/** BOOSTRDY: EPOD booster ready */
+#define PWR_VOSR_BOOSTRDY (1U << 14U)
+
+/* --- PWR_SVMCR values ---------------------------------------------------- */
+
 /** V_DDUSB independent USB supply valid */
 #define PWR_SVMCR_USV (1U << 28U)
 /** V_DDUSB independent USB voltage monitor enable */
 #define PWR_SVMCR_UVMEN (1U << 24U)
 
-/** SVMS Register Bits */
+/* --- PWR_SVMSR values ---------------------------------------------------- */
+
+/** V_DDUSB independent USB supply ready */
 #define PWR_SVMSR_VDDUSBRDY (1U << 24U)
+
+/* --- Misc definitions ---------------------------------------------------- */
+
+typedef enum pwr_sys_mode {
+	PWR_SYS_LDO,  /* Use the LDO as Vcore source */
+	PWR_SYS_SMPS, /* Use the SMPS as Vcore source (only in packages with SMPS!) */
+} pwr_sys_mode_e;
+
+typedef enum pwr_vos_scale {
+	PWR_VOS_SCALE_UNDEFINED = 0,
+	PWR_VOS_SCALE_1, /* 1.2Vcore, 160MHz f(max) */
+	PWR_VOS_SCALE_2, /* 1.1Vcore, 110MHz f(max) */
+	PWR_VOS_SCALE_3, /* 1.0Vcore, 55MHz f(max) */
+	PWR_VOS_SCALE_4, /* 0.9Vcore, 25MHz f(max) */
+} pwr_vos_scale_e;
+
+/* --- Function prototypes ------------------------------------------------- */
 
 BEGIN_DECLS
 
 /** @defgroup pwr_peripheral_api PWR Peripheral API
  * @ingroup peripheral_apis
 @{*/
+
+/** Set power subsystem to utilize the LDO for CPU. */
+void pwr_set_mode_ldo(void);
+
+/** Set power subsystem to utilize the SMPS for CPU.
+ * NB: Only on packages that provide the SMPS!!
+ */
+void pwr_set_mode_smps(void);
+
+/** Set power system Vcore source.
+ * @param[in] mode Vcore power source mode (LDO or SMPS).
+ */
+void pwr_set_mode(pwr_sys_mode_e mode);
+
+/** Set the voltage scaling/strength for the internal Vcore regulator while running.
+ * @param[in] scale  Voltage scale value to set.
+ */
+void pwr_set_vos_scale(pwr_vos_scale_e scale);
 
 /** Remove isolation of power/logic to USB transceivers once the VDDUSB supply is present. */
 void pwr_enable_vddusb(void);
