@@ -140,6 +140,7 @@ static int usb_control_recv_chunk(usbd_device *usbd_dev)
 	return packetsize;
 }
 
+/* Returns USBD_REQ_HANDLED or USBD_REQ_NOTSUPP */
 static enum usbd_request_return_codes
 usb_control_request_dispatch(usbd_device *usbd_dev,
 			     struct usb_setup_data *req)
@@ -157,8 +158,7 @@ usb_control_request_dispatch(usbd_device *usbd_dev,
 					  &(usbd_dev->control_state.ctrl_buf),
 					  &(usbd_dev->control_state.ctrl_len),
 					  &(usbd_dev->control_state.complete));
-			if (result == USBD_REQ_HANDLED ||
-			    result == USBD_REQ_NOTSUPP) {
+			if (result != USBD_REQ_NEXT_CALLBACK) {
 				return result;
 			}
 		}
@@ -192,7 +192,7 @@ static void usb_control_setup_read(usbd_device *usbd_dev,
 	usbd_dev->control_state.ctrl_buf = usbd_dev->ctrl_buf;
 	usbd_dev->control_state.ctrl_len = req->wLength;
 
-	if (usb_control_request_dispatch(usbd_dev, req)) {
+	if (usb_control_request_dispatch(usbd_dev, req) == USBD_REQ_HANDLED) {
 		if (req->wLength) {
 			usbd_dev->control_state.needs_zlp =
 				needs_zlp(usbd_dev->control_state.ctrl_len,
@@ -275,7 +275,8 @@ void _usbd_control_out(usbd_device *usbd_dev, uint8_t ep)
 		 * Invoke callback to process.
 		 */
 		if (usb_control_request_dispatch(usbd_dev,
-					&(usbd_dev->control_state.req))) {
+				&(usbd_dev->control_state.req))
+					== USBD_REQ_HANDLED) {
 			/* Go to status stage on success. */
 			usbd_ep_write_packet(usbd_dev, 0, NULL, 0);
 			usbd_dev->control_state.state = STATUS_IN;
