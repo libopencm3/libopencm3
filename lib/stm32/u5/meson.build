@@ -60,6 +60,7 @@ libstm32u5 = static_library(
 		libstm32u5_sources,
 		libstm32_adc_v2_multi_sources,
 		libstm32_crs_sources,
+		libstm32_desig_v1_sources,
 		libstm32_exti_sources,
 		libstm32_flash_sources,
 		libstm32_gpio_f0234_sources,

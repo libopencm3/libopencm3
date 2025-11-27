@@ -37,6 +37,7 @@ ARFLAGS		= rcs
 
 OBJS += adc_common_v2.o adc_common_v2_multi.o adc.o
 OBJS += dma.o
+OBJS += desig_common_v1.o
 OBJS += exti_common_all.o
 OBJS += flash_common_all.o flash.o
 OBJS += gpio_common_all.o gpio_common_f0234.o
