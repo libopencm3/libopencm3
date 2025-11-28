@@ -738,7 +738,7 @@ void rcc_set_sysclk_source(enum rcc_osc clk)
  * @param periph peripheral of choice, eg XXX_BASE
  * @param sel periphral clock source
  */
-void rcc_set_peripheral_clk_sel(uint32_t periph, uint32_t sel)
+void rcc_set_peripheral_clk_sel(uintptr_t periph, uint32_t sel)
 {
 	volatile uint32_t *reg32;
 	uint32_t shift;
@@ -748,71 +748,79 @@ void rcc_set_peripheral_clk_sel(uint32_t periph, uint32_t sel)
 	case USART1_BASE:
 		reg32 = &RCC_CCIPR1;
 		shift = RCC_CCIPR1_USART1SEL_SHIFT;
-		mask = RCC_CCIPR_USARTxSEL_MASK;
+		mask = RCC_CCIPR1_USARTxSEL_MASK;
 		break;
 	case USART2_BASE:
 		reg32 = &RCC_CCIPR1;
 		shift = RCC_CCIPR1_USART2SEL_SHIFT;
-		mask = RCC_CCIPR_USARTxSEL_MASK;
+		mask = RCC_CCIPR1_USARTxSEL_MASK;
 		break;
 	case USART3_BASE:
 		reg32 = &RCC_CCIPR1;
 		shift = RCC_CCIPR1_USART3SEL_SHIFT;
-		mask = RCC_CCIPR_USARTxSEL_MASK;
+		mask = RCC_CCIPR1_USARTxSEL_MASK;
 		break;
 	case USART4_BASE:
 		reg32 = &RCC_CCIPR1;
-		shift = RCC_CCIPR1_USART4SEL_SHIFT;
-		mask = RCC_CCIPR_USARTxSEL_MASK;
+		shift = RCC_CCIPR1_UART4SEL_SHIFT;
+		mask = RCC_CCIPR1_USARTxSEL_MASK;
 		break;
 	case USART5_BASE:
 		reg32 = &RCC_CCIPR1;
-		shift = RCC_CCIPR1_USART5SEL_SHIFT;
-		mask = RCC_CCIPR_USARTxSEL_MASK;
+		shift = RCC_CCIPR1_UART5SEL_SHIFT;
+		mask = RCC_CCIPR1_USARTxSEL_MASK;
 		break;
 	case USART6_BASE:
 		reg32 = &RCC_CCIPR2;
 		shift = RCC_CCIPR2_USART6SEL_SHIFT;
-		mask = RCC_CCIPR_USARTxSEL_MASK;
+		mask = RCC_CCIPR2_USART6SEL_MASK;
 		break;
 	case I2C1_BASE:
 		reg32 = &RCC_CCIPR1;
 		shift = RCC_CCIPR1_I2C1SEL_SHIFT;
-		mask = RCC_CCIPR_I2CxSEL_MASK;
+		mask = RCC_CCIPR1_I2CxSEL_MASK;
 		break;
 	case I2C2_BASE:
 		reg32 = &RCC_CCIPR1;
 		shift = RCC_CCIPR1_I2C2SEL_SHIFT;
-		mask = RCC_CCIPR_I2CxSEL_MASK;
+		mask = RCC_CCIPR1_I2CxSEL_MASK;
 		break;
 	case I2C3_BASE:
 		reg32 = &RCC_CCIPR3;
 		shift = RCC_CCIPR3_I2C3SEL_SHIFT;
-		mask = RCC_CCIPR_I2CxSEL_MASK;
+		mask = RCC_CCIPR3_I2C3SEL_MASK;
 		break;
 	case I2C4_BASE:
 		reg32 = &RCC_CCIPR1;
 		shift = RCC_CCIPR1_I2C4SEL_SHIFT;
-		mask = RCC_CCIPR_I2CxSEL_MASK;
+		mask = RCC_CCIPR1_I2CxSEL_MASK;
 		break;
 	case I2C5_BASE:
 		reg32 = &RCC_CCIPR2;
 		shift = RCC_CCIPR2_I2C5SEL_SHIFT;
-		mask = RCC_CCIPR_I2CxSEL_MASK;
+		mask = RCC_CCIPR2_I2CxSEL_MASK;
 		break;
 	case I2C6_BASE:
 		reg32 = &RCC_CCIPR2;
 		shift = RCC_CCIPR2_I2C6SEL_SHIFT;
-		mask = RCC_CCIPR_I2CxSEL_MASK;
+		mask = RCC_CCIPR2_I2CxSEL_MASK;
+		break;
+	case SYSTEM_MEM_BASE:
+		reg32 = &RCC_CCIPR1;
+		shift = RCC_CCIPR1_SYSTICKSEL_SHIFT;
+		mask = RCC_CCIPR1_SYSTICKSEL_MASK;
+		break;
+	case LPTIM2_BASE:
+		reg32 = &RCC_CCIPR1;
+		shift = RCC_CCIPR1_LPTIM2SEL_SHIFT;
+		mask = RCC_CCIPR1_LPTIM2SEL_SHIFT;
 		break;
 	default:
 		cm3_assert_not_reached();
 		break;
 	}
 
-	mask <<= shift;
-	sel <<= shift;
-	(*reg32) = ((*reg32) & ~mask) | sel;
+	(*reg32) = ((*reg32) & ~(mask << shift)) | (sel << shift);
 }
 
 static uint32_t rcc_get_usart_clksel_freq(uint32_t usart, uint8_t shift)
@@ -857,9 +865,9 @@ uint32_t rcc_get_usart_clk_freq(uint32_t usart)
 	case USART3_BASE:
 		return rcc_get_usart_clksel_freq(usart, RCC_CCIPR1_USART3SEL_SHIFT);
 	case USART4_BASE:
-		return rcc_get_usart_clksel_freq(usart, RCC_CCIPR1_USART4SEL_SHIFT);
+		return rcc_get_usart_clksel_freq(usart, RCC_CCIPR1_UART4SEL_SHIFT);
 	case USART5_BASE:
-		return rcc_get_usart_clksel_freq(usart, RCC_CCIPR1_USART5SEL_SHIFT);
+		return rcc_get_usart_clksel_freq(usart, RCC_CCIPR1_UART5SEL_SHIFT);
 	case USART6_BASE:
 		return rcc_get_usart_clksel_freq(usart, RCC_CCIPR2_USART6SEL_SHIFT);
 	default:

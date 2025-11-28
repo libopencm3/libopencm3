@@ -315,43 +315,102 @@ extern const struct rcc_clock_scale rcc_hsi16mhz_configs;
 #define RCC_BDCR_LSERDY    (1U << 1U)
 #define RCC_BDCR_LSEON     (1U << 0U)
 
-/* --- RCC_CCIPR values ----------------------------------------------------- */
-
-#define RCC_CCIPR_USARTxSEL_MASK 0x3U
-#define RCC_CCIPR_I2CxSEL_MASK   0x3U
-
-#define RCC_CCIPR_USARTxSEL_PCLKx  0x0U
-#define RCC_CCIPR_USARTxSEL_SYSCLK 0x1U
-#define RCC_CCIPR_USARTxSEL_HSI16  0x2U
-#define RCC_CCIPR_USARTxSEL_LSE    0x3U
-
-#define RCC_CCIPR_I2CxSEL_PCLKx  0x0U
-#define RCC_CCIPR_I2CxSEL_SYSCLK 0x1U
-#define RCC_CCIPR_I2CxSEL_HSI16  0x2U
-#define RCC_CCIPR_I2CxSEL_LSE    0x3U
-
 /* --- RCC_CCIPR1 values --------------------------------------------------- */
 
-#define RCC_CCIPR1_USART5SEL_SHIFT 8U
-#define RCC_CCIPR1_USART4SEL_SHIFT 6U
-#define RCC_CCIPR1_USART3SEL_SHIFT 4U
-#define RCC_CCIPR1_USART2SEL_SHIFT 2U
-#define RCC_CCIPR1_USART1SEL_SHIFT 0U
+#define RCC_CCIPR1_TIMICSEL_SHIFT   29U
+#define RCC_CCIPR1_TIMICSEL_MASK    0x7U
+#define RCC_CCIPR1_ICLKSEL_SHIFT    26U
+#define RCC_CCIPR1_ICLKSEL_MASK     0x3U
+#define RCC_CCIPR1_FDCAN1SEL_SHIFT  24U
+#define RCC_CCIPR1_FDCAN1SEL_MASK   0x3U
+#define RCC_CCIPR1_SYSTICKSEL_SHIFT 22U
+#define RCC_CCIPR1_SYSTICKSEL_MASK  0x3U
+#define RCC_CCIPR1_SPI1SEL_SHIFT    20U
+#define RCC_CCIPR1_SPI1SEL_MASK     0x3U
+#define RCC_CCIPR1_LPTIM2SEL_SHIFT  18U
+#define RCC_CCIPR1_LPTIM2SEL_MASK   0x3U
+#define RCC_CCIPR1_SPI2SEL_SHIFT    16U
+#define RCC_CCIPR1_SPI2SEL_MASK     0x3U
+#define RCC_CCIPR1_I2C4SEL_SHIFT    14U
+#define RCC_CCIPR1_I2C2SEL_SHIFT    12U
+#define RCC_CCIPR1_I2C1SEL_SHIFT    10U
+#define RCC_CCIPR1_I2CxSEL_MASK     0x3U
+#define RCC_CCIPR1_UART5SEL_SHIFT   8U
+#define RCC_CCIPR1_UART4SEL_SHIFT   6U
+#define RCC_CCIPR1_USART3SEL_SHIFT  4U
+#define RCC_CCIPR1_USART2SEL_SHIFT  2U
+#define RCC_CCIPR1_USART1SEL_SHIFT  0U
+#define RCC_CCIPR1_USARTxSEL_MASK   0x3U
 
-#define RCC_CCIPR1_I2C4SEL_SHIFT 14U
-#define RCC_CCIPR1_I2C2SEL_SHIFT 12U
-#define RCC_CCIPR1_I2C1SEL_SHIFT 10U
+/** @defgroup rcc_ccipr1_values RCC_CCIPR1 Values
+ * @ingroup rcc_registers
+ * @{*/
+#define RCC_CCIPR1_TIMICSEL_DISABLE                           0x0U
+#define RCC_CCIPR1_TIMICSEL_HSI_DIV256_MSIS_DIV1024_MSIS_DIV4 0x4U
+#define RCC_CCIPR1_TIMICSEL_HSI_DIV256_MSIS_DIV1024_MSIK_DIV4 0x5U
+#define RCC_CCIPR1_TIMICSEL_HSI_DIV256_MSIK_DIV1024_MSIS_DIV4 0x6U
+#define RCC_CCIPR1_TIMICSEL_HSI_DIV256_MSIK_DIV1024_MSIK_DIV4 0x7U
+#define RCC_CCIPR1_ICLKSEL_HSI48                              0x0U
+#define RCC_CCIPR1_ICLKSEL_PLL2Q                              0x1U
+#define RCC_CCIPR1_ICLKSEL_PLL1Q                              0x2U
+#define RCC_CCIPR1_ICLKSEL_MSIK                               0x3U
+#define RCC_CCIPR1_FDCAN1SEL_HSE                              0x0U
+#define RCC_CCIPR1_FDCAN1SEL_PLL1Q                            0x1U
+#define RCC_CCIPR1_FDCAN1SEL_PLL2P                            0x2U
+#define RCC_CCIPR1_SYSTICKSEL_HCLK_DIV8                       0x0U
+#define RCC_CCIPR1_SYSTICKSEL_LSI                             0x1U
+#define RCC_CCIPR1_SYSTICKSEL_LSE                             0x2U
+#define RCC_CCIPR1_SPI1SEL_PCLK2                              0x0U
+#define RCC_CCIPR1_SPI1SEL_SYSCLK                             0x1U
+#define RCC_CCIPR1_SPI1SEL_HSI16                              0x2U
+#define RCC_CCIPR1_SPI1SEL_MSIK                               0x3U
+#define RCC_CCIPR1_LPTIM2SEL_PCLK1                            0x0U
+#define RCC_CCIPR1_LPTIM2SEL_LSI                              0x1U
+#define RCC_CCIPR1_LPTIM2SEL_HSI16                            0x2U
+#define RCC_CCIPR1_LPTIM2SEL_LSE                              0x3U
+#define RCC_CCIPR1_SPI2SEL_PCLK1                              0x0U
+#define RCC_CCIPR1_SPI2SEL_SYSCLK                             0x1U
+#define RCC_CCIPR1_SPI2SEL_HSI16                              0x2U
+#define RCC_CCIPR1_SPI2SEL_MSIK                               0x3U
+#define RCC_CCIPR1_I2CxSEL_PCLK1                              0x0U
+#define RCC_CCIPR1_I2CxSEL_SYSCLK                             0x1U
+#define RCC_CCIPR1_I2CxSEL_HSI16                              0x2U
+#define RCC_CCIPR1_I2CxSEL_MSIK                               0x3U
+#define RCC_CCIPR1_UARTxSEL_PCLK1                             0x0U
+#define RCC_CCIPR1_UARTxSEL_SYSCLK                            0x1U
+#define RCC_CCIPR1_UARTxSEL_HSI16                             0x2U
+#define RCC_CCIPR1_UARTxSEL_LSE                               0x3U
+#define RCC_CCIPR1_USARTxSEL_PCLK1                            0x0U
+#define RCC_CCIPR1_USARTxSEL_SYSCLK                           0x1U
+#define RCC_CCIPR1_USARTxSEL_HSI16                            0x2U
+#define RCC_CCIPR1_USARTxSEL_LSE                              0x3U
+#define RCC_CCIPR1_USART1SEL_PCLK2                            0x0U
+#define RCC_CCIPR1_USART1SEL_SYSCLK                           0x1U
+#define RCC_CCIPR1_USART1SEL_HSI16                            0x2U
+#define RCC_CCIPR1_USART1SEL_LSE                              0x3U
+/**@}*/
 
 /* --- RCC_CCIPR2 values --------------------------------------------------- */
 
 #define RCC_CCIPR2_I2C6SEL_SHIFT 26U
 #define RCC_CCIPR2_I2C5SEL_SHIFT 24U
+#define RCC_CCIPR2_I2CxSEL_MASK  0x3U
 
 #define RCC_CCIPR2_USART6SEL_SHIFT 16U
+#define RCC_CCIPR2_USART6SEL_MASK  0x3U
 
 /* --- RCC_CCIPR3 values --------------------------------------------------- */
 
 #define RCC_CCIPR3_I2C3SEL_SHIFT 6U
+#define RCC_CCIPR3_I2C3SEL_MASK  0x3U
+
+/* --- RCC_CCIPR common values --------------------------------------------- */
+
+#define RCC_CCIPR_USARTxSEL_MASK   0x3U
+#define RCC_CCIPR_USARTxSEL_PCLKx  0x0U
+#define RCC_CCIPR_USARTxSEL_SYSCLK 0x1U
+#define RCC_CCIPR_USARTxSEL_HSI16  0x2U
+#define RCC_CCIPR_USARTxSEL_LSE    0x3U
 
 /* --- RCC_CSR values ------------------------------------------------------ */
 
@@ -690,7 +749,22 @@ void rcc_css_enable(void);
 void rcc_css_disable(void);
 void rcc_set_sysclk_source(enum rcc_osc clk);
 uint32_t rcc_system_clock_source(void);
-void rcc_set_peripheral_clk_sel(uint32_t periph, uint32_t sel);
+
+/**
+ * Set the clksel value for the specified peripheral. This code will determine
+ * the appropriate register, shift and mask values to apply to the selection to
+ * and set the values appropriately.
+ *
+ * Peripheral specific clksels functions are also available,
+ * eg rcc_set_<periph>_clksel. These provide the same functionality, you only
+ * need one of them. for instance @ref rcc_set_fdcan_clksel or
+ * @ref rcc_set_spi123_clksel
+ * @param[in] periph Base address of the peripheral to set the clock sel for
+ * @param[in] clksel Raw, unshifted selection value for the clock, depending
+ * on peripheral, see @ref rcc_d1ccipr_values or @ref rcc_d2ccip1r_values or
+ * @ref rcc_d2ccip2r_values
+ */
+void rcc_set_peripheral_clk_sel(uintptr_t periph, uint32_t sel);
 void rcc_clock_setup_hsi(const struct rcc_clock_scale *clock) LIBOPENCM3_DEPRECATED("see rcc_clock_setup_pll");
 
 END_DECLS
