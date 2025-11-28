@@ -52,6 +52,7 @@ struct rcc_clock_scale {
 	uint8_t hpre;            /* AHB prescaler */
 	uint8_t ppre1;           /* APB1 low-speed prescaler */
 	uint8_t ppre2;           /* APB2 high-speed prescaler */
+	uint8_t ppre3;           /* APB3 high-speed prescaler */
 	uint32_t ahb_frequency;  /* AHB clock frequency */
 	uint32_t apb1_frequency; /* APB1 clock frequency */
 	uint32_t apb2_frequency; /* APB2 clock frequency */
@@ -377,10 +378,6 @@ extern const struct rcc_clock_scale rcc_hsi16mhz_configs;
 
 #define RCC_HSI_BASE_FREQUENCY 16000000UL
 
-extern uint32_t rcc_ahb_frequency;
-extern uint32_t rcc_apb1_frequency;
-extern uint32_t rcc_apb2_frequency;
-
 enum rcc_osc {
 	RCC_PLL3,
 	RCC_PLL2,
@@ -695,9 +692,6 @@ void rcc_set_sysclk_source(enum rcc_osc clk);
 uint32_t rcc_system_clock_source(void);
 void rcc_set_peripheral_clk_sel(uint32_t periph, uint32_t sel);
 void rcc_clock_setup_hsi(const struct rcc_clock_scale *clock) LIBOPENCM3_DEPRECATED("see rcc_clock_setup_pll");
-void rcc_set_ppre2(uint32_t ppre2);
-void rcc_set_ppre1(uint32_t ppre1);
-void rcc_set_hpre(uint32_t hpre);
 
 END_DECLS
 

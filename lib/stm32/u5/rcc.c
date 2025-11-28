@@ -83,10 +83,6 @@ static struct {
 
 typedef struct pll_clocks pll_clocks_s;
 
-uint32_t rcc_ahb_frequency = RCC_DEFAULT_MSIS_FREQUENCY;
-uint32_t rcc_apb1_frequency = RCC_DEFAULT_MSIS_FREQUENCY;
-uint32_t rcc_apb2_frequency = RCC_DEFAULT_MSIS_FREQUENCY;
-
 const struct rcc_clock_scale rcc_hsi16mhz_configs = {
 	.hpre = RCC_CFGR2_HPRE_NODIV,
 	.ppre1 = RCC_PPRE_NODIV,
@@ -517,24 +513,6 @@ void rcc_clock_setup_hsi48(void)
 		continue;
 }
 
-void rcc_set_ppre2(uint32_t ppre2)
-{
-	const uint32_t reg32 = RCC_CFGR2 & ~RCC_CFGR2_PPRE2;
-	RCC_CFGR2 = reg32 | (ppre2 << RCC_CFGR2_PPRE2_SHIFT);
-}
-
-void rcc_set_ppre1(uint32_t ppre1)
-{
-	const uint32_t reg32 = RCC_CFGR2 & ~RCC_CFGR2_PPRE1;
-	RCC_CFGR2 = reg32 | (ppre1 << RCC_CFGR2_PPRE1_SHIFT);
-}
-
-void rcc_set_hpre(uint32_t hpre)
-{
-	const uint32_t reg32 = RCC_CFGR2 & ~RCC_CFGR2_HPRE;
-	RCC_CFGR2 = reg32 | (hpre << RCC_CFGR2_HPRE_SHIFT);
-}
-
 /**
  * Switch sysclock to HSI with the given parameters.
  * This should be usable from any point in time, but only if you have used
@@ -547,28 +525,19 @@ void rcc_clock_setup_hsi(const struct rcc_clock_scale *clock)
 {
 	/* Enable internal high-speed oscillator. */
 	rcc_osc_on(RCC_HSI);
-	/* Don't try and go to fast for a voltage range! */
-	if (clock->ahb_frequency > rcc_ahb_frequency) {
-		/* Going up, power up first */
-		// pwr_set_vos_scale(clock->voltage_scale); TODO
-		rcc_set_hpre(clock->hpre);
-		rcc_set_ppre1(clock->ppre1);
-		rcc_set_ppre2(clock->ppre2);
-	} else {
-		/* going down, slow down before cutting power */
-		rcc_set_hpre(clock->hpre);
-		rcc_set_ppre1(clock->ppre1);
-		rcc_set_ppre2(clock->ppre2);
-		// pwr_set_vos_scale(clock->voltage_scale); TODO
-	}
+
+	RCC_CFGR2 = (RCC_CFGR2 & ~(RCC_CFGR2_HPRE | RCC_CFGR2_PPRE1 | RCC_CFGR2_PPRE2)) |
+		(clock->hpre << RCC_CFGR2_HPRE_SHIFT) | (clock->ppre1 << RCC_CFGR2_PPRE1_SHIFT) |
+		(clock->ppre2 << RCC_CFGR2_HPRE_SHIFT);
+	RCC_CFGR3 = (RCC_CFGR3 & ~RCC_CFGR3_PPRE3) | (clock->ppre3 << RCC_CFGR3_PPRE3_SHIFT);
 
 	rcc_wait_for_osc_ready(RCC_HSI);
 	rcc_set_sysclk_source(RCC_HSI16);
 
 	/* Set the peripheral clock frequencies used. */
-	rcc_ahb_frequency = clock->ahb_frequency;
-	rcc_apb1_frequency = clock->apb1_frequency;
-	rcc_apb2_frequency = clock->apb2_frequency;
+	rcc_clock_tree.hclk = clock->ahb_frequency;
+	rcc_clock_tree.pclk1 = clock->apb1_frequency;
+	rcc_clock_tree.pclk2 = clock->apb2_frequency;
 }
 
 /*---------------------------------------------------------------------------*/
@@ -858,11 +827,11 @@ static uint32_t rcc_get_usart_clksel_freq(uint32_t usart, uint8_t shift)
 	switch (clksel) {
 	case RCC_CCIPR_USARTxSEL_PCLKx:
 		if (usart == USART1_BASE) {
-			return rcc_apb2_frequency;
+			return rcc_clock_tree.pclk2;
 		}
-		return rcc_apb1_frequency;
+		return rcc_clock_tree.pclk1;
 	case RCC_CCIPR_USARTxSEL_SYSCLK:
-		return rcc_ahb_frequency;
+		return rcc_clock_tree.hclk;
 	case RCC_CCIPR_USARTxSEL_HSI16:
 		return RCC_DEFAULT_HSI16_FREQUENCY;
 	case RCC_CCIPR_USARTxSEL_LSE:
