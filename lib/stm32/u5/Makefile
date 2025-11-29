@@ -52,7 +52,7 @@ OBJS += usart_common_all.o usart_common_v2.o
 OBJS += usb.o usb_standard.o usb_control.o usb_msc.o
 OBJS += usb_hid.o usb_bos.o usb_microsoft.o
 OBJS += usb_audio.o usb_cdc.o usb_midi.o
-OBJS += usb_dwc_common.o usb_f107.o usb_f207.o
+OBJS += usb_dwc_common.o usb_stm32u5.o usb_stm32h7.o
 
 VPATH += ../../usb:../:../../cm3:../common
 

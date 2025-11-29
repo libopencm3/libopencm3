@@ -2,6 +2,7 @@
  * This file is part of the libopencm3 project.
  *
  * Copyright (C) 2011 Gareth McMullin <gareth@blacksphere.co.nz>
+ * Copyright (C) 2024-2025 Rachel Mant <git@dragonmux.network>
  *
  * This library is free software: you can redistribute it and/or modify
  * it under the terms of the GNU Lesser General Public License as published by
@@ -47,7 +48,7 @@ void dwc_ep_setup(usbd_device *const usbd_dev, const uint8_t addr, const uint8_t
 
 	if (ep == 0) { /* For the default control endpoint */
 				   /* Configure IN part. */
-#if defined(STM32H7)
+#if defined(STM32H7) || defined(STM32U5)
 		/* Do not initially arm the IN endpoint - we've got nothing to send the host at first */
 		REBASE(OTG_DIEPTSIZ(0)) = 0;
 		REBASE(OTG_DIEPCTL(0)) = (max_size & OTG_DIEPCTLX_MPSIZ_MASK) | OTG_DIEPCTL0_SNAK | OTG_DIEPCTL0_USBAEP;
@@ -69,7 +70,7 @@ void dwc_ep_setup(usbd_device *const usbd_dev, const uint8_t addr, const uint8_t
 		/* Configure OUT part. */
 		usbd_dev->doeptsiz[0] = OTG_DOEPSIZ0_STUPCNT_1 | OTG_DOEPSIZ0_PKTCNT | (max_size & OTG_DOEPSIZ0_XFRSIZ_MASK);
 		REBASE(OTG_DOEPTSIZ(0)) = usbd_dev->doeptsiz[0];
-#if defined(STM32H7)
+#if defined(STM32H7) || defined(STM32U5)
 		/* However, *do* arm the OUT endpoint so we can receive the first SETUP packet */
 		if (max_size >= 64) {
 			REBASE(OTG_DOEPCTL(0)) = OTG_DOEPCTL0_MPSIZ_64;
@@ -97,16 +98,15 @@ void dwc_ep_setup(usbd_device *const usbd_dev, const uint8_t addr, const uint8_t
 		REBASE(OTG_DIEPTXF(ep)) = ((max_size / 4) << 16) | usbd_dev->fifo_mem_top;
 		usbd_dev->fifo_mem_top += max_size / 4;
 
-#if defined(STM32H7)
+#if defined(STM32H7) || defined(STM32U5)
 		/* Do not initially arm the IN endpoint - we've got nothing to send the host at first */
 		REBASE(OTG_DIEPTSIZ(ep)) = 0U;
 		REBASE(OTG_DIEPCTL(ep)) = (max_size & OTG_DIEPCTLX_MPSIZ_MASK) | OTG_DIEPCTL0_SNAK | OTG_DIEPCTL0_USBAEP |
 			(type << OTG_DIEPCTLX_EPTYP_SHIFT) | OTG_DIEPCTLX_SD0PID | (ep << OTG_DIEPCTLX_TXFNUM_SHIFT);
 #else
 		REBASE(OTG_DIEPTSIZ(ep)) = max_size & OTG_DIEPSIZ0_XFRSIZ_MASK;
-		REBASE(OTG_DIEPCTL(ep)) |= OTG_DIEPCTL0_SNAK | (type << OTG_DIEPCTLX_EPTYP_SHIFT) |
-			OTG_DIEPCTL0_USBAEP | OTG_DIEPCTLX_SD0PID | (ep << OTG_DIEPCTLX_TXFNUM_SHIFT) |
-			(max_size & OTG_DIEPCTLX_MPSIZ_MASK);
+		REBASE(OTG_DIEPCTL(ep)) |= OTG_DIEPCTL0_SNAK | (type << OTG_DIEPCTLX_EPTYP_SHIFT) | OTG_DIEPCTL0_USBAEP |
+			OTG_DIEPCTLX_SD0PID | (ep << OTG_DIEPCTLX_TXFNUM_SHIFT) | (max_size & OTG_DIEPCTLX_MPSIZ_MASK);
 #endif
 
 		if (callback) {
@@ -205,7 +205,7 @@ uint16_t dwc_ep_write_packet(usbd_device *const usbd_dev, const uint8_t addr, co
 	const uint8_t ep = addr & 0x7FU;
 
 	/* Return if endpoint is already enabled. */
-#if defined(STM32H7)
+#if defined(STM32H7) || defined(STM32U5)
 	if (REBASE(OTG_DIEPCTL(ep)) & OTG_DIEPCTL0_EPENA) {
 		return 0;
 	}
@@ -272,7 +272,7 @@ uint16_t dwc_ep_read_packet(usbd_device *usbd_dev, uint8_t addr, void *buf, uint
 	 * receive FIFO for all endpoints.
 	 */
 	(void)addr;
-#if defined(STM32H7)
+#if defined(STM32H7) || defined(STM32U5)
 	const size_t count = MIN(len, usbd_dev->rxbcnt);
 
 	uint8_t *const buf8 = buf;
@@ -385,7 +385,7 @@ void dwc_poll(usbd_device *usbd_dev)
 	 *
 	 * Iterate over the IN endpoints, triggering any post-transmit actions.
 	 */
-#if defined(STM32H7)
+#if defined(STM32H7) || defined(STM32U5)
 	if (intsts & OTG_GINTSTS_IEPINT) {
 #endif
 		for (size_t i = 0; i < ENDPOINT_COUNT; i++) {
@@ -398,7 +398,7 @@ void dwc_poll(usbd_device *usbd_dev)
 				}
 			}
 		}
-#if defined(STM32H7)
+#if defined(STM32H7) || defined(STM32U5)
 	}
 #endif
 
@@ -414,7 +414,7 @@ void dwc_poll(usbd_device *usbd_dev)
 		}
 
 		if (pktsts == OTG_GRXSTSP_PKTSTS_OUT_COMP || pktsts == OTG_GRXSTSP_PKTSTS_SETUP_COMP) {
-#if defined(STM32H7) || defined(STM32U5)
+#if defined(STM32H7) || defined(STM32U5) || defined(STM32U5)
 			if (pktsts == OTG_GRXSTSP_PKTSTS_SETUP_COMP) {
 				REBASE(OTG_DOEPINT(ep)) = OTG_DOEPINTX_STUP;
 			}
@@ -448,7 +448,7 @@ void dwc_poll(usbd_device *usbd_dev)
 		}
 
 		/* Discard unread packet data. */
-#if defined(STM32H7)
+#if defined(STM32H7) || defined(STM32U5)
 		const size_t total_length = (rxstsp & OTG_GRXSTSP_BCNT_MASK) >> 4U;
 		const size_t consumed = total_length - usbd_dev->rxbcnt;
 		const volatile uint32_t *const fifo = (const volatile uint32_t *)(usbd_dev->driver->base_address + OTG_FIFO(0));
@@ -488,7 +488,7 @@ void dwc_poll(usbd_device *usbd_dev)
 		REBASE(OTG_GINTSTS) = OTG_GINTSTS_SOF;
 	}
 
-#if !defined(STM32H7)
+#if !defined(STM32H7) || defined(STM32U5)
 	if (usbd_dev->user_callback_sof) {
 		REBASE(OTG_GINTMSK) |= OTG_GINTMSK_SOFM;
 	} else {

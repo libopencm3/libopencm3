@@ -51,6 +51,8 @@ usb_efm32hg_sources = files('usb_efm32hg.c')
 usb_stm32_dwc_sources = files('usb_dwc_common.c')
 usb_stm32_f107_sources = files('usb_f107.c')
 usb_stm32_f207_sources = files('usb_f207.c')
+usb_stm32u5_sources = files('usb_stm32u5.c')
+usb_stm32h7_sources = files('usb_stm32h7.c')
 usb_lm4f_sources = files('usb_lm4f.c')
 
 usb_includes = include_directories('..')
