@@ -38,6 +38,7 @@
 
 #include <stddef.h>
 #include <libopencm3/cm3/assert.h>
+#include <libopencm3/cm3/systick.h>
 #include <libopencm3/stm32/rcc.h>
 #include <libopencm3/stm32/pwr.h>
 #include <libopencm3/stm32/flash.h>
@@ -513,6 +514,64 @@ void rcc_clock_setup_hsi48(void)
 		continue;
 }
 
+uint32_t rcc_get_bus_clk_freq(const rcc_clock_source_e source)
+{
+	switch (source) {
+	case RCC_SYSTICKCLK:
+		/* Check if we're sourcing SysTick from the CPU clock or not */
+		if ((STK_CSR & STK_CSR_CLKSOURCE) == STK_CSR_CLKSOURCE_AHB) {
+			return rcc_clock_tree.hclk;
+		}
+		/* Externally sourced means using the SysTick mux in the RCC */
+		switch ((RCC_CCIPR1 >> RCC_CCIPR1_SYSTICKSEL_SHIFT) & RCC_CCIPR1_SYSTICKSEL_MASK) {
+		case RCC_CCIPR1_SYSTICKSEL_HCLK_DIV8:
+			return rcc_clock_tree.hclk / 8U;
+		case RCC_CCIPR1_SYSTICKSEL_LSI:
+			/* Check if LSI is divided down or not */
+			if (RCC_BDCR & RCC_BDCR_LSIPREDIV) {
+				return RCC_LSI_BASE_FREQUENCY / 128U;
+			} else {
+				return RCC_LSI_BASE_FREQUENCY;
+			}
+		case RCC_CCIPR1_SYSTICKSEL_LSE:
+			return RCC_LSE_BASE_FREQUENCY;
+		default:
+			cm3_assert_not_reached();
+		}
+	case RCC_MSISCLK:
+		return rcc_clock_tree.msis;
+	case RCC_MSIKCLK:
+		return rcc_clock_tree.msik;
+	case RCC_ICLK:
+		switch ((RCC_CCIPR1 >> RCC_CCIPR1_ICLKSEL_SHIFT) & RCC_CCIPR1_ICLKSEL_MASK) {
+		case RCC_CCIPR1_ICLKSEL_HSI48:
+			return RCC_HSI48_BASE_FREQUENCY;
+		case RCC_CCIPR1_ICLKSEL_PLL2Q:
+			return rcc_clock_tree.pll2.q;
+		case RCC_CCIPR1_ICLKSEL_PLL1Q:
+			return rcc_clock_tree.pll1.q;
+		case RCC_CCIPR1_ICLKSEL_MSIK:
+			return rcc_clock_tree.msik;
+		default:
+			cm3_assert_not_reached();
+		}
+	case RCC_SYSCLK:
+		return rcc_clock_tree.sysclk;
+	case RCC_CPUCLK:
+	case RCC_HCLK:
+	case RCC_AHBCLK:
+		return rcc_clock_tree.hclk;
+	case RCC_APB1CLK:
+		return rcc_clock_tree.pclk1;
+	case RCC_APB2CLK:
+		return rcc_clock_tree.pclk2;
+	case RCC_APB3CLK:
+		return rcc_clock_tree.pclk3;
+	default:
+		cm3_assert_not_reached();
+	}
+}
+
 /**
  * Switch sysclock to HSI with the given parameters.
  * This should be usable from any point in time, but only if you have used
@@ -805,7 +864,7 @@ void rcc_set_peripheral_clk_sel(uintptr_t periph, uint32_t sel)
 		shift = RCC_CCIPR2_I2C6SEL_SHIFT;
 		mask = RCC_CCIPR2_I2CxSEL_MASK;
 		break;
-	case SYSTEM_MEM_BASE:
+	case SYS_TICK_BASE:
 		reg32 = &RCC_CCIPR1;
 		shift = RCC_CCIPR1_SYSTICKSEL_SHIFT;
 		mask = RCC_CCIPR1_SYSTICKSEL_MASK;
@@ -855,7 +914,7 @@ static uint32_t rcc_get_usart_clksel_freq(uint32_t usart, uint8_t shift)
 /** @brief Get the peripheral clock speed for the USART at base specified.
  * @param usart  Base address of USART to get clock frequency for.
  */
-uint32_t rcc_get_usart_clk_freq(uint32_t usart)
+uint32_t rcc_get_usart_clk_freq(uintptr_t usart)
 {
 	switch (usart) {
 	case USART1_BASE:

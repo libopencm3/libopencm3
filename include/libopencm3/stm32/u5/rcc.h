@@ -435,9 +435,29 @@ extern const struct rcc_clock_scale rcc_hsi16mhz_configs;
 
 /* --- Variable definitions ------------------------------------------------ */
 
-#define RCC_HSI_BASE_FREQUENCY 16000000UL
+#define RCC_HSI_BASE_FREQUENCY   16000000UL
+#define RCC_HSI48_BASE_FREQUENCY 48000000UL
+#define RCC_LSI_BASE_FREQUENCY   32000UL
+#define RCC_LSE_BASE_FREQUENCY   32768UL
 
-enum rcc_osc {
+/** Enumerations for core system/bus clocks for user/driver/system access to base bus clocks
+ * not directly associated with a peripheral.
+ */
+typedef enum rcc_clock_source {
+	RCC_CPUCLK,
+	RCC_SYSTICKCLK,
+	RCC_MSISCLK,
+	RCC_MSIKCLK,
+	RCC_ICLK,
+	RCC_SYSCLK,
+	RCC_HCLK,
+	RCC_AHBCLK,  /* AHB1, 2 and 3 all use the same clock */
+	RCC_APB1CLK, /* Note: APB1 and PCLK1 in manual */
+	RCC_APB2CLK, /* Note: APB2 and PCLK2 in manual */
+	RCC_APB3CLK, /* Note: APB3 and PCLK3 in manual */
+} rcc_clock_source_e;
+
+typedef enum rcc_osc {
 	RCC_PLL3,
 	RCC_PLL2,
 	RCC_PLL1,
@@ -450,7 +470,7 @@ enum rcc_osc {
 	RCC_LSI,
 	RCC_LSE,
 	RCC_HSI48,
-};
+} rcc_osc_e;
 
 /** PLL Configuration structure. */
 typedef struct rcc_pll_config {
@@ -742,7 +762,23 @@ void rcc_clock_setup_pll(const struct rcc_pll_config *config);
  */
 void rcc_clock_setup_hsi48(void);
 
-uint32_t rcc_get_usart_clk_freq(uint32_t usart);
+/**
+ * Get the clock rate (in Hz) of the specified clock source. There are
+ * numerous clock sources and configurations on the H7, so rates for each
+ * configured peripheral clock are aimed to be discoverd/calculated by this
+ * module such that the user does not need to know how the MCU is configured
+ * in order to utilize a peripheral clock.
+ * @param[in] source  Clock source desired to be fetched.
+ * @return Clock rate in Hz for the specified clock. 0 if undefined or error.
+ */
+uint32_t rcc_get_bus_clk_freq(rcc_clock_source_e source);
+
+/**
+ * Get the peripheral clock speed for the USART at base specified.
+ * @param usart  Base address of USART to get clock frequency for (e.g. USART1_BASE).
+ */
+uint32_t rcc_get_usart_clk_freq(uintptr_t usart);
+
 void rcc_osc_on(enum rcc_osc osc);
 void rcc_osc_off(enum rcc_osc osc);
 void rcc_css_enable(void);
