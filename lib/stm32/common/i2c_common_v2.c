@@ -309,6 +309,29 @@ void i2c_disable_interrupt(uint32_t i2c, uint32_t interrupt)
 }
 
 /*---------------------------------------------------------------------------*/
+/** @brief I2C Enable ACK
+
+Enables acking of own 7/10 bit address
+@param[in] i2c Unsigned int32. I2C register base address @ref i2c_reg_base.
+*/
+void i2c_enable_ack(uint32_t i2c)
+{
+	I2C_OAR1(i2c) |= I2C_OAR1_OA1EN_ENABLE;
+}
+
+/*---------------------------------------------------------------------------*/
+/** @brief I2C Disable ACK
+
+Disables acking of own 7/10 bit address
+@param[in] i2c Unsigned int32. I2C register base address @ref i2c_reg_base.
+*/
+void i2c_disable_ack(uint32_t i2c)
+{
+	I2C_OAR1(i2c) &= ~I2C_OAR1_OA1EN_ENABLE;
+}
+
+
+/*---------------------------------------------------------------------------*/
 /** @brief I2C Enable reception DMA
  *
  * @param[in] i2c Unsigned int32. I2C register base address @ref i2c_reg_base.
