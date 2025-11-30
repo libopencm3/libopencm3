@@ -71,13 +71,10 @@ static bool needs_zlp(uint16_t len, uint16_t wLength, uint8_t ep_size)
 }
 
 /* Register application callback function for handling USB control requests. */
-int usbd_register_control_callback(usbd_device *usbd_dev, uint8_t type,
-				   uint8_t type_mask,
-				   usbd_control_callback callback)
+int usbd_register_control_callback(
+	usbd_device *usbd_dev, uint8_t type, uint8_t type_mask, usbd_control_callback callback)
 {
-	int i;
-
-	for (i = 0; i < MAX_USER_CONTROL_CALLBACK; i++) {
+	for (size_t i = 0; i < MAX_USER_CONTROL_CALLBACK; i++) {
 		if (usbd_dev->user_control_callback[i].cb) {
 			continue;
 		}
@@ -93,27 +90,18 @@ int usbd_register_control_callback(usbd_device *usbd_dev, uint8_t type,
 
 static void usb_control_send_chunk(usbd_device *usbd_dev)
 {
-	if (usbd_dev->control_state.ctrl_len >
-			usbd_dev->desc->bMaxPacketSize0) {
+	if (usbd_dev->control_state.ctrl_len > usbd_dev->desc->bMaxPacketSize0) {
 		/* Data stage, normal transmission */
-		usbd_ep_write_packet(usbd_dev, 0,
-				     usbd_dev->control_state.ctrl_buf,
-				     usbd_dev->desc->bMaxPacketSize0);
+		usbd_ep_write_packet(usbd_dev, 0, usbd_dev->control_state.ctrl_buf, usbd_dev->desc->bMaxPacketSize0);
 
 		usbd_dev->control_state.state = DATA_IN;
-		usbd_dev->control_state.ctrl_buf +=
-			usbd_dev->desc->bMaxPacketSize0;
-		usbd_dev->control_state.ctrl_len -=
-			usbd_dev->desc->bMaxPacketSize0;
+		usbd_dev->control_state.ctrl_buf += usbd_dev->desc->bMaxPacketSize0;
+		usbd_dev->control_state.ctrl_len -= usbd_dev->desc->bMaxPacketSize0;
 	} else {
 		/* Data stage, end of transmission */
-		usbd_ep_write_packet(usbd_dev, 0,
-				     usbd_dev->control_state.ctrl_buf,
-				     usbd_dev->control_state.ctrl_len);
+		usbd_ep_write_packet(usbd_dev, 0, usbd_dev->control_state.ctrl_buf, usbd_dev->control_state.ctrl_len);
 
-		usbd_dev->control_state.state =
-			usbd_dev->control_state.needs_zlp ?
-			DATA_IN : LAST_DATA_IN;
+		usbd_dev->control_state.state = usbd_dev->control_state.needs_zlp ? DATA_IN : LAST_DATA_IN;
 		usbd_dev->control_state.needs_zlp = false;
 		usbd_dev->control_state.ctrl_len = 0;
 		usbd_dev->control_state.ctrl_buf = NULL;
@@ -122,13 +110,10 @@ static void usb_control_send_chunk(usbd_device *usbd_dev)
 
 static int usb_control_recv_chunk(usbd_device *usbd_dev)
 {
-	uint16_t packetsize = MIN(usbd_dev->desc->bMaxPacketSize0,
-			usbd_dev->control_state.req.wLength -
-			usbd_dev->control_state.ctrl_len);
-	uint16_t size = usbd_ep_read_packet(usbd_dev, 0,
-				       usbd_dev->control_state.ctrl_buf +
-				       usbd_dev->control_state.ctrl_len,
-				       packetsize);
+	uint16_t packetsize =
+		MIN(usbd_dev->desc->bMaxPacketSize0, usbd_dev->control_state.req.wLength - usbd_dev->control_state.ctrl_len);
+	uint16_t size = usbd_ep_read_packet(
+		usbd_dev, 0, usbd_dev->control_state.ctrl_buf + usbd_dev->control_state.ctrl_len, packetsize);
 
 	if (size != packetsize) {
 		stall_transaction(usbd_dev);
@@ -140,9 +125,7 @@ static int usb_control_recv_chunk(usbd_device *usbd_dev)
 	return packetsize;
 }
 
-static enum usbd_request_return_codes
-usb_control_request_dispatch(usbd_device *usbd_dev,
-			     struct usb_setup_data *req)
+static enum usbd_request_return_codes usb_control_request_dispatch(usbd_device *usbd_dev, struct usb_setup_data *req)
 {
 	struct user_control_callback *cb = usbd_dev->user_control_callback;
 
@@ -153,12 +136,9 @@ usb_control_request_dispatch(usbd_device *usbd_dev,
 		}
 
 		if ((req->bmRequestType & cb[i].type_mask) == cb[i].type) {
-			const enum usbd_request_return_codes result = cb[i].cb(usbd_dev, req,
-					  &(usbd_dev->control_state.ctrl_buf),
-					  &(usbd_dev->control_state.ctrl_len),
-					  &(usbd_dev->control_state.complete));
-			if (result == USBD_REQ_HANDLED ||
-			    result == USBD_REQ_NOTSUPP) {
+			const enum usbd_request_return_codes result = cb[i].cb(usbd_dev, req, &(usbd_dev->control_state.ctrl_buf),
+				&(usbd_dev->control_state.ctrl_len), &(usbd_dev->control_state.complete));
+			if (result == USBD_REQ_HANDLED || result == USBD_REQ_NOTSUPP) {
 				return result;
 			}
 		}
@@ -167,27 +147,22 @@ usb_control_request_dispatch(usbd_device *usbd_dev,
 	/* If we have a BOS and Microsoft OS-specific request handling
 	 * regsitered, try it. See MS_OS_2_0_desc.docx pg10 for more. */
 	if (usbd_dev->bos && usbd_dev->microsoft_os_req_callback &&
-	    (req->bmRequestType & (USB_REQ_TYPE_TYPE | USB_REQ_TYPE_RECIPIENT)) ==
-	    (USB_REQ_TYPE_VENDOR | USB_REQ_TYPE_DEVICE)) {
+		(req->bmRequestType & (USB_REQ_TYPE_TYPE | USB_REQ_TYPE_RECIPIENT)) ==
+			(USB_REQ_TYPE_VENDOR | USB_REQ_TYPE_DEVICE)) {
 		const enum usbd_request_return_codes result = usbd_dev->microsoft_os_req_callback(
-				  usbd_dev, req,
-				  &(usbd_dev->control_state.ctrl_buf),
-				  &(usbd_dev->control_state.ctrl_len));
-		if (result == USBD_REQ_HANDLED ||
-		    result == USBD_REQ_NOTSUPP) {
+			usbd_dev, req, &(usbd_dev->control_state.ctrl_buf), &(usbd_dev->control_state.ctrl_len));
+		if (result == USBD_REQ_HANDLED || result == USBD_REQ_NOTSUPP) {
 			return result;
 		}
 	}
 
 	/* Try standard request if not already handled. */
-	return _usbd_standard_request(usbd_dev, req,
-				      &(usbd_dev->control_state.ctrl_buf),
-				      &(usbd_dev->control_state.ctrl_len));
+	return _usbd_standard_request(
+		usbd_dev, req, &(usbd_dev->control_state.ctrl_buf), &(usbd_dev->control_state.ctrl_len));
 }
 
 /* Handle commands and read requests. */
-static void usb_control_setup_read(usbd_device *usbd_dev,
-		struct usb_setup_data *req)
+static void usb_control_setup_read(usbd_device *usbd_dev, struct usb_setup_data *req)
 {
 	usbd_dev->control_state.ctrl_buf = usbd_dev->ctrl_buf;
 	usbd_dev->control_state.ctrl_len = req->wLength;
@@ -195,9 +170,7 @@ static void usb_control_setup_read(usbd_device *usbd_dev,
 	if (usb_control_request_dispatch(usbd_dev, req)) {
 		if (req->wLength) {
 			usbd_dev->control_state.needs_zlp =
-				needs_zlp(usbd_dev->control_state.ctrl_len,
-					req->wLength,
-					usbd_dev->desc->bMaxPacketSize0);
+				needs_zlp(usbd_dev->control_state.ctrl_len, req->wLength, usbd_dev->desc->bMaxPacketSize0);
 			/* Go to data out stage if handled. */
 			usb_control_send_chunk(usbd_dev);
 		} else {
@@ -211,8 +184,7 @@ static void usb_control_setup_read(usbd_device *usbd_dev,
 	}
 }
 
-static void usb_control_setup_write(usbd_device *usbd_dev,
-				    struct usb_setup_data *req)
+static void usb_control_setup_write(usbd_device *usbd_dev, struct usb_setup_data *req)
 {
 	if (req->wLength > usbd_dev->ctrl_buf_len) {
 		stall_transaction(usbd_dev);
@@ -260,9 +232,8 @@ void _usbd_control_out(usbd_device *usbd_dev, uint8_t ep)
 		if (usb_control_recv_chunk(usbd_dev) < 0) {
 			break;
 		}
-		if ((usbd_dev->control_state.req.wLength -
-					usbd_dev->control_state.ctrl_len) <=
-					usbd_dev->desc->bMaxPacketSize0) {
+		if ((usbd_dev->control_state.req.wLength - usbd_dev->control_state.ctrl_len) <=
+			usbd_dev->desc->bMaxPacketSize0) {
 			usbd_dev->control_state.state = LAST_DATA_OUT;
 		}
 		break;
@@ -274,8 +245,7 @@ void _usbd_control_out(usbd_device *usbd_dev, uint8_t ep)
 		 * We have now received the full data payload.
 		 * Invoke callback to process.
 		 */
-		if (usb_control_request_dispatch(usbd_dev,
-					&(usbd_dev->control_state.req))) {
+		if (usb_control_request_dispatch(usbd_dev, &(usbd_dev->control_state.req))) {
 			/* Go to status stage on success. */
 			usbd_ep_write_packet(usbd_dev, 0, NULL, 0);
 			usbd_dev->control_state.state = STATUS_IN;
@@ -287,8 +257,7 @@ void _usbd_control_out(usbd_device *usbd_dev, uint8_t ep)
 		usbd_ep_read_packet(usbd_dev, 0, NULL, 0);
 		usbd_dev->control_state.state = IDLE;
 		if (usbd_dev->control_state.complete) {
-			usbd_dev->control_state.complete(usbd_dev,
-					&(usbd_dev->control_state.req));
+			usbd_dev->control_state.complete(usbd_dev, &(usbd_dev->control_state.req));
 		}
 		usbd_dev->control_state.complete = NULL;
 		break;
@@ -312,13 +281,11 @@ void _usbd_control_in(usbd_device *usbd_dev, uint8_t ea)
 		break;
 	case STATUS_IN:
 		if (usbd_dev->control_state.complete) {
-			usbd_dev->control_state.complete(usbd_dev,
-					&(usbd_dev->control_state.req));
+			usbd_dev->control_state.complete(usbd_dev, &(usbd_dev->control_state.req));
 		}
 
 		/* Exception: Handle SET ADDRESS function here... */
-		if ((req->bmRequestType == 0) &&
-		    (req->bRequest == USB_REQ_SET_ADDRESS)) {
+		if ((req->bmRequestType == 0) && (req->bRequest == USB_REQ_SET_ADDRESS)) {
 			usbd_dev->driver->set_address(usbd_dev, req->wValue);
 		}
 		usbd_dev->control_state.state = IDLE;
