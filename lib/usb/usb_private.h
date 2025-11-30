@@ -38,14 +38,19 @@ LGPL License Terms @ref lgpl_license
 #ifndef __USB_PRIVATE_H
 #define __USB_PRIVATE_H
 
-#define MAX_USER_CONTROL_CALLBACK	4
-#define MAX_USER_SET_CONFIG_CALLBACK	4
+#define MAX_USER_CONTROL_CALLBACK    4U
+#define MAX_USER_SET_CONFIG_CALLBACK 4U
 
 #define MIN(a, b) ((a) < (b) ? (a) : (b))
 
-/* The max number of endpoints is core-dependant - for the F4 it's 4, for the H7 it's 8 */
+/*
+ * The max number of endpoints is core-dependant - for the F4 it's 4, for the H7 it's 8,
+ * for the U5 it's 6
+ */
 #if defined(STM32H7)
 #define ENDPOINT_COUNT 8U
+#elif defined(STM32U5)
+#define ENDPOINT_COUNT 6U
 #else
 #define ENDPOINT_COUNT 4U
 #endif
@@ -55,16 +60,16 @@ struct _usbd_device {
 	const struct usb_device_descriptor *desc;
 	const struct usb_config_descriptor *config;
 	const usb_bos_descriptor *bos;
-	const char * const *strings;
+	const char *const *strings;
 	int num_strings;
 
-	uint8_t *ctrl_buf;  /**< Internal buffer used for control transfers */
+	uint8_t *ctrl_buf; /**< Internal buffer used for control transfers */
 	uint16_t ctrl_buf_len;
 
 	uint8_t current_address;
 	uint8_t current_config;
 
-	uint16_t pm_top;    /**< Top of allocated endpoint buffer memory */
+	uint16_t pm_top; /**< Top of allocated endpoint buffer memory */
 
 	/* User callback functions for various USB events */
 	void (*user_callback_reset)(void);
@@ -74,9 +79,14 @@ struct _usbd_device {
 
 	struct usb_control_state {
 		enum {
-			IDLE, STALLED,
-			DATA_IN, LAST_DATA_IN, STATUS_IN,
-			DATA_OUT, LAST_DATA_OUT, STATUS_OUT,
+			IDLE,
+			STALLED,
+			DATA_IN,
+			LAST_DATA_IN,
+			STATUS_IN,
+			DATA_OUT,
+			LAST_DATA_OUT,
+			STATUS_OUT,
 		} state;
 		struct usb_setup_data req __attribute__((aligned(4)));
 		uint8_t *ctrl_buf;
@@ -106,7 +116,7 @@ struct _usbd_device {
 
 	/* Extra, non-contiguous user string descriptor index and value */
 	int extra_string_idx;
-	const char* extra_string;
+	const char *extra_string;
 
 	/* private driver data */
 
@@ -139,17 +149,14 @@ void _usbd_control_in(usbd_device *usbd_dev, uint8_t ea);
 void _usbd_control_out(usbd_device *usbd_dev, uint8_t ea);
 void _usbd_control_setup(usbd_device *usbd_dev, uint8_t ea);
 
-enum usbd_request_return_codes _usbd_standard_request_device(usbd_device *usbd_dev,
-				  struct usb_setup_data *req, uint8_t **buf,
-				  uint16_t *len);
-enum usbd_request_return_codes _usbd_standard_request_interface(usbd_device *usbd_dev,
-				     struct usb_setup_data *req, uint8_t **buf,
-				     uint16_t *len);
-enum usbd_request_return_codes _usbd_standard_request_endpoint(usbd_device *usbd_dev,
-				    struct usb_setup_data *req, uint8_t **buf,
-				    uint16_t *len);
-enum usbd_request_return_codes _usbd_standard_request(usbd_device *usbd_dev, struct usb_setup_data *req,
-			   uint8_t **buf, uint16_t *len);
+enum usbd_request_return_codes _usbd_standard_request_device(
+	usbd_device *usbd_dev, struct usb_setup_data *req, uint8_t **buf, uint16_t *len);
+enum usbd_request_return_codes _usbd_standard_request_interface(
+	usbd_device *usbd_dev, struct usb_setup_data *req, uint8_t **buf, uint16_t *len);
+enum usbd_request_return_codes _usbd_standard_request_endpoint(
+	usbd_device *usbd_dev, struct usb_setup_data *req, uint8_t **buf, uint16_t *len);
+enum usbd_request_return_codes _usbd_standard_request(
+	usbd_device *usbd_dev, struct usb_setup_data *req, uint8_t **buf, uint16_t *len);
 
 void _usbd_reset(usbd_device *usbd_dev);
 
@@ -157,17 +164,13 @@ void _usbd_reset(usbd_device *usbd_dev);
 struct _usbd_driver {
 	usbd_device *(*init)(void);
 	void (*set_address)(usbd_device *usbd_dev, uint8_t addr);
-	void (*ep_setup)(usbd_device *usbd_dev, uint8_t addr, uint8_t type,
-			 uint16_t max_size, usbd_endpoint_callback cb);
+	void (*ep_setup)(usbd_device *usbd_dev, uint8_t addr, uint8_t type, uint16_t max_size, usbd_endpoint_callback cb);
 	void (*ep_reset)(usbd_device *usbd_dev);
-	void (*ep_stall_set)(usbd_device *usbd_dev, uint8_t addr,
-			     uint8_t stall);
+	void (*ep_stall_set)(usbd_device *usbd_dev, uint8_t addr, uint8_t stall);
 	void (*ep_nak_set)(usbd_device *usbd_dev, uint8_t addr, uint8_t nak);
 	uint8_t (*ep_stall_get)(usbd_device *usbd_dev, uint8_t addr);
-	uint16_t (*ep_write_packet)(usbd_device *usbd_dev, uint8_t addr,
-				    const void *buf, uint16_t len);
-	uint16_t (*ep_read_packet)(usbd_device *usbd_dev, uint8_t addr,
-				   void *buf, uint16_t len);
+	uint16_t (*ep_write_packet)(usbd_device *usbd_dev, uint8_t addr, const void *buf, uint16_t len);
+	uint16_t (*ep_read_packet)(usbd_device *usbd_dev, uint8_t addr, void *buf, uint16_t len);
 	void (*poll)(usbd_device *usbd_dev);
 	void (*disconnect)(usbd_device *usbd_dev, bool disconnected);
 	uint32_t base_address;
