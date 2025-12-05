@@ -440,6 +440,8 @@ enum rtc_weekday {
 
 BEGIN_DECLS
 
+uint32_t rtc_get_bcd_date(void);
+uint32_t rtc_get_bcd_time(void);
 void rtc_set_prescaler(uint32_t sync, uint32_t async);
 void rtc_wait_for_synchro(void);
 void rtc_lock(void);
