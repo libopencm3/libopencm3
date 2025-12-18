@@ -193,13 +193,23 @@ LGPL License Terms @ref lgpl_license
 
 /* --- PWR_SVMCR values ---------------------------------------------------- */
 
+/** V_DDA independent analog supply valid */
+#define PWR_SVMCR_ASV (1U << 30U)
 /** V_DDUSB independent USB supply valid */
 #define PWR_SVMCR_USV (1U << 28U)
+/** V_DDA independent analog voltage monitor 2 enable */
+#define PWR_SVMCR_AVMEN2 (1U << 27U)
+/** V_DDA independent analog voltage monitor 1 enable */
+#define PWR_SVMCR_AVMEN1 (1U << 26U)
 /** V_DDUSB independent USB voltage monitor enable */
 #define PWR_SVMCR_UVMEN (1U << 24U)
 
 /* --- PWR_SVMSR values ---------------------------------------------------- */
 
+/** V_DDA independent analog supply ready 2 (Vdda >= 1.8V) */
+#define PWR_SVMSR_VDDA2RDY (1U << 27U)
+/** V_DDA independent analog supply ready 1 (Vdda >= 1.6V) */
+#define PWR_SVMSR_VDDA1RDY (1U << 26U)
 /** V_DDUSB independent USB supply ready */
 #define PWR_SVMSR_VDDUSBRDY (1U << 24U)
 
@@ -246,6 +256,9 @@ void pwr_set_vos_scale(pwr_vos_scale_e scale);
 
 /** Remove isolation of power/logic to USB transceivers once the VDDUSB supply is present. */
 void pwr_enable_vddusb(void);
+
+/** Remove isolation of power/logic to ADCs and analog switch control once the VDDA supply is present. */
+void pwr_enable_vdda(void);
 /**@}*/
 
 END_DECLS

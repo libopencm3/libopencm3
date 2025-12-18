@@ -94,3 +94,14 @@ void pwr_enable_vddusb(void)
 	PWR_SVMCR &= ~PWR_SVMCR_UVMEN;
 	PWR_SVMCR |= PWR_SVMCR_USV;
 }
+
+void pwr_enable_vdda(void)
+{
+	/* Enable voltage monitoring with the lower threshold and wait for VDDA to be marked ready */
+	PWR_SVMCR |= PWR_SVMCR_AVMEN1;
+	while (!(PWR_SVMSR & PWR_SVMSR_VDDA1RDY))
+		continue;
+	/* Disable monitoring again and disbale isolation for the analog power domain */
+	PWR_SVMCR &= ~PWR_SVMCR_AVMEN1;
+	PWR_SVMCR |= PWR_SVMCR_ASV;
+}
