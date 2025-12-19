@@ -401,8 +401,12 @@ extern const struct rcc_clock_scale rcc_hsi16mhz_configs;
 
 /* --- RCC_CCIPR3 values --------------------------------------------------- */
 
-#define RCC_CCIPR3_I2C3SEL_SHIFT 6U
-#define RCC_CCIPR3_I2C3SEL_MASK  0x3U
+#define RCC_CCIPR3_LPTIM1SEL_SHIFT  10U
+#define RCC_CCIPR3_LPTIM1SEL_MASK   0x3U
+#define RCC_CCIPR3_LPTIM34SEL_SHIFT 8U
+#define RCC_CCIPR3_LPTIM34SEL_MASK  0x3U
+#define RCC_CCIPR3_I2C3SEL_SHIFT    6U
+#define RCC_CCIPR3_I2C3SEL_MASK     0x3U
 
 /* --- RCC_CCIPR common values --------------------------------------------- */
 
@@ -411,6 +415,11 @@ extern const struct rcc_clock_scale rcc_hsi16mhz_configs;
 #define RCC_CCIPR_USARTxSEL_SYSCLK 0x1U
 #define RCC_CCIPR_USARTxSEL_HSI16  0x2U
 #define RCC_CCIPR_USARTxSEL_LSE    0x3U
+
+#define RCC_CCIPR_LPTIMxSEL_PER_TIMER_SRC 0x0U
+#define RCC_CCIPR_LPTIMxSEL_LSI           0x1U
+#define RCC_CCIPR_LPTIMxSEL_HSI16         0x2U
+#define RCC_CCIPR_LPTIMxSEL_LSE           0x3U
 
 /* --- RCC_CSR values ------------------------------------------------------ */
 
@@ -778,6 +787,12 @@ uint32_t rcc_get_bus_clk_freq(rcc_clock_source_e source);
  * @param usart  Base address of USART to get clock frequency for (e.g. USART1_BASE).
  */
 uint32_t rcc_get_usart_clk_freq(uintptr_t usart);
+
+/**
+ * Get the peripheral clock speed for the timer block at the base specified.
+ * @param timer  Base address of timer block to get clock frequency for (e.g. TIM1_BASE).
+ */
+uint32_t rcc_get_timer_clk_freq(uintptr_t timer);
 
 void rcc_osc_on(enum rcc_osc osc);
 void rcc_osc_off(enum rcc_osc osc);

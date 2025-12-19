@@ -924,4 +924,61 @@ uint32_t rcc_get_usart_clk_freq(const uintptr_t usart)
 	cm3_assert_not_reached();
 }
 
+static uint32_t rcc_get_timer_clksel_freq(const uintptr_t timer, const uint8_t clksel)
+{
+	switch (clksel) {
+	case RCC_CCIPR_LPTIMxSEL_PER_TIMER_SRC:
+		switch (timer) {
+		case LPTIM1_BASE:
+		case LPTIM3_BASE:
+		case LPTIM4_BASE:
+			return rcc_clock_tree.msik;
+		case LPTIM2_BASE:
+			return rcc_clock_tree.pclk1;
+		default:
+			cm3_assert_not_reached();
+			break;
+		}
+	case RCC_CCIPR_LPTIMxSEL_LSI:
+		return RCC_LSI_BASE_FREQUENCY;
+	case RCC_CCIPR_LPTIMxSEL_HSI16:
+		return RCC_DEFAULT_HSI16_FREQUENCY;
+	case RCC_CCIPR_LPTIMxSEL_LSE:
+		return RCC_DEFAULT_LSE_FREQUENCY;
+	default:
+		cm3_assert_not_reached();
+		break;
+	}
+}
+
+uint32_t rcc_get_timer_clk_freq(const uintptr_t timer)
+{
+	switch (timer) {
+	case TIM2_BASE:
+	case TIM3_BASE:
+	case TIM4_BASE:
+	case TIM5_BASE:
+	case TIM6_BASE:
+	case TIM7_BASE:
+		return rcc_clock_tree.pclk1;
+	case TIM1_BASE:
+	case TIM8_BASE:
+	case TIM15_BASE:
+	case TIM16_BASE:
+	case TIM17_BASE:
+		return rcc_clock_tree.pclk2;
+	case LPTIM1_BASE:
+		return rcc_get_timer_clksel_freq(timer, (RCC_CCIPR3 >> RCC_CCIPR3_LPTIM1SEL_SHIFT) & RCC_CCIPR3_LPTIM1SEL_MASK);
+	case LPTIM2_BASE:
+		return rcc_get_timer_clksel_freq(timer, (RCC_CCIPR1 >> RCC_CCIPR1_LPTIM2SEL_SHIFT) & RCC_CCIPR1_LPTIM2SEL_MASK);
+	case LPTIM3_BASE:
+	case LPTIM4_BASE:
+		return rcc_get_timer_clksel_freq(
+			timer, (RCC_CCIPR3 >> RCC_CCIPR3_LPTIM34SEL_SHIFT) & RCC_CCIPR3_LPTIM34SEL_MASK);
+	default:
+		break;
+	}
+	cm3_assert_not_reached();
+}
+
 /**@}*/
