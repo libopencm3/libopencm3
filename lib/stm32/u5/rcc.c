@@ -1031,4 +1031,46 @@ uint32_t rcc_get_i2c_clk_freq(const uintptr_t i2c)
 	cm3_assert_not_reached();
 }
 
+static uint32_t rcc_get_spi_clksel_freq(const uintptr_t spi, const uint8_t clksel)
+{
+	switch (clksel) {
+	case RCC_CCIPR_SPIxSEL_PCLKx:
+		switch (spi) {
+		case SPI1_BASE:
+			return rcc_clock_tree.pclk2;
+		case SPI2_BASE:
+			return rcc_clock_tree.pclk1;
+		case SPI3_BASE:
+			return rcc_clock_tree.pclk3;
+		default:
+			cm3_assert_not_reached();
+			break;
+		}
+	case RCC_CCIPR_SPIxSEL_SYSCLK:
+		return rcc_clock_tree.sysclk;
+	case RCC_CCIPR_SPIxSEL_HSI16:
+		return RCC_DEFAULT_HSI16_FREQUENCY;
+	case RCC_CCIPR_SPIxSEL_MSIK:
+		return rcc_clock_tree.msik;
+	default:
+		cm3_assert_not_reached();
+		break;
+	}
+}
+
+uint32_t rcc_get_spi_clk_freq(const uintptr_t spi)
+{
+	switch (spi) {
+	case SPI1_BASE:
+		return rcc_get_spi_clksel_freq(spi, (RCC_CCIPR1 >> RCC_CCIPR1_SPI1SEL_SHIFT) & RCC_CCIPR1_SPI1SEL_MASK);
+	case SPI2_BASE:
+		return rcc_get_spi_clksel_freq(spi, (RCC_CCIPR1 >> RCC_CCIPR1_SPI2SEL_SHIFT) & RCC_CCIPR1_SPI2SEL_MASK);
+	case SPI3_BASE:
+		return rcc_get_spi_clksel_freq(spi, (RCC_CCIPR3 >> RCC_CCIPR3_SPI3SEL_SHIFT) & RCC_CCIPR3_SPI3SEL_MASK);
+	default:
+		break;
+	}
+	cm3_assert_not_reached();
+}
+
 /**@}*/

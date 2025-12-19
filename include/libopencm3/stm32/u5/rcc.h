@@ -407,6 +407,8 @@ extern const struct rcc_clock_scale rcc_hsi16mhz_configs;
 #define RCC_CCIPR3_LPTIM34SEL_MASK  0x3U
 #define RCC_CCIPR3_I2C3SEL_SHIFT    6U
 #define RCC_CCIPR3_I2C3SEL_MASK     0x3U
+#define RCC_CCIPR3_SPI3SEL_SHIFT    3U
+#define RCC_CCIPR3_SPI3SEL_MASK     0x3U
 
 /* --- RCC_CCIPR common values --------------------------------------------- */
 
@@ -425,6 +427,11 @@ extern const struct rcc_clock_scale rcc_hsi16mhz_configs;
 #define RCC_CCIPR_I2CxSEL_SYSCLK 0x1U
 #define RCC_CCIPR_I2CxSEL_HSI16  0x2U
 #define RCC_CCIPR_I2CxSEL_MSIK   0x3U
+
+#define RCC_CCIPR_SPIxSEL_PCLKx  0x0U
+#define RCC_CCIPR_SPIxSEL_SYSCLK 0x1U
+#define RCC_CCIPR_SPIxSEL_HSI16  0x2U
+#define RCC_CCIPR_SPIxSEL_MSIK   0x3U
 
 /* --- RCC_CSR values ------------------------------------------------------ */
 
@@ -804,6 +811,13 @@ uint32_t rcc_get_timer_clk_freq(uintptr_t timer);
  * @param i2c  Base address of I²C interface to get clock frequency for (e.g. I2C1_BASE).
  */
 uint32_t rcc_get_i2c_clk_freq(uintptr_t i2c);
+
+/**
+ * Get the peripheral clock speed for the SPI interface at the base specified.
+ * This includes all Octo SPI interfaces as well as normal SPI interfaces.
+ * @param spi  Base address of SPI interface to get clock frequency for (e.g. SPI1_BASE).
+ */
+uint32_t rcc_get_spi_clk_freq(uintptr_t spi);
 
 void rcc_osc_on(enum rcc_osc osc);
 void rcc_osc_off(enum rcc_osc osc);
