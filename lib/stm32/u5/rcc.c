@@ -591,7 +591,7 @@ void rcc_clock_setup_hsi(const struct rcc_clock_scale *clock)
 	RCC_CFGR3 = (RCC_CFGR3 & ~RCC_CFGR3_PPRE3) | (clock->ppre3 << RCC_CFGR3_PPRE3_SHIFT);
 
 	rcc_wait_for_osc_ready(RCC_HSI);
-	rcc_set_sysclk_source(RCC_HSI16);
+	rcc_switch_sysclk_source(RCC_CFGR_SW_HSI16);
 
 	/* Set the peripheral clock frequencies used. */
 	rcc_clock_tree.hclk = clock->ahb_frequency;
@@ -768,7 +768,7 @@ bool rcc_is_osc_ready(enum rcc_osc osc)
  */
 void rcc_set_sysclk_source(enum rcc_osc clk)
 {
-	uint32_t sw = 0x0;
+	uint8_t sw = 0U;
 
 	switch (clk) {
 	case RCC_MSIS:
@@ -788,8 +788,7 @@ void rcc_set_sysclk_source(enum rcc_osc clk)
 		break;
 	}
 
-	sw <<= RCC_CFGR_SW_SHIFT;
-	RCC_CFGR = (RCC_CFGR & ~(RCC_CFGR_SW_MASK << RCC_CFGR_SW_SHIFT)) | sw;
+	rcc_switch_sysclk_source(sw);
 }
 
 /**

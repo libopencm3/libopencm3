@@ -783,7 +783,7 @@ void rcc_osc_on(enum rcc_osc osc);
 void rcc_osc_off(enum rcc_osc osc);
 void rcc_css_enable(void);
 void rcc_css_disable(void);
-void rcc_set_sysclk_source(enum rcc_osc clk);
+void rcc_set_sysclk_source(enum rcc_osc clk) LIBOPENCM3_DEPRECATED("see rcc_clock_setup_pll");
 uint32_t rcc_system_clock_source(void);
 
 /**
