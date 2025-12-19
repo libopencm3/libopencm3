@@ -881,21 +881,16 @@ void rcc_set_peripheral_clk_sel(uintptr_t periph, uint32_t sel)
 	(*reg32) = ((*reg32) & ~(mask << shift)) | (sel << shift);
 }
 
-static uint32_t rcc_get_usart_clksel_freq(uint32_t usart, uint8_t shift)
+static uint32_t rcc_get_usart_clksel_freq(const uintptr_t usart, const uint8_t clksel)
 {
-	uint8_t clksel;
-	if (usart == USART6_BASE) {
-		clksel = (RCC_CCIPR2 >> shift) & RCC_CCIPR_USARTxSEL_MASK;
-	} else {
-		clksel = (RCC_CCIPR1 >> shift) & RCC_CCIPR_USARTxSEL_MASK;
-	}
-
 	switch (clksel) {
 	case RCC_CCIPR_USARTxSEL_PCLKx:
-		if (usart == USART1_BASE) {
+		switch (usart) {
+		case USART1_BASE:
 			return rcc_clock_tree.pclk2;
+		default:
+			return rcc_clock_tree.pclk1;
 		}
-		return rcc_clock_tree.pclk1;
 	case RCC_CCIPR_USARTxSEL_SYSCLK:
 		return rcc_clock_tree.hclk;
 	case RCC_CCIPR_USARTxSEL_HSI16:
@@ -906,33 +901,27 @@ static uint32_t rcc_get_usart_clksel_freq(uint32_t usart, uint8_t shift)
 		cm3_assert_not_reached();
 		break;
 	}
-	return 0;
 }
 
-/*---------------------------------------------------------------------------*/
-/** @brief Get the peripheral clock speed for the USART at base specified.
- * @param usart  Base address of USART to get clock frequency for.
- */
-uint32_t rcc_get_usart_clk_freq(uintptr_t usart)
+uint32_t rcc_get_usart_clk_freq(const uintptr_t usart)
 {
 	switch (usart) {
 	case USART1_BASE:
-		return rcc_get_usart_clksel_freq(usart, RCC_CCIPR1_USART1SEL_SHIFT);
+		return rcc_get_usart_clksel_freq(usart, (RCC_CCIPR1 >> RCC_CCIPR1_USART1SEL_SHIFT) & RCC_CCIPR_USARTxSEL_MASK);
 	case USART2_BASE:
-		return rcc_get_usart_clksel_freq(usart, RCC_CCIPR1_USART2SEL_SHIFT);
+		return rcc_get_usart_clksel_freq(usart, (RCC_CCIPR1 >> RCC_CCIPR1_USART2SEL_SHIFT) & RCC_CCIPR_USARTxSEL_MASK);
 	case USART3_BASE:
-		return rcc_get_usart_clksel_freq(usart, RCC_CCIPR1_USART3SEL_SHIFT);
+		return rcc_get_usart_clksel_freq(usart, (RCC_CCIPR1 >> RCC_CCIPR1_USART3SEL_SHIFT) & RCC_CCIPR_USARTxSEL_MASK);
 	case USART4_BASE:
-		return rcc_get_usart_clksel_freq(usart, RCC_CCIPR1_UART4SEL_SHIFT);
+		return rcc_get_usart_clksel_freq(usart, (RCC_CCIPR1 >> RCC_CCIPR1_UART4SEL_SHIFT) & RCC_CCIPR_USARTxSEL_MASK);
 	case USART5_BASE:
-		return rcc_get_usart_clksel_freq(usart, RCC_CCIPR1_UART5SEL_SHIFT);
+		return rcc_get_usart_clksel_freq(usart, (RCC_CCIPR1 >> RCC_CCIPR1_UART5SEL_SHIFT) & RCC_CCIPR_USARTxSEL_MASK);
 	case USART6_BASE:
-		return rcc_get_usart_clksel_freq(usart, RCC_CCIPR2_USART6SEL_SHIFT);
+		return rcc_get_usart_clksel_freq(usart, (RCC_CCIPR2 >> RCC_CCIPR2_USART6SEL_SHIFT) & RCC_CCIPR_USARTxSEL_MASK);
 	default:
 		break;
 	}
 	cm3_assert_not_reached();
-	return 0;
 }
 
 /**@}*/

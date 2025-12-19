@@ -774,7 +774,7 @@ void rcc_clock_setup_hsi48(void);
 uint32_t rcc_get_bus_clk_freq(rcc_clock_source_e source);
 
 /**
- * Get the peripheral clock speed for the USART at base specified.
+ * Get the peripheral clock speed for the USART at the base specified.
  * @param usart  Base address of USART to get clock frequency for (e.g. USART1_BASE).
  */
 uint32_t rcc_get_usart_clk_freq(uintptr_t usart);
@@ -783,7 +783,6 @@ void rcc_osc_on(enum rcc_osc osc);
 void rcc_osc_off(enum rcc_osc osc);
 void rcc_css_enable(void);
 void rcc_css_disable(void);
-void rcc_set_sysclk_source(enum rcc_osc clk) LIBOPENCM3_DEPRECATED("see rcc_clock_setup_pll");
 uint32_t rcc_system_clock_source(void);
 
 /**
@@ -801,6 +800,8 @@ uint32_t rcc_system_clock_source(void);
  * @ref rcc_d2ccip2r_values
  */
 void rcc_set_peripheral_clk_sel(uintptr_t periph, uint32_t sel);
+
+void rcc_set_sysclk_source(enum rcc_osc clk) LIBOPENCM3_DEPRECATED("see rcc_clock_setup_pll");
 void rcc_clock_setup_hsi(const struct rcc_clock_scale *clock) LIBOPENCM3_DEPRECATED("see rcc_clock_setup_pll");
 
 END_DECLS
