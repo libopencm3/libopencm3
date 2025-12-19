@@ -981,4 +981,54 @@ uint32_t rcc_get_timer_clk_freq(const uintptr_t timer)
 	cm3_assert_not_reached();
 }
 
+static uint32_t rcc_get_i2c_clksel_freq(const uintptr_t i2c, const uint8_t clksel)
+{
+	switch (clksel) {
+	case RCC_CCIPR_I2CxSEL_PCLKx:
+		switch (i2c) {
+		case I2C1_BASE:
+		case I2C2_BASE:
+		case I2C4_BASE:
+		case I2C5_BASE:
+		case I2C6_BASE:
+			return rcc_clock_tree.pclk1;
+		case I2C3_BASE:
+			return rcc_clock_tree.pclk3;
+		default:
+			cm3_assert_not_reached();
+			break;
+		}
+	case RCC_CCIPR_I2CxSEL_SYSCLK:
+		return rcc_clock_tree.sysclk;
+	case RCC_CCIPR_I2CxSEL_HSI16:
+		return RCC_DEFAULT_HSI16_FREQUENCY;
+	case RCC_CCIPR_I2CxSEL_MSIK:
+		return rcc_clock_tree.msik;
+	default:
+		cm3_assert_not_reached();
+		break;
+	}
+}
+
+uint32_t rcc_get_i2c_clk_freq(const uintptr_t i2c)
+{
+	switch (i2c) {
+	case I2C1_BASE:
+		return rcc_get_i2c_clksel_freq(i2c, (RCC_CCIPR1 >> RCC_CCIPR1_I2C1SEL_SHIFT) & RCC_CCIPR1_I2CxSEL_MASK);
+	case I2C2_BASE:
+		return rcc_get_i2c_clksel_freq(i2c, (RCC_CCIPR1 >> RCC_CCIPR1_I2C2SEL_SHIFT) & RCC_CCIPR1_I2CxSEL_MASK);
+	case I2C3_BASE:
+		return rcc_get_i2c_clksel_freq(i2c, (RCC_CCIPR3 >> RCC_CCIPR3_I2C3SEL_SHIFT) & RCC_CCIPR3_I2C3SEL_MASK);
+	case I2C4_BASE:
+		return rcc_get_i2c_clksel_freq(i2c, (RCC_CCIPR1 >> RCC_CCIPR1_I2C4SEL_SHIFT) & RCC_CCIPR1_I2CxSEL_MASK);
+	case I2C5_BASE:
+		return rcc_get_i2c_clksel_freq(i2c, (RCC_CCIPR2 >> RCC_CCIPR2_I2C5SEL_SHIFT) & RCC_CCIPR2_I2CxSEL_MASK);
+	case I2C6_BASE:
+		return rcc_get_i2c_clksel_freq(i2c, (RCC_CCIPR2 >> RCC_CCIPR2_I2C6SEL_SHIFT) & RCC_CCIPR2_I2CxSEL_MASK);
+	default:
+		break;
+	}
+	cm3_assert_not_reached();
+}
+
 /**@}*/

@@ -421,6 +421,11 @@ extern const struct rcc_clock_scale rcc_hsi16mhz_configs;
 #define RCC_CCIPR_LPTIMxSEL_HSI16         0x2U
 #define RCC_CCIPR_LPTIMxSEL_LSE           0x3U
 
+#define RCC_CCIPR_I2CxSEL_PCLKx  0x0U
+#define RCC_CCIPR_I2CxSEL_SYSCLK 0x1U
+#define RCC_CCIPR_I2CxSEL_HSI16  0x2U
+#define RCC_CCIPR_I2CxSEL_MSIK   0x3U
+
 /* --- RCC_CSR values ------------------------------------------------------ */
 
 /** MSISRANGE[31:28]: MSIS clock ranges */
@@ -793,6 +798,12 @@ uint32_t rcc_get_usart_clk_freq(uintptr_t usart);
  * @param timer  Base address of timer block to get clock frequency for (e.g. TIM1_BASE).
  */
 uint32_t rcc_get_timer_clk_freq(uintptr_t timer);
+
+/**
+ * Get the peripheral clock speed for the I²C interface at the base specified.
+ * @param i2c  Base address of I²C interface to get clock frequency for (e.g. I2C1_BASE).
+ */
+uint32_t rcc_get_i2c_clk_freq(uintptr_t i2c);
 
 void rcc_osc_on(enum rcc_osc osc);
 void rcc_osc_off(enum rcc_osc osc);
