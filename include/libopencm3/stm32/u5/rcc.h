@@ -468,6 +468,12 @@ extern const struct rcc_clock_scale rcc_hsi16mhz_configs;
 
 /* --- RCC_CCIPR3 values --------------------------------------------------- */
 
+#define RCC_CCIPR3_ADF1SEL_SHIFT    16U
+#define RCC_CCIPR3_ADF1SEL_MASK     0x7U
+#define RCC_CCIPR3_DAC1SEL_SHIFT    15U
+#define RCC_CCIPR3_DAC1SEL_MASK     0x1U
+#define RCC_CCIPR3_ADCDACSEL_SHIFT  12U
+#define RCC_CCIPR3_ADCDACSEL_MASK   0x7U
 #define RCC_CCIPR3_LPTIM1SEL_SHIFT  10U
 #define RCC_CCIPR3_LPTIM1SEL_MASK   0x3U
 #define RCC_CCIPR3_LPTIM34SEL_SHIFT 8U
@@ -476,6 +482,43 @@ extern const struct rcc_clock_scale rcc_hsi16mhz_configs;
 #define RCC_CCIPR3_I2C3SEL_MASK     0x3U
 #define RCC_CCIPR3_SPI3SEL_SHIFT    3U
 #define RCC_CCIPR3_SPI3SEL_MASK     0x3U
+#define RCC_CCIPR3_LPUART1SEL_SHIFT 0U
+#define RCC_CCIPR3_LPUART1SEL_MASK  0x7U
+
+/** @defgroup rcc_ccipr3_values RCC_CCIPR3 Values
+ * @ingroup rcc_registers
+ * @{*/
+#define RCC_CCIPR3_ADF1SEL_HCLK      0x0U
+#define RCC_CCIPR3_ADF1SEL_PLL1P     0x1U
+#define RCC_CCIPR3_ADF1SEL_PLL3Q     0x2U
+#define RCC_CCIPR3_ADF1SEL_AUDIOCLK  0x3U
+#define RCC_CCIPR3_ADF1SEL_MSIK      0x4U
+#define RCC_CCIPR3_DAC1SEL_LSE       0x0U
+#define RCC_CCIPR3_DAC1SEL_LSI       0x1U
+#define RCC_CCIPR3_ADCDACSEL_HCLK    0x0U
+#define RCC_CCIPR3_ADCDACSEL_SYSCLK  0x1U
+#define RCC_CCIPR3_ADCDACSEL_PLL2R   0x2U
+#define RCC_CCIPR3_ADCDACSEL_HSE     0x3U
+#define RCC_CCIPR3_ADCDACSEL_HSI16   0x4U
+#define RCC_CCIPR3_ADCDACSEL_MSIK    0x5U
+#define RCC_CCIPR3_LPTIMxSEL_MSIK    0x0U
+#define RCC_CCIPR3_LPTIMxSEL_LSI     0x1U
+#define RCC_CCIPR3_LPTIMxSEL_HSI16   0x2U
+#define RCC_CCIPR3_LPTIMxSEL_LSE     0x3U
+#define RCC_CCIPR3_I2C3SEL_PCLK3     0x0U
+#define RCC_CCIPR3_I2C3SEL_SYSCLK    0x1U
+#define RCC_CCIPR3_I2C3SEL_HSI16     0x2U
+#define RCC_CCIPR3_I2C3SEL_MSIK      0x3U
+#define RCC_CCIPR3_SPI3SEL_PCLK3     0x0U
+#define RCC_CCIPR3_SPI3SEL_SYSCLK    0x1U
+#define RCC_CCIPR3_SPI3SEL_HSI16     0x2U
+#define RCC_CCIPR3_SPI3SEL_MSIK      0x3U
+#define RCC_CCIPR3_LPUART1SEL_PCLK3  0x0U
+#define RCC_CCIPR3_LPUART1SEL_SYSCLK 0x1U
+#define RCC_CCIPR3_LPUART1SEL_HSI16  0x2U
+#define RCC_CCIPR3_LPUART1SEL_LSE    0x3U
+#define RCC_CCIPR3_LPUART1SEL_MSIK   0x4U
+/**@}*/
 
 /* --- RCC_CCIPR common values --------------------------------------------- */
 

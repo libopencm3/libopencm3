@@ -834,6 +834,11 @@ void rcc_set_peripheral_clk_sel(uintptr_t periph, uint32_t sel)
 		shift = RCC_CCIPR2_USART6SEL_SHIFT;
 		mask = RCC_CCIPR2_USART6SEL_MASK;
 		break;
+	case LPUART1_BASE:
+		reg32 = &RCC_CCIPR3;
+		shift = RCC_CCIPR3_LPUART1SEL_SHIFT;
+		mask = RCC_CCIPR3_LPUART1SEL_MASK;
+		break;
 
 	/* Handle timers */
 	case LPTIM1_BASE:
@@ -969,6 +974,21 @@ void rcc_set_peripheral_clk_sel(uintptr_t periph, uint32_t sel)
 		reg32 = &RCC_CCIPR2;
 		shift = RCC_CCIPR2_MDF1SEL_SHIFT;
 		mask = RCC_CCIPR2_MDF1SEL_MASK;
+		break;
+	case ADF1_BASE:
+		reg32 = &RCC_CCIPR3;
+		shift = RCC_CCIPR3_ADF1SEL_SHIFT;
+		mask = RCC_CCIPR3_ADF1SEL_MASK;
+		break;
+
+	/* Handle analog <=> digital conversion peripherals */
+	case ADC1_BASE:
+	case ADC2_BASE:
+	case ADC4_BASE:
+	case DAC1_BASE:
+		reg32 = &RCC_CCIPR3;
+		shift = RCC_CCIPR3_ADCDACSEL_SHIFT;
+		mask = RCC_CCIPR3_ADCDACSEL_MASK;
 		break;
 
 	/* Handle misc other blocks */
