@@ -951,6 +951,30 @@ uint32_t rcc_system_clock_source(void);
  */
 void rcc_set_peripheral_clk_sel(uintptr_t periph, uint32_t sel);
 
+/**
+ * Set the clksel value for the ICLK which feeds the OTG_FS, USB and SDMMC interface blocks.
+ * @param[in] clksel  Clock source to configure for, @ref rcc_ccipr1_values
+ * appropriate for the intermediate clock, eg RCC_CCIPR1_ICLKSEL_XXX
+ * @sa rcc_set_peripheral_clk_sel for equivalent generic functionality
+ */
+void rcc_set_iclk_clksel(uint32_t clksel);
+
+/**
+ * Set the clksel value for the TIM16, TIM17, and LPTIM2 input capture block.
+ * @param[in] clksel  Clock source to configure for, @ref rcc_ccipr1_values
+ * appropriate for the input capture clock, eg RCC_CCIPR1_TIMICSEL_XXX
+ * @sa rcc_set_peripheral_clk_sel for equivalent generic functionality
+ */
+void rcc_set_timic_clksel(uint32_t clksel);
+
+/**
+ * Set the clksel value for DAC1's sample-and-hold circuitry.
+ * @param[in] clksel  Clock source to configure for, @ref rcc_ccipr3_values
+ * appropriate for DAC1 sample-and-hold, eg RCC_CCIPR3_DAC1SEL_XXX
+ * @sa rcc_set_peripheral_clk_sel for equivalent generic functionality
+ */
+void rcc_set_dac1_clksel(uint32_t clksel);
+
 void rcc_set_sysclk_source(enum rcc_osc clk) LIBOPENCM3_DEPRECATED("see rcc_clock_setup_pll");
 void rcc_clock_setup_hsi(const struct rcc_clock_scale *clock) LIBOPENCM3_DEPRECATED("see rcc_clock_setup_pll");
 

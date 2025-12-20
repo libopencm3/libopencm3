@@ -1011,6 +1011,24 @@ void rcc_set_peripheral_clk_sel(uintptr_t periph, uint32_t sel)
 	(*reg32) = ((*reg32) & ~(mask << shift)) | (sel << shift);
 }
 
+void rcc_set_iclk_clksel(uint32_t clksel)
+{
+	RCC_CCIPR1 &= ~(RCC_CCIPR1_ICLKSEL_MASK << RCC_CCIPR1_ICLKSEL_SHIFT);
+	RCC_CCIPR1 |= (clksel << RCC_CCIPR1_ICLKSEL_SHIFT);
+}
+
+void rcc_set_timic_clksel(uint32_t clksel)
+{
+	RCC_CCIPR1 &= ~(RCC_CCIPR1_TIMICSEL_MASK << RCC_CCIPR1_TIMICSEL_SHIFT);
+	RCC_CCIPR1 |= (clksel << RCC_CCIPR1_TIMICSEL_SHIFT);
+}
+
+void rcc_set_dac1_clksel(uint32_t clksel)
+{
+	RCC_CCIPR3 &= ~(RCC_CCIPR3_DAC1SEL_MASK << RCC_CCIPR3_DAC1SEL_SHIFT);
+	RCC_CCIPR3 |= (clksel << RCC_CCIPR3_DAC1SEL_SHIFT);
+}
+
 static uint32_t rcc_get_usart_clksel_freq(const uintptr_t usart, const uint8_t clksel)
 {
 	switch (clksel) {
