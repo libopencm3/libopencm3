@@ -803,6 +803,7 @@ void rcc_set_peripheral_clk_sel(uintptr_t periph, uint32_t sel)
 	uint32_t mask;
 
 	switch (periph) {
+	/* Handle U(S)ARTs */
 	case USART1_BASE:
 		reg32 = &RCC_CCIPR1;
 		shift = RCC_CCIPR1_USART1SEL_SHIFT;
@@ -833,6 +834,26 @@ void rcc_set_peripheral_clk_sel(uintptr_t periph, uint32_t sel)
 		shift = RCC_CCIPR2_USART6SEL_SHIFT;
 		mask = RCC_CCIPR2_USART6SEL_MASK;
 		break;
+
+	/* Handle timers */
+	case LPTIM1_BASE:
+		reg32 = &RCC_CCIPR3;
+		shift = RCC_CCIPR3_LPTIM1SEL_SHIFT;
+		mask = RCC_CCIPR3_LPTIM1SEL_SHIFT;
+		break;
+	case LPTIM2_BASE:
+		reg32 = &RCC_CCIPR1;
+		shift = RCC_CCIPR1_LPTIM2SEL_SHIFT;
+		mask = RCC_CCIPR1_LPTIM2SEL_SHIFT;
+		break;
+	case LPTIM3_BASE:
+	case LPTIM4_BASE:
+		reg32 = &RCC_CCIPR3;
+		shift = RCC_CCIPR3_LPTIM34SEL_SHIFT;
+		mask = RCC_CCIPR3_LPTIM34SEL_SHIFT;
+		break;
+
+	/* Handle I²C interfaces */
 	case I2C1_BASE:
 		reg32 = &RCC_CCIPR1;
 		shift = RCC_CCIPR1_I2C1SEL_SHIFT;
@@ -863,15 +884,36 @@ void rcc_set_peripheral_clk_sel(uintptr_t periph, uint32_t sel)
 		shift = RCC_CCIPR2_I2C6SEL_SHIFT;
 		mask = RCC_CCIPR2_I2CxSEL_MASK;
 		break;
+
+	/* Handle SPI interfaces */
+	case SPI1_BASE:
+		reg32 = &RCC_CCIPR1;
+		shift = RCC_CCIPR1_SPI1SEL_SHIFT;
+		mask = RCC_CCIPR1_SPI1SEL_MASK;
+		break;
+	case SPI2_BASE:
+		reg32 = &RCC_CCIPR1;
+		shift = RCC_CCIPR1_SPI2SEL_SHIFT;
+		mask = RCC_CCIPR1_SPI2SEL_MASK;
+		break;
+	case SPI3_BASE:
+		reg32 = &RCC_CCIPR3;
+		shift = RCC_CCIPR3_SPI3SEL_SHIFT;
+		mask = RCC_CCIPR3_SPI3SEL_MASK;
+		break;
+
+	/* Handle FDCAN interfaces */
+	case FDCAN1_BASE:
+		reg32 = &RCC_CCIPR1;
+		shift = RCC_CCIPR1_FDCAN1SEL_SHIFT;
+		mask = RCC_CCIPR1_FDCAN1SEL_MASK;
+		break;
+
+	/* Handle misc other blocks */
 	case SYS_TICK_BASE:
 		reg32 = &RCC_CCIPR1;
 		shift = RCC_CCIPR1_SYSTICKSEL_SHIFT;
 		mask = RCC_CCIPR1_SYSTICKSEL_MASK;
-		break;
-	case LPTIM2_BASE:
-		reg32 = &RCC_CCIPR1;
-		shift = RCC_CCIPR1_LPTIM2SEL_SHIFT;
-		mask = RCC_CCIPR1_LPTIM2SEL_SHIFT;
 		break;
 	default:
 		cm3_assert_not_reached();
