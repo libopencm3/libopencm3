@@ -901,6 +901,17 @@ void rcc_set_peripheral_clk_sel(uintptr_t periph, uint32_t sel)
 		shift = RCC_CCIPR3_SPI3SEL_SHIFT;
 		mask = RCC_CCIPR3_SPI3SEL_MASK;
 		break;
+	case HSPI1_BASE:
+		reg32 = &RCC_CCIPR2;
+		shift = RCC_CCIPR2_HSPI1SEL_SHIFT;
+		mask = RCC_CCIPR2_HSPI1SEL_MASK;
+		break;
+	case OCTOSPI1_BASE:
+	case OCTOSPI2_BASE:
+		reg32 = &RCC_CCIPR2;
+		shift = RCC_CCIPR2_OCTOSPISEL_SHIFT;
+		mask = RCC_CCIPR2_OCTOSPISEL_MASK;
+		break;
 
 	/* Handle FDCAN interfaces */
 	case FDCAN1_BASE:
@@ -909,12 +920,69 @@ void rcc_set_peripheral_clk_sel(uintptr_t periph, uint32_t sel)
 		mask = RCC_CCIPR1_FDCAN1SEL_MASK;
 		break;
 
+	/* Handle USB interfaces */
+	case USB_OTG_HS_BASE:
+		reg32 = &RCC_CCIPR2;
+		shift = RCC_CCIPR2_OTGHSSEL_SHIFT;
+		mask = RCC_CCIPR2_OTGHSSEL_MASK;
+		break;
+
+	/* Handle LTDC peripheral */
+	case LTDC_BASE:
+		reg32 = &RCC_CCIPR2;
+		shift = RCC_CCIPR2_LTDCSEL_SHIFT;
+		mask = RCC_CCIPR2_LTDCSEL_MASK;
+		break;
+
+	/* Handle DSI peripheral */
+	case DSI_BASE:
+		reg32 = &RCC_CCIPR2;
+		shift = RCC_CCIPR2_DSISEL_SHIFT;
+		mask = RCC_CCIPR2_DSISEL_MASK;
+		break;
+
+	/* Handle SDMMC peripherals */
+	case SDMMC1_BASE:
+	case SDMMC2_BASE:
+		reg32 = &RCC_CCIPR2;
+		shift = RCC_CCIPR2_SDMMCSEL_SHIFT;
+		mask = RCC_CCIPR2_SDMMCSEL_MASK;
+		break;
+
+	/* Handle audio peripherals */
+	case SAES_BASE:
+		reg32 = &RCC_CCIPR2;
+		shift = RCC_CCIPR2_SAESSEL_SHIFT;
+		mask = RCC_CCIPR2_SAESSEL_MASK;
+		break;
+	case SAI1_BASE:
+		reg32 = &RCC_CCIPR2;
+		shift = RCC_CCIPR2_SAI1SEL_SHIFT;
+		mask = RCC_CCIPR2_SAI1SEL_MASK;
+		break;
+	case SAI2_BASE:
+		reg32 = &RCC_CCIPR2;
+		shift = RCC_CCIPR2_SAI2SEL_SHIFT;
+		mask = RCC_CCIPR2_SAI2SEL_MASK;
+		break;
+	case MDF1_BASE:
+		reg32 = &RCC_CCIPR2;
+		shift = RCC_CCIPR2_MDF1SEL_SHIFT;
+		mask = RCC_CCIPR2_MDF1SEL_MASK;
+		break;
+
 	/* Handle misc other blocks */
 	case SYS_TICK_BASE:
 		reg32 = &RCC_CCIPR1;
 		shift = RCC_CCIPR1_SYSTICKSEL_SHIFT;
 		mask = RCC_CCIPR1_SYSTICKSEL_MASK;
 		break;
+	case RNG_BASE:
+		reg32 = &RCC_CCIPR2;
+		shift = RCC_CCIPR2_RNGSEL_SHIFT;
+		mask = RCC_CCIPR2_RNGSEL_MASK;
+		break;
+
 	default:
 		cm3_assert_not_reached();
 		break;
