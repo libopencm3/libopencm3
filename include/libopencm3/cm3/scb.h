@@ -75,7 +75,7 @@
 #define SCB_DFSR				MMIO32(SCB_BASE + 0x30)
 
 /* Those defined only on ARMv7 and above */
-#if defined(__ARM_ARCH_7M__) || defined(__ARM_ARCH_7EM__)
+#if defined(__ARM_ARCH_7M__) || defined(__ARM_ARCH_7EM__) || defined(__ARM_ARCH_8M_MAIN__)
 /** CFSR: Configurable Fault Status Registers */
 #define SCB_CFSR				MMIO32(SCB_BASE + 0x28)
 
@@ -150,7 +150,7 @@
 #endif
 
 /* Those defined only on ARMv7EM and above */
-#if defined(__ARM_ARCH_7EM__)
+#if defined(__ARM_ARCH_7EM__) || defined(__ARM_ARCH_8M_MAIN__)
 /** CLIDR: Cache Level ID Register */
 #define SCB_CLIDR				MMIO32(SCB_BASE + 0x78)
 
@@ -271,7 +271,7 @@
 #elif defined(CM1)
 /* VTOR not defined there */
 
-#elif defined(__ARM_ARCH_7M__) || defined(__ARM_ARCH_7EM__)
+#elif defined(__ARM_ARCH_7M__) || defined(__ARM_ARCH_7EM__) || defined(__ARM_ARCH_8M_MAIN__)
 
 /* Bits [31:30]: reserved - must be kept cleared */
 /* TBLOFF[29:9]: Vector table base offset field */
@@ -297,7 +297,7 @@
 #define SCB_AIRCR_ENDIANESS			(1 << 15)
 
 /* Those defined only on ARMv7 and above */
-#if defined(__ARM_ARCH_7M__) || defined(__ARM_ARCH_7EM__)
+#if defined(__ARM_ARCH_7M__) || defined(__ARM_ARCH_7EM__) || defined(__ARM_ARCH_8M_MAIN__)
 /* Bits [14:11]: reserved - must be kept cleared */
 /** PRIGROUP[10:8]: Interrupt priority grouping field */
 #define SCB_AIRCR_PRIGROUP_GROUP16_NOSUB	(0x3 << 8)
@@ -315,7 +315,7 @@
 /** VECTCLRACTIVE clears state information for exceptions */
 #define SCB_AIRCR_VECTCLRACTIVE			(1 << 1)
 
-/* Those defined only on ARMv7 and above */
+/* Those defined only on ARMv7-M */
 #if defined(__ARM_ARCH_7M__) || defined(__ARM_ARCH_7EM__)
 /** VECTRESET cause local system reset */
 #define SCB_AIRCR_VECTRESET			(1 << 0)
@@ -346,7 +346,7 @@
 #define SCB_CCR_STKALIGN			(1 << 9)
 
 /* Those defined only on ARMv7 and above */
-#if defined(__ARM_ARCH_7M__) || defined(__ARM_ARCH_7EM__)
+#if defined(__ARM_ARCH_7M__) || defined(__ARM_ARCH_7EM__) || defined(__ARM_ARCH_8M_MAIN__)
 /** BFHFNMIGN set to attempt ignoring faults in handlers */
 #define SCB_CCR_BFHFNMIGN			(1 << 8)
 /* Bits [7:5]: reserved - must be kept cleared */
@@ -358,7 +358,7 @@
 #define SCB_CCR_UNALIGN_TRP			(1 << 3)
 
 /* Those defined only on ARMv7 and above */
-#if defined(__ARM_ARCH_7M__) || defined(__ARM_ARCH_7EM__)
+#if defined(__ARM_ARCH_7M__) || defined(__ARM_ARCH_7EM__) || defined(__ARM_ARCH_8M_MAIN__)
 /* Bit 2: reserved - must be kept cleared */
 /** USERSETMPEND set to allow unprivileged access to STIR */
 #define SCB_CCR_USERSETMPEND			(1 << 1)
@@ -367,7 +367,7 @@
 #endif
 
 /* Those defined only on ARMv7EM and above */
-#if defined(__ARM_ARCH_7EM__)
+#if defined(__ARM_ARCH_7EM__) || defined(__ARM_ARCH_8M_MAIN__)
 /** BP set to enable branch predictor */
 #define SCB_CCR_BP					(1 << 18)
 /** IC set to enable instruction cache */
@@ -400,7 +400,7 @@
 /* Bits [31:19]: reserved - must be kept cleared */
 
 /* Those defined only on ARMv7 and above */
-#if defined(__ARM_ARCH_7M__) || defined(__ARM_ARCH_7EM__)
+#if defined(__ARM_ARCH_7M__) || defined(__ARM_ARCH_7EM__) || defined(__ARM_ARCH_8M_MAIN__)
 /* USGFAULTENA: Usage fault enable */
 #define SCB_SHCSR_USGFAULTENA			(1 << 18)
 /* BUSFAULTENA: Bus fault enable */
@@ -413,7 +413,7 @@
 #define SCB_SHCSR_SVCALLPENDED			(1 << 15)
 
 /* Those defined only on ARMv7 and above */
-#if defined(__ARM_ARCH_7M__) || defined(__ARM_ARCH_7EM__)
+#if defined(__ARM_ARCH_7M__) || defined(__ARM_ARCH_7EM__) || defined(__ARM_ARCH_8M_MAIN__)
 /* BUSFAULTPENDED: Bus fault exception pending */
 #define SCB_SHCSR_BUSFAULTPENDED		(1 << 14)
 /* MEMFAULTPENDED: Memory management fault exception pending */
@@ -499,7 +499,7 @@
 
 /* BFAR [31:0]: Bus fault address */
 
-#if defined(__ARM_ARCH_7EM__)
+#if defined(__ARM_ARCH_7EM__) || defined(__ARM_ARCH_8M_MAIN__)
 /* --- SCB_CTR values ------------------------------------------------------ */
 /* FORMAT: implemented CTR format */
 #define SCB_CTR_FORMAT_SHIFT	29
@@ -522,14 +522,16 @@
 /* --- SCB_CPACR values ---------------------------------------------------- */
 
 /* CPACR CPn: Access privileges values */
-#define SCB_CPACR_NONE			0	/* Access denied */
-#define SCB_CPACR_PRIV			1	/* Privileged access only */
-#define SCB_CPACR_FULL			3	/* Full access */
+#define SCB_CPACR_NONE			0U	/* Access denied */
+#define SCB_CPACR_PRIV			1U	/* Privileged access only */
+#define SCB_CPACR_FULL			3U	/* Full access */
 
 /* CPACR [20:21]: Access privileges for coprocessor 10 */
-#define SCB_CPACR_CP10			(1 << 20)
+#define SCB_CPACR_CP10			(1U << 20U)
+#define SCB_CPACR_CP10_FULL		(SCB_CPACR_FULL << 20U)
 /* CPACR [22:23]: Access privileges for coprocessor 11 */
-#define SCB_CPACR_CP11			(1 << 22)
+#define SCB_CPACR_CP11			(1U << 22U)
+#define SCB_CPACR_CP11_FULL		(SCB_CPACR_FULL << 22U)
 #endif
 
 /* --- SCB functions ------------------------------------------------------- */
@@ -560,8 +562,10 @@ void scb_set_sleeponexit(void);
 void scb_clear_sleeponexit(void);
 
 /* Those defined only on ARMv7 and above */
+#if defined(__ARM_ARCH_7M__) || defined(__ARM_ARCH_7EM__) || defined(__ARM_ARCH_8M_MAIN__)
 #if defined(__ARM_ARCH_7M__) || defined(__ARM_ARCH_7EM__)
 void scb_reset_core(void) __attribute__((noreturn));
+#endif
 void scb_set_priority_grouping(uint32_t prigroup);
 #endif
 
