@@ -344,7 +344,7 @@ BEGIN_DECLS
 /**
  * Enable the quadspi peripheral.
  */
-void quadspi_enable(void);
+void quadspi_enable(uint32_t quadspi);
 
 /**
 Disable the quadspi peripheral.

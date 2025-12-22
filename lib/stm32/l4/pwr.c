@@ -72,4 +72,38 @@ void pwr_enable_backup_domain_write_protect(void)
 	PWR_CR1 &= ~PWR_CR1_DBP;
 }
 
+/** Enable Low Power Run
+ * 
+ * This enables low power run mode. The clock frequency is limited to 2 MHz in this mode 
+ * and must be set before entering low power run mode.
+ */
+void pwr_enable_low_power_run(void)
+{
+	PWR_CR1 |= PWR_CR1_LPR;
+}
+
+/** Disable Low Power Run
+ * 
+ * This disables low power run mode
+ */
+void pwr_disable_low_power_run(void)
+{
+	PWR_CR1 &= ~PWR_CR1_LPR;
+}
+
+/** @brief Select the low power mode used in deep sleep.
+ * 
+ * Set which power mode is entered when the processor enters deep sleep.
+ * 
+ * @param[in] lpms low power mode @ref pwr_cr1_lpms
+ */
+void pwr_set_low_power_mode_selection(uint32_t lpms)
+{
+	uint32_t reg32;
+
+	reg32 = PWR_CR1;
+	reg32 &= ~(PWR_CR1_LPMS_MASK << PWR_CR1_LPMS_SHIFT);
+	PWR_CR1 = (reg32 | (lpms << PWR_CR1_LPMS_SHIFT));
+}
+
 /**@}*/

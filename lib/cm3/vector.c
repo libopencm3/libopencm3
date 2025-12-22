@@ -36,7 +36,7 @@ int main(void);
 void blocking_handler(void);
 void null_handler(void);
 
-__attribute__ ((section(".vectors")))
+__attribute__((section(".vectors"), used))
 vector_table_t vector_table = {
 	.initial_sp_value = &_stack,
 	.reset = reset_handler,
@@ -59,7 +59,7 @@ vector_table_t vector_table = {
 	}
 };
 
-void __attribute__ ((weak)) reset_handler(void)
+void __attribute__((weak, used)) reset_handler(void)
 {
 	volatile unsigned *src, *dest;
 	funcp_t *fp;

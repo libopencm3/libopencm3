@@ -7,28 +7,11 @@ for html documentation only run 'make html' (much faster). This runs doxygen
 for each of the processor families then integrates the whole.
 
 Alternatively run 'make doc' in the top directory to make html documentation.
-LaTeX and pdf documentation is currently very large in size.
 
 This requires doxygen v 1.8.2 or later.
-
-HTML, LaTeX, and pdf output can be produced.
 
 Generation of HTML
 ------------------
 
 To view HTML, point a browser to libopencm3/doc/html/index.html.
 
-Generation of PDF
------------------
-
-The pdf is generated via LaTeX. The pdf files are placed in the
-doc directory. Each file contains all documentation for the core and common
-features. The resulting files are huge.
-
-
-Requirements
-------------
-On Fedora 19, the following packages (at least!) are needed to build the pdf
-output
-
-    texlive texlive-sectsty texlive-tocloft texlive-xtab texlive-multirow

@@ -161,3 +161,10 @@ void pwr_set_vos_scale(enum pwr_vos_scale scale) {
 	}
 	while (!(PWR_D3CR & PWR_D3CR_VOSRDY));	/* VOSRDY bit is same between D3CR and SRDCR. */
 }
+
+void pwr_enable_usb33(void)
+{
+	PWR_CR3 |= PWR_CR3_USB33DEN;
+	while (!(PWR_CR3 & PWR_CR3_USB33RDY))
+		continue;
+}

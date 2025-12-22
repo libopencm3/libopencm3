@@ -37,6 +37,7 @@ LGPL License Terms @ref lgpl_license
 
 #include <stdlib.h>
 #include <libopencm3/usb/usbd.h>
+#include <libopencm3/usb/bos.h>
 #include "usb_private.h"
 
 /*
@@ -92,12 +93,13 @@ int usbd_register_control_callback(usbd_device *usbd_dev, uint8_t type,
 
 static void usb_control_send_chunk(usbd_device *usbd_dev)
 {
-	if (usbd_dev->desc->bMaxPacketSize0 <
-			usbd_dev->control_state.ctrl_len) {
+	if (usbd_dev->control_state.ctrl_len >
+			usbd_dev->desc->bMaxPacketSize0) {
 		/* Data stage, normal transmission */
 		usbd_ep_write_packet(usbd_dev, 0,
 				     usbd_dev->control_state.ctrl_buf,
 				     usbd_dev->desc->bMaxPacketSize0);
+
 		usbd_dev->control_state.state = DATA_IN;
 		usbd_dev->control_state.ctrl_buf +=
 			usbd_dev->desc->bMaxPacketSize0;
@@ -142,17 +144,16 @@ static enum usbd_request_return_codes
 usb_control_request_dispatch(usbd_device *usbd_dev,
 			     struct usb_setup_data *req)
 {
-	int i, result = 0;
 	struct user_control_callback *cb = usbd_dev->user_control_callback;
 
 	/* Call user command hook function. */
-	for (i = 0; i < MAX_USER_CONTROL_CALLBACK; i++) {
+	for (size_t i = 0; i < MAX_USER_CONTROL_CALLBACK; i++) {
 		if (cb[i].cb == NULL) {
 			break;
 		}
 
 		if ((req->bmRequestType & cb[i].type_mask) == cb[i].type) {
-			result = cb[i].cb(usbd_dev, req,
+			const enum usbd_request_return_codes result = cb[i].cb(usbd_dev, req,
 					  &(usbd_dev->control_state.ctrl_buf),
 					  &(usbd_dev->control_state.ctrl_len),
 					  &(usbd_dev->control_state.complete));
@@ -160,6 +161,21 @@ usb_control_request_dispatch(usbd_device *usbd_dev,
 			    result == USBD_REQ_NOTSUPP) {
 				return result;
 			}
+		}
+	}
+
+	/* If we have a BOS and Microsoft OS-specific request handling
+	 * regsitered, try it. See MS_OS_2_0_desc.docx pg10 for more. */
+	if (usbd_dev->bos && usbd_dev->microsoft_os_req_callback &&
+	    (req->bmRequestType & (USB_REQ_TYPE_TYPE | USB_REQ_TYPE_RECIPIENT)) ==
+	    (USB_REQ_TYPE_VENDOR | USB_REQ_TYPE_DEVICE)) {
+		const enum usbd_request_return_codes result = usbd_dev->microsoft_os_req_callback(
+				  usbd_dev, req,
+				  &(usbd_dev->control_state.ctrl_buf),
+				  &(usbd_dev->control_state.ctrl_len));
+		if (result == USBD_REQ_HANDLED ||
+		    result == USBD_REQ_NOTSUPP) {
+			return result;
 		}
 	}
 
@@ -219,27 +235,25 @@ static void usb_control_setup_write(usbd_device *usbd_dev,
 /* Do not appear to belong to the API, so are omitted from docs */
 /**@}*/
 
-void _usbd_control_setup(usbd_device *usbd_dev, uint8_t ea)
+void _usbd_control_setup(usbd_device *usbd_dev, uint8_t ep)
 {
 	struct usb_setup_data *req = &usbd_dev->control_state.req;
-	(void)ea;
+	(void)ep;
 
 	usbd_dev->control_state.complete = NULL;
 
 	usbd_ep_nak_set(usbd_dev, 0, 1);
 
-	if (req->wLength == 0) {
-		usb_control_setup_read(usbd_dev, req);
-	} else if (req->bmRequestType & 0x80) {
+	if (req->wLength == 0 || (req->bmRequestType & USB_REQ_TYPE_DIRECTION) == USB_REQ_TYPE_IN) {
 		usb_control_setup_read(usbd_dev, req);
 	} else {
 		usb_control_setup_write(usbd_dev, req);
 	}
 }
 
-void _usbd_control_out(usbd_device *usbd_dev, uint8_t ea)
+void _usbd_control_out(usbd_device *usbd_dev, uint8_t ep)
 {
-	(void)ea;
+	(void)ep;
 
 	switch (usbd_dev->control_state.state) {
 	case DATA_OUT:
@@ -313,4 +327,3 @@ void _usbd_control_in(usbd_device *usbd_dev, uint8_t ea)
 		stall_transaction(usbd_dev);
 	}
 }
-

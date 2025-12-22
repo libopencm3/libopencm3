@@ -23,6 +23,7 @@
 #include <libopencm3/stm32/tools.h>
 #include <libopencm3/stm32/st_usbfs.h>
 #include <libopencm3/usb/usbd.h>
+#include <libopencm3/usb/bos.h>
 #include "../../usb/usb_private.h"
 #include "st_usbfs_core.h"
 
@@ -99,8 +100,7 @@ void st_usbfs_ep_setup(usbd_device *dev, uint8_t addr, uint8_t type,
 	if (dir || (addr == 0)) {
 		USB_SET_EP_TX_ADDR(addr, dev->pm_top);
 		if (callback) {
-			dev->user_callback_ctr[addr][USB_TRANSACTION_IN] =
-			    (void *)callback;
+			dev->user_callback_ctr[addr][USB_TRANSACTION_IN] = callback;
 		}
 		USB_CLR_EP_TX_DTOG(addr);
 		USB_SET_EP_TX_STAT(addr, USB_EP_TX_STAT_NAK);
@@ -112,8 +112,7 @@ void st_usbfs_ep_setup(usbd_device *dev, uint8_t addr, uint8_t type,
 		USB_SET_EP_RX_ADDR(addr, dev->pm_top);
 		realsize = st_usbfs_set_ep_rx_bufsize(dev, addr, max_size);
 		if (callback) {
-			dev->user_callback_ctr[addr][USB_TRANSACTION_OUT] =
-			    (void *)callback;
+			dev->user_callback_ctr[addr][USB_TRANSACTION_OUT] = callback;
 		}
 		USB_CLR_EP_RX_DTOG(addr);
 		USB_SET_EP_RX_STAT(addr, USB_EP_RX_STAT_VALID);

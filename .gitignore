@@ -54,6 +54,9 @@ include/libopencmsis/stm32/
 include/libopencmsis/swm050/
 include/libopencmsis/vf6xx/
 
+# default Meson build directory
+/build/
+
 # Editor/IDE config files
 nbproject/
 .idea/

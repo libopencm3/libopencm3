@@ -249,11 +249,13 @@ struct usb_endpoint_descriptor {
 /* Table 9-15 specifies String Descriptor Zero.
  * Table 9-16 specified UNICODE String Descriptor.
  */
+#ifndef __cplusplus
 struct usb_string_descriptor {
 	uint8_t bLength;
 	uint8_t bDescriptorType;
 	uint16_t wData[];
 } __attribute__((packed));
+#endif
 
 /* From ECN: Interface Association Descriptors, Table 9-Z */
 struct usb_iface_assoc_descriptor {
@@ -275,4 +277,3 @@ enum usb_language_id {
 #endif
 
 /**@}*/
-
