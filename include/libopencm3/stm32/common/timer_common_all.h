@@ -1145,8 +1145,8 @@ enum tim_et_pol {
 
 /** External clock mode 2 */
 enum tim_ecm2_state {
-    TIM_ECM2_DISABLED,
-    TIM_ECM2_ENABLED,
+	TIM_ECM2_DISABLED,
+	TIM_ECM2_ENABLED,
 };
 
 /* --- TIM function prototypes --------------------------------------------- */
@@ -1166,6 +1166,7 @@ void timer_disable_preload(uint32_t timer_peripheral);
 void timer_set_alignment(uint32_t timer_peripheral, uint32_t alignment);
 void timer_direction_up(uint32_t timer_peripheral);
 void timer_direction_down(uint32_t timer_peripheral);
+bool timer_get_direction(uint32_t timer_peripheral);
 void timer_one_shot_mode(uint32_t timer_peripheral);
 void timer_continuous_mode(uint32_t timer_peripheral);
 void timer_update_on_any(uint32_t timer_peripheral);
@@ -1244,7 +1245,7 @@ void timer_slave_set_polarity(uint32_t timer, enum tim_et_pol pol);
 void timer_slave_set_mode(uint32_t timer, uint8_t mode);
 void timer_slave_set_trigger(uint32_t timer, uint8_t trigger);
 void timer_slave_set_extclockmode2(uint32_t timer_peripheral,
-            enum tim_ecm2_state state);
+				   enum tim_ecm2_state state);
 
 END_DECLS
 
