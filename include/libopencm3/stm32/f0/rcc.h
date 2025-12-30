@@ -111,21 +111,21 @@ Control</b>
 /** @defgroup rcc_cfgr_pmf PLLMUL: PLL multiplication factor
  * @{
  */
-#define RCC_CFGR_PLLMUL_MUL2			(0x00 << RCC_CFGR_PLLMUL_SHIFT)
-#define RCC_CFGR_PLLMUL_MUL3			(0x01 << RCC_CFGR_PLLMUL_SHIFT)
-#define RCC_CFGR_PLLMUL_MUL4			(0x02 << RCC_CFGR_PLLMUL_SHIFT)
-#define RCC_CFGR_PLLMUL_MUL5			(0x03 << RCC_CFGR_PLLMUL_SHIFT)
-#define RCC_CFGR_PLLMUL_MUL6			(0x04 << RCC_CFGR_PLLMUL_SHIFT)
-#define RCC_CFGR_PLLMUL_MUL7			(0x05 << RCC_CFGR_PLLMUL_SHIFT)
-#define RCC_CFGR_PLLMUL_MUL8			(0x06 << RCC_CFGR_PLLMUL_SHIFT)
-#define RCC_CFGR_PLLMUL_MUL9			(0x07 << RCC_CFGR_PLLMUL_SHIFT)
-#define RCC_CFGR_PLLMUL_MUL10			(0x08 << RCC_CFGR_PLLMUL_SHIFT)
-#define RCC_CFGR_PLLMUL_MUL11			(0x09 << RCC_CFGR_PLLMUL_SHIFT)
-#define RCC_CFGR_PLLMUL_MUL12			(0x0A << RCC_CFGR_PLLMUL_SHIFT)
-#define RCC_CFGR_PLLMUL_MUL13			(0x0B << RCC_CFGR_PLLMUL_SHIFT)
-#define RCC_CFGR_PLLMUL_MUL14			(0x0C << RCC_CFGR_PLLMUL_SHIFT)
-#define RCC_CFGR_PLLMUL_MUL15			(0x0D << RCC_CFGR_PLLMUL_SHIFT)
-#define RCC_CFGR_PLLMUL_MUL16			(0x0E << RCC_CFGR_PLLMUL_SHIFT)
+#define RCC_CFGR_PLLMUL_MUL2			0x0
+#define RCC_CFGR_PLLMUL_MUL3			0x1
+#define RCC_CFGR_PLLMUL_MUL4			0x2
+#define RCC_CFGR_PLLMUL_MUL5			0x3
+#define RCC_CFGR_PLLMUL_MUL6			0x4
+#define RCC_CFGR_PLLMUL_MUL7			0x5
+#define RCC_CFGR_PLLMUL_MUL8			0x6
+#define RCC_CFGR_PLLMUL_MUL9			0x7
+#define RCC_CFGR_PLLMUL_MUL10			0x8
+#define RCC_CFGR_PLLMUL_MUL11			0x9
+#define RCC_CFGR_PLLMUL_MUL12			0xA
+#define RCC_CFGR_PLLMUL_MUL13			0xB
+#define RCC_CFGR_PLLMUL_MUL14			0xC
+#define RCC_CFGR_PLLMUL_MUL15			0xD
+#define RCC_CFGR_PLLMUL_MUL16			0xE
 /**@}*/
 
 #define RCC_CFGR_PLLXTPRE			(1<<17)
@@ -552,6 +552,34 @@ enum rcc_periph_rst {
 
 #include <libopencm3/stm32/common/rcc_common_all.h>
 
+enum rcc_clock_hse {
+	RCC_CLOCK_HSE16_48MHZ,
+	RCC_CLOCK_HSE8_24MHZ,
+	RCC_CLOCK_HSE8_48MHZ,
+	RCC_CLOCK_HSE_END
+};
+
+enum rcc_clock_hsi {
+	RCC_CLOCK_HSI_48MHZ,
+	RCC_CLOCK_HSI48_48MHZ,
+	RCC_CLOCK_HSI_END
+};
+
+/* Union of all options for f0xx */
+struct rcc_clock_scale {
+	uint8_t pll_mul;
+	uint8_t pll_source;
+	uint8_t hpre;
+	uint8_t ppre;
+	uint8_t flash_waitstates;
+	uint32_t ahb_frequency;
+	uint32_t apb1_frequency;
+	enum rcc_osc sysclk_source;
+};
+
+extern const struct rcc_clock_scale rcc_hsi_configs[RCC_CLOCK_HSI_END];
+extern const struct rcc_clock_scale rcc_hse_configs[RCC_CLOCK_HSE_END];
+
 BEGIN_DECLS
 
 void rcc_osc_ready_int_clear(enum rcc_osc osc);
@@ -581,12 +609,21 @@ void rcc_set_i2c_clock_sysclk(uint32_t i2c);
 uint32_t rcc_get_i2c_clocks(void);
 enum rcc_osc rcc_usb_clock_source(void);
 void rcc_clock_setup_in_hse_8mhz_out_48mhz(void);
+void rcc_clock_setup_in_hse_16mhz_out_48mhz(void);
 void rcc_clock_setup_in_hsi_out_48mhz(void);
 void rcc_clock_setup_in_hsi48_out_48mhz(void);
 uint32_t rcc_get_usart_clk_freq(uint32_t usart);
 uint32_t rcc_get_timer_clk_freq(uint32_t timer);
 uint32_t rcc_get_i2c_clk_freq(uint32_t i2c);
 uint32_t rcc_get_spi_clk_freq(uint32_t spi);
+
+/**
+ * Switch sysclock to PLL with the given parameters.
+ * This should be usable from any point in time, but only if you have used
+ * library functions to manage clocks.
+ * @param clock full struct with desired parameters
+ */
+void rcc_clock_setup_pll(const struct rcc_clock_scale *clock);
 
 END_DECLS
 
