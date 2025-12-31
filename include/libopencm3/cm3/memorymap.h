@@ -75,7 +75,7 @@
 #endif
 
 /* Those defined only on ARMv7 and above */
-#if defined(__ARM_ARCH_7M__) || defined(__ARM_ARCH_7EM__)
+#if defined(__ARM_ARCH_7M__) || defined(__ARM_ARCH_7EM__) || defined(__ARM_ARCH_8M_MAIN__)
 /* STE: Software Trigger Interrupt Register */
 #define STIR_BASE                       (SCS_BASE + 0x0F00)
 /* ID: ID space */
