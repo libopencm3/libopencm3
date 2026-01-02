@@ -205,15 +205,17 @@ void dwc_ep_stall_set(usbd_device *const usbd_dev, const uint8_t endpoint_addres
 	}
 }
 
-uint8_t dwc_ep_stall_get(usbd_device *const usbd_dev, const uint8_t addr)
+uint8_t dwc_ep_stall_get(usbd_device *const usbd_dev, const uint8_t endpoint_address)
 {
-	const uint8_t ep = addr & 0x7FU;
-	/* Return non-zero if STALL set. */
-	if (addr & 0x80U) {
-		return (REBASE(OTG_DIEPCTL(ep)) & OTG_DIEPCTL0_STALL) ? 1U : 0U;
-	} else {
-		return (REBASE(OTG_DOEPCTL(ep)) & OTG_DOEPCTL0_STALL) ? 1U : 0U;
+	/* Decode which endpoint this request is for exactly */
+	const uint8_t ep = endpoint_address & 0x7fU;
+	const uint8_t dir = endpoint_address & 0x80U;
+	/* Handle OUT endpoints */
+	if (dir == 0U) {
+		return (REBASE(OTG_DOEPCTL(ep)) & OTG_DOEPCTL0_STALL) ? true : false;
 	}
+	/* Handle IN endpoints */
+	return (REBASE(OTG_DIEPCTL(ep)) & OTG_DIEPCTL0_STALL) ? true : false;
 }
 
 void dwc_ep_nak_set(usbd_device *const usbd_dev, const uint8_t addr, const uint8_t nak)
