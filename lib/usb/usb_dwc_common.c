@@ -134,26 +134,37 @@ void dwc_ep_setup(usbd_device *const usbd_dev, const uint8_t addr, const uint8_t
 	}
 }
 
-void dwc_endpoints_reset(usbd_device *usbd_dev)
+void dwc_endpoints_reset(usbd_device *const usbd_dev)
 {
-	/* The core resets the endpoints automatically on reset. */
+	/* Start by resetting our FIFO setup state */
 	usbd_dev->fifo_mem_top = usbd_dev->fifo_mem_top_ep0;
 
-	/* Disable any currently active endpoints */
+	/*
+	 * Now loop through all endpoints and make sure we're NAK'ing and they're properly disabled
+	 *
+	 * NB: We ignore EP0 here because that's handled by the EP setup call _usbd_reset() performs.
+	 */
 	for (size_t i = 1U; i < ENDPOINT_COUNT; i++) {
 		if (REBASE(OTG_DOEPCTL(i)) & OTG_DOEPCTL0_EPENA) {
-			REBASE(OTG_DOEPCTL(i)) |= OTG_DOEPCTL0_EPDIS;
+			REBASE(OTG_DOEPCTL(i)) |= OTG_DOEPCTL0_SNAK | OTG_DOEPCTL0_EPDIS;
 		}
 		if (REBASE(OTG_DIEPCTL(i)) & OTG_DIEPCTL0_EPENA) {
-			REBASE(OTG_DIEPCTL(i)) |= OTG_DIEPCTL0_EPDIS;
+			REBASE(OTG_DIEPCTL(i)) |= OTG_DIEPCTL0_SNAK | OTG_DIEPCTL0_EPDIS;
 		}
 	}
 
-	/* Flush all TX & RX FIFOs */
-	REBASE(OTG_GRSTCTL) = OTG_GRSTCTL_TXFFLSH | OTG_GRSTCTL_TXFNUM_ALL | OTG_GRSTCTL_RXFFLSH;
-	/* And wait for the flush to complete before anything else happens */
-	while (REBASE(OTG_GRSTCTL) & (OTG_GRSTCTL_TXFFLSH | OTG_GRSTCTL_RXFFLSH)) {
-		continue;
+	/* Make sure all FIFOs are fully flushed */
+	REBASE(OTG_GRSTCTL) = OTG_GRSTCTL_TXFNUM_ALL | OTG_GRSTCTL_TXFFLSH | OTG_GRSTCTL_RXFFLSH;
+	/* Wait for that to complete */
+	while ((REBASE(OTG_GRSTCTL) & (OTG_GRSTCTL_TXFFLSH | OTG_GRSTCTL_RXFFLSH)) != 0U) {
+	}
+	/* Reset the GRSTCTL register state */
+	REBASE(OTG_GRSTCTL) &= ~OTG_GRSTCTL_TXFNUM_MASK;
+
+	/* Reset the endpoint disabled interrupt state for all endpoints */
+	for (size_t i = 1U; i < ENDPOINT_COUNT; i++) {
+		REBASE(OTG_DOEPINT(i)) = OTG_DOEPINTX_EPDISD;
+		REBASE(OTG_DIEPINT(i)) = OTG_DIEPINTX_EPDISD;
 	}
 }
 
