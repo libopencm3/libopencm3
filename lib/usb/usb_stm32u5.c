@@ -27,8 +27,13 @@
 #include "usb_private.h"
 #include "usb_dwc_common.h"
 
-/* Receive FIFO size in 32-bit words. */
-#define RX_FIFO_SIZE 32U /* 128 bytes */
+/*
+ * Receive FIFO size in 32-bit words.
+ * We reserve first 4*n + 6 u32's for SETUP packets, where n is the number of endpoints total (6).
+ * Next, we reserve our max packet size (64) / 4 + 1 for general packet storage, and an additional
+ * one slot for the completion notification. This gives (4 * 6) + (64 / 4) + 8 = 24 + 16 + 8 = 48
+ */
+#define RX_FIFO_SIZE 48U /* 192 bytes */
 
 static usbd_device *stm32u5_usbd_init(void);
 
@@ -55,45 +60,45 @@ const struct _usbd_driver stm32u5_usb_driver = {
 static usbd_device *stm32u5_usbd_init(void)
 {
 	rcc_periph_clock_enable(RCC_OTGFS);
-	/* Forcibly disconenct in case the core doesn't already */
-	OTG_FS_DCTL |= OTG_DCTL_SDIS;
+	/* Wait for AHB idle */
+	while ((OTG_FS_GRSTCTL & OTG_GRSTCTL_AHBIDL) == 0U)
+		continue;
+	/* Do a soft reset of the core */
+	OTG_FS_GRSTCTL = OTG_GRSTCTL_CSRST;
+	while ((OTG_FS_GRSTCTL & OTG_GRSTCTL_CSRST) != 0U)
+		continue;
 
+	/* Set the TX FIFO interrupt to work on empty, and disable global interrupts for the moment */
+	OTG_FS_GAHBCFG = OTG_GAHBCFG_TXFELVL;
 	/* Enable VBUS sensing in device mode, and power up the FS PHY */
 	OTG_FS_GCCFG &= ~(OTG_GCCFG_PDEN | OTG_GCCFG_SDEN | OTG_GCCFG_DCDEN | OTG_GCCFG_BCDEN);
 	OTG_FS_GCCFG |= OTG_GCCFG_VBDEN | OTG_GCCFG_PWRDWN;
-
-	/* Wait for AHB idle. */
-	while (!(OTG_FS_GRSTCTL & OTG_GRSTCTL_AHBIDL))
-		continue;
-	/* Do core soft reset. */
-	OTG_FS_GRSTCTL = OTG_GRSTCTL_CSRST;
-	while (OTG_FS_GRSTCTL & OTG_GRSTCTL_CSRST)
-		continue;
-
-	/* Force peripheral only mode. */
-	OTG_FS_GUSBCFG |= OTG_GUSBCFG_FDMOD | OTG_GUSBCFG_TRDT_MASK;
-
-	/* Full speed device. */
-	OTG_FS_DCFG |= OTG_DCFG_DSPD;
-
-	/* Restart the PHY clock. */
-	OTG_FS_PCGCCTL = 0U;
-
-	OTG_FS_GRXFSIZ = stm32u5_usb_driver.rx_fifo_size;
-	usbd_dev.fifo_mem_top = stm32u5_usb_driver.rx_fifo_size;
-
+	/* Set up for USB operation on a 160MHz AHB, don't enable HNP, or SRP and force device mode */
+	OTG_FS_GUSBCFG = OTG_GUSBCFG_FDMOD | (6U << 10U);
 	/* Clear all outstanding interrupts so we're in a clean state */
 	OTG_FS_GINTSTS = UINT32_MAX;
-	/* Unmask interrupts for TX and RX. */
-	OTG_FS_GAHBCFG |= OTG_GAHBCFG_GINT | OTG_GAHBCFG_TXFELVL;
-	OTG_FS_GINTMSK = OTG_GINTMSK_USBRST | OTG_GINTMSK_ENUMDNEM | OTG_GINTMSK_RXFLVLM | OTG_GINTMSK_IEPINT |
-		OTG_GINTMSK_OEPINT | OTG_GINTMSK_USBSUSPM | OTG_GINTMSK_WUIM | OTG_GINTMSK_SOFM;
-	OTG_FS_DAINTMSK = 0x00ff00ffU;
+	/*
+	 * Unmask interrupts for core events - SOF, RX FIFO non-empty, USB suspend, USB reset,
+	 * enumeration done, IN endpoint interrupts, amd wake-up detected
+	 */
+	OTG_FS_GINTMSK = OTG_GINTMSK_SOFM | OTG_GINTMSK_RXFLVLM | OTG_GINTMSK_USBSUSPM | OTG_GINTMSK_USBRST |
+		OTG_GINTMSK_ENUMDNEM | OTG_GINTMSK_IEPINT | OTG_GINTMSK_OEPINT | OTG_GINTMSK_WUIM;
+
+	/* Set up to operate as a USB FS device, resetting any other bits including device address */
+	OTG_FS_DCFG &= ~(OTG_DCFG_ERRATIM | OTG_DCFG_PFIVL | OTG_DCFG_DAD | OTG_DCFG_NZLSOHSK);
+	OTG_FS_DCFG |= OTG_DCFG_DSPD;
+	OTG_FS_PCGCCTL = 0U;
+
+	/* Set up endpoint interrupts */
+	OTG_FS_DAINTMSK = 0x003f003fU;
+	/* Interrupt when IN transfer has completed */
 	OTG_FS_DIEPMSK = OTG_DIEPMSK_XFRCM;
+	/* Interrupt when OUT transfer has completed SETUP phase or a transfer complets */
 	OTG_FS_DOEPMSK = OTG_DOEPMSK_STUPM | OTG_DOEPMSK_XFRCM;
 
-	/* Explicitly enable DP pullup and connect */
+	/* Enable global interrupts now we're all set */
+	OTG_FS_GAHBCFG |= OTG_GAHBCFG_GINT;
+	/* Ask the core to connect to USB */
 	OTG_FS_DCTL &= ~OTG_DCTL_SDIS;
-
 	return &usbd_dev;
 }

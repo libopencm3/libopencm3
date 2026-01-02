@@ -261,6 +261,7 @@
 #define OTG_DCFG_NZLSOHSK	0x00000004U
 #define OTG_DCFG_DAD		0x000007F0U
 #define OTG_DCFG_PFIVL		0x00001800U
+#define OTG_DCFG_ERRATIM	(1U << 15U)
 
 /* OTG device status register (OTG_DSTS) */
 #define OTG_DSTS_SUSPSTS	(1U << 0U)
