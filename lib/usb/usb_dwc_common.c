@@ -32,9 +32,9 @@
 #define dev_base_address (usbd_dev->driver->base_address)
 #define REBASE(x)        MMIO32((x) + (dev_base_address))
 
-void dwc_set_address(usbd_device *usbd_dev, uint8_t addr)
+void dwc_set_address(usbd_device *const usbd_dev, const uint8_t address)
 {
-	REBASE(OTG_DCFG) = (REBASE(OTG_DCFG) & ~OTG_DCFG_DAD) | (addr << 4U);
+	REBASE(OTG_DCFG) = (REBASE(OTG_DCFG) & ~OTG_DCFG_DAD) | ((address << 4U) & OTG_DCFG_DAD);
 }
 
 void dwc_ep_setup(usbd_device *const usbd_dev, const uint8_t addr, const uint8_t type, const uint16_t max_size,
@@ -168,30 +168,39 @@ void dwc_endpoints_reset(usbd_device *const usbd_dev)
 	}
 }
 
-void dwc_ep_stall_set(usbd_device *const usbd_dev, const uint8_t addr, const uint8_t stall)
+void dwc_ep_stall_set(usbd_device *const usbd_dev, const uint8_t endpoint_address, const uint8_t stall)
 {
-	const uint8_t ep = addr & 0x7FU;
+	/* Decode which endpoint this request is for exactly */
+	const uint8_t ep = endpoint_address & 0x7fU;
+	const uint8_t dir = endpoint_address & 0x80U;
+	/* If the stall is for EP0, special-case to handle this correctly */
 	if (ep == 0U) {
+		/* Set/clear STALL on the IN side to properly communicate the condition back to the host */
 		if (stall) {
 			REBASE(OTG_DIEPCTL(ep)) |= OTG_DIEPCTL0_STALL;
 		} else {
 			REBASE(OTG_DIEPCTL(ep)) &= ~OTG_DIEPCTL0_STALL;
-		}
-	}
-
-	if (addr & 0x80U) {
-		if (stall) {
-			REBASE(OTG_DIEPCTL(ep)) |= OTG_DIEPCTL0_STALL;
-		} else {
-			REBASE(OTG_DIEPCTL(ep)) &= ~OTG_DIEPCTL0_STALL;
-			REBASE(OTG_DIEPCTL(ep)) |= OTG_DIEPCTLX_SD0PID;
 		}
 	} else {
-		if (stall) {
-			REBASE(OTG_DOEPCTL(ep)) |= OTG_DOEPCTL0_STALL;
-		} else {
-			REBASE(OTG_DOEPCTL(ep)) &= ~OTG_DOEPCTL0_STALL;
+		/* Figure out which direction to set STALL for */
+		if (dir == 0U) {
+			/* Set/clear STALL on OUT endpoint */
+			if (stall) {
+				REBASE(OTG_DOEPCTL(ep)) |= OTG_DOEPCTL0_STALL;
+			} else {
+				REBASE(OTG_DOEPCTL(ep)) &= ~OTG_DOEPCTL0_STALL;
+			}
+			/* Reset DATA PID to use */
 			REBASE(OTG_DOEPCTL(ep)) |= OTG_DOEPCTLX_SD0PID;
+		} else {
+			/* Set/clear STALL on IN endpoint */
+			if (stall) {
+				REBASE(OTG_DIEPCTL(ep)) |= OTG_DIEPCTL0_STALL;
+			} else {
+				REBASE(OTG_DIEPCTL(ep)) &= ~OTG_DIEPCTL0_STALL;
+			}
+			/* Reset DATA PID to use */
+			REBASE(OTG_DIEPCTL(ep)) |= OTG_DIEPCTLX_SD0PID;
 		}
 	}
 }
@@ -527,7 +536,7 @@ void dwc_poll(usbd_device *usbd_dev)
 #endif
 }
 
-void dwc_disconnect(usbd_device *usbd_dev, bool disconnected)
+void dwc_disconnect(usbd_device *const usbd_dev, const bool disconnected)
 {
 	if (disconnected) {
 		REBASE(OTG_DCTL) |= OTG_DCTL_SDIS;
