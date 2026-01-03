@@ -320,70 +320,48 @@ uint16_t dwc_ep_write_packet(usbd_device *const usbd_dev, const uint8_t addr, co
 	return len;
 }
 
-uint16_t dwc_ep_read_packet(usbd_device *usbd_dev, uint8_t addr, void *buf, uint16_t len)
+uint16_t dwc_ep_read_packet(
+	usbd_device *const usbd_dev, const uint8_t endpoint_address, void *const buffer, const uint16_t length)
 {
 	/* We do not need to know the endpoint address since there is only one receive FIFO for all endpoints. */
-	(void)addr;
-#if defined(STM32H7)
-	const size_t count = MIN(len, usbd_dev->rxbcnt);
+	(void)endpoint_address;
+	/* Figure out how many bytes to read, and how many can be read as u32 chunks */
+	const size_t count = MIN(length, usbd_dev->rxbcnt);
+	const size_t aligned_count = count & ~3U;
 
-	uint8_t *const buf8 = buf;
-	/* Figure out where to copy the data from */
-	const volatile uint32_t *const fifo = (const volatile uint32_t *)(usbd_dev->driver->base_address + OTG_FIFO(0));
-	/* Copy the data out of the FIFO for this endpoint */
-	for (size_t offset = 0U; offset < count; offset += 4U) {
-		const uint32_t data = fifo[offset >> 2U];
-		const size_t amount = MIN(count - offset, 4U);
-		memcpy(buf8 + offset, &data, amount);
-	}
-
-	usbd_dev->rxbcnt -= count;
-	return count;
-#else
-	const size_t count = MIN(len, usbd_dev->rxbcnt);
-
-	/* Calculate how many bytes will be left over from doing 32-bit transfers of the main bulk of data */
-	const size_t remainder = count & 0x3U;
-	/* Adjust the end point to cover only whole u32s */
-	const size_t adjusted_count = count - remainder;
-	uint32_t *const buf32 = buf;
 	/* ARMv7-M and newer supports non-word-aligned accesses, ARMv6-M does not. */
 #if defined(__ARM_ARCH_6M__)
-	uint8_t *buf8 = buf;
-	/* Take care of word-aligned and non-word-aligned buffers */
-	if (((uintptr_t)buf8 & 0x3U) == 0U) {
-		for (size_t offset = 0U; offset < adjusted_count; offset += 4U) {
-			buf32[offset >> 2U] = REBASE(OTG_FIFO(0U));
-			usbd_dev->rxbcnt -= 4U;
-		}
-	} else {
-		for (size_t offset = 0U; offset < adjusted_count; offset += 4U) {
-			const uint32_t word32 = REBASE(OTG_FIFO(0U));
-			memcpy(buf8 + offset, &word32, 4U);
-			usbd_dev->rxbcnt -= 4U;
-		}
-	}
-#else
-	for (size_t offset = 0U; offset < adjusted_count; offset += 4U) {
-		buf32[offset >> 2U] = REBASE(OTG_FIFO(0U));
-		usbd_dev->rxbcnt -= 4U;
-	}
-#endif /* defined(__ARM_ARCH_6M__) */
-
-	if (remainder) {
-		const uint32_t extra = REBASE(OTG_FIFO(0U));
-		/* we read 4 bytes from the FIFO, so update rxbcnt */
-		if (usbd_dev->rxbcnt < 4U) {
-			/* Be careful not to underflow (rxbcnt is unsigned) */
-			usbd_dev->rxbcnt = 0U;
-		} else {
-			usbd_dev->rxbcnt -= 4U;
-		}
-		memcpy(buf32 + (adjusted_count >> 2U), &extra, remainder);
-	}
-
-	return len;
+	if (((uintptr_t)buffer & 0x3U) == 0U) {
 #endif
+		/* Copy the data out of the FIFO for this endpoint in u32 blocks */
+		for (size_t offset = 0U; offset < aligned_count; offset += 4U)
+			((uint32_t *)buffer)[offset >> 2U] = REBASE(OTG_FIFO(0U));
+#if defined(__ARM_ARCH_6M__)
+	} else {
+		uint8_t *const buffer8 = buffer;
+		/* Copy the data out of the FIFO for this endpoint in u32 blocks using memcpy to work around alignment issues */
+		for (size_t offset = 0U; offset < aligned_count; offset += 4U) {
+			const uint32_t data = REBASE(OTG_FIFO(0U));
+			memcpy(buffer8 + offset, &data, 4U);
+		}
+	}
+#endif
+
+	/* If theres some data left over at the end, do the final copy */
+	if (count - aligned_count) {
+		/* Extract the last data block from the FIFO */
+		const uint32_t data = REBASE(OTG_FIFO(0U));
+		/* Copy the data for this final transfer into the target location in the buffer */
+		memcpy((uint8_t *)buffer + aligned_count, &data, count - aligned_count);
+		/* Because of how unloading works, we unload a bit more than this would ideally want */
+		if (usbd_dev->rxbcnt <= aligned_count + 4U)
+			usbd_dev->rxbcnt = 0U; /* If we exhausted the data, set to 0 */
+		else
+			usbd_dev->rxbcnt -= count + 4U;
+	} else
+		/* All's said and done, so drop the read count by the amount read and return */
+		usbd_dev->rxbcnt -= count;
+	return count;
 }
 
 static void dwc_flush_txfifo(usbd_device *usbd_dev, int ep)
