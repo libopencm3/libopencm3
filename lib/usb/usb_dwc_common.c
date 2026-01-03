@@ -39,99 +39,81 @@ void dwc_set_address(usbd_device *const usbd_dev, const uint8_t address)
 	REBASE(OTG_DCFG) = (REBASE(OTG_DCFG) & ~OTG_DCFG_DAD) | ((address << 4U) & OTG_DCFG_DAD);
 }
 
-void dwc_ep_setup(usbd_device *const usbd_dev, const uint8_t addr, const uint8_t type, const uint16_t max_size,
-	void (*callback)(usbd_device *usbd_dev, uint8_t ep))
+void dwc_ep_setup(usbd_device *const usbd_dev, const uint8_t endpoint_address, const uint8_t type,
+	const uint16_t max_packet_length, void (*const callback)(usbd_device *usbd_dev, uint8_t ep))
 {
-	/*
-	 * Configure endpoint address and type. Allocate FIFO memory for
-	 * endpoint. Install callback function.
-	 */
-	const uint8_t ep = addr & 0x7fU;
+	const uint8_t ep = endpoint_address & 0x7fU;
+	const uint8_t dir = endpoint_address & 0x80U;
+	/* Convert the max packet length to a length in u32's */
+	const uint16_t packet_length = max_packet_length / 4U;
 
-	if (ep == 0U) { /* For the default control endpoint */
-					/* Configure IN part. */
+	/* Process if we're being asked to set up EP0, */
+	if (ep == 0U) {
+		/* Start by setting up the TX and RX FIFOs */
+		REBASE(OTG_GRXFSIZ) = usbd_dev->driver->rx_fifo_size;
+		REBASE(OTG_GNPTXFSIZ) = (packet_length << 16U) | usbd_dev->driver->rx_fifo_size;
+		/* Update our internal state for how the FIFOs are presently allocated */
+		usbd_dev->fifo_mem_top_ep0 = usbd_dev->driver->rx_fifo_size + packet_length;
+		usbd_dev->fifo_mem_top = usbd_dev->fifo_mem_top_ep0;
+		/* Configure EP0 IN to allow us to send packets appropriately */
 #if defined(STM32H7)
-		/* Do not initially arm the IN endpoint - we've got nothing to send the host at first */
-		REBASE(OTG_DIEPTSIZ(0)) = 0U;
-		REBASE(OTG_DIEPCTL(0)) = (max_size & OTG_DIEPCTLX_MPSIZ_MASK) | OTG_DIEPCTL0_SNAK | OTG_DIEPCTL0_USBAEP;
+		REBASE(OTG_DIEPCTL0) = (max_packet_length & OTG_DIEPCTLX_MPSIZ_MASK);
 #else
-		if (max_size >= 64U) {
+		if (max_packet_length >= 64U)
 			REBASE(OTG_DIEPCTL0) = OTG_DIEPCTL0_MPSIZ_64;
-		} else if (max_size >= 32U) {
+		else if (max_packet_length >= 32U)
 			REBASE(OTG_DIEPCTL0) = OTG_DIEPCTL0_MPSIZ_32;
-		} else if (max_size >= 16U) {
+		else if (max_packet_length >= 16U)
 			REBASE(OTG_DIEPCTL0) = OTG_DIEPCTL0_MPSIZ_16;
-		} else {
+		else
 			REBASE(OTG_DIEPCTL0) = OTG_DIEPCTL0_MPSIZ_8;
-		}
-
-#if defined(STM32U5)
-		REBASE(OTG_DIEPTSIZ(0)) = 0U;
-#else
-		REBASE(OTG_DIEPTSIZ0) = (max_size & OTG_DIEPSIZ0_XFRSIZ_MASK);
 #endif
-		REBASE(OTG_DIEPCTL0) |= OTG_DIEPCTL0_SNAK | OTG_DIEPCTL0_USBAEP;
-		if (REBASE(OTG_DIEPCTL0) & OTG_DIEPCTL0_EPENA)
-			REBASE(OTG_DIEPCTL0) |= OTG_DIEPCTL0_EPDIS;
-#endif
-
-		/* Configure OUT part. */
-		usbd_dev->doeptsiz[0U] = OTG_DOEPSIZ0_STUPCNT_1 | OTG_DOEPSIZ0_PKTCNT | (max_size & OTG_DOEPSIZ0_XFRSIZ_MASK);
-		REBASE(OTG_DOEPTSIZ(0U)) = usbd_dev->doeptsiz[0U];
-#if defined(STM32H7)
-		/* However, *do* arm the OUT endpoint so we can receive the first SETUP packet */
-		if (max_size >= 64) {
-			REBASE(OTG_DOEPCTL(0U)) = OTG_DOEPCTL0_MPSIZ_64;
-		} else if (max_size >= 32) {
-			REBASE(OTG_DOEPCTL(0U)) = OTG_DOEPCTL0_MPSIZ_32;
-		} else if (max_size >= 16) {
-			REBASE(OTG_DOEPCTL(0U)) = OTG_DOEPCTL0_MPSIZ_16;
-		} else {
-			REBASE(OTG_DOEPCTL(0U)) = OTG_DOEPCTL0_MPSIZ_8;
-		}
-		REBASE(OTG_DOEPCTL(0U)) |= OTG_DOEPCTL0_EPENA | OTG_DOEPCTL0_CNAK | OTG_DOEPCTL0_USBAEP;
-#elif defined(STM32U5)
-		REBASE(OTG_DOEPCTL(0U)) = OTG_DOEPCTL0_EPENA | OTG_DOEPCTL0_CNAK;
-#else
-		REBASE(OTG_DOEPCTL0) |= OTG_DOEPCTL0_EPENA | OTG_DIEPCTL0_SNAK;
-#endif
-
-		REBASE(OTG_GNPTXFSIZ) = ((max_size / 4U) << 16U) | usbd_dev->driver->rx_fifo_size;
-		usbd_dev->fifo_mem_top += max_size / 4U;
-		usbd_dev->fifo_mem_top_ep0 = usbd_dev->fifo_mem_top;
-
-		return;
-	}
-
-	if (addr & 0x80U) {
-		/* Configure an IN endpoint */
-		REBASE(OTG_DIEPTXF(ep)) = ((max_size / 4) << 16) | usbd_dev->fifo_mem_top;
-		usbd_dev->fifo_mem_top += max_size / 4;
-
-#if defined(STM32H7) || defined(STM32U5)
 		/* Do not initially arm the IN endpoint - we've got nothing to send the host at first */
-		REBASE(OTG_DIEPTSIZ(ep)) = 0U;
-		REBASE(OTG_DIEPCTL(ep)) = (max_size & OTG_DIEPCTLX_MPSIZ_MASK) | OTG_DIEPCTL0_SNAK | OTG_DIEPCTL0_USBAEP |
-			(type << OTG_DIEPCTLX_EPTYP_SHIFT) | OTG_DIEPCTLX_SD0PID | (ep << OTG_DIEPCTLX_TXFNUM_SHIFT);
-#else
-		REBASE(OTG_DIEPTSIZ(ep)) = max_size & OTG_DIEPSIZ0_XFRSIZ_MASK;
-		REBASE(OTG_DIEPCTL(ep)) |= OTG_DIEPCTL0_SNAK | (type << OTG_DIEPCTLX_EPTYP_SHIFT) | OTG_DIEPCTL0_USBAEP |
-			OTG_DIEPCTLX_SD0PID | (ep << OTG_DIEPCTLX_TXFNUM_SHIFT) | (max_size & OTG_DIEPCTLX_MPSIZ_MASK);
-#endif
+		REBASE(OTG_DIEPCTL0) |= OTG_DIEPCTL0_SNAK | OTG_DIEPCTL0_USBAEP;
 
-		if (callback) {
-			usbd_dev->user_callback_ctr[ep][USB_TRANSACTION_IN] = (void *)callback;
+		/* Now configure EP0 OUT to allow us to receive SETUP packets */
+		usbd_dev->doeptsiz[0U] =
+			OTG_DOEPSIZ0_STUPCNT_1 | OTG_DOEPSIZ0_PKTCNT | (max_packet_length & OTG_DOEPSIZ0_XFRSIZ_MASK);
+		REBASE(OTG_DOEPTSIZ0) = usbd_dev->doeptsiz[0U];
+		/* However, *do* arm the OUT endpoint so we can receive the first SETUP packet */
+#if defined(STM32H7)
+		if (max_packet_length >= 64) {
+			REBASE(OTG_DOEPCTL0) = OTG_DOEPCTL0_MPSIZ_64;
+		} else if (max_packet_length >= 32) {
+			REBASE(OTG_DOEPCTL0) = OTG_DOEPCTL0_MPSIZ_32;
+		} else if (max_packet_length >= 16) {
+			REBASE(OTG_DOEPCTL0) = OTG_DOEPCTL0_MPSIZ_16;
+		} else {
+			REBASE(OTG_DOEPCTL0) = OTG_DOEPCTL0_MPSIZ_8;
 		}
+		REBASE(OTG_DOEPCTL0) |= OTG_DOEPCTL0_EPENA | OTG_DOEPCTL0_CNAK | OTG_DOEPCTL0_USBAEP;
+#else
+		REBASE(OTG_DOEPCTL0) = OTG_DOEPCTL0_EPENA | OTG_DIEPCTL0_SNAK | OTG_DOEPCTL0_USBAEP;
+#endif
 	} else {
-		/* Configure an OUT endpoint */
-		usbd_dev->doeptsiz[ep] = OTG_DOEPSIZX_PKTCNT(1U) | (max_size & OTG_DOEPSIZX_XFRSIZ_MASK);
-		REBASE(OTG_DOEPTSIZ(ep)) = usbd_dev->doeptsiz[ep];
-		/* Make sure to arm the endpoint as part of enabling it so we can get the first data from it */
-		REBASE(OTG_DOEPCTL(ep)) = OTG_DOEPCTL0_EPENA | OTG_DIEPCTL0_CNAK | OTG_DOEPCTL0_USBAEP | OTG_DOEPCTLX_SD0PID |
-			(type << OTG_DIEPCTLX_EPTYP_SHIFT) | (max_size & OTG_DOEPCTLX_MPSIZ_MASK);
+		/* Otherwise process if this is for IN vs OUT */
+		if (dir == 0U) {
+			/* Set up this OUT endpoint, arming it so we can get data from it */
+			usbd_dev->doeptsiz[ep] = OTG_DOEPSIZX_PKTCNT(1U) | (max_packet_length & OTG_DOEPSIZX_XFRSIZ_MASK);
+			REBASE(OTG_DOEPTSIZ(ep)) = usbd_dev->doeptsiz[ep];
+			REBASE(OTG_DOEPCTL(ep)) = OTG_DOEPCTL0_EPENA | OTG_DOEPCTL0_CNAK | OTG_DOEPCTL0_USBAEP |
+				OTG_DOEPCTLX_SD0PID | (type << OTG_DOEPCTLX_EPTYP_SHIFT) |
+				(max_packet_length & OTG_DOEPCTLX_MPSIZ_MASK);
 
-		if (callback) {
-			usbd_dev->user_callback_ctr[ep][USB_TRANSACTION_OUT] = (void *)callback;
+			/* Install the user's callback provided */
+			usbd_dev->user_callback_ctr[ep][USB_TRANSACTION_OUT] = callback;
+		} else {
+			/* Set up this IN endpoint, allocating space for it in the FIFO memory */
+			REBASE(OTG_DIEPTXF(ep)) = (packet_length << 16U) | usbd_dev->fifo_mem_top;
+			usbd_dev->fifo_mem_top += packet_length;
+			REBASE(OTG_DIEPTSIZ(ep)) = 0U;
+			/* Enable the endpoint but do not yet arm it as we've not yet got anything to send */
+			REBASE(OTG_DIEPCTL(ep)) = OTG_DIEPCTL0_SNAK | OTG_DIEPCTL0_USBAEP | OTG_DIEPCTLX_SD0PID |
+				(ep << OTG_DIEPCTLX_TXFNUM_SHIFT) | (type << OTG_DIEPCTLX_EPTYP_SHIFT) |
+				(max_packet_length & OTG_DIEPCTLX_MPSIZ_MASK);
+
+			/* Install the user's callback provided */
+			usbd_dev->user_callback_ctr[ep][USB_TRANSACTION_IN] = callback;
 		}
 	}
 }
