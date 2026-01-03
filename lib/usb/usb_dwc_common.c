@@ -345,26 +345,22 @@ uint16_t dwc_ep_read_packet(
 
 static void dwc_flush_txfifo(usbd_device *const usbd_dev, const uint8_t ep)
 {
-	uint32_t fifo;
-	/* set IN endpoint NAK */
+	/* Mark the endpoint to NAK and wait for it to become active */
 	REBASE(OTG_DIEPCTL(ep)) |= OTG_DIEPCTL0_SNAK;
-	/* wait for core to respond */
-	while (!(REBASE(OTG_DIEPINT(ep)) & OTG_DIEPINTX_INEPNE)) {
+	while ((REBASE(OTG_DIEPINT(ep)) & OTG_DIEPINTX_INEPNE) == 0U) {
+	}
+	/* Figure out which FIFO is in use for this endpoint */
+	const uint32_t fifo = (REBASE(OTG_DIEPCTL(ep)) & OTG_DIEPCTL0_TXFNUM_MASK) >> 22;
+	/* Wait for core to idle */
+	while ((REBASE(OTG_GRSTCTL) & OTG_GRSTCTL_AHBIDL) == 0U) {
+	}
+	/* Flush the FIFO in quest */
+	REBASE(OTG_GRSTCTL) = (fifo << 6U) | OTG_GRSTCTL_TXFFLSH;
+	while ((REBASE(OTG_GRSTCTL) & OTG_GRSTCTL_TXFFLSH) != 0U) {
 		/* idle */
 	}
-	/* get fifo for this endpoint */
-	fifo = (REBASE(OTG_DIEPCTL(ep)) & OTG_DIEPCTL0_TXFNUM_MASK) >> 22;
-	/* wait for core to idle */
-	while (!(REBASE(OTG_GRSTCTL) & OTG_GRSTCTL_AHBIDL)) {
-		/* idle */
-	}
-	/* flush tx fifo */
-	REBASE(OTG_GRSTCTL) = (fifo << 6) | OTG_GRSTCTL_TXFFLSH;
-	/* reset packet counter */
-	REBASE(OTG_DIEPTSIZ(ep)) = 0;
-	while ((REBASE(OTG_GRSTCTL) & OTG_GRSTCTL_TXFFLSH)) {
-		/* idle */
-	}
+	/* Reset packet queing size information */
+	REBASE(OTG_DIEPTSIZ(ep)) = 0U;
 }
 
 void dwc_poll(usbd_device *usbd_dev)
