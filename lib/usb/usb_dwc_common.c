@@ -345,22 +345,23 @@ static void dwc_flush_txfifo(usbd_device *const usbd_dev, const uint8_t ep)
 	REBASE(OTG_DIEPTSIZ(ep)) = 0U;
 }
 
-void dwc_poll(usbd_device *usbd_dev)
+void dwc_poll(usbd_device *const usbd_dev)
 {
-	/* Read interrupt status register. */
-	uint32_t intsts = REBASE(OTG_GINTSTS);
-
-	if (intsts & OTG_GINTSTS_ENUMDNE) {
-		/* Handle USB RESET condition. */
-		REBASE(OTG_GINTSTS) = OTG_GINTSTS_ENUMDNE;
-		usbd_dev->fifo_mem_top = usbd_dev->driver->rx_fifo_size;
+	const uint32_t status = REBASE(OTG_GINTSTS) & REBASE(OTG_GINTMSK);
+	/* First check to see if we're here for a USB reset event */
+	if (status & OTG_GINTSTS_USBRST) {
+		/* Do an endpoint reset, make sure EP0 is set up, and clear the condition */
+		dwc_endpoints_reset(usbd_dev);
 		_usbd_reset(usbd_dev);
+		REBASE(OTG_GINTSTS) = OTG_GINTSTS_USBRST;
+		/* Exit early as we're done here */
 		return;
 	}
-	if (intsts & OTG_GINTSTS_USBRST) {
-		/* Handle the /other/ USB Reset condition */
-		REBASE(OTG_GINTSTS) = OTG_GINTSTS_USBRST | OTG_GINTSTS_RSTDET;
-		dwc_endpoints_reset(usbd_dev);
+
+	/* Now check to see if we're here for an enumeration done event */
+	if (status & OTG_GINTSTS_ENUMDNE) {
+		/* There's nothing much to do here, this interrupt just indicates that the link speed is now set */
+		REBASE(OTG_GINTSTS) = OTG_GINTSTS_ENUMDNE;
 		return;
 	}
 
@@ -370,99 +371,103 @@ void dwc_poll(usbd_device *usbd_dev)
 	 *
 	 * Iterate over the IN endpoints, triggering any post-transmit actions.
 	 */
-#if defined(STM32H7) || defined(STM32U5)
-	if (intsts & OTG_GINTSTS_IEPINT) {
-#endif
-		for (size_t i = 0; i < ENDPOINT_COUNT; i++) {
-			if (REBASE(OTG_DIEPINT(i)) & OTG_DIEPINTX_XFRC) {
-				/* Transfer complete. */
-				REBASE(OTG_DIEPINT(i)) = OTG_DIEPINTX_XFRC;
-
-				if (usbd_dev->user_callback_ctr[i][USB_TRANSACTION_IN]) {
-					usbd_dev->user_callback_ctr[i][USB_TRANSACTION_IN](usbd_dev, i);
+	if (status & OTG_GINTSTS_IEPINT) {
+		for (size_t ep = 0U; ep < ENDPOINT_COUNT; ++ep) {
+			/* If this endpoint has a completion, process it */
+			if (REBASE(OTG_DIEPINT(ep)) & OTG_DIEPINTX_XFRC) {
+				/* Mark the endpoint for NAK so we don't cause a protocol error */
+				REBASE(OTG_DIEPCTL(ep)) |= OTG_DIEPCTL0_SNAK;
+				/* Call any callback that might be available */
+				if (usbd_dev->user_callback_ctr[ep][USB_TRANSACTION_IN]) {
+					usbd_dev->user_callback_ctr[ep][USB_TRANSACTION_IN](usbd_dev, ep);
 				}
 			}
+			/* Clear any and all interrupt notifications on this endpoint */
+			REBASE(OTG_DIEPINT(ep)) = REBASE(OTG_DIEPINT(ep));
 		}
-#if defined(STM32H7) || defined(STM32U5)
 	}
-#endif
 
-	/* Note: RX and TX handled differently in this device. */
-	if (intsts & OTG_GINTSTS_RXFLVL) {
-		/* Receive FIFO non-empty. */
-		const uint32_t rxstsp = REBASE(OTG_GRXSTSP);
-		const uint32_t pktsts = rxstsp & OTG_GRXSTSP_PKTSTS_MASK;
-		const uint8_t ep = rxstsp & OTG_GRXSTSP_EPNUM_MASK;
+	/* Handle OUT packet reception */
+	while (REBASE(OTG_GINTSTS) & OTG_GINTSTS_RXFLVL) {
+		/* Pop the RX packet status from the stack and decode */
+		const uint32_t rx_status = REBASE(OTG_GRXSTSP);
+		const uint32_t phase = rx_status & OTG_GRXSTSP_PKTSTS_MASK;
+		const uint8_t ep = rx_status & OTG_GRXSTSP_EPNUM_MASK;
+		usbd_dev->rxbcnt = (rx_status & OTG_GRXSTSP_BCNT_MASK) >> 4U;
 
-		if (pktsts == OTG_GRXSTSP_PKTSTS_SETUP_COMP) {
+		switch (phase) {
+		case OTG_GRXSTSP_PKTSTS_SETUP_COMP:
+			/* Packet is for completion of a SETUP transaction, call the callback for this */
 			usbd_dev->user_callback_ctr[ep][USB_TRANSACTION_SETUP](usbd_dev, ep);
-#if defined(STM32H7) || defined(STM32U5)
-			REBASE(OTG_DOEPINT(ep)) = OTG_DOEPINTX_STUP;
-#endif
+			break;
+		case OTG_GRXSTSP_PKTSTS_SETUP:
+			/* Packet is a SETUP packet, check if there's anything stuck in the TX FIFO to flush */
+			if ((REBASE(OTG_DIEPTSIZ(ep)) & OTG_DIEPSIZ0_PKTCNT) != 0U) {
+				dwc_flush_txfifo(usbd_dev, ep);
+			}
+			/* Having made sure we're in a sensible state, now dequeue the data */
+			dwc_ep_read_packet(usbd_dev, ep, &usbd_dev->control_state.req, sizeof(usbd_dev->control_state.req));
+			break;
+		case OTG_GRXSTSP_PKTSTS_OUT:
+			/* Call the user's handler if present */
+			if (usbd_dev->user_callback_ctr[ep][USB_TRANSACTION_OUT]) {
+				usbd_dev->user_callback_ctr[ep][USB_TRANSACTION_OUT](usbd_dev, ep);
+			}
+			break;
+		default:
+			break;
 		}
 
-		if (pktsts == OTG_GRXSTSP_PKTSTS_OUT_COMP || pktsts == OTG_GRXSTSP_PKTSTS_SETUP_COMP) {
+		/* Discard any straggling data for this packet that wasn't yet handled */
+		for (size_t offset = 0; offset < usbd_dev->rxbcnt; offset += 4U) {
+			/* There is only one receive FIFO, so use OTG_FS_FIFO(0) */
+			(void)REBASE(OTG_FIFO(0));
+		}
+		usbd_dev->rxbcnt = 0U;
+
+		/* If this is for a completion, re-arm the endpoint, preserving ACK state */
+		if (phase == OTG_GRXSTSP_PKTSTS_SETUP_COMP || phase == OTG_GRXSTSP_PKTSTS_OUT_COMP) {
 			REBASE(OTG_DOEPTSIZ(ep)) = usbd_dev->doeptsiz[ep];
 			REBASE(OTG_DOEPCTL(ep)) |=
 				OTG_DOEPCTL0_EPENA | (usbd_dev->force_nak[ep] ? OTG_DOEPCTL0_SNAK : OTG_DOEPCTL0_CNAK);
-			return;
 		}
-
-		if (pktsts != OTG_GRXSTSP_PKTSTS_OUT && pktsts != OTG_GRXSTSP_PKTSTS_SETUP) {
-			return;
-		}
-
-		const uint8_t type = pktsts == OTG_GRXSTSP_PKTSTS_SETUP ? USB_TRANSACTION_SETUP : USB_TRANSACTION_OUT;
-
-		if (type == USB_TRANSACTION_SETUP && (REBASE(OTG_DIEPTSIZ(ep)) & OTG_DIEPSIZ0_PKTCNT)) {
-			/* SETUP received but there is still something stuck in the transmit fifo. Flush it. */
-			dwc_flush_txfifo(usbd_dev, ep);
-		}
-
-		/* Save packet size for dwc_ep_read_packet(). */
-		usbd_dev->rxbcnt = (rxstsp & OTG_GRXSTSP_BCNT_MASK) >> 4U;
-
-		if (type == USB_TRANSACTION_SETUP) {
-			dwc_ep_read_packet(usbd_dev, ep, &usbd_dev->control_state.req, 8U);
-		} else if (usbd_dev->user_callback_ctr[ep][type]) {
-			usbd_dev->user_callback_ctr[ep][type](usbd_dev, ep);
-		}
-
-		/* Discard unread packet data. */
-#if defined(STM32H7)
-		const size_t total_length = (rxstsp & OTG_GRXSTSP_BCNT_MASK) >> 4U;
-		const size_t consumed = total_length - usbd_dev->rxbcnt;
-		const volatile uint32_t *const fifo = (const volatile uint32_t *)(usbd_dev->driver->base_address + OTG_FIFO(0));
-		for (size_t offset = consumed; offset < total_length; offset += 4U) {
-			(void)fifo[offset >> 2U];
-		}
-
-		REBASE(OTG_DOEPINT(ep)) = OTG_DOEPINTX_XFRC;
-#else
-		for (size_t offset = 0; offset < usbd_dev->rxbcnt; offset += 4U) {
-			/* There is only one receive FIFO, so use OTG_FIFO(0) */
-			(void)REBASE(OTG_FIFO(0));
-		}
-#endif
-
-		usbd_dev->rxbcnt = 0;
 	}
 
-	if (intsts & OTG_GINTSTS_USBSUSP) {
+	/* Deal with any endpoint interrupts that are outstanding */
+	const uint32_t endpoints_status = REBASE(OTG_DAINT) & REBASE(OTG_DAINTMSK);
+	/* Handle the OUT endpoints */
+	if (status & OTG_GINTSTS_OEPINT) {
+		uint16_t endpoints_mask = (uint16_t)(endpoints_status >> 16U);
+		uint8_t ep = 0U;
+		while (endpoints_mask != 0U) {
+			/* If there's an interrupt set on this endpoint */
+			if (endpoints_mask & 1U) {
+				/* Clear it */
+				REBASE(OTG_DOEPINT(ep)) = REBASE(OTG_DOEPINT(ep));
+			}
+
+			/* Advance to the next endpoint */
+			endpoints_mask >>= 1U;
+			++ep;
+		}
+	}
+
+	/* Process suspend and wakeup interrupts */
+	if (status & OTG_GINTSTS_USBSUSP) {
 		if (usbd_dev->user_callback_suspend) {
 			usbd_dev->user_callback_suspend();
 		}
 		REBASE(OTG_GINTSTS) = OTG_GINTSTS_USBSUSP;
 	}
-
-	if (intsts & OTG_GINTSTS_WKUPINT) {
+	if (status & OTG_GINTSTS_WKUPINT) {
 		if (usbd_dev->user_callback_resume) {
 			usbd_dev->user_callback_resume();
 		}
 		REBASE(OTG_GINTSTS) = OTG_GINTSTS_WKUPINT;
 	}
 
-	if (intsts & OTG_GINTSTS_SOF) {
+	/* Handle SOF notifications */
+	if (status & OTG_GINTSTS_SOF) {
 		if (usbd_dev->user_callback_sof) {
 			usbd_dev->user_callback_sof();
 		}
