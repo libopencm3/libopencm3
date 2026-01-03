@@ -32,6 +32,8 @@
 #define dev_base_address (usbd_dev->driver->base_address)
 #define REBASE(x)        MMIO32((x) + (dev_base_address))
 
+static void dwc_flush_txfifo(usbd_device *const usbd_dev, const uint8_t ep);
+
 void dwc_set_address(usbd_device *const usbd_dev, const uint8_t address)
 {
 	REBASE(OTG_DCFG) = (REBASE(OTG_DCFG) & ~OTG_DCFG_DAD) | ((address << 4U) & OTG_DCFG_DAD);
@@ -239,85 +241,62 @@ void dwc_ep_nak_set(usbd_device *const usbd_dev, const uint8_t endpoint_address,
 	}
 }
 
-uint16_t dwc_ep_write_packet(usbd_device *const usbd_dev, const uint8_t addr, const void *buf, const uint16_t len)
+uint16_t dwc_ep_write_packet(
+	usbd_device *const usbd_dev, const uint8_t endpoint_address, const void *const buffer, const uint16_t length)
 {
-	const uint8_t ep = addr & 0x7FU;
-
-#if defined(STM32H7) || defined(STM32U5)
-	/* Return if endpoint is already enabled. */
-	if (REBASE(OTG_DIEPCTL(ep)) & OTG_DIEPCTL0_EPENA) {
+	const uint8_t ep = endpoint_address & 0x7fU;
+	/* Return if endpoint is already enabled */
+	if ((REBASE(OTG_DIEPCTL(ep)) & (OTG_DIEPCTL0_EPENA | OTG_DIEPCTL0_NAKSTS)) == OTG_DIEPCTL0_EPENA) {
 		return 0U;
 	}
-
-	/* Enable endpoint for transmission. */
-	if (ep == 0U) {
-		REBASE(OTG_DIEPTSIZ0) = OTG_DIEPSIZ0_PKTCNT | (len & OTG_DIEPSIZ0_XFRSIZ_MASK);
-	} else {
-		REBASE(OTG_DIEPTSIZ(ep)) = OTG_DIEPSIZX_MCNT_1 | OTG_DIEPSIZX_PKTCNT(1) | (len & OTG_DIEPSIZX_XFRSIZ_MASK);
+	/* If it's still enabled but being NAK'd, flush FIFO and reset */
+	if ((REBASE(OTG_DIEPCTL(ep)) & OTG_DIEPCTL0_EPENA) != 0U) {
+		dwc_flush_txfifo(usbd_dev, ep);
+		/* Disable the endpoint and wait for it to become actually disabled */
+		REBASE(OTG_DIEPCTL(ep)) |= OTG_DIEPCTL0_EPDIS;
+		while ((REBASE(OTG_DIEPINT(ep)) & OTG_DIEPINTX_EPDISD) == 0U)
+			continue;
+		REBASE(OTG_DIEPINT(ep)) = OTG_DIEPINTX_EPDISD;
 	}
+
+	/* Configure the endpoint to accept the new packet */
+	if (ep == 0U)
+		REBASE(OTG_DIEPTSIZ0) = OTG_DIEPSIZ0_PKTCNT | (length & OTG_DIEPSIZ0_XFRSIZ_MASK);
+	else
+		REBASE(OTG_DIEPTSIZ(ep)) = OTG_DIEPSIZX_MCNT_1 | OTG_DIEPSIZX_PKTCNT(1) | (length & OTG_DIEPSIZX_XFRSIZ_MASK);
+	/* Arm the endpoint for send */
 	REBASE(OTG_DIEPCTL(ep)) |= OTG_DIEPCTL0_EPENA | OTG_DIEPCTL0_CNAK;
 
-	const uint32_t *const buf32 = buf;
-#if defined(STM32H7)
-	/* Figure out where to copy the data to */
-	volatile uint32_t *const fifo = (volatile uint32_t *)(usbd_dev->driver->base_address + OTG_FIFO(ep));
-#endif
-	const uint16_t aligned_len = len & ~3U;
-	/* Copy the data into the FIFO for this endpoint 32 bits at a time */
-	for (size_t offset = 0U; offset < aligned_len; offset += 4U) {
-#if defined(STM32H7)
-		fifo[offset >> 2U] = buf32[offset >> 2U];
-#else
-		REBASE(OTG_FIFO(ep)) = buf32[offset >> 2U];
-#endif
-	}
-	/* If there's some data left over at the end, do the final copy */
-	if (len - aligned_len) {
-		uint32_t data = 0U;
-		const size_t amount = len - aligned_len;
-		memcpy(&data, buf32 + (aligned_len >> 2U), amount);
-#if defined(STM32H7)
-		fifo[aligned_len >> 2U] = data;
-#else
-		REBASE(OTG_FIFO(ep)) = data;
-#endif
-	}
-#else
-	if (REBASE(OTG_DIEPTSIZ(ep)) & OTG_DIEPSIZ0_PKTCNT) {
-		return 0U;
-	}
-
-	/* Enable endpoint for transmission. */
-	REBASE(OTG_DIEPTSIZ(ep)) = OTG_DIEPSIZ0_PKTCNT | (len & OTG_DIEPSIZ0_XFRSIZ_MASK);
-	REBASE(OTG_DIEPCTL(ep)) |= OTG_DIEPCTL0_EPENA | OTG_DIEPCTL0_CNAK;
-
-	const uint32_t *buf32 = buf;
-	/* Copy buffer to endpoint FIFO, note - memcpy does not work.
-	 * ARMv7M supports non-word-aligned accesses, ARMv6M does not. */
-#if defined(__ARM_ARCH_7M__) || defined(__ARM_ARCH_7EM__) || defined(__ARM_ARCH_8M_MAIN__)
-	for (size_t i = 0U; i < len; i += 4U) {
-		REBASE(OTG_FIFO(ep)) = buf32[i >> 2U];
-	}
-#endif /* defined(__ARM_ARCH_7M__) || defined(__ARM_ARCH_7EM__) */
-
+	/* Figure out how many bytes can be written as u32 chunks */
+	const size_t aligned_length = length & ~3U;
 #if defined(__ARM_ARCH_6M__)
-	const uint8_t *buf8 = buf;
-	/* Take care of word-aligned and non-word-aligned buffers */
-	if (((uintptr_t)buf8 & 0x3U) == 0U) {
-		for (size_t i = 0U; i < len; i += 4U) {
-			REBASE(OTG_FIFO(ep)) = *buf32++;
-		}
+	if (((uintptr_t)buffer & 0x3U) == 0U) {
+#endif
+		/* Copy what we can into the FIFO for this endpoint in u32 blocks */
+		for (size_t offset = 0U; offset < aligned_length; offset += 4U)
+			REBASE(OTG_FIFO(ep)) = ((const uint32_t *)buffer)[offset >> 2U];
+#if defined(__ARM_ARCH_6M__)
 	} else {
-		for (size_t i = 0U; i < len; i += 4U) {
-			uint32_t word32;
-			memcpy(&word32, buf8 + i, 4U);
-			REBASE(OTG_FIFO(ep)) = word32;
+		const uint8_t *const buffer8 = buffer;
+		/* Copy the data into the FIFO for this endpoint in u32 blocks using memcpy to work around alignment issues */
+		for (size_t offset = 0U; offset < aligned_length; offset += 4U) {
+			uint32_t data;
+			memcpy(&data, buffer8 + offset, 4U);
+			REBASE(OTG_FIFO(0U)) = data;
 		}
 	}
-#endif /* defined(__ARM_ARCH_6M__) */
 #endif
+	/* If there's some data left over at the end, do the final copy */
+	if (length - aligned_length) {
+		/* Prepare the data block for the FIFO */
+		uint32_t data = 0U;
+		memcpy(&data, (const uint8_t *)buffer + aligned_length, length - aligned_length);
+		/* Push the prepared data into the FIFO to complete transfer setup */
+		REBASE(OTG_FIFO(ep)) = data;
+	}
 
-	return len;
+	/* Return that we wrote the whole packet out */
+	return length;
 }
 
 uint16_t dwc_ep_read_packet(
@@ -364,7 +343,7 @@ uint16_t dwc_ep_read_packet(
 	return count;
 }
 
-static void dwc_flush_txfifo(usbd_device *usbd_dev, int ep)
+static void dwc_flush_txfifo(usbd_device *const usbd_dev, const uint8_t ep)
 {
 	uint32_t fifo;
 	/* set IN endpoint NAK */
