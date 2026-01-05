@@ -153,7 +153,7 @@
 #define FLASH_CR_STRT		(1 << 16)
 
 #define FLASH_CR_PNB_SHIFT		3
-#define FLASH_CR_PNB_MASK		0x3f
+#define FLASH_CR_PNB_MASK		0x3ff
 
 /** FLASH_CR_MER Mass erase **/
 #define FLASH_CR_MER			(1 << 2)
