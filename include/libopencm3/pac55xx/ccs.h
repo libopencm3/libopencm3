@@ -200,7 +200,7 @@ typedef enum {
 #define CCS_DSR_MASK 0x7
 #define CCS_DSR_MASK_PIN(pin) (CCS_DSR_MASK << ((pin) * 4))
 #define CCS_DSR_DS_VAL(pin, ds) (((ds)&CCS_DSR_MASK) << ((pin)*4))
-#define CCS_DSR_SCHMIDT_PIN(pin) (BIT0 << (((pin)*4) + 3))
+#define CCS_DSR_SCHMITT_PIN(pin) (BIT0 << (((pin)*4) + 3))
 
 /** Drive strength enumeration for type specificity. */
 typedef enum {
