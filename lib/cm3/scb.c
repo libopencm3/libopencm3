@@ -78,11 +78,14 @@ void scb_clear_sleeponexit(void)
 	SCB_SCR &= ~SCB_SCR_SLEEPONEXIT;
 }
 
-/* Those are defined only on CM3 or CM4 */
-#if defined(__ARM_ARCH_7M__) || defined(__ARM_ARCH_7EM__)
-void scb_set_priority_grouping(uint32_t prigroup)
-{
-	SCB_AIRCR = SCB_AIRCR_VECTKEY | prigroup;
+/* Those are defined only on CM3 or CM4 and CM33 */
+#if defined(__ARM_ARCH_7M__) || defined(__ARM_ARCH_7EM__) || defined (__ARM_ARCH_8M_MAIN__) || defined(__ARM_ARCH_8_1M_MAIN__)
+void scb_set_priority_grouping(uint32_t prigroup) {
+	prigroup &= 0x7;
+	uint32_t aircr_tmp = SCB_AIRCR;
+	aircr_temp &= ~(SCB_AIRCR_PRIGROUP_MASK | SCB_AIRCR_VECTKEYSTAT);
+	aircr_temp |= SCB_AIRCR_VECTKEY | prigroup;
+	SCB_AIRCR = aircr_temp;
 }
 #endif
 

@@ -71,11 +71,13 @@
 /** SHCSR: System Handler Control and State Register */
 #define SCB_SHCSR				MMIO32(SCB_BASE + 0x24)
 
+#if !defined (__ARM_ARCH_8M_MAIN__) || !defined(__ARM_ARCH_8_1M_MAIN__)
 /** DFSR: Debug Fault Status Register */
 #define SCB_DFSR				MMIO32(SCB_BASE + 0x30)
+#endif
 
 /* Those defined only on ARMv7 and above */
-#if defined(__ARM_ARCH_7M__) || defined(__ARM_ARCH_7EM__)
+#if defined(__ARM_ARCH_7M__) || defined(__ARM_ARCH_7EM__) || defined (__ARM_ARCH_8M_MAIN__) || defined(__ARM_ARCH_8_1M_MAIN__)
 /** CFSR: Configurable Fault Status Registers */
 #define SCB_CFSR				MMIO32(SCB_BASE + 0x28)
 
@@ -90,7 +92,10 @@
 
 /** AFSR: Auxiliary Fault Status Register */
 #define SCB_AFSR				MMIO32(SCB_BASE + 0x3C)
+#endif
 
+/* Those defined only on ARMv7 and have seemingly been removed in v8m*/
+#if defined(__ARM_ARCH_7M__) || defined(__ARM_ARCH_7EM__)
 /** ID_PFR0: Processor Feature Register 0 */
 #define SCB_ID_PFR0				MMIO32(SCB_BASE + 0x40)
 
@@ -129,10 +134,19 @@
 
 /** ID_ISAR4: Instruction Set Attributes Register 4 */
 #define SCB_ID_ISAR4				MMIO32(SCB_BASE + 0x70)
+#endif
 
+#if defined(__ARM_ARCH_7M__) || defined(__ARM_ARCH_7EM__) || defined (__ARM_ARCH_8M_MAIN__) || defined(__ARM_ARCH_8_1M_MAIN__)
 /** CPACR: Coprocessor Access Control Register */
 #define SCB_CPACR				MMIO32(SCB_BASE + 0x88)
 
+#if defined (__ARM_ARCH_8M_MAIN__) || defined(__ARM_ARCH_8_1M_MAIN__)
+/** NSACR: Non Secure Access Control Register */
+#define SCB_NSACR				MMIO32(SCB_BASE + 0x8C)
+#endif
+#endif
+
+#if defined(__ARM_ARCH_7M__) || defined(__ARM_ARCH_7EM__)
 /** FPCCR: Floating-Point Context Control Register */
 #define SCB_FPCCR				MMIO32(SCB_BASE + 0x234)
 
@@ -297,7 +311,7 @@
 #define SCB_AIRCR_ENDIANESS			(1 << 15)
 
 /* Those defined only on ARMv7 and above */
-#if defined(__ARM_ARCH_7M__) || defined(__ARM_ARCH_7EM__)
+#if defined(__ARM_ARCH_7M__) || defined(__ARM_ARCH_7EM__) || defined (__ARM_ARCH_8M_MAIN__) || defined(__ARM_ARCH_8_1M_MAIN__)
 /* Bits [14:11]: reserved - must be kept cleared */
 /** PRIGROUP[10:8]: Interrupt priority grouping field */
 #define SCB_AIRCR_PRIGROUP_GROUP16_NOSUB	(0x3 << 8)
@@ -346,7 +360,7 @@
 #define SCB_CCR_STKALIGN			(1 << 9)
 
 /* Those defined only on ARMv7 and above */
-#if defined(__ARM_ARCH_7M__) || defined(__ARM_ARCH_7EM__)
+#if defined(__ARM_ARCH_7M__) || defined(__ARM_ARCH_7EM__) || defined (__ARM_ARCH_8M_MAIN__) || defined(__ARM_ARCH_8_1M_MAIN__)
 /** BFHFNMIGN set to attempt ignoring faults in handlers */
 #define SCB_CCR_BFHFNMIGN			(1 << 8)
 /* Bits [7:5]: reserved - must be kept cleared */
@@ -359,15 +373,17 @@
 
 /* Those defined only on ARMv7 and above */
 #if defined(__ARM_ARCH_7M__) || defined(__ARM_ARCH_7EM__)
-/* Bit 2: reserved - must be kept cleared */
-/** USERSETMPEND set to allow unprivileged access to STIR */
-#define SCB_CCR_USERSETMPEND			(1 << 1)
 /** NONBASETHRDENA set to allow non base priority threads */
 #define SCB_CCR_NONBASETHRDENA			(1 << 0)
+
+#if defined(__ARM_ARCH_8M_MAIN__) || defined(__ARM_ARCH_8_1M_MAIN__)
+/** USERSETMPEND set to allow unprivileged access to STIR */
+#define SCB_CCR_USERSETMPEND			(1 << 1)
+#endif
 #endif
 
 /* Those defined only on ARMv7EM and above */
-#if defined(__ARM_ARCH_7EM__)
+#if defined(__ARM_ARCH_7EM__) || defined(__ARM_ARCH_8M_MAIN__) || defined(__ARM_ARCH_8_1M_MAIN__)
 /** BP set to enable branch predictor */
 #define SCB_CCR_BP					(1 << 18)
 /** IC set to enable instruction cache */
@@ -560,7 +576,7 @@ void scb_set_sleeponexit(void);
 void scb_clear_sleeponexit(void);
 
 /* Those defined only on ARMv7 and above */
-#if defined(__ARM_ARCH_7M__) || defined(__ARM_ARCH_7EM__)
+#if defined(__ARM_ARCH_7M__) || defined(__ARM_ARCH_7EM__) || defined (__ARM_ARCH_8M__)
 void scb_reset_core(void) __attribute__((noreturn));
 void scb_set_priority_grouping(uint32_t prigroup);
 #endif
