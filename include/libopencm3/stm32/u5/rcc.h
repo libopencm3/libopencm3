@@ -38,6 +38,7 @@
 
 #ifndef LIBOPENCM3_RCC_H
 #define LIBOPENCM3_RCC_H
+#include <stdint.h>
 
 /*****************************************************************************/
 /* Module definitions                                                        */
@@ -432,6 +433,7 @@ void rcc_osc_off(enum rcc_osc osc);
 void rcc_css_enable(void);
 void rcc_css_disable(void);
 void rcc_set_sysclk_source(enum rcc_osc clk);
+enum rcc_osc rcc_get_sysclk_source(void);
 uint32_t rcc_system_clock_source(void);
 void rcc_set_peripheral_clk_sel(uint32_t periph, uint32_t sel);
 void rcc_clock_setup_hsi(const struct rcc_clock_scale *clock);

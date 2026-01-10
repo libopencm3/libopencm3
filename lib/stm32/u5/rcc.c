@@ -316,6 +316,26 @@ void rcc_set_sysclk_source(enum rcc_osc clk)
 	RCC_CFGR = (RCC_CFGR & ~(RCC_CFGR_SW_SYSCLKSEL_MASK << RCC_CFGR_SW_SYSCLKSEL_SHIFT)) | sw;
 }
 
+/** @brief Get the currently active source for the System clock
+ *
+ * @returns ::rcc_osc The oscillator that is currently driving the system clock
+ */
+enum rcc_osc rcc_get_sysclk_source(void) {
+	uint32_t sw = (RCC_CFGR & RCC_CFGR_SWS) >> RCC_CFGR_SWS_SHIFT;
+	switch(sw) {
+		case RCC_CFGR_SWS_MSIS:
+			return RCC_MSIS;
+		case RCC_CFGR_SWS_HSI16:
+			return RCC_HSI16;
+		case RCC_CFGR_SWS_HE:
+			return RCC_HSE;
+		case RCC_CFGR_SWS_PLL:
+			return RCC_PLL1;
+		default:
+			cm3_assert_not_reached();
+	}
+}
+
 /**
  * @brief Set the peripheral clock source
  * @param periph peripheral of choice, eg XXX_BASE
