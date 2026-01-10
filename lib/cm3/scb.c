@@ -83,9 +83,9 @@ void scb_clear_sleeponexit(void)
 void scb_set_priority_grouping(uint32_t prigroup) {
 	prigroup &= 0x7;
 	uint32_t aircr_tmp = SCB_AIRCR;
-	aircr_temp &= ~(SCB_AIRCR_PRIGROUP_MASK | SCB_AIRCR_VECTKEYSTAT);
-	aircr_temp |= SCB_AIRCR_VECTKEY | prigroup;
-	SCB_AIRCR = aircr_temp;
+	aircr_tmp &= ~(SCB_AIRCR_PRIGROUP_MASK | SCB_AIRCR_VECTKEYSTAT);
+	aircr_tmp |= SCB_AIRCR_VECTKEY | prigroup;
+	SCB_AIRCR = aircr_tmp;
 }
 #endif
 
