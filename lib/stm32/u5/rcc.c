@@ -61,11 +61,17 @@ const struct rcc_clock_scale rcc_hsi16mhz_configs = {
 		.apb2_frequency = RCC_DEFAULT_HSI16_FREQUENCY,
 };
 
+void rcc_set_ppre3(uint32_t ppre3) {
+	uint32_t reg32;
+	reg32 = RCC_CFGR3;
+	reg32 &= ~RCC_CFGR_PPRE3;
+	RCC_CFGR = (reg32 | (ppre3 << RCC_CFGR_PPRE2_SHIFT));
+}
+
 void rcc_set_ppre2(uint32_t ppre2)
 {
 	uint32_t reg32;
-
-	reg32 = RCC_CFGR;
+	reg32 = RCC_CFGR2;
 	reg32 &= ~RCC_CFGR_PPRE2;
 	RCC_CFGR = (reg32 | (ppre2 << RCC_CFGR_PPRE2_SHIFT));
 }
@@ -73,8 +79,7 @@ void rcc_set_ppre2(uint32_t ppre2)
 void rcc_set_ppre1(uint32_t ppre1)
 {
 	uint32_t reg32;
-
-	reg32 = RCC_CFGR;
+	reg32 = RCC_CFGR2;
 	reg32 &= ~RCC_CFGR_PPRE1;
 	RCC_CFGR = (reg32 | (ppre1 << RCC_CFGR_PPRE1_SHIFT));
 }
@@ -82,8 +87,7 @@ void rcc_set_ppre1(uint32_t ppre1)
 void rcc_set_hpre(uint32_t hpre)
 {
 	uint32_t reg32;
-
-	reg32 = RCC_CFGR;
+	reg32 = RCC_CFGR2;
 	reg32 &= ~RCC_CFGR_HPRE;
 	RCC_CFGR = (reg32 | (hpre << RCC_CFGR_HPRE_SHIFT));
 }
@@ -152,6 +156,95 @@ void rcc_css_disable(void)
 	RCC_CR &= ~RCC_CR_CSSON;
 }
 
+void rcc_set_msis_range(uint8_t range) {
+	// Unlock the MSIS range setting in ICSCR
+	RCC_ICSCR1 |= RCC_ICSCR1_MSIRGSEL; 
+	// Update the clock range selection
+	uint32_t reg = RCC_ICSCR1;
+	reg &= ~(RCC_ICSCR1_MSISRANGE);
+	reg |= (range & 0xf) << RCC_ICSCR1_MSISRANGE_LSB;
+	RCC_ICSCR1 = reg;
+}
+
+void rcc_pll_configure(const struct rcc_pll_config *pll_cfg, uint8_t pll_nr) {
+	uint32_t rcc_pll_reg;
+	uint32_t rcc_div_reg;
+	rcc_pll_reg = 0;
+	rcc_div_reg = 0;
+	switch (pll_cfg->pll_clock_source) {
+		case RCC_MSIS:
+			rcc_pll_reg |= 1 << RCC_PLLxCFGR_PLLxSRC_LSB;
+			break;
+		case RCC_HSI16:
+			rcc_pll_reg |= 2 << RCC_PLLxCFGR_PLLxSRC_LSB;
+			break;
+		case RCC_HSE:
+			rcc_pll_reg |= 3 << RCC_PLLxCFGR_PLLxSRC_LSB;
+			break;
+	}
+	rcc_pll_reg |= (uint32_t)(pll_cfg->pll_input_range) << RCC_PLLxCFGR_PLLxRGE_LSB;
+	rcc_pll_reg |= (uint32_t)((pll_cfg->pll_m - 1) & RCC_PLLxCFGR_PLLxM_MASK) << RCC_PLLxCFGR_PLLxM_LSB;
+	if (pll_nr == 1) rcc_pll_reg |= (uint32_t)(pll_cfg->pll_mboost & RCC_PLLxCFGR_PLL1MBOOST_MASK) << RCC_PLLxCFGR_PLL1MBOOST_LSB;
+	rcc_pll_reg |= (uint32_t)(pll_cfg->pll_p_en) << RCC_PLLxCFGR_PLLxPEN_LSB;
+	rcc_pll_reg |= (uint32_t)(pll_cfg->pll_q_en) << RCC_PLLxCFGR_PLLxQEN_LSB;
+	rcc_pll_reg |= (uint32_t)(pll_cfg->pll_r_en) << RCC_PLLxCFGR_PLLxREN_LSB;
+	rcc_pll_reg |= RCC_PLLxCFGR_PLLxFRACEN;
+	rcc_div_reg |= (uint32_t)((pll_cfg->pll_n - 1) & RCC_PLLxDIVR_PLLxN_MASK) << RCC_PLLxDIVR_PLLxN_LSB;
+	rcc_div_reg |= (uint32_t)((pll_cfg->pll_p - 1) & RCC_PLLxDIVR_PLLxP_MASK) << RCC_PLLxDIVR_PLLxP_LSB;
+	rcc_div_reg |= (uint32_t)((pll_cfg->pll_q - 1) & RCC_PLLxDIVR_PLLxQ_MASK) << RCC_PLLxDIVR_PLLxQ_LSB;
+	rcc_div_reg |= (uint32_t)((pll_cfg->pll_r - 1) & RCC_PLLxDIVR_PLLxR_MASK) << RCC_PLLxDIVR_PLLxR_LSB;
+	switch (pll_nr) {
+		case 1:
+			RCC_PLL1CFGR &= ~RCC_PLLxCFGR_PLLxFRACEN;
+			RCC_PLL1FRACR = pll_cfg->pll_frac_n << RCC_PLLxCFGR_PLLxFRACEN_LSB;
+			RCC_PLL1CFGR = rcc_pll_reg;
+			RCC_PLL1DIVR = rcc_div_reg;
+			break;
+		case 2:
+			RCC_PLL2CFGR &= ~RCC_PLLxCFGR_PLLxFRACEN;
+			RCC_PLL2FRACR = pll_cfg->pll_frac_n << RCC_PLLxCFGR_PLLxFRACEN_LSB;
+			RCC_PLL2CFGR = rcc_pll_reg;
+			RCC_PLL2DIVR = rcc_div_reg;
+			break;
+		case 3:
+			RCC_PLL3CFGR &= ~RCC_PLLxCFGR_PLLxFRACEN;
+			RCC_PLL3FRACR = pll_cfg->pll_frac_n << RCC_PLLxCFGR_PLLxFRACEN_LSB;
+			RCC_PLL3CFGR = rcc_pll_reg;
+			RCC_PLL3DIVR = rcc_div_reg;
+			break;
+		default:
+			break;
+	}
+}
+
+void rcc_pll_enable(uint8_t pll_nr) {
+	switch (pll_nr) {
+		case 1:
+			RCC_CR |= RCC_CR_PLL1ON;
+			break;
+		case 2:
+			RCC_CR |= RCC_CR_PLL2ON;
+			break;
+		case 3:
+			RCC_CR |= RCC_CR_PLL3ON;
+			break;
+	}
+}
+
+void rcc_pll_disable(uint8_t pll_nr) {
+	switch (pll_nr) {
+		case 1:
+			RCC_CR &= ~RCC_CR_PLL1ON;
+			break;
+		case 2:
+			RCC_CR &= ~RCC_CR_PLL2ON;
+			break;
+		case 3:
+			RCC_CR &= ~RCC_CR_PLL3ON;
+			break;
+	}
+}
+
 /*---------------------------------------------------------------------------*/
 /** @brief RCC Turn off an Oscillator.
 
@@ -190,7 +283,7 @@ void rcc_osc_off(enum rcc_osc osc)
 	case RCC_HSI:
 		RCC_CR &= ~RCC_CR_HSION;
 		break;
-	case RCC_MSI:
+	case RCC_MSIK:
 		RCC_CR &= ~RCC_CR_MSIKON;
 		break;
 	//  TODO: Should we add MSIKER?
@@ -239,7 +332,7 @@ void rcc_osc_on(enum rcc_osc osc)
 	case RCC_HSI:
 		RCC_CR |= RCC_CR_HSION;
 		break;
-	case RCC_MSI:
+	case RCC_MSIK:
 		RCC_CR |= RCC_CR_MSIKON;
 		break;
 	//  TODO: Should we add MSIKER?
@@ -247,7 +340,6 @@ void rcc_osc_on(enum rcc_osc osc)
 		RCC_CR |= RCC_CR_MSISON;
 		break;
 	default:
-		cm3_assert_not_reached();
 		break;
 	}
 }
@@ -274,7 +366,7 @@ bool rcc_is_osc_ready(enum rcc_osc osc)
 		return RCC_CR & RCC_CR_HSI48RDY;
 	case RCC_HSI:
 		return RCC_CR & RCC_CR_HSIRDY;
-	case RCC_MSI:
+	case RCC_MSIK:
 		return RCC_CR & RCC_CR_MSIKRDY;
 	case RCC_MSIS:
 		return RCC_CR & RCC_CR_MSISRDY;
@@ -308,7 +400,6 @@ void rcc_set_sysclk_source(enum rcc_osc clk)
 		sw = RCC_CFGR_SW_SYSCLKSEL_PLL;
 		break;
 	default:
-		cm3_assert_not_reached();
 		break;
 	}
 
@@ -332,8 +423,18 @@ enum rcc_osc rcc_get_sysclk_source(void) {
 		case RCC_CFGR_SWS_PLL:
 			return RCC_PLL1;
 		default:
-			cm3_assert_not_reached();
+			return RCC_PLL1;
 	}
+}
+
+void rcc_set_dsi_clk_sel(uint32_t sel) {
+	RCC_CCIPR2 &= ~(1 << RCC_CCIPR2_DSISEL_LSB);
+	RCC_CCIPR2 |= (sel << RCC_CCIPR2_DSISEL_LSB);
+}
+
+void rcc_set_ltdc_clk_sel(uint32_t sel) {
+	RCC_CCIPR2 &= ~(1 << RCC_CCIPR2_LTDCSEL_LSB);
+	RCC_CCIPR2 |= (sel << RCC_CCIPR2_LTDCSEL_LSB);
 }
 
 /**
