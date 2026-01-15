@@ -415,6 +415,7 @@ specific memorymap.h header before including this header file.*/
 @{*/
 #define TIM_CR1_DIR_UP			(0 << 4)
 #define TIM_CR1_DIR_DOWN		(1 << 4)
+#define TIM_CR1_DIR_MASK		(1 << 4)
 /**@}*/
 
 /* OPM: One pulse mode */
@@ -1166,6 +1167,7 @@ void timer_disable_preload(uint32_t timer_peripheral);
 void timer_set_alignment(uint32_t timer_peripheral, uint32_t alignment);
 void timer_direction_up(uint32_t timer_peripheral);
 void timer_direction_down(uint32_t timer_peripheral);
+uint32_t timer_get_direction(uint32_t timer_peripheral);
 void timer_one_shot_mode(uint32_t timer_peripheral);
 void timer_continuous_mode(uint32_t timer_peripheral);
 void timer_update_on_any(uint32_t timer_peripheral);
