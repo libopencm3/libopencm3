@@ -82,7 +82,7 @@ struct _usbd_device {
 		uint8_t *ctrl_buf;
 		uint16_t ctrl_len;
 		usbd_control_complete_callback complete;
-		bool needs_zlp;
+		bool may_need_zlp;
 	} control_state;
 
 	usbd_microsoft_os_req_callback microsoft_os_req_callback;
