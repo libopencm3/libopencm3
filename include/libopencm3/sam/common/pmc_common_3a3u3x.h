@@ -1,3 +1,8 @@
+/**
+ * @addtogroup pmc_defines
+ * @{
+ */
+
 /*
  * This file is part of the libopencm3 project.
  *
@@ -18,83 +23,124 @@
  * along with this library.  If not, see <http://www.gnu.org/licenses/>.
  */
 
+/** @cond */
 #if defined(LIBOPENCM3_PMC_H)
+/** @endcond */
 
 #ifndef LIBOPENCM3_PMC_COMMON_3A3U3X_H
 #define LIBOPENCM3_PMC_COMMON_3A3U3X_H
 
 
 /* --- Power Management Controller (PMC) registers ----------------------- */
+/**
+ * @addtogroup pmc_registers
+ * @{
+ */
 
-/* UTMI Clock Register */
+/** UTMI Clock Register */
 #define CKGR_UCKR			MMIO32(PMC_BASE + 0x001C)
 
+/** @} */
 
 /* --- Register contents --------------------------------------------------- */
 
+/**
+ * @defgroup pmc_ckgr_uckr PMC UTMI Clock Configuration Register (CKGR_UCKR)
+ * @{
+ */
 
-/* --- PMC UTMI Clock Configuration Register (CKGR_UCKR) ------------------- */
-
-/* UTMI PLL Start-up Time */
+/**
+ * @defgroup pmc_ckgr_uckr_upllcount UTMI PLL Start-up Time
+ * @{
+ */
 #define CKGR_UCKR_UPLLCOUNT_SHIFT	20
 #define CKGR_UCKR_UPLLCOUNT_MASK	(0x0F << CKGR_UCKR_UPLLCOUNT_SHIFT)
+/** @} */
 
-/* UTMI PLL Enable */
+/** UTMI PLL Enable */
 #define CKGR_UCKR_UPLLEN		(0x01 << 16)
+/** @} */
 
-/* --- PMC Master Clock Register (PMC_MCKR) -------------------------------- */
+/**
+ * @addtogroup pmc_mckr
+ * @{
+ */
 
-/* UPLL Divide by 2 */
+/** UPLL Divide by 2 */
 #define PMC_MCKR_UPLLDIV2		(0x01 << 13)
 
-/* Master Clock Source Selection */
+/** Master Clock Source Selection */
 #define PMC_MCKR_CSS_UPLL_CLK		(3 << PMC_MCKR_CSS_SHIFT)
+/** @} */
 
+/**
+ * @addtogroup pmc_pck0
+ * @{
+ */
 
-/* --- PMC Programmable Clock Register 0 (PMC_PCK0) ------------------------ */
-
-/* Master Clock Source Selection */
+/** Master Clock Source Selection */
 #define PMC_PCK0_CSS_UPLL_CLK		(3 << PMC_PCK0_CSS_SHIFT)
+/** @} */
 
+/**
+ * @addtogroup pmc_pck1
+ * @{ */
 
-/* --- PMC Programmable Clock Register 1 (PMC_PCK1) ------------------------ */
-
-/* Master Clock Source Selection */
+/** Master Clock Source Selection */
 #define PMC_PCK1_CSS_UPLL_CLK		(3 << PMC_PCK1_CSS_SHIFT)
+/** @} */
 
+/**
+ * @addtogroup pmc_pck2
+ * @{
+ */
 
-/* --- PMC Programmable Clock Register 2 (PMC_PCK2) ------------------------ */
-
-/* Master Clock Source Selection */
+/** Master Clock Source Selection */
 #define PMC_PCK2_CSS_UPLL_CLK		(3 << PMC_PCK2_CSS_SHIFT)
+/** @} */
 
+/**
+ * @addtogroup pmc_ier
+ * @{
+ */
 
-/* --- PMC Interrupt Enable Register (PMC_IER) ----------------------------- */
-
-/* UTMI PLL Lock Interrupt Enable */
+/** UTMI PLL Lock Interrupt Enable */
 #define PMC_IER_LOCKU			(0x01 << 6)
+/** @} */
 
+/**
+ * @addtogroup pmc_idr
+ * @{
+ */
 
-/* --- PMC Interrupt Disable Register (PMC_IDR) ----------------------------- */
-
-/* UTMI PLL Lock Interrupt Disable */
+/** UTMI PLL Lock Interrupt Disable */
 #define PMC_IDR_LOCKU			(0x01 << 6)
+/** @} */
 
+/**
+ * @addtogroup pmc_sr
+ * @{
+ */
 
-/* --- PMC Status Register (PMC_SR) ---------------------------------------- */
-
-/* UTMI PLL Lock Status */
+/** UTMI PLL Lock Status */
 #define PMC_SR_LOCKU			(0x01 << 6)
+/** @} */
 
+/**
+ * @addtogroup pmc_imr
+ * @{
+ */
 
-/* --- PMC Interrupt Mask Register (PMC_IMR) ----------------------------- */
-
-/* UTMI PLL Lock Interrupt Mask */
+/** UTMI PLL Lock Interrupt Mask */
 #define PMC_IMR_LOCKU			(0x01 << 6)
-
+/** @} */
 
 #endif
 
+/** @cond */
 #else
 #warning "pmc_common_3a3u3x.h should not be included explicitly, only via pmc.h"
 #endif
+/** @endcond */
+
+/** @} */
