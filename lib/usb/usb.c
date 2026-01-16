@@ -96,7 +96,7 @@ void usbd_register_sof_callback(usbd_device *usbd_dev, void (*callback)(void))
 	usbd_dev->user_callback_sof = callback;
 }
 
-void usbd_register_extra_string(usbd_device *usbd_dev, int index, const char* string)
+void usbd_register_extra_string(usbd_device *usbd_dev, int index, const char *string)
 {
     /*
 	 * Note: string index 0 is reserved for LANGID requests and cannot
@@ -119,7 +119,8 @@ void _usbd_reset(usbd_device *usbd_dev)
 {
 	usbd_dev->current_address = 0;
 	usbd_dev->current_config = 0;
-	usbd_ep_setup(usbd_dev, 0, USB_ENDPOINT_ATTR_CONTROL, usbd_dev->desc->bMaxPacketSize0, NULL);
+	usbd_ep_setup(usbd_dev, 0, USB_ENDPOINT_ATTR_CONTROL,
+		      usbd_dev->desc->bMaxPacketSize0, NULL);
 	usbd_dev->driver->set_address(usbd_dev, 0);
 
 	if (usbd_dev->user_callback_reset) {

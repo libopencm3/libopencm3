@@ -106,7 +106,7 @@ struct _usbd_device {
 
 	/* Extra, non-contiguous user string descriptor index and value */
 	int extra_string_idx;
-	const char* extra_string;
+	const char *extra_string;
 
 	/* private driver data */
 
@@ -148,8 +148,8 @@ enum usbd_request_return_codes _usbd_standard_request_interface(usbd_device *usb
 enum usbd_request_return_codes _usbd_standard_request_endpoint(usbd_device *usbd_dev,
 				    struct usb_setup_data *req, uint8_t **buf,
 				    uint16_t *len);
-enum usbd_request_return_codes _usbd_standard_request(usbd_device *usbd_dev, struct usb_setup_data *req,
-			   uint8_t **buf, uint16_t *len);
+enum usbd_request_return_codes _usbd_standard_request(usbd_device *usbd_dev,
+			   struct usb_setup_data *req, uint8_t **buf, uint16_t *len);
 
 void _usbd_reset(usbd_device *usbd_dev);
 
