@@ -32,7 +32,7 @@
 #define dev_base_address (usbd_dev->driver->base_address)
 #define REBASE(x)        MMIO32((x) + (dev_base_address))
 
-static void dwc_flush_txfifo(usbd_device *const usbd_dev, const uint8_t ep);
+static void dwc_flush_txfifo(usbd_device *usbd_dev, uint8_t ep);
 
 void dwc_set_address(usbd_device *const usbd_dev, const uint8_t address)
 {
@@ -56,7 +56,7 @@ void dwc_ep_setup(usbd_device *const usbd_dev, const uint8_t endpoint_address, c
 		usbd_dev->fifo_mem_top_ep0 = usbd_dev->driver->rx_fifo_size + packet_length;
 		usbd_dev->fifo_mem_top = usbd_dev->fifo_mem_top_ep0;
 		/* Configure EP0 IN to allow us to send packets appropriately */
-#if defined(STM32H7)
+#ifdef STM32H7
 		REBASE(OTG_DIEPCTL0) = (max_packet_length & OTG_DIEPCTLX_MPSIZ_MASK);
 #else
 		if (max_packet_length >= 64U)
@@ -76,7 +76,7 @@ void dwc_ep_setup(usbd_device *const usbd_dev, const uint8_t endpoint_address, c
 			OTG_DOEPSIZ0_STUPCNT_1 | OTG_DOEPSIZ0_PKTCNT | (max_packet_length & OTG_DOEPSIZ0_XFRSIZ_MASK);
 		REBASE(OTG_DOEPTSIZ0) = usbd_dev->doeptsiz[0U];
 		/* However, *do* arm the OUT endpoint so we can receive the first SETUP packet */
-#if defined(STM32H7)
+#ifdef STM32H7
 		if (max_packet_length >= 64) {
 			REBASE(OTG_DOEPCTL0) = OTG_DOEPCTL0_MPSIZ_64;
 		} else if (max_packet_length >= 32) {
@@ -251,13 +251,13 @@ uint16_t dwc_ep_write_packet(
 
 	/* Figure out how many bytes can be written as u32 chunks */
 	const size_t aligned_length = length & ~3U;
-#if defined(__ARM_ARCH_6M__)
+#ifdef __ARM_ARCH_6M__
 	if (((uintptr_t)buffer & 0x3U) == 0U) {
 #endif
 		/* Copy what we can into the FIFO for this endpoint in u32 blocks */
 		for (size_t offset = 0U; offset < aligned_length; offset += 4U)
 			REBASE(OTG_FIFO(ep)) = ((const uint32_t *)buffer)[offset >> 2U];
-#if defined(__ARM_ARCH_6M__)
+#ifdef __ARM_ARCH_6M__
 	} else {
 		const uint8_t *const buffer8 = buffer;
 		/* Copy the data into the FIFO for this endpoint in u32 blocks using memcpy to work around alignment issues */
@@ -291,13 +291,13 @@ uint16_t dwc_ep_read_packet(
 	const size_t aligned_count = count & ~3U;
 
 	/* ARMv7-M and newer supports non-word-aligned accesses, ARMv6-M does not. */
-#if defined(__ARM_ARCH_6M__)
+#ifdef __ARM_ARCH_6M__
 	if (((uintptr_t)buffer & 0x3U) == 0U) {
 #endif
 		/* Copy the data out of the FIFO for this endpoint in u32 blocks */
 		for (size_t offset = 0U; offset < aligned_count; offset += 4U)
 			((uint32_t *)buffer)[offset >> 2U] = REBASE(OTG_FIFO(0U));
-#if defined(__ARM_ARCH_6M__)
+#ifdef __ARM_ARCH_6M__
 	} else {
 		uint8_t *const buffer8 = buffer;
 		/* Copy the data out of the FIFO for this endpoint in u32 blocks using memcpy to work around alignment issues */

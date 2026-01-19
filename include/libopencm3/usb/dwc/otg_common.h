@@ -87,9 +87,9 @@
 
 /* Data FIFO */
 #if defined(STM32H7) || defined(STM32U5)
-#define OTG_FIFO(x)			(0x1000U * (x + 1U))
+#define OTG_FIFO(x)			(uintptr_t)(0x1000U * (x + 1U))
 #else
-#define OTG_FIFO(x)			(((x) + 1U) << 12U)
+#define OTG_FIFO(x)			(((uintptr_t)(x) + 1U) << 12U)
 #endif
 
 /* Global CSRs */
