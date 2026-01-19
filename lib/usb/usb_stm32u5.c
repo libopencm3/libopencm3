@@ -51,6 +51,7 @@ const struct _usbd_driver stm32u5_usb_driver = {
 	.ep_read_packet = dwc_ep_read_packet,
 	.poll = dwc_poll,
 	.disconnect = dwc_disconnect,
+	.enable_sof = dwc_enable_sof,
 	.base_address = USB_OTG_FS_BASE,
 	.set_address_before_status = true,
 	.rx_fifo_size = RX_FIFO_SIZE,
@@ -78,11 +79,11 @@ static usbd_device *stm32u5_usbd_init(void)
 	/* Clear all outstanding interrupts so we're in a clean state */
 	OTG_FS_GINTSTS = UINT32_MAX;
 	/*
-	 * Unmask interrupts for core events - SOF, RX FIFO non-empty, USB suspend, USB reset,
+	 * Unmask interrupts for core events - RX FIFO non-empty, USB suspend, USB reset,
 	 * enumeration done, IN endpoint interrupts, amd wake-up detected
 	 */
-	OTG_FS_GINTMSK = OTG_GINTMSK_SOFM | OTG_GINTMSK_RXFLVLM | OTG_GINTMSK_USBSUSPM | OTG_GINTMSK_USBRST |
-		OTG_GINTMSK_ENUMDNEM | OTG_GINTMSK_IEPINT | OTG_GINTMSK_OEPINT | OTG_GINTMSK_WUIM;
+	OTG_FS_GINTMSK = OTG_GINTMSK_RXFLVLM | OTG_GINTMSK_USBSUSPM | OTG_GINTMSK_USBRST | OTG_GINTMSK_ENUMDNEM |
+		OTG_GINTMSK_IEPINT | OTG_GINTMSK_OEPINT | OTG_GINTMSK_WUIM;
 
 	/* Set up to operate as a USB FS device, resetting any other bits including device address */
 	OTG_FS_DCFG &= ~(OTG_DCFG_ERRATIM | OTG_DCFG_PFIVL | OTG_DCFG_DAD | OTG_DCFG_NZLSOHSK);

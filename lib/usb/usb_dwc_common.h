@@ -25,19 +25,17 @@
 BEGIN_DECLS
 
 void dwc_set_address(usbd_device *usbd_dev, uint8_t addr);
-void dwc_ep_setup(usbd_device *usbd_dev, uint8_t addr, uint8_t type,
-			uint16_t max_size,
-			void (*callback)(usbd_device *usbd_dev, uint8_t ep));
+void dwc_ep_setup(usbd_device *usbd_dev, uint8_t addr, uint8_t type, uint16_t max_size,
+	void (*callback)(usbd_device *usbd_dev, uint8_t ep));
 void dwc_endpoints_reset(usbd_device *usbd_dev);
 void dwc_ep_stall_set(usbd_device *usbd_dev, uint8_t addr, uint8_t stall);
 uint8_t dwc_ep_stall_get(usbd_device *usbd_dev, uint8_t addr);
 void dwc_ep_nak_set(usbd_device *usbd_dev, uint8_t addr, uint8_t nak);
-uint16_t dwc_ep_write_packet(usbd_device *usbd_dev, uint8_t addr,
-				   const void *buf, uint16_t len);
-uint16_t dwc_ep_read_packet(usbd_device *usbd_dev, uint8_t addr,
-				  void *buf, uint16_t len);
+uint16_t dwc_ep_write_packet(usbd_device *usbd_dev, uint8_t addr, const void *buf, uint16_t len);
+uint16_t dwc_ep_read_packet(usbd_device *usbd_dev, uint8_t addr, void *buf, uint16_t len);
 void dwc_poll(usbd_device *usbd_dev);
 void dwc_disconnect(usbd_device *usbd_dev, bool disconnected);
+void dwc_enable_sof(usbd_device *usbd_dev);
 
 END_DECLS
 

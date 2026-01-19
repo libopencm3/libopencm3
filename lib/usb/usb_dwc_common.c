@@ -491,3 +491,12 @@ void dwc_disconnect(usbd_device *const usbd_dev, const bool disconnected)
 		REBASE(OTG_DCTL) &= ~OTG_DCTL_SDIS;
 	}
 }
+
+void dwc_enable_sof(usbd_device *const usbd_dev)
+{
+	if (usbd_dev->user_callback_sof) {
+		REBASE(OTG_GINTMSK) |= OTG_GINTMSK_SOFM;
+	} else {
+		REBASE(OTG_GINTMSK) &= ~OTG_GINTMSK_SOFM;
+	}
+}

@@ -94,6 +94,8 @@ void usbd_register_resume_callback(usbd_device *usbd_dev,
 void usbd_register_sof_callback(usbd_device *usbd_dev, void (*callback)(void))
 {
 	usbd_dev->user_callback_sof = callback;
+	if (usbd_dev->driver->enable_sof)
+		usbd_dev->driver->enable_sof(usbd_dev);
 }
 
 void usbd_register_extra_string(usbd_device *usbd_dev, int index, const char* string)
