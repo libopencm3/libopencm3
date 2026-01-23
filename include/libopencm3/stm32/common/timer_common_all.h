@@ -29,6 +29,8 @@ The order of header inclusion is important. timer.h includes the device
 specific memorymap.h header before including this header file.*/
 
 #pragma once
+
+#include <stdint.h>
 /* --- Convenience macros -------------------------------------------------- */
 
 /* Timer register base addresses (for convenience) */
@@ -460,20 +462,38 @@ specific memorymap.h header before including this header file.*/
 /* TI1S: TI1 selection */
 #define TIM_CR2_TI1S			(1 << 7)
 
+#ifndef STM32U5
 /* MMS[2:0]: Master mode selection */
 /****************************************************************************/
 /** @defgroup tim_mastermode TIMx_CR2 MMS[6:4]: Master Mode Selection
 @{*/
-#define TIM_CR2_MMS_RESET		(0x0 << 4)
-#define TIM_CR2_MMS_ENABLE		(0x1 << 4)
-#define TIM_CR2_MMS_UPDATE		(0x2 << 4)
-#define TIM_CR2_MMS_COMPARE_PULSE	(0x3 << 4)
-#define TIM_CR2_MMS_COMPARE_OC1REF	(0x4 << 4)
-#define TIM_CR2_MMS_COMPARE_OC2REF	(0x5 << 4)
-#define TIM_CR2_MMS_COMPARE_OC3REF	(0x6 << 4)
-#define TIM_CR2_MMS_COMPARE_OC4REF	(0x7 << 4)
-#define TIM_CR2_MMS_MASK		(0x7 << 4)
+#define TIM_CR2_MMS_RESET		(0x0U << 4U)
+#define TIM_CR2_MMS_ENABLE		(0x1U << 4U)
+#define TIM_CR2_MMS_UPDATE		(0x2U << 4U)
+#define TIM_CR2_MMS_COMPARE_PULSE	(0x3U << 4U)
+#define TIM_CR2_MMS_COMPARE_OC1REF	(0x4U << 4U)
+#define TIM_CR2_MMS_COMPARE_OC2REF	(0x5U << 4U)
+#define TIM_CR2_MMS_COMPARE_OC3REF	(0x6U << 4U)
+#define TIM_CR2_MMS_COMPARE_OC4REF	(0x7U << 4U)
+#define TIM_CR2_MMS_MASK		(0x7U << 4U)
 /**@}*/
+#else
+/* MMS[2:0]: Master mode selection */
+/****************************************************************************/
+/** @defgroup tim_mastermode TIMx_CR2 MMS[6:4]: Master Mode Selection
+@{*/
+#define TIM_CR2_MMS_RESET		(0x0U << 4U)
+#define TIM_CR2_MMS_ENABLE		(0x1U << 4U)
+#define TIM_CR2_MMS_UPDATE		(0x2U << 4U)
+#define TIM_CR2_MMS_COMPARE_PULSE	(0x3U << 4U)
+#define TIM_CR2_MMS_COMPARE_OC1REF	(0x4U << 4U)
+#define TIM_CR2_MMS_COMPARE_OC2REF	(0x5U << 4U)
+#define TIM_CR2_MMS_COMPARE_OC3REF	(0x6U << 4U)
+#define TIM_CR2_MMS_COMPARE_OC4REF	(0x7U << 4U)
+#define TIM_CR2_MMS_ENCODER_CLOCK	((0x0U << 4U) | (0x1U << 25U))
+#define TIM_CR2_MMS_MASK		((0x7U << 4U) | (0x1U << 25U))
+/**@}*/
+#endif
 
 /* CCDS: Capture/compare DMA selection */
 #define TIM_CR2_CCDS			(1 << 3)
