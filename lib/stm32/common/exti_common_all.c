@@ -6,6 +6,7 @@
  *
  * Copyright (C) 2010 Mark Butler <mbutler@physics.otago.ac.nz>
  * Copyright (C) 2012 Karl Palsson <karlp@tweak.net.au>
+ * Copyright (C) 2026 Rachel Mant <git@dragonmux.network>
  *
  * This library is free software: you can redistribute it and/or modify
  * it under the terms of the GNU Lesser General Public License as published by
@@ -25,7 +26,7 @@
  */
 /**@{*/
 
-
+#include <stddef.h>
 #include <libopencm3/stm32/exti.h>
 #include <libopencm3/stm32/gpio.h>
 
@@ -111,9 +112,8 @@ uint32_t exti_get_flag_status(uint32_t exti)
  */
 void exti_select_source(uint32_t exti, uint32_t gpioport)
 {
-	uint32_t line;
-	for (line = 0; line < 16; line++) {
-		if (!(exti & (1 << line))) {
+	for (size_t line = 0U; line < 16U; line++) {
+		if (!(exti & (1U << line))) {
 			continue;
 		}
 
@@ -121,57 +121,57 @@ void exti_select_source(uint32_t exti, uint32_t gpioport)
 
 		switch (gpioport) {
 		case GPIOA:
-			bits = 0;
+			bits = 0U;
 			break;
 		case GPIOB:
-			bits = 1;
+			bits = 1U;
 			break;
 		case GPIOC:
-			bits = 2;
+			bits = 2U;
 			break;
 		case GPIOD:
-			bits = 3;
+			bits = 3U;
 			break;
 #if defined(GPIOE) && defined(GPIO_PORT_E_BASE)
 		case GPIOE:
-			bits = 4;
+			bits = 4U;
 			break;
 #endif
 #if defined(GPIOF) && defined(GPIO_PORT_F_BASE)
 		case GPIOF:
-			bits = 5;
+			bits = 5U;
 			break;
 #endif
 #if defined(GPIOG) && defined(GPIO_PORT_G_BASE)
 		case GPIOG:
-			bits = 6;
+			bits = 6U;
 			break;
 #endif
 #if defined(GPIOH) && defined(GPIO_PORT_H_BASE)
 		case GPIOH:
-			bits = 7;
+			bits = 7U;
 			break;
 #endif
 #if defined(GPIOI) && defined(GPIO_PORT_I_BASE)
 		case GPIOI:
-			bits = 8;
+			bits = 8U;
 			break;
 #endif
 #if defined(GPIOJ) && defined(GPIO_PORT_J_BASE)
 		case GPIOJ:
-			bits = 9;
+			bits = 9U;
 			break;
 #endif
 #if defined(GPIOK) && defined(GPIO_PORT_K_BASE)
 		case GPIOK:
-			bits = 10;
+			bits = 10U;
 			break;
 #endif
 		}
 
-		uint8_t shift = (uint8_t)(EXTICR_SELECTION_FIELDSIZE * (line % 4));
-		uint32_t mask = ((1 << EXTICR_SELECTION_FIELDSIZE) - 1) << shift;
-		uint32_t reg = line / 4;
+		const uint8_t shift = (uint8_t)(EXTICR_SELECTION_FIELDSIZE * (line & 3U));
+		const uint32_t mask = ((1U << EXTICR_SELECTION_FIELDSIZE) - 1U) << shift;
+		const uint32_t reg = line / 4U;
 
 		EXTICR_SELECTION_REG(reg) = (EXTICR_SELECTION_REG(reg) & ~mask) | (bits << shift);
 	};
