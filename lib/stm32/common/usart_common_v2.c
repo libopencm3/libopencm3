@@ -38,7 +38,7 @@
 
  @param[in] usart USART block register address base @ref usart_reg_base
  */
-void usart_enable_data_inversion(uint32_t usart)
+void usart_enable_data_inversion(const uintptr_t usart)
 {
 	USART_CR2(usart) |= USART_CR2_DATAINV;
 }
@@ -53,7 +53,7 @@ void usart_enable_data_inversion(uint32_t usart)
 
  @param[in] usart USART block register address base @ref usart_reg_base
  */
-void usart_disable_data_inversion(uint32_t usart)
+void usart_disable_data_inversion(const uintptr_t usart)
 {
 	USART_CR2(usart) &= ~USART_CR2_DATAINV;
 }
@@ -67,7 +67,7 @@ void usart_disable_data_inversion(uint32_t usart)
 
  @param[in] usart USART block register address base @ref usart_reg_base
  */
-void usart_enable_tx_inversion(uint32_t usart)
+void usart_enable_tx_inversion(const uintptr_t usart)
 {
 	USART_CR2(usart) |= USART_CR2_TXINV;
 }
@@ -81,7 +81,7 @@ void usart_enable_tx_inversion(uint32_t usart)
 
  @param[in] usart USART block register address base @ref usart_reg_base
  */
-void usart_disable_tx_inversion(uint32_t usart)
+void usart_disable_tx_inversion(const uintptr_t usart)
 {
 	USART_CR2(usart) &= ~USART_CR2_TXINV;
 }
@@ -95,7 +95,7 @@ void usart_disable_tx_inversion(uint32_t usart)
 
  @param[in] usart USART block register address base @ref usart_reg_base
  */
-void usart_enable_rx_inversion(uint32_t usart)
+void usart_enable_rx_inversion(const uintptr_t usart)
 {
 	USART_CR2(usart) |= USART_CR2_RXINV;
 }
@@ -109,7 +109,7 @@ void usart_enable_rx_inversion(uint32_t usart)
 
  @param[in] usart USART block register address base @ref usart_reg_base
  */
-void usart_disable_rx_inversion(uint32_t usart)
+void usart_disable_rx_inversion(const uintptr_t usart)
 {
 	USART_CR2(usart) &= ~USART_CR2_RXINV;
 }
@@ -131,7 +131,7 @@ void usart_disable_rx_inversion(uint32_t usart)
 
  @param[in] usart USART block register address base @ref usart_reg_base
  */
-void usart_enable_halfduplex(uint32_t usart)
+void usart_enable_halfduplex(const uintptr_t usart)
 {
 	USART_CR3(usart) |= USART_CR3_HDSEL;
 }
@@ -143,7 +143,7 @@ void usart_enable_halfduplex(uint32_t usart)
 
  @param[in] usart USART block register address base @ref usart_reg_base
  */
-void usart_disable_halfduplex(uint32_t usart)
+void usart_disable_halfduplex(const uintptr_t usart)
 {
 	USART_CR3(usart) &= ~USART_CR3_HDSEL;
 }
@@ -162,7 +162,7 @@ void usart_disable_halfduplex(uint32_t usart)
  @param[in] usart USART block register address base @ref usart_reg_base
  @param[in] value The receive timeout value in terms of number of bit duration.
  */
-void usart_set_rx_timeout_value(uint32_t usart, uint32_t value)
+void usart_set_rx_timeout_value(const uintptr_t usart, const uint32_t value)
 {
 	uint32_t reg;
 	reg = USART_RTOR(usart) & ~USART_RTOR_RTO_MASK;
@@ -178,7 +178,7 @@ void usart_set_rx_timeout_value(uint32_t usart, uint32_t value)
 
  @param[in] usart USART block register address base @ref usart_reg_base
  */
-void usart_enable_rx_timeout(uint32_t usart)
+void usart_enable_rx_timeout(const uintptr_t usart)
 {
 	USART_CR2(usart) |= USART_CR2_RTOEN;
 }
@@ -191,7 +191,7 @@ void usart_enable_rx_timeout(uint32_t usart)
 
  @param[in] usart USART block register address base @ref usart_reg_base
  */
-void usart_disable_rx_timeout(uint32_t usart)
+void usart_disable_rx_timeout(const uintptr_t usart)
 {
 	USART_CR2(usart) &= ~USART_CR2_RTOEN;
 }
@@ -207,7 +207,7 @@ void usart_disable_rx_timeout(uint32_t usart)
 
  @param[in] usart USART block register address base @ref usart_reg_base
  */
-void usart_enable_rx_timeout_interrupt(uint32_t usart)
+void usart_enable_rx_timeout_interrupt(const uintptr_t usart)
 {
 	USART_CR1(usart) |= USART_CR1_RTOIE;
 }
@@ -220,7 +220,7 @@ void usart_enable_rx_timeout_interrupt(uint32_t usart)
 
  @param[in] usart USART block register address base @ref usart_reg_base
  */
-void usart_disable_rx_timeout_interrupt(uint32_t usart)
+void usart_disable_rx_timeout_interrupt(const uintptr_t usart)
 {
 	USART_CR1(usart) &= ~USART_CR1_RTOIE;
 }
@@ -233,7 +233,7 @@ void usart_disable_rx_timeout_interrupt(uint32_t usart)
  * @param[in] data unsigned 16 bit.
  */
 
-void usart_send(uint32_t usart, uint16_t data)
+void usart_send(const uint32_t usart, const uint16_t data)
 {
 	/* Send data. */
 	USART_TDR(usart) = (data & USART_TDR_MASK);
@@ -250,7 +250,7 @@ void usart_send(uint32_t usart, uint16_t data)
  * @returns unsigned 16 bit data word.
  */
 
-uint16_t usart_recv(uint32_t usart)
+uint16_t usart_recv(const uint32_t usart)
 {
 	/* Receive data. */
 	return USART_RDR(usart) & USART_RDR_MASK;
@@ -266,7 +266,7 @@ uint16_t usart_recv(uint32_t usart)
  * usart_reg_base
  */
 
-void usart_wait_send_ready(uint32_t usart)
+void usart_wait_send_ready(const uint32_t usart)
 {
 	/* Wait until the data has been transferred into the shift register. */
 	while ((USART_ISR(usart) & USART_ISR_TXE) == 0)
@@ -282,7 +282,7 @@ void usart_wait_send_ready(uint32_t usart)
  * usart_reg_base
  */
 
-void usart_wait_recv_ready(uint32_t usart)
+void usart_wait_recv_ready(const uint32_t usart)
 {
 	/* Wait until the data is ready to be received. */
 	while ((USART_ISR(usart) & USART_ISR_RXNE) == 0)
@@ -298,7 +298,7 @@ void usart_wait_recv_ready(uint32_t usart)
  * @returns boolean: flag set.
  */
 
-bool usart_get_flag(uint32_t usart, uint32_t flag)
+bool usart_get_flag(const uint32_t usart, const uint32_t flag)
 {
 	return ((USART_ISR(usart) & flag) != 0);
 }
@@ -308,7 +308,7 @@ bool usart_get_flag(uint32_t usart, uint32_t flag)
  * @param[in] usart unsigned 32 bit. USART block register address base @ref
  * usart_reg_base
  */
-void usart_enable_diver_enable(uint32_t usart, bool invert)
+void usart_enable_diver_enable(const uintptr_t usart, const bool invert)
 {
 	uint32_t reg = USART_CR3(usart);
 	if (invert) {
@@ -320,12 +320,13 @@ void usart_enable_diver_enable(uint32_t usart, bool invert)
 	USART_CR3(usart) = reg;
 }
 
-void usart_set_oversampling(uint32_t usart, uint32_t mode)
+void usart_set_oversampling(const uintptr_t usart, const uint32_t mode)
 {
-	if (mode)
+	if (mode) {
 		USART_CR1(usart) |= USART_CR1_OVER8;
-	else
+	} else {
 		USART_CR1(usart) &= ~USART_CR1_OVER8;
+	}
 }
 
 void usart_set_swap_tx_rx(const uintptr_t usart, const bool swapped)

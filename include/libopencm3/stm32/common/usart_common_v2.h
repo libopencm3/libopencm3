@@ -630,23 +630,23 @@
 
 BEGIN_DECLS
 
-void usart_enable_data_inversion(uint32_t usart);
-void usart_disable_data_inversion(uint32_t usart);
-void usart_enable_tx_inversion(uint32_t usart);
-void usart_disable_tx_inversion(uint32_t usart);
-void usart_enable_rx_inversion(uint32_t usart);
-void usart_disable_rx_inversion(uint32_t usart);
-void usart_enable_halfduplex(uint32_t usart);
-void usart_disable_halfduplex(uint32_t usart);
+void usart_enable_data_inversion(uintptr_t usart);
+void usart_disable_data_inversion(uintptr_t usart);
+void usart_enable_tx_inversion(uintptr_t usart);
+void usart_disable_tx_inversion(uintptr_t usart);
+void usart_enable_rx_inversion(uintptr_t usart);
+void usart_disable_rx_inversion(uintptr_t usart);
+void usart_enable_halfduplex(uintptr_t usart);
+void usart_disable_halfduplex(uintptr_t usart);
 
-void usart_set_rx_timeout_value(uint32_t usart, uint32_t value);
-void usart_enable_rx_timeout(uint32_t usart);
-void usart_disable_rx_timeout(uint32_t usart);
-void usart_enable_rx_timeout_interrupt(uint32_t usart);
-void usart_disable_rx_timeout_interrupt(uint32_t usart);
+void usart_set_rx_timeout_value(uintptr_t usart, uint32_t value);
+void usart_enable_rx_timeout(uintptr_t usart);
+void usart_disable_rx_timeout(uintptr_t usart);
+void usart_enable_rx_timeout_interrupt(uintptr_t usart);
+void usart_disable_rx_timeout_interrupt(uintptr_t usart);
 
-void usart_enable_diver_enable(uint32_t usart, bool invert);
-void usart_set_oversampling(uint32_t usart, uint32_t mode);
+void usart_enable_diver_enable(uintptr_t usart, bool invert);
+void usart_set_oversampling(uintptr_t usart, uint32_t mode);
 
 void usart_set_swap_tx_rx(uintptr_t usart, bool swapped);
 
