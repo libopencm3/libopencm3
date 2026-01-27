@@ -14,6 +14,8 @@
 /*
  * This file is part of the libopencm3 project.
  *
+ * Copyright (C) 2024 Mateusz Myalski <mateusz.myalski@gmail.com>
+ *
  * This library is free software: you can redistribute it and/or modify
  * it under the terms of the GNU Lesser General Public License as published by
  * the Free Software Foundation, either version 3 of the License, or
@@ -44,12 +46,12 @@
  * Holds all the U(S)ART peripherals supported.
  * @{
  */
-#define USART1				USART1_BASE
-#define USART2				USART2_BASE
-#define USART3				USART3_BASE
-#define USART4				USART4_BASE
-#define USART5				USART5_BASE
-#define USART6				USART6_BASE
+#define USART1 USART1_BASE
+#define USART2 USART2_BASE
+#define USART3 USART3_BASE
+#define USART4 USART4_BASE
+#define USART5 USART5_BASE
+#define USART6 USART6_BASE
 /**@}*/
 
 /*****************************************************************************/
@@ -67,4 +69,3 @@ END_DECLS
 /**@}*/
 
 #endif
-
