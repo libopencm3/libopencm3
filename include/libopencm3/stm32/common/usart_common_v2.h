@@ -8,6 +8,7 @@
  * This file is part of the libopencm3 project.
  *
  * Copyright (C) 2016 Cem Basoglu <cem.basoglu@web.de>
+ * Copyright (C) 2026 Rachel Mant <git@dragonmux.network>
  *
  * This library is free software: you can redistribute it and/or modify
  * it under the terms of the GNU Lesser General Public License as published by
@@ -24,6 +25,9 @@
  */
 
 #pragma once
+
+#include <stdint.h>
+#include <stdbool.h>
 
 /** @defgroup usart_registers USART Registers
 @ingroup usart_defines
@@ -645,5 +649,7 @@ void usart_disable_rx_timeout_interrupt(uint32_t usart);
 
 void usart_enable_diver_enable(uint32_t usart, bool invert);
 void usart_set_oversampling(uint32_t usart, uint32_t mode);
+
+void usart_set_swap_tx_rx(uintptr_t usart, bool swapped);
 
 END_DECLS

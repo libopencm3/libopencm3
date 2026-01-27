@@ -111,7 +111,6 @@ void usart_enable_rx_inversion(uint32_t usart)
  */
 void usart_disable_rx_inversion(uint32_t usart)
 {
-
 	USART_CR2(usart) &= ~USART_CR2_RXINV;
 }
 
@@ -270,7 +269,8 @@ uint16_t usart_recv(uint32_t usart)
 void usart_wait_send_ready(uint32_t usart)
 {
 	/* Wait until the data has been transferred into the shift register. */
-	while ((USART_ISR(usart) & USART_ISR_TXE) == 0);
+	while ((USART_ISR(usart) & USART_ISR_TXE) == 0)
+		continue;
 }
 
 /*---------------------------------------------------------------------------*/
@@ -285,7 +285,8 @@ void usart_wait_send_ready(uint32_t usart)
 void usart_wait_recv_ready(uint32_t usart)
 {
 	/* Wait until the data is ready to be received. */
-	while ((USART_ISR(usart) & USART_ISR_RXNE) == 0);
+	while ((USART_ISR(usart) & USART_ISR_RXNE) == 0)
+		continue;
 }
 
 /*---------------------------------------------------------------------------*/
@@ -325,6 +326,15 @@ void usart_set_oversampling(uint32_t usart, uint32_t mode)
 		USART_CR1(usart) |= USART_CR1_OVER8;
 	else
 		USART_CR1(usart) &= ~USART_CR1_OVER8;
+}
+
+void usart_set_swap_tx_rx(const uintptr_t usart, const bool swapped)
+{
+	if (swapped) {
+		USART_CR2(usart) |= USART_CR2_SWAP;
+	} else {
+		USART_CR2(usart) &= ~USART_CR2_SWAP;
+	}
 }
 
 /**@}*/
