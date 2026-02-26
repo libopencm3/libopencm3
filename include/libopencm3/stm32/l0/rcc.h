@@ -522,6 +522,13 @@
 #define RCC_CSR_LSIRDY				(1 << 1)
 #define RCC_CSR_LSION				(1 << 0)
 
+enum rcc_clock_config {
+    RCC_CLOCK_CONFIG_HSI_2MHZ,   
+    RCC_CLOCK_CONFIG_HSI_16MHZ,  
+    RCC_CLOCK_CONFIG_HSI_32MHZ, 
+    RCC_CLOCK_CONFIG_END
+};
+
 struct rcc_clock_scale {
 	uint8_t pll_mul;
 	uint16_t pll_div;

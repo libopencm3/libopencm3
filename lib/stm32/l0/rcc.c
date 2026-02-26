@@ -44,6 +44,48 @@ uint32_t rcc_ahb_frequency = 2097000;
 uint32_t rcc_apb1_frequency = 2097000;
 uint32_t rcc_apb2_frequency = 2097000;
 
+const struct rcc_clock_scale rcc_hsi_configs[RCC_CLOCK_CONFIG_END]={
+	{ /* 2MHz */
+        .pll_mul = 0,
+        .pll_div = 0,
+        .pll_source = 0,
+        .hpre = RCC_CFGR_HPRE_DIV8,
+        .ppre1 = RCC_CFGR_PPRE1_NODIV,
+        .ppre2 = RCC_CFGR_PPRE2_NODIV,
+        .voltage_scale = PWR_SCALE3,
+        .flash_waitstates = 0,
+        .ahb_frequency = 2000000,
+        .apb1_frequency = 2000000,
+        .apb2_frequency = 2000000,
+	},
+	{ /* 16MHz */
+		.pll_mul = 0,
+		.pll_div = 0,
+		.pll_source = 0,
+		.hpre = RCC_CFGR_HPRE_NODIV,
+		.ppre1 = RCC_CFGR_PPRE1_NODIV,
+		.ppre2 = RCC_CFGR_PPRE2_NODIV,
+		.voltage_scale = PWR_SCALE2,
+		.flash_waitstates = 0,
+		.ahb_frequency = 16000000,
+		.apb1_frequency = 16000000,
+		.apb2_frequency = 16000000,
+	},
+	{ /* 32MHz */
+		.pll_mul = RCC_CFGR_PLLMUL_MUL4,
+        .pll_div = RCC_CFGR_PLLDIV_DIV2,
+        .pll_source = RCC_CFGR_PLLSRC_HSI16_CLK,
+        .flash_waitstates = 1,
+        .voltage_scale = PWR_SCALE1,
+        .hpre = RCC_CFGR_HPRE_NODIV,
+        .ppre1 = RCC_CFGR_PPRE1_NODIV,
+        .ppre2 = RCC_CFGR_PPRE2_NODIV,
+        .ahb_frequency = 32000000,
+        .apb1_frequency = 32000000,
+        .apb2_frequency = 32000000,
+	}
+};
+
 void rcc_osc_on(enum rcc_osc osc)
 {
 	switch (osc) {
