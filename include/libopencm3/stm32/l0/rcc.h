@@ -549,6 +549,7 @@ struct rcc_clock_scale {
 extern uint32_t rcc_ahb_frequency;
 extern uint32_t rcc_apb1_frequency;
 extern uint32_t rcc_apb2_frequency;
+extern const struct rcc_clock_scale rcc_hsi_configs[];
 
 /* --- Function prototypes ------------------------------------------------- */
 
