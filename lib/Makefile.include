@@ -38,7 +38,7 @@ $(SRCLIBDIR)/$(LIBNAME).a: $(OBJS)
 
 %.o: %.c
 	@printf "  CC      $(<F)\n"
-	$(Q)$(CC) $(TGT_CFLAGS) $(CFLAGS) -o $@ -c $<
+	$(Q)$(CC) $(TGT_CFLAGS) $(CFLAGS) -o $@ -c $(abspath $<)
 
 clean:
 	$(Q)rm -f *.o *.d ../*.o ../*.d
