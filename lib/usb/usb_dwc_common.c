@@ -385,6 +385,14 @@ void dwc_poll(usbd_device *const usbd_dev)
 			/* Clear any and all interrupt notifications on this endpoint */
 			REBASE(OTG_DIEPINT(ep)) = REBASE(OTG_DIEPINT(ep));
 		}
+
+		/*
+		 * On some controllers the STUP interrupt flag seems to inhibit
+		 * the internal state machine from entering the setup completed
+		 * state again. Thus it must be cleared.
+		 */
+		REBASE(OTG_DOEPINT(i)) = OTG_DOEPINTX_STUP;
+
 	}
 
 	/* Handle OUT packet reception */
