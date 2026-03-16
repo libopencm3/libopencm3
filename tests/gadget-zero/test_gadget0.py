@@ -714,7 +714,7 @@ def run_ci_test(dut):
 
 def run_user_test(dut):
     print("Running (user) tests for DUT: ", dut)
-    unittest.main(exit=False, argv=[__file__])
+    unittest.main(exit=False, argv=[__file__], verbosity=2)
 
 def get_parser():
     parser = argparse.ArgumentParser(description=__doc__, formatter_class=argparse.ArgumentDefaultsHelpFormatter)
