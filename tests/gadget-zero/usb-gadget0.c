@@ -35,28 +35,31 @@
 #define ER_DEBUG
 #ifdef ER_DEBUG
 #include <stdio.h>
-#define ER_DPRINTF(fmt, ...) \
-	do { printf(fmt, ## __VA_ARGS__); } while (0)
+#define ER_DPRINTF(fmt, ...)        \
+	do {                            \
+		printf(fmt, ##__VA_ARGS__); \
+	} while (0)
 #else
 #define ER_DPRINTF(fmt, ...) \
-	do { } while (0)
+	do {                     \
+	} while (0)
 #endif
 
 /*
  * USB Vendor:Interface control requests.
  */
-#define GZ_REQ_SET_PATTERN	1
-#define GZ_REQ_PRODUCE		2
-#define GZ_REQ_SET_ALIGNED	3
-#define GZ_REQ_SET_UNALIGNED	4
-#define INTEL_COMPLIANCE_WRITE 0x5b
-#define INTEL_COMPLIANCE_READ 0x5c
+#define GZ_REQ_SET_PATTERN     1U
+#define GZ_REQ_PRODUCE         2U
+#define GZ_REQ_SET_ALIGNED     3U
+#define GZ_REQ_SET_UNALIGNED   4U
+#define INTEL_COMPLIANCE_WRITE 0x5bU
+#define INTEL_COMPLIANCE_READ  0x5cU
 
 /* USB configurations */
-#define GZ_CFG_SOURCESINK	2
-#define GZ_CFG_LOOPBACK		3
+#define GZ_CFG_SOURCESINK 2U
+#define GZ_CFG_LOOPBACK   3U
 
-#define BULK_EP_MAXPACKET	64
+#define BULK_EP_MAXPACKET 64U
 
 #define MICROSOFT_DESCRIPTOR_SETS 1U
 
@@ -127,7 +130,7 @@ static const struct usb_interface_descriptor iface_sourcesink[] = {
 		.bInterfaceClass = USB_CLASS_VENDOR,
 		.iInterface = 0,
 		.endpoint = endp_bulk,
-	}
+	},
 };
 
 static const struct usb_interface_descriptor iface_loopback[] = {
@@ -140,21 +143,21 @@ static const struct usb_interface_descriptor iface_loopback[] = {
 		.bInterfaceClass = USB_CLASS_VENDOR,
 		.iInterface = 0,
 		.endpoint = endp_bulk,
-	}
+	},
 };
 
 static const struct usb_interface ifaces_sourcesink[] = {
 	{
 		.num_altsetting = 1,
 		.altsetting = iface_sourcesink,
-	}
+	},
 };
 
 static const struct usb_interface ifaces_loopback[] = {
 	{
 		.num_altsetting = 1,
 		.altsetting = iface_loopback,
-	}
+	},
 };
 
 static const struct usb_config_descriptor config[] = {
@@ -179,7 +182,7 @@ static const struct usb_config_descriptor config[] = {
 		.bmAttributes = 0x80,
 		.bMaxPower = 0x32,
 		.interface = ifaces_loopback,
-	}
+	},
 };
 
 static const struct {
@@ -236,9 +239,9 @@ static const microsoft_os_descriptor_set_header microsoft_os_descriptor_sets[MIC
 
 static const microsoft_os_descriptor_set_information microsoft_os_descriptor_set_info = {
 	.dwWindowsVersion = MICROSOFT_WINDOWS_VERSION_WINBLUE,
-	.wMSOSDescriptorSetTotalLength =
-		MICROSOFT_OS_DESCRIPTOR_SET_HEADER_SIZE + MICROSOFT_OS_DESCRIPTOR_CONFIG_SUBSET_HEADER_SIZE +
-		MICROSOFT_OS_DESCRIPTOR_FUNCTION_SUBSET_HEADER_SIZE + MICROSOFT_OS_FEATURE_COMPATIBLE_ID_DESCRIPTOR_SIZE,
+	.wMSOSDescriptorSetTotalLength = MICROSOFT_OS_DESCRIPTOR_SET_HEADER_SIZE +
+		MICROSOFT_OS_DESCRIPTOR_CONFIG_SUBSET_HEADER_SIZE + MICROSOFT_OS_DESCRIPTOR_FUNCTION_SUBSET_HEADER_SIZE +
+		MICROSOFT_OS_FEATURE_COMPATIBLE_ID_DESCRIPTOR_SIZE,
 	.bMS_VendorCode = 1,
 	.bAltEnumCode = 0,
 };
@@ -276,18 +279,18 @@ static const char *usb_strings[] = {
 	"Gadget-Zero",
 	serial,
 	"source and sink data",
-	"loop input to output"
+	"loop input to output",
 };
 
 /* Buffer to be used for control requests. */
-static uint8_t usbd_control_buffer[5*BULK_EP_MAXPACKET];
+static uint8_t usbd_control_buffer[5U * BULK_EP_MAXPACKET];
 static usbd_device *our_dev;
 
 /* Private global for state */
 static struct {
 	uint8_t pattern;
 	int pattern_counter;
-	int test_unaligned;	/* If 0 (default), use 16-bit aligned buffers. This should not be declared as bool */
+	int test_unaligned; /* If 0 (default), use 16-bit aligned buffers. This should not be declared as bool */
 } state = {
 	.pattern = 0,
 	.pattern_counter = 0,
@@ -296,11 +299,11 @@ static struct {
 
 static void gadget0_ss_out_cb(usbd_device *usbd_dev, uint8_t ep)
 {
-	(void) ep;
+	(void)ep;
 	uint16_t x;
 	/* TODO - if you're really keen, perf test this. tiva implies it matters */
 	/* char buf[64] __attribute__ ((aligned(4))); */
-	uint8_t buf[BULK_EP_MAXPACKET + 1] __attribute__ ((aligned(2)));
+	uint8_t buf[BULK_EP_MAXPACKET + 1] __attribute__((aligned(2)));
 	uint8_t *dest;
 
 	trace_send_blocking8(0, 'O');
@@ -315,8 +318,8 @@ static void gadget0_ss_out_cb(usbd_device *usbd_dev, uint8_t ep)
 
 static void gadget0_ss_in_cb(usbd_device *usbd_dev, uint8_t ep)
 {
-	(void) usbd_dev;
-	uint8_t buf[BULK_EP_MAXPACKET + 1] __attribute__ ((aligned(2)));
+	(void)usbd_dev;
+	uint8_t buf[BULK_EP_MAXPACKET + 1] __attribute__((aligned(2)));
 	uint8_t *src;
 
 	trace_send_blocking8(0, 'I');
@@ -348,7 +351,7 @@ static void gadget0_ss_in_cb(usbd_device *usbd_dev, uint8_t ep)
 
 static void gadget0_in_cb_loopback(usbd_device *usbd_dev, uint8_t ep)
 {
-	(void) usbd_dev;
+	(void)usbd_dev;
 	ER_DPRINTF("loop IN %x\n", ep);
 	/* Nothing to do here, basically just indicates they read us. */
 }
@@ -362,18 +365,14 @@ static void gadget0_out_cb_loopback(usbd_device *usbd_dev, uint8_t ep)
 	ER_DPRINTF("loop OUT %x got %d => %d\n", ep, x, y);
 }
 
-static enum usbd_request_return_codes gadget0_control_request(usbd_device *usbd_dev,
-	struct usb_setup_data *req,
-	uint8_t **buf,
-	uint16_t *len,
-	usbd_control_complete_callback *complete)
+static enum usbd_request_return_codes gadget0_control_request(usbd_device *usbd_dev, struct usb_setup_data *req,
+	uint8_t **buf, uint16_t *len, usbd_control_complete_callback *complete)
 {
-	(void) usbd_dev;
-	(void) complete;
-	(void) buf;
-	ER_DPRINTF("ctrl breq: %x, bmRT: %x, windex :%x, wlen: %x, wval :%x\n",
-		req->bRequest, req->bmRequestType, req->wIndex, req->wLength,
-		req->wValue);
+	(void)usbd_dev;
+	(void)complete;
+	(void)buf;
+	ER_DPRINTF("ctrl breq: %x, bmRT: %x, windex :%x, wlen: %x, wval :%x\n", req->bRequest, req->bmRequestType,
+		req->wIndex, req->wLength, req->wValue);
 
 	/* TODO - what do the return values mean again? */
 	switch (req->bRequest) {
@@ -383,7 +382,7 @@ static enum usbd_request_return_codes gadget0_control_request(usbd_device *usbd_
 		return USBD_REQ_HANDLED;
 	case INTEL_COMPLIANCE_WRITE:
 		/* accept correctly formed ctrl writes */
-		if (req->bmRequestType != (USB_REQ_TYPE_VENDOR|USB_REQ_TYPE_INTERFACE)) {
+		if (req->bmRequestType != (USB_REQ_TYPE_VENDOR | USB_REQ_TYPE_INTERFACE)) {
 			return USBD_REQ_NOTSUPP;
 		}
 		if (req->wValue || req->wIndex) {
@@ -395,7 +394,7 @@ static enum usbd_request_return_codes gadget0_control_request(usbd_device *usbd_
 		/* ok, mark it as accepted. */
 		return USBD_REQ_HANDLED;
 	case INTEL_COMPLIANCE_READ:
-		if (req->bmRequestType != (USB_REQ_TYPE_IN|USB_REQ_TYPE_VENDOR|USB_REQ_TYPE_INTERFACE)) {
+		if (req->bmRequestType != (USB_REQ_TYPE_IN | USB_REQ_TYPE_VENDOR | USB_REQ_TYPE_INTERFACE)) {
 			return USBD_REQ_NOTSUPP;
 		}
 		if (req->wValue || req->wIndex) {
@@ -441,15 +440,10 @@ static void gadget0_set_config(usbd_device *usbd_dev, uint16_t wValue)
 	switch (wValue) {
 	case GZ_CFG_SOURCESINK:
 		state.test_unaligned = 0;
-		usbd_ep_setup(usbd_dev, 0x01, USB_ENDPOINT_ATTR_BULK, BULK_EP_MAXPACKET,
-			gadget0_ss_out_cb);
-		usbd_ep_setup(usbd_dev, 0x81, USB_ENDPOINT_ATTR_BULK, BULK_EP_MAXPACKET,
-			gadget0_ss_in_cb);
-		usbd_register_control_callback(
-			usbd_dev,
-			USB_REQ_TYPE_VENDOR | USB_REQ_TYPE_INTERFACE,
-			USB_REQ_TYPE_TYPE | USB_REQ_TYPE_RECIPIENT,
-			gadget0_control_request);
+		usbd_ep_setup(usbd_dev, 0x01, USB_ENDPOINT_ATTR_BULK, BULK_EP_MAXPACKET, gadget0_ss_out_cb);
+		usbd_ep_setup(usbd_dev, 0x81, USB_ENDPOINT_ATTR_BULK, BULK_EP_MAXPACKET, gadget0_ss_in_cb);
+		usbd_register_control_callback(usbd_dev, USB_REQ_TYPE_VENDOR | USB_REQ_TYPE_INTERFACE,
+			USB_REQ_TYPE_TYPE | USB_REQ_TYPE_RECIPIENT, gadget0_control_request);
 		/* Prime source for IN data. */
 		gadget0_ss_in_cb(usbd_dev, 0x81);
 		break;
@@ -460,14 +454,10 @@ static void gadget0_set_config(usbd_device *usbd_dev, uint16_t wValue)
 		 * so we can test for overrunning our memory space, if that's a
 		 * concern on the usb peripheral.
 		 */
-		usbd_ep_setup(usbd_dev, 0x01, USB_ENDPOINT_ATTR_BULK, BULK_EP_MAXPACKET,
-			gadget0_out_cb_loopback);
-		usbd_ep_setup(usbd_dev, 0x02, USB_ENDPOINT_ATTR_BULK, BULK_EP_MAXPACKET,
-			gadget0_out_cb_loopback);
-		usbd_ep_setup(usbd_dev, 0x81, USB_ENDPOINT_ATTR_BULK, BULK_EP_MAXPACKET,
-			gadget0_in_cb_loopback);
-		usbd_ep_setup(usbd_dev, 0x82, USB_ENDPOINT_ATTR_BULK, BULK_EP_MAXPACKET,
-			gadget0_in_cb_loopback);
+		usbd_ep_setup(usbd_dev, 0x01, USB_ENDPOINT_ATTR_BULK, BULK_EP_MAXPACKET, gadget0_out_cb_loopback);
+		usbd_ep_setup(usbd_dev, 0x02, USB_ENDPOINT_ATTR_BULK, BULK_EP_MAXPACKET, gadget0_out_cb_loopback);
+		usbd_ep_setup(usbd_dev, 0x81, USB_ENDPOINT_ATTR_BULK, BULK_EP_MAXPACKET, gadget0_in_cb_loopback);
+		usbd_ep_setup(usbd_dev, 0x82, USB_ENDPOINT_ATTR_BULK, BULK_EP_MAXPACKET, gadget0_in_cb_loopback);
 		break;
 	default:
 		ER_DPRINTF("set configuration unknown: %d\n", wValue);
@@ -482,9 +472,8 @@ usbd_device *gadget0_init(const usbd_driver *driver, const char *userserial)
 	if (userserial) {
 		usb_strings[2] = userserial;
 	}
-	our_dev = usbd_init(driver, &dev, config,
-		usb_strings, ARRAY_LENGTH(usb_strings),
-		usbd_control_buffer, sizeof(usbd_control_buffer));
+	our_dev = usbd_init(
+		driver, &dev, config, usb_strings, ARRAY_LENGTH(usb_strings), usbd_control_buffer, sizeof(usbd_control_buffer));
 
 	usbd_register_bos_descriptor(our_dev, &bos);
 	microsoft_os_register_descriptor_sets(our_dev, microsoft_os_descriptor_sets, MICROSOFT_DESCRIPTOR_SETS);
