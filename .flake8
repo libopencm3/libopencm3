@@ -1,0 +1,36 @@
+[flake8]
+
+exclude =
+	.git,
+	__pycache__,
+	.eggs,
+	build,
+
+max-line-length = 120
+indent-size = 1
+statistics = True
+ignore =
+	E101,
+	E124,
+	E126,
+	E128,
+	E131,
+	E201,
+	E202,
+	E203,
+	E221,
+	E226,
+	E241,
+	E251,
+	E261,
+	E262,
+	E272,
+	E302,
+	E303,
+	E305,
+	E401,
+	E402,
+	F403,
+	F405,
+	W191,
+	W504
