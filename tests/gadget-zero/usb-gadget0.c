@@ -344,7 +344,7 @@ static void gadget0_ss_in_cb(usbd_device *usbd_dev, uint8_t ep)
 	/* As we are calling write in the callback, this should never fail */
 	trace_send_blocking8(2, x);
 	if (x != BULK_EP_MAXPACKET) {
-		ER_DPRINTF("failed to write?: %d\n", x);
+		ER_DPRINTF("failed to write?: %u\n", x);
 	}
 	/*assert(x == sizeof(buf));*/
 }
@@ -360,9 +360,9 @@ static void gadget0_out_cb_loopback(usbd_device *usbd_dev, uint8_t ep)
 {
 	uint8_t buf[BULK_EP_MAXPACKET];
 	/* Copy data we received on OUT ep back to the paired IN ep */
-	int x = usbd_ep_read_packet(usbd_dev, ep, buf, BULK_EP_MAXPACKET);
-	int y = usbd_ep_write_packet(usbd_dev, 0x80 | ep, buf, x);
-	ER_DPRINTF("loop OUT %x got %d => %d\n", ep, x, y);
+	uint16_t x = usbd_ep_read_packet(usbd_dev, ep, buf, BULK_EP_MAXPACKET);
+	uint16_t y = usbd_ep_write_packet(usbd_dev, 0x80 | ep, buf, x);
+	ER_DPRINTF("loop OUT %x got %u => %u\n", ep, x, y);
 }
 
 static enum usbd_request_return_codes gadget0_control_request(usbd_device *usbd_dev, struct usb_setup_data *req,
@@ -371,7 +371,7 @@ static enum usbd_request_return_codes gadget0_control_request(usbd_device *usbd_
 	(void)usbd_dev;
 	(void)complete;
 	(void)buf;
-	ER_DPRINTF("ctrl breq: %x, bmRT: %x, windex :%x, wlen: %x, wval :%x\n", req->bRequest, req->bmRequestType,
+	ER_DPRINTF("ctrl req: %x, reqType: %x, index: %x, len: %x, val: %x\n", req->bRequest, req->bmRequestType,
 		req->wIndex, req->wLength, req->wValue);
 
 	/* TODO - what do the return values mean again? */
@@ -413,10 +413,9 @@ static enum usbd_request_return_codes gadget0_control_request(usbd_device *usbd_
 		state.test_unaligned = 0;
 		return USBD_REQ_HANDLED;
 	case GZ_REQ_PRODUCE:
-		ER_DPRINTF("fake loopback of %d\n", req->wValue);
+		ER_DPRINTF("fake loopback of %u\n", req->wValue);
 		if (req->wValue > sizeof(usbd_control_buffer)) {
-			ER_DPRINTF("Can't write more than out control buffer! %d > %d\n",
-				req->wValue, sizeof(usbd_control_buffer));
+			ER_DPRINTF("Can't write more than out control buffer! %u > %u\n", req->wValue, sizeof(usbd_control_buffer));
 			return USBD_REQ_NOTSUPP;
 		}
 		/* Don't produce more than asked for! */
@@ -436,7 +435,7 @@ static enum usbd_request_return_codes gadget0_control_request(usbd_device *usbd_
 
 static void gadget0_set_config(usbd_device *usbd_dev, uint16_t wValue)
 {
-	ER_DPRINTF("set cfg %d\n", wValue);
+	ER_DPRINTF("set cfg %u\n", wValue);
 	switch (wValue) {
 	case GZ_CFG_SOURCESINK:
 		state.test_unaligned = 0;
@@ -460,7 +459,7 @@ static void gadget0_set_config(usbd_device *usbd_dev, uint16_t wValue)
 		usbd_ep_setup(usbd_dev, 0x82, USB_ENDPOINT_ATTR_BULK, BULK_EP_MAXPACKET, gadget0_in_cb_loopback);
 		break;
 	default:
-		ER_DPRINTF("set configuration unknown: %d\n", wValue);
+		ER_DPRINTF("set configuration unknown: %u\n", wValue);
 	}
 }
 
