@@ -15,8 +15,8 @@ import random
 import usb.core
 import usb.control
 import usb.util as uu
-import random
-import sys
+from typing import Generator
+from usb.core import Device
 
 import unittest
 
@@ -73,8 +73,10 @@ class TestGadget0(unittest.TestCase):
     # TODO - parameterize this with serial numbers so we can find
     # gadget 0 code for different devices.  (or use different PIDs?)
     def setUp(self):
-        self.dev = usb.core.find(idVendor=VENDOR_ID, idProduct=PRODUCT_ID, custom_match=find_by_serial(DUT_SERIAL))
-        self.assertIsNotNone(self.dev, "Couldn't find locm3 gadget0 device")
+        dev = usb.core.find(idVendor=VENDOR_ID, idProduct=PRODUCT_ID, custom_match=find_by_serial(DUT_SERIAL))
+        self.assertIsNotNone(dev, "Couldn't find locm3 gadget0 device")
+        assert dev is not None and not isinstance(dev, Generator)
+        self.dev = dev
         self.longMessage = True
 
     def tearDown(self):
@@ -122,12 +124,16 @@ class TestIntelCompliance(unittest.TestCase):
     """
     Part of intel's usb 2.0 compliance is writing and reading back control transfers
     """
+
     def setUp(self):
-        self.dev = usb.core.find(idVendor=VENDOR_ID, idProduct=PRODUCT_ID, custom_match=find_by_serial(DUT_SERIAL))
-        self.assertIsNotNone(self.dev, "Couldn't find locm3 gadget0 device")
+        dev = usb.core.find(idVendor=VENDOR_ID, idProduct=PRODUCT_ID, custom_match=find_by_serial(DUT_SERIAL))
+        self.assertIsNotNone(dev, "Couldn't find locm3 gadget0 device")
+        assert dev is not None and not isinstance(dev, Generator)
+        self.dev = dev
 
         self.cfg = uu.find_descriptor(self.dev, bConfigurationValue=2)
         self.assertIsNotNone(self.cfg, "Config 2 should exist")
+        assert self.cfg is not None and not isinstance(self.cfg, Generator)
         self.dev.set_configuration(self.cfg)
 
     def tearDown(self):
@@ -160,11 +166,14 @@ class TestConfigSourceSink(unittest.TestCase):
     """
 
     def setUp(self):
-        self.dev = usb.core.find(idVendor=VENDOR_ID, idProduct=PRODUCT_ID, custom_match=find_by_serial(DUT_SERIAL))
-        self.assertIsNotNone(self.dev, "Couldn't find locm3 gadget0 device")
+        dev = usb.core.find(idVendor=VENDOR_ID, idProduct=PRODUCT_ID, custom_match=find_by_serial(DUT_SERIAL))
+        self.assertIsNotNone(dev, "Couldn't find locm3 gadget0 device")
+        assert dev is not None and not isinstance(dev, Generator)
+        self.dev = dev
 
         self.cfg = uu.find_descriptor(self.dev, bConfigurationValue=2)
         self.assertIsNotNone(self.cfg, "Config 2 should exist")
+        assert self.cfg is not None and not isinstance(self.cfg, Generator)
         self.dev.set_configuration(self.cfg)
         self.intf = self.cfg[(0, 0)]
         # heh, kinda gross...
@@ -258,11 +267,14 @@ class TestConfigLoopBack(unittest.TestCase):
     """
 
     def setUp(self):
-        self.dev = usb.core.find(idVendor=VENDOR_ID, idProduct=PRODUCT_ID, custom_match=find_by_serial(DUT_SERIAL))
-        self.assertIsNotNone(self.dev, "Couldn't find locm3 gadget0 device")
+        dev = usb.core.find(idVendor=VENDOR_ID, idProduct=PRODUCT_ID, custom_match=find_by_serial(DUT_SERIAL))
+        self.assertIsNotNone(dev, "Couldn't find locm3 gadget0 device")
+        assert dev is not None and not isinstance(dev, Generator)
+        self.dev = dev
 
         self.cfg = uu.find_descriptor(self.dev, bConfigurationValue=3)
         self.assertIsNotNone(self.cfg, "Config 3 should exist")
+        assert self.cfg is not None and not isinstance(self.cfg, Generator)
         self.dev.set_configuration(self.cfg)
         self.intf = self.cfg[(0, 0)]
         # heh, kinda gross...
@@ -330,11 +342,14 @@ class TestConfigSourceSinkPerformance(unittest.TestCase):
     """
 
     def setUp(self):
-        self.dev = usb.core.find(idVendor=VENDOR_ID, idProduct=PRODUCT_ID, custom_match=find_by_serial(DUT_SERIAL))
-        self.assertIsNotNone(self.dev, "Couldn't find locm3 gadget0 device")
+        dev = usb.core.find(idVendor=VENDOR_ID, idProduct=PRODUCT_ID, custom_match=find_by_serial(DUT_SERIAL))
+        self.assertIsNotNone(dev, "Couldn't find locm3 gadget0 device")
+        assert dev is not None and not isinstance(dev, Generator)
+        self.dev = dev
 
         self.cfg = uu.find_descriptor(self.dev, bConfigurationValue=2)
         self.assertIsNotNone(self.cfg, "Config 2 should exist")
+        assert self.cfg is not None and not isinstance(self.cfg, Generator)
         self.dev.set_configuration(self.cfg)
         self.intf = self.cfg[(0, 0)]
         # heh, kinda gross...
@@ -381,11 +396,14 @@ class TestControlTransfer_Reads(unittest.TestCase):
     """
 
     def setUp(self):
-        self.dev = usb.core.find(idVendor=VENDOR_ID, idProduct=PRODUCT_ID, custom_match=find_by_serial(DUT_SERIAL))
-        self.assertIsNotNone(self.dev, "Couldn't find locm3 gadget0 device")
+        dev = usb.core.find(idVendor=VENDOR_ID, idProduct=PRODUCT_ID, custom_match=find_by_serial(DUT_SERIAL))
+        self.assertIsNotNone(dev, "Couldn't find locm3 gadget0 device")
+        assert dev is not None and not isinstance(dev, Generator)
+        self.dev = dev
 
         self.cfg = uu.find_descriptor(self.dev, bConfigurationValue=2)
         self.assertIsNotNone(self.cfg, "Config 2 should exist")
+        assert self.cfg is not None and not isinstance(self.cfg, Generator)
         self.dev.set_configuration(self.cfg)
         self.req = uu.CTRL_IN | uu.CTRL_TYPE_VENDOR | uu.CTRL_RECIPIENT_INTERFACE
 
@@ -481,11 +499,14 @@ class TestUnaligned(unittest.TestCase):
     """
 
     def setUp(self):
-        self.dev = usb.core.find(idVendor=VENDOR_ID, idProduct=PRODUCT_ID, custom_match=find_by_serial(DUT_SERIAL))
-        self.assertIsNotNone(self.dev, "Couldn't find locm3 gadget0 device")
+        dev = usb.core.find(idVendor=VENDOR_ID, idProduct=PRODUCT_ID, custom_match=find_by_serial(DUT_SERIAL))
+        self.assertIsNotNone(dev, "Couldn't find locm3 gadget0 device")
+        assert dev is not None and not isinstance(dev, Generator)
+        self.dev = dev
 
         self.cfg = uu.find_descriptor(self.dev, bConfigurationValue=2)
         self.assertIsNotNone(self.cfg, "Config 2 should exist")
+        assert self.cfg is not None and not isinstance(self.cfg, Generator)
         self.dev.set_configuration(self.cfg);
         self.req = uu.CTRL_OUT | uu.CTRL_TYPE_VENDOR | uu.CTRL_RECIPIENT_INTERFACE
         self.intf = self.cfg[(0, 0)]
@@ -530,15 +551,17 @@ class TestBOSDescriptor(unittest.TestCase):
     Make sure the stack correctly handles a request for the BOS descriptor, and discards invalid BOS requests
     """
 
-    def setUp(self):
-        self.dev : usb.core.Device = usb.core.find(idVendor=VENDOR_ID, idProduct=PRODUCT_ID, custom_match=find_by_serial(DUT_SERIAL))
-        self.assertIsNotNone(self.dev, "Couldn't find locm3 gadget0 device")
+    def setUp(self) -> None:
+        dev = usb.core.find(idVendor=VENDOR_ID, idProduct=PRODUCT_ID, custom_match=find_by_serial(DUT_SERIAL))
+        self.assertIsNotNone(dev, "Couldn't find locm3 gadget0 device")
+        assert dev is not None and not isinstance(dev, Generator)
+        self.dev = dev
 
-    def tearDown(self):
+    def tearDown(self) -> None:
         uu.dispose_resources(self.dev)
 
-    def test_partial_request(self):
-        bos : bytes = usb.control.get_descriptor(self.dev, 5, DESC_TYPE_BOS, 0).tobytes()
+    def test_partial_request(self) -> None:
+        bos: bytes = usb.control.get_descriptor(self.dev, 5, DESC_TYPE_BOS, 0).tobytes()
         self.assertEqual(len(bos), 5)
         # Check the BOS descriptor returned is valid
         self.assertEqual(bos[0], 5)
@@ -549,8 +572,8 @@ class TestBOSDescriptor(unittest.TestCase):
         self.assertNotEqual(bos_total_length, 0)
         self.assertEqual(bos_total_length, 33)
 
-    def test_complete_request(self):
-        bos : bytes = usb.control.get_descriptor(self.dev, 33, DESC_TYPE_BOS, 0).tobytes()
+    def test_complete_request(self) -> None:
+        bos: bytes = usb.control.get_descriptor(self.dev, 33, DESC_TYPE_BOS, 0).tobytes()
         self.assertEqual(len(bos), 33)
         # Check the BOS descriptor returned is valid
         self.assertEqual(bos[0], 5)
@@ -569,15 +592,17 @@ class TestBOSDescriptor(unittest.TestCase):
 
         # The PCD is followed by a Microsoft OS Descriptor Set Info descriptor
         descriptor_set_info = platform_capability[20:]
-        windows_version = (descriptor_set_info[0] | (descriptor_set_info[1] << 8) |
-            (descriptor_set_info[2] << 16) | (descriptor_set_info[3] << 24))
+        windows_version = (
+            descriptor_set_info[0] | (descriptor_set_info[1] << 8) |
+            (descriptor_set_info[2] << 16) | (descriptor_set_info[3] << 24)
+        )
         self.assertEqual(windows_version, MICROSOFT_WINDOWS_VERSION_WINBLUE)
         total_length = descriptor_set_info[4] | (descriptor_set_info[5] << 8)
         self.assertNotEqual(total_length, 0)
         self.assertEqual(descriptor_set_info[6], 1)
         self.assertEqual(descriptor_set_info[7], 0)
 
-    def test_invalid_request(self):
+    def test_invalid_request(self) -> None:
         try:
             usb.control.get_descriptor(self.dev, 5, DESC_TYPE_BOS, 1)
             self.fail("get_descriptor() for an invalid BOS request suceeded")
@@ -594,8 +619,10 @@ class TestMicrosoftOSDescriptors(unittest.TestCase):
     """
 
     def setUp(self):
-        self.dev : usb.core.Device = usb.core.find(idVendor=VENDOR_ID, idProduct=PRODUCT_ID, custom_match=find_by_serial(DUT_SERIAL))
-        self.assertIsNotNone(self.dev, "Couldn't find locm3 gadget0 device")
+        dev = usb.core.find(idVendor=VENDOR_ID, idProduct=PRODUCT_ID, custom_match=find_by_serial(DUT_SERIAL))
+        self.assertIsNotNone(dev, "Couldn't find locm3 gadget0 device")
+        assert dev is not None and not isinstance(dev, Generator)
+        self.dev = dev
 
     def tearDown(self):
         uu.dispose_resources(self.dev)
