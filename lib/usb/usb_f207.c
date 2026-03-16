@@ -2,6 +2,8 @@
  * This file is part of the libopencm3 project.
  *
  * Copyright (C) 2011 Gareth McMullin <gareth@blacksphere.co.nz>
+ * Copyright (C) 2026 1BitSquared <info@1bitsquared.com>
+ * Modified by Rachel Mant <git@dragonmux.network>
  *
  * This library is free software: you can redistribute it and/or modify
  * it under the terms of the GNU Lesser General Public License as published by
@@ -27,8 +29,13 @@
 #include "usb_private.h"
 #include "usb_dwc_common.h"
 
-/* Receive FIFO size in 32-bit words. */
-#define RX_FIFO_SIZE 512
+/*
+ * Receive FIFO size in 32-bit words.
+ * We reserve first 4*n + 4 u32's for SETUP packets, where n is the number of endpoints total (4).
+ * Next, we reserve our max packet size (64) / 4 + 1 for general packet storage, and an additional
+ * one slot for the completion notification. This gives (4 * 4) + (64 / 4) + 6 = 16 + 16 + 6 = 38
+ */
+#define RX_FIFO_SIZE 38U /* 152 bytes */
 
 static usbd_device *stm32f207_usbd_init(void);
 
