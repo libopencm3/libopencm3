@@ -228,7 +228,8 @@ uint16_t dwc_ep_write_packet(
 {
 	const uint8_t ep = endpoint_address & 0x7fU;
 	/* Return if endpoint is already enabled */
-	if ((REBASE(OTG_DIEPCTL(ep)) & (OTG_DIEPCTL0_EPENA | OTG_DIEPCTL0_NAKSTS)) == OTG_DIEPCTL0_EPENA) {
+	if ((REBASE(OTG_DIEPCTL(ep)) & (OTG_DIEPCTL0_EPENA | OTG_DIEPCTL0_EPDIS | OTG_DIEPCTL0_NAKSTS)) ==
+		OTG_DIEPCTL0_EPENA) {
 		return 0U;
 	}
 	/* If it's still enabled but being NAK'd, flush FIFO and reset */
