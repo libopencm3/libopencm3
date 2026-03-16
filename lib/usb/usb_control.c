@@ -166,7 +166,7 @@ static void usb_control_setup_read(usbd_device *usbd_dev, struct usb_setup_data 
 	usbd_dev->control_state.ctrl_buf = usbd_dev->ctrl_buf;
 	usbd_dev->control_state.ctrl_len = req->wLength;
 
-	if (usb_control_request_dispatch(usbd_dev, req)) {
+	if (usb_control_request_dispatch(usbd_dev, req) != USBD_REQ_NOTSUPP) {
 		if (req->wLength) {
 			usbd_dev->control_state.needs_zlp =
 				needs_zlp(usbd_dev->control_state.ctrl_len, req->wLength, usbd_dev->desc->bMaxPacketSize0);
@@ -215,7 +215,7 @@ void _usbd_control_setup(usbd_device *usbd_dev, uint8_t ep)
 
 	usbd_ep_nak_set(usbd_dev, 0, 1);
 
-	if (req->wLength == 0 || (req->bmRequestType & USB_REQ_TYPE_DIRECTION) == USB_REQ_TYPE_IN) {
+	if (req->wLength == 0U || (req->bmRequestType & USB_REQ_TYPE_DIRECTION) == USB_REQ_TYPE_IN) {
 		usb_control_setup_read(usbd_dev, req);
 	} else {
 		usb_control_setup_write(usbd_dev, req);
@@ -244,7 +244,7 @@ void _usbd_control_out(usbd_device *usbd_dev, uint8_t ep)
 		 * We have now received the full data payload.
 		 * Invoke callback to process.
 		 */
-		if (usb_control_request_dispatch(usbd_dev, &usbd_dev->control_state.req)) {
+		if (usb_control_request_dispatch(usbd_dev, &usbd_dev->control_state.req) != USBD_REQ_NOTSUPP) {
 			/* Go to status stage on success. */
 			usbd_ep_write_packet(usbd_dev, 0, NULL, 0);
 			usbd_dev->control_state.state = STATUS_IN;
