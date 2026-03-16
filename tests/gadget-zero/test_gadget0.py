@@ -20,27 +20,27 @@ import sys
 
 import unittest
 
-VENDOR_ID=0xcafe
-PRODUCT_ID=0xcafe
+VENDOR_ID = 0xcafe
+PRODUCT_ID = 0xcafe
 
 # you only need to worry about these if you are trying to explicitly test
 # a single target.  Normally, the test will autofind the attached target
-DUT_SERIAL=None
-#DUT_SERIAL = "stm32f429i-disco"
-#DUT_SERIAL = "stm32f4disco"
-#DUT_SERIAL = "stm32f103-generic"
-#DUT_SERIAL = "stm32l1-generic"
-#DUT_SERIAL = "stm32f072disco"
-#DUT_SERIAL = "stm32l053disco"
+DUT_SERIAL = None
+# DUT_SERIAL = "stm32f429i-disco"
+# DUT_SERIAL = "stm32f4disco"
+# DUT_SERIAL = "stm32f103-generic"
+# DUT_SERIAL = "stm32l1-generic"
+# DUT_SERIAL = "stm32f072disco"
+# DUT_SERIAL = "stm32l053disco"
 
-GZ_REQ_SET_PATTERN=1
-GZ_REQ_PRODUCE=2
-GZ_REQ_SET_ALIGNED=3
-GZ_REQ_SET_UNALIGNED=4
-GZ_REQ_WRITE_LOOPBACK_BUFFER=10
-GZ_REQ_READ_LOOPBACK_BUFFER=11
-GZ_REQ_INTEL_WRITE=0x5b
-GZ_REQ_INTEL_READ=0x5c
+GZ_REQ_SET_PATTERN = 1
+GZ_REQ_PRODUCE = 2
+GZ_REQ_SET_ALIGNED = 3
+GZ_REQ_SET_UNALIGNED = 4
+GZ_REQ_WRITE_LOOPBACK_BUFFER = 10
+GZ_REQ_READ_LOOPBACK_BUFFER = 11
+GZ_REQ_INTEL_WRITE = 0x5b
+GZ_REQ_INTEL_READ = 0x5c
 
 DESC_TYPE_BOS = 0x0F
 DESC_TYPE_DEVICE_CAPABILITY = 0x10
