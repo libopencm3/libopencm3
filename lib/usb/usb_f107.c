@@ -27,8 +27,13 @@
 #include "usb_private.h"
 #include "usb_dwc_common.h"
 
-/* Receive FIFO size in 32-bit words. */
-#define RX_FIFO_SIZE 128
+/*
+ * Receive FIFO size in 32-bit words.
+ * We reserve first 4*n + 4 u32's for SETUP packets, where n is the number of endpoints total (4).
+ * Next, we reserve our max packet size (64) / 4 + 1 for general packet storage, and an additional
+ * one slot for the completion notification. This gives (4 * 4) + (64 / 4) + 6 = 16 + 16 + 6 = 38
+ */
+#define RX_FIFO_SIZE 38U /* 152 bytes */
 
 static usbd_device *stm32f107_usbd_init(void);
 
@@ -47,7 +52,7 @@ const struct _usbd_driver stm32f107_usb_driver = {
 	.poll = dwc_poll,
 	.disconnect = dwc_disconnect,
 	.base_address = USB_OTG_FS_BASE,
-	.set_address_before_status = 1,
+	.set_address_before_status = true,
 	.rx_fifo_size = RX_FIFO_SIZE,
 };
 
@@ -58,10 +63,12 @@ static usbd_device *stm32f107_usbd_init(void)
 	OTG_FS_GUSBCFG |= OTG_GUSBCFG_PHYSEL;
 
 	/* Wait for AHB idle. */
-	while (!(OTG_FS_GRSTCTL & OTG_GRSTCTL_AHBIDL));
+	while ((OTG_FS_GRSTCTL & OTG_GRSTCTL_AHBIDL) == 0U)
+		continue;
 	/* Do core soft reset. */
 	OTG_FS_GRSTCTL |= OTG_GRSTCTL_CSRST;
-	while (OTG_FS_GRSTCTL & OTG_GRSTCTL_CSRST);
+	while ((OTG_FS_GRSTCTL & OTG_GRSTCTL_CSRST) != 0U)
+		continue;
 
 	if (OTG_FS_CID >= OTG_CID_HAS_VBDEN) {
 		/* Enable VBUS detection in device mode and power up the PHY. */
@@ -84,18 +91,13 @@ static usbd_device *stm32f107_usbd_init(void)
 	/* Restart the PHY clock. */
 	OTG_FS_PCGCCTL = 0;
 
-	OTG_FS_GRXFSIZ = stm32f107_usb_driver.rx_fifo_size;
-	usbd_dev.fifo_mem_top = stm32f107_usb_driver.rx_fifo_size;
-
 	/* Unmask interrupts for TX and RX. */
 	OTG_FS_GAHBCFG |= OTG_GAHBCFG_GINT;
-	OTG_FS_GINTMSK = OTG_GINTMSK_ENUMDNEM |
-			 OTG_GINTMSK_RXFLVLM |
-			 OTG_GINTMSK_IEPINT |
-			 OTG_GINTMSK_USBSUSPM |
-			 OTG_GINTMSK_WUIM;
-	OTG_FS_DAINTMSK = 0xF;
+	OTG_FS_GINTMSK = OTG_GINTMSK_RXFLVLM | OTG_GINTMSK_USBSUSPM | OTG_GINTMSK_USBRST | OTG_GINTMSK_ENUMDNEM |
+		OTG_GINTMSK_IEPINT | OTG_GINTMSK_OEPINT | OTG_GINTMSK_WUIM;
+	OTG_FS_DAINTMSK = 0x000f000fU;
 	OTG_FS_DIEPMSK = OTG_DIEPMSK_XFRCM;
+	OTG_FS_DOEPMSK = OTG_DOEPMSK_STUPM | OTG_DOEPMSK_XFRCM;
 
 	return &usbd_dev;
 }
