@@ -122,7 +122,7 @@ class TestGadget0(unittest.TestCase):
 
 class TestIntelCompliance(unittest.TestCase):
     """
-    Part of intel's usb 2.0 compliance is writing and reading back control transfers
+    Part of Intel's USB 2.0 compliance is writing and reading back control transfers
     """
 
     def setUp(self):
@@ -142,13 +142,13 @@ class TestIntelCompliance(unittest.TestCase):
     def inner_t(self, mylen):
         data = [random.randrange(255) for x in range(mylen)]
         written = self.dev.ctrl_transfer(uu.CTRL_OUT | uu.CTRL_RECIPIENT_INTERFACE | uu.CTRL_TYPE_VENDOR, GZ_REQ_INTEL_WRITE, 0, 0, data)
-        self.assertEqual(written, len(data), "Should have written all bytes plz")
+        self.assertEqual(written, len(data), "Should have written all bytes please")
         # now. in _theory_ I should be able to make a bulk transfer here and have it not "interfere"
         # fixme - try this out?
         read = self.dev.ctrl_transfer(uu.CTRL_IN | uu.CTRL_RECIPIENT_INTERFACE | uu.CTRL_TYPE_VENDOR, GZ_REQ_INTEL_READ, 0, 0, mylen)
         self.assertEqual(mylen, len(read))
         expected = array.array('B', [x for x in data])
-        self.assertEqual(expected, read, "should have read back what we wrote")
+        self.assertEqual(expected, read, "Should have read back what we wrote")
 
     def test_ctrl_loopbacks(self):
         self.inner_t(0)
@@ -286,11 +286,11 @@ class TestConfigLoopBack(unittest.TestCase):
 
     def _inner_basic(self, ep_out, ep_in, data):
         written = self.dev.write(ep_out, data)
-        self.assertEqual(written, len(data), "Should have written all bytes plz")
+        self.assertEqual(written, len(data), "Should have written all bytes")
         read = self.dev.read(ep_in, len(data))
         self.assertEqual(len(data), len(read))
         expected = array.array('B', [x for x in data])
-        self.assertEqual(expected, read, "should have read back what we wrote")
+        self.assertEqual(expected, read, "Should have read back what we wrote")
 
     def test_simple_loop(self):
         """Plain simple loopback, does it work at all"""
@@ -311,7 +311,7 @@ class TestConfigLoopBack(unittest.TestCase):
 
     def test_dual_loop_back_to_back(self):
         """
-        write to both, _before_ we read back...
+        Write to both, _before_ we read back...
         This can expose problems with buffer management
         """
         dlen = self.eps_out[0].wMaxPacketSize
@@ -329,10 +329,10 @@ class TestConfigLoopBack(unittest.TestCase):
         ]
 
         for w, r, dat in zip(written, read, data):
-            self.assertEqual(w, len(dat), "Should have written all bytes plz")
+            self.assertEqual(w, len(dat), "Should have written all bytes")
             self.assertEqual(len(dat), len(r), "Should have read back same size")
             expected = array.array('B', [x for x in dat])
-            self.assertEqual(expected, r, "should have read back what we wrote")
+            self.assertEqual(expected, r, "Should have read back what we wrote")
 
 
 @unittest.skip("Perf tests only on demand (comment this line!)")
