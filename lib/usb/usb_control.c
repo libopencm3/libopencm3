@@ -136,8 +136,8 @@ static enum usbd_request_return_codes usb_control_request_dispatch(usbd_device *
 		}
 
 		if ((req->bmRequestType & cb[i].type_mask) == cb[i].type) {
-			const enum usbd_request_return_codes result = cb[i].cb(usbd_dev, req, &(usbd_dev->control_state.ctrl_buf),
-				&(usbd_dev->control_state.ctrl_len), &(usbd_dev->control_state.complete));
+			const enum usbd_request_return_codes result = cb[i].cb(usbd_dev, req, &usbd_dev->control_state.ctrl_buf,
+				&usbd_dev->control_state.ctrl_len, &usbd_dev->control_state.complete);
 			if (result == USBD_REQ_HANDLED || result == USBD_REQ_NOTSUPP) {
 				return result;
 			}
@@ -150,15 +150,14 @@ static enum usbd_request_return_codes usb_control_request_dispatch(usbd_device *
 		(req->bmRequestType & (USB_REQ_TYPE_TYPE | USB_REQ_TYPE_RECIPIENT)) ==
 			(USB_REQ_TYPE_VENDOR | USB_REQ_TYPE_DEVICE)) {
 		const enum usbd_request_return_codes result = usbd_dev->microsoft_os_req_callback(
-			usbd_dev, req, &(usbd_dev->control_state.ctrl_buf), &(usbd_dev->control_state.ctrl_len));
+			usbd_dev, req, &usbd_dev->control_state.ctrl_buf, &usbd_dev->control_state.ctrl_len);
 		if (result == USBD_REQ_HANDLED || result == USBD_REQ_NOTSUPP) {
 			return result;
 		}
 	}
 
 	/* Try standard request if not already handled. */
-	return _usbd_standard_request(
-		usbd_dev, req, &(usbd_dev->control_state.ctrl_buf), &(usbd_dev->control_state.ctrl_len));
+	return _usbd_standard_request(usbd_dev, req, &usbd_dev->control_state.ctrl_buf, &usbd_dev->control_state.ctrl_len);
 }
 
 /* Handle commands and read requests. */
@@ -245,7 +244,7 @@ void _usbd_control_out(usbd_device *usbd_dev, uint8_t ep)
 		 * We have now received the full data payload.
 		 * Invoke callback to process.
 		 */
-		if (usb_control_request_dispatch(usbd_dev, &(usbd_dev->control_state.req))) {
+		if (usb_control_request_dispatch(usbd_dev, &usbd_dev->control_state.req)) {
 			/* Go to status stage on success. */
 			usbd_ep_write_packet(usbd_dev, 0, NULL, 0);
 			usbd_dev->control_state.state = STATUS_IN;
@@ -257,7 +256,7 @@ void _usbd_control_out(usbd_device *usbd_dev, uint8_t ep)
 		usbd_ep_read_packet(usbd_dev, 0, NULL, 0);
 		usbd_dev->control_state.state = IDLE;
 		if (usbd_dev->control_state.complete) {
-			usbd_dev->control_state.complete(usbd_dev, &(usbd_dev->control_state.req));
+			usbd_dev->control_state.complete(usbd_dev, &usbd_dev->control_state.req);
 		}
 		usbd_dev->control_state.complete = NULL;
 		break;
