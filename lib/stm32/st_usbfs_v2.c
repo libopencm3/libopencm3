@@ -36,8 +36,7 @@ static usbd_device *st_usbfs_v2_usbd_init(void)
 	SET_REG(USB_ISTR_REG, 0);
 
 	/* Enable RESET, SUSPEND, RESUME and CTR interrupts. */
-	SET_REG(USB_CNTR_REG, USB_CNTR_RESETM | USB_CNTR_CTRM |
-		USB_CNTR_SUSPM | USB_CNTR_WKUPM);
+	SET_REG(USB_CNTR_REG, USB_CNTR_RESETM | USB_CNTR_CTRM | USB_CNTR_SUSPM | USB_CNTR_WKUPM);
 	SET_REG(USB_BCDR_REG, USB_BCDR_DPPU);
 	return &st_usbfs_dev;
 }
@@ -49,10 +48,9 @@ void st_usbfs_copy_to_pm(volatile void *vPM, const void *buf, uint16_t len)
 	 * that don't support unaligned accesses.
 	 */
 	const uint8_t *lbuf = buf;
-	volatile uint16_t *PM = vPM;
-	uint32_t i;
-	for (i = 0; i < len; i += 2) {
-		*PM++ = (uint16_t)lbuf[i+1] << 8 | lbuf[i];
+	volatile uint16_t *const packet_memory = vPM;
+	for (size_t idx = 0; idx < len; idx += 2) {
+		packet_memory[idx >> 1U] = ((uint16_t)lbuf[idx + 1U] << 8U) | lbuf[idx];
 	}
 }
 
