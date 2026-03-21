@@ -41,16 +41,16 @@ static usbd_device *st_usbfs_v2_usbd_init(void)
 	return &st_usbfs_dev;
 }
 
-void st_usbfs_copy_to_pm(volatile void *vPM, const void *buf, uint16_t len)
+void st_usbfs_copy_to_pm(volatile void *const vPM, const void *const buf, const uint16_t len)
 {
 	/*
 	 * This is a bytewise copy, so it always works, even on CM0(+)
 	 * that don't support unaligned accesses.
 	 */
-	const uint8_t *lbuf = buf;
+	const uint8_t *const src = buf;
 	volatile uint16_t *const packet_memory = vPM;
 	for (size_t idx = 0; idx < len; idx += 2) {
-		packet_memory[idx >> 1U] = ((uint16_t)lbuf[idx + 1U] << 8U) | lbuf[idx];
+		packet_memory[idx >> 1U] = ((uint16_t)src[idx + 1U] << 8U) | src[idx];
 	}
 }
 
