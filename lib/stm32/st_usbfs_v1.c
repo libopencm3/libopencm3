@@ -50,17 +50,17 @@ static usbd_device *st_usbfs_v1_usbd_init(void)
 	SET_REG(USB_ISTR_REG, 0);
 
 	/* Enable RESET, SUSPEND, RESUME and CTR interrupts. */
-	SET_REG(USB_CNTR_REG, USB_CNTR_RESETM | USB_CNTR_CTRM |
-		USB_CNTR_SUSPM | USB_CNTR_WKUPM);
+	SET_REG(USB_CNTR_REG, USB_CNTR_RESETM | USB_CNTR_CTRM | USB_CNTR_SUSPM | USB_CNTR_WKUPM);
 	return &st_usbfs_dev;
 }
 
-void st_usbfs_copy_to_pm(volatile void *vPM, const void *buf, uint16_t len)
+void st_usbfs_copy_to_pm(volatile void *const vPM, const void *const buf, const uint16_t len)
 {
-	const uint16_t *lbuf = buf;
-	volatile uint32_t *PM = vPM;
-	for (len = (len + 1) >> 1; len; len--) {
-		*PM++ = *lbuf++;
+	const uint16_t *const src = buf;
+	volatile uint32_t *const packet_memory = vPM;
+	const size_t blocks = (len + 1U) >> 1U;
+	for (size_t idx = 0U; idx < blocks; ++idx) {
+		packet_memory[idx] = src[idx];
 	}
 }
 
