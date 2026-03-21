@@ -21,13 +21,13 @@
  *	lptimer_enable_trigger(LPTIM1, LPTIM_CFGR_TRIGEN_SW);
  *	lptimer_set_prescaler(LPTIM1, LPTIM_CFGR_PRESC_2);
  *
+ *	lptimer_enable_irq(LPTIM1, LPTIM_IER_ARRMIE | LPTIM_IER_CMPMIE);
+ *	nvic_enable_irq(NVIC_LPTIM1_IRQ);
+ *
  *	lptimer_enable(LPTIM1);
  *
  *	lptimer_set_period(LPTIM1, 0xffff);
  *	lptimer_set_compare(LPTIM1, 1234);
- *
- *	lptimer_enable_irq(LPTIM1, LPTIM_IER_ARRMIE | LPTIM_IER_CMPMIE);
- *	nvic_enable_irq(NVIC_LPTIM1_IRQ);
  *
  *	lptimer_start_counter(LPTIM1, LPTIM_CR_CNTSTRT);
  *
