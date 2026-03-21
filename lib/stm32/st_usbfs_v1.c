@@ -71,17 +71,17 @@ void st_usbfs_copy_to_pm(volatile void *const vPM, const void *const buf, const 
  * @param vPM Destination pointer into packet memory.
  * @param len Number of bytes to copy.
  */
-void st_usbfs_copy_from_pm(void *buf, const volatile void *vPM, uint16_t len)
+void st_usbfs_copy_from_pm(void *const buf, const volatile void *const vPM, const uint16_t len)
 {
-	uint16_t *lbuf = buf;
-	const volatile uint16_t *PM = vPM;
-	uint8_t odd = len & 1;
+	uint16_t *const dest = buf;
+	const volatile uint16_t *const packet_memory = vPM;
+	const size_t blocks = len >> 1U;
 
-	for (len >>= 1; len; PM += 2, lbuf++, len--) {
-		*lbuf = *PM;
+	for (size_t idx = 0; idx < blocks; ++idx) {
+		dest[idx] = packet_memory[idx << 1U];
 	}
 
-	if (odd) {
-		*(uint8_t *) lbuf = *(uint8_t *) PM;
+	if (len & 1U) {
+		*(uint8_t *)(dest + blocks) = packet_memory[blocks << 1U];
 	}
 }
