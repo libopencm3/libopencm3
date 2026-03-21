@@ -265,7 +265,7 @@ uint16_t dwc_ep_write_packet(
 		for (size_t offset = 0U; offset < aligned_length; offset += 4U) {
 			uint32_t data;
 			memcpy(&data, buffer8 + offset, 4U);
-			REBASE(OTG_FIFO(0U)) = data;
+			REBASE(OTG_FIFO(ep)) = data;
 		}
 	}
 #endif
