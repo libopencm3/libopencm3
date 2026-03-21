@@ -63,28 +63,34 @@ void st_usbfs_copy_to_pm(volatile void *vPM, const void *buf, uint16_t len)
  * @param vPM Source pointer into packet memory.
  * @param len Number of bytes to copy.
  */
-void st_usbfs_copy_from_pm(void *buf, const volatile void *vPM, uint16_t len)
+void st_usbfs_copy_from_pm(void *const buf, const volatile void *vPM, const uint16_t len)
 {
-	const volatile uint16_t *PM = vPM;
-	uint8_t odd = len & 1;
-	len >>= 1;
+	const volatile uint16_t *packet_memory = vPM;
+	const size_t blocks = len >> 1U;
 
-	if (((uintptr_t)buf) & 0x01) {
-		uint8_t *dest = (uint8_t *)buf;
-		for (; len; PM++, len--) {
-			uint16_t value = *PM;
-			*(uint8_t *)dest++ = value;
-			*(uint8_t *)dest++ = value >> 8;
+	/* If the buffer to write into is at an unaligned address for uint16_t access */
+	if (((uintptr_t)buf) & 0x01U) {
+		uint8_t *const dest = (uint8_t *)buf;
+		for (size_t idx = 0; idx < blocks; ++idx, ++packet_memory) {
+			/* Extract the next data block from packet memory */
+			uint16_t value = *packet_memory;
+			/* Copy it into the output buffer byte at a time to handle the misalignment */
+			dest[(idx << 1U) + 0U] = value;
+			dest[(idx << 1U) + 1U] = value >> 8;
 		}
 	} else {
-		uint16_t *dest = (uint16_t *)buf;
-		for (; len; PM++, dest++, len--) {
-			*dest = *PM;
+		/* The buffer to write into is aligned, so do things the easy way */
+		uint16_t *const dest = (uint16_t *)buf;
+		for (size_t idx = 0; idx < blocks; ++idx, ++packet_memory) {
+			/* Extract the next data block from packet memory and stuff it into the output buffer */
+			dest[idx] = *packet_memory;
 		}
 	}
 
-	if (odd) {
-		*(uint8_t *)buf = *(uint8_t *)PM;
+	/* If the number of bytes needed is not a full number of packet memory blocks, handle the odd byte out */
+	if (len & 1U) {
+		uint8_t *const dest = (uint8_t *)buf;
+		dest[blocks << 1U] = *(uint8_t *)packet_memory;
 	}
 }
 
