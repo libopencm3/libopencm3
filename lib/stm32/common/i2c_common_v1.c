@@ -199,7 +199,7 @@ i2c_set_ccr
 void i2c_set_clock_frequency(uint32_t i2c, uint8_t freq)
 {
 	uint16_t reg16;
-	reg16 = I2C_CR2(i2c) & 0xffc0; /* Clear bits [5:0]. */
+	reg16 = I2C_CR2(i2c) & ~I2C_CR2_FREQ_MASK;
 	reg16 |= freq;
 	I2C_CR2(i2c) = reg16;
 }

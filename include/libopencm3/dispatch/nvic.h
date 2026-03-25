@@ -29,6 +29,13 @@
 #elif defined(STM32U5)
 #	include <libopencm3/stm32/u5/nvic.h>
 
+#elif defined(AT32F40X)
+#	include <libopencm3/at32/f40x/nvic.h>
+#elif defined(AT32F42X)
+#	include <libopencm3/at32/f42x/nvic.h>
+#elif defined(AT32F43X)
+#	include <libopencm3/at32/f43x/nvic.h>
+
 #elif defined(GD32F1X0)
 #	include <libopencm3/gd32/f1x0/nvic.h>
 

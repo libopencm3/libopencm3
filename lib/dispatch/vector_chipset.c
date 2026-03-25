@@ -10,6 +10,10 @@
 #	include "../stm32/h7/vector_chipset.c"
 #elif defined(STM32L4)
 #	include "../stm32/l4/vector_chipset.c"
+#elif defined(AT32F40X)
+#	include "../at32/f40x/vector_chipset.c"
+#elif defined(AT32F43X)
+#	include "../at32/f43x/vector_chipset.c"
 #elif defined(LM4F)
 #	include "../lm4f/vector_chipset.c"
 #elif defined(LPC43XX_M4)

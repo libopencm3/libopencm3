@@ -46,6 +46,12 @@
 #       include <libopencm3/stm32/h7/pwr.h>
 #elif defined(STM32U5)
 #       include <libopencm3/stm32/u5/pwr.h>
+#elif defined(AT32F40X)
+#       include <libopencm3/at32/f40x/pwr.h>
+#elif defined(AT32F42X)
+#       include <libopencm3/at32/f42x/pwr.h>
+#elif defined(AT32F43X)
+#       include <libopencm3/at32/f43x/pwr.h>
 #else
 #       error "stm32 family not defined."
 #endif

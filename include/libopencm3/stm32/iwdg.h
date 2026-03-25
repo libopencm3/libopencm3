@@ -44,6 +44,12 @@
 #       include <libopencm3/stm32/g0/iwdg.h>
 #elif defined(STM32G4)
 #       include <libopencm3/stm32/g4/iwdg.h>
+#elif defined(AT32F40X)
+#       include <libopencm3/at32/f40x/iwdg.h>
+#elif defined(AT32F42X)
+#       include <libopencm3/at32/f42x/iwdg.h>
+#elif defined(AT32F43X)
+#       include <libopencm3/at32/f43x/iwdg.h>
 #else
 #       error "stm32 family not defined."
 #endif

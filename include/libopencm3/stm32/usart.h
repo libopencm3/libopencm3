@@ -46,6 +46,12 @@
 #       include <libopencm3/stm32/g4/usart.h>
 #elif defined(STM32H7)
 #       include <libopencm3/stm32/h7/usart.h>
+#elif defined(AT32F40X)
+#       include <libopencm3/at32/f40x/usart.h>
+#elif defined(AT32F42X)
+#       include <libopencm3/at32/f42x/usart.h>
+#elif defined(AT32F43X)
+#       include <libopencm3/at32/f43x/usart.h>
 #else
 #       error "stm32 family not defined."
 #endif

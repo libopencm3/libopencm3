@@ -46,6 +46,12 @@
 #       include <libopencm3/stm32/h7/spi.h>
 #elif defined(STM32U5)
 #       include <libopencm3/stm32/u5/spi.h>
+#elif defined(AT32F40X)
+#       include <libopencm3/at32/f40x/spi.h>
+#elif defined(AT32F42X)
+#       include <libopencm3/at32/f42x/spi.h>
+#elif defined(AT32F43X)
+#       include <libopencm3/at32/f43x/spi.h>
 #else
 #       error "stm32 family not defined."
 #endif
