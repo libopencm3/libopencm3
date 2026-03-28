@@ -1130,7 +1130,7 @@ void rcc_clock_setup_in_hse_16mhz_out_72mhz(void)
 	 */
 	rcc_set_pll_multiplication_factor(RCC_CFGR_PLLMUL_PLL_CLK_MUL9);
 
-	/* Select HSI as PLL source. */
+	/* Select HSE as PLL source. */
 	rcc_set_pll_source(RCC_CFGR_PLLSRC_HSE_CLK);
 
 	/*
