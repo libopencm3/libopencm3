@@ -215,6 +215,17 @@ static const uint8_t _spc3_inquiry_response[36] = {
 	0x20, 0x20, 0x20, 0x20
 };
 
+static const uint8_t _spc3_inqury_vpd_serial[23] = {
+	0x00,	/* Byte 0: Peripheral Qualifier = 0, Peripheral Device Type = 0 */
+	0x80,	/* Byte 1: Page code (fixed) */
+		/* Byte 2 - Byte 3: Page length (fixed) */
+	0x00, 0x14,
+		/* Byte 4 - Byte 11: Product Serial Number */
+	' ', ' ', ' ', ' ', ' ', ' ', ' ', ' ',
+		/* Byte 12 - Byte 23: Print Circuit Board Serial Number */
+	' ', ' ', ' ', ' ', ' ', ' ', ' ', ' ', ' ', ' ', ' '
+};
+
 static const uint8_t _spc3_request_sense[18] = {
 	0x70,	/* Byte 0: VALID = 0, Response Code = 112 */
 	0x00,	/* Byte 1: Obsolete = 0 */
@@ -361,6 +372,28 @@ static void scsi_read_capacity(usbd_mass_storage *ms,
 	}
 }
 
+static void scsi_read_format_capacities(usbd_mass_storage *ms,
+					struct usb_msc_trans *trans,
+					enum trans_event event)
+{
+	/* This is documented as an optional command, but Windows slows
+   	   to a crawl initializing the device if it's not implemented */
+
+	if (EVENT_CBW_VALID == event) {
+		/* Reserved bytes */
+		trans->msd_buf[0] = 0;
+		trans->msd_buf[1] = 0;
+		trans->msd_buf[2] = 0;
+
+		/* Capacity list length */
+		trans->msd_buf[3] = 0;
+
+		trans->bytes_to_write = 4;
+
+		set_sbc_status_good(ms);
+	}
+}
+
 static void scsi_format_unit(usbd_mass_storage *ms,
 			     struct usb_msc_trans *trans,
 			     enum trans_event event)
@@ -436,6 +469,41 @@ static void scsi_mode_sense_6(usbd_mass_storage *ms,
 	}
 }
 
+/* Vital Product Data page request */
+static void _vpd_page_inquiry(uint8_t vpdPage,
+			      usbd_mass_storage *ms,
+		 	      struct usb_msc_trans *trans,
+		 	      enum trans_event event)
+{
+	(void) event;
+
+	switch (vpdPage) {
+	case 0x80: /* Unit Serial Number */
+		memcpy(trans->msd_buf, _spc3_inqury_vpd_serial,
+			sizeof(_spc3_inqury_vpd_serial));
+
+		trans->bytes_to_write = sizeof(_spc3_inqury_vpd_serial);
+		trans->csw.csw.dCSWDataResidue = sizeof(_spc3_inqury_vpd_serial);
+
+		set_sbc_status_good(ms);
+		break;
+
+	default: /* Unimplemented field */
+		set_sbc_status(ms,
+			       SBC_SENSE_KEY_ILLEGAL_REQUEST,
+			       SBC_ASC_INVALID_FIELD_IN_CDB,
+			       SBC_ASCQ_NA);
+
+		trans->bytes_to_write = 0;
+		trans->bytes_to_read = 0;
+		trans->csw.csw.bCSWStatus = CSW_STATUS_FAILED;
+		break;
+	}
+
+	/* TODO: Add VPD 0x83 support */
+	/* TODO: Add VPD 0x00 support */
+}
+
 static void scsi_inquiry(usbd_mass_storage *ms,
 			 struct usb_msc_trans *trans,
 			 enum trans_event event)
@@ -471,8 +539,8 @@ static void scsi_inquiry(usbd_mass_storage *ms,
 
 			set_sbc_status_good(ms);
 		} else {
-			/* TODO: Add VPD 0x83 support */
-			/* TODO: Add VPD 0x00 support */
+			/* Host requested a specific Vital Product Data page */
+			_vpd_page_inquiry(buf[2], ms, trans, event);
 		}
 	}
 }
@@ -517,6 +585,9 @@ static void scsi_command(usbd_mass_storage *ms,
 		break;
 	case SCSI_READ_CAPACITY:
 		scsi_read_capacity(ms, trans, event);
+		break;
+	case SCSI_READ_FORMAT_CAPACITIES:
+		scsi_read_format_capacities(ms, trans, event);
 		break;
 	case SCSI_READ_10:
 		scsi_read_10(ms, trans, event);
