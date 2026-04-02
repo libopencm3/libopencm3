@@ -32,32 +32,32 @@
 
 void comp_enable(uint8_t id)
 {
-	COMP_CSR(id) |= COMP_CSR_EN;
+	COMP_CSR |= (COMP_CSR_EN << id);
 }
 
 void comp_disable(uint8_t id)
 {
-	COMP_CSR(id) &= ~COMP_CSR_EN;
+	COMP_CSR &= ~(COMP_CSR_EN << id);
 }
 
 void comp_select_input(uint8_t id, uint32_t input)
 {
-	COMP_CSR(id) = (COMP_CSR(id) & ~COMP_CSR_INSEL) | input;
+	COMP_CSR = (COMP_CSR & ~(COMP_CSR_INSEL << id)) | (input << id);
 }
 
 void comp_select_output(uint8_t id, uint32_t output)
 {
-	COMP_CSR(id) = (COMP_CSR(id) & ~COMP_CSR_OUTSEL) | output;
+	COMP_CSR = (COMP_CSR & ~(COMP_CSR_OUTSEL << id)) | (output << id);
 }
 
 void comp_select_hyst(uint8_t id, uint32_t hyst)
 {
-	COMP_CSR(id) = (COMP_CSR(id) & ~COMP_CSR_HYST) | hyst;
+	COMP_CSR = (COMP_CSR & ~(COMP_CSR_HYST << id)) | (hyst << id);
 }
 
 void comp_select_speed(uint8_t id, uint32_t speed)
 {
-	COMP_CSR(id) = (COMP_CSR(id) & ~COMP_CSR_SPEED) | speed;
+	COMP_CSR = (COMP_CSR & ~(COMP_CSR_SPEED << id)) | (speed << id);
 }
 /**@}*/
 
