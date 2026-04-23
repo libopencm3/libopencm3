@@ -36,6 +36,7 @@ LGPL License Terms @ref lgpl_license
 BEGIN_DECLS
 
 void rtc_enable_wakeup_timer(void);
+void rtc_initialize(uint32_t sync, uint32_t async, uint32_t date, uint32_t time);
 void rtc_disable_wakeup_timer(void);
 void rtc_enable_wakeup_timer_interrupt(void);
 void rtc_disable_wakeup_timer_interrupt(void);
