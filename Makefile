@@ -62,11 +62,11 @@ build: lib
 
 include/libopencm3/%/nvic.h lib/%/vector_nvic.c include/libopencmsis/%/irqhandlers.h: include/libopencm3/%/irq.json ./scripts/irq2nvic_h
 	@printf "  GENHDR  $*\n";
-	$(Q)./scripts/irq2nvic_h ./$<;
+	$(Q)python ./scripts/irq2nvic_h ./$<;
 
 %.cleanhdr:
 	@printf "  CLNHDR  $*\n";
-	$(Q)./scripts/irq2nvic_h --remove ./$*
+	$(Q)python ./scripts/irq2nvic_h --remove ./$*
 
 LIB_DIRS:=$(wildcard $(addprefix lib/,$(TARGETS)))
 $(LIB_DIRS): $(IRQ_GENERATED_FILES)
