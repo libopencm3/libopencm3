@@ -373,6 +373,13 @@ void rcc_set_peripheral_clk_sel(uint32_t periph, uint32_t sel) {
 	uint32_t val;
 
 	switch (periph) {
+		case I2C1_BASE:
+		case I2C2_BASE:
+		case I2C3_BASE:
+			reg = &RCC_D2CCIP2R;
+			mask = RCC_D2CCIP2R_I2C123SEL_MASK << RCC_D2CCIP2R_I2C123SEL_SHIFT;
+			val = sel << RCC_D2CCIP2R_I2C123SEL_SHIFT;
+			break;
 		case FDCAN1_BASE:
 		case FDCAN2_BASE:
 			reg = &RCC_D2CCIP1R;

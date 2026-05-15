@@ -394,6 +394,7 @@ LGPL License Terms @ref lgpl_license
 #define RCC_D2CCIP2R_CECSEL_SHIFT           22
 #define RCC_D2CCIP2R_USBSEL_SHIFT           20
 #define RCC_D2CCIP2R_I2C123SEL_SHIFT        12
+#define RCC_D2CCIP2R_I2C123SEL_MASK         0x7
 #define RCC_D2CCIP2R_RNGSEL_MASK            0x3
 #define RCC_D2CCIP2R_RNGSEL_SHIFT           8
 #define RCC_D2CCIP2R_USART16SEL_SHIFT       3
@@ -415,6 +416,12 @@ LGPL License Terms @ref lgpl_license
 #define RCC_D2CCIP2R_USARTSEL_HSI           3
 #define RCC_D2CCIP2R_USARTSEL_CSI           4
 #define RCC_D2CCIP2R_USARTSEL_LSE           5
+#define RCC_D2CCIP2R_I2C123SEL_PCLK1        0
+#define RCC_D2CCIP2R_I2C123SEL_PLL2P        1
+#define RCC_D2CCIP2R_I2C123SEL_PLL3P        2
+#define RCC_D2CCIP2R_I2C123SEL_LSE          3
+#define RCC_D2CCIP2R_I2C123SEL_LSI          4
+#define RCC_D2CCIP2R_I2C123SEL_PCK          5
 /**@}*/
 
 

@@ -379,7 +379,7 @@ void i2c_transfer7(uint32_t i2c, uint8_t addr, const uint8_t *w, size_t wn, uint
 				if (i2c_transmit_int_status(i2c)) {
 					wait = false;
 				}
-				while (i2c_nack(i2c)); /* FIXME Some error */
+				while (i2c_nack(i2c));	/* FIXME Some error */
 			}
 			i2c_send_data(i2c, *w++);
 		}
