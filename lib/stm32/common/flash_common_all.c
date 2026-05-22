@@ -23,6 +23,7 @@
 
 #include <libopencm3/stm32/flash.h>
 
+#if !defined(STM32H7)
 void flash_prefetch_enable(void)
 {
 	FLASH_ACR |= FLASH_ACR_PRFTEN;
@@ -32,15 +33,14 @@ void flash_prefetch_disable(void)
 {
 	FLASH_ACR &= ~FLASH_ACR_PRFTEN;
 }
+#endif
 
 void flash_set_ws(uint32_t ws)
 {
-	uint32_t reg32;
-
-	reg32 = FLASH_ACR;
-	reg32 &= ~(FLASH_ACR_LATENCY_MASK << FLASH_ACR_LATENCY_SHIFT);
-	reg32 |= (ws << FLASH_ACR_LATENCY_SHIFT);
-	FLASH_ACR = reg32;
+	/* Read the current ACR value and mask out the wait states component */
+	const uint32_t reg32 = FLASH_ACR & ~(FLASH_ACR_LATENCY_MASK << FLASH_ACR_LATENCY_SHIFT);
+	/* Write back the new value, with the new wait states shifted in to place */
+	FLASH_ACR = reg32 | (ws << FLASH_ACR_LATENCY_SHIFT);
 }
 
 void flash_unlock_option_bytes(void)

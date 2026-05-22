@@ -77,11 +77,15 @@ specific memorymap.h header before including this header file.*/
 
 #define PWR_CR1_LPMS_SHIFT		0
 #define PWR_CR1_LPMS_MASK		0x07
+/** @defgroup pwr_cr1_lpms LPMS mode selection
+ * @ingroup STM32L4_pwr_defines
+ @{*/
 #define PWR_CR1_LPMS_STOP_0		0
 #define PWR_CR1_LPMS_STOP_1		1
 #define PWR_CR1_LPMS_STOP_2		2
 #define PWR_CR1_LPMS_STANDBY		3
 #define PWR_CR1_LPMS_SHUTDOWN		4
+/**@}*/
 
 /* --- PWR_CR2 values ------------------------------------------------------- */
 
@@ -172,6 +176,10 @@ BEGIN_DECLS
 void pwr_set_vos_scale(enum pwr_vos_scale scale);
 void pwr_disable_backup_domain_write_protect(void);
 void pwr_enable_backup_domain_write_protect(void);
+
+void pwr_enable_low_power_run(void);
+void pwr_disable_low_power_run(void);
+void pwr_set_low_power_mode_selection(uint32_t lpms);
 
 END_DECLS
 

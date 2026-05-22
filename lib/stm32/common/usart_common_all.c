@@ -71,7 +71,64 @@ void usart_set_baudrate(uint32_t usart, uint32_t baud)
 	}
 #endif
 
+#ifdef USART_CR1_OVER8
+	if (USART_CR1(usart) & USART_CR1_OVER8) {
+		/*
+		 * When using 8x oversampling instead of 16x, the calculation works slightly differently.
+		 * We do the same main calculation as for 16x, but with the clock rate effectively doubled.
+		 * This keeps accuracy up and gives us the best possible divider. However, to set BRR,
+		 * we have to do some shenanigans - specifically, USARTDIV[15:4] = BRR[15:4], but
+		 * UARTDIV[3:0] = BRR[2:0] << 1 and we are required to keep BRR[3] as 0.
+		 */
+		const uint32_t divider = ((2 * clock) + (baud / 2)) / baud;
+		USART_BRR(usart) = (divider & USART_BRR_UPPER_MASK) | ((divider & USART_BRR_LOWER_MASK) >> 1U);
+	} else {
+		/*
+		 * Modified version of the formula from the datasheets that tries to improve
+		 * the accuracy of the calculated dividers by introducing a rounding factor
+		 */
+		USART_BRR(usart) = (clock + baud / 2) / baud;
+	}
+#else
 	USART_BRR(usart) = (clock + baud / 2) / baud;
+#endif
+}
+
+/*---------------------------------------------------------------------------*/
+/** @brief USART Get Baudrate.
+
+Note: For LPUART, baudrates over 2**24 (~16.7 Mbaud) may overflow
+the calculation and are therefore not supported by this function.
+
+@param[in] usart unsigned 32 bit. USART block register address base @ref usart_reg_base
+@returns baud unsigned 32 bit. Baud rate specified in Hz.
+*/
+
+uint32_t usart_get_baudrate(uint32_t usart)
+{
+	uint32_t clock = rcc_get_usart_clk_freq(usart);
+	const uint32_t reg_brr = USART_BRR(usart);
+
+#ifdef LPUART1
+	if (usart == LPUART1) {
+		return (clock / reg_brr) * 256
+			+ ((clock % reg_brr) * 256) / reg_brr;
+	}
+#endif
+
+#ifdef USART_CR1_OVER8
+	if (USART_CR1(usart) & USART_CR1_OVER8) {
+		/* Need to shift BRR[2:0] up before using the simple formula of 2*clock/BRR (Q12.4) */
+		const uint16_t div_mantissa = reg_brr & USART_BRR_UPPER_MASK;
+		const uint16_t div_fractional = (reg_brr & USART_BRR_LOWER_MASK) << 1U;
+		const uint16_t div_over8 = div_mantissa + div_fractional;
+		return (2U * clock) / div_over8;
+	} else {
+		return clock / reg_brr;
+	}
+#else
+	return clock / reg_brr;
+#endif
 }
 
 /*---------------------------------------------------------------------------*/

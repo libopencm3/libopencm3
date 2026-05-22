@@ -23,6 +23,7 @@
 #include <libopencm3/stm32/tools.h>
 #include <libopencm3/stm32/st_usbfs.h>
 #include <libopencm3/usb/usbd.h>
+#include <libopencm3/usb/bos.h>
 #include "../usb/usb_private.h"
 #include "common/st_usbfs_core.h"
 
@@ -35,23 +36,21 @@ static usbd_device *st_usbfs_v2_usbd_init(void)
 	SET_REG(USB_ISTR_REG, 0);
 
 	/* Enable RESET, SUSPEND, RESUME and CTR interrupts. */
-	SET_REG(USB_CNTR_REG, USB_CNTR_RESETM | USB_CNTR_CTRM |
-		USB_CNTR_SUSPM | USB_CNTR_WKUPM);
+	SET_REG(USB_CNTR_REG, USB_CNTR_RESETM | USB_CNTR_CTRM | USB_CNTR_SUSPM | USB_CNTR_WKUPM);
 	SET_REG(USB_BCDR_REG, USB_BCDR_DPPU);
 	return &st_usbfs_dev;
 }
 
-void st_usbfs_copy_to_pm(volatile void *vPM, const void *buf, uint16_t len)
+void st_usbfs_copy_to_pm(volatile void *const vPM, const void *const buf, const uint16_t len)
 {
 	/*
 	 * This is a bytewise copy, so it always works, even on CM0(+)
 	 * that don't support unaligned accesses.
 	 */
-	const uint8_t *lbuf = buf;
-	volatile uint16_t *PM = vPM;
-	uint32_t i;
-	for (i = 0; i < len; i += 2) {
-		*PM++ = (uint16_t)lbuf[i+1] << 8 | lbuf[i];
+	const uint8_t *const src = buf;
+	volatile uint16_t *const packet_memory = vPM;
+	for (size_t idx = 0; idx < len; idx += 2) {
+		packet_memory[idx >> 1U] = ((uint16_t)src[idx + 1U] << 8U) | src[idx];
 	}
 }
 
@@ -62,26 +61,34 @@ void st_usbfs_copy_to_pm(volatile void *vPM, const void *buf, uint16_t len)
  * @param vPM Source pointer into packet memory.
  * @param len Number of bytes to copy.
  */
-void st_usbfs_copy_from_pm(void *buf, const volatile void *vPM, uint16_t len)
+void st_usbfs_copy_from_pm(void *const buf, const volatile void *const vPM, const uint16_t len)
 {
-	const volatile uint16_t *PM = vPM;
-	uint8_t odd = len & 1;
-	len >>= 1;
+	const volatile uint16_t *const packet_memory = vPM;
+	const size_t blocks = len >> 1U;
 
-	if (((uintptr_t) buf) & 0x01) {
-		for (; len; PM++, len--) {
-			uint16_t value = *PM;
-			*(uint8_t *) buf++ = value;
-			*(uint8_t *) buf++ = value >> 8;
+	/* If the buffer to write into is at an unaligned address for uint16_t access */
+	if (((uintptr_t)buf) & 0x01U) {
+		uint8_t *const dest = (uint8_t *)buf;
+		for (size_t idx = 0U; idx < blocks; ++idx) {
+			/* Extract the next data block from packet memory */
+			const uint16_t value = packet_memory[idx];
+			/* Copy it into the output buffer byte at a time to handle the misalignment */
+			dest[(idx << 1U) + 0U] = value;
+			dest[(idx << 1U) + 1U] = value >> 8;
 		}
 	} else {
-		for (; len; PM++, buf += 2, len--) {
-			*(uint16_t *) buf = *PM;
+		/* The buffer to write into is aligned, so do things the easy way */
+		uint16_t *const dest = (uint16_t *)buf;
+		for (size_t idx = 0U; idx < blocks; ++idx) {
+			/* Extract the next data block from packet memory and stuff it into the output buffer */
+			dest[idx] = packet_memory[idx];
 		}
 	}
 
-	if (odd) {
-		*(uint8_t *) buf = *(uint8_t *) PM;
+	/* If the number of bytes needed is not a full number of packet memory blocks, handle the odd byte out */
+	if (len & 1U) {
+		uint8_t *const dest = (uint8_t *)buf;
+		dest[blocks << 1U] = packet_memory[blocks];
 	}
 }
 

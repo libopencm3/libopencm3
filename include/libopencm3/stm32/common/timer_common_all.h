@@ -29,6 +29,8 @@ The order of header inclusion is important. timer.h includes the device
 specific memorymap.h header before including this header file.*/
 
 #pragma once
+
+#include <stdint.h>
 /* --- Convenience macros -------------------------------------------------- */
 
 /* Timer register base addresses (for convenience) */
@@ -460,20 +462,38 @@ specific memorymap.h header before including this header file.*/
 /* TI1S: TI1 selection */
 #define TIM_CR2_TI1S			(1 << 7)
 
+#ifndef STM32U5
 /* MMS[2:0]: Master mode selection */
 /****************************************************************************/
 /** @defgroup tim_mastermode TIMx_CR2 MMS[6:4]: Master Mode Selection
 @{*/
-#define TIM_CR2_MMS_RESET		(0x0 << 4)
-#define TIM_CR2_MMS_ENABLE		(0x1 << 4)
-#define TIM_CR2_MMS_UPDATE		(0x2 << 4)
-#define TIM_CR2_MMS_COMPARE_PULSE	(0x3 << 4)
-#define TIM_CR2_MMS_COMPARE_OC1REF	(0x4 << 4)
-#define TIM_CR2_MMS_COMPARE_OC2REF	(0x5 << 4)
-#define TIM_CR2_MMS_COMPARE_OC3REF	(0x6 << 4)
-#define TIM_CR2_MMS_COMPARE_OC4REF	(0x7 << 4)
-#define TIM_CR2_MMS_MASK		(0x7 << 4)
+#define TIM_CR2_MMS_RESET		(0x0U << 4U)
+#define TIM_CR2_MMS_ENABLE		(0x1U << 4U)
+#define TIM_CR2_MMS_UPDATE		(0x2U << 4U)
+#define TIM_CR2_MMS_COMPARE_PULSE	(0x3U << 4U)
+#define TIM_CR2_MMS_COMPARE_OC1REF	(0x4U << 4U)
+#define TIM_CR2_MMS_COMPARE_OC2REF	(0x5U << 4U)
+#define TIM_CR2_MMS_COMPARE_OC3REF	(0x6U << 4U)
+#define TIM_CR2_MMS_COMPARE_OC4REF	(0x7U << 4U)
+#define TIM_CR2_MMS_MASK		(0x7U << 4U)
 /**@}*/
+#else
+/* MMS[2:0]: Master mode selection */
+/****************************************************************************/
+/** @defgroup tim_mastermode TIMx_CR2 MMS[6:4]: Master Mode Selection
+@{*/
+#define TIM_CR2_MMS_RESET		(0x0U << 4U)
+#define TIM_CR2_MMS_ENABLE		(0x1U << 4U)
+#define TIM_CR2_MMS_UPDATE		(0x2U << 4U)
+#define TIM_CR2_MMS_COMPARE_PULSE	(0x3U << 4U)
+#define TIM_CR2_MMS_COMPARE_OC1REF	(0x4U << 4U)
+#define TIM_CR2_MMS_COMPARE_OC2REF	(0x5U << 4U)
+#define TIM_CR2_MMS_COMPARE_OC3REF	(0x6U << 4U)
+#define TIM_CR2_MMS_COMPARE_OC4REF	(0x7U << 4U)
+#define TIM_CR2_MMS_ENCODER_CLOCK	((0x0U << 4U) | (0x1U << 25U))
+#define TIM_CR2_MMS_MASK		((0x7U << 4U) | (0x1U << 25U))
+/**@}*/
+#endif
 
 /* CCDS: Capture/compare DMA selection */
 #define TIM_CR2_CCDS			(1 << 3)
@@ -521,58 +541,167 @@ specific memorymap.h header before including this header file.*/
 /* MSM: Master/slave mode */
 #define TIM_SMCR_MSM			(1 << 7)
 
+#ifndef STM32U5
 /* TS[2:0]: Trigger selection */
 /** @defgroup tim_ts TIMx_SMCR TS Trigger selection
 @{*/
 /** Internal Trigger 0 (ITR0) */
-#define TIM_SMCR_TS_ITR0		(0x0 << 4)
+#define TIM_SMCR_TS_ITR0		(0x0U << 4U)
 /** Internal Trigger 1 (ITR1) */
-#define TIM_SMCR_TS_ITR1		(0x1 << 4)
+#define TIM_SMCR_TS_ITR1		(0x1U << 4U)
 /** Internal Trigger 2 (ITR2) */
-#define TIM_SMCR_TS_ITR2		(0x2 << 4)
+#define TIM_SMCR_TS_ITR2		(0x2U << 4U)
 /** Internal Trigger 3 (ITR3) */
-#define TIM_SMCR_TS_ITR3		(0x3 << 4)
+#define TIM_SMCR_TS_ITR3		(0x3U << 4U)
 /** TI1 Edge Detector (TI1F_ED) */
-#define TIM_SMCR_TS_TI1F_ED		(0x4 << 4)
+#define TIM_SMCR_TS_TI1F_ED		(0x4U << 4U)
 /** Filtered Timer Input 1 (TI1FP1) */
-#define TIM_SMCR_TS_TI1FP1		(0x5 << 4)
+#define TIM_SMCR_TS_TI1FP1		(0x5U << 4U)
 /** Filtered Timer Input 2 (TI2FP2) */
-#define TIM_SMCR_TS_TI2FP2		(0x6 << 4)
+#define TIM_SMCR_TS_TI2FP2		(0x6U << 4U)
 /** External Trigger input (ETRF) */
-#define TIM_SMCR_TS_ETRF		(0x7 << 4)
-#define TIM_SMCR_TS_MASK		(0x7 << 4)
+#define TIM_SMCR_TS_ETRF		(0x7U << 4U)
+#define TIM_SMCR_TS_MASK		(0x7U << 4U)
 /**@}*/
 
 /* SMS[2:0]: Slave mode selection */
 /** @defgroup tim_sms TIMx_SMCR SMS Slave mode selection
 @{*/
 /** Slave mode disabled */
-#define TIM_SMCR_SMS_OFF		(0x0 << 0)
+#define TIM_SMCR_SMS_OFF		(0x0U << 0U)
 /** Encoder mode 1 - Counter counts up/down on TI2FP2 edge depending on TI1FP1
 level. */
-#define TIM_SMCR_SMS_EM1		(0x1 << 0)
+#define TIM_SMCR_SMS_EM1		(0x1U << 0U)
 /** Encoder mode 2 - Counter counts up/down on TI1FP1 edge depending on TI2FP2
 level. */
-#define TIM_SMCR_SMS_EM2		(0x2 << 0)
+#define TIM_SMCR_SMS_EM2		(0x2U << 0U)
 /** Encoder mode 3 - Counter counts up/down on both TI1FP1 and TI2FP2 edges
 depending on the level of the complementary input. */
-#define TIM_SMCR_SMS_EM3		(0x3 << 0)
+#define TIM_SMCR_SMS_EM3		(0x3U << 0U)
 /** Reset Mode - Rising edge of the selected trigger input (TRGI) reinitializes
  * the counter and generates an update of the registers.
  */
-#define TIM_SMCR_SMS_RM			(0x4 << 0)
+#define TIM_SMCR_SMS_RM			(0x4U << 0U)
 /** Gated Mode - The counter clock is enabled when the trigger input (TRGI) is
  * high.
  */
-#define TIM_SMCR_SMS_GM			(0x5 << 0)
+#define TIM_SMCR_SMS_GM			(0x5U << 0U)
 /**  Trigger Mode - The counter starts at a rising edge of the trigger TRGI. */
-#define TIM_SMCR_SMS_TM			(0x6 << 0)
+#define TIM_SMCR_SMS_TM			(0x6U << 0U)
 /** External Clock Mode 1 - Rising edges of the selected trigger (TRGI) clock
  * the counter.
  */
-#define TIM_SMCR_SMS_ECM1		(0x7 << 0)
-#define TIM_SMCR_SMS_MASK		(0x7 << 0)
+#define TIM_SMCR_SMS_ECM1		(0x7U << 0U)
+#define TIM_SMCR_SMS_MASK		(0x7U << 0U)
 /**@}*/
+#else
+/* TS[2:0]: Trigger selection */
+/** @defgroup tim_ts TIMx_SMCR TS Trigger selection
+@{*/
+/** Internal Trigger 0 (ITR0) */
+#define TIM_SMCR_TS_ITR0		(0x0U << 4U)
+/** Internal Trigger 1 (ITR1) */
+#define TIM_SMCR_TS_ITR1		(0x1U << 4U)
+/** Internal Trigger 2 (ITR2) */
+#define TIM_SMCR_TS_ITR2		(0x2U << 4U)
+/** Internal Trigger 3 (ITR3) */
+#define TIM_SMCR_TS_ITR3		(0x3U << 4U)
+/** TI1 Edge Detector (TI1F_ED) */
+#define TIM_SMCR_TS_TI1F_ED		(0x4U << 4U)
+/** Filtered Timer Input 1 (TI1FP1) */
+#define TIM_SMCR_TS_TI1FP1		(0x5U << 4U)
+/** Filtered Timer Input 2 (TI2FP2) */
+#define TIM_SMCR_TS_TI2FP2		(0x6U << 4U)
+/** External Trigger input (ETRF) */
+#define TIM_SMCR_TS_ETRF		(0x7U << 4U)
+/** Internal Trigger 4 (ITR4) */
+#define TIM_SMCR_TS_ITR4		((0x0U << 4U) | (0x1U << 20U))
+/** Internal Trigger 5 (ITR5) */
+#define TIM_SMCR_TS_ITR5		((0x1U << 4U) | (0x1U << 20U))
+/** Internal Trigger 6 (ITR6) */
+#define TIM_SMCR_TS_ITR6		((0x2U << 4U) | (0x1U << 20U))
+/** Internal Trigger 7 (ITR7) */
+#define TIM_SMCR_TS_ITR7		((0x3U << 4U) | (0x1U << 20U))
+/** Internal Trigger 8 (ITR8) */
+#define TIM_SMCR_TS_ITR8		((0x4U << 4U) | (0x1U << 20U))
+/** Internal Trigger 9 (ITR9) */
+#define TIM_SMCR_TS_ITR9		((0x5U << 4U) | (0x1U << 20U))
+/** Internal Trigger 10 (ITR10) */
+#define TIM_SMCR_TS_ITR10		((0x6U << 4U) | (0x1U << 20U))
+/** Internal Trigger 11 (ITR11) */
+#define TIM_SMCR_TS_ITR11		((0x7U << 4U) | (0x1U << 20U))
+/** Internal Trigger 12 (ITR12) */
+#define TIM_SMCR_TS_ITR12		((0x0U << 4U) | (0x2U << 20U))
+/** Internal Trigger 13 (ITR13) */
+#define TIM_SMCR_TS_ITR13		((0x1U << 4U) | (0x2U << 20U))
+/** Internal Trigger 14 (ITR14) */
+#define TIM_SMCR_TS_ITR14		((0x2U << 4U) | (0x2U << 20U))
+/** Internal Trigger 15 (ITR15) */
+#define TIM_SMCR_TS_ITR15		((0x3U << 4U) | (0x2U << 20U))
+#define TIM_SMCR_TS_MASK		((0x7U << 4U) | (0x3U << 20U))
+/**@}*/
+
+/* SMS[2:0]: Slave mode selection */
+/** @defgroup tim_sms TIMx_SMCR SMS Slave mode selection
+@{*/
+/** Slave mode disabled */
+#define TIM_SMCR_SMS_OFF		(0x0U << 0U)
+/** Encoder mode 1 - Counter counts up/down on TI2FP2 edge depending on TI1FP1
+level. */
+#define TIM_SMCR_SMS_EM1		(0x1U << 0U)
+/** Encoder mode 2 - Counter counts up/down on TI1FP1 edge depending on TI2FP2
+level. */
+#define TIM_SMCR_SMS_EM2		(0x2U << 0U)
+/** Encoder mode 3 - Counter counts up/down on both TI1FP1 and TI2FP2 edges
+depending on the level of the complementary input. */
+#define TIM_SMCR_SMS_EM3		(0x3U << 0U)
+/** Reset Mode - Rising edge of the selected trigger input (TRGI) reinitializes
+ * the counter and generates an update of the registers.
+ */
+#define TIM_SMCR_SMS_RM			(0x4U << 0U)
+/** Gated Mode - The counter clock is enabled when the trigger input (TRGI) is
+ * high.
+ */
+#define TIM_SMCR_SMS_GM			(0x5U << 0U)
+/**  Trigger Mode - The counter starts at a rising edge of the trigger TRGI. */
+#define TIM_SMCR_SMS_TM			(0x6U << 0U)
+/** External Clock Mode 1 - Rising edges of the selected trigger (TRGI) clock
+ * the counter.
+ */
+#define TIM_SMCR_SMS_ECM1		(0x7U << 0U)
+/** Combined Reset + Trigger Mode - Rising edge of the selected trigger input
+ * (TRGI) reinitializes the counter, generates an update of the registers and
+ * starts the counter.
+ */
+#define TIM_SMCR_SMS_CRTM		((0x0U << 0U) | (1U << 16U))
+/** Combined Gated + Reset Mode - The counter clock is enabled when the trigger
+ * input (TRGI) is high. The counter stops and is reset as soon as the trigger
+ * becomes low.
+*/
+#define TIM_SMCR_SMS_CGRM		((0x1U << 0U) | (1U << 16U))
+/** Encoder mode - Clock + direction, x2 mode. */
+#define TIM_SMCR_SMS_ENCD2		((0x2U << 0U) | (1U << 16U))
+/** Encoder mode - Clock + direction, x1 mode, TI2FP2 edge sensitivity is set
+ * by CC2P.
+ */
+#define TIM_SMCR_SMS_ENCD1		((0x3U << 0U) | (1U << 16U))
+/** Encoder mode - Directional Clock, x2 mode. */
+#define TIM_SMCR_SMS_ENDC2		((0x4U << 0U) | (1U << 16U))
+/** Encoder mode - Directional Clock, x1 mode, TI1FP1 and TI2FP2 edge
+ * sensitivity is set by CC1P and CC2P.
+ */
+#define TIM_SMCR_SMS_ENDC1		((0x5U << 0U) | (1U << 16U))
+/** Quadrature encoder mode: x1 mode counting on TI1FP1 edges only, edge
+ * sensitivty is set by CC1P.
+ */
+#define TIM_SMCR_SMS_QENC_TI1FP1	((0x6U << 0U) | (1U << 16U))
+/** Quadrature encoder mode: x1 mode counting on TI2FP2 edges only, edge
+ * sensitivty is set by CC2P.
+ */
+#define TIM_SMCR_SMS_QENC_TI2FP2	((0x7U << 0U) | (1U << 16U))
+#define TIM_SMCR_SMS_MASK		((0x7U << 0U) | (1U << 16U))
+/**@}*/
+#endif
 
 /* --- TIMx_DIER values ---------------------------------------------------- */
 
@@ -933,49 +1062,49 @@ depending on the level of the complementary input. */
 /* --- TIMx_CCER values ---------------------------------------------------- */
 
 /* CC4NP: Capture/compare 4 complementary output polarity */
-#define TIM_CCER_CC4NP			(1 << 15)
+#define TIM_CCER_CC4NP			(1U << 15U)
 
 /* CC4P: Capture/compare 4 output polarity */
-#define TIM_CCER_CC4P			(1 << 13)
+#define TIM_CCER_CC4P			(1U << 13U)
 
 /* CC4E: Capture/compare 4 output enable */
-#define TIM_CCER_CC4E			(1 << 12)
+#define TIM_CCER_CC4E			(1U << 12U)
 
 /* CC3NP: Capture/compare 3 complementary output polarity */
-#define TIM_CCER_CC3NP			(1 << 11)
+#define TIM_CCER_CC3NP			(1U << 11U)
 
 /* CC3NE: Capture/compare 3 complementary output enable */
-#define TIM_CCER_CC3NE			(1 << 10)
+#define TIM_CCER_CC3NE			(1U << 10U)
 
 /* CC3P: Capture/compare 3 output polarity */
-#define TIM_CCER_CC3P			(1 << 9)
+#define TIM_CCER_CC3P			(1U << 9U)
 
 /* CC3E: Capture/compare 3 output enable */
-#define TIM_CCER_CC3E			(1 << 8)
+#define TIM_CCER_CC3E			(1U << 8U)
 
 /* CC2NP: Capture/compare 2 complementary output polarity */
-#define TIM_CCER_CC2NP			(1 << 7)
+#define TIM_CCER_CC2NP			(1U << 7U)
 
 /* CC2NE: Capture/compare 2 complementary output enable */
-#define TIM_CCER_CC2NE			(1 << 6)
+#define TIM_CCER_CC2NE			(1U << 6U)
 
 /* CC2P: Capture/compare 2 output polarity */
-#define TIM_CCER_CC2P			(1 << 5)
+#define TIM_CCER_CC2P			(1U << 5U)
 
 /* CC2E: Capture/compare 2 output enable */
-#define TIM_CCER_CC2E			(1 << 4)
+#define TIM_CCER_CC2E			(1U << 4U)
 
 /* CC1NP: Capture/compare 1 complementary output polarity */
-#define TIM_CCER_CC1NP			(1 << 3)
+#define TIM_CCER_CC1NP			(1U << 3U)
 
 /* CC1NE: Capture/compare 1 complementary output enable */
-#define TIM_CCER_CC1NE			(1 << 2)
+#define TIM_CCER_CC1NE			(1U << 2U)
 
 /* CC1P: Capture/compare 1 output polarity */
-#define TIM_CCER_CC1P			(1 << 1)
+#define TIM_CCER_CC1P			(1U << 1U)
 
 /* CC1E: Capture/compare 1 output enable */
-#define TIM_CCER_CC1E			(1 << 0)
+#define TIM_CCER_CC1E			(1U << 0U)
 
 /* --- TIMx_CNT values ----------------------------------------------------- */
 
@@ -1081,12 +1210,12 @@ enum tim_oc_mode {
 };
 
 /** Input Capture channel designators */
-enum tim_ic_id {
+typedef enum tim_ic_id {
 	TIM_IC1,
 	TIM_IC2,
 	TIM_IC3,
 	TIM_IC4,
-};
+} tim_ic_id_e;
 
 /** Input Capture input filter. The frequency used to sample the
 input and the number of events needed to validate an output transition.
@@ -1192,6 +1321,10 @@ void timer_enable_oc_clear(uint32_t timer_peripheral, enum tim_oc_id oc_id);
 void timer_disable_oc_clear(uint32_t timer_peripheral, enum tim_oc_id oc_id);
 void timer_set_oc_fast_mode(uint32_t timer_peripheral, enum tim_oc_id oc_id);
 void timer_set_oc_slow_mode(uint32_t timer_peripheral, enum tim_oc_id oc_id);
+void timer_set_oc1_mode(uint32_t timer_peripheral, enum tim_oc_mode oc_mode);
+void timer_set_oc2_mode(uint32_t timer_peripheral, enum tim_oc_mode oc_mode);
+void timer_set_oc3_mode(uint32_t timer_peripheral, enum tim_oc_mode oc_mode);
+void timer_set_oc4_mode(uint32_t timer_peripheral, enum tim_oc_mode oc_mode);
 void timer_set_oc_mode(uint32_t timer_peripheral, enum tim_oc_id oc_id,
 		       enum tim_oc_mode oc_mode);
 void timer_enable_oc_preload(uint32_t timer_peripheral, enum tim_oc_id oc_id);

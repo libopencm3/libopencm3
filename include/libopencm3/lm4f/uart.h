@@ -443,6 +443,7 @@ enum uart_fifo_tx_trigger_level {
 BEGIN_DECLS
 
 void uart_set_baudrate(uint32_t uart, uint32_t baud);
+uint32_t uart_get_baudrate(uint32_t uart);
 void uart_set_databits(uint32_t uart, uint8_t databits);
 uint8_t uart_get_databits(uint32_t uart);
 void uart_set_stopbits(uint32_t uart, uint8_t stopbits);

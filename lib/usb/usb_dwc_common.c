@@ -2,6 +2,7 @@
  * This file is part of the libopencm3 project.
  *
  * Copyright (C) 2011 Gareth McMullin <gareth@blacksphere.co.nz>
+ * Copyright (C) 2024-2025 Rachel Mant <git@dragonmux.network>
  *
  * This library is free software: you can redistribute it and/or modify
  * it under the terms of the GNU Lesser General Public License as published by
@@ -20,6 +21,7 @@
 #include <string.h>
 #include <libopencm3/cm3/common.h>
 #include <libopencm3/usb/usbd.h>
+#include <libopencm3/usb/bos.h>
 #include <libopencm3/usb/dwc/otg_common.h>
 #include "usb_private.h"
 #include "usb_dwc_common.h"
@@ -30,419 +32,472 @@
 #define dev_base_address (usbd_dev->driver->base_address)
 #define REBASE(x)        MMIO32((x) + (dev_base_address))
 
-void dwc_set_address(usbd_device *usbd_dev, uint8_t addr)
+static void dwc_flush_txfifo(usbd_device *usbd_dev, uint8_t ep);
+
+void dwc_set_address(usbd_device *const usbd_dev, const uint8_t address)
 {
-	REBASE(OTG_DCFG) = (REBASE(OTG_DCFG) & ~OTG_DCFG_DAD) | (addr << 4);
+	REBASE(OTG_DCFG) = (REBASE(OTG_DCFG) & ~OTG_DCFG_DAD) | ((address << 4U) & OTG_DCFG_DAD);
 }
 
-void dwc_ep_setup(usbd_device *usbd_dev, uint8_t addr, uint8_t type,
-			uint16_t max_size,
-			void (*callback) (usbd_device *usbd_dev, uint8_t ep))
+void dwc_ep_setup(usbd_device *const usbd_dev, const uint8_t endpoint_address, const uint8_t type,
+	const uint16_t max_packet_length, void (*const callback)(usbd_device *usbd_dev, uint8_t ep))
 {
-	/*
-	 * Configure endpoint address and type. Allocate FIFO memory for
-	 * endpoint. Install callback function.
-	 */
-	uint8_t dir = addr & 0x80;
-	addr &= 0x7f;
+	const uint8_t ep = endpoint_address & 0x7fU;
+	const uint8_t dir = endpoint_address & 0x80U;
+	/* Convert the max packet length to a length in u32's */
+	const uint16_t packet_length = max_packet_length / 4U;
 
-	if (addr == 0) { /* For the default control endpoint */
-		/* Configure IN part. */
-		if (max_size >= 64) {
+	/* Process if we're being asked to set up EP0, */
+	if (ep == 0U) {
+		/* Start by setting up the TX and RX FIFOs */
+		REBASE(OTG_GRXFSIZ) = usbd_dev->driver->rx_fifo_size;
+		REBASE(OTG_GNPTXFSIZ) = (packet_length << 16U) | usbd_dev->driver->rx_fifo_size;
+		/* Update our internal state for how the FIFOs are presently allocated */
+		usbd_dev->fifo_mem_top_ep0 = usbd_dev->driver->rx_fifo_size + packet_length;
+		usbd_dev->fifo_mem_top = usbd_dev->fifo_mem_top_ep0;
+		/* Configure EP0 IN to allow us to send packets appropriately */
+#ifdef STM32H7
+		REBASE(OTG_DIEPCTL0) = (max_packet_length & OTG_DIEPCTLX_MPSIZ_MASK);
+#else
+		if (max_packet_length >= 64U)
 			REBASE(OTG_DIEPCTL0) = OTG_DIEPCTL0_MPSIZ_64;
-		} else if (max_size >= 32) {
+		else if (max_packet_length >= 32U)
 			REBASE(OTG_DIEPCTL0) = OTG_DIEPCTL0_MPSIZ_32;
-		} else if (max_size >= 16) {
+		else if (max_packet_length >= 16U)
 			REBASE(OTG_DIEPCTL0) = OTG_DIEPCTL0_MPSIZ_16;
-		} else {
+		else
 			REBASE(OTG_DIEPCTL0) = OTG_DIEPCTL0_MPSIZ_8;
+#endif
+		/* Do not initially arm the IN endpoint - we've got nothing to send the host at first */
+		REBASE(OTG_DIEPCTL0) |= OTG_DIEPCTL0_SNAK | OTG_DIEPCTL0_USBAEP;
+
+		/* Now configure EP0 OUT to allow us to receive SETUP packets */
+		usbd_dev->doeptsiz[0U] =
+			OTG_DOEPSIZ0_STUPCNT_1 | OTG_DOEPSIZ0_PKTCNT | (max_packet_length & OTG_DOEPSIZ0_XFRSIZ_MASK);
+		REBASE(OTG_DOEPTSIZ0) = usbd_dev->doeptsiz[0U];
+		/* However, *do* arm the OUT endpoint so we can receive the first SETUP packet */
+#ifdef STM32H7
+		if (max_packet_length >= 64) {
+			REBASE(OTG_DOEPCTL0) = OTG_DOEPCTL0_MPSIZ_64;
+		} else if (max_packet_length >= 32) {
+			REBASE(OTG_DOEPCTL0) = OTG_DOEPCTL0_MPSIZ_32;
+		} else if (max_packet_length >= 16) {
+			REBASE(OTG_DOEPCTL0) = OTG_DOEPCTL0_MPSIZ_16;
+		} else {
+			REBASE(OTG_DOEPCTL0) = OTG_DOEPCTL0_MPSIZ_8;
 		}
+		REBASE(OTG_DOEPCTL0) |= OTG_DOEPCTL0_EPENA | OTG_DOEPCTL0_CNAK | OTG_DOEPCTL0_USBAEP;
+#else
+		REBASE(OTG_DOEPCTL0) = OTG_DOEPCTL0_EPENA | OTG_DIEPCTL0_SNAK | OTG_DOEPCTL0_USBAEP;
+#endif
+	} else {
+		/* Otherwise process if this is for IN vs OUT */
+		if (dir == 0U) {
+			/* Set up this OUT endpoint, arming it so we can get data from it */
+			usbd_dev->doeptsiz[ep] = OTG_DOEPSIZX_PKTCNT(1U) | (max_packet_length & OTG_DOEPSIZX_XFRSIZ_MASK);
+			REBASE(OTG_DOEPTSIZ(ep)) = usbd_dev->doeptsiz[ep];
+			REBASE(OTG_DOEPCTL(ep)) = OTG_DOEPCTL0_EPENA | OTG_DOEPCTL0_CNAK | OTG_DOEPCTL0_USBAEP |
+				OTG_DOEPCTLX_SD0PID | (type << OTG_DOEPCTLX_EPTYP_SHIFT) |
+				(max_packet_length & OTG_DOEPCTLX_MPSIZ_MASK);
 
-		REBASE(OTG_DIEPTSIZ0) =
-			(max_size & OTG_DIEPSIZ0_XFRSIZ_MASK);
-		REBASE(OTG_DIEPCTL0) |=
-			OTG_DIEPCTL0_EPENA | OTG_DIEPCTL0_SNAK;
+			/* Install the user's callback provided */
+			usbd_dev->user_callback_ctr[ep][USB_TRANSACTION_OUT] = callback;
+		} else {
+			/* Set up this IN endpoint, allocating space for it in the FIFO memory */
+			REBASE(OTG_DIEPTXF(ep)) = (packet_length << 16U) | usbd_dev->fifo_mem_top;
+			usbd_dev->fifo_mem_top += packet_length;
+			REBASE(OTG_DIEPTSIZ(ep)) = 0U;
+			/* Enable the endpoint but do not yet arm it as we've not yet got anything to send */
+			REBASE(OTG_DIEPCTL(ep)) = OTG_DIEPCTL0_SNAK | OTG_DIEPCTL0_USBAEP | OTG_DIEPCTLX_SD0PID |
+				(ep << OTG_DIEPCTLX_TXFNUM_SHIFT) | (type << OTG_DIEPCTLX_EPTYP_SHIFT) |
+				(max_packet_length & OTG_DIEPCTLX_MPSIZ_MASK);
 
-		/* Configure OUT part. */
-		usbd_dev->doeptsiz[0] = OTG_DIEPSIZ0_STUPCNT_1 |
-			OTG_DIEPSIZ0_PKTCNT |
-			(max_size & OTG_DIEPSIZ0_XFRSIZ_MASK);
-		REBASE(OTG_DOEPTSIZ(0)) = usbd_dev->doeptsiz[0];
-		REBASE(OTG_DOEPCTL(0)) |=
-		    OTG_DOEPCTL0_EPENA | OTG_DIEPCTL0_SNAK;
-
-		REBASE(OTG_GNPTXFSIZ) = ((max_size / 4) << 16) |
-					 usbd_dev->driver->rx_fifo_size;
-		usbd_dev->fifo_mem_top += max_size / 4;
-		usbd_dev->fifo_mem_top_ep0 = usbd_dev->fifo_mem_top;
-
-		return;
-	}
-
-	if (dir) {
-		REBASE(OTG_DIEPTXF(addr)) = ((max_size / 4) << 16) |
-					     usbd_dev->fifo_mem_top;
-		usbd_dev->fifo_mem_top += max_size / 4;
-
-		REBASE(OTG_DIEPTSIZ(addr)) =
-		    (max_size & OTG_DIEPSIZ0_XFRSIZ_MASK);
-		REBASE(OTG_DIEPCTL(addr)) |=
-		    OTG_DIEPCTL0_EPENA | OTG_DIEPCTL0_SNAK | (type << 18)
-		    | OTG_DIEPCTL0_USBAEP | OTG_DIEPCTLX_SD0PID
-		    | (addr << 22) | max_size;
-
-		if (callback) {
-			usbd_dev->user_callback_ctr[addr][USB_TRANSACTION_IN] =
-			    (void *)callback;
-		}
-	}
-
-	if (!dir) {
-		usbd_dev->doeptsiz[addr] = OTG_DIEPSIZ0_PKTCNT |
-				 (max_size & OTG_DIEPSIZ0_XFRSIZ_MASK);
-		REBASE(OTG_DOEPTSIZ(addr)) = usbd_dev->doeptsiz[addr];
-		REBASE(OTG_DOEPCTL(addr)) |= OTG_DOEPCTL0_EPENA |
-		    OTG_DOEPCTL0_USBAEP | OTG_DIEPCTL0_CNAK |
-		    OTG_DOEPCTLX_SD0PID | (type << 18) | max_size;
-
-		if (callback) {
-			usbd_dev->user_callback_ctr[addr][USB_TRANSACTION_OUT] =
-			    (void *)callback;
+			/* Install the user's callback provided */
+			usbd_dev->user_callback_ctr[ep][USB_TRANSACTION_IN] = callback;
 		}
 	}
 }
 
-void dwc_endpoints_reset(usbd_device *usbd_dev)
+void dwc_endpoints_reset(usbd_device *const usbd_dev)
 {
-	int i;
-	/* The core resets the endpoints automatically on reset. */
+	/* Start by resetting our FIFO setup state */
 	usbd_dev->fifo_mem_top = usbd_dev->fifo_mem_top_ep0;
 
-	/* Disable any currently active endpoints */
-	for (i = 1; i < 4; i++) {
+	/*
+	 * Now loop through all endpoints and make sure we're NAK'ing and they're properly disabled
+	 *
+	 * NB: We ignore EP0 here because that's handled by the EP setup call _usbd_reset() performs.
+	 */
+	for (size_t i = 1U; i < ENDPOINT_COUNT; i++) {
 		if (REBASE(OTG_DOEPCTL(i)) & OTG_DOEPCTL0_EPENA) {
-			REBASE(OTG_DOEPCTL(i)) |= OTG_DOEPCTL0_EPDIS;
+			REBASE(OTG_DOEPCTL(i)) |= OTG_DOEPCTL0_SNAK | OTG_DOEPCTL0_EPDIS;
 		}
 		if (REBASE(OTG_DIEPCTL(i)) & OTG_DIEPCTL0_EPENA) {
-			REBASE(OTG_DIEPCTL(i)) |= OTG_DIEPCTL0_EPDIS;
+			REBASE(OTG_DIEPCTL(i)) |= OTG_DIEPCTL0_SNAK | OTG_DIEPCTL0_EPDIS;
 		}
 	}
 
-	/* Flush all tx/rx fifos */
-	REBASE(OTG_GRSTCTL) = OTG_GRSTCTL_TXFFLSH | OTG_GRSTCTL_TXFNUM_ALL
-			      | OTG_GRSTCTL_RXFFLSH;
+	/* Make sure all FIFOs are fully flushed */
+	REBASE(OTG_GRSTCTL) = OTG_GRSTCTL_TXFNUM_ALL | OTG_GRSTCTL_TXFFLSH | OTG_GRSTCTL_RXFFLSH;
+	/* Wait for that to complete */
+	while ((REBASE(OTG_GRSTCTL) & (OTG_GRSTCTL_TXFFLSH | OTG_GRSTCTL_RXFFLSH)) != 0U) {
+	}
+	/* Reset the GRSTCTL register state */
+	REBASE(OTG_GRSTCTL) &= ~OTG_GRSTCTL_TXFNUM_MASK;
+
+	/* Reset the endpoint disabled interrupt state for all endpoints */
+	for (size_t i = 1U; i < ENDPOINT_COUNT; i++) {
+		REBASE(OTG_DOEPINT(i)) = OTG_DOEPINTX_EPDISD;
+		REBASE(OTG_DIEPINT(i)) = OTG_DIEPINTX_EPDISD;
+	}
 }
 
-void dwc_ep_stall_set(usbd_device *usbd_dev, uint8_t addr, uint8_t stall)
+void dwc_ep_stall_set(usbd_device *const usbd_dev, const uint8_t endpoint_address, const uint8_t stall)
 {
-	if (addr == 0) {
+	/* Decode which endpoint this request is for exactly */
+	const uint8_t ep = endpoint_address & 0x7fU;
+	const uint8_t dir = endpoint_address & 0x80U;
+	/* If the stall is for EP0, special-case to handle this correctly */
+	if (ep == 0U) {
+		/* Set/clear STALL on the IN side to properly communicate the condition back to the host */
 		if (stall) {
-			REBASE(OTG_DIEPCTL(addr)) |= OTG_DIEPCTL0_STALL;
+			REBASE(OTG_DIEPCTL(ep)) |= OTG_DIEPCTL0_STALL;
 		} else {
-			REBASE(OTG_DIEPCTL(addr)) &= ~OTG_DIEPCTL0_STALL;
-		}
-	}
-
-	if (addr & 0x80) {
-		addr &= 0x7F;
-
-		if (stall) {
-			REBASE(OTG_DIEPCTL(addr)) |= OTG_DIEPCTL0_STALL;
-		} else {
-			REBASE(OTG_DIEPCTL(addr)) &= ~OTG_DIEPCTL0_STALL;
-			REBASE(OTG_DIEPCTL(addr)) |= OTG_DIEPCTLX_SD0PID;
+			REBASE(OTG_DIEPCTL(ep)) &= ~OTG_DIEPCTL0_STALL;
 		}
 	} else {
-		if (stall) {
-			REBASE(OTG_DOEPCTL(addr)) |= OTG_DOEPCTL0_STALL;
+		/* Figure out which direction to set STALL for */
+		if (dir == 0U) {
+			/* Set/clear STALL on OUT endpoint */
+			if (stall) {
+				REBASE(OTG_DOEPCTL(ep)) |= OTG_DOEPCTL0_STALL;
+			} else {
+				REBASE(OTG_DOEPCTL(ep)) &= ~OTG_DOEPCTL0_STALL;
+			}
+			/* Reset DATA PID to use */
+			REBASE(OTG_DOEPCTL(ep)) |= OTG_DOEPCTLX_SD0PID;
 		} else {
-			REBASE(OTG_DOEPCTL(addr)) &= ~OTG_DOEPCTL0_STALL;
-			REBASE(OTG_DOEPCTL(addr)) |= OTG_DOEPCTLX_SD0PID;
+			/* Set/clear STALL on IN endpoint */
+			if (stall) {
+				REBASE(OTG_DIEPCTL(ep)) |= OTG_DIEPCTL0_STALL;
+			} else {
+				REBASE(OTG_DIEPCTL(ep)) &= ~OTG_DIEPCTL0_STALL;
+			}
+			/* Reset DATA PID to use */
+			REBASE(OTG_DIEPCTL(ep)) |= OTG_DIEPCTLX_SD0PID;
 		}
 	}
 }
 
-uint8_t dwc_ep_stall_get(usbd_device *usbd_dev, uint8_t addr)
+uint8_t dwc_ep_stall_get(usbd_device *const usbd_dev, const uint8_t endpoint_address)
 {
-	/* Return non-zero if STALL set. */
-	if (addr & 0x80) {
-		return (REBASE(OTG_DIEPCTL(addr & 0x7f)) &
-				OTG_DIEPCTL0_STALL) ? 1 : 0;
+	/* Decode which endpoint this request is for exactly */
+	const uint8_t ep = endpoint_address & 0x7fU;
+	const uint8_t dir = endpoint_address & 0x80U;
+	/* Handle OUT endpoints */
+	if (dir == 0U) {
+		return (REBASE(OTG_DOEPCTL(ep)) & OTG_DOEPCTL0_STALL) ? true : false;
+	}
+	/* Handle IN endpoints */
+	return (REBASE(OTG_DIEPCTL(ep)) & OTG_DIEPCTL0_STALL) ? true : false;
+}
+
+void dwc_ep_nak_set(usbd_device *const usbd_dev, const uint8_t endpoint_address, const uint8_t nak)
+{
+	/* Decode which endpoint this request is for exactly */
+	const uint8_t ep = endpoint_address & 0x7fU;
+	const uint8_t dir = endpoint_address & 0x80U;
+	/* Handle NAK's only on OUT endpoints */
+	if (dir != 0U) {
+		return;
+	}
+	/*
+	 * Copy the required NAK state into the device state storage and then set
+	 * the NAK bit for this endpoint accordingly via SNAK/CNAK
+	 */
+	usbd_dev->force_nak[ep] = nak;
+	if (nak) {
+		REBASE(OTG_DOEPCTL(ep)) |= OTG_DOEPCTL0_SNAK;
 	} else {
-		return (REBASE(OTG_DOEPCTL(addr)) &
-				OTG_DOEPCTL0_STALL) ? 1 : 0;
+		REBASE(OTG_DOEPCTL(ep)) |= OTG_DOEPCTL0_CNAK;
 	}
 }
 
-void dwc_ep_nak_set(usbd_device *usbd_dev, uint8_t addr, uint8_t nak)
+uint16_t dwc_ep_write_packet(
+	usbd_device *const usbd_dev, const uint8_t endpoint_address, const void *const buffer, const uint16_t length)
 {
-	/* It does not make sense to force NAK on IN endpoints. */
-	if (addr & 0x80) {
+	const uint8_t ep = endpoint_address & 0x7fU;
+	/* Return if endpoint is already enabled */
+	if ((REBASE(OTG_DIEPCTL(ep)) & (OTG_DIEPCTL0_EPENA | OTG_DIEPCTL0_EPDIS | OTG_DIEPCTL0_NAKSTS)) ==
+		OTG_DIEPCTL0_EPENA) {
+		return 0U;
+	}
+	/* If it's still enabled but being NAK'd, flush FIFO and reset */
+	if ((REBASE(OTG_DIEPCTL(ep)) & OTG_DIEPCTL0_EPENA) != 0U) {
+		dwc_flush_txfifo(usbd_dev, ep);
+		/* Disable the endpoint and wait for it to become actually disabled */
+		REBASE(OTG_DIEPCTL(ep)) |= OTG_DIEPCTL0_EPDIS;
+		while ((REBASE(OTG_DIEPINT(ep)) & OTG_DIEPINTX_EPDISD) == 0U)
+			continue;
+		REBASE(OTG_DIEPINT(ep)) = OTG_DIEPINTX_EPDISD;
+	}
+
+	/* Configure the endpoint to accept the new packet */
+	if (ep == 0U)
+		REBASE(OTG_DIEPTSIZ0) = OTG_DIEPSIZ0_PKTCNT | (length & OTG_DIEPSIZ0_XFRSIZ_MASK);
+	else
+		REBASE(OTG_DIEPTSIZ(ep)) = OTG_DIEPSIZX_MCNT_1 | OTG_DIEPSIZX_PKTCNT(1) | (length & OTG_DIEPSIZX_XFRSIZ_MASK);
+	/* Arm the endpoint for send */
+	REBASE(OTG_DIEPCTL(ep)) |= OTG_DIEPCTL0_EPENA | OTG_DIEPCTL0_CNAK;
+
+	/* Figure out how many bytes can be written as u32 chunks */
+	const size_t aligned_length = length & ~3U;
+#ifdef __ARM_ARCH_6M__
+	if (((uintptr_t)buffer & 0x3U) == 0U) {
+#endif
+		/* Copy what we can into the FIFO for this endpoint in u32 blocks */
+		for (size_t offset = 0U; offset < aligned_length; offset += 4U)
+			REBASE(OTG_FIFO(ep)) = ((const uint32_t *)buffer)[offset >> 2U];
+#ifdef __ARM_ARCH_6M__
+	} else {
+		const uint8_t *const buffer8 = buffer;
+		/* Copy the data into the FIFO for this endpoint in u32 blocks using memcpy to work around alignment issues */
+		for (size_t offset = 0U; offset < aligned_length; offset += 4U) {
+			uint32_t data;
+			memcpy(&data, buffer8 + offset, 4U);
+			REBASE(OTG_FIFO(ep)) = data;
+		}
+	}
+#endif
+	/* If there's some data left over at the end, do the final copy */
+	if (length - aligned_length) {
+		/* Prepare the data block for the FIFO */
+		uint32_t data = 0U;
+		memcpy(&data, (const uint8_t *)buffer + aligned_length, length - aligned_length);
+		/* Push the prepared data into the FIFO to complete transfer setup */
+		REBASE(OTG_FIFO(ep)) = data;
+	}
+
+	/* Return that we wrote the whole packet out */
+	return length;
+}
+
+uint16_t dwc_ep_read_packet(
+	usbd_device *const usbd_dev, const uint8_t endpoint_address, void *const buffer, const uint16_t length)
+{
+	/* We do not need to know the endpoint address since there is only one receive FIFO for all endpoints. */
+	(void)endpoint_address;
+	/* Figure out how many bytes to read, and how many can be read as u32 chunks */
+	const size_t count = MIN(length, usbd_dev->rxbcnt);
+	const size_t aligned_count = count & ~3U;
+
+	/* ARMv7-M and newer supports non-word-aligned accesses, ARMv6-M does not. */
+#ifdef __ARM_ARCH_6M__
+	if (((uintptr_t)buffer & 0x3U) == 0U) {
+#endif
+		/* Copy the data out of the FIFO for this endpoint in u32 blocks */
+		for (size_t offset = 0U; offset < aligned_count; offset += 4U)
+			((uint32_t *)buffer)[offset >> 2U] = REBASE(OTG_FIFO(0U));
+#ifdef __ARM_ARCH_6M__
+	} else {
+		uint8_t *const buffer8 = buffer;
+		/* Copy the data out of the FIFO for this endpoint in u32 blocks using memcpy to work around alignment issues */
+		for (size_t offset = 0U; offset < aligned_count; offset += 4U) {
+			const uint32_t data = REBASE(OTG_FIFO(0U));
+			memcpy(buffer8 + offset, &data, 4U);
+		}
+	}
+#endif
+
+	/* If theres some data left over at the end, do the final copy */
+	if (count - aligned_count) {
+		/* Extract the last data block from the FIFO */
+		const uint32_t data = REBASE(OTG_FIFO(0U));
+		/* Copy the data for this final transfer into the target location in the buffer */
+		memcpy((uint8_t *)buffer + aligned_count, &data, count - aligned_count);
+		/* Because of how unloading works, we unload a bit more than this would ideally want */
+		if (usbd_dev->rxbcnt <= aligned_count + 4U)
+			usbd_dev->rxbcnt = 0U; /* If we exhausted the data, set to 0 */
+		else
+			usbd_dev->rxbcnt -= count + 4U;
+	} else
+		/* All's said and done, so drop the read count by the amount read and return */
+		usbd_dev->rxbcnt -= count;
+	return count;
+}
+
+static void dwc_flush_txfifo(usbd_device *const usbd_dev, const uint8_t ep)
+{
+	/* Mark the endpoint to NAK and wait for it to become active */
+	REBASE(OTG_DIEPCTL(ep)) |= OTG_DIEPCTL0_SNAK;
+	while ((REBASE(OTG_DIEPINT(ep)) & OTG_DIEPINTX_INEPNE) == 0U) {
+	}
+	/* Figure out which FIFO is in use for this endpoint */
+	const uint32_t fifo = (REBASE(OTG_DIEPCTL(ep)) & OTG_DIEPCTL0_TXFNUM_MASK) >> 22;
+	/* Wait for core to idle */
+	while ((REBASE(OTG_GRSTCTL) & OTG_GRSTCTL_AHBIDL) == 0U) {
+	}
+	/* Flush the FIFO in quest */
+	REBASE(OTG_GRSTCTL) = (fifo << 6U) | OTG_GRSTCTL_TXFFLSH;
+	while ((REBASE(OTG_GRSTCTL) & OTG_GRSTCTL_TXFFLSH) != 0U) {
+		/* idle */
+	}
+	/* Reset packet queing size information */
+	REBASE(OTG_DIEPTSIZ(ep)) = 0U;
+}
+
+void dwc_poll(usbd_device *const usbd_dev)
+{
+	const uint32_t status = REBASE(OTG_GINTSTS) & REBASE(OTG_GINTMSK);
+	/* First check to see if we're here for a USB reset event */
+	if (status & OTG_GINTSTS_USBRST) {
+		/* Do an endpoint reset, make sure EP0 is set up, and clear the condition */
+		dwc_endpoints_reset(usbd_dev);
+		_usbd_reset(usbd_dev);
+		REBASE(OTG_GINTSTS) = OTG_GINTSTS_USBRST;
+		/* Exit early as we're done here */
 		return;
 	}
 
-	usbd_dev->force_nak[addr] = nak;
-
-	if (nak) {
-		REBASE(OTG_DOEPCTL(addr)) |= OTG_DOEPCTL0_SNAK;
-	} else {
-		REBASE(OTG_DOEPCTL(addr)) |= OTG_DOEPCTL0_CNAK;
-	}
-}
-
-uint16_t dwc_ep_write_packet(usbd_device *usbd_dev, uint8_t addr,
-			      const void *buf, uint16_t len)
-{
-	const uint32_t *buf32 = buf;
-#if defined(__ARM_ARCH_6M__)
-	const uint8_t *buf8 = buf;
-	uint32_t word32;
-#endif /* defined(__ARM_ARCH_6M__) */
-	int i;
-
-	addr &= 0x7F;
-
-	/* Return if endpoint is already enabled. */
-	if (REBASE(OTG_DIEPTSIZ(addr)) & OTG_DIEPSIZ0_PKTCNT) {
-		return 0;
-	}
-
-	/* Enable endpoint for transmission. */
-	REBASE(OTG_DIEPTSIZ(addr)) = OTG_DIEPSIZ0_PKTCNT | len;
-	REBASE(OTG_DIEPCTL(addr)) |= OTG_DIEPCTL0_EPENA |
-				     OTG_DIEPCTL0_CNAK;
-
-	/* Copy buffer to endpoint FIFO, note - memcpy does not work.
-	 * ARMv7M supports non-word-aligned accesses, ARMv6M does not. */
-#if defined(__ARM_ARCH_7M__) || defined(__ARM_ARCH_7EM__)
-	for (i = len; i > 0; i -= 4) {
-		REBASE(OTG_FIFO(addr)) = *buf32++;
-	}
-#endif /* defined(__ARM_ARCH_7M__) || defined(__ARM_ARCH_7EM__) */
-
-#if defined(__ARM_ARCH_6M__)
-	/* Take care of word-aligned and non-word-aligned buffers */
-	if (((uint32_t)buf8 & 0x3) == 0) {
-		for (i = len; i > 0; i -= 4) {
-			REBASE(OTG_FIFO(addr)) = *buf32++;
-		}
-	} else {
-		for (i = len; i > 0; i -= 4) {
-			memcpy(&word32, buf8, 4);
-			REBASE(OTG_FIFO(addr)) = word32;
-			buf8 += 4;
-		}
-	}
-#endif /* defined(__ARM_ARCH_6M__) */
-
-	return len;
-}
-
-uint16_t dwc_ep_read_packet(usbd_device *usbd_dev, uint8_t addr,
-				  void *buf, uint16_t len)
-{
-	int i;
-	uint32_t *buf32 = buf;
-#if defined(__ARM_ARCH_6M__)
-	uint8_t *buf8 = buf;
-	uint32_t word32;
-#endif /* defined(__ARM_ARCH_6M__) */
-	uint32_t extra;
-
-	/* We do not need to know the endpoint address since there is only one
-	 * receive FIFO for all endpoints.
-	 */
-	(void) addr;
-	len = MIN(len, usbd_dev->rxbcnt);
-
-	/* ARMv7M supports non-word-aligned accesses, ARMv6M does not. */
-#if defined(__ARM_ARCH_7M__) || defined(__ARM_ARCH_7EM__)
-	for (i = len; i >= 4; i -= 4) {
-		*buf32++ = REBASE(OTG_FIFO(0));
-		usbd_dev->rxbcnt -= 4;
-	}
-#endif /* defined(__ARM_ARCH_7M__) || defined(__ARM_ARCH_7EM__) */
-
-#if defined(__ARM_ARCH_6M__)
-	/* Take care of word-aligned and non-word-aligned buffers */
-	if (((uint32_t)buf8 & 0x3) == 0) {
-		for (i = len; i >= 4; i -= 4) {
-			*buf32++ = REBASE(OTG_FIFO(0));
-			usbd_dev->rxbcnt -= 4;
-		}
-	} else {
-		for (i = len; i >= 4; i -= 4) {
-			word32 = REBASE(OTG_FIFO(0));
-			memcpy(buf8, &word32, 4);
-			usbd_dev->rxbcnt -= 4;
-			buf8 += 4;
-		}
-		/* buf32 needs to be updated as it is used for extra */
-		buf32 = (uint32_t *)buf8;
-	}
-#endif /* defined(__ARM_ARCH_6M__) */
-
-	if (i) {
-		extra = REBASE(OTG_FIFO(0));
-		/* we read 4 bytes from the fifo, so update rxbcnt */
-		if (usbd_dev->rxbcnt < 4) {
-			/* Be careful not to underflow (rxbcnt is unsigned) */
-			usbd_dev->rxbcnt = 0;
-		} else {
-			usbd_dev->rxbcnt -= 4;
-		}
-		memcpy(buf32, &extra, i);
-	}
-
-	return len;
-}
-
-static void dwc_flush_txfifo(usbd_device *usbd_dev, int ep)
-{
-	uint32_t fifo;
-	/* set IN endpoint NAK */
-	REBASE(OTG_DIEPCTL(ep)) |= OTG_DIEPCTL0_SNAK;
-	/* wait for core to respond */
-	while (!(REBASE(OTG_DIEPINT(ep)) & OTG_DIEPINTX_INEPNE)) {
-		/* idle */
-	}
-	/* get fifo for this endpoint */
-	fifo = (REBASE(OTG_DIEPCTL(ep)) & OTG_DIEPCTL0_TXFNUM_MASK) >> 22;
-	/* wait for core to idle */
-	while (!(REBASE(OTG_GRSTCTL) & OTG_GRSTCTL_AHBIDL)) {
-		/* idle */
-	}
-	/* flush tx fifo */
-	REBASE(OTG_GRSTCTL) = (fifo << 6) | OTG_GRSTCTL_TXFFLSH;
-	/* reset packet counter */
-	REBASE(OTG_DIEPTSIZ(ep)) = 0;
-	while ((REBASE(OTG_GRSTCTL) & OTG_GRSTCTL_TXFFLSH)) {
-		/* idle */
-	}
-}
-
-void dwc_poll(usbd_device *usbd_dev)
-{
-	/* Read interrupt status register. */
-	uint32_t intsts = REBASE(OTG_GINTSTS);
-	int i;
-
-	if (intsts & OTG_GINTSTS_ENUMDNE) {
-		/* Handle USB RESET condition. */
+	/* Now check to see if we're here for an enumeration done event */
+	if (status & OTG_GINTSTS_ENUMDNE) {
+		/* There's nothing much to do here, this interrupt just indicates that the link speed is now set */
 		REBASE(OTG_GINTSTS) = OTG_GINTSTS_ENUMDNE;
-		usbd_dev->fifo_mem_top = usbd_dev->driver->rx_fifo_size;
-		_usbd_reset(usbd_dev);
 		return;
 	}
 
 	/*
-	 * There is no global interrupt flag for transmit complete.
+	 * There is not always a global interrupt flag for transmit complete.
 	 * The XFRC bit must be checked in each OTG_DIEPINT(x).
+	 *
+	 * Iterate over the IN endpoints, triggering any post-transmit actions.
 	 */
-	for (i = 0; i < 4; i++) { /* Iterate over endpoints. */
-		if (REBASE(OTG_DIEPINT(i)) & OTG_DIEPINTX_XFRC) {
-			/* Transfer complete. */
-			if (usbd_dev->user_callback_ctr[i]
-						       [USB_TRANSACTION_IN]) {
-				usbd_dev->user_callback_ctr[i]
-					[USB_TRANSACTION_IN](usbd_dev, i);
+	if (status & OTG_GINTSTS_IEPINT) {
+		for (size_t ep = 0U; ep < ENDPOINT_COUNT; ++ep) {
+			/* If this endpoint has a completion, process it */
+			if (REBASE(OTG_DIEPINT(ep)) & OTG_DIEPINTX_XFRC) {
+				/* Mark the endpoint for NAK so we don't cause a protocol error */
+				REBASE(OTG_DIEPCTL(ep)) |= OTG_DIEPCTL0_SNAK;
+				/* Call any callback that might be available */
+				if (usbd_dev->user_callback_ctr[ep][USB_TRANSACTION_IN]) {
+					usbd_dev->user_callback_ctr[ep][USB_TRANSACTION_IN](usbd_dev, ep);
+				}
 			}
-
-			REBASE(OTG_DIEPINT(i)) = OTG_DIEPINTX_XFRC;
+			/* Clear any and all interrupt notifications on this endpoint */
+			REBASE(OTG_DIEPINT(ep)) = REBASE(OTG_DIEPINT(ep));
 		}
 	}
 
-	/* Note: RX and TX handled differently in this device. */
-	if (intsts & OTG_GINTSTS_RXFLVL) {
-		/* Receive FIFO non-empty. */
-		uint32_t rxstsp = REBASE(OTG_GRXSTSP);
-		uint32_t pktsts = rxstsp & OTG_GRXSTSP_PKTSTS_MASK;
-		uint8_t ep = rxstsp & OTG_GRXSTSP_EPNUM_MASK;
+	/* Handle OUT packet reception */
+	while (REBASE(OTG_GINTSTS) & OTG_GINTSTS_RXFLVL) {
+		/* Pop the RX packet status from the stack and decode */
+		const uint32_t rx_status = REBASE(OTG_GRXSTSP);
+		const uint32_t phase = rx_status & OTG_GRXSTSP_PKTSTS_MASK;
+		const uint8_t ep = rx_status & OTG_GRXSTSP_EPNUM_MASK;
+		usbd_dev->rxbcnt = (rx_status & OTG_GRXSTSP_BCNT_MASK) >> 4U;
 
-		if (pktsts == OTG_GRXSTSP_PKTSTS_SETUP_COMP) {
-			usbd_dev->user_callback_ctr[ep][USB_TRANSACTION_SETUP] (usbd_dev, ep);
+		switch (phase) {
+		case OTG_GRXSTSP_PKTSTS_SETUP_COMP:
+			/* Packet is for completion of a SETUP transaction, call the callback for this */
+			usbd_dev->user_callback_ctr[ep][USB_TRANSACTION_SETUP](usbd_dev, ep);
+			break;
+		case OTG_GRXSTSP_PKTSTS_SETUP:
+			/* Packet is a SETUP packet, check if there's anything stuck in the TX FIFO to flush */
+			if ((REBASE(OTG_DIEPTSIZ(ep)) & OTG_DIEPSIZ0_PKTCNT) != 0U) {
+				dwc_flush_txfifo(usbd_dev, ep);
+			}
+			/* Having made sure we're in a sensible state, now dequeue the data */
+			dwc_ep_read_packet(usbd_dev, ep, &usbd_dev->control_state.req, sizeof(usbd_dev->control_state.req));
+			break;
+		case OTG_GRXSTSP_PKTSTS_OUT:
+			/* Call the user's handler if present */
+			if (usbd_dev->user_callback_ctr[ep][USB_TRANSACTION_OUT]) {
+				usbd_dev->user_callback_ctr[ep][USB_TRANSACTION_OUT](usbd_dev, ep);
+			}
+			break;
+		default:
+			break;
 		}
 
-		if (pktsts == OTG_GRXSTSP_PKTSTS_OUT_COMP
-			|| pktsts == OTG_GRXSTSP_PKTSTS_SETUP_COMP)  {
-			REBASE(OTG_DOEPTSIZ(ep)) = usbd_dev->doeptsiz[ep];
-			REBASE(OTG_DOEPCTL(ep)) |= OTG_DOEPCTL0_EPENA |
-				(usbd_dev->force_nak[ep] ?
-				 OTG_DOEPCTL0_SNAK : OTG_DOEPCTL0_CNAK);
-			return;
-		}
-
-		if ((pktsts != OTG_GRXSTSP_PKTSTS_OUT) &&
-		    (pktsts != OTG_GRXSTSP_PKTSTS_SETUP)) {
-			return;
-		}
-
-		uint8_t type;
-		if (pktsts == OTG_GRXSTSP_PKTSTS_SETUP) {
-			type = USB_TRANSACTION_SETUP;
-		} else {
-			type = USB_TRANSACTION_OUT;
-		}
-
-		if (type == USB_TRANSACTION_SETUP
-			&& (REBASE(OTG_DIEPTSIZ(ep)) & OTG_DIEPSIZ0_PKTCNT)) {
-			/* SETUP received but there is still something stuck
-			 * in the transmit fifo.  Flush it.
-			 */
-			dwc_flush_txfifo(usbd_dev, ep);
-		}
-
-		/* Save packet size for dwc_ep_read_packet(). */
-		usbd_dev->rxbcnt = (rxstsp & OTG_GRXSTSP_BCNT_MASK) >> 4;
-
-		if (type == USB_TRANSACTION_SETUP) {
-			dwc_ep_read_packet(usbd_dev, ep, &usbd_dev->control_state.req, 8);
-		} else if (usbd_dev->user_callback_ctr[ep][type]) {
-			usbd_dev->user_callback_ctr[ep][type] (usbd_dev, ep);
-		}
-
-		/* Discard unread packet data. */
-		for (i = 0; i < usbd_dev->rxbcnt; i += 4) {
-			/* There is only one receive FIFO, so use OTG_FIFO(0) */
+		/* Discard any straggling data for this packet that wasn't yet handled */
+		for (size_t offset = 0; offset < usbd_dev->rxbcnt; offset += 4U) {
+			/* There is only one receive FIFO, so use OTG_FS_FIFO(0) */
 			(void)REBASE(OTG_FIFO(0));
 		}
+		usbd_dev->rxbcnt = 0U;
 
-		usbd_dev->rxbcnt = 0;
+		/* If this is for a completion, re-arm the endpoint, preserving ACK state */
+		if (phase == OTG_GRXSTSP_PKTSTS_SETUP_COMP || phase == OTG_GRXSTSP_PKTSTS_OUT_COMP) {
+			REBASE(OTG_DOEPTSIZ(ep)) = usbd_dev->doeptsiz[ep];
+			REBASE(OTG_DOEPCTL(ep)) |=
+				OTG_DOEPCTL0_EPENA | (usbd_dev->force_nak[ep] ? OTG_DOEPCTL0_SNAK : OTG_DOEPCTL0_CNAK);
+		}
 	}
 
-	if (intsts & OTG_GINTSTS_USBSUSP) {
+	/* Deal with any endpoint interrupts that are outstanding */
+	const uint32_t endpoints_status = REBASE(OTG_DAINT) & REBASE(OTG_DAINTMSK);
+	/* Handle the OUT endpoints */
+	if (status & OTG_GINTSTS_OEPINT) {
+		uint16_t endpoints_mask = (uint16_t)(endpoints_status >> 16U);
+		uint8_t ep = 0U;
+		while (endpoints_mask != 0U) {
+			/* If there's an interrupt set on this endpoint */
+			if (endpoints_mask & 1U) {
+				/* Clear it */
+				REBASE(OTG_DOEPINT(ep)) = REBASE(OTG_DOEPINT(ep));
+			}
+
+			/* Advance to the next endpoint */
+			endpoints_mask >>= 1U;
+			++ep;
+		}
+	}
+
+	/* Process suspend and wakeup interrupts */
+	if (status & OTG_GINTSTS_USBSUSP) {
 		if (usbd_dev->user_callback_suspend) {
 			usbd_dev->user_callback_suspend();
 		}
 		REBASE(OTG_GINTSTS) = OTG_GINTSTS_USBSUSP;
 	}
-
-	if (intsts & OTG_GINTSTS_WKUPINT) {
+	if (status & OTG_GINTSTS_WKUPINT) {
 		if (usbd_dev->user_callback_resume) {
 			usbd_dev->user_callback_resume();
 		}
 		REBASE(OTG_GINTSTS) = OTG_GINTSTS_WKUPINT;
 	}
 
-	if (intsts & OTG_GINTSTS_SOF) {
+	/* Handle SOF notifications */
+	if (status & OTG_GINTSTS_SOF) {
 		if (usbd_dev->user_callback_sof) {
 			usbd_dev->user_callback_sof();
 		}
 		REBASE(OTG_GINTSTS) = OTG_GINTSTS_SOF;
 	}
 
+#if !defined(STM32H7) && !defined(STM32U5)
 	if (usbd_dev->user_callback_sof) {
 		REBASE(OTG_GINTMSK) |= OTG_GINTMSK_SOFM;
 	} else {
 		REBASE(OTG_GINTMSK) &= ~OTG_GINTMSK_SOFM;
 	}
+#endif
 }
 
-void dwc_disconnect(usbd_device *usbd_dev, bool disconnected)
+void dwc_disconnect(usbd_device *const usbd_dev, const bool disconnected)
 {
 	if (disconnected) {
 		REBASE(OTG_DCTL) |= OTG_DCTL_SDIS;
 	} else {
 		REBASE(OTG_DCTL) &= ~OTG_DCTL_SDIS;
+	}
+}
+
+void dwc_enable_sof(usbd_device *const usbd_dev)
+{
+	if (usbd_dev->user_callback_sof) {
+		REBASE(OTG_GINTMSK) |= OTG_GINTMSK_SOFM;
+	} else {
+		REBASE(OTG_GINTMSK) &= ~OTG_GINTMSK_SOFM;
 	}
 }

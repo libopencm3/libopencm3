@@ -99,6 +99,7 @@ specific memorymap.h header before including this header file.*/
 BEGIN_DECLS
 
 void usart_set_baudrate(uint32_t usart, uint32_t baud);
+uint32_t usart_get_baudrate(uint32_t usart);
 void usart_set_databits(uint32_t usart, uint32_t bits);
 uint32_t usart_get_databits(uint32_t usart);
 void usart_set_stopbits(uint32_t usart, uint32_t stopbits);
