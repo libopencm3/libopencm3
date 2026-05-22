@@ -663,5 +663,19 @@ CRC is applied, the EOT event is extended over the CRC frame transaction.*/
 
 BEGIN_DECLS
 
+void spi_config_ss(uint32_t spi, uint8_t ss_mgt, uint8_t ssoe, uint8_t ssom_mode, uint8_t ssiop, uint8_t mssi, uint8_t midi);
+void spi_set_master_slave(uint32_t spi, uint8_t mode);
+void spi_set_protocol(uint32_t spi, uint8_t prot);
+void spi_set_mbr_div(uint32_t spi, uint8_t mbrdiv);
+void spi_set_lsbmsb(uint32_t spi, uint8_t lsbfrst);
+void spi_set_afcntr(uint32_t spi, uint8_t ctrl_mode);
+void spi_cfg_polarity(uint32_t spi, uint8_t cpol);
+void spi_set_ck_phase(uint32_t spi, uint8_t cpha);
+void spi_set_comms_mode(uint32_t spi, uint8_t comm);
+void spi_config_data_size(uint32_t spi, uint16_t dsize, uint16_t tsize);
+void spi_enable(uint32_t spi);
+void spi_disable(uint32_t spi);
+void spi_send(uint32_t spi, const uint8_t *data, uint8_t *rx_buf, uint16_t len);
+
 END_DECLS
 #endif
