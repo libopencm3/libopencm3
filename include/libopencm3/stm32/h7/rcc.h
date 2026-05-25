@@ -409,6 +409,7 @@ LGPL License Terms @ref lgpl_license
 
 #define RCC_D2CCIP2R_LPTIM1SEL_SHIFT        28U
 #define RCC_D2CCIP2R_CECSEL_SHIFT           22U
+#define RCC_D2CCIP2R_USBSEL_MASK            0x3U
 #define RCC_D2CCIP2R_USBSEL_SHIFT           20U
 #define RCC_D2CCIP2R_I2C123SEL_SHIFT        12U
 #define RCC_D2CCIP2R_I2C123SEL_MASK         0x7U
@@ -421,24 +422,24 @@ LGPL License Terms @ref lgpl_license
 /** @defgroup rcc_d2ccip2r_values RCC_D2CCIP2R Values
  * @ingroup rcc_registers
  * @{*/
-#define RCC_D2CCIP2R_RNGSEL_HSI48           0
-#define RCC_D2CCIP2R_RNGSEL_PLL1Q           1
-#define RCC_D2CCIP2R_RNGSEL_LSE             2
-#define RCC_D2CCIP2R_RNGSEL_LSI             3
-#define RCC_D2CCIP2R_USART16SEL_PCLK2       0
-#define RCC_D2CCIP2R_USART234578SEL_PCLK1   0
-#define RCC_D2CCIP2R_USARTSEL_PCLK          0
-#define RCC_D2CCIP2R_USARTSEL_PLL2Q         1
-#define RCC_D2CCIP2R_USARTSEL_PLL3Q         2
-#define RCC_D2CCIP2R_USARTSEL_HSI           3
-#define RCC_D2CCIP2R_USARTSEL_CSI           4
-#define RCC_D2CCIP2R_USARTSEL_LSE           5
-#define RCC_D2CCIP2R_I2C123SEL_PCLK1        0
-#define RCC_D2CCIP2R_I2C123SEL_PLL2P        1
-#define RCC_D2CCIP2R_I2C123SEL_PLL3P        2
-#define RCC_D2CCIP2R_I2C123SEL_LSE          3
-#define RCC_D2CCIP2R_I2C123SEL_LSI          4
-#define RCC_D2CCIP2R_I2C123SEL_PCK          5
+#define RCC_D2CCIP2R_RNGSEL_HSI48           0U
+#define RCC_D2CCIP2R_RNGSEL_PLL1Q           1U
+#define RCC_D2CCIP2R_RNGSEL_LSE             2U
+#define RCC_D2CCIP2R_RNGSEL_LSI             3U
+#define RCC_D2CCIP2R_USART16910SEL_PCLK2    0U
+#define RCC_D2CCIP2R_USART234578SEL_PCLK1   0U
+#define RCC_D2CCIP2R_USARTSEL_PCLK          0U
+#define RCC_D2CCIP2R_USARTSEL_PLL2Q         1U
+#define RCC_D2CCIP2R_USARTSEL_PLL3Q         2U
+#define RCC_D2CCIP2R_USARTSEL_HSI           3U
+#define RCC_D2CCIP2R_USARTSEL_CSI           4U
+#define RCC_D2CCIP2R_USARTSEL_LSE           5U
+#define RCC_D2CCIP2R_I2C123SEL_PCLK1        0U
+#define RCC_D2CCIP2R_I2C123SEL_PLL2P        1U
+#define RCC_D2CCIP2R_I2C123SEL_PLL3P        2U
+#define RCC_D2CCIP2R_I2C123SEL_LSE          3U
+#define RCC_D2CCIP2R_I2C123SEL_LSI          4U
+#define RCC_D2CCIP2R_I2C123SEL_PCK          5U
 /**@}*/
 
 #define RCC_HSI_BASE_FREQUENCY              64000000UL
