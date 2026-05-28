@@ -49,21 +49,21 @@
  * @param [in] spi SPI base address;
  * @param [in] ss_mgt Slave Select mode, when 0,
  *                    can be configured two ways depending on the SSOE bit on SPI_CFG2;
- * @param [in] ssom_mode Specifies the Slave Select Output Management mode, 1 or 0.3
- * @param [in] ssoe Slave Select Output Enable, this bit should only be set when Master, if the device is the only master in the Bus,
- *                  it should always be kept high. If Master & SSOE=0, the bus is configured for multimaster mode. if the SS pin is 
- *                  pulled active in this mode, the SPI enters slave mode automatically.
+ * @param [in] ssom_mode SS Output Management, used when SSOE=1, if set, the SPI DFs will have SS non-active pulses inbetween, if 0, SS will be active until EOT.
+ * @param [in] ssoe Slave Select output enable, if 0, the NSS pin is not driven by the SPI peripheral. this setting is useful when Master, SSM=0 and single-slave
  * @param [in] mssi Master SS Idleness, this bits set the initial delay between the SS Active signal and the Clock Start. 
  * @param [in] midi Master Inter-Data Idleness, this bits set the delay between two consecutive data frames in master mode, if SSOM=1, MIDI must be >1.
  * @param [in] ssiop Slave Select polarity, 1 for active high, 0 for active low.
  */                   
 void spi_config_ss(uint32_t spi, uint8_t ss_mgt, uint8_t ssoe, uint8_t ssom_mode, uint8_t ssiop, uint8_t mssi, uint8_t midi) {
-    SPI_CFG2(spi) |= (SPI_CFG2_SSM_MASK | ss_mgt) |
-                     (SPI_CFG2_SSOE_MASK | ssoe) |
-                     (SPI_CFG2_SSOM_MASK | ssom_mode) |
-                     (SPI_CFG2_MSSI_MASK | mssi) |
-                     (SPI_CFG2_MIDI_MASK | midi) |
-                     (SPI_CFG2_SSIOP_MASK | ssiop);
+    uint32_t cfg2 = SPI_CFG2(spi);
+    cfg2 = (cfg2 & ~SPI_CFG2_SSM_MASK) | ss_mgt;
+    cfg2 = (cfg2 & ~SPI_CFG2_SSOE_MASK) | ssoe;
+    cfg2 = (cfg2 & ~SPI_CFG2_SSOM_MASK) | ssom_mode;
+    cfg2 = (cfg2 & ~SPI_CFG2_MSSI_MASK) | mssi;
+    cfg2 = (cfg2 & ~SPI_CFG2_MIDI_MASK) | midi;
+    cfg2 = (cfg2 & ~SPI_CFG2_SSIOP_MASK) | ssiop;
+    SPI_CFG2(spi) = cfg2;
 }
 
 /** Set Master/Slave mode for the given SPI.
@@ -73,7 +73,7 @@ void spi_config_ss(uint32_t spi, uint8_t ss_mgt, uint8_t ssoe, uint8_t ssom_mode
  * @param [in] mode Master/Slave mode select, use the bitmasks for this setting.
  */ 
 void spi_set_master_slave(uint32_t spi, uint8_t mode) {
-    SPI_CFG2(spi) |= (SPI_CFG2_MASTER_MASK | mode);
+    SPI_CFG2(spi) = (SPI_CFG2(spi) & ~SPI_CFG2_MASTER_MASK) | mode;
 }
 
 /** Sets the serial protocol for the given SPI.
@@ -84,7 +84,7 @@ void spi_set_master_slave(uint32_t spi, uint8_t mode) {
  * @param [in] prot Serial Protocol select, Motorola or Texas, use the bitmasks for this setting.
  */ 
 void spi_set_protocol(uint32_t spi, uint8_t prot) {
-    SPI_CFG2(spi) |= (SPI_CFG2_SP_MASK | prot);
+    SPI_CFG2(spi) = (SPI_CFG2(spi) & ~SPI_CFG2_SP_MASK) | prot;
 }
 
 /** Sets Master Baud Rate divider.
@@ -94,7 +94,7 @@ void spi_set_protocol(uint32_t spi, uint8_t prot) {
  * @param [in] mbrdiv Master Baud Rate divider macro.
  */ 
 void spi_set_mbr_div(uint32_t spi, uint8_t mbrdiv) {
-    SPI_CFG1(spi) |= (SPI_CFG1_MBR_MASK | mbrdiv);
+    SPI_CFG1(spi) = (SPI_CFG1(spi) & ~SPI_CFG1_MBR_MASK) | mbrdiv;
 }
 
 /** Sets MSB/LSB.
@@ -104,7 +104,7 @@ void spi_set_mbr_div(uint32_t spi, uint8_t mbrdiv) {
  * @param [in] lsbfrst MSB or LSB mode selection.
  */ 
 void spi_set_lsbmsb(uint32_t spi, uint8_t lsbfrst) {
-    SPI_CFG2(spi) |= (SPI_CFG2_LSBFRST_MASK | lsbfrst);
+    SPI_CFG2(spi) = (SPI_CFG2(spi) & ~SPI_CFG2_LSBFRST_MASK) | lsbfrst;
 }
 
 /** Sets Alternate Function GPIO control.
@@ -114,7 +114,7 @@ void spi_set_lsbmsb(uint32_t spi, uint8_t lsbfrst) {
  * @param [in] ctrl_mode AF Control mode.
  */ 
 void spi_set_afcntr(uint32_t spi, uint8_t ctrl_mode) {
-    SPI_CFG2(spi) |= (SPI_CFG2_AFCTNR_MASK | (ctrl_mode << SPI_CFG2_AFCNTR_SHIFT));
+    SPI_CFG2(spi) = (SPI_CFG2(spi) & ~SPI_CFG2_AFCNTR_MASK) | ctrl_mode;
 }
 
 /** Sets clock polarity.
@@ -124,7 +124,7 @@ void spi_set_afcntr(uint32_t spi, uint8_t ctrl_mode) {
  * @param [in] cpol Clock Polarity cfg.
  */ 
 void spi_cfg_polarity(uint32_t spi, uint8_t cpol) {
-    SPI_CFG2(spi) |= (SPI_CFG2_CPOL_MASK | cpol);
+    SPI_CFG2(spi) = (SPI_CFG2(spi) & ~SPI_CFG2_CPOL_MASK) | cpol;
 }
 
 /** Sets data capture clock phase.
@@ -134,7 +134,7 @@ void spi_cfg_polarity(uint32_t spi, uint8_t cpol) {
  * @param [in] cpha Clock Phase cfg.
  */ 
 void spi_set_ck_phase(uint32_t spi, uint8_t cpha) {
-    SPI_CFG2(spi) |= (SPI_CFG2_CPHA_MASK | cpha);
+    SPI_CFG2(spi) = (SPI_CFG2(spi) & ~SPI_CFG2_CPHA_MASK) | cpha;
 }
 
 /** Sets the Comms mode for the SPI Periph.
@@ -144,7 +144,7 @@ void spi_set_ck_phase(uint32_t spi, uint8_t cpha) {
  * @param [in] comm SPI Comms mode(full-duplex, half-duplex, siplex tx, simplex rx),
  */ 
 void spi_set_comms_mode(uint32_t spi, uint8_t comm) {
-    SPI_CFG2(spi) |= (SPI_CFG2_COMM_MASK | comm);
+    SPI_CFG2(spi) = (SPI_CFG2(spi) & ~SPI_CFG2_COMM_MASK) | comm;
 }
 
 void spi_config_data_size(uint32_t spi, uint16_t dsize, uint16_t tsize) {
@@ -152,7 +152,7 @@ void spi_config_data_size(uint32_t spi, uint16_t dsize, uint16_t tsize) {
     SPI_CFG1(spi) &= ~(SPI_CFG1_FTHLV_MASK | SPI_CFG1_DSIZE_MASK);
     SPI_CFG1(spi) |= (fthlv << SPI_CFG1_FTHLV_SHIFT) |
                      ((dsize - 1) << SPI_CFG1_DSIZE_SHIFT);
-    SPI_CR2(spi) |= SPI_CR2_TSIZE_MASK | tsize;
+    SPI_CR2(spi) = (SPI_CR2(spi) & ~SPI_CR2_TSIZE_MASK) | tsize;
 }
 
 /**SPI Peripheral Enable
@@ -169,24 +169,49 @@ void spi_disable(uint32_t spi) {
 
 /*SPI Communication Functions*/
 
+void spi_send_start(uint32_t spi) {
+    SPI_CR1(spi) |= SPI_CR1_CSTART;
+}
 
-void spi_send(uint32_t spi, const uint8_t *data, uint8_t *rx_buf, uint16_t len) {
-    if (len == 0)
-        return;
-    spi_config_data_size(spi, 8, len);
+
+/**SPI Send/Receive data function
+ * 
+ * This function sends 8 bit data frames stored at the data buffer, with a len size data packet, it also reads data from the rxdr register into the rx_buf register.
+ * 
+ */
+void spi_send(uint32_t spi, const uint8_t *data, uint8_t *rx_buf, uint16_t len, uint8_t dsize) {
+    if (len == 0) return;
+    spi_config_data_size(spi, dsize, len);
+    spi_send_start(spi);
     for (uint16_t i = 0; i < len; i++) {
+        while (!SPI_SR_TXPGET(spi));
         uint8_t data_byte = data ? data[i] : 0x00;
 
-        while (!SPI_SR_TXPGET(spi));
-            SPI_TXDR(spi) = data_byte;
+        *(volatile uint8_t*)&SPI_TXDR(spi) = data_byte;
+
+        while (SPI_SR_CTSIZEGET(spi));
 
         while (!SPI_SR_RXPGET(spi));
-            uint8_t rx_byte = SPI_RXDR(spi);
+        uint8_t rx_byte = SPI_RXDR(spi);
         
-            if (rx_buf != NULL)
-                rx_buf[i] = rx_byte;
-    }
+        if (rx_buf) rx_buf[i] = rx_byte;
     
+    }
+
     while (!SPI_SR_EOTGET(spi));
     SPI_ICFR(spi) |= SPI_IFCR_EOTC;
+
+}
+
+
+void spi_setup(const struct spi_setup_config *config) {
+    spi_disable(config->spi);
+    spi_config_ss(config->spi, config->ss_mgt, config->ssoe, config->ssom_mode,
+                config->ssiop, config->mssi, config->midi);
+    spi_set_lsbmsb(config->spi, config->lsbfrst);
+    spi_set_master_slave(config->spi, config->mode);
+    spi_set_protocol(config->spi, config->prot);
+    spi_set_mbr_div(config->mbrdiv, config->mbrdiv);
+    spi_cfg_polarity(config->spi, config->cpol);
+    spi_set_ck_phase(config->spi, config->cpha);
 }
