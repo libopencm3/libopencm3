@@ -10,45 +10,73 @@
  * @{
  */
 /** QUADSPI Control register */
-#define QUADSPI_CR      MMIO32(QUADSPI_BASE + 0x0U)
+#define QUADSPI_CR(quadspi_base)      MMIO32(quadspi_base + 0x0U)
+#define QUADSPI1_CR			QUADSPI_CR(QUADSPI1_BASE)
+#define QUADSPI2_CR			QUADSPI_CR(QUADSPI2_BASE)
 
 /** QUADSPI Device Configuration */
-#define QUADSPI_DCR     MMIO32(QUADSPI_BASE + 0x4U)
+#define QUADSPI_DCR(quadspi_base)     MMIO32(quadspi_base + 0x4U)
+#define QUADSPI1_DCR		QUADSPI_DCR(QUADSPI1_BASE)
+#define QUADSPI2_DCR		QUADSPI_DCR(QUADSPI2_BASE)
 
 /** QUADSPI Status Register */
-#define QUADSPI_SR      MMIO32(QUADSPI_BASE + 0x8U)
+#define QUADSPI_SR(quadspi_base)      MMIO32(quadspi_base + 0x8U)
+#define QUADSPI1_SR			QUADSPI_SR(QUADSPI1_BASE)
+#define QUADSPI2_SR			QUADSPI_SR(QUADSPI2_BASE)
 
 /** QUADSPI Flag Clear Register */
-#define QUADSPI_FCR     MMIO32(QUADSPI_BASE + 0xCU)
+#define QUADSPI_FCR(quadspi_base)     MMIO32(quadspi_base + 0xCU)
+#define QUADSPI1_FCR		QUADSPI_FCR(QUADSPI1_BASE)
+#define QUADSPI2_FCR		QUADSPI_FCR(QUADSPI2_BASE)
 
 /** QUADSPI Data Length Register */
-#define QUADSPI_DLR     MMIO32(QUADSPI_BASE + 0x10U)
+#define QUADSPI_DLR(quadspi_base)     MMIO32(quadspi_base + 0x10U)
+#define QUADSPI1_DLR		QUADSPI_DLR(QUADSPI1_BASE)
+#define QUADSPI2_DLR		QUADSPI_DLR(QUADSPI2_BASE)
 
 /** QUADSPI Communication Configuration Register */
-#define QUADSPI_CCR     MMIO32(QUADSPI_BASE + 0x14U)
+#define QUADSPI_CCR(quadspi_base)     MMIO32(quadspi_base + 0x14U)
+#define QUADSPI1_CCR		QUADSPI_CCR(QUADSPI1_BASE)
+#define QUADSPI2_CCR		QUADSPI_CCR(QUADSPI2_BASE)
 
 /** QUADSPI address register */
-#define QUADSPI_AR      MMIO32(QUADSPI_BASE + 0x18U)
+#define QUADSPI_AR(quadspi_base)      MMIO32(quadspi_base + 0x18U)
+#define QUADSPI1_AR			QUADSPI_AR(QUADSPI1_BASE)
+#define QUADSPI2_AR			QUADSPI_AR(QUADSPI2_BASE)
 
 /** QUADSPI alternate bytes register */
-#define QUADSPI_ABR     MMIO32(QUADSPI_BASE + 0x1CU)
+#define QUADSPI_ABR(quadspi_base)     MMIO32(quadspi_base + 0x1CU)
+#define QUADSPI1_ABR		QUADSPI_ABR(QUADSPI1_BASE)
+#define QUADSPI2_ABR		QUADSPI_ABR(QUADSPI2_BASE)
 
 /** QUADSPI data register */
-#define QUADSPI_DR      MMIO32(QUADSPI_BASE + 0x20U)
+#define QUADSPI_DR(quadspi_base)      MMIO32(quadspi_base + 0x20U)
+#define QUADSPI1_DR			QUADSPI_DR(QUADSPI1_BASE)
+#define QUADSPI2_DR			QUADSPI_DR(QUADSPI2_BASE)
 /** BYTE addressable version for fetching bytes from the interface */
-#define QUADSPI_BYTE_DR     MMIO8(QUADSPI_BASE + 0x20U)
+#define QUADSPI_BYTE_DR(quadspi_base)     MMIO8(quadspi_base + 0x20U)
+#define QUADSPI1_BYTE_DR	QUADSPI_BYTE_DR(QUADSPI1_BASE)
+#define QUADSPI2_BYTE_DR	QUADSPI_BYTE_DR(QUADSPI2_BASE)
 
 /** QUADSPI polling status */
-#define QUADSPI_PSMKR     MMIO32(QUADSPI_BASE + 0x24U)
+#define QUADSPI_PSMKR(quadspi_base)     MMIO32(quadspi_base + 0x24U)
+#define QUADSPI1_PSMKR		QUADSPI_PSMKR(QUADSPI1_BASE)
+#define QUADSPI2_PSMKR		QUADSPI_PSMKR(QUADSPI2_BASE)
 
 /** QUADSPI polling status match */
-#define QUADSPI_PSMAR     MMIO32(QUADSPI_BASE + 0x28U)
+#define QUADSPI_PSMAR(quadspi_base)     MMIO32(quadspi_base + 0x28U)
+#define QUADSPI1_PSMAR		QUADSPI_PSMAR(QUADSPI1_BASE)
+#define QUADSPI2_PSMAR		QUADSPI_PSMAR(QUADSPI2_BASE)
 
 /** QUADSPI polling interval register */
-#define QUADSPI_PIR     MMIO32(QUADSPI_BASE + 0x2CU)
+#define QUADSPI_PIR(quadspi_base)     MMIO32(quadspi_base + 0x2CU)
+#define QUADSPI1_PIR		QUADSPI_PIR(QUADSPI1_BASE)
+#define QUADSPI2_PIR		QUADSPI_PIR(QUADSPI2_BASE)
 
 /** QUADSPI low power timeout */
-#define QUADSPI_LPTR      MMIO32(QUADSPI_BASE + 0x30U
+#define QUADSPI_LPTR(quadspi_base)      MMIO32(quadspi_base + 0x30U)
+#define QUADSPI1_LPTR		QUADSPI_LPTR(QUADSPI1_BASE)
+#define QUADSPI2_LPTR		QUADSPI_LPTR(QUADSPI2_BASE)
 /**@}*/
 
 #define QUADSPI_CR_PRESCALE_MASK  0xff
@@ -163,12 +191,12 @@ BEGIN_DECLS
 /**
  * Enable the quadspi peripheral.
  */
-void quadspi_enable(void);
+void quadspi_enable(uint32_t quadspi);
 
 /**
  * Disable the quadspi peripheral.
  */
-void quadspi_disable(void);
+void quadspi_disable(uint32_t quadspi);
 
 END_DECLS
 

@@ -2,6 +2,8 @@
  * This file is part of the libopencm3 project.
  *
  * Copyright (C) 2011 Gareth McMullin <gareth@blacksphere.co.nz>
+ * Copyright (C) 2026 1BitSquared <info@1bitsquared.com>
+ * Modified by Rachel Mant <git@dragonmux.network>
  *
  * This library is free software: you can redistribute it and/or modify
  * it under the terms of the GNU Lesser General Public License as published by
@@ -22,12 +24,18 @@
 #include <libopencm3/stm32/tools.h>
 #include <libopencm3/stm32/rcc.h>
 #include <libopencm3/usb/usbd.h>
+#include <libopencm3/usb/bos.h>
 #include <libopencm3/usb/dwc/otg_hs.h>
 #include "usb_private.h"
 #include "usb_dwc_common.h"
 
-/* Receive FIFO size in 32-bit words. */
-#define RX_FIFO_SIZE 512
+/*
+ * Receive FIFO size in 32-bit words.
+ * We reserve first 4*n + 4 u32's for SETUP packets, where n is the number of endpoints total (4).
+ * Next, we reserve our max packet size (64) / 4 + 1 for general packet storage, and an additional
+ * one slot for the completion notification. This gives (4 * 4) + (64 / 4) + 6 = 16 + 16 + 6 = 38
+ */
+#define RX_FIFO_SIZE 38U /* 152 bytes */
 
 static usbd_device *stm32f207_usbd_init(void);
 
@@ -61,10 +69,12 @@ static usbd_device *stm32f207_usbd_init(void)
 	OTG_HS_GCCFG |= OTG_GCCFG_VBUSBSEN | OTG_GCCFG_PWRDWN;
 
 	/* Wait for AHB idle. */
-	while (!(OTG_HS_GRSTCTL & OTG_GRSTCTL_AHBIDL));
+	while ((OTG_HS_GRSTCTL & OTG_GRSTCTL_AHBIDL) == 0U)
+		continue;
 	/* Do core soft reset. */
 	OTG_HS_GRSTCTL |= OTG_GRSTCTL_CSRST;
-	while (OTG_HS_GRSTCTL & OTG_GRSTCTL_CSRST);
+	while ((OTG_HS_GRSTCTL & OTG_GRSTCTL_CSRST) != 0U)
+		continue;
 
 	/* Force peripheral only mode. */
 	OTG_HS_GUSBCFG |= OTG_GUSBCFG_FDMOD | OTG_GUSBCFG_TRDT_MASK;
@@ -75,18 +85,13 @@ static usbd_device *stm32f207_usbd_init(void)
 	/* Restart the PHY clock. */
 	OTG_HS_PCGCCTL = 0;
 
-	OTG_HS_GRXFSIZ = stm32f207_usb_driver.rx_fifo_size;
-	usbd_dev.fifo_mem_top = stm32f207_usb_driver.rx_fifo_size;
-
 	/* Unmask interrupts for TX and RX. */
 	OTG_HS_GAHBCFG |= OTG_GAHBCFG_GINT;
-	OTG_HS_GINTMSK = OTG_GINTMSK_ENUMDNEM |
-			 OTG_GINTMSK_RXFLVLM |
-			 OTG_GINTMSK_IEPINT |
-			 OTG_GINTMSK_USBSUSPM |
-			 OTG_GINTMSK_WUIM;
-	OTG_HS_DAINTMSK = 0xF;
+	OTG_HS_GINTMSK = OTG_GINTMSK_RXFLVLM | OTG_GINTMSK_USBSUSPM | OTG_GINTMSK_USBRST | OTG_GINTMSK_ENUMDNEM |
+		OTG_GINTMSK_IEPINT | OTG_GINTMSK_OEPINT | OTG_GINTMSK_WUIM;
+	OTG_HS_DAINTMSK = 0x000f000fU;
 	OTG_HS_DIEPMSK = OTG_DIEPMSK_XFRCM;
+	OTG_HS_DOEPMSK = OTG_DOEPMSK_STUPM | OTG_DOEPMSK_XFRCM;
 
 	return &usbd_dev;
 }

@@ -110,5 +110,14 @@ bool usart_get_flag(uint32_t usart, uint32_t flag)
 	return ((USART_SR(usart) & flag) != 0);
 }
 
+#ifdef LIBOPENCM3_USART_COMMON_F24_H
+void usart_set_oversampling(uint32_t usart, uint32_t mode)
+{
+	if (mode)
+		USART_CR1(usart) |= USART_CR1_OVER8;
+	else
+		USART_CR1(usart) &= ~USART_CR1_OVER8;
+}
+#endif
 
 /**@}*/

@@ -97,28 +97,30 @@ void adc_set_sample_time_on_all_channels(uint32_t adc, uint8_t time)
  * @param[in] length Number of channels in the group, range 0..16
  * @param[in] channel Set of channels in sequence, range @ref adc_channel
  */
-void adc_set_regular_sequence(uint32_t adc, uint8_t length, uint8_t channel[])
+void adc_set_regular_sequence(uint32_t adc, uint8_t length, const uint8_t channel[])
 {
-	uint32_t reg32_1 = 0, reg32_2 = 0, reg32_3 = 0, reg32_4 = 0;
-	uint8_t i = 0;
-
 	/* Maximum sequence length is 16 channels. */
-	if (length > 16) {
+	if (length > 16U) {
 		return;
 	}
 
-	for (i = 1; i <= length; i++) {
-		if (i <= 4) {
-			reg32_1 |= (channel[i - 1] << (i * 6));
+	uint32_t reg32_1 = 0;
+	uint32_t reg32_2 = 0;
+	uint32_t reg32_3 = 0;
+	uint32_t reg32_4 = 0;
+
+	for (uint8_t i = 1; i <= length; i++) {
+		if (i <= 4U) {
+			reg32_1 |= (channel[i - 1U] << (i * 6U));
 		}
-		if ((i > 4) && (i <= 9)) {
-			reg32_2 |= (channel[i - 1] << ((i - 4 - 1) * 6));
+		if (i > 4U && i <= 9U) {
+			reg32_2 |= (channel[i - 1U] << ((i - 4U - 1U) * 6U));
 		}
-		if ((i > 9) && (i <= 14)) {
-			reg32_3 |= (channel[i - 1] << ((i - 9 - 1) * 6));
+		if (i > 9U && i <= 14U) {
+			reg32_3 |= (channel[i - 1U] << ((i - 9U - 1U) * 6U));
 		}
-		if ((i > 14) && (i <= 16)) {
-			reg32_4 |= (channel[i - 1] << ((i - 14 - 1) * 6));
+		if (i > 14U && i <= 16U) {
+			reg32_4 |= (channel[i - 1U] << ((i - 14U - 1U) * 6U));
 		}
 	}
 	reg32_1 |= ((length - 1) << ADC_SQR1_L_SHIFT);

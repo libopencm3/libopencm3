@@ -28,8 +28,11 @@
 #include <libopencm3/usb/dwc/otg_common.h>
 
 /* Memory map is required for USB_OTG_HS_BASE address */
-#if defined(STM32F2) || defined(STM32F4) || defined(STM32F7)
+#if defined(STM32F2) || defined(STM32F4) || defined(STM32F7) || defined(STM32H7) || defined(STM32U5) || defined(STM32H7)
 #	include <libopencm3/stm32/memorymap.h>
+#if defined(STM32H7)
+#define USB_OTG_HS_BASE USB1_OTG_HS_BASE
+#endif
 #else
 #	error "device family not supported by dwc/otg_hs."
 #endif

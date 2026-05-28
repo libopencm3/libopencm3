@@ -8,7 +8,7 @@
 
 @author @htmlonly &copy; @endhtmlonly 2013
 Weston Schmidt <weston_schmidt@alumni.purdue.edu>
-Pavol Rusnak <stick@gk2.sk>
+Pavol Rusnak <pavol@rusnak.io>
 
 @date 27 June 2013
 
@@ -19,7 +19,7 @@ LGPL License Terms @ref lgpl_license
  * This file is part of the libopencm3 project.
  *
  * Copyright (C) 2013 Weston Schmidt <weston_schmidt@alumni.purdue.edu>
- * Copyright (C) 2013 Pavol Rusnak <stick@gk2.sk>
+ * Copyright (C) 2013 Pavol Rusnak <pavol@rusnak.io>
  *
  * This library is free software: you can redistribute it and/or modify
  * it under the terms of the GNU Lesser General Public License as published by

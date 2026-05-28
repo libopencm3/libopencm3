@@ -128,7 +128,7 @@ uint8_t nvic_get_irq_enabled(uint8_t irqn)
 	return NVIC_ISER(irqn / 32) & (1 << (irqn % 32)) ? 1 : 0;
 }
 
-#if defined(__ARM_ARCH_7M__) || defined(__ARM_ARCH_7EM__)
+#if defined(__ARM_ARCH_7M__) || defined(__ARM_ARCH_7EM__) || defined(__ARM_ARCH_8M_MAIN__)
 /** @brief NVIC Set Interrupt Priority
  *
  * There are 16 priority levels only, given by the upper four bits of the
@@ -181,7 +181,7 @@ void nvic_set_priority(uint8_t irqn, uint8_t priority)
 }
 
 /* Those are defined only on CM3 or CM4 */
-#if defined(__ARM_ARCH_7M__) || defined(__ARM_ARCH_7EM__)
+#if defined(__ARM_ARCH_7M__) || defined(__ARM_ARCH_7EM__) || defined(__ARM_ARCH_8M_MAIN__)
 /*---------------------------------------------------------------------------*/
 /** @brief NVIC Return Active Interrupt
  *

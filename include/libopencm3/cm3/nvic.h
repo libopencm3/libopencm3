@@ -81,7 +81,7 @@
 /* NVIC_BASE + 0x1A0 (0xE000 E2A0 - 0xE00 E2FF): Reserved */
 
 /* Those defined only on ARMv7 and above */
-#if defined(__ARM_ARCH_7M__) || defined(__ARM_ARCH_7EM__)
+#if defined(__ARM_ARCH_7M__) || defined(__ARM_ARCH_7EM__) || defined(__ARM_ARCH_8M_MAIN__)
 /** IABR: Interrupt Active Bit Register
  * @note 8 32bit Registers */
 #define NVIC_IABR(iabr_id)		MMIO32(NVIC_BASE + 0x200 + \
@@ -102,7 +102,7 @@
 						(ipr_id))
 #endif
 
-#if defined(__ARM_ARCH_7M__) || defined(__ARM_ARCH_7EM__)
+#if defined(__ARM_ARCH_7M__) || defined(__ARM_ARCH_7EM__) || defined(__ARM_ARCH_8M_MAIN__)
 /** STIR: Software Trigger Interrupt Register */
 #define NVIC_STIR			MMIO32(STIR_BASE)
 #endif
@@ -121,7 +121,7 @@ IRQ numbers -3 and -6 to -9 are reserved
 #define NVIC_HARD_FAULT_IRQ		-13
 
 /* Those defined only on ARMv7 and above */
-#if defined(__ARM_ARCH_7M__) || defined(__ARM_ARCH_7EM__)
+#if defined(__ARM_ARCH_7M__) || defined(__ARM_ARCH_7EM__) || defined(__ARM_ARCH_8M_MAIN__)
 #define NVIC_MEM_MANAGE_IRQ		-12
 #define NVIC_BUS_FAULT_IRQ		-11
 #define NVIC_USAGE_FAULT_IRQ		-10
@@ -131,7 +131,7 @@ IRQ numbers -3 and -6 to -9 are reserved
 #define NVIC_SV_CALL_IRQ		-5
 
 /* Those defined only on ARMv7 and above */
-#if defined(__ARM_ARCH_7M__) || defined(__ARM_ARCH_7EM__)
+#if defined(__ARM_ARCH_7M__) || defined(__ARM_ARCH_7EM__) || defined(__ARM_ARCH_8M_MAIN__)
 #define DEBUG_MONITOR_IRQ		-4
 #endif
 
@@ -159,7 +159,7 @@ uint8_t nvic_get_irq_enabled(uint8_t irqn);
 void nvic_set_priority(uint8_t irqn, uint8_t priority);
 
 /* Those defined only on ARMv7 and above */
-#if defined(__ARM_ARCH_7M__) || defined(__ARM_ARCH_7EM__)
+#if defined(__ARM_ARCH_7M__) || defined(__ARM_ARCH_7EM__) || defined(__ARM_ARCH_8M_MAIN__)
 uint8_t nvic_get_active_irq(uint8_t irqn);
 void nvic_generate_software_interrupt(uint16_t irqn);
 #endif
@@ -172,7 +172,7 @@ void pend_sv_handler(void);
 void sys_tick_handler(void);
 
 /* Those defined only on ARMv7 and above */
-#if defined(__ARM_ARCH_7M__) || defined(__ARM_ARCH_7EM__)
+#if defined(__ARM_ARCH_7M__) || defined(__ARM_ARCH_7EM__) || defined(__ARM_ARCH_8M_MAIN__)
 void mem_manage_handler(void);
 void bus_fault_handler(void);
 void usage_fault_handler(void);

@@ -22,6 +22,7 @@
 #include <libopencm3/stm32/tools.h>
 #include <libopencm3/stm32/st_usbfs.h>
 #include <libopencm3/usb/usbd.h>
+#include <libopencm3/usb/bos.h>
 #include "../usb/usb_private.h"
 #include "common/st_usbfs_core.h"
 
@@ -49,17 +50,17 @@ static usbd_device *st_usbfs_v1_usbd_init(void)
 	SET_REG(USB_ISTR_REG, 0);
 
 	/* Enable RESET, SUSPEND, RESUME and CTR interrupts. */
-	SET_REG(USB_CNTR_REG, USB_CNTR_RESETM | USB_CNTR_CTRM |
-		USB_CNTR_SUSPM | USB_CNTR_WKUPM);
+	SET_REG(USB_CNTR_REG, USB_CNTR_RESETM | USB_CNTR_CTRM | USB_CNTR_SUSPM | USB_CNTR_WKUPM);
 	return &st_usbfs_dev;
 }
 
-void st_usbfs_copy_to_pm(volatile void *vPM, const void *buf, uint16_t len)
+void st_usbfs_copy_to_pm(volatile void *const vPM, const void *const buf, const uint16_t len)
 {
-	const uint16_t *lbuf = buf;
-	volatile uint32_t *PM = vPM;
-	for (len = (len + 1) >> 1; len; len--) {
-		*PM++ = *lbuf++;
+	const uint16_t *const src = buf;
+	volatile uint32_t *const packet_memory = vPM;
+	const size_t blocks = (len + 1U) >> 1U;
+	for (size_t idx = 0U; idx < blocks; ++idx) {
+		packet_memory[idx] = src[idx];
 	}
 }
 
@@ -70,17 +71,17 @@ void st_usbfs_copy_to_pm(volatile void *vPM, const void *buf, uint16_t len)
  * @param vPM Destination pointer into packet memory.
  * @param len Number of bytes to copy.
  */
-void st_usbfs_copy_from_pm(void *buf, const volatile void *vPM, uint16_t len)
+void st_usbfs_copy_from_pm(void *const buf, const volatile void *const vPM, const uint16_t len)
 {
-	uint16_t *lbuf = buf;
-	const volatile uint16_t *PM = vPM;
-	uint8_t odd = len & 1;
+	uint16_t *const dest = buf;
+	const volatile uint16_t *const packet_memory = vPM;
+	const size_t blocks = len >> 1U;
 
-	for (len >>= 1; len; PM += 2, lbuf++, len--) {
-		*lbuf = *PM;
+	for (size_t idx = 0; idx < blocks; ++idx) {
+		dest[idx] = packet_memory[idx << 1U];
 	}
 
-	if (odd) {
-		*(uint8_t *) lbuf = *(uint8_t *) PM;
+	if (len & 1U) {
+		*(uint8_t *)(dest + blocks) = packet_memory[blocks << 1U];
 	}
 }
