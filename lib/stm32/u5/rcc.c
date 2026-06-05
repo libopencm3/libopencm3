@@ -340,7 +340,7 @@ static void rcc_setup_epod_boost(const uint8_t pll_source, const uint8_t divm)
 	}
 }
 
-static void rcc_clock_setup_sysclk_source(const uint8_t sysclock_source)
+static void rcc_clock_setup_sysclk_source(const rcc_osc_e sysclock_source)
 {
 	/* Figure out what basic source is required for SYSCLK, and bring that up */
 	switch (sysclock_source) {
@@ -354,7 +354,7 @@ static void rcc_clock_setup_sysclk_source(const uint8_t sysclock_source)
 		while ((RCC_CR & RCC_CR_HSIRDY) == 0U)
 			continue;
 		break;
-	case RCC_PLLCFGR_PLLSRC_HSE:
+	case RCC_HSE:
 		RCC_CR |= RCC_CR_HSEON;
 		while ((RCC_CR & RCC_CR_HSERDY) == 0U)
 			continue;
@@ -364,7 +364,7 @@ static void rcc_clock_setup_sysclk_source(const uint8_t sysclock_source)
 	}
 }
 
-static void rcc_clock_setup_pll_source(const rcc_osc_e pll_source)
+static void rcc_clock_setup_pll_source(const uint8_t pll_source)
 {
 	/* Figure out what source is required for this PLL, then bring it up */
 	switch (pll_source) {
@@ -378,7 +378,7 @@ static void rcc_clock_setup_pll_source(const rcc_osc_e pll_source)
 		while ((RCC_CR & RCC_CR_HSIRDY) == 0U)
 			continue;
 		break;
-	case RCC_HSE:
+	case RCC_PLLCFGR_PLLSRC_HSE:
 		RCC_CR |= RCC_CR_HSEON;
 		while ((RCC_CR & RCC_CR_HSERDY) == 0U)
 			continue;
