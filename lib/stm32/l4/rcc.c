@@ -533,6 +533,75 @@ void rcc_set_rtc_clock_source(enum rcc_osc clk)
 	}
 }
 
+/*---------------------------------------------------------------------------*/
+/** @brief Set the peripheral clock source
+ * @param periph peripheral of desire, eg XXX_BASE (I2C4_BASE not supported)
+ * @param sel peripheral clock source
+ */
+void rcc_set_peripheral_clk_sel(uint32_t periph, uint32_t sel)
+{
+	uint8_t shift;
+	uint32_t mask;
+
+	switch (periph) {
+		case LPTIM2_BASE:
+			shift = RCC_CCIPR_LPTIM2SEL_SHIFT;
+			mask = RCC_CCIPR_LPTIMxSEL_MASK;
+			break;
+		case LPTIM1_BASE:
+			shift = RCC_CCIPR_LPTIM1SEL_SHIFT;
+			mask = RCC_CCIPR_LPTIMxSEL_MASK;
+			break;
+
+		// TODO: support I2C4_BASE (in RCC_CCIPR2)
+		case I2C3_BASE:
+			shift = RCC_CCIPR_I2C3SEL_SHIFT;
+			mask = RCC_CCIPR_I2CxSEL_MASK;
+			break;
+		case I2C2_BASE:
+			shift = RCC_CCIPR_I2C2SEL_SHIFT;
+			mask = RCC_CCIPR_I2CxSEL_MASK;
+			break;
+		case I2C1_BASE:
+			shift = RCC_CCIPR_I2C1SEL_SHIFT;
+			mask = RCC_CCIPR_I2CxSEL_MASK;
+			break;
+
+		case LPUART1_BASE:
+			shift = RCC_CCIPR_LPUART1SEL_SHIFT;
+			mask = RCC_CCIPR_LPUART1SEL_MASK;
+			break;
+
+		case UART5_BASE:
+			shift = RCC_CCIPR_UART5SEL_SHIFT;
+			mask = RCC_CCIPR_UARTxSEL_MASK;
+			break;
+		case UART4_BASE:
+			shift = RCC_CCIPR_UART4SEL_SHIFT;
+			mask = RCC_CCIPR_UARTxSEL_MASK;
+			break;
+
+		case USART3_BASE:
+			shift = RCC_CCIPR_USART3SEL_SHIFT;
+			mask = RCC_CCIPR_USARTxSEL_MASK;
+			break;
+		case USART2_BASE:
+			shift = RCC_CCIPR_USART2SEL_SHIFT;
+			mask = RCC_CCIPR_USARTxSEL_MASK;
+			break;
+		case USART1_BASE:
+			shift = RCC_CCIPR_USART1SEL_SHIFT;
+			mask = RCC_CCIPR_USARTxSEL_MASK;
+			break;
+
+		default:
+			return;
+	}
+
+	uint32_t reg32 = RCC_CCIPR & ~(mask << shift);
+	RCC_CCIPR = reg32 | (sel << shift);
+}
+
 /* Helper to calculate the frequency of a UART/I2C based on the apb and clksel value.
  * For I2C, clock selection 0b11 is reserved while it specifies LSE for UARTs. */
 static uint32_t rcc_uart_i2c_clksel_freq_hz(uint32_t apb_clk, uint8_t shift, uint32_t clock_reg) {
