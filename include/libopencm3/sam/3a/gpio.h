@@ -1,3 +1,10 @@
+/**
+ * @defgroup gpio_defines GPIO Defines
+ * @ingroup SAM3A_defines
+ *
+ * @brief Defined Constants and Types for the SAM3A General Purpose I/O
+ */
+
 /*
  * This file is part of the libopencm3 project.
  *
