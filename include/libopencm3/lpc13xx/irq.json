@@ -55,7 +55,8 @@
         "53": "pio3", 
         "54": "pio2", 
         "55": "pio1", 
-        "56": "ssp1"
+        "56": "pio0",
+        "57": "ssp1"
     }, 
     "partname_humanreadable": "LPC 13xx series", 
     "partname_doxygen": "LPC13xx", 
