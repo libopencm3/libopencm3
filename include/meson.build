@@ -36,6 +36,8 @@ target_paths = {
 	'stm32f3': 'stm32/f3',
 	'stm32f4': 'stm32/f4',
 	'stm32f7': 'stm32/f7',
+	'stm32g0': 'stm32/g0',
+	'stm32g4': 'stm32/g4',
 	'stm32h7': 'stm32/h7',
 	'stm32l4': 'stm32/l4',
 	'stm32u5': 'stm32/u5',
