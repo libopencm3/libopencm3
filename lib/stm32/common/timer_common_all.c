@@ -202,7 +202,97 @@ tim_reg_base
 
 void timer_clear_flag(uint32_t timer_peripheral, uint32_t flag)
 {
-	/* All defined bits are rc_w0 */
+	/*
+		All defined bits are rc_w0, reserved bits are 0
+
+		The reserved bits of the status register are _not_ rc_w0 therefore
+		a 1 in a reserved bit position is not allowed.
+		We thus need to ensure that all reserved bits are set in or flag
+		parameter so they are unset when we take the inverse.
+
+		Each type of timer peripheral has more or less reserved bits, so
+		we need to ensure that we set the correct bits, depending on the
+		peripheral.
+
+		peripheral	| mask
+		----------------------------------
+		TIM1		| 0b1110000100000000 (0xE100)
+		TIM8		| 0b1110000100000000 (0xE100)
+		TIM2		| 0b1110000110100000 (0xE1D0)
+		TIM3		| 0b1110000110100000 (0xE1D0)
+		TIM4		| 0b1110000110100000 (0xE1D0)
+		TIM5		| 0b1110000110100000 (0xE1D0)
+		TIM9		| 0b1111100110111000 (0xF9B8)
+		TIM12		| 0b1111100110111000 (0xF9B8)
+		TIM10		| 0b1111110111111100 (0xFDFC)
+		TIM11		| 0b1111110111111100 (0xFDFC)
+		TIM13		| 0b1111110111111100 (0xFDFC)
+		TIM14		| 0b1111110111111100 (0xFDFC)
+		TIM6		| 0b1111111111111110 (0xFFFE)
+		TIM7		| 0b1111111111111110 (0xFFFE)
+
+		I do not have the documentation for 15 to 21
+	*/
+
+	switch( timer_peripheral ) {
+#if defined(TIM1_BASE)
+	case TIM1_BASE:
+		flag |= 0xE100;
+		break;
+#endif
+#if defined(TIM8_BASE)
+	case TIM8_BASE:
+		flag |= 0xE100;
+		break;
+#endif
+	case TIM2_BASE:
+	case TIM3_BASE:
+#if defined(TIM4_BASE)
+	case TIM4_BASE:
+#endif
+#if defined(TIM5_BASE)
+	case TIM5_BASE:
+#endif
+		flag |= 0xE1D0;
+		break;
+#if defined(TIM9_BASE)
+	case TIM9_BASE:
+		flag |= 0xF9B8;
+		break;
+#endif
+#if defined(TIM12_BASE)
+	case TIM12_BASE:
+		flag |= 0xF9B8;
+		break;
+#endif
+#if defined(TIM10_BASE)
+	case TIM10_BASE:
+		flag |= 0xFDFC;
+		break;
+#endif
+#if defined(TIM11_BASE)
+	case TIM11_BASE:
+		flag |= 0xFDFC;
+		break;
+#endif
+#if defined(TIM13_BASE)
+	case TIM13_BASE:
+		flag |= 0xFDFC;
+		break;
+#endif
+#if defined(TIM14_BASE)
+	case TIM14_BASE:
+		flag |= 0xFDFC;
+		break;
+#endif
+	case TIM6_BASE:
+	case TIM7_BASE:
+		flag |= 0xFFFE;
+		break;
+	default:
+		break;
+	}
+
 	TIM_SR(timer_peripheral) = ~flag;
 }
 
