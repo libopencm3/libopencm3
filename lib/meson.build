@@ -35,9 +35,18 @@ subdir('cm3')
 
 locm3_ld_script_path = meson.current_source_dir()
 
+# STM32 family source-list variables (libstm32_*_sources). Hoisted to
+# the top of the dispatch because the GD32 family also reuses them
+# (gd32/f1x0 picks up stm32/common's adc_common_v1, gpio_common_f0234,
+# rcc_common_all, etc., same as the make path's VPATH does).
+subdir('stm32/common')
+
 # Now take the platform target and map it to a suitable target family
 if target_platform.startswith('stm32') or target_platform == 'all'
 	subdir('stm32')
+endif
+if target_platform.startswith('gd32') or target_platform == 'all'
+	subdir('gd32')
 endif
 if target_platform == 'lm4f' or target_platform == 'all'
 	subdir('lm4f')
