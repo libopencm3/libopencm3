@@ -38,16 +38,18 @@
 /* Module definitions                                                        */
 /*****************************************************************************/
 
+/** @defgroup comp_ids Comparator IDs
+ @{
+ */
 #define COMP1	0
-#define COMP2	1
+#define COMP2	16
+/**@}*/
 
 /*****************************************************************************/
 /* Register definitions                                                      */
 /*****************************************************************************/
 
-#define COMP_CSR(i)			MMIO16(SYSCFG_COMP_BASE + 0x1c + (i)*2)
-#define COMP_CSR1			COMP_CSR(COMP1)
-#define COMP_CSR2			COMP_CSR(COMP2)
+#define COMP_CSR			MMIO32(SYSCFG_COMP_BASE + 0x1c)
 
 /*****************************************************************************/
 /* Register values                                                           */
@@ -111,7 +113,15 @@
 
 BEGIN_DECLS
 
+/**
+ * Enable a comparator.
+ * @param id which comparator @ref comp_ids
+ */
 void comp_enable(uint8_t id);
+/**
+ * Disable a comparator.
+ * @param id which comparator @ref comp_ids
+ */
 void comp_disable(uint8_t id);
 void comp_select_input(uint8_t id, uint32_t input);
 void comp_select_output(uint8_t id, uint32_t output);
