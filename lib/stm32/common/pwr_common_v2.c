@@ -43,6 +43,9 @@ void pwr_set_vos_scale(enum pwr_vos_scale scale)
 		break;
 	}
 	PWR_CR = reg;
+
+	/* Wait for the regulator to stabilize */
+	while (PWR_CSR & PWR_CSR_VOSF);
 }
 
 /**@}*/
