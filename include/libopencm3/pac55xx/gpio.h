@@ -307,13 +307,18 @@ void gpio_set_af(uint32_t gpioport, ccs_muxsel_func_t muxsel, uint16_t gpios);
 void gpio_set_output_options(uint32_t gpioport, ccs_drive_strength_t strength,
 			     uint16_t gpios);
 /**
- * Set input schmidt trigger for glitch rejection on the input pin.
+ * Set input schmitt trigger for glitch rejection on the input pin.
  * @param[in] gpioport  Port to configure the alternate function on.
- * @param[in] enable  True to enable, false to disable the schmidt trigger.
- * @param[in] gpios  Pins to set with the schmidt trigger setting specified.
+ * @param[in] enable  True to enable, false to disable the schmitt trigger.
+ * @param[in] gpios  Pins to set with the schmitt trigger setting specified.
  */
-void gpio_set_schmidt_trigger(uint32_t gpioport, bool enable, uint16_t gpios);
+void gpio_set_schmitt_trigger(uint32_t gpioport, bool enable, uint16_t gpios);
 /**@}*/
+
+LIBOPENCM3_DEPRECATED("use gpio_set_schmitt_trigger")
+static inline void gpio_set_schmidt_trigger(uint32_t gpioport, bool enable, uint16_t gpios) {
+	gpio_set_schmitt_trigger(gpioport, enable, gpios);
+}
 
 END_DECLS
 
