@@ -39,25 +39,12 @@
 #define OTG_GOTGCTL_BVALOVAL		(1U << 7U)
 #define OTG_GOTGCTL_BVALOEN		(1U << 6U)
 
-#ifndef PWR_SVMCR_USV
-// #include <libopencm3/stm32/u5/pwr.h>
-#define PWR_SVMCR		MMIO32(PWR_BASE + 0x10)
-#define PWR_SVMSR		MMIO32(PWR_BASE + 0x3C)
-
-#define PWR_SVMCR_USV		(1U << 28U)
-#define PWR_SVMCR_UVMEN		(1U << 24U)
-
-#define PWR_SVMSR_VDDUSBRDY		(1U << 24U)
-#endif
-
 int main(void)
 {
 	rcc_clock_setup_hsi(&rcc_hsi16mhz_configs);
-	rcc_osc_on(RCC_HSI48);
-	while (!rcc_is_osc_ready(RCC_HSI48));
+	rcc_clock_setup_hsi48();
 	crs_autotrim_usb_enable();
 	rcc_periph_clock_enable(RCC_GPIOA);
-	//rcc_periph_clock_enable(RCC_OTGFS);
 
 	gpio_mode_setup(GPIOA, GPIO_MODE_AF, GPIO_PUPD_NONE, GPIO11 | GPIO12);
 	gpio_set_af(GPIOA, GPIO_AF10, GPIO11 | GPIO12);
@@ -69,13 +56,7 @@ int main(void)
 
 	/* Remove Vddusb power isolation */
 	rcc_periph_clock_enable(RCC_PWR);
-#if 0
-	PWR_SVMCR |= PWR_SVMCR_USV;
-	uint32_t pwr_svmsr = PWR_SVMSR;
-	(void) (pwr_svmsr & PWR_SVMSR_VDDUSBRDY);
-#else
 	pwr_enable_vddusb();
-#endif
 
 	usbd_device *usbd_dev = gadget0_init(&otgfs_usb_driver, "stm32u575-generic");
 	/* Disable Vbus detection and override B-session valid */
