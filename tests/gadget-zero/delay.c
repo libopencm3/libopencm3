@@ -32,6 +32,9 @@ void delay_setup(void)
 {
 	/* set up a microsecond free running timer for ... things... */
 	rcc_periph_clock_enable(RCC_TIM6);
+#if defined(STM32U5)
+	const uint32_t rcc_apb1_frequency = rcc_get_bus_clk_freq(RCC_APB1CLK);
+#endif
 	/* microsecond counter */
 	timer_set_prescaler(TIM6, rcc_apb1_frequency / 1000000 - 1);
 	timer_set_period(TIM6, 0xffff);
