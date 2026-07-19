@@ -59,6 +59,8 @@ int main(void)
 	pwr_enable_vddusb();
 
 	usbd_device *usbd_dev = gadget0_init(&otgfs_usb_driver, "stm32u575-generic");
+	/* Adjust TRDT to 15-16MHz AHB, force device mode */
+	OTG_FS_GUSBCFG = OTG_GUSBCFG_FDMOD | ((0xeU << 10U) & OTG_GUSBCFG_TRDT_MASK);
 	/* Disable Vbus detection and override B-session valid */
 	uint32_t core_id = OTG_FS_CID;
 	if (core_id >= 0x2000) {
