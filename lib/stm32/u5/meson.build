@@ -65,6 +65,7 @@ libstm32u5 = static_library(
 		libstm32_exti_sources,
 		libstm32_flash_sources,
 		libstm32_gpio_f0234_sources,
+		libstm32_icache_sources,
 		libstm32_i2c_v2_sources,
 		libstm32_iwdg_sources,
 		libstm32_rcc_sources,

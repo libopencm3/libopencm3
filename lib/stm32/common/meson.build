@@ -98,6 +98,7 @@ libstm32_gpio_f0234_sources = [
 	files('gpio_common_f0234.c'),
 ]
 libstm32_hash_f24_sources = files('hash_common_f24.c')
+libstm32_icache_sources = files('icache_common_all.c')
 libstm32_iwdg_sources = files('iwdg_common_all.c')
 libstm32_i2c_v1_sources = files('i2c_common_v1.c')
 libstm32_i2c_v2_sources = files('i2c_common_v2.c')
