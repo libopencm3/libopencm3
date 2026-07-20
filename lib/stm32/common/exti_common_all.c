@@ -149,7 +149,15 @@ void exti_select_source(uint32_t exti, uint32_t gpioport)
 #endif
 #if defined(GPIOH) && defined(GPIO_PORT_H_BASE)
 		case GPIOH:
+#if defined(GPIOG) && defined(GPIO_PORT_G_BASE)
 			bits = 7U;
+#else
+			/* Some parts (e.g. STM32L0) have no port F or G, and
+			 * port H takes SYSCFG_EXTICRx value 5, not 7 - see
+			 * RM0376 "10.2.4 SYSCFG external interrupt
+			 * configuration register 1". */
+			bits = 5U;
+#endif
 			break;
 #endif
 #if defined(GPIOI) && defined(GPIO_PORT_I_BASE)
