@@ -1,9 +1,16 @@
-/** @defgroup spi_defines SPI Defines
-@brief <b>Defined Constants and Types for the STM32H7xx SPI</b>
-@ingroup STM32H7xx_defines
+/** @defgroup i2c_file I2C
+
+@ingroup STM32H7xx
+
+@brief <b>libopencm3 STM32H7xx I2C</b>
+
 @version 1.0.0
+
+@date 15 October 2012
+
 LGPL License Terms @ref lgpl_license
- */
+*/
+
 /*
  * This file is part of the libopencm3 project.
  *
@@ -21,10 +28,4 @@ LGPL License Terms @ref lgpl_license
  * along with this library.  If not, see <http://www.gnu.org/licenses/>.
  */
 
-#ifndef LIBOPENCM3_SPI_H
-#define LIBOPENCM3_SPI_H
-
-#include <libopencm3/stm32/common/spi_common_h7.h>
-
-#endif
-
+#include <libopencm3/stm32/i2c.h>
