@@ -101,13 +101,16 @@ void crypto_set_algorithm(enum crypto_mode mode)
 {
 	if ((mode == DECRYPT_AES_ECB) || (mode == DECRYPT_AES_CBC)) {
 		/* Unroll keys for the AES encoder for the user automatically */
+		uint32_t saved = CRYP_CR; /* save DATATYPE, KEYSIZE before AES_PREP */
 
 		CRYP_CR = (CRYP_CR & ~CRYP_CR_ALGOMODE_MASK) |
 		    CRYP_CR_ALGOMODE_AES_PREP;
 
 		crypto_start();
 		crypto_wait_busy();
-		/* module switches to DISABLE automatically */
+		/* module switches to DISABLE automatically, seems to reset DATATYPE (undocumented) */
+		/* let's restore it */
+		CRYP_CR = (CRYP_CR & ~CRYP_CR_DATATYPE) | (saved & CRYP_CR_DATATYPE);
 	}
 	/* set algo mode */
 	CRYP_CR = (CRYP_CR & ~CRYP_CR_ALGOMODE_MASK) | mode;
