@@ -34,7 +34,7 @@
 
 #include <libopencm3/stm32/crypto.h>
 
-#define CRYP_CR_ALGOMODE_MASK	((1 << 19) | CRYP_CR_ALGOMODE)
+#define CRYP_CR_ALGOMODE_MASK	(CRYP_CR_ALGOMODE3 | CRYP_CR_ALGOMODE | CRYP_CR_ALGODIR)
 
 /**
  * @brief Wait, if the Controller is busy
@@ -99,8 +99,6 @@ void crypto_set_datatype(enum crypto_datatype datatype)
  */
 void crypto_set_algorithm(enum crypto_mode mode)
 {
-	mode &= ~CRYP_CR_ALGOMODE_MASK;
-
 	if ((mode == DECRYPT_AES_ECB) || (mode == DECRYPT_AES_CBC)) {
 		/* Unroll keys for the AES encoder for the user automatically */
 
