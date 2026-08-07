@@ -439,6 +439,8 @@ bool i2c_transfer_complete(uint32_t i2c);
 bool i2c_received_data(uint32_t i2c);
 void i2c_enable_interrupt(uint32_t i2c, uint32_t interrupt);
 void i2c_disable_interrupt(uint32_t i2c, uint32_t interrupt);
+void i2c_enable_ack(uint32_t i2c);
+void i2c_disable_ack(uint32_t i2c);
 void i2c_enable_rxdma(uint32_t i2c);
 void i2c_disable_rxdma(uint32_t i2c);
 void i2c_enable_txdma(uint32_t i2c);
