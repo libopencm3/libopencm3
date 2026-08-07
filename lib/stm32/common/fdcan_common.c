@@ -650,7 +650,11 @@ void fdcan_release_fifo(uint32_t canport, uint8_t fifo_id)
  */
 void fdcan_enable_irq(uint32_t canport, uint32_t irq)
 {
-	FDCAN_ILE(canport) |= irq & (FDCAN_ILE_INT0 | FDCAN_ILE_INT1);
+	if (irq == 0) {
+		FDCAN_ILE(canport) |= FDCAN_ILE_INT0;
+	} else if (irq == 1) {
+		FDCAN_ILE(canport) |= FDCAN_ILE_INT1;
+	}
 }
 
 /** Disable IRQ from FDCAN block.
@@ -663,7 +667,11 @@ void fdcan_enable_irq(uint32_t canport, uint32_t irq)
  */
 void fdcan_disable_irq(uint32_t canport, uint32_t irq)
 {
-	FDCAN_ILE(canport) &= ~(irq & (FDCAN_ILE_INT0 | FDCAN_ILE_INT1));
+	if (irq == 0) {
+		FDCAN_ILE(canport) &= ~FDCAN_ILE_INT0;
+	} else if (irq == 1) {
+		FDCAN_ILE(canport) &= ~FDCAN_ILE_INT1;
+	}
 }
 
 /** Check if there is free transmit buffer.
