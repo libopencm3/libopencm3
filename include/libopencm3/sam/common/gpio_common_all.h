@@ -1,3 +1,8 @@
+/**
+ * @addtogroup gpio_defines
+ * @{
+ */
+
 /*
  * This file is part of the libopencm3 project.
  *
@@ -22,7 +27,9 @@
 The order of header inclusion is important. gpio.h includes the device
 specific memorymap.h header before including this header file.*/
 
+/** @cond */
 #if defined(LIBOPENCM3_GPIO_H)
+/** @endcond */
 
 #ifndef LIBOPENCM3_GPIO_COMMON_ALL_H
 #define LIBOPENCM3_GPIO_COMMON_ALL_H
@@ -39,6 +46,10 @@ END_DECLS
 
 #endif
 
+/** @cond */
 #else
 #warning "gpio_common_all.h should not be included explicitly, only via gpio.h"
 #endif
+/** @endcond */
+
+/** @} */

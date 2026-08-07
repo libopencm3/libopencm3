@@ -1,3 +1,8 @@
+/**
+ * @addtogroup pio_defines
+ * @{
+ */
+
 /*
  * This file is part of the libopencm3 project.
  *
@@ -21,7 +26,9 @@
 The order of header inclusion is important. pio.h includes the device
 specific memorymap.h header before including this header file.*/
 
+/** @cond */
 #if defined(LIBOPENCM3_PIO_H)
+/** @endcond */
 
 #ifndef LIBOPENCM3_PIO_COMMON_3A3U3X_H
 #define LIBOPENCM3_PIO_COMMON_3A3U3X_H
@@ -29,22 +36,31 @@ specific memorymap.h header before including this header file.*/
 #include <libopencm3/sam/common/pio_common_all.h>
 
 /* --- PIO registers ----------------------------------------------------- */
+/**
+ * @addtogroup pio_registers
+ * @{
+ */
 
-/* Peripheral AB Select Register */
+/** Peripheral AB Select Register */
 #define PIO_ABSR(port)			MMIO32((port) + 0x0070)
 
-/* System Clock Glitch Input Filter Select Register */
+/** System Clock Glitch Input Filter Select Register */
 #define PIO_SCIFSR(port)		MMIO32((port) + 0x0080)
 
-/* Debouncing Input Filter Select Register */
+/** Debouncing Input Filter Select Register */
 #define PIO_DIFSR(port)			MMIO32((port) + 0x0084)
 
-/* Glitch or Debouncing Input Filter Clock Selection Status Register */
+/** Glitch or Debouncing Input Filter Clock Selection Status Register */
 #define PIO_IFDGSR(port)		MMIO32((port) + 0x0088)
 
+/** @} */
 
 #endif
 
+/** @cond */
 #else
 #warning "pio_common_3a3u3x.h should not be included explicitly, only via pio.h"
 #endif
+/** @endcond */
+
+/** @} */
