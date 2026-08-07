@@ -40,6 +40,7 @@ OBJS += can.o
 OBJS += crc_common_all.o crc_v2.o
 OBJS += crs_common_all.o
 OBJS += dac_common_all.o dac_common_v1.o
+OBJS += dfsdm.o
 OBJS += dma_common_l1f013.o dma_common_csel.o
 OBJS += exti_common_all.o
 OBJS += flash.o flash_common_all.o flash_common_f.o flash_common_idcache.o
