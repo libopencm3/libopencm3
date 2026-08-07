@@ -141,7 +141,7 @@ void gpio_set_output_options(uint32_t gpioport, ccs_drive_strength_t strength,
 	CCS_DSR(port) = reg;
 }
 
-void gpio_set_schmidt_trigger(uint32_t gpioport, bool enable, uint16_t gpios) {
+void gpio_set_schmitt_trigger(uint32_t gpioport, bool enable, uint16_t gpios) {
 	uint32_t port = get_ccs_port_base(gpioport);
 
 	/* Update each of the pin configs. */
@@ -150,9 +150,9 @@ void gpio_set_schmidt_trigger(uint32_t gpioport, bool enable, uint16_t gpios) {
 	while (ffs) {
 		const int pin = ffs - 1;
 		if (enable) {
-			reg |= CCS_DSR_SCHMIDT_PIN(pin);
+			reg |= CCS_DSR_SCHMITT_PIN(pin);
 		} else {
-			reg &= ~CCS_DSR_SCHMIDT_PIN(pin);
+			reg &= ~CCS_DSR_SCHMITT_PIN(pin);
 		}
 
 		/* Set the pinmux configurations for the pull-up / pull-down. */
