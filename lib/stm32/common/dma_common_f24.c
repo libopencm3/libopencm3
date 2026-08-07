@@ -344,7 +344,8 @@ Ensure that the stream is disabled otherwise the setting will not be changed.
 
 void dma_channel_select(uint32_t dma, uint8_t stream, uint32_t channel)
 {
-	DMA_SCR(dma, stream) |= channel;
+	uint32_t reg32 = (DMA_SCR(dma, stream) & ~DMA_SxCR_CHSEL_MASK);
+	DMA_SCR(dma, stream) = (reg32 | channel);
 }
 
 /*---------------------------------------------------------------------------*/
