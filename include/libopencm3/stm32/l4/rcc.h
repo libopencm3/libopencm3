@@ -379,8 +379,10 @@ Twelve frequency ranges are available: 100 kHz, 200 kHz, 400 kHz, 800 kHz,
 #define RCC_APB1RSTR1_OPAMPRST			(1 << 30)
 #define RCC_APB1RSTR1_DAC1RST			(1 << 29)
 #define RCC_APB1RSTR1_PWRRST			(1 << 28)
+#define RCC_APB1RSTR1_USBFSRST			(1 << 26)
 #define RCC_APB1RSTR1_CAN2RST			(1 << 26)
 #define RCC_APB1RSTR1_CAN1RST			(1 << 25)
+#define RCC_APB1RSTR1_CRSRST			(1 << 24)
 #define RCC_APB1RSTR1_I2C3RST			(1 << 23)
 #define RCC_APB1RSTR1_I2C2RST			(1 << 22)
 #define RCC_APB1RSTR1_I2C1RST			(1 << 21)
@@ -403,6 +405,7 @@ Twelve frequency ranges are available: 100 kHz, 200 kHz, 400 kHz, 800 kHz,
 @{*/
 #define RCC_APB1RSTR2_LPTIM2RST			(1 << 5)
 #define RCC_APB1RSTR2_SWPMI1RST			(1 << 2)
+#define RCC_APB1RSTR2_I2C4RST			(1 << 1)
 #define RCC_APB1RSTR2_LPUART1RST		(1 << 0)
 /**@}*/
 /**@}*/
@@ -483,8 +486,10 @@ Twelve frequency ranges are available: 100 kHz, 200 kHz, 400 kHz, 800 kHz,
 #define RCC_APB1ENR1_OPAMPEN			(1 << 30)
 #define RCC_APB1ENR1_DAC1EN			(1 << 29)
 #define RCC_APB1ENR1_PWREN			(1 << 28)
+#define RCC_APB1ENR1_USBFSEN			(1 << 26)
 #define RCC_APB1ENR1_CAN2EN			(1 << 26)
 #define RCC_APB1ENR1_CAN1EN			(1 << 25)
+#define RCC_APB1ENR1_CRSEN			(1 << 24)
 #define RCC_APB1ENR1_I2C3EN			(1 << 23)
 #define RCC_APB1ENR1_I2C2EN			(1 << 22)
 #define RCC_APB1ENR1_I2C1EN			(1 << 21)
@@ -494,6 +499,8 @@ Twelve frequency ranges are available: 100 kHz, 200 kHz, 400 kHz, 800 kHz,
 #define RCC_APB1ENR1_USART2EN			(1 << 17)
 #define RCC_APB1ENR1_SPI3EN			(1 << 15)
 #define RCC_APB1ENR1_SPI2EN			(1 << 14)
+#define RCC_APB1ENR1_WWDGEN			(1 << 11)
+#define RCC_APB1ENR1_RTCAPBEN			(1 << 10)
 #define RCC_APB1ENR1_LCDEN			(1 << 9)
 #define RCC_APB1ENR1_TIM7EN			(1 << 5)
 #define RCC_APB1ENR1_TIM6EN			(1 << 4)
@@ -511,6 +518,7 @@ Twelve frequency ranges are available: 100 kHz, 200 kHz, 400 kHz, 800 kHz,
 @{*/
 #define RCC_APB1ENR2_LPTIM2EN			(1 << 5)
 #define RCC_APB1ENR2_SWPMI1EN			(1 << 2)
+#define RCC_APB1ENR2_I2C4EN			(1 << 1)
 #define RCC_APB1ENR2_LPUART1EN			(1 << 0)
 /**@}*/
 /**@}*/
@@ -572,8 +580,10 @@ Twelve frequency ranges are available: 100 kHz, 200 kHz, 400 kHz, 800 kHz,
 #define RCC_APB1SMENR1_OPAMPSMEN		(1 << 30)
 #define RCC_APB1SMENR1_DAC1SMEN			(1 << 29)
 #define RCC_APB1SMENR1_PWRSMEN			(1 << 28)
+#define RCC_APB1SMENR1_USBFSSMEN		(1 << 26)
 #define RCC_APB1SMENR1_CAN2SMEN			(1 << 26)
 #define RCC_APB1SMENR1_CAN1SMEN			(1 << 25)
+#define RCC_APB1SMENR1_CRSSMEN			(1 << 24)
 #define RCC_APB1SMENR1_I2C3SMEN			(1 << 23)
 #define RCC_APB1SMENR1_I2C2SMEN			(1 << 22)
 #define RCC_APB1SMENR1_I2C1SMEN			(1 << 21)
@@ -584,6 +594,7 @@ Twelve frequency ranges are available: 100 kHz, 200 kHz, 400 kHz, 800 kHz,
 #define RCC_APB1SMENR1_SPI3SMEN			(1 << 15)
 #define RCC_APB1SMENR1_SPI2SMEN			(1 << 14)
 #define RCC_APB1SMENR1_WWDGSMEN			(1 << 11)
+#define RCC_APB1SMENR1_RTCAPBSMEN		(1 << 10)
 #define RCC_APB1SMENR1_LCDSMEN			(1 << 9)
 #define RCC_APB1SMENR1_TIM7SMEN			(1 << 5)
 #define RCC_APB1SMENR1_TIM6SMEN			(1 << 4)
@@ -596,6 +607,7 @@ Twelve frequency ranges are available: 100 kHz, 200 kHz, 400 kHz, 800 kHz,
 
 #define RCC_APB1SMENR2_LPTIM2SMEN		(1 << 5)
 #define RCC_APB1SMENR2_SWPMI1SMEN		(1 << 2)
+#define RCC_APB1SMENR2_I2C4SMEN			(1 << 1)
 #define RCC_APB1SMENR2_LPUART1SMEN		(1 << 0)
 
 /* --- RCC_APB2SMENR - APB2 periph clock in sleep mode --------------------- */
@@ -737,6 +749,7 @@ Twelve frequency ranges are available: 100 kHz, 200 kHz, 400 kHz, 800 kHz,
 #define RCC_CSR_MSIRANGE_8MHZ			7
 /**@}*/
 
+#define RCC_CSR_LSIPREDIV			(1 << 4)
 #define RCC_CSR_LSIRDY				(1 << 1)
 #define RCC_CSR_LSION				(1 << 0)
 
