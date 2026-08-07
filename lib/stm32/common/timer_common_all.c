@@ -344,6 +344,22 @@ void timer_direction_down(uint32_t timer_peripheral)
 }
 
 /*---------------------------------------------------------------------------*/
+/** @brief Get the Timer count direction.
+
+When the timer is in encoder interface mode the DIR bit can be modified
+by hardware.
+
+@param[in] timer_peripheral Unsigned int32. Timer register address base @ref
+tim_reg_base
+@returns boolean: True if the timer counts down.
+*/
+
+bool timer_get_direction(uint32_t timer_peripheral)
+{
+	return TIM_CR1(timer_peripheral) & TIM_CR1_DIR_DOWN;
+}
+
+/*---------------------------------------------------------------------------*/
 /** @brief Enable the Timer for One Cycle and Stop.
 
 @param[in] timer_peripheral Unsigned int32. Timer register address base @ref
@@ -1892,7 +1908,7 @@ void timer_slave_set_trigger(uint32_t timer_peripheral, uint8_t trigger)
 */
 
 void timer_slave_set_extclockmode2(uint32_t timer_peripheral,
-            enum tim_ecm2_state state)
+				   enum tim_ecm2_state state)
 {
 	if (state) {
 		TIM_SMCR(timer_peripheral) |= TIM_SMCR_ECE;
