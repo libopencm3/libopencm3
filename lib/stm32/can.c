@@ -87,6 +87,8 @@ Initialize the selected CAN peripheral block.
 @param[in] ts1 Unsigned int32. Time segment 1 time quanta width.
 @param[in] ts2 Unsigned int32. Time segment 2 time quanta width.
 @param[in] brp Unsigned int32. Baud rate prescaler.
+@param[in] loopback bool. Loopback mode.
+@param[in] silent. Silent mode.
 @returns int 0 on success, 1 on initialization failure.
 */
 int can_init(uint32_t canport, bool ttcm, bool abom, bool awum, bool nart,
