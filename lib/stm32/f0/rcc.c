@@ -45,6 +45,65 @@
 uint32_t rcc_ahb_frequency = 8000000; /* 8MHz after reset */
 uint32_t rcc_apb1_frequency = 8000000; /* 8MHz after reset */
 
+const struct rcc_clock_scale rcc_hse_configs[RCC_CLOCK_HSE_END] = {
+	{
+		/* hse-16, pll to 48MHz */
+		.pll_source = RCC_CFGR_PLLSRC_HSE_CLK,
+		.pll_mul = RCC_CFGR_PLLMUL_MUL3,
+		.hpre = RCC_CFGR_HPRE_NODIV,
+		.ppre = RCC_CFGR_PPRE_NODIV,
+		.flash_waitstates = 1,
+		.ahb_frequency  = 48e6,
+		.apb1_frequency = 48e6,
+		.sysclk_source = RCC_HSE,
+	},
+	{
+		/* hse-8, pll to 24MHz */
+		.pll_source = RCC_CFGR_PLLSRC_HSE_CLK,
+		.pll_mul = RCC_CFGR_PLLMUL_MUL3,
+		.hpre = RCC_CFGR_HPRE_NODIV,
+		.ppre = RCC_CFGR_PPRE_NODIV,
+		.flash_waitstates = 0,
+		.ahb_frequency  = 24e6,
+		.apb1_frequency = 24e6,
+		.sysclk_source = RCC_HSE,
+	},
+	{
+		/* hse-8, pll to 48MHz */
+		.pll_source = RCC_CFGR_PLLSRC_HSE_CLK,
+		.pll_mul = RCC_CFGR_PLLMUL_MUL6,
+		.hpre = RCC_CFGR_HPRE_NODIV,
+		.ppre = RCC_CFGR_PPRE_NODIV,
+		.flash_waitstates = 1,
+		.ahb_frequency  = 48e6,
+		.apb1_frequency = 48e6,
+		.sysclk_source = RCC_HSE,
+	},
+};
+
+const struct rcc_clock_scale rcc_hsi_configs[RCC_CLOCK_HSI_END] = {
+	{
+		/* hsi to 48Mhz */
+		.pll_source = RCC_CFGR_PLLSRC_HSI_CLK_DIV2,
+		.pll_mul = RCC_CFGR_PLLMUL_MUL12,
+		.hpre = RCC_CFGR_HPRE_NODIV,
+		.ppre = RCC_CFGR_PPRE_NODIV,
+		.flash_waitstates = 1,
+		.ahb_frequency  = 48e6,
+		.apb1_frequency = 48e6,
+		.sysclk_source = RCC_HSI,
+	},
+	{
+		/* hsi48 to 48Mhz */
+		.hpre = RCC_CFGR_HPRE_NODIV,
+		.ppre = RCC_CFGR_PPRE_NODIV,
+		.flash_waitstates = 1,
+		.ahb_frequency  = 48e6,
+		.apb1_frequency = 48e6,
+		.sysclk_source = RCC_HSI48,
+	},
+};
+
 /*---------------------------------------------------------------------------*/
 /** @brief RCC Clear the Oscillator Ready Interrupt Flag
  *
@@ -433,7 +492,8 @@ void rcc_set_rtc_clock_source(enum rcc_osc clk)
 
 void rcc_set_pll_multiplication_factor(uint32_t mul)
 {
-	RCC_CFGR = (RCC_CFGR & ~RCC_CFGR_PLLMUL) | mul;
+	RCC_CFGR = (RCC_CFGR & ~RCC_CFGR_PLLMUL) |
+			(mul << RCC_CFGR_PLLMUL_SHIFT);
 }
 
 /*---------------------------------------------------------------------------*/
@@ -580,6 +640,34 @@ void rcc_clock_setup_in_hse_8mhz_out_48mhz(void)
 }
 
 /**
+ * Set System Clock PLL at 48MHz from HSE at 16MHz.
+ */
+void rcc_clock_setup_in_hse_16mhz_out_48mhz(void)
+{
+	rcc_osc_on(RCC_HSE);
+	rcc_wait_for_osc_ready(RCC_HSE);
+	rcc_set_sysclk_source(RCC_HSE);
+
+	rcc_set_hpre(RCC_CFGR_HPRE_NODIV);
+	rcc_set_ppre(RCC_CFGR_PPRE_NODIV);
+
+	flash_prefetch_enable();
+	flash_set_ws(FLASH_ACR_LATENCY_024_048MHZ);
+
+	/* PLL: 16MHz * 3 = 48MHz */
+	rcc_set_pll_multiplication_factor(RCC_CFGR_PLLMUL_MUL3);
+	rcc_set_pll_source(RCC_CFGR_PLLSRC_HSE_CLK);
+	rcc_set_pllxtpre(RCC_CFGR_PLLXTPRE_HSE_CLK);
+
+	rcc_osc_on(RCC_PLL);
+	rcc_wait_for_osc_ready(RCC_PLL);
+	rcc_set_sysclk_source(RCC_PLL);
+
+	rcc_apb1_frequency = 48000000;
+	rcc_ahb_frequency = 48000000;
+}
+
+/**
  * Set System Clock PLL at 48MHz from HSI
  */
 void rcc_clock_setup_in_hsi_out_48mhz(void)
@@ -626,7 +714,33 @@ void rcc_clock_setup_in_hsi48_out_48mhz(void)
 	rcc_ahb_frequency = 48000000;
 }
 
-static uint32_t rcc_get_usart_clksel_freq(uint8_t shift) {
+void rcc_clock_setup_pll(const struct rcc_clock_scale *clock)
+{
+	rcc_osc_on(clock->sysclk_source);
+	rcc_wait_for_osc_ready(clock->sysclk_source);
+	rcc_set_sysclk_source(clock->sysclk_source);
+
+	rcc_set_hpre(clock->hpre);
+	rcc_set_ppre(clock->ppre);
+
+	flash_prefetch_enable();
+	flash_set_ws(clock->flash_waitstates);
+
+	if (clock->sysclk_source != RCC_HSI48) {
+		rcc_set_pll_multiplication_factor(clock->pll_mul);
+		rcc_set_pll_source(clock->pll_source);
+
+		rcc_osc_on(RCC_PLL);
+		rcc_wait_for_osc_ready(RCC_PLL);
+		rcc_set_sysclk_source(RCC_PLL);
+	}
+
+	rcc_ahb_frequency  = clock->ahb_frequency;
+	rcc_apb1_frequency = clock->apb1_frequency;
+}
+
+static uint32_t rcc_get_usart_clksel_freq(uint8_t shift)
+{
 	uint8_t clksel = (RCC_CFGR3 >> shift) & RCC_CFGR3_USARTxSW_MASK;
 	uint8_t hpre = (RCC_CFGR >> RCC_CFGR_HPRE_SHIFT) & RCC_CFGR_HPRE_MASK;
 	switch (clksel) {
@@ -666,7 +780,7 @@ uint32_t rcc_get_usart_clk_freq(uint32_t usart)
 uint32_t rcc_get_timer_clk_freq(uint32_t timer __attribute__((unused)))
 {
 	uint8_t ppre = (RCC_CFGR >> RCC_CFGR_PPRE_SHIFT) & RCC_CFGR_PPRE_MASK;
-	return (ppre == RCC_CFGR_PPRE_NODIV) 	? rcc_apb1_frequency
+	return (ppre == RCC_CFGR_PPRE_NODIV)	? rcc_apb1_frequency
 						: 2 * rcc_apb1_frequency;
 }
 
@@ -692,7 +806,8 @@ uint32_t rcc_get_i2c_clk_freq(uint32_t i2c)
 /** @brief Get the peripheral clock speed for the SPI device at base specified.
  * @param spi  Base address of SPI device to get clock frequency for (e.g. SPI1_BASE).
  */
-uint32_t rcc_get_spi_clk_freq(uint32_t spi __attribute__((unused))) {
+uint32_t rcc_get_spi_clk_freq(uint32_t spi __attribute__((unused)))
+{
 	return rcc_apb1_frequency;
 }
 /**@}*/
