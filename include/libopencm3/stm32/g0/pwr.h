@@ -176,6 +176,14 @@
 #define PWR_SCR_CWUF2		(1 << 1)
 #define PWR_SCR_CWUF1		(1 << 0)
 
+/* Wake-up pin number definitions */
+// WKUP3 is not present in register map summary of reference manual.
+#define PWR_WKUP6		(1 << 5)
+#define PWR_WKUP5		(1 << 4)
+#define PWR_WKUP4		(1 << 3)
+#define PWR_WKUP2		(1 << 1)
+#define PWR_WKUP1		(1 << 0)
+
 /* --- Function prototypes ------------------------------------------------- */
 
 enum pwr_vos_scale {
@@ -191,6 +199,10 @@ void pwr_disable_backup_domain_write_protect(void);
 void pwr_enable_backup_domain_write_protect(void);
 
 void pwr_set_low_power_mode_selection(uint32_t lpms);
+void pwr_clear_all_wakeup_flags(void);
+uint32_t pwr_get_wakeup_flags_status(uint32_t wakeup_pin);
+void pwr_enable_wakeup_pin(uint32_t wakeup_pin);
+void pwr_disable_wakeup_pin(uint32_t wakeup_pin);
 
 void pwr_enable_power_voltage_detect(uint32_t pvdr_level, uint32_t pvdf_level);
 void pwr_disable_power_voltage_detect(void);

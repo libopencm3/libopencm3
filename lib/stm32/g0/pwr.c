@@ -73,6 +73,46 @@ void pwr_set_low_power_mode_selection(uint32_t lpms)
 }
 
 /*---------------------------------------------------------------------------*/
+/** @brief Clear All Wakeup Flags.
+Corresponding wakeup flag is set when the processor receives a wakeup signal.
+*/
+
+void pwr_clear_all_wakeup_flags(void)
+{
+	PWR_SCR |= PWR_SCR_CWUF6 | PWR_SCR_CWUF5 | PWR_SCR_CWUF4 | PWR_SCR_CWUF2 | PWR_SCR_CWUF1;
+}
+
+/*---------------------------------------------------------------------------*/
+/** @brief Get Wakeup Flags.
+Check the flag of a given wakeup pin.
+*/
+
+uint32_t pwr_get_wakeup_flags_status(uint32_t wakeup_pin)
+{
+	return PWR_SR1 & wakeup_pin;
+}
+
+/*---------------------------------------------------------------------------*/
+/** @brief Enable Wakeup Pin.
+The wakeup pin given by argument is used for waking the processor from standby mode.
+*/
+
+void pwr_enable_wakeup_pin(uint32_t wakeup_pin)
+{
+	PWR_CR3 |= wakeup_pin;
+}
+
+/*---------------------------------------------------------------------------*/
+/** @brief Release Wakeup Pin.
+The wakeup pin given by argument is used for general purpose I/O.
+*/
+
+void pwr_disable_wakeup_pin(uint32_t wakeup_pin)
+{
+	PWR_CR3 &= ~wakeup_pin;
+}
+
+/*---------------------------------------------------------------------------*/
 /** @brief Enable Power Voltage Detector.
  * @param[in] pvdr_level Power Voltage Detector Rising Threshold voltage @ref pwr_cr2_pvdrt.
  * @param[in] pvdf_level Power Voltage Detector Falling Threshold voltage @ref pwr_cr2_pvdft.
