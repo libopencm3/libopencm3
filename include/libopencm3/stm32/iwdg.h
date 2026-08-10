@@ -22,6 +22,8 @@
 
 #if defined(STM32F0)
 #       include <libopencm3/stm32/f0/iwdg.h>
+#elif defined(GD32F1X0)
+#       include <libopencm3/gd32/f1x0/iwdg.h>
 #elif defined(STM32F1)
 #       include <libopencm3/stm32/f1/iwdg.h>
 #elif defined(STM32F2)

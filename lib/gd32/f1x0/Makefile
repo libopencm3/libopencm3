@@ -35,8 +35,17 @@ ARFLAGS		= rcs
 
 OBJS += flash.o flash_common_all.o flash_common_f.o flash_common_f01.o
 OBJS += gpio_common_all.o gpio_common_f0234.o
+OBJS += iwdg_common_all.o
 OBJS += rcc.o rcc_common_all.o
+OBJS += timer_common_all.o timer_common_f0234.o
+OBJS += dma_common_l1f013.o
+OBJS += usart_common_all.o usart_common_v2.o
+OBJS += adc.o adc_common_v1.o
+OBJS += i2c.o i2c_common_v1.o
 
-VPATH += ../:../../cm3:../common:../../stm32/common
+# stm32/f1 contributes the v1-family family-specific adc.c + i2c.c
+# (adc_reset_calibration / adc_calibration etc.) which adc_common_v1.c
+# alone doesn't provide.
+VPATH += ../:../../cm3:../common:../../stm32/common:../../stm32/f1
 
 include ../../Makefile.include
