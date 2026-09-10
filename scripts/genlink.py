@@ -107,7 +107,14 @@ def get_device_defines(data_file_path, device_id, device=None):
     if not device:
         device = get_device_data(data_file_path, device_id)
 
-    defs = ' '.join('-D_%s=%s' % d for d in device['defs'])
+    # child layouts (appended first) override parent layouts (appended later)
+    # for parameters with the same key; this allows subfamilies to redefine
+    # e.g. RAM_OFF without being shadowed by the family default.
+    seen = {}
+    for k, v in device['defs']:
+        if k not in seen:
+            seen[k] = v
+    defs = ' '.join('-D_%s=%s' % (k, v) for k, v in seen.items())
     return defs
 
 
