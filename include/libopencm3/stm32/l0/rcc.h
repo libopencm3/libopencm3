@@ -508,6 +508,10 @@
 #define RCC_CSR_RTCSEL_LSE			(0x1)
 #define RCC_CSR_RTCSEL_LSI			(0x2)
 #define RCC_CSR_RTCSEL_HSE			(0x3)
+#define RCC_CSR_RTCSEL_NONE_VAL			(RCC_CSR_RTCSEL_NONE << RCC_CSR_RTCSEL_SHIFT)
+#define RCC_CSR_RTCSEL_LSE_VAL			(RCC_CSR_RTCSEL_LSE << RCC_CSR_RTCSEL_SHIFT)
+#define RCC_CSR_RTCSEL_LSI_VAL			(RCC_CSR_RTCSEL_LSI << RCC_CSR_RTCSEL_SHIFT)
+#define RCC_CSR_RTCSEL_HSE_VAL			(RCC_CSR_RTCSEL_HSE << RCC_CSR_RTCSEL_SHIFT)
 #define RCC_CSR_CSSLSED				(1 << 14)
 #define RCC_CSR_CSSLSEON			(1 << 13)
 #define RCC_CSR_LSEDRV_SHIFT			11
@@ -731,6 +735,7 @@ void rcc_set_lptim1_sel(uint32_t lptim1_sel);
 void rcc_set_lpuart1_sel(uint32_t lpupart1_sel);
 void rcc_set_usart1_sel(uint32_t usart1_sel);
 void rcc_set_usart2_sel(uint32_t usart2_sel);
+void rcc_set_rtc_clock_source(enum rcc_osc clk);
 uint32_t rcc_get_usart_clk_freq(uint32_t usart);
 uint32_t rcc_get_timer_clk_freq(uint32_t timer);
 uint32_t rcc_get_i2c_clk_freq(uint32_t i2c);
