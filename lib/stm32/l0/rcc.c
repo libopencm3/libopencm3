@@ -489,6 +489,33 @@ void rcc_set_usart2_sel(uint32_t usart2_sel)
 }
 
 /*---------------------------------------------------------------------------*/
+/** @brief RCC Set the Source for the RTC clock
+ *
+ * @param[in] clk RTC clock source. Only HSE/32, LSE and LSI.
+ */
+void rcc_set_rtc_clock_source(enum rcc_osc clk)
+{
+	uint32_t val;
+
+	switch (clk) {
+	case RCC_HSE:
+		val = RCC_CSR_RTCSEL_HSE_VAL;
+		break;
+	case RCC_LSE:
+		val = RCC_CSR_RTCSEL_LSE_VAL;
+		break;
+	case RCC_LSI:
+		val = RCC_CSR_RTCSEL_LSI_VAL;
+		break;
+	default:
+		/* do nothing */
+		return;
+	}
+
+	RCC_CSR = (RCC_CSR & ~(RCC_CSR_RTCSEL_MASK << RCC_CSR_RTCSEL_SHIFT)) | val;
+}
+
+/*---------------------------------------------------------------------------*/
 /** @brief Set the peripheral clock source
  * @param periph peripheral of desire, eg XXX_BASE
  * @param sel peripheral clock source
