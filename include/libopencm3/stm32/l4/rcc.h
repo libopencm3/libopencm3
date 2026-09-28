@@ -796,6 +796,7 @@ enum rcc_periph_clken {
 	RCC_ADC = _REG_BIT(RCC_AHB2ENR_OFFSET, 13),
 	RCC_ADC1 = _REG_BIT(RCC_AHB2ENR_OFFSET, 13), /* Compatibility */
 	RCC_OTGFS = _REG_BIT(RCC_AHB2ENR_OFFSET, 12),
+	RCC_GPIOI = _REG_BIT(RCC_AHB2ENR_OFFSET, 8),
 	RCC_GPIOH = _REG_BIT(RCC_AHB2ENR_OFFSET, 7),
 	RCC_GPIOG = _REG_BIT(RCC_AHB2ENR_OFFSET, 6),
 	RCC_GPIOF = _REG_BIT(RCC_AHB2ENR_OFFSET, 5),
@@ -1028,6 +1029,7 @@ void rcc_set_clock48_source(uint32_t clksel);
 void rcc_enable_rtc_clock(void);
 void rcc_disable_rtc_clock(void);
 void rcc_set_rtc_clock_source(enum rcc_osc clk);
+void rcc_set_peripheral_clk_sel(uint32_t periph, uint32_t sel);
 uint32_t rcc_get_usart_clk_freq(uint32_t usart);
 uint32_t rcc_get_timer_clk_freq(uint32_t timer);
 uint32_t rcc_get_i2c_clk_freq(uint32_t i2c);
