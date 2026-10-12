@@ -28,8 +28,9 @@
 # OR TORT (INCLUDING NEGLIGENCE OR OTHERWISE) ARISING IN ANY WAY OUT OF THE USE
 # OF THIS SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
 
-# Bring in all the common STM32 definitions
-subdir('common')
+# Common STM32 source-list variables (libstm32_*_sources) are now
+# brought in by lib/meson.build before any family dispatch, so they're
+# available to both stm32 and gd32 family builds.
 
 # Sources specific to STM32 parts
 libstm32_can_sources = files('can.c')

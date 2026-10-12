@@ -155,6 +155,28 @@
 #define RCC_CFGR_PLLMUL_PLL_CLK_MUL14		0xc
 #define RCC_CFGR_PLLMUL_PLL_CLK_MUL15		0xd
 #define RCC_CFGR_PLLMUL_PLL_CLK_MUL16		0xe
+/* GD32F1x0 extends PLLMUL with PLLMF[4] @ RCU_CFG0[27]. The encoding is
+ * NOT a flat mul-2 — when PLLMF[4]=1 the low nibble restarts at 0 for
+ * MUL17 (so MUL17=0x10, MUL18=0x11, …, MUL32=0x1f). This matches the
+ * vendor SPL macros RCU_PLL_MUL17/18/… in gd32f1x0_rcu.h. The setter
+ * `rcc_set_pll_multiplication_factor` (lib/gd32/f1x0/rcc.c) already
+ * splits the value across PLLMUL_0_3 and PLLMUL_4. */
+#define RCC_CFGR_PLLMUL_PLL_CLK_MUL17		0x10
+#define RCC_CFGR_PLLMUL_PLL_CLK_MUL18		0x11
+#define RCC_CFGR_PLLMUL_PLL_CLK_MUL19		0x12
+#define RCC_CFGR_PLLMUL_PLL_CLK_MUL20		0x13
+#define RCC_CFGR_PLLMUL_PLL_CLK_MUL21		0x14
+#define RCC_CFGR_PLLMUL_PLL_CLK_MUL22		0x15
+#define RCC_CFGR_PLLMUL_PLL_CLK_MUL23		0x16
+#define RCC_CFGR_PLLMUL_PLL_CLK_MUL24		0x17
+#define RCC_CFGR_PLLMUL_PLL_CLK_MUL25		0x18
+#define RCC_CFGR_PLLMUL_PLL_CLK_MUL26		0x19
+#define RCC_CFGR_PLLMUL_PLL_CLK_MUL27		0x1a
+#define RCC_CFGR_PLLMUL_PLL_CLK_MUL28		0x1b
+#define RCC_CFGR_PLLMUL_PLL_CLK_MUL29		0x1c
+#define RCC_CFGR_PLLMUL_PLL_CLK_MUL30		0x1d
+#define RCC_CFGR_PLLMUL_PLL_CLK_MUL31		0x1e
+#define RCC_CFGR_PLLMUL_PLL_CLK_MUL32		0x1f
 /**@}*/
 
 /** @defgroup rcc_cfgr_hsepre PLLXTPRE: HSE divider for PLL entry
@@ -431,6 +453,8 @@ extern uint32_t rcc_apb2_frequency;
 enum rcc_clock_hsi {
 	RCC_CLOCK_HSI_48MHZ,
 	RCC_CLOCK_HSI_64MHZ,
+	/* 72 MHz uses PLLMUL=18, only reachable via PLLMF[4] (GD-specific). */
+	RCC_CLOCK_HSI_72MHZ,
 	RCC_CLOCK_HSI_END
 };
 
@@ -578,6 +602,12 @@ void rcc_set_prediv(uint32_t prediv);
 uint32_t rcc_system_clock_source(void);
 void rcc_clock_setup_pll(const struct rcc_clock_scale *clock);
 void rcc_backupdomain_reset(void);
+
+/* Peripheral clock-frequency helpers (provisional — return APBN frequency). */
+uint32_t rcc_get_usart_clk_freq(uint32_t usart);
+uint32_t rcc_get_timer_clk_freq(uint32_t timer);
+uint32_t rcc_get_i2c_clk_freq(uint32_t i2c);
+uint32_t rcc_get_spi_clk_freq(uint32_t spi);
 
 END_DECLS
 
