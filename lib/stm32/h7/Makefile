@@ -50,10 +50,11 @@ OBJS += gpio_common_all.o gpio_common_f0234.o
 OBJS += pwr.o rcc.o
 OBJS += rcc_common_all.o
 OBJS += rng_common_v1.o
-OBJS += spi_common_all.o spi_common_v2.o
+OBJS += spi.o
 OBJS += timer_common_all.o
 OBJS += usart_common_all.o usart_common_v2.o usart_common_fifos.o
 OBJS += quadspi_common_v1.o
+OBJS += i2c_common_v2.o
 
 OBJS += usb.o usb_standard.o usb_control.o usb_msc.o
 OBJS += usb_hid.o usb_bos.o usb_microsoft.o
