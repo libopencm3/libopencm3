@@ -308,6 +308,60 @@ void rcc_wait_for_sysclk_status(enum rcc_osc osc)
 	while (((RCC_CFGR >> RCC_CFGR_SWS_SHIFT) & RCC_CFGR_SWS_MASK) != sws);
 }
 
+/*---------------------------------------------------------------------------*/
+/** @brief RCC Set the Source for the RTC clock
+ * @param[in] clk RTC clock source. Only HSE/32, LSE and LSI.
+ */
+void rcc_set_rtc_clock_source(enum rcc_osc osc)
+{
+	uint32_t reg32;
+	uint32_t sw = 0;
+
+	switch (osc) {
+		case RCC_HSE:
+			sw = RCC_BDCR_RTCSEL_HSE_DIV32;
+			break;
+		case RCC_LSE:
+			sw = RCC_BDCR_RTCSEL_LSE;
+			break;
+		case RCC_LSI:
+			sw = RCC_BDCR_RTCSEL_LSI;
+			break;
+		default:
+			cm3_assert_not_reached();
+			return;
+	}
+
+	reg32 = RCC_BDCR;
+	reg32 &= ~(RCC_BDCR_RTCSEL_MASK << RCC_BDCR_RTCSEL_SHIFT);
+	RCC_BDCR = (reg32 | (sw << RCC_BDCR_RTCSEL_SHIFT));
+}
+
+/*---------------------------------------------------------------------------*/
+/** @brief RCC Enable the RTC clock
+*/
+void rcc_enable_rtc_clock(void)
+{
+	RCC_BDCR |= RCC_BDCR_RTCEN;
+}
+
+/*---------------------------------------------------------------------------*/
+/** @brief RCC Disable the RTC clock
+*/
+void rcc_disable_rtc_clock(void)
+{
+	RCC_BDCR &= ~RCC_BDCR_RTCEN;
+}
+
+/*---------------------------------------------------------------------------*/
+/** @brief RCC Software Reset of the RTC domain
+*/
+void rcc_rtc_reset_pulse(void)
+{
+	RCC_BDCR |= RCC_BDCR_BDRST;
+	RCC_BDCR &= ~RCC_BDCR_BDRST;
+}
+
 /**
  * @brief Configure pll source.
  * @param[in] pllsrc pll clock source @ref rcc_pllcfgr_pllsrc
@@ -614,6 +668,48 @@ uint32_t rcc_get_i2c_clk_freq(uint32_t i2c)
  */
 uint32_t rcc_get_spi_clk_freq(uint32_t spi __attribute__((unused))) {
 	return rcc_apb1_frequency;
+}
+
+/*---------------------------------------------------------------------------*/
+/** @brief RCC Set the Source for the LSCO output
+ * @param[in] LSCO output clock source. Only LSE and LSI.
+ */
+void rcc_set_lsco_clock_source(enum rcc_osc osc)
+{
+	uint32_t reg32;
+	uint32_t sw = 0;
+
+	switch (osc) {
+		case RCC_LSE:
+			sw = RCC_BDCR_LSCOSEL_LSE;
+			break;
+		case RCC_LSI:
+			sw = RCC_BDCR_LSCOSEL_LSI;
+			break;
+		default:
+			cm3_assert_not_reached();
+			return;
+	}
+
+	reg32 = RCC_BDCR;
+	reg32 &= ~(RCC_BDCR_LSCOSEL_MASK << RCC_BDCR_LSCOSEL_SHIFT);
+	RCC_BDCR = (reg32 | (sw << RCC_BDCR_LSCOSEL_SHIFT));
+}
+
+/*---------------------------------------------------------------------------*/
+/** @brief RCC Enable the LSCO clock output
+*/
+void rcc_enable_lsco(void)
+{
+	RCC_BDCR |= RCC_BDCR_LSCOEN;
+}
+
+/*---------------------------------------------------------------------------*/
+/** @brief RCC Disable the LSCO clock output
+*/
+void rcc_disable_lsco(void)
+{
+	RCC_BDCR &= ~RCC_BDCR_LSCOEN;
 }
 
 /**@}*/
