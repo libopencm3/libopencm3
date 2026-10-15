@@ -29,6 +29,9 @@
 #elif defined(STM32U5)
 #	include <libopencm3/stm32/u5/nvic.h>
 
+#elif defined(PY32F0)
+#	include <libopencm3/py32/f0/nvic.h>
+
 #elif defined(GD32F1X0)
 #	include <libopencm3/gd32/f1x0/nvic.h>
 
