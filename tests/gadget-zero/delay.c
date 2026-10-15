@@ -36,7 +36,7 @@ void delay_setup(void)
 	const uint32_t rcc_apb1_frequency = rcc_get_bus_clk_freq(RCC_APB1CLK);
 #endif
 	/* microsecond counter */
-	timer_set_prescaler(TIM6, rcc_apb1_frequency / 1000000 - 1);
+	timer_set_prescaler(TIM6, rcc_apb1_frequency / 500000 - 1); // PPRE=4->timers run at 2x APB1 = 48MHz here
 	timer_set_period(TIM6, 0xffff);
 	timer_one_shot_mode(TIM6);
 }
