@@ -518,7 +518,11 @@ uint32_t rcc_get_usart_clk_freq(uint32_t usart)
 {
 	/* Handle values with selectable clocks. */
 	if (usart == USART1_BASE) {
-		return rcc_get_usart_clksel_freq(rcc_apb2_frequency, RCC_CFGR3_UART1SW_SHIFT);
+		#if defined(STM32F302x6) || defined(STM32F302x8)
+			return rcc_get_usart_clksel_freq(rcc_apb1_frequency, RCC_CFGR3_UART1SW_SHIFT);
+		#else
+			return rcc_get_usart_clksel_freq(rcc_apb2_frequency, RCC_CFGR3_UART1SW_SHIFT);
+		#endif
 	} else if (usart == USART2_BASE) {
 		return rcc_get_usart_clksel_freq(rcc_apb1_frequency, RCC_CFGR3_UART2SW_SHIFT);
 	} else if (usart == USART3_BASE) {
