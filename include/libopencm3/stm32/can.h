@@ -49,6 +49,7 @@ LGPL License Terms @ref lgpl_license
 @{*/
 #define CAN1				BX_CAN1_BASE
 #define CAN2				BX_CAN2_BASE
+#define CAN3				BX_CAN3_BASE
 /**@}*/
 
 /* --- CAN registers ------------------------------------------------------- */
