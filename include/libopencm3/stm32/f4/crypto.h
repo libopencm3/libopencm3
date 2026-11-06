@@ -62,9 +62,6 @@
 #define CRYP_CR_GCM_CMPH_PAYLOAD	(2 << CRYP_CR_GCM_CMPH_SHIFT)
 #define CRYP_CR_GCM_CMPH_FINAL		(3 << CRYP_CR_GCM_CMPH_SHIFT)
 
-/* ALGOMODE3: Algorithm mode, fourth bit */
-#define CRYP_CR_ALGOMODE3	(1 << 19)
-
 /**@}*/
 
 /** @defgroup crypto_api API (for F42xx or F43xx only)

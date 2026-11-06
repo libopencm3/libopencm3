@@ -160,6 +160,10 @@ specific memorymap.h header before including this header file.*/
 #define CRYP_CR_ALGOMODE_AES_CTR	(6 << CRYP_CR_ALGOMODE_SHIFT)
 #define CRYP_CR_ALGOMODE_AES_PREP	(7 << CRYP_CR_ALGOMODE_SHIFT)
 
+/* ALGOMODE3: Algorithm mode, fourth bit */
+#define CRYP_CR_ALGOMODE3	(1 << 19)
+
+
 /* DATATYPE: Data type selection */
 #define CRYP_CR_DATATYPE_SHIFT		6
 #define CRYP_CR_DATATYPE		(3 << CRYP_CR_DATATYPE_SHIFT)
