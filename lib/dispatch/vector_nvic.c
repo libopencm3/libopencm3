@@ -25,6 +25,9 @@
 #elif defined(STM32U5)
 #	include "../stm32/u5/vector_nvic.c"
 
+#elif defined(PY32F0)
+#	include "../py32/f0/vector_nvic.c"
+
 #elif defined(GD32F1X0)
 #	include "../gd32/f1x0/vector_nvic.c"
 
