@@ -115,6 +115,10 @@ int spi_init_master(uint32_t spi, uint32_t br, uint32_t cpol, uint32_t cpha,
 void spi_set_crcl_8bit(uint32_t spi);
 void spi_set_crcl_16bit(uint32_t spi);
 void spi_set_data_size(uint32_t spi, uint16_t data_s);
+void spi_set_ldmatx_even(uint32_t spi);
+void spi_set_ldmatx_odd(uint32_t spi);
+void spi_set_ldmarx_even(uint32_t spi);
+void spi_set_ldmarx_odd(uint32_t spi);
 void spi_fifo_reception_threshold_8bit(uint32_t spi);
 void spi_fifo_reception_threshold_16bit(uint32_t spi);
 void spi_i2s_mode_spi_mode(uint32_t spi);
