@@ -330,7 +330,7 @@ static void dwc_flush_txfifo(usbd_device *const usbd_dev, const uint8_t ep)
 {
 	/* Mark the endpoint to NAK and wait for it to become active */
 	REBASE(OTG_DIEPCTL(ep)) |= OTG_DIEPCTL0_SNAK;
-	while ((REBASE(OTG_DIEPINT(ep)) & OTG_DIEPINTX_INEPNE) == 0U) {
+	while ((REBASE(OTG_DIEPINT(ep)) & OTG_DIEPINTX_INEPNE) == 0U && (REBASE(OTG_DIEPCTL(ep)) & OTG_DIEPCTL0_NAKSTS) == 0U) {
 	}
 	/* Figure out which FIFO is in use for this endpoint */
 	const uint32_t fifo = (REBASE(OTG_DIEPCTL(ep)) & OTG_DIEPCTL0_TXFNUM_MASK) >> 22;
