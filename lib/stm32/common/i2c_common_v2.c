@@ -409,6 +409,12 @@ void i2c_transfer7(uint32_t i2c, uint8_t addr, const uint8_t *w, size_t wn, uint
 }
 
 
+/* Number of prescaled clock ticks covering ns nanoseconds, rounded up */
+static uint32_t i2c_speed_ticks(uint32_t ns, uint32_t clock_megahz, uint32_t presc_div)
+{
+	return (ns * clock_megahz + 1000 * presc_div - 1) / (1000 * presc_div);
+}
+
 /**
  * Set the i2c communication speed.
  * NOTE: 1MHz mode not yet implemented!
@@ -419,32 +425,44 @@ void i2c_transfer7(uint32_t i2c, uint8_t addr, const uint8_t *w, size_t wn, uint
  */
 void i2c_set_speed(uint32_t i2c, enum i2c_speeds speed, uint32_t clock_megahz)
 {
-	int prescaler;
+	uint32_t presc_div, low_ns, high_ns, hold_ns, setup_ns, hold, setup;
 	switch(speed) {
 	case i2c_speed_fmp_1m:
 		/* FIXME - add support for this mode! */
-		break;
+		return;
 	case i2c_speed_fm_400k:
 		/* target 8Mhz input, so tpresc = 125ns */
-		prescaler = clock_megahz / 8 - 1;
-		i2c_set_prescaler(i2c, prescaler);
-		i2c_set_scl_low_period(i2c, 10-1); // 1250ns
-		i2c_set_scl_high_period(i2c, 4-1); // 500ns
-		i2c_set_data_hold_time(i2c, 3); // 375ns
-		i2c_set_data_setup_time(i2c, 4-1); // 500ns
+		presc_div = clock_megahz / 8;
+		low_ns = 1250;
+		high_ns = 500;
+		hold_ns = 375;
+		setup_ns = 500;
 		break;
 	default:
 		/* fall back to standard mode */
 	case i2c_speed_sm_100k:
 		/* target 4Mhz input, so tpresc = 250ns */
-		prescaler = (clock_megahz / 4) - 1;
-		i2c_set_prescaler(i2c, prescaler);
-		i2c_set_scl_low_period(i2c, 20-1); // 5usecs
-		i2c_set_scl_high_period(i2c, 16-1); // 4usecs
-		i2c_set_data_hold_time(i2c, 2); // 0.5usecs
-		i2c_set_data_setup_time(i2c, 5-1); // 1.25usecs
+		presc_div = clock_megahz / 4;
+		low_ns = 5000;
+		high_ns = 4000;
+		hold_ns = 500;
+		setup_ns = 1250;
 		break;
 	}
+	/* PRESC is 4 bits; with a faster clock tpresc gets shorter and the
+	 * periods below take more ticks instead */
+	if (presc_div < 1) {
+		presc_div = 1;
+	} else if (presc_div > 16) {
+		presc_div = 16;
+	}
+	hold = i2c_speed_ticks(hold_ns, clock_megahz, presc_div);
+	setup = i2c_speed_ticks(setup_ns, clock_megahz, presc_div);
+	i2c_set_prescaler(i2c, presc_div - 1);
+	i2c_set_scl_low_period(i2c, i2c_speed_ticks(low_ns, clock_megahz, presc_div) - 1);
+	i2c_set_scl_high_period(i2c, i2c_speed_ticks(high_ns, clock_megahz, presc_div) - 1);
+	i2c_set_data_hold_time(i2c, hold > 15 ? 15 : hold);
+	i2c_set_data_setup_time(i2c, setup > 16 ? 15 : setup - 1);
 }
 
 /**@}*/
