@@ -42,6 +42,7 @@ target_paths = {
 	'stm32l4': 'stm32/l4',
 	'stm32u5': 'stm32/u5',
 	'lm4f': 'lm3s',
+	'gd32f1x0': 'gd32/f1x0',
 }
 
 if target_platform != 'all'
