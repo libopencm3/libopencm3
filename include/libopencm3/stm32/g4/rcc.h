@@ -1040,6 +1040,11 @@ void rcc_set_clock48_source(uint32_t clksel);
  */
 uint32_t rcc_get_usart_clk_freq(uint32_t usart);
 
+void rcc_set_i2c_clock_hsi(uint32_t i2c);
+void rcc_set_i2c_clock_sysclk(uint32_t i2c);
+void rcc_set_i2c_clock_pclk(uint32_t i2c);
+uint32_t rcc_get_i2c_clocks(void);
+
 END_DECLS
 
 /**@}*/
