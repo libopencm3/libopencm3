@@ -23,26 +23,41 @@ ifneq ($(V),1)
 Q := @
 endif
 
+BUILD_PATH := ../../../build
+TARGET_PATH := $(addprefix $(BUILD_PATH)/, $(TARGETS))
+LIB_PATH := $(addprefix $(TARGET_PATH)/, lib)
+OBJ_PATH := $(addprefix $(TARGET_PATH)/, obj)
+
 # common objects
 OBJS += vector.o systick.o scb.o nvic.o assert.o sync.o dwt.o
+
+# store object files in the build directory
+OBJS := $(addprefix $(OBJ_PATH)/, $(OBJS))
 
 # Slightly bigger .elf files but gains the ability to decode macros
 DEBUG_FLAGS ?= -ggdb3
 STANDARD_FLAGS ?= -std=c99
 
-all: $(SRCLIBDIR)/$(LIBNAME).a
+all: $(LIB_PATH)/$(LIBNAME).a
 
-$(SRCLIBDIR)/$(LIBNAME).a: $(OBJS)
+$(LIB_PATH)/$(LIBNAME).a: $(OBJS) | $(LIB_PATH)
 	@printf "  AR      $(LIBNAME).a\n"
 	$(Q)$(AR) $(ARFLAGS) "$@" $(OBJS)
 
-%.o: %.c
+$(LIB_PATH):
+	@printf "  create directory   $@\n";
+	$(Q)mkdir -p $@
+
+$(OBJ_PATH)/%.o: %.c | $(OBJ_PATH)
 	@printf "  CC      $(<F)\n"
 	$(Q)$(CC) $(TGT_CFLAGS) $(CFLAGS) -o $@ -c $<
 
+$(OBJ_PATH):
+	@printf "  create directory   $@\n";
+	$(Q)mkdir -p $@
+
 clean:
-	$(Q)rm -f *.o *.d ../*.o ../*.d
-	$(Q)rm -f $(SRCLIBDIR)/$(LIBNAME).a
+	$(Q)rm -rf $(TARGET_PATH)
 
 .PHONY: clean
 

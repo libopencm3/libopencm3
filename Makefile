@@ -62,17 +62,17 @@ build: lib
 
 include/libopencm3/%/nvic.h lib/%/vector_nvic.c include/libopencmsis/%/irqhandlers.h: include/libopencm3/%/irq.json ./scripts/irq2nvic_h
 	@printf "  GENHDR  $*\n";
-	$(Q)./scripts/irq2nvic_h ./$<;
+	$(Q)python ./scripts/irq2nvic_h ./$<;
 
 %.cleanhdr:
 	@printf "  CLNHDR  $*\n";
-	$(Q)./scripts/irq2nvic_h --remove ./$*
+	$(Q)python ./scripts/irq2nvic_h --remove ./$*
 
 LIB_DIRS:=$(wildcard $(addprefix lib/,$(TARGETS)))
 $(LIB_DIRS): $(IRQ_GENERATED_FILES)
 	$(Q)$(RM) .stamp_failure_$(subst /,_,$@)
 	@printf "  BUILD   $@\n";
-	$(Q)$(MAKE) --directory=$@ PREFIX="$(PREFIX)" || \
+	$(Q)$(MAKE) --directory=$@ PREFIX="$(PREFIX)" TARGETS="$(subst lib/,,$@)" || \
 		echo "Failure building: $@: code: $$?" > .stamp_failure_$(subst /,_,$@)
 
 lib: $(LIB_DIRS)
@@ -89,8 +89,8 @@ clean: $(IRQ_DEFN_FILES:=.cleanhdr) $(LIB_DIRS:=.clean) $(EXAMPLE_DIRS:=.clean) 
 
 %.clean:
 	$(Q)if [ -d $* ]; then \
-		printf "  CLEAN   $*\n"; \
-		$(MAKE) -C $* clean || exit $?; \
+		printf "  CLEAN   $(subst lib/,build/,$*)\n"; \
+		$(MAKE) -C $* TARGETS="$(subst lib/,,$*)" clean || exit $?; \
 	fi;
 	$(Q)$(RM) .stamp_failure_*;
 
