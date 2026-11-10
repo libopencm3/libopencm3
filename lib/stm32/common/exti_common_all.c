@@ -108,73 +108,21 @@ uint32_t exti_get_flag_status(uint32_t exti)
  * Remap an external interrupt line to the corresponding pin on the
  * specified GPIO port.
  *
- * TODO: This could be rewritten in fewer lines of code.
  */
-void exti_select_source(uint32_t exti, uint32_t gpioport)
+void exti_select_source(uint32_t exti, enum exti_gpioport_source gpioport)
 {
-	for (size_t line = 0U; line < 16U; line++) {
-		if (!(exti & (1U << line))) {
-			continue;
-		}
+    uint8_t line, shift = 0;
+    uint32_t mask = 0, reg = 0;
+    for(line = 0; line < 16; ++line){
+        if (!((1 << line) & exti)){
+            continue;
+        }
+        shift = (EXTICR_SELECTION_FIELDSIZE * (line & 3));
+        mask = ((1 << EXTICR_SELECTION_FIELDSIZE) - 1) << shift;
+        reg = line >> 2;
+        EXTICR_SELECTION_REG(reg) = (EXTICR_SELECTION_REG(reg) & ~mask) | (gpioport << shift);
+    };
 
-		uint32_t bits = 0;
-
-		switch (gpioport) {
-		case GPIOA:
-			bits = 0U;
-			break;
-		case GPIOB:
-			bits = 1U;
-			break;
-		case GPIOC:
-			bits = 2U;
-			break;
-		case GPIOD:
-			bits = 3U;
-			break;
-#if defined(GPIOE) && defined(GPIO_PORT_E_BASE)
-		case GPIOE:
-			bits = 4U;
-			break;
-#endif
-#if defined(GPIOF) && defined(GPIO_PORT_F_BASE)
-		case GPIOF:
-			bits = 5U;
-			break;
-#endif
-#if defined(GPIOG) && defined(GPIO_PORT_G_BASE)
-		case GPIOG:
-			bits = 6U;
-			break;
-#endif
-#if defined(GPIOH) && defined(GPIO_PORT_H_BASE)
-		case GPIOH:
-			bits = 7U;
-			break;
-#endif
-#if defined(GPIOI) && defined(GPIO_PORT_I_BASE)
-		case GPIOI:
-			bits = 8U;
-			break;
-#endif
-#if defined(GPIOJ) && defined(GPIO_PORT_J_BASE)
-		case GPIOJ:
-			bits = 9U;
-			break;
-#endif
-#if defined(GPIOK) && defined(GPIO_PORT_K_BASE)
-		case GPIOK:
-			bits = 10U;
-			break;
-#endif
-		}
-
-		const uint8_t shift = (uint8_t)(EXTICR_SELECTION_FIELDSIZE * (line & 3U));
-		const uint32_t mask = ((1U << EXTICR_SELECTION_FIELDSIZE) - 1U) << shift;
-		const uint32_t reg = line / 4U;
-
-		EXTICR_SELECTION_REG(reg) = (EXTICR_SELECTION_REG(reg) & ~mask) | (bits << shift);
-	};
 }
 /**@}*/
 

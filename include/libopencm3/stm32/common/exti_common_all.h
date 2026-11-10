@@ -77,13 +77,42 @@ enum exti_trigger_type {
 	EXTI_TRIGGER_BOTH,
 };
 
+/* GPIO port source */
+enum exti_gpioport_source {
+    EXTI_SOURCE_GPIOA,
+    EXTI_SOURCE_GPIOB,
+    EXTI_SOURCE_GPIOC,
+    EXTI_SOURCE_GPIOD,
+#if defined(GPIOE) && defined(GPIO_PORT_E_BASE)
+    EXTI_SOURCE_GPIOE,
+#endif
+#if defined(GPIOF) && defined(GPIO_PORT_F_BASE)
+    EXTI_SOURCE_GPIOF,
+#endif
+#if defined(GPIOG) && defined(GPIO_PORT_G_BASE)
+    EXTI_SOURCE_GPIOG,
+#endif
+#if defined(GPIOH) && defined(GPIO_PORT_H_BASE)
+    EXTI_SOURCE_GPIOH,
+#endif
+#if defined(GPIOI) && defined(GPIO_PORT_I_BASE)
+    EXTI_SOURCE_GPIOI,
+#endif
+#if defined(GPIOJ) && defined(GPIO_PORT_J_BASE)
+    EXTI_SOURCE_GPIOJ,
+#endif
+#if defined(GPIOK) && defined(GPIO_PORT_K_BASE)
+    EXTI_SOURCE_GPIOK,
+#endif
+};
+
 BEGIN_DECLS
 
 void exti_set_trigger(uint32_t extis, enum exti_trigger_type trig);
 void exti_enable_request(uint32_t extis);
 void exti_disable_request(uint32_t extis);
 void exti_reset_request(uint32_t extis);
-void exti_select_source(uint32_t exti, uint32_t gpioport);
+void exti_select_source(uint32_t exti, enum exti_gpioport_source gpioport);
 uint32_t exti_get_flag_status(uint32_t exti);
 
 END_DECLS
