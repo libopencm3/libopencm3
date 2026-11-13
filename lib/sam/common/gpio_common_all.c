@@ -8,6 +8,7 @@
  * @author @htmlonly &copy; @endhtmlonly 2014
  * Felix Held <felix-libopencm3@felixheld.de>
  *
+ * @{
  */
 
 /*
@@ -64,3 +65,4 @@ void gpio_toggle(uint32_t gpioport, uint32_t gpios)
 	PIO_SODR(gpioport) = ~odsr & gpios;
 }
 
+/** @} */
