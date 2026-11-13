@@ -104,7 +104,13 @@ void st_usbfs_ep_setup(usbd_device *dev, uint8_t addr, uint8_t type,
 		}
 		USB_CLR_EP_TX_DTOG(addr);
 		USB_SET_EP_TX_STAT(addr, USB_EP_TX_STAT_NAK);
-		dev->pm_top += max_size;
+		/* Packet memory is 16-bit aligned, so an address needs to be even.
+		 * See the comment for Bit 0 of ADDRn_RX and ADDRn_TX in RM0091, RM0008.
+		 * USB_SET_EP_TX_ADDR and USB_SET_EP_RX_ADDR rely on dev->pm_top being even,
+		 * when st_usbfs_ep_setup() is called once more after this instance.
+		 * So if max_size is odd, increase dev->pm_top by (max_size + 1).
+		 */
+		dev->pm_top += ((max_size + 1) >> 1) << 1;
 	}
 
 	if (!dir) {
