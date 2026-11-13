@@ -81,7 +81,18 @@ const struct rcc_clock_scale rcc_hsi_configs[] = {
 		.ahb_frequency	= 64000000,
 		.apb1_frequency = 32000000,
 		.apb2_frequency = 64000000,
-	}
+	},
+	{ /* 72MHz — IRC8M / 2 * 18; requires PLLMF[4] (GD-only). */
+		.pllmul = RCC_CFGR_PLLMUL_PLL_CLK_MUL18,
+		.hpre = RCC_CFGR_HPRE_NODIV,
+		.ppre1 = RCC_CFGR_PPRE_DIV2,
+		.ppre2 = RCC_CFGR_PPRE_NODIV,
+		.adcpre = RCC_CFGR_ADCPRE_DIV8,
+		.use_hse = false,
+		.ahb_frequency	= 72000000,
+		.apb1_frequency = 36000000,
+		.apb2_frequency = 72000000,
+	},
 };
 
 const struct rcc_clock_scale rcc_hse8_configs[] = {
@@ -488,6 +499,18 @@ void rcc_set_adcpre(uint32_t adcpre)
 {
 	RCC_CFGR = (RCC_CFGR & ~RCC_CFGR_ADCPRE) |
 			(adcpre << RCC_CFGR_ADCPRE_SHIFT);
+	/* GD32F1x0 has a separate ADC clock SOURCE select bit in CFGR3
+	 * (called ADCSEL in the GD32 SPL, ADCSW here following the
+	 * STM32F0 family naming):
+	 *   ADCSW=0 (default after reset): CK_ADC is the divided IRC28M
+	 *   ADCSW=1: CK_ADC is the divided APB2 clock
+	 * After reset ADCSW=0 and IRC28MEN=0, so the ADC has no clock and
+	 * any calibration / conversion attempt hangs. STM32F1 has no
+	 * equivalent bit, so the inherited stm32 ADC drivers don't touch
+	 * it. Set ADCSW here to route the prescaler the caller just chose
+	 * to the ADC. Matches GD32 SPL's `rcu_adc_clock_config(APB2_DIV*)`
+	 * which writes both CFGR.ADCPRE and CFGR3.ADCSW. */
+	RCC_CFGR3 |= RCC_CFGR3_ADCSW;
 }
 
 /*---------------------------------------------------------------------------*/
@@ -648,6 +671,48 @@ void rcc_backupdomain_reset(void)
 
 	/* Clear the backup domain software reset. */
 	RCC_BDCR &= ~RCC_BDCR_BDRST;
+}
+
+/*---------------------------------------------------------------------------*/
+/** @brief Get the peripheral clock speed for the USART at base specified.
+ *
+ * Provisional implementation: returns the APB bus frequency the USART sits
+ * on. Sufficient for usart_set_baudrate() to compute the BRR divisor.
+ */
+uint32_t rcc_get_usart_clk_freq(uint32_t usart)
+{
+	if (usart == USART1_BASE) {
+		return rcc_apb2_frequency;
+	}
+	return rcc_apb1_frequency;
+}
+
+/*---------------------------------------------------------------------------*/
+/** @brief Get the peripheral clock speed for the Timer at base specified. */
+uint32_t rcc_get_timer_clk_freq(uint32_t timer)
+{
+	if (timer == TIM1_BASE || timer == TIM15_BASE
+	    || timer == TIM16_BASE || timer == TIM17_BASE) {
+		return rcc_apb2_frequency;
+	}
+	return rcc_apb1_frequency;
+}
+
+/*---------------------------------------------------------------------------*/
+/** @brief Get the peripheral clock speed for the I2C at base specified. */
+uint32_t rcc_get_i2c_clk_freq(uint32_t i2c __attribute__((unused)))
+{
+	return rcc_apb1_frequency;
+}
+
+/*---------------------------------------------------------------------------*/
+/** @brief Get the peripheral clock speed for SPI at base specified. */
+uint32_t rcc_get_spi_clk_freq(uint32_t spi)
+{
+	if (spi == SPI1_BASE) {
+		return rcc_apb2_frequency;
+	}
+	return rcc_apb1_frequency;
 }
 
 /**@}*/
