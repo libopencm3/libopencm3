@@ -897,6 +897,7 @@ enum rcc_periph_clken {
 	RCC_I2C3	= _REG_BIT(0x40, 23),
 	RCC_CAN1	= _REG_BIT(0x40, 25),
 	RCC_CAN2	= _REG_BIT(0x40, 26),
+	RCC_CAN3	= _REG_BIT(0x40, 27),
 	RCC_PWR		= _REG_BIT(0x40, 28),
 	RCC_DAC		= _REG_BIT(0x40, 29),
 	RCC_UART7	= _REG_BIT(0x40, 30),/* F2xx, F3xx */
@@ -1070,6 +1071,7 @@ enum rcc_periph_rst {
 	RST_I2C3	= _REG_BIT(0x20, 23),
 	RST_CAN1	= _REG_BIT(0x20, 25),
 	RST_CAN2	= _REG_BIT(0x20, 26),
+	RST_CAN3	= _REG_BIT(0x20, 27),
 	RST_PWR		= _REG_BIT(0x20, 28),
 	RST_DAC		= _REG_BIT(0x20, 29),
 	RST_UART7	= _REG_BIT(0x20, 30),/* F2xx, F3xx */
