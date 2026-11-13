@@ -107,17 +107,6 @@ LGPL License Terms @ref lgpl_license
 #define USB_ISTR_DIR		0x0010 /* Direction of transaction */
 #define USB_ISTR_EP_ID		0x000F /* Endpoint Identifier */
 
-/* --- USB interrupt status register manipulators -------------------------- */
-
-/* Note: CTR is read only! */
-#define USB_CLR_ISTR_PMAOVR()	CLR_REG_BIT(USB_ISTR_REG, USB_ISTR_PMAOVR)
-#define USB_CLR_ISTR_ERR()	CLR_REG_BIT(USB_ISTR_REG, USB_ISTR_ERR)
-#define USB_CLR_ISTR_WKUP()	CLR_REG_BIT(USB_ISTR_REG, USB_ISTR_WKUP)
-#define USB_CLR_ISTR_SUSP()	CLR_REG_BIT(USB_ISTR_REG, USB_ISTR_SUSP)
-#define USB_CLR_ISTR_RESET()	CLR_REG_BIT(USB_ISTR_REG, USB_ISTR_RESET)
-#define USB_CLR_ISTR_SOF()	CLR_REG_BIT(USB_ISTR_REG, USB_ISTR_SOF)
-#define USB_CLR_ISTR_ESOF()	CLR_REG_BIT(USB_ISTR_REG, USB_ISTR_ESOF)
-
 /* --- USB Frame Number Register bits -------------------------------------- */
 
 #define USB_FNR_RXDP		(1 << 15)
