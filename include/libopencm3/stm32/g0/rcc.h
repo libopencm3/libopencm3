@@ -582,7 +582,14 @@
 
 /** @defgroup rcc_bdcr BDCR Backup Domain Control Register
 @{*/
-#define RCC_BDCR_LSCOSEL		(1 << 25)
+#define RCC_BDCR_LSCOSEL_SHIFT		25
+#define RCC_BDCR_LSCOSEL_MASK		0x1
+/** @defgroup rcc_bdcr_lscosel LSCOSEL LSCO Clock source selection
+@{*/
+#define RCC_BDCR_LSCOSEL_LSI		0
+#define RCC_BDCR_LSCOSEL_LSE		1
+/**@}*/
+
 #define RCC_BDCR_LSCOEN			(1 << 24)
 #define RCC_BDCR_BDRST			(1 << 16)
 #define RCC_BDCR_RTCEN			(1 << 15)
@@ -868,6 +875,11 @@ void rcc_set_sysclk_source(enum rcc_osc osc);
 void rcc_wait_for_sysclk_status(enum rcc_osc osc);
 enum rcc_osc rcc_system_clock_source(void);
 
+void rcc_set_rtc_clock_source(enum rcc_osc osc);
+void rcc_enable_rtc_clock(void);
+void rcc_disable_rtc_clock(void);
+void rcc_rtc_reset_pulse(void);
+
 void rcc_set_pll_source(uint32_t pllsrc);
 void rcc_set_main_pll(uint32_t source, uint32_t pllm, uint32_t plln, uint32_t pllp, uint32_t pllq, uint32_t pllr);
 void rcc_enable_pllp(bool enable);
@@ -887,6 +899,10 @@ uint32_t rcc_get_usart_clk_freq(uint32_t usart);
 uint32_t rcc_get_timer_clk_freq(uint32_t timer);
 uint32_t rcc_get_i2c_clk_freq(uint32_t i2c);
 uint32_t rcc_get_spi_clk_freq(uint32_t spi);
+
+void rcc_set_lsco_clock_source(enum rcc_osc osc);
+void rcc_enable_lsco(void);
+void rcc_disable_lsco(void);
 
 END_DECLS
 
