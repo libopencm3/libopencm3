@@ -33,6 +33,11 @@ LGPL License Terms @ref lgpl_license
 #ifndef LIBOPENCM3_IWDG_H
 #define LIBOPENCM3_IWDG_H
 
+/* The nominal LSI frequency on the STM32F1 series is 40kHz. */
+#ifndef LSI_FREQUENCY
+#define LSI_FREQUENCY			40000U
+#endif
+
 #include <libopencm3/stm32/common/iwdg_common_all.h>
 
 #endif
