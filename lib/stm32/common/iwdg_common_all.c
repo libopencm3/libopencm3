@@ -7,9 +7,10 @@ This library supports the Independent Watchdog Timer System in the STM32F1xx
 series of ARM Cortex Microcontrollers by ST Microelectronics.
 
 The watchdog timer uses the LSI (low speed internal) clock which is low power
-and continues to operate during stop and standby modes. Its frequency is
-nominally 32kHz (40kHz for the STM32F1xx series) but can vary from as low
-as 17kHz up to 60kHz (refer to datasheet electrical characteristics).
+and continues to operate during stop and standby modes. Its nominal frequency
+is 32kHz on most device families and 40kHz on some of them (see LSI_FREQUENCY),
+but it can vary from as low as 17kHz up to 60kHz (refer to datasheet
+electrical characteristics).
 
 Note that the User Configuration option byte provides a means of automatically
 enabling the IWDG timer at power on (with counter value 0xFFF). If the
@@ -39,7 +40,6 @@ relevant bit is not set, the IWDG timer must be enabled by software.
 
 #include <libopencm3/stm32/iwdg.h>
 
-#define LSI_FREQUENCY 32000
 #define COUNT_LENGTH 12
 #define COUNT_MASK ((1 << COUNT_LENGTH)-1)
 
@@ -59,26 +59,30 @@ void iwdg_start(void)
 /*---------------------------------------------------------------------------*/
 /** @brief IWDG Set Period in Milliseconds
 
-The countdown period is converted into count and prescale values. The maximum
-period is 32.76 seconds; values above this are truncated. Periods less than 1ms
-are not supported by this library.
+The countdown period is converted into count and prescale values, using the
+nominal LSI frequency of the target device family as selected by
+LSI_FREQUENCY. The longest period the counter can represent is
+4096 * 4 * 64 / LSI_FREQUENCY, i.e. 32.76 seconds with a 32kHz LSI and
+26.21 seconds with a 40kHz LSI; values above this are truncated. Periods less
+than 1ms are not supported by this library.
 
 A delay of up to 5 clock cycles of the LSI clock (about 156 microseconds)
 can occasionally occur if the prescale or preload registers are currently busy
 loading a previous value.
 
-@param[in] period uint32_t Period in milliseconds (< 32760) from a watchdog
-reset until a system reset is issued.
+@param[in] period uint32_t Period in milliseconds from a watchdog reset until
+a system reset is issued.
 */
 void iwdg_set_period_ms(uint32_t period)
 {
 	const int PRESCALER_MAX = 6;
 	uint8_t prescale = 0;
 
-	/* Set the count to represent ticks of 8kHz clock (the 32kHz LSI clock
-	 * divided by 4 = lowest prescaler setting)
+	/* Set the count to represent ticks of the LSI clock divided by 4 (the
+	 * lowest prescaler setting). Every supported device has an LSI
+	 * frequency that is a whole multiple of 1kHz, so this stays exact.
 	 */
-	uint32_t count = period << 3;
+	uint32_t count = period * (LSI_FREQUENCY / 1000U) / 4U;
 
 	/* Prevent underflow */
 	if (count == 0) {

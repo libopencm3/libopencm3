@@ -48,3 +48,15 @@
 #       error "stm32 family not defined."
 #endif
 
+/* --- IWDG LSI clock frequency -------------------------------------------- */
+
+/* The IWDG is clocked from the LSI oscillator. Its nominal frequency is 32kHz
+ * on most device families and 40kHz on some of them; the family header above
+ * selects the value for the target, and an application may override it to
+ * match the frequency measured on a particular device. iwdg_set_period_ms()
+ * uses it to convert the requested timeout into counter settings.
+ */
+#ifndef LSI_FREQUENCY
+#define LSI_FREQUENCY			32000U
+#endif
+
